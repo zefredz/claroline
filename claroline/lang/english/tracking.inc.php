@@ -22,7 +22,7 @@ $langDocumentsAccess = "Documents";
 $langWorksDetails = "Works uploaded by the student in the name of 'Authors'";
 $langLoginsDetails = "Click on the month name for more details";
 $langDocumentsDetails = "Documents downloaded by the student"; 
-$langExercicesDetails = "Scores of exercises done";
+$langExercisesDetails = "Scores of exercises done";
 $langLearnPathDetails = "Progress in learning paths";
 
 $langBackToList = "Back to list";
@@ -54,7 +54,7 @@ $langToolTitleCountColumn = "Total Clicks";
 
 /* exercises */
 $langExercises = "Exercises";
-$langExercicesTitleExerciceColumn = "Exercise";
+$langExercisesTitleExerciseColumn = "Exercise";
 $langScore = "Score";
 $langExerciseUsersAttempts = "Users attempts";
 $langExerciseTotalAttempts = "Total attempts";

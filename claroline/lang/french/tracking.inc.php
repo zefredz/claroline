@@ -25,7 +25,7 @@ $langLinksDetails = "Liens visités par l'étudiant";
 $langWorksDetails = "Travaux postés par l'étudiant au nom de 'Auteurs'";
 $langLoginsDetails = "Cliquez sur le nom du mois pour plus de détails";
 $langDocumentsDetails = "Documents téléchargés par l'étudiant";
-$langExercicesDetails = "Résultats des exercices effectués";
+$langExercisesDetails = "Résultats des exercices effectués";
 $langLearnPathDetails = "Progression dans les parcours pédagogiques";
 
 $langBackToList = "Retourner à la liste des utilisateurs";
@@ -59,8 +59,8 @@ $langLinksTitleLinkColumn = "Lien";
 $langLinksTitleUsersColumn = "Clics des inscrits";
 $langLinksTitleCountColumn = "Total des clics";
 
-/* exercices */
-$langExercicesTitleExerciceColumn = "Exercice";
+/* exercises */
+$langExercisesTitleExerciseColumn = "Exercice";
 $langExercises = "Exercices";
 $langScore = "Résultat";
 $langExerciseUsersAttempts = "Essais utilisateurs";
@@ -133,7 +133,7 @@ $langThisday  = "Aujourd'hui";
 $langLogins = "Derniers accès"; // JCC 
 $langLoginsExplaination = "Voici la liste de vos derniers accès ainsi que les outils utilisés pendant ces sessions."; // JCC 
 
-$langExercicesResults = "Résultats des exercices effectués";
+$langExercisesResults = "Résultats des exercices effectués";
 
 $langNoRegisteredCourses = "Pas de statistiques.  Vous n'êtes inscrit dans aucun cours.";
 
