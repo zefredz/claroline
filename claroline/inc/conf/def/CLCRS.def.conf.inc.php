@@ -7,13 +7,13 @@
  * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
  * as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
  * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
- * @see http://www.claroline.net/wiki/config_def/
+ * @see http://www.claroline.net/wiki/index.php/Config
  * @package COURSES
  */
 
-$conf_def['config_code']='CLADDCRS';
+$conf_def['config_code']='CLCRS';
 $conf_def['config_name']='Course options';
-$conf_def['config_file']='core.add_course.conf.php';
+$conf_def['config_file']='course_main.conf.php';
 $conf_def['old_config_file'][]='add_course.conf.php';
 
 $conf_def['section']['create']['label']='Course creation';
