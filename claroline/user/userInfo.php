@@ -220,7 +220,7 @@ if ($displayMode == "viewDefEdit")
 <label for="nbline" ><?php echo $langLineNumber?></label> :
 </td>
 <td>
-<select name="nbline" name="nbline">
+<select name="nbline" id="nbline">
 <?php
 if ($catToEdit['nbline'])
 { ?>
@@ -316,16 +316,16 @@ elseif ($displayMode == "viewContentEdit")
 <input type="hidden" name="cntId" value="<?php echo $catToEdit['contentId']; ?>">
 <input type="hidden" name="catId" value="<?php echo $catToEdit['catId'    ]; ?>">
 <input type="hidden" name="uInfo"  value="<?php echo $userIdViewed; ?>">
-<p><b><?php echo $catToEdit['title']?></b></p>
+<p><label for="content" ><b><?php echo $catToEdit['title']?></b></label></p>
 <p><i><?php echo htmlize($catToEdit['comment'])?></i></p>
 <?php if ($catToEdit['nbline']==1)
 	{
-?><input  type="text" name="content" size="80" value="<?php echo $catToEdit['content']?>" >
+?><input  type="text" name="content" id="content" size="80" value="<?php echo $catToEdit['content']?>" >
 <?php
 	}
 	else
 	{
-?><textarea  cols="80" rows="<?php echo $catToEdit['nbline']?>" name="content" wrap="VIRTUAL"><?php echo $catToEdit['content']?></textarea>
+?><textarea  cols="80" rows="<?php echo $catToEdit['nbline']?>" name="content" id="content" wrap="VIRTUAL"><?php echo $catToEdit['content']?></textarea>
 <?php }
 ?><input type="submit" name="submitContent" value="<?php echo $langOk?>">
 </form>

@@ -1,13 +1,11 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.0 $Revision$                            |
+      | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+
       +----------------------------------------------------------------------+
 	  |  This is  just a script tou  print out the for.                      |
 	  |  There is no data working.                                           |
@@ -30,20 +28,20 @@ claro_disp_tool_title(array('mainTitle' => $langGroup,
 <form method="post" action="group.php">
 <table>
 <tr valign="top">
-<td>
+<td><label for="group_quantity">
 <?php echo $langCreate?>
 </td>
 <td>
-<input type="text" name="group_quantity" size="3" value="1">
-<?php echo $langNewGroups ?>
+<input type="text" name="group_quantity" id="group_quantity" size="3" value="1">
+<label for="group_quantity"><?php echo $langNewGroups ?></label>
 </td>
 </tr>
 <tr valign="top">
 <td>
-<small><?php echo $langMax ?></small>
+<label for="group_max"><?php echo $langMax ?></label>
 </td>
-<td><input type="text" name="group_max" size="3" value="8">
-<small><?php echo $langPlaces ?></small>
+<td><input type="text" name="group_max" id="group_max" size="3" value="8">
+<?php echo $langPlaces ?>
 </tr>
 <tr>
 <td>
@@ -55,5 +53,5 @@ claro_disp_tool_title(array('mainTitle' => $langGroup,
 </table>
 </form>
 <?php
-@include($includePath."/claro_init_footer.inc.php");
+include($includePath."/claro_init_footer.inc.php");
 ?>

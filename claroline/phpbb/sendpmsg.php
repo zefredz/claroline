@@ -163,7 +163,7 @@ if($submit) {
 	<TR ALIGN="LEFT">
 		<TD  BGCOLOR="<?php echo $color1?>" width=25%>
 			<FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">
-			<b><?php echo $l_body?>:</b><br><br>
+			<label for="message"><b><?php echo $l_body?></label>:</b><br><br>
 			</FONT>
 		<font size=-1>
 		<?php
@@ -179,7 +179,7 @@ if($submit) {
 			echo "$l_off<BR>\n";
 		?>
 		</font></TD>
-		<TD  BGCOLOR="<?php echo $color2?>"><TEXTAREA NAME="message" ROWS=10 COLS=45 WRAP="VIRTUAL"></TEXTAREA></TD>
+		<TD  BGCOLOR="<?php echo $color2?>"><textarea id="message" name="message" rows=10 cols=45 wrap="virtual"></textarea></td>
 	</TR>
 	<TR ALIGN="LEFT">
 		<TD  BGCOLOR="<?php echo $color1?>" width=25%>
@@ -191,13 +191,13 @@ if($submit) {
 			<FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">
 		<?php
 			if($allow_pmsg_html == 1) {
-				echo "<INPUT TYPE=\"CHECKBOX\" NAME=\"html\">$l_disable $l_html $l_onthispost<BR>";
+				echo "<INPUT TYPE=\"CHECKBOX\" NAME=\"html\" id=\"html\"><label for=\"html\">$l_disable $l_html $l_onthispost</label><BR>";
 			}
 			if($allow_pmsg_bbcode == 1) {
-				echo "<INPUT TYPE=\"CHECKBOX\" NAME=\"bbcode\">$l_disable <a href=\"$bbref_url\" target=\"_blank\"><i>$l_bbcode</i></a> $l_onthispost<BR>";
+				echo "<INPUT TYPE=\"CHECKBOX\" NAME=\"bbcode\" id=\"bbcode\"><label for=\"bbcode\">$l_disable <a href=\"$bbref_url\" target=\"_blank\"><i>$l_bbcode</i></a> $l_onthispost</label><BR>";
 			}
 
-		echo "<INPUT TYPE=\"CHECKBOX\" NAME=\"smile\">$l_disable <a href=\"$smileref_url\" target=\"_blank\"><i>$l_smilies</i></a> $l_onthispost.<BR>";
+		echo "<INPUT TYPE=\"CHECKBOX\" NAME=\"smile\" id=\"smile\"><label for=\"smile\">$l_disable <a href=\"$smileref_url\" target=\"_blank\"><i>$l_smilies</i></a> $l_onthispost.</label><BR>";
 			if($allow_sig == 1) {
 		?>
 				<INPUT TYPE="CHECKBOX" NAME="sig"><?php echo $l_attachsig?></font><BR>
@@ -209,7 +209,7 @@ if($submit) {
 	</TR>
 	<TR>
 		<TD  BGCOLOR="<?php echo $color1?>" colspan=2 ALIGN="CENTER">
-		<INPUT TYPE="SUBMIT" NAME="submit" VALUE="<?php echo $l_submit?>">
+		<input type="submit" name="submit" value="<?php echo $l_submit?>">
 	</TR>
 	</TABLE></TD></TR></TABLE>
 	</FORM>

@@ -268,8 +268,8 @@ if (     is_null($myrow['idGroup'])
 
 <tr valign="top">
 
-<td align="right"><?php echo $l_subject?> :</td>
-<td><input type="text" name="subject" size="50" maxlength="100"></td>
+<td align="right"><label for="subject"><?php echo $l_subject?></label> :</td>
+<td><input type="text" name="subject" id="subject" size="50" maxlength="100"></td>
 
 </tr>
 

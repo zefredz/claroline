@@ -399,12 +399,12 @@ else
 	{
 		echo	"<tr>\n",
 
-				"<td  align=\"right\">",
-				$langDownloadFile," :",
+				"<td  align=\"right\"><label for=\"file\">",
+				$langDownloadFile,"</label> :",
 				"</td>\n",
 
 				"<td>",
-				"<input type=\"file\" name=\"file\" size=\"20\">",
+				"<input type=\"file\" name=\"file\" id=\"file\" size=\"20\">",
 				"</td>\n",
 
 				"</tr>\n";
@@ -412,39 +412,39 @@ else
 
 	echo	"<tr>\n",
 
-			"<td  align=\"right\">",
-			$langTitleWork," : ",
+			"<td  align=\"right\"><label for=\"titre\">",
+			$langTitleWork,"</label> : ",
 			"</td>\n",
 
 			"<td>",
-			"<input type=\"text\" name=\"titre\" value=\"",$workTitle,"\" size=\"30\">",
+			"<input type=\"text\" name=\"titre\" id=\"titre\" value=\"",$workTitle,"\" size=\"30\">",
 			"</td>\n",
 
 			"</tr>\n",
 
 			"<tr>\n",
 
-			"<td valign=\"top\"  align=\"right\">",
-			$langAuthors." : ",
+			"<td valign=\"top\"  align=\"right\"><label for=\"auteurs\">",
+			$langAuthors."</label> : ",
 			"</td>\n",
 
 			"<td>",
-			"<input type=\"text\" name=\"auteurs\" value=\"",$workAuthor,"\" size=\"30\">\n",
+			"<input type=\"text\" name=\"auteurs\" id=\"auteurs\" value=\"",$workAuthor,"\" size=\"30\">\n",
 			"</td>\n",
 
 			"</tr>\n",
 
 			"<tr>\n",
 
-			"<td valign=\"top\"  align=\"right\">",
+			"<td valign=\"top\"  align=\"right\"><label for=\"description\">",
 			$langDescription," : ",
-			"</td>\n",
+			"</label></td>\n",
 
 			"<td>",
-			"<textarea name=\"description\" cols=\"30\" rows=\"3\">",
+			"<textarea name=\"description\"  id=\"description\" cols=\"30\" rows=\"3\">",
 			$workDescription,
 			"</textarea>",
-			"<input type=\"hidden\" name=\"active\" value=\"1\">",
+			"<input type=\"hidden\" name=\"active\"   value=\"1\">",
 			"<input type=\"hidden\" name=\"accepted\" value=\"1\">",
 			"</td>\n",
 

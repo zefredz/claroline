@@ -1,7 +1,7 @@
 <?php # $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.0 $Revision$                            |
+      | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
@@ -10,12 +10,6 @@
       +----------------------------------------------------------------------+
  */
 
-$langOneGroupPerUser		= "un groupe";
-$langAllGroups				= "tous les groupes";
-$langLimitNbGroupPerUser	= "un nombre maximum de groupes :";
-$langGroupLimit				= "Limite";
-$langUserCanBeMemberOf		= "Un utilisateur peut être inscrit dans";
-$langChooseAValue			= "Entrer une valeur";
 $langFile = "group";
 include('../inc/claro_init_global.inc.php');
 include('../inc/conf/group.conf.php');
@@ -84,7 +78,7 @@ claro_disp_tool_title( array('mainTitle' => $nameTools,
 		<td valign="top">
         <b><?php echo $langGroupLimit ?></b><br>
 <!--
-			<?php echo $langUserCanBeMemberOf ?>
+			<?php echo $langQtyOfUserCanSubscribe_PartBeforeNumber ?>
 			<ul>
 				<LI>
 					<input type="radio" name="maxGroupByUser" value="ONE" <?php echo $checkedNbGroupPerUser["ONE"] ?>>
@@ -162,14 +156,14 @@ claro_disp_tool_title( array('mainTitle' => $nameTools,
 
 				<?php echo $langGroupForum; ?>
 		
-			<input type="radio" name="private" value="1" <?
+			<input type="radio" name="private" id="private_1" value="1" <?
 				if(!$groupPrivate)
 					echo "checked"?> >
-				<?php echo $langPrivate; ?>
-			<input type="radio" name="private" value="0" <?
+				<label for="private_1"><?php echo $langPrivate; ?></label>
+			<input type="radio" name="private" id="private_0" value="0" <?
 				if($groupPrivate)
 					echo "checked"?> >
-				<?php echo $langPublic; ?>
+				<label for="private_0"><?php echo $langPublic; ?></label>
 		</td>
 	</tr>
 	<tr>

@@ -1,4 +1,6 @@
-<?  session_start();
+<?php //    $Id$
+
+session_start();
 $langFile = 'phpbb';
 $tlabelReq = 'CLFRM___';
 include('../inc/claro_init_global.inc.php');
@@ -11,7 +13,6 @@ include('../inc/lib/debug.lib.inc.php');
     copyright            : (C) 2001 The phpBB Group
  	 email                : support@phpbb.com
 
-    $Id$
 
  ***************************************************************************/
 

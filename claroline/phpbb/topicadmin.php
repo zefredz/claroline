@@ -204,37 +204,38 @@ else {  // No submit
 	{
 ?>
 <TR>
-	<TD BGCOLOR="<?php echo $color1?>">Username:</TD>
-	<TD BGCOLOR="<?php echo $color2?>"><INPUT TYPE="TEXT" NAME="user" SIZE="25" MAXLENGTH="40" VALUE="<?php echo $userdata[username]?>"></TD>
+	<TD BGCOLOR="<?php echo $color1?>"><label for="user">Username</label>:</TD>
+	<TD BGCOLOR="<?php echo $color2?>"><INPUT TYPE="TEXT" id="user" NAME="user" SIZE="25" MAXLENGTH="40" VALUE="<?php echo $userdata[username]?>"></TD>
 </TR>
 <TR>
-	<TD BGCOLOR="<?php echo $color1?>">Password:</TD>
-	<TD BGCOLOR="<?php echo $color2?>"><INPUT TYPE="PASSWORD" NAME="passwd" SIZE="25" MAXLENGTH="25"></TD>
+	<TD BGCOLOR="<?php echo $color1?>"><label for="passwd">Password</label>:</TD>
+	<TD BGCOLOR="<?php echo $color2?>"><INPUT TYPE="PASSWORD" id="passwd" NAME="passwd" SIZE="25" MAXLENGTH="25"></TD>
 </TR>
 <?php
 	}
 	if($mode == 'move') {
 ?>
 <TR>
-	<TD BGCOLOR="<?php echo $color1?>">Move Topic To:</TD>
-	<TD BGCOLOR="<?php echo $color2?>"><SELECT NAME="newforum" SIZE="0">
+	<TD BGCOLOR="<?php echo $color1?>"><label for="newforum">Move Topic To</label>:</TD>
+	<TD BGCOLOR="<?php echo $color2?>">
+	<select name="newforum" size="0" id="newforum" >
 <?php
 	$sql = "SELECT forum_id, forum_name FROM `$tbl_forums` WHERE forum_id != '$forum' ORDER BY forum_id";
 	if($result = mysql_query($sql, $db)) {
 		if($myrow = mysql_fetch_array($result)) {
 			do {
-				echo "<OPTION VALUE=\"$myrow[forum_id]\">$myrow[forum_name]</OPTION>\n";
+				echo "<option value=\"$myrow[forum_id]\">$myrow[forum_name]</option>\n";
 			} while($myrow = mysql_fetch_array($result));
 		}
 		else {
-			echo "<OPTION VALUE=\"-1\">No Forums in DB</OPTION>\n";
+			echo "<option value=\"-1\">no forums in db</option>\n";
 		}
 	}
 	else {
-		echo "<OPTION VALUE=\"-1\">Database Error</OPTION>\n";
+		echo "<option value=\"-1\">database error</option>\n";
 	}
 ?>
-	</SELECT></TD>
+	</select></td>
 </TR>
 <?php
 	}

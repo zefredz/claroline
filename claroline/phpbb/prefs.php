@@ -200,8 +200,8 @@ print language_select($default_lang, "lang");
 ?>
        </td>
 <TR BGCOLOR="<?php echo $color1?>" ALIGN="LEFT">
-	<TD COLSPAN="2" ALIGN="CENTER"><INPUT TYPE="HIDDEN" NAME="save" VALUE="1"><INPUT TYPE="HIDDEN" NAME="user" VALUE="<?php echo $user?>">
-	<INPUT TYPE="SUBMIT" NAME="submit" VALUE="<?php echo $l_saveprefs?>">
+	<TD COLSPAN="2" ALIGN="CENTER"><input type="hidden" name="save" value="1"><input type="hidden" name="user" value="<?php echo $user?>">
+	<input type="submit" name="submit" value="<?php echo $l_saveprefs?>">
 	</TD>
 </TR>
 </TABLE></TD></TR></TABLE>

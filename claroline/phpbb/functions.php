@@ -1,13 +1,10 @@
-<?php
+<?php //     $Id$
 /***************************************************************************
                            functions.php  -  description
                              -------------------
     begin                : Sat June 17 2000
     copyright            : (C) 2001 The phpBB Group
     email                : support@phpbb.com
-
-    $Id$
-
  ***************************************************************************/
 
 /***************************************************************************
@@ -1468,14 +1465,14 @@ function make_jumpbox()
 	else {
 	   echo "<OPTION VALUE=\"-1\">ERROR</OPTION>\n";
 	}
-	echo "</SELECT>\n<INPUT TYPE=\"SUBMIT\" VALUE=\"$l_go\">\n</FORM>";
+	echo "</select>\n<input type=\"submit\" value=\"$l_go\">\n</form>";
 }
 
 function language_select($default, $name="language", $dirname="language/")
 {
 	global $phpEx;
 	$dir = opendir($dirname);
-	$lang_select = "<SELECT NAME=\"$name\">\n";
+	$lang_select = "<select name=\"$name\" id=\"$name\">\n";
 	while ($file = readdir($dir))
 	{
 		if (ereg("^lang_", $file))
@@ -1639,19 +1636,19 @@ function login_form()
 	</TR><TR BGCOLOR="<?php echo $color2?>">
 		<TD>
 			<FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">
-			<b><?php echo $l_username?>: &nbsp;</b></font>
+			<b><label for="user"><?php echo $l_username?></label>: &nbsp;</b></font>
 			</FONT>
 		</TD>
 		<TD>
-			<INPUT TYPE="TEXT" NAME="user" SIZE="25" MAXLENGTH="40" VALUE="<?php echo $userdata[username]?>">
+			<input type="text" id="user" name="user" size="25" maxlength="40" value="<?php echo $userdata[username]?>">
 		</TD>
 	</TR><TR BGCOLOR="<?php echo $color2?>">
 		<TD>
 			<FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">
-			<b><?php echo $l_password?>: </b>
+			<b><label for="password"><?php echo $l_password?></label>: </b>
 			</FONT>
 		</TD><TD>
-			<INPUT TYPE="PASSWORD" NAME="passwd" SIZE="25" MAXLENGTH="25">
+			<input type="password" id="password" name="passwd" size="25" maxlength="25">
 		</TD>
 	</TR><TR BGCOLOR="<?php echo $color2?>">
 		<TD COLSPAN="2" ALIGN="CENTER">
@@ -1662,7 +1659,7 @@ function login_form()
 			if (isset($mode))
 			{
 			?>
-				<INPUT TYPE="HIDDEN" NAME="mode" VALUE="<?php echo $mode?>">
+				<input type="hidden" name="mode" value="<?php echo $mode?>">
 			<?PHP
 			}
 			?>
@@ -1671,11 +1668,11 @@ function login_form()
 			if (isset($msgid))
 			{
 			?>
-				<INPUT TYPE="HIDDEN" NAME="msgid" VALUE="<?php echo $msgid?>">
+				<input type="hidden" name="msgid" value="<?php echo $msgid?>">
 			<?PHP
 			}
 			?>
-			<INPUT TYPE="SUBMIT" NAME="submit" VALUE="<?php echo $l_submit?>">
+			<input type="submit" name="submit" value="<?php echo $l_submit?>">
 		</TD>
 	</TR>
 </TABLE>

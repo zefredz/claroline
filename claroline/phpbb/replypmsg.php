@@ -164,15 +164,15 @@ if($submit) {
 <?PHP
 	if (!$user_logged_in) { 
 		// no session, need a password.
-		echo "    <TR ALIGN=\"LEFT\"> \n";
-		echo "        <TD BGCOLOR=\"$color1\" width=25%><b>$l_password:</b></TD> \n";
-		echo "        <TD BGCOLOR=\"$color2\"><INPUT TYPE=\"PASSWORD\" NAME=\"password\" SIZE=\"25\" MAXLENGTH=\"25\"></TD> \n";
-		echo "    </TR> \n";
+		echo '    <tr align="left"> \n';
+		echo '        <td bgcolor="'.$color1.'" width="25%" ><label for="password"><b>'.$l_password.':</b></label></td> \n';
+		echo '        <td bgcolor="'.$color2.'"><input type="password" id="password" name="password" size="25" maxlength="25"></td> \n';
+		echo '    </tr> \n';
 	}
 ?>
-	<TR ALIGN="LEFT">
-		<TD  BGCOLOR="<?php echo $color1?>"  width=25%>
-			<FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">
+	<tr align="left">
+		<td  bgcolor="<?php echo $color1?>"  width=25%>
+			<font face="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">
 			<b><?php echo $l_recptname?>:<b>
 			</FONT>
 		</TD>
@@ -186,7 +186,7 @@ if($submit) {
 	<TR ALIGN="LEFT">
 		<TD  BGCOLOR="<?php echo $color1?>" width=25%>
 			<FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">
-			<b><?php echo $l_body?>:</b><br><br>
+			<label for="message"><b><?php echo $l_body?>:</b></label><br><br>
 			</FONT>
 		<font size=-1>
 		<?php
@@ -224,34 +224,37 @@ if($submit) {
 		}
 		?>
 		</font></TD>
-		<TD  BGCOLOR="<?php echo $color2?>"><TEXTAREA NAME="message" ROWS=10 COLS=45 WRAP="VIRTUAL"><?php echo $reply?></TEXTAREA></TD>
+		<TD  BGCOLOR="<?php echo $color2?>"><textarea name="message" id="message" rows=10 cols=45 wrap="virtual"><?php echo $reply?></TEXTAREA></TD>
 	</TR>
 	<TR ALIGN="LEFT">
 		<TD  BGCOLOR="<?php echo $color1?>" width=25%>
 			<FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">
 			<b><?php echo $l_options?>:</b>
-			</FONT>
-		</TD>
-		<TD  BGCOLOR="<?php echo $color2?>" >
-			<FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">
+			</font>
+		</td>
+		<td  bgcolor="<?php echo $color2?>" >
+			<font face="<?php echo $FontFace?>" size="<?php echo $FontSize2?>" color="<?php echo $textcolor?>">
 		<?php
-			if($allow_html == 1) {
-				echo "<INPUT TYPE=\"CHECKBOX\" NAME=\"html\">$l_disable $l_html $l_onthispost<BR>";
+			if($allow_html == 1) 
+			{
+				echo '<input type="checkbox" name="html" id="html"><label for="html">'.$l_disable.' '.$l_html.' '.$l_onthispost.'</label><br>';
 			}
-			if($allow_bbcode == 1) {
-				echo "<INPUT TYPE=\"CHECKBOX\" NAME=\"bbcode\">$l_disable <a href=\"$bbref_url\" target=\"_blank\"><i>$l_bbcode</i></a> $l_onthispost<BR>";
+			if($allow_bbcode == 1) 
+			{
+				echo '<input type="checkbox" name="bbcode" id="bbcode"><label for="bbcode">'.$l_disable.' <a href="'.$bbref_url.'" target="_blank"><i>'.$l_bbcode.'</i></a> '.$l_onthispost.'</label><br>';
 			}
 
-		echo "<INPUT TYPE=\"CHECKBOX\" NAME=\"smile\">$l_disable <a href=\"$smileref_url\" target=\"_blank\"><i>$l_smilies</i></a> $l_onthispost.<BR>";
-			if($allow_sig == 1) {
-				echo "<INPUT TYPE=\"CHECKBOX\" NAME=\"sig\">$l_attachsig<BR>";
+			echo '<input type="checkbox" id="smile" name="smile"><label for="smile">'.$l_disable.'</label> <a href="'.$smileref_url.'" target="_blank"><i>'.$l_smilies.'</i></a> '.$l_onthispost.'.<BR>';
+			if($allow_sig == 1) 
+			{
+				echo '<input type="checkbox" id="sig" name="sig"><label for="sig">'.$l_attachsig.'</label><BR>';
 			}
 		?>
-			</FONT>
-		</TD>
-	</TR>
-	<TR>
-		<TD  BGCOLOR="<?php echo $color1?>" colspan=2 ALIGN="CENTER">
+			</font>
+		</td>
+	</tr>
+	<tr>
+		<td  bgcolor="<?php echo $color1?>" colspan=2 align="center">
 		<INPUT TYPE="HIDDEN" NAME="msgid" VALUE="<?php echo $msgid?>">
 		<INPUT TYPE="HIDDEN" NAME="quote" VALUE="<?php echo $quote?>">
 		<INPUT TYPE="SUBMIT" NAME="submit" VALUE="<?php echo $l_submit?>">

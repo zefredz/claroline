@@ -306,23 +306,23 @@ if($message)
 <table cellpadding="3" cellspacing="0" border="0">
 
 <tr>
-<td align="right"><?php echo $langSurname; ?> :</td>
-<td><input type="text" size="40" name="prenom_form" value="<?php echo htmlentities(stripslashes($prenom_form)); ?>"></td>
+<td align="right"><label for="prenom_form"><?php echo $langSurname; ?></label> :</td>
+<td><input type="text" size="40" name="prenom_form" id="prenom_form" value="<?php echo htmlentities(stripslashes($prenom_form)); ?>"></td>
 </tr>
 
 <tr>
-<td align="right"><?php echo $langName; ?> :</td>
-<td><input type="text" size="40" name="nom_form" value="<?php echo htmlentities(stripslashes($nom_form)); ?>"></td>
+<td align="right"><label for="nom_form"><?php echo $langName; ?></label> :</td>
+<td><input type="text" size="40" name="nom_form" id="nom_form" value="<?php echo htmlentities(stripslashes($nom_form)); ?>"></td>
 </tr>
 <?
 if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 {
 ?>
 <tr>
-    <td align="right"><?php echo $langOfficialCode; ?> :
+    <td align="right"><label for="official_code"><?php echo $langOfficialCode; ?></label> :
     </td>
     <td>
-    <input type="text" size="40" name="official_code" value="<?php echo htmlentities(stripslashes($official_code)); ?>">
+    <input type="text" size="40" id="official_code" name="official_code" value="<?php echo htmlentities(stripslashes($official_code)); ?>">
     </td>
 </tr>
 <?
@@ -336,20 +336,30 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 </tr>
 
 <tr>
-<td align="right"><?php echo  $langUsername ?> :</td>
-<td><input type="text" size="40" name="username_form" value="<?php echo htmlentities(stripslashes($username_form)); ?>"></td>
+<td align="right">
+	<label for="username_form"><?php echo  $langUsername ?></label> 
+	:
+</td>
+<td>
+	<input type="text" id="username_form" size="40" name="username_form" value="<?php echo htmlentities(stripslashes($username_form)); ?>"></td>
 </tr>
 
 <tr>
-<td align="right"><?php echo  $langPass ?> :</td>
-<td><input type="password" size="40" name="password_form" value="<?php echo  htmlentities(stripslashes($password_form)) ?>"></td>
+<td align="right">
+	<label for="password_form"><?php echo  $langPass ?></label> 
+	:
+</td>
+<td>
+	<input type="password" size="40" name="password_form" value="<?php echo  htmlentities(stripslashes($password_form)) ?>"></td>
 </tr>
 
 <tr>
-    <td align="right"><?php echo $langConfirm ?> :
+    <td align="right">
+		<label for="confirm_form"><?php echo $langConfirm ?></label> 
+		:
     </td>
     <td>
-    <input type="password" size="40" name="confirm_form" value="">
+    <input type="password" size="40" name="confirm_form" value="" id="confirm_form">
     </td>
 </tr>
 
@@ -361,13 +371,13 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 </tr>
 
 <tr>
-<td align="right"><?php echo  $langEmail; ?> :</td>
-<td><input type="text" size="40" name="email_form" value="<?php echo $email_form; ?>"></td>
+<td align="right"><label for="email_form"><?php echo  $langEmail; ?></label> :</td>
+<td><input type="text" size="40" name="email_form" id="email_form" value="<?php echo $email_form; ?>"></td>
 </tr>
 
 <tr>
-<td align="right"><?php echo  $langPhone; ?> :</td>
-<td><input type="text" size="40" name="phone_form" value="<?php echo $phone_form; ?>"></td>
+<td align="right"><label for="phone_form"><?php echo  $langPhone; ?></label> :</td>
+<td><input type="text" size="40" name="phone_form" id="phone_form" value="<?php echo $phone_form; ?>"></td>
 </tr>
 
 <tr>
@@ -378,13 +388,20 @@ if ($_cid) // if we're inside a course, then it's a course registration
 
 ?>
 <td align="right"><?php echo  $langTutor; ?> :</td>
-<td><input type="radio" name="tutor_form" value="0" <?php if(!isset($tutor_form) || !$tutor_form) echo 'checked="checked"'; ?>> <?php echo $langNo; ?>
-<input type="radio" name="tutor_form" value="1" <?php if($tutor_form == 1) echo 'checked="checked"'; ?>> <?php echo  $langYes ?></td>
+<td>
+ <input type="radio" name="tutor_form" value="0" <?php 
+ 	if(!isset($tutor_form) || !$tutor_form) echo 'checked="checked"'; 
+  	?> id="tutor_form_value_0"> <label for="tutor_form_value_0"><?php echo $langNo; ?></label>
+ <input type="radio" name="tutor_form" value="1" <?php 
+ 	if($tutor_form == 1) echo 'checked="checked"';                    
+	?> id="tutor_form_value_1"> <label for="tutor_form_value_1"><?php echo  $langYes ?></label>
+</td>
 </tr>
 <tr>
 <td align="right"><?php echo  $langManager ?> :</td>
-<td><input type="radio" name="admin_form" value="5" <?php if(!isset($admin_form) || $admin_form == 5) echo 'checked="checked"'; ?>> <?php echo $langNo ?>
-<input type="radio" name="admin_form" value="1" <?php if($admin_form == 1) echo 'checked="checked"'; ?>> <?php echo  $langYes; ?></td>
+<td>
+  <input type="radio" name="admin_form" value="5" <?php if(!isset($admin_form) || $admin_form == 5) echo 'checked="checked"'; ?> id="no" > <label for="no"><?php echo $langNo ?></label>
+  <input type="radio" name="admin_form" value="1" <?php if($admin_form == 1) echo 'checked="checked"';                        ?> id="yes"> <label for="yes"><?php echo  $langYes; ?></label></td>
 </tr>
 <?
 
@@ -395,11 +412,11 @@ else
 
 ?>
 <tr>
-<td align="right"><?php echo $langStatus ?> : </td>
+<td align="right"><label for="platformStatus"><?php echo $langStatus ?></label> : </td>
 <td>
-<select name="platformStatus">
-<option value="<?php echo STUDENT ?>"><?php echo  $langRegStudent ?></option>
-<option value="<?php echo COURSEMANAGER ?>"><?php echo  $langRegAdmin ?></option>
+<select name="platformStatus" id="platformStatus">
+<option value="<?php echo STUDENT       ?>"><?php echo  $langRegStudent ?></option>
+<option value="<?php echo COURSEMANAGER ?>"><?php echo  $langRegAdmin   ?></option>
 </select>
 </td>
 </tr>

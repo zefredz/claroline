@@ -1,4 +1,5 @@
-<?php session_start();
+<?php  // $Id$
+session_start();
 
 /***************************************************************************
                             editpost.php  -  description
@@ -7,7 +8,7 @@
     copyright            : (C) 2001 The phpBB Group
     email                : support@phpbb.com
 
-    $Id$
+
 
  ***************************************************************************/
 
@@ -270,9 +271,11 @@ if($is_courseAdmin)
 		{
 ?>
 <tr valign="top">
-<td align="right"><?php echo $l_subject?> : </td>
+<td align="right">
+<label for="subject"><?php echo $l_subject?></label> : 
+</td>
 <td>
-<input type="text" name="subject"  size="50" maxlength="100" value="<?php echo stripslashes($myrow[topic_title])?>">
+<input type="text" name="subject" id="subject" size="50" maxlength="100" value="<?php echo stripslashes($myrow[topic_title])?>">
 </td>
 </tr>
 <?php
@@ -286,9 +289,9 @@ if($is_courseAdmin)
 </tr>
 
 <tr valign="top">
-<td align="right"><?php echo $l_delete?> : </td>
+<td align="right"><label for="delete" ><?php echo $l_delete?></label> : </td>
 <td>
-<input type="checkbox" name="delete"><br>
+<input type="checkbox" name="delete" id="delete"><br>
 </td>
 </tr>
 

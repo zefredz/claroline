@@ -210,9 +210,9 @@ if($isAllowedToRestore)  // if allowed to restore
 	<form method="post" action="<?php echo $PHP_SELF; ?>">
 	<input type="hidden" name="submitForm" value="1">
 
-	<?php echo $langAvailableArchives; ?> :
+	<label for="archiveFile"><?php echo $langAvailableArchives; ?></label> :
 
-	<select name="archiveFile">
+	<select name="archiveFile" id="archiveFile">
 	<option value="">---</option>
 
 <?php
