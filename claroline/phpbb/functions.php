@@ -956,7 +956,7 @@ function is_topic_notification_requested($userId, $topicId)
 function trig_topic_notification($topicId)
 {
     global $tbl_user_notify, $tbl_users, $sys_lang;
-    global $langDear, $l_notifybody, $l_notifysub;
+    global $langDear, $l_notifybody, $l_notifysubj;
     global $url_phpbb, $_course;
 
     $sql = "SELECT u.user_id, u.prenom firstname, u.nom lastname
