@@ -53,7 +53,7 @@ else
 		$dbNamePrefix                   =trim($_REQUEST["dbNamePrefix"]);
 
 		//CHECK EMAIL SYNTAX
-		$emailRegex = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,3})$";
+		$emailRegex = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 		$syntaxOk=true;
 
 		if(!empty($administrator["email"]) && !eregi( $emailRegex, $administrator["email"]) )
@@ -96,9 +96,6 @@ else
 								"\$educationManager[\"name\"]","\$educationManager[\"phone\"]","\$educationManager[\"email\"]",
 								"\$institution[\"name\"]","\$institution[\"url\"]","\$platformLanguage","\$rootWeb","\$urlAppend",
 								"\$dbLogin","\$dbPass","\$dbNamePrefix");
-
-				if(empty($urlAppend))
-					$urlAppend="/";
 
 				$newVal=array($siteName,$administrator["name"],$administrator["phone"],$administrator["email"],
 								$educationManager["name"],$educationManager["phone"],$educationManager["email"],
