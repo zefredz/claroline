@@ -67,6 +67,6 @@ $extAuthAttribTreatmentList = array (
 
 // PROCESS AUTHENTICATION
 
-require $clarolineRepositorySys.'/auth/extauth/extAuthProcess.inc.php';
+return require $clarolineRepositorySys.'/auth/extauth/extAuthProcess.inc.php';
 
 ?>

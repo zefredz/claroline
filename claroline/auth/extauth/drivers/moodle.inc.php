@@ -20,7 +20,7 @@ $authSourceType = 'DB';
 $extAuthOptionList = array(
 
     // PUT HERE THE CORRECT DSN FOR YOUR DB SYSTEM
-    'dsn'         => 'mysql://dbuser:dbpassword@yourdmain/moodle',
+    'dsn'         => 'mysql://dbuser:dbpassword@domain/moodle',
 
     'table'       => 'mdl_user', // warning ! table prefix can change from one system to another 
     'usernamecol' => 'username',

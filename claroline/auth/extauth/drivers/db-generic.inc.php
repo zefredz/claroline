@@ -26,7 +26,7 @@ $authSourceType = 'DB';
 $extAuthOptionList = array(
 
     // PUT HERE THE CORRECT DSN FOR YOUR DB SYSTEM
-    'dsn'         => 'dbtype://dbuser:dbpassword@domaine/dbname',
+    'dsn'         => 'dbtype://dbuser:dbpassword@domain/dbname',
 
     'table'       => 'XXXX', 
     'usernamecol' => 'XXXX',
@@ -64,6 +64,6 @@ $extAuthAttribTreatmentList = array ();
 
 // PROCESS AUTHENTICATION
 
-require $clarolineRepositorySys.'/auth/extauth/extAuthProcess.inc.php';
+return require $clarolineRepositorySys.'/auth/extauth/extAuthProcess.inc.php';
 
 ?>

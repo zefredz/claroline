@@ -20,7 +20,7 @@ $authSourceType = 'DB';
 $extAuthOptionList = array(
 
     // PUT HERE THE CORRECT DSN FOR YOUR DB SYSTEM
-    'dsn'         => 'mysql://dbuser:dbpassword@domaine/ganesha',
+    'dsn'         => 'mysql://dbuser:dbpassword@domain/ganesha',
 
     'table'       => 'membres', // warning ! table prefix can change from one system to another 
     'usernamecol' => 'login',
@@ -73,6 +73,6 @@ function manage_user_status_from_ganesha_to_claroline($ganeshaStatus)
 
 // PROCESS AUTHENTICATION
 
-require $clarolineRepositorySys.'/auth/extauth/extAuthProcess.inc.php';
+return require $clarolineRepositorySys.'/auth/extauth/extAuthProcess.inc.php';
 
 ?>
