@@ -71,7 +71,6 @@ $l_quotemsg = "[quote]
 El %1\$s, %2\$s ha escrito:
 %3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nEl %1\$s, %2\$s ha escrito:\n%3\$s\n[/quote]";
 $l_recptname = "Nombre de Usuario del Destinatario";
 $l_replies = "Respuestas";
 $l_reply = "Responder";
@@ -379,6 +378,7 @@ $langConfTip = "Por defecto, su curso solamente es accesible
 para usted, usted es el &uacute;nico usuario. Si usted desea un m&iacute;nimo de confidencialidad, lo m&aacute;s simple es abrir
 la inscripci&oacute;n durante una semana, pedir a los estudiantes que se inscriban ellos mismos,
 despu&eacute;s cerrar la inscripci&oacute;n y verificar en la lista de los usuarios lo eventuales intrusos.";
+$langConfig = "Configurar";
 $langConfiguration = "Configuración";
 $langConfirm = "Confirmar";
 $langConfirm = "Echo";
@@ -432,7 +432,6 @@ $langCourseManager = "Administrador de cursos";
 $langCourseManager = "Administrador del curso";
 $langCourseManager = "Coordinador de curso";
 $langCourseManager = "Responsable del curso";
-$langCourseManagerView = "Ver como Coordinador";
 $langCourseProgram = "Descripci&oacute;n del Curso";
 $langCourseSettings = "Configuración del curso";
 $langCourseTitle = "T&iacute;tulo";
@@ -1079,6 +1078,7 @@ $langLastname = "Apellido";
 $langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Actualizar la configuración de la plataforma principal</button></p>";
 $langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Actualizar las tablas de la plataforma principal.</button></p>";
 $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Actualizar los datos de cursos</button></p>";
+$langLearnPath = "Lecciones";
 $langLearnPathDetails = "Progreso en el seguimiento de aprendizaje";
 $langLearningPath = "Seguimiento de aprendizaje";
 $langLearningPathAdmin = "Administrador de seguimiento de aprendizaje";
@@ -1507,7 +1507,6 @@ $langStatusChangeNotMade = "No se aplico ningún cambio";
 $langStoreChat = "Recuperar Chat";
 $langStudent = "Estudiante";
 $langStudent = "Estudiantes";
-$langStudentView = "Ver como estudiante";
 $langStudents = "Students";
 $langStudentsNotInThisGroups = "Usuarios no están en este grupo.";
 $langSubTitle = "A&ntilde;adir al menu principal de su p&aacute;gina principal un enlace a una p&aacute;gina, en el interior o exterior de su web";
@@ -1720,6 +1719,7 @@ $lang_config_TitleBD = "Base de datos : ";
 $lang_config_TitleEducationManager = "Jefe de carrera : ";
 $lang_config_TitleInstitution = "Institución : ";
 $lang_config_TitleProperty = "Propiedades : ";
+$lang_config_config = "Configuración";
 $lang_config_dbHost = "Servidor";
 $lang_config_dbLogin = "Login";
 $lang_config_dbNamePrefix = "Prefijo para la tabla : ";

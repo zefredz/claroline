@@ -297,7 +297,7 @@ Grazie per aver utilizzato i forum di.
 
 Arrivederci.";
 
-$l_quotemsg	= '[quote]\nIn data %1\$s, %2\$s scrive:\n%3\$s\n[/quote]';
+$l_quotemsg	= "[quote]\nIn data %1\$s, %2\$s scrive:\n%3\$s\n[/quote]";
 
 // Sendpmsg
 $l_norecipient	= "E' necessario inserire lo username di un destinatario al quale vuoi inviare un messaggio.";

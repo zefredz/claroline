@@ -1,6 +1,32 @@
 <?php 
 $langAddedToCreator = "";
+$langApplied = "";
+$langApply = "";
+$langBackToMenu = "";
+$langConfig = "";
 $langContenuPlan = "";
+$langFirstDefOfThisValue = "";
+$langFree = "";
+$langGoToTheAdministration = "";
+$langLearnPath = "";
+$langLogOnToYourPlatform = "";
+$langNoPropertiesSet = "";
+$langShowConf = "";
+$langShowContentFile = "";
+$langShowDef = "";
+$langStartAgain = "";
 $langUserWithManyAccountInACourse = "";
 $langUserWithManyAccountInYourCourse = "";
+$lang_config_config = "";
+$lang_config_config_short = "";
+$lang_course_admin = "";
+$lang_nothingToConfigHere = "";
+$lang_p_DefNameAndContentDisruptedOnConfigCode = "";
+$lang_p_ErrorOnBuild_S_for_S = "";
+$lang_p_Properties_of_S_saved_in_buffer = "";
+$lang_p_config_missing_S = "";
+$lang_p_defFileOf_S = "";
+$lang_p_edit_S = "";
+$lang_p_nothing_to_edit_in_S = "";
+$lang_the_active_config_has_manually_change = "";
 ?>

@@ -226,6 +226,7 @@ $langComment = "Ghi chú";
 $langConfTip = "By default, you course is only accessible to you as its only registered user. If you want some confidentiality,
 the simplest way is to open registration during
 one week, ask the students to register themselves, then close registration and check for possible intruders in the user list.";
+$langConfig = "Cầu hình hệ thống";
 $langConfirmBackup = "Do you really want to backup the course";
 $langConfirmYourChoice = "Hãy xác nhận lại lựa chọn của bạn";
 $langConfirmation = "Xác nhận lại";

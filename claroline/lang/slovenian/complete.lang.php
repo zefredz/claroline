@@ -72,7 +72,6 @@ $l_quotemsg = "[quote]
 On %1\$s, %2\$s wrote:
 %3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]";
 $l_recptname = "Recipient Username";
 $l_replies = "Replies";
 $l_reply = "Reply";
@@ -240,6 +239,7 @@ $langComMod = "Komentar je spremenjen";
 $langComment = "Komentar";
 $langConfTip = "Privzeto je tvoj tecaj dostopen le tebi kot edinemu registriranemu uporabniku. Ce zelis doloceno stopnjo zaupnosti,
 je najlazje, ce se registracija dovoli za kaksen teden, pozove studente, da se registrirajo, registracijo nato zapres inpreveris seznam uporabnikov za morebitne siljivce.";
+$langConfig = "Konfiguracija sistema";
 $langConfirmBackup = "Res hoces tvoriti rezervno kopijo tega tecaja";
 $langConfirmYourChoice = "Potrdi izbiro";
 $langConfirmation = "Ponovi geslo";

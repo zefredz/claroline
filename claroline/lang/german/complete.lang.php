@@ -68,23 +68,23 @@ $l_norecipient = "Sie m&uuml;ssen den Benutzernamen des Empf&auml;ngers Ihrer Na
 $l_norecipient = "You must enter the username you want to send the Message to.";
 $l_notify = "Emailbenachrichtigung bei Antworten";
 $l_notify = "Notify by email when replies are posted";
-$l_notifybody = "Dear $m[username]\r\nYou are receiving this Email because a message
-you posted on $sitename forums has been replied to, and
+$l_notifybody = "Dear \$m[username]\r\nYou are receiving this Email because a message
+you posted on \$sitename forums has been replied to, and
 you selected to be notified on this event.
 
 You may view the topic at:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://\$SERVER_NAME\$url_phpbb/viewtopic.\$phpEx?topic=\$topic&forum=\$forum
 
-Or view the $sitename forum index at
+Or view the \$sitename forum index at
 
-http://$SERVER_NAME$url_phpbb
+http://\$SERVER_NAME\$url_phpbb
 
-Thank you for using $sitename forums.
+Thank you for using \$sitename forums.
 
 Have a nice day.
 
-$email_sig";
+\$email_sig";
 $l_notifybody = "Sie erhalten diese Email, da ein Benutzer auf Ihr
 Thema in Foren geantwortet hat und Sie die Emailbenachrichtung aktiviert haben.
 
@@ -132,11 +132,14 @@ $l_profileof = "View Profile of";
 $l_publicmail = "Allow other users to view my Email Address";
 $l_publicmail = "Email-Adresse soll f&uuml;r andere Benutzer sichtbar sein";
 $l_quotemsg = "[quote]
+%1\$s schrieb am %2\$s :
+%3\$s
+[/quote]";
+$l_quotemsg = "[quote]
 On %1\$s, %2\$s wrote:
 %3\$s
 [/quote]";
-$l_quotemsg = "[quote]\n%1\$s schrieb am %2\$s :\n%3\$s\n[/quote]";
-$l_quotemsg = "[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]";
+$l_quotemsg = "[quote]\nOn %1\\$s, %2\\$s wrote:\n%3\\$s\n[/quote]";
 $l_recptname = "Benutzername des Empf&auml;ngers";
 $l_recptname = "Recipient Username";
 $l_replies = "Antworten";
@@ -425,6 +428,7 @@ $langComMod = "Kommentar verändert";
 $langComment = "Comment";
 $langComment = "Kommentar";
 $langConfTip = "In der Basiseinstellung ist jeder Kurs für alle offen. Wenn Sie den Kurs geschlossen halten wollen, aktivieren Sie die Kursanmeldung für eine Woche und bitten Sie die Teilnehmer, sich anzumelden. Im Anschluss sperren Sie die Kursanmeldung und überprüfen Sie die Teilnehmerliste auf 'Trittbrettfahrer'.";
+$langConfig = "Konfigurator";
 $langConfiguration = "Konfiguration";
 $langConfirm = "Bestätigen";
 $langConfirm = "done";
@@ -472,7 +476,6 @@ $langCourseList = "Kursangebot";
 $langCourseList = "Kurse";
 $langCourseManager = "Course manager";
 $langCourseManager = "Kurs-Verantwortlicher";
-$langCourseManagerView = "Ansicht Kurs-Verantwortlicher";
 $langCourseProgram = "Kursbeschreibung";
 $langCourseSettings = "Kurs-Einstellungen";
 $langCourseTitle = "Kurs Titel";
@@ -1019,6 +1022,7 @@ $langLastname = "Nachname";
 $langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";
 $langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Launch main platform tables upgrade</button></p>";
 $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
+$langLearnPath = "Lernpfad";
 $langLearnPathDetails = "Fortschritte in den Lernpfaden";
 $langLearningPath = "Lernpfad";
 $langLearningPathAdmin = "Lernpfad Admin";
@@ -1432,7 +1436,6 @@ $langStatusChangeNotMade = "Keine Änerungen durchgeführt";
 $langStoreChat = "Chat-Sitzung speichern";
 $langStudent = "Lerner";
 $langStudent = "Teilnehmer";
-$langStudentView = "Lerner Ansicht";
 $langStudents = "Students";
 $langStudentsNotInThisGroups = "Benutzer ist nicht in dieser Gruppe";
 $langSubTitle = "Fügt dem Hauptmenü Ihrer Kurshomepage einen Link zu einer Seite oder einer beliebigen URL zu. Hinweis: Wenn Sie einen Link auf eine Seite hinzufügen möchten, gehen Sie zu dieser Seite, kopieren Sie die Adresse und fügen sie in das \"Hyperlink\" Feld unten ein.";
@@ -1467,6 +1470,10 @@ $langTimeInLearnPath = "Zeit im Lernpfad";
 $langTipLang = "Diese Sprache wird für alle Besucher Ihrer Webseite gültig sein.";
 $langTitle = "Titel";
 $langTitle = "Title";
+$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />
+
+                     from %s to %s</h2>
+";
 $langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />from %s to %s</h2>";
 $langTitular = "Titel";
 $langTo = "nach";
@@ -1634,6 +1641,7 @@ $lang_config_TitleBD = "Datenbank : ";
 $lang_config_TitleEducationManager = "Bildungsverantwortlicher : ";
 $lang_config_TitleInstitution = "Institution : ";
 $lang_config_TitleProperty = "Basiseinstellungen : ";
+$lang_config_config = "Konfiguration";
 $lang_config_dbHost = "Datenbank-Host";
 $lang_config_dbLogin = "Datenbank-Username/Login :";
 $lang_config_dbNamePrefix = "Tabellen Präfix : ";

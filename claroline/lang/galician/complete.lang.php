@@ -71,7 +71,6 @@ $l_quotemsg = "[quote]
 El %1\$s, %2\$s escrib&iacute;u:
 %3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nEl %1\$s, %2\$s escrib&iacute;u:\n%3\$s\n[/quote]";
 $l_recptname = "Nome de Usuario do Destinatario";
 $l_replies = "Respostas";
 $l_reply = "Respostar";

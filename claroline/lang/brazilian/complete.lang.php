@@ -72,7 +72,6 @@ $l_quotemsg = "[quote]
 On %1\$s, %2\$s wrote:
 %3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]";
 $l_recptname = "Recipiente Nome do usuário";
 $l_replies = "Respostas";
 $l_reply = "Responder";
@@ -328,6 +327,7 @@ $langComment = "Comment";
 $langConfTip = "Por padrão seu curso está acessível apenas para você como seu único usuário inscrito. No caso de você necessitar de algum sigilo, 
 o modo mais simples é abrir as inscrições durante
 uma semana, pedir aos estudantes que se inscrevam, então fechar as inscrições e checar possíveis intrusos na lista de usuários.";
+$langConfig = "Configurar";
 $langConfiguration = "Configuração";
 $langConfirm = "Confirmar";
 $langConfirm = "done";
@@ -374,7 +374,6 @@ $langCourseManager = "Course manager";
 $langCourseManager = "Gerenciador de curso";
 $langCourseManager = "Gerenciador do Curso";
 $langCourseManager = "Gerente de curso";
-$langCourseManagerView = "Visão de Gerente de Curso";
 $langCourseProgram = "Descrição do curso";
 $langCourseSettings = "Configurações do Curso";
 $langCourseTitle = "Título do curso";
@@ -887,6 +886,7 @@ $langLastname = "Último Nome";
 $langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";
 $langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Launch main platform tables upgrade</button></p>";
 $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
+$langLearnPath = "Rotas de Aprendizagem";
 $langLearnPathDetails = "Progresso nas rotas de aprendizagem";
 $langLearningPath = "Rota de Aprendizagem";
 $langLearningPathAdmin = "Administrador de Rotas de Aprendizagem";
@@ -1286,7 +1286,6 @@ $langStatusChangeNotMade = "Nenhum alteração aplicada";
 $langStoreChat = "Gravar Bate-papo";
 $langStudent = "Estudante";
 $langStudent = "Estudantes";
-$langStudentView = "Visão de Estudante";
 $langStudents = "Students";
 $langStudentsNotInThisGroups = "Usuários não estão nesse grupo";
 $langSubTitle = "Adiciona ao Menu Principal da Home Page do seu Curso um link para um site, uma página ou uma URL. Dica: se você quer adicionar um link para uma página, vá até a página, copie e cole o endereço da barra no topo de seu browser e insira dentro do campo \"link\" abaixo.";
@@ -1510,6 +1509,7 @@ $lang_config_TitleBD = "Base de dados : ";
 $lang_config_TitleEducationManager = "Gerente Educacional : ";
 $lang_config_TitleInstitution = "Instituição : ";
 $lang_config_TitleProperty = "Propriedades : ";
+$lang_config_config = "Configuração";
 $lang_config_dbHost = "Servidor";
 $lang_config_dbLogin = "Login";
 $lang_config_dbNamePrefix = "Prefixo das tabelas : ";

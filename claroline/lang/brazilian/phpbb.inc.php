@@ -311,8 +311,6 @@ Obrigado por utilizar os fóruns.
 
 Tenha um bom dia.";
 
-$l_quotemsg	= '[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]';
-
 // Sendpmsg
 $l_norecipient	= "Você precisa entrar com um nome de usuário e senha para emviar $l_message para.";
 $l_sendothermsg	= "Enviar outra Mensagem Privada";

@@ -71,7 +71,6 @@ $l_quotemsg = "[quote]
 El %1\$s, %2\$s escribió:
 %3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nEl %1\$s, %2\$s escribió:\n%3\$s\n[/quote]";
 $l_recptname = "Nombre de Usuario del Destinatario";
 $l_replies = "Respuestas";
 $l_reply = "Responder";
@@ -262,7 +261,6 @@ $langCourseHome = "Descripción del curso";
 $langCourseList = "Lista de cursos";
 $langCourseManager = "Administrador del Curso";
 $langCourseManager = "Coordinador de curso";
-$langCourseManagerView = "Ver como Coordinador";
 $langCourseProgram = "Descripción del Curso";
 $langCourseSettings = "Configuración del curso";
 $langCourseTitle = "Nombre del Curso";
@@ -588,6 +586,7 @@ $langLastName = "Apellido";
 $langLastVisit = "Ultima visita";
 $langLasting = "Duración";
 $langLastname = "Apellido";
+$langLearnPath = "Lecciones";
 $langLessAnswers = "-resp";
 $langLessElements = "-elem";
 $langLicence = "Licencia";
@@ -827,7 +826,6 @@ $langStatsOfUser = "Estadísticas del usuario";
 $langStatus = "Acción";
 $langStatusChangeNotMade = "No se aplico ningún cambio";
 $langStudent = "Estudiante";
-$langStudentView = "Ver como estudiante";
 $langSubTitle = "Agregar al Menú Principal de la página de inicio de su curso un enlace a una página, o cualquier URL. Ej: si desea agregar un enlace a una página, vaya a esa página, copie y pegue su dirección en la barra dirección de su programa navegador e inserte el enlaace el el campo 'Enlace' que está abajo.";
 $langSubscribeUser = "Registrar usuario";
 $langSubscribed = "personas registradas en este curso";

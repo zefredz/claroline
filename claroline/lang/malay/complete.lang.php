@@ -221,6 +221,7 @@ $langComment = "Komen";
 $langConfTip = "Secara lalai, subjek anda hanya boleh diakses jika anda pengguna berdaftar. Jika anda inginkan kerahsian,
 cara terbaik ialah membuka pendaftaran
 selama seminggu, dan arahkan Pelajar anda untuk mendaftar sendiri, kemudian tutup Pendaftaran dan periksa samada terdapat Pengguna yang tidak dikenali.";
+$langConfig = "Konfigurasi Sistem";
 $langConfirmBackup = "Anda pasti untuk backup subjek ";
 $langConfirmYourChoice = "Anda pasti untuk memadam pilihan anda ?";
 $langConfirmation = "Taip Semula";

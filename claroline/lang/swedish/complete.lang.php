@@ -72,7 +72,6 @@ $l_quotemsg = "[quote]
 On %1\$s, %2\$s wrote:
 %3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]";
 $l_recptname = "Mottagare Användarnamn";
 $l_replies = "Besvarade";
 $l_reply = "Svara";

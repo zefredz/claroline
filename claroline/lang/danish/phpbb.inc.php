@@ -313,8 +313,6 @@ Thank you for using forums.
 Have a nice day.";
 
 
-$l_quotemsg	= '[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]';
-
 // Sendpmsg
 $l_norecipient	= "Du skal anføre brugernavnet som du ønsker at sende beskeden til.";
 $l_sendothermsg	= "Send en anden privat besked";

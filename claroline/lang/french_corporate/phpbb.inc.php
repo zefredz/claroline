@@ -313,7 +313,7 @@ Merci d\'utiliser les forums.
 
 Bonne journée.";
 
-$l_quotemsg	= '[quote]\nLe %1\$s, %2\$s a écrit:\n%3\$s\n[/quote]';
+$l_quotemsg	= "[quote]\nLe %1\$s, %2\$s a écrit:\n%3\$s\n[/quote]";
 
 // Sendpmsg
 $l_norecipient	= "Vous devez entrer le nom d'utilisateur à qui vous désirez envoyer ce $l_message.";

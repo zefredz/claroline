@@ -68,8 +68,8 @@ $l_profileof = "Ver o perfil de";
 $l_publicmail = "Permitir que os outros utilizadores vejam a minha Morada de correio electr&oacute;nico";
 $l_quotemsg = "[quote]
 Em %1\$s, %2\$s escreveu:
-%3\$s[/quote]";
-$l_quotemsg = "[quote]\nEm %1\$s, %2\$s escreveu:\n%3\$s\n[/quote]";
+%3\$s
+[/quote]";
 $l_recptname = "Nome de Utilizador do Destinat&aacute;rio";
 $l_replies = "Respostas";
 $l_reply = "Responder";

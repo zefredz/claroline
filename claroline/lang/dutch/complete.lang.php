@@ -71,7 +71,6 @@ $l_quotemsg = "[quote]
 Persoon %1\$s, %2\$s heeft geschreven:
 %3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nPersoon %1\$s, %2\$s heeft geschreven:\n%3\$s\n[/quote]";
 $l_recptname = "Gebruikersnaam van de bestemmeling";
 $l_replies = "Antwoorden";
 $l_reply = "Beantwoorden";
@@ -291,7 +290,6 @@ $langCourseCreate = "Cursussite creëren";
 $langCourseCreate = "Maak een web-cursus";
 $langCourseDescription = "Schrijf hier de beschrijving van de cursus.  Deze zal verschijnen in de cursussenlijst (de inhoud van dit vlak verschijnt nu nergens en bestaat hier als voorbereiding voor een volgende versie van Claroline).";
 $langCourseManager = "Cursusbeheerder";
-$langCourseManagerView = "Cursusbeheerder zicht";
 $langCourseProgram = "Cursus: situering en randinformatie";
 $langCourseProgram = "Cursusprogramma";
 $langCourseTitle = "Titel";
@@ -963,7 +961,6 @@ $langStatsOfCourse = "Statistieken van cursus";
 $langStatsOfUser = "Statistieken van gebruiker";
 $langStatus = "Actie";
 $langStudent = "student";
-$langStudentView = "Studenten zicht";
 $langStudentsNotInThisGroups = "Deelnemer(s) niet in deze groep";
 $langSubTitle = "Voegt een link toe in het menu van uw homepagina";
 $langSubmit = "Verzenden";

@@ -72,7 +72,6 @@ $l_quotemsg = "[quote]
 Le %1\$s, %2\$s a écrit:
 %3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nLe %1\$s, %2\$s a écrit:\n%3\$s\n[/quote]";
 $l_recptname = "Nom d'Utilisateur du Destinataire";
 $l_replies = "Réponses";
 $l_reply = "Réponse";
@@ -217,6 +216,7 @@ $langConfTip = "Par défaut, votre site n'est accessible
 qu'à vous qui en êtes le seul utilisateur. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir
 l'inscription pendant une semaine, de demander aux cadres de s'inscrire eux-mêmes
 puis de fermer l'inscription et de vérifier dans la liste des utilisateurs les intrus éventuels.";
+$langConfig = "Configuration du système";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langConfirmation = "confirmation";
 $langContenuPlan = "";

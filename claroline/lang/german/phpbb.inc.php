@@ -320,7 +320,7 @@ Vielen Dank f&uuml;r die Benutzung der Foren.
 Mit freundlichen Gr&uuml;ssen,";
 
 
-$l_quotemsg	= '[quote]\n%1\$s schrieb am %2\$s :\n%3\$s\n[/quote]';
+$l_quotemsg	= "[quote]\n%1\$s schrieb am %2\$s :\n%3\$s\n[/quote]";
 
 // Sendpmsg
 $l_norecipient	= "Sie m&uuml;ssen den Benutzernamen des Empf&auml;ngers Ihrer $l_message eingeben.";

@@ -312,7 +312,7 @@ Bedankt voor het gebruiken van het forum.
 
 Tot ziens.";
 
-$l_quotemsg	= '[quote]\nPersoon %1\$s, %2\$s heeft geschreven:\n%3\$s\n[/quote]';
+$l_quotemsg	= "[quote]\nPersoon %1\$s, %2\$s heeft geschreven:\n%3\$s\n[/quote]";
 
 // Sendpmsg
 $l_norecipient	= "U moet de gebruikersnaam inbrengen aan wie u dit $l_message wenst op te sturen.";

@@ -214,6 +214,7 @@ $langCode = "Kode pelajaran";
 $langComMod = "Komentar diubah";
 $langComment = "Komentar";
 $langConfTip = "Default-nya, pelajaran anda hanya dapat diakses hanya oleh anda sebagai satu-satunya user yang terdaftar.   Jika anda ingin kerahasiaan, cara terpraktis adalah dengan membuka pendaftaran selama seminggu, perintahkan siswa untuk mendaftar sendiri, kemudian tutup pendaftaran dan periksa kemungkinan adanya penyusup dalam daftar user.";
+$langConfig = "Konfigurasi System";
 $langConfirmBackup = "Apakah anda benar-benar ingin mem-backup pelajaran ini";
 $langConfirmYourChoice = "Silahkan konfirmasi pilihan anda";
 $langConfirmation = "Konfirmasi";

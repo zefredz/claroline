@@ -309,8 +309,6 @@ Terima Kasih kerana menggunakan forum.
 
 Semoga Ceria Selalu.";
 
-// $l_quotemsg	= '[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]';
-
 // Sendpmsg
 $l_norecipient	= "Anda perlu mengisi ID Pengguna ahli yang akan dihantarkan mesej $l_message ini.";
 $l_sendothermsg	= "Hantar mesej peribadi yang lain.";

@@ -70,9 +70,8 @@ $l_profileof = "Εμφάνιση προφίλ του";
 $l_publicmail = "Εμφάνιση της διεύθυνσης email σας στους άλλους χρήστες";
 $l_quotemsg = "[quote]
 Στις %1\$s, ο/η %2\$s έγραψε:
-%s3
+%3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nΣτις %1\$s, ο/η %2\$s έγραψε:\n%3\$s\n[/quote]";
 $l_recptname = "Όνομα χρήστη παραλήπτη";
 $l_replies = "Απαντήσεις";
 $l_reply = "Απάντηση";

@@ -73,7 +73,6 @@ $l_quotemsg = "[quote]
 On %1\$s, %2\$s wrote:
 %3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]";
 $l_recptname = "Modtagerens Brugernavn";
 $l_replies = "Svar";
 $l_reply = "Svar";
@@ -243,6 +242,7 @@ $langConfTip = "Som standard er dit kursus kun tilgængeligt for dig som dets ene
 er det letteste, at du åbner for tilmeldinger i f.eks.
 en uge (vælg: Fortrolig adgang, åben tilmelding), og beder de studerende om i første lektion selv at tilmelde sig indenfor denne tid, og derefter lukker for tilmeldinger (vælg: Fortrolig adgang, tilmeldingen er lukket). Du kan nu se de tilmeldte på deltagerlisten, og slette evt. uvelkomne.
 Kurset er nu kun tilgængeligt via login.";
+$langConfig = "System config";
 $langConfirmBackup = "Ønsker du at sikkerhedskopiere dit kursus";
 $langConfirmYourChoice = "Venligst bekræft dit valg";
 $langConfirmation = "Bekræft adgangskode";
