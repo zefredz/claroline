@@ -1077,12 +1077,12 @@ claro_disp_tool_title($titleElement,
  	 * get image list from file list
  	 */
 
-	if($docView == 'image' || $docView == 'thumbnails')
+	if($docView == 'image' )
 	{
 		$imageList = get_image_list($fileList, $is_allowedToEdit);
 		if(count($imageList) == 0)
 		{
-            $docView = 'files';
+            // $docView = 'files';
 			$dialogBox .= $langNoImage;
 		}
 	}
@@ -1283,7 +1283,7 @@ claro_disp_tool_title($titleElement,
 	                        VIEW THUMBNAILS
 	  -----------------------------------------------------------------------*/
 
-	else if ($docView == 'thumbnails' && isset($imageList) && count($imageList) > 0) // thumbnails mode
+	else if ($docView == 'thumbnails' ) // thumbnails mode
 	{
 	    // intialize page number
  		$page = 1; // if not set, set to first page
@@ -1365,7 +1365,19 @@ claro_disp_tool_title($titleElement,
 		
 		echo "<tr class=\"toolbar\">\n";
 		echo "<th class=\"prev\" colspan=\"1\" style=\"width: " . $colWidth . "%;\">\n";
-		
+		if(count($imageList) == 0)
+		{
+            $colspan = $numberOfCols;
+
+            echo "<!-- current dir name line -->\n"
+				."<tr>\n"
+				."<td colspan=\"$colspan\" align=\"left\">\n"
+				. $langNoImage
+				."</td>\n"
+				."</tr>\n";
+		}
+		else
+		{
 		if(has_previous_page($imageList, $page))
 		{
 		    // link to previous page
@@ -1411,6 +1423,8 @@ claro_disp_tool_title($titleElement,
 		display_thumbnails($imageList, $fileList, $page
 			, $thumbnailWidth, $colWidth
 			, $numberOfCols, $numberOfRows);
+			
+        }
 
 		echo "</table>\n";
 		
