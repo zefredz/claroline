@@ -11,10 +11,10 @@
  ***************************************************************************/
 
 /***************************************************************************
- *                                         				                                
- *   This program is free software; you can redistribute it and/or modify  	
+ *                                                                                      
+ *   This program is free software; you can redistribute it and/or modify   
  *   it under the terms of the GNU General Public License as published by  
- *   the Free Software Foundation; either version 2 of the License, or	    	
+ *   the Free Software Foundation; either version 2 of the License, or          
  *   (at your option) any later version.
  *
  ***************************************************************************/
@@ -53,32 +53,17 @@ if (   ! is_null($forumSettingList['idGroup'])
 }
 
 
-include('page_header.'.$phpEx);
+include('page_header.php');
 
 if ( ! $start) $start = 0;
 
-$sql = "SELECT p.`post_id`,   p.`topic_id`,  p.`forum_id`,
-               p.`poster_id`, p.`post_time`, p.`poster_ip`,
-               p.`nom` lastname, p.`prenom` firstname,
-               pt.`post_text` 
-        FROM `".$tbl_posts."`      p, 
-             `".$tbl_posts_text."` pt 
-        WHERE topic_id  = '".$topic."' 
-          AND p.post_id = pt.`post_id`
-        ORDER BY post_id";
+$postLister = new postLister($topic, $start, $posts_per_page);
 
-require $includePath.'/lib/pager.lib.php';
-
-$postPager = new claro_sql_pager($sql, $start, $posts_per_page);
-$postPager->set_pager_call_param_name('start');
-
-$postList  = $postPager->get_result_list();
-
-
+$postList   = $postLister->get_post_list();
 
 $pagerUrl = $_SERVER['PHP_SELF']."?topic=".$topic;
 
-$postPager->disp_pager_tool_bar($pagerUrl);
+$postLister->disp_pager_tool_bar($pagerUrl);
 
 echo "<table class=\"claroTable\" width=\"100%\">"
     ."<tr align=\"left\">"
@@ -110,7 +95,7 @@ if ($cmd && $_uid)
 }
 else
 {
-	$increaseTopicView = true;
+    $increaseTopicView = true;
 }
 
 
@@ -200,7 +185,7 @@ if ( isset($_uid) )  //anonymous user do not have this function
                 ."</p>\n";
         }
 
-        echo	"</td>\n",
+        echo    "</td>\n",
                 "</tr>\n";
     } // end for each
 
@@ -215,7 +200,7 @@ if ( isset($_uid) )  //anonymous user do not have this function
 
     echo "</table>\n";
 
-$postPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?topic=".$topic."&forum=".$forum);
+$postLister->disp_pager_tool_bar($pagerUrl);
 
 require 'page_tail.php';
 ?>
