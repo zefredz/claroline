@@ -30,7 +30,9 @@ $pagetype = 'viewforum';
 
 if($forum == -1) header('Location: '.$url_phpbb);
 
-// GET FORUM SETTINGS
+/* 
+ * GET FORUM SETTINGS
+ */
 
 $sql = "SELECT 	`f`.`forum_type`,
                 `f`.`forum_name`,
@@ -41,17 +43,17 @@ $sql = "SELECT 	`f`.`forum_type`,
                ON `f`.`forum_id` = `g`.`forumId`
         WHERE     `f`.`forum_id` = '".$forum."'";
 
-list($myrow) = claro_sql_query_fetch_all($sql);
+list($forumSettingList) = claro_sql_query_fetch_all($sql);
 
 /* 
  * Check if the forum isn't attached to a group,  or -- if it is attached --, 
  * check the user is allowed to see the current group forum.
  */
 
-if (   ! is_null($myrow['idGroup']) 
-    && ( $myrow['idGroup'] != $_gid || ! $is_groupAllowed) )
+if (   ! is_null($forumSettingList['idGroup']) 
+    && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
 {
-    // NOTE : $myrow['idGroup'] != $_gid is necessary to prevent any hacking 
+    // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking 
     // attempt like rewriting the request without $cidReq. If we are in group 
     // forum and the group of the concerned forum isn't the same as the session 
     // one, something weird is happening, indeed ...
@@ -60,15 +62,17 @@ if (   ! is_null($myrow['idGroup'])
 }
 
 //  Previous authentication system proper to phpBB
-//  if ($myrow['forum_type'] == 1)
+//  if ($forumSettingList['forum_type'] == 1)
 //  {
 //     if ( ! check_priv_forum_auth($userdata['user_id'], $forum, false, $db))
 
 
 
-$forum_name = own_stripslashes($myrow['forum_name']);
+$forum_name = own_stripslashes($forumSettingList['forum_name']);
 
-// GET TOPIC LIST
+/*
+ * GET TOPIC LIST
+ */
 
 if (!$start) $start = 0;
 
@@ -102,20 +106,19 @@ echo "<table class=\"claroTable\" border=\"0\""
     ."<th width=\"20%\" align=\"center\">&nbsp;".$l_poster."</th>\n"
     ."<th width=\"8%\" align=\"center\">".$langSeen."</th>\n"
     ."<th width=\"15%\" align=\"center\">".$langLastMsg."</th>\n"
-    ."</tr>";
+    ."</tr>\n";
 
 $topics_start = $start;
 
 if ( count($topicList) == 0)
 {
-    echo "<td bgcolor=\"".$color1."\" colspan =\"6\" align=\"center\">"
-        .$l_notopics
-        ."</td>\n"
+    echo "<tr>" 
+        ."<td colspan =\"6\" align=\"center\">".$l_notopics."</td>\n"
         ."</tr>\n";
 }
 else foreach($topicList as $thisTopic)
 {
-        echo"\n<tr>";
+        echo "<tr>\n";
 
         $replys             = $thisTopic['topic_replies'];
         $last_post          = $thisTopic['post_time'    ];
@@ -183,19 +186,20 @@ else foreach($topicList as $thisTopic)
 
         $topiclink .= "&".$replys;
 
-        echo	"<td>\n",
-                "&nbsp;",
-                "<a href=\"",$topiclink,"\">",$topic_title,"</a>",$pagination,"\n",
-                "</td>\n";
+        echo "<td>\n"
+            ."&nbsp;"
+            ."<a href=\"".$topiclink."\">".$topic_title."</a>".$pagination."\n"
+            ."</td>\n"
 
-        echo	"<td align=\"center\"><small>".$replys."</small></td>\n",
-                "<td align=\"center\"><small>".$thisTopic['prenom']." ",$thisTopic['nom']."<small></td>\n",
-                "<td align=\"center\"><small>".$thisTopic['topic_views']."<small></td>\n",
-                "<td align=\"center\"><small>".$last_post."<small></td>\n",
-                "</tr>\n";
+            ."<td align=\"center\"><small>".$replys."</small></td>\n"
+            ."<td align=\"center\"><small>".$thisTopic['prenom']." ".$thisTopic['nom']."<small></td>\n"
+            ."<td align=\"center\"><small>".$thisTopic['topic_views']."<small></td>\n"
+            ."<td align=\"center\"><small>".$last_post."<small></td>\n"
+
+            ."</tr>\n";
 }
 
-    echo "</table>";
+echo "</table>";
 
 	/*--------------------------------------
 					TOPICS PAGER
