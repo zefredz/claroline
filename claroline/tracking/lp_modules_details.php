@@ -1,11 +1,9 @@
-<?php 
+<?php  // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                                              |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   $Id$         |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
@@ -30,24 +28,30 @@
  $langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
-$interbredcrump[]= array ("url"=>"learnPath_details.php?path_id=".$_GET['path_id'], "name"=> $langStatsOfLearnPath);
+/*
+ * DB tables definition
+ */
 
-$nameTools = $langModules;
-
+$tbl_cdb_names               = claro_sql_get_course_tbl();
+$tbl_mdb_names               = claro_sql_get_main_tbl();
+$tbl_rel_course_user         = $tbl_mdb_names['rel_course_user'  ];
+$tbl_user                    = $tbl_mdb_names['user'             ];
+$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
+$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
+$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
 
 // table names
-$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
-$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
-$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
-$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
-$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
+$TABLELEARNPATH         = $tbl_lp_learnPath;
+$TABLEMODULE            = $tbl_lp_module;
+$TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
+$TABLEASSET             = $tbl_lp_asset;
+$TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
-$TABLECOURSUSER	        = $mainDbName."`.`cours_user";
-$TABLEUSER = $mainDbName."`.`user";
+$TABLECOURSUSER	        = $tbl_rel_course_user;
+$TABLEUSER              = $tbl_user;
 
-
-include($includePath."/claro_init_header.inc.php");
 include($includePath."/lib/statsUtils.lib.inc.php");
 
 // lib of learning path tool
@@ -71,6 +75,16 @@ $sql = "SELECT `name`
        WHERE `learnPath_id` = ".$_GET['path_id'];
 $lpDetails = claro_sql_query_fetch_all($sql);
 
+////////////////////
+////// OUTPUT //////
+////////////////////
+
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
+$interbredcrump[]= array ("url"=>"learnPath_details.php?path_id=".$_GET['path_id'], "name"=> $langStatsOfLearnPath);
+
+$nameTools = $langModules;
+
+include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = $lpDetails[0]['name'];
@@ -136,11 +150,11 @@ if($is_allowedToTrack && $is_trackingEnabled)
      <br>
      <table class="claroTable" width="100%" border="0" cellspacing="2">
             <tr class="headerX" align="center" valign="top">
-              <th colspan="<?= $maxDeep+1; ?>"><?= $langModule; ?></th>
-              <th><?= $langLastSessionTimeSpent; ?></th>
-              <th><?= $langTotalTimeSpent; ?></th>
-              <th><?= $langLessonStatus; ?></th>
-              <th colspan="2"><?= $langProgress; ?></th>
+              <th colspan="<?php echo $maxDeep+1; ?>"><?php echo $langModule; ?></th>
+              <th><?php echo $langLastSessionTimeSpent; ?></th>
+              <th><?php echo $langTotalTimeSpent; ?></th>
+              <th><?php echo $langLessonStatus; ?></th>
+              <th colspan="2"><?php echo $langProgress; ?></th>
               
              </tr>
              <tbody>
