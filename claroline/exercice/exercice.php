@@ -37,7 +37,7 @@ if(session_is_registered('objQuestion'))	{ session_unregister('objQuestion');	}
 if(session_is_registered('objAnswer'))		{ session_unregister('objAnswer');		}
 if(session_is_registered('questionList'))	{ session_unregister('questionList');	}
 if(session_is_registered('exerciseResult'))	{ session_unregister('exerciseResult');	}
-
+if(session_is_registered('exeStartTime'))	{ session_unregister('exeStartTime'); }
 // prevent inPathMode to be used when browsing an exercise in the exercise tool
 $_SESSION['inPathMode'] = false;
 
