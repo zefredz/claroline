@@ -223,7 +223,7 @@ if($dialogBox)
 
 claro_disp_button("adminuserunregistered.php?cidToEdit=".$cidToEdit."&cmd=UnReg&uidToEdit=".$user_id, $langUnsubscribe, $langAreYouSureToUnsubscribe." ".$prenom_form." ".$nom_form);
 
-claro_disp_button("adminProfile.php?uidToEdit=".$uidToEdit,$langGoToMainUserSettings);
+claro_disp_button("adminprofile.php?uidToEdit=".$uidToEdit,$langGoToMainUserSettings);
 
        //link to go back to list : depend where we come from...
 

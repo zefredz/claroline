@@ -433,7 +433,7 @@ foreach($resultList as $list)
      // Modify link
 
      echo     "<td align=\"center\">\n",
-                        "<a href=\"adminProfile.php?uidToEdit=".$list['user_id']."&cfrom=ulist".$addToURL."\">\n
+                        "<a href=\"adminprofile.php?uidToEdit=".$list['user_id']."&cfrom=ulist".$addToURL."\">\n
                          <img src=\"".$clarolineRepositoryWeb."img/usersetting.gif\" border=\"0\" alt=\"".$langEditUserSettings."\" />\n",
                         "</a>\n",
                         "</td>\n";
