@@ -42,33 +42,6 @@ $langFile = 'document';
 $tlabelReq = 'CLDOC___';
 require '../inc/claro_init_global.inc.php';
 
-$htmlHeadXtra[] =
-"<style type=text/css>
-<!--
-.comment { margin-left: 30px}
-.invisible {color: #999999}
-.invisible a {color: #999999}
--->
-</style>";
-
-$htmlHeadXtra[] =
-"<script>
-function confirmation (name)
-{
-	if (confirm(\" $langAreYouSureToDelete \"+ name + \" ?\"))
-		{return true;}
-	else
-		{return false;}
-}
-</script>";
-
-$nameTools = $langDoc;
-
-$QUERY_STRING=''; // used forthe breadcrumb 
-                  // when one need to add a parameter after the filename
-
-include('../inc/claro_init_header.inc.php');
-
 /* 
  * Library for the file display
  */
@@ -148,8 +121,6 @@ if($is_allowedToEdit) // for teacher only
 }
 
 
-// $baseWorkDir = $baseServDir.$urlAppend.$courseDir;
-
 // clean information submited by the user from antislash
 
 stripSubmitValue($HTTP_POST_VARS);
@@ -223,9 +194,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
                 if (trim($_REQUEST['comment']) != '') // insert additional comment
                 {
-                    update_db_info('update', $file, 
-                                    array( 'path'    => $_REQUEST['cwd'].'/'.$uploadedFileName,
-                                           'comment' => trim($_REQUEST['comment']) ) );
+                    update_db_info('update', $_REQUEST['cwd'].'/'.$uploadedFileName, 
+                                    array('comment' => trim($_REQUEST['comment']) ) );
                 }
             }
         }
@@ -350,7 +320,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
 			// Try to create  a directory to store the image files
             $newImgPath = move_uploaded_file_collection_into_directory($_FILES['imgFile'], $imgDirectory);
-            
+
             replace_img_path_in_html_file($_POST['imgFilePath'], 
                                           $newImgPath, 
                                           $baseWorkDir.$_REQUEST['relatedFile']);
@@ -379,7 +349,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
             {
                 $fileName = $fileName.'.htm';
             }
-                        
+
             create_file($baseWorkDir.$_REQUEST['cwd'].'/'.$fileName,
                         $_REQUEST['htmlContent']);
 
@@ -401,7 +371,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
             }
         }
     }
-    
+
 
     /*------------------------------------------------------------------------
                             CREATE DOCUMENT : STEP 1
@@ -419,12 +389,12 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
         if ($fp)
         {
-        
+
           if ( fwrite($fp, $_REQUEST['htmlContent']) )
           {
             $dialogBox .= $langFileContentModified."<br>";
           }
-          
+
         }
     }
 
@@ -446,7 +416,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 	{
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
         $url = trim($_REQUEST['url']);
-        
+
         // check for "http://", if the user forgot "http://" or "ftp://" or ...
         // the link will not be correct
         if( !ereg( "://",$url ) )
@@ -454,7 +424,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
             // add "http://" as default protocol for url
             $url = "http://".$url;
         }
-        
+
         if ( ! empty($fileName) && ! empty($url) )
         {
             $linkFileExt = ".url";
@@ -486,7 +456,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
                      ."</form>\n";
 
     }
-    
+
 
 	/*========================================================================
                              MOVE FILE OR DIRECTORY
@@ -594,11 +564,11 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
                 create_link_file( $baseWorkDir.$_REQUEST['file'], 
                                   $url);
             }
-            
+
         }
 
         $directoryName = dirname($_REQUEST['file']);
-        
+
         if ( $directoryName == '/' || $directoryName == '\\' )
         {
             // When the dir is root, PHP dirname leaves a '\' for windows or a '/' for Unix
@@ -615,7 +585,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         {
         	$newPath = $_REQUEST['file'];
         }
-                
+
 
         if ( my_rename($baseWorkDir.$_REQUEST['file'], $baseWorkDir.$newPath) )
         {
@@ -993,14 +963,38 @@ unset($attribute);
                                     DISPLAY
   ============================================================================*/
 
+$htmlHeadXtra[] =
+"<style type=text/css>
+<!--
+.comment { margin-left: 30px}
+.invisible {color: #999999}
+.invisible a {color: #999999}
+-->
+</style>";
 
-	$dspCurDirName = htmlspecialchars($curDirName);
-	$cmdCurDirPath = rawurlencode($curDirPath);
-	$cmdParentDir  = rawurlencode($parentDir);
+$htmlHeadXtra[] =
+"<script>
+function confirmation (name)
+{
+	if (confirm(\" $langAreYouSureToDelete \"+ name + \" ?\"))
+		{return true;}
+	else
+		{return false;}
+}
+</script>";
 
-?>
+$nameTools = $langDoc;
 
-<?php 
+$QUERY_STRING=''; // used forthe breadcrumb 
+                  // when one need to add a parameter after the filename
+
+if (!$_gid) claro_enable_tool_view_option();
+
+include($includePath.'/claro_init_header.inc.php');
+
+$dspCurDirName = htmlspecialchars($curDirName);
+$cmdCurDirPath = rawurlencode($curDirPath);
+$cmdParentDir  = rawurlencode($parentDir);
 
 //display toot title and subtitle
 
@@ -1010,10 +1004,10 @@ if ( $_gid && $is_groupAllowed) $titleElement['subTitle'] = $_group['name'];
 claro_disp_tool_title($titleElement, 
                       $is_allowedToEdit ? 'help_document.php' : false);
 
-if ($is_courseAdmin)
-{
-    claro_disp_tool_view_option($_REQUEST['viewMode']);
-}
+//if ($is_courseAdmin)
+//{
+//    claro_disp_tool_view_option($_REQUEST['viewMode']);
+//}
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
@@ -1125,8 +1119,6 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 
 	if ($fileList)
 	{
-        $debug = each ($fileList['name']);
-
         // while (list($fileKey, $fileName) = each ($fileList['name']))
         // Each seems to pose problem on PHP 4.1 when the array contains 
         // a single element
@@ -1208,8 +1200,8 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 						"<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\">",
 						"</a>",
 						"</td>\n";
-                        
-				echo	"<td>";
+
+                echo	"<td>";
 
                 if ($groupContext)
                 {
