@@ -1,7 +1,25 @@
 <?php
 
-// Redirect previously sent paramaters in the correct subframe (messageList.php)
+$langFile = "chat";
 
+require '../inc/claro_init_global.inc.php'; 
+// the following constant defines the default display of the learning path browser
+// 0 : display only table of content and content
+// 1 : display claroline header and footer and table of content, and content
+
+$nameTools  = $langChat;;
+if(!empty($nameTools))
+{
+  $titlePage .= $nameTools.' - ';
+}
+
+if(!empty($_course['officialCode']))
+{
+  $titlePage .= $_course['officialCode'].' - ';
+}
+$titlePage .= $siteName;
+
+// Redirect previously sent paramaters in the correct subframe (messageList.php)
 $paramList = array();
 
 if ( isset($_REQUEST['gidReset']) && $_REQUEST['gidReset'] == true )
@@ -25,7 +43,7 @@ if (is_array($paramList))
 <!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 
-<head><title></title></head>
+<head><title><?php echo $titlePage; ?></title></head>
 
 	<frameset rows="215,*,120" marginwidth="0" frameborder="yes">
 		<frame src="chat_header.php" name="topBanner" scrolling="no">
