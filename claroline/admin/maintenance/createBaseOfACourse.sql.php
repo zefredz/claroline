@@ -1349,11 +1349,6 @@ $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_answer` 
 $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_answer` CHANGE `ponderation`	`ponderation` smallint(5) default NULL;";
 $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_answer` CHANGE `r_position`	`r_position` mediumint(8) unsigned NOT NULL default '1';";
 
-// Fill picture_name with id, previously implicit
-
-$sqlForUpdate[] = "# fill picture_name with id, previously implicit ";
-$sqlForUpdate[] = " UPDATE `".$currentCourseDbNameGlu."quiz_question` SET  `picture_name` = concat('quiz-',`id`) WHERE `picture_name` = '';";
-
 }
 
 /**
@@ -1751,6 +1746,9 @@ $sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_words` COMMENT='d
 
 /**
  * $Log$
+ * Revision 1.5  2004/06/24 10:14:10  mathieu
+ * replace sql with function to fill picture_name with id, previously implicit
+ *
  * Revision 1.4  2004/06/04 17:01:41  mathieu
  * rename field agenda to chat
  *

@@ -199,6 +199,9 @@ switch ($display)
                         
 			// move link
 			include("moveLink.php");	
+                        
+                        upgrade_question_picture($currentcoursePathSys, $currentCourseDbNameGlu);
+                        
 			
 			if ($nbError>0)
 			{
@@ -472,5 +475,48 @@ function upgrade_course_repository($courseID,$courseRepository)
     }
 
 }
+
+// Fill picture_name with id, previously implicit
+
+function upgrade_question_picture($courseRepository, $dbNameGlu) {
+
+    $quizRepository = $courseRepository . "/image/";
+
+    $handle = opendir($quizRepository);
+    
+    while ($file = readdir($handle))
+    {
+	if ($file == '.' || $file == '..')
+	{
+            // Skip current and parent directories
+            continue;
+	}
+	if(preg_match("/^quiz\-/",$file))
+	{
+            $fileList[] = $file;
+	}
+    }
+
+    if (is_array($fileList)) 
+    {
+        // Add external tool
+         $sql =  " SELECT id FROM `".$dbNameGlu."quiz_question` ";
+         $result = claro_sql_query($sql);
+         if (mysql_num_rows($result) > 0)
+         {
+            while ( $questions = mysql_fetch_array($result, MYSQL_ASSOC))
+            {
+                if ( in_array("quiz-".$questions['id'],$fileList) )
+                {
+                    $sql_update = "UPDATE `".$dbNameGlu."quiz_question` SET  `picture_name` = concat('quiz-',`id`) WHERE id = '" . $questions['id'] . "'";
+                    claro_sql_query($sql_update);		
+                }
+            }
+         }
+    }
+    
+}
+
+
 
 ?>
