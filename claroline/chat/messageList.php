@@ -61,9 +61,9 @@ if ($_gid)
         $groupContext  = true;
         $courseContext = false;
 
-        $fileChatName   = $courseId.'.'.$groupId.'.chat.txt';
-        $tmpArchiveFile = $courseId.'.'.$groupId.'.tmpChatArchive.txt';
-        $pathToSaveChat = $coursePath.'/document/';
+        $fileChatName   = $courseId.'.'.$groupId.'.chat.html';
+        $tmpArchiveFile = $courseId.'.'.$groupId.'.tmpChatArchive.html';
+        $pathToSaveChat = $coursePath.'/group/'.$_group['directory'].'/';
     }
     else
     {
@@ -75,23 +75,29 @@ else
     $groupContext  = false;
     $courseContext = true;
 
-    $fileChatName   = $courseId.'.chat.txt';
-    $tmpArchiveFile = $courseId.'.tmpChatArchive.txt';
+    $fileChatName   = $courseId.'.chat.html';
+    $tmpArchiveFile = $courseId.'.tmpChatArchive.html';
     $pathToSaveChat = $coursePath.'/document/';
 }
 
 
-define('MESSAGE_LINE_NB',  20);
-define('MAX_LINE_IN_FILE', 80);
+define('MESSAGE_LINE_NB',  20); // no more used // seb
+define('MAX_LINE_IN_FILE', 200);
 
 $dateNow = claro_format_locale_date($dateTimeFormatLong);
-$timeNow = claro_format_locale_date($timeNoSecFormat);
+$timeNow = claro_format_locale_date("%H:%M");
 
 if ( ! file_exists($fileChatName))
 {
+  // create the file
 	$fp = @fopen($fileChatName, 'w')
 		or die ('<center>unable to initialize chat file.</center>');
 	fclose($fp);
+  $dateLastWrite = $langNewChat;
+}
+else
+{
+  $dateLastWrite = $langDateLastWrite.date("F d Y H:i:s.", fileatime($fileChatName));
 }
 
 
@@ -106,7 +112,7 @@ if ( ! file_exists($fileChatName))
 if ($reset && $is_allowedToReset)
 {
 	$fchat = fopen($fileChatName,'w');
-	fwrite($fchat, $timeNow." -------- ".$langChatResetBy." ".$nick." --------\n");
+	fwrite($fchat, "<small>".$timeNow." -------- ".$langChatResetBy." ".$nick." --------</small><br />\n");
 	fclose($fchat);
 
 	@unlink($tmpArchiveFile);
@@ -119,12 +125,19 @@ if ($reset && $is_allowedToReset)
 
 if ($store && $is_allowedToStore)
 {
-	$saveIn = "chat.".date("Y-m-j-B").".txt";
-
+  $i = 1;
+	$chatDate = "chat.".date("Y-m-j")."_";
+  while ( file_exists($pathToSaveChat.$chatDate.$i.".html") )
+  {
+    $i++;
+  }
+  $saveIn = $chatDate.$i.".html";
 	// COMPLETE ARCHIVE FILE WITH THE LAST LINES BEFORE STORING
 
+  buffer('<html><body>', $tmpArchiveFile);
 	buffer(implode('', file($fileChatName)), $tmpArchiveFile);
-
+  buffer('</body></html>', $tmpArchiveFile);
+  
 	if (copy($tmpArchiveFile, $pathToSaveChat.$saveIn) )
 	{
 		echo	"<blockquote>",
@@ -132,6 +145,7 @@ if ($store && $is_allowedToStore)
 				"<strong>".$saveIn."</strong>",
 				"</a> ".$langIsNowInYourDocDir.
 				"</blockquote>";
+    @unlink($tmpArchiveFile);
 	}
 	else
 	{
@@ -148,7 +162,7 @@ if ($store && $is_allowedToStore)
 if ($chatLine)
 {
 	$fchat = fopen($fileChatName,'a');
-	fwrite($fchat,$timeNow.' - '.$nick.' : '.stripslashes($chatLine)."\n");
+	fwrite($fchat,'<small>'.$timeNow.' <b>'.$nick.'</b> &gt; '.htmlentities(stripslashes($chatLine),ENT_QUOTES)."</small><br />\n");
 	fclose($fchat);
 }
 
@@ -163,22 +177,20 @@ if ($chatLine)
  */
 
 $fileContent  = file($fileChatName);
-$FileNbLine   = count($fileContent);
-$lineToRemove = $FileNbLine - MESSAGE_LINE_NB;
-if ($lineToRemove < 0) $lineToRemove = 0;
-$tmp = array_splice($fileContent, 0 , $lineToRemove);
 
 foreach($fileContent as $thisLine )
 {
-    echo $thisLine.'<br />';
+    echo $thisLine;
 }
+// echo last access time 
+echo "<p align=\"right\"><small>".$dateLastWrite."</small></p>";
+// echo an anchor to directly display the last line when the page refreshes
 echo "<a name=\"final\">";
 /* 
  * For performance reason, buffer the content 
  * in a temporary archive file
  * once the chat file is too large
  */
-
 if ($FileNbLine > MAX_LINE_IN_FILE)
 {
 
