@@ -768,7 +768,7 @@ function parse_config_file($conf_file)
     return  $propList;
 }
 
-function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $currentValue=NULL)
+function claroconf_disp_editbox_of_a_value($property_def, $property_name, $currentValue=NULL)
 {
     global $langFirstDefOfThisValue, $langEmpty;
 
@@ -778,87 +778,87 @@ function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $
         $currentValue = $currentValue?'TRUE':'FALSE';
     }
 
-    // name
-    $htmlPropName = 'prop['.($property).']';
+    // name of the form element
+    $htmlPropName = 'prop['.($property_name).']';
 
-    // label
-    if ( isset($conf_def_property_list['label']) )
+    // label of the form element
+    if ( isset($property_def['label']) )
     {
-        $htmlPropLabel = htmlentities($conf_def_property_list['label']);
+        $htmlPropLabel = htmlentities($property_def['label']);
     }
     else
     {
         $htmlPropLabel = $htmlPropName;
     }
 
-    // type
-    if ( is_string($conf_def_property_list['type']) )
+    // type description to display
+    if ( is_string($property_def['type']) )
     {
-        $htmlPropType = ' <small>(' . htmlentities($conf_def_property_list['type']) . ')</small>';
+        $htmlPropType = ' <small>(' . htmlentities($property_def['type']) . ')</small>';
     }
     else
     {
         $htmlPropType = '';
     }
 
-    // actual value
-    if ( isset($conf_def_property_list['acceptedValue'][$conf_def_property_list['actualValue']]) )
+    // actual value to display
+    if ( isset($property_def['acceptedValue'][$currentValue]) )
     {
-        $actual_value = $conf_def_property_list['acceptedValue'][$conf_def_property_list['actualValue']];
+        // get the label of the actual value
+        $actual_value = $property_def['acceptedValue'][$currentValue];
     }
     else
     {
-        $actual_value = $conf_def_property_list['actualValue'];
+        $actual_value = $currentValue;
     }
 
-    // default value
-    if ( isset($conf_def_property_list['acceptedValue'][$conf_def_property_list['default']]) )
+    // default value to display 
+    if ( isset($property_def['acceptedValue'][$property_def['default']]) )
     {
-        $default_value = $conf_def_property_list['acceptedValue'][$conf_def_property_list['default']];
+        $default_value = $property_def['acceptedValue'][$property_def['default']];
     }
     else
     {
-        $default_value = $conf_def_property_list['default'];
+        $default_value = $property_def['default'];
     }
 
-   // description
-    if ( isset($conf_def_property_list['description']) )
+    // description to display 
+    if ( isset($property_def['description']) )
     {
-        $htmlPropDesc = nl2br(htmlentities($conf_def_property_list['description']));
+        $htmlPropDesc = nl2br(htmlentities($property_def['description']));
     }
     else
     {
         $htmlPropDesc = '';
     }
-
-    if ( isset($currentValue) && $currentValue!=$conf_def_property_list['actualValue'] )
+ 
+    if ( isset($currentValue) )
     {
         $htmlPropValue = $currentValue;
-    }
+
+        if ( $currentValue != $property_def['default']) 
+        {
+            $htmlPropDefault = 'Default : ' . (empty($property_def['default'])?$langEmpty:$default_value);
+        }
+
+    } 
     else
     {
-        if ( isset($conf_def_property_list['actualValue']) )
-        {
-            $htmlPropValue = $conf_def_property_list['actualValue'];
-            $htmlPropDefault = 'Default : ' . (empty($conf_def_property_list['default'])?$langEmpty:$default_value);
-        }
-        else
-        {
-            $htmlPropValue = $conf_def_property_list['default'];
-        }
+        // if not set --> default value
+        $htmlPropValue = $property_def['default'];
     }
 
     $size = (int) strlen($htmlPropValue);
     $size = 2+(($size > 50)?50:(($size < 15)?15:$size));
 
-    $htmlUnit = (isset($conf_def_property_list['unit'])?''.htmlentities($conf_def_property_list['unit']).' ':'');
+    $htmlUnit = (isset($property_def['unit'])?''.htmlentities($property_def['unit']).' ':'');
 
-    if (isset($conf_def_property_list['display'])
-           &&!$conf_def_property_list['display'])
+    if (isset($property_def['display'])
+           &&!$property_def['display'])
     {
         echo '<input type="hidden" value="'.$htmlPropValue.'" name="'.$htmlPropName.'">'."\n";
     }
-    elseif ($conf_def_property_list['readonly'])
+    elseif ($property_def['readonly'])
     {
         echo '<tr style="vertical-align: top">' .
              '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' . "\n";
@@ -867,14 +867,14 @@ function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $
 
         echo '<td nowrap="nowrap">' . "\n";
 
-        switch($conf_def_property_list['type'])
+        switch($property_def['type'])
         {
             case 'boolean' :
             case 'lang' :
             case 'enum' :
-                if ( isset($conf_def_property_list['acceptedValue'][$htmlPropValue]) )
+                if ( isset($property_def['acceptedValue'][$htmlPropValue]) )
                 {
-                    echo $conf_def_property_list['acceptedValue'][$htmlPropValue];
+                    echo $property_def['acceptedValue'][$htmlPropValue];
                 }
                 else
                 {
@@ -885,13 +885,13 @@ function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $
             case 'string' :
             default:
                 // probably a string or integer
-                if ( empty($conf_def_property_list['default']) )
+                if ( empty($htmlPropValue) )
                 {
-                    echo '<em>' . $langEmpty . '</em>';
+                    echo $langEmpty;
                 }
                 else
                 {
-                    echo $conf_def_property_list['default'];
+                    echo $htmlPropValue;
                 }
         } // switch
 
@@ -905,46 +905,46 @@ function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $
         // display label
         // if Type = css or lang,  acceptedValue would be fill
         // and work after as enum.
-        switch($conf_def_property_list['type'])
+        switch($property_def['type'])
         {
             case 'css' :
                 if ($handle = opendir('../../css'))
                 {
-                    $conf_def_property_list['acceptedValue']=array();
+                    $property_def['acceptedValue']=array();
                    while (false !== ($file = readdir($handle)))
                    {
                        $ext = strrchr($file, '.');
                        if ($file != "." && $file != ".." && (strtolower($ext)==".css"))
                        {
-                           $conf_def_property_list['acceptedValue'][$file] = $file;
+                           $property_def['acceptedValue'][$file] = $file;
                        }
                    }
                    closedir($handle);
                 }
 
-                $conf_def_property_list['type']='enum';
+                $property_def['type']='enum';
                 break;
             case 'lang' :
                 $dirname = '../../lang/';
                 if($dirname[strlen($dirname)-1]!='/')
                     $dirname.='/';
                 $handle=opendir($dirname);
-                $conf_def_property_list['acceptedValue']=array();
+                $property_def['acceptedValue']=array();
                 while ($entries = readdir($handle))
                 {
                     if ($entries=='.'||$entries=='..'||$entries=='CVS')
                         continue;
                     if (is_dir($dirname.$entries))
                     {
-                        $conf_def_property_list['acceptedValue'][$entries] = $entries;
+                        $property_def['acceptedValue'][$entries] = $entries;
                     }
                 }
                 closedir($handle);
-                $conf_def_property_list['type']='enum';
+                $property_def['type']='enum';
                 break;
         }
 
-        switch($conf_def_property_list['type'])
+        switch($property_def['type'])
         {
             case 'boolean' :
                 echo '<tr style="vertical-align: top">' .
@@ -952,33 +952,33 @@ function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $
 
                 echo '<td nowrap="nowrap">' . "\n";
 
-                echo '<input id="'.$property.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '
+                echo '<input id="'.$property_name.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '
                     . ($htmlPropValue=='TRUE'?' checked="checked" ':' ')
                     . ' >' ;
-                echo '<label for="'.$property.'_TRUE"  >'
-                     . ($conf_def_property_list['acceptedValue']['TRUE' ]?$conf_def_property_list['acceptedValue']['TRUE' ]:'TRUE' )
+                echo '<label for="'.$property_name.'_TRUE"  >'
+                     . ($property_def['acceptedValue']['TRUE' ]?$property_def['acceptedValue']['TRUE' ]:'TRUE' )
                      . '</label>';
 
                 echo '<br />';
 
-                echo '<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '
+                echo '<input id="'.$property_name.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '
                      . ($htmlPropValue=='TRUE'?' ':' checked="checked" ')
                      . ' >' ;
-                echo '<label for="'.$property.'_FALSE" >'
-                     .($conf_def_property_list['acceptedValue']['FALSE']?$conf_def_property_list['acceptedValue']['FALSE']:'FALSE')
+                echo '<label for="'.$property_name.'_FALSE" >'
+                     .($property_def['acceptedValue']['FALSE']?$property_def['acceptedValue']['FALSE']:'FALSE')
                      .'</label>';
                 break;
             case 'enum' :
 
                 echo '<tr style="vertical-align: top">' ;
 
-                if ( count($conf_def_property_list['acceptedValue']) > 3 )
+                if ( count($property_def['acceptedValue']) > 3 )
                 {
-                    echo '<td style="text-align: right" width="250"><label for="' . $property . '"  >' . $htmlPropLabel . '&nbsp;:</label></td>' ;
+                    echo '<td style="text-align: right" width="250"><label for="' . $property_name . '"  >' . $htmlPropLabel . '&nbsp;:</label></td>' ;
                     echo '<td nowrap="nowrap">' . "\n";
-                    echo '<select id="' . $property . '" name="'.$htmlPropName.'">' . "\n";
+                    echo '<select id="' . $property_name . '" name="'.$htmlPropName.'">' . "\n";
 
-                    foreach($conf_def_property_list['acceptedValue'] as  $keyVal => $labelVal)
+                    foreach($property_def['acceptedValue'] as  $keyVal => $labelVal)
                     {
                         if ($htmlPropValue==$keyVal)
                         {
@@ -998,12 +998,12 @@ function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $
                     echo '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' ;
                     echo '<td nowrap="nowrap">' . "\n";
 
-                    foreach($conf_def_property_list['acceptedValue'] as  $keyVal => $labelVal)
+                    foreach($property_def['acceptedValue'] as  $keyVal => $labelVal)
                     {
-                        echo '<input id="'.$property.'_'.$keyVal.'"  type="radio" name="'.$htmlPropName.'" value="'.$keyVal.'"  '
+                        echo '<input id="'.$property_name.'_'.$keyVal.'"  type="radio" name="'.$htmlPropName.'" value="'.$keyVal.'"  '
                         .($htmlPropValue==$keyVal?' checked="checked" ':' ')
                         .' >'
-                        .'<label for="'.$property.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
+                        .'<label for="'.$property_name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
                         .'<span class="propUnit">'.$htmlUnit.'</span>'
                         .'<br />'."\n";
                     }
@@ -1014,11 +1014,11 @@ function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $
             case 'integer' :
 
                 echo '<tr style="vertical-align: top">' .
-                    '<td style="text-align: right" width="250"><label for="'.$property.'"  >' . $htmlPropLabel . '&nbsp;:</label></td>' ;
+                    '<td style="text-align: right" width="250"><label for="'.$property_name.'"  >' . $htmlPropLabel . '&nbsp;:</label></td>' ;
 
                 echo '<td nowrap="nowrap">' . "\n";
 
-                echo '<input size="'.$size.'"  align="right" id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '."\n"
+                echo '<input size="'.$size.'"  align="right" id="'.$property_name.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '."\n"
                 .'<span class="propUnit">'.$htmlUnit.'</span>'
                 .'<span class="propType">'.$htmlPropType.'</span>'
                 ."\n" ;
@@ -1027,10 +1027,10 @@ function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $
             default:
                 // probably a string
                 echo '<tr style="vertical-align: top">' .
-                    '<td style="text-align: right" width="250"><label for="'.$property.'"  >' . $htmlPropLabel . '&nbsp;:</label></td>' ;
+                    '<td style="text-align: right" width="250"><label for="'.$property_name.'"  >' . $htmlPropLabel . '&nbsp;:</label></td>' ;
 
                 echo '<td nowrap="nowrap">' . "\n";
-                echo '<input size="'.$size.'"  id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '
+                echo '<input size="'.$size.'"  id="'.$property_name.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '
                 .'<span class="propUnit">'.$htmlUnit.'</span>'
                 .'<span class="propType">'.$htmlPropType.'</span>'."\n";
 
@@ -1040,14 +1040,13 @@ function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $
 
         if (!empty($htmlPropDefault))
         {
-            echo '<small>(' . $htmlPropDefault . ' ' . $htmlUnit . ') ';
+            echo '<small>(' . $htmlPropDefault . ' ' . $htmlUnit . ')</small> ';
         }
 
         if (!empty($htmlPropDesc))
         {
             echo '<em>' . $htmlPropDesc. '</em>';
         }
-        echo '</small>' . "\n";
         echo '</td></tr>' . "\n";
 
     } // else
