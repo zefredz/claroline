@@ -134,6 +134,10 @@ if(!is_object($objExercise))
 	{
 		$objExercise->read($exerciseId);
 	}
+  else
+  {
+    $newExercise = 'yes';
+  }
 
 	// saves the object into the session
 	session_register('objExercise');
@@ -297,7 +301,7 @@ if(!$newQuestion && !$modifyQuestion && !$editQuestion && !$modifyAnswers)
 	// exercise management
 	include('exercise_admin.inc.php');
 
-	if(!$_REQUEST['modifyExercise'])
+	if(!$_REQUEST['modifyExercise'] && !$newExercise)
 	{
 		// question list management
 		include('question_list_admin.inc.php');
