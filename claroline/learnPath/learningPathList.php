@@ -519,7 +519,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
        if ( !$is_blocked )
        {
              echo "<td align=\"left\"><a href=\"learningPath.php?path_id="
-                       .$list['learnPath_id']."\"><img src=\"".$clarolineRepositoryWeb."img/step.gif\" alt=\"".$path_alt."\"
+                       .$list['learnPath_id']."\"><img src=\"".$clarolineRepositoryWeb."img/learnpath.gif\" alt=\"".$path_alt."\"
                        border=\"0\" />  ".$list['name']."</a></td>";
 
              /*if( $list['lock'] == 'CLOSE' && ( $list['minRaw'] == -1 || $list['minRaw'] == "" ) )
@@ -670,7 +670,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
        }
        else   //else of !$is_blocked condition , we have already been blocked before, so we continue beeing blocked : we don't display any links to next paths any longer
        {
-             echo "<td align=\"left\"> <img src=\"".$clarolineRepositoryWeb."img/step.gif\" alt=\"".$path_alt."\"
+             echo "<td align=\"left\"> <img src=\"".$clarolineRepositoryWeb."img/learnpath.gif\" alt=\"".$path_alt."\"
                        border=\"0\" /> ".$list['name'].$list['minRaw']."</td>\n";
        }
 
