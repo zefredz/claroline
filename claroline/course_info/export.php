@@ -281,7 +281,7 @@ if ($displayFormWhatSaveMain)
 						name="saveContentLink" value="checked" "<?php echo $saveContentLink ?>" >  
 					</td>
 					<td colspan="3">
-						<?php echo $langContentLinks; ?>
+						<?php echo $langLinks; ?>
 					</td>
 				</tr>
 				<tr>
