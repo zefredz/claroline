@@ -534,52 +534,20 @@ function form_dir_list($file, $baseWorkDir)
  * @global 	string  $langCreatedIn string to say "create in"
  */
 
-function mkpath($path, $verbose = false, $mode = "herit")  
+function mkpath($path, $verbose = FALSE, $mode = "herit")  
 {
 	GLOBAL $langCreatedIn;
-	if ($langCreatedIn =="") $langCreatedIn ="Create in";
 	$path = str_replace("/","\\",$path);
 	$dirs = explode("\\",$path);
-//	print_r ($dirs);
 	$path = $dirs[0];
-	if ($verbose)
-		echo "<UL>";
 	for($i = 1;$i < count($dirs);$i++) 
 	{
 		$path .= "/".$dirs[$i];
 		if(!is_dir($path))
 		{
-//			if ($mode=="herit")
-//				$mode =	fileperms($path."/../");
-//			$mode = "0700";
 			$ret=mkdir($path, 0770);
-			if ($ret)
-			{
-				if ($verbose)
-					echo "
-				<LI>
-					<strong>
-						".basename($path)."
-					</strong>
-					<br>
-				 	".$langCreatedIn." 
-					<br>
-				 	<strong>
-						".realpath($path."/..")."
-					</strong>";
-			}
-			else
-			{
-				if ($verbose)
-					echo "
-				</UL>
-				error : ".$path." not created";
-//				return false;	
-			}
 		}
 	}
-	if ($verbose)
-		echo "</UL>";
 	return $ret;
 }
 

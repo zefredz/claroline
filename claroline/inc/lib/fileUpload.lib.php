@@ -160,6 +160,13 @@ function enough_size($fileSize, $dir, $maxDirSpace)
 
 function dir_total_space($dirPath)
 {
+	if(!file_exists($dirPath))
+	{
+		if (!mkpath($dirPath))
+		{	
+			return false;
+		}
+	}
 	chdir ($dirPath) ;
 	$handle = opendir($dirPath);
 

@@ -18,6 +18,7 @@ $tlabelReq = "CLWRK___";
 require '../inc/claro_init_global.inc.php';
 
 include($includePath.'/lib/events.lib.inc.php');
+include($includePath.'/lib/fileManage.lib.php');
 include($includePath.'/conf/work.conf.inc.php');
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -449,7 +450,7 @@ if( isset($_REQUEST['submitWrk']) )
                         
                         if( !is_dir( $assigDirSys ) )
                         {
-                              mkdir( $assigDirSys , 0777 );
+                              mkpath( $assigDirSys , 0777 );
                         }
                         
                         if( ! @copy($_FILES['wrkFile']['tmp_name'], $assigDirSys.$wrkForm['fileName']) )
