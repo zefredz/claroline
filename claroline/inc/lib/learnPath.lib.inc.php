@@ -463,6 +463,7 @@
           global $TABLEASSET;
           global $_cid;
           global $langModule;
+	  global $clarolineRepositoryWeb;
           
           $sql = "SELECT M.`name`, M.`contentType`, LPM.`learnPath_module_id`, LPM.`parent`, A.`path`
             FROM `$TABLELEARNPATH` AS LP, `$TABLELEARNPATHMODULE` AS LPM, `$TABLEMODULE` AS M
@@ -616,6 +617,7 @@
                global $langExercise;
                global $langNoMoreModuleToAdd;
                global $langAddOneModuleButton;
+	       global $clarolineRepositoryWeb;
 
                global $TABLEEXERCISES;
 
@@ -711,7 +713,7 @@
           global $langAddModulesButton;
 
           global $fileList;
-
+	  global $clarolineRepositoryWeb;
           global $color2;
 
           /*==========================
@@ -744,7 +746,7 @@
 	                    and we can't go to a parent dir */
           {
             echo 	"<a href=\"$PHP_SELF?cmd=exChDir&file=".$cmdParentDir."\">\n",
-                "<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\">\n",
+                "<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\"\">\n",
                 "<small>$langUp</small>\n",
                 "</a>\n";
           }
@@ -756,7 +758,7 @@
                   echo	"<!-- current dir name -->\n",
                       "<tr>\n",
                       "<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n",
-                      "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=2 hspace=5>\n",
+                      "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=2 hspace=5 alt=\"\">\n",
                               $dspCurDirName,"\n",
                       "</td>\n",
                       "</tr>\n";
@@ -835,7 +837,7 @@
                           }
                           echo           "<td align=\"left\">",
                                           "<a href=\"".$urlFileName."\"".$style.">",
-                                          "<img src=\"".$clarolineRepositoryWeb."img/",$image,"\" border=\"0\" hspace=\"5\" />",$dspFileName,"</a>",
+                                          "<img src=\"".$clarolineRepositoryWeb."img/",$image,"\" border=\"0\" hspace=\"5\" alt=\"\" />",$dspFileName,"</a>",
                                           "</td>\n",
 
                                           "<td><small>",$size,"</small></td>\n",
@@ -893,24 +895,25 @@
     */
    function draw_progress ($progress, $factor)
    {
+	global $clarolineRepositoryWeb;
            $maxSize = $factor * 100; //pixels
            $barwidth = $factor * $progress ;
            
             // display progress bar
             // origin of the bar
-            $progressBar = "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\" \">";
+            $progressBar = "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
             
             if($progress != 0)            
-                $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1u.gif\" width=\"$barwidth\" height=\"12\" alt=\" \">";
+                $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1u.gif\" width=\"$barwidth\" height=\"12\" alt=\"\">";
             // display 100% bar
             
             if($progress!= 100 && $progress != 0)
-                 $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1m.gif\" width=\"1\" height=\"12\" alt=\" \">";
+                 $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1m.gif\" width=\"1\" height=\"12\" alt=\"\">";
             
             if($progress != 100)    
-                 $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1r.gif\" width=\"".($maxSize-$barwidth)."\" height=\"12\" alt=\" \">";
+                 $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1r.gif\" width=\"".($maxSize-$barwidth)."\" height=\"12\" alt=\"\">";
             // end of the bar
-            $progressBar .=  "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\" \">";
+            $progressBar .=  "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
             
             echo $progressBar;
     }
