@@ -81,6 +81,7 @@ $langGroupUsersList="See <a href=../user/user.php>Users</a>";
 $langGroupTooMuchMembers="Number proposed exceeds max. that you allowed (you can modify it below). 
 				Group composition has not been modified";
 $langGroupTutor="Tutor";
+$langGroupTutors="Tutors";
 $langGroupNoTutor="(none)";
 $langGroupNone="(none)";
 $langGroupNoneMasc="(none)";
