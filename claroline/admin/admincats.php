@@ -327,7 +327,7 @@ else
         $INFOFAC=TRUE;
         $EDIT=TRUE;
         $CREATE=FALSE;
-        $BOM=FALSE;
+        $BOM=TRUE;
         $MOVE=FALSE;
 
         //$nameTools             = $lang_faculty_EditCat;
@@ -827,38 +827,6 @@ if($CREATE)
 <?php
 }
 
-
-/*-----------------------------------------------------------------------------------
-Display the bom of categories and the button to create a new category
------------------------------------------------------------------------------------*/
-if($BOM)
-{
-?>
-
-    <hr>
-
-	<table class="claroTable" width="100%" border="0" cellspacing="2">
-    <thead>
-       <tr class="headerX" align="center" valign="top">
-
-<?    
-     //add titles for the table
-
-echo       "<th>".$lang_faculty_CodeCat."</td>"
-          ."<th style='text-align:center'>".$langEdit."</th>"
-          ."<th style='text-align:center'>".$langMove."</th>"
-          ."<th style='text-align:center'>".$langDelete."</th>"
-          ."<th style='text-align:center' colspan=2>".$langOrder."</th>";
-
-echo "</tr></thead>";
-
-displayBom($faculty,NULL,"");
-
-?>
-</table>
-<?php
-}
-
 /*-----------------------------------------------------------------------------------
 Display information to edit a category and the bom of categories
 /*-----------------------------------------------------------------------------------*/
@@ -937,6 +905,38 @@ claro_disp_msg_arr($controlMsg);
     // displaySimpleBom($faculty,NULL,$EditCode);
 
 }
+
+/*-----------------------------------------------------------------------------------
+Display the bom of categories and the button to create a new category
+-----------------------------------------------------------------------------------*/
+if($BOM)
+{
+?>
+
+    <hr>
+
+	<table class="claroTable" width="100%" border="0" cellspacing="2">
+    <thead>
+       <tr class="headerX" align="center" valign="top">
+
+<?    
+     //add titles for the table
+
+echo       "<th>".$lang_faculty_CodeCat."</td>"
+          ."<th style='text-align:center'>".$langEdit."</th>"
+          ."<th style='text-align:center'>".$langMove."</th>"
+          ."<th style='text-align:center'>".$langDelete."</th>"
+          ."<th style='text-align:center' colspan=2>".$langOrder."</th>";
+
+echo "</tr></thead>";
+
+displayBom($faculty,NULL,"");
+
+?>
+</table>
+<?php
+}
+
 
 /*-----------------------------------------------------------------------------------
 Display information to change root of the category
