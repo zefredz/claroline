@@ -258,7 +258,7 @@ if( $assignment['assignment_type'] == 'GROUP' )
 					AND `S`.`original_id` IS NULL
 					".$checkVisible."
 			GROUP BY `G`.`id`
-			ORDER BY `G`.`name` ASC, `S`.`creation_date`
+			ORDER BY `G`.`name` ASC, `S`.`creation_date` ASC
 			";
 }
 else // INDIVIDUAL
@@ -285,9 +285,10 @@ else // INDIVIDUAL
 			WHERE `U`.`user_id` = `CU`.`user_id`
 				AND `CU`.`code_cours` = '".$_cid."'
 			GROUP BY `U`.`user_id`
-			ORDER BY `U`.`nom` ASC, `U`.`prenom` ASC, `S`.`creation_date`
+			ORDER BY `U`.`nom` ASC, `U`.`prenom` ASC, `S`.`creation_date` ASC
 			";
 }
+
 $workPager = new claro_sql_pager($sql,$_REQUEST['offset'], $usersPerPage);
  
 $workList = $workPager->get_result_list();
@@ -306,13 +307,14 @@ if( $is_allowedToEditAll )
 elseif( isset($_uid) && !isset($userGroupList) )
 {
 	$checkVisible = " AND `S`.`visibility` = 'VISIBLE' 
-					AND `S2`.`visibility` = 'VISIBLE' 
-					OR `S2`.`user_id` = ".$_uid." ";
+					AND ( `S2`.`visibility` = 'VISIBLE' 
+					OR `S2`.`user_id` = ".$_uid.") ";
 }
 elseif( isset($userGroupList) )
 {
-	$checkVisible = " AND `S`.`visibility` = 'VISIBLE' 
-					AND (`S2`.`visibility` = 'VISIBLE'";
+	// work and his feedback must be visible OR the user is member of concerned group
+	$checkVisible = " AND ( (`S`.`visibility` = 'VISIBLE' 
+					AND `S2`.`visibility` = 'VISIBLE') ";
 	foreach( $userGroupList as $userGroup )
 	{
 		$checkVisible .= " OR `S2`.`group_id` = ".$userGroup['id'];
@@ -325,7 +327,7 @@ else
 					AND `S2`.`visibility` = 'VISIBLE' ";
 }
 
-	
+
 $sql = "SELECT `S`.`original_id`, count(`S`.`id`) as `nbrFeedback`
 		FROM `".$tbl_wrk_submission."` as `S`
 		LEFT JOIN `".$tbl_wrk_submission."` as `S2`
