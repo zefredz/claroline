@@ -398,7 +398,7 @@ if ($is_allowedToEdit)
          */
 
         claro_disp_button($PHP_SEF.'?cmd=rqAdd', 
-                       '<img src="../img/agenda.gif" width="20" alt="">'
+                       '<img src="'.$clarolineRepositoryWeb.'img/agenda.gif" width="20" alt=" ">'
                       .'Add event');
 
         /*
@@ -406,7 +406,7 @@ if ($is_allowedToEdit)
          */
 
         claro_disp_button($PHP_SEF.'?cmd=exDelete&id=ALL', 
-                          '<img src="../img/delete.gif" width="20" alt="">'
+                          '<img src="'.$clarolineRepositoryWeb.'img/delete.gif" width="20" alt=" ">'
                           .'Clear up event list');
 
         echo '</p>';
@@ -483,7 +483,7 @@ foreach($eventList as $thisEvent)
 
       echo "<tr>\n"
           ."<td style=\"border-top: #CC3300 1px solid; border-bottom: #CC3300	1px	solid\">\n"
-          ."<img src=\"".$clarolineRepositorySys."img/pixel.gif\" width=\"20\" alt=\"\">"
+          ."<img src=\"".$clarolineRepositoryWeb."img/pixel.gif\" width=\"20\" alt=\" \">"
           ."<font color=\"#CC3300\">"
           ."<i>"
           .ucfirst(claro_format_locale_date( $dateFormatLong))." "
@@ -519,7 +519,7 @@ foreach($eventList as $thisEvent)
   echo "<tr class=\"headerX\" valign=\"top\">\n"
       ."<th>\n"
       ."<a href=\"#form\" name=\"event".$thisEvent['id']."\"></a>\n"
-      ."<img src=\"".$clarolineRepositoryWeb."img/agenda.gif\" alt=\"\">"
+      ."<img src=\"".$clarolineRepositoryWeb."img/agenda.gif\" alt=\" \">"
       .ucfirst(claro_format_locale_date( $dateFormatLong, strtotime($thisEvent['day'])))." "
       .ucfirst( strftime( $timeNoSecFormat, strtotime($thisEvent['hour'])))." "
       .( empty($thisEvent['lasting']) ? '' : $langLasting.' : '.$thisEvent['lasting'] );
