@@ -181,7 +181,6 @@
                     echo "<a href=\"startModule.php?viewModule_id=".$module['module_id']."\" target=\"mainFrame\" title=\"".htmlentities($module['name'])."\"><img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt." : ".$module['name']."\" border=\"0\">".$displayedName."</a>";
                 }
                 // a module ALLOW access to the following modules if
-                // handmade module : credit == CREDIT || lesson_status == 'completed'
                 // document module : credit == CREDIT || lesson_status == 'completed'
                 // exercise module : credit == CREDIT || lesson_status == 'passed'
                 // scorm module : credit == CREDIT || lesson_status == 'passed'|'completed'

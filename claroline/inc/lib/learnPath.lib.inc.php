@@ -21,10 +21,6 @@
      /**
       * content type
       */
-      define ( "CTHANDMADE_", "HANDMADE" );
-     /**
-      * content type
-      */
       define ( "CTSCORM_", "SCORM" );
     /**
       * content type
@@ -344,7 +340,6 @@
           $imgList[CTDOCUMENT_] = "documents.gif";
           $imgList[CTCLARODOC_] = "clarodoc.gif";
           $imgList[CTEXERCISE_] = "quiz.gif";
-          $imgList[CTHANDMADE_] = "handmade.gif";
           $imgList[CTSCORM_] = "scorm.gif";
 
           if (array_key_exists( $contentType , $imgList ))
@@ -371,7 +366,6 @@
           $altList[CTDOCUMENT_] = $langAlt['document'];
           $altList[CTCLARODOC_] = $langAlt['clarodoc'];
           $altList[CTEXERCISE_] = $langAlt['exercise'];
-          $altList[CTHANDMADE_] = $langAlt['handmade'];
           $altList[CTSCORM_] = $langAlt['scorm'];
 
           if (array_key_exists( $contentType , $altList ))

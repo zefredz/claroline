@@ -273,7 +273,6 @@ if ( ! $is_courseAllowed)
             if ($list['contentType']== CTSCORM_   ) { $contentDescType = $langSCORMTypeDesc;    }
             if ($list['contentType']== CTEXERCISE_ ) { $contentDescType = $langEXERCISETypeDesc; }
             if ($list['contentType']== CTDOCUMENT_ ) { $contentDescType = $langDOCUMENTTypeDesc; }
-            if ($list['contentType']== CTHANDMADE_ ) { $contentDescType = $langHANDMADETypeDesc; }
     
             echo "<b>".$langProgInModuleTitle."</b><br><br>";
     
@@ -424,9 +423,6 @@ if ( ! $is_courseAllowed)
     {
         switch ($module['contentType'])
         {
-                case CTHANDMADE_ :
-                     include("./include/handmade.inc.php");
-                     break;
                 case CTDOCUMENT_ :
                      include("./include/document.inc.php");
                      break;

@@ -227,7 +227,6 @@
             <img src=\"../img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
                            .$module['name']."</a>";
               // a module ALLOW access to the following modules if
-              // handmade module : credit == CREDIT || lesson_status == 'completed'
               // document module : credit == CREDIT || lesson_status == 'completed'
               // exercise module : credit == CREDIT || lesson_status == 'passed'
               // scorm module : credit == CREDIT || lesson_status == 'passed'|'completed'

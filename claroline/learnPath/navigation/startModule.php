@@ -110,28 +110,6 @@
   $withFrames = false;
   switch ($module['contentType'])
   {
-          case CTHANDMADE_ :
-
-                //a handmade is "passed" as soon as the student access it so set 'credit' to '1'
-                // if credit was already set this query changes nothing else it update the query made at the beginning of this script
-                if($_uid)
-                {
-                    $sql = "UPDATE `".$TABLEUSERMODULEPROGRESS."`
-                               SET `credit` = 1,
-                                   `raw` = 100,
-                                   `lesson_status` = 'completed',
-                                   `scoreMin` = 0,
-                                   `scoreMax` = 100
-                             WHERE `user_id` = $_uid
-                               AND `learnPath_module_id` = ".$LPM['learnPath_module_id'];
-                    claro_sql_query($sql);
-                } // else anonymous : record nothing
-
-                $startAssetPage = $asset['path'];
-                $modulePath     = "module_".$_SESSION['module_id'];
-                $moduleStartAssetPage = $coursesRepositoryWeb.$_course['path']."/modules/".$modulePath.$startAssetPage;
-               break;
-
           case CTDOCUMENT_ :
                 if($_uid)
                 {
