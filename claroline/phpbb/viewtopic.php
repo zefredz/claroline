@@ -37,7 +37,6 @@ $sql = "SELECT 	`f`.`forum_name`   `forum_name`,
              `".$tbl_topics."` t 
 
         # Check possible attached group ...
-
         LEFT JOIN `".$tbl_student_group."` `g`
                ON `f`.`forum_id` = `g`.`forumId`
 
@@ -65,11 +64,7 @@ if (   ! is_null($forumSettingList['idGroup'])
 
 $forum_name = own_stripslashes($myrow['forum_name']);
 
-$sql = "SELECT topic_title, topic_status 
-        FROM `".$tbl_topics."` 
-        WHERE topic_id = '".$topic."'";
-
-$total = get_total_posts($topic, $db, 'topic');
+$total      = get_total_posts($topic, $db, 'topic');
 
 if($total > $posts_per_page)
 {
@@ -77,6 +72,10 @@ if($total > $posts_per_page)
     for($x = 0; $x < $total; $x += $posts_per_page) $times++;
     $pages = $times;
 }
+
+$sql = "SELECT topic_title, topic_status 
+        FROM `".$tbl_topics."` 
+        WHERE topic_id = '".$topic."'";
 
 $result        = claro_sql_query($sql);
 
@@ -90,6 +89,7 @@ include('page_header.'.$phpEx);
 if($total > $posts_per_page)
 {
     echo "<table>\n";
+
     $times = 1;
 
     echo "<tr align=\"left\">\n"
@@ -165,7 +165,7 @@ switch ($cmd)
         case 'exdoNotNotify' :
               $sql = "DELETE FROM `$tbl_user_notify`
                       WHERE topic_id = '".$topic."'
-                      AND user_id='".$_uid."'";
+                        AND user_id  = '".$_uid."'";
 
               claro_sql_query($sql);
               $notifyChange = true;
@@ -178,15 +178,13 @@ switch ($cmd)
 if (isset($_uid))  //anonymous user do not have this function
 {
     //see in DB if user is notified or not
+   
+    $sql = "SELECT COUNT(*) 
+            FROM `".$tbl_user_notify."`
+            WHERE `topic_id` = '".$topic."'
+              AND `user_id`  ='".$_uid."'";
 
-    $sql = "SELECT *
-          FROM `".$tbl_user_notify."`
-          WHERE topic_id = '".$topic."'
-            AND user_id='".$_uid."'";
-
-    $result = claro_sql_query($sql);
-
-    if ( mysql_num_rows($result) ) { $userInNotifyMode = true; }
+    $userInNotifyMode = claro_sql_query_get_single_value($sql);
 
     // add appropriate link
 
@@ -225,42 +223,34 @@ if (isset($_uid))  //anonymous user do not have this function
         ."</th>\n"
         ."</tr>\n";
 
-    if( isset($start) )
-    {
-        $sql = "SELECT p.*, pt.post_text FROM `".$tbl_posts."` p, `".$tbl_posts_text."` pt 
-                WHERE topic_id = '".$topic."' 
-                  AND p.post_id = pt.post_id
-                ORDER BY post_id 
-                LIMIT ".$start.", ".$posts_per_page;
-    }
-    else
-    {
-        $sql = "SELECT p.*, pt.post_text 
-                FROM `".$tbl_posts."` p, `".$tbl_posts_text."` pt
-                WHERE topic_id = '".$topic."'
-                  AND p.post_id = pt.post_id
-                ORDER BY post_id 
-                LIMIT ".$posts_per_page;
-    }
+    if ( ! $start) $start = 0;
 
-        $result = claro_sql_query($sql, $db);
+    $sql = "SELECT p.`post_id`, p.`topic_id`, p.`forum_id`,
+                   p.`poster_id`, p.`post_time`, p.`poster_ip`,
+                   p.`nom`, p.`prenom`, 
+                   pt.`post_text` 
+            FROM `".$tbl_posts."`      p, 
+                 `".$tbl_posts_text."` pt 
+            WHERE topic_id  = '".$topic."' 
+              AND p.post_id = pt.`post_id`
+            ORDER BY post_id 
+            LIMIT ".$start.", ".$posts_per_page;
 
-        $myrow = mysql_fetch_array($result);
+    $result = claro_sql_query($sql, $db);
 
-        $count = 0;
+    $myrow = mysql_fetch_array($result);
+
+    $count = 0;
 
     do
     {
         // Check if the forum post is after the last login
         // and choose the image according this state
-        list($post_date, $post_time) = split(' ', $myrow['post_time']);
-		list($year, $month, $day)    = explode('-', $post_date);
-		list($hour, $min)            = explode(':', $post_time);
-		$post_time                   = mktime($hour, $min, 0, $month, $day, $year);
+
+        $post_time = datetime_to_timestamp($myrow['post_time']);
 
         if($post_time < $last_visit) $postImg = 'post.gif';
         else                         $postImg = 'postred.gif';
-
         
         echo	"<tr>\n",
                 "<th class=\"headerX\">\n",
@@ -275,9 +265,9 @@ if (isset($_uid))  //anonymous user do not have this function
         // Before we insert the sig, we have to strip its HTML if HTML is disabled by the admin.
         // We do this _before_ bbencode(), otherwise we'd kill the bbcode's html.
 
-        $sig = $posterdata[user_sig];
+        $sig = $posterdata['user_sig'];
 
-        if (!$allow_html)
+        if ( ! $allow_html)
         {
             $sig = htmlspecialchars($sig);
             $sig = preg_replace("#&lt;br&gt;#is", "<BR>", $sig);
@@ -324,7 +314,7 @@ if (isset($_uid))  //anonymous user do not have this function
     if ($notifyChange != true)
     {
          $sql = "UPDATE `".$tbl_topics."`
-                 SET topic_views = topic_views + 1
+                 SET   topic_views = topic_views + 1
                  WHERE topic_id = '".$topic."'";
 
         claro_sql_query($sql);
@@ -384,7 +374,7 @@ if($total > $posts_per_page)
 
 } // end if($total > $posts_per_page)
 
-    echo "</td>\n";
+echo "</td>\n";
 
 require 'page_tail.php';
 ?>

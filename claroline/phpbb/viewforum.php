@@ -74,7 +74,7 @@ $forum_name = own_stripslashes($forumSettingList['forum_name']);
  * GET TOPIC LIST
  */
 
-if (!$start) $start = 0;
+if ( ! $start) $start = 0;
 
 $sql = "SELECT t.*, u.username, u2.username as last_poster, p.post_time
         FROM `".$tbl_topics."` t
