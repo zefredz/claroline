@@ -61,10 +61,19 @@ include($includePath.'/conf/announcement.conf.inc.php');
 include($includePath.'/lib/text.lib.php');
 include($includePath.'/lib/events.lib.inc.php');
 
-$tbl_announcement = $_course['dbNameGlu'].'announcement';
+
+//set flag following init settings
 $is_allowedToEdit = $is_courseAdmin;
 $courseId         = $_course['sysCode'];
 $userLastLogin    = $_user ['lastLogin'];
+
+
+/*
+ * DB tables definition
+ */
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_announcement = $tbl_cdb_names['announcement'           ];
 
 // DEFAULT DISPLAY
 
