@@ -1,23 +1,11 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.* $Revision$
+      | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   English Translation                                                |
-
-
-
-      +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
  */
-
-
-
 
 // Stat
 $langStatistiques = "Statistiques";
@@ -165,7 +153,7 @@ $langAreYouSureToUnsubscribe = "Etes-vous sûr de vouloir désinscrire ";
 $langAreYouSureToSubscribe = "Etes-vous sûr de vouloir inscrire ";
 $langViewList = "Voir la liste";
 $langUserCanCreateCourse = "Peut créer des cours";
-$langUserIsPlaformAdmin = "Est administarteur de la plateforme";
+$langUserIsPlaformAdmin = "Peut administrer de la plateforme";
 $langAllUserOfThisCourse = "Liste personnelle des cours";
 $langAllUsersOfThisCourse = "Membres du cours";
 $langCode = "Code";
