@@ -1267,7 +1267,7 @@ function prepare_option_tags($elementList, $deepness = 0)
  */
 function claro_addslashes($text)
 {
-  if( get_magic_quotes_gpc() )
+  if( get_magic_quotes_gpc() && !defined('CL_GPC_UNQUOTED') )
   {
     // magic_quote_gpc is on : do not addslashes
     return $text;
@@ -1443,10 +1443,10 @@ function claro_unquote_gpc()
     {
         if ( get_magic_quotes_gpc() )
         {
-            array_walk($_GET,     'claro_stripslashes_for_unquote_gpc');
-            array_walk($_POST,    'claro_stripslashes_for_unquote_gpc');
-            array_walk($_REQUEST, 'claro_stripslashes_for_unquote_gpc' );
-            array_walk($_COOKIE,  'claro_stripslashes_for_unquote_gpc' );
+            if ( !empty($_GET) )     array_walk($_GET,     'claro_stripslashes_for_unquote_gpc');
+            if ( !empty($_POST) )    array_walk($_POST,    'claro_stripslashes_for_unquote_gpc');
+            if ( !empty($_REQUEST) ) array_walk($_REQUEST, 'claro_stripslashes_for_unquote_gpc' );
+            if ( !empty($_COOKIE) )  array_walk($_COOKIE,  'claro_stripslashes_for_unquote_gpc' );
         }
 
         define('CL_GPC_UNQUOTED', true);
