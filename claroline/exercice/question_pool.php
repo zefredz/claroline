@@ -1,16 +1,17 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.2 $Revision$                            |
+      | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)
       +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
+      |   This program is free software; you can redistribute it and/or
+      |   modify it under the terms of the GNU General Public License
+      |   as published by the Free Software Foundation; either version 2
+      |   of the License, or (at your option) any later version.
       +----------------------------------------------------------------------+
-      | Authors: Olivier Brouckaert <oli.brouckaert@skynet.be>               |
+      | Authors: Olivier Brouckaert
+      |          Claroline core team
       +----------------------------------------------------------------------+
 */
 
@@ -107,9 +108,11 @@ if($is_allowedToEdit)
 <table border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
 <tr>
   <td colspan="<?php echo $fromExercise?2:3; ?>" align="right">
-	<?php echo $langFilter; ?> : <select name="exerciseId">
-	<option value="0">-- <?php echo $langAllExercises; ?> --</option>
-	<option value="-1" <?php if($exerciseId == -1) echo 'selected="selected"'; ?>>-- <?php echo $langOrphanQuestions; ?> --</option>
+	<label for="exerciseId"><?php echo $langFilter; ?></label> : 
+	
+	<select id="exerciseId" name="exerciseId">
+		<option value="0">-- <?php echo $langAllExercises; ?> --</option>
+		<option value="-1" <?php if($exerciseId == -1) echo 'selected="selected"'; ?>>-- <?php echo $langOrphanQuestions; ?> --</option>
 
 <?php
 	$sql="SELECT id,titre FROM `$TBL_EXERCICES` WHERE id<>'$fromExercise' ORDER BY id";
@@ -120,7 +123,7 @@ if($is_allowedToEdit)
 	{
 ?>
 
-	<option value="<?php echo $row[id]; ?>" <?php if($exerciseId == $row[id]) echo 'selected="selected"'; ?>><?php echo $row[titre]; ?></option>
+		<option value="<?php echo $row[id]; ?>" <?php if($exerciseId == $row[id]) echo 'selected="selected"'; ?>><?php echo $row[titre]; ?></option>
 
 <?php
 	}
