@@ -767,7 +767,6 @@ function save_param_value_in_buffer($propName,$propValue,$config_code)
                lastChange  = now()
            WHERE propName    ="'.$propName.'" 
              AND config_code ="'.$config_code.'"
-             AND not (propValue   ="'.$propValue.'") # do not update if same value 
              ';
     if (!claro_sql_query_affected_rows($sql))
     {
