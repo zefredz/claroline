@@ -30,8 +30,6 @@ if ($_REQUEST['cmd']=="run")
 		@include("repairTables.sql.php");
 	}
 
-    $langUpgradeDataBase = "Upgrading Main Database ";
-
     if (!function_exists(mysql_info)) {function mysql_info() {return "";}} // mysql_info is used in
 
     $db = mysql_connect("$dbHost", "$dbLogin", "$dbPass");
