@@ -36,6 +36,8 @@ else
 */
 $intro_editAllowed = $is_courseAdmin; 
 
+$intro_exDel = false;
+
 /*=========================================================
   INTRODUCTION MICRO MODULE - COMMANDS SECTION (IF ALLOWED)
   ========================================================*/
@@ -61,13 +63,13 @@ if ($intro_editAllowed)
 		}
 		else 
 		{
-			$intro_cmdDel = true;	// got to the delete command
+			$intro_exDel = true;	// got to the delete command
 		}
 	}
 
 	/* Delete Command */
 
-	if($intro_cmdDel)
+	if(isset($_REQUEST['intro_cmdDel']) || $intro_exDel)
 	{
 		$sql = "DELETE FROM `".$TBL_INTRODUCTION."` 
                 WHERE id=\"".$moduleId."\"";
