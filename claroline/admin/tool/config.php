@@ -93,9 +93,7 @@ $langFirstDefOfThisValue = '!!! Nouvelle valeur !!!';
 $lang_p_config_file_creation = 'création du fichier de configuration  :<BR> %s';
 $lang_p_DefNameAndContentDisruptedOnConfigCode = 'Le fichier de définition est probablement un copier-coller  de %s. Et n\'a pas été achevé.';
 
-
-
-
+$langEmpty =  'empty';
 $lang_p_nothing_to_edit_in_S = 'nothing to edit in %s';
 $lang_p_DefNameAndContentDisruptedOnConfigCode = 'The definition file for configuration is probably copypaste from %s';
 $langFirstDefOfThisValue = '!!!First definition of this value!!!';
@@ -141,71 +139,83 @@ include($includePath.'/lib/course.lib.inc.php');
 include($includePath.'/lib/config.lib.inc.php');
 
 // define
-
 $nameTools 			= $lang_config_config;
 $interbredcrump[]	= array ('url'=>$rootAdminWeb, 'name'=> $lang_config_AdministrationTools);
 $noQUERY_STRING 	= TRUE;
 
 $htmlHeadXtra[] = '<style>
-label    {
+	label    {
+		background-color: #FFFFFF;
+	}
+	fieldset    {
+		border : none;
+		background-color: #FFFFFF;
+	}
+	legend {
+		font-weight: bolder;
+		font-size: 130%;
+	}
+	.firstDefine{
+		color: #CC3333;
 
-}
-fieldset    {
-	background-color: #FFFFCF;
-}
-.firstDefine{
-	color: #CC3333;
+	}
+	.toolDesc    {
+		border: 1px solid Gray;
+		background-color: #FFDAB9;
+		margin-left: 5%;
+		padding-left: 2%;
+		padding-right: 2%;
+	}
+	.msg.debug
+	{
+		background-color: red;
+		border: 2px groove red;
+	}
+	.sectionDesc {
+		border: 1px solid Gray;
+		background-color: #00FA9A;
+		margin-left: 5%;
+		padding-left: 2%;
+		padding-right: 2%;
+	}
+	.propDescription    {
+		border: 1px none gray;
+		background-color: #FFFFFF;
+		padding-left: 2%;
+		padding-right: 2%;
+		padding-bottom: 2px;
+		margin-bottom: 2px;
+		font-size: 90%;
+	}
 
-}
-.toolDesc    {
-	border: 1px solid Gray;
-	background-color: #FFDAB9;
-	margin-left: 5%;
-	padding-left: 2%;
-	padding-right: 2%;
-}
-.msg.debug
-{
-	background-color: red;
-	border: 2px groove red;
-}
-.sectionDesc {
-	border: 1px solid Gray;
-	background-color: #00FA9A;
-	margin-left: 5%;
-	padding-left: 2%;
-	padding-right: 2%;
-}
-.propDescription    {
-	border: 1px solid Gray;
-	background-color: #AFEEEE;
-	margin-left: 5%;
-	padding-left: 2%;
-	padding-right: 2%;
-	padding-bottom: 2px;
-	marging-bottom: 2px;
-}
+	.propBloc { padding-left: 25px;
+	            padding-bottom: 10px;
+	          }
+	.propLabel { }
+	.propValue { 	padding-left: 3px;}
+	.propUnit { font-weight: bold; }
+	.propType {
+		margin-left: 5px;
+		font-variant: small-caps;
+		font-size: x-small;   }
+	.propDefault
+	{
+	   font-size:80%;
+	   color:gray;
+	   display:block;
+	}
+	.propBuffer
+	{
+		color:red;
+	}
+ 	
+	.commandBar 
+	{
+		padding-bottom: 4px;
+	}
+	.command {padding: 1px 1px 1px 1px;}
+	.command:hover { background-color: #F4F4F4; }
 
-.propName { color : #1144AA; }
-.propValue { 	padding-left: 3px;}
-.propUnit { font-weight: bold; }
-.propType { 
-	margin-left: 5px;
-    font-variant: small-caps;  
-    font-size: x-small;   }
-.commandBar {
-	padding-bottom: 4px;
- }
-.command {padding: 1px 1px 1px 1px;}
-.command:hover { background-color: #F4F4F4; }
-fieldset .default
-{
-    color:blue;
-}
-fieldset .buffer
-{
-    color:red;
-}
 </style>
 ';
 
