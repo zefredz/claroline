@@ -16,14 +16,6 @@ require '../inc/claro_init_global.inc.php';
 
 $nameTools = $langToolName;
 
-$htmlHeadXtra[] = "
-<STYLE media=\"print\" type=\"text/css\">
-<!--
-TD {border-bottom: thin dashed Gray;}
--->
-</STYLE>";
-
-
 // regroup table names for maintenance purpose
 $TABLETRACK_ACCESS      = $_course['dbNameGlu']."track_e_access";
 $TABLETRACK_LINKS       = $_course['dbNameGlu']."track_e_links";
@@ -325,7 +317,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
         $results = getManyResultsXCol($sql,4);
         echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n";
         echo "<tr class=\"headerX\">\n"
-                ."<th>&nbsp;$langExercicesTitleExerciceColumn&nbsp;</th>\n"
+                ."<th>&nbsp;$langExercisesTitleExerciseColumn&nbsp;</th>\n"
                 ."<th>&nbsp;$langExerciseUsersAttempts&nbsp;</th>\n"
                 ."<th>&nbsp;$langExerciseTotalAttempts&nbsp;</th>\n"
                 ."</tr>\n"

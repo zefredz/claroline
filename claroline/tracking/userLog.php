@@ -36,13 +36,6 @@ $interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$_GET['uInfo'], "
 
 $nameTools = $langToolName;
 
-$htmlHeadXtra[] = "
-<STYLE media='print' type='text/css'>
-<!--
-TD {border-bottom: thin dashed Gray;}
--->
-</STYLE>";
-
 /*
  * DB tables definition
  */
@@ -62,7 +55,7 @@ $tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
 $tbl_wrk_assignment          = $tbl_cdb_names['wrk_assignment'         ];
 $tbl_wrk_submission          = $tbl_cdb_names['wrk_submission'         ];    
 $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
-$tbl_track_e_exercices       = $tbl_cdb_names['track_e_exercices'      ];
+$tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 $tbl_track_e_uploads         = $tbl_cdb_names['track_e_uploads'        ];
 
 
@@ -310,7 +303,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             echo "<br /></p>\n\n";
             /***************************************************************************
              *              
-             *		Exercices
+             *		Exercises
              *
              ***************************************************************************/
             $tempView = $view;
@@ -320,8 +313,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-                echo "-&nbsp;&nbsp;<b>".$langExercicesResults."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>\n"
-                        ."<br />&nbsp;&nbsp;&nbsp;".$langExercicesDetails."<br />\n";
+                echo "-&nbsp;&nbsp;<b>".$langExercisesResults."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>\n"
+                        ."<br />&nbsp;&nbsp;&nbsp;".$langExercisesDetails."<br />\n";
                         
                 $sql = "SELECT `E`.`titre`, `E`.`id`,
                         MIN(`TEX`.`exe_result`) AS `minimum`,
@@ -331,7 +324,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         COUNT(`TEX`.`exe_user_id`) AS `attempts`,
                         MAX(`TEX`.`exe_date`) AS `lastAttempt`,
                         AVG(`TEX`.`exe_time`) AS `avgTime`
-                    FROM `$tbl_quiz_test` AS `E` , `$tbl_track_e_exercices` AS `TEX`
+                    FROM `$tbl_quiz_test` AS `E` , `$tbl_track_e_exercises` AS `TEX`
                     WHERE `TEX`.`exe_user_id` = '".$_GET['uInfo']."'
                         AND `TEX`.`exe_exo_id` = `E`.`id`
                     GROUP BY `TEX`.`exe_exo_id`
@@ -341,7 +334,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 
                 echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n";
                 echo "<tr class=\"headerX\">\n"
-                        ."<th>$langExercicesTitleExerciceColumn</th>\n"
+                        ."<th>$langExercisesTitleExerciseColumn</th>\n"
                         ."<th>$langScoreMin</th>\n"
                         ."<th>$langScoreMax</th>\n"
                         ."<th>$langScoreAvg</th>\n"
@@ -374,7 +367,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                               if ($_GET['exoDet'] == $exo_details['id'])
                               {
                                 $sql = "SELECT `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
-                                FROM `".$tbl_track_e_exercices."`
+                                FROM `".$tbl_track_e_exercises."`
                                 WHERE `exe_exo_id` = ".$exo_details['id']."
                                 AND `exe_user_id` = ".$_GET['uInfo']."
                                 ORDER BY `exe_date` ASC";
@@ -415,7 +408,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">$langExercicesResults</a>";
+                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">$langExercisesResults</a>";
             }
             echo "<br /></p>\n\n";
             /***************************************************************************
