@@ -135,8 +135,8 @@ switch ($display)
 			@mysql_query ( "SET @currentCourseCode := '".$currentCourseIDsys."'");
 		
 			echo "<p>".++$nbCourseUpgraded .
-			        ". Upgrading database of course <strong>".$currentCourseCode."</strong><br />\n
-				DataBase Name : <em>".$currentCourseDbName."</em><br />\n
+			        ". Upgrading database of course <strong>".$currentCourseCode."</strong> - 
+				DataBase Name : <em>".$currentCourseDbName."</em> - 
 				internal Code : <em>".$currentCourseIDsys."</em></p>\n";
 				
 			echo "<ol>\n";
@@ -193,7 +193,7 @@ switch ($display)
                         }
                         
 			// move link
-			//include("moveLink.php");	
+			include("moveLink.php");	
 			
 			if ($nbError>0)
 			{
