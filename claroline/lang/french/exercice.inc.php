@@ -57,6 +57,15 @@ $langSimpleExercise="Questions sur une seule page";
 $langSequentialExercise="Une question par page (séquentiel)";
 $langRandomQuestions="Questions aléatoires";
 $langGiveExerciseName="Veuillez introduire l'intitulé de l'exercice";
+$langAllowedTime="Temps maximum pour complèter l'exercice (secondes)";
+$langAllowedAttempts="Nombre de tentatives permises";
+$langAnonymousVisibility="Affichage aux utilisateurs anonymes";
+$langShowAnswers = "Après le test, afficher les réponses";
+$langAlways = "Toujours";
+$langNever = "Jamais";
+$langAfterLastTry = "Après dernière tentative";
+$langShow = "Montrer";
+$langHide = "Masquer";
 
 
 // question_admin.inc.php

@@ -12,10 +12,6 @@
       |   modify it under the terms of the GNU General Public License        |
       |   as published by the Free Software Foundation; either version 2     |
       |   of the License, or (at your option) any later version.             |
-
-
-
-      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
       +----------------------------------------------------------------------+
       | Translator :                                                         |
       |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
@@ -64,6 +60,16 @@ $langSimpleExercise="On an unique page";
 $langSequentialExercise="One question per page (sequential)";
 $langRandomQuestions="Random questions";
 $langGiveExerciseName="Please give the exercise name";
+$langAllowedTime="Time allowed to finish the exercise (seconds)";
+$langAllowedAttempts="Attempts allowed";
+$langAnonymousVisibility="Anonymous visibity";
+$langShowAnswers = "Show answers";
+$langAlways = "Always";
+$langNever = "Never";
+$langAfterLastTry = "After last try ";
+$langShow = "Show";
+$langHide = "Hide";
+
 
 
 // question_admin.inc.php
