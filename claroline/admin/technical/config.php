@@ -405,7 +405,7 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 			<td>
 				<select name="CSSUsed">
-				<? 
+				<?php
 				foreach ($styles as $TheStyle)
 				{
 				    echo "<option  value=\"$TheStyle\" ";
