@@ -41,16 +41,6 @@ $tbl_course_description  = $tbl_cdb_names['course_description'];
 
 include('tiplistinit.inc.php');
 
-$htmlHeadXtra[] =
-         "<script>
-          function confirmation (name)
-          {
-              if (confirm(\" $langAreYouSureToDelete \"+ name +\" ?\"))
-                  {return true;}
-              else
-                  {return false;}
-          }
-          </script>";
 		  
 if ( !$is_allowedToEdit )
 {
@@ -74,6 +64,15 @@ else // if user is not admin, they can change content
                           (`id`) 
                    VALUES ('".($idMax+1)."');";
             $edIdBloc = $idMax+1;
+            
+            if ( claro_sql_query($sql) != false)
+   	        {
+            	$msg .= '<p>'.$langDescAdded.'</p>';
+	        }
+	        else
+	        {
+	            $msg .= '<p>'.$langUnableDescToAdd.'</p>';
+	        }
         }
         else
         {
@@ -82,6 +81,15 @@ else // if user is not admin, they can change content
                    INTO `".$tbl_course_description."` 
                           (`id`) 
                    VALUES ('".$edIdBloc."');";
+            
+            if ( claro_sql_query($sql) != false)
+   	        {
+            	$msg .= '<p>'.$langDescUpdated.'</p>';
+	        }
+	        else
+	        {
+	            $msg .= '<p>'.$langDescUnableToUpdate.'</p>';
+	        }
         }
 
         claro_sql_query($sql);
@@ -108,11 +116,19 @@ else // if user is not admin, they can change content
 //// Kill THE BLOC
     if (isset($_REQUEST['deleteOK']))
     {
-        $dialogBox = $langDeleted;
 
         $sql ="DELETE From `".$tbl_course_description."` where id = '".$_REQUEST["edIdBloc"]."'";
         $res = claro_sql_query($sql,$db);
         $display = DISP_LIST_BLOC;
+        
+         if ( claro_sql_query($sql) != false)
+   	        {
+            	$msg .= '<p>'.$langDescDeleted.'</p>';
+	        }
+	        else
+	        {
+	            $msg .= '<p>'.$langDescUnableToDelete.'</p>';
+	        }
     }
 	
 //// Edit THE BLOC 
@@ -176,7 +192,7 @@ else // if user is not admin, they can change content
     {
         case DISP_LIST_BLOC :
 		
-		if( isset($dialogBox) ) claro_disp_message_box($dialogBox);
+		if (! empty($msg)) claro_disp_message_box($msg);
 ?>
 <table width="100%" >
     <TR>
@@ -186,7 +202,7 @@ else // if user is not admin, they can change content
             </b>
         </td>
         <td align="right" valign="middle">
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']."?edIdBloc=add"  ?>">
             <select name="numBloc" size="1">
 <?php
         while (list($numBloc,$titre) = each($listUnusedBloc))
@@ -223,7 +239,7 @@ if (count($listExistingBloc)>0)
         </TH>
         <TH align="left">
             <a href="<?php echo $_SERVER['PHP_SELF']; ?>?numBloc=<?php echo $numBloc; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/edit.gif" alt="<?php echo $langModify; ?>" border="0"></a>
-            <a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteOK=1&amp;edIdBloc=<?php echo$numBloc; ?>" "onClick="return confirmation('<?php echo addslashes($titreBloc[$numBloc]); ?>');"><img src="<?php echo $clarolineRepositoryWeb; ?>img/delete.gif" alt="<?php echo $langDelete; ?>" border="0"></a>
+            <a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteOK=1&amp;edIdBloc=<?php echo$numBloc; ?>" onClick="javascript:if(!confirm('<?php echo  $langAreYouSureToDelete." ".$titreBloc[$numBloc]." ?"; ?>')){ return false}"><img src="<?php echo $clarolineRepositoryWeb; ?>img/delete.gif" alt="<?php echo $langDelete; ?>" border="0"></a>
         </TH>
     </TR>
     <TR>
