@@ -72,7 +72,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             "<script>
             function confirmation (name)
             {
-                if (confirm(\"".$langAreYouSureToDelete."\"+ name + \"? ".$langModuleStillInPool."\"))
+                if (confirm('". str_replace("\n","\\n",$langAreYouSureToDelete) . "' + name + '? " . $langModuleStillInPool . "'))
                     {return true;}
                 else
                     {return false;}
@@ -82,7 +82,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
            "<script>
             function scormConfirmation (name)
             {
-                if (confirm(\" $langAreYouSureToDeleteScorm \"+ name + \" ?\"))
+                if (confirm('". str_replace("\n","\\n",$langAreYouSureToDeleteScorm) .  "' + name + '?'))
                     {return true;}
                 else
                     {return false;}
@@ -745,7 +745,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             {
                 if ($list['lock']=='CLOSE')
                 {
-                        $onclick = "onClick=\"return confirm('".$langAlertBlockingPathMadeInvisible."');\"";
+                        $onclick = "onClick=\"return confirm('" . str_replace("\n","\\n",$langAlertBlockingPathMadeInvisible) . "');\"";
                 }
                 else
                 {

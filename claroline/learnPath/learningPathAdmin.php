@@ -52,17 +52,6 @@
             }
             </script>";
 
-  $htmlHeadXtra[] =
-           "<script>
-            function scormConfirmation (name)
-            {
-                if (confirm(\" $langAreYouSureToDeleteScormModule \"+ name + \" ?\"))
-                    {return true;}
-                else
-                    {return false;}
-            }
-            </script>";
-
   $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 
   $nameTools = $langLearningPath;
@@ -530,7 +519,7 @@
             echo    "
 			<td>
             	<a href=\"".$_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
-                        "onClick=\"return confirmation('".$langAreYouSureToRemove." ",addslashes($module['name'])," ? ";
+                        "onClick=\"return confirmation('".str_replace("\n","\\n",$langAreYouSureToRemove)." ",addslashes($module['name'])," ? ";
             if ($module['contentType'] == CTSCORM_) 
               echo $langAreYouSureToRemoveSCORM ;
             elseif ( $module['contentType'] == CTLABEL_ )
@@ -574,7 +563,7 @@
             {
                 if( $module['lock'] == 'CLOSE' )
                 {
-                        $onclick = "onClick=\"return confirmation('".$langAlertBlockingMakedInvisible."');\"";
+                        $onclick = "onClick=\"return confirmation('".str_replace("\n","\\n",$langAlertBlockingMakedInvisible)."');\"";
                 }
                 else
                 {
