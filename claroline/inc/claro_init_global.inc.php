@@ -25,7 +25,7 @@ session_start();
 
 
 
-// a shorter reference to $PHP_SELF. Useful to lighten the HTML code.
+// a shorter reference to $_SERVER['PHP_SELF']. Useful to lighten the HTML code.
 
 $_SELF = basename($_SERVER['PHP_SELF']);
 

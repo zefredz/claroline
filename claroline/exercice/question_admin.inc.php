@@ -169,7 +169,7 @@ else
 	{
 ?>
 
-<a href="<?php echo $PHP_SELF; ?>">&lt;&lt; <?php echo $langGoBackToQuestionList; ?></a>
+<a href="<?php echo $_SERVER['PHP_SELF']; ?>">&lt;&lt; <?php echo $langGoBackToQuestionList; ?></a>
 
 <?php
 	}

@@ -243,7 +243,7 @@ if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must disp
 
 //Pager
 
-$myPager->disp_pager_tool_bar($PHP_SELF."?uidToEdit=".$uidToEdit);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?uidToEdit=".$uidToEdit);
 
 // display User's course list
 
@@ -255,8 +255,8 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
 
      //add titles for the table
 
-echo "<th><a href=\"",$PHP_SELF,"?order_crit=fake_code&chdir=yes&uidToEdit=".$uidToEdit."\">".$langOfficialCode."</a></th>".
-     "<th><a href=\"",$PHP_SELF,"?order_crit=intitule&chdir=yes&uidToEdit=".$uidToEdit."\">".$langCourseTitle."</a></th>";
+echo "<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=fake_code&chdir=yes&uidToEdit=".$uidToEdit."\">".$langOfficialCode."</a></th>".
+     "<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=intitule&chdir=yes&uidToEdit=".$uidToEdit."\">".$langCourseTitle."</a></th>";
 echo "<th>".$langTitular."</th>";
 echo "<th>".$langEditUserCourseSetting."</th>";
 echo "<th>".$langUnsubscribe."</th>";
@@ -288,7 +288,7 @@ foreach($resultList as $list)
     //  Unsubscribe link
 
     echo   "<td align=\"center\">\n",
-             "<a href=\"",$PHP_SELF,"?uidToEdit=".$uidToEdit."&cmd=unsubscribe".$addToUrl."&code=".$list['code']."&offset=".$offset."\" ",
+             "<a href=\"",$_SERVER['PHP_SELF'],"?uidToEdit=".$uidToEdit."&cmd=unsubscribe".$addToUrl."&code=".$list['code']."&offset=".$offset."\" ",
                  "onClick=\"return confirmationUnReg('",addslashes($resultTitle['prenom']." ".$resultTitle['nom']),"');\">\n
                  <img src=\"".$clarolineRepositoryWeb."/img/unenroll.gif\" border=\"0\" alt=\"".$langDelete."\" />\n
               </a>\n";
@@ -312,7 +312,7 @@ echo "<tbody></table>";
 
 //Pager
 
-$myPager->disp_pager_tool_bar($PHP_SELF."?uidToEdit=".$uidToEdit);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?uidToEdit=".$uidToEdit);
 
 // display footer
 
