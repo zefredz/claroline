@@ -40,14 +40,16 @@ if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 claro_set_display_mode_available(true);
 
+$nameTools = $langForums;
+
 include('../inc/claro_init_header.inc.php');
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 $is_forumAdmin    = claro_is_allowed_to_edit();
 
-$nameTools = $langForums;
 
-$noPHP_SELF = true; //because  phpBB need always param IN URL
+
+//$noPHP_SELF = true; //because  phpBB need always param IN URL
 
 
 claro_disp_tool_title($langForums, 
