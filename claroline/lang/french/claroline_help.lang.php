@@ -21,7 +21,7 @@ pour vous rappeler le nom d'utilisateur et le mot de passe à introduire lors de 
 $langCloseWindow = "Fermer la fenêtre";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCourseHome = "Accueil";
-$langCourseManagerView = "Gestionnaire de cours";
+$langCourseManager = "Gestionnaire de cours";
 $langDay_of_weekNames = "Array";
 $langDelete = "Effacer";
 $langDescriptionCours = "Description du cours";
@@ -331,7 +331,7 @@ $langPassword = "mot de passe";
 $langPlatformAdministration = "Administration de la plate-forme";
 $langPoweredBy = "Utilise la plate-forme";
 $langReg = "Inscription";
-$langStudentView = "Etudiant";
+$langStudent = "Etudiant";
 $langUserContent = "<b>Droits d'administration</b>
 <p>Pour permettre à un co-titulaire, un assistant, un tuteur ou qui que ce
  soit de co-administrer le site avec vous, vous devez préalablement
@@ -351,6 +351,7 @@ inscription contenant son nom d'utilisateur et son mot de passe, sauf si
 vous n'avez pas introduit son e-mail.</p>";
 $langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
+$langViewMode = "Mode de vue";
 $langWork = "Travaux";
 $lang_click_here = "cliquez ici";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";

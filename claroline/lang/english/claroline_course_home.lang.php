@@ -11,7 +11,7 @@ $langChangedTool = "Tool accesses changed";
 $langChat = "Chat";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCourseHome = "Course Home";
-$langCourseManagerView = "Course Manager View";
+$langCourseManager = "Course manager";
 $langCourseSettings = "Course settings";
 $langDay_of_weekNames = "Array";
 $langDelete = "Delete";
@@ -27,12 +27,18 @@ $langGroups = "Groups";
 $langHelp = "Help";
 $langHome = "Back to Home page";
 $langIntroCourse = "You are on the course home page.<br /><br />On this page, you can :
+
 <ul>
+
 <li>activate or deactivate tools (click on the 'Edit Tool list' button at bottom left).</li>
+
 <li>change settings or view statistics (click on corresponding links at bottom).</li>
+
 </ul>
+
 Now, to add an introduction text presenting your course to students, click on this button ";
 $langIntroEditToolList = "Select the tools you want to make visible for your user.
+
 An invisible tool will be greyed out on your personal interface";
 $langLearningPath = "Learning Path";
 $langLogin = "Login";
@@ -51,7 +57,7 @@ $langPlatformAdministration = "Platform Administration";
 $langPoweredBy = "Powered by";
 $langReg = "Registration";
 $langStatistics = "Statistics";
-$langStudentView = "Student View";
+$langStudent = "Student";
 $langTools = "Tools";
 $langUnableAddExternalTool = "Unable to add external tool";
 $langUnableChangedTool = "Unable to change tool access";
@@ -60,6 +66,7 @@ $langUnableUpdateExternalTool = "Unable to update external tool";
 $langUpdatedExternalTool = "External tool updated";
 $langUserName = "User name";
 $langUsers = "Users";
+$langViewMode = "View mode";
 $langWork = "Assignments";
 $lang_click_here = "click here";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";

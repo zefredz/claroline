@@ -31,7 +31,9 @@ $langCode = "Course code";
 $langCodeAppearAlready = "This official code already appears in a previous line of the CSV file.";
 $langCodeUsed = "This official code is already used by another user.";
 $langConfTip = "By default, your course is accessible to everybody. If you want some confidentiality,
+
 the simplest way is to open registration during
+
 one week, ask the students to register themselves, then close registration and check for possible intruders in the user list.";
 $langConfirmBackup = "Do you really want to back up the course";
 $langConfirmYourChoice = "Please confirm your choice";
@@ -44,14 +46,13 @@ $langCourseContent = "Course content";
 $langCourseDescription = "Write here the description that will appear in the course list.";
 $langCourseHome = "Course Home";
 $langCourseHomePage = "Course Home Page";
-$langCourseManagerView = "Course Manager View";
+$langCourseManager = "Course manager";
 $langCourseSettings = "Course settings";
 $langCourseTitle = "Course title";
 $langCreateANewCourseNow = "Create a new course now";
 $langCreateDirectory = "Create Directory";
 $langCreateMissingDirectories = "Creation of missing directories";
 $langCreateSite = "Create a course website";
-$langCreatedIn = "created in";
 $langCreationDate = "Created";
 $langCsvPutIntoDocTool = "The file &quot;users.csv&quot; has been put into the Documents tool.";
 $langDay_of_weekNames = "Array";
@@ -123,6 +124,7 @@ $langReg = "Registration";
 $langRestore = "Restore";
 $langRestoreCourse = "Restore a course";
 $langRestoreDescription = "The course is in an archive file which you can select below.<br><br>
+
 When you have clicked on &quot;Restore&quot;, the archive will be uncompessed and the course recreated.";
 $langRestoreNotice = "This script doesn't yet allow for automatic restoration of users, but data saved in &quot;users.csv&quot; is sufficient for the administrator to be able to make that work manually.";
 $langRestoreNow = "Restore now";
@@ -130,7 +132,7 @@ $langSaveContentDoc = "Save content document";
 $langSaveSubscription = "Save subscription";
 $langShowAllProcessDuringTheWork = "Show all process during the work";
 $langSizeOf = "Size of";
-$langStudentView = "Student View";
+$langStudent = "Student";
 $langSubTitle = "Adds to your Course Homepage Main Menu a link to a site, a page or any URL. Tip: if you want to add a link to a page, go to that page, cut and paste its address in the URL bar on the top of your browser and insert it into the \"link\" field below.";
 $langSubscription = "Subscription";
 $langTipLang = "This language will be valid for every visitor of your course's website.";
@@ -141,6 +143,7 @@ $langUsernameAppearAlready = "This username appears already in a previous line o
 $langUsernameUsed = "This username is already used by another user.";
 $langUsers = "Users";
 $langViewCourse = "View course";
+$langViewMode = "View mode";
 $langWhatDoAfterBackup = "What to do after backup";
 $langWikiContent = "Wiki content";
 $langWork = "Assignments";

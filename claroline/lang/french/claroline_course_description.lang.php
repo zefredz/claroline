@@ -18,7 +18,7 @@ Quelle sera la progression dans les contenus&nbsp;?";
 $langCourseContentComment2 = "Présentation de la table des matières du cours, de la structuration du 
 contenu, de la progression et du calendrier";
 $langCourseHome = "Accueil";
-$langCourseManagerView = "Gestionnaire de cours";
+$langCourseManager = "Gestionnaire de cours";
 $langCourseProgram = "Description du cours";
 $langDay_of_weekNames = "Array";
 $langDelete = "Effacer";
@@ -77,7 +77,7 @@ $langQualificationsAndGoalsComment2 = "Quels sont les apprentissages visés par l
 Au terme du cours, quelles sont les compétences, les capacités et les connaissances que les étudiants seront en mesure de maîtriser, de mobiliser&nbsp;?";
 $langQuestionPlan = "Question de planification <BR>pour le gestionnaire de cours";
 $langReg = "Inscription";
-$langStudentView = "Etudiant";
+$langStudent = "Etudiant";
 $langSupports = "Supports";
 $langSupportsComment1 = "Existe-t-il un support de cours ? Quel type de support vais-je privilégier ? 
 Ouvert ? Fermé ?";
@@ -97,6 +97,7 @@ $langTitle = "Titre";
 $langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langValid = "Enregistrer";
+$langViewMode = "Mode de vue";
 $langWork = "Travaux";
 $lang_click_here = "cliquez ici";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";

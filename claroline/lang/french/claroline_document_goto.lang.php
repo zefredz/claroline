@@ -1,7 +1,7 @@
 <?php
 $langAddIntro = "Ajouter un texte d'introduction";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
-$langCourseManagerView = "Gestionnaire de cours";
+$langCourseManager = "Gestionnaire de cours";
 $langDay_of_weekNames = "Array";
 $langDelete = "Effacer";
 $langHelp = "Aide";
@@ -14,8 +14,9 @@ $langOk = "Valider";
 $langPassword = "mot de passe";
 $langPoweredBy = "Utilise la plate-forme";
 $langReg = "Inscription";
-$langStudentView = "Etudiant";
+$langStudent = "Etudiant";
 $langUserName = "Nom d'utilisateur";
+$langViewMode = "Mode de vue";
 $lang_click_here = "cliquez ici";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";

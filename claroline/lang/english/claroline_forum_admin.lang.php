@@ -18,7 +18,7 @@ $langChangeCat = "Change of category";
 $langChat = "Chat";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCourseHome = "Course Home";
-$langCourseManagerView = "Course Manager View";
+$langCourseManager = "Course manager";
 $langDay_of_weekNames = "Array";
 $langDelete = "Delete";
 $langDescription = "Description";
@@ -53,11 +53,13 @@ $langPlatformAdministration = "Platform Administration";
 $langPoweredBy = "Powered by";
 $langReg = "Registration";
 $langSave = "Save";
-$langStudentView = "Student View";
+$langStudent = "Student";
 $langUserName = "User name";
 $langUsers = "Users";
+$langViewMode = "View mode";
 $langWork = "Assignments";
 $langYouCannotDelCatOfGroupsForums = "You cannot delete the group forum category.
+
 If you need to remove group forums, you rather have to delete the group";
 $lang_click_here = "click here";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";

@@ -37,16 +37,28 @@ $l_noposts = "No Posts";
 $l_norecipient = "You must enter the user name you want to send the Message to.";
 $l_notify = "Notify by email when replies are posted";
 $l_notifybody = "You are receiving this Email because a new message in one of your favourite topics
+
  on our forums has been added, and
+
 you selected to be notified on this event.
+
+
 
 You may view the topic at:
 
+
+
 %1\$s
+
+
 
 Or view the forum index at
 
+
+
 %2\$s
+
+
 
 Thank you for using our forums.";
 $l_notifysubj = "A reply to your topic has been posted.";
@@ -68,8 +80,11 @@ $l_profile = "Profile";
 $l_profileof = "View profile of";
 $l_publicmail = "Allow other users to view my email address";
 $l_quotemsg = "[quote]
+
 On %1\$s, %2\$s wrote:
+
 %3\$s
+
 [/quote]";
 $l_recptname = "Recipient User name";
 $l_replies = "Replies";
@@ -122,7 +137,7 @@ $langChat = "Chat";
 $langConfirm = "Confirm";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCourseHome = "Course Home";
-$langCourseManagerView = "Course Manager View";
+$langCourseManager = "Course manager";
 $langDate = "Date";
 $langDay_of_weekNames = "Array";
 $langDear = "Dear";
@@ -167,10 +182,11 @@ $langReg = "Registration";
 $langReply = "Answer";
 $langSearch = "Search";
 $langSeen = "Seen";
-$langStudentView = "Student View";
+$langStudent = "Student";
 $langSubmit = "Submit";
 $langUserName = "User name";
 $langUsers = "Users";
+$langViewMode = "View mode";
 $langWork = "Assignments";
 $lang_click_here = "click here";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";

@@ -51,10 +51,9 @@ $langComment = "Comment";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCopy = "Copy";
 $langCourseHome = "Course Home";
-$langCourseManagerView = "Course Manager View";
+$langCourseManager = "Course manager";
 $langCreateLabel = "Create label";
 $langCreateNewLearningPath = "Create a new learning path";
-$langCreatedIn = "created in";
 $langDOCUMENTTypeDesc = "Document";
 $langDate = "Date";
 $langDay_of_weekNames = "Array";
@@ -163,7 +162,7 @@ $langSCORMTypeDesc = "SCORM 1.2 conformable content";
 $langScormIntroTextForDummies = "Imported packages must consist of a zip file and be SCORM 1.2 conformable";
 $langSize = "Size";
 $langStartModule = "Start Module";
-$langStudentView = "Student View";
+$langStudent = "Student";
 $langTo = "to";
 $langTotalTimeSpent = "Total time";
 $langTracking = "Tracking";
@@ -172,11 +171,13 @@ $langUnamedModule = "Unamed module";
 $langUnamedPath = "Unamed path";
 $langUp = "Up";
 $langUseOfPool = "This page allows you to view all the modules available in this course. <br>
+
                      Any exercise or document that has been added in a learning path will also appear in this list.";
 $langUsedInLearningPaths = "
 Number of learning paths using this module : ";
 $langUserName = "User name";
 $langUsers = "Users";
+$langViewMode = "View mode";
 $langVisibility = "Visibility";
 $langWork = "Assignments";
 $langWrongOperation = "Wrong operation";

@@ -1,4 +1,5 @@
 <?php 
+$langAddedToCreator = "";
 $langApplied = "";
 $langApply = "";
 $langBackToMenu = "";
@@ -9,13 +10,15 @@ $langContenuPlan = "";
 $langEmpty = "";
 $langFirstDefOfThisValue = "";
 $langFree = "";
+$langGoAdmin = "";
+$langLogOnToYourPlatform = "";
 $langNoPropertiesSet = "";
+$langNothingToDo = "";
 $langPropertiesNotIncludeInSections = "";
 $langShowConf = "";
 $langShowContentFile = "";
 $langShowDef = "";
-$langUserWithManyAccountInACourse = "";
-$langUserWithManyAccountInYourCourse = "";
+$langStartAgain = "";
 $lang_config_config = "";
 $lang_config_config_short = "";
 $lang_course_admin = "";
@@ -31,4 +34,5 @@ $lang_p_defFileOf_S = "";
 $lang_p_edit_S = "";
 $lang_p_nothing_to_edit_in_S = "";
 $lang_the_active_config_has_manually_change = "";
+$lang_unknowProperties = "";
 ?>

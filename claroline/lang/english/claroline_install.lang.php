@@ -13,16 +13,27 @@ $langDBNamesRules = "Database Names";
 $langDBPassword = "Database Password";
 $langDBSetting = "MySQL database settings";
 $langDBSettingNamesIntro = "
+
 				Install script will create main claroline databases. 
+
 				You can create different database 
+
 				for tracking and PhpMyAdmin extension if you want 
+
 				or gathering all these stuff in one database, like you want. 
+
 				Afterwards, Claroline will create a new database for each new course created. 
+
 				You can specify a prefix for these database names.
+
 				<p>
+
 				If you are allowed to use only one database by your database system administrator, 
+
 				get back to the previous page and select option \"Single\"
+
 				</p>
+
 				";
 $langDBUse = "Database usage";
 $langDbName = "DB Name";

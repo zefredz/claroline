@@ -9,7 +9,7 @@ $langCodeUsed = "This official code is already used by another user.";
 $langConfirm = "Confirm";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCourseHome = "Course Home";
-$langCourseManagerView = "Course Manager View";
+$langCourseManager = "Course manager";
 $langDay_of_weekNames = "Array";
 $langDelete = "Delete";
 $langDescriptionCours = "Course description";
@@ -21,15 +21,22 @@ $langForums = "Forums";
 $langGroups = "Groups";
 $langHelp = "Help";
 $langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade. 
+
                 These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
 $langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to upgrade the data stored into the main Claroline tables 
+
                     (users, course categories, tools list, ...) and set it to be compatible with the new Claroline version.</p>
+
                    <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this 
+
                    operation may take some time.</p>";
 $langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going to update course data (directories and database tables) one by one.
+
                    <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
+
                    this operation may take some time.</p>";
 $langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>";
+$langLaunchRestoreCourseRepository = "Launch restore of the course repository";
 $langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";
 $langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Launch main platform tables upgrade</button></p>";
 $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
@@ -41,27 +48,49 @@ $langMailSynthaxError = "Mail synthax error.";
 $langMailUsed = "Mail is already used by another user.";
 $langMaintenance = "Maintenance";
 $langMakeABackupBefore = "<p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
+
 installation and set them to be compatible with the new Claroline version. This upgrade proceeds in three steps:</p>
+
+
 
 <ol>
 
+
+
 <li>It will get your previous platform main settings and put them in a new configuration files</li>
+
+
 
 <li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.</li>
 
+
+
 <li>It will update one by one each course data (directories, database tables, ...)</li>
+
+
 
 </ol>
 
+
+
 <p>Before proceeding to this upgrade:</p>
 
+
+
 <table>
+
 <tbody>
+
 <tr valign=\"top\"><td>-</td><td>Make a complete backup of all your platform data (files and databases)</td><td>%s</td></tr>
 
+
+
 </tbody>
+
 </table>
+
 <p>You won't be allowed to start the upgrade process before this point is marked as 'done'.</p>
+
 ";
 $langMakeBackupBefore = "Make a backup before !";
 $langManager = "Manager";
@@ -80,9 +109,10 @@ $langPasswordSimple = "Password given is too simple or too close to the username
 $langPlatformAdministration = "Platform Administration";
 $langPoweredBy = "Powered by";
 $langReg = "Registration";
-$langStudentView = "Student View";
+$langRestoreCourseRepository = "Restore course repository";
+$langStudent = "Student";
 $langSucceed = "succeed";
-$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />from %s to %s</h2>";
+$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />from %s to %s </h2>";
 $langTodo = "Steps todo";
 $langUpgrade = "Upgrade";
 $langUpgradeAchieved = "Upgrade Process Achieved";
@@ -96,6 +126,7 @@ $langUserName = "User name";
 $langUsernameAppearAlready = "This username appears already in a previous line of the CSV file.";
 $langUsernameUsed = "This username is already used by another user.";
 $langUsers = "Users";
+$langViewMode = "View mode";
 $langWork = "Assignments";
 $langYes = "Yes";
 $lang_click_here = "click here";
