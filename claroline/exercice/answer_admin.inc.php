@@ -569,6 +569,7 @@ if($modifyAnswers)
 <p><?php echo $langAnswers; ?> :</p>
 
 <table class="claroTable">
+<thead>
 <tr class="headerX">
   <th>N°</th>
   <th><?php echo $langTrue; ?></th>
@@ -576,6 +577,7 @@ if($modifyAnswers)
   <th><?php echo $langComment; ?></th>
   <th><?php echo $langQuestionWeighting; ?></th>
 </tr>
+</thead>
 <tbody>
 <?php
 			for($i=1;$i <= $nbrAnswers;$i++)

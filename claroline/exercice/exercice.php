@@ -300,7 +300,7 @@ elseif($page)
 if($is_allowedToEdit)
 {
 ?>
-
+<thead>
 <tr class="headerX">
   <th>
 	<?php echo $langExerciseName; ?>
@@ -325,18 +325,18 @@ if($is_allowedToEdit)
   }
 ?>
 </tr>
-
+</thead>
 <?php
 }
 
 if(!$nbrExercises)
 {
 ?>
-
+<tbody>
 <tr>
   <td <?php if($is_allowedToEdit) echo 'colspan="5"'; ?>><?php echo $langNoEx; ?></td>
 </tr>
-
+</tbody>
 <?php
 }
 
@@ -457,12 +457,14 @@ if($is_trackingEnabled && $_uid):
 <br><br>
 
 <table class="claroTable" cellpadding="2" cellspacing="2" border="0" width="80%">
+<thead>
 <tr class="headerX">
   <th><?php echo $langExercice; ?></th>
   <th><?php echo $langDate; ?></th>
   <th><?php echo $langResult; ?></th>
   <th><?php echo $langExeTime; ?></th>	
 </tr>
+</thead>
 
 <?php
 $sql="SELECT `ce`.`titre`, `te`.`exe_result` ,
@@ -474,6 +476,8 @@ $sql="SELECT `ce`.`titre`, `te`.`exe_result` ,
       ORDER BY `ce`.`titre` ASC, `te`.`exe_date` ASC";
 
 $results = claro_sql_query_fetch_all($sql);
+
+echo "<tbody>";
 
 foreach($results as $row)
 {
@@ -490,6 +494,7 @@ foreach($results as $row)
 
 }
 
+
 if( !is_array($results) || sizeof($results) == 0 )
 {
 ?>
@@ -501,7 +506,7 @@ if( !is_array($results) || sizeof($results) == 0 )
 <?php
 }
 ?>
-
+</tbody>
 </table>
 
 <?php
