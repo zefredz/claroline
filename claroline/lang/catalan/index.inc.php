@@ -26,7 +26,7 @@ poden crear llocs web de cursos en fer click sobre 'Enregistrament' també, però 
 $langUserName="Nom d'usuari";
 $langPass="Paraula de pas";
 $langEnter="Entra";
-$langHelp="Ajuda d'Inici";
+$langGettingStarted="Ajuda d'Inici";
 $langManager="Administrador";
 $langPoweredBy="Potenciat per ";
 $langReg="Enregistrament";

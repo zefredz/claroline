@@ -13,7 +13,7 @@
 $langModify="modifier";
 $langDelete="effacer";
 $langTitle="Titre";
-$langHelp="Comment démarrer ?"; // JCC
+$langGettingStarted="Comment démarrer ?"; // JCC
 $langOk="valider";
 $langAddIntro="AJOUTER UN TEXTE D'INTRODUCTION";
 $langBackList="Retour à la liste";
@@ -36,7 +36,7 @@ mention 'inscription'.";
 $langUserName="Nom d'utilisateur";
 $langPass="Mot de passe";
 $langEnter="Entrer";
-$langHelp="Comment démarrer";
+$langGettingStarted="Comment démarrer";
 $langReg="Inscription";
 $langMenu ="Menu";
 $langPlatformAdmin="Administration";

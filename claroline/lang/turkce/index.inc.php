@@ -25,7 +25,7 @@ Ders açacak hocalar da ayný yerden kaydolmalýdýrlar. Fakat "Statünüz:" alaný içi
 $langUserName="Kullanýcý adý";
 $langPass="Þifre";
 $langEnter="Giriþ";
-$langHelp="Baþlangýç Açýklamalarý";
+$langGettingStarted="Baþlangýç Açýklamalarý";
 $langManager="Yönetici";
 $langPoweredBy="Powered by";
 $langReg="Kayýt";

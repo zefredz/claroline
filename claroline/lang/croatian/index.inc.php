@@ -25,7 +25,7 @@ izborom opcije 'Prijava' ali izborom opcije 'Stvori web stranice za novi kolegij
 $langUserName="Korisnièko ime ";
 $langPass="Zaporka";
 $langEnter="Ulaz";
-$langHelp="Poèetak";
+$langGettingStarted="Poèetak";
 $langManager="Manager";
 $langPoweredBy="Upravljano s ";
 $langReg="Prijava";

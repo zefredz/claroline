@@ -30,7 +30,7 @@ lahko tvorijo spletne tecaje s klikom na registracijo in z izbiro
 $langUserName="Ime uporabnika";
 $langPass="Geslo";
 $langEnter="Vstop";
-$langHelp="Zacnimo";
+$langGettingStarted="Zacnimo";
 $langReg="Registracija";
 $langMenu ="Menu";
 $langDoc="Dokumentacija";

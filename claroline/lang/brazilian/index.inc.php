@@ -25,7 +25,7 @@ correspondente 'Criar sites de cursos (professores)'.";
 $langUserName="Nome do usuário";
 $langPass="Senha";
 $langEnter="Entre";
-$langHelp="Ajuda";
+$langGettingStarted="Ajuda";
 $langReg="Inscrição";
 $langMenu ="Menu";
 $langDoc="Documentação";

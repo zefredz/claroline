@@ -31,7 +31,7 @@ Translate the interface in chosen language
 $langModify="Изменить";
 $langDelete="Удалить";
 $langTitle="Название";
-$langHelp="Как начать?";
+$langGettingStarted="Как начать?";
 $langOk="Подтвердить";
 $langAddIntro="ДОБАВИТЬ ВВОДНЫЙ ТЕКСТ";
 $langBackList="Назад к списку";
@@ -53,7 +53,7 @@ $langWelcome="Сайты ниже находятся в свободном доступе. Другие курсы требуют нал
 $langUserName="Имя пользователя";
 $langPass="Пароль";
 $langEnter="ОК";
-$langHelp="Как начать";
+$langGettingStarted="Как начать";
 $langReg="Регистрация";
 $langMenu ="Меню";
 $langDoc="Документация";

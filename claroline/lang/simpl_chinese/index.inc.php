@@ -31,7 +31,7 @@ Translate the interface in chosen language
 $langModify="更新";
 $langDelete="删除";
 $langTitle="主题";
-$langHelp="帮助";
+$langGettingStarted="帮助";
 $langOk="确认";
 $langAddIntro="增加课程说明";
 $langBackList="返回列表";
@@ -46,7 +46,7 @@ $langWelcome="门课程免费提供,其他课程需要用户名和密码.可以通过点击右侧'注册'按钮
 $langUserName="用户名";
 $langPass="密码";
 $langEnter="进入";
-$langHelp="使用帮助";
+$langGettingStarted="使用帮助";
 $langManager="管理员";
 $langPoweredBy="技术支持";
 $langReg="注册";

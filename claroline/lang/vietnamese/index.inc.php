@@ -13,7 +13,7 @@ can create course websites clicking on registration too, but selecting then
 $langUserName="Username";
 $langPass="Password";
 $langEnter="Enter";
-$langHelp="Hướng dẫn nhanh";
+$langGettingStarted="Hướng dẫn nhanh";
 $langReg="Đăng ký";
 $langMenu ="";
 $langDoc="Tài liệu hướng dẫn sử dụng";

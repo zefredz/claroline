@@ -24,7 +24,7 @@ can create course websites clicking on registration too, but selecting then
 $langUserName="User name";
 $langPass="Password";
 $langEnter="Enter";
-$langHelp="Getting started";
+$langGettingStarted="Getting started";
 $langReg="Registration";
 $langMenu ="Menu";
 $langPlatformAdmin="Platform Administration";

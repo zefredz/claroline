@@ -29,7 +29,7 @@ Lärare kan skapa kurswebbsajter genom att klicka på registrering också, men seda
 $langUserName="Användarnamn";
 $langPass="Lösenord";
 $langEnter="Stig in";
-$langHelp="Hjälp";
+$langGettingStarted="Hjälp";
 $langManager="Ansvarig";
 $langPlatform="Med kraft från";
 $langPlatformAdmin="Plattformsadministration";

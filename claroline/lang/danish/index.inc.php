@@ -27,7 +27,7 @@ kan oprette kursushjemmesider ved ligeledes at klikke på 'Registrering', men ska
 $langUserName="Brugernavn";
 $langPass="Adgangskode";
 $langEnter="Login";
-$langHelp="Kom i gang";
+$langGettingStarted="Kom i gang";
 $langReg="Registrering";
 $langMenu ="Menu";
 $langDoc="Manualer";
