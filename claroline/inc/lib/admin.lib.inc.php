@@ -1283,4 +1283,18 @@ function treatNotAuthorized()
     return claro_disp_auth_form();
 }
 
+
+/**
+ * function to transfrom a key word into a usable key word ina SQL : "*" must be replaced by "%" and "%" by "\%"
+ * @param  the string to transform
+ * @return the string modified
+ */
+
+ function pr_star_replace($string)
+ {   
+     $string = str_replace("%",'\%', $string);
+     $string = str_replace("*",'%', $string);
+     return $string;
+ }
+ 
 ?>
