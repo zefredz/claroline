@@ -389,7 +389,6 @@ class PHPMailer
             $this->SetError($this->Mailer . $this->Lang("mailer_not_supported"));
             return false;
         }
-		echo __LINE__."_ ";
         return true;
     }
     
