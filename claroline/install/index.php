@@ -57,6 +57,7 @@ include ("../lang/english/trad4all.inc.php");
 include ("../lang/english/install.inc.php");
 
 include ($newIncludePath."lib/auth.lib.inc.php"); // to generate pass and to cryto it if needed
+include ("./install.lib.inc.php");
 include ($newIncludePath."lib/config.lib.inc.php");
 include ($newIncludePath."lib/claro_main.lib.php");
 
@@ -85,11 +86,6 @@ $panelTitle[DISP_RUN_INSTALL_COMPLETE]='Claroline Installation succeeds';
 
 ##### STEP 0 INITIALISE FORM VARIABLES IF FIRST VISIT ##################
 //$rootSys="'.realpath($pathForm).'";
-
-// TopRightPath() return value isn't use 
-// The function cause error with open_basedir used on php configuration
-//
-// $topRigthPath = topRigthPath(); // to known right (read and write)
 
 if($_REQUEST['cmdLicence'])
 {
@@ -130,54 +126,12 @@ elseif($_REQUEST['cmdDoInstall'])
 
 if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step prupose values
 {
-
-	$dbHostForm		= "localhost";
-	$dbUsernameForm	= "root";
-
-	$dbPrefixForm	= "";
-	$dbNameForm		= $dbPrefixForm."claroline";
-	$dbStatsForm    = $dbPrefixForm."claroline";
-	$dbPrefixForm	= $dbPrefixForm."c_";
- 	$singleDbForm	= true;
-
-	/*
-	 * extract the path to append to the url if Claroline is not installed on the web root directory
-	 */
-	 
-	 // remove possible double slashes
-	$urlAppendPath = str_replace( array('///', '//'), '/', $_SERVER['PHP_SELF']);
-	// detect if url case sensitivity does matter
-	$caseSensitive = (PHP_OS == 'WIN32' || PHP_OS == 'WINNT') ? 'i' : '';
-	// build the regular expression pattern
-	$ereg = "#/claroline/install/".basename($_SERVER['SCRIPT_NAME'])."$#$caseSensitive";
-    $urlAppendPath 	= preg_replace ($ereg, '', $urlAppendPath);
-  	$urlForm 		= "http://".$_SERVER['SERVER_NAME'].$urlAppendPath."/";
-	$pathForm		= realpath("../..")."/";
-	$courseRepositoryForm = "courses/";
-
-	$adminEmailForm		= '';//$_SERVER['SERVER_ADMIN'];
-
-	$adminNameForm		= 'Doe';
-	$adminSurnameForm	= 'John';
-	$adminPhoneForm    = '(00) 1-23 456 789';
-	$loginForm		    = 'admin';
-	$passForm  		    = '';
-
-	$campusForm		     = 'My campus';
-	$adminPhoneForm	     = '';
-	$contactNameForm     = '<not set>'; // This magic value is use to detect if the content is edit or not.
-	$contactPhoneForm    = '<not set>'; // if <not set> is found, the data form admin are copied
-	$contactEmailForm    = '<not set>'; // This tips  permit to  empty these fields
-	$institutionForm     = '';
-	$institutionUrlForm  = '';
-	$urlEndForm		     = 'mydir/';
-
-	$languageForm = 'english';
-
-	$checkEmailByHashSent 			= FALSE;
-	$ShowEmailnotcheckedToStudent 	= TRUE;
-	$userMailCanBeEmpty 			= TRUE;
-	$userPasswordCrypted 			= FALSE;
+ 	include ("./defaultsetting.inc.php");
+}
+else
+{
+	extract($_REQUEST);
+	$campusForm  = $_REQUEST['campusForm'];
 }
 
 if ($PHP_SELF == "") $PHP_SELF = $_SERVER["PHP_SELF"];
@@ -317,11 +271,12 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
 	if ($singleDbForm) $dbStatsForm = $dbNameForm;
 	$db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
 	$valMain = check_if_db_exist($dbNameForm  ,$db);
+	if ($dbStatsForm == $dbNameForm) $confirmUseExistingStatsDb = $confirmUseExistingMainDb ;
 	if (!$singleDbForm) $valStat = check_if_db_exist($dbStatsForm ,$db);
 	if (
 			($valMain && !$confirmUseExistingMainDb)
 			||
-			($valStat && !$confirmUseExistingStatsDb)
+			($valStat && !$confirmUseExistingStatsDb )
 		)
 	{
 		$databaseAlreadyExist             = TRUE;
@@ -474,10 +429,8 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 		<td>
 <?php
 echo "
-			<input type=\"hidden\" name=\"languageCourse\" value=\"$languageCourse\">
 			<input type=\"hidden\" name=\"urlAppendPath\" value=\"$urlAppendPath\">
 			<input type=\"hidden\" name=\"courseRepositoryForm\" value=\"$courseRepositoryForm\">
-			<input type=\"hidden\" name=\"urlEndForm\" value=\"$urlEndForm\">
 			<input type=\"hidden\" name=\"pathForm\" value=\"".str_replace("\\","/",realpath($pathForm)."/")."\" >
 
 			<input type=\"hidden\" name=\"dbHostForm\" value=\"$dbHostForm\">
@@ -507,8 +460,6 @@ echo "
 
 			<input type=\"hidden\" name=\"languageForm\" value=\"$languageForm\">
 
-			<input type=\"hidden\" name=\"phpSysInfoURL\" value=\"$phpSysInfoURL\">
-
 			<input type=\"hidden\" name=\"campusForm\" value=\"$campusForm\">
 			<input type=\"hidden\" name=\"adminPhoneForm\" value=\"$adminPhoneForm\">
 			<input type=\"hidden\" name=\"contactNameForm\" value=\"$contactNameForm\">
@@ -517,7 +468,6 @@ echo "
 			<input type=\"hidden\" name=\"institutionForm\" value=\"$institutionForm\">
 			<input type=\"hidden\" name=\"institutionUrlForm\" value=\"$institutionUrlForm\">
 
-			<input type=\"hidden\" name=\"versionDb\" value=\"$versionDb\">
 			<input type=\"hidden\" name=\"checkEmailByHashSent\" value=\"$checkEmailByHashSent\">
 			<input type=\"hidden\" name=\"ShowEmailnotcheckedToStudent\" value=\"$ShowEmailnotcheckedToStudent\">
 			<input type=\"hidden\" name=\"userMailCanBeEmpty\" value=\"$userMailCanBeEmpty\">
@@ -627,7 +577,7 @@ if ($display==DISP_WELCOME)
 	if($SERVER_SOFTWARE=="") $SERVER_SOFTWARE = $_SERVER["SERVER_SOFTWARE"];
 	$WEBSERVER_SOFTWARE = explode(" ",$SERVER_SOFTWARE,2);
 	echo '
-	<p>Read Thouroughly <a href="../../INSTALL.txt">INSTALL.txt</a> 
+	<p>Read thoroughly <a href="../../INSTALL.txt">INSTALL.txt</a> 
 	before proceeding to install.</p>
 	<h4>Checking requirement</h4>
 <ul>
@@ -890,13 +840,13 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 									Tracking</label>
 							</td>
 							<td>
-									<input type="radio" id="enableTrackingForm_enabled" name="enableTrackingForm" value="1" checked> 
+									<input type="radio" id="enableTrackingForm_enabled" name="enableTrackingForm" value="1" '.($enableTrackingForm?'checked':'').'> 
 									<label for="enableTrackingForm_enabled">
 										Enabled
 									</label>
 							</td>
 							<td>
-									<input type="radio" id="enableTrackingForm_disabled" name="enableTrackingForm" value="0"> 
+									<input type="radio" id="enableTrackingForm_disabled" name="enableTrackingForm" value="0" '.($enableTrackingForm?'':'checked').'> 
 									<label for="enableTrackingForm_disabled">
 										Disabled
 									</label>
@@ -972,11 +922,17 @@ elseif($display == DISP_DB_NAMES_SETTING )
 						<td colspan="2">
 							<P class="setup_error">
 								<font color="red">Warning</font> 
-								: <em>'.$dbNameForm.'</em> already exist
+								: Database <em>'.$dbNameForm.'</em> already exists
 								<BR>
 								<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>
 								<label for="confirmUseExistingMainDb" >
-									I know, I want use it. (this script write in tables use by claroline.)
+									I know, I want use it. 
+									(Claroline will write in this database 
+									over data already present.  
+									Data not overwritten will be kept.
+									It would be strange. 
+									Renames or delete your tables is better
+									)
 								</label>
 							</P>
 						</td>
@@ -1282,11 +1238,11 @@ echo '
 					Simple user
 				</td>
 				<td>
-					<input type="radio" id="allowSelfReg_1" name="allowSelfReg" value="1" checked> 
+					<input type="radio" id="allowSelfReg_1" name="allowSelfReg" value="1" '.($allowSelfReg?'checked':'').'> 
                		<label for="allowSelfReg_1">Enabled</label>
 				</td>
 				<td>
-					<input type="radio" id="allowSelfReg_0" name="allowSelfReg" value="0"> 
+					<input type="radio" id="allowSelfReg_0" name="allowSelfReg" value="0" '.($allowSelfReg?'':'checked').'> 
                		<label for="allowSelfReg_0">Disabled</label>
 				</td>
 			</tr>
@@ -1297,11 +1253,11 @@ echo '
 							Course creator
 						</td>
 						<td>
-							<input type="radio" id="allowSelfRegProf_1" name="allowSelfRegProf" value="1" checked> 
+							<input type="radio" id="allowSelfRegProf_1" name="allowSelfRegProf" value="1" '.($allowSelfRegProf?'checked':'').'> 
 							<label for="allowSelfRegProf_1">Enabled</label>
 						</td>
 						<td>
-							<input type="radio" id="allowSelfRegProf_0" name="allowSelfRegProf" value="0">  
+							<input type="radio" id="allowSelfRegProf_0" name="allowSelfRegProf" value="0" '.($allowSelfRegProf?'':'checked').'> 
 							<label for="allowSelfRegProf_0">Disabled</label>
 						</td>
 					</tr>
@@ -1318,11 +1274,11 @@ echo '
 							User password
 						</td>
 						<td>
-							<input type="radio" name="encryptPassForm" id="encryptPassForm_0" value="0" checked> 
+							<input type="radio" name="encryptPassForm" id="encryptPassForm_0" value="0"  '.($encryptPassForm?'':'checked').'> 
 							<label for="encryptPassForm_0">Clear text</label>
 						</td>
 						<td>
-							<input type="radio" name="encryptPassForm" id="encryptPassForm_1" value="1">
+							<input type="radio" name="encryptPassForm" id="encryptPassForm_1" value="1" '.($encryptPassForm?'checked':'').'> 
 							<label for="encryptPassForm_1">Crypted</label>
 						</td>
 					</tr>
@@ -1338,15 +1294,6 @@ echo '
 						</tr>
 					</table>';
 }
-
-
-
-
-
-
-
-
-
 ###################################################################
 ###### STEP CONFIG SETTINGS #######################################
 ###################################################################
@@ -1388,10 +1335,10 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 							<br>
 						</td>
 					</tr>
-				<tr>
-						<td colspan="3"><br>
-						
-					</tr>
+				    <tr>
+				    	<td colspan="3"><br>
+					    </td>
+    				</tr>
 					<tr>
 						<td colspan="3">
 						<H5>Campus contact</H5>
@@ -1424,7 +1371,6 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 						<td colspan="3">
 							&nbsp;
 						</td>
-					
 					</tr>
 				</table>
 				<table width="100%">
@@ -1436,7 +1382,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 								<input type="submit" name="install6" value="Next &gt;">
 							</td>
 						</tr>
-					</table>';
+				</table>';
 }
 
 
@@ -1667,14 +1613,14 @@ Your problems can be related on two possible causes :<br>
 	{
 		echo '<BR><b><em>'.$coursesRepositorySys.'</em> is Write Protected.</b>
 		Claroline need to have write right to create course.<br>
-		change rigth on this directory and retry.';
+		change right on this directory and retry.';
 	}
 
 	if ($garbageRepositorySysMissing)
 	{
 		echo '<BR> <em>$garbageRepositorySys = '.$garbageRepositorySys.'</em> : <br>dir is missing';
 	}
-	
+
 	if ($garbageRepositorySysWriteProtected)
 	{
 		echo '
@@ -1684,7 +1630,7 @@ Your problems can be related on two possible causes :<br>
 			is Write Protected.
 		</b>
 		Claroline need to have write right to trash courses.<br>
-		change rigth on this directory and retry.';
+		change right on this directory and retry.';
 	}
 
 	echo '
@@ -1724,7 +1670,12 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 			<b>
 				Last tip
 			</b> 
-			: we highly recommend that you protect or remove installer directory.
+			: we highly recommend that you <strong>protect</strong> or <strong>remove</strong> installer directory.
+			<br>
+			<br>
+			
+			<br>
+			<br>
 			
 			
 </form>
@@ -1753,140 +1704,3 @@ else
 </center>
 </body>
 </html>
-<?php
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * check extention and  write  if exist  in a  <LI></LI>
- *
- * @params string	$extentionName 		name  of  php extention to be checked
- * @params boolean	$echoWhenOk			true => show ok when  extention exist
- * @author Christophe Gesché
- * @desc check extention and  write  if exist  in a  <LI></LI>
- *
- */
-
-function warnIfExtNotLoaded($extentionName,$echoWhenOk=false)
-{
-	if (extension_loaded ($extentionName))
-	{
-		if ($echoWhenOk)
-			echo "
-				<LI> $extentionName - ok </LI> ";
-	}
-	else
-	{
-		echo '
-				<LI>
-					<font color="red">Warning !</font> 
-					'.$extentionName.' is missing.</font>
-				<br>
-				Configure php to use this extention
-				(see <a href="http://www.php.net/'.$extentionName.'">'.$extentionName.' manual</a>).
-				</LI>';
-	}
-}
-
-/**
- * function topRigthPath()
- * @desc search read and write access from the given directory to root
- * @param path string path where begin the scan
- * @return array with 2 fields "topWritablePath" and "topReadablePath"
- * @author Christophe Gesché
- *
- * $serchtop log is only use for debug
- */
-
-function topRigthPath($path=".")
-{
-	$whereIam = getcwd();
-	chdir($path);
-	$pathToCheck = realpath(".");
-	$previousPath=$pathToCheck."*****";
-
-	$search_top_log = "top Rigth Path<dl>";
-	while(!empty($pathToCheck))
-	{
-		$pathToCheck = realpath(".");
-		if (is_writable($pathToCheck))
-			$topWritablePath = $pathToCheck;
-		if (is_readable($pathToCheck))
-			$topReadablePath = $pathToCheck;
-		$search_top_log .= "<dt>".$pathToCheck."</dt><dd>write:".(is_writable($pathToCheck)?"open":"close")." read:".(is_readable($pathToCheck)?"open":"close")."</dd>";
-		if ($pathToCheck!="/" && $pathToCheck!=$previousPath &&(is_writable($pathToCheck)||is_readable($pathToCheck)))
-		{
-			chdir("..") ;
-			$previousPath=$pathToCheck;
-		}
-		else
-		{
-			$pathToCheck ="";
-		}
-
-	}
-	$search_top_log .= "</dl>
- 	topWritablePath = ".$topWritablePath."<br>
-	topReadablePath = ".$topReadablePath;
-
-	//echo $search_top_log;
-	chdir($whereIam);
-	return array("topWritablePath" => $topWritablePath, "topReadablePath" => $topReadablePath);
-};
-
-function check_if_db_exist($db_name,$db=null)
-{
-	
-	// I HATE THIS SOLUTION . 
-	// It's would be better to have a SHOW DATABASE case insensitive
-	if (PHP_OS!="WIN32"&&PHP_OS!="WINNT")
-	{
-		$sql = "SHOW DATABASES LIKE '".$db_name."'";
-	}
-	else 
-	{
-		$sql = "SHOW DATABASES LIKE '".strtolower($db_name)."'";
-	}
-	
-	if ($db)
-	{
-		$res = claro_sql_query($sql,$db);
-	}
-	else 
-	{
-		$res = claro_sql_query($sql);
-	}
-	$foundDbName = mysql_fetch_array($res, MYSQL_NUM);
-	return $foundDbName;
-}
-
-function check_claro_table_in_db_exist($dbType,$db=null)
-{
-	GLOBAL $dbName;
-	switch ($dbType)
-	{
-		case 'main' :
-			
-			break;
-		case 'stat' :
-			break;
-		default :
-			die('error in check_claro_table_in_db_exist function called with an unknow type : "'.$dbType.'"');
-	}
-	return false;
-}
-
-?>

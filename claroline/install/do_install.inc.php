@@ -39,7 +39,8 @@ $mysqlRepositorySys = $mysqlRepositorySys ["Value"];
 // MAIN DB                             //
 // DB with central info  of  Claroline //
 
-claro_sql_query("CREATE DATABASE `".$mainDbName."`");
+mysql_query("CREATE DATABASE `".$mainDbName."`");
+
 if (mysql_errno() >0)
 {
 	if (mysql_errno() == 1007)
