@@ -224,124 +224,167 @@ else
   include($includePath.'/claro_init_header.inc.php');
 }
 
-?>
 
-<h3><?php echo $exerciseTitle; ?></h3>
+// EXERCISE  PROPERTIES HANDLING
+$statusMsg = "<p>";
+$errMsg = "";
+$showExerciseForm = true;
+// MAX ALLOWED TIME
+// display actual time only if exercise is sequential, it will always be
+// zero in non sequential mode 
 
-<p>
-  <?php echo claro_parse_user_text(make_clickable($exerciseDescription)); ?>
-  <br />
-  <small>
-  	<?php 
-	// display actual time only if exercise is sequential, it will always be
-	// zero in non sequential mode 
-	if($exerciseType == 2) 
-	{ 
-		
-		echo $langActualTime." : ".(time()-$_SESSION['exeStartTime']); 
+if($exerciseType == 2) 
+{ 
+	$statusMsg .= $langActualTime." : ".(time()-$_SESSION['exeStartTime']); 
+}
 
-		if($exerciseMaxTime != 0)
-		{
-			echo " (".$langMaxAllowedTime." : ".$exerciseMaxTime.")";
-		}
-		else
-		{
-			echo "(".$langNoTimeLimit.")";;
-		}
-		echo "<br />";
-	}
-	?>
-  	<?php
-	// display maximum attempts number only if != 0 (0 means unlimited attempts)
-	// always display user attempts count
-	echo $langAttempt." ".$userTryQty;
-	if( $exerciseMaxAttempt )
-	{
- 		echo $langOn." ".$exerciseMaxAttempt;
-	}
-	 ?>
-  </small>
-</p>
-
-<table width="100%" border="0" cellpadding="1" cellspacing="0">
-<form method="post" action="<?php echo $PHP_SELF; ?>?<?= SID ?>" autocomplete="off">
-<input type="hidden" name="formSent" value="1">
-<input type="hidden" name="exerciseType" value="<?php echo $exerciseType; ?>">
-<input type="hidden" name="questionNum" value="<?php echo $questionNum; ?>">
-<input type="hidden" name="nbrQuestions" value="<?php echo $nbrQuestions; ?>">
-<tr>
-  <td>
-	<table width="100%" cellpadding="4" cellspacing="2" border="0">
-
-<?php
-$i=0;
-
-foreach($questionList as $questionId)
+if($exerciseMaxTime != 0)
 {
-	$i++;
+  $statusMsg .= " ".$langMaxAllowedTime." : ".$exerciseMaxTime;
+}
+else
+{
+  $statusMsg .= $langNoTimeLimit;
+}
+	
+// MAX ALLOWED ATTEMPTS
+// display maximum attempts number only if != 0 (0 means unlimited attempts)
+// always display user attempts count
+// do not show attempts for anonymous user
+if($_uid)
+{
+  $statusMsg .= "<br />".$langAttempt." ".$userTryQty." ";
+  if( $exerciseMaxAttempt )
+  {
+    $statusMsg .= $langOn." ".$exerciseMaxAttempt;
+    if( $userTryQty > $exerciseMaxAttempt )
+    {
+        $showExerciseForm = false;
+        $errMsg .=  "Tu peux plus :|";
+    }
+  }
+}
+// AVAILABILITY DATES
+// check if the exercise is available (between opening and closing  dates)
+$mktimeNow      = mktime();
+$timeStartDate  = $objExercise->get_start_date('timestamp');
+$timeEndDate    = $objExercise->get_end_date('timestamp');
 
-	// for sequential exercises
-	if($exerciseType == 2)
-	{
-		// if it is not the right question, goes to the next loop iteration
-		if($questionNum != $i)
-		{
-			continue;
-		}
-		else
-		{
-			// if the user has already answered this question
-			if(isset($exerciseResult[$questionId]))
-			{
-				// construction of the Question object
-				$objQuestionTmp=new Question();
+if( $timeStartDate > $mktimeNow )
+{
+    $showExerciseForm = false;
+    $errMsg .= $langExerciseNotAvailable;
+}
+elseif( $timeEndDate < $mktimeNow )
+{
+    $showExerciseForm = false;
+    $errMsg .= $langExerciseNoMoreAvailable;
+}
+else
+{
+  $statusMsg  .= "<br />".$langAvailableFrom." "
+                      .strftime($dateTimeFormatLong,$timeStartDate)
+                      ." ".$langTo." "
+                      .strftime($dateTimeFormatLong,$timeEndDate);
+}
+  
 
-				// reads question informations
-				$objQuestionTmp->read($questionId);
+claro_disp_tool_title($exerciseTitle);
 
-				$questionName=$objQuestionTmp->selectTitle();
-
-				// destruction of the Question object
-				unset($objQuestionTmp);
-
-				echo '<tr><td>'.$langAlreadyAnswered.' &quot;'.$questionName.'&quot;</td></tr>';
-
-				break;
-			}
-		}
-	}
+if($showExerciseForm)
+{
 ?>
-
-	<tr bgcolor="#DDDEBC">
-	  <td valign="top" colspan="2">
-		<?php echo $langQuestion; ?> <?php echo $i; if($exerciseType == 2) echo ' / '.$nbrQuestions; ?>
-	  </td>
-	</tr>
+  <p>
+  <?php echo claro_parse_user_text(make_clickable($exerciseDescription)) ; ?>
+  <small>
+  <?php echo $statusMsg; ?>
+  </small>
+  </p>
+  <table width="100%" border="0" cellpadding="1" cellspacing="0">
+  <form method="post" action="<?php echo $PHP_SELF; ?>?<?= SID ?>" autocomplete="off">
+  <input type="hidden" name="formSent" value="1">
+  <input type="hidden" name="exerciseType" value="<?php echo $exerciseType; ?>">
+  <input type="hidden" name="questionNum" value="<?php echo $questionNum; ?>">
+  <input type="hidden" name="nbrQuestions" value="<?php echo $nbrQuestions; ?>">
+  <tr>
+    <td>
+    <table width="100%" cellpadding="4" cellspacing="2" border="0">
+  
+  <?php
+  $i=0;
+  
+  foreach($questionList as $questionId)
+  {
+    $i++;
+  
+    // for sequential exercises
+    if($exerciseType == 2)
+    {
+      // if it is not the right question, goes to the next loop iteration
+      if($questionNum != $i)
+      {
+        continue;
+      }
+      else
+      {
+        // if the user has already answered this question
+        if(isset($exerciseResult[$questionId]))
+        {
+          // construction of the Question object
+          $objQuestionTmp=new Question();
+  
+          // reads question informations
+          $objQuestionTmp->read($questionId);
+  
+          $questionName=$objQuestionTmp->selectTitle();
+  
+          // destruction of the Question object
+          unset($objQuestionTmp);
+  
+          echo '<tr><td>'.$langAlreadyAnswered.' &quot;'.$questionName.'&quot;</td></tr>';
+  
+          break;
+        }
+      }
+    }
+  ?>
+  
+    <tr bgcolor="#DDDEBC">
+      <td valign="top" colspan="2">
+      <?php echo $langQuestion; ?> <?php echo $i; if($exerciseType == 2) echo ' / '.$nbrQuestions; ?>
+      </td>
+    </tr>
+  
+  <?php
+    // shows the question and its answers
+    showQuestion($questionId);
+  
+    // for sequential exercises
+    if($exerciseType == 2)
+    {
+      // quits the loop
+      break;
+    }
+  }	// end foreach()
+  ?>
+  
+    </table>
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><br><input type="submit" name="buttonCancel" value="<?php echo $langCancel; ?>">
+    &nbsp;&nbsp;<input type="submit" value="<?php echo ($exerciseType == 1 || $nbrQuestions == $questionNum)?$langOk:$langNext.' &gt;'; ?>"></td>
+  </tr>
+  </form>
+  </table>
 
 <?php
-	// shows the question and its answers
-	showQuestion($questionId);
 
-	// for sequential exercises
-	if($exerciseType == 2)
-	{
-		// quits the loop
-		break;
-	}
-}	// end foreach()
-?>
-
-	</table>
-  </td>
-</tr>
-<tr>
-  <td align="center"><br><input type="submit" name="buttonCancel" value="<?php echo $langCancel; ?>">
-  &nbsp;&nbsp;<input type="submit" value="<?php echo ($exerciseType == 1 || $nbrQuestions == $questionNum)?$langOk:$langNext.' &gt;'; ?>"></td>
-</tr>
-</form>
-</table>
-
-<?php
+} //end of if ($showExerciseForm)
+else
+{
+  echo $errMsg;
+}
 if ($_SESSION['inPathMode'] == true) 
 {	
 	// echo minimal html footer so that the page is valid
