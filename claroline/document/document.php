@@ -38,7 +38,6 @@
 /*======================================
        CLAROLINE MAIN
   ======================================*/
-$langFile = 'document';
 $tlabelReq = 'CLDOC___';
 require '../inc/claro_init_global.inc.php';
 

@@ -28,7 +28,6 @@
       +----------------------------------------------------------------------+
  */
  
-$langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
 // regroup table names for maintenance purpose

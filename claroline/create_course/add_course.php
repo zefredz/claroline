@@ -46,7 +46,6 @@ List  of  views
 	- displayCourseAddResult
 		New course is added.  Show  success message.
 */
-$langFile = "create_course";
 require '../inc/claro_init_global.inc.php';
 
 //// Config tool

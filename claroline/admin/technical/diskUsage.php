@@ -1,7 +1,6 @@
 <?php // $Id$
 // This  tool comput the disk Usage of each course.
 
-$langFile = "admin.disk.usage";
 require '../../inc/claro_init_global.inc.php';
 
 $nameTools = $langDiskUsage;

@@ -11,7 +11,6 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-$langFile = "courses";
 
 require '../inc/claro_init_global.inc.php';
 

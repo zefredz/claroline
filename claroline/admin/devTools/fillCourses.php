@@ -49,7 +49,6 @@ DEFINE("CONF_VAL_TEACHER_STATUS"    ,1); //
 /////////////////////DON'T EDIT ///////////
 
 
-$langFile = "create_course";
 unset($includePath);
 require '../../inc/claro_init_global.inc.php';
 if (!isset($includePath)) trigger_error("init not run",E_USER_ERROR);

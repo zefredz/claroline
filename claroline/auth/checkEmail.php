@@ -6,7 +6,6 @@
       +----------------------------------------------------------------------+
  */
  
-$langFile = "registration";
 //$tlabelReq = ""; // actually tools out cours don't have label
 
 include('../inc/claro_init_global.inc.php');

@@ -9,7 +9,6 @@
       +----------------------------------------------------------------------+
  */
  
-$langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/statsUtils.lib.inc.php");
 

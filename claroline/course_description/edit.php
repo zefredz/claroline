@@ -28,7 +28,6 @@
 define("DISP_EDIT_FORM", __LINE__);
 define("DISP_LIST_BLOC", __LINE__);
 
-$langFile = "course_description";
 
 $showPedaSuggest = true; 
 

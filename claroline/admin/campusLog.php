@@ -1,4 +1,4 @@
-<?php # $Id$
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
       | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
@@ -8,7 +8,6 @@
       +----------------------------------------------------------------------+
  */
 
-$langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 $interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
 

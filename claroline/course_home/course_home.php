@@ -12,7 +12,6 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-$langFile = 'course_info';
 $course_homepage = TRUE;
 
 // If user is here, it means he isn't neither in specific group space 

@@ -32,7 +32,6 @@
        CLAROLINE MAIN
   ======================================*/
 
-  $langFile = "learnPath";
   // global variable declaration
 
   require '../../inc/claro_init_global.inc.php';

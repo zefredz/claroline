@@ -12,7 +12,6 @@
 //----------------------------------------------------------------------
 
 $cidReset=TRUE;
-$langFile = "editFile";
 require '../../inc/claro_init_global.inc.php';
 
 include($includePath."/lib/debug.lib.inc.php");

@@ -37,8 +37,6 @@ define('MULTIPLE_ANSWER',2);
 define('FILL_IN_BLANKS', 3);
 define('MATCHING',		 4);
 
-$langFile='exercice';
-
 require '../inc/claro_init_global.inc.php';
 
 /*

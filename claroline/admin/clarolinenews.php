@@ -10,7 +10,7 @@
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
-$langFile = "admin";$cidReset=true;$gidReset=true;
+$cidReset=true;$gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
 @include ($includePath.'/installedVersion.inc.php');

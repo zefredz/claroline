@@ -1,5 +1,4 @@
-<?php
-$langFile="registration";
+<?php // $Id$
 require '../inc/claro_init_global.inc.php';
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">

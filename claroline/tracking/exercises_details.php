@@ -37,7 +37,6 @@
       This page display global information about 
  */
  
-$langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
 

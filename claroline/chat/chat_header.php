@@ -13,7 +13,6 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-$langFile = "chat";
 $tlabelReq = "CLCHT___";
 
 require '../inc/claro_init_global.inc.php';

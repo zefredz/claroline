@@ -21,7 +21,6 @@
 
  */
 
-$langFile = 'agenda';
 $tlabelReq = "CLCAL___";
 
 require '../inc/claro_init_global.inc.php';

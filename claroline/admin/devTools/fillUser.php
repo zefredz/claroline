@@ -25,11 +25,13 @@
  * ******************************************************************
  */
 
+$langFree = 'Libre';
+
 DEFINE("DISP_RESULT_INSERT"		,1);
 DEFINE("DISP_FORM_SET_OPTION"	,2);
 DEFINE("DISP_INSERT_COMPLETE"	,3);
 unset($includePath);
-$langFile = "dev.adduser";
+
 require '../../inc/claro_init_global.inc.php';
 
 if (!isset($includePath)) trigger_error("init not run",E_USER_ERROR);
@@ -156,18 +158,14 @@ if (isset($HTTP_POST_VARS["nbp"]))
 		$nbssAdded += mysql_affected_rows();
 		$users[]= $prenom." ".$nom.", L/P ".$username." / ".$password;
 	}
-
 	$display=DISP_RESULT_INSERT;
-
 }
 
 //////////////// OUTPUT
 switch ($display)
 {
 	case DISP_RESULT_INSERT :
-		?>
-
-		<?php echo $lang_you_had_request; ?> :
+        echo $lang_you_had_request; ?> :
 		<UL>
 			<LI>
 				<?php echo $_REQUEST["nbp"] ." " . $langTeachers; ?></LI>
@@ -175,8 +173,7 @@ switch ($display)
 				<?php echo $_REQUEST["nbs"] ." " . $langStudents; ?>
 			</LI>
 		</UL>
-
-		<?php
+<?php
 			echo $nbssAdded." new users";
 			if (CONFVAL_LIST_USER_ADDED)
 			{
@@ -185,8 +182,7 @@ switch ($display)
 				echo "</LI></OL>";
 			}
 
-		?>
-
+?>
 			<UL class="menu">
 				<LI>
 					<a href="<?php echo $_SERVER['PHP_SELF'] ?>" >Again</a>
@@ -240,7 +236,7 @@ switch ($display)
 			</tr>
 			<tr>
 				<th >
-					Prenom :
+					<?php echo $langFirstName; ?>
 				</th>
 				<td>
 					<div>
@@ -255,7 +251,7 @@ switch ($display)
 			</tr>
 			<tr>
 				<th valign="top" >
-					Login : 
+					<?php echo $langLogin; ?>
 				</th>
 				<td>
 					<div>
@@ -264,16 +260,16 @@ switch ($display)
 					</div>
 					<div>
 						<input type="radio" id="" name="selLogin" value="name">
-						<Label for="selFirstnameRandom" >Nom</Label>
+						<Label for="selFirstnameRandom" ><?php echo $langName ?></Label>
 					</div>
 					<div>
 						<input type="radio" id="" name="selLogin" value="firstname">
-						<Label for="selFirstnameRandom" >Prenom</Label>
+						<Label for="selFirstnameRandom" ><?php echo $langFirstName ?></Label>
 					</div>
 					<div>
 						<input type="radio" name="selLogin" value="fix">
 						<input type="text" id="selLoginFix" align="right" name="selLoginFix" value="" size="10" maxlength="25">
-						<Label for="selLoginFix" >Libre</Label>
+						<Label for="selLoginFix" ><?php echo $langFree ?></Label>
 					</div>
 				</td>
 			</tr>

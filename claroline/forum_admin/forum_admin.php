@@ -7,7 +7,6 @@
 +----------------------------------------------------------------------+
 */
 
-$langFile = "forum_admin";
 require '../inc/claro_init_global.inc.php';
 
 $nameTools = $langOrganisation;

@@ -1,5 +1,4 @@
-<?php # $Id$
-$langFile = "tracking";
+<?php // $Id$
 require '../inc/claro_init_global.inc.php';
 $interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
 

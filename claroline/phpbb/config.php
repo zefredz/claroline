@@ -4,7 +4,6 @@
 // It will NOT report uninitialized variables
 //error_reporting  (E_ERROR | E_WARNING | E_PARSE);
 
-$langFile = 'phpbb';
 $tlabelReq = 'CLFRM___';
 require '../inc/claro_init_global.inc.php';
 

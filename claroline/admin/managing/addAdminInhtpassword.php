@@ -13,8 +13,6 @@
 
 unset($controlMsg);
 
-
-$langFile = "admin.access";
 $cidReset = true;
 
 require '../../inc/claro_init_global.inc.php';
