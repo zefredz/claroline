@@ -46,12 +46,12 @@ if ($_REQUEST['applyChange'])
      */
     $form_password1    = trim($_REQUEST['form_password1'   ]);
     $form_password2    = trim($_REQUEST['form_password2'   ]);
-    $form_userName     = claro_strip_tags ( trim($_REQUEST['form_userName'    ]) );
+    $form_userName     = stripslashes ( trim($_REQUEST['form_userName'    ]) );
 
-    $form_officialCode = claro_strip_tags ( trim($_REQUEST['form_officialCode']) );
-    $form_lastName     = claro_strip_tags ( trim($_REQUEST['form_lastName'    ]) );
-    $form_firstName    = claro_strip_tags ( trim($_REQUEST['form_firstName'   ]) );
-    $form_email        = claro_strip_tags ( trim($_REQUEST['form_email'       ]) );
+    $form_officialCode = stripslashes ( trim($_REQUEST['form_officialCode']) );
+    $form_lastName     = stripslashes ( trim($_REQUEST['form_lastName'    ]) );
+    $form_firstName    = stripslashes ( trim($_REQUEST['form_firstName'   ]) );
+    $form_email        = stripslashes ( trim($_REQUEST['form_email'       ]) );
 
     $form_del_picture  = trim($_REQUEST['form_del_picture'] );
 
