@@ -419,7 +419,7 @@ function claro_disp_tool_title($titleElement, $helpUrl = false)
     {
     	global $clarolineRepositoryWeb, $langHelp;
 
-?><a href="#" onClick="MyWindow=window.open('<?php echo $clarolineRepositoryWeb ?>/help/<?php echo $helpUrl ?>','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;"><?php
+?><a href="#" onClick="MyWindow=window.open('<?php echo $clarolineRepositoryWeb ?>help/<?php echo $helpUrl ?>','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;"><?php
 
 
         echo '<img src="'.$clarolineRepositoryWeb.'/img/help.gif" '
