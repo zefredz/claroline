@@ -115,7 +115,7 @@ if ($is_allowedToManage)
 {
     if($creation)
     {
-        // For all Group forums, cat_id=2
+        // For all Group forums, cat_id=1
 
         if (!isset($group_quantity))	$group_quantity = 1;
 
@@ -135,13 +135,25 @@ if ($is_allowedToManage)
             /*
              * Create a forum for the group in the forum table
              */
-
+	    // we need to know what is the max forum_order only if lastOrder 
+	    // is not already set
+	    if (!$lastOrder)
+	    {
+		// select max order in the forum cat only (cat_id = 1)
+	    	$sql = "SELECT MAX(`forum_order`)
+				FROM `".$tbl_Forums."`
+				WHERE `cat_id` = 1"; 
+		$result = claro_sql_query($sql);
+		$tmp = mysql_fetch_array($result);
+		$lastOrder = $tmp[0];
+	    }
+	    $lastOrder += 1;	
             $sql = "INSERT INTO `".$tbl_Forums."`
                     (forum_id, forum_name, forum_desc, forum_access, forum_moderator,
                     forum_topics, forum_posts, forum_last_post_id, cat_id,
-                    forum_type, md5)
+                    forum_type, md5, forum_order)
                     VALUES ('','$langForumGroup $lastId','', 2, 1, 0, 0,
-                            1, 1, 0,'".md5(time())."')";
+                            1, 1, 0,'".md5(time())."', ".$lastOrder.")";
 
             mysql_query($sql);
 
