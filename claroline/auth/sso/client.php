@@ -28,7 +28,7 @@ $nuSoapPath = '../../inc/lib/nusoap.php';
 // the Claroline platform you want to request on. Adapt this url to fit your 
 // Claroline location.
 
-$url = 'http://my.domain.com/mycampus/claroline/auth/sso/server.php';
+$ssoServerUrl = 'http://my.domain.com/mycampus/claroline/auth/sso/server.php';
 
 // COOKIE NAME. The name of the cookie the Claroline platform has set into the 
 // user browser. By default this name is 'clarolineSsoCookie'. But it can be 
@@ -79,7 +79,7 @@ if ( isset($_COOKIE[$cookieName]) )
                        'cid'    => $courseId, 
                        'gid'    => $groupId              );
 
-    $client = new soapclient($url);
+    $client = new soapclient($ssoServerUrl);
 
     $result = $client->call('get_user_info_from_cookie', $paramList);
 
