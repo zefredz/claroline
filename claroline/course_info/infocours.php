@@ -26,7 +26,7 @@ include($includePath."/conf/course_info.conf.php");
 
 $nameTools = $langModifInfo;
 
-include($includePath."/lib/text.lib.php");
+
 @include($includePath."/lib/debug.lib.inc.php");
 
 /*
@@ -325,7 +325,7 @@ if ($showLastEdit && $currentCourseLastEdit!="" && $currentCourseLastEdit!="0000
 ?>
 <tr>
 <td><?php echo $langLastEdit; ?>&nbsp;:</td>
-<td><?php echo claro_format_locale_date($dateTimeFormatLong,strtotime($currentCourseLastEdit)); ?></td>
+<td><?php echo claro_disp_localised_date($dateTimeFormatLong,strtotime($currentCourseLastEdit)); ?></td>
 </tr>
 
 <?php
@@ -335,7 +335,7 @@ if ($showLastVisit && $currentCourseLastVisit != "" && $currentCourseLastVisit!=
 ?>
 <tr>
 <td><?php echo $langLastVisit; ?>&nbsp;:</td>
-<td><?php echo claro_format_locale_date($dateTimeFormatLong,strtotime($currentCourseLastVisit)); ?></td>
+<td><?php echo claro_disp_localised_date($dateTimeFormatLong,strtotime($currentCourseLastVisit)); ?></td>
 </tr>
 
 <?php
@@ -345,7 +345,7 @@ if ($showCreationDate && $currentCourseCreationDate!="" && $currentCourseCreatio
 ?>
 <tr>
 <td><?php echo $langCreationDate; ?>&nbsp;:</td>
-<td><?php echo claro_format_locale_date($dateTimeFormatLong,strtotime($currentCourseCreationDate)); ?></td>
+<td><?php echo claro_disp_localised_date($dateTimeFormatLong,strtotime($currentCourseCreationDate)); ?></td>
 </tr>
 
 <?php
@@ -357,7 +357,7 @@ if ($showExpirationDate && $currentCourseExpirationDate!="" && $currentCourseExp
 <td><?php echo $langExpirationDate; ?>&nbsp;:</td>
 <td>
 <?php
-	echo claro_format_locale_date($dateTimeFormatLong,strtotime($currentCourseExpirationDate));
+	echo claro_disp_localised_date($dateTimeFormatLong,strtotime($currentCourseExpirationDate));
 	echo "<BR>Soit dans : ";
 	$nbJour = (strtotime($currentCourseExpirationDate) - time()) / (60*60*24);
 	$nbAnnees  = round($nbJour / 365);

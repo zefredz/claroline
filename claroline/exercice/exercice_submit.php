@@ -50,7 +50,6 @@ $langFile='exercice';
 
 require '../inc/claro_init_global.inc.php';
 
-@include($includePath.'/lib/text.lib.php');
 
 $attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
 $attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';

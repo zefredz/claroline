@@ -5,10 +5,6 @@
 +----------------------------------------------------------------------+
 | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
 +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      +----------------------------------------------------------------------+
 */
 /**
  * This script edit the course description.
@@ -39,7 +35,6 @@ $langFile = "course_description";
 $showPedaSuggest = true; 
 
 require('../inc/claro_init_global.inc.php'); 
-require($includePath."/lib/text.lib.php"); 
 
 $nameTools = $langCourseProgram;
 

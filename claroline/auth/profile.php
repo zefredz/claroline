@@ -38,7 +38,6 @@ define('DISP_REVOQUATION',__LINE__);
 
 require '../inc/claro_init_global.inc.php';
 include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
-include $includePath.'/lib/text.lib.php';
 include $includePath.'/lib/fileManage.lib.php';
 include $includePath.'/lib/auth.lib.inc.php';
 include($includePath.'/lib/claro_mail.lib.inc.php');
@@ -64,7 +63,7 @@ if (CAN_REQUEST_COURSE_CREATOR_STATUS && $_REQUEST['exCCstatus'])
 	$requestMessage_Title = '['.$siteName.'][Rq]'
 	                   .sprintf($lang_p_u_ReqCourseCreatorStatus,$_user['lastName'],$_user['firstName']);
 	$requestMessage_Content = '
-     '.claro_format_locale_date( $dateFormatLong).'
+     '.claro_disp_localised_date( $dateFormatLong).'
 	 '.sprintf($lang_p_u_ReqCourseCreatorStatus,$_user['lastName'],$_user['firstName']).'
 User:'.$_uid.'
      '.$_user['firstName'].'
@@ -86,7 +85,7 @@ elseif (CAN_REQUEST_REVOQUATION && $_REQUEST['exRevoquation'])
 	$requestMessage_Title = '['.$siteName.'][Rq]'
 	                   .sprintf($lang_p_u_ReqRevoquation,$_user['lastName'],$_user['firstName']);
 	$requestMessage_Content = '
-     '.claro_format_locale_date( $dateFormatLong).'
+     '.claro_disp_localised_date( $dateFormatLong).'
 	 '.sprintf($lang_p_u_ReqRevoquation,$_user['lastName'],$_user['firstName']).'
 User:'.$_uid.'
      '.$_user['firstName'].'

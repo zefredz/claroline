@@ -215,7 +215,7 @@ echo "</ul>\n"
             ."<img src=\"".$clarolineRepositoryWeb."/img/".$itemIcon."\">"
             ."</a>"
 
-            .  claro_format_locale_date( $dateFormatLong,
+            .  claro_disp_localised_date( $dateFormatLong,
                                      strtotime($courseDigestList['date'][$i]) )
             ."<br>\n"
             ."<a href=\"".$url."\">"

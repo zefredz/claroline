@@ -23,7 +23,7 @@
 
 $TBL_INTRODUCTION = $_course['dbNameGlu']."tool_intro";
 
-@include_once($includePath.'/lib/text.lib.php');
+
 /*
 if ($is_courseAdmin) 
 {

@@ -52,7 +52,7 @@ require '../inc/claro_init_global.inc.php';
 //// Config tool
 include($includePath."/conf/add_course.conf.php");
 //// LIBS
-include($includePath."/lib/text.lib.php");
+
 include($includePath."/lib/add_course.lib.inc.php");
 include($includePath."/lib/course.lib.inc.php");
 include($includePath."/lib/debug.lib.inc.php");
@@ -334,7 +334,7 @@ else
 		    // warn platform administrator of the course creation
 			$strCreationMailNotificationSubject = 		    '['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$newcourse_label;
 			$strCreationMailNotificationBody = 
-		    claro_format_locale_date($dateTimeFormatLong)."\n"
+		    claro_disp_localised_date($dateTimeFormatLong)."\n"
 		    .$langCreationMailNotificationBody.' '.$siteName.' '
 		    .$langByUser.$_user['firstName'].' '.$_user['lastName']." (".$_user['mail'].") \n"
 		    .' '.$langCode			.' : '.$currentCourseCode."\n"
@@ -730,7 +730,7 @@ BuildEditableCatTable(""," &gt; ");
 			<?php echo $langLastVisit ?>
 		</td
 		<td>
-			<?php echo ucfirst(claro_format_locale_date($dateTimeFormatLong,strtotime($valueLastVisit))) ?>
+			<?php echo ucfirst(claro_disp_localised_date($dateTimeFormatLong,strtotime($valueLastVisit))) ?>
 		</td>
 	</tr>
 	<tr>
@@ -738,7 +738,7 @@ BuildEditableCatTable(""," &gt; ");
 			<?php echo $langLastEdit ?>
 		</td
 		<td>
-			<?php echo ucfirst(claro_format_locale_date($dateTimeFormatLong,strtotime($valueLastEdit))) ?>
+			<?php echo ucfirst(claro_disp_localised_date($dateTimeFormatLong,strtotime($valueLastEdit))) ?>
 		</td>
 	</tr>
 	<tr>

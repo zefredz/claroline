@@ -41,7 +41,6 @@ $langFile='exercice';
 
 require '../inc/claro_init_global.inc.php';
 
-include($includePath.'/lib/text.lib.php');
 /*
  * DB tables definition
  */

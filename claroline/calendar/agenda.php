@@ -29,7 +29,7 @@ if ( ! $_cid) claro_disp_select_course();
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 include($includePath."/conf/agenda.conf.inc.php");
-include($includePath."/lib/text.lib.php");
+
 
 $nameTools = $langAgenda;
 
@@ -471,7 +471,7 @@ foreach($eventList as $thisEvent)
 
             echo "<tr>\n"
                 ."<th class=\"superHeader\" colspan=\"2\" valign=\"top\">\n"
-                .ucfirst(claro_format_locale_date('%B %Y',time()))
+                .ucfirst(claro_disp_localised_date('%B %Y',time()))
                 ."</th>\n"
                 ."</tr>\n";
         }
@@ -484,7 +484,7 @@ foreach($eventList as $thisEvent)
             ."<img src=\"".$clarolineRepositoryWeb."img/pixel.gif\" width=\"20\" alt=\" \">"
             ."<span class=\"highlight\">"
             ."<i>"
-            .ucfirst(claro_format_locale_date( $dateFormatLong))." "
+            .ucfirst(claro_disp_localised_date( $dateFormatLong))." "
             .ucfirst( strftime( $timeNoSecFormat))
             ." -- ".$langNow
             ."</i>"
@@ -507,7 +507,7 @@ foreach($eventList as $thisEvent)
 
     echo "<tr>\n"
         ."<th class=\"superHeader\" valign=\"top\">\n"
-        .ucfirst(claro_format_locale_date('%B %Y', strtotime( $thisEvent['day']) ))
+        .ucfirst(claro_disp_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
         ."</th>\n"
         ."</tr>\n";
   }
@@ -520,7 +520,7 @@ foreach($eventList as $thisEvent)
       ."<th>\n"
       ."<a href=\"#form\" name=\"event".$thisEvent['id']."\"></a>\n"
       ."<img src=\"".$clarolineRepositoryWeb."img/agenda.gif\" alt=\" \">"
-      .ucfirst(claro_format_locale_date( $dateFormatLong, strtotime($thisEvent['day'])))." "
+      .ucfirst(claro_disp_localised_date( $dateFormatLong, strtotime($thisEvent['day'])))." "
       .ucfirst( strftime( $timeNoSecFormat, strtotime($thisEvent['hour'])))." "
       .( empty($thisEvent['lasting']) ? '' : $langLasting.' : '.$thisEvent['lasting'] );
 

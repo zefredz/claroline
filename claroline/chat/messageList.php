@@ -15,7 +15,6 @@ require '../inc/claro_init_global.inc.php';
 if ( !$_cid ) claro_disp_select_course();
 if ( ! $is_courseAllowed )	claro_disp_auth_form();
 
-require $includePath.'/lib/text.lib.php';
 
 /*============================================================================
                                 CONNECTION BLOC
@@ -96,8 +95,8 @@ define('MAX_LINE_IN_FILE', 200);
 define('MAX_LINE_TO_DISPLAY',  20);
 
 
-$dateNow = claro_format_locale_date($dateTimeFormatLong);
-$timeNow = claro_format_locale_date('%d/%m/%y [%H:%M]');
+$dateNow = claro_disp_localised_date($dateTimeFormatLong);
+$timeNow = claro_disp_localised_date('%d/%m/%y [%H:%M]');
 
 if ( ! file_exists($activeChatFile))
 {

@@ -5,10 +5,6 @@
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      +----------------------------------------------------------------------+
       |          MODIFY COURSE INFO                                          |
       | Modify course settings like:										 |
       |     1. Course title													 |
@@ -26,7 +22,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();
 
 
-include($includePath."/lib/text.lib.php");
+
 @include($includePath."/lib/debug.lib.inc.php");
 //@include($includePath."/conf/postpone.conf.php");
 

@@ -25,7 +25,7 @@ $nameTools 	= $langGroups;
 @include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/group.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
-include($includePath."/lib/text.lib.php");
+
 include($includePath."/lib/events.lib.inc.php");
 
 $htmlHeadXtra[] =
