@@ -1830,7 +1830,10 @@ HTMLArea.is_opera  = (HTMLArea.agt.indexOf("opera") != -1);
 HTMLArea.is_mac	   = (HTMLArea.agt.indexOf("mac") != -1);
 HTMLArea.is_mac_ie = (HTMLArea.is_ie && HTMLArea.is_mac);
 HTMLArea.is_win_ie = (HTMLArea.is_ie && !HTMLArea.is_mac);
-//k-meleon is based on mozilla 1.5 but is NOT compatible so we make a special check for it
+
+// Claroline PATCH !
+// k-meleon is based on mozilla 1.5 but is NOT compatible 
+// so we make a special check for it
 HTMLArea.is_gecko  = (navigator.product == "Gecko" && (HTMLArea.agt.indexOf("k-meleon") == -1) ); 
 
 // variable used to pass the object to the popup editor window.
