@@ -3,7 +3,7 @@
 /**
  * Pager class allowing to manage the paging system into claroline
  *
- *  exemple : $myPager = claro_sql_pager('SELECT * FROM USER', $offset, $step);
+ *  exemple : $myPager = new claro_sql_pager('SELECT * FROM USER', $offset, $step);
  *
  *            echo '<table><tr><td>';
  *
