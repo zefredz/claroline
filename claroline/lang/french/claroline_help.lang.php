@@ -1,8 +1,5 @@
 <?php
 $langAddIntro = "Ajouter un texte d'introduction";
-$langAgenda = "Agenda";
-$langAnnouncement = "Annonces";
-$langChat = "Discussion";
 $langClarContent = "<br><p><b>Etudiant</b></p>
 <p>
 Pour visiter les cours accessibles depuis la page d'accueil du campus,
@@ -20,11 +17,9 @@ pour vous rappeler le nom d'utilisateur et le mot de passe à introduire lors de 
 </p>";
 $langCloseWindow = "Fermer la fenêtre";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
-$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langDay_of_weekNames = "Array";
 $langDelete = "Effacer";
-$langDescriptionCours = "Description du cours";
 $langDocContent = "<p>Le module de gestion de document fonctionne de
  manière semblable à la gestion de vos documents sur un
  ordinateur. </p><p>Vous pouvez y déposer des documents de tout type
@@ -151,7 +146,6 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 	</ul>
 	<center>
 	  <p>";
-$langDocument = "Documents et liens";
 $langExerciseContent = "<p>Le module d'exercice vous permet de créer des exercices pouvant contenir un nombre quelconque de questions.<br><br>
 Il existe différents types de réponses disponibles pour la création de vos questions :<br><br>
 <ul>
@@ -222,7 +216,6 @@ Si vous avez un grand nombre de questions, vous pouvez aussi choisir de ne prend
 La banque de questions permet également de réutiliser une même question dans plusieurs exercices.<br><br>
 Par défaut, toutes les questions de votre cours sont affichées. Vous pouvez afficher les questions relatives à un exercice en particulier, en choisissant celui-ci dans le menu déroulant 'Filtre'.<br><br>
 Des questions orphelines sont des questions n'appartenant à aucun exercice.</p>";
-$langExercises = "Exercices";
 $langForContent = "Le forum est un outil de discussion asynchrone par écrit.
  A la différence de l'e-mail, le forum situe la discussion dans un espace
  public ou semi-public (à plusieurs).</p><p>Pour utiliser l'outil de forum
@@ -247,7 +240,6 @@ $langForContent = "Le forum est un outil de discussion asynchrone par écrit.
  ce soit, un forum 'Appels à l'aide', vous pouvez y ajouter comme
  description: 'Signaler des difficultés par rapport au contenu ou par
  rapport au dispositif'.";
-$langForums = "Forums";
 $langGroupContent = "<p><b>Introduction</b></p>
 	<p>Cet outil permet de créer et de gérer des groupes de travail.
 	A la création, les groupes sont vides. Le gestionnaire de cours dispose de
@@ -286,7 +278,6 @@ $langGroupContent = "<p><b>Introduction</b></p>
 	et de fonctions. <ul><li><b>Editer</b> permet de modifier manuellement la composition du groupe.</li>
 	<li><b>Supprimer</b> détruit un groupe.</li></ul>
 	<hr noshade size=1>";
-$langGroups = "Groupes";
 $langHClar = "Aide au démarrage";
 $langHDoc = "Aide documents";
 $langHExercise = "Aide exercices";
@@ -316,7 +307,6 @@ $langHomeContent = "La plupart des rubriques de Claroline sont déjà remplies
  souhaitable qu'un cours à l'essai ou 'en chantier' n'apparaisse pas dans
  la liste (voir la fonction 'Propriétés du cours') et demeure privé sans
  possibilité d'inscription le temps de sa conception.</p>";
-$langLearningPath = "Parcours pédagogique";
 $langLogin = "login";
 $langLogout = "Quitter";
 $langManager = "Gestionnaire";
@@ -325,13 +315,15 @@ $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes cours";
+$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des cours";
 $langPassword = "mot de passe";
-$langPlatformAdministration = "Administration de la plate-forme";
 $langPoweredBy = "Utilise la plate-forme";
 $langReg = "Inscription";
 $langStudent = "Etudiant";
+$langTextEditorDisable = "Désactiver l'éditeur de texte";
+$langTextEditorEnable = "Activer l'éditeur de texte";
 $langUserContent = "<b>Droits d'administration</b>
 <p>Pour permettre à un co-titulaire, un assistant, un tuteur ou qui que ce
  soit de co-administrer le site avec vous, vous devez préalablement
@@ -350,9 +342,7 @@ et validez. La personne recevra un e-mail de confirmation de son
 inscription contenant son nom d'utilisateur et son mot de passe, sauf si
 vous n'avez pas introduit son e-mail.</p>";
 $langUserName = "Nom d'utilisateur";
-$langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
-$langWork = "Travaux";
 $lang_click_here = "cliquez ici";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";

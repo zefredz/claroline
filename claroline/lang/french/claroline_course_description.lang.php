@@ -1,12 +1,8 @@
 <?php
 $langAdd = "Ajouter";
-$langAddCat = "Ajouter une catégorie";
 $langAddIntro = "Ajouter un texte d'introduction";
-$langAgenda = "Agenda";
-$langAnnouncement = "Annonces";
 $langAreYouSureToDelete = "Etes-vous sûr de vouloir supprimer ";
 $langBackAndForget = "Abandonner";
-$langChat = "Discussion";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langContenuPlan = "";
 $langCourseContent = "Contenu du cours";
@@ -17,12 +13,10 @@ Quelle sera la séquence des contenus&nbsp;?
 Quelle sera la progression dans les contenus&nbsp;?";
 $langCourseContentComment2 = "Présentation de la table des matières du cours, de la structuration du 
 contenu, de la progression et du calendrier";
-$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langCourseProgram = "Description du cours";
 $langDay_of_weekNames = "Array";
 $langDelete = "Effacer";
-$langDeleted = "Supprimés";
 $langDescription = "Description";
 $langDescriptionComment1 = "Quelle est la place et la spécificité du cours dans le programme&nbsp;?
 Existe-t-il des cours pré-requis&nbsp;?
@@ -33,12 +27,7 @@ Information permettant d'identifier le cours
 et l'enseignant (nom, prénom, bureau, tél, e-mail, disponibilités éventuelles).
 <br>
 Présentation générale du cours dans le programme.";
-$langDescriptionCours = "Description du cours";
-$langDocument = "Documents et liens";
-$langEditCourseProgram = "Créer et éditer à l'aide des formulaires une description de cours";
-$langExercises = "Exercices";
-$langForums = "Forums";
-$langGroups = "Groupes";
+$langEditCourseProgram = "Création et édition";
 $langHelp = "Aide";
 $langHumanAndPhysicalResourcesComment1 = "
 Quelles sont les ressources humaines et physiques disponibles&nbsp;?
@@ -50,7 +39,6 @@ enseignants qui vont encadrer le cours (assistants, chercheurs,
 équipements ou matériel informatique disponibles.";
 $langHumanAndPhysicalRessources = "Ressources humaines et physiques";
 $langInfo2Say = "Informations à communiquer <BR>à l'étudiant";
-$langLearningPath = "Parcours pédagogique";
 $langLogin = "login";
 $langLogout = "Quitter";
 $langManager = "Gestionnaire";
@@ -65,10 +53,10 @@ $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes cours";
 $langNewBloc = "Autre";
+$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des cours";
 $langPassword = "mot de passe";
-$langPlatformAdministration = "Administration de la plate-forme";
 $langPoweredBy = "Utilise la plate-forme";
 $langQualificationsAndGoals = "Compétences et Objectifs";
 $langQualificationsAndGoalsComment1 = "Présentation des objectifs généraux et spécifiques du cours, des compétences auxquelles la maîtrise de tels objectifs pourrait conduire.";
@@ -92,13 +80,13 @@ $langTeachingTrainingActivitiesComment2 = "Présentation des activités prévues
 (exposés magistraux, participation attendue des étudiants, travaux pratiques, 
 séances de laboratoire, visites, recueil d'informations sur le terrain, 
 ...).";
+$langTextEditorDisable = "Désactiver l'éditeur de texte";
+$langTextEditorEnable = "Activer l'éditeur de texte";
 $langThisCourseDescriptionIsEmpty = "La description de ce cours est vide";
 $langTitle = "Titre";
 $langUserName = "Nom d'utilisateur";
-$langUsers = "Utilisateurs";
 $langValid = "Enregistrer";
 $langViewMode = "Mode de vue";
-$langWork = "Travaux";
 $lang_click_here = "cliquez ici";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
