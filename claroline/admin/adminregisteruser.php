@@ -95,6 +95,7 @@ switch ($cmd)
           }
           else                   // only set as student
           {
+               if ($user_id==$_uid) {$dialogBox = $langNotUnregYourself;}
                $properties['status'] = 5;
                $properties['role']   = "Student";
                $properties['tutor']  = 0;
@@ -107,10 +108,6 @@ switch ($cmd)
         if ($done)
         {
            $dialogBox =$langUserSubscribed;
-        }
-        else
-        {
-           $dialogBox ="";
         }
         break;
 

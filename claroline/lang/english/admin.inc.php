@@ -271,4 +271,5 @@ $langUserCreated ="The new user has been sucessfully created";
 $langCreateAnotherUser = "Create another new user";
 $langPasswordWrong = "Passwords must be identical to change it";
 $langStatusChangeNotMade = "No change applied";
+$langNotUnregYourself ="You can not change your own settings!";
 ?>
