@@ -411,13 +411,10 @@
    //######################### LEARNING PATH COURSEADMIN LINKS ##########################\\
    //####################################################################################\\
    ?>
-
-           <!-- <a href="<?= $PHP_SELF ?>?cmd=createModule"><?= $langNewModule; ?></a> | -->
            <a href="insertMyDoc.php"><?= $langDocumentAsModule; ?></a> |
            <a href="insertMyExercise.php"><?= $langExerciseAsModule; ?></a> |
            <a href="insertMyModule.php"><?= $langModuleOfMyCourse; ?></a> |
            <a href="<?= $PHP_SELF ?>?cmd=createLabel"><?= $langCreateLabel; ?></a>
-           <!-- | <a href="insertPublicModule.php"><?= $langGetModuleFromOtherCourse; ?></a>-->
 
    <?PHP
    //####################################################################################\\
