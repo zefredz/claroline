@@ -251,8 +251,8 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
             ."<input type=\"text\" name=\"toolName\" name=\"toolName\" value=\"".$toolName."\"><br>"
             ."<label for=\"toolUrl\">".$langToolUrl."</label><br>"
             ."<input type=\"text\" name=\"toolUrl\" name=\"toolUrl\" value=\"".$toolUrl."\"><br>"
-            ."<input class=\"claroButton\" type=\"submit\" value=\"OK\">&nbsp;"
-            ."<a class=\"claroButton\" href=\"" . $PHP_SELF ."\">Cancel</a>"
+            ."<input class=\"claroButton\" type=\"submit\" value=\"".$langOk."\">&nbsp;"
+            ."<a class=\"claroButton\" href=\"" . $PHP_SELF ."\">".$langCancel."</a>"
             ."</form>";
 }
 
@@ -342,11 +342,11 @@ foreach($toolList as $thisTool)
     if ($removableTool)
     {
         echo "<a href=\"". $PHP_SELF ."?cmd=rqEdit&externalToolId=".$thisTool['id']."\">"
-             ."<img src=\"" . $imgRepository. "edit.gif\" alt=\"edit\" />"
+             ."<img src=\"" . $imgRepository. "edit.gif\" alt=\"".$langModify."\" />"
              ."</a>\n"
              . "<a href=\"". $PHP_SELF ."?cmd=exDelete&externalToolId=". $thisTool['id'] . "\""
              . " onClick=\"return confirmation('" . addslashes($toolName) . "');\">"
-             ."<img src=\"" . $imgRepository. "delete.gif\" alt=\"delete\" />"
+             ."<img src=\"" . $imgRepository. "delete.gif\" alt=\"".$langDelete."\" />"
              ."</a>\n";
 
     }
@@ -356,8 +356,8 @@ foreach($toolList as $thisTool)
 
 echo "</table>";
 
-echo "<input class=\"claroButton\" type=\"submit\" value=\"OK\" />\n";
-claro_disp_button($coursesRepositoryWeb.$_course['path'], 'Cancel');
+echo "<input class=\"claroButton\" type=\"submit\" value=\"".$langOk."\" />\n";
+claro_disp_button($coursesRepositoryWeb.$_course['path'], $langCancel);
 echo "</form>\n"
     ."</blockquote>\n";
 
