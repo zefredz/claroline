@@ -15,6 +15,17 @@
 
 require '../claro_init_global.inc.php';
 
+///* <DEBUG> */
+//echo "<pre style='color:red;font-weight:bold'>sourceUrl : $_REQUEST[sourceUrl]</pre>";
+///* </DEBUG> */
+//
+$sourceUrl = preg_replace('|&areaContent=.*|', '', $_REQUEST['sourceUrl'] );
+//
+///* <DEBUG> */
+//echo "<pre style='color:red;font-weight:bold'>sourceUrl : $sourceUrl</pre>";
+///* </DEBUG> */
+
+
 if($_REQUEST['switch'] == 'off')
 {
     $_SESSION['htmlArea'] = 'disabled';
@@ -29,6 +40,6 @@ elseif ($_REQUEST['switch'] == 'on' )
 header('Cache-Control: no-store, no-cache, must-revalidate');   // HTTP/1.1
 header('Cache-Control: post-check=0, pre-check=0', false);
 header('Pragma: no-cache');                                     // HTTP/1.0
-header('Location: '.$_REQUEST['sourceUrl'].'&areaContent='.$areaContent);
+header('Location: '.$sourceUrl.'&areaContent='.$areaContent);
 
 ?>
