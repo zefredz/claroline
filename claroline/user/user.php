@@ -4,20 +4,20 @@ require '../inc/claro_init_global.inc.php';
 if (!($_cid)) 	claro_disp_select_course();
 
 $htmlHeadXtra[] =
-"
-<script type=\"text/javascript\" language=\"JavaScript\" >
+'
+<script type="text/javascript" language="JavaScript" >
 function confirmation (name)
 {
-	if (confirm(\" $langAreYouSureToDelete \"+ name + \" ?\"))
+	if (confirm(" '.$langAreYouSureToDelete.' "+ name + " ?"))
 		{return true;}
 	else
 		{return false;}
 }
 </script>
-";
+';
 
-include($includePath."/lib/admin.lib.inc.php");
-@include($includePath."/lib/debug.lib.inc.php");
+include($includePath.'/lib/admin.lib.inc.php');
+@include($includePath.'/lib/debug.lib.inc.php');
 
 claro_set_display_mode_available(true);
 
@@ -122,7 +122,7 @@ if ($disp_tool_link)
 	?>
 	<a href="../group/group.php"><?php echo $langGroupUserManagement; ?></a>
 
-<?
+<?php
 }
 
 /*==========================
