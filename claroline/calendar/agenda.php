@@ -34,7 +34,7 @@ include($includePath."/conf/agenda.conf.inc.php");
 $htmlHeadXtra[] = 
 "<style type=\"text/css\">
 <!--
-.content {position: relative; left: 25px;}
+.content {padding-left: 25px;}
 -->
 </style>
 <style media=\"print\" type=\"text/css\">
