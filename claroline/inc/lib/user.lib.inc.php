@@ -16,9 +16,11 @@
   */
 function searchCoursesGroup($user1,$user2)
 {
-    GLOBAL $tbl_user;
-    GLOBAL $tbl_courses;
-    GLOBAL $tbl_course_user;
+    $tbl_mdb_names       = claro_sql_get_main_tbl();
+    $tbl_user            = $tbl_mdb_names['user'  ];
+    $tbl_courses         = $tbl_mdb_names['course'];
+    $tbl_course_user = $tbl_mdb_names['rel_course_user' ];
+
     GLOBAL $courseTablePrefix;
     GLOBAL $dbGlu;
 
@@ -92,7 +94,7 @@ function claro_user_info_create_cat_def($title="", $comment="", $nbline="5")
 	}
 
 	$sql = "SELECT MAX(`rank`) maxRank FROM `".$TBL_USERINFO_DEF."`";
-	$result = sql_query($sql) or die (WARNING_MESSAGE);
+	$result = claro_sql_query($sql);
 	if ($result) $maxRank = mysql_fetch_array($result);
 
 	$maxRank = $maxRank['maxRank'];
@@ -108,7 +110,7 @@ function claro_user_info_create_cat_def($title="", $comment="", $nbline="5")
 			`nbline`	= \"$nbline\",
 			`rank`		= \"$thisRank\"";
 
-	sql_query($sql)  or die(WARNING_MESSAGE);
+	claro_sql_query($sql);
 
 	return true;
 }
@@ -142,7 +144,7 @@ function claro_user_info_edit_cat_def($id, $title, $comment, $nbline)
 			`nbline`	= \"$nbline\"
 			WHERE id	= $id";
 
-	sql_query($sql) or die(WARNING_MESSAGE);
+	claro_sql_query($sql);
 
 	return true;
 }
@@ -179,7 +181,7 @@ function claro_user_info_remove_cat_def($id, $force = false)
 	if ($force == false)
 	{
 		$sql = "SELECT * FROM `".$TBL_USERINFO_CONTENT."` ".$sqlCondition;
-		$result = sql_query($sql) or die(WARNING_MESSAGE);
+		$result = claro_sql_query($sql);
 
 		if ( mysql_num_rows($result) > 0)
 		{
@@ -188,7 +190,7 @@ function claro_user_info_remove_cat_def($id, $force = false)
 	}
 
 	$sql = "DELETE FROM `".$TBL_USERINFO_DEF."` ".$sqlCondition;
-	sql_query($sql) or die(WARNING_MESSAGE);
+	claro_sql_query($sql);
 }
 
 /**
@@ -215,7 +217,7 @@ function claro_user_info_move_cat_rank($id, $direction) // up & down.
 	}
 
 	$sql = "SELECT rank FROM `".$TBL_USERINFO_DEF."` WHERE id = $id";
-	$result = sql_query($sql) or die(WARNING_MESSAGE."4");
+	$result = claro_sql_query($sql);
 
 	if (mysql_num_rows($result) < 1)
 	{
@@ -265,7 +267,7 @@ function claro_user_info_move_cat_rank_by_rank($rank, $direction) // up & down.
 	$sql = "SELECT id, rank FROM `".$TBL_USERINFO_DEF."` WHERE rank $compOp $rank
 	ORDER BY rank $sort LIMIT 2";
 
-	$result = sql_query($sql) or die (WARNING_MESSAGE."3");
+	$result = claro_sql_query($sql);
 
 	if (mysql_num_rows($result) < 2)
 	{
@@ -280,8 +282,8 @@ function claro_user_info_move_cat_rank_by_rank($rank, $direction) // up & down.
 	$sql2 = "UPDATE `".$TBL_USERINFO_DEF."` SET rank =".$thisCat['rank'].
 			" WHERE id = ".$nextCat['id'];
 
-	sql_query($sql1) or die (WARNING_MESSAGE."1");
-	sql_query($sql2) or die (WARNING_MESSAGE."2");
+	claro_sql_query($sql1);
+	claro_sql_query($sql2);
 
 	return true;
 }
@@ -332,7 +334,7 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
 			WHERE	`def_id`	= $def_id
 			AND		`user_id`	= $user_id";
 
-	$result = sql_query($sql) or die (WARNING_MESSAGE);
+	$result = claro_sql_query($sql);
 
 	if (mysql_num_rows($result) > 0)
 	{
@@ -347,7 +349,7 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
 			`ed_ip`		= '$user_ip',
 			`ed_date`	= now()";
 
-	sql_query($sql) or die (WARNING_MESSAGE);
+	claro_sql_query($sql);
 
 	return true;
 }
@@ -393,7 +395,7 @@ function claro_user_info_edit_cat_content($def_id, $user_id, $content ="", $user
 			`ed_date`	= now()
 			WHERE def_id = $def_id AND user_id = $user_id";
 
-	sql_query($sql) or die (WARNING_MESSAGE);
+	claro_sql_query($sql);
 
 	return true;
 }
@@ -420,7 +422,7 @@ function claro_user_info_cleanout_cat_content($user_id, $def_id)
 	$sql = "DELETE FROM `".$TBL_USERINFO_CONTENT."`
 			WHERE user_id = $user_id  AND def_id = $def_id";
 
-	sql_query($sql) or die (WARNIG_MESSAGE);
+	claro_sql_query($sql);
 
 	return true;
 }
@@ -451,7 +453,7 @@ function claro_user_info_get_course_user_info($user_id)
 			ON cat.id = content.def_id 	AND content.user_id = '$user_id'
 			ORDER BY cat.rank, content.id";
 
-	$result = sql_query($sql) or die (WARNING_MESSAGE);
+	$result = claro_sql_query($sql);
 
 	if (mysql_num_rows($result) > 0)
 	{
@@ -484,17 +486,19 @@ function claro_user_info_get_main_user_info($user_id, $courseCode)
 		return false;
 	}
 
-	global $mainDB;
+	$tbl_mdb_names       = claro_sql_get_main_tbl();
+    $tbl_user            = $tbl_mdb_names['user'  ];
+    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
 
 	$sql = "SELECT	u.nom lastName, u.prenom firstName, 
 	                u.email, u.pictureUri picture, cu.role, 
 	                cu.`statut` `status`, cu.tutor
-	        FROM    `".$mainDB."`.`user` u, `".$mainDB."`.cours_user cu
+	        FROM    `".$tbl_user."` u, `".$tbl_rel_course_user."` cu
 	        WHERE   u.user_id = cu.user_id
 	        AND     u.user_id = $user_id
 	        AND     cu.code_cours = \"$courseCode\"";
 
-	$result = sql_query($sql) or die (WARNING_MESSAGE);
+	$result = claro_sql_query($sql);
 
 	if (mysql_num_rows($result) > 0)
 	{
@@ -530,7 +534,7 @@ function claro_user_info_get_cat_content($userId, $catId)
 			AND content.user_id = '$userId'
 			WHERE cat.id = '$catId' ";
 
-	$result = sql_query($sql) or die (WARNING_MESSAGE);
+	$result = claro_sql_query($sql);
 
 	if (mysql_num_rows($result) > 0)
 	{
@@ -558,7 +562,7 @@ function claro_user_info_get_cat_def($catId)
 
 	$sql = "SELECT id, title, comment, nbline, rank FROM `".$TBL_USERINFO_DEF."` WHERE id = '$catId'";
 
-	$result = sql_query($sql) or die (WARNING_MESSAGE);
+	$result = claro_sql_query($sql);
 
 	if (mysql_num_rows($result) > 0)
 	{
@@ -589,7 +593,7 @@ function claro_user_info_claro_user_info_get_cat_def_list()
 			FROM  `".$TBL_USERINFO_DEF."`
 			ORDER BY rank";
 
-	$result = sql_query($sql) or die (WARNING_MESSAGE);
+	$result = claro_sql_query($sql);
 
 	if (mysql_num_rows($result) > 0)
 	{
@@ -638,25 +642,4 @@ function replace_dangerous_char($string)
 
 	return $string;
 }
-
-//////////////////////////////////////////////////////////////////////////////
-//                                DEBUG
-//////////////////////////////////////////////////////////////////////////////
-
-function sql_query($query)
-{
-	// echo "<pre style='color:navy'>",$query,"</pre>\n";
-	$handle = claro_sql_query($query);
-	if (mysql_errno())
-	    echo "<pre style='color:green'>".mysql_errno().": ".mysql_error()."\n".$query."</pre><hr>";
-	return $handle;
-}
-
-function debug($var)
-{
-	echo "<pre  style='color:green'>";
-	var_dump($var);
-	echo "</pre>\n";
-}
-//////////////////////////////////////////////////////////////////////////////
- ?>
+?>

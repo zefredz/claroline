@@ -33,6 +33,7 @@ $nameTools = $$_tool["nameVarName"];
 
 $tbl_mdb_names 			= claro_sql_get_main_tbl();
 $tbl_cdb_names 			= claro_sql_get_course_tbl();
+$tbl_admin 			    = $tbl_mdb_names['admin'           ];
 $tbl_course 			= $tbl_mdb_names['course'           ];
 $tbl_rel_course_user	= $tbl_mdb_names['rel_course_user'  ];
 $tbl_course_user  	    = $tbl_rel_course_user	;
@@ -41,8 +42,7 @@ $tbl_track_e_default    = $tbl_mdb_names['track_e_default'];
 $tbl_track_e_login      = $tbl_mdb_names['track_e_login'];
 $tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
 
-$tbl_user_bak		= $mainDbName."`.`user_garbage";
-$tbl_admin		    = $mainDbName."`.`admin";
+$tbl_user_bak		= $tbl_user."_garbage";
 
 $tbl_track_default	= $tbl_track_e_default;
 $tbl_track_access	= $statsDbName."`.`track_e_access";	// access_user_id

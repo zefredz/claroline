@@ -43,7 +43,6 @@ define ("WARNING_MESSAGE", "<h4 style='color:red'> Database problem !! </h4>");
  *	$uid
  *	$isAdmin
  *	$isAdminOfCourse
- *	$mainDbName
  *	$currentCourseID
  */
 
@@ -53,10 +52,9 @@ $userIdViewed = $uInfo; // Id of the user we want to view coming from the user.p
   Connection API between Claroline and the current script
   --------------------------------------------------------*/
 
-$mainDB = $mainDbName; // main DB of Claroline
 $courseCode = $currentCourseID = $_course['sysCode'];
-$tbl_coursUser = "$mainDB`.`cours_user";
-
+$tbl_mdb_names       = claro_sql_get_main_tbl();
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
 //mysql_select_db($_course['dbName']) or die (WARNING_MESSAGE); // select Course DB
 
 $userIdViewer = $_uid; // id fo the user currently online
@@ -459,26 +457,30 @@ elseif ($displayMode == "viewContentList") // default display
 							 .'<a href="../tracking/userLog.php?uInfo='.$userIdViewed.'">'
 							 .'<img border="0" alt="'.$langTracking.'" src="'.$clarolineRepositoryWeb.'/img/statistiques.gif">'
 							 .'</a>'
-							 .'</td>';
+							 .'</td>'
+                             ;
 				}
-				echo "</tr>",
-				"</tbody>",
-				"</table>",
-				"<p><a href=\"mailto:",$mainUserInfo['email'],"\">",$mainUserInfo['email'],"</a>",
-
-				"<p>\n",
-				"<hr noshade size=\"1\">\n";
+				echo '</tr>'
+                    .'</tbody>'
+				    .'</table>'
+				    .'<p><a href="mailto:'.$mainUserInfo['email'].'">'.$mainUserInfo['email'].'</a>'
+                    .'<p>'."\n"
+                    .'<hr noshade size="1">'
+                    ."\n"
+                    ;
 	}
 
 	if ($allowedToEditDef) // only course administrators see this line
 	{
-		echo	"\n\n<div align=\"right\">\n"
-				."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">\n"
-				.$langCourseAdministratorOnly." : "
-				."<input type=\"submit\" name=\"viewDefList\" value=\"".$langDefineHeadings."\">\n"
-				."</form>\n"
-				."<hr noshade=\"noshade\" size=\"1\">\n"
-				."</div>";
+		echo "\n\n"
+            .'<div align="right">'."\n"
+			.'<form method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
+			.$langCourseAdministratorOnly.' : '
+			.'<input type="submit" name="viewDefList" value="'.$langDefineHeadings.'">'."\n"
+			.'</form>'."\n"
+			.'<hr noshade="noshade" size="1">'."\n"
+			.'</div>'
+            ;
 	}
 
 	$catList = claro_user_info_get_course_user_info($userIdViewed);
@@ -489,11 +491,11 @@ elseif ($displayMode == "viewContentList") // default display
 		{
 			// Category title
 
-			echo	'<p><b>'.$thisCat['title'].'</b></p>'."\n";
+			echo '<p><b>'.$thisCat['title'].'</b></p>'."\n";
 
 			// Category content
 
-			echo	'<blockquote>'."\n";
+			echo '<blockquote>'."\n";
 
 			if ($thisCat['content'])
 			{
@@ -520,7 +522,7 @@ elseif ($displayMode == "viewContentList") // default display
 }
 
 // Back button for each display mode (bottom)
-echo "<p align=\"right\"><a href=\"user.php\">".$langBackToUsersList."</a></p>\n";
+echo '<p align="right"><a href="user.php">'.$langBackToUsersList.'</a></p>'."\n";
 
 include($includePath."/claro_init_footer.inc.php");
 ?>

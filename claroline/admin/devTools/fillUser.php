@@ -47,11 +47,10 @@ $nameTools = $langAdd_users;
 $interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langDevTools);
 
-$TABLECOURSE 		= "$mainDbName`.`cours";
-$TABLECOURSDOMAIN	= "$mainDbName`.`faculte";
+$tbl_mdb_names   = claro_sql_get_main_tbl();
+$tbl_user        = $tbl_mdb_names['user'  ];
+
 $tbl_user			= "$mainDbName`.`user";
-$TABLECOURSUSER 	= "$mainDbName`.`cours_user";
-$TABLEANNOUNCEMENTS	= "annonces";
 $can_create_courses = (bool) ($is_allowedCreateCourse);
 $coursesRepositories = $rootSys;
 

@@ -48,13 +48,17 @@
  *
  ***************************************************************************/
 // regroup table names for maintenance purpose
-$TABLETRACK_OPEN        = $statsDbName."`.`track_e_open";
 
-$TABLESTATS_PROVIDERS   = $statsDbName."`.`track_c_providers";
-$TABLESTATS_COUNTRIES   = $statsDbName."`.`track_c_countries";
-$TABLESTATS_BROWSERS    = $statsDbName."`.`track_c_browsers";
-$TABLESTATS_OS          = $statsDbName."`.`track_c_os";
-$TABLESTATS_REFERERS    = $statsDbName."`.`track_c_referers";
+$tbl_mdb_names =claro_sql_get_main_tbl();
+$TABLETRACK_DEFAULT     = $tbl_mdb_names['track_e_default'];
+$TABLETRACK_LOGIN       = $tbl_mdb_names['track_e_login'];
+$TABLETRACK_OPEN        = $tbl_mdb_names['track_e_open'];
+
+$TABLESTATS_PROVIDERS   = $statsDbName.'`.`'.$statsTblPrefix.'track_c_providers';
+$TABLESTATS_COUNTRIES   = $statsDbName.'`.`'.$statsTblPrefix.'track_c_countries';
+$TABLESTATS_BROWSERS    = $statsDbName.'`.`'.$statsTblPrefix.'track_c_browsers';
+$TABLESTATS_OS          = $statsDbName.'`.`'.$statsTblPrefix.'track_c_os';
+$TABLESTATS_REFERERS    = $statsDbName.'`.`'.$statsTblPrefix.'track_c_referers';
 
 /***************************************************************************
  *
@@ -75,6 +79,9 @@ function decodeOpenInfos()
 {
     global $TABLETRACK_OPEN;
     
+    $tbl_mdb_names     = claro_sql_get_main_tbl();
+    $TABLETRACK_OPEN = $tbl_mdb_names['track_e_open'];
+
     // record initial value of ignore_user_abort
     $ignore = ignore_user_abort();
     // prevent script from being stopped while executing, the following can be considered

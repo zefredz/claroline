@@ -260,14 +260,13 @@ function update_Db_course($courseDbName)
 	}
 
 	$courseDbName=$courseTablePrefix.$courseDbName.$dbGlu;
-
-
 	/*
 		Here function claro_sql_get_course_tbl() from main lib would be
 		called to replace the table name assignement
 	*/
 
-	$TABLECOURSEHOMEPAGE	= $courseDbName."tool_list";
+	
+    $TABLECOURSEHOMEPAGE	= $courseDbName."tool_list";
 	$TABLEINTROS			= $courseDbName."tool_intro";
 
 	$TABLEGROUPS			= $courseDbName."group_team";
@@ -1106,7 +1105,8 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
 
 ##################### register tools in course ######################################
 
-    $TABLECOURSETOOL = $mainDbName.'`.`course_tool';
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $TABLECOURSETOOL = $tbl_mdb_names['tool'  ];
 
     $sql = "SELECT id, def_access, def_rank, claro_label FROM `". $TABLECOURSETOOL . "` where add_in_course = 'AUTOMATIC'";
 

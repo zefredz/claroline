@@ -27,9 +27,9 @@ $dateNow 			= claro_disp_localised_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin;
 
 //TABLES
-$tbl_faculty 		= $mainDbName."`.`faculte";
-$tbl_courses		= $mainDbName."`.`cours";
-
+$tbl_mdb_names   = claro_sql_get_main_tbl();
+$tbl_courses        = $tbl_mdb_names['course'  ];
+$tbl_faculty        = $tbl_mdb_names['category'];
 
 //DISPLAY
 $INFOFAC=TRUE;

@@ -25,11 +25,11 @@
 
 // REGROUP TABLE NAMES FOR MAINTENANCE PURPOSE
 
-$tbl_mdb_names 			= claro_sql_get_main_tbl();
-$tbl_track_e_default        = $tbl_mdb_names['track_e_default'];
-$tbl_track_e_login          = $tbl_mdb_names['track_e_login'];
-$tbl_track_e_open           = $tbl_mdb_names['track_e_open'];
-$tbl_track_e_subscriptions  = $tbl_mdb_names['track_e_subscriptions'];
+$tbl_mdb_names 			   = claro_sql_get_main_tbl();
+$tbl_track_e_default       = $tbl_mdb_names['track_e_default'];
+$tbl_track_e_login         = $tbl_mdb_names['track_e_login'];
+$tbl_track_e_open          = $tbl_mdb_names['track_e_open'];
+$tbl_track_e_subscriptions = $tbl_mdb_names['track_e_subscriptions'];
 // course db
 $tbl_cdb_names 			  = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS        = $_course['dbNameGlu']."track_e_access";

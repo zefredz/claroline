@@ -23,27 +23,26 @@
 
 function claro_sql_get_main_tbl()
 {
-    global $mainDbName,$statsDbName;
+    global $mainDbName,$statsDbName, $mainTblPrefix, $statsTblPrefix;
 
     static $mainTblList = array();
 
     if ( count($mainTblList) == 0 )
     {
         $mainTblList= array (
-        'admin'                     => $mainDbName.'`.`admin',
-        'course'                    => $mainDbName.'`.`cours',
-        'rel_course_user'           => $mainDbName.'`.`cours_user',
-        'category'                  => $mainDbName.'`.`faculte',
-        'user'                      => $mainDbName.'`.`user',
-        'tool'                      => $mainDbName.'`.`course_tool',
-        'user_category'             => $mainDbName.'`.`class',
-        'user_rel_profile_category' => $mainDbName.'`.`rel_class_user',
-		'class'                     => $mainDbName.'`.`class',
-		'rel_class_user'            => $mainDbName.'`.`rel_class_user',
-		'track_e_default' 			=> $statsDbName.'`.`track_e_default',
-		'track_e_login' 			=> $statsDbName.'`.`track_e_login',
-		'track_e_open' 				=> $statsDbName.'`.`track_e_open',
-
+        'admin'                     => $mainDbName.'`.`'.$mainTblPrefix.'admin',
+        'course'                    => $mainDbName.'`.`'.$mainTblPrefix.'cours',
+        'rel_course_user'           => $mainDbName.'`.`'.$mainTblPrefix.'cours_user',
+        'category'                  => $mainDbName.'`.`'.$mainTblPrefix.'faculte',
+        'user'                      => $mainDbName.'`.`'.$mainTblPrefix.'user',
+        'tool'                      => $mainDbName.'`.`'.$mainTblPrefix.'course_tool',
+        'user_category'             => $mainDbName.'`.`'.$mainTblPrefix.'class',
+        'user_rel_profile_category' => $mainDbName.'`.`'.$mainTblPrefix.'rel_class_user',
+		'class'                     => $mainDbName.'`.`'.$mainTblPrefix.'class',
+		'rel_class_user'            => $mainDbName.'`.`'.$mainTblPrefix.'rel_class_user',
+		'track_e_default' 			=> $statsDbName.'`.`'.$statsTblPrefix.'track_e_default',
+		'track_e_login' 			=> $statsDbName.'`.`'.$statsTblPrefix.'track_e_login',
+		'track_e_open' 				=> $statsDbName.'`.`'.$statsTblPrefix.'track_e_open',
 		);
     }
 
@@ -114,6 +113,7 @@ function claro_sql_get_course_tbl($dbNameGlued = NULL)
               'quiz_rel_test_question' => $courseDb.'quiz_rel_test_question',
               'quiz_test'              => $courseDb.'quiz_test' ,
               'tool_intro'             => $courseDb.'tool_intro',
+              'tool'                   => $courseDb.'tool_list',
               'track_e_access'         => $courseDb.'track_e_access',
               'track_e_downloads'      => $courseDb.'track_e_downloads',
               'track_e_exercices'      => $courseDb.'track_e_exercices',
