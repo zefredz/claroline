@@ -220,7 +220,7 @@
 
   // in viewer
   $langExerciseCancelled = "Exercice annulé, choisissez un module dans la liste pour continuer.";
-  $langExerciseDone = "Votre progression a été enregistrée.<br />Si ce module était bloquant, et que vous avez obtenu un score suffisant,  vous pouvez désormais passer au suivant en utilisant la liste."; 
+  $langExerciseDone = "Exercice terminé, choisissez un module dans la liste pour continuer."; 
   $langView = "Vue";
   $langFullScreen = "Plein écran";
   $langInFrames = "En cadres";

@@ -220,7 +220,7 @@
    
    // in viewer
    $langExerciseCancelled = "Exercise cancelled, choose a module in the list to continue.";
-   $langExerciseDone = "Your progression has been recorded, choose a module in the list to continue."; 
+   $langExerciseDone = "Exercise done, choose a module in the list to continue."; 
    $langView = "View";
    $langFullScreen = "Fullscreen";
    $langInFrames = "In frames";
