@@ -2180,4 +2180,6 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
+$langForumDeleted = 'Forum deleted';
+$langForumCategoryDeleted = 'Forum Category Deleted';
 ?>
