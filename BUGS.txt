@@ -259,19 +259,21 @@ quoi : javascript de suppression d'un exercice peu explicite
 Repéré par : M.
 Assigné à : SEB
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.31 où : claroline/forum_admin/forum_admin.php?forumgoadd
 type : langue
 quoi : texte anglais su cours français à la réussite d'ajout d'u forum dans une cat
 Repéré par : M
-Assigné à : 
+Assigné à  : SEB
+Etat 	   : RESOLU
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.32 : admin forum
 type : logique
 quoi : quand y a pas de groupe la cat la cat est visible  et mène a un truc où on sait rien editer
 Repéré par : M
-Assigné à : claroline 1.5.1
+Assigné à  : SEB
+Etat 	   : RESOLU (un message prévient qu'on se trouve dans un cas particulier) 
 
 Etat : New ------------------------------------------------------
 M.33 où : document
@@ -286,30 +288,31 @@ quoi :
 Repéré par : M
 Assigné à : H
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.34 où : /lang/*/exerciceRC.inc.php
 type : déprécié
 quoi : ces fichiers ne servent  plus (A VERIFIER)
 Repéré par : M
 Assigné à : 
+Etat	   : RESOLU ( fichier réellement inutilisé -> retiré. )
 
 Etat : New ------------------------------------------------------
 M.35 où : /lang/*/course_home.inc.php
 type : déprécié ?
 quoi : $langCourseCreate <- défini dans les fichiers de langues course_home.inc.php et utilisé uniquement dans index général
 Repéré par : M
-Assigné à : 
+Assigné à  : 
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 .36 où : fichiers langues
 type : variable manquantes
 
-***  group.inc.php
+***  group.inc.php : RESOLU
 $langGroupTutors  	
 	english; 	--empty--
 	french; 	Tuteurs
 
-*** announcements.inc.php
+*** announcements.inc.php : RESOLU 
  $langMsg  	
 	french; 	--empty--
 	english; 	Messages
@@ -317,7 +320,7 @@ $langUsers
 	french; 	--empty--
 	english; 	users
 
-** course_info.inc.php
+** course_info.inc.php : RESOLU
 $langAdministrationTools  	
 	french; 	--empty-- 
 	english; 	Administration
@@ -327,6 +330,9 @@ $langAllUsersOfThisCourse
 $langViewCourse 	
 	french; 	--empty--
 	english; 	View course
+
+Assigné à 	 : SEB
+
 
 Etat : New ------------------------------------------------------
 M.37 où : create_course
@@ -353,6 +359,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.48  2004/06/25 07:45:13  seb
+Bugs 31, 32, 34 & 36 résolus
+
 Revision 1.47  2004/06/24 11:28:41  moosh
 bugs 36. 37
 
