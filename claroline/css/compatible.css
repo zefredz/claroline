@@ -76,8 +76,8 @@ a:visited.invisible{
 }
 
 .claroMessageBox {
-  background-color: #E5ECF9;
-  color: #336699;
+	background-color: #FFCC33;
+	color: #000;
 }
 
 .HelpText { color: #ccc; }
