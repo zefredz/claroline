@@ -1132,11 +1132,11 @@ function utf8_decode_if_is_utf8($str) {
          echo            "\n<!-- Messages -->\n";
          foreach ( $okMsgs as $msg)
          {
-                echo "\n<b>[</b><font color=\"#008800\">ok</font><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
+                echo "\n<b>[</b><span class=\"correct\">ok</span><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
          }
          foreach ( $errorMsgs as $msg)
          {
-                echo "\n<b>[</b><font color=\"#880000\">ko</font><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
+                echo "\n<b>[</b><span class=\"error\">ko</span><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
          }
          echo            "\n<!-- End messages -->\n";  
          
