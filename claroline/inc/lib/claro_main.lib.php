@@ -1047,10 +1047,7 @@ function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
     //(they can be done by the system when  locale date aren't aivailable
     
     
-    $date = ereg_replace('%[A]', 
-    $langDay_of_weekNames["long"]
-    	[(int)strftime('%w', $timestamp)], 
-    $formatOfDate);
+    $date = ereg_replace('%[A]', $langDay_of_weekNames["long"][(int)strftime('%w', $timestamp)], $formatOfDate);
     $date = ereg_replace('%[a]', $langDay_of_weekNames["short"][(int)strftime('%w', $timestamp)], $date);
     $date = ereg_replace('%[B]', $langMonthNames["long"][(int)strftime('%m', $timestamp)-1], $date);
     $date = ereg_replace('%[b]', $langMonthNames["short"][(int)strftime('%m', $timestamp)-1], $date);
