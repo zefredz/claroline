@@ -110,7 +110,7 @@ function htaccess2txt($fileName)
 
 function get_secure_file_name($fileName)
 {
-    $fileName = php2phps ($fileName);
+    $fileName = php2phps($fileName);
     $fileName = htaccess2txt($fileName);
     return $fileName;
 }
@@ -355,7 +355,7 @@ function unzip_uploaded_file($uploadedFile, $uploadPath, $baseWorkDir, $maxFille
 
 	foreach($zipContentArray as $thisContent)
 	{
-		if ( preg_match('~.(php.*|phtml)$~i', $thisContent['filename']) )
+		if ( preg_match('~.(php.?|phtml)$~i', $thisContent['filename']) )
 		{
 			return claro_failure::set_failure('php_file_in_zip_file');
 		}
