@@ -54,9 +54,9 @@ unset($_SESSION['tracking']['lastUsedTool']);
 // end of tracking
 
 ?>
-<table border="0" cellspacing="10" cellpadding="10">
+<table border="0" cellspacing="10" cellpadding="10" width="100%">
 <tr>
-<td nowrap valign="top" style="border-right: gray solid 1px;">
+<td valign="top" style="border-right: gray solid 1px;" width="220">
 <?php
 
 /*
