@@ -1176,9 +1176,6 @@ VALUES (NULL, '1', '0', '1', '1', '0', '0')");
 
 ##################### register tools in course ######################################
 
-    $introContent['CLWRK___'] = $langIntroductionTwo;
-    $introContent['CLLNP___'] = $langIntroductionLearningPath;
-
     $TABLECOURSETOOL = $mainDbName.'`.`course_tool';
 
     $sql = "SELECT id, def_access, def_rank, claro_label FROM `". $TABLECOURSETOOL . "` where add_in_course = 'AUTOMATIC'";
@@ -1193,20 +1190,9 @@ VALUES (NULL, '1', '0', '1', '1', '0', '0')");
                           . " (tool_id, rank, access) "
                           . " VALUES ('" . $courseTool['id'] . "','" . $courseTool['def_rank'] . "','" . $courseTool['def_access'] . "')";
             $intro_id = claro_sql_query_insert_id($sql_insert);
-	   /* if (!empty($introContent[$courseTool['claro_label']]))
-	    {
-	    	claro_sql_query("INSERT INTO `".$TABLEINTROS."` VALUES ('".$intro_id."','".$introContent[$courseTool['claro_label']]."')");
-	    } */
         }
     }
 
-#################################### AGENDA ################################
-	mysql_query("INSERT INTO `".$TABLETOOLAGENDA."` VALUES ( '', 'creation', 'creation', now(), now(), '')");
-##########################ANNOUNCEMENTS#####################################
-         mysql_query("INSERT INTO `".$TABLETOOLANNOUNCEMENTS."` VALUES ( '', '".$langAnnouncementExTitle."', '".$langAnnouncementEx."', NOW(),'1')");
-############################## INTRODUCTION #######################################
-	//mysql_query("INSERT INTO `".$TABLEINTROS."` VALUES ('-1','$langIntroductionText'	)");
-	// add intro for  home .  It's done here because course_home is not in tool_list
 ############################## EXERCICES #######################################
 	mysql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '1', '1', '$langRidiculise', '0', '$langNoPsychology', '-5', '1')");
 	mysql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '2', '1', '$langAdmitError', '0', '$langNoSeduction', '-5', '2')");
@@ -1281,7 +1267,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 	}
 	if ($courseRepository == "")
 	{
-		$error_msg[] = "courseRepository is missing";
+		$error_msg[] = "course Repository is missing";
 		$okForRegisterCourse = FALSE;
 	}
 	if ($titular == "")
@@ -1300,13 +1286,13 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 	}
 	if ($intitule== "")
 	{
-		$error_msg[] = "uidCreator is missing";
+		$error_msg[] = "intitule is missing";
 		$okForRegisterCourse = FALSE;
 	}
-	if ($languageCourse== "")
+	if ($languageCourse == "")
 	{
-		$error_msg[] = "intitule is missing";
-		$intitule = $courseScreenCode;
+		$error_msg[] = "language is missing";
+		$languageCourse = 'english';
 	}
 	if ($uidCreator== "")
 	{
@@ -1345,6 +1331,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 			titulaires = '".$titular."',
 			email = '".$email."',
 			fake_code = '".$courseScreenCode."'";
+					echo $sql;
 		claro_sql_query($sql);
 		$sql = "INSERT INTO `".$TABLECOURSUSER."` SET
 			code_cours = '".$courseSysCode."',
@@ -1353,6 +1340,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 			role = '".$langProfessor."',
 			tutor='1'";
 		claro_sql_query($sql);
+		echo $sql;
 	}
 	else //if ($okForRegisterCourse)
 	{
