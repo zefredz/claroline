@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -45,7 +45,7 @@ require '../inc/claro_init_global.inc.php';
  * Library for the file display
  */
 
-require '../inc/lib/fileDisplay.lib.php';
+require $includePath.'/lib/fileDisplay.lib.php';
 
 /*
  * Lib for event log, stats & tracking
@@ -67,10 +67,10 @@ $baseServUrl = $urlAppend.'/';
 
 if ($_gid && $is_groupAllowed)
 {
-    $groupContext      = true;
-    $courseContext     = false;
+    $groupContext      = TRUE;
+    $courseContext     = FALSE;
 
-    $maxFilledSpace    = 1000000;
+    $maxFilledSpace    = isset($maxFilledSpace_for_groups)?$maxFilledSpace_for_groups:2*1024*1024;
     $courseDir         = $_course['path'].'/group/'.$_group['directory'];
     $groupDir          = 'group/'.$_group['directory']; 
 
@@ -78,7 +78,7 @@ if ($_gid && $is_groupAllowed)
 	$interbredcrump[]= array ("url"=>"../group/group_space.php", "name"=> $langGroupSpace);
 
     $is_allowedToEdit  = $is_groupMember || $is_courseAdmin;
-    $is_allowedToUnzip = false;
+    $is_allowedToUnzip = FALSE;
 
     if (! ($is_groupMember || $is_courseAdmin || $is_groupTutor) )
     {
@@ -87,22 +87,19 @@ if ($_gid && $is_groupAllowed)
 }
 else
 {
-    $groupContext     = false;
-    $courseContext    = true;
+    $groupContext     = FALSE;
+    $courseContext    = TRUE;
 
-    $maxFilledSpace   = $groupDocument_maxFilledSpace;
+    $maxFilledSpace   = $maxFilledSpace_for_course;
     $courseDir   = $_course['path'].'/document';
     $dbTable     = $_course['dbNameGlu'].'document';
 
-    //$interbredcrump[] = array ();
-
 	// initialise view mode tool
-	claro_set_display_mode_available(true);
+	claro_set_display_mode_available(TRUE);
 	
     $is_allowedToEdit  = claro_is_allowed_to_edit();
     $is_allowedToUnzip = claro_is_allowed_to_edit();
-    $maxFilledSpace    = 100000000;
-
+    $maxFilledSpace    = isset($maxFilledSpace_for_course)?$maxFilledSpace_for_course:50*1024*1024;
 }
 
 $baseWorkDir = $baseServDir.$courseDir;

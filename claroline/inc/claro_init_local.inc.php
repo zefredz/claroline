@@ -588,7 +588,6 @@ if ($cidReset) // course session data refresh requested
             $_groupProperties ['tools'] ['document' ] = (bool) ($gpData['document'         ] == 1);
             $_groupProperties ['tools'] ['wiki'     ] = (bool) ($gpData['wiki'             ] == 1);
             $_groupProperties ['tools'] ['chat'     ] = (bool) ($gpData['chat'             ] == 1);
-
         }
         else
         {
@@ -967,6 +966,15 @@ if ($uidReset || $cidReset)
 else // continue with the previous values
 {
     $_courseToolList      = $_SESSION ['_courseToolList'];
+}
+
+if (isset($_cid) && $_courseTool['label'])
+{
+    if (file_exists($includePath.'/conf/'.$_courseTool['label'].'.conf.php'))
+        require $includePath.'/conf/'.$_courseTool['label'].'.conf.php';
+    if (isset($_cid) && file_exists($coursesRepositorySys.$_course['path'].'/conf/'.$_courseTool['label'].'.conf.php'))
+        require $coursesRepositorySys.$_course['path'].'/conf/'.$_courseTool['label'].'.conf.php';
+    $debugMsg[__FILE__][]=$includePath.'/conf/'.$_courseTool['label'].'.conf.php';
 }
 
 ?>
