@@ -120,17 +120,17 @@ if ($is_allowedToEdit)
 	
 	while ($course = mysql_fetch_array($listOfCourses))
 	{ 
-		if($course[f]!=$facOnce)
+		if($course['f']!=$facOnce)
 		{ 
-			echo "\n\t<hr noshade size=\"1\">\n\t\t<font color=\"navy\">$course[f]</font>";
+			echo "\n\t<hr noshade size=\"1\">\n\t\t<font color=\"navy\">".$course['f']."</font>";
 		}
-		$facOnce=$course[f];
-		if($course[k]!=$codeOnce)
+		$facOnce=$course['f'];
+		if($course['k']!=$codeOnce)
 		{ 
-			echo "<bR>\n\t<input type=\"checkbox\" name=\"coursToDelete[]\" value=\"$course[k]\"> $course[c] $course[i] $course[t]";
+			echo "<br>\n\t<input type=\"checkbox\" name=\"coursToDelete[]\" value=\"".$course['k']."\">".$course['c']." ".$course['i']." ".$course['t'];
 		}
-		$codeOnce=$course[k];
-	  // echo "$course[n]<br>";
+		$codeOnce=$course['k'];
+	  // echo "$course['n']<br>";
 	
 		//echo "<input type=\"checkbox\" name=\"coursToDelete[]\" value=\"".$contenu."\">".$contenu."";
 	}

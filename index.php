@@ -260,13 +260,13 @@ if (isset($_uid))
 	{
         $userCourseCount ++;
 
-        $thisCourseDbName     = $mycours[db];
-		$thisCourseSysCode    = $mycours[k];
-		$thisCoursePublicCode = $mycours[c];
-		$thisCoursePath       = $mycours[d];
+        $thisCourseDbName     = $mycours['db'];
+		$thisCourseSysCode    = $mycours['k'];
+		$thisCoursePublicCode = $mycours['c'];
+		$thisCoursePath       = $mycours['d'];
 
-		$dbname               = $mycours[k];
-		$status[$dbname]      = $mycours[s];
+		$dbname               = $mycours['k'];
+		$status[$dbname]      = $mycours['s'];
 
 		$nbDigestEntries = 0; // number of entries already collected
 
