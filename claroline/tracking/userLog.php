@@ -447,7 +447,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 if(sizeof($lpList) == 0)
                 {
                     echo "<tfoot>\n<tr>\n"
-                              ."<td colspan=\"3\" align=\"center\">".$langNoLearnPath."</td>\n"
+                              ."<td colspan=\"3\" align=\"center\">".$langNoLearningPath."</td>\n"
                               ."</tr>\n</tfoot>\n";
                 }
                 else
