@@ -29,6 +29,7 @@
 function showQuestion($questionId, $onlyAnswers=false)
 {
 	global $attachedFilePathWeb;
+	global $attachedFilePathSys;
 
 	// construction of the Question object
 	$objQuestionTmp=new Question();
@@ -243,6 +244,7 @@ function showQuestion($questionId, $onlyAnswers=false)
 function display_attached_file($attachedFile)
 {
   global $attachedFilePathWeb;
+  global $attachedFilePathSys;
   global $langDownloadAttachedFile;
   
   // get extension
@@ -284,26 +286,58 @@ function display_attached_file($attachedFile)
                       <param name=\"movie\" value=\"".$attachedFilePathWeb."/".$attachedFile."\">
                       <param name=\"quality\" value=\"high\"> 
                       <param name=\"bgcolor\" value=\"#FFFFFF\"> 
-                      <embed src=\"".$attachedFilePathWeb."/".$attachedFile."\"   quality=\"high\" bgcolor=\"#FFFFFF\" name=\"".$attachedFile."\" type=\"application/x-shockwave-flash\"  pluginspage=\"http://www.macromedia.com/go/getflashplayer\">
+                      <embed src=\"".$attachedFilePathWeb."/".$attachedFile."\"  quality=\"high\" bgcolor=\"#FFFFFF\" name=\"".$attachedFile."\" type=\"application/x-shockwave-flash\"  pluginspage=\"http://www.macromedia.com/go/getflashplayer\">
                       </embed>
                       </object>";
         break;
     
     case 'mp3' :
-            $returnedString .= "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" 
-                        codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0\"  
-                        width=\"80\" height=\"45\" id=\"mp3player\"> 
-                      <param name=\"movie\" value=\"claroPlayer.swf?claroSnd=".$attachedFilePathWeb."/".$attachedFile."\">
-                      <param name=\"quality\" value=\"high\"> 
-                      <param name=\"bgcolor\" value=\"#FFFFFF\"> 
-                      <embed src=\"claroPlayer.swf?claroSnd=".$attachedFilePathWeb."/".$attachedFile."\" quality=\"high\" bgcolor=\"#FFFFFF\" width=\"80\" height=\"45\" name=\"mp3player\"  type=\"application/x-shockwave-flash\"  pluginspage=\"http://www.macromedia.com/go/getflashplayer\">
-                      </embed>
-                      </object>
-                      <br /><small><a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">".$langDownloadAttachedFile." (.mp3)</a></small>";
+			// get mp3 id3 tags (mainly for the bitrate that is required by the player
+			include_once("mp3_id3_utils.php");
+			$id3 = mp3_id($attachedFilePathSys."/".$attachedFile);
+
+			// -1 means reading error, 0 means that the mp3 has no id3 tag
+			if( $id3 == -1 || $id3 == 0 )
+			{
+				// if id3 tags cannot be read
+				// set default bitrate 32
+				$bitrate = 32;
+				$mp3Title = "";
+				// show filename instead of title and artist
+			}
+			else
+			{
+				$bitrate = $id3['bitrate'];
+
+				if( !empty($id3['artist']) && !empty($id3['title']) )
+				{
+					$mp3Title = $id3['artist']." - ".$id3['title'];
+				}
+				else
+				{
+					$mp3Title = $id3['artist']." ".$id3['title'];
+				}
+			}
+            $returnedString .= 
+					"<object id=\"mp3player\" type=\"application/x-shockwave-flash\" data=\"claroPlayer.swf?fakeVar=".time()."\" width=\"220\" height=\"30\" style=\"vertical-align: bottom;\">\n"
+					."<!-- MP3 Flash player. Credits, license, contact & examples: http://pyg.keonox.com/flashmp3player/ -->\n"
+					."<param name=\"type\" value=\"application/x-shockwave-flash\" />\n"
+					."<param name=\"codebase\" value=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" />\n"
+					."<param name=\"movie\" value=\"claroPlayer.swf?fakeVar=".time()."\" />\n"
+					."<param name=\"FlashVars\" value=\"my_BackgroundColor=0xffffff\" />\n"
+					."<param name=\"FlashVars\" value=\"my_bitrate=".$bitrate."\" />\n"
+					."<param name=\"FlashVars\" value=\"file=".$attachedFilePathWeb."/".$attachedFile."&amp;autolaunch=false\" />\n"
+					."</object>\n"
+					."<p><small>"
+					.$mp3Title
+	                ."<br /><a href=\"".$attachedFilePathWeb."/".$attachedFile."\">".$langDownloadAttachedFile." (".$attachedFile.")</a>"
+					."</small></p>\n\n"
+					;
+						  
         break;
     
     default :
-        $returnedString .= "<a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">$langDownloadAttachedFile</a>";
+        $returnedString .= "<a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">".$langDownloadAttachedFile."</a>";
         break;        
   
   }
