@@ -297,8 +297,8 @@ claro_disp_message_box($messageGroupEdited);
 
 $sql = 'SELECT `ug`.`id`,
                `u`.`user_id`,
-               `u`.`nom`,
-               `u`.`prenom`,
+               `u`.`nom`        `name`,
+               `u`.`prenom`     `firstname`,
                `u`.`email`
         FROM `'.$tbl_user.'` u, `'.$tbl_group_rel_team_user.'` ug
         WHERE `ug`.`team` = "'.$_gid.'"
@@ -307,16 +307,13 @@ $sql = 'SELECT `ug`.`id`,
 
 $resultMember = claro_sql_query($sql);
 
-$a=0;
-
 while ($myMember = mysql_fetch_array($resultMember))
 {
 	$userIngroupId = $myMember['user_id'];
 
  	echo  '<option value="'.$userIngroupId.'">'
-		 .$myMember['prenom'].' '.$myMember['nom']
+		 .$myMember['firstname'].' '.$myMember['name']
 		 ."</option>\n";
-	$a++;
 }
 
 ?>
