@@ -243,7 +243,7 @@ function showQuestion($questionId, $onlyAnswers=false)
 function display_attached_file($attachedFile)
 {
   global $attachedFilePathWeb;
-  global $langAttachedFile;
+  global $langDownloadAttachedFile;
   
   // get extension
   $extension=substr(strrchr($attachedFile, '.'), 1);
@@ -270,7 +270,7 @@ function display_attached_file($attachedFile)
                       <embed align=\"middle\" src=\"".$attachedFilePathWeb."/".$attachedFile."\" volume=\"50%\" loop=\"false\" controller=\"true\" autoplay=\"false\" type=\"video/quicktime\">
                       </embed> 
                       </object>
-                      <br /><small><a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">".$langAttachedFile." (.mov)</a></small>";
+                      <br /><small><a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">".$langDownloadAttachedFile." (.mov)</a></small>";
         break;
     */
     /*
@@ -299,11 +299,11 @@ function display_attached_file($attachedFile)
                       <embed src=\"claroPlayer.swf?claroSnd=".$attachedFilePathWeb."/".$attachedFile."\" quality=\"high\" bgcolor=\"#FFFFFF\" width=\"80\" height=\"45\" name=\"mp3player\"  type=\"application/x-shockwave-flash\"  pluginspage=\"http://www.macromedia.com/go/getflashplayer\">
                       </embed>
                       </object>
-                      <br /><small><a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">".$langAttachedFile." (.mp3)</a></small>";
+                      <br /><small><a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">".$langDownloadAttachedFile." (.mp3)</a></small>";
         break;
     
     default :
-        $returnedString .= "<a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">$langAttachedFile</a>";
+        $returnedString .= "<a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">$langDownloadAttachedFile</a>";
         break;        
   
   }

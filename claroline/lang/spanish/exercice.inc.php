@@ -180,7 +180,7 @@ $langTotalWeightingMatching="La suma de los pesos de las preguntas relacionadas 
 //agregados por rodrigo parra
 $langEnable="Permitido";
 $langDisable="no permitido";
-$langAttachedFile = "Bajar el archivo agregado";
+$langDownloadAttachedFile = "Bajar el archivo agregado";
 $langMinuteShort = "min.";
 $langSecondShort = "seg.";
 $langUsedInSeveralPath = "Este ejercicio es usado en uno o mas seguimientos de aprendizajes.Si lo elimina no estará disponible en los seguimientos de aprendizajes.";  

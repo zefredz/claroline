@@ -38,7 +38,7 @@ $langAnswers="Réponses";
 $langEnable="Activer";
 $langDisable="Désactiver";
 $langComment="Commentaire";
-$langAttachedFile = "Télécharger le fichier attaché";
+$langDownloadAttachedFile = "Télécharger le fichier attaché";
 $langMinuteShort = "min.";
 $langSecondShort = "sec.";
 
