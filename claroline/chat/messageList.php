@@ -102,7 +102,7 @@ if ( ! file_exists($activeChatFile))
 {
   // create the file
 	$fp = @fopen($activeChatFile, 'w')
-	       or die ('<center>unable to initialize chat file.</center>');
+	       or die ("<center>".$langCannotInitChat."</center>");
 	fclose($fp);
 	
   $dateLastWrite = $langNewChat;
