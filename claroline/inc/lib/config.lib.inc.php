@@ -618,7 +618,6 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                              .'<br>'
                             )
                           ;
-        $htmlPropDefault .= 'diff buffer conf';
     }
     else 
     {
@@ -633,7 +632,6 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                            .'</span>'
                            .'<br>'
                            ;
-        $htmlPropDefault .= 'normal value';
     }
     $size = (int) strlen($htmlPropValue);
     $size = 2+(($size > 90)?90:(($size < 15)?15:$size));
