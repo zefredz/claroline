@@ -192,24 +192,31 @@
  *    for the current user.
  ******************************************************************************/
 
-// Get request from login form
 
-if ( !empty($_REQUEST['login']))    $login = trim($_REQUEST['login']);
-else                                $login = '';
+// Set claro_init_local.inc.php variables coming from HTTP request into the 
+// global name space.
 
-if ( !empty($_REQUEST['password'])) $password = trim($_REQUEST['password']);
-else                                $password = '';
+$AllowedPhpRequestList = array('login', 'password', 'logout', 'uidReset',
+                               'cidReset', 'cidReq',
+                               'gidReset', 'gidReq',
+                               'tidReset', 'tidReq', 'tlabelReq');
 
-if ( !empty($_REQUEST['logout']))   $logout = $_REQUEST['logout'];
-else                                $logout = '';
+foreach($AllowedPhpRequestList as $thisPhpRequestName)
+{
+    // some claroline scripts set these variables before calling 
+    // the claro init process. Avoid variable settings if it is the case.
 
-// Initialise variable
+    if ( isset($GLOBALS[$thisPhpRequestName]) ) continue;
 
-$loginFailed = false;
-if (!isset($uidReset)) $uidReset = false;
-if (!isset($cidReset)) $cidReset = false;
-if (!isset($tidReset)) $tidReset = false;
-if (!isset($gidReset)) $gidReset = false;
+    if ( isset($_REQUEST[$thisPhpRequestName] ) )
+    {
+        $GLOBALS[$thisPhpRequestName] = $_REQUEST[$thisPhpRequestName];
+    }
+    else
+    {
+        $GLOBALS[$thisPhpRequestName] = null;
+    }
+}
 
 // Get table name
 
@@ -222,6 +229,9 @@ $tbl_course          = $tbl_mdb_names['course'         ];
 $tbl_category        = $tbl_mdb_names['category'       ];
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 $tbl_tool            = $tbl_mdb_names['tool'           ];
+
+/*---------------------------------------------------------------------------*/
+
 
 
 // check authentification
@@ -245,9 +255,9 @@ else
                 FROM `".$tbl_user."` `user`
                 WHERE BINARY username = \"". $login ."\"";
 
-        $result = claro_sql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
-        if (mysql_num_rows($result) > 0)
+        if ( mysql_num_rows($result) > 0)
         {
             $uData = mysql_fetch_array($result);
             
@@ -369,8 +379,6 @@ else
 
 // if the requested course is different from the course in session
 
-if ( ! isset($cidReq) )     $cidReq = null;
-
 if ($cidReq && $cidReq != $_SESSION['_cid'])
 {
     $cidReset = true;
@@ -379,8 +387,6 @@ if ($cidReq && $cidReq != $_SESSION['_cid'])
 
 // if the requested group is different from the group in session
 
-if ( !isset($gidReq) )     $gidReq = null;
-
 if ($gidReq && $gidReq != $_SESSION['_gid'])
 {
     $gidReset = true;
@@ -388,10 +394,6 @@ if ($gidReq && $gidReq != $_SESSION['_gid'])
 
 // if the requested tool is different from the current tool in session
 // (special request can come from the tool id, or the tool label)
-
-if ( !isset($tidReq) )    $tidReq = null;
-
-if ( !isset($tlabelReq) ) $tlabelReq = null;
 
 if (   ( $tidReq    && $tidReq    != $_SESSION['_tid']                 ) 
     || ( $tlabelReq && $tlabelReq != $_SESSION['_courseTool']['label'] )
@@ -531,7 +533,7 @@ if ($cidReset) // course session data refresh requested
                  ON `cours`.`faculte` =  `faculte`.`code`
                  WHERE `cours`.`code` = '".$cidReq."'";
 
-        $result = claro_sql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
         if (mysql_num_rows($result)>0)
         {
@@ -565,7 +567,7 @@ if ($cidReset) // course session data refresh requested
 
             $sql = "SELECT * FROM `".$_course['dbNameGlu']."group_property`";
             
-            $result = claro_sql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! $sql ".__LINE__." ".mysql_errno());
+            $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
             
             $gpData = mysql_fetch_array($result);
             
@@ -633,7 +635,7 @@ if ($uidReset || $cidReset) // session data refresh requested
                 WHERE `user_id`  = '".$_uid."'
                 AND `code_cours` = '".$cidReq."'";
 
-        $result = claro_sql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
         if (mysql_num_rows($result) > 0) // this  user have a recorded state for this course
         {
@@ -768,7 +770,7 @@ if ($gidReset || $cidReset) // session data refresh requested
         $sql = "SELECT * FROM `".$_course['dbNameGlu']."group_team`
                 WHERE `id` = '$gidReq'";
 
-        $result = claro_sql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
         if (mysql_num_rows($result) > 0) // This group has recorded status related to this course
         {
@@ -816,7 +818,7 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
                 WHERE `user` = '$_uid'
                 AND `team` = '$gidReq'";
 
-        $result = claro_sql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
         if (mysql_num_rows($result) > 0) // This user has a recorded status related to this course group
         {
@@ -918,7 +920,7 @@ if ($uidReset || $cidReset)
         if ($is_groupTutor   ) $reqAccessList [] = 'GROUP_TUTOR';
         if ($is_groupMember  ) $reqAccessList [] = 'GROUP_MEMBER';
         if ($is_courseMember ) $reqAccessList [] = 'COURSE_MEMBER';
-        if ($_uid)             $reqAccessList [] = 'PLATFORM_MEMBER';
+        if ($_uid            ) $reqAccessList [] = 'PLATFORM_MEMBER';
     
           $sql ="SELECT ctl.id             id,
                         pct.claro_label    label,
@@ -938,7 +940,7 @@ if ($uidReset || $cidReset)
    
                WHERE ctl.access IN (\"".implode("\", \"", $reqAccessList)."\")";
     
-        $result = claro_sql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
         
         $_courseToolList = array();
         
@@ -958,7 +960,5 @@ else // continue with the previous values
 {
     $_courseToolList      = $_SESSION ['_courseToolList'];
 }
-
-
 
 ?>
