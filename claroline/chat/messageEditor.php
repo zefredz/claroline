@@ -1,4 +1,4 @@
-<?php $langFile = "chat"; include('../inc/claro_init_global.inc.php'); 
+<?php $langFile = "chat"; include('../inc/claro_init_global.inc.php');
 $is_allowedToManage = $is_courseAdmin;
 ?>
 
@@ -18,7 +18,7 @@ function prepare_message()
 </head>
 <body>
 <form name     = "chatForm" 
-	  action   = "messageList.php#bottom"
+	  action   = "messageList.php#final"
 	  method   = "get"
 	  target   = "messageList"
 	  onSubmit = "return prepare_message();">

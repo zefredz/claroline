@@ -22,7 +22,7 @@ $langFile = 'chat';
 echo	'<html>'
 
 		.'<head>'
-		.'<meta http-equiv="refresh" content="200;url="'.$PHP_SELF.'">'
+		.'<meta http-equiv="refresh" content="200;url="'.$PHP_SELF.'#final">'
 		.'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/default.css" />'
 		.'</head>'
 
@@ -86,9 +86,6 @@ define('MAX_LINE_IN_FILE', 80);
 
 $dateNow = claro_format_locale_date($dateTimeFormatLong);
 $timeNow = claro_format_locale_date($timeNoSecFormat);
-
-
-
 
 if ( ! file_exists($fileChatName))
 {
@@ -175,7 +172,7 @@ foreach($fileContent as $thisLine )
 {
     echo $thisLine.'<br />';
 }
-
+echo "<a name=\"final\">";
 /* 
  * For performance reason, buffer the content 
  * in a temporary archive file
