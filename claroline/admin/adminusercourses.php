@@ -217,7 +217,7 @@ echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
             echo "<a href=\"",$PHP_SELF,"?letter=Y&".$toAdd."\">Y</a> | ";
             echo "<a href=\"",$PHP_SELF,"?letter=Z&".$toAdd."\">Z</a>";
             echo "
-            <input type=\"text\" name=\"search\"></input>
+            <input type=\"text\" name=\"search\">
             <input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\">
             <input type=\"submit\" value=\"".$langSearch."\">
 
@@ -226,7 +226,7 @@ echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
  */
      //TOOL LINKS
 
-claro_disp_button("adminprofile.php?uidToEdit=".$uidToEdit, $langSeeUserSettings);
+claro_disp_button("adminProfile.php?uidToEdit=".$uidToEdit, $langSeeUserSettings);
 claro_disp_button("../auth/courses.php?cmd=rqReg&uidToEdit=".$uidToEdit."&category=&fromAdmin=usercourse", $langEnrollToNewCourse);
 
 if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
