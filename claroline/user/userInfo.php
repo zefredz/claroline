@@ -19,10 +19,6 @@ include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/events.lib.inc.php");
 include($includePath."/lib/user.lib.inc.php");
 @include($includePath."/lib/debug.lib.inc.php");
-// add userInfo langfile / english one + $language one if exists !
-include("../lang/english/userInfo.inc.php");
-@include("../lang/".$languageInterface."/userInfo.inc.php");
-
 
 $TBL_USERINFO_DEF=$_course['dbNameGlu']."userinfo_def";
 $TBL_USERINFO_CONTENT=$_course['dbNameGlu']."userinfo_content";
