@@ -563,33 +563,49 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
     if ($cmd == 'exEdit')
     {
-
-        $file       = $_REQUEST['file'];
-
-        if ( $_REQUEST['url'] )
+        if ( $_REQUEST['url'])
         {
-            // check for "http://", if the user forgot "http://" or "ftp://" or ...
-            // the link will not be correct
-            if( !ereg( "://",$_REQUEST['url'] ) )
+            $url = trim ($_REQUEST['url']);
+
+            if ( ! empty($url) )
             {
-                // add "http://" as default protocol for url
-                $url = "http://".$_REQUEST['url'];
+                /* First check for the presence of a protocol in the url 
+                 * If the user forget "http://" or "ftp://" or whatever,
+                 * the link won't work. 
+                 * In this case, add "http://" as default url protocol
+                 */
+
+                if( ! ereg( '://',$url ) ) $url = 'http://'.$url;
+
+                // else $url = $url ...
+
+                create_link_file( $baseWorkDir.$_REQUEST['file'], 
+                                  $url);
             }
-            create_link_file( $baseWorkDir.$_REQUEST['file'], 
-                              $url);
+            
         }
 
-        $directoryName = dirname($file);
+        $directoryName = dirname($_REQUEST['file']);
         
         if ( $directoryName == '/' || $directoryName == '\\' )
         {
             // When the dir is root, PHP dirname leaves a '\' for windows or a '/' for Unix
             $directoryName = '';
         }
-        
-        $newPath = $directoryName . '/' . $_REQUEST['newName']; 
 
-        if ( my_rename($baseWorkDir.$file, $baseWorkDir.$newPath) )
+        $_REQUEST['newName'] = trim($_REQUEST['newName']);
+
+        if ( ! empty($_REQUEST['newName']) )
+        {
+            $newPath = $directoryName . '/' . $_REQUEST['newName'];
+        }
+        else
+        {
+        	$newPath = $_REQUEST['file'];
+        }
+                
+
+        if ( my_rename($baseWorkDir.$_REQUEST['file'], $baseWorkDir.$newPath) )
         {
             $dialogBox = $langElRen.'<br>';
 
@@ -597,9 +613,11 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
             {
                 $newComment = trim($_REQUEST['newComment']); // remove spaces
 
-                update_db_info('update', $file, array( 'path'    => $newPath,
-                                                       'comment' => $newComment ) );
-                update_Doc_Path_in_Assets('update', $file, $newPath);
+                update_db_info('update', $_REQUEST['file'], 
+                                array( 'path'    => $newPath,
+                                       'comment' => $newComment ) );
+
+                update_Doc_Path_in_Assets('update', $_REQUEST['file'], $newPath);
 
                 if ( ! empty($newComment) ) $dialogBox .= $langComMod.'<br>';
             }
