@@ -53,7 +53,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   $lpUid =  $_uid;
   
   // header
-  $hide_banner=TRUE;
+  $hide_banner = true;
   include($includePath."/claro_init_header.inc.php");
   
   if($lpUid)
@@ -315,6 +315,9 @@ else
      </form> 
 
   </small></center>
- </body>
-</html>
-
+  
+<?php
+  // footer
+  $hide_footer = true;
+  include($includePath."/claro_init_footer.inc.php");
+?>
