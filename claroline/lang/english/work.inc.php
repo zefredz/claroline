@@ -55,6 +55,13 @@ $langAllowLateUploadShort = "Allow late upload";
 $langAllowLateUpload = "Yes, allow users to submit works after deadline";
 $langPreventLateUpload = "No, prevent users to submit works after deadline";
 
+$langStandardGradingHelp = "";
+$langStandardGrading = "Standard grading";
+$langStandardGradingText = "Standard grading text";
+$langStandardGradingFile = "Standard grading file";
+$langCurrentStandardGradingFile = "Current grading file";
+$langStandardGradingDate = "Standard grading submission date";
+
 // work
 $langWrkTitle = "Work title";
 $langWrkAuthors = "Author(s)";
