@@ -1,10 +1,9 @@
 $Id$
 
-> > > > > > > > > > > CLAROLINE 1.6.alpha - BUG LIST < < < < < < < < < < <
-RESOLU-------------------------
+> > > > > > > > > > > CLAROLINE 1.5.1 - BUG LIST < < < < < < < < < < <
+
 THIS DOCUMENT IS AIMED FOR THE CLAROLINE DEVELOPMENT TEAM TO COORDINATE THE BUG 
 FIXING BEFORE ANY OFFICIAL RELEASE.
->>>>>>> 1.52.2.80
 
 3.  INSTALL
 Quoi : install repetées = plusieurs admins -> utilisation des function d'ajout utilisateurs
@@ -15,35 +14,35 @@ Etat : à résoudre pour 1.5.2
 4. HTMLAREA
 quoi: Bug signalé par PRFB sur le forum.  Insertions de <br /> aux 
 retours à la ligne dans le code html des pages créées
-------------------------------------------------------------------
+
+-- NOT A BUG--------------------------------------------------------------
+Cette librairie a été placée là intentionellement : elle ne sert que là
+
 5. COURSE_HOME
 Etat : résolu
 Quoi : librairie à déplacer ? course_home.lib.php se trouve dans le 
 répertoire même de course_home
 
-------------------------------------------------------------------
+-- RESOLU----------------------------------------------------------------
 8. CONFIG: CLARO_MAIN.CONF
 Quoi : présence de code couleurs qui ne sont, à ma connaissance pas 
 utilisés.  Ils sont signalé comme étant utilisés dans le banner mais ne le sont 
 pas. (si c'est color1 et 2 j'en ai encore vu, il faut d'abord styliser ces pages
 
 Repéré par : SEB
-Etat : à résoudre pour 1.6
+Etat : RESOLU
 
-Res : Résolu partiellement (j'ai pas touché à phpBB qui en a tout plein 
-mais c'est une variable qui vient du système de thème. Et comme 
-ce qui est désactivé ce ne sont pas les thème  mais  bien la 
-possibilité d'un choisir un, il faut attendre le nettoyage de ce code output
-qui en fait, fera disparaitre leur utilisation)
-------------------------------------------------------------------
+
+-- RESOLU----------------------------------------------------------------
 9. CSS: CLARO_INIT_BANNER
 Quoi : Il reste plusieurs tag <font> dans le code qu'il serait 
 intéressant de remplacer par une meilleure utilisation des css. Il reste 
 également des codes couleurs hardcodés pour les différents <td>
 
 Repéré par : SEB
-Assigné à : HUGUES
-Etat : à résoudre pour 1.6
+Assigné à : SEB
+Etat : REsolu
+
 ------------------------------------------------------------------
 10. ADMIN: claroline/admin/adminUserCourseSettings.php 
 quoi -> 
@@ -81,7 +80,7 @@ Assigné à : M.
 Etat : à résoudre pour 1.5.2
 Quid : afficher le nom de la catégorie.
 
-Etat : New ------------------------------------------------------
+Etat : NOT A BUG ------------------------------------------------------
 M.26  : QUIZZ: claroline/exercice/admin.php?modifyQuestion=&newQuestion=yes
 type : interface
 
@@ -89,7 +88,9 @@ quoi : à l'ajout de ma question "assertion" mes champs sont préremplis d'exemple
 Repéré par : M.
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : NOT A BUG ------------------------------------------------------
+Un lien normal est cohérent avec le reste de la plateforme (nouveau exercice / nouveau learning path / nouveau travail ...)
+
 M.27 : QUIZZ: /claroline/exercice/question_pool.php
 type : interface - uniformisation
 quoi : dans la banque de question on a un lien "Nouvelle question" 
@@ -121,7 +122,7 @@ last version of 1.4. The following are the steps I did when I found the bug:
    1. I clicked in the "upload file" link
    2. I searched a new document to upload in my C:
    3. I WROTE A COMMENT
-   4. I UPLOADED THE FILE
+   4. I UPLOAD THE FILE
 
 The new document is on the server with the comment but the comments of others 
 documents uploaded before are now erased!!! 
@@ -144,7 +145,7 @@ Guim ne se souvient pas, mais bon  cet include bien que pas propre ne peut pas ê
 Repéré par : M
 Assigné à : M (pour 1.6)
 
-Etat : Résolu dans la 1.6 ------------------------------------------------------
+Etat : Résolu ------------------------------------------------------
 .40 où : index général
 type : scénarios
 quoi : Je browse l'arbre des cat (non connecté) VS (connecté en train de souscrire certains cours)
@@ -169,7 +170,10 @@ quoi : bouton en anglais
 Repéré par : M
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : 1° RESOLU  2° NON RESOLU --------------------------------------
+La totalité de cet outil d'intitulés devrait être refaite
+On sait pas à quoi ca sert sans devoir essayer (même en ayant essayé le but de cet outil me semble encore plus qu'obscur)
+
 .42 où : user_info
 Etat : à résoudre pour 1.6
 type : scénario/logique surf
@@ -221,14 +225,14 @@ Etat : FIXED ------------------------------------------------------
 type : interface dans un cours en français
 quoi : la suppression d'un forum fonctionne mais ne retourne aucun message de succès.
 Repéré par : Moosh sur iCampus
-Assigné à : 
+Assigné à : SEB
 
 Etat : FIXED ------------------------------------------------------
 .46 où : inscription
 type : langue
 quoi : plateforme french, bouton = register
 Repéré par : Moosh
-Assigné à : 
+Assigné à : SEB
 
 Etat : New ------------------------------------------------------
 .47 où : inscription par tier via l'outil utilisateur
@@ -335,7 +339,7 @@ Assigné à :
 
 Etat : New ------------------------------------------------------
 .58 où : Documents
-Etat : à résoudre pour 1.5.2
+Etat : à résoudre pour 1.6
 type : feedback utilisateur après erreur
 quoi : 	Le message "operation impossible" est très flou car parfois accopagné d'aucune précision, 
 	parfois accompagné d'une précision qui ne correspond pas tout à fait.
@@ -344,8 +348,7 @@ quoi : 	Le message "operation impossible" est très flou car parfois accopagné d'
 	ex : création d'un répertoire nommé '/' alors que j'ai un répertoire '-' qui existe : "operation impossible, un fichier de ce nom existe déjà
 		un utilisateur lambda n'est pas censé savoir que / sera remplacé par un - et donc que le nom sera pareil
 Repéré par : SEB
-Assigné à : 
->>>>>>> 1.52.2.80
+Assigné à : Hugues
 
 Etat : Fixed ------------------------------------------------------
 .59 où : Document
@@ -387,7 +390,7 @@ Repéré par : SEB
 Assigné à : 
 
 
-Etat : new ------------------------------------------------------
+Etat : FIXED ------------------------------------------------------
 .62 où : Description du cours
 Etat : à résoudre pour 1.6
 type : CSS (p-e plutot pour la 1.6)
@@ -403,7 +406,7 @@ quoi : message de confirmation après un delete semble incomplet , seul le conten
 Repéré par : SEB
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : DUPLICATE voir bug 90 ------------------------------------------------------
 .64 où : Description du cours
 Etat : à résoudre pour 1.6
 type : logique
@@ -422,7 +425,7 @@ Repéré par : SEB
 Assigné à : 
 
 
-Etat : New ------------------------------------------------------
+Etat : NOT A BUG ------------------------------------------------------
 .66 où : Agenda
 Etat : à résoudre pour 1.6
 type :	logique
@@ -459,7 +462,7 @@ et ajouter des travaux.
 Repéré par : Moosh
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : Not a bug ---------------------------------------------------
 .70 où : groupes
 Etat : à résoudre pour 1.5.2. ou 1.6
 type : usability leak
@@ -478,7 +481,8 @@ format_file_size n'utilise pas trad4all pour les unités de grandeur informatique
 Repéré par : 
 Assigné à : 
 
-Etat : Not a bug ------------------------------------------------------
+Etat : FIXED ------------------------------------------------------
+voir : http://www.claroline.net/doc/en/index.php/No_listing_directory
 .72 où : travaux
 Etat : à résoudre pour 1.5.2 ou 1.6
 type : protection
@@ -486,7 +490,7 @@ quoi : http://127.0.0.1/c/cvs.claroline.net/1.5.1/claroline.debugUser/TESTFRENCH
 rep accessible
 solution : ajout index.php ?
 solution: écrire une doc pour ne pas lister les fichiers des dossiers sous apache et ie.
-Repéré par : 
+Repéré par : Moosh
 Assigné à : 
 
 Etat : Fixed ------------------------------------------------------
@@ -497,7 +501,7 @@ quoi : pas de message si fichier trop gros
 Repéré par : moosh
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : FIXED ------------------------------------------------------
 .74 où : Learning path
 Etat : à résoudre pour 1.5.2 ou 1.6
 type : sequence // langues
@@ -521,7 +525,9 @@ Solution : strtoLower + UCfirst.
 Repéré par : Moosh
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : NOT A BUG ------------------------------------------------------
+Cela ne fait que rafraichir la page si l'utilisateur clique sur le lien qui "devrait" etre désactivé
+
 .76 où : learning path
 type : affichage
 quoi : "plein ecran | frame" ; l'option est clicable
@@ -538,44 +544,17 @@ Repéré par : Moosh
 Assigné à : 
 
 Etat : Inresovuble ------------------------------------------------------
+IMPOSSIBLE à résoudre pour certain navigateur c'est le 1er bouton qui a le focus pour d'autre c'est le dernier
+
 .78 où : Install
 type : interface
 quoi :	Quand on tape sur enter après avoir complété une étape de l'install 
 	c'est le bouton back qui activé au lieu du bouton next, c'est assez irritant
-
-	IMPOSSIBLE à résoudre pour certain navigateur c'est le 1er bouton 
-	qui a le focus pour d'autre c'est le dernier
 	
 Repéré par : SEB
 Assigné à : 
 
 Etat : Resolu ------------------------------------------------------
-M.38 où : agenda
-type : chaines vide
-quoi : je peux ajouter une entrée  avec titre vide 
-Pas de problème dans l'agenda 
-mais problème dans la liste des dernières entrée e page de garde.
-et dans  "myagenda"
-Solution 3 : comme annonce, afficher le début du contenu. ignorer si les 2 sont vides
-Repéré par : M
-Assigné à : M
-	
-Etat : New ----------------------------------------------------
-.40 où : user
-type : parse error
-quoi : si le cours ne contient aucun utilisateurs
-Repéré par : moosh
-Assigné à : 
-
-Etat : New ----------------------------------------------------
-.41 où : admin-deletecourse
-type : erreur intégrité db
-quoi : si je supprime un utilisateur dans l'admin et qu'il est "seul (prof ) inscrit d'un cours"  
-l'effacement est accepté et le cours est abandonné.
-Repéré par : Moosh
-Assigné à : 
-
-Etat : Resolu ----------------------------------------------------
 .79 où : Install
 Etat : à résoudre pour 1.5.2
 quoi :	
@@ -696,7 +675,7 @@ quoi : la séquence pour effacer une entrée est différente des autres endroits du
 Repéré par : Moosh
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : FIXED ------------------------------------------------------
 PAREIL QUE 107 et 114 
 .91 où : Forum
 type : htmlarea 
@@ -769,7 +748,7 @@ on sait supprimer catégorie, forum, post mais pas un fil
 Repéré par : Moosh
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : Fixed ------------------------------------------------------
 .99 où : Upgrade
 type :
 quoi : Ne faudrait-il pas indiquer la version de Claroline que 
@@ -841,7 +820,7 @@ Repéré par : Aurélien
 Assigné à : 
 
 
-Etat : New ------------------------------------------------------
+Etat : FIXED ------------------------------------------------------
 PAREIL QUE 91 et 114 
 .107 où : Forum
 - Lorsque que je poste un message vide, j'arrive sur une page cul-de-sac,(et si je fais "back" le wysiwyg n'est plus à©ditable)
@@ -869,7 +848,7 @@ Etat : FIXED ------------------------------------------------------
 Repéré par : Guim
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : FIXED ------------------------------------------------------
 .111 où : Forum
 - Quand l'outil de forum est vide (sans màªmes les exmples) sa prà©santattion est bizarre, on ne peut pas comprendre qu'il s'agit d'un forum vide. 
 Repéré par : Guim
@@ -889,7 +868,7 @@ Etat : FIXED ------------------------------------------------------
 Repéré par : Guim
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : FIXED ------------------------------------------------------
 .114 où : Forum
 PAREIL QUE 91 et 107 
 - si je crà©e un nouveau topic mais vide, j'arrive sur une page m'indiquant que je dois taper un message mais qui est sans bannià¨re, ni aucun lien, j e n'ai pas d'autre solution que le back du navigateur.
@@ -927,7 +906,7 @@ Dans certain cas, à§a pourrait paraitre confus.
 Repéré par : Guim
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : PLUS APPLICABLE ------------------------------------------------------
 .118 où : travaux
 - En admin, j'ai des options qui peuvent agir pour tout les fichiers 
 à  la fois "delete et "visible/invisible". 
@@ -1062,17 +1041,10 @@ Etat : Fixed ------------------------------------------------------
 type :
 quoi :	Pourquoi ne pas afficher la liste des catégories (sous le formulaire d'edit) aussi lorsque on modifie une catégorie ? elle est affichée lors de l'ajout et du "change parent" 
 Repéré par : SEB
->>>>>>> 1.52.2.80
 Assigné à : 
 
-<<<<<<< BUGS.txt
-template à copier coller
-Etat : New ----------------------------------------------------
-.99 où :
-=======
-Etat : New ------------------------------------------------------
+Etat : Fixed ------------------------------------------------------
 .135 où : 	upgrade
->>>>>>> 1.52.2.80
 type :
 quoi :	Il faudrait, au début de l'upgrade, vérifier que la version à upgrader est bien antérieure à celle vers laquelle on veut upgrader et bloquer le processus 
 		si la version est la meme, dire à l'utilisateur qu'il n'as pas besoin de le faire 
@@ -1101,7 +1073,7 @@ quoi :	Lorsque que l'on clique sur ok pour envoyer les modifs on ne revient pas 
 Repéré par : Aurélien
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : NOT A BUG ca avait déjà été discuté ------------------------------------------------------
 .139 où : claroline/user/user.php
 type :
 quoi :	le lien de tracking devrait se trouver directement dans cette liste 
@@ -1116,9 +1088,6 @@ type :
 quoi :	le prof définit un intitulé, l'étudiant s1 le complète, cela s'affiche sous ses détails mais lorsque l'étudiant s2 voudra ajouter son propre intitulé
 	et qu'il cliquera sur le crayon il verra le texte que s1 à rempli
 
-<<<<<<< BUGS.txt
--------------
-=======
 	autre problème :
 	l'affichage du contenu de l'intitulé sur claroline/user/userInfo.php?uInfo=1 est inccorect, il affiche partout "..." sauf pour un user qui est l'administrateur 
 
@@ -1143,7 +1112,7 @@ Repéré par : SEB
 Assigné à : 
 
 
-Etat : New ------------------------------------------------------
+Etat : FIXED ------------------------------------------------------
 .142 où :	claroline/user/user_add.php
 type :
 quoi :	Lors de l'ajout d'un utilisateur par le prof dans l'outil utilisateur d'un cours aurélien a :
@@ -1152,7 +1121,7 @@ quoi :	Lors de l'ajout d'un utilisateur par le prof dans l'outil utilisateur d'u
 Repéré par : Aurélien
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : FIXED ------------------------------------------------------
 .143 où : Administration
 type :
 quoi :	étudiant, je m'inscrit dans un cours, puis dans un groupe, puis je me désinscrit du cours sans me désinscrire du groupe : 
@@ -1161,7 +1130,7 @@ quoi :	étudiant, je m'inscrit dans un cours, puis dans un groupe, puis je me dés
 Repéré par : SEB
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : FIXED ------------------------------------------------------
 .144 où :	Administration
 type :
 quoi :	dans l'admin zone , je modifie les propriétés d'un utilisateur, 
@@ -1189,7 +1158,7 @@ Repéré par : SEB
 Assigné à : SEB
 
 
-Etat : Bug résolu dans la 1.5.2 depuis 1 mois --------------------
+Etat : FIXED - Bug résolu dans la 1.5.2 depuis 1 mois --------------------
 .146 où : annonces
 type : envoi mail
 quoi :
@@ -1197,7 +1166,7 @@ quoi :
 Repéré par : Fred
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : FIXED ------------------------------------------------------
 .147 où : annonces
 type : affichage des annonces
 quoi :
@@ -1227,4 +1196,3 @@ Assigné à :
 
 
 
->>>>>>> 1.52.2.80
