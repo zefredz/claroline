@@ -2,7 +2,7 @@
     // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version 1.3.2 $Revision$                            |
+  | CLAROLINE version 1.6.*                           |
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
@@ -17,6 +17,7 @@
   $langFile = "learnPath";
 
   require '../../inc/claro_init_global.inc.php'; 
+
   // the following constant defines the default display of the learning path browser
   // 0 : display only table of content and content
   // 1 : display claroline header and footer and table of content, and content
@@ -34,6 +35,8 @@
   }
   $titlePage .= $siteName;
   
+  // set charset as claro_header should do but we cannot include it here
+  header('Content-Type: text/html; charset='. $charset);
 ?>
 
 <html>
@@ -75,7 +78,10 @@ else
   <noframes>
   <body>
   
-  <?php  echo $langBrowserCannotSeeFrames;  ?>
+  	<?php
+		echo $langBrowserCannotSeeFrames."<br />"
+			."<a href=\"../module.php\">".$langBack."</a>";
+	?>
   
    </body>
 </noframes>
