@@ -36,6 +36,17 @@ $htmlHeadXtra[]= "
 -->
 </style>";
 
+$htmlHeadXtra[] =
+"<script>
+function confirmation ()
+{
+        if (confirm(\" $langConfirmDelete \"))
+                {return true;}
+        else
+                {return false;}
+}
+</script>";
+
 include($includePath."/claro_init_header.inc.php");
 //stats
 include($includePath."/lib/events.lib.inc.php");
@@ -372,7 +383,7 @@ echo	"<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">",
         "<td>",
 		"<ul>",
 		"<li><b><a href=\"group_creation.php\">",$langNewGroupCreate,"</a></b></li>",
-		"<li><a href=\"",$_SERVER['PHP_SELF'],"?delete=yes\">",$langDeleteGroups,"</a></li>",
+		"<li><a href=\"",$_SERVER['PHP_SELF'],"?delete=yes\" onClick=\"return confirmation();\">",$langDeleteGroups,"</a></li>",
         "</ul>",
 		"</td>",
 
