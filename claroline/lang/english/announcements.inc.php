@@ -19,7 +19,7 @@ $langDown = "Order down";
 
 
 // ANNOUNCEMENTS
-$langAn        	="Announcements";
+$langAnnouncement ="Announcements";
 $langAnnEmpty	="Announcements list has been cleared up";
 $langAnnModify	="Announcement has been modified";
 $langAnnAdd	="Announcement has been added";

@@ -42,7 +42,7 @@ $lang_back_to_course_selection             = "Back to course selection";
 $lang_up = $lang_back_to_parent_category; // christophe fixed this as soon as possible !
 
 $langCatList = "Categories";
-$langCourseList = "Courses";
+$langCourseList = "Course List";
 
 
 $langCourses	= "courses";

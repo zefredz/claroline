@@ -320,7 +320,7 @@ if($is_allowedToEdit) // check teacher status
   ============================================================================*/
 
 
-$nameTools = $langAn;
+$nameTools = $langAnnouncement;
 include($includePath.'/claro_init_header.inc.php');
 
 if ( ! $is_courseAllowed)

@@ -31,7 +31,6 @@ $lang_faculty_HaveCourses				=	"This category include some courses, you must del
 $lang_faculty_imgUp					=	"Up";
 $lang_faculty_imgDown					=	"Down";
 $lang_faculty_imgEdit					=	"Edit";
-$lang_faculty_imgDelete					=	"Delete";
 $lang_faculty_imgMove					=	"Move";
 $lang_faculty_CreateOk					=	"Category created";
 $lang_faculty_CreateNotOk				=	"This category already exists!";

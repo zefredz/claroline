@@ -54,7 +54,7 @@ else
 header("Location: $doc_dl_url");
 //header("Content-Location: $doc_dl_url");
 // if the browser doesn't support the location header
-echo $langIfNotRedirect."<a href='".$doc_dl_url."'>".$langClickHere."</a> .";
+echo $langIfNotRedirect."<a href='".$doc_dl_url."'>".$lang_click_here."</a> .";
 // to be sure the script stop running
 exit;
 

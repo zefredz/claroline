@@ -72,7 +72,6 @@ $langEditGroup="Edit this group";
 $langUncompulsory="(optional)";
 $langNoGroupStudents="Unassigned students";
 $langGroupMembers="Group members";
-$langGroupCancel="cancel";
 $langGroupSettingsModified="Group settings modified";
 
 $langGroupStudentsInGroup="students registered in groups";

@@ -67,7 +67,6 @@ $langPublish = "Publish";
 $langMissingImagesDetected = "Missing images detected";
 
 $langIfNotRedirect = "If not redirected ";
-$langClickHere = "click here";
 
 $langURL = "URL : ";
 // rqmkhtml in document.php

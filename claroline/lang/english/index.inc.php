@@ -45,7 +45,7 @@ $langValvas = "Last announcements" ;
 
 $langUp = "previous level";
 $langCatList = "Category";
-$langCourseList = "Courses";
+$langCourseList = "Course list";
 
 $langCourses	= "courses";
 $langIn			= "in";

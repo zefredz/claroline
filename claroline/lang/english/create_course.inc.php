@@ -1,14 +1,11 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.0 $Revision$                            |
+      | CLAROLINE version 1.3.0 $Revision$                                   |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
 	  |   English Translation                                                |
-
-
-
       +----------------------------------------------------------------------+
       | Translator :                                                         |
       |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
@@ -97,7 +94,6 @@ $langLinks="Links";
 $langDoc="Documents and links";
 $langVideo="Video";
 $langWorks="Assignments";
-$langAnnouncements="Announcements";
 $langUsers="Users";
 $langForums="Forums";
 $langExercices="Exercises";

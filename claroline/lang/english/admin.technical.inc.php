@@ -29,7 +29,6 @@ $langState = "State";
 $langDevAdmin ="Development Administration";
 $langLinksToClaroProjectSite ="Links to the project's website";
 $langNomOutilTodo 		= "Manage Todo list"; // to do
-$langNomPageAdmin 		= "Administration";
 $langSysInfo  			= "Info about System";        // Show system status
 $langDiffTranslation 	= "Compare translations"; // diff of translation
 $langStatOf 			= "Statistics of "; // Stats of...
