@@ -109,7 +109,7 @@ if ($_gid && $is_groupAllowed)
 }
 else
 {
-	$groupContext     = false;
+    $groupContext     = false;
     $courseContext    = true;
 
     $maxFilledSpace   = $groupDocument_maxFilledSpace;
@@ -128,8 +128,7 @@ $baseWorkDir = $baseServDir.$courseDir;
 include($includePath.'/lib/events.lib.inc.php');
 event_access_tool($nameTools);
 
-if ( ! $is_courseAllowed)
-	claro_disp_auth_form();
+if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 
 if($is_allowedToEdit) // for teacher only
@@ -182,9 +181,9 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
 	if ($cmd == 'exUpload')
 	{
-		/*
-     * Check if the file is valid (not to big and exists)
-     */
+        /*
+         * Check if the file is valid (not to big and exists)
+         */
 
         if( ! is_uploaded_file($_FILES['userFile']['tmp_name']) )
         {
@@ -278,12 +277,32 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
     if ($cmd == 'rqUpload')
     {
+        /*
+         * Determine the maximum size allowed to upload. This size is based on 
+         * the tool $maxFilledSpace regarding the space already opccupied 
+         * by previous uploaded files, and the php.ini upload_max_filesize 
+         * and post_max_size parameters. This value is diplayed on the upload 
+         * form.
+         */
+
+        $php_uploadMaxFile = ini_get('upload_max_filesize');
+        if (strstr($php_uploadMaxFile, 'M')) $php_uploadMaxFile = intval($php_uploadMaxFile) * 1048576;
+        $php_postMaxFile  = ini_get('post_max_size');
+        if (strstr($php_postMaxFile, 'M')) $php_postMaxFile     = intval($php_postMaxFile) * 1048576;
+        $docRepSpaceAvailable  = $maxFilledSpace - dir_total_space($baseWorkDir);
+
+        $fileSizeLimitList = array( $php_uploadMaxFile, $php_postMaxFile , $docRepSpaceAvailable );
+        sort($fileSizeLimitList);
+        list($maxFileSize) = $fileSizeLimitList;        
+
         $dialogBox .= "<form action=\"".$PHP_SELF."\" method=\"post\" enctype=\"multipart/form-data\">"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exUpload\">"
                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
                      .$langDownloadFile." : "
                      ."<input type=\"file\" name=\"userFile\"> "
-                     ."<input style=\"font-weight: bold\" type=\"submit\" value=\"".$langDownload."\"><br>";
+                     ."<input style=\"font-weight: bold\" type=\"submit\" value=\"".$langDownload."\"><br>"
+                     ."<small>Max. file size : ".format_file_size($maxFileSize)."</small><br>";
+
 
         if ($is_allowedToUnzip)
         {
