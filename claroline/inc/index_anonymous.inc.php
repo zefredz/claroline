@@ -147,12 +147,11 @@ if ( count($courseList) > 0 )
         echo "<li>\n"
 
             ."<a href=\"".$coursesRepositoryWeb.$thisCourse['directory']."/\">"
+            .$thisCourse['officialCode']." - "
             .$thisCourse['title']
             ."</a>"
             ."<br>"
-            ."<small>"
-            .$thisCourse['officialCode']." - ".$thisCourse['titular']   
-            ."</small>\n"
+            ."<small>".$thisCourse['titular']."</small>\n"
 
             ."</li>\n";
     }

@@ -159,14 +159,15 @@ foreach($personnalCourseList as $thisCourse)
 {
 
     echo "<li>\n"
-         ."<a href=\"".$coursesRepositoryWeb.$thisCourse['directory']."/\">"
-         .$thisCourse['title']
-         ."</a>"
-         ."<br>"
-         ."<small>"
-         .$thisCourse['officialCode']." - ".$thisCourse['titular']
-         ."</small>\n"
-         ."</li>\n";
+        ."<a href=\"".$coursesRepositoryWeb.$thisCourse['directory']."/\">"
+        .$thisCourse['officialCode']." - "
+        .$thisCourse['title']
+        ."</a>"
+        ."<br>"
+        ."<small>"
+        .$thisCourse['titular']
+        ."</small>\n"
+        ."</li>\n";
 } // end foreach($personnalCourseList as $thisCourse)
 
 echo "</ul>\n"

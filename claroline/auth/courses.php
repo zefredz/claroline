@@ -503,12 +503,10 @@ switch ($displayMode)
 			{
 				echo	"<tr>",
 
-						"<td>",$thisCourse['intitule'],
+						"<td>",$thisCourse['officialCode']," - ",$thisCourse['intitule'],
 
 						"<br>",
-						"<small>",
-						$thisCourse['officialCode']," - ",$thisCourse['titulaires'],
-						"</small>",
+						"<small>",$thisCourse['titulaires'],"</small>",
 
 						"</td>";
 
