@@ -463,7 +463,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                     echo "<tr>"; 
                     echo "<td>".$results[$j][0]."</td>";
                     //echo "<td align=\"right\">".$results[$j][1]."</td>";
-	            echo "<td align=\"right\"><a href=\"user_access_details.php?cmd=doc&data=".$results[$j][0]."\">".$results[$j][1]."</a></td>";
+	            echo "<td align=\"right\"><a href=\"user_access_details.php?cmd=doc&data=".urlencode($results[$j][0])."\">".$results[$j][1]."</a></td>";
                     echo "<td align=\"right\">".$results[$j][2]."</td>";
                     echo"</tr>";
             }
