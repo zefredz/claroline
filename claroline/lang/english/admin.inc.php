@@ -192,6 +192,8 @@ $langPrivateOnly = "Private course only";
 $langSubscriptionAllowedOnly = "Subscription allowed only ";
 $langSubscriptionDeniedOnly  = "Subscription denied only";
 $langUserNoCourseToDisplay = "No course to display";
+$langSeeUserSettings =  "See user settings";
+$langEnrollToNewCourse = "Enroll to a new course";
 
 
 
