@@ -36,6 +36,8 @@ if($pagetype == 'viewforum' || $pagetype == "viewtopic")
 
 // suspect langfile call -- need to be checked in further release (The good one is supposed to be in config.php (Hugues june 3 2004).
 
+if ( ! $is_courseAllowed) claro_disp_auth_form();
+
 claro_set_display_mode_available(true);
 
 include('../inc/claro_init_header.inc.php');
@@ -49,7 +51,6 @@ $noPHP_SELF = true; //because  phpBB need always param IN URL
 
 
 
-if ( ! $is_courseAllowed) claro_disp_auth_form();
 	
 
 

@@ -24,7 +24,10 @@ if ((bool) stristr($_SERVER['PHP_SELF'],'course_home'))
 die("---");
 
 if ( !isset($claroGlobalPath) ) $claroGlobalPath = '../claroline/inc';
+
 require $claroGlobalPath.'/claro_init_global.inc.php';
+
+if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 $toolRepository = $clarolineRepositoryWeb;
 $imgRepository  = $clarolineRepositoryWeb."/img/";
@@ -33,9 +36,6 @@ claro_set_display_mode_available(true);
 
 include($includePath.'/claro_init_header.inc.php');
 include($includePath.'/lib/course_home.lib.php');
-
-if ( ! $is_courseAllowed) claro_disp_auth_form();
-
 
 /*
  * Tracking - Count only one time by course and by session

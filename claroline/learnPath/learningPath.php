@@ -25,6 +25,8 @@
   $tlabelReq = 'CLLNP___';
   require '../inc/claro_init_global.inc.php';
 
+   if (! $is_courseAllowed) claro_disp_auth_form();
+
   $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
@@ -74,9 +76,6 @@
    }
 
    // main page
-
-   if (! $is_courseAllowed) claro_disp_auth_form();;
-
    //####################################################################################\\
    //############################## MODULE TABLE LIST PREPARATION ###############################\\
    //####################################################################################\\

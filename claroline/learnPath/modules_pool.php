@@ -26,6 +26,9 @@
   $tlabelReq = 'CLLNP___';
   require '../inc/claro_init_global.inc.php';
 
+   $is_AllowedToEdit = $is_courseAdmin;
+   if (! $is_AllowedToEdit or ! $is_courseAllowed ) claro_disp_auth_form();
+
   $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
@@ -70,8 +73,6 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
   //header
   include($includePath."/claro_init_header.inc.php");
 
-   $is_AllowedToEdit = $is_courseAdmin;
-   if (! $is_AllowedToEdit or ! $is_courseAllowed ) claro_disp_auth_form();
 
   // main page
 

@@ -26,6 +26,9 @@
   $tlabelReq = 'CLLNP___';
   require '../inc/claro_init_global.inc.php';
 
+    if ( ! $is_courseAllowed)
+	claro_disp_auth_form();
+
   $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
@@ -96,9 +99,6 @@
 
 
      // main page
-if ( ! $is_courseAllowed)
-	claro_disp_auth_form();
-
   // FIRST WE SEE IF USER MUST SKIP THE PRESENTATION PAGE OR NOT
   // triggers are : if there is no introdution text or no user module progression statistics yet and user is not admin,
   // then there is nothing to show and we must enter in the module without displaying this page.

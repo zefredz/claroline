@@ -20,6 +20,9 @@ $gidReset = true; // If user is here. It means he isn't in any group space now.
 
 require '../inc/claro_init_global.inc.php';
 
+if ($is_courseAdmin)     $is_allowedToEdit = true;
+if (!$is_allowedToEdit) claro_disp_auth_form();
+
 $htmlHeadXtra[] =
 "<script>
 function confirmation (name)
@@ -38,8 +41,6 @@ $currentCourseRepository = $_course['path'];
 include($includePath.'/claro_init_header.inc.php');
 include($includePath.'/lib/course_home.lib.php');
 
-if ($is_courseAdmin)     $is_allowedToEdit = true;
-if (!$is_allowedToEdit) claro_disp_auth_form();
 
 /*
  * set access level of the user

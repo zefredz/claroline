@@ -11,22 +11,33 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-// Lang files needed :
-$userPerPage = 20; // numbers of user to display on the same page
-// initialisation of global variables and used libraries
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+$cidReset=TRUE;
+$gidReset=TRUE;
+$tidReset=TRUE;
 
-$iconForCuStatus['STUDENT']        = "membres.gif";
-$iconForCuStatus['COURSE_MANAGER'] = "teacher.gif";
+// clean session if we come from a course
+
+session_unregister('_cid');
+unset($_cid);
 
 require '../inc/claro_init_global.inc.php';
 
-//SECURITY CHECK
+/* ************************************************************************** */
+/*  Security Check
+/* ************************************************************************** */
 
 if (!$is_platformAdmin) claro_disp_auth_form();
 
-$is_allowedToAdmin     = $is_platformAdmin;
-if (!$is_allowedToAdmin) claro_disp_auth_form();
+/* ************************************************************************** */
+/*  Initialise variables and include libraries
+/* ************************************************************************** */
+
+$userPerPage = 20; // numbers of user to display on the same page
+
+// initialisation of global variables and used libraries
+
+$iconForCuStatus['STUDENT']        = "membres.gif";
+$iconForCuStatus['COURSE_MANAGER'] = "teacher.gif";
 
 include($includePath."/lib/pager.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
@@ -34,33 +45,24 @@ include($includePath."/lib/admin.lib.inc.php");
 if ($cidToEdit=="") {unset($cidToEdit);}
 if ($cidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
 
-@include ($includePath."/installedVersion.inc.php");
-
 // javascript confirm pop up declaration
 
-   $htmlHeadXtra[] =
-            "<script>
-            function confirmationReg (name)
-            {
-                if (confirm(\"".$langAreYouSureToUnsubscribe."\"+ name + \" ? \"))
-                    {return true;}
-                else
-                    {return false;}
-            }
-            </script>";
+$htmlHeadXtra[] =
+         "<script>
+         function confirmationReg (name)
+         {
+             if (confirm(\"".$langAreYouSureToUnsubscribe."\"+ name + \" ? \"))
+                 {return true;}
+             else
+                 {return false;}
+         }
+         </script>";
 
 // See SESSION variables used for reorder criteria :
 
 if (isset($_REQUEST['order_crit']))   
                                  {$_SESSION['admin_course_user_order_crit']   = trim($_REQUEST['order_crit']) ;}
 if (isset($_REQUEST['dir']))     {$_SESSION['admin_course_user_dir']          = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
-
-
-
-// clean session if we come from a course
-
-session_unregister('_cid');
-unset($_cid);
 
 // Deal with interbredcrumps
 

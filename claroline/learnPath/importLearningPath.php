@@ -19,6 +19,9 @@
   ======================================*/
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
+   
+$is_AllowedToEdit = $is_courseAdmin;
+if (! $is_AllowedToEdit or !$is_courseAllowed ) claro_disp_auth_form();
 
 $htmlHeadXtra[] =
           "<script>
@@ -473,9 +476,6 @@ function utf8_decode_if_is_utf8($str) {
 
 
    // main page
-
-   $is_AllowedToEdit = $is_courseAdmin;
-   if (! $is_AllowedToEdit or !$is_courseAllowed ) claro_disp_auth_form();
 
   claro_disp_tool_title($langimportLearningPath);
     

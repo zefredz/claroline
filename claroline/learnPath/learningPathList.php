@@ -38,6 +38,8 @@
 
   $tlabelReq = 'CLLNP___';
   require '../inc/claro_init_global.inc.php';
+  
+    if ( ! $is_courseAllowed) claro_disp_auth_form();
 
   // tables names
   /*
@@ -95,7 +97,6 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   //header
   include($includePath."/claro_init_header.inc.php");
 
-  if ( ! $is_courseAllowed) claro_disp_auth_form();
 
   // title
   claro_disp_tool_title($nameTools);

@@ -82,10 +82,10 @@ $limitExPage=50;
 
 $nameTools=$langExercices;
 
-include($includePath.'/claro_init_header.inc.php');
-
 if ( ! $is_courseAllowed)
 	claro_disp_auth_form();
+
+include($includePath.'/claro_init_header.inc.php');
 
 // used for stats
 include($includePath.'/lib/events.lib.inc.php');
