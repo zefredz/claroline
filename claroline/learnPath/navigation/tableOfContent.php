@@ -119,8 +119,9 @@
           ."<small>$langView : <a href='viewer.php?frames=0' target='_top'>$langFullScreen</a> | <a href='viewer.php?frames=1' target='_top'>$langInFrames</a></small>\n"
           ."</p>\n<table width=\"100%\">\n";
   
-  $previousModule = "";
-  $nextModule = "";
+  $previous = ""; // temp id of previous module, used as a buffer in foreach
+  $previousModule = ""; // module id that will be used in the previous link
+  $nextModule = ""; // module id that will be used in the next link
   
   foreach ($flatElementList as $module)
   {
