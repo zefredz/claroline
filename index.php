@@ -37,8 +37,7 @@ $tbl_courses           = $tbl_mdb_names['course'           ];
 $tbl_link_user_courses = $tbl_mdb_names['rel_course_user'  ];
 $tbl_courses_nodes     = $tbl_mdb_names['category'         ];
 $tbl_user              = $tbl_mdb_names['user'             ];
-
-$tbl_trackLogin        = $statsDbName."`.`track_e_login";
+$tbl_trackLogin        = $tbl_mdb_names['track_e_login'             ];
 
 /*
  * CLAROLINE HEADER AND BANNER
