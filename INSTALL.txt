@@ -1,30 +1,39 @@
-***********************************
-CLAROLINE 1.5.0 RELEASE CANDIDATE 2
-***********************************
+*********************************************
+CLAROLINE 1.5.0 RELEASE CANDIDATE 2 - INSTALL
+*********************************************
 
-Thank you for downloading Claroline 1.5.0 Beta. This README will guide you 
-through the basics of installation and operation of Claroline 1.5.0. Please 
+Thank you for downloading Claroline 1.5.0 Beta. This text will guide you 
+through the basics of installation and operation of Claroline 1.5. Please 
 ensure you read this fully BEFORE proceeding with the installation.
 
-    - REQUIREMENTS
+TABLE OF CONTENT :
 
-    - INSTALLATION PROCEDURE
-
-        - NEW CLAROLINE INSTALLATION
-
-        - UPGRADE FROM PREVIOUS CLAROLINE VERSION
-
-    - TROUBLESHOOTING
-
-    - ADMIN
+  1. REQUIREMENTS
+  2. INSTALLATION PROCEDURE
+     2.1 New claroline installation
+     2.2 Upgrade from previous claroline version
+  3. TROUBLESHOOTING
+  4. ADMIN
 
 
 
 REQUIREMENTS
 ============
 
-To install Claroline 1.5.0 on a server, whether locally or 
-remotely, you need the following on the server:
+To install Claroline 1.5.0 on a computer, whether locally or remotely, you need 
+the following on your machine :
+
+1. One of the following Operating systems :
+
+        Linux / BSD / Unix (*)
+        Windows (9x, Me, NT4, 2000, XP)
+        MacOs X.
+
+  (*) We thoroughly test Claroline on Debian and Mandrake distributions, 
+      but other Linux distributions should work too. We've received 
+      positive feedbacks from users working on Red Hat and Suse. 
+      Don't hesitate to notify us of any problem encountered on other 
+      Linux distributions.
 
 1. A web server (We recommend Apache, but others should work too),
 
@@ -40,6 +49,7 @@ remotely, you need the following on the server:
         safe_mode            = Off
         magic_quotes_gpc     = On
         magic_quotes_runtime = Off
+        error_reporting      = E_ALL & ~E_NOTICE (*)
 
    For example, users with PHP 4.2 or superior should set the parameter 
    
@@ -48,6 +58,9 @@ remotely, you need the following on the server:
    and users with PHP 4.3 or superior should also set the parameter 
    
                  magic_quotes_gpc = On
+
+   (*) It is possible to set the error_reporting to a lower level 
+       but not a higher one.
 
 
 3. The MySQL databases server plus a login/password allowing to administrate 
@@ -196,14 +209,6 @@ entered during install.
 If this doesn't work, delete '.htaccess'.
 
 
-
-
-
 =========================================================================
-
-Email :info@claroline.net
-
-Europe, Belgium, Louvain-la-Neuve
-Tel. +32 2 215 69 81
-
+                Europe, Belgium, Louvain-la-Neuve - June 29 2004
 ================================== END ===================================

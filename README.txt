@@ -1,71 +1,81 @@
-CLAROLINE 1.5 RELEASE CANDIDATE -- README
-=========================================
+******************************************
+CLAROLINE 1.5 RELEASE CANDIDATE 2 - README
+******************************************
 
-Claroline is a GPL software working with PHP/MySQL. It is a course based 
-educational tool allowing the professor to create, admin and feed his courses 
-through the web.If you would like to help develop this software, please visit 
-our homepage at http://www.claroline.netLICENSE
+TABLE OF CONTENT :
+
+  1. DESCRIPTION
+  2. LICENCE
+  3. CREDITS
+  4. INSTALL
+  5. DOCUMENTATION
+  6. CONTACT
+  7. NEW FEATURES
 
 
-Claroline is distributed under Gnu General Public license (GPL).See 
-claroline/license/gpl_print.txt
+1. DESCRIPTION
+   ===========
 
-PORTABILITY
-===========
+Claroline is an Open Source software based on PHP/MySQL. It's a collaborative 
+learning environment allowing teachers or education institutions to create and 
+administer courses through the web.
 
-Claroline is supposed to work on the following OS:	
+The system provides group management, forums, document repositories, calendar, 
+chat, assignment areas, links, user profile administration on a single and 
+highly integrated package.
 
-        Linux
-        Windows (9*, Me, NT4, 2000, XP)
-        Unix
-        MacOs X.
+Claroline is translated in 28 languages and used by hundreds of institutions 
+around world. The software was initially started by the University of Louvain 
+(Belgium) and released under Open Source licence (GPL). Since then, a comunity 
+of developpers around the world contributes to its development.
 
-We tested it on Linux Debian (Woody), Linux Mandrake (8, 9, 10), Windows (98, 2000, XP)and MacOs X.Email functions remain silent on systems where there is no mail 
-sending software (Sendmail, Postfix, Hamster...), which is the case by default 
-on a Windows machine.
+2. LICENCE
+   =======
 
-PHP CONFIGURATION
-=================
+Claroline is distributed under the GENERAL PUBLIC LICENSE (GPL) version 2.
 
-Claroline works on PHP 4 and later. However some users could meet problems if 
-their PHP setting doesn't fit these ones:	
+See LICENCE.txt
 
-        short_open_tag       = On
-        register_globals     = On
-        safe_mode            = Off
-        magic_quotes_gpc     = On
-        magic_quotes_runtime = Off
 
-It also seems the backticks charachters (`) inserted inside most of the 
-Claroline SQL queries since Claroline 1.3 doesn't work with MySQL versions 
-previous to 3.23.6In some sections, Claroline also requires the zlib library.
+3. CREDITS
+   =======	
 
-SECURITY
-========
+See CREDITS.txt file
 
-Install script has created a '.htaccess' file toprotect claroline/admin (caution 
-: this protection works only on Apache server). To access admin, use 
-login/password you entered during install. If it doesn't work, delete 
-'claroline/admin/.htaccess'.
 
-INSTALL
-=======	
+4. INSTALL
+   =======
 
-See INSTALL.txt
+See INSTALL.txt file
 
-DOCUMENTATION
-=============
+  PLEASE ENSURE YOU READ THIS FULLY BEFORE PROCEEDING WITH THE INSTALLATION.
 
-1.  http://www.claroline.net presents shortly our philosophy.
 
-2.  Help is slowly progressing. The most complex tools have a
-    contextual mini HTML Help page.
+5. DOCUMENTATION
+   =============
 
-3.  A complete manual for trainers and student is also available
-    at http://www.claroline.net.
+Complete manuals for trainer and student are avilable in diffrent languages at :
 
-NEW FEATURES IN CLAROLINE 1.5 SINCE CLAROLINE 1.4.2
-=====================================================
+  http://www.claroline.net/documentation.htm
+
+
+6. CONTACT 
+   =======
+
+        Université catholique de Louvain
+        54 grand Rue 1348 Louvain-la-Neuve BELGIUM
+
+        phone : 32 (0) 10 47 85 48
+        email : info@claroline.net
+        web   : http://www.claroline.net
+        Fax   : 32 (0) 47 89 39
+
+
+7. NEW FEATURES
+   ============
+
+NEW FEATURES IN CLAROLINE 1.5 SINCE CLAROLINE 1.4
+-------------------------------------------------
 
 * LEARNING PATH. A completely new tool has been created allowing course manager 
 to easily organize course resources for student in a framed learning path.
@@ -129,23 +139,8 @@ All the administration is handled through this interface.
 has been completely changed to make it easier.
 
 
-
-NEW FEATURES IN CLAROLINE 1.4.2 SINCE CLAROLINE 1.4.1
-=====================================================
-
-No feature is added to Claroline 1.4.2. This release is basically stressed on 
-stability increase and bugs fixing.
-
-
-NEW FEATURES IN CLAROLINE 1.4.1 SINCE CLAROLINE 1.4.0
-=====================================================
-
-No feature is added to Claroline 1.4.1. This release is basically stressed on 
-stability increase and bugs fixing.
-
-
 NEW FEATURES IN CLAROLINE 1.4 SINCE CLAROLINE 1.3
-======================================================
+-------------------------------------------------
 
 The main Claroline improvements are hidden behind the screen. We have totally 
 recoded the Claroline Kernel to be more stable and more modular.
@@ -162,13 +157,13 @@ Thaï, Turkish.
 system.
 
 * MAIN PAGE. New courses list display in a 'dynamic tree' system.   It allows 
-the main page to display faster, especially on servers   with important number 
+the main page to display faster, especially on servers with important number 
 of course.
 
 * QUIZZ. Totally new quizz tool with 4 different question forms   (multiple 
-choices / mutiple answers / fill inn / matching).   The quizz tool  also allows  
-:  - image attachment to questions,   - questions retrieval from another quizz,   
-- random question list generation.
+choices / mutiple answers / fill inn / matching). The quizz tool  also allows : 
+image attachment to questions, questions retrieval from another quizz, random 
+question list generation.
 
 * DOCUMENT. It automatically detects IMG tag inside HTML file offering   to 
 upload the corresponding image.
@@ -199,16 +194,8 @@ prepare IMS and WebCT to Claroline import,
 system is implemented recording   every user's action on the platform.
 
 
-NEW FEATURES IN CLAROLINE 1.3.1 SINCE CLAROLINE 1.3.0 
-===================================================== No feature is added to 
-
-Claroline 1.3.1. This release is basically stressed on stability increase and 
-bugs fixing.
-
-
-NEW FEATURES IN CLAROLINE 1.3.0 SINCE CLAROLINE 1.2
-====================================================
-
+NEW FEATURES IN CLAROLINE 1.3 SINCE CLAROLINE 1.2
+-------------------------------------------------
 
 * LANGUAGE. New languages added. Claroline is now in 12 languages : Chinese, 
 English, Finnish, French, German, Italian, Japanese, Polish,   Portugese, 
@@ -235,9 +222,9 @@ course for a new session but wants to keep tracks of the   previous session).
 * ADMIN SECTION. The new PHPMyAdmin 2.3 has been included and admin tools   
 completely rewritten.
 
-NEW FEATURES IN CLAROLINE 1.2.0 SINCE CLAROLINE 1.1.1
-=====================================================
 
+NEW FEATURES IN CLAROLINE 1.2 SINCE CLAROLINE 1.1
+-------------------------------------------------
 
 * Claroline can be installed in a server sub-directory.
 
@@ -256,7 +243,7 @@ package.   WATCH OUT! The web install does not manage claroline1.1.1 upgrade to
 and new   lines into HTML new lines (tags <br>).
 
 * AGENDA. New layout, clearer view (Month separation and mention of current 
-day).   Language date formatting automated.
+day). Language date formatting automated.
 
 * ANNOUNCEMENTS. Can be moved up and down the list through blue arrow.
 
@@ -271,17 +258,11 @@ registered only once per session per course.
 '.htaccess' (protection only functional if Apache server). Contains   phpSysInfo 
 (only functional in Linux servers) and phpMyAdmin 2.2.6.
 
-* TODO. Improved from Admin point of view. You can clasify todos, attribute   
-them to a developper, check state of progress and inform users that their   todo 
+* TODO. Improved from Admin point of view. You can clasify todos, attribute 
+them to a developper, check state of progress and inform users that their todo 
 is taken into account, at what stage and by who.
 
-CREDITS
-=======	
 
-See CREDITS.txt file
-
-
-=======================================================================
-Email : info@claroline.net
-Europe, Belgium, Louvain-la-NeuveMarch 20, 2003.Tel. +32 10 47 85 48.
-================================== END ================================
+=========================================================================
+                Europe, Belgium, Louvain-la-Neuve - June 29 2004
+================================== END ===================================

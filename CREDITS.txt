@@ -1,5 +1,6 @@
-CLAROLINE 1.5 - CREDITS
-=======================
+*******************************************
+CLAROLINE 1.5 RELEASE CANDIDATE 2 - CREDITS
+*******************************************
 
 Claroline Core Team :           Thomas De Praetere (depraetere@ipm.ucl.ac.be)
                                 Hugues Peeters     (peeters@ipm.ucl.ac.be)
@@ -17,6 +18,7 @@ Personnal Agenda :		Eric Remy (eremy@rmwc.edu),
 				Toon Van Hoecke (Toon.VanHoecke@UGent.be)
 
 Administration section :	Benoit Muret (muret_ben@hotmail.com)
+                                Guillaume Lederer (lederer@cerdecam.be) from CERDECAM
 
 Quizz Tool :                    Olivier Brouckaert (oli.brouckaert@skynet.be)
 
@@ -33,12 +35,9 @@ Announcement tool improvement:  Pablo Rey (prey@cesga.es)
 User Image :                    Miguel (miguel@cesga.es)
                                 Patrick Cool (patrick.cool@ugent.be)
 
-Upgrade tool :			Mathieu Laurent (Cerdecam)
+Upgrade tool :			Mathieu Laurent (laurent@cerdecam.be) from CERDECAM
 
 Forum tool :                    adpated from PHPBB 1.4 (http://www.phpbb.com)
-
-First Stats tool :              based on ezBoo (http://www.ezboo.com)
-// replaced by Tracking System
 
 zip / unzipping option  :       PclZip library - Vincent Blavet
                                 (http://www.phpconcept.net)
@@ -101,7 +100,6 @@ Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
 
 
 
-=======================================================================
-Europe, Belgium, Louvain-la-Neuve
-September 24, 2003.
-================================== END ================================
+=========================================================================
+                Europe, Belgium, Louvain-la-Neuve - June 29 2004
+================================== END ===================================
