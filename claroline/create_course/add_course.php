@@ -681,11 +681,12 @@ elseif($displayCourseAddResult)
                  <?
                  if ($_POST['fromAdmin']!="yes")
                  {
-                    ?><a class="claroButton" href="../../index.php"><?php echo $langEnter?></a><?
+                    claro_disp_button("../../index.php",$langEnter);
                  }
                  else
-                 { ?>
-				     <a class="claroButton" href="../admin/index.php"><?php echo $langBackToAdmin?></a><?
+                 {
+                    claro_disp_button("add_course.php?fromAdmin=yes",$langAnotherCreateSite);
+                    claro_disp_button("../admin/index.php",$langBackToAdmin);
                  }?>
 		</td>
 	</tr>
