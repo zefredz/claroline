@@ -346,9 +346,9 @@ if ( ! $is_courseAllowed)
                         ".$langYourBestScore."
                         </td>
                         <td>
-                        ";
-               draw_progress($raw, 1);
-               echo    " ".$raw."%
+                        ".
+               claro_disp_progress_bar($raw, 1).
+               " ".$raw."%
                         </td>
                       </tr>";
            }

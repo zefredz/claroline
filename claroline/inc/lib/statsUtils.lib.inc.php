@@ -278,19 +278,10 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
             echo "<tr>
                     <td align='center' width='15%'>";
             echo $periodPiece;
-            echo   "</td>
-                    <td width='60%' style='padding-top : 3px;' align='center'>"
-                        // display hitbar
-                        .'<img src="'.$clarolineRepositoryWeb.'img/bar_1.gif" width="1" height="12" alt=" ">';
-            if($pourcent != 0)            
-                echo '<img src="'.$clarolineRepositoryWeb.'img/bar_1u.gif" width="'.$barwidth.'" height="12">';
-                        // display 100% bar
-            if($pourcent != 100 && $pourcent != 0)
-                echo '<img src="'.$clarolineRepositoryWeb.'img/bar_1m.gif" width="1" height="12">';
-            if($pourcent != 100)    
-                echo '<img src="'.$clarolineRepositoryWeb.'img/bar_1r.gif" width="'.($maxSize-$barwidth).'" height="12">';
-            echo '<img src="'.$clarolineRepositoryWeb.'img/bar_1.gif" width="1" height="12">
-                    </td>
+            echo   '</td>
+                    <td width="60%" style="padding-top : 3px;" align="center">'.
+			claro_disp_progress_bar ( $pourcent, 4).			                       
+                    '</td>
                     <td align="center" width="10%">
                         '.$cpt.'
                     </td>

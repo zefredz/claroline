@@ -815,9 +815,7 @@
             {
                 $globalprog += $prog;
             }
-            echo "<td align=\"right\">";
-                   draw_progress($prog, 1);
-            echo "</td>";
+            echo "<td align=\"right\">".claro_disp_progress_bar($prog, 1)."</td>";
             echo "<td align=\"left\">
                     <small> ".$prog."% </small>
                   </td>";
@@ -842,9 +840,9 @@
                   <td align =\"right\">
                      ".$langPathsInCourseProg." :
                   </td>
-                  <td align=\"right\" >";
-                     draw_progress($total, 1);
-         echo     "</td>
+                  <td align=\"right\" >".
+                  claro_disp_progress_bar($total, 1).
+		"</td>
                    <td align=\"left\">
                      <small> ".$total."% </small>
                   </td>

@@ -108,9 +108,9 @@ if($is_allowedToTrack && $is_trackingEnabled)
       $lpProgress = get_learnPath_progress($_GET['path_id'],$user['user_id']);
       echo "<tr>
           <td><a href=\"lp_modules_details.php?uInfo=".$user['user_id']."&path_id=".$_GET['path_id']."\">".$user['nom']." ".$user['prenom']."</a></td>\n
-          <td align=\"right\">";
-      draw_progress($lpProgress, 1);
-      echo " </td>
+          <td align=\"right\">".
+      claro_disp_progress_bar($lpProgress, 1).
+      	" </td>
            <td align=\"left\"><small>".$lpProgress."%</small></td>
         </tr>";
     }

@@ -260,9 +260,7 @@
           {
                 // display the progress value for current module
                 
-                echo "<td align=\"right\">";
-                       draw_progress($progress, 1);
-                echo "</td>";
+                echo "<td align=\"right\">".claro_disp_progress_bar ($progress, 1)."</td>";
                 echo "<td align=\"left\">
                        <small>&nbsp;".$progress."%</small>
                       </td>";
@@ -296,9 +294,9 @@
             // display progression
             echo "<tr>".
                 "<td align=\"right\" colspan=\"".($maxDeep+1)."\">".$langGlobalProgress."</td>".
-                "<td align=\"right\">";
-                   draw_progress(round($globalProg / ($moduleNb) ), 1 );
-            echo "</td>".
+                "<td align=\"right\">".
+                claro_disp_progress_bar(round($globalProg / ($moduleNb) ), 1 ).
+		"</td>".
                 "<td align=\"left\">
                     <small>&nbsp;".round($globalProg / ($moduleNb) ) ."%</small></td>
                   </td>";
