@@ -356,7 +356,7 @@ if ($displayButtonLine)
                       '<img src="'.$clarolineRepositoryWeb.'img/valves.gif">'.$langAddAnn);
     claro_disp_button('messages.php',
                       '<img src="'.$clarolineRepositoryWeb.'img/email.gif">'.$langMessageToSelectedUsers);
-    claro_disp_button($PHP_SELF.'?cmd=exDeleteAll\'>',
+    claro_disp_button($PHP_SELF.'?cmd=exDeleteAll',
                       '<img src="'.$clarolineRepositoryWeb.'img/delete.gif">'.$langEmptyAnn);
     echo "</p>\n";
 }
