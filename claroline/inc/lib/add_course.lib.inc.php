@@ -1250,7 +1250,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 {
 	GLOBAL $TABLECOURSE, $TABLECOURSUSER, $TABLEANNOUNCEMENTS, $DEBUG, $defaultVisibilityForANewCourse,
 	$langCourseDescription,
-	$langProfessor,
+	$langProfessor, $includePath,
 	$error_msg, $courseTablePrefix, $dbGlu;
   
 	$okForRegisterCourse = TRUE;
@@ -1324,6 +1324,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 
 	if ($okForRegisterCourse)
 	{
+		include_once($includePath."/installedVersion.inc.php");
 		// here we must add 2 fields
 		$sql ="INSERT INTO `".$TABLECOURSE."` SET
 			code = '".$courseSysCode."',
@@ -1338,7 +1339,9 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 			scoreShow = '',
 			diskQuota = NULL,
 			creationDate = now(),
-			expirationDate = ".$expirationDate.",
+			expirationDate = '".$expirationDate."',
+			versionDb = '".$versionDb."',
+			versionClaro = '".$clarolineVersion."',
 			lastEdit = now(),
 			lastVisit = NULL,
 			titulaires = '".$titular."',
