@@ -32,21 +32,26 @@ if(mysql_errno()==0 && mysql_num_rows($result_links)>0)
 	// create_unexisting_directory from fileUpload.lib.php
 	$linkRepository = create_unexisting_directory($linkRepository);
 	
-     	if (!$linkRepository) echo "** creation of $linkRepository error";
-        
-        $sql_get_visibility_of_tool_link = " SELECT visible FROM `".$tbl_old_tool_list."`" . 
-                                           " WHERE lien ='../claroline/link/link.php';";
+     	if (!$linkRepository)
+        {
+            echo "<p class=\"error\">Creation of $linkRepository error</p>";
+            $nbError++;          
+        }
+        else
+        {
+            $sql_get_visibility_of_tool_link = " SELECT visible FROM `".$tbl_old_tool_list."`" . 
+                                               " WHERE lien ='../claroline/link/link.php';";
                                             
-	$result_linkVisibility = mysql_query($sql_get_visibility_of_tool_link);
-	$linkVisibility = ((mysql_fetch_array($result_linkVisibility) == 1) ?'v':'i');
+            $result_linkVisibility = mysql_query($sql_get_visibility_of_tool_link);
+            $linkVisibility = ((mysql_fetch_array($result_linkVisibility) == 1) ?'v':'i');
         
-        $doc_path_rep = str_replace($docRepository,"/",$linkRepository);
+            $doc_path_rep = str_replace($docRepository,"/",$linkRepository);
         
-        update_db_info('update', $doc_path_rep, array( 'visible' => $linkVisibility ) );
+            update_db_info('update', $doc_path_rep, array( 'visible' => $linkVisibility ) );
                 
-	while ( $linkToMove = mysql_fetch_array($result_links, MYSQL_ASSOC))
-	{
-		$fileName = replace_dangerous_char($linkToMove['titre']);
+            while ( $linkToMove = mysql_fetch_array($result_links, MYSQL_ASSOC))
+            {
+                $fileName = replace_dangerous_char($linkToMove['titre']);
 		$url = trim($linkToMove['url']);
                 
 		// check for "http://", if the user forgot "http://" or "ftp://" or ...
@@ -74,10 +79,10 @@ if(mysql_errno()==0 && mysql_num_rows($result_links)>0)
 		{
                     $badUrl[]=$linkToMove;
 		}
-	};
+            };
 	
-	if (is_array($badUrl))
-	{
+            if (is_array($badUrl))
+            {
 	
                 // create a text file with bad url
 		
@@ -90,7 +95,8 @@ if(mysql_errno()==0 && mysql_num_rows($result_links)>0)
 			fwrite("----------------------------",$fileBadUrl);
 		}
 		fclose($fileBadUrl);
-	}
+            }
+        }
 }
 
 ?>

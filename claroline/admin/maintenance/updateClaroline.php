@@ -12,6 +12,9 @@
       GOAL : install claroline 1.4.2 on server
 */
 
+die ("deprecated");
+
+
 @include ("../../include/installedVersion.inc.php");
 $thisClarolineVersion 	= $clarolineVersion;
 $thisVersionDb 			= $versionDb;

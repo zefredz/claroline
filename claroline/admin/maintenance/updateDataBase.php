@@ -1,5 +1,8 @@
 <?php // $Id$
 
+die ("deprecated");
+
+
 $mtime = microtime();
 $mtime = explode(" ",$mtime);
 $mtime = $mtime[1] + $mtime[0];
@@ -145,8 +148,11 @@ echo "
 /* -------------------- LOG CVS --------------------
 
  $Log$
- Revision 1.1  2004/06/02 07:49:04  moosh
- Initial revision
+ Revision 1.2  2004/06/22 13:30:51  mathieu
+ deprecated script
+
+ Revision 1.1.1.1  2004/06/02 07:49:04  moosh
+ startnew 
 
  Revision 1.2  2003/06/04 11:01:13  moosh
  new upgrade system
@@ -172,8 +178,11 @@ echo "
 
  Revision 1.3  2002/02/27 17:49:19  cvsuser
  ajout $Log$
- ajout Revision 1.1  2004/06/02 07:49:04  moosh
- ajout Initial revision
+ ajout Revision 1.2  2004/06/22 13:30:51  mathieu
+ ajout deprecated script
+ ajout
+ ajout Revision 1.1.1.1  2004/06/02 07:49:04  moosh
+ ajout startnew 
  ajout
  ajout Revision 1.2  2003/06/04 11:01:13  moosh
  ajout new upgrade system

@@ -26,6 +26,8 @@
       |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
       +----------------------------------------------------------------------+
  */
+ 
+ die ("deprecated");
 
 /**
  * try to create database of course  without remove exitent content

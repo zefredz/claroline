@@ -4,6 +4,8 @@
 	the directory "video" is  moved to document.
 */
 
+die ("deprecated");
+
 /****** MOVE FILES **********/
 $coursePath = $currentcoursePathSys;
 $source = $coursePath."video";

@@ -14,6 +14,9 @@
 	  // this code need to contain all sql in $sqlForUpdate array to CREATE or UPDATE a cours database.
 	  // this code does'nt contain sql to upgrade content
 */
+
+die ("deprecated");
+
 //if ($singleDbEnabled) die('$singleDbEnabled is true,  we can upgrade this actually');
 
 $sqlForUpdate[] = "# Try upgrade tables content";
@@ -89,8 +92,11 @@ $sqlForUpdate[] = "INSERT IGNORE INTO `".$currentCourseDbNameGlu."annonces`
 
 /**
  * $Log$
- * Revision 1.1  2004/06/02 07:49:04  moosh
- * Initial revision
+ * Revision 1.2  2004/06/22 13:30:51  mathieu
+ * deprecated script
+ *
+ * Revision 1.1.1.1  2004/06/02 07:49:04  moosh
+ * startnew 
  *
  * Revision 1.5  2004/05/25 12:51:34  mathieu
  * add other updates
