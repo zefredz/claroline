@@ -2,7 +2,7 @@
 
 // Most PHP package has increase the error reporting. 
 // The line below set the error reporting to the most fitting one for Claroline
-error_reporting(error_reporting() & ~ E_NOTICE);
+#error_reporting(error_reporting() & ~ E_NOTICE);
 
 ///////////////////////////////////////////////////////////////////////
 //// theses lines are added to accept the low security of php < 4.2.3
@@ -100,10 +100,8 @@ else
  * common language properties and generic expressions
  */
 
-define ('LANGMODE','DEVEL'); // must be move in claro_main_conf.php
 
-
-if (LANGMODE == 'DEVEL')
+if ( defined('LANGMODE') && LANGMODE == 'TRANSLATION')
 {
  
     // include the language file with all language variables
@@ -150,8 +148,15 @@ else
     
     // add extension to file
     $languageFile = $languageFilename.'.lang.php'; 
-	    
-    include($includePath.'/../lang/english/'.$languageFile);
+
+    if ( ! file_exists($includePath.'/../lang/english/'.$languageFile) )
+    {
+        include ($includePath.'/../lang/english/complete.lang.php');
+    }
+    else
+    {   
+        include($includePath.'/../lang/english/'.$languageFile);
+    }
 	
     // load previously english file to be sure every $lang variable
     // have at least some content
