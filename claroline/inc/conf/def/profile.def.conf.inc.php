@@ -155,13 +155,13 @@ array ( 'label'         => 'force heigth of all image to this size'
 
 $toolConfProperties['KEEP_THE_NAME_WHEN_CHANGE_IMAGE'] =
 array ( 'label'         => 'Keep the name of file when the image is changed'
-      , 'description'   => '<strong>true</strong> -> the new image have the name of previous.<br>'."\n"
-                         . '<strong>false</strong> -> a new name is build for each upladed image.<br>'."\n"
-                         . 'The difference is about www. <br >'
-                         . 'If your view that ressource is "picture of this profile" answer "keep"<br>'
-                         . 'If your view that ressource is _this_ "picture" and _this_ "picture" is no longer "picture of this profile" answer "rename"<br>'
+      , 'description'   => 'TRUE -> the new image have the name of previous.'."\n"
+                         . 'FALSE -> a new name is build for each upladed image.'."\n"
+                         . 'The difference is about www.'."\n"
+                         . '* If your view that ressource is "picture of this profile" answer "keep"'."\n"
+                         . '* If your view that ressource is _this_ "picture" and _this_ "picture" is no longer "picture of this profile" answer "rename"'."\n"
                          . 'Because, if you rename the file, the uri point to the new pic (cool uri don\'t change)'
-                         . '<br >'
+                         . ''
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'keep name'
@@ -172,14 +172,10 @@ array ( 'label'         => 'Keep the name of file when the image is changed'
 
 $toolConfProperties['KEEP_THE_OLD_IMAGE_AFTER_CHANGE'] =
 array ( 'label'         => 'Keep the replaced image when user update pic'
-      , 'description'   => '<ul>'
-                         . '<li>'
-                         . '<strong>true</strong>'
-                         . ' -> if KEEP_THE_NAME_WHEN_CHANGE_IMAGE is true, the  previous image is rename before.'
-                         . '</LI><LI>'
-                         . '<strong>false</strong>'
+      , 'description'   => '* TRUE'
+                         . ' -> if KEEP_THE_NAME_WHEN_CHANGE_IMAGE is true, the  previous image is rename before.'."\n"
+                         . '* FALSE'
                          . ' -> only the last image still on server.'
-                         . '</li></ul>'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'save'
