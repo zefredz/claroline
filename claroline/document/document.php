@@ -844,6 +844,11 @@ if ($parentDir == '/' || $parentDir == '\\')
 if ($cmd == 'exSearch')
 {
     $searchPattern   = $_REQUEST['searchPattern'];
+
+    $searchPattern   = str_replace('.', '\\.', $searchPattern);
+    $searchPattern   = str_replace('*', '.*',  $searchPattern);
+    $searchPattern   = str_replace('?', '.?',  $searchPattern);
+
     $searchRecursive = true;
     $searchBasePath  = $baseWorkDir;
 }
