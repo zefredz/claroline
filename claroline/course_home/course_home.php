@@ -165,7 +165,7 @@ if ($is_allowedToEdit)
         .$langEditToolList
         ."</a><br />\n"
         ."<a class='claroCmd' href=\"".$toolRepository."course_info/infocours.php\">"
-        ."<img src=\"".$imgRepository."referencement.gif\" alt=\"\"> "
+        ."<img src=\"".$imgRepository."settings.gif\" alt=\"\"> "
         .$langCourseSettings
         ."</a><br />\n"
         ."<a class='claroCmd' href=\"".$toolRepository."tracking/courseLog.php\">"

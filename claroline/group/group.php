@@ -415,7 +415,7 @@ echo '<p>'."\n"
     .'</a> |'."\n"
     .'&nbsp;'
     .'<a class="claroCmd" href="group_properties.php">'
-    ."<img src=\"".$clarolineRepositoryWeb."img/referencement.gif\">"
+    ."<img src=\"".$clarolineRepositoryWeb."img/settings.gif\">"
     ."Modify Group Settings"
     .'</a>'."\n"
     .'&nbsp;'

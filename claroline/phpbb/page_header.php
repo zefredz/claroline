@@ -171,7 +171,7 @@ if($is_forumAdmin)
 {
    if ( isset($catId) && $catId>0 ) $toAdd = '?forumgo=yes&cat_id=' . $catId;
    $toolBar[] = '<a class="claroCmd" href="../forum_admin/forum_admin.php' . $toAdd . '">'
-                ."<img src=\"".$clarolineRepositoryWeb."img/referencement.gif\"> " 
+                ."<img src=\"".$clarolineRepositoryWeb."img/settings.gif\"> " 
                 .$langAdm
                 ."</a>\n";
 }
