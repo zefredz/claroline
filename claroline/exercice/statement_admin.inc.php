@@ -203,7 +203,9 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
 </tr>
 <tr>
   <td valign="top"><label for="questionDescription"><?php echo $langQuestionDescription; ?> :</label></td>
-  <td><textarea wrap="virtual" name="questionDescription" id="questionDescription" cols="50" rows="4" style="width:400px;"><?php echo htmlentities($questionDescription); ?></textarea></td>
+  <td>
+  <?php claro_disp_html_area('questionDescription', $questionDescription) ?>
+  </td>
 </tr>
 <tr>
   <td valign="top"><label for="fileUpload"><?php echo $aFileIsAttached?$langReplaceAttachedFile:$langAttachFile; ?> :</label></td>
