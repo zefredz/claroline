@@ -30,6 +30,9 @@ function showQuestion($questionId, $onlyAnswers=false)
 {
 	global $attachedFilePathWeb;
 	global $attachedFilePathSys;
+	
+	global $langUniqueAnswer;
+	global $langMultipleAnswers;
 
 	// construction of the Question object
 	$objQuestionTmp=new Question();
@@ -42,7 +45,7 @@ function showQuestion($questionId, $onlyAnswers=false)
 	}
 
 	$answerType = $objQuestionTmp->selectType();
-  $attachedFile = $objQuestionTmp->selectAttachedFile();
+	$attachedFile = $objQuestionTmp->selectAttachedFile();
 
 	if(!$onlyAnswers)
 	{
@@ -228,6 +231,23 @@ function showQuestion($questionId, $onlyAnswers=false)
 		}
 	}	// end for()
 
+	// add a message to say that the user must check a single or many answerss
+	if($answerType == UNIQUE_ANSWER)
+	{
+	?>
+		<tr>
+		<td colspan="2"><small><?php echo $langUniqueAnswer; ?></small></td>
+		</tr>
+	<?php
+	}
+	elseif($answerType == MULTIPLE_ANSWER)
+	{
+	?>
+		<tr>
+		<td colspan="2"><small><?php echo $langMultipleAnswers; ?></small></td>
+		</tr>	
+	<?php
+	}
 	// destruction of the Answer object
 	unset($objAnswerTmp);
 
