@@ -83,7 +83,7 @@ if ( !empty($htmlHeadXtra) && is_array($htmlHeadXtra) )
 
 if (!isset($hide_banner) || $hide_banner == false) 
 {
-    include(dirname(__FILE__).'/claro_init_banner.inc.php');
+    include('claro_init_banner.inc.php');
 }
 
 if (!isset($hide_body) || $hide_body == false)
