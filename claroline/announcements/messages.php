@@ -137,6 +137,8 @@ function reverseAll(cbList)
 //	End	-->
 </script>";
 
+$interbredcrump[]= array ("url"=>"../announcements/announcements.php", "name"=> $langAn);
+
 $nameTools = $langMessages;
 
 include('../inc/claro_init_header.inc.php'); 
