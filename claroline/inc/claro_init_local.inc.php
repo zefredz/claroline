@@ -212,10 +212,10 @@ else
 // Initialise variable
 
 $loginFailed = false;
-$uidReset    = false;
-$cidReset    = false;
-$tidReset    = false;
-$gidReset    = false;
+if (!isset($uidReset)) $uidReset = false;
+if (!isset($cidReset)) $cidReset = false;
+if (!isset($tidReset)) $tidReset = false;
+if (!isset($gidReset)) $gidReset = false;
 
 // Get table name
 
@@ -280,6 +280,7 @@ else
                 {
                     $loginFailed = true;
                     unset($_uid);
+                    $_uid = NULL;
                     session_unregister('_uid');
                 }
 
@@ -547,7 +548,9 @@ if ($cidReset) // course session data refresh requested
     else
     {
         unset($_cid);
+        $_cid = NULL;
         unset($_course);
+        $_course = NULL;
         session_unregister('_cid');
         session_unregister('_course');
         //// all groups of these course
@@ -627,6 +630,7 @@ if ($uidReset || $cidReset) // session data refresh requested
         $is_courseTutor  = false;
 
         unset($_courseUser);
+        $_courseUser = NULL;
         session_unregister('_courseUser');
     }
 
@@ -706,7 +710,9 @@ if ($tidReset || $cidReset) // session data refresh requested
     {
         //// course
         unset($_tid);
+        $_tid = NULL;
         unset($_courseTool);
+        $_courseTool = NULL;
         session_unregister('_tid');
         session_unregister('_courseTool');
     }
@@ -762,7 +768,9 @@ if ($gidReset || $cidReset) // session data refresh requested
     else  // Keys missing => not anymore in the group - course relation
     {
             unset($_gid);
+            $_gid = NULL;
             unset($_group);
+            $_group = NULL;
             session_unregister('_gid');
             session_unregister('_group');
     }
@@ -807,6 +815,7 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
         {
             $is_groupMember = false;
             unset($_groupUser);
+            $_groupUser = NULL;
             session_unregister('_groupUser');
         }
 
@@ -820,6 +829,7 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
         $is_groupTutor  = false;
 
         unset($_groupUser);
+        $_groupUser = NULL;
         session_unregister('_groupUser');
     }
 
@@ -938,6 +948,7 @@ if ($uidReset || $cidReset)
     else
     {
         unset($_courseToolList);
+        $_courseToolList = NULL;
         session_unregister('_courseToolList');
     }
 }
