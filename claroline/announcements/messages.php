@@ -220,17 +220,17 @@ if($is_allowedToUse)	// check teacher status
 		{
 			$groupIdList = implode(', ',$groupIdList);
 
-			$sql = "SELECT user_id
-					FROM ".$tbl_groupUser."` user_group
+			$sql = "SELECT user
+					FROM `".$tbl_groupUser."` user_group
 					WHERE user_group.team IN (".$groupIdList.")";
 
-			$groupMemberResult = mysql_query($sql);
+			$groupMemberResult = claro_sql_query($sql);
 			
 			if ($groupMemberResult)
 			{
 				while ($u = mysql_fetch_array($groupMemberResult))
 				{
-					$userIdList [] = $u['user_id']; // complete the user id list ...
+					$userIdList [] = $u['user']; // complete the user id list ...
 				}
 			}
 		}
