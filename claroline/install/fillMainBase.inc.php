@@ -57,7 +57,7 @@ claro_sql_query($sql);
 $sql = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
-('CLCHT___', 'chat/chat.php', 'forum.gif', 'ALL', 11, 'AUTOMATIC', 'COURSE_ADMIN')";
+('CLCHT___', 'chat/chat.php', 'chat.gif', 'ALL', 11, 'AUTOMATIC', 'COURSE_ADMIN')";
 claro_sql_query($sql);
 
 
