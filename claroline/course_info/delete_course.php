@@ -50,7 +50,7 @@ $tbl_relCourseUser = $tbl_mdb_names['rel_course_user'  ];
 //find needed info in db
 
 $sql = "SELECT * FROM `".$tbl_course."` WHERE code = '".$current_cid."'";
-$course_to_delete = claro_sql_fetch_array($sql);
+list($course_to_delete) = claro_sql_query_fetch_all($sql);
 
 $currentCourseDbName 	= $course_to_delete['dbName'];
 $currentCourseDbNameGlu = $course_to_delete['dbNameGlu'];
