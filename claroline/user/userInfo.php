@@ -343,7 +343,7 @@ elseif ($displayMode =="viewMainInfoEdit")
             .'<thead>'."\n"
             .'<tr class="headerX">'."\n"
             .'<th align="left">'.$langName.'</th>'."\n"
-            .'<th align="left"><label for="role">'.$langRole.'</label></th>'."\n"
+            .'<th align="left"><label for="role">'.$langRole.' ('. $langOptional .')</label></th>'."\n"
             .'<th><label for="promoteTutor">'.$langTutor.'</label></th>'."\n"
             .'<th><label for="promoteCourseAdmin">'.$langCourseManager.'</label></th>'."\n"
             .'<th>&nbsp;</th>'."\n"
