@@ -51,32 +51,32 @@ if ( isset($_REQUEST['id']) &&
     !isset($_REQUEST['cmd'])   )
 {
     $id=$_REQUEST['id'];
-    $faculty=$_SESSION['savFaculty'];
+    $categories=$_SESSION['categories'];
 
     // Change the parameter 'visible'
 
-    if(!is_null($faculty))
+    if(!is_null($categories))
     {
-        foreach($faculty as $key=>$one_faculty)
+        foreach($categories as $key=>$category)
         {
-            if($one_faculty['id']==$id)
+            if($category['id']==$id)
             {
-                if($faculty[$key]['visible'])
-                    $faculty[$key]['visible']=FALSE;
+                if($categories[$key]['visible'])
+                    $categories[$key]['visible']=FALSE;
                 else
-                    $faculty[$key]['visible']=TRUE;
+                    $categories[$key]['visible']=TRUE;
             }
         }
     }
 
     // Save in session
-    $savFaculty=$faculty;
-    session_register("savFaculty");
+    $_SESSION['categories']=$categories;
+    session_register("categories");
 }
 else
 {
     // Get value from session variables
-    $faculty=$_SESSION["savFaculty"];
+    $categories=$_SESSION["categories"];
 
     /**
      * Create a category
@@ -183,7 +183,7 @@ else
 
         // Search the category who move in the bom
         $i=0;
-        while($i<count($faculty) && $faculty[$i]["id"]!=$_REQUEST["id"])
+        while($i<count($categories) && $categories[$i]["id"]!=$_REQUEST["id"])
             $i++;
 
         /**
@@ -194,17 +194,17 @@ else
         {
             // Search the previous brother of this category
             $j=$i-1;
-            while($j>0 && strcmp($faculty[$j]["code_P"],$faculty[$i]["code_P"]))
+            while($j>0 && strcmp($categories[$j]["code_P"],$categories[$i]["code_P"]))
                 $j--;
 
             // If they are a brother
-            if(!strcmp($faculty[$j]["code_P"],$faculty[$i]["code_P"]) )
+            if(!strcmp($categories[$j]["code_P"],$categories[$i]["code_P"]) )
             {
                 // change the brother and his children
-                for($k=0;$k<=$faculty[$j]["nb_childs"];$k++)
+                for($k=0;$k<=$categories[$j]["nb_childs"];$k++)
                 {
-                    $searchId=$faculty[$j+$k]["id"];
-                    $newTree=$faculty[$j]["treePos"]+$faculty[$i]["nb_childs"]+1+$k;
+                    $searchId=$categories[$j+$k]["id"];
+                    $newTree=$categories[$j]["treePos"]+$categories[$i]["nb_childs"]+1+$k;
 
                     $sql_Update = " UPDATE `" . $tbl_course_node . "` 
                                     SET treePos='".$newTree."' 
@@ -213,10 +213,10 @@ else
                 }
 
                 // change the choose category and his childeren
-                for($k=0;$k<=$faculty[$i]["nb_childs"];$k++)
+                for($k=0;$k<=$categories[$i]["nb_childs"];$k++)
                 {
-                    $searchId=$faculty[$i+$k]["id"];
-                    $newTree=$faculty[$i]["treePos"]-$faculty[$j]["nb_childs"]-1+$k;
+                    $searchId=$categories[$i+$k]["id"];
+                    $newTree=$categories[$i]["treePos"]-$categories[$j]["nb_childs"]-1+$k;
 
                     $sql_Update = " UPDATE `" . $tbl_course_node . "` 
                                     SET treePos='".$newTree."' 
@@ -237,17 +237,17 @@ else
         {
             // Search the next brother
             $j=$i+1;
-            while($j<=count($faculty) && strcmp($faculty[$j]["code_P"],$faculty[$i]["code_P"]))
+            while($j<=count($categories) && strcmp($categories[$j]["code_P"],$categories[$i]["code_P"]))
                 $j++;
 
             // If they are a brother
-            if(!strcmp($faculty[$j]["code_P"],$faculty[$i]["code_P"]))
+            if(!strcmp($categories[$j]["code_P"],$categories[$i]["code_P"]))
             {
                 // change the brother and his children
-                for($k=0;$k<=$faculty[$j]["nb_childs"];$k++)
+                for($k=0;$k<=$categories[$j]["nb_childs"];$k++)
                 {
-                    $searchId=$faculty[$j+$k]["id"];
-                    $newTree=$faculty[$j]["treePos"]-$faculty[$i]["nb_childs"]-1+$k;
+                    $searchId=$categories[$j+$k]["id"];
+                    $newTree=$categories[$j]["treePos"]-$categories[$i]["nb_childs"]-1+$k;
 
                     $sql_Update = " UPDATE `". $tbl_course_node . "` 
                                     SET treePos='".$newTree."' 
@@ -256,10 +256,10 @@ else
                 }
 
                 // change the choose category and his childeren
-                for($k=0;$k<=$faculty[$i]["nb_childs"];$k++)
+                for($k=0;$k<=$categories[$i]["nb_childs"];$k++)
                 {
-                    $searchId=$faculty[$i+$k]["id"];
-                    $newTree=$faculty[$i]["treePos"]+$faculty[$j]["nb_childs"]+1+$k;
+                    $searchId=$categories[$i+$k]["id"];
+                    $newTree=$categories[$i]["treePos"]+$categories[$j]["nb_childs"]+1+$k;
 
                     $sql_Update = " UPDATE `" . $tbl_course_node . "` 
                                     SET treePos='".$newTree."' 
@@ -656,89 +656,7 @@ else
                     $controlMsg['info'][]=$lang_faculty_MoveOk;
                 }
             }
-        }
-        
-        /**
-         * If you move the category without his childeren
-         */
-/*
-        elseif($_REQUEST["MoveChild"]==0)
-        {
-            //If the parent is different and they move the category alone (without his childeren)
-            //Error if the new parent is self
-            if(!strcmp($facultyEdit["code"],$_REQUEST["fatherCat"]))
-            {
-                $controlMsg['error'][]=$lang_faculty_NoParentSelf;
-            }
-            else
-            {
-                $maxTree=SearchMaxTreePos();
-
-                // Met a temp le treePos de lui
-                $sql_TempTree= " UPDATE `" . $tbl_course_node . "` 
-                                 SET treePos=".$maxTree."+1
-                                 WHERE id=".$facultyEdit["id"];
-
-                claro_sql_query($sql_TempTree);
-
-                // Change treePos of category who have treePos>treePos of the category edit
-                $sql_ChangeTree= " UPDATE `" . $tbl_course_node . "` 
-                                   SET treePos=treePos-1 
-                                   WHERE treePos>".$facultyEdit["treePos"]." AND treePos<=".$maxTree;
-
-                claro_sql_query($sql_ChangeTree);
-
-                // Change the father of his childeren (=the father of the category edit)
-                if($facultyEdit["nb_childs"]>0)
-                {
-                    $sql_ChangeFather= " UPDATE `" . $tbl_course_node . "` 
-                                         SET code_P='".$facultyEdit["code_P"]."' 
-                                         WHERE code_P='".$facultyEdit["code"]."'";
-
-                    claro_sql_query($sql_ChangeFather);
-                }
-
-                // Search the treePos of the new father
-                $sql_SearchNewTreePos= " SELECT treePos 
-                                         FROM `" . $tbl_course_node . "` 
-                                         WHERE code='".$_REQUEST["fatherCat"]."'";
-                $array=claro_sql_query_fetch_all($sql_SearchNewTreePos);
-
-                $newFather=$array[0];
-
-                // The new treePos is the treePos of his new father+nb_childs of his new father+1
-                $newTree=$newFather["treePos"]+$newFather["nb_childs"]+1;
-
-                // Ajoute a tous les treePos apres le nouveau pere et ses enfants treePos+1
-                $sql_ChangeTree = " UPDATE `" . $tbl_course_node . "` 
-                                    SET treePos=treePos+1
-                                    WHERE treePos>=".$newTree." AND treePos<=".$maxTree;
-
-                claro_sql_query($sql_ChangeTree);
-
-                $father=(!strcmp($_REQUEST["fatherCat"],"NULL")?"NULL":("'".$_REQUEST["fatherCat"]."'"));
-
-                //Change information of the category
-                $sql_ChangeInfoFaculty= " UPDATE `" . $tbl_course_node . "` 
-                                          SET name='".$_REQUEST["nameCat"]."',
-                                              code='".$_REQUEST["codeCat"]."',
-                                              code_P=".$father.",
-                                              nb_childs=0,treePos='".$newTree."',
-                                              canHaveCoursesChild='".$canHaveCoursesChild."'
-                                          WHERE id='".$_REQUEST["id"]."'";
-
-                claro_sql_query($sql_ChangeInfoFaculty);
-
-                // nb_childs of the old father (and his fathers) = nb_childs-1
-                $fatherChangeChild=$facultyEdit["code_P"];
-                deleteNbChildFather($fatherChangeChild,1);
-
-                // nb_childs of the new father (and his fathers) = nb_childs+1
-                $fatherChangeChild=$_REQUEST["fatherCat"];
-                addNbChildFather($fatherChangeChild,1);
-            }
-        }
-*/
+        }    
     }
 
     /** 
@@ -750,8 +668,8 @@ else
                            ORDER BY treePos";
     $array=claro_sql_query_fetch_all($sql_searchfaculty);
 
-    $tempFaculty=$faculty;
-    unset($faculty);
+    $tempCategories=$categories;
+    unset($categories);
 
     // Build the array of catégories
     if ($array)
@@ -760,39 +678,39 @@ else
         for($i=0;$i<count($array);$i++)
         {
             $array[$i]["visible"]=TRUE;
-            $faculty[]=$array[$i];
+            $categories[]=$array[$i];
         }
 
         // Pour remettre a visible ou non comme prédédement
-        for($i=0;$i<count($faculty);$i++)
+        for($i=0;$i<count($categories);$i++)
         {
-            $searchId=$faculty[$i]["id"];
+            $searchId=$categories[$i]["id"];
             $j=0;
-            while($j<count($tempFaculty) && strcmp($tempFaculty[$j]["id"],$faculty[$i]["id"]))
+            while($j<count($tempCategories) && strcmp($tempCategories[$j]["id"],$categories[$i]["id"]))
                 $j++;
 
-            if($j<count($tempFaculty))
+            if($j<count($tempCategories))
             {
-                $faculty[$i]["visible"]=$tempFaculty[$j]["visible"];
+                $categories[$i]["visible"]=$tempCategories[$j]["visible"];
             }
         }
 
-        $savFaculty=$faculty;
+        $_SESSION['categories']=$categories;
 
         // Session
-        session_unregister("savFaculty");
-        session_register("savFaculty");
+        session_unregister("categories");
+        session_register("categories");
     }
     else
     {
         $controlMsg['warning'][]=$lang_faculty_NoCat;
 
-        $faculty=NULL;
-        $savFaculty=$faculty;
+        $categories=NULL;
+        $_SESSION['categories']=$categories;
 
         // Session
-        session_unregister("savFaculty");
-        session_register("savFaculty");
+        session_unregister("categories");
+        session_register("categories");
     }
 }
 
@@ -858,7 +776,7 @@ if($CREATE)
 
 
 /**
- * Display the selectBox of faculties
+ * Display the selectBox of categories
  */
 
 if($CREATE)
@@ -874,7 +792,7 @@ if($CREATE)
         <option value="NULL" > &nbsp;&nbsp;&nbsp;<?php echo $siteName;?> </option>
         <?php
         // Display each category in the select
-        buildSelectFaculty($savFaculty,NULL,$EditFather,"");
+        buildSelectFaculty($categories,NULL,$EditFather,"");
         ?>
         </select>
         </td>
@@ -991,7 +909,7 @@ if($MOVE)
 				<option value="NULL" > &nbsp;&nbsp;&nbsp;<?php echo $siteName;?> </option>
         <?php
         //Display each category in the select
-        buildSelectFaculty($savFaculty,NULL,$EditFather,"");
+        buildSelectFaculty($categories,NULL,$EditFather,"");
         ?>
 			</select>
         </td>
@@ -1040,7 +958,7 @@ echo "<th>".$lang_faculty_CodeCat."</td>"
 
 echo "</tr></thead>";
 
-displayBom($faculty,NULL,"");
+displayBom($categories,NULL,"");
 
 echo "</table>";
 
@@ -1320,17 +1238,17 @@ include($includePath."/claro_init_footer.inc.php");
     }
 
     /**
-     *This function create de select box facolties
+     *This function create de select box categories
      *
      * @author  - < Benoît Muret >
-     * @param   - elem            array     :     the faculties
-     * @param   - father        string    :    the father of the faculty
-     * @param    - $EditFather    string    :    the faculty editing
-     * @param    - $space        string    :    space to the bom of the faculty
+     * @param   - elem            array     :     the categories
+     * @param   - father        string    :    the father of the category
+     * @param    - $EditFather    string    :    the category editing
+     * @param    - $space        string    :    space to the bom of the category
 
      * @return  - void
      *
-     * @desc : create de select box facolties
+     * @desc : create de select box categories
      */
 
     function buildSelectFaculty($elem,$father,$EditFather,$space)
