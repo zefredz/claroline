@@ -20,34 +20,73 @@ require '../../inc/claro_init_global.inc.php';
 
 // --> SOAP
 
-require_once $includePath.'/inc/nusoap.php';
+require_once $includePath.'/lib/nusoap.php';
 
 $server = new soap_server();
 
-$server->register('get_user_info_from_cookie', array('cookie'=>'xsd:string', 'auth'=>'xsd:string'));
+$server->register('get_user_info_from_cookie', 
+                   array('auth'   => 'xsd:string', 
+                         'cookie' => 'xsd:string', 
+                         'cid'    => 'xsd:string',
+                         'gid'    => 'xsd:string', ) );
+
 $server->service($HTTP_RAW_POST_DATA);
 
 /**
  * get user parameter on the base of a cookie value
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  string $cookie
+ * @param string $auth
+ * @param string $cookie
+ * @param string $cid
+ * @param int    $gid
  * @return array   user parameters if it suceeds
  *         boolean false otherwise
  */
 
-function get_user_info_from_cookie($cookie, $auth)
+function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
 {
     if (! is_allowed_to_recieve_user_info($auth) )
     {
         return null;
     }
 
-    $tbl_user            = 'claroline.user';
-    $tbl_sso             = 'claroline.sso';
-    $ssoCookieName       = 'icampusSsoCookie';
+    $res = array('userLastname'         => null,
+             'userFirstname'            => null,
+             'userLoginName'            => null,
+             'userEmail'                => null,
+             'userOfficialCode'         => null,
+             'ssoCookieName'            => null,
+             'ssoCookieValue'           => null,
+             'ssoCookieExpireTime'      => null,
+             'ssoCookieDomain'          => null,
+             'ssoCookiePath'            => null,
+             'courseTitle'              => null,
+             'courseTitular'            => null,
+             'courseCode'               => null,
+             'courseDbName'             => null,
+             'courseRegistrationAllowed'=> null,
+             'courseVisibility'         => null,
+             'is_courseMember'          => null,
+             'is_courseTutor'           => null,
+             'is_courseAdmin'           => null,
+             'is_courseAllowed'         => null,
+             'groupName'                => null,
+             'groupDescription'         => null,
+             'groupPrivate'             => null,
+             'is_groupMember'           => null,
+             'is_groupTutor'            => null,
+             'is_groupAllowed'          => null);
+
+
+    $ssoCookieName       = 'clarolineSsoCookie';
     $ssoCookieExpireTime = time()+3600;
-    $ssoCookieDomain     = '.ucl.ac.be';
+    $ssoCookiePath       = '/';
+    $ssoCookieDomain     = 'phedre.ipm.ucl.ac.be';
+
+    $mainTblList = claro_sql_get_main_tbl();
+    $tbl_user    = $mainTblList['user'];
+    $tbl_sso     = 'claroline`.`sso';
 
     $sql = "SELECT user.nom          lastname, 
                    user.prenom       firstname, 
@@ -56,34 +95,124 @@ function get_user_info_from_cookie($cookie, $auth)
                    user.officialCode officialCode,
                    user.user_id      userId
 
-            FROM ".$tbl_sso."  AS sso,
-                 ".$tbl_user." AS user
+            FROM `".$tbl_sso."`  AS sso,
+                 `".$tbl_user."` AS user
             WHERE cookie = '".$cookie."'
               AND user.user_id = sso.user_id";
 
-    $result = claro_sql_query_fetch_all($sql);
+    $userResult = claro_sql_query_fetch_all($sql);
 
-    if (count($result) > 0)
+    if (count($userResult) > 0)
     {
+        $user = $userResult[0];
+        $uid  = $user['userId'];
+
+        $res['userLastname'    ] = $user['lastname'    ];
+        $res['userFirstname'   ] = $user['firstname'   ];
+        $res['userLoginName'   ] = $user['loginName'   ];
+        $res['userEmail'       ] = $user['rmail'       ];
+        $res['userOfficialCode'] = $user['officialCode'];
+
         $newSsoCookieValue = generate_cookie();
-        record_sso_cookie( $result[0]['userId'], $newSsoCookieValue );
-        $result[0]['ssoCookieName'      ] = $ssoCookieName;
-        $result[0]['ssoCookieValue'     ] = $newSsoCookieValue;
-        $result[0]['ssoCookieExpireTime'] = $ssoCookieExpireTime;
-        $result[0]['ssoCookieDomain'    ] = $ssoCookieDomain;
 
-        if ( isset($result[0]['uid']) )
-        {
-        	unset($result[0]['uid']);
-        }
-        
+        record_sso_cookie( $uid, $newSsoCookieValue );
 
-        return $result[0];
+        $res['ssoCookieName'      ] = $ssoCookieName;
+        $res['ssoCookieValue'     ] = $newSsoCookieValue;
+        $res['ssoCookieExpireTime'] = $ssoCookieExpireTime;
+        $res['ssoCookieDomain'    ] = $ssoCookieDomain;
+        $res['ssoCookiePath'      ] = $ssoCookiePath;
     }
     else
     {
     	return null;
     }
+
+
+	if( $uid && $cid ) // search for the user status in course
+	{
+        $tbl_course          = $mainTblList['course'         ];
+        $tbl_rel_course_user = $mainTblList['rel_course_user'];
+
+        $sql = "SELECT `c`.`intitule` title, `c`.`fake_code` officialCode, `c`.`titulaires` titular, `c`.`dbName`,
+                       `c`.`visible` visibility, 
+                       `cu`.`statut` userStatus, `cu`.`role` userRole, 
+                       `cu`.`tutor`
+                FROM      `".$tbl_course."`          c
+                LEFT JOIN `".$tbl_rel_course_user."` cu
+                ON    `c`.`code`     = `cu`.`code_cours`
+                AND   `cu`.`user_id` = '".$uid."'
+                WHERE `c`.`code`     = '".$cid."'";
+
+		$courseResult = claro_sql_query_fetch_all($sql);
+	
+		if( count($courseResult > 0) )
+		{
+			$course = $courseResult[0];
+
+			$res['courseTitle'  ] = $course['title'       ];
+			$res['courseTitular'] = $course['titular'     ];
+			$res['courseCode'   ] = $course['officialCode'];
+            		$res['courseDbName' ] = $course['dbName'      ];
+
+			$res['courseRegistrationAllowed'] = (bool) (   $course['visibility'] == 1 
+                                                        || $course['visibility'] == 2 );
+
+			$res['courseVisibility'         ] = (bool) (   $course['visibility'] == 2 
+                                                        || $course['visibility'] == 3 );
+
+			$res['is_courseMember'    ] = (bool) ! is_null($course['userStatus']);
+			$res['is_courseTutor'     ] = (bool) $course['tutor'] == 1;
+			$res['is_courseAdmin'     ] = (bool) $courseStatut['userStatus'] ==  1;
+			$res['is_courseAllowed'   ] = (bool) $course['visibility'] || $course['is_courseMember']; 
+		}
+	}
+
+    if ($uid && $cid & $gid)
+    {
+        global $courseTablePrefix, $dbGlu; // from config.
+
+        $courseTblList = claro_sql_get_course_tbl($courseTablePrefix . $course['dbName'] . $dbGlu);
+
+        $tbl_group_team          = $courseTblList['group_team'         ];
+        $tbl_group_property      = $courseTblList['group_property'     ];
+        $tbl_group_rel_team_user = $courseTblList['group_rel_team_user'];
+
+        $sql = "SELECT g.`name`, 
+                       g.`description`, 
+                       g.`tutor` tutorId,
+                       gp.`private`, 
+                       gp.`self_registration`, 
+                       gtu.`user`, 
+                       gtu.`team`, 
+                       gtu.`status`, 
+                       gtu.`role`
+                FROM `".$tbl_group_team."`            AS g, 
+                     `".$tbl_group_property."`       AS gp, 
+                     `".$tbl_group_rel_team_user."` AS gtu
+                WHERE gtu.`user` = '".$uid."'
+                  AND gtu.`team` = '".$gid."'";
+
+        $groupResult = claro_sql_query_fetch_all($sql);
+
+        if (count($groupResult) > 0)
+	{
+		$group = $groupResult[0];
+
+		$res['groupName'       ] = $group['name'       ];
+		$res['groupDescription'] = $group['description'];
+
+		$res['groupPrivate'    ] = (bool) $group['private'] == 1;
+		$res['is_groupMember'  ] = (bool) $group['user'   ] == $uid;
+		$res['is_groupTutor'   ] = (bool) $group['tutorId'] == $uid;
+
+		$res['is_groupAllowed' ] = (bool)     (  $group['is_groupMember']) 
+						   || (  $group['is_groupTutor' ]) 
+						   || (! $group['private'       ]);
+	}
+    }
+
+    return $res;
 }
 
 
@@ -148,5 +277,8 @@ function is_allowed_to_recieve_user_info($auth)
 }
 
 
-// var_dump(get_user_info_from_cookie('ABCD'));
+// var_dump(get_user_info_from_cookie('blabla','3e2d39b50942f9c922f67a38cccc8e17','CCTC01', '1'));
+
+
+
 ?>
