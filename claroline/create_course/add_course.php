@@ -319,11 +319,9 @@ else
 			$displayCoursePropertiesForm = FALSE;
 			$displayWhatAdd = FALSE;
 	
-	    // warn platform administrator of the course creation
-		    mail($administrator["email"], 
-        		
-		    '['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$newcourse_label,
-		    
+		    // warn platform administrator of the course creation
+			$strCreationMailNotificationSubject = 		    '['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$newcourse_label;
+			$strCreationMailNotificationBody = 
 		    claro_format_locale_date($dateTimeFormatLong)."\n"
 		    .$langCreationMailNotificationBody.' '.$siteName.' '
 		    .$langByUser.$_user['firstName'].' '.$_user['lastName']." (".$_user['mail'].") \n"
@@ -333,8 +331,14 @@ else
 		    .' '.$langEmail			.' : '.$newcourse_email."\n\n"
 		    .' '.$langFac.' : '.$newcourse_category."\n"
 		    .' '.$langLn.' : '.$newcourse_language."\n"
-		    ."\n ".$coursesRepositoryWeb.$currentCourseRepository."/\n\n");
-
+		    ."\n ".$coursesRepositoryWeb.$currentCourseRepository."/\n\n";
+		    if (    
+					!@mail(	$administrator["email"], 
+							$strCreationMailNotificationSubject ,
+							$strCreationMailNotificationBody ))
+			{
+				//find here another notification system
+			}
 		} // if ($okToCreate)
 	} // elseif ($submitFromCoursProperties)
 } // else (!$can_create_courses)
@@ -529,7 +533,7 @@ BuildEditableCatTable(""," &gt; ");
 <td >
 	<input type="Text" id="wantedCode" name="wantedCode" maxlength="12" value="<?php echo $valuePublicCode ?>">
 	<br>
-	<small><?php echo $$langMaxSizeCourseCode ?></small>
+	<small><?php echo $langMaxSizeCourseCode ?></small>
 </td>
 </tr>
 
