@@ -88,7 +88,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
             <input type="text" size="40" id="offcialCode" name="officialCode" value="<?php echo $officialCode?>">
         </td>
     </tr>
-<?
+<?php
 }
 ?>
     <tr>
