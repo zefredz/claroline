@@ -75,7 +75,7 @@ define("DISPVAL_upgrade_done",4);
 
 session_start();
 
-if ($_GET['confirm_backup'] == 0) {
+if ($_GET['reset_confirm_backup'] == 1) {
 	session_unregister('confirm_backup');
 	$confirm_backup = 0;
 }
@@ -91,7 +91,8 @@ if (!isset($_SESSION['confirm_backup']))
     {
 	$confirm_backup = 0;
     }
-} else 
+} 
+else 
 {
     $confirm_backup  = $_SESSION['confirm_backup'];
 }
@@ -176,7 +177,7 @@ switch ($display)
 	case DISPVAL_upgrade_main_conf_needed :
 		echo "<h2>Done:</h2>";
 		echo "<ul>";	
-		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?confirm_backup=0\">cancel</a>)</li>";
+		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>";
 		echo "</ul>";
 		echo "<h2>To do:</h2>";
 		echo "<ul>";
@@ -188,7 +189,7 @@ switch ($display)
 	case DISPVAL_upgrade_main_db_needed :
 		echo "<h2>Done:</h2>";
 		echo "<ul>";	
-		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?confirm_backup=0\">cancel</a>)</li>";
+		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>";
 		echo "<li>Upgrade configuration files (<a href=\"upgrade_conf.php\">start again</a>)</li>";
 		echo "</ul>";
 		echo "<h2>To do:</h2>";
@@ -200,7 +201,7 @@ switch ($display)
 	case DISPVAL_upgrade_courses_needed :
 		echo "<h2>Done:</h2>";
 		echo "<ul>";
-		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?confirm_backup=0\">cancel</a>)</li>";
+		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>";
 		echo "<li>Upgrade configuration files (<a href=\"upgrade_conf.php\">start again</a>)</li>";
 		echo "<li>Upgrade main database (<a href=\"upgrade_main_db.php\">start again</a>)</li>";
 		echo "</ul>";
@@ -212,7 +213,7 @@ switch ($display)
 	case DISPVAL_upgrade_done :
 		echo "<h2>Done:</h2>";
 		echo "<ul>";
-		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?confirm_backup=0\">cancel</a>)</li>";
+		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>";
 		echo "<li>Upgrade configuration files (<a href=\"upgrade_conf.php\">start again</a>)</li>";
 		echo "<li>Upgrade main database (<a href=\"upgrade_main_db.php\">start again</a>)</li>";
 		echo "<li>Upgrade courses - ".$nbCourses['nb']." course(s) to upgrade (<a href=\"upgrade_courses.php\">start again</a>)</li>";
