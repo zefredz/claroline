@@ -177,7 +177,8 @@ if( isset($_REQUEST['submitAssignment']) )
   =============================================================================*/
 // execute this after a form has been send
 // this instruction bloc will set some vars that will be used in the corresponding queries
-if( isset($_REQUEST['submitFeedback']) )
+// do not execute if there is no assignment ID
+if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']))
 {
 
     $formCorrectlySent = true;
@@ -191,7 +192,7 @@ if( isset($_REQUEST['submitFeedback']) )
     {
       $prefillText = addslashes( trim($_REQUEST['prefillText']) );
     }
-
+	// uploaded file come from the feedback form
     if ( is_uploaded_file($_FILES['prefillDocPath']['tmp_name']) )
     {      
           if ($_FILES['prefillDocPath']['size'] > $fileAllowedSize)
@@ -209,45 +210,34 @@ if( isset($_REQUEST['submitFeedback']) )
                 
                 // Transform any .php file in .phps fo security
                 $newFileName = php2phps($newFileName);
-                // compose a unique file name to avoid any conflict
                 
-                $prefillDocPath = uniqid('')."_".$newFileName;
-                
-                // if edit mode ...
-                if( isset($_REQUEST['assigId']) )
+              	// -- create a unique file name to avoid any conflict
+				// there can be only one automatic feedback but the file is put in the
+				// assignments directory
+				$assigDirSys = $wrkDir."assig_".$_REQUEST['assigId']."/";
+				// split file ant its extension 
+				$extension = substr($newFileName, strrpos($newFileName, "."));
+				$filename = substr($newFileName, 0, strrpos($newFileName, "."));
+
+				$i = 0;
+				while( file_exists($assigDirSys.$filename."_".$i.$extension) ) $i++;
+				
+				$prefillDocPath = $filename."_".$i.$extension;
+				
+                $tmpWorkUrl = $assigDirSys.$prefillDocPath;
+
+                if( ! copy($_FILES['prefillDocPath']['tmp_name'], $tmpWorkUrl) )
                 {
-                    // if edit of an assignment we know its assigId so we don't have to use a tmp directory
-                    $tmpWorkUrl = "assig_".$_REQUEST['assigId']."/".$prefillDocPath;
-                    
-                    if( ! @copy($_FILES['prefillDocPath']['tmp_name'], $wrkDir.$tmpWorkUrl) )
-                    {
-                          $dialogBox .= $langCannotCopyFile."<br />";
-                          $formCorrectlySent = false;
-                    }
-                    
-                    // remove the previous file if there was one
-                    if( isset($_REQUEST['currentPrefillDocPath']) )
-                    {
-                          @unlink($wrkDir."assig_".$_REQUEST['assigId']."/".$_REQUEST['currentPrefillDocPath']);
-                    }
+                      $dialogBox .= $langCannotCopyFile."<br />";
+                      $formCorrectlySent = false;
                 }
-                else
+
+                // remove the previous file if there was one
+                if( isset($_REQUEST['currentPrefillDocPath']) )
                 {
-                    // put the file in a tmp location, remove it from there at the end of the script
-                    // we don't know the assignment id yet so we cannot already put it in the right folder
-                    $tmpWorkUrl = "tmp/".$prefillDocPath;
-                    
-                    if( !is_dir( $wrkDir."tmp" ) )
-                    {
-                          mkdir( $wrkDir."tmp" , 0777 );
-                    }
-                    
-                    if( ! @copy($_FILES['prefillDocPath']['tmp_name'], $wrkDir.$tmpWorkUrl) )
-                    {
-                          $dialogBox .= $langCannotCopyFile."<br />";
-                          $formCorrectlySent = false;
-                    }
-                }    
+                      @unlink($assigDirSys.$_REQUEST['currentPrefillDocPath']);
+                }
+
                 
                 // else : file sending shows no error
                 // $formCorrectlySent stay true;
@@ -634,7 +624,7 @@ if($is_allowedToEdit)
 <?php
   }
 ?>
-    <table cellpadding="5">
+    <table cellpadding="5" width="100%">
       <tr>
         <td valign="top"><label for="assigTitle"><?php echo $langAssignmentTitle; ?>&nbsp;:</label></td>
         <td><input type="text" name="assigTitle" id="assigTitle" size="50" maxlength="200" value="<?php echo htmlentities($form['assigTitle']); ?>"></td>
@@ -760,7 +750,7 @@ if($is_allowedToEdit)
 <?php
   }
 ?>
-    <table cellpadding="5">
+    <table cellpadding="5" width="100%">
       <tr>
         <td valign="top" colspan="2"><b><?php echo $langFeedback; ?></b><p><?php echo $langFeedbackHelp; ?></p></td>
       </tr>
