@@ -32,7 +32,7 @@ if($mode) {
 	 case 'view':
 	   include('page_header.'.$phpEx);
 	   $userdata = get_userdata_from_id($user, $db);
-	   $total_posts = get_total_posts("0", $db, "all");
+	   $total_posts = get_total_posts('0', 'all');
 	   if($userdata[user_posts] != 0 && $total_posts != 0){
 	     $user_percentage = $userdata[user_posts] / $total_posts * 100;
 	   } else {

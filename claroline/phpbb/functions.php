@@ -54,7 +54,7 @@ function get_userdata_from_id($userid, $db ='')
 /**
  * Gets the total number of topics in a form
  */
-function get_total_topics($forum_id, $db)
+function get_total_topics($forum_id)
 {
 	global $tbl_topics;
 
@@ -119,7 +119,7 @@ function get_whosonline($IP, $username, $forum, $db)
  * Also can return the number of users on the system.
  */
 
-function get_total_posts($id, $db, $type)
+function get_total_posts($id, $type)
 {
     global $tbl_users, $tbl_posts;
 
@@ -846,7 +846,7 @@ function delete_post($postId, $topicId, $forumId, $userId)
     $result = claro_sql_query($sql);
 
 
-    if( get_total_posts($topicId, $db, 'topic') == 0 ) # warning $db poses 
+    if( get_total_posts($topicId, 'topic') == 0 ) # warning $db poses 
                                                        # problems, we have to 
                                                        # remove it.
     {
