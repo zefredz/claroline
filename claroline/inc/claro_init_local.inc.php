@@ -246,7 +246,7 @@ else
                     //first login for a not self registred
                     //e.g. registered by a teacher
                     //do nothing (code may be added later)
-		            $sql = "UPDATE `".$mainDbName."`.`".$mainTblPrefix."user` `user`
+		            $sql = "UPDATE `".$mainDbName."`.`".$mainTblPrefix."user`
 							SET creatorId=user_id
 							WHERE user_id='".$_uid."'";
 
