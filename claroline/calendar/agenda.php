@@ -33,6 +33,8 @@ include($includePath."/conf/agenda.conf.inc.php");
 
 $nameTools = $langAgenda;
 
+claro_set_display_mode_available(true);
+
 include($includePath."/claro_init_header.inc.php");
 
 //stats
@@ -52,11 +54,6 @@ elseif ($cmd == 'rqEdit') $subTitle = $langEditEvent;
 else                 $subTitle = '';
 
 claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
-
-if ($is_courseAdmin)
-{
-    claro_disp_tool_view_option($_REQUEST['viewMode']);
-}
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
@@ -434,10 +431,6 @@ if (count($eventList) < 1)
 }
 else
 {
-    echo "<tr>\n"
-        ."<td align=\"right\" valign=\"top\">\n"
-        ."<small>\n";
-
     if ($orderDirection == 'DESC')
     {
         echo "<a href=\"".$_SERVER['PHP_SELF']."?order=asc\" >".$langOldToNew."</a>\n";
@@ -446,10 +439,6 @@ else
     {
         echo "<a href=\"".$_SERVER['PHP_SELF']."?order=desc\" >".$langNewToOld."</a>\n";
     }
-    
-    echo "</small>\n"
-        ."</td>\n"
-        ."</tr>\n";
 }
 
 $nowBarAlreadyShowed = false;
