@@ -81,42 +81,75 @@ if($is_allowedToEdit)
 	// check if form submitted
 	if (isset($_REQUEST["changeProperties"]))
 	{
-		if ($_REQUEST['int']!=""            || $canBeEmpty["int"])
+		//create error message(s) if fields are not set properly
+		
+		if ((!$canBeEmpty["int"]) && $_REQUEST['int']=="")
+			$dialogBox .= $langErrorCourseTitleEmpty."<br>";
+		if ((!$canBeEmpty["facu"]) && $_REQUEST['faculte']=="")
+			$dialogBox .= $langErrorCategoryEmpty."<br>";
+		if ((!$canBeEmpty["titulary"]) && $_REQUEST['titulary']=="")
+			$dialogBox .= $langErrorLecturerEmpty."<br>";
+		if ((!$canBeEmpty["screenCode"]) && $_REQUEST['screenCode']=="")
+			$dialogBox .= $langErrorCourseCodeEmpty."<br>";
+		if ((!$canBeEmpty["lanCourseForm"]) && $_REQUEST['lanCourseForm']=="")
+			$dialogBox .= $langErrorLanguageEmpty."<br>";
+		if ((!$canBeEmpty["extLinkName"]) && $_REQUEST['extLinkName']=="")
+			$dialogBox .= $langErrorDepartmentEmpty."<br>";
+		if ((!$canBeEmpty["extLinkUrl"]) && $_REQUEST['extLinkUrl']=="")
+			$dialogBox .= $langErrorDepartmentURLEmpty."<br>";
+		if ((!$canBeEmpty["email"]) && $_REQUEST['email']=="")
+			$dialogBox .= $langErrorEmailEmpty."<br>";
+		
+		//if at least one error is found, we cancel update
+		
+		if (!$dialogBox)
+		{
+
+			
+			//build query to update course table in DB
+		
+			if ($_REQUEST['int']!=""            || $canBeEmpty["int"])
 			$fieldsToUpdate[]= "`intitule`='".         $_REQUEST['int']."'";
-		if ($_REQUEST['faculte']!=""        || $canBeEmpty["facu"])
+			if ($_REQUEST['faculte']!=""        || $canBeEmpty["facu"])
 			$fieldsToUpdate[]= "`faculte`='".          $_REQUEST['faculte']."'";
-		if ( $_REQUEST["titulary"] !=""     || $canBeEmpty["titulary"])
+			if ( $_REQUEST["titulary"] !=""     || $canBeEmpty["titulary"])
 			$fieldsToUpdate[]= "`titulaires`='".       $_REQUEST['titulary']."'";
-		if ($_REQUEST['screenCode']!=""     || $canBeEmpty["screenCode"])
+			if ($_REQUEST['screenCode']!=""     || $canBeEmpty["screenCode"])
 			$fieldsToUpdate[]= "`fake_code`='".        $_REQUEST['screenCode']."'";
-		if ($_REQUEST['lanCourseForm'] !="" || $canBeEmpty["lanCourseForm"])
+			if ($_REQUEST['lanCourseForm'] !="" || $canBeEmpty["lanCourseForm"])
 			$fieldsToUpdate[]= "`languageCourse`='".   $_REQUEST['lanCourseForm']."'";
-		if ($_REQUEST['extLinkName']!=""    || $canBeEmpty["extLinkName"])
-			$fieldsToUpdate[]= "`departmentUrlName`='".$_REQUEST['extLinkName']."'";
-		if ($_REQUEST['extLinkUrl'] !=""    || $canBeEmpty["extLinkUrl"])
-			$fieldsToUpdate[]= "`departmentUrl`='".    $_REQUEST['extLinkUrl']."'";
-		if($_REQUEST['email']!=""           || $canBeEmpty["email"])
-			$fieldsToUpdate[]= "`email`='".            $_REQUEST['email']."'";
-		if ($_REQUEST['visible']=="false"     && $allowedToSubscribe=="false")
-			$fieldsToUpdate[]= "visible='0'";
-		elseif ($_REQUEST['visible']=="false" && $allowedToSubscribe=="true")
-			$fieldsToUpdate[]= "visible='1'";
-		elseif ($_REQUEST['visible']=="true"  && $allowedToSubscribe=="false")
-			$fieldsToUpdate[]= "visible='3'";
-		elseif ($_REQUEST['visible']=="true"  && $allowedToSubscribe=="true")
-			$fieldsToUpdate[]= "visible='2'";
+			if ($_REQUEST['extLinkName']!=""    || $canBeEmpty["extLinkName"])
+				$fieldsToUpdate[]= "`departmentUrlName`='".$_REQUEST['extLinkName']."'";	
+			if ($_REQUEST['extLinkUrl'] !=""    || $canBeEmpty["extLinkUrl"])
+				$fieldsToUpdate[]= "`departmentUrl`='".    $_REQUEST['extLinkUrl']."'";
+			if($_REQUEST['email']!=""           || $canBeEmpty["email"])
+				$fieldsToUpdate[]= "`email`='".            $_REQUEST['email']."'";
+			if ($_REQUEST['visible']=="false"     && $allowedToSubscribe=="false")
+				$fieldsToUpdate[]= "visible='0'";
+			elseif ($_REQUEST['visible']=="false" && $allowedToSubscribe=="true")
+				$fieldsToUpdate[]= "visible='1'";
+			elseif ($_REQUEST['visible']=="true"  && $allowedToSubscribe=="false")
+				$fieldsToUpdate[]= "visible='3'";
+			elseif ($_REQUEST['visible']=="true"  && $allowedToSubscribe=="true")
+				$fieldsToUpdate[]= "visible='2'";
 				
-		claro_sql_query('UPDATE `'.$tbl_course.'`
-					 SET '.implode(",",$fieldsToUpdate).'
-					 WHERE code="'.$current_cid.'"');
+			//update in DB
+			
+			claro_sql_query('UPDATE `'.$tbl_course.'`
+						SET '.implode(",",$fieldsToUpdate).'
+						WHERE code="'.$current_cid.'"');
+						
+			$dialogBox = $langModifDone;
+		}
+		
+		
 		$cidReset = true;
 		$cidReq = $current_cid;
 		include($includePath."/claro_init_local.inc.php");
-           
-           
-$controlMsg["success"][]= $langModifDone;
-
-claro_disp_msg_arr($controlMsg);
+				
+		//display dialogbox with error and/or action(s) done to user
+		          
+                claro_disp_message_box($dialogBox);
 
 echo "
 		<br>
