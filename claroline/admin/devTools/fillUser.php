@@ -48,9 +48,8 @@ $interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langDevTools);
 
 $tbl_mdb_names   = claro_sql_get_main_tbl();
-$tbl_user        = $tbl_mdb_names['user'  ];
+$tbl_user        = $tbl_mdb_names['user'];
 
-$tbl_user			= "$mainDbName`.`user";
 $can_create_courses = (bool) ($is_allowedCreateCourse);
 $coursesRepositories = $rootSys;
 
