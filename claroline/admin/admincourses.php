@@ -210,7 +210,7 @@ if (isset($_SESSION['admin_course_access']))     // type of access to course fil
     $toAdd = "";
     if ($_SESSION['admin_course_access']=="private")
     {
-       $toAdd = " AND (C.`visible`=1 OR C.`visible`=0) ";
+       $toAdd = " AND NOT (C.`visible`=2 OR C.`visible`=3) ";
     }
     elseif ($_SESSION['admin_course_access']=="public")
     {
@@ -226,11 +226,11 @@ if (isset($_SESSION['admin_course_subscription']))   // type of subscription all
     $toAdd = "";
     if ($_SESSION['admin_course_subscription']=="allowed")
     {
-       $toAdd = " AND (C.`visible`=2 OR C.`visible`=0) ";
+       $toAdd = " AND (C.`visible`=1 OR C.`visible`=2) ";
     }
     elseif ($_SESSION['admin_course_subscription']=="denied")
     {
-       $toAdd = " AND (C.`visible`=1 OR C.`visible`=3) ";
+       $toAdd = " AND NOT (C.`visible`=1 OR C.`visible`=2) ";
     }
 
     $sql.=$toAdd;
