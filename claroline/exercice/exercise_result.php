@@ -62,32 +62,18 @@ $exerciseTitle=$objExercise->selectTitle();
 
 $nameTools=$langExercice;
 
+// calculate time needed to complete the exercise
+if (isset($_SESSION['exeStartTime']))
+{
+	$timeToCompleteExe =  time() - $_SESSION['exeStartTime'];
+}
+
 // deal with the learning path mode
 
 if ($_SESSION['inPathMode']== true)          // learning path mode
 {
      $is_allowedToEdit = false; // do not allow to be in admin mode during a path progression
      // need to include the learningPath langfile for the added interbredcrump
-     @include("../lang/english/learnPath.inc.php");
-     @include("../lang/".$languageInterface."/learnPath.inc.php");
-     $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
-     if ( $is_courseAdmin )
-     {
-          $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> $langLearningPathAdmin);
-     }
-     else
-     {
-          $interbredcrump[]= array ("url"=>"../learnPath/learningPath.php", "name"=> $langLearningPath);
-     }
-     $interbredcrump[]= array ("url"=>"../learnPath/module.php", "name"=> $langModule);
-}
-else                                        // normal exercise mode
-{
-    $is_allowedToEdit = true; // allow to be in admin mode
-    $interbredcrump[] = array("url" => "exercice.php","name" => $langExercices);
-}
-if ($_SESSION['inPathMode'] == true) 
-{
    	// echo minimal html page header so that the page is valid
 	// FIXME : find a better solution than duplicate the css link
 	echo '<html>
@@ -96,11 +82,12 @@ if ($_SESSION['inPathMode'] == true)
 			<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/default.css" />
 		</head>
 		<body>';
-	
 }
-else
+else                                        // normal exercise mode
 {
-  include($includePath.'/claro_init_header.inc.php');
+	$is_allowedToEdit = true; // allow to be in admin mode
+	$interbredcrump[] = array("url" => "exercice.php","name" => $langExercices);
+	include($includePath.'/claro_init_header.inc.php');
 }
 
 ?>
@@ -453,7 +440,7 @@ if($is_trackingEnabled)
 {
     @include($includePath.'/lib/events.lib.inc.php');
 
-    event_exercice($objExercise->selectId(),$totalScore,$totalWeighting);
+    event_exercice($objExercise->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe );
 
 }
 
