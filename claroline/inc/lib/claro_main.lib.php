@@ -605,10 +605,11 @@ function claro_disp_tool_view_option($viewModeRequested = false)
                              DISPLAY COMMANDS MENU
       ------------------------------------------------------------------------*/
 
-    echo //'<p align="right">'.
-        '<small> view mode : '
-        .$studentButton.' | '.$courseAdminButton.'</small>';
-        //.'</p>';
+    echo "<small> view mode : "
+        .$studentButton
+		." | "
+		.$courseAdminButton
+		."</small>\n";
 }
 
 
