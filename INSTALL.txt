@@ -76,9 +76,9 @@ the following on your machine :
        occurs between table names of both applications that could conducts 
        to serious problems.
 
-       Note : it seems the backticks charachters (`) inserted inside most of 
-       the Claroline SQL queries since Claroline 1.3 doesn't work with MySQL 
-       versions previous to 3.23.6.
+       NOTE. The backticks charachters (`) inserted inside most of the Claroline 
+       SQL queries since Claroline 1.3 doesn't work with MySQL versions previous 
+       to 3.23.6.
 
 4. Web Write access to web directory where claroline has been moved 
    or unzipped to. On a Windows machine locally, this
@@ -137,6 +137,9 @@ NEW CLAROLINE INSTALLATION
 UPDGRADE FROM PREVIOUS CLAROLINE VERSION
 ----------------------------------------
 
+The upgrade works only from Claroline 1.4.x. Older Claroline versions 
+should upgrade first to Claroline 1.4.2 before upgrade to Claroline 1.5.
+
 Before upgrading we heavily recommend you do a full backup of the previous 
 Claroline directories and databases. If you are unsure how to achieve this 
 please ask your hosting provider for advice.
@@ -180,8 +183,7 @@ In case web install doesn't work, you can try manual install.
 All the same as web install except that web parts should be replaced by:
 
 1. Create yourself the main Claroline database and the tables inside it 
-   with a mySQL client (we provide the web client phpMyAdmin in the Claroline
-   distribution). The complete tables description is available in 
+   with a mySQL client. The complete tables description is available in 
    the 'claroline/sql/' directory.
 
 2. Edit manually the 'claroline/inc/conf/claro_main.conf.php.dist' file 
@@ -200,7 +202,7 @@ ADMINISTRATION SECTION
 ======================
 
 To access the Claroline administration section, open browser 
-and go to http://www.mydomain.org/mysite/mydirectory/admin/
+and go to http://www.mydomain.org/mysite/claroline/admin/
 
 Install script has created a '.htaccess' file to protect 
 claroline/admin. To access admin, use login/password you 
