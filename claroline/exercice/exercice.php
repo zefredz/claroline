@@ -425,36 +425,38 @@ if($is_trackingEnabled && $_uid):
 
 <table class="claroTable" cellpadding="2" cellspacing="2" border="0" width="80%">
 <tr class="headerX">
-  <th width="50%"><?php echo $langExercice; ?></th>
+  <th width="40%"><?php echo $langExercice; ?></th>
   <th width="30%"><?php echo $langDate; ?></th>
   <th width="20%"><?php echo $langResult; ?></th>
+  <th width="10%"><?php echo $langExeTime; ?></th>	
 </tr>
 
 <?php
-$sql="SELECT `ce`.`titre`, `te`.`exe_result` , `te`.`exe_weighting`, UNIX_TIMESTAMP(`te`.`exe_date`)
+$sql="SELECT `ce`.`titre`, `te`.`exe_result` ,
+			 `te`.`exe_weighting`, UNIX_TIMESTAMP(`te`.`exe_date`) AS `exeDate`,
+			 `te`.`exe_time`
       FROM `$TBL_EXERCICES` AS ce , `$TBL_TRACK_EXERCICES` AS te
       WHERE `te`.`exe_user_id` = '$_uid'
       AND `te`.`exe_exo_id` = `ce`.`id`
       ORDER BY `ce`.`titre` ASC, `te`.`exe_date`ASC";
 
-$results=getManyResultsXCol($sql,4);
+$results = claro_sql_query_fetch_all($sql);
 
-if(is_array($results))
+foreach($results as $row)
 {
-	for($i = 0; $i < sizeof($results); $i++)
-	{
 
 ?>
 <tr>
-  <td><?php echo $results[$i][0]; ?></td>
-  <td><small><?php echo strftime($dateTimeFormatLong,$results[$i][3]); ?></small></td>
-  <td><?php echo $results[$i][1]; ?> / <?php echo $results[$i][2]; ?></td>
+  <td><?php echo $row['titre']; ?></td>
+  <td><small><?php echo strftime($dateTimeFormatLong,$row['exeDate']); ?></small></td>
+  <td><?php echo $row['exe_result']; ?> / <?php echo $row['exe_weighting']; ?></td>
+  <td><?php echo $row['exe_time']; ?></td>
 </tr>
 
 <?php
-	}
+
 }
-else
+if( !is_array($results) || sizeof($results) == 0 )
 {
 ?>
 
