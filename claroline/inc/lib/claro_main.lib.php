@@ -77,27 +77,17 @@ function claro_sql_get_course_tbl($dbNameGlued = NULL)
         $courseTblList = array(
 
               'announcement'           => $courseDb.'announcement',
-              'bb_access'              => $courseDb.'bb_access',
-              'bb_banlist'             => $courseDb.'bb_banlist',
               'bb_categories'          => $courseDb.'bb_categories',
-              'bb_config'              => $courseDb.'bb_config',
-              'bb_disallow'            => $courseDb.'bb_disallow',
-              'bb_forum_access'        => $courseDb.'bb_forum_access',
-              'bb_forum_mods'          => $courseDb.'bb_forum_mods',
               'bb_forums'              => $courseDb.'bb_forums',
-              'bb_headermetafooter'    => $courseDb.'bb_headermetafooter',
-              'bb_rel_topic_userstonotify'
-                                       => $courseDb.'bb_rel_topic_userstonotify',
               'bb_posts'               => $courseDb.'bb_posts',
               'bb_posts_text'          => $courseDb.'bb_posts_text',
               'bb_priv_msgs'           => $courseDb.'bb_priv_msgs',
-              'bb_ranks'               => $courseDb.'bb_ranks',
-              'bb_sessions'            => $courseDb.'bb_sessions',
-              'bb_themes'              => $courseDb.'bb_themes',
+              'bb_rel_topic_userstonotify' 
+                            => $courseDb.'bb_rel_topic_userstonotify',
               'bb_topics'              => $courseDb.'bb_topics',
               'bb_users'               => $courseDb.'bb_users',
               'bb_whosonline'          => $courseDb.'bb_whosonline',
-              'bb_words'               => $courseDb.'bb_words',
+
               'calendar_event'         => $courseDb.'calendar_event',
               'course_description'     => $courseDb.'course_description',
               'document'               => $courseDb.'document',
@@ -124,7 +114,6 @@ function claro_sql_get_course_tbl($dbNameGlued = NULL)
               'userinfo_def'           => $courseDb.'userinfo_def',
               'wrk_assignment'         => $courseDb.'wrk_assignment',
               'wrk_submission'         => $courseDb.'wrk_submission'
-
 
               ); // end array
 
