@@ -167,12 +167,12 @@ if (isset($_SESSION['admin_course_letter']))
 //deal with KEY WORDS classification call
 if (isset($_SESSION['admin_course_search']))
 {
-    $toAdd = " AND (      C.`intitule`  LIKE '%".$_SESSION['admin_course_search']."%' 
-                       OR C.`fake_code` LIKE '%".$_SESSION['admin_course_search']."%' 
-	                   OR C.`code`      LIKE '%".$_SESSION['admin_course_search']."%' 
-	                   OR C.`dbName`    LIKE '%".$_SESSION['admin_course_search']."%' 
-	                   OR C.`directory` LIKE '%".$_SESSION['admin_course_search']."%' 
-                       OR C.`faculte`   LIKE '%".$_SESSION['admin_course_search']."%' 
+    $toAdd = " AND (      C.`intitule`  LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
+                       OR C.`fake_code` LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
+	                   OR C.`code`      LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
+	                   OR C.`dbName`    LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
+	                   OR C.`directory` LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
+                       OR C.`faculte`   LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
                )";
     $sql.=$toAdd;
 
@@ -182,21 +182,21 @@ if (isset($_SESSION['admin_course_search']))
 
 if (isset($_SESSION['admin_course_intitule']))    // title of the course keyword is used
 {
-    $toAdd = " AND (C.`intitule` LIKE '%".$_SESSION['admin_course_intitule']."%') ";
+    $toAdd = " AND (C.`intitule` LIKE '%".pr_star_replace($_SESSION['admin_course_intitule'])."%') ";
     $sql.=$toAdd;
 
 }
 
 if (isset($_SESSION['admin_course_code']))        // code keyword is used
 {
-    $toAdd = " AND (C.`fake_code` LIKE '%".$_SESSION['admin_course_code']."%') ";
+    $toAdd = " AND (C.`fake_code` LIKE '%".pr_star_replace($_SESSION['admin_course_code'])."%') ";
     $sql.=$toAdd;
 
 }
 
 if (isset($_SESSION['admin_course_category']))     // course category keyword is used
 {
-    $toAdd = " AND (C.`faculte` LIKE '%".$_SESSION['admin_course_category']."%') ";
+    $toAdd = " AND (C.`faculte` LIKE '%".pr_star_replace($_SESSION['admin_course_category'])."%') ";
     $sql.=$toAdd;
 
 }
@@ -333,9 +333,9 @@ echo "<form name=\"indexform\" action=\"",$_SERVER['PHP_SELF'],"\" method=\"GET\
 
       //see passed search parameters :
 
-if ($_REQUEST['search']!="")              {$isSearched .= trim($_REQUEST['search'])."* ";}
-if ($_REQUEST['code']!="")                {$isSearched .= $langCode." = ".$_REQUEST['code']."* ";}
-if ($_REQUEST['intitule']!="")            {$isSearched .= $langCourseTitle." = ".$_REQUEST['intitule']."* ";}
+if ($_REQUEST['search']!="")              {$isSearched .= trim($_REQUEST['search'])." ";}
+if ($_REQUEST['code']!="")                {$isSearched .= $langCode." = ".$_REQUEST['code']." ";}
+if ($_REQUEST['intitule']!="")            {$isSearched .= $langCourseTitle." = ".$_REQUEST['intitule']." ";}
 if ($_REQUEST['category']!="")            {$isSearched .= $langCategory." = ".$_REQUEST['category']." ";}
 if ($_REQUEST['language']!="")            {$isSearched .= $langLanguage." : ".$_REQUEST['language']." ";}
 if ($_REQUEST['access']=="public")        {$isSearched .= " <b><br>".$langPublicOnly." </b> ";}
@@ -409,16 +409,27 @@ foreach($resultList as $courseLine)
 
     if (isset($_SESSION['admin_course_search'])&& ($_SESSION['admin_course_search']!="")) //trick to prevent "//1" display when no keyword used in search
     {
-         //  Code
-        echo '<td >';
-		echo eregi_replace("(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $courseLine['officialCode']);
-		echo '</td>';
+        $bold_search = str_replace("*",".*",$_SESSION['admin_course_search']); 
+	 
+	 //  Code
+	 
+	$bold_code = eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['officialCode']);
+        
+	echo '<td >';
+	echo $bold_code;
+	echo '</td>';
+	
          // title
-        echo "<td align=\"left\"><a href=\"".$coursesRepositoryWeb.$courseLine['directory']."\">".eregi_replace("(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $courseLine['intitule'])."</a></td>";
+	 
+	$bold_title = eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['intitule']); 
+	 
+        echo "<td align=\"left\"><a href=\"".$coursesRepositoryWeb.$courseLine['directory']."\">".$bold_title."</a></td>";
 
          //  Category
-
-         echo "<td align=\"left\">".eregi_replace("(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $courseLine['faculte'])."</td>";
+	 
+	 $bold_cat = eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['faculte']);
+	 
+         echo "<td align=\"left\">".$bold_cat."</td>";
      }
      else
      {
