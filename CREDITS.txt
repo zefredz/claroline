@@ -11,7 +11,7 @@ http://www.cerdecam.be          Mathieu Laurent (laurent@cerdecam.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
                                 Aurelien Van Hamme (vanhamme@cerdecam.be)
 
-Learning Path Manager:          Guillaume and Sebastien (Cerdecam)
+Learning Path Manager:          Guillaume Lederer and Sebastien Piraux (Cerdecam)
 
 Personnal Agenda :		Eric Remy (eremy@rmwc.edu),
 				Toon Van Hoecke (Toon.VanHoecke@UGent.be)
@@ -31,9 +31,12 @@ Single DB customisation :       Roger Hedlund (rhedlund@passagen.se)
 Announcement tool improvement:  Pablo Rey (prey@cesga.es)
 
 User Image :                    Miguel (miguel@cesga.es)
-                                                Patrick Cool
+                                Patrick Cool (patrick.cool@ugent.be)
+
+Upgrade tool :			Mathieu Laurent (Cerdecam)
 
 Forum tool :                    adpated from PHPBB 1.4 (http://www.phpbb.com)
+
 First Stats tool :              based on ezBoo (http://www.ezboo.com)
 // replaced by Tracking System
 
