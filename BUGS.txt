@@ -15,6 +15,7 @@ Etat      : RESOLU
 <a href... sur la page .url ne serait pas une mauvaise chose pour prévenir 
 les cas ou la redirection ne se passe pas bien.
 
+Repéré par : SEB
 Assigné à : HUGUES
 
 
@@ -38,6 +39,9 @@ Etat : à résoudre pour : 1.5.1
 
 -------------
 $Log$
+Revision 1.9  2004/06/11 11:57:50  peeters
+no message
+
 Revision 1.8  2004/06/11 11:57:33  peeters
 no message
 
