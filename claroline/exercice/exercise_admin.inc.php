@@ -61,24 +61,28 @@ if($_REQUEST['submitExercise'])
                         .$_REQUEST['endMinute'].":00";
     $objExercise->set_end_date($composedEndDate);
     
-		$objExercise->set_max_time($_REQUEST['exerciseMaxTime']);
-		$objExercise->set_max_attempt($_REQUEST['exerciseMaxAttempt']);
-		if($_REQUEST['exerciseShowAnon'] == "show") 
-		{
-			$objExercise->set_show_anon();	
-		}
-		else
-		{
-			$objExercise->set_hide_anon();
-		}
-    
-    if ( $_REQUEST['recordUidInScore'] )
+    if( $_REQUEST['exerciseMaxTime'] )
     {
-        $objExercise->set_record_uid_in_score(false);
+      if( is_numeric($_REQUEST['exerciseMaxTimeMin']) && is_numeric($_REQUEST['exerciseMaxTimeSec']) )
+      {
+        $maxTime = $_REQUEST['exerciseMaxTimeMin']*60 + $_REQUEST['exerciseMaxTimeSec'];
+        $objExercise->set_max_time($maxTime);
+      }
+      // don't set maxTime in the object if data are not numeric
     }
     else
     {
-        $objExercise->set_record_uid_in_score(true);
+      $objExercise->set_max_time( 0 );
+    }
+		$objExercise->set_max_attempt($_REQUEST['exerciseMaxAttempt']);
+    
+    if ( $_REQUEST['anonymousAttempts'] == 'YES')
+    {
+        $objExercise->set_anonymous_attempts(true);
+    }
+    else
+    {
+        $objExercise->set_anonymous_attempts(false);
     }
 
 		$objExercise->set_show_answer($_REQUEST['exerciseShowAnswer']);
@@ -98,10 +102,12 @@ else
 	$exerciseType		= $objExercise->selectType();
 	$randomQuestions	= $objExercise->isRandom();
 	$maxTime			= $objExercise->get_max_time();
+  $maxTimeSec = $maxTime%60 ;
+  $maxTimeMin = ($maxTime-$maxTimeSec)/ 60;
+  
 	$maxAttempt			= $objExercise->get_max_attempt();
-	$showAnon			= $objExercise->get_show_anon();
 	$showAnswer			= $objExercise->get_show_answer();
-  $recordUidInScore   = $objExercise->record_uid_in_score();
+  $anonymousAttempts   = $objExercise->anonymous_attempts();
     
   // start date splitting
   list($startDate, $startTime) = split(' ', $objExercise->get_start_date());
@@ -184,7 +190,10 @@ if($_REQUEST['modifyExercise'])
 <tr>
   <td><label for="exerciseMaxTime"><?php echo $langAllowedTime; ?> :</label></td>
   <td>
-	<input type="text" name="exerciseMaxTime" id="exerciseMaxTime" size="4" maxlength="4" value="<?php echo $maxTime; ?>">
+  <input type="checkbox" name="exerciseMaxTime" id="exerciseMaxTime" value="1" <?php if($maxTime != 0) echo 'checked="checked"';?>>
+  <label for="exerciseMaxTime"><?php echo $langYes; ?>, </label>
+  <input type="text" name="exerciseMaxTimeMin" id="exerciseMaxTimeMin" size="3" maxlength="3" value="<?php echo $maxTimeMin; ?>">  <?php echo $langMinuteShort; ?>
+	<input type="text" name="exerciseMaxTimeSec" id="exerciseMaxTimeSec" size="2" maxlength="2" value="<?php echo $maxTimeSec; ?>"> <?php echo $langSecondShort; ?>
   </td>
 </tr>
 
@@ -203,19 +212,12 @@ if($_REQUEST['modifyExercise'])
 </tr>
 
 <tr>
-  <td valign="top"><?php echo $langAnonymousVisibility; ?> : </td>
-  <td>	<input type="radio" name="exerciseShowAnon" id="showAnon" value="show" <?php if($showAnon) echo 'checked="checked"'; ?>>
-		<label for="showAnon"><?php echo $langShow; ?></label>
-		<br />
-  		<input type="radio" name="exerciseShowAnon" id="hideAnon" value="hide" <?php if(!$showAnon) echo 'checked="checked"'; ?>>
-		<label for="hideAnon"><?php echo $langHide; ?></label>
-  </td>
-</tr>
-<tr>
-  <td valign="top"><?php echo $langAllowAnonymousAttempts; ?> : </td>
+  <td valign="top"><?php echo $langAllowAnonymousAttempts.$anonymousAttempts; ?> : </td>
   <td>
-    <input type="checkbox" name="recordUidInScore" id="recordUidInScore" value="1" <?php if( !$recordUidInScore ) echo 'checked="checked"'; ?>>
-    <label for="recordUidInScore"><?php echo $langDontRecordUid; ?></label>
+    <input type="radio" name="anonymousAttempts" id="anonymousAttemptsYes" value="YES" <?php if( $anonymousAttempts ) echo 'checked="checked"'; ?>>
+    <label for="anonymousAttemptsYes"><?php echo $langAnonymousAttemptsAllowed; ?></label><br />
+    <input type="radio" name="anonymousAttempts" id="anonymousAttemptsNo" value="NO" <?php if( !$anonymousAttempts ) echo 'checked="checked"';?>>
+    <label for="anonymousAttemptsNo"><?php echo $langAnonymousAttemptsNotAllowed; ?></label>
   </td>
 </tr>
 
@@ -353,32 +355,38 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
     //split selectedTime 
     list($selHour, $selMinute) = split(":",$selectedTime);
     
-    $hourField = "<select name=\"".$hourFieldName."\" id=\"".$hourFieldName."\">\n";
-    for($i=0;$i < 24; $i++)
+    if ($hourFieldName != "")
     {
-        $hourField .= "<option value=\"".$i."\"";
-        if($i == $selHour)
+        $hourField = "<select name=\"".$hourFieldName."\" id=\"".$hourFieldName."\">\n";
+        for($i=0;$i < 24; $i++)
         {
-            $hourField .= " selected=\"true\"";
+            $hourField .= "<option value=\"".$i."\"";
+            if($i == $selHour)
+            {
+                $hourField .= " selected=\"true\"";
+            }
+            $hourField .= ">".$i."</option>\n";
         }
-        $hourField .= ">".$i."</option>\n";
+        $hourField .= "</select>";
     }
-    $hourField .= "</select>";
     
-    $minuteField = "<select name=\"".$minuteFieldName."\" id=\"".$minuteFieldName."\">\n";
-    $i = 0;
-    while($i < 60)
+    if($minuteFieldName != "")
     {
-        $minuteField .= "<option value=\"".$i."\"";
-        if($i == $selMinute)
+        $minuteField = "<select name=\"".$minuteFieldName."\" id=\"".$minuteFieldName."\">\n";
+        $i = 0;
+        while($i < 60)
         {
-            $minuteField .= " selected=\"true\"";
+            $minuteField .= "<option value=\"".$i."\"";
+            if($i == $selMinute)
+            {
+                $minuteField .= " selected=\"true\"";
+            }
+            $minuteField .= ">".$i."</option>\n";
+            $i += 5;
         }
-        $minuteField .= ">".$i."</option>\n";
-        $i += 5;
+        $minuteField .= "</select>";
     }
-    $minuteField .= "</select>";
     
-    return $hourField."&nbsp;".$minuteField;
+    return "&nbsp;".$hourField."&nbsp;".$minuteField;
 }
 ?>
