@@ -315,6 +315,12 @@ if( isset($_REQUEST['submitWrk']) )
                               $dialogBox .= $langCannotCopyFile."<br />";
                               $formCorrectlySent = false;
                         }
+                        
+                        // remove the previous file if there was one
+                        if( isset($_REQUEST['currentWrkUrl']) )
+                        {
+                              @unlink($wrkDir."ws".$_REQUEST['sesId']."/".$_REQUEST['currentWrkUrl']);
+                        }
                         // else : file sending shows no error
                         // $formCorrectlySent stay true;
                   }
@@ -680,6 +686,148 @@ echo "\n<p>\n"
 }
 
 /*--------------------------------------------------------------------
+                          WORK DETAILS
+  --------------------------------------------------------------------*/
+if( $dispWrkDet && $is_allowedToView )
+{
+      echo "<h4>".$langWorkDetails."</h4>\n\n";
+      
+      if( empty($wrk['user_id']) )
+      {
+            $userToDisplay = $langAnonymousUser;
+      }
+      else
+      {
+            $sql = "SELECT `nom`, `prenom`
+                        FROM `".$tbl_user."`
+                        WHERE `user_id` = ".$wrk['user_id'];
+            list($wrk['userDet']) = claro_sql_query_fetch_all($sql);
+                        
+            $userToDisplay = "<a href=\"../user/userInfo.php?uInfo=".$wrk['user_id']."\">".$wrk['userDet']['prenom']." ".$wrk['userDet']['nom']."</a>";
+      }
+      
+      // check if the work has a correction 
+      $sql = "SELECT `id`
+                  FROM `".$tbl_wrk_submission."`
+                  WHERE `parent_id` = ".$wrk['id'];
+      // corection of this work (NULL if there is no corection yet)
+      $gradeId = claro_sql_query_get_single_value($sql);
+      
+      // if I have the right to modify this work and if there is no grade yet, or if you are course admin
+      if( $is_allowedToEdit && empty($gradeId) || $is_allowedToEditAll )
+      {
+            // allow the user to modify it's own work
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">"
+                  ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a>";
+      }
+      elseif( $is_allowedToEdit )
+      {
+            // show a link to the correction
+            echo "<a href=\"workList.php?sesId=".$_REQUEST['sesId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowGrade."</a>";
+      }
+      
+      // show 'grade' link if user i course admin, the work has no correction and the work is not a correction
+      if( $is_allowedToEditAll && empty($gradeId) && empty($wrk['parent_id']) )
+      {
+            // grade link
+            echo "&nbsp;[&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">".$langGradeWork."</a>&nbsp;]";
+      }
+      // if the work has a correction already
+      elseif( $is_allowedToEditAll && !empty($gradeId) )
+      {
+            // show grade
+            echo "<a href=\"workList.php?sesId=".$_REQUEST['sesId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowGrade."</a>";
+      }
+      
+      
+      if( $sessionContent == "TEXTFILE" )
+      {
+            $txtForFile = $langAttachedFile;
+            $txtForText = $langAnswer;
+      }
+      elseif( $sessionContent == "TEXT" )
+      {
+            $txtForText = $langAnswer;
+      }
+      elseif( $sessionContent == "FILE" )
+      {
+            $txtForFile = $langUploadedFile;
+            $txtForText = $langFileDesc;
+      }
+      echo "<table>"
+            ."<tr>\n"
+            ."<td valign=\"top\">".$langWrkTitle."&nbsp;:</td>\n"
+            ."<td>".$wrk['title']."</td>\n"
+            ."</tr>\n\n"
+            ."<tr>\n"
+            ."<td valign=\"top\">".$langWrkAuthors."&nbsp;:</td>\n"
+            ."<td>".$wrk['authors']." ( ".$langSubmittedBy." ".$userToDisplay." )</td>\n"
+            ."</tr>\n\n";
+            
+      if( $sessionContent != "TEXT" )
+      {
+            if( !empty($wrk['submitted_doc_path']) )
+            {
+                  $completeWrkUrl = $currentCourseRepositoryWeb."work/ws".$_REQUEST['sesId']."/".$wrk['submitted_doc_path'];
+                  // show file if this is not a TEXT only work
+                  echo "<tr>\n"
+                        ."<td valign=\"top\">".$txtForFile."&nbsp;:</td>\n"
+                        ."<td><a href=\"".$completeWrkUrl."\">".$wrk['submitted_doc_path']."</a></td>\n"
+                        ."</tr>\n\n";
+            }
+            else
+            {
+                  echo "<tr>\n"
+                        ."<td valign=\"top\">".$txtForFile."&nbsp;:</td>\n"
+                        ."<td>".$langNoFile."</td>\n"
+                        ."</tr>\n\n";
+            }
+      }
+      
+      // display an alert if work was submitted after end date and work is not a correction !
+      if( $wrkSession['unix_end_date'] < $wrk['unix_creation_date'] && empty($wrk['parent_id']) )
+      {
+            $lateUploadAlert = "<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langAfterEndDate."\">";
+      }
+      else
+      {
+            $lateUploadAlert = "";
+      }
+      
+      echo "<tr>\n"
+            ."<td valign=\"top\">".$txtForText."&nbsp;:</td>\n"
+            ."<td>".$wrk['submitted_text']."</td>\n"
+            ."</tr>\n\n"
+            ."<tr>\n"
+            ."<td valign=\"top\">".$langSubmissionDate."&nbsp;:</td>\n"
+            ."<td>".claro_disp_localised_date($dateTimeFormatLong, $wrk['unix_creation_date'])
+            ."&nbsp;".$lateUploadAlert
+            ."</td>\n"
+            ."</tr>\n\n";
+      if( $wrk['unix_creation_date'] != $wrk['unix_last_edit_date'] )
+      {
+            // display an alert if work was submitted after end date and work is not a correction !
+            if( $wrkSession['unix_end_date'] < $wrk['unix_last_edit_date'] && empty($wrk['parent_id']) )
+            {
+                  $lateEditAlert = "<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langAfterEndDate."\">";
+            }
+            else
+            {
+                  $lateEditAlert = "";
+            }
+            
+            echo "<tr>\n"
+                  ."<td valign=\"top\">".$langLastEditDate."&nbsp;:</td>\n"
+                  ."<td>".claro_disp_localised_date($dateTimeFormatLong, $wrk['unix_last_edit_date'])
+                  ."&nbsp;".$lateEditAlert
+                  ."</td>\n"
+                  ."</tr>\n\n";
+      }
+      echo "</table>";
+}
+
+
+/*--------------------------------------------------------------------
                           FORMS
   --------------------------------------------------------------------*/
 if( $is_allowedToSubmit )
@@ -816,106 +964,7 @@ if( $is_allowedToSubmit )
       }
 }
   
-  
-/*--------------------------------------------------------------------
-                          WORK DETAILS
-  --------------------------------------------------------------------*/
-if( $dispWrkDet && $is_allowedToView )
-{
-      echo "<h4>".$langWorkDetails."</h4>\n\n";
-      
-      if( empty($wrk['user_id']) )
-      {
-            $userToDisplay = $langAnonymousUser;
-      }
-      else
-      {
-            $sql = "SELECT `nom`, `prenom`
-                        FROM `".$tbl_user."`
-                        WHERE `user_id` = ".$wrk['user_id'];
-            list($wrk['userDet']) = claro_sql_query_fetch_all($sql);
-                        
-            $userToDisplay = "<a href=\"../user/userInfo.php?uInfo=".$wrk['user_id']."\">".$wrk['userDet']['prenom']." ".$wrk['userDet']['nom']."</a>";
-      }
-      
-      if( $is_allowedToEdit )
-      {
-            // allow the user to modify it's own work
-            echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">"
-                  ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a>";
-      }
-      
-      // 
-      if( $is_allowedToEditAll && empty($wrk['parent_id']) )
-      {
-            // correction / grading
-            echo "&nbsp;[&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">".$langGradeWork."</a>&nbsp;]";
-      }
-      
-      
-      if( $sessionContent == "TEXTFILE" )
-      {
-            $txtForFile = $langAttachedFile;
-            $txtForText = $langAnswer;
-      }
-      elseif( $sessionContent == "TEXT" )
-      {
-            $txtForText = $langAnswer;
-      }
-      elseif( $sessionContent == "FILE" )
-      {
-            $txtForFile = $langUploadedFile;
-            $txtForText = $langFileDesc;
-      }
-      echo "<table>"
-            ."<tr>\n"
-            ."<td valign=\"top\">".$langWrkTitle."&nbsp;:</td>\n"
-            ."<td>".$wrk['title']."</td>\n"
-            ."</tr>\n\n"
-            ."<tr>\n"
-            ."<td valign=\"top\">".$langWrkAuthors."&nbsp;:</td>\n"
-            ."<td>".$wrk['authors']." ( ".$langSubmittedBy." ".$userToDisplay." )</td>\n"
-            ."</tr>\n\n";
-            
-      if( $sessionContent != "TEXT" )
-      {
-            if( !empty($wrk['submitted_doc_path']) )
-            {
-                  $completeWrkUrl = $currentCourseRepositoryWeb."work/ws".$_REQUEST['sesId']."/".$wrk['submitted_doc_path'];
-                  // show file if this is not a TEXT only work
-                  echo "<tr>\n"
-                        ."<td valign=\"top\">".$txtForFile."&nbsp;:</td>\n"
-                        ."<td><a href=\"".$completeWrkUrl."\">".$wrk['submitted_doc_path']."</a></td>\n"
-                        ."</tr>\n\n";
-            }
-            else
-            {
-                  echo "<tr>\n"
-                        ."<td valign=\"top\">".$txtForFile."&nbsp;:</td>\n"
-                        ."<td>".$langNoFile."</td>\n"
-                        ."</tr>\n\n";
-            }
-      }
-      
-      echo "<tr>\n"
-            ."<td valign=\"top\">".$txtForText."&nbsp;:</td>\n"
-            ."<td>".$wrk['submitted_text']."</td>\n"
-            ."</tr>\n\n"
-            ."<tr>\n"
-            ."<td valign=\"top\">".$langSubmissionDate."&nbsp;:</td>\n"
-            ."<td>".claro_disp_localised_date($dateTimeFormatLong, $wrk['unix_creation_date'])."</td>\n"
-            ."</tr>\n\n";
-      if( $wrk['unix_creation_date'] != $wrk['unix_last_edit_date'] )
-      {
-            echo "<tr>\n"
-                  ."<td valign=\"top\">".$langLastEditDate."&nbsp;:</td>\n"
-                  ."<td>".claro_disp_localised_date($dateTimeFormatLong, $wrk['unix_last_edit_date'])."</td>\n"
-                  ."</tr>\n\n";
-      }
-      echo "</table>";
-}
-  
-  
+
 /*--------------------------------------------------------------------
                           WORK LIST
   --------------------------------------------------------------------*/
@@ -1018,14 +1067,15 @@ if( $dispWrkLst && $is_allowedToView )
         ."<tbody>\n\n";
     foreach($flatElementList as $thisWrk)
     {
-      /*if( $wrkSession['unix_end_date'] < $thisWrk['unix_last_edit_date'] )
+      // display an alert if work was submitted after end date and work is not a correction !
+      if( $wrkSession['unix_end_date'] < $thisWrk['unix_last_edit_date'] && empty($thisWrk['parent_id']) )
       {
-            $lateUploadAlert = "";
+            $lateUploadAlert = "&nbsp;<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langAfterEndDate."\">";
       }
       else
       {
             $lateUploadAlert = "";
-      }*/
+      }
       
       if ($thisWrk['visibility'] == "INVISIBLE")
 			{
@@ -1056,7 +1106,8 @@ if( $dispWrkLst && $is_allowedToView )
           .$thisWrk['title']."</a></td>\n"
           ."<td>".$thisWrk['authors']."</td>\n"
           ."<td><small>"
-          .claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_last_edit_date'])
+          .claro_disp_localised_date($dateTimeFormatShort, $thisWrk['unix_last_edit_date'])
+          .$lateUploadAlert
           ."</small></td>\n";
       
       
@@ -1064,18 +1115,20 @@ if( $dispWrkLst && $is_allowedToView )
       { 
         if( empty($thisWrk['parent_id']) )
         {
-            $gradeString  = "[&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">".$langGradeWork."</a>&nbsp;]";
+            $gradeString  = "[&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\">".$langGradeWork."</a>&nbsp;]";
         }
         else
         {
             $gradeString = "&nbsp;";
         }
+        
         echo "<td>".$gradeString."</td>" 
             ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a></td>\n"
             ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\"></a></td>\n"
             ."<td>";
+            
         if ($thisWrk['visibility'] == "INVISIBLE")
         {
             echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."&vis=v\">"
