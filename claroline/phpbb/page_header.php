@@ -37,17 +37,18 @@ if($pagetype == 'viewforum' || $pagetype == "viewtopic")
 $langFile = "phpbb";
 // suspect langfile call -- need to be checked in further release (The good one is supposed to be in config.php (Hugues june 3 2004).
 
+claro_set_display_mode_available(true);
 
-$is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
-$is_forumAdmin    = $is_courseAdmin || $is_platformAdmin;
+include('../inc/claro_init_header.inc.php');
 
-
+$is_allowedToEdit = claro_is_allowed_to_edit();
+$is_forumAdmin    = claro_is_allowed_to_edit();
 
 $nameTools = $langForums;
 
 $noPHP_SELF = true; //because  phpBB need always param IN URL
 
-include('../inc/claro_init_header.inc.php');
+
 
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 	
