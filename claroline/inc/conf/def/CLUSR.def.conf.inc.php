@@ -24,7 +24,7 @@ array ('label'         => 'Show the link to user info'
       );
 
 $conf_def_property_list['nbUsersPerPage'] = 
-array ( 'label'   => 'Paging with ..'
+array ( 'label'   => 'Number of user per page'
       , 'default' => '25'
       , 'unit'    => 'users per lines'
       ,  'type'    => 'integer'
