@@ -280,9 +280,9 @@ function update_Db_course($courseDbName)
 	$TABLETOOLCOURSEDESC	= $courseDbName."course_description";
 	$TABLETOOLAGENDA		= $courseDbName."calendar_event";
 	$TABLETOOLANNOUNCEMENTS	= $courseDbName."announcement";
-	$TABLETOOLWORKS			= $courseDbName."assignment_doc";
-	$TABLETOOLWORKSUSER		= $courseDbName."work_student";
 	$TABLETOOLDOCUMENT		= $courseDbName."document";
+	$TABLETOOLWRKSUBMISSION = $courseDbName."wrk_submission";
+	$TABLETOOLWRKSESSION = $courseDbName."wrk_session";
 
 	//$TABLETOOLLINK			= $courseDbName."link";
 
@@ -704,21 +704,41 @@ claro_sql_query ("
 ############################# WORKS ###########################################
 claro_sql_query("
 
-	CREATE TABLE `".$TABLETOOLWORKS."` (
-	id int(11) NOT NULL auto_increment,
-		url varchar(200),
-		titre varchar(200),
-		description varchar(250),
-		auteurs varchar(200),
-		active tinyint(1),
-		accepted tinyint(1),
-	PRIMARY KEY (id))");
+	CREATE TABLE `".$TABLETOOLWRKSUBMISSION."` (
+		`id` int(11) NOT NULL auto_increment,
+		`session_id` int(11) default NULL,
+		`parent_id` int(11) default NULL,
+		`user_id` int(11) default NULL,
+		`group_id` int(11) default NULL,
+		`title` varchar(200) NOT NULL default '',
+		`visibility` enum('VISIBLE','INVISIBLE') default 'VISIBLE',
+		`creation_date` datetime NOT NULL default '0000-00-00 00:00:00',
+		`last_edit_date` datetime NOT NULL default '0000-00-00 00:00:00',
+		`authors` varchar(200) NOT NULL default '',
+		`submitted_text` text NOT NULL,
+		`submitted_doc_path` varchar(200) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;");
+	
 claro_sql_query("
-	CREATE TABLE `".$TABLETOOLWORKSUSER."` (
-	work_id int(11) NOT NULL,
-		uname varchar(30),
-	PRIMARY KEY  (work_id,uname)	)");
 
+	CREATE TABLE `".$TABLETOOLWRKSESSION."` (
+		`id` int(11) NOT NULL auto_increment,
+		`title` varchar(200) NOT NULL default '',
+		`description` text NOT NULL,
+		`sess_visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
+		`def_submission_visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
+		`session_type` enum('INDIVIDUAL','GROUP') NOT NULL default 'INDIVIDUAL',
+		`authorized_content`  enum('TEXT','FILE','TEXTFILE') NOT NULL default 'FILE',
+		`authorize_anonymous` enum('YES','NO') NOT NULL default 'YES',
+		`prevent_late_upload` enum('YES','NO') NOT NULL default 'YES',
+		`start_date` datetime NOT NULL default '0000-00-00 00:00:00',
+		`end_date` datetime NOT NULL default '0000-00-00 00:00:00',
+		`prefill_text` text NOT NULL,
+		`prefill_doc_path` varchar(200) NOT NULL default '',
+		`prefill_date` datetime NOT NULL default '0000-00-00 00:00:00',
+		PRIMARY KEY  (`id`)
+	) TYPE=MyISAM;");
 ############################## LIENS #############################################
 /*
 claro_sql_query("
@@ -956,8 +976,8 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 	$TABLETOOLCOURSEDESC	= $courseDbName."course_description";
 	$TABLETOOLAGENDA		= $courseDbName."calendar_event";
 	$TABLETOOLANNOUNCEMENTS	= $courseDbName."announcement";
-	$TABLETOOLWORKS			= $courseDbName."assignment_doc";
-	$TABLETOOLWORKSUSER		= $courseDbName."work_student";
+	$TABLETOOLWRKSUBMISSION = $courseDbName."wrk_submission";
+	$TABLETOOLWRKSESSION = $courseDbName."wrk_session";
 	$TABLETOOLDOCUMENT		= $courseDbName."document";
 
 	//$TABLETOOLLINK			= $courseDbName."link";
