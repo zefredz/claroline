@@ -74,7 +74,7 @@ $user_id = $_REQUEST['uidToEdit'];
 
 if (isset($applyChange))  //for formular modification
 {
-    $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,3})$";
+    $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 
     #########" Look for name already taken ##############################
     $username_form      = trim ($username_form);

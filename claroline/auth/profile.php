@@ -155,7 +155,7 @@ if ($_REQUEST['applyChange'])
 	 * CHECK EMAIL SYNTAX
 	 */
 
-	$emailRegex = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,3})$";
+	$emailRegex = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 
 	if( ! empty($form_email) && ! eregi( $emailRegex, $form_email ))
 	{

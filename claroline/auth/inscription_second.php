@@ -43,7 +43,7 @@ $regDataOk = false; // default value...
 
 if($submitRegistration)
 {
-	$regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,3})$";
+	$regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 
 	$uname        = trim ($HTTP_POST_VARS['uname'       ]);
 	$email        = trim ($HTTP_POST_VARS['email'       ]);
