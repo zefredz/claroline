@@ -1,0 +1,47 @@
+<?php // $Id$
+
+$lang_addUser_addUser					= "Add users";
+$lang_addUser_Registration				= "Inscription";
+$lang_addUser_Name						= "Lastname";
+$lang_addUser_Surname					= "Firstname";
+$lang_addUser_Username					= "Login";
+$lang_addUser_Pass						= "Password";
+$lang_addUser_Titular 					= "Titulaire";
+$lang_addUser_Email						= "Email";
+$lang_addUser_Status              		= "Peut-il creer des cours?";
+$lang_addUser_OneByOne             		= "Ajouter manuellement un utilisateur";
+$lang_addUser_UserOneByOneExplanation 	= "Il recevra par courriel nom d'utilisateur et mot de passe";
+$lang_addUser_formatCSVTitle			= "Le fichier doit etre de format CSV. N'ajoutez pas d'espaces. La structure du fichier doit etre exactement";
+$lang_addUser_Manager	                = "Responsable";
+$lang_addUser_No       		            = "No";
+$lang_addUser_Yes              		    = "Yes";
+$lang_addUser_buttonSubmit				= "Valider";
+$lang_addUser_addSeveralUser			= "Ajouter plusieurs utilisateurs a partir d'un fichier CSV";
+$lang_addUser_formatCSV					= "nom;prenom;username;password;claroline;email;5;officialCode;phoneNumber;pictureUri;";
+$lang_addUser_EmailWrong				= "L'adresse email que vous avez introduite n'est pas complète ou contient certains caractères non valides";
+$lang_addUser_Filled					= "Vous n'avez pas rempli tous les champs!";
+$lang_addUser_UserNo					= "Le nom d'utilisateur que vous avez choisi";
+$lang_addUser_Taken						= "est déjà pris. Choisissez-en un autre!";
+$lang_addUser_StatusWrong				= "Le status doit avoir comme valeur 1 ou 5";
+$lang_addUser_NbParamWrong				= "Le nombre de paramètre est incorrect";
+$lang_addUser_FileEmpty					= "Le fichier CSV ne contient aucun enregistrement";
+$lang_addUser_YourReg          			= "Votre inscription sur";
+$lang_addUser_addPlatform 				= "a bien été ajouté a la plate-forme";
+$langDear                   			= "Cher(ère)";
+$langYouAreReg              			= "Vous êtes inscrit(e) sur";
+$langSettings               			= "avec les paramètre suivants:\nNom d'utilisateur:";
+$langAddress                			= "L'adresse de";
+$langIs                     			= "est";
+$langProblem                			= "En cas de problème, n'hésitez pas à prendre contact avec nous";
+$langFormula                			= "Cordialement";
+$langManager                			= "Responsable";
+$langPass								= "Mot de passe";
+$langEmail 								= "Adresse de courrier électronique";
+$lang_buttonShearchUsers				= "Charger";
+$lang_addUser_NoFileCSV					= "Le fichier n est pas un fichier CSV";
+$lang_addUser_UserExist					= "L'utilissateur existe déjà";
+$lang_addUser_ReturnPageAddUser			= "Revenir à la page page principale";
+$lang_addUser_UserOk					= "Utilisateur ajouté à la plate-forme: ";
+$lang_addUser_UserWrong					= "Enregistrement incorrect et non ajouté à la plate-forme: ";
+$lang_addUser_NoUserAdd					= "Aucun utilisateur n'a été ajouté à la plate-forme";
+?>

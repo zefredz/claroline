@@ -1,0 +1,134 @@
+<?php // $Id$
+$langFile = "chat";
+@include('../include/claro_init_global.inc.php'); 
+@include($includePath."/textLib.inc.php");
+
+echo	'<html>',
+
+		'<head>',
+		'<meta http-equiv="refresh" content="200;url="',$PHP_SELF,'">',
+		'</head>',
+
+		'<body>';
+
+
+/*
+ * this script  append lines to a text file.
+ * As  each user can add, that's like a chat.
+ * This is a very  simplified chat.
+ * User can  just  add lines
+ * Admin can wash and save the chat
+ * if $chatForGroup is tue,  the file  is  
+ * reserved because always formed  with
+ * the group id of the current user in the  current Course.        
+ *
+ */
+ 
+$dateNow = CLAR_localisedDate($dateTimeFormatLong);
+$timeNow = CLAR_localisedDate($timeNoSecFormat);
+
+
+
+/*==========================
+      CONNECTION BLOC
+  ==========================*/
+
+$courseRepository  = $_course['path'];
+$idCourse          = $_cid;
+$idGroup           = $_gid;
+
+$isAllowedToManage = $is_courseAdmin;
+$is_allowedToStore = $is_courseAdmin;
+$is_allowedToReset = $is_courseAdmin;
+
+$nick              = $_user ['firstName']." ".$_user ['lastName'];
+
+
+
+
+$pathToSaveChat    = "../../".$courseRepository."/document/";
+
+if ($chatForGroup) $fileChatName = $idCourse.".".$idGroup.".chat.txt";
+else               $fileChatName = $idCourse.".chat.txt";
+
+/*==========================
+          COMMANDS
+  ==========================*/
+
+/*---------------------------
+          RESET COMMAND
+  ---------------------------*/
+
+if ($reset && $is_allowedToReset)
+{
+	$fchat = fopen($fileChatName,"w");
+	fwrite($fchat,"[".$timeNow."] reset by [".$nom." ".$prenom."] ------ \n");
+	fclose($fchat);
+}
+
+
+/*--------------------------
+         STORE COMMAND
+  --------------------------*/
+
+if ($store && $is_allowedToStore)
+{
+	$saveIn = "chat.".date("Y-m-j-B").".txt";
+
+	if (copy($fileChatName, $pathToSaveChat.$saveIn) )
+	{
+		$msgOfWork = "<a href=\"../document/document.php\">"
+		            ."<strong>".$saveIn."</strong>"
+					."</a>"
+					.$langIsNowInYourDocDir."<br><br>";
+	}
+	else
+	{
+		$msgOfWork =  $langCopyFailed."<br><br>";
+	}
+}
+
+
+
+/*-----------------------------
+      ADD NEW LINE COMMAND
+  -----------------------------*/
+
+if ($chatLine)
+{
+	$fchat = fopen($fileChatName,"a+");
+	fwrite($fchat,$timeNow." - ".$nick." : ".stripslashes($chatLine)."\n");
+	fclose($fchat);
+?>
+<?		// exit();
+}
+
+
+//echo "$msgOfWork [ $dateNow ]-<a href=\"$PHP_SELF\">$langRefresh</a>";
+
+
+
+
+
+
+/*==========================
+    DISPLAY MESSAGE LIST
+  ==========================*/
+
+echo '<pre>';
+readfile($fileChatName);
+echo '</pre>';
+
+
+echo '<a href="',$PHP_SELF,'">',$langRefresh,'</a>';
+
+if ($isAllowedToManage)
+{
+	echo	' | <a href="',$PHP_SELF,'?reset=true">',$langWash,'</a>',
+			' | <a href="',$PHP_SELF,'?store=true">',$langSave,'</a>';
+}
+
+echo '<a name="bottom"></a>';
+
+echo	'</body>',
+		'</html>';

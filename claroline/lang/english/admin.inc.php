@@ -1,0 +1,264 @@
+<?php // $Id$
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.4.* $Revision$
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   English Translation                                                |
+      +----------------------------------------------------------------------+
+      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
+      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+      +----------------------------------------------------------------------+
+      | Translator :                                                         |
+      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
+      +----------------------------------------------------------------------+
+ */
+
+
+
+//$langMailTo = "Mail to : ";
+//$lang_no_access_here ="No access here ";
+//$lang_php_info = "information about system";
+
+//$langAddAdminInApache ="Add an admin user";
+//$langAddFaculties = "Add faculties";
+//$langSearchACourse  = "Search for a course";
+//$langSearchAUser  ="Search for a user";
+
+//$langAdminBy = "Admin by ";
+//$langAdministrationTools = "Administration";
+//$langTools = "Tools";
+//$langTechnicalTools = "Technical";
+//$langConfig = "System config";
+//$langState = "State of system";
+//$langDevAdmin ="Development Administration";
+//$langLinksToClaroProjectSite ="Link to the project website";
+//$langNomOutilTodo 		= "Manage Todo list"; // to do
+//$langNomPageAdmin 		= "Administration";
+//$langSysInfo  			= "Info about System";        // Show system status
+//$langCheckDatabase  	= "Check main database";        // Check Database
+//$langDiffTranslation 	= "Compare translations"; // diff of translation
+//$langStatOf 			= "Statistics of "; // Stats of...
+//$langSpeeSubscribe 		= "Quick subscribe as Course Checker";
+//$langLogIdentLogout 	= "Login list";
+//$langLogIdentLogoutComplete = "Login list (extended)";
+
+// Stat
+$langStatistiques = "Statistics";
+
+
+//$langNbProf = "Number of professors";
+//$langNbStudents = "Number of students";
+//$langNbLogin = "Number of logins";
+//$langToday   ="Today";
+//$langLast7Days ="Last 7 days";
+//$langLast30Days ="Last 30 days";
+
+//$langNbAnnoucement = "Number of announcements";
+
+// Check Data base
+
+//$langPleaseCheckConfigForMainDataBaseName = "Please check these values<br>Main database name in <br>";
+//$langBaseFound ="Found<br>Checking tables of this base";
+//$langNotNeeded = "not needed";
+//$langNeeded = "needed";
+//$langArchive   ="archive";
+//$langUsed      ="used";
+//$langPresent   ="Ok";
+//$langCreateMissingNow = "Do you want to create tables now&nbsp;?";
+//$langCheckingCourses ="Checking courses";
+//$langMissing   ="missing";
+//$langExist     ="exists";
+
+// Create Claro table
+//$langCreateClaroTables		= "Create Table for main Database";
+//$langTableStructureDontKnow	= "Structure of this table unknown";
+
+//$langServerStatus	= "Status of MySQL server&nbsp;: ";
+//$langDataBase		= "Database ";
+//$langRun			= "work";
+//$langClient			= "MySql Client ";
+//$langServer			= "MySql Server ";
+//$langtitulary		= "Owner";
+//$langLanguage 		= "Language";
+//$langUpgradeBase 	= "Upgrade database";
+//$langManage			= "Manage Campus";
+//$langErrorsFound 	= "errors found";
+
+$langMaintenance 	= "Maintenance";
+//$langUpgrade		= "Upgrade Claroline";
+//$langWebsite		= "Claroline website";
+//$langDocumentation	= "Documentation";
+//$langForum			= "Forum";
+//$langContribute		= "Contribute";
+//$langInfoServer		= "Server Information";
+//$langConfig			= "Configuration Platform";
+
+//menu links
+
+$langCourses = "Courses";
+$langCourse = "Course";
+$langUsers ="Users";
+$langCategories = "Categories";
+$langUpgrade = "Upgrade";
+$langConfiguration = "Configuration";
+$langTraduction = "Traduction tool";
+$langPlatform = "Platform";
+$langYouCanUsefields = "You can use (*) in the fields";
+
+//user and course advanced search pages
+
+$langOfficialCode = "Official code";
+//$langCourseTitle;
+$langLanguage = "Language";
+$langCourseAccess ="Course access";
+$langSubscription ="Subscription";
+$langSearchUser = "Search user";
+$langCreateUser = "Create user";
+$langSearchCourse = "Search course";
+$langCreateCourse = "Create course";
+$langAdvanced = "Advanced";
+$langSearchUserAdvanced = "Advanced user search";
+$langSearchCourseAdvanced = "Advanced course search";
+$langPublic = "Public";
+$langPrivate = "Private";
+$langAllowed = "Allowed";
+$langDenied = "Denied";
+$langFollowCourse = "Follow courses";
+$langCreateCourse = "Create course";
+$langPlatformAdmin = "Platform admin";
+
+$langAction = "Action";
+
+$langCategory = "Category";
+$langName = "Name";
+$langLastName = "Last name"; //same!
+$langFirstName = "First name";
+$langUsername  = "User name";
+$langDelete = "Delete";
+$langDeleteCourse = "Delete course";
+$langDeleteUser = "Delete user";
+$langRegisterUser = "Enroll to a new course";
+$langModify = "Modify";
+$langUserid = "User Id";
+$langSearch = "Search";
+$langAll ="All";
+
+$langAdduser = "Add a user";
+$langCanCreateCourse = "Can create new courses";
+
+//top form for list
+
+$langSearchOn = "Search on";
+
+
+//buttons
+
+$langAddaListOfUsers = "Add a list of users";
+$langModifOneProfile = "User settings";
+$langBackToAdmin = "Back to admin page";
+$langBackToCourseList = "Back to courses list";
+$langEnrollUser = "Enroll a user";
+$langGoToMainUserSettings = "Go to main user settings";
+$langGoToUserSettings ="Go to user settings";
+
+$langEmail = "Email";
+$langUserStatus = "User type";
+$langSaveChanges = "Save changes";
+$langAdmin = "Admin";
+$langStudent ="Student";
+$langTeacher = "Teacher";
+$langTitular = "Titular";
+$langPhone = "Phone";
+$langPassword = "Password";
+$langConfirm = "Confirm";
+$langChangePwdexp = "Enter new password twice to change, leave empty to keep it";
+$langAddUserOneByOne = "New users will receive an e-mail with their username and password";
+
+$langAdministrator = "Administrator";
+$langCourseCreator = "Course creator";
+$langCourseManager = "Course manager";
+$langUser = "User";
+$langBackToList = "Back to list";
+$langBackToUserList ="Back to user list";
+
+$langMakeNewSearch = "Make new search : ";
+$langPublicOnly = "Public course only";
+$langPrivateOnly = "Private course only";
+$langSubscriptionAllowedOnly = "Subscription allowed only ";
+$langSubscriptionDeniedOnly  = "Subscription denied only";
+
+
+
+// Page titles
+
+$langAdministrationTools = "Administration";  //for bredcrumps too
+$langListUsers = "Users list"; //for bredcrumps too
+$langCourseList = "Courses list"; //for bredcrumps too
+
+$langUserCourseList = "User's course list";
+$langPersonnalInfo = "Personnal information";
+$langCourseRestore = "Restore a course";
+$langRegister = "Register this user to a course";
+$langDeleteUser = "Delete user";
+$langModifUserCourseSettings = "User course settings";
+$langUserUnregistered = "User unregistered";
+$langListCourseUsers = "Course users list";
+$langAddUser = "Add a new user";
+
+// title of columns to display
+
+$langCourseTitle = "Course title";
+$langUserGroup = "User group";
+$langAddCourse = "Create a new course";
+$langUnsubscribe = "Unregister user";
+$langSubscribeUser = "Register user";
+$langEditUserCourseSetting = "Edit user course settings";
+$langCourseSettings = "Course settings";
+$langOfficialCode = "Official code";
+$langEditUserSettings = "Edit user settings";
+$langCourseManager = "Course manager";
+$langEnrollAsStudent = "Enroll as student";
+$langEnrollAsManager = "Enroll as course manager";
+
+
+$langCourseBackup = "Backup";
+
+//popup
+
+$langAreYouSureToDelete = "are you sure you want to delete ";
+$langAreYouSureToUnsubscribe = "are you sure you want to unregister ";
+$langAreYouSureToSubscribe = "are you sure you want to register ";
+$langViewList = "View list";
+$langUserStatus = "User status";
+$langAllUserOfThisCourse = "All courses of this user";
+$langAllUsersOfThisCourse = "All users of this course";
+$langCode = "Code";
+
+
+//Dialogbox  comment
+
+$langCourseDelete = "The course has been successfully deleted";
+$langUserUnsubscribed = "The user has been successfully unregistered";
+$langUserNotUnsubscribed = "Unregister failed!!! <br> This user can not be unregistered,<br>
+                            you can not unregister a professor of the course";
+$langUserDelete = "Delete of the user was done sucessfully";
+$langNoCourseResult = "There is no course matching such criteria";
+$langNoUserResult = "There is no user matching such criteria";
+$langSearchAgain = "Search again";
+$langAppliedChange = "Changes have been applied to the user settings";
+$langUserTaken = "This user name is already taken";
+$langFields = "There is at least one empty field";
+$langEmailWrong = "The email address is not valid";
+$langUserHasNoCourse = "User is not registered to any course";
+$langUserUnregisteredFromCourse = "User has been unregistered from the course";
+$langUserIsNowCourseManager = "User is now course manager";
+$langUserIsNowStudent = "User is now student for this course";
+$langStatusChangeFailed = "Status change failed";
+$langUsernameTaken = "This username is already taken, please choose another one";
+$langUserCreated ="The new user has been sucessfully created";
+$langCreateAnotherUser = "Create another new user";
+?>

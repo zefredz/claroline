@@ -1,0 +1,36 @@
+<?php
+$lang_config_AdministrationTools	=	"Outil d'administration";
+$lang_config_config					=	"Configuration";
+$lang_config_TitleConfig			=	"Configuration de votre plateforme : ";
+$lang_config_siteName				=	"Nom du site : ";
+$lang_config_TitleAdministrator		=	"Administrateur : ";
+$lang_config_name					=	"Nom : ";
+$lang_config_phone					=	"Téléphone : ";
+$lang_config_email					=	"Email : ";
+$lang_config_TitleEducationManager	=	"Conseillé pédagogique : ";
+$lang_config_TitleInstitution		=	"Institution : ";
+$lang_config_urlInstitution			=	"URL : ";
+$lang_config_ButtonSend				=	"Changer la configuration";
+$lang_config_langage 				=	"Langue :";
+$lang_config_rootWeb				= 	"Chemin web";
+$lang_config_urlAppend				=	"URL ajoutée";
+$lang_config_dbHost					=	"Serveur";
+$lang_config_dbLogin				=	"Login";
+$lang_config_dbPass					=	"Mot de passe : ";
+$lang_config_dbNamePrefix			=	"Préfixe pour les tables : ";
+$lang_config_TitleProperty 			=	"Propriétés : ";
+$lang_config_TitleBD				=	"Base de donnée : ";
+$lang_config_ErrorRootWebEmpty		=	"Le chemin web ne peut être vide !";
+$lang_config_ErrorURLEmpty			=	"L'url associée ne peut être vide !";
+$lang_config_ErrorLoginBDEmpty		=	"Le login pour la base de donnée ne peut être vide !";
+$lang_config_ErrorPassBDEmpty		=	"Le mot de passe pour la base de donnée ne peut être vide !";
+$lang_config_ErrorConnectMySQL		=	"Le serveur, login ou mot de passe est incorrect pour la connection à la base de donnée";
+$lang_config_ErrorHostEmpty			=	"Le serveur de la base de donnée ne peut être vide !";
+$lang_config_ErrorOpenFile			=	"Erreur d'ouverture du fichier config.php";
+$lang_config_ErrorEmailAdmin		=	"L'email de l'administrateur est incorrect !";
+$lang_config_ErrorEmailManager		=	"L'email du conseillé pédagogique est incorrect !";
+$lang_config_Info					=	"(*) signifie que le champ ne peut être vide";
+$lang_config_ErrorURLInstitution	=	"L'url de l'institution est incorrect !";
+$lang_config_ErrorRootWeb			=	"Le chemin web est incorrect !";
+$lang_config_NoAdmin				=	"Vous n'êtes pas logué en tant qu'administrateur";
+?>

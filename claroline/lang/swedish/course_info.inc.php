@@ -1,0 +1,135 @@
+<?php
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.4.0 $Revision$                             |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   $Id$     |
+      |   Swedish translation                                                |
+      +----------------------------------------------------------------------+
+      |   This program is free software; you can redistribute it and/or      |
+      |   modify it under the terms of the GNU General Public License        |
+      |   as published by the Free Software Foundation; either version 2     |
+      |   of the License, or (at your option) any later version.             |
+      |                                                                      |
+      |   This program is distributed in the hope that it will be useful,    |
+      |   but WITHOUT ANY WARRANTY; without even the implied warranty of     |
+      |   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      |
+      |   GNU General Public License for more details.                       |
+      |                                                                      |
+      |   You should have received a copy of the GNU General Public License  |
+      |   along with this program; if not, write to the Free Software        |
+      |   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA          |
+      |   02111-1307, USA. The GNU GPL license is also available through     |
+      |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
+      +----------------------------------------------------------------------+
+      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
+      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+      +----------------------------------------------------------------------+
+      | Translator: Jan Olsson <jano@artedi.nordmaling.se>                   |
+      +----------------------------------------------------------------------+
+ */
+
+
+// infocours.php
+
+$langModifInfo="Modifiera kursinformationen";
+$langModifDone="Informationen har modifierats";
+$langHome="Tillbaka till hemsidan";
+$langCode="Kurskod";
+$langDelCourse="Radera denna kurs";
+$langProfessors="Lärare";
+$langTitle="Kurstitel";
+$langFaculty="Fakultet";
+$langDescription="Beskrivning";
+$langConfidentiality="Konfidentiellt";
+$langPublic="Publik åtkomst från campus hemsida även utan inloggning";
+$langPrivOpen="Privat åtkomst, registrering öppen";
+$langPrivate="Privat åtkomst, registrering stängd (sajt tillgänglig bara för personer på <a href=../user/user.php>Användarlistan</a>)";
+$langForbidden="Inte tillåtet";
+$langLanguage="Språk";
+$langConfTip="Som standard kommer din kurs att kunna nås av alla så länge som det är registrerade användare. I händelse av att du har något konfidentiellt, 
+det enklaste är att öppna registrering under
+en vecka, och be studenterna att de registrerar sig själva, därefter stänga registreringen och kontrollera användarlistan efter obehöriga.";
+$langTipLang="Detta språk gäller för all besökare som besöker denna kurswebbsajt.";
+
+
+// Change Home Page
+$langAgenda="Agenda";
+$langLink="Länkar";
+$langDocument="Dokument";
+$langVid="Video";
+$langWork="Elevarbeten";
+$langProgramMenu="Kursprogram";
+$langAnnouncement="Tillkännagivanden";
+$langUser="Användare";
+$langForum="Forum";
+$langExercise="Övningar";
+$langStats="Statistik";
+$langUplPage="Ladda upp sida och länka till hemsida";
+$langLinkSite="Lägg till länk på hemsidan";
+$langModifInfo="Modifiera kursinformation";
+$langChat="Diskussion";
+$langDescriptionCours="Kursbeskrivning";
+$langGroups="Grupper";
+// delete_course.php
+
+
+
+// delete_course.php
+
+
+$langDelCourse="Radera hela kurswebbsajten";
+$langCourse="Webbsajten ";
+$langHasDel="har raderats";
+$langBackHome="Tillbaka till hemsidan för ";
+$langByDel="Att radera denna kurswebbsajt kommer att permanent radera alla dokument som den innehåller och avregistrera alla elever. (inte ta  bort dem från andra kurser).<p>Vill du verkligen radera denna kurs ";
+$langY="JA";
+$langN="NEJ";
+$langSizeOf="Storlek på";
+$langModifGroups="Grupper";
+$langDisk_free_space="fritt utrymme";
+$langDepartmentUrlName="Avdelning";
+$langDepartmentUrl="Avdelningens URL";
+$langCreatedIn="skapad i";
+$langBackupCourse="Arkivera denna kurs(backup)";
+$langArchiveCourse="Kursbackup ";
+$langCreatedIn="skapad i";
+$langCreateMissingDirectories="Skapar saknade mappar";
+$langCopyDirectoryCourse="Kopierar kursens filer";
+$langDisk_free_space="fritt utrymme";
+$langBuildTheCompressedFile="2° - Skapar backupfil";
+$langFileCopied="fil kopierad";
+$langArchiveLocation="Arkiveringsplats";
+$langSizeOf="Storlek på";
+$langArchiveName="Arkivnamn";
+$langBackupSuccesfull="Backupen lyckades";
+$langBUCourseDataOfMainBase="Backup av kursdata i huvudatabasen för";
+$langBUUsersInMainBase="Backup av användardata i huvuddatabasen för";
+$langBUAnnounceInMainBase="Backup av tillkännagivaden i huvudatabasen för";
+$langBackupOfDataBase="Backup av databas";
+
+$langArchive="Arkiv";
+$langArchiveNotFound="Arkivet kan inte hittas";
+$langArchiveUncompressed="Arkivet har dekomprimerats och installerats.";
+$langAvailableArchives="Lista över tillgängliga arkiv";
+$langConfirmBackup="Vill du verkligen göra en backup på kursen";
+$langCourseAccess="Kursaccess";
+$langCreateSite="Skapa kurswebbsajt";
+$langCreationDate="Skapad";
+$langCsvPutIntoDocTool="Filen &quot;users.csv&quot; has lagts till i Dokumentverktyget.";
+$langDownload="Ladda ned";
+$langExpirationDate="Utgår";
+$langLastEdit="Sista redigering";
+$langLastVisit="Senaste besök";
+$langNoArchive="Inget arkiv har valts";
+$langPostPone="Flytta fram";
+$langProfessor="Professor";
+$langRestore="Återställ";
+$langRestoreCourse="Återställ en kurs";
+$langRestoreDescription="Kursen finns i en arkivfil som du kan välja nedan.<br><br>";
+$langRestoreNotice="Detta skript tillåter ännu inte automatisk användaråterställande men informationen kan sparas i &quot;users.csv&quot; och det är tillräckligt för administratören skall kunna använda den manuellt.";
+$langSubscription="Prenumeration"; 
+?>

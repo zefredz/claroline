@@ -1,0 +1,26 @@
+<?
+//if (basename($_SERVER["SCRIPT_FILENAME"])==basename(__FILE__)) die("Va voir ailleurs");
+
+$downloadArchiveAivailable 		= TRUE;
+$localStoreArchiveAivailable 	= TRUE; 
+$putArchiveOnFtpAivailable 				= FALSE; // not  yet aivailable  in 1.4
+$createNewCourseWithArchiveAivailable	= FALSE; // not  yet aivailable  in 1.4
+
+$allowedToSelectBackupSection 		= FALSE;
+$allowedToSelectFormatTargetBackup 	= FALSE; // not  yet aivailable  in 1.4
+$buildHtmlExportAivailable	= TRUE;
+$buildSqlExportAivailable	= TRUE;  // not  yet aivailable  in 1.4
+$buildCsvExportAivailable	= TRUE;  // not  yet aivailable  in 1.4
+$buildXmlExportAivailable	= FALSE; // not  yet aivailable  in 1.4
+$sendByFTPAivailable 		= FALSE; // not  yet aivailable  in 1.4
+
+$verboseBackupDefault = FALSE; 
+
+// You can change this but so  perhaps  restore isn't possible
+$archiveRepositorySys = $rootSys."archive/";
+$archiveRepositoryWeb = $rootWeb."archive/";
+$appendCourse = "Course/";
+$appendMainDb = "Central/";
+
+$DEBUG=FALSE;
+?>
