@@ -2,7 +2,6 @@
 > > > > > > > > > > > CLAROLINE 1.5 RC1 - BUG LIST < < < < < < < < < < <
 
 
-Etat      : RESOLU-----------------------------------------------------
 1. DOCUMENT. Quand on crée un document avec l'outil create document, si on ne met pas 
 de nom pour le fichier il y a une erreur et donc fichier pas enregistré, 
 mais si on fait back le formulaire ne se rerempli pas donc on pert tout 
@@ -12,7 +11,7 @@ Repéré par : SEB
 Assigné à : HUGUES
 Etat      : RESOLU
 
-Etat      : RESOLU-----------------------------------------------------
+------------------------------------------------------------------
 2. DOCUMENT. Pour les liens créés dans document, on pensait qu'ajouter l'url en 
 <a href... sur la page .url ne serait pas une mauvaise chose pour prévenir 
 les cas ou la redirection ne se passe pas bien.
@@ -35,7 +34,7 @@ retours à la ligne dans le code html des pages créées
 5. COURSE_HOME. librairie à déplacer ? course_home.lib.php se trouve dans le 
 répertoire même de course_home
 
-Etat : RESOLU -----------------------------------------------------
+------------------------------------------------------------------
 6. TOOL LIST && COURSE_HOME. Les URL me semblent mal formatées, malgré le fait 
 qu'elles fonctionnent. Exemple : 
 http://localhost/~pir/clarocvs/claroline15rc1/claroline/../claroline/learnPath/l
@@ -46,9 +45,7 @@ partir des $*Sys et $*Web du fichier de config
 Repéré par : SEB
 Assigné à : SEB
 Etat : RESOLU
-
-
-Etat : RESOLU -----------------------------------------------------
+------------------------------------------------------------------
 7. DOCUMENT.  upload d'une page HTML contenant des images, problèmes lors de la 
 modifications des paths des images au sein du document, les images ne 
 s'affichent pas du tout.
@@ -77,7 +74,7 @@ Assigné à : HUGUES
 champ role
 Repéré par : MOOSH
 
-Etat : RESOLU -----------------------------------------------------
+------------------------------------------------------------------
 11. claro_disp_button()- Bug Avec Mozilla - Quand il y a htmlArea dans la même 
 page, le 'onclick' sur le <button> du claroButton est cpaturé par htmlArea. 
 Résultat c'est le <form> dans lequel est htmlArea qui est envoyé et pas la 
@@ -112,7 +109,7 @@ lustucrus (inscription multiples, cours multiples)
 Repéré par : MOOSH
 Guim dit: voir avec Hugues ...
 
-Etat : RESOLU -----------------------------------------------------
+------------------------------------------------------------------
 14.  admincats.  refresh après insert -> erreur
 
 1062 : Duplicata du champ 'rzthtr' pour la clef 2
@@ -120,16 +117,16 @@ Etat : RESOLU -----------------------------------------------------
 insert into `CL150RC1Main`.`faculte` (name,code,bc,nb_childs,canHaveCoursesChild,canHaveCatChild,treePos,code_P)
                                         values ('tzrthrth','rzthtr',NULL,'0','TRUE','TRUE','14','EDITME')
 Etat : RESOLU (recherche ds la db d'abord avant création et message d'erreur affiché à la place si la cat existe déjà)
-
-
-Etat : NEW -----------------------------------------------------
+------------------------------------------------------------------
 15. le chat  crée à l'utilisation encore  un fichier dans le rep /claroline/chat/
 et j'ai pas trouvé où il le crée
 
 Repéré par : MOOSH
+
+
 Etat : New 
 
-Etat : RESOLU ------------------------------------------------------
+------------------------------------------------------
 16. claroline/admin/adminaddnewuser.php?register=yes
 type : erreur de langue. 
 quoi : "Les nouveaux utilisateurs recevrons un email avec leur nom d'utilisateur et mot de passe"
@@ -137,9 +134,10 @@ quoi : "Les nouveaux utilisateurs recevrons un email avec leur nom d'utilisateur
 claroline/admin/adminusercourses.php?uidToEdit=3&cfrom=ulist
 "bouton retour à l'utilisateur en français" :  faute
 Repéré par :  M
-Etat : RESOLU 
+Assigné à : 
+Etat : RESOLU
+------------------------------------------------------------------
 
-Etat : RESOLU ------------------------------------------------------------------
 M.17. outils de travaux.  
 à l'envoi d'un Ficher .exe  trop gros, le système ne fait pas l'envoi mais ne retourne pas de message d'erreur.
 
@@ -150,7 +148,7 @@ Repéré par : M.
 Assigné à : SEB
 Etat : RESOLU (en utilisant le meme principe que pour document et import learning path, à savoir affichage de la taille max autorisée sur form d'upload
 
-Etat : NEW ------------------------------------------------------------------
+------------------------------------------------------------------
 M.18.Travaux d'étudiants
 retour à la ligne entre le texte d'intro et le bouton "ajouter un texte"
 Repéré par : MOOSH
@@ -199,7 +197,7 @@ l'utilisateur ne recoit aucun message.
 Repéré par : M.
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.24  : admincats.php
 type : logik
 quoi : si je supprime une cat qui contient des catégories avec déjà des cours.
@@ -253,31 +251,6 @@ quoi : javascript de suppression d'un exercice peu explicite
 Repéré par : M.
 Assigné à : 
 
-Etat : New ------------------------------------------------------
-M.31  : claroline/group/group.php
-type : interface - uniformisation
-quoi : pas de confirmation javascript au flush des groupes
-Repéré par : M.
-Assigné à : 
-
-Etat : New ------------------------------------------------------
-M.32  : claroline/group/group.php
-type : interface - uniformisation
-quoi : pas de confirmation javascript à la suppression des groupes
-Repéré par : M.
-Assigné à : 
-
-Etat : New ------------------------------------------------------
-M.33  : claroline/group/group.php
-type : langue
-quoi : message anglais si je demande de supprimer les groupes 
-alors qu'il n'y en a pas
-PS : le lien supprimer doit -il être actif s'il n'y a pas 
-de groupe à supprimer ?
-
-Repéré par : M.
-Assigné à : 
-
 template à copier coller
 Etat : New ------------------------------------------------------
 .99 où :
@@ -291,8 +264,8 @@ Assigné à :
 
 -------------
 $Log$
-Revision 1.37  2004/06/16 09:53:28  moosh
-bugs 31 à 33
+Revision 1.38  2004/06/16 11:42:37  guillaume
+bug 24 resolu
 
 Revision 1.36  2004/06/16 09:42:03  moosh
 bugs 28 , 29 et 30

@@ -272,7 +272,22 @@ else
 
         if(!is_null($treePosDelete))
         {
-            //Look if they aren't courses in this category
+            
+	    $delok = true; //we delete if we do not encounter any problem...default is that there is no problem, then we check
+	    
+	    //Look if there isn't any subcategory in this category first	    
+	    $sql_SearchCats="select code from `$tbl_faculty` where code_P='".$treePosDelete["code"]."'";
+            $res_SearchCats=claro_sql_query_fetch_all($sql_SearchCats);
+	    
+	    if(isset($res_SearchCats[0]["code"])) 
+	    {
+	    	$controlMsg['error'][]=$lang_faculty_CatHaveCat;
+		$delok = false;
+	    }
+	    
+	    
+	    
+	    //Look if they aren't courses in this category
             $sql_SearchCourses="select count(cours_id) num from `$tbl_courses` where faculte='".$treePosDelete["code"]."'";
             $res_SearchCourses=claro_sql_query_fetch_all($sql_SearchCourses);
 
@@ -283,22 +298,14 @@ else
 
                 if($res_SearchCourses[0]["num"]>0)
                     $controlMsg['error'][]=$lang_faculty_CatHaveCourses;
+		$delok = false;
             }
-            else
+            if ($delok==true) 
             {
                 //delete the category
                 $sql_Delete="delete from `$tbl_faculty` where id='".$_REQUEST["id"]."'";
                 claro_sql_query($sql_Delete);
-
-                //treePos-1 for all category who have treePos>treePos of the faculty delete
-                $sql_ChangeTree="update `$tbl_faculty` set treePos=treePos-1 where treePos>'".$treePosDelete["treePos"]."'";
-                claro_sql_query($sql_ChangeTree);
-
-                //nb_childs-1 for all parent of the category delete
-                $fatherChangeChild=$treePosDelete["code_P"];
-
-                deleteNbChildFather($fatherChangeChild,1);
-
+               
                 //Confirm deleting
                 $controlMsg['info'][]=$lang_faculty_DeleteOk;
             }
