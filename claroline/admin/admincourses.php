@@ -3,8 +3,8 @@ $langFile='admin';
 $cidReset = true;
 include('../inc/claro_init_global.inc.php');
 
-$tbl_log     = $mainDbName."`.`loginout";
-$tbl_user     = $mainDbName."`.`user";
+$tbl_log    = $mainDbName."`.`loginout";
+$tbl_user   = $mainDbName."`.`user";
 $tbl_admin  = $mainDbName."`.`admin";
 $tbl_course = $mainDbName."`.`cours";
 
@@ -64,6 +64,7 @@ if (isset($_GET['language'])) {$_SESSION['admin_course_language'] = $_GET['langu
 if (isset($_GET['access'])) {$_SESSION['admin_course_access'] = $_GET['access'];}
 if (isset($_GET['subscription'])) {$_SESSION['admin_course_subscription'] = $_GET['subscription'];}
 if (isset($_GET['order_crit'])) {$_SESSION['admin_course_order_crit'] = $_GET['order_crit'];}
+if (isset($_GET['dir']))       {$_SESSION['admin_course_dir'] = $_GET['dir'];}
 
 // Set parameters to add to URL to know where we come from and what options will be given to the user
 
@@ -176,32 +177,20 @@ if (isset($_SESSION['admin_course_subscription']))   // type of subscription all
 
 }
 
-//deal with direction settings
+  //first see is direction must be changed
 
-if ($_GET['dir']=="ASC")
+if (isset($chdir) && ($chdir=="yes"))
 {
-    $dir = 'DESC';
-    $_SESSION['dir'] = 'DESC';
-    $addToURL .="&dir=DESC";
-}
-if ($_GET['dir']=="DESC")
-{
-    $dir = 'ASC';
-    $_SESSION['dir'] = 'ASC';
-    $addToURL .="&dir=ASC";
-}
-
-if (($_GET['dir']!="DESC")&&($_GET['dir']!="ASC") && ($_SESSION['dir']!="ASC") &&($_SESSION['dir']!="DESC"))
-{
-  $_GET['dir'] = "ASC";
-  $_SESSION['dir']!="ASC";
+  if ($_SESSION['admin_course_dir'] == "ASC") {$_SESSION['admin_course_dir']="DESC";}
+  elseif ($_SESSION['admin_course_dir'] == "DESC") {$_SESSION['admin_course_dir']="ASC";}
+  else $_SESSION['admin_course_dir'] = "DESC";
 }
 
 // deal with REORDER
 
 if (isset($_SESSION['admin_course_order_crit']))
 {
-    $toAdd = " ORDER BY `".$_SESSION['admin_course_order_crit']."` ".$_SESSION['dir'];
+    $toAdd = " ORDER BY `".$_SESSION['admin_course_order_crit']."` ".$_SESSION['admin_course_dir'];
 }
 else
 {
@@ -323,7 +312,7 @@ echo "<table width=\"100%\">
             <input type=\"text\" value=\"".$_GET['search']."\" name=\"search\"\">
             <input type=\"submit\" value=\" ".$langOk." \">
             <input type=\"hidden\" name=\"newsearch\" value=\"yes\">
-            <a href=\"advancedCourseSearch.php".$addtoAdvanced."\"><small>[".$langAdvanced."]</small></a>
+            [<a href=\"advancedCourseSearch.php".$addtoAdvanced."\"><small>".$langAdvanced."</small></a>]
             </form>
           </td>
         </tr>
@@ -343,9 +332,9 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
 
      //add titles for the table
 
-echo "<th><a href=\"",$PHP_SELF,"?order_crit=fake_code&dir=".$_SESSION['dir']."\">".$langCode."</a></th>"
-     ."<th><a href=\"",$PHP_SELF,"?order_crit=intitule&dir=".$_SESSION['dir']."\">".$langCourseTitle."</a></th>"
-     ."<th><a href=\"",$PHP_SELF,"?order_crit=faculte&dir=".$_SESSION['dir']."\">".$langCategory."</a></th>";
+echo "<th><a href=\"",$PHP_SELF,"?order_crit=fake_code&chdir=yes\">".$langCode."</a></th>"
+     ."<th><a href=\"",$PHP_SELF,"?order_crit=intitule&chdir=yes\">".$langCourseTitle."</a></th>"
+     ."<th><a href=\"",$PHP_SELF,"?order_crit=faculte&chdir=yes\">".$langCategory."</a></th>";
 
 echo "<th>".$langAllUsersOfThisCourse."</th>";
 echo "<th>".$langCourseSettings."</th>"
@@ -357,14 +346,29 @@ foreach($resultList as $list)
 {
     echo "<tr>";
 
-     //  Code
+    if (isset($_SESSION['admin_course_search'])&& ($_SESSION['admin_course_search']!=""))
+    {
 
-     echo "<td >".$list['fake_code']."
-           </td>";
+         //  Code
 
-     // title
+         echo "<td >".eregi_replace("^(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $list['fake_code'])."
+               </td>";
 
-     echo "<td align=\"left\">".$list['intitule']."</td>";
+         // title
+
+         echo "<td align=\"left\">".eregi_replace("^(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $list['intitule'])."</td>";
+     }
+     else
+     {
+          //  Code
+
+         echo "<td >".$list['fake_code']."
+               </td>";
+
+         // title
+
+         echo "<td align=\"left\">".$list['intitule']."</td>";
+    }
 
      //  Category
 

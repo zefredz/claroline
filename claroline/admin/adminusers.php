@@ -58,6 +58,7 @@ if (isset($_GET['userName']))  {$_SESSION['admin_user_userName'] = $_GET['userNa
 if (isset($_GET['mail']))      {$_SESSION['admin_user_mail'] = $_GET['mail'];}
 if (isset($_GET['action']))    {$_SESSION['admin_user_action'] = $_GET['action'];}
 if (isset($_GET['order_crit'])){$_SESSION['admin_user_order_crit'] = $_GET['order_crit'];}
+if (isset($_GET['dir']))       {$_SESSION['admin_user_dir'] = $_GET['dir'];}
 
 
 
@@ -191,32 +192,20 @@ if (isset($_GET['admin_user_action']))
 }
 
 
-//deal with direction settings
+  //first see is direction must be changed
 
-if ($_GET['dir']=="ASC")
+if (isset($chdir) && ($chdir=="yes"))
 {
-    $dir = 'DESC';
-    $_SESSION['dir'] = 'DESC';
-    $addToURL .="&dir=DESC";
-}
-if ($_GET['dir']=="DESC")
-{
-    $dir = 'ASC';
-    $_SESSION['dir'] = 'ASC';
-    $addToURL .="&dir=ASC";
-}
-
-if (($_GET['dir']!="DESC")&&($_GET['dir']!="ASC") && ($_SESSION['dir']!="ASC") &&($_SESSION['dir']!="DESC"))
-{
-  $_GET['dir'] = "ASC";
-  $_SESSION['dir']!="ASC";
+  if ($_SESSION['admin_user_dir'] == "ASC") {$_SESSION['admin_user_dir']="DESC";}
+  elseif ($_SESSION['admin_user_dir'] == "DESC") {$_SESSION['admin_user_dir']="ASC";}
+  else $_SESSION['admin_user_dir'] = "DESC";
 }
 
 // deal with REORDER
 
 if (isset($_SESSION['admin_user_order_crit']))
 {
-    $toAdd = " ORDER BY `".$_SESSION['admin_user_order_crit']."` ".$_SESSION['dir'];
+    $toAdd = " ORDER BY `".$_SESSION['admin_user_order_crit']."` ".$_SESSION['admin_user_dir'];
     $sql.=$toAdd;
 
 }
@@ -327,7 +316,7 @@ echo "<table width=\"100%\">
             <input type=\"text\" value=\"".$_GET['search']."\" name=\"search\"\">
             <input type=\"submit\" value=\" ".$langOk." \">
             <input type=\"hidden\" name=\"newsearch\" value=\"yes\">
-            <a href=\"advancedUserSearch.php".$addtoAdvanced."\"><small>[".$langAdvanced."]</small></a>
+            [<a href=\"advancedUserSearch.php".$addtoAdvanced."\"><small>".$langAdvanced."</small></a>]
             </form>
           </td>
         </tr>
@@ -346,9 +335,9 @@ $myPager->disp_pager_tool_bar($PHP_SELF);
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
 
      <tr class=\"headerX\" align=\"center\" valign=\"top\">
-          <th><a href=\"",$PHP_SELF,"?order_crit=user_id&dir=".$_SESSION['dir']."\">".$langUserid."</a></th>
-          <th><a href=\"",$PHP_SELF,"?order_crit=nom&dir=".$_SESSION['dir']."\">".$langName."</a></th>
-          <th><a href=\"",$PHP_SELF,"?order_crit=prenom&dir=".$_SESSION['dir']."\">".$langFirstName."</a></th>
+          <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>
+          <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes\">".$langName."</a></th>
+          <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>
           <th>".$langOfficialCode."</th>";
 echo     "<th>".$langUserStatus."</th>";
 echo     "<th>".$langAllUserOfThisCourse."</th>
@@ -367,13 +356,27 @@ foreach($resultList as $list)
      echo "<td align=\"center\">".$list['user_id']."
            </td>";
 
-     // name
 
-     echo "<td align=\"left\">".$list['nom']."</td>";
+     if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!="")) {
 
-     //  Firstname
+         // name
 
-     echo "<td align=\"left\">".$list['prenom']."</td>";
+         echo "<td align=\"left\">".eregi_replace("^(".$_SESSION['admin_user_search'].")",'<b>\\1</b>', $list['nom'])."</td>";
+
+         //  Firstname
+
+         echo "<td align=\"left\">".eregi_replace("^(".$_SESSION['admin_user_search'].")","<b>\\1</b>", $list['prenom'])."</td>";
+     }
+     else
+     {
+         // name
+
+         echo "<td align=\"left\">".$list['nom']."</td>";
+
+         //  Firstname
+
+         echo "<td align=\"left\">".$list['prenom']."</td>";
+     }
 
      //  Official code
 
