@@ -120,7 +120,7 @@ if( $assignment['authorized_content'] == "TEXTFILE"
   )
 {
       // IF text file is the default assignment type
-      // OR this is a teacher modifying a grade
+      // OR this is a teacher modifying a feedback
       // OR this is a teacher feedback a work
       $assignmentContent = "TEXTFILE";
 }
@@ -287,6 +287,22 @@ if( isset($_REQUEST['submitWrk']) )
         // $formCorrectlySent stay true;
       }
       
+      // check if the score is between 0 and 100
+      // no need to check if the value is not setted, it probably means that it is not a correction
+      if ( isset($_REQUEST['wrkScore']) )
+      {
+            if( $_REQUEST['wrkScore'] < 0 || $_REQUEST['wrkScore'] > 100 )
+            {
+                  $dialogBox .= $langWrkScoreRequired."<br />";
+                  $formCorrectlySent = false;
+            }
+            else
+            {
+                  $wrkForm['wrkScore'] = $_REQUEST['wrkScore'];
+            }
+            
+      }
+      
       // no need to check and/or upload the file if there is already an error
       if($formCorrectlySent)
       {
@@ -367,6 +383,23 @@ if( isset($_REQUEST['submitWrk']) )
 
 
 
+/*============================================================================
+                          DISPLAY FLAGS
+  =============================================================================*/
+  // the following flags will be setted in command execution to 
+  // choose what will be shown after the execution
+  // set a flag to true will show the element, false will hide the element
+  
+  // flag to order the display of the work form (create/edit)
+  $dispWrkForm = false;
+  // flag to order the display of the work details
+  $dispWrkDet = false;
+  // flag to order the display of the assignment details
+  $dispAssigDet = false;
+  // flag to order the display of the list of the works in this assignment
+  $dispWrkLst = false;
+  // flag to order the display of the score field in the work form
+  $dispWrkFormScore = false;
 
 
 
@@ -445,15 +478,15 @@ if($is_allowedToEditAll)
                               `title`       = \"".trim(claro_addslashes( $wrkForm['title'] ))."\",
                               `submitted_text` = \"".trim(claro_addslashes( $_REQUEST['wrkTxt'] ))."\",
                               `authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\",
+                              `score` = \"".$wrkForm['wrkScore']."\",
                               `creation_date` = NOW(),
                               `last_edit_date` = NOW()";
-            
+                              
             claro_sql_query($sqlAddWork);
                         
             $dialogBox .= $langFeedbackAdded;
             
-            $dispWrkForm = false;
-            $dispWrkDet = false;
+            // display flags
             $dispWrkLst = true;
       }
       else
@@ -473,6 +506,7 @@ if($is_allowedToEditAll)
             // prefill some fields of the form
             $form['wrkTitle'  ] = $wrk['title']." (".$langFeedback.")";
             $form['wrkAuthors'] = $currentUserFirstName." ".$currentUserLastName;
+            $form['wrkScore'  ] = 50; 
       }
       else
       {
@@ -480,6 +514,7 @@ if($is_allowedToEditAll)
             $form['wrkTitle'] = $_REQUEST['wrkTitle'];
             $form['wrkAuthors'] = $_REQUEST['wrkAuthors'];
             $form['wrkTxt'] = $_REQUEST['wrkTxt'];
+            $form['wrkScore'] = $_REQUEST['wrkScore'];
       }
       
       $cmdToSend = "exGradeWrk";
@@ -488,9 +523,10 @@ if($is_allowedToEditAll)
       $isGrade = true;
       
       // display flags
-      $dispWrkForm  = true;
+      $dispWrkForm  = true; 
       $dispWrkDet   = true;
-      $dispWrkLst   = false;
+      $dispWrkFormScore = true;
+      
   }  
 } // if($is_allowedToEdit)
 /*============================================================================
@@ -509,20 +545,29 @@ if( $is_allowedToEdit )
       // if there is no error update database
       if( isset($formCorrectlySent) && $formCorrectlySent )
       {
-            $sqlAddWork = "UPDATE `".$tbl_wrk_submission."`
+            // for corrections
+            if( isset($wrkForm['wrkScore']) )
+            {
+                  $sqlScore = " `score` = \"".$wrkForm['wrkScore']."\",";
+            }
+            else
+            {
+                  $sqlScore = "";
+            }
+            $sqlEditWork = "UPDATE `".$tbl_wrk_submission."`
                            SET `submitted_doc_path` = \"".$wrkForm['fileName']."\",
                               `title`       = \"".trim(claro_addslashes( $wrkForm['title'] ))."\",
                               `submitted_text` = \"".$submittedText."\",
-                              `authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\",
-                              `last_edit_date` = NOW()
+                              `authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\","
+                              .$sqlScore
+                              ."`last_edit_date` = NOW()
                               WHERE `id` = ".$_REQUEST['wrkId'];
-            
-            $lastWrkId = claro_sql_query($sqlAddWork);
+
+            $lastWrkId = claro_sql_query($sqlEditWork);
                         
             $dialogBox .= $langWrkEdited;
             
-            $dispWrkForm = false;
-            $dispWrkDet = false;
+            // display flags
             $dispWrkLst = true;
       }
       else
@@ -545,6 +590,7 @@ if( $is_allowedToEdit )
             $form['wrkAuthors'] = $wrk['authors'];
             $form['wrkTxt'] = $wrk['submitted_text'];
             $form['wrkUrl'] = $wrk['submitted_doc_path'];
+            $form['wrkScore'] = $wrk['score'];
       }
       else
       {
@@ -552,14 +598,19 @@ if( $is_allowedToEdit )
             $form['wrkTitle'] = $_REQUEST['wrkTitle'];
             $form['wrkAuthors'] = $_REQUEST['wrkAuthors'];
             $form['wrkTxt'] = $_REQUEST['wrkTxt'];
+            $form['wrkScore'] = $_REQUEST['wrkScore'];
       }
       $cmdToSend = "exEditWrk";
       // fill the title of the page
       $txtForFormTitle = $langEditWork;
       
+      // display flags
       $dispWrkForm  = true;
-      $dispWrkDet   = false;
-      $dispWrkLst   = false;
+      // only if this is a correction 
+      if( !empty($wrk['parent_id']) )
+      {
+            $dispWrkFormScore = true;
+      }
   }
 }
 /*============================================================================
@@ -602,8 +653,7 @@ if( $is_allowedToSubmit )
                         
             $dialogBox .= $langWrkAdded;
             
-            $dispWrkForm = false;
-            $dispWrkDet = false;
+            // display flags
             $dispWrkLst = true;
       }
       else
@@ -638,9 +688,8 @@ if( $is_allowedToSubmit )
     // fill the title of the page
     $txtForFormTitle = $langSubmitWork;
     
+    // display flags
     $dispWrkForm  = true;
-    $dispWrkDet   = false;
-    $dispWrkLst   = false;
   }
 } // if is_allowedToSubmit
 /*============================================================================
@@ -652,9 +701,8 @@ if( $is_allowedToSubmit )
   --------------------------------------------------------------------*/
 if( $cmd == "exShwDet" )
 {
-      $dispWrkForm = false;
+      // display flags
       $dispWrkDet = true;
-      $dispWrkLst = false;
 } 
   
   
@@ -666,11 +714,9 @@ if( $cmd == "exShwDet" )
 /*============================================================================
                           DISPLAY
   =============================================================================*/
-if( !isset($dispWrkForm) && !isset($dispWrkDet) && !isset($dispWrkLst) )
+if( !$dispWrkForm && !$dispWrkDet && !$dispWrkLst )
 {
-      // set default display values if there is nothing set
-      $dispWrkForm = false;
-      $dispWrkDet = false;
+      // display flags
       $dispAssigDet = true;
       $dispWrkLst = true;
 }
@@ -771,7 +817,16 @@ if( isset($dispWrkLst) && $dispWrkLst )
   --------------------------------------------------------------------*/
 if( $dispWrkDet && $is_allowedToView )
 {
-      echo "<h4>".$langWorkDetails."</h4>\n\n";
+      if( isset($wrk['parent_id']) )
+      {
+            // a correction
+            echo "<h4>".$langFeedbackDetails."</h4>\n\n";
+      }
+      else
+      {
+            // a work
+            echo "<h4>".$langWorkDetails."</h4>\n\n";
+      }
       
       if( empty($wrk['user_id']) )
       {
@@ -875,6 +930,15 @@ if( $dispWrkDet && $is_allowedToView )
             }
       }
       
+      if( isset($wrk['score']) )
+      {
+            echo "<tr>\n"
+                  ."<td valign=\"top\">".$langScore."&nbsp;:</td>\n"
+                  ."<td>".$wrk['score']." %</td>\n"
+                  ."</tr>\n\n";
+      }
+      
+      
       // display an alert if work was submitted after end date and work is not a correction !
       if( $assignment['unix_end_date'] < $wrk['unix_creation_date'] && empty($wrk['parent_id']) )
       {
@@ -940,15 +1004,15 @@ if( $is_allowedToSubmit )
                   echo "<input type=\"hidden\" name=\"wrkId\" value=\"".$_REQUEST['wrkId']."\">";
             }
             
-            echo  "<table>"
-                  ."<tr>"
-                  ."<td valign=\"top\">".$langWrkTitle."&nbsp;*&nbsp;:</td>"
-                  ."<td><input type=\"text\" name=\"wrkTitle\" id=\"wrkTitle\" size=\"50\" maxlength=\"200\" value=\"".htmlentities($form['wrkTitle'])."\"></td>"
-                  ."</tr>"
-                  ."<tr>"
-                  ."<td valign=\"top\">".$langWrkAuthors."&nbsp;*&nbsp;:</td>"
-                  ."<td><input type=\"text\" name=\"wrkAuthors\" id=\"wrkAuthors\" size=\"50\" maxlength=\"200\" value=\"".htmlentities($form['wrkAuthors'])."\"></td>"
-                  ."</tr>";
+            echo  "<table>\n"
+                  ."<tr>\n"
+                  ."<td valign=\"top\"><label for=\"wrkTitle\">".$langWrkTitle."&nbsp;*&nbsp;:</label></td>\n"
+                  ."<td><input type=\"text\" name=\"wrkTitle\" id=\"wrkTitle\" size=\"50\" maxlength=\"200\" value=\"".htmlentities($form['wrkTitle'])."\"></td>\n"
+                  ."</tr>\n\n"
+                  ."<tr>\n"
+                  ."<td valign=\"top\"><label for=\"wrkAuthors\">".$langWrkAuthors."&nbsp;*&nbsp;:</label></td>\n"
+                  ."<td><input type=\"text\" name=\"wrkAuthors\" id=\"wrkAuthors\" size=\"50\" maxlength=\"200\" value=\"".htmlentities($form['wrkAuthors'])."\"></td>\n"
+                  ."</tr>\n\n";
 
             // display file box
             if( $assignmentContent == "FILE" || $assignmentContent == "TEXTFILE" )
@@ -1028,7 +1092,7 @@ if( $is_allowedToSubmit )
                         ."<td>\n"
                         ."<textarea name=\"wrkTxt\" cols=\"30\" rows=\"3\">".$form['wrkTxt']."</textarea>"
                         ."</td>\n"
-                        ."</tr>";
+                        ."</tr>\n\n";
             }
             elseif( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" )
             {
@@ -1043,7 +1107,29 @@ if( $is_allowedToSubmit )
                   echo "</td>\n"
                         ."</tr>\n\n";
             }
-
+            
+            if( $dispWrkFormScore )
+            {
+                  // if this is a correction we have to add an input for the score/grade/results/points
+                  $wrkScoreField = "<select name=\"wrkScore\" id=\"wrkScore\">\n";
+                  for($i=0;$i <= 100; $i++)
+                  {
+                        $wrkScoreField .= "<option value=\"".$i."\"";
+                        if($i == $form['wrkScore'])
+                        {
+                        $wrkScoreField .= " selected=\"true\"";
+                        }
+                        $wrkScoreField .= ">".$i."</option>\n";
+                  }
+                  $wrkScoreField .= "</select> %";
+                  echo "<tr>\n"
+                        ."<td valign=\"top\"><label for=\"wrkScore\">".$langScore."&nbsp;*&nbsp;:</label></td>\n"
+                        ."<td>"
+                        .$wrkScoreField
+                        ."</td>"
+                        ."</tr>\n\n";
+            }
+            
             echo "<tr>\n"
                   ."<td>&nbsp;</td>\n"
                   ."<td>"
