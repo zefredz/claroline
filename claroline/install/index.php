@@ -1,20 +1,20 @@
 <?php // $Id$
+/**
+ * @version CLAROLINE 1.6
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * 
+ * @license GENERAL PUBLIC LICENSE (GPL)
+ * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * 
+ * @author claro team <info@claroline.net>
+ * 
+ * GOAL : install claroline 1.6 on server
+ *
+ */
 
-//----------------------------------------------------------------------
-// CLAROLINE 1.6.*
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-/*
-GOAL : install claroline 1.6.* on server
-*/
 
 /* LET DEFINE ON SEPARATE LINES !!!*/
 // __LINE__ use to have arbitrary number but order of panels
@@ -52,7 +52,6 @@ include ($newIncludePath."installedVersion.inc.php");
 
 include ("../lang/english/complete.lang.php");
 include ("../lang/english/locale_settings.php");
-//include ("../lang/english/claroline_install.php");
 
 include ($newIncludePath."lib/auth.lib.inc.php"); // to generate pass and to cryto it if needed
 include ("./install.lib.inc.php");
@@ -266,18 +265,39 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
 // CHECK DATA OF DB NAMES Form
 if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall'])
 {
+    $regexpPatternForDbName = "^[a-z][a-z0-9_][a-z0-9]*$";
     // Now mysql connect param are ok, try  to use given DBNames
     // 1° check given string
     // 2° check if db exists
 
     $databaseParam_ok = TRUE;
     if ($singleDbForm) $dbStatsForm = $dbNameForm;
-
-    if (!ereg('[azAZ]*',$dbNameForm))
+    $dbNameForm = trim($dbNameForm);
+    $dbStatsForm = trim($dbStatsForm);
+    $databaseNameValid = TRUE;
+    $databaseAlreadyExist = FALSE;
+    if (!eregi($regexpPatternForDbName,$dbNameForm)|| strlen($dbNameForm)>64 
+        ||
+        !eregi($regexpPatternForDbName,$dbStatsForm)|| strlen($dbStatsForm)>64 ) 
+    
+    //  64 is  the  max  for the name of a mysql database
     {
-        $databaseParam_ok = FALSE;
-        $canRunCmd        = FALSE;
-        $databaseNameInvalid = TRUE;
+        $databaseNameValid = FALSE;
+        $msgErrorDbMain_dbNameToolLong = (strlen($dbNameForm)>64);
+        $msgErrorDbMain_dbNameInvalid = !eregi($regexpPatternForDbName,$dbNameForm);
+        $msgErrorDbMain_dbNameBadStart = !eregi("^[a-z]",$dbNameForm);
+        
+        if (!$singleDbForm)
+        {
+            $msgErrorDbMain_dbName = $msgErrorDbMain_dbNameToolLong ||
+                                        $msgErrorDbMain_dbNameInvalid ||
+                                        $msgErrorDbMain_dbNameBadStart ;
+        
+            $msgErrorDbStat_dbNameInvalid = !eregi($regexpPatternForDbName,$dbStatsForm);
+            $msgErrorDbStat_dbNameToolLong = (strlen($dbStatsForm)>64);
+            $msgErrorDbStat_dbNameBadStart = !eregi("^[a-z]",$dbStatsForm);
+        }
+        
     }
     else
     {
@@ -285,11 +305,20 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
         $valMain = check_if_db_exist($dbNameForm  ,$db);
         if ($dbStatsForm == $dbNameForm) $confirmUseExistingStatsDb = $confirmUseExistingMainDb ;
         if (!$singleDbForm) $valStat = check_if_db_exist($dbStatsForm ,$db);
-        if (
-                ($valMain && !$confirmUseExistingMainDb)
-                ||
-                ($valStat && !$confirmUseExistingStatsDb )
-            )
+        if (($valMain && !$confirmUseExistingMainDb)
+             ||
+             ($valStat && !$confirmUseExistingStatsDb ))
+        {   
+            $databaseAlreadyExist              = TRUE;
+            if ($valMain)    $mainDbNameExist  = TRUE;
+            if ($valStat)    $statsDbNameExist = TRUE;
+        }
+    }
+    if (   $databaseAlreadyExist 
+       || !$databaseNameValid    )
+    {
+        $canRunCmd = FALSE;
+        if ($cmd > DISP_DB_NAMES_SETTING)
         {
             $databaseAlreadyExist             = TRUE;
             if ($valMain)    $mainDbNameExist  = TRUE;
@@ -312,7 +341,10 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
             }
         }
     }
-
+    else
+    {
+        $databaseAlreadyExist = false;
+    }
     // Check to add
     // If database already exist but confirm , ok but not if one of table exist in the db.
 
@@ -474,18 +506,18 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
     .notethis {    border: thin double Black;    margin-left: 15px;    margin-right: 15px;}
 </style>
 </head>
-<body bgcolor="white" dir="<?php echo $text_dir ?>">
+<body dir="<?php echo $text_dir ?>">
 <center>
 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-<table cellpadding="10" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
-    <tr bgcolor="navy">
-        <td valign="top">
-            <font color="white">
-                Claroline 1.6 (<?php echo $clarolineVersion ?>) - installation
-            </font>
-        </td>
-    </tr>
-    <tr bgcolor="#E6E6E6">
+<table cellpadding="10" cellspacing="0" border="1" width="650" class="claroTable">
+        <tr>
+            <th valign="top">
+                <DIV id="platformBanner">
+                    Claroline 1.6 (<?php echo $clarolineVersion ?>) - installation
+                </DIV>
+            </th>
+        </TR>
+    <tr >
         <td>
 <?php
 echo '<input type="hidden" name="alreadyVisited" value="1">'                                                 ."\n"
@@ -558,20 +590,18 @@ if ($display==DISP_WELCOME)
                 '.sprintf($langStepNOfN,(array_search(DISP_WELCOME, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_WELCOME].'
                 </h2>';
     // check if an claroline configuration file doesn't already exists.
-    if (
-        file_exists("../inc/conf/claro_main.conf.inc.php")
-    ||    file_exists("../inc/conf/claro_main.conf.php")
-    ||     file_exists("../inc/conf/config.inc.php")
-    || file_exists("../include/config.inc.php")
-    || file_exists("../include/config.php"))
+    if ( file_exists('../inc/conf/claro_main.conf.inc.php')
+    ||   file_exists('../inc/conf/claro_main.conf.php')
+    ||   file_exists('../inc/conf/config.inc.php')
+    ||   file_exists('../include/config.inc.php')
+    ||   file_exists('../include/config.php'))
     {
         echo '
  <div style="background-color:#FFFFFF;margin:20px;padding:5px">
     <b>
-        <font color="red">
-            Warning ! The installer has detected an existing
-            claroline platform on your system.
-        </font>
+        <font color="red">Warning !</font> 
+        The installer has detected an existing
+        claroline platform on your system.
         <br>
     </b>
     <ul>';
@@ -602,7 +632,7 @@ if ($display==DISP_WELCOME)
     if(!$stable)
     {
         echo '
-        <strong>Warning !</strong>
+        <font color="red">Warning !</font>
         This version is not considered as stable
         and is not aimed for production.<br>
 
@@ -955,10 +985,35 @@ elseif($display == DISP_DB_NAMES_SETTING )
             <td>
                 '.$msg_no_connection.'
                 <h4>'.$langDBNamesRules.'</h4>
-
                 <table width="100%">';
+                if (isset($databaseNameValid) && !$databaseNameValid)
+                {
+                    
+                    echo '
+                    <tr>
+                        <td colspan="2">
+                            <P class="setup_error">
+                                <font color="red">Warning</font> 
+                                : Database <em>'.$dbNameForm.'</em> is not valid. 
+                                <ul>'
+                    .($msgErrorDbMain_dbName?'<LI>Main db<UL>':'')
+                    .($msgErrorDbMain_dbNameToolLong?'<LI>dbName Too Long':'')
+                    .($msgErrorDbMain_dbNameInvalid?'<LI>dbName Invalid Check the character (only letter ciffer and _)':'')
+                    .($msgErrorDbMain_dbNameBadStart?'<LI>dbName Must begin by a letter':'')
+                    .($msgErrorDbStat_dbName?'</UL><LI>Stat db<UL>':'')
+                    .($msgErrorDbStat_dbNameToolLong?'<LI>dbName Too Long':'')
+                    .($msgErrorDbStat_dbNameInvalid?'<LI>dbName Invalid. Check the character (only letter ciffer and _)':'')
+                    .($msgErrorDbStat_dbNameBadStart?'<LI>dbName Must begin by a letter':'')
+                    .'
+                                </UL>
+                                </UL>
+                                
+                            </P>
+                        </td>
+                    </tr>';
+                }
                 if ($mainDbNameExist)
-            echo '
+                    echo '
                     <tr>
                         <td colspan="2">
                             <P class="setup_error">
@@ -1736,7 +1791,7 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 else
 {
     echo '
-            <pre>$display</pre not set.
+            <pre>'.$display.'</pre not set.
             <BR>
             Error in script. <BR>
             <BR>
