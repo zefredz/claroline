@@ -1335,6 +1335,8 @@ claro_disp_tool_title($titleElement,
                  ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
 			     . $langThumbnails."</a>\n";
         }
+        
+        $colspan = $numberOfCols;
 
 		echo "<!-- current dir name line -->\n"
 				."<tr>\n"
