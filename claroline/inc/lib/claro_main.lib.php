@@ -926,7 +926,8 @@ function prepare_option_tags($elementList, $deepness = 0)
 //////////////////////////////////////////////////////////////////////////////
 
 /**
- * Add slashes to $text if it has not be automtically done by magic_quotes
+ * Add slashes to $text if it has not be automatically done by magic_quotes
+ * Use this function _ONLY_ for vars that are affected by magic_quote_gpc 
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
  * @param string text to add slashes in
