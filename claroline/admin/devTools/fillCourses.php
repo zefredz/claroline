@@ -52,8 +52,8 @@ DEFINE("CONF_VAL_TEACHER_STATUS"    ,1); //
 $langFile = "create_course";
 unset($includePath);
 require '../../inc/claro_init_global.inc.php';
-if (!isset($includePath)) die("init not run");
-if (!isset($_uid)) die("you need to be logged");
+if (!isset($includePath)) trigger_error("init not run",E_USER_ERROR);
+if (!isset($_uid)) trigger_error("you need to be logged",E_USER_ERROR);
 
 //// Config tool
 include($includePath."/conf/add_course.conf.php");

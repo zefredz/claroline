@@ -273,7 +273,7 @@ elseif ($_REQUEST['applyChange'])
 
             if ( in_array($fileExtension, array('php', 'php4', 'php3', 'phtml') ) )
             {
-                die('<center>No PHP Filles allowed</center>');
+                trigger_error('<div align="center">No PHP Files allowed</div>',E_USER_ERROR);
             }
             mkpath($userImageRepositorySys);
             $user_have_pic = (bool) (trim($actualImage)!="");
@@ -332,12 +332,13 @@ elseif ($_REQUEST['applyChange'])
                         // Create an image from the original image file
 
                         $actualImage = ImageCreateFromJPEG($userImageRepositorySys.$picture_FileName)
-                                       or die('<center>can not open image</center>');
+                                       or trigger_error('<div align="center">can not open image</div>',E_USER_ERROR);
 
                         // Create a new image set with new size
 
                         $finalImage   = ImageCreate($finalWidth, $finalHeight)
-                                        or die('<center>can not create new image</center>');
+                                        or trigger_error('<div align="center">can not create image</div>',E_USER_ERROR);
+
 
                         // Copy and resize the original image into the new one
 
@@ -351,13 +352,12 @@ elseif ($_REQUEST['applyChange'])
                                           $finalHeight,
                                           ImageSX($actualImage),
                                           ImageSY($actualImage) )
-
-                            or die("<center>can not resize image</center>");
+                            or trigger_error('<div align="center">can not resize image</div>',E_USER_ERROR);
 
                         // Store the final image
 
                         ImageJPEG($finalImage, $userImageRepositorySys.$picture_FileName)
-                            or die('<center>can not save image</center>');
+                            or trigger_error('<div align="center">can not save image</div>',E_USER_ERROR);
 
                         $picture = $picture_FileName;
 
@@ -500,6 +500,7 @@ switch($display)
 
 	break;
 	default  : 
+
 
 ?>
 <p>
@@ -692,8 +693,11 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 <?php
 include($includePath."/claro_init_footer.inc.php");
 
-////////////////////////////////////
-// 
+/**
+ * claro_get_uid_of_platform_admin()
+ * 
+ * @return list of users
+ **/
 function claro_get_uid_of_platform_admin()
 {
 	$tbl_mdb_names = claro_sql_get_main_tbl();
