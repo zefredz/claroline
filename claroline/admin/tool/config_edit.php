@@ -1,17 +1,15 @@
 <?php // $Id$
 /**
- * @version CLAROLINE 1.6.*
- * ----------------------------------------------------------------------
+ * @version CLAROLINE 1.6
+ * 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
- * ----------------------------------------------------------------------
- * @license
- * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
- * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
- * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
- * ----------------------------------------------------------------------
+ * 
+ * @license GENERAL PUBLIC LICENSE (GPL)
+ * 
  * @author Mathieu Laurent   <mla@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
- * ----------------------------------------------------------------------
+ * 
+ * 
  * This tool is write to edit setting  of  claroline.
  * In the old claroline, there was a central config file
  * in next release a conf repository was build  with conf files
@@ -41,8 +39,8 @@
  *
  */
 
-$cidReset=true;
-$gidReset=true;
+$cidReset=TRUE;
+$gidReset=TRUE;
 
 // include init and library files
 
@@ -268,7 +266,6 @@ else
             $langThisIsAnErrorInDefinitionFile.' '.
             $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile;
         }
-
     }
     else
     {
