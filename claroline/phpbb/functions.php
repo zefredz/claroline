@@ -1092,4 +1092,75 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
     }
 }
 
+/**
+ * Class building a list of all the post of specific topic, with pager options
+ * The class is actually based on the claro_sql_pager class
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @see    claro_sql_pager class
+ */
+
+class postLister
+{
+    var $sqlPager;
+
+    /**
+     * class constructor
+     *
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+     * @param int $topicId     id of the current topic
+     * @param int $start       post where to start
+     * @param int $postPerPage number of post to display per page
+     */
+
+    function postLister($topicId, $start = 1, $postsPerPage)
+    {
+        global $tbl_posts, $tbl_posts_text, $includePath;
+
+        $sql = "SELECT  p.`post_id`,   p.`topic_id`,  p.`forum_id`,
+                        p.`poster_id`, p.`post_time`, p.`poster_ip`,
+                        p.`nom` lastname, p.`prenom` firstname,
+                        pt.`post_text` 
+
+               FROM     `".$tbl_posts."`      p, 
+                        `".$tbl_posts_text."` pt 
+
+               WHERE    topic_id  = '".$topicId."' 
+                 AND    p.post_id = pt.`post_id`
+
+               ORDER BY post_id";
+
+        require_once $includePath.'/lib/pager.lib.php';
+
+        $this->sqlPager = new claro_sql_pager($sql, $start, $postsPerPage);
+
+        $this->sqlPager->set_pager_call_param_name('start');
+    }
+
+    /**
+     * return all the post list of the current topic
+     *
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+     * @return array post list
+     */
+
+    function get_post_list()
+    {
+        return $this->sqlPager->get_result_list();
+    }
+
+    /**
+     * display a pager tool bar
+     *
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+     * @param string $url page where to point
+     * @return void
+     */
+
+    function disp_pager_tool_bar($pagerUrl)
+    {
+        $this->sqlPager->disp_pager_tool_bar($pagerUrl);
+    }
+}
+
 ?>
