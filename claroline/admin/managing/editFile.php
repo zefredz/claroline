@@ -1,6 +1,6 @@
 <?php # $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.5.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -11,6 +11,9 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
+
+$langEdit = "Edit";
+$langPreview = "Preview";
 $langFile = "editFile";
 $cidReset=TRUE;
 
@@ -19,11 +22,17 @@ include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");
 include("../../inc/lib/file.lib.inc.php");
 
+
+
+define("DISP_FILE_LIST",__LINE__);
+define("DISP_EDIT_FILE",__LINE__);
+define("DISP_PREVIEW_FILE",__LINE__);
+
+$nameTools = $lang_EditFile_EditFile;
 $dateNow 			= claro_format_locale_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin;
 
 $interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $lang_EditFile_AdministrationTools);
-$interbredcrump[]	= array ("url"=>$PHP_SELF, "name"=> $lang_EditFile_EditFile);
 
 //The name of the files
 $NameFile=array("textzone_top.inc.html","textzone_left.inc.html");
@@ -37,29 +46,42 @@ if(!$is_allowedToAdmin)
 }
 else
 {
-	$display=TRUE;
+	$display=DISP_FILE_LIST;
 	//If choose a file to modify
-	if(isset($_REQUEST["file"]))
-	{
-		$TextFile=contentFile($_REQUEST["file"]);
-	}
-
 	//Modify a file
 	if(isset($_REQUEST["modify"]))
 	{
-		$fp=fopen($_REQUEST["file"],"w+");
 		$text=$_REQUEST["textFile"];
-
-
 		if (get_magic_quotes_gpc())
 		{
 			$text = stripslashes($text);
 		}
 
+		$fp=fopen($EditFile[$_REQUEST["file"]],"w+");
 		fwrite($fp,$text);
-		$controlMsg["info"][]=$lang_EditFile_ModifyOk;
-		unset($TextFile);
+		$controlMsg["info"][]=$lang_EditFile_ModifyOk." <br>
+		<strong>".basename($EditFile[$_REQUEST["file"]])."</strong>";
+		$display=DISP_FILE_LIST;
 	}
+
+	if(isset($_REQUEST["file"]))
+	{
+		$TextFile=contentFile($EditFile[$_REQUEST["file"]]);
+		$interbredcrump[]	= array ("url"=>$PHP_SELF, "name"=> $lang_EditFile_EditFile);
+
+		if ($_REQUEST['cmd']=="edit")
+		{
+			$nameTools = 'Edit : '.basename($NameFile[$_REQUEST["file"]]);
+			$display = DISP_EDIT_FILE;
+		}
+		else
+		{
+			$nameTools = 'Preview : '.basename($NameFile[$_REQUEST["file"]]);
+			$display = DISP_VIEW_FILE;
+		}
+	}
+
+
 }
 
 // END OF WORKS
@@ -68,8 +90,7 @@ include($includePath."/claro_init_header.inc.php");
 
 claro_disp_tool_title(
 	array(
-	'mainTitle'=>$nameTools,
-	'subTitle'=> $PHP_AUTH_USER." - ".$siteName." - ".$clarolineVersion." - ".$dateNow
+	'mainTitle'=>$nameTools	
 	)
 	);
 claro_disp_msg_arr($controlMsg);
@@ -78,48 +99,54 @@ claro_disp_msg_arr($controlMsg);
 
 //OUTPUT
 
-if($display)
+if($display==DISP_FILE_LIST
+|| $display==DISP_EDIT_FILE || $display==DISP_VIEW_FILE // remove this  whe  display edit  prupose a link to back to list
+)
 {
 		echo  $lang_EditFile_ListFileEdit." : ";
 	?>
 		<br>
-		<table border="0">
+		<UL>
 	<?php
-		$i=0;
-		foreach($EditFile as $one_file)
+		foreach($NameFile as $idFile => $nameFile)
 		{
 	?>
-			<tr>
-				<td align="RIGHT" width="30"> -
-				</td>
-				<td><small>
-				<a href="<?php echo $PHP_SELF."?file=".$one_file; ?>"> <?php echo $NameFile[$i]; ?> </a>
-				</small>
-				</td>
-			</tr>
+			<LI>				
+				<a href="<?php echo $PHP_SELF."?cmd=edit&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEdit ?>" ></a>
+				<a href="<?php echo $PHP_SELF."?cmd=view&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/visible.gif" border="0" alt="<?php echo $langPreview ?>" ></a>
+				<?php echo basename($nameFile); ?> 
+			</LI>
 	<?php
-			$i++;
 		}
 	?>
-		</table>
+		</UL>
 	<?php
+}
 
-		echo "<br><br>";
-		echo $lang_EditFile_ViewFile." : ";
-
+if($display==DISP_EDIT_FILE)
+{
+		echo $lang_EditFile_ViewFile.' : <strong>'.basename($NameFile[$_REQUEST["file"]]).'</strong>';
+		
 	?>
 		<br>
 
 		<form action="<?php echo $PHP_SELF; ?>">
 			<textarea name="textFile" cols="90" rows="20"> <?php echo $TextFile; ?> </textarea>
 			<br><br> &nbsp;&nbsp;
-			<input type="hidden" name="file" value="<?php echo $file; ?>">
-			<input type="submit" name="modify" value="<?php echo $lang_EditFile_ButtonSubmit; ?>">
+			<input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>">
+			<input type="submit" name="modify" value=" <?php echo $lang_EditFile_ButtonSubmit; ?>">
 		</form>
-
 	<?php
+}
+elseif($display==DISP_VIEW_FILE)
+{
+		echo '<br>
+		<strong>'.basename($NameFile[$_REQUEST["file"]]).'</strong><br>
+		<hr><br>'
+		.$TextFile.'<br>
+		<hr>'; 
+
 }
 
 include($includePath."/claro_init_footer.inc.php");
-
 ?>
