@@ -76,9 +76,9 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_admin            = $tbl_mdb_names['admin'           ];
 $tbl_course           = $tbl_mdb_names['course'           ];
 //$tbl_course_nodes     = $tbl_mdb_names['category'         ];
-$tbl_user             = $tbl_mdb_names['user'             ];
-//$tbl_class            = $tbl_mdb_names['class'            ];
-//$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
+$tbl_user             = $tbl_mdb_names['user'];
+$tbl_rel_class_user            = $tbl_mdb_names['rel_class_user'];
+
 
 $tbl_track_default  = $statsDbName."`.`track_e_default";// default_user_id
 $tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id

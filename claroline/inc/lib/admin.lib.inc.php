@@ -979,6 +979,7 @@ function delete_user($su_user_id)
    global $tbl_track_login;
    global $courseTablePrefix;
    global $dbGlu;
+   global $tbl_rel_class_user;
 
    $sql_searchCourseData =
         "SELECT
@@ -988,9 +989,14 @@ function delete_user($su_user_id)
 
         $res_searchCourseData = claro_sql_query_fetch_all($sql_searchCourseData) ;
 
-        //For each course of the user
-
-        if($res_searchCourseData)
+	//delete the info in the class table
+	
+        $sql_DeleteUser="delete from `$tbl_rel_class_user` where user_id='".$su_user_id."'";       
+        claro_sql_query($sql_DeleteUser);
+        
+	//For each course of the user
+	
+	if($res_searchCourseData)
         {
             foreach($res_searchCourseData as $one_course)
             {
@@ -1026,7 +1032,7 @@ function delete_user($su_user_id)
 
                  $sql_DeleteUser="delete from `$tbl_track_exercices` where exe_user_id='".$su_user_id."'";
                  claro_sql_query($sql_DeleteUser);
-
+		 
                  //$sql_DeleteUser="delete from `$tbl_track_link` where links_user_id='".$su_user_id."'";
                  //claro_sql_query($sql_DeleteUser);
 
@@ -1047,6 +1053,8 @@ function delete_user($su_user_id)
     $sql_DeleteUser="delete from `$tbl_admin` where idUser='".$su_user_id."'";
     claro_sql_query($sql_DeleteUser);
 
+    
+    
     //Change creatorId -> NULL
     $sql_update="update `$tbl_user` set creatorId=NULL where creatorId='".$su_user_id."'";
     claro_sql_query($sql_update);
