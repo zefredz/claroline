@@ -458,33 +458,55 @@ function claro_get_file_size($filePath)
  */
 
 
-function claro_search_file($searchPattern, $baseDirPath, $fileType = 'ALL')
+function claro_search_file($searchPattern       , $baseDirPath, 
+                           $recursive = false    , $fileType = 'ALL')
 {
         $searchResultList = array();
 
         $dirPt = opendir($baseDirPath);
 
-        while ( $file = readdir($dirPt) )
-        {
-            if ( $file == '.' || $file == '..')                           continue;
-            if ( $fileType == 'DIR'  && is_file($baseDirPath.'/'.$file) ) continue;
-            if ( $fileType == 'FILE' && is_dir( $baseDirPath.'/'.$file) ) continue;
-            
-            if ( preg_match($searchPattern, $file) )
-            {
-                $searchResultList[] = $baseDirPath.'/'.$file;
-            }
+        if ( ! $dirPt) return false;
 
-            if ( is_dir($file) ) $dirList[] = $baseDirPath.'/'.$file;
+        while ( $fileName = readdir($dirPt) )
+        {
+            if ( $fileName == '.' || $fileName == '..')
+            {
+                continue;
+            }
+            else
+            {
+
+                $filePath = $baseDirPath.'/'.$fileName;
+
+                if ( is_dir($filePath) ) $dirList[] = $filePath;
+
+                if ( $fileType == 'DIR'  && is_file($filePath) )
+                {
+                    continue;
+                }
+                
+                if ( $fileType == 'FILE' && is_dir($filePath) ) 
+                {
+                    continue;
+                }
+
+                if ( preg_match('|'.$searchPattern.'|', $fileName) )
+                {
+                    $searchResultList[] = $filePath;
+                }
+
+            }
         }
 
-        if ( count($dirList) > 0 )
+        closedir($dirPt);
+
+        if ( $recursive && count($dirList) > 0)
         {
             foreach($dirList as $thisDir)
             {
-                $searchResultList = array_merge($searchResult, 
-                                                search_file($searchPattern, 
-                                                            $thisDir) );
+                $searchResultList = array_merge($searchResultList, 
+                                                claro_search_file($searchPattern, 
+                                                            $thisDir, true ) );
             }
         }
 
@@ -587,15 +609,15 @@ function update_db_info($action, $filePath, $newParam = array())
 
         if (isset($theQuery)) claro_sql_query($theQuery);
 
+
         if ( ! empty($newParam['path']) )
         {
             $theQuery = "UPDATE `".$dbTable."`
             SET path = CONCAT(\"".addslashes($newParam['path'])."\", SUBSTRING(path, LENGTH(\"".addslashes($filePath)."\")+1) )
             WHERE path = \"".addslashes($filePath)."\" OR path LIKE \"".addslashes($filePath)."/%\"";
 
-            claro_sql_query($theQuery);
+            $r = claro_sql_query($theQuery);
         }
-
     } // end else if action == update
 }
 
