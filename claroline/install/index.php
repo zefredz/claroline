@@ -90,11 +90,11 @@ if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step pr
 	$dbHostForm		= "localhost";
 	$dbUsernameForm	= "root";
 
-	$dbPrefixForm	= "CL150RC2";
+	$dbPrefixForm	= "claroline";
 	$dbNameForm		= $dbPrefixForm."Main";
 	$dbStatsForm    = $dbPrefixForm."Main";
 	$dbPrefixForm	= $dbPrefixForm."_";
- 	$singleDbForm	= $singleDbForm = true;
+ 	$singleDbForm	= true;
 
 
 	// extract the path to append to the url if Claroline is not installed on the web root directory
