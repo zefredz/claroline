@@ -122,7 +122,7 @@ if ($disp_tool_link)
 	
 	}
 	?>
-	<a class="claroCmd" href="../group/group.php"><a class="claroCmd" href="user_add.php"><img src="<?php echo $clarolineRepositoryWeb; ?>img/group.gif"><?php echo $langGroupUserManagement; ?></a>
+	<a class="claroCmd" href="../group/group.php"><img src="<?php echo $clarolineRepositoryWeb; ?>img/group.gif"><?php echo $langGroupUserManagement; ?></a>
 	</p>
 <?php
 }
