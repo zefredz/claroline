@@ -41,7 +41,7 @@ $lang_No_course_publicly_available = "No course publicly available.";
 $langLostPassword = "Lost Password";
 
 $lang_edit_my_course_list = "Edit my course List";
-$langAgenda = "Agenda next events";
+$langAgendaNextEvents = "Agenda next events";
 $langValvas = "Last announcements" ;
 
 $langUp = "previous level";

@@ -54,7 +54,7 @@ $lang_No_course_publicly_available = "Pas de cours en accès libre";
 $lang_edit_my_course_list = "Modifier ma liste de cours";
 
 $langLostPassword = "Perdu mot de passe";
-$langAgenda = "Agenda : prochains événements";  // JCC
+$langAgendaNextEvents = "Agenda : prochains événements";  // JCC
 $langValvas = "Dernières annonces" ;
 
 $langUp = "catégorie supérieure";

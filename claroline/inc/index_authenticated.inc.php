@@ -195,7 +195,7 @@ echo "</ul>\n"
                 $itemIcon = 'agenda.gif';
                 $url = 'claroline/calendar/agenda.php?cidReq='
                        .$courseDigestList['courseSysCode'][$i];
-                $name =  $langAgenda;
+                $name =  $langAgendaNextEvents;
                 break;
         }
         
