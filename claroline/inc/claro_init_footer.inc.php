@@ -1,5 +1,8 @@
 <?php # $Id$
 //echo "<pre>".var_export($_courseToolList,1)."</pre>";
+
+if ($claro_banner) echo $claro_banner;
+
 ?>
 <hr noshade size="1">
 
