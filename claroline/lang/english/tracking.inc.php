@@ -15,13 +15,10 @@ $langToolName="Statistics";
 $langShowAll = "Show all";
 $langShowNone = "Show none";
 
-$langCourseStats = "Course Stats";
 $langToolsAccess = "Access to tools";
 $langCourseAccess = "Course access";
-$langLinksAccess = "Links";
 $langDocumentsAccess = "Documents";
 
-$langLinksDetails = "Links accessed by the student";
 $langWorksDetails = "Works uploaded by the student in the name of 'Authors'";
 $langLoginsDetails = "Click on the month name for more details";
 $langDocumentsDetails = "Documents downloaded by the student"; 
@@ -54,11 +51,6 @@ $langLoginsTitleCountColumn = "Number of logins";
 $langToolTitleToolnameColumn = "Name of the tool";
 $langToolTitleUsersColumn = "Users Clicks";
 $langToolTitleCountColumn = "Total Clicks";
-
-/* links*/
-$langLinksTitleLinkColumn = "Link";
-$langLinksTitleUsersColumn = "Users Clicks";
-$langLinksTitleCountColumn = "Total Clicks";
 
 /* exercises */
 $langExercises = "Exercises";
@@ -126,7 +118,6 @@ $langHits = "Hits";
 $langTotal = "Total";
 $langHour = "Hour";
 $langDay = "Day";
-$langLittleHour = "h.";
 $langLast31days = "Last 31 days";
 $langLast7days = "Last 7 days";
 $langYesterday = "Yesterday";
@@ -134,16 +125,13 @@ $langThisday  = "This day";
 
 /* perso stats */
 $langLogins = "My last logins";
-$langLoginsExplaination = "Here is the list of your last logins with the tools you visited during these sessions.";
 
-$langExercicesResults = "Results of the exercises done";
+$langExercisesResults = "Results of the exercises done";
 
 $langNoRegisteredCourses = "No stats to show.  You haven't register any course.";
 
 $langVisits = "visits";
 $langAt = "at";
-$langLoginTitleDateColumn = "Date";
-$langLoginTitleCountColumn = "Visits";
 
 /* tutor view */
 $langLoginsAndAccessTools = "Logins and access to tools";
@@ -184,9 +172,8 @@ $langPeriodToDisplay = "Period";
 $langDetailView = "View by";
 
 /* for interbredcrumps */
-$langBredCrumpGroups = "Groups";
-$langBredCrumpGroupSpace = "Group Area";
 $langBredCrumpUsers = "Users";
+$langBredCrumpUser = "User";
 
 /* admin stats */
 $langAdminToolName = "Admin Stats";
@@ -209,11 +196,6 @@ $langCountUsersByStatus = "Number of users by status";
 $langCourses = "Courses";
 $langUsers = "Users";
 $langAccess = "Access";
-$langCountries = "Countries";
-$langProviders = "Providers";
-$langOS = "OS";
-$langBrowsers = "Browsers";
-$langReferers = "Referers";
 $langAccessExplain = "(When an user open the index of the campus)";
 $langLogins = "Logins";
 $langTotalPlatformAccess = "Total";
