@@ -1530,8 +1530,12 @@ elseif($display==DISP_RUN_INSTALL_NOT_COMPLETE)
 		echo "<BR>".$mainDbNameCreationError;
 	if($statsDbNameCreationError)
 		echo "<BR>".$statsDbNameCreationError;
-	if($fileAccessCreationError)
-		echo "<BR>Error on creation : file <EM>".$htAccessName."</EM> in <U>".realpath($htAccessPath)."</U><br>";
+	if($fileAccessInAdminSectionCreationError)
+		echo "<BR>Error on creation : file <EM>".$htAccessName."</EM> in <U>".realpath($htAccessAdminPath)."</U><br>";
+	if($fileAccessInLangRepositoryCreationError)
+		echo "<BR>Error on creation : file <EM>".$htAccessName."</EM> in <U>".realpath($htAccessLangPath)."</U><br>";
+	if($fileAccessInSqlRepositoryCreationError)
+		echo "<BR>Error on creation : file <EM>".$htAccessName."</EM> in <U>".realpath($htAccessSqlPath)."</U><br>";
 	if($filePasswordCreationError)
 		echo "<BR>Error on creation : file <EM>".$htPasswordName."</EM> in <U>".realpath($htPasswordPath)."</U><br>";
 	if ($fileConfigCreationError)

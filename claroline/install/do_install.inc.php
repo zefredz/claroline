@@ -381,15 +381,15 @@ foreach ($arr_file_to_undist As $undist_this)
 	}
 
 	// ADD htPassword
-	
+
 	$htPasswordPath = "../admin/";
 	$htPasswordName = ".htpasswd4admin";
-	@rename ($htPasswordPath.$htPasswordName,		 	$htPasswordPath.$htPasswordName."_old");
+	@rename ($htPasswordPath.$htPasswordName,$htPasswordPath.$htPasswordName."_old");
 
 	$filePasswd=@fopen($htPasswordPath.$htPasswordName, "w");
 	if (!$filePasswd)
 	{
-		$filePasswordCreationError = true;
+		$filePasswordCreationError = TRUE;
 		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
 	}
 	else
@@ -398,16 +398,15 @@ foreach ($arr_file_to_undist As $undist_this)
 		@fwrite($filePasswd, $stringPasswd);
 	}
 
-	
 	// htaccess files
 
-	$htAccessPath = "../admin/";
+	$htAccessAdminPath = "../admin/";
 	$htAccessName = ".htaccess";
 	@rename ($htAccessAdminPath.$htAccessName, 			$htAccessAdminPath.$htAccessName."_old");
-	$fileAccess=@fopen($htAccessPath.$htAccessName, "w");
+	$fileAccess=@fopen($htAccessAdminPath.$htAccessName, "w");
 	if (!$fileAccess)
 	{
-		$fileAccessCreationError = true;
+		$fileAccessInAdminSectionCreationError = TRUE;
 		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
 	}
 	else
@@ -420,11 +419,11 @@ foreach ($arr_file_to_undist As $undist_this)
 		fwrite($fileAccess, $stringAccess);
 	}
 
-	$htAccessPath = "../lang/";
-	$fileAccess=@fopen($htAccessPath.$htAccessName, "w");
+	$htAccessLangPath = "../lang/";
+	$fileAccess=@fopen($htAccessLangPath.$htAccessName, "w");
 	if (!$fileAccess)
 	{
-		$fileAccessCreationError = true;
+		$fileAccessInLangRepositoryCreationError = TRUE;
 		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
 	}
 	else
@@ -437,11 +436,11 @@ foreach ($arr_file_to_undist As $undist_this)
 		fwrite($fileAccess, $stringAccess);
 	}
 
-	$htAccessPath = "../sql/";
-	$fileAccess=@fopen($htAccessPath.$htAccessName, "w");
+	$htAccessSqlPath = "../sql/";
+	$fileAccess=@fopen($htAccessSqlPath.$htAccessName, "w");
 	if (!$fileAccess)
 	{
-		$fileAccessCreationError = true;
+		$fileAccessInSqlRepositoryCreationError = TRUE;
 		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
 	}
 	else
