@@ -5,12 +5,11 @@
 <?php # $Id$
 //echo "<pre>".var_export($_courseToolList,1)."</pre>";
 
-if ($claro_banner) echo $claro_banner;
+if ($claro_banner) {echo $claro_banner;}
 
 ?>
 
 
-<!-----------------------  Claroline Footer  ------------------------>
 
 <div class="claroFooter">
 <hr noshade size="1">
