@@ -1,42 +1,25 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.5.* $Revision: 
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004, 2003 Universite catholique de Louvain (UCL)|
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   Este programa es software libre; usted puede redistribuirlo y/o    | 
-      |   modificarlo bajo los términos de la Licencia Pública General (GNU) | 
-      |   como fué publicada por la Fundación de Sofware Libre; desde la     |
-      |   versión 2 de esta Licencia o (a su opción) cualquier versión       |
-      |   posterior.                                                         |
-      |   Este programa es distribuído con la esperanza de que sea útil,     |
-      |   pero SIN NINGUNA GARANTIA; sin ninguna garantía implícita de       |
-      |   MERCATIBILILIDAD o ADECUACIÓN PARA PROPOSITOS PARTICULARES.        |
-      |   Vea la Licencia Pública General GNU por más detalles.              |
-      |   Usted pudo haber recibido una copia de la Licencia Pública         |
-      |   General GNU junto con este programa; sino, escriba a la Fundación  |
-      |   de Sofware Libre : Free Software Foundation, Inc., 59 Temple Place |
-      |   - Suite 330, Boston, MA 02111-1307, USA. La licencia GNU GPL       |
-      |   también está disponible a través de la world-wide-web en la        |
-      |   dirección  http://www.gnu.org/copyleft/gpl.html                    |
+      |   English Translation                                                |
       +----------------------------------------------------------------------+
-      | Autores: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
+      |   This program is free software; you can redistribute it and/or      |
+      |   modify it under the terms of the GNU General Public License        |
+      |   as published by the Free Software Foundation; either version 2     |
+      |   of the License, or (at your option) any later version.             |
       +----------------------------------------------------------------------+
-      | Traducción :                                                         |
+
+      +----------------------------------------------------------------------+
+      | Translator :                                                         |
       |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
       |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
       +----------------------------------------------------------------------+
-      | Basado en la traducción al castellano de                             |
-      |          Xavier Casassas Canals <xcc@ics.co.at>                      |
-      | Adaptado al español latinoamericano en Agosto-2003 por               |
-      |          Carlos Brys       <brys@fce.unam.edu.ar>                    |
-      +----------------------------------------------------------------------+
- */
+*/
 
 $englishLangName = "spanish";
 $localLangName = "español";
@@ -57,29 +40,28 @@ $langNameOfLang['greek'			]="griego";
 $langNameOfLang['italian'		]="italiano";
 $langNameOfLang['japanese'		]="japonés";
 $langNameOfLang['polish'		]="polaco";
-$langNameOfLang['simpl_chinese'	]="chino";
+$langNameOfLang['simpl_chinese'		]="chino";
 $langNameOfLang['spanish'		]="español";
-$langNameOfLang['spanish_latin'	]="español latin";
+$langNameOfLang['spanish_latin'		]="español latin";
 $langNameOfLang['swedish'		]="sueco";
 $langNameOfLang['thai'			]="thailandés";
 $langNameOfLang['turkish'		]="turco";
-
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' para izq a der, 'rtl' para der a izq)
 $left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
 $right_font_family = 'helvetica, arial, geneva, sans-serif';
-$number_thousands_separator = '.';
-$number_decimal_separator = ',';
-$byteUnits = array('Bytes', 'Kb', 'Mb', 'Gb');
+$number_thousands_separator = ',';
+$number_decimal_separator = '.';
+$byteUnits = array('Bytes', 'KB', 'MB', 'GB');
 
-$langDay_of_weekNames['init'] = array('D', 'L', 'M',' M', 'J', 'V', 'S');
-$langDay_of_weekNames['short'] = array('Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab');
+$langDay_of_weekNames['init'] = array('S', 'M', 'T', 'W', 'T', 'F', 'S');
+$langDay_of_weekNames['short'] = array('Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab');
 $langDay_of_weekNames['long'] = array('Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado');
 
 $langMonthNames['init']  = array('E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D');
-$langMonthNames['short'] = array('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic');
-$langMonthNames['long'] = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
+$langMonthNames['short'] = array('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec');
+$langMonthNames['long'] = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Dicembre');
 
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
@@ -89,67 +71,91 @@ $dateFormatLong  = '%A %B %d, %Y';
 $dateTimeFormatLong  = '%B %d, %Y at %I:%M %p';
 $timeNoSecFormat = '%I:%M %p';
 
-// GENERIC 
+// GENERIC
 
 $langYes="Si";
 $langNo="No";
-$langBack="Atrás";
-$langNext="siguiente";
-$langAllowed="Permitido";
-$langDenied="Denegado";
-$langBackHome="Volver al inicio";
-$langPropositions="Sugerencias para mejoras de";
+$langBack="Regresar";
+$langNext="Siguiente";
+$langAllowed="Abierta";
+$langDenied="Cerrada";
+$langBackHome="Regresar al inicio";
+$langPropositions="Proposals for an improvement of";
 $langMaj="Actualizar";
 $langModify="Modificar";
-$langDelete="Eliminar";
+$langDelete="Borrar";
 $langMove="Mover";
-$langTitle="Título";
+$langTitle="Titulo";
 $langHelp="Ayuda";
 $langOk="Aceptar";
-$langAdd="Agregar";
-$langAddIntro="Agregar un texto introductorio";
-$langBackList="Volver a la lista";
+$langAdd="Añadir";
+$langAddIntro="Añadir texto introductorio";
+$langBackList="Regresar a la lista";
 $langText="Texto";
 $langEmpty="Vacío";
-$langConfirmYourChoice="Por favor, confirme su elección";
-$langCheckAll="Marcar todo";
+$langConfirmYourChoice="Por favor confirma tú elección";
 $langAnd="y";
-$langChoice="Su elección";
+$langChoice="Tú elección";
 $langFinish="Terminar";
 $langCancel="Cancelar";
-$langNotAllowed="Ud. no está admitido aquí";
-$langManager="Administrador";
-$langPlatform="Funciona con";
+$langNotAllowed="No tienes acceso";
+$langManager="Coordinador"; // Think about what kind of manager...
+$lang_footer_CourseManager = "Coordinador(es)";
+$langPlatform="Generado con";
 $langOptional="Opcional";
-$langNextPage="Próxima página";
-$langPreviousPage="Página anterior";
-$langUse="Usa";
+$langNextPage="Pagina siguiente";
+$langPreviousPage="Pagina anterior";
+$langUse="Use";
 $langTotal="Total";
-$langTake="toma";
+$langTake="tomar";
 $langOne="Uno";
-$langSeveral="Algunos";
-$langNotice="Aviso";
+$langSeveral="Varios";
+$langNotice="Noticia";
 $langDate="Fecha";
+$langAmong="Entre";
 
 // banner
 
-$langMyCourses="Lista de mis cursos";
-$langModifyProfile="Modificar mi perfil";
-$langMyStats = "Ver mis estadísticas";
+$langMyCourses="Mis cursos";
+$langModifyProfile="Modificar mis datos";
+$langMyAgenda = "Mi agenda";
 $langLogout="Salir";
 
-// Tools names 
 
-$langAgenda             = "Agenda";
-$langDocument           = "Documentos";
-$langWork               = "Trabajos de los Estudiantes";
-$langAnnouncement       = "Anuncios";
-$langUser               = "Usuarios";
-$langForum              = "Foros";
-$langExercise           = "Ejercicios";
-$langStats              = "Estadísticas";
-$langGroups             = "Grupos";
-$langChat               = "Charlar";
-$langDescriptionCours   = "Descripción del Curso";
+//needed for student view
+$langCourseManagerview = "Ver como Coordinador";
+$langStudentView = "Ver como estudiante";
+
+
+
+
+
+
+$lang_this_course_is_protected = 'This course is protected';
+$lang_enter_your_user_name_and_password = 'Enter your user name and password';
+$lang_if_you_dont_have_a_user_account_profile_on = 'If you don\'t have a user account on';
+$lang_click_here = 'click here';
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
+$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
+$lang_username = "User Name";
+$lang_password = "Password";
+
+
+
+// TOOLNAMES
+$langCourseHome = "Descripción del curso";
+$langAgenda = "Agenda";
+$langLink="Ligas";
+$langDocument="Documentos";
+$langWork="Trabajos";
+$langAnnouncement="Anuncios";
+$langUser="Usuarios";
+$langForum="Foros";
+$langExercise="Ejercicios";
+$langGroups ="Grupos";
+$langChat ="Charla";
+$langLearnPath="Lecciones";
+$langDescriptionCours  = "Descripción del curso";
+$langPlatformAdministration = "Administración de la plataforma";
 
 ?>

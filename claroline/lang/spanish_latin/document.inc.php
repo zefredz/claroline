@@ -1,87 +1,85 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.3.0 $Revision$                               |
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004, 2003 Universite catholique de Louvain (UCL)|
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   Este programa es software libre; usted puede redistribuirlo y/o    | 
-      |   modificarlo bajo los términos de la Licencia Pública General (GNU) | 
-      |   como fué publicada por la Fundación de Sofware Libre; desde la     |
-      |   versión 2 de esta Licencia o (a su opción) cualquier versión       |
-      |   posterior.                                                         |
-      |   Este programa es distribuído con la esperanza de que sea útil,     |
-      |   pero SIN NINGUNA GARANTIA; sin ninguna garantía implícita de       |
-      |   MERCATIBILILIDAD o ADECUACIÓN PARA PROPOSITOS PARTICULARES.        |
-      |   Vea la Licencia Pública General GNU por más detalles.              |
-      |   Usted pudo haber recibido una copia de la Licencia Pública         |
-      |   General GNU junto con este programa; sino, escriba a la Fundación  |
-      |   de Sofware Libre : Free Software Foundation, Inc., 59 Temple Place |
-      |   - Suite 330, Boston, MA 02111-1307, USA. La licencia GNU GPL       |
-      |   también está disponible a través de la world-wide-web en la        |
-      |   dirección  http://www.gnu.org/copyleft/gpl.html                    |
+      |   $Id$           |
+	  |   English Translation                                                |
       +----------------------------------------------------------------------+
-      | Autores: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+
       +----------------------------------------------------------------------+
-      | Traducción :                                                         |
+      | Translator :                                                         |
       |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
       +----------------------------------------------------------------------+
-      | Basado en la traducción al castellano de                             |
-      |          Xavier Casassas Canals <xcc@ics.co.at>                      |
-      | Adaptado al español latinoamericano en Agosto-2003 por               |
-      |          Carlos Brys       <brys@fce.unam.edu.ar>                    |
-      +----------------------------------------------------------------------+
  */
-
-// DOCUMENT
-
-$langDoc          = "Documentos";
-$langDownloadFile = "Enviar el archivo al servidor";
-$langDownload     = "enviar";
-$langCreateDir    = "Crear un directorio";
-$langName         = "Nombre";
-$langNameDir      = "Nombre del directorio nuevo ";
-$langSize         = "Tamaño";
-$langDate         = "Fecha";
-$langMove         = "Mover";
-$langRename       = "Cambiar el nombre";
-$langComment      = "Comentario";
-$langVisible      = "Visible/Invisible";
-$langCopy         = "Copiar";
-$langTo           = "hacia";
-$langNoSpace      = "No se ha podido subir el documento al servidor. No hay espacio suficiente en su directorio";
-$langDownloadEnd  = "Finalizó el envío";
-$langFileExists   = "Imposible realizar esta operación.<br> Ya existe  un elemento con el mismo nombre.";
-$langDocCopied    = "Documento copiado";
-$langDocDeleted   = "Documento eliminado";
-$langElRen        = "Elemento renombrado";
-$langDirCr        = "Directorio creado";
-$langDirMv        = "Elemento movido";
-$langComMod       = "Comentario modificado";
-$langIn           = "en";
-$langNewDir       = "Nombre del directorio nuevo ";
-$langImpossible   = "Es imposible realizar esta operación";
-$langAddComment   = "Agregar/Modificar un comentario ";
-$langUp           = "Subir";
-$langViMod        = "Visibilidad modificada";
-$langElRen        = "Elemento renombrado";
-$langFileError    = "El archivo a enviar no es válido.";
-$langMaxFileSize  = "El tamáño máximo de archivo es";
+$langDoc="Documentos";
+$langCreateDocument = "Crear Documento";
+$langCreateHyperlink = "Crear Hipervínculo";
+$langUploadFile = "Subir un archivo";
+$langDownloadFile= "Subir un archivo al servidor";
+$langDownload="Subir";
+$langCreateDir="Crear un directorio";
+$langName="Nombre";
+$langNameDir="Nombre del nuevo directorio";
+$langSize="Tamaño";
+$langDate="Fecha";
+$langRename="Renombrar";
+$langComment="Comentario";
+$langVisible="Visible/invisible";  // better make available, make unavailable? o unhide/hide  vicm3
+$langMakeVisible = "Hacer visible";  // like better make available 
+$langMakeInvisible = "Hacer invisible";
+$langCopy="Copiar";
+$langTo="a";
+$langNoSpace="La acción ha fallado. No hay suficiente espacio en tú directorio";
+$langDownloadEnd="La acción se completo con exito";
+$langFileExists="No se puede realizar la acción.<br>Un archivo con ese nombre ya existe.";
+$langDocCopied="Documento copiado";
+$langDocDeleted="Document borrado";
+$langElRen="Elemento re nombrado";
+$langDirCr="Directorio creado";
+$langDirMv="Elemento movido";
+$langComMod="Comentario modificado";
+$langIn="en";
+$langNewDir="Nombre del nuevo directorio";
+$langImpossible="Acción imposible";
+$langAddComment="Añadir/Modificar el comentario a";
+$langUp="Arriba";
+$langViMod="Visibilidad modificada";
+$langElRen="Elemento re nombrado";
+$langFileError="El archivo a subir no es valido.";
+$langMaxFileSize="El tamaño maximo es: ";
+$langAddCommentOptionnal = "Añadir un comentario (opcional) :";
 
 // Special for group documents
-$langGroupManagement="Administración de Grupos";
-$langGroupSpace="Area del Grupo";
-$langGroupSpaceLink="Area del Grupo";
-$langGroupForumLink="Foro del Grupo";
-$langZipNoPhp="El archivo zip no puede contener archivos .PHP";
+$langGroupManagement="Manejo de Grupo";
+$langGroupSpace="Area de Grupo";
+$langGroupSpaceLink="Area de Grupo";
+$langGroupForumLink="Foro de Grupo";
+$langZipNoPhp="El archivo zip no debe contener archivos .PHP";
 $langUncompress="descomprimir archivos comprimidos (.zip) en el servidor";
-$langDownloadAndZipEnd=" Archivo Zip levantado y descomprimido";
-$langAreYouSureToDelete = "Está seguro que desea borrar";
+$langDownloadAndZipEnd="Archivo comprimido subido y descomprimido correctamente";
+$langAreYouSureToDelete = "¿Estas seguro que deseas borrar?";
 
 $langPublish = "Publicar";
-$langMissingImagesDetected = "Se detectó que faltan imágenes";
+$langMissingImagesDetected = "Se ha detectado que existen imágenes faltantes";
 
+$langIfNotRedirect = "Si no eres transferido";
+$langClickHere = "Presiona aquí";
+
+$langURL = "URL : ";
+// rqmkhtml in document.php
+$langFileCreated = "Archivo Creado";
+$langFileNameMissing = "Falta el nombre del archivo";
+$langFileContentModified  = "Contenido del archivo modificado";
+$langFileNameOrURLMissing = "Falta el nombre o la URL.";
+$langBackToEditor = "Regresar al editor";
+// rqmkhtml
+$langCreateModifyDocument = "Crear/editar documento";
+$langDocumentName = "Nombre del Documento: ";
+$langDocumentContent = "Contenido del documento: ";
+
+$langEditFileContent = "Editar el contenido del documento";
 ?>

@@ -1,81 +1,85 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                              |
+      | CLAROLINE version 1.3.0 $Revision$                               |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$              |
-      |   castellana translation                                               |
+      |   $Id$           |
+	  |   English Translation                                                |
       +----------------------------------------------------------------------+
 
       +----------------------------------------------------------------------+
-      | Translator:                                                          |
-      | Version castellana de los interfaces:                                |
-      |          Xavier Casassas Canals <xcc@ics.co.at>                      |
-      +----------------------------------------------------------------------|
-      | Translation to Spanish v.1.4                                             |
-      | e-learning dept CESGA <teleensino@cesga.es >                         |
-      |                                                                      |
-      +----------------------------------------------------------------------|
+      | Translator :                                                         |
+      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
+      +----------------------------------------------------------------------+
  */
+$langDoc="Documentos";
+$langCreateDocument = "Crear Documento";
+$langCreateHyperlink = "Crear Hipervínculo";
+$langUploadFile = "Subir un archivo";
+$langDownloadFile= "Subir un archivo al servidor";
+$langDownload="Subir";
+$langCreateDir="Crear un directorio";
+$langName="Nombre";
+$langNameDir="Nombre del nuevo directorio";
+$langSize="Tamaño";
+$langDate="Fecha";
+$langRename="Renombrar";
+$langComment="Comentario";
+$langVisible="Visible/invisible";  // better make available, make unavailable? o unhide/hide  vicm3
+$langMakeVisible = "Hacer visible";  // like better make available 
+$langMakeInvisible = "Hacer invisible";
+$langCopy="Copiar";
+$langTo="a";
+$langNoSpace="La acción ha fallado. No hay suficiente espacio en tú directorio";
+$langDownloadEnd="La acción se completo con exito";
+$langFileExists="No se puede realizar la acción.<br>Un archivo con ese nombre ya existe.";
+$langDocCopied="Documento copiado";
+$langDocDeleted="Document borrado";
+$langElRen="Elemento re nombrado";
+$langDirCr="Directorio creado";
+$langDirMv="Elemento movido";
+$langComMod="Comentario modificado";
+$langIn="en";
+$langNewDir="Nombre del nuevo directorio";
+$langImpossible="Acción imposible";
+$langAddComment="Añadir/Modificar el comentario a";
+$langUp="Arriba";
+$langViMod="Visibilidad modificada";
+$langElRen="Elemento re nombrado";
+$langFileError="El archivo a subir no es valido.";
+$langMaxFileSize="El tamaño maximo es: ";
+$langAddCommentOptionnal = "Añadir un comentario (opcional) :";
 
-// GENERIC
-
-$langModify   = "modificar";
-$langDelete   = "borrar";
-$langTitle    = "T&iacute;tulo";
-$langHelp     = "ayuda";
-$langOk       = "validar";
-$langAddIntro = "A&ntilde;adir un texto de introducci&oacute;n";
-$langBackList = "Volver a la lista";
-
-// DOCUMENT
-
-$langDoc = "Documentos";
-
-$langDownloadFile = "Subir al servidor el fichero";
-$langDownload     = "subir";
-$langCreateDir    = "Crear un directorio";
-$langName         = "Nombre";
-$langNameDir      = "Nombre del nuevo directorio";
-$langSize         = "Tama&ntilde;o";
-$langDate         = "Fecha";
-$langMove         = "Desplazar";
-$langRename       = "Cambiar el nombre";
-$langComment      = "Comentario";
-$langVisible      = "Visible/invisible";
-$langCopy         = "Copiar";
-$langTo           = "hacia";
-$langNoSpace      = "No se ha podido subir el documento al servidor. No hay espacio suficiente en su directorio";
-$langDownloadEnd  = "El documento ya est&aacute; en el servidor";
-$langFileExists   = "Imposible de realizar esta operaci&oacute;n.<br>Existe ya un elemento con el mismo nombre.";
-$langDocCopied    = "documento copiado";
-$langDocDeleted   = "documento suprimido";
-$langElRen        = "se ha variado el nombre del elemento";
-$langDirCr        = "directorio creado";
-$langDirMv        = "repertorio trasladado";
-$langComMod       = "comentario modificado";
-$langIn           = "en";
-$langNewDir       = "nombre del nuevo directorio";
-$langImpossible   = "Es imposible realizar esta operaci&oacute;n";
-$langAddComment   = "a&ntilde;adir/modificar un comentario ";
-$langViMod        = "Visibilidad modificada";
-$langFileError="El archivo que quieres subir no es v&aacute;lido.";
-$langMaxFileSize="El tama&ntilde;o m&aacute;ximo del fichero es";
-$langUp           = "subir";
-$langCopy         = "copiar";
-$langTo           = "hacia";
-
-$langGroupManagement="Gesti&oacute;n Grupos";
-$langGroupSpace="&Aacute;rea del grupo";
-$langGroupSpaceLink="&Aacute;rea del grupo";
-$langGroupForumLink="Foro del grupo";
-$langZipNoPhp="El fichero zip no puede contener ficheros .PHP";
-$langUncompress="descomprimir archivos(.zip) en el servidor";
-$langDownloadAndZipEnd="fichero Zip subido y descomprimido";
-$langAreYouSureToDelete = "Estás seguro de que quieres borrar";
+// Special for group documents
+$langGroupManagement="Manejo de Grupo";
+$langGroupSpace="Area de Grupo";
+$langGroupSpaceLink="Area de Grupo";
+$langGroupForumLink="Foro de Grupo";
+$langZipNoPhp="El archivo zip no debe contener archivos .PHP";
+$langUncompress="descomprimir archivos comprimidos (.zip) en el servidor";
+$langDownloadAndZipEnd="Archivo comprimido subido y descomprimido correctamente";
+$langAreYouSureToDelete = "¿Estas seguro que deseas borrar?";
 
 $langPublish = "Publicar";
-$langMissingImagesDetected = "Se detectaron im&aacute;genes perdidas";
+$langMissingImagesDetected = "Se ha detectado que existen imágenes faltantes";
+
+$langIfNotRedirect = "Si no eres transferido";
+$langClickHere = "Presiona aquí";
+
+$langURL = "URL : ";
+// rqmkhtml in document.php
+$langFileCreated = "Archivo Creado";
+$langFileNameMissing = "Falta el nombre del archivo";
+$langFileContentModified  = "Contenido del archivo modificado";
+$langFileNameOrURLMissing = "Falta el nombre o la URL.";
+$langBackToEditor = "Regresar al editor";
+// rqmkhtml
+$langCreateModifyDocument = "Crear/editar documento";
+$langDocumentName = "Nombre del Documento: ";
+$langDocumentContent = "Contenido del documento: ";
+
+$langEditFileContent = "Editar el contenido del documento";
 ?>
