@@ -15,6 +15,7 @@ $langAdministrationTools ="Outils d'administration";
 $langManage = "Gestion du campus";
 
 $langFile = "admin.add.users";
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 $nameTools             = $lang_addUser_addUser;
@@ -29,7 +30,7 @@ include($includePath."/lib/admin.lib.inc.php");
 
 //SECURITY CHECK
 
-if (!$is_platformAdmin) treatNotAuthorized();
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 
 $dateNow             = claro_format_locale_date($dateTimeFormatLong);
@@ -200,7 +201,7 @@ if( (isset($_REQUEST["register"]) || isset($_REQUEST["searchUsers"])) && count($
 
                     if($user['userExists'])
                     {
-                        $userExists = true;
+                        $userExists = TRUE;
                         $userId     = $user['user_id'];
                         $error[0]=$lang_addUser_UserExist;
                         break;
@@ -210,7 +211,7 @@ if( (isset($_REQUEST["register"]) || isset($_REQUEST["searchUsers"])) && count($
 
                     if($user['loginExists'])
                     {
-                        $loginExists = true;
+                        $loginExists = TRUE;
                         $userId      = 0;
                         $error[0]=$lang_addUser_UserNo." (".$username.") ".$lang_addUser_Taken;
                         break;

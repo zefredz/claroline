@@ -14,9 +14,10 @@
 define ('USER_DATA_FORM', 2);
 
 $langFile='admin';
-$cidReset = true;
-
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
+//SECURITY CHECK
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 include $includePath.'/lib/text.lib.php';
 include $includePath.'/lib/admin.lib.inc.php';
@@ -24,9 +25,8 @@ include $includePath.'/lib/auth.lib.inc.php';
 include $includePath.'/conf/profile.conf.inc.php';
 
 
-//SECURITY CHECK
 
-if (!$is_platformAdmin) treatNotAuthorized();
+
 
 
 $nameTools=$langModifOneProfile;
@@ -62,11 +62,9 @@ include($includePath.'/claro_init_header.inc.php');
 
 session_unregister("userEdit");
 
-
 // see which user we are working with ...
 
 $user_id = $_REQUEST['uidToEdit'];
-//echo $user_id."<br>";
 
 //------------------------------------
 // Execute COMMAND section
@@ -140,7 +138,7 @@ if (isset($applyChange))  //for formular modification
 
         if ($user_id==$_uid)
         {
-            $uidReset    = true;
+            $uidReset    = TRUE;
             include($includePath.'/claro_init_local.inc.php');
         }
         $classMsg = "success";
@@ -222,13 +220,13 @@ if(isset($user_id))
 
     $myrow = mysql_fetch_array($result);
 
-    $user_id =            $myrow[user_id];
-    $nom_form =           $myrow[nom];
-    $prenom_form =           $myrow[prenom];
-    $official_code_form = $myrow[officialCode];
-    $username_form =       $myrow[username];
-    $email_form    =          $myrow[email];
-    $userphone_form =     $myrow[phoneNumber];
+    $user_id =            $myrow['user_id'];
+    $nom_form =           $myrow['nom'];
+    $prenom_form =           $myrow['prenom'];
+    $official_code_form = $myrow['officialCode'];
+    $username_form =       $myrow['username'];
+    $email_form    =          $myrow['email'];
+    $userphone_form =     $myrow['phoneNumber'];
     $display = USER_DATA_FORM;
 
     // find user type, must see if the user is in the admin table.
@@ -242,16 +240,16 @@ if(isset($user_id))
     //echo $sql." : ".$num;
     if ($num != 0)
     {
-        $isAdmin = true;
+        $isAdmin = TRUE;
     }
     else
     {
         $isAdmin = false;
     }
 
-    if ($myrow[statut]==1)
+    if ($myrow['statut']==1)
     {
-     $canCreateCourse = true;
+     $canCreateCourse = TRUE;
     }
     else
     {

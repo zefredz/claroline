@@ -11,17 +11,15 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 $langFile = "admin";
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
-
+//SECURITY CHECK
+if (!$is_platformAdmin) claro_disp_auth_form();
 @include ($includePath."/installedVersion.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
 
-//SECURITY CHECK
-
-if (!$is_platformAdmin) treatNotAuthorized();
 
 //declare needed tables
-
 $tbl_faculty      = $mainDbName.'`.`faculte';
 
 // Deal with interbredcrumps  and title variable

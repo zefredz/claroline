@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE 1.6
 //----------------------------------------------------------------------
@@ -16,25 +16,18 @@
 $langFile = "admin";
 
 // initialisation of global variables and used libraries
-
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
+//SECURITY CHECK
+$is_allowedToAdmin     = $is_platformAdmin;
+if (!$is_allowedToAdmin) claro_disp_auth_form();
+
 include($includePath."/lib/pager.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
 
-
-//SECURITY CHECK
-
-if (!$is_platformAdmin) treatNotAuthorized();
-
-$is_allowedToAdmin     = $is_platformAdmin;
-
-
 if ($cidToEdit=="") {unset($cidToEdit);}
-
 $userPerPage = 20; // numbers of user to display on the same page
-
 if ($cidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
-
 
 @include ($includePath."/installedVersion.inc.php");
 
@@ -85,7 +78,6 @@ $tbl_user             = $mainDbName."`.`user";
 $tbl_courses        = $mainDbName."`.`cours";
 $tbl_course_user    = $mainDbName."`.`cours_user";
 $tbl_admin            = $mainDbName."`.`admin";
-$tbl_todo            = $mainDbName."`.`todo";
 $tbl_track_default    = $statsDbName."`.`track_e_default";// default_user_id
 $tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
 

@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE 1.6
 //----------------------------------------------------------------------
@@ -14,6 +14,7 @@
 // Lang files needed :
 
 $langFile = "admin";
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 // initialisation of global variables and used libraries
 
@@ -23,7 +24,7 @@ include($includePath."/lib/admin.lib.inc.php");
 
 //SECURITY CHECK
 
-if (!$is_platformAdmin) treatNotAuthorized();
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 if ($cidToEdit=="") {unset($cidToEdit);}
 
@@ -49,7 +50,6 @@ $tbl_user          = $mainDbName."`.`user";
 $tbl_courses       = $mainDbName."`.`cours";
 $tbl_course_user   = $mainDbName."`.`cours_user";
 $tbl_admin         = $mainDbName."`.`admin";
-$tbl_todo          = $mainDbName."`.`todo";
 $tbl_track_default = $statsDbName."`.`track_e_default";// default_user_id
 $tbl_track_login   = $statsDbName."`.`track_e_login";    // login_user_id
 

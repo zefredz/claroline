@@ -14,6 +14,7 @@
 // Lang files needed :
 
 $langFile = "admin";
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 // initialisation of global variables and used libraries
 
@@ -23,7 +24,7 @@ include($includePath."/lib/admin.lib.inc.php");
 
 //SECURITY CHECK
 
-if (!$is_platformAdmin) treatNotAuthorized();
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 if ($cidToEdit=="") {unset($cidToEdit);}
 
@@ -449,7 +450,7 @@ foreach($resultList as $list)
                 "</a>\n",
             "</td>\n";
      echo "</tr>";
-     $atLeastOne= true;
+     $atLeastOne= TRUE;
 }
    // end display users table
 if (!$atLeastOne)

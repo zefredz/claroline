@@ -1,6 +1,6 @@
-<?php # $Id$
+<?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE 1.5.*
+// CLAROLINE 1.6.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -12,29 +12,26 @@
 //----------------------------------------------------------------------
 
 $langFile = "faculty";
-$cidReset = TRUE;
-require '../inc/claro_init_global.inc.php';
-$nameTools             = $lang_categories;
-$interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
-include($includePath."/claro_init_header.inc.php");
+require '../inc/claro_init_global.inc.php';
+//SECURITY CHECK
+$is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
+if (!$is_allowedToAdmin) claro_disp_auth_form();
+
 include($includePath."/lib/text.lib.php");
 //include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
 
-//SECURITY CHECK
-
-if (!$is_platformAdmin) treatNotAuthorized();
-
-$is_allowedToAdmin     = $is_platformAdmin;
-
 $dateNow             = claro_format_locale_date($dateTimeFormatLong);
-$is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
+$nameTools             = $lang_categories;
+$interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+include($includePath."/claro_init_header.inc.php");
 
 //TABLES
-$tbl_faculty         = $mainDbName."`.`faculte";
-$tbl_courses        = $mainDbName."`.`cours";
 
+$tbl_faculty         = $mainDbName."`.`faculte";
+$tbl_courses         = $mainDbName."`.`cours";
 
 //DISPLAY
 $INFOFAC	= TRUE;
@@ -273,7 +270,7 @@ else
         if(!is_null($treePosDelete))
         {
             
-	    $delok = true; //we delete if we do not encounter any problem...default is that there is no problem, then we check
+	    $delok = TRUE; //we delete if we do not encounter any problem...default is that there is no problem, then we check
 	    
 	    //Look if there isn't any subcategory in this category first	    
 	    $sql_SearchCats="select code from `$tbl_faculty` where code_P='".$treePosDelete["code"]."'";
@@ -360,7 +357,7 @@ else
         $sql_FacultyEdit="select * from `$tbl_faculty` where id='".$_REQUEST["id"]."'";
         $arrayfacultyEdit=claro_sql_query_fetch_all($sql_FacultyEdit);
         $facultyEdit=$arrayfacultyEdit[0];
-	$doChange = true;
+	$doChange = TRUE;
 	
 	//see if we try to set the categorie as a cat that can niot have course and that the cat already contain courses
 	if ($_REQUEST["canHaveCoursesChild"]==0)
@@ -1005,6 +1002,20 @@ echo "</tr>"
 }
 
 include($includePath."/claro_init_footer.inc.php");
+
+
+
+
+
+
+
+
+
+
+/***************************
+*  functions
+*****************************/
+
 
     /**
      *This function return the treePos maximum of the table faculty

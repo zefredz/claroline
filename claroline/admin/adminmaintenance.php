@@ -11,7 +11,17 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 $langFile = "admin";
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
+
+$is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
+if (!$is_allowedToAdmin) claro_disp_auth_form();
+
+include($includePath."/lib/text.lib.php");
+include($includePath."/lib/debug.lib.inc.php");
+include($includePath."/lib/admin.lib.inc.php");
+
+//SECURITY CHECK
 
 @include ($includePath."/installedVersion.inc.php");
 
@@ -26,17 +36,7 @@ $htmlHeadXtra[] = "<style type=\"text/css\">
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 $nameTools = $langMaintenance;
 
-
-include($includePath."/lib/text.lib.php");
-include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/admin.lib.inc.php");
-
-//SECURITY CHECK
-
-if (!$is_platformAdmin) treatNotAuthorized();
-
 $dateNow 			= claro_format_locale_date($dateTimeFormatLong);
-$is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
 /*
 // make here some  test
 // $checkMsgs[] = array("level" => 5, "target" => "test 1 ", "content" => "this is  just  a  warning test 1 ");
@@ -51,7 +51,6 @@ include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
 claro_disp_msg_arr($controlMsg);
 ?>
-
 <table align="center" border="0" width="80%">
   <tr valign="top" height="50">
     <td width="50%">

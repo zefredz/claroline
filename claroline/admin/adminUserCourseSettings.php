@@ -1,6 +1,6 @@
 <?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6.0
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -15,18 +15,14 @@ define ("USER_SELECT_FORM", 1);
 define ("USER_DATA_FORM", 2);
 
 $langFile ='admin';
-$cidReset = true;
-
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
+//SECURITY CHECK
+if (!$_SESSION['is_platformAdmin']) claro_disp_auth_form();
+
 include($includePath.'/lib/text.lib.php');
 include($includePath.'/lib/admin.lib.inc.php');
 include($includePath.'/conf/profile.conf.inc.php'); // find this file to modify values.
-
-
-//SECURITY CHECK
-
-if (!$_SESSION['is_platformAdmin']) treatNotAuthorized();
-
 
 $nameTools=$langModifUserCourseSettings;
 
@@ -56,10 +52,10 @@ $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTool
 
 // used tables
 
-$tbl_log     = $mainDbName."`.`loginout";
-$tbl_user     = $mainDbName."`.`user";
-$tbl_admin  = $mainDbName."`.`admin";
-$tbl_course = $mainDbName."`.`cours";
+$tbl_log         = $mainDbName."`.`loginout";
+$tbl_user        = $mainDbName."`.`user";
+$tbl_admin       = $mainDbName."`.`admin";
+$tbl_course      = $mainDbName."`.`cours";
 $tbl_course_user = $mainDbName."`.`cours_user";
 
 include($includePath.'/claro_init_header.inc.php');
@@ -72,9 +68,6 @@ session_unregister("userEdit");
 // see which user we are working with ...
 
 $user_id = $_GET['uidToEdit'];
-
-//echo $user_id."<br>";
-
 
 //------------------------------------
 // Execute COMMAND section
@@ -133,13 +126,13 @@ if(isset($user_id))
     $result=mysql_query($sqlGetInfoUser) or die("Erreur SELECT FROM user");
     //echo $sqlGetInfoUser;
 
-    $myrow = mysql_fetch_array($result);
-    $user_id =          $myrow[user_id];
-    $nom_form =         $myrow[nom];
-    $prenom_form =         $myrow[prenom];
-    $username_form =     $myrow[username];
-    $email_form    =        $myrow[email];
-    $userphone_form =   $myrow[phoneNumber];
+    $myrow          = mysql_fetch_array($result);
+    $user_id        = $myrow['user_id'];
+    $nom_form       = $myrow['nom'];
+    $prenom_form    = $myrow['prenom'];
+    $username_form  = $myrow['username'];
+    $email_form     = $myrow['email'];
+    $userphone_form = $myrow['phoneNumber'];
     $display = USER_DATA_FORM;
 
     // find global course info
@@ -161,13 +154,13 @@ if(isset($user_id))
 
     if ($list['statut'] == '1')
     {
-       $isCourseManager = true;
+       $isCourseManager = TRUE;
        $isStudent = false;
     }
     else
     {
        $isCourseManager = false;
-       $isStudent = true;
+       $isStudent = TRUE;
     }
 }
 

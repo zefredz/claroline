@@ -12,13 +12,13 @@
 //----------------------------------------------------------------------
 
 $langFile='admin';
-$cidReset = true;
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/admin.lib.inc.php");
 
 //SECURITY CHECK
 
-if (!$is_platformAdmin) treatNotAuthorized();
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 
 $tbl_log     = $mainDbName."`.`loginout";
@@ -295,7 +295,7 @@ foreach($resultList as $list)
             "</td>\n";
      echo "</tr>";
 
-     $atLeastOne = true;
+     $atLeastOne = TRUE;
 }
 
 if (!$atLeastOne)

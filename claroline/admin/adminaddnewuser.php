@@ -1,6 +1,6 @@
 <?php # $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 160
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -14,14 +14,11 @@
 
 
 $langFile = "admin";
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
-include($includePath."/../lang/english/registration.inc.php");
-include($includePath."/../lang/".$languageInterface."/registration.inc.php");
-
-$nameTools             = $langAddUser;
-
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
-$noQUERY_STRING   = TRUE;
+//SECURITY CHECK
+$is_allowedToAdmin     = $is_platformAdmin;
+if (!$is_allowedToAdmin) claro_disp_auth_form();
 
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");
@@ -29,11 +26,13 @@ include($includePath."/lib/userManage.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/conf/profile.conf.inc.php");
 
-//SECURITY CHECK
+include($includePath."/../lang/english/registration.inc.php");
+include($includePath."/../lang/".$languageInterface."/registration.inc.php");
 
-if (!$is_platformAdmin) treatNotAuthorized();
+$nameTools             = $langAddUser;
 
-$is_allowedToAdmin     = $is_platformAdmin;
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$noQUERY_STRING   = TRUE;
 
 //TABLES USED
 /*
@@ -129,14 +128,14 @@ if($register=="yes")
         }
         else
         {
-            $regDataOk = true;
+            $regDataOk = TRUE;
         }
     }
 }
 
 if ( ! $regDataOk)
 {
-    $display_form = true;
+    $display_form = TRUE;
 }
 
 
@@ -190,7 +189,7 @@ if ($regDataOk)
     @mail( $emailto, $emailsubject, $emailbody, $emailheaders);
 
     $display_form = false;
-    $display_success = true;
+    $display_success = TRUE;
 
 }
 

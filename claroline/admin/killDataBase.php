@@ -1,4 +1,4 @@
-<?php // | $Id$ |
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.6
@@ -44,14 +44,22 @@ $nomOutil  = "Kill Database";
 $nomPage   = "Admin";
 
 $lang_no_access_here ="Pas d'accès ";
+
+
 $langFile = "admin";
 require '../inc/claro_init_global.inc.php'; 
+$is_allowedToEdit 	= $is_platformAdmin || $PHP_AUTH_USER;
+//SECURITY CHECK
+if (!$is_allowedToEdit) claro_disp_auth_form();
+
+@include("./checkIfHtAccessIsPresent.php");
+
+
 $nameTools = $langCheckDatabase;
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
-@include("./checkIfHtAccessIsPresent.php");
-@include($includePath."/claro_init_header.inc.php");
+include($includePath."/claro_init_header.inc.php");
 
-$is_allowedToEdit 	= $is_platformAdmin || $PHP_AUTH_USER;
+
 if ($is_allowedToEdit)
 {
 ?>
@@ -64,12 +72,12 @@ if ($is_allowedToEdit)
 	mysql_select_db("$mainDbName",$db);
 	
 	#################################
-	## Y a-t-il des info à traiter ##
+	## Is there inf to work        ##
 	#################################
 	if ($submit =="Ok")
 	{ 
 		?> <h3>Traitement de suppression des bases</h3>
-	     par  <?= $PHP_AUTH_USER ?><br>
+	     par  <?php echo $PHP_AUTH_USER ?><br>
 	<?
 		$lesStatutDeCours["1"] = "Etudiant";
 		$lesStatutDeCours["5"] = "Enseignant";
@@ -127,7 +135,7 @@ if ($is_allowedToEdit)
 		$facOnce=$course['f'];
 		if($course['k']!=$codeOnce)
 		{ 
-			echo "<br>\n\t<input type=\"checkbox\" name=\"coursToDelete[]\" value=\"".$course['k']."\">".$course['c']." ".$course['i']." ".$course['t'];
+			echo "<br>\n\t<input type=\"checkbox\" name=\"coursToDelete[]\" value=\"".$course['k]'."\"> ".$course['c']." ".$course['i']." ".$course['t'];
 		}
 		$codeOnce=$course['k'];
 	  // echo "$course['n']<br>";

@@ -1,6 +1,6 @@
-<?php # $Id$
+<?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6.0
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -12,8 +12,14 @@
 //----------------------------------------------------------------------
 
 $langFile='admin';
-$cidReset = true;
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
+//SECURITY CHECK
+$is_allowedToAdmin     = $is_platformAdmin;
+if (!$is_allowedToAdmin) claro_disp_auth_form();
+// initialisation of global variables and used libraries
+include($includePath."/lib/pager.lib.php");
+include($includePath."/lib/admin.lib.inc.php");
 
 $tbl_log    = $mainDbName."`.`loginout";
 $tbl_user   = $mainDbName."`.`user";
@@ -48,17 +54,8 @@ $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTool
 $nameTools = $langCourseList;
 
 
-// initialisation of global variables and used libraries
-
-include($includePath."/lib/pager.lib.php");
-include($includePath."/lib/admin.lib.inc.php");
-
-//SECURITY CHECK
-
-if (!$is_platformAdmin) treatNotAuthorized();
-
 include($includePath.'/claro_init_header.inc.php');
-$is_allowedToAdmin     = $is_platformAdmin;
+
 $coursePerPage= 20;
 
 //------------------------------------------------------------------------------------------------------------------------
@@ -427,7 +424,7 @@ foreach($resultList as $list)
                 "</a>\n",
             "</td>\n";
      echo "</tr>";
-     $atleastOneResult = true;
+     $atleastOneResult = TRUE;
 }
 
 if ($atleastOneResult != true)
@@ -448,5 +445,4 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 // display footer
 
 include($includePath."/claro_init_footer.inc.php");
-
 ?>

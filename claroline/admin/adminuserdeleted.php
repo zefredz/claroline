@@ -16,16 +16,15 @@ define ('USER_SELECT_FORM'        , 1);
 define ('USER_DATA_FORM'          , 2);
 
 $langFile='admin';
-$cidReset = true;
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+
 require '../inc/claro_init_global.inc.php';
+//SECURITY CHECK
+if (!$is_platformAdmin) claro_disp_auth_form();
+
 include $includePath.'/lib/text.lib.php';
 include $includePath.'/lib/admin.lib.inc.php';
 include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
-
-
-//SECURITY CHECK
-
-if (!$is_platformAdmin) treatNotAuthorized();
 
 $nameTools=$langModifOneProfile;
 
