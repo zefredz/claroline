@@ -1766,6 +1766,7 @@ $langPreviousYear = "Previous Year";
 $langPrintVers = "Printable version";
 $langPrivate = "Private";
 $langPrivateAccess = "Private access (site accessible only to people on the <a href=../user/user.php>User list</a>)";
+$langPrivateFeedback = "Private feedback";
 $langPrivateOnly = "Private course only";
 $langProblem = "In case of problems, contact us.";
 $langProfessor = "Lecturer";

@@ -1422,6 +1422,7 @@ $langPreviousYear = "Année précédente";
 $langPrintVers = "Version imprimable";
 $langPrivate = "Privé";
 $langPrivateAccess = "Accès privé (site réservé aux personnes figurant dans la liste <a href=../user/user.php>utilisateurs</a>)";
+$langPrivateFeedback = "Remarques";
 $langPrivateOnly = "Les cours privés uniquement";
 $langProblem = "En cas de problème, n'hésitez pas à prendre contact avec nous";
 $langProfessor = "Gestionnaire de cours";
