@@ -1098,9 +1098,8 @@ function claro_disp_html_area($name, $content =    '',
         {
             $switchState = 'on';
             $message     = 'Enable text editor';
-            $areaContent = $name.'.value';
+            $areaContent = 'document.getElementById(\''.$name.'\').value';
         }
-        
 
         $location = '\''
                    .$incPath.'/editorswitcher.php?'
@@ -1108,7 +1107,7 @@ function claro_disp_html_area($name, $content =    '',
                    .'&sourceUrl='.urlencode($_SERVER['REQUEST_URI'])
                    .'&areaContent='
                    .'\''
-                  .'+'.'document.getElementById(\''.$name.'\').value';
+                  .'+'.$areaContent;
 
         echo '<div align="right">'
             .'<small>'
