@@ -20,7 +20,7 @@ array ( 'allow_html'
       , 'default_lang'
       );
 
-$conf_def['section']['pmsg']['label']='private messages';
+$conf_def['section']['pmsg']['label']='Private messages';
 $conf_def['section']['pmsg']['properties'] = 
 array ( 'allow_pmsg_bbcode'
       , 'allow_pmsg_html'
@@ -31,62 +31,62 @@ array ( 'allow_pmsg_bbcode'
 //PROPERTIES
 // Setup forum Options.
 $conf_def_property_list['allow_html']
-= array ('label'     => 'html in posts'
+= array ('label'     => 'HTML in posts'
         ,'default'   => '1'
         ,'type'      => 'enum'
         ,'container' => 'VAR'
         ,'display'       => TRUE
         ,'readonly'      => FALSE
-        ,'acceptedValue' => array ( '1'=>'allow'
-                                  , '0'=>'deny'
+        ,'acceptedValue' => array ( '1'=>'Allow'
+                                  , '0'=>'Deny'
                                   )
         );
 
 $conf_def_property_list['allow_bbcode']
-= array ('label'     => 'bbcode in posts'
+= array ('label'     => 'BBcode in posts'
         ,'default'   => '1'
         ,'type'      => 'enum'
         ,'container' => 'VAR'
         ,'display'       => TRUE
         ,'readonly'      => TRUE
-        ,'acceptedValue' => array ( '1'=>'allow'
-                                  , '0'=>'deny'
+        ,'acceptedValue' => array ( '1'=>'Allow'
+                                  , '0'=>'Deny'
                                   )
         );
 
 $conf_def_property_list['allow_sig']
-= array ('label'     => 'sign in posts'
+= array ('label'     => 'Sign in posts'
         ,'default'   => '1'
         ,'type'      => 'enum'
         ,'container' => 'VAR'
         ,'display'       => TRUE
         ,'readonly'      => TRUE
-        ,'acceptedValue' => array ( '1'=>'allow'
-                                  , '0'=>'deny'
+        ,'acceptedValue' => array ( '1'=>'Allow'
+                                  , '0'=>'Deny'
                                   )
         );
 
 $conf_def_property_list['allow_namechange']
-= array ('label'     => 'change author name'
+= array ('label'     => 'Change author name'
         ,'default'   => '0'
         ,'type'      => 'enum'
         ,'container' => 'VAR'
         ,'display'       => TRUE
         ,'readonly'      => TRUE
-        ,'acceptedValue' => array ( '1'=>'allow'
-                                  , '0'=>'deny'
+        ,'acceptedValue' => array ( '1'=>'Allow'
+                                  , '0'=>'Deny'
                                   )
         );
 
 $conf_def_property_list['override_user_themes']
-= array ('label'     => 'user can choose is own theme'
+= array ('label'     => 'User can choose is own theme'
         ,'default'   => '0'
         ,'type'      => 'enum'
         ,'container' => 'VAR'
         ,'display'       => TRUE
         ,'readonly'      => TRUE
-        ,'acceptedValue' => array ( '0'=>'allow'
-                                  , '1'=>'deny'
+        ,'acceptedValue' => array ( '0'=>'Allow'
+                                  , '1'=>'Deny'
                                   )
         );
 
@@ -120,7 +120,7 @@ $conf_def_property_list['topics_per_page']
         );
 
 $conf_def_property_list['email_sig'] = 
-array ('label'       => 'signature of emails'
+array ('label'       => 'Signature of emails'
       ,'default'     => 'Yours sincerely, your professor'
       ,'type'        => 'string'
       );
@@ -132,7 +132,7 @@ array ('label'       => 'email from'
       );
       
 $conf_def_property_list['default_lang'] = 
-array ( 'label'       => 'default language'
+array ( 'label'       => 'Default language'
       , 'default'     => 'english'
       , 'type'        => 'lang'
       , 'display'     => FALSE
@@ -141,26 +141,26 @@ array ( 'label'       => 'default language'
 
 // PRIVATE MESSAGES
 $conf_def_property_list['allow_pmsg_html']
-= array ('label'     => 'html in private message'
+= array ('label'     => 'HTML in private message'
         ,'default'   => '0'
         ,'type'      => 'enum'
         ,'container' => 'VAR'
         ,'display'       => TRUE
         ,'readonly'      => TRUE
-        ,'acceptedValue' => array ( '1'=>'allow'
-                                  , '0'=>'deny'
+        ,'acceptedValue' => array ( '1'=>'Allow'
+                                  , '0'=>'Deny'
                                   )
         );
 
 $conf_def_property_list['allow_pmsg_bbcode']
-= array ('label'     => 'bbcode in private message'
+= array ('label'     => 'BBcode in private message'
         ,'default'   => '1'
         ,'type'      => 'enum'
         ,'container' => 'VAR'
         ,'display'       => TRUE
         ,'readonly'      => TRUE
-        ,'acceptedValue' => array ( '1'=>'allow'
-                                  , '0'=>'deny'
+        ,'acceptedValue' => array ( '1'=>'Allow'
+                                  , '0'=>'Deny'
                                   )
         );
 

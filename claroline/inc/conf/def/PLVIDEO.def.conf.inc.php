@@ -29,7 +29,7 @@ array ('label'       => 'Swap picture'
       ,'technicalInfo' => 'enter here an image to the picture video show'
       );
 $conf_def_property_list['video_x'] = 
-array ('label'       => 'horizontal size of the video output'
+array ('label'       => 'Horizontal size of the video output'
       ,'default'     => '360'
       ,'type'        => 'integer'
       ,'display'     => TRUE

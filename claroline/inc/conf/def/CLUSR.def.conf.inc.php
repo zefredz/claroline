@@ -4,6 +4,9 @@ $conf_def['config_code']='CLUSR';
 $conf_def['config_file']='CLUSR___.conf.php';
 $conf_def['config_name']='General setting for users listing (include User info tool)';
 // $conf_def['config_repository']=''; Disabled = includePath.'/conf'
+$conf_def['old_config_file'][]='user.conf.inc.php';
+
+//SECTION
 $conf_def['section']['list']['label']='Listing properties';
 $conf_def['section']['list']['description']='Common properties for listing of users';
 $conf_def['section']['list']['properties'] = 
@@ -58,8 +61,8 @@ array ( 'DEFAULT_SUFFIX_MAIL'
       );
 
 $conf_def_property_list['DEFAULT_SUFFIX_MAIL'] =
-array ( 'label'         => 'extention des emails générés'
-      , 'description'   => 'la partie avant sera générée aléatoirement'
+array ( 'label'         => 'Hostname for fake email generated'
+      , 'description'   => 'the first part av build with name, firstname and random'
       , 'default'       => '@fake.zz'
       , 'type'          => 'regexp'
       , 'acceptedValue' => '@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$'
@@ -67,7 +70,7 @@ array ( 'label'         => 'extention des emails générés'
       );
 
 $conf_def_property_list['DEFAULT_NUMBER_CREATED_USERS'] =
-array('label'       => 'le nombre de comptes générés'
+array('label'       => 'default Qty of created users'
      ,'default'     => '100'
      ,'type'        => 'integer'
      , 'unit'      => 'user(s)'
@@ -75,7 +78,7 @@ array('label'       => 'le nombre de comptes générés'
      );
 
 $conf_def_property_list['DEFAULT_QTY_STUDENT'] =
-array ( 'label'     => 'le nombre de comptes user générés'
+array ( 'label'     => 'default Qty of created students'
       , 'default'   => '5'
       , 'type'      => 'integer'
       , 'unit'      => 'students(s)'
@@ -83,7 +86,7 @@ array ( 'label'     => 'le nombre de comptes user générés'
       );
 
 $conf_def_property_list['DEFAULT_QTY_TEACHER'] =
-array ( 'label'     => 'le nombre de comptes créateur de cours générés'
+array ( 'label'     => 'default Qty of created course managers'
       , 'default'   => '0'
       , 'type'      => 'integer'
       , 'unit'      => 'teacher(s)'
@@ -91,43 +94,42 @@ array ( 'label'     => 'le nombre de comptes créateur de cours générés'
       );
 
 $conf_def_property_list['ADD_FIRSTNAMES_FROM_BASE'] =
-array ( 'label'         => 'créer les prénoms à partir de ceux qui existent dans la base'
+array ( 'label'         => 'Create firstname with already existing in the database'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
       , 'container'     => 'CONST'
-      , 'acceptedValue' => array ('TRUE'=>'oui'
-                                 ,'FALSE'=>'non'
+      , 'acceptedValue' => array ('TRUE'=>'Yes'
+                                 ,'FALSE'=>'No'
                                  )
       );
 
 $conf_def_property_list['ADD_NAMES_FROM_BASE'] =
-array ( 'label'         => 'créer les noms à partir de ceux qui existent dans la base'
+array ( 'label'         => 'Create lastname with already existing in the database'
       , 'default'       => 'FALSE'
       , 'type'          => 'boolean'
       , 'container'     => 'CONST'
-      , 'acceptedValue' => array ('TRUE'=>'oui'
-                                 ,'FALSE'=>'non'
+      , 'acceptedValue' => array ('TRUE'=>'Yes'
+                                 ,'FALSE'=>'No'
                                  )
       );
 
 $conf_def_property_list['ADD_USERNAMES_FROM_BASE'] = 
-array ( 'label'         => 'créer les noms de compte à partir de ceux '
-                          .'qui existent dans la base'
+array ( 'label'         => 'Create username with already existing in the database'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
       , 'container'     => 'CONST'
-      , 'acceptedValue' => array ('TRUE'=>'oui'
-                                 ,'FALSE'=>'non'
+      , 'acceptedValue' => array ('TRUE'=>'Yes'
+                                 ,'FALSE'=>'No'
                                  )
       );
 
 $conf_def_property_list['USE_FIRSTNAMES_AS_LASTNAMES'] =
-array ( 'label'         => 'Créer des noms à partir les prénoms'
+array ( 'label'         => 'Create lastname with firstnames'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
       , 'container'     => 'CONST'
-      , 'acceptedValue' => array ('TRUE'=>'oui'
-                                 ,'FALSE'=>'non'
+      , 'acceptedValue' => array ('TRUE'=>'Yes'
+                                 ,'FALSE'=>'No'
                                  )
       );
 
@@ -136,8 +138,8 @@ array ( 'label'         => 'Show list of new users'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
       , 'container'     => 'CONST'
-      , 'acceptedValue' => array ('TRUE'=>'yes'
-                                 ,'FALSE'=>'no'
+      , 'acceptedValue' => array ('TRUE'=>'Yes'
+                                 ,'FALSE'=>'No'
                                  )
       );
 ?>

@@ -1,13 +1,30 @@
 <?php // $Id$
-// TOOL
-$conf_def['description'] = 'Assignment tool. this is a course tool';
-$conf_def['config_code']='CLPROFIL';
-$conf_def['config_name']='Setting for profile edition';
-$conf_def['config_file']='profile.conf.php';
+/**
+ * This file describe the parameter for user profile config file
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @version CLAROLINE 1.6
+ * @copyright &copy; 2001-2005 Universite catholique de Louvain (UCL)
+ * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * @see http://www.claroline.net/wiki/config_def/
+ * @package user
+ */
+
+// CONFIG HEADER
+
+$conf_def['config_code'] = 'CLPROFIL';
+$conf_def['config_name'] = 'Setting for profile edition';
+$conf_def['config_file'] = 'user.profile.conf.php';
+$conf_def['old_config_file'][] ='profile.conf.php';
+// $conf_def['description'] = 'How ca be edit an user profile';
 // $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 
-$conf_def['section']['checkdata']['label']='Check given data';
-$conf_def['section']['checkdata']['description']='Flags  check to do, and fixe read/write access';
+// CONFIG SECTIONS
+
+$conf_def['section']['checkdata']['label']= 'Check given data';
+$conf_def['section']['checkdata']['description']='Flags check to do, and fixe read/write access';
 
 $conf_def['section']['checkdata']['properties'] = 
 array ( 'SECURE_PASSWORD_REQUIRED'
@@ -18,8 +35,8 @@ array ( 'SECURE_PASSWORD_REQUIRED'
 // STATUS //
 
 $conf_def_property_list['COURSEMANAGER'] =
-array ('label'         => 'database value for course manager status'
-      ,'description'   => 'do not change this'
+array ('label'         => 'Database value for course manager status'
+      ,'description'   => 'Do not change this'
       ,'display'       => FALSE
       ,'readonly'      => TRUE
       ,'default'       => '1'
@@ -29,8 +46,8 @@ array ('label'         => 'database value for course manager status'
       , 'container'     => 'CONST'
       );
 $conf_def_property_list['STUDENT'] =
-array ('label'         => 'database value for student status'
-      ,'description'   => 'do not change this'
+array ('label'         => 'Database value for student status'
+      ,'description'   => 'Do not change this'
       ,'display'       => FALSE
       ,'readonly'      => TRUE
       ,'default'       => '5'
@@ -56,8 +73,8 @@ $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
 array ( 'label'         => 'Allow user to let Official Code Empty ?'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'check it'
-                                 ,'FALSE' => 'lets do'
+      , 'acceptedValue' => array ('TRUE'  => 'Check it'
+                                 ,'FALSE' => 'Lets do'
                                  )
       );
 $conf_def_property_list['userMailCanBeEmpty'] =
@@ -65,8 +82,8 @@ array ( 'label'         => 'Allow user to let Email Code Empty ?'
       , 'description'   => 'Accept email as valid (best choice)'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'optionnal'
-                                 ,'FALSE' => 'require it'
+      , 'acceptedValue' => array ('TRUE'  => 'Optionnal'
+                                 ,'FALSE' => 'Require it'
                                  )
       );
 ///// OFFICIAL CODE // BEGIN
@@ -77,8 +94,8 @@ array ('label'         => 'CONFVAL_ASK_FOR_OFFICIAL_CODE'
       ,'description'   => 'Not used but name fixed'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'check it'
-                                ,'FALSE' => 'lets do'
+      ,'acceptedValue' => array ('TRUE'  => 'Check it'
+                                ,'FALSE' => 'Lets do'
                                 )
       , 'container'     => 'CONST'
       );
@@ -92,8 +109,8 @@ array ('label'         => 'Check the official Code ?'
       }'
       ,'default'       => 'FALSE'
       ,'type'          => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'check it'
-                                ,'FALSE' => 'lets do'
+      ,'acceptedValue' => array ('TRUE'  => 'Check it'
+                                ,'FALSE' => 'Lets do'
                                 )
       , 'container'     => 'CONST'
       );
@@ -153,8 +170,8 @@ array ( 'label'         => 'Prefix image file name with uid of owner'
                          . 'This is also pratical of found back the owner of a picture'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'prupose'
-                                ,'FALSE' => 'hide'
+      , 'acceptedValue' => array ('TRUE'  => 'Prupose'
+                                ,'FALSE' => 'Hide'
                                 )
       , 'container'     => 'CONST'
       );
@@ -181,8 +198,8 @@ array ( 'label'         => 'Keep the name of file when the image is changed'
                          . ''
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'keep name'
-                                ,'FALSE' => 'get new name'
+      , 'acceptedValue' => array ('TRUE'  => 'Keep name'
+                                ,'FALSE' => 'Get new name'
                                 )
       , 'container'     => 'CONST'
       );
@@ -195,8 +212,8 @@ array ( 'label'         => 'Keep the replaced image when user update pic'
                          . ' -> only the last image still on server.'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'save'
-                                ,'FALSE' => 'trash'
+      , 'acceptedValue' => array ('TRUE'  => 'Save'
+                                ,'FALSE' => 'Trash'
                                 )
       , 'container'     => 'CONST'
       );

@@ -1,6 +1,7 @@
 <?php //$Id$
 /**
  * This file describe the parameter for CLDOC config file
+ *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @version CLAROLINE 1.6
  * @copyright &copy; 2001-2005 Universite catholique de Louvain (UCL)
@@ -11,18 +12,22 @@
  * @package CLDOC
  */
 
-$conf_def['config_code']='CLDOC';
-$conf_def['config_file']='CLDOC___.conf.php';
-$conf_def['config_name']='General setting for document tool';
+// CONFIG HEADER
+
+$conf_def['config_code'] = 'CLDOC';
+$conf_def['config_file'] = 'CLDOC___.conf.php';
+$conf_def['config_name'] = 'General setting for document tool';
 // $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 $conf_def['description'] = 'Document tool. This is a course tool';
+
+// CONFIG SECTIONS
 $conf_def['section']['quota']['label']='quota';
 $conf_def['section']['quota']['properties'] = 
 array ( 'maxFilledSpace_for_course'
       , 'maxFilledSpace_for_groups'
       );
       
-//PROPERTIES
+// CONFIG PROPERTIES
 $conf_def_property_list['maxFilledSpace_for_course']
 = array ('label'     => 'Disk space allowed to each courses for documents'
         ,'default'   => '100000000'

@@ -1,7 +1,20 @@
 <?php // $Id$
+/**
+ * This file describe the parameter for CLDOC config file
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @version CLAROLINE 1.6
+ * @copyright &copy; 2001-2005 Universite catholique de Louvain (UCL)
+ * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * @see http://www.claroline.net/wiki/config_def/
+ * @package COURSES
+ */
+
 $conf_def['config_code']='CLADDCRS';
-$conf_def['config_file']='core.add_course.conf.php';
 $conf_def['config_name']='general setting for course creation';
+$conf_def['config_file']='core.add_course.conf.php';
+$conf_def['old_config_file'][]='add_course.conf.php';
 // $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 
 $conf_def['section']['create']['label']='Creation properties';
@@ -35,7 +48,7 @@ array ('label'       => 'Autoriser le créateur de cours de restaurer une archive
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      ,'acceptedValue' => array ('TRUE'  =>'enabled'
+      ,'acceptedValue' => array ('TRUE'  =>'Enabled'
                                 ,'FALSE' =>'Disabled'
                                 )
       );
@@ -45,17 +58,17 @@ array ('label'       => 'whether user can leave course code (officialCode) field
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE' => 'enabled'
+      ,'acceptedValue' => array ('TRUE' => 'Enabled'
                                 ,'FALSE'=> 'Disabled'
                                 )
       );
 
 $conf_def_property_list['HUMAN_LABEL_NEEDED'] = 
-array ('label'       => 'whether user can leave course label (name) field empty'
+array ('label'       => 'Whether user can leave course label (name) field empty'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'enabled'
+      ,'acceptedValue' => array ('TRUE'=>'Enabled'
                               ,'FALSE'=>'Disabled'
                               )
       );

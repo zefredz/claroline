@@ -1,4 +1,16 @@
 <?php //$Id$
+/**
+ * This file describe the parameter for CLSAVE config file. Describe parameter to export.
+ * @author Christophe Gesché <peeters@ipm.ucl.ac.be>
+ * @version CLAROLINE 1.6
+ * @copyright &copy; 2001-2005 Universite catholique de Louvain (UCL)
+ * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * @see http://www.claroline.net/wiki/config_def/
+ * @package CLSAVE
+ */
+
 // TOOL
 $conf_def['config_code']='CLSAVE';
 $conf_def['config_file']='export.conf.inc.php';
@@ -11,7 +23,6 @@ array ( 'localStoreArchiveAivailable'
       , 'downloadArchiveAivailable'
       , 'putArchiveOnFtpAivailable'
       );
-      
 //PROPERTIES
 
 $conf_def_property_list['localStoreArchiveAivailable']
@@ -132,7 +143,7 @@ array ( 'appendMainDb'
 // You can change this but so  perhaps  restore isn't possible
 $conf_def_property_list['appendMainDb']
 = array ('label'       => 'Internal path for platform data'
-        ,'description' => 'contain user propreties and course properties with  attached category'
+        ,'description' => 'Contain user propreties and course properties with  attached category'
         ,'default'     => 'Central/'
         ,'type'        => 'relpath'
         ,'container'   => 'VAR'
@@ -145,5 +156,35 @@ $conf_def_property_list['appendCourse']
         ,'type'        => 'relpath'
         ,'container'   => 'VAR'
         );
+
+        
+//// course backup
+//$dateBackup			=	date("Y-m-d-H-i-s");
+//$shortDateBackup	=	date("YzBs");
+
+$conf_def_property_list['verboseBackup']
+= array ('label'       => 'The process of export generate lot of ouput'
+        ,'description' => 'This properties would became deprecated later, with coming of a good error tracking system.'
+        ,'default'     => 'FALSE'
+        ,'type'        => 'boolean'
+        ,'container'   => 'VAR'
+        );
+
+$conf_def_property_list['archiveExt']
+= array ( 'label'         => 'Archive extentions'
+        , 'description'   => 'When a course archive is build, some part '
+        , 'default'       => 'txt'
+        , 'type'          => 'regexp'
+        , 'container'     => 'VAR'
+        , 'acceptedValue' => '(\w)*'
+        );
+$conf_def_property_list['archiveDirName']
+= array ('label'       => 'Archive directory name'
+        ,'description' => '?'
+        ,'default'     => 'archive/'
+        ,'type'        => 'relpath'
+        ,'container'   => 'VAR'
+        );
+
 
 ?>

@@ -37,7 +37,7 @@ array ( 'description' => 'Fix if a us user mark as potential tutor attached to a
 
 $conf_def_property_list['showTutorsInGroupList'] =
 array ( 'description' => 'Not implemented, name reserved  for future version of Claroline'
-      , 'label'       => 'whether include tutors in the displayed member list'
+      , 'label'       => 'Whether include tutors in the displayed member list'
       , 'default'     => 'FALSE'
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'enabled'

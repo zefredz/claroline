@@ -1,9 +1,26 @@
 <?php // $Id$
-// TOOL
+/**
+ * This file describe the parameter for course administration.
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @version CLAROLINE 1.6
+ * @copyright &copy; 2001-2005 Universite catholique de Louvain (UCL)
+ * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * @see http://www.claroline.net/wiki/config_def/
+ * @package CLCI
+ */
+
+
+// CONFIG HEADER
 $conf_def['config_code']='CLCRSCONF';
 $conf_def['config_file']='course_info.conf.php';
-$conf_def['config_name']='general setting for course setting tool';
-$conf_def['description']='Configuration du cours';
+$conf_def['config_name']='General setting for course setting tool';
+$conf_def['description']='How can be edit a course profile, and managment action';
+
+// CONFIG SECTIONS
+
 $conf_def['section']['links']['label']='links';
 $conf_def['section']['links']['description']='links to  commands';
 $conf_def['section']['links']['properties'] = 
@@ -116,26 +133,24 @@ $conf_def_property_list['showLastVisit']
         );
 
 $conf_def_property_list['canReportExpirationDate'] 
-= array ( 'label'        => 'Is  course admin eable to request an time credit  for his courses'
-        , 'description' => 'need to be TRUE if ScriptToReportExpirationDate  is not automaticly called'
+= array ( 'label'        => 'Is course admin eable to request an time credit for his courses'
+        , 'description'  => 'Need to be TRUE if ScriptToReportExpirationDate is not automaticly called'
         , 'default'      => 'FALSE'
         , 'type'         => 'boolean'
         , 'container'    => 'VAR'
         );
 
 $conf_def_property_list['linkToChangeDiskQuota']
-= array ('label'     => 'external script to change quota allowed to course.'
+= array ('label'     => 'External script to change quota allowed to course.'
         ,'default'   => 'changeQuota.php'
         ,'type'      => 'string'
         ,'container' => 'VAR'
         );
 
 $conf_def_property_list['urlScriptToReportExpirationDate']
-= array ('label'     => 'external script to postpone the expiration of course.'
+= array ('label'     => 'External script to postpone the expiration of course.'
         ,'default'   => 'postpone.php'
         ,'type'      => 'string'
         ,'container' => 'VAR'
         );
-
-
 ?>
