@@ -92,6 +92,14 @@ if( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
       $assigDirWeb = $wrkDirWeb."assig_".$_REQUEST['assigId']."/";
 }
 
+// assignment not requested or not found
+if( is_null($assignment) )
+{
+      // we NEED to know in which assignment we are, so if assigId is not set
+      // relocate the user to the previous page
+      header("Location: work.php");
+}
+
 
   /*--------------------------------------------------------------------
                         WORK INFORMATIONS
@@ -110,7 +118,13 @@ if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
       list($wrk) = claro_sql_query_fetch_all($sql);
 }
 
-
+// if a command is requested, that work was not requested or requested and not found
+// and that this is not a creation command
+if( isset($cmd) && $cmd != 'rqSubWrk' && $cmd != 'exSubWrk' && is_null($wrk))
+{
+      // unset cmd so that it will display the list of submissions
+      unset($cmd);
+}
   /*--------------------------------------------------------------------
                         ASSIGNMENT CONTENT
   --------------------------------------------------------------------*/
@@ -291,7 +305,7 @@ if( isset($_REQUEST['submitWrk']) )
       // no need to check if the value is not setted, it probably means that it is not a correction
       if ( isset($_REQUEST['wrkScore']) )
       {
-            if( $_REQUEST['wrkScore'] < 0 || $_REQUEST['wrkScore'] > 100 )
+            if( $_REQUEST['wrkScore'] < -1 || $_REQUEST['wrkScore'] > 100 )
             {
                   $dialogBox .= $langWrkScoreRequired."<br />";
                   $formCorrectlySent = false;
@@ -505,7 +519,7 @@ if($is_allowedToEditAll)
             // prefill some fields of the form
             $form['wrkTitle'  ] = $wrk['title']." (".$langFeedback.")";
             $form['wrkAuthors'] = $currentUserFirstName." ".$currentUserLastName;
-            $form['wrkScore'  ] = 50; 
+            $form['wrkScore'  ] = -1; 
       }
       else
       {
@@ -741,13 +755,15 @@ if( $dispWrkDet || $dispWrkForm )
 {
       // bredcrump to return to the list when in a form
       $interbredcrump[]= array ("url"=>"../work/workList.php?assigId=".$_REQUEST['assigId'], "name"=> $langAssignment);
+      // add parameters in query string to prevent the 'refresh' interbredcrump link to display the list of works instead of the form
+      $QUERY_STRING = "assigId=".$_REQUEST['assigId']."&wrkId=".$_REQUEST['wrkId']."&cmd=".$_REQUEST['cmd'];
       $nameTools = $langSubmittedWork;
 }
 else
 {
       $nameTools = $langAssignment;
       // to prevent parameters to be added in the breadcrumb
-      $QUERY_STRING='assigId='.$_REQUEST['assigId']; 
+      $QUERY_STRING = 'assigId='.$_REQUEST['assigId']; 
 }
 
 include($includePath.'/claro_init_header.inc.php');
@@ -866,9 +882,12 @@ if( $dispWrkDet && $is_allowedToView )
       }
       
       // check if the work has a correction 
+      // take the latest edited if there is many
       $sql = "SELECT `id`
                   FROM `".$tbl_wrk_submission."`
-                  WHERE `parent_id` = ".$wrk['id'];
+                  WHERE `parent_id` = ".$wrk['id']."
+               ORDER BY `last_edit_date` DESC
+                  LIMIT 1";
       // corection of this work (NULL if there is no corection yet)
       $gradeId = claro_sql_query_get_single_value($sql);
      
@@ -957,7 +976,16 @@ if( $dispWrkDet && $is_allowedToView )
       {
             echo "<tr>\n"
                   ."<td valign=\"top\">".$langScore."&nbsp;:</td>\n"
-                  ."<td>".$wrk['score']." %</td>\n"
+                  ."<td>";
+            if( $wrk['score'] == -1 )
+            {
+                  echo $langNoScore;
+            }
+            else
+            {
+                  echo $wrk['score']." %";
+            }
+            echo  " </td>\n"
                   ."</tr>\n\n";
       }
       
@@ -1134,7 +1162,15 @@ if( $is_allowedToSubmit )
             if( $dispWrkFormScore )
             {
                   // if this is a correction we have to add an input for the score/grade/results/points
-                  $wrkScoreField = "<select name=\"wrkScore\" id=\"wrkScore\">\n";
+                  $wrkScoreField = "<select name=\"wrkScore\" id=\"wrkScore\">\n"
+                                    ."<option value=\"-1\"";
+                  // add selected attribute if needed
+                  if( $form['wrkScore'] == -1 )
+                  {
+                        $wrkScoreField .= " selected=\"true\"";
+                  }                  
+                  $wrkScoreField .= ">".$langNoScore."</option>\n";
+                  
                   for($i=0;$i <= 100; $i++)
                   {
                         $wrkScoreField .= "<option value=\"".$i."\"";
@@ -1146,7 +1182,7 @@ if( $is_allowedToSubmit )
                   }
                   $wrkScoreField .= "</select> %";
                   echo "<tr>\n"
-                        ."<td valign=\"top\"><label for=\"wrkScore\">".$langScore."&nbsp;*&nbsp;:</label></td>\n"
+                        ."<td valign=\"top\"><label for=\"wrkScore\">".$langScore."&nbsp;&nbsp;:</label></td>\n"
                         ."<td>"
                         .$wrkScoreField
                         ."</td>"
