@@ -44,13 +44,18 @@ $db = mysql_connect($dbHost, $dbLogin, $dbPass);
 // count courses upgraded
 
 $sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours 
-         where versionDb = '".$versionDb."' ";
+		where versionDb = '".$versionDb."' ";
 $res_NbCourses = mysql_query($sqlNbCourses);
 $nbCoursesUpgraded = mysql_fetch_array($res_NbCourses);
 
 $sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours";
 $res_NbCourses = mysql_query($sqlNbCourses);
 $nbCourses = mysql_fetch_array($res_NbCourses);
+
+$sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours
+		where versionDb = 'error';";
+$res_NbCourses = mysql_query($sqlNbCourses);
+$nbCoursesError = mysql_fetch_array($res_NbCourses);
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -62,9 +67,9 @@ $nbCourses = mysql_fetch_array($res_NbCourses);
 
 <?php
 
-if ( $display==DISPLAY_RESULT_PANEL && $nbCoursesUpgraded['0'] < $nbCourses['0'])
+if ( $display==DISPLAY_RESULT_PANEL && ($nbCoursesUpgraded['0'] + $nbCoursesError['0'] )< $nbCourses['0'])
 {
-	$refresh_time = 2;
+	$refresh_time = 20;
 	echo "<meta http-equiv=\"refresh\" content=\"". $refresh_time  ."\" />\n";
 }
 
@@ -118,10 +123,30 @@ switch ($display)
                 echo sprintf ("<h2>%s</h2>",$langStep3);
                 
                 echo $langIntroStep3Run;
+
+		// course upgraded
+
                 echo sprintf($langNbCoursesUpgraded, $nbCoursesUpgraded['nb'],$nbCourses['nb']);
-                
+
+		// list of course upgraded failed
+
+		$sqlNbCourses = "SELECT code FROM ".$mainDbName.".cours 
+		         where versionDb = 'error' ";
+		$res_listCoursesError = mysql_query($sqlNbCourses);
+		if (mysql_num_rows($res_listCoursesError))
+		{
+			echo "<p  class=\"error\">Upgrade failed for course(s) ";
+			while ($cours = mysql_fetch_array($res_listCoursesError))
+			{
+				echo $cours['code'] . " ";	
+			}
+			echo "- You can <a href=\"" . $PHP_SELF . "?cmd=run&upgradeCoursesError=1\">retry to upgrade</a> these courses</p>\n";
+			
+		}
                 flush();
                 
+		// display refresh
+
 		echo "<div class=\"help\" id=\"refreshIfBlock\">";
 		echo "<p>Few seconds after the load of the page<sup>*</sup>, the <em>Claroline Upgrade tool</em> will automatically continue its job. If it doesn't, click yourself on the button below.</p>";
 		echo "<p style=\"text-align: center\">" ;
@@ -131,17 +156,26 @@ switch ($display)
 		echo "</div>"; 
                 flush();
 
+		// select course to upgrade
+
 		$sqlListCourses = " SELECT *, " .
 				  " cours.dbName dbName, cours.code sysCode, cours.fake_code officialCode, directory coursePath ".
 		                  " FROM ".$mainDbName.".cours ";
-				  
+		
+		/*		  
 		if (is_array($coursesToUpgrade))
 		{
 			$sqlListCourses .= "where code in ('".implode( "','", $coursesToUpgrade )."') and versionDb != '".$versionDb."' order by dbName";
 		}
-		else
+		*/
+
+		if ($upgradeCoursesError == 1)
 		{
 			$sqlListCourses .= "where versionDb != '".$versionDb."' order by dbName";
+		}
+		else
+		{
+			$sqlListCourses .= "where versionDb != '".$versionDb."' and versionDb !='error' order by dbName";
 		}
 		$res_listCourses = mysql_query($sqlListCourses);
 		
@@ -231,7 +265,16 @@ switch ($display)
 			{
 				echo "<p class=\"error\"><strong>".$nbError." errors found</strong></p>";
 				$totalNbError += $nbError;
-				$nbError = 0;
+				// Error: update versionDB of course
+				$sqlFlagUpgrade = " update ".$mainDbName.".cours
+							set versionDb='error'
+							where code = '".$currentCourseIDsys."';";				
+				$res = @mysql_query($sqlFlagUpgrade);
+				if (mysql_errno() > 0)
+				{
+					echo "<p class=\"error\">n° <strong>".mysql_errno()."</strong>: ".mysql_error()."</p>";
+					echo "<p>" . $sqlFlagUpgrade . "</p>";
+                                }
 			}
 			else
 			{
@@ -264,16 +307,23 @@ switch ($display)
                         else 
                         {
                             echo "<p class=\"error\">Upgrade Failed - $str_execution_time</p>";
+			    $nbError = 0;
                         }
 			echo "<hr noshade=\"noshade\" />";           
                         flush();
 		}
                 
                 $mtime = microtime();	$mtime = explode(" ",$mtime);	$mtime = $mtime[1] + $mtime[0];	$endtime = $mtime;	$totaltime = ($endtime - $starttime);
+
+		$sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours
+			where versionDb = 'error';";
+		$res_NbCourses = mysql_query($sqlNbCourses);
+		$nbCoursesError = mysql_fetch_array($res_NbCourses);
 		
-		if ($totalNbError>0)
+		if ($totalNbError>0 || $nbCoursesError['0'])
 		{
-			echo "<p class=\"error\">" . $totalNbError . " " . $langErrorsFound . "</p>";
+			if ($totalNbError>0 ) echo "<p class=\"error\">" . $totalNbError . " errors</p>";
+			if ($nbCoursesError['0']>0 ) echo "<p class=\"error\">" . $nbCoursesError['0'] . " course(s) not upgraded.";
 			echo "<p><a href=\"".$PHP_SELF."?verbose=true\">Retry</a></p>";
 			$totalNbError += $nbError;
 			$nbError = 0;
