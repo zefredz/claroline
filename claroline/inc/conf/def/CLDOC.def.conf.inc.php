@@ -46,4 +46,46 @@ $conf_def_property_list['maxFilledSpace_for_groups']
         ,'container' => 'VAR'
         ,'acceptedValue' => array('min' => '1024')
         );
+        
+// IMAGE VIEWER        
+
+$conf_def['section']['img_viewer']['label']='Image Viewer';
+$conf_def['section']['img_viewer']['description']='Display options for Image Viewer';
+$conf_def['section']['img_viewer']['properties'] = 
+array ( 'thumbnailWidth'
+      , 'numberOfRows'
+      , 'numberOfCols'
+      );
+      
+// CONFIG PROPERTIES
+$conf_def_property_list['thumbnailWidth']
+= array ('label'     => 'Thumbnail width'
+	// ,'description' => ''
+        ,'default'   => '75'
+        ,'unit'      => 'pixels'
+        ,'type'      => 'integer'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array('min' => '5')
+        );
+
+$conf_def_property_list['numberOfRows']
+= array ('label'     => 'Number of rows'
+	,'description' => 'Number of rows displayed per pages'
+        ,'default'   => '3'
+        ,'unit'      => 'rows'
+        ,'type'      => 'integer'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array('min' => '1')
+        );
+
+$conf_def_property_list['numberOfCols']
+= array ('label'     => 'Number of columns'
+	,'description' => 'Number of columns displayed per pages'
+        ,'default'   => '4'
+        ,'unit'      => 'columns'
+        ,'type'      => 'integer'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array('min' => '1')
+        );
+        
 ?>

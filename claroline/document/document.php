@@ -41,6 +41,12 @@
 $tlabelReq = 'CLDOC___';
 require '../inc/claro_init_global.inc.php';
 
+/*
+ * Library for images
+ */
+
+require_once $includePath . '/lib/image.lib.php';
+
 /* 
  * Library for the file display
  */
@@ -796,6 +802,10 @@ elseif ($cmd == 'exMv')
 {
 	$curDirPath = $_REQUEST['destination'];
 }
+elseif ($cmd == 'viewImage' || $cmd == 'viewThumbs' )
+{
+	$curDirPath = $_REQUEST['curdir'];
+}
 else
 {
 	$curDirPath = '';
@@ -977,7 +987,6 @@ unset($attribute);
       /* > > > > > > END: COMMON TO TEACHERS AND STUDENTS < < < < < < <*/
 
 
-
 /*============================================================================
                                     DISPLAY
   ============================================================================*/
@@ -988,6 +997,40 @@ $htmlHeadXtra[] =
 .comment { margin-left: 30px}
 -->
 </style>";
+
+if ( $cmd == 'viewImage' || $cmd == 'viewThumbs' )
+{
+// declare style for thumbnail/image viewer
+$htmlHeadXtra[] =
+"<style type=text/css>
+<!--
+/* extension of claroTable class defined in central css file */
+.claroTable tr th.toolbar {
+	background: white;
+	font-weight: normal;
+}
+.claroTable tr.toolbar th.prev{
+	text-align:left;
+}
+.claroTable tr.toolbar th.title{
+	font-weight:bold;
+	text-align:center;
+}
+.claroTable tr.toolbar .invisible{
+	color: silver;
+}
+.claroTable tr.toolbar .invisible a:link,
+.claroTable tr.toolbar .invisible a:active,
+.claroTable tr.toolbar .invisible a:visited,
+{
+	color: silver;
+}
+.claroTable tr.toolbar th.next{
+	text-align:right;
+}
+ -->
+ </style>";
+}
 
 $htmlHeadXtra[] =
 "<script>
@@ -1028,11 +1071,295 @@ claro_disp_tool_title($titleElement,
 
 		if ($dialogBox)
 		{
-            claro_disp_message_box($dialogBox);
+            		claro_disp_message_box($dialogBox);
 		}
 	}
 
 	$is_allowedToEdit ? $colspan = 7 : $colspan = 3;
+	
+	/*===========================================================================
+				IMAGE VIEWER
+  	  ===========================================================================*/
+
+	/*
+ 	 * get image list from file list
+ 	 */
+
+	if($cmd == 'viewImage' || $cmd == 'viewThumbs')
+	{
+		$imageList = get_image_list($fileList, $is_allowedToEdit);
+	}
+	
+	/*------------------------------------------------------------------------
+                             		VIEW IMAGE
+	  ------------------------------------------------------------------------*/
+	
+	if ($cmd == 'viewImage')
+	{
+		$colspan = 3;
+		
+		// get requested image name
+		if( isset( $_REQUEST['file'] ) )
+		{
+			$file = basename( $_REQUEST['file'] );
+		}
+		else
+		{
+			$fileName = $fileList['name'][$imageList[0]];
+			$file = basename( $fileName );
+		}
+		
+		// compute relative url for requested image
+		$fileUrl = $curDirPath . '/' . $file;
+		
+		// get requested image key in fileList
+		$imgKey = image_search( $file, $fileList );
+		
+  		$current = get_current_index($imageList, $imgKey);
+  		
+    	$offset = "&offset=" . $current;
+		
+		// compute absolute path to requested image
+		$doc_url = $coursesRepositoryWeb . $courseDir
+			.implode ("/", array_map("rawurlencode", explode("/",$fileUrl)));
+		
+		// Image description table
+		echo "<table class=\"claroTable\" width=\"100%\">\n";
+		
+		// lang variables
+		// see images.lib.php
+		
+		// Display current directory if different from root
+		if($curDirName)
+		{
+			echo "<!-- link to current dir -->\n"
+				. "<tr>\n"
+				. "<th class=\"superHeader\" colspan=\"". $colspan . "\" align=\"left\">\n"
+				. "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
+				. $dspCurDirName, "&nbsp;&nbsp;[&nbsp;<a href=\""
+				. $_SERVER['PHP_SELF']."?cmd=exChDir&file="
+				. $curDirPath."\">" . $backToDir ,"</a>&nbsp;]\n"
+				. "&nbsp;&nbsp;[&nbsp;<a href=\"" .  $_SERVER['PHP_SELF']
+				."?cmd=viewThumbs&curdir="
+				. $curDirPath. $offset ."\">".$thumbnailsView."</a>&nbsp;]\n"
+				. "</th>\n"
+				. "</tr>\n"
+				;
+		}
+		else
+		{
+			echo "<!-- link to current dir -->\n"
+				. "<tr>\n"
+				. "<th class=\"superHeader\" colspan=\"". $colspan . "\" align=\"left\">\n"
+				. "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
+				. $langDoc . "&nbsp;&nbsp;[&nbsp;<a href=\""
+				. $_SERVER['PHP_SELF']."\">" . $backToDir . "</a>&nbsp;]\n"
+                . "&nbsp;&nbsp;[&nbsp;<a href=\"" .  $_SERVER['PHP_SELF']
+				."?cmd=viewThumbs&curdir="
+				. $curDirPath . $offset . "\">".$thumbnailsView."</a>&nbsp;]\n"
+				. "</th>\n"
+				. "</tr>\n"
+				;
+				
+		}// end if curDirName
+		
+		
+		// --------------------- tool bar --------------------------------------
+		// create image title
+		$imgTitle = htmlentities($file);
+		
+		// create image style
+		$titleStyle ='title';
+		
+		// if image invisible set style to invisible
+		if ( $fileList['visibility'][$imgKey] == 'i')
+		{
+			$titleStyle = 'title invisible';
+		} // if invisible
+
+		echo "<tr class=\"toolbar\" valign=\"top\">\n";
+		
+  		// --------------------- display link to previous image ------------------
+  		
+        display_link_to_previous_image($imageList, $fileList, $current);
+		
+		// --------------------- display title of current image ------------------
+		
+		echo "<th class=\"" . $titleStyle . "\">\n";
+		echo $imgTitle;
+		echo "</th>\n";
+		
+		// --------------------- display link to previous image ------------------
+		
+		display_link_to_next_image($imageList, $fileList, $current);
+
+  		echo "</tr>\n";		
+  		
+		// ---------------------- display comment about  requested image ----------
+		
+		if ($fileList['comment'][$imgKey])
+		{				
+			echo "<tr><td colspan=\"".$colspan."\" class=\"comment\">\n"
+				. "<blockquote>" . $fileList['comment'][$imgKey] . "</blockquote>\n"
+				. "</td></tr>\n"
+				;
+		}
+		else
+		{
+			echo "<!-- empty -->\n";
+		}// end if comment
+		
+		echo "</table>\n";
+
+		// --------------------- display current image --------------------------
+		
+		// system path
+		$imgPath = $coursesRepositorySys . $courseDir
+			. $curDirPath . '/' . basename( $file )
+			;
+			
+		// get image info
+		list($width, $height, $type, $attr ) = getimagesize($imgPath);
+		
+		// get color depth ! used to get both mime-type and color depth working together
+		$depth = get_image_color_depth( $imgPath );	
+		
+		// display image
+		echo "<p><center><img src=\"" . $doc_url . "\" " . $attr . " alt=\"" 
+			. $file . "\" /></center></p>\n"
+			;
+			
+		// display image info
+		// -> title and size
+		echo "<br /><small>[ Info : " . $imgTitle . " - " . $width 
+			. "x" . $height 
+			. " - " .format_file_size($fileList['size'][$imgKey])
+			;	
+		
+		// -> color depth
+		echo " - " . $depth . "bits";
+		
+		// -> mime type
+		$mime_type = image_type_to_mime_type($type);
+		echo " - " . $mime_type . " ]</small>\n";
+	}
+	
+	/*-----------------------------------------------------------------------
+	                        VIEW THUMBNAILS
+	  -----------------------------------------------------------------------*/
+
+	else if ($cmd == 'viewThumbs') // thumbnails mode
+	{
+	    // intialize page number
+ 		$page = 1; // if not set, set to first page
+ 		
+ 		if( isset( $_REQUEST['page'] ) )
+		{
+			$page = $_REQUEST['page'];
+		}
+		
+		if( isset( $_REQUEST['offset'] ) )
+		{
+          	$page = get_page_number($offset);
+		}
+
+		// compute column width
+ 		$colWidth = round(100 / $numberOfCols);
+
+		// display table
+		echo "\n<table class=\"claroTable\" width=\"100%\">\n";
+		
+		// lang variables
+		// $backToDir = "Back to Directory";		
+		
+		// display current directory if different from root
+		if($curDirName)
+		{
+			echo "<!-- link to current dir -->\n"
+				. "<tr>\n"
+				. "<th class=\"superHeader\" colspan=\"". $numberOfCols 
+				. "\" align=\"left\">\n"
+				. "<img src=\"".$clarolineRepositoryWeb
+				."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
+				. $dspCurDirName, "&nbsp;&nbsp;[&nbsp;<a href=\""
+				. $_SERVER['PHP_SELF']."?cmd=exChDir&file="
+				. $curDirPath."\">" . $backToDir ,"</a>&nbsp;]\n"
+				. "</th>\n"
+				. "</tr>\n"
+				;
+		}
+		else
+		{
+			echo "<!-- link to current dir -->\n"
+				. "<tr>\n"
+				. "<th class=\"superHeader\" colspan=\"". $numberOfCols 
+				. "\" align=\"left\">\n"
+				. "<img src=\"".$clarolineRepositoryWeb
+				. "img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
+            	. $langDoc."&nbsp;&nbsp;[&nbsp;<a href=\"". $_SERVER['PHP_SELF']
+				. "\">" . $backToDir . "</a>&nbsp;]\n"
+				. "</th>\n"
+				. "</tr>\n"
+				;
+		}
+		
+		// toolbar
+		
+		echo "<tr class=\"toolbar\">\n";
+		echo "<th class=\"prev\" colspan=\"1\" style=\"width: " . $colWidth . "%;\">\n";
+		
+		if(has_previous_page($imageList, $page))
+		{
+		    // link to previous page
+          	echo "<a href=\"".$_SERVER['PHP_SELF'] 
+				. "?cmd=viewThumbs&curdir=" . $curDirPath 
+				. "&page=" . ($page - 1) . "\">&lt;&lt;&nbsp;&nbsp;page&nbsp;" 
+				. ($page - 1) . "</a>\n"
+				;
+		}
+		else
+		{
+		    echo "<!-- empty -->";
+		}
+		
+		echo "</th>\n";
+		
+		echo "<th class=\"title\" colspan=\"" . ($numberOfCols - 2) . "\">\n"
+			. "<p align=\"center\">page&nbsp;" . $page . "</p>"
+			. "</th>\n"
+			;
+			
+		echo "<th class=\"next\" colspan=\"1\" style=\"width: " 
+			. $colWidth . "%;\">\n"
+			;
+		
+		if(has_next_page($imageList, $page))
+		{
+		    // link to next page
+		    echo "<a href=\"".$_SERVER['PHP_SELF'] 
+				. "?cmd=viewThumbs&curdir=" . $curDirPath 
+				. "&page=" . ($page + 1) . "\">page&nbsp;" 
+				. ($page + 1) . "&nbsp;&nbsp;&gt;&gt;</a>\n"
+				;
+		}
+		else
+		{
+		    echo "<!-- empty -->";
+		}
+		
+		echo "</th>\n";		
+		echo "</tr>\n";	
+					
+		display_thumbnails($imageList, $fileList, $page
+			, $thumbnailWidth, $colWidth
+			, $numberOfCols, $numberOfRows);
+		
+		echo "</table>\n";
+		
+	}
+	else // current directory line
+	{
+		
 
 	/*------------------------------------------------------------------------
                              CURRENT DIRECTORY LINE
@@ -1045,6 +1372,7 @@ claro_disp_tool_title($titleElement,
 	if ($curDirName || $cmd == 'exSearch') /* if the $curDirName is empty, we're in the root point 
 	                                          and we can't go to a parent dir */
 	{
+
 		echo "&nbsp;"
             ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n"
 			."<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" alt=\"\">\n"
@@ -1059,6 +1387,14 @@ claro_disp_tool_title($titleElement,
             .$langUp
             ."</span>\n";
     }
+    
+    
+    echo "&nbsp;\n"
+		."<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+		. "?cmd=viewThumbs&curdir=". $curDirPath ."\">"
+		. $thumbnailsView."</a>\n"
+		;
+
 
     echo "&nbsp;\n"
         ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch\">\n"
@@ -1092,13 +1428,11 @@ claro_disp_tool_title($titleElement,
             ."</a>\n";
 	}
 
-
-
     echo "</b>\n"
+
         ."</p>\n";
 
     echo "<table class=\"claroTable\" width=\"100%\">\n";
-
 
 	/* CURRENT DIRECTORY */
 	
@@ -1136,9 +1470,8 @@ claro_disp_tool_title($titleElement,
                 }
 	}
 			
-	echo		"</tr>\n"
-
-               ."<tbody>";
+	echo		"</tr>\n", 
+				"<tbody>";
 
 
 	/*------------------------------------------------------------------------
@@ -1177,6 +1510,7 @@ claro_disp_tool_title($titleElement,
 				$image       = choose_image($fileName);
 				$size        = format_file_size($fileList['size'][$fileKey]);
 				$date        = format_date($fileList['date'][$fileKey]);
+
                 $urlFileName = 'goto/?doc_url='.urlencode($cmdFileName);
                 //$urlFileName = "goto/index.php".str_replace('%2F', '/', $cmdFileName);
                 
@@ -1192,10 +1526,22 @@ claro_disp_tool_title($titleElement,
 			}
 
 			echo	"<tr align=\"center\"",$style,">\n",
-					"<td align=\"left\">",
-					"<a href=\"".$urlFileName."\"".$style.">",
-					"<img src=\"".$clarolineRepositoryWeb."img/",$image,"\" border=\"0\" hspace=\"5\" alt=\"\">",$dspFileName,"</a>",
-					"</td>\n",
+					"<td align=\"left\">";
+					
+			if( is_image( $fileName ) )
+			{
+				echo "<a href=\"". $_SERVER['PHP_SELF'],
+					"?cmd=viewImage&file=" . urlencode($fileName) . "&curdir=". $curDirPath ."\"". $style . ">";
+			}
+			else
+			{
+					echo "<a href=\"".$urlFileName."\"".$style.">";
+			} // end if is_image
+			
+			echo "<img src=\"".$clarolineRepositoryWeb."img/",
+					$image,"\" border=\"0\" hspace=\"5\" alt=\"\">",$dspFileName,"</a>";
+			
+			echo		"</td>\n",
 					
 					"<td><small>",$size,"</small></td>\n",
 					"<td><small>",$date,"</small></td>\n";
@@ -1265,7 +1611,7 @@ claro_disp_tool_title($titleElement,
                 }
 				
 				echo	"</td>\n";
-			}										// end if($is_allowedToEdit)
+			} // end if($is_allowedToEdit)
 			
 			echo	"</tr>\n";
 			
@@ -1285,9 +1631,13 @@ claro_disp_tool_title($titleElement,
 					."</tr>\n";
 			}
 		}				// end each ($fileList)
+		
 	}					// end if ( $fileList)
+
+	echo	"</tbody>",
+
+            "</table>\n";
 	
-	echo "</tbody>"
-         ."</table>\n";
+	} // END ELSE VIEW IMAGE
 
 include $includePath.'/claro_init_footer.inc.php';
