@@ -13,7 +13,6 @@
 $langFile = "faculty";
 $cidReset=TRUE;
 include('../inc/claro_init_global.inc.php');
-
 $nameTools             = $lang_categories;
 $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 
@@ -1007,7 +1006,7 @@ include($includePath."/claro_init_footer.inc.php");
 
     function displayBom($elem,$father,$space)
     {
-        GLOBAL $lang_faculty_ConfirmDelete;
+        GLOBAL $lang_faculty_ConfirmDelete, $clarolineRepositoryWeb;
 
         if($elem)
         {
@@ -1034,7 +1033,7 @@ include($includePath."/claro_init_footer.inc.php");
                         if($one_faculty["visible"])
                             $PM='<img src="'.$clarolineRepositoryWeb.'img/minus.jpg" border="0" alt="" >';
                         else
-                            $PM='<img src="../img/plus.jpg" border="0" alt="" >';
+                            $PM='<img src="'.$clarolineRepositoryWeb.'img/plus.jpg" border="0" alt="" >';
                     ?>
 
                     <a style="text-decoration:none;font-weight:bold" href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&date=".$date."#pm".$one_faculty["id"] ?>"
@@ -1062,17 +1061,17 @@ include($includePath."/claro_init_footer.inc.php");
                     <td  align="center">
 
                         <a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&edit=1"; ?>" >
-                        <img src="../img/edit.gif" border="0" alt="<?php echo $lang_faculty_imgEdit ?>" > </a>
+                        <img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $lang_faculty_imgEdit ?>" > </a>
                     </td>
                     <td align="center">
                         <a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&edit=1&move=1"; ?>" >
-                        <img src="../img/deplacer.gif" border="0" alt="<?php echo $lang_faculty_imgMove ?>" > </a>
+                        <img src="<?php echo $clarolineRepositoryWeb ?>img/deplacer.gif" border="0" alt="<?php echo $lang_faculty_imgMove ?>" > </a>
                     </td>
                     <td align="center">
                         <a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&delete=1"; ?>"
                         onclick="javascript:if(!confirm('<?php echo 
                          addslashes(htmlentities($lang_faculty_ConfirmDelete.$one_faculty["code"])) ?>')) return false;" >
-                        <img src="../img/delete.gif" border="0" alt="<?php echo $lang_faculty_imgDelete ?>"> </a>
+                        <img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $lang_faculty_imgDelete ?>"> </a>
                     </td>
                     <?php
 
@@ -1096,7 +1095,7 @@ include($includePath."/claro_init_footer.inc.php");
                         ?>
                             <a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=u&date=".$date."#ud".$one_faculty["id"];
                             ?>" name ="<?php echo "ud".$one_faculty["id"]; ?>">
-                            <img src="../img/up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"></a>
+                            <img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"></a>
                         <?php
                         }
                         ?>
@@ -1109,7 +1108,7 @@ include($includePath."/claro_init_footer.inc.php");
                         ?>
                             <a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=d&date=".$date."#ud".$one_faculty["id"];
                             ?>" name="<?php echo "ud".$one_faculty["id"]; ?>">
-                            <img src="../img/down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
+                            <img src="<?php echo $clarolineRepositoryWeb ?>img/down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
                     <?php
                         }
                         ?>
