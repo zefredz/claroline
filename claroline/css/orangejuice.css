@@ -348,6 +348,26 @@ h3{	font-size: 110%; }
 	background-color: #ffecce;
 }
 
+/* extension of claroTable class for Image Viewer */
+.claroTable tr th.toolbar {
+	background: white;
+}
+
+.claroTable tr.toolbar th.prev{
+	text-align:left;
+	font-weight: normal;
+}
+
+.claroTable tr.toolbar th.title{
+	font-weight:bold;
+	text-align:center;
+}
+
+.claroTable tr.toolbar th.next{
+	text-align:right;
+	font-weight: normal;
+}
+
 .emphaseLine tbody td {
 	border-bottom: solid #ffecce 1px ;
 }
