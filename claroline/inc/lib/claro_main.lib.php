@@ -145,7 +145,7 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
         $resultHandler =  @mysql_query($sqlQuery, $dbHandler);
     }
 
-    if ( CLARO_DEBUG_MODE && mysql_errno() )
+    if ( defined('CLARO_DEBUG_MODE') && mysql_errno() )
     {
                 echo '<hr size="1" noshade>'
                      .mysql_errno(), " : ", mysql_error(), '<br>'
@@ -1261,7 +1261,7 @@ function claro_parse_user_text($userText)
 
    $userText = make_clickable($userText);
 
-   if ( strpos($usertext, '<!-- content: html -->') === false )
+   if ( strpos($userText, '<!-- content: html -->') === false )
    {
         // only if the content isn't HTML change new line to <br>
         // Note the '<!-- content: html -->' is introduced by HTML Area
