@@ -1040,30 +1040,30 @@ claro_disp_tool_title($titleElement,
 
 	/* GO TO PARENT DIRECTORY */
 
-    echo "<p>\n"
-        ."<b>\n";
+    echo "<p>\n";
 
 	if ($curDirName || $cmd == 'exSearch') /* if the $curDirName is empty, we're in the root point 
 	                                          and we can't go to a parent dir */
 	{
 		echo "&nbsp;"
-            ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n"
+            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n"
 			."<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" alt=\"\">\n"
-			."<small>".$langUp."</small>\n"
+			.$langUp
 			."</a>\n";
 	}
     else
     {
         echo "&nbsp;\n"
+            ."<span class='claroCmdDisabled'>"
             ."<img src=\"".$clarolineRepositoryWeb."img/parentdisabled.gif\" border=\"0\" alt=\"\">\n"
-            ."<small style='color:gray'>".$langUp."</small>\n"
-            ."</a>\n";
+            .$langUp
+            ."</span>\n";
     }
 
     echo "&nbsp;\n"
-        ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch\">\n"
+        ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch\">\n"
         ."<img src=\"".$clarolineRepositoryWeb."img/search.gif\" border=\"0\" alt=\"\">\n"
-        ."<small>Search</small>\n"
+        ."Search"
         ."</a>\n";
 
 	if ($is_allowedToEdit)
@@ -1071,23 +1071,24 @@ claro_disp_tool_title($titleElement,
 		/* CREATE DIRECTORY - UPLOAD FILE - CREATE HYPERLINK */
 		
         echo "&nbsp;&nbsp;&nbsp;&nbsp;"
-            ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">"
+            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/download.gif\" alt=\"\">"
-            ."<small><b>".$langUploadFile."</b></small>"
+            .$langUploadFile
             ."</a>\n"
             ."&nbsp;"
-            ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">"
+            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/dossier.gif\" alt=\"\">"
-            ."<small>".$langCreateDir."</small>"
+            .$langCreateDir
             ."</a>\n"
             ."&nbsp;"
-            ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">"
+            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/liens.gif\" alt=\"\">"
-            ."<small>".$langCreateHyperlink."</small>"
+            .$langCreateHyperlink
             ."</a>\n"
-            ."<a href=\"rqmkhtml.php?cmd=rqMkHtml&cwd=".$cmdCurDirPath."\">"
+            ."&nbsp;"
+            ."<a class='claroCmd' href=\"rqmkhtml.php?cmd=rqMkHtml&cwd=".$cmdCurDirPath."\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/html.gif\" alt=\"\">"
-            ."<small>".$langCreateDocument."</small>"
+            .$langCreateDocument
             ."</a>\n";
 	}
 
