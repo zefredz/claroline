@@ -34,9 +34,9 @@ include ($includePath.'/lib/fileDisplay.lib.php');
 // the question form has been submitted
 if($submitQuestion)
 {
-	$questionName=trim($questionName);
-	$questionDescription=trim($questionDescription);
-  $fileUpload_name=strtolower($fileUpload_name);
+	$questionName = trim($questionName);
+	$questionDescription = trim($questionDescription);
+	$fileUpload_name = strtolower($fileUpload_name);
 
 	// no name given
 	if(empty($questionName))
@@ -95,7 +95,7 @@ if($submitQuestion)
 		$objQuestion->updateTitle($questionName);
 		$objQuestion->updateDescription($questionDescription);
 		$objQuestion->updateType($answerType);
-    $objQuestion->save($exerciseId);
+		$objQuestion->save($exerciseId);
 
 		// if a file has been set or checkbox "delete" has been checked
 		if($fileUpload_size || $deleteAttachedFile)
@@ -157,11 +157,13 @@ else
 		$questionName=$objQuestion->selectTitle();
 		$questionDescription=$objQuestion->selectDescription();
 		$answerType=$objQuestion->selectType();
-    $attachedFile=$objQuestion->selectAttachedFile();
+		$attachedFile=$objQuestion->selectAttachedFile();
 	}
         
-        $okAttachedFile=empty($attachedFile)?false:true;
+        $aFileIsAttached = empty($attachedFile)?false:true;
 }
+
+$maxUploadSizeInBytes = get_max_upload_size(100000000,$attachedFilePathSys);
 
 if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
 {
@@ -175,7 +177,7 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
 <table border="0" cellpadding="5">
 
 <?php
-	if($okAttachedFile)
+	if($aFileIsAttached)
 	{
 ?>
 
@@ -214,12 +216,14 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
   <td><textarea wrap="virtual" name="questionDescription" id="questionDescription" cols="50" rows="4" style="width:400px;"><?php echo htmlentities($questionDescription); ?></textarea></td>
 </tr>
 <tr>
-  <td valign="top"><label for="fileUpload"><?php echo $okAttachedFile?$langReplaceAttachedFile:$langAttachFile; ?> :</label></td>
-  <td><input type="file" name="fileUpload" id="fileUpload" size="30" style="width:390px;"><br />
-  <small><?php echo $langMaxFileSize; ?> <?php echo format_file_size( get_max_upload_size(100000000,$attachedFilePathSys) ); ?></small>
+  <td valign="top"><label for="fileUpload"><?php echo $aFileIsAttached?$langReplaceAttachedFile:$langAttachFile; ?> :</label></td>
+  <td>
+  <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxUploadSizeInBytes; ?>" />
+  <input type="file" name="fileUpload" id="fileUpload" size="30" style="width:390px;"><br />
+  <small><?php echo $langMaxFileSize; ?> <?php echo format_file_size( $maxUploadSizeInBytes ); ?></small>
 
 <?php
-	if($okAttachedFile)
+	if($aFileIsAttached)
 	{
 ?>
 
