@@ -43,4 +43,13 @@ $langCategories="Catégories";
 $langNbFor="Nbre de forums";
 $langFunctions="Fonctions";
 $langAddCategory="Ajouter une catégorie";
+$langOrder = "Ordre";
+$langCannotBeDeleted = "Ne peut être effacé";
+
+//action done message
+$langemptyforumname = "Vous devez choisir un nom pour votre forum!";
+$langemptycatname = "Vous devez choisir un nom pour votre nouvelle catégorie!";
+$langforumcreated = "Nouveau forum cr&eacute;&eacute;";
+$langcatcreated = "Nouvelle catégorie cr&eacute;&eacute;e";
+
 ?>
