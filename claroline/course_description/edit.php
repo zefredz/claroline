@@ -117,7 +117,7 @@ else // if user is not admin,  they can change content
 				`content` ='".trim(claro_addslashes($_REQUEST['edContentBloc']))."',
 				`upDate` = NOW() 
 			WHERE 
-				id = '".$_REQUEST["edIdBloc"]."';";
+				id = '". $edIdBloc ."'";
 		claro_sql_query($sql);
 	}
 
