@@ -484,7 +484,7 @@ if($is_allowedToEditAll)
       
       $cmdToSend = "exGradeWrk";
       
-      $txtForFormTitle = $langFeedback;
+      $txtForFormTitle = $langAddFeedback;
       $isGrade = true;
       
       // display flags
@@ -696,7 +696,7 @@ if( $dispWrkDet || $dispWrkForm )
 {
       // bredcrump to return to the list when in a form
       $interbredcrump[]= array ("url"=>"../work/workList.php?assigId=".$_REQUEST['assigId'], "name"=> $langAssignment);
-      $nameTools = "Work";
+      $nameTools = $langSubmittedWork;
 }
 else
 {
@@ -793,31 +793,41 @@ if( $dispWrkDet && $is_allowedToView )
                   WHERE `parent_id` = ".$wrk['id'];
       // corection of this work (NULL if there is no corection yet)
       $gradeId = claro_sql_query_get_single_value($sql);
-      
-      // if I have the right to modify this work and if there is no grade yet, or if you are course admin
-      if( $is_allowedToEdit && empty($gradeId) || $is_allowedToEditAll )
+     
+      // if the work is a correction
+      if( !empty($wrk['parent_id']) )
       {
-            // allow the user to modify it's own work
-            echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">"
-                  ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a>";
+            if( $is_allowedToEditAll )
+            {
+                  // admin has the right to edit it
+                  echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">"
+                        ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a>";
+            }
+
+            // anybody that can see the correction is probably authorised to see the work, so display the link to anybody
+            echo "&nbsp;<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['parent_id']."&cmd=exShwDet\">".$langShowWork."</a>";
       }
-      elseif( $is_allowedToEdit )
+      // if the work is a ... work
+      if( empty($wrk['parent_id']) )
       {
-            // show a link to the correction
-            echo "<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowFeedback."</a>";
-      }
-      
-      // show 'grade' link if user i course admin, the work has no correction and the work is not a correction
-      if( $is_allowedToEditAll && empty($gradeId) && empty($wrk['parent_id']) )
-      {
-            // grade link
-            echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">".$langFeedback."</a>";
-      }
-      // if the work has a correction already
-      elseif( $is_allowedToEditAll && !empty($gradeId) )
-      {
-            // show grade
-            echo "&nbsp;<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowFeedback."</a>";
+            // if user is allowed to edit, display the link to edit it
+            if( $is_allowedToEdit )
+            {
+                  // the work can be edited 
+                  echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">"
+                        ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a>";
+            }
+            
+            if( !empty($gradeId) )
+            {
+                  // if there is already a correction display the link to show it
+                  echo "&nbsp;<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowFeedback."</a>";
+            }
+            elseif( $is_allowedToEditAll )
+            {
+                  // if there is no correction yet show the link to add a correction if user is course admin
+                  echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">".$langAddFeedback."</a>";
+            }
       }
       
       
@@ -1142,7 +1152,7 @@ if( $dispWrkLst && $is_allowedToView )
           
     if ( $is_allowedToEditAll ) 
     {
-        echo  "<th>".$langFeedback."</th>\n"
+        echo  "<th>".$langAddFeedback."</th>\n"
             ."<th>".$langModify."</th>\n"
             ."<th>".$langDelete."</th>\n"
             ."<th>".$langVisibility."</th>\n";
@@ -1199,7 +1209,7 @@ if( $dispWrkLst && $is_allowedToView )
       { 
         if( empty($thisWrk['parent_id']) )
         {
-            $gradeString  = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\">".$langFeedback."</a>";
+            $gradeString  = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\">".$langAddFeedback."</a>";
         }
         else
         {
