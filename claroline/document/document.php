@@ -920,17 +920,8 @@ if ($courseContext && $fileList)
         $sql = "SELECT `path`, `visibility`, `comment` 
                 FROM `".$dbTable."` 
                 WHERE path IN ('".implode("', '", array_map('addslashes', $fileList['name']) )."')";
-/* <DEBUG> */
-echo "<pre style='color:red;font-weight:bold'>$sql</pre>";
-/* </DEBUG> */
 
     $attributeList = claro_sql_query_fetch_all_cols($sql);
-
-/* <DEBUG> */
-echo "<pre style='color:red;font-weight:bold'> attributeList : ";
-var_dump($attributeList);
-echo "</pre>";
-/* </DEBUG> */
 
 
     /*
@@ -986,12 +977,6 @@ echo "</pre>";
     }	// end if sizeof($attribute['path']) > 0
 
 } // end if courseContext
-
-/* <DEBUG> */
-echo "<pre style='color:red;font-weight:bold'>";
-var_dump($fileList);
-echo "</pre>";
-/* </DEBUG> */
 
 
 

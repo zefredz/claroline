@@ -599,12 +599,7 @@ function update_db_info($action, $filePath, $newParam = array())
                 $theQuery = "INSERT INTO `".$dbTable."`
                              SET path       = \"".addslashes($insertedPath)."\",
                                  comment    = \"".addslashes($newParam['comment'   ])."\",
-                                 visibility = \"".addslashes($newParam['visibility'])."\"";
-
-              /* <DEBUG> */
-              echo "<pre style='color:red;font-weight:bold'>$theQuery</pre>";
-              /* </DEBUG> */
-              
+                                 visibility = \"".addslashes($newParam['visibility'])."\"";              
             }
             // else noop
         }
