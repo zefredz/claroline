@@ -121,7 +121,7 @@ $langGroupFilledGroups="Les groupes ont été remplis (ou complétés) par les étudi
 $langStudentsNotInThisGroups = "Utilisateurs non inscrits à ce groupe";
 
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "Un utilisateur peut être inscrit dans";
-$langQtyOfUserCanSubscribe_PartAfterNumber = "groupes";
+$langQtyOfUserCanSubscribe_PartAfterNumber = "groupe(s)";
 
 $langNoLimitForQtyOfUserCanSubscribe ="L'utilisateur peut être inscrit à tous les groupes"; // JCC 
 $langGroupDocumentAlwaysPrivate = "(toujours privé)";
