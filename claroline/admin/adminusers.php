@@ -141,18 +141,33 @@ $sql = "SELECT
        max(UNIX_TIMESTAMP(`login`.`login_date`)) `login_date`,
        now()-`login_date` `login_idle`,
        IF(`U`.`statut`=".COURSE_CREATOR.",'COURSE_CREATOR','ORDINARY') `statut` ,
-       IF(`a`.`idUser` IS NULL,'','PLATFORM_ADMIN') `admin_statut` ,
        count(DISTINCT `CU`.`code_cours`) `qty_course`
-       FROM  `".$tbl_user."` AS `U` 
+       FROM  `".$tbl_user."` AS `U`";
+
+//deal with admin user search only (PART ONE)	
+	
+if ($_SESSION['admin_user_action']=="plateformadmin")
+{
+    $sql .= ", `".$tbl_admin."` AS `AD`";
+}
+
+// join with course table to find course numbers of each user and last login
+
+$sql.= " 
        LEFT JOIN `".$tbl_course_user."` AS `CU` 
        ON `CU`.`user_id` = `U`.`user_id`
        LEFT JOIN `".$tbl_track_login."` `login`
        ON `U`.`user_id`  = `login`.`login_user_id`
-       LEFT JOIN `".$tbl_admin."` `a`
-       ON `U`.`user_id` = `a`.`idUser`
 
        WHERE 1=1 ";
 
+//deal with admin user search only (PART TWO)
+
+if ($_SESSION['admin_user_action']=="plateformadmin")
+{
+    $sql .= " AND `AD`.`idUser` = `U`.`user_id` ";
+}       
+       
 //deal with LETTER classification call
 
 if (isset($_SESSION['admin_user_letter']))
@@ -226,6 +241,7 @@ if (isset($_SESSION['admin_user_order_crit']))
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $userList = $myPager->get_result_list();
 $userList = claro_sql_query_fetch_all($sql);
+
 //$dialogBox .= '<pre>'.var_export($userList,1)."</pre><br>"; //debug
 
 //Display search form
@@ -237,7 +253,7 @@ if ($_SESSION['admin_user_lastName']!="")             { $isSearched .= $langLast
 if ($_SESSION['admin_user_userName']!="")             { $isSearched .= $langUsername."=".$_SESSION['admin_user_userName']."* ";}
 if ($_SESSION['admin_user_mail']!="")                 { $isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";}
 if ($_SESSION['admin_user_action']=="createcourse")   { $isSearched .= "<b> <br>".$langCourseCreator."  </b> ";}
-if ($_SESSION['admin_user_action']=="plateformadmin") { $isSearched .= "<b> <br>".$langPlatformAdmin."  </b> ";}
+if ($_SESSION['admin_user_action']=="plateformadmin") { $isSearched .= "<b> <br>".$langPlatformAdministrator."  </b> ";}
 
      //see what must be kept for advanced links
 
@@ -317,29 +333,6 @@ echo "<form name=\"indexform\" action=\"",$_SERVER['PHP_SELF'],"\" method=\"GET\
 //TOOL LINKS
 
    //Display search form
-
-
-      //see passed search parameters :
-
-if ($_SESSION['admin_user_search']!="")               { $isSearched .= $_SESSION['admin_user_search']." ";}
-if ($_SESSION['admin_user_firstName']!="")            { $isSearched .= $langFirstName."=".$_SESSION['admin_user_firstName']." ";}
-if ($_SESSION['admin_user_lastName']!="")             { $isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']." ";}
-if ($_SESSION['admin_user_userName']!="")             { $isSearched .= $langUserName."=".$_SESSION['admin_user_userName']." ";}
-if ($_SESSION['admin_user_mail']!="")                 { $isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";}
-if ($_SESSION['admin_user_action']=="createcourse")   { $isSearched .= "<b> <br>".$langCourseCreator."  </b> ";}
-if ($_SESSION['admin_user_action']=="plateformadmin") { $isSearched .= "<b> <br>".$langPlatformAdministrator."  </b> ";}
-
-     //see what must be kept for advanced links
-
-$addtoAdvanced = "?firstName=".$_SESSION['admin_user_firstName'];
-$addtoAdvanced .="&amp;lastName=".$_SESSION['admin_user_lastName'];
-$addtoAdvanced .="&amp;userName=".$_SESSION['admin_user_userName'];
-$addtoAdvanced .="&amp;mail=".$_SESSION['admin_user_mail'];
-$addtoAdvanced .="&amp;action=".$_SESSION['admin_user_action'];
-
-    //finaly, form itself
-
-if (($isSearched=="") || !isset($isSearched)) {$title = "";} else {$title = $langSearchOn." : ";}
 
 echo '<table width="100%">
         <tr>
