@@ -21,6 +21,8 @@ $tlabelReq = "CLUSR___";
 
 require '../inc/claro_init_global.inc.php';
 @include($includePath."/lib/debug.lib.inc.php");
+include($includePath."/conf/profile.conf.inc.php");
+include($includePath.'/lib/claro_mail.lib.inc.php');		
 
 if (! ($is_courseAdmin || $is_platformAdmin)) claro_disp_auth_form();
 
@@ -37,13 +39,14 @@ $currentCourseName = $_course['officialCode'];
 $tbl_user          = "user";
 $tbl_courseUser    = "cours_user";
 
-
-
 // Status definition
 
 define ("STUDENT"      , 5);
 define ("COURSEMANAGER", 1);
 
+// variables
+
+$platformRegSucceed = false;
 
 
 /*==========================
@@ -56,18 +59,27 @@ if($register)
 	 * Fields Checking
 	 */
 
-	$nom_form      = trim($nom_form);
-	$prenom_form   = trim($prenom_form);
-	$password_form = trim($password_form);
-	$username_form = trim($username_form);
-	$email_form    = trim($email_form);
+    $emailRegex = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 
-        $emailRegex = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
+	$username_form  = trim($_REQUEST['username_form']);
+	$email_form     = trim($_REQUEST['email_form']);
+	$nom_form       = trim($_REQUEST['nom_form']);
+	$prenom_form    = trim($_REQUEST['prenom_form']);
+	$password_form  = trim($_REQUEST['password_form']);
+    $confirm_form   = trim($_REQUEST['confirm_form']);
+    $platformStatus = trim($_REQUEST['platformStatus']);
 
 	$dataChecked = true; // initially set to true, will change to false if there is a problem
-	// empty field checking
 
-	if(empty($nom_form) || empty($prenom_form) || empty($password_form) || empty($username_form) || empty($email_form))
+	// empty field checking
+	if (
+        empty($nom_form) 
+        || empty($prenom_form) 
+        || empty($password_form)
+        || empty($confirm_form)
+        || empty($username_form)
+        || (empty($email_form) && !$userMailCanBeEmpty)
+        )
 	{
 		$dataChecked = false;
 		$message     = $langFilled;
@@ -75,7 +87,7 @@ if($register)
 
 	// valid mail address checking
 
-	elseif(!eregi( $emailRegex, $email_form))
+	elseif( !empty($email_form) && !eregi( $emailRegex, $email_form))
 	{
 		$dataChecked = false;
 		$message     = $langEmailWrong;
@@ -85,7 +97,7 @@ if($register)
 
     if ($password_form !== $confirm_form)
     {
-        $dataChecked    = false;
+        $dataChecked = false;
         $message     = $langPassTwo;
         $password_form = '';
         $confirm_form = '';
@@ -218,42 +230,35 @@ if($register)
 
 		if ($courseRegSucceed)
 		{
-			$emailBody = "$langDear $prenom_form $nom_form,\n
-      $langOneResp $currentCourseName $langRegYou $siteName $langSettings $username_form\n
-      $langPass: $password_form\n
-      $langAddress $siteName $langIs: $serverAddress\n
-      $langProblem\n\n
-      $langFormula,\n
-      $langAdministratorSurname ".$administrator["name"]."\n
-      $langManager $siteName\n";
-      if(! empty($administrator["phone"]) ) $emailBody .= "T. ".$administrator["phone"]."\n";
-      $emailBody .= $langEmail.": ".$administrator["email"]."\n";
-
-			$message = "$langTheU $prenom_form $nom_form $langAddedToCourse. "
-					  ."<a href=\"user.php\">$langBackUser</a>\n";
-		}
+		    $emailBody = "$langDear $prenom_form $nom_form,\n
+            $langOneResp $currentCourseName $langRegYou $siteName $langSettings $username_form\n
+            $langPass: $password_form\n
+            $langAddress $siteName $langIs: $serverAddress\n
+            $langProblem\n\n
+            $langFormula,\n
+            $langAdministratorSurname ".$administrator["name"]."\n
+            $langManager $siteName\n";
+            if(! empty($administrator["phone"]) ) $emailBody .= "T. ".$administrator["phone"]."\n";
+            $emailBody .= $langEmail.": ".$administrator["email"]."\n";
+			$message = "$langTheU $prenom_form $nom_form $langAddedToCourse. ";
+        }
 		else
 		{
-			$emailBody = "$langDear  $prenom_form $nom_form,\n
-      $langYouAreReg $siteName $langSettings $username_form\n
-      $langPass: $password_form\n
-      $langAddress $siteName $langIs: $serverAddress\n
-      $langProblem\n\n
-      $langFormula,\n
-      $administratorSurname ".$administrator["name"]."\n\n
-      $langManager $siteName\n";
-      if(! empty($administrator["phone"]) ) $emailBody .= "T. ".$administrator["phone"]."\n";
-      $emailBody .= $langEmail.": ".$administrator["email"]."\n";
-
+            $emailBody = "$langDear  $prenom_form $nom_form,\n
+            $langYouAreReg $siteName $langSettings $username_form\n
+            $langPass: $password_form\n
+            $langAddress $siteName $langIs: $serverAddress\n
+            $langProblem\n\n
+            $langFormula,\n
+            $administratorSurname ".$administrator["name"]."\n\n
+            $langManager $siteName\n";
+            if(! empty($administrator["phone"]) ) $emailBody .= "T. ".$administrator["phone"]."\n";
+            $emailBody .= $langEmail.": ".$administrator["email"]."\n";
 			$message = "$prenom_form $nom_form Added to platform.";
 		}
 
-		// include mail library only if we are sure to need it
-		include($includePath.'/lib/claro_mail.lib.inc.php');
+        if (! empty($email_form)) claro_mail_user($userId, $emailBody, $emailSubject);
 		
-		claro_mail_user($userId, $emailBody, $emailSubject);
-		
-
 		/*
 		 * remove <form> variables to prevent any pre-filled fields
 		 */
@@ -274,24 +279,19 @@ if($register)
 
 if($message)
 {
-?>
-
-	<table border="0" cellpadding="3" width="400" bgcolor="#FFCC00">
-	<tr>
-	  <td><?php echo $message; ?></td>
-	</tr>
-	</table>
-	<br>
-
-<?php
+    claro_disp_message_box($message);
+    if ($platformRegSucceed) echo "<p><a href=\"user.php\"><< $langBackUser</a></p>\n";
 }
+
+if ($platformRegSucceed == false)
+{
 
 /*==========================
      ADD ONE USER FORM
   ==========================*/
 ?>
 
-<?php echo $langOneByOne; ?>. <?php echo $langUserOneByOneExplanation; ?>
+<?php echo $langOneByOne; ?>. <?php echo "<p>" . $langUserOneByOneExplanation . "</p>"; ?>
 
 <form method="post" action="<?php echo  $_SERVER['PHP_SELF'] ?>?register=yes">
 <table cellpadding="3" cellspacing="0" border="0">
@@ -423,6 +423,8 @@ else
 </form>
 
 <?php
+
+}
 
 /*==========================
     IMPORT CSV USERS LIST
