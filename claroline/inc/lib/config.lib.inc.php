@@ -634,7 +634,7 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
                   . ' * -------------------------------------------------'."\n"
                   . ' * DONT EDIT THIS FILE - NE MODIFIEZ PAS CE FICHIER '."\n"
                   . ' **/'."\n\n"
-                  . ' // $'.$conf_def['config_code'].'GenDate is an interna mark'
+                  . ' // $'.$conf_def['config_code'].'GenDate is an interna mark'."\n"
                   . '$'.$conf_def['config_code'].'GenDate = "'.time().'";'."\n\n"
                   . (isset($conf_def['technicalInfo'])
                   ? '/*'
