@@ -95,7 +95,7 @@ color:#003399 }
 /* Claroline links */
 a img
 {
-	border: 0px;
+	border:none;
 	text-decoration: none;
 }
 a | img
@@ -104,29 +104,27 @@ a | img
 	text-decoration: none;
 }
 
+
 a:link, a:active, a:visited
 {
 	color: #003399
 }
 
-.claroButton
+/*.claroButton
 {
-	line-height: 200%;
 	color:Black;
 	background:	#DDDEBC;
 	border-right: gray 2px solid;
 	border-bottom: gray	2px	solid;
 	border-top:	#eee 2px solid;
 	border-left: #eee 2px solid;
-	padding: 3px;
-	margin: 3px;
+	padding: 1px 2px 1px 2px;
+	margin: 3px 3px 4px 3px;
 	text-decoration: none;
 }
 
-input.claroButton
-{
-	margin: 0px;
-	padding: 4px 2px 2px 2px;
+a.claroButton {
+	line-height: 200%;
 }
 
 a.claroButton
@@ -138,6 +136,9 @@ a.claroButton
 {
 	cursor:pointer;
 }
+*/
+
+
 .HelpText
 {
     color:gray
