@@ -13,6 +13,10 @@
 
 $langFile = "courses";
 
+$langBackToClass   = "back to the class";
+$langRegisterClass = " Register a class";
+$langEnrollClass = "Enroll class";
+
 require '../inc/claro_init_global.inc.php';
 
 $nameTools  = $lang_course_enrollment;
@@ -28,6 +32,8 @@ define ('DISPLAY_USER_COURSES'  , 1);
 define ('DISPLAY_COURSE_TREE'   , 2);
 define ('DISPLAY_MESSAGE_SCREEN', 3);
 
+$tbl_class                 = $mainDbName."`.`class";
+$tbl_class_user            = $mainDbName."`.`rel_class_user";
 
 // define user we are working with...
 
@@ -38,7 +44,7 @@ if (isset($uidToEdit))
    $userId = $uidToEdit;
 }
 
-//security : only platfrom admin can edit other user than himself...
+//security : only platform admin can edit other user than himself...
 if (!$is_platformAdmin)
 {
     $uidToEdit = $_uid;
@@ -46,7 +52,7 @@ if (!$is_platformAdmin)
 }
 else
 {
-  if (isset($fromAdmin) && ($fromAdmin == "settings" || $fromAdmin == "usercourse"))
+  if (isset($fromAdmin) && ($fromAdmin == "settings" || $fromAdmin == "usercourse" || $fromAdmin == "class"))
   {
     $userSettingMode = $uidToEdit;
     
@@ -83,9 +89,20 @@ if($addNewCourse || $selectCategory || isset($courseCode))
 
 //bred different if we come from admin tool  
   	
-if (isset($fromAdmin) && ($fromAdmin == "settings" || $fromAdmin == "usercourse"))
+if (isset($fromAdmin) && ($fromAdmin == "settings" || $fromAdmin == "usercourse" || $fromAdmin == "class"))
 {
 	$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+}
+//bred different if we come from admin tool for a CLASS  
+  	
+if (isset($fromAdmin) && ($fromAdmin == "class"))
+{
+	$nameTools = $langRegisterClass;
+	
+	//find info about the class
+
+        $sqlclass = "SELECT * FROM `".$tbl_class."` WHERE `id`='".$_SESSION['admin_user_class_id']."'";
+        list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 }
 
 //include header
@@ -340,10 +357,15 @@ else
 		$backUrl   = "../admin/adminprofile.php?uidToEdit=".$userId;
         	$backLabel = $langBackToUserSettings;
 	}
-	if ($fromAdmin =="usercourse")
+	if ($fromAdmin =="usercourse") // admin tool used: list of a user's courses.
 	{
 		$backUrl   = "../admin/adminusercourses.php?uidToEdit=".$userId;
         	$backLabel = $langBackToCourseList;
+	}
+	if ($fromAdmin == "class") // admin tool used : class registration
+	{
+		$backUrl   = "../admin/admin_class_user.php?";
+        	$backLabel = $langBackToClass;
 	}
     }
     else
@@ -372,10 +394,23 @@ switch ($displayMode)
 		// Note : if we are at the root category we're at the top of the campus
 		//        root name equal platform name
 		//        $siteName comes from claro_main.conf.php
-
-        claro_disp_tool_title( array('mainTitle' => $lang_course_enrollment." : ".$userInfo['prenom']." ".$userInfo['nom'],
+	
+		/*
+		 * TITLE DISPLAY
+		 */
+		
+	if ($_REQUEST['fromAdmin'] != "class")
+	{
+        	claro_disp_tool_title( array('mainTitle' => $lang_course_enrollment." : ".$userInfo['prenom']." ".$userInfo['nom'],
                                      'subTitle'  => $lang_select_course_in.' '.$currentCategoryName));
-
+	}
+	else
+	{
+		claro_disp_tool_title( array('mainTitle' => $langEnrollClass." : ".$classinfo['name'],
+                                     'subTitle'  => $lang_select_course_in.' '.$currentCategoryName));
+	}
+	
+	
         if($message);
 		{
 			echo "<blockquote>",$message,"</blockquote>\n";
@@ -437,19 +472,31 @@ switch ($displayMode)
 
 					"<table class=\"claroTable\" >";
 
-            if ($userSettingMode) 
-			{
-
-               echo "<tr class=\"headerX\">
+            if ($userSettingMode) //display links to enroll as student and also as teacher (but not for a class)
+	    {
+               
+	      if ($_REQUEST['fromAdmin']!="class")
+	      { 	      
+                  echo "<tr class=\"headerX\">
                       <th>
                       </th>
                       <th>
                       ".$langEnrollAsStudent."
+                      </th>";
+		  echo   "<th>
+                          ".$langEnrollAsTeacher."
+                          </th>
+                         <tr>";
+	      }
+	      else
+	      {
+	          echo "<tr class=\"headerX\">
+                      <th>
                       </th>
                       <th>
-                      ".$langEnrollAsTeacher."
-                      </th>
-                     <tr>";
+                      ".$langEnrollClass."
+                      </th>";
+	      }
             }
 
 			foreach($courseList as $thisCourse)
@@ -479,16 +526,31 @@ switch ($displayMode)
                     }
                     else
                     {
-                        echo "<td valign=\"top\"  align=\"center\">";
-                        echo    " <a href=\"",$_SERVER['PHP_SELF'],"?cmd=exReg&course=",$thisCourse['code'],$inURL,"\">\n",
-                                "<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$langEnrollAsStudent,"\">\n",
-                                "</a>
-                              </td>\n";
+                        
 
-                        echo "<td valign=\"top\"  align=\"center\">";
-                        echo    " <a href=\"",$_SERVER['PHP_SELF'],"?cmd=exReg&asTeacher=true&course=",$thisCourse['code'],$inURL,"\">\n",
-                                "<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$langEnrollAsTeacher,"\">\n",
-                                "</a>\n";
+                         if ($_REQUEST['fromAdmin']!="class") // class may not be enrolled as teachers
+	      		 { 
+			     echo "<td valign=\"top\"  align=\"center\">";
+                             echo    " <a href=\"",$_SERVER['PHP_SELF'],"?cmd=exReg&course=",$thisCourse['code'],$inURL,"\">\n",
+                                     "<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$langEnrollAsStudent,"\">\n",
+                                     "</a>
+                                   </td>\n";
+			     
+			     echo "<td valign=\"top\"  align=\"center\">";
+                             echo    " <a href=\"",$_SERVER['PHP_SELF'],"?cmd=exReg&asTeacher=true&course=",$thisCourse['code'],$inURL,"\">\n",
+                                     "<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$langEnrollAsTeacher,"\">\n",
+                                      "</a></td>\n";
+			 }
+			 else 
+			 {
+			     echo "<td valign=\"top\"  align=\"center\">";
+                             echo    " <a href=\"",$clarolineRepositoryWeb,"admin/admin_class_course_registered.php?cmd=exReg&course=",$thisCourse['code'],"&class=",$classinfo['id'],$inURL,"\">\n",
+                                     "<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$langEnrollClass,"\">\n",
+                                     "</a>
+                                  </td>\n";
+			 }
+			 
+			 
                     }
                 }
                 else
@@ -502,11 +564,11 @@ switch ($displayMode)
     				{
     					echo	" <a href=\"",$_SERVER['PHP_SELF'],"?cmd=exReg&course=",$thisCourse['code'],$inURL,"\">\n",
     							"<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$lang_enroll,"\">\n",
-    							"</a>\n";
+    							"</a></td>\n";
     				}
 
                }
-			   echo	"</td>",
+			   
 
 			"</tr>";
 
