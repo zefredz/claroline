@@ -268,19 +268,23 @@ if($_uid)
 // check if the exercise is available (between opening and closing  dates)
 $mktimeNow      = mktime();
 $timeStartDate  = $objExercise->get_start_date('timestamp');
-$timeEndDate    = $objExercise->get_end_date('timestamp');
 
 $statusMsg  .= "<br />".$langAvailableFrom." "
-                    .claro_disp_localised_date($dateTimeFormatLong,$timeStartDate)
-                    ." ".$langTo." "
-                    .claro_disp_localised_date($dateTimeFormatLong,$timeEndDate);
+                    .claro_disp_localised_date($dateTimeFormatLong,$timeStartDate);
+
+if($objExercise->get_end_date() != "9999-12-31 23:59:59")
+{
+    $timeEndDate    = $objExercise->get_end_date('timestamp');
+    $statusMsg   .= " ".$langTo." "
+                        .claro_disp_localised_date($dateTimeFormatLong,$timeEndDate);
+}
                       
 if( $timeStartDate > $mktimeNow )
 {
     $showExerciseForm = false;
     $errMsg .= "<br />".$langExerciseNotAvailable;
 }
-elseif( $timeEndDate < $mktimeNow )
+elseif( ($objExercise->get_end_date() != "9999-12-31 23:59:59") && ($timeEndDate < $mktimeNow) )
 {
     $showExerciseForm = false;
     $errMsg .= "<br />".$langExerciseNoMoreAvailable;
