@@ -22,7 +22,7 @@ $authSourceType = 'LDAP';
 $extAuthOptionList = array(
     'url'      => 'ldap://server_address',
     'port'     => '636',
-    'basedn'   => 'ou=personne,o=your organisation unit,c=domaine',
+    'basedn'   => 'ou=personne,o=your organisation unit,c=domain',
     'userattr' => 'uid',
     'useroc'   => 'person',
     'attributes' => array('sn', 'givenName', 'telephoneNumber','mail'),
