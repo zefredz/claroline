@@ -24,7 +24,7 @@ require '../../inc/claro_init_global.inc.php';
 
 include($includePath.'/lib/debug.lib.inc.php');
 include($includePath.'/lib/course.lib.inc.php');
-include('config.lib.inc.php');
+include($includePath.'/lib/config.lib.inc.php');
 
 // define
 $langConfiguration          = 'Configuration';
