@@ -210,7 +210,7 @@ if ($ccfrom=="culist")//coming from courseuser list
 {
     claro_disp_button("admincourseusers.php?cidToEdit=".$cidToEdit."&uidToEdit=".$uidToEdit,$langBackToList);
 }
-elseif ($ccfrom=="uclist")//coming form usercourse list
+elseif ($ccfrom=="uclist")//coming from usercourse list
 {
     claro_disp_button("adminusercourses.php?cidToEdit=".$cidToEdit."&uidToEdit=".$uidToEdit,$langBackToList);
 }
