@@ -10,6 +10,7 @@
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
+
 $tlabelReq = "CLWRK___";
 require '../inc/claro_init_global.inc.php';
 
@@ -72,7 +73,7 @@ $cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
   =============================================================================*/
 // execute this after a form has been send
 // this instruction bloc will set some vars that will be used in the corresponding queries
-if( isset($_REQUEST['submitAssignment']) ) 
+if( isset($_REQUEST['submitAssignment']) && $is_allowedToEdit ) 
 {
     $formCorrectlySent = true;
     
@@ -168,97 +169,6 @@ if( isset($_REQUEST['submitAssignment']) )
 } // if( isset($_REQUEST['submitAssignment']) ) // handling form data 
 
 
-/*============================================================================
-                HANDLING FORM DATA : CREATE/EDIT ASSIGNMENT FEEDBACK
-  =============================================================================*/
-// execute this after a form has been send
-// this instruction bloc will set some vars that will be used in the corresponding queries
-// do not execute if there is no assignment ID
-if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']))
-{
-
-    $formCorrectlySent = true;
-    // Feedback 
-    // check if there is text in it 
-    if( trim( strip_tags($_REQUEST['prefillText'], $allowedTags ) ) == "" )
-    {
-      $prefillText = "";
-    }
-    else
-    {
-      $prefillText = addslashes( trim($_REQUEST['prefillText']) );
-    }
-	// uploaded file come from the feedback form
-    if ( is_uploaded_file($_FILES['prefillDocPath']['tmp_name']) )
-    {      
-          if ($_FILES['prefillDocPath']['size'] > $fileAllowedSize)
-          {
-                $dialogBox .= $langTooBig."<br />";
-                $formCorrectlySent = false;
-          }
-          else
-          {     
-                // add file extension if it doesn't have one
-                $newFileName = add_ext_on_mime($_FILES['prefillDocPath']['name']);
-
-                // Replace dangerous characters
-                $newFileName = replace_dangerous_char($newFileName);
-                
-                // Transform any .php file in .phps fo security
-                $newFileName = php2phps($newFileName);
-                
-              	// -- create a unique file name to avoid any conflict
-				// there can be only one automatic feedback but the file is put in the
-				// assignments directory
-				$assigDirSys = $wrkDir."assig_".$_REQUEST['assigId']."/";
-				// split file ant its extension 
-				$extension = substr($newFileName, strrpos($newFileName, "."));
-				$filename = substr($newFileName, 0, strrpos($newFileName, "."));
-
-				$i = 0;
-				while( file_exists($assigDirSys.$filename."_".$i.$extension) ) $i++;
-				
-				$prefillDocPath = $filename."_".$i.$extension;
-				
-                $tmpWorkUrl = $assigDirSys.$prefillDocPath;
-
-                if( ! copy($_FILES['prefillDocPath']['tmp_name'], $tmpWorkUrl) )
-                {
-                      $dialogBox .= $langCannotCopyFile."<br />";
-                      $formCorrectlySent = false;
-                }
-
-                // remove the previous file if there was one
-                if( isset($_REQUEST['currentPrefillDocPath']) )
-                {
-                      @unlink($assigDirSys.$_REQUEST['currentPrefillDocPath']);
-                }
-
-                
-                // else : file sending shows no error
-                // $formCorrectlySent stay true;
-          }
-    }
-    elseif( isset($_REQUEST['currentPrefillDocPath']) && !isset($_REQUEST['delFeedbackFile']) )
-    {
-      // reuse the old file as none has been uploaded and no delete was asked
-      $prefillDocPath = $_REQUEST['currentPrefillDocPath'];
-    }
-    elseif( isset($_REQUEST['currentPrefillDocPath']) && isset($_REQUEST['delFeedbackFile']) )
-    {
-      // delete hte file was requested
-      $prefillDocPath = ""; // empty DB field
-      @unlink($wrkDir."assig_".$_REQUEST['assigId']."/".$_REQUEST['currentPrefillDocPath']); // physically remove the file
-    }
-    else
-    {
-      $prefillDocPath = "";
-    }
-    
-    $prefillSubmit = $_REQUEST['prefillSubmit'];
-}
-
-
 if($is_allowedToEdit)
 {
   /*--------------------------------------------------------------------
@@ -304,69 +214,7 @@ if($is_allowedToEdit)
     $dialogBox .= $langAssignmentDeleted;
     
   }
-  /*--------------------------------------------------------------------
-                    MODIFY An ASSIGNMENT FEEDBACK
-  --------------------------------------------------------------------*/
-  /*-----------------------------------
-      STEP 2 : check & query
-  -------------------------------------*/
-  // edit an assignment / form has been sent
-  if( $cmd == 'exEditFeedback' )
-  {
-    // form data have been handled before this point if the form was sent
-    if( isset($_REQUEST['assigId']) && $formCorrectlySent )
-    {
-          $sql = "UPDATE `".$tbl_wrk_assignment."`
-                  SET `prefill_text` = \"".$prefillText."\",
-                      `prefill_doc_path` = \"".$prefillDocPath."\",
-                      `prefill_submit` = \"".$prefillSubmit."\"
-                  WHERE `id` = ".$_REQUEST['assigId'];
-          claro_sql_query($sql);
-          $dialogBox .= $langFeedbackEdited;
-    } 
-    else
-    {
-      $cmd = 'rqEditFeedback';
-    }
-  }
-  /*-----------------------------------
-      STEP 1 : display form
-  -------------------------------------*/
-  // edit aassignment / display the form
-  if( $cmd == 'rqEditFeedback' )
-  {
-    include($includePath."/lib/form.lib.php");
-    
-    // check if it was already sent
-    if( !isset($_REQUEST['submitAssignment'] ) )
-    {
-        // get current settings to fill in the form
-        $sql = "SELECT `prefill_text` , `prefill_doc_path`, `prefill_submit`,
-                      UNIX_TIMESTAMP(`end_date`) as `unix_end_date`
-                FROM `".$tbl_wrk_assignment."`
-                WHERE `id` = ".$_REQUEST['assigId'];
-        list($modifiedAssignment) = claro_sql_query_fetch_all($sql);
-
-        // feedback
-        $form['prefillText'       ] = $modifiedAssignment['prefill_text'];
-        $form['currentPrefillDocPath'] = $modifiedAssignment['prefill_doc_path'];
-        $form['prefillSubmit'     ] = $modifiedAssignment['prefill_submit'];
-        
-        // end date (as a reminder for the "after end date" option
-        $form['unix_end_date'     ] = $modifiedAssignment['unix_end_date'];
-    }
-    else
-    {
-      // there was an error in the form 
-      $form['prefillText'       ] = $_REQUEST['prefillText'];
-      $form['currentPrefillDocPath'] = $_REQUEST['currentPrefillDocPath'];
-      $form['prefillSubmit'     ] = $_REQUEST['prefillSubmit'];
-    }
-    // ask the display of the form
-    $displayFeedbackForm = true;
-  }
-  
-  
+   
   /*--------------------------------------------------------------------
                         MODIFY An ASSIGNMENT
   --------------------------------------------------------------------*/
@@ -570,7 +418,7 @@ function confirmation (name)
 }
 </script>";
 
-if( ( isset($displayAssigForm) && $displayAssigForm ) || ( isset($displayFeedbackForm) && $displayFeedbackForm ) )
+if( ( isset($displayAssigForm) && $displayAssigForm ) )
 {
       // bredcrump to return to the list when in a form
       $interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langWork);
@@ -730,91 +578,13 @@ if($is_allowedToEdit)
     </form>
 <?php
   }
-    /*--------------------------------------------------------------------
-                        FEEDBACK FORM
-    --------------------------------------------------------------------*/
-  if( isset($displayFeedbackForm) && $displayFeedbackForm )
-  {
-?>
-    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-    <input type="hidden" name="cmd" value="exEditFeedback">
-<?php
-  if( isset($_REQUEST['assigId']) )
-  {
-?>
-    <input type="hidden" name="assigId" value="<?php echo $_REQUEST['assigId']; ?>">
-<?php
-  }
-?>
-    <table cellpadding="5" width="100%">
-      <tr>
-        <td valign="top" colspan="2"><b><?php echo $langFeedback; ?></b><p><?php echo $langFeedbackHelp; ?></p></td>
-      </tr>
-      <tr>
-        <td valign="top"><label for="prefillText"><?php echo $langFeedbackText; ?>&nbsp;:<br /></label></td>
-        <td>
-<?php          
-      claro_disp_html_area('prefillText', $form['prefillText']);
-?> 
-        </td>
-      </tr>
-<?php
-    if( isset($form['currentPrefillDocPath']) && $form['currentPrefillDocPath'] != "" )
-    {
-          echo "<tr>\n"
-               ."<td valign=\"top\">"
-               .$langCurrentFeedbackFile;
-          // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
-          $completeFileUrl = $currentCourseRepositoryWeb."work/assig_".$_REQUEST['assigId']."/".$form['currentPrefillDocPath'];
-          echo "&nbsp;:<input type=\"hidden\" name=\"currentPrefillDocPath\" value=\"".$form['currentPrefillDocPath']."\">"
-                ."</td>\n"
-                ."<td>"
-                ."<a href=\"".$completeFileUrl."\">".$form['currentPrefillDocPath']."</a>"
-                ."<br /><input type=\"checkBox\" name=\"delFeedbackFile\" id=\"delFeedbackFile\">"
-                ."<label for=\"delFeedbackFile\">".$langExplainDeleteFile." ".$langExplainReplaceFile."</label> "
-                ."</td>\n"
-                ."</tr>\n\n";
-    }
-?>
-      <tr>
-        <td valign="top"><label for="prefillDocPath"><?php echo $langFeedbackFile; ?>&nbsp;:<br /></label></td>
-        <td>
-        <input type="file" name="prefillDocPath" id="prefillDocPath" size="30">
-        </td>
-      </tr>
- 
-      <tr>
-        <td valign="top"><?php echo $langFeedbackSubmit; ?>&nbsp;:</td>
-        <td>
-        <input type="radio" name="prefillSubmit" id="prefillSubmitEndDate" value="ENDDATE" <?php if($form['prefillSubmit'] == "ENDDATE") echo 'checked="checked"'; ?>>
-          <label for="prefillSubmitEndDate">&nbsp;<?php echo $langSubmitFeedbackAfterEndDate." (".claro_disp_localised_date($dateTimeFormatLong, $form['unix_end_date']).")"; ?></label>
-          <br />
-        <input type="radio" name="prefillSubmit" id="prefillSubmitAfterPost" value="AFTERPOST" <?php if($form['prefillSubmit'] == "AFTERPOST") echo 'checked="checked"'; ?>>
-          <label for="prefillSubmitAfterPost">&nbsp;<?php echo $langSubmitFeedbackAfterPost; ?></label>
-          <br />
-        </td>
-      </tr>
-      
-      <tr>
-        <td>&nbsp;</td>
-        <td>
-          <input type="submit" name="submitFeedback" value="<?php echo $langOk; ?>">
-<?php
-          claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
-?>          
-        </td>
-      </tr>
-      </table>
-    </form>
-<?php
-  }
 }
 
 /*--------------------------------------------------------------------
                             ASSIGNMENT LIST
     --------------------------------------------------------------------*/
-// if we display neither assignment form nor the feedback form	
-if( (!isset($displayAssigForm) || !$displayAssigForm) && (!isset($displayFeedbackForm) || !$displayFeedbackForm) )
+// if we don't display assignment form	
+if( (!isset($displayAssigForm) || !$displayAssigForm) )
 {
     /*--------------------------------------------------------------------
                         INTRODUCTION SECTION
@@ -839,77 +609,105 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) && (!isset($displayFeedbac
     // if user come from a group
     if( isset($_gid) && isset($is_groupAllowed) && $is_groupAllowed ) 
     {
-      $sql = "SELECT `id`, `title`, `visibility` 
-              FROM `".$tbl_wrk_assignment."`
-              WHERE `assignment_type` = 'GROUP'
-              ORDER BY `title` ASC";    
+		// select only the group assignments
+      	$sql = "SELECT `id`, `title`, `visibility`, 
+				`description`, `assignment_type`, `authorized_content`,
+				unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
+				FROM `".$tbl_wrk_assignment."`
+				WHERE `assignment_type` = 'GROUP'
+				ORDER BY `end_date` ASC";    
     }
     else
     {
-      $sql = "SELECT `id`, `title`, `visibility`
-              FROM `".$tbl_wrk_assignment."` 
-              ORDER BY `title` ASC";
+      $sql = "SELECT `id`, `title`, `visibility`, 
+	  			`description`, `assignment_type`, `authorized_content`,
+				unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
+              	FROM `".$tbl_wrk_assignment."` 
+              	ORDER BY `end_date` ASC";
     }          
     $assignmentList = claro_sql_query_fetch_all($sql);
 
-    echo "<table class=\"claroTable\" width=\"100%\">\n"
-          ."<thead>\n"
-          ."<tr class=\"headerX\">\n"
-          ."<th>".$langAssignmentTitle."</th>\n";
-          
-    if ( $is_allowedToEdit ) 
-    {
-        echo  "<th>".$langModify."</th>\n"
-              ."<th>".$langEditFeedback."</th>\n"
-              ."<th>".$langDelete."</th>\n"
-              ."<th>".$langVisibility."</th>\n";
-    }
-    echo "</tr>\n"
-        ."</thead>\n\n"
-        ."<tbody>\n";
+    echo "<table class=\"claroTable\" width=\"100%\">\n";
+
     foreach($assignmentList as $anAssignment)
     {
     
-      if ($anAssignment['visibility'] == "INVISIBLE")
+      	if ($anAssignment['visibility'] == "INVISIBLE")
+		{
+			if ($is_allowedToEdit)
 			{
-				if ($is_allowedToEdit)
-				{
-					$style=' class="invisible"';
-				}
-				else
-				{
-					continue; // skip the display of this file
-				}
+				$style=' class="invisible"';
 			}
-			else 
+			else
 			{
-				$style='';
+				continue; // skip the display of this file
 			}
-      
-      echo "<tr align=\"center\"".$style.">\n"
-          ."<td align=\"left\"><a href=\"workList.php?assigId=".$anAssignment['id']."\">".$anAssignment['title']."</a></td>\n";
-      if( $is_allowedToEdit )
-      {
-        echo "<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditAssig&assigId=".$anAssignment['id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a></td>\n"
-            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditFeedback&assigId=".$anAssignment['id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a></td>\n"
-            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmAssig&assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",addslashes($anAssignment['title']),"');\">"
-            ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\"></a></td>\n"
-            ."<td>";
-        if ($anAssignment['visibility'] == "INVISIBLE")
-        {
-            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$anAssignment['id']."&vis=v\">"
-                  ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"$langMakeVisible\">"
-                  ."</a>";
-        }
-        else
-        {
-            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$anAssignment['id']."&vis=i\">"
-                  ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">"
-                  ."</a>";
-        }          
-        echo "</td>\n";
-      }
-      echo "</tr>\n\n";
+		}
+		else 
+		{
+			$style='';
+		}
+			
+		echo "<tr>\n"
+	  		."<th class=\"headerX\">\n"
+			."<a href=\"workList.php?assigId=".$anAssignment['id']."\">".$anAssignment['title']."</a>\n"
+			."</th>"
+			;
+			
+		echo "<tr".$style.">\n"
+			."<td>\n";
+		if( strlen($anAssignment['description']) > 500 ) 
+			echo substr($anAssignment['description'],0,455)." ... ";
+		else
+			echo $anAssignment['description'];
+			
+		echo "<br /><br /><small>".$langAvailableFrom." ".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix'])." ".$langUntil." <b>".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix'])."</b></small><br />"
+			."<small>"
+			;
+		// content type	
+		if( $anAssignment['authorized_content'] == 'TEXT' )  
+			echo $langTextOnly;
+		elseif( $anAssignment['authorized_content'] == 'FILE' ) 
+			echo $langFileOnly;
+		elseif( $anAssignment['authorized_content'] == 'TEXTFILE' ) 
+			echo $langTextOnly;
+		echo "<br />";
+		// assignment type
+		if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) 
+			echo $langIndividual ;
+		elseif( $anAssignment['assignment_type'] == 'GROUP' ) 
+			echo $langGroupAssignment;
+		
+		echo "</small>\n";
+		
+		echo "</td>\n"
+			."</tr>\n\n";
+		
+		if( $is_allowedToEdit )
+      	{ 
+        	echo "<tr".$style.">\n"
+				."<td>\n"
+		  		."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditAssig&assigId=".$anAssignment['id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>\n"
+				."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmAssig&assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",addslashes($anAssignment['title']),"');\"><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>\n"
+				;
+	        if ($anAssignment['visibility'] == "INVISIBLE")
+	        {
+	            echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$anAssignment['id']."&vis=v\">"
+	                  ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
+	                  ."</a>"
+					  ;
+	        }
+	        else
+	        {
+	            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$anAssignment['id']."&vis=i\">"
+	                  ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$langMakeInvisible."\">"
+	                  ."</a>"
+					  ;
+	        }          
+        	echo "</td>\n"
+				."</tr>\n"
+				;
+		}
     }
     
     echo "</tbody>\n</table>\n\n";
