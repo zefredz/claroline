@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE 1.6.*
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -73,27 +73,30 @@ Write config file if all value needed are set
 // If you dont have pear, comment these lines 
 // and replace Var_Dump::display by Var_Dump
 
+define('CLARO_DEBUG_MODE',TRUE);
 $langFile = "config";
-$lang_config_config = 'Configuration des outils';
-$lang_nothingToConfigHere='Il n\'y a pas de paramétrage pour l\'outil <B>%s</B>';
+$lang_config_config = 'Édition des fichiers de configuration';
+$lang_nothingToConfigHere='Il n\'y a pas de paramétrage pour <B>%s</B>';
 $langBackToMenu = 'Retour au Menu';
-$langShowConf = 'Show Conf';
-$langShowDef = 'Show Def';
+$langShowConf        = 'Show Conf';
+$langShowDef         = 'Show Def';
+$langNoPropertiesSet = 'No properties set';
+$langShowContentFile = 'Voir le contenu du fichier';
 
-define("DISP_LIST_CONF",        __LINE__);
-define("DISP_EDIT_CONF_CLASS",  __LINE__);
-define("DISP_GENERATE_CONF",    __LINE__);
-define("DISP_SHOW_CONF",        __LINE__);
-define("DISP_SHOW_DEF_FILE",    __LINE__);
-define("DISP_SHOW_CONF_FILE",   __LINE__);
+define('DISP_LIST_CONF',        __LINE__);
+define('DISP_EDIT_CONF_CLASS',  __LINE__);
+define('DISP_GENERATE_CONF',    __LINE__);
+define('DISP_SHOW_CONF',        __LINE__);
+define('DISP_SHOW_DEF_FILE',    __LINE__);
+define('DISP_SHOW_CONF_FILE',   __LINE__);
 
 // include init and library files
 
 require '../../inc/claro_init_global.inc.php';
 
-include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/course.lib.inc.php");
-include($includePath."/lib/config.lib.inc.php");
+include($includePath.'/lib/debug.lib.inc.php');
+include($includePath.'/lib/course.lib.inc.php');
+include($includePath.'/lib/config.lib.inc.php');
 
 // use Var_Dump PEAR package
 
@@ -103,7 +106,7 @@ Var_Dump::displayInit(array('display_mode' => 'HTML4_Text'));
 // define
 
 $nameTools 			= $lang_config_config;
-$interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $lang_config_AdministrationTools);
+$interbredcrump[]	= array ('url'=>$rootAdminWeb, 'name'=> $lang_config_AdministrationTools);
 $noQUERY_STRING 	= TRUE;
 
 $htmlHeadXtra[] = '<style>
@@ -148,6 +151,7 @@ fieldset    {
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_tool      = $tbl_mdb_names['tool'];
 $tbl_config    = $tbl_mdb_names['config'];
+$tbl_rel_tool_config    = $tbl_mdb_names['rel_tool_config'];
 
 $toolNameList = array('CLANN' => $langAnnouncement,
                       'CLFRM' => $langForums,
@@ -180,15 +184,15 @@ if(!$is_allowedToAdmin)
 
 $panel = DISP_LIST_CONF;
 
-if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
+if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
 {
-    $tool = $_REQUEST['tool'];
-    $confDef  = claro_get_def_file($tool);
-    $confFile = claro_get_conf_file($tool); 
+    $config_code = $_REQUEST['config_code'];
+    $confDef  = claro_get_def_file($config_code);
+    $confFile = claro_get_conf_file($config_code); 
 
     if( $_REQUEST['cmd']=='dispEditConfClass' )
     {
-        // Edit settings of a tool 
+        // Edit settings of a config_code 
  
         if(file_exists($confDef))
         {
@@ -196,7 +200,7 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
         }
         else
         {
-    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_tool_name($tool));
+    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_config_name($config_code));
             $panel = DISP_LIST_CONF;
         }
     }
@@ -208,13 +212,13 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
         {
             @require($confDef);
             @require($confFile);
-            $interbredcrump[] = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $nameTools);
-            $nameTools = get_tool_name($toolConf['label']); 
+            $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $nameTools);
+            $nameTools = get_config_name($config_code);
             $panel = DISP_SHOW_CONF;
         }
         else
         {
-    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_tool_name($tool));
+    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_config_code_name($config_code));
             $panel = DISP_LIST_CONF;
         }
     }
@@ -224,13 +228,13 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
         
         if(file_exists($confDef))
         {
-            $interbredcrump[] = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $nameTools);
-            $nameTools = get_tool_name($toolConf['label']);
+            $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $nameTools);
+            $nameTools = get_config_name($config_code);
             $panel = DISP_SHOW_DEF_FILE;
         }
         else
         {
-    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_tool_name($tool));
+    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_config_name($config_code));
             $panel = DISP_LIST_CONF;
         }
     }
@@ -240,13 +244,13 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
 
         if(file_exists($confFile))
         {
-            $interbredcrump[] = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $nameTools);
-            $nameTools = get_tool_name($toolConf['label']);
+            $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $nameTools);
+            $nameTools = get_config_name($config_code);
             $panel = DISP_SHOW_CONF_FILE;
         }
         else
         {
-    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_tool_name($tool));
+    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_config_name($config_code));
             $panel = DISP_LIST_CONF;
         }
     }
@@ -255,27 +259,26 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
         if(file_exists($confDef))
         {
             require($confDef);
-            $interbredcrump[] = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $nameTools);
-            $nameTools = get_tool_name($toolConf['label']);
+            $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $nameTools);
+            $nameTools = get_config_name($config_code);
         }
 
         //  var_dump::display($_REQUEST['prop']);
         $okToSave = TRUE;
-        if ($tool != $toolConf['label'])
+        if ($config_code != $toolConf['config_code'])
         {
-            $okToSave = FALSE;
-            $controlMsg['error'][] = $toolConf['label'].' != '.$tool.' <br>
-            The definition file for configuration is probably copypaste from '.$toolConf['label'].'.def.conf.inc.php';
+            $okToSave = TRUE;
+            $controlMsg['error'][] = $toolConf['config_code'].' != '.$config_code.' <br>
+            The definition file for configuration is probably copypaste from '.basename($confDef);
     
         }
-
         if (is_array($_REQUEST['prop']) )
         {
             foreach($_REQUEST['prop'] as $propName => $propValue )
             {
-                $validator   = $toolConfProperties[$propName]['type'];
+                $validator     = $toolConfProperties[$propName]['type'];
                 $acceptedValue = $toolConfProperties[$propName]['acceptedValue'];
-                $container   = $toolConfProperties[$propName]['container'];
+                $container     = $toolConfProperties[$propName]['container'];
                 //      config_checkToolProperty($propValue, $toolConfProperties[$propName]);
                 //      $controlMsg['log'][] = $propName.' '.$validator.' '.var_export($acceptedValue,1);
                 switch($validator)
@@ -335,10 +338,10 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
     
                 if ($okToSave) 
                 {
-                    $sqlParamExist = 'SELECT count(id) nbline
+                    $sqlParamExist = 'SELECT count(id_property) nbline
                                       FROM `'.$tbl_config.'` 
                                       WHERE propName    ="'.$propName.'" 
-                                        AND claro_label ="'.$tool.'"';
+                                        AND config_code ="'.$config_code.'"';
     
                     $exist = claro_sql_query_fetch_all($sqlParamExist);
     
@@ -349,7 +352,7 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
                                SET propName    = "'.$propName.'", 
                                    propValue   = "'.$propValue.'", 
                                    lastChange  = now(), 
-                                   claro_label = "'.$tool.'"';
+                                   config_code = "'.$config_code.'"';
                     }
                     else
                     {
@@ -358,15 +361,15 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
                                SET propName    ="'.$propName.'", 
                                    propValue   ="'.$propValue.'", 
                                    lastChange  = now(), 
-                                   claro_label ="'.$tool.'"
+                                   config_code ="'.$tool.'"
                                WHERE propName    ="'.$propName.'" 
-                                 AND claro_label ="'.$tool.'"
+                                 AND config_code ="'.$config_code.'"
                                  AND not (propValue   ="'.$propValue.'") # do not update if same value 
                                  ';
                     }
     //              $controlMsg['info'][] = Var_dump::display($sql,1);
                     
-                    claro_sql_query($sql);
+                    claro_sql_query($sql);                 
                 }
                 else
                 {
@@ -388,7 +391,7 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
             require($confDef);
             $panel = DISP_GENERATE_CONF;
             $interbredcrump[] = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $nameTools);
-            $nameTools = get_tool_name($toolConf['label']);
+            $nameTools = get_config_name($config_code);
         }
         else
         {
@@ -398,11 +401,10 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
             
         if (!$confFile)
         {
-            $confFile = claro_create_conf_filename($tool);
-            $controlMsg['info'][] = sprintf('création du fichier de configuration de %s :<BR> %s'
-                                           ,get_tool_name($tool)
+            $confFile = claro_create_conf_filename($config_code);
+            $controlMsg['info'][] = sprintf('création du fichier de configuration :<BR> %s'
                                            ,$confFile);
-            $confFile = claro_get_conf_file($tool);
+            $confFile = claro_get_conf_file($config_code);
         }
         
         if(file_exists($confDef))
@@ -410,10 +412,10 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
             require($confDef);
             $panel = DISP_EDIT_CONF_CLASS;
             $interbredcrump[] = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $nameTools);
-            $nameTools = get_tool_name($toolConf['label']);
+            $nameTools = get_config_name($config_code);
         }
-    
-        $storedPropertyList = readValueFromTblConf($tool);
+        
+        $storedPropertyList = readValueFromTblConf($config_code);
         
         $generatorFile = realpath(__FILE__);
         if (strlen($generatorFile)>50) 
@@ -431,7 +433,7 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
                     . '-------------------------------------------------'."\n"      
                     . 'DONT EDIT THIS FILE - NE MODIFIEZ PAS CE FICHIER '."\n"      
                     . ' */'."\n\n"
-                    . '$'.$tool.'GenDate = "'.time().'";'."\n\n"
+                    . '$'.$config_code.'GenDate = "'.time().'";'."\n\n"
                     . (isset($toolConf['technicalInfo'])
                     ? '/*'
                     . str_replace('*/', '* /', $toolConf['technicalInfo'])
@@ -477,7 +479,7 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
         }
         fwrite($handleFileConf,"\n".'?>');
         fclose($handleFileConf);
-        $controlMsg['info'][] = 'Properties for '.$nameTools.' ('.$tool.') are now effective on server.<br />file generated is <em>'.$confFile.'</em>';        
+        $controlMsg['info'][] = 'Properties for '.$nameTools.' ('.$config_code.') are now effective on server.<br />file generated is <em>'.$confFile.'</em>';        
         $panel = DISP_LIST_CONF;
     
     }
@@ -491,78 +493,21 @@ if ( isset($_REQUEST['tool']) && isset($_REQUEST['cmd']) )
 if ($panel == DISP_LIST_CONF)
 {
     $helpSection = 'help_config_menu.php';
-    $sqlGetToolList = 'select claro_label from `'.$tbl_tool.'`';
-    $registredToolList = claro_sql_query_fetch_all($sqlGetToolList);
-    foreach($registredToolList as $tool)
-    {
-        $claro_label = rtrim($tool['claro_label'],'_');
-        $t[] = array( 'value' => $claro_label
-                    , 'name'  => get_tool_name($claro_label)
-                    );
-        $toolList[$claro_label] = 
-               array( 'source' => 'db'
-                    , 'name'     => get_tool_name($claro_label)
-                    , 'conf'     => file_exists(claro_get_conf_file($claro_label))
-                    , 'def'      => file_exists(realpath($includePath.'/conf/def/'.$claro_label.'.def.conf.inc.php'))
-                    , 'db'       => TRUE
-                    , 'propQtyInDb' => countPropertyInDb($claro_label)
-                    );
-    }
-
-    $registredToolList = $t;
-
-    if ($handle = opendir('../../inc/conf')) 
-    {
-       $oldConfFileList = array();
-       while (FALSE !== ($file = readdir($handle))) 
-       {
-           $ext = strrchr($file, '.');       
-           if ($file != "." && $file != ".." && strtolower($ext)==".php")
-           {
-                $oldConfFileList[] = array( 'value' => $file
-                     ,'name'  => $file
-                     );
-           }
-       }
-       closedir($handle);
-    }
-
-    //the following blog  is done to scan def file and  find not registred tool
-    if ($handle = opendir('../../inc/conf/def')) 
-    {
-       $defConfFileList = array();
-       while (FALSE !== ($file = readdir($handle))) 
-       {
-           $ext = strrchr($file, '.');       
-           if ($file != "." && $file != ".." && strtolower(substr($file, -17))=='.def.conf.inc.php')
-           {
-                $claro_label = str_replace('.def.conf.inc.php','',$file);
-                $defConfFileList[] = array( 'value' => $file
-                     ,'name'  => $file
-                     );
-                $toolList[$claro_label] = array_merge($toolList[$claro_label],
-                 array( 'db'    => (isset($toolList[$claro_label]['db'])?$toolList[$claro_label]['db']:FALSE)
-                      , 'def'   => TRUE
-                      , 'conf'     => file_exists(claro_get_conf_file($claro_label))
-                      , 'propQtyInDb' => countPropertyInDb($claro_label)
-                      , 'name'  => get_tool_name($claro_label)
-                      )                              );
-           }
-       }
-       closedir($handle);
-    }
-
+    $toolList = get_def_list();
 }
 elseif ($panel == DISP_EDIT_CONF_CLASS)
 {
     require($confDef);
     $interbredcrump[] = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $lang_config_config);
-    $nameTools = get_tool_name($toolConf['label']);
+    $nameTools = get_config_name($config_code);
     
-    $storedPropertyList = readValueFromTblConf($tool);
-    foreach($storedPropertyList as $storedProperty)
+    $storedPropertyList = readValueFromTblConf($config_code);
+    if (is_array($storedPropertyList))
     {
-        $toolConfProperties[$storedProperty['propName']]['actualValue'] = $storedProperty['propValue']; 
+        foreach($storedPropertyList as $storedProperty)
+        {
+            $toolConfProperties[$storedProperty['propName']]['actualValue'] = $storedProperty['propValue']; 
+        }
     }
 }
 
@@ -601,36 +546,51 @@ switch ($panel)
     </tr>
     </thead>
 <?php
-            foreach($toolList as $labelTool => $tool)
+        foreach($toolList as $config_code => $tool)
+        {
+            echo '<tr>'
+                .'<td>'
+                .($tool['conf']
+                    ?'<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConf&amp;config_code='.$config_code.'" >'.$tool['name'].'</a>'
+                    : $tool['name']
+                 )
+                .'</td>'
+                ;
+            
+            if (!$tool['def'])
             {
-                echo '<tr><td>'
-                     . ($tool['conf']
-                       ? '<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConf&amp;tool='.$labelTool.'" >'.$tool['name'].'</a>'
-                       : $tool['name']
-                       )
-                   . (!$tool['def']
-                     ? '</td><td colspan="2" >'
-                       .'<strike>éditer</strike>'
-                     : '</td><td>'
-                       .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=dispEditConfClass&amp;tool='.$labelTool.'" >'
-                       .'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="'.$langEdit.'">'
-                       .'</a>'
-                       . '</td><td>'
-                       . ($tool['propQtyInDb']['qty_values']>0
-                         ? '<a href="'.$_SERVER['PHP_SELF'].'?cmd=generateConf&amp;tool='.$labelTool.'" ><img src="'.$clarolineRepositoryWeb.'img/download.gif" border="0" alt="'.$langSave.'">'
-                         . ($tool['propQtyInDb']['qty_new_values']>0
-                           ? '<br>(<small>'.$tool['propQtyInDb']['qty_new_values'].' new values</small>)'
-                           : 'Up to date'
-                           )
-                           .'</a>'
-                         : '<small>no properties set</small>'
-                         )
-                     . '</td><td>'
-                     )
-                   . '</td></tr>'
-                   ;
+                echo '<td colspan="2" >'
+                    .'<strike>éditer</strike>'
+                    .'</td>'
+                    ;
             }
-            echo '</table>';
+            else 
+            {
+                echo '<td>'
+                    .'<a href="'.$_SERVER['PHP_SELF']
+                    .'?cmd=dispEditConfClass&amp;config_code='.$config_code.'" >'
+                    .'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="'.$langEdit.'">'
+                    .'</a>'
+                    .'</td>'
+                    .'<td>'
+                    . ( $tool['propQtyInDb']['qty_values']>0
+                      ? '<a href="'.$_SERVER['PHP_SELF']
+                      .'?cmd=generateConf&amp;config_code='.$config_code.'" >'
+                      .'<img src="'.$clarolineRepositoryWeb.'img/download.gif" border="0" alt="'.$langSave.'">'
+                     . ($tool['propQtyInDb']['qty_new_values']>0
+                       ? '<br>(<small>'.$tool['propQtyInDb']['qty_new_values'].' new values</small>)'
+                       : 'Up to date'
+                       )
+                       .'</a>'
+                     : '<small>'
+                       .$langNoPropertiesSet
+                       .'</small>'
+                     )
+                   .'</td>';
+            }
+            echo '</tr>';
+        }
+        echo '</table>';
         break;
     case DISP_EDIT_CONF_CLASS : 
 
@@ -639,22 +599,26 @@ switch ($panel)
             echo (isset($toolConf['description'])?'<div class="toolDesc">'.$toolConf['description'].'</div><br />':'')                
                 .'<em><small><small>'.$confDef.'</small></small></em>'
                 .'<form method="POST" action="'.$_SERVER['PHP_SELF'].'" name="editConfClass">'."\n"
-//                .'<input type="hidden" value="dispEditConfClass" name="cmd">'."\n"
-                .'<input type="hidden" value="'.$toolConf['label'].'" name="tool">'."\n"
+                //.'<input type="hidden" value="dispEditConfClass" name="cmd">'."\n"
+                .'<input type="hidden" value="'.$config_code.'" name="config_code">'."\n"
                 ;
             if (is_array($toolConf['section']) ) 
             {
                 foreach($toolConf['section'] as $section)
                 {
-                    echo '<H4>'.$section['label'].'</H4>'."\n"
-                        .($section['description']?'<div class="sectionDesc">'.$section['description'].'</div><br />':'')."\n"
+                    echo '<fieldset>'."\n"
+                        .'<legend>'.$section['label'].'</legend>'."\n"
+                        .($section['description']
+                         ?'<div class="sectionDesc">'.$section['description'].'</div><br/>'
+                         :'')
+                        ."\n"
                         ;
 //                  The default value is show in input or preselected value if there is no value set.
 //                  If a value is already set the default value is show as sample.
                     if (is_array($section['properties']))
                     foreach($section['properties'] as $property )
                     {
-//                        var_dump::display($property);
+//                      var_dump::display($property);
                         $htmlPropLabel = htmlentities($toolConfProperties[$property]['label']);
                         $htmlPropDesc = ($toolConfProperties[$property]['description']?'<div class="propDesc">'.nl2br(htmlentities($toolConfProperties[$property]['description'])).'</div><br />':'');
                         $htmlPropName = 'prop['.($property).']';
@@ -664,16 +628,15 @@ switch ($panel)
                         $htmlPropDefault = isset($toolConfProperties[$property]['actualValue'])?'<span class="default"> Default : '.$toolConfProperties[$property]['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
                         if ($toolConfProperties[$property]['readonly']) 
                         {
-                            echo '<FIELDSET>'
-                                .'<LEGEND>'
+                            echo '<H2>'
                                 .$htmlPropLabel
-                                .'</LEGEND>'."\n"
+                                .'</H2>'."\n"
                                 .$htmlPropDesc."\n"
                                 .$htmlPropValue.'<br>'."\n"
-                                .'</FIELDSET><br>'."\n"
                                 ;
-                        }
+                        } 
                         else
+                        // Prupose a form following the type 
                         switch($toolConfProperties[$property]['type'])
                         {
                        	    case 'boolean' : 
@@ -683,15 +646,19 @@ switch ($panel)
                                                    .'</span><br />'
                                                    :'<span class="firstDefine">!!!First definition of this value!!!</span><br />'
                                                    ;
-                                echo '<FIELDSET>'
-                                    .'<LEGEND>'
+                                echo '<H2>'
                                     .$htmlPropLabel
-                                    .'</LEGEND>'."\n"
+                                    .'</H2>'."\n"
                                     .$htmlPropDesc."\n"
                                     .$htmlPropDefault."\n"
-                                    .'<span><input id="'.$property.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '.($htmlPropValue=='TRUE'?' checked="checked" ':' ').' ><label for="'.$property.'_TRUE"  >'.($toolConfProperties[$property]['acceptedValue']['TRUE' ]?$toolConfProperties[$property]['acceptedValue']['TRUE' ]:'TRUE' ).'</label></span>'."\n"
-                                    .'<span><input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '.($htmlPropValue=='TRUE'?' ':' checked="checked" ').' ><label for="'.$property.'_FALSE" >'.($toolConfProperties[$property]['acceptedValue']['FALSE']?$toolConfProperties[$property]['acceptedValue']['FALSE']:'FALSE').'</label></span>'."\n"
-                                    .'</FIELDSET><br>'."\n"
+                                    .'<span>'
+                                    .'<input id="'.$property.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '.($htmlPropValue=='TRUE'?' checked="checked" ':' ').' >'
+                                    .'<label for="'.$property.'_TRUE"  >'
+                                    .($toolConfProperties[$property]['acceptedValue']['TRUE' ]?$toolConfProperties[$property]['acceptedValue']['TRUE' ]:'TRUE' )
+                                    .'</label>'
+                                    .'</span>'."\n"
+                                    .'<span>'
+                                    .'<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '.($htmlPropValue=='TRUE'?' ':' checked="checked" ').' ><label for="'.$property.'_FALSE" >'.($toolConfProperties[$property]['acceptedValue']['FALSE']?$toolConfProperties[$property]['acceptedValue']['FALSE']:'FALSE').'</label></span>'."\n"
                                     ;
                         		break;
                        	    case 'enum' : 
@@ -701,10 +668,9 @@ switch ($panel)
                                                    .'</span><br />'
                                                    :'<span class="firstDefine">!!!First definition of this value!!!</span><br />'
                                                    ;
-                                echo '<FIELDSET>'
-                                    .'<LEGEND>'
+                                echo '<H2>'
                                     .$htmlPropLabel
-                                    .'</LEGEND>'."\n"
+                                    .'</H2>'."\n"
                                     .$htmlPropDesc."\n"
                                     .$htmlPropDefault."\n";
                                 foreach($toolConfProperties[$property]['acceptedValue'] as  $keyVal => $labelVal)
@@ -715,37 +681,47 @@ switch ($panel)
                                         .'</span>'
                                         .'<br>'."\n";
                                 }   
-                                echo '</FIELDSET><br>'."\n";
                         		break;
+                        		
+//TYPE : integer, an integer is attempt
                         	case 'integer' : 
                                 $htmlPropDefault = isset($toolConfProperties[$property]['actualValue'])?'<span class="default"> Default : '.$toolConfProperties[$property]['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
-                                echo '<FIELDSET>'
-                                    .'<label for="'.$property.'">'.$toolConfProperties[$property]['label'].'</label>'."\n"
+                                echo '<H2>'
+                                    .'<label for="'.$property.'">'
+                                    .$toolConfProperties[$property]['label']
+                                    .'</label>'
+                                    .'</H2>'."\n"
                                     .'<br>'."\n"
                                     .$htmlPropDesc."\n"
                                     .$htmlPropDefault."\n"
                                     .'<input size="'.$size.'"  align="right" id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '.$toolConfProperties[$property]['type']."\n"
-                                    .'</FIELDSET>'."\n"
                                     .'<br>'
                                     ;
                         		;
                         		break;
                         	default:
+                        	// probably a string
                                 $htmlPropDefault = isset($toolConfProperties[$property]['actualValue'])?'<span class="default"> Default : '.$toolConfProperties[$property]['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
-                                echo '<FIELDSET>'."\n"
-                                    .'<label for="'.$property.'">'.$toolConfProperties[$property]['label'].'</label>'."\n"
-                                    .'<br />'."\n"
+                                echo '<h2>'."\n"
+                                    .'<label for="'.$property.'">'
+                                    .$toolConfProperties[$property]['label']
+                                    .'</label>'."\n"
+                                    .'</h2>'."\n"
                                     .$htmlPropDesc."\n"
                                     .$htmlPropDefault."\n"
-                                    .'<input size="'.$size.'"  id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '.$toolConfProperties[$property]['type'].'</FIELDSET><br>'."\n"
+                                    .'<input size="'.$size.'"  id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '.$toolConfProperties[$property]['type']."\n"
+                                    .'<br>'."\n"
                                     ;
                         		;
                         } // switch
-                    }            
+                    } 
+                echo '</fieldset>';
                 }
+                echo '<input type="hidden" name="cmd" value="cmdSaveProperties" >';
                 echo '<input type="submit" name="cmdSaveProperties" value="Save" >'
                     .'</form>'."\n"
                     ;
+                   
             }
             else
             {
@@ -761,7 +737,7 @@ switch ($panel)
 
     case DISP_SHOW_CONF : 
         echo '<div>'
-            .'[<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConfFile&amp;tool='.$tool.'" >Voir le contenu du fichier</a>]'
+            .'[<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConfFile&amp;config_code='.$config_code.'" >'.$langShowContentFile.'</a>]'
             .'[<a href="'.$_SERVER['PHP_SELF'].'" >'
             .$langBackToMenu
             .'</a>]</div>'
@@ -775,7 +751,8 @@ switch ($panel)
             {
                 foreach($toolConf['section'] as $section)
                 {
-                    echo '<H4>'.$section['label'].'</H4>'."\n"
+                    echo '<FIELDSET>'
+                        .'<LEGEND>'.$section['label'].'</LEGEND>'."\n"
                         .($section['description']?'<div class="sectionDesc">'.$section['description'].'</div><br />':'')."\n"
                         ;
                     if (is_array($section['properties']))
@@ -787,16 +764,16 @@ switch ($panel)
                              eval('$htmlPropValue = '.$property.';');
                         else eval('$htmlPropValue = $'.$property.';');
                         $htmlUnit = ($toolConfProperties[$property]['unit']?''.htmlentities($toolConfProperties[$property]['unit']):'');
-                        echo '<FIELDSET>'
-                            .'<LEGEND>'
+                        echo '<H2>'
                             .$htmlPropLabel 
                             .'('.$toolConfProperties[$property]['type'].')'
-                            .'</LEGEND>'."\n"
+                            .'</H2>'."\n"
                             .$htmlPropDesc."\n"
-                            .'<em>'.$property.'</em>: <strong>'.$htmlPropValue.'</strong> '.$htmlUnit.'<br>'."\n"
-                            .'</FIELDSET><br>'."\n"
+                            .'<em>'.$property.'</em>: '
+                            .'<strong>'.var_export($htmlPropValue,1).'</strong> '.$htmlUnit.'<br>'."\n"
                             ;
                     } // foreach($section['properties'] as $property )
+                    echo '</FIELDSET><br>'."\n";
                 } //foreach($toolConf['section'] as $section)
             }
             else
@@ -833,9 +810,8 @@ switch ($panel)
 
 }
 
-//var_dump::display($_REQUEST);
-//var_dump::display($toolConf);
-//var_dump::display($toolConfProperties);
+var_dump::display($_REQUEST);
+var_dump::display($toolConf);
+var_dump::display($toolConfProperties);
 include($includePath."/claro_init_footer.inc.php");
-
 ?>
