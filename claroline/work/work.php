@@ -68,6 +68,10 @@ $currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course["path"]."/";
 $fileAllowedSize = CONFVAL_MAX_FILE_SIZE_PER_WORKS ;    //file size in bytes
 $wrkDir           = $currentCourseRepositorySys.'work/'; //directory path to create session dirs
 
+// use with strip_tags function when strip_tags is used to check if a text is empty
+// but a 'text' with only an image don't have to be considered as empty 
+$allowedTags = '<img>';
+
 // permission
 $is_allowedToEdit           = $is_courseAdmin;
 
@@ -90,7 +94,7 @@ if( isset($_REQUEST['submitSession']) )
     $formCorrectlySent = true;
     
     // title is a mandatory element     
-    $title = strip_tags( trim($_REQUEST['sesTitle']) );
+    $title = trim( strip_tags($_REQUEST['sesTitle']) );
     // session id is another one
         
     if( empty($title) )
@@ -122,7 +126,7 @@ if( isset($_REQUEST['submitSession']) )
       
       if(mysql_num_rows($query) != 0 )
       {
-        $dialogBox .= $langSesTitleAlreadyExists."titleexists<br />";
+        $dialogBox .= $langSesTitleAlreadyExists."<br />";
         $formCorrectlySent = false;
       }
       else
@@ -147,7 +151,7 @@ if( isset($_REQUEST['submitSession']) )
     }
       
     // description
-    if( trim( strip_tags($_REQUEST['sesDesc']) ) == "" ) 
+    if( trim( strip_tags($_REQUEST['sesDesc']), $allowedTags ) == "" ) 
     {
       $sesDesc = ""; // avoid multiple br tags to be added when editing an empty form
     }
@@ -181,7 +185,15 @@ if( isset($_REQUEST['submitSession']) )
     }
     
     // standard grading 
-    $prefillText = claro_addslashes( trim($_REQUEST['prefillText']) );
+    // check if there is text in it 
+    if( trim( strip_tags($_REQUEST['prefillText']), $allowedTags ) == "" ) 
+    {
+      $prefillText = "";
+    }
+    else
+    {
+      $prefillText = claro_addslashes( trim($_REQUEST['prefillText']) );
+    }
 
     if ( is_uploaded_file($_FILES['prefillDocPath']['tmp_name']) )
     {      
@@ -243,6 +255,21 @@ if( isset($_REQUEST['submitSession']) )
                 // else : file sending shows no error
                 // $formCorrectlySent stay true;
           }
+    }
+    elseif( isset($_REQUEST['currentPrefillDocPath']) && !isset($_REQUEST['delGradingFile']) )
+    {
+      // reuse the old file as none has been uploaded and no delete was asked
+      $prefillDocPath = $_REQUEST['currentPrefillDocPath'];
+    }
+    elseif( isset($_REQUEST['currentPrefillDocPath']) && isset($_REQUEST['delGradingFile']) )
+    {
+      // delete hte file was requested
+      $prefillDocPath = ""; // empty DB field
+      @unlink($wrkDir."ws".$_REQUEST['sesId']."/".$_REQUEST['currentPrefillDocPath']); // physically remove the file
+    }
+    else
+    {
+      $prefillDocPath = "";
     }
     
     $composedPrefillDate = $_REQUEST['prefillYear']."-"
@@ -668,7 +695,7 @@ if($is_allowedToEdit)
       
       
       <tr>
-        <td valign="top" colspan="2"><h4><?php echo $langStandardGrading; ?></h4><?php echo $langStandardGradingHelp; ?></td>
+        <td valign="top" colspan="2"><b><?php echo $langStandardGrading; ?></b><p><?php echo $langStandardGradingHelp; ?></p></td>
       </tr>
       <tr>
         <td valign="top"><label for="prefillText"><?php echo $langStandardGradingText; ?>&nbsp;:<br /></label></td>
@@ -690,8 +717,8 @@ if($is_allowedToEdit)
               ."</td>\n"
               ."<td>"
               ."<a href=\"".$completeFileUrl."\">".$form['currentPrefillDocPath']."</a>"
-              ."<br /><input type=\"checkBox\" name=\"delAttacheDFile\" id=\"delAttachedFile\">"
-              ."<label for=\"delAttachedFile\">".$langExplainModifyAttachedfile."</label> "
+              ."<br /><input type=\"checkBox\" name=\"delGradingFile\" id=\"delGradingFile\">"
+              ."<label for=\"delGradingFile\">".$langExplainModifyAttachedfile."</label> "
               ."</td>\n"
               ."</tr>\n\n";
   }
