@@ -123,6 +123,8 @@ $langToCourseSettings = "Retour aux propriétés du cours";
 $langSeeCourseUsers = "Voir les utilisateurs du cours";
 $langBackToCourseList = "Retour à la liste de cours";
 $langBackToList = "Retour à la liste";
+$langAllUsersOfThisCourse = "Utilisateurs de ce cours";
+$langViewCourse = "Voir le cours";
 $langIntroEditToolList="Sélectionner les outils que vous voulez activer.
 Les outils invisible seront grisés dans votre page d'accueil du cours.";
 $langTools="Outils";
@@ -139,5 +141,6 @@ $langUpdatedExternalTool="Lien externe modifié";
 $langUnableUpdateExternalTool="Impossible de changer le lien externe";
 $langDeletedExternalTool='Lien externe effacé';
 $langUnableDeleteExternalTool='Impossible d\'effacer le lien externe';
+$langAdministrationTools="Outils d'administration";
 
 ?>
