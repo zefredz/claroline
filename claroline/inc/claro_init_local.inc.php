@@ -304,7 +304,7 @@ else
 
                 $_uid = include_once($extAuthSource[$key]['login']);
 
-                if ( is_int($_uid) && $uid > 0 )
+                if ( $_uid > 0 )
                 {
                     $uidReset    = true;
                     $loginFailed = false;
@@ -346,7 +346,7 @@ else
                 {
                     $_uid = include_once($thisAuthSource['newUser']);
 
-                    if ( is_int($_uid) && $_uid > 0 )
+                    if ( $_uid > 0 )
                     {
                         session_register('_uid');
                         $uidReset     = true;
