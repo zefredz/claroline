@@ -5,7 +5,7 @@
 body {
 	background-color:#FFFFFF;
 	color:#000000;
-	font-family: verdana, 'bitstream vera sans',Arial,Helvetica,sans-serif;
+	font-family: Arial,Helvetica,sans-serif;
 	padding: 0;
 	margin: 0;
 }
@@ -16,7 +16,7 @@ a:link, a:active, a:visited {
 }
 
 a:hover {
-	color: #FFB848;
+	color: #369;
 }
 
 a img {
@@ -51,16 +51,6 @@ h3{	font-size: 110%; }
 	padding: 0;
 }
 
-#topBanner h1
-{
-	margin: 0;
-	font-size: 120%;
-}
-
-#topBanner h2
-{
-	margin: 0;
-}
  /*----------------------------------------------------------------------------
                                   CAMPUS LINE
  ----------------------------------------------------------------------------*/
@@ -68,7 +58,8 @@ h3{	font-size: 110%; }
 {
 	background-color:#FFB848;
 	color: #333;
-	font-size: 120%;
+	font-size: 115%;
+	font-weight: bold;
 	padding: 4px;
 	border-bottom: 1px solid #000;
 }
@@ -113,10 +104,9 @@ h3{	font-size: 110%; }
 	border-bottom: 1px solid #000;
 }
 
-#userBanner h2
+#userBanner #userName
 {
-	 display: inline;
-	 font-size: 115%;
+	font-weight: bold;
 	 margin: 0px;
 }
 
@@ -130,7 +120,6 @@ h3{	font-size: 110%; }
 	display: inline;
 	padding: 0;
 	margin: 0;
-	margin-left: 10px;
 }
 
 #userBanner li 
@@ -188,25 +177,27 @@ h3{	font-size: 110%; }
     text-align: right;
 }
 
-#courseBanner .courseName {
+#courseName {
 	font-size: 120%;
+	padding: 0;
+	margin: 0;
 }
 
-#courseBanner .courseName a,
-#courseBanner .courseName a:active,
-#courseBanner .courseName a:link,
-#courseBanner .courseName a:visited
+#courseName a,
+#courseName a:active,
+#courseName a:link,
+#courseName a:visited
 {
 	color: #c60;
 	text-decoration: none;
 }
 
-#courseBanner .courseName a:hover
+#courseName a:hover
 {
 	color: #369;
 }
 
-#courseBanner .courseCode {
+#courseCode {
 	font-size: 80%;
 }
 
@@ -315,8 +306,9 @@ h3{	font-size: 110%; }
 
 
 .claroTable .superHeader th, .claroTable th.superHeader {
-	color: #333333;
+	color: #333;
 	background-color: #FDD088;
+	border: 1px solid #333;
 	font-weight: bold;
 	text-align: left;
 }
