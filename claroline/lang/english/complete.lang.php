@@ -249,10 +249,11 @@ $langConfiguration = "Configuration";
 $langConfirm = "Confirm";
 $langConfirmation = "Confirmation";
 $langConfirmBackup = "Do you really want to backup the course";
-$langConfirmDelete = "If you delete the courses statistics there is no way to get them back !<br /><br />Are you sure to totally delete the statistics ?";
+$langConfirmDeleteStats = "If you delete the courses statistics there is no way to get them back !<br /><br />Are you sure to totally delete the statistics ?";
+$langConfirmDeleteGroups = "Are you sure to delete all the groups ?"
 $langConfirmDeleteExercise = "Are you sure to delete this exercise ?";
 $langConfirmDeleteQuestion = "Are you sure to totally delete this question ?";
-$langConfirmEmpty = "Are you sure to empty all groups ?";
+$langConfirmEmptyGroups = "Are you sure to empty all groups ?";
 $langConfirmYourChoice = "Please confirm your choice";
 $langConfTip = "By default, your course is accessible to everybody. If you want some confidentiality,
 the simplest way is to open registration during
