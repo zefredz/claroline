@@ -274,9 +274,6 @@ while ($thisAffiliation = mysql_fetch_array($resultUserGroup,MYSQL_ASSOC))
 
 $previousUser = "";
 reset($users);
-$idColor = 1;
-$colorArr[1] 	= $colorEvenLines;
-$colorArr[-1] 	= $colorOddLines;
 
 while (list(,$thisUser) = each($users))
 {
