@@ -135,7 +135,7 @@ if ($is_allowedToEdit)
 		$facOnce=$course['f'];
 		if($course['k']!=$codeOnce)
 		{ 
-			echo "<br>\n\t<input type=\"checkbox\" name=\"coursToDelete[]\" value=\"".$course['k]'."\"> ".$course['c']." ".$course['i']." ".$course['t'];
+			echo "<br>\n\t<input type=\"checkbox\" name=\"coursToDelete[]\" value=\"".$course['k']."\"> ".$course['c']." ".$course['i']." ".$course['t'];
 		}
 		$codeOnce=$course['k'];
 	  // echo "$course['n']<br>";
