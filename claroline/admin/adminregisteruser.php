@@ -15,7 +15,6 @@
 
 // Lang files needed :
 
-$lang_course_admin = 'Course manager';
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 // initialisation of global variables and used libraries
@@ -71,7 +70,7 @@ switch ($_REQUEST['cmd'])
         if ($subas=="teach")   //  ... as teacher
         {
             $properties['status'] = 1;
-            $properties['role']   = $lang_course_admin;
+            $properties['role']   = $langCourseManager;
             $properties['tutor']  = 1;
         }
         elseif ($subas=='stud')  // ... as student
