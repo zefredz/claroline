@@ -1660,32 +1660,6 @@ $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."userinfo_def`
 
 }
 
-/**
- * TRY TO CREATE WORK TABLE
- *
- * work_student
- *
- */
-
-{
- 
-$sqlForUpdate[] = "# Structure of table `work_student`";
-$sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."work_student` (
-  `work_id` int(11) NOT NULL default '0',
-  `uname` varchar(30) NOT NULL default '',
-  PRIMARY KEY  (`work_id`,`uname`)
-) TYPE=MyISAM;";
-
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."work` CHANGE `id`			`id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."work` CHANGE `url`			`url` varchar(200) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."work` CHANGE `titre`		`titre` varchar(200) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."work` CHANGE `description`	`description` varchar(250) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."work` CHANGE `auteurs`		`auteurs` varchar(200) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."work` CHANGE `active`		`active` tinyint(1) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."work` CHANGE `accepted`		`accepted` tinyint(1) default NULL;";
-
-}
-
 /**** DEPRECATED by MLA
 
 $sqlForUpdate[] = "### LINKS ###`";
@@ -1746,6 +1720,9 @@ $sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_words` COMMENT='d
 
 /**
  * $Log$
+ * Revision 1.7  2004/09/16 12:07:33  seb
+ * Remove work_student table
+ *
  * Revision 1.6  2004/07/01 10:15:20  mathieu
  * remove char and line return after ; of query
  *
