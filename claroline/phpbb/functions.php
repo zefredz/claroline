@@ -33,118 +33,10 @@ error_reporting(error_reporting() & ~ E_NOTICE);
 // DEPRECATED FUNCTIONS
 
 function is_banned($ipuser, $type, $db) { return false; }
-
-
-
-/**
- * Start session-management functions - Nathan Codding, July 21, 2000.
- */
-
-/**
- * new_session()
- * Adds a new session to the database for the given userid.
- * Returns the new session ID.
- * Also deletes all expired sessions from the database, based on the given session lifespan.
- */
-function new_session($userid, $remote_ip, $lifespan, $db)
-{
-	global $tbl_sessions;
-
-	mt_srand((double)microtime()*1000000);
-	$sessid = mt_rand();
-
-	$currtime = (string) (time());
-	$expirytime = (string) (time() - $lifespan);
-
-	$deleteSQL = "DELETE FROM `".$tbl_sessions."` 
-                  WHERE (start_time < $expirytime)";
-	$delresult = mysql_query($deleteSQL, $db);
-
-	if (!$delresult) die("Delete failed in new_session()");
-
-	$result = mysql_query("INSERT INTO `$tbl_sessions`
-	                      (sess_id, user_id, start_time, remote_ip)
-	                       VALUES
-	                      ($sessid, $userid, $currtime, '$remote_ip')", $db)
-	          or die(mysql_errno().": ".mysql_error()."<br>Insert failed in new_session()");
-
-	return $sessid;
-}												// end new_session()
-
-/**
- * Sets the sessID cookie for the given session ID. the $cookietime parameter
- * is no longer used, but just hasn't been removed yet. It'll break all the modules
- * (just login) that call this code when it gets removed.
- * Sets a cookie with no specified expiry time. This makes the cookie last until the
- * user's browser is closed. (at last that's the case in IE5 and NS4.7.. Haven't tried
- * it with anything else.)
- */
-function set_session_cookie($sessid, $cookietime, $cookiename, $cookiepath, $cookiedomain, $cookiesecure)
-{
-    // Sets a cookie that will persist until the user closes their browser 
-    // window. Since session expiry is handled on the server-side, cookie 
-    // expiry time isn't a big deal.
-
-	setcookie($cookiename,$sessid,'',$cookiepath,$cookiedomain,$cookiesecure);
-
-}				// set_session_cookie()
-
-
-/**
- * Returns the userID associated with the given session, based on
- * the given session lifespan $cookietime and the given remote IP
- * address. If no match found, returns 0.
- */
-function get_userid_from_session($sessid, $cookietime, $remote_ip, $db)
-{
-    global $tbl_sessions;
-
-    $mintime = time() - $cookietime;
-
-    $sql = "SELECT user_id FROM `".$tbl_sessions."`
-            WHERE sess_id = '".$sessid."'
-              AND start_time > ".$mintime."
-              AND (remote_ip = '".$remote_ip."'";
-
-    $result = claro_sql_query_fetch_all($sql);
-
-    if (count($result) > 0) return $result[0]['user_id'];
-    else                    return 0;
-}               // get_userid_from_session()
-
-/**
- * Refresh the start_time of the given session in the database.
- * This is called whenever a page is hit by a user with a valid session.
- */
-function update_session_time($sessid, $db)
-{
-	global $tbl_sessions;
-
-	$newtime = (string) time();
-
-    $sql = "UPDATE `".$tbl_sessions."`
-	        SET   start_time='".$newtime."'
-	        WHERE sess_id = '".$sessid."'";
-
-    claro_sql_query($sql);
-
-	return 1;
-}												// update_session_time()
-
-/**
- * Delete the given session from the database. Used by the logout page.
- */
-function end_user_session($userid, $db)
-{
-	global $tbl_sessions;
-
-    $sql = "DELETE FROM `".$tbl_sessions."`
-            WHERE (user_id = '".$userid."'";
-
-	$result = claro_sql_query($sql);
-	return 1;
-}				// end_session()
-
+function undo_make_clickable($text)     { return $text; }
+function smile($message) { return $message; }
+function desmile($message) {return $message;}
+function login_form() { error_die("should display the PHPBB login form ... :-) "); }
 
 /*---------------------- End session-management functions -------------------*/
 
@@ -473,63 +365,6 @@ function is_locked($topic, $db)
     else                  return false;
 }
 
-/**
- * Changes :) to an <IMG> tag based on the smiles table in the database.
- *
- * Smilies must be either:
- * 	- at the start of the message.
- * 	- at the start of a line.
- * 	- preceded by a space or a period.
- * This keeps them from breaking HTML code and BBCode.
- * TODO: Get rid of global variables.
- */
-function smile($message)
-{
-	global $db, $url_smiles, $tbl_smiles;
-
-	// Pad it with a space so the regexp can match.
-	$message = ' ' . $message;
-
-	if ($getsmiles = mysql_query("SELECT *, length(code) as length
-	                              FROM `$tbl_smiles`
-	                              ORDER BY length DESC"))
-	{
-		while ($smiles = mysql_fetch_array($getsmiles))
-		{
-			$smile_code = preg_quote($smiles[code]);
-			$smile_code = str_replace('/', '//', $smile_code);
-			$message = preg_replace("/([\n\\ \\.])$smile_code/si",
-			                         '\1<IMG SRC="' . $url_smiles . '/' . $smiles[smile_url] . '">',
-			                          $message);
-		}
-	}
-
-	// Remove padding, return the new string.
-	$message = substr($message, 1);
-	return($message);
-}
-
-/**
- * Changes a Smiliy <IMG> tag into its corresponding smile
- * TODO: Get rid of golbal variables, and implement a method of
- * distinguishing between :D and :grin: using the <IMG> tag
- */
-function desmile($message)
-{
-	// Ick Ick Global variables...remind me to fix these! - theFinn
-	global $db, $url_smiles, $tbl_smiles;
-
-	if ($getsmiles = mysql_query("SELECT * FROM `".$tbl_smiles."`"))
-	{
-		while ($smiles = mysql_fetch_array($getsmiles))
-		{
-			$message = str_replace("<IMG SRC=\"$url_smiles/$smiles[smile_url]\">",
-			                        $smiles[code], $message);
-		}
-	}
-
-	return($message);
-}
 
 
 /**
@@ -544,7 +379,7 @@ function escape_slashes($input)
 	return $output;
 }
 
-/*
+/**
  * Returns the name of the forum based on ID number
  */
 function get_forum_name($forum_id, $db)
@@ -559,24 +394,6 @@ function get_forum_name($forum_id, $db)
 	if ($forum_name) return $forum_name;
 	else             return 'None';
 }
-
-
-
-
-/**
- * Reverses the effects of make_clickable(), for use in editpost.
- * - Does not distinguish between "www.xxxx.yyyy" and "http://aaaa.bbbb" type URLs.
- * @author Nathan Codding - Feb 6, 2001
- */
-
-function undo_make_clickable($text)
-{
-	$text = preg_replace("#<!-- BBCode auto-link start --><a href=\"(.*?)\" target=\"_blank\">.*?</a><!-- BBCode auto-link end -->#i", "\\1", $text);
-	$text = preg_replace("#<!-- BBcode auto-mailto start --><a href=\"mailto:(.*?)\">.*?</a><!-- BBCode auto-mailto end -->#i", "\\1", $text);
-
-	return $text;
-}
-
 
 
 /**
@@ -681,68 +498,50 @@ function error_die($msg)
 
 function make_jumpbox()
 {
-	global $phpEx, $db;
-	global $FontFace, $FontSize2, $textcolor;
-	global $l_jumpto, $l_selectforum, $l_go;
-	global $tbl_catagories, $tbl_forums;
+    global $l_jumpto, $l_selectforum, $l_go;
+    global $tbl_catagories, $tbl_forums;
 
-	?>
-	<FORM ACTION="viewforum.<?php echo $phpEx?>" METHOD="GET">
-	<SELECT NAME="forum"><OPTION VALUE="-1"><?php echo $l_selectforum?></OPTION>
-	<?php
-		$sql = "SELECT cat_id, cat_title
-		        FROM `$tbl_catagories`
-		        ORDER BY cat_order";
+    echo "<form action=\"viewforum.php\" method=\"get\">\n"
+        ."<select name=\"forum\">\n"
+        ."<option value=\"-1\">".$l_selectforum."</option>\n";
 
-	if($result = mysql_query($sql, $db))
-	{
-	   $myrow = mysql_fetch_array($result);
-	   do {
-	      echo "<OPTION VALUE=\"-1\">&nbsp;</OPTION>\n";
-	      echo "<OPTION VALUE=\"-1\">$myrow[cat_title]</OPTION>\n";
-	      echo "<OPTION VALUE=\"-1\">----------------</OPTION>\n";
-	      $sub_sql = "SELECT forum_id, forum_name FROM `$tbl_forums` WHERE cat_id =
-	'$myrow[cat_id]' ORDER BY forum_id";
-	      if($res = mysql_query($sub_sql, $db)) {
-	    if($row = mysql_fetch_array($res)) {
-	       do {
-		  $name = stripslashes($row[forum_name]);
-		  echo "<OPTION VALUE=\"$row[forum_id]\">$name</OPTION>\n";
-	       } while($row = mysql_fetch_array($res));
-	    }
-	    else {
-	       echo "<OPTION VALUE=\"0\">No More Forums</OPTION>\n";
-	    }
-	      }
-	      else {
-	    echo "<OPTION VALUE=\"0\">Error Connecting to DB</OPTION>\n";
-	      }
-	   } while($myrow = mysql_fetch_array($result));
-	}
-	else {
-	   echo "<OPTION VALUE=\"-1\">ERROR</OPTION>\n";
-	}
-	echo "</select>\n<input type=\"submit\" value=\"$l_go\">\n</form>";
-}
+        $sql = "SELECT cat_id, cat_title
+                FROM `".$tbl_catagories."`
+                ORDER BY cat_order";
 
-function language_select($default, $name="language", $dirname="language/")
-{
-	global $phpEx;
-	$dir = opendir($dirname);
-	$lang_select = "<select name=\"$name\" id=\"$name\">\n";
-	while ($file = readdir($dir))
-	{
-		if (ereg("^lang_", $file))
-		{
-			$file = str_replace("lang_", "", $file);
-			$file = str_replace(".$phpEx", "", $file);
-			$file == $default ? $selected = " SELECTED" : $selected = "";
-			$lang_select .= "  <OPTION$selected>$file\n";
-		}
-	}
-	$lang_select .= "</SELECT>\n";
-	closedir($dir);
-	return $lang_select;
+        $catList = claro_sql_query_fetch_array($sql);
+
+        foreach($catList as $thisCat)
+        {
+            echo "<option VALUE=\"-1\">&nbsp;</OPTION>\n"
+                ."<option value=\"-1\">".$myrow['cat_title']."</option>\n"
+                ."<option value=\"-1\">----------------</option>\n";
+
+            $sql = "SELECT forum_id, forum_name 
+                    FROM `".$tbl_forums."` 
+                    WHERE cat_id = '".$myrow['cat_id']."' 
+                    ORDER BY forum_id";
+
+            $forumList = claro_sql_query_fetch_all($sql);
+
+            if (count($forumList) > 0)
+            {
+                foreach($forumlist as $thisforum)
+                {
+                    echo "<option value=\"".$row['forum_id']."\">"
+                        .stripslashes($row['forum_name'])
+                        ."</option>\n";
+            	}
+            }
+            else
+            {
+                echo "<option value=\"0\">no more forums</option>\n";
+            }
+        }
+
+        echo "</select>\n"
+            ."<input type=\"submit\" value=\"".$l_go."\">\n"
+            ."</form>\n";
 }
 
 function get_translated_file($file)
@@ -871,14 +670,9 @@ function sync($db, $id, $type)
 
 	}				// end switch
 
-	return(true);
+	return true;
 }
 
-function login_form()
-{
-    error_die("should display the PHPBB login form ... :-) ");
-    // should never happen. but in case of whe should be rapidly warned ....
-}
 
 /**
  * Less agressive version of stripslashes. Only replaces \\ \' and \"
@@ -1345,7 +1139,8 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
 }
 
 /**
- * 
+ * Display a mini pager. At the opposite of the claro_sql_pager, it doesn't 
+ * depend of SQL, but you have to know before the total count of item.
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param string $url - url to be used

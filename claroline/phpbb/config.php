@@ -97,19 +97,20 @@ $tbl_user_group       = $_course['dbNameGlu'].'group_rel_team_user';
 $tbl_user_notify      = $_course['dbNameGlu'].'bb_rel_topic_userstonotify';
 $is_groupPrivate      = $_groupProperties['private'];
 
-$nom            = $_user['lastName' ]; // FROM CLAROLINE
-$prenom         = $_user['firstName']; // FROM CLAROLINE
-$last_visit     = $_user['lastLogin']; // FROM CLAROLINE
-$user_logged_in = 0; // We MUST do this up here, 
-$logged_in      = 0; // so it's set even if the cookie's not present.
-$userdata       = Array();
-$now_time       = time();
+$nom                 = $_user['lastName' ]; // FROM CLAROLINE
+$prenom              = $_user['firstName']; // FROM CLAROLINE
+$last_visit          = $_user['lastLogin']; // FROM CLAROLINE
+$user_logged_in      = 0; // We MUST do this up here, 
+$logged_in           = 0; // so it's set even if the cookie's not present.
+$userdata            = array();
+$userdata['user_id'] = ($_uid) ?  $_uid : -1;
+$now_time            = time();
 
 if( is_banned($REMOTE_ADDR, 'ip', $db) ) error_die($l_banned);
 
 
 // Disable Magic Quotes
-function stripslashes_array(&$the_array_element, $the_array_element_key, $data)
+function stripslashes_array(&$the_array_element, $the_array_element_key)
 {
    $the_array_element = stripslashes($the_array_element);
 }
@@ -132,7 +133,7 @@ if( get_magic_quotes_gpc() == 1)
     {
         if( is_array($val) )
         {
-            array_walk($val, 'stripslashes_array', '');
+            array_walk($val, 'stripslashes_array');
             $$key = $val;
         }
         else
