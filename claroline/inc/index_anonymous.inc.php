@@ -200,17 +200,7 @@ echo '</td>';
 <?php
     if ($loginFailed)
     {
-        ?>
-
-        <table border="0" cellpadding="5">
-        <tr>
-        <td bgcolor="white">
-        <font color="red"><?php echo $langInvalidId ?></font>
-        </td>
-        </tr>
-        </table>
-
-        <?php
+        claro_disp_message_box($langInvalidId);
     }
 
     if( $allowSelfReg || ! isset($allowSelfReg) )
