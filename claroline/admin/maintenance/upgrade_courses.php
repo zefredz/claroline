@@ -41,10 +41,8 @@ if (!$is_allowedToEdit)
 }
 
 include("createBaseOfACourse.sql.php");
-$langUpgradeDataBase = "Upgrading Database ".$currentCourseID;
 
 $db = mysql_connect($dbHost, $dbLogin, $dbPass);
-$nameTools = $langUpgradeDataBase;
 
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -99,6 +97,9 @@ switch ($display)
 	case DISPLAY_RESULT_PANEL : 
 
                 echo sprintf ("<h2>%s</h2>",$langStep3);
+                
+                echo "";
+                
 		echo "<div class=\"help\" id=\"refreshIfBlock\">";
 		echo "<form action=\"" . $PHP_SELF . "\">\n";
 		echo "<input type=\"hidden\" name=\"cmd\" value=\"run\" />";
@@ -109,7 +110,7 @@ switch ($display)
 		echo "</div>";
 
 		$sqlListCourses = " SELECT *, " .
-				  " cours.dbName dbName, cours.code sysCode, cours.fake_code officialCode, directory coursePath ".
+				  " cours.cours_id cours_id, cours.dbName dbName, cours.code sysCode, cours.fake_code officialCode, directory coursePath ".
 		                  " FROM ".$mainDbName.".cours ";
 				  
 		if (is_array($coursesToUpgrade))
@@ -124,7 +125,7 @@ switch ($display)
 		
 		while ($cours = mysql_fetch_array($res_listCourses))
 		{
-			$currentCourseID	= $cours["dbName"];
+			$currentCourseID	= $cours["cours_id"];
 			$currentCourseDbName	= $cours["dbName"];
 			$currentcoursePathSys	= $coursesRepositorySys.$cours["coursePath"]."/";
 			$currentcoursePathWeb	= $coursesRepositoryWeb.$cours["coursePath"]."/";
