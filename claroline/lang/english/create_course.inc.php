@@ -16,7 +16,7 @@
 $langNewCourse 			= "New Course";
 $langAddNewCourse 		= "Add a new course";
 $langRestoreCourse		= "Restore a course";
-$langOtherProperties  	= "Other properties found in archive";
+$langOtherProperties  	        = "Other properties found in archive";
 $langSysId 				= "Id Système";
 $langDescription  		= "Description";
 $langDepartment	  		= "Department";
@@ -33,7 +33,8 @@ $langFtpFileTips 		= "File on a FTP server";
 $langHttpFileTips		= "File on a Web (HTTP) server";
 $langLocalFileTips		= "File on the platform server";
 $langPostFileTips		= "File on your local computer";
-$langEmail				= "Email";
+$langEmail			= "Email";
+$langAdministrationTools        = "Administration";
 
 
 // create_course.php

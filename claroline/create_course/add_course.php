@@ -355,6 +355,10 @@ else
 	} // elseif ($submitFromCoursProperties)
 } // else (!$can_create_courses)
 
+if ($fromAdmin=="yes")
+{
+    $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+}
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
 claro_disp_msg_arr($controlMsg);

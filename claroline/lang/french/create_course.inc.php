@@ -22,6 +22,7 @@ $langEmpty="Vous n'avez pas rempli tous les champs.\n<br>\nUtilisez le bouton de
 $langCodeTaken="Ce code cours est déjà pris.<br>Utilisez le bouton de retour en arrière de votre navigateur et recommencez";
 $langBackToAdmin = "Retour à l'administration";
 $langAnotherCreateSite = "Créer un autre cours";
+$langAdministrationTools = "Administration";
 
 // tables MySQL
 $langFormula="Cordialement, votre professeur";
