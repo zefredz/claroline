@@ -1,3 +1,4 @@
+$Id$
 > > > > > > > > > > > CLAROLINE 1.5 RC1 - BUG LIST < < < < < < < < < < <
 
 
@@ -13,3 +14,12 @@ Assigné à : HUGUES
 les cas ou la redirection ne se passe pas bien.
 
 Assigné à : HUGUES
+
+3.  INSTALL instal repetées = plusieurs admins -> utilisation des function d'ajout utilisateurs
+Assigné à : 
+à résoudre pour : 1.5.1
+
+----
+$Log$
+Revision 1.4  2004/06/11 10:04:22  moosh
+- bug 3 : install
