@@ -1079,7 +1079,7 @@ function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
 function claro_disp_html_area($name, $content =    '',    
                               $rows=20,    $cols=80, $optAttrib='')
 {
-    global $urlAppend;
+    global $urlAppend, $iso639_1_code;
 
     $incPath = $urlAppend.'/claroline/inc/htmlarea';
 ?>
@@ -1093,7 +1093,7 @@ function claro_disp_html_area($name, $content =    '',
 
 <script>_editor_url    = "<?php echo  $incPath?>";</script>
 <script    type="text/javascript" src="<?php echo $incPath; ?>/htmlarea.js"></script>
-<script    type="text/javascript" src="<?php echo $incPath; ?>/lang/en.js"></script>
+<script    type="text/javascript" src="<?php echo $incPath; ?>/lang/<?php echo $iso639_1_code; ?>.js"></script>
 <script    type="text/javascript" src="<?php echo $incPath; ?>/dialog.js"></script>
 
 <script    type="text/javascript">
@@ -1118,9 +1118,6 @@ function highlight() {
 <script>
 initEditor();
 </script>
-
-<!-- <input type="button" name="ins"    value="     insert    html  "    onclick="return    insertHTML();" /> -->
-<!-- <input type="button" name="hil"    value="     highlight text     " onclick="return highlight();" /> -->
 <?php
 }
 
