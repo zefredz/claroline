@@ -7,13 +7,13 @@ $conf_def['config_name'] = 'Home page';
 $conf_def['section']['rightmenu']['label']='Right menu settings';
 $conf_def['section']['rightmenu']['description']='Settings of the right menu elements';
 $conf_def['section']['rightmenu']['properties'] =
-array ( 'NB_CHAR_FROM_CONTENT'
+array ( 'max_char_from_content'
       );
 
 //PROPERTIES
-$conf_def_property_list['NB_CHAR_FROM_CONTENT']
+$conf_def_property_list['max_char_from_content']
 = array ('label'     => 'Last event length'
-        ,'description' => 'Length of the \'last events\' displayed content'
+        ,'description' => 'Max length of the \'last events\' displayed content'
         ,'default'   => '80'
         ,'unit'     => 'characters'
         ,'type'      => 'integer'
