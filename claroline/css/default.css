@@ -370,6 +370,7 @@ h3{	font-size: 110%; }
 /* extension of claroTable class for Image Viewer */
 .claroTable tr th.toolbar {
 	background: white;
+	font-weight: normal;
 }
 
 .claroTable tr.toolbar th.prev{
