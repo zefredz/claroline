@@ -43,14 +43,14 @@
 
 // Commands
 
---- cmd==dispEditConfClass
+--- cmd==dispEditConf
 Attempd an tool parameter
 Read existing value set in db for this tool
 Read the de file for this tool
 Display the panel of generic edition (form build following def parameter)
 
 --- isset(cmdSaveProperties
-call by the DISP_EDIT_CONF_CLASS when user click on submit.
+call by the DISP_EDIT_CONF when user click on submit.
 * check if value are right for control rules in def file
 * store (insert/update) in properties in DB
 
@@ -61,7 +61,7 @@ Write config file if all value needed are set
 
 // Displays
  define("DISP_LIST_CONF",      __LINE__); Print out a lis of eable action.
- define("DISP_EDIT_CONF_CLASS",__LINE__);  Edit settings of a tool.
+ define("DISP_EDIT_CONF",__LINE__);  Edit settings of a tool.
  define("DISP_SHOW_DEF_FILE",  __LINE__);  Display the definition file of a tool
  define("DISP_SHOW_CONF_FILE", __LINE__);  Display the Conf file of a tool
 
@@ -118,7 +118,7 @@ $lang_p_PropForConfigCommited = 'Properties for %s (%s) are now effective on ser
 
 
 define('DISP_LIST_CONF',        __LINE__);
-define('DISP_EDIT_CONF_CLASS',  __LINE__);
+define('DISP_EDIT_CONF',  __LINE__);
 define('DISP_SHOW_CONF',        __LINE__);
 define('DISP_SHOW_DEF_FILE',    __LINE__);
 define('DISP_SHOW_CONF_FILE',   __LINE__);
@@ -144,13 +144,6 @@ $interbredcrump[]	= array ('url'=>$rootAdminWeb, 'name'=> $lang_config_Administr
 $noQUERY_STRING 	= TRUE;
 
 $htmlHeadXtra[] = '<style>
-	label    {
-		background-color: #FFFFFF;
-	}
-	fieldset    {
-		border : none;
-		background-color: #FFFFFF;
-	}
 	legend {
 		font-weight: bolder;
 		font-size: 130%;
@@ -220,7 +213,7 @@ $htmlHeadXtra[] = '<style>
 ';
 
 /* ************************************************************************** */
-/*  
+/*  INITIALISE VAR 
 /* ************************************************************************** */
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -257,9 +250,7 @@ if(!$is_allowedToAdmin)
 /* ************************************************************************** */
 
 // Default display
-
 $panel = DISP_LIST_CONF;
-
 
 // Command on a specified config.
 if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
@@ -268,23 +259,25 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
     $confDef  = claro_get_def_file($config_code);
     $confFile = claro_get_conf_file($config_code); 
 
-    if( $_REQUEST['cmd']=='dispEditConfClass' )
+    if ( $_REQUEST['cmd'] == 'dispEditConf' )
     {
-        // Edit settings of a config_code 
-         if(file_exists($confDef))
+        // Edit Configuration
+
+        if ( file_exists($confDef) )
         {
-            $panel = DISP_EDIT_CONF_CLASS;
+            $panel = DISP_EDIT_CONF;
         }
         else
         {
-    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_config_name($config_code));
+    		$controlMsg['error'][] = sprintf($lang_nothingToConfigHere,get_config_name($config_code));
             $panel = DISP_LIST_CONF;
         }
     }
-    elseif( $_REQUEST['cmd']=='showConf' )
+    elseif ( $_REQUEST['cmd'] == 'showConf' )
     {
         // Show Configuration
-        if(file_exists($confFile))
+
+        if( file_exists($confFile) )
         {
             @require($confDef);
             @require($confFile);
@@ -294,13 +287,14 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         }
         else
         {
-    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_config_name($config_code));
+    		$controlMsg['error'][] = sprintf($lang_nothingToConfigHere,get_config_name($config_code));
             $panel = DISP_LIST_CONF;
         }
     }
-    elseif( $_REQUEST['cmd']=='showDefFile' )
+    elseif ( $_REQUEST['cmd'] == 'showDefFile' )
     {
         // Show Definition File
+
         if(file_exists($confDef))
         {
             $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $lang_config_config_short);
@@ -309,14 +303,15 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         }
         else
         {
-    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_config_name($config_code));
+    		$controlMsg['error'][] = sprintf($lang_nothingToConfigHere,get_config_name($config_code));
             $panel = DISP_LIST_CONF;
         }
     }
-    elseif($_REQUEST['cmd']=='showConfFile')
+    elseif ( $_REQUEST['cmd'] == 'showConfFile' )
     {
-        // Show configuration file
-        if(file_exists($confFile))
+        // Show Configuration source file
+
+        if( file_exists($confFile) )
         {
             $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $lang_config_config_short);
             $nameTools = get_config_name($config_code);
@@ -328,37 +323,40 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             $panel = DISP_LIST_CONF;
         }
     }
-    elseif(isset($_REQUEST['cmdSaveProperties']) || isset($_REQUEST['cmdSaveAndApply']))
+    elseif ( isset($_REQUEST['cmdSaveProperties']) || isset($_REQUEST['cmdSaveAndApply']) )
     {
         unset($conf_def,$conf_def_property_list);
         
-        if(file_exists($confDef)) require($confDef);
+        if ( file_exists($confDef) )
+            require($confDef);
+
         $okToSave = TRUE;
-        if ($conf_def['config_code']=='')
+
+        if ( $conf_def['config_code'] == '' )
         {
             $okToSave = FALSE;
             $controlMsg['error'][] = sprintf($lang_p_config_missing_S ,basename($confDef));
         }
-        if ($config_code != $conf_def['config_code'])
+        if ( $config_code != $conf_def['config_code'] )
         {
             $okToSave = FALSE;
             $controlMsg['error'][] = $conf_def['config_code'].' != '.$config_code.' <br>'
             .sprintf($lang_p_DefNameAndContentDisruptedOnConfigCode,basename($confDef));
         }
         
-        if (is_array($_REQUEST['prop']) )
+        if ( is_array($_REQUEST['prop']) )
         {
-            foreach($_REQUEST['prop'] as $propName => $propValue )
+            foreach ( $_REQUEST['prop'] as $propName => $propValue )
             {
                 if (!config_checkToolProperty($propValue, $conf_def_property_list[$propName]))
                 {
                     $okToSave = FALSE;
                 }
             }
-            if ($okToSave) 
+            if ( $okToSave ) 
             {
                 reset($_REQUEST['prop']);
-                foreach($_REQUEST['prop'] as $propName => $propValue )
+                foreach ( $_REQUEST['prop'] as $propName => $propValue )
                 {
                     save_param_value_in_buffer($propName,$propValue, $config_code);
                 }
@@ -366,9 +364,9 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             else
             {
                 $controlMsg['info'][] = 'Save aborded';
-                $panel = DISP_EDIT_CONF_CLASS;
+                $panel = DISP_EDIT_CONF;
             }
-            if (!isset($_REQUEST['cmdSaveAndApply']))
+            if ( !isset($_REQUEST['cmdSaveAndApply']) )
                 $controlMsg['info'][] = sprintf($lang_p_Properties_of_S_saved_in_buffer 
                                                ,get_config_name($config_code));
         }
@@ -378,11 +376,12 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         }            
     }
 
-    if($_REQUEST['cmd']=='generateConf'||($okToSave && isset($_REQUEST['cmdSaveAndApply'])))
+    if ( $_REQUEST['cmd'] == 'generateConf' || ( $okToSave && isset($_REQUEST['cmdSaveAndApply']) ) )
     {
         // OK to build the conf file. 
+
         // 1° Get extra info from the def file.
-        if(file_exists($confDef))
+        if ( file_exists($confDef) )
         {
             require($confDef);
             $panel = DISP_SHOW_CONF_FILE;
@@ -394,28 +393,30 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
     		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_config_name($config_code));
             $panel = DISP_LIST_CONF;    
         }
+
         // 2° Perhaps it's the first creation
-        if (!$confFile)
+        if ( !$confFile )
         {
             $confFile = claro_create_conf_filename($config_code);
             $controlMsg['info'][] = sprintf($lang_p_config_file_creation
                                            ,$confFile);
             $confFile = claro_get_conf_file($config_code);
         }
+
         //3° use the extra infos
-        if(file_exists($confDef))
+        if ( file_exists($confDef) )
         {
             require($confDef);
-            $panel = DISP_EDIT_CONF_CLASS;
+            $panel = DISP_EDIT_CONF;
             $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $nameTools);
             $nameTools = get_config_name($config_code);
         }
         
         $storedPropertyList = read_param_value_in_buffer($config_code);
         
-        if (is_array($storedPropertyList)&& count($storedPropertyList)>0)
+        if ( is_array($storedPropertyList) && count($storedPropertyList)>0 )
         {
-            if (write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile, realpath(__FILE__)))
+            if ( write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile, realpath(__FILE__)) )
             {
                 set_hash_confFile($confFile,$config_code);
                 $controlMsg['info'][] =  sprintf($lang_p_PropForConfigCommited,$nameTools,$config_code);
@@ -441,63 +442,97 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
 //    PREPARE VIEW   
 /* ************************************************************************** */
 
-if ($panel == DISP_LIST_CONF)
+if ( $panel == DISP_LIST_CONF )
 {
-    // List is combination of 2 sources
-    // * List of definition files. each one corresponding to a config file. 
-    // * List of Tools wich are linked to less a config.
-    // the two lists are merge and an array is build  with conf by tool.
-    // 
     $helpSection = 'help_config_menu.php';
 
-    $def_list  = get_def_list();
-    $conf_list = get_conf_list();
-    $key_list  = array_merge_recursive($def_list,$conf_list);
-    $config_list = array();
-    if (is_array($key_list))
-    foreach($key_list as $key => $config)
-    {
-        // The strange following line flat the array 
-        // wich can be build by collision during array_merge_recursive 
-        
+    // List is combination of 2 sources
 
-        $config_item = array_merge($def_list[$key],$conf_list[$key]);
-        $config_item['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config['config_code']))&&$config['config_hash'] != md5_file(claro_get_conf_file($config['config_code'])));
-        $config_item['tool']        = get_tool_name($config['claro_label']);
-        if(!isset($config['claro_label'])) $config['claro_label'] = 'Not for a tool';
-        $tool_list[$config['claro_label']][]= $config_item;
+    // * List of definition files. each one corresponding to a config file. 
+    $def_list  = get_def_list();
+
+    // * List of Tools wich are linked to less a config.
+    $conf_list = get_conf_list();
+
+    // the two lists are merge and an array is build  with conf by tool.
+    $key_list  = array_merge_recursive($def_list,$conf_list);
+
+    $tool_list = array();
+
+    if ( is_array($key_list) )
+    {
+        foreach( $key_list as $key => $config )
+        {
+            // The strange following line flat the array 
+            // wich can be build by collision during array_merge_recursive         
+            $config_item = array_merge($def_list[$key],$conf_list[$key]);
+    
+            // check if configuration file was edited manually
+            if ( file_exists(claro_get_conf_file($config['config_code']) ) 
+                 && $config['config_hash'] != md5_file(claro_get_conf_file($config['config_code'])) )
+            {
+                $config_item['manual_edit'] = TRUE;
+            }
+            else
+            {
+                $config_item['manual_edit'] = FALSE;
+            }
+
+            // config name
+            $config_item['tool'] = get_tool_name($config['claro_label']);
+
+            // config label
+            if ( !isset($config['claro_label']) )
+                $config['claro_label'] = 'Not for a tool';
+
+            // add config for a tool to tool list
+            $tool_list[$config['claro_label']][]= $config_item;
+        }
+        asort($tool_list);
     }
+
 }
-elseif ($panel == DISP_EDIT_CONF_CLASS)
+elseif ($panel == DISP_EDIT_CONF)
 {
     require($confDef);
     $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $lang_config_config);
     $nameTools = get_config_name($config_code);
     $conf_info = get_conf_info($config_code);    
     
-    $controlMsg['debug'][] = '<small>'
-                             .$conf_info['config_hash'].'<BR>'
-                             .claro_get_conf_file($config_code).' : '
-                             .(file_exists(claro_get_conf_file($config_code))?md5_file(claro_get_conf_file($config_code)):'no '.file_exists(claro_get_conf_file($config_code)))
-                             .'</small>'
-                             ;        
-
-    if ($conf_info['manual_edit'])
+    // DEBUG
+    $debug =  '<small>' . $conf_info['config_hash'] . '<br>' 
+             . claro_get_conf_file($config_code).' : ' ;
+    if ( file_exists(claro_get_conf_file($config_code)) ) 
     {
-        $controlMsg['info'][] = 'The config file has manually change.<BR>'
-                               .'<BR>'
+        $debug .= md5_file(claro_get_conf_file($config_code));
+    }
+    else
+    {
+        $debug .= 'no ';
+    }
+    $debug .= '</small>'; 
+    $controlMsg['debug'][] = $debug;
+    // END DEBUG
+
+    if ( $conf_info['manual_edit'] )
+    {
+        $controlMsg['info'][] = 'The config file has manually change.<br>'
+                               .'<br>'
                                .'Actually the script prefill with values found in the current conf, and overwrite values set in the database'
                                ;        
         $currentConfContent = parse_config_file(basename(claro_get_conf_file($config_code)));
     }
+
     $storedPropertyList = read_param_value_in_buffer($config_code);
-    if (is_array($storedPropertyList))
+
+    if ( is_array($storedPropertyList) )
     {
-        foreach($storedPropertyList as $storedProperty)
+        foreach ( $storedPropertyList as $storedProperty )
         {
             $conf_def_property_list[$storedProperty['propName']]['actualValue'] = $storedProperty['propValue']; 
         }
     }
+
 }
 
 /* ************************************************************************** */
@@ -515,7 +550,8 @@ claro_disp_tool_title(array('mainTitle'=>$nameTools),(isset($helpSection)?$helpS
 // display control message
 
 unset($controlMsg['debug']);
-if (!empty($controlMsg))
+
+if ( !empty($controlMsg) )
 {
     claro_disp_msg_arr($controlMsg);
 }
@@ -525,153 +561,188 @@ if (!empty($controlMsg))
 switch ($panel)
 {
     case DISP_LIST_CONF : 
-        echo '<table class="claroTable" cellspacing="4" >'
-            .'<thead>'
-            .'<tr class="headerX"  >'
-            .'<th  colspan="2">'.$langConfig.'</th>'
-            .(CONF_AUTO_APPLY_CHANGE?'<th colspan="2">'.$langEdit.'</th>'
-                                    :'<th>'.$langEdit.'</th>'
-                                    .'<th>'.$langApply.'</th>')
-            .'</tr>'
-            .'</thead>'
-            ;
-        asort($tool_list);
-        foreach($tool_list as $claro_label => $tool_bloc)
+
+        echo '<table class="claroTable" cellspacing="4" >' . "\n"
+            .'<thead>' . "\n"
+            .'<tr class="headerX"  >' . "\n"
+            .'<th  colspan="2">'.$langConfig.'</th>';
+
+        if ( CONF_AUTO_APPLY_CHANGE == TRUE )
         {
-            echo '<tr class="tool_bloc" >'
+            echo '<th colspan="2">'.$langEdit.'</th>' ; 
+        } 
+        else
+        {
+            echo '<th>'.$langEdit.'</th>' 
+                .'<th>'.$langApply.'</th>' ;
+        }
+        echo '</tr>' . "\n"
+            .'</thead>' . "\n" ;
+
+        // display tool list
+
+        foreach ($tool_list as $claro_label => $tool_bloc )
+        {
+            echo '<tr class="tool_bloc" >' . "\n"
                 .'<td>'
                 .'<img src="'.$imgRepositoryWeb.$tool_bloc[0]['icon'].'">'
-                .'</td>'
+                .'</td>' . "\n"
                 .'<td>'
-                .'<b>'.get_tool_name(rtrim($claro_label,'_')).'</b>'
+                .'<strong>'.get_tool_name(rtrim($claro_label,'_')).'</strong>'
                 .'</td>'
-                .'</tr>'
+                .'</tr>' . "\n"
                 ;
             
-            foreach($tool_bloc as $numconf => $config)
+            foreach( $tool_bloc as $numconf => $config )
             {
                 // The strange following line flat the array 
                 // wich can be build by collision during array_merge_recursive 
                 $config['config_code'] = (is_array($config['config_code'])?$config['config_code'][0]:$config['config_code']);
                 
-                echo '<tr>'
+                echo '<tr>' . "\n"
                     .'<td>'
                     //.($numconf+1)
-                    .'</td>'
-                    .'<td>'
-                    .($config['conf']
-                        ?'<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConf&amp;config_code='.$config['config_code'].'" >'.$config['name'].'</a>'
-                        : $config['name']
-                     )
-                    .'</td>'
-                    ;
+                    .'</td>' . "\n"
+                    .'<td>' ;
+
+                if ( $config['conf'] ) 
+                {
+                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConf&amp;config_code='.$config['config_code'].'" >'.$config['name'].'</a>';
+                }
+                else
+                {
+                    echo $config['name'];
+                }
+                echo '</td>' . "\n" ;
                 
-                if (!$config['def'])
+                if ( !$config['def'] )
                 {
                     echo '<td colspan="2" >'
                         .'<strike>'.$langEdit.'</strike>'
-                        .'</td>'
-                        ;
+                        .'</td>' . "\n" ;
                 }
                 else 
                 {
                     echo '<td>'
-                        .'<a href="'.$_SERVER['PHP_SELF']
-                        .'?cmd=dispEditConfClass&amp;config_code='.$config['config_code'].'" >'
+                        .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=dispEditConf&amp;config_code='.$config['config_code'].'" >'
                         .'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="'.$langEdit.'">'
-                        .'</a>'
-                        .($config['manual_edit']
-                        ?($config['propQtyInDb']['qty_values']>0
-                        ?'<BR><span>'.$lang_the_active_config_has_manually_change.'</span>'
-                        :'<BR>config de l\'ancien système en production'):'')
-                        .'</td>';
-                    if (!CONF_AUTO_APPLY_CHANGE)
-                    echo '<td>'
-                        . ( $config['propQtyInDb']['qty_values']>0
-                          ? ( $config['propQtyInDb']['qty_new_values']>0
-                             ? '<a href="'.$_SERVER['PHP_SELF']
-                              .'?cmd=generateConf&amp;config_code='.$config['config_code'].'" >'
-                              .'<img src="'.$clarolineRepositoryWeb.'img/download.gif" border="0" alt="'.$langSave.'">'
-                              .'<br>(<small>'.$config['propQtyInDb']['qty_new_values'].' new values</small>)'
-                              .'</a>'
-                             : $langApplied
-                             )
-                          : '<small>'
-                           .$langNoPropertiesSet
-                           .'</small>'
-                          )
-                       .'</td>';
+                        .'</a>';
+
+                    if ( $config['manual_edit'] ) 
+                    {
+                        if ( $config['propQtyInDb']['qty_values']>0 )
+                        {
+                            echo '<BR><span>'.$lang_the_active_config_has_manually_change.'</span>';
+                        } 
+                        else
+                        {
+                            echo '<BR>config de l\'ancien système en production';
+                        }
+                    }
+                    echo '</td>' . "\n";
+
+                    if ( !CONF_AUTO_APPLY_CHANGE )
+                    {
+                        echo '<td>';
+                        if ( $config['propQtyInDb']['qty_values']>0 )
+                        {
+                            if ( $config['propQtyInDb']['qty_new_values']>0 )
+                            {
+                                echo  '<a href="'.$_SERVER['PHP_SELF'].'?cmd=generateConf&amp;config_code='.$config['config_code'].'" >'
+                                    . '<img src="'.$clarolineRepositoryWeb.'img/download.gif" border="0" alt="'.$langSave.'">' .'<br>' 
+                                    . '(<small>'.$config['propQtyInDb']['qty_new_values'].' new values</small>)'
+                                    . '</a>' ;
+                            } 
+                            else
+                            {
+                                echo $langApplied;
+                            }
+                        }
+                        else
+                        {
+                          echo '<small>'. $langNoPropertiesSet .'</small>';
+                        }
+                        echo '</td>';
+                    }
                 }
                 echo '</tr>';
             }
         }
         echo '</table>';
         break;
-    case DISP_EDIT_CONF_CLASS : 
 
-        if (is_array($conf_def))
+    case DISP_EDIT_CONF : 
+
+        if ( is_array($conf_def) )
         {
-            echo (isset($conf_def['description'])?'<div class="toolDesc">'.$conf_def['description'].'</div><br />':'')                
-                .'<em><small><small>'.$confDef.'</small></small></em>'
-                .'<form method="POST" action="'.$_SERVER['PHP_SELF'].'" name="editConfClass">'."\n"
-                //.'<input type="hidden" value="dispEditConfClass" name="cmd">'."\n"
-                .'<input type="hidden" value="'.$config_code.'" name="config_code">'."\n"
-                ;
+            if ( isset($conf_def['description']) ) 
+            {
+                echo '<div class="toolDesc">'.$conf_def['description'].'</div><br />';
+            }
+            echo '<em><small>'. $confDef .'</small></em>';
+
+            // display form  
+            echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'" name="editConfClass">'."\n";
+            echo '<input type="hidden" value="'.$config_code.'" name="config_code">'."\n";
+            echo '<input type="hidden" name="cmd" value="cmdSaveProperties" >';
+
             if (is_array($conf_def['section']) ) 
             {
                 foreach($conf_def['section'] as $section)
                 {
                     echo '<fieldset>'."\n"
-                        .'<legend>'.$section['label'].'</legend>'."\n"
-                        .($section['description']
-                         ?'<div class="sectionDesc">'.$section['description'].'</div><br/>'
-                         :'')
-                        ."\n"
-                        ;
-//                  The default value is show in input or preselected value if there is no value set.
-//                  If a value is already set the default value is show as sample.
+                        .'<legend>'.$section['label'].'</legend>'."\n";
+                    if ($section['description'])
+                    {
+                        echo '<div class="sectionDesc">' . $section['description'] . '</div>' . '<br/>';
+                    }
+
+                    // The default value is show in input or preselected value if there is no value set.
+                    // If a value is already set the default value is show as sample.
                     if (is_array($section['properties']))
-                    foreach($section['properties'] as $property )
-                    if (is_array($conf_def_property_list[$property]))
                     {
-                        claroconf_disp_editbox_of_a_value($conf_def_property_list[$property], $property, $currentConfContent[$property]);
+                        foreach($section['properties'] as $property )
+                        {
+                            if (is_array($conf_def_property_list[$property]))
+                            {
+                               claroconf_disp_editbox_of_a_value($conf_def_property_list[$property], $property, $currentConfContent[$property]);
+                            }
+                            else 
+                            {
+                                echo 'Def corrupted: property '.$property.' is not defined';
+                            }
+                        }
                     }
-                    else 
-                    {
-                        echo 'Def corrupted: property '.$property.' is not defined';
-                    }
-                echo '</fieldset>';
+
+                    echo '</fieldset>';
                 }
+
                 if (CONF_AUTO_APPLY_CHANGE)
                 {
-                    echo '<input type="submit" name="cmdSaveAndApply" value="Save" >';
+                    echo '<input type="submit" name="cmdSaveAndApply" value="Save" >' . "\n";
                 }
                 else 
                 {
-                    echo '<input type="submit" name="cmdSaveAndApply" value="Save and Apply" >'
-                        .'<input type="submit" name="cmdSaveProperties" value="Save without apply" >'
-                        ;
-                }
-                echo '<input type="hidden" name="cmd" value="cmdSaveProperties" >'
-                    .'</form>'."\n"
-                    ;
-                   
+                    echo '<input type="submit" name="cmdSaveAndApply" value="Save and Apply" >' . "\n";
+                    echo '<input type="submit" name="cmdSaveProperties" value="Save without apply" >' . "\n";
+                }                   
             }
             else
             {
                 echo 'no section found in definition file';                                
             }
-    }
-    else
-    {
-        echo '<div >'
-            .sprintf($lang_p_nothing_to_edit_in_S ,get_config_name($config_code))
-            .'</div>';
-    }
-
+            echo '</form>'."\n";
+        }
+        else
+        {
+            echo '<div >'
+                .sprintf($lang_p_nothing_to_edit_in_S ,get_config_name($config_code))
+                .'</div>';
+        }
         break;
 
-    case DISP_SHOW_CONF : 
+    case DISP_SHOW_CONF :
+ 
         echo '<div class="commandBar">'
             .'<span class="command">'
             .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConfFile&amp;config_code='.$config_code.'" >'.$langShowContentFile.'</a>'
@@ -684,57 +755,80 @@ switch ($panel)
             .'</span>'
             .'&nbsp;|&nbsp;'
             .'<span class="command">'
-            .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=dispEditConfClass&amp;config_code='.$config_code.'" >'.$langEdit.'</a>'
+            .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=dispEditConf&amp;config_code='.$config_code.'" >'.$langEdit.'</a>'
             .'</span>'
-            .'</div>'
-            ;
+            .'</div>';
+
         if (is_array($conf_def))
         {
-            echo (isset($conf_def['description'])?'<div class="toolDesc">'.$conf_def['description'].'</div><br />':'')                
-                .'<em><small><small>'.$confDef.'</small></small></em>'
-                ;
+
+            if (isset($conf_def['description']))
+            {
+                echo '<div class="toolDesc">'.$conf_def['description'].'</div><br />';
+            }                
+            echo '<em><small><small>'.$confDef.'</small></small></em>';
+
             if (is_array($conf_def['section']) ) 
             {
                 foreach($conf_def['section'] as $section)
                 {
                     echo '<FIELDSET>'
-                        .'<LEGEND>'.$section['label'].'</LEGEND>'."\n"
-                        .($section['description']?'<div class="sectionDesc">'.$section['description'].'</div><br />':'')."\n"
-                        ;
-                    if (is_array($section['properties']))
-                    foreach($section['properties'] as $property )
+                        .'<LEGEND>'.$section['label'].'</LEGEND>'."\n";
+                    if ($section['description'])
                     {
-                        $htmlPropLabel = htmlentities($conf_def_property_list[$property]['label']);
-                        $htmlPropDesc = ($conf_def_property_list[$property]['description']?
-                                            '<div class="propDescription">'
-                                            .nl2br(htmlentities($conf_def_property_list[$property]['description'])).'<br />'
-                                            .'</div>'
-                                            :'');
-                        if ($conf_def_property_list[$property]['container']=='CONST')
-                             eval('$htmlPropValue = '.$property.';');
-                        else eval('$htmlPropValue = $'.$property.';');
-                        $htmlUnit = ($conf_def_property_list[$property]['unit']?''.htmlentities($conf_def_property_list[$property]['unit']):'');
-                        echo '<H2 class="propLabel">'
-                            .$htmlPropLabel 
-                            .' <span class="propType">'
-                            .'('.$conf_def_property_list[$property]['type'].')'
-                            .'</span>'
-                            .'</H2>'."\n"
-                            
-                            .$htmlPropDesc
-                            ."\n"
-                            .'<em class="propName">'
-                            .$property
-                            .'</em>: '
-                            .'<strong class="propValue" >'
-                            .var_export($htmlPropValue,1)
-                            .'</strong> '
-                            .'<span class="propUnit">'
-                            .$htmlUnit
-                            .'</span>'
-                            .'<br>'."\n"
-                            ;
-                    } // foreach($section['properties'] as $property )
+                        echo '<div class="sectionDesc">'.$section['description'].'</div><br />';
+                    }
+
+                    if (is_array($section['properties']))
+                    {
+                        foreach($section['properties'] as $property )
+                        {
+                            $htmlPropLabel = htmlentities($conf_def_property_list[$property]['label']);
+
+                            $htmlPropDesc = '';
+                            if ($conf_def_property_list[$property]['description'])
+                            {
+                                $htmlPropDesc = '<div class="propDescription">'
+                                               . nl2br(htmlentities($conf_def_property_list[$property]['description'])).'<br />'
+                                               .'</div>';
+                            }
+
+                            if ($conf_def_property_list[$property]['container']=='CONST')
+                            {
+                                 eval('$htmlPropValue = '.$property.';');
+                            }
+                            else
+                            {
+                                 eval('$htmlPropValue = $'.$property.';');
+                            }
+
+                            $htmlUnit = '';
+                            if ($conf_def_property_list[$property]['unit']) 
+                            { 
+                                $htmlUnit = ''.htmlentities($conf_def_property_list[$property]['unit']);
+                            }
+
+                            echo '<h2 class="propLabel">'
+                                .$htmlPropLabel 
+                                .' <span class="propType">'
+                                .'('.$conf_def_property_list[$property]['type'].')'
+                                .'</span>'
+                                .'</h2>'."\n"
+                                .$htmlPropDesc
+                                ."\n"
+                                .'<em class="propName">'
+                                .$property
+                                .'</em>: '
+                                .'<strong class="propValue" >'
+                                .var_export($htmlPropValue,1)
+                                .'</strong> '
+                                .'<span class="propUnit">'
+                                .$htmlUnit
+                                .'</span>'
+                                .'<br>'."\n"
+                                ;
+                        } // foreach($section['properties'] as $property )
+                    }
                     echo '</FIELDSET><br>'."\n";
                 } //foreach($conf_def['section'] as $section)
             }
@@ -742,10 +836,11 @@ switch ($panel)
             {
                 echo $lang_noSectionFoundInDefinitionFile ;
             }
-    }
+        }
         break;
 
     case DISP_SHOW_CONF_FILE : 
+        
         echo '<div class="links">'
             .'<a href="'.$_SERVER['PHP_SELF'].'" >'
             .$langBackToMenu
@@ -758,6 +853,7 @@ switch ($panel)
         break;
 
     case DISP_SHOW_DEF_FILE : 
+
         echo '<div class="links">'
             .'<a href="'.$_SERVER['PHP_SELF'].'" >'
             .$langBackToMenu
