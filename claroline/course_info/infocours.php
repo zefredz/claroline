@@ -55,7 +55,6 @@ else
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
 
-
 if($is_allowedToEdit)
 {
 	// check if form submitted
@@ -63,8 +62,8 @@ if($is_allowedToEdit)
 	{
 		if ($int!="" || $canBeEmpty["int"])
 			$fieldsToUpdate[]= "intitule='".$int."'";
-		if ($facu!="" || $canBeEmpty["facu"])
-			$fieldsToUpdate[]= "faculte='".$facu."'";
+		if ($faculte!="" || $canBeEmpty["facu"])
+			$fieldsToUpdate[]= "faculte='".$faculte."'";
 /*		if ($description!="" || $canBeEmpty["description"])
 			$fieldsToUpdate[]= "description='".$description."'";*/
 		if ($visible=="false" && $allowedToSubscribe=="false")
@@ -87,7 +86,7 @@ if($is_allowedToEdit)
 			$fieldsToUpdate[]= "departmentUrl='".$extLinkUrl."'";
 		if($email!="" || $canBeEmpty["email"])
 			$fieldsToUpdate[]= "email='".$email."'";
-
+				
 		mysql_query("UPDATE `".$TABLECOURSE."`
 					 SET ".implode(",",$fieldsToUpdate)."
 					 WHERE code=\"".$current_cid."\"");
@@ -189,7 +188,7 @@ if (isset($cidToEdit) && ($is_platformAdmin))
 </tr>
 
 <tr>
-<td align="right"><label for="facu"><?php echo $langFaculty ?></label> :</td>
+<td align="right"><label for="faculte"><?php echo $langFaculty ?></label> :</td>
 <td>
 
 <?php
