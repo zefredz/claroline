@@ -136,6 +136,9 @@ $langSeeCourseUsers = "See course users";
 $langBackToCourseList = "Back to courses list";
 $langBackToList = "Back to list";
 
+$langViewCourse = "View course";
+
+
 // course_home_edit.php
 
 $langIntroEditToolList="Select the tools you want to make visible for your user.
