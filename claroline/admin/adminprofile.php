@@ -52,7 +52,7 @@ $tbl_course_user = $tbl_mdb_names['rel_course_user' ];
 // FIRST PART : USER's PERSONNAL INFORMATION
 //--------------------------------------------------------------------------------------------------------------------
 
-// deal with sesison variables (must unset variables if come back from enroll script)
+// deal with session variables (must unset variables if come back from enroll script)
 
 session_unregister("userEdit");
 
@@ -205,7 +205,8 @@ if(isset($user_id))
            `username`     `username`,
            `email`        `email`,
            `phoneNumber`  `phoneNumber`,
-           `a`.`idUser`   `is_admin`
+           `a`.`idUser`   `is_admin`,
+	   `statut`       `statut`
         FROM  `".$tbl_user."` `user`
         LEFT JOIN `". $tbl_admin  ."` `a`
             ON `user`.`user_id` = `a`.`idUser`
@@ -224,7 +225,7 @@ if(isset($user_id))
     $email_form         = $myrow['email'];
     $userphone_form     = $myrow['phoneNumber'];
     $isAdmin            = (bool) (! is_null( $myrow['is_admin']));
-    $canCreateCourse    = (bool) ($myrow ['statut'] == 1);
+    $canCreateCourse    = (bool) ($myrow ['statut'] == 1); 
     $display = USER_DATA_FORM;
 }
 
