@@ -113,7 +113,9 @@ if (isset($_SESSION['admin_course_letter']))
 
 if (isset($_SESSION['admin_course_search']))
 {
-    $toAdd = " AND (C.`intitule` LIKE '".$_SESSION['admin_course_search']."%' OR C.`code` LIKE '".$_SESSION['admin_course_search']."%')";
+    $toAdd = " AND (C.`intitule` LIKE '%".$_SESSION['admin_course_search']."%' OR C.`code` LIKE '%".$_SESSION['admin_course_search']."%'
+               OR C.`faculte` LIKE '%".$_SESSION['admin_course_search']."%'
+               )";
     $sql.=$toAdd;
 
 }
@@ -349,17 +351,22 @@ foreach($resultList as $list)
 {
     echo "<tr>";
 
-    if (isset($_SESSION['admin_course_search'])&& ($_SESSION['admin_course_search']!=""))
+
+    if (isset($_SESSION['admin_course_search'])&& ($_SESSION['admin_course_search']!="")) //trick to prevent "//1" display when no keyword used in search
     {
 
          //  Code
 
-         echo "<td >".eregi_replace("^(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $list['fake_code'])."
+         echo "<td >".eregi_replace("(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $list['fake_code'])."
                </td>";
 
          // title
 
-         echo "<td align=\"left\"><a href=\"".$coursesRepositoryWeb.$list['directory']."\">".eregi_replace("^(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $list['intitule'])."</a></td>";
+         echo "<td align=\"left\"><a href=\"".$coursesRepositoryWeb.$list['directory']."\">".eregi_replace("(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $list['intitule'])."</a></td>";
+
+         //  Category
+
+         echo "<td align=\"left\">".eregi_replace("(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $list['faculte'])."</td>";
      }
      else
      {
@@ -371,11 +378,13 @@ foreach($resultList as $list)
          // title
 
          echo "<td align=\"left\"><a href=\"".$coursesRepositoryWeb.$list['directory']."\">".$list['intitule']."</a></td>";
+
+         //  Category
+
+         echo "<td align=\"left\">".$list['faculte']."</td>";
     }
 
-     //  Category
 
-     echo "<td align=\"left\">".$list['faculte']."</td>";
 
      //  All users of this course
 
