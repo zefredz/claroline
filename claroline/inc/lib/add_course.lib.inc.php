@@ -585,6 +585,7 @@ claro_sql_query ("
 
 ############################# WORKS ###########################################
 // original_id is used to store the author id of the original work if this is a feedback
+// private_feedback
 claro_sql_query("
 
 	CREATE TABLE `".$TABLETOOLWRKSUBMISSION."` (
@@ -600,6 +601,7 @@ claro_sql_query("
 		`authors` varchar(200) NOT NULL default '',
 		`submitted_text` text NOT NULL,
 		`submitted_doc_path` varchar(200) NOT NULL default '',
+		`private_feedback` text default NULL,
 		`original_id` int(11) default NULL,
 		`score` smallint(3) NULL default NULL,
   PRIMARY KEY  (`id`)
