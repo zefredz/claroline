@@ -35,7 +35,7 @@ require('../inc/claro_init_global.inc.php');
 if ( ! $_cid) claro_disp_select_course();
 
 $is_allowedToEdit = $is_courseAdmin;
-if ( ! $is_courseAllowed) claro_disp_auth_form();
+if ( ! $is_courseAllowed ) claro_disp_auth_form();
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_course_description  = $tbl_cdb_names['course_description'];
 
@@ -182,7 +182,8 @@ else // if user is not admin, they can change content
 
     if (isset($display)) // this if would be remove when convertion to MVC is done
     {
-        $nameTools = $langEditCourseProgram ;
+		$QUERY_STRING=''; // remove args from url
+        $nameTools = $langEditCourseProgram;
         $interbredcrump[]= array ("url"=>"index.php", "name"=> $langCourseProgram);
         include($includePath."/claro_init_header.inc.php");
         claro_disp_tool_title($nameTools);
@@ -194,15 +195,8 @@ else // if user is not admin, they can change content
 		
 		if (! empty($msg)) claro_disp_message_box($msg);
 ?>
-<table width="100%" >
-    <TR>
-        <TD valign="middle">
-            <b>
-                <?php echo $langAddCat ?>
-            </b>
-        </td>
-        <td align="right" valign="middle">
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']."?edIdBloc=add"  ?>">
+
+<form method="get" action="<?php echo $_SERVER['PHP_SELF']."?edIdBloc=add"  ?>">
             <select name="numBloc" size="1">
 <?php
         while (list($numBloc,$titre) = each($listUnusedBloc))
@@ -215,9 +209,6 @@ else // if user is not admin, they can change content
             </select>
             <input type="submit" name="add" value="<?php echo $langAdd ?>">
 </form>
-        </TD>
-    </TR>
-</TABLE>
 <?php
 
 if (count($listExistingBloc)>0)
@@ -225,7 +216,7 @@ if (count($listExistingBloc)>0)
 
 ?>
 <!-- LIST of existing blocs -->
-<TABLE width="100%" class="claroTable">
+<table width="100%" class="claroTable">
 <?php
         reset($titreBloc);        
         while (list($numBloc,) = each($titreBloc))
@@ -233,25 +224,25 @@ if (count($listExistingBloc)>0)
             if (isset($blocState[$numBloc])&&$blocState[$numBloc]=="used")
             {
 ?>
-    <TR class="headerX">
-        <TH >
+    <tr class="headerX">
+        <th >
             <?php echo $titreBloc[$numBloc] ?>
-        </TH>
-        <TH align="left">
+        </th>
+        <th align="left">
             <a href="<?php echo $_SERVER['PHP_SELF']; ?>?numBloc=<?php echo $numBloc; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/edit.gif" alt="<?php echo $langModify; ?>" border="0"></a>
             <a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteOK=1&amp;edIdBloc=<?php echo$numBloc; ?>" onClick="javascript:if(!confirm('<?php echo  $langAreYouSureToDelete." ".$titreBloc[$numBloc]." ?"; ?>')){ return false}"><img src="<?php echo $clarolineRepositoryWeb; ?>img/delete.gif" alt="<?php echo $langDelete; ?>" border="0"></a>
-        </TH>
-    </TR>
-    <TR>
-        <TD colspan="2">
+        </th>
+    </tr>
+    <tr>
+        <td colspan="2">
             <?php echo claro_parse_user_text($contentBloc[$numBloc]) ?>
-        </TD>
-    </TR>
+        </td>
+    </tr>
 <?php 
             }
         }
         echo "
-</TABLE>";
+</table>";
 }
             break;
 
