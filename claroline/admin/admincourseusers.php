@@ -252,12 +252,7 @@ if (isset($cfrom) && ($cfrom=="clist"))
 }
 //Pager
 
-if (isset($_GET['order_crit']))
-{
-  $addToURL = "&order_crit=".$_GET['order_crit']."&dir=".$dir;
-}
-
-$myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit.$addToURL);
+$myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit);
 
 // Display list of users
 
@@ -337,7 +332,7 @@ echo "</tbody></table>";
 
 //Pager
 
-$myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit.$addToURL);
+$myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit);
 
 ?>
 

@@ -31,6 +31,11 @@ $tbl_course_user = $mainDbName."`.`cours_user";
             }
             </script>";
 
+// See SESSION variables used for reorder criteria :
+
+if (isset($_GET['dir']))       {$_SESSION['admin_user_course_dir'] = $_GET['dir'];}
+if (isset($_GET['order_crit'])){$_SESSION['admin_user_course_order_crit'] = $_GET['order_crit'];}
+
 // Deal with interbredcrumps
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
@@ -46,7 +51,7 @@ include($includePath."/lib/pager.lib.php");
 if (! $_uid) exit("<center>You're not logged in !!</center></body>");
 if ($uidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
 
-$coursePerPage= 20;
+$coursePerPage= 5;
 
 //----------------------------------
 // EXECUTE COMMAND
@@ -77,6 +82,7 @@ $sqlTitle = "SELECT *
              FROM `".$tbl_user."`
              WHERE `user_id` = ".$uidToEdit."
              ";
+
 $queryTitle = claro_sql_query($sqlTitle);
 $resultTitle = mysql_fetch_array($queryTitle);
 
@@ -86,7 +92,7 @@ $sql = "SELECT  *
         FROM `".$tbl_course."` AS C ";
 
 $toAdd = ", `".$tbl_course_user."` AS CU ";
-$toAdd .="WHERE CU.`code_cours` = C.`code`  AND CU.`user_id` = ".$uidToEdit;
+$toAdd .=" WHERE CU.`code_cours` = C.`code`  AND CU.`user_id` = ".$uidToEdit;
 
 $sql.=$toAdd;
 
@@ -112,17 +118,27 @@ if (isset($_GET['search']))
 
 // deal with REORDER
 
-if (isset($_GET['order_crit']))
+  //first see is direction must be changed
+
+if (isset($chdir) && ($chdir=="yes"))
 {
-    $toAdd = " ORDER BY `".$_GET['order_crit']."` ".$_GET['dir'];
-}
-else
-{
-    $toAdd = " ORDER BY C.`cours_id` ASC";
+  if ($_SESSION['admin_user_course_dir'] == "ASC") {$_SESSION['admin_user_course_dir']="DESC";}
+  elseif ($_SESSION['admin_user_course_dir'] == "DESC") {$_SESSION['admin_user_course_dir']="ASC";}
+  else $_SESSION['admin_user_course_dir'] = "DESC";
 }
 
-$sql.=$toAdd;
-
+if (isset($_SESSION['admin_user_course_order_crit']))
+{
+    if ($_SESSION['admin_user_course_order_crit']=="user_id")
+    {
+        $toAdd = " ORDER BY CU.`user_id` ".$_SESSION['admin_user_course_dir'];
+    }
+    else
+    {
+        $toAdd = " ORDER BY `".$_SESSION['admin_user_course_order_crit']."` ".$_SESSION['admin_user_course_dir'];
+    }
+    $sql.=$toAdd;
+}
 
 //echo $sql."<br>";
 
@@ -200,6 +216,7 @@ echo "<a class=\"claroButton\" href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".
 if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
 {
     echo "<a class=\"claroButton\" href=\"adminusers.php\"> ".$langBackToUserList." </a>\n";
+    $addToUrl = "&cfrom=ulist";
 }
 
 //Pager
@@ -216,12 +233,11 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
 
      //add titles for the table
 
-echo "<th>".$langOfficialCode."</th>".
-     "<th>".$langCourseTitle."</th>";
+echo "<th><a href=\"",$PHP_SELF,"?order_crit=fake_code&chdir=yes&uidToEdit=".$uidToEdit."\">".$langOfficialCode."</a></th>".
+     "<th><a href=\"",$PHP_SELF,"?order_crit=intitule&chdir=yes&uidToEdit=".$uidToEdit."\">".$langCourseTitle."</a></th>";
 echo "<th>".$langTitular."</th>";
 echo "<th>".$langEditUserCourseSetting."</th>";
 echo "<th>".$langUnsubscribe."</th>";
-
 
    // Display list of the course of the user :
 
@@ -249,25 +265,14 @@ foreach($resultList as $list)
 
     //  Unsubscribe link
 
-    echo   "<td align=\"center\">\n";
-
-
-             if (isset($list['user_id']))
-             {
-                if (isset($doRegister)) {$toAdd = "&doRegister=true";} else {$toAdd ="";}
-                echo
-                 "<a href=\"",$PHP_SELF,"?uidToEdit=".$uidToEdit."".$toAdd."&cmd=unsubscribe&code=".$list['code']."\" ",
-                     "onClick=\"return confirmationUnReg('",addslashes($resultTitle['prenom']." ".$resultTitle['nom']),"');\">\n
-                     <img src=\"".$clarolineRepositoryWeb."/img/unenroll.gif\" border=\"0\" alt=\"$langDelete\" />\n
-                  </a>\n";
-             }
-             else
-             {
-                echo " - ";
-             }
-
+    echo   "<td align=\"center\">\n",
+             "<a href=\"",$PHP_SELF,"?uidToEdit=".$uidToEdit."&cmd=unsubscribe".$addToUrl."&code=".$list['code']."&offset=".$offset."\" ",
+                 "onClick=\"return confirmationUnReg('",addslashes($resultTitle['prenom']." ".$resultTitle['nom']),"');\">\n
+                 <img src=\"".$clarolineRepositoryWeb."/img/unenroll.gif\" border=\"0\" alt=\"$langDelete\" />\n
+              </a>\n";
             "</td>\n";
      echo "</tr>";
+
      $atLeastOne = true;
 }
 
@@ -275,7 +280,7 @@ if (!$atLeastOne)
 {
     echo "<tr>
            <td colspan=\"5\" align=\"center\">
-           ".$langUserHasNoCourse."
+           ".$langUserNoCourseToDisplay."
            </td>
           </tr>";
 }
