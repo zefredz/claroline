@@ -92,7 +92,6 @@ if (is_array($_courseToolList))
 	                      'CLWRK___' => $langWork,
 	                      'CLUSR___' => $langUser);
 	
-	
 	foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
 	{
 	    if (is_null($_courseToolDatas['name']))
@@ -107,6 +106,10 @@ if (is_array($_courseToolList))
 ?>
 <form action="<?php echo $clarolineRepositoryWeb ?>redirector.php" name="redirector" >
 <select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >
+		<option value="<?php echo $coursesRepositoryWeb.$_course['path']."/index.php" ?>"  >
+			<?php echo $langCourseHome; ?>
+		</option>';
+
 <?php 
 	if (is_array($_courseToolList))
 	foreach($_courseToolList as $_courseToolKey => $_courseToolData)

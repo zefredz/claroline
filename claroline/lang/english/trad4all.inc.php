@@ -139,6 +139,7 @@ $lang_password = "Password";
 
 
 // TOOLNAMES
+$langCourseHome = "Course Home";
 $langAgenda = "Agenda";
 $langLink="Links";
 $langDocument="Documents and Links";
