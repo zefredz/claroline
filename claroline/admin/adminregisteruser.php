@@ -14,6 +14,7 @@
 // Lang files needed :
 
 $langFile = "admin";
+$lang_course_admin = 'Course manager';
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 // initialisation of global variables and used libraries
@@ -66,47 +67,34 @@ if (isset($_GET['order_crit'])){$_SESSION['admin_register_order_crit'] = $_GET['
 
 switch ($cmd)
 {
-  case "sub" : //execute subscription command...
+    case "sub" : //execute subscription command...
+        
+        if (!isRegisteredTo($user_id, $cidToEdit))
+        {
+            $done = add_user_to_course($user_id, $cidToEdit,true);
+            // The user is add as student (default value in  add_user_to_course)
+        }
+        
+        // Set status requested
         if ($subas=="teach")   //  ... as teacher
         {
-           if (!isRegisteredTo($user_id, $cidToEdit))    //..add user and set as teacher
-           {
-               $done = add_user_to_course($user_id, $cidToEdit,true);
-               $properties['status'] = 1;
-               $properties['role']   = "Professor";
-               $properties['tutor']  = 1;
-               update_user_course_properties($user_id, $cidToEdit, $properties);
-           }
-           else                        //.. only set as teacher
-           {
-               $properties['status'] = 1;
-               $properties['role']   = "Professor";
-               $properties['tutor']  = 1;
-               update_user_course_properties($user_id, $cidToEdit, $properties);
-           }
+            $properties['status'] = 1;
+            $properties['role']   = $lang_course_admin;
+            $properties['tutor']  = 1;
         }
         elseif ($subas=="stud")  // ... as student
         {
-          if (!isRegisteredTo($user_id, $cidToEdit)) //add new user (student is default)
-          {
-                $done = add_user_to_course($user_id, $cidToEdit,true);
-
-          }
-          else                   // only set as student
-          {
-               if ($user_id==$_uid) {$dialogBox = $langNotUnregYourself;}
-               $properties['status'] = 5;
-               $properties['role']   = "Student";
-               $properties['tutor']  = 0;
-               update_user_course_properties($user_id, $cidToEdit, $properties);
-          }
+            $properties['status'] = 5;
+            $properties['role']   = ""; 
+            $properties['tutor']  = 0;
         }
+        update_user_course_properties($user_id, $cidToEdit, $properties);
 
         //set dialogbox message
 
         if ($done)
         {
-           $dialogBox =$langUserSubscribed;
+           $dialogBox = $langUserSubscribed;
         }
         break;
 
