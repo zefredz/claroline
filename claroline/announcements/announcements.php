@@ -57,6 +57,8 @@
 $langFile = "announcements";
 $tlabelReq = "CLANN___";
 require '../inc/claro_init_global.inc.php';
+if ( ! $_cid) claro_disp_select_course();
+
 include($includePath.'/conf/announcement.conf.inc.php');
 include($includePath.'/lib/text.lib.php');
 include($includePath.'/lib/events.lib.inc.php');
@@ -261,23 +263,24 @@ if($is_allowedToEdit) // check teacher status
 	    	$courseSender =  $_user['firstName'] . ' ' . $_user['lastName'];
 	    
 			// email subject
-			$mail['subject']= '[' . $siteName. ' - ' . $_course['officialCode'] . '] '.
-			(trim($_REQUEST['title'])?stripslashes(trim($_REQUEST['title'])):$professorMessage);
+	    	$emailSubject = "[" . $siteName. " - " . $_course['officialCode'] . "] ";
+			if (trim($_REQUEST['title'])) $emailSubject .= stripslashes(trim($_REQUEST['title']));
+            else                          $emailSubject .= $professorMessage;
 
 			// email message
         	$msgContent = stripslashes($newContent);
         	$msgContent = preg_replace('/<br( \/)?>/',"\n",$msgContent);
         	$msgContent = preg_replace('/<p>/',"\n\n",$msgContent);
         	$msgContent = preg_replace('/  /',' ',$msgContent);
-        	$msgContent = unhtmlentities($msgContent);
+            $msgContent = unhtmlentities($msgContent);
 	    	$msgContent = strip_tags($msgContent);
         
-        	$mail['body'] = trim($msgContent . "\n" .
+        	$emailBody = $msgContent . "\n" .
             	         "\n" .
                 	     '--' . "\n" . 
                     	 $courseSender . "\n" . 
 	                     $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" . 
-    	                 $siteName . "\n");
+    	                 $siteName . "\n";
 
 	        // Select students email list
     	    $sql = "SELECT user.user_id
@@ -291,22 +294,15 @@ if($is_allowedToEdit) // check teacher status
 			$countUnvalid = 0;
 			$messageFailed = "";
 
-			$mail['from']=  $_user['mail'];
 		    // send email one by one to avoid antispam
 	        while ( $myrow = mysql_fetch_array($result) )
 	        {
-				$mail['bcc'][]=$myrow['user_id'];
-
-/*			if (!claro_mail_user($myrow['user_id'], $emailBody, $emailSubject, $_user['mail'], $courseSender))
+				if (!claro_mail_user($myrow['user_id'], $emailBody, $emailSubject, $_user['mail'], $courseSender))
 				{
 					$messageFailed.= claro_get_last_failure() . "<br />";
 					$countUnvalid++;
 				}
-*/
 	        }
-			$mails[]=$mail;
-			claro_mail_spool($mails);
-
             $messageUnvalid= $langOn.' '.$countEmail.' '.$langRegUser.', '.$countUnvalid.' '.$langUnvalid;
             $message .= ' '.$langEmailSent.'<br><b>'.$messageUnvalid.'</b><br />';
 			$message .= $messageFailed;
@@ -359,8 +355,8 @@ if ($displayButtonLine)
                       '<img src="'.$clarolineRepositoryWeb.'img/valves.gif">'.$langAddAnn);
     claro_disp_button('messages.php',
                       '<img src="'.$clarolineRepositoryWeb.'img/email.gif">'.$langMessageToSelectedUsers);
-    claro_disp_button($_SERVER['PHP_SELF'].'?cmd=exDeleteAll',
-                      '<img src="'.$clarolineRepositoryWeb.'img/delete.gif">'.$langEmptyAnn);
+    claro_disp_button($PHP_SELF.'?cmd=exDeleteAll',
+                      '<img src="'.$clarolineRepositoryWeb.'img/delete.gif">'.$langEmptyAnn, $langEmptyAnn.' ?');
     echo "</p>\n";
 }
 
