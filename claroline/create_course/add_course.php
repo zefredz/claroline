@@ -49,7 +49,7 @@ List  of  views
 require '../inc/claro_init_global.inc.php';
 
 //// Config tool
-include($includePath."/conf/add_course.conf.php");
+include($includePath."/conf/course_main.conf.php");
 //// LIBS
 
 include($includePath."/lib/add_course.lib.inc.php");

@@ -55,7 +55,7 @@ if (!isset($includePath)) trigger_error("init not run",E_USER_ERROR);
 if (!isset($_uid)) trigger_error("you need to be logged",E_USER_ERROR);
 
 //// Config tool
-include($includePath."/conf/add_course.conf.php");
+include($includePath."/conf/course_main.conf.php");
 //// LIBS
 
 include($includePath."/lib/add_course.lib.inc.php");
