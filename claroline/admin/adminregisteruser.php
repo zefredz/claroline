@@ -138,11 +138,11 @@ if (isset($_GET['letter']))
 
 //deal with KEY WORDS classification call
 
-if (isset($_GET['search']))
+if (isset($_GET['search']) && $_GET['search']!="")
 {
-    $toAdd = " AND ((U.`nom` LIKE '".$_GET['search']."%'
+    $toAdd = " WHERE (U.`nom` LIKE '".$_GET['search']."%'
               OR U.`username` LIKE '".$_GET['search']."%'
-              OR U.`prenom` LIKE '".$_GET['search']."%')) ";
+              OR U.`prenom` LIKE '".$_GET['search']."%') ";
 
     $sql.=$toAdd;
 }
@@ -243,6 +243,32 @@ echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
 
 echo "<a class=\"claroButton\" href=\"admincourseusers.php?cidToEdit=".$cidToEdit."\"> ".$langListCourseUsers." </a>";
 
+       // search form
+if ($_GET['search']!="")    {$isSearched .= $_GET['search']."* ";} 
+if (($isSearched=="") || !isset($isSearched)) {$title = "";} else {$title = $langSearchOn." : ";}
+
+echo "<table width=\"100%\">
+        <tr>
+          <td align=\"left\">
+             <b>".$title."</b>
+             <small>
+             ".$isSearched."
+             </small>
+          </td>
+          <td align=\"right\">
+            <form action=\"",$PHP_SELF,"\">
+            ".$langMakeSearch." :
+            <input type=\"text\" value=\"".$_GET['search']."\" name=\"search\"\">
+            <input type=\"submit\" value=\" ".$langOk." \">
+            <input type=\"hidden\" name=\"newsearch\" value=\"yes\">
+            <input type=\"hidden\" name=\"cidToEdit\" value=\"".$cidToEdit."\">
+            </form>
+          </td>
+        </tr>
+      </table>
+       ";
+
+
 //Pager
 
 if (isset($_GET['order_crit']))
@@ -261,9 +287,9 @@ $myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit.$addToURL);
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
 
     <tr class=\"headerX\" align=\"center\" valign=\"top\">
-       <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes&cidToEdit=".$cidToEdit."\">".$langUserid."</a></th>
-       <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
-       <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
+       <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langUserid."</a></th>
+       <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
+       <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
 
 echo "<th>".$langEnrollAsStudent."</th>
       <th>".$langEnrollAsManager."</th>";
@@ -289,20 +315,33 @@ foreach($resultList as $list)
      echo "<td align=\"center\">".$list['ID']."
            </td>";
 
-     // lastname
+    if (isset($_GET['search'])&& ($_GET['search']!="")) {
 
-     echo "<td align=\"left\">".$list['nom']."</td>";
+         // name
 
-     //  Firstname
+         echo "<td align=\"left\">".eregi_replace("^(".$_GET['search'].")",'<b>\\1</b>', $list['nom'])."</td>";
 
-     echo "<td align=\"left\">".$list['prenom']."</td>";
+         //  Firstname
+
+         echo "<td align=\"left\">".eregi_replace("^(".$_GET['search'].")","<b>\\1</b>", $list['prenom'])."</td>";
+     }
+     else
+     {
+         // name
+
+         echo "<td align=\"left\">".$list['nom']."</td>";
+
+         //  Firstname
+
+         echo "<td align=\"left\">".$list['prenom']."</td>";
+     }
 
      if ($list['Register'] == null)
      {
          // Register as user
 
          echo  "<td align=\"center\">\n",
-                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&user_id=".$list['ID']."&subas=stud".$addToURL."\" ",
+                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=stud".$addToURL."\" ",
                     ">\n",
                     "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
                     "</a>\n",
@@ -312,7 +351,7 @@ foreach($resultList as $list)
 
 
          echo  "<td align=\"center\">\n",
-                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&user_id=".$list['ID']."&subas=teach".$addToURL."\" ",
+                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=teach".$addToURL."\" ",
                     ">\n",
                     "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
                     "</a>\n",
