@@ -279,10 +279,6 @@ function delete_user($su_user_id)
     $sql_DeleteUser="delete from `$tbl_admin` where idUser='".$su_user_id."'";
     claro_sql_query($sql_DeleteUser);
 
-    //change assignTo -> 0 from the table todo where assignTo is the user
-    $sql_update="update `$tbl_todo` set assignTo=0 where assignTo='".$su_user_id."'";
-    claro_sql_query($sql_update);
-
     //Change creatorId -> NULL
     $sql_update="update `$tbl_user` set creatorId=NULL where creatorId='".$su_user_id."'";
     claro_sql_query($sql_update);
