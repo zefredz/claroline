@@ -73,7 +73,9 @@
   $nameTools = $langLearningPathList;
   //header
   include($includePath."/claro_init_header.inc.php");
-
+  
+  
+  if ( ! $is_courseAllowed) claro_disp_auth_form();
 
   // tables names
   $TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
@@ -96,10 +98,6 @@
   claro_disp_tool_title($nameTools);
 
   // main page
-
-if ( ! $is_courseAllowed)
-	claro_disp_auth_form();
-
   $is_AllowedToEdit = $is_courseAdmin;
   $lpUid = $_uid;
 
