@@ -2,11 +2,11 @@
 <table width="100%" cellpadding="4" cellspacing="0" border="0">
 <tr>
 <td bgcolor="#000066">
-<big><b><a href="<?= $rootWeb?>index.php" target="_top"><font color="white"><?= $siteName ?></font></a></b></big>
+<big><b><a href="<?php echo $rootWeb?>index.php" target="_top"><font color="white"><?= $siteName ?></font></a></b></big>
 </td>
 <td align="right" bgcolor="#000066">
 <font color="white">
-<big><b><a href="<?= $institution["url"] ?>" target="_top"><font color="white"><?= $institution["name"] ?></font></a></b></big>
+<big><b><a href="<?php echo $institution["url"] ?>" target="_top"><font color="white"><?php echo $institution["name"] ?></font></a></b></big>
 <?php
 
 if ($_course['extLink']['name']!="")    /* --- External Link Section --- */
@@ -156,7 +156,7 @@ if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
 
     if (is_array($interbredcrump) )
     {
-        while ( list(,$bredcrumpStep) = each($interbredcrump) )
+        while ( (list(,$bredcrumpStep) = each($interbredcrump)) )
         {
             echo	" &gt; "
                     ."<a href=\"",$bredcrumpStep['url']
@@ -173,7 +173,7 @@ if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
         }
         elseif ($noQUERY_STRING)
         {
-            echo	" &gt ; "
+            echo	" &gt;  "
                     ."<b>"
                     ."<a href=",$PHP_SELF," target=\"_top\">"
                     .$nameTools
