@@ -40,10 +40,12 @@ $nameTools = $langToolName;
  * DB tables definition
  */
 
-$tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user         = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user                    = $tbl_mdb_names['user'             ];
+$tbl_track_e_login           = $tbl_mdb_names['track_e_login'];
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'    ];
 $tbl_group_team              = $tbl_cdb_names['group_team'       ];
 $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
@@ -58,8 +60,6 @@ $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
 $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 $tbl_track_e_uploads         = $tbl_cdb_names['track_e_uploads'        ];
 
-
-$TABLETRACK_LOGIN       = $statsDbName."`.`track_e_login";
 
 
 // for learning paths section 
@@ -257,7 +257,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         ."<br />\n&nbsp;&nbsp;&nbsp;".$langLoginsDetails."<br />\n";
                 
                 $sql = "SELECT UNIX_TIMESTAMP(`login_date`), count(`login_date`)
-                            FROM `$TABLETRACK_LOGIN`
+                            FROM `".$tbl_track_e_login."`
                             WHERE `login_user_id` = '$uInfo'
                             GROUP BY MONTH(`login_date`)
                             ORDER BY `login_date` ASC";

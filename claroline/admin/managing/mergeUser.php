@@ -29,24 +29,29 @@ $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $interbredcrump[]= array ("url"=>$rootAdminWeb."managing/", "name"=> $langManage);
 $nameTools = $$_tool["nameVarName"];
 
-$tbl_user			= $mainDbName."`.`user";
+
+
+$tbl_mdb_names 			= claro_sql_get_main_tbl();
+$tbl_cdb_names 			= claro_sql_get_course_tbl();
+$tbl_course 			= $tbl_mdb_names['course'           ];
+$tbl_rel_course_user	= $tbl_mdb_names['rel_course_user'  ];
+$tbl_course_user  	    = $tbl_rel_course_user	;
+$tbl_user 				= $tbl_mdb_names['user'             ];
+$tbl_track_e_default    = $tbl_mdb_names['track_e_default'];
+$tbl_track_e_login      = $tbl_mdb_names['track_e_login'];
+$tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
+
 $tbl_user_bak		= $mainDbName."`.`user_garbage";
-$tbl_course_user  	= $mainDbName."`.`cours_user";
-$tbl_course		= $mainDbName."`.`cours";
-$tbl_admin		= $mainDbName."`.`admin";
-$tbl_todo		= $mainDbName."`.`todo";
-$tbl_track_default	= $statsDbName."`.`track_e_default";// default_user_id
+$tbl_admin		    = $mainDbName."`.`admin";
+
+$tbl_track_default	= $tbl_track_e_default;
 $tbl_track_access	= $statsDbName."`.`track_e_access";	// access_user_id
-$tbl_track_login	= $statsDbName."`.`track_e_login";	// login_user_id
-$tbl_track_link		= $statsDbName."`.`track_e_links";	//links_user_id
+$tbl_track_login	= $tbl_track_e_login;
 $tbl_track_upload	= $statsDbName."`.`track_e_uploads";// upload_user_id
-
-
 
 //include($includePath."/conf/".$_tool["pathId"].".conf.php");
 @include($includePath."/lib/debug.lib.inc.php");
 include ($includePath."/lib/main.db.lib.inc.php");
-
 
 $sql = "CREATE TABLE IF NOT EXISTS `".$tbl_user_bak."` (
   idGarbage int(10) unsigned NOT NULL auto_increment,
