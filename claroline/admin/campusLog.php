@@ -23,23 +23,14 @@ $nameTools = $langStatsOfCampus;
 $tbl_mdb_names 			= claro_sql_get_main_tbl();
 $tbl_cdb_names 			= claro_sql_get_course_tbl();
 $tbl_course 			= $tbl_mdb_names['course'           ];
-$tbl_rel_course_user	 		= $tbl_mdb_names['rel_course_user'  ];
+$tbl_rel_course_user	= $tbl_mdb_names['rel_course_user'  ];
 $tbl_user 				= $tbl_mdb_names['user'             ];
-$tbl_document 	= $tbl_cdb_names['document'         ];
-$tbl_link 		= $tbl_cdb_names['link'             ];
+$tbl_track_e_default    = $tbl_mdb_names['track_e_default'];
+$tbl_track_e_login      = $tbl_mdb_names['track_e_login'];
+$tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
 
-$TABLECOURS 			= $tbl_courses;
-$TABLECOURSUSER 			= $tbl_rel_course_user;
-$TABLEUSER 			= $tbl_user;
-$TABLECOURSE_DOCUMENTS 			= $tbl_document;
-$TABLECOURSE_LINKS 			= $tbl_link;
-
-$TABLETRACK_ACCESS = $statsDbName."`.`track_e_access";
-$TABLETRACK_LOGIN = $statsDbName."`.`track_e_login";
-$TABLETRACK_OPEN = $statsDbName."`.`track_e_open";
-$TABLETRACK_LINKS = $statsDbName."`.`track_e_links";
-$TABLETRACK_DOWNLOADS = $statsDbName."`.`track_e_downloads";
-
+$tbl_document 	        = $tbl_cdb_names['document'         ];
+$tbl_link 		        = $tbl_cdb_names['link'             ];
 
 $toolNameList = array('CLANN___' => $langAnnouncement,
                       'CLFRM___' => $langForum,
@@ -196,27 +187,27 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         
         //--  all
         $sql = "SELECT count(*)
-                    FROM `$TABLETRACK_OPEN`";
+                    FROM `".$tbl_track_e_open."`";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langTotalPlatformAccess." : ".$count."<br />\n";
         
         //--  last 31 days
         $sql = "SELECT count(*)
-                    FROM `$TABLETRACK_OPEN`
+                    FROM `".$tbl_track_e_open."`
                     WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langLast31days." : ".$count."<br />\n";
         
         //--  last 7 days
         $sql = "SELECT count(*)
-                    FROM `$TABLETRACK_OPEN`
+                    FROM `".$tbl_track_e_open."`
                     WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langLast7days." : ".$count."<br />\n";
         
         //--  yesterday
         $sql = "SELECT count(*)
-                    FROM `$TABLETRACK_OPEN` 
+                    FROM `".$tbl_track_e_open."` 
                     WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -1 DAY))
                       AND (`open_date` < CURDATE() )";
         $count = getOneResult($sql);
@@ -224,7 +215,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         
         //--  today
         $sql = "SELECT count(*)
-                    FROM `$TABLETRACK_OPEN` 
+                    FROM `".$tbl_track_e_open."` 
                     WHERE (`open_date` > CURDATE() )"; 
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langThisday." : ".$count."<br />\n";
@@ -239,27 +230,27 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         
         //--  all
         $sql = "SELECT count(*)
-                    FROM `$TABLETRACK_LOGIN`";
+                    FROM `".$tbl_track_e_login."`";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langTotalPlatformLogin." : ".$count."<br />\n";
         
         //--  last 31 days
         $sql = "SELECT count(*)
-                    FROM `$TABLETRACK_LOGIN`
+                    FROM `".$tbl_track_e_login."`
                     WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langLast31days." : ".$count."<br />\n";
         
         //--  last 7 days
         $sql = "SELECT count(*)
-                    FROM `$TABLETRACK_LOGIN`
+                    FROM `".$tbl_track_e_login."`
                     WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langLast7days." : ".$count."<br />\n";
         
         //--  yesterday
         $sql = "SELECT count(*)
-                    FROM `$TABLETRACK_LOGIN` 
+                    FROM `".$tbl_track_e_login."` 
                     WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -1 DAY))
                       AND (`login_date` < CURDATE() )";
         $count = getOneResult($sql);
@@ -267,7 +258,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         
         //--  today
         $sql = "SELECT count(*)
-                    FROM `$TABLETRACK_LOGIN`
+                    FROM `".$tbl_track_e_login."`
                     WHERE (`login_date` > CURDATE() )";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langThisday." : ".$count."<br />\n";
@@ -516,7 +507,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
         $sql = "SELECT `us`.`username`, MAX(`lo`.`login_date`)
                     FROM `".$tbl_user."` AS us 
-                    LEFT JOIN `".$TABLETRACK_LOGIN."` AS lo
+                    LEFT JOIN `".$tbl_track_e_login."` AS lo
                     ON`lo`.`login_user_id` = `us`.`user_id`
                     GROUP BY `us`.`username`
                     HAVING ( MAX(`lo`.`login_date`) < (NOW() - ".$limitBeforeUnused." ) ) OR MAX(`lo`.`login_date`) IS NULL";
