@@ -338,7 +338,7 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
           <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>
           <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes\">".$langName."</a></th>
           <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>
-          <th>".$langOfficialCode."</th>";
+          <th><a href=\"",$PHP_SELF,"?order_crit=officialCode&chdir=yes\">".$langOfficialCode."</a></th>";
 echo     "<th>".$langUserStatus."</th>";
 echo     "<th>".$langAllUserOfThisCourse."</th>
           <th>".$langEditUserSettings."</th>
@@ -417,7 +417,7 @@ foreach($resultList as $list)
 
      echo     "<td align=\"center\">\n",
                         "<a href=\"adminprofile.php?uidToEdit=".$list['user_id']."&cfrom=ulist".$addToURL."\">\n
-                         <img src=\"../img/edit.gif\" border=\"0\" alt=\"$langModify\" />\n",
+                         <img src=\"../img/usersetting.gif\" border=\"0\" alt=\"$langEditUserSettings\" />\n",
                         "</a>\n",
                         "</td>\n";
 
