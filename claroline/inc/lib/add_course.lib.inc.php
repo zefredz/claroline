@@ -717,6 +717,7 @@ claro_sql_query("
 		`authors` varchar(200) NOT NULL default '',
 		`submitted_text` text NOT NULL,
 		`submitted_doc_path` varchar(200) NOT NULL default '',
+		`score` smallint(3) NULL default NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;");
 	
