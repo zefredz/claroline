@@ -56,43 +56,43 @@ function claro_sql_get_course_tbl()
 
 	if ( count($course_tbl)	== 0 )
 	{
-		$courseTblList['announcement'		      ] = $courseDb.'announcement';
-		$courseTblList['assignment_doc'		   ] = $courseDb.'assignment_doc';
-		$courseTblList['bb_access'			      ] = $courseDb.'bb_access';
-		$courseTblList['bb_banlist'			   ] = $courseDb.'bb_banlist';
-		$courseTblList['bb_categories'		   ] = $courseDb.'bb_categories';
-		$courseTblList['bb_config'			      ] = $courseDb.'bb_config';
-		$courseTblList['bb_disallow'		      ] = $courseDb.'bb_disallow';
-		$courseTblList['bb_forum_access'	      ] = $courseDb.'bb_forum_access';
-		$courseTblList['bb_forum_mods'		   ] = $courseDb.'bb_forum_mods';
-		$courseTblList['bb_forums'			      ] = $courseDb.'bb_forums';
-		$courseTblList['bb_headermetafooter'   ] = $courseDb.'bb_headermetafooter';
-		$courseTblList['bb_posts'			      ] = $courseDb.'bb_posts';
-		$courseTblList['bb_posts_text'		   ] = $courseDb.'bb_posts_text';
-		$courseTblList['bb_priv_msgs'		      ] = $courseDb.'bb_priv_msgs';
-		$courseTblList['bb_ranks'			      ] = $courseDb.'bb_ranks';
-		$courseTblList['bb_sessions'		      ] = $courseDb.'bb_sessions';
-		$courseTblList['bb_themes'			      ] = $courseDb.'bb_themes';
-		$courseTblList['bb_topics'			      ] = $courseDb.'bb_topics';
-		$courseTblList['bb_users'			      ] = $courseDb.'bb_users';
-		$courseTblList['bb_whosonline'		   ] = $courseDb.'bb_whosonline';
-		$courseTblList['bb_words'			      ] = $courseDb.'bb_words';
-		$courseTblList['calendar_event'		   ] = $courseDb.'calendar_event';
-		$courseTblList['course_description'	   ] = $courseDb.'course_description';
-		$courseTblList['document'			      ] = $courseDb.'document';
-		$courseTblList['group_property'		   ] = $courseDb.'group_property';
-		$courseTblList['group_rel_team_user'   ] = $courseDb.'group_rel_team_user';
-		$courseTblList['group_team'			   ] = $courseDb.'group_team';
-		$courseTblList['link'				      ] = $courseDb.'link';
-		$courseTblList['quiz_answer'		      ] = $courseDb.'quiz_answer';
-		$courseTblList['quiz_question'		   ] = $courseDb.'quiz_question';
-		$courseTblList['quiz_rel_test_question'] = $courseDb.'quiz_rel_test_question';
-		$courseTblList['quiz_test'			      ] = $courseDb.'quiz_test' ;
-		$courseTblList['tool_intro'		   	] = $courseDb.'tool_intro';
-		$courseTblList['tool_list'			      ] = $courseDb.'tool_list';
-		$courseTblList['userinfo_content'	   ] = $courseDb.'userinfo_content';
-		$courseTblList['userinfo_def'		      ] = $courseDb.'userinfo_def';
-		$courseTblList['work_student'		      ] = $courseDb.'work_student';
+        $courseTblList['announcement'          ] = $courseDb.'announcement';
+        $courseTblList['assignment_doc'        ] = $courseDb.'assignment_doc';
+        $courseTblList['bb_access'             ] = $courseDb.'bb_access';
+        $courseTblList['bb_banlist'            ] = $courseDb.'bb_banlist';
+        $courseTblList['bb_categories'         ] = $courseDb.'bb_categories';
+        $courseTblList['bb_config'             ] = $courseDb.'bb_config';
+        $courseTblList['bb_disallow'           ] = $courseDb.'bb_disallow';
+        $courseTblList['bb_forum_access'       ] = $courseDb.'bb_forum_access';
+        $courseTblList['bb_forum_mods'         ] = $courseDb.'bb_forum_mods';
+        $courseTblList['bb_forums'             ] = $courseDb.'bb_forums';
+        $courseTblList['bb_headermetafooter'   ] = $courseDb.'bb_headermetafooter';
+        $courseTblList['bb_posts'              ] = $courseDb.'bb_posts';
+        $courseTblList['bb_posts_text'         ] = $courseDb.'bb_posts_text';
+        $courseTblList['bb_priv_msgs'          ] = $courseDb.'bb_priv_msgs';
+        $courseTblList['bb_ranks'              ] = $courseDb.'bb_ranks';
+        $courseTblList['bb_sessions'           ] = $courseDb.'bb_sessions';
+        $courseTblList['bb_themes'             ] = $courseDb.'bb_themes';
+        $courseTblList['bb_topics'             ] = $courseDb.'bb_topics';
+        $courseTblList['bb_users'              ] = $courseDb.'bb_users';
+        $courseTblList['bb_whosonline'         ] = $courseDb.'bb_whosonline';
+        $courseTblList['bb_words'              ] = $courseDb.'bb_words';
+        $courseTblList['calendar_event'        ] = $courseDb.'calendar_event';
+        $courseTblList['course_description'    ] = $courseDb.'course_description';
+        $courseTblList['document'              ] = $courseDb.'document';
+        $courseTblList['group_property'        ] = $courseDb.'group_property';
+        $courseTblList['group_rel_team_user'   ] = $courseDb.'group_rel_team_user';
+        $courseTblList['group_team'            ] = $courseDb.'group_team';
+        $courseTblList['link'                  ] = $courseDb.'link';
+        $courseTblList['quiz_answer'           ] = $courseDb.'quiz_answer';
+        $courseTblList['quiz_question'         ] = $courseDb.'quiz_question';
+        $courseTblList['quiz_rel_test_question'] = $courseDb.'quiz_rel_test_question';
+        $courseTblList['quiz_test'             ] = $courseDb.'quiz_test' ;
+        $courseTblList['tool_intro'            ] = $courseDb.'tool_intro';
+        $courseTblList['tool_list'             ] = $courseDb.'tool_list';
+        $courseTblList['userinfo_content'      ] = $courseDb.'userinfo_content';
+        $courseTblList['userinfo_def'          ] = $courseDb.'userinfo_def';
+        $courseTblList['work_student'          ] = $courseDb.'work_student';
 
 	} // end if	( count($course_tbl) ==	0 )
 
@@ -939,4 +939,29 @@ function claro_addslashes($text)
     return addslashes($text);
   }
 }
+
+/**
+ * checks if the javascript is enabled on the client browser
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param void
+ * @return boolean
+ * @desc Actually a cookies is set on the header by a javascript code. 
+ *       If this cookie isn't set, it means javascript isn't enabled.
+ */
+
+function claro_is_javascript_enabled()
+{
+	global $_COOKIE;
+
+    if ($_COOKIE['javascriptEnabled'] == true)
+    {
+    	return true;
+    }
+    else
+    {
+    	return false;
+    }
+}
+
 ?>
