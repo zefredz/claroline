@@ -134,6 +134,8 @@ $langLoginsExplaination = "Voici la liste de vos derniers accès ainsi que les ou
 
 $langExercicesResults = "Résultats des exercices effectués";
 
+$langNoRegisteredCourses = "Pas de statistiques.  Vous n'êtes inscrit dans aucun cours.";
+
 $langVisits = "visites";
 $langAt = "à";
 $langLoginTitleDateColumn = "Date";

@@ -136,6 +136,8 @@ $langLoginsExplaination = "Here is the list of your last logins with the tools y
 
 $langExercicesResults = "Results of the exercises done";
 
+$langNoRegisteredCourses = "No stats to show.  You haven't register any course.";
+
 $langVisits = "visits";
 $langAt = "at";
 $langLoginTitleDateColumn = "Date";
