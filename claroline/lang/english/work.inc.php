@@ -28,6 +28,7 @@ $langSubmitWork = "Submit a work";
 $langSubmittedWork = "Work";
 $langEditWork = "Modify a work";
 $langWorkDetails = "Work details";
+$langFeedbackDetails = "Feedback details";
 $langShowFeedback = "Show feedback";
 $langShowWork = "Show work";
 $langAddFeedback = "Add feedback";
@@ -83,6 +84,7 @@ $langExplainReplaceFile = "Upload a new file to replace the file.";
 $langFileDesc = "File description";
 $langAnswer = "Answer";
 $langNoFile = "- none -";
+$langScore = "Score";
 
 // -- Form errors and confirmations
 //confirmations
@@ -103,6 +105,7 @@ $langAssignmentTitleAlreadyExists = "Assignment title already exists";
 $langCannotCopyFile = "Cannot copy the file.";
 $langWrkTitleAlreadyExists = "Work title already exists";
 $langWrkTitleRequired = "Work title required";
+$langWrkScoreRequired = "Score required";
 $langAnswerRequired = "Answer is required";
 $langWrkAuthorsRequired = "Author(s) is(are) required";
 $langFileRequired = "A file is required";
