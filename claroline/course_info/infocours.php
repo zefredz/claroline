@@ -40,11 +40,62 @@ $nameTools = $langCourseSettings;
  $canBeEmpty["extLinkUrl"]    = true;
  $canBeEmpty["email"]         = true;
 
+/*
+ * Perfield value for the form :
+ */
+
+$sqlCourseExtention     = "SELECT * FROM `".$tbl_course."` WHERE code = '".$_cid."'";
+$resultCourseExtention  = claro_sql_query($sqlCourseExtention);
+$thecourse              = mysql_fetch_array($resultCourseExtention);  
  
+$int               = $thecourse['intitule'];
+$facu              = $thecourse['faculte'];
+$currentCourseCode = $thecourse['fake_code'];
+$titulary          = $thecourse['titulaires'];
+$languageCourse    = $thecourse['languageCourse'];
+$extLinkName	   = $thecourse['departmentUrlName'];
+$extLinkUrl        = $thecourse['departmentUrl'];
+$email		   = $thecourse['email'];
+$directory         = $thecourse['directory'];
+
+$thecourse['visibility'  ]         = (bool) ($thecourse['visible'] == 2 || $thecourse['visible'] == 3);
+$thecourse['registrationAllowed']  = (bool) ($thecourse['visible'] == 1 || $thecourse['visible'] == 2);
+
+$visibleChecked             [$thecourse['visibility'         ]] = "checked";
+$registrationAllowedChecked [$thecourse['registrationAllowed']] = "checked";
+
+//if values were posted, we overwrite DB info with values previously set by user
+
+if (!empty($_REQUEST['screenCode']))
+{
+    $currentCourseCode = $_REQUEST['screenCode'];
+}
+if (!empty($_REQUEST['titulary']))
+{
+    $titulary = $_REQUEST['titulary'];
+}
+if (!empty($_REQUEST['email']))
+{
+    $email = $_REQUEST['email'];
+}
+if (!empty($_REQUEST['int']))
+{
+    $int = $_REQUEST['int'];
+}
+if (!empty($_REQUEST['extLinkName']))
+{
+    $extLinkName = $_REQUEST['extLinkName'];
+}
+if (!empty($_REQUEST['extLinkUrl']))
+{
+    $extLinkUrl = $_REQUEST['extLinkUrl'];
+}
+
+
 /*
  * DB tables definition
  */
-
+ 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
@@ -183,34 +234,11 @@ if($is_allowedToEdit)
   ***************************/
 
 	}
-
-
-$sqlCourseExtention = "SELECT * FROM `".$tbl_course."` WHERE code = '".$current_cid."'";
-
-$resultCourseExtention 			= claro_sql_query($sqlCourseExtention);
-$thecourse 	= mysql_fetch_array($resultCourseExtention);
-
 $currentCourseDiskQuota 		= $currentCourseExtentionData["diskQuota"     ];
 $currentCourseLastVisit 		= $currentCourseExtentionData["lastVisit"     ];
 $currentCourseLastEdit			= $currentCourseExtentionData["lastEdit"      ];
 $currentCourseCreationDate 		= $currentCourseExtentionData["creationDate"  ];
 $currentCourseExpirationDate	= $currentCourseExtentionData["expirationDate"];
-
-$int               = $thecourse['intitule'           ];
-$facu              = $thecourse['faculte'   ];
-$currentCourseCode = $thecourse['fake_code'   ];
-$titulary          = $thecourse['titulaires'        ];
-$languageCourse    = $thecourse['languageCourse'       ];
-$extLinkName	   = $thecourse['departmentUrlName'];
-$extLinkUrl        = $thecourse['departmentUrl' ];
-$email			   = $thecourse['email'];
-$directory         = $thecourse['directory'];
-
-$thecourse['visibility'  ]         = (bool) ($thecourse['visible'] == 2 || $thecourse['visible'] == 3);
-$thecourse['registrationAllowed']  = (bool) ($thecourse['visible'] == 1 || $thecourse['visible'] == 2);
-
-$visibleChecked             [$thecourse['visibility'         ]] = "checked";
-$registrationAllowedChecked [$thecourse['registrationAllowed']] = "checked";
 
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
