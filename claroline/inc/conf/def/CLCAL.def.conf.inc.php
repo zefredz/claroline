@@ -4,7 +4,7 @@ $conf_def['config_code']='CLCAL';
 $conf_def['config_name']='General setting for calendar';
 
 $conf_def['section']['log']['label']='Track activity';
-// $conf_def['config_repository']=''; dislabed = includePath.'/conf'
+// $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 
 $conf_def['section']['log']['properties'] = 
 array ( 'CONFVAL_LOG_CALENDAR_INSERT'
@@ -20,7 +20,7 @@ array ('label'       => 'Log add'
       ,'readonly'    => FALSE
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
-                              ,'FALSE'=>'dislabed'
+                              ,'FALSE'=>'Disabled'
                               )
       );
 $conf_def_property_list['CONFVAL_LOG_CALENDAR_DELETE'] = 
@@ -31,7 +31,7 @@ array ('label'       => 'Log deletion'
       ,'readonly'    => FALSE
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'Enabled'
-                              ,'FALSE'=>'Dislabed'
+                              ,'FALSE'=>'Disabled'
                               )
       );
       
@@ -43,7 +43,7 @@ array ('label'       => 'Log edition'
       ,'readonly'    => FALSE
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'Enabled'
-                              ,'FALSE'=>'Dislabed'
+                              ,'FALSE'=>'Disabled'
                               )
       );
 

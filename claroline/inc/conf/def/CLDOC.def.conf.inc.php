@@ -3,7 +3,7 @@
 $conf_def['config_code']='CLDOC';
 $conf_def['config_file']='CLDOC___.conf.php';
 $conf_def['config_name']='general setting for document tool';
-// $conf_def['config_repository']=''; dislabed = includePath.'/conf'
+// $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 $conf_def['description'] = 'Document tool. This is a course tool';
 $conf_def['section']['quota']['label']='quota';
 $conf_def['section']['quota']['properties'] = 

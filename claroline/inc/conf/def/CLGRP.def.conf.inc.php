@@ -3,7 +3,7 @@
 $conf_def['config_code']='CLGRP';
 $conf_def['config_file']='CLGRP___.conf.php';
 $conf_def['config_name']='General setting for groups';
-// $conf_def['config_repository']=''; dislabed = includePath.'/conf'
+// $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 $conf_def['section']['multigroup']['label']='multigroup';
 $conf_def['section']['multigroup']['properties'] = 
 array ( 'multiGroupAllowed'
@@ -20,7 +20,7 @@ array ( 'description' => 'Whether teacher can fix than a user can subscribe in m
       , 'display'     => TRUE
       , 'readonly'    => FALSE
       , 'acceptedValue' => array ( 'TRUE'=>'enabled (set  limitNbGroupByUser = ALL if not defined)'
-                               , 'FALSE'=>'dislabed (set  limitNbGroupByUser = 1 if not defined)')
+                               , 'FALSE'=>'Disabled (set  limitNbGroupByUser = 1 if not defined)')
       );
 
 $conf_def_property_list['tutorCanBeSimpleMemberOfOthersGroupsAsStudent'] =
@@ -41,7 +41,7 @@ array ( 'description' => 'Not implemented, name reserved  for future version of 
       , 'default'     => 'FALSE'
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'enabled'
-                               ,'FALSE'=>'dislabed'
+                               ,'FALSE'=>'Disabled'
                                )
       , 'display'     => FALSE
       , 'readonly'    => TRUE

@@ -2,7 +2,7 @@
 $conf_def['config_code']='CLADDCRS';
 $conf_def['config_file']='core.add_course.conf.php';
 $conf_def['config_name']='general setting for course creation';
-// $conf_def['config_repository']=''; dislabed = includePath.'/conf'
+// $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 
 $conf_def['section']['create']['label']='Creation properties';
 $conf_def['section']['create']['properties'] = 
@@ -33,7 +33,7 @@ array ('label'       => 'Autoriser le créateur de cours de restaurer une archive
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       ,'acceptedValue' => array ('TRUE'  =>'enabled'
-                                ,'FALSE' =>'dislabed'
+                                ,'FALSE' =>'Disabled'
                                 )
       );
 
@@ -43,7 +43,7 @@ array ('label'       => 'whether user can leave course code (officialCode) field
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE' => 'enabled'
-                                ,'FALSE'=> 'dislabed'
+                                ,'FALSE'=> 'Disabled'
                                 )
       );
 
@@ -53,7 +53,7 @@ array ('label'       => 'whether user can leave course label (name) field empty'
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
-                              ,'FALSE'=>'dislabed'
+                              ,'FALSE'=>'Disabled'
                               )
       );
 
@@ -65,7 +65,7 @@ array ('label'       => 'whether user can leave email field empty'
       ,'readonly'    => FALSE
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
-                              ,'FALSE'=>'dislabed'
+                              ,'FALSE'=>'Disabled'
                               )
       );
 
@@ -99,7 +99,7 @@ array ('label'       => 'Autoriser le créateur de cours de restaurer une archive
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
-                              ,'FALSE'=>'dislabed'
+                              ,'FALSE'=>'Disabled'
                               )
       );
 
@@ -109,7 +109,7 @@ array ('label'       => 'restaurer une archive de cours uploadée'
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
-                              ,'FALSE'=>'dislabed'
+                              ,'FALSE'=>'Disabled'
                               )
       );
 
@@ -119,7 +119,7 @@ array ('label'       => 'restaurer une archive de cours stockées sur le serveur'
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
-                              ,'FALSE'=>'dislabed'
+                              ,'FALSE'=>'Disabled'
                               )
       );
 
@@ -131,7 +131,7 @@ array ('label'       => 'restaurer une archive de cours présente sur un autre se
       ,'readonly'    => TRUE
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
-                              ,'FALSE'=>'dislabed'
+                              ,'FALSE'=>'Disabled'
                               )
       );
 
@@ -143,7 +143,7 @@ array ('label'       => 'Restaurer une archive de cours présente sur un serveur 
       ,'readonly'    => TRUE
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
-                              ,'FALSE'=>'dislabed'
+                              ,'FALSE'=>'Disabled'
                               )
       );
 

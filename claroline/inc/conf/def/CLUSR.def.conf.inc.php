@@ -3,7 +3,7 @@
 $conf_def['config_code']='CLUSR';
 $conf_def['config_file']='CLUSR___.conf.php';
 $conf_def['config_name']='General setting for users listing (include User info tool)';
-// $conf_def['config_repository']=''; dislabed = includePath.'/conf'
+// $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 $conf_def['section']['list']['label']='Listing properties';
 $conf_def['section']['list']['description']='Common properties for listing of users';
 $conf_def['section']['list']['properties'] = 

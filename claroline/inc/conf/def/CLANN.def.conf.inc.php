@@ -18,7 +18,7 @@ array( 'label'      => 'Log add'
      , 'default'    => 'TRUE'
      , 'type'       => 'boolean'
      , 'acceptedValue'=> array ('TRUE'=>'enabled'
-                             ,'FALSE'=>'dislabed'
+                             ,'FALSE'=>'Disabled'
                              )
      , 'display'    => TRUE
      , 'readonly'   => FALSE
@@ -31,7 +31,7 @@ array( 'default'     => 'TRUE'
      , 'description' => 'Record in tracking when an announcement is deleted'
      , 'type'        => 'boolean'
      , 'acceptedValue'=> array ('TRUE'=>'enabled'
-                             ,'FALSE'=>'dislabed'
+                             ,'FALSE'=>'Disabled'
                              )
      , 'display'  => TRUE
      , 'readonly' => FALSE
@@ -42,7 +42,7 @@ $conf_def_property_list['CONFVAL_LOG_ANNOUNCEMENT_UPDATE'] =
 array( 'default'  => 'FALSE'
      , 'type'     => 'boolean'
      , 'acceptedValue'=> array ('TRUE'=>'enabled'
-                             ,'FALSE'=>'dislabed'
+                             ,'FALSE'=>'Disabled'
                              )
      , 'display'  => TRUE
      , 'readonly' => FALSE
