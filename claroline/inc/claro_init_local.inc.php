@@ -204,7 +204,7 @@ $AllowedPhpRequestList = array('login', 'password', 'logout', 'uidReset',
 foreach($AllowedPhpRequestList as $thisPhpRequestName)
 {
     // some claroline scripts set these variables before calling 
-    // the claro init process. Avoid variable settings if it is the case.
+    // the claro init process. Avoid variable setting if it is the case.
 
     if ( isset($GLOBALS[$thisPhpRequestName]) ) continue;
 
@@ -524,14 +524,16 @@ if ($cidReset) // course session data refresh requested
 {
     if ($cidReq)
     {
-        $sql =  "SELECT 
-                   `cours`.*, 
-                   `faculte`.`code` `faCode`, 
-                   `faculte`.`name` `faName`
-                 FROM `".$tbl_course."` `cours`
-                 LEFT JOIN `".$tbl_category."` `faculte`
-                 ON `cours`.`faculte` =  `faculte`.`code`
-                 WHERE `cours`.`code` = '".$cidReq."'";
+        $sql =  "SELECT `c`.`code`, `c`.`intitule`, `c`.`fake_code`, 
+                        `c`.`directory`, `c`.`dbName`, `c`.`titulaires`, 
+                        `c`.`email`, `c`.`languageCourse`, `c`.`departmentUrl`, 
+                        `c`.`departmentUrlName`, `c`.`visible`,
+                        `cat`.`code` `faCode`, 
+                        `cat`.`name` `faName`
+                 FROM     `".$tbl_course."`    `c`
+                 LEFT JOIN `".$tbl_category."` `cat`
+                 ON `c`.`faculte` =  `cat`.`code`
+                 WHERE `c`.`code` = '".$cidReq."'";
 
         $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
