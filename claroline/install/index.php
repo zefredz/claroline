@@ -485,7 +485,7 @@ echo '<input type="hidden" name="alreadyVisited" value="1">'                    
     .'<input type="hidden" name="dbNameForm"                   value="'.$dbNameForm.'">'                     ."\n"
     .'<input type="hidden" name="dbStatsForm"                  value="'.$dbStatsForm.'">'                    ."\n"
     .'<input type="hidden" name="mainTblPrefixForm"            value="'.$mainTblPrefixForm.'">'              ."\n"
-    .'<input type="hidden" name="statTblPrefixForm"            value="'.$statTblPrefixForm.'">'              ."\n"
+    .'<input type="hidden" name="statsTblPrefixForm"           value="'.$statsTblPrefixForm.'">'              ."\n"
     .'<input type="hidden" name="dbMyAdmin"                    value="'.$dbMyAdmin.'">'                      ."\n"
     .'<input type="hidden" name="dbPassForm"                   value="'.$dbPassForm.'">'                     ."\n\n"
     .'<input type="hidden" name="urlForm"                      value="'.$urlForm.'">'                        ."\n"
@@ -960,7 +960,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
                                     (Claroline will write in this database
                                     over data already present.
                                     Data not overwritten will be kept.
-									<br />
+                                    <br />
                                     Renaming or deleting your tables is better.
                                     )
                                 </label>
@@ -1014,12 +1014,12 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     </tr>
                     <tr>
                         <td>
-                            <label for="statTblPrefixForm">
+                            <label for="statsTblPrefixForm">
                                 Table prefix for central stats tables
                             </label>
                         </td>
                         <td>
-                            <input type="text"  size="5" id="statTblPrefixForm" name="statTblPrefixForm" value="'.cleanoutputvalue($statTblPrefixForm).'">
+                            <input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.cleanoutputvalue($statsTblPrefixForm).'">
                         </td>
                         <td>
                             &nbsp;

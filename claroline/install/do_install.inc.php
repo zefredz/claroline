@@ -247,7 +247,7 @@ $dbPass             = "'.$dbPassForm.'";
 $mainDbName         = "'.$mainDbName.'";
 $mainTblPrefix      = "'.$mainTblPrefixForm.'";
 $statsDbName        = "'.$statsDbName.'";
-$statTblPrefix      = "'.$statTblPrefixForm.'";
+$statsTblPrefix     = "'.$statsTblPrefixForm.'";
 
 $dbNamePrefix       = "'.$dbPrefixForm.'"; // prefix all created base (for courses) with this string
 

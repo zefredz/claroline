@@ -81,7 +81,7 @@ $conf_def['section']['DB_NAMES_SETTING']['properties'] =
 array ( 'mainDbName'
       , 'statsDbName'
       , 'mainTblPrefix'
-      , 'statTblPrefix'
+      , 'statsTblPrefix'
       );
 $conf_def['section']['DB_OTHER_SETTING']['label']= 'Db extended Settings';
 $conf_def['section']['DB_OTHER_SETTING']['properties'] =
@@ -175,7 +175,7 @@ array ( 'label'       => 'Database name where stored the tracking and stat table
       , 'readonly'    => FALSE
       );
 
-$conf_def_property_list['statTblPrefix'] =
+$conf_def_property_list['statsTblPrefix'] =
 array ( 'label'       => 'Prefix for name of tracking and stat tables'
       , 'description' => 'can be the same prefix as main database'
       , 'default'     => 'CL_'

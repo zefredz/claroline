@@ -20,7 +20,7 @@
     $dbStatsForm    = $dbPrefixForm."claroline";
     $dbPrefixForm   = $dbPrefixForm."c_";
     $mainTblPrefixForm  = "cl_";
-    $statTblPrefixForm  = "cl_";
+    $statsTblPrefixForm = "cl_";
 
     $singleDbForm   = true;
     $enableTrackingForm = true;

@@ -13,7 +13,7 @@
  * Authors: see 'credits' file
  * ---------------------------------------------------------------------
  * Create Statistics Tables
- * @var $statTblPrefixForm prefix set during  install, and keep in mainconf
+ * @var $statsTblPrefixForm prefix set during  install, and keep in mainconf
  * @private $sql var where build sql request.
  *
  *         claro_sql_query("DROP TABLE IF EXISTS track_e_default");
@@ -21,7 +21,7 @@
  *         claro_sql_query("DROP TABLE IF EXISTS track_e_open");
  *
  */
-        $sql = "CREATE TABLE `".$statTblPrefixForm."track_e_default` (
+        $sql = "CREATE TABLE `".$statsTblPrefixForm."track_e_default` (
                   `default_id` int(11) NOT NULL auto_increment,
                   `default_user_id` int(11)  NOT NULL default '0',
                   `default_cours_code` varchar(40) NOT NULL default '',
@@ -34,7 +34,7 @@
         claro_sql_query($sql);
 
 
-        $sql = "CREATE TABLE `".$statTblPrefixForm."track_e_login` (
+        $sql = "CREATE TABLE `".$statsTblPrefixForm."track_e_login` (
                   `login_id` int(11) NOT NULL auto_increment,
                   `login_user_id` int(11)  NOT NULL default '0',
                   `login_date` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -44,7 +44,7 @@
         claro_sql_query($sql);
 
 
-        $sql = "CREATE TABLE `".$statTblPrefixForm."track_e_open` (
+        $sql = "CREATE TABLE `".$statsTblPrefixForm."track_e_open` (
                   `open_id` int(11) NOT NULL auto_increment,
                   `open_date` datetime NOT NULL default '0000-00-00 00:00:00',
                   PRIMARY KEY  (`open_id`)
