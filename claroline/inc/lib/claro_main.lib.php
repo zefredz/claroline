@@ -743,20 +743,11 @@ function claro_disp_message_box($message)
 
 function claro_disp_button($url, $text, $confirmMessage = '')
 {
-    if (claro_is_javascript_enabled())
+    global $HTTP_USER_AGENT;
+
+    if (   claro_is_javascript_enabled()
+        && ! preg_match('~^Mozilla/4\.[1234567]~', $HTTP_USER_AGENT))
     {
-        global $HTTP_USER_AGENT;
-
-        if ( preg_match('~^Mozilla/4\.[1234567]~', 
-             $HTTP_USER_AGENT) )
-        {
-            $style = '';
-        }
-        else
-        {
-            $style = 'class="claroButton"';
-        }
-
         if ($confirmMessage != '')
         {
             $onClickCommand =" if(confirm('".$confirmMessage."')){document.location='".$url."';return false}";
@@ -766,10 +757,9 @@ function claro_disp_button($url, $text, $confirmMessage = '')
             $onClickCommand = "document.location='".$url."';";
         }
         
-        echo "<button ".$style." onclick=\"".$onClickCommand."\">"
+        echo "<button class=\"claroButton\" onclick=\"".$onClickCommand."\">"
             .$text
             ."</button>&nbsp;\n";
-    	
     }
     else
     {
