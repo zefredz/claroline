@@ -229,6 +229,28 @@ si j'ai bien capté la nouvelle logique ca devrait être un claro_button
 Repéré par : M.
 Assigné à : 
 
+Etat : New ------------------------------------------------------
+M.28 : /claroline/exercice/question_pool.php
+type : interface - uniformisation
+quoi : Le formulaire englobe 2 <table> alors  qu'il ne propose des input que dans 1 <td>
+Et ce uniquement pour du look
+Repéré par : M.
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+M.29 : /claroline/exercice/question_pool.php
+type : interface - uniformisation
+quoi : javascript de suppression d'un question peu explicite
+Repéré par : M.
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+M.30 : /claroline/exercice/exercice.php
+type : interface - uniformisation
+quoi : javascript de suppression d'un exercice peu explicite
+Repéré par : M.
+Assigné à : 
+
 template à copier coller
 Etat : New ------------------------------------------------------
 .99 où :
@@ -242,6 +264,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.36  2004/06/16 09:42:03  moosh
+bugs 28 , 29 et 30
+
 Revision 1.35  2004/06/16 09:38:24  guillaume
 bug 16 et 22 résolu
 
