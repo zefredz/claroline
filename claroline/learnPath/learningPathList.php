@@ -431,7 +431,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
    $resultB = claro_sql_query($sql);
    */
 
-   echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
+   echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">
     <thead>
     <tr class=\"headerX\" align=\"center\" valign=\"top\">
      <th>".$langLearningPath."</th>";
