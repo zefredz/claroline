@@ -17,6 +17,7 @@ les cas ou la redirection ne se passe pas bien.
 
 Repéré par : SEB
 Assigné à : HUGUES
+Etat      : RESOLU
 
 
 3.  INSTALL instal repetées = plusieurs admins -> utilisation des function d'ajout utilisateurs
@@ -47,6 +48,9 @@ Repéré par : HUGUES
 
 -------------
 $Log$
+Revision 1.12  2004/06/11 12:27:57  peeters
+no message
+
 Revision 1.11  2004/06/11 12:13:38  peeters
 no message
 
