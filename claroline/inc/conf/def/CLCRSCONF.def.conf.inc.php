@@ -21,8 +21,8 @@ $conf_def['description']='How can be edit a course profile, and managment action
 
 // CONFIG SECTIONS
 
-$conf_def['section']['links']['label']='links';
-$conf_def['section']['links']['description']='links to  commands';
+$conf_def['section']['links']['label']='Action';
+//$conf_def['section']['links']['description']='Links to  commands';
 $conf_def['section']['links']['properties'] = 
 array ( 'showLinkToDeleteThisCourse'
       , 'showLinkToExportThisCourse'
@@ -31,10 +31,13 @@ array ( 'showLinkToDeleteThisCourse'
 //PROPERTIES
 
 $conf_def_property_list['showLinkToDeleteThisCourse']
-= array ('label'     => 'Show link to call the deletion of the course'
+= array ('label'     => 'Show deletion of the course action'
         ,'default'   => 'TRUE'
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
         );
 $conf_def_property_list['showLinkToExportThisCourse']
 = array ('label'     => 'Show link to make an archive of the cours'
@@ -42,6 +45,9 @@ $conf_def_property_list['showLinkToExportThisCourse']
         ,'display'   => FALSE
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
         );
 $conf_def_property_list['showLinkToRestoreCourse']
 = array ('label'     => 'Show link to call the restore of a course'
@@ -49,6 +55,9 @@ $conf_def_property_list['showLinkToRestoreCourse']
         ,'default'   => 'FALSE'
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
         );
 
 // If TRUE, these fileds  keep the previous content.
@@ -64,10 +73,10 @@ $conf_def_property_list['showLinkToRestoreCourse']
 //$canBeEmpty["email"]		= TRUE;
 
 
-$conf_def['section']['flags']['label']='options';
-$conf_def['section']['flags']['display']=FALSE;
-$conf_def['section']['flags']['description']='switch option for courses';
-$conf_def['section']['flags']['properties'] = 
+$conf_def['section']['flags']['label']       = 'options';
+$conf_def['section']['flags']['display']     = FALSE;
+$conf_def['section']['flags']['description'] = 'switch option for courses';
+$conf_def['section']['flags']['properties']  = 
 array ( 'showDiskQuota'
       , 'showDiskUse'
       , 'showLinkToChangeDiskQuota'
@@ -86,6 +95,9 @@ $conf_def_property_list['showDiskQuota']
         ,'display'   => FALSE
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
         );
 
 $conf_def_property_list['showDiskUse']
@@ -94,6 +106,9 @@ $conf_def_property_list['showDiskUse']
         ,'default'   => 'FALSE'
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
         );
 
 $conf_def_property_list['showLinkToChangeDiskQuota']
@@ -102,6 +117,9 @@ $conf_def_property_list['showLinkToChangeDiskQuota']
         ,'default'   => 'FALSE'
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
         );
 
 $conf_def_property_list['showExpirationDate']
@@ -110,6 +128,9 @@ $conf_def_property_list['showExpirationDate']
         ,'default'   => 'FALSE'
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
         );
 
 $conf_def_property_list['showCreationDate']
@@ -118,6 +139,9 @@ $conf_def_property_list['showCreationDate']
         ,'default'   => 'TRUE'
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
         );
 
 $conf_def_property_list['showLastEdit']
@@ -126,6 +150,9 @@ $conf_def_property_list['showLastEdit']
         ,'default'   => 'TRUE'
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
         );
 
 $conf_def_property_list['showLastVisit']
@@ -134,6 +161,9 @@ $conf_def_property_list['showLastVisit']
         ,'default'   => 'TRUE'
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
         );
 
 $conf_def_property_list['canReportExpirationDate'] 
@@ -143,6 +173,9 @@ $conf_def_property_list['canReportExpirationDate']
         , 'default'      => 'FALSE'
         , 'type'         => 'boolean'
         , 'container'    => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
         );
 
 $conf_def_property_list['linkToChangeDiskQuota']
