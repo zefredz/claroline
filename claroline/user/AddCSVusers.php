@@ -121,7 +121,8 @@ switch ($cmd)
 	    if ($_REQUEST['enclosedBy']=="dbquote") 
 	    {
 	        $enclosedBy = "\"";
-	    } 
+	    }
+	    $useFirstLine = false; 
 	}
 	
 	//check file content to see potentiel problems to add the users in this campus (errors are saved in session)
@@ -288,8 +289,8 @@ case "default" :
     <label for="fieldSeparator"><?php echo $langFieldSeparatorUsed; ?></label>: 
     
     <select name="fieldSeparator" id="fieldSeparator">
-      <option value=",">,</option>
       <option value=";">;</option>
+      <option value=",">,</option>
       <option value=" "><?php echo $langBlankSpace; ?></option>       
     </select> 
     
@@ -300,15 +301,14 @@ case "default" :
 	</label>
     
     <select name="enclosedBy" id="enclosedBy">
+      <option value=""><?php echo $langNone; ?></option>
       <option value="dbquote">"</option>
       <option value=",">,</option>
-      <option value=".">.</option>
-      <option value=""><?php echo $langNone; ?></option>
-      
+      <option value=".">.</option>      
     </select>
     
     <br><br>
-    <input type="file" name="CSVfile">
+    <?php echo $langFileForCSVUpload; ?><input type="file" name="CSVfile">
     <br><br>
     <input type="submit" name="submitCSV" value="<?php echo $lang_add_user_list; ?>">
     <input type="hidden" name="cmd" value="exImp">
