@@ -21,6 +21,12 @@ $langFile='admin';
 $cidReset = true;
 include('../inc/claro_init_global.inc.php');
 include($includePath.'/lib/text.lib.php');
+include($includePath."/lib/admin.lib.inc.php");
+
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
+
 
 $nameTools=$langModifOneProfile;
 
@@ -442,15 +448,12 @@ else
 
 // display TOOL links :
 
-echo "<a class=\"claroButton\"
-       onClick=\"return confirmation('",addslashes($username_form),"');\"
-       href=\"adminuserdeleted.php?uidToEdit=".$user_id."&cmd=delete\" > ".$langDeleteUser." </a>\n";
-echo "<a class=\"claroButton\" href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$user_id."&category=\" >  ".$langRegisterUser." </a>\n";
-
+claro_disp_button("adminuserdeleted.php?uidToEdit=".$user_id."&cmd=delete",$langDeleteUser,$langAreYouSureToDelete." ".$username_form);
+claro_disp_button("../auth/courses.php?cmd=rqReg&uidToEdit=".$user_id."&category=",$langRegisterUser);
 
 if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
 {
-    echo "<a class=\"claroButton\" href=\"adminusers.php\"> ".$langBackToUserList." </a>\n";
+    claro_disp_button("adminusers.php", $langBackToUserList);
 }
 // display footer
 

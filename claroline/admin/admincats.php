@@ -20,7 +20,13 @@ $interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationToo
 
 include($includePath."/lib/text.lib.php");
 //include($includePath."/lib/debug.lib.inc.php");
+include($includePath."/lib/admin.lib.inc.php");
 
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
+
+$is_allowedToAdmin     = $is_platformAdmin;
 
 $dateNow 			= claro_format_locale_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
@@ -898,7 +904,7 @@ if($MOVE)
 
      //add titles for the table
 
-echo "<th>".$lang_faculty_CodeCat."</td>"
+echo "<th>".$lang_faculty_CodeCat."</th>"
           ."<th style='text-align:center'>".$langEdit."</th>"
           ."<th style='text-align:center'>".$langMove."</th>"
           ."<th style='text-align:center'>".$langDelete."</th>"
@@ -1001,6 +1007,7 @@ include($includePath."/claro_init_footer.inc.php");
 
 
 					//Display the picture to edit and delete a category
+                    
 					?>
 					</td>
 					<td  align="center">

@@ -25,6 +25,12 @@ $noQUERY_STRING     = TRUE;
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/userManage.lib.php");
+include($includePath."/lib/admin.lib.inc.php");
+
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
+
 
 $dateNow             = claro_format_locale_date($dateTimeFormatLong);
 $is_allowedToAdmin     = $is_platformAdmin;

@@ -2,6 +2,12 @@
 $langFile='admin';
 $cidReset = true;
 include('../inc/claro_init_global.inc.php');
+include($includePath."/lib/admin.lib.inc.php");
+
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
+
 
 $tbl_log     = $mainDbName."`.`loginout";
 $tbl_user     = $mainDbName."`.`user";
@@ -45,10 +51,8 @@ $nameTools = $langUserCourseList;
 // initialisation of global variables and used libraries
 
 include($includePath.'/claro_init_header.inc.php');
-include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/pager.lib.php");
 
-if (! $_uid) exit("<center>You're not logged in !!</center></body>");
 if ($uidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
 
 $coursePerPage= 20;
@@ -210,12 +214,12 @@ echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
  */
      //TOOL LINKS
 
-echo "<a class=\"claroButton\" href=\"adminprofile.php?uidToEdit=".$uidToEdit."\" > See user settings</a>";
-echo "<a class=\"claroButton\" href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$uidToEdit."&category=\" > Enroll to a new course</a>";
+claro_disp_button("adminprofile.php?uidToEdit=".$uidToEdit, $langSeeUserSettings);
+claro_disp_button("../auth/courses.php?cmd=rqReg&uidToEdit=".$uidToEdit, $langEnrollToNewCourse);
 
 if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
 {
-    echo "<a class=\"claroButton\" href=\"adminusers.php\"> ".$langBackToUserList." </a>\n";
+    claro_disp_button("adminusers.php",$langBackToUserList);
     $addToUrl = "&cfrom=ulist";
 }
 

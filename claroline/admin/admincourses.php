@@ -39,12 +39,15 @@ $nameTools = $langCourseList;
 
 // initialisation of global variables and used libraries
 
-include($includePath.'/claro_init_header.inc.php');
-include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/pager.lib.php");
+include($includePath."/lib/admin.lib.inc.php");
 
-if (! $_uid) exit("<center>You're not logged in !!</center></body>");
+//SECURITY CHECK
 
+if (!$is_platformAdmin) treatNotAuthorized();
+
+include($includePath.'/claro_init_header.inc.php');
+$is_allowedToAdmin     = $is_platformAdmin;
 $coursePerPage= 20;
 
 //------------------------------------------------------------------------------------------------------------------------

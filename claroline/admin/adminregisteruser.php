@@ -19,14 +19,17 @@ $langFile = "admin";
 // initialisation of global variables and used libraries
 
 include('../inc/claro_init_global.inc.php');
-include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/pager.lib.php");
+include($includePath."/lib/admin.lib.inc.php");
+
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
 
 if ($cidToEdit=="") {unset($cidToEdit);}
 
 $userPerPage = 20; // numbers of user to display on the same page
 
-if (! $_uid) exit("<center>You're not logged in !!</center></body>");
 if ($cidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
 
 
@@ -55,6 +58,8 @@ $tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
 
 if (isset($_GET['dir']))       {$_SESSION['admin_register_dir'] = $_GET['dir'];}
 if (isset($_GET['order_crit'])){$_SESSION['admin_register_order_crit'] = $_GET['order_crit'];}
+
+
 
 //------------------------------------
 // Execute COMMAND section
@@ -241,10 +246,11 @@ echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
 */
      //TOOL LINKS
 
-echo "<a class=\"claroButton\" href=\"admincourseusers.php?cidToEdit=".$cidToEdit."\"> ".$langListCourseUsers." </a>";
+claro_disp_button("admincourseusers.php?cidToEdit=".$cidToEdit,$langAllUsersOfThisCourse);
 
        // search form
-if ($_GET['search']!="")    {$isSearched .= $_GET['search']."* ";} 
+       
+if ($_GET['search']!="")    {$isSearched .= $_GET['search']."* ";}
 if (($isSearched=="") || !isset($isSearched)) {$title = "";} else {$title = $langSearchOn." : ";}
 
 echo "<table width=\"100%\">

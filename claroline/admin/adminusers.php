@@ -19,10 +19,12 @@ $langFile = "admin";
 // initialisation of global variables and used libraries
 
 include('../inc/claro_init_global.inc.php');
-include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/pager.lib.php");
+include($includePath."/lib/admin.lib.inc.php");
 
-if (! $_uid) exit("<center>You're not logged in !!</center></body>");
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
 
 if ($cidToEdit=="") {unset($cidToEdit);}
 

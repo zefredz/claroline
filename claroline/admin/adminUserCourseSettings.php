@@ -23,6 +23,11 @@ include('../inc/claro_init_global.inc.php');
 include($includePath.'/lib/text.lib.php');
 include($includePath.'/lib/admin.lib.inc.php');
 
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
+
+
 $nameTools=$langModifUserCourseSettings;
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
@@ -214,18 +219,19 @@ if($dialogBox)
 
 // display TOOL links :
 
-echo "<a class=\"claroButton\" href=\"adminuserunregistered.php?cidToEdit=".$cidToEdit."&cmd=UnReg&uidToEdit=".$user_id."\"
-       onClick=\"return confirmationUnReg('",addslashes($prenom_form." ".$nom_form),"');\" >  ".$langUnsubscribe." </a>\n";
-echo "<a class=\"claroButton\" href=\"adminProfile.php?uidToEdit=".$uidToEdit."\"> ".$langGoToMainUserSettings." </a>\n";
+claro_disp_button("adminuserunregistered.php?cidToEdit=".$cidToEdit."&cmd=UnReg&uidToEdit=".$user_id, $langUnsubscribe, $langAreYouSureToUnsubscribe." ".$prenom_form." ".$nom_form);
+
+claro_disp_button("adminProfile.php?uidToEdit=".$uidToEdit,$langGoToMainUserSettings);
+
        //link to go back to list : depend where we come from...
 
 if ($ccfrom=="culist")//coming from courseuser list
 {
-    echo "<a class=\"claroButton\" href=\"admincourseusers.php?cidToEdit=".$cidToEdit."&uidToEdit=".$uidToEdit."\"> ".$langBackToList." </a>\n";
+    claro_disp_button("admincourseusers.php?cidToEdit=".$cidToEdit."&uidToEdit=".$uidToEdit,$langBackToList);
 }
 elseif ($ccfrom=="uclist")//coming form usercourse list
 {
-    echo "<a class=\"claroButton\" href=\"adminusercourses.php?cidToEdit=".$cidToEdit."&uidToEdit=".$uidToEdit."\"> ".$langBackToList." </a>\n";
+    claro_disp_button("adminusercourses.php?cidToEdit=".$cidToEdit."&uidToEdit=".$uidToEdit,$langBackToList);
 }
 
 // display footer

@@ -14,7 +14,12 @@ $langFile = "admin";
 include('../inc/claro_init_global.inc.php');
 
 @include ($includePath."/installedVersion.inc.php");
+include($includePath."/lib/admin.lib.inc.php");
 
+
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
 
 //------------------------------------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES

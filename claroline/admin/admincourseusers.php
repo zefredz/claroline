@@ -19,14 +19,21 @@ $langFile = "admin";
 // initialisation of global variables and used libraries
 
 include('../inc/claro_init_global.inc.php');
-include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/pager.lib.php");
+include($includePath."/lib/admin.lib.inc.php");
+
+
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
+
+$is_allowedToAdmin     = $is_platformAdmin;
+
 
 if ($cidToEdit=="") {unset($cidToEdit);}
 
 $userPerPage = 20; // numbers of user to display on the same page
 
-if (! $_uid) exit("<center>You're not logged in !!</center></body>");
 if ($cidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
 
 
@@ -245,11 +252,13 @@ echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
 */
      //TOOL LINKS
 
-echo "<a class=\"claroButton\" href=\"adminregisteruser.php?cidToEdit=".$cidToEdit."\"> ".$langEnrollUser." </a>";
+claro_disp_button("adminregisteruser.php?cidToEdit=".$cidToEdit, $langEnrollUser);
+
 if (isset($cfrom) && ($cfrom=="clist"))
 {
-    echo "<a class=\"claroButton\" href=\"admincourses.php\"> ".$langBackToCourseList." </a>";
+    claro_disp_button("admincourses.php", $langBackToCourseList);
 }
+
 //Pager
 
 $myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit);

@@ -14,6 +14,11 @@ $langFile = "admin";
 include('../inc/claro_init_global.inc.php');
 
 @include ($includePath."/installedVersion.inc.php");
+include($includePath."/lib/admin.lib.inc.php");
+
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
 
 $htmlHeadXtra[] = "<style type=\"text/css\">
 <!--
@@ -55,8 +60,6 @@ $arrayFaculty=claro_sql_query_fetch_all($sql_searchfaculty);
 //header and bredcrump display
 
 include($includePath."/claro_init_header.inc.php");
-
-if (! $_uid) exit("<center>You're not logged in !!</center></body>");
 
 //tool title
 

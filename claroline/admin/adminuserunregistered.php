@@ -23,6 +23,11 @@ include('../inc/claro_init_global.inc.php');
 include($includePath.'/lib/text.lib.php');
 include($includePath."/lib/admin.lib.inc.php");
 
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
+
+
 $nameTools=$langModifOneProfile;
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
@@ -82,8 +87,8 @@ if($dialogBox)
 // display TOOL links :
 
 
-echo "<a class=\"claroButton\" href=\"index.php\" >  ".$langBackToAdmin." </a>\n";
-echo "<a class=\"claroButton\" href=\"admincourseusers.php?cidToEdit=".$cidToEdit."\"> ".$langBackToCourseList." </a>\n";
+claro_disp_button("index.php",$langBackToAdmin);
+claro_disp_button("admincourseusers.php?cidToEdit=".$cidToEdit,$langBackToCourseList);
 
 // display footer
 

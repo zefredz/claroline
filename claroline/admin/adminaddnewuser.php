@@ -26,7 +26,11 @@ $noQUERY_STRING   = TRUE;
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/userManage.lib.php");
+include($includePath."/lib/admin.lib.inc.php");
 
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
 
 $is_allowedToAdmin 	= $is_platformAdmin;
 
@@ -282,16 +286,10 @@ if ($display_success)
    echo "<li><a href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$inserted_uid."&category=\"> ".$langRegister." </a></li>";
    echo "<li><a href=\"adminprofile.php?uidToEdit=".$inserted_uid."&category=\"> ".$langGoToUserSettings." </a></li>";
    echo "<li><a href=\"adminaddnewuser.php\"> ".$langCreateAnotherUser." </a></li>";
-   //echo "<a class=\"claroButton\" href=\"adminadduserlist.php\"> ".$langAddaListOfUsers." </a>";
    echo "<li><a href=\"index.php\"> ".$langBackToAdmin." </a></li>
    </ul>
    ";
 }
-/*
-else
-{
-   echo "<a class=\"claroButton\" href=\"adminadduserlist.php\"> ".$langAddaListOfUsers." </a>";
-}
-*/
+
 include($includePath."/claro_init_footer.inc.php");
 ?>
