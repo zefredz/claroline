@@ -78,7 +78,7 @@
    $langPathsInCourseProg = "Course progression ";
 
    // confirm
-   $langAreYouSureToDelete = "Are you sure you want to delete ";
+   $langAreYouSureToDelete = "Are you sure to delete ";
    $langModuleStillInPool = "Modules of this path will still be available in the pool of modules";
    $langAreYouSureToRemove = "Are you sure you want to remove the following module from the learning path : ";
    $langAreYouSureToRemoveSCORM = "SCORM conformant modules are definitively removed from server when deleted in their learning path.";
