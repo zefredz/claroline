@@ -19,7 +19,10 @@
 
 require '../claro_init_global.inc.php';
 
-$sourceUrl = preg_replace('|&areaContent=.*|', '', $_REQUEST['sourceUrl'] );
+$sourceUrl = preg_replace('|[&?]areaContent=.*|', '', $_REQUEST['sourceUrl'] );
+
+$urlBinder = strpos($sourceUrl, '?') ? '&' : '?';
+//$urlBinder = '&';
 
 if($_REQUEST['switch'] == 'off')
 {
@@ -29,14 +32,13 @@ if($_REQUEST['switch'] == 'off')
 elseif ($_REQUEST['switch'] == 'on' )
 {
     $_SESSION['htmlArea'] = 'enabled';
-    $areaContent = nl2br('<!-- content: html -->'.$_REQUEST['areaContent']);
+    $areaContent = urlencode(str_replace("\n", '<br />', '<!-- content: html -->'.$_REQUEST['areaContent']));
 }
 
 header('Cache-Control: no-store, no-cache, must-revalidate');   // HTTP/1.1
 header('Cache-Control: post-check=0, pre-check=0', false);
 header('Pragma: no-cache');                                     // HTTP/1.0
-header('Location: '.$sourceUrl.'&areaContent='.$areaContent);
-
+header('Location: '. $sourceUrl . $urlBinder . 'areaContent=' . $areaContent);
 
 function html2txt($content)
 {
@@ -49,7 +51,7 @@ function html2txt($content)
                              '</table[^>]*>'      => "\n\n",
                              '<tr[^>]*>'          => "\n"  ,
                              '<td[^>]*>'          => "\t"  ,
-                             '<hr[^>]*>'          => "--------------------------------------------------\n"
+                             '<hr[^>]*>'          => "\n--------------------------------------------------\n"
                             );
 
     foreach($ruleList as $pattern => $replace)
