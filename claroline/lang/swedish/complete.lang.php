@@ -42,11 +42,11 @@ du vill bli informerade när detta händer.
 
 Du kan läsa mer på:
 
-%s1		                
+%1\$s		                
 
 Eller läs forum indexet på
 
-%s2
+%2\$s
 
 Tack för att du använder forum.
 
@@ -69,10 +69,10 @@ $l_profile = "Profil";
 $l_profileof = "Visa profilen för";
 $l_publicmail = "Tillåt övriga användare att se min E-postadress";
 $l_quotemsg = "[quote]
-On %s1, %s2 wrote:
-%s3
+On %1\$s, %2\$s wrote:
+%3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]";
+$l_quotemsg = "[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]";
 $l_recptname = "Mottagare Användarnamn";
 $l_replies = "Besvarade";
 $l_reply = "Svara";

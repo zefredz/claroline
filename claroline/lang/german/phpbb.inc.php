@@ -309,18 +309,18 @@ Thema in Foren geantwortet hat und Sie die Emailbenachrichtung aktiviert haben.
 
 Sie k&ouml;nnen Ihr Thema auf
 
-%s1
+%1\$s
 
 einsehen. Oder besuchen Sie den Index der Foren auf
 
-%s2
+%2\$s
 
 Vielen Dank f&uuml;r die Benutzung der Foren.
 
 Mit freundlichen Gr&uuml;ssen,";
 
 
-$l_quotemsg	= '[quote]\n%s1 schrieb am %s2 :\n%s3\n[/quote]';
+$l_quotemsg	= '[quote]\n%1\$s schrieb am %2\$s :\n%3\$s\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Sie m&uuml;ssen den Benutzernamen des Empf&auml;ngers Ihrer $l_message eingeben.";

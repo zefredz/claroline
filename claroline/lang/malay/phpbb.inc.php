@@ -299,17 +299,17 @@ $l_notifybody	= "Anda menerima Email ini kerana mesej yang anda hantar di forum 
 
 Anda boleh melihat topik ini di:
 
-%s1
+%1\$s
 
 Atau lihat indeks forum di
 
-%s2
+%2\$s
 
 Terima Kasih kerana menggunakan forum.
 
 Semoga Ceria Selalu.";
 
-// $l_quotemsg	= '[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]';
+// $l_quotemsg	= '[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Anda perlu mengisi ID Pengguna ahli yang akan dihantarkan mesej $l_message ini.";

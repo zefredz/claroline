@@ -40,11 +40,11 @@ $l_notifybody = "Anda menerima Email ini karena pesan yang anda kirimkan ke foru
 
 Anda dapat melihat topik tsb pada:
 
-%s1
+%1\$s
 
 Atau lihat index forum pada  
 
-%s2
+%2\$s
 
 Terima kasih telah menggunakan forum.";
 $l_notifysubj = "Tanggapan terhadap topik anda telah masuk.";

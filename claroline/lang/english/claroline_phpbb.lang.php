@@ -42,11 +42,11 @@ you selected to be notified on this event.
 
 You may view the topic at:
 
-%s1
+%1\$s
 
 Or view the forum index at
 
-%s2
+%2\$s
 
 Thank you for using our forums.";
 $l_notifysubj = "A reply to your topic has been posted.";
@@ -63,13 +63,13 @@ $l_pmposted = "Reply Posted, you can click <a href=\"viewpmsg.php\">here</a> to 
 $l_posted = "Posted";
 $l_poster = "Poster";
 $l_posts = "Posts";
-$l_privnotify = "<br>You have %s1 <a href=\"%s2\">new private message(s)</a>.";
+$l_privnotify = "<br>You have %1\$s <a href=\"%2\$s\">new private message(s)</a>.";
 $l_profile = "Profile";
 $l_profileof = "View profile of";
 $l_publicmail = "Allow other users to view my email address";
 $l_quotemsg = "[quote]
-On %s1, %s2 wrote:
-%s3
+On %1\$s, %2\$s wrote:
+%3\$s
 [/quote]";
 $l_recptname = "Recipient User name";
 $l_replies = "Replies";

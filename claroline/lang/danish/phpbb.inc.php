@@ -302,18 +302,18 @@ opmærksom på dette, når det skete.
 
 You may view the topic at:
 
-%s1
+%1\$s
 
 Or view the forum index at
 
-%s2
+%2\$s
 
 Thank you for using forums.
 
 Have a nice day.";
 
 
-$l_quotemsg	= '[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]';
+$l_quotemsg	= '[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Du skal anføre brugernavnet som du ønsker at sende beskeden til.";

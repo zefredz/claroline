@@ -41,11 +41,11 @@ $l_notifybody = "U krijgt deze e-mail omdat een bericht dat u ingediend had op h
 
 U kan het onderwerp zien op:
 
-%s1
+%1\$s
 
 Of de forumindex bekijken op
 
-%s2
+%2\$s
 
 Bedankt voor het gebruiken van het forum.
 
@@ -68,10 +68,10 @@ $l_profile = "Profiel";
 $l_profileof = "Bekijk profiel van";
 $l_publicmail = "Aan de andere gebruikers uw Emailadres laten zien";
 $l_quotemsg = "[quote]
-Persoon %s1, %s2 heeft geschreven:
-%s3
+Persoon %1\$s, %2\$s heeft geschreven:
+%3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nPersoon %s1, %s2 heeft geschreven:\n%s3\n[/quote]";
+$l_quotemsg = "[quote]\nPersoon %1\$s, %2\$s heeft geschreven:\n%3\$s\n[/quote]";
 $l_recptname = "Gebruikersnaam van de bestemmeling";
 $l_replies = "Antwoorden";
 $l_reply = "Beantwoorden";

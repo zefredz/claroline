@@ -41,11 +41,11 @@ que ha enviado al foro, ya que usted ha elegido ser informado.
 
 Usted puede ver el tema en:
 
-%s1
+%1\$s
 
 O ver el &iacute;ndice del foro en
 
-%s2
+%2\$s
 
 Gracias por utilizar los foros.
 
@@ -68,10 +68,10 @@ $l_profile = "Perfil";
 $l_profileof = "Ver el perfil de";
 $l_publicmail = "Permitir a otros usuarios ver mi Direcci&oacute;n de correo electr&oacute;nico";
 $l_quotemsg = "[quote]
-El %s1, %s2 ha escrito:
-%s3
+El %1\$s, %2\$s ha escrito:
+%3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nEl %s1, %s2 ha escrito:\n%s3\n[/quote]";
+$l_quotemsg = "[quote]\nEl %1\$s, %2\$s ha escrito:\n%3\$s\n[/quote]";
 $l_recptname = "Nombre de Usuario del Destinatario";
 $l_replies = "Respuestas";
 $l_reply = "Responder";

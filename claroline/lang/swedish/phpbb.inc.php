@@ -307,18 +307,18 @@ du vill bli informerade när detta händer.
 
 Du kan läsa mer på:
 
-%s1		                
+%1\$s		                
 
 Eller läs forum indexet på
 
-%s2
+%2\$s
 
 Tack för att du använder forum.
 
 Ha en bra dag.";
 
 
-$l_quotemsg	= '[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]';
+$l_quotemsg	= '[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Du måste ange användarnamnet på den du vill skicka $l_message till.";

@@ -42,11 +42,11 @@ fosse notificado por esse evento.
 
 Você pode ver o tópico em:
 
-%s1
+%1\$s
 
 Ou ver o índice de fóruns.
 
-%s2
+%2\$s
 
 Obrigado por utilizar os fóruns.
 
@@ -69,10 +69,10 @@ $l_profile = "Perfil";
 $l_profileof = "Ver Perfil de";
 $l_publicmail = "Permitir que outros usuários vejam meu Endereço do E-mail";
 $l_quotemsg = "[quote]
-On %s1, %s2 wrote:
-%s3
+On %1\$s, %2\$s wrote:
+%3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]";
+$l_quotemsg = "[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]";
 $l_recptname = "Recipiente Nome do usuário";
 $l_replies = "Respostas";
 $l_reply = "Responder";

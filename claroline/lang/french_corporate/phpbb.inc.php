@@ -303,17 +303,17 @@ vous avez choisi d\'en être informé.
 
 Vous pouvez voir le sujet à:
 
-%s1
+%1\$s
 
 Ou voir l\'index du forum à
 
-%s2
+%2\$s
 
 Merci d\'utiliser les forums.
 
 Bonne journée.";
 
-$l_quotemsg	= '[quote]\nLe %s1, %s2 a écrit:\n%s3\n[/quote]';
+$l_quotemsg	= '[quote]\nLe %1\$s, %2\$s a écrit:\n%3\$s\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Vous devez entrer le nom d'utilisateur à qui vous désirez envoyer ce $l_message.";

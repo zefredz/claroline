@@ -320,7 +320,7 @@ Have a nice day.
 $email_sig';
 
 
-$l_quotemsg	= '[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]';
+$l_quotemsg	= '[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "You must enter the username you want to send the $l_message to.";

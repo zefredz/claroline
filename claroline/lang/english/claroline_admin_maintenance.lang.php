@@ -82,10 +82,7 @@ $langPoweredBy = "Powered by";
 $langReg = "Registration";
 $langStudentView = "Student View";
 $langSucceed = "succeed";
-$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />
-
-                     from 1.4.* to 1.5</h2>
-";
+$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />from %s to %s</h2>";
 $langTodo = "Steps todo";
 $langUpgrade = "Upgrade";
 $langUpgradeAchieved = "Upgrade Process Achieved";

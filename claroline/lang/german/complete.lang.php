@@ -90,11 +90,11 @@ Thema in Foren geantwortet hat und Sie die Emailbenachrichtung aktiviert haben.
 
 Sie k&ouml;nnen Ihr Thema auf
 
-%s1
+%1\$s
 
 einsehen. Oder besuchen Sie den Index der Foren auf
 
-%s2
+%2\$s
 
 Vielen Dank f&uuml;r die Benutzung der Foren.
 
@@ -132,11 +132,11 @@ $l_profileof = "View Profile of";
 $l_publicmail = "Allow other users to view my Email Address";
 $l_publicmail = "Email-Adresse soll f&uuml;r andere Benutzer sichtbar sein";
 $l_quotemsg = "[quote]
-On %s1, %s2 wrote:
-%s3
+On %1\$s, %2\$s wrote:
+%3\$s
 [/quote]";
-$l_quotemsg = "[quote]\n%s1 schrieb am %s2 :\n%s3\n[/quote]";
-$l_quotemsg = "[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]";
+$l_quotemsg = "[quote]\n%1\$s schrieb am %2\$s :\n%3\$s\n[/quote]";
+$l_quotemsg = "[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]";
 $l_recptname = "Benutzername des Empf&auml;ngers";
 $l_recptname = "Recipient Username";
 $l_replies = "Antworten";
@@ -1467,10 +1467,7 @@ $langTimeInLearnPath = "Zeit im Lernpfad";
 $langTipLang = "Diese Sprache wird für alle Besucher Ihrer Webseite gültig sein.";
 $langTitle = "Titel";
 $langTitle = "Title";
-$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />
-
-                     from 1.4.* to 1.5</h2>
-";
+$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />from %s to %s</h2>";
 $langTitular = "Titel";
 $langTo = "nach";
 $langToCourseSettings = "Zurück zu den Kurs-Einstellungen";

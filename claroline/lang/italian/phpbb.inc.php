@@ -287,17 +287,17 @@ tu avevi richiesto di essere avvertito in questa occasione.
 
 Puoi visionare la risposta all\'indirizzo:
 
-%s1
+%1\$s
 
 o visualizzare l\'indice dei forum di all\'indirizzo:
 
-%s2
+%2\$s
 
 Grazie per aver utilizzato i forum di.
 
 Arrivederci.";
 
-$l_quotemsg	= '[quote]\nIn data %s1, %s2 scrive:\n%s3\n[/quote]';
+$l_quotemsg	= '[quote]\nIn data %1\$s, %2\$s scrive:\n%3\$s\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "E' necessario inserire lo username di un destinatario al quale vuoi inviare un messaggio.";

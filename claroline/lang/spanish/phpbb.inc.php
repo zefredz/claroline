@@ -328,18 +328,18 @@ que ha enviado al foro, ya que usted ha elegido ser informado.
 
 Usted puede ver el tema en:
 
-%s1
+%1\$s
 
 O ver el &iacute;ndice del foro en
 
-%s2
+%2\$s
 
 Gracias por utilizar los foros.
 
 Que tenga un buen d&iacute;a.";
 
 
-$l_quotemsg	= '[quote]\nEl %s1, %s2 ha escrito:\n%s3\n[/quote]';
+$l_quotemsg	= '[quote]\nEl %1\$s, %2\$s ha escrito:\n%3\$s\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Debe escribir el nombre de usuario a quien desea enviar el $l_message.";

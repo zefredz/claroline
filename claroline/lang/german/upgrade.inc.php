@@ -3,7 +3,7 @@
 /* Welcome Page */
 
 $langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />\n
-                     from 1.4.* to 1.5</h2>\n";
+                     from %s to %s</h2>\n";
 
 $langDone = "Steps done";
 $langTodo = "Steps todo";

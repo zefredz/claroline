@@ -42,11 +42,11 @@ you selected to be notified on this event.
 
 You may view the topic at:
 
-%s1
+%1\$s
 
 Or view the forum index at
 
-%s2
+%2\$s
 
 Thank you for using forums.
 

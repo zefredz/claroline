@@ -40,11 +40,11 @@ $l_notifybody = "Saat tämän viestin, koska olet pyytänyt sähköpostiviestiä, kun 
 
 Voit katsoa aihetta:
 
-%s1
+%1\$s
 
 tai katsoa foorumien listaa:
 
-%s2
+%2\$s
 
 Kiitos, että olet käyttänyt foorumeita.
 

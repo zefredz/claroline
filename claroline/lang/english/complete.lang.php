@@ -48,7 +48,7 @@ You may view the topic at:
 
 
 
-%s1
+%1\$s
 
 
 
@@ -56,7 +56,7 @@ Or view the forum index at
 
 
 
-%s2
+%2\$s
 
 
 
@@ -75,15 +75,15 @@ $l_pmposted = "Reply Posted, you can click <a href=\"viewpmsg.php\">here</a> to 
 $l_posted = "Posted";
 $l_poster = "Poster";
 $l_posts = "Posts";
-$l_privnotify = "<br>You have %s1 <a href=\"%s2\">new private message(s)</a>.";
+$l_privnotify = "<br>You have %1\$s <a href=\"%2\$s\">new private message(s)</a>.";
 $l_profile = "Profile";
 $l_profileof = "View profile of";
 $l_publicmail = "Allow other users to view my email address";
 $l_quotemsg = "[quote]
 
-On %s1, %s2 wrote:
+On %1\$s, %2\$s wrote:
 
-%s3
+%3\$s
 
 [/quote]";
 $l_recptname = "Recipient User name";
@@ -1959,13 +1959,7 @@ $langTimeInLearnPath = "Time in learning path";
 $langTimeOver = "Time is over, results not submitted.";
 $langTipLang = "This language will be valid for every visitor of your course's website.";
 $langTitle = "Title";
-$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />
-
-
-
-                     from 1.4.* to 1.5</h2>
-
-";
+$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />from %s to %s </h2>";
 $langTitular = "Titular";
 $langTo = "to";
 $langToCourseSettings = "Back to course settings";
@@ -2293,4 +2287,9 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
+
+$langYouCanRetryToUpgrade = "You can <a href=\"%s\">retry to upgrade</a> these courses";
+$langUpgradeFailedForCourse = "Upgrade failed for course(s)";
+$langNothingToDo = "Nothing to do";
+
 ?>

@@ -299,11 +299,11 @@ $l_notifybody	= "primili ste ovaj email jer na poruku, koju ste poslali na forum
 
 Možete vidjeti teme na:
 
-%s1
+%1\$s
 
 ili vidite na forum indeks na
 
-%s2
+%2\$s
 
 Hvala Vam što koristite  forume.
 

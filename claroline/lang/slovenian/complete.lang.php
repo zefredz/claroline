@@ -42,11 +42,11 @@ you selected to be notified on this event.
 
 You may view the topic at:
 
-%s1
+%1\$s
 
 Or view the forum index at
 
-%s2
+%2\$s
 
 Thank you for using forums.
 
@@ -69,10 +69,10 @@ $l_profile = "Profile";
 $l_profileof = "View Profile of";
 $l_publicmail = "Allow other users to view my Email Address";
 $l_quotemsg = "[quote]
-On %s1, %s2 wrote:
-%s3
+On %1\$s, %2\$s wrote:
+%3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]";
+$l_quotemsg = "[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]";
 $l_recptname = "Recipient Username";
 $l_replies = "Replies";
 $l_reply = "Reply";

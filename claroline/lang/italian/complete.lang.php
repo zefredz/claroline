@@ -41,11 +41,11 @@ tu avevi richiesto di essere avvertito in questa occasione.
 
 Puoi visionare la risposta all\'indirizzo:
 
-%s1
+%1\$s
 
 o visualizzare l\'indice dei forum di all\'indirizzo:
 
-%s2
+%2\$s
 
 Grazie per aver utilizzato i forum di.
 
@@ -68,10 +68,10 @@ $l_profile = "Profilo";
 $l_profileof = "Visualizza il profilo di";
 $l_publicmail = "Permetti agli altri utenti di visualizzare il mio Indirizzo email";
 $l_quotemsg = "[quote]
-In data %s1, %s2 scrive:
-%s3
+In data %1\$s, %2\$s scrive:
+%3\$s
 [/quote]";
-$l_quotemsg = "[quote]\nIn data %s1, %s2 scrive:\n%s3\n[/quote]";
+$l_quotemsg = "[quote]\nIn data %1\$s, %2\$s scrive:\n%3\$s\n[/quote]";
 $l_recptname = "Destinatario Username";
 $l_replies = "Risposte";
 $l_reply = "Rispondi";

@@ -313,18 +313,18 @@ $l_notifybody	= "Esta mensagem de correio electr&oacute;nico informa-o do envio 
 
 Pode ver o tema em:
 
-%s1
+%1\$s
 
 Ou ver o &iacute;ndice do foro em
 
-%s2
+%2\$s
 
 Obrigado por utilizar os foros.
 
 Com os melhores cumprimentos";
 
 
-$l_quotemsg	= '[quote]\nEm %s1, %s2 escreveu:\n%s3\n[/quote]';
+$l_quotemsg	= '[quote]\nEm %1\$s, %2\$s escreveu:\n%3\$s\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Deve escrever o nome do utilizador a quem deseja enviar a $l_message.";

@@ -301,17 +301,17 @@ fosse notificado por esse evento.
 
 Você pode ver o tópico em:
 
-%s1
+%1\$s
 
 Ou ver o índice de fóruns.
 
-%s2
+%2\$s
 
 Obrigado por utilizar os fóruns.
 
 Tenha um bom dia.";
 
-$l_quotemsg	= '[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]';
+$l_quotemsg	= '[quote]\nOn %1\$s, %2\$s wrote:\n%3\$s\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Você precisa entrar com um nome de usuário e senha para emviar $l_message para.";

@@ -42,11 +42,11 @@ vous avez choisi d\'en être informé.
 
 Vous pouvez voir le sujet à:
 
-%s1
+%1\$s
 
 Ou voir l\'index du forum  à
 
-%s2
+%2\$s
 
 Merci d\'utiliser les forums .
 
@@ -65,13 +65,13 @@ $l_pmposted = "Réponse postée, vous pouvez cliquer <a href=\"viewpmsg.php\">ici<
 $l_posted = "Posté le";
 $l_poster = "Initiateur";
 $l_posts = "Messages";
-$l_privnotify = "<br>Vous avez %s1 <a href=\"%s2\">nouveau(x) message(s) privée(s)</a>.";
+$l_privnotify = "<br>Vous avez %1\$s <a href=\"%2\$s\">nouveau(x) message(s) privée(s)</a>.";
 $l_profile = "Profil";
 $l_profileof = "Voir le profil de";
 $l_publicmail = "Autoriser les autres membres à voir votre Adresse e-mail";
 $l_quotemsg = "[quote]
-Le %s1, %s2 a écrit:
-%s3
+Le %1\$s, %2\$s a écrit:
+%3\$s
 [/quote]";
 $l_recptname = "Nom d'utilisateur du destinataire";
 $l_replies = "Réponses";
