@@ -252,11 +252,17 @@ if($is_allowedToEdit)
 		if( !isset($_REQUEST['submitAssignment'] ) )
 		{
 			// get current settings to fill in the form
-			$sql = "SELECT * 
+			$sql = "SELECT title, description,  
+						   start_date,
+                           end_date,
+                           authorized_content,
+                           def_submission_visibility,
+                           assignment_type,
+                           allow_late_upload
+		 
 					FROM `".$tbl_wrk_assignment."`
 					WHERE `id` = ".$_REQUEST['assigId'];
 			list($modifiedAssignment) = claro_sql_query_fetch_all($sql);
-			
 			
 			// set values to pre-fill the form
 			$form['assigTitle'          ] = $modifiedAssignment['title'];
