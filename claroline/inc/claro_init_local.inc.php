@@ -947,7 +947,8 @@ if ($uidReset || $cidReset)
                LEFT JOIN `".$tbl_tool."` pct
                ON       pct.id = ctl.tool_id
    
-               WHERE ctl.access IN (\"".implode("\", \"", $reqAccessList)."\")";
+               WHERE ctl.access IN (\"".implode("\", \"", $reqAccessList)."\")
+               ORDER BY ctl.rank";
     
         $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
         
