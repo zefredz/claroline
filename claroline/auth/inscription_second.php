@@ -34,11 +34,11 @@ $TABLEUSER  = $tbl_mdb_names['user'];
 
 
 
-if (!isset($userMailCanBeEmpty))   $userMailCanBeEmpty   = true;
-if (!isset($checkEmailByHashSent)) $checkEmailByHashSent = false;
-if (!isset($userPasswordCrypted))  $userPasswordCrypted	 = false;
+if (!isset($userMailCanBeEmpty))   $userMailCanBeEmpty   = TRUE;
+if (!isset($checkEmailByHashSent)) $checkEmailByHashSent = FALSE;
+if (!isset($userPasswordCrypted))  $userPasswordCrypted	 = FALSE;
 
-$regDataOk = false; // default value...
+$regDataOk = FALSE; // default value...
 
 claro_disp_tool_title($langRegistration);
 
@@ -66,11 +66,11 @@ if($submitRegistration)
         || empty($password1) || empty($password)
 		|| empty($uname)     || (empty($email) && !$userMailCanBeEmpty) )
 	{
-		$regDataOk = false;
+		$regDataOk = FALSE;
 
 		unset($password1, $password);
 
-		echo	"<p>",$langEmptyFields,"</p>\n";
+		echo	'<p>'.$langEmptyFields.'</p>'."\n";
 	}
 
 	// CHECK IF THE TWO PASSWORD TOKEN ARE IDENTICAL
@@ -80,7 +80,7 @@ if($submitRegistration)
 		$regDataOk = false;
 		unset($password1, $password);
 
-		echo	"<p>",$langPassTwice,"</p>\n";
+		echo '<p>'.$langPassTwice.'</p>'."\n";
 	}
 
 
@@ -92,8 +92,8 @@ if($submitRegistration)
                                           array($uname, $officialCode, 
                                                 $nom, $prenom, $email) ) )
     {
-        $regDataOk = false;
-        echo "<p>".$langPassTooEasy." : <code>".substr( md5( date('Bis').$HTTP_REFFERER ), 0, 8 )."</code></p>\n";
+        $regDataOk = FALSE;
+        echo '<p>'.$langPassTooEasy.' <code>'.substr( md5( date('Bis').$HTTP_REFFERER ), 0, 8 ).'</code></p>'."\n";
     }
     
 
@@ -101,17 +101,19 @@ if($submitRegistration)
 
     elseif( !empty($email) && ! eregi( $regexp, $email ))
 	{
-		$regDataOk = false;
+		$regDataOk = FALSE;
 		unset($password1, $password, $email);
 
-		echo	"<p>",$langEmailWrong,".</p>\n";
+		echo '<p>'
+           . $langEmailWrong
+           . '.</p>'."\n";
 	}
 
 	// CHECK IF THE LOGIN NAME IS ALREADY OWNED BY ANOTHER USER
 
 	else
 	{
-        $sql = "SELECT COUNT(*) loginCount
+        $sql = "SELECT COUNT(*) `loginCount`
                 FROM `".$TABLEUSER."` 
                 WHERE username=\"".$uname."\"";
 
@@ -119,26 +121,35 @@ if($submitRegistration)
 
         if ($result['loginCount'] > 0)
         {
-            $regDataOk = false;
+            $regDataOk = FALSE;
 
             unset($password1, $password, $uname);
 
-            echo "<p>",$langUserTaken,"</p>\n";
+            echo '<p>'.$langUserTaken.'</p>'."\n";
         }
         else
         {
-			$regDataOk = true;
+			$regDataOk = TRUE;
         }
     }
 }
 
 if ( ! $regDataOk)
 {
-	echo	"<p>",
-			"<a href=\"inscription.php?nom=",$nom,"&prenom=",$prenom,"&uname=",$uname,"&email=",$email,"&officialCode=",$officialCode,"&phone=",$phone,"&statut=",$statut,"\">",
-			$langAgain,
-			"</a>",
-			"</p>\n";
+	echo '<p>'
+       . '<a href="inscription.php'
+       . '?nom='.$nom
+       . '&amp;prenom='.$prenom
+       . '&amp;uname='.$uname
+       . '&amp;email='.$email
+       . '&amp;officialCode='.$officialCode
+       . '&amp;phone='.$phone
+       . '&amp;statut='.$statut
+       . '">'
+	   . $langAgain
+       . '</a>'
+       . '</p>'."\n"
+       ;
 }
 
 
@@ -177,7 +188,7 @@ if ($_uid)
 	$_user['firstName']     = $prenom;
 	$_user['lastName' ]     = $nom;
 	$_user['mail'     ]     = $email;
-	$is_allowedCreateCourse = ($statut == 1) ? true : false ;
+	$is_allowedCreateCourse = ($statut == 1) ? TRUE : FALSE ;
         
     session_register("_uid");
     session_register("_user");
