@@ -42,6 +42,9 @@ earningPathList.php .  La valeur du path de l'outil ne devrait pas contenir de
 ../ dans la mesure on on essaie de plus en plus d'utiliser des url absolues à 
 partir des $*Sys et $*Web du fichier de config
 
+Repéré par : SEB
+Assigné à : SEB
+Etat : RESOLU
 ------------------------------------------------------------------
 7. DOCUMENT.  upload d'une page HTML contenant des images, problèmes lors de la 
 modifications des paths des images au sein du document, les images ne 
@@ -111,6 +114,9 @@ Repéré par : MOOSH
 
 -------------
 $Log$
+Revision 1.19  2004/06/14 13:10:31  seb
+bug 6 resolu
+
 Revision 1.18  2004/06/14 13:06:13  moosh
 ------------------------------------------------------------------
 
