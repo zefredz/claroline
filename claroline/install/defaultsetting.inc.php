@@ -19,8 +19,8 @@
     $dbNameForm     = $dbPrefixForm."claroline";
     $dbStatsForm    = $dbPrefixForm."claroline";
     $dbPrefixForm   = $dbPrefixForm."c_";
-    $mainTblPrefixForm  = "CL_";
-    $statTblPrefixForm  = "CL_";
+    $mainTblPrefixForm  = "cl_";
+    $statTblPrefixForm  = "cl_";
 
     $singleDbForm   = true;
     $enableTrackingForm = true;
