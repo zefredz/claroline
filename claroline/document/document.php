@@ -92,7 +92,6 @@ else
 
     $maxFilledSpace   = $maxFilledSpace_for_course;
     $courseDir   = $_course['path'].'/document';
-    $dbTable     = $_course['dbNameGlu'].'document';
 
 	// initialise view mode tool
 	claro_set_display_mode_available(TRUE);
@@ -100,6 +99,28 @@ else
     $is_allowedToEdit  = claro_is_allowed_to_edit();
     $is_allowedToUnzip = claro_is_allowed_to_edit();
     $maxFilledSpace    = isset($maxFilledSpace_for_course)?$maxFilledSpace_for_course:50*1024*1024;
+
+    // table names for learning path (needed to check integrity)
+
+    /*
+     * DB tables definition
+     */
+
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+
+    $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
+    $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+    $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+    $tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
+    $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
+
+    $TABLELEARNPATH            = $tbl_lp_learnPath;
+    $TABLELEARNPATHMODULE      = $tbl_lp_rel_learnPath_module;
+    $TABLEUSERMODULEPROGRESS   = $tbl_lp_user_module_progress;
+    $TABLEMODULE               = $tbl_lp_module;
+    $TABLEASSET                = $tbl_lp_asset;
+
+    $dbTable = $tbl_cdb_names['document'];
 }
 
 $baseWorkDir = $baseServDir.$courseDir;
@@ -112,44 +133,21 @@ if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 if($is_allowedToEdit) // for teacher only
 {
-	include ($includePath.'/lib/fileManage.lib.php');
-	include ($includePath.'/lib/fileUpload.lib.php');
+	require $includePath.'/lib/fileManage.lib.php';
+	require $includePath.'/lib/fileUpload.lib.php';
 
 	if ($uncompress == 1)
 	{
-		include($includePath."/lib/pclzip/pclzip.lib.php");
+		require $includePath.'/lib/pclzip/pclzip.lib.php';
 	}
 }
 
 
 // clean information submited by the user from antislash
 
-stripSubmitValue($HTTP_POST_VARS);
-stripSubmitValue($HTTP_GET_VARS);
 stripSubmitValue($_REQUEST);
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-
-
-// table names for learning path (needed to check integrity)
-
-/*
- * DB tables definition
- */
-
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
-$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
-$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
-$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
-$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
-
-$TABLELEARNPATH            = $tbl_lp_learnPath;
-$TABLELEARNPATHMODULE      = $tbl_lp_rel_learnPath_module;
-$TABLEUSERMODULEPROGRESS   = $tbl_lp_user_module_progress;
-$TABLEMODULE               = $tbl_lp_module;
-$TABLEASSET                = $tbl_lp_asset;
-
 
                   /* > > > > > > MAIN SECTION  < < < < < < <*/
 
@@ -431,9 +429,15 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
         if ( ! empty($fileName) && ! empty($url) )
         {
-            $linkFileExt = ".url";
+            $linkFileExt = '.url';
             create_link_file( $baseWorkDir.$_REQUEST['cwd'].'/'.$fileName.$linkFileExt, 
                               $url);
+
+            if ( trim($_REQUEST['cwd']) != '')
+            {
+                update_db_info('update', $_REQUEST['cwd'].'/'.$fileName.$linkFileExt, 
+                                array('comment' => trim($_REQUEST['comment']) ) );
+            }
         }
         else
         {
@@ -456,11 +460,17 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
                      ."<input type=\"text\" id=\"fileName\" name=\"fileName\"><br />\n"
                      ."<label for=\"url\">".$langURL."</label><br />\n"
                      ."<input type=\"text\" id=\"url\" name=\"url\" value=\"".$url."\">\n"
+                     ."<br><br>\n"
+                     ."<label for=\"comment\">\n"
+                     ."Add a comment (optionnal) :\n"
+                     ."</label>\n"
+                     ."<br>\n"
+                     ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
+                     ."<br>\n"
                      ."<input type=\"submit\" value=\"".$langOk."\">\n"
                      ."</form>\n";
 
     }
-
 
 	/*========================================================================
                              MOVE FILE OR DIRECTORY
@@ -655,6 +665,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
             $result = mysql_query ($sql);
             while( $row = mysql_fetch_array($result, MYSQL_ASSOC) ) $oldComment = $row['comment'];
 
+            //list($oldComment) = claro_sql_query_fetch_all($sql);
+
             $dialogBox .= "<p>\n<label for=\"newComment\">"
                           .$langAddModifyComment." ".htmlspecialchars($fileName)."</label>\n"
                           ."<br><textarea rows=2 cols=50 name=\"newComment\" id=\"newComment\">"
@@ -749,6 +761,15 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 	}
 } // END is Allowed to Edit
 
+if ($cmd == 'rqSearch')
+{
+    $dialogBox .=	 "<form>\n"
+                    ."<input type=\"hidden\" name=\"cmd\" value=\"exSearch\">\n"					
+                    ."<label for=\"searchPattern\">Search : </label>\n"
+                    ."<input type=\"text\" id=\"searchPattern\" name=\"searchPattern\">\n"
+                    ."<input type=\"submit\" value=\"".$langOk."\">\n"
+                    ."</form>\n";
+}
 
 
 
@@ -774,7 +795,6 @@ elseif ($cmd == 'exMv')
 {
 	$curDirPath = $_REQUEST['destination'];
 }
-
 else
 {
 	$curDirPath = '';
@@ -804,44 +824,57 @@ if ($parentDir == '/' || $parentDir == '\\')
                          READ CURRENT DIRECTORY CONTENT
   ============================================================================*/
 
-
 /*----------------------------------------------------------------------------
                      LOAD FILES AND DIRECTORIES INTO ARRAYS
   ----------------------------------------------------------------------------*/
 
-chdir (realpath($baseWorkDir.$curDirPath)) 
-or die("<center>
-       <b>Wrong directory !</b>
-       <br> Please contact your platform administrator.
-       </center>");
-$handle = opendir(".");
+// $resultFileList = array();
 
-define('A_DIRECTORY', 1);
-define('A_FILE',      2);
-
-
-while ($file = readdir($handle))
+if ($cmd == 'exSearch')
 {
-	if ($file == '.' || $file == '..')
-	{
-		continue;						// Skip current and parent directories
-	}
+    $searchPattern   = $_REQUEST['searchPattern'];
+    $searchRecursive = true;
+    $searchBasePath  = $baseWorkDir;
+}
+else
+{
+    $searchPattern   = '';
+    $searchRecursive = false;
+    $searchBasePath  = $baseWorkDir.$curDirPath;
+}
 
-	$fileList['name'][] = $file;
-	
-	if(is_dir($file))
-	{
-		$fileList['type'][] = A_DIRECTORY;
-		$fileList['size'][] = false;
-		$fileList['date'][] = false;
-	}
-	elseif(is_file($file))
-	{
-		$fileList['type'][] = A_FILE;
-		$fileList['size'][] = filesize($file);
-		$fileList['date'][] = filectime($file);
-	}
-}				// end while ($file = readdir($handle))
+$filePathList = claro_search_file($searchPattern, 
+                                  $searchBasePath, 
+                                  $searchRecursive);
+
+for ($i =0; $i < count($filePathList); $i++ )
+{
+    $filePathList[$i] = str_replace($baseWorkDir, '', $filePathList[$i]);
+}
+
+if ( count($filePathList) > 0 )
+{
+    define('A_DIRECTORY', 1);
+    define('A_FILE',      2);
+
+    foreach($filePathList as $thisFile)
+    {
+        $fileList['name'][] = $thisFile;
+        
+        if( is_dir($baseWorkDir.$thisFile) )
+        {
+            $fileList['type'][] = A_DIRECTORY;
+            $fileList['size'][] = false;
+            $fileList['date'][] = false;
+        }
+        elseif( is_file($baseWorkDir.$thisFile) )
+        {
+            $fileList['type'][] = A_FILE;
+            $fileList['size'][] = claro_get_file_size($baseWorkDir.$thisFile);
+            $fileList['date'][] = filectime($baseWorkDir.$thisFile);
+        }
+    }
+}
 
 if ($courseContext && $fileList)
 {
@@ -853,67 +886,49 @@ if ($courseContext && $fileList)
      * Search infos in the DB about the current directory the user is in
      */
 
-    $sql = "SELECT path, visibility, comment FROM `$dbTable` 
-            WHERE path LIKE    \"".$curDirPath."/%\" 
-            AND   path NOT LIKE \"".$curDirPath."/%/%\"";
+        $sql = "SELECT `path`, `visibility`, `comment` 
+                FROM `".$dbTable."` 
+                WHERE path IN ('".implode("', '", array_map('addslashes', $fileList['name']) )."')";
 
-    $result = claro_sql_query($sql);
-
-    if ($result)
-    {
-        $attribute = array('path'    => array(), 'visibility' => array(), 
-                           'comment' => array());
-
-        while($row = mysql_fetch_array($result, MYSQL_ASSOC))
-        {   /* we should rather use claro_sql_query_fetch_all
-               but it was technically impossible ... */
-            $attribute['path'      ][] = $row['path'      ];
-            $attribute['visibility'][] = $row['visibility'];
-            $attribute['comment'   ][] = $row['comment'   ];
-        }
-    }
+    $attributeList = claro_sql_query_fetch_all_cols($sql);
 
     /*
      * Make the correspondance between info given by the file system 
      * and info given by the DB
      */
 
-    if ( count($attribute) > 0)
+    foreach($fileList['name'] as $thisFile)
     {
-        foreach($fileList['name'] as $thisFile)
+        $keyAttribute = array_search($thisFile, $attributeList['path']);
+
+        if ($keyAttribute !== false)
         {
-            $keyAttribute = array_search($curDirPath.'/'.$thisFile, 
-                                         $attribute['path']);
+            $fileList['comment'   ][] = $attributeList['comment'   ][$keyAttribute];
+            $fileList['visibility'][] = $attributeList['visibility'][$keyAttribute];
 
-            if ($keyAttribute !== false)
-            {
-                $fileList['comment'   ][] = $attribute['comment'   ][$keyAttribute];
-                $fileList['visibility'][] = $attribute['visibility'][$keyAttribute];
+            /*
+             * Progressively unset the attribut to be able to check at the 
+             * end if it remains unassigned attribute - which should mean 
+             * there is  base integrity problem
+             */
 
-                /*
-                 * Progressively unset the attribut to be able to check at the 
-                 * end if it remains unassigned attribute - which should mean 
-                 * there is  base integrity problem
-                 */
-
-                unset ($attribute['comment'   ][$keyAttribute],
-                       $attribute['visibility'][$keyAttribute],
-                       $attribute['path'      ][$keyAttribute]);
-            }
-            else
-            {
-                    $fileList['comment'   ][] = false;
-                    $fileList['visibility'][] = false;
-            }
-        }  // end foreach fileList[name] as thisFile
-
-    } // end if count attribute > 0
+            unset ($attributeList['comment'   ][$keyAttribute],
+                   $attributeList['visibility'][$keyAttribute],
+                   $attributeList['path'      ][$keyAttribute]);
+        }
+        else
+        {
+            $fileList['comment'   ][] = false;
+            $fileList['visibility'][] = false;
+        }
+    }  // end foreach fileList[name] as thisFile
+    
 
     /*------------------------------------------------------------------------
                               CHECK BASE INTEGRITY
       ------------------------------------------------------------------------*/
 
-    if ( count($attribute['path']) > 0 )
+    if ( count($attributeList['path']) > 0 )
     {
         $sql = "DELETE FROM `".$dbTable."` 
                 WHERE `path` IN ( \"".implode("\" , \"" , $attribute['path'])."\" )";
@@ -921,7 +936,7 @@ if ($courseContext && $fileList)
         claro_sql_query($sql);
 
         $sql = "DELETE FROM `".$dbTable."` 
-               WHERE comment LIKE '' AND visibility LIKE 'v'";
+                WHERE comment LIKE '' AND visibility LIKE 'v'";
 
         claro_sql_query($sql);
         /* The second query clean the DB 'in case of' empty records (no comment an visibility=v)
@@ -940,12 +955,12 @@ if ($courseContext && $fileList)
 
 if ($fileList)
 {
-	if ($courseContext)
-	{
-        array_multisort($fileList['type'], $fileList['name'], 
-                        $fileList['size'], $fileList['date'],
-                        $fileList['comment'],$fileList['visibility']);
-	}
+    if ($courseContext)
+    {
+        array_multisort($fileList['type'   ], $fileList['name'      ], 
+                        $fileList['size'   ], $fileList['date'      ],
+                        $fileList['comment'], $fileList['visibility']);
+    }
     else
     {
         array_multisort($fileList['type'], $fileList['name'], 
@@ -953,7 +968,6 @@ if ($fileList)
     }
 }
 
-closedir($handle);
 unset($attribute);
 
 
@@ -978,7 +992,7 @@ $htmlHeadXtra[] =
 "<script>
 function confirmation (name)
 {
-	if (confirm(\" $langAreYouSureToDelete \"+ name + \" ?\"))
+	if (confirm(\" ".$langAreYouSureToDelete." \"+ name + \" ?\"))
 		{return true;}
 	else
 		{return false;}
@@ -1025,45 +1039,63 @@ claro_disp_tool_title($titleElement,
 
 	/* GO TO PARENT DIRECTORY */
 
-    echo "<p>\n";
-	
+    echo "<p>\n"
+        ."<b>\n";
+
 	if ($curDirName) /* if the $curDirName is empty, we're in the root point 
 	                    and we can't go to a parent dir */
 	{
-		echo 	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n",
-				"<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\"\">\n",
-				"<small>".$langUp."</small>\n",
-				"</a>\n";
+		echo "&nbsp;"
+            ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n"
+			."<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" alt=\"\">\n"
+			."<small>".$langUp."</small>\n"
+			."</a>\n";
 	}
+    else
+    {
+        echo "&nbsp;\n"
+            ."<img src=\"".$clarolineRepositoryWeb."img/parentdisabled.gif\" border=\"0\" alt=\"\">\n"
+            ."<small style='color:gray'>".$langUp."</small>\n"
+            ."</a>\n";
+    }
+
+    echo "&nbsp;\n"
+        ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch\">\n"
+        ."<img src=\"".$clarolineRepositoryWeb."img/search.gif\" border=\"0\" alt=\"\">\n"
+        ."<small>Search</small>\n"
+        ."</a>\n";
 
 	if ($is_allowedToEdit)
 	{
 		/* CREATE DIRECTORY - UPLOAD FILE - CREATE HYPERLINK */
 		
-        echo    "&nbsp;",
-                "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"".$clarolineRepositoryWeb."img/dossier.gif\" alt=\"\">",
-                "<small>".$langCreateDir."</small>",
-                "</a>\n",
-                "&nbsp;",
-                "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"".$clarolineRepositoryWeb."img/liens.gif\" alt=\"\">",
-                "<small>".$langCreateHyperlink."</small>",
-                "</a>\n",
-                "<a href=\"rqmkhtml.php?cmd=rqMkHtml&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"".$clarolineRepositoryWeb."img/html.gif\" alt=\"\">",
-                "<small>".$langCreateDocument."</small>",
-                "</a>\n",
-                "&nbsp;",
-                "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"".$clarolineRepositoryWeb."img/download.gif\" alt=\"\">",
-                "<small><b>".$langUploadFile."</b></small>",
-                "</a>\n";
+        echo "&nbsp;&nbsp;&nbsp;&nbsp;"
+            ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">"
+            ."<img src=\"".$clarolineRepositoryWeb."img/download.gif\" alt=\"\">"
+            ."<small><b>".$langUploadFile."</b></small>"
+            ."</a>\n"
+            ."&nbsp;"
+            ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">"
+            ."<img src=\"".$clarolineRepositoryWeb."img/dossier.gif\" alt=\"\">"
+            ."<small>".$langCreateDir."</small>"
+            ."</a>\n"
+            ."&nbsp;"
+            ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">"
+            ."<img src=\"".$clarolineRepositoryWeb."img/liens.gif\" alt=\"\">"
+            ."<small>".$langCreateHyperlink."</small>"
+            ."</a>\n"
+            ."<a href=\"rqmkhtml.php?cmd=rqMkHtml&cwd=".$cmdCurDirPath."\">"
+            ."<img src=\"".$clarolineRepositoryWeb."img/html.gif\" alt=\"\">"
+            ."<small>".$langCreateDocument."</small>"
+            ."</a>\n";
 	}
 
-    echo "</p>";
 
-    echo "<table class=\"claroTable\" width=\"100%\">";
+
+    echo "<b>\n"
+        ."</p>\n";
+
+    echo "<table class=\"claroTable\" width=\"100%\">\n";
 
 
 	/* CURRENT DIRECTORY */
@@ -1071,26 +1103,26 @@ claro_disp_tool_title($titleElement,
 	if ($curDirName) /* if the $curDirName is empty, we're in the root point 
 	                    and there is'nt a dir name to display */
 	{
-		echo	"<!-- current dir name -->\n",
-				"<tr>\n",
-				"<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n",
-				"<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n",
-                $dspCurDirName,"\n",
-				"</td>\n",
-				"</tr>\n";
+		echo "<!-- current dir name -->\n"
+			."<tr>\n"
+			."<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n"
+			."<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
+            .$dspCurDirName,"\n"
+			."</td>\n"
+			."</tr>\n";
 	}
 
 	echo		"<tr class=\"headerX\" align=\"center\" valign=\"top\">\n";
 
-	echo		"<th>$langName</th>\n",
-				"<th>$langSize</th>\n",
-				"<th>$langDate</th>\n";
+	echo "<th>".$langName."</th>\n"
+		."<th>".$langSize."</th>\n"
+		."<th>".$langDate."</th>\n";
 			
 	if ($is_allowedToEdit)			
 	{
-		echo	"<th>".$langDelete."</th>\n"
-				."<th>".$langMove."</th>\n"
-				."<th>".$langModify."</th>\n";
+		echo "<th>".$langDelete."</th>\n"
+			."<th>".$langMove."</th>\n"
+			."<th>".$langModify."</th>\n";
 
                 if ($courseContext)
                 {
@@ -1119,9 +1151,9 @@ claro_disp_tool_title($titleElement,
             // poses problems on PHP 4.1, when the array contains only 
             // a single element
 
-            $dspFileName = htmlentities($fileName);
-			$cmdFileName = rawurlencode($curDirPath.'/'.$fileName);
-			
+            $dspFileName = htmlspecialchars( basename($fileName) );
+			$cmdFileName = rawurlencode($fileName);
+
 			if ($fileList['visibility'][$fileKey] == 'i')
 			{
 				if ($is_allowedToEdit)
@@ -1143,7 +1175,7 @@ claro_disp_tool_title($titleElement,
 				$image       = choose_image($fileName);
 				$size        = format_file_size($fileList['size'][$fileKey]);
 				$date        = format_date($fileList['date'][$fileKey]);
-                $urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
+                $urlFileName = 'goto/?doc_url='.urlencode($cmdFileName);
                 //$urlFileName = "goto/index.php".str_replace('%2F', '/', $cmdFileName);
                 
                 //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
@@ -1191,11 +1223,11 @@ claro_disp_tool_title($titleElement,
 						
 				/* EDIT COMMAND */
 
-				echo	"<td>",
-						"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqEdit&file=",$cmdFileName,"\">",
-						"<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\">",
-						"</a>",
-						"</td>\n";
+				echo "<td>"
+					."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEdit&file=".$cmdFileName."\">"
+					."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langModify."\">"
+					."</a>"
+					."</td>\n";
 
                 echo	"<td>";
 
@@ -1205,10 +1237,10 @@ claro_disp_tool_title($titleElement,
 
                     if ($fileList['type'][$fileKey] == A_FILE)
                     {
-                        echo	"<a href=\"../work/work.php?",
-                                "submitGroupWorkUrl=".$groupDir.$cmdFileName."\">",
-                                "<small>",$langPublish,"</small>",
-                                "</a>";
+                        echo "<a href=\"../work/work.php?"
+                            ."submitGroupWorkUrl=".$groupDir.$cmdFileName."\">"
+                            ."<small>".$langPublish."</small>"
+                            ."</a>";
                     }
                     // else noop
                 }
@@ -1218,15 +1250,15 @@ claro_disp_tool_title($titleElement,
 
                     if ($fileList['visibility'][$fileKey] == "i")
                     {
-                        echo	"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&file=",$cmdFileName,"&vis=v\">",
-                                "<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"$langMakeVisible\">",
-                                "</a>";
+                        echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&file=",$cmdFileName,"&vis=v\">"
+                            ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
+                            ."</a>";
                     }
                     else
                     {
-                        echo	"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&file=",$cmdFileName,"&vis=i\">",
-                                "<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">",
-                                "</a>";
+                        echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&file=",$cmdFileName,"&vis=i\">"
+                            ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">"
+                            ."</a>";
                     }
                 }
 				
@@ -1237,24 +1269,23 @@ claro_disp_tool_title($titleElement,
 			
 			/* COMMENTS */
 			
-			if ($fileList['comment'][$fileKey] != "" )
+			if ($fileList['comment'][$fileKey] != '' )
 			{
 				$fileList['comment'][$fileKey] = htmlspecialchars($fileList['comment'][$fileKey]);
 				$fileList['comment'][$fileKey] = claro_parse_user_text($fileList['comment'][$fileKey]);
 
-				echo	"<tr align=\"left\">\n",
-						"<td colspan=\"$colspan\">",
-						"<div class=\"comment\">",
-						$fileList['comment'][$fileKey],
-						"</div>",
-						"</td>\n",
-						"</tr>\n";
+				echo "<tr align=\"left\">\n"
+					."<td colspan=\"$colspan\">"
+					."<div class=\"comment\">"
+					.$fileList['comment'][$fileKey]
+					."</div>"
+					."</td>\n"
+					."</tr>\n";
 			}
 		}				// end each ($fileList)
 	}					// end if ( $fileList)
 	
-	echo	"</tbody>",
-            "</table>\n";
+	echo "</tbody>"
+         ."</table>\n";
 
-include($includePath."/claro_init_footer.inc.php"); 
-?>
+include $includePath.'/claro_init_footer.inc.php';
