@@ -135,14 +135,14 @@ foreach($toolList as $thisTool)
     if ( ! empty($url) )
     {
         echo "<a $style href=\"".$url."\">"
-            ."<img src=\"".$icon."\" hspace=\"5\" alt=\" \">".$toolName
+            ."<img src=\"".$icon."\" hspace=\"5\" alt=\"\">".$toolName
             ."</a>"
             ."<br>\n";
     }
     else
     {
         echo "<span".$style.">"
-            ."<img src=\"".$icon."\" alt=\" \">"
+            ."<img src=\"".$icon."\" alt=\"\">"
             .$toolName
             ."</span><br>\n";
     }
@@ -152,7 +152,7 @@ if ($is_allowedToEdit)
 {
     echo '<p>';
     claro_disp_button($clarolineRepositoryWeb."course_home/course_home_edit.php",
-                      "<img align=\"absbottom\" src=\"".$imgRepository."edit.gif\" alt=\" \">"
+                      "<img align=\"absbottom\" src=\"".$imgRepository."edit.gif\" alt=\"\">"
                       .$langEditToolList);
     echo '</p><p></p>'; // the empty <p></p> is necessary otherwise the button
                         // bottom is bitten in IE
@@ -194,10 +194,10 @@ if ($is_allowedToEdit)
     echo "<hr noshade size=\"1\">";
 
     echo "Course Administration :&nbsp;&nbsp;&nbsp;&nbsp;";
-    echo "<img src=\"".$imgRepository."/referencement.gif\" alt=\" \">";
+    echo "<img src=\"".$imgRepository."/referencement.gif\" alt=\"\">";
     echo "<a href=\"".$toolRepository."course_info/infocours.php\">".$langModifInfo."</a>&nbsp;&nbsp;&nbsp;&nbsp;";
     // langModifInfo stands for 'course setting' ...
-    echo "<img src=\"".$imgRepository."/statistiques.gif\" alt=\" \">";
+    echo "<img src=\"".$imgRepository."/statistiques.gif\" alt=\"\">";
 
     echo "<a href=\"".$toolRepository."tracking/courseLog.php\">".$langStats."</a>";
     // $langStats stands for Statistics
