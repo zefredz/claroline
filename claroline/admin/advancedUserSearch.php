@@ -49,7 +49,7 @@ $tbl_faculty      = $mainDbName.'`.`faculte';
 // Deal with interbredcrumps  and title variable
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
-$nameTools = $langSearchUserAdvanced." : ";
+$nameTools = $langSearchUserAdvanced;
 
 // Search needed info in db to creat the right formulaire
 
@@ -63,7 +63,7 @@ include($includePath."/claro_init_header.inc.php");
 
 //tool title
 
-claro_disp_tool_title($nameTools);
+claro_disp_tool_title($nameTools." : ");
 
 ?>
 
