@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -30,8 +30,6 @@ include($includePath.'/lib/fileManage.lib.php');
 $dateNow 			= claro_format_locale_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
 
-/* Pour le lien vers ces stat et ces cours
-$tbl_log    = $mainDbName."`.`loginout";*/
 $tbl_user   = $mainDbName."`.`user";
 
 
