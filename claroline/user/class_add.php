@@ -14,7 +14,7 @@ $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
             {
-                if (confirm(\" Are you sure you want to enroll the whole class to the course ".$lang."?\"))
+                if (confirm(\"" . $langConfirmEnrollClassToCourse . "\"))
                     {return true;}
                 else
                     {return false;}
