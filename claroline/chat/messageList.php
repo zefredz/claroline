@@ -189,10 +189,12 @@ if ($store && $is_allowedToStore)
 if ($chatLine)
 {
 	$fchat = fopen($activeChatFile,'a');
-	
+	$chatLine = htmlspecialchars( stripslashes($chatLine) );
+	$chatLine = ereg_replace("(http://)(([[:punct:]]|[[:alnum:]])*)","<a href=\"\\0\" target=\"_blank\">\\2</a>",$chatLine);
+
 	fwrite($fchat,
 	       '<small>'
-	       .$timeNow.' <b>'.$nick.'</b> &gt; '.htmlspecialchars( stripslashes($chatLine) )
+	       .$timeNow.' <b>'.$nick.'</b> &gt; '.$chatLine
 	       ."</small><br />\n");
 	
 	fclose($fchat);
