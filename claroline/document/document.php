@@ -768,6 +768,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 	}
 } // END is Allowed to Edit
 
+
+
 if ($cmd == 'rqSearch')
 {
     $dialogBox .=	 "<form>\n"
@@ -1068,17 +1070,14 @@ claro_disp_tool_title($titleElement,
                       $is_allowedToEdit ? 'help_document.php' : false);
 
 
-	if($is_allowedToEdit)
-	{
-		/*--------------------------------------------------------------------
-                               DIALOG BOX SECTION
-		  --------------------------------------------------------------------*/
+    /*--------------------------------------------------------------------
+                           DIALOG BOX SECTION
+      --------------------------------------------------------------------*/
 
-		if ($dialogBox)
-		{
-            		claro_disp_message_box($dialogBox);
-		}
-	}
+    if ($dialogBox)
+    {
+                claro_disp_message_box($dialogBox);
+    }
 
 	$is_allowedToEdit ? $colspan = 7 : $colspan = 3;
 	
