@@ -50,9 +50,9 @@ $langAllowAnonymous = "Allow anonymous users";
 $langAnonAllowed = "Yes, anonymous users can submit works"; 
 $langAnonNotAllowed = "No, anonymous users can not submit works";
 
-$langPreventLateUploadShort = "Prevent late upload";
-$langPreventLateUpload = "Yes, prevent users to submit works after deadline";
-$langAllowLateUpload = "No, allow users to submit works after deadline";
+$langAllowLateUploadShort = "Allow late upload";
+$langAllowLateUpload = "Yes, allow users to submit works after deadline";
+$langPreventLateUpload = "No, prevent users to submit works after deadline";
 
 // work
 $langWrkTitle = "Work title";
@@ -86,6 +86,7 @@ $langWrkTitleRequired = "Work title required";
 $langAnswerRequired = "Answer is required";
 $langWrkAuthorsRequired = "Author(s) is(are) required";
 $langFileRequired = "A file is required";
+$langIncorrectDate = "Start date must be before end date ...";
 
 // work details
 $langUploadedFile = "Uploaded file";
