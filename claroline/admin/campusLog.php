@@ -139,7 +139,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $results = getManyResults2Col($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langCountUsersByCourse." : <br />\n";
         buildTab2Col($results);
-        echo "<br />\n";
+        echo '<br />'."\n";
 
         //--  number of users by faculte
         $sql = "SELECT C.`faculte`, count( CU.user_id )
@@ -150,7 +150,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $results = getManyResults2Col($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langCountUsersByFaculte." : <br />\n";
         buildTab2Col($results);
-        echo "<br />\n";
+        echo '<br />'."\n";
 
         //--  number of users by status
         $sql = "SELECT `statut`, count( `user_id` )
@@ -355,180 +355,46 @@ if( $is_allowedToTrack && $is_trackingEnabled)
           }
       }
       
-      echo "<table cellpadding=\"2\" cellspacing=\"1\" class=\"claroTable\" align=\"center\">"
-                ."<thead>"
-                ."<tr class=\"headerX\">\n"
-                ."<th>&nbsp;".$langToolTitleToolnameColumn."</th>\n"
-                ."<th>&nbsp;".$langToolTitleCountColumn."</th>\n"
-                ."</tr>"
-                ."</thead>\n";
-                
-      echo "<tbody>\n";
+      echo '<table cellpadding="2" cellspacing="1" class="claroTable" align="center">'
+         . '<thead>'
+         . '<tr class="headerX">'."\n"
+         . '<th>&nbsp;'.$langToolTitleToolnameColumn.'</th>'."\n"
+         . '<th>&nbsp;'.$langToolTitleCountColumn.'</th>'."\n"
+         . '</tr>'
+         . '</thead>'."\n"
+         . '<tbody>'."\n"
+         ;
 
       if (is_array($resultsTools))
       {
           arsort($resultsTools);
           foreach( $resultsTools as $tool => $nbr)
           {
-              echo "<tr>\n"
-                      ."<td>".$toolNameList[$tool]."</td>\n"
-                      ."<td>".$nbr."</td>\n"
-                      ."</tr>\n\n";
+              echo '<tr>'."\n"
+                 . '<td>'.$toolNameList[$tool].'</td>'."\n"
+                 . '<td>'.$nbr.'</td>'."\n"
+                 . '</tr>'."\n\n"
+                 ;
           }
-
       }
       else
       {
-          echo "<tr>\n"
-                  ."<td colspan=\"2\"><center>".$langNoResult."</center></td>\n"
-                  ."</tr>\n";
+          echo '<tr>'."\n"
+             . '<td colspan="2"><center>'.$langNoResult.'</center></td>'."\n"
+             . '</tr>'."\n"
+             ;
       }
 
-      echo "</tbody>\n";
-      echo "</table>\n\n";
-      
+      echo '</tbody>'."\n"
+         . '</table>'."\n\n"
+         ;
     }
     else
     {
         $tempView[3] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">$langPlatformToolAccess</a>";
+        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langPlatformToolAccess.'</a>';
     }
-    echo "</p>\n\n";
-    /***************************************************************************
-     *              
-     *		Strange cases 
-     *
-     ***************************************************************************/
-    $tempView = $view;
-    echo "<p>\n";
-    if($view[4] == '1')
-    {
-        $tempView[4] = '0';
-        echo "-&nbsp;&nbsp;<b>".$langStrangeCases."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";
-        //--  multiple logins | 
-        //--     multiple logins are not possible in the new version but this page can be used with previous versions
-        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langMultipleLogins."</b><br />\n";
-
-        $sql = "SELECT DISTINCT username , count(*) as nb 
-                    FROM `".$tbl_user."` 
-                    GROUP BY username 
-                    HAVING nb > 1
-                    ORDER BY nb DESC";
-    
-        buildTabDefcon(getManyResults2Col($sql));
-    
-
-        //--  multiple account with same email
-        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langMultipleEmails."</b><br />\n";
-        
-        $sql = "SELECT DISTINCT email , count(*) as nb 
-                    FROM `".$tbl_user."` 
-                    GROUP BY email 
-                    HAVING nb > 1  
-                    ORDER BY nb DESC";
-    
-        buildTabDefcon(getManyResults2Col($sql));
-        
-        //--  multiple account with same username AND same password (for compatibility with previous versions) 
-        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langMultipleUsernameAndPassword."</b><br />\n";
-
-        $sql = "SELECT DISTINCT CONCAT(username, \" -- \", password) as paire, count(*) as nb
-                    FROM `".$tbl_user."`
-                    GROUP BY paire
-                    HAVING nb > 1
-                    ORDER BY nb DESC";
-
-        buildTabDefcon(getManyResults2Col($sql));
-
-        //--  courses without professor
-        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourseWithoutProf."</b><br />\n";
-
-        $sql = "SELECT c.code, count( cu.user_id ) nbu
-                    FROM `".$tbl_course."` c
-                    LEFT JOIN `".$tbl_rel_course_user."` cu
-                        ON c.code = cu.code_cours 
-                        AND cu.statut = 1
-                    GROUP BY c.code, statut
-                    HAVING nbu = 0
-                    ORDER BY code_cours";
-
-        buildTabDefcon(getManyResults2Col($sql));
-        
-        //-- courses without students
-        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourseWithoutStudents."</b><br />\n";
-
-        $sql = "SELECT c.code, count( cu.user_id ) nbu
-                    FROM `".$tbl_course."` c
-                    LEFT JOIN `".$tbl_rel_course_user."` cu
-                        ON c.code = cu.code_cours 
-                        AND cu.statut = 5 
-                    GROUP BY c.code, statut
-                    HAVING nbu = 0
-                    ORDER BY code_cours";
-
-        buildTabDefcon(getManyResults2Col($sql));
-        
-        //-- courses without access, not used for $limitBeforeUnused
-        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourseWithoutAccess."</b><br />\n";
-        $sql ="SELECT code, dbName
-	                                   FROM    `".$tbl_course."`
-                                     ORDER BY code ASC";
-        $resCourseList = claro_sql_query($sql);
-        $i = 0;
-        while ( $course = mysql_fetch_array($resCourseList) )
-        {
-            $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
-            $sql = "SELECT IF( MAX(`access_date`)  < (NOW() - ".$limitBeforeUnused." ), MAX(`access_date`) , 'recentlyUsedOrNull' )  as lastDate, count(`access_date`) as nbrAccess
-                        FROM `".$TABLEACCESSCOURSE."`";
-            $coursesNotUsedResult = claro_sql_query($sql);
-            
-            if( $courseAccess = mysql_fetch_array($coursesNotUsedResult) )
-            {
-                if ( $courseAccess['lastDate'] == 'recentlyUsedOrNull' && $courseAccess['nbrAccess'] != 0 ) continue;
-                $courseWithoutAccess[$i][0] = $course['code'];
-                if ( $courseAccess['lastDate'] == 'recentlyUsedOrNull') // if no records found ,course was never accessed
-                {
-                    $courseWithoutAccess[$i][1] = $langNeverUsed;
-                }
-                else
-                {
-                    $courseWithoutAccess[$i][1] = $courseAccess['lastDate'];
-                }
-            }
-            
-        $i++;
-        }
-
-        buildTabDefcon($courseWithoutAccess);
-        
-        //-- logins not used for $limitBeforeUnused
-        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langLoginWithoutAccess."</b><br />\n";
-
-        $sql = "SELECT `us`.`username`, MAX(`lo`.`login_date`)
-                    FROM `".$tbl_user."` AS us 
-                    LEFT JOIN `".$tbl_track_e_login."` AS lo
-                    ON`lo`.`login_user_id` = `us`.`user_id`
-                    GROUP BY `us`.`username`
-                    HAVING ( MAX(`lo`.`login_date`) < (NOW() - ".$limitBeforeUnused." ) ) OR MAX(`lo`.`login_date`) IS NULL";
-        
-
-        $loginWithoutAccessResults = getManyResults2Col($sql);
-        for($i = 0; $i < sizeof($loginWithoutAccessResults); $i++)
-        {
-            if ( !isset($loginWithoutAccessResults[$i][1]) )
-            {            
-                $loginWithoutAccessResults[$i][1] = $langNeverUsed;
-            }
-        }
-        buildTabDefcon($loginWithoutAccessResults);
-
-    }
-    else
-    {
-        $tempView[4] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">$langStrangeCases</a>";
-    }
-    echo "</p>\n\n";
+    echo '</p>'."\n\n";
 }
 else // not allowed to track
 {

@@ -135,6 +135,9 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <a href="campusLog.php"><?php echo $langViewPlatFormStatistics?></a>
 </li>
 <li>
+<a href="campusProblem.php"><?php echo $langViewPlatFormError ?></a>
+</li>
+<li>
 <a href="maintenance/index.php"><?php echo $langUpgrade?></a>
 </li>
 </ul>
