@@ -326,7 +326,7 @@
               return $imgList[$contentType];
           }
 
-          return "defaut.gif";
+          return "default.gif";
 
      }
      /**
@@ -352,7 +352,7 @@
               return $altList[$contentType];
           }
 
-          return "defaut.gif";
+          return "default.gif";
      }
 
      /**
