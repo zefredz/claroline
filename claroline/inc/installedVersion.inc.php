@@ -1,13 +1,13 @@
 <?php // $Id$
 
-$stable = false;
-$clarolinePhase = "RC2cvs";
+$stable = true;
+$clarolinePhase = "";
 $is_upgrade_available = true;
 
 // var version_db  max. 10 chars
 
-$version_file_cvs = "1.5.0.RC2";
-$version_db_cvs   = "1.5.0.RC2";
+$version_file_cvs = "1.5.0";
+$version_db_cvs   = "1.5.0";
 
 if (!$is_upgrade_available)
 {
