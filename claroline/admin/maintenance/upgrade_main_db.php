@@ -69,18 +69,33 @@ if ($_REQUEST['cmd']=="run")
 </head>
 <body bgcolor="white" dir="<?php echo $text_dir ?>">
 
+<center>
+
+<table cellpadding="10" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
+<tbody>
+<tr bgcolor="navy">
+<td valign="top" align="left">
+
 <div id="header">
 <?php
  echo sprintf("<h1>Claroline (%s) - upgrade</h1>",$clarolineVersion);
 ?>
 </div>
-
+</td>
+</tr>
+<!--
+<tr bgcolor="#E6E6E6">
+<td valign="top"align="left">
 <div id="menu">
 <?php
  echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>","upgrade",$langStep2);
 ?>
 </div>
-
+</td>
+</tr>
+-->
+<tr valign="top" align="left">
+<td>
 <div id="content">
 
 <?php
@@ -91,7 +106,7 @@ switch ($display)
 
         echo sprintf("<h2>%s</h2>",$langStep2);
         echo $langIntroStep2;
-        echo sprintf($langLaunchStep2, $PHP_SELF."?cmd=run");  
+        echo "<center>" . sprintf($langLaunchStep2, $PHP_SELF."?cmd=run") . "</center>";  
         break;
         
     case DISPLAY_RESULT_PANEL :
@@ -167,7 +182,7 @@ switch ($display)
 
            if (replace_var_value_in_conf_file ("versionDb",$version_db_cvs,$includePath ."/conf/claro_main.conf.php"))
            {
-                echo sprintf($langNextStep,"upgrade_courses.php");
+                echo "<div align=\"right\">" . sprintf($langNextStep,"upgrade_courses.php") . "</div>";
            }
            else
            {
@@ -181,5 +196,11 @@ switch ($display)
 }
 ?>
 </div>
+
+</td>
+</tr>
+</tbody>
+</table>
+
 </body>
 </html>

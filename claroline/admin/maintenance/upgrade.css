@@ -2,7 +2,7 @@ body {
  margin: 0px;
  padding: 0px;
  color: #000;
- background-color: #e7e7e7;
+ background-color: #fff;
  font-family: arial, helvetica, sans-serif;
 }
 
@@ -29,8 +29,7 @@ body {
 }
 
 #content {
- width: 700px;
- padding: 0 10px 0 10px;
+  padding: 0 10px 0 10px;
 }
 
 h1 {

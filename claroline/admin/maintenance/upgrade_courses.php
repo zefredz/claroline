@@ -62,19 +62,29 @@ $nameTools = $langUpgradeDataBase;
 </head>
 <body bgcolor="white" dir="<?php echo $text_dir ?>">
 
+<center>
+
+<table cellpadding="10" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
+<tbody>
+<tr bgcolor="navy">
+<td valign="top" align="left">
 <div id="header">
 <?php
  echo sprintf("<h1>Claroline (%s) - upgrade</h1>",$clarolineVersion);
 ?>
 </div>
+</td>
+</tr>
+<!--
 <div id="menu">
 <?php
  echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>", "upgrade", $langStep3);
 ?>
 </div>
-
+-->
+<tr valign="top" align="left">
+<td>
 <div id="content">
-
 <?php 
 
 switch ($display)
@@ -83,7 +93,7 @@ switch ($display)
         
                 echo sprintf ("<h2>%s</h2>",$langStep3);
                 echo $langIntroStep3;
-		echo sprintf ($langLaunchStep3, $PHP_SELF."?cmd=run");
+		echo "<center>" . sprintf ($langLaunchStep3, $PHP_SELF."?cmd=run") . "</center>";
 		break;
                 
 	case DISPLAY_RESULT_PANEL : 
@@ -239,7 +249,7 @@ switch ($display)
 		else
 		{
 			echo "<p class=\"success\">The claroline upgrade tool has successfullly upgrade all your platform courses</p>\n";
-                        echo sprintf($langNextStep,"upgrade.php");
+                        echo "<div align=\"right\">" . sprintf($langNextStep,"upgrade.php") . "</div>";
 		}
 			
 		mysql_close();
@@ -255,9 +265,12 @@ switch ($display)
 
 ?>
 
-
-
 </div>
+
+</td>
+</tr>
+</tbody>
+</table>
 
 </body>
 </html>

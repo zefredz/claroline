@@ -147,14 +147,22 @@ else
 </head>
 <body bgcolor="white" dir="<?php echo $text_dir ?>">
 
+<center>
+
+<table cellpadding="10" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
+<tbody>
+<tr bgcolor="navy">
+<td valign="top" align="left">
 <div id="header">
 <?php
  echo sprintf("<h1>Claroline (%s) - upgrade</h1>",$clarolineVersion);
 ?>
 </div>
-
-<div id="content" style="width: 700px">
-
+</td>
+</tr>
+<tr bgcolor="#E6E6E6">
+<td align="left">
+<div id="content">
 <?php
 
 echo $langTitleUpgrade;
@@ -230,6 +238,11 @@ switch ($display)
 ?>
 
 </div>
+</td>
+</tr>
+</tbody>
+</table>
+
 
 </body>
 </html>

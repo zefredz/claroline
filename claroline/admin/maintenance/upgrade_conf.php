@@ -403,17 +403,32 @@ if ($_REQUEST['cmd'] == 'run')
 
 <body bgcolor="white" dir="<?php echo $text_dir ?>">
 
+<center>
+
+<table cellpadding="10" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
+<tbody>
+<tr bgcolor="navy">
+<td valign="top" align="left">
 <div id="header">
 <?php
  echo sprintf ("<h1>Claroline (%s) - upgrade</h1>",$thisClarolineVersion);
 ?>
 </div>
-
+</td>
+</tr>
+<!--
+<tr bgcolor="#E6E6E6">
+<td valign="top"align="left">
 <div id="menu">
 <?php
  echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>", "upgrade", $langStep1);
 ?>
 </div>
+</td>
+</tr>
+-->
+<tr valign="top" align="left">
+<td>
 
 <div id="content">	
 
@@ -424,7 +439,7 @@ switch ($display)
 	case DISPLAY_WELCOME_PANEL: 
                 echo sprintf ("<h2>%s</h2>",$langStep1);
                 echo $langIntroStep1;
-		echo sprintf ($langLaunchStep1, $PHP_SELF."?cmd=run");
+		echo "<center>" . sprintf ($langLaunchStep1, $PHP_SELF."?cmd=run") . "</center>";
 		break;
         case DISPLAY_RESULT_ERROR_PANEL:
                 echo sprintf ("<h2>%s</h2>",$langStep1 . " - " . $langFailed);
@@ -480,7 +495,7 @@ switch ($display)
                     </p>
                 </fieldset>";
                 
-                echo sprintf($langNextStep,"upgrade_main_db.php");
+                echo "<div align=\"right\">" . sprintf($langNextStep,"upgrade_main_db.php") . "</div>";
                 
 		break;
 }
@@ -488,6 +503,10 @@ switch ($display)
 ?>
 
 </div>
+</td>
+</tr>
+</tbody>
+</table>
 
 </body>
 </html>
