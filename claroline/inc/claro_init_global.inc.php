@@ -4,18 +4,13 @@
 // The line below set the error reporting to the most fitting one for Claroline
 error_reporting(error_reporting() & ~ E_NOTICE);
 
-///////////////////////////////////////////////////////////////////////
-//// theses lines are added to accept the low security of php < 4.2.3
-//// with a new php.
-//// This is patchy
-//// we must find how to default use the better security.
-///////////////////////////////////////////////////////////////////////
-//if (!empty($_GET))     {extract($_GET, EXTR_OVERWRITE);}           //
-//if (!empty($_POST))    {extract($_POST, EXTR_OVERWRITE);}          //
-//if (!empty($_SERVER))   {extract($_SERVER, EXTR_OVERWRITE);}       //
-//if (!empty($_SESSION))  {extract($_SESSION, EXTR_OVERWRITE);}      //
-//ini_set("session.bug_compat_warn","off");                          //
-///////////////////////////////////////////////////////////////////////
+// Handle the register globals set to off by default since PHP 4.2
+
+if ( strtolower( ini_get('register_globals') ) === 'off' )
+{
+    extract($_REQUEST, EXTR_SKIP);
+    extract($_SESSION, EXTR_OVERWRITE);
+}
 
 
 // a shorter reference to $_SERVER['PHP_SELF']. Useful to lighten the HTML code.
