@@ -275,7 +275,9 @@
   else
     $returl = "../learningPath.php";
 
-$prevNextString = '<br /><center><small>';
+echo '<br /><center>';
+
+$prevNextString = '<small>';
 
 if( $previousModule != "" )
 {
@@ -296,8 +298,8 @@ else
   $prevNextString .=  $langNext;
 }  
 $prevNextString .=  '<br /><br />';
-
-echo $prevNextString;
+// display previous and next links line only if one is setted
+if ( $previousModule != '' || $nextModule != '' ) echo $prevNextString;
 //  set redirection link 
 if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
   $returl = "../learningPathAdmin.php";
