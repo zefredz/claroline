@@ -163,7 +163,8 @@ if ($store && $is_allowedToStore)
 
     $saveIn = $chatDate.$i.'.html';
 
-    // COMPLETE ARCHIVE FILE WITH THE LAST LINES BEFORE STORING
+    // COMPLETE THE ON FLY BUFFER FILE WITH THE LAST LINES DISPLAYED 
+    // BEFORE PROCEED TO COMPLETE FILE STORAGE
 
     buffer( implode('', file($activeChatFile) )."<body>\n</html>\n",
             $onflySaveFile);
