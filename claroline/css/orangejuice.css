@@ -327,11 +327,15 @@ claroBody  {
 	color: #999999;
 }
 
-a.invisible, 
-a:link.invisible, 
-a:visited.invisible {
+.invisible a, 
+.invisible a:link, 
+.invisible a:visited,
+a.invisible,
+a:link.invisible,
+a:visited.invisible{
 	color: #999999;
 }
+
 
 /*
  * 'rightMenu' is mainly use in the platform home page
