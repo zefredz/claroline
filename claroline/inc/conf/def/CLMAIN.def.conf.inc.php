@@ -165,13 +165,13 @@ array ('label'       => 'db glu'
                        .'In single db mode, IT CAN\'T be a dot.'."\n"
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => TRUE
+      ,'display'     => FALSE
       ,'readonly'    => TRUE
       );
       
 $conf_def_property_list['courseTablePrefix'] = 
 array ('label'       => 'Course name table prefix'
-      ,'Description' => 'This  prefix is add to table names. It\'s usfull in single database to group courses tables.'
+      ,'description' => 'This  prefix is add to table names. It\'s usefull in single database to group courses tables.'
       ,'default'     => ''
       ,'type'        => 'string'
       ,'display'     => TRUE
