@@ -92,26 +92,57 @@ $educationManager["email"]	=	"";
 $institution["name"]		=	"inc";
 $institution["url"]			=	"http://www.google.com/";
 
-//for new login module
-//uncomment these to activate ldap
-//$extAuthSource['ldap']['login'] = "./claroline/auth/ldap/login.php";
-//$extAuthSource['ldap']['newUser'] = "./claroline/auth/ldap/newUser.php";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// ---------------------------------------
+// EXTERNAL AUTHENTICATION MODULES SECTION
+// ---------------------------------------
+//
+// uncomment one of these sub section to activate the external authentication 
+// module you need
+//
+// /* LDAP */
+//
+// $extAuthSource['ldap']['login'  ] = "./claroline/auth/extauth/drivers/ldap.inc.php";
+// $extAuthSource['ldap']['newUser'] = "./claroline/auth/extauth/drivers/ldap.inc.php";
+//
+// /* SPIP */
+//
+// $extAuthSource['spip']['login'  ] = "./claroline/auth/extauth/drivers/spip.inc.php";
+// $extAuthSource['spip']['newUser'] = "./claroline/auth/extauth/drivers/spip.inc.php";
+//
+// /* POSTNUKE */
+//
+// $extAuthSource['postnuke']['login'  ] = "./claroline/auth/extauth/drivers/postnuke.inc.php";
+// $extAuthSource['postnuke']['newUser'] = "./claroline/auth/extauth/drivers/postnuke.inc.php";
+//
+// /* PHPNUKE */
+//
+// $extAuthSource['phpnuke']['login'  ] = "./claroline/auth/extauth/drivers/phpnuke.inc.php";
+// $extAuthSource['phpnuke']['newUser'] = "./claroline/auth/extauth/drivers/phpnukev.php";
+//
+// /* MOODLE */
+//
+//$extAuthSource['moodle']['login'  ] = "./claroline/auth/extauth/drivers/moodle.inc.php";
+//$extAuthSource['moodle']['newUser'] = "./claroline/auth/extauth/drivers/moodle.inc.php";
+//
+// /* DOKEOS */
+//
+// $extAuthSource['dokeos']['login'  ] = "./claroline/auth/extauth/drivers/dokeos.inc.php";
+// $extAuthSource['dokeos']['newUser'] = "./claroline/auth/extauth/drivers/dokeos.inc.php";
+//
+// /* GANESHA */
+//
+// $extAuthSource['ganesha']['login'  ] = "./claroline/auth/extauth/drivers/ganesha.inc.php";
+// $extAuthSource['ganesha']['newUser'] = "./claroline/auth/extauth/drivers/ganesha.inc.php";
+//
+// /* DOCEBO */
+//
+// $extAuthSource['docebo']['login'  ] = "./claroline/auth/extauth/drivers/docebo.inc.php";
+// $extAuthSource['docebo']['newUser'] = "./claroline/auth/extauth/drivers/docebo.inc.php";
+//
+// /* A TUTOR */
+//
+// $extAuthSource['atutor']['login'  ] = "./claroline/auth/extauth/drivers/atutor.inc.php";
+// $extAuthSource['atutor']['newUser'] = "./claroline/auth/extauth/drivers/atutor.inc.php";
 
 // Some value which would be moved to appropriate conf.file of targeted tools
 
