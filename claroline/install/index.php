@@ -1566,7 +1566,7 @@ elseif($display==DISP_RUN_INSTALL_NOT_COMPLETE)
 				</h2>';
 	if($mainDbNameCreationError)
 		echo "<BR>".$mainDbNameCreationError;
-	if($fileAccessCreationError)
+	if($statsDbNameCreationError)
 		echo "<BR>".$statsDbNameCreationError;
 	if($fileAccessCreationError)
 		echo "<BR>Error on creation : file <EM>".$htAccessName."</EM> in <U>".realpath($htAccessPath)."</U><br>";
