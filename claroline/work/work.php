@@ -1,5 +1,6 @@
 <?php // $Id$
 
+
 //----------------------------------------------------------------------
 // CLAROLINE 1.6
 //----------------------------------------------------------------------
@@ -58,6 +59,15 @@ $currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course["path"]."/";
 $currentUserFirstName       = $_user['firstName'];
 $currentUserLastName        = $_user['lastName'];
 
+$fileAllowedSize = CONFVAL_MAX_FILE_SIZE_PER_WORKS ;    //file size in bytes
+$updir           = $currentCourseRepositorySys.'work/'; //directory path to upload
+
+//////////////////////////////////////////////////////////////////////////////
+
+include($includePath."/lib/fileUpload.lib.php");
+include($includePath."/lib/fileDisplay.lib.php"); // need format_url function
+
+
 
 
 $nameTools = $langWorks;
@@ -72,31 +82,13 @@ event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 claro_disp_tool_title($nameTools);
 
 
-$fileAllowedSize = CONFVAL_MAX_FILE_SIZE_PER_WORKS ;    //file size in bytes
-$updir           = $currentCourseRepositorySys.'work/'; //directory path to upload
-
-
-//////////////////////////////////////////////////////////////////////////////
-
-
-include($includePath."/lib/fileUpload.lib.php");
-include($includePath."/lib/fileDisplay.lib.php"); // need format_url function
-					
-
 /*========================================
            INTRODUCTION SECTION
   ========================================*/
-echo	"<table border=\"0\" width=\"80%\" bgcolor=\"".$color1."\">".
-		"<tr>".
-		"<td>";
 
 $moduleId = $course_tool['id']; // Id of the Student Paper introduction Area
 $langHelpAddIntroText=$langIntroWork;
 include($includePath."/introductionSection.inc.php");
-
-echo	"</td>".
-		"</tr>".
-		"</table><br><br>";
 
 
 /*====================================================
@@ -597,24 +589,24 @@ echo	"<tr>\n".
 			{
 				echo	"<p>\n",
 
-						"<a href=\"".$PHP_SELF."?edit=",$work['id'],"\">",
+						"<a href=\"".$_SERVER['PHP_SELF']."?edit=",$work['id'],"\">",
 						"<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langModify."\">",
 						"</a>\n",
 
-						"<a href=\"".$PHP_SELF."?delete=",$work['id'],"\" ",
+						"<a href=\"".$_SERVER['PHP_SELF']."?delete=",$work['id'],"\" ",
 						"onclick=\"javascript:if(!confirm('".addslashes(htmlspecialchars($langDelete.": ".$work['titre']." ".$langConfirmYourChoice))."')) return false;\">",
 						"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\">",
 						"</a>\n";
 
 				if ($work["accepted"] == 1)
 				{
-					echo "<a href=\"".$PHP_SELF."?mkInvisbl=",$work['id'],"\">",
+					echo "<a href=\"".$_SERVER['PHP_SELF']."?mkInvisbl=",$work['id'],"\">",
 					"<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$lang_make_invisible."\">",
 					"</a>\n";
 				}
 				else
 				{
-					echo	"<a href=\"".$PHP_SELF."?mkVisbl=",$work['id'],"\">",
+					echo	"<a href=\"".$_SERVER['PHP_SELF']."?mkVisbl=",$work['id'],"\">",
 							"<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$lang_make_visible."\">",
 							"</a>\n";
 				}
