@@ -18,8 +18,6 @@ require '../inc/claro_init_global.inc.php';
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/lib/fileManage.lib.php');
 
-include($includePath.'/lib/class.tree.php');
-
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user            = $tbl_mdb_names['user'];
 
