@@ -81,6 +81,12 @@ if (isset($_GET['subscription'])) {$_SESSION['admin_course_subscription'] = $_GE
 if (isset($_GET['order_crit'])) {$_SESSION['admin_course_order_crit'] = $_GET['order_crit'];}
 if (isset($_GET['dir']))       {$_SESSION['admin_course_dir'] = $_GET['dir'];}
 
+// clean session if we come from a course
+
+session_unregister('_cid');
+unset($_cid);
+
+
 // Set parameters to add to URL to know where we come from and what options will be given to the user
 
 $addToURL = "";

@@ -65,6 +65,11 @@ if ($cidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
 if (isset($_GET['dir']))       {$_SESSION['admin_course_user_dir'] = $_GET['dir'];}
 if (isset($_GET['order_crit'])){$_SESSION['admin_course_user_order_crit'] = $_GET['order_crit'];}
 
+// clean session if we come from a course
+
+session_unregister('_cid');
+unset($_cid);
+
 // Deal with interbredcrumps
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
