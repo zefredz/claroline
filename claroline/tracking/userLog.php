@@ -507,7 +507,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                                 AND ( `S`.`user_id` = ".$uInfo."
                                         OR ( `S`.`parent_id` IS NOT NULL AND `S`.`parent_id` ) )
                                 AND `A`.`visibility` = 'VISIBLE'
-                            ORDER BY `A`.`title` ASC";
+                            ORDER BY `A`.`title` ASC, `S`.`last_edit_date` ASC";
 
                 $results = claro_sql_query_fetch_all($sql);
                 
@@ -556,10 +556,21 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 if (is_array($results))
                 { 
                     echo "<tbody>\n";
+                    $prevATitle = "";
                     foreach($results as $work)
                     { 
                         $timestamp = strtotime($work['last_edit_date']);
                         $beautifulDate = claro_disp_localised_date($dateTimeFormatLong,$timestamp);
+                        
+                        if( $work['a_title'] == $prevATitle )
+                        {
+                                $displayedATitle = "";
+                        }
+                        else
+                        {
+                                $displayedATitle = $work['a_title'];
+                                $prevATitle = $work['a_title'];
+                        }
                         if( $submissions[$work['id']] != 0 )
                         {
                                 $displayedScore = $submissions[$work['id']]." %";
@@ -579,7 +590,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         }
                         
                         echo "<tr>\n"
-                                ."<td>".$work['a_title']."</td>\n"
+                                ."<td>".$displayedATitle."</td>\n"
                                 ."<td>".$work['s_title']."</td>\n"
                                 ."<td>".$displayedAuthors."</td>\n"
                                 ."<td>".$displayedScore."</td>\n"
