@@ -2,6 +2,7 @@
 // TOOL
 $conf_def['config_code']='CLUSR';
 $conf_def['config_file']='user.conf.inc.php';
+$conf_def['config_name']='general setting for users';
 // $conf_def['config_repository']=''; dislabed = includePath.'/conf'
 $conf_def['section']['list']['label']='Listing properties';
 $conf_def['section']['list']['description']='common properties for listing of users';
@@ -66,6 +67,7 @@ $conf_def_property_list['DEFAULT_NUMBER_CREATED_USERS'] =
 array('label'       => 'le nombre de comptes générés'
      ,'default'     => '100'
      ,'type'        => 'integer'
+     , 'unit'      => 'user(s)'
      ,'container'   => 'CONST'
      );
 
@@ -73,6 +75,7 @@ $conf_def_property_list['DEFAULT_QTY_STUDENT'] =
 array ( 'label'     => 'le nombre de comptes user générés'
       , 'default'   => '5'
       , 'type'      => 'integer'
+      , 'unit'      => 'students(s)'
       , 'container' => 'CONST'
       );
 
@@ -80,6 +83,7 @@ $conf_def_property_list['DEFAULT_QTY_TEACHER'] =
 array ( 'label'     => 'le nombre de comptes créateur de cours générés'
       , 'default'   => '0'
       , 'type'      => 'integer'
+      , 'unit'      => 'teacher(s)'
       , 'container' => 'CONST'
       );
 

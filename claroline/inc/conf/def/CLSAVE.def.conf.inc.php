@@ -3,6 +3,7 @@
 // TOOL
 $conf_def['config_code']='CLSAVE';
 $conf_def['config_file']='export.conf.inc.php';
+$conf_def['config_name']='general setting for exporting data';
 // $conf_def['config_repository']=''; dislabed = includePath.'/conf'
 $conf_def['description'] = 'Export tool. This is a course tool';
 $conf_def['section']['protocols']['label']='protocols';

@@ -2,6 +2,7 @@
 // TOOL
 $conf_def['config_code']='CLCRSCONF';
 $conf_def['config_file']='course_info.conf.php';
+$conf_def['config_name']='general setting for course setting tool';
 $conf_def['description']='Configuration du cours';
 $conf_def['section']['links']['label']='links';
 $conf_def['section']['links']['description']='links to  commands';

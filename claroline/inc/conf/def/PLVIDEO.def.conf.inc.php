@@ -1,6 +1,7 @@
 <?php // $Id$
 $conf_def['config_code']='PLVIDEO';
 $conf_def['config_file']='PLVIDEO.conf.inc.php';
+$conf_def['config_name']='Video main conf';
 // $conf_def['config_repository']=''; dislabed = includePath.'/conf'
 $conf_def['section']['image']['label']='Images settings';
 $conf_def['section']['image']['properties'] = 

@@ -2,6 +2,7 @@
 // TOOL
 $conf_def['config_code']='CLFRM';
 $conf_def['config_file']='CLFRM.conf.inc.php';
+$conf_def['config_name']='general setting for Forum';
 $conf_def['description'] = 'Forum tool. This is a course tool';
 
 $conf_def['section']['forum']['label']='General setting for forum';

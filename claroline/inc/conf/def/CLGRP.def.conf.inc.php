@@ -2,6 +2,7 @@
 // TOOL
 $conf_def['config_code']='CLGRP';
 $conf_def['config_file']='group.conf.php';
+$conf_def['config_name']='general setting for groups';
 // $conf_def['config_repository']=''; dislabed = includePath.'/conf'
 $conf_def['section']['multigroup']['label']='multigroup';
 $conf_def['section']['multigroup']['properties'] = 

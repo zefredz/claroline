@@ -2,6 +2,7 @@
 // TOOL
 $conf_def['config_code']='CLWRK';
 $conf_def['config_file'] = 'work.conf.inc.php';
+$conf_def['config_name']='Quota';
 $conf_def['description'] = 'Assignment tool. this is a course tool';
 $conf_def['section']['storage']['label']='Quota';
 $conf_def['section']['storage']['properties'] = 

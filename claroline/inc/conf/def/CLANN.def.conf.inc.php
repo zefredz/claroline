@@ -1,6 +1,7 @@
 <?php // $Id$
 $conf_def['config_file']='announcement.conf.inc.php';
 $conf_def['config_code']='CLANN';
+$conf_def['config_name']='general setting for announcements';
 
 $conf_def['description'] = 'Use by Announcement tool. This is a course tool';
 $conf_def['section']['log']['label']='Track activity';

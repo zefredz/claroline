@@ -1,6 +1,7 @@
 <?php // $Id$
 $conf_def['config_file']='agenda.conf.inc.php';
 $conf_def['config_code']='CLCAL';
+$conf_def['config_name']='general setting for calendar';
 
 $conf_def['section']['log']['label']='Track activity';
 // $conf_def['config_repository']=''; dislabed = includePath.'/conf'

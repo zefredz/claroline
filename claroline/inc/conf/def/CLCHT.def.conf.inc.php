@@ -1,6 +1,7 @@
 <?php // $Id$
 $conf_def['config_file']='chat.conf.inc.php';
 $conf_def['config_code']='CLCHT';
+$conf_def['config_name']='general setting for chat tool';
 $conf_def['description']='Note : these value would be COPY in the script to win an include.';
 
 $conf_def['section']['buffer']['label']='buffer';
