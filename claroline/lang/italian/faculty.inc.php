@@ -1,4 +1,17 @@
 <?php // $Id$
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.* (1)				                             |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   Italian translation  October 2004                                  |
+      +----------------------------------------------------------------------+
+      +----------------------------------------------------------------------+
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
+      +----------------------------------------------------------------------+
+ */
+
 $langAdministrationTools 				=	"Amministrazione";
 $langManage								=	"Gestisci Campus";
 $lang_categories				     	=	"Categorie";
@@ -16,10 +29,10 @@ $lang_faculty_ConfirmDelete				=	"Vuoi veramente camcellare la Categoria ";
 $lang_faculty_NameCat					=	"Categoria - Nome :";
 $lang_faculty_CodeCat					=	"Categoria - Codice :";
 $lang_faculty_Father					=	"Categoria - Padre ";
-$lang_faculty_CanHaveCatChild				=	"Posso avere categorie figlie ?";
-$lang_faculty_CanHaveCatCourse				=	"Puoi avere corsi : ";
-$lang_faculty_Yes					=	"Si";
-$lang_faculty_No					=	"No";
+$lang_faculty_CanHaveCatChild			=	"Posso avere categorie figlie ?";
+$lang_faculty_CanHaveCatCourse			=	"Puoi avere corsi : ";
+$lang_faculty_Yes						=	"Si";
+$lang_faculty_No						=	"No";
 $langMove                       	  		=   "Cambia Padre";
 $langOrder                              =   "Ordina";
 $langEdit                               =   "Modifica Settaggi";

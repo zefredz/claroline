@@ -1,16 +1,14 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                              |
+      | CLAROLINE version 1.5.* (1)				                             |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$              |
-      |   Italian translation                                                |
+      |   Italian translation  October 2004                                  |
       +----------------------------------------------------------------------+
-
       +----------------------------------------------------------------------+
-      | Translator:                                                          |
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
       +----------------------------------------------------------------------+
  */
 
@@ -31,10 +29,10 @@ $langBackList="Ritorno all'elenco";
 
 // import.php
 
-$langAddPage="Aggiungere una pagina";
+$langAddPage="Aggiungi una pagina";
 $langPageAdded="La pagina è stata aggiunta";
 $langPageTitleModified="L'intestazione della pagina è stata modificata";
-$langAddPage="Aggiungere una pagina";
+
 $langSendPage="Pagina da inviare";
 $langCouldNotSendPage="Il documento non ha un formato HTML e non ha potuto essere trasmesso. Se volete spedire verso il server documenti non HTML (PDF, Word, Power Point, Vidéo, etc.) utilizzate <a href=../document/document.php>Documenti</a>";
 $langAddPageToSite="Aggiungere una pagina al sito";

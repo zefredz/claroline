@@ -5,7 +5,7 @@ unset($titreBlocNotEditable);
 unset($questionPlan);
 unset($info2Say);
 
-$titreBloc[] = "Description";  
+$titreBloc[] = "Descrizione";  
 $titreBlocNotEditable[] = FALSE;  
 $questionPlan[] = "What is the place and the specificity of the course in the program?  Do there exist pre-required courses?  What are the bonds with other courses?";  
 $info2Say[] = "Information allowing to identify the course (initials, title, a number of hours, hands-on...) and teaching it (name, first name, office, Tel., e-mail, possible availabilities).  General presentation of the course in the program.";  
@@ -13,7 +13,7 @@ $titreBloc[] = "Qualifications and Goals";
 $titreBlocNotEditable[] = TRUE;  
 $info2Say[] = "Presentation of the general and specific objectives of the course, of qualifications for which the control of such objectives could lead.";  
 $questionPlan[] = "Which are the trainings aimed by teaching?  At the end of the courses, what qualifications, capacities and knowledge will students be able to control, to mobilize?";  
-$titreBloc[] = "Course content";  
+$titreBloc[] = "Corso - Contenuti";  
 $titreBlocNotEditable[] = TRUE;  
 $questionPlan[] = "Which is the importance of the various contents to be treated within the framework of the course?  Which is the level of difficulty of these contents?  How to structure the unit of the matter?  Which will be the sequence of the contents?  Which will be the progression in the contents?";  
 $info2Say[] = "Presentation of the contents of the course, the structuring of the contents, the progression and the calendar";  

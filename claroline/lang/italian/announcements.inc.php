@@ -1,35 +1,23 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                              |
+      | CLAROLINE version 1.5.* (1)				                             |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$              |
-      |   Italian translation                                                |
+      |   Italian translation  October 2004                                  |
       +----------------------------------------------------------------------+
-
       +----------------------------------------------------------------------+
-      | Translator: Furio Petrossi <Furio.Petrossi@scuolefvg.org>            |
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
       +----------------------------------------------------------------------+
  */
 
-// GENERIC
 
-$langModify="Modificare";
-$langDelete="Eliminare";
-$langTitle="Titolo";
-$langHelp="Aiuto";
-$langOk="Conferma";
-$langAddIntro="Aggiungere un testo di presentazione";
-$langBackList="Ritorno all'elenco";
+$langSelMess="Ad attenzione degli utenti";
+$langUp="Ordine crescente";
+$langDown="Ordine decrescente";
+
 $langAn="Annunci";
-
-
-
-
-
-// ANNOUCEMENTS
 $langAnnEmpty="Gli Annunci sono stati cancellati completamente";
 $langAnnModify="L'annuncio è stato modificato";
 $langAnnAdd="L'annuncio è stato aggiunto";
@@ -38,18 +26,39 @@ $langPubl="Pubblicato in data";
 $langAddAnn="Aggiungere un annuncio";
 $langContent="Contenuto";
 $langEmptyAnn="Eliminare completamente gli Annunci";
+$langModifAnn="Modifica questo annuncio";
 $professorMessage="Messagggio del vostro docente";
-$langEmailSent=" e spedito via ai corsisti registrati";
+$langEmailSent=" e spedito via mail ai corsisti registrati";
+$langSelUser="utenti selezionati del sito";
+$langMsgSent="Il messaggio è stato inviato agli studenti selezionati";
+$langEmailOption="Inviare l'annuncio via email ai corsisti registrati";
+$langEmailTitle = "Oggetto dell'email";
+$langNoAnnouncement="Nessun annuncio";
 $langNo="No";
-$langYes="Sì";
-$langEmailOption="Invia l'annuncio via email ai corsisti registrati";
-
-$langOn="Su";
+$langOn="Attivo";
 $langRegUser="utenti registrati sul sito";
 $langUnvalid="hanno un indirizzo email non valido o non hanno indirizzo";
+$langUserlist="Lista utenti";
+$langSelectedUsers="Utenti selezionati";
+$langSubmit="Invia";
+$langPleaseEnterMessage="Devi inserire il messaggio per favore";
+$langPleaseSelectUsers="Devi selezionare uno o più utenti per favore";
+$langMessages="Messaggi";
+$langMessageToSelectedUsers="Invia messaggio agli utenti";
+$langUsers="utenti";
+$langIntroText="Per inviare un messaggio, selezionare il gruppo di utenti (shift + click) o un singolo utente dalla lista a sinistra";
+
+
+$langModify="Modificare";
+$langDelete="Eliminare";
+$langTitle="Titolo";
+$langHelp="Aiuto";
+$langOk="Conferma";
+$langAddIntro="Aggiungere un testo di presentazione";
+$langBackList="Ritorno all'elenco";
+$langYes="Sì";
+$langEmailOption="Invia l'annuncio via email ai corsisti registrati";
 $langModifAnn="Modificare l'annuncio";
-$langEmailOption="Inviare l'annuncio via email ai corsisti registrati";
-$langEmailTitle = "Argomento dell'email"; //remove this line when added to lang files
 
 
 ?>

@@ -1,33 +1,16 @@
 <?php // $Id$
-/***************************************************************************
- *                    lang_italian.php  -  description
- *                              -------------------
- *     begin                : Mon. Feb 6, 2000
- *     copyright            : (C) 2001 The phpBB Group
- *     email                : support@phpbb.com
- *
- *     $Id$
- *
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- * lang_italian.php
- * by: Carlo Todeschini
- * email: tode@senzarete.it
- * date: 2001-02-06
- *
- ***************************************************************************/
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.* (1)				                             |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   Italian translation  October 2004                                  |
+      +----------------------------------------------------------------------+
+      +----------------------------------------------------------------------+
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
+      +----------------------------------------------------------------------+
+ */
 
 // GENERIC
 

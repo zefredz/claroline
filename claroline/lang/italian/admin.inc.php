@@ -1,23 +1,16 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.* $Revision$
+      | CLAROLINE version 1.5.* (1)				                             |
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   English Translation                                                |
-
-
-
+      |   Italian translation  October 2004                                  |
       +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
+      +----------------------------------------------------------------------+
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
       +----------------------------------------------------------------------+
  */
-
-
-
 
 // Stat
 $langStatistiques = "Statistiche";

@@ -1,4 +1,16 @@
 <?php // $Id$
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.* (1)				                             |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   Italian translation  October 2004                                  |
+      +----------------------------------------------------------------------+
+      +----------------------------------------------------------------------+
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
+      +----------------------------------------------------------------------+
+ */
 $lang_config_AdministrationTools	=	"Utilità di Amministrazione";
 $lang_config_config					=	"Configurazione";
 $lang_config_TitleConfig			=	"Configurazione della Piattaforma : ";

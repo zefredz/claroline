@@ -1,16 +1,14 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                              |
+      | CLAROLINE version 1.5.* (1)				                             |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$              |
-      |   Italian translation                                                |
+      |   Italian translation  October 2004                                  |
       +----------------------------------------------------------------------+
-
       +----------------------------------------------------------------------+
-      | Translator:                                                          |
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
       +----------------------------------------------------------------------+
  */
 
@@ -49,8 +47,8 @@ $langManager="Responsabile";
 $langPlatform="Piattaforma";
 $langReg="Iscriviti";
 $langMenu ="Menu";
-$langLogout="Uscire";
-$langDoc="Documentazione";
+$langLogout="Uscita";
+$langDoc="Documentazione su Web";
 $langPlatformAdmin="Amministra Claroline";
 $langAdvises="Avvisi";
 $langSeeAgenda="Vedi Agenda";
@@ -59,8 +57,8 @@ $langOtherCourses="Lista Corsi";
 $langSupportForum="Forum";
 $langCategories = "Categorie";
 $langBackToHomePage = "Torna alla home page";
-$lang_No_course_publicly_available = "No course publicly available.";
-$langLostPassword = "Password Persa";
+$lang_No_course_publicly_available = "Non ci sono corsi pubblici disponibili al momento.";
+$langLostPassword = "Password Persa ?";
 
 $lang_edit_my_course_list = "Modifica la mia lista dei corsi";
 $langAgenda = "Agenda - Prossimo evento";
@@ -80,6 +78,6 @@ $lang_remove_course_enrollment = 'Cancellati da un corso';
 
 
 $langOtherCourses="Elenco dei corsi";
-$langSupportForum="Claroline Forum";
+$langSupportForum="Claroline Forum su Web";
 
 ?>

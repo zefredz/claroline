@@ -1,28 +1,19 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                              |
+      | CLAROLINE version 1.5.* (1)				                             |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$              |
-      |   Italian translation                                                |
+      |   Italian translation  October 2004                                  |
       +----------------------------------------------------------------------+
-
       +----------------------------------------------------------------------+
-      | Translator:Furio Petrossi <Furio.Petrossi@scuolefvg.org>             |
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
       +----------------------------------------------------------------------+
  */
-/***************************************************************
-*                   Language translation
-****************************************************************
-GOAL
-****
-Translate the interface in chosen language
 
-*****************************************************************/
-$langNo="NO";
-$langYes="SI`";
+$langNo="No";
+$langYes="Sì`";
 
 $langHelp="Aiuto";
 $langDeactivate="disattivare";

@@ -1,5 +1,16 @@
 <?php # $Id$
-
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.* (1)				                             |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   Italian translation  October 2004                                  |
+      +----------------------------------------------------------------------+
+      +----------------------------------------------------------------------+
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
+      +----------------------------------------------------------------------+
+ */
 $langNoQuota = "No Quota";
 $langTechAdmin = "Tecniche Amministrative";
 $langAdministrationTools = "Utilità di Amministrazione";

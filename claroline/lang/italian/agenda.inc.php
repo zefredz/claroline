@@ -1,43 +1,45 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                              |
+      | CLAROLINE version 1.5.* (1)				                             |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$              |
-      |   Italian translation                                                |
+      |   Italian translation  October 2004                                  |
       +----------------------------------------------------------------------+
-
       +----------------------------------------------------------------------+
-      | Translator:                                                          |
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
       +----------------------------------------------------------------------+
-*/
-
+ */
+$langSETLOCALE="ITALIAN";
 $langAgenda="Calendario";
-
+$langHour="Ora";
+$hour_default="ora";
 $langDay="Giorno";
-$hour_default="ore";
-$langHour="Ore";
-$langLasting="Durata";
 $langMonth="Mese";
 $month_default="mese";
 $langYear="Anno";
 $year_default="anno";
 $langMinute ="Minuti";
 $langLasting="Durata";
+$langOldToNew = "Vecchi prima";
+$langNewToOld = "Nuovi prima";
 $langNow="Adesso";
-
-$langAddEvent="Aggiungere un evento";
+$langEditEvent="Modifica evento";
+$langAddEvent="Aggiungi evento";
+$langClearList="Cancella lista eventi";
+$langEventAdded="Evento aggiunto in agenda";
+$langEventUpdated="Evento in agenda aggiornato";
+$langEventDeleted="Evanto in agenda cancellato";
+$langUnableToAdd="Impossibile aggiungere evento in agenda";
+$langUnableToUpdate="Impossibile aggiornare evento in agenda";
+$langUnableToDelete="Impossibile cancellare evento in agenda";
 $langDetail="Dettagli";
 
-$langOldToNew = "Invertire";
-$langNewToOld = "Invertire";
-$langNow = "Adesso";
-$hour51="imprecisata";
+$hour51="non definito";
 
-$langSETLOCALE="ENGLISH";
-// UNIX TIME SETTINGS, "15h00" instead of "3pm", for instance, "ENGLISH" is a possibility
+$langNoEventInTheAgenda="Nessun evento in agenda";
+
 
 
 ?>

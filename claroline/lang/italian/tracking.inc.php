@@ -1,15 +1,18 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                             |
+      | CLAROLINE version 1.5.* (1)				                             |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |          Piraux Sébastien  <piraux_seb@hotmail.com>                  |
+      |   Italian translation  October 2004                                  |
+      +----------------------------------------------------------------------+
+      +----------------------------------------------------------------------+
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
       +----------------------------------------------------------------------+
  */
 
-/* general */
+/* generale */
 $langTrackingDisabled = "Il Tracking è stato disabilitato dall'Amministratore.";
 $langToolName="Statistiche";
 $langShowAll = "Vedi tutto";
@@ -32,17 +35,18 @@ $langBackToList = "Torna alla lista utenti";
 $langDetails = "Dettagli";
 $langClose = "Chiudi";
 
-/* subtitles */
+/* sottotitoli */
 $langStatsOfCourse = "Statistiche del corso";
 $langStatsOfUser = "Statistiche degli utenti";
 $langStatsOfCampus = "Statistiche del Campus";
-/* course */
+
+/* corso */
 $langCountUsers = "Numero di Utenti iscritti";
 $langNeverConnectedStudents = "Nessun studente connesso : ";
 $langNotRecentlyConnectedStudents = "Nessun studente connesso di recente : ";
 $langLastAccess = "Ultimo accesso";
 
-/* course access */
+/* accesso al corso */
 $langCountToolAccess = "Totale connessioni a questo corso";
 
 
@@ -128,7 +132,7 @@ $langLast31days = "Negli ultimi 31 giorni";
 $langLast7days = "Negli ultimi 7 giorni";
 $langThisday  = "Oggi";
 
-/* perso stats */
+/* personal stats */
 $langLogins = "I miei ultimi login";
 $langLoginsExplaination = "Qui trovi la lista dei tuoi ultimi login con le varie utilità utilizzate durante la sessione.";
 

@@ -1,20 +1,17 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                              |
+      | CLAROLINE version 1.5.* (1)				                             |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-	  |   English Translation                                                |
-
-
-
+      |   Italian translation  October 2004                                  |
       +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
+      +----------------------------------------------------------------------+
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
       +----------------------------------------------------------------------+
  */
+
 include (dirname(__FILE__)."/admin.inc.php");
 $langAddAdminInApache ="Aggiungi Amministratore";
 $langSearchACourse  = "Cerca Corso";

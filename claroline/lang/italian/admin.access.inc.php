@@ -1,5 +1,16 @@
 <?php # $Id$
-/* CLARO LANG FILE*/
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.* (1)				                             |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   Italian translation  October 2004                                  |
+      +----------------------------------------------------------------------+
+      +----------------------------------------------------------------------+
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
+      +----------------------------------------------------------------------+
+ */
 include (dirname(__FILE__)."/admin.managing.menu.inc.php");
 $langNomPageAddHtPass ="Amministrazione Utenti Admin";
 $langLogin 						= "login";

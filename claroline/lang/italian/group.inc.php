@@ -1,15 +1,14 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.5.* (1)				                             |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-
+      |   Italian translation  October 2004                                  |
       +----------------------------------------------------------------------+
-      |   Italian translation                                                |
       +----------------------------------------------------------------------+
-      | Translator: Furio Petrossi <Furio.Petrossi@scuolefvg.org>            |
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
       +----------------------------------------------------------------------+
  */
 $langAddTutors="Gestione Tutor ";
@@ -90,4 +89,14 @@ $langTools="Strumenti";
 $langUncompulsory="(facoltativo)";
 $langValidate="Conferma";
 $langYes="Sì";
+$langConfirmDelete="Sicuro di voler cancellare tutti i gruppi ?";
+$langGroupTutors="Titolari";
+$langStudentNotInThisGroups="Non ci sono utenti in questo gruppo";
+
+$langQtyOfUserCanSubscribe_PartBeforeNumber = "Un utente può esser membro al massimo ";
+$langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;gruppi";
+
+$langNoLimitForQtyOfUserCanSubscribe ="Un utente può esser membro di tutti i gruppi";
+$langGroupDocumentAlwaysPrivate = "(sempre privato)";
+$langGroupLimit				= "Limite";
 ?>

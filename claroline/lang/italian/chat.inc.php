@@ -1,15 +1,17 @@
 <?php # $Id$
 /*
-CLAROLINE $Version$  $Revision$
-*/
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.* (1)				                             |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   Italian translation  October 2004                                  |
+      +----------------------------------------------------------------------+
+      +----------------------------------------------------------------------+
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
+      +----------------------------------------------------------------------+
+ */
 
-/*
- * Language translation
- *
-GOAL
-----
-Translate the chat interface in chosen language
-**/
  $langChat = "Chat";
  $langWash = "Pulisci";
  $langSave = "Salva";

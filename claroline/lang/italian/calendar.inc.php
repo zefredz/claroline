@@ -1,16 +1,15 @@
 <?php // $Id: myagenda.inc.php,v 1.21 2003/12/15 13:55 Toon 
 /*
+/*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.2                                              |
+      | CLAROLINE version 1.5.* (1)				                             |
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universiteit Gent (UGent)                   |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-	  |   English Translation                                                |
+      |   Italian translation  October 2004                                  |
       +----------------------------------------------------------------------+
-      | Authors: Toon Van Hoecke <Toon.VanHoecke@UGent.be>                   |
       +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |          Toon Van Hoecke <Toon.VanHoecke@UGent.be>                   |
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
       +----------------------------------------------------------------------+
  */
 

@@ -1,4 +1,16 @@
 <?php // $Id$
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.* (1)				                             |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   Italian translation  October 2004                                  |
+      +----------------------------------------------------------------------+
+      +----------------------------------------------------------------------+
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
+      +----------------------------------------------------------------------+
+ */
 
 $lang_already_enrolled                     = "già iscritto";
 $lang_main_categories_list                 = "Categorie - Lista principale";
@@ -14,7 +26,6 @@ $lang_or_search_from_keyword                 = "Cerca con parola chiave";
 $lang_search                               = "Cerca";
 $lang_select_course_among_categories       = "Scegli Corso tra Categorie";
 $lang_select_course_in                     = "Scegli Corso in ";
-$lang_select_course_in_search_results      = "Scegli Corso tra i risultati della ricerca";
 $lang_select_course_in_search_results      = "Scegli Corso tra i risultati della ricerca";
 $lang_unsubscribe                          = "Cancellati";
 $lang_back_to_my_home_page                 = "Torna alla mia Home Page";

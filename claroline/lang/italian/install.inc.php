@@ -1,100 +1,98 @@
 <?php # $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.5.* (1)				                             |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-
+      |   Italian translation  October 2004                                  |
       +----------------------------------------------------------------------+
-	  |   English Translation                                                |
       +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
       +----------------------------------------------------------------------+
  */
+
+
 $langEG 			= "e. g.";
-$langDBConnectionParameters = "Mysql connection parameters";
-$lang_Note_this_account_would_be_existing ="Note : this account would be existing";
+$langDBConnectionParameters = "Parametri di connessione MySQL";
+$lang_Note_this_account_would_be_existing ="Nota : questo account deve esistere";
 $langDBHost			= "Database Host";
 $langDBLogin		= "Database Username";
 $langDBPassword 	= "Database Password";
-$langDBNamesRules	= "Database Names";
-$langMainDB			= "Main claroline DB"; // show in multi DB
-$langStatDB			= "Tracking DB.";// show in multi DB
-$langPMADB			= "DB for extention of PhpMyAdmin";// show in multi DB
-$langDbName			= "DB Name"; // show in single DB
-$langDBUse			= "Database usage";
-$langEnableTracking     = "Enable Tracking";
-$langAllFieldsRequired	= "all fields required";
-$langPrintVers			= "Printable version";
-$langLocalPath			= "Corresponding local path";
+$langDBNamesRules	= "Database Nomi";
+$langMainDB			= "Claroline DB Principale"; // show in multi DB
+$langStatDB			= "DB Tracking";// show in multi DB
+$langPMADB			= "DB per le estensioni PhpMyAdmin";// show in multi DB
+$langDbName			= "DB Nome"; // show in single DB
+$langDBUse			= "Database - uso";
+$langEnableTracking     = "Abilita Tracking";
+$langAllFieldsRequired	= "tutti i campi sono obbligatori";
+$langPrintVers			= "Versione stampabile";
+$langLocalPath			= "Path Locali corrispondenti";
 $langAdminEmail			= "Email";
-$langAdminName			= "Lastname";
-$langAdminSurname		= "Firstname";
+$langAdminName			= "Cognome";
+$langAdminSurname		= "Nome";
 $langAdminLogin			= "Login";
 $langAdminPass			= "Password";
 $langEducationManager	= "Education manager";
-$langHelpDeskPhone		= "Helpdesk telephone";
-$langCampusName			= "Your campus' name";
-$langInstituteShortName = "Organisation short name";
-$langInstituteName		= "URL of this organisation";
+$langHelpDeskPhone		= "Helpdesk - Telefono";
+$langCampusName			= "Nome del Campus";
+$langInstituteShortName = "Organizzazione - Nome abbreviato";
+$langInstituteName		= "Organizzazione - URL";
 
 
 $langDBSettingIntro		= "
-				Install script will create claroline main DB. Please note that Claroline
-				will need to create many DBs (unless you select option \"One\" below). If you are allowed only one
-				DB for your website by your Hosting Services, Claroline will not work.";
+				La procedura di installazione crea il database principale di Claroline. Claroline
+				permette di creare diversi DB (se non selezionate la voce \"One\" sotto). Se siete autorizzati ad avere solo un DB per il vostro website dal vostro servizio di Host, Claroline non potrà lavorare in maniera corretta.";
 $langDBSettingAccountIntro		= "
-				Claroline is build to work with many DBs but can works with only one Db,
-				To work with many DBs, your account need to have Db creation right.<BR>
-				If you are allowed only one
-				DB for your website by your Hosting Services, You need select option \"One\" below.";
+				Claroline è stata progettata per lavorare con diversi DBs ma può lavorare anche con un solo Db.
+				Per lavorare con diversi DBs, il vostro account deve avere i diritti di creazione sui DBs.<BR>
+				Se siete autorizzati a gestire solo un
+				DB per il vostro website dal vostro servizio di Host, dovete selezionare \"One\" sotto.";
 $langDBSettingNamesIntro		= "
-				Install script will create main claroline databases. 
-				You can create different database 
-				for tracking and PhpMyAdmin extension if you want 
-				or gathering all these stuff in one database, like you want. 
-				Afterwards, Claroline will create a new database for each new course created. 
-				You can specify a prefix for these database names.
+				La procedura di installazione crea il database principale di Claroline. 
+				Potete creare diversi DBs 
+				per il le funzioni di Tracking e PhpMyAdmin se lo riterrete necessario. 
+				Nel caso contrario, Claroline creerà un nuovo DB per ogni corso creato. 
+				Potete specificare un prefisso per questi nomi di DBs.
 				<p>
-				If you are allowed to use only one database by your database system administrator, 
-				get back to the previous page and select option \"Single\"
+				Se siete autorizzati a gestire solo un
+				DB per il vostro website dal vostro servizio di Host,
+				tornate alla pagina precedente e selezionate la voce \"Single\"
 				</p>
 				";
 $langDBSettingNameIntro		= "
-				Install script will create table of claroline main, tracking and PhpMyAdmin relation DB in your
-				single DB.
-				Choose name for these Db and a prefix for future Courses Tables.<BR>
-				If you are allowed to create many DB, back to previous page and select option \"Several\".
-				It's really more convivial for use";
-$langStep1 			= "Step 1 of 7 ";
-$langStep2 			= "Step 2 of 8";
-$langStep3 			= "Step 3 of 8";
-$langStep4 			= "Step 4 of 8";
-$langStep5 			= "Step 5 of 8";
-$langStep6 			= "Step 6 of 8";
-$langStep7 			= "Step 7 of 8";
-$langStep8 			= "Step 8 of 8";
-$langCfgSetting		= "Platform settings";
-$langDBSetting 		= "MySQL database settings";
-$langMainLang 		= "Main language";
-$langLicence		= "License";
-$langLastCheck		= "Last check before install";
-$langRequirements	= "Requirements";
+				La procedura di installazione crea le tabelle principali di Claroline, tracking and PhpMyAdmin nel vostro DB singolo.
+				Scegliere un mome per questo DB e il prefisso per le future tabelle dei corsi.<BR>
+				Se siete autorizzati a gestire più DBs per il vostro website dal vostro servizio di Host,
+				tornate alla pagina precedente e selezionate la voce \"Several\".
+				Risulta semplice da utilizzare";
+$langStep1 			= "Passo 1 di 7 ";
+$langStep2 			= "Passo 2 di 8";
+$langStep3 			= "Passo 3 di 8";
+$langStep4 			= "Passo 4 di 8";
+$langStep5 			= "Passo 5 di 8";
+$langStep6 			= "Passo 6 di 8";
+$langStep7 			= "Passo 7 di 8";
+$langStep8 			= "Passo 8 di 8";
+$langCfgSetting		= "Impostazioni della Piattaforma";
+$langDBSetting 		= "Impostaazioni database MySQL";
+$langMainLang 		= "Lingua principale";
+$langLicence		= "Licenza";
+$langLastCheck		= "Ultimo controllo prima di installare";
+$langRequirements	= "Requisiti";
 
-$langDbPrefixForm	= "Prefix Name for Course Db";
-$langTbPrefixForm	= "Prefix Name for Course Table";
+$langDbPrefixForm	= "Prefisso per il database dei Corsi";
+$langTbPrefixForm	= "Prefisso per la tabella dei Corsi";
 $langDbPrefixCom	= "e.g. 'CL_'";
-$langEncryptUserPass	= "Encrypt user passwords in database";
-$langSingleDb	= "Use one or several DB for Claroline";
+$langEncryptUserPass	= "Cripta le password utente nel database";
+$langSingleDb	= "Usa uno o diversi DB per Claroline";
 
 
-$langWarningResponsible = "Use this script only after backup. Claroline team is not responsible if you lost or corrupted data";
-$langAllowSelfReg	=	"Allow self-registration";
-$langAllowSelfRegProf =	"Allow self-registration as course creator";
-$langRecommended	=	"(recommended)";
+$langWarningResponsible = "Usa questo script solo dopo il backup. Il team di Claroline non è responsabile per perdite o danneggiamenti ai dati";
+$langAllowSelfReg	=	"Consenti registrazione in proprio";
+$langAllowSelfRegProf =	"Consenti registrazione in proprio come creatore di corsi";
+$langRecommended	=	"(raccomandato)";
 
 
 ?>

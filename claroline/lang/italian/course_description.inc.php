@@ -1,23 +1,19 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                              |
+      | CLAROLINE version 1.5.* (1)				                             |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      | $Id$|
-	  |   English Translation                                                |
+      |   Italian translation  October 2004                                  |
       +----------------------------------------------------------------------+
-
       +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
+      | Translator: GIOACCHINO POLETTO (info@polettogioacchino.com)          |
       +----------------------------------------------------------------------+
  */
 $langCourseProgram = "Descrizione del Corso";
 $langThisCourseDescriptionIsEmpty = "Questo corso attualmente è privo di descrizione";
-$langEditCourseProgram = "Crea e edita con le maschere";
+$langEditCourseProgram = "Crea e Modifica Attributi";
 $langQuestionPlan = "Domanda al Professore";
 $langInfo2Say = "Informazioni da dare agli Studenti";
 $langOuAutreTitre = "Titolo";
