@@ -554,7 +554,7 @@
 
 
    claro_disp_tool_title($langPathContentTitle);
-
+  echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.$langBackToLPAdmin.'</a>';
   // display list of modules used by this learning path
    display_path_content($param_array, $table);
 
