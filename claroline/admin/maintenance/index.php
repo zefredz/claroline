@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -30,11 +30,7 @@ include($includePath."/lib/debug.lib.inc.php");
 $nameTools = $langMaintenance;
 $dateNow 			= claro_format_locale_date($dateTimeFormatLong);
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
-$htmlHeadXtra[] = "<style type=\"text/css\">
-<!--
-	ul { font-size : small }
--->
-</STYLE>";
+// $htmlHeadXtra[] = '';
 $is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
 // make here some  test
 // $checkMsgs[] = array("level" => 5, "target" => "test 1 ", "content" => "this is  just  a  warning test 1 ");
@@ -58,23 +54,18 @@ claro_disp_tool_title(
 claro_disp_msg_arr($controlMsg); ?>
 <UL>
 	<LI>
-		<a href="updateClaroline.php" ><?php echo $langUpgradeAll; ?></a>
-		<?php echo $langMakeBackupBefore ?>
-
+		<a href="upgrade.php" ><?php echo $langUpgradeAll; ?></a>
 <?php
-if ($thisClarolineVersion == $clarolineVersion)
+if ($thisClarolineVersion==$clarolineVersion)
 {
 	echo "<font style=\"success\" color=\"green\">all ready done</font>";
 }
 else
 {
-	echo "<font style=\"warn\" color=\"red\">Do it</font>";
+	echo "<font style=\"warn\" color=\"red\">Do it $thisClarolineVersion != $clarolineVersion</font>";
 }
 ?>
-	</LI>
-	<LI>
-		<a href="batchUpdateDb.php" ><?php echo $langUpgradeCoursesDb; ?></a>
-		<?php echo $langExplainUpgradeCourses ?>
+<div class="error"><?php echo $langMakeBackupBefore ?></div>
 	</LI>
 </UL>
 <?php
