@@ -357,7 +357,7 @@ if ($displayButtonLine)
 {
     echo '<p>'."\n"
          .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqCreate">'
-         .'<img src="'.$clarolineRepositoryWeb.'img/valves.gif">'
+         .'<img src="'.$clarolineRepositoryWeb.'img/announcement.gif">'
          .$langAddAnn
          .'</a>'
          .' | '
@@ -464,7 +464,7 @@ if ($displayList)
         }
         else
         {
-            $imageFile = 'valves.gif';
+            $imageFile = 'announcement.gif';
             $altImg    = '';
         }
 

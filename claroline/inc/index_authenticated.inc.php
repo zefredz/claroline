@@ -186,7 +186,7 @@ echo "</ul>\n"
         switch ($courseDigestList['toolLabel'][$i])
         {
             case 'CLANN___': 
-                $itemIcon = 'valves.gif';
+                $itemIcon = 'announcement.gif';
                 $url = 'claroline/announcements/announcements.php?cidReq='
                        .$courseDigestList['courseSysCode'][$i]; 
                 $name = $langValvas;
