@@ -204,11 +204,11 @@ if ($is_allowedToEdit)
 
     echo "Course Administration :&nbsp;&nbsp;&nbsp;&nbsp;";
     echo "<img src=\"".$imgRepository."/referencement.gif\" alt=\" \">";
-    echo "<a href=\"".$toolRepository."/course_info/infocours.php\">".$langModifInfo."</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+    echo "<a href=\"".$toolRepository."course_info/infocours.php\">".$langModifInfo."</a>&nbsp;&nbsp;&nbsp;&nbsp;";
     // langModifInfo stands for 'course setting' ...
     echo "<img src=\"".$imgRepository."/statistiques.gif\" alt=\" \">";
 
-    echo "<a href=\"".$toolRepository."/tracking/courseLog.php\">".$langStats."</a>";
+    echo "<a href=\"".$toolRepository."tracking/courseLog.php\">".$langStats."</a>";
     // $langStats stands for Statistics
 
 }
