@@ -14,19 +14,16 @@ $langFillToolCourses = 'Fill tools of a course (lorem ipsum filler)';
 require '../../inc/claro_init_global.inc.php';
 
 $is_allowedToUseSDK 	= $is_platformAdmin;
-if ($is_allowedToUseSDK)
-{
-    claro_disp_auth()
-}
+if ($is_allowedToUseSDK) claro_disp_auth_form(); 
 
 $nameTools = $langDevTools;
-$interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
-@include("../checkIfHtAccessIsPresent.php");
+$interbredcrump[]= array ('url'=>'../index.php', 'name'=> $langAdmin);
+@include('../checkIfHtAccessIsPresent.php');
 include($includePath.'/claro_init_header.inc.php');
 claro_disp_tool_title(
 	array(
 	'mainTitle'=>$nameTools,
-	'subTitle'=>$PHP_AUTH_USER." - ".$siteName." - ".$clarolineVersion
+	'subTitle'=>$siteName.' - '.$clarolineVersion
 	)
 	);
 claro_disp_msg_arr($controlMsg);
