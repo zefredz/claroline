@@ -32,7 +32,6 @@ $langFillGroups="Polni skupine";
 $langGroupsProperties="Lastnosti skupin";
 $langStudentRegAllowed="Studenti se lahko v skupine sami vpisejo";
 $langStudentRegNotAllowed="Studenti se ne morejo sami vpisati v skupine";
-$langPrivateAccess="Skupinski forumi so privatni";
 $langNoPrivateAccess="Skupinski forumi niso privatni";
 $langTools="Orodja";
 $langForum="Forum";

@@ -32,7 +32,6 @@ $langStudentRegAllowed="Les étudiants <b>sont autorisés</b>
 			à s'inscrire eux-mêmes dans les groupes";
 $langStudentRegNotAllowed="Les étudiants <b>ne sont pas autorisés</b>
 			à s'inscrire eux-mêmes dans les groupes";
-$langPrivateAccess="Les forums de groupes sont <b>privés</b>";
 $langNoPrivateAccess="Les forums de groupes sont <b>publics</b>";
 $langTools="Outils";
 $langForum="Forum";

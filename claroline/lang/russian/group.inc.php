@@ -49,7 +49,6 @@ $langStudentRegAllowed="Хжидепжво <b>фвяфещепр</b>
 			хворхжруженыпр явткхэювжыху ю ъфиттэ";
 $langStudentRegNotAllowed="Хжидепжво <b>пе фвяфещепр</b>
 			хворхжруженыпр явткхэювжыху ю ъфиттэ";
-$langPrivateAccess="Црфиоэ ъфитэ <b>явмфэжэ</b> дну трхжрфрппкй";
 $langNoPrivateAccess="Црфиоэ ъфиттэ <b>ржмфэжэ юхео</b>";
 $langTools="Хфедхжюв итфвюнепку";
 $langForum="Црфио";

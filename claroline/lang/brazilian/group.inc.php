@@ -33,7 +33,6 @@ $langFillGroups="Preencher grupos";
 $langGroupsProperties="Configurações dos grupos";
 $langStudentRegAllowed="Estudantes tem permissão para se registrarem nos grupos";
 $langStudentRegNotAllowed="Estudantes não tem permissão para se registrarem nos grupos";
-$langPrivateAccess="Fóruns do grupo são privados";
 $langNoPrivateAccess="Fóruns do grupo não são privados";
 $langTools="Ferramentas";
 $langForum="Fórum";

@@ -32,7 +32,6 @@ $langFillGroups="Isikan group";
 $langGroupsProperties="Seting Group";
 $langStudentRegAllowed="Siswa diijinkan untuk mendaftar sendiri dalam group";
 $langStudentRegNotAllowed="Siswa tidak diijinkan untuk mendaftar sendiri dalam group";
-$langPrivateAccess="Forum Group bersifat private";
 $langNoPrivateAccess="Forum Group bersifat private";
 $langTools="Tool";
 $langForum="Forum";

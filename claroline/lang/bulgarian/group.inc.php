@@ -25,7 +25,6 @@ $langFillGroups="Пълни групите";
 $langGroupsProperties="Настройки на групата";
 $langStudentRegAllowed="Разрешено е на студентите да се саморегистрират в група";
 $langStudentRegNotAllowed="Не е разрешено е на студентите да се саморегистрират в група";
-$langPrivateAccess="Форумите на групата са частни(ограничени)";
 $langNoPrivateAccess="Форумите на групата са частни";
 $langTools="Инструменти";
 $langForum="Форуми";

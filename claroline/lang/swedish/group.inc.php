@@ -48,7 +48,6 @@ $langFillGroups="Fyll grupper";
 $langGroupsProperties="Gruppinställningar";
 $langStudentRegAllowed="Elever kan självregistrera sig i grupper";
 $langStudentRegNotAllowed="Elever kan inte självregistrera sig i grupper";
-$langPrivateAccess="Gruppforum är privata";
 $langNoPrivateAccess="Gruppforum är publika";
 $langTools="Verktyg";
 $langForum="Forum";

@@ -32,7 +32,6 @@ $langFillGroups="Penuhkan kumpulan";
 $langGroupsProperties="<i>Set</i>kan kumpulan";
 $langStudentRegAllowed="Pelajar dibenarkan untuk mendaftar-sendiri ke kumpulan ini";
 $langStudentRegNotAllowed="Pelajar tidak dibenarkan untuk mendaftar-sendiri ke kumpulan ini";
-$langPrivateAccess="Forum Kumpulan Khusus";
 $langNoPrivateAccess="Forum Kumpulan Umum";
 $langTools="Alat Bantu";
 $langForum="Forum";

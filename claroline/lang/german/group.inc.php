@@ -79,7 +79,6 @@ $langNoPrivateAccess="geschlossene Gruppenforen";
 $langOneMyGroups="Gruppenleiter";
 $langPlaces="Plätze je Gruppe (optional)";
 $langPrivate="geschlossen";
-$langPrivateAccess="geschlossene Gruppenforen";
 $langPropModify="Einstellungen verändern";
 $langPublic="öffentlich";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;Gruppen Mitglied sein";

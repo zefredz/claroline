@@ -32,7 +32,6 @@ $langFillGroups="Omple grups";
 $langGroupsProperties="Especificacions dels grups";
 $langStudentRegAllowed="Els estudiants es poden autoenregistrar en els grups";
 $langStudentRegNotAllowed="Els estudiants no es poden autoenregistrar en els grups";
-$langPrivateAccess="Els fòrums dels grups són privats";
 $langNoPrivateAccess="Els fòrums dels grups no són privats";
 $langTools="Eines";
 $langForum="Fòrum";

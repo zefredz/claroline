@@ -32,7 +32,6 @@ $langFillGroups="Fill groups";
 $langGroupsProperties="Groups settings";
 $langStudentRegAllowed="Students are allowed to self-register in groups";
 $langStudentRegNotAllowed="Students are not allowed to self-register in groups";
-$langPrivateAccess="Group forums are private";
 $langNoPrivateAccess="Group forums are private";
 $langTools="Tools";
 $langForum="Forum";

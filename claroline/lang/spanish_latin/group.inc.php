@@ -59,7 +59,6 @@ $langFillGroups="Completar grupos";
 $langGroupsProperties="Configuración de los grupos";
 $langStudentRegAllowed="Los estudiantes están autorizados a registrarse solos en los grupos";
 $langStudentRegNotAllowed="Los estudiantes no están autorizados a registrarse solos en los grupos";
-$langPrivateAccess="Los foros de los grupos son privados";
 $langNoPrivateAccess="Los foros de los grupos son privados";
 $langTools="Herramientas";
 $langForum="Foro";

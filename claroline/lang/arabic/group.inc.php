@@ -36,7 +36,6 @@ $langStudentRegAllowed=" الطلبة <b> مرخّصون </b>
 			للترسيم في المجموعات  ";
 $langStudentRegNotAllowed=" الطلبة <b> غير مرخّصون </b> 
 			للترسيم في المجموعات  ";
-$langPrivateAccess=" منتديات المجموعات خاصّة  </b>";
 $langNoPrivateAccess=" منتديات المجموعات عامّة <b> عامّة </b>";
 $langTools=" أدوات ";
 $langForum=" منتدى ";

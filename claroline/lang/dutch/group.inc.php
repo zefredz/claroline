@@ -69,7 +69,6 @@ $langFillGroups="Alle groepen invullen";
 $langGroupsProperties="Groepseigenschappen";
 $langStudentRegAllowed="De gebruikers <b>mogen</b> zichzelf inschrijven";
 $langStudentRegNotAllowed="De gebruikers <b>mogen</b> zichzelf <b>niet</b> inschrijven";
-$langPrivateAccess="Het groepsforum is <b>privé</b>";
 $langNoPrivateAccess="Het groepsforum is <b>publiek</b>";
 $langTools="Functies";
 $langForum="Forum";

@@ -32,7 +32,6 @@ $langFillGroups="Gruplarý doldur";
 $langGroupsProperties="Grup ayarlarý";
 $langStudentRegAllowed="Öðrenciler gruplara kendi kendilerine kaydolabilir";
 $langStudentRegNotAllowed="Öðrenciler gruplara kaydolamaz";
-$langPrivateAccess="Grup forumlarý özeldir";
 $langNoPrivateAccess="Grup forumlarý özel deðildir";
 $langTools="Araçlar";
 $langForum="Forum";

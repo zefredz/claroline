@@ -31,7 +31,6 @@ $langFillGroups="Zapisywanie do grup";
 $langGroupsProperties="Ustawienia grup";
 $langStudentRegAllowed="Zezwolono studentom na samodzielne zapisywanie siê do grup";
 $langStudentRegNotAllowed="Nie zezwolono studentom na samodzielne zapisywanie siê do grup";
-$langPrivateAccess="Forum dyskusyjne grupy jest zamkniête";
 $langNoPrivateAccess="Forum dyskusyjne grupy jest zamkniête";
 $langTools="Narzêdzia";
 $langForum="Forum dyskusyjne";

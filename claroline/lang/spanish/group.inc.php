@@ -36,7 +36,6 @@ $langFillGroups="Rellenar grupos";
 $langGroupsProperties="Caracter&iacute;sticas de los Grupos";
 $langStudentRegAllowed="Se permite a los estudiantes inscribirse en el grupo que quieran";
 $langStudentRegNotAllowed="No se permite a los estudiantes inscribirse en el grupo que quieran";
-$langPrivateAccess="Los foros del grupo son privados";
 $langNoPrivateAccess="Los foros de grupo son privados";
 $langTools="Herramientas";
 $langForum="Foro";

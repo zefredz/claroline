@@ -32,7 +32,6 @@ $langFillGroups="Fyld alle grupper";
 $langGroupsProperties="Opsætning af grupper";
 $langStudentRegAllowed="De studerende skal selv tilmelde sig grupperne";
 $langStudentRegNotAllowed="De studerende skal ikke selv tilmelde sig grupperne";
-$langPrivateAccess="Gruppeforums er lukkede";
 $langNoPrivateAccess="Gruppeforums er lukkede";
 $langTools="Værktøjer";
 $langForum="Diskussionsforum";

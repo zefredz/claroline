@@ -76,7 +76,6 @@ $langNoPrivateAccess="I forum dei gruppi sono <b>pubblici</b>";
 $langOneMyGroups="mia supervisione";
 $langPlaces="partecipanti per gruppo (facoltativo)";
 $langPrivate="Privato";
-$langPrivateAccess="I forum dei gruppi sono <b>privati</b>";
 $langPropModify="Modifica proprietà";
 $langPublic="Pubblico";
 $langRegIntoGroup="Aggiungimi al gruppo ";
