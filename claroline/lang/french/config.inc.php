@@ -9,7 +9,7 @@ $lang_config_phone					=	"Téléphone : ";
 $lang_config_email					=	"E-mail : "; // JCC
 $lang_config_TitleEducationManager	=	"Conseiller pédagogique : "; // JCC 
 $lang_config_TitleInstitution		=	"Institution : ";
-$lang_config_urlInstitution			=	"Adresse Internet : "; // JCC
+$lang_config_urlInstitution			=	"URL : "; // JCC
 $lang_config_ButtonSend				=	"Changer la configuration";
 $lang_config_langage 				=	"Langue :";
 $lang_config_rootWeb				= 	"Chemin web";
@@ -30,7 +30,7 @@ $lang_config_ErrorOpenFile			=	"Erreur d'ouverture du fichier config.php";
 $lang_config_ErrorEmailAdmin		=	"L'e-mail de l'administrateur est incorrect !"; // JCC
 $lang_config_ErrorEmailManager		=	"L'e-mail du conseiller pédagogique est incorrect !"; // JCC 
 $lang_config_Info					=	"(*) valeur requise";
-$lang_config_ErrorURLInstitution	=	"L'adresse Internet de l'institution est incorrecte !"; // JCC
+$lang_config_ErrorURLInstitution	=	"L'URL de l'institution est incorrecte !"; // JCC
 $lang_config_ErrorRootWeb			=	"Le chemin web est incorrect !";
 $lang_config_NoAdmin				=	"Vous n'êtes pas connecté en tant qu'administrateur";
 ?>

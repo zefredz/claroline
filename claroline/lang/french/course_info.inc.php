@@ -68,7 +68,7 @@ qu'il contient et radierez tous les étudiants qui y sont inscrits. <p>Voulez-vou
 $langY="OUI";
 $langN="NON";
 
-$langDepartmentUrl = "Adresse Internet du département"; // JCC
+$langDepartmentUrl = "URL du département"; // JCC
 $langDepartmentUrlName = "Département";
 $langEmail="E-mail"; // JCC
 
@@ -135,7 +135,7 @@ $langAddedExternalTool="Lien externe ajouté.";
 $langUnableAddExternalTool="Impossible d'ajouter cet outil";
 $langMissingValue="Valeur manquante";
 $langToolName="Nom du  lien";
-$langToolUrl="Adresse Internet du lien"; // JCC
+$langToolUrl="URL du lien"; // JCC
 $langChangedTool="L'accès au lien a été changé";
 $langUnableChangedTool="Impossible de changer l'accès au lien";
 $langUpdatedExternalTool="Lien externe modifié";

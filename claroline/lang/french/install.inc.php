@@ -33,7 +33,7 @@ $langEducationManager	= "Responsable du contenu";
 $langHelpDeskPhone		= "N° de téléphone de l'assistance technique"; // JCC 
 $langCampusName			= "Nom du campus";
 $langInstituteShortName = "Nom abrégé de l'institution";
-$langInstituteName		= "Adresse Internet de l'institution"; // JCC
+$langInstituteName		= "URL de l'institution"; // JCC
 
 
 $langDBSettingIntro		= "
