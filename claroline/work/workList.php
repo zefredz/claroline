@@ -82,8 +82,7 @@ if( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
       // we need to know the assignment settings
       $sql = "SELECT *,
                 UNIX_TIMESTAMP(`start_date`) AS `unix_start_date`,
-                UNIX_TIMESTAMP(`end_date`) AS `unix_end_date`,
-                UNIX_TIMESTAMP(`prefill_date`) AS `unix_prefill_date`
+                UNIX_TIMESTAMP(`end_date`) AS `unix_end_date`
                 FROM `".$tbl_wrk_assignment."`
                 WHERE `id` = ".$_REQUEST['assigId'];
       
@@ -176,20 +175,20 @@ $is_allowedToEditAll  = (bool) $is_courseAdmin;
 
 
 //-- is_allowedToEdit
-
+// upload or update is allowed between start and end date or after end date if late upload is allowed
+$uploadDateIsOk = (bool) $afterStartDate 
+                              && ( time() < $assignment['unix_end_date'] || $assignment['allow_late_upload'] == "YES" );
+                              
 // a work is set, user is authed and the work is his work
 $userCanEdit = (bool) ( isset($wrk) && isset($_uid) && $wrk['user_id'] == $_uid );
 
-$is_allowedToEdit = (bool)    ( $assignmentIsVisible && $afterStartDate && $userCanEdit )
+$is_allowedToEdit = (bool)    ( $assignmentIsVisible && $uploadDateIsOk && $userCanEdit )
                               || $is_allowedToEditAll;
 
 
 //-- is_allowedToSubmit
 
-// upload is between start and end date or after end date and late upload is allowed
-$uploadDateIsOk = (bool) $afterStartDate 
-                              && ( time() < $assignment['unix_end_date'] || $assignment['allow_late_upload'] == "YES" );
-// user is anonyme , anonymous users can post and user is course allowe or user is authed and allowed
+// user is anonyme , anonymous users can post and user is course allowed or user is authed and allowed
 $userCanPost = (bool) ( !isset($_uid) && $anonCanPost && $is_courseAllowed ) 
                   || ( isset($_uid) && $is_courseAllowed );
 
@@ -451,7 +450,7 @@ if($is_allowedToEditAll)
             
             claro_sql_query($sqlAddWork);
                         
-            $dialogBox .= $langGradeAdded;
+            $dialogBox .= $langFeedbackAdded;
             
             $dispWrkForm = false;
             $dispWrkDet = false;
@@ -471,7 +470,8 @@ if($is_allowedToEditAll)
       // prepare fields
       if( !$_REQUEST['submitWrk'] )
       {
-            // prefill som fields of the form
+            // prefill some fields of the form
+            $form['wrkTitle'  ] = $wrk['title']." (".$langFeedback.")";
             $form['wrkAuthors'] = $currentUserFirstName." ".$currentUserLastName;
       }
       else
@@ -484,7 +484,8 @@ if($is_allowedToEditAll)
       
       $cmdToSend = "exGradeWrk";
       
-      $txtForFormTitle = $langGradeWork;
+      $txtForFormTitle = $langFeedback;
+      $isGrade = true;
       
       // display flags
       $dispWrkForm  = true;
@@ -670,6 +671,7 @@ if( !isset($dispWrkForm) && !isset($dispWrkDet) && !isset($dispWrkLst) )
       // set default display values if there is nothing set
       $dispWrkForm = false;
       $dispWrkDet = false;
+      $dispAssigDet = true;
       $dispWrkLst = true;
 }
 
@@ -718,37 +720,49 @@ claro_disp_tool_title($pageTitle);
 /*--------------------------------------------------------------------
                           ASSIGNMENT INFOS
   --------------------------------------------------------------------*/
-//
-echo "\n<p>\n"
-      ."<small>"
-      .$langEndDate." : ".claro_disp_localised_date($dateTimeFormatLong, $assignment['unix_end_date'])
-      ."</small>"
-      ."\n</p>\n\n";
-      
-if( !empty($assignment['description']) )
+// display assignment infos only when displaying the works list  
+if( isset($dispWrkLst) && $dispWrkLst )
 {
-echo "\n<p>\n"
-      ."<small>"
-      .claro_parse_user_text($assignment['description'])
-      ."</small>"
-      ."\n</p>\n\n";
-}
-
-// feedback
-// show it only if :
-//      - there is a text OR a file 
-//      - prefill_date is past
-if( ( !empty($assignment['prefill_text']) || !empty($assignment['prefill_doc_path']) ) && $assignment['unix_prefill_date'] < time() )
-{
-      echo "<b>".$langStandardfeedback."</b>";
-      if( !empty($assignment['prefill_text']) )
+      // end date
+      echo "\n<p>\n"
+            ."<b>".$langEndDate."</b><br />\n"
+            .claro_disp_localised_date($dateTimeFormatLong, $assignment['unix_end_date'])
+            ."\n</p>\n\n";
+      // description of assignment
+      if( !empty($assignment['description']) )
       {
-            echo "<p>".claro_parse_user_text($assignment['prefill_text'])."</p>";
+            echo "\n<p>\n"
+                  ."<b>".$langAssignmentDescription."</b><br />"
+                  .claro_parse_user_text($assignment['description'])
+                  ."\n</p>\n\n";
       }
       
-      if( !empty($assignment['prefill_doc_path']) )
+      // feedback
+      // show it only if :
+      //      - there is a text OR a file 
+      //    AND 
+      //          feedback must be shown after deadline and deadline is past
+      //       OR feedback must be showned after a post
+      if( (     !empty($assignment['prefill_text']) || !empty($assignment['prefill_doc_path']) ) 
+            &&  ( $assignment['prefill_submit'] == "ENDDATE" && $assignment['unix_end_date'] < time() )
+        )
       {
-            echo  "<p><a href=\"".$assigDirWeb.$assignment['prefill_doc_path']."\">".$assignment['prefill_doc_path']."</a></p>";
+            echo "<fieldset>\n"
+                  ."<legend><b>".$langFeedback."</b></legend>";
+            if( !empty($assignment['prefill_text']) )
+            {
+                  echo claro_parse_user_text($assignment['prefill_text']);
+            }
+            
+            if( !empty($assignment['prefill_doc_path']) && !empty($assignment['prefill_text']) )
+            {
+                  echo  "<p><a href=\"".$assigDirWeb.$assignment['prefill_doc_path']."\">".$assignment['prefill_doc_path']."</a></p>";
+            }
+            elseif( !empty($assignment['prefill_doc_path']) )
+            {
+                  echo  "<a href=\"".$assigDirWeb.$assignment['prefill_doc_path']."\">".$assignment['prefill_doc_path']."</a>";
+            }
+            echo "</fieldset><br />";
       }
 }
 
@@ -790,20 +804,20 @@ if( $dispWrkDet && $is_allowedToView )
       elseif( $is_allowedToEdit )
       {
             // show a link to the correction
-            echo "<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowGrade."</a>";
+            echo "<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowFeedback."</a>";
       }
       
       // show 'grade' link if user i course admin, the work has no correction and the work is not a correction
       if( $is_allowedToEditAll && empty($gradeId) && empty($wrk['parent_id']) )
       {
             // grade link
-            echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">".$langGradeWork."</a>";
+            echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">".$langFeedback."</a>";
       }
       // if the work has a correction already
       elseif( $is_allowedToEditAll && !empty($gradeId) )
       {
             // show grade
-            echo "<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowGrade."</a>";
+            echo "&nbsp;<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowFeedback."</a>";
       }
       
       
@@ -854,7 +868,7 @@ if( $dispWrkDet && $is_allowedToView )
       // display an alert if work was submitted after end date and work is not a correction !
       if( $assignment['unix_end_date'] < $wrk['unix_creation_date'] && empty($wrk['parent_id']) )
       {
-            $lateUploadAlert = "<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langAfterEndDate."\">";
+            $lateUploadAlert = "<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
       }
       else
       {
@@ -876,7 +890,7 @@ if( $dispWrkDet && $is_allowedToView )
             // display an alert if work was submitted after end date and work is not a correction !
             if( $assignment['unix_end_date'] < $wrk['unix_last_edit_date'] && empty($wrk['parent_id']) )
             {
-                  $lateEditAlert = "<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langAfterEndDate."\">";
+                  $lateEditAlert = "<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
             }
             else
             {
@@ -903,137 +917,135 @@ if( $is_allowedToSubmit )
       {
             claro_disp_message_box($dialogBox);
       }
-      
+      echo "<br />";
       if( $dispWrkForm )
       {
+            echo "<h4>".$txtForFormTitle."</h4>"
+                  ."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\" enctype=\"multipart/form-data\">"
+                  ."<input type=\"hidden\" name=\"assigId\" value=\"".$_REQUEST['assigId']."\">"
+                  ."<input type=\"hidden\" name=\"cmd\" value=\"".$cmdToSend."\">";
 
-?>
-    <h4><?php echo $txtForFormTitle; ?></h4>
-    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-    <input type="hidden" name="assigId" value="<?php echo $_REQUEST['assigId']; ?>">
-    <input type="hidden" name="cmd" value="<?php echo $cmdToSend; ?>">
-<?php
-  if( isset($_REQUEST['wrkId']) )
-  {
-?>
-    <input type="hidden" name="wrkId" value="<?php echo $_REQUEST['wrkId']; ?>">
-<?php
-  }
-?>
-    <table>
-      <tr>
-        <td valign="top"><label for="wrkTitle"><?php echo $langWrkTitle; ?>&nbsp;*&nbsp;:</label></td>
-        <td><input type="text" name="wrkTitle" id="wrkTitle" size="50" maxlength="200" value="<?php echo htmlentities($form['wrkTitle']); ?>"></td>
-      </tr>
-      <tr>
-        <td valign="top"><label for="wrkAuthors"><?php echo $langWrkAuthors; ?>&nbsp;*&nbsp;:</label></td>
-        <td><input type="text" name="wrkAuthors" id="wrkAuthors" size="50" maxlength="200" value="<?php echo htmlentities($form['wrkAuthors']); ?>"></td>
-      </tr>
-<?php
-      // display file box
-      if( $assignmentContent == "FILE" || $assignmentContent == "TEXTFILE" )
-      {
-            // if we are in edit mode and that a file can be edited : display the url of the current file and the file box to change it
-            if( isset($form['wrkUrl']) )
+            if( isset($_REQUEST['wrkId']) )
             {
+                  echo "<input type=\"hidden\" name=\"wrkId\" value=\"".$_REQUEST['wrkId']."\">";
+            }
+            
+            echo  "<table>"
+                  ."<tr>"
+                  ."<td valign=\"top\">".$langWrkTitle."&nbsp;*&nbsp;:</td>"
+                  ."<td><input type=\"text\" name=\"wrkTitle\" id=\"wrkTitle\" size=\"50\" maxlength=\"200\" value=\"".htmlentities($form['wrkTitle'])."\"></td>"
+                  ."</tr>"
+                  ."<tr>"
+                  ."<td valign=\"top\">".$langWrkAuthors."&nbsp;*&nbsp;:</td>"
+                  ."<td><input type=\"text\" name=\"wrkAuthors\" id=\"wrkAuthors\" size=\"50\" maxlength=\"200\" value=\"".htmlentities($form['wrkAuthors'])."\"></td>"
+                  ."</tr>";
+
+            // display file box
+            if( $assignmentContent == "FILE" || $assignmentContent == "TEXTFILE" )
+            {
+                  // if we are in edit mode and that a file can be edited : display the url of the current file and the file box to change it
+                  if( isset($form['wrkUrl']) )
+                  {
+                        echo "<tr>\n"
+                              ."<td valign=\"top\">";
+                              // display a different text according to the context
+                        if( $assignment['authorize_text'] == "YES" )
+                        {
+                              // if text is required, file is considered as a an attached document
+                              echo $langCurrentAttachedDoc;
+                        }
+                        else
+                        {
+                              // if the file is required and the text is only a description of the file
+                              echo $langCurrentDoc;
+                        }
+                        if( !empty($form['wrkUrl']) )
+                        {
+                              // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
+                              $completeWrkUrl = $assigDirWeb.$form['wrkUrl'];
+                              echo "&nbsp;:<input type=\"hidden\" name=\"currentWrkUrl\" value=\"".$form['wrkUrl']."\">"
+                                    ."</td>\n"
+                                    ."<td>"
+                                    ."<a href=\"".$completeWrkUrl."\">".$form['wrkUrl']."</a>"
+                                    ."<br />";
+                              if( $assignmentContent == "TEXTFILE" )
+                              {
+                                    // we can remove the file only if we are in a TEXTFILE context, in file context the file is required !
+                                    echo "<input type=\"checkBox\" name=\"delAttacheDFile\" id=\"delAttachedFile\">"
+                                    ."<label for=\"delAttachedFile\">".$langExplainDeleteFile."</label> ";
+                              }
+                              echo $langExplainReplaceFile."</td>\n"
+                                    ."</tr>\n\n";
+                        }
+                        else
+                        {
+                              echo "&nbsp;:"
+                                    ."</td>\n"
+                                    ."<td>"
+                                    .$langNoFile
+                                    ."</td>\n"
+                                    ."</tr>\n\n";
+                        }
+                  }
+                  
                   echo "<tr>\n"
-                        ."<td valign=\"top\">";
-                        // display a different text according to the context
-                  if( $assignment['authorize_text'] == "YES" )
+                        ."<td valign=\"top\"><label for=\"wrkFile\">";
+                  // display a different text according to the context
+                  if( $assignmentContent == "TEXTFILE" )
                   {
                         // if text is required, file is considered as a an attached document
-                        echo $langCurrentAttachedDoc;
+                        echo $langAttachDoc;
                   }
                   else
                   {
                         // if the file is required and the text is only a description of the file
-                        echo $langCurrentDoc;
+                        echo $langUploadDoc."&nbsp;*";
                   }
-                  if( !empty($form['wrkUrl']) )
-                  {
-                        // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
-                        $completeWrkUrl = $assigDirWeb.$form['wrkUrl'];
-                        echo "&nbsp;:<input type=\"hidden\" name=\"currentWrkUrl\" value=\"".$form['wrkUrl']."\">"
-                              ."</td>\n"
-                              ."<td>"
-                              ."<a href=\"".$completeWrkUrl."\">".$form['wrkUrl']."</a>"
-                              ."<br />";
-                        if( $assignmentContent == "TEXTFILE" )
-                        {
-                              // we can remove the file only if we are in a TEXTFILE context, in file context the file is required !
-                              echo "<input type=\"checkBox\" name=\"delAttacheDFile\" id=\"delAttachedFile\">"
-                              ."<label for=\"delAttachedFile\">".$langExplainDeleteFile."</label> ";
-                        }
-                        echo $langExplainReplaceFile."</td>\n"
-                              ."</tr>\n\n";
-                  }
-                  else
-                  {
-                        echo "&nbsp;:"
-                              ."</td>\n"
-                              ."<td>"
-                              .$langNoFile
-                              ."</td>\n"
-                              ."</tr>\n\n";
-                  }
+                  echo "&nbsp;:</label></td>\n"
+                        ."<td><input type=\"file\" name=\"wrkFile\" id=\"wrkFile\" size=\"30\"></td>\n"
+                        ."</tr>\n\n";
             }
             
-            echo "<tr>\n"
-                  ."<td valign=\"top\"><label for=\"wrkFile\">";
-            // display a different text according to the context
-            if( $assignmentContent == "TEXTFILE" )
+            if( $assignmentContent == "FILE" )
             {
-                  // if text is required, file is considered as a an attached document
-                  echo $langAttachDoc;
+                  // display standard html textarea
+                  // used for description of an uploaded file
+                  echo "<tr>\n"
+                        ."<td valign=\"top\">"
+                        ."<label for=\"wrkTxt\">"
+                        .$langFileDesc
+                        ."&nbsp;:<br /></label></td>"
+                        ."<td>\n"
+                        ."<textarea name=\"wrkTxt\" cols=\"30\" rows=\"3\">".$form['wrkTxt']."</textarea>"
+                        ."</td>\n"
+                        ."</tr>";
             }
-            else
+            elseif( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" )
             {
-                  // if the file is required and the text is only a description of the file
-                  echo $langUploadDoc."&nbsp;*";
+                  // display enhanced textarea using claro_disp_html_area
+                  echo "<tr>\n"
+                        ."<td valign=\"top\">"
+                        ."<label for=\"wrkTxt\">"
+                        .$langAnswer
+                        ."&nbsp;*&nbsp;:<br /></label></td>\n"
+                        ."<td>";
+                  claro_disp_html_area('wrkTxt', $form['wrkTxt']);
+                  echo "</td>\n"
+                        ."</tr>\n\n";
             }
-            echo "&nbsp;:</label></td>\n"
-                  ."<td><input type=\"file\" name=\"wrkFile\" id=\"wrkFile\" size=\"30\"></td>\n"
-                  ."</tr>\n\n";
-      }
-      
-      if( $assignmentContent == "FILE" )
-      {
-            // display standard html textarea
-            // used for description of an uploaded file
-            echo "<tr>\n"
-                  ."<td valign=\"top\">"
-                  ."<label for=\"wrkTxt\">"
-                  .$langFileDesc
-                  ."&nbsp;:<br /></label></td>"
-                  ."<td>\n"
-                  ."<textarea name=\"wrkTxt\" cols=\"30\" rows=\"3\">".$form['wrkTxt']."</textarea>"
-                  ."</td>\n"
-                  ."</tr>";
-      }
-      elseif( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" )
-      {
-            // display enhanced textarea using claro_disp_html_area
-            echo "<tr>\n"
-                  ."<td valign=\"top\">"
-                  ."<label for=\"wrkTxt\">"
-                  .$langAnswer
-                  ."&nbsp;*&nbsp;:<br /></label></td>\n"
-                  ."<td>";
-            claro_disp_html_area('wrkTxt', $form['wrkTxt']);
-            echo "</td>\n"
-                  ."</tr>\n\n";
-      }
-?>     
-      <tr>
-        <td>&nbsp;</td>
-        <td><input type="submit" name="submitWrk" value="<?php echo $langOk; ?>"></td>
-      </tr>
-    </table>
-    </form>
-    <small>* : <?php echo $langRequired; ?></small>
-    
 
-<?php
+            echo "<tr>\n"
+                  ."<td>&nbsp;</td>\n"
+                  ."<td>"
+                  ."<input type=\"submit\" name=\"submitWrk\" value=\"".$langOk."\">\n";
+                  
+                  claro_disp_button($_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId'], $langCancel);    
+                  
+            echo "</td>\n"
+                  ."</tr>\n\n"
+                  ."</table>\n\n"
+                  ."</form>"
+                  ."<small>* : ".$langRequired."</small>";
       }
 }
   
@@ -1102,7 +1114,7 @@ if( $dispWrkLst && $is_allowedToView )
     }
     
     $flatElementList = build_display_element_list( $treeElementList );
-    
+
     // look for maxDeep
     $maxDeep = 1; // used to compute colspan of <td> cells
     for ($i=0 ; $i < sizeof($flatElementList) ; $i++)
@@ -1122,7 +1134,6 @@ if( $dispWrkLst && $is_allowedToView )
     /*--------------------------------------------------------------------
                                   LIST
       --------------------------------------------------------------------*/
-    
     echo "<table class=\"claroTable\" width=\"100%\">\n"
           ."<tr class=\"headerX\">\n"
           ."<th colspan=\"".($maxDeep+1)."\">".$langWrkTitle."</th>\n"
@@ -1131,7 +1142,7 @@ if( $dispWrkLst && $is_allowedToView )
           
     if ( $is_allowedToEditAll ) 
     {
-        echo  "<th>".$langGradeWork."</th>\n"
+        echo  "<th>".$langFeedback."</th>\n"
             ."<th>".$langModify."</th>\n"
             ."<th>".$langDelete."</th>\n"
             ."<th>".$langVisibility."</th>\n";
@@ -1143,7 +1154,7 @@ if( $dispWrkLst && $is_allowedToView )
       // display an alert if work was submitted after end date and work is not a correction !
       if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && empty($thisWrk['parent_id']) )
       {
-            $lateUploadAlert = "&nbsp;<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langAfterEndDate."\">";
+            $lateUploadAlert = "&nbsp;<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
       }
       else
       {
@@ -1188,7 +1199,7 @@ if( $dispWrkLst && $is_allowedToView )
       { 
         if( empty($thisWrk['parent_id']) )
         {
-            $gradeString  = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\">".$langGradeWork."</a>";
+            $gradeString  = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\">".$langFeedback."</a>";
         }
         else
         {
