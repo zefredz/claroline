@@ -83,7 +83,7 @@ $langCourseAccess="Course access";
 $langDownload="Download";
 $langConfirmBackup="Do you really want to backup the course";
 
-$langCreateSite="Tạo một Website cho khoá học mới ";
+$langCreateSite="Tạo một Website cho khoá học mới";
 
 $langRestoreDescription="The course is in an archive file which you can select below.<br><br>
 When you have clicked on &quot;Restore&quot;, the archive will be uncompessed and the course recreated.";

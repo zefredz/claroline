@@ -267,7 +267,6 @@ $langCountUsersByCourse = "Количество пользователей по курсам";
 $langCountUsersByFaculte = "Количество пользователей по факультетам";
 $langCountUsersByStatus = "Количество пользователей по статусу";
 $langCourse = "Курс";
-$langCourse = "Курс ";
 $langCourseAccess = "Доступ к курсу";
 $langCourseAccess = "Доступ к этому курсу";
 $langCourseAdministratorOnly = "Доступно только администратору курса";

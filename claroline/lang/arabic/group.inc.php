@@ -12,7 +12,7 @@
       +----------------------------------------------------------------------+
 */
 $langGroupManagement=" مجموعات ";
-$langHelp=" إعانة  ";
+$langHelp=" إعانة ";
 $langNewGroupCreate=" خلق مجموعات جديدة ";
 $langGroupCreation=" خلق مجموعات ";
 $langCreate=" خلق ";

@@ -16,7 +16,7 @@
       +----------------------------------------------------------------------+
  */
 $langArchiveCourse = "Pohrana kolegija ";
-$langCreatedIn = "stvoren u ";
+$langCreatedIn = "stvoren u";
 $langCreateMissingDirectories ="Stvaranje nepostojeæih foldera";
 $langCopyDirectoryCourse = "Kopija datoteka za kolegij";
 $langDisk_free_space = "slobodno ";

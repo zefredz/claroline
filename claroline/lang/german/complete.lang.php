@@ -324,7 +324,6 @@ $langAppliedChange = "Die Änderungen der Benutzer-Einstellungen wurden durchgefü
 $langArchive = "Archiv";
 $langArchive = "archiviert";
 $langArchiveCourse = "Kurs Backup";
-$langArchiveCourse = "Kurs Backup ";
 $langArchiveLocation = "Archiv Ablage";
 $langArchiveLocation = "Archivablage";
 $langArchiveName = "Archivname";

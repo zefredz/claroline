@@ -20,7 +20,7 @@
  */
 $langAgenda 						= "Agenda";
 $langAnnouncement                                        = "Bekanntmachungen";
-$langArchiveCourse = "Kurs Backup ";
+$langArchiveCourse = "Kurs Backup";
 $langArchiveLocation="Archivablage";
 $langArchiveName ="Archivname";
 $langBackup                                                        = "Backup";

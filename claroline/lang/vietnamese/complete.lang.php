@@ -275,7 +275,6 @@ $langCreateClaroTables = "Create Table for main Database";
 $langCreateDir = "Tạo thư mục";
 $langCreateMissingDirectories = "Creation of missing directories";
 $langCreateSite = "Tạo một website cho khoá học mới";
-$langCreateSite = "Tạo một Website cho khoá học mới ";
 $langCreatedIn = "created in";
 $langCreatedIn = "tạo trong";
 $langCreationDate = "Created";

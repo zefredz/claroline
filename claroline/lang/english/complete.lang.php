@@ -302,6 +302,10 @@ $langBlock = "Block";
 $langBredCrumpUser = "User";
 $langBredCrumpUsers = "Users";
 $langBrowserCannotSeeFrames = "Your browser cannot see frames.";
+$langBuildCompleteLangFile = "Complete language files";
+$langBuildLangFile = "Build language files";
+$langBuildMissingLangFile = "Missing language files";
+$langBuildProductionLangFile = "Production language files";
 $langBuildTheCompressedFile = "Creation of backup file";
 $langByDel = "Deleting this course website will permanently delete all the documents it contains and unregister all its students (but will not remove them from other courses).<p>Do you really want to delete the course";
 $langByUser = "by the user";
@@ -829,6 +833,9 @@ $langExplainReplaceFile = "Upload a new file to replace the file.";
 $langExplanation = "Once you click OK, a site with Forum, Agenda, Document manager etc. will be created. Your login, as creator of the site, allows you to modify it along your own requirements.";
 $langExternalToolName = "Name link";
 $langExternalToolUrl = "URL link";
+$langExtractFromLangFile = "From language files";
+$langExtractFromScriptFile = "From script files";
+$langExtractLangVariable = "Extract language variables";
 $langFac = "Category";
 $langFaculty = "Faculty";
 $langFailed = "<span style=\"color: red\">Failed</span>";
@@ -863,6 +870,9 @@ $langFillUsers = "Insert users";
 $langFilled = "You have left some fields empty.";
 $langFilling = "Fill with test values";
 $langFilter = "Filter";
+$langFindDoubledVariable = "Find doubled variables";
+$langFindVarWithSameContentAndDifferentName = "Variables with same content and different name";
+$langFindVarWithSameNameAndDifferentContent = "Variables with same name and different content";
 $langFinish = "Finish";
 $langFirstName = "First Name";
 $langFirstname = "First name";
@@ -1476,6 +1486,7 @@ $langRidiculise = "Ridiculise one\'s interlocutor in order to have him concede h
 $langRole = "Role";
 $langRoot = "root";
 $langSCORMTypeDesc = "SCORM 1.2 conformable content";
+$langSDK = "SDK";
 $langSampleDocument = "example_document";
 $langSampleDocumentDesc = "You can use any document existing in the documents tool of this course.";
 $langSampleExerciseDesc = "You can use any exercise of the exercises tool of your course.";
@@ -1623,6 +1634,8 @@ $langTracking = "Tracking";
 $langTrackingDisabled = "Tracking has been disabled by system administrator.";
 $langTraduction = "Translation tool";
 $langTrafficDetails = "Traffic Details";
+$langTranslationStatistics = "Translation Progression";
+$langTranslationTools = "Translation Tools";
 $langTranslations = "Translations";
 $langTrue = "True";
 $langTutor = "Tutor";
@@ -1895,23 +1908,4 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
-
-$langTranslationTools = "Translation Tools";
-$langExtractLangVariable = "Extract language variables";
-$langBuildLangFile = "Build language files";
-$langFindDoubledVariable = "Find doubled variables";
-$langTranslationStatistics = "Translation Progression";
-
-$langExtractFromLangFile = "From language files";
-$langExtractFromScriptFile = "From script files";
-
-$langBuildCompleteLangFile = "Complete language files";
-$langBuildProductionLangFile = "Production language files";
-$langBuildMissingLangFile = "Missing language files";
-
-$langFindVarWithSameNameAndDifferentContent = "Variables with same name and different content";
-$langFindVarWithSameContentAndDifferentName = "Variables with same content and different name";
-
-$langSDK = "SDK";
-
 ?>

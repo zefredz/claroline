@@ -37,7 +37,7 @@
  */
 
 $langArchiveCourse = "Resguardo del Curso ";
-$langCreatedIn = "creado el ";
+$langCreatedIn = "creado el";
 $langCreateMissingDirectories ="Creación de directorios perdidos";
 $langCopyDirectoryCourse = "Copia de los archivos del curso";
 $langDisk_free_space = "espacio libre";

@@ -16,7 +16,7 @@
       +----------------------------------------------------------------------+
  */
 $langArchiveCourse = "Pohrana predmeta ";
-$langCreatedIn = "stvoren u ";
+$langCreatedIn = "stvoren u";
 $langCreateMissingDirectories ="Stvaranje nepostojeæih foldera";
 $langCopyDirectoryCourse = "Kopija datoteka za predmet";
 $langDisk_free_space = "slobodno ";

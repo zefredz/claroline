@@ -22,7 +22,7 @@ $langWelcome="kolegija koji su slobodno dostupni. Ostali predmeti zahtjevaju kor
 koje stvarate izborom opcije  'Prijava'.
 Nastavnici  mogu unijeti nove web stranice kolegija nako
 izborom opcije 'Prijava' ali izborom opcije 'Stvori web stranice za novi kolegij.";
-$langUserName="Korisnièko ime ";
+$langUserName="Korisnièko ime";
 $langPass="Zaporka";
 $langEnter="Ulaz";
 $langGettingStarted="Poèetak";

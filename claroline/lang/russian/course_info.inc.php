@@ -66,7 +66,7 @@ $langModifGroups="Группы";
 
 // delete_course.php
 $langDelCourse="Удалить весь курс целиком";
-$langCourse="Курс ";
+$langCourse="Курс";
 $langHasDel="Был удален";
 $langBackHomeOf="Назад на главную страницу ";
 $langByDel="Удаляя данный сайт, вы удалите все учебные материалы, которые он содержит. Кроме того, 

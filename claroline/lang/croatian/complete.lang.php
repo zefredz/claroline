@@ -215,7 +215,6 @@ $langCreateDir = "Stvaranje foldera";
 $langCreateMissingDirectories = "Stvaranje nepostojeæih foldera";
 $langCreateSite = "Stvaranje stranica predmeta";
 $langCreatedIn = "stvoren u";
-$langCreatedIn = "stvoren u ";
 $langDBHost = "Naziv raèunala  baze podataka";
 $langDBLogin = "Korisnièko ime baze podataka";
 $langDBPassword = "Zaporka baze podataka";
@@ -666,7 +665,6 @@ $langUserContent = "<b>Uloge</b><p>Uloge nemaju raèunalno povezanu funkciju.
 <b>Dodaj korisnika</b>
 <p>Kako bi dodali korisnika na vaš predmet, popunite polje i  potvrdite. Osoba 'e primiti obavijest putem emaila o prijavi i svom korisni;kom imenu i zaporki.</p>";
 $langUserName = "Korisnièko ime";
-$langUserName = "Korisnièko ime ";
 $langUserNo = "Korisnièko ime koje ste izabrali";
 $langUserNumber = "broj";
 $langUserOneByOneExplanation = "On (ona) æe primiti emailom potvrdu sa korisnièkim imenom i zaporkom";
