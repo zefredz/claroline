@@ -94,28 +94,33 @@ array ( 'is_allowedToRestore'
       );
 
 $conf_def_property_list['is_allowedToRestore'] = 
-array ('label'       => 'Autoriser le créateur de cours de restaurer une archive de cours'
+array ('label'       => 'Course creator can create a course from an archive'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
+      ,'display'     => FALSE
       ,'acceptedValue' => array ('TRUE'=>'enabled'
                               ,'FALSE'=>'Disabled'
                               )
       );
 
 $conf_def_property_list['sendByUploadAivailable'] = 
-array ('label'       => 'restaurer une archive de cours uploadée'
+array ('label'       => 'Course creator can upload an archive to restore as new course'
+      ,'description' => 'is_allowedToRestore must be enabled' 
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
+      ,'display'     => FALSE
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
-                              ,'FALSE'=>'Disabled'
+                                ,'FALSE'=>'Disabled'
                               )
       );
 
 $conf_def_property_list['sendByLocaleAivailable'] = 
 array ('label'       => 'restaurer une archive de cours stockées sur le serveur'
+      ,'description' => 'is_allowedToRestore must be enabled' 
       ,'default'     => 'FALSE'
+      ,'display'     => FALSE
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
@@ -125,9 +130,10 @@ array ('label'       => 'restaurer une archive de cours stockées sur le serveur'
 
 $conf_def_property_list['sendByHTTPAivailable'] = 
 array ('label'       => 'restaurer une archive de cours présente sur un autre serveur web'
+      ,'description' => 'is_allowedToRestore must be enabled' 
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
-      ,'display'     => TRUE
+      ,'display'     => FALSE
       ,'readonly'    => TRUE
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
@@ -137,9 +143,10 @@ array ('label'       => 'restaurer une archive de cours présente sur un autre se
 
 $conf_def_property_list['sendByFTPAivailable'] = 
 array ('label'       => 'Restaurer une archive de cours présente sur un serveur FTP'
+      ,'description' => 'is_allowedToRestore must be enabled' 
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
-      ,'display'     => TRUE
+      ,'display'     => FALSE
       ,'readonly'    => TRUE
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
