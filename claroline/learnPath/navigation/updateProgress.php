@@ -105,7 +105,7 @@ if($_POST['ump_id'])
 if($_POST['ump_id']) 
 {
 ?>
-    <script language="javascript">
+    <script type="text/javascript">
     <!--//
       parent.tocFrame.location.href="<?php echo $TOCurl; ?>";
     //--> 
