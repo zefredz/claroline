@@ -103,6 +103,13 @@ function valida()
 	var	f =	document.datos;
 	var	dat;
 
+	if (f.elements[3].length <	1) {
+		alert(\"$langPleaseSelectUsers\");
+		return false;
+	}
+	for	(var i=0; i<f.elements[3].length; i++)	
+		f.elements[3][i].selected = f.elements[3][i].checked = true
+
 	dat=f.emailContent.value;
 	if(dat.length == 0)
 	{
@@ -117,25 +124,6 @@ function valida()
 	return true;
 }
 
-function selectAll(cbList,bSelect)
-{
-	if (cbList.length <	1) {
-		//old: Debe	seleccionar	algún Alumno
-		alert(\"$langPleaseSelectUsers\");
-		return;
-	}
-	for	(var i=0; i<cbList.length; i++)	
-		cbList[i].selected = cbList[i].checked = bSelect
-}
-
-function reverseAll(cbList)
-{
-	for	(var i=0; i<cbList.length; i++)
-	{
-		cbList[i].checked  = !(cbList[i].checked) 
-		cbList[i].selected = !(cbList[i].selected)
-	}
-}
 //	End	-->
 </script>";
 
@@ -455,8 +443,7 @@ if($is_allowedToUse)	// check teacher status
 
 				"<input	type=\"Submit\"	
 				name=\"submitAnnouncement\"	",
-				"value=\"",$langSubmit,"\" ",
-				"onClick=\"selectAll(this.form.elements[3],true)\">",
+				"value=\"",$langSubmit,"\" >",
 
 				"</td>",
 
