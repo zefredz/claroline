@@ -301,7 +301,7 @@ if(!$nbrExercises)
 ?>
 
 <tr>
-  <td <?php if($is_allowedToEdit) echo 'colspan="4"'; ?>><?php echo $langNoEx; ?></td>
+  <td <?php if($is_allowedToEdit) echo 'colspan="5"'; ?>><?php echo $langNoEx; ?></td>
 </tr>
 
 <?php
