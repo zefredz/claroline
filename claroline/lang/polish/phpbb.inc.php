@@ -33,7 +33,7 @@ $langLoginBeforePost3="zalogowaæ siê do serwera";
 // page_header.php
 
 $langNewTopic="Nowy Temat";
-$langAnswer="Odpowiedz";
+$langReply="Odpowiedz";
 
 // Groups Management Claroline
 $langGroupSpaceLink="Obszar grup";

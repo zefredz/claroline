@@ -47,7 +47,6 @@ $langUp = "Eine Ebene höher";
 $langCatList = "Kategorie";
 $langCourseList = "Kursangebot";
 $langCourses	= "Kurse";
-$langIn			= "in";
 $langSubCat		= "Unterkategorien";
 $lang_enroll_to_a_new_course = 'In einen neuen Kurs eintragen';
 $lang_remove_course_enrollment = 'Aus einem Kurs austragen';

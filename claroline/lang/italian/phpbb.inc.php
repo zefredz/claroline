@@ -26,7 +26,7 @@ $langBackList="Ritorno all'elenco";
 // page_header.php
 
 $langNewTopic="Lanciare un nuovo argomento";
-$langAnswer="Rispondere";
+$langReply="Rispondere";
 $langHelp="Aiuto";
 $langAdm="Amministrare";
 $langQuote="Citare";

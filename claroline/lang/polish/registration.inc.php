@@ -105,7 +105,6 @@ $langMyStats = "Zobacz statystykê";
 $langUsers="U¿ytkownicy";
 $langModRight="Modyfikuj uprawnienia administracyjne";
 $langNone="¿adne";
-$langAll="wszystkie";
 $langNoAdmin="Nie masz <b>uprawnieñ do administrowania t± stron±</b>";
 $langAllAdmin="Masz teraz <b>uprawnienia do administrowania t± stron±</b>";
 $langModRole="Modyfikuj funkcjê";

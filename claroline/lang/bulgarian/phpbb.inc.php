@@ -33,7 +33,7 @@ $langLoginBeforePost3 = "въведеш име и парола";
 // page_header.php
 
 $langNewTopic="Нова тема";
-$langAnswer="Отговор";
+$langReply="Отговор";
 
 // Groups Management Claroline
 $langGroupSpaceLink="Group area";

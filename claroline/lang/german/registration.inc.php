@@ -31,7 +31,6 @@ $langAdminDefinition="Admin (Recht, um den Inhalt der Kurseiten zu verändern)";
 $langAdministrationTools = "Verwaltungs-Tools";
 $langAdmR="Admin. Rechte";
 $langAgain="Versuchen Sie es noch einmal!";
-$langAll="alle";
 $langAllAdmin="hat jetzt <b>alle Administrationsrechte auf dieser Seite</b>";
 $langAndP="und das Passwort";
 $langAuthInfo = "Authtifizierung";

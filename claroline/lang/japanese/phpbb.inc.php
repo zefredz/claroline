@@ -46,7 +46,7 @@ $langLastMsg="Last msg";
 // page_header.php
 
 $langNewTopic="New topic";
-$langAnswer="Answer";
+$langReply="Answer";
 
 
 

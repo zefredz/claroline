@@ -42,7 +42,7 @@ $langNoPost = "Pas de message";
 $langNewTopic="Lancer un nouveau sujet";
 $langBackTo="Retourner dans : ";
 
-$langAnswer="Répondre";
+$langReply="Répondre";
 $langHelp="Aide"; // JCC
 $langAdm="Administrer";
 $langQuote="Citer"; // JCC

@@ -33,7 +33,7 @@ $langLoginBeforePost3 = "login på E-learning";
 // page_header.php
 
 $langNewTopic="Nyt emne";
-$langAnswer="Svar";
+$langReply="Svar";
 
 // Groups Management Claroline
 $langGroupSpaceLink="Gruppe område";

@@ -107,7 +107,6 @@ $langMyStats = "Paparkan Statistik Pengguna";
 $langUsers="Ahli";
 $langModRight="Ubahsuai hak Pentadbiran Subjek";
 $langNone="Tiada satu pun";
-$langAll="Semua";
 $langNoAdmin="sekarang <b>TIDAK MEMPUNYAI hak Pentadbiran ke atas Laman Subjek ini</b>";
 $langAllAdmin="sekarang <b>MEMPUNYAI hak Pentadbiran ke atas Laman Subjek ini</b>";
 $langModRole="Ubahsuai Peranan";

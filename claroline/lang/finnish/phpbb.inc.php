@@ -43,7 +43,7 @@ $langLastMsg="Viimeinen viesti";
 // page_header.php
 
 $langNewTopic="Uusi aihe";
-$langAnswer="vastaus";
+$langReply="vastaus";
 
 // END OF CLAROLINE ONLY
 

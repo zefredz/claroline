@@ -80,7 +80,6 @@ $langHome="กลับหน้าแรก";
 $langUsers="Users";
 $langModRight="ปรับปรุงสิทธิ์";
 $langNone="ไม่มี";
-$langAll="ทั้งหมด";
 $langNoAdmin="ขณะนี้ <b>ยังไม่มีผู้ดูแลรายวิชา</b>";
 $langAllAdmin="ขณะนี้ <b>มีแต่ผู้ดูแลรายวิชา</b>";
 $langModRole="ปรับปรุงสถานะภาพ";

@@ -40,7 +40,7 @@ $langLoginBeforePost3 = "vous identifier sur le Campus";
 // page_header.php
 
 $langNewTopic="Lancer un nouveau sujet";
-$langAnswer="Répondre";
+$langReply="Répondre";
 $langHelp="aide";
 $langAdm="Administrer";
 $langQuote="citer";

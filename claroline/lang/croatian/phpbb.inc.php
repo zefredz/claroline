@@ -33,7 +33,7 @@ $langLoginBeforePost3 = "se prijaviti na Campus";
 // page_header.php
 
 $langNewTopic="Nova tema";
-$langAnswer="Odgovor";
+$langReply="Odgovor";
 
 // Groups Management Claroline
 $langGroupSpaceLink="Podruèje grupe";

@@ -107,7 +107,6 @@ $langMyStats = "Toon mijn statistieken";
 $langUsers="Gebruikers";
 $langModRight="Rechten wijzigen van : ";
 $langNone="geen enkel";
-$langAll="alle";
 $langNoAdmin="heeft van nu af<b>geen beheerrecht op deze site</b>";
 $langAllAdmin="heeft van nu af <b>alle beheerrechten op deze site</b>";
 $langModRole="Rol wijzigen van";

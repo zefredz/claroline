@@ -82,7 +82,6 @@ $langHome="ホームページに戻る";
 $langUsers="ユーザ";
 $langModRight="Modify admin rights of";
 $langNone="none";
-$langAll="all";
 $langNoAdmin="has now <b>no admin rights on this site";
 $langAllAdmin="has now <b>all admin rights on this site";
 $langModRole="Modify the role of";

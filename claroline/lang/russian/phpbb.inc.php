@@ -40,7 +40,7 @@ $langLoginBeforePost3 = "зарегистрироваться в виртуальном университете";
 // page_header.php
 
 $langNewTopic="Начать новую тему";
-$langAnswer="Ответить";
+$langReply="Ответить";
 $langHelp="помощь";
 $langAdm="Администрировать";
 $langQuote="Цитировать";

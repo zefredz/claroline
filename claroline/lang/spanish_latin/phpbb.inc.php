@@ -52,7 +52,7 @@ $langLoginBeforePost3 = "ingresar al Campus";
 // page_header.php
 
 $langNewTopic="Tema Nuevo";
-$langAnswer       = "Responder";
+$langReply       = "Responder";
 
 // Groups Management Claroline
 $langGroupSpaceLink="Area del grupo";

@@ -52,7 +52,6 @@ $langEnrollAsStudent = "Als Lerner einschreiben";
 $langEnrollAsTeacher = "Als Dozent/Tutor einschreiben";
 $langHideAndSubscribeClosed        ="versteckt / geschlossen";
 $langHideAndSubscribeOpen        ="versteckt / offen";
-$langIn			= "in";
 $langKeeped         = "merken";
 $langManage              = "Systemverwaltung";
 $langShowAndSubscribeClosed        ="sichtbar / geschlossen";

@@ -39,7 +39,6 @@ $langBackToListOfThisUser                  = "Retour à sa liste de cours";
 $langAdministration                   = "Administration";
 $langManage                                = "Gestion du campus";
 $langCourses	                           = "cours";
-$langIn			                           = "dans";
 $langSubCat		                           = "sous-catégories";
 
 $lang_back_to_parent_category              = "Retour à la catégorie supérieure";

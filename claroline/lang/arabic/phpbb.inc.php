@@ -40,7 +40,7 @@ $langLoginBeforePost3 = " تعرّفوا بأنفسكم ";
 // page_header.php
 
 $langNewTopic=" موضوع جديد إثارة";
-$langAnswer=" إجابة ";
+$langReply=" إجابة ";
 $langHelp=" إعانة ";
 $langAdm="إدارة";
 $langQuote=" ذكر ";

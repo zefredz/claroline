@@ -106,7 +106,6 @@ $langMyStats = "Se statistikkerne";
 $langUsers="Deltagere";
 $langModRight="Ændre administrationsrettigheder";
 $langNone="Ingen";
-$langAll="Alle";
 $langNoAdmin="har nu <b>INGEN administrationsrettigheder på dette website</b>";
 $langAllAdmin="har nu <b>ALLE administrationsrettigheder på dette website</b>";
 $langModRole="Ændre titel på";

@@ -47,7 +47,7 @@ $langLoginBeforePost3 = "κάνετε login στην Τάξη";
 // page_header.php
 
 $langNewTopic="Νέο θέμα";
-$langAnswer="Απάντηση";
+$langReply="Απάντηση";
 
 // END OF CLAROLINE ONLY
 

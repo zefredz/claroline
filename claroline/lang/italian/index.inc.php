@@ -69,7 +69,6 @@ $langCatList = "Categoria";
 $langCourseList = "Corsi";
 
 $langCourses	= "corsi";
-$langIn			= "nel";
 $langSubCat		= "sottocategoria";
 
 $lang_enroll_to_a_new_course = 'Iscriviti ad un nuovo corso';

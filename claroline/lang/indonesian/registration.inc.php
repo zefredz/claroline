@@ -106,7 +106,6 @@ $langMyStats = "Lihat statistik-ku";
 $langUsers="User-user";
 $langModRight="Ubah hak admin dari";
 $langNone="Tidak satupun";
-$langAll="Semua";
 $langNoAdmin="kini <b>TIDAK memiliki hak admin pada situs ini</b>";
 $langAllAdmin="kini <b>memiliki SEMUA hak admin pada situs ini</b>";
 $langModRole="Ubah peran/role dari";

@@ -48,7 +48,7 @@ $langLoginBeforePost3 = "ล็อคอินเข้าระบบก่อน";
 // page_header.php
 
 $langNewTopic="ตั้งกระทู้ใหม่";
-$langAnswer="ตอบกระทู้";
+$langReply="ตอบกระทู้";
 
 // END OF CLAROLINE ONLY
 

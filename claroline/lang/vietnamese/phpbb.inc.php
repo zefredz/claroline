@@ -33,7 +33,7 @@ $langLoginBeforePost3 = "đăng nhập vào website";
 // page_header.php
 
 $langNewTopic="Chủ đề mới";
-$langAnswer="Trả lời";
+$langReply="Trả lời";
 
 // Groups Management Claroline
 $langGroupSpaceLink="Không gian nhóm";

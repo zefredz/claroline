@@ -59,7 +59,6 @@ $langCourseList = "Corsi";
 
 
 $langCourses	= "corsi";
-$langIn			= "in";
 $langSubCat		= "sotto categorie";
 
 $lang_remove_course_from_your_personnal_course_list = 'Rimuovi il corso dalla tua lista personale dei corsi';

@@ -110,7 +110,6 @@ $langMyStats       = "Ver mis estadísticas";
 $langUsers         = "Usuarios";
 $langModRight      = "Modificar los derechos de administración de";
 $langNone          = "ninguno";
-$langAll           = "Todos";
 $langNoAdmin       = "Ahora no tiene <b>ningún derecho de administración sobre este sitio";
 $langAllAdmin      = "Ahora tiene <b>todos los derechos de administración de este sitio";
 $langModRole       = "Modificar el papel (rol) de";

@@ -46,7 +46,6 @@ $langUp = "previous level";
 $langCatList = "Categories";
 $langCourseList = "Course list";
 
-$langIn			= "in";
 $langSubCat		= "sub-categories";
 
 $lang_enroll_to_a_new_course = 'Enroll to a new course';

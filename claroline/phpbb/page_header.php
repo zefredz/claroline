@@ -236,7 +236,7 @@ switch($pagetype)
 		if($lock_state != 1)
 		{
 			$toolBar [] =	"<a href=\"$url_phpbb/reply.php?topic=".$topic."&forum=".$forum."&gidReq=".$_gid."\">".
-							$langAnswer.
+							$langReply.
 							"</a>\n";
 		}
 		else

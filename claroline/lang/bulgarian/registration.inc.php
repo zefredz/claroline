@@ -54,7 +54,6 @@ $langHome="Обратно към началната страница";
 $langUsers="Потребители";
 $langModRight="Промени администраторските права на";
 $langNone="Нищо";
-$langAll="Всички";
 $langNoAdmin="има сега <b>NO admin права за този сайт</b>";
 $langAllAdmin="има сега <b>ALL admin права за този сайт</b>";
 $langModRole="Промени ролята на";

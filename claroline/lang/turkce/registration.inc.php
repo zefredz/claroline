@@ -67,7 +67,6 @@ $langHome="Ana Sayfaya dön";
 $langUsers="Kullanýcýlar";
 $langModRight="Bu kiþinin yönetici yetkilerini deðiþtir";
 $langNone="Hiçbiri";
-$langAll="Tümü";
 $langNoAdmin="þimdi <b>bu sitede HÝÇBÝR yönetici yetkisine sahip deðil</b>";
 $langAllAdmin="þimdi <b>bu sitede TÜM yönetici yetkilerine sahip </b>";
 $langModRole="Yetkisi deðiþtirilecek kiþi";

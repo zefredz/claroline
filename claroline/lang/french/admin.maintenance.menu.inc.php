@@ -10,7 +10,6 @@
 
 $langAdminBy             = "Administration  par";
 $langAdministration      = "Administration";
-$langAdministrationTools = "Administration";
 $langAlreadyDone         = "A jour";
 $langTools               = "Outils";
 $langState               = "Etat";

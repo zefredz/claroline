@@ -93,7 +93,6 @@ $langMyStats = "Ver minhas estatísticas";
 $langUsers="Usuários";
 $langModRight="Modificar direitos administrativos de";
 $langNone="nenhum";
-$langAll="todos";
 $langNoAdmin="tem agora <b>nenhum direito administrativo neste site</b>";
 $langAllAdmin="tem agora <b>todos os direitos administrativos neste site</b>";
 $langModRole="Modificar a classe de";

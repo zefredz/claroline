@@ -40,7 +40,7 @@ $langLoginBeforePost3 = "ingelogd zijn";
 // page_header.php
 
 $langNewTopic="Nieuw onderwerp";
-$langAnswer="Antwoorden";
+$langReply="Antwoorden";
 $langHelp="Help";
 $langAdm="Beheren";
 $langQuote="Mededeling";

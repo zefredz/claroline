@@ -33,7 +33,7 @@ $langLoginBeforePost3 = "fazer login no Campus";
 // page_header.php
 
 $langNewTopic="Novo tópico";
-$langAnswer="Resposta";
+$langReply="Resposta";
 
 // Groups Management Claroline
 $langGroupSpaceLink="Área do grupo";

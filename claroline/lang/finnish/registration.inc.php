@@ -86,7 +86,6 @@ $langHome="Takaisin omalle sivulle";
 $langUsers="K‰ytt‰j‰t";
 $langModRight="Muuta yll‰pito-oikeuksia";
 $langNone="Ei kukaan";
-$langAll="Kaikki";
 $langNoAdmin="ei ole nyt <b>mit‰‰n yll‰pito-oikeuksia t‰lle sivustolle";
 $langAllAdmin="on nyt <b>kaikki yll‰pito-oikeudet t‰lle sivustolle";
 $langModRole="Muokkaa roolia";

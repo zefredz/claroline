@@ -49,7 +49,7 @@ $langLastMsg="Letzte Nachricht";
 // page_header.php
 
 $langNewTopic="Neues Thema";
-$langAnswer="Antwort";
+$langReply="Antwort";
 
 
 

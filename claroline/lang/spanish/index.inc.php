@@ -93,7 +93,6 @@ $lang_remove_course_enrollment = 'Desinscribirse de un curso ';
 $langSeeAgenda = "Ver mi agenda";
 $langAgendaNextEvents = "Próximos eventos de la Agenda";
 $langValvas = "Último comentario" ;
-$langIn			= "en";
 
 /////////////////////////////////////////////
 ?>

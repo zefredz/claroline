@@ -52,7 +52,7 @@ $langBackList="Regresar a la lista";
 // page_header.php
 
 $langNewTopic     = "Comenzar un tema nuevo";
-$langAnswer       = "Responder";
+$langReply       = "Responder";
 $langHelp         = "ayuda";
 $langAdm          = "administrar";
 $langQuote        = "citar";

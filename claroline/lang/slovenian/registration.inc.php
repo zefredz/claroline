@@ -107,7 +107,6 @@ $langMyStats = "Vpogled v mojo statistiko";
 $langUsers="Uporabniki";
 $langModRight="Spremeni administratorske pravice";
 $langNone="Nobeden";
-$langAll="Vsakdo";
 $langNoAdmin="sedaj <b>NIMA administratorskih pravic na teh straneh</b>";
 $langAllAdmin="sedaj <b>IMA administratorske pravice na teh straneh</b>";
 $langModRole="Spremeni vlogo";

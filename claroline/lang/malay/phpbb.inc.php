@@ -33,7 +33,7 @@ $langLoginBeforePost3 = "Login ke eLearning";
 // page_header.php
 
 $langNewTopic="Topik Baru";
-$langAnswer="Jawapan";
+$langReply="Jawapan";
 
 // Groups Management Claroline
 $langGroupSpaceLink="Ruang Kumpulan";

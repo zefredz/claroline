@@ -68,7 +68,6 @@ $langHome="Povratak na Poèetnu stranicu";
 $langUsers="Korisnici";
 $langModRight="Promjenite admin prava od";
 $langNone="Ništa";
-$langAll="Sve";
 $langNoAdmin=" sada <b>NEMA  admin prava na ovoj stranici</b>";
 $langAllAdmin="ima sada <b>SVA admin prava na ovoj stranici</b>";
 $langModRole="Promjenite ulogu";

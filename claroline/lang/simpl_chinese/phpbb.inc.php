@@ -47,7 +47,7 @@ $langLoginBeforePost3 = "在虚拟校园登录.";
 // page_header.php
 
 $langNewTopic="新话题";
-$langAnswer="回复";
+$langReply="回复";
 
 // END OF CLAROLINE ONLY
 

@@ -46,7 +46,7 @@ $langBackList="Volver &aacute; lista";
 // page_header.php
 
 $langNewTopic     = "Empezar un tema novo";
-$langAnswer       = "Responder";
+$langReply       = "Responder";
 $langHelp         = "axuda";
 $langAdm          = "administrar";
 $langQuote        = "citar";

@@ -47,7 +47,7 @@ $langLastMsg="Senaste medddelande";
 // page_header.php
 
 $langNewTopic="Nytt ämne";
-$langAnswer="Svar";
+$langReply="Svar";
 
 
 

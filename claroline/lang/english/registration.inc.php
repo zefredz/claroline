@@ -102,7 +102,6 @@ $langReturnSearchUser="Return to the user";
 $langUsers="Users";
 $langModRight="Modify admin rights of";
 $langNone="None";
-$langAll="All";
 $langNoAdmin="has now <b>NO admin rights on this site</b>";
 $langAllAdmin="has now <b>ALL admin rights on this site</b>";
 $langModRole="Modify the role of";

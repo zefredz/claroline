@@ -34,7 +34,7 @@ $langNoPost = "No Post";
 // page_header.php
 
 $langNewTopic="New topic";
-$langAnswer="Answer";
+$langReply="Answer";
 
 // Groups Management Claroline
 $langGroupSpaceLink="Group area";

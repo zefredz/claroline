@@ -93,7 +93,6 @@ $langHome="返回主页";
 $langUsers="用户";
 $langModRight="更新管理权限";
 $langNone="无";
-$langAll="所有";
 $langNoAdmin="现在<b>不具有本网站的管理权限</b>";
 $langAllAdmin="现在<b>具有本网站所有的管理权限</b>";
 $langModRole="更新角色";

@@ -124,7 +124,7 @@ $langToCourseSettings = "Retour aux propriétés du cours";
 $langSeeCourseUsers = "Voir les utilisateurs du cours";
 $langBackToCourseList = "Retour à la liste de cours";
 $langBackToList = "Retour à la liste";
-$langAllUsersOfThisCourse = "Utilisateurs de ce cours";
+$langAllUsersOfThisCourse = "Membres du cours";
 $langViewCourse = "Voir le cours";
 $langIntroEditToolList="Sélectionner les outils que vous voulez activer.
 Les outils invisibles seront grisés dans votre page d'accueil du cours."; // JCC 

@@ -67,7 +67,6 @@ $langHome="Retorna a la pàgina inicial";
 $langUsers="Usuaris";
 $langModRight="Modifica els drets d'administració";
 $langNone="Cap";
-$langAll="Tots";
 $langNoAdmin="no té ara <b>CAP dret d'administració en aquest lloc</b>";
 $langAllAdmin="té ara <b>TOTS els drets d'administració en aquest lloc</b>";
 $langModRole="Modifica el rol de";

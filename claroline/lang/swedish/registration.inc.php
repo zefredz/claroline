@@ -107,7 +107,6 @@ $langHome="Tillbaka till hemsidan";
 $langUsers="Användare";
 $langModRight="Modifiera administratörsrättigheterna på";
 $langNone="ingen";
-$langAll="alla";
 $langNoAdmin="har nu <b>inga administratörsrättigheter på denna sajt";
 $langAllAdmin="har nu <b>alla administratörsrättigheter på denna sajt";
 $langModRole="Modifiera rollen av";

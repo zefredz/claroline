@@ -107,7 +107,6 @@ $langMyStats = "Thống kê";
 $langUsers="Người dùng";
 $langModRight="Hiệu chỉnh quyền admin của";
 $langNone="Không";
-$langAll="All";
 $langNoAdmin="<b>KHÔNG có quyền quản trị đối với site này</b>";
 $langAllAdmin="<b>CÓ quyền quản trị đối với site này</b>";
 $langModRole="Thay đổi vai trò của";

@@ -112,7 +112,6 @@ $langMyStats = "Ver as minhas estat&iacute;sticas";
 $langUsers         = "Utilizadores";
 $langModRight      = "Modificar os direitos de administra&ccedil;&atilde;o de";
 $langNone          = "nenhum";
-$langAll           = "todos";
 $langNoAdmin       = "agora n&atilde;o tem <b>nenhum direito de administra&ccedil;&atilde;o sobre este site</b>";
 $langAllAdmin      = "agora tem <b>todos os direitos de administra&ccedil;&atilde;o sobre este site</b>";
 $langModRole       = "Alterar o estatuto de";
