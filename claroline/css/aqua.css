@@ -296,7 +296,7 @@ claroBody  {
 
 .claroTable .headerX th,  .claroTable th.headerX {
 	 background-image: url('aqua/gradiantDarkblue200.jpg');
-	 background-repeat: repeat-y;
+	 background-repeat: repeat-x;
 	 color:#191970;
 	 font-weight: bold;
 }
