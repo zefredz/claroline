@@ -303,7 +303,7 @@ elseif($page)
 </tr>
 </table>
 
-<table class="claroTable" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
+<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
 
 <thead>
 <tr class="headerX">
@@ -466,7 +466,7 @@ if($is_trackingEnabled && $_uid):
 
 <br /><br />
 <h3><?php echo $langMyResults; ?></h3>
-<table class="claroTable" cellpadding="2" cellspacing="2" border="0" width="80%">
+<table class="claroTable emphaseLine" cellpadding="2" cellspacing="2" border="0" width="80%">
 <thead>
 <tr class="headerX">
   <th><?php echo $langExercice; ?></th>
