@@ -12,7 +12,6 @@
 
 */
 $lang_htAccessIncPath_added ="Répertoire <em>inc</em> protégé";
-$langOptionnal ="facultatif";
 
 $langFile = "admin.security";
 require '../../inc/claro_init_global.inc.php';
@@ -105,7 +104,7 @@ Some directory would be protect<br>
 		</UL>
 	</LI>
 	<LI>
-		<?php echo $langOptionnal ?>
+		<?php echo $langOptional ?>
 
 		<UL>
 			<LI><?php echo $clarolineRepositorySys."lang/" ?></LI>
