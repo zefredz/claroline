@@ -26,30 +26,27 @@ $pagetitle = 'Private Messages';
 $pagetype =  'privmsgs';
 require 'page_header.php';
 
-if (!$submit && !$user_logged_in) {
+if ( ! $submit && !$user_logged_in)
+{
+//...
 } else {
 
-    if (!$user_logged_in) error_die("You're not logged");
+   if ( ! $user_logged_in ) error_die("You're not logged");
 
-   if(is_banned($userdata['user_id'], 'username', $db)) error_die($l_banned);
-    }
+
 
     $sql = "SELECT * FROM `".$tbl_priv_msgs."`
-            WHERE to_userid = ".$userdata['user_id'].")
+            WHERE to_userid = ".$userdata['user_id']."
             ORDER BY msg_time DESC";
 
     $msgList = claro_sql_query_fetch_all($sql);
 
 
-?>
 
-<table>
-
-<tr>
-<td colspan="2"><?php echo $l_from?></td>
-</tr>
-
-<?php
+echo "<table>"
+     ."<tr>\n"
+     ."<td colspan=\"2\">".$l_from."</td>\n"
+     ."</tr>\n";
 
     if ( count($msgList) == 0 )
     {
@@ -71,10 +68,10 @@ if (!$submit && !$user_logged_in) {
             ."</td>\n"
 
             ."<td>\n"
-            ."<img src=\"".$posticon."\">".$l_posted." : ".$thisMsg['msg_time'];
-            ."<hr>\n";
-            .stripslashes($thisMsg['msg_text']);
-            ."<hr>\n";
+            ."<img src=\"".$posticon."\">".$l_posted." : ".$thisMsg['msg_time']
+            ."<hr>\n"
+            .stripslashes($thisMsg['msg_text'])
+            ."<hr>\n"
             ."<a href=\"bb_profile.php?mode=view&user=".$posterdata['user_id']."\">"
             .$l_profileof." ".$thisMsg['poster_name']
             ."</a> \n";
@@ -91,8 +88,8 @@ if (!$submit && !$user_logged_in) {
             ."<img src=\"".$reply_wquote_image."\" border=\"0\" alt=\"".$l_replyquote."\">"
             ."</a>\n"
             ."<img src=\"images/div.gif\">\n"
-            ."<a href=\"replypmsg.php?msgid=".$thisMsg['msg_id']."\">".$l_reply."</a>\n";
-            ."<IMG SRC=\"images/div.gif\">\n";
+            ."<a href=\"replypmsg.php?msgid=".$thisMsg['msg_id']."\">".$l_reply."</a>\n"
+            ."<IMG SRC=\"images/div.gif\">\n"
             ."<a href=\"".$url_phpbb."/delpmsg.php?msgid=".$thisMsg['msg_id']."\">"
             .$l_delete
             ."</a>\n"

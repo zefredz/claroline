@@ -1,4 +1,3 @@
-<?  session_start(); ?>
 <?php
 /***************************************************************************
                           sendpmsg.php  -  description
@@ -63,7 +62,7 @@ if($submit) {
 	    ."<tr bgcolor=\"".$color1."\">"
         ."<td>"
         ."<center>"
-	    .$l_stored."<br> \n";
+	    .$l_stored."<br> \n"    
 	    ."<a href=\"sendpmsg.php\">".$l_sendothermsg."</a> <br> \n"
 	    ."</center>"
 	    ."</td>"
@@ -84,8 +83,8 @@ if($submit) {
 </tr>
 
 <tr>
-<td align="right"><b><?php echo $l_yourname?> : <b></td>
-<td><?ph echo $userdata['username'] . " \n"; ?></td>
+<td align="right"><b><?php echo $l_yourname ?> : <b></td>
+<td><?php echo $userdata['username'] . " \n"; ?></td>
 </tr>
 
 <tr>

@@ -70,7 +70,7 @@ else
 
 	$result = claro_sql_query_fetch_all($sql);
     if ( count($result) == 0 ) error_die('Message not found');
-    else                       $row = $result[0]
+    else                       $row = $result[0];
 	$fromuserdata = get_userdata_from_id($row['from_userid'], $db);
 	$touserdata   = get_userdata_from_id($row['to_userid'], $db);
 
