@@ -41,6 +41,8 @@ $langActivate="Enable";
 $langDeactivate="Disable";
 $langComment="Comment";
 $langAttachedFile = "Open attached file";
+$langMinuteShort = "min.";
+$langSecondShort = "sec.";
 
 // exercice.php
 
@@ -60,7 +62,7 @@ $langSimpleExercise="On an unique page";
 $langSequentialExercise="One question per page (sequential)";
 $langRandomQuestions="Random questions";
 $langGiveExerciseName="Please give the exercise name";
-$langAllowedTime="Time allowed to finish the exercise (seconds)";
+$langAllowedTime="Time limit";
 $langAllowedAttempts="Attempts allowed";
 $langAnonymousVisibility="Anonymous visibity";
 $langShowAnswers = "Show answers";
@@ -73,8 +75,9 @@ $langEditExercise = "Edit exercise settings";
 $langUnlimitedAttempts = "Unlimited attempts";
 $langAttemptAllowed = "attempt allowed";
 $langAttemptsAllowed = "attempts allowed";
-$langAllowAnonymousAttempts = "Allow anonymous attempts";
-$langDontRecordUid = "Don't record user names in tracking";
+$langAllowAnonymousAttempts = "Anonymous attempts";
+$langAnonymousAttemptsAllowed = "Allowed : don't record user names in tracking, anonymous users can make the exercise.";
+$langAnonymousAttemptsNotAllowed = "Not allowed : record user names in tracking, anonymous users cannot make the exercise.";
 
 
 // question_admin.inc.php
@@ -175,6 +178,8 @@ $langAvailableFrom = "Available from";
 $langExerciseNotAvailable = "Exercise not available";
 $langExerciseNoMoreAvailable = "Exercise no more available";
 $langTo = "to";
+$langNoMoreAttemptsAvailable = "You have reached the maximum number of allowed attempts.";
+
 // exercise_result.php
 
 $langElementList="Element list";

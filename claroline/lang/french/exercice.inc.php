@@ -39,6 +39,8 @@ $langActivate="Activer";
 $langDeactivate="Désactiver";
 $langComment="Commentaire";
 $langAttachedFile = "Ouvrir le fichier attaché";
+$langMinuteShort = "min.";
+$langSecondShort = "sec.";
 
 
 // exercice.php
@@ -58,7 +60,7 @@ $langSimpleExercise="Questions sur une seule page";
 $langSequentialExercise="Une question par page (séquentiel)";
 $langRandomQuestions="Questions aléatoires";
 $langGiveExerciseName="Veuillez introduire l'intitulé de l'exercice";
-$langAllowedTime="Temps maximum pour complèter l'exercice (secondes)";
+$langAllowedTime="Limite de temps";
 $langAllowedAttempts="Nombre de tentatives permises";
 $langAnonymousVisibility="Affichage aux utilisateurs anonymes";
 $langShowAnswers = "Après le test, afficher les réponses";
@@ -71,8 +73,9 @@ $langEditExercise = "Editer les propriétés de l'exercice";
 $langUnlimitedAttempts = "Essais illimités";
 $langAttemptAllowed = "essai autorisé";
 $langAttemptsAllowed = "essais autorisés";
-$langAllowAnonymousAttempts = "Autoriser les essais anonymes";
-$langDontRecordUid = "Ne pas conserver les nom des utilisateurs dans les statistiques";
+$langAllowAnonymousAttempts = "Essais anonymes";
+$langAnonymousAttemptsAllowed = "Autoriser : les noms des utilisateurs ne sont pas enregistrés dans les statistiques, les utilisateurs anonymes peuvent faire l'exercice.";
+$langAnonymousAttemptsNotAllowed = "Ne pas autoriser : les noms des utilisateurs sont enregistrés dans les statistiques, les utilisateurs anonymes ne peuvent pas faire l'exercice.";
 
 // question_admin.inc.php
 
@@ -172,6 +175,7 @@ $langAvailableFrom = "Disponible de";
 $langExerciseNotAvailable = "Cet exercice n'est pas encore disponible";
 $langExerciseNoMoreAvailable = "Cet exercice n'est plus disponible";
 $langTo = "à";
+$langNoMoreAttemptsAvailable = "Vous avez atteint le nombre maximum de tentatives autorisées.";
 
 
 // exercise_result.php
