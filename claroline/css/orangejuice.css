@@ -336,14 +336,15 @@ a:visited.invisible {
 	background-color: #ffecce;	
   border:1px solid #666;
 }
-	
-.claroRightMenu a {
+
+.claroRightMenu a,
+.claroRightMenu a:link,
+.claroRightMenu a:visited, {
 		color:#c60;
 }
 	
 .claroRightMenu a:hover {
-		color:#369;		
-    background-color:transparent;
+		color:#369;
 }
 
 
