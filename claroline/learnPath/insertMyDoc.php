@@ -2,7 +2,8 @@
 // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version 1.3.2 $Revision$                            |
+
+  | CLAROLINE version 1.6.*
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
@@ -28,6 +29,12 @@
     $tlabelReq = 'CLLNP___';
   require '../inc/claro_init_global.inc.php';
 
+  // if there is an auth information missing redirect to the first page of lp tool 
+  // this page will do the necessary to auth the user, 
+  // when leaving a course all the LP sessions infos are cleared so we use this trick to avoid other errors
+  if ( ! $_cid) header("Location:./learningPathList.php");
+  if ( ! $is_courseAllowed) header("Location:./learningPathList.php");
+  
   @include($includePath."/../lang/english/document.inc.php");
   @include($includePath."/../lang/".$languageInterface."/document.inc.php");
 
@@ -89,7 +96,9 @@
       // main page
 
    $is_AllowedToEdit = $is_courseAdmin;
-   if (! $is_AllowedToEdit or ! $is_courseAllowed ) claro_disp_auth_form();;
+
+   if (! $is_AllowedToEdit ) header("Location:./learningPathList.php");
+
 
 
 
@@ -175,13 +184,14 @@
                                    AND M.`contentType` = \"".CTDOCUMENT_."\"";
                         $query = claro_sql_query($sql);
                         $num = mysql_numrows($query);
+                        $basename = substr($insertDocument, strrpos($insertDocument, '/') + 1);
                         if($num == 0)
                         {
                              // create new module
                              $sql = "INSERT
                                        INTO `".$TABLEMODULE."`
                                             (`name` , `comment`, `contentType`)
-                                     VALUES ('".claro_addslashes(basename($insertDocument))."' , '".addslashes($langDefaultModuleComment)."', '".CTDOCUMENT_."' )";
+                                     VALUES ('".claro_addslashes($basename)."' , '".addslashes($langDefaultModuleComment)."', '".CTDOCUMENT_."' )";
                              //echo "<br /><1> ".$sql;
                              $query = claro_sql_query($sql);
 
@@ -218,9 +228,9 @@
                              $query = claro_sql_query($sql);
 
                               if (get_magic_quotes_gpc())
-                                $addedDoc =   stripslashes(basename($insertDocument));
+                                $addedDoc =   stripslashes($basename);
                               else
-                                $addedDoc =  basename($insertDocument);
+                                $addedDoc =  $basename;
 
                              $dialogBox .= $addedDoc ." ".$langDocInsertedAsModule."<br>";
                         }
@@ -254,15 +264,15 @@
                                  //echo "<br /><4> ".$sql;
                                  $query = claro_sql_query($sql);
                                   if (get_magic_quotes_gpc())
-                                    $addedDoc =   stripslashes(basename($insertDocument));
+                                    $addedDoc =   stripslashes($basename);
                                   else
-                                    $addedDoc =  basename($insertDocument);
+                                    $addedDoc =  $basename;
 
                                  $dialogBox .= $addedDoc ." ".$langDocInsertedAsModule."<br>";
                              }
                              else
                              {
-                                 $dialogBox .= basename($insertDocument)." : ".$langDocumentAlreadyUsed."<br>";
+                                 $dialogBox .= stripslashes($basename)." : ".$langDocumentAlreadyUsed."<br>";
                              }
                         }
                         /*
@@ -435,7 +445,7 @@
       {
               if ($file == "." || $file == "..")
               {
-                      continue;                                                // Skip current and parent directories
+                      continue; // Skip current and parent directories
               }
 
               $fileList['name'][] = $file;
