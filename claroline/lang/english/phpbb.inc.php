@@ -324,7 +324,7 @@ Thank you for using our forums.
 
 Have a nice day.';
 
-// $l_quotemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
+$l_quotemsg	= "[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]";
 
 // Sendpmsg
 $l_norecipient	= "You must enter the user name you want to send the $l_message to.";

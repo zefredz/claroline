@@ -327,7 +327,7 @@ Merci d\'utiliser les forums $sitename.
 Bonne journée.';
 
 
-$l_quotemsg	= '[quote]\nLe $m[post_time], $m[username] a écrit:\n$text\n[/quote]';
+$l_quotemsg	= "[quote]\nLe %s1, %s2 a écrit:\n%s3\n[/quote]";
 
 // Sendpmsg
 $l_norecipient	= "Vous devez taper le nom d'utilisateur à qui vous désirez envoyer ce $l_message."; // JCC

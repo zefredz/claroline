@@ -107,8 +107,8 @@ else
 
 <td>
 <?php
-    if($quote) {
-
+    if($quote)
+    {
         $sql = "SELECT p.msg_text, p.msg_time, u.username 
                 FROM `".$tbl_priv_msgs."` p, 
                      `".$tbl_users."` u  
@@ -119,11 +119,11 @@ else
 
         if ( count ($m) > 0 )
         {
-            $text               = stripslashes($m['msg_text']);
-            $syslang_quotemsg   = get_syslang_string($sys_lang, 'l_quotemsg');
-            eval("\$reply = \"$syslang_quotemsg\";");
+            $text  = stripslashes($m['msg_text']);
+            $reply = sprintf($l_quotemsg,$m['post_time'],$m['username'],$text);
         }
-        else {
+        else 
+        {
             error_die('Problem with getting the quoted message.');
         }
     }

@@ -146,9 +146,8 @@ else
        
         list($m) = claro_sql_query_fetch_all($sql);
 
-        $text             = stripslashes($text);
-        $syslang_quotemsg = get_syslang_string($sys_lang, 'l_quotemsg');
-        eval("\$reply = \"$syslang_quotemsg\";");
+        $text  = stripslashes($text);
+        $reply = sprintf($l_quotemsg,$m['post_time'],$m['username'],$text);
     }
 ?>
 </td>
