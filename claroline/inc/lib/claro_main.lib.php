@@ -474,17 +474,17 @@ function claro_disp_tool_title($titleElement, $helpUrl = false)
     }
 
 
-    if ($titleElement['supraTitle'])
+    if (isset($titleElement['supraTitle']))
     {
         echo '<small>'.$titleElement['supraTitle'].'</small><br>';
     }
 
-    if ($titleElement['mainTitle'])
+    if (isset($titleElement['mainTitle']))
     {
         echo $titleElement['mainTitle'];
     }
 
-    if ($titleElement['subTitle'])
+    if (isset($titleElement['subTitle']))
     {
         echo '<br><small>'.$titleElement['subTitle'].'</small>';
     }
