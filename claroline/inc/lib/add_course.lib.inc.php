@@ -629,9 +629,8 @@ mysql_query("
 		`active` tinyint(4) unsigned NOT NULL default '0',
 		`max_time` smallint(5) unsigned NOT NULL default '0',
   `max_attempt` tinyint(3) unsigned NOT NULL default '0',
-  `show_anon` enum('SHOW','HIDE') NOT NULL default 'SHOW',
   `show_answer` enum('ALWAYS','NEVER','ENDDATE') NOT NULL default 'ALWAYS',
-  `record_uid_in_score` enum('YES','NO') NOT NULL default 'YES',
+  `anonymous_attempts` enum('YES','NO') NOT NULL default 'YES',
   `start_date` datetime NOT NULL default '0000-00-00 00:00:00',
   `end_date` datetime NOT NULL default '0000-00-00 00:00:00',
 	PRIMARY KEY  (id)
@@ -1212,7 +1211,7 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
 	mysql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '2', '1', '$langAdmitError', '0', '$langNoSeduction', '-5', '2')");
 	mysql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '3', '1', '$langForce', '1', '$langIndeed', '5', '3')");
 	mysql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '4', '1', '$langContradiction', '1', '$langNotFalse', '5', '4')");
-	mysql_query("INSERT INTO `".$TABLEQUIZ."` VALUES ( '1', '$langExerciceEx', '$langAntique', '1', '0', '0', '0', '0' , 'SHOW', 'ALWAYS', 'YES', NOW(), '2006-08-19 11:55')");
+	mysql_query("INSERT INTO `".$TABLEQUIZ."` VALUES ( '1', '$langExerciceEx', '$langAntique', '1', '0', '0', '0', '0' , 'ALWAYS', 'NO', NOW(), '2006-08-19 11:55')");
 	mysql_query("INSERT INTO `".$TABLEQUIZQUESTIONLIST."` VALUES ( '1', '$langSocraticIrony', '$langManyAnswers', '10', '1', '2','')");
 	mysql_query("INSERT INTO `".$TABLEQUIZQUESTION."` VALUES ( '1', '1')");
 
