@@ -36,7 +36,6 @@ if($submitQuestion)
 {
 	$questionName = trim($questionName);
 	$questionDescription = trim($questionDescription);
-	$fileUpload_name = strtolower($fileUpload_name);
 
 	// no name given
 	if(empty($questionName))
@@ -48,12 +47,12 @@ if($submitQuestion)
 	{
 		$usedInSeveralExercises=1;
 
-    // if a file has been set
-    if($fileUpload_size)
-    {
-        // saves the file into a temporary file
-        $objQuestion->setTmpAttachedFile($fileUpload,get_secure_file_name($fileUpload_name));
-    }
+	    // if a file has been set
+	    if(is_uploaded_file($_FILES['fileUpload']['tmp_name']))
+	    {
+	        // saves the file into a temporary file
+	        $objQuestion->setTmpAttachedFile($_FILES['fileUpload']['tmp_name'],get_secure_file_name($_FILES['fileUpload']['name']));
+	    }
 	}
 	else
 	{
@@ -62,8 +61,9 @@ if($submitQuestion)
         {
         	// duplicates the question
         	$questionId=$objQuestion->duplicate();
-          // tempAttachedFile object var isnot handled by duplicate because not stored in db
-          $tmpFile = $objQuestion->selectTempAttachedFile();
+			
+			// tempAttachedFile object var isnot handled by duplicate because not stored in db
+			$tmpFile = $objQuestion->selectTempAttachedFile();
           
             // deletes the old question
             $objQuestion->delete($exerciseId);
@@ -98,27 +98,34 @@ if($submitQuestion)
 		$objQuestion->save($exerciseId);
 
 		// if a file has been set or checkbox "delete" has been checked
-		if($fileUpload_size || $deleteAttachedFile)
+		if(
+			( is_uploaded_file($_FILES['fileUpload']['tmp_name']) && $_FILES['fileUpload']['size'] > 0 )
+			||( isset($_REQUEST['hasTempAttachedFile']) && $_REQUEST['hasTempAttachedFile'] )
+			|| isset($_REQUEST['deleteAttachedFile'])
+		  )
 		{
 			// we remove the attached file
 			$objQuestion->removeAttachedFile();
 
 			// if we add a new attached file
-			if($fileUpload_size)
+			if(
+				( is_uploaded_file($_FILES['fileUpload']['tmp_name']) && $_FILES['fileUpload']['size'] > 0 )
+				||( isset($_REQUEST['hasTempAttachedFile']) && $_REQUEST['hasTempAttachedFile'] )
+			  )
 			{
                 // image is already saved in a temporary file
-                if($modifyIn)
+                if($_REQUEST['hasTempAttachedFile'])
                 {
                     $objQuestion->getTmpAttachedFile();
                 }
                 // saves the file coming from POST FILE
                 else
                 {
-                    $objQuestion->uploadAttachedFile($fileUpload,get_secure_file_name($fileUpload_name));
+                    $objQuestion->uploadAttachedFile($_FILES['fileUpload']['tmp_name'],get_secure_file_name($_FILES['fileUpload']['name']));
                 }
 			}
                 
-                $objQuestion->save($exerciseId);
+            $objQuestion->save($exerciseId);
                         
 		}
 
