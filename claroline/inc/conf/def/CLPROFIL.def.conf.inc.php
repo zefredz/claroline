@@ -150,7 +150,7 @@ array ( 'label'         => 'Is user allowed to request to be deleted from platfo
       , 'container'     => 'CONST'
       );
 
-
+/* Inactive feature. 
 
 ///// PICTURE OF USERS /////
 $conf_def['section']['userpicture']['label']='Properties about attached image of a profile';
@@ -162,7 +162,6 @@ array ( 'PREFIX_IMAGE_FILENAME_WITH_UID'
       ,
       );
 
-define ('PREFIX_IMAGE_FILENAME_WITH_UID', TRUE); // if true, filename of images on server begin with uid of the user.
 $conf_def_property_list['PREFIX_IMAGE_FILENAME_WITH_UID'] =
 array ( 'label'         => 'Prefix image file name with uid of owner'
       , 'description'   => 'This is a good option to prevent the high probability '
@@ -174,6 +173,7 @@ array ( 'label'         => 'Prefix image file name with uid of owner'
                                 ,'FALSE' => 'Hide'
                                 )
       , 'container'     => 'CONST'
+      ,'display'       => FALSE
       );
 
 $conf_def_property_list['RESIZE_IMAGE_TO_THIS_HEIGTH'] =
@@ -185,6 +185,7 @@ array ( 'label'         => 'Force heigth of all image to this size '
                                 ,'max' => 1200
                                 )
       , 'container'     => 'CONST'
+      ,'display'       => FALSE
       );
 
 $conf_def_property_list['KEEP_THE_NAME_WHEN_CHANGE_IMAGE'] =
@@ -202,6 +203,7 @@ array ( 'label'         => 'Keep the name of file when the image is changed'
                                 ,'FALSE' => 'Get new name'
                                 )
       , 'container'     => 'CONST'
+      ,'display'       => FALSE
       );
 
 $conf_def_property_list['KEEP_THE_OLD_IMAGE_AFTER_CHANGE'] =
@@ -216,6 +218,7 @@ array ( 'label'         => 'Keep the replaced image when user update pic'
                                 ,'FALSE' => 'Trash'
                                 )
       , 'container'     => 'CONST'
+      ,'display'       => FALSE
       );
-
+*/
 ?>
