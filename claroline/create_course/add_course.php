@@ -703,7 +703,7 @@ BuildEditableCatTable(""," &gt; ");
 	</tr>
 	<tr>
 		<td>
-			<?php echo $langregistration ?>
+			<?php echo $langRegistration ?>
 		</td
 		<td>
 			<?php echo $valueRegAllowed ?>
