@@ -301,7 +301,7 @@ if( isset($_REQUEST['submitWrk']) )
                         $newFileName = php2phps($newFileName);
                         // compose a unique file name to avoid any conflict
                         
-                        $wrkForm['fileName'] = uniqid('').$newFileName;
+                        $wrkForm['fileName'] = uniqid('')."_".$newFileName;
                         
                         $wrkUrl = "ws".$_REQUEST['sesId']."/".$wrkForm['fileName'];
                         
@@ -310,7 +310,7 @@ if( isset($_REQUEST['submitWrk']) )
                               mkdir( $wrkDir."ws".$_REQUEST['sesId'] , 0777 );
                         }
                         
-                        if( ! copy($_FILES['wrkFile']['tmp_name'], $wrkDir.$wrkUrl) )
+                        if( ! @copy($_FILES['wrkFile']['tmp_name'], $wrkDir.$wrkUrl) )
                         {
                               $dialogBox .= $langCannotCopyFile."<br />";
                               $formCorrectlySent = false;
@@ -687,7 +687,7 @@ if( !empty($wrkSession['description']) )
 {
 echo "\n<p>\n"
       ."<small>"
-      .$wrkSession['description']
+      .claro_parse_user_text($wrkSession['description'])
       ."</small>"
       ."\n</p>\n\n";
 }
