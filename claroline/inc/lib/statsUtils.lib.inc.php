@@ -357,7 +357,7 @@ function buildTabDefcon($array_of_results)
     { 
         // there is some strange cases ... 
         echo "<tr class=\"headerX\">\n"
-                ."<th colspan=\"2\" align=\"center\"><font color=\"#ff0000\">".$langDefcon."</font></th>\n"
+                ."<th colspan=\"2\" align=\"center\"><span class=\"error\">".$langDefcon."</span></th>\n"
                 ."</tr>\n"
                 ."<tr class=\"headerX\">\n" 
                 ."<th colspan=\"2\">".$langNbLines." : ".count($array_of_results)." </th>\n"
@@ -384,7 +384,7 @@ function buildTabDefcon($array_of_results)
     {
         // all right
         echo "<tr>\n"
-                ."<td colspan=\"2\" align=\"center\"><font color=\"#00ff00\">".$langAllRight."</font></td>\n"
+                ."<td colspan=\"2\" align=\"center\"><span class=\"correct\">".$langAllRight."</span></td>\n"
                 ."</tr>\n";
     }
     echo "</table>\n\n";
