@@ -108,7 +108,7 @@ if (is_array($_courseToolList))
 <select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >
 		<option value="<?php echo $coursesRepositoryWeb.$_course['path']."/index.php" ?>"  >
 			<?php echo $langCourseHome; ?>
-		</option>';
+		</option>
 
 <?php 
 	if (is_array($_courseToolList))
