@@ -439,6 +439,29 @@ function update_user_course_properties($user_id, $course_id, $properties)
     }
 }
 
+/**
+ * to know if user is registered to a course or not
+ *
+ * @author Hugues Peeters - peeters@ipm.ucl.ac.be
+ * @param  int     id of user in DB
+ * @param  int     id of course in DB
+ * @return boolean true if user is enrolled false otherwise
+ */
+
+function isRegisteredTo($user_id, $course_id)
+{
+    global $tbl_courseUser;
+
+    $sql = "SELECT *
+                 FROM `".$tbl_courseUser."`
+                 WHERE `code_cours` = '".$course_id."' AND `user_id` = '".$user_id."'";
+
+    $result = claro_sql_query($sql);
+    $list = mysql_fetch_array($result);
+    if (mysql_num_rows($result)>0) {return true;} else {return false;}
+}
+
+
 function treatNotAuthorized()
 {
     exit("<center>You are not allowed here !!!</center>");
