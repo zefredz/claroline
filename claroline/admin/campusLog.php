@@ -95,7 +95,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
 	<tr>
 		<td valign='top'>
-			<font color='#0000FF'>-&nbsp;&nbsp;&nbsp;</font><b>".$langPlatformStats."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
+			-&nbsp;&nbsp;&nbsp;<b>".$langPlatformStats."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
 		</td>
 	</tr>";
         echo "
@@ -234,7 +234,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
 	<tr>
 		<td valign='top'>
-			+<font color='#0000FF'>&nbsp;&nbsp;</font><a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langPlatformStats</a>
+			+&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langPlatformStats</a>
 		</td>
 	</tr>
         ";
@@ -252,7 +252,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
 	<tr>
 		<td valign='top'>
-			<font color='#0000FF'>-&nbsp;&nbsp;&nbsp;</font><b>".$langPlatformAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
+			-&nbsp;&nbsp;&nbsp;<b>".$langPlatformAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
 		</td>
 	</tr>
             ";
@@ -389,7 +389,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
 	<tr>
 		<td valign='top'>
-			+<font color='#0000FF'>&nbsp;&nbsp;</font><a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langPlatformAccess</a>
+			+&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langPlatformAccess</a>
 		</td>
 	</tr>
         ";
@@ -409,7 +409,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
 	<tr>
 		<td valign='top'>
-			<font color='#0000FF'>-&nbsp;&nbsp;&nbsp;</font><b>".$langPlatformCoursesAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
+			-&nbsp;&nbsp;&nbsp;<b>".$langPlatformCoursesAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
 		</td>
 	</tr>
             ";
@@ -452,7 +452,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
 	<tr>
 		<td valign='top'>
-			+<font color='#0000FF'>&nbsp;&nbsp;</font><a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langPlatformCoursesAccess</a>
+			+&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langPlatformCoursesAccess</a>
 		</td>
 	</tr>
         ";
@@ -473,7 +473,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
 	<tr>
 		<td valign='top'>
-			<font color='#0000FF'>-&nbsp;&nbsp;&nbsp;</font><b>".$langPlatformToolAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
+			-&nbsp;&nbsp;&nbsp;<b>".$langPlatformToolAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
 		</td>
 	</tr>
             ";
@@ -543,7 +543,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
             <tr>
                     <td valign='top'>
-                    +<font color='#0000FF'>&nbsp;&nbsp;</font><a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langPlatformToolAccess</a>
+                    +&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langPlatformToolAccess</a>
                     </td>
             </tr>
         ";
@@ -561,7 +561,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
 	<tr>
 		<td valign='top'>
-			<font color='#0000FF'>-&nbsp;&nbsp;&nbsp;</font><b>".$langHardAndSoftUsed."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
+			-&nbsp;&nbsp;&nbsp;<b>".$langHardAndSoftUsed."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
 		</td>
 	</tr>
             ";
@@ -668,7 +668,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
             <tr>
                     <td valign='top'>
-                    +<font color='#0000FF'>&nbsp;&nbsp;</font><a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langHardAndSoftUsed</a>
+                    +&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langHardAndSoftUsed</a>
                     </td>
             </tr>
         ";
@@ -686,7 +686,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
                 <tr>
                         <td valign='top'>
-                        <font color='#0000FF'>-&nbsp;&nbsp;&nbsp;</font><b>".$langStrangeCases."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
+                        -&nbsp;&nbsp;&nbsp;<b>".$langStrangeCases."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
                         </td>
                 </tr>
             ";
@@ -856,7 +856,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
             <tr>
                     <td valign='top'>
-                    +<font color='#0000FF'>&nbsp;&nbsp;</font><a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langStrangeCases</a>
+                    +&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langStrangeCases</a>
                     </td>
             </tr>
         ";
