@@ -66,7 +66,6 @@ include($includePath.'/claro_init_header.inc.php');
 include($includePath."/lib/pager.lib.php");
 
 if ($uidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
-
 //----------------------------------
 // EXECUTE COMMAND
 //----------------------------------
@@ -92,13 +91,13 @@ switch ($cmd)
 
   // needed to display the name of the user we are watching
 
+$uidToEdit = (int) $_REQUEST['uidToEdit'];
 $sqlTitle = "SELECT *
              FROM `".$tbl_user."`
-             WHERE `user_id` = ".$uidToEdit."
+             WHERE `user_id` = '".$uidToEdit."'
              ";
 
-$queryTitle = claro_sql_query($sqlTitle);
-$resultTitle = mysql_fetch_array($queryTitle);
+$resultTitle = claro_sql_query_fetch_all($sqlTitle);
 
    // main query to know what must be displayed in the list
 
@@ -130,7 +129,6 @@ if (isset($_REQUEST['search']))
 }
 
 // deal with REORDER
-
   //first see is direction must be changed
 
 // deal with REORDER
@@ -153,7 +151,6 @@ if (isset($_SESSION['admin_user_course_order_crit']))
 $myPager = new claro_sql_pager($sql, $offset, $coursePerPage);
 $resultList = $myPager->get_result_list();
 
-
 //----------------------------------
 // DISPLAY
 //----------------------------------
@@ -171,60 +168,15 @@ if($dialogBox)
     claro_disp_message_box($dialogBox);
 }
 
-/*
-//Display selectbox, alphabetic choice, and advanced search link search
-
-  // ALPHABETIC
-
-echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
-             ";
-            if (isset($uidToEdit)) {$toAdd = "uidToEdit=".$uidToEdit."&";} else {$toAdd = "";}
-            if (isset($doRegister)) {$toAdd .= "doRegister=true&";}
-
-            echo "<a href=\"",$PHP_SELF,"?".$toAdd."\"><b> ".$langAll."</b></a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=A&".$toAdd."\">A</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=B&".$toAdd."\">B</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=C&".$toAdd."\">C</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=D&".$toAdd."\">D</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=E&".$toAdd."\">E</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=F&".$toAdd."\">F</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=G&".$toAdd."\">G</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=H&".$toAdd."\">H</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=I&".$toAdd."\">I</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=J&".$toAdd."\">J</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=K&".$toAdd."\">K</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=L&".$toAdd."\">L</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=M&".$toAdd."\">M</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=N&".$toAdd."\">N</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=O&".$toAdd."\">O</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=P&".$toAdd."\">P</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=Q&".$toAdd."\">Q</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=R&".$toAdd."\">R</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=S&".$toAdd."\">S</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=T&".$toAdd."\">T</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=U&".$toAdd."\">U</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=V&".$toAdd."\">V</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=W&".$toAdd."\">W</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=X&".$toAdd."\">X</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=Y&".$toAdd."\">Y</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=Z&".$toAdd."\">Z</a>";
-            echo "
-            <input type=\"text\" name=\"search\">
-            <input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\">
-            <input type=\"submit\" value=\"".$langSearch."\">
-
-      </form>
-     ";
- */
-     //TOOL LINKS
+    //TOOL LINKS
 
 echo "<a href=\"adminprofile.php?uidToEdit=$uidToEdit\">$langSeeUserSettings</a> |";
 echo "<a href=\"../auth/courses.php?cmd=rqReg&amp;uidToEdit=".$uidToEdit."&amp;category=&amp;fromAdmin=usercourse\">$langEnrollToNewCourse</a>";
 
 if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
 {
-    echo " | <a href=\"adminusers.php\">$langBackToUserList</a>";
-    $addToUrl = "&amp;cfrom=ulist";
+    echo ' | <a href="adminusers.php">'.$langBackToUserList.'</a>';
+    $addToUrl = '&amp;cfrom=ulist';
 }
 
 //Pager
@@ -253,23 +205,24 @@ echo  '<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=code&amp;dir='.$order['c
 
 // Display list of the course of the user :
     
-echo "<tbody>\n";
+echo '<tbody>'."\n";
 
+if(is_array($resultList))
 foreach($resultList as $list)
 {
-    echo "<tr>";
+    echo '<tr>';
 
      //  Code
 
-     echo "<td>".$list['fake_code']."</td>";
+     echo '<td>'.$list['fake_code'].'</td>';
 
      // title
 
-     echo "<td align=\"left\"><a href=\"".$coursesRepositoryWeb.$list['directory']."\">".$list['intitule']."</a></td>";
+     echo '<td align="left"><a href="'.$coursesRepositoryWeb.$list['directory'].'">'.$list['intitule'].'</a></td>';
 
      //  Titular
 
-     echo "<td align=\"left\">".$list['titulaires']."</td>";
+     echo '<td align="left">'.$list['titulaires'].'</td>';
 
      //  Status
      echo '<td align="center">'
@@ -278,30 +231,28 @@ foreach($resultList as $list)
 		 .'</a>'
 		 .'</td>'
 		 ;
-
     // Edit user course settings
 
-
-
     //  Unsubscribe link
-    echo   "<td align=\"center\">\n"
-          ."<a href=\"".$_SERVER['PHP_SELF']."?uidToEdit=".$uidToEdit."&amp;cmd=unsubscribe".$addToUrl."&amp;code=".$list['code']."&amp;offset=".$offset."\" "
-          ."onClick=\"return confirmationUnReg('",addslashes($resultTitle['prenom']." ".$resultTitle['nom']),"');\">\n"
-          ."<img src=\"".$clarolineRepositoryWeb."/img/unenroll.gif\" border=\"0\" alt=\"".$langDelete."\" />\n"
-          ."</a>\n"
-          ."</td>\n"
-          ."</tr>";
+    echo   '<td align="center">'."\n"
+          .'<a href="'.$_SERVER['PHP_SELF'].'?uidToEdit='.$uidToEdit.'&amp;cmd=unsubscribe'.$addToUrl.'&amp;code='.$list['code'].'&amp;offset='.$offset.'\ '
+          .'onClick="return confirmationUnReg(\''.addslashes($resultTitle['prenom'].' '.$resultTitle['nom']).'\');">'."\n"
+          .'<img src="'.$clarolineRepositoryWeb.'/img/unenroll.gif" border="0" alt="'.$langDelete.'" />'."\n"
+          .'</a>'."\n"
+          .'</td>'."\n"
+          .'</tr>';
 
-     $atLeastOne = TRUE;
+    $atLeastOne = TRUE;
 }
 
 if (!$atLeastOne)
 {
-    echo "<tr>
-           <td colspan=\"5\" align=\"center\">
-           ".$langUserNoCourseToDisplay."
-           </td>
-          </tr>";
+    echo '<tr>'
+       . '<td colspan="5" align="center">'
+       . $langUserNoCourseToDisplay
+       . '</td>'
+       . '</tr>'
+       ;
 }
 
 echo '<tbody></table>';
