@@ -65,7 +65,7 @@ $titlePage .= $siteName;
 <link href="http://www.claroline.net/credits.htm" rel="Author" />
 <link href="http://www.claroline.net" rel="Copyright" />
 
-<script language="javascript">document.cookie="javascriptEnabled=true";</script>
+<script type="text/javascript">document.cookie="javascriptEnabled=true";</script>
 <?php
 if ($htmlHeadXtra)
 {
