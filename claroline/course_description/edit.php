@@ -40,10 +40,6 @@ if ( ! $is_courseAllowed) claro_disp_auth_form();
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_course_description  = $tbl_cdb_names['course_description'];
 
-
-@include($includePath."/../lang/english/pedaSuggest.inc.php");
-@include($includePath."/../lang/".$_course['language']."/pedaSuggest.inc.php");
-
 include('tiplistinit.inc.php');
 
 $htmlHeadXtra[] =
