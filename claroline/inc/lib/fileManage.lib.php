@@ -143,12 +143,14 @@ function claro_move_file($sourcePath, $targetPath)
 {
     // check to not copy a directory inside itself
     if (   is_dir($sourcePath) 
-        && ereg('^'.$sourcePath.'/', $targetPath.'/') ) return false;
+        && ereg('^'.$sourcePath.'/', $targetPath.'/') ) 
+        return claro_failure::set_failure('MOVE INSIDE ITSELF');
 
     $sourceFileName = basename($sourcePath);
     
     if (   $sourcePath == $targetPath 
-        || file_exists($targetPath.'/'.$sourceFileName) ) return false;
+        || file_exists($targetPath.'/'.$sourceFileName) )
+         return claro_failure::set_failure('FILE EXISTS');
 
     if ( is_dir($targetPath) )
     {
