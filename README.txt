@@ -1,5 +1,5 @@
 ******************************************
-CLAROLINE 1.5 RELEASE CANDIDATE 2 - README
+CLAROLINE 1.5 FINAL - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -266,5 +266,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - June 29 2004
+                Europe, Belgium, Louvain-la-Neuve - July 7 2004
 ================================== END ===================================
