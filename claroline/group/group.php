@@ -426,7 +426,7 @@ echo	"<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">",
 		mysql_query($sql);
 	}
 
-	if($groupRegAllowed)
+	if($_groupProperties ['registrationAllowed'])
 	{
 		$regState      = $langYes;
 	}
