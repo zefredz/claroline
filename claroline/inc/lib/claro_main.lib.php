@@ -217,7 +217,33 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
 
         mysql_free_result($result);
 
+        if( count($colList) < 1) // special case when there is no result
+        {                        // the script will at least create the 
+                                 // column headers from the query
+
+            $selectLine = substr($sqlQuery, 0, strpos($sqlQuery, 'FROM') -1 );
+
+            $selectLine = str_replace( array('ALL', 'DISTINCT', 'DISTINCTROW', 
+                                             'HIGH_PRIORITY', 'STRAIGHT_JOIN', 
+                                           'SQL_SMALL_RESULT', 'SQL_BIG_RESULT',
+                                           'SQL_BUFFER_RESULT', 'SQL_CACHE', 
+                                           'SQL_NO_CACHE', 'SQL_CALC_FOUND_ROWS', '`'),
+                                       '', $selectLine);
+
+            $exprList = explode(',', $selectLine);
+            $exprList = array_map('trim', $exprList);
+
+            foreach($exprList as $thisExpr)
+            {
+               $decomposedExprList = preg_split('/( AS |[ ]+)/', $thisExpr);
+               $colNameList [] = end( explode( '.', end($decomposedExprList) ) );
+            }
+
+            foreach($colNameList as $thisColName) $colList[$thisColName]= array();
+        } // end if( count($colList) < 1)
+
         return $colList;
+        
     }
     else
     {
