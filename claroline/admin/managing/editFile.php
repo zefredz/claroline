@@ -12,7 +12,11 @@
 //----------------------------------------------------------------------
 
 $cidReset=TRUE;
+
 require '../../inc/claro_init_global.inc.php';
+
+$is_allowedToAdmin 	= $is_platformAdmin;
+if ( ! $is_allowedToAdmin ) claro_disp_auth_form();
 
 include($includePath."/lib/debug.lib.inc.php");
 include("../../inc/lib/file.lib.inc.php");
@@ -21,65 +25,52 @@ define("DISP_FILE_LIST",__LINE__);
 define("DISP_EDIT_FILE",__LINE__);
 define("DISP_PREVIEW_FILE",__LINE__);
 
-$nameTools = $langHomePageTextZone;
-$dateNow 			= claro_disp_localised_date($dateTimeFormatLong);
-$is_allowedToAdmin 	= $is_platformAdmin;
-
-$interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $lang_EditFile_AdministrationTools);
-
 //The name of the files
 $NameFile=array("textzone_top.inc.html","textzone_right.inc.html");
 //The path of the files
 $EditFile=array($rootSys.$NameFile[0],$rootSys.$NameFile[1]);
 
-if(!$is_allowedToAdmin)
+$display=DISP_FILE_LIST;
+//If choose a file to modify
+//Modify a file
+if(isset($_REQUEST["modify"]))
 {
-	$display=FALSE;
-	$controlMsg["error"][]=$lang_EditFile_NoAdmin;
-}
-else
-{
+	$text=$_REQUEST["textFile"];
+	if (get_magic_quotes_gpc())
+	{
+		$text = stripslashes($text);
+	}
+
+	$fp=fopen($EditFile[$_REQUEST["file"]],"w+");
+	fwrite($fp,$text);
+	$controlMsg["info"][]=$lang_EditFile_ModifyOk." <br>
+	<strong>".basename($EditFile[$_REQUEST["file"]])."</strong>";
 	$display=DISP_FILE_LIST;
-	//If choose a file to modify
-	//Modify a file
-	if(isset($_REQUEST["modify"]))
-	{
-		$text=$_REQUEST["textFile"];
-		if (get_magic_quotes_gpc())
-		{
-			$text = stripslashes($text);
-		}
-
-		$fp=fopen($EditFile[$_REQUEST["file"]],"w+");
-		fwrite($fp,$text);
-		$controlMsg["info"][]=$lang_EditFile_ModifyOk." <br>
-		<strong>".basename($EditFile[$_REQUEST["file"]])."</strong>";
-		$display=DISP_FILE_LIST;
-	}
-
-	if(isset($_REQUEST["file"]))
-	{
-		$TextFile=contentFile($EditFile[$_REQUEST["file"]]);
-
-		if ($_REQUEST['cmd']=="edit")
-		{
-			$subtitle = 'Edit : '.basename($NameFile[$_REQUEST["file"]]);
-			$display = DISP_EDIT_FILE;
-		}
-		else
-		{
-			if (trim(strip_tags($TextFile))=="")
-				$TextFile = '<blockquote><font color="#808080">- <em>'.$langNoContent.'</em> -</font><br></blockquote>
-				';
-			$subtitle = 'Preview : '.basename($NameFile[$_REQUEST["file"]]);
-			$display = DISP_VIEW_FILE;
-		}
-	}
-
-
 }
 
-// END OF WORKS
+if(isset($_REQUEST["file"]))
+{
+	$TextFile=contentFile($EditFile[$_REQUEST["file"]]);
+
+	if ($_REQUEST['cmd']=="edit")
+	{
+		$subtitle = 'Edit : '.basename($NameFile[$_REQUEST["file"]]);
+		$display = DISP_EDIT_FILE;
+	}
+	else
+	{
+		if (trim(strip_tags($TextFile))=="")
+			$TextFile = '<blockquote><font color="#808080">- <em>'.$langNoContent.'</em> -</font><br></blockquote>
+			';
+		$subtitle = 'Preview : '.basename($NameFile[$_REQUEST["file"]]);
+		$display = DISP_VIEW_FILE;
+	}
+}
+
+// DISPLAY
+
+$nameTools = $langHomePageTextZone;
+$interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $lang_EditFile_AdministrationTools);
 
 include($includePath."/claro_init_header.inc.php");
 
