@@ -56,11 +56,13 @@ Making it invisible will allow students to access
  next modules without having to complete this one. 
 
 Confirm ?";
+$langAlertBlockingMakedInvisible = "This module is blocking. \nMaking it invisible will allow students to access \n next modules without having to complete this one. \n\nConfirm ?";
 $langAlertBlockingPathMadeInvisible = "This path is blocking. 
 Making it invisible will allow students to access 
  next paths without having to complete this one. 
 
 Confirm ?";
+$langAlertBlockingPathMadeInvisible = "This path is blocking. \nMaking it invisible will allow students to access \n next paths without having to complete this one. \n\nConfirm ?";
 $langAll = "All";
 $langAllExercises = "All exercises";
 $langAllowAnonymous = "Allow anonymous users";
@@ -75,7 +77,9 @@ $langAllUsersOfThisCourse = "Course members";
 $langAlreadyAnswered = "You already answered the question";
 $langAlreadyBrowsed = "Already browsed";
 $langAlreadyEnrolled = "Already enrolled";
-$langAlt = "Array";
+$langAltClarodoc = "Clarodoc";
+$langAltDocument = "Document";
+$langAltExercise = "Exercise";
 $langAltMakeBlocking = "Make blocking";
 $langAltMakeInvisible = "Make invisible";
 $langAltMakeNotBlocking = "Make not blocking";
@@ -83,6 +87,7 @@ $langAltMakeVisible = "Make visible";
 $langAltMove = "Move";
 $langAltMoveDown = "Order down";
 $langAltMoveUp = "Order up";
+$langAltScorm = "Scorm";
 $langAlways = "Always";
 $langAmong = "among";
 $langAnd = "and";
@@ -117,6 +122,8 @@ It will be definitively deleted from the server and from any learning path it is
 You won't be able to used it in any learning path.
 
 Confirm delete of : ";
+$langAreYouSureDeleteModule = "Are you sure to totally delete this module ?\n\nIt will be definitively deleted from the server and from any learning path it is in.\nYou won't be able to used it in any learning path.\n\nConfirm delete of : ";
+$langAreYouSureToDelete = "Are you sure to delete ";
 $langAreYouSureToDelete = "Are you sure to delete";
 $langAreYouSureToDeleteScorm = "This learning path is issue of a SCORM importation package. If you delete this path, all its SCORM conformant modules and related files will be deleted from the platform.  Are you sure you want to delete the learning path named ";
 $langAreYouSureToDeleteScormModule = "Are you sure you want to delete this SCORM conformant modules? The module won't be available on the platform any longer.";
@@ -184,6 +191,7 @@ $langCannotInitChat = "Error : Cannot initialize chat";
 $langCannotMoveGroupForum = "Groups forum cannot be moved";
 $langCatagoryGroup = "Groups forums";
 $langCatagoryMain = "Main";
+$langcatcreated = "The new category has been created.";
 $langCategories = "Categories";
 $langCategory = "Category";
 $langCfgSetting = "Platform settings";
@@ -539,7 +547,9 @@ $langEmailOption = "Send this announcement by email to registered students";
 $langEmailSent = " and emailed to registered students";
 $langEmailWrong = "The email address is not valid";
 $langEmptyAnn = "Clear up list of announcements";
+$langemptycatname = "You must give a name to your new category!";
 $langEmptyFields = "You left some required fields empty";
+$langemptyforumname = "You must give a name to your new forum!";
 $langEmtpyGroups = "Empty all groups";
 $langEnable = "Enable";
 $langEndDate = "End date";
@@ -734,6 +744,7 @@ $langForContent = "The forum is a written and asynchronous discussion tool.
 $langFormula = "Yours sincerely";
 $langForName = "Forum name";
 $langForum = "Forum";
+$langforumcreated = "The new forum has been created.";
 $langForumGroup = "Forum of the group";
 $langForumModified = "The forum has been modified";
 $langForums = "Forums";
@@ -881,6 +892,7 @@ $langHumanAndPhysicalRessources = "Human and physical Ressources";
 $langHUser = "Help Users";
 $langIfNotRedirect = "If not redirected ";
 $langImport = "Import";
+$langimportLearningPath = "Import a learning path";
 $langImpossible = "Operation impossible";
 $langIn = "in";
 $langIncorrectDate = "Start date must be before end date ...";
@@ -930,6 +942,7 @@ $langLast30Days = "Last 30 days";
 $langLast31days = "Last 31 days";
 $langLast7Days = "Last 7 days";
 $langLastAccess = "Last access";
+$langLastActiveTopics = "Last active topics";
 $langLastAttempt = "Last attempt";
 $langLastCheck = "Last check before install";
 $langLastEdit = "Last edit";
@@ -937,6 +950,7 @@ $langLastEditDate = "Last edit date";
 $langLasting = "Lasting";
 $langLastLogin = "Last login";
 $langLastMsg = "Last message";
+$langLastMsgs = "Last messages";
 $langLastName = "Last name";
 $langLastname = "Last name";
 $langLastSessionTimeSpent = "Last session time";
@@ -1052,6 +1066,8 @@ $langMonth = "Month";
 $langMonthNames = "Array";
 $langMoreAnswers = "+answ";
 $langMoreElements = "+elem";
+$langMoreRepliedTopics = "More replied topics";
+$langMoreSeenTopics = "More seen topics";
 $langMove = "Move";
 $langMoveDown = "Move down";
 $langMoveUp = "Move up";
@@ -1180,6 +1196,7 @@ $langPasswordHasBeenEmailed = "Your password has been emailed to ";
 $langPasswordWrong = "Passwords must be identical to change it";
 $langPathContentTitle = "Learning path content";
 $langPathsInCourseProg = "Course progression ";
+$langpday = "%d&nbsp;day(s)";
 $langPerhaps_with_others_directory = "perhaps with others directory";
 $langPeriodDay = "Day";
 $langPeriodHour = "Hour";
@@ -1192,6 +1209,7 @@ $langPersonalSettings = "Your personal settings have been registered and an emai
 $langPersoValue = "Values";
 $langPgTitle = "Title of the page";
 $langPhone = "Phone";
+$langphours = "%d&nbsp;hour(s)";
 $langPlaces = "seats by groups (optional)";
 $langPlatform = "Platform";
 $langPlatformAccess = "Access to campus";
@@ -1231,6 +1249,8 @@ $langPublic = "Public";
 $langPublicAccess = "Public access from campus home page even without login";
 $langPublicOnly = "Public course only";
 $langPublish = "Publish";
+$langpweek = "%d&nbsp;week(s)";
+$langpyear = "%d&nbsp;year(s)";
 $langQantity = "Quantity  : ";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;groups";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "A user can be member of maximum ";
@@ -1299,6 +1319,7 @@ $langScoreMin = "Minimum";
 $langScoreShow = "Show scores";
 $langScormIntroTextForDummies = "Imported packages must consist of a  zip file and SCORM 1.2 conformant";
 $langSCORMTypeDesc = "SCORM 1.2 conformant content";
+$langSearch = "Search";
 $langSearchAgain = "Search again (advanced)";
 $langSearchCourse = "Search course";
 $langSearchCourseAdvanced = "Advanced course search";
@@ -1320,6 +1341,7 @@ $langSettings = "with the following settings:
 User name:";
 $langShowAll = "Show all";
 $langShowAnswers = "Show answers";
+$langShowAnswersAfterLastTry = "After last allowed attempt";
 $langShowFeedback = "Show last feedback";
 $langShowNone = "Show none";
 $langShowWork = "Show work";
@@ -1410,13 +1432,17 @@ $langToolsAccess = "Access to tools";
 $langToolTitleCountColumn = "Total Clicks";
 $langToolTitleToolnameColumn = "Name of the tool";
 $langToolTitleUsersColumn = "Users Clicks";
+$langTopicReplies = "Replies";
 $langTopLevel = "top level";
 $langTotal = "Total";
 $langTotalPlatformAccess = "Total";
 $langTotalPlatformLogin = "Total";
 $langTotalTimeSpent = "Total time";
+$langTrackForumUsage = "Forum usage";
 $langTracking = "Tracking";
 $langTrackingDisabled = "Tracking has been disabled by system administrator.";
+$langTrackTotalPosts = "Messages posted";
+$langTrackTotalTopics = "Topics started";
 $langTraduction = "Traduction tool";
 $langTrafficDetails = "Traffic Details";
 $langTrue = "True";
@@ -1460,6 +1486,7 @@ $langUploadFile = "Upload file";
 $langURL = "URL : ";
 $langUsedInLearningPaths = "
 Number of learning paths using this module : ";
+$langUsedInLearningPaths = "\nNumber of learning paths using this module : ";
 $langUsedInSeveralExercises = "Warning ! This question and its answers are used in several exercises. Would you like to modify them";
 $langUsedInSeveralPath = "This exercise is used in one or more learning path. If you delete it it will be no more available in the learning path.";
 $langUseOfPool = "This page allow you to view all the modules available in this course. <br>
@@ -1732,6 +1759,7 @@ $l_posted = "Posted";
 $l_poster = "Poster";
 $l_posts = "Posts";
 $l_privnotify = "<br>You have %s1 <a href=\"%s2\">new private message(s)</a>.";
+$l_privnotify = "<br>You have %s1 <a href=\"%s2\">new private message(s)</a>.";
 $l_profile = "Profile";
 $l_profileof = "View Profile of";
 $l_publicmail = "Allow other users to view my Email Address";
@@ -1780,14 +1808,4 @@ $l_wrongpass = "You entered the wrong password.";
 $l_yahoo = "Yahoo Messenger";
 $l_yim = "YIM";
 $l_yourname = "Your User name";
-
-$langAltDocument = "Document";
-$langAltHandmade = "Handmade";
-$langAltExercise = "Exercise";
-$langAltClarodoc = "Clarodoc";
-$langAltScorm = "Scorm";
-
-$langManageClasses = "Manage classes";
-$langAddCSVUsers = "Add a complete user list";
-
 ?>
