@@ -33,4 +33,7 @@ $titleElement['mainTitle'] = $nameTools;
 if ( $_gid ) $titleElement['subTitle'] = $_group['name'];
 
 claro_disp_tool_title($titleElement);
+
+$hide_footer = true;
+include($includePath."/claro_init_footer.inc.php");
 ?>
