@@ -870,6 +870,16 @@ for ($i =0; $i < count($filePathList); $i++ )
     $filePathList[$i] = str_replace($baseWorkDir, '', $filePathList[$i]);
 }
 
+if ($cmd == 'exSearch')
+{
+	$sql = "SELECT path FROM `".$dbTable."` 
+            WHERE comment LIKE '%".addslashes($searchPattern)."%'";
+
+    $dbSearchResult = claro_sql_query_fetch_all_cols($sql);
+    $filePathList = array_unique( array_merge($filePathList, $dbSearchResult['path']) );
+}
+
+
 if ( count($filePathList) > 0 )
 {
     define('A_DIRECTORY', 1);
