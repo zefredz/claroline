@@ -191,7 +191,7 @@ switch($pagetype)
 	case 'viewforum':
 
 		$toolBar [] =	"<a class=\"claroCmd\" href=\"newtopic.php?forum=".$forum."&gidReq=".$_gid."\">"
-                       ."<img src=\"".$clarolineRepositoryWeb."img/forum.gif\"> "
+                       ."<img src=\"".$clarolineRepositoryWeb."img/topic.gif\"> "
                        .$langNewTopic
                        ."</a>";
 
@@ -200,7 +200,7 @@ switch($pagetype)
 	case 'viewtopic':
 
 		$toolBar [] =	"<a class=\"claroCmd\" href=\"newtopic.php?forum=".$forum."&gidReq=".$_gid."\">"
-                       ."<img src=\"".$clarolineRepositoryWeb."img/forum.gif\"> "
+                       ."<img src=\"".$clarolineRepositoryWeb."img/topic.gif\"> "
                        .$langNewTopic
                        ."</a>";
 
