@@ -394,6 +394,7 @@ post a message there.</p>
  (top right).</p><b>Login</b><p>On your next visit, type login/password
 
  and Ok to access your courses. The URL of the site is";
+$langClarolineNetNews = "Claroline.net news";
 $langClass = "Classes";
 $langClassAddCSV = "Add a user list in class";
 $langClassMembers = "Class members";
@@ -870,6 +871,7 @@ $langEnter = "Enter";
 $langEnter2passToChange = "Enter new password twice to change, or leave empty to keep";
 $langEnterMail = "Enter your email so we can send you your password.";
 $langErrorAssetNotFound = "Asset not found : ";
+$langErrorCannotReadRSSFile = "Error : cannot read RSS feed";
 $langErrorClassNotEmpty = "This class still contains some sub classes, delete them first";
 $langErrorEmptyName = "Name must be completed";
 $langErrorFileMustBeZip = "File must be a zip file (.zip)";

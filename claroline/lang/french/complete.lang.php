@@ -350,6 +350,7 @@ pour vous rappeler le nom d'utilisateur et le mot de passe à introduire lors de 
 <p>Procédez comme suit. Inscription > Remplissez tous les champs et choisissez 'Créer des sites de cours' comme action > Validez > Tapez le nom du cours, sélectionnez une faculté ou une catégorie, tapez le code du cours (inventez-en un au besoin > Validez. Et vous voici dans la liste de vos cours. Cliquez sur l'intitulé du cours que vous venez de créer. Vous voici dans un site de cours vide à l'exception de quelques contenus factices destinés à vous éviter l'angoisse de la page blanche. A l'inscription, un e-mail vous a été envoyé pour vous rappeler le nom d'utilisateur et le mot de passe que vous devrez taper lors de votre prochaine visite.</p>
 <p>En cas de problème, contactez votre responsable réseau ou le responsable de ce campus virtuel. Vous pouvez aussi publier un message sur le forum de support de <a href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>";
+$langClarolineNetNews = "Actualités Claroline.net";
 $langClass = "Classes";
 $langClassAddCSV = "Ajouter une liste d'utilisateurs dans la classe";
 $langClassMembers = "Membres de la classe";
@@ -708,6 +709,7 @@ $langEnter = "Entrer";
 $langEnter2passToChange = "Tapez deux fois le nouveau mot de passe pour le changer, laissez vide pour garder l'ancien.";
 $langEnterMail = "Saisissez votre adresse email et confirmez.";
 $langErrorAssetNotFound = "Ressource non trouvée : ";
+$langErrorCannotReadRSSFile = "Erreur : le fil RSS ne peut être trouvé.";
 $langErrorClassNotEmpty = "Cette classe contient toujours d'autres classes, supprimez d'abord son contenu";
 $langErrorEmptyName = "Le nom doit être complèté";
 $langErrorFileMustBeZip = "Le fichier uploadé doit être au format zip (.zip)";
