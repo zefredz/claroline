@@ -1,5 +1,5 @@
 *********************************************
-CLAROLINE 1.6.0 BETA FINAL - INSTALL
+CLAROLINE 1.6.0 RC1 - INSTALL
 *********************************************
 
 Thank you for downloading Claroline 1.6.0 . This text will guide you 
@@ -20,7 +20,7 @@ TABLE OF CONTENT :
 REQUIREMENTS
 ============
 
-To install Claroline 1.6.0 BETA on a computer, whether locally or remotely, you need 
+To install Claroline 1.6.0 RC1 on a computer, whether locally or remotely, you need 
 the following on your machine :
 
 1. One of the following Operating systems :
@@ -108,16 +108,16 @@ INSTALLATION PROCEDURE
 NEW CLAROLINE INSTALLATION
 --------------------------
 
-1. Download 'claroline160beta.tar.gz' 
+1. Download 'claroline160rc1.tar.gz' 
 
-   Windows : download 'claroline160beta.zip'.
+   Windows : download 'claroline160rc1.zip'.
 
 
 2. Open a shell, go to download directory and type 
 
-	tar -zxvf claroline160beta.tar.gz
+	tar -zxvf claroline160rc1.tar.gz
 
-   Windows : unzip 'claroline160beta.zip'.
+   Windows : unzip 'claroline160rc1.zip'.
 
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
@@ -145,7 +145,7 @@ NEW CLAROLINE INSTALLATION
 UPDGRADE FROM PREVIOUS CLAROLINE VERSION
 ----------------------------------------
 
-No upgrade available in beta releases
+No upgrade available in release candidate
 
 TROUBLESHOOTING
 ===============
