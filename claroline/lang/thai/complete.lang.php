@@ -1,5 +1,6 @@
 <?php 
 $langActivate = "เปิดใช้งาน";
+$langActivate = "ปิดการใช้งาน";
 $langAdd = "เพิ่ม";
 $langAddAnn = "เพิ่มประกาศ";
 $langAddAU = "เพิ่มนักศึกษา";
@@ -9,6 +10,7 @@ $langAddEvent = "เพิ่มกำหนดการ";
 $langAddForCat = "เพิ่มกระดานข่าวในหมวดหมู่";
 $langAddForums = "เพิ่มกระดานข่าว คลิกที่ \"กระดานข่าว\" ในหมวดหมู่ที่ท่านเลือก หมวดหมู่ที่ว่าง (ไม่มีกระดานข่าว) นักศึกษาจะไม่สามารถมองเห็นได้";
 $langAddIntro = "เพิ่มคำแนะนำ";
+$langAddIntro = "เพิ่มคำนำ";
 $langAddPage = "เพิ่มเติมรายวิชา";
 $langAddress = "ที่อยู่ ";
 $langAdm = "admin";
@@ -40,8 +42,10 @@ $langChat = "Chat";
 $langCheckDatabase = "ตรวจสอบฐานข้อมูล";
 $langChoice = "ตัวเลือกของคุณ";
 $langClose = "ปิด";
+$langClose = "ปิดหน้าต่างนี้";
 $langCode = "รหัสวิชา";
 $langComment = "หมายเหตุ";
+$langComment = "คำอธิบายเพิ่มเติม";
 $langComMod = "ปรับปรุงหมายเหตุเรียบร้อย";
 $langConfirmation = "ยืนยันรหัสผ่าน";
 $langContradiction = "Use the Principle of Non Contradiction to force one\'s interlocutor into a dead end.";
@@ -155,12 +159,14 @@ $langEmailWrong = "อีเมล์ไม่สมบูรณ์ หรือมีตัวอักษรต้องห้ามปะปน";
 $langEmptyAnn = "ล้างรายการประกาศ";
 $langEmptyFields = "คุณปล่อยบางช่องไว้ว่างเปล่า คลิกปุ่มย้อนหลัง และลองอีกครั้งหนึ่ง";
 $langEnter = "ตกลง";
+$langEnter = "ย้อนกลับ";
 $langEx = "ตัวอย่าง <i>History of Litterature</i>";
 $langExercice = "แบบฝึกหัด";
 $langExerciceEx = "ตัวอย่างแบบฝึกหัด";
 $langExercices = "แบบฝึกหัด";
 $langExMessage = "ตัวอย่างข้อความ";
 $langExplanation = "เมื่อท่านคลิกปุ่ม ตกลง  โปรแกรมจะทำการสร้าง ระบบจัดการเอกสาร . กระดานข่าว , กำหนดการ ฯลฯ ท่านสามารถเพิ่มเติม ปรับปรุงหรือเปลี่ยนแปลงหัวข้อใดๆ ภายในรายวิชาของท่านได้ทุกอย่าง.";
+$langExplanation = "เอกสารต้องอยุ่ในรูปแบบ HTML format (เช่น \"my_page.htm\")  จึงจะสามารถ link จากหน้าแรกได้  หากท่านต้องการส่งเอกสารที่ไม่เป็น HTML  (เช่น PDF, Word, Power Point, Video, etc.) เลือกใช้ <a href=../document/document.php>เครื่องมือจัดการเอกสาร</a>";
 $langFac = "ภาควิชา";
 $langFields = "คุณปล่อยให้บางช่องว่างเปล่า";
 $langFieldsRequ = "ต้องกรอกข้อมูลทุกช่อง";
@@ -184,6 +190,7 @@ claroline forum ได้สร้างกระดานข่าวหมวดหมู่ 'Public' เพื่อเป็นตัวอย่างสำหรับการถา
 หมวดหมู่ที่ไม่มีกระดานข่าวอยู่ภายใน จะไม่ถูกแสดงให้นักศึกษาเห็น </p><p>คำอธิบายของกระดานข่าวนั้นๆ จะช่วยให้นักศึกษา 
 เกิดความเข้าใจได้ง่าย ในการเข้าร่วมใช้งาน";
 $langFormula = "ด้วยความปรารถนาดี, อาจารย์";
+$langFormula = "ด้วยความขอบคุณ";
 $langForName = "ชื่อกระดานข่าว";
 $langForums = "กระดานข่าว";
 $langGettingStarted = "ช่วยเหลือ";
@@ -230,6 +237,7 @@ $langHelpGroups = "หน้าช่วยเหลือกลุ่ม";
 $langHFor = "ระบบช่วยเหลือ 'กระดานข่าว'";
 $langHHome = "ระบบช่วยเหลือ 'หน้าหลักบทเรียน'";
 $langHome = "กลับสู่หน้าแรก";
+$langHome = "กลับหน้าแรก";
 $langHomeContent = "เพื่อความง่าย และสะดวกต่อการใช้งาน ภายในแต่ละระบบงานจะประกอบด้วยตัวอย่างเล็กๆ
 เพื่อช่วยให้ท่านเข้าใจการทำงานของเครื่องมือนั้นๆได้อย่างรวดเร็วขึ้น ท่านสามารถที่จะลบหรือปรับปรุงตัวอย่างเหล่านี้ 
 ได้ตามควมต้องการ </p><p>ตัวอย่างเช่น ตรงกลางหน้าหลักของบทเรียนท่าน มีแถบข้อความสั้นๆ ข้อความว่า 
@@ -263,6 +271,7 @@ $langLastMsg = "โพสครั้งล่าสุด";
 $langLink = "Link";
 $langLinks = "Link";
 $langLinkSite = "เพิ่ม link ในรายวิชานี้";
+$langLinkSite = " Link ไปที่";
 $langLoginBeforePost1 = "ต้องการเขียนกระทู้บนกระดานข่าวนี้ ";
 $langLoginBeforePost2 = "คุณต้อง ";
 $langLoginBeforePost3 = "ล็อคอินเข้าระบบก่อน";
@@ -351,11 +360,13 @@ $langTargetFac = "";
 $langTestForum = "กระดานข่าวทดสอบ";
 $langTheU = "นักศึกษา";
 $langTitle = "ชื่อวิชา";
+$langTitle = "ชื่อเรื่อง";
 $langTitular = "นักศึกษา";
 $langTo = "ไปยัง";
 $langToday = "วันนี้";
 $langTodo = "สิ่งควรปรับปรุง";
 $langTooBig = "ท่านไม่ได้เลือกไฟล์ใดๆเพื่อส่ง หรือไฟล์มีขนาดใหญ่เกินไป";
+$langTooBig = "ท่านไม่ได้เลือกไฟล์ใดๆ หรือไฟล์มีขนาดใหญ่เกินไป";
 $langTools = "เครื่องมือ";
 $langTrue = "จริง";
 $langUncompress = "ขยายไฟล์บีบอัดบนเครื่องแม่ข่าย";
@@ -389,6 +400,7 @@ $langUserContent = "<b>สถานะภาพ</b><p>สถานะภาพ ใช้เพื่อแสดงบทบาทของผู้นั้นว่าเป็
 แจ้งว่าท่านได้ทำการลงทะเบียนเข้าสู่บทเรียนแก่เขาแล้ว รวมทั้งแจ้งชื่อผู้ใช้และรหัสผ่านแก่เขาด้วย
 </p>";
 $langUserName = "ชื่อผู้ใช้";
+$langUserName = "Username";
 $langUserNo = "username ที่ท่านเลือก ";
 $langUsers = "Users";
 $langUserTaken = "ชื่อ username นี้ถูกใช้แล้ว";

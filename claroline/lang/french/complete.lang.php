@@ -55,11 +55,13 @@ le rendre invisible permettra aux apprenants d\'accéder
  aux modules suivants du parcours sans devoir réussir celui-ci. 
 
 Confirmer ?";
+$langAlertBlockingMakedInvisible = "Ce module est bloquant, \nle rendre invisible permettra aux apprenants d\'accéder \n aux modules suivants du parcours sans devoir réussir celui-ci. \n\nConfirmer ?";
 $langAlertBlockingPathMadeInvisible = "Ce parcours est bloquant. 
 le rendre invisible permettra aux apprenants d\'accéder 
  aux parcours suivants sans devoir réussir celui-ci. 
 
 Confirmer ?";
+$langAlertBlockingPathMadeInvisible = "Ce parcours est bloquant. \nle rendre invisible permettra aux apprenants d\'accéder \n aux parcours suivants sans devoir réussir celui-ci. \n\nConfirmer ?";
 $langAll = "Tout";
 $langAllExercises = "Tous les exercices";
 $langAllowAnonymous = "Autoriser les utilisateurs anonymes";
@@ -120,6 +122,7 @@ Il sera définitivement effacé du serveur et du parcours pédagogique.
 Vous ne pourrez plus l'utiliser dans aucun parcours pédagogique.
 
 Confirmer la suppression de : ";
+$langAreYouSureDeleteModule = "Etes-vous sûr de vouloir totalement effacer ce module ?\n\nIl sera définitivement effacé du serveur et du parcours pédagogique.\nVous ne pourrez plus l'utiliser dans aucun parcours pédagogique.\n\nConfirmer la suppression de : ";
 $langAreYouSureToDelete = "Etes-vous sûr de vouloir supprimer ";
 $langAreYouSureToDeleteScorm = "Ce parcours est issu de l'importation d'un package SCORM. Si vous effacez ce parcours, tous les contenus SCORM de ses modules seront supprimés du serveur.  Etes-vous sûr de vouloir effacer le parcours pédagogique ";
 $langAreYouSureToDeleteScormModule = "Etes-vous sûr de vouloir effacer ce module SCORM ? Le module ne sera plus accessible sur le serveur.";
@@ -1426,6 +1429,7 @@ $langUploadFile = "Ajouter un fichier";
 $langURL = "URL : ";
 $langUsedInLearningPaths = "
 Nombre de parcours utilisant ce module : ";
+$langUsedInLearningPaths = "\nNombre de parcours utilisant ce module : ";
 $langUsedInSeveralExercises = "Attention ! Cette question et ses réponses sont utilisées dans plusieurs exercices. Souhaitez-vous les modifier";
 $langUsedInSeveralPath = "Cet exercice est utilisé dans un ou plusieurs parcours pédagogiques.  Si vous le supprimez il ne sera plus disponible au sein de ce ou ces parcours.";
 $langUseOfPool = "Cette page vous permet de voir tous les modules disponibles dans votre cours. <br />
@@ -1682,6 +1686,7 @@ $l_pmposted = "Réponse postée, vous pouvez cliquer <a href=\"viewpmsg.php\">ici<
 $l_posted = "Posté le";
 $l_poster = "Initiateur";
 $l_posts = "Messages";
+$l_privnotify = "<br>Vous avez %s1 <a href=\"%s2\">nouveau(x) message(s) privée(s)</a>.";
 $l_privnotify = "<br>Vous avez %s1 <a href=\"%s2\">nouveau(x) message(s) privée(s)</a>.";
 $l_profile = "Profil";
 $l_profileof = "Voir le profil de";
