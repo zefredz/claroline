@@ -349,8 +349,8 @@ function copyDirTo($origDirPath, $destination, $delete)
 		elseif ( is_file($element) )
 		{
 			copy($element, $destinationTrail."/".$element);
-            if ($delete)
-    			unlink($element) ;
+            		if ($delete)
+    				unlink($element);
 		}
 		elseif ( is_dir($element) )
 		{
@@ -477,6 +477,7 @@ function form_dir_list($file, $baseWorkDir)
     {
         $dialogBox .= "<option value=\"\" >root</option>\n";
     }
+
 
 	$bwdLen = strlen($baseWorkDir) ;	// base directories lenght, used under
 
@@ -694,35 +695,28 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath) {
 
                         //delete the learning path module(s)
 
-                        $sql ="DELETE
+                        $sql1 ="DELETE
                                FROM `".$TABLELEARNPATHMODULE."`
                                WHERE 0=1
                                ";
 
-                        $result = claro_sql_query($sqllpm);//:to reset result resused
-
-                        while ($list=mysql_fetch_array($result))
-                        {
-                           $sql.= " OR `module_id` = '".$list['module_id']."' ";
-                        }
-
-                        claro_sql_query($sql);
-
                         // delete the module(s) concerned
-
-                        $sql ="DELETE
+						$sql2 ="DELETE
                                FROM `".$TABLEMODULE."`
                                WHERE 0=1
                                ";
-
-                        mysql_data_seek($result,0); // restart result search
+                               
+                        $result = mysql_query($sqllpm);//:to reset result resused
 
                         while ($list=mysql_fetch_array($result))
                         {
-                           $sql.= " OR `module_id` = '".$list['module_id']."' ";
+                           $sql1.= " OR `module_id` = '".$list['module_id']."' ";
+                           $sql2.= " OR `module_id` = '".$list['module_id']."' ";
                         }
 
-                        claro_sql_query($sql);
+                        claro_sql_query($sql1);
+                        claro_sql_query($sql2);
+
 
                         //delete the user module progress concerned
 
