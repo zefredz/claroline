@@ -135,7 +135,7 @@ $langToCourseSettings = "Back to course settings";
 $langSeeCourseUsers = "See course users";
 $langBackToCourseList = "Back to courses list";
 $langBackToList = "Back to list";
-
+$langAllUsersOfThisCourse = "Course members";
 $langViewCourse = "View course";
 
 
