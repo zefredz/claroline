@@ -792,12 +792,21 @@ function utf8_decode_if_is_utf8($str) {
          // insert corresponding entries in database
          if ( !$errorFound )
          {
-              // PHP extraction of zip file using zlib
-              chdir($baseWorkDir);
+
+	      if (PHP_OS == 'Linux' && ! get_cfg_var('safe_mode'))
+	      {
+		// Shell Method - if this is possible, it gains some speed
+		exec("unzip -d \"".$baseWorkDir."/\" ".$uploadedPackage);
+	      } 
+	      else
+	      {
+		// PHP extraction of zip file using zlib
+              	chdir($baseWorkDir);
               // PCLZIP_OPT_PATH is the path where files will be extracted ( '' )
               // PLZIP_OPT_REMOVE_PATH suppress a part of the path of the file ( $pathToManifest )
               // the result is that the manifest is in th eroot of the path_# directory and all files will have a path related to the root
-              $unzippingState = $zipFile->extract(PCLZIP_OPT_PATH, '',PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
+              	$unzippingState = $zipFile->extract(PCLZIP_OPT_PATH, '',PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
+	      }
 
               // insert informations in DB :
               //        - 1 learning path ( already added because we needed its id to create the package directory )
