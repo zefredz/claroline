@@ -40,11 +40,10 @@ function claro_sql_get_main_tbl()
         'user_rel_profile_category' => $mainDbName.'`.`rel_class_user',
 		'class'                     => $mainDbName.'`.`class',
 		'rel_class_user'            => $mainDbName.'`.`rel_class_user',
-		'track_e_access' 			=> $statsDbName.'`.`track_e_access',
+		'track_e_default' 			=> $statsDbName.'`.`track_e_default',
 		'track_e_login' 			=> $statsDbName.'`.`track_e_login',
 		'track_e_open' 				=> $statsDbName.'`.`track_e_open',
-		'track_e_links' 			=> $statsDbName.'`.`track_e_links',
-		'track_e_downloads' 		=> $statsDbName.'`.`track_e_downloads',
+
 		);
     }
 
@@ -119,7 +118,7 @@ function claro_sql_get_course_tbl($dbNameGlued = NULL)
               'track_e_uploads'        => $courseDb.'track_e_uploads',
               'userinfo_content'       => $courseDb.'userinfo_content',
               'userinfo_def'           => $courseDb.'userinfo_def',
-              'wrk_assignment'          => $courseDb.'wrk_assignment',
+              'wrk_assignment'         => $courseDb.'wrk_assignment',
               'wrk_submission'         => $courseDb.'wrk_submission'
 
 
