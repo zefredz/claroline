@@ -41,8 +41,6 @@ $nameTools = $langEnrollUser;
 
 include($includePath."/claro_init_header.inc.php");
 
-
-
 //TABLES
 
 $tbl_user             = $mainDbName."`.`user";
@@ -53,7 +51,10 @@ $tbl_todo            = $mainDbName."`.`todo";
 $tbl_track_default    = $statsDbName."`.`track_e_default";// default_user_id
 $tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
 
+// See SESSION variables used for reorder criteria :
 
+if (isset($_GET['dir']))       {$_SESSION['admin_register_dir'] = $_GET['dir'];}
+if (isset($_GET['order_crit'])){$_SESSION['admin_register_order_crit'] = $_GET['order_crit'];}
 
 //------------------------------------
 // Execute COMMAND section
@@ -64,10 +65,10 @@ switch ($cmd)
   case "sub" : //execute subscription command...
         if ($subas=="teach")   //  ... as teacher
         {
-           echo "userid : ".$user_id." course".$cidToEdit;
            $done = add_user_to_course($user_id, $cidToEdit);
            $properties['status'] = 1;
-           $properties['role'] = "Professor";
+           $properties['role']   = "Professor";
+           $properties['tutor']  = 1;
            update_user_course_properties($user_id, $cidToEdit, $properties);
         }
         elseif ($subas=="stud")  // ... as student
@@ -83,7 +84,7 @@ switch ($cmd)
         }
         else
         {
-           $dialogBox =$langUserNotSubscribed;
+           $dialogBox ="";
         }
         break;
 
@@ -148,28 +149,24 @@ if (isset($_GET['search']))
 
 // deal with REORDER
 
-   //see if direction must be changed
+  //first see is direction must be changed
 
-if ($_GET['dir']=="ASC")
+if (isset($chdir) && ($chdir=="yes"))
 {
-    $dir = 'DESC';
-    $_SESSION['admin_dir']=$dir;
-}
-elseif ($_GET['dir']=="DESC")
-{
-    $dir = 'ASC';
-    $_SESSION['admin_dir']=$dir;
+  if ($_SESSION['admin_register_dir'] == "ASC") {$_SESSION['admin_register_dir']="DESC";}
+  elseif ($_SESSION['admin_register_dir'] == "DESC") {$_SESSION['admin_register_dir']="ASC";}
+  else $_SESSION['admin_register_dir'] = "DESC";
 }
 
-if (isset($_GET['order_crit']))
+if (isset($_SESSION['admin_register_order_crit']))
 {
-    if ($_GET['order_crit']=="user_id")
+    if ($_SESSION['admin_register_order_crit']=="user_id")
     {
-        $toAdd = " ORDER BY CU.`user_id` ".$_SESSION['admin_dir'];
+        $toAdd = " ORDER BY `U`.`user_id` ".$_SESSION['admin_register_dir'];
     }
     else
     {
-        $toAdd = " ORDER BY `".$_GET['order_crit']."` ".$_SESSION['admin_dir'];
+        $toAdd = " ORDER BY `".$_SESSION['admin_register_order_crit']."` ".$_SESSION['admin_register_dir'];
     }
     $sql.=$toAdd;
 }
@@ -259,25 +256,14 @@ $myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit.$addToURL);
 
    // start table...
 
-if ($_GET['dir']=="ASC")
-{
-    $dir = 'DESC';
-    $_SESSION['admin_dir']=$dir;
-}
-if ($_GET['dir']=="DESC")
-{
-    $dir = 'ASC';
-    $_SESSION['admin_dir']=$dir;
-}
-
-   //columsn titles...
+   //columns titles...
 
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
 
     <tr class=\"headerX\" align=\"center\" valign=\"top\">
-       <th><a href=\"",$PHP_SELF,"?order_crit=user_id&dir=".$dir."&cidToEdit=".$cidToEdit."\">".$langUserid."</a></th>
-       <th><a href=\"",$PHP_SELF,"?order_crit=nom&dir=".$dir."&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
-       <th><a href=\"",$PHP_SELF,"?order_crit=prenom&dir=".$dir."&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
+       <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes&cidToEdit=".$cidToEdit."\">".$langUserid."</a></th>
+       <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
+       <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
 
 echo "<th>".$langEnrollAsManager."</th>
       <th>".$langEnrollAsStudent."</th>";
@@ -286,6 +272,14 @@ echo "</tr><tbody> ";
 
    // Start the list of users...
 
+if (isset($order_crit))
+{
+    $addToURL = "&order_crit=".$order_crit;
+}
+if (isset($offset))
+{
+    $addToURL = "&offset=".$offset;
+}
 foreach($resultList as $list)
 {
      echo "<tr>";
@@ -308,7 +302,7 @@ foreach($resultList as $list)
          // Register as user
 
          echo  "<td align=\"center\">\n",
-                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&user_id=".$list['ID']."&subas=stud&offset=".$offset."&order_crit=".$order_crit."&dir=".$dir."\" ",
+                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&user_id=".$list['ID']."&subas=stud".$addToURL."\" ",
                     ">\n",
                     "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
                     "</a>\n",
@@ -318,7 +312,7 @@ foreach($resultList as $list)
 
 
          echo  "<td align=\"center\">\n",
-                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&user_id=".$list['ID']."&subas=teach&offset=".$offset."&order_crit=".$order_crit."&dir=".$dir."\" ",
+                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&user_id=".$list['ID']."&subas=teach&offset=".$addToURL."\" ",
                     ">\n",
                     "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
                     "</a>\n",
