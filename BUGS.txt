@@ -188,14 +188,15 @@ quoi : echo	"<small><font color=\"gray\">course manager</font></small>\n";
 Repéré par : M
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.23  : admincats.php
 type : logik
 quoi : si j'édite une cat et que je la rend interdite au 
 ratachement direct de cours mais qu'elle contient déjà des cours.
 l'utilisateur ne recoit aucun message.
 Repéré par : M.
-Assigné à : 
+Assigné à : Guim 
+message d'erreur si on essaie de rendre non remplissable de cours une catégorie qui en contient déjà.
 
 Etat : RESOLU ------------------------------------------------------
 M.24  : admincats.php
@@ -264,6 +265,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.39  2004/06/16 12:26:11  guillaume
+bug 24 resolu
+
 Revision 1.38  2004/06/16 11:42:37  guillaume
 bug 24 resolu
 
