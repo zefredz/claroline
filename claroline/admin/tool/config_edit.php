@@ -35,15 +35,11 @@
  *   I need to change that to let  admin sleep during the night
  *
  * To make transition,
- * * a section of tool continue to
- *   edit the main configuration (benoit's script)
  * * a section can parse old file to found old properties
  *   and his values.
  *   This script would be continue to generate a def conf file.
  *
  */
-
-// LANGUAGE
 
 $cidReset=true;
 $gidReset=true;
@@ -52,13 +48,24 @@ $gidReset=true;
 
 require '../../inc/claro_init_global.inc.php';
 
+/* ************************************************************************** */
+/*  Security Check
+/* ************************************************************************** */
+
+$is_allowedToAdmin  = $is_platformAdmin;
+
+if(!$is_allowedToAdmin)
+{
+    claro_disp_auth_form(); // display auth form and terminate script
+}
+
+/* ************************************************************************** */
+/*  Initialise variables and include libraries
+/* ************************************************************************** */
+
 include($includePath.'/lib/debug.lib.inc.php');
 include($includePath.'/lib/course.lib.inc.php');
 include($includePath.'/lib/config.lib.inc.php');
-
-/* ************************************************************************** */
-/*  INITIALISE VAR
-/* ************************************************************************** */
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_tool            = $tbl_mdb_names['tool'];
@@ -77,26 +84,8 @@ $toolNameList = array('CLANN___' => $langAnnouncement,
                       'CLUSR___' => $langUsers);
 
 /* ************************************************************************** */
-/*  SECURITY CHECKS
+/* Process                   
 /* ************************************************************************** */
-
-$is_allowedToAdmin  = $is_platformAdmin;
-
-if(!$is_allowedToAdmin)
-{
-    claro_disp_auth_form(); // display auth form and terminate script
-}
-
-// define bredcrump
-
-$nameTools = $langConfiguration;
-
-$interbredcrump[] = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
-$interbredcrump[] = array ('url'=>$rootAdminWeb.'tool/config_list.php', 'name'=> $langConfiguration);
-
-/**
- * Process
- */
 
 $display_form = TRUE;
 
@@ -118,10 +107,7 @@ else
 
 	if ( file_exists($def_file) )
     {
-
-        // define bredcrump
-        $nameTools = get_conf_name($config_code); // the name of the configuration page
-        $QUERY_STRING = 'config_code='.$config_code;
+        $config_name = get_conf_name($config_code);
 
         if ( isset($_REQUEST['cmd']) && isset($_REQUEST['prop']) )
         {
@@ -200,8 +186,8 @@ else
                             $conf_hash = md5_file($conf_file);
                             if (save_config_hash_in_db($conf_file,$config_code,$conf_hash) )
                             {
-                                $controlMsg['info'][] =  sprintf($lang_p_PropForConfigCommited,$nameTools,$config_code);
-                                $controlMsg['debug'][] = 'file generated for <B>'.$config_code.'</B> is <em>'.$confi_file.'</em>'.'<br>Signature : <TT>'.$conf_hash.'</tt>';
+                                $controlMsg['info'][] =  sprintf($lang_p_PropForConfigCommited,$config_name,$config_code);
+                                $controlMsg['debug'][] = 'file generated for <B>'.$config_name.'</B> is <em>'.$conf_file.'</em>'.'<br>Signature : <TT>'.$conf_hash.'</tt>';
                             }
                         }
                         else
@@ -211,7 +197,7 @@ else
                     }
                     else
                     {
-                        $controlMsg['info'][] = 'No Properties for '.$nameTools
+                        $controlMsg['info'][] = 'No Properties for '.$config_name
                                                .' ('.$config_code.').<BR><em>'.$confFile.'</em> is not generated';
                     }
                 }
@@ -219,14 +205,12 @@ else
 			}
 
 		}
-		
-		/**
-         *  Display configuration form
+
+        /*		
+         *  Get values from database and the configuration file.
          */
 
 		require($def_file);
-
-        $nameTools = get_conf_name($config_code);
 
         // read value from buffer (database)
         $storedPropertyList = read_properties_in_db($config_code);
@@ -239,7 +223,7 @@ else
             }
         }
 
-        /* Search for value  existing  in conf file but not in def file, or inverse */
+        // Search for value  existing  in conf file but not in def file, or inverse
         $currentConfContent = parse_config_file($conf_file);
 
         unset($currentConfContent[$config_code.'GenDate']);
@@ -278,7 +262,7 @@ else
             }
         }
 
-       if (isset($conf_def['section']['sectionmissing']))
+        if (isset($conf_def['section']['sectionmissing']))
         {
             $conf_def['section']['sectionmissing']['label'] = $langPropertiesNotIncludeInSections;
             $conf_def['section']['sectionmissing']['description'] = 'This is an error in definition file. Request to the coder of this config to add theses proporties in a section of the definition file.';
@@ -294,18 +278,6 @@ else
 
 }
 
-/**
- * Display
- */
-
-// display claroline header
-
-
-include($includePath."/claro_init_header.inc.php");
-
-// display tool title
-claro_disp_tool_title(array('mainTitle'=>$langConfiguration,'subTitle'=>$nameTools));
-
 // verify is config file manually edit
 if ( is_conf_file_modified($_REQUEST['config_code']) )
 {
@@ -317,8 +289,32 @@ if ( is_conf_file_modified($_REQUEST['config_code']) )
     
 }
 
-// display message
+/* ************************************************************************** */
+/* Display
+/* ************************************************************************** */
 
+if ( !isset($config_name) ) 
+{
+    $nameTools = $langConfiguration;
+}
+else
+{
+    // tool name and url to edit config file 
+    $nameTools = $config_name; // the name of the configuration page
+    $QUERY_STRING = 'config_code='.$config_code;
+}
+
+// define bredcrumb
+$interbredcrump[] = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
+$interbredcrump[] = array ('url'=>$rootAdminWeb.'tool/config_list.php', 'name'=> $langConfiguration);
+
+// display claroline header
+include($includePath."/claro_init_header.inc.php");
+
+// display tool title
+claro_disp_tool_title(array('mainTitle'=>$langConfiguration,'subTitle'=>$nameTools));
+
+// display message
 if ( is_array($controlMsg['debug']) ) unset($controlMsg['debug']);
 
 if ( !empty($controlMsg) ) 
@@ -326,18 +322,19 @@ if ( !empty($controlMsg) )
 	claro_disp_msg_arr($controlMsg);
 }
 
-// Display form
-
+// Display edition form
 if ( $display_form )
 {
     if ( is_array($conf_def) )
     {
+
+        // display description of configuration
         if ( !empty($conf_def['description']) )
         {
             echo '<p>'.$conf_def['description'].'</p>' . "\n";
         }
     
-        // display form
+        // start edition form
         echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '" name="editConfClass" >' . "\n";
         echo '<input type="hidden" name="config_code" value="' . $config_code . '" >' . "\n";
         echo '<input type="hidden" name="cmd" value="save" >' . "\n";
@@ -346,7 +343,8 @@ if ( $display_form )
         {
     
             echo '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n";
-    
+
+            // display each section of properties
             foreach($conf_def['section'] as $section)
             {
                 if (!(isset($section['display'])) || $section['display'] )
@@ -372,7 +370,7 @@ if ( $display_form )
                 if ( is_array($section['properties']) )
                 {
     
-                    // display properties
+                    // display each property of the section
                     foreach( $section['properties'] as $property )
                     {
                         if (is_array($conf_def_property_list[$property]))
@@ -400,9 +398,10 @@ if ( $display_form )
         }
         else
         {
-            echo 'no section found in definition file';
+            echo 'No section found in definition file';
         }
 
+        // Display properties from the database and old config file not in the definition file
         if (sizeof($unknowValueInConfigFileList)>0)
         {
             echo '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n"
@@ -430,7 +429,6 @@ if ( $display_form )
 }
 
 // display footer
-
 include($includePath."/claro_init_footer.inc.php");
 
 ?>
