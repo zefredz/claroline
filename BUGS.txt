@@ -128,8 +128,15 @@ claroline/admin/adminusercourses.php?uidToEdit=3&cfrom=ulist
 17. outils de travaux.  
 à l'envoi d'un Ficher .exe  trop gros, le système ne fait pas l'envoi mais ne retourne pas de message d'erreur.
 
+seb : Ne s'agit-il pas du même problème que l'on avait dans document lorsque post_max_size est plus petit que upload_max_filesize
+$_POST est unset et donc on ne sait afficher aucun message d'erreur ?
+
+
 -------------
 $Log$
+Revision 1.25  2004/06/15 05:56:21  seb
+bug 17 - ajout de commentaire
+
 Revision 1.24  2004/06/14 15:32:01  moosh
 faute langue
 
