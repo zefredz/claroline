@@ -337,9 +337,9 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=firstname&dir=".$order['firstname']."\">".$langFirstName."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=officialCode&dir=".$order['officialCode']."\">".$langOfficialCode."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=email&dir=".$order['email']."\">".$langEmail."</a></th>
-          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=status&dir=".$order['status']."\">".$langUserStatus."</a></th>";
-echo     "<th>".$langAllUserOfThisCourse."</th>
-          <th>".$langEditUserSettings."</th>
+          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=status&dir=".$order['status']."\">".$langStatus."</a></th>";
+echo     "<th>".$langPersonalCourseList."</th>
+          <th>".$langUserSettings."</th>
           <th>".$langDelete."</th>";
 echo "</tr><tbody> ";
 
@@ -436,7 +436,7 @@ foreach($resultList as $list)
 
      echo     "<td align=\"center\">\n",
                         "<a href=\"adminprofile.php?uidToEdit=".$list['user_id']."&cfrom=ulist".$addToURL."\">\n
-                         <img src=\"".$clarolineRepositoryWeb."img/usersetting.gif\" border=\"0\" alt=\"".$langEditUserSettings."\" />\n",
+                         <img src=\"".$clarolineRepositoryWeb."img/usersetting.gif\" border=\"0\" alt=\"".$langUserSettings."\" />\n",
                         "</a>\n",
                         "</td>\n";
 
