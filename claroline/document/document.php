@@ -79,10 +79,10 @@ if ($_gid && $is_groupAllowed)
 
     $is_allowedToEdit  = $is_groupMember || $is_courseAdmin;
     $is_allowedToUnzip = false;
-    if (!$is_groupMember && !$is_courseAdmin) 
+
+    if (! ($is_groupMember || $is_courseAdmin || $is_groupTutor) )
     {
-      echo "<center>You are not allowed to see this group's documents!!!</center>";
-      die;
+      die("<center>You are not allowed to see this group's documents!!!</center>");
     }
 }
 else
