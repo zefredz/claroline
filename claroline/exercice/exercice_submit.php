@@ -54,14 +54,20 @@ $attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';
 
 
 
-$is_allowedToEdit=$is_courseAdmin;
+$is_allowedToEdit = $is_courseAdmin;
 
-$TBL_EXERCICE_QUESTION = $_course['dbNameGlu'].'quiz_rel_test_question';
-$TBL_EXERCICES         = $_course['dbNameGlu'].'quiz_test';
-$TBL_QUESTIONS         = $_course['dbNameGlu'].'quiz_question';
-$TBL_REPONSES          = $_course['dbNameGlu'].'quiz_answer';
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_quiz_answer             = $tbl_cdb_names['quiz_answer'            ];
+$tbl_quiz_question           = $tbl_cdb_names['quiz_question'          ];
+$tbl_quiz_rel_test_question  = $tbl_cdb_names['quiz_rel_test_question' ];
+$tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
 
-$TBL_TRACK_EXERCISES    = $_course['dbNameGlu'].'track_e_exercices';
+$TBL_EXERCICE_QUESTION = $tbl_quiz_rel_test_question;
+$TBL_EXERCICES         = $tbl_quiz_test;
+$TBL_QUESTIONS         = $tbl_quiz_question;
+$TBL_REPONSES          = $tbl_quiz_answer;
+
+$TBL_TRACK_EXERCISES    = $tbl_cdb_names['track_e_exercices'];
 
 // deal with the learning path mode
 if ($_SESSION['inPathMode'] == true)
