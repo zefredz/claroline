@@ -1,4 +1,6 @@
-<?  session_start(); ?>
+<?  
+die("Deprecated");
+session_start(); ?>
 <?php
 /***************************************************************************
                           login.php  -  description

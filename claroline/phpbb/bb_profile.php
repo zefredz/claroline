@@ -1,4 +1,9 @@
-<?  session_start(); ?>
+<?
+
+die("Deprecated");
+session_start(); 
+
+?>
 <?php
 /***************************************************************************
                             bb_profile.php  -  description

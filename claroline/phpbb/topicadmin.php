@@ -1,5 +1,8 @@
 <?php
- session_start();
+
+die("Deprecated"); 
+
+session_start();
 if ($status[$dbname] > 1 )  {exit();};
 /***************************************************************************
                             topicadmin.php  -  description

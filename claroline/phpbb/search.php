@@ -1,5 +1,8 @@
 <?php // $Id$
-  session_start();
+  
+die("Deprecated");
+
+session_start();
 include('../inc/conf/claro_main.conf.php');
 
 /***************************************************************************

@@ -1,4 +1,8 @@
-<?  session_start(); 
+<?php
+die ("Deprecated");
+
+//session_start(); 
+
 /***************************************************************************
                             bb_memberlist.php  -  description
                              -------------------

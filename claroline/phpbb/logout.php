@@ -1,4 +1,7 @@
-<?  session_start(); ?>
+<? 
+die("Deprecated");
+session_start(); 
+?>
 <?php
 /***************************************************************************
                           logout.php  -  description

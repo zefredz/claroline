@@ -1,4 +1,6 @@
-<?php  session_start();
+<?php
+die("Deprecated");
+session_start();
 /***************************************************************************
                           viewpmsg.php  -  description
                              -------------------
