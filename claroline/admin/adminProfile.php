@@ -64,7 +64,7 @@ session_unregister("userEdit");
 
 // see which user we are working with ...
 
-$user_id = $_GET['uidToEdit'];
+$user_id = $_REQUEST['uidToEdit'];
 //echo $user_id."<br>";
 
 //------------------------------------
@@ -75,7 +75,7 @@ if (isset($applyChange))  //for formular modification
 {
     $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,3})$";
 
-    #########" Look for name alreaday taken ##############################
+    #########" Look for name already taken ##############################
     $username_form		= trim ($username_form);
     $nom_form			= trim ($nom_form);
     $prenom_form		= trim ($prenom_form);
@@ -117,13 +117,24 @@ if (isset($applyChange))  //for formular modification
     	$classMsg = "warning";
     	$dialogBox = $langEmailWrong;
     }
+    ################### Check password entered are the same (if reset password is asked)#####################
+
+    elseif( !empty($password) && ($password!=$confirm)) // attempt to change the user password but confirm is not the same
+    {
+        $classMsg = "warning";
+        $dialogBox = $langPasswordWrong;
+    }
     else  //apply changes as no mistake in the form was found
     {
 
     	mysql_query(
         "UPDATE  `".$tbl_user."`
-         SET nom='$nom_form', prenom='$prenom_form',
-    	 username='$username_form', email='$email_form'
+         SET
+         nom='$nom_form',
+         prenom='$prenom_form',
+    	 username='$username_form', email='$email_form',
+         officialCode='$official_code_form',
+         phoneNumber='$userphone_form'
          WHERE user_id='$user_id'");
 
     	if ($user_id==$_uid)
@@ -133,6 +144,63 @@ if (isset($applyChange))  //for formular modification
     	}
     	$classMsg = "success";
         $dialogBox = $langAppliedChange;
+
+        // set user admin parameter
+
+        if (($admin_form=="no"))  //do not set as admin
+        {
+           mysql_query(
+           "DELETE FROM `".$tbl_admin."`
+           WHERE idUser='$user_id'");
+        }
+
+        elseif ($admin_form=="yes")  // if admin, we must check if the user was already admin
+        {
+           $sql = "SELECT * FROM `".$tbl_admin."`
+                   WHERE idUser='$user_id'
+                   ";
+           $resultAdmin =  claro_sql_query($sql);
+           $numadmin = mysql_numrows($resultAdmin);
+
+           if ($numadmin==0)
+           {
+              $sql = "INSERT INTO `".$tbl_admin."` (idUser) VALUES (".$user_id.")";
+              claro_sql_query($sql);
+           }
+        }
+
+       //set user ""can create course"" or not
+
+       if ($create_course_form=="yes")
+       {
+         $sql = "UPDATE  `".$tbl_user."`
+                 SET
+                 statut='1'
+                 WHERE user_id='$user_id'";
+         claro_sql_query($sql);
+       }
+       elseif ($create_course_form=="no")
+       {
+         $sql = "UPDATE  `".$tbl_user."`
+                 SET
+                 statut='5'
+                 WHERE user_id='$user_id'";
+         claro_sql_query($sql);
+       }
+
+       // change user password if it has been asked
+
+       if (!empty($password) && !empty($confirm) && ($confirm==$password))
+       {
+            if ($userPasswordCrypted) $password = md5(trim($password));
+            $sql = "UPDATE  `".$tbl_user."`
+                 SET
+                 password='$password'
+                 WHERE user_id='$user_id'";
+            claro_sql_query($sql);
+            
+       }
+
     }
 
 
@@ -153,12 +221,13 @@ if(isset($user_id))
 
 	$myrow = mysql_fetch_array($result);
 
-    $user_id =          $myrow[user_id];
-	$nom_form = 		$myrow[nom];
-	$prenom_form = 		$myrow[prenom];
-	$username_form = 	$myrow[username];
-	$email_form	=		$myrow[email];
-    $userphone_form =   $myrow[phoneNumber];
+    $user_id =            $myrow[user_id];
+	$nom_form = 		  $myrow[nom];
+	$prenom_form = 		  $myrow[prenom];
+    $official_code_form = $myrow[officialCode];
+	$username_form = 	  $myrow[username];
+	$email_form	=		  $myrow[email];
+    $userphone_form =     $myrow[phoneNumber];
 	$display = USER_DATA_FORM;
 
     // find user type, must see if the user is in the admin table.
@@ -176,15 +245,18 @@ if(isset($user_id))
     }
     else
     {
-       if ($myrow[statut]==1)
-       {
-         $isTeacher = true;
-       }
-       else
-       {
-         $isStudent = true;
-       }
+        $isAdmin = false;
     }
+
+    if ($myrow[statut]==1)
+    {
+     $canCreateCourse = true;
+    }
+    else
+    {
+     $canCreateCourse = false;
+    }
+
 }
 
 session_unregister("uname");
@@ -236,7 +308,7 @@ if ($display == USER_DATA_FORM)
     echo "<h4>".$langPersonnalInfo."</h4>";
 ?>
 
-<form method="GET" action="<?php echo $PHP_SELF ?>">
+<form method="POST" action="<?php echo $PHP_SELF ?>">
 <input type="hidden" name="applyChange" value="yes">
 <table width="100%" >
 
@@ -258,90 +330,101 @@ if ($display == USER_DATA_FORM)
 		</td>
 	</tr>
 
+    <tr>
+        <td valign="top">
+            <?php echo $langFirstName ?> :
+        </td>
+        <td colspan="2">
+            <input type="text" size="40" name="prenom_form" value="<?php echo $prenom_form ?>">
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="top">
+            <?php echo $langOfficialCode ?> :
+        </td>
+        <td colspan="2">
+            <input type="text" size="40" name="official_code_form" value="<?php echo $official_code_form ?>">
+        </td>
+    </tr>
+
 	<tr>
-		<td valign="top">
-			<?php echo $langFirstName ?> :
-		</td>
-		<td colspan="2">
-			<input type="text" size="40" name="prenom_form" value="<?php echo $prenom_form ?>">
-		</td>
+	  <td valign="top">
+	    <?=$langUsername?> :
+	  </td>
+	  <td colspan="2">
+	    <input type="text" size="40" name="username_form" value="<?=$username_form?>">
+	  </td>
+	</tr>
 
-			</tr>
-			<tr>
-			  <td valign="top">
-			    <?=$langUsername?> :
-			  </td>
-			  <td colspan="2">
-			    <input type="text" size="40" name="username_form" value="<?=$username_form?>">
-			  </td>
-			</tr>
+    <tr>
+      <td colspan="2">
+        <small>(<?=$langChangePwdexp?>)</small>
+      </td>
+    </tr>
 
-            <tr>
-            </tr>
+    <tr>
+      <td valign="top">
+        <?=$langPassword?> :
+      </td>
+      <td colspan="2">
+        <input type="password" name="password" id="password" size="40" value="<?php echo $password ?>">
+      </td>
+    </tr>
 
-            <tr>
-              <td colspan="2">
-                <small>(<?=$langChangePwdexp?>)</small>
-              </td>
-            </tr>
+    <tr>
+      <td valign="top">
+        <?=$langConfirm?> :
+      </td>
+      <td colspan="2">
+        <input type="password" name="confirm" id="confirm" size="40" value="<?php echo $confirm ?>">
+      </td>
+    </tr>
 
-            <tr>
-              <td valign="top">
-                <?=$langPassword?> :
-              </td>
-              <td colspan="2">
-                <input type="password" name="password" id="password" size="40">
-              </td>
-            </tr>
+	<tr>
+	  <td valign="top">
+	    <?=$langEmail?> :
+	  </td>
+	  <td colspan="2">
+	    <input type="text" size="40" name="email_form" value="<?=$email_form?>">
+	    <br>
+      </td>
+   </tr>
 
-            <tr>
-              <td valign="top">
-                <?=$langConfirm?> :
-              </td>
-              <td colspan="2">
-                <input type="password" name="password" id="password" size="40">
-              </td>
-            </tr>
+   <tr>
+       <td><?=$langPhone?> : </td>
+       <td>
+         <input type="text" size="40" name="userphone_form" value="<?=$userphone_form?>">
+       </td>
+    </tr>
 
-            <tr>
-            </tr>
+        <tr>
+       <td><?=$langUserCanCreateCourse?> : </td>
+       <td>
+         <input type="radio" name="create_course_form" value="yes" <? if ($canCreateCourse) { echo "checked"; }?> ><?=$langYes?></input>
+         <input type="radio" name="create_course_form" value="no"  <? if (!$canCreateCourse){ echo "checked"; }?> ><?=$langNo?></input>
+       </td>
+    </tr>
 
-            <tr>
-               <td><?=$langUserStatus?> : </td>
-               <td>
-                 <input type="radio" name="status" value="student" <? if ($isStudent) { echo "checked"; }?> ><?=$langStudent?></input>
-                 <input type="radio" name="status" value="teacher" <? if ($isTeacher) { echo "checked"; }?> ><?=$langCreateCourse?></input>
-                 <input type="radio" name="status" value="admin" <? if ($isAdmin) { echo "checked"; }?> > <?=$langAdmin?></input>
-               </td>
-            </tr>
+    <tr>
+       <td><?=$langUserIsPlaformAdmin ?> : </td>
+       <td>
+         <input type="radio" name="admin_form" value="yes" <? if ($isAdmin) { echo "checked"; }?> ><?=$langYes?></input>
+         <input type="radio" name="admin_form" value="no" <? if (!$isAdmin) { echo "checked"; }?> ><?=$langNo?></input>
+       </td>
+    </tr>
 
-			<tr>
-			  <td valign="top">
-			    <?=$langEmail?> :
-			  </td>
-			  <td colspan="2">
-			    <input type="text" size="40" name="email_form" value="<?=$email_form?>">
-			    <br>
-              </td>
-           </tr>
-
-           <tr>
-               <td><?=$langPhone?> : </td>
-               <td>
-                 <input type="text" size="40" name="phone_form" value="<?=$userphone_form?>">
-               </td>
-            </tr>
-
-			<tr>
-			  <td>
-			  </td>
-			  <td colspan="2">
-			    <input type="hidden" name="uidToEdit" value="<?=$user_id?>">
-			    <input type="submit" name="applyChange" value="<?=$langSaveChanges?>">
-			    <br>
-		      </td>
-	       </tr>
-     </table>
+	<tr>
+	  <td>
+	  </td>
+	  <td colspan="2">
+	    <input type="hidden" name="uidToEdit" value="<?=$user_id?>">
+        <input type="hidden" name="cfrom" value="<?=$cfrom?>">
+	    <input type="submit" name="applyChange" value="<?=$langSaveChanges?>">
+	    <br>
+      </td>
+   </tr>
+  </table>
 </form>
 <?php
 }
