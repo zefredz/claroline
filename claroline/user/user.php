@@ -54,11 +54,11 @@ if ($is_allowedToEdit)
         $done = remove_user_from_course($user_id, $_cid);
 	if ($done)
         {
-           $dialogBox =$langUserUnsubscribed;
+           $dialogBox =$langUserUnsubscribedFromCourse;
         }
         else
         {
-           $dialogBox =$langUserNotUnsubscribed;
+           $dialogBox =$langUserNotUnsubscribedFromCourse;
         }
    }
 }	// end if allowed to edit

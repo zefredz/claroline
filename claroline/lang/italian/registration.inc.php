@@ -220,7 +220,7 @@ $langNoUserSelected = "Nessun Utente selezionato!";
 
 // dialogbox messages
 
-$langUserUnsubscribed = "L'Utente è stato cancellato dal corso!";
-$langUserNotUnsubscribed = "Errore !! Non puoi cancellare un Manager del Corso";
+$langUserUnsubscribedFromCourse = "L'Utente è stato cancellato dal corso!";
+$langUserNotUnsubscribedFromCourse = "Errore !! Non puoi cancellare un Manager del Corso";
 
 ?>

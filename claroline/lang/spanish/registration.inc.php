@@ -252,8 +252,8 @@ $langNoUserSelected = "No se ha seleccionado a ningun usuario!";
 
 // dialogbox messages
 
-$langUserUnsubscribed = "El usuario a sido exitosamente desincribido del curso";
-$langUserNotUnsubscribed = "Error!! Usted no puede desincribir al administrador del curso";
+$langUserUnsubscribedFromCourse = "El usuario a sido exitosamente desincribido del curso";
+$langUserNotUnsubscribedFromCourse = "Error!! Usted no puede desincribir al administrador del curso";
 
 ///////////////////////////////////////////////////////
 ?>

@@ -209,7 +209,7 @@ $langNoUserSelected = "No user selected!";
 
 // dialogbox messages
 
-$langUserUnsubscribed = "The user has been successfully unregistered from course";
-$langUserNotUnsubscribed = "Error!! you can not unregister a course manager";
+$langUserUnsubscribedFromCourse = "The user has been successfully unregistered from course";
+$langUserNotUnsubscribedFromCourse = "Error!! you can not unregister a course manager";
 
 ?>

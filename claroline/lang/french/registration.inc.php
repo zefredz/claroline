@@ -249,7 +249,7 @@ $langNoUserSelected = "Aucun utilisateur n'a été selectionné!";
 
 // dialogbox messages
 
-$langUserUnsubscribed = "L'utilisateur a bien été radié du cours"; // JCC 
-$langUserNotUnsubscribed = "Erreur!! vous ne pouvez pas radier un professeur du cours";
+$langUserUnsubscribedFromCourse = "L'utilisateur a bien été radié du cours"; // JCC 
+$langUserNotUnsubscribedFromCourse = "Erreur!! vous ne pouvez pas radier un professeur du cours";
 
 ?>

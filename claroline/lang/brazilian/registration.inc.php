@@ -199,8 +199,7 @@ $langNoUserSelected = "Nenhum usuário selecionado!";
 
 // dialogbox messages
 
-$langUserUnsubscribed = "O registro do usuário foi removido do curso com sucesso";
-$langUserNotUnsubscribed = "Erro!! Você não pode cancelar o registro de um gerente de curso";
-
+$langUserUnsubscribedFromCourse = "O registro do usuário foi removido do curso com sucesso";
+$langUserNotUnsubscribedFromCourse = "Erro!! Você não pode cancelar o registro de um gerente de curso";
 
 ?>
