@@ -1747,4 +1747,48 @@ $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
 $langAddListUser = "Ajouter une liste d'utilisateurs";
 $langAddAClass = "Inscrire une classe";
+$langAddAClassToCourse = "Inscrire une classe au cours";
+$langSubscribeToCourse = "Inscrire au cours";
+$langDispClassAdded = "Montrer la classe ajoutée";
+
+$langStepNOfN = "Etape %d de %d";
+$langAdminSetting ="Paramètres d'administration";
+$langFileSystemSetting = "Paramètres du système de fichiers";
+$langMysqlNames="Noms MySQL";
+
+$langDiskQuota="Quota de disque";
+$langGroupAlwaysPrivate ="(Toujours privé)";
+
+$langGroupForumContent = "Contenu des forums de groupe";	
+$langGroupForumStructure = "Structure des forums de groupe";
+$langGroupStructure = "Structure des groupes"; 	
+$langGroupWork = "Travaux de groupe";
+$langGroupWorkContent = "Contenu des travaux de groupe";	
+$langGroupWorkStructure = "Structure des travaux de groupe";
+
+$langChangeCSS = "Changer la feuille de style utilisée";
+
+$langBackupThisCourse = "Faire une sauvegarde de ce cours";
+$langCopyOnServerBackupRepository = "Copier sur le serveur de sauvegarde";
+$langCreateANewCourseNow = "Créer un nouveau cours maintenant";
+$langForumContent = "Contenu du forum";
+$langForumStructure = "Structure du forum";
+$langIncludeUserPersonalInfo = "Inclure les informations personnelles des utilisateurs";
+$langPutOnFtpServer = "Mettre sur le serveur FTP";
+$langRestoreNow = "Restorer maintenant";
+$langSaveContentDoc	 = "Sauver le contenu des documents";
+$langSaveSubscription = "Sauver les inscriptions";
+$langShowAllProcessDuringTheWork = "Montrer tous les processus durant leur réalisation";
+$langWhatDoAfterBackup = "Que faire après la sauvegarde";
+$langWikiContent = "Contenu du Wiki";
+$langWorkContent = "Contenu des travaux";
+$langWorkStructure = "Structure des travaux";
+$langMailSynthaxError = "Erreur de synthaxe dans l'e-mail.";
+$langMailUsed = "L'e-mail est déjà utilisée par un autre utilisateur.";
+$langUsernameUsed = "Ce nom d'utilisateur est déjà utilisé.";
+$langCodeUsed = "Ce code officiel est déjà utilisé par un autre utilisateur.";
+$langPasswordSimple = "Le mot de passe donné est trop simple ou trop proche du nom d'utilisateur.";
+$langMailAppearAlready = "Cet e-mail apparait déjà dans une ligne précédente du fichier CSV.";
+$langUsernameAppearAlready = "Ce nom d'utilisateur apparait déjà dans une ligne précédente du fichier CSV.";
+$langCodeAppearAlready = "Ce code officiel apparait déjà dans une ligne précédente du fichier CSV.";
 ?>
