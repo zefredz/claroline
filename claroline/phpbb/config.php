@@ -70,23 +70,26 @@ $dbpasswd           = $dbPass;
 
 /* -- DB table names  -- */
 
-$tbl_categories       = $_course['dbNameGlu'].'bb_categories';
-$tbl_forums           = $_course['dbNameGlu'].'bb_forums';
-$tbl_posts            = $_course['dbNameGlu'].'bb_posts';
-$tbl_posts_text       = $_course['dbNameGlu'].'bb_posts_text';
-$tbl_priv_msgs        = $_course['dbNameGlu'].'bb_priv_msgs';
-$tbl_topics           = $_course['dbNameGlu'].'bb_topics';
-$tbl_user_notify      = $_course['dbNameGlu'].'bb_rel_topic_userstonotify';
-$tbl_whosonline       = $_course['dbNameGlu'].'bb_whosonline';
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
 
-$tbl_group_properties = $_course['dbNameGlu'].'group_property';
-$tbl_student_group	  = $_course['dbNameGlu'].'group_team';
-$tbl_user_group       = $_course['dbNameGlu'].'group_rel_team_user';
+$tbl_categories       = $tbl_cdb_names['bb_categories'];
+$tbl_forums           = $tbl_cdb_names['bb_forums'];
+$tbl_posts            = $tbl_cdb_names['bb_posts'];
+$tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
+$tbl_priv_msgs        = $tbl_cdb_names['bb_priv_msgs'];
+$tbl_topics           = $tbl_cdb_names['bb_topics'];
+$tbl_user_notify      = $tbl_cdb_names['bb_rel_topic_userstonotify'];
+$tbl_whosonline       = $tbl_cdb_names['bb_whosonline'];
 
-$tbl_users            = $mainDbName."`.`user";
+$tbl_group_properties = $tbl_cdb_names['group_property'];
+$tbl_student_group	  = $tbl_cdb_names['group_team'];
+$tbl_user_group       = $tbl_cdb_names['group_rel_team_user'];
+
+$tbl_users            = $tbl_mdb_names['user'];
+
 
 $is_groupPrivate      = $_groupProperties['private'];
-
 $userdata               = array();
 $userdata['first_name'] = $_user['firstName'];
 $userdata['last_name' ] = $_user['lastName' ];
