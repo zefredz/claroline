@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE 1.6
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -125,12 +125,18 @@ switch ($cmd)
 	    $useFirstLine = false; 
 	}
 	
-	//check if a file was actually posted
+	//check if a file was actually posted and that the mimetype is good
+
 	
-	if (!is_uploaded_file($_FILES["CSVfile"]["tmp_name"]))
+	if ( $_FILES["CSVfile"]['size'] == 0 )
 	{
 	    $display   = "default";
 	    $dialogBox = $langMustSelectAFile;
+	}
+	elseif (strpos($_FILES["CSVfile"]['type'],'text') !== 0)
+	{
+	    $display   = "default";
+	    $dialogBox = $langMustSelectATxtFile;
 	}
 	else
 	{

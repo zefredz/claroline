@@ -1866,4 +1866,5 @@ $langErrorDepartmentURLWrong = "L'URL du département est invalide";
 $langErrorEmailInvalid = "L'adresse email est incorrecte";
 $langErrorMyOwnSettings = "Vous ne pouvez pas changer votre propre statut";
 $langMustSelectAFile = "Vous devez sélectionner un fichier";
+$langMustSelectATxtFile = "Vous devez sélectionner un fichier texte";
 ?>
