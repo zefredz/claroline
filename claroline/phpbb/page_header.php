@@ -137,7 +137,7 @@ if (($catId==1) AND ($forum==$myGroupForum))
 			$langGroupSpaceLink,
 			"</a>\n",
 			"&nbsp;&nbsp",
-			"<a href=\"../group/document.php?gidReq=",$_gid,"\">",
+			"<a href=\"../document/document.php?gidReq=",$_gid,"\">",
 			$langGroupDocumentsLink,
 			"</a>\n",
 			"<br>\n",
