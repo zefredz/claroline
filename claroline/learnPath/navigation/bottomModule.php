@@ -38,7 +38,7 @@
   require '../../inc/claro_init_global.inc.php';
   // footer
 
-  include($includePath."../../inc/claro_init_footer.inc.php");
+  include($includePath."/claro_init_footer.inc.php");
 
  ?>
 
