@@ -63,11 +63,15 @@ $langAnonymousVisibility="Affichage aux utilisateurs anonymes";
 $langShowAnswers = "Après le test, afficher les réponses";
 $langAlways = "Toujours";
 $langNever = "Jamais";
-$langAfterLastTry = "Après dernière tentative";
 $langAfterEndDate = "Après date de fin";
 $langShow = "Montrer";
 $langHide = "Masquer";
-
+$langEditExercise = "Editer l'exercice";
+$langUnlimitedAttempts = "Essais illimités";
+$langAttemptAllowed = "essai autorisé";
+$langAttemptsAllowed = "essais autorisés";
+$langAllowAnonymousAttempts = "Autoriser les essais anonymes";
+$langDontRecordUid = "Ne pas conserver les nom des utilisateurs dans les statistiques";
 
 // question_admin.inc.php
 
@@ -78,6 +82,8 @@ $langQuestionAnswers="Réponses à la question";
 $langUsedInSeveralExercises="Attention ! Cette question et ses réponses sont utilisées dans plusieurs exercices. Souhaitez-vous les modifier";
 $langModifyInAllExercises="pour l'ensemble des exercices";
 $langModifyInThisExercise="uniquement pour l'exercice courant";
+$langEditQuestion = "Editer la question";
+$langEditAnswers = "Editer les réponses";
 
 
 // statement_admin.inc.php
@@ -152,6 +158,15 @@ $langQuestionNotFound="Question introuvable";
 
 $langExerciseNotFound="Exercice introuvable";
 $langAlreadyAnswered="Vous avez déjà répondu à la question";
+$langActualTime = "Temps actuel";
+$langMaxAllowedTime = "Temps maximum autorisé";
+$langNoTimeLimit = "Pas de limite de temps";
+$langAttempt = "Essai";
+$langOn = "sur";
+$langAvailableFrom = "Disponible de";
+$langExerciseNotAvailable = "Cet exercice n'est pas encore disponible";
+$langExerciseNoMoreAvailable = "Cet exercice n'est plus disponible";
+$langTo = "à";
 
 
 // exercise_result.php

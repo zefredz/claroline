@@ -66,11 +66,15 @@ $langAnonymousVisibility="Anonymous visibity";
 $langShowAnswers = "Show answers";
 $langAlways = "Always";
 $langNever = "Never";
-$langAfterLastTry = "After last try";
 $langAfterEndDate = "After end date";
 $langShow = "Show";
 $langHide = "Hide";
-
+$langEditExercise = "Edit exercise";
+$langUnlimitedAttempts = "Unlimited attempts";
+$langAttemptAllowed = "attempt allowed";
+$langAttemptsAllowed = "attempts allowed";
+$langAllowAnonymousAttempts = "Allow anonymous attempts";
+$langDontRecordUid = "Don't record user names in tracking";
 
 
 // question_admin.inc.php
@@ -82,6 +86,8 @@ $langQuestionAnswers="Answers to the question";
 $langUsedInSeveralExercises="Warning ! This question and its answers are used in several exercises. Would you like to modify them";
 $langModifyInAllExercises="in all exercises";
 $langModifyInThisExercise="only in the current exercise";
+$langEditQuestion = "Edit question";
+$langEditAnswers = "Edit answers";
 
 
 // statement_admin.inc.php
@@ -161,7 +167,10 @@ $langMaxAllowedTime = "Maximum allowed time";
 $langNoTimeLimit = "No time limitation";
 $langAttempt = "Attempt";
 $langOn = "on";
-
+$langAvailableFrom = "Available from";
+$langExerciseNotAvailable = "Exercise not available";
+$langExerciseNoMoreAvailable = "Exercise no more available";
+$langTo = "to";
 // exercise_result.php
 
 $langElementList="Element list";
