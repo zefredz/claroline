@@ -83,6 +83,9 @@ $conf_def_property_list['checkEmailByHashSent'] =
 array ('label'       => 'If email is fill (or change), send an email to check it'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                ,'FALSE' => 'No'
+                                )
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
@@ -137,6 +140,9 @@ $conf_def_property_list['allowSelfRegProf'] =
 array ('label'       => 'Are teacher allowed to subscribe as teacher ?'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                ,'FALSE' => 'No'
+                                )
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
