@@ -10,11 +10,9 @@ ob_start();
 
 <div id="platformBanner">
 
-<h1 id="siteName">
-<a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $siteName ?></a>
-</h1>
-
-<h1 id="institution">
+<h1>
+<span id="siteName"><a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $siteName ?></a></span>
+<span id="institution">
 <a href="<?php echo $institution['url'] ?>" target="_top"><?php echo $institution['name'] ?></a>
 <?php
 
@@ -33,7 +31,7 @@ if ($_course['extLink']['name'] != '')    /* --- External Link Section --- */
 	}
 }
 ?>
-
+</span>
 </h1>
 
 <div class="spacer"></div>
