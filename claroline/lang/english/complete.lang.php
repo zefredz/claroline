@@ -441,27 +441,20 @@ $langDBNamesRules = "Database Names";
 $langDBPassword = "Database Password";
 $langDBSetting = "MySQL database settings";
 $langDBSettingNamesIntro = "
-
+				<p>
                 Install script will create main claroline databases.
-
-                You can create different database
-
-                for tracking and PhpMyAdmin extension if you want
-
-                or gathering all these stuff in one database, like you want.
-
-                Afterwards, Claroline will create a new database for each new course created.
-
-                You can specify a prefix for these database names.
-
+                You can create different databases for the main tables and for the tracking tables 
+				or use the same database for the two.<br />
+				You can also set an optionnal prefix for the main tables.
+				</p>
+				<p>
+                Afterwards, Claroline will create a new database for each created course.
+                You can specify a prefix for these databanames.
+				</p>
                 <p>
-
                 If you are allowed to use only one database by your database system administrator,
-
-                get back to the previous page and select option \"Single\"
-
+                get back to the previous page and select option 'Single' for 'Database mode'.
                 </p>
-
                 ";
 $langDBUse = "Database usage";
 $langDOCUMENTTypeDesc = "Document";
@@ -470,7 +463,7 @@ $langDateLastWrite = "Last message was on : ";
 $langDay = "Day";
 $langDay_of_weekNames = "Array";
 $langDbName = "DB Name";
-$langDbPrefixForm = "Prefix Name for Course Db";
+$langDbPrefixForm = "Prefix for Course DB";
 $langDear = "Dear";
 $langDefSubVisibility = "Default works visibility";
 $langDefaultLearningPathComment = "This is the introduction text of this learning path. To replace it by your own text, click below on <b>modify</b>.";
