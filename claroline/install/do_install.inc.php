@@ -154,7 +154,7 @@ if ($runfillMainDb && $runfillStatsDb)
 
 $rootSys					=	str_replace("\\","/",realpath($pathForm)."/") ;
 $coursesRepositoryAppend	= "";
-$coursesRepositorySys = $rootSys.$coursesRepositoryAppend;
+$coursesRepositorySys = $rootSys.$courseRepositoryForm;
 @mkdir($coursesRepositorySys,0777);
 $clarolineRepositoryAppend  = "claroline/";
 $clarolineRepositorySys		= $rootSys.$clarolineRepositoryAppend;
