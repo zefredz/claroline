@@ -177,7 +177,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMIN_SETTING || $_REQUEST['cmdDoInstall'])
 			$res = @mysql_query($sql,$db);
 			if(mysql_errno()>0)
 			{
-				echo mysql_error().' '.$sql;
+				// No problem
 			}
 			else
 			$controlUser = mysql_num_rows($res);
