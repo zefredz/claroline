@@ -895,7 +895,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
                             <label for="singleDbForm_multi">
                                 Multi
                                 <small>
-                                    (one new database created at each course creation)
+                                    (a database is created at each course creation)
                                 </small>
                             </label>
                         </td>
@@ -928,7 +928,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 
 
 ##########################################################################
-###### STEP 3 MYSQL DATABASE SETTINGS ####################################
+###### STEP 4 MYSQL DATABASE SETTINGS ####################################
 ##########################################################################
 elseif($display == DISP_DB_NAMES_SETTING )
 {
@@ -960,8 +960,8 @@ elseif($display == DISP_DB_NAMES_SETTING )
                                     (Claroline will write in this database
                                     over data already present.
                                     Data not overwritten will be kept.
-                                    It would be strange.
-                                    Renames or delete your tables is better
+									<br />
+                                    Renaming or deleting your tables is better.
                                     )
                                 </label>
                             </P>
@@ -1015,7 +1015,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     <tr>
                         <td>
                             <label for="statTblPrefixForm">
-                                table prefix for central stats tables
+                                Table prefix for central stats tables
                             </label>
                         </td>
                         <td>
@@ -1044,7 +1044,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     <tr>
                         <td>
                             <label for="dbPrefixForm">
-                                '.($singleDbForm?'Prefix Name for Course Tables':$langDbPrefixForm).'
+                                '.($singleDbForm?'Prefix for Course Tables':$langDbPrefixForm).'
                             </label>
                         </td>
                         <td>
