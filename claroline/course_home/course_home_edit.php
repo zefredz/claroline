@@ -229,21 +229,21 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
         $toolUrl  = '';
     }
 
-    $msg .= "<form action=\"".$_SERVER['PHP_SELF']."\">"
-            ."<input type=\"hidden\" name=\"cmd\" value=\"".($externalToolId ? 'exEdit' : 'exAdd')."\">";
+    $msg .= "<form action=\"".$_SERVER['PHP_SELF']."\">\n"
+            ."<input type=\"hidden\" name=\"cmd\" value=\"".($externalToolId ? 'exEdit' : 'exAdd')."\">\n";
 
     if ($externalToolId)
     {
-        $msg .= "<input type=\"hidden\" name=\"externalToolId\" value=\"".$externalToolId."\">";
+        $msg .= "<input type=\"hidden\" name=\"externalToolId\" value=\"".$externalToolId."\">\n";
     }
 
-    $msg .= "<label for=\"toolName\">".$langExternalToolName."</label><br>"
-            ."<input type=\"text\" name=\"toolName\" name=\"toolName\" value=\"".$toolName."\"><br>"
-            ."<label for=\"toolUrl\">".$langExternalToolUrl."</label><br>"
-            ."<input type=\"text\" name=\"toolUrl\" name=\"toolUrl\" value=\"".$toolUrl."\"><br>"
-            ."<input class=\"claroButton\" type=\"submit\" value=\"".$langOk."\">&nbsp;"
-            ."<a class=\"claroButton\" href=\"" . $_SERVER['PHP_SELF'] ."\">".$langCancel."</a>"
-            ."</form>";
+    $msg .= "<label for=\"toolName\">".$langExternalToolName."</label><br />\n"
+            ."<input type=\"text\" name=\"toolName\" name=\"toolName\" value=\"".$toolName."\"><br />\n"
+            ."<label for=\"toolUrl\">".$langExternalToolUrl."</label><br />\n"
+            ."<input type=\"text\" name=\"toolUrl\" name=\"toolUrl\" value=\"".$toolUrl."\"><br />\n"
+            ."<input class=\"claroButton\" type=\"submit\" value=\"".$langOk."\">&nbsp;\n"
+            ."<a class=\"claroButton\" href=\"" . $_SERVER['PHP_SELF'] ."\">".$langCancel."</a>\n"
+            ."</form>\n";
 }
 
 
@@ -253,12 +253,12 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
                                     DISPLAY
   ============================================================================*/
 
-$backLink = "<p>"
+$backLink = "\n<p>"
             . "<small>"
             . "<a href=\"".$coursesRepositoryWeb.$currentCourseRepository."/index.php?cidReset=true&cidReq=".$_cid."\">"
             . "&lt;&lt;&nbsp;" . $langHome. "</a>"
             . "</small>"
-            . "</p>";
+            . "</p>\n\n";
 
 echo $backLink;
 
@@ -266,22 +266,22 @@ claro_disp_tool_title($langEditToolList);
 
 if ($msg) claro_disp_message_box($msg);
 
-echo "<p>".$langIntroEditToolList."</p>";
+echo "<p>".$langIntroEditToolList."</p>\n";
 
 echo "<blockquote>\n"
     ."<form action=\"".$_SERVER['PHP_SELF']."\">\n";
 
-echo "<input type=\"hidden\" name=\"cmd\" value=\"exSetToolAccess\" />";
+echo "<input type=\"hidden\" name=\"cmd\" value=\"exSetToolAccess\" />\n";
 
 $toolList = get_course_tool_list($reqAccessLevel);
 
-echo "<table class=\"claroTable\" >\n"
+echo "<table class=\"claroTable\" >\n\n"
     . " <thead>\n"
-    . " <tr class=\"headerX\">"
-    . " <th>".$langTools."</th>"
-    . " <th>".$langActivate."</th>"
-    . " </tr>"
-    . "</thead>\n";
+    . " <tr class=\"headerX\">\n"
+    . " <th>".$langTools."</th>\n"
+    . " <th>".$langActivate."</th>\n"
+    . " </tr>\n"
+    . "</thead>\n\n";
 
 echo "<tbody>\n";
 
@@ -326,14 +326,13 @@ foreach($toolList as $thisTool)
         $checkState = ' checked';
     }
 
-    echo "<tr>";
+    echo "<tr>\n";
 
-    echo "<td ".$style.">"
+    echo "<td ".$style.">\n"
     	."<label for=\"toolAccessList".$thisTool['id']."\">"
         ."<img src=\"".$icon."\">"
-        .$toolName . "</label></td>"
-       ."<td><input type=\"checkbox\" name=\"toolAccessList[]\"
-               id=\"toolAccessList".$thisTool['id']."\" value=\"".$thisTool['id']."\"".$checkState.">";
+        .$toolName . "</label>\n</td>\n"
+       ."<td>\n<input type=\"checkbox\" name=\"toolAccessList[]\" id=\"toolAccessList".$thisTool['id']."\" value=\"".$thisTool['id']."\"".$checkState.">\n";
 
     if ($removableTool)
     {
@@ -347,20 +346,20 @@ foreach($toolList as $thisTool)
 
     }
 
-    echo "</td></tr>\n";
+    echo "</td>\n</tr>\n\n";
 }
 
 echo "</tbody>\n";
-echo "</table>";
+echo "</table>\n\n";
 
 echo "<input class=\"claroButton\" type=\"submit\" value=\"".$langOk."\" />\n";
 claro_disp_button($coursesRepositoryWeb.$_course['path'], $langCancel);
 echo "</form>\n"
     ."</blockquote>\n";
 
-echo "<hr size=\"1\" noshade=\"noshade\"  />";
+echo "\n\n<hr size=\"1\" noshade=\"noshade\"  />\n\n";
 
-claro_disp_button($_SERVER['PHP_SELF'].'?cmd=rqAdd', $langAddExternalTool);
+echo "<a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?cmd=rqAdd\">".$langAddExternalTool."</a>\n";
 
 echo $backLink;
 
