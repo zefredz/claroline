@@ -106,21 +106,27 @@ if($display==DISP_FILE_LIST
 		echo  $lang_EditFile_ListFileEdit." : ";
 	?>
 		<br>
-		<dl>
+		<table cellspacing="2" cellpadding="2" border="0" class="claroTable">
+<tr class="headerX">
+    <th>File</th>
+    <th ><?php echo $langEdit ?></th>
+    <th ><?php echo $langPreview ?></th>
+</tr>
+
 	<?php
 		foreach($NameFile as $idFile => $nameFile)
 		{
 	?>
-			<DT> <TT><?php echo basename($nameFile); ?></TT> 
-			<DD>
-				<a href="<?php echo $PHP_SELF."?cmd=edit&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEdit ?>" ></a>
-				<a href="<?php echo $PHP_SELF."?cmd=view&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/preview.gif" border="0" alt="<?php echo $langPreview ?>" ></a>
-			</DD>				
-			</LI>
+<tr>
+    <td align="right"><TT><?php echo basename($nameFile); ?></TT> </td>
+    <td align="center"><a href="<?php echo $PHP_SELF."?cmd=edit&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEdit ?>" ></a></td>
+    <td align="center"><a href="<?php echo $PHP_SELF."?cmd=view&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/preview.gif" border="0" alt="<?php echo $langPreview ?>" ></a></td>
+</tr>
 	<?php
 		}
 	?>
-		</dL>
+		</table><br>
+		
 	<?php
 }
 
