@@ -1,13 +1,13 @@
 <?php // $Id$
 
-$stable = true;
+$stable = false;
 $clarolinePhase = "beta";
-$is_upgrade_available = true;
+$is_upgrade_available = false;
 
 // var version_db  max. 10 chars
 
-$version_file_cvs = "1.6.0";
-$version_db_cvs   = "1.6.0";
+$version_file_cvs = "1.6.0.b1";
+$version_db_cvs   = "1.6.0.b1";
 
 if (!$is_upgrade_available)
 {

@@ -13,7 +13,7 @@
 //----------------------------------------------------------------------
 
 /*
-GOAL : install claroline 1.5.* on server
+GOAL : install claroline 1.6.* on server
 */
 $langStepN = "Step %d of %d";
 $langAdminSetting ="Admin Setting";
@@ -24,7 +24,7 @@ $langMysqlNames='MySQL Names';
 
 define ("DISP_WELCOME",__LINE__);
 define ("DISP_LICENCE",__LINE__);
-define ("DISP_FILE_SYSTEM_SETTING",__LINE__);
+//define ("DISP_FILE_SYSTEM_SETTING",__LINE__);
 define ("DISP_DB_CONNECT_SETTING",__LINE__);
 define ("DISP_DB_NAMES_SETTING",__LINE__);
 define ("DISP_ADMINISTRATOR_SETTING",__LINE__);
@@ -64,7 +64,7 @@ include ($newIncludePath."lib/claro_main.lib.php");
 $panelSequence  = array(
 DISP_WELCOME,
 DISP_LICENCE,
-DISP_FILE_SYSTEM_SETTING,
+//DISP_FILE_SYSTEM_SETTING,
 DISP_DB_CONNECT_SETTING,
 DISP_DB_NAMES_SETTING,
 DISP_ADMINISTRATOR_SETTING,
@@ -73,16 +73,16 @@ DISP_ADMINISTRATIVE_SETTING,
 DISP_LAST_CHECK_BEFORE_INSTALL,
 DISP_RUN_INSTALL_COMPLETE);
 //DISP_RUN_INSTALL_NOT_COMPLETE is not a panel of sequence
-$panelTitle[DISP_WELCOME] = $langRequirements;
-$panelTitle[DISP_LICENCE] = $langLicence;
-$panelTitle[DISP_FILE_SYSTEM_SETTING]=$langFileSystemSetting;
-$panelTitle[DISP_DB_CONNECT_SETTING]=$langDBSetting;
-$panelTitle[DISP_DB_NAMES_SETTING]=$langMysqlNames;
-$panelTitle[DISP_ADMINISTRATOR_SETTING]=$langAdminSetting;
-$panelTitle[DISP_PLATFORM_SETTING]=$langCfgSetting;
-$panelTitle[DISP_ADMINISTRATIVE_SETTING]='Additional Informations<small> (optional)</small>';
-$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL]=$langLastCheck;
-$panelTitle[DISP_RUN_INSTALL_COMPLETE]='Claroline Installation succeeds';
+$panelTitle[DISP_WELCOME]                   = $langRequirements;
+$panelTitle[DISP_LICENCE]                   = $langLicence;
+//$panelTitle[DISP_FILE_SYSTEM_SETTING]      = $langFileSystemSetting;
+$panelTitle[DISP_DB_CONNECT_SETTING]        = $langDBSetting;
+$panelTitle[DISP_DB_NAMES_SETTING]          = $langMysqlNames;
+$panelTitle[DISP_ADMINISTRATOR_SETTING]     = $langAdminSetting;
+$panelTitle[DISP_PLATFORM_SETTING]          = $langCfgSetting;
+$panelTitle[DISP_ADMINISTRATIVE_SETTING]    = 'Additional Informations<small> (optional)</small>';
+$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] = $langLastCheck;
+$panelTitle[DISP_RUN_INSTALL_COMPLETE]      = 'Claroline Installation succeeds';
 
 ##### STEP 0 INITIALISE FORM VARIABLES IF FIRST VISIT ##################
 //$rootSys="'.realpath($pathForm).'";
@@ -91,10 +91,10 @@ if($_REQUEST['cmdLicence'])
 {
 	$cmd=DISP_LICENCE;
 }
-elseif($_REQUEST['cmdFILE_SYSTEM_SETTING'])
-{
-	$cmd=DISP_FILE_SYSTEM_SETTING;
-}
+//elseif($_REQUEST['cmdFILE_SYSTEM_SETTING'])
+//{
+//	$cmd=DISP_FILE_SYSTEM_SETTING;
+//}
 elseif($_REQUEST['cmdDB_CONNECT_SETTING'])
 {
 	$cmd=DISP_DB_CONNECT_SETTING;
@@ -267,8 +267,9 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
 if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall'])
 {
 	// re Check Connection //
-	$databaseParam_ok = TRUE;
+    $databaseParam_ok = TRUE;
 	if ($singleDbForm) $dbStatsForm = $dbNameForm;
+
 	$db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
 	$valMain = check_if_db_exist($dbNameForm  ,$db);
 	if ($dbStatsForm == $dbNameForm) $confirmUseExistingStatsDb = $confirmUseExistingMainDb ;
@@ -310,10 +311,10 @@ if ($canRunCmd)
 	{
 		$display = DISP_LICENCE;
 	}
-	elseif($_REQUEST['cmdFILE_SYSTEM_SETTING'])
-	{
-		$display = DISP_FILE_SYSTEM_SETTING;
-	}
+//	elseif($_REQUEST['cmdFILE_SYSTEM_SETTING'])
+//	{
+//		$display = DISP_FILE_SYSTEM_SETTING;
+//	}
 	elseif($_REQUEST['cmdDB_CONNECT_SETTING'])
 	{
 		$display = DISP_DB_CONNECT_SETTING;
@@ -416,12 +417,12 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 </head>
 <body bgcolor="white" dir="<?php echo $text_dir ?>">
 <center>
-<form action="<?php echo $_SERVER['PHP_SELF']?>?alreadyVisited=1" method="post">
+<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 <table cellpadding="10" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
 	<tr bgcolor="navy">
 		<td valign="top">
 			<font color="white">
-				Claroline 1.5 (<?php echo $clarolineVersion ?>) - installation
+				Claroline 1.6 (<?php echo $clarolineVersion ?>) - installation
 			</font>
 		</td>
 	</tr>
@@ -429,6 +430,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 		<td>
 <?php
 echo "
+			<input type=\"hidden\" name=\"alreadyVisited\" value=\"1\">
 			<input type=\"hidden\" name=\"urlAppendPath\" value=\"$urlAppendPath\">
 			<input type=\"hidden\" name=\"courseRepositoryForm\" value=\"$courseRepositoryForm\">
 			<input type=\"hidden\" name=\"pathForm\" value=\"".str_replace("\\","/",realpath($pathForm)."/")."\" >
@@ -714,7 +716,8 @@ elseif($display==DISP_LICENCE)
 					</td>
 					<td align="right">
 					<input type="submit" name="cmdWelcomePanel" value="&lt; Back">
-					<input type="submit" name="cmdFILE_SYSTEM_SETTING" value="I accept &gt;">
+					<!-- input type="submit" name="cmdFILE_SYSTEM_SETTING" value="I accept &gt;" -->
+					<input type="submit" name="cmdDB_CONNECT_SETTING" value="I accept &gt;">
 					</td>
 				</tr>
 			</table>';
@@ -728,7 +731,7 @@ elseif($display==DISP_LICENCE)
 #########################################################################
 ###### STEP DISP_FILE_SYSTEM_SETTING ####################################
 #########################################################################
-
+/*
 elseif($display==DISP_FILE_SYSTEM_SETTING)
 {
 
@@ -769,7 +772,7 @@ elseif($display==DISP_FILE_SYSTEM_SETTING)
 }	 // cmdDB_CONNECT_SETTING 
 
 
-
+*/
 
 
 
@@ -874,7 +877,9 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 					</tr>
 					<tr>
 						<td>
-							<input type="submit" name="cmdFILE_SYSTEM_SETTING" value="&lt; Back">
+
+							<input type="submit" name="cmdDB_CONNECT_SETTING" value="&lt; Back">
+							<!-- input type="submit" name="cmdFILE_SYSTEM_SETTING" value="&lt; Back" -->
 						</td>
 						<td >
 							&nbsp;
@@ -1176,7 +1181,19 @@ elseif($display==DISP_PLATFORM_SETTING)
 							<label for="urlForm">Complete URL</label>
 						</td>
 						<td colspan="2">
-							<input type="text" size="40" id="urlForm" name="urlForm" value="'.$urlForm.'">
+							<input type="text" size="60" id="urlForm" name="urlForm" value="'.$urlForm.'">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+             				<label for="courseRepositoryForm">Courses repository path (relative to the url above) </label><br>
+						</td>
+                    </tr>
+					<tr>
+						<td>
+						</td>
+						<td colspan="2">
+            				<input type="text"  size="60" id="courseRepositoryForm" name="courseRepositoryForm" value="'.$courseRepositoryForm.'">
 						</td>
 					</tr>
 					<tr>
@@ -1210,23 +1227,6 @@ echo '
 							</font>
 						</td>
 					</tr>
-<!--					<tr>
-							<td>
-								<label for="institutionForm">'.$langInstituteShortName.'</label>
-							</td>
-							<td colspan=2>
-								<input type=text size=40 id="institutionForm" name="institutionForm" value="$institutionForm">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label for="institutionUrlForm">'.$langInstituteName.'</label>
-							</td>
-							<td colspan=2>
-								<input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="$institutionUrlForm">
-							</td>
-						</tr>
--->
 			<tr>
 				<td colspan=3><br>
 				
@@ -1418,9 +1418,9 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 		<FIELDSET>
 		<LEGEND>Database</LEGEND>
 		<EM>Account</EM><br>
-		Database Host : '.$dbHostForm.'<br>
-		Database Username : '.$dbUsernameForm.'<br>
-		Database Password : '.(empty($dbPassForm)?"--empty--":$dbPassForm).'<br>
+		Database host : '.$dbHostForm.'<br>
+		Database username : '.$dbUsernameForm.'<br>
+		Database password : '.(empty($dbPassForm)?"--empty--":$dbPassForm).'<br>
 		<em>Names</em>
 		';
 
@@ -1429,23 +1429,23 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 	else
 		echo 'DB Prefix : '.$dbPrefixForm.'<br>';
 	echo '
-		Main DB Name : '.$dbNameForm.'<br>
-		Statistics and Tracking DB Name : '.$dbStatsForm.'<br>
-		Enable Single DB : '.($singleDbForm?$langYes:$langNo).'<br>
+		Main DB name : '.$dbNameForm.'<br>
+		Statistics and tracking DB name : '.$dbStatsForm.'<br>
+		Enable single DB : '.($singleDbForm?$langYes:$langNo).'<br>
 		</FIELDSET>
 
 		<FIELDSET>
 		<LEGEND>Admin</LEGEND>
 		Administrator email : '.$adminEmailForm.'<br>
 		Administrator phone : '.$adminPhoneForm.'<br>
-		Administrator Name : '.$adminNameForm.'<br>
-		Administrator Surname : '.$adminSurnameForm.'<br>
+		Administrator name : '.$adminNameForm.'<br>
+		Administrator surname : '.$adminSurnameForm.'<br>
 		<table border=0 class="notethis">
 			<tr>
 				<td>
 					<font size="2" color="red" face="arial, helvetica">
-					Administrator Login : '.$loginForm.'<br>
-					Administrator Password : '.(empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm).'<br>
+					Administrator login : '.$loginForm.'<br>
+					Administrator password : '.(empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm).'<br>
 					</font>
 				</td>
 			<tr>
@@ -1460,7 +1460,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 		</FIELDSET>
 		<FIELDSET>
 		<LEGEND>Campus</LEGEND>
-		Your campus Name : '.$campusForm.'<br>
+		Your campus name : '.$campusForm.'<br>
 		Your organisation : '.$institutionForm.'<br>
 		URL of this organisation : '.$institutionUrlForm.'<br>
 		Language : '.$languageForm.'<br>
@@ -1468,7 +1468,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 		</FIELDSET>
 		<FIELDSET>
 		<LEGEND>Config</LEGEND>
-		Enable Tracking : '.($enableTrackingForm?$langYes:$langNo).'<br>
+		Enable tracking : '.($enableTrackingForm?$langYes:$langNo).'<br>
 		Self-registration allowed : '.($allowSelfReg?$langYes:$langNo).'<br>
 		Encrypt user passwords in database : ';
 
@@ -1635,7 +1635,7 @@ Your problems can be related on two possible causes :<br>
 
 	echo '
 				<p align="right">
-					<input type="submit" name="alreadyVisited" 		value="Restart from beginning">
+					<input type="submit" name="alreadyVisited" value="Restart from beginning">
 					<input type="submit" name="cmdPlatformSetting" 	value="Previous">
 					<input type="submit" name="cmdDoInstall" 		value="Retry">
 				</p>';
