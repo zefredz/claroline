@@ -1780,4 +1780,6 @@ $l_wrongpass = "You entered the wrong password.";
 $l_yahoo = "Yahoo Messenger";
 $l_yim = "YIM";
 $l_yourname = "Your User name";
+$langManageClasses = "Manage classes";
+$langAddCSVUsers = "Add a complete user list";
 ?>
