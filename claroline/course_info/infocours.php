@@ -161,8 +161,8 @@ $facu              = $thecourse['faculte'   ];
 $currentCourseCode = $thecourse['fake_code'   ];
 $titulary          = $thecourse['titulaires'        ];
 $languageCourse    = $thecourse['languageCourse'       ];
-$extLinkName	   = $thecourse['departementUrlName'];
-$extLinkUrl        = $thecourse['departementUrl' ];
+$extLinkName	   = $thecourse['departmentUrlName'];
+$extLinkUrl        = $thecourse['departmentUrl' ];
 $email			   = $thecourse['email'];
 
 $thecourse['visibility'  ]         = (bool) ($thecourse['visible'] == 2 || $thecourse['visible'] == 3);
@@ -288,7 +288,7 @@ echo "<input type=\"hidden\" name=\"cidToEdit\" value=\"".$cidToEdit."\">";
 <tr>
 <td></td>
 <td>
-<input type="submit" name="changeProperties" value="<?php echo $langOk ?>">
+<input type="submit" name="changeProperties" value=" <?php echo $langOk ?> ">
 </td>
 </tr>
 
@@ -409,14 +409,16 @@ if (isset($cidToEdit))
 
 <?php
 
+if (isset($cidToEdit) && ($is_platformAdmin))
+        {
+           echo "<a class=\"claroButton\" href=\"../admin/admincourseusers.php?cidToEdit=".$cidToEdit."\"> ".$langSeeCourseUsers." </a>";
+        }
 
 if (isset($cfrom) && ($is_platformAdmin))
       {
         if ($cfrom=="clist")  //in case we come from the course list in admintool
         {
-           echo "<a class=\"claroButton\" href=\"../admin/admincourseusers.php?cidToEdit=".$cidToEdit."\"> ".$langSeeCourseUsers." </a>";
            ?>
-
            <a class="claroButton" href="../admin/admincourses.php<?php echo $toAdd ?>"><?php echo $langBackToList; ?></a>
            <?php
         }
