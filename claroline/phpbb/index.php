@@ -141,6 +141,7 @@ for($i = 0; $i < $total_categories; $i++)
 
     foreach($forumList as $thisForum)
     {
+unset($last_post);
         if( $thisForum['cat_id'] == $categories[$i]['cat_id'] )
         {
             $name         = stripslashes($thisForum['forum_name']);
@@ -176,63 +177,34 @@ for($i = 0; $i < $total_categories; $i++)
              * tutor.If tutor, see all groups but indicate my groups.
              */
 
-
-            /*--------------------------------------
-                          TUTOR VIEW
-              --------------------------------------*/
-
-            if($tutorCheck == 1)
+            if($goupForumCategory)
             {
-                echo "<a href=\"viewforum.php?gidReq=".$thisForum['gid']
-                    ."&forum=".$forumId."\">"
-                    .$name
-                    ."</a>\n";
-
-                if ( in_array($forumId, $tutorGroupList['forumId']) )
-                {
-                    echo "&nbsp;(".$langOneMyGroups.")";
-                }
-            }
-
-
-            /*--------------------------------------
-                           ADMIN VIEW
-              --------------------------------------*/
-
-            elseif($is_forumAdmin)
-            {
-                echo "<a href=\"viewforum.php?gidReq=",$thisForum['gid']
-                    ."&forum=".$forumId."\">"
-                    .$name
-                    ."</a>\n";
-            }
-
-
-            /*--------------------------------------
-                          STUDENT VIEW
-              --------------------------------------*/
-
-            elseif($goupForumCategory)
-            {
-                if (in_array($forumId, $curUserGroupList)) // this  cond  must change.
+                if (   in_array($forumId, $curUserGroupList)
+                    || in_array($forumId, $tutorGroupList['forumId'])
+                    || $is_forumAdmin
+                    || ! $groupForumPrivate)
                 {
                     echo "<a href=\"viewforum.php?gidReq=".$thisForum['gid']
                         ."&forum=".$forumId."\">"
                         .$name
-                        ."</a>\n"
-                        ."&nbsp;&nbsp;(".$langMyGroup.")\n";
+                        ."</a>\n";
+
+                   if ( in_array($forumId, $tutorGroupList['forumId']) )
+                   {
+                        echo "&nbps;<small>(".$langOneMyGroups.")</small>";
+                   }
+
+                   if ( in_array($forumId, $curUserGroupList) )
+                   {
+                      echo "&nbsp;<small>(".$langMyGroup.")</small>\n";
+                   }
                 }
                 else
                 {
-                    if($privProp == 1) echo $name;
-
-                    else echo "<a href=\"viewforum.php?gidReq=".$thisForum['gid']
-                             ."&forum=".$forumId."\">"
-                             .$name
-                             ."</a>\n";
+                    echo $name;
                 }
             }
-            else // OTHER FORUMS ...
+            else
             {
                 echo "<a href=\"viewforum.php?forum=".$forumId."\">"
                     .$name
@@ -264,5 +236,5 @@ for($i = 0; $i < $total_categories; $i++)
 
 echo "</table>\n";
 
-require('page_tail.php'); // include the claro footer.
+require 'page_tail.php'; // include the claro footer.
 ?>
