@@ -549,12 +549,12 @@ switch ($displayMode)
                          { 
                             echo "<td valign=\"top\" align=\"center\">\n"
                                 ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&course=".$thisCourse['code'].$inURL."\">"
-                                ."<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" alt=\"".$langEnrollAsStudent."\">"
+                                ."<img src=\"".$imgRepositoryWeb."enroll.gif\" alt=\"".$langEnrollAsStudent."\">"
                                 ."</a>\n"
                                 ."</td>\n"
                                 ."<td valign=\"top\" align=\"center\">\n"
                                 ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&asTeacher=true&course=".$thisCourse['code'].$inURL."\">"
-                                ."<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\"  alt=\"".$langEnrollAsTeacher."\">"
+                                ."<img src=\"".$imgRepositoryWeb."enroll.gif\"  alt=\"".$langEnrollAsTeacher."\">"
                                ."</a>"
                                ."</td>\n";
                         }
@@ -562,7 +562,7 @@ switch ($displayMode)
                         {
                             echo "<td valign=\"top\"  align=\"center\">\n"
                                 ."<a href=\"".$clarolineRepositoryWeb."admin/admin_class_course_registered.php?cmd=exReg&course=".$thisCourse['code']."&class=",$classinfo['id'].$inURL."\">"
-                                ."<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"".$langEnrollClass."\">"
+                                ."<img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\" alt=\"".$langEnrollClass."\">"
                                 ."</a>\n"
                                 ."</td>\n";
                         }
@@ -581,7 +581,7 @@ switch ($displayMode)
     				else
     				{
     					echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&course=".$thisCourse['code'].$inURL."\">"
-    						 ."<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"".$lang_enroll."\">"
+    						 ."<img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\" alt=\"".$lang_enroll."\">"
     						 ."</a>"
                             ."</td>\n";
     				}
@@ -662,7 +662,7 @@ switch ($displayMode)
                          ."\" onclick=\"javascript:if(!confirm('"
                          .addslashes(htmlentities($lang_are_you_sure_to_remove_the_course_from_your_list))
                          ."')) return false;\">\n"
-						 ."<img src=\"".$clarolineRepositoryWeb."img/unenroll.gif\" border=\"0\" alt=\"".$lang_unsubscribe."\">\n"
+						 ."<img src=\"".$imgRepositoryWeb."unenroll.gif\" border=\"0\" alt=\"".$lang_unsubscribe."\">\n"
 						 ."</a>\n";
 				}
                 else

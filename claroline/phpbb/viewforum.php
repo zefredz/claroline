@@ -115,12 +115,12 @@ else foreach($topicList as $thisTopic)
 
         if($last_post_time < $last_visit)
         {
-            $image = $clarolineRepositoryWeb.'img/topic.gif';
+            $image = $imgRepositoryWeb.'topic.gif';
             $alt='';
         }
         else
         {
-            $image = $clarolineRepositoryWeb.'img/topic_hot.gif';
+            $image = $imgRepositoryWeb.'topic_hot.gif';
             $alt   = 'new post';
         }
 

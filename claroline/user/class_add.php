@@ -209,14 +209,14 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	    {
 	        if ($_SESSION['class_add_visible_class'][$cur_class['id']]=="open")
 		{
-		    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&class=".$cur_class['id']."\">\n"
-		                      ."   <img src=\"".$clarolineRepositoryWeb."img/minus.gif\" border=\"0\" >\n"
+		    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&amp;class=".$cur_class['id']."\">\n"
+		                      ."   <img src=\"".$imgRepositoryWeb."minus.gif\" border=\"0\" >\n"
 				      ."</a>\n";
 		}
 		else
 		{
-		    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&class=".$cur_class['id']."\">\n"
-		                      ."  <img src=\"".$clarolineRepositoryWeb."img/plus.gif\" border=\"0\" >\n"
+		    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&amp;class=".$cur_class['id']."\">\n"
+		                      ."  <img src=\"".$imgRepositoryWeb."plus.gif\" border=\"0\" >\n"
 				      ."</a>\n";
 		}    
 	    }
@@ -247,8 +247,8 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	      //add to course link	
 			
             echo "  <td align=\"center\">\n"
-	        ."    <a onClick=\"return confirmation('",addslashes($cur_class['name']),"');\" href=\"".$_SERVER['PHP_SELF']."?cmd=subscribe&class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
-                ."      <img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" border=\"0\" >\n"
+	        ."    <a onClick=\"return confirmation('",addslashes($cur_class['name']),"');\" href=\"".$_SERVER['PHP_SELF']."?cmd=subscribe&amp;class=".$cur_class['id']."&amp;classname=".$cur_class['name']."\">\n"
+                ."      <img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\" >\n"
 	        ."    </a>\n"
 		."  </td>\n";
 	    

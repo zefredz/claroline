@@ -286,7 +286,7 @@ while (list(,$thisUser) = each($users))
 	echo	"\n<tr align=\"center\" valign=\"top\">",
 
 			"\n<td id=\"u".$i."\" headers=\"name\" align=\"left\">",
-            "<img src=\"".$clarolineRepositoryWeb."img/user.gif\">",
+            "<img src=\"".$imgRepositoryWeb."user.gif\">",
 			"\n<small>\n",$i,"</small>\n&nbsp;",
 			"<a href=\"userInfo.php?uInfo=",$thisUser['user_id'],"\">",
 			ucfirst(strtolower($thisUser['prenom']))," ",ucfirst(strtolower($thisUser['nom'])),
@@ -354,7 +354,7 @@ while (list(,$thisUser) = each($users))
 
 		echo	"<td headers=\"edit u".$i."\">",
 				"<a href=\"userInfo.php?editMainUserInfo=".$thisUser['user_id']."\">",
-				"<img border=\"0\" alt=\"".$langEdit."\" src=\"".$clarolineRepositoryWeb."img/edit.gif\">",
+				"<img border=\"0\" alt=\"".$langEdit."\" src=\"".$imgRepositoryWeb."edit.gif\">",
 				"</a>",
 				"</td>\n";
 
@@ -366,7 +366,7 @@ while (list(,$thisUser) = each($users))
 		{
 			echo   '<a href="'.$_SERVER['PHP_SELF'].'?unregister=yes&amp;user_id='.$thisUser['user_id'].'" '
 				  .'onClick="return confirmation(\''.$langUnreg .' '.$thisUser['nom'].' '.$thisUser['prenom'].'\');">'
-				  .'<img border="0" alt="'.$langUnreg.'" src="'.$clarolineRepositoryWeb.'img/unenroll.gif">'
+				  .'<img border="0" alt="'.$langUnreg.'" src="'.$imgRepositoryWeb.'unenroll.gif">'
 				  .'</a>';
 		}
 

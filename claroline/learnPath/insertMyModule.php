@@ -212,7 +212,7 @@
 				.$list['module_id']."\"  id=\"check_".$list['module_id']."\">\n"
 				."</td>\n"
 				."<td align=\"left\">\n"
-				."<label for=\"check_".$list['module_id']."\" ><img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" />".$list['name']."</label>\n"
+				."<label for=\"check_".$list['module_id']."\" ><img src=\"".$imgRepositoryWeb.$moduleImg."\" alt=\"".$contentType_alt."\" />".$list['name']."</label>\n"
 				."</td>\n"
 				."</tr>\n\n";
 

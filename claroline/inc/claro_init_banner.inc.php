@@ -188,7 +188,7 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
 
 	echo "<div id=\"breadcrumb\">\n";
 	echo "<a href=\"".$rootWeb."index.php\" target=\"_top\">"
-        ."<img src=\"".$clarolineRepositoryWeb."img/home.gif\" alt=\"\">"
+        ."<img src=\"".$imgRepositoryWeb."home.gif\" alt=\"\">"
         .$siteName
         ."</a>\n";
 

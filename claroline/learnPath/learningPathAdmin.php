@@ -1,38 +1,35 @@
 <?php // $Id$
-/*
-  +----------------------------------------------------------------------+
-  | CLAROLINE version 1.5.*
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-  +----------------------------------------------------------------------+
-  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
-  | available through the world-wide-web at                              |
-  | http://www.gnu.org/copyleft/gpl.html                                 |
-  +----------------------------------------------------------------------+
-  | Authors: Piraux Sébastien <pir@cerdecam.be>                          |
-  |          Lederer Guillaume <led@cerdecam.be>                         |
-  +----------------------------------------------------------------------+
-
-  DESCRIPTION:
-  ***********
-
-  This file is available only if is course admin
-
-  It allow course admin to :
-  - change learning path name
-  - change learning path comment
-  - links to
-    - create empty module
-    - use document as module
-    - use exercice as module
-    - re-use a module of the same course
-    - import (upload) a module
-    - use a module from another course
-  - remove modules from learning path (it doesn't delete it ! )
-  - change locking , visibility, order
-  - access to config page of modules in this learning path
-
-*/
+/**
+ * @version  CLAROLINE version 1.6
+ *
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
+ *
+ *  DESCRIPTION:
+ *  ***********
+ *
+ *  This file is available only if is course admin
+ *
+ *  It allow course admin to :
+ *  - change learning path name
+ *  - change learning path comment
+ *  - links to
+ *    - create empty module
+ *    - use document as module
+ *    - use exercice as module
+ *    - re-use a module of the same course
+ *    - import (upload) a module
+ *    - use a module from another course
+ *  - remove modules from learning path (it doesn't delete it ! )
+ *  - change locking , visibility, order
+ *  - access to config page of modules in this learning path
+ */
 
 /*======================================
        CLAROLINE MAIN
@@ -501,7 +498,7 @@
                   $moduleImg = choose_image(basename($module['path']));
                   
                 $contentType_alt = selectAlt($module['contentType']);
-                echo "<a href=\"module.php?module_id=".$module['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
+                echo "<a href=\"module.php?module_id=".$module['module_id']."\"><img src=\"".$imgRepositoryWeb."".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
                              .$module['name'].
                              "</a>";
             }
@@ -510,7 +507,7 @@
             echo     "
 			<td>
 				<a href=\"module.php?module_id=".$module['module_id']."\">".
-               "<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=0 alt=\"".$langModify."\" />".
+               "<img src=\"".$imgRepositoryWeb."edit.gif\" border=0 alt=\"".$langModify."\" />".
                "</a>
 			</td>";
             // DELETE ROW
@@ -527,7 +524,7 @@
             else
               echo $langAreYouSureToRemoveStd ;
             echo   "');\"
-			><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=0 alt=\"".$langRemove."\"></a>
+			><img src=\"".$imgRepositoryWeb."delete.gif\" border=0 alt=\"".$langRemove."\"></a>
    			</td>";
 
             // LOCK
@@ -539,13 +536,13 @@
             elseif ( $module['lock'] == 'OPEN')
             {
                 echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&cmdid=".$module['learnPath_module_id']."\">".
-                        "<img src=\"".$clarolineRepositoryWeb."img/unblock.gif\" alt=\"$langBlock\" border=0>".
+                        "<img src=\"".$imgRepositoryWeb."unblock.gif\" alt=\"$langBlock\" border=0>".
                         "</a>";
             }
             elseif( $module['lock'] == 'CLOSE')
             {
                 echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']."\">".
-                        "<img src=\"".$clarolineRepositoryWeb."img/block.gif\" alt=\"$langAltMakeNotBlocking\" border=0>".
+                        "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"$langAltMakeNotBlocking\" border=0>".
                         "</a>";
             }
             echo    "</td>";
@@ -556,7 +553,7 @@
             if ( $module['visibility'] == 'HIDE')
             {
                 echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
-                        "<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" alt=\"$langAltMakeVisible\" border=\"0\">".
+                        "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"$langAltMakeVisible\" border=\"0\">".
                         "</a>";
             }
             else
@@ -570,7 +567,7 @@
                         $onclick = "";
                 }
                 echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ",$onclick, " >".
-                        "<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" alt=\"$langMakeInvisible\" border=0>".
+                        "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"$langMakeInvisible\" border=0>".
                         "</a>";
             }
 
@@ -580,7 +577,7 @@
             // DISPLAY CATEGORY MOVE COMMAND 
             echo     "<td>".
                          "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
-                         "<img src=\"".$clarolineRepositoryWeb."img/move.gif\" alt=\"$langAltMove\" border=0>".
+                         "<img src=\"".$imgRepositoryWeb."move.gif\" alt=\"$langAltMove\" border=0>".
                          "</a>".
                          "</td>";
             // DISPLAY MOVE UP COMMAND only if it is not the top learning path
@@ -588,7 +585,7 @@
             {
                 echo     "<td>".
                          "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
-                         "<img src=\"".$clarolineRepositoryWeb."img/up.gif\" alt=\"$langAltMoveUp\" border=0>".
+                         "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"$langAltMoveUp\" border=0>".
                          "</a>".
                          "</td>";
             }
@@ -602,7 +599,7 @@
             {
                 echo    "<td>".
                         "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
-                        "<img src=\"".$clarolineRepositoryWeb."img/down.gif\" alt=\"$langMoveDown\" border=0>".
+                        "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"$langMoveDown\" border=0>".
                         "</a>".
                          "</td>";
             }

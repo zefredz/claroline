@@ -1,22 +1,16 @@
 <?php // $Id$
-/*
-  +----------------------------------------------------------------------+
-  | CLAROLINE version 1.6
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-  +----------------------------------------------------------------------+
-  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
-  | available through the world-wide-web at                              |
-  | http://www.gnu.org/copyleft/gpl.html                                 |
-  +----------------------------------------------------------------------+
-  |  Authors: Piraux Sébastien <pir@cerdecam.be>                         |
-  |          Lederer Guillaume <led@cerdecam.be>                         |
-  +----------------------------------------------------------------------+
-
-  DESCRIPTION:
-  ****
-
-*/
+/**
+ * @version  CLAROLINE version 1.6
+ *
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
+ */
 
   if(isset($cmd) && $cmd = "raw")
   {
@@ -82,7 +76,7 @@
 
    echo "<h4>".$langExerciseInModule." :</h4><p>"
           .stripslashes($module['titre'])
-          ."<a href=\"../exercice/admin.php?exerciseId=".$module['id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\" /></a></p>";
+          ."<a href=\"../exercice/admin.php?exerciseId=".$module['id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"$langModify\" /></a></p>";
 
 
 

@@ -1,36 +1,32 @@
 <?php  // $Id$
-/*
-  +----------------------------------------------------------------------+
-  | CLAROLINE version 1.6
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)      |
-  +----------------------------------------------------------------------+
-  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
-  | available through the world-wide-web at                              |
-  | http://www.gnu.org/copyleft/gpl.html                                 |
-  +----------------------------------------------------------------------+
-  | Authors: Piraux Sebastien <pir@cerdecam.be>                          |
-  |          Lederer Guillaume <led@cerdecam.be>                         |
-  +----------------------------------------------------------------------+
-
-  DESCRIPTION:
-  ***********
-  This file display the list of all learning paths availables for the
-  course.
-
-  Display :
-  - Name of tool
-  - Introduction text for learning paths
-  - (admin of course) link to create new empty learning path
-  - (admin of course) link to import (upload) a learning path
-  - list of available learning paths
-    - (student) only visible learning paths
-    - (student) the % of progression into each learning path
-    - (admin of course) all learning paths with
-       - modify, delete, statistics, visibility and order, options
-
-
-*/
+/**
+ * @version  CLAROLINE version 1.6
+ *
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
+ * 
+ * DESCRIPTION:
+ * ************
+ * This file display the list of all learning paths availables for the
+ * course.
+ *
+ *  Display :
+ *  - Name of tool
+ *  - Introduction text for learning paths
+ *  - (admin of course) link to create new empty learning path
+ *  - (admin of course) link to import (upload) a learning path
+ *  - list of available learning paths
+ *    - (student) only visible learning paths
+ *    - (student) the % of progression into each learning path
+ *    - (admin of course) all learning paths with
+ *       - modify, delete, statistics, visibility and order, options
+ */
 
 /*======================================
        CLAROLINE MAIN
@@ -519,7 +515,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
        if ( !$is_blocked )
        {
              echo "<td align=\"left\"><a href=\"learningPath.php?path_id="
-                       .$list['learnPath_id']."\"><img src=\"".$clarolineRepositoryWeb."img/learnpath.gif\" alt=\"".$path_alt."\"
+                       .$list['learnPath_id']."\"><img src=\"".$imgRepositoryWeb."learnpath.gif\" alt=\"".$path_alt."\"
                        border=\"0\" />  ".$list['name']."</a></td>";
 
              /*if( $list['lock'] == 'CLOSE' && ( $list['minRaw'] == -1 || $list['minRaw'] == "" ) )
@@ -670,7 +666,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
        }
        else   //else of !$is_blocked condition , we have already been blocked before, so we continue beeing blocked : we don't display any links to next paths any longer
        {
-             echo "<td align=\"left\"> <img src=\"".$clarolineRepositoryWeb."img/learnpath.gif\" alt=\"".$path_alt."\"
+             echo "<td align=\"left\"> <img src=\"".$imgRepositoryWeb."learnpath.gif\" alt=\"".$path_alt."\"
                        border=\"0\" /> ".$list['name'].$list['minRaw']."</td>\n";
        }
 
@@ -683,7 +679,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             // Modify command / go to other page
             echo     "<td>\n",
                         "<a href=\"learningPathAdmin.php?path_id=".$list['learnPath_id']."\">\n",
-                        "<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\" />\n",
+                        "<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"$langModify\" />\n",
                         "</a>\n",
                         "</td>\n";
 
@@ -700,7 +696,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                echo  "<td>\n",
                             "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&del_path_id=".$list['learnPath_id']."\" ",
                             "onClick=\"return scormConfirmation('",addslashes($list['name']),"');\">\n",
-                            "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
+                            "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
                             "</a>\n",
                             "</td>\n";
 
@@ -710,7 +706,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                echo     "<td>\n",
                             "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&del_path_id=".$list['learnPath_id']."\" ",
                             "onClick=\"return confirmation('",addslashes($list['name']),"');\">\n",
-                            "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
+                            "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
                             "</a>\n",
                             "</td>\n";
 
@@ -722,13 +718,13 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             if ( $list['lock'] == 'OPEN')
             {
                 echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&cmdid=".$list['learnPath_id']."\">\n",
-                        "<img src=\"".$clarolineRepositoryWeb."img/unblock.gif\" alt=\"$langBlock\" border=\"0\">\n",
+                        "<img src=\"".$imgRepositoryWeb."unblock.gif\" alt=\"$langBlock\" border=\"0\">\n",
                         "</a>\n";
             }
             else
             {
                 echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&cmdid=".$list['learnPath_id']."\">\n",
-                        "<img src=\"".$clarolineRepositoryWeb."img/block.gif\" alt=\"$langAltMakeNotBlocking\" border=\"0\">\n",
+                        "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"$langAltMakeNotBlocking\" border=\"0\">\n",
                         "</a>\n";
             }
             echo    "</td>\n";
@@ -740,7 +736,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             if ( $list['visibility'] == 'HIDE')
             {
                 echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&visibility_path_id=".$list['learnPath_id']."\">\n",
-                        "<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" alt=\"$langAltMakeVisible\" border=\"0\" />\n",
+                        "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"$langAltMakeVisible\" border=\"0\" />\n",
                         "</a>";
             }
             else
@@ -755,7 +751,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                 }
 
                 echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&visibility_path_id=".$list['learnPath_id']."\" ",$onclick, " >\n",
-                        "<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" alt=\"$langMakeInvisible\" border=\"0\" />\n",
+                        "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"$langMakeInvisible\" border=\"0\" />\n",
                         "</a>\n";
             }
             echo    "</td>\n";
@@ -768,7 +764,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             /*
             echo     "<td>",
                         "<a href=\"",$_SERVER['PHP_SELF'],"?path_id=".$list['learningPath_id']."\">",
-                        "<img src=\"".$clarolineRepositoryWeb."img/statistics.gif\" alt=\"$langStatistics\" border=\"0\" />",
+                        "<img src=\"".$imgRepositoryWeb."statistics.gif\" alt=\"$langStatistics\" border=\"0\" />",
                         "</a>",
                         "</td>\n";
             */
@@ -781,7 +777,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             {
                 echo     "<td>\n",
                          "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&move_path_id=".$list['learnPath_id']."\">\n",
-                         "<img src=\"".$clarolineRepositoryWeb."img/up.gif\" alt=\"$langAltMoveUp\" border=\"0\" />\n",
+                         "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"$langAltMoveUp\" border=\"0\" />\n",
                          "</a>\n",
                          "</td>\n";
             }
@@ -794,7 +790,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             {
                 echo    "<td>\n",
                         "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&move_path_id=".$list['learnPath_id']."\">\n",
-                        "<img src=\"".$clarolineRepositoryWeb."img/down.gif\" alt=\"$langMoveDown\" border=\"0\" />\n",
+                        "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"$langMoveDown\" border=\"0\" />\n",
                         "</a>\n",
                          "</td>\n";
             }
@@ -806,7 +802,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             // statistics links
             echo "<td>\n
               <a href=\"".$clarolineRepositoryWeb."tracking/learnPath_details.php?path_id=".$list['learnPath_id']."\">
-              <img src=\"".$clarolineRepositoryWeb."img/statistics.gif\" border=\"0\" alt=\"$langTracking\">
+              <img src=\"".$imgRepositoryWeb."statistics.gif\" border=\"0\" alt=\"$langTracking\">
               </a>
               </td>\n";
 

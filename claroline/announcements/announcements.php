@@ -357,18 +357,18 @@ if ($displayButtonLine)
 {
     echo '<p>'."\n"
          .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqCreate">'
-         .'<img src="'.$clarolineRepositoryWeb.'img/announcement.gif">'
+         .'<img src="'.$imgRepositoryWeb.'announcement.gif">'
          .$langAddAnn
          .'</a>'
          .' | '
          .'<a class="claroCmd" href="messages.php">'
-         .'<img src="'.$clarolineRepositoryWeb.'img/email.gif">'
+         .'<img src="'.$imgRepositoryWeb.'email.gif">'
          .$langMessageToSelectedUsers
          .'</a>'
          .' | '
          .'<a class="claroCmd" href="'.$PHP_SELF.'?cmd=exDeleteAll" '
          .' onclick="if (confirm(\''.$langEmptyAnn.' ?\')){return true;}else{return false;}">'
-         .'<img src="'.$clarolineRepositoryWeb.'img/delete.gif">'
+         .'<img src="'.$imgRepositoryWeb.'delete.gif">'
          .$langEmptyAnn
          .'</a>'
          .'</p>'."\n";

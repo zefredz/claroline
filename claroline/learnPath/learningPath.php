@@ -1,22 +1,16 @@
 <?php // $Id$
-/*
-  +----------------------------------------------------------------------+
-  | CLAROLINE version 1.5.*                                              |
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-  +----------------------------------------------------------------------+
-  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
-  | available through the world-wide-web at                              |
-  | http://www.gnu.org/copyleft/gpl.html                                 |
-  +----------------------------------------------------------------------+
-  | Authors: Piraux Sébastien <pir@cerdecam.be>                          |
-  |          Lederer Guillaume <led@cerdecam.be>                         |
-  +----------------------------------------------------------------------+
-
-  DESCRIPTION:
-  ****
-
-*/
+/**
+ * @version  CLAROLINE version 1.6
+ *
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
+ */
 
 /*======================================
        CLAROLINE MAIN
@@ -226,7 +220,7 @@
                 
               $contentType_alt = selectAlt($module['contentType']);
               echo "<a href=\"module.php?module_id=".$module['module_id']."\">
-            <img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
+            <img src=\"".$imgRepositoryWeb.$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
                            .$module['name']."</a>";
               // a module ALLOW access to the following modules if
               // document module : credit == CREDIT || lesson_status == 'completed'
@@ -253,7 +247,7 @@
                   $moduleImg = "quiz.gif";
                 else
                   $moduleImg = choose_image(basename($module['path']));
-                echo "<img src='".$clarolineRepositoryWeb."img/".$moduleImg."' alt='".$contentType_alt."' border=\"0\">"
+                echo "<img src='".$imgRepositoryWeb.$moduleImg."' alt='".$contentType_alt."' border=\"0\">"
                             .$module['name'];
 
           }

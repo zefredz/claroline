@@ -465,12 +465,12 @@ function claro_disp_tool_title($titleElement, $helpUrl = false)
 
     if ($helpUrl)
     {
-        global $clarolineRepositoryWeb, $langHelp;
+        global $clarolineRepositoryWeb, $imgRepositoryWeb,$langHelp;
 
 ?><a href="#" onClick="MyWindow=window.open('<?php echo $clarolineRepositoryWeb ?>help/<?php echo $helpUrl ?>','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;"><?php
 
 
-        echo '<img src="'.$clarolineRepositoryWeb.'/img/help.gif" '
+        echo '<img src="'.$imgRepositoryWeb.'/help.gif" '
                 .' alt ="'.$langHelp.'"'
                 .' align="right"'
                 .' hspace="30">'
@@ -1011,25 +1011,25 @@ function claro_disp_button($url, $text, $confirmMessage = '')
 
 function claro_disp_progress_bar ($progress, $factor)
 {
-    global $clarolineRepositoryWeb;
+    global $clarolineRepositoryWeb, $imgRepositoryWeb;
            $maxSize  = $factor * 100; //pixels
            $barwidth = $factor * $progress ;
 
     // display progress bar
     // origin of the bar
-    $progressBar = "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
+    $progressBar = "<img src=\"".$imgRepositoryWeb."bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
 
     if($progress != 0)
-            $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1u.gif\" width=\"$barwidth\" height=\"12\" alt=\"\">";
+            $progressBar .= "<img src=\"".$imgRepositoryWeb."bar_1u.gif\" width=\"$barwidth\" height=\"12\" alt=\"\">";
     // display 100% bar
 
     if($progress!= 100 && $progress != 0)
-            $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1m.gif\" width=\"1\" height=\"12\" alt=\"\">";
+            $progressBar .= "<img src=\"".$imgRepositoryWeb."bar_1m.gif\" width=\"1\" height=\"12\" alt=\"\">";
 
     if($progress != 100)
-            $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1r.gif\" width=\"".($maxSize-$barwidth)."\" height=\"12\" alt=\"\">";
+            $progressBar .= "<img src=\"".$imgRepositoryWeb."bar_1r.gif\" width=\"".($maxSize-$barwidth)."\" height=\"12\" alt=\"\">";
     // end of the bar
-    $progressBar .=  "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
+    $progressBar .=  "<img src=\"".$imgRepositoryWeb."bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
 
     return $progressBar;
 }

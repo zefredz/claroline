@@ -395,32 +395,32 @@ if ($display_groupadmin_manager)
 
 echo '<p>'."\n"
     .'<a class="claroCmd" href="group_creation.php">'
-    ."<img src=\"".$clarolineRepositoryWeb."img/group.gif\">"
+    .'<img src="'.$imgRepositoryWeb.'group.gif">'
     .$langNewGroupCreate
     .'</a> |'."\n"
     .'&nbsp;'
     .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?delete=yes" onClick="return confirmationDelete();">'
-    ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\">"
+    .'<img src="'.$imgRepositoryWeb.'delete.gif">'
     .$langDeleteGroups
     .'</a> |'."\n"
     .'&nbsp;'
     .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?fill=yes"  >'
-    ."<img src=\"".$clarolineRepositoryWeb."img/fill.gif\">"
+    .'<img src="'.$imgRepositoryWeb.'fill.gif">'
     .$langFillGroups
     .'</a> |'."\n"
     .'&nbsp;'
     .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?empty=yes"  onClick="return confirmationEmpty();">'
-    ."<img src=\"".$clarolineRepositoryWeb."img/sweep.gif\">"
+    .'<img src="'.$imgRepositoryWeb.'sweep.gif">'
     .$langEmtpyGroups
     .'</a> |'."\n"
     .'&nbsp;'
     .'<a class="claroCmd" href="group_properties.php">'
-    ."<img src=\"".$clarolineRepositoryWeb."img/settings.gif\">"
-    ."Modify Group Settings"
+    .'<img src="'.$imgRepositoryWeb.'settings.gif">'
+    .'Modify Group Settings'
     .'</a>'."\n"
     .'&nbsp;'
-    .'</p>'."\n";
-
+    .'</p>'."\n"
+    ;
 
 
 //	/*---------------------
@@ -666,7 +666,7 @@ while ($thisGroup = mysql_fetch_array($groupList))
 		     ||   $thisGroup['is_member']
 		     || ! $_groupProperties['private'])
 		{
-            echo "<img src=\"".$clarolineRepositoryWeb."img/group.gif\"> "
+            echo "<img src=\"".$imgRepositoryWeb."group.gif\"> "
                 ."<a href=\"group_space.php?gidReq=".$thisGroup['id']."\">"
 				.$thisGroup['name']
 			    ."</a>";
@@ -676,7 +676,7 @@ while ($thisGroup = mysql_fetch_array($groupList))
 		}
 		else
 		{
-			echo "<img src=\"".$clarolineRepositoryWeb."img/group.gif\"> " 
+			echo "<img src=\"".$imgRepositoryWeb."group.gif\"> " 
                 .$thisGroup['name'];
 		}
 
@@ -730,12 +730,12 @@ while ($thisGroup = mysql_fetch_array($groupList))
 	{
 		echo	'<td>'.
 				'<a href="group_edit.php?gidReq='.$thisGroup['id'].'">'.
-				'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="'.$langEdit.'">'.
+				'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langEdit.'">'.
 				'</a>'.
 				'</td>'.
 				'<td>'.
 				'<a href="'.$_SERVER['PHP_SELF'].'?delete_one=yes&amp;id='.$thisGroup['id'].'">'.
-				'<img src="'.$clarolineRepositoryWeb.'img/delete.gif" border="0" alt="'.$langDelete.'">'.
+				'<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'">'.
 				'</a>'.
 				'</td>';
 	}

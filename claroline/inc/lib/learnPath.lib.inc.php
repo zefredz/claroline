@@ -71,7 +71,7 @@
            global $urlAppend;
            global $TABLELEARNPATH, $TABLEMODULE, $TABLELEARNPATHMODULE;
            global $langModify, $langOk, $langErrorNameAlreadyExists, $langAddComment, $langConfirmYourChoice;
-           global $langDefaultLearningPathComment, $langDefaultModuleComment , $langDefaultModuleAddedComment, $clarolineRepositoryWeb;
+           global $langDefaultLearningPathComment, $langDefaultModuleComment , $langDefaultModuleAddedComment, $imgRepositoryWeb;
            // will be set 'true' if the comment has to be displayed
            $dsp = false;
 
@@ -186,11 +186,11 @@
                           	 "<p>\n"
                             ."<small>\n"
                             ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=update".$col_name."\">\n"
-							."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"",$langModify,"\" border=\"0\">\n"
+							."<img src=\"".$imgRepositoryWeb."edit.gif\" alt=\"",$langModify,"\" border=\"0\">\n"
 							."</a>\n"
                             ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=del".$col_name."\" 
 								onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\">\n"
-							."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\">\n"
+							."<img src=\"".$imgRepositoryWeb."delete.gif\" alt=\"",$langDelete,"\" border=\"0\">\n"
 							."</a>\n"
                             ."</small>\n"
                             ."</p>\n";
@@ -215,7 +215,7 @@
            global $is_AllowedToEdit;
            global $urlAppend;
            global $TABLELEARNPATH, $TABLEMODULE;
-           global $langModify, $langOk, $langErrorNameAlreadyExists, $clarolineRepositoryWeb;
+           global $langModify, $langOk, $langErrorNameAlreadyExists, $imgRepositoryWeb;
 
            // $dsp will be set 'true' if the comment has to be displayed
            $dsp = false;
@@ -296,7 +296,7 @@
                 echo "<h4>".$currentName['name'];
 
                 if ( $is_AllowedToEdit )
-                         echo "<br><a href=\"".$_SERVER['PHP_SELF']."?cmd=updateName\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n";
+                         echo "<br><a href=\"".$_SERVER['PHP_SELF']."?cmd=updateName\"><img src=\"".$imgRepositoryWeb."edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n";
                 echo "</h4>";
            }
 
@@ -442,7 +442,7 @@
           global $TABLEASSET;
           global $_cid;
           global $langModule;
-	  global $clarolineRepositoryWeb;
+	  global $imgRepositoryWeb;
           
           $sql = "SELECT M.`name`, M.`contentType`, LPM.`learnPath_module_id`, LPM.`parent`, A.`path`
             FROM `$TABLELEARNPATH` AS LP, `$TABLELEARNPATHMODULE` AS LPM, `$TABLEMODULE` AS M
@@ -497,7 +497,7 @@
                   $moduleImg = choose_image(basename($module['path']));
                 $contentType_alt = selectAlt($module['contentType']);
               
-                echo "<img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
+                echo "<img src=\"".$imgRepositoryWeb.$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
                              .$module['name'];
             }
             echo "</td>\n</tr>\n";
@@ -600,7 +600,7 @@
                global $langExercise;
                global $langNoMoreModuleToAdd;
                global $langAddOneModuleButton;
-	       global $clarolineRepositoryWeb;
+	       global $imgRepositoryWeb;
 
                global $TABLEEXERCISES;
 
@@ -639,7 +639,7 @@
                               </td>
 
                               <td align=\"left\">
-                                 <label for=\"check_".$exercise['id']."\" ><img src=\"".$clarolineRepositoryWeb."img/quiz.gif\" alt=\"".$langExercise."\" />".$exercise['titre']."</label>
+                                 <label for=\"check_".$exercise['id']."\" ><img src=\"".$imgRepositoryWeb."quiz.gif\" alt=\"".$langExercise."\" />".$exercise['titre']."</label>
                               </td>
                            </tr>";
 
@@ -696,7 +696,7 @@
           global $langAddModulesButton;
 
           global $fileList;
-	  global $clarolineRepositoryWeb;
+	  global $imgRepositoryWeb;
           global $color2;
 
           /*==========================
@@ -729,7 +729,7 @@
 	                    and we can't go to a parent dir */
           {
             echo 	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n",
-                "<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\"\">\n",
+                "<img src=\"".$imgRepositoryWeb."parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\"\">\n",
                 "<small>".$langUp."</small>\n",
                 "</a>\n";
           }
@@ -741,7 +741,7 @@
                   echo	"<!-- current dir name -->\n",
                       "<tr>\n",
                       "<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n",
-                      "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=2 hspace=5 alt=\"\">\n",
+                      "<img src=\"".$imgRepositoryWeb."opendir.gif\" align=\"absbottom\" vspace=2 hspace=5 alt=\"\">\n",
                               $dspCurDirName,"\n",
                       "</td>\n",
                       "</tr>\n";
@@ -818,20 +818,20 @@
                           {
                                   echo "<td>&nbsp;</td>";
                           }
-                          echo           "<td align=\"left\">",
-                                          "<a href=\"".$urlFileName."\"".$style.">",
-                                          "<img src=\"".$clarolineRepositoryWeb."img/",$image,"\" border=\"0\" hspace=\"5\" alt=\"\" />",$dspFileName,"</a>",
-                                          "</td>\n",
-
-                                          "<td><small>",$size,"</small></td>\n",
-                                          "<td><small>",$date,"</small></td>\n";
+                          echo '<td align="left">'
+                             . '<a href="'.$urlFileName.'" '.$style.'>'
+                             . '<img src="'.$imgRepositoryWeb.$image.'" border="0" hspace="5" alt="" />'.$dspFileName.'</a>'
+                             . '</td>'."\n"
+                             . '<td><small>'.$size.'</small></td>'."\n"
+                             . '<td><small>'.$date.'</small></td>'."\n"
+                             ;
 
                           /* NB : Before tracking implementation the url above was simply
                            * "<a href=\"",$urlFileName,"\"",$style,">"
                            */
 
 
-                          echo        "</tr>\n";
+                          echo '</tr>'."\n";
 
                           /* COMMENTS */
 

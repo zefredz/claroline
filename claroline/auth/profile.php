@@ -43,7 +43,7 @@ $tbl_user      = $tbl_mdb_names['user'];
 if (isset($userImageRepositorySys))
     $userImageRepositorySys = $clarolineRepositorySys.'img/users/';
 if (isset($userImageRepositoryWeb))
-    $userImageRepositoryWeb = $clarolineRepositoryWeb.'img/users/';
+    $userImageRepositoryWeb = $imgRepositoryWeb.'users/';
 ///// COMMAND ///
 
 if (isset($can_request_course_creator_status) && $can_request_course_creator_status && $_REQUEST['exCCstatus'])
@@ -511,7 +511,7 @@ if( $disp_picture != '')
 {
 ?>
 <img align="right" alt="<?php echo $form_lastName." ".$form_firstName ?>"
-     src="<?php echo $clarolineRepositoryWeb."img/users/".$disp_picture ?>"
+     src="<?php echo $imgRepositoryWeb."users/".$disp_picture ?>"
      border="0" hspace="5" vspace="5">
 <?php
 }

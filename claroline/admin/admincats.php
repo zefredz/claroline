@@ -1041,9 +1041,9 @@ include($includePath."/claro_init_footer.inc.php");
                     if($one_faculty["nb_childs"]>0)
                     {
                         if($one_faculty["visible"])
-                            $PM='<img src="'.$clarolineRepositoryWeb.'img/minus.gif" border="0" alt="" >';
+                            $PM='<img src="'.$imgRepositoryWeb.'minus.gif" border="0" alt="" >';
                         else
-                            $PM='<img src="'.$clarolineRepositoryWeb.'img/plus.gif" border="0" alt="" >';
+                            $PM='<img src="'.$imgRepositoryWeb.'plus.gif" border="0" alt="" >';
                     ?>
 
                     <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&date=".$date."#pm".$one_faculty["id"] ?>"

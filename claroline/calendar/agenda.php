@@ -386,7 +386,7 @@ if ($is_allowedToEdit)
          */
 
         echo '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqAdd">'
-            .'<img src="'.$clarolineRepositoryWeb.'img/agenda.gif" alt="">'
+            .'<img src="'.$imgRepositoryWeb.'agenda.gif" alt="">'
             .$langAddEvent
             .'</a>';
 
@@ -398,7 +398,7 @@ if ($is_allowedToEdit)
 
         echo '<a class= "claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&id=ALL" '
             .' onclick="if (confirm(\''.$langClearList.' ? \')){return true;}else{return false;}">' 
-            .'<img src="'.$clarolineRepositoryWeb.'img/delete.gif" alt="">'
+            .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="">'
             .$langClearList
             .'</a>';
                  
@@ -464,28 +464,30 @@ foreach($eventList as $thisEvent)
         {
             $monthBar = date('m',time());
 
-            echo "<tr>\n"
-                ."<th class=\"superHeader\" colspan=\"2\" valign=\"top\">\n"
-                .ucfirst(claro_disp_localised_date('%B %Y',time()))
-                ."</th>\n"
-                ."</tr>\n";
+            echo '<tr>'."\n"
+               . '<th class="superHeader" colspan="2" valign="top">'."\n"
+               . ucfirst(claro_disp_localised_date('%B %Y',time()))
+               . '</th>'."\n"
+               . '</tr>'."\n"
+               ;
         }
 
 
         // 'NOW' Bar
 
-        echo "<tr>\n"
-            ."<td>\n"
-            ."<img src=\"".$clarolineRepositoryWeb."img/pixel.gif\" width=\"20\" alt=\" \">"
-            ."<span class=\"highlight\">"
-            ."<i>"
-            .ucfirst(claro_disp_localised_date( $dateFormatLong))." "
+        echo '<tr>'."\n"
+            .'<td>'."\n"
+            .'<img src="'.$imgRepositoryWeb.'pixel.gif" width="20" alt=" ">'
+            .'<span class="highlight">'
+            .'<i>'
+            .ucfirst(claro_disp_localised_date( $dateFormatLong)).' '
             .ucfirst( strftime( $timeNoSecFormat))
-            ." -- ".$langNow
-            ."</i>"
-            ."</span>\n"
-            ."</td>\n"
-            ."</tr>\n";
+            .' -- '.$langNow
+            .'</i>'
+            .'</span>'."\n"
+            .'</td>'."\n"
+            .'</tr>'."\n"
+            ;
 
          $nowBarAlreadyShowed = TRUE;
     }
@@ -500,24 +502,25 @@ foreach($eventList as $thisEvent)
   {
     $monthBar = date('m', strtotime($thisEvent['day']));
 
-    echo "<tr>\n"
-        ."<th class=\"superHeader\" valign=\"top\">\n"
-        .ucfirst(claro_disp_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
-        ."</th>\n"
-        ."</tr>\n";
+    echo '<tr>'."\n"
+       . '<th class="superHeader" valign="top">'."\n"
+       . ucfirst(claro_disp_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
+       . '</th>'."\n"
+       . '</tr>'."\n"
+       ;
   }
 
   /*
    * Display the event date
    */
 
-  echo "<tr class=\"headerX\" valign=\"top\">\n"
-      ."<th>\n"
-      ."<a href=\"#form\" name=\"event".$thisEvent['id']."\"></a>\n"
-      ."<img src=\"".$clarolineRepositoryWeb."img/agenda.gif\" alt=\" \">"
-      .ucfirst(claro_disp_localised_date( $dateFormatLong, strtotime($thisEvent['day'])))." "
-      .ucfirst( strftime( $timeNoSecFormat, strtotime($thisEvent['hour'])))." "
-      .( empty($thisEvent['lasting']) ? '' : $langLasting.' : '.$thisEvent['lasting'] );
+  echo '<tr class="headerX" valign="top">'."\n"
+      .'<th>'."\n"
+      .'<a href="#form" name="event'.$thisEvent['id'].'"></a>'."\n"
+      .'<img src="'.$imgRepositoryWeb.'agenda.gif" alt=" ">'
+      . ucfirst(claro_disp_localised_date( $dateFormatLong, strtotime($thisEvent['day']))).' '
+      . ucfirst( strftime( $timeNoSecFormat, strtotime($thisEvent['hour']))).' '
+      . ( empty($thisEvent['lasting']) ? '' : $langLasting.' : '.$thisEvent['lasting'] );
 
   /*
    * Display the event content
@@ -536,22 +539,23 @@ foreach($eventList as $thisEvent)
   if ($is_allowedToEdit)
   {
     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id='.$thisEvent['id'].'">'
-        .'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="O" alt="'.$langModify.'">'
+        .'<img src="'.$imgRepositoryWeb.'edit.gif" border="O" alt="'.$langModify.'">'
         .'</a> '
         .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;id='.$thisEvent['id'].'" '
         .'onclick="javascript:if(!confirm(\''
         .addslashes (htmlspecialchars($langDelete.' '.$thisEvent['titre'].' ?'))
         .'\')) {document.location=\''.$_SERVER['PHP_SELF'].'\'; return false}" >'
-        .'<img src="'.$clarolineRepositoryWeb.'img/delete.gif" border="0" alt="'.$langDelete.'">'
+        .'<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'">'
         .'</a>'
         ;
   }
-  echo "</td>\n"
-      ."</tr>\n";
+  echo '</td>'."\n"
+     . '</tr>'."\n"
+     ;
 }   // end while
 
-echo "</table>";
+echo '</table>';
 
-include($includePath."/claro_init_footer.inc.php");
+include($includePath.'/claro_init_footer.inc.php');
 
 ?>

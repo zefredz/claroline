@@ -287,7 +287,7 @@ foreach($userList as $user)
             .'&amp;cmd=sub&amp;search='.$search
             .'&amp;user_id='.$user['ID']
             .'&amp;subas=stud'.$addToURL.'">'."\n"
-            .'<img src="'.$clarolineRepositoryWeb.'img/enroll.gif" border="0" alt="'.$langSubscribeUser.'" />'."\n"
+            .'<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" alt="'.$langSubscribeUser.'" />'."\n"
             .'</a>'."\n"
             .'</td>'."\n"
             ;
@@ -311,7 +311,7 @@ foreach($userList as $user)
             .'&amp;cmd=sub&amp;search='.$search
             .'&amp;user_id='.$user['ID']
             .'&amp;subas=teach'.$addToURL.'">'
-            .'<img src="'.$clarolineRepositoryWeb.'img/enroll.gif" border="0" alt="'.$langSubscribeUser.'" />'
+            .'<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" alt="'.$langSubscribeUser.'" />'
             .'</a>'."\n"
             .'</td>'."\n"
             ;

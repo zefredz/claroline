@@ -573,7 +573,7 @@ switch ($display)
                    "<td valign=top    align=\"center\">\n".
                    "<a    href=forum_admin.php".
                    "?forumgoedit=yes&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id.">".
-                   "<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"".$langModify."\" border=\"0\">".
+                   "<img src=\"".$imgRepositoryWeb."edit.gif\" alt=\"".$langModify."\" border=\"0\">".
                    "</a>".
                    "</td>\n".
                    "<td align=\"center\">".
@@ -581,7 +581,7 @@ switch ($display)
                    "<small><i>".$langCannotBeDeleted."</i></small>"
                    :
                    "<a    href=\"forum_admin.php?forumgodel=yes&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;ok=0\"    onclick=\"return confirmation('".addslashes(htmlentities($langAreYouSureToDelete .' \'' .$forum_name.'\'    ?'))."');\">".
-                   "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\"    alt=\"".$langDelete."\"    border=\"0\">".
+                   "<img src=\"".$imgRepositoryWeb."delete.gif\"    alt=\"".$langDelete."\"    border=\"0\">".
                    "</a>").
 
                    "</td>\n";
@@ -595,14 +595,14 @@ switch ($display)
                else
                {
                    echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMovedown&amp;moveForumId=".$thisForum['id']."&amp;moveCat=".$cat_id."&amp;cat_id=".$cat_id."&amp;forumgo=yes\">
-                   <img src=\"".$clarolineRepositoryWeb."img/down.gif\"></a>
+                   <img src=\"".$imgRepositoryWeb."down.gif\"></a>
                </td>";
                }
 
                if ( $iteratorInCat>1 )
                {
                    echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMoveup&amp;moveForumId=".$thisForum['id']."&amp;moveCat=".$cat_id."&amp;cat_id=".$cat_id."&amp;forumgo=yes\">
-                   <img src=\"".$clarolineRepositoryWeb."img/up.gif\"></a>
+                   <img src=\"".$imgRepositoryWeb."up.gif\"></a>
                </td>";
                }
                else
@@ -849,7 +849,7 @@ switch ($display)
     
                      ."<td align=\"center\">"
                      ."<a href=\"forum_admin.php?forumcatedit=yes&amp;cat_id=".$thisCategory['id']."\">"
-                     ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"".$langModify."\" border=\"0\">"
+                     ."<img src=\"".$imgRepositoryWeb."edit.gif\" alt=\"".$langModify."\" border=\"0\">"
                      ."</a>"
                      ."</td>\n"
     
@@ -860,7 +860,7 @@ switch ($display)
                     echo "<a href=\"forum_admin.php?"
                         ."forumcatdel=yes&amp;cat_id=".$thisCategory['id']."&amp;ok=0\" "
                         ."onclick=\"return confirmation('".addslashes(htmlentities($langAreYouSureToDelete .' \'' .$thisCategory['title'].'\' ?'))."');\">".
-                        "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" alt=\"".$langDelete."\" border=\"0\">".
+                        "<img src=\"".$imgRepositoryWeb."delete.gif\" alt=\"".$langDelete."\" border=\"0\">".
                         "</a>";
                 }
                 else
@@ -879,14 +879,14 @@ switch ($display)
                 else
                 {
                     echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMovedownCat&amp;moveCatId=".$thisCategory['id']."\">
-                            <img src=\"".$clarolineRepositoryWeb."img/down.gif\"></a>
+                            <img src=\"".$imgRepositoryWeb."down.gif\"></a>
                         </td>";
                 }
 
-                if ($iteratorInCat>1)
+                if ( $iteratorInCat > 1 )
                 {
                     echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMoveupCat&amp;moveCatId=".$thisCategory['id']."\">
-                            <img src=\"".$clarolineRepositoryWeb."img/up.gif\"></a>
+                            <img src=\"".$imgRepositoryWeb."up.gif\"></a>
                         </td>";
                 }
                 else

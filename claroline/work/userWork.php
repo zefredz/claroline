@@ -845,26 +845,26 @@ if(isset($_gid))
 
 $interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langWork);
 
-$interbredcrump[]= array ("url"=>"../work/workList.php?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId'], "name"=> $langAssignment);
+$interbredcrump[]= array ("url"=>"../work/workList.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], "name"=> $langAssignment);
 // add parameters in query string to prevent the 'refresh' interbredcrump link to display the list of works instead of the form
-$QUERY_STRING = "authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId'];
-$QUERY_STRING .= (isset($_REQUEST['wrkId']))?"&wrkId=".$_REQUEST['wrkId']:"";
-$QUERY_STRING .= "&cmd=".$_REQUEST['cmd'];
+$QUERY_STRING = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
+$QUERY_STRING .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
+$QUERY_STRING .= "&amp;cmd=".$_REQUEST['cmd'];
 if( $dispWrkDet || $dispWrkForm )
 {
       // bredcrump to return to the list when in a form
-      $interbredcrump[]= array ("url"=>"../work/userWork.php?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId'], "name" => $authName);
+      $interbredcrump[]= array ("url"=>"../work/userWork.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], "name" => $authName);
       // add parameters in query string to prevent the 'refresh' interbredcrump link to display the list of works instead of the form
-	  $QUERY_STRING = "authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId'];
-	  $QUERY_STRING .= (isset($_REQUEST['wrkId']))?"&wrkId=".$_REQUEST['wrkId']:"";
-      $QUERY_STRING .= "&cmd=".$_REQUEST['cmd'];
+	  $QUERY_STRING = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
+	  $QUERY_STRING .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
+      $QUERY_STRING .= "&amp;cmd=".$_REQUEST['cmd'];
       $nameTools = $langSubmittedWork;
 }
 else
 {
       $nameTools = $authName;
       // to prevent parameters to be added in the breadcrumb
-      $QUERY_STRING = 'authId='.$_REQUEST['authId'].'&assigId='.$_REQUEST['assigId']; 
+      $QUERY_STRING = 'authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId']; 
 }
 
 include($includePath.'/claro_init_header.inc.php');
@@ -902,8 +902,8 @@ if( $is_allowedToSubmit )
 			}
 			
             echo "<h4>".$txtForFormTitle."</h4>\n"
-				  ."<p><small><a href=\"".$_SERVER['SCRIPT_NAME']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."\">&lt;&lt;&nbsp;".$langBack."</a></small></p>\n"
-                  ."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']."&authId=".$_REQUEST['authId']."\" enctype=\"multipart/form-data\">\n"
+				  ."<p><small><a href=\"".$_SERVER['SCRIPT_NAME']."?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId']."\">&lt;&lt;&nbsp;".$langBack."</a></small></p>\n"
+                  ."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']."&amp;authId=".$_REQUEST['authId']."\" enctype=\"multipart/form-data\">\n"
                   ."<input type=\"hidden\" name=\"cmd\" value=\"".$cmdToSend."\">\n";
 
             if( isset($_REQUEST['wrkId']) )
@@ -1182,7 +1182,7 @@ if( $dispWrkLst )
 	if( isset($userGroupList[$_REQUEST['authId']]) || ($_REQUEST['authId'] == $_uid && $is_allowedToSubmit) || $is_allowedToEditAll )
     {
 		// link to create a new assignment
-		echo "<p><a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqSubWrk\">".$langSubmitWork."</a></p>\n";
+		echo "<p><a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId']."&amp;cmd=rqSubWrk\">".$langSubmitWork."</a></p>\n";
     }
 
 	if( is_array($wrkAndFeedbackLst) && count($wrkAndFeedbackLst) > 0  )
@@ -1279,7 +1279,7 @@ if( $dispWrkLst )
 			// display an alert if work was submitted after end date and work is not a correction !
 			if( $assignment['unix_end_date'] < $thisWrk['unix_creation_date'] && !$is_feedback )
 			{
-			      echo " <img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
+			      echo " <img src=\"".$imgRepositoryWeb."caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
 			}
 			echo "<br />\n";
 	            
@@ -1290,7 +1290,7 @@ if( $dispWrkLst )
 				// display an alert if work was submitted after end date and work is not a correction !
 				if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && !$is_feedback )
 				{
-					echo " <img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
+					echo " <img src=\"".$imgRepositoryWeb."caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
 				}			
 			}
 			echo "</p>\n";
@@ -1298,31 +1298,31 @@ if( $dispWrkLst )
 			if( $is_allowedToEditThisWrk )
 			{
 				// the work can be edited 
-				echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqEditWrk&wrkId=".$thisWrk['id']."\">"
-					."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>";
+				echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId']."&amp;cmd=rqEditWrk&amp;wrkId=".$thisWrk['id']."\">"
+					."<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>";
 			}
 			
 			if( $is_allowedToEditAll )
 			{
-				echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&cmd=exRmWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\">"
-				    ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>";
+				echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;cmd=exRmWrk&amp;assigId=".$_REQUEST['assigId']."&amp;wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\">"
+				    ."<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>";
 				
 				if ($thisWrk['visibility'] == "INVISIBLE")
 				{
-				    echo	"<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&cmd=exChVis&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&vis=v\">"
-				          ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
+				    echo	"<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;cmd=exChVis&amp;assigId=".$_REQUEST['assigId']."&amp;wrkId=".$thisWrk['id']."&amp;vis=v\">"
+				          ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
 				          ."</a>";
 				}
 				else
 				{
-				    echo	"<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&cmd=exChVis&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&vis=i\">"
-				          ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$langMakeInvisible."\">"
+				    echo	"<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;cmd=exChVis&amp;assigId=".$_REQUEST['assigId']."&amp;wrkId=".$thisWrk['id']."&amp;vis=i\">"
+				          ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"".$langMakeInvisible."\">"
 				          ."</a>";
 				}  
 				if( !$is_feedback )
 				{
 					// if there is no correction yet show the link to add a correction if user is course admin
-					echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqGradeWrk&wrkId=".$thisWrk['id']."\">".$langAddFeedback."</a>";
+					echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId']."&amp;cmd=rqGradeWrk&amp;wrkId=".$thisWrk['id']."\">".$langAddFeedback."</a>";
 				}
 			}
 			

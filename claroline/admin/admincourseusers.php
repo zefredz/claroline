@@ -297,7 +297,7 @@ foreach($resultList as $list)
 
      echo '<td align="center">'
 	      .'<a href="adminUserCourseSettings.php?cidToEdit='.$cidToEdit.'&amp;uidToEdit='.$list['user_id'].'&amp;ccfrom=culist">'
-          .'<img src="'.$clarolineRepositoryWeb.'img/'.$iconForCuStatus[$list['stat']].'" alt="'.$list['stat'].'" border="0"  hspace="4" title="'.$list['stat'].'" >'
+          .'<img src="'.$imgRepositoryWeb.$iconForCuStatus[$list['stat']].'" alt="'.$list['stat'].'" border="0"  hspace="4" title="'.$list['stat'].'" >'
 		  .'</a>'
 		  .'</td>';
      // Unregister
@@ -307,7 +307,7 @@ foreach($resultList as $list)
         echo  '<td align="center">'."\n"
             . '<a href="'.$_SERVER['PHP_SELF'].'?cidToEdit='.$cidToEdit.'&amp;cmd=unsub&amp;user_id='.$list['user_id'].'&amp;offset='.$offset.'" '
             . 'onClick="return confirmationReg(\''.addslashes($list['username']).'\');">'."\n"
-            . '<img src="'.$clarolineRepositoryWeb.'img/unenroll.gif" border="0" alt="'.$langUnsubscribe.'" />'."\n"
+            . '<img src="'.$imgRepositoryWeb.'unenroll.gif" border="0" alt="'.$langUnsubscribe.'" />'."\n"
             . '</a>'."\n"
             . '</td>'."\n";
      }

@@ -576,7 +576,7 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
     if( $is_allowedToEdit )
     {
 		// link to create a new assignment
-		echo "<p><a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkAssig\"><img src=\"".$clarolineRepositoryWeb."img/assignment.gif\" alt=\"\" />".$langCreateAssignment."</a></p>\n";
+		echo "<p><a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkAssig\"><img src=\"".$imgRepositoryWeb."assignment.gif\" alt=\"\" />".$langCreateAssignment."</a></p>\n";
     }
 
     /*--------------------------------------------------------------------
@@ -628,7 +628,7 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
 	  		."<th class=\"headerX\">\n";
 		if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
 		{
-			echo "<a href=\"workList.php?cmd=rqSubWrk&assigId=".$anAssignment['id']."&submitGroupWorkUrl=".$_REQUEST['submitGroupWorkUrl']."\">".$anAssignment['title']."</a>\n";
+			echo "<a href=\"workList.php?cmd=rqSubWrk&amp;assigId=".$anAssignment['id']."&amp;submitGroupWorkUrl=".$_REQUEST['submitGroupWorkUrl']."\">".$anAssignment['title']."</a>\n";
 		}
 		else
 		{
@@ -667,20 +667,20 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
       	{ 
         	echo "<tr".$style.">\n"
 				."<td>\n"
-		  		."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditAssig&assigId=".$anAssignment['id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>\n"
-				."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmAssig&assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",addslashes($anAssignment['title']),"');\"><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>\n"
+		  		."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditAssig&amp;assigId=".$anAssignment['id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>\n"
+				."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmAssig&amp;assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",addslashes($anAssignment['title']),"');\"><img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>\n"
 				;
 	        if ($anAssignment['visibility'] == "INVISIBLE")
 	        {
-	            echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$anAssignment['id']."&vis=v\">"
-	                  ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
+	            echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&amp;assigId=".$anAssignment['id']."&amp;vis=v\">"
+	                  ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
 	                  ."</a>"
 					  ;
 	        }
 	        else
 	        {
-	            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$anAssignment['id']."&vis=i\">"
-	                  ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$langMakeInvisible."\">"
+	            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&amp;assigId=".$anAssignment['id']."&amp;vis=i\">"
+	                  ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"".$langMakeInvisible."\">"
 	                  ."</a>"
 					  ;
 	        }          

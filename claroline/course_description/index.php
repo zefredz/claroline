@@ -317,12 +317,12 @@ if ( count($descList) )
 
         if ($is_allowedToEdit)
         {
-            echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&id='.$thisDesc['id'].'">'
-                .'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" alt="'.$langModify.'">'
+            echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id='.$thisDesc['id'].'">'
+                .'<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langModify.'">'
                 .'</a>'."\n"
-                .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&id='.$thisDesc['id'].'"'
+                .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;id='.$thisDesc['id'].'"'
                 .' onClick="if(!confirm(\''.$langAreYouSureToDelete.' '.$thisDesc['title'].' ?\')){ return false}">'
-                .'<img src="'.$clarolineRepositoryWeb.'img/delete.gif" alt="'.$langDelete.'">'
+                .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'">'
                 .'</a>'."\n";
         }
     }

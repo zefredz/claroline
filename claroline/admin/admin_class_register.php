@@ -206,8 +206,8 @@ foreach($resultList as $list)
      if ($list['id']==null)
      {
         echo  '<td align="center">'."\n"
-             .'<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&cmd=subscribe&user_id='.$list['user_id'].'&offset='.$offset.'#u'.$list['user_id'].'">'."\n"
-             .'<img src="'.$clarolineRepositoryWeb.'img/enroll.gif" border="0" alt="'.$langSubscribeClass.'" />'."\n"
+             .'<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&amp;cmd=subscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">'."\n"
+             .'<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" alt="'.$langSubscribeClass.'" />'."\n"
              .'</a>'."\n"
              .'</td>'."\n";
      }
@@ -223,8 +223,8 @@ foreach($resultList as $list)
      if ($list['id']!=null)
      {
         echo  '<td align="center">'."\n"
-             .'<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&cmd=unsubscribe&user_id='.$list['user_id'].'&offset='.$offset.'#u'.$list['user_id'].'">'."\n"
-             .'<img src="'.$clarolineRepositoryWeb.'img/unenroll.gif" border="0" alt="'.$langUnsubscribeClass.'" />'."\n"
+             .'<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&amp;cmd=unsubscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">'."\n"
+             .'<img src="'.$imgRepositoryWeb.'unenroll.gif" border="0" alt="'.$langUnsubscribeClass.'" />'."\n"
              .'</a>'."\n"
              .'</td>'."\n";
      }

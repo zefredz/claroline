@@ -169,9 +169,9 @@ if ($user_logged_in)
 
 if($is_forumAdmin)
 {
-   if ( isset($catId) && $catId>0 ) $toAdd = '?forumgo=yes&cat_id=' . $catId;
+   if ( isset($catId) && $catId>0 ) $toAdd = '?forumgo=yes&amp;cat_id=' . $catId;
    $toolBar[] = '<a class="claroCmd" href="../forum_admin/forum_admin.php' . $toAdd . '">'
-                ."<img src=\"".$clarolineRepositoryWeb."img/settings.gif\"> " 
+                ."<img src=\"".$imgRepositoryWeb."settings.gif\"> " 
                 .$langAdm
                 ."</a>\n";
 }
@@ -183,15 +183,15 @@ switch($pagetype)
 	case 'newtopic':
 
 		$toolBar [] =	$langBackTo.
-						"<a class=\"claroCmd\" href=\"".$url_phpbb."/viewforum.".$phpEx."?forum=".$forum."&gidReq=".$_gid."\">".
+						"<a class=\"claroCmd\" href=\"".$url_phpbb."/viewforum.".$phpEx."?forum=".$forum."&amp;gidReq=".$_gid."\">".
 						$forum_name.
 						"</a>\n";
 		break;
 
 	case 'viewforum':
 
-		$toolBar [] =	"<a class=\"claroCmd\" href=\"newtopic.php?forum=".$forum."&gidReq=".$_gid."\">"
-                       ."<img src=\"".$clarolineRepositoryWeb."img/topic.gif\"> "
+		$toolBar [] =	"<a class=\"claroCmd\" href=\"newtopic.php?forum=".$forum."&amp;gidReq=".$_gid."\">"
+                       ."<img src=\"".$imgRepositoryWeb."topic.gif\"> "
                        .$langNewTopic
                        ."</a>";
 
@@ -199,15 +199,15 @@ switch($pagetype)
 
 	case 'viewtopic':
 
-		$toolBar [] =	"<a class=\"claroCmd\" href=\"newtopic.php?forum=".$forum."&gidReq=".$_gid."\">"
-                       ."<img src=\"".$clarolineRepositoryWeb."img/topic.gif\"> "
+		$toolBar [] =	"<a class=\"claroCmd\" href=\"newtopic.php?forum=".$forum."&amp;gidReq=".$_gid."\">"
+                       ."<img src=\"".$imgRepositoryWeb."topic.gif\"> "
                        .$langNewTopic
                        ."</a>";
 
 		if($lock_state != 1)
 		{
-			$toolBar [] =	"<a class=\"claroCmd\" href=\"$url_phpbb/reply.php?topic=".$topic."&forum=".$forum."&gidReq=".$_gid."\">"
-            ."<img src=\"".$clarolineRepositoryWeb."img/reply.gif\"> "
+			$toolBar [] =	"<a class=\"claroCmd\" href=\"$url_phpbb/reply.php?topic=".$topic."&amp;forum=".$forum."&amp;gidReq=".$_gid."\">"
+            ."<img src=\"".$imgRepositoryWeb."reply.gif\"> "
 							.$langReply
 							."</a>\n";
 		}
@@ -255,7 +255,7 @@ switch($pagetype)
 			.$sitename," Forum Index"
 			."</a> "
 			.$l_separator
-			." <a href=\"".$url_phpbb."/viewforum.".$phpEx."?forum=".$forum."&gidReq=".$_gid."\">"
+			." <a href=\"".$url_phpbb."/viewforum.".$phpEx."?forum=".$forum."&amp;gidReq=".$_gid."\">"
 			.stripslashes($forum_name)
 			."</a>";
 

@@ -1,28 +1,22 @@
 <?php // $Id$
-/*
-  +----------------------------------------------------------------------+
-  | CLAROLINE version 1.3.2 $Revision$                            |
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-  +----------------------------------------------------------------------+
-  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
-  | available through the world-wide-web at                              |
-  | http://www.gnu.org/copyleft/gpl.html                                 |
-  +----------------------------------------------------------------------+
-  | Authors: Piraux Sébastien <pir@cerdecam.be>                          |
-  |          Lederer Guillaume <led@cerdecam.be>                         |
-  +----------------------------------------------------------------------+
-*/
+/**
+ * @version  CLAROLINE version 1.6
+ *
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
+ * @subpackage navigation
+ *
+ */
 
-/*======================================
-       CLAROLINE MAIN
-  ======================================*/
+require '../../inc/claro_init_global.inc.php';
+if (! $is_courseAllowed) claro_disp_auth_form();
 
-  require '../../inc/claro_init_global.inc.php';
-  if (! $is_courseAllowed) claro_disp_auth_form();
-
-  
-  // Tables names
 /*
  * DB tables definition
  */
@@ -42,16 +36,16 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   // lib of this tool
 
 
-  include($includePath."/lib/learnPath.lib.inc.php");
+  include($includePath.'/lib/learnPath.lib.inc.php');
 
   //lib of document tool
-  include($includePath."/lib/fileDisplay.lib.php");
+  include($includePath.'/lib/fileDisplay.lib.php');
   
   $lpUid =  $_uid;
   
   // header
   $hide_banner = true;
-  include($includePath."/claro_init_header.inc.php");
+  include($includePath.'/claro_init_header.inc.php');
   
   if($lpUid)
    {
@@ -76,7 +70,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
        LEFT JOIN `".$TABLEASSET."` AS A
               ON M.`startAsset_id` = A.`asset_id`       
             WHERE LPM.`module_id` = M.`module_id`
-              AND LPM.`learnPath_id` = ".$_SESSION['path_id']."
+              AND LPM.`learnPath_id` = '".$_SESSION['path_id']."'
               AND LPM.`visibility` = 'SHOW'
               AND LPM.`module_id` = M.`module_id`
          GROUP BY LPM.`module_id`
@@ -106,15 +100,23 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   }
 
   $moduleNameLength = 25; // size of 'name' to display in the list, the string will be partially displayed if it is more than $moduleNameLength letters long
-  
+
   // get the name of the learning path
   $lpName = claro_sql_query_fetch_all("SELECT `name` 
                                       FROM `".$TABLELEARNPATH."` 
-                                      WHERE `learnPath_id` = ".$_SESSION['path_id']);
+                                      WHERE `learnPath_id` = '".$_SESSION['path_id']."'");
                                       
-  echo "<p><b>".wordwrap($lpName[0]['name'],$moduleNameLength," ",1)."</b></p>\n"
-          ."<p><small>$langView : <a href=\"viewer.php?frames=0\" target=\"_top\">$langFullScreen</a> | <a href=\"viewer.php?frames=1\" target=\"_top\">$langInFrames</a></small>\n"
-          ."</p>\n<table width=\"100%\">\n";
+echo '<p><b>'.wordwrap($lpName[0]['name'],$moduleNameLength,' ',1).'</b></p>'."\n"
+   . '<p>'."\n"
+   . '<small>'
+   . $langView.' : '
+   . '<a href="viewer.php?frames=0" target="_top">'.$langFullScreen.'</a>'
+   . ' | '
+   . '<a href="viewer.php?frames=1" target="_top">'.$langInFrames.'</a>'
+   . '</small>'."\n"
+   . '</p>'."\n"
+   . '<table width="100%">'."\n"
+   ;
   
   $previous = ""; // temp id of previous module, used as a buffer in foreach
   $previousModule = ""; // module id that will be used in the previous link
@@ -123,7 +125,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   foreach ($flatElementList as $module)
   {
           if($module['contentType'] == CTEXERCISE_ ) 
-            $moduleImg = "quiz.gif";
+            $moduleImg = 'quiz.gif';
           else
             $moduleImg = choose_image(basename($module['path']));
             
@@ -138,7 +140,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
           }
           if ( $module['contentType'] == CTEXERCISE_ )
           {
-             $passExercise = ($module['credit']=="CREDIT");
+             $passExercise = ($module['credit']=='CREDIT');
           }
           else
           {
@@ -157,21 +159,21 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                  $passExercise = false;
              }
           }
-          echo "<tr>";
+          echo '<tr>';
           // display the current module name (and link if allowed)
-          $spacingString = "";
+          $spacingString = '';
           for($i = 0; $i < $module['children']; $i++)
-            $spacingString .= "<td>&nbsp;</td>";
+            $spacingString .= '<td>&nbsp;</td>';
           $colspan = $maxDeep - $module['children']+1;
             
           
           // spacing col
-          echo $spacingString."<td colspan=\"".$colspan."\"><small>";
+          echo $spacingString.'<td colspan="'.$colspan.'"><small>';
           if ( !$is_blocked )
           {
                 if($module['contentType'] == CTLABEL_) // chapter head
                 {
-                    echo "<b>".$module['name']."</b>";
+                    echo '<b>'.$module['name'].'</b>';
                 }
                 else
                 {
@@ -182,7 +184,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                     // bold the title of the current displayed module  
                     if( $_SESSION['module_id'] == $module['module_id'] )
                     {
-                      $displayedName = "<b>".$displayedName."</b>";
+                      $displayedName = '<b>'.$displayedName.'</b>';
                       $previousModule = $previous;
                     }
                     // store next value if user has the right to access it
@@ -190,8 +192,8 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                     {
                       $nextModule = $module['module_id'];
                     }
-                    echo "<a href=\"startModule.php?viewModule_id=".$module['module_id']."\" target=\"mainFrame\" title=\"".htmlentities($module['name'])."\">
-                          <img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt." : ".$module['name']."\" border=\"0\">".$displayedName."</a>";
+                    echo '<a href="startModule.php?viewModule_id='.$module['module_id'].'" target="mainFrame" title="'.htmlentities($module['name']).'">'
+                        .'<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.' : '.$module['name'].'" border="0">'.$displayedName.'</a>';
                 }
                 // a module ALLOW access to the following modules if
                 // document module : credit == CREDIT || lesson_status == 'completed'
@@ -216,16 +218,16 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
           {
                 if($module['contentType'] == CTLABEL_) // chapter head
                 {
-                  echo "<b>".$module['name']."</b>";
+                  echo '<b>'.$module['name'].'</b>';
                 }
                 else
                 {
                     if ( strlen($module['name']) > $moduleNameLength) 
-                      $displayedName = substr($module['name'],0,$moduleNameLength)."...";
+                      $displayedName = substr($module['name'],0,$moduleNameLength).'...';
                     else 
                       $displayedName = $module['name'];
                       
-                    echo "<img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">".$displayedName;
+                    echo '<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0">'.$displayedName;
                 }
           }
           if ($progress > 0)
@@ -233,29 +235,29 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             $globalProg =  $globalProg+$progress;
           }
            
-          echo "</small></td><td>"; 
+          echo '</small></td><td>'; 
 
-          if($module['contentType'] != CTLABEL_) 
+          if($module['contentType'] != CTLABEL_ )
           {
               $moduleNb++; // increment number of modules used to compute global progression except if the module is a title
 
               if($module['credit'] == 'CREDIT' || $module['lesson_status'] == 'COMPLETED' || $module['lesson_status'] == 'PASSED')
               {
-                echo "<img src=\"".$clarolineRepositoryWeb."img/mark.gif\" alt=\"".$module['lesson_status']."\" />";
+                echo '<img src="'.$imgRepositoryWeb.'mark.gif" alt="'.$module['lesson_status'].'" />';
               }
               else
               { 
-                echo "&nbsp;";
+                echo '&nbsp;';
               }
           }
           else
           {
-            echo "&nbsp;";
+            echo '&nbsp;';
           }
           
           
           $atleastOne = true;
-          echo "</td></tr>\n";
+          echo '</td></tr>'."\n";
           // used in the foreach the remember the id of the previous module_id
           // don't remember if label...
           if ($module['contentType'] != CTLABEL_ )
@@ -263,49 +265,49 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
           
           
   }
-  echo "</table>"; 
+  echo '</table>'; 
    
 
 
   //  set redirection link 
   if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
-    $returl = "../learningPathAdmin.php";
+    $returl = '../learningPathAdmin.php';
   else
-    $returl = "../learningPath.php";
+    $returl = '../learningPath.php';
 
-echo "<br />\n\n<center>";
+echo '<br />'."\n\n".'<center>';
 // display previous and next links only if there is more than one module
 if ( $moduleNb > 1 )
 {
-	$prevNextString = "<small>";
+	$prevNextString = '<small>';
 	
-	if( $previousModule != "" )
+	if( $previousModule != '' )
 	{
-	  $prevNextString .= "<a href=\"startModule.php?viewModule_id=".$previousModule."\" target=\"mainFrame\">".$langPrevious."</a>";
+	  $prevNextString .= '<a href="startModule.php?viewModule_id='.$previousModule.'" target="mainFrame">'.$langPrevious.'</a>';
 	}
 	else
 	{
 	  $prevNextString .=  $langPrevious;
 	}
-	$prevNextString .=  " | ";
+	$prevNextString .=  ' | ';
 	
-	if( $nextModule != "" )
+	if( $nextModule != '' )
 	{
-	  $prevNextString .=  "<a href=\"startModule.php?viewModule_id=".$nextModule."\" target=\"mainFrame\">".$langNext."</a>";
+	  $prevNextString .=  '<a href="startModule.php?viewModule_id='.$nextModule.'" target="mainFrame">'.$langNext.'</a>';
 	}
 	else
 	{
 	  $prevNextString .=  $langNext;
 	}  
-	$prevNextString .=  "<br /><br />\n";
+	$prevNextString .=  '<br /><br />'."\n";
 	
 	echo $prevNextString;
 }
 //  set redirection link 
 if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
-  $returl = "../learningPathAdmin.php";
+  $returl = '../learningPathAdmin.php';
 else
-  $returl = "../learningPath.php";
+  $returl = '../learningPath.php';
 ?>
 <form action="<?php echo $returl; ?>" method="post" target="_top">
        <input type="submit" value="<?php echo $langQuitViewer; ?>">
@@ -315,6 +317,6 @@ else
   
 <?php
   // footer
-  $hide_footer = true;
-  include($includePath."/claro_init_footer.inc.php");
+  $hide_footer = TRUE;
+  include($includePath.'/claro_init_footer.inc.php');
 ?>

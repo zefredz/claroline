@@ -1,23 +1,21 @@
 <?php // $Id$
-/*
-  +----------------------------------------------------------------------+
-  | CLAROLINE version 1.6.*
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-  +----------------------------------------------------------------------+
-  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
-  | available through the world-wide-web at                              |
-  | http://www.gnu.org/copyleft/gpl.html                                 |
-  +----------------------------------------------------------------------+
-  | Authors: Lederer Guillaume <led@cerdecam.be>                         |
-  |          Piraux Sébastien <pir@cerdecam.be>                          |
-  +----------------------------------------------------------------------+
-
-  DESCRIPTION:  This is the page where the list of modules of the course present on the platform can be browsed
-                user allowed to edit the course can delete the modules form this page
-  ****
-
-*/
+/**
+ * @version  CLAROLINE version 1.6
+ *
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
+ *
+ * This is the page where the list of modules of the course present 
+ * on the platform can be browsed
+ * user allowed to edit the course can 
+ * delete the modules form this page
+ */
 
 /*======================================
        CLAROLINE MAIN
@@ -262,19 +260,19 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
             echo "
                  <tr>
                     <td align=\"left\">
-                    <img src=\"".$clarolineRepositoryWeb."img/".$contentType_img."\" alt=\"".$contentType_alt."\" />".$list['name']."
+                    <img src=\"".$imgRepositoryWeb.$contentType_img."\" alt=\"".$contentType_alt."\" />".$list['name']."
                     </td>
                     <td align='center'>
-                     <a href=\"",$_SERVER['PHP_SELF'],"?cmd=eraseModule&cmdid=".$list['module_id']."\"
+                     <a href=\"",$_SERVER['PHP_SELF'],"?cmd=eraseModule&amp;cmdid=".$list['module_id']."\"
                         onClick=\"return confirmation('",htmlspecialchars(addslashes($list['name'])),$langUsedInLearningPaths,$list['timesUsed'],"');\">
-                        <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\" />
+                        <img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\" />
                         </a>
                     </td>
                     <td align=\"center\">
-                       <a href=\"",$_SERVER['PHP_SELF'],"?cmd=rename&module_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=0 alt=\"$langRename\" /></a>
+                       <a href=\"",$_SERVER['PHP_SELF'],"?cmd=rename&amp;module_id=".$list['module_id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=0 alt=\"$langRename\" /></a>
                     </td>
                     <td align=\"center\">
-                       <a href=\"",$_SERVER['PHP_SELF'],"?cmd=comment&module_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/comment.gif\" border=0 alt=\"$langComment\" /></a>
+                       <a href=\"",$_SERVER['PHP_SELF'],"?cmd=comment&amp;module_id=".$list['module_id']."\"><img src=\"".$imgRepositoryWeb."comment.gif\" border=0 alt=\"$langComment\" /></a>
                     </td>";
             echo "</tr>";
             /*

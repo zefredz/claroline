@@ -1,31 +1,23 @@
 <?php // $Id$
-/*
-  +----------------------------------------------------------------------+
-  | CLAROLINE version 1.6
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-  +----------------------------------------------------------------------+
-  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
-  | available through the world-wide-web at                              |
-  | http://www.gnu.org/copyleft/gpl.html                                 |
-  +----------------------------------------------------------------------+
-  | Authors: Piraux Sébastien <pir@cerdecam.be>                          |
-  |          Lederer Guillaume <led@cerdecam.be>                         |
-  +----------------------------------------------------------------------+
-*/
-
- /**
+/**
+ * @version  CLAROLINE version 1.6
+ *
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
+ * @subpackage navigation
+ *
   * This script is the main page loaded when user start viewing a module in the browser.
   * We define here the frameset containing the launcher module (SCO if it is a SCORM conformant one)
   * and a top and bottom frame to display the claroline banners.
   * If the module is an exercise of claroline, no frame is created,
   * we redirect to exercise_submit.php page in a path mode
   *
-  * @package learningpath
-  * @subpackage navigation
-  * @author Piraux Sébastien <pir@cerdecam.be>
-  * @author Lederer Guillaume <led@cerdecam.be>
-  * @filesource
   */
 
 /*======================================
@@ -39,12 +31,6 @@
  * DB tables definition
  */
 $tbl_cdb_names = claro_sql_get_course_tbl();
-//$tbl_mdb_names = claro_sql_get_main_tbl();
-//$tbl_admin           = $tbl_mdb_names['admin'            ];
-//$tbl_course          = $tbl_mdb_names['course'           ];
-//$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
-//$tbl_category        = $tbl_mdb_names['category'         ];
-//$tbl_user            = $tbl_mdb_names['user'             ];
 $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
 $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
 $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];

@@ -111,16 +111,16 @@ if ( isset($_uid) )  //anonymous user do not have this function
 
     if (is_topic_notification_requested($_uid, $topic))   // display link NOT to be notified
     {
-        echo "<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
+        echo "<img src=\"".$imgRepositoryWeb."email.gif\">"
             . $l_notify
-            ." [<a href=\"".$_SERVER['PHP_SELF']."?topic=".$topic."&cmd=exdoNotNotify\">"
+            ." [<a href=\"".$_SERVER['PHP_SELF']."?topic=".$topic."&amp;cmd=exdoNotNotify\">"
             .$langDisable
             ."</a>]";
     }
     else   //display link to be notified for this topic
     {
-        echo  "<a href=\"".$_SERVER['PHP_SELF']."?topic=".$topic."&cmd=exNotify\">"
-            ."<img src=\"".$clarolineRepositoryWeb."img/email.gif\"> "
+        echo  "<a href=\"".$_SERVER['PHP_SELF']."?topic=".$topic."&amp;cmd=exNotify\">"
+            ."<img src=\"".$imgRepositoryWeb."email.gif\"> "
             . $l_notify 
             ."</a>";
     }
@@ -148,7 +148,7 @@ if ( isset($_uid) )  //anonymous user do not have this function
         echo "<tr>\n"
 
             ."<th class=\"headerX\">\n"
-            ."<img src=\"".$clarolineRepositoryWeb."img/".$postImg."\" alt=\"\">"
+            ."<img src=\"".$imgRepositoryWeb.$postImg."\" alt=\"\">"
             .$l_author," : <b>",$thisPost['firstname']." ".$thisPost['lastname']."</b> "
             ."<small>".$l_posted." : ".$thisPost['post_time']."</small>\n"
             ."</th>\n"
@@ -162,7 +162,7 @@ if ( isset($_uid) )  //anonymous user do not have this function
 
                     // commentedby Thomas 30-11-2001
                     //  echo "<a href=\"".$url_phpbb."/reply.".$phpEx."?topic=".$topic
-                    //      ."&forum=".$forum."&post=".$thisPost['post_id']."&quote=1\">"
+                    //      ."&amp;forum=".$forum."&amp;post=".$thisPost['post_id']."&amp;quote=1\">"
                     //      .$langQuote
                     //      ."</a>&nbsp;&nbsp;";
 
@@ -171,14 +171,14 @@ if ( isset($_uid) )  //anonymous user do not have this function
             echo "<p>\n"
 
                 ."<a href=\"editpost.php"
-                ."?post_id=".$thisPost['post_id']."&topic=".$topic."&forum=".$forum."\">"
-                ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langEditDel."\">"
+                ."?post_id=".$thisPost['post_id']."&amp;topic=".$topic."&amp;forum=".$forum."\">"
+                ."<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langEditDel."\">"
                 ."</a>\n"
 
                 ."<a href=\"editpost.php"
-                ."?post_id=".$thisPost['post_id']."&topic=".$topic."&forum=".$forum
-                ."&delete=delete&submit=submit\">"
-                ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" "
+                ."?post_id=".$thisPost['post_id']."&amp;topic=".$topic."&amp;forum=".$forum
+                ."&amp;delete=delete&amp;submit=submit\">"
+                ."<img src=\"".$imgRepositoryWeb."delete.gif\" "
                      ."border=\"0\" alt\"".$langEditDel."\">"
                 ."</a>\n"
 

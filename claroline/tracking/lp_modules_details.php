@@ -3,7 +3,7 @@
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
@@ -205,7 +205,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                 $moduleImg = choose_image(basename($module['path']));
                 
               $contentType_alt = selectAlt($module['contentType']);
-              echo "<img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">".$module['name'];
+              echo "<img src=\"".$imgRepositoryWeb.$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">".$module['name'];
 
           }
           
@@ -244,7 +244,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
           //-- status
           echo "<td>";
           if($module['contentType'] == CTEXERCISE_ && $module['lesson_status'] != "" ) 
-            echo " <a href=\"userLog.php?uInfo=".$_GET['uInfo']."&view=0100000&exoDet=".$module['path']."\">".strtolower($module['lesson_status'])."</a>";
+            echo " <a href=\"userLog.php?uInfo=".$_GET['uInfo']."&amp;view=0100000&amp;exoDet=".$module['path']."\">".strtolower($module['lesson_status'])."</a>";
           else
             echo strtolower($module['lesson_status']);
           echo "</td>";

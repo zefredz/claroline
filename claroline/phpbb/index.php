@@ -1,20 +1,11 @@
-<?php //     $Id$
-/***************************************************************************
-                          index.php  -  description
-                             -------------------
-    begin                : Sat June 17 2000
-    copyright            : (C) 2001 The phpBB Group
-    email                : support@phpbb.com
- ***************************************************************************/
-
-/***************************************************************************
+<?php // $Id$
+/**
+ * index.php  -  description
+ * begin                : Sat June 17 2000
+ * @copyright            : (C) 2001 The phpBB Group
  *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
+ * @license GNU General Public License 
+ */
 $tlabelReq = 'CLFRM___';
 
 include 'functions.php';
@@ -162,7 +153,7 @@ for($i = 0; $i < $total_categories; $i++)
             }
 
             echo "<td align=\"center\" valign=\"top\" width=\"5%\">\n"
-                ."<img src=\"".$clarolineRepositoryWeb."img/".$forumImg."\">\n"
+                ."<img src=\"".$imgRepositoryWeb.$forumImg."\">\n"
                 ."</td>\n";
 
 
@@ -181,7 +172,7 @@ for($i = 0; $i < $total_categories; $i++)
                     || ! $groupForumPrivate)
                 {
                     echo "<a href=\"viewforum.php?gidReq=".$thisForum['gid']
-                        ."&forum=".$forumId."\">"
+                        ."&amp;forum=".$forumId."\">"
                         .$name
                         ."</a>\n";
 
