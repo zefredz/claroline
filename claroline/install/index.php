@@ -272,6 +272,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
 
     $databaseParam_ok = TRUE;
     if ($singleDbForm) $dbStatsForm = $dbNameForm;
+    if ($singleDbForm) $statsTblPrefixForm = $mainTblPrefixForm;
     $dbNameForm = trim($dbNameForm);
     $dbStatsForm = trim($dbStatsForm);
     $databaseNameValid = TRUE;
@@ -301,7 +302,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
     }
     else
     {
-        $db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
+        $db = @mysql_connect($dbHostForm, $dbUsernameForm, $dbPassForm);
         $valMain = check_if_db_exist($dbNameForm  ,$db);
         if ($dbStatsForm == $dbNameForm) $confirmUseExistingStatsDb = $confirmUseExistingMainDb ;
         if (!$singleDbForm) $valStat = check_if_db_exist($dbStatsForm ,$db);
@@ -356,7 +357,7 @@ if($_REQUEST['fromPanel'] == DISP_PLATFORM_SETTING || $_REQUEST['cmdDoInstall'])
     if (empty($urlForm))
     {
         $platformDataMissing = TRUE;
-        $missing_platform_data[]='the <B>complete url</b> to your campus (something like <em>http://'.$_SERVER['SERVER_NAME'].$urlAppendPath.'/</em>)';
+        $missing_platform_data[] = 'the <B>complete url</b> to your campus (something like <em>http://'.$_SERVER['SERVER_NAME'].$urlAppendPath.'/</em>)';
 
     }
 
