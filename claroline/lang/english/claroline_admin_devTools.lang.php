@@ -1,6 +1,7 @@
 <?php
 $langAddIntro = "Add introduction text";
 $langAdd_users = "Add users";
+$langAddedToCreator = "Course Home";
 $langAdmin = "Admin";
 $langAdministration = "Administration";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
@@ -15,6 +16,7 @@ $langConfirmYourChoice = "Please confirm your choice";
 $langContradiction = "Use the Principle of Non Contradiction to force one\'s interlocutor into a dead end.";
 $langCopy = "Copy";
 $langCourseDescription = "Write here the description that will appear in the course list.";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langCreateCourses = "Create course";
 $langCreateSite = "Create a course website";

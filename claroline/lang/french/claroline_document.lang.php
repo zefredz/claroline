@@ -12,6 +12,7 @@ $langChat = "Discussion";
 $langComMod = "commentaire modifié";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCopy = "Copier";
+$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langCreateDir = "Créer un répertoire";
 $langCreateDocument = "Créer un Document";

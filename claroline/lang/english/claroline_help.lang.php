@@ -48,6 +48,7 @@ post a message there.</p>
  and Ok to access your courses. The URL of the site is";
 $langCloseWindow = "Close window";
 $langConfirmYourChoice = "Please confirm your choice";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langDay_of_weekNames = "Array";
 $langDelete = "Delete";

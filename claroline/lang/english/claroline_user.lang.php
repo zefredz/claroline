@@ -37,6 +37,7 @@ $langConfirm = "Confirm";
 $langConfirmEnrollClassToCourse = "Are you sure you want to enrol the whole class on the course ?";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCourseAdministratorOnly = "Course administrator only";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langDay_of_weekNames = "Array";
 $langDear = "Dear";

@@ -10,6 +10,7 @@ $langCancel = "Cancel";
 $langChangedTool = "Tool accesses changed";
 $langChat = "Chat";
 $langConfirmYourChoice = "Please confirm your choice";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langCourseSettings = "Course settings";
 $langDay_of_weekNames = "Array";

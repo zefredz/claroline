@@ -8,6 +8,7 @@ $langChat = "Chat";
 $langChatResetBy = "Chat reset by";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCopyFailed = "Print failed";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langDateLastWrite = "Last message was on : ";
 $langDay_of_weekNames = "Array";

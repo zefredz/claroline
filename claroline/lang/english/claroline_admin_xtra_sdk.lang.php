@@ -12,6 +12,7 @@ $langChat = "Chat";
 $langCodeAppearAlready = "This official code already appears in a previous line of the CSV file.";
 $langCodeUsed = "This official code is already used by another user.";
 $langConfirmYourChoice = "Please confirm your choice";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langDay_of_weekNames = "Array";
 $langDelete = "Delete";

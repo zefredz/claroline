@@ -14,6 +14,7 @@ $langBack = "Retour";
 $langBrowserCannotSeeFrames = "Votre navigateur ne supporte pas les frames";
 $langChat = "Discussion";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
+$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langDate = "Date";
 $langDay_of_weekNames = "Array";

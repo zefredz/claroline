@@ -8,6 +8,7 @@ $langAnnouncement = "Annonces";
 $langChat = "Discussion";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCopy = "Copier";
+$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langCourse_Repository = "Dossier du cours";
 $langCourses = "Cours";

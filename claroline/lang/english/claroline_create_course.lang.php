@@ -21,6 +21,7 @@ $langConfirmYourChoice = "Please confirm your choice";
 $langContradiction = "Use the Principle of Non Contradiction to force one\'s interlocutor into a dead end.";
 $langCopy = "Copy";
 $langCourseDescription = "Write here the description that will appear in the course list.";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langCourseTitle = "Course title";
 $langCreateSite = "Create a course website";

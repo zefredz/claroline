@@ -8,6 +8,7 @@ $langChat = "Discussion";
 $langChatResetBy = "La discussion a été réinitialisée par";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCopyFailed = "La copie du fichier courant n'a pas été réussie...";
+$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langDateLastWrite = "Dernier message : ";
 $langDay_of_weekNames = "Array";

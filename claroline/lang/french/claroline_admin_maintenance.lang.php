@@ -8,14 +8,17 @@ $langCodeAppearAlready = "Ce code officiel apparait déjà dans une ligne précéden
 $langCodeUsed = "Ce code officiel est déjà utilisé par un autre utilisateur.";
 $langConfirm = "Confirmer";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
+$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langDay_of_weekNames = "Array";
 $langDelete = "Effacer";
 $langDescriptionCours = "Description du cours";
 $langDocument = "Documents et liens";
 $langDone = "Etapes terminées";
+$langEmpty = "vide";
 $langExercises = "Exercices";
 $langFailed = "<span style=\"color: red\">Echec</span>";
+$langFirstDefOfThisValue = "!!! Première définition de cette valeur !!!";
 $langForums = "Forums";
 $langGroups = "Groupes";
 $langHelp = "Aide";

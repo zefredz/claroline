@@ -8,6 +8,7 @@ $langCodeAppearAlready = "This official code already appears in a previous line 
 $langCodeUsed = "This official code is already used by another user.";
 $langConfirm = "Confirm";
 $langConfirmYourChoice = "Please confirm your choice";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langDay_of_weekNames = "Array";
 $langDelete = "Delete";

@@ -25,6 +25,7 @@ $langConfirmYourChoice = "Please confirm your choice";
 $langCountToolAccess = "Total number of connection to this course";
 $langCountUsers = "Number of users";
 $langCourseAccess = "Course access";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langDate = "Date";
 $langDay = "Day";

@@ -14,6 +14,7 @@ $langBack = "Back";
 $langBrowserCannotSeeFrames = "Your browser cannot see frames.";
 $langChat = "Chat";
 $langConfirmYourChoice = "Please confirm your choice";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langDate = "Date";
 $langDay_of_weekNames = "Array";

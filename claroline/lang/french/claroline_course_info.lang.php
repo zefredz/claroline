@@ -43,6 +43,7 @@ $langCourse = "Cours";
 $langCourseAccess = "Accès au cours";
 $langCourseContent = "Contenu du cours";
 $langCourseDescription = "Ecrivez ici la description qui apparaîtra dans la liste des cours (Le contenu de ce champ ne s\'affiche actuellement nulle part et ne se trouve ici qu\'en préparation à une version prochaine de Claroline).";
+$langCourseHome = "Accueil";
 $langCourseHomePage = "Page d'accueil du cours";
 $langCourseManager = "Gestionnaire de cours";
 $langCourseSettings = "Paramètres du cours";

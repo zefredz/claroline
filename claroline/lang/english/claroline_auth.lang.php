@@ -18,6 +18,7 @@ $langComment = "Comment";
 $langConfirmYourChoice = "Please confirm your choice";
 $langConfirmation = "Confirmation";
 $langCopy = "Copy";
+$langCourseHome = "Course Home";
 $langCourseList = "Course list";
 $langCourseManager = "Course manager";
 $langCourseManagerStatusToUser = "Course creator status to %s %s";

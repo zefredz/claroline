@@ -21,6 +21,7 @@ $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langContradiction = "Utiliser le principe de non-contradiction pour amener son interlocuteur dans l\'impasse.";
 $langCopy = "Copier";
 $langCourseDescription = "Ecrivez ici la description qui apparaîtra dans la liste des cours (Le contenu de ce champ ne s\'affiche actuellement nulle part et ne se trouve ici qu\'en préparation à une version prochaine de Claroline).";
+$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langCourseTitle = "Titre du cours";
 $langCreateSite = "Créer un site de cours";

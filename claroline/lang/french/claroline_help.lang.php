@@ -20,6 +20,7 @@ pour vous rappeler le nom d'utilisateur et le mot de passe à introduire lors de 
 </p>";
 $langCloseWindow = "Fermer la fenêtre";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
+$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langDay_of_weekNames = "Array";
 $langDelete = "Effacer";

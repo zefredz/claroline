@@ -9,6 +9,7 @@ $langConfirmDeleteGroups = "Etes-vous sûr de vouloir supprimer tous les groupes 
 $langConfirmEmptyGroups = "Êtes vous sûr de vouloir vider tous les groupes ?";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCopy = "Copier";
+$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langCreate = "créer";
 $langDay_of_weekNames = "Array";

@@ -7,6 +7,7 @@ $langAgenda = "Agenda";
 $langAnnouncement = "Announcements";
 $langChat = "Chat";
 $langConfirmYourChoice = "Please confirm your choice";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langDay_of_weekNames = "Array";
 $langDelete = "Delete";

@@ -62,6 +62,7 @@ $langCountUsersByStatus = "Number of users by status";
 $langCourseAccess = "Course access";
 $langCourseCreator = "Course creator";
 $langCourseDelete = "The course has been successfully deleted";
+$langCourseHome = "Course Home";
 $langCourseList = "Course list";
 $langCourseManager = "Course manager";
 $langCourseSettings = "Course settings";

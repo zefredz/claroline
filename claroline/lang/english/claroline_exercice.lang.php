@@ -42,6 +42,7 @@ $langConfirmDeleteExercise = "Are you sure you want to delete this exercise ?";
 $langConfirmDeleteQuestion = "Are you sure you want to completely delete this question ?";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCorrespondsTo = "Corresponds to";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langCurrentTime = "Current time";
 $langDate = "Date";

@@ -76,6 +76,7 @@ $langBack = "Back";
 $langBackTo = "Back to :";
 $langChat = "Chat";
 $langConfirmYourChoice = "Please confirm your choice";
+$langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langDay_of_weekNames = "Array";
 $langDear = "Dear";

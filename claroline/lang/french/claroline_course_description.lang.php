@@ -16,10 +16,16 @@ Quelle sera la séquence des contenus&nbsp;?
 Quelle sera la progression dans les contenus&nbsp;?";
 $langCourseContentComment2 = "Présentation de la table des matières du cours, de la structuration du 
 contenu, de la progression et du calendrier";
+$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langCourseProgram = "Description du cours";
 $langDay_of_weekNames = "Array";
 $langDelete = "Effacer";
+$langDescAdded = "Description ajoutée.";
+$langDescDeleted = "Description supprimée.";
+$langDescUnableToDelete = "Impossible de supprimer";
+$langDescUnableToUpdate = "Impossible de mettre à jour";
+$langDescUpdated = "Description mise à jour..";
 $langDescription = "Description";
 $langDescriptionComment1 = "Quelle est la place et la spécificité du cours dans le programme&nbsp;?
 Existe-t-il des cours pré-requis&nbsp;?
@@ -94,6 +100,7 @@ $langTextEditorDisable = "Désactiver l'éditeur de texte";
 $langTextEditorEnable = "Activer l'éditeur de texte";
 $langThisCourseDescriptionIsEmpty = "La description de ce cours est vide";
 $langTitle = "Titre";
+$langUnableDescToAdd = "Impossible d'ajouter la description";
 $langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langValid = "Enregistrer";

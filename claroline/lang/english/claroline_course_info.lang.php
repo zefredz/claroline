@@ -44,6 +44,7 @@ $langCourse = "Course";
 $langCourseAccess = "Course access";
 $langCourseContent = "Course content";
 $langCourseDescription = "Write here the description that will appear in the course list.";
+$langCourseHome = "Course Home";
 $langCourseHomePage = "Course Home Page";
 $langCourseManager = "Course manager";
 $langCourseSettings = "Course settings";

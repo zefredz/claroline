@@ -36,6 +36,7 @@ $langChooseDateHelper = "(d/m/y hh:mm)";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCopy = "Copier";
 $langCourseAdministratorOnly = "Réservé à l'administrateur du cours";
+$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langCreateAssignment = "Créer un nouveau travail";
 $langCurrentAttachedDoc = "Fichier attaché actuel";

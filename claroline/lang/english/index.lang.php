@@ -7,6 +7,7 @@ $langCategories = "Categories";
 $langChat = "Chat";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCourseCreate = "Create a course site";
+$langCourseHome = "Course Home";
 $langCourseList = "Course list";
 $langCourseManager = "Course manager";
 $langDay_of_weekNames = "Array";

@@ -6,6 +6,7 @@ $langAnnouncement = "Annonces";
 $langChat = "Discussion";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCouldNot = "Le fichier n'a pas pu être envoyé";
+$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langDay_of_weekNames = "Array";
 $langDelete = "Effacer";

@@ -10,6 +10,7 @@ $langAnnouncement = "Annonces";
 $langBackList = "Retour à la liste";
 $langChat = "Discussion";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
+$langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langDay_of_weekNames = "Array";
 $langDelete = "Effacer";

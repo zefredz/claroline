@@ -18,6 +18,7 @@ $langComment = "Commentaire";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langConfirmation = "Confirmation";
 $langCopy = "Copier";
+$langCourseHome = "Accueil";
 $langCourseList = "Liste des cours";
 $langCourseManager = "Gestionnaire de cours";
 $langDay_of_weekNames = "Array";
