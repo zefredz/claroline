@@ -3,6 +3,11 @@
 // AUTHENTICATION //
 //// PASSWORD //////
 
+// STATUS //
+
+define ("COURSEMANAGER",1);
+define ("STUDENT",      5);
+
 // check if the password is not too much easy to find
 define ('SECURE_PASSWORD_REQUIRED', true);
 
