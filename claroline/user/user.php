@@ -1,6 +1,4 @@
 <?php // $Id$
-
-
 $langFile = 'registration';
 $tlabelReq = "CLUSR___";
 require '../inc/claro_init_global.inc.php';
@@ -312,10 +310,10 @@ while (list(,$thisUser) = each($users))
 
 		while (list($thisGroupsNo,$thisGroupsName)=each($userGroups))
 		{
-			echo 	"\n<div>",
-					"\n",$thisGroupsName["nameTeam"],"",
-					"\n<small>(".$thisGroupsNo.")</small>",
-					"\n</div>";
+			echo  '<div>'
+				 .$thisGroupsName["nameTeam"]
+				 .'<small>('.$thisGroupsNo.')</small>'
+				 .'</div>';
 		}
 
 		echo "\n</td>\n";
@@ -366,22 +364,22 @@ while (list(,$thisUser) = each($users))
 
 		if ($thisUser["user_id"] != $_uid)
 		{
-			echo   '<a href="'.$_SERVER['PHP_SELF'].'?unregister=yes&user_id='.$thisUser['user_id'].'" '
+			echo   '<a href="'.$_SERVER['PHP_SELF'].'?unregister=yes&amp;user_id='.$thisUser['user_id'].'" '
 				  .'onClick="return confirmation(\''.$langUnreg .' '.$thisUser['nom'].' '.$thisUser['prenom'].'\');">'
 				  .'<img border="0" alt="'.$langUnreg.'" src="'.$clarolineRepositoryWeb.'img/unenroll.gif">'
 				  .'</a>';
 		}
 
-		echo	"</td>\n";
+		echo	'</td>'."\n";
 	}													// END - is_allowedToEdit
 
-	echo	"</tr>\n";
+	echo	'</tr>'."\n";
 
 	$previousUser = $thisUser['user_id'];
 } 							// END - while fetch_array
 
-echo	'</tbody>'
-		.'</table>';
+echo '</tbody>'
+	.'</table>';
 
 echo $navLink;
 
