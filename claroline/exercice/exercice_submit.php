@@ -210,20 +210,13 @@ if($HTTP_POST_VARS['questionNum'])
 
 if ($_SESSION['inPathMode'] == true) 
 {
-	// echo minimal html page header so that the page is valid
-	echo "<html>
-		<head>
-			<title>".$exerciseTitle."</title>
-			<link rel=\"stylesheet\" type=\"text/css\" href=\"".$clarolineRepositoryWeb."css/".$claro_stylesheet."\"  />
-		</head>
-		<body>";
+	$hide_banner = true;
 }
 else
 {
   $interbredcrump[]=array("url" => "exercice.php","name" => $langExercices);
-  include($includePath.'/claro_init_header.inc.php');
 }
-
+include($includePath.'/claro_init_header.inc.php');
 
 // EXERCISE  PROPERTIES HANDLING
 $statusMsg = "<p>";
@@ -389,14 +382,11 @@ else
 {
   echo "<small>".$statusMsg."</small>";
 }
+
 if ($_SESSION['inPathMode'] == true) 
 {	
 	// echo minimal html footer so that the page is valid
-	echo '		</body>
-		</html>';
+	$hide_footer = true;
 }
-else
-{
- 	include($includePath.'/claro_init_footer.inc.php');
-}
+include($includePath.'/claro_init_footer.inc.php');
 ?>
