@@ -24,7 +24,7 @@ $langConfirmDelete = "Are you sure to delete all groups ?";
 $langGroupsAdded="group(s) has (have) been added";
 $langGroupsDeleted="All groups have been deleted";
 $langGroupDel="Group deleted";
-
+$langConfirmEmpty = "Are you sure to empty all groups ?";
 
 $langGroupsEmptied="All groups are now empty";
 $langEmtpyGroups="Empty all groups";
