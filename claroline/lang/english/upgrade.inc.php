@@ -54,7 +54,8 @@ $langIntroStep3 = "<p>Now the Claroline upgrade tool is going update (directorie
                    <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
                    this operation may take some time.</p>";
 $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
-
+$langIntroStep3Run = "<p>The claroline upgrade tool proceeds to the course data upgrade</p>" ;
+$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on %s already upgraded</strong><br /></p>";
 
 /* stuff for all */
 
