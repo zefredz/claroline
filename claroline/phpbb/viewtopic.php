@@ -20,8 +20,8 @@ session_start();
  *
  ***************************************************************************/
 
-include 'functions.php';
-include 'config.php';
+require 'functions.php';
+require 'config.php';
 require 'auth.php';
 
 $pagetitle = $l_topictitle;

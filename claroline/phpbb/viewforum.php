@@ -20,8 +20,8 @@ session_start();
  *   (at your option) any later version.
  *
  ***************************************************************************/
-include 'functions.php';
-include 'config.php';
+require 'functions.php';
+require 'config.php';
 require 'auth.php';
 
 $pagetitle = $l_viewforum;

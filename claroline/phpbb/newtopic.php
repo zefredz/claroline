@@ -30,8 +30,8 @@ if($cancel)
 	exit();
 }
 
-include 'functions.php';
-include 'config.php';
+require 'functions.php';
+require 'config.php';
 require 'auth.php';
 
 $pagetitle = 'New Topic';

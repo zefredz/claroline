@@ -21,10 +21,10 @@ session_start();
  *
  ***************************************************************************/
 
-include 'functions.php';
-include 'config.php';
+require 'functions.php';
+require 'config.php';
 require 'auth.php';
-include 'page_header.php';
+require 'page_header.php';
 
 
 if($is_courseAdmin)
