@@ -60,6 +60,7 @@ require '../inc/claro_init_global.inc.php';
 include($includePath.'/conf/announcement.conf.inc.php');
 include($includePath.'/lib/text.lib.php');
 include($includePath.'/lib/events.lib.inc.php');
+include($includePath.'/lib/claro_mail.lib.inc.php');
 
 
 //set flag following init settings
@@ -254,83 +255,59 @@ if($is_allowedToEdit) // check teacher status
 
         /* SEND EMAIL (OPTIONAL) */
 
-	if($emailOption==1)
+	    if($emailOption==1)
         {
+			// sender name and email
+	    	$courseSender =  $_user['firstName'] . ' ' . $_user['lastName'];
+	    
+			// email subject
+	    	$emailSubject = "[" . $siteName. " - " . $_course['officialCode'] . "] ";
+			if (trim($_REQUEST['title'])) $emailSubject .= stripslashes(trim($_REQUEST['title']));
+            else                          $emailSubject .= $professorMessage;
 
-	    // announcement variables
+			// email message
+        	$msgContent = stripslashes($newContent);
+        	$msgContent = preg_replace('/<br( \/)?>/',"\n",$msgContent);
+        	$msgContent = preg_replace('/<p>/',"\n\n",$msgContent);
+        	$msgContent = preg_replace('/  /',' ',$msgContent);
+        	$msgContent = html_entity_decode($msgContent);
+	    	$msgContent = strip_tags($msgContent);
+        
+        	$emailBody = $msgContent . "\n" .
+            	         "\n" .
+                	     '--' . "\n" . 
+                    	 $courseSender . "\n" . 
+	                     $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" . 
+    	                 $siteName . "\n";
 
-	    $msgTitle   = trim($_REQUEST['title']);
-	    $msgContent = stripslashes(strip_tags($newContent));
+	        // Select students email list
+    	    $sql = "SELECT user.user_id
+	                FROM ".$mainDbName.".cours_user, ".$mainDbName.".user
+    	            WHERE code_cours=\"".$courseId."\"
+	                AND cours_user.user_id = user.user_id";
+    	    $result = claro_sql_query($sql);
 
-	    // sender name and email
+			// count
+	        $countEmail = mysql_num_rows($result);
+			$countUnvalid = 0;
+			$messageFailed = "";
 
-	    $courseSender =  $_user['firstName'] . ' ' . $_user['lastName'];
-	    $courseEmailSender =   addslashes($courseSender) . " <" .$_user['mail'] . ">";
-            $errorManager = $administrator['email'];
-
-            // Here we are forming one large header line
-            // Every header must be followed by a \n except the last
-
-            $emailHeaders  = 'From: ' . $courseEmailSender . "\n";
-            $emailHeaders .= 'Reply-To: '. $courseEmailSender ."\n";
-            $emailHeaders .= 'Return-path: '.$errorManager."\n";
-            $emailHeaders .= 'Errors-To: '.$errorManager."\n";
-            $emailHeaders .= "MIME-Version: 1.0\n";
-            $emailHeaders .= "X-Priority: 2\n";
-            $emailHeaders .= "X-Mailer: PHP / ".phpversion()."\n";
-            $emailHeaders .= "Comments: Announcement email ";
-            
-	    // email subject
-
-	    $emailSubject = "[" . $siteName. " - " . $_course['officialCode'] . "] " . $messageTitle;
-
-            // Select students email list
-
-            $sql = "SELECT user.email, user.prenom, user.nom
-                    FROM ".$mainDbName.".cours_user, ".$mainDbName.".user
-                    WHERE code_cours=\"".$courseId."\"
-                    AND cours_user.user_id = user.user_id";
-
-            $result = claro_sql_query($sql);
-
-            $countEmail = mysql_num_rows($result);
-
-            // Email syntax test
-            $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
-            $unvalid=0;
-
-            // send email one by one to avoid antispam
-            while ( $myrow = mysql_fetch_array($result) )
-            {
-                $emailTo=$myrow["email"];
-                // echo "emailTo : $emailTo<br>";	// testing
-                // check email syntax validity
-                if(!eregi( $regexp, $emailTo ))
-                {
-                    $unvalid++;
-                }
-
-                $emailBody = $myrow['prenom'].' '.$myrow['nom'].",\n" .
-                             "\n" .
-                             $msgContent . "\n" .
-                             "\n" .
-                             '--' . "\n" . 
-                             $courseSender . "\n" . 
-                             $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" . 
-                             $siteName . "\n". 
-                             '('. $msgTitle . ')';
-                @mail($emailTo, $emailSubject, $emailBody, $emailHeaders);
-            }
-
-            $messageUnvalid= $langOn.' '.$countEmail.' '.$langRegUser.', '.$unvalid.' '.$langUnvalid;
-            $message .= ' '.$langEmailSent.'<br><b>'.$messageUnvalid.'</b>';
+		    // send email one by one to avoid antispam
+	        while ( $myrow = mysql_fetch_array($result) )
+	        {
+				if (!claro_mail_user($myrow['user_id'], $emailBody, $emailSubject, $_user['mail'], $courseSender))
+				{
+					$messageFailed.= claro_get_last_failure() . "<br />";
+					$countUnvalid++;
+				}
+	        }
+            $messageUnvalid= $langOn.' '.$countEmail.' '.$langRegUser.', '.$countUnvalid.' '.$langUnvalid;
+            $message .= ' '.$langEmailSent.'<br><b>'.$messageUnvalid.'</b><br />';
+			$message .= $messageFailed;
 
         }   // end if $emailOption==1
-
     }   // end if $submit Announcement
 } // end if is_allowedToEdit
-
-
 
 /*============================================================================
                                 DISPLAY SECTION
