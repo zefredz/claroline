@@ -998,6 +998,12 @@ if ( $_gid && $is_groupAllowed) $titleElement['subTitle'] = $_group['name'];
 claro_disp_tool_title($titleElement, 
                       $is_allowedToEdit ? 'help_document.php' : false);
 
+if ($is_courseAdmin)
+{
+    claro_disp_tool_view_option($_REQUEST['viewMode']);
+}
+
+$is_allowedToEdit = claro_is_allowed_to_edit();
 
 	if($is_allowedToEdit)
 	{

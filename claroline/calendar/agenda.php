@@ -67,6 +67,14 @@ else                 $subTitle = '';
 
 claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
+if ($is_courseAdmin)
+{
+    claro_disp_tool_view_option($_REQUEST['viewMode']);
+}
+
+$is_allowedToEdit = claro_is_allowed_to_edit();
+
+
 if ($is_allowedToEdit)
 {
     if ($cmd == 'exAdd')

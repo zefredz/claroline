@@ -23,23 +23,23 @@
 
 function claro_sql_get_main_tbl()
 {
-	global $mainDbName;
+    global $mainDbName;
 
-	$mainDb	= $mainDbName;
+    $mainDb = $mainDbName;
 
-	static $mainTblList	= array();
+    static $mainTblList = array();
 
-	if ( count($mainTblList) ==	0 )
-	{
-		$mainTblList['admin'		  		]	= $mainDb.'`.`admin';
-		$mainTblList['cours'		  		]	= $mainDb.'`.`cours';
-		$mainTblList['rel_course_user']	= $mainDb.'`.`cours_user';
-		$mainTblList['category'		  	]	= $mainDb.'`.`faculte';
-		$mainTblList['todo'			  	]	= $mainDb.'`.`todo';
-		$mainTblList['user'			  	]	= $mainDb.'`.`user';
-	}
+    if ( count($mainTblList) == 0 )
+    {
+        $mainTblList['admin'            ] = $mainDb.'`.`admin';
+        $mainTblList['cours'            ] = $mainDb.'`.`cours';
+        $mainTblList['rel_course_user'  ]           = $mainDb.'`.`cours_user';
+        $mainTblList['category'         ] = $mainDb.'`.`faculte';
+        $mainTblList['todo'             ] = $mainDb.'`.`todo';
+        $mainTblList['user'             ] = $mainDb.'`.`user';
+    }
 
-	return $mainTblList;
+    return $mainTblList;
 }
 
 
@@ -47,100 +47,101 @@ function claro_sql_get_main_tbl()
 
 /**
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @return array list of the current course	database tables
+ * @return array list of the current course database tables
  */
 
 function claro_sql_get_course_tbl()
 {
-	static $courseTblList =	array();
+    static $courseTblList = array();
 
-	if ( count($course_tbl)	== 0 )
-	{
-        $courseTblList['announcement'          ] = $courseDb.'announcement';
-        $courseTblList['assignment_doc'        ] = $courseDb.'assignment_doc';
-        $courseTblList['bb_access'             ] = $courseDb.'bb_access';
-        $courseTblList['bb_banlist'            ] = $courseDb.'bb_banlist';
-        $courseTblList['bb_categories'         ] = $courseDb.'bb_categories';
-        $courseTblList['bb_config'             ] = $courseDb.'bb_config';
-        $courseTblList['bb_disallow'           ] = $courseDb.'bb_disallow';
-        $courseTblList['bb_forum_access'       ] = $courseDb.'bb_forum_access';
-        $courseTblList['bb_forum_mods'         ] = $courseDb.'bb_forum_mods';
-        $courseTblList['bb_forums'             ] = $courseDb.'bb_forums';
-        $courseTblList['bb_headermetafooter'   ] = $courseDb.'bb_headermetafooter';
-        $courseTblList['bb_posts'              ] = $courseDb.'bb_posts';
-        $courseTblList['bb_posts_text'         ] = $courseDb.'bb_posts_text';
-        $courseTblList['bb_priv_msgs'          ] = $courseDb.'bb_priv_msgs';
-        $courseTblList['bb_ranks'              ] = $courseDb.'bb_ranks';
-        $courseTblList['bb_sessions'           ] = $courseDb.'bb_sessions';
-        $courseTblList['bb_themes'             ] = $courseDb.'bb_themes';
-        $courseTblList['bb_topics'             ] = $courseDb.'bb_topics';
-        $courseTblList['bb_users'              ] = $courseDb.'bb_users';
-        $courseTblList['bb_whosonline'         ] = $courseDb.'bb_whosonline';
-        $courseTblList['bb_words'              ] = $courseDb.'bb_words';
-        $courseTblList['calendar_event'        ] = $courseDb.'calendar_event';
-        $courseTblList['course_description'    ] = $courseDb.'course_description';
-        $courseTblList['document'              ] = $courseDb.'document';
-        $courseTblList['group_property'        ] = $courseDb.'group_property';
-        $courseTblList['group_rel_team_user'   ] = $courseDb.'group_rel_team_user';
-        $courseTblList['group_team'            ] = $courseDb.'group_team';
-        $courseTblList['link'                  ] = $courseDb.'link';
-        $courseTblList['quiz_answer'           ] = $courseDb.'quiz_answer';
-        $courseTblList['quiz_question'         ] = $courseDb.'quiz_question';
-        $courseTblList['quiz_rel_test_question'] = $courseDb.'quiz_rel_test_question';
-        $courseTblList['quiz_test'             ] = $courseDb.'quiz_test' ;
-        $courseTblList['tool_intro'            ] = $courseDb.'tool_intro';
-        $courseTblList['tool_list'             ] = $courseDb.'tool_list';
-        $courseTblList['userinfo_content'      ] = $courseDb.'userinfo_content';
-        $courseTblList['userinfo_def'          ] = $courseDb.'userinfo_def';
-        $courseTblList['work_student'          ] = $courseDb.'work_student';
+    if ( count($course_tbl) == 0 )
+    {
+      $courseTblList['announcement'          ] = $courseDb.'announcement';
+      $courseTblList['assignment_doc'        ] = $courseDb.'assignment_doc';
+      $courseTblList['bb_access'             ] = $courseDb.'bb_access';
+      $courseTblList['bb_banlist'            ] = $courseDb.'bb_banlist';
+      $courseTblList['bb_categories'         ] = $courseDb.'bb_categories';
+      $courseTblList['bb_config'             ] = $courseDb.'bb_config';
+      $courseTblList['bb_disallow'           ] = $courseDb.'bb_disallow';
+      $courseTblList['bb_forum_access'       ] = $courseDb.'bb_forum_access';
+      $courseTblList['bb_forum_mods'         ] = $courseDb.'bb_forum_mods';
+      $courseTblList['bb_forums'             ] = $courseDb.'bb_forums';
+      $courseTblList['bb_headermetafooter'   ] = $courseDb.'bb_headermetafooter';
+      $courseTblList['bb_posts'              ] = $courseDb.'bb_posts';
+      $courseTblList['bb_posts_text'         ] = $courseDb.'bb_posts_text';
+      $courseTblList['bb_priv_msgs'          ] = $courseDb.'bb_priv_msgs';
+      $courseTblList['bb_ranks'              ] = $courseDb.'bb_ranks';
+      $courseTblList['bb_sessions'           ] = $courseDb.'bb_sessions';
+      $courseTblList['bb_themes'             ] = $courseDb.'bb_themes';
+      $courseTblList['bb_topics'             ] = $courseDb.'bb_topics';
+      $courseTblList['bb_users'              ] = $courseDb.'bb_users';
+      $courseTblList['bb_whosonline'         ] = $courseDb.'bb_whosonline';
+      $courseTblList['bb_words'              ] = $courseDb.'bb_words';
+      $courseTblList['calendar_event'        ] = $courseDb.'calendar_event';
+      $courseTblList['course_description'    ] = $courseDb.'course_description';
+      $courseTblList['document'              ] = $courseDb.'document';
+      $courseTblList['group_property'        ] = $courseDb.'group_property';
+      $courseTblList['group_rel_team_user'   ] = $courseDb.'group_rel_team_user';
+      $courseTblList['group_team'            ] = $courseDb.'group_team';
+      $courseTblList['link'                  ] = $courseDb.'link';
+      $courseTblList['quiz_answer'           ] = $courseDb.'quiz_answer';
+      $courseTblList['quiz_question'         ] = $courseDb.'quiz_question';
+      $courseTblList['quiz_rel_test_question'] = $courseDb.'quiz_rel_test_question';
+      $courseTblList['quiz_test'             ] = $courseDb.'quiz_test' ;
+      $courseTblList['tool_intro'            ] = $courseDb.'tool_intro';
+      $courseTblList['tool_list'             ] = $courseDb.'tool_list';
+      $courseTblList['userinfo_content'      ] = $courseDb.'userinfo_content';
+      $courseTblList['userinfo_def'          ] = $courseDb.'userinfo_def';
+      $courseTblList['work_student'          ] = $courseDb.'work_student';
 
-	} // end if	( count($course_tbl) ==	0 )
+    } // end if ( count($course_tbl) == 0 )
 
-	return $courseTbl;
+    return $courseTbl;
 }
+
 
 
 
 
 /**
  * Claroline mySQL query wrapper. It also provides a debug display which works 
- * when	the	CLARO_DEBUG_MODE constant flag is set to on	(true)
+ * when the CLARO_DEBUG_MODE constant flag is set to on (true)
  *
+ * @author Hugues Peeters    <peeters@ipm.ucl.ac.be>, 
  * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
- * @author Hugues Peeters	 <peeters@ipm.ucl.ac.be>, 
  * @param  string  $sqlQuery   - the sql query
  * @param  handler $dbHandler  - optional
- * @return handler			   - the result	handler
+ * @return handler             - the result handler
  */
 
-function claro_sql_query($sqlQuery,	$dbHandler = '#' )
+function claro_sql_query($sqlQuery, $dbHandler = '#' )
 {
 
-	if ( $dbHandler	== '#')
-	{
-		$resultHandler =  @mysql_query($sqlQuery);
-	}
-	else
-	{
-		$resultHandler =  @mysql_query($sqlQuery, $dbHandler);
-	}
+    if ( $dbHandler == '#')
+    {
+        $resultHandler =  @mysql_query($sqlQuery);
+    }
+    else
+    {
+        $resultHandler =  @mysql_query($sqlQuery, $dbHandler);
+    }
 
-	if ( CLARO_DEBUG_MODE && mysql_errno() )
-	{
-		echo	'<hr size="1" noshade>',
+    if ( CLARO_DEBUG_MODE && mysql_errno() )
+    {
+                echo    '<hr size="1" noshade>',
 
-				mysql_errno(), " : ", mysql_error(), '<br>',
+                mysql_errno(), " : ", mysql_error(), '<br>',
 
-				'<pre style="color:red">',
+                '<pre style="color:red">',
 
-				$sqlQuery,
+                $sqlQuery,
 
-				'</pre>',
+                '</pre>',
 
-				'<hr size="1" noshade>';
-	}
+                '<hr size="1" noshade>';
+    }
 
-	return $resultHandler;
+    return $resultHandler;
 }
 
 
@@ -450,39 +451,177 @@ function claro_disp_tool_title($titleElement, $helpUrl = false)
 
 
 /**
- * Display options to switch between student view and course manager view
+ *  display options to switch between student view and course manager view
  *
- * @param $isStudentView the current state (true|false)
- * @author Roan	Embrechts
- * @version	1.1
+ *  example code for using this in your tools:
  *
- * Example code	for	using this in your tools:
- * include('../inc/lib/claro_main.lib.php'); //this	is perhaps necessary
- * $is_AllowedToEdit = $is_courseAdmin;
- * if ($is_AllowedToEdit) claro_disp_tool_view_option($isStudentView);
- * $is_AllowedToEdit = $is_AllowedToEdit &&	! $isStudentView;
- * ...
+ *    if ( $is_courseAdmin)
+ *    {
+ *        claro_disp_tool_view_option('STUDENT');
+ *    }
+ *
+ *    $is_allowedToEdit = claro_is_allowed_to_edit();
+ *
+ *    if ($is_allowedToEdit)
+ *    {
+ *       ... display reserved to course manager.
+ *
+ * @author roan embrechts, Hugues Peeters
+ * @param string - $viewModeRequested.
+ *                    For now it could be 'STUDENT' or 'COURSE_ADMIN'
+ * @see claro_is_allowed_to_edit()
  */
-function claro_disp_tool_view_option($isStudentView	= false)
+
+function claro_disp_tool_view_option($viewModeRequested = false)
 {
-	global $PHP_SELF, $langCourseManagerview, $langStudentView;
-	if ($isStudentView)
-	{
-		?>
-		<p align="right" style="margin-top:	0; margin-bottom: 0"><small><b>
-		<?php echo $langStudentView;?> | <a	href="<? echo $PHP_SELF; ?>"><u><?php echo $langCourseManagerview; ?></u></a>
-		</small></b></p>
-		<?php
-	}
-	else
-	{
-		?>
-		<p align="right" style="margin-top:	0; margin-bottom: 0"><small><b>
-		<a href="<?	echo $PHP_SELF;	?>?isStudentView=true"><u><?php	echo $langStudentView;?></u></a>
-		| <?php	echo $langCourseManagerview; ?>
-		</small></b></p>
-		<?php
-	}
+    global $REQUEST_URI, $PHP_SELF, $clarolineRepositoryWeb;
+
+$langcoursemanagerview = 'course manager';
+$langstudentview = 'student';
+
+    claro_set_display_mode_available(true);
+
+    if ($viewModeRequested) claro_set_tool_view_mode($viewModeRequested);
+
+    $currentViewMode = claro_get_tool_view_mode();
+
+    /*------------------------------------------------------------------------
+                               PREPARE URL
+      ------------------------------------------------------------------------*/
+
+    /*
+     * check if the REQUEST_URI contains already URL parameters 
+     * (thus a questionmark)
+     */
+     
+    if ( strstr($REQUEST_URI, '?') ) $url = $REQUEST_URI;
+    else                             $url = $PHP_SELF.'?';
+
+    /*
+     * remove previous view mode request from the url
+     */
+
+    $url = str_replace('&viewMode=STUDENT'     , '', $url);
+    $url = str_replace('&viewMode=COURSE_ADMIN', '', $url);
+
+    /*------------------------------------------------------------------------
+                            INIT BUTTONS
+      -------------------------------------------------------------------------*/
+
+    switch ($currentViewMode)
+    {
+        case 'COURSE_ADMIN' :
+
+            $studentButton     = '<a href="'.$url.'&viewMode=STUDENT">'
+                                 .$langstudentview
+                                 .'</a>';
+            $courseAdminButton = '<b>'.$langcoursemanagerview.'</b>';
+
+            break;
+
+        case 'STUDENT' :
+
+            $studentButton     = '<b>'.$langstudentview.'</b>';
+            $courseAdminButton = '<a href="'.$url.'&viewMode=COURSE_ADMIN">'
+                                 .$langcoursemanagerview
+                                 .'</a>';
+            break;
+    }
+
+    /*------------------------------------------------------------------------
+                             DISPLAY COMMANDS MENU
+      ------------------------------------------------------------------------*/
+
+    echo '<p align="right">'
+        .'<small> view mode <img src="'.$clarolineRepositoryWeb.'/img/preview.gif">: '
+        .$studentButton.' | '.$courseAdminButton.'</small>'
+        .'</p>';
+}
+
+
+function claro_set_tool_view_mode($viewMode)
+{
+    global $_SESSION; // necessary for PHP versions before 4.1 ...
+
+    $viewMode = strtoupper($viewMode); // to be sure ...
+    
+    if ( in_array($viewMode, array('STUDENT', 'COURSE_ADMIN') ) )
+    {
+        $_SESSION['claro_toolViewMode'] = $viewMode;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+
+function claro_get_tool_view_mode()
+{
+    global $_SESSION; // necessary for PHP versions before 4.1 ...
+
+    if ( ! isset($_SESSION['claro_toolViewMode']) )
+    {
+        $_SESSION['claro_toolViewMode'] = 'COURSE_ADMIN'; // default
+    }
+    
+    return $_SESSION['claro_toolViewMode'];
+}
+
+
+/**
+	Function that removes the need to directly use is_courseAdmin global in
+	tool scripts. It returns true or false depending on the user's rights in
+	this particular course.
+
+	@author Roan Embrechts
+	@author Patrick Cool
+
+	@version 1.1, February 2004
+	@return boolean, true: the user has the rights to edit, false: he does not
+*/
+
+function claro_is_allowed_to_edit()
+{
+    global $is_courseAdmin;
+
+    if ( claro_is_display_mode_available() )
+    {
+        return $is_courseAdmin && (claro_get_tool_view_mode() != 'STUDENT');
+    }
+    else
+    {
+        return $is_courseAdmin;
+    }
+}
+
+/**
+ * 
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @return boolean
+ */
+
+function claro_is_display_mode_available()
+{
+    global $is_display_mode_available;
+    return $is_display_mode_available;
+}
+
+/**
+ * 
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param boolean
+ */
+
+
+function claro_set_display_mode_available($mode)
+{
+    global $is_display_mode_available;
+    $is_display_mode_available = $mode;
 }
 
 
@@ -1055,20 +1194,5 @@ function claro_parse_user_text($userText)
 
    return $userText;
 }
-
-
-/**
- * strips the tags from str 
- * Why such a function ? for the future, to allow some tags some times.
- *
- * @param string $str text to clean from html tags
- * 
- */
-
-function claro_strip_tags($str)
-{
-	return strip_tags($str);
-}
-
 
 ?>
