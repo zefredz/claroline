@@ -113,7 +113,7 @@ if ($disp_tool_link)
 
        //add CSV file of user link
 	?>
-	<a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $clarolineRepositoryWeb; ?>img/tblimport.gif"> <?php echo $langAddListUser; ?></a> |
+	<a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $clarolineRepositoryWeb; ?>img/importlist.gif"> <?php echo $langAddListUser; ?></a> |
 	<?php 
 	   //add a class link
 	?>
