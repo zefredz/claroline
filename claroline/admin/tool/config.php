@@ -11,64 +11,62 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-/*
-// This tool is write to edit setting  of  claroline.
-// In the old claroline, there was a central config file 
-// in next release a conf repository was build  with conf files
-// To not owerwrite on the following release,  
-// was rename  from .conf.inc.php to .conf.inc.php.dist
-// installer was eable to rename from .conf.inc.php.dist to .conf.inc.php
+/**
+ * This tool is write to edit setting  of  claroline.
+ * In the old claroline, there was a central config file 
+ * in next release a conf repository was build  with conf files
+ * To not owerwrite on the following release,  
+ * was rename  from .conf.inc.php to .conf.inc.php.dist
+ * installer was eable to rename from .conf.inc.php.dist to .conf.inc.php
 
-// the actual config file is build to merge new and active setting.
-// The system as more change than previous evolution
-// Tool are released with a conf definition file
-// This file define for each property a name, a place but also
-// some control for define accepted content.
-// and finally some comment, explanation or info
-
-// this version do not include 
-// * trigered procedure (function called when a property 
-//   is switch or set to a particular value)
-// * renaming or deletion of properties from config
-// * locking  of edit file (This tools can't really be
-//   in the active part of the day in prod. )
-//   I need to change that to let  admin sleep during the night
-
-// To make transition, 
-// * a section of tool continue to
-//   edit the main configuration (benoit's script)
-// * a section can parse old file to found old properties
-//   and his values. 
-//   This script would be continue to generate a def conf file.
-
-// Commands
-
---- cmd==dispEditConf
-Attempd an tool parameter
-Read existing value set in db for this tool
-Read the de file for this tool
-Display the panel of generic edition (form build following def parameter)
-
---- isset(cmdSaveProperties
-call by the DISP_EDIT_CONF when user click on submit.
-* check if value are right for control rules in def file
-* store (insert/update) in properties in DB
-
---- cmd==generateConf
-Attempd an tool parameter
-Read existing value set in db for this tool
-Write config file if all value needed are set
-
-// Displays
- define("DISP_LIST_CONF",      __LINE__); Print out a lis of eable action.
- define("DISP_EDIT_CONF",__LINE__);  Edit settings of a tool.
- define("DISP_SHOW_DEF_FILE",  __LINE__);  Display the definition file of a tool
- define("DISP_SHOW_CONF_FILE", __LINE__);  Display the Conf file of a tool
-
-*/
+ * The actual config file is build to merge new and active setting.
+ * The system as more change than previous evolution
+ * Tool are released with a conf definition file
+ * This file define for each property a name, a place but also
+ * some control for define accepted content.
+ * and finally some comment, explanation or info
+ *
+ * this version do not include 
+ * * trigered procedure (function called when a property 
+ *   is switch or set to a particular value)
+ * * renaming or deletion of properties from config
+ * * locking  of edit file (This tools can't really be
+ *   in the active part of the day in prod. )
+ *   I need to change that to let  admin sleep during the night
+ *
+ * To make transition, 
+ * * a section of tool continue to
+ *   edit the main configuration (benoit's script)
+ * * a section can parse old file to found old properties
+ *   and his values. 
+ *   This script would be continue to generate a def conf file.
+ *
+ * Commands
+ *
+ *--- cmd==dispEditConf
+ * Attempd an tool parameter
+ * Read existing value set in db for this tool
+ * Read the de file for this tool
+ * Display the panel of generic edition (form build following def parameter)
+ * 
+ * --- isset(cmdSaveProperties
+ * call by the DISP_EDIT_CONF when user click on submit.
+ *  * check if value are right for control rules in def file
+ *  * store (insert/update) in properties in DB
+ * 
+ * --- cmd==generateConf
+ * Attempd an tool parameter
+ *  * Read existing value set in db for this tool
+ * Write config file if all value needed are set
+ *
+ * Displays
+ * define("DISP_LIST_CONF",      __LINE__); Print out a lis of eable action.
+ * define("DISP_EDIT_CONF",__LINE__);  Edit settings of a tool.
+ * define("DISP_SHOW_DEF_FILE",  __LINE__);  Display the definition file of a tool
+ * define("DISP_SHOW_CONF_FILE", __LINE__);  Display the Conf file of a tool
+ **/
 
 ///// CAUTION DEVS ////
-
 define('CLARO_DEBUG_MODE',TRUE);
 
 $lang_config_config = 'Édition des fichiers de configuration';
@@ -115,13 +113,18 @@ $lang_p_ErrorOnBuild_S_for_S= 'Error in building of <em>%s</em> for <B>%s</B>';
 $lang_p_config_file_creation = 'Configuration  file creation:<BR> %s';
 $lang_noSectionFoundInDefinitionFile = 'no section found in definition file';             
 $lang_p_PropForConfigCommited = 'Properties for %s (%s) are now effective on server.';                   
-
+$langPropertiesNotIncludeInSections = 'Properties not include in sections';
 
 define('DISP_LIST_CONF',        __LINE__);
-define('DISP_EDIT_CONF',  __LINE__);
+define('DISP_EDIT_CONF',        __LINE__);
 define('DISP_SHOW_CONF',        __LINE__);
 define('DISP_SHOW_DEF_FILE',    __LINE__);
 define('DISP_SHOW_CONF_FILE',   __LINE__);
+
+
+
+
+
 
 define('CONF_AUTO_APPLY_CHANGE',TRUE);
 // if false, editing properties mean to change value in database.
@@ -147,9 +150,13 @@ $htmlHeadXtra[] = '<style>
 		font-weight: bolder;
 		font-size: 130%;
 	}
-	.firstDefine{
+	.firstDefine {
 		color: #CC3333;
-
+	}
+	.toolDesc    {
+		margin-left: 5%;
+		padding-left: 2%;
+		padding-right: 2%;
 	}
 	.msg.debug
 	{
@@ -250,7 +257,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         if( file_exists($confFile) )
         {
             @require($confDef);
-            @require($confFile);
+            @require_once($confFile);
             $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $lang_config_config_short);
             $nameTools = get_config_name($config_code);
             $panel = DISP_SHOW_CONF;
@@ -465,10 +472,10 @@ if ( $panel == DISP_LIST_CONF )
         }
         asort($tool_list);
     }
-//    $debugMsg[][]= 'conflist<pre>'.var_export($conf_list,1);
-//    $debugMsg[][]= '$def_list<pre>'.var_export($def_list,1);
-//    $debugMsg[][]= '$key_list<pre>'.var_export($key_list,1);
-//    $debugMsg[][]= '$tool_list<pre>'.var_export($tool_list,1);
+//  $debugMsg[][]= '$conf_list<pre>'.var_export($conf_list,1);
+//  $debugMsg[][]= '$def_list<pre>'.var_export($def_list,1);
+//  $debugMsg[][]= '$key_list<pre>'.var_export($key_list,1);
+//  $debugMsg[][]= '$tool_list<pre>'.var_export($tool_list,1);
 
 
 }
@@ -528,7 +535,7 @@ elseif ($panel == DISP_EDIT_CONF)
     }    
     if (isset($conf_def['section']['sectionmissing']))
     {
-        $conf_def['section']['sectionmissing']['label'] = 'Properties not include in sections';
+        $conf_def['section']['sectionmissing']['label'] = $langPropertiesNotIncludeInSections;
         $conf_def['section']['sectionmissing']['description'] = 'This is an error in definition file. Request to the coder of this config to add theses proporties in a section of the definition file.';
         
     }
