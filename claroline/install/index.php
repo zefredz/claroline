@@ -565,6 +565,7 @@ if ($display==DISP_WELCOME)
     warnIfExtNotLoaded("mysql");
     warnIfExtNotLoaded("zlib");
     warnIfExtNotLoaded("pcre");
+	warnIfExtNotLoaded("tokenizer");    
 //    warnIfExtNotLoaded("exif"); // exif  would be needed later for pic view properties.
 //    warnIfExtNotLoaded("nameOfExtention"); // list here http://www.php.net/manual/fr/resources.php
 
