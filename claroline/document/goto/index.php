@@ -1,7 +1,7 @@
 <? // $Id$
 /**
     +-------------------------------------------------------------------+
-    | CLAROLINE version $Revision$                                |
+    | CLAROLINE version 1.6.*                               |
     +-------------------------------------------------------------------+
     | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)   |
     +-------------------------------------------------------------------+
@@ -34,7 +34,7 @@ require '../../inc/claro_init_global.inc.php';
 include($includePath."/lib/events.lib.inc.php");
 
 // launch event
-$doc_url = urldecode($doc_url);
+$doc_url = stripslashes(urldecode($doc_url));
 event_download($doc_url);
 
 
