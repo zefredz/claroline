@@ -62,7 +62,7 @@ if (isset($_GET['order_crit'])){$_SESSION['admin_course_user_order_crit'] = $_GE
 // Deal with interbredcrumps
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
-$nameTools = $langListCourseUsers;
+$nameTools = $langAllUsersOfThisCourse;
 
 //Header
 
