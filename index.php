@@ -27,7 +27,7 @@ $tidReset = TRUE;
  */
 
 require './claroline/inc/claro_init_global.inc.php'; // main init
-
+require $includePath.'/conf/CLHOME.conf.php'; // conf file
 require $includePath.'/lib/events.lib.inc.php'; // stats
 
 // logout request : delete session data
