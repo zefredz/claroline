@@ -480,15 +480,15 @@ foreach($eventList as $thisEvent)
         // 'NOW' Bar
 
         echo "<tr>\n"
-            ."<td style=\"border-top: #CC3300 1px solid; border-bottom: #CC3300	1px	solid\">\n"
+            ."<td>\n"
             ."<img src=\"".$clarolineRepositoryWeb."img/pixel.gif\" width=\"20\" alt=\" \">"
-            ."<font color=\"#CC3300\">"
+            ."<span class=\"highlight\">"
             ."<i>"
             .ucfirst(claro_format_locale_date( $dateFormatLong))." "
             .ucfirst( strftime( $timeNoSecFormat))
             ." -- ".$langNow
             ."</i>"
-            ."</font>\n"
+            ."</span>\n"
             ."</td>\n"
             ."</tr>\n";
 
