@@ -16,6 +16,7 @@ info : Cette  page  sert d'index  pour les  outils de développements
 * Elle nécéssite une  protection
 */
 // 6 includes to be certain to  have a name  on each $lang, and  iff possible  in english
+$langDiffTranslation = "Comparer des fichers de traduction";
 $langMakeFileOfTranslation = "Construire un fichier de traduction";
 $lang_no_access_here ="Pas d'accès ";
 $langTranslations ="Traductions";
@@ -64,9 +65,9 @@ if ($is_allowedToAdmin)
 	<LI>
 		<a href="./langFile.php"><?php echo $langDiffTranslation ?></a>
 	</LI>
-	<LI>
+	<!--LI>
 		<a href="./makeLangFile.php"><?php echo $langMakeFileOfTranslation ?></a>
-	</LI>
+	</LI-->
 </uL>
 <H4><?php echo $langFilling ?></H4>
 <UL>
