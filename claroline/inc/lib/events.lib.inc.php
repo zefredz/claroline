@@ -32,11 +32,11 @@ $tbl_track_e_open          = $tbl_mdb_names['track_e_open'];
 
 // course db
 $tbl_cdb_names 			  = claro_sql_get_course_tbl();
-$TABLETRACK_ACCESS        = $_course['dbNameGlu']."track_e_access";
-$TABLETRACK_DOWNLOADS     = $_course['dbNameGlu']."track_e_downloads";
-$TABLETRACK_UPLOADS       = $_course['dbNameGlu']."track_e_uploads";
-$TABLETRACK_LINKS         = $_course['dbNameGlu']."track_e_links";
-$TABLETRACK_EXERCICES     = $_course['dbNameGlu']."track_e_exercices";
+$TABLETRACK_ACCESS        = $tbl_cdb_names['track_e_access'];
+$TABLETRACK_DOWNLOADS     = $tbl_cdb_names['track_e_downloads'];
+$TABLETRACK_UPLOADS       = $tbl_cdb_names['track_e_uploads'];
+$TABLETRACK_LINKS         = $tbl_cdb_names['track_e_links'];
+$TABLETRACK_EXERCICES     = $tbl_cdb_names['track_e_exercices'];
 
 
 
