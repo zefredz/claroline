@@ -548,7 +548,7 @@ if($display == DISP_FORUM_GO)
 					"<td align=\"center\">".
 
 					($cat_id ==	CAT_FOR_GROUPS ?
-					"<small><i>can not be deleted</i></small>"
+					"<small><i>".$langCannotBeDeleted."</i></small>"
 					:
 					"<a	href=\"forum_admin.php?forumgodel=yes&forum_id=".$thisForum['id']."&cat_id=".$cat_id."&ctg=".$ctg."&ok=0\"	onclick=\"return confirmation('".addslashes(htmlentities($lang_areYouSureToDelete .' \'' .$forum_name.'\'	?'))."');\">".
 					"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\"	alt=\"".$langDelete."\"	border=\"0\">".
@@ -696,14 +696,13 @@ elseif($display == DISP_FORUM_CAT_ADD)
 {
     if ($display_error_mess)
     {
-       echo "<center>".$langemptypecatname."</center>";
+       echo "<center>".$langemptycatname."</center>";
     }
     else
     {
       echo "<center>".$langcatcreated."</center>";
     }
-    echo	$langCatAdded.",&nbsp;
-	<a href=\"$PHP_SELF?forumadmin=yes\">".$langBack."</a>";
+    echo "<a href=\"$PHP_SELF?forumadmin=yes\">".$langBack."</a>";
 }
 elseif($display == DISP_FORUM_GO_ADD)
 {
