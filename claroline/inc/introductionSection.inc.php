@@ -103,7 +103,7 @@ else
 
 /* Determines the correct display */
 
-if ( isset($_REQUEST['intro_cmdEdit']) || isset($_REQUEST['intro_cmdAdd']) )
+if ( ( isset($_REQUEST['intro_cmdEdit']) || isset($_REQUEST['intro_cmdAdd']) ) && $intro_editAllowed )
 {
 	$intro_dispDefault = false;
 	$intro_dispForm    = true;
@@ -146,9 +146,9 @@ if ($intro_dispDefault)
 	
 	if( trim(strip_tags($intro_content)) != '' ) // no need to display a div for an empty string
 	{
-		echo	"<div class=\"introduction\">\n",
+		echo	"<p class=\"introduction\">\n",
 				$intro_content,"\n",
-				"</div>\n";
+				"</p>\n";
 	}
 }
 
@@ -156,7 +156,7 @@ if ($intro_dispCommand)
 {
     if( trim(strip_tags($intro_content)) == '' ) // displays "Add intro" Commands
 	{
-        echo "<div class=\"HelpText\">\n".$helpAddIntroText."\n</div>\n<p>";
+        echo "<p class=\"HelpText\">\n".$helpAddIntroText."\n</p>\n<p>";
 		claro_disp_button($_SERVER['PHP_SELF'].'?intro_cmdAdd=1', $langAddIntro);
         echo '</p>';
 	}
