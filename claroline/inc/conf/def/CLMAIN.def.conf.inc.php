@@ -76,9 +76,10 @@ $conf_def['section']['advanced']['properties'] =
 array ( 'claro_texRendererUrl'
       , 'mysqlRepositorySys'
       , 'CLAROLANG'
+      , 'userPasswordCrypted'
+      , 'allowSelfReg'
       );
 
-//
 
 $conf_def_property_list['dbHost'] = 
 array ('label'       => 'Hostname'
@@ -340,35 +341,9 @@ array ('label'       => 'The complete url of your TEX renderer'
       ,'readonly'    => FALSE
       );
 
-      
-      
-$conf_def_property_list['checkEmailByHashSent'] = 
-array ('label'       => 'If email is fill (or change), send an email to check it'
-      ,'default'     => 'FALSE'
-      ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-
-$conf_def_property_list['ShowEmailnotcheckedToStudent'] = 
-array ('label'       => 'Display email wich isn\'t validated'
-      ,'default'     => 'TRUE'
-      ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-
-$userMailCanBeEmpty = 	TRUE;
-$conf_def_property_list['userMailCanBeEmpty'] = 
-array ('label'       => 'User can let his email field empty'
-      ,'default'     => 'TRUE'
-      ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-
 $conf_def_property_list['userPasswordCrypted'] = 
-array ('label'       => 'By default use claroCrypt as authType'
+array ('label'       => 'By default Crypt passwords'
+      ,'technical'   => 'By default use claroCrypt as authType'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
@@ -382,15 +357,6 @@ array ('label'       => 'User can subcribe it self to the platform'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
-
-$conf_def_property_list['allowSelfRegProf'] = 
-array ('label'       => 'Are teacher allowed to subscribe as teacher ?'
-      ,'default'     => 'TRUE'
-      ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-
 
 ////for new login module
 ////uncomment these to activate ldap
@@ -527,7 +493,7 @@ array ('type'        => 'syspath'
       ,'label'       => 'Pear lib'
       ,'default'     => str_replace('\\','/',$includePath.'/lib/pear')
       ,'container'   => 'CONST'
-      ,'display'     => TRUE
+      ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
       
@@ -548,16 +514,14 @@ array ('type'        => 'string'
       );
 $conf_def_property_list['platform_id'] = 
 array ('type'        => 'string'
+      ,'technicalDesc' => 'id for this campus. Would  be unique'
       ,'default'     => md5(realpath(__FILE__))
       ,'display'     => FALSE
-      ,'readonly'    => FALSE
+      ,'readonly'    => TRUE
       );
 
-      
       //missing
       /*
       
       */
-      
-      
 ?>

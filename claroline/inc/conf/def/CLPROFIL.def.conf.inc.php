@@ -26,7 +26,7 @@ $conf_def['section']['required']['label'] = 'Required fields';
 $conf_def['section']['required']['description'] = '';
 $conf_def['section']['required']['properties'] = 
 array ( 'userOfficialCodeCanBeEmpty'
-       ,'userMailCanBeEmpty'
+      , 'userMailCanBeEmpty'
       );
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
@@ -62,7 +62,9 @@ $conf_def['section']['checkdata']['label'] = 'Validate field';
 $conf_def['section']['checkdata']['description'] = '';
 $conf_def['section']['checkdata']['properties'] = 
 array ( 'SECURE_PASSWORD_REQUIRED'
+      , 'checkEmailByHashSent'
       );
+      
 
 $conf_def_property_list['SECURE_PASSWORD_REQUIRED'] =
 array ('label'         => 'Check the fiability of password'
@@ -74,6 +76,15 @@ array ('label'         => 'Check the fiability of password'
                                 )
       , 'container'     => 'CONST'
       );
+
+$conf_def_property_list['checkEmailByHashSent'] = 
+array ('label'       => 'If email is fill (or change), send an email to check it'
+      ,'default'     => 'FALSE'
+      ,'type'        => 'boolean'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+
 
 // Section view
 
@@ -89,8 +100,9 @@ array (
 $conf_def['section']['request']['label'] = 'User request';
 $conf_def['section']['request']['description'] = '';
 $conf_def['section']['request']['properties'] = 
-array ( 'CAN_REQUEST_COURSE_CREATOR_STATUS'
-       ,'CAN_REQUEST_REVOQUATION' 
+array ( 'allowSelfRegProf'
+      , 'CAN_REQUEST_COURSE_CREATOR_STATUS'
+      , 'CAN_REQUEST_REVOQUATION' 
       );
 
 $conf_def_property_list['CAN_REQUEST_COURSE_CREATOR_STATUS'] =
@@ -118,6 +130,16 @@ array ( 'label'         => 'Is user allowed to request to be deleted from platfo
                                 )
       , 'container'     => 'CONST'
       );
+
+
+$conf_def_property_list['allowSelfRegProf'] = 
+array ('label'       => 'Are teacher allowed to subscribe as teacher ?'
+      ,'default'     => 'TRUE'
+      ,'type'        => 'boolean'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+
 
 // DEFINE COURSE_MANAGER AND STUDENT CONSTANTS VALUE
 
