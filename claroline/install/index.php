@@ -80,7 +80,7 @@ if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step pr
 	$dbHostForm		= "localhost";
 	$dbUsernameForm	= "root";
 
-	$dbPrefixForm	= "CL150RC1";
+	$dbPrefixForm	= "CL150RC2";
 	$dbNameForm		= $dbPrefixForm."Main";
 	$dbStatsForm    = $dbPrefixForm."Main";
 	$dbPMAForm		= $dbPrefixForm."Main";
