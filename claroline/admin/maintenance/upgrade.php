@@ -35,7 +35,6 @@ $thisVersionDb 		= $version_db_cvs;
  Find config file.
 */
 
-
 if ($fileSource=="") 
 {
 	$fileSource 		= $newIncludePath."conf/"."claro_main.conf.php";
@@ -165,11 +164,10 @@ else
 <div id="content">
 <?php
 
-echo $langTitleUpgrade;
-
 switch ($display)
 {
 	case DISPVAL_backup_needed :
+                echo $langTitleUpgrade;
 		echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
                 $str1 = "<input type=\"checkbox\" id=\"confirm_backup\" name=\"confirm_backup\" value=\"1\" /><label for=\"confirm_backup\">" . $langConfirm . "</label>";
                 $str2 = "<input type=\"checkbox\" id=\"confirm_copy_conf\" name=\"confirm_copy_conf\" value=\"1\" /><label for=\"confirm_copy_conf\">" . $langConfirm . "</label>";
@@ -179,6 +177,7 @@ switch ($display)
 		echo "</form>";
 		break;
 	case DISPVAL_upgrade_main_conf_needed :
+                echo $langTitleUpgrade;
 		echo "<h2>$langDone:</h2>";
 		echo "<ul>";	
 		echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langStep0);
@@ -191,6 +190,7 @@ switch ($display)
 		echo "</ul>";
 		break;
 	case DISPVAL_upgrade_main_db_needed :
+                echo $langTitleUpgrade;
 		echo "<h2>$langDone:</h2>";
 		echo "<ul>";	
                 echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langStep0);
@@ -203,6 +203,7 @@ switch ($display)
 		echo "</ul>";
 		break;
 	case DISPVAL_upgrade_courses_needed :
+                echo $langTitleUpgrade;
 		echo "<h2>$langDone:</h2>";
 		echo "<ul>";
                 echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langStep0);
@@ -215,13 +216,13 @@ switch ($display)
 		echo "</ul>";
 		break;
 	case DISPVAL_upgrade_done :
-        
                 echo "<h2>$langAchieved:</h2>";
                 echo "<p>The claroline upgrade tool has completly upgraded your platform.</p>";
 		echo "<ul>";
 		echo "<li><a href=\"../../..\">Log on to your platform</a></li>";
 		echo "<li><a href=\"..\">Go to the administration section</a></li>";
 		echo "</ul>";
+                /*
                 echo "<hr noshade=\"noshade\" />";
 		echo "<h2>$langDone:</h2>";
 		echo "<ul>";
@@ -230,6 +231,7 @@ switch ($display)
                 echo sprintf ("<li>%s (<a href=\"upgrade_main_db.php\">start again</a>)</li>",$langStep2);
                 echo sprintf("<li>%s - %s course(s) to upgrade(<a href=\"upgrade_courses.php\">start again</a>)</li>",$langStep3,$nbCourses['nb']);
 		echo "</ul>";
+                */
 		break;
 	default : 
 		echo "<p>Nothing to do</p>";
