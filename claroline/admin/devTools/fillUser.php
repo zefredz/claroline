@@ -39,7 +39,7 @@ if (!isset($_uid)) trigger_error("you need to be logged",E_USER_ERROR);
 
 //// Config tool
 include($includePath."/conf/course_main.conf.php");
-include($includePath."/conf/user.conf.php");
+include($includePath."/conf/CLUSR.conf.php");
 //// LIBS
 
 include($includePath."/lib/add_course.lib.inc.php");
