@@ -270,6 +270,17 @@ $garbageRepositorySys		= "'.$garbageRepositorySys.'";
 $imgRepositorySys		    = $rootSys.$clarolineRepositoryAppend.\'img/\';
 $imgRepositoryWeb 	        = $rootWeb.$clarolineRepositoryAppend.\'img/\';
 
+// Path to the PEAR library. PEAR stands for "PHP Extension and Application 
+// Repository". It is a framework and distribution system for reusable PHP 
+// components. More on http://pear.php.net.
+// Claroline is provided with the basic PEAR components needed by the 
+// application in the "claroline/inc/lib/pear" directory. But, server 
+// administator can redirect to their own PEAR library directory by setting 
+// its path to the PEAR_LIB_PATH constant.
+
+define(\'PEAR_LIB_PATH\', $includePath.\'/lib/pear\');
+
+
 //for new login module
 //uncomment these to activate ldap
 //$extAuthSource[\'ldap\'][\'login\'] = "./claroline/auth/ldap/login.php";
