@@ -288,8 +288,7 @@ else
 
                 if ($_uid != $uData['creatorId'])
                 {
-                    //first login for a not self registred
-                    //e.g. registered by a teacher
+                    //first login for a not self registred (e.g. registered by a teacher)
                     //do nothing (code may be added later)
                     $sql = "UPDATE `".$tbl_user."`
                             SET   creatorId = user_id
@@ -332,19 +331,16 @@ else
             
             /*
              * In this section:
-             * there is no entry for the $login user in the claroline
-             * database. This also means there is no authSource for the user.
-             * We let all external procedures attempt to add him/her
-             * to the system.
+             * there is no entry for the $login user in the claroline database. 
+             * This also means there is no authSource for the user. We let all 
+             * external procedures attempt to add him/her to the system.
              *
-             * Process external login on the basis
-             * of the authentication source list
-             * provided by the configuration settings.
-             * If the login succeeds, for going further,
-             * Claroline needs the $_uid variable to be
-             * set and registered in the session. It's the
-             * responsability of the external login script
-             * to provide this $_uid.
+             * Process external login on the basis of the authentication sources 
+             * list provided by the Claroline configuration settings.
+             * If the login succeeds, for going further, Claroline needs the 
+             * $_uid variable to be set and registered in the session. It's the
+             * responsability of the external login script to provide this 
+             * $_uid.
              */
 
             if (isset($extAuthSource) && is_array($extAuthSource))
