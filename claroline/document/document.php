@@ -511,6 +511,15 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 		{
 			$dialogBox = $langImpossible.'<br>';
 
+            if ( claro_failure::get_last_failure() == 'FILE EXISTS' )
+            {
+            	$dialogBox .= 'A file with the same name already exists.';
+            }
+            elseif (claro_failure::get_last_failure() == 'MOVE INSIDE ITSELF')
+            {
+            	$dialogBox .= 'You can not move an element inside itself.';
+            }
+
 			/* return to step 1 */
 
 			$cmd = 'rqMv';
