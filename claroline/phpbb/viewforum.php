@@ -52,7 +52,7 @@ if (   ! is_null($forumSettingList['idGroup'])
 //  Previous authentication system proper to phpBB
 //  if ($forumSettingList['forum_type'] == 1)
 //  {
-//     if ( ! check_priv_forum_auth($userdata['user_id'], $forum, false, $db))
+//     if ( ! check_priv_forum_auth($userdata['user_id'], $forum, false))
 
 $forum_name = own_stripslashes($forumSettingList['forum_name']);
 

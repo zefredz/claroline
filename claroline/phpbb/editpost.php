@@ -94,7 +94,7 @@ if($is_courseAdmin)
         $sql = "SELECT p.post_id, p.topic_id, p.forum_id, p.poster_id, 
                        p.post_time, p.poster_ip, p.nom , p.prenom,
                        pt.post_text,
-		               u.username, u.user_id, u.user_sig, 
+		               u.username, u.user_id,
 		               t.topic_title, t.topic_notify
                        
 		        FROM `".$tbl_posts."` p, `".$tbl_users."` u, 
