@@ -284,7 +284,7 @@
                     <td align='center'>
                      <a href=\"",$PHP_SELF,"?cmd=eraseModule&cmdid=".$list['module_id']."\"
                         onClick=\"return confirmation('",htmlspecialchars(addslashes($list['name'])),$langUsedInLearningPaths,$list['timesUsed'],"');\">
-                        <img src=\"../img/supprimer.gif\" border=\"0\" alt=\"$langAreYouSureDeleteModule\" />
+                        <img src=\"../img/delete.gif\" border=\"0\" alt=\"$langAreYouSureDeleteModule\" />
                         </a>
                     </td>
                     <td align=\"center\">

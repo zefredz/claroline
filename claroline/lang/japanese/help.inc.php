@@ -68,7 +68,7 @@ $langDocContent="<p>この文書ツールは、コンピュータのファイルマネージャに似ていま
 	<h4>文書あるいはディレクトリの削除</h4>
 	<ul>
 	  
-  <li> <img src=../document/img/supprimer.gif width=20 height=20> 
+  <li> <img src=../document/img/delete.gif width=20 height=20> 
 	「削除」ボタン</li>
 	</ul>
 	<h4>文書あるいはディレクトリを学生には見えなくする</h4>

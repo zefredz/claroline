@@ -68,7 +68,7 @@ $langDocContent="<p>Narzedzie Dokumenty jest podobne do Menad¿era Plików w kompu
 	<h4>Usuwanie dokumentu (lub katalogu)</h4>
 	<ul>
 	  
-  <li>Kliknij na <img src=../document/img/supprimer.gif width=20 height=20> 
+  <li>Kliknij na <img src=../document/img/delete.gif width=20 height=20> 
 	w kolumnie 'Usuñ'.</li>
 	</ul>
 	<h4>Spowodowaæ, ¿eby dokument (katalog) by³ niewidzialny dla studentów</h4>

@@ -1,8 +1,7 @@
-<?php
-    // $Id$
+<?php  // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version 1.3.2 $Revision$                            |
+  | CLAROLINE version 1.5.*
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
@@ -698,7 +697,7 @@
                echo  "<td>\n",
                             "<a href=\"",$PHP_SELF,"?cmd=delete&del_path_id=".$list['learnPath_id']."\" ",
                             "onClick=\"return scormConfirmation('",addslashes($list['name']),"');\">\n",
-                            "<img src=\"../img/supprimer.gif\" border=\"0\" alt=\"$langDelete\" />\n",
+                            "<img src=\"../img/delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
                             "</a>\n",
                             "</td>\n";
 
@@ -708,7 +707,7 @@
                echo     "<td>\n",
                             "<a href=\"",$PHP_SELF,"?cmd=delete&del_path_id=".$list['learnPath_id']."\" ",
                             "onClick=\"return confirmation('",addslashes($list['name']),"');\">\n",
-                            "<img src=\"../img/supprimer.gif\" border=\"0\" alt=\"$langDelete\" />\n",
+                            "<img src=\"../img/delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
                             "</a>\n",
                             "</td>\n";
 

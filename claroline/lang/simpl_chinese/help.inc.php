@@ -51,7 +51,7 @@ $langDocContent="<p>╫╡рЕ╡дао ╧эюМ╧╓╬ъюЮкфвюцФ╣Гдтс╕сцжп╣днд╪Ч╧эюМфВ.</p><p>дЗ©ир
 	<h4>и╬ЁЩнд╪Ч(╩Рд©б╪)</h4>
 	<ul>
 	  
-  <li>╣Ц╩В <img src=../document/img/supprimer.gif width=20 height=20> 
+  <li>╣Ц╩В <img src=../document/img/delete.gif width=20 height=20> 
 	(н╩сз 'и╬ЁЩ'ю╦).</li>
 	</ul>
 	<h4>отй╬/рЧ╡ьнд╪Ч(╩Рд©б╪)</h4>

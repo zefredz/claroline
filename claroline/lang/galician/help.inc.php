@@ -186,7 +186,7 @@ de maneira semellante &aacute; xesti&oacute;n dos seus documentos nun ordenador.
 	<h4>Suprimir un documento (ou un directorio)</h4>
 	<ul>
 	  
-  <li>Faga click no bot&oacute;n <img src=../document/img/supprimer.gif width=20 height=20>
+  <li>Faga click no bot&oacute;n <img src=../document/img/delete.gif width=20 height=20>
 	na columna &quot;Suprimir&quot;.</li>
 	</ul>
 	<h4>Facer que un documento sexa invisible para os estudiantes (ou un directorio)</h4>

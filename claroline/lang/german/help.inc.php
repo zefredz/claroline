@@ -76,7 +76,7 @@ $langDocContent="<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanager
         <h4>Ein Dokument (oder Verzeichnis) löschen</h4>
         <ul>
 
-  <li>Klicken Sie auf <img src=../document/img/supprimer.gif width=20 height=20>
+  <li>Klicken Sie auf <img src=../document/img/delete.gif width=20 height=20>
         in der Spalte 'Löschen'.</li>
         </ul>
         <h4>Ein Dokument (oder Verzeichnis) für die Teilnehmer/innen unsichtbar machen</h4>

@@ -341,8 +341,5 @@ echo "</tbody></table>";
 
 $myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit);
 
-?>
-
-<?
 include($includePath."/claro_init_footer.inc.php");
 ?>

@@ -98,7 +98,7 @@ $langDocContent="<p>De module voor het beheer van documenten (cursusmaterialen) 
   <li>Klik op 'OK'; <input type=submit value=OK name=submit24>. </li></ul>
 <h4>Een document (of folder) verwijderen</h4>
 <ul>
-  <li>Klik op de toets <img src=../document/img/supprimer.gif width=20
+  <li>Klik op de toets <img src=../document/img/delete.gif width=20
  height=20> in de kolom 'Verwijderen'.</li></ul>
 <h4>Een document of folder onzichtbaar maken voor de studenten</h4>
 <ul>

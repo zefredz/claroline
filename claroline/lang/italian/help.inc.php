@@ -80,7 +80,7 @@ $langDocContent="<p>Il modulo di gestione dei documenti funziona in modo simile 
 	<h4>Rimuovere un documento (o una cartella)</h4>
 	<ul>
 
-  <li>Cliccare sul pulsante <img src=../document/img/supprimer.gif width=20 height=20>
+  <li>Cliccare sul pulsante <img src=../document/img/delete.gif width=20 height=20>
 	nella colonna &quot;Cancellare&quot;.</li>
 	</ul>
 	<h4>Rendere invisibile ai corsisti un documento (o una cartella)</h4>

@@ -993,7 +993,7 @@ if($display_list)
 		</td>
 
 		<td align="center">  <a href="<?php echo "../../course_info/delete_course.php?cidReq=".$one_course["code"]."&search_course"; ?>" >
-		<img src="../../img/supprimer.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a>
+		<img src="../../img/delete.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a>
 		</td>
 
 		</td>
@@ -1041,7 +1041,7 @@ if($display_course)
             </td>
             <td align="center">  <a href="<?php echo "../../course_info/delete_course.php?cidReq=".$arrayCourse["code"]."&search_course";
              ?>" >
-            <img src="../../img/supprimer.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a>
+            <img src="../../img/delete.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a>
             </td>
             <td align="center"> <a href="<?php echo $PHP_SELF."?backup&display_course=1&sysCode=".$arrayCourse["code"]; ?>">
             <img src="../../img/enregistrer.gif" border="0" alt="<?php echo $lang_SearchCourse_imgSave; ?>"> </a>
@@ -1168,7 +1168,7 @@ if($display_group)
                     $PHP_SELF."?deleteGroup=1&sysCode=".$arrayCourse["code"]."&idGroup=".$one_group["id"]; ?>"
                     onclick="javascript:if(!confirm('<?php echo
                     addslashes(htmlentities($lang_SearchCourse_ConfirmDeleteGroup.$one_group["name"]))?>'))    return false;" >
-                    <img src="../../img/supprimer.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a>
+                    <img src="../../img/delete.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a>
                 </td>
                 </tr>
             <?php

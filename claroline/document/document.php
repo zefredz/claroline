@@ -1148,7 +1148,7 @@ unset($attribute);
 				echo 	"<td>",
 						"<a href=\"",$PHP_SELF,"?cmd=exRm&file=",$cmdFileName,"\" ",
 						"onClick=\"return confirmation('",addslashes($dspFileName),"');\">",
-						"<img src=\"../img/supprimer.gif\" border=\"0\" alt=\"$langDelete\">",
+						"<img src=\"../img/delete.gif\" border=\"0\" alt=\"$langDelete\">",
 						"</a>",
 						"</td>\n";
 				

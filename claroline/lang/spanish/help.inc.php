@@ -164,7 +164,7 @@ no est&eacute;n infectados antes de colocarlos en el curso.</p>
 	<h4>Suprimir un documento (o un directorio)</h4>
 	<ul>
 	  
-  <li>Haga click en el bot&oacute;n <img src=../document/img/supprimer.gif width=20 height=20> 
+  <li>Haga click en el bot&oacute;n <img src=../document/img/delete.gif width=20 height=20> 
 	en la columna &quot;Suprimir&quot;.</li>
 	</ul>
 	<h4>Hacer que un documento sea invisible para los estudiantes (o un directorio)</h4>

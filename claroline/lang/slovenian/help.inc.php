@@ -133,7 +133,7 @@ Ce jih hoces predstaviti v drugacnem zaporedju, jih ostevilci: 01, 02,  03...</p
 		</h4>
 		<ul>
 			<li>
-				Klikni na <img src=../document/img/supprimer.gif width=20 height=20>
+				Klikni na <img src=../document/img/delete.gif width=20 height=20>
 				v stolpcu 'Brisi'.
 			</li>
 		</ul>

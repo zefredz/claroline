@@ -141,7 +141,7 @@ $langDocContent="<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
 		</h4>
 		<ul>
 			<li>
-				Klik på <img src=../document/img/supprimer.gif width=20 height=20> 
+				Klik på <img src=../document/img/delete.gif width=20 height=20> 
 				i kolonnen 'slet'.
 			</li>
 		</ul>

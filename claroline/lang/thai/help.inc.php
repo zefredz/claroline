@@ -120,7 +120,7 @@ $langDocContent="<p> ระบบจัดการเอกสารประกอบการศึกษา มีลักษณะคล้าย FileManager
 	<h4>ลบเอกสาร (หรือลบ directory)</h4>
 	<ul>
 	  
-  <li>คลิกที่รูป <img src=../document/img/supprimer.gif width=20 height=20> 
+  <li>คลิกที่รูป <img src=../document/img/delete.gif width=20 height=20> 
 	ในคอลัมม์ 'ลบ'</li>
 	</ul>
 	<h4>การอนุญาตให้นักศึกษาเห็นเอกสาร (หรือ directory) หรือไม่</h4>

@@ -94,7 +94,7 @@ $langDocContent="<p> Alati dokumenata su slièni FileManageru na vašoj radnoj pov
 		</h4>
 		<ul>
 			<li>
-				Klikom na <img src=../document/img/supprimer.gif width=20 height=20> 
+				Klikom na <img src=../document/img/delete.gif width=20 height=20> 
 				u koloni 'obriši'.
 			</li>
 		</ul>

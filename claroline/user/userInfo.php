@@ -283,7 +283,7 @@ elseif ($displayMode == "viewDefList")
 			// displays commands
 
 			echo	"<a href=\"".$PHP_SELF."?removeDef=".$thisCat['catId']."\">".
-					"<img src=\"".$clarolineRepositoryWeb."/img/supprimer.gif\" border=\"0\" alt=\"".$langRemove."\">".
+					"<img src=\"".$clarolineRepositoryWeb."/img/delete.gif\" border=\"0\" alt=\"".$langRemove."\">".
 					"</a>".
 					"<a href=\"".$PHP_SELF."?editDef=".$thisCat['catId']."\">".
 					"<img src=\"".$clarolineRepositoryWeb."/img/edit.gif\" border=\"0\" alt=\"".$langEdit."\">".

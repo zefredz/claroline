@@ -64,7 +64,7 @@ $langDocContent="<p>Dokumentverktyget är liknande Filhanteraren på din dator.</p
 	<h4>Radera ett dokument (eller en mapp)</h4>
 	<ul>
 	  
-  <li>Klicka på <img src=../document/img/supprimer.gif width=20 height=20> 
+  <li>Klicka på <img src=../document/img/delete.gif width=20 height=20> 
 	i kolumnen 'Radera'.</li>
 	</ul>
 	<h4>Skapa ett dokument (eller mapp) osynligt för eleverna</h4>

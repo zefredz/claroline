@@ -69,7 +69,7 @@ $langDocContent="<p>Työkalu dokumentteja varten on samankaltainen kuin tietokone
 </ul>
 <h4>Poista tiedosto (tai hakemisto)</h4>
 <ul>
-  <li>Klikkaa <img src=../document/img/supprimer.gif width=20 height=20> sarakkeessa 'Poista'.</li>
+  <li>Klikkaa <img src=../document/img/delete.gif width=20 height=20> sarakkeessa 'Poista'.</li>
 </ul>
 <h4>Muuta dokumentti (tai hakemisto) näkymättömäksi opiskelijoille</h4>
 <ul>

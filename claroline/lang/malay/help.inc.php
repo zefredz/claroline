@@ -87,7 +87,7 @@ $langDocContent="<p>Fungsi Alat Bantu Dokumen adalah sama seperti fungsi penguru
 		</h4>
 		<ul>
 			<li>
-				Sila klik ikon ini <img src=../document/img/supprimer.gif width=20 height=20>
+				Sila klik ikon ini <img src=../document/img/delete.gif width=20 height=20>
 				yang terdapat pada lajur <i>Padam</i>.
 			</li>
 		</ul>

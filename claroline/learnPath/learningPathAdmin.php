@@ -535,7 +535,7 @@
             else
               echo $langAreYouSureToRemoveStd ;
             echo   "');\">
-              <img src=\"../img/supprimer.gif\" border=0 alt=\"$langRemoveFromLPShort\">
+              <img src=\"../img/delete.gif\" border=0 alt=\"$langRemoveFromLPShort\">
               </a>
               </td>";
 

@@ -151,7 +151,7 @@ $langDocContent="<p>The Documents tool is similar to the FileManager of
 		</h4>
 		<ul>
 			<li>
-				Click on <img src=../document/img/supprimer.gif width=20 height=20>
+				Click on <img src=../document/img/delete.gif width=20 height=20>
 				in column 'Delete'.
 			</li>
 		</ul>

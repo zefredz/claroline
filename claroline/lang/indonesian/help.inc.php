@@ -100,7 +100,7 @@ $langDocContent="<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>An
 		</h4>
 		<ul>
 			<li>
-				Klik pada <img src=../document/img/supprimer.gif width=20 height=20>
+				Klik pada <img src=../document/img/delete.gif width=20 height=20>
 				dalam kolom 'Hapus'.
 			</li>
 		</ul>

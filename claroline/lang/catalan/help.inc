@@ -148,7 +148,7 @@ $langDocContent="<p>L'eina de Documents és similar a l'Administrador d'arxius de
 		</h4>
 		<ul>
 			<li>
-				Punxa sobre <img src=../document/img/supprimer.gif width=20 height=20> 
+				Punxa sobre <img src=../document/img/delete.gif width=20 height=20> 
 				a la columna 'Esborra'.
 			</li>
 		</ul>

@@ -141,7 +141,7 @@ $langDocContent="<p>The Documents tool is similar to the FileManager of
 	<h4>Delete a document (or a directory)</h4>
 	<ul>
 	  
-  <li>Click on <img src=../document/img/supprimer.gif width=20 height=20> 
+  <li>Click on <img src=../document/img/delete.gif width=20 height=20> 
 	in column 'Delete'.</li>
 	</ul>
 	<h4>Make a document (or directory) invisible to students</h4>

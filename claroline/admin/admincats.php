@@ -1072,7 +1072,7 @@ include($includePath."/claro_init_footer.inc.php");
 						<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&delete=1"; ?>"
 						onclick="javascript:if(!confirm('<?php echo
 						 addslashes(htmlentities($lang_faculty_ConfirmDelete.$one_faculty["code"])) ?>')) return false;" >
-						<img src="../img/supprimer.gif" border="0" alt="<?php echo $lang_faculty_imgDelete ?>"> </a>
+						<img src="../img/delete.gif" border="0" alt="<?php echo $lang_faculty_imgDelete ?>"> </a>
 					</td>
 					<?php
 

@@ -875,7 +875,7 @@ if($display_listUser)
 	  <td align="CENTER">  <a href="<?php echo $PHP_SELF."?delete=1&user_id=".$one_user["user_id"]; ?>"
 	  onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($lang_SearchUser_ConfirmDelete.$one_user["user_id"])) ?>'))
 	  return false;" >
-	   <img src="../../img/supprimer.gif" border="0" alt="<?php echo $lang_SearchUser_imgDelete; ?>"> </a>
+	   <img src="../../img/delete.gif" border="0" alt="<?php echo $lang_SearchUser_imgDelete; ?>"> </a>
 	  </td>
 
 
@@ -918,7 +918,7 @@ if($display_user)
 			<td align="center">  <a href="<?php echo $PHP_SELF."?delete=1&user_id=".$id; ?>"
 				onclick="javascript:if(!confirm('<?php echo
 				addslashes(htmlentities($lang_SearchUser_ConfirmDelete.$one_user["user_id"])) ?>')) return false;" >
-   				<img src="../../img/supprimer.gif" border="0" alt="<?php echo $lang_SearchUser_imgDelete; ?>"> </a>
+   				<img src="../../img/delete.gif" border="0" alt="<?php echo $lang_SearchUser_imgDelete; ?>"> </a>
 			</td>
 		</tr>
 		<tr>

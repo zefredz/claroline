@@ -682,7 +682,7 @@ while ($thisGroup = mysql_fetch_array($groupList))
 				"</td>",
 				"<td>",
 				"<a href=\"".$PHP_SELF."?delete_one=yes&id=".$thisGroup[id]."\">",
-				"<img src=\"../img/supprimer.gif\" border=\"0\" alt=\"".$langDelete."\">",
+				"<img src=\"../img/delete.gif\" border=\"0\" alt=\"".$langDelete."\">",
 				"</a>",
 				"</td>",
 				"</tr>";

@@ -91,7 +91,7 @@ $langDocContent="<p>Le module de gestion de document fonctionne de
 	<h4>Supprimer un document (ou un r&eacute;pertoire)</h4>
 	<ul>
 	  
-  <li>Cliquer sur le bouton <img src=../document/img/supprimer.gif width=20
+  <li>Cliquer sur le bouton <img src=../document/img/delete.gif width=20
  height=20> 
 	dans la colonne &quot;Supprimer&quot;.</li>
 	</ul>

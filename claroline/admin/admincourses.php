@@ -406,7 +406,7 @@ foreach($resultList as $list)
     echo   "<td align=\"center\">\n",
                 "<a href=\"",$PHP_SELF,"?cmd=delete&delCode=".$list['code'].$addToURL."\" ",
                 "onClick=\"return confirmation('",addslashes($list['intitule']),"');\">\n",
-                "<img src=\"".$clarolineRepositoryWeb."/img/supprimer.gif\" border=\"0\" alt=\"$langDelete\" />\n",
+                "<img src=\"".$clarolineRepositoryWeb."/img/delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
                 "</a>\n",
             "</td>\n";
      echo "</tr>";

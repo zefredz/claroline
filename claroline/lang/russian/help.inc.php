@@ -140,7 +140,7 @@ $langDocContent="<p>Раздел Учебные материалы работает подобно
 	<h4>Удалить  документ (или папку)</h4>
 	<ul>
 
-  <li>Нажать на кнопку <img src=../document/img/supprimer.gif width=20
+  <li>Нажать на кнопку <img src=../document/img/delete.gif width=20
  height=20>
 	в столбце &quot;Удалить&quot;.</li>
 	</ul>
