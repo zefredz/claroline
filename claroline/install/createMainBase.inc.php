@@ -149,17 +149,7 @@ CREATE TABLE `config_property` (
   `lastChange`   timestamp(14) NOT NULL,
   `config_code`  varchar(30) NOT NULL,
   PRIMARY KEY  (`id_property`)
-) TYPE=MyISAM COMMENT='contain config value of platform'; 
-";
-claro_sql_query($sql);
-$sql ="
-CREATE TABLE `config_rel_tool_config` (
-  `id_rel_tool_config` int(11) unsigned NOT NULL auto_increment,
-  `claro_label`        varchar(8) NOT NULL,
-  `config_code`        varchar(30) NOT NULL,
-  PRIMARY KEY  (`id_rel_tool_config` )
-) TYPE=MyISAM AVG_ROW_LENGTH=30; 
-";
+) TYPE=MyISAM COMMENT='contain config value of platform'";
 claro_sql_query($sql);
 	
 $sql ="
@@ -167,8 +157,7 @@ CREATE TABLE `config_file` (
   `config_code` varchar(30) NOT NULL default '',
   `config_hash` varchar(40) NOT NULL default '',
   PRIMARY KEY  (`config_code` )
-) TYPE=MyISAM  AVG_ROW_LENGTH=48;
-";
+) TYPE=MyISAM  AVG_ROW_LENGTH=48";
 claro_sql_query($sql);
 
 $sql = "CREATE TABLE `sso` (
