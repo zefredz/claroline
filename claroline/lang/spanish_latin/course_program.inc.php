@@ -42,29 +42,29 @@ $langDay     = "Día";
 $langHour    = "Hora";
 $langLasting = "Duración";
 $langSETLOCALE="ESPAÑOL";  
-$langAddEvent   = \"Agregar un evento";
+$langAddEvent   = "Agregar un evento";
 $langDetail     = "Detalles";
-$month_default  = \"Mes";
+$month_default  = "Mes";
 $hour_default   = "hora";
-$january        = \"Enero";
-$february       = \"Febrero";
-$march          = \"Marzo";
-$april          = \"Abril";
-$may            = \"Mayo";
-$june           = \"Junio";
-$july           = \"Julio";
-$august         = \"Agosto";
-$september      = \"Septiembre";
-$october        = \"Octubre";
-$november       = \"Noviembre";
-$december       = \"Diciembre";
-$year_default   = \"Año";
+$january        = "Enero";
+$february       = "Febrero";
+$march          = "Marzo";
+$april          = "Abril";
+$may            = "Mayo";
+$june           = "Junio";
+$july           = "Julio";
+$august         = "Agosto";
+$september      = "Septiembre";
+$october        = "Octubre";
+$november       = "Noviembre";
+$december       = "Diciembre";
+$year_default   = "Año";
 
 $year1          = "2001";
 $year2          = "2002";
 $year3          = "2003";
 
-$hour_default   = \"Hora";
+$hour_default   = "Hora";
 
 $hour1="07h00";
 $hour2="07h15";
@@ -116,6 +116,6 @@ $hour47="18h30";
 $hour48="18h45";
 $hour49="19h00";
 $hour50="19h15";
-$hour51=\"Sin precisar";
+$hour51="Sin precisar";
 
 ?>

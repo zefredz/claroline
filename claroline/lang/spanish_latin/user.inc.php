@@ -41,17 +41,17 @@
 // user.php
 
 $langUsers      = "Usuarios";
-$langModRight   = \"Modificar los derechos de administración de";
-$langNone       = \"Ninguno";
-$langAll        = \"Todos";
-$langNoAdmin    = \"Ahora no tiene <b>ningún</b> derecho de administración sobre este sitio";
-$langAllAdmin   = \"Ahora tiene <b>todos</b> los derechos de administración de este sitio";
+$langModRight   = "Modificar los derechos de administración de";
+$langNone       = "Ninguno";
+$langAll        = "Todos";
+$langNoAdmin    = "Ahora no tiene <b>ningún</b> derecho de administración sobre este sitio";
+$langAllAdmin   = "Ahora tiene <b>todos</b> los derechos de administración de este sitio";
 $langModRole    = "Modificar el papel (rol) de";
 $langRole       = "Papel (Rol)";
 $langIsNow      = "Es ahora";
 $langInC        = "En este curso";
 $langFilled     = "No ha llenado todos los campos.";
-$langUserNo     = \"El nombre de usuario que eligió;";
+$langUserNo     = "El nombre de usuario que eligió;";
 $langTaken      = "ya existe. Elija uno diferente.";
 
 

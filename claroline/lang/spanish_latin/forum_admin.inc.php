@@ -40,27 +40,27 @@
 // forum_admin.inc
 
 $langForums         = "Foros";
-$langOrganisation   = \"Administración de los foros";
-$langForCat         = \"Foros de la categoría";
-$langBackCat        = \"Volver a las categorías";
+$langOrganisation   = "Administración de los foros";
+$langForCat         = "Foros de la categoría";
+$langBackCat        = "Volver a las categorías";
 $langForName        = "Nombre del foro";
-$langDescription    = \"Descripción";
+$langDescription    = "Descripción";
 $langFunctions      = "Funciones";
-$langAddForCat      = \"Agregar un foro a la categoría";
-$langAdd            = \"agregar";
-$langChangeCat      = \"Cambiar de categoría";
+$langAddForCat      = "Agregar un foro a la categoría";
+$langAdd            = "agregar";
+$langChangeCat      = "Cambiar de categoría";
 $langSave           = "Archivar";
-$langModCatName     = \"Modificar el nombre de la categoría";
-$langCat            = \"Categoría";
-$langNameCat        = \"El nombre de la categoría ha sido modificado";
+$langModCatName     = "Modificar el nombre de la categoría";
+$langCat            = "Categoría";
+$langNameCat        = "El nombre de la categoría ha sido modificado";
 $langBack           = "Volver";
-$langCatAdded       = \"Categoría agregada";
-$langForCategories  = \"Categorías de los foros";
-$langAddForums      = \"Para agregar foros, hacer click en \"Foros\" en la categoría escogida.
+$langCatAdded       = "Categoría agregada";
+$langForCategories  = "Categorías de los foros";
+$langAddForums      = "Para agregar foros, hacer click en \"Foros\" en la categoría escogida.
                       Una categoría que no tenga foros no estará visible para los estudiantes";
-$langCategories     = \"Categorías";
-$langNbFor          = \"Número de foros";
+$langCategories     = "Categorías";
+$langNbFor          = "Número de foros";
 $langFunctions      = "Funciones";
-$langAddCategory    = \"Agregar una categoría";
+$langAddCategory    = "Agregar una categoría";
 
 ?>

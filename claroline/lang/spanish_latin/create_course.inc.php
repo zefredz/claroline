@@ -67,39 +67,39 @@ $langCreateSite  = "Crear un sitio web de un curso";
 $langFieldsRequ  = "Todos los campos son obligatorios";
 $langCourseTitle       = "Nombre del Curso";
 $langEx          = "p. ej. <i>Historia de la literatura</i>";
-$langFac         = \"Facultad/Carrera";
-$langTargetFac   = \"Se trata de la Facultad en la que se realiza el curso";
-$langCode        = \"Código del curso";
-$langMaxSizeCourseCode         = \"Max. 12 caracteres, p. ej.<i>ROM2121</i>";
-$langDoubt       = \"En caso de dudas sobre el título exacto del curso o el código que le corresponde , consultar el";
-$langProgram     = \"Programa del curso</a>. Si el sitio web que usted quiere crear no corresponde con ningún código de curso existente, usted puede definir uno. Por ejemplo <i>INNOVACION</i> si se trata de un programa de formación  sobre gestión de la innovación";
+$langFac         = "Facultad/Carrera";
+$langTargetFac   = "Se trata de la Facultad en la que se realiza el curso";
+$langCode        = "Código del curso";
+$langMaxSizeCourseCode         = "Max. 12 caracteres, p. ej.<i>ROM2121</i>";
+$langDoubt       = "En caso de dudas sobre el título exacto del curso o el código que le corresponde , consultar el";
+$langProgram     = "Programa del curso</a>. Si el sitio web que usted quiere crear no corresponde con ningún código de curso existente, usted puede definir uno. Por ejemplo <i>INNOVACION</i> si se trata de un programa de formación  sobre gestión de la innovación";
 $langProfessors  = "Profesor(es)";
-$langExplanation = \"Una vez que usted haya pulsado OK, será creado in sitio web que incluirá: Foro, 
+$langExplanation = "Una vez que usted haya pulsado OK, será creado in sitio web que incluirá: Foro, 
                    Lista de enlaces, Ejercicios, Agenda, Lista de documentos... Con su
                   identificación de usuario, usted podrá modificar su contenido";
-$langEmpty       = \"Usted no ha rellenado todos los campos.<br>Utilice el botón 'Atrás' de su navegador y vuelva a empezar.<br>Si usted no conoce el código de su curso, consulte el programa del curso";
-$langCodeTaken   = \"Este código de curso ya se utilizó por otro curso.<br>Utilice el botón 'Atrás' de su navegador y vuelva a empezar.";
+$langEmpty       = "Usted no ha rellenado todos los campos.<br>Utilice el botón 'Atrás' de su navegador y vuelva a empezar.<br>Si usted no conoce el código de su curso, consulte el programa del curso";
+$langCodeTaken   = "Este código de curso ya se utilizó por otro curso.<br>Utilice el botón 'Atrás' de su navegador y vuelva a empezar.";
 
 
 // tables MySQL
-$langFormula       = \"Cordialmente, el profesor";
-$langForumLanguage = \"Español";	// other possibilities are english, spanish (this uses phpbb language functions)
+$langFormula       = "Cordialmente, el profesor";
+$langForumLanguage = "Español";	// other possibilities are english, spanish (this uses phpbb language functions)
 $langTestForum     = "Foro de pruebas ";
-$langDelAdmin      = \"A eliminar vía la administración de los foros";
-$langMessage       = \"En el momento que usted suprima el foro \"Foro de pruebas\", igualmente se suprimirá el presente tema que no contiene más que este mensaje";
+$langDelAdmin      = "A eliminar vía la administración de los foros";
+$langMessage       = "En el momento que usted suprima el foro \"Foro de pruebas\", igualmente se suprimirá el presente tema que no contiene más que este mensaje";
 $langExMessage     = "Mensaje de ejemplo";
-$langAnonymous     = \"Anónimo";
+$langAnonymous     = "Anónimo";
 $langExerciceEx    = "Ejemplo de ejercicio";
-$langAntique       = \"Historia de la filosofía clásica";
-$langSocraticIrony = \"La ironía socrática consiste en...";
+$langAntique       = "Historia de la filosofía clásica";
+$langSocraticIrony = "La ironía socrática consiste en...";
 $langManyAnswers   = "(varias respuestas correctas son posibles)";
 $langRidiculise    = "Ridiculizar al interlocutor para hacerle admitir su error.";
-$langNoPsychology  = \"No. La ironía socrática no se aplica al terreno de la psicología, sino en el de la argumentación.";
+$langNoPsychology  = "No. La ironía socrática no se aplica al terreno de la psicología, sino en el de la argumentación.";
 $langAdmitError    = "Reconocer los propios errores para invitar al interlocutor a hacer lo mismo.";
-$langNoSeduction   = \"No. No se trata de una estrategia de seducción o de un método por ejemplo.";
-$langForce         = \"Forzar  al interlocutor, por medio de una serie de cuestiones y subcuestiones, para que reconozca que no sabe lo que pretende saber."\;
-$langIndeed        = \"Correcto. La ironía socrática es un metódo interrogativo. El término griego \"eirotao\" significa , por otro lado, \"interrogar\"."\;
-$langContradiction = \"Utilizar el principio de no contradicción para llevar al interlocutor a un callejón sin salida.";
+$langNoSeduction   = "No. No se trata de una estrategia de seducción o de un método por ejemplo.";
+$langForce         = "Forzar  al interlocutor, por medio de una serie de cuestiones y subcuestiones, para que reconozca que no sabe lo que pretende saber.";
+$langIndeed        = "Correcto. La ironía socrática es un metódo interrogativo. El término griego \"eirotao\" significa , por otro lado, \"interrogar\".";
+$langContradiction = "Utilizar el principio de no contradicción para llevar al interlocutor a un callejón sin salida.";
 $langNotFalse      = "Esta respuesta no es falsa. Es exacto que la puesta en evidencia de la ignorancia del interlocutor se realiza poniendo en evidencia las contradicciones en que desembocan sus tesis.";
 
 // Home Page MySQL Table "Inicio"
