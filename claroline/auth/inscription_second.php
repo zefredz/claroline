@@ -244,23 +244,23 @@ $administrator['name'] . "\n $langManager $siteName\nT. " . $administrator['phon
 
 	if($is_allowedCreateCourse)
 	{
-		echo "<p>",$langNowGoCreateYourCourse,"</p>\n";
-		$actionUrl = "../create_course/add_course.php";
+		echo '<p>'.$langNowGoCreateYourCourse.'</p>'."\n";
+		$actionUrl = "../../index.php?cidReset=1";
 	}
 	else
 	{
-		echo "<p>",$langNowGoChooseYourCourses,"</p>\n";
+		echo '<p>'.$langNowGoChooseYourCourses.'</p>'."\n";
 		$actionUrl = "../../index.php?cidReset=1";
 	}
 
-	echo	"<form action=\"",$actionUrl,"\"\n>",
-			"<input type=\"submit\" name=\"next\" value=\"",$langNext,"\" validationmsg=\" ",$langNext," \">\n",
-			"</form>\n";
+	echo '<form action="'.$actionUrl.'" >'
+       . '<input type="submit" name="next" value="'.$langNext.'" validationmsg=" '.$langNext.' ">'."\n"
+       . '</form>'."\n"
+       ;
 
 }	// else Registration accepted
 
 $already_second=1;
 
 include($includePath."/claro_init_footer.inc.php");
-
- ?>
+?>
