@@ -25,7 +25,6 @@
 * - $showPedaSuggest = true; would be in a configuration file
 * - be compatible with register_global off
 */
-define("DISP_CMD_RESULT",__LINE__);
 define("DISP_EDIT_FORM", __LINE__);
 define("DISP_LIST_BLOC", __LINE__);
 
@@ -47,8 +46,17 @@ $tbl_course_description  = $tbl_cdb_names['course_description'];
 
 include('tiplistinit.inc.php');
 
-require('tiplistinit.inc.php');
-
+$htmlHeadXtra[] =
+         "<script>
+          function confirmation (name)
+          {
+              if (confirm(\" $langAreYouSureToDelete \"+ name +\" ?\"))
+                  {return true;}
+              else
+                  {return false;}
+          }
+          </script>";
+		  
 if ( !$is_allowedToEdit )
 {
     header("Location:./index.php");
@@ -105,33 +113,15 @@ else // if user is not admin, they can change content
 //// Kill THE BLOC
     if (isset($_REQUEST['deleteOK']))
     {
-        $sql = "SELECT `title`, `content`  
-                FROM `".$tbl_course_description."` 
-                WHERE `id` = '".$_REQUEST['edIdBloc']."'";
-        $blocs = claro_sql_query_fetch_all($sql);
-        $bloc = $blocs[0]; // 1 line attempt
-        if (!empty($bloc["title"]))
-        {
-            $msgDelete .= '<B>'
-                         .$bloc["title"]
-                         .'</B><BR>'
-                         ;
-        }
-        if (!empty($bloc["content"]))
-        {
-            $msgDelete .= $bloc["content"]
-                         .'<BR>'
-                         ;
-        }
-        $msgDelete = $langDeleted;
-        $msg['success'][] = $msgDelete;
+        $dialogBox = $langDeleted;
 
         $sql ="DELETE From `".$tbl_course_description."` where id = '".$_REQUEST["edIdBloc"]."'";
         $res = claro_sql_query($sql,$db);
-        $display = DISP_CMD_RESULT;
+        $display = DISP_LIST_BLOC;
     }
+	
 //// Edit THE BLOC 
-    elseif(isset($_REQUEST['numBloc']))
+    if(isset($_REQUEST['numBloc']))
     {
         if (is_numeric($_REQUEST['numBloc']))
         {
@@ -190,6 +180,8 @@ else // if user is not admin, they can change content
     switch ($display)
     {
         case DISP_LIST_BLOC :
+		
+		if( isset($dialogBox) ) claro_disp_message_box($dialogBox);
 ?>
 <table width="100%" >
     <TR>
@@ -236,7 +228,7 @@ if (count($listExistingBloc)>0)
         </TH>
         <TH align="left">
             <a href="<?php echo $_SERVER['PHP_SELF']; ?>?numBloc=<?php echo $numBloc; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/edit.gif" alt="<?php echo $langModify; ?>" border="0"></a>
-            <a href="<?php echo $_SERVER['PHP_SELF']; ?>?delete=ask&amp;numBloc=<?php echo$numBloc; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/delete.gif" alt="<?php echo $langDelete; ?>" border="0"></a>
+            <a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteOK=1&amp;edIdBloc=<?php echo$numBloc; ?>" "onClick="return confirmation('<?php echo addslashes($titreBloc[$numBloc]); ?>');"><img src="<?php echo $clarolineRepositoryWeb; ?>img/delete.gif" alt="<?php echo $langDelete; ?>" border="0"></a>
         </TH>
     </TR>
     <TR>
@@ -251,13 +243,7 @@ if (count($listExistingBloc)>0)
 </TABLE>";
 }
             break;
-        case DISP_CMD_RESULT :
-        claro_disp_msg_arr($msg);
-        ?>
-        <BR>
-        <a href="<?php echo $_SERVER['PHP_SELF'] ?>"><?php echo $langBack ?></a>
-    <?php
-        break;
+
         case DISP_EDIT_FORM :
         ?>
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
@@ -265,16 +251,9 @@ if (count($listExistingBloc)>0)
 <b>
 <?php echo $titreBloc[$numBloc] ?>
 </b>
-<br>
+<br />
 <?php 
-        if ($delete=="ask")
-        {
-            echo ucfirst($langDelete)
-                .' : <input type="submit" name="deleteOK" value="'.$langDelete.'">'
-                .'<BR>';
-        }
-
-        echo '<input type="hidden" name="edIdBloc" value="'
+		echo '<input type="hidden" name="edIdBloc" value="'
             .($numBloc =="add" ? 'add' : $numBloc)
             .'">';
 
@@ -285,7 +264,7 @@ if (count($listExistingBloc)>0)
     <tr>
         <td colspan="2">
             <label for="edTitleBloc">'.$langTitle.'</label>
-            <br>
+            <br />
             <input type="text" name="edTitleBloc" id="edTitleBloc" size="50" value="'.$titreBloc[$numBloc].'" >
             </td>
         </tr>';
@@ -321,7 +300,7 @@ if (count($listExistingBloc)>0)
                         <b>
                             <?php echo $langQuestionPlan ?>
                         </b>
-                        <br>
+                        <br />
                         <?php echo $questionPlan[$numBloc] ?>
                     </td>
                 </tr>
@@ -337,7 +316,7 @@ if (count($listExistingBloc)>0)
                         <b>
                             <?php echo $langInfo2Say ?>
                         </b>
-                        <br>
+                        <br />
                         <?php echo $info2Say[$numBloc]?>
                     </td>
                 </tr>
