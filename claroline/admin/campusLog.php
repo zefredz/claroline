@@ -101,19 +101,6 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "
 	<tr>
 		<td style='padding-left : 40px;' valign='top'>
-			<b>".$langStatsDatabase."</b>
-		</td>
-	</tr>";
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			<a href='".$phpMyAdminWeb."/db_stats.php?lang=fr&server=1'>".$langStatsDatabaseLink."</a> <small>(phpMyAdmin)</small>
-		</td>
-	</tr>
-        ";
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
 			<b>".$langCourses."</b>
 		</td>
 	</tr>
