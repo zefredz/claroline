@@ -193,7 +193,11 @@ else // if user is not admin, they can change content
     {
         case DISP_LIST_BLOC :
 		
-		if (! empty($msg)) claro_disp_message_box($msg);
+		if (! empty($msg)) 
+		{
+			claro_disp_message_box($msg);
+			echo '<br />';
+		}
 ?>
 
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']."?edIdBloc=add"  ?>">
