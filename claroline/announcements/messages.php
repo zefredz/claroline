@@ -36,7 +36,9 @@
 $langFile =	'announcements'; 
 
 require '../inc/claro_init_global.inc.php'; //	settings initialisation	
-include('../inc/lib/text.lib.php');
+include($includePath.'/lib/text.lib.php');
+include($includePath.'/lib/claro_mail.lib.inc.php');
+
 
 $htmlHeadXtra[]="<script type=\"text/javascript\" language=\"JavaScript\">
 
@@ -233,90 +235,54 @@ if($is_allowedToUse)	// check teacher status
 			}
 		}
 
-
-		if ($userIdList)
-		{
-			$userIdList = implode(', ', array_unique($userIdList) );
-
-			$sql = "SELECT prenom firstName, nom lastName, email
-			        FROM `".$tbl_user."` WHERE user_id IN (".$userIdList.")";
-
-			$emailResult = mysql_query($sql);
-
-			if ($emailResult)
-			{
-				$i = 0;
-				while ($e = mysql_fetch_array($emailResult))
-				{
-					if(eregi('^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,3})$', $e['email'] ))
-					{
-						$userList[$i]['name'] = $e['firstName'].' '.$e['lastName'];
-						$userList[$i]['email'] = $e['firstName'].' '.$e['lastName'].' <'.$e['email'].'>';
-						$i++;
-					}
-					else
-					{
-						$invalidMailUserList [] = $e['firstName'].' '.$e['lastName'];
-					}
-				}
-			}
-		} // end if userIdList
-		
-
 		//well	send the differents mails
 		
-		 if( count($userList) > 0)
+		 if(is_array($userIdList))
 		 {
 			/* 
 			 * Prepare	email
-			 *
-			 * Here	we are forming one large header	line
-			 * Every header	must be	followed by	a \n except the	last
 			 */
 
+			// email subject
 			$emailSubject = "[" . $siteName . " - " . $courseCode ."] " . $professorMessage;
-		
-			$emailHeaders = "From:	".$senderFirstName." ".$senderLastName." <".$senderMail.">\n"
-			               ."Reply-To:	".$senderMail;
 
-			$emailContent = stripslashes($_REQUEST['emailContent']) . "\n" .
-					"\n" . 
-                                        '--' . "\n" . 
-                                        $senderFirstName . " " . $senderLastName . "\n" .
-                                        $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" .
-					$siteName . "\n".
-                                        '('. $professorMessage . ')';
+			// email content
+			$emailBody = stripslashes($_REQUEST['emailContent']) . "\n" .
+							"\n" . 
+                            '--' . "\n" . 
+                            $senderFirstName . " " . $senderLastName . "\n" .
+                            $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" .
+					        $siteName . "\n".
+                            '('. $professorMessage . ')';
 
 			/*
 			 * Send	email one by one to	avoid antispam
 			 */
 
-			$students='';  //MIGUEL: STUDENTS LIST FOR TEACHER MESSAGE
+			$countUnvalid = 0;
 		
-			foreach($userList as $user)
+			foreach($userIdList as $userId)
 			{
-				//AVOID ANTISPAM BY	VARYING STRING
-
-				$emailBody = $user['name']. ",\n" . 
-                                             "\n" .
-					     $emailContent; 
-
-				@mail($user['email'],$emailSubject, $emailBody, $emailHeaders);		
+				if (!claro_mail_user($userId, $emailBody, $emailSubject, $senderMail, $senderFirstName." ".$senderLastName))
+                {
+                    $messageFailed.= claro_get_last_failure() . "<br />";
+                    $countUnvalid++;
+                }
 			}
 		 }
 
 		$message = '<p>'.$langMsgSent.'<p>';
 
-		if ($invalidMailUserList && count($invalidMailUserList) > 0)
+		if ($countUnvalid > 0)
 		{
 			$messageUnvalid	= '<p>'
-			                 .$langOn.'	'
-			                 .count($userList) + count($invalidMailUserList) .' '
-			                 .$langSelUser.',	'.$unvalid.' '.$langUnvalid
-			                 .'<br><small>('
-			                 .implode(', ', $invalidMailUserList)
-			                 .')</small>'
-			                 .'</p>';
+			                 . $langOn.'	'
+			                 . count($userIdList) .' '
+			                 . $langSelUser.',	' .  $countUnvalid . ' ' .$langUnvalid
+			                 . '<br><small>'
+			                 . $messageFailed
+			                 . '</small>'
+			                 . '</p>';
 
 			$message .= $messageUnvalid;
 		}
@@ -335,10 +301,9 @@ if($is_allowedToUse)	// check teacher status
 
 	if ($message)
 	{
-		echo	$message,
-				"<br>",
-				"<br>",
-				"<a	href=\"",$_SERVER['PHP_SELF'],"\">",$langBackList,"&nbsp;&gt;</a>",
+		claro_disp_message_box($message);
+		echo	"<br>",
+				"<a	href=\"",$PHP_SELF,"\">",$langBackList,"&nbsp;&gt;</a>",
 				"<br>";
 
 		$displayForm = false;
