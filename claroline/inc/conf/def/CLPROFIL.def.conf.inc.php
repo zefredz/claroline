@@ -91,6 +91,7 @@ array ( 'label'         => 'Allow user to let Email Code Empty ?'
 // $langOfficialCode in lang File  'registration'
 $conf_def_property_list['CONFVAL_ASK_FOR_OFFICIAL_CODE'] =
 array ('label'         => 'CONFVAL_ASK_FOR_OFFICIAL_CODE'
+      ,'display'       => FALSE
       ,'description'   => 'Not used but name fixed'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
@@ -102,13 +103,14 @@ array ('label'         => 'CONFVAL_ASK_FOR_OFFICIAL_CODE'
 
 $conf_def_property_list['CONFVAL_CHECK_OFFICIAL_CODE'] =
 array ('label'         => 'Check the official Code ?'
+      ,'display'       => FALSE
       ,'description'   => 'If true, build here the
       function personal_check_official_code($code,$valueToReturnIfOk,$valueToReturnIfBad)
       {
 	      return $stateOfficialCode 
       }'
       ,'default'       => 'FALSE'
-      ,'type'          => 'boolean'
+      ,'type'          => 'php'
       ,'acceptedValue' => array ('TRUE'  => 'Check it'
                                 ,'FALSE' => 'Lets do'
                                 )
