@@ -172,7 +172,7 @@ array ('label'       => 'Restaurer une archive de cours présente sur un serveur 
 
 $conf_def_property_list['localArchivesRepository'] = 
 array ('label'       => 'Repository where stored archives on server'
-      ,'default'     => realpath($rootSys."archive/")
+      ,'default'     => str_replace('\\','/',realpath($rootSys."archive/"))
       ,'type'        => 'filepath'
       );
 
