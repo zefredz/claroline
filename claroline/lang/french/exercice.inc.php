@@ -108,7 +108,7 @@ $langGiveQuestion="Veuillez introduire la question";
 $langAttachFile = "Attacher un fichier";
 $langReplaceAttachedFile = "Remplacer le fichier attaché";
 $langDeleteAttachedFile = "Effacer le fichier attaché";
-$langMaxFileSize = "Taille maximum de ";
+$langMaxFileSize = "Taille maximum : ";
 
 
 // answer_admin.inc.php

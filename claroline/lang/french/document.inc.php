@@ -57,7 +57,7 @@ $langComMod="commentaire modifié";
 $langElRen="Elément renommé";
 $langViMod="Visibilité modifiée";
 $langFileError="Le fichier à télécharger n'est pas valide.";
-$langMaxFileSize="La taille maximum est de : ";
+$langMaxFileSize="Taille maximum : ";
 $langAddCommentOptionnal = "Ajouter un commentaire (optionnel) : ";
 
 // Special for group documents

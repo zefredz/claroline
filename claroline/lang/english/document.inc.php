@@ -49,7 +49,7 @@ $langUp="Up";
 $langViMod="Visibility modified";
 $langElRen="Element renamed";
 $langFileError="The file to upload is not valide.";
-$langMaxFileSize="Max file size is : ";
+$langMaxFileSize="Max file size : ";
 $langAddCommentOptionnal = "Add a comment (optionnal) :";
 
 // Special for group documents
