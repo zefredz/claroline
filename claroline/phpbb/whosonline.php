@@ -47,7 +47,7 @@ if(!$result = mysql_query($sql, $db))
 if($myrow = mysql_fetch_array($result)) {
 	do {
 		echo "<TR BGCOLOR=$color2 ALIGN=LEFT>\n";
-		if(!stristr($myrow[username], get_syslang_string($sys_lang, "l_guest"))) {
+		if(!stristr($myrow[username], $l_guest)) {
 			$thisuser = get_userdata($myrow[username], $db);
 			echo "<TD><FONT FACE=\"$FontFace\" SIZE=\"$FontSize2\" COLOR=\"$textcolor\"><a href=\"$url_phpbb/bb_profile.$phpEx?mode=view&user=$thisuser[user_id]\">$thisuser[username]</a></FONT></TD>\n";
 		}

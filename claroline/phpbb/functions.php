@@ -83,7 +83,7 @@ function get_whosonline($IP, $username, $forum, $db)
 {
 	global $sys_lang, $tbl_whosonline;
 
-	if($username == '') $username = get_syslang_string($sys_lang, "l_guest");
+	if($username == '') $username = $l_guest;
 
 	$time       = explode(' ', microtime());
 	$userusec   = (double)$time[0];

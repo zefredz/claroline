@@ -112,7 +112,7 @@ if ( isset($_uid) )  //anonymous user do not have this function
     if (is_topic_notification_requested($_uid, $topic))   // display link NOT to be notified
     {
         echo "<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
-            .get_syslang_string($sys_lang, 'l_notify')
+            . $l_notify
             ." [<a href=\"".$_SERVER['PHP_SELF']."?topic=".$topic."&cmd=exdoNotNotify\">"
             .$langDisable
             ."</a>]";
@@ -121,7 +121,7 @@ if ( isset($_uid) )  //anonymous user do not have this function
     {
         echo  "<a href=\"".$_SERVER['PHP_SELF']."?topic=".$topic."&cmd=exNotify\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/email.gif\"> "
-            .get_syslang_string($sys_lang, 'l_notify')
+            . $l_notify 
             ."</a>";
     }
 
