@@ -1,6 +1,6 @@
 <?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE 1.6.*
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -27,6 +27,9 @@
 /*=====================================================================
   Init Section
  =====================================================================*/ 
+$langStartAgain = 'Start again';
+$langNothingToDo = 'Nothing To Do';
+$langDisplayErrorContactDevelopper = 'DISPLAY value unknow, please contact developper of the tool.';
 
 $cidReset = TRUE;
 $gidReset = TRUE;
@@ -43,7 +46,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
   Include version file and initialize variables
  ---------------------------------------------------------------------*/
 
-include ($includePath."/installedVersion.inc.php");
+include ($includePath.'/installedVersion.inc.php');
 
 $thisClarolineVersion = $version_file_cvs;
 $thisVersionDb 		  = $version_db_cvs;
@@ -51,16 +54,16 @@ $thisVersionDb 		  = $version_db_cvs;
 $patternVarVersion = '/^1.6/';
 $patternSqlVersion = '1.6%';
 
-$configurationFile = $includePath."conf/claro_main.conf.php";
+$configurationFile = $includePath.'/conf/claro_main.conf.php';
 
 /*---------------------------------------------------------------------
   Steps of Display 
  ---------------------------------------------------------------------*/
 
-define("DISPVAL_upgrade_backup_needed",0);
-define("DISPVAL_upgrade_main_db_needed",1);
-define("DISPVAL_upgrade_courses_needed",2);
-define("DISPVAL_upgrade_done",3);
+define('DISPVAL_upgrade_backup_needed'  ,__LINE__);
+define('DISPVAL_upgrade_main_db_needed' ,__LINE__);
+define('DISPVAL_upgrade_courses_needed' ,__LINE__);
+define('DISPVAL_upgrade_done'           ,__LINE__);
 
 /*=====================================================================
   Statements Section
@@ -102,7 +105,7 @@ else
 
 @include ($configurationFile); // read Values in sources
 
-if (!$confirm_backup) 
+if (!$_REQUEST['confirm_backup']) 
 {
 	// ask to confirm backup
 	$display = DISPVAL_upgrade_backup_needed;	
@@ -122,8 +125,9 @@ else
 	// check course table to view wich courses aren't upgraded
 	mysql_connect($dbServer,$dbLogin,$dbPass);
 	$sqlNbCourses = "SELECT count(*) as nb 
-                     FROM `".$mainDbName."`.`cours`
+                     FROM `".$mainDbName."`.`".$mainTblPrefix."cours`
                      WHERE not ( versionDb like '" . $patternSqlVersion . "' )";
+
 	$res_NbCourses = mysql_query($sqlNbCourses);
 	$nbCourses = mysql_fetch_array($res_NbCourses);
 	
@@ -178,7 +182,7 @@ else
 
 switch ($display)
 {
-	case DISPVAL_backup_needed :
+	case DISPVAL_upgrade_backup_needed :
 
         $str_confirm_backup = '<input type="checkbox" id="confirm_backup" name="confirm_backup" value="1" />' .
                 '<label for="confirm_backup">' . $langConfirm . '</label>';
@@ -231,11 +235,6 @@ switch ($display)
 		    . '<li><a href="../../..">' . $langLogOnToYourPlatform . '</a></li>' . "\n"
 		    . '<li><a href=\"..\">'. $langGoAdmin . '</a></li>' . "\n"
 		    . '</ul>' . "\n";
-		break;
-
-	default : 
-		echo '<p>' . $langNothingToDo . '</p>' . "\n";
-
 }
 
 ?>
