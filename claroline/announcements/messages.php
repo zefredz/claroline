@@ -126,7 +126,7 @@ function valida()
 //	End	-->
 </script>";
 
-$interbredcrump[]= array ("url"=>"../announcements/announcements.php", "name"=> $langAn);
+$interbredcrump[]= array ("url"=>"../announcements/announcements.php", "name"=> $langAnnouncements);
 
 $nameTools = $langMessages;
 
