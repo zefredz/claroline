@@ -475,13 +475,14 @@ function event_default($type_event,$values)
 
     foreach($values as $type_value => $event_value)
     {
+
         if($sqlValues == "")
         {
-            $sqlValues .= "('',$user_id,$cours_id,$reallyNow,\"".addslashes($type_event)."\",\"".addslashes($type_value)."\",\"".addslashes($event_value)."\")";
+            $sqlValues .= "('',".$user_id.",".$cours_id.",FROM_UNIXTIME(".$reallyNow."),\"".addslashes($type_event)."\",\"".addslashes($type_value)."\",\"".addslashes($event_value)."\")";
         }
         else
         {
-            $sqlValues .= ",('',$user_id,$cours_id,$reallyNow,\"".addslashes($type_event)."\",\"".addslashes($type_value)."\",\"".addslashes($event_value)."\")";
+            $sqlValues .= ",('',".$user_id.",".$cours_id.",FROM_UNIXTIME(".$reallyNow."),\"".addslashes($type_event)."\",\"".addslashes($type_value)."\",\"".addslashes($event_value)."\")";
         }
     }
     $sql = "INSERT INTO `".$TABLETRACK_DEFAULT."`
