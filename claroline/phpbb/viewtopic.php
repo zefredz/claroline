@@ -140,8 +140,7 @@ if (     is_null($myrow['idGroup']) // there is no group attached to this forum
     <tr align="left">
     <th class="superHeader">
     <?php 
-    	echo $topic_subject;
-    	
+	
     /*
      * EMAIL NOTIFICATION COMMANDS
      */
@@ -187,31 +186,35 @@ if (     is_null($myrow['idGroup']) // there is no group attached to this forum
 
       // add appropriate link
 
+      echo "<div style=\"float: right;\">"
+          ."<small>";
+
       if ($userInNotifyMode)   // display link NOT to be notified
       {
-        echo "<br>"
-        	."<small>"
-        	."<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
+        echo "<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
         	.get_syslang_string($sys_lang, "l_notify")
-            ."[<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&cmd=exdoNotNotify\">"
+            ." [<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&cmd=exdoNotNotify\">"
             .$l_disable
-            ."</a>]"
-            ."</small>";
+            ."</a>]";
        }
        else   //display link to be notified for this topic
        {
-       echo "<br><small>"
-       		."<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&cmd=exNotify\">"
+       echo  "<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&cmd=exNotify\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
             ."</a>"
             ."<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&cmd=exNotify\">"
             .get_syslang_string($sys_lang, "l_notify")
-            ."</a>"
-            ."</small>";
+            ."</a>";
        }
+
+       echo  "</small>"
+            ."</div>";
+
      }//end not anonymous user
 
-    
+   	echo $topic_subject;
+
+
     ?>
     </th>
 
@@ -243,10 +246,22 @@ if (     is_null($myrow['idGroup']) // there is no group attached to this forum
 
     do
     {
+        // Check if the forum post is after the last login
+        // and choose the image according this state
+        list($post_date, $post_time) = split(' ', $myrow['post_time']);
+		list($year, $month, $day)    = explode('-', $post_date);
+		list($hour, $min)            = explode(':', $post_time);
+		$post_time                   = mktime($hour, $min, 0, $month, $day, $year);
+
+        if($post_time < $last_visit) $postImg = 'post.gif';
+        else                         $postImg = 'postred.gif';
+
+        
         echo	"<tr>\n",
                 "<th class=\"headerX\">\n",
-                $l_author," : <b>",$myrow[prenom]," ",$myrow[nom],"</b>",
-                "-- <small>",$l_posted," : ",$myrow[post_time],"</small>\n",
+                "<img src=\"".$clarolineRepositoryWeb."img/".$postImg."\" alt=\"\">",
+                $l_author," : <b>",$myrow['prenom']," ",$myrow['nom'],"</b>",
+                " <small>",$l_posted," : ",$myrow['post_time'],"</small>\n",
                 "</td>\n",
                 "</tr>\n";
 
