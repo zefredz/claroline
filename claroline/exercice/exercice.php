@@ -23,6 +23,9 @@
 include('exercise.class.php');
 include('question.class.php');
 include('answer.class.php');
+
+include('exercise.lib.php');
+
 $tlabelReq='CLQWZ___';
 $langFile='exercice';
 
@@ -464,10 +467,10 @@ if($is_trackingEnabled && $_uid):
 
 <table class="claroTable" cellpadding="2" cellspacing="2" border="0" width="80%">
 <tr class="headerX">
-  <th width="40%"><?php echo $langExercice; ?></th>
-  <th width="30%"><?php echo $langDate; ?></th>
-  <th width="20%"><?php echo $langResult; ?></th>
-  <th width="10%"><?php echo $langExeTime; ?></th>	
+  <th><?php echo $langExercice; ?></th>
+  <th><?php echo $langDate; ?></th>
+  <th><?php echo $langResult; ?></th>
+  <th><?php echo $langExeTime; ?></th>	
 </tr>
 
 <?php
@@ -489,7 +492,7 @@ foreach($results as $row)
   <td><?php echo $row['titre']; ?></td>
   <td><small><?php echo claro_disp_localised_date($dateTimeFormatLong,$row['exeDate']); ?></small></td>
   <td><?php echo $row['exe_result']; ?> / <?php echo $row['exe_weighting']; ?></td>
-  <td><?php echo $row['exe_time']; ?></td>
+  <td><?php echo disp_minutes_seconds($row['exe_time']); ?></td>
 </tr>
 
 <?php
