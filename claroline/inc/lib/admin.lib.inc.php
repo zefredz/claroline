@@ -447,7 +447,6 @@ function update_user_course_properties($user_id, $course_id, $properties)
  * @param  int     id of course in DB
  * @return boolean true if user is enrolled false otherwise
  */
-
 function isRegisteredTo($user_id, $course_id)
 {
     global $tbl_courseUser;
@@ -461,11 +460,15 @@ function isRegisteredTo($user_id, $course_id)
     if (mysql_num_rows($result)>0) {return true;} else {return false;}
 }
 
-
+/**
+ * deprecated : use claro_disp_auth_form()
+ * To know if user is registered to a course or not
+ * @ver 1.5
+ 
+ */
 function treatNotAuthorized()
 {
-    exit("<center>You are not allowed here !!!</center>");
-    //header("location:../index.php");
+    return claro_disp_auth_form();
 }
 
 ?>
