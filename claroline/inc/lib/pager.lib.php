@@ -86,7 +86,7 @@ class claro_sql_pager
     function get_total_result_count()
     {
         // chek the occurence of a GROUP BY statement into the query
-        if ( eregi('[[:space:]]+(GROUP BY|HAVING|SELECT[[:space:]]+DISTINCT)[[:space:]]+',
+        if ( ! eregi('[[:space:]]+(GROUP BY|HAVING|SELECT[[:space:]]+DISTINCT)[[:space:]]+',
                    $this->sql) )
         {
             // Split the whole sql query in three part and store it into an array :
