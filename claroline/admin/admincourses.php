@@ -236,7 +236,7 @@ if (isset($_SESSION['admin_course_subscription']))   // type of subscription all
     $sql.=$toAdd;
 
 }
-    $sql.='GROUP BY C.code';
+    $sql.=' GROUP BY C.code';
 
 // deal with REORDER
 if (isset($_SESSION['admin_course_order_crit']))
