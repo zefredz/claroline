@@ -432,7 +432,7 @@ switch ($displayMode)
 				{
 					echo "<li>";
 
-					if ($thisCategory['nbCourse'] + $thisCategory['nbChilds'] > 0)
+					if ($thisCategory['nbCourse'] + $thisCategory['nb_childs'] > 0) 
 					{
 						echo	"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqReg&category=",$thisCategory['code'],$inURL,"\">",
 								$thisCategory['name'],
