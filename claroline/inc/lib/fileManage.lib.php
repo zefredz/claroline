@@ -234,7 +234,7 @@ function my_rename($oldFilePath, $newFilePath)
 
 	/* PREVENT FILE NAME WITH PHP EXTENSION */
 
-	$newFilePath = php2phps($newFilePath);
+	$newFilePath = get_secure_file_name($newFilePath);
 
     /* REPLACE CHARACTER POTENTIALY DANGEROUS FOR THE SYSTEM */
 
