@@ -4,8 +4,9 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
 {
     global $langMonthNames;
     
-    if(!$selectedDate)
+    if( $selectedDate == 0)
     {
+		// par défaut prendre la date du jour
         $selectedDate = date("Y-m-d");
     }
     // split selectedDate
@@ -18,7 +19,7 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
         $dayField .= "<option value=\"".$i."\"";
         if($i == $selDay)
         {
-            $dayField .= " selected=\"true\"";
+            $dayField .= " selected=\"selected\"";
         }
         $dayField .= ">".$i."</option>\n";
     }
@@ -31,7 +32,7 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
         $monthField .= "<option value=\"".$i."\"";
         if($i == $selMonth)
         {
-            $monthField .= " selected=\"true\"";
+            $monthField .= " selected=\"selected\"";
         }
 	
         $monthField .= ">".$langMonthNames['long'][$i-1]."</option>\n";
@@ -40,12 +41,13 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
     
     // year field
     $yearField = "<select name=\"".$yearFieldName."\" id=\"".$yearFieldName."\">\n";
-    for ($i= $selYear-2;$i <=$selYear+5; $i++)
+	$thisYear = date("Y");
+    for ($i= $thisYear-2;$i <= $thisYear+5; $i++)
     {
         $yearField .= "<option value=\"".$i."\"";
         if($i == $selYear)
         {
-            $yearField .= " selected=\"true\"";
+            $yearField .= " selected=\"selected\"";
         }
         $yearField .= ">".$i."</option>\n";
     }
@@ -73,7 +75,7 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
             $hourField .= "<option value=\"".$i."\"";
             if($i == $selHour)
             {
-                $hourField .= " selected=\"true\"";
+                $hourField .= " selected=\"selected\"";
             }
             $hourField .= ">".$i."</option>\n";
         }
