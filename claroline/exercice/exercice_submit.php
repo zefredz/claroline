@@ -260,7 +260,7 @@ if($_uid)
     if( $userTryQty > $exerciseMaxAttempt )
     {
         $showExerciseForm = false;
-        $errMsg .=  $langNoMoreAttemptsAvailable;
+        $errMsg .=  "<br/>".$langNoMoreAttemptsAvailable;
     }
   }
 }
@@ -270,33 +270,33 @@ $mktimeNow      = mktime();
 $timeStartDate  = $objExercise->get_start_date('timestamp');
 $timeEndDate    = $objExercise->get_end_date('timestamp');
 
+$statusMsg  .= "<br />".$langAvailableFrom." "
+                    .strftime($dateTimeFormatLong,$timeStartDate)
+                    ." ".$langTo." "
+                    .strftime($dateTimeFormatLong,$timeEndDate);
+                      
 if( $timeStartDate > $mktimeNow )
 {
     $showExerciseForm = false;
-    $errMsg .= $langExerciseNotAvailable;
+    $errMsg .= "<br />".$langExerciseNotAvailable;
 }
 elseif( $timeEndDate < $mktimeNow )
 {
     $showExerciseForm = false;
-    $errMsg .= $langExerciseNoMoreAvailable;
+    $errMsg .= "<br />".$langExerciseNoMoreAvailable;
 }
-else
-{
-  $statusMsg  .= "<br />".$langAvailableFrom." "
-                      .strftime($dateTimeFormatLong,$timeStartDate)
-                      ." ".$langTo." "
-                      .strftime($dateTimeFormatLong,$timeEndDate);
-}
-  
+
+// concat errmsg to status msg before displaying it
+$statusMsg .= "<br /><b>".$errMsg."</b>";
 claro_disp_tool_title($exerciseTitle);
 
-if($showExerciseForm)
+if( $showExerciseForm || $is_courseAdmin )
 {
 ?>
   <p>
   <?php echo claro_parse_user_text(make_clickable($exerciseDescription)) ; ?>
   <small>
-  <?php echo $statusMsg; ?>
+  <?php echo $statusMsg;  ?>
   </small>
   </p>
   <table width="100%" border="0" cellpadding="1" cellspacing="0">
@@ -382,7 +382,7 @@ if($showExerciseForm)
 } //end of if ($showExerciseForm)
 else
 {
-  echo $errMsg;
+  echo "<small>".$statusMsg."</small>";
 }
 if ($_SESSION['inPathMode'] == true) 
 {	
