@@ -216,7 +216,7 @@ function set_course_tool_access_level($toolIdList, $level)
  */
 
 
-function set_local_course_tool($toolId, $name, $url, $accessLevel = 'ALL')
+function set_local_course_tool($toolId, $name, $url)
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
     $tbl_course_tool_list = $tbl_cdb_names['tool'];
@@ -234,8 +234,7 @@ function set_local_course_tool($toolId, $name, $url, $accessLevel = 'ALL')
 
         $sql = "UPDATE `".$tbl_course_tool_list."`
                 SET script_name = \"".$name."\",
-                    script_url  = \"".$url."\",
-                    access = \"".$accessLevel . "\" 
+                    script_url  = \"".$url."\"
                 WHERE id        = \"".intval($toolId)."\"
                 AND   tool_id IS NULL";
                 
