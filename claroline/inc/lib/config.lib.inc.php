@@ -849,41 +849,54 @@ function set_hash_confFile($confFile,$config_code)
 function parse_config_file($confFileName)
 {
     GLOBAL $includePath;
-    $code = file_get_contents($includePath."/conf/".$confFileName);
-    $tokens = token_get_all($code);
-    @include($includePath."/conf/".$confFileName);
-    $vars = array();
-    for($i=0; $i < count($tokens); $i++)
+    $confFilePath = $includePath."/conf/".$confFileName;
+    if(file_exists($confFilePath ))
     {
-        if (($tokens[$i][0] == T_VARIABLE ))
+        $code = file_get_contents($confFilePath);
+        $tokens = token_get_all($code);
+        @include($includePath."/conf/".$confFileName);
+        $vars = array();
+        for($i=0; $i < count($tokens); $i++)
         {
-            $possibleVar = substr($tokens[$i][1], 1);
-            if (  $tokens[$i+1][0] == T_WHITESPACE
-                && $tokens[$i+2] == '='
-                )
+            if (($tokens[$i][0] == T_VARIABLE ))
             {
-                $i += 2;
-                if ($tokens[$i+1][0] == T_WHITESPACE) $i++;
-                $vars[$possibleVar] = '';
-                while ($i++)    
+                $possibleVar = substr($tokens[$i][1], 1);
+                if (  $tokens[$i+1][0] == T_WHITESPACE
+                    && $tokens[$i+2] == '='
+                    )
                 {
-                    if ($tokens[$i] == ';') break;
-                    if (is_array($tokens[$i]))
-                        $val = $tokens[$i][1];
-                    else
-                        $val = $tokens[$i];
-                    $vars[$possibleVar] .= $val;
+                    $i += 2;
+                    if ($tokens[$i+1][0] == T_WHITESPACE) $i++;
+                    $vars[$possibleVar] = '';
+                    while ($i++)    
+                    {
+                        if ($tokens[$i] == ';') break;
+                        if (is_array($tokens[$i]))
+                            $val = $tokens[$i][1];
+                        else
+                            $val = $tokens[$i];
+                        $vars[$possibleVar] .= $val;
+                    }
+                }
+                $propList[$possibleVar] =  $$possibleVar;
+            }
+            elseif (($tokens[$i][0] == T_CONSTANT_ENCAPSED_STRING ))
+            {
+                $tokens[$i][1] = str_replace('\'','',$tokens[$i][1]);
+                $tokens[$i][1] = str_replace('"','',$tokens[$i][1]);
+                if (defined($tokens[$i][1]))
+                {
+                    unset($value);
+                     
+                    @eval('$value = '.$tokens[$i][1].';');
+                    $propList[$tokens[$i][1]] =  $value;
                 }
             }
-            $propList[$possibleVar] =  $$possibleVar;
         }
-        elseif (($tokens[$i][0] == T_CONSTANT_ENCAPSED_STRING ))
-        {
-            $tokens[$i][1] = str_replace('"','',$tokens[$i][1]);
-            unset($value);
-            @eval('$value = '.$tokens[$i][1].';');
-            $propList[$tokens[$i][1]] =  $value;
-        }
+    }
+    else 
+    {
+        $propList =array();
     }
     return  $propList;
 }
