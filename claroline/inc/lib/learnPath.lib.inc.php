@@ -114,7 +114,11 @@
                      $defaultTxt = $langDefaultModuleComment;
                      $col_name = "comment";
                      $tbl_name = $TABLEMODULE;
-                     $where_cond = "`module_id` = ".$_SESSION['module_id'];  // use backticks ( ` ) for col names and simple quote ( ' ) for string
+		     if ( isset($_REQUEST['module_id'] ) )
+			$module_id = $_REQUEST['module_id'];
+		     else 
+			$module_id = $_SESSION['module_id'];
+                     $where_cond = "`module_id` = ".$module_id;  // use backticks ( ` ) for col names and simple quote ( ' ) for string
                      break;
                 case LEARNINGPATH_ :
                      $defaultTxt = $langDefaultLearningPathComment;
@@ -132,51 +136,22 @@
            }
 
            // update mode
-           if ( $mode == UPDATE_ && $is_AllowedToEdit )
+	   // allow to chose between 
+	   // - update and show the comment and the pencil and the delete cross (UPDATE_)
+  	   // - update and nothing displayed after form sent (UPDATENOTSHOWN_)	  	
+           if ( ( $mode == UPDATE_ || $mode == UPDATENOTSHOWN_ )  && $is_AllowedToEdit )
            {
-
-                 if ( isset($_POST['insertCommentBox']) && !empty($_POST['insertCommentBox']) )
+                 if ( isset($_POST['insertCommentBox']) )
                  {
                         $sql = "UPDATE `".$tbl_name."`
                                    SET `".$col_name."` = \"".claro_addslashes($_POST['insertCommentBox'])."\"
                                  WHERE ".$where_cond;
                         //echo "<1 upd> ".$sql."<br>";
                         claro_sql_query($sql);
-                        $dsp = true;
-                 }
-                 else // display form
-                 {
-                     // get info to fill the form in
-                     $sql = "SELECT *
-                               FROM `".$tbl_name."`
-                              WHERE ".$where_cond;
-                     $query = claro_sql_query($sql);
-                     $oldComment = @mysql_fetch_array($query);
-                     echo        "<form method=\"POST\" action=\"$PHP_SELF\">\n",
-                                    //"<textarea name=\"insertCommentBox\" rows=\"8\" cols=\"55\" wrap=\"virtual\">",
-                                    claro_disp_html_area('insertCommentBox', $oldComment[$col_name], 15, 55),
-                                    //htmlentities($oldComment[$col_name])."</textarea>\n",
-                                    "<br>\n",
-                                    "<input type=\"hidden\" name=\"cmd\" value=\"update".$col_name."\">",
-                                    "<input type=\"submit\" value=\"$langOk\">\n",
-                                    "<br>\n",
-                                  "</form>\n";
-                 }
-
-           }
-	   
-	   // update BUT NOT SHOWN mode
-           if ( $mode == UPDATENOTSHOWN_ && $is_AllowedToEdit )
-           {
-
-                 if ( isset($_POST['insertCommentBox']) && !empty($_POST['insertCommentBox']) )
-                 {
-                        $sql = "UPDATE `".$tbl_name."`
-                                   SET `".$col_name."` = \"".claro_addslashes($_POST['insertCommentBox'])."\"
-                                 WHERE ".$where_cond;
-                        //echo "<1 upd> ".$sql."<br>";
-                        claro_sql_query($sql);
-                        $dsp = false;
+                        if($mode == UPDATE_)	
+				$dsp = true;
+			elseif($mode == UPDATENOTSHOWN_) 
+				$dsp = false;
                  }
                  else // display form
                  {
