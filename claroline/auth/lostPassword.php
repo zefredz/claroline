@@ -45,10 +45,6 @@ if ($searchPassword)
 	                `username` AS `loginName`, 
 					`password`, 
 					`email`, 
-					`statut` AS `status`, 
-	                `officialCode`, 
-					`phoneNumber`, 
-					`pictureUri`, 
 					`creatorId`
 	         FROM `'.$tbl_user.'`
 	         WHERE LOWER(email) LIKE "'.claro_addslashes($_REQUEST['Femail']).'"
