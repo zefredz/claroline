@@ -1,4 +1,4 @@
-<?php # $Id$
+<?php // $Id$
 
 /**
  * @version CLAROLINE 1.6
@@ -445,7 +445,6 @@ else
 }
 
 include_once($newIncludePath."lib/admin.lib.inc.php");
-
 $idAdmin = add_user( cleanwritevalue($adminNameForm)
         , cleanwritevalue($adminSurnameForm)
         , cleanwritevalue($adminEmailForm)
