@@ -31,6 +31,7 @@ $langPlaces="places par groupe (facultatif)";
 $langGroupPlacesThis="places (facultatif)";
 $langCreate="créer";
 $langDeleteGroups="Supprimer tous les groupes";
+$langConfirmDelete = "Êtes vous sûr de vouloir supprimer tous les groupes ?";
 $langGroupsAdded="groupe(s) a (ont) été ajouté(s)";
 $langGroupsDeleted="Tous les groupes ont été supprimés";
 $langGroupDel="Groupe supprimé";

@@ -20,6 +20,7 @@ $langPlaces="seats by groups (optional)";
 $langGroupPlacesThis="seats (optional";
 $langCreate="create";
 $langDeleteGroups="Delete all groups";
+$langConfirmDelete = "Are you sure to delete all groups ?"; 
 $langGroupsAdded="group(s) has (have) been added";
 $langGroupsDeleted="All groups have been deleted";
 $langGroupDel="Group deleted";
