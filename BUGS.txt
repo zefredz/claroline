@@ -293,7 +293,7 @@ M.34 où : /lang/*/exerciceRC.inc.php
 type : déprécié
 quoi : ces fichiers ne servent  plus (A VERIFIER)
 Repéré par : M
-Assigné à : 
+Assigné à : SEB 
 Etat	   : RESOLU ( fichier réellement inutilisé -> retiré. )
 
 Etat : New ------------------------------------------------------
@@ -334,12 +334,13 @@ $langViewCourse
 Assigné à 	 : SEB
 
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.37 où : create_course
 type : illogique
 quoi : on peut demandé de créer un cours sans intitulé. Il accepte mais ne fait rien, il laisse croire que ca a marché
 Repéré par : M
-Assigné à : 
+Assigné à : ?
+Etat : RESOLU ( message d'erreur apparait si intitulé est vide )  
 	
 Etat : New ------------------------------------------------------
 M.38 où : agenda
@@ -372,6 +373,10 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.50  2004/07/06 11:54:21  seb
+Bug 37 resolved
+Bugs 3, 4, 8, 9, 10, 13, 25, 26, 27, 33, 35, 38 need to be corrected or checked.
+
 Revision 1.49  2004/06/28 08:07:25  moosh
 bug  38.
 
