@@ -150,4 +150,13 @@ $langMaxStudentGroup="Maximum student per group";
 $langAdmin ="administration";
 $langNumGroupStudent="Qty of team wich student can subscribe in the course";
 
+
+$langLabelCanBeEmpty ="Course title needed";
+$langTitularCanBeEmpty ="Titular field need to be filled";
+$langEmailCanBeEmpty ="Email field need to be filled";
+$langCodeCanBeEmpty ="Course code field need to be filled";
+$langEmailWrong = "Email wrong";
+$langCreationMailNotificationSubject = 'Course creation';
+$langCreationMailNotificationBody = 'Course creation on'; 
+$langByUser = 'by the user';
 ?>

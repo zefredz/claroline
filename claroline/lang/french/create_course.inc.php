@@ -136,4 +136,14 @@ $langNumGroup="Nombre de groupe par cours";
 $langMaxStudentGroup="Nombre maximum d'étudiant par groupe";
 $langAdmin ="administration";
 $langNumGroupStudent="Nombre de groupe dont peut faire partie un étudiant dans un cours";
+
+$langLabelCanBeEmpty ="L'intitulé est obligatoire";
+$langTitularCanBeEmpty ="Le champs titulaire doit être rempli";
+$langEmailCanBeEmpty ="Le champs email doit être rempli";
+$langCodeCanBeEmpty ="Le code cours doit être rempli";
+$langEmailWrong = "L'email n'est pas correct (corrigez-le, ou effacez-le)";
+$langCreationMailNotificationSubject = 'Création de cours';
+$langCreationMailNotificationBody = 'Cours ajouté sur'; 
+$langByUser = 'par l\'utilisateur';
+
 ?>
