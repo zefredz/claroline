@@ -531,8 +531,8 @@ echo
 
 echo
         "<tr>\n",
-        "<td align=\"right\">\n<label for=\"form_email\">",
-        $langPhone,"</label> : \n",
+        "<td align=\"right\">\n",
+        "<label for=\"form_email\">",$langPhone,"</label> : \n",
         "</td>\n",
         "<td >\n",
         "<input type=\"text\" size=\"40\" name=\"form_phone\" id=\"form_phone\" value=\"",$form_phone,"\">\n",
