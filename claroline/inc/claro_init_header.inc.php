@@ -13,7 +13,7 @@
 
 header('Content-Type: text/html; charset='. $charset);
 
-if ($httpHeadXtra)
+if (!empty($httpHeadXtra) && is_array($httpHeadXtra) )
 {
 	foreach($httpHeadXtra as $thisHttpHead)
 	{
@@ -67,7 +67,7 @@ $titlePage .= $siteName;
 
 <script type="text/javascript">document.cookie="javascriptEnabled=true";</script>
 <?php
-if ($htmlHeadXtra)
+if ( !empty($htmlHeadXtra) && is_array($htmlHeadXtra) )
 {
 	foreach($htmlHeadXtra as $thisHtmlHead)
 	{

@@ -191,7 +191,7 @@ if (is_array($_courseToolList))
 
 echo "<div id=\"breadCrumbLine\">\n\n<hr />\n";
 
-if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
+if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($interbredcrump)) )
 {
 	echo "<ul>"
    		."<li id=\"home\"><a href=\"".$rootWeb."index.php\" target=\"_top\">"
@@ -207,7 +207,7 @@ if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
             ."</a></li>\n";
     }
 
-    if (is_array($interbredcrump) )
+    if (isset($interbredcrump) && is_array($interbredcrump) )
     {
         while ( (list(,$bredcrumpStep) = each($interbredcrump)) )
         {
@@ -246,7 +246,7 @@ if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
 	echo "</ul>";
 }
 
-if ($claro_toolViewOptionEnabled)
+if ( !empty($claro_toolViewOptionEnabled) )
 {
   	echo "<div id=\"toolViewOption\">\n";
 	claro_disp_tool_view_option($_REQUEST['viewMode']);
