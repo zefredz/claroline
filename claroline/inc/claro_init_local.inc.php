@@ -52,17 +52,17 @@
  *                     same time, all group informations is removed from the 
  *                     current session
  *
- * int $tidReq       : tool Id requested
+ * int     $tidReq   : tool Id requested
  * boolean $tidReset : ask for a tool reset, if no $tidReq or $tlabelReq is 
  *                     provided  in the same time, all information concerning 
  *                     the current tool is removed from the current sesssion
  *
- * $tlabelReq        : more generic call to a tool. Each tool actual tool 
- *                     are identified by a unique id into the course. But tools 
- *                     which are part of the claroline release have also an 
- *                     generic label. Tool label and toopl id are decoupled. It 
- *                     means that one can have several token of the same tool 
- *                     with different settings in the same course. *
+ * $tlabelReq        : more generic call to a tool. Each tool are identified by 
+ *                     a unique id into the course. But tools which are part of 
+ *                     the claroline release have also an generic label. 
+ *                     Tool label and tool id are decoupled. It means that one 
+ *                     can have several token of the same tool with different 
+ *                     settings in the same course.
  *
  *                   VARIABLES SET AND RETURNED BY THE SCRIPT
  *
@@ -898,14 +898,15 @@ else // continue with the previous values
 }
 
 
-////
-////
-////
+//////////////////////////////////////////////////////////////////////////////
+// COURSE TOOL LIST INIT FOR CURRENT USER
+//////////////////////////////////////////////////////////////////////////////
+
+
 if ($uidReset || $cidReset)
 {
-    if ($_cid) // have keys to search data
+    if ($_cid) // have course keys to search data
     {
-    
         $reqAccessList = array('ALL');
         if ($is_platformAdmin) $reqAccessList [] = 'PLATFORM_ADMIN';
         if ($is_courseAdmin  ) $reqAccessList [] = 'COURSE_ADMIN';
