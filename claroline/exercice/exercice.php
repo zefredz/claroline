@@ -189,7 +189,14 @@ if($is_allowedToEdit)
 // only for students
 else
 {
-	$sql="SELECT id,titre,type FROM `$TBL_EXERCICES` WHERE active='1' ORDER BY id LIMIT $from,".($limitExPage+1);
+  if ($_uid)
+  {
+      $sql="SELECT `id`,`titre`,`type` FROM `$TBL_EXERCICES` WHERE `active`='1' ORDER BY `id` LIMIT $from,".($limitExPage+1);
+  }
+  else // anonymous user
+  {
+      $sql="SELECT `id`,`titre`,`type` FROM `$TBL_EXERCICES` WHERE `active`='1' AND `anonymous_attempts`='YES' ORDER BY `id` LIMIT $from,".($limitExPage+1);
+  }
 	$result=mysql_query($sql) or die("Error : SELECT at line ".__LINE__);
 }
 
