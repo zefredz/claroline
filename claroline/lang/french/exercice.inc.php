@@ -78,6 +78,8 @@ $langAnonymousAttemptsAllowed = "Autoriser : les noms des utilisateurs ne sont p
 $langAnonymousAttemptsNotAllowed = "Ne pas autoriser : les noms des utilisateurs sont enregistrés dans les statistiques, les utilisateurs anonymes ne peuvent pas faire l'exercice.";
 $langExerciseOpening = "Date de début";
 $langExerciseClosing = "Date de fin";
+$langRequired = "Requis";
+$langNoEndDate = "Pas de date de fermeture";
 
 // question_admin.inc.php
 
@@ -173,10 +175,10 @@ $langMaxAllowedTime = "Temps maximum autorisé";
 $langNoTimeLimit = "Pas de limite de temps";
 $langAttempt = "Essai";
 $langOn = "sur";
-$langAvailableFrom = "Disponible de";
+$langAvailableFrom = "Disponible à partir du";
 $langExerciseNotAvailable = "Cet exercice n'est pas encore disponible";
 $langExerciseNoMoreAvailable = "Cet exercice n'est plus disponible.";
-$langTo = "à";
+$langTo = "jusqu'au";
 $langNoMoreAttemptsAvailable = "Vous avez atteint le nombre maximum de tentatives autorisées.";
 
 
