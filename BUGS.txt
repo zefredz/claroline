@@ -20,34 +20,51 @@ Assigné à : HUGUES
 Etat      : RESOLU
 
 3.  INSTALL instal repetées = plusieurs admins -> utilisation des function d'ajout utilisateurs
+
 Assigné à : 
 Etat : à résoudre pour : 1.5.1
 
-4. HTMLAREA. Bug signalé par PRFB sur le forum.  Insertions de <br /> aux retours à la ligne dans le code html des pages créées
+4. HTMLAREA. Bug signalé par PRFB sur le forum.  Insertions de <br /> aux 
+retours à la ligne dans le code html des pages créées
 
-5. COURSE_HOME. librairie à déplacer ? course_home.lib.php se trouve dans le répertoire même de course_home
+5. COURSE_HOME. librairie à déplacer ? course_home.lib.php se trouve dans le 
+répertoire même de course_home
 
-6. TOOL LIST && COURSE_HOME. Les URL me semblent mal formatées, malgré le fait qu'elles fonctionnent. Exemple : http://localhost/~pir/clarocvs/claroline15rc1/claroline/../claroline/learnPath/learningPathList.php .  La valeur du path de l'outil ne devrait pas contenir de ../ dans la mesure on on essaie de plus en plus d'utiliser des url absolues à partir des $*Sys et $*Web du fichier de config
+6. TOOL LIST && COURSE_HOME. Les URL me semblent mal formatées, malgré le fait 
+qu'elles fonctionnent. Exemple : 
+http://localhost/~pir/clarocvs/claroline15rc1/claroline/../claroline/learnPath/l
+earningPathList.php .  La valeur du path de l'outil ne devrait pas contenir de 
+../ dans la mesure on on essaie de plus en plus d'utiliser des url absolues à 
+partir des $*Sys et $*Web du fichier de config
 
-7. DOCUMENT.  upload d'une page HTML contenant des images, problèmes lors de la modifications des paths des images au sein du document, les images ne s'affichent pas du tout.
+7. DOCUMENT.  upload d'une page HTML contenant des images, problèmes lors de la 
+modifications des paths des images au sein du document, les images ne 
+s'affichent pas du tout.
 
-8. CLARO_MAIN.CONF. présence de code couleurs qui ne sont, à ma connaissance pas utilisés.  Ils sont signalé comme étant utilisés dans le banner mais ne le sont pas.
+8. CLARO_MAIN.CONF. présence de code couleurs qui ne sont, à ma connaissance pas 
+utilisés.  Ils sont signalé comme étant utilisés dans le banner mais ne le sont 
+pas.
 
-9. CLARO_INIT_BANNER. Il reste plusieurs tag <font> dans le code qu'il serait intéressant de remplacer par une meilleure utilisation des css. Il reste également des codes couleurs hardcodés pour les différents <td>
+9. CLARO_INIT_BANNER. Il reste plusieurs tag <font> dans le code qu'il serait 
+intéressant de remplacer par une meilleure utilisation des css. Il reste 
+également des codes couleurs hardcodés pour les différents <td>
 
 Assigné à : HUGUES
 
-10. claroline/admin/adminUserCourseSettings.php -> on ne sais pas changer le champ role
+10. claroline/admin/adminUserCourseSettings.php -> on ne sais pas changer le 
+champ role
 
-11. claro_disp_button()- Bug Avec Mozilla - Quand il y a htmlArea dans la même page, le 'onclick' 
-sur le <button> du claroButton est cpaturé par htmlArea. Résultat c'est le <form> dans lequel est htmlArea qui est envoyé et pas la commande claroButton.
+11. claro_disp_button()- Bug Avec Mozilla - Quand il y a htmlArea dans la même 
+page, le 'onclick' sur le <button> du claroButton est cpaturé par htmlArea. 
+Résultat c'est le <form> dans lequel est htmlArea qui est envoyé et pas la 
+commande claroButton.
 
 Repéré par : HUGUES
 
-12 . /claroline/admin/adminusers.php
-Sur une recherche  sans résultat le texte propose une "nouvelle recherche" alors qu'en haut a droite on a aussi une nouvelle recherche possible"
-Le message  ne devrait-il pas être "nouvelle recherche avancées" ?
-Repéré par : moosh.
+12 . /claroline/admin/adminusers.php Sur une recherche  sans résultat le texte 
+propose une "nouvelle recherche" alors qu'en haut a droite on a aussi une 
+nouvelle recherche possible" Le message  ne devrait-il pas être "nouvelle 
+recherche avancées" ? Repéré par : moosh.
 
 13. /claroline/admin/adminusercourses.php
 Quand on liste les cours, on sait sauter vers la liste de ses users.
@@ -55,18 +72,22 @@ Quand on liste les cours, on sait sauter vers la fiche cours.
 Quand on liste les users, on sait sauter vers la liste de ses cours.
 Quand on liste les users, on sait sauter vers la fiche user.
 
-Quand on liste les users d'un cours ou quand on liste les cours d'un user,
-on peut voir les propriétés d'intersection. mais on ne sait pas "continuer" 
-je suis dans le cours foo, j'y trouve pol, je ne sais pas voir les cours de pol en cliquant sur ...
+Quand on liste les users d'un cours ou quand on liste les cours d'un user, on 
+peut voir les propriétés d'intersection. mais on ne sait pas "continuer" je suis 
+dans le cours foo, j'y trouve pol, je ne sais pas voir les cours de pol en 
+cliquant sur ... Dans PMA j'avais ca. et C'est bien pratique pour gerer les 
+lustucrus (inscription multiples, cours multiples)
 
-dans PMA j'avais ca. et C'est bien pratique pour gerer les lustucrus (inscription multiples, cours multiples)
-Repéré par : moosh
+Repéré par : MOOSH
 
 14
 
 
 -------------
 $Log$
+Revision 1.14  2004/06/14 08:18:51  peeters
+no message
+
 Revision 1.13  2004/06/11 13:45:00  moosh
 - bug 13
 
