@@ -736,13 +736,12 @@ function claro_disp_message_box($message)
  * @param string $url url inserted into the 'href' part of the tag
  * @param string $text text inserted between the two <a>...</a> tags (note : it 
  *        could also be an image ...) 
- * @param string $additionnalParam (optionnal) additional parameter inserted 
- *        into te core of the <a> tag
+ * @param string $confirmMessage (optionnal) introduce a javascript confirmation popup
  * @return void
  */
 
 
-function claro_disp_button($url, $text, $additionnalParam = '')
+function claro_disp_button($url, $text, $confirmMessage = '')
 {
     global $HTTP_USER_AGENT;
 
@@ -755,11 +754,20 @@ function claro_disp_button($url, $text, $additionnalParam = '')
     	$style = 'class="claroButton"';
     }
 
-    echo '<nobr>'
-        .'<a '.$style.' href="'.$url.'" '.$additionnalParam.'>'
+    if ($confirmMessage != '')
+    {
+    	$onClickCommand =" if(confirm('".$confirmMessage."')){document.location='".$url."';}";
+    }
+    else
+    {
+    	$onClickCommand = "document.location='".$url."';";
+    }
+    
+    echo "&nbsp;<button ".$style." onclick=\"".$onClickCommand."\">"
         .$text
-        .'</a>'
-        ."</nobr> \n";
+        ."</button>&nbsp;\n";
+
+    // echo '<nobr> [ <a  href="'.$url.'" '.$additionnalParam.'>'.$text.'</a> ] </nobr>';
 }
 
 
