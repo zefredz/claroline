@@ -3,7 +3,7 @@
 /**
  * @version CLAROLINE 1.6
  *
- * @Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+ * @Copyright  2001-2004 Universite catholique de Louvain (UCL)
  *
  * @license GENERAL PUBLIC LICENSE (GPL)
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -36,7 +36,7 @@
      */
 
      // remove possible double slashes
-    $urlAppendPath = str_replace( array('///', '//'), '/', $PHP_SELF);
+    $urlAppendPath = str_replace( array('///', '//'), '/', $_SERVER['PHP_SELF']);
     // detect if url case sensitivity does matter
     $caseSensitive = (PHP_OS == 'WIN32' || PHP_OS == 'WINNT') ? 'i' : '';
     // build the regular expression pattern
