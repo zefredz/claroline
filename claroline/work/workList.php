@@ -731,6 +731,7 @@ if( $is_allowedToEdit )
             $form['wrkAuthors'] = $_REQUEST['wrkAuthors'];
             $form['wrkGroup'] = $_REQUEST['wrkGroup'];
             $form['wrkTxt'] = $_REQUEST['wrkTxt'];
+            $form['wrkUrl'] = $_REQUEST['currentWrkUrl'];
             $form['wrkScore'] = $_REQUEST['wrkScore'];
       }
       $cmdToSend = "exEditWrk";
@@ -1180,13 +1181,13 @@ if( $is_allowedToSubmit )
       {
             claro_disp_message_box($dialogBox);
       }
-      echo "<br />";
+      echo "<br />\n";
       if( $dispWrkForm )
       {
-            echo "<h4>".$txtForFormTitle."</h4>"
-                  ."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\" enctype=\"multipart/form-data\">"
-                  ."<input type=\"hidden\" name=\"assigId\" value=\"".$_REQUEST['assigId']."\">"
-                  ."<input type=\"hidden\" name=\"cmd\" value=\"".$cmdToSend."\">";
+            echo "<h4>".$txtForFormTitle."</h4>\n"
+                  ."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\" enctype=\"multipart/form-data\">\n"
+                  ."<input type=\"hidden\" name=\"assigId\" value=\"".$_REQUEST['assigId']."\">\n"
+                  ."<input type=\"hidden\" name=\"cmd\" value=\"".$cmdToSend."\">\n";
 
             if( isset($_REQUEST['wrkId']) )
             {
