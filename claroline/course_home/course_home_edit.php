@@ -1,10 +1,10 @@
 <?php # $Id$
 /*
-+----------------------------------------------------------------------+
-| CLAROLINE 1.6
-+----------------------------------------------------------------------+
-| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-+----------------------------------------------------------------------+
+//----------------------------------------------------------------------
+// CLAROLINE 1.6
+//----------------------------------------------------------------------
+// Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
 // through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
@@ -39,9 +39,8 @@ include($includePath.'/claro_init_header.inc.php');
 
 include('course_home.lib.php');
 
-if ( ! $is_courseAdmin) die("<br><center>not allowed ...</center>");
-
-if     ($is_courseAdmin)     $is_allowedToEdit = true;
+if ($is_courseAdmin)     $is_allowedToEdit = true;
+if (!$is_allowedToEdit) claro_disp_auth_form();
 
 /*
  * set access level of the user
@@ -99,7 +98,7 @@ if ($cmd == 'exSetToolAccess')
     foreach($currentToolStateList as $thisCurrentToolState)
     {
 
-        if (in_array($thisCurrentToolState['id'],$_REQUEST['toolAccessList']))
+        if (is_array($_REQUEST['toolAccessList']) && in_array($thisCurrentToolState['id'],$_REQUEST['toolAccessList']))
         {
              $enablableToolList[] = $thisCurrentToolState['id'];
         }
