@@ -64,6 +64,7 @@ $langShowAnswers = "Après le test, afficher les réponses";
 $langAlways = "Toujours";
 $langNever = "Jamais";
 $langAfterLastTry = "Après dernière tentative";
+$langAfterEndDate = "Après date de fin";
 $langShow = "Montrer";
 $langHide = "Masquer";
 

@@ -66,7 +66,8 @@ $langAnonymousVisibility="Anonymous visibity";
 $langShowAnswers = "Show answers";
 $langAlways = "Always";
 $langNever = "Never";
-$langAfterLastTry = "After last try ";
+$langAfterLastTry = "After last try";
+$langAfterEndDate = "After end date";
 $langShow = "Show";
 $langHide = "Hide";
 
