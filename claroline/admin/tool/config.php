@@ -151,57 +151,16 @@ $htmlHeadXtra[] = '<style>
 		color: #CC3333;
 
 	}
-	.toolDesc    {
-		border: 1px solid Gray;
-		background-color: #FFDAB9;
-		margin-left: 5%;
-		padding-left: 2%;
-		padding-right: 2%;
-	}
 	.msg.debug
 	{
 		background-color: red;
 		border: 2px groove red;
 	}
-	.sectionDesc {
-		border: 1px solid Gray;
-		background-color: #00FA9A;
-		margin-left: 5%;
-		padding-left: 2%;
-		padding-right: 2%;
-	}
-	.propDescription    {
-		border: 1px none gray;
-		background-color: #FFFFFF;
-		padding-left: 2%;
-		padding-right: 2%;
-		padding-bottom: 2px;
-		margin-bottom: 2px;
-		font-size: 90%;
-	}
-
-	.propBloc { padding-left: 25px;
-	            padding-bottom: 10px;
-	          }
-	.propLabel { }
-	.propValue { 	padding-left: 3px;}
-	.propUnit { font-weight: bold; }
+	.propUnit { }
 	.propType {
 		margin-left: 5px;
 		font-variant: small-caps;
 		font-size: x-small;   }
-	.propDefault
-	{
-	   font-size:80%;
-	   color:gray;
-	   display:block;
-	}
-	.propBuffer
-	{
-	    visibility : hidden;
-		color:red;
-	}
- 	
 	.commandBar 
 	{
 		padding-bottom: 4px;
@@ -229,7 +188,7 @@ $toolNameList = array('CLANN' => $langAnnouncement,
                       'CLDOC' => $langDocument,
                       'CLDSC' => $langDescriptionCours,
                       'CLGRP' => $langGroups,
-                      'CLLNP' => $langLearnPath,
+                      'CLLNP' => $langLearningPath,
                       'CLQWZ' => $langExercises,
                       'CLWRK' => $langWork,
                       'CLUSR' => $langUsers);
@@ -716,11 +675,12 @@ switch ($panel)
 
         if ( is_array($conf_def) )
         {
-            if ( isset($conf_def['description']) ) 
+            if ( !empty($conf_def['description']) ) 
             {
-                echo '<div class="toolDesc">'.$conf_def['description'].'</div><br />';
+                echo '<p>'.$conf_def['description'].'</p><br />';
             }
-            echo '<em><small>'. $confDef .'</small></em>';
+
+			// echo '<em><small>'. $confDef .'</small></em>';
 
             // display form  
             echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'" name="editConfClass">'."\n";
@@ -729,20 +689,30 @@ switch ($panel)
 
             if (is_array($conf_def['section']) ) 
             {
+
+				echo '<table border="0" cellpadding="5">' . "\n";
+
                 foreach($conf_def['section'] as $section)
                 {
-                    echo '<fieldset>'."\n"
-                        .'<legend>'.$section['label'].'</legend>'."\n";
-                    if ($section['description'])
+
+					// display fieldset with the label of the section
+                    echo '<tr>'."\n"
+                        .'<td colspan="3">' . '<h4>' . $section['label'].'&nbsp;:</h4>'. "\n";
+
+					// display description of the section
+                    if ( !empty($section['description']) )
                     {
-                        echo '<div class="sectionDesc">' . $section['description'] . '</div>' . '<br/>';
+                        echo '<p><em>' . $section['description'] . '</em></p>';
                     }
+					echo '</tr>' . "\n";
 
                     // The default value is show in input or preselected value if there is no value set.
                     // If a value is already set the default value is show as sample.
-                    if (is_array($section['properties']))
+                    if ( is_array($section['properties']) )
                     {
-                        foreach($section['properties'] as $property )
+
+						// display properties
+                        foreach( $section['properties'] as $property )
                         {
                             if (is_array($conf_def_property_list[$property]))
                             {
@@ -755,8 +725,8 @@ switch ($panel)
                         }
                     }
 
-                    echo '</fieldset>';
                 }
+				echo '</table>';
 
                 if (CONF_AUTO_APPLY_CHANGE)
                 {
@@ -776,9 +746,8 @@ switch ($panel)
         }
         else
         {
-            echo '<div >'
-                .sprintf($lang_p_nothing_to_edit_in_S ,get_config_name($config_code))
-                .'</div>';
+            $msg = sprintf($lang_p_nothing_to_edit_in_S ,get_config_name($config_code));
+			claro_disp_message($msg);
         }
         break;
 
@@ -805,9 +774,9 @@ switch ($panel)
 
             if (isset($conf_def['description']))
             {
-                echo '<div class="toolDesc">'.$conf_def['description'].'</div><br />';
+                echo '<p>'.$conf_def['description'].'</p><br />';
             }                
-            echo '<em><small><small>'.$confDef.'</small></small></em>';
+            echo '<em><small>'.$confDef.'</small></em>';
 
             if (is_array($conf_def['section']) ) 
             {

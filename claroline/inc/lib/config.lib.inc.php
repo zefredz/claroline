@@ -873,32 +873,25 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
         $htmlPropValue = $currentValue;
 
 		if ( isset($conf_def_property_list['actualValue']) )
+		{
 			$htmlPropDefault = 'In buffer : '  . $conf_def_property_list['actualValue'];
-		else
-			$htmlPropDefault = '';
-
-		if ( isset($conf_def_property_list['actualValue']) )
 			$htmlPropDefault .= 'Default :' . $conf_def_property_list['default'];
-		else 
-			$htmlPropDefault .= $langFirstDefOfThisValue;
+		}
+		else
+		{
+			$htmlPropDefault = $langFirstDefOfThisValue;
+		}
     }
     else 
     {
 		if ( isset($conf_def_property_list['actualValue']) )
 		{
 			$htmlPropValue = $conf_def_property_list['actualValue'];
-		}
-		else
-		{
-			$htmlPropValue = $conf_def_property_list['default'];
-		}
-
-		if ( isset($conf_def_property_list['actualValue']) )
-		{
 			$htmlPropDefault = 'Default : ' . (empty($conf_def_property_list['default'])?$langEmpty:$conf_def_property_list['default']);
 		}
 		else
 		{
+			$htmlPropValue = $conf_def_property_list['default'];
 			$htmlPropDefault = $langFirstDefOfThisValue;
 		}
     }
@@ -915,9 +908,12 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
     } 
     elseif ($conf_def_property_list['readonly']) 
     {
-        echo '<h4>' . $htmlPropLabel . '</h4>' . "\n";
+        echo '<tr style="vertical-align: top">' . 
+			 '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' . "\n";
         
 		echo '<input type="hidden" value="'.$htmlPropValue.'" name="'.$htmlPropName.'">'."\n";
+
+		echo '<td nowrap="nowrap">' . "\n";
 
         switch($conf_def_property_list['type'])
         {
@@ -940,25 +936,31 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 echo $conf_def_property_list['default'];
         } // switch
 
-        echo '<p>' . $htmlPropDesc . '</p>' . "\n";
+		echo '</td>';
+        echo '<td>' . $htmlPropDesc . '</td>' . "\n";
+		echo '</tr>';
     } 
     else
     // Prupose a form following the type 
     {
 		// display label
-        echo '<h4>' . $htmlPropLabel . '</h4>' . "\n" ;
-
-		echo '<div style="margin-left: 20px">';
 
         switch($conf_def_property_list['type'])
         {
         	case 'boolean' : 
+                echo '<tr style="vertical-align: top">' . 
+                    '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' ;
+      		
+      		    echo '<td nowrap="nowrap">' . "\n";
+
 				echo '<input id="'.$property.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '
 					. ($htmlPropValue=='TRUE'?' checked="checked" ':' ')
 					. ' >' ;
 				echo '<label for="'.$property.'_TRUE"  >'
                 	 . ($conf_def_property_list['acceptedValue']['TRUE' ]?$conf_def_property_list['acceptedValue']['TRUE' ]:'TRUE' )
                 	 . '</label>';
+
+				echo '<br />';
 
 				echo '<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" ' 
 				     . ($htmlPropValue=='TRUE'?' ':' checked="checked" ') 
@@ -971,6 +973,12 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
 			case 'lang' : 
 
             case 'enum' : 
+
+                echo '<tr style="vertical-align: top">' . 
+                    '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' ;
+      		
+      		    echo '<td nowrap="nowrap">' . "\n";
+
 				foreach($conf_def_property_list['acceptedValue'] as  $keyVal => $labelVal)
             	{
                 	echo '&nbsp;'
@@ -979,34 +987,46 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
 					.' >'
                     .'<label for="'.$property.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
                     .'<span class="propUnit">'.$htmlUnit.'</span>'
-                    .'<br>'."\n";
+                    .'<br />'."\n";
             	}   
             	break;
             
 			//TYPE : integer, an integer is attempt
         	case 'integer' : 
+
+                echo '<tr style="vertical-align: top">' . 
+                    '<td style="text-align: right" width="250"><label for="'.$property.'"  >' . $htmlPropLabel . '&nbsp;:</label></td>' ;
+      		
+      		    echo '<td nowrap="nowrap">' . "\n";
+
             	echo '<input size="'.$size.'"  align="right" id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '."\n"
                 .'<span class="propUnit">'.$htmlUnit.'</span>'
                 .'<span class="propType">'.$htmlPropType.'</span>'
                 ."\n" ;
-            break;
-        default:
-        // probably a string
+            	break;
+
+            default:
+		        // probably a string
+                echo '<tr style="vertical-align: top">' . 
+                    '<td style="text-align: right" width="250"><label for="'.$property.'"  >' . $htmlPropLabel . '&nbsp;:</label></td>' ;
+      		
+      		    echo '<td nowrap="nowrap">' . "\n";
                 echo '<input size="'.$size.'"  id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '
                 .'<span class="propUnit">'.$htmlUnit.'</span>'
                 .'<span class="propType">'.$htmlPropType.'</span>'."\n";
+
         } // switch
 
-        echo '<p>'
-			. '<small>(' . $htmlPropDefault . ') ';
+		echo '</td><td>';
+
+        echo '<small>(' . $htmlPropDefault . ') ';
 
 		if (!empty($htmlPropDesc))
 		{
 			echo '- <em>' . $htmlPropDesc. '</em>';
 		}
-		echo '</small>'.
-			 '</p>' . "\n";
-		echo '</div>' . "\n";
+		echo '</small>' . "\n";
+		echo '</td></tr>' . "\n";
 
     } // else
 }
