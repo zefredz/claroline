@@ -174,7 +174,7 @@ if (     is_null($myrow['idGroup'])
 			    prenom    = '".$userFirstName."'";
 	
 	$result = mysql_query($sql) 
-			  or error_die("Couldn't enter post in datbase.");
+			  or error_die("Couldn't enter post in database.");
 
 	$post_id = mysql_insert_id();
 	
