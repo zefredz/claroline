@@ -250,7 +250,7 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
 	echo "</ul>";
 }
 
-if ( !empty($claro_toolViewOptionEnabled) )
+if ( claro_is_display_mode_available() )
 {
   	echo "<div id=\"toolViewOption\">\n";
 	claro_disp_tool_view_option($_REQUEST['viewMode']);
