@@ -194,20 +194,14 @@
 
 // Get request from login form
 
-if ( !empty($_REQUEST['login'])) 
-    $login = trim($_REQUEST['login']);
-else 
-    $login = "";
+if ( !empty($_REQUEST['login']))    $login = trim($_REQUEST['login']);
+else                                $login = '';
 
-if ( !empty($_REQUEST['password']))
-    $password = trim($_REQUEST['password']);
-else
-    $password = "";
+if ( !empty($_REQUEST['password'])) $password = trim($_REQUEST['password']);
+else                                $password = '';
 
-if ( !empty($_REQUEST['logout']))
-    $logout = $_REQUEST['logout'];
-else 
-    $logout = "";
+if ( !empty($_REQUEST['logout']))   $logout = $_REQUEST['logout'];
+else                                $logout = '';
 
 // Initialise variable
 
@@ -220,23 +214,24 @@ if (!isset($gidReset)) $gidReset = false;
 // Get table name
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_user            = $tbl_mdb_names['user'];
-$tbl_admin           = $tbl_mdb_names['admin'];
-$tbl_track_e_login   = $tbl_mdb_names['track_e_login'];
-$tbl_course          = $tbl_mdb_names['course'];
-$tbl_category        = $tbl_mdb_names['category'];
+
+$tbl_user            = $tbl_mdb_names['user'           ];
+$tbl_admin           = $tbl_mdb_names['admin'          ];
+$tbl_track_e_login   = $tbl_mdb_names['track_e_login'  ];
+$tbl_course          = $tbl_mdb_names['course'         ];
+$tbl_category        = $tbl_mdb_names['category'       ];
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
-$tbl_tool            = $tbl_mdb_names['tool'];
+$tbl_tool            = $tbl_mdb_names['tool'           ];
 
 
 // check authentification
 
-if ( !empty($HTTP_SESSION_VARS['_uid']) && ! ($login || $logout))
+if ( !empty($_SESSION['_uid']) && ! ($login || $logout))
 {
     // uid is in session => login already done, continue with this value
-    $_uid = $HTTP_SESSION_VARS['_uid'];
-    $is_platformAdmin = $HTTP_SESSION_VARS['is_platformAdmin'];
-    $is_allowedCreateCourse = $HTTP_SESSION_VARS['is_allowedCreateCourse'];
+    $_uid                   = $_SESSION['_uid'                  ];
+    $is_platformAdmin       = $_SESSION['is_platformAdmin'      ];
+    $is_allowedCreateCourse = $_SESSION['is_allowedCreateCourse'];
 }
 else
 {
@@ -298,20 +293,30 @@ else
             }
             else // no standard claroline login - try external authentification
             {
-                 /*
-                  * Process external authentication
-                  * on the basis of the given login name
-                  */
-                 $loginFailed = true;  // Default initialisation. It could
-                                       // change after the external authentication
-                 $key = $uData['authSource'];
-    
-                /* >>>>>>>>>>>>>>>>>>>>>>>>> LDAP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
-                if ( isset($extAuthSource) && is_array ($extAuthSource))
-                    include_once($extAuthSource[$key]['login']);
-                /* >>>>>>>>>>>>>>>> end of LDAP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+                /*
+                 * Process external authentication
+                 * on the basis of the given login name
+                 */
                 
-            }
+                $loginFailed = true;  // Default initialisation. It could
+                                      // change after the external authentication
+                $key = $uData['authSource'];
+
+                $_uid = include_once($extAuthSource[$key]['login']);
+
+                if ( is_int($_uid) && $uid > 0 )
+                {
+                    $uidReset    = true;
+                    $loginFailed = false;
+                    session_register('_uid');
+                }
+                else
+                {
+                    unset($_uid);
+                    $uidReset    = false;
+                    $loginFailed = true;
+                }              
+            } // end try external authentication
         }
         else // login failed, mysql_num_rows($result) <= 0
         {
@@ -339,8 +344,19 @@ else
             {
                 foreach($extAuthSource as $thisAuthSource)
                 {
-                    ( @include_once($thisAuthSource['newUser']) )
-                    or die ("WARNING !! EXTERNAL AUTHENTICATION CONFIGURATION PROBLEM !".__LINE__);;
+                    $_uid = include_once($thisAuthSource['newUser']);
+
+                    if ( is_int($_uid) && $_uid > 0 )
+                    {
+                        session_register('_uid');
+                        $uidReset     = true;
+                        $loginFailed  = false;
+                    	break;
+                    }
+                    else
+                    {
+                        unset($_uid);
+                    }
                 }
             } //end if is_array($extAuthSource)
             
@@ -359,7 +375,7 @@ else
 if ( !isset($cidReq) )
     $cidReq = NULL;
 
-if ($cidReq && $cidReq != $HTTP_SESSION_VARS['_cid'])
+if ($cidReq && $cidReq != $_SESSION['_cid'])
 {
     $cidReset = true;
     $gidReset = true;    // As groups depend from courses, group id is reset
@@ -370,7 +386,7 @@ if ($cidReq && $cidReq != $HTTP_SESSION_VARS['_cid'])
 if ( !isset($gidReq) )
     $gidReq = NULL;
 
-if ($gidReq && $gidReq != $HTTP_SESSION_VARS['_gid'])
+if ($gidReq && $gidReq != $_SESSION['_gid'])
 {
     $gidReset = true;
 }
@@ -378,14 +394,12 @@ if ($gidReq && $gidReq != $HTTP_SESSION_VARS['_gid'])
 // if the requested tool is different from the current tool in session
 // (special request can come from the tool id, or the tool label)
 
-if ( !isset($tidReq) )
-    $tidReq = NULL;
+if ( !isset($tidReq) )    $tidReq = NULL;
 
-if ( !isset($tlabelReq) )
-    $tlabelReq = NULL;
+if ( !isset($tlabelReq) ) $tlabelReq = NULL;
 
-if (    (  $tidReq    && $tidReq    != $HTTP_SESSION_VARS['_tid']             ) 
-    ||  ( $tlabelReq && $tlabelReq  != $HTTP_SESSION_VARS['_courseTool']['label'] )
+if (   ( $tidReq    && $tidReq    != $_SESSION['_tid']                 ) 
+    || ( $tlabelReq && $tlabelReq != $_SESSION['_courseTool']['label'] )
    )
 {
     $tidReset = true;
@@ -474,7 +488,7 @@ if ($uidReset) // session data refresh requested
 }
 else // continue with the previous values
 {
-    $_user = $HTTP_SESSION_VARS['_user'];
+    $_user = $_SESSION['_user'];
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -485,7 +499,7 @@ if ($cidReset) // course session data refresh requested
 {
     if ($cidReq)
     {
-        $sql =    "SELECT 
+        $sql =  "SELECT 
                    `cours`.*, 
                    `faculte`.`code` `faCode`, 
                    `faculte`.`name` `faName`
@@ -538,7 +552,7 @@ if ($cidReset) // course session data refresh requested
             $_groupProperties ['tools'] ['forum'    ] = (bool) ($gpData['forum']             == 1);
             $_groupProperties ['tools'] ['document' ] = (bool) ($gpData['document']          == 1);
             $_groupProperties ['tools'] ['wiki'     ] = (bool) ($gpData['wiki']              == 1);
-            $_groupProperties ['tools'] ['chat'   ] = (bool) ($gpData['chat']            == 1);
+            $_groupProperties ['tools'] ['chat'     ] = (bool) ($gpData['chat']              == 1);
 
         }
         else
@@ -562,7 +576,7 @@ if ($cidReset) // course session data refresh requested
         $_groupProperties ['tools'] ['forum'    ] = false;
         $_groupProperties ['tools'] ['document' ] = false;
         $_groupProperties ['tools'] ['wiki'     ] = false;
-        $_groupProperties ['tools'] ['chat'   ] = false;
+        $_groupProperties ['tools'] ['chat'     ] = false;
         $_groupProperties ['private'            ] = true;
     }
 
@@ -571,18 +585,18 @@ if ($cidReset) // course session data refresh requested
 }
 else // continue with the previous values
 {
-    if ( !empty($HTTP_SESSION_VARS['_cid']) )
-        $_cid = $HTTP_SESSION_VARS['_cid'];
+    if ( !empty($_SESSION['_cid']) )
+        $_cid = $_SESSION['_cid'];
     else 
         $_cid = NULL;
 
-    if ( !empty($HTTP_SESSION_VARS['_course']) )
-        $_course = $HTTP_SESSION_VARS['_course'];
+    if ( !empty($_SESSION['_course']) )
+        $_course = $_SESSION['_course'];
     else
         $_course = NULL; 
 
-    if ( !empty($HTTP_SESSION_VARS['_groupProperties']) ) 
-        $_groupProperties = $HTTP_SESSION_VARS['_groupProperties'];
+    if ( !empty($_SESSION['_groupProperties']) ) 
+        $_groupProperties = $_SESSION['_groupProperties'];
     else
         $_groupProperties = NULL; 
         
@@ -646,12 +660,12 @@ if ($uidReset || $cidReset) // session data refresh requested
 }
 else // continue with the previous values
 {
-    $_courseUser      = $HTTP_SESSION_VARS ['_courseUser'     ];
+    $_courseUser      = $_SESSION ['_courseUser'     ];
 
-    $is_courseMember  = $HTTP_SESSION_VARS ['is_courseMember' ];
-    $is_courseAdmin   = $HTTP_SESSION_VARS ['is_courseAdmin'  ];
-    $is_courseAllowed = $HTTP_SESSION_VARS ['is_courseAllowed'];
-    $is_courseTutor   = $HTTP_SESSION_VARS ['is_courseTutor'  ];
+    $is_courseMember  = $_SESSION ['is_courseMember' ];
+    $is_courseAdmin   = $_SESSION ['is_courseAdmin'  ];
+    $is_courseAllowed = $_SESSION ['is_courseAllowed'];
+    $is_courseTutor   = $_SESSION ['is_courseTutor'  ];
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -721,15 +735,11 @@ if ($tidReset || $cidReset) // session data refresh requested
 }
 else // continue with the previous values
 {
-    if ( !empty($HTTP_SESSION_VARS['_tid']) )
-        $_tid = $HTTP_SESSION_VARS['_tid'] ;
-    else 
-        $_tid = NULL;
+    if ( !empty($_SESSION['_tid']) ) $_tid = $_SESSION['_tid'] ;
+    else                             $_tid = NULL;
 
-    if (!empty( $HTTP_SESSION_VARS['_courseTool']) )
-        $_courseTool = $HTTP_SESSION_VARS['_courseTool'];
-    else
-        $_courseTool = NULL;
+    if ( !empty( $_SESSION['_courseTool']) ) $_courseTool = $_SESSION['_courseTool'];
+    else                                     $_courseTool = NULL;
 }
 
 
@@ -778,15 +788,11 @@ if ($gidReset || $cidReset) // session data refresh requested
 }
 else // continue with the previous values
 {
-    if ( !empty($HTTP_SESSION_VARS ['_gid']) )
-        $_gid = $HTTP_SESSION_VARS ['_gid'];
-    else
-        $_gid = NULL;
+    if ( !empty($_SESSION ['_gid']) )   $_gid = $_SESSION ['_gid'];
+    else                                $_gid = NULL;
 
-    if ( !empty($HTTP_SESSION_VARS ['_group']) )
-        $_group = $HTTP_SESSION_VARS ['_group'];
-    else
-        $_group = NULL;
+    if ( !empty($_SESSION ['_group']) ) $_group = $_SESSION ['_group'];
+    else                                $_group = NULL;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -841,25 +847,17 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
 }
 else // continue with the previous values
 {
-    if ( !empty($HTTP_SESSION_VARS['_groupUser']) )
-        $_groupUser = $HTTP_SESSION_VARS['_groupUser'];
-    else
-        $_groupUser = NULL;
+    if ( !empty($_SESSION['_groupUser']) )      $_groupUser      = $_SESSION['_groupUser'     ];
+    else                                        $_groupUser      = NULL;
 
-    if ( !empty($HTTP_SESSION_VARS['is_groupMember']) )
-        $is_groupMember = $HTTP_SESSION_VARS['is_groupMember'];
-    else
-        $is_groupMember = NULL;
+    if ( !empty($_SESSION['is_groupMember']) )  $is_groupMember  = $_SESSION['is_groupMember' ];
+    else                                        $is_groupMember  = NULL;
 
-    if ( !empty($HTTP_SESSION_VARS['is_groupTutor']) )
-        $is_groupTutor = $HTTP_SESSION_VARS['is_groupTutor'];
-    else
-        $is_groupTutor = NULL;
+    if ( !empty($_SESSION['is_groupTutor']) )   $is_groupTutor   = $_SESSION['is_groupTutor'  ];
+    else                                        $is_groupTutor   = NULL;
 
-    if ( !empty($HTTP_SESSION_VARS['is_groupAllowed']) )
-        $is_groupAllowed = $HTTP_SESSION_VARS['is_groupAllowed'];
-    else
-        $is_groupAllowed = NULL;
+    if ( !empty($_SESSION['is_groupAllowed']) ) $is_groupAllowed = $_SESSION['is_groupAllowed'];
+    else                                        $is_groupAllowed = NULL;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -896,7 +894,7 @@ if ($uidReset || $cidReset || $gidReset || $tidReset) // session data refresh re
 }
 else // continue with the previous values
 {
-    $is_toolAllowed = $HTTP_SESSION_VARS ['is_toolAllowed'];
+    $is_toolAllowed = $_SESSION ['is_toolAllowed'];
 }
 
 
@@ -955,7 +953,7 @@ if ($uidReset || $cidReset)
 }
 else // continue with the previous values
 {
-    $_courseToolList      = $HTTP_SESSION_VARS ['_courseToolList'];
+    $_courseToolList      = $_SESSION ['_courseToolList'];
 }
 
 
