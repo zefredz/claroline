@@ -117,6 +117,9 @@ $langModifyProfile="Modify my profile";
 $langMyAgenda = "My agenda";
 $langLogout="Logout";
 
+$langFirstName = "First Name";
+$langLastName  = "Last Name";
+$langName  = "Name";
 
 //needed for student view
 $langCourseManagerview = "Course Manager View";

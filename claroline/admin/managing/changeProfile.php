@@ -445,7 +445,7 @@ if(!empty($_uid))
 
 			"<tr>\n",
 
-			"<td align=\"right\"><label for=\"form_lastName\" >",$langName,"</label> : </td>\n",
+			"<td align=\"right\"><label for=\"form_lastName\" >",$langLastName,"</label> : </td>\n",
 
 			"<td valign=\"middle\">\n",
 				"<input type=\"text\" size=\"40\" id=\"form_lastName\" name=\"form_lastName\" value=\"".$form_lastName."\">\n",
@@ -455,7 +455,7 @@ if(!empty($_uid))
 
 			"<tr>\n",
 			"<td  align=\"right\">\n<label for=\"form_firstName\">",
-			$langSurname,"</label> : \n",
+			$langFirstName,"</label> : \n",
 			"</td>\n",
 			"<td >\n",
 			"<input type=\"text\" size=\"40\" name=\"form_firstName\" id=\"form_firstName\" value=\"",$form_firstName,"\">\n",

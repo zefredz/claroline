@@ -194,7 +194,7 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
      <thead>
      <tr class=\"headerX\" align=\"center\" valign=\"top\">
           <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=nom&chdir=yes\">".$langName."</a></th>
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=nom&chdir=yes\">".$langLastName."</a></th>
           <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>
           <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=officialCode&chdir=yes\">".$langOfficialCode."</a></th>
           <th>".$langEmail."</th>

@@ -333,7 +333,7 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
      <thead>
      <tr class=\"headerX\" align=\"center\" valign=\"top\">
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=uid&dir=".$order['uid']."\">".$langUserid."</a></th>
-          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=name&dir=".$order['name']."\">".$langName."</a></th>
+          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=name&dir=".$order['name']."\">".$langLastName."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=firstname&dir=".$order['firstname']."\">".$langFirstName."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=officialCode&dir=".$order['officialCode']."\">".$langOfficialCode."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=email&dir=".$order['email']."\">".$langEmail."</a></th>

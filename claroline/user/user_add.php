@@ -298,14 +298,15 @@ if ($platformRegSucceed == false)
 <table cellpadding="3" cellspacing="0" border="0">
 
 <tr>
-<td align="right"><label for="prenom_form"><?php echo $langSurname; ?></label> :</td>
-<td><input type="text" size="40" name="prenom_form" id="prenom_form" value="<?php echo htmlentities(stripslashes($prenom_form)); ?>"></td>
+<td align="right"><label for="nom_form"><?php echo $langLastName; ?></label> :</td>
+<td><input type="text" size="40" name="nom_form" id="nom_form" value="<?php echo htmlentities(stripslashes($nom_form)); ?>"></td>
 </tr>
 
 <tr>
-<td align="right"><label for="nom_form"><?php echo $langName; ?></label> :</td>
-<td><input type="text" size="40" name="nom_form" id="nom_form" value="<?php echo htmlentities(stripslashes($nom_form)); ?>"></td>
+<td align="right"><label for="prenom_form"><?php echo $langFirstName; ?></label> :</td>
+<td><input type="text" size="40" name="prenom_form" id="prenom_form" value="<?php echo htmlentities(stripslashes($prenom_form)); ?>"></td>
 </tr>
+
 <?
 if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 {

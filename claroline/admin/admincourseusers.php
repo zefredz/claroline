@@ -265,7 +265,7 @@ echo '<table class="claroTable" width="100%" border="0" cellspacing="2">
 </caption>
     <tr class="headerX" align="center" valign="top">
        <th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=uid&amp;dir='.$order['uid'].'&amp;cidToEdit='.$cidToEdit."\">".$langUserid.'</a></th>
-       <th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=name&vdir='.$order['name'].'&amp;cidToEdit='.$cidToEdit.'">'.$langName.'</a></th>
+       <th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=name&vdir='.$order['name'].'&amp;cidToEdit='.$cidToEdit.'">'.$langLastName.'</a></th>
        <th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=firstname&amp;dir='.$order['firstname'].''.$dir.'&amp;cidToEdit='.$cidToEdit.'">'.$langFirstName.'</a></th>
        <th>
            <a href="'.$_SERVER['PHP_SELF'].'?order_crit=cu_status&amp;dir='.$order['code'].''.$dir.'&amp;cidToEdit='.$cidToEdit.'">'.$langStatus.'</a>

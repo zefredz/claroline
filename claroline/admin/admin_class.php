@@ -26,7 +26,6 @@ if (!$is_platformAdmin) treatNotAuthorized();
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
 
 $langAdministrationClassTools = "Classes";
-$langName = "Name";
 $langId = "Id";
 $langEditSettings = "Edit settings";
 $langNewClassName = "New Class name";
