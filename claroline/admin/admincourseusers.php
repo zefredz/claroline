@@ -236,11 +236,11 @@ echo "<form name=\"indexform\" action=\"",$_SERVER['PHP_SELF'],"\" method=\"GET\
      ";
 */
      //TOOL LINKS
-echo "<a href=\"adminregisteruser.php?cidToEdit=$cidToEdit\">$langEnrollUser</a>";
+echo "<a class=\"claroCmd\" href=\"adminregisteruser.php?cidToEdit=$cidToEdit\">$langEnrollUser</a>";
 
 if (isset($cfrom) && ($cfrom=="clist"))
 {
-    echo " | <a href=\"admincourses.php\">$langBackToCourseList</a>";
+    echo " | <a class=\"claroCmd\" href=\"admincourses.php\">$langBackToCourseList</a>";
 }
 
 //Pager

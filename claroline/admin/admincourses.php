@@ -343,7 +343,7 @@ $addtoAdvanced .="&language=".$_REQUEST['language'];
 $addtoAdvanced .="&access=".$_REQUEST['access'];
 $addtoAdvanced .="&subscription=".$_REQUEST['subscription'];
 
-    //fianly, form itself
+    //finaly, form itself
 
 if (($isSearched=="") || !isset($isSearched)) {$title = "";} else {$title = $langSearchOn." : ";}
 
@@ -361,7 +361,7 @@ echo "<table width=\"100%\">
             <input type=\"text\" value=\"".trim($_REQUEST['search'])."\" name=\"search\" id=\"search\"\">
             <input type=\"submit\" value=\" ".$langOk." \">
             <input type=\"hidden\" name=\"newsearch\" value=\"yes\">
-            [<a href=\"advancedCourseSearch.php".$addtoAdvanced."\"><small>".$langAdvanced."</small></a>]
+            [<a class=\"claroCmd\" href=\"advancedCourseSearch.php".$addtoAdvanced."\">".$langAdvanced."</a>]
             </form>
           </td>
         </tr>

@@ -260,7 +260,7 @@ if($dialogBox)
 
 //display tool links
 
-echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=formNew\">$langCreateNewClass</a>";
+echo "<a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?cmd=formNew\">$langCreateNewClass</a>";
 
 echo "<br><br>";
 

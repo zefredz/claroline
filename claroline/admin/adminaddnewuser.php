@@ -321,10 +321,10 @@ if ($display_success)
 {
    echo $langUserCreated."<br><br>
    <ul>";
-   echo "<li><a href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$inserted_uid."&category=&fromAdmin=settings\"> ".$langRegisterTheNewUser." </a></li>";
-   echo "<li><a href=\"adminprofile.php?uidToEdit=".$inserted_uid."&category=\"> ".$langGoToUserSettings." </a></li>";
-   echo "<li><a href=\"adminaddnewuser.php\"> ".$langCreateAnotherUser." </a></li>";
-   echo "<li><a href=\"index.php\"> ".$langBackToAdmin." </a></li>
+   echo "<li><a class=\"claroCmd\" href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$inserted_uid."&category=&fromAdmin=settings\"> ".$langRegisterTheNewUser." </a></li>";
+   echo "<li><a class=\"claroCmd\" href=\"adminprofile.php?uidToEdit=".$inserted_uid."&category=\"> ".$langGoToUserSettings." </a></li>";
+   echo "<li><a class=\"claroCmd\" href=\"adminaddnewuser.php\"> ".$langCreateAnotherUser." </a></li>";
+   echo "<li><a class=\"claroCmd\" href=\"index.php\"> ".$langBackToAdmin." </a></li>
    </ul>
    ";
 }

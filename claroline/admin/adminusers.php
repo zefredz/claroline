@@ -304,7 +304,7 @@ echo '<table width="100%">
             <input type="text" value="'.$_REQUEST['search'].'" name="search" id="search" >
             <input type="submit" value=" '.$langOk.' ">
             <input type="hidden" name="newsearch" value="yes">
-            [<a href="advancedUserSearch.php'.$addtoAdvanced.'" ><small>'.$langAdvanced.'</small></a>]
+            [<a class="claroCmd" href="advancedUserSearch.php'.$addtoAdvanced.'" >'.$langAdvanced.'</a>]
             </form>
           </td>
         </tr>

@@ -946,7 +946,7 @@ else
  * Display the bom of categories and the button to create a new category
  */
 
-echo "<p><a href=\"" . $_SERVER['PHP_SELF'] . "?cmd=rqCreate\">" . $langSubTitleCreate . "</a></p>";    
+echo "<p><a class=\"claroCmd\" href=\"" . $_SERVER['PHP_SELF'] . "?cmd=rqCreate\">" . $langSubTitleCreate . "</a></p>";    
 
 ?>
 

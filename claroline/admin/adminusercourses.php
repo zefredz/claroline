@@ -170,12 +170,12 @@ if($dialogBox)
 
     //TOOL LINKS
 
-echo "<a href=\"adminprofile.php?uidToEdit=".$uidToEdit."\">".$langSeeUserSettings."</a> | ";
-echo "<a href=\"../auth/courses.php?cmd=rqReg&amp;uidToEdit=".$uidToEdit."&amp;category=&amp;fromAdmin=usercourse\">".$langEnrollToNewCourse."</a>";
+echo "<a class=\"claroCmd\" href=\"adminprofile.php?uidToEdit=".$uidToEdit."\">".$langSeeUserSettings."</a> | ";
+echo "<a class=\"claroCmd\"  href=\"../auth/courses.php?cmd=rqReg&amp;uidToEdit=".$uidToEdit."&amp;category=&amp;fromAdmin=usercourse\">".$langEnrollToNewCourse."</a>";
 
-if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
+if (isset($cfrom) && $cfrom=="ulist")  //if we come from user list, we must display go back to list
 {
-    echo ' | <a href="adminusers.php">'.$langBackToUserList.'</a>';
+    echo ' | <a class="claroCmd" href="adminusers.php">'.$langBackToUserList.'</a>';
     $addToUrl = '&amp;cfrom=ulist';
 }
 

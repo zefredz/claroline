@@ -157,11 +157,11 @@ if($dialogBox)
 
 //TOOL LINKS
 
-echo "<a href=\"".$clarolineRepositoryWeb."admin/admin_class_register.php?class=".$classinfo['id']."\">".$langClassRegisterUser."</a> | ";
+echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."admin/admin_class_register.php?class=".$classinfo['id']."\">".$langClassRegisterUser."</a> | ";
 
-echo "<a href=\"".$clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&fromAdmin=class&uidToEdit=-1&category=\">".$langClassRegisterWholeClass."</a> | ";
+echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&fromAdmin=class&uidToEdit=-1&category=\">".$langClassRegisterWholeClass."</a> | ";
 
-echo "<a href=\"".$clarolineRepositoryWeb."user/AddCSVusers.php?AddType=adminClassTool\">".$langClassAddCSV."</a><br><br>";
+echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."user/AddCSVusers.php?AddType=adminClassTool\">".$langClassAddCSV."</a><br><br>";
 
    //Pager
 

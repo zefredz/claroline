@@ -155,7 +155,7 @@ if($dialogBox)
 
 //TOOL LINKS
 
-claro_disp_button($clarolineRepositoryWeb."admin/admin_class_user.php?class=".$classinfo['id'], $langClassMembers);
+echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."admin/admin_class_user.php?class=".$classinfo['id']."\"> ".$langClassMembers." </a><br><br>";
 
 if (isset($cfrom) && ($cfrom=="clist"))
 {
