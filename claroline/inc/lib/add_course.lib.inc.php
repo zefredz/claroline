@@ -16,7 +16,7 @@ function define_course_keys ($wantedCode,          $prefix4all="",
 							 $addUniquePrefix = false,
 							 $useCodeInDepedentKeys = TRUE	)
 {
-	// What do bette :
+	// What do better :
 	// actually if suffix is not unique   the next append and not  replace
 	GLOBAL $TABLECOURSE, $coursesRepositories,$prefixAntiNumber,$DEBUG;
 
@@ -669,13 +669,13 @@ mysql_query("
 	)
 	COMMENT = 'for course description tool';");
 
-#######################ACCUEIL ###########################################
+####################### TOOL_LIST ###########################################
 mysql_query("
     CREATE TABLE `".$TABLECOURSEHOMEPAGE."` (
       `id` int(11) NOT NULL auto_increment,
       `tool_id` int(10) unsigned default NULL,
       `rank` int(10) unsigned NOT NULL,
-      `access` enum('ALL','COURSE_MEMBER','GROUP_MEMBER','COURSE_TUTOR','COURSE_ADMIN','PLATFORM_ADMIN') NOT NULL default 'ALL',
+      `access` enum('ALL','PLATFORM_MEMBER','COURSE_MEMBER','COURSE_TUTOR','GROUP_MEMBER','GROUP_TUTOR','COURSE_ADMIN','PLATFORM_ADMIN') NOT NULL default 'ALL',
       `script_url` varchar(255) default NULL,
       `script_name` varchar(255) default NULL,
       PRIMARY KEY  (`id`)) ");

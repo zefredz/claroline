@@ -39,6 +39,7 @@
        CLAROLINE MAIN
   ======================================*/
 $langFile = 'document';
+$tlabelReq = 'CLDOC___';
 include('../inc/claro_init_global.inc.php');
 
 $htmlHeadXtra[] =

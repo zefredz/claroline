@@ -1409,7 +1409,7 @@ $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."tool_l
   `id` int(11) NOT NULL auto_increment,
   `tool_id` int(10) unsigned default NULL,
   `rank` int(10) unsigned NOT NULL default '0',
-  `access` enum('ALL','COURSE_MEMBER','GROUP_MEMBER','COURSE_TUTOR','COURSE_ADMIN','PLATFORM_ADMIN') NOT NULL default 'ALL',
+  `access` enum('ALL','PLATFORM_MEMBER','COURSE_MEMBER','COURSE_TUTOR','GROUP_MEMBER','GROUP_TUTOR','COURSE_ADMIN','PLATFORM_ADMIN') NOT NULL default 'ALL',
   `script_url` varchar(255) default NULL,
   `script_name` varchar(255) default NULL,
   `addedTool` enum('YES','NO') default 'YES',
@@ -1749,8 +1749,11 @@ $sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_words` COMMENT='d
 
 /**
  * $Log$
- * Revision 1.1  2004/06/02 07:49:03  moosh
- * Initial revision
+ * Revision 1.2  2004/06/03 13:44:43  moosh
+ * Implement the the tool <select> box in the claroline banner
+ *
+ * Revision 1.1.1.1  2004/06/02 07:49:03  moosh
+ * startnew 
  *
  * Revision 1.19  2004/05/27 05:52:52  seb
  * - added missing enum value for field lesson_status of table lp_user_module_progress

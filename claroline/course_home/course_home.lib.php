@@ -67,9 +67,10 @@ function get_course_tool_list($reqAccessLevel = 'ALL')
      * Build a list containing all the necessary access level
      */
 
-    $standartAccessList = array('ALL',            'COURSE_MEMBER', 
-                                  'GROUP_MEMBER',   'GROUP_TUTOR', 
-                                  'COURSE_ADMIN', 'PLATFORM_ADMIN');
+    $standartAccessList = array('ALL',           'PLATFORM_MEMBER',
+                                'COURSE_MEMBER', 'COURSE_TUTOR',
+                                'GROUP_MEMBER',  'GROUP_TUTOR',
+                                'COURSE_ADMIN',  'PLATFORM_ADMIN');
 
     foreach($standartAccessList as $thisAccessLevel)
     {
@@ -82,12 +83,12 @@ function get_course_tool_list($reqAccessLevel = 'ALL')
      * Search all the tool corresponding to these Access
      */
 
-    $sql = "SELECT tl.id                               id, 
-                   tl.script_name                      name, 
+    $sql = "SELECT tl.id                               id,
+                   tl.script_name                      name,
                    tl.access                         access,
                    tl.rank                             rank,
                    IFNULL(ct.script_url,tl.script_url) url,
-                   ct.claro_label                      label, 
+                   ct.claro_label                      label,
                    ct.icon                            icon,
                    ct.access_manager                  access_manager
 
@@ -109,7 +110,7 @@ function get_course_tool_list($reqAccessLevel = 'ALL')
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @param int $toolId id of the tool
- * @return array containing 'id', 'name', 'access', 'rank', 'url', 'label', 
+ * @return array containing 'id', 'name', 'access', 'rank', 'url', 'label',
  *                          'icon', 'access_manager'
  */
 

@@ -1,9 +1,9 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.0 $Revision$                            |
+      | CLAROLINE version 1.5.
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   English Translation                                                |
       +----------------------------------------------------------------------+
@@ -12,15 +12,14 @@
       |   as published by the Free Software Foundation; either version 2     |
       |   of the License, or (at your option) any later version.             |
       +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+
       +----------------------------------------------------------------------+
       | Translator :                                                         |
       |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
+      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
       +----------------------------------------------------------------------+
- */
+*/
 
 $langModifInfo="Course settings";
 $langModifDone="The information has been modified";
@@ -49,23 +48,11 @@ Now, to add an introduction text presenting your course to students, click on th
 
 // Change Home Page
 $langEditToolList="Edit Tool list";
-$langAgenda="Agenda";
-$langLink="Links";
-$langDocument="Documents and Links";
-$langVid="Video";
-$langWork="Assignments";
 $langProgramMenu="Course program";
-$langAnnouncement="Announcements";
-$langUser="Users";
-$langForum="Forums";
-$langExercise="Exercises";
 $langStats="Statistics";
-$langGroups ="Groups";
-$langChat ="Chat";
 $langUplPage="Upload page and link to Home Page";
 $langLinkSite="Add link to page on Home Page";
-$langModifGroups="Groups";
-$langLearnPath="Learning Path";
+$langVid="Video";
 
 
 
@@ -80,7 +67,6 @@ $langN="NO";
 
 $langDepartmentUrl = "Department URL";
 $langDepartmentUrlName = "Department";
-$langDescriptionCours  = "Course description";
 $langEmail="Email";
 
 $langArchive="Archive";

@@ -52,23 +52,11 @@ $langIntroCourse="Bienvenu sur la page d'accueil du cours.<br><br>Vous pouvez su
 Pour présenter votre cours aux éudiants, cliquer sur ce bouton";
 
 // Change Home Page
-$langAgenda="Agenda";
-$langLink="Liens";
-$langDocument="Documents et liens";
-$langVid="Vidéo";
-$langWork="Travaux";
-$langProgramMenu="Cahier des charges";
-$langAnnouncement="Annonces";
-$langUser="Utilisateurs";
-$langForum="Forums";
-$langExercise="Exercices";
-$langStats="Statistiques";
-$langGroups ="Groupes";
-$langChat ="Discussion";
-$langLearnPath="Parcours pédagogique";
 $langUplPage="Déposer page et lier à l\'accueil";
 $langLinkSite="Ajouter un lien sur la page d\'accueil";
-$langModifGroups="Groupes";
+$langVid="Vidéo";
+$langProgramMenu="Cahier des charges";
+$langStats="Statistiques";
 
 // delete_course.php
 $langDelCourse="Supprimer la totalité du cours";
@@ -82,7 +70,6 @@ $langN="NON";
 
 $langDepartmentUrl = "URL du département";
 $langDepartmentUrlName = "Département";
-$langDescriptionCours  = "Description du cours";
 $langEmail="Email";
 
 $langArchive="Archive";

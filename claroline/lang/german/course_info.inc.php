@@ -66,20 +66,13 @@ $langTipLang="Diese Sprache wird für alle Besucher Ihrer Webseite gültig sein.";
 
 
 // Change Home Page
-$langAgenda="Agenda";
-$langLink="Links";
-$langDocument="Dokumente";
-$langVid="Video";
-$langWork="Unterlagen für Teilnehmer/innen";
+
+
 $langProgramMenu="Programm";
-$langAnnouncement="Ankündigung";
-$langUser="Benutzer";
-$langForum="Foren";
-$langExercise="Übungen";
+$langVid="Video";
 $langStats="Statistiken";
 $langUplPage="Upload Seite und Link zur Homepage";
 $langLinkSite="Ein Link zu dieser Seite auf der Homepage einfügen";
-$langModifGroups="Gruppen";
 $langModifInfo="Seminarinformation ändern";
 
 

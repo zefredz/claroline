@@ -1,5 +1,4 @@
-<?php
-    // $Id$
+<?php // $Id$
 /*
   +----------------------------------------------------------------------+
   | CLAROLINE version 1.5.*                                              |
@@ -24,7 +23,7 @@
   ======================================*/
 
   $langFile = "learnPath";
-
+  $tlabelReq = 'CLLNP___';
   include ('../inc/claro_init_global.inc.php');
 
   $htmlHeadXtra[] =

@@ -1,9 +1,9 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.* $Revision$                            |
+      | CLAROLINE version 1.5.* $Revision: 
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   English Translation                                                |
       +----------------------------------------------------------------------+
@@ -12,10 +12,7 @@
       |   as published by the Free Software Foundation; either version 2     |
       |   of the License, or (at your option) any later version.             |
       +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
+
       +----------------------------------------------------------------------+
       | Translator :                                                         |
       |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
@@ -138,4 +135,21 @@ $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user
 $lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
 $lang_username = "User Name";
 $lang_password = "Password";
+
+
+
+// TOOLNAMES
+$langAgenda = "Agenda";
+$langLink="Links";
+$langDocument="Documents and Links";
+$langWork="Assignments";
+$langAnnouncement="Announcements";
+$langUser="Users";
+$langForum="Forums";
+$langExercise="Exercises";
+$langGroups ="Groups";
+$langChat ="Chat";
+$langLearnPath="Learning Path";
+$langDescriptionCours  = "Course description";
+
 ?>

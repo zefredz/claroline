@@ -41,6 +41,7 @@ if($pagetype == "admin")
 $login_logout_link = make_login_logout_link($user_logged_in, $url_phpbb);
 
 $langFile = "phpbb";
+// suspect langfile call -- need to be checked in further release (The good one is supposed to be in config.php (Hugues june 3 2004).
 
 
 $is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;

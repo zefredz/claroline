@@ -102,4 +102,16 @@ $langMyCourses="Meine Kurse";
 $langModifyProfile="Mein Profil verändern";
 $langMyStats = "Meine Statistik ansehen";
 $langLogout="Logout";
+
+//TOOLS NAMES
+$langAgenda="Agenda";
+$langLink="Links";
+$langDocument="Dokumente";
+$langWork="Unterlagen für Teilnehmer/innen";
+$langAnnouncement="Ankündigung";
+$langUser="Benutzer";
+$langForum="Foren";
+$langExercise="Übungen";
+
+
 ?>

@@ -1,4 +1,5 @@
-<?php # $Id$ 
+<?php # $Id$
+//echo "<pre>".var_export($_courseToolList,1)."</pre>";
 ?>
 <hr noshade size="1">
 

@@ -66,14 +66,65 @@ if (isset($_cid))                /* --- Course Title Section --- */
 
 ?>
 <tr>
-<td bgcolor="#DDDEBC" colspan="2">
+<td bgcolor="#DDDEBC" >
 <b>
 <big><a href="<?= $coursesRepositoryWeb.$_course['path'] ?>/index.php" target="_top"><font color="#003366"><?= $_course['name'] ?></a></font></big>
 <br><small><font color="#003366"><?= $_course['officialCode']," - ", $_course['titular'] ?></font></small>
 </b>
 </td>
+<td bgcolor="#DDDEBC" align="right" >
+<?php
+
+/*
+ * Language initialisation of the tool names
+ */
+if (is_array($_courseToolList))
+{
+	$toolNameList = array('CLANN___' => $langAnnouncement,
+	                      'CLFRM___' => $langForum,
+	                      'CLCAL___' => $langAgenda,
+	                      'CLCHT___' => $langChat,
+	                      'CLDOC___' => $langDocument,
+	                      'CLDSC___' => $langDescriptionCours,
+	                      'CLGRP___' => $langGroups,
+	                      'CLLNP___' => $langLearnPath,
+	                      'CLQWZ___' => $langExercise,
+	                      'CLWRK___' => $langWork,
+	                      'CLUSR___' => $langUser);
+	
+	
+	foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
+	{
+	    if (is_null($_courseToolDatas['name']))
+	        $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
+	
+	    // now recheck to be sure the value is really filled before going further
+	    if ($_courseToolList[ $_courseToolKey ] [ 'name' ]=="")
+	         $_courseToolList[ $_courseToolKey ] [ 'name' ]= "No Name";
+	
+	}
+
+?>
+<form action="<?php echo $clarolineRepositoryWeb ?>redirector.php" name="redirector" >
+<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" ><?php 
+	if (is_array($_courseToolList))
+	foreach($_courseToolList as $_courseToolKey => $_courseToolData)
+	{
+		echo '
+		<option value="'.$_courseToolData['url'].'" '.($_courseToolData['id']==$_tid?'selected':'').' >
+		'.$_courseToolData['name'].'
+		</option>';
+	}
+?>
+</select>
+<noscript>
+<input type="submit" name="gotool" validationmsg="ok" value="go">
+</noscript>
+</form>
+</td>
 </tr>
 <?php
+	}
 }
 ?>
 </table>

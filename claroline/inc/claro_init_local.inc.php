@@ -539,12 +539,12 @@ if ($tidReset || $cidReset) // session data refresh requested
                       pct.access_manager access_manager,
                       CONCAT('".$clarolineRepositoryWeb."', pct.script_url) url
 
-               FROM `".$_course['dbNameGlu']."tool_list` ctl, 
-                    `".$mainDbName."`.`course_tool`  pct      
+               FROM `".$_course['dbNameGlu']."tool_list` ctl,
+                    `".$mainDbName."`.`course_tool`  pct
 
                WHERE `ctl`.`tool_id` = `pct`.`id`
-			   			AND   
-					(	
+			   			AND
+					(
 							  `ctl`.`id`      = '".$tidReq."'
                OR   (".(int) is_null($tidReq)." AND pct.claro_label = '".$tlabelReq."')
 			   )
@@ -571,7 +571,7 @@ if ($tidReset || $cidReset) // session data refresh requested
         }
         else // this tool has no status related to this course
         {
- 		echo "<pre>mr : ".mysql_num_rows($result)."</pre>";		
+ 		echo "<pre>mr : ".mysql_num_rows($result)."</pre>";
 
             exit('WARNING UNDEFINED TID !!');
         }
@@ -588,8 +588,8 @@ if ($tidReset || $cidReset) // session data refresh requested
 }
 else // continue with the previous values
 {
-    $_tid        = $HTTP_SESSION_VARS['_tid'] ;
-    $_courseTool = $HTTP_SESSION_VARS ['_courseTool'     ];
+    $_tid        = $HTTP_SESSION_VARS['_tid'       ] ;
+    $_courseTool = $HTTP_SESSION_VARS['_courseTool'];
 }
 
 
@@ -706,14 +706,16 @@ if ($uidReset || $cidReset || $gidReset || $tidReset) // session data refresh re
 	{
 	    switch($_courseTool['access'])
 	    {
-	        case 'PLATFORM_ADMIN' : $is_toolAllowed = $is_platformAdmin; break;
-	        case 'COURSE_ADMIN'   : $is_toolAllowed = $is_courseAdmin;   break;
-	        case 'GROUP_TUTOR'    : $is_toolAllowed = $is_groupTutor;    break;
-	        case 'GROUP_MEMBER'   : $is_toolAllowed = $is_groupMember;   break;
-	        case 'COURSE_MEMBER'  : $is_toolAllowed = $is_courseMember;  break;
-	        case 'ALL'            : $is_toolAllowed = true;              break;
-	        default               : $is_toolAllowed = false;
-	
+	        case 'PLATFORM_ADMIN'   : $is_toolAllowed = $is_platformAdmin; break;
+	        case 'COURSE_ADMIN'     : $is_toolAllowed = $is_courseAdmin;   break;
+            case 'COURSE_TUTOR'     : $is_toolAllowed = $is_courseTutor;   break;
+	        case 'GROUP_TUTOR'      : $is_toolAllowed = $is_groupTutor;    break;
+	        case 'GROUP_MEMBER'     : $is_toolAllowed = $is_groupMember;   break;
+	        case 'COURSE_MEMBER'    : $is_toolAllowed = $is_courseMember;  break;
+            case "PLATFORM_MEMBER"  : $is_toolAllowed = (bool) $_uid;      break;
+	        case 'ALL'              : $is_toolAllowed = true;              break;
+	        default                 : $is_toolAllowed = false;
+
 	       // Developper notes. And what about these following cases ?
 	       // case "COURSE_TUTOR"     : $is_toolAllowed = $is_courseTutor; break;
 	       // case "PLATFORM_MEMBER"  : $is_toolAllowed = (bool) $_uid;    break;
@@ -731,4 +733,58 @@ else // continue with the previous values
     $is_toolAllowed = $HTTP_SESSION_VARS ['is_toolAllowed'];
 }
 
+
+////
+////
+////
+if ($uidReset || $cidReset)
+{
+	if ($_cid) // have keys to search data
+	{
+	
+	    $reqAccessList = array('ALL');
+	    if ($is_platformAdmin) $reqAccessList [] = 'PLATFORM_ADMIN';
+	    if ($is_courseAdmin  ) $reqAccessList [] = 'COURSE_ADMIN';
+	    if ($is_courseTutor  ) $reqAccessList [] = 'COURSE_TUTOR';
+	    if ($is_groupTutor   ) $reqAccessList [] = 'GROUP_TUTOR';
+	    if ($is_groupMember  ) $reqAccessList [] = 'GROUP_MEMBER';
+	    if ($is_courseMember ) $reqAccessList [] = 'COURSE_MEMBER';
+	    if ($_uid)             $reqAccessList [] = 'PLATFORM_MEMBER';
+	
+	      $sql ="SELECT ctl.id        id,
+	               pct.claro_label    label,
+	               ctl.script_name    name,
+	               ctl.access         access,
+	               pct.icon           icon,
+	               pct.access_manager access_manager,
+				  IF(pct.script_url IS NULL ,ctl.script_url,CONCAT('".$clarolineRepositoryWeb."', pct.script_url)) url
+	           FROM `".$_course['dbNameGlu']."tool_list` ctl
+	           LEFT JOIN `".$mainDbName."`.`course_tool` pct
+	
+	            ON       pct.id = ctl.tool_id
+	
+	            WHERE
+	
+	            ctl.access IN (\"".implode("\", \"", $reqAccessList)."\")";
+	
+		$result = mysql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+		
+		$_courseToolList = array();
+		
+		while( $tlistData = mysql_fetch_array($result))	
+		{
+			$_courseToolList[] = $tlistData;
+		}
+		session_register('_courseToolList');
+	}
+	else
+	{
+		unset($_courseToolList);
+		session_unregister('_courseToolList');
+	}
+}
+else // continue with the previous values
+{
+    $_courseToolList      = $HTTP_SESSION_VARS ['_courseToolList'];
+}
 ?>

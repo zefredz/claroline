@@ -13,6 +13,7 @@
 //----------------------------------------------------------------------
 
 $langFile = "chat";
+$tlabelReq = "CLCHT___";
 
 include('../inc/claro_init_global.inc.php');
 

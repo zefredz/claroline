@@ -28,7 +28,7 @@ $langFile = 'agenda';
 DEFINE('CONFVAL_LOG_CALENDAR_INSERT',TRUE);
 DEFINE('CONFVAL_LOG_CALENDAR_DELETE',TRUE);
 
-$tlabeReq = "CLCAL___";
+$tlabelReq = "CLCAL___";
 
 include('../inc/claro_init_global.inc.php');
 

@@ -21,7 +21,7 @@
  *
  */
 
-$_tid = "COURSE_DESC";
+$tlabelReq = "CLDSC___";
 
 $langFile = "course_description";
 include('../inc/claro_init_global.inc.php');

@@ -19,6 +19,8 @@ session_start();
  *   (at your option) any later version.
  *
  ***************************************************************************/
+$tlabelReq ="CLFRM___";
+
 include('extention.inc');
 include('functions.php');
 include('config.php');

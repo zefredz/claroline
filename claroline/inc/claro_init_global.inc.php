@@ -90,4 +90,5 @@ include($includePath."/../lang/".$languageInterface."/trad4all.inc.php");
 
 include($includePath."/../lang/english/".$langFile.".inc.php");
 @include($includePath."/../lang/".$languageInterface."/".$langFile.".inc.php");
+
 ?>
