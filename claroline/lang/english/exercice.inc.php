@@ -156,7 +156,11 @@ $langQuestionNotFound="Question not found";
 
 $langExerciseNotFound="Exercice not found";
 $langAlreadyAnswered="You already answered the question";
-
+$langActualTime = "Actual time";
+$langMaxAllowedTime = "Maximum allowed time";
+$langNoTimeLimit = "No time limitation";
+$langAttempt = "Attempt";
+$langOn = "on";
 
 // exercise_result.php
 
@@ -167,6 +171,7 @@ $langScore="Score";
 $langCorrespondsTo="Corresponds to";
 $langExpectedChoice="Expected choice";
 $langYourTotalScore="Your total score is";
-
+$langYourTime = "Your time is";
+$langTimeOver = "Time is over, results are not submitted.";
 $langTracking = "Tracking";
 ?>
