@@ -355,7 +355,7 @@ if ($is_allowedToEdit)
 </td>
 
 <td>
-	<input type="text" name="lasting" id="lasting" size="2" value="<?php echo $lastingAncient ?>">
+	<input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="<?php echo $lastingAncient ?>">
 </td>
 
 </tr>
