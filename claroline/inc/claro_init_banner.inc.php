@@ -145,7 +145,7 @@ if (is_array($_courseToolList))
         foreach($_courseToolList as $_courseToolKey => $_courseToolData)
         {
             echo '<option value="'.$_courseToolData['url'].'" '
-                .( $_courseToolData['id'] == $_tid ? 'selected' : '').'>'
+                .( $_courseToolData['id'] == $_tid ? 'selected="selected"' : '').'>'
                 .$_courseToolData['name']
                 ."</option>\n";
         }
