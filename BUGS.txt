@@ -157,14 +157,16 @@ type : ortho
 quoi : "Les packages importés doivent consisté être des fichiers zip et répondre à la norme SCORM 1.2"
 phrase pas franchaise
 Repéré par : M
-Assigné à : 
+Assigné à : SEB
+Etat : RESOLU (revision 1.2 du fichier langue fr des learnPath)
 
 Etat : New ------------------------------------------------------
 M.20. /claroline/learnPath/learningPathList.php?cmd=create
 type : html
 quoi : la liste des parcours semble être un form... sans submit ?
 Repéré par : M
-Assigné à : 
+Assigné à : SEB
+Etat : RESOLU (deprecated part of the deprecated change order form)
 
 Etat : New ------------------------------------------------------
 M.21 http://127.0.0.1/c/cvs.claroline.net/c150rc1.trakbugs/claroline/learnPath/insertMyModule.php?check_1=on&cmdglobal=add
@@ -223,6 +225,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.31  2004/06/16 07:05:48  seb
+19 et 20 résolus
+
 Revision 1.30  2004/06/16 06:29:08  moosh
 bugs 19 à 25
 
