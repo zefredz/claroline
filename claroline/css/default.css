@@ -139,19 +139,19 @@ claroBody  {
                               CLAROLINE FOOTER
  ******************************************************************************/
 
-.claro_footer  
+.claroFooter  
 {
 	background-color: #FFFFF;
 	font-size: 80%;
 }
 
-.claro_footer a, 
-.claro_footer a:visited, 
-.claro_footer a:active {
+.claroFooter a, 
+.claroFooter a:visited, 
+.claroFooter a:active {
 	font-size: 80%;		
 }
 	
-.claro_footer a:hover {
+.claroFooter a:hover {
 }
 
 
@@ -198,6 +198,7 @@ claroBody  {
  * 
  * 
  * <table class="claroTable">
+ *
  * <tr class="superHeader">
  * <th colspan="3">User Birthdate</th>
  * </tr>
@@ -219,7 +220,7 @@ claroBody  {
  * <td>1969-09-27</td>
  * <td> ...  </td>
  * </tr>
- * 
+ *
  * </table>
  */
 
