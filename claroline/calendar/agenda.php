@@ -171,8 +171,6 @@ if ($is_allowedToEdit)
 
             list($editedEvent) = claro_sql_query_fetch_all($sql);
 
-// DEBUG END ------------------------------
-
             $nextCommand = 'exEdit';
     	}
         else
@@ -414,7 +412,7 @@ if ($is_allowedToEdit)
 
         claro_disp_button($_SERVER['PHP_SELF'].'?cmd=exDelete&id=ALL', 
                           '<img src="'.$clarolineRepositoryWeb.'img/delete.gif" width="20" alt="">'
-                          .$langClearList);
+                          .$langClearList, $langClearList.' ?');
 
         echo '</p>';
     } // end if diplayMainCommands
@@ -549,7 +547,7 @@ foreach($eventList as $thisEvent)
       ."<td>\n"
       ."<div class=\"content\">\n"
       .( empty($thisEvent['titre']  ) ? '' : "<p><strong>".$thisEvent['titre']."</strong></p>\n" )
-      .( empty($thisEvent['contenu']) ? '' :  claro_parse_user_text( $thisEvent['contenu'] ) )
+      .( empty($thisEvent['contenu']) ? '' :  claro_parse_user_text($thisEvent['contenu']) )
       ."</div>\n";
 
   if ($is_allowedToEdit)
