@@ -21,8 +21,8 @@ session_start();
  ***************************************************************************/
 
 include 'functions.php';
-include 'config.'.$phpEx;
-require 'auth.'.$phpEx;
+include 'config.php';
+require 'auth.php';
 
 $pagetitle = $l_topictitle;
 $pagetype  = 'viewtopic';

@@ -33,11 +33,12 @@ if($cancel)
 	header("Location: viewtopic.php?topic=$topic&forum=$forum");
 }
 
-include('functions.php');
-include('config.php');
-require('auth.php');
-$pagetitle = "Post Reply";
-$pagetype  = "reply";
+require 'functions.php';
+require 'config.php';
+require 'auth.php';
+
+$pagetitle = 'Post Reply';
+$pagetype  = 'reply';
 
 
 $forumSettingList = get_forum_settings($forum, $topic);
