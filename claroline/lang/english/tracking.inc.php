@@ -112,8 +112,8 @@ $langDate = "Date";
 /* user list */
 $informationsAbout = "Tracking of";
 $langUserName = "Username";
-$langFirstName = "FirstName";
-$langLastName = "Lastname";
+$langFirstName = "First name";
+$langLastName = "Last name";
 $langEmail = "Email";
 $langNoEmail = "No email address specified";
 /* others */

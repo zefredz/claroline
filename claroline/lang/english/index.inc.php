@@ -21,7 +21,7 @@ $langWelcome="courses are freely available below. Other  courses require
 a username and a password, which you can obtain by clicking on 'registration'. Professors
 can create course websites clicking on registration too, but selecting then
 'Create course sites (professors)'.";
-$langUserName="Username";
+$langUserName="User name";
 $langPass="Password";
 $langEnter="Enter";
 $langHelp="Getting started";

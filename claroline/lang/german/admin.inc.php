@@ -60,7 +60,6 @@ $langModify = "Bearbeiten";
 $langUserid = "Benutzer ID";
 $langSearch = "Suchen";
 $langAll ="Alle";
-$langAdduser = "Benutzer hinzufügen";
 $langCanCreateCourse = "Darf neuen Kurs anlegen";
 //top form for list
 $langSearchOn = "Suche nach";

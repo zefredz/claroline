@@ -72,7 +72,6 @@ $langUserid = "Id. do Usuário";
 $langSearch = "Pesquisar";
 $langAll ="Todos";
 
-$langAdduser = "Adicionar um usuário";
 $langCanCreateCourse = "Pode criar novos cursos";
 
 //top form for list
