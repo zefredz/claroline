@@ -39,7 +39,7 @@ $langNbFor="Number of forums";
 $langFunctions="Functions";
 $langAddCategory="Add a category";
 $langOrder="Order";
-
+$langCannotBeDeleted = "can not be deleted";
 // action done message
 
 $langemptyforumname = "You must give a name to your new forum!";
