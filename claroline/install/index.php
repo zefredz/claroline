@@ -503,7 +503,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 
 <link rel="stylesheet" href="../css/default.css" type="text/css" >
 <style media="print" type="text/css"  >
-    .notethis {    border: thin double Black;    margin-left: 15px;    margin-right: 15px;}
+    .notethis { font-weight : bold;  }
 </style>
 <style  type="text/css"  >
     .setup_error { background:white; margin-left: 15px;    margin-right: 15px; }
