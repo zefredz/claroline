@@ -91,16 +91,15 @@ $is_allowedToDocAccess      = (bool) (   $is_courseAdmin
 /*============================================================================
                            SELF-REGISTRATION PROCESS
 ============================================================================*/
-
-if($registration)
+if($_POST['registration'])
 {
-    if( ! $is_courseMember &&  ! $is_groupMember)
+    if( $is_courseMember &&  ! $is_groupMember)
     {
         $sql = "INSERT INTO `".$TABLEUSERGROUP."`
                 SET user = \"".$_uid."\",
-                    team = \"".$_gid."\")";
-
-        if (claro_sql_query($sql))
+                    team = \"".$_gid."\"";
+        
+	if (claro_sql_query($sql))
         {
             // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
 
@@ -109,7 +108,7 @@ if($registration)
     }
 }
 
-if ($regDone)
+if ($_GET['regDone'])
 {
     $message = $langGroupNowMember;
 }
@@ -333,7 +332,8 @@ if ($is_allowedToManage)
 
 if($is_allowedToSelfRegInGroup)
 {
-    echo "<form method=\"get\" action=\"".$PHP_SELF."?registration=1\">"
+    echo "<form method=\"post\" action=\"".$PHP_SELF."?\">"
+	."<input type=\"hidden\" name=\"registration\" value=\"1\">"
         ."<input type=\"submit\" value=\"".$langRegIntoGroup."\">"
         ."</form>";
 }
