@@ -26,9 +26,6 @@ include($includePath."/lib/userManage.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/conf/profile.conf.inc.php");
 
-include($includePath."/../lang/english/registration.inc.php");
-include($includePath."/../lang/".$languageInterface."/registration.inc.php");
-
 $nameTools             = $langAddUser;
 
 $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
