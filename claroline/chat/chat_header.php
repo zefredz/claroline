@@ -17,6 +17,12 @@ $tlabelReq = "CLCHT___";
 
 require '../inc/claro_init_global.inc.php';
 
+if(isset($_gid))
+{
+	$interbredcrump[]= array ("url"=>"../group/group.php", "name"=> $langGroup);
+	$interbredcrump[]= array ("url"=>"../group/group_space.php", "name"=> $langGroupSpace);
+}
+
 $nameTools  = $langChat;
 $noPHP_SELF = true;
 
