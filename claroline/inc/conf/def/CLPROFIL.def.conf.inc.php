@@ -3,8 +3,7 @@
 $conf_def['label']='profil';
 $conf_def['description'] = 'Assignment tool. this is a course tool';
 $conf_def['config_code']='CLPROFIL';
-$conf_def['config_file']='export.conf.inc.php';
-
+$conf_def['config_name']='Setting for profile edition';
 $conf_def['config_file']='profile.conf.inc.php';
 // $conf_def['config_repository']=''; dislabed = includePath.'/conf'
 
@@ -17,17 +16,35 @@ array ( 'SECURE_PASSWORD_REQUIRED'
       , 'CONFVAL_CHECK_OFFICIAL_CODE'
       );
 
-
 // STATUS //
 
-define ("COURSEMANAGER",1);
-define ("STUDENT",      5);
-
+$conf_def_property_list['COURSEMANAGER'] =
+array ('label'         => 'database value for course manager status'
+      ,'description'   => 'do not change this'
+      ,'display'       => FALSE
+      ,'readonly'      => TRUE
+      ,'default'       => '1'
+      ,'type'          => 'integer'
+      ,'acceptedValue' => array ('1'  => 'Course manager'
+                                )
+      , 'container'     => 'CONST'
+      );
+$conf_def_property_list['STUDENT'] =
+array ('label'         => 'database value for student status'
+      ,'description'   => 'do not change this'
+      ,'display'       => FALSE
+      ,'readonly'      => TRUE
+      ,'default'       => '5'
+      ,'type'          => 'integer'
+      ,'acceptedValue' => array ('5'  => 'Student'
+                                )
+      , 'container'     => 'CONST'
+      );
 // AUTHENTICATION //
 //// PASSWORD //////
 $conf_def_property_list['SECURE_PASSWORD_REQUIRED'] =
-array ('label'         => 'check the fiability of password'
-      ,'description'   => 'check if the password is not too much easy to find'
+array ('label'         => 'Check the fiability of password'
+      ,'description'   => 'Check if the password is not too much easy to find'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'check it'
@@ -37,8 +54,7 @@ array ('label'         => 'check the fiability of password'
       );
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
-array ( 'label'         => 'allow user to let Official Code Empty'
-      , 'description'   => ''
+array ( 'label'         => 'Allow user to let Official Code Empty ?'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'check it'
@@ -46,8 +62,8 @@ array ( 'label'         => 'allow user to let Official Code Empty'
                                  )
       );
 $conf_def_property_list['userMailCanBeEmpty'] =
-array ( 'label'         => 'allow user to let Email Code Empty'
-      , 'description'   => 'accept email as valid (best choice)'
+array ( 'label'         => 'Allow user to let Email Code Empty ?'
+      , 'description'   => 'Accept email as valid (best choice)'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'optionnal'
@@ -69,8 +85,8 @@ array ('label'         => 'CONFVAL_ASK_FOR_OFFICIAL_CODE'
       );
 
 $conf_def_property_list['CONFVAL_CHECK_OFFICIAL_CODE'] =
-array ('label'         => 'Check the official Code'
-      ,'description'   => 'if true, build here the
+array ('label'         => 'Check the official Code ?'
+      ,'description'   => 'If true, build here the
       function personal_check_official_code($code,$valueToReturnIfOk,$valueToReturnIfBad)
       {
 	      return $stateOfficialCode 
@@ -93,8 +109,8 @@ array ( 'CAN_REQUEST_COURSE_CREATOR_STATUS'
       );
       
 $conf_def_property_list['CAN_REQUEST_COURSE_CREATOR_STATUS'] =
-array ( 'label'         => 'Is user allowed to request a course creator status'
-      , 'description'   => 'if yes, the user have access to a request system. '."\n"
+array ( 'label'         => 'Is user allowed to request a course creator status ?'
+      , 'description'   => 'If yes, the user have access to a request system. '."\n"
                          .'This option allow only to request it, '
                          .'and don\'t prework the answer'
       , 'default'       => 'FALSE'
@@ -106,8 +122,8 @@ array ( 'label'         => 'Is user allowed to request a course creator status'
       );
 
 $conf_def_property_list['CAN_REQUEST_REVOQUATION'] =
-array ( 'label'         => 'Is user allowed to request to be deleted from platform'
-      , 'description'   => 'if yes, the user have access to a request system. '."\n"
+array ( 'label'         => 'Is user allowed to request to be deleted from platform ?'
+      , 'description'   => 'If yes, the user have access to a request system. '."\n"
                          .'This option allow only to request it, '."\n"
                          .'and don\'t prework the answer'."\n"
       , 'default'       => 'FALSE'
@@ -121,7 +137,7 @@ array ( 'label'         => 'Is user allowed to request to be deleted from platfo
 
 
 ///// PICTURE OF USERS /////
-$conf_def['section']['userpicture']['label']='properties about attached image of a profile';
+$conf_def['section']['userpicture']['label']='Properties about attached image of a profile';
 $conf_def['section']['userpicture']['properties'] = 
 array ( 'PREFIX_IMAGE_FILENAME_WITH_UID'
       , 'RESIZE_IMAGE_TO_THIS_HEIGTH'
@@ -145,11 +161,11 @@ array ( 'label'         => 'Prefix image file name with uid of owner'
       );
 
 $conf_def_property_list['RESIZE_IMAGE_TO_THIS_HEIGTH'] =
-array ( 'label'         => 'force heigth of all image to this size'
+array ( 'label'         => 'Force heigth of all image to this size '
       , 'default'       => 180
       , 'type'          => 'integer'
       , 'unit'          => 'pixel'
-      , 'acceptedValue' => array ('min'  => 100
+      , 'acceptedValue' => array ('min'  => 50
                                 ,'max' => 1200
                                 )
       , 'container'     => 'CONST'
@@ -185,8 +201,5 @@ array ( 'label'         => 'Keep the replaced image when user update pic'
                                 )
       , 'container'     => 'CONST'
       );
-
-// for stats //
-define ('NB_LINE_OF_EVENTS', 15);
 
 ?>
