@@ -23,10 +23,7 @@ if ($_REQUEST['cmd']=="run")
     $sqlForUpdate[] = "USE ".$mainDbName;
     @include("createMainBase.sql.php");
     @include("repairTables.sql.php");
-    $sqlForUpdate[] = "USE ".$mainDbName;
-    @include("createPMAextBase.sql.php");
-    @include("repairTables.sql.php");
-	if ($is_trackingEnabled)
+    if ($is_trackingEnabled)
     {
 		$sqlForUpdate[] = "USE ".$statsDbName;
 		@include("createTrackingBase.sql.php");
