@@ -58,7 +58,7 @@ if ( ! is_dir($curChatRep) ) mkdir($curChatRep, 0777);
 
 if ($_gid)
 {
-    if ($is_groupAllowed)
+    if ($is_groupMember)
     {
         $groupContext  = true;
         $courseContext = false;
@@ -69,7 +69,7 @@ if ($_gid)
     }
     else
     {
-        die('<center>not allowed</center>');
+        die('<center>'.$langNotGroupMember.'</center>');
     }
 }
 else
