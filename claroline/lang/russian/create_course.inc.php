@@ -17,7 +17,7 @@
 // create_course.php
 $langCreateSite="Хрядвжы хвлж мифхв";
 $langFieldsRequ="Юхе трну рчуявженыпэ";
-$langTitle="Пвяювпке";
+$langCourseTitle="Пвяювпке";
 $langEx="пвтфкоеф, <i>Кхжрфку нкжефвжифэ</i>";
 $langFac="Фвяден";
 $langCode="Мрд мифхв";

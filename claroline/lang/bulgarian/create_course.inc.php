@@ -6,7 +6,7 @@ $langLn="Език";
 
 $langCreateSite="Създай сайт на курса";
 $langFieldsRequ="Всички задължителни полета";
-$langTitle="Заглавие на курса";
+$langCourseTitle="Заглавие на курса";
 $langEx="e.g. <i>История на България</i>";
 $langFac="Категория";
 $langTargetFac="Това е факултета , в който се провежда курсът"; 

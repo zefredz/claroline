@@ -207,7 +207,7 @@ echo "<br>";
 </tr>
 
 <tr>
-<td align="right"><label for="int"><?php echo $langTitle ?></label> :</td>
+<td align="right"><label for="int"><?php echo $langCourseTitle ?></label> :</td>
 <td><input type="Text" name="int" id="int" value="<?php echo htmlentities($int); ?>" size="60"></td>
 </tr>
 

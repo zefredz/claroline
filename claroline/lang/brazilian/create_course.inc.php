@@ -44,7 +44,7 @@ $langLn="Lingua";
 
 $langCreateSite="Criar um site de curso";
 $langFieldsRequ="Todos os campos requeridos";
-$langTitle="Título do curso";
+$langCourseTitle="Título do curso";
 $langEx="e.g. <i>Historia da Literatura</i>";
 $langFac="Categoria";
 $langTargetFac="Esta é a faculdade, departamento ou escola onde esse curso será disponibilizado"; 

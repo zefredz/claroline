@@ -21,7 +21,7 @@
 
 $langModify   = "modificar";
 $langDelete   = "borrar";
-$langTitle    = "T&iacute;tulo";
+$langCourseTitle    = "T&iacute;tulo";
 $langHelp     = "axuda";
 $langOk       = "validar";
 $langAddIntro = "Engadir un texto de introducci&oacute;n";
@@ -38,7 +38,7 @@ $langCode             = "C&oacute;digo do curso";
 $langDelCourse        = "Suprimir este curso";
 $langProfessor="Profesor";
 $langProfessors       = "Titulares";
-$langTitle            = "Titulado";
+$langCourseTitle            = "Titulado";
 $langFaculty          = "Facultade";
 $langDescription      = "Descripci&oacute;n";
 $langConfidentiality  = "Confidencialidade";

@@ -15,7 +15,7 @@
 
 $langModify="Muokkaa";
 $langDelete="Poista";
-$langTitle="Otsikko";
+$langCourseTitle="Otsikko";
 $langHelp="Apua";
 $langOk="Ok";
 $langBack="Takaisin kurssin tietoihin";
@@ -29,7 +29,7 @@ $langHome="Takaisin omalle sivulle";
 $langCode="Kurssin koodi";
 $langDelCourse="Poista tämä kurssi";
 $langProfessors="Opettajat";
-$langTitle="Kurssin otsikko";
+$langCourseTitle="Kurssin otsikko";
 $langFaculty="Koulutusala";
 $langDescription="Kuvaus";
 $langConfidentiality="Luottamuksellisesti";

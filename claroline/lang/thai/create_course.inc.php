@@ -21,7 +21,7 @@ $langLn="ภาษา";
 
 $langCreateSite="สร้างรายวิชา";
 $langFieldsRequ="ต้องกรอกข้อมูลทุกช่อง";
-$langTitle="ชื่อวิชา";
+$langCourseTitle="ชื่อวิชา";
 $langEx="ตัวอย่าง <i>History of Litterature</i>";
 $langFac="ภาควิชา";
 $langTargetFac=""; 

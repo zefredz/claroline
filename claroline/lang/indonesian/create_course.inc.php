@@ -44,7 +44,7 @@ $langLn="Bahasa";
 
 $langCreateSite="Buat situs pelajaran";
 $langFieldsRequ="Semua field wajib diisi";
-$langTitle="Nama pelajaran";
+$langCourseTitle="Nama pelajaran";
 $langEx="misal <i>Dasar-dasar Ilmu Tanah</i>";
 $langFac="Kategori";
 $langTargetFac="Ini merupakan nama fakultas, jurusan, atau program studi dimana pelajaran ditawarkan"; 

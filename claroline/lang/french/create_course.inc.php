@@ -9,7 +9,7 @@
 // create_course.php
 $langCreateSite="Créer un site de cours";
 $langFieldsRequ="Tous les champs sont obligatoires";
-$langTitle="Intitulé";
+$langCourseTitle="Intitulé";
 $langEx="p. ex. <i>Histoire de la littérature</i>";
 $langFac="Catégorie";
 $langCode="Code cours";

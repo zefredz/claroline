@@ -18,7 +18,7 @@
 
 $langModify="修正";
 $langDelete="削除";
-$langTitle="タイトル";
+$langCourseTitle="タイトル";
 $langHelp="へルプ";
 $langOk="OK";
 $langBack="ここ";
@@ -32,7 +32,7 @@ $langHome="ホームページに戻る";
 $langCode="コース番号";
 $langDelCourse="このコースサイト全体を削除";
 $langProfessors="Professor(s)";
-$langTitle="タイトル";
+$langCourseTitle="タイトル";
 $langFaculty="学科";
 $langDescription="文書解説";
 $langConfidentiality="秘";

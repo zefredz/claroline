@@ -29,7 +29,7 @@ Translate the interface in chosen language
 
 $langModify="Muokkaa";
 $langDelete="Poista";
-$langTitle="Otsikko";
+$langCourseTitle="Otsikko";
 $langHelp="Apua";
 $langOk="Ok";
 $langAddIntro="Lis‰‰ johdanto";

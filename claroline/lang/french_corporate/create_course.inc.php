@@ -13,7 +13,7 @@
 // create_course.php
 $langCreateSite="Créer un site pour les cadres";
 $langFieldsRequ="Tous les champs sont obligatoires";
-$langTitle="Intitulé";
+$langCourseTitle="Intitulé";
 $langEx="p. ex. <i>Théorie pédante sur l'orthopédagogie</i>";
 $langFac="Catégorie";
 $langCode="Code du site";

@@ -29,7 +29,7 @@ Translate the interface in chosen language
 
 $langModify="更新";
 $langDelete="删除";
-$langTitle="主题";
+$langCourseTitle="主题";
 $langHelp="帮助";
 $langOk="确认";
 $langBack="返回课程信息";
@@ -44,7 +44,7 @@ $langHome="返回课程主页";
 $langCode="课程号";
 $langDelCourse="删除这项课程";
 $langProfessors="教授";
-$langTitle="主题";
+$langCourseTitle="主题";
 $langFaculty="类属";
 $langDescription="简介";
 $langConfidentiality="访问限制策略";

@@ -20,7 +20,7 @@ $langLn="Llenguatge";
 
 $langCreateSite="Crea el lloc web d'un curs";
 $langFieldsRequ="Tots els camps requerits";
-$langTitle="Títol del curs";
+$langCourseTitle="Títol del curs";
 $langEx="e.g. <i>Historia de la Literatura</i>";
 $langFac="Categoria";
 $langTargetFac="Aquesta és la facultat, departament o escola on el curs s'imparteix"; 

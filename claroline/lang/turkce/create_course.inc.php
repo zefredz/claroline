@@ -20,7 +20,7 @@ $langLn="Language";
 
 $langCreateSite="Ders websitesi yarat";
 $langFieldsRequ="Tüm alanlar zorunludur";
-$langTitle="Ders Baþlýðý";
+$langCourseTitle="Ders Baþlýðý";
 $langEx="e.g. <i>Edebiyat Tarihi</i>";
 $langFac="Kategori";
 $langTargetFac="Dersin verildiði fakülte, bölüm veya okul"; 

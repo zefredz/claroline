@@ -29,7 +29,7 @@ Translate the interface in chosen language
 
 $langModify="更新";
 $langDelete="删除";
-$langTitle="主题";
+$langCourseTitle="主题";
 $langHelp="帮助";
 $langOk="确认";
 $langAddIntro="添加课程介绍信息";
@@ -45,7 +45,7 @@ $langLn="语言";
 
 $langCreateSite="创建课程";
 $langFieldsRequ="所有项目都需填写.";
-$langTitle="课程标题";
+$langCourseTitle="课程标题";
 $langEx="e.g. <i>文学历史</i>";
 $langFac="院系";
 $langTargetFac="上面选项是本门课程内容应属院系.";

@@ -52,7 +52,7 @@ $langBackList = "Voltar &aacute; lista";
 // create_course.php
 $langCreateSite  = "Crear unha web do curso";
 $langFieldsRequ  = "Todos os campos son obrigatorios";
-$langTitle       = "Titulado";
+$langCourseTitle       = "Titulado";
 $langEx          = "p. ex. <i>Historia da literatura</i>";
 $langFac         = "facultade";
 $langTargetFac   = "Tr&aacute;tase da facultade na que se realiza o curso";

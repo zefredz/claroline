@@ -21,7 +21,7 @@ $langLn="Sprog";
 
 $langCreateSite="Opret kursushjemmeside";
 $langFieldsRequ="Udfyld alle felter";
-$langTitle="Kursustitel";
+$langCourseTitle="Kursustitel";
 $langEx="f.eks. <i>Litteraturhistorie</i>";
 $langFac="Fakultet";
 $langTargetFac="Angiv på hvilket Fakultet kurset udbydes"; 

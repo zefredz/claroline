@@ -28,7 +28,7 @@
 
 $langModify      = "modificar";
 $langDelete      = "borrar";
-$langTitle       = "T&iacute;tulo";
+$langCourseTitle       = "T&iacute;tulo";
 $langHelp        = "ayuda";
 $langOk          = "validar";
 $langAddIntro    = "A&ntilde;adir un texto de introducci&oacute;n";

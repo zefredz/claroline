@@ -30,7 +30,7 @@ Translate the interface in chosen language
 
 $langModify="更新";
 $langDelete="删除";
-$langTitle="主题";
+$langCourseTitle="主题";
 $langHelp="帮助";
 $langOk="确认";
 $langAddIntro="添加课程介绍信息";

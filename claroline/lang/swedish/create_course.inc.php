@@ -21,7 +21,7 @@ $langLn="Språk";
 
 $langCreateSite="Skapa en kurswebbsajt";
 $langFieldsRequ="Alla fält krävs";
-$langTitle="Kurstitel";
+$langCourseTitle="Kurstitel";
 $langEx="e.g. <i>Svenska A</i>";
 $langFac="Fakultet";
 $langTargetFac="Detta är den fakultet eller avdelning där kursen hålls";

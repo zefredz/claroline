@@ -41,7 +41,7 @@ $langLn="Jêzyk";
 
 $langCreateSite="Tworzenie kursu";
 $langFieldsRequ="Wymagane wype³nienie wszystkich pól";
-$langTitle="Tytu³ kursu";
+$langCourseTitle="Tytu³ kursu";
 $langEx="np. <i>Historia Literatury</i>";
 $langFac="Kategoria";
 $langTargetFac="Wydzia³, Instytut lub Szko³a, w której kurs jest prowadzony"; 

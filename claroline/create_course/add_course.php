@@ -338,7 +338,7 @@ else
 		    .$langCreationMailNotificationBody.' '.$siteName.' '
 		    .$langByUser.$_user['firstName'].' '.$_user['lastName']." (".$_user['mail'].") \n"
 		    .' '.$langCode			.' : '.$currentCourseCode."\n"
-		    .' '.$langTitle			.' : '.$newcourse_label."\n"
+		    .' '.$langCourseTitle	.' : '.$newcourse_label."\n"
 		    .' '.$langProfessors	.' : '.$newcourse_titulars."\n"
 		    .' '.$langEmail			.' : '.$newcourse_email."\n\n"
 		    .' '.$langFac.' : '.$newcourse_category."\n"
@@ -521,7 +521,7 @@ elseif($displayCoursePropertiesForm)
 
 <tr valign="top">
 <td align="right">
-<label for="intitule"><?php echo $langTitle ?></label> :
+<label for="intitule"><?php echo $langCourseTitle ?></label> :
 </td>
 <td valign="top">
 <input type="Text" name="intitule" id="intitule" size="60" value="<?php echo $valueIntitule ?>">

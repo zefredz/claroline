@@ -45,7 +45,7 @@ $langLn="Jezik";
 
 $langCreateSite="Tvorba spletne strani tecaja";
 $langFieldsRequ="Vsa polja so potrebna";
-$langTitle="Naslov tecaja";
+$langCourseTitle="Naslov tecaja";
 $langEx="na pr. <i>Programiranje v Javi</i>";
 $langFac="Kategorija";
 $langTargetFac="To je fakulteta, oddelek ali sola, ki ponuja ta tecaj"; 

@@ -65,7 +65,7 @@ $langLn="Idioma";
 
 $langCreateSite  = "Crear un sitio web de un curso";
 $langFieldsRequ  = "Todos los campos son obligatorios";
-$langTitle       = "Nombre del Curso";
+$langCourseTitle       = "Nombre del Curso";
 $langEx          = "p. ej. <i>Historia de la literatura</i>";
 $langFac         = \"Facultad/Carrera";
 $langTargetFac   = \"Se trata de la Facultad en la que se realiza el curso";

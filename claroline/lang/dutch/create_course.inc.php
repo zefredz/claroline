@@ -22,7 +22,7 @@ $langPlatform= $institution["name"] . " gebruikt het platform";
 // create_course.php
 $langCreateSite="Cursussite aanmaken";
 $langFieldsRequ="Alle velden moeten ingevuld worden";
-$langTitle="Titel";
+$langCourseTitle="Titel";
 $langEx="bijv. <i>Literatuurgeschiedenis</i>";
 $langFac="Categorie";
 $langCode="Cursuscode";

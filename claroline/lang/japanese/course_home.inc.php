@@ -18,7 +18,7 @@
 
 $langModify="修正";
 $langDelete="削除";
-$langTitle="タイトル";
+$langCourseTitle="タイトル";
 $langHelp="へルプ";
 $langOk="OK";
 $langAddIntro="紹介文を加える";

@@ -43,7 +43,7 @@ $langLn="Language";
 
 $langCreateSite="Create a course website";
 $langFieldsRequ="All fields required";
-$langTitle="Course title";
+$langCourseTitle="Course title";
 $langEx="e.g. <i>History of Literature</i>";
 $langFac="Category";
 $langTargetFac="This is the faculty, department or school where the course is delivered";

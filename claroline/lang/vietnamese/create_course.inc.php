@@ -31,7 +31,7 @@ $langLn="Language";
 
 $langCreateSite="Tạo một website cho khoá học mới";
 $langFieldsRequ="Xin điền đầy đủ các mục";
-$langTitle="Tên khoá học";
+$langCourseTitle="Tên khoá học";
 $langEx="ví dụ. <i>Lích sử văn học </i>";
 $langFac="Chủ đề (phân loại theo bộ môn)";
 $langTargetFac=""; 

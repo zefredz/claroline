@@ -27,7 +27,7 @@ Translate the interface in chosen language
 
 $langModify="wijzigen";
 $langDelete="verwijderen";
-$langTitle="Titel";
+$langCourseTitle="Titel";
 $langHelp="help";
 $langOk="Ok";
 $langAddIntro="Inleiding toevoegen";

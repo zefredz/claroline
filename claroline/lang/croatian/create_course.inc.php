@@ -21,7 +21,7 @@ $langLn="Jeziène postavke";
 
 $langCreateSite="Stvaranje stranica predmeta";
 $langFieldsRequ="Potrebno je ispuniti sve podatke";
-$langTitle="Naziv predmeta";
+$langCourseTitle="Naziv predmeta";
 $langEx="primjerice. <i>Matematika I</i>";
 $langFac="Kategorija";
 $langTargetFac="Naziv fakulteta, odjela ili katedre  "; 

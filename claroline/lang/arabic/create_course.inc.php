@@ -14,7 +14,7 @@
 // create_course.php
 $langCreateSite	=" خلق موقع درس ";
 $langFieldsRequ	=" يجب الإدلاء بكلّ المعلومات   ";
-$langTitle		=" عنوان ";
+$langCourseTitle		=" عنوان ";
 $langEx			=" مثال <i> تاريخ الأدب </i>";
 $langFac		=" صنف ";
 $langCode		=" رمز الدرس ";

@@ -29,7 +29,7 @@ Translate the interface in chosen language
 
 $langModify="Muokkaa";
 $langDelete="Poista";
-$langTitle="Otsikko";
+$langCourseTitle="Otsikko";
 $langHelp="Apua";
 $langOk="Ok";
 $langAddIntro="Lis‰‰ johdanto";
@@ -41,7 +41,7 @@ $langLn="Language";
 
 $langCreateSite="Luo kurssin sivusto";
 $langFieldsRequ="T‰yt‰ kaikki kent‰t";
-$langTitle="Kurssin otsikko";
+$langCourseTitle="Kurssin otsikko";
 $langEx="Esimerkki: <i>Kirjallisuuden historia</i>";
 $langFac="Koulutusala";
 $langTargetFac="Kurssista vastaava koulutusala: ";

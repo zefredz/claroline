@@ -19,7 +19,7 @@
 
 $langModify="修正";
 $langDelete="削除";
-$langTitle="タイトル";
+$langCourseTitle="タイトル";
 $langHelp="へルプ";
 $langOk="OK";
 $langAddIntro="紹介文を加える";
@@ -35,7 +35,7 @@ $langLn="言語";
 
 $langCreateSite="コースのウエブサイトを作る";
 $langFieldsRequ="すべての欄の記入が必要";
-$langTitle="タイトル";
+$langCourseTitle="タイトル";
 $langEx="例：<i>文学史</i>";
 $langFac="学科";
 $langTargetFac="このコースの学科、学部";

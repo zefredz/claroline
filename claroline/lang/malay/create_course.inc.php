@@ -44,7 +44,7 @@ $langLn="Bahasa";
 
 $langCreateSite="Bina Laman Subjek";
 $langFieldsRequ="Semua Ruang Kosong Perlu Diisi";
-$langTitle="Nama Subjek";
+$langCourseTitle="Nama Subjek";
 $langEx="cth. <i>Elektronik Analog II</i>";
 $langFac="Pusat Pengajian";
 $langTargetFac="Pusat Pengajian yang Menawarkan Subjek Ini."; 
