@@ -14,7 +14,10 @@ array ( 'defaultVisibilityForANewCourse'
       , 'prefixAntiEmpty');
 
 $conf_def_property_list['defaultVisibilityForANewCourse'] = 
-array ('label'       => 'Visibilité par défaut pour un utilisateur'
+array ('label'       => 'Default visibility for new course'
+      ,'description' => 'hide = the course can be acces without subscription to this course.
+      open = an authenticated user on the platform can subscribe the course.
+      '
       ,'default'     => '2'
       ,'type'        => 'enum'
       ,'display'     => TRUE
