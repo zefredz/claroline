@@ -1,6 +1,6 @@
 <?php //$Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -45,21 +45,14 @@ $userPerPage = 20; // numbers of user to display on the same page
 
 @include ($includePath."/installedVersion.inc.php");
 
-// Deal with interbredcrumps
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
-$interbredcrump[]= array ("url"=>$rootAdminWeb."/admin_class.php", "name"=> $langClass);
-$nameTools = $langRegisterUserToClass;
-
-//Header
-
-include($includePath."/claro_init_header.inc.php");
-
-//TABLES
-
-$tbl_user                  = $mainDbName."`.`user";
-$tbl_class                 = $mainDbName."`.`class";
-$tbl_class_user            = $mainDbName."`.`rel_class_user";
+/*
+ * DB tables definition
+ */
+$tbl_mdb_names  = claro_sql_get_main_tbl();
+$tbl_user       = $tbl_mdb_names['user'];
+$tbl_class      = $tbl_mdb_names['user_category'];
+$tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 
 //find info about the class
 
@@ -148,7 +141,15 @@ define ("USER_DATA_FORM", 2);_reg_user_order_crit']=="user_id")
     $sql.=$toAdd;
 }
 
-//echo $sql."<br>";
+// Deal with interbredcrumps
+
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb."/admin_class.php", "name"=> $langClass);
+$nameTools = $langRegisterUserToClass;
+
+//Header
+include($includePath."/claro_init_header.inc.php");
+
 
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $resultList = $myPager->get_result_list();
@@ -180,7 +181,7 @@ if (isset($cfrom) && ($cfrom=="clist"))
 
 //Pager
 
-$myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit);
 
 // Display list of users
 
@@ -188,9 +189,9 @@ $myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit);
 
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">"
     ."<tr class=\"headerX\" align=\"center\" valign=\"top\">"
-    ."  <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>"
-    ."  <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes\">".$langName."</a></th>"
-    ."  <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes".$dir."\">".$langFirstName."</a></th>"
+    ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>"
+    ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=nom&chdir=yes\">".$langName."</a></th>"
+    ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=prenom&chdir=yes".$dir."\">".$langFirstName."</a></th>"
     ."  <th>".$langSubscribeClass."</th>"
     ."  <th>".$langUnsubscribeClass."</th>"
     ."</tr>"
@@ -204,49 +205,49 @@ foreach($resultList as $list)
 
      //  Id
 
-     echo "<td align=\"center\">".$list['user_id']."
+     echo "<td align=\"center\"><a name=\"u".$list['user_id']."\"></a>".$list['user_id']."
            </td>";
 
      // lastname
 
-     echo "<td align=\"left\">".$list['nom']."</td>";
+     echo '<td align="left">'.$list['nom'].'</td>'."\n";
 
      //  Firstname
 
-     echo "<td align=\"left\">".$list['prenom']."</td>";
+     echo '<td align="left">'.$list['prenom'].'</td>'."\n";
   
      // Register
 
      if ($list['id']==null)
      {
-        echo  "<td align=\"center\">\n",
-                "<a href=\"",$PHP_SELF,"?class=".$classinfo['id']."&cmd=subscribe&user_id=".$list['user_id']."&offset=".$offset."\">\n",
-                "<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"$langSubscribeClass\" />\n",
-                "</a>\n",
-            "</td>\n";
+        echo  '<td align="center">'."\n"
+             .'<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&cmd=subscribe&user_id='.$list['user_id'].'&offset='.$offset.'#u'.$list['user_id'].'">'."\n"
+             .'<img src="'.$clarolineRepositoryWeb.'img/enroll.gif" border="0" alt="'.$langSubscribeClass.'" />'."\n"
+             .'</a>'."\n"
+             .'</td>'."\n";
      }
      else
      {
-        echo  "<td align=\"center\">\n",
-                "<small>$langUserAlreadyInClass</small>\n",             
-              "</td>\n";
+        echo  '<td align="center">'."\n"
+             .'<small>'.$langUserAlreadyInClass.'</small>'."\n"
+             .'</td>'."\n";
      }
 
      // Unregister
 
      if ($list['id']!=null)
      {
-        echo  "<td align=\"center\">\n",
-                "<a href=\"",$PHP_SELF,"?class=".$classinfo['id']."&cmd=unsubscribe&user_id=".$list['user_id']."&offset=".$offset."\">\n",
-                "<img src=\"".$clarolineRepositoryWeb."img/unenroll.gif\" border=\"0\" alt=\"$langUnsubscribeClass\" />\n",
-                "</a>\n",
-            "</td>\n";
+        echo  '<td align="center">'."\n"
+             .'<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&cmd=unsubscribe&user_id='.$list['user_id'].'&offset='.$offset.'#u'.$list['user_id'].'">'."\n"
+             .'<img src="'.$clarolineRepositoryWeb.'img/unenroll.gif" border="0" alt="'.$langUnsubscribeClass.'" />'."\n"
+             .'</a>'."\n"
+             .'</td>'."\n";
      }
      else
      {
-        echo  "<td align=\"center\">\n",
-                "<small>$langUserNotInClass</small>\n",             
-              "</td>\n";
+        echo  '<td align="center">'."\n"
+             .'<small>'.$langUserNotInClass.'</small>'."\n"
+             .'</td>'."\n";
      }
 
      echo "</tr>";
@@ -258,7 +259,7 @@ echo "</tbody></table>";
 
 //Pager
 
-$myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit);
 
 include($includePath."/claro_init_footer.inc.php");
 ?>

@@ -1,6 +1,6 @@
 <?php //$Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -68,18 +68,20 @@ $langUnsubscribeClass          = "Unregister user from class";
     
 // Deal with interbredcrumps
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
-$interbredcrump[]= array ("url"=>$rootAdminWeb."/admin_class.php", "name"=> $langClass);
+$interbredcrump[]= array ("url"=>$rootAdminWeb."admin_class.php", "name"=> $langClass);
 $nameTools = $langListClassUser;
 
 //Header
 
 include($includePath."/claro_init_header.inc.php");
 
-//TABLES
-
-$tbl_user                  = $mainDbName."`.`user";
-$tbl_class                 = $mainDbName."`.`class";
-$tbl_class_user            = $mainDbName."`.`rel_class_user";
+/*
+ * DB tables definition
+ */
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user                  = $tbl_mdb_names['user'];
+$tbl_class                 = $tbl_mdb_names['user_category'];
+$tbl_class_user            = $tbl_mdb_names['user_rel_profile_category'];
 
 //SESSION VARIABLES
 

@@ -45,17 +45,15 @@ $langUsersMin = "users";
 
 //---------------------- END LANG TO ADD ----------------------------------------------------------------------------
 
-// Deal with interbredcrumps  and title variable
-
-$nameTools = $langAdministrationClassTools;
-$interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 $is_allowedToAdmin   = $is_platformAdmin || $PHP_AUTH_USER;
 
-// USED TABLES
-
-$tbl_user            = $mainDbName."`.`user";
-$tbl_class           = $mainDbName."`.`class";
-$tbl_class_user            = $mainDbName."`.`rel_class_user";
+/*
+ * DB tables definition
+ */
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user                  = $tbl_mdb_names['user'];
+$tbl_class                 = $tbl_mdb_names['user_category'];
+$tbl_class_user            = $tbl_mdb_names['user_rel_profile_category'];
 
 // USED SESSION VARIABLES 
 
@@ -63,6 +61,10 @@ if (!isset($_SESSION['admin_visible_class']))
 {
     $_SESSION['admin_visible_class'] = array(); 
 }
+
+// Deal with interbredcrumps  and title variable
+$nameTools = $langAdministrationClassTools;
+$interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 
 // javascript confirm pop up declaration for header
 
@@ -126,7 +128,7 @@ switch ($cmd)
 		   ."<table>\n"
 		   ."   <tr>\n"
 		   ."     <td>\n"
-	           ."       $langNewClassName : \n"
+	       ."       $langNewClassName : \n"
 		   ."     </td>\n"
 		   ."     <td>\n"
 		   ."       <input type=\"hidden\" name=\"cmd\" value=\"new\">\n"

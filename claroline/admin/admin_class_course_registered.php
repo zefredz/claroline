@@ -38,14 +38,15 @@ if (!$is_platformAdmin) treatNotAuthorized();
 $nameTools=$langClassRegistered;
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langClassRegistered);
 
-//TABLES
-
-
-$tbl_user                  = $mainDbName."`.`user";
-$tbl_course                = $mainDbName."`.`cours";
-$tbl_course_user           = $mainDbName."`.`cours_user";
-$tbl_class                 = $mainDbName."`.`class";
-$tbl_class_user            = $mainDbName."`.`rel_class_user";
+/*
+ * DB tables definition
+ */
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user                  = $tbl_mdb_names['user'];
+$tbl_course                = $tbl_mdb_names['course'];
+$tbl_course_user           = $tbl_mdb_names['rel_course_user'];
+$tbl_class                 = $tbl_mdb_names['user_category'];
+$tbl_class_user            = $tbl_mdb_names['user_rel_profile_category'];
 
 include($includePath.'/claro_init_header.inc.php');
 
@@ -103,9 +104,9 @@ function register_class_to_course($class_id, $course_code)
     global $tbl_user; 
     //get the list of users in this class 
     
-    $sql = "SELECT * FROM `".$tbl_class_user."`, `".$tbl_user."`  
+    $sql = "SELECT * FROM `".$tbl_class_user."` `rel_c_u`, `".$tbl_user."` `u` 
                     WHERE `class_id`='".$class_id."' 
-		      AND `".$tbl_class_user."`.`user_id` = `".$tbl_user."`.`user_id`";
+		      AND `rel_c_u`.`user_id` = `u`.`user_id`";
     $result = claro_sql_query_fetch_all($sql);
     
     //subscribe the users each by each
