@@ -312,7 +312,7 @@ if($is_allowedToEdit)
 	<?php echo $langDelete; ?>
   </th>
   <th>
-	<?php echo $langActivate.' / '.$langDeactivate; ?>
+	<?php echo $langEnable.' / '.$langDisable; ?>
   </th>
 <?php
   if($is_allowedToTrack)
@@ -392,7 +392,7 @@ while($row=mysql_fetch_array($result))
 		{
 ?>
 
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&page=<?php echo $page; ?>&exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/visible.gif" border="0" alt="<?php echo htmlentities($langDeactivate); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&page=<?php echo $page; ?>&exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/visible.gif" border="0" alt="<?php echo htmlentities($langDisable); ?>"></a></td>
 
 <?php
 		}
@@ -401,7 +401,7 @@ while($row=mysql_fetch_array($result))
 		{
 ?>
 
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&page=<?php echo $page; ?>&exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/invisible.gif" border="0" alt="<?php echo htmlentities($langActivate); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&page=<?php echo $page; ?>&exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/invisible.gif" border="0" alt="<?php echo htmlentities($langEnable); ?>"></a></td>
 
 <?php
 		}
