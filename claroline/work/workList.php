@@ -382,8 +382,20 @@ foreach( $workList as $thisWrk )
 	echo "<tr align=\"center\">\n"
 		."<td align=\"left\">"
 		."<a href=\"userWork.php?authId=".$thisWrk['authId']."&assigId=".$_REQUEST['assigId']."\">";
-	
-	echo ( $thisWrk['authId'] == $_uid )? "<b>".$thisWrk['name']."</b>" : $thisWrk['name'];
+
+	if	( ($assignment['assignment_type'] != 'GROUP' && $thisWrk['authId'] == $_uid) )
+	{
+		echo "<b>".$thisWrk['name']."</b>";
+	}
+	elseif($assignment['assignment_type'] == 'GROUP' && is_array($userGroupList) && array_key_exists($thisWrk['authId'],$userGroupList))
+	{
+		echo "<b>".$thisWrk['name']."</b>";
+	}	
+	else
+	{
+		echo $thisWrk['name'];
+	}
+
 	
 	echo "</a></td>\n"
 		."<td>".$thisWrk['title']."</td>\n"
