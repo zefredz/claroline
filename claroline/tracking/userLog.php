@@ -48,40 +48,27 @@ $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user         = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user                    = $tbl_mdb_names['user'             ];
-$tbl_announcement            = $tbl_cdb_names['announcement'           ];
-$tbl_assignment_doc          = $tbl_cdb_names['assignment_doc'         ];
-$tbl_document                = $tbl_cdb_names['document'               ];
-$tbl_course_group_property   = $tbl_cdb_names['group_property'         ];
 $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'    ];
-$tbl_group_team              = $tbl_cdb_names['group_team'             ];
-$tbl_link                    = $tbl_cdb_names['link'                   ];
+$tbl_group_team              = $tbl_cdb_names['group_team'       ];
 $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
 $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
 $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
 $tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
 $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
 $tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
+$tbl_wrk_assignment          = $tbl_cdb_names['wrk_assignment'         ];
+$tbl_wrk_submission          = $tbl_cdb_names['wrk_submission'         ];    
+$tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
+$tbl_track_e_exercices       = $tbl_cdb_names['track_e_exercices'      ];
+$tbl_track_e_uploads         = $tbl_cdb_names['track_e_uploads'        ];
+
 
 $TABLETRACK_LOGIN       = $statsDbName."`.`track_e_login";
 
-$TABLETRACK_ACCESS      = $_course['dbNameGlu']."track_e_access";
-$TABLETRACK_LINKS       = $_course['dbNameGlu']."track_e_links";
-$TABLETRACK_DOWNLOADS   = $_course['dbNameGlu']."track_e_downloads";
-$TABLETRACK_UPLOADS     = $_course['dbNameGlu']."track_e_uploads";
-$TABLETRACK_EXERCISES   = $_course['dbNameGlu']."track_e_exercices";
 
-$TABLECOURSUSER	        = $tbl_rel_course_user;
-$TABLEUSER	            = $tbl_user;
-
-$TABLECOURSE_LINKS      = $tbl_link;
-$TABLECOURSE_WORK       = $tbl_assignment_doc;
-$TABLECOURSE_DOCUMENTS  = $tbl_document;
-$TABLECOURSE_GROUPS     = $tbl_group_team;
-$TABLECOURSE_GROUPSPROP = $tbl_course_group_property;
-$TABLECOURSE_GROUPSUSER = $tbl_group_rel_team_user;
-$TABLECOURSE_EXERCICES  = $tbl_quiz_test;
-
-// for learning paths section
+// for learning paths section 
+// those vars need to be name like this $TABLE* be cause they are used 
+// in get_learnPath_progress function
 $TABLELEARNPATH         = $tbl_lp_learnPath;
 $TABLEMODULE            = $tbl_lp_module;
 $TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
@@ -119,14 +106,14 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         {
             // if user can track everybody : list user of course
             $sql = "SELECT count(user_id)
-                        FROM `$TABLECOURSUSER` 
+                        FROM `$tbl_rel_course_user` 
                         WHERE `code_cours` = '$_cid'";
         }
         else
         {
             // if user can only track one group : list users of this group
             $sql = "SELECT count(user)
-                        FROM `$TABLECOURSE_GROUPSUSER`
+                        FROM `$tbl_group_rel_team_user`
                         WHERE `team` = '$_gid'";
         }
         $userGroupNb = getOneResult($sql);
@@ -173,7 +160,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         {
             // list of users in this course
             $sql = "SELECT `u`.`user_id`, `u`.`prenom`,`u`.`nom`
-                        FROM `$TABLECOURSUSER` cu , `$TABLEUSER` u 
+                        FROM `$tbl_rel_course_user` cu , `$tbl_user` u 
                         WHERE `cu`.`user_id` = `u`.`user_id`
                             AND `cu`.`code_cours` = '$_cid'
                         LIMIT $offset,$step";
@@ -182,7 +169,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         {
             // list of users of this group
             $sql = "SELECT `u`.`user_id`, `u`.`prenom`,`u`.`nom`
-                        FROM `$TABLECOURSE_GROUPSUSER` gu , `$TABLEUSER` u 
+                        FROM `$tbl_group_rel_team_user` gu , `$tbl_user` u 
                         WHERE `gu`.`user` = `u`.`user_id`
                             AND `gu`.`team` = '$_gid'
                         LIMIT $offset,$step";
@@ -218,8 +205,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         if( $is_allowedToTrackEverybodyInCourse || ($uInfo == $_uid) )
         {
             // check if user is in this course
-            $sql = "SELECT `u`.`prenom`,`u`.`nom`, `u`.`email`
-                        FROM `$TABLECOURSUSER` cu , `$TABLEUSER` u
+            $sql = "SELECT `u`.`nom`,`u`.`prenom`, `u`.`email`
+                        FROM `$tbl_rel_course_user` as `cu` , `$tbl_user` as `u`
                         WHERE `cu`.`user_id` = `u`.`user_id`
                             AND `cu`.`code_cours` = '$_cid'
                             AND `u`.`user_id` = '$uInfo'";
@@ -227,8 +214,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         else
         {
             // check if user is in the group of this tutor
-            $sql = "SELECT `u`.`prenom`,`u`.`nom`, `u`.`email`
-                        FROM `$TABLECOURSE_GROUPSUSER` gu , `$TABLEUSER` u 
+            $sql = "SELECT `u`.`nom`,`u`.`prenom`, `u`.`email`
+                        FROM `$tbl_group_rel_team_user` as `gu` , `$tbl_user` as `u`
                         WHERE `gu`.`user` = `u`.`user_id`
                             AND `gu`.`team` = '$_gid'
                             AND `u`.`user_id` = '$uInfo'";
@@ -242,8 +229,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             echo "<p>"
                     .$informationsAbout." : <br>"
                     ."<ul>\n"
-                    ."<li>".$langLastName." : ".$res[1]."</li>\n"
-                    ."<li>".$langFirstName." : ".$res[0]."</li>\n"
+                    ."<li>".$langLastName." : ".$res[0]."</li>\n"
+                    ."<li>".$langFirstName." : ".$res[1]."</li>\n"
                     ."<li>".$langEmail." : ".$res2."</li>\n"
                     ."</ul>"
                     ."</p>";
@@ -334,14 +321,14 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         ."<br />&nbsp;&nbsp;&nbsp;".$langExercicesDetails."<br />\n";
                         
                 $sql = "SELECT `E`.`titre`, `E`.`id`,
-                        MIN(`TEX`.`exe_result`) AS minimum,
-                        MAX(`TEX`.`exe_result`) AS maximum,
-                        AVG(`TEX`.`exe_result`) AS average,
-                        MAX(`TEX`.`exe_weighting`) AS weighting,
-                        COUNT(`TEX`.`exe_user_id`) AS attempts,
-                        MAX(`TEX`.`exe_date`) AS lastAttempt,
-                        AVG(`TEX`.`exe_time`) AS avgTime
-                    FROM `$TABLECOURSE_EXERCICES` AS E , `$TABLETRACK_EXERCISES` AS TEX
+                        MIN(`TEX`.`exe_result`) AS `minimum`,
+                        MAX(`TEX`.`exe_result`) AS `maximum`,
+                        AVG(`TEX`.`exe_result`) AS `average`,
+                        MAX(`TEX`.`exe_weighting`) AS `weighting`,
+                        COUNT(`TEX`.`exe_user_id`) AS `attempts`,
+                        MAX(`TEX`.`exe_date`) AS `lastAttempt`,
+                        AVG(`TEX`.`exe_time`) AS `avgTime`
+                    FROM `$tbl_quiz_test` AS `E` , `$tbl_track_e_exercices` AS `TEX`
                     WHERE `TEX`.`exe_user_id` = '".$_GET['uInfo']."'
                         AND `TEX`.`exe_exo_id` = `E`.`id`
                     GROUP BY `TEX`.`exe_exo_id`
@@ -384,7 +371,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                               if ($_GET['exoDet'] == $exo_details['id'])
                               {
                                 $sql = "SELECT `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
-                                FROM `".$TABLETRACK_EXERCISES."`
+                                FROM `".$tbl_track_e_exercices."`
                                 WHERE `exe_exo_id` = ".$exo_details['id']."
                                 AND `exe_user_id` = ".$_GET['uInfo']."
                                 ORDER BY `exe_date` ASC";
@@ -495,7 +482,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             echo "<br /></p>\n\n";
             /***************************************************************************
              *              
-             *		Work upload
+             *		Works
              *
              ***************************************************************************/
             $tempView = $view;
@@ -508,32 +495,94 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 echo "-&nbsp;&nbsp;<b>".$langWorkUploads."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
                         ."<br />\n&nbsp;&nbsp;&nbsp;".$langWorksDetails."<br />\n";
                         
-                $sql = "SELECT `u`.`upload_date`, `w`.`titre`, `w`.`auteurs`,`w`.`url`
-                                    FROM `$TABLETRACK_UPLOADS` `u` , `$TABLECOURSE_WORK` `w`
-                                    WHERE `u`.`upload_work_id` = `w`.`id`
-                                        AND `u`.`upload_user_id` = '$uInfo'
-                                    ORDER BY `u`.`upload_date` DESC";
+                $sql = "SELECT `A`.`title` as `a_title`, `A`.`assignment_type`,
+                                `S`.`id`, `S`.`title` as `s_title`,
+                                `S`.`group_id`, `S`.`last_edit_date`, `S`.`authors`,
+                                `S`.`score`, `S`.`parent_id`, `G`.`name` as `g_name`
+                            FROM `".$tbl_wrk_assignment."` as `A` ,
+                                `".$tbl_wrk_submission."` as `S`
+                            LEFT JOIN `".$tbl_group_team."` as `G`
+                                ON `G`.`id` = `S`.`group_id`
+                            WHERE `A`.`id` = `S`.`assignment_id`
+                                AND ( `S`.`user_id` = ".$uInfo."
+                                        OR ( `S`.`parent_id` IS NOT NULL AND `S`.`parent_id` ) )
+                                AND `A`.`visibility` = 'VISIBLE'
+                            ORDER BY `A`.`title` ASC";
 
-                $results = getManyResultsXCol($sql,4);
-                echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n";
-                echo "<tr class=\"headerX\">\n"
-                        ."<th width=\"40%\">$langWorkTitle</th>\n"
-                        ."<th width=\"30%\">$langWorkAuthors</th>\n"
-                        ."<th width=\"30%\">$langDate</th>\n"
+                $results = claro_sql_query_fetch_all($sql);
+                
+                // first pass to create a array of submission id
+                // do not record the correction id
+                $submissions = array();
+                foreach( $results as $work )
+                {
+                        if( !isset($work['parent_id']) || empty($work['parent_id']) )
+                        {
+                                $submissions[$work['id']] = 0;
+                        }
+                }
+
+                // second pass to add the score in the submission array
+                // and to delete correction that have a parent_id that is not in the first pass array
+                $i = 0;
+                foreach( $results as $work )
+                {
+                        // correction and correction of one of the submissions to display
+                        if( isset($work['parent_id']) && !empty($work['parent_id']) && array_key_exists($work['parent_id'],$submissions) )
+                        {
+                                if( $work['score'] > $submissions[$work['parent_id']] )
+                                {
+                                        $submissions[$work['parent_id']] = $work['score'];
+                                }
+                        }
+                        
+                        if( isset($work['parent_id']) && !empty($work['parent_id']) )
+                        {
+                                // unset correction 
+                                unset($results[$i]);
+                        }
+                        $i++;
+                }
+                
+                echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n"
+                        ."<tr class=\"headerX\">\n"
+                        ."<th>".$langAssignment."</th>\n"
+                        ."<th>".$langWorkTitle."</th>\n"
+                        ."<th>".$langWorkAuthors."</th>\n"
+                        ."<th>".$langScore."</th>\n"
+                        ."<th>".$langDate."</th>\n"
                         ."</tr>\n";
+                // third pass to finally display
                 if (is_array($results))
                 { 
                     echo "<tbody>\n";
-                    for($j = 0 ; $j < count($results) ; $j++)
+                    foreach($results as $work)
                     { 
-                        $pathToFile = $coursesRepositoryWeb.$_course['path']."/".$results[$j][3];
-                        $timestamp = strtotime($results[$j][0]);
+                        $timestamp = strtotime($work['last_edit_date']);
                         $beautifulDate = claro_disp_localised_date($dateTimeFormatLong,$timestamp);
+                        if( $submissions[$work['id']] != 0 )
+                        {
+                                $displayedScore = $submissions[$work['id']]." %";
+                        }
+                        else
+                        {
+                                $displayedScore  = $langNoScore;
+                        }
+                        
+                        if( isset($work['g_name']) )
+                        {
+                                $displayedAuthors = $work['authors']."( ".$work['g_name']." )";
+                        }
+                        else
+                        {
+                                $displayedAuthors = $work['authors'];
+                        }
+                        
                         echo "<tr>\n"
-                                ."<td>\n"
-                                ."<a href =\"".$pathToFile."\">".$results[$j][1]."</a>\n"
-                                ."</td>\n"
-                                ."<td>".$results[$j][2]."</td>\n"
+                                ."<td>".$work['a_title']."</td>\n"
+                                ."<td>".$work['s_title']."</td>\n"
+                                ."<td>".$displayedAuthors."</td>\n"
+                                ."<td>".$displayedScore."</td>\n"
                                 ."<td><small>".$beautifulDate."</small></td>\n"
                                 ."</tr>\n";
                     }
@@ -571,7 +620,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         ."<br />\n&nbsp;&nbsp;&nbsp;".$langDocumentsDetails."<br />\n";       
                         
                 $sql = "SELECT `down_doc_path`
-                            FROM `$TABLETRACK_DOWNLOADS`
+                            FROM `$tbl_track_e_downloads`
                             WHERE `down_user_id` = '$uInfo'
                             GROUP BY `down_doc_path`";
 
