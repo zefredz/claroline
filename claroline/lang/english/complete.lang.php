@@ -1839,6 +1839,13 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
+
+$langErrorInvalidParms = "Error : Invalid parameter (use numbers only)";
+$langErrorValuesInDouble = "Error : One or more values are doubled";
+$langMaxSizeCourseCode = "max. 12 characters, ie.<em>ROM2121</em>";
+$langSendToUserAccountInfoByMail = "Send account information to user by mail";
+$langDeleteOfUserWasDoneSucessfully = "Delete of the user was done sucessfully";
 $langAddListUser = "Add a list of users";
 $langAddAClass = "Subscribe a class";
+
 ?>
