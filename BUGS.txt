@@ -1,7 +1,7 @@
 
 > > > > > > > > > > > CLAROLINE 1.5 RC1 - BUG LIST < < < < < < < < < < <
 
-
+RESOLU--------------------
 1. DOCUMENT. Quand on crée un document avec l'outil create document, si on ne met pas 
 de nom pour le fichier il y a une erreur et donc fichier pas enregistré, 
 mais si on fait back le formulaire ne se rerempli pas donc on pert tout 
@@ -11,7 +11,7 @@ Repéré par : SEB
 Assigné à : HUGUES
 Etat      : RESOLU
 
-------------------------------------------------------------------
+RESOLU------------------------------------------------------------------
 2. DOCUMENT. Pour les liens créés dans document, on pensait qu'ajouter l'url en 
 <a href... sur la page .url ne serait pas une mauvaise chose pour prévenir 
 les cas ou la redirection ne se passe pas bien.
@@ -34,7 +34,7 @@ retours à la ligne dans le code html des pages créées
 5. COURSE_HOME. librairie à déplacer ? course_home.lib.php se trouve dans le 
 répertoire même de course_home
 
-------------------------------------------------------------------
+RESOLU------------------------------------------------------------------
 6. TOOL LIST && COURSE_HOME. Les URL me semblent mal formatées, malgré le fait 
 qu'elles fonctionnent. Exemple : 
 http://localhost/~pir/clarocvs/claroline15rc1/claroline/../claroline/learnPath/l
@@ -45,7 +45,8 @@ partir des $*Sys et $*Web du fichier de config
 Repéré par : SEB
 Assigné à : SEB
 Etat : RESOLU
-------------------------------------------------------------------
+
+RESOLU------------------------------------------------------------------
 7. DOCUMENT.  upload d'une page HTML contenant des images, problèmes lors de la 
 modifications des paths des images au sein du document, les images ne 
 s'affichent pas du tout.
@@ -74,7 +75,7 @@ Assigné à : HUGUES
 champ role
 Repéré par : MOOSH
 
-------------------------------------------------------------------
+RESOLU------------------------------------------------------------------
 11. claro_disp_button()- Bug Avec Mozilla - Quand il y a htmlArea dans la même 
 page, le 'onclick' sur le <button> du claroButton est cpaturé par htmlArea. 
 Résultat c'est le <form> dans lequel est htmlArea qui est envoyé et pas la 
@@ -109,7 +110,7 @@ lustucrus (inscription multiples, cours multiples)
 Repéré par : MOOSH
 Guim dit: voir avec Hugues ...
 
-------------------------------------------------------------------
+RESOLU------------------------------------------------------------------
 14.  admincats.  refresh après insert -> erreur
 
 1062 : Duplicata du champ 'rzthtr' pour la clef 2
@@ -126,7 +127,7 @@ Repéré par : MOOSH
 
 Etat : New 
 
-------------------------------------------------------
+RESOLU------------------------------------------------------
 16. claroline/admin/adminaddnewuser.php?register=yes
 type : erreur de langue. 
 quoi : "Les nouveaux utilisateurs recevrons un email avec leur nom d'utilisateur et mot de passe"
@@ -136,8 +137,8 @@ claroline/admin/adminusercourses.php?uidToEdit=3&cfrom=ulist
 Repéré par :  M
 Assigné à : 
 Etat : RESOLU
-------------------------------------------------------------------
 
+RESOLU------------------------------------------------------------------
 M.17. outils de travaux.  
 à l'envoi d'un Ficher .exe  trop gros, le système ne fait pas l'envoi mais ne retourne pas de message d'erreur.
 
@@ -152,8 +153,7 @@ Etat : RESOLU (en utilisant le meme principe que pour document et import learnin
 M.18.Travaux d'étudiants
 retour à la ligne entre le texte d'intro et le bouton "ajouter un texte"
 Repéré par : MOOSH
-Assigné à : 
-Etat : 
+
 
 Etat : RESOLU ------------------------------------------------------
 M.19.Importer un parcours
@@ -295,6 +295,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.44  2004/06/17 12:57:54  moosh
+résolus
+
 Revision 1.43  2004/06/17 12:56:11  moosh
 bug 33
 
