@@ -31,9 +31,9 @@ echo "<table width=\"100%\" border=\"0\" cellpadding=\"4\" >\n\n"
  */
 
 
-$sql = "SELECT intitule  title,
+$sql = "SELECT intitule   title,
                titulaires titular,
-               code      sysCode,
+               code       sysCode,
                fake_code officialCode,
                directory 
         FROM `".$tbl_courses."` cours
@@ -151,7 +151,7 @@ if ( count($courseList) > 0 )
             ."</a>"
             ."<br>"
             ."<small>"
-            .$thisCourse['officialeCode']." - ".$thisCourse['titular']   
+            .$thisCourse['officialCode']." - ".$thisCourse['titular']   
             ."</small>\n"
 
             ."</li>\n";
