@@ -273,7 +273,7 @@ if (isset($_uid))
 
 		case SCRIPTVAL_NoTimeLimit :
 			break;
-		
+
 		case SCRIPTVAL_NewEntriesOfTheDayOfLastLogin	:
 		// take care mysql -> DATE_FORMAT(time,format) php -> date(format,date)
 			$sqlGetLastAnnouncements .= "WHERE DATE_FORMAT(temps,'%Y %m %d') >= '".date("Y m d",$_user["lastLogin"])."'";
@@ -421,7 +421,7 @@ if (isset($_uid))
 
 	echo	"</ul>\n";
 
-	echo	"<blockquote>\n";
+//	echo	"<blockquote>\n";
 
 	if ($display_addCourse_Link) /* 'Create Course Site' command.
 	                                 Only available for teacher. */
@@ -439,7 +439,7 @@ if (isset($_uid))
         claro_disp_button('claroline/auth/courses.php?cmd=rqUnreg', $lang_remove_course_enrollment);
     }
 
-    echo    "</blockquote>\n";
+ //   echo    "</blockquote>\n";
 
 
 	echo	"</td>\n";
@@ -655,7 +655,6 @@ if (isset($_uid))
 //				" return false;\">",$langAdvises,"</a></p>";
 //	}
 //---------------------------------------------------------------------------
-
 ?>
 
 <p>
@@ -806,7 +805,7 @@ if ( mysql_num_rows($resCats) > 0)
 				               ."</a>";
 
 				if (CONFVAL_showNumberOfChild)
-				{ 
+				{
 					$htmlListCat .= " <small>(".$catLine[nbCourse].")</small>";
 				}
 			}
