@@ -186,7 +186,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         if ($_REQUEST['uncompress'] == 1 && $is_allowedToUnzip) $unzip = 'unzip';
         else                                                    $unzip = '';
 
-        $uploadedFileName = treat_uploaded_file($HTTP_POST_FILES['userFile'], $baseWorkDir,
+        $uploadedFileName = treat_uploaded_file($_FILES['userFile'], $baseWorkDir,
                                 $_REQUEST['cwd'], $maxFilledSpace, $unzip);
 
         if ($uploadedFileName !== false)
@@ -224,10 +224,10 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
           --------------------------------------------------------------------*/
 
 
-		if (   strrchr($HTTP_POST_FILES['userFile']['name'], '.') == '.htm'
-            || strrchr($HTTP_POST_FILES['userFile']['name'], '.') == '.html')
+		if (   strrchr($_FILES['userFile']['name'], '.') == '.htm'
+            || strrchr($_FILES['userFile']['name'], '.') == '.html')
 		{
-            $imgFilePath = search_img_from_html($baseWorkDir.$_REQUEST['cwd'].'/'.$HTTP_POST_FILES['userFile']['name']);
+            $imgFilePath = search_img_from_html($baseWorkDir.$_REQUEST['cwd'].'/'.$_FILES['userFile']['name']);
 
 			/*
 			 * Generate Form for image upload
@@ -240,7 +240,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 				             ."enctype=\"multipart/form-data\">\n"
 				             ."<input type=\"hidden\" name=\"cmd\" value=\"submitImage\">\n"
 				             ."<input type=\"hidden\" name=\"relatedFile\""
-				             ."value=\"".$_REQUEST['cwd']."/".$HTTP_POST_FILES['userFile']['name']."\">\n"
+				             ."value=\"".$_REQUEST['cwd']."/".$_FILES['userFile']['name']."\">\n"
 				             ."<table border=\"0\">\n";
 
 				foreach($imgFilePath as $thisImgKey => $thisImgFilePath )
@@ -311,7 +311,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 	if ($cmd == 'submitImage')
 	{
 
-		$uploadImgFileNb = sizeof($HTTP_POST_FILES['imgFile']);
+		$uploadImgFileNb = sizeof($_FILES['imgFile']);
 
 		if ($uploadImgFileNb > 0)
 		{
