@@ -60,7 +60,7 @@ $toolNameList = array('CLANN___' => $langAnnouncement,
                       'CLDSC___' => $langDescriptionCours,
                       'CLGRP___' => $langGroups,
                       'CLLNP___' => $langLearnPath,
-                      'CLQWZ___' => $langExercise,
+                      'CLQWZ___' => $langExercises,
                       'CLWRK___' => $langWork,
                       'CLUSR___' => $langUser);
 
