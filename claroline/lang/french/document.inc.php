@@ -58,7 +58,8 @@ $langComMod="commentaire modifi&eacute;";
 $langElRen="El&eacute;ment renomm&eacute;";
 $langViMod="Visibilit&eacute; modifi&eacute;e";
 $langFileError="Le fichier à télécharger n'est pas valide.";
-$langMaxFileSize="La taille maximum est de";
+$langMaxFileSize="La taille maximum est de : ";
+$langAddCommentOptionnal = "Ajouter un commentaire (optionnel) : ";
 
 // Special for group documents
 $langGroupManagement="Gestion des groupes";
@@ -89,6 +90,7 @@ $langFileCreated = "Fichier cr&eacute;&eacute;";
 $langFileNameMissing = "Nom du fichier manquant";
 $langFileContentModified  = "Contenu du fichier modifi&eacute;";
 $langFileNameOrURLMissing = "Nom du fichier ou URL manquant";
+$langBackToEditor = "Retourner &agrave; l'&eacute;diteur";
 // rqmkhtml
 $langCreateModifyDocument = "Cr&eacute;er/modifier document";
 $langDocumentName = "Nom du document : ";
