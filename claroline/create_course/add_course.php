@@ -56,7 +56,6 @@ include($includePath."/lib/add_course.lib.inc.php");
 include($includePath."/lib/course.lib.inc.php");
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
-include($includePath."/conf/course_info.conf.php");
 
 $nameTools = $langCreateSite;
 

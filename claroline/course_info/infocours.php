@@ -21,7 +21,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();
 
 include($includePath."/lib/course.lib.inc.php");
-include($includePath."/conf/course_info.conf.php");
+include($includePath."/conf/course_main.conf.php");
 
 $nameTools = $langCourseSettings;
 

@@ -62,7 +62,7 @@ include($includePath."/lib/add_course.lib.inc.php");
 include($includePath."/lib/group.lib.inc.php");
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
-include($includePath."/conf/course_info.conf.php");
+include($includePath."/conf/course_main.conf.php");
 
 $nameTools = $langCreateSite;
 $interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdministration);
