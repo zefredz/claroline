@@ -959,7 +959,7 @@ function trig_topic_notification($topicId)
 
     $sql = "SELECT u.user_id, u.prenom firstname, u.nom lastname
             FROM `".$tbl_user_notify."` AS notif, 
-                 ".$tbl_users." AS u
+                 `".$tbl_users."` AS u
             WHERE notif.topic_id = '".$topicId."'
             AND   notif.user_id  = u.user_id";
 
