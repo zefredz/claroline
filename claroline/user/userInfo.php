@@ -328,16 +328,16 @@ elseif ($displayMode == "viewDefList")
             // displays commands
 
             echo     "<a href=\"".$_SERVER['PHP_SELF']."?removeDef=".$thisCat['catId']."\">"
-                    ."<img src=\"".$clarolineRepositoryWeb."/img/delete.gif\" border=\"0\" alt=\"".$langRemove."\">"
+                    ."<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langRemove."\">"
                     ."</a>"
                     ."<a href=\"".$_SERVER['PHP_SELF']."?editDef=".$thisCat['catId']."\">"
-                    ."<img src=\"".$clarolineRepositoryWeb."/img/edit.gif\" border=\"0\" alt=\"".$langEdit."\">"
+                    ."<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langEdit."\">"
                     ."</a>"
                     ."<a href=\"".$_SERVER['PHP_SELF']."?moveUpDef=".$thisCat['catId']."\">"
-                    ."<img src=\"".$clarolineRepositoryWeb."/img/up.gif\" border=\"0\" alt=\"".$langMoveUp."\">"
+                    ."<img src=\"".$imgRepositoryWeb."up.gif\" border=\"0\" alt=\"".$langMoveUp."\">"
                     ."</a>"
                     ."<a href=\"".$_SERVER['PHP_SELF']."?moveDownDef=".$thisCat['catId']."\">"
-                    ."<img src=\"".$clarolineRepositoryWeb."/img/down.gif\" border=\"0\" alt=\"".$langMoveDown."\">"
+                    ."<img src=\"".$imgRepositoryWeb."down.gif\" border=\"0\" alt=\"".$langMoveDown."\">"
                     ."</a>\n";
         } // end for each
 
@@ -453,7 +453,7 @@ elseif ($displayMode == "viewContentList") // default display
     {
         if ($mainUserInfo['picture'] != '')
         {
-            echo "<img src=\"".$clarolineRepositoryWeb."/img/users/".$mainUserInfo['picture']."\" border=\"1\">";
+            echo "<img src=\"".$imgRepositoryWeb."users/".$mainUserInfo['picture']."\" border=\"1\">";
         }
 
         echo '<table class="claroTable" width="80%" border="0">'
@@ -497,7 +497,7 @@ elseif ($displayMode == "viewContentList") // default display
         {
             echo  '<td>'
                  .'<a href="'.$_SERVER['PHP_SELF'].'?editMainUserInfo='.$userIdViewed.'">'
-                 .'<img border="0" alt="'.$langEdit.'" src="'.$clarolineRepositoryWeb.'/img/edit.gif">'
+                 .'<img border="0" alt="'.$langEdit.'" src="'.$imgRepositoryWeb.'edit.gif">'
                  .'</a>'
                  .'</td>'
                  ;
@@ -507,7 +507,7 @@ elseif ($displayMode == "viewContentList") // default display
         {
                 echo  '<td>'
                      .'<a href="../tracking/userLog.php?uInfo='.$userIdViewed.'">'
-                     .'<img border="0" alt="'.$langTracking.'" src="'.$clarolineRepositoryWeb.'/img/statistics.gif">'
+                     .'<img border="0" alt="'.$langTracking.'" src="'.$imgRepositoryWeb.'statistics.gif">'
                      .'</a>'
                      .'</td>'
                      ;
@@ -562,7 +562,7 @@ elseif ($displayMode == "viewContentList") // default display
             {
                 echo  '<br><br>'."\n"
                      .'<a href="'.$_SERVER['PHP_SELF'].'?editContent='.$thisCat['catId'].'&amp;uInfo='.$userIdViewed.'">'
-                     .'<img src="'.$imgRepositoryWeb.'/edit.gif" border="0" alt="'.$langEdit.'">'
+                     .'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langEdit.'">'
                      .'</a>'."\n";
             }
 

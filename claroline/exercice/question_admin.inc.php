@@ -39,7 +39,7 @@ if($usedInSeveralExercises)
   <?php echo $questionName; ?>
 </h3>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyQuestion=<?php echo $modifyQuestion; ?>&modifyAnswers=<?php echo $modifyAnswers; ?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyQuestion=<?php echo $modifyQuestion; ?>&amp;modifyAnswers=<?php echo $modifyAnswers; ?>">
 <table border="0" cellpadding="5">
 <tr>
   <td>
@@ -160,7 +160,7 @@ else
 	{
 ?>
 
-<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyQuestion=<?php echo $questionId; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><?php echo $langEditQuestion ; ?></a>
+<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyQuestion=<?php echo $questionId; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" align="absmiddle" alt=""><?php echo $langEditQuestion ; ?></a>
 
 <?php
 	}
@@ -223,7 +223,7 @@ else
 	{
 ?>
 
-<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $questionId; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><?php echo $langEditAnswers; ?></a>
+<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $questionId; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" align="absmiddle" alt=""><?php echo $langEditAnswers; ?></a>
 
 <?php
 	}

@@ -263,7 +263,7 @@ if($is_allowedToEdit)
 			{
 ?>
 
-	<a href="admin.php?editQuestion=<?php echo $row[id]; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEditQuestion; ?>"></a>
+	<a href="admin.php?editQuestion=<?php echo $row[id]; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo $langEditQuestion; ?>"></a>
 
 <?php
 			}
@@ -271,7 +271,7 @@ if($is_allowedToEdit)
 			{
 ?>
 
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?recup=<?php echo $row[id]; ?>&fromExercise=<?php echo $fromExercise; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?recup=<?php echo $row[id]; ?>&fromExercise=<?php echo $fromExercise; ?>"><img src="<?php echo $imgRepositoryWeb ?>enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
 
 <?php
 			}
@@ -285,7 +285,7 @@ if($is_allowedToEdit)
 ?>
 
   <td align="center">
-    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $row[id]; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmDeleteQuestion)); ?>')) return false;"><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
+    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $row[id]; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmDeleteQuestion)); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
   </td>
 
 <?php

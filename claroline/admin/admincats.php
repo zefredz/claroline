@@ -1046,7 +1046,7 @@ include($includePath."/claro_init_footer.inc.php");
                             $PM='<img src="'.$imgRepositoryWeb.'plus.gif" border="0" alt="" >';
                     ?>
 
-                    <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&date=".$date."#pm".$one_faculty["id"] ?>"
+                    <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&amp;date=".$date."#pm".$one_faculty["id"] ?>"
                     name="<?php echo "pm".$one_faculty["id"]; ?>">  <?php echo $PM ?></a> &nbsp;
                     <?php
                     }
@@ -1070,18 +1070,18 @@ include($includePath."/claro_init_footer.inc.php");
                     </td>
                     <td  align="center">
 
-                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=rqEdit"; ?>" >
-                        <img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEdit ?>" > </a>
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&amp;cmd=rqEdit"; ?>" >
+                        <img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo $langEdit ?>" > </a>
                     </td>
                     <td align="center">
-                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=rqMove"; ?>" >
-                        <img src="<?php echo $clarolineRepositoryWeb ?>img/move.gif" border="0" alt="<?php echo $langMove ?>" > </a>
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&amp;cmd=rqMove"; ?>" >
+                        <img src="<?php echo $imgRepositoryWeb ?>move.gif" border="0" alt="<?php echo $langMove ?>" > </a>
                     </td>
                     <td align="center">
-                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=exDelete"; ?>"
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&amp;cmd=exDelete"; ?>"
                         onclick="javascript:if(!confirm('<?php echo 
                          addslashes(htmlentities($lang_faculty_ConfirmDelete.$one_faculty["code"])) ?>')) return false;" >
-                        <img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $langDelete ?>"> </a>
+                        <img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete ?>"> </a>
                     </td>
                     <?php
 
@@ -1103,9 +1103,9 @@ include($includePath."/claro_init_footer.inc.php");
                         if($num>1)
                         {
                         ?>
-                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=exUp&date=".$date."#ud".$one_faculty["id"];
+                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&amp;cmd=exUp&amp;date=".$date."#ud".$one_faculty["id"];
                             ?>" name ="<?php echo "ud".$one_faculty["id"]; ?>">
-                            <img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" alt="<?php echo $langUp ?>"></a>
+                            <img src="<?php echo $imgRepositoryWeb ?>up.gif" border="0" alt="<?php echo $langUp ?>"></a>
                         <?php
                         }
                         ?>
@@ -1116,9 +1116,9 @@ include($includePath."/claro_init_footer.inc.php");
                         if($num<$nbChild)
                         {
                         ?>
-                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=exDown&date=".$date."#ud".$one_faculty["id"];
+                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&amp;cmd=exDown&amp;date=".$date."#ud".$one_faculty["id"];
                             ?>" name="<?php echo "ud".$one_faculty["id"]; ?>">
-                            <img src="<?php echo $clarolineRepositoryWeb ?>img/down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
+                            <img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
                     <?php
                         }
                         ?>

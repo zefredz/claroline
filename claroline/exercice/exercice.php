@@ -394,15 +394,15 @@ while($row=mysql_fetch_array($result))
     &nbsp;
     <a href="exercice_submit.php?exerciseId=<?php echo $row['id']; ?>" <?php if(!$row['active']) echo 'class="invisible"'; ?>><?php echo $row['titre']; ?></a>
   </td>
-  <td align="center"><a href="admin.php?exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo htmlentities($langModify); ?>"></a></td>
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=delete&exerciseId=<?php echo $row['id']; if (isset($actionsForDelete[$row[id]])) { echo "&lpmDel=true";}?>" <?php if (isset($actionsForDelete[$row['id']])) { echo $actionsForDelete[$row['id']];} else {echo $defaultConfirm;} ?>><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo htmlentities($langDelete); ?>"></a></td>
+  <td align="center"><a href="admin.php?exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo htmlentities($langModify); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=delete&amp;exerciseId=<?php echo $row['id']; if (isset($actionsForDelete[$row[id]])) { echo "&amp;lpmDel=true";}?>" <?php if (isset($actionsForDelete[$row['id']])) { echo $actionsForDelete[$row['id']];} else {echo $defaultConfirm;} ?>><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo htmlentities($langDelete); ?>"></a></td>
 <?php
 		// if active
 		if($row['active'])
 		{
 ?>
 
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&page=<?php echo $page; ?>&exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/visible.gif" border="0" alt="<?php echo htmlentities($langDisable); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&amp;page=<?php echo $page; ?>&amp;exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>visible.gif" border="0" alt="<?php echo htmlentities($langDisable); ?>"></a></td>
 
 <?php
 		}
@@ -411,14 +411,14 @@ while($row=mysql_fetch_array($result))
 		{
 ?>
 
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&page=<?php echo $page; ?>&exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/invisible.gif" border="0" alt="<?php echo htmlentities($langEnable); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&amp;page=<?php echo $page; ?>&amp;exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>invisible.gif" border="0" alt="<?php echo htmlentities($langEnable); ?>"></a></td>
 
 <?php
 		}
     if($is_allowedToTrack)
     {
   ?>
-          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistics.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
+          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $row['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>statistics.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
      
    <?php
     }

@@ -189,8 +189,8 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?uidToEdit=".$uidToEdit);
 echo  '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2" >'
      .'<thead>'
      .'<caption >'
-     .'<img src="'.$clarolineRepositoryWeb.'/img/'.$iconForCuStatus['STUDENT'].'" alt="STUDENT" border="0" title="statut" > Student '
-     .'<img src="'.$clarolineRepositoryWeb.'/img/'.$iconForCuStatus['COURSE_MANAGER'].'" alt="course manager" border="0" title="statut" > Course Manager '
+     .'<img src="'.$imgRepositoryWeb.$iconForCuStatus['STUDENT'].'" alt="STUDENT" border="0" title="statut" > Student '
+     .'<img src="'.$imgRepositoryWeb.$iconForCuStatus['COURSE_MANAGER'].'" alt="course manager" border="0" title="statut" > Course Manager '
      .'</caption>'
      .'<tr class="headerX" align="center" valign="top">';
 //add titles for the table
@@ -226,7 +226,7 @@ foreach($resultList as $list)
      //  Status
      echo '<td align="center">'
 	     .'<a href="adminUserCourseSettings.php?cidToEdit='.$list['code'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
-	     .'<img src="'.$clarolineRepositoryWeb.'/img/'.$iconForCuStatus[$list['cu_statut']].'" alt="'.$list['cu_statut'].'" border="0" title="'.$list['cu_statut'].'" >'
+	     .'<img src="'.$imgRepositoryWeb.$iconForCuStatus[$list['cu_statut']].'" alt="'.$list['cu_statut'].'" border="0" title="'.$list['cu_statut'].'" >'
 		 .'</a>'
 		 .'</td>'
 		 ;
@@ -236,7 +236,7 @@ foreach($resultList as $list)
     echo   '<td align="center">'."\n"
           .'<a href="'.$_SERVER['PHP_SELF'].'?uidToEdit='.$uidToEdit.'&amp;cmd=unsubscribe'.$addToUrl.'&amp;code='.$list['code'].'&amp;offset='.$offset.'\ '
           .'onClick="return confirmationUnReg(\''.addslashes($resultTitle['prenom'].' '.$resultTitle['nom']).'\');">'."\n"
-          .'<img src="'.$clarolineRepositoryWeb.'/img/unenroll.gif" border="0" alt="'.$langDelete.'" />'."\n"
+          .'<img src="'.$imgRepositoryWeb.'unenroll.gif" border="0" alt="'.$langDelete.'" />'."\n"
           .'</a>'."\n"
           .'</td>'."\n"
           .'</tr>';

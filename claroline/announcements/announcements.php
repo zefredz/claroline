@@ -471,7 +471,7 @@ if ($displayList)
         echo    "<tr>\n",
 
                 "<th class=\"headerX\">\n",
-                "<img src=\"".$clarolineRepositoryWeb."/img/".$imageFile."\" alt=\"".$altImg."\">\n".
+                "<img src=\"".$imgRepositoryWeb.$imageFile."\" alt=\"".$altImg."\">\n".
                 $langPubl," : ", claro_disp_localised_date($dateFormatLong,
                                                           strtotime($last_post_date)),"\n",
                 "</th>\n",
@@ -488,21 +488,21 @@ if ($displayList)
         if ($is_allowedToEdit)
         {
             echo "<p>",
-                 "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEdit&id=".$thisAnnouncement['id']."\">",
-                 "<img src=\"".$clarolineRepositoryWeb."/img/edit.gif\" alt=\"".$langModify,"\">".
+                 "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEdit&amp;id=".$thisAnnouncement['id']."\">",
+                 "<img src=\"".$imgRepositoryWeb."edit.gif\" alt=\"".$langModify,"\">".
                  "</a>\n",
-                 "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exDelete&id=".$thisAnnouncement['id']."\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\">",
-                 "<img src=\"".$clarolineRepositoryWeb."/img/delete.gif\" alt=\"".$langDelete."\" border=\"0\">".
+                 "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exDelete&amp;id=".$thisAnnouncement['id']."\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\">",
+                 "<img src=\"".$imgRepositoryWeb."delete.gif\" alt=\"".$langDelete."\" border=\"0\">".
                  "</a>\n";
 
                 // DISPLAY MOVE UP COMMAND only if it is not the top announcement
 
                 if($iterator != 1)
                 {
-//                  echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+//                  echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
 // the anchor dont refreshpage.
-                    echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&id=",$thisAnnouncement['id'],"\">",
-                            "<img src=\"".$clarolineRepositoryWeb."/img/up.gif\" alt=\"".$langOrderUp."\">".
+                    echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"\">",
+                            "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"".$langOrderUp."\">".
                             "</a>\n";
                 }
 
@@ -510,10 +510,10 @@ if ($displayList)
 
                 if($iterator < $bottomAnnouncement)
                 {
-//                  echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+//                  echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
 // the anchor dont refreshpage.
                     echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"\">",
-                            "<img src=\"".$clarolineRepositoryWeb."/img/down.gif\" alt=\"".$langDown."\">",
+                            "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"".$langDown."\">",
                             "</a>\n";
                 }
 

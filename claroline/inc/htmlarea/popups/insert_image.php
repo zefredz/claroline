@@ -163,7 +163,7 @@ form { padding: 0px; margin: 0px; }
 <div class="title">
 Insert Image 
 <img id="loading" 
-     src="<?php echo $clarolineRepositoryWeb ?>img/processing.gif" 
+     src="<?php echo $imgRepositoryWeb ?>processing.gif" 
      border="0" style="visibility: hidden;">
 </div>
 

@@ -94,15 +94,15 @@ if($nbrQuestions)
 </tr>
 <tr>
   <td>
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?editQuestion=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langEditQuestion; ?>"></a>
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteQuestion=<?php echo $id; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmYourChoice)); ?>')) return false;"><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" align="absmiddle" alt="<?php echo $langDelete; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?editQuestion=<?php echo $id; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" align="absmiddle" alt="<?php echo $langEditQuestion; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteQuestion=<?php echo $id; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmYourChoice)); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" align="absmiddle" alt="<?php echo $langDelete; ?>"></a>
 
 <?php
 		if($i != 1)
 		{
 ?>
 
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?moveUp=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" align="absmiddle" alt="<?php echo $langMoveUp; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?moveUp=<?php echo $id; ?>"><img src="<?php echo $imgRepositoryWeb ?>up.gif" border="0" align="absmiddle" alt="<?php echo $langMoveUp; ?>"></a>
 
 <?php
 		}
@@ -111,7 +111,7 @@ if($nbrQuestions)
 		{
 ?>
 
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?moveDown=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/down.gif" border="0" align="absmiddle" alt="<?php echo $langMoveDown; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?moveDown=<?php echo $id; ?>"><img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" align="absmiddle" alt="<?php echo $langMoveDown; ?>"></a>
 
 <?php
 		}

@@ -539,7 +539,7 @@ else
 ?>
 <hr />
 <a class="claroButton" href="delete_course_stats.php">
-<img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" alt="">
+<img src="<?php echo $imgRepositoryWeb ?>delete.gif" alt="">
 <?php echo $langDelCourseStats; ?>
 </a>
 <?php

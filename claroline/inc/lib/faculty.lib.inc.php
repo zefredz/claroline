@@ -44,7 +44,7 @@ function SearchMaxTreePos()
 
 function displayBom($elem,$father,$space)
 {
-	GLOBAL $lang_faculty_ConfirmDelete, $clarolineRepositoryWeb, $langDelete;
+	GLOBAL $lang_faculty_ConfirmDelete, $imgRepositoryWeb, $langDelete;
 
 	if($elem)
 	{
@@ -96,17 +96,17 @@ function displayBom($elem,$father,$space)
 				<td>
 
 					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1"; ?>" >
-					<img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEdit ?>" > </a>
+					<img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo $langEdit ?>" > </a>
 				</td>
 				<td>
 					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1&move=1"; ?>" >
-					<img src="<?php echo $clarolineRepositoryWeb ?>img/move.gif" border="0" alt="<?php echo $langMove ?>" > </a>
+					<img src="<?php echo $imgRepositoryWeb ?>move.gif" border="0" alt="<?php echo $langMove ?>" > </a>
 				</td>
 				<td>
 					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&delete=1"; ?>"
 					onclick="javascript:if(!confirm('<?php echo
 					 addslashes(htmlentities($lang_faculty_ConfirmDelete.$one_faculty["code"])) ?>')) return false;" >
-					<img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $langDelete ?>"> </a>
+					<img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete ?>"> </a>
 				</td>
 				<?php
 
@@ -130,7 +130,7 @@ function displayBom($elem,$father,$space)
 					?>
 						<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&UpDown=u&date='".$date."'#ud".$one_faculty["id"];
 						?>" name ="<?php echo "ud".$one_faculty["id"]; ?>">
-						<img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"> </a>
+						<img src="<?php echo $imgRepositoryWeb ?>up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"> </a>
 					<?php
 					}
 
@@ -145,7 +145,7 @@ function displayBom($elem,$father,$space)
 					?>
 						<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&UpDown=d&date='".$date."'#ud".$one_faculty["id"];
 						?>" name="<?php echo "ud".$one_faculty["id"]; ?>">
-						<img src="<?php echo $clarolineRepositoryWeb ?>img/down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
+						<img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
 					<?php
 					}
 					?>

@@ -159,7 +159,7 @@ if($dialogBox)
 
 echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."admin/admin_class_register.php?class=".$classinfo['id']."\">".$langClassRegisterUser."</a> | ";
 
-echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&fromAdmin=class&uidToEdit=-1&category=\">".$langClassRegisterWholeClass."</a> | ";
+echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&amp;fromAdmin=class&amp;uidToEdit=-1&amp;category=\">".$langClassRegisterWholeClass."</a> | ";
 
 echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."user/AddCSVusers.php?AddType=adminClassTool\">".$langAddCSVUsersInClass."</a><br><br>";
 
@@ -175,10 +175,10 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">
      <thead>
      <tr class=\"headerX\" align=\"center\" valign=\"top\">
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=nom&chdir=yes\">".$langLastName."</a></th>
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=officialCode&chdir=yes\">".$langOfficialCode."</a></th>
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=user_id&amp;chdir=yes\">".$langUserid."</a></th>
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=nom&amp;chdir=yes\">".$langLastName."</a></th>
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=prenom&amp;chdir=yes\">".$langFirstName."</a></th>
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=officialCode&amp;chdir=yes\">".$langOfficialCode."</a></th>
           <th>".$langEmail."</th>
           <th>".$langUnsubscribeClass."</th>
       </tr>
@@ -223,9 +223,9 @@ foreach($resultList as $list)
      //  Unsubscribe link
 
      echo   "<td align=\"center\">\n"
-           ."  <a href=\"",$_SERVER['PHP_SELF'],"?cmd=unsubscribe".$addToUrl."&offset=".$offset."&userid=".$list['user_id']."\" "
+           ."  <a href=\"",$_SERVER['PHP_SELF'],"?cmd=unsubscribe".$addToUrl."&amp;offset=".$offset."&amp;userid=".$list['user_id']."\" "
            ."      onClick=\"return confirmationUnReg('",addslashes($list['prenom']." ".$list['nom']),"');\">\n"
-           ."      <img src=\"".$clarolineRepositoryWeb."/img/unenroll.gif\" border=\"0\" alt=\"\" />\n"
+           ."      <img src=\"".$imgRepositoryWeb."unenroll.gif\" border=\"0\" alt=\"\" />\n"
            ."  </a>\n"
            ."</td>\n";
      

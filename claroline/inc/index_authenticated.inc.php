@@ -215,7 +215,7 @@ echo "</ul>\n"
         echo "<p>\n"
             ."<small>"
             ."<a href=\"".$url."\">"
-            ."<img src=\"".$clarolineRepositoryWeb."/img/".$itemIcon."\">"
+            ."<img src=\"".$imgRepositoryWeb.$itemIcon."\">"
             ."</a>"
 
             .  claro_disp_localised_date( $dateFormatLong,

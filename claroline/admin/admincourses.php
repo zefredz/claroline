@@ -99,7 +99,7 @@ $addToURL = "";
 
 if (!isset($cfrom) || $cfrom!="clist") //offset not kept when come from another list
 {
-   $addToURL .= "&offsetC=".$offsetC;
+   $addToURL .= "&amp;offsetC=".$offsetC;
 }
 
 
@@ -271,52 +271,6 @@ if($dialogBox)
 {
    claro_disp_message_box($dialogBox);
 }
-
-/*
-//Display selectbox, alphabetic choice, and advanced search link search
-
-  // ALPHABETIC
-
-echo "<form name=\"indexform\" action=\"",$_SERVER['PHP_SELF'],"\" method=\"GET\">
-             ";
-            if (isset($uidToEdit)) {$toAdd = "uidToEdit=".$uidToEdit."&";} else {$toAdd = "";}
-            if (isset($doRegister)) {$toAdd .= "doRegister=true&";}
-
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?".$toAdd."\"><b> ".$langAll."</b></a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=A&".$toAdd."\">A</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=B&".$toAdd."\">B</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=C&".$toAdd."\">C</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=D&".$toAdd."\">D</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=E&".$toAdd."\">E</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=F&".$toAdd."\">F</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=G&".$toAdd."\">G</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=H&".$toAdd."\">H</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=I&".$toAdd."\">I</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=J&".$toAdd."\">J</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=K&".$toAdd."\">K</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=L&".$toAdd."\">L</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=M&".$toAdd."\">M</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=N&".$toAdd."\">N</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=O&".$toAdd."\">O</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=P&".$toAdd."\">P</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=Q&".$toAdd."\">Q</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=R&".$toAdd."\">R</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=S&".$toAdd."\">S</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=T&".$toAdd."\">T</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=U&".$toAdd."\">U</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=V&".$toAdd."\">V</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=W&".$toAdd."\">W</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=X&".$toAdd."\">X</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=Y&".$toAdd."\">Y</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=Z&".$toAdd."\">Z</a>";
-            echo "
-            <input type=\"text\" name=\"search\">
-            <input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\">
-            <input type=\"submit\" value=\"".$langSearch."\">
-
-      </form>
-     ";
- */
      //TOOL LINKS
 
    //Display search form
@@ -337,11 +291,11 @@ if ($_REQUEST['subscription']=="denied")  {$isSearched .= " <b><br>".$langSubscr
      //see what must be kept for advanced links
 
 $addtoAdvanced = "?code=".$_REQUEST['code'];
-$addtoAdvanced .="&intitule=".$_REQUEST['intitule'];
-$addtoAdvanced .="&category=".$_REQUEST['category'];
-$addtoAdvanced .="&language=".$_REQUEST['language'];
-$addtoAdvanced .="&access=".$_REQUEST['access'];
-$addtoAdvanced .="&subscription=".$_REQUEST['subscription'];
+$addtoAdvanced .="&amp;intitule=".$_REQUEST['intitule'];
+$addtoAdvanced .="&amp;category=".$_REQUEST['category'];
+$addtoAdvanced .="&amp;language=".$_REQUEST['language'];
+$addtoAdvanced .="&amp;access=".$_REQUEST['access'];
+$addtoAdvanced .="&amp;subscription=".$_REQUEST['subscription'];
 
     //finaly, form itself
 
@@ -456,7 +410,7 @@ foreach($resultList as $courseLine)
     // Modify course settings
 
     echo  "<td align=\"center\">\n
-           <a href=\"../course_info/infocours.php?cidReq=".$courseLine['code'].$addToURL."&cfrom=clist\"><img src=\"".$imgRepositoryWeb."settings.gif\" alt=\"$langCourseSettings\"></a>
+           <a href=\"../course_info/infocours.php?cidReq=".$courseLine['code'].$addToURL."&amp;cfrom=clist\"><img src=\"".$imgRepositoryWeb."settings.gif\" alt=\"$langCourseSettings\"></a>
            </td>\n";
 
     //  Delete link
@@ -464,9 +418,9 @@ foreach($resultList as $courseLine)
 
     echo   "<td align=\"center\">\n",
 
-                "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&delCode=".$courseLine['code'].$addToURL."\" ",
+                "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&amp;delCode=".$courseLine['code'].$addToURL."\" ",
                 "onClick=\"return confirmation('",addslashes($courseLine['intitule']),"');\">\n",
-                "<img src=\"".$clarolineRepositoryWeb."/img/delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
+                "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
                 "</a>\n",
             "</td>\n";
      echo "</tr>";

@@ -255,9 +255,9 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 <thead >
 <caption>
 			<small>
-			<img src="'.$clarolineRepositoryWeb.'/img/'.$iconForCuStatus['STUDENT'].'" alt="STUDENT" border="0" title="statut" > Student 
+			<img src="'.$imgRepositoryWeb.$iconForCuStatus['STUDENT'].'" alt="STUDENT" border="0" title="statut" > Student 
             <wbr>
-			<img src="'.$clarolineRepositoryWeb.'/img/'.$iconForCuStatus['COURSE_MANAGER'].'" alt="course manager" border="0" title="statut" > Course Manager 
+			<img src="'.$imgRepositoryWeb.$iconForCuStatus['COURSE_MANAGER'].'" alt="course manager" border="0" title="statut" > Course Manager 
 			</nobr>
 			</small>
 </caption>

@@ -396,7 +396,7 @@ else
 </ul>
 </small>
 <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=yes">
-<img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="">
+<img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" align="absmiddle" alt="">
 <?php echo $langEditExercise; ?>
 </a>
 <?php

@@ -408,12 +408,12 @@ if($showLinkToDeleteThisCourse)
 	if (isset($cidToEdit))
 	{
 	    $toAdd="?cidToEdit=".$current_cid;
-	    $toAdd.="&cfrom=".$cfrom;
+	    $toAdd.="&amp;cfrom=".$cfrom;
 	}
 ?>
 
 <a class="claroCmd" href="delete_course.php<?php echo $toAdd ?>">
-<img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif">
+<img src="<?php echo $imgRepositoryWeb ?>delete.gif">
 <?php echo $langDelCourse; ?>
 </a> | 
 <?php

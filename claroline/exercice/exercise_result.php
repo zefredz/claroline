@@ -407,10 +407,10 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 
 <tr>
   <td width="5%" align="center">
-	<img src="<?php echo $clarolineRepositoryWeb ?>img/<?php echo ($answerType == UNIQUE_ANSWER)?'radio':'checkbox'; echo $studentChoice?'_on':'_off'; ?>.gif" border="0">
+	<img src="<?php echo $imgRepositoryWeb ?><?php echo ($answerType == UNIQUE_ANSWER)?'radio':'checkbox'; echo $studentChoice?'_on':'_off'; ?>.gif" border="0">
   </td>
   <td width="5%" align="center">
-	<img src="<?php echo $clarolineRepositoryWeb ?>img/<?php echo ($answerType == UNIQUE_ANSWER)?'radio':'checkbox'; echo $answerCorrect?'_on':'_off'; ?>.gif" border="0">
+	<img src="<?php echo $imgRepositoryWeb ?><?php echo ($answerType == UNIQUE_ANSWER)?'radio':'checkbox'; echo $answerCorrect?'_on':'_off'; ?>.gif" border="0">
   </td>
   <td width="45%">
 	<?php echo $answer; ?>
