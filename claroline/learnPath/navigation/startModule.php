@@ -134,20 +134,25 @@
                 $moduleStartAssetPage = $clarolineRepositoryWeb."/document/goto/?doc_url=".str_replace("%2F","/",urlencode($startAssetPage));
 
                 $withFrames = true;
-               break;
+                break;
           case CTEXERCISE_ :
-               $_SESSION['inPathMode'] = true;
-               $startAssetpage = $clarolineRepositoryWeb."exercice/exercice_submit.php";
-               $exerciseId     = $asset['path'];
-               $moduleStartAssetPage = $startAssetpage."?exerciseId=".$exerciseId;
-               break;
+               // clean session vars of exercise
+                unset($_SESSION['objExercise']);
+                unset($_SESSION['objQuestion']);
+                unset($_SESSION['objAnswer']);
+                unset($_SESSION['questionList']);
+                unset($_SESSION['exerciseResult']);
+                $_SESSION['inPathMode'] = true;
+                $startAssetpage = $clarolineRepositoryWeb."exercice/exercice_submit.php";
+                $exerciseId     = $asset['path'];
+                $moduleStartAssetPage = $startAssetpage."?exerciseId=".$exerciseId;
+                break;
           case CTSCORM_ :
-
-               // real scorm content method
-               $startAssetPage = $asset['path'];
-               $modulePath     = "path_".$_SESSION['path_id'];
-               $moduleStartAssetPage = $coursesRepositoryWeb.$_course['path']."/scormPackages/".$modulePath.$startAssetPage;
-               break;
+                // real scorm content method
+                $startAssetPage = $asset['path'];
+                $modulePath     = "path_".$_SESSION['path_id'];
+                $moduleStartAssetPage = $coursesRepositoryWeb.$_course['path']."/scormPackages/".$modulePath.$startAssetPage;
+                break;
           case CTCLARODOC_ :
                break;
   } // end switch
