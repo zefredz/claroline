@@ -23,7 +23,7 @@ $tidReset = TRUE;
 require './claroline/inc/claro_init_global.inc.php'; // main init
 
 require $includePath.'/lib/events.lib.inc.php'; //stats
-require $includePath.'/lib/text.lib.php';
+
 require $includePath.'/conf/index.conf.inc.php';
 
 if ($_REQUEST['logout']) session_destroy();
