@@ -1,0 +1,36 @@
+<?php // $Id$
+$lang_config_AdministrationTools	=	"Administration Tools";
+$lang_config_config					=	"Configuration";
+$lang_config_TitleConfig			=	"Configuration de votre plateforme : ";
+$lang_config_siteName				=	"Site name : ";
+ $lang_config_TitleAdministrator	=	"Administrator : ";
+$lang_config_name					=	"Name : ";
+$lang_config_phone					=	"Phone : ";
+$lang_config_email					=	"Email : ";
+$lang_config_TitleEducationManager	=	"Education manager : ";
+$lang_config_TitleInstitution		=	"Institution : ";
+$lang_config_urlInstitution			=	"URL : ";
+$lang_config_ButtonSend				=	"Change the configuration";
+$lang_config_langage 				=	"Langage :";
+$lang_config_rootWeb				= 	"Root Web";
+$lang_config_urlAppend				=	"URL append";
+$lang_config_dbHost					=	"Server";
+$lang_config_dbLogin				=	"Login";
+$lang_config_dbPass					=	"Password :";
+$lang_config_dbNamePrefix			=	"Table prefix : ";
+$lang_config_TitleProperty 			=	"Properties : ";
+$lang_config_TitleBD				=	"Data base : ";
+$lang_config_ErrorRootWebEmpty		=	"The root Web do not empty !";
+$lang_config_ErrorURLEmpty			=	"The url append do not empty !";
+$lang_config_ErrorLoginBDEmpty		=	"The login from Data Base do not empty !";
+$lang_config_ErrorPassBDEmpty		=	"The password from data base do not empty !";
+$lang_config_ErrorConnectMySQL		=	"The server,login or password are wrong from the connection in the data base";
+$lang_config_ErrorHostEmpty			=	"The host name do not empty !";
+$lang_config_ErrorOpenFile			=	"Error to open file config.php";
+$lang_config_ErrorEmailAdmin		=	"The administrator email is wrong !";
+$lang_config_ErrorEmailManager		=	"The education manager email is wrong !";
+$lang_config_Info					=	"(*) value required";
+$lang_config_ErrorURLInstitution	=	"The institution url is wrong !";
+$lang_config_ErrorRootWeb			=	"The rootWeb is wrong !";
+$lang_config_NoAdmin				=	"You're not logged as platfrom administrator";
+?>

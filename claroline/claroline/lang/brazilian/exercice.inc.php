@@ -1,0 +1,86 @@
+<?php // $Id$ 
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.*
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   Brazillian Translation (portugese)                                 |
+      +----------------------------------------------------------------------+
+
+      +----------------------------------------------------------------------+
+      | Translator :                                                         |
+      |           Marcello R. Minholi, <minholi@unipar.be>                   |          
+	  |									from Universidade Paranaense         |
+      +----------------------------------------------------------------------+
+ */
+$langExercices="Exercícios";
+$langEvalSet="Configurações de pontuação";
+$langExercice="Exercícios";
+$langActive="ativo";
+$langInactive="inativo";
+$langActivate="ativar";
+$langDeactivate="desativar";
+$langNoEx="Não há exercícios para o momento";
+$langNewEx="Novo exercício";
+
+
+// exercice_admin.php
+
+$langQuestCreate="Criação das questões";
+$langExRecord="Seu exercício foi salvo";
+$langBackModif="Voltar para a edição desse exercício";
+$langDoEx="Fazer o exercício";
+$langDefScor="Definir configurações de pontuação";
+$langCreateModif="Criação/modificação de questões";
+$langSub="Sub-título";
+$langNewQu="Nova questão";
+$langQuestion="Questão";
+$langQuestions="Questões";
+$langDescription="Descrição";
+$langAnswers="Respostas";
+$langTrue="Verdadeiro";
+$langAnswer="Resposta";
+$langComment="Comentário";
+$langMorA="+resp.";
+$langLesA="-resp.";
+$langRecEx="Salvar Exercício";
+$langRecQu="Salvar Questão";
+$langRecAns="Salvar Respostas";
+$langIntroduction="Introdução";
+$langTitleAssistant="Assistente de criação de exercícios";
+$langQuesList="Lista de questões";
+$langSaveEx="Salvar Exercício";
+$langClose="Fechar";
+$langFinish="Finalizar";
+$langCancel="Cancelar";
+$langQImage="Figura da questão";
+$langAddQ="Adicionar Questão";
+
+// exercice_submit.php
+
+$langDoAnEx="Fazer um exercício";
+$langGenerator="gerador de exercícios";
+$langResult="Pontuação";
+$langChoice="Sua escolha";
+$langCorrect="Verdadeiro";
+
+
+
+// scoring.php & scoring_student.php
+
+$langPossAnsw="número de possíveis respostas para a questão";
+$langStudAnsw="número de erros cometidos pelo estudante";
+$langDetermine="Determine você mesmo o peso da pontuação editando a tabela abaixo. Então clique em \"Ok\"";
+$langNonNumber="Um valor não numérico em";
+$langAnd="e"; 
+$langReplaced="foi introduzido. Ele foi substituído por 0";
+$langSuperior="Um valor maior que 20 em";
+$langRep20="foi introduzido. Ele foi substituído por 20";
+$langDefault="Valores padrão *";
+$langDefComment="* Se você clicar em \"Valores padrão\", seus valores anteriores serão permanentemente apagados.";
+$langScoreGet="Números em preto = Pontuação";
+
+
+$langShowScor="Mostrar pontuação para os estudantes : "; 
+?>

@@ -1,0 +1,33 @@
+<?php // $Id$
+$lang_already_enrolled                     = "Уже записан";
+$lang_main_categories_list			       = "Список разделов";
+$lang_my_personnal_course_list			   = "Мой личный список курсов";
+$lang_course_enrollment                    = "Регистрация на курсы";
+$lang_course_not_available                 = "Курс недоступен...";
+$lang_enroll                               = "Регистрация";
+$lang_enroll_to_a_new_course               = "Запись на новый курс";
+$lang_my_present_course_list               = "Мой список курсов";
+$lang_no_course_to_enroll_in_this_category = "В данном разделе нет курсов, открытых для регистрации";
+$lang_or_search_from_the_course_code       = "Или ищите по коду курса";
+$lang_search                               = "Мскать";
+$lang_select_course_among_categories       = "Выберите курс в следующих разделах";
+$lang_select_course_in                     = "Выберите курс в ";
+$lang_select_course_in_search_results      = "Выберите курс в результатах поиска";
+$lang_unsubscribe                          = "Отмена регистрации";
+$lang_back_to_my_home_page                 = "Назад на мою главную страницу";
+$lang_back_to_my_personnal_course_list     = "Назад к моему личному списку курсов";
+$lang_back_to_main_category_list		   = "Назад на страницу разделов";
+$langAdded                                 = "Добавлены";
+$langDeleted                               = "Удалены";
+$langKeeped                                = "Сохранены";
+$langHideAndSubscribeClosed                = "Спрятан / Закрыт";
+$langHideAndSubscribeOpen                  = "Спрятан / Открыт";
+$langShowAndSubscribeOpen                  = "Виден / Открыт";
+$langShowAndSubscribeClosed                = "Виден / Закрыт";
+$langTitular                               = "Ответственный";
+$lang_course_enrollment                    = "Курс пользователя";
+$langAdminThisUser                         = "назад к данным о пользователе";
+$langBackToListOfThisUser                  = "Назад к списку курсов";
+$langAdministrationTools                   = "Средства администрирования";
+$langManage                                = "Управление кампусом";
+?>

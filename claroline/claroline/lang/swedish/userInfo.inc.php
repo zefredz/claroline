@@ -1,0 +1,31 @@
+<?php // $Id$
+$langUsers = "Användare";
+$langTitle = "Rubrik";
+$langComment = "Kommentar";
+$langLineNumber = "Radnummer";
+$langLine = "rad";
+$langLines = "rader";
+$langLineOrLines = "rad(er)";
+$langOk = "Ok";
+$langRemove = "radera";
+$langEdit = "redigera";
+$langMoveUp = "Flytta upp";
+$langMoveDown = "Flytta ned";
+$langAddNewHeading = "Lägg till ny rubrik";
+$langCourseAdministratorOnly = "Kursadministratörer endast";
+$langDefineHeadings = "Definiera rubrik";
+$langBackToUsersList = "Tillbaka till användarlistan";
+$langTracking = "Språrning";
+$langCourseManager= "Kursansvarig";
+$langUserName="Namn";
+$langGroup="Grupp";
+$langManager="Ansvarig";
+$langTutor="Lärare";
+$langUnregister="Avregistrera";
+$langHelp="Hjälp";
+$langRole="Roll";
+$langUser="Användare";
+$langAddAUser="Lägg till användare";
+$langGroupManagement="Grupphantering";
+$langTracking="Spårning";
+?>

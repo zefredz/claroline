@@ -1,0 +1,107 @@
+*******************************************
+CLAROLINE 1.5 RELEASE CANDIDATE 2 - CREDITS
+*******************************************
+
+Claroline Core Team :           Thomas De Praetere (depraetere@ipm.ucl.ac.be)
+                                Hugues Peeters     (peeters@ipm.ucl.ac.be)
+                                Christophe Gesché  (gesche@ipm.ucl.ac.be) aka Moosh
+                                
+Team from Cerdecam :            Philippe Dekimpe (dkp@ecam.be)
+http://www.cerdecam.be          Mathieu Laurent (laurent@cerdecam.be)
+                                Guillaume Lederer (lederer@cerdecam.be)
+                                Sebastien Piraux (piraux@cerdecam.be)
+                                Aurelien Van Hamme (vanhamme@cerdecam.be)
+
+Administration section :        Benoit Muret (muret_ben@hotmail.com)
+                                Guillaume Lederer (lederer@cerdecam.be) from CERDECAM
+
+Announcement tool improvement:  Pablo Rey (prey@cesga.es)
+
+LDAP :                          Roan Embrechts (roan.embrechts@ugent.be)
+
+Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
+
+Learning Path Manager:          Guillaume Lederer and Sebastien Piraux (Cerdecam)
+
+Personnal Agenda :              Eric Remy (eremy@rmwc.edu),
+                                Toon Van Hoecke (Toon.VanHoecke@UGent.be)
+
+Quizz Tool :                    Olivier Brouckaert (oli.brouckaert@skynet.be)
+
+Password Encryption :           Fabio Spelta (fabio.spelta@tiscali.it)
+
+Tracking system :               Sebastien Piraux (piraux@cerdecam.be)
+
+Single DB customisation :       Roger Hedlund (rhedlund@passagen.se)
+
+User Image :                    Miguel (miguel@cesga.es)
+                                Patrick Cool (patrick.cool@ugent.be)
+
+Upgrade tool :                  Mathieu Laurent (laurent@cerdecam.be) from CERDECAM
+
+Forum tool :                    adpated from PHPBB 1.4 (http://www.phpbb.com)
+
+zip / unzipping option  :       PclZip library - Vincent Blavet
+                                (http://www.phpconcept.net)
+
+
+Arab translation :              Yassine Jelman (yjelmam@myrealbox.com)
+
+Catalan translation :           Xavier de Pedro (xavidp@confluencia.net)
+
+Chinese translation :           Maizeman (Maizeman@21cn.com)
+
+Croatian translation :          Dragan Misovic
+
+Dutch translation :             Inès Du Four (inesdufour@hotmail.com)
+                                Denis Smidts (Smidts@ipm.ucl.ac.be)
+                                Isabel Deprez (isabel.deprez@rug.ac.be)
+                                Roan Embrechts (roan.embrechts@ugent.be)
+                                Stefan De Wannemacker (sdwannem@cage.rug.ac.be)
+                                Toon Van Hoecke (toon.vanhoecke@ugent.be)
+
+Finnish translation :           Asmo Koskinen (asmo.koskinen@asmokoskinen.net)
+
+Galician translation:           Maria Jose Rodriges Malmierca
+
+German translation :            Stiehl Nikolai  (nikolai.stiehl@web.de)
+
+Greek translation:              Costas Tsibanis (costas@noc.uoa.gr)
+                                Yannis Exidaridis (jexi@noc.uoa.gr)
+
+Hungarian translation :         Janos Foldessy & Peter Fuchs
+
+Italian translation :           Maurizio Guercio  (mguercio@libero.it),
+                                Furio Petrossi  (Furio.Petrossi@scuolefvg.org)
+
+Japanese translation :          Akira Yoshii (yoshii@cc.hokkyodai.ac.jp)
+
+Polish translation :            Slawomir Gurdala (guslaw@uni.lodz.pl)
+
+Portugese translation :         Marcello R. Minholi (minholi@unipar.be)
+
+Swedish translation :           Jan Olsson (jano@artedi.nordmaling.se)
+
+Spanish translation :           Xavier Casassas ( xcc@mail.ics.co.at)
+                                Jorge Gonzales ( jgonzalez@athenasoft.com.mx)
+                                Javier Picado Ladrón de Guevara (jpicado@eurosur.com)
+                                Oda Begares (begaeres@arch.ucl.ac.be)
+
+Thaï translation :              Sutas Jitchuen (dtsjc@mucc.mahidol.ac.th)
+
+Turkish translation :           Cuneyt Birkok (cbirkok@insanbilimleri.com)
+
+Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
+                                Emmanuel Pecquet (emmanuel.pecquet@wanadoo.fr)
+                                Nikolai Stiehl (nikolai.stiehl@web.de)
+                                Isabel Deprez (isabel.deprez@rug.ac.be)
+                                Philippe Danckaert
+                                Slawomir Gurdala
+                                Dalton Piegas Simoni
+                                Maria Jose Rodriges Malmierca
+
+
+
+=========================================================================
+                Europe, Belgium, Louvain-la-Neuve - June 29 2004
+================================== END ===================================

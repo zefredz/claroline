@@ -1,0 +1,147 @@
+===============================================
+september 2003
+Roan Embrechts
+
+De Nederlandse taal van Claroline wordt grotendeels
+verzorgd door de Universiteit Gent.
+(bijdragen van Roan Embrechts, Toon Van Hoecke, en vroeger ook Stefan De Wannemacker en Isabel Deprez)
+Soms zijn er discussiepunten met andere vertalers.
+
+bijvoorbeeld:
+* Het woord ok behouden wij als "OK", niet "oké".
+* Het woord docent mag niet gebruikt worden, dit is een officiele titel.
+Dit zal vervangen worden door lesgever.
+
+discussie over deze zaken: graag naar het Nederlandstalige discussieforum van www.claroline.net
+
+===============================================
+
+Wijzigingen aangebracht in de Nederlandstalige bestanden
+Kris Gonnissen
+kris@gonnissen.com
+24 maart 2003
+---
+
+ok  --> oké
+studenten box --> studentenbox [of toch maar gewoon 'dropbox'?]
+teurg --> terug
+beheersrecht --> beheerrecht
+U --> u
+Kies een ander --> Kies een andere     [gebruikersnaam]
+Audio of video document toevoegen --> Audio- of videodocument toevoegen
+$langDocDel=Het werk werd verwijderd --> $langDocDel=Het document werd verwijderd
+
+namen van weekdagen en van maanden beginnen met een kleine letter
+
+beeld(en) --> afbeelding(en)
+tekening --> afbeelding
+Vergelijking editor --> Vergelijkingseditor
+$langPubl="Geplubliceerd op"; --> $langPubl="Gepubliceerd op";
+Server info --> Serverinfo
+<li>een tabel aan te maken met de titel <b>gebieden_lijst</b> in Uw SQL databank<br> --> <li>in uw SQL-databank een tabel aan te maken met de titel <b>gebieden_lijst</b><br>
+Als er geen fout hierboven verschijnt --> Als er hierboven geen fout verschijnt
+SQL databank --> SQL-databank
+paginas --> pagina's
+Als de landen niet in het Nederlands verschijnen --> Als de landnamen niet in het Nederlands verschijnen
+Dit zal geen effect op de tabel <b>logezboo</b> hebben. --> Dit zal geen effect hebben op de tabel <b>logezboo</b>.
+Het bericht van fout is normaal :-) --> Deze foutmelding is normaal :-)
+$langAndGoBack ="Dan klik op de terug toets"; --> $langAndGoBack ="Klik op de terugtoets";
+$langAndGoBack ="AND after click  Previous button"; --> $langAndGoBack ="Klik op de terugtoets";
+email --> e-mail
+Hoogachtend --> Met vriendelijke groeten
+U heeft alle velden niet ingevuld --> U heeft niet alle velden ingevuld
+Kies een ander -->  Kies een andere  [gebruikersnaam]
+bent kan --> bent, kan
+De hier ingevulde gebruikersnaam en wachtwoord zal --> De hier ingevulde gebruikersnaam en wachtwoord zullen
+&nbsp; --> [vervangen door spatie]
+selectioneren --> selecteren
+On --> Aan
+Off --> Uit
+Uw werd uit dit forum verwijderd. --> U werd uit dit forum verwijderd.
+$l_signature = "Tekening"; --> $l_signature = "Handtekening";
+$l_privateforum	= "Dit <b>Forum is privé</b>."; --> $l_privateforum = "<b>Dit forum is privé</b>.";
+Logout --> uitloggen
+Login --> inloggen
+Het is in onze databank gecrypteerd --> Het is in onze databank geëncrypteerd
+een eenvoudig script op die --> een eenvoudig script op dat
+Er bestaan geen record --> Er bestaan geen records
+online --> on line
+Uw kan niet op dit onderwerp antwoorden. --> U kan niet op dit onderwerp antwoorden. 
+bestemmeling --> geadresseerde
+gecopieerd --> gekopieerd
+spatie voor vraagteken verwijderd (BIN-normen)
+Is er vereiste voorkennis ? --> Is er voorkennis vereist?
+en de docent te identificeren (naam, voornaam, bureel, --> en om de docent te identificeren (voornaam, naam, bureau,
+Aan het einde van de cursus, wat zijn de competenties, capaciteiten en kennis die de studenten zullen beheersen, kunnen gebruiken ?"; --> Welke competenties, capaciteiten en kennis moet de student aan het einde van de cursus beheersen, kunnen gebruiken?";
+moelijkheidsgraad --> moeilijkheidsgraad
+Welke type van ondersteuning geef ik voorrang ? --> Aan welk type van ondersteuning geef ik voorrang? 
+datums --> data
+Volledige lijst is gewijderd --> Volledige lijst is verwijderd
+$langWelcome="cursussite(s) hieronder hebben vrije toegang. De andere cursussen vragen een gebruikersnaam en een wachtwoord. Die kunt u krijgen door een klik op 'Registratie'. Het is mogelijk voor de docenten en assistenten om een nieuwe cursus te creëren door een klik op 'Registratie'.";  --> $langWelcome="De cursussite(s) hieronder hebben vrije toegang. Voor de andere cursussen zijn een gebruikersnaam en een wachtwoord vereist. Die kunt u krijgen door een klik op 'Registratie'. Docenten en assistenten kunnen een nieuwe cursus creëren door een klik op 'Registratie'.";
+"Manager"; --> "Verantwoordelijke";
+"iCampus gebruikt de platform"; --> "iCampus gebruikt het platform";
+$langAddPageHome="Pagina toevoegen en linken aan Homepage"; --> $langAddPageHome="Pagina toevoegen"; [dat er een link bijkomt, lijkt me logisch]
+$langLinkSite="Link aan Homepage toevoegen"; --> $langLinkSite="Link toevoegen";
+Links --> links
+Cursusbeheerders --> cursusbeheerders
+$hour2="09u30"; --> $hour2="09.30 u"; [enz. - BIN-normen]
+30min --> 30 min. [enz.]
+Upload het bestand op de server --> Upload het bestand naar de server
+Nieuwe Folder --> Nieuwe map [enz.]
+Copiëren --> Kopiëren
+Titel pagina is gewijzigd --> Titelpagina is gewijzigd
+HTML formaat  --> HTML-formaat
+Power Point, Vidéo, --> PowerPoint, Video,
+HOME PAGE --> HOMEPAGE
+Uw pagina werd opgestuurd.<p>Die is toegankelijk --> Uw pagina werd opgestuurd.<p>Ze is toegankelijk 
+Die zal door een link verbonden worden met de Homepage van de cursussite --> Ze zal door een link verbonden worden met de startpagina van de cursussite
+Mij profiel wijzigen --> Mijn profiel wijzigen
+Help forums --> Helpforums
+een onbeperkt aantal meerdere mensen  --> een onbeperkt aantal mensen
+internet browser --> internetbrowser
+e-mailtool --> e-mailprogramma
+De post zijn hiërarchisch georganiseerd --> De post is hiërarchisch georganiseerd
+<p>Het is aan te raden om het forum, vooraf aan de activering ervan, te organiseren in categorieën en forums, zodat de deelnemers in het forum op een gestructureerde wijze kunnen posten. De deelnemers zelf zijn verantwoordelijk voor de onderwerpen en de antwoorden.</p><p>Testforum onder Hoofdcategorie: het forum bestaat uit de openbare modus, en een voorbeeldonderwerp en een voorbeeldbericht.<p></p>U kunt forums toevoegen in de hoofdcategorie, of de titel wijzigen, of andere categorieën aanmaken in de welke u nieuwe forums moet aanmaken.<p></p>Een categorie zonder forum zal niet verschijnen en is niet bruikbaar.<p></p>Als u bijvoorbeeld een categorie 'gesprekken in kleine groepen' aanmaakt, dan zal u een aantal forums moeten aanmaken in deze tweede categorie, zoals bijvoorbeeld 'groep 1', 'groep 2', 'groep 3', enz.</p><p>De beschrijving van een groepsforum kan de lijst zijn van de mensen die uitgenodigd zijn om aan de gesprekken deel te nemen, maar ook een uitleg van zijn nut. Als u een 'hulpvragen'-forum aanmaakt, dan mag u een beschrijving toevoegen zoals : 'Moeilijkheden meedelen qua inhoud of qua inrichting'.</p>";  -->  <p>Het is aan te raden eerst categorieën en forums aan te maken en dan pas het forum te activeren. Zo kunnen de deelnemers in het forum op een gestructureerde wijze berichten posten. De deelnemers zelf zijn verantwoordelijk voor de onderwerpen en de antwoorden.</p><p>Testforum onder Hoofdcategorie: het forum bestaat uit de openbare modus, een voorbeeldonderwerp en een voorbeeldbericht.<p></p>U kunt forums toevoegen in de hoofdcategorie, of de titel wijzigen. U kunt ook andere categorieën aanmaken waarin u dan weer forums moet aanmaken.<p></p>Een categorie zonder forum zal niet verschijnen en is niet bruikbaar.<p></p>Als u bijvoorbeeld een categorie 'gesprekken in kleine groepen' aanmaakt, dan zal u een aantal forums moeten aanmaken in deze nieuwe categorie, zoals bijvoorbeeld 'groep 1', 'groep 2', 'groep 3', enz.</p><p>De beschrijving van een groepsforum kan de lijst zijn van de mensen die uitgenodigd zijn om aan de gesprekken deel te nemen, maar ook een uitleg van zijn nut. Als u een 'hulpvragen'-forum aanmaakt, dan mag u een beschrijving toevoegen zoals: 'Moeilijkheden meedelen wat inhoud of inrichting betreft'.</p>";
+Help bij het starten met Claroline --> Hulp bij het starten met Claroline [ook elders help vervangen]
+Hier vindt u de lijst van cursussen waarin u geregistreerd bent --> Hier vindt u de lijst van cursussen waarvoor u geregistreerd bent
+problem  -> probleem
+een anti-virus software pakket --> een recent anti-viruspakket
+Tips --> Tip
+<li>Het document op uw computer selecteren met de hulp van de toets 'Browse'; <input type=submit value=Parcourir name=submit2> rechts op uw scherm.</li> -->  <li>Selecteer het document op uw computer met de hulp van de toets 'Browse'; <input type=submit value=Parcourir name=submit2> rechts op uw scherm.</li>
+<li>Upload het bestand de hulp van de toets 'Upload'; -->  <li>Upload het bestand met de hulp van de toets 'Upload'; 
+klik op de toets  --> Klik op de toets
+Breng in de nieuwe naam in de voorbehouden zone links boven --> Breng in de voorbehouden zone links boven de nieuwe naam in
+Breng de nieuwe commentaar in het kader, dat --> Breng de nieuwe commentaar in in het kader, dat
+Als u een commentaar wenst uit te verwijderen --> Als u een commentaar wenst te verwijderen
+folder --> map
+het het document -- het document
+(Nota : het woord ‘oorsprong’ in deze menu --> (Nota: het woord ‘oorsprong’ in dit menu
+(of ervoor zorgen hij ingeschreven word) -->  (of ervoor zorgen dat hij ingeschreven wordt)
+De studenten worden gevraagd om zichzelf in groepen in te schrijven. --> De studenten wordt gevraagd  zichzelf in groepen in te schrijven.
+een beperkte aantal plaatsen  --> een beperkt aantal plaatsen 
+ZIP bestand --> ZIP-bestand
+"MySQL Server status : --> "MySQL-Server status:
+Beheer door --> Beheerder:
+Administration Tools --> Hulpmiddelen voor de beheerder
+Werkmiddelen --> Hulpmiddelen
+Info systeem --> Systeemstatus
+Log van login en logout --> Logboek van login en logout
+de voornaamste bank --> de hoofddatabank
+aankodigingen --> aankondigingen
+Inactiveren - Desactiveren
+mededelingen data -->  mededelingendata
+Cursus code --> Cursuscode
+Als u een minimum aan privacy wenst, is het best om de registratie gedurende een week te openen en aan de studenten vragen om zichzelf in te schrijven. --> Als u een minimum aan privacy wenst, is het best om de registratie gedurende een week te openen en aan de studenten te vragen zichzelf in te schrijven.
+Voornaamste pagina van deze cursus --> Startpagina van deze cursus
+"* Door klikken op knop \"Standaardwaarden\", --> "* Door klikken op de knop \"Standaardwaarden\",
+homepagina --> homepage
+De studente <b>mogen</b> zichzelf inschrijven";--> De studenten <b>mogen</b> zichzelf inschrijven";
+Editeren --> Wijzigen
+'Gebruikers' lijst --> gebruikerslijst
+"Hoogachtend, Uw docent" --> "Met vriendelijke groeten, uw docent"
+nederlands --> Nederlands
+Trouwens, het grieks woord \"eirotao\" bedoelt \"ondervragen\"."; --> Trouwens, het Griekse woord \"eirotao\" betekent \"ondervragen\".";
+Takenprogramma --> Takenoverzicht
+zal een verwijzing aangemaakt worden naar uw document, zonder deze te verplaatsen --> zal een verwijzing aangemaakt worden naar uw document, zonder dit te verplaatsen
+de inhoud van dit vlak verschijnt nu nergens --> de inhoud van dit vak verschijnt nu nergens
+

@@ -1,0 +1,6 @@
+<?php # $Id$
+//if (basename($_SERVER["SCRIPT_FILENAME"])==basename(__FILE__)) die("Va voir ailleurs");
+
+DEFINE("CONFVAL_MAX_FILE_SIZE_PER_WORKS", 200000000);
+
+?>
