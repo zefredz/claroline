@@ -262,7 +262,7 @@ echo "<form name=\"indexform\" action=\"".$_SERVER['PHP_SELF']."\" method=\"GET\
 */
      //TOOL LINKS
 
-claro_disp_button("admincourseusers.php?cidToEdit=".$cidToEdit,$langAllUsersOfThisCourse);
+echo "<a href=\"admincourseusers.php?cidToEdit=".$cidToEdit."\">$langAllUsersOfThisCourse</a>";
 
        // search form
        

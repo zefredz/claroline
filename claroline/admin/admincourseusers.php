@@ -236,12 +236,11 @@ echo "<form name=\"indexform\" action=\"",$_SERVER['PHP_SELF'],"\" method=\"GET\
      ";
 */
      //TOOL LINKS
-
-claro_disp_button("adminregisteruser.php?cidToEdit=".$cidToEdit, $langEnrollUser);
+echo "<a href=\"adminregisteruser.php?cidToEdit=$cidToEdit\">$langEnrollUser</a>";
 
 if (isset($cfrom) && ($cfrom=="clist"))
 {
-    claro_disp_button("admincourses.php", $langBackToCourseList);
+    echo " | <a href=\"admincourses.php\">$langBackToCourseList</a>";
 }
 
 //Pager
@@ -282,7 +281,7 @@ foreach($resultList as $list)
 
      //  Id
 
-     echo '<td  align="right"  width="5"	>'
+     echo '<td align="center">'
          .$list['user_id']
 		 .'</td>';
 

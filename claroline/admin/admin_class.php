@@ -263,7 +263,10 @@ if($dialogBox)
 
 //display tool links
 
-claro_disp_button($_SERVER['PHP_SELF']."?cmd=formNew", $langCreateNewClass);
+echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=formNew\">$langCreateNewClass</a>";
+
+echo "<br><br>";
+
 //display cols headers
 
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
