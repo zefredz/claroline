@@ -180,7 +180,7 @@ $langOn = "on";
 $langAvailableFrom = "Available from";
 $langExerciseNotAvailable = "Exercise not available";
 $langExerciseNoMoreAvailable = "Exercise no more available";
-$langTo = "to";
+$langUntil = "to";
 $langNoMoreAttemptsAvailable = "You have reached the maximum number of allowed attempts.";
 
 // exercise_result.php

@@ -236,7 +236,7 @@ $langOn = "en";
 $langAvailableFrom = "disponible de";
 $langExerciseNotAvailable = "Ejercicio no disponible";
 $langExerciseNoMoreAvailable = "El ejercicio no está disponible nunca más";
-$langTo = "para";
+$langUntil = "para";
 $langNoMoreAttemptsAvailable = "Usted a ingresado el número máximo de tentativas permitidas.";
 
 // exercise_result.php

@@ -170,7 +170,7 @@ $langViewToolList = "Vedi Lista Utilità";
 $langToolList = "Lista Utlità";
 
 $langFrom = "Da";
-$langTo = "a";
+$langToDate = "a";
 
 $langUserAccessDetails = "Accesso Utenti - dettagli";
 $langTool = "Utilità : ";

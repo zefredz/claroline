@@ -267,7 +267,7 @@ $statusMsg  .= "<br />".$langAvailableFrom." "
 if($objExercise->get_end_date() != "9999-12-31 23:59:59")
 {
     $timeEndDate    = $objExercise->get_end_date('timestamp');
-    $statusMsg   .= " ".$langTo." "
+    $statusMsg   .= " ".$langUntil." "
                         .claro_disp_localised_date($dateTimeFormatLong,$timeEndDate);
 }
                       

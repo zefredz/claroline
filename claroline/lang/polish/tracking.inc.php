@@ -144,7 +144,7 @@ $langViewToolList = "Zobacz listê wszystkich narzêdzi";
 $langToolList = "Lista wszystkich narzêdzi";
 
 $langFrom = "od";
-$langTo = "do";
+$langToDate = "do";
 
 /* traffic_details */
 $langPeriodToDisplay = "Okres";

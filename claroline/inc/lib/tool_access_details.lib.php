@@ -125,7 +125,7 @@ include($includePath."/lib/statsUtils.lib.inc.php");
                     $weeklowreqdate = ($reqdate-(86400*date("w" , $reqdate)));
                     $weekhighreqdate = ($reqdate+(86400*(6-date("w" , $reqdate)) ));
                     echo "<b>".$langFrom."</b> ".date("d " , $weeklowreqdate).$langMonthNames['long'][date("n", $weeklowreqdate)-1].date(" Y" , $weeklowreqdate);
-                    echo " <b>".$langTo."</b> ".date("d " , $weekhighreqdate ).$langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
+                    echo " <b>".$langToDate."</b> ".date("d " , $weekhighreqdate ).$langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
                     break;
                 // default == day
                 default :

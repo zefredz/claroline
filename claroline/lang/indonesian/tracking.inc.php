@@ -144,7 +144,7 @@ $langViewToolList = "Lihat daftar semua tool";
 $langToolList = "Daftar semua tool";
 
 $langFrom = "Dari";
-$langTo = "Kepada";
+$langToDate = "Kepada";
 
 /* traffic_details */
 $langPeriodToDisplay = "Periode";

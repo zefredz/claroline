@@ -177,7 +177,7 @@ $langOn = "sur";
 $langAvailableFrom = "Disponible à partir du";
 $langExerciseNotAvailable = "Cet exercice n'est pas encore disponible";
 $langExerciseNoMoreAvailable = "Cet exercice n'est plus disponible.";
-$langTo = "jusqu'au";
+$langUntil = "jusqu'au";
 $langNoMoreAttemptsAvailable = "Vous avez atteint le nombre maximum de tentatives autorisées.";
 
 

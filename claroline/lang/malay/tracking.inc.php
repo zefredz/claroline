@@ -144,7 +144,7 @@ $langViewToolList = "Paparkan senarai alat bantu";
 $langToolList = "Senarai alat bantu";
 
 $langFrom = "Dari";
-$langTo = "ke";
+$langToDate = "ke";
 
 /* traffic_details */
 $langPeriodToDisplay = "Jangkamasa";

@@ -130,7 +130,7 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                 $weeklowreqdate = ($reqdate-(86400*date("w" , $reqdate)));
                 $weekhighreqdate = ($reqdate+(86400*(6-date("w" , $reqdate)) ));
                 $displayedDate = $langFrom." ".date("d " , $weeklowreqdate).$langMonthNames['long'][date("n", $weeklowreqdate)-1].date(" Y" , $weeklowreqdate)
-                                ." ".$langTo." ".date("d " , $weekhighreqdate ).$langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
+                                ." ".$langToDate." ".date("d " , $weekhighreqdate ).$langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
                 break;
         }
   

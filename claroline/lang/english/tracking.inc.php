@@ -160,7 +160,7 @@ $langViewToolList = "View List of All Tools";
 $langToolList = "List of all tools";
 
 $langFrom = "From";
-$langTo = "to";
+$langToDate = "to";
 
 $langUserAccessDetails = "User access details";
 $langTool = "Tool";

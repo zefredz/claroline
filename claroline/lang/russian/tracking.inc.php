@@ -150,7 +150,7 @@ $langViewToolList = "Просмотреть список всех средств";
 $langToolList = "Список всех средств";
 
 $langFrom = "с";
-$langTo = "по";
+$langToDate = "по";
 
 
 /* traffic_details */

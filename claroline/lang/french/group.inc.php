@@ -86,7 +86,7 @@ $langAddTutors="Gérer la liste des tuteurs";
 
 $langForumGroup="Forum du groupe";
 $langMyGroup="mon groupe";
-$langOneMyGroups="un de mes groupes";
+$langOneMyGroups="sous ma supervision";
 $langGroupSelfRegistration="Inscription";
 $langGroupSelfRegInf="m'inscrire";
 $langRegIntoGroup="M'ajouter à ce groupe";

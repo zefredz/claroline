@@ -149,7 +149,7 @@ $langViewToolList = "Ver a Lista Total das Ferramentas";
 $langToolList = "Lista de Todas as Ferramentas";
 
 $langFrom = "De";
-$langTo = "a";
+$langToDate = "a";
 
 /* traffic_details */
 $langPeriodToDisplay = "Periodo";

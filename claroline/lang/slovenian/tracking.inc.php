@@ -149,7 +149,7 @@ $langViewToolList = "Vpogled v seznam vseh orodij";
 $langToolList = "Seznam vseh orodij";
 
 $langFrom = "Od";
-$langTo = "tdo";
+$langToDate = "tdo";
 
 /* traffic_details */
 $langPeriodToDisplay = "Obdobje";

@@ -136,7 +136,7 @@ $langViewToolList = "Xem danh sách tất cả công cụ";
 $langToolList = "Danh sách tất cả công cụ";
 
 $langFrom = "Của";
-$langTo = "đến";
+$langToDate = "đến";
 
 /* traffic_details */
 $langPeriodToDisplay = "Chu kỳ";

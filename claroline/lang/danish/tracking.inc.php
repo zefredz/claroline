@@ -150,7 +150,7 @@ $langViewToolList = "Se listen over alle værktøjer";
 $langToolList = "Liste ovr alle værktøjerne";
 
 $langFrom = "Fra";
-$langTo = "til";
+$langToDate = "til";
 
 /* traffic_details */
 $langPeriodToDisplay = "Periode";

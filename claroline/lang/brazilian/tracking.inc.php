@@ -165,7 +165,7 @@ $langViewToolList = "Visualizar Lista de Todas as Ferramentas";
 $langToolList = "Lista de todas as ferramentas";
 
 $langFrom = "De";
-$langTo = "para";
+$langToDate = "para";
 
 $langUserAccessDetails = "Detalhes de acesso do usuário";
 $langTool = "Ferramenta : ";

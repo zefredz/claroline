@@ -153,7 +153,7 @@ $langViewToolList = "Toon lijst van alle modules";
 $langToolList = "Lijst van alle modules";
 
 $langFrom = "Van";
-$langTo = "naar";
+$langToDate = "naar";
 
 /* traffic_details */
 $langPeriodToDisplay = "Periode";

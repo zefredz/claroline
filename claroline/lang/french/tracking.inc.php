@@ -168,7 +168,7 @@ $langViewToolList = "Voir la liste de tous les outils";
 $langToolList = "Liste de tous les outils";
 
 $langFrom = "Du";
-$langTo = "au";
+$langToDate = "au";
 
 $langUserAccessDetails = "Accès utilisateurs";
 $langTool = "Outil";

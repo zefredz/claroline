@@ -149,7 +149,7 @@ $langViewToolList="Visa lista över alla verktyg";
 $langToolList="Lista över alla verktyg";
 
 $langFrom="Från";
-$langTo="Till";
+$langToDate="Till";
 
 /* traffic_details */
 $langPeriodToDisplay="Period";
