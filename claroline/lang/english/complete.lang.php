@@ -1876,4 +1876,37 @@ $langAddAClassToCourse = "Subscribe a class to course";
 $langSubscribeToCourse = "Subscribe to course";
 $langDispClassAdded = "Display the class added";
 
+$langStepNOfN = "Step %d of %d";
+$langAdminSetting ="Admin Setting";
+$langFileSystemSetting = "File System Setting";
+$langMysqlNames="MySQL Names";
+
+$langDiskQuota="Disk quota";
+$langGroupAlwaysPrivate ="(always private)";
+
+$langGroupForumContent = "Group Forum Content";	
+$langGroupForumStructure = "Group Forum Structure";
+$langGroupStructure = "Group Structure"; 	
+$langGroupWork = "GroupWork";
+$langGroupWorkContent = "Group Work Content";	
+$langGroupWorkStructure = "Group Work Structure";
+
+$langChangeCSS = "Change style sheet used";
+
+$langBackupThisCourse = "Backup this course";
+$langCopyOnServerBackupRepository = "Copy on the server backup repository";
+$langCreateANewCourseNow = "Create a new course now";
+$langForumContent = "Forum Content";
+$langForumStructure = "Forum Structure";
+$langIncludeUserPersonalInfo = "Include user personal information";
+$langPutOnFtpServer = "Put on ftp server";
+$langRestoreNow = "Restore now";
+$langSaveContentDoc	 = "Save content document";
+$langSaveSubscription = "Save subscription";
+$langShowAllProcessDuringTheWork = "Show all process during the work";
+$langWhatDoAfterBackup = "What do after backup";
+$langWikiContent = "Wiki content";
+$langWorkContent = "Work content";
+$langWorkStructure = "Work structure";
+
 ?>
