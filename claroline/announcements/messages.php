@@ -137,11 +137,14 @@ include('../inc/claro_init_header.inc.php');
  * DB tables definition
  */
 
-$tbl_group      = $_course['dbNameGlu']."group_team";
-$tbl_groupUser  = $_course['dbNameGlu']."group_rel_team_user";
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
 
-$tbl_user       = $mainDbName."`.`user";
-$tbl_courseUser = $mainDbName."`.`cours_user";
+$tbl_group      = $tbl_cdb_names['group_team'];
+$tbl_groupUser  = $tbl_cdb_names['group_rel_team_user'];
+
+$tbl_user       = $tbl_mdb_names['user'];
+$tbl_courseUser = $tbl_mdb_names['rel_course_user'];
 
 /*
  * Various connection variables from the initialisation scripts
