@@ -52,8 +52,7 @@ $titlePage .= $siteName;
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 
-<link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>" media="screen" title="<?php echo $claro_stylesheet ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>" media="print" title="print">
+<link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>" media="all" title="<?php echo $claro_stylesheet ?>">
 
 <link rel="top" href="<?php echo $rootWeb ?>index.php" title="" >
 <link rel="courses" href="<?php echo $clarolineRepositoryWeb ?>auth/courses.php" title="<?php echo $langOtherCourses ?>" >
