@@ -85,8 +85,8 @@ if ($is_allowedToEdit)
         $hour           = $_REQUEST['fhour'].':'.$_REQUEST['fminute'].':00';
 
         $sql = "INSERT INTO `".$tbl_calendar_event."` 
-                SET   titre   = '".trim($_REQUEST['titre'])."',
-                      contenu = '".trim($_REQUEST['contenu'])."',
+                SET   titre   = '".trim(claro_addslashes($_REQUEST['titre']))."',
+                      contenu = '".trim(claro_addslashes($_REQUEST['contenu']))."',
                       day     = '".$date_selection."',
                       hour    = '".$hour."',
                       lasting = '".$_REQUEST['lasting']."'";
@@ -114,8 +114,8 @@ if ($is_allowedToEdit)
         if ( $_REQUEST['id'] )
         {
             $sql = "UPDATE `".$tbl_calendar_event."`
-                    SET   titre   = '".trim($_REQUEST['titre'])."',
-                          contenu = '".trim($_REQUEST['contenu'])."',
+                    SET   titre   = '".trim(claro_addslashes($_REQUEST['titre']))."',
+                          contenu = '".trim(claro_addslashes($_REQUEST['contenu']))."',
                           day     = '".$date_selection."',
                           hour    = '".$hour."',
                           lasting = '".$_REQUEST['lasting']."'
