@@ -29,8 +29,7 @@ claro_disp_tool_title(array('mainTitle' => $langGroup,
 <table>
 	<tr valign="top">
 		<td>
-			<label for="group_quantity">
-			<?php echo $langCreate?>
+			<label for="group_quantity"><?php echo $langCreate?></label>
 		</td>
 		<td>
 			<input type="text" name="group_quantity" id="group_quantity" size="3" value="1">
