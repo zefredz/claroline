@@ -78,6 +78,8 @@ array ( 'claro_texRendererUrl'
       , 'CLAROLANG'
       , 'userPasswordCrypted'
       , 'allowSelfReg'
+      , 'userImageRepositorySys'
+      , 'userImageRepositoryWeb'
       );
 
 
@@ -259,7 +261,7 @@ array ('label'       => 'Layout'
 $conf_def_property_list['CLAROLANG'] =
 array('label'         => 'Language Mode'
      ,'description'   => 'Translation: use a single language file, Production: each script use its own language file'
-     ,'default'       => 'TRANSLATION'
+     ,'default'       => 'PRODUCTION'
      ,'type'          => 'enum'
      ,'display'       => TRUE
      ,'readonly'      => FALSE
@@ -430,13 +432,13 @@ array ('type'        => 'syspath'
       );
 $conf_def_property_list['userImageRepositorySys'] = 
 array ('type'        => 'syspath'
-      ,'default'     => '$rootSys.$userImageRepositoryAppend'
+      ,'default'     => str_replace('\\','/',$rootSys.$userImageRepositoryAppend)
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['userImageRepositoryWeb'] = 
 array ('type'        => 'syspath'
-      ,'default'     => '$rootWeb.$userImageRepositoryAppend'
+      ,'default'     => str_replace('\\','/',$rootWeb.$userImageRepositoryAppend)
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
@@ -460,7 +462,7 @@ array ('type'        => 'syspath'
       );
 $conf_def_property_list['rootAdminWeb'] = 
 array ('type'        => 'syspath'
-      ,'default'     => '$clarolineRepositoryWeb.$rootAdminAppend'
+      ,'default'     => str_replace('\\','/',$clarolineRepositoryWeb.$rootAdminAppend)
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
