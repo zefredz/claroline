@@ -26,7 +26,7 @@ require '../inc/claro_init_global.inc.php';
 if (! ($is_courseAdmin || $is_platformAdmin)) claro_disp_auth_form();
 
 @include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/conf/profile.conf.inc.php");
+include($includePath."/conf/user_profile.conf.php");
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
 

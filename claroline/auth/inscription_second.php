@@ -15,7 +15,7 @@
 require '../inc/claro_init_global.inc.php';
 
 // include profile configuration file
-include $includePath.'/conf/profile.conf.inc.php';
+include $includePath.'/conf/user_profile.conf.php';
 
 // include auth library
 include($includePath."/lib/auth.lib.inc.php");

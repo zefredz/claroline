@@ -17,7 +17,7 @@
 $conf_def['config_code'] = 'CLPROFIL';
 $conf_def['config_name'] = 'User profile options';
 $conf_def['description'] = ''; 
-$conf_def['config_file'] = 'user.profile.conf.php';
+$conf_def['config_file'] = 'user_profile.conf.php';
 $conf_def['old_config_file'][] ='profile.conf.php';
 
 // Section required fields

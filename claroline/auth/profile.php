@@ -27,7 +27,7 @@ define('DISP_COURSE_CREATOR_STATUS_REQ',__LINE__);
 define('DISP_REVOQUATION',__LINE__);
 
 require '../inc/claro_init_global.inc.php';
-include $includePath.'/conf/user.profile.conf.php'; // find this file to modify values.
+include $includePath.'/conf/user_profile.conf.php'; // find this file to modify values.
 include $includePath.'/lib/fileManage.lib.php';
 include $includePath.'/lib/auth.lib.inc.php';
 include($includePath.'/lib/claro_mail.lib.inc.php');

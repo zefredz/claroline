@@ -15,7 +15,7 @@
 require '../inc/claro_init_global.inc.php';
 
 // include profile library
-include($includePath."/conf/profile.conf.inc.php");
+include($includePath."/conf/user_profile.conf.php");
 
 // Redirect before first output
 if( ! isset($allowSelfReg) || $allowSelfReg == FALSE)

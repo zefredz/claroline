@@ -18,7 +18,7 @@ define ("USER_DATA_FORM", 2);
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 include $includePath."/lib/admin.lib.inc.php";
-include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
+include $includePath.'/conf/user_profile.conf.php'; // find this file to modify values.
 
 
 //SECURITY CHECK
