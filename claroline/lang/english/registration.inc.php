@@ -30,10 +30,18 @@ $langCaseSensitiveCaution = "System made difference between uppercase and lowerc
 $langDataFromUser = "Data sent by user";// by moosh
 $langDataFromDb = "Data in the database";// by moosh
 $langLoginRequest = "Login request";// by moosh
-$langExplainFormLostPass = "Enter data as you think you have input it while registering.";// by moosh
 $langTotalEntryFound = "Entry  found";// by moosh
-$langEmailNotSent = "Somethink doesn't work, mail this to ";// by moosh
+
+// lost password
+$langLostPassword = "Lost password";
+$langExplainFormLostPass = "Enter data as you think you have input it while registering.";// by moosh
+$langEmailNotSent = "The system is unable to send you an e-mail.<br>Please contact the  ";// by moosh
 $langYourAccountParam = "This  is  your account Login-Pass";// by moosh
+$langPasswordHasBeenEmailed = "Your password has been emailed to ";
+$langEmailAddressNotFound = "There is no user account with this email address.";
+$langEnterMail = "Enter your email so we can send you your password.";
+$langPlatformAdmin = "Platform administrator";
+
 $langTryWith ="Try with";// by moosh
 $langInPlaceOf ="and  not with ";// by moosh
 $langParamSentTo = "Identification information sent to ";// by moosh

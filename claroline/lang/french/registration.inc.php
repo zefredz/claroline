@@ -43,15 +43,21 @@ $langCaseSensitiveCaution = "Le système fait la différence entre les minuscules 
 $langDataFromUser = "Données envoyées par l'utilisateur";
 $langDataFromDb = "Données correspondantes dans la base de données"; // JCC 
 $langLoginRequest = "Demande de login";
-$langExplainFormLostPass = "Tapez ce que vous pensez avoir introduit comme données lors de votre inscription."; // JCC
 $langTotalEntryFound = " Nombre d'entrées trouvées"; // JCC 
 $langEmailNotSent = "Quelque chose n'a pas fonctionné, veuillez envoyer ceci à"; // JCC 
-$langYourAccountParam = "Voici vos paramètres de connection";
 $langTryWith ="essayez avec ";
 $langInPlaceOf ="au lieu de";
 $langParamSentTo = "Vos paramètres de connection sont envoyés sur l'adresse";
 
-
+// lost password
+$langLostPassword = "Mot de passe perdu";
+$langExplainFormLostPass = "Tapez ce que vous pensez avoir introduit comme données lors de votre inscription.";
+$langEmailNotSent = "Quelque chose n'a pas fonctionné, veuillez envoyer ceci à ";
+$langYourAccountParam = "Voici vos paramètres de connexion";
+$langPasswordHasBeenEmailed = "Votre mot depasse a été envoyé à l'adresse ";
+$langEmailAddressNotFound = "Il n'existe aucun compte utilisateur lié à cette adresse.";
+$langEnterMail = "Saisissez votre adresse email et confirmez.";
+$langPlatformAdmin = "l'administrateur de la plateforme";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Inscription";
