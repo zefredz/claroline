@@ -29,7 +29,8 @@ function claro_sql_get_main_tbl()
     if ( count($mainTblList) == 0 )
     {
         $mainTblList= array (
-        'config'                    => $mainDbName.'`.`'.$mainTblPrefix.'config_property',
+        'config_property'                    => $mainDbName.'`.`'.$mainTblPrefix.'config_property',
+        'config_file'               => $mainDbName.'`.`'.$mainTblPrefix.'config_file',
         'rel_tool_config'           => $mainDbName.'`.`'.$mainTblPrefix.'config_rel_tool_config',
         'admin'                     => $mainDbName.'`.`'.$mainTblPrefix.'admin',
         'course'                    => $mainDbName.'`.`'.$mainTblPrefix.'cours',

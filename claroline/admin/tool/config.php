@@ -149,9 +149,10 @@ fieldset    {
 /* ************************************************************************** */
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_tool      = $tbl_mdb_names['tool'];
-$tbl_config    = $tbl_mdb_names['config'];
-$tbl_rel_tool_config    = $tbl_mdb_names['rel_tool_config'];
+$tbl_tool            = $tbl_mdb_names['tool'];
+$tbl_config_property = $tbl_mdb_names['config_property'];
+$tbl_config_file     = $tbl_mdb_names['config_file'];
+$tbl_rel_tool_config = $tbl_mdb_names['rel_tool_config'];
 
 $toolNameList = array('CLANN' => $langAnnouncement,
                       'CLFRM' => $langForums,
@@ -339,7 +340,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
                 if ($okToSave) 
                 {
                     $sqlParamExist = 'SELECT count(id_property) nbline
-                                      FROM `'.$tbl_config.'` 
+                                      FROM `'.$tbl_config_property.'` 
                                       WHERE propName    ="'.$propName.'" 
                                         AND config_code ="'.$config_code.'"';
     
@@ -348,7 +349,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
                     if ($exist[0]['nbline']==0) 
                     {
                         $sql ='INSERT 
-                               INTO `'.$tbl_config.'` 
+                               INTO `'.$tbl_config_property.'` 
                                SET propName    = "'.$propName.'", 
                                    propValue   = "'.$propValue.'", 
                                    lastChange  = now(), 
@@ -357,7 +358,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
                     else
                     {
                         $sql ='UPDATE 
-                                `'.$tbl_config.'` 
+                                `'.$tbl_config_property.'` 
                                SET propName    ="'.$propName.'", 
                                    propValue   ="'.$propValue.'", 
                                    lastChange  = now(), 
@@ -378,7 +379,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
                 }
             }
         }
-                else
+        else
         {
             $okToSave = FALSE;
         }            
@@ -455,11 +456,21 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
                 $valueToWrite = "'".$valueToWrite."'";   
             }
             if(strtoupper($container)=='CONST')
+            {
                 $propertyLine = 'define("'.$storedProperty['propName'].'",'.$valueToWrite.');'."\n";
+            }
             else
+            {
                 $propertyLine = '$'.$storedProperty['propName'].' = '.$valueToWrite.';'."\n";
-            $propertyDesc = (isset($description)?'/* '.$storedProperty['propName'].' : '.str_replace("\n","",$description).' */'."\n":
-            (isset($toolConfProperties[$storedProperty['propName']]['label'])?'/* '.$storedProperty['propName'].' : '.str_replace("\n","",$toolConfProperties[$storedProperty['propName']]['label']).' */'."\n":''));
+            }
+            
+            $propertyDesc = (isset($description)
+                            ?'/* '.$storedProperty['propName'].' : '.str_replace("\n","",$description).' */'."\n"
+                            : (isset($toolConfProperties[$storedProperty['propName']]['label'])
+                              ?'/* '.$storedProperty['propName'].' : '.str_replace("\n","",$toolConfProperties[$storedProperty['propName']]['label']).' */'."\n"
+                              :''
+                              )
+                            );
             $propertyDesc .= ( isset($toolConfProperties[$storedProperty['propName']]['technicalInfo'])
                     ? '/*'."\n"
                     . str_replace('*/', '* /', $toolConfProperties[$storedProperty['propName']]['technicalInfo'])
@@ -479,11 +490,20 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         }
         fwrite($handleFileConf,"\n".'?>');
         fclose($handleFileConf);
-        $controlMsg['info'][] = 'Properties for '.$nameTools.' ('.$config_code.') are now effective on server.<br />file generated is <em>'.$confFile.'</em>';        
+        $hashConf = md5_file($confFile);
+        $sql =' UPDATE `'.$tbl_config_file.'`          '
+             .' SET config_hash = "'.$hashConf.'"      '
+             .' WHERE config_code = "'.$config_code.'" ';
+        if (!claro_sql_query_affected_rows($sql))
+        {
+            $sql =' INSERT  INTO `'.$tbl_config_file.'`          '
+                 .' SET config_hash = "'.$hashConf.'"      '
+                 .' , config_code = "'.$config_code.'" ';
+            claro_sql_query($sql);
+        }
+        $controlMsg['info'][] = 'Properties for '.$nameTools.' ('.$config_code.') are now effective on server.<br />file generated is <em>'.$confFile.'</em>'.'<br>signature : '.$hashConf;        
         $panel = DISP_LIST_CONF;
-    
     }
-
 }
 
 /* ************************************************************************** */
@@ -493,7 +513,12 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
 if ($panel == DISP_LIST_CONF)
 {
     $helpSection = 'help_config_menu.php';
-    $toolList = get_def_list();
+    $toolList  = get_def_list();
+    $confList = get_conf_list();
+    foreach($confList as $key => $config)
+    {
+        $toolList[$key]['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config['config_code']))&&$config['config_hash'] != md5_file(claro_get_conf_file($config['config_code'])));
+    }
 }
 elseif ($panel == DISP_EDIT_CONF_CLASS)
 {
@@ -571,6 +596,7 @@ switch ($panel)
                     .'?cmd=dispEditConfClass&amp;config_code='.$config_code.'" >'
                     .'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="'.$langEdit.'">'
                     .'</a>'
+                    .($tool['manual_edit']?'!!!!version de production modifiée':'')
                     .'</td>'
                     .'<td>'
                     . ( $tool['propQtyInDb']['qty_values']>0
