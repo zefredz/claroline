@@ -1,15 +1,18 @@
-<?php # $Id$ 
-/**
+<?php // $Id$ 
+/** ***************************************************
  * config lib contain function to manage conf file
- *
- * @author Christophe Gesché <moosh@claroline.net>
+ ******************************************************
  * @version CLAROLINE 1.6
  * @copyright &copy; 2001-2005 Universite catholique de Louvain (UCL)
- * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
- * as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
- * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * @license This program is under the terms of the 
+ * GENERAL PUBLIC LICENSE (GPL) as published by the 
+ * FREE SOFTWARE FOUNDATION. The GPL is available 
+ * through the world-wide-web at 
+ * http://www.gnu.org/copyleft/gpl.html
  * @see http://www.claroline.net/wiki/config_def/
  * @package CONFIG
+ * @author Christophe Gesché <moosh@claroline.net>
+ ******************************************************
  */
 
 /**
@@ -20,44 +23,56 @@
  * @author Benoit
  * @version claroline 1.5
  */
+/**
+* proceed to rename conf.php.dist file in unexisting .conf.php files
+* 
+* @author Mathieu Laurent <laurent@cerdecam.be>
+* 
+* @param $file syspath:complete path to .dist file
+* @return  boolean:wheter succes return true
+* @var $perms file permission of dist file are keep to set perms of new file
+* @var $group internal var for affect same group to new file
+**/
 function claro_undist_file ($file) 
 {
-	if ( !file_exists($file)) 
-	{
-		if ( file_exists($file.".dist"))
-		{
-			$perms = fileperms($file.".dist");
-			$group = filegroup($file.".dist");
-			// $perms|bindec(110000) <- preserve perms but force rw right on group
-			@copy($file.".dist",$file) && chmod ($file,$perms|bindec(110000)) && chgrp($file,$group);
-			if (file_exists($file))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		else
-		{
-			return false;
-		}
-	}
-	else
-	{
-		return false;
-	}
+    if ( !file_exists($file)) 
+    {
+        if ( file_exists($file.".dist"))
+        {
+            $perms = fileperms($file.".dist");
+            $group = filegroup($file.".dist");
+            // $perms|bindec(110000) <- preserve perms but force rw right on group
+            @copy($file.".dist",$file) && chmod ($file,$perms|bindec(110000)) && chgrp($file,$group);
+            if (file_exists($file))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /**
+ * the boolean value as string
+ * 
  * @return the boolean value as string
  * @param $booleanState boolean
  * @version claroline 1.4
  */
 function trueFalse($booleanState)
 {
-	return ($booleanState?'TRUE':'FALSE');
+    return ($booleanState?'TRUE':'FALSE');
 }
 
 /**
@@ -78,50 +93,50 @@ function replace_var_value_in_conf_file ($varName,$value,$file)
  
  if ($varName != "")
  {
- 	// build regexp 
- 	$regVarName = preg_quote($varName);
- 	$regExp = '~(\$(' . $regVarName . '))[[:space:]]*=[[:space:]]*(.*);~U';
+     // build regexp 
+     $regVarName = preg_quote($varName);
+     $regExp = '~(\$(' . $regVarName . '))[[:space:]]*=[[:space:]]*(.*);~U';
  }
  else
  {
- 	return false;
+     return false;
  }
 
  if(file_exists($file))
  {
    //Open config file 
-	if($fp = @fopen($file,"r"))
-	{
-		// take all lines in the file
-		while(!feof($fp))
-		{
-			// length param in fgets is required before PHP 4.2.0
-			$line=fgets($fp,1024);
-			trim($line);
-			
-			unset($find);
-			$find = preg_match_all($regExp,$line,$result);
+    if($fp = @fopen($file,"r"))
+    {
+        // take all lines in the file
+        while(!feof($fp))
+        {
+            // length param in fgets is required before PHP 4.2.0
+            $line=fgets($fp,1024);
+            trim($line);
+            
+            unset($find);
+            $find = preg_match_all($regExp,$line,$result);
 
-			if($find)
-			{
-				// $result[0] the variable and the value
-				// $result[1] the name of the variable
-				// $result[2] the value
-								
-				// replace the variable with the new value
-				$line = str_replace($result[3]," \"".$value."\"",$line);
-				$replace = true;
-			}
-			//Create a table with correct ligne to create de new file config
-			$newLines[]= $line;
-		}
-		fclose($fp);
-	}
-	else
-	{
-		// can't open file in read 
-		return false;
-	}
+            if($find)
+            {
+                // $result[0] the variable and the value
+                // $result[1] the name of the variable
+                // $result[2] the value
+                                
+                // replace the variable with the new value
+                $line = str_replace($result[3]," \"".$value."\"",$line);
+                $replace = true;
+            }
+            //Create a table with correct ligne to create de new file config
+            $newLines[]= $line;
+        }
+        fclose($fp);
+    }
+    else
+    {
+        // can't open file in read 
+        return false;
+    }
  }
  else 
  {
@@ -132,23 +147,23 @@ function replace_var_value_in_conf_file ($varName,$value,$file)
  if ($replace)
  {
  
-	// rewrite file
-	if($nf=@fopen($file,"w+"))
-	{
-		if(isset($newLines))
-		{
-			foreach($newLines as $line)
-			{
-				fwrite($nf,$line);
-			}
-		}
-		fclose($nf);
- 	}
- 	else
- 	{
-		// can't open file in write 
-		return false;
- 	}
+    // rewrite file
+    if($nf=@fopen($file,"w+"))
+    {
+        if(isset($newLines))
+        {
+            foreach($newLines as $line)
+            {
+                fwrite($nf,$line);
+            }
+        }
+        fclose($nf);
+     }
+     else
+     {
+        // can't open file in write 
+        return false;
+     }
  }
 
  return true;
@@ -164,19 +179,38 @@ function replace_var_value_in_conf_file ($varName,$value,$file)
 // function cleanwritevalue($string) protect befor write it in a file between " ";
 
 
+/**
+ * brutal replacement of ; by :
+ * stripslashes striptags trim
+ * 
+ * @param string string:
+ * @return string:trimed and without ;
+ **/
 function cleanvalue($string)
 { 
-	return trim(str_replace(';',':',strip_tags(stripslashes($string))));
+    return trim(str_replace(';',':',strip_tags(stripslashes($string))));
 }
 
+/**
+ * cleanoutputvalue()
+ * 
+ * @param $string string change
+ * @return string:prepare to output in html stream
+ **/
 function cleanoutputvalue($string)
 { 
-	return trim(htmlspecialchars(cleanvalue($string)));
+    return trim(htmlspecialchars(cleanvalue($string)));
 }
 
+/**
+ * cleanwritevalue()
+ * 
+ * @param $string
+ * @return string:cleaned string
+ **/
 function cleanwritevalue($string)
 { 
-	return trim(str_replace('"','\"',cleanvalue($string)));
+    return trim(str_replace('"','\"',cleanvalue($string)));
 }
 
 
@@ -185,8 +219,8 @@ function cleanwritevalue($string)
 /**
  * Read parameter value in buffer (config table)
  *
- * @param $config_code id of def file correcponding to data to found
- * @return an array containning name and value of properties.
+ * @param config_code string:id of def file correcponding to data to found
+ * @return array:array containning name and value of properties.
  * @version  claroline 1.6
  */
 function read_param_value_in_buffer($config_code)
@@ -201,11 +235,12 @@ function read_param_value_in_buffer($config_code)
 };
 
 /**
+ * return a list of tool
  * @author Christophe Gesché moosh@claroline.net
- * @param none
- * @return an array containing name and value of properties.
+ *
+ * @return array:containing name and value of properties.
  * @version  claroline 1.6
-**/
+ **/
 function getToolList()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -674,14 +709,14 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
 
             switch ($conf_def_property_list[$storedProperty['propName']]['type'])
             {
-            	case 'boolean':
-            	case 'php':
-            	case 'integer':
-          	
-          		break;
-            	default:
-            	    $valueToWrite = "'".$valueToWrite."'";   
-            		break;
+                case 'boolean':
+                case 'php':
+                case 'integer':
+              
+                  break;
+                default:
+                    $valueToWrite = "'".$valueToWrite."'";   
+                    break;
             }
             $container     = $conf_def_property_list[$storedProperty['propName']]['container'];
             $description   = $conf_def_property_list[$storedProperty['propName']]['description'];
@@ -864,15 +899,15 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
             ;
         switch($conf_def_property_list['type'])
         {
-       	    case 'boolean' : 
-   	        case 'lang' : 
-   	        case 'enum' : 
+               case 'boolean' : 
+               case 'lang' : 
+               case 'enum' : 
                 echo (isset($conf_def_property_list['acceptedValue'][$htmlPropValue])?$conf_def_property_list['acceptedValue'][$htmlPropValue]:$htmlPropValue);
-        		break;
-       	    case 'integer' : 
-   	        case 'string' : 
-         	default:
-            	// probably a string or integer
+                break;
+               case 'integer' : 
+               case 'string' : 
+             default:
+                // probably a string or integer
                 echo $conf_def_property_list['default'];
         } // switch
     echo '</span><BR>'."\n"
@@ -887,7 +922,7 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
         echo '<div class="propBloc">';
         switch($conf_def_property_list['type'])
         {
-   	    case 'boolean' : 
+           case 'boolean' : 
             echo '<div class="propLabel">'
                 .$htmlPropLabel
                 .'</div>'."\n"
@@ -907,9 +942,9 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 .$htmlPropDesc."\n"
                 .$htmlPropDefault."\n"
                 ;
-    		break;
-   	    case 'lang' : 
-   	    case 'enum' : 
+            break;
+           case 'lang' : 
+           case 'enum' : 
             echo '<div class="propLabel">'
                 .$htmlPropLabel
                 .'</div>'."\n"
@@ -927,10 +962,10 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 .$htmlPropDesc."\n"
                 .$htmlPropDefault."\n"
                 ;
-    		break;
-    		
+            break;
+            
 //TYPE : integer, an integer is attempt
-    	case 'integer' : 
+        case 'integer' : 
             echo '<div class="propLabel">'
                 .'<label for="'.$property.'">'
                 .$htmlPropLabel
@@ -944,9 +979,9 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 .$htmlPropDesc."\n"
                 .$htmlPropDefault."\n"
                 ;
-    		break;
-    	default:
-    	// probably a string
+            break;
+        default:
+        // probably a string
             echo '<div class="propLabel">'."\n"
                 .'<label for="'.$property.'">'
                 .$conf_def_property_list['label']
@@ -959,7 +994,7 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 .$htmlPropDefault."\n"
                 ."\n"
                 ;
-    		;
+            ;
         } // switch
         echo '</div>';
     } // else

@@ -35,7 +35,7 @@ event_access_tool($_tid, $_courseTool['label']);
 
 include($includePath."/lib/fileUpload.lib.php");
 include($includePath."/lib/fileDisplay.lib.php"); // need format_url function
-include($includePath."/lib/fileManage.lib.php"); // need my_delete
+include($includePath."/lib/fileManage.lib.php"); // need claro_delete_file
 
 // use viewMode
 claro_set_display_mode_available(true);
