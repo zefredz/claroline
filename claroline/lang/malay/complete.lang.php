@@ -208,9 +208,9 @@ $langChat = "Perbincangan";
 $langCheckDatabase = "Check main database";
 $langCheckDatabase = "Periksa Pangkalan Data Utama";
 $langChoice = "Pilihan anda";
+$langChooseFile = "Pilih Fail";
 $langChooseGoodAnswer = "Please choose a good answer";
 $langChooseGoodAnswers = "Please choose one or more good answers";
-$langChoseFile = "Pilih Fail";
 $langClarContent = "eLearning@kukum membenarkan pensyarah membina dan menguruskan laman subjek. Manakala para pelajar pula boleh melihat dan membaca (Dokumen, Agenda dan pelbagai maklumat) membuat latihan, menghantar tugasan, menyertai perbincangan forum.</p><b>Daftar</b><p><br>Jika anda seorang pelajar dan masih belum mendaftar, sila pilih status 'Pelajar', kemudian pilih subjek yang didaftarkan oleh anda untuk semester semasa.</p>
 <p>Jika anda seorang pensyarah, anda juga perlu mendaftar dengan memilih status 'Pensyarah' dan mengisi borang mencipta laman subjek. Apabila pendaftaran anda sah, anda dapat mencapai laman subjek yang telah dibina dan anda mempunyai capaian untuk mengubahsuai kandungan berdasarkan keperluan anda.</p>
 <p>Pautan 'Aduan dan Cadangan' memberi kemudahan kepada anda untuk membuat aduan atau cadangan kepada pentadbir sistem.</p>

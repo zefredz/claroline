@@ -215,9 +215,9 @@ $langChat = "Razprava";
 $langCheckDatabase = "Preveri glavno podatkovno bazo";
 $langCheckDatabase = "Preverjanje glavne podatkovne baze";
 $langChoice = "Tvoja izbira";
+$langChooseFile = "Izberi datoteko";
 $langChooseGoodAnswer = "Izberi dober odgovor";
 $langChooseGoodAnswers = "Izberi enega ali vec dobrih odgovorov";
-$langChoseFile = "Izberi datoteko";
 $langClarContent = "Tu lahko ucitelji in njihovi asistenti tvorijo in upravljajo
  spletne strani tecajev. Studentje berejo (dokumente, agende, informacije) in vcasih
 izvajajo vaje, objavljajo svoje izdelke, sodelujejo v razpravah (forumih)...</p>

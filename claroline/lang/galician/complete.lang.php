@@ -210,9 +210,9 @@ $langChat = "Debate";
 $langCheckDatabase = "Comprobar a base de datos principal";
 $langChoice = "A s&uacute;a elecci&oacute;n";
 $langChoice = "A t&uacute;a selecci&oacute;n";
+$langChooseFile = "Seleccionar arquivo";
 $langChooseGoodAnswer = "Elixa a resposta correcta";
 $langChooseGoodAnswers = "Elija unha ou varias respostas correctas";
-$langChoseFile = "Seleccionar arquivo";
 $langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e administrar
 webs de cursos. Os estudiantes len (documentos, axenda, informaci&oacute;ns varias) e,
 outras veces, fan exercicios, publican traballos, participan en discusi&oacute;ns de grupos...

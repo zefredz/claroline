@@ -197,9 +197,9 @@ $langChat = "Chat";
 $langChat = "Diskusi";
 $langCheckDatabase = "Periksa database utama";
 $langChoice = "Pilihan Anda";
+$langChooseFile = "Pilih file";
 $langChooseGoodAnswer = "Silahkan pilih sebuah jawaban yang tepat";
 $langChooseGoodAnswers = "Silahkan pilih satu atau lebih jawaban yang tepat";
-$langChoseFile = "Pilih file";
 $langClarContent = "Disini pengajar dan asisten membuat dan mengelila situs pelajaran. Siswa membaca (dokumen, agenda, informasi) dan,
  kadang, mengerjakan latihan, mem-publis paper, berpartisipasi dalam forum diskusi...</p><b>Pendaftaran</b><p>Instruksi berikut berlaku jika setting claroline mengijinkan pendaftaran sendiri/self-registration (beberapa situs meregister secara otomatis). <br>Jika anda siswa, anda hanya perlu mendaftar dengan memilih 'Ikut Pelajaran (siswa)', kemudian pilih pelajaran yang ingin diikuti.</p><p>Jika anda pengajar atau asisten, mendaftar juga, tetapi pilih 'Buat situs pelajaran (pengajar)'. Anda kemudian diminta untuk mengiisi borang tentang Kode Pelajaran, Fakultas/Jurusan dan Nama Pelajaran. Begitu selesai, anda akan dibawa ke situs yang baru saja anda buat dan disini anda dapat mengubah isi dan organisasinya sesuai kebutuhan. </p><p>Pilihan 'To do' adalah untuk menampung masukan  untuk administrator claroline.
  Hal-hal yang dapat di-posting-kan misalnya terjadinya error dan saran-saran pengembangan. Daftar 'To do' terhubung ke situs Home Page kampus (begitu

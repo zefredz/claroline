@@ -331,9 +331,9 @@ $langCheckDatabase = "Revisar base de datos";
 $langCheckDatabase = "Revisar la base de datos principal";
 $langChoice = "Tú elección";
 $langChoice = "Tu selecci&oacute;n";
+$langChooseFile = "Seleccionar archivo";
 $langChooseGoodAnswer = "Elija la respuesta correcta";
 $langChooseGoodAnswers = "Elija una o varias respuestas correctas";
-$langChoseFile = "Seleccionar archivo";
 $langClarContent = "Aqu&iacute;, los profesores y ayudantes pueden crear y administrar
 webs de cursos. Los estudiantes leen (documentos, agenda, informaciones varias) y,
 otras veces, hacen ejercicios, publican trabajos, participan en discusiones de grupos...

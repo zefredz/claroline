@@ -302,9 +302,9 @@ $langCheckDatabase = "Verificar Banco de dados";
 $langCheckDatabase = "Verificar banco de dados principal";
 $langCheckDatabase = "Verificar o banco de dados principal";
 $langChoice = "Sua escolha";
+$langChooseFile = "Selecionar arquivo";
 $langChooseGoodAnswer = "Por favor escolha uma boa resposta";
 $langChooseGoodAnswers = "Por favor escolha uma ou mais boas respostas";
-$langChoseFile = "Selecionar arquivo";
 $langClarContent = "Aqui, professores e assitentes criam e administram websites
  de cursos. Estudantes leêm (documentos, agendas, informações diversas) e,
  as vezes, fazem exercícios, publicam trabalhos, participam de fóruns de

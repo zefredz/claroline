@@ -98,7 +98,7 @@ $langCatagoryMain="Huvud";
 $langChat="Chatt";
  
 $langAddNewCourse="Lägg till en ny kurs";
-$langChoseFile="Välj fil";
+$langChooseFile="Välj fil";
 $langDepartment="Avdelning";
 $langDepartmentUrl="URL";
 $langDescription="Beskrivning";

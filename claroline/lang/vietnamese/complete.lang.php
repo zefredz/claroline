@@ -195,9 +195,9 @@ $langChat = "Thảo luận";
 $langCheckDatabase = "Kiểm tra CSDL chính";
 $langCheckDatabase = "Liểm tra CSDL chính";
 $langChoice = "Lựa chọn của bạn";
+$langChooseFile = "Select file";
 $langChooseGoodAnswer = "Chọn câu trả lời đúng";
 $langChooseGoodAnswers = "Chọn một hay nhiều câu trả lời đúng";
-$langChoseFile = "Select file";
 $langClarContent = "Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and,
  sometimes, make exercises, publish papers, participate to
@@ -276,8 +276,8 @@ $langCreateANewCourseNow = "créer un nouveau cours à partir de cette archive";
 $langCreateClaroTables = "Create Table for main Database";
 $langCreateDir = "Tạo thư mục";
 $langCreateMissingDirectories = "Creation of missing directories";
-$langCreateSite = "Tạo một Website cho khoá học mới ";
 $langCreateSite = "Tạo một website cho khoá học mới";
+$langCreateSite = "Tạo một Website cho khoá học mới ";
 $langCreatedIn = "created in";
 $langCreatedIn = "tạo trong";
 $langCreationDate = "Created";

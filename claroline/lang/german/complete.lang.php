@@ -323,8 +323,8 @@ $langAntique = "Geschichte der alten Philosophie";
 $langAppliedChange = "Die Änderungen der Benutzer-Einstellungen wurden durchgeführt";
 $langArchive = "Archiv";
 $langArchive = "archiviert";
-$langArchiveCourse = "Kurs Backup ";
 $langArchiveCourse = "Kurs Backup";
+$langArchiveCourse = "Kurs Backup ";
 $langArchiveLocation = "Archiv Ablage";
 $langArchiveLocation = "Archivablage";
 $langArchiveName = "Archivname";
@@ -410,9 +410,9 @@ $langCheckDatabase = "Datenbank checken";
 $langCheckDatabase = "Datenbank prüfen";
 $langCheckDatabase = "Haupt-Datenbank überprüfen";
 $langChoice = "Wählen Sie aus";
+$langChooseFile = "Datei auswählen";
 $langChooseGoodAnswer = "Wählen Sie eine richtige Antwort";
 $langChooseGoodAnswers = "Wählen sie eine oder mehrere richtige Antworten";
-$langChoseFile = "Datei auswählen";
 $langClarContent = "Hier können Tutoren/Dozenten Kurswebsites einstellen, ändern und löschen. Teilnehmer können lesen (Dokumente, Themen, Termine, diverse Informationen) und teilweise, Test durchführen, Unterlagen veröffentlichen, an Diskussionsforen teilnehmen...</p><b>Registrierung</b><p>Sollten Sie ein Teilnehmer sein, können Sie dem Kurs beitreten, indem Sie den Meunuepunkt 'zu den Kursen (Teilnehmer)' auswählen, anschließend wählen Sie die Kurse aus, die Sie belegen möchten.</p>
 <p>Sind Sie ein Tutor/Dozent, können Sie sich auch registrieren lassen. Sie wählen jedoch 'Kurse anlegen (Tutor/Dozent)'. Daraufhin müssen Sie ein Formular ausfüllen, in dem Sie den Kurs-Code, die Kategorie und den  Kurstitel definieren. Wenn diese Eingaben bestätigt sind, werden Sie zur Kursseite weitergeleitet und es wird Ihnen ermöglicht, den Inhalt entsprechend Ihren Wünsche zu verändern. </p>
 <p>Wenn dieses System nicht Ihren Ansprüchen gerecht wird, lassen Sie es uns bitte über die 'To do' Liste wissen. Sie ist auf der Homepage des Systems (sobald sie eingelogged sind) zu finden.</p>

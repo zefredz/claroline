@@ -1,6 +1,6 @@
 <?php # $Id$
 
-$langNoQuota = "Pas de Quota";
+$langNoQuota = "No quota";
 $langTechAdmin = "Administration technique";
 $langAdministration = "Administration";
 $langCourses = "Courses";

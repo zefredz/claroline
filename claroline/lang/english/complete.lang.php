@@ -338,9 +338,9 @@ $langCheckDatabase = "Check database";
 $langCheckemail = "Email verification";
 $langChoice = "Your choice";
 $langChooseDateHelper = "(d/m/y hh:mm)";
+$langChooseFile = "Select file";
 $langChooseGoodAnswer = "Please choose a good answer";
 $langChooseGoodAnswers = "Please choose one or more good answers";
-$langChoseFile = "Select file";
 $langClarContent = "Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and,
  sometimes, make exercises, publish papers, participate to
@@ -1314,7 +1314,7 @@ $langNoMoreModuleToAdd = "All modules of this course are already used in this le
 $langNoPost = "No Post";
 $langNoPsychology = "No. Socratic irony is not a matter of psychology, it concerns argumentation.";
 $langNoQuestion = "There is no question for the moment";
-$langNoQuota = "Pas de Quota";
+$langNoQuota = "No quota";
 $langNoRegisteredCourses = "No stats to show.  You haven't register any course.";
 $langNoResult = "No Result";
 $langNoResultYet = "There is no result yet";
@@ -1327,7 +1327,6 @@ $langNoUserResult = "No user to display";
 $langNoUserSelected = "No user selected!";
 $langNomPageAddHtPass = "Admin users management";
 $langNomPageDevIndex = "Devel Tools";
-$langNone = "(None)";
 $langNone = "None";
 $langNormalUser = "Normal";
 $langNotAllowed = "Not allowed";
