@@ -1,9 +1,12 @@
-<?php // $id$
+<?php // $Id$
 
 $langFile = "chat";
 $tlabelReq = "CLCHT___";
 
 require '../inc/claro_init_global.inc.php'; 
+
+if ( !$_cid ) claro_disp_select_course();
+if ( ! $is_courseAllowed )	claro_disp_auth_form();
 
 $nameTools  = $langChat;
 
