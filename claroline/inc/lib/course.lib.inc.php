@@ -507,4 +507,103 @@ function langageExist()
 
 	return $arrayLangage;
 }
+
+
+/**
+  * build the <option> element with categories where we can create/have courses
+  *
+  * @param the code of the preselected categorie
+  * @param the separator used between a cat and its paretn cat to display in the <select> 
+  * @return echo all the <option> elements needed for a <select>. 
+  * 
+  */
+
+
+function BuildEditableCatTable($selectedCat = null, $separator = "&gt;")
+{
+	global $TABLECOURSDOMAIN;
+	 
+	$result = mysql_query_dbg("SELECT *
+                              FROM `".$TABLECOURSDOMAIN."`                              
+			      ORDER BY `name`");
+			      
+	// first we get the categories available in DB from the SQL query result in parameter	
+	
+		
+	while ($myfac = mysql_fetch_array($result))
+	{
+		$categories[$myfac["code"]]["code"]   = $myfac["code"];
+		$categories[$myfac["code"]]["parent"] = $myfac["code_P"];
+		$categories[$myfac["code"]]["name"]   = $myfac["name"];
+		$categories[$myfac["code"]]["childs"] = $myfac["canHaveCoursesChild"];
+	}
+	
+		
+	// then we build the table we need : full path of editable cats in an array
+	
+	$tableToDisplay = array();
+	echo "<select name =\"faculte\" id=\"faculte\">\n";	
+	foreach ($categories as $cat)
+	{
+		if ($cat["childs"]=="TRUE") 
+		{ 
+			
+			echo "<option value=\"".$cat["code"]."\"";
+			if ($cat["code"]==$selectedCat) echo " selected ";
+			echo ">";
+			$tableToDisplay[$cat["code"]]= $cat;
+			$parentPath  = getFullPath($categories, $cat["code"], $separator);
+			 
+			$tableToDisplay[$cat["code"]]["fullpath"] = $parentPath;
+			echo "(".$tableToDisplay[$cat["code"]]["fullpath"].") ".$cat["name"];
+			echo "</option>\n";
+		}
+	}
+	echo "</select>\n";
+	
+	return $tableToDisplay;
+}
+
+/**
+  * Recursive function to get the full categories path of a specified categorie
+  *
+  * @param table of all the categories, 2 dimension tables, first dimension for cat codes, second for names, 
+  *  parent's cat code. 
+  * @param the categorie we want to have its full path from root categorie
+  * 
+  * 
+  */
+
+ 
+function getFullPath($categories, $catcode = null, $separator = " &gt; ")
+    {      
+      //Find parent code
+      
+      $parent = null;
+      
+      foreach ($categories as $currentCat)
+      {
+        if (( $currentCat['code'] == $catcode))
+        {
+	  $parent = $currentCat['parent'];  
+        }
+      }
+            
+      // RECURSION : find parent categorie in table
+            
+      if ($parent == null)
+      { 
+      	return $catcode;
+      }
+      
+      foreach ($categories as $currentCat)
+      {
+        if (($currentCat['code'] == $parent))
+        {
+	  return getFullPath($categories, $parent, $separator).$separator.$catcode;
+          break;
+        }
+      }
+    }
+
 ?>
