@@ -482,6 +482,7 @@ $langDefineOptions = "Please define the options";
 $langDelAdmin = "Remove this through the forum admin tool";
 $langDelCourse = "Delete the whole course website";
 $langDelCourseStats = "Delete all course statistics";
+$langDelCourseStatsDone = "Course statistics deleted";
 $langDelImage = "Remove picture";
 $langDelete = "Delete";
 $langDeleteAttachedFile = "Delete attached file";
