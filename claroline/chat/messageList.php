@@ -110,11 +110,6 @@ if ( ! file_exists($activeChatFile))
 	
   $dateLastWrite = $langNewChat;
 }
-else
-{
-  $dateLastWrite = $langDateLastWrite
-                  .date( 'F d Y H:i:s.', filemtime($activeChatFile) );
-}
 
 
 
@@ -215,6 +210,11 @@ if ($chatLine)
                               DISPLAY MESSAGE LIST
  ============================================================================*/
 
+if ( !$dateLastWrite )
+{
+  $dateLastWrite = $langDateLastWrite
+                  .strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
+}
 
 
 // WE DON'T SHOW THE COMPLETE MESSAGE LIST.
@@ -287,3 +287,4 @@ function buffer($content, $tmpFile)
     $fp = fopen($tmpFile, 'a');
     fwrite($fp, $content);
 }
+?>
