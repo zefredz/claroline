@@ -81,7 +81,7 @@ function get_total_topics($forum_id)
  */
 function get_whosonline($IP, $username, $forum, $db)
 {
-	global $sys_lang, $tbl_whosonline;
+	global $sys_lang, $tbl_whosonline, $l_guest;
 
 	if($username == '') $username = $l_guest;
 
