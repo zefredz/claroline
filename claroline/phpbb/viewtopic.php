@@ -44,7 +44,13 @@ $sql = "SELECT 	`f`.`forum_name`   `forum_name`,
          AND  `t`.`topic_id` = '".$topic."'
          AND  `t`.`forum_id` = f.forum_id    ";
 
-list($forumSettingList) = claro_sql_query_fetch_all($sql);
+$forumSettingList = claro_sql_query_fetch_all($sql);
+
+if ( count($forumSettingList) == 1) $forumSettingList = $forumSettingList[0];
+else    error_die('The forum you are attempting to see to does not exist.');
+
+
+
 
 /* 
  * Check if the topic isn't attached to a group,  or -- if it is attached --, 

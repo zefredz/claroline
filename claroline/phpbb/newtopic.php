@@ -27,32 +27,34 @@ error_reporting  (E_ERROR | E_WARNING | E_PARSE); // This will NOT report uninit
 
 if($cancel)
 {
-	header("Location: viewforum.php?forum=$forum");
+	header('Location: viewforum.php?forum='.$forum);
 	exit();
 }
 
-include('functions.php');
-include('config.php');
-require('auth.php');
-$pagetitle = "New Topic";
-$pagetype = "newtopic";
+include 'functions.php';
+include 'config.php';
+require 'auth.php';
+
+$pagetitle = 'New Topic';
+$pagetype =  'newtopic';
 
 $userFirstName = $_user['firstName'];
 $userLastName  = $_user['lastName' ];
 
-$sql = "
-SELECT 	`f`.`forum_name` forum_name,
-		`f`.`forum_access` forum_access,
-		`f`.`forum_type` forum_type,
-		`g`.`id`	`idGroup`,
-		`g`.`name` 	`nameGroup`
+$sql = "SELECT  `f`.`forum_name`   `forum_name`,
+                `f`.`forum_access` `forum_access`,
+                `f`.`forum_type`   `forum_type`,
+                `g`.`id`           `idGroup`,
+                `g`.`name`         `nameGroup`
 	FROM `".$tbl_forums."` `f`
+
+    # Check possible attached group ..
 	LEFT JOIN `".$tbl_student_group."` `g`
-		ON `f`.`forum_id` = `g`.`forumId`
+		   ON `f`.`forum_id` = `g`.`forumId`
+
 	WHERE `f`.`forum_id` = '".$forum."'";
 
-if(!$result = mysql_query($sql, $db))
-	error_die("Can't get forum data.");
+$result = claro_sql_query($sql);
 
 if(!$myrow = mysql_fetch_array($result,MYSQL_ASSOC))
 	error_die("The forum you are attempting to post to does not exist. Please try again.");
