@@ -1,4 +1,5 @@
 <?php // $Id$
+
 /*
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.5.
@@ -41,10 +42,6 @@ $langConfTip="By default, your course is accessible to everybody. If you want so
 the simplest way is to open registration during
 one week, ask the students to register themselves, then close registration and check for possible intruders in the user list.";
 $langTipLang="This language will be valid for every visitor of your course's website.";
-$langIntroCourse="You are on the course home page.<br><br>On this page, you can :
-<li class=HelpText>activate or desactivate tools (click on the '".$langEditToolList."' button at bottom left).
-<li class=HelpText>change settings or view statistics (click on corresponding links at bottom).<BR><BR>
-Now, to add an introduction text presenting your course to students, click on this button ";
 
 // Change Home Page
 $langEditToolList="Edit Tool list";
@@ -53,6 +50,10 @@ $langStats="Statistics";
 $langUplPage="Upload page and link to Homepage";
 $langLinkSite="Add link on Homepage";
 $langVid="Video";
+$langIntroCourse="You are on the course home page.<br><br>On this page, you can :
+<li class=HelpText>activate or desactivate tools (click on the '".$langEditToolList."' button at bottom left).
+<li class=HelpText>change settings or view statistics (click on corresponding links at bottom).<BR><BR>
+Now, to add an introduction text presenting your course to students, click on this button ";
 
 
 
