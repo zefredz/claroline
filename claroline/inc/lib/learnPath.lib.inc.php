@@ -316,7 +316,7 @@
      function selectImage($contentType)
      {
 
-          $imgList[CTDOCUMENT_] = "documents.gif";
+          $imgList[CTDOCUMENT_] = "document.gif";
           $imgList[CTCLARODOC_] = "clarodoc.gif";
           $imgList[CTEXERCISE_] = "quiz.gif";
           $imgList[CTSCORM_] = "scorm.gif";
