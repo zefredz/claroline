@@ -101,7 +101,7 @@ else
  */
 
 
-if ( defined('LANGMODE') && LANGMODE == 'TRANSLATION')
+if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION')
 {
  
     // include the language file with all language variables
