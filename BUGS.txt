@@ -107,6 +107,7 @@ cliquant sur ... Dans PMA j'avais ca. et C'est bien pratique pour gerer les
 lustucrus (inscription multiples, cours multiples)
 
 Repéré par : MOOSH
+Guim dit: voir avec Hugues ...
 
 ------------------------------------------------------------------
 14.  admincats.  refresh après insert -> erreur
@@ -115,7 +116,7 @@ Repéré par : MOOSH
 
 insert into `CL150RC1Main`.`faculte` (name,code,bc,nb_childs,canHaveCoursesChild,canHaveCatChild,treePos,code_P)
                                         values ('tzrthrth','rzthtr',NULL,'0','TRUE','TRUE','14','EDITME')
-
+Etat : RESOLU (recherche ds la db d'abord avant création et message d'erreur affiché à la place si la cat existe déjà)
 ------------------------------------------------------------------
 15. le chat  crée à l'utilisation encore  un fichier dans le rep /claroline/chat/
 et j'ai pas trouvé où il le crée
@@ -157,16 +158,14 @@ type : ortho
 quoi : "Les packages importés doivent consisté être des fichiers zip et répondre à la norme SCORM 1.2"
 phrase pas franchaise
 Repéré par : M
-Assigné à : SEB
-Etat : RESOLU (revision 1.2 du fichier langue fr des learnPath)
+Assigné à : 
 
 Etat : New ------------------------------------------------------
 M.20. /claroline/learnPath/learningPathList.php?cmd=create
 type : html
 quoi : la liste des parcours semble être un form... sans submit ?
 Repéré par : M
-Assigné à : SEB
-Etat : RESOLU (deprecated part of the deprecated change order form)
+Assigné à : 
 
 Etat : New ------------------------------------------------------
 M.21 http://127.0.0.1/c/cvs.claroline.net/c150rc1.trakbugs/claroline/learnPath/insertMyModule.php?check_1=on&cmdglobal=add
@@ -225,8 +224,8 @@ Assigné à :
 
 -------------
 $Log$
-Revision 1.31  2004/06/16 07:05:48  seb
-19 et 20 résolus
+Revision 1.32  2004/06/16 08:08:29  guillaume
+*** empty log message ***
 
 Revision 1.30  2004/06/16 06:29:08  moosh
 bugs 19 à 25
