@@ -314,7 +314,7 @@ foreach($toolList as $thisTool)
     }
     else
     {
-    	$icon = $imgRepository.'external.gif'; // default icon if none defined
+    	$icon = $imgRepository.'tool.gif'; // default icon if none defined
     }
 
     if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])

@@ -125,7 +125,7 @@ foreach($toolList as $thisTool)
     }
     else
     {
-    	$icon = $imgRepository.'external.gif';
+    	$icon = $imgRepository.'tool.gif';
     }
 
     if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])
