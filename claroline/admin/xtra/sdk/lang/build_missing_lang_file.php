@@ -118,27 +118,45 @@ if (isset($_REQUEST['language']))
 	
 		// get the different variables 
 
-    	$sql = " SELECT DISTINCT u.varName
-	         FROM ". $tbl_used_lang . " u 
-	         LEFT JOIN " . $tbl_translation . " t ON 
-	         (
-	            u.varName = t.varName 
-	            AND t.language=\"" . $language . "\"
-	         ) 
-	         WHERE t.varContent is NULL
-             ORDER BY u.varName";
+		if ($language == DEFAULT_LANGUAGE ) 
+		{
+	    	$sql = " select distinct u.varName 
+		         from ". $tbl_used_lang . " u 
+	    	     left join " . $tbl_translation . " t on 
+	        	 (
+	            	u.varname = t.varname 
+		            and t.language=\"" . $language . "\"
+		         ) 
+	    	     where t.varcontent is null
+            	 order by u.varname";
+		} 
+		else
+		{
+    		$sql = " select distinct u.varName, t1.varFullContent 
+	        	 from " . $tbl_translation . " t1,   ". $tbl_used_lang . " u 
+		         left join " . $tbl_translation . " t2 on 
+		         (
+	    	        u.varname = t2.varname 
+	        	    and t2.language=\"" . $language . "\"
+		         ) 
+		         where t2.varcontent is null and 
+					   t1.language = '" . DEFAULT_LANGUAGE . "' and
+					   t1.varName = u.varName
+	             order by u.varname";
+		}
 	
 		$result = mysql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
 	         
 		if ($result) 
 		{
 		    $languageVarList = array();
-	
-		    while ($row=mysql_fetch_array($result))
-		    {
-		        $thisLangVar['name'   ] = $row['varName'       ];
-		        $languageVarList[] = $thisLangVar;
-		    }
+
+	    	while ($row=mysql_fetch_array($result))
+	    	{	
+	        	$thisLangVar['name'   ] = $row['varName'       ];
+				$thisLangVar['content'] = $row['varFullContent'];
+	        	$languageVarList[] = $thisLangVar;
+	    	}
 		}
 	
 		chdir ($languagePath);
@@ -155,7 +173,16 @@ if (isset($_REQUEST['language']))
 		
 		    foreach($languageVarList as $thisLangVar)
 		    {
-		        $string = '$' . $thisLangVar['name'] . ' = "";' . "\n";
+				$varContent = $thisLangVar['content'];
+				
+                // addslashes not back slashes double quote
+                $varContent = preg_replace('/([^\\\\])"/', '\\1\\"', $varContent);
+
+                // addslashes before $
+                $varContent = preg_replace('/\$/','\\\$', $varContent);
+
+                $string = '$'.$thisLangVar['name'].' = "'.$varContent."\";\n";
+
 		        fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
 		    }
 	
