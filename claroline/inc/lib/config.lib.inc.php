@@ -4,11 +4,11 @@
  */
 
 /**
- * function claro_undist_file ($file)
  * @return wether the success
  * @param $file string path to file
  * @desc find config file if not exist get the '.dist' file and rename it
  * @author Benoit
+ * @version  claroline 1.5
  */
 function claro_undist_file ($file) 
 {
@@ -41,10 +41,10 @@ function claro_undist_file ($file)
 }
 
 /**
- * function trueFalse($booleanState)
  * @return the boolean value as string
  * @param $booleanState boolean
- * @author Moosh
+ * @author Christophe Gesché moosh@claroline.net
+ * @version  claroline 1.4
  */
 function trueFalse($booleanState)
 {
@@ -52,7 +52,6 @@ function trueFalse($booleanState)
 }
 
 /**
- * function replace_var_value_in_conf_file ($varName,$value,$file)
  * @return wether the success
  * @param $varName name of the variable
  * @param $value new value of the variable
@@ -176,10 +175,10 @@ function cleanwritevalue($string)
 
 /**
  * read_param_value_in_buffer()
- * 
- * @author moosh moosh@claroline.net
+ * @author Christophe Gesché moosh@claroline.net
  * @param $config_code id of def file correcponding to data to found
  * @return an array containning name and value of properties.
+ * @version  claroline 1.6
  **/
 function read_param_value_in_buffer($config_code)
 {
@@ -193,12 +192,11 @@ function read_param_value_in_buffer($config_code)
 };
 
 /**
- * function getToolList()
- * 
- * @author moosh moosh@claroline.net
+ * @author Christophe Gesché moosh@claroline.net
  * @param none
  * @return an array containing name and value of properties.
- **/
+ * @version  claroline 1.6
+**/
 function getToolList()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -217,11 +215,14 @@ function getToolList()
 }
 
 /**
- * function countPropertyInDb()
- * 
- * @author moosh moosh@claroline.net
- * @param $config_code string id of config to count properties
- * @return interger qty of property stored in db for this config
+ * @desc     count the quantity of value are link to a config in the db buffer
+ * @author   Christophe Gesché moosh@claroline.net
+ * @param    $config_code string id of config to count properties
+ * @return   integer qty of property stored in db for this config
+ * @version  claroline 1.6
+ * @internal $tbl_mdb_names        = claro_sql_get_main_tbl();
+ * @internal $tbl_config_property  = $tbl_mdb_names['config_property'];
+ * @internal $confFile             = claro_get_conf_file($config_code);
  **/
 function countPropertyInDb($config_code)
 {
@@ -251,14 +252,27 @@ function countPropertyInDb($config_code)
     return $valueFromTblConf[0];
 }
 
+/**
+ * @desc     count the quantity of value are link to a config in the db buffer
+ * @author   Christophe Gesché moosh@claroline.net
+ * @param    $config_code string id of config to count properties
+ * @return   integer qty of property stored in db for this config
+ * @version  claroline 1.6
+ * @internal $tbl_mdb_names        = claro_sql_get_main_tbl();
+ * @internal $tbl_config_property  = $tbl_mdb_names['config_property'];
+ * @internal $confFile             = claro_get_conf_file($config_code);
+ **/
 function lastConfUpdate($config_code)
 {
     global $includePath;
-    $confFile = realpath($includePath).claro_get_conf_file($config_code);
+    $confFile = claro_get_conf_file($config_code);
     if(file_exists($confFile))
     {
         include ($confFile);
         $genDateVarName = $config_code.'GenDate';
+        // on generation of configFile $[config_code]GenDate is set to 
+        // the timestamp of last change properties in the buffer
+        // if a value was chang since; the sql count it
         $tbl_mdb_names   = claro_sql_get_main_tbl();
         $tbl_config_property      = $tbl_mdb_names['config_property'];
         $sqlGetPropertyValues = 'SELECT unix_timestamp(`lastChange`) `lastChange`
@@ -271,12 +285,11 @@ function lastConfUpdate($config_code)
     return $valueFromTblConf[0]['lastChange'];
 }
 
-/** config_checkToolProperty($propValue, $propertyDef)
- *
+/** 
  * @param    $propValue mixed value to check with condition of definition bloc
  * @param    $propertyDef array containing rules to validate a propertyValue.
  * @return   boolean State of validity 
- * @author   moosh
+ * @author   Christophe Gesché moosh@claroline.net
  * @internal $is_validValue boolean flag to record stat of validity
  * @version  claroline 1.6
  * @desc     check the validity of a config value.
@@ -354,6 +367,16 @@ function config_checkToolProperty($propValue, $propertyDef)
     return $is_validValue;
 }
 
+/**
+ * @desc    return the complete path and name of the config file of a given $config_code
+ *
+ * @param   $config_code string the config code to process
+ * @return  the name of the config file (with complete path)
+ *
+ * @author  Christophe Gesché moosh@claroline.net
+ * @example claro_get_conf_file('CLCAL');
+ * @version  claroline 1.6
+ */
 function claro_get_conf_file($config_code)
 {
    global $includePath;
@@ -366,21 +389,50 @@ function claro_get_conf_file($config_code)
        $confFile = realpath($includePath.'/conf/').'/'.$conf_def['config_file'];
    }
    else
-   // ici il faut voir si cela a du sens
-   // cela veut dire que le fichier de déf ne défini pas le fichier de config.
-   // ca ne pose pas de problème à priori puisque 
+   // the sense of this "else" would be re-evalued
+   // Like this that mean that 
+   // if the config filenane is not defined by the definition file of the config
+   // they take the form [config_code].conf.php
+   // That dont must cause error as
    // 1 config_code = 1 def_file
    // 1 def_file    = 1 conf_file
+   // be careful that actually config file for course tools are
+   // have the form [tool_label].conf.php
+   // instead of    [config_code].conf.php 
+   // tool_label is frequently = str_pad($config_code,8'_')
    {
        $confFile = realpath($includePath.'/conf/').'/'.$config_code.'.conf.php';
    }
    return $confFile;
 }
 
+/**
+ * @desc    create the config file based  on given config_code
+ *
+ * @param   $config_code string the config code to process
+ * @return  the result of touch function during  file creation
+ *
+ * @author  Christophe Gesché moosh@claroline.net
+ * @example claro_create_conf_filename('CLCAL');
+ * @version  claroline 1.6
+ */
+
 function claro_create_conf_filename($config_code)
 {
    return touch(claro_get_conf_file($config_code));
 }
+
+/**
+ * @desc    return a name of a given $claro_label for pure text output. 
+ *
+ * @param   $claro_label  string the claro_label of tool
+ * @return  the result of touch function during  file creation
+ *
+ * @author  Christophe Gesché moosh@claroline.net
+ * @example get_tool_name('CLCAL___');
+ * @global  $toolNameList array with localised names of courses tools
+ * @version  claroline 1.6
+ */
 
 function get_tool_name($claro_label)
 {
@@ -388,6 +440,16 @@ function get_tool_name($claro_label)
     return (isset($toolNameList[$claro_label])?$toolNameList[$claro_label]:$claro_label);
 }
 
+/**
+ * @desc    return a name of a given $config_code for pure text output. 
+ *
+ * @param   $config_code  string the config_code of configuration.
+ * @return  string  a plain text to output as name of configuration
+ *
+ * @author  Christophe Gesché moosh@claroline.net
+ * @example get_config_name('CLCAL');
+ * @version  claroline 1.6
+ */
 function get_config_name($config_code)
 {
     unset($conf_def);
@@ -426,6 +488,18 @@ function get_conf_info($config_code)
     $conf_info[0]['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config_code))&&$conf_info[0]['config_hash'] != md5_file(claro_get_conf_file($config_code)));
     return $conf_info[0];
 }
+
+/**
+ * @desc    return a name of a given $claro_label for pure text output. 
+ *
+ * @param   $claro_label  string the claro_label of tool
+ * @return  the result of touch function during  file creation
+ *
+ * @author  Christophe Gesché moosh@claroline.net
+ * @example get_tool_name('CLCAL___');
+ * @global  $includePath 
+ * @version  claroline 1.6
+ */
 
 function claro_get_def_file($config_code)
 {
@@ -487,6 +561,7 @@ function get_conf_list()
         $conf_list[$config['config_code']] = $config;
     return  $conf_list;
 }
+
 
 function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile,$generatorFile=__FILE__)
 {
