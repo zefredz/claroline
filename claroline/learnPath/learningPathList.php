@@ -65,7 +65,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
   // statistics
   include($includePath."/lib/events.lib.inc.php");
-  event_access_tool($langLearningPath);
+  event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
 
   $htmlHeadXtra[] =
