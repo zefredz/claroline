@@ -3,7 +3,7 @@
 +----------------------------------------------------------------------+
 | CLAROLINE 1.6
 +----------------------------------------------------------------------+
-| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+| Copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)      |
 +----------------------------------------------------------------------+
 |   This program is free software; you can redistribute it and/or
 |   modify it under the terms of the GNU General Public License
@@ -274,7 +274,7 @@ if($is_allowedToEdit)
 			{
 ?>
 
-	<a href="<?php echo $phpSelf; ?>?recup=<?php echo $row[id]; ?>&fromExercise=<?php echo $fromExercise; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?recup=<?php echo $row[id]; ?>&fromExercise=<?php echo $fromExercise; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
 
 <?php
 			}
