@@ -59,7 +59,9 @@ if(!is_array($exerciseResult) || !is_array($questionList) || !is_object($objExer
 	die($langExerciseNotFound);
 }
 
-$exerciseTitle=$objExercise->selectTitle();
+$exerciseTitle		= $objExercise->selectTitle();
+$showAnswers 		= $objExercise->get_show_answer();
+$exerciseMaxTime 	= $objExercise->get_max_time();
 
 $nameTools=$langExercice;
 
@@ -67,7 +69,6 @@ $nameTools=$langExercice;
 if (isset($_SESSION['exeStartTime']))
 {
 	$timeToCompleteExe =  time() - $_SESSION['exeStartTime'];
-	unset($_SESSION['exeStartTime']);
 }
 
 // deal with the learning path mode
@@ -112,35 +113,44 @@ else                                        // normal exercise mode
 
 	$i=$totalScore=$totalWeighting=0;
 	
-	// check if answers have to be shown
-	// get the property of show answers
-	$showAnswers = $objExercise->get_show_answer();
-	if ( $showAnswers == 'ALWAYS' )
+	// check if max allowed time has been respected 
+	if ( $exerciseMaxTime > 0 && $exerciseMaxTime < $timeToCompleteExe )  
 	{
-		$displayAnswers = true;
-	}
-	elseif( $showAnswers == 'LASTTRY' )
-	{
-		// count user tries 
-		$sql="SELECT count(`exe_result`) AS `triesQty`
-	     		FROM `$TBL_TRACK_EXERCISES`
-   	   			WHERE `exe_user_id` = '$_uid'
-				  AND `exe_exo_id` = ".$objExercise->selectId()."
-				GROUP BY `exe_user_id`";
-		$result = claro_sql_query_fetch_all($sql);
-		
-		$displayAnswers = $objExercise->get_max_tries() <= $result[0]['triesQty'] + 1;
-	}
-	elseif( $showAnswers == 'ENDDATE' )
-	{
-		// check if current date is after enddate property of th exercise
-		// TODO : must be coded -_-
+		$displayAnswers 	= false;
+		$displayScore 		= false;
 	}
 	else
 	{
-		// $showAnswers == 'NEVER'
-		$displayAnswers = false;
-	}
+		$displayScore = true;
+		// always display score except if the 
+		// check if answers have to be shown
+		if ( $showAnswers == 'ALWAYS' )
+		{
+			$displayAnswers = true;
+		}
+		elseif( $showAnswers == 'LASTTRY' )
+		{
+			// count user attempts 
+			$sql="SELECT count(`exe_result`) AS `tryQty`
+	     			FROM `$TBL_TRACK_EXERCISES`
+   	   				WHERE `exe_user_id` = '$_uid'
+				  	AND `exe_exo_id` = ".$objExercise->selectId()."
+					GROUP BY `exe_user_id`";
+			$result = claro_sql_query_fetch_all($sql);
+			$userTryQty = $result[0]['tryQty']+1;
+			$displayAnswers = $objExercise->get_max_attempt() <= $userTryQty;
+		}
+		elseif( $showAnswers == 'ENDDATE' )
+		{
+			// check if current date is after enddate property of the exercise
+			// TODO : enddate property must be coded :p
+		}
+		else
+		{
+			// $showAnswers == 'NEVER'
+			$displayAnswers = false;
+		}
+	} // end else of if ($timeToCompleteExe ...
 
 	// for each question
 	foreach($questionList as $questionId)
@@ -450,9 +460,33 @@ else                                        // normal exercise mode
 <table width="100%" border="0" cellpadding="3" cellspacing="2">
 <tr>
   <td align="center">
-	<b><?php echo "$langYourTotalScore $totalScore/$totalWeighting"; ?> !</b>
+	<?php 
+		echo $langYourTime." ".$timeToCompleteExe; 
+		if( $exerciseMaxTime > 0 )
+		{
+			echo "<br />".$langMaxAllowedTime." ".$exerciseMaxTime;
+		}
+	?>
   </td>
 </tr>
+<tr>
+  <td align="center">
+	<b>
+<?php 
+	if ( $displayScore )
+	{
+		echo $langYourTotalScore." ". $totalScore."/".$totalWeighting;
+	}
+	else
+	{
+		echo $langTimeOver;
+	}
+?>
+</b>
+  </td>
+
+</tr>
+<tr>
 <tr>
   <td align="center">
     <br>
@@ -472,7 +506,7 @@ else                                        // normal exercise mode
 /*******************************/
 
 // if tracking is enabled
-if($is_trackingEnabled)
+if($is_trackingEnabled && $displayScore)
 {
     @include($includePath.'/lib/events.lib.inc.php');
 
@@ -480,7 +514,8 @@ if($is_trackingEnabled)
 
 }
 
-if($_SESSION['inPathMode'] == true ) // learning path mode
+// record progression 
+if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
 {
     // update raw in DB to keep the best one, so update only if new raw is better  AND if user NOT anonymous
 
