@@ -48,14 +48,20 @@ $titlePage .= $siteName;
 ?>
 
 <title><? echo $titlePage ?></title>
-<link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>">
-<style type="text/css">@import url(<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>);</style>
+
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+
+<link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>" media="screen" title="<?php echo $claro_stylesheet ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>" media="print" title="print">
+
 <link rel="top" href="<?php echo $rootWeb ?>index.php" title="" >
 <link rel="courses" href="<?php echo $clarolineRepositoryWeb ?>auth/courses.php" title="<?php echo $langOtherCourses ?>" >
 <link rel="profil" href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" title="<?php echo $langModifyProfile ?>" >
 <link href="http://www.claroline.net/documentation.htm" rel="Help" >
 <link href="http://www.claroline.net/credits.htm" rel="Author" >
 <link href="http://www.claroline.net" rel="Copyright" >
+
 <script language="javascript">document.cookie="javascriptEnabled=true";</script>
 <?php
 if ($htmlHeadXtra)
@@ -81,6 +87,6 @@ if (!isset($hide_body) || $hide_body == false)
 {
 	// need body div
 	echo "\n\n\n<!----------------------      Claroline Body       ---------------------->\n"
-			."<div class=\"claroBody\">\n\n";
+			."<div id=\"claroBody\">\n\n";
 }
 ?>
