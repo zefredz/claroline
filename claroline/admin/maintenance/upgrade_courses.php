@@ -253,7 +253,7 @@ switch ($display)
                         }
                         
                         //upgrade index.php et course repository
-                        if (!upgrade_course_repository($currentCourseIDsys,$currentcoursePathSys)) 
+                        if (!restore_course_repository($currentCourseIDsys,$currentcoursePathSys)) 
                         {
                             $nbError++;
                         }
@@ -519,7 +519,7 @@ function upgrade_tool_list ($dbNameGlu)
 
 }
 
-function upgrade_course_repository($courseID,$courseRepository)
+function restore_course_repository($courseID,$courseRepository)
 {
 
     global $clarolineRepositorySys, $includePath;
