@@ -1,6 +1,6 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2003 Universite catholique de	Louvain	(UCL)
 //----------------------------------------------------------------------
@@ -36,9 +36,9 @@
 $langFile =	'announcements'; 
 
 require '../inc/claro_init_global.inc.php'; //	settings initialisation	
+if ( ! $_cid) claro_disp_select_course();
 include($includePath.'/lib/text.lib.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
-
 
 $htmlHeadXtra[]="<script type=\"text/javascript\" language=\"JavaScript\">
 
@@ -289,10 +289,10 @@ if($is_allowedToUse)	// check teacher status
 
 	if ($message)
 	{
-		claro_disp_message_box($message);
-		echo	"<br>",
-				"<a	href=\"".$_SERVER['PHP_SELF']."\">".$langBackList,"&nbsp;&gt;</a>",
-				"<br>";
+        claro_disp_message_box($message);
+        echo "<br>"
+            .'<a href="'.$_SERVER['PHP_SELF'].'">'.$langBackList.'&nbsp;&gt;</a>'
+            .'<br>';
 
 		$displayForm = false;
 	}
