@@ -1103,7 +1103,7 @@ function claro_disp_html_area($name, $content =    '',
             $switchState = 'off';
             $message     = $langTextEditorDisable;
 			$areaContent = 'escape(document.getElementById(\''.$name.'\').value)';
-            $confirmCommand = "if(!confirm('".$langSwitchEditorToTextConfirm."' + editor.getHTML() ))return(false);";
+            $confirmCommand = "if(!confirm('".$langSwitchEditorToTextConfirm."'))return(false);";
         }
         else
         {
