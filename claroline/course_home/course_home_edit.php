@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE 1.6
 //----------------------------------------------------------------------
-// Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
@@ -35,7 +35,7 @@ function confirmation (name)
 </script>";
 
 $toolRepository = '../';
-$imgRepository = $clarolineRepositoryWeb."/img/";
+
 $currentCourseRepository = $_course['path'];
 
 include($includePath.'/claro_init_header.inc.php');
@@ -310,11 +310,11 @@ foreach($toolList as $thisTool)
 
     if (! empty($thisTool['icon']))
     {
-        $icon = $imgRepository.$thisTool['icon'];
+        $icon = $imgRepositoryWeb.$thisTool['icon'];
     }
     else
     {
-    	$icon = $imgRepository.'tool.gif'; // default icon if none defined
+    	$icon = $imgRepositoryWeb.'tool.gif'; // default icon if none defined
     }
 
     if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])
@@ -336,12 +336,12 @@ foreach($toolList as $thisTool)
 
     if ($removableTool)
     {
-        echo "<a href=\"". $_SERVER['PHP_SELF'] ."?cmd=rqEdit&externalToolId=".$thisTool['id']."\">"
-             ."<img src=\"" . $imgRepository. "edit.gif\" alt=\"".$langModify."\" />"
+        echo "<a href=\"". $_SERVER['PHP_SELF'] ."?cmd=rqEdit&amp;externalToolId=".$thisTool['id']."\">"
+             ."<img src=\"" . $imgRepositoryWeb. "edit.gif\" alt=\"".$langModify."\" />"
              ."</a>\n"
-             . "<a href=\"". $_SERVER['PHP_SELF'] ."?cmd=exDelete&externalToolId=". $thisTool['id'] . "\""
+             . "<a href=\"". $_SERVER['PHP_SELF'] ."?cmd=exDelete&amp;externalToolId=". $thisTool['id'] . "\""
              . " onClick=\"return confirmation('" . addslashes($toolName) . "');\">"
-             ."<img src=\"" . $imgRepository. "delete.gif\" alt=\"".$langDelete."\" />"
+             ."<img src=\"" . $imgRepositoryWeb. "delete.gif\" alt=\"".$langDelete."\" />"
              ."</a>\n";
 
     }

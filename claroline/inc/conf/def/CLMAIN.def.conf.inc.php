@@ -58,6 +58,7 @@ array ('rootWeb'
       , 'clarolineRepositoryAppend'
       , 'coursesRepositoryAppend'
       , 'rootAdminAppend'
+      , 'imgRepositoryAppend'
       , 'userImageRepositoryAppend'
       , 'PEAR_LIB_PATH'
       );
@@ -433,6 +434,14 @@ array ('label'        => 'relative path from claroline kernel to root of admin s
       ,'default'     => 'admin/'
       ,'display'     => false
       );
+$conf_def_property_list['imgRepositoryAppend'] =
+array ('label'        => 'relative path from claroline web to iconset'
+      ,'type'        => 'relpath'
+      ,'default'     => 'img/'
+      ,'display'     => FALSE
+      ,'readonly'    => TRUE
+      );
+
 $conf_def_property_list['userImageRepositoryAppend'] =
 array ('label'        => 'relative path from root web to user pic repository'
       ,'type'        => 'relpath'

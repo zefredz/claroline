@@ -26,6 +26,9 @@ $coursesRepositorySys   = $rootSys.$coursesRepositoryAppend;
 $coursesRepositoryWeb   = $rootWeb.$coursesRepositoryAppend;
 $rootAdminSys           = $clarolineRepositorySys.$rootAdminAppend;
 $rootAdminWeb           = $clarolineRepositoryWeb.$rootAdminAppend;
+$imgRepositoryAppend    = 'img/'; // <-this line would be editable in claroline 1.7
+$imgRepositorySys       = $clarolineRepositorySys.$imgRepositoryAppend;
+$imgRepositoryWeb       = $clarolineRepositoryWeb.$imgRepositoryAppend;
 
 // Add the Claroline PEAR path to the php.ini include path
 // This action is mandatory because PEAR inner include() statements 

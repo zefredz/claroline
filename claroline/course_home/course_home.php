@@ -30,8 +30,6 @@ require $claroGlobalPath.'/claro_init_global.inc.php';
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 $toolRepository = $clarolineRepositoryWeb;
-$imgRepository  = $clarolineRepositoryWeb."/img/";
-
 claro_set_display_mode_available(true);
 
 include($includePath.'/claro_init_header.inc.php');
@@ -121,11 +119,11 @@ foreach($toolList as $thisTool)
 
     if (! empty($thisTool['icon']))
     {
-        $icon = $imgRepository.$thisTool['icon'];
+        $icon = $imgRepositoryWeb.$thisTool['icon'];
     }
     else
     {
-    	$icon = $imgRepository.'tool.gif';
+    	$icon = $imgRepositoryWeb.'tool.gif';
     }
 
     if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])
@@ -161,15 +159,15 @@ if ($is_allowedToEdit)
 
     echo "<p>\n"
         ."<a class='claroCmd' href=\"".$clarolineRepositoryWeb."course_home/course_home_edit.php\">"
-        ."<img src=\"".$imgRepository."edit.gif\" alt=\"\"> "
+        ."<img src=\"".$imgRepositoryWeb."edit.gif\" alt=\"\"> "
         .$langEditToolList
         ."</a><br />\n"
         ."<a class='claroCmd' href=\"".$toolRepository."course_info/infocours.php\">"
-        ."<img src=\"".$imgRepository."settings.gif\" alt=\"\"> "
+        ."<img src=\"".$imgRepositoryWeb."settings.gif\" alt=\"\"> "
         .$langCourseSettings
         ."</a><br />\n"
         ."<a class='claroCmd' href=\"".$toolRepository."tracking/courseLog.php\">"
-        ."<img src=\"".$imgRepository."statistics.gif\" alt=\"\"> "
+        ."<img src=\"".$imgRepositoryWeb."statistics.gif\" alt=\"\"> "
         .$langStatistics
         ."</a>\n"
         ."</p>";

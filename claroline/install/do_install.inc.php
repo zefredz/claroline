@@ -277,8 +277,6 @@ $coursesRepositoryWeb       = $rootWeb.$coursesRepositoryAppend;
 $rootAdminSys               = $clarolineRepositorySys.$rootAdminAppend;
 $rootAdminWeb               = $clarolineRepositoryWeb.$rootAdminAppend;
 $garbageRepositorySys       = "'.$garbageRepositorySys.'";
-$imgRepositorySys           = $rootSys.$clarolineRepositoryAppend.\'img/\';
-$imgRepositoryWeb           = $rootWeb.$clarolineRepositoryAppend.\'img/\';
 
 // Path to the PEAR library. PEAR stands for "PHP Extension and Application
 // Repository". It is a framework and distribution system for reusable PHP
