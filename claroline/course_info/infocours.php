@@ -22,7 +22,6 @@ require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/course.lib.inc.php");
 include($includePath."/conf/course_info.conf.php");
 
-
 $nameTools = $langModifInfo;
 
 include($includePath."/lib/text.lib.php");
@@ -35,11 +34,11 @@ include($includePath."/lib/text.lib.php");
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
+$tbl_course           = $tbl_mdb_names['course'         ];
+$tbl_category         = $tbl_mdb_names['category'       ];
 $tbl_bb_config        = $tbl_cdb_names['bb_config'      ];
 $tbl_course_groupconf = $tbl_cdb_names['group_property' ];
-$tbl_course           = $tbl_mdb_names['course'         ];
 $tbl_rel_tool_course  = $tbl_cdb_names['tool_list'      ];
-$tbl_category         = $tbl_mdb_names['category'       ];
 
 //4 old name, 
 // no more used in the script 
@@ -57,6 +56,19 @@ $is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
 
 // in case of admin access (from admin tool) to the script, 
 // we must determine which course we are working with
+
+//Possibles $_REQUEST FOR THIS SCRIPT
+// cidToEdit
+// 
+// $int
+// $faculte
+// $visible
+// $titulary
+// $screenCode
+// $lanCourseForm
+// $extLinkName
+// $extLinkUrl
+// $email
 
 if (isset($_REQUEST['cidToEdit']) && ($is_platformAdmin))
 {
@@ -81,21 +93,21 @@ if($is_allowedToEdit)
 	if (isset($_REQUEST["changeProperties"]))
 	{
 		if ($_REQUEST['int']!=""            || $canBeEmpty["int"])
-			$fieldsToUpdate[]= "intitule='".         $_REQUEST['int']."'";
+			$fieldsToUpdate[]= "`intitule`='".         $_REQUEST['int']."'";
 		if ($_REQUEST['faculte']!=""        || $canBeEmpty["facu"])
-			$fieldsToUpdate[]= "faculte='".          $_REQUEST['faculte']."'";
+			$fieldsToUpdate[]= "`faculte`='".          $_REQUEST['faculte']."'";
 		if ( $_REQUEST["titulary"] !=""     || $canBeEmpty["titulary"])
-			$fieldsToUpdate[]= "titulaires='".       $_REQUEST['titulary']."'";
+			$fieldsToUpdate[]= "`titulaires`='".       $_REQUEST['titulary']."'";
 		if ($_REQUEST['screenCode']!=""     || $canBeEmpty["screenCode"])
-			$fieldsToUpdate[]= "fake_code='".        $_REQUEST['screenCode']."'";
+			$fieldsToUpdate[]= "`fake_code`='".        $_REQUEST['screenCode']."'";
 		if ($_REQUEST['lanCourseForm'] !="" || $canBeEmpty["lanCourseForm"])
-			$fieldsToUpdate[]= "languageCourse='".   $_REQUEST['lanCourseForm']."'";
+			$fieldsToUpdate[]= "`languageCourse`='".   $_REQUEST['lanCourseForm']."'";
 		if ($_REQUEST['extLinkName']!=""    || $canBeEmpty["extLinkName"])
-			$fieldsToUpdate[]= "departmentUrlName='".$_REQUEST['extLinkName']."'";
+			$fieldsToUpdate[]= "`departmentUrlName`='".$_REQUEST['extLinkName']."'";
 		if ($_REQUEST['extLinkUrl'] !=""    || $canBeEmpty["extLinkUrl"])
-			$fieldsToUpdate[]= "departmentUrl='".    $_REQUEST['extLinkUrl']."'";
+			$fieldsToUpdate[]= "`departmentUrl`='".    $_REQUEST['extLinkUrl']."'";
 		if($_REQUEST['email']!=""           || $canBeEmpty["email"])
-			$fieldsToUpdate[]= "email='".            $_REQUEST['email']."'";
+			$fieldsToUpdate[]= "`email`='".            $_REQUEST['email']."'";
 /*		if ($_REQUEST['description']!=""    || $canBeEmpty["description"])
 			$fieldsToUpdate[]= "description='".      $_REQUEST['description']."'";*/
 		if ($_REQUEST['visible']=="false"     && $allowedToSubscribe=="false")
@@ -147,32 +159,32 @@ echo "<br>";
 	else
 	{
 
-$sqlCourseExtention = "SELECT * FROM `".$tbl_course."` WHERE code = '".$current_cid."'";
+        $sqlCourseExtention = "SELECT * FROM `".$tbl_course."` WHERE code = '".$current_cid."'";
 
-$resultCourseExtention 			= claro_sql_query($sqlCourseExtention);
-$thecourse 	= mysql_fetch_array($resultCourseExtention);
+        $resultCourseExtention 			= claro_sql_query($sqlCourseExtention);
+        $thecourse 	= mysql_fetch_array($resultCourseExtention);
 
-$currentCourseDiskQuota 		= $currentCourseExtentionData["diskQuota"     ];
-$currentCourseLastVisit 		= $currentCourseExtentionData["lastVisit"     ];
-$currentCourseLastEdit			= $currentCourseExtentionData["lastEdit"      ];
-$currentCourseCreationDate 		= $currentCourseExtentionData["creationDate"  ];
-$currentCourseExpirationDate	= $currentCourseExtentionData["expirationDate"];
+        $currentCourseDiskQuota 		= $currentCourseExtentionData["diskQuota"     ];
+        $currentCourseLastVisit 		= $currentCourseExtentionData["lastVisit"     ];
+        $currentCourseLastEdit			= $currentCourseExtentionData["lastEdit"      ];
+        $currentCourseCreationDate 		= $currentCourseExtentionData["creationDate"  ];
+        $currentCourseExpirationDate	= $currentCourseExtentionData["expirationDate"];
 
-$int               = $thecourse['intitule'           ];
-$facu              = $thecourse['faculte'   ];
-$currentCourseCode = $thecourse['fake_code'   ];
-$titulary          = $thecourse['titulaires'        ];
-$languageCourse    = $thecourse['languageCourse'       ];
-$extLinkName	   = $thecourse['departmentUrlName'];
-$extLinkUrl        = $thecourse['departmentUrl' ];
-$email			   = $thecourse['email'];
-$directory         = $thecourse['directory'];
+        $int               = $thecourse['intitule'           ];
+        $facu              = $thecourse['faculte'   ];
+        $currentCourseCode = $thecourse['fake_code'   ];
+        $titulary          = $thecourse['titulaires'        ];
+        $languageCourse    = $thecourse['languageCourse'       ];
+        $extLinkName	   = $thecourse['departmentUrlName'];
+        $extLinkUrl        = $thecourse['departmentUrl' ];
+        $email			   = $thecourse['email'];
+        $directory         = $thecourse['directory'];
 
-$thecourse['visibility'  ]         = (bool) ($thecourse['visible'] == 2 || $thecourse['visible'] == 3);
-$thecourse['registrationAllowed']  = (bool) ($thecourse['visible'] == 1 || $thecourse['visible'] == 2);
+        $thecourse['visibility'  ]         = (bool) ($thecourse['visible'] == 2 || $thecourse['visible'] == 3);
+        $thecourse['registrationAllowed']  = (bool) ($thecourse['visible'] == 1 || $thecourse['visible'] == 2);
 
-$visibleChecked             [$thecourse['visibility'         ]] = "checked";
-$registrationAllowedChecked [$thecourse['registrationAllowed']] = "checked";
+        $visibleChecked             [$thecourse['visibility'         ]] = "checked";
+        $registrationAllowedChecked [$thecourse['registrationAllowed']] = "checked";
 
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
@@ -182,34 +194,33 @@ $registrationAllowedChecked [$thecourse['registrationAllowed']] = "checked";
 <tr>
 <td></td>
 <td>
-<?
-if (isset($cidToEdit) && ($is_platformAdmin))
+<?php
+		if (isset($cidToEdit) && ($is_platformAdmin))
         {
-           echo "<a  href=\"".$coursesRepositoryWeb.$directory."\"> ".$langViewCourse." </a>";
+            echo "<a  href=\"".$coursesRepositoryWeb.$directory."\"> ".$langViewCourse." </a>";
         }
 ?>
 </td>
 </tr>
 
-
 <tr>
 <td align="right"><label for="screenCode"><?php echo $langCode ?></label>&nbsp;:</td>
-<td><input type="text" id="screenCode" name="screenCode" value="<?php echo $currentCourseCode; ?>" size="20"></td>
+<td><input type="text" id="screenCode" name="screenCode" value="<?php echo htmlentities($currentCourseCode); ?>" size="20"></td>
 </tr>
 
 <tr>
 <td align="right"><label for="titulary"><?php echo $langProfessor ?></label>&nbsp;:</td>
-<td><input type="text"  id="titulary" name="titulary" value="<?php echo $titulary; ?>" size="60"></td>
+<td><input type="text"  id="titulary" name="titulary" value="<?php echo htmlentities($titulary); ?>" size="60"></td>
 </tr>
 
 <tr>
 <td align="right"><label for="email"><?echo $langEmail ?></label>&nbsp;:</td>
-<td><input type="text"  id="email" name="email" value="<?php echo $email; ?>" size="30" maxlength="255"></td>
+<td><input type="text"  id="email" name="email" value="<?php echo htmlentities($email); ?>" size="30" maxlength="255"></td>
 </tr>
 
 <tr>
 <td align="right"><label for="int"><?php echo $langTitle ?></label> :</td>
-<td><input type="Text" name="int" id="int" value="<?php echo $int; ?>" size="60"></td>
+<td><input type="Text" name="int" id="int" value="<?php echo htmlentities($int); ?>" size="60"></td>
 </tr>
 
 <tr>
@@ -225,12 +236,12 @@ BuildEditableCatTable($facu," &gt; ");
 
 <tr>
 <td align="right"><label for="extLinkName"><?php echo $langDepartmentUrlName ?></label>&nbsp;: </td>
-<td><input type="text" name="extLinkName" id="extLinkName" value="<?php echo $extLinkName; ?>" size="20" maxlength="30"></td>
+<td><input type="text" name="extLinkName" id="extLinkName" value="<?php echo htmlentities($extLinkName); ?>" size="20" maxlength="30"></td>
 </tr>
 
 <tr>
 <td align="right" nowrap><label for="extLinkUrl" ><?php echo $langDepartmentUrl ?></label>&nbsp;:</td>
-<td><input type="text" name="extLinkUrl" id="extLinkUrl" value="<?php echo $extLinkUrl; ?>" size="60" maxlength="180"></td>
+<td><input type="text" name="extLinkUrl" id="extLinkUrl" value="<?php echo htmlentities($extLinkUrl); ?>" size="60" maxlength="180"></td>
 </tr>
 
 <tr>
@@ -250,7 +261,7 @@ while ($entries = readdir($handle))
 	{
 		echo "<option value=\"$entries\"";
 		if ($entries == $languageCourse) echo " selected ";
-		echo ">$entries";
+		echo '>'.$entries;
 				if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries]!="" && $langNameOfLang[$entries]!=$entries)
 				echo " - $langNameOfLang[$entries]";
 		echo "</option>\n";
@@ -269,9 +280,9 @@ closedir($handle);
 <td>
 <?
 if (isset($cidToEdit) && ($is_platformAdmin))
-        {
-           echo "<a  href=\"../admin/admincourseusers.php?cidToEdit=".$cidToEdit."\"> ".$langAllUsersOfThisCourse." </a>";
-        }
+{
+    echo "<a  href=\"../admin/admincourseusers.php?cidToEdit=".$cidToEdit."\"> ".$langAllUsersOfThisCourse." </a>";
+}
 ?>
 </td>
 </tr>
@@ -289,9 +300,10 @@ if (isset($cidToEdit) && ($is_platformAdmin))
 <td>
 <input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $registrationAllowedChecked[TRUE] ?>> <label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label><br>
 <input type="radio" id="allowedToSubscribe_false"  name="allowedToSubscribe" value="false" <?php echo $registrationAllowedChecked[FALSE] ?>> <label for="allowedToSubscribe_false"><?php echo $langDenied; ?></label>
-<? if (isset($cidToEdit))
+<?php 
+if (isset($cidToEdit))
 {
-echo "<input type=\"hidden\" name=\"cidToEdit\" value=\"".$cidToEdit."\">";
+    echo "<input type=\"hidden\" name=\"cidToEdit\" value=\"".$cidToEdit."\">";
 }
 ?>
 </td>
