@@ -106,22 +106,23 @@ if ($disp_tool_link)
 	echo "<p>";
     if ($can_add_user)
 	{ 
-	   //add CSV file of user link
+	   //add a user link
 	?>
-	<a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><?php echo $langAddListUser; ?></a> |
+	<a class="claroCmd" href="user_add.php"><img src="<?php echo $clarolineRepositoryWeb; ?>img/membres.gif"><?php echo $langAddAU; ?></a> |
+	<?php
+
+       //add CSV file of user link
+	?>
+	<a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $clarolineRepositoryWeb; ?>img/tblimport.gif"> <?php echo $langAddListUser; ?></a> |
 	<?php 
 	   //add a class link
 	?>
-	<a class="claroCmd" href="class_add.php"><?php echo $langAddClass; ?></a> |
+	<a class="claroCmd" href="class_add.php"><img src="<?php echo $clarolineRepositoryWeb; ?>img/class.gif"> <?php echo $langAddClass; ?></a> |
 	<?php
 	
-	   //add a user link
-	?>
-	<a class="claroCmd" href="user_add.php"><?php echo $langAddAU; ?></a> |
-	<?php
 	}
 	?>
-	<a class="claroCmd" href="../group/group.php"><?php echo $langGroupUserManagement; ?></a>
+	<a class="claroCmd" href="../group/group.php"><a class="claroCmd" href="user_add.php"><img src="<?php echo $clarolineRepositoryWeb; ?>img/group.gif"><?php echo $langGroupUserManagement; ?></a>
 	</p>
 <?php
 }
@@ -286,7 +287,7 @@ while (list(,$thisUser) = each($users))
 	echo	"\n<tr align=\"center\" valign=\"top\">",
 
 			"\n<td id=\"u".$i."\" headers=\"name\" align=\"left\">",
-
+            "<img src=\"".$clarolineRepositoryWeb."img/membres.gif\">",
 			"\n<small>\n",$i,"</small>\n&nbsp;",
 			"<a href=\"userInfo.php?uInfo=",$thisUser['user_id'],"\">",
 			ucfirst(strtolower($thisUser['prenom']))," ",ucfirst(strtolower($thisUser['nom'])),
