@@ -245,10 +245,11 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
   <td valign="top"><?php echo $langShowAnswers; ?>&nbsp;: </td>
   <td>
     <input type="radio" name="exerciseShowAnswer" id="alwaysShowAnswer" value="ALWAYS" <?php if($showAnswer == 'ALWAYS') echo 'checked="checked"';?>>
-    <label for="alwaysShowAnswer"><?php echo $langAlways; ?></label><br />
-    
+    <label for="alwaysShowAnswer"><?php echo $langYes; ?></label><br />
+    <input type="radio" name="exerciseShowAnswer" id="showAnswerAfterLastTry" value="LASTTRY" <?php if($showAnswer == 'LASTTRY') echo 'checked="checked"';?>>
+    <label for="showAnswerAfterLastTry"><?php echo $langShowAnswersAfterLastTry; ?></label><br />
     <input type="radio" name="exerciseShowAnswer" id="neverShowAnswer" value="NEVER" <?php if($showAnswer == 'NEVER') echo 'checked="checked"';?>>
-    <label for="neverShowAnswer"><?php echo $langNever; ?></label><br />
+    <label for="neverShowAnswer"><?php echo $langNo; ?></label><br />
   </td>
 </tr>
 <?php
