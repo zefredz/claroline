@@ -54,11 +54,19 @@ if($_REQUEST['submitExercise'])
     $objExercise->set_start_date($composedStartDate);
     
     //  build end date
-    $composedEndDate = $_REQUEST['endYear']."-"
-                        .$_REQUEST['endMonth']."-"
-                        .$_REQUEST['endDay']." "
-                        .$_REQUEST['endHour'].":"
-                        .$_REQUEST['endMinute'].":00";
+    if($_REQUEST['useEndDate'])
+    {
+        $composedEndDate = $_REQUEST['endYear']."-"
+                            .$_REQUEST['endMonth']."-"
+                            .$_REQUEST['endDay']." "
+                            .$_REQUEST['endHour'].":"
+                            .$_REQUEST['endMinute'].":00";
+    
+    }
+    else
+    {
+        $composedEndDate = "9999-12-31 23:59:59";
+    }
     $objExercise->set_end_date($composedEndDate);
     
     if( $_REQUEST['exerciseMaxTime'] )
@@ -93,6 +101,7 @@ if($_REQUEST['submitExercise'])
 		$exerciseId=$objExercise->selectId();
 
 		unset($_REQUEST['modifyExercise']);
+    unset($modifyExercise);
 	}
 }
 // get all properties of the exercise before display of form or of resume
@@ -112,11 +121,21 @@ if($_REQUEST['submitExercise'])
   list($startDate, $startTime) = split(' ', $objExercise->get_start_date());
     
   // end date splitting
-  list($endDate, $endTime) = split(' ', $objExercise->get_end_date());
+  if($objExercise->get_end_date() == "9999-12-31 23:59:59")
+  {
+      $useEndDate = false;
+      $endDate = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
+      $endTime = date("H:i:00", mktime( date("H"),date("i"),0) );
+  }
+  else
+  {
+      $useEndDate = true;
+      list($endDate, $endTime) = split(' ', $objExercise->get_end_date());
+  }
 
 
 // shows the form to modify the exercise
-if($modifyExercise)
+if($_REQUEST['modifyExercise'] || $modifyExercise )
 {
 ?>
 
@@ -144,7 +163,7 @@ if($modifyExercise)
 
 <tr>
   <td>
-  <label for="exerciseTitle"><?php echo $langExerciseName; ?>&nbsp;:</label>
+  <label for="exerciseTitle"><?php echo $langExerciseName; ?>&nbsp;:<br /><small>(<?php echo $langRequired; ?>)</small></label>
   </td>
   <td><input type="text" name="exerciseTitle" id="exerciseTitle" size="50" maxlength="200" value="<?php echo htmlentities($exerciseTitle); ?>" style="width:400px;"></td>
 </tr>
@@ -179,6 +198,9 @@ if($modifyExercise)
 <td><?php echo $langExerciseClosing; ?>&nbsp;:</td>
 
 <td>
+
+<input type="checkbox" name="useEndDate" id="useEndDate" value="1" <?php if( $useEndDate ) echo 'checked="checked"';?>>
+<label for="useEndDate"><?php echo $langYes; ?>, </label>
 <?php
    echo claro_disp_date_form("endDay", "endMonth", "endYear", $endDate)." ".claro_disp_time_form("endHour", "endMinute", $endTime);
 ?>
@@ -288,7 +310,16 @@ else
 <ul>
   <li><?php echo $langExerciseType." : "; echo ($exerciseType >= 2)?$langSequentialExercise:$langSimpleExercise; ?></li>
   <li><?php echo $langExerciseOpening. " : ";  echo claro_disp_localised_date($dateTimeFormatLong,$objExercise->get_start_date('timestamp')); ?></li>
-  <li><?php echo $langExerciseClosing." : "; echo claro_disp_localised_date($dateTimeFormatLong,$objExercise->get_end_date('timestamp')); ?></li>
+  <li><?php echo $langExerciseClosing." : "; 
+                    if($useEndDate) 
+                    {
+                      echo claro_disp_localised_date($dateTimeFormatLong,$objExercise->get_end_date('timestamp')); 
+                    }
+                    else
+                    {                    
+                      echo $langNoEndDate;
+                    }
+  ?></li>
   <li>
 <?php 
   if ( $maxTime == 0 )
@@ -378,7 +409,7 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
     
     // year field
     $yearField = "<select name=\"".$yearFieldName."\" id=\"".$yearFieldName."\">\n";
-    for ($i= $selYear-5;$i <=$selYear+5; $i++)
+    for ($i= $selYear-2;$i <=$selYear+5; $i++)
     {
         $yearField .= "<option value=\"".$i."\"";
         if($i == $selYear)
