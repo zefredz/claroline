@@ -561,8 +561,8 @@
                   AND LPM.`visibility` =\"SHOW\"
                   AND M.`module_id` = LPM.`module_id`
                   AND M.`contentType` != '".CTLABEL_ ."'";
-
-          $result = claro_sql_query($sql);
+          
+	  $result = claro_sql_query($sql);
     
           //echo $sql."<br>";
           //echo mysql_error();
@@ -579,7 +579,11 @@
     
               while ($list = mysql_fetch_array($result))
               {
-                 $modProgress = @round($list['R']/$list['SMax']*100);
+		 if( $list['SMax'] <= 0 )		
+			$modProgress = 0 ;
+		 else
+                 	$modProgress = @round($list['R']/$list['SMax']*100);
+
                  // in case of scorm module, progression depends on the lesson status value
                  if (($list['CTYPE']=="SCORM") && ($list['SMax'] <= 0) && (( $list['STATUS'] == 'COMPLETED') || ($list['STATUS'] == 'PASSED')))
                  {
