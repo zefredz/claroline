@@ -219,55 +219,35 @@ h3{	font-size: 110%; }
  /*----------------------------------------------------------------------------
                                   BREAD CRUMB TRAIL
  ----------------------------------------------------------------------------*/
-#breadCrumbLine
+
+#breadcrumbLine
 {
 	border: none;
 	font-size: 90%;
 	padding-bottom: 5px;
 }
 
-#breadCrumbLine ul
-{
-	float: left;
-	margin: 0;
-	padding: 0;
-}
-
-#breadCrumbLine ul li
-{
-	display: inline;
-	margin: 0;
-	padding-left: 10px;
-	background-image: url(corporate/arrow.gif);
-	background-repeat: no-repeat;
-	background-position: 0 .5em;
-}
-
-#breadCrumbLine #home
-{
-	margin: 0;
-	border: none;
-	list-style-type: none;
-	padding-left: 0;
-	background: none;
-}
-
-#breadCrumbLine a,
-#breadCrumbLine a:active,
-#breadCrumbLine a:link,
-#breadCrumbLine a:visited
+#breadcrumbLine a,
+#breadcrumbLine a:active,
+#breadcrumbLine a:link,
+#breadcrumbLine a:visited
 {
 	color:#c60;
 }
 
-#breadCrumbLine a:hover
+#breadcrumbLine a:hover
 {
 	color:#FFB848;
 }
 
-#breadCrumbLine hr
+#breadcrumbLine hr
 {
 	display: none;
+}
+
+#breadcrumb
+{
+	float: left;
 }
 
 #toolViewOption
@@ -275,6 +255,7 @@ h3{	font-size: 110%; }
 	float: right;
 	text-align: right;
 }
+
 /******************************************************************************
                              CLAROLINE BODY
  ******************************************************************************/
