@@ -20,12 +20,6 @@ include($includePath."/lib/admin.lib.inc.php");
 
 if (!$is_platformAdmin) treatNotAuthorized();
 
-$htmlHeadXtra[] = "<style type=\"text/css\">
-<!--
-    ul { font-size : small }
--->
-</STYLE>";
-
 //declare needed tables
 
 $tbl_faculty      = $mainDbName.'`.`faculte';
@@ -74,28 +68,28 @@ claro_disp_tool_title($nameTools);
 <form action="admincourses.php" method="GET" >
 <table border="0">
 <tr>
-  <td>
+  <td align="right">
    <?=$langOfficialCode?> : <br>
   </td>
-  <td>
-    <input type="text" name="code" value="<?=$_GET['code']?>"/>
+  <td colspan="3">
+    <input type="text" size="40" name="code" value="<?=$_GET['code']?>"/>
   </td>
 </tr>
 
 <tr>
-  <td>
+  <td align="right">
    <?=$langCourseTitle?> :  <br>
   </td>
-  <td>
-    <input type="text" name="intitule" value="<?=$_GET['intitule']?>"/>
+  <td colspan="3">
+    <input type="text" size="40" name="intitule" value="<?=$_GET['intitule']?>"/>
   </td>
 </tr>
 
 <tr>
-  <td>
+  <td align="right">
    <?=$langCategory?> : <br>
   </td>
-  <td>
+  <td colspan="3">
     <select name="category">
     <option value="" ></option>
     <?php
@@ -108,10 +102,10 @@ claro_disp_tool_title($nameTools);
 </tr>
 
 <tr>
-  <td>
+  <td align="right">
    <?=$langLanguage?> : <br>
   </td>
-  <td>
+  <td colspan="3">
     <select name="language">
     <option value=""></option>
     <?php
@@ -122,32 +116,33 @@ claro_disp_tool_title($nameTools);
 </tr>
 
 <tr>
-  <td>
+  <td align="right">
    <?=$langCourseAccess?> :
   </td>
-  <td>
-    <input type="radio" name="access" value="public"<?if ($_GET['access']=="public") echo "checked";?> ><?=$langPublic?></input>
-    <input type="radio" name="access" value="private" <?if ($_GET['access']=="private") echo "checked";?>><?=$langPrivate?></input>
-    <input type="radio" name="access" value="" <?if ($_GET['access']=="") echo "checked";?>><?=$langAll?></input>
+  <td><input type="radio" name="access" value="public"<?if ($_GET['access']=="public") echo "checked";?> ><?=$langPublic?></input>
+  </td>
+  <td><input type="radio" name="access" value="private" <?if ($_GET['access']=="private") echo "checked";?>><?=$langPrivate?></input>
+  </td>
+  <td><input type="radio" name="access" value="" <?if ($_GET['access']=="") echo "checked";?>><?=$langAll?></input>
   </td>
 </tr>
 
 <tr>
-  <td>
+  <td align="right">
    <?=$langSubscription?> :
   </td>
-  <td>
-    <input type="radio" name="subscription" value="allowed" <?if ($_GET['subscription']=="allowed") echo "checked";?>><?=$langAllowed?></input>
-    <input type="radio" name="subscription" value="denied" <?if ($_GET['subscription']=="denied") echo "checked";?>><?=$langDenied?></input>
-    <input type="radio" name="subscription" value="" <?if ($_GET['subscription']=="") echo "checked";?>><?=$langAll?></input>
+  <td><input type="radio" name="subscription" value="allowed" <?if ($_GET['subscription']=="allowed") echo "checked";?>><?=$langAllowed?></input>
   </td>
+  <td><input type="radio" name="subscription" value="denied" <?if ($_GET['subscription']=="denied") echo "checked";?>><?=$langDenied?></input>
+  </td>
+  <td><input type="radio" name="subscription" value="" <?if ($_GET['subscription']=="") echo "checked";?>><?=$langAll?></input></td>
 </tr>
 
 <tr>
   <td>
 
   </td>
-  <td>
+  <td colspan="3">
     <input type="submit" class="claroButton" value="<?=$langSearchCourse?>" ></input>
   </td>
 </tr>

@@ -305,8 +305,6 @@ if($dialogBox)
 if ($display == USER_DATA_FORM)
 {
 
-    // display subtitle
-    echo "<h4>".$langPersonnalInfo."</h4>";
 ?>
 
 <form method="POST" action="<?php echo $PHP_SELF ?>">
