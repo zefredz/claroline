@@ -138,7 +138,7 @@ $langDocContent="<p>Le module de gestion de document fonctionne de
 </ul>
 <h4>Renommer un document (ou un r&eacute;pertoire)</h4>
 <ul>
-  <li>cliquez sur le bouton <img src=../document/img/edit.gif width=20
+  <li>cliquez sur le bouton <img src=".$clarolineRepositoryWeb."img/edit.gif width=20
  height=20 align=baseline>
 	dans la colonne &quot;Renommer&quot;.</li>
   <li>Tapez le nouveau nom dans la zone pr&eacute;vue &agrave; cet effet
@@ -151,7 +151,7 @@ $langDocContent="<p>Le module de gestion de document fonctionne de
 	<h4>Supprimer un document (ou un r&eacute;pertoire)</h4>
 	<ul>
 
-  <li>Cliquer sur le bouton <img src=../document/img/delete.gif width=20
+  <li>Cliquer sur le bouton <img src=".$clarolineRepositoryWeb."img/delete.gif width=20
  height=20>
 	dans la colonne &quot;Supprimer&quot;.</li>
 	</ul>
@@ -159,7 +159,7 @@ $langDocContent="<p>Le module de gestion de document fonctionne de
  r&eacute;pertoire)</h4>
 	<ul>
 
-  <li>Cliquez sur le bouton <img src=../document/img/visible.gif width=20
+  <li>Cliquez sur le bouton <img src=".$clarolineRepositoryWeb."img/visible.gif width=20
  height=20>dans
 	la colonne &quot;Visible/invisible&quot;.</li>
 	  <li>Le document (ou le r&eacute;pertoire) existe toujours, mais il n'est
@@ -170,7 +170,7 @@ $langDocContent="<p>Le module de gestion de document fonctionne de
 
   <li> Si vous souhaitez rendre cet &eacute;l&eacute;ment &agrave; nouveau
  visible,
-	cliquez sur le bouton <img src=../document/../document/img/invisible.gif
+	cliquez sur le bouton <img src=".$clarolineRepositoryWeb."img/invisible.gif
  width=24 height=20>
 	dans la colonne Visible/invisible</li>
 	</ul>
@@ -179,7 +179,7 @@ $langDocContent="<p>Le module de gestion de document fonctionne de
 	<ul>
 
   <li>Cliquez sur le bouton <img
- src=../document/../document/img/comment.gif width=20 height=20>
+ src=".$clarolineRepositoryWeb."img/comment.gif width=20 height=20>
 	dans la colonne &quot;Commentaire&quot;</li>
 	  <li>Tapez le nouveau commentaire dans la zone pr&eacute;vue &agrave; cet
 
@@ -189,7 +189,7 @@ $langDocContent="<p>Le module de gestion de document fonctionne de
 		.</li>
 	</ul>
 	<p>Si vous souhaitez supprimer un commentaire, cliquez sur le bouton <img
- src=../document/../document/img/comment.gif width=20 height=20>,
+ src=".$clarolineRepositoryWeb."img/comment.gif width=20 height=20>,
 	  effacez l'ancien commentaire de la zonne et validez en cliquant
  &quot;OK&quot;
 	  <input type=submit value=OK name=submit22>
@@ -201,7 +201,7 @@ $langDocContent="<p>Le module de gestion de document fonctionne de
 	<h4><b>Cr&eacute;er un r&eacute;pertoire</b></h4>
 	<ul>
 	  <li>Cliquez sur la commande &quot;<img
- src=../document/../document/img/dossier.gif width=20
+ src=".$clarolineRepositoryWeb."img/dossier.gif width=20
  height=20>cr&eacute;er
 		un r&eacute;pertoire&quot; en haut &agrave; gauche de l'&eacute;cran</li>
 	  <li>Tapez le nom de votre nouveau r&eacute;pertoire dans la zone
@@ -214,7 +214,7 @@ $langDocContent="<p>Le module de gestion de document fonctionne de
 	<h4>D&eacute;placer un document (ou un r&eacute;pertoire)</h4>
 	<ul>
 	  <li>Cliquez sur le bouton <img
- src=../document/../document/img/deplacer.gif width=34 height=16>
+ src=".$clarolineRepositoryWeb."img/deplacer.gif width=34 height=16>
 		dans la colonne d&eacute;placer</li>
 	  <li>Choisissez le r&eacute;pertoire dans lequel vous souhaitez
  d&eacute;placer
