@@ -25,6 +25,7 @@ $mtime = microtime();$mtime = explode(" ",$mtime);$mtime = $mtime[1] + $mtime[0]
 // init language
 $langFile = "admin";
 include('../../inc/claro_init_global.inc.php');
+
 $nameTools = $langCheckDatabase;
 
 // force upgrade for debug
@@ -134,7 +135,7 @@ switch ($display)
 			@mysql_query ( "SET @currentCourseCode := '".$currentCourseIDsys."'");
 		
 			echo "<p>".++$nbCourseUpgraded .
-			        "Upgrading database of course <strong>".$currentCourseCode."</strong><br />\n
+			        ". Upgrading database of course <strong>".$currentCourseCode."</strong><br />\n
 				DataBase Name : <em>".$currentCourseDbName."</em><br />\n
 				internal Code : <em>".$currentCourseIDsys."</em></p>\n";
 				
@@ -180,8 +181,17 @@ switch ($display)
 			echo "</ol>";
 		
 			// upgrade tool list
-			upgrade_tool_list($currentCourseDbNameGlu);
-			
+			if (upgrade_tool_list($currentCourseDbNameGlu))
+                        {
+                            $nbError++;
+                        }
+                        
+                        //upgrade index.php et course repository
+                        if (!upgrade_course_repository($currentCourseID,$currentcoursePathSys)) 
+                        {
+                            $nbError++;
+                        }
+                        
 			// move link
 			//include("moveLink.php");	
 			
@@ -193,9 +203,6 @@ switch ($display)
 			}
 			else
 			{
-				echo "<p class=\"success\">Ok</p>";
-				echo "<hr noshade=\"noshade\" />";
-				
 				// Success: update versionDB of course
 				$sqlFlagUpgrade = " update ".$mainDbName.".cours
 							set versionDb='".$versionDb."'
@@ -214,9 +221,13 @@ switch ($display)
 				$totaltime = ($endtime - $starttime);
 				$stepDuration = ($endtime - $steptime);
 				$steptime = $endtime;
+                                
 				echo "<p class=\"microtime\">";
 				printf("execution time for this courses[%01.3f ms] - total [%01.2f s].",$stepDuration*1000,$totaltime);
 				echo "</p>";
+                                
+				echo "<p class=\"success\">Upgrade Ok</p>";
+				echo "<hr noshade=\"noshade\" />";                                
 			}
 		
 			$mtime = microtime();	$mtime = explode(" ",$mtime);	$mtime = $mtime[1] + $mtime[0];	$endtime = $mtime;	$totaltime = ($endtime - $starttime);
@@ -395,11 +406,56 @@ function upgrade_tool_list ($dbNameGlu)
 		$nb_tool++;	
 		$sql_insert = " INSERT INTO `".$dbNameGlu."tool_list` " 
 		                . " (rank,access,script_url,script_name, addedTool) "
-				. " VALUES ('" . $nb_tool . "','" . $access . "','" . $externalTool['lien'] . "','" . $externalTool['rubrique'] . "','YES')";
+				. " VALUES ('" . $nb_tool . "','" . $access . "','" . $externalTool['lien'] . "','" . claro_addslashes($externalTool['rubrique']) . "','YES')";
 		claro_sql_query($sql_insert);		
 	}
  
  }
+
+}
+
+function upgrade_course_repository($courseID,$courseRepository)
+{
+
+    global $clarolineRepositorySys, $includePath;
+
+    if (is_writable($courseRepository))
+    {
+        umask(0);
+
+        /*
+            create directory for new tools of claroline 1.5 
+        */
+    
+        if ( !is_dir($courseRepository) ) mkdir($courseRepository, 0777);
+        if ( !is_dir($courseRepository."/chat") ) mkdir($courseRepository."/chat", 0777);
+        if ( !is_dir($courseRepository."/modules") ) mkdir($courseRepository."/modules", 0777);
+        if ( !is_dir($courseRepository."/scormPackages") ) mkdir($courseRepository."/scormPackages", 0777);
+
+        /*
+            add $cidReq in index.php (Missing var in claroline 1.3)
+        */
+
+        // build index.php of course
+        $fd=fopen($courseRepository."/index.php", "w");
+
+        // str_replace() removes \r that cause squares to appear at the end of each line
+        $string=str_replace("\r","","<?"."php
+              \$cidReq = \"$courseID\";
+              \$claroGlobalPath = \"$includePath\";
+              include(\"".$clarolineRepositorySys."course_home/course_home.php\");
+	?>");
+        
+        fwrite($fd, "$string");
+        $fd=fopen($courseRepository."/group/index.php", "w");
+        $string="<"."?"."php"." session_start"."()"."; ?>";
+        fwrite($fd, "$string");
+        return 1;
+    
+    } else {
+        printf ("repository %s not writable",$courseRepository);
+        return 0;
+    }
 
 }
 
