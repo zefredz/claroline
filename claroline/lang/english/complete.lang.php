@@ -2193,6 +2193,7 @@ $lang_config_ErrorLoginBDEmpty = "The login from the DataBase should not be empt
 $lang_config_ErrorOpenFile = "Error opening file config.php file";
 $lang_config_ErrorRootWebEmpty = "rootweb must not be empty !";
 $lang_config_Info = "(*) value required";
+$lang_config_layout = "Layout :";
 $lang_config_NoAdmin = "You're not logged in as platfrom administrator";
 $lang_config_TitleAdministrator = "Administrator : ";
 $lang_config_TitleBD = "Database : ";

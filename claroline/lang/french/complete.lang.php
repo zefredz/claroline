@@ -1823,6 +1823,7 @@ $lang_config_ErrorLoginBDEmpty = "Le login pour la base de données ne peut être 
 $lang_config_ErrorOpenFile = "Erreur d'ouverture du fichier config.php";
 $lang_config_ErrorRootWebEmpty = "Le chemin web ne peut être vide !";
 $lang_config_Info = "(*) valeur requise";
+$lang_config_layout = "Apparence :";
 $lang_config_NoAdmin = "Vous n'êtes pas connecté en tant qu'administrateur";
 $lang_config_TitleAdministrator = "Administrateur : ";
 $lang_config_TitleBD = "Base de données : ";
