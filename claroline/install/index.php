@@ -1565,7 +1565,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 				<td>
 					<font size=\"2\" color=\"red\" face=\"arial, helvetica\">
 					Administrator Login : $loginForm<br>
-					Administrator Password : ".(empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$dbPassForm)."<br>
+					Administrator Password : ".(empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)."<br>
 					</font>
 				</td>
 			<tr>
