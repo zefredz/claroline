@@ -1,7 +1,7 @@
 <?php //$Id$
 // TOOL
 $conf_def['config_code']='CLFRM';
-$conf_def['config_file']='CLFRM.conf.inc.php';
+$conf_def['config_file']='CLFRM.conf.php';
 $conf_def['config_name'] = 'Forums tool';
 
 $conf_def['section']['forum']['label']='General settings';
