@@ -1181,7 +1181,7 @@ claro_disp_tool_title($titleElement,
 
         if( $docView == 'files' )
         {
-            $docViewToolbar = "<b>".$langFiles."</b>\n | ";
+            $docViewToolbar = $langFiles."\n | ";
         }
         else
         {
@@ -1192,7 +1192,7 @@ claro_disp_tool_title($titleElement,
         }
         if( $docView == 'thumbnails' )
         {
-            $docViewToolbar .= "<b>".$langThumbnails."</b>\n";
+            $docViewToolbar .= $langThumbnails."\n";
         }
         else
         {
@@ -1349,7 +1349,7 @@ claro_disp_tool_title($titleElement,
 
         if( $docView == 'files' )
         {
-            $docViewToolbar = "<b>$langFiles</b>\n | ";
+            $docViewToolbar = $langFiles . "\n | ";
         }
         else
         {
@@ -1360,7 +1360,9 @@ claro_disp_tool_title($titleElement,
         }
         if( $docView == 'thumbnails' )
         {
-            $docViewToolbar .= "<b>".$langThumbnails."</b>\n";
+            $docViewToolbar .= "<img src=\"".$imgRepositoryWeb
+                ."image.gif\" border=\"0\" alt=\"\">\n"
+                . $langThumbnails."\n";
         }
         else
         {
@@ -1541,7 +1543,7 @@ claro_disp_tool_title($titleElement,
         
         if( $docView == 'files' )
         {
-            $docViewToolbar = "<b>".$langFiles."</b>\n | ";
+            $docViewToolbar = $langFiles."\n | ";
         }
         else
         {
@@ -1552,7 +1554,9 @@ claro_disp_tool_title($titleElement,
         }
         if( $docView == 'thumbnails' )
         {
-            $docViewToolbar .= "<b>".$langThumbnails."</b>\n";
+            $docViewToolbar .= "<img src=\"".$imgRepositoryWeb
+                ."image.gif\" border=\"0\" alt=\"\">\n"
+                .$langThumbnails."\n";
         }
         else
         {
