@@ -170,8 +170,8 @@ if($dialogBox)
 
     //TOOL LINKS
 
-echo "<a href=\"adminprofile.php?uidToEdit=$uidToEdit\">$langSeeUserSettings</a> |";
-echo "<a href=\"../auth/courses.php?cmd=rqReg&amp;uidToEdit=".$uidToEdit."&amp;category=&amp;fromAdmin=usercourse\">$langEnrollToNewCourse</a>";
+echo "<a href=\"adminprofile.php?uidToEdit=".$uidToEdit."\">".$langSeeUserSettings."</a> | ";
+echo "<a href=\"../auth/courses.php?cmd=rqReg&amp;uidToEdit=".$uidToEdit."&amp;category=&amp;fromAdmin=usercourse\">".$langEnrollToNewCourse."</a>";
 
 if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
 {
