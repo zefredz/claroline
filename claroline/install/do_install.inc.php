@@ -422,8 +422,6 @@ foreach ($arr_file_to_undist As $undist_this)
  */
 $includePath = $newIncludePath;
 $def_file_list = get_def_list();
-
-var_export (get_included_files());
 if(is_array($def_file_list))
 foreach ( $def_file_list as $config_code => $def_file)
 {
@@ -459,7 +457,7 @@ foreach ( $def_file_list as $config_code => $def_file)
             }
         }
         
-        $confFile = claro_create_conf_file($config_code);
+        $confFile = claro_create_conf_filename($config_code);
         $confFile = claro_get_conf_file($config_code);            
         $storedPropertyList = read_param_value_in_buffer($config_code);
         if (is_array($storedPropertyList)&& count($storedPropertyList)>0)
