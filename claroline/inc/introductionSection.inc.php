@@ -123,8 +123,9 @@ if ($intro_dispForm)
     claro_disp_html_area('intro_content', $intro_content);
 
     echo	"<br>\n",
-			"<input type=submit value=\"".$langOk."\" name=\"intro_cmdUpdate\">\n",
-			"<br>\n",
+			"<input class=\"claroButton\" type=submit value=\"".$langOk."\" name=\"intro_cmdUpdate\">\n";
+    claro_disp_button($PHP_SELF, 'Cancel');
+	echo	"<br>\n",
 			"</form>\n";
 }
 
