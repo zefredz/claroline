@@ -1,9 +1,8 @@
-<?php
-# $Id$
+<?php //$Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -46,13 +45,13 @@ include($includePath."/claro_init_header.inc.php");
 
 //TABLES
 
-$tbl_user             = $mainDbName."`.`user";
-$tbl_courses        = $mainDbName."`.`cours";
-$tbl_course_user    = $mainDbName."`.`cours_user";
-$tbl_admin            = $mainDbName."`.`admin";
-$tbl_todo            = $mainDbName."`.`todo";
-$tbl_track_default    = $statsDbName."`.`track_e_default";// default_user_id
-$tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
+$tbl_user          = $mainDbName."`.`user";
+$tbl_courses       = $mainDbName."`.`cours";
+$tbl_course_user   = $mainDbName."`.`cours_user";
+$tbl_admin         = $mainDbName."`.`admin";
+$tbl_todo          = $mainDbName."`.`todo";
+$tbl_track_default = $statsDbName."`.`track_e_default";// default_user_id
+$tbl_track_login   = $statsDbName."`.`track_e_login";    // login_user_id
 
 // See SESSION variables used for reorder criteria :
 
@@ -133,18 +132,20 @@ $sql = "SELECT *
 $queryCourse =  claro_sql_query($sql);
 $resultCourse = mysql_fetch_array($queryCourse);
 
-
-
 //----------------------------------
 // Build query and find info in db
 //----------------------------------
 
+$sql = "
+SELECT 
+    U.nom, U.prenom, U.`user_id` AS ID, 
+    CU.*,CU.`user_id` AS Register
+FROM  `".$tbl_user."` AS U";
 
-$sql = "SELECT  U.nom, U.prenom, U.`user_id` AS ID, CU.*,CU.`user_id` AS Register
-        FROM  `".$tbl_user."` AS U
-        ";
-
-$toAdd = "LEFT JOIN `".$tbl_course_user."` AS CU ON CU.`user_id`=U.`user_id` AND CU.`code_cours` = '".$cidToEdit."'
+$toAdd = "
+LEFT JOIN `".$tbl_course_user."` AS CU 
+    ON             CU.`user_id`=U.`user_id` 
+            AND CU.`code_cours` = '".$cidToEdit."'
         ";
 
 $sql.=$toAdd;
@@ -154,8 +155,7 @@ $sql.=$toAdd;
 if (isset($_GET['letter']))
 {
     $toAdd = "
-             AND U.`nom` LIKE '".$_GET['letter']."%'
-             ";
+            AND U.`nom` LIKE '".$_GET['letter']."%' ";
     $sql.=$toAdd;
 }
 
@@ -193,8 +193,6 @@ if (isset($_SESSION['admin_register_order_crit']))
     }
     $sql.=$toAdd;
 }
-
-//echo $sql."<br>";
 
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $resultList = $myPager->get_result_list();
@@ -280,9 +278,9 @@ echo "<table width=\"100%\">
              </small>
           </td>
           <td align=\"right\">
-            <form action=\"",$PHP_SELF,"\">
-            ".$langMakeSearch." :
-            <input type=\"text\" value=\"".$_GET['search']."\" name=\"search\"\">
+            <form action=\"".$_SERVER['PHP_SELF']."\">
+            <label for=\"search\">".$langMakeSearch."</label> :
+            <input type=\"text\" value=\"".$_GET['search']."\" name=\"search\" id=\"search\" >
             <input type=\"submit\" value=\" ".$langOk." \">
             <input type=\"hidden\" name=\"newsearch\" value=\"yes\">
             <input type=\"hidden\" name=\"cidToEdit\" value=\"".$cidToEdit."\">
@@ -303,17 +301,15 @@ if (isset($_GET['order_crit']))
 $myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit.$addToURL);
 
 // Display list of users
-
    // start table...
-
    //columns titles...
 
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
 
     <tr class=\"headerX\" align=\"center\" valign=\"top\">
-       <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langUserid."</a></th>
-       <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
-       <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
+       <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=user_id&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langUserid."</a></th>
+       <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=nom&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
+       <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=prenom&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
 
 echo "<th>".$langEnrollAsStudent."</th>
       <th>".$langEnrollAsManager."</th>";
@@ -367,7 +363,7 @@ foreach($resultList as $list)
          echo  "<td align=\"center\">\n",
                     "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=stud".$addToURL."\" ",
                     ">\n",
-                    "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
+                    "<img src=\"".$coursesRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
                     "</a>\n",
                 "</td>\n";
 
@@ -388,7 +384,7 @@ foreach($resultList as $list)
         echo  "<td align=\"center\">\n",
                     "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=stud".$addToURL."\" ",
                     ">\n",
-                    "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
+                    "<img src=\"".$coursesRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"".$langSubscribeUser."\" />\n",
                     "</a>\n",
                 "</td>\n";
 
@@ -420,7 +416,7 @@ foreach($resultList as $list)
          echo  "<td align=\"center\">\n",
                         "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=teach".$addToURL."\" ",
                         ">\n",
-                        "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
+                        "<img src=\"".$coursesRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"".$langSubscribeUser."\" />\n",
                         "</a>\n",
                     "</td>\n";
 
