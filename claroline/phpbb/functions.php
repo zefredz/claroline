@@ -1706,7 +1706,7 @@ function own_stripslashes($string)
 }
 
 /**
- * convert a SQL date or datetime to a unix time stamp
+ * Convert a SQL date or datetime to a unix time stamp
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param string SQL DATETIME or DATE
@@ -1725,5 +1725,64 @@ function datetime_to_timestamp($dateTime)
     return mktime($hour, $min, $sec, $month, $day, $year);
 }
 
+
+/**
+ * Display formated message with several 'return to ...' possibility
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string $message
+ * @param int $forumId (optional)
+ * @param int $topicId (optional)
+ * @return void
+ */
+
+function disp_confirmation_message ($message, $forumId = false, $topicId = false)
+{
+    global $tablewidth;
+    global $l_click, $l_here, $l_viewmsg, $l_returntopic, $l_returnindex;
+
+    echo "<table border=\"0\" align=\"center\" width=\"".$tablewidth."\">"
+        
+        ."<tr>\n"
+        ."<td>\n"
+        ."<center>\n"
+        ."<p>".$message."</p>\n";
+
+        if ($forumId && $topicId)
+        {
+            echo "<p>"
+                .$l_click
+                ." <a href=\"viewtopic.php?topic=".$topicId."&forum=".$forumId."\">"
+                .$l_here
+                ."</a> "
+                .$l_viewmsg
+                ."</p>\n";
+        }
+        
+        if ($forumId)
+        {
+            echo "<p>"
+                .$l_click
+                ." <a href=\"viewforum.php?forum=".$forumId."\">"
+                .$l_here
+                ."</a> " 
+                .$l_returntopic
+                ."</p>\n";
+        }
+
+        echo "<p>"
+            .$l_click
+            ." <a href=\"index.php\">"
+            .$l_here
+            ."</a> "
+            .$l_returnindex
+            ."</p>"
+        
+            ."</center>\n"
+            ."</td>\n"
+            ."</tr>\n"
+        
+            ."</table>\n";
+}
 
 ?>

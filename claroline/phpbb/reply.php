@@ -215,7 +215,7 @@ if($submit)
 
     $sql = "UPDATE `".$tbl_topics."` 
             SET   topic_replies      =  topic_replies+1, 
-                  topic_last_post_id = '".$this_post.",
+                  topic_last_post_id = '".$this_post."',
                   topic_time         = '".$time."' 
             WHERE topic_id           = '".$topic."'";
 
@@ -241,7 +241,7 @@ if($submit)
 
     // added for CLAROLINE 1.5 : send notification for user who subscribed for it
 
-    $sql = "SELECT user_id, prenom firstname, nom lastname
+    $sql = "SELECT u.user_id, u.prenom firstname, u.nom lastname
             FROM `".$tbl_user_notify."` AS notif, 
                  ".$TABLEUSER." AS u
             WHERE notif.topic_id = '".$topic."'
@@ -289,32 +289,7 @@ if($submit)
                             DISPLAY SUCCES MESSAGE
       ------------------------------------------------------------------------*/
 
-    echo "<br>"
-
-        ."<table border=\"0\" align=\"center\" width=\"".$tablewidth."\">"
-        
-        ."<tr>"
-        ."<td>"
-        ."<center>"
-        ."<p>".$l_stored."</p>\n"
-        ."<p>\n"
-        .$l_click
-        ." <a href=\"viewtopic.php?topic=".$topic."&forum=".$forum."\">"
-        .$l_here
-        ."</a> \n"
-        .$l_viewmsg
-        ."</p>\n"
-        ."<p>"
-        .$l_click
-        ." <a href=\"viewforum.php?forum=".$forum."\">"
-        .$l_here."</a> "
-        .$l_returntopic
-        ."</p>\n"
-        ."</center>\n"
-        ."</td>\n"
-        ."</tr>\n"
-        
-        ."</table>\n";
+        disp_confirmation_message ($l_stored, $forum, $topic);
 }
 else
 {

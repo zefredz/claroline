@@ -21,11 +21,11 @@ session_start();
  *
  ***************************************************************************/
 
-include('extention.inc');
-include('functions.php');
-include('config.php');
-require('auth.php');
-include('page_header.php');
+include 'extention.inc';
+include 'functions.php';
+include 'config.php';
+require 'auth.php';
+include 'page_header.php';
 
 
 if($is_courseAdmin)
@@ -46,13 +46,13 @@ if($is_courseAdmin)
 
 		$myrow = mysql_fetch_array($result);
 
-		$poster_id        = $myrow[poster_id];
-		$forum_id         = $myrow[forum_id];
-		$topic_id         = $myrow[topic_id];
+		$poster_id        = $myrow['poster_id'];
+		$forum_id         = $myrow['forum_id' ];
+		$topic_id         = $myrow['topic_id' ];
 		$this_post_time   = $myrow['post_time'];
-		list($day, $time) = split(" ", $myrow[post_time]);
+		list($day, $time) = split(' ', $myrow['post_time']);
 		$posterdata       = get_userdata_from_id($poster_id, $db);
-		$date             = date("Y-m-d H:i");
+		$date             = date('Y-m-d H:i');
 
 		$is_html_disabled = false;
 
@@ -76,16 +76,10 @@ if($is_courseAdmin)
 		$message = make_clickable($message);
 
 		$message = str_replace("\n", "<BR>", $message);
-		$message = str_replace("<w>", "<s><font color=red>", $message);
-		$message = str_replace("</w>", "</font color></s>", $message);
-		$message = str_replace("<r>", "<font color=#0000FF>", $message);
-		$message = str_replace("</r>", "</font color>", $message);
-
 		$message = censor_string($message, $db);
-
 		$message = addslashes($message);
 
-		if(!$delete)
+		if( ! $delete)
 		{
 			/*--------------------------------------
 			               POST  UPDATE
@@ -95,44 +89,30 @@ if($is_courseAdmin)
 			$topic   = $topic_id;
 			$forum   = $forum_id;
 
-			$result = mysql_query("UPDATE `$tbl_posts_text` SET post_text = '$message' 
-								   WHERE (post_id = '$post_id')", $db) 
-					or error_die("Unable to update the posting in the database");
+            $sql = "UPDATE `".$tbl_posts_text."` 
+                    SET post_text = '".$message."' 
+                    WHERE post_id = '".$post_id."'";
+
+			$result = claro_sql_query($sql);
 
 			$subject = strip_tags($subject);
 
 			if(isset($subject) && (trim($subject) != ''))
 			{
-				if(!isset($notify)) $notify = 0;
-				else                $notify = 1;
+				if( !isset($notify) ) $notify = 0;
+				else                  $notify = 1;
 
 				$subject = addslashes($subject);
 
-				$result = mysql_query("UPDATE `$tbl_topics` 
-				                       SET topic_title = '$subject', topic_notify = '$notify' 
-									   WHERE topic_id = '$topic_id'", $db) 
-						  or error_die("Unable to update the topic subject in the database");
+                $sql = "UPDATE `".$tbl_topics."` 
+                        SET topic_title  = '".$subject."', 
+                            topic_notify = '".$notify."' 
+                        WHERE topic_id = '".$topic_id."'";
+
+				$result = claro_sql_query($sql);
 			}
-		 
-			echo	"<table border=\"0\" cellpadding=\"1\" ",
-					"align=\"center\" valign=\"top\" width=\"$tablewidth\">\n",
 
-					"<tr bgcolor=\"$color1\" align=\"left\">\n",
-					"<td>\n",
-
-					"<center>\n",
-					$l_stored," \n",
-					"<ul>\n",
-					$l_click," <a href=\"viewtopic.php?topic=$topic_id&forum=$forum_id\">$l_here</a>\n",
-					$l_viewmsg,"<P>$l_click <a href=\"viewforum.php?forum=$forum_id\">$l_here</a>\n",
-					$l_returntopic,"\n",
-					"</ul>\n",
-					"</center>\n",
-
-					"</td>\n",
-					"</tr>\n",
-
-					"</table>\n";
+            disp_confirmation_message ($l_stored, $forum_id, $topic_id);
 		}
 		else
 		{
@@ -140,79 +120,58 @@ if($is_courseAdmin)
 			              POST DELETE
 	  		 --------------------------------------*/
 
-			$now_hour         = date("H");
-			$now_min          = date("i");
-			list($hour, $min) = split(":", $time);
+			$now_hour         = date('H');
+			$now_min          = date('i');
+			list($hour, $min) = split(':', $time);
 
-			$last_post_in_thread = get_last_post($topic_id, $db, "time_fix");
+			$last_post_in_thread = get_last_post($topic_id, $db, 'time_fix');
 
-			$r = mysql_query("DELETE FROM `$tbl_posts` WHERE post_id = '$post_id'", $db) 
-			     or error_die("Couldn't delete post from database");
+            $sql = "DELETE FROM `".$tbl_posts."` 
+                    WHERE post_id = '".$post_id."'";
+
+			$r = claro_sql_query($sql);
+
+            $sql = "DELETE FROM `".$tbl_posts_text."` 
+                    WHERE post_id = '".$post_id."'";
 		
-			$r = mysql_query("DELETE FROM `$tbl_posts_text` WHERE post_id = '$post_id'", $db)
-			     or error_die("Couldn't delete post from database");
+			$r = claro_sql_query($sql);
 
 			if($last_post_in_thread == $this_post_time)
 			{
-				$topic_time_fixed = get_last_post($topic_id, $db, "time_fix");
+				$topic_time_fixed = get_last_post($topic_id, $db, 'time_fix');
 
-				$r = mysql_query("UPDATE `$tbl_topics` SET topic_time = '$topic_time_fixed' 
-				                  WHERE topic_id = '$topic_id'", $db) 
-					 or error_die("Couldn't update to previous post time - last post has been removed");
+                $sql = "UPDATE `".$tbl_topics."` 
+                        SET topic_time = '".$topic_time_fixed."' 
+				        WHERE topic_id = '".$topic_id."'";
+
+				$r = claro_sql_query($sql);
 			}
 
-			if(get_total_posts($topic_id, $db, "topic") == 0) 
+			if( get_total_posts($topic_id, $db, 'topic') == 0 ) 
 			{
-				$r = mysql_query("DELETE FROM `$tbl_topics` WHERE topic_id = '$topic_id'", $db) 
-				     or error_die("Couldn't delete topic from database");
-
-				$topic_removed = TRUE;
+				$sql = "DELETE FROM `".$tbl_topics."` 
+                        WHERE topic_id = '".$topic_id."'";
+                $r = claro_sql_query($sql);
+				$topic_removed = true;
 			}
 
-			if($posterdata[user_id] != -1)
-			{
-					$r = mysql_query("UPDATE `$tbl_users` SET user_posts = user_posts - 1 
-					                  WHERE user_id = $posterdata[user_id]", $db) 
-					     or error_die("Couldn't change user post count.");
-			}
+            if($posterdata['user_id'] != -1)
+            {
+                $sql = "UPDATE `".$tbl_users."` 
+                        SET user_posts = user_posts - 1 
+                        WHERE user_id = '".$posterdata['user_id']."'";
+
+                $r = claro_sql_query($sql);
+            }
 
 			sync($db, $forum, 'forum');
 
-			if(!$topic_removed)
-			{
-				sync($db, $topic_id, 'topic');
-			}
+			if(!$topic_removed) sync($db, $topic_id, 'topic');
 
 			/* CONFIRMATION MESSAGE */
-			
-			echo	"<table border=\"0\" cellpadding=\"1\" ",
-					"align=\"center\" valign=\"top\" width=\"$tablewidth\">",
 
-					"<tr bgcolor=\"",$color1,"\">",
-					"<td>",
+            disp_confirmation_message ($l_deleted, $forum_id);
 
-					"<center>",
-
-					"<p>",
-					$l_deleted,
-					"</p>",
-
-					"<p>",
-					$l_click," <a href=\"viewforum.php?forum=$forum_id\">",$l_here,"</a> ",
-					$l_returntopic,
-					"</p>",
-
-					"<p>",
-					$l_click," <a href=\"index.php\">",$l_here,"</a>",
-					$l_returnindex,
-					"</p>",
-
-					"</center>",
-
-					"</td>",
-					"</tr>",
-
-					"</table>";
 		}													// end post update
 		
 	}														// end submit management
@@ -222,31 +181,36 @@ if($is_courseAdmin)
 		      EDIT FORM BUILDING
 		  ==========================*/
 
-		$result = mysql_query("SELECT p.*, pt.post_text,
-		                              u.username, u.user_id, u.user_sig, 
-		                              t.topic_title, t.topic_notify 
-		                       FROM `$tbl_posts` p, `$tbl_users` u, 
-		                            `$tbl_topics` t, `$tbl_posts_text` pt,
-									`$tbl_forums` f
-		                       WHERE (p.post_id = '$post_id')
-							   AND (p.topic_id = '$topic')
-							   AND (f.forum_id = '$forum')
-					           AND (pt.post_id = p.post_id)
-		                       AND (p.topic_id = t.topic_id)
-							   AND (p.forum_id = f.forum_id)
-		                       AND (p.poster_id = u.user_id)", $db) 
-		          or	error_die("Couldn't get user and topic information from the database.");
+        $sql = "SELECT p.post_id, p.topic_id, p.forum_id, p.poster_id, 
+                       p.post_time, p.poster_ip, p.nom , p.prenom,
+                       pt.post_text,
+		               u.username, u.user_id, u.user_sig, 
+		               t.topic_title, t.topic_notify
+                       
+		        FROM `".$tbl_posts."` p, `".$tbl_users."` u, 
+		             `".$tbl_topics."` t, `".$tbl_posts_text."` pt,
+				     `".$tbl_forums."` f
 
-		if(!$myrow = mysql_fetch_array($result))
-			error_die("Error - The forum you selected does not exist. Please go back and try again.");
+		        WHERE p.post_id  = '".$post_id."'
+                  AND p.topic_id  = '".$topic."'
+                  AND f.forum_id  = '".$forum."'
+                  AND pt.post_id  = p.post_id
+                  AND p.topic_id  = t.topic_id
+                  AND p.forum_id  = f.forum_id
+                  AND p.poster_id = u.user_id";
 
-		$message = $myrow[post_text];
+		$myrow = claro_sql_query_fetch_all($sql);
+        
+        if (count($myrow) == 1) $myrow = $myrow[0];
+        else error_die ('unexisting forum');   
+
+		$message = $myrow['post_text'];
 
 		if(eregi("\[addsig]$", $message)) $addsig = 1;
-		else $addsig = 0;
+		else                              $addsig = 0;
 
 		$message = eregi_replace("\[addsig]$", "\n_________________\n" . $myrow[user_sig], $message);   
-		$message = str_replace("<BR>", "\n", $message);
+		$message = str_replace('<BR>', "\n", $message);
 		$message = stripslashes($message);
 		$message = desmile($message);
 		$message = bbdecode($message);
@@ -256,7 +220,7 @@ if($is_courseAdmin)
 		// Special handling for </textarea> tags in the message, which can break the editing form..
 		$message = preg_replace('#</textarea>#si', '&lt;/TEXTAREA&gt;', $message);
 
-		list($day, $time) = split(" ", $myrow[post_time]);
+		list($day, $time) = split(' ', $myrow['post_time']);
 ?>
 <form action="<?php echo $PHP_SELF; ?>" method="post">
 <table border="0">
@@ -275,7 +239,7 @@ if($is_courseAdmin)
 <label for="subject"><?php echo $l_subject?></label> : 
 </td>
 <td>
-<input type="text" name="subject" id="subject" size="50" maxlength="100" value="<?php echo stripslashes($myrow[topic_title])?>">
+<input type="text" name="subject" id="subject" size="50" maxlength="100" value="<?php echo stripslashes($myrow['topic_title'])?>">
 </td>
 </tr>
 <?php
@@ -309,9 +273,9 @@ if($is_courseAdmin)
 <br>
 <center>
 <?php
-	echo	"<a href=\"viewtopic.php?topic=$topic&forum=$forum\" target=\"_blank\">",
-			"<b>",$l_topicreview,"</b>",
-			"</a>";
+	echo "<a href=\"viewtopic.php?topic=$topic&forum=$forum\" target=\"_blank\">"
+		."<b>".$l_topicreview."</b>"
+		."</a>";
 ?>
 </center>
 

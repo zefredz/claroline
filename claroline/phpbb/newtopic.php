@@ -233,33 +233,8 @@ if($submit)
 
     include('page_header.php');
 
-    echo "<br>"
+    disp_confirmation_message ($l_stored, $forum_id, $topic_id);
 
-        ."<table border=\"0\" align=\"center\" width=\"".$tablewidth."\">"
-        
-        ."<tr>\n"
-        ."<td>\n"
-        ."<center>\n"
-        ."<p>".$l_stored."</p>\n"
-        ."<p>"
-        .$l_click
-        ." <a href=\"viewtopic.".$phpEx."?topic=".$topic_id."&forum=".$forum."\">"
-        .$l_here
-        ."</a> "
-        .$l_viewmsg
-        ."</p>"
-        ."<p>"
-        .$l_click
-        ." <a href=\"viewforum.".$phpEx."?forum=".$forum_id."\">"
-        .$l_here
-        ."</a> " 
-        .$l_returntopic
-        ."</p>\n"
-        ."</center>\n"
-        ."</td>\n"
-        ."</tr>\n"
-        
-        ."</table>\n";
 } // end if submit
 else
 {
