@@ -25,7 +25,7 @@ $phpEx = "php"; // php extension ....
 // The line below set the error reporting to the most fitting one for Claroline
 // Actually this operation is also done into claro_init_global.inc.php
 // But this file is loaded to late in the forum scripts ...
-error_reporting(error_reporting() & ~ E_NOTICE);
+//error_reporting(error_reporting() & ~ E_NOTICE);
 
 
 

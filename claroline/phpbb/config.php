@@ -2,7 +2,7 @@
 
 // Set error reporting to sane value.
 // It will NOT report uninitialized variables
-error_reporting  (E_ERROR | E_WARNING | E_PARSE);
+//error_reporting  (E_ERROR | E_WARNING | E_PARSE);
 
 $langFile = 'phpbb';
 $tlabelReq = 'CLFRM___';
