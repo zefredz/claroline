@@ -359,12 +359,17 @@ else
 						$controlMsg['warning'][]=$lang_faculty_HaveCourses;
 						$canHaveCoursesChild="TRUE";
 					}
+                    else
+                    {
+                    $sql_ChangeInfoFaculty="update `$tbl_faculty` set name='".$_REQUEST["nameCat"]."',code='".$_REQUEST["codeCat"]."'
+                                ,canHaveCoursesChild='".$canHaveCoursesChild."' where id='".$_REQUEST["id"]."'";
+                    claro_sql_query($sql_ChangeInfoFaculty);
+                    }
 				}
 				else
 				{
 					$sql_ChangeInfoFaculty="update `$tbl_faculty` set name='".$_REQUEST["nameCat"]."',code='".$_REQUEST["codeCat"]."'
 								,canHaveCoursesChild='".$canHaveCoursesChild."' where id='".$_REQUEST["id"]."'";
-
 					claro_sql_query($sql_ChangeInfoFaculty);
 
 					//Change code_P for his childeren
@@ -633,7 +638,7 @@ else
 		$i=0;
 		for($i=0;$i<count($array);$i++)
 		{
-			$array[$i]["visible"]=FALSE;
+			$array[$i]["visible"]=TRUE;
 			$faculty[]=$array[$i];
 		}
 
@@ -836,11 +841,11 @@ if($EDIT)
 	</tr>
 	</table>
 	</form>
-	<br><hr><br>
+	<br><br>
 
 <?php
 
-	displaySimpleBom($faculty,NULL,$EditCode);
+	// displaySimpleBom($faculty,NULL,$EditCode);
 
 }
 
@@ -851,11 +856,11 @@ if($MOVE)
 {
 ?>
 	<br>
-	<form action="<?php echo $PHP_SELF?>" method="POST">
+	<form action=" <?php echo $PHP_SELF?> " method="POST">
 	<table border="0">
 	<tr>
 		<td>
-		<label for="fatherCat"> <?php echo $lang_faculty_Father; ?> </label >
+		<label for="fatherCat"> <?php echo $lang_faculty_Father;  echo $EditCode ?> </label >
 		</td>
 
 		<td align="RIGHT">
@@ -863,7 +868,7 @@ if($MOVE)
 		<option value="NULL" > &nbsp;&nbsp;&nbsp;<?php echo $siteName;?> </option>
 		<?php
 		//Display each category in the select
-		buildSelectFaculty($savFaculty,NULL,$EditFather,"");
+		 buildSelectFaculty($savFaculty,NULL,$EditFather,"");
 		?>
 		</select>
 		</td>
@@ -886,8 +891,27 @@ if($MOVE)
 	</form>
 	<br><hr><br>
 
-	<?php
-	displaySimpleBom($faculty,NULL,$EditCode);
+
+    <?    echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
+       <tr class=\"headerX\" align=\"center\" valign=\"top\">
+       ";
+
+     //add titles for the table
+
+echo "<th>".$lang_faculty_CodeCat."</td>"
+          ."<th style='text-align:center'>".$langEdit."</th>"
+          ."<th style='text-align:center'>".$langMove."</th>"
+          ."<th style='text-align:center'>".$langDelete."</th>"
+          ."<th style='text-align:center'>".$langOrder."</th>";
+
+echo "</tr>"
+?>
+<?php
+
+    displayBom($faculty,NULL,"");
+
+    ?>
+     <?php  // displaySimpleBom($faculty,NULL,$EditCode);
 
 }
 
@@ -953,9 +977,9 @@ include($includePath."/claro_init_footer.inc.php");
 					if($one_faculty["nb_childs"]>0)
 					{
 						if($one_faculty["visible"])
-							$PM="-";
+							$PM='<img src="../img/minus.jpg" border="0" alt="" >';
 						else
-							$PM="+";
+							$PM='<img src="../img/plus.jpg" border="0" alt="" >';
 					?>
 
 					<a style="text-decoration:none;font-weight:bold" href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&date='".$date."'#pm".$one_faculty["id"] ?>"
