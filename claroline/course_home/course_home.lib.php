@@ -207,6 +207,14 @@ function set_course_tool_access_level($toolIdList, $level)
 function set_local_course_tool($toolId, $name, $url, $accessLevel = 'ALL')
 {
     global $tbl_tool_list;
+
+    // check for "http://", if the user forgot "http://" or "ftp://" or ...
+    // the link will not be correct
+    if( !ereg( "://",$url ) )
+    {
+         // add "http://" as default protocol for url
+         $url = "http://".$url;
+    }
     
     if ( (int)$toolId != 0 )
     {
@@ -246,6 +254,14 @@ function set_local_course_tool($toolId, $name, $url, $accessLevel = 'ALL')
 function insert_local_course_tool($name, $url, $accessLevel = 'ALL')
 {
     global $tbl_tool_list;
+
+    // check for "http://", if the user forgot "http://" or "ftp://" or ...
+    // the link will not be correct
+    if( !ereg( "://",$url ) )
+    {
+         // add "http://" as default protocol for url
+         $url = "http://".$url;
+    }
 
     $nextRank = get_next_course_tool_rank();
 
