@@ -102,7 +102,7 @@ $langFeedbackAdded = "Feedback added";
 $langFeedbackEdited = "Feedback edited";
 
 // errors
-$langTooBig = "File is too big";
+$langTooBig = "You didn't choose any file to send, or it is too big";
 $langAssignmentTitleRequired = "Assignment title required";
 $langAssignmentTitleAlreadyExists = "Assignment title already exists";
 $langCannotCopyFile = "Cannot copy the file.";
