@@ -40,29 +40,29 @@ include($includePath."/lib/statsUtils.lib.inc.php");
 
 
 $toolTitle['mainTitle'] = $nameTools;
-switch ($cmd)
+switch ($_GET['cmd'])
 {
 	case 'tool' : 
 	    	// set the subtitle for the claro_disp_tool_title function
-		$toolTitle['subTitle'] = $langTool.$data;
+		$toolTitle['subTitle'] = $langTool.$_GET['data'];
 		// prepare SQL query
 		$sql = "SELECT nom, prenom, MAX(UNIX_TIMESTAMP(`access_date`)) AS data, COUNT(`access_date`) AS nbr
 			FROM `".$TABLETRACK_ACCESS."`
 			LEFT JOIN `".$TABLEUSER."`
 			ON `access_user_id` = `user_id`
-			WHERE `access_tool` = '".$data."'
+			WHERE `access_tool` = '".$_GET['data']."'
 			GROUP BY nom, prenom
 			ORDER BY nom, prenom	";
 		break;
 	case 'doc'  :	
 	    	// set the subtitle for the claro_disp_tool_title function
-		$toolTitle['subTitle'] = $langDocument.$data;	
+		$toolTitle['subTitle'] = $langDocument.$_GET['data'];	
 		// prepare SQL query
 		$sql = "SELECT nom, prenom, MAX(UNIX_TIMESTAMP(`down_date`)) AS data, COUNT(`down_date`) AS nbr
 			FROM `".$TABLETRACK_DOWNLOADS."`
 			LEFT JOIN `".$TABLEUSER."`
 			ON `down_user_id` = `user_id`
-			WHERE `down_doc_path` = '".$data."'
+			WHERE `down_doc_path` = '".$_GET['data']."'
 			GROUP BY nom, prenom
 			ORDER BY nom, prenom	";
 		break;
