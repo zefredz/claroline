@@ -1,18 +1,7 @@
 <?php # $Id$
 
-$lang_uid_to_add		= "Uid à ajouter";
-$lang_name_to_add		= "Nom";
-$lang_official_to_add	= "NOMA";
-$lang_firstname_to_add	= "Prénom";
-$lang_username_to_add	= "Nom d'utilisateur";
-$lang_email_to_add		= "email";
-
 $lang_merge_proceed		= "Effectuer la fusion";
-
-
 $lang_no_back			= "Irréversible !!!";
-$langAdministration = "Outils d'administration";
-$langManage ="Gestion du Campus";
 
 #### SETTINGS ####
 $_tid				= "MERGE_USER";
@@ -222,25 +211,25 @@ if ($display_what_merge)
 ?>
 </fieldset>
 	<fieldset style="width: 1*;float: left">
-		<label for="uid_to_merge1" ><?php echo $lang_uid_to_add ?></label> :
+		<label for="uid_to_merge1" ><?php echo $langUserid ?></label> :
 	<input type="text" id="uid_to_merge1" name="uid_to_merge[]" size=6 maxlength=10><br>
 	</fieldset>
 
 	<fieldset style="width: 1*">
 	ou par info user<br>
-	<label for="official_to_add"><?php echo $lang_official_to_add ?></label> :
+	<label for="official_to_add"><?php echo $langOfficialCode ?></label> :
 	<input type="text" id="official_to_add" name="official_to_add" >
 	<br>
-	<label for="name_to_add"><?php echo $lang_name_to_add ?></label> :
+	<label for="name_to_add"><?php echo $langLastName ?></label> :
 	<input type="text" id="name_to_add" name="name_to_add" >
 	<br>
-	<label for="firstname_to_add"><?php echo $lang_firstname_to_add ?></label> :
+	<label for="firstname_to_add"><?php echo $langFirstName ?></label> :
 	<input type="text" id="firstname_to_add" name="firstname_to_add" >
 	<br>
-	<label for="username_to_add"><?php echo $lang_username_to_add ?></label> :
+	<label for="username_to_add"><?php echo $langUserName ?></label> :
 	<input type="text" id="username_to_add" name="username_to_add" >
 	<br>
-	<label for="email_to_add"><?php echo $lang_email_to_add ?></label> :
+	<label for="email_to_add"><?php echo $langEmail ?></label> :
 	<input type="text" id="email_to_add" name="email_to_add" >
 	<br>
 	</fieldset>
