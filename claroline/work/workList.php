@@ -73,8 +73,12 @@ $currentCourseRepositorySys = $coursesRepositorySys.$_course["path"]."/";
 $currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course["path"]."/";
 
 $fileAllowedSize = CONFVAL_MAX_FILE_SIZE_PER_WORKS ;    //file size in bytes
-$wrkDir           = $currentCourseRepositorySys."work/"; //directory path to upload
+$wrkDirSys          = $currentCourseRepositorySys."work/"; // systeme work directory
+$wrkDirWeb          = $currentCourseRepositoryWeb."work/"; // web work directory
 
+// use with strip_tags function when strip_tags is used to check if a text is empty
+// but a 'text' with only an image don't have to be considered as empty 
+$allowedTags = '<img>';
 /*============================================================================
                      CLEAN INFORMATIONS SEND BY USER
   =============================================================================*/
@@ -96,11 +100,15 @@ if( isset($_REQUEST['sesId']) && !empty($_REQUEST['sesId']) )
       // we need to know the session settings
       $sql = "SELECT *,
                 UNIX_TIMESTAMP(`start_date`) AS `unix_start_date`,
-                UNIX_TIMESTAMP(`end_date`) AS `unix_end_date`
+                UNIX_TIMESTAMP(`end_date`) AS `unix_end_date`,
+                UNIX_TIMESTAMP(`prefill_date`) AS `unix_prefill_date`
                 FROM `".$tbl_wrk_session."`
                 WHERE `id` = ".$_REQUEST['sesId'];
       
       list($wrkSession) = claro_sql_query_fetch_all($sql);
+      
+      $wrkSesDirSys = $wrkDirSys."/ws".$_REQUEST['sesId']."/";
+      $wrkSesDirWeb = $wrkDirWeb."/ws".$_REQUEST['sesId']."/";
 }
 
 
@@ -207,6 +215,7 @@ $is_allowedToSubmit   = (bool) ( $sessionIsVisible  && $uploadDateIsOk  && $user
                                     || $is_allowedToEdit
                                     || $is_allowedToEditAll;
                      
+//-- is_allowedToView                     
 // allowed to display work list and work details                     
 $is_allowedToView = (bool) ($sessionIsVisible && $afterStartDate) || $is_allowedToEditAll;
 
@@ -224,12 +233,30 @@ if( isset($_REQUEST['submitWrk']) )
       // if authorized_content is TEXT or TEXTFILE, a text is required !
       if( $sessionContent == "TEXT" || $sessionContent == "TEXTFILE" )
       {
-            if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'] ) ) == "" )
+            if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'] ), $allowedTags ) == "" )
             {
                   $dialogBox .= $langAnswerRequired."<br />";
                   $formCorrectlySent = false;
             }
+            else
+            {
+                  $submittedText = trim(claro_addslashes( $_REQUEST['wrkTxt'] ));
+            }
       }
+      elseif( $sessionContent == "FILE" )
+      {
+            // if authorized_content is FILE we don't have to check if txt is empty (not required)
+            // but we have to check that the text is not only useless html tags
+            if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'] ), $allowedTags ) == "" )
+            {
+                  $submittedText = "";
+            }
+            else
+            {
+                  $submittedText = trim(claro_addslashes( $_REQUEST['wrkTxt'] ));
+            }
+      }
+      
       // check if a title has been given
       if( ! isset($_REQUEST['wrkTitle']) || trim(claro_addslashes($_REQUEST['wrkTitle'])) == "" )
       {
@@ -303,14 +330,12 @@ if( isset($_REQUEST['submitWrk']) )
                         
                         $wrkForm['fileName'] = uniqid('')."_".$newFileName;
                         
-                        $wrkUrl = "ws".$_REQUEST['sesId']."/".$wrkForm['fileName'];
-                        
-                        if( !is_dir( $wrkDir."ws".$_REQUEST['sesId'] ) )
+                        if( !is_dir( $wrkSesDirSys ) )
                         {
-                              mkdir( $wrkDir."ws".$_REQUEST['sesId'] , 0777 );
+                              mkdir( $wrkSesDirSys , 0777 );
                         }
                         
-                        if( ! @copy($_FILES['wrkFile']['tmp_name'], $wrkDir.$wrkUrl) )
+                        if( ! @copy($_FILES['wrkFile']['tmp_name'], $wrkSesDirSys.$wrkForm['fileName']) )
                         {
                               $dialogBox .= $langCannotCopyFile."<br />";
                               $formCorrectlySent = false;
@@ -319,7 +344,7 @@ if( isset($_REQUEST['submitWrk']) )
                         // remove the previous file if there was one
                         if( isset($_REQUEST['currentWrkUrl']) )
                         {
-                              @unlink($wrkDir."ws".$_REQUEST['sesId']."/".$_REQUEST['currentWrkUrl']);
+                              @unlink($wrkSesDirSys.$_REQUEST['currentWrkUrl']);
                         }
                         // else : file sending shows no error
                         // $formCorrectlySent stay true;
@@ -348,7 +373,7 @@ if( isset($_REQUEST['submitWrk']) )
                   if(isset($_REQUEST['delAttacheDFile']) )
                   {
                         $wrkForm['fileName'] = ""; // empty DB field
-                        @unlink($wrkDir."ws".$_REQUEST['sesId']."/".$_REQUEST['currentWrkUrl']); // physically remove the file
+                        @unlink($wrkSesDirSys.$_REQUEST['currentWrkUrl']); // physically remove the file
                   }
             }
       }// if($formCorrectlySent)
@@ -399,7 +424,7 @@ if($is_allowedToEditAll)
       $fileToDelete = claro_sql_query_get_single_value($sql);
       
       // delete the file
-      @unlink($wrkDir."ws".$_REQUEST['sesId']."/".$fileToDelete);
+      @unlink($wrkSesDirSys.$fileToDelete);
       
       // delete the database data of this work
       $sqlDelete = "DELETE FROM `".$tbl_wrk_submission."`
@@ -500,7 +525,7 @@ if( $is_allowedToEdit )
             $sqlAddWork = "UPDATE `".$tbl_wrk_submission."`
                            SET `submitted_doc_path` = \"".$wrkForm['fileName']."\",
                               `title`       = \"".trim(claro_addslashes( $wrkForm['title'] ))."\",
-                              `submitted_text` = \"".trim(claro_addslashes( $_REQUEST['wrkTxt'] ))."\",
+                              `submitted_text` = \"".$submittedText."\",
                               `authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\",
                               `last_edit_date` = NOW()
                               WHERE `id` = ".$_REQUEST['wrkId'];
@@ -692,6 +717,24 @@ echo "\n<p>\n"
       ."\n</p>\n\n";
 }
 
+// grading
+// show it only if :
+//      - there is a text OR a file 
+//      - prefill_date is past
+if( ( !empty($wrkSession['prefill_text']) || !empty($wrkSession['prefill_doc_path']) ) && $wrkSession['unix_prefill_date'] < time() )
+{
+      echo "<b>".$langStandardGrading."</b>";
+      if( !empty($wrkSession['prefill_text']) )
+      {
+            echo "<p>".claro_parse_user_text($wrkSession['prefill_text'])."</p>";
+      }
+      
+      if( !empty($wrkSession['prefill_doc_path']) )
+      {
+            echo  "<p><a href=\"".$wrkSesDirWeb.$wrkSession['prefill_doc_path']."\">".$wrkSession['prefill_doc_path']."</a></p>";
+      }
+}
+
 /*--------------------------------------------------------------------
                           WORK DETAILS
   --------------------------------------------------------------------*/
@@ -775,7 +818,7 @@ if( $dispWrkDet && $is_allowedToView )
       {
             if( !empty($wrk['submitted_doc_path']) )
             {
-                  $completeWrkUrl = $currentCourseRepositoryWeb."work/ws".$_REQUEST['sesId']."/".$wrk['submitted_doc_path'];
+                  $completeWrkUrl = $wrkSesDirWeb.$wrk['submitted_doc_path'];
                   // show file if this is not a TEXT only work
                   echo "<tr>\n"
                         ."<td valign=\"top\">".$txtForFile."&nbsp;:</td>\n"
@@ -892,7 +935,7 @@ if( $is_allowedToSubmit )
                   if( !empty($form['wrkUrl']) )
                   {
                         // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
-                        $completeWrkUrl = $currentCourseRepositoryWeb."work/ws".$_REQUEST['sesId']."/".$form['wrkUrl'];
+                        $completeWrkUrl = $wrkSesDirWeb.$form['wrkUrl'];
                         echo "&nbsp;:<input type=\"hidden\" name=\"currentWrkUrl\" value=\"".$form['wrkUrl']."\">"
                               ."</td>\n"
                               ."<td>"
