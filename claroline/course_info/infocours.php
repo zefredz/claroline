@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -167,29 +167,29 @@ if (isset($cidToEdit) && ($is_platformAdmin))
 
 
 <tr>
-<td align="right"><?php echo $langCode ?>&nbsp;:</td>
-<td><input type="text" name="screenCode" value="<?php echo $currentCourseCode; ?>" size="20"></td>
+<td align="right"><label for="screenCode"><?php echo $langCode ?></label>&nbsp;:</td>
+<td><input type="text" id="screenCode" name="screenCode" value="<?php echo $currentCourseCode; ?>" size="20"></td>
 </tr>
 
 <tr>
-<td align="right"><?php echo $langProfessor ?>&nbsp;:</td>
-<td><input type="text" name="titulary" value="<?php echo $titulary; ?>" size="60"></td>
+<td align="right"><label for="titulary"><?php echo $langProfessor ?></label>&nbsp;:</td>
+<td><input type="text"  id="titulary" name="titulary" value="<?php echo $titulary; ?>" size="60"></td>
 </tr>
 
 <tr>
-<td align="right"><?echo $langEmail ?>&nbsp;:</td>
-<td><input type="text" name="email" value="<?php echo $email; ?>" size="30" maxlength="255"></td>
+<td align="right"><label for="email"><?echo $langEmail ?></label>&nbsp;:</td>
+<td><input type="text"  id="email" name="email" value="<?php echo $email; ?>" size="30" maxlength="255"></td>
 </tr>
 
 <tr>
-<td align="right"><?php echo $langTitle ?> :</td>
-<td><input type="Text" name="int" value="<?php echo $int; ?>" size="60"></td>
+<td align="right"><label for="int"><?php echo $langTitle ?></label> :</td>
+<td><input type="Text" name="int" id="int" value="<?php echo $int; ?>" size="60"></td>
 </tr>
 
 <tr>
-<td align="right"><?php echo $langFaculty ?> :</td>
+<td align="right"><label for="facu"><?php echo $langFaculty ?></label> :</td>
 <td>
-<select name="facu">
+<select name="facu" id="facu">
 <?php
 		$resultFac  = mysql_query("
 		SELECT `code`, `name`
@@ -210,19 +210,19 @@ if (isset($cidToEdit) && ($is_platformAdmin))
 </tr>
 
 <tr>
-<td align="right"><?php echo $langDepartmentUrlName ?>&nbsp;: </td>
-<td><input type="text" name="extLinkName" value="<?php echo $extLinkName; ?>" size="20" maxlength="30"></td>
+<td align="right"><label for="extLinkName"><?php echo $langDepartmentUrlName ?></label>&nbsp;: </td>
+<td><input type="text" name="extLinkName" id="extLinkName" value="<?php echo $extLinkName; ?>" size="20" maxlength="30"></td>
 </tr>
 
 <tr>
-<td align="right" nowrap><?php echo $langDepartmentUrl ?>&nbsp;:</td>
-<td><input type="text" name="extLinkUrl" value="<?php echo $extLinkUrl; ?>" size="60" maxlength="180"></td>
+<td align="right" nowrap><label for="extLinkUrl" ><?php echo $langDepartmentUrl ?></label>&nbsp;:</td>
+<td><input type="text" name="extLinkUrl" id="extLinkUrl" value="<?php echo $extLinkUrl; ?>" size="60" maxlength="180"></td>
 </tr>
 
 <tr>
-<td valign="top" align="right"><?php echo $langLanguage ?> : </td>
+<td valign="top" align="right"><label for="lanCourseForm"><?php echo $langLanguage ?></label> : </td>
 <td>
-<select name="lanCourseForm">
+<select name="lanCourseForm" id="lanCourseForm">
 <?php	// determine past language of the course
 $dirname = "../lang/";
 if($dirname[strlen($dirname)-1]!='/') $dirname.='/';
@@ -265,15 +265,16 @@ if (isset($cidToEdit) && ($is_platformAdmin))
 <tr>
 <td valign="top" align="right" nowrap><?php echo $langCourseAccess; ?> : </td>
 <td>
-<input type="radio" name="visible" value="true" <?php echo $visibleChecked[TRUE] ?>> <?php echo $langPublic; ?><br>
-<input type="radio" name="visible" value="false" <?php echo $visibleChecked[FALSE]; ?>> <?php echo $langPrivate; ?>
+<input type="radio" id="visible_true" name="visible" value="true" <?php echo $visibleChecked[TRUE] ?>> <label for="visible_true"><?php echo $langPublic; ?></label><br>
+<input type="radio" id="visible_false" name="visible" value="false" <?php echo $visibleChecked[FALSE]; ?>> <label for="visible_false"><?php echo $langPrivate; ?></label>
 </td>
 </tr>
 
 <tr>
 <td valign="top"align="right"><?php echo $langSubscription; ?> : </td>
-<td><input type="radio" name="allowedToSubscribe" value="true" <?php echo $registrationAllowedChecked[TRUE] ?>> <?php echo $langAllowed; ?><br>
-<input type="radio" name="allowedToSubscribe" value="false" <?php echo $registrationAllowedChecked[FALSE] ?>> <?php echo $langDenied; ?>
+<td>
+<input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $registrationAllowedChecked[TRUE] ?>> <label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label><br>
+<input type="radio" id="allowedToSubscribe_false"  name="allowedToSubscribe" value="false" <?php echo $registrationAllowedChecked[FALSE] ?>> <label for="allowedToSubscribe_false"><?php echo $langDenied; ?></label>
 <? if (isset($cidToEdit))
 {
 echo "<input type=\"hidden\" name=\"cidToEdit\" value=\"".$cidToEdit."\">";
