@@ -6,6 +6,10 @@
 // check if the password is not too much easy to find
 define ('SECURE_PASSWORD_REQUIRED', true);
 
+
+define ('CAN_REQUEST_COURSE_CREATOR_STATUS',FALSE);
+define ('CAN_REQUEST_REVOQUATION',FALSE);
+
 $userOfficialCodeCanBeEmpty = true;
 $userMailCanBeEmpty			= true;
 
