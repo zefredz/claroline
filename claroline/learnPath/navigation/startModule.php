@@ -186,7 +186,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
    {
       
       include("scormAPI.inc.php");
-      echo "<frameset border='0' cols='0,20%,80%' frameborder='no' onUnload=\"LMSCommit('')\">
+      echo "<frameset border='0' cols='0,20%,80%' frameborder='no'>
             <frame src='updateProgress.php' name='upFrame'>";
       
    }
