@@ -163,6 +163,8 @@
 
    $langModuleModified = "Module has been modified";
    $langQuitViewer = "Back to list";
+   $langNext = "Next";
+   $langPrevious = "Previous";
    $langBrowserCannotSeeFrames = "Your browser cannot see frames.";
 
    // default comment

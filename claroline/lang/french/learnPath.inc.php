@@ -162,6 +162,8 @@
 
    $langModuleModified = "Le module a &eacute;t&eacute; modifi&eacute;";
    $langQuitViewer = "Retour à la liste";
+   $langNext = "Suivant";
+   $langPrevious = "Pr&eacute;c&eacute;dent";
    $langBrowserCannotSeeFrames = "Votre navigateur ne supporte pas les frames";
 
    // default comment
