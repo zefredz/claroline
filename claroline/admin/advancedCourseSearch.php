@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -64,33 +64,33 @@ include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
 
 ?>
-<small><?=$langYouCanUsefields?> : </small><br>
+<small><?php echo $langYouCanUsefields?> : </small><br>
 <form action="admincourses.php" method="GET" >
 <table border="0">
 <tr>
   <td align="right">
-   <?=$langOfficialCode?> : <br>
+   <label for="code"><?php echo $langOfficialCode?></label> : <br>
   </td>
   <td colspan="3">
-    <input type="text" size="40" name="code" value="<?=$_GET['code']?>"/>
+    <input type="text" size="40" name="code" id="code" value="<?php echo $_GET['code']?>"/>
   </td>
 </tr>
 
 <tr>
   <td align="right">
-   <?=$langCourseTitle?> :  <br>
+   <label for="intitule"><?php echo $langCourseTitle?></label> :  <br>
   </td>
   <td colspan="3">
-    <input type="text" size="40" name="intitule" value="<?=$_GET['intitule']?>"/>
+    <input type="text" size="40" name="intitule"  id="intitule" value="<?php echo $_GET['intitule']?>"/>
   </td>
 </tr>
 
 <tr>
   <td align="right">
-   <?=$langCategory?> : <br>
+   <label for="category"><?php echo $langCategory?></label> : <br>
   </td>
   <td colspan="3">
-    <select name="category">
+    <select name="category" id="category">
     <option value="" ></option>
     <?php
 
@@ -103,11 +103,11 @@ claro_disp_tool_title($nameTools);
 
 <tr>
   <td align="right">
-   <?=$langLanguage?> : <br>
+   <label for="language"><?php echo $langLanguage?></label> : <br>
   </td>
   <td colspan="3">
-    <select name="language">
-    <option value=""></option>
+    <select name="language" id="language" >
+    <option  value=""></option>
     <?php
       echo createSelectBoxLanguage($_GET['language']);
     ?>
@@ -117,25 +117,40 @@ claro_disp_tool_title($nameTools);
 
 <tr>
   <td align="right">
-   <?=$langCourseAccess?> :
+   <?php echo $langCourseAccess ?> 
+   :
   </td>
-  <td><input type="radio" name="access" value="public"<?if ($_GET['access']=="public") echo "checked";?> ><?=$langPublic?></input>
+  <td>
+   <input type="radio" name="access" value="public"  id="access_public"  <?php if ($_GET['access']=="public") echo "checked";?> >
+   <label for="access_public"><?php echo $langPublic ?></label>
   </td>
-  <td><input type="radio" name="access" value="private" <?if ($_GET['access']=="private") echo "checked";?>><?=$langPrivate?></input>
+  <td>
+      <input type="radio" name="access" value="private" id="access_private" <?php if ($_GET['access']=="private") echo "checked";?>>
+    <label for="access_private"><?php echo $langPrivate ?></label>
   </td>
-  <td><input type="radio" name="access" value="" <?if ($_GET['access']=="") echo "checked";?>><?=$langAll?></input>
+  <td>
+      <input type="radio" name="access" value=""        id="access_all"     <?php if ($_GET['access']=="") echo "checked";?>>
+    <label for="access_all"><?php echo $langAll ?></label>
   </td>
 </tr>
 
 <tr>
   <td align="right">
-   <?=$langSubscription?> :
+      <?php echo $langSubscription ?> 
+    :
   </td>
-  <td><input type="radio" name="subscription" value="allowed" <?if ($_GET['subscription']=="allowed") echo "checked";?>><?=$langAllowed?></input>
+  <td>
+      <input type="radio" name="subscription" value="allowed" id="subscription_allowed" <?if ($_GET['subscription']=="allowed") echo "checked";?>>
+    <label for="subscription_allowed"><?php echo $langAllowed ?></label>
   </td>
-  <td><input type="radio" name="subscription" value="denied" <?if ($_GET['subscription']=="denied") echo "checked";?>><?=$langDenied?></input>
+  <td>
+      <input type="radio" name="subscription" value="denied"  id="subscription_denied" <?if ($_GET['subscription']=="denied") echo "checked";?>>
+    <label for="subscription_denied"><?php echo $langDenied ?></label>
   </td>
-  <td><input type="radio" name="subscription" value="" <?if ($_GET['subscription']=="") echo "checked";?>><?=$langAll?></input></td>
+  <td>
+      <input type="radio" name="subscription" value=""  id="subscription_all" <?if ($_GET['subscription']=="") echo "checked";?>>
+    <label for="subscription_all"><?php echo $langAll ?></label>
+  </td>
 </tr>
 
 <tr>
@@ -143,7 +158,7 @@ claro_disp_tool_title($nameTools);
 
   </td>
   <td colspan="3">
-    <input type="submit" class="claroButton" value="<?=$langSearchCourse?>" ></input>
+    <input type="submit" class="claroButton" value="<?php echo $langSearchCourse?>" >
   </td>
 </tr>
 </table>

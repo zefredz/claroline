@@ -1,8 +1,8 @@
-<?php # $Id$
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -66,66 +66,69 @@ include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
 
 ?>
-<small><?=$langYouCanUsefields?> : </small><br>
+<small><?php echo $langYouCanUsefields?> : </small><br>
 <form action="adminusers.php" method="GET" >
 <table border="0">
+	<tr>
+		<td align="right">
+			<label for="lastName"><?php echo $langLastName?></label>
+			: <br>
+		</td>
+		<td>
+			<input type="text" name="lastName" id="lastName" value="<?php echo $_GET['lastName']?>"/>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="right">
+			<label for="firstName"><?php echo $langFirstName?></label>
+			: <br>
+		</td>
+		<td>
+			<input type="text" name="firstName" id="firstName" value="<?php echo $_GET['firstName']?>"/>
+		</td>
+	</tr>
+	
+	<tr>
+		<td align="right">
+			<label for="userName"><?php echo $langUsername ?></label> 
+			:  <br>
+		</td>
+		<td>
+			<input type="text" name="userName" id="userName" value="<?php echo $_GET['userName']?>"/>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="right">
+			<label for="mail"><?php echo $langEmail ?></label> 
+			: <br>
+		</td>
+		<td>
+			<input type="text" name="mail" id="mail" value="<?php echo $_GET['mail']?>"/>
+		</td>
+	</tr>
 
 <tr>
   <td align="right">
-   <?=$langLastName?> : <br>
+   <label for="action"><?php echo $langAction?></label> : <br>
   </td>
   <td>
-    <input type="text" name="lastName" value="<?=$_GET['lastName']?>"/>
-  </td>
-</tr>
-
-<tr>
-  <td align="right">
-   <?=$langFirstName?> : <br>
-  </td>
-  <td>
-    <input type="text" name="firstName" value="<?=$_GET['firstName']?>"/>
-  </td>
-</tr>
-
-<tr>
-  <td align="right">
-   <?=$langUsername?> :  <br>
-  </td>
-  <td>
-    <input type="text" name="userName" value="<?=$_GET['userName']?>"/>
-  </td>
-</tr>
-
-<tr>
-  <td align="right">
-   <?=$langEmail?> : <br>
-  </td>
-  <td>
-    <input type="text" name="mail" value="<?=$_GET['mail']?>"/>
-  </td>
-</tr>
-
-<tr>
-  <td align="right">
-   <?=$langAction?> : <br>
-  </td>
-  <td>
-    <select name="action">
-        <option value="followcourse" <?if ($_GET['action']=="followcourse") echo "selected";?>><?=$langFollowCourse?></option>
-        <option value="createcourse" <?if ($_GET['action']=="createcourse") echo "selected";?>><?=$langCreateCourse?></option>
-        <option value="plateformadmin" <?if ($_GET['action']=="plateformadmin") echo "selected";?>><?=$langPlatformAdmin?></option>
+    <select name="action" id="action">
+        <option value="followcourse" <?if ($_GET['action']=="followcourse") echo "selected";?>><?php echo $langFollowCourse?></option>
+        <option value="createcourse" <?if ($_GET['action']=="createcourse") echo "selected";?>><?php echo $langCreateCourse?></option>
+        <option value="plateformadmin" <?if ($_GET['action']=="plateformadmin") echo "selected";?>><?php echo $langPlatformAdmin?></option>
     </select>
   </td>
 </tr>
 
 <tr>
-  <td>
+    <td>
 
-  </td>
-  <td>
-    <input type="submit" class="claroButton" value="<?=$langSearchUser?>" ></input>
-  </td>
+    </td>
+    <td>
+        <input type="submit" class="claroButton" value="<?php echo $langSearchUser?>" >
+    </td>
 </tr>
 </table>
 </form>
