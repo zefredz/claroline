@@ -341,8 +341,15 @@ if( isset($_REQUEST['submitWrk']) )
             }
             elseif( $sessionContent == "TEXTFILE" )
             {
-                  // attached file is optionnal if work type is TEXT and FILE
-                  // $formCorrectlySent stay true;
+                  // attached file is optionnal if work type is TEXT AND FILE
+                  // so the attached file can be deleted only in this mode
+                  
+                  // if delete of the file is required
+                  if(isset($_REQUEST['delAttacheDFile']) )
+                  {
+                        $wrkForm['fileName'] = ""; // empty DB field
+                        @unlink($wrkDir."ws".$_REQUEST['sesId']."/".$_REQUEST['currentWrkUrl']); // physically remove the file
+                  }
             }
       }// if($formCorrectlySent)
             
@@ -884,12 +891,14 @@ if( $is_allowedToSubmit )
                   }
                   if( !empty($form['wrkUrl']) )
                   {
+                        // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
                         $completeWrkUrl = $currentCourseRepositoryWeb."work/ws".$_REQUEST['sesId']."/".$form['wrkUrl'];
                         echo "&nbsp;:<input type=\"hidden\" name=\"currentWrkUrl\" value=\"".$form['wrkUrl']."\">"
                               ."</td>\n"
                               ."<td>"
                               ."<a href=\"".$completeWrkUrl."\">".$form['wrkUrl']."</a>"
-                              ."<br /><small>".$langExplainReplaceFile."</small>"
+                              ."<br /><input type=\"checkBox\" name=\"delAttacheDFile\" id=\"delAttachedFile\">"
+                              ."<label for=\"delAttachedFile\">".$langExplainModifyAttachedfile."</label> "
                               ."</td>\n"
                               ."</tr>\n\n";
                   }
