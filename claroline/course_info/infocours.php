@@ -407,7 +407,10 @@ if (isset($cidToEdit))
 }
 ?>
 
-<a class="claroButton" href="delete_course.php<?php echo $toAdd ?>"><?php echo $langDelCourse; ?></a>
+<a class="claroButton" href="delete_course.php<?php echo $toAdd ?>">
+<img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif">
+<?php echo $langDelCourse; ?>
+</a>
 
 
 <?php
