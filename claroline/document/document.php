@@ -1214,15 +1214,16 @@ claro_disp_tool_title($titleElement,
 		
 		display_link_to_next_image($imageList, $fileList, $current);
 
-  		echo "</tr>\n";		
-  		
+  	echo "</tr>\n";		
+		
+		echo "</table>\n";
+		
 		// ---------------------- display comment about  requested image ----------
 		
 		if ($fileList['comment'][$imgKey])
 		{				
-			echo "<tr><td colspan=\"".$colspan."\" class=\"comment\">\n"
+			echo "<hr />\n"
 				. "<blockquote>" . $fileList['comment'][$imgKey] . "</blockquote>\n"
-				. "</td></tr>\n"
 				;
 		}
 		else
@@ -1230,11 +1231,12 @@ claro_disp_tool_title($titleElement,
 			echo "<!-- empty -->\n";
 		}// end if comment
 		
-		echo "</table>\n";
 
 		// --------------------- display current image --------------------------
 		
 		// system path
+		
+		
 		$imgPath = $coursesRepositorySys . $courseDir
 			. $curDirPath . '/' . basename( $file )
 			;
