@@ -124,8 +124,10 @@ et j'ai pas trouvé où il le crée
 Repéré par : MOOSH
 
 
-Etat : New ------------------------------------------------------
-M.16. claroline/admin/adminaddnewuser.php?register=yes
+Etat : New 
+
+------------------------------------------------------
+16. claroline/admin/adminaddnewuser.php?register=yes
 type : erreur de langue. 
 quoi : "Les nouveaux utilisateurs recevrons un email avec leur nom d'utilisateur et mot de passe"
 
@@ -133,8 +135,9 @@ claroline/admin/adminusercourses.php?uidToEdit=3&cfrom=ulist
 "bouton retour à l'utilisateur en français" :  faute
 Repéré par :  M
 Assigné à : 
+Etat : RESOLU
+------------------------------------------------------------------
 
-RESOLU------------------------------------------------------------------
 M.17. outils de travaux.  
 à l'envoi d'un Ficher .exe  trop gros, le système ne fait pas l'envoi mais ne retourne pas de message d'erreur.
 
@@ -178,7 +181,7 @@ et pas de lien pour "continuer"
 Repéré par : M
 Assigné à : SEB
 
-Etat : New -----------------------
+Etat : RESOLU -----------------------
 M.22 /auth/courses.php Li :571
 type : lang hardcoded
 quoi : echo	"<small><font color=\"gray\">course manager</font></small>\n";
@@ -239,6 +242,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.35  2004/06/16 09:38:24  guillaume
+bug 16 et 22 résolu
+
 Revision 1.34  2004/06/16 09:32:55  moosh
 bugs 26 et 27
 
