@@ -268,6 +268,19 @@ quoi : quand y a pas de groupe la cat la cat est visible  et mène a un truc où o
 Repéré par : M
 Assigné à : claroline 1.5.1
 
+Etat : New ------------------------------------------------------
+M.33 où : document
+type : logik surf
+quoi : 
+	* Je crée une url
+	* je la renomme
+	* je la teste
+	* quand je suis sur le site je veux revenir en arrière avec un back
+	* j'arrive dans le form de renomage et je suis obligé de re renommer
+	(après coup je me rend compte que le form est tellement grand que j'avais pas vu la liste des documents dans le bas de la page
+Repéré par : M
+Assigné à : H
+
 
 template à copier coller
 Etat : New ------------------------------------------------------
@@ -282,6 +295,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.43  2004/06/17 12:56:11  moosh
+bug 33
+
 Revision 1.42  2004/06/17 08:16:38  moosh
 bug 32
 
