@@ -13,6 +13,7 @@
 //----------------------------------------------------------------------
 
 $langFile = 'course_info';
+$course_homepage = TRUE;
 
 // If user is here, it means he isn't neither in specific group space 
 // nor a specific course tool now. So it's careful to to reset the group 
