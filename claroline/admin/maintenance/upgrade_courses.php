@@ -183,7 +183,7 @@ switch ($display)
 			upgrade_tool_list($currentCourseDbNameGlu);
 			
 			// move link
-			include("moveLink.php");	
+			//include("moveLink.php");	
 			
 			if ($nbError>0)
 			{

@@ -1036,7 +1036,7 @@ $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."group_
   `forum` tinyint(4) default '1',
   `document` tinyint(4) default '1',
   `wiki` tinyint(4) default '0',
-  `agenda` tinyint(4) default '0',
+  `chat` tinyint(4) default '1',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;";
 
@@ -1094,6 +1094,8 @@ $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."group_propert
 $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."group_property` CHANGE `wiki` `wiki` tinyint(4) default '0';";
 $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."group_property` CHANGE `agenda` `agenda` tinyint(4) default '0';";
 $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."group_property` CHANGE `nbGroupPerUser` `nbGroupPerUser` tinyint(3) unsigned default '1';";
+  // rename field agenda in chat
+$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."group_property` CHANGE `agenda` `chat` tinyint(4) default '1';";
 
 $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."group_team` CHANGE `id` `id` int(11) NOT NULL auto_increment;";
 $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."group_team` CHANGE `name` `name` varchar(100) default NULL;";
@@ -1749,6 +1751,9 @@ $sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_words` COMMENT='d
 
 /**
  * $Log$
+ * Revision 1.4  2004/06/04 17:01:41  mathieu
+ * rename field agenda to chat
+ *
  * Revision 1.3  2004/06/04 12:45:11  mathieu
  * default value of picture name is '' not null.
  *
