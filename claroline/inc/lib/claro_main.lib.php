@@ -1023,12 +1023,12 @@ function claro_is_javascript_enabled()
 
 function claro_parse_user_text($userText)
 {
-   global $claro_texRenderePath;
+   global $claro_texRendererUrl;
 
-   if ($claro_texRendererPath)
+   if ($claro_texRendererUrl)
    {
        $userText = str_replace('[tex]',
-                          '<img src="'.$claro_texRendererPath.'?',
+                          '<img src="'.$claro_texRendererUrl.'?',
                           $userText);
 
        $userText = str_replace('[/tex]',
