@@ -122,6 +122,13 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 </li>
 </ul>
 
+<h4><?php echo $langTools ?></h4>
+<ul>
+<li>
+<a href="tool/config.php"><?php echo $langConfiguration?></a>
+</li>
+</ul>
+
 <h4><?php echo $langPlatform?></h4>
 <ul>
 <li>
@@ -140,8 +147,6 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <a href="maintenance/index.php"><?php echo $langUpgrade?></a>
 </li>
 </ul>
-
-
 <?php
 include($includePath."/claro_init_footer.inc.php");
 ?>
