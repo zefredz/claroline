@@ -27,8 +27,8 @@ $thisClarolineVersion = $version_file_cvs;
 
 /* lang var */
 
-include ("../../lang/english/upgrade.inc.php");
-
+include ("../../lang/english/complete.lang.php");
+//include ("../../lang/english/claroline_admin_maintenance.lang.php");
 
 $error = 0;
 
