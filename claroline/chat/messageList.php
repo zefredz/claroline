@@ -17,17 +17,6 @@ $langFile = 'chat';
     or die ('<center>unable to start script</center>');
 
 
-// CHAT MESSAGE LIST OWN'S HEADER
-
-echo	'<html>'
-
-		.'<head>'
-		.'<meta http-equiv="refresh" content="200;url="'.$PHP_SELF.'#final">'
-		.'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/default.css" />'
-		.'</head>'
-
-		.'<body>';
-
 if (! $is_courseAllowed) die ("<center>-not allowed----</center>");
  
 /*============================================================================
@@ -92,6 +81,9 @@ else
     $onflySaveFile  = $curChatRep.$courseId.'.tmpChatArchive.html';
     $exportFile     = $coursePath.'/document/';
 }
+
+
+define('REFRESH_DISPLAY_RATE', 10);
 
 // MAX LINE IN THE ACTIVE CHAT FILE. FOR PERFORMANCE REASON IT IS INTERESTING 
 // TO WORK WITH NOT TOO BIG FILE
@@ -240,11 +232,23 @@ $curDisplayLineList = $activeLineList;
 
 // DISPLAY
 
-echo implode("\n", $curDisplayLineList) // LAST LINES
+// CHAT MESSAGE LIST OWN'S HEADER
+
+echo '<html>'
+
+    .'<head>'
+    .'<meta http-equiv="refresh" content="'.REFRESH_DISPLAY_RATE.';url="'.$PHP_SELF.'#final">'
+    .'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/default.css" />'
+    .'</head>'
+
+    .'<body>'
+
+    . implode("\n", $curDisplayLineList) // LAST LINES
     ."<p align=\"right\"><small>"
     .$dateLastWrite                 // LAST MESSAGE DATE TIME
     ."</small></p>\n"
     ."<a name=\"final\">\n"       // ANCHOR ALLOWING TO DIRECTLY POINT LAST LINE 
+
     ."</body>\n"
     ."</html>\n";
 
