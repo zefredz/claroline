@@ -13,10 +13,6 @@
 
 $langFile = "courses";
 
-$langBackToClass   = "back to the class";
-$langRegisterClass = " Register a class";
-$langEnrollClass = "Enroll class";
-
 require '../inc/claro_init_global.inc.php';
 
 $nameTools  = $lang_course_enrollment;

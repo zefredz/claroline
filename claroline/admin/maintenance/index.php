@@ -10,12 +10,6 @@
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
-$langMaintenance 			= "Maintenance";
-$langUpgrade 				= "Upgrade claroline";
-$langUpgradeAll 			= "Upgrade all the  platform.";
-$langUpgradeCoursesDb 		= "Upgrade courses Databases.";
-$langMakeBackupBefore 		= "Make a backup before !!!";
-$langExplainUpgradeCourses 	= "Do it after the restore of an old course.";
 
 $langFile = "admin.maintenance.menu";
 

@@ -15,17 +15,6 @@ info : Cette  page  sert d'index  pour les  outils de développements
 *
 * Elle nécéssite une  protection
 */
-// 6 includes to be certain to  have a name  on each $lang, and  iff possible  in english
-$langDiffTranslation = "Comparer des fichers de traduction";
-$langMakeFileOfTranslation = "Construire un fichier de traduction";
-$lang_no_access_here ="Pas d'accès ";
-$langTranslations ="Traductions";
-$langFilling	="Remplissage de la base avec des valeur test";
-$langFillUsers	= "Inserer des Utilisateurs";
-$langFillTree	= "Inserer des catégories/faculté dans l'arbre";
-$langFillCourses	= "Créer des cours de test";
-$langNomPageDevIndex = "Outils de développement";
-$langAdmin = "Administration";
 
 $langFile = "admin";
 require '../../inc/claro_init_global.inc.php';

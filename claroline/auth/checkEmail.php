@@ -6,7 +6,6 @@
       +----------------------------------------------------------------------+
  */
  
-$langCheckemail = "Vérification de l'email";
 $langFile = "registration";
 //$tlabelReq = ""; // actually tools out cours don't have label
 
