@@ -1,9 +1,8 @@
-<?php
-# $Id$
+<?php //$Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -314,7 +313,7 @@ foreach($resultList as $list)
 
      echo     "<td align=\"center\">\n",
                         "<a href=\"adminUserCourseSettings.php?cidToEdit=".$cidToEdit."&uidToEdit=".$list['user_id']."&ccfrom=culist\">\n
-                         <img src=\"../img/usersetting.gif\" border=\"0\" alt=\"$langEditUserCourseSetting\" />\n",
+                         <img src=\"".$clarolineRepositoryWeb."img/usersetting.gif\" border=\"0\" alt=\"$langEditUserCourseSetting\" />\n",
                         "</a>\n",
                         "</td>\n";
 
@@ -325,7 +324,7 @@ foreach($resultList as $list)
         echo  "<td align=\"center\">\n",
                 "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=unsub&user_id=".$list['user_id']."&offset=".$offset."\" ",
                 "onClick=\"return confirmationReg('",addslashes($list['username']),"');\">\n",
-                "<img src=\"../img/unenroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
+                "<img src=\"".$clarolineRepositoryWeb."img/unenroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
                 "</a>\n",
             "</td>\n";
      }
