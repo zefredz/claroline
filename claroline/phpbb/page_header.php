@@ -89,8 +89,11 @@ while ($myTutor = mysql_fetch_array($sqlTutor))
 
 // Determine if forum category is Groups
 
-$forumCatId = mysql_query("SELECT cat_id FROM `".$tbl_forums."`
-                           WHERE forum_id = '".$forum."'") or die('Error in file '.__FILE__.' at line '.__LINE__);
+
+$sqlForumCatId = "SELECT cat_id FROM `".$tbl_forums."`
+                           WHERE forum_id = '".$forum."'";
+
+$forumCatId = claro_sql_query($sqlForumCatId);
 
 while ($myForumCat = mysql_fetch_array($forumCatId))
 {
@@ -100,10 +103,12 @@ while ($myForumCat = mysql_fetch_array($forumCatId))
 
 // Check which group and which forum user is a member of
 
-$findTeamUser = mysql_query("SELECT team, forumId, tutor, secretDirectory
-                             FROM  `".$tbl_student_group."` s, `".$tbl_user_group."` u
-                             WHERE u.user=\"".$_uid."\"
-                             AND   s.id = u.team") or die('Error in file '.__FILE__.' at line '.__LINE__);
+$sqlFindTeamUser = "SELECT team, forumId, tutor, secretDirectory
+                 FROM  `".$tbl_student_group."` s, `".$tbl_user_group."` u
+                 WHERE u.user=\"".$_uid."\"
+                 AND   s.id = u.team";
+
+$findTeamUser = claro_sql_query($sqlFindTeamUser);
 
 while ($myTeamUser = mysql_fetch_array($findTeamUser))
 {
