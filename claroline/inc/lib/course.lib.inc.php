@@ -521,15 +521,15 @@ function langageExist()
 
 function BuildEditableCatTable($selectedCat = null, $separator = "&gt;")
 {
-	global $TABLECOURSDOMAIN;
-	 
-	$result = mysql_query_dbg("SELECT *
-                              FROM `".$TABLECOURSDOMAIN."`                              
-			      ORDER BY `name`");
-			      
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_category        = $tbl_mdb_names['category'];
+
+	$sql = " SELECT code, code_P, name, canHaveCoursesChild
+               FROM `".$tbl_category."`                              
+			   ORDER BY `name`";
+	$result = claro_sql_query($sql);
 	// first we get the categories available in DB from the SQL query result in parameter	
-	
-		
+
 	while ($myfac = mysql_fetch_array($result))
 	{
 		$categories[$myfac["code"]]["code"]   = $myfac["code"];
@@ -537,8 +537,7 @@ function BuildEditableCatTable($selectedCat = null, $separator = "&gt;")
 		$categories[$myfac["code"]]["name"]   = $myfac["name"];
 		$categories[$myfac["code"]]["childs"] = $myfac["canHaveCoursesChild"];
 	}
-	
-		
+
 	// then we build the table we need : full path of editable cats in an array
 	
 	$tableToDisplay = array();
@@ -576,34 +575,32 @@ function BuildEditableCatTable($selectedCat = null, $separator = "&gt;")
 
  
 function getFullPath($categories, $catcode = null, $separator = " &gt; ")
-    {      
-      //Find parent code
-      
-      $parent = null;
-      
-      foreach ($categories as $currentCat)
-      {
-        if (( $currentCat['code'] == $catcode))
-        {
-	  $parent = $currentCat['parent'];  
-        }
-      }
-            
-      // RECURSION : find parent categorie in table
-            
-      if ($parent == null)
-      { 
-      	return $catcode;
-      }
-      
-      foreach ($categories as $currentCat)
-      {
-        if (($currentCat['code'] == $parent))
-        {
-	  return getFullPath($categories, $parent, $separator).$separator.$catcode;
-          break;
-        }
-      }
-    }
+{
+	//Find parent code
+	
+	$parent = null;
+	
+	foreach ($categories as $currentCat)
+	{
+		if (( $currentCat['code'] == $catcode))
+		{
+			$parent = $currentCat['parent'];  
+		}
+	}
+	// RECURSION : find parent categorie in table
+	if ($parent == null)
+	{ 
+		return $catcode;
+	}
+	
+	foreach ($categories as $currentCat)
+	{
+		if (($currentCat['code'] == $parent))
+		{
+			return getFullPath($categories, $parent, $separator).$separator.$catcode;
+			break;
+		}
+	}
+}
 
 ?>

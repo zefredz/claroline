@@ -24,13 +24,22 @@
   require '../../inc/claro_init_global.inc.php';
 
   // Tables names
+/*
+ * DB tables definition
+ */
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
+$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
+$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
 
-  $TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
-  $TABLEMODULE            = $_course['dbNameGlu']."lp_module";
-  $TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
-  $TABLEASSET             = $_course['dbNameGlu']."lp_asset";
-  $TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
-  
+$TABLELEARNPATH         = $tbl_lp_learnPath;
+$TABLEMODULE            = $tbl_lp_module;
+$TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
+$TABLEASSET             = $tbl_lp_asset;
+$TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
+
   // lib of this tool
 
 

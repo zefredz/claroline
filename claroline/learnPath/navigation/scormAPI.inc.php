@@ -1,7 +1,7 @@
-<?
+<?php // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version  $Revision$                            |
+  | CLAROLINE 1.6
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
@@ -28,13 +28,24 @@
   * @filesource
   */
 
-  $TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
-  $TABLEMODULE            = $_course['dbNameGlu']."lp_module";
-  $TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
-  $TABLEASSET             = $_course['dbNameGlu']."lp_asset";
-  $TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
+  /*
+ * DB tables definition
+ */
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user            = $tbl_mdb_names['user'             ];
+$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
+$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
+$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
 
-  $TABLEUSERS                    = $mainDbName."`.`user";
+$TABLELEARNPATH          = $tbl_lp_learnPath;
+$TABLEMODULE             = $tbl_lp_module;
+$TABLELEARNPATHMODULE    = $tbl_lp_rel_learnPath_module;
+$TABLEASSET              = $tbl_lp_asset;
+$TABLEUSERMODULEPROGRESS = $tbl_lp_user_module_progress;
+$TABLEUSERS              = $tbl_user;
 
   $SCORMServerURL = $clarolineRepositoryWeb."learnPath/navigation/SCORMserver.php";
   $redirectionURL = $clarolineRepositoryWeb."learnPath/learningPath.php";
