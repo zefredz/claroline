@@ -981,7 +981,7 @@ unset($attribute);
 	                    and we can't go to a parent dir */
 	{
 		echo 	"<a href=\"$PHP_SELF?cmd=exChDir&file=".$cmdParentDir."\">\n",
-				"<img src=\"../img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\">\n",
+				"<img src=\"../img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\" \">\n",
 				"<small>$langUp</small>\n",
 				"</a>\n";
 	}
@@ -992,21 +992,21 @@ unset($attribute);
 		
         echo    "&nbsp;",
                 "<a href=\"".$PHP_SELF."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"../img/dossier.gif\">",
+                "<img src=\"../img/dossier.gif\" alt=\" \">",
                 "<small>$langCreateDir</small>",
                 "</a>\n",
                 "&nbsp;",
                 "<a href=\"".$PHP_SELF."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"../img/download.gif\">",
+                "<img src=\"../img/download.gif\" alt=\" \">",
                 "<small>$langUploadFile</small>",
                 "</a>\n",
                 "&nbsp;",
                 "<a href=\"".$PHP_SELF."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"../img/liens.gif\">",
+                "<img src=\"../img/liens.gif\" alt=\" \">",
                 "<small>".$langCreateHyperlink."</small>",
                 "</a>\n",
                 "<a href=\"rqmkhtml.php?cmd=rqMkHtml&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"../img/html.gif\">",
+                "<img src=\"../img/html.gif\" alt=\" \">",
                 "<small>".$langCreateDocument."</small>",
                 "</a>\n";
 	}
@@ -1024,7 +1024,7 @@ unset($attribute);
 		echo	"<!-- current dir name -->\n",
 				"<tr>\n",
 				"<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n",
-				"<img src=\"../img/opendir.gif\" align=\"absbottom\" vspace=2 hspace=5>\n",
+				"<img src=\"../img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\" \">\n",
                 $dspCurDirName,"\n",
 				"</td>\n",
 				"</tr>\n";
@@ -1110,7 +1110,7 @@ unset($attribute);
 			echo	"<tr align=\"center\"",$style,">\n",
 					"<td align=\"left\">",
 					"<a href=\"".$urlFileName."\"".$style.">",
-					"<img src=\"./../img/",$image,"\" border=0 hspace=5>",$dspFileName,"</a>",
+					"<img src=\"./../img/",$image,"\" border=\"0\" hspace=\"5\" alt=\" \">",$dspFileName,"</a>",
 					"</td>\n",
 					
 					"<td><small>",$size,"</small></td>\n",
@@ -1127,7 +1127,7 @@ unset($attribute);
 				echo 	"<td>",
 						"<a href=\"",$PHP_SELF,"?cmd=exRm&file=",$cmdFileName,"\" ",
 						"onClick=\"return confirmation('",addslashes($dspFileName),"');\">",
-						"<img src=\"../img/supprimer.gif\" border=0>",
+						"<img src=\"../img/supprimer.gif\" border=\"0\" alt=\"$langDelete\">",
 						"</a>",
 						"</td>\n";
 				
@@ -1135,7 +1135,7 @@ unset($attribute);
 
 				echo	"<td>",
 						"<a href=\"",$PHP_SELF,"?cmd=rqMv&file=",$cmdFileName,"\">",
-						"<img src=\"../img/deplacer.gif\" border=0>",
+						"<img src=\"../img/deplacer.gif\" border=\"0\" alt=\"$langMove\">",
 						"</a>",
 						"</td>\n";
 						
@@ -1143,7 +1143,7 @@ unset($attribute);
 
 				echo	"<td>",
 						"<a href=\"",$PHP_SELF,"?cmd=rqEdit&file=",$cmdFileName,"\">",
-						"<img src=\"../img/edit.gif\" border=0>",
+						"<img src=\"../img/edit.gif\" border=\"0\" alt=\"$langModify\">",
 						"</a>",
 						"</td>\n";
                         
@@ -1169,13 +1169,13 @@ unset($attribute);
                     if ($fileList['visibility'][$fileKey] == "i")
                     {
                         echo	"<a href=\"",$PHP_SELF,"?cmd=exChVis&file=",$cmdFileName,"&vis=v\">",
-                                "<img src=\"../img/invisible.gif\" border=0>",
+                                "<img src=\"../img/invisible.gif\" border=\"0\" alt=\"$langMakeVisible\">",
                                 "</a>";
                     }
                     else
                     {
                         echo	"<a href=\"",$PHP_SELF,"?cmd=exChVis&file=",$cmdFileName,"&vis=i\">",
-                                "<img src=\"../img/visible.gif\" border=0>",
+                                "<img src=\"../img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">",
                                 "</a>";
                     }
                 }
