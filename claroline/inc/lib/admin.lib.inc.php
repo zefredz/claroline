@@ -128,7 +128,7 @@ function add_user_to_course($userId, $courseCode)
  * @param  int     $userId     user ID from the course_user table
  * @param  string  $courseCode course code from the cours table
  *
- * @return boolean TRUE        if subscribtion suceed
+ * @return boolean TRUE        if unsubscribtion succeed
  *         boolean FALSE       otherwise.
  */
 
