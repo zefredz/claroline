@@ -70,6 +70,50 @@ $user_id = $_GET['uidToEdit'];
 
 //echo $user_id."<br>";
 
+
+//------------------------------------
+// Execute COMMAND section
+//------------------------------------
+
+switch (isset($cmd))
+{
+   case "changeStatus" :
+
+
+        if ($status_form == "teacher")
+        {
+            $properties['status'] = 1;
+            $properties['role']   = "Professor";
+            $properties['tutor']  = 1;
+            $done = update_user_course_properties($uidToEdit, $cidToEdit, $properties);
+            if ($done)
+            {
+               $dialogBox = $langUserIsNowCourseManager;
+            }
+            else
+            {
+               $dialogBox = $langStatusChangeNotMade;
+            }
+
+        }
+        if ($status_form == "student")
+        {
+            $properties['status'] = 5;
+            $properties['role']   = "Student";
+            $properties['tutor']  = 0;
+            $done = update_user_course_properties($uidToEdit, $cidToEdit, $properties);
+            if ($done)
+            {
+               $dialogBox = $langUserIsNowStudent;
+            }
+            else
+            {
+               $dialogBox = $langStatusChangeNotMade;
+            }
+        }
+        break;
+}
+
 //------------------------------------
 //FIND GLOBAL INFO SECTION
 //------------------------------------
@@ -77,8 +121,6 @@ $user_id = $_GET['uidToEdit'];
 if(isset($user_id))
 
 {
-
-
     $sqlGetInfoUser ="
     SELECT *
         FROM  `".$tbl_user."`
@@ -103,73 +145,27 @@ if(isset($user_id))
     $resultCourse = claro_sql_query($sql);
     $courseList = mysql_fetch_array($resultCourse);
 
-    // find user settings, must see if the user is teacher for the course
+    // find course user settings, must see if the user is teacher for the course
 
     $sql = "SELECT * FROM `".$tbl_course_user."`
-            WHERE user_id='$user_id'
+            WHERE user_id='$uidToEdit'
+            AND code_cours='".$cidToEdit."'
             ";
-
     $resultCourseUser = claro_sql_query($sql);
     $list = mysql_fetch_array($resultCourseUser);
 
-    if ($list['statut'] == 1)
+    if ($list['statut'] == '1')
     {
        $isCourseManager = true;
+       $isStudent = false;
     }
     else
     {
+       $isCourseManager = false;
        $isStudent = true;
     }
 }
 
-
-
-//------------------------------------
-// Execute COMMAND section
-//------------------------------------
-
-switch (isset($cmd))
-{
-   case "changeStatus" :
-
-        if ($_GET['status'] == "teacher")
-        {
-            $properties['status'] = 1;
-            $properties['role']   = "Professor";
-            $properties['tutor']  = 1;
-            $done = update_user_course_properties($user_id, $cidToEdit, $properties);
-            if ($done)
-            {
-               $isCourseManager = true;
-               $dialogBox = $langUserIsNowCourseManager;
-            }
-            else
-            {
-               $dialogBox = $langStatusChangeFailed;
-            }
-
-        }
-        else
-        {
-            $properties['status'] = 5;
-            $properties['role']   = null;
-            $properties['tutor']  = 0;
-            $done = update_user_course_properties($user_id, $cidToEdit, $properties);
-            if ($done)
-            {
-               $isCourseManager = false;
-               $isStudent =true;
-               $dialogBox = $langUserIsNowStudent;
-            }
-            else
-            {
-               $dialogBox = $langStatusChangeFailed;
-            }
-        }
-
-
-        break;
-}
 //------------------------------------
 // DISPLAY
 //------------------------------------
@@ -201,11 +197,10 @@ if($dialogBox)
             <tr>
                <td><?=$langUserStatus?> : </td>
                <td>
-                 <input type="radio" name="status" value="student" <? if ($isStudent) { echo "checked"; }?> ><?=$langStudent?></input>
-                 <input type="radio" name="status" value="teacher" <? if ($isCourseManager) { echo "checked"; }?> ><?=$langCourseManager?></input>
+                 <input type="radio" name="status_form" value="student" <? if ($isStudent) { echo "checked"; }?> ><?=$langStudent?></input>
+                 <input type="radio" name="status_form" value="teacher" <? if ($isCourseManager) { echo "checked"; }?> ><?=$langCourseManager?></input>
                  <input type="hidden" name="uidToEdit" value="<?=$user_id?>">
                  <input type="hidden" name="cidToEdit" value="<?=$cidToEdit?>">
-                 <input type="hidden" name="cfrom" value="<?=$cfrom?>">
                  <input type="submit" name="applyChange" value="<?=$langSaveChanges?>">
                  <input type="hidden" name="cmd" value="changeStatus">
                  <input type="hidden" name="cfrom" value="<?=$cfrom?>">
