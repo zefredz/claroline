@@ -15,11 +15,28 @@ les cas ou la redirection ne se passe pas bien.
 
 Assigné à : HUGUES
 
+
 3.  INSTALL instal repetées = plusieurs admins -> utilisation des function d'ajout utilisateurs
 Assigné à : 
 à résoudre pour : 1.5.1
 
-----
+
+4. HTMLAREA. Bug signalé par PRFB sur le forum.  Insertions de <br /> aux retours à la ligne dans le code html des pages créées
+
+5. COURSE_HOME. librairie à déplacer ? course_home.lib.php se trouve dans le répertoire même de course_home
+
+6. TOOL LIST && COURSE_HOME. Les URL me semblent mal formatées, malgré le fait qu'elles fonctionnent. Exemple : http://localhost/~pir/clarocvs/claroline15rc1/claroline/../claroline/learnPath/learningPathList.php .  La valeur du path de l'outil ne devrait pas contenir de ../ dans la mesure on on essaie de plus en plus d'utiliser des url absolues à partir des $*Sys et $*Web du fichier de config
+
+7. DOCUMENT.  upload d'une page HTML contenant des images, problèmes lors de la modifications des paths des images au sein du document, les images ne s'affichent pas du tout.
+
+8. CLARO_MAIN.CONF. présence de code couleurs qui ne sont, à ma connaissance pas utilisés.  Ils sont signalé comme étant utilisés dans le banner mais ne le sont pas.
+
+9. CLARO_INIT_BANNER. Il reste plusieurs tag <font> dans le code qu'il serait intéressant de remplacer par une meilleure utilisation des css. Il reste également des codes couleurs hardcodés pour les différents <td>
+
+-------------
 $Log$
+Revision 1.5  2004/06/11 10:09:25  seb
+new : bug 4 to 9
+
 Revision 1.4  2004/06/11 10:04:22  moosh
 - bug 3 : install
