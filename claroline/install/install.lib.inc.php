@@ -1,12 +1,17 @@
 <?php // $Id$
 
 /**
+ * this  lib  prupose function use by installer.
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
+
+/**
  * check extention and  write  if exist  in a  <LI></LI>
  *
- * @params string	$extentionName 		name  of  php extention to be checked
- * @params boolean	$echoWhenOk			true => show ok when  extention exist
- * @author Christophe Gesché
- * @desc check extention and  write  if exist  in a  <LI></LI>
+ * @param  string	$extentionName 		name  of  php extention to be checked
+ * @param  boolean	$echoWhenOk			true => show ok when  extention exist
  *
  */
 
@@ -15,30 +20,31 @@ function warnIfExtNotLoaded($extentionName,$echoWhenOk=false)
 	if (extension_loaded ($extentionName))
 	{
 		if ($echoWhenOk)
-			echo "
-				<LI> $extentionName - ok </LI> ";
+			echo '<LI>'
+			   . $extentionName
+			   . ' - ok '
+			   . '</LI>';
 	}
 	else
 	{
-		echo '
-				<LI>
-					<font color="red">Warning !</font> 
-					'.$extentionName.' is missing.</font>
-				<br>
-				Configure php to use this extention
-				(see <a href="http://www.php.net/'.$extentionName.'">'.$extentionName.' manual</a>).
-				</LI>';
+		echo '<LI>'
+		   . '<font color="red">Warning !</font>'
+		   . $extentionName.' is missing.</font>'
+		   . '<br>'
+		   . 'Configure php to use this extention'
+		   . '(see <a href="http://www.php.net/'.$extentionName.'">'.$extentionName.' manual</a>)'
+		   . '</LI>'
+		   ;
 	}
 }
 
 /**
- * function toprightPath()
- * @desc search read and write access from the given directory to root
+ * Search read and write access from the given directory to root
+ *
  * @param path string path where begin the scan
  * @return array with 2 fields "topWritablePath" and "topReadablePath"
- * @author Christophe Gesché
  *
- * $serchtop log is only use for debug
+ * @var $serchtop log is only use for debug
  */
 
 function topRightPath($path=".")
@@ -118,6 +124,5 @@ function check_claro_table_in_db_exist($dbType,$db=null)
 	}
 	return false;
 }
-
 
 ?>
