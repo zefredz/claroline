@@ -421,9 +421,9 @@ else
 
 
 
-echo	"<table width=\"100%\">
+echo	"<table>
 		   <tr>
-              <td ><label for=\"form_lastName\" >",$langLastname,"</label> : </td>\n",
+              <td align=\"right\"><label for=\"form_lastName\" >",$langLastname,"</label> : </td>\n",
 
 		     "<td valign=\"middle\">\n",
 			   "<input type=\"text\" size=\"40\" id=\"form_lastName\" name=\"form_lastName\" value=\"".$form_lastName."\">\n",
@@ -432,7 +432,7 @@ echo	"<table width=\"100%\">
     	  "</tr>\n",
 
           "<tr>\n",
-            "<td >\n<label for=\"form_firstName\">",
+            "<td  align=\"right\">\n<label for=\"form_firstName\">",
               $langFirstname,"</label> : \n",
             "</td>\n",
             "<td >\n",
@@ -444,7 +444,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 {
 	echo
 		"<tr>\n",
-		"<td >\n<label for=\"form_officialCode\">",
+		"<td   align=\"right\">\n<label for=\"form_officialCode\">",
 		$langOfficialCode,"</label> : \n",
 		"</td>\n",
 		"<td>\n",
@@ -486,12 +486,13 @@ echo
 
 echo
         "<tr>\n",
-        "<td colspan=\"2\" >\n<small>",
+        "<td></td>",
+        "<td>\n<small>",
         $langEnter2passToChange,
         "</small></td>\n",
         "</tr>\n",
 		"<tr>\n",
-		"<td >\n<label for=\"form_userName\">",
+		"<td  align=\"right\">\n<label for=\"form_userName\">",
 		$langUsername,"</label> : \n",
 		"</td>\n",
 		"<td>\n",
@@ -500,7 +501,7 @@ echo
 		"</tr>\n",
 
 		"<tr>\n",
-		"<td >\n<label for=\"form_password1\">",
+		"<td  align=\"right\">\n<label for=\"form_password1\">",
 		$langPass,"</label> : \n",
 		"</td>\n",
 		"<td>\n",
@@ -509,7 +510,7 @@ echo
 		"</tr>\n",
 
 		"<tr>\n",
-		"<td >\n<label for=\"form_password2\">",
+		"<td align=\"right\">\n<label for=\"form_password2\">",
 		"",$langConfirmation,"</label> : \n",
 		"</td>\n",
 		"<td>\n",
@@ -529,7 +530,7 @@ echo
 
 echo
         "<tr>\n",
-        "<td >\n<label for=\"form_email\">",
+        "<td align=\"right\">\n<label for=\"form_email\">",
         $langEmail,"</label> : \n",
         "</td>\n",
         "<td >\n",
@@ -539,7 +540,7 @@ echo
 
 echo
         "<tr>\n",
-        "<td >\n<label for=\"form_email\">",
+        "<td align=\"right\">\n<label for=\"form_email\">",
         $langPhone,"</label> : \n",
         "</td>\n",
         "<td >\n",
