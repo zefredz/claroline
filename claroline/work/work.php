@@ -81,6 +81,100 @@ stripSubmitValue($_REQUEST);
 
 $cmd = $_REQUEST['cmd'];
 
+/*============================================================================
+                          HANDLING FORM DATA
+  =============================================================================*/
+// execute this after a form has been send
+// this instruction bloc will set some vars that will be used in the corresponding queries
+if( isset($_REQUEST['submitSession']) ) 
+{
+    $formCorrectlySent = true;
+    
+    // title is a mandatory element     
+    $title = strip_tags( trim($_REQUEST['sesTitle']) );
+    // session id is another one
+        
+    if( empty($title) )
+    {
+      $dialogBox .= $langSessionTitleRequired."<br />";
+      $formCorrectlySent = false;
+    }
+    else
+    {
+      // check if title already exists
+      if( isset($_REQUEST['sesId']) )
+      {
+        // if sesId isset it means we are modifying a session
+        // and a session can have the same title as itself
+        $sql = "SELECT `title`
+                 FROM `".$tbl_wrk_session."`
+                WHERE `title` = '".claro_addslashes($title)."'
+                  AND `id` != ".$_REQUEST['sesId'];
+      }
+      else
+      {
+        // creating a session
+        $sql = "SELECT `title`
+                 FROM `".$tbl_wrk_session."`
+                WHERE `title` = '".claro_addslashes($title)."'";
+      }
+      
+      $query = claro_sql_query($sql);
+      
+      if(mysql_num_rows($query) != 0 )
+      {
+        $dialogBox .= $langSesTitleAlreadyExists."titleexists<br />";
+        $formCorrectlySent = false;
+      }
+      else
+      {
+        $wrkForm['sesTitle'] = $_REQUEST['sesTitle'];
+        // $formCorrectlySent stays true
+      }
+    }
+    
+    // authorized type
+    if( isset($_REQUEST['authorizeText']) && isset($_REQUEST['authorizeFile']) )
+    {
+      $authorizedContent = "TEXTFILE";
+    }
+    elseif($_REQUEST['authorizeText'])
+    {
+      $authorizedContent = "TEXT";       
+    }
+    elseif($_REQUEST['authorizeFile'])
+    {
+      $authorizedContent = "FILE";       
+    }
+      
+    // description
+    if( strip_tags(trim($_REQUEST['sesDesc']) ) == "" ) 
+    {
+      $sesDesc = ""; // avoid multiple br tags to be added when editing an empty form
+    }
+    else
+    {
+      $sesDesc = claro_parse_user_text( claro_addslashes( trim($_REQUEST['sesDesc']) ) );
+    }
+    
+    // dates
+    $composedStartDate = $_REQUEST['startYear']."-"
+                      .$_REQUEST['startMonth']."-"
+                      .$_REQUEST['startDay']." "
+                      .$_REQUEST['startHour'].":"
+                      .$_REQUEST['startMinute'].":00";
+                      
+    $composedEndDate = $_REQUEST['endYear']."-"
+                      .$_REQUEST['endMonth']."-"
+                      .$_REQUEST['endDay']." "
+                      .$_REQUEST['endHour'].":"
+                      .$_REQUEST['endMinute'].":00";
+
+} // if( isset($_REQUEST['submitSession']) ) // handling form data 
+
+
+
+
 if($is_allowedToEdit)
 {
   /*--------------------------------------------------------------------
@@ -136,56 +230,9 @@ if($is_allowedToEdit)
   // edit a work session / form has been sent
   if( $cmd == 'exEditSes' )
   {
-      // handle update session form, the form will be displayed if there is an error
-    
-    // title is a mandatory element 
-    $title = trim($_REQUEST['sesTitle']);
-    // session id is another one
-        
-    if( !empty($title) && isset($_REQUEST['sesId']) && isset($_REQUEST['submitSession']) )
+    // form data have been handled before this point if the form was sent
+    if( isset($_REQUEST['sesId']) && $formCorrectlySent )
     {
-      // check if title already exists
-      $sql = "SELECT `title`
-               FROM `".$tbl_wrk_session."`
-              WHERE `title` = '".claro_addslashes($title)."'
-                AND `id` != ".$_REQUEST['sesId'];
-      $query = claro_sql_query($sql);
-          
-      if(mysql_numrows($query) == 0 )
-      {
-          // prepare some value to insert
-          
-          // authorized type
-          if( isset($_REQUEST['authorizeText']) && isset($_REQUEST['authorizeFile']) )
-          {
-            $authorizedContent = "TEXTFILE";
-          }
-          elseif($_REQUEST['authorizeText'])
-          {
-            $authorizedContent = "TEXT";       
-          }
-          elseif($_REQUEST['authorizeFile'])
-          {
-            $authorizedContent = "FILE";       
-          }
-          
-          // description
-          $sesDesc = claro_parse_user_text(claro_addslashes(trim($_REQUEST['sesDesc'])));
-          
-          // dates
-          $composedStartDate = $_REQUEST['startYear']."-"
-                            .$_REQUEST['startMonth']."-"
-                            .$_REQUEST['startDay']." "
-                            .$_REQUEST['startHour'].":"
-                            .$_REQUEST['startMinute'].":00";
-                            
-          $composedEndDate = $_REQUEST['endYear']."-"
-                            .$_REQUEST['endMonth']."-"
-                            .$_REQUEST['endDay']." "
-                            .$_REQUEST['endHour'].":"
-                            .$_REQUEST['endMinute'].":00";
-                            
-          
           $sql = "UPDATE `".$tbl_wrk_session."`
                   SET `title` = \"".$title."\",
                       `description` = \"".$sesDesc."\", 
@@ -197,19 +244,11 @@ if($is_allowedToEdit)
                       `def_submission_visibility` = \"".$_REQUEST['defSubVis']."\", 
                       `prevent_late_upload` = \"".$_REQUEST['preventLateUpload']."\"
                   WHERE `id` = ".$_REQUEST['sesId'];
-    
           claro_sql_query($sql);
           $dialogBox .= $langSessionEdited;
-      }
-      else
-      {
-        $dialogBox .= $langTitleAlreadyExists;
-        $cmd = 'rqEditSes';
-      }
-    }
+    } 
     else
     {
-      $dialogBox .= $langSessionTitleRequired;
       $cmd = 'rqEditSes';
     }
   }
@@ -320,54 +359,9 @@ if($is_allowedToEdit)
   //--- create a work session / form has been sent
   if( $cmd == 'exMkSes' )
   {
-    // handle new session form, the form will be displayed if there is an error
-    
-    // title is the only mandatory element 
-    $title = trim($_REQUEST['sesTitle']);
-    
-    if( !empty($title) && isset($_REQUEST['submitSession']) )
+    // form data have been handled before this point if the form was sent
+    if( $formCorrectlySent )
     {
-      // check if title already exists
-      $sql = "SELECT `title`
-               FROM `".$tbl_wrk_session."`
-              WHERE `title` = '".claro_addslashes($title)."'";
-      $query = claro_sql_query($sql);
-          
-      if(mysql_numrows($query) == 0 )
-      {
-          // prepare some value to insert
-          
-          // authorized type
-          if( $_REQUEST['authorizedContent'] == "FILE" )
-          {
-            $authorizedContent = "FILE";
-          }
-          elseif( $_REQUEST['authorizedContent'] == "TEXT" )
-          {
-            $authorizedContent = "TEXT";
-          }
-          elseif( $_REQUEST['authorizedContent'] == "TEXTFILE" )
-          {
-            $authorizedContent = "TEXTFILE";
-          }
-          
-          // description
-          $description = claro_parse_user_text(claro_addslashes(trim($_REQUEST['sesDesc'])));
-          
-          // dates
-          $composedStartDate = $_REQUEST['startYear']."-"
-                            .$_REQUEST['startMonth']."-"
-                            .$_REQUEST['startDay']." "
-                            .$_REQUEST['startHour'].":"
-                            .$_REQUEST['startMinute'].":00";
-                            
-          $composedEndDate = $_REQUEST['endYear']."-"
-                            .$_REQUEST['endMonth']."-"
-                            .$_REQUEST['endDay']." "
-                            .$_REQUEST['endHour'].":"
-                            .$_REQUEST['endMinute'].":00";
-                            
-                            
           $sql = "INSERT INTO `".$tbl_wrk_session."`
                   ( `title`,`description`, `session_type`, 
                     `authorized_content`, `authorize_anonymous`,
@@ -390,16 +384,9 @@ if($is_allowedToEdit)
           
           // confirmation message
           $dialogBox .= $langSessionAdded;
-      }
-      else
-      {
-        $dialogBox .= $langTitleAlreadyExists;
-        $cmd = 'rqMkSes';
-      }
     }
     else
     {
-      $dialogBox .= $langSessionTitleRequired;
       $cmd = 'rqMkSes';
     }
   }
@@ -513,26 +500,25 @@ if($is_allowedToEdit)
         </td>
       </tr>
       
-      <!--<tr>
-        <td><?php echo $langStartDate; ?>&nbsp;:</td>
+      <tr>
+        <td valign="top"><?php echo $langStartDate; ?>&nbsp;:</td>
         <td>
 <?php
          echo claro_disp_date_form("startDay", "startMonth", "startYear", $form['startDate'])." ".claro_disp_time_form("startHour", "startMinute", $form['startTime']);
          echo "&nbsp;<small>".$langChooseDateHelper."</small>";
 ?>      
-        <br /><br />
         </td>
       </tr>    
       
       <tr>
-        <td><?php echo $langEndDate; ?>&nbsp;:</td>
+        <td valign="top"><?php echo $langEndDate; ?>&nbsp;:</td>
         <td>
 <?php
          echo claro_disp_date_form("endDay", "endMonth", "endYear", $form['endDate'])." ".claro_disp_time_form("endHour", "endMinute", $form['endTime']);
          echo "&nbsp;<small>".$langChooseDateHelper."</small>";
 ?>      
         </td>
-      </tr>-->
+      </tr>
       
       <tr>
         <td valign="top"><?php echo $langDefSubVisibility; ?>&nbsp;:</td>
@@ -603,10 +589,10 @@ if( !$displaySesForm )
     /*--------------------------------------------------------------------
                                   LIST
       --------------------------------------------------------------------*/
-    $sql = "SELECT `id`, `title`, `sess_visibility`
-            FROM `".$tbl_wrk_session."` 
-            ORDER BY `title` ASC";
-
+      $sql = "SELECT `id`, `title`, `sess_visibility`
+              FROM `".$tbl_wrk_session."` 
+              ORDER BY `title` ASC";
+              
     $sessionList = claro_sql_query_fetch_all($sql);
 
     echo "<table class=\"claroTable\" width=\"100%\">\n"
