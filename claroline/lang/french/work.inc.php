@@ -79,6 +79,7 @@ $langWrkTitle = "Titre";
 $langWrkAuthors = "Auteur(s)";
 $langUploadDoc = "Envoyer un fichier";
 $langAttachDoc = "Attacher un fichier";
+$langMaxFileSize = "Taille maximale autorisée : ";
 $langCurrentAttachedDoc = "Fichier attaché actuel";
 $langCurrentDoc = "Fichier actuel";
 $langExplainDeleteFile = "Cochez cette case pour effacer le fichier attaché.";
