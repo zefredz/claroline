@@ -417,9 +417,9 @@ function config_checkToolProperty($propValue, $propertyDef)
                 }   
                 break;
             case 'php' :
-                if (eval($propValue )) 
+                if (eval('$foo ='.$propValue.';')) 
                 {
-                    $controlMsg['error'][] = $propName.' would be php valid code returnin 1 value';
+                    $controlMsg['error'][] = $propName.' would be php valid code return in 1 value';
                     $is_validValue = FALSE;
                 }   
                 break;
@@ -824,7 +824,6 @@ function parse_config_file($confFileName)
 }
 
 
-
 function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $currentValue=NULL)
 {
     global $langFirstDefOfThisValue, $langEmpty;
@@ -944,7 +943,47 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
     // Prupose a form following the type 
     {
 		// display label
-
+        // if Type = css or lang,  acceptedValue would be fill
+        // and work after as enum.
+        switch($conf_def_property_list['type'])
+        {
+            case 'css' : 
+                if ($handle = opendir('../../css')) 
+                {
+                    $conf_def_property_list['acceptedValue']=array();
+                   while (false !== ($file = readdir($handle))) 
+                   {
+                       $ext = strrchr($file, '.');       
+                       if ($file != "." && $file != ".." && (strtolower($ext)==".css"))
+                       {
+                           $conf_def_property_list['acceptedValue'][$file] = $file;
+                       }
+                   }
+                   closedir($handle);
+                }
+                
+                $conf_def_property_list['type']='enum';
+                break;
+            case 'lang' : 
+                $dirname = '../../lang/';
+                if($dirname[strlen($dirname)-1]!='/')
+                    $dirname.='/';
+                $handle=opendir($dirname);
+                $conf_def_property_list['acceptedValue']=array();
+                while ($entries = readdir($handle))
+                {
+                    if ($entries=='.'||$entries=='..'||$entries=='CVS')
+                        continue;
+                    if (is_dir($dirname.$entries))
+                    {
+                        $conf_def_property_list['acceptedValue'][$entries] = $entries;
+                    }
+                }
+                closedir($handle);
+                $conf_def_property_list['type']='enum';
+                break;
+        }
+        
         switch($conf_def_property_list['type'])
         {
         	case 'boolean' : 
@@ -969,8 +1008,6 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
 		             .($conf_def_property_list['acceptedValue']['FALSE']?$conf_def_property_list['acceptedValue']['FALSE']:'FALSE')
                      .'</label>';
                 break;
-
-			case 'lang' : 
 
             case 'enum' : 
 
