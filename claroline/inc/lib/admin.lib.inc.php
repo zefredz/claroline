@@ -746,7 +746,7 @@ class CSV
  *                      TRUE  if new user must be a teacher,
  *                      FALSE otherwise,              
  * 
- * @return TRUE if creation succeeded, FALSE otherwise
+ * @return $_UID : id of the new user if creation succeeded, FALSE otherwise
  * 
  */
 
@@ -780,35 +780,7 @@ function add_user($name,$surname,$email,$phone,$admincode,$username,$password,$t
                 `phoneNumber`  = \"".$phone."\"";
 
     $_uid = claro_sql_query_insert_id($sql);
-    return true;
-}
-
-/**
- * Create users in Claroline from a list in a CSV file with the specified format
- *
- * @author Guillaume Lederer <lederer@cerdecam.be>
- *
- * @param  $userlist a 2D array with the list of new users :
- *         $userlist[$i]['name']       for the name
- *         $userlist[$i]['surname']    for the surname
- *         $userlist[$i]['username']   for the username
- *         $userlist[$i]['password']   for the password
- *         $userlist[$i]['officialcode']  for the official Code
- *         $userlist[$i]['phone']      for the phone
- *         $userlist[$i]['email']      for the email
- * 
- *
- * NOTE : COULD BE OPTIMIZED : NOT USING THE ADD_USER function so that only query creates all the users
- *
- */
- 
-function add_userlist($userlist)
-{
-    
-    foreach ($userlist as $user)
-    {
-       add_user($user['name'],$user['surname'],$user['email'],$user['phone'],$user['officialCode'],$user['username'], $user['password'],FALSE); 
-    }
+    return $_uid;
 }
 
 /**
@@ -954,7 +926,55 @@ function remove_user_from_group($userId, $courseCode)
     }
 }
 
+/**
+ * remove a specific user from a course groups
+ *
+ * @author Guillaume Lederer <lederer@cerdecam.be>
+ *
+ * @param  int     $userId     user ID from the course_user table
+ * @param  int     $classId    class ID  from the rel_class_user table
+ *
+ * @return boolean TRUE        if subscribe suceeded
+ *         boolean FALSE       otherwise.
+ */
+ 
+function add_user_to_class($userId, $classId)
+{
+    $tbl_mdb_names                  = claro_sql_get_main_tbl();
+    $tbl_user                       = $tbl_mdb_names['user'];
+    $tbl_rel_class_user             = $tbl_mdb_names['rel_class_user'];
+    $tbl_class                      = $tbl_mdb_names['class'];
+    
+    //1. See if there is a user with such ID in the main DB (not implemented)     
+    
+    //2. See if there is a class with such ID in the main DB
+    
+    $sql = "SELECT * FROM `".$tbl_class."` WHERE `id` = '".$classId."' ";
+    $handle = claro_sql_query($sql);
 
+    if (mysql_num_rows($handle) == 0)
+    {
+        return false; // the class does not exist
+    }
+    
+    //3. See if user is not already in class
+    
+    $sql = "SELECT * FROM `".$tbl_rel_class_user."` WHERE `user_id` = '".$userId."' ";
+    $handle = claro_sql_query($sql);
+
+    if (mysql_num_rows($handle) > 0)
+    {
+        return false; // the user is already subscrided to the class
+    }
+    
+    //4. Add user to class in the rel_class_user table
+    
+    $sql = "INSERT INTO `".$tbl_rel_class_user."` 
+	       SET `user_id` = '".$userId."',
+	           `class_id` = '".$classId."' "; 
+    claro_sql_query($sql);
+    return true;   
+}
 
 /**
  * delete a user of the plateform
