@@ -32,8 +32,6 @@ $tlabeReq = "CLCAL___";
 
 include('../inc/claro_init_global.inc.php');
 
-if ( ! isset($_tid) )  $_tid = $tidReq; // remove this line when claro_local_init do this job
-
 
 $htmlHeadXtra[] = 
 "<style type=\"text/css\">
@@ -62,7 +60,12 @@ event_access_tool($nameTools);
 $tbl_calendar_event = $_course['dbNameGlu'].'calendar_event';
 $is_allowedToEdit   = $is_courseAdmin;
 
-claro_disp_tool_title($nameTools);
+
+if     ($cmd == 'rqAdd' ) $subTitle = $langAddEvent;
+elseif ($cmd == 'rqEdit') $subTitle = $langEditEvent;
+else                 $subTitle = '';
+
+claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
 if ($is_allowedToEdit)
 {
@@ -185,10 +188,6 @@ if ($is_allowedToEdit)
 <input type="hidden" name="id"  value="<?php echo $editedEvent['id'] ?>">
 
 <table>
-
-<tr>
-<td colspan="7"><h4><?php echo $langAddEvent?></h4></td>
-</tr>
 
 <tr>
 <td>&nbsp;</td>
@@ -372,7 +371,7 @@ if ($is_allowedToEdit)
 </td>
 
 <td colspan="6"> 
-<?php claro_disp_html_area('contenu', $contenu, 12, 67, $optAttrib=' wrap="virtual" '); ?>
+<?php claro_disp_html_area('contenu', $contenu, 12, 67, $optAttrib = ' wrap="virtual" '); ?>
 <br>
 <input class="claroButton" type="Submit" name="submitEvent" value="<?php echo $langOk ?>">
 <?php claro_disp_button($PHP_SELF, 'Cancel'); ?>
@@ -390,7 +389,7 @@ if ($is_allowedToEdit)
     if (! empty($msg)) claro_disp_message_box($msg);
 
 
-    if ($cmd != 'rqEdit' && $cmd != 'rqAdd')
+    if ($cmd != 'rqEdit' && $cmd != 'rqAdd') // display main commands only if we're not in the event form
     {
         echo '<p>';
 
