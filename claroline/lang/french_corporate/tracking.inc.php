@@ -29,7 +29,7 @@ FRENCH
 
 /* general */
 $langTrackingDisabled = "Le syst&egrave;me de statistiques et de tracking a &eacute;t&eacute; d&eacute;sactiv&eacute; par l'administrateur syst&egrave;me.";
-$langTracking="Statistiques";
+$langStatistics="Statistiques";
 $langShowAll = "Montrer tout";
 $langShowNone = "Cacher tout";
 

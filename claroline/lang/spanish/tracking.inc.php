@@ -30,7 +30,7 @@ ENGLISH
 
 /* general */
 $langTrackingDisabled = "El seguimiento ha sido deshabilitado por el administrador del sistema.";
-$langTracking="Estad&iacute;sticas";
+$langStatistics="Estad&iacute;sticas";
 $langShowAll = "Mostrar todos";
 $langShowNone = "Mostrar ninguno";
 

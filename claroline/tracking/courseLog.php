@@ -30,7 +30,7 @@ $tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
 
 $is_allowedToTrack = $is_courseAdmin;
 
-$nameTools = $langTracking;
+$nameTools = $langStatistics;
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title(
 	array(

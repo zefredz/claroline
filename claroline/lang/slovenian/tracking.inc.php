@@ -28,7 +28,7 @@ ENGLISH
 
 /* general */
 $langTrackingDisabled = "Sledenje je izkljucil administrator.";
-$langTracking="Statistika";
+$langStatistics="Statistika";
 $langShowAll = "Prikazi vse";
 $langShowNone = "Prikaz nobenega";
 

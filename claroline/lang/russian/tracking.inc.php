@@ -30,7 +30,7 @@ FRENCH
 /* general */
 $langTrackingDisabled = "Система статистики и отслеживания действий пользователей дезактивирована 
 администратором системы.";
-$langTracking="Статистика";
+$langStatistics="Статистика";
 $langShowAll = "Показать все";
 $langShowNone = "Скрыть все";
 

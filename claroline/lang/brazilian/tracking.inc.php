@@ -11,7 +11,7 @@
 
 /* general */
 $langTrackingDisabled = "Rastreamento está desabilitado pelo administrador do sistema.";
-$langTracking="Estatísticas";
+$langStatistics="Estatísticas";
 $langShowAll = "Mostrar tudo";
 $langShowNone = "Mostrar nada";
 

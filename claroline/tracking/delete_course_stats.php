@@ -38,7 +38,7 @@ $TABLETRACK_UPLOADS     = $_course['dbNameGlu']."track_e_uploads";
 $TABLETRACK_EXERCISES   = $_course['dbNameGlu']."track_e_exercices";
 
 
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langTracking);
+$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
 
 $nameTools = $langDelCourseStats;
 

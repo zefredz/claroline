@@ -27,7 +27,7 @@ PORTUGUESE
 
 /* general */
 $langTrackingDisabled = "As estat&iacute;sticas foram desligadas pelo administrador do sistema.";
-$langTracking="Estat&iacute;sticas";
+$langStatistics="Estat&iacute;sticas";
 $langShowAll = "Mostrar todos";
 $langShowNone = "N&atilde;o mostrar nenhum";
 

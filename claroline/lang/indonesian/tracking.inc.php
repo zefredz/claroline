@@ -23,7 +23,7 @@ ENGLISH
 
 /* general */
 $langTrackingDisabled = "Tracking dinon-aktifkan oleh system administrator.";
-$langTracking="Statistik";
+$langStatistics="Statistik";
 $langShowAll = "Tampilkan semua";
 $langShowNone = "Sembunyikan semua";
 

@@ -32,7 +32,7 @@ $langPlatform= $institution["name"] . " gebruikt het platform";
 
 /* general */
 $langTrackingDisabled = "Tracking is uitgeschakeld door de platformbeheerder.";
-$langTracking="Statistieken";
+$langStatistics="Statistieken";
 $langShowAll = "Toon alle";
 $langShowNone = "Toon geen";
 

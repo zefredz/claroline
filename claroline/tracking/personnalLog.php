@@ -14,7 +14,7 @@ $langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
 $interbredcrump[]= array ("url"=>"../auth/profile.php", "name"=> $langModifyProfile);
-$nameTools = $langTracking;
+$nameTools = $langStatistics;
 
 // regroup table names for maintenance purpose
 $tbl_courses			= $mainDbName."`.`cours";

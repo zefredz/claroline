@@ -40,7 +40,7 @@
 
 /* general */
 $langTrackingDisabled = "El seguimiento ha sido desactivado por el administrador.";
-$langTracking="Estadísticas";
+$langStatistics="Estadísticas";
 $langShowAll = "Mostrar todo";
 $langShowNone = "No mostrar";
 

@@ -15,7 +15,7 @@ ENGLISH
 
 /* general */
 $langTrackingDisabled = "Tracking has been disabled by system administrator.";
-$langTracking="Thống kê";
+$langStatistics="Thống kê";
 $langShowAll = "Xem tất cả";
 $langShowNone = "Thu lại";
 

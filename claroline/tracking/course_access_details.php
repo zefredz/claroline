@@ -12,7 +12,7 @@
 $langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> "$langTracking");
+$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> "$langStatistics");
 
 $nameTools = $langTrafficDetails;
 
