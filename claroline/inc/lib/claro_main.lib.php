@@ -493,34 +493,25 @@ function claro_disp_tool_title($titleElement, $helpUrl = false)
 }
 
 
-function claro_enable_tool_view_option()
-{
-    global $claro_toolViewOptionEnabled;
-    $claro_toolViewOptionEnabled = true;
-}
-
-
 /**
- *  display options to switch between student view and course manager view
+ * Display options to switch between student view and course manager view
+ * This function is mainly used by the claro_init_banner.inc.php file
+ * The display mode command will only be displayed if 
+ * claro_set_tool_view_mode(true) has been previously called. 
+ * This will affect the return value of claro_is_allowed_to_edit() function.
+ * It will ten return false as the user is a simple student.
  *
- *  example code for using this in your tools:
- *
- *    if ( $is_courseAdmin)
- *    {
- *        claro_disp_tool_view_option('STUDENT');
- *    }
- *
- *    $is_allowedToEdit = claro_is_allowed_to_edit();
- *
- *    if ($is_allowedToEdit)
- *    {
- *       ... display reserved to course manager.
- *
- * @author roan embrechts, Hugues Peeters
+ * @author roan embrechts
+ * @author Hugues Peeters
  * @param string - $viewModeRequested.
- *                    For now it could be 'STUDENT' or 'COURSE_ADMIN'
+ *                 For now it can be 'STUDENT' or 'COURSE_ADMIN'
  * @see claro_is_allowed_to_edit()
+ * @see claro_is_display_mode_available() 
+ * @see claro_set_display_mode_available()
+ * @see claro_get_tool_view_mode()
+ * @see claro_set_tool_view_mode()
  */
+
 
 function claro_disp_tool_view_option($viewModeRequested = false)
 {
@@ -589,6 +580,16 @@ function claro_disp_tool_view_option($viewModeRequested = false)
 }
 
 
+
+
+function claro_enable_tool_view_option()
+{
+    global $claro_toolViewOptionEnabled;
+    $claro_toolViewOptionEnabled = true;
+}
+
+
+
 function claro_set_tool_view_mode($viewMode)
 {
     $viewMode = strtoupper($viewMode); // to be sure ...
@@ -604,36 +605,48 @@ function claro_set_tool_view_mode($viewMode)
     }
 }
 
-
+/**
+ * return the current mode in tool able to handle different view mode
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param void
+ * @return string 'COURSE_ADMIN' or 'STUDENT'
+ */
 
 function claro_get_tool_view_mode()
 {
     if ( ! isset($_SESSION['claro_toolViewMode']) )
     {
+        // There si nothing in session concerning view mode.
+        // But maybe the user has just requested a new view mode and the 
+        // system has not recorded yet. So check $_REQUEST array first 
+        // and update the system !
+
         if ( isset($_REQUEST['viewMode']) )
         {
         	claro_set_tool_view_mode($_REQUEST['viewMode']);
         }
         else
         {
-            claro_set_tool_view_mode('COURSE_ADMIN');
+            claro_set_tool_view_mode('COURSE_ADMIN'); // default
         }
     }
+
     return $_SESSION['claro_toolViewMode'];
 }
 
 
 /**
-    Function that removes the need to directly use is_courseAdmin global in
-    tool scripts. It returns true or false depending on the user's rights in
-    this particular course.
-
-    @author Roan Embrechts
-    @author Patrick Cool
-
-    @version 1.1, February 2004
-    @return boolean, true: the user has the rights to edit, false: he does not
-*/
+ * Function that removes the need to directly use is_courseAdmin global in
+ * tool scripts. It returns true or false depending on the user's rights in
+ * this particular course.
+ *
+ * @author Roan Embrechts
+ * @author Patrick Cool
+ *
+ * @version 1.1, February 2004
+ * @return boolean, true: the user has the rights to edit, false: he does not
+ */
 
 function claro_is_allowed_to_edit()
 {
