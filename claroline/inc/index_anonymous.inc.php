@@ -30,6 +30,10 @@ echo "<table width=\"100%\" border=\"0\" cellpadding=\"4\" >\n\n"
  * GET THE COURSES INSIDE THE REQUESTED CATEGORY
  */
 
+if ( !empty ($_REQUEST['category']) )
+    $category = $_REQUEST['category'];
+else
+    $category = NULL;
 
 $sql = "SELECT `intitule`   `title`,
                `titulaires` `titular`,
@@ -58,7 +62,7 @@ $sql = "SELECT `faculte`.`code`  , `faculte`.`name`,
         LEFT JOIN `".$tbl_courses."` `cours`
                ON `cours`.`faculte` = `subCat`.`code` \n";
 
-if ($category != '')
+if ($category)
 {
     $sql .= "WHERE UPPER(`faculte`.`code_P`) = UPPER(\"".$category."\")
                 OR UPPER(`faculte`.`code`)   = UPPER(\"".$category."\") \n";
