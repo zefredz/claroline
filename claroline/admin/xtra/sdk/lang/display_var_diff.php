@@ -26,6 +26,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 
 include ('language.conf.php');
 include ('language.lib.php');
+include($includePath."/lib/pager.lib.php");
 
 // table
 
@@ -34,6 +35,19 @@ $tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATI
 // get start time
 
 $starttime = get_time();
+
+// pager params
+
+$resultPerPage = 50;
+
+if (isset($_REQUEST['offset'])) 
+{
+    $offset = $_REQUEST['offset'];
+}
+else
+{
+    $offset = 0;
+}
 
 // start content
 
@@ -104,11 +118,22 @@ $sql = " SELECT DISTINCT L1.language , L1.varName, L1.varContent , L1.sourceFile
         L1.varContent <> L2.varContent
     ORDER BY L1.varName";
 
-$results = mysql_query($sql) or die($problemMessage);
+// build pager
+
+$myPager = new claro_sql_pager($sql, $offset, $resultPerPage);
+$results = $myPager->get_result_list();
+
+// display nb results
+
+echo '<p>' . $langTotal . ': ' . $myPager->totalResultCount . '</p>' ;
+
+// display pager
+
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
 
 // display table header
 
-echo "<table class=\"claroTable\">
+echo "<table class=\"claroTable\" width=\"100%\">
 <thead>
 <tr class=\"headerX\">
 <th>N°</th>
@@ -121,10 +146,10 @@ echo "<table class=\"claroTable\">
 <tbody>";
 
 $varName="";
-$i = 0;
+$i = $offset;
 $color = true;
 
-while($result=mysql_fetch_array($results))
+foreach ($results as $result)
 {
      if ($result['varName'] != $varName)
      {
