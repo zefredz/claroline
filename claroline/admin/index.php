@@ -122,15 +122,11 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 </li>
 </ul>
 
-<h4><?php echo $langTools ?></h4>
+<h4><?php echo $langPlatform?></h4>
 <ul>
 <li>
 <a href="tool/config_list.php"><?php echo $langConfiguration?></a>
 </li>
-</ul>
-
-<h4><?php echo $langPlatform?></h4>
-<ul>
 <li>
 <a href="managing/editFile.php"><?php echo $langHomePageTextZone ?></a>
 </li>
