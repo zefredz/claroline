@@ -334,19 +334,10 @@ foreach($toolList as $thisTool)
 
     echo "<tr>";
 
-    if ( ! empty($url) )
-    {
-        echo "<td><a href=\"".$url."\"><img src=\"".$icon."\"></a> "
-            ."<a href=\"".$url."\">".$toolName."</a></td>"
-            ."<td><input type=\"checkbox\" name=\"toolAccessList[]\" value=\"".$thisTool['id']."\"".$checkState.">";
-    }
-    else
-    {
-        echo "<td ".$style.">"
-            ."<img src=\"".$icon."\">"
-            .$toolName . "</td>"
-            ."<td><input type=\"checkbox\" name=\"toolAccessList[]\" value=\"".$thisTool['id']."\"".$checkState.">";
-    }
+    echo "<td ".$style.">"
+        ."<img src=\"".$icon."\">"
+        .$toolName . "</td>"
+       ."<td><input type=\"checkbox\" name=\"toolAccessList[]\" value=\"".$thisTool['id']."\"".$checkState.">";
 
     if ($removableTool)
     {
