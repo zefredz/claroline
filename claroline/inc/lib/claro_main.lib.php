@@ -1422,4 +1422,54 @@ function make_clickable($text)
     return($ret);
 }
 
+
+/**
+ * strip the slashes coming from browser request
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @return void
+ * @desc If the php.ini setting MAGIC_QUOTE_GPC is set to ON, all the variables
+ *       content comming frome the browser are automatically quoted by adding
+ *       slashes (default setting before PHP 4.3). claro_unquote_gpc() removes
+ *       these slashes. It needs to be called just once at the biginning
+ *       of the script.
+ * @see
+ *
+ */
+
+function claro_unquote_gpc()
+{
+    if ( ! defined('CL_GPC_UNQUOTED'))
+    {
+        if ( get_magic_quotes_gpc() )
+        {
+            array_walk($_GET,     'claro_stripslashes_for_unquote_gpc');
+            array_walk($_POST,    'claro_stripslashes_for_unquote_gpc');
+            array_walk($_REQUEST, 'claro_stripslashes_for_unquote_gpc' );
+            array_walk($_COOKIE,  'claro_stripslashes_for_unquote_gpc' );
+        }
+
+        define('CL_GPC_UNQUOTED', true);
+    }
+}
+
+
+/**
+ * special function for claro_unquote_gpc()
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @return void
+ *
+ * @desc This function is needed rather a simple stripslashes for two reasons.
+ *       First the PHP function array_walk() works only with user functions,
+ *       not PHP ones. Second, the submitted array could be an array of arrays,
+ *       and all the values has to be treated.
+ */ 
+
+function claro_stripslashes_for_unquote_gpc( &$var )
+{
+	if (is_array($var) ) array_walk($var, 'claro_stripslashes_for_unquote_gpc');
+    else                 $var = stripslashes($var);
+}
+
 ?>
