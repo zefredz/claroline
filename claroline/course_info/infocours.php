@@ -103,9 +103,9 @@ claro_disp_msg_arr($controlMsg);
 ///
 echo "
 		<br>
-		<a href=\"".$PHP_SELF."?cidReset=true&cidReq=".$current_cid."".$toAddtoURL."\">".$langToCourseSettings."</a>
+		<a href=\"".$PHP_SELF."?".$toAddtoURL."\">".$langToCourseSettings."</a>
 		|
-		<a href=\"".$coursesRepositoryWeb.$currentCourseRepository."/index.php?cidReset=true&cidReq=".$current_cid."\">".$langHome."</a>";
+		<a href=\"".$coursesRepositoryWeb.$currentCourseRepository."/index.php?\">".$langHome."</a>";
 
 
 		if($is_platformAdmin && isset($cidToEdit))
