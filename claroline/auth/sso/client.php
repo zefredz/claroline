@@ -115,9 +115,12 @@ if ( isset($_COOKIE[$cookieName]) )
          //
          //         ...
            
-        echo '<pre> SOAP result : ';
+        echo '<h1 align="center">SSO Result</h1>'
+            .'<pre>'
+
         var_dump($result);
-        echo "</pre>";
+
+        echo '</pre>';
 
     }
     else
