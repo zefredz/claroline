@@ -201,23 +201,23 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
 ?>
 
 <tr>
-  <td><?php echo $langQuestion; ?> :</td>
-  <td><input type="text" name="questionName" size="50" maxlength="200" value="<?php echo htmlentities($questionName); ?>" style="width:400px;"></td>
+  <td><label for="questionName"><?php echo $langQuestion; ?> :</label></td>
+  <td><input type="text" name="questionName" id="questionName" size="50" maxlength="200" value="<?php echo htmlentities($questionName); ?>" style="width:400px;"></td>
 </tr>
 <tr>
-  <td valign="top"><?php echo $langQuestionDescription; ?> :</td>
-  <td><textarea wrap="virtual" name="questionDescription" cols="50" rows="4" style="width:400px;"><?php echo htmlentities($questionDescription); ?></textarea></td>
+  <td valign="top"><label for="questionDescription"><?php echo $langQuestionDescription; ?> :</label></td>
+  <td><textarea wrap="virtual" name="questionDescription" id="questionDescription" cols="50" rows="4" style="width:400px;"><?php echo htmlentities($questionDescription); ?></textarea></td>
 </tr>
 <tr>
-  <td><?php echo $okPicture?$langReplacePicture:$langAddPicture; ?> :</td>
-  <td><input type="file" name="imageUpload" size="30" style="width:390px;">
+  <td><label for="imageUpload"><?php echo $okPicture?$langReplacePicture:$langAddPicture; ?> :</label></td>
+  <td><input type="file" name="imageUpload" id="imageUpload" size="30" style="width:390px;">
 
 <?php
 	if($okPicture)
 	{
 ?>
 
-	<br><input type="checkbox" name="deletePicture" value="1" <?php if($deletePicture) echo 'checked="checked"'; ?>> <?php echo $langDeletePicture; ?>
+	<br><input type="checkbox" name="deletePicture" id="deletePicture" value="1" <?php if($deletePicture) echo 'checked="checked"'; ?>> <label for="deletePicture"><?php echo $langDeletePicture; ?></label>
 
 <?php
 	}
@@ -227,10 +227,10 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
 </tr>
 <tr>
   <td valign="top"><?php echo $langAnswerType; ?> :</td>
-  <td><input type="radio" name="answerType" value="1" <?php if($answerType <= 1) echo 'checked="checked"'; ?>> <?php echo $langUniqueSelect; ?><br>
-	  <input type="radio" name="answerType" value="2" <?php if($answerType == 2) echo 'checked="checked"'; ?>> <?php echo $langMultipleSelect; ?><br>
-	  <input type="radio" name="answerType" value="4" <?php if($answerType >= 4) echo 'checked="checked"'; ?>> <?php echo $langMatching; ?><br>
-	  <input type="radio" name="answerType" value="3" <?php if($answerType == 3) echo 'checked="checked"'; ?>> <?php echo $langFillBlanks; ?>
+  <td><input type="radio" name="answerType" id=="answerType1" value="1" <?php if($answerType <= 1) echo 'checked="checked"'; ?>> <label for=="answerType1"><?php echo $langUniqueSelect; ?></label><br>
+	  <input type="radio" name="answerType" id="answerType2" value="2" <?php if($answerType == 2) echo 'checked="checked"'; ?>> <label for=="answerType2"><?php echo $langMultipleSelect; ?></label><br>
+	  <input type="radio" name="answerType" id="answerType4" value="4" <?php if($answerType >= 4) echo 'checked="checked"'; ?>> <label for=="answerType4"><?php echo $langMatching; ?></label><br>
+	  <input type="radio" name="answerType" id="answerType3" value="3" <?php if($answerType == 3) echo 'checked="checked"'; ?>> <label for=="answerType3"><?php echo $langFillBlanks; ?></label>
   </td>
 </tr>
 <tr>
