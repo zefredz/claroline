@@ -1,11 +1,11 @@
 <?php // $Id$
 
 $stable = false;
-$clarolinePhase = "RC1";
+$clarolinePhase = "RC2cvs";
 $is_upgrade_available = true;
 
-$version_file_cvs = "1.5.0.RC1";
-$version_db_cvs   = "1.5.0.RC1";
+$version_file_cvs = "1.5.0.RC2cvs";
+$version_db_cvs   = "1.5.0.RC2cvs";
 
 if (!$is_upgrade_available)
 {
