@@ -899,6 +899,7 @@ function remove_user_from_course($userId, $courseCode)
             WHERE 	user_id  = "'.$userId.'"
             	AND code_cours = "'.$courseCode.'"
             	AND statut = "1"';
+
     $handle = claro_sql_query($sql);
 
     $numrows = mysql_num_rows($handle);
@@ -933,14 +934,17 @@ function remove_user_from_course($userId, $courseCode)
 
 function remove_user_from_group($userId, $courseCode)
 {
-	global $dbGlu;
-	global $mainDbName;
-	global $courseTablePrefix, $tbl_course;
-	
+    global $dbGlu;
+    global $mainDbName;
+    global $courseTablePrefix, $tbl_course;
 
-	$sql = "SELECT concat(dbName,\"".$dbGlu."\") dbNameGlued FROM `".$tbl_course."` WHERE code=\"".$courseCode."\"";
-	$res = claro_sql_query_fetch_all($sql);
-	$tbl_group = $courseTablePrefix.$res[0]['dbNameGlued']."group_rel_team_user";
+    $sql = "SELECT CONCAT(dbName,\"".$dbGlu."\") dbNameGlued 
+            FROM `".$tbl_course."` 
+            WHERE code=\"".$courseCode."\"";
+
+    $res = claro_sql_query_fetch_all($sql);
+
+    $tbl_group = $courseTablePrefix.$res[0]['dbNameGlued']."group_rel_team_user";
 
     if ( mysql_query("DELETE FROM `".$tbl_group."`
                       WHERE user = \"".$userId."\""))
