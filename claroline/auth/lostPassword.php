@@ -33,10 +33,8 @@ $nameTools = $langLostPassword;
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user            = $tbl_mdb_names['user'];
 
-include($includePath.'/claro_init_header.inc.php');
-
+include($includePath.'/lib/auth.lib.inc.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
-claro_disp_tool_title($nameTools);
 
 if ($searchPassword)
 {
@@ -46,7 +44,7 @@ if ($searchPassword)
 	                    `username` AS `loginName`, `password`, `email`, `statut` AS `status`, 
 	                    `officialCode`, `phoneNumber`, `pictureUri`, `creatorId`
 	                    FROM `'.$tbl_user.'`
-	                    WHERE LOWER(email) LIKE "'.$_REQUEST['Femail'].'"
+	                    WHERE LOWER(email) LIKE "'.claro_addslashes($_REQUEST['Femail']).'"
 	                    AND   `email` != "" ');
 
 	if ($result)
@@ -129,12 +127,14 @@ if ($searchPassword)
 			$msg = $langEmailAddressNotFound;
 		}
 	}
-  if ($msg) claro_disp_message_box($msg);
 }
 else
 {
-	echo "<p>".$langEnterMail."</p>";
+	$msg = "<p>".$langEnterMail."</p>";
 }
+include($includePath.'/claro_init_header.inc.php');
+claro_disp_tool_title($nameTools);
+ if ($msg) claro_disp_message_box($msg);
 
 
 
@@ -158,65 +158,4 @@ if ( ! $passwordFound)
 }
 
 include($includePath."/claro_init_footer.inc.php");
-
-//////////////////////////////////////////////////////////////////////////////
-
-/**
- * generates randomly a new password
- *
- * @author Damien Seguy
- * @param - void
- * @return string the new password
- */
- 
-function generate_passwd()
-{
-	if (func_num_args() == 1) $nb = func_get_arg(0);
-	else                      $nb = 8;
-
-	// on utilise certains chiffres : 1 = i, 5 = S, 6=b, 3=E, 9=G, 0=O
-
-	$lettre = array();
-
-	$lettre[0] = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 
-	                   'j', 'k', 'l', 'm', 'o', 'n', 'p', 'q', 'r', 
-	                   's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 
-	                   'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
-	                   'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'D', 
-	                   'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '9', 
-	                   '0', '6', '5', '1', '3');
-
-	$lettre[1] =  array('a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 
-	                    'I', 'O', 'U', 'Y' , '1', '3', '0' );
-
-	$lettre[-1] = array('b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 
-	                    'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 
-	                    'v', 'w', 'x', 'z', 'B', 'C', 'D', 'F', 
-	                    'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 
-	                    'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Z', 
-	                    '5', '6', '9');
-
-	$retour   = "";
-	$prec     = 1;
-	$precprec = -1;
-
-	srand((double)microtime()*20001107);
-
-	while(strlen($retour) < $nb)
-	{
-		// To generate the password string we follow these rules : (1) If two 
-		// letters are consonnance (vowel), the following one have to be a vowel 
-		// (consonnace) - (2) If letters are from different type, we choose a 
-		// letter from the alphabet.
-
-		$type     = ($precprec + $prec)/2;
-		$r        = $lettre[$type][array_rand($lettre[$type], 1)];
-		$retour  .= $r;
-		$precprec = $prec;
-		$prec     = in_array($r, $lettre[-1]) - in_array($r, $lettre[1]);
-
-	}
-	return $retour;
-}
-
 ?>
