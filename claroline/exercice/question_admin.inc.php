@@ -27,12 +27,14 @@ if(!defined('ALLOWED_TO_INCLUDE'))
 }
 
 $attachedFile = $objQuestion->selectAttachedFile();
+$hasTempAttachedFile = ($objQuestion->selectTempAttachedFile() != "") ? true:false;
+
 
 // if the question we are modifying is used in several exercises
 if($usedInSeveralExercises)
 {
 ?>
-
+	
 <h3>
   <?php echo $questionName; ?>
 </h3>
@@ -55,6 +57,7 @@ if($usedInSeveralExercises)
     <input type="hidden" name="deleteAttachedFile" value="<?php echo $deletePicture; ?>">
     
     <input type="hidden" name="attachedFile" value="<?php echo htmlentities($attachedFile); ?>">
+    <input type="hidden" name="hasTempAttachedFile" value="<?php echo $hasTempAttachedFile; ?>">
 
 <?php
 	}
