@@ -31,7 +31,6 @@ function claro_sql_get_main_tbl()
         $mainTblList= array (
         'config_property'           => $mainDbName.'`.`'.$mainTblPrefix.'config_property',
         'config_file'               => $mainDbName.'`.`'.$mainTblPrefix.'config_file',
-        'rel_tool_config'           => $mainDbName.'`.`'.$mainTblPrefix.'config_rel_tool_config',
         'admin'                     => $mainDbName.'`.`'.$mainTblPrefix.'admin',
         'course'                    => $mainDbName.'`.`'.$mainTblPrefix.'cours',
         'rel_course_user'           => $mainDbName.'`.`'.$mainTblPrefix.'cours_user',
