@@ -147,7 +147,7 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
         $resultHandler =  @mysql_query($sqlQuery, $dbHandler);
     }
 
-    if ( defined('CLARO_DEBUG_MODE') && mysql_errno() )
+    if ( mysql_errno() )
     {
                 echo '<hr size="1" noshade>'
                      .mysql_errno(), " : ", mysql_error(), '<br>'
