@@ -1,9 +1,9 @@
-<?php // | $Id$ |
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.2 $Revision$                            |
+      | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
@@ -14,7 +14,6 @@
  * This script edit the course description.
  *
  * This script is reserved for  user with write access on the course
- *
  */
 /*
  
@@ -263,11 +262,11 @@ if ($is_allowedToEdit)
 	<TR>
 		<TD valign=\"middle\">
 			<b>
-					$langAddCat
+					".$langAddCat."
 			</b>
-		</TD>
-		<TD align=\"right\" valign=\"middle\">
-<form   method=\"post\" action=\"$PHP_SELF\">
+		</td>
+		<td align=\"right\" valign=\"middle\">
+<form method=\"post\" action=\"$PHP_SELF\">
 			<select name=\"numBloc\" size=\"1\">";
 		while (list($numBloc,) = each($titreBloc))
 		{ 
