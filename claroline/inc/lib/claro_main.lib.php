@@ -68,17 +68,13 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
 
     if ( is_null($dbNameGlued) )
     { 
-        if ( $courseDb != $_course['dbNameGlu'] ) $forceTableSet = true;
-        else                                      $forceTableSet = false;
-
-        $courseDb = $_course['dbNameGlu'];
+        $forceTableSet = (bool) ( $courseDb != $_course['dbNameGlu'] );
+        $courseDb      = $_course['dbNameGlu'];
     }
     else
     {
-        if ( $courseDb != $dbNameGlued ) $forceTableSet = true;
-        else                             $forceTableSet = false;
-
-        $courseDb = $dbNameGlued;
+        $forceTableSet = (bool) ( $courseDb != $dbNameGlued );
+        $courseDb      = $dbNameGlued;
     }
 
     if ( count($courseTblList) == 0 || $forceTableSet )
