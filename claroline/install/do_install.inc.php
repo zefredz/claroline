@@ -421,9 +421,10 @@ foreach ($arr_file_to_undist As $undist_this)
  * Generate conf from definition files.
  */
 $includePath = $newIncludePath;
-$def_file_list = get_def_list();
+$def_file_list = get_def_file_list();
 if(is_array($def_file_list))
-foreach ( $def_file_list as $config_code => $def_file)
+foreach ( $def_file_list as $def_file_bloc)
+foreach ( $def_file_bloc['conf'] as $config_code => $def_file)
 {
     if ($config_code == $def_file['config_code'])
     {
