@@ -51,7 +51,6 @@ $tbl_courses       = $mainDbName."`.`cours";
 $tbl_course_user   = $mainDbName."`.`cours_user";
 $tbl_admin         = $mainDbName."`.`admin";
 $tbl_track_default = $statsDbName."`.`track_e_default";// default_user_id
-$tbl_track_login   = $statsDbName."`.`track_e_login";    // login_user_id
 
 // See SESSION variables used for reorder criteria :
 
