@@ -438,7 +438,7 @@ if ($uidReset) // session data refresh requested
                         `user`.`prenom`     `firstname`, 
                         `user`.`nom`        `lastname` , 
                         `user`.`email`                 , 
-                        now() `lastLogin`, 
+                        date_sub(curdate(), INTERVAL 1 DAY) `lastLogin`, 
                         `user`.`statut`, 
                         `a`.`idUser`        `is_admin`
                     FROM `". $tbl_user ."` `user`
