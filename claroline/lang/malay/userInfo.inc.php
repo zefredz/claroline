@@ -1,6 +1,6 @@
 <?php // $Id$
 $langUsers = "Ahli";
-$langTitle = "Tajuk";
+$langHeading = "Tajuk";
 $langComment = "Komen";
 $langLineNumber = "Bilangan baris";
 $langLine = "baris";

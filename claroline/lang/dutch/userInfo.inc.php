@@ -32,7 +32,7 @@ $langPlatform= $institution["name"] . " gebruikt het platform";
 
 $langModify="wijzigen";
 $langDelete="verwijderen";
-$langTitle="Titel";
+$langHeading="Titel";
 $langHelp="help";
 $langOk="OK";
 $langAddIntro="INLEIDENDE TEKST TOEVOEGEN";
@@ -42,7 +42,7 @@ $langBackList="Terug naar de lijst";
 
 //new ones, from the english language
 $langUsers="Gebruikers";
-$langTitle = "Titel";
+$langHeading = "Titel";
 $langComment = "Commentaar";
 $langLineNumber = "Lijnnummer";
 $langLine = "lijn";

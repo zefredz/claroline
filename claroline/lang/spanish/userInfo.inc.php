@@ -35,7 +35,7 @@
 
 $langModify    = "modificar";
 $langDelete    = "borrar";
-$langTitle     = "T&iacute;tulo";
+$langHeading     = "T&iacute;tulo";
 $langHelp      = "ayuda";
 $langOk        = "aceptar";
 $langAddIntro  = "AGREGAR UN TEXTO DE INTRODUCCI&Oacute;N";

@@ -1,6 +1,6 @@
 <?php // $Id$
 $langUsers = "Usuários";
-$langTitle = "Título";
+$langHeading = "Título";
 $langComment = "Comentário";
 $langLineNumber = "Número de Linhas";
 $langLine = "linha";

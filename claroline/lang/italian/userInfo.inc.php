@@ -15,7 +15,7 @@
 
 $langUsers = "Utenti";
 $langUserInfo = "Informazioni sull'utente";
-$langTitle = "Intestazione";
+$langHeading = "Intestazione";
 $langComment = "Commento";
 $langLineNumber = "Numero di linea";
 $langLine = "linea";

@@ -1,6 +1,6 @@
 <?php // $Id$
 $langUsers = "Användare";
-$langTitle = "Rubrik";
+$langHeading = "Rubrik";
 $langComment = "Kommentar";
 $langLineNumber = "Radnummer";
 $langLine = "rad";

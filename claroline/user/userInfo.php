@@ -197,7 +197,7 @@ if ($displayMode == "viewDefEdit")
 <table>
 <tr>
 <td>
-<label for="title" ><?php echo $langTitle?></label> :
+<label for="title" ><?php echo $langHeading?></label> :
 </td>
 <td>
 <input type="text" name="title" id="title" size="80" maxlength="80" value ="<?php echo $catToEdit['title']?>" >

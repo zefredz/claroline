@@ -15,7 +15,7 @@
 
 
 $langUsers = "Benutzer";
-$langTitle = "Überschrift";
+$langHeading = "Überschrift";
 $langComment = "Kommentar";
 $langLineNumber = "Zeilenzahl";
 $langLine = "Zeile";

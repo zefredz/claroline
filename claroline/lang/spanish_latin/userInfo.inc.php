@@ -38,7 +38,7 @@
  */
 
 $langUsers = "Usuarios";
-$langTitle = "Encabezado";
+$langHeading = "Encabezado";
 $langComment = "Comentario";
 $langLineNumber = "Número de Líneas";
 $langLine = "linea";

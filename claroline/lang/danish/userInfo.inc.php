@@ -1,6 +1,6 @@
 <?php // $Id$
 $langUsers = "Deltagere";
-$langTitle = "Overskrift";
+$langHeading = "Overskrift";
 $langComment = "Kommentar";
 $langLineNumber = "Antal linier";
 $langLine = "linie";

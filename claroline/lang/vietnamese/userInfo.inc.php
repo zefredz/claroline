@@ -1,6 +1,6 @@
 <?php // $Id$
 $langUsers = "Người dùng";
-$langTitle = "Heading";
+$langHeading = "Heading";
 $langComment = "Ghi chú";
 $langLineNumber = "Số dòng";
 $langLine = "dòng";

@@ -1,7 +1,7 @@
 <?php // $Id$
 $langUsers = "Utilisateurs";
 $langUserInfo = "Fiche utilisateur";
-$langTitle = "Intitulé";
+$langHeading = "Intitulé";
 $langComment = "Commentaires";
 $langLineNumber = "Nombre de lignes";
 $langLine = "ligne";
