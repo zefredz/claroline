@@ -29,7 +29,7 @@ function claro_sql_get_main_tbl()
     if ( count($mainTblList) == 0 )
     {
         $mainTblList= array (
-        'config_property'                    => $mainDbName.'`.`'.$mainTblPrefix.'config_property',
+        'config_property'           => $mainDbName.'`.`'.$mainTblPrefix.'config_property',
         'config_file'               => $mainDbName.'`.`'.$mainTblPrefix.'config_file',
         'rel_tool_config'           => $mainDbName.'`.`'.$mainTblPrefix.'config_rel_tool_config',
         'admin'                     => $mainDbName.'`.`'.$mainTblPrefix.'admin',
@@ -42,6 +42,7 @@ function claro_sql_get_main_tbl()
         'user_rel_profile_category' => $mainDbName.'`.`'.$mainTblPrefix.'rel_class_user',
 		'class'                     => $mainDbName.'`.`'.$mainTblPrefix.'class',
 		'rel_class_user'            => $mainDbName.'`.`'.$mainTblPrefix.'rel_class_user',
+        'sso'                       => $mainDbName.'`.`'.$mainTblPrefix.'sso',
 		'track_e_default' 			=> $statsDbName.'`.`'.$statsTblPrefix.'track_e_default',
 		'track_e_login' 			=> $statsDbName.'`.`'.$statsTblPrefix.'track_e_login',
 		'track_e_open' 				=> $statsDbName.'`.`'.$statsTblPrefix.'track_e_open',
