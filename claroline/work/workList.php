@@ -34,6 +34,8 @@ $tbl_group_rel_team_user  = $tbl_cdb_names['group_rel_team_user'];
 $currentUserFirstName       = $_user['firstName'];
 $currentUserLastName        = $_user['lastName'];
 
+// 'step' of pager
+$usersPerPage = 50;
 
 if ( !$_cid ) 	claro_disp_select_course();
 if ( ! $is_courseAllowed)	claro_disp_auth_form();
@@ -113,7 +115,7 @@ $assignmentIsVisible = ( $assignment['visibility'] == "VISIBLE" )?true:false;
 // upload or update is allowed between start and end date or after end date if late upload is allowed
 $uploadDateIsOk = (bool) ( $afterStartDate && ( time() < $assignment['unix_end_date'] || $assignment['allow_late_upload'] == "YES" ) );
 
-$is_allowedToEdit  = (bool) claro_is_allowed_to_edit();									
+$is_allowedToEditAll  = (bool) claro_is_allowed_to_edit();									
 
 if( $assignment['assignment_type'] == 'INDIVIDUAL' )
 {
@@ -125,7 +127,7 @@ else
       $userCanPost = ( count($userGroupList) <= 0 )?false:true;
 }
 
-$is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost ) || $is_allowedToEdit;
+$is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost ) || $is_allowedToEditAll;
 /*--------------------------------------------------------------------
                     HEADER
     --------------------------------------------------------------------*/
@@ -225,13 +227,25 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
 /*--------------------------------------------------------------------
                           WORK LIST
   --------------------------------------------------------------------*/
-// do not count invisible work and feedbacks if the user is not courseAdmin
-if( ! $is_allowedToEdit ) 
-	$checkVisible = " AND `S`.`visibility` = 'VISIBLE' ";
-else
-	$checkVisible = " ";
 if( $assignment['assignment_type'] == 'GROUP' )
 {
+	// do not count invisible work and feedbacks if the user is not courseAdmin
+	if( $is_allowedToEditAll ) 
+	{
+		$checkVisible = " ";
+	}
+	elseif( isset($userGroupList) )
+	{
+		$checkVisible = " AND (`S`.`visibility` = 'VISIBLE' ";
+		foreach( $userGroupList as $userGroup )
+		{
+			$checkVisible .= " OR `group_id` = ".$userGroup['id'];
+		}
+		$checkVisible .= ") ";
+	}
+	else
+		$checkVisible = " AND `S`.`visibility` = 'VISIBLE' ";
+		
 	$sql = "SELECT `G`.`id` as `authId`,`G`.`name`,
 					count(`S`.`id`) as `submissionCount`, `S`.`title`
 			FROM `".$tbl_group_team."` as `G`
@@ -249,6 +263,14 @@ if( $assignment['assignment_type'] == 'GROUP' )
 }
 else // INDIVIDUAL
 {
+	// do not count invisible work and feedbacks if the user is not courseAdmin
+	if( $is_allowedToEditAll ) 
+		$checkVisible = " ";
+	elseif( isset($_uid) )
+		$checkVisible = " AND (`S`.`visibility` = 'VISIBLE' OR `S`.`user_id` = ".$_uid.") ";
+	else
+		$checkVisible = " AND `S`.`visibility` = 'VISIBLE' ";
+		
 	$sql = "SELECT `U`.`user_id` as `authId`, concat(`U`.`nom`, ' ', `U`.`prenom`) as `name`, 
 					count(`S`.`id`) as `submissionCount`, `S`.`title`
 			FROM `".$tbl_user."` as `U`, `".$tbl_rel_course_user."` as `CU`
@@ -266,7 +288,7 @@ else // INDIVIDUAL
 			ORDER BY `U`.`nom` ASC, `U`.`prenom` ASC, `S`.`creation_date`
 			";
 }
-$workPager = new claro_sql_pager($sql,$_REQUEST['offset'], 25);
+$workPager = new claro_sql_pager($sql,$_REQUEST['offset'], $usersPerPage);
  
 $workList = $workPager->get_result_list();
 
@@ -277,24 +299,38 @@ foreach( $workList as $wrk )
 	$parentCondition .= " OR `S`.`original_id` = ".$wrk['authId']; // wrk['id'] = user_id or group_id, according to the session context
 }
 
-if( ! $is_allowedToEdit ) 
-{
-	$checkVisible = " AND `S`.`visibility` = 'VISIBLE' ";
-	$checkParentVisible = " AND `S2`.`visibility` = 'VISIBLE' ";
-}
-else 
+if( $is_allowedToEditAll ) 
 {
 	$checkVisible = " ";
-	$checkParentVisible = " ";
+}
+elseif( isset($_uid) && !isset($userGroupList) )
+{
+	$checkVisible = " AND `S`.`visibility` = 'VISIBLE' 
+					AND `S2`.`visibility` = 'VISIBLE' 
+					OR `S2`.`user_id` = ".$_uid." ";
+}
+elseif( isset($userGroupList) )
+{
+	$checkVisible = " AND `S`.`visibility` = 'VISIBLE' 
+					AND (`S2`.`visibility` = 'VISIBLE'";
+	foreach( $userGroupList as $userGroup )
+	{
+		$checkVisible .= " OR `S2`.`group_id` = ".$userGroup['id'];
+	}
+	$checkVisible .= ") ";
+}
+else
+{
+	$checkVisible = " AND `S`.`visibility` = 'VISIBLE' 
+					AND `S2`.`visibility` = 'VISIBLE' ";
 }
 
 	
 $sql = "SELECT `S`.`original_id`, count(`S`.`id`) as `nbrFeedback`
 		FROM `".$tbl_wrk_submission."` as `S`
 		LEFT JOIN `".$tbl_wrk_submission."` as `S2`
-			ON S.parent_id = S2.id
+			ON `S`.`parent_id` = `S2`.`id`
 		WHERE `S`.`assignment_id` = ".$_REQUEST['assigId']
-			.$checkParentVisible
 			.$checkVisible
 			." AND ( 0 = 1 "
 			.$parentCondition
@@ -310,13 +346,13 @@ foreach( $feedbackCounter as $counter )
 /*--------------------------------------------------------------------
                       ADMIN LINKS
   --------------------------------------------------------------------*/
-if( $is_allowedToSubmit )
+if( $is_allowedToSubmit && $assignment['assignment_type'] != 'GROUP' )
 {
 	// link to create a new assignment
 	echo "<a href=\"userWork.php?authId=".$_uid."&cmd=rqSubWrk&assigId=".$_REQUEST['assigId']."\">".$langSubmitWork."</a>\n";
 }
 
-if( $is_allowedToEdit )
+if( $is_allowedToEditAll )
 {
 	echo " | <a href=\"feedback.php?cmd=rqEditFeedback&assigId=".$assignment['id']."\">".$langEditFeedback."</a>\n";
 }
