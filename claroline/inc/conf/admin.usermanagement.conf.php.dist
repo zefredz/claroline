@@ -10,16 +10,6 @@ $stepCourse 	= 20;
 $display1colPerCourse		= True; // true -> synopsis | False -> List
 //$listAllCourses4EachUser 	= false;
 
-//HTML colors
-$headerBgColor 		= "silver";
-$colorEvenLines 	= "#ECECEC";
-$colorOddLines 		= "white";
-$colorClickedLines 	= "#FFCC99";
-$colorHoverLines   	= "#CCFFCC";
-//'#CCFFCC', '#FFCC99'
-
-$colorUserAction = "#CCCC99"; // <- javascript  highlighting  dont work  if this  line is uncommented
-
 $showCheckBox 		= true;
 $editSubscription	= true;
 $editStatut			= false;

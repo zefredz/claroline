@@ -6,11 +6,6 @@ $nbUsersPerPage = 50;
 
 DEFINE("CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER",TRUE);
 
-$headerBgColor 		= "silver";
-$colorEvenLines 	= "#FFFFFF";
-$colorOddLines 		= "#FFFFFF";
-//$colorHoverLines   removed. Use .claro_listInTable in css
-
 
 # ADD_FAKE_USER (DevTools)
 
