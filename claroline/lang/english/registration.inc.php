@@ -69,8 +69,8 @@ $langFormula="Yours sincerely";
 $langManager="Manager";
 $langPersonalSettings="Your personnal settings have been registered and an email has been sent to help you remember your username and password.</p>";
 
-$langNowGoChooseYourCourses ="You can now go select, in the list, the courses you want to access.";
-$langNowGoCreateYourCourse  ="You can now go create  your  course";
+$langNowGoChooseYourCourses ="You can now select, in the list, the courses you want to access.";
+$langNowGoCreateYourCourse  ="You can now create  your  course";
 
 $langYourRegTo="Your are registered to";
 $langIsReg="has been updated";
