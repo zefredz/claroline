@@ -281,8 +281,8 @@ case "default" :
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $usedFormat; ?><br><br>
     </b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    [<a href="<?php echo $_SERVER['PHP_SELF']."?display=default&usedFormat=".$defaultFormat.""; ?>"><?php echo $langLoadDefaultFormat; ?></a>] 
-    | [<a href="<?php echo $_SERVER['PHP_SELF']."?display=default&chformat=yes"; ?>"><?php echo $langEditFormat; ?></a>]<br><br>
+    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']."?display=default&usedFormat=".$defaultFormat.""; ?>"><?php echo $langLoadDefaultFormat; ?></a>] 
+    | [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']."?display=default&chformat=yes"; ?>"><?php echo $langEditFormat; ?></a>]<br><br>
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
