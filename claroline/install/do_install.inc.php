@@ -396,8 +396,9 @@ $claro_texRendererUrl = \'\';
 
 $arr_file_to_undist = 
 array (
-$newIncludePath."../../textzone_top.inc.html",
-$newIncludePath."../../textzone_right.inc.html"
+$newIncludePath.'../../textzone_top.inc.html',
+$newIncludePath.'../../textzone_right.inc.html',
+$newIncludePath.'conf/auth.conf.php'
 );
 
 foreach ($arr_file_to_undist As $undist_this)
