@@ -982,9 +982,9 @@ function claro_is_javascript_enabled()
  * @return string parsed user text
  */
 
-claro_parse_user_text($userText)
+function claro_parse_user_text($userText)
 {
-   if (strpos($usertext, '<!-- content: html -->') === false)
+   if ( strpos($usertext, '<!-- content: html -->') === false )
    {
         // only if the content isn't HTML change new line to <br>
         // Note the '<!-- content: html -->' is introduced by HTML Area
