@@ -193,7 +193,7 @@ if($dialogBox)
 
 //TOOL LINKS
 
-echo '<a href="admincourseusers.php?cidToEdit='.$cidToEdit.'">'.$langAllUsersOfThisCourse.'</a>';
+echo '<a class="claroCmd" href="admincourseusers.php?cidToEdit='.$cidToEdit.'">'.$langAllUsersOfThisCourse.'</a>';
 
 // search form
        
