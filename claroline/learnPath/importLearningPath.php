@@ -12,65 +12,61 @@
   | Authors: Piraux Sebastien      <pir@cerdecam.be>
   |              Lederer Guillaume <led@cerdecam.be>
   +----------------------------------------------------------------------+
-
-  DESCRIPTION:
-  ****
-   /!\ Unzip in unix environment has to be done !! ( at present it use the pclzip on unix too )
 */
 
 /*======================================
        CLAROLINE MAIN
   ======================================*/
-  $tlabelReq = 'CLLNP___';
-  require '../inc/claro_init_global.inc.php';
+$tlabelReq = 'CLLNP___';
+require '../inc/claro_init_global.inc.php';
 
-  $htmlHeadXtra[] =
-            "<script>
-            function confirmation (name)
-            {
-                if (confirm(\" $langAreYouSureDeleteModule \"+ name + \" ?\"))
-                    {return true;}
-                else
-                    {return false;}
-            }
-            </script>";
+$htmlHeadXtra[] =
+          "<script>
+          function confirmation (name)
+          {
+              if (confirm(\" $langAreYouSureDeleteModule \"+ name + \" ?\"))
+                  {return true;}
+              else
+                  {return false;}
+          }
+          </script>";
 
-  $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
-  $nameTools = $langimportLearningPath;
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
+$nameTools = $langimportLearningPath;
 
-  //header
-  include($includePath."/claro_init_header.inc.php");
+//header
+include($includePath."/claro_init_header.inc.php");
 
-  // tables names
+// tables names
 /*
- * DB tables definition
- */
+* DB tables definition
+*/
 
-  $tbl_cdb_names = claro_sql_get_course_tbl();
-  $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
-  $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
-  $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
-  $tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
-  $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
-
-
-  //These tables names still use on library, Need to be change.
-  $TABLELEARNPATH         = $tbl_lp_learnPath;
-  $TABLEMODULE            = $tbl_lp_module;
-  $TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
-  $TABLEASSET             = $tbl_lp_asset;
-  $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
+$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
+$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
 
 
-  //lib of this tool
-  include($includePath."/lib/learnPath.lib.inc.php");
-  include($includePath."/lib/fileManage.lib.php");
-  include($includePath."/lib/fileUpload.lib.php");
-  include($includePath."/lib/fileDisplay.lib.php");
-  
+//These tables names still use on library, Need to be change.
+$TABLELEARNPATH         = $tbl_lp_learnPath;
+$TABLEMODULE            = $tbl_lp_module;
+$TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
+$TABLEASSET             = $tbl_lp_asset;
+$TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
-  // error handling
-  $errorFound = false;
+
+//lib of this tool
+include($includePath."/lib/learnPath.lib.inc.php");
+include($includePath."/lib/fileManage.lib.php");
+include($includePath."/lib/fileUpload.lib.php");
+include($includePath."/lib/fileDisplay.lib.php");
+
+
+// error handling
+$errorFound = false;
 
  /*--------------------------------------------------------
       Functions
@@ -91,90 +87,91 @@
  */
 function startElement($parser,$name,$attributes)
 {
-      global $elementsPile;
-      global $itemsPile;
-      global $manifestData;
-      global $flagTag;
+	global $elementsPile;
+	global $itemsPile;
+	global $manifestData;
+	global $flagTag;
 
 
-      array_push($elementsPile,$name);
+	array_push($elementsPile,$name);
+	
+	switch ($name)
+	{
+		case "MANIFEST" :
+			$manifestData['xml:base']['manifest'] = $attributes['XML:BASE'];
+			break;
+		case "RESOURCES" :
+			$manifestData['xml:base']['resources'] = $attributes['XML:BASE'];
+			$flagTag['type'] == "resources";
+			break;
+		case "RESOURCE" :
+			if ( $attributes['ADLCP:SCORMTYPE'] == 'sco' )
+			{
+				$manifestData['scos'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
+				$manifestData['scos'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
+				$flagTag['type'] = "sco";
+				$flagTag['value'] = $attributes['IDENTIFIER'];
+			}
+			elseif( $attributes['ADLCP:SCORMTYPE'] == 'asset' )
+			{
+				$manifestData['assets'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
+				$manifestData['assets'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
+				$flagTag['type'] = "asset";
+				$flagTag['value'] = $attributes['IDENTIFIER'];
+			}
+			else // check in $manifestData['items'] if this ressource identifier is used
+			{
+				foreach ($manifestData['items'] as $itemToCheck )
+				{
+					if ( $itemToCheck[identifierref] == $attributes['IDENTIFIER'] )
+					{
+						$manifestData['scos'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
+						$manifestData['scos'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
+					}
+				}
+			}
+			break;
 
-      switch ($name)
-      {
-          case "MANIFEST" :
-                $manifestData['xml:base']['manifest'] = $attributes['XML:BASE'];
-                break;
-          case "RESOURCES" :
-                $manifestData['xml:base']['resources'] = $attributes['XML:BASE'];
-                $flagTag['type'] == "resources";
-                break;
-          case "RESOURCE" :
-                if ( $attributes['ADLCP:SCORMTYPE'] == 'sco' )
-                {
-                     $manifestData['scos'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
-                     $manifestData['scos'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
-                     $flagTag['type'] = "sco";
-                     $flagTag['value'] = $attributes['IDENTIFIER'];
-                }
-                elseif( $attributes['ADLCP:SCORMTYPE'] == 'asset' )
-                {
-                     $manifestData['assets'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
-                     $manifestData['assets'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
-                     $flagTag['type'] = "asset";
-                     $flagTag['value'] = $attributes['IDENTIFIER'];
-                }
-                else // check in $manifestData['items'] if this ressource identifier is used
-                {
-                    foreach ($manifestData['items'] as $itemToCheck )
-                    {
-                        if ( $itemToCheck[identifierref] == $attributes['IDENTIFIER'] )
-                        {
-                            $manifestData['scos'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
-                            $manifestData['scos'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
-                        }
-                    }
-                }
-                break;
+		case "ITEM" :
+			$manifestData['items'][$attributes['IDENTIFIER']]['identifierref'] = $attributes['IDENTIFIERREF'];
+			$manifestData['items'][$attributes['IDENTIFIER']]['parameters'] = $attributes['PARAMETERS'];
+			$manifestData['items'][$attributes['IDENTIFIER']]['isvisible'] = $attributes['ISVISIBLE'];
+			$manifestData['items'][$attributes['IDENTIFIER']]['itemIdentifier'] = $attributes['IDENTIFIER'];
+			
+			if ( count($itemsPile) > 0)
+				$manifestData['items'][$attributes['IDENTIFIER']]['parent'] = $itemsPile[count($itemsPile)-1];
+			
+			array_push($itemsPile, $attributes['IDENTIFIER']);
+			
+			if ( $flagTag['type'] == "item" )
+			{
+				$flagTag['deep']++;
+			}
+			else
+			{
+				$flagTag['type'] = "item";
+				$flagTag['deep'] = 0;
+			}
+			$manifestData['items'][$attributes['IDENTIFIER']]['deep'] = $flagTag['deep'];
+			$flagTag['value'] = $attributes['IDENTIFIER'];
+			break;
+		
+		case "ORGANIZATIONS" :
+			$manifestData['defaultOrganization'] = $attributes['DEFAULT'];
+			break;
+		case "ORGANIZATION" :
+			$flagTag['type'] = "organization";
+			$flagTag['value'] = $attributes['IDENTIFIER'];
+			break;
+		case "ADLCP:LOCATION" :
+			// when finding this tag we read the specified XML file so the data structure doesn't even
+			// 'see' that this is another file
+			// for that we remove this element from the pile so it doesn't appear when we compare the
+			// pile with the position of an element
+			// $poped = array_pop($elementsPile);
+			break;
 
-          case "ITEM" :
-                $manifestData['items'][$attributes['IDENTIFIER']]['identifierref'] = $attributes['IDENTIFIERREF'];
-                $manifestData['items'][$attributes['IDENTIFIER']]['parameters'] = $attributes['PARAMETERS'];
-                $manifestData['items'][$attributes['IDENTIFIER']]['isvisible'] = $attributes['ISVISIBLE'];
-                $manifestData['items'][$attributes['IDENTIFIER']]['itemIdentifier'] = $attributes['IDENTIFIER'];
-                if ( count($itemsPile) > 0)
-                  $manifestData['items'][$attributes['IDENTIFIER']]['parent'] = $itemsPile[count($itemsPile)-1];
-                  
-                array_push($itemsPile, $attributes['IDENTIFIER']);
-                
-                if ( $flagTag['type'] == "item" )
-                {
-                     $flagTag['deep']++;
-                }
-                else
-                {
-                     $flagTag['type'] = "item";
-                     $flagTag['deep'] = 0;
-                }
-                $manifestData['items'][$attributes['IDENTIFIER']]['deep'] = $flagTag['deep'];
-                $flagTag['value'] = $attributes['IDENTIFIER'];
-                break;
-
-          case "ORGANIZATIONS" :
-                $manifestData['defaultOrganization'] = $attributes['DEFAULT'];
-                break;
-          case "ORGANIZATION" :
-                $flagTag['type'] = "organization";
-                $flagTag['value'] = $attributes['IDENTIFIER'];
-                break;
-          case "ADLCP:LOCATION" :
-                // when finding this tag we read the specified XML file so the data structure doesn't even
-                // 'see' that this is another file
-                // for that we remove this element from the pile so it doesn't appear when we compare the
-                // pile with the position of an element
-               // $poped = array_pop($elementsPile);
-                break;
-
-      }
+	}
 
 
 }
@@ -187,33 +184,33 @@ function startElement($parser,$name,$attributes)
  */
 function endElement($parser,$name)
 {
-      global $elementsPile;
-      global $itemsPile;
-      global $flagTag;
-
-      switch($name)
-      {
-          case "ITEM" :
-                $trash = array_pop($itemsPile);
-                if ( $flagTag['type'] == "item" && $flagTag['deep'] > 0 )
-                {
-                       $flagTag['deep']--;
-                }
-                else
-                {
-                       $flagTag['type'] = "endItem";
-                }
-                break;
-          case "RESOURCES" :
-                $flagTag['type'] = "endResources";
-                break;
-          case "RESOURCE" :
-                $flagTag['type'] = "endResource";
-                break;
-
-      }
-
-      $poped = array_pop($elementsPile);
+	global $elementsPile;
+	global $itemsPile;
+	global $flagTag;
+	
+	switch($name)
+	{
+		case "ITEM" :
+			$trash = array_pop($itemsPile);
+			if ( $flagTag['type'] == "item" && $flagTag['deep'] > 0 )
+			{
+				$flagTag['deep']--;
+			}
+			else
+			{
+				$flagTag['type'] = "endItem";
+			}
+			break;
+		case "RESOURCES" :
+			$flagTag['type'] = "endResources";
+			break;
+		case "RESOURCE" :
+			$flagTag['type'] = "endResource";
+			break;
+	
+	}
+	
+	$poped = array_pop($elementsPile);
 }
 
 /**
@@ -224,200 +221,198 @@ function endElement($parser,$name)
  */
 function elementData($parser,$data)
 {
-      global $elementsPile;
-      global $itemsPile;
-      global $manifestData;
-      global $flagTag;
-      global $iterator;
-      global $dialogBox;
-      global $errorFound;
-      global $langErrorReadingXMLFile;
-      global $zipFile;
-      global $errorMsgs,$okMsgs;
-      global $pathToManifest;
-      
-      $data = trim(utf8_decode_if_is_utf8($data));
-
-
-
-      switch ( $elementsPile[count($elementsPile)-1] )
-      {
-
-        case "RESOURCE" :
-             //echo "Resource : ".$data;
-             break;
-        case "TITLE" :
-              // $data == '' (empty string) means that title tag contains elements (<langstring> for an exemple), so it's not the title we need
-              if( $data != '' )
-              {
-                  if ( $flagTag['type'] == "item" ) // item title check
-                  {
-                      $manifestData['items'][$flagTag['value']]['title'] .= $data;
-                  }
-
-
-                  // get title of package if it was not find in the manifest metadata in the default organization
-                  if ( $elementsPile[sizeof($elementsPile)-2]  == "ORGANIZATION" && $flagTag['type'] == "organization" && $flagTag['value'] == $manifestData['defaultOrganization'])
-                  {
-                      // if we do not find this title
-                      //  - the metadata title has been set as package title
-                      //  - if there was nor title for metadata nor for default organization set 'unamed path'
-                      // If we are here it means we have found the title in organization, this is the best to chose
-                      $manifestData['packageTitle'] = $data;
-                  }
-
-
-              }
-              break;
-
-        case "ITEM" :
-
-              break;
-        case "ADLCP:DATAFROMLMS" :
-              $manifestData['items'][$flagTag['value']]['datafromlms'] = $data;
-              break;
-
-        // found a link to another XML file, parse it ...
-        case "ADLCP:LOCATION" :
-               if (!$errorFound)
-               {
-                   $xml_parser = xml_parser_create();
-                   xml_set_element_handler($xml_parser, "startElement", "endElement");
-                   xml_set_character_data_handler($xml_parser, "elementData");
-
-
-                   $file = $data; //url of secondary manifest files is relative to the position of the base imsmanifest.xml
-                  
-                   // PHP extraction of zip file using zlib
-                   $unzippingState = $zipFile->extract(PCLZIP_OPT_BY_NAME,$pathToManifest.$file, PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
-                   if ( !($fp = @fopen($file, "r")) )
-                   {
-                      $errorFound = true;
-                      array_push ($errorMsgs, $langErrorOpeningXMLFile.$pathToManifest.$file );
-                   }
-                   else
-                   {
-                      while ($readdata = str_replace("\n","",fread($fp, 4096)))
-                      {
-                        // fix for fread breaking thing 
-                        // msg from "ml at csite dot com" 02-Jul-2003 02:29 on http://www.php.net/xml
-                        // preg expression has been modified to match tag with inner attributes
-                        $readdata = $cache . $readdata;
-                        if (!feof($fp)) 
-                        {
-                           if (preg_match_all("/<[^\>]*.>/", $readdata, $regs)) 
-                           {
-                               $lastTagname = $regs[0][count($regs[0])-1];
-                               $split = false;
-                               for ($i=strlen($readdata)-strlen($lastTagname); $i>=strlen($lastTagname); $i--) 
-                               {
-                                   if ($lastTagname == substr($readdata, $i, strlen($lastTagname))) 
-                                   {
-                                       $cache = substr($readdata, $i, strlen($readdata));
-                                       $readdata = substr($readdata, 0, $i);
-                                       $split = true;
-                                       break;
-                                   }
-                               }
-                           }
-                           if (!$split) 
-                           {
-                               $cache = $readdata;
-                           }
-                        }
-                        // end of fix 
-                        if (!xml_parse($xml_parser, $readdata, feof($fp)))
-                        {
-                          // if reading of the xml file in not successfull :
-                          // set errorFound, set error msg, break while statement
-                          $errorFound = true;
-                          array_push ($errorMsgs, $langErrorReadingXMLFile.$pathToManifest.$file );
-                          break;
-                        }
-                      } // while $data
-                   }    //if fopen
-                  // close file
-                  @fclose($fp);
-              }
-              break;
-
-        case "LANGSTRING" :
-             //echo $data."<br>";
-             switch ( $flagTag['type'] )
-             {
-                 case "item" :
-                      // DESCRIPTION
-                      // if the langstring tag is a children of a description tag
-                      if ( $elementsPile[sizeof($elementsPile)-2] == "DESCRIPTION" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
-                      {
-                          $manifestData['items'][$flagTag['value']]['description'] .= $data;
-                      }
-                      // title found in metadata of an item (only if we haven't already one title for this sco)
-                      if( $manifestData['items'][$flagTag['value']]['title'] == '' || !isset( $manifestData['items'][$flagTag['value']]['title'] ) )
-                      {
-                             if ( $elementsPile[sizeof($elementsPile)-2] == "TITLE" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
-                             {
-                                     $manifestData['items'][$flagTag['value']]['title'] .= $data;
-                             }
-                      }
-                      break;
-             case "sco" :
-                      // DESCRIPTION
-                      // if the langstring tag is a children of a description tag
-                      if ( $elementsPile[sizeof($elementsPile)-2] == "DESCRIPTION" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
-                      {
-                          $manifestData['scos'][$flagTag['value']]['description'] .= $data;
-                      }
-                      // title found in metadata of an item (only if we haven't already one title for this sco)
-                      if( $manifestData['scos'][$flagTag['value']]['title'] == '' || !isset( $manifestData['scos'][$flagTag['value']]['title'] ) )
-                      {
-                             if ( $elementsPile[sizeof($elementsPile)-2] == "TITLE" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
-                             {
-                                 $manifestData['scos'][$flagTag['value']]['title'] .= $data;
-                             }
-                      }
-                      break;
-             case "asset" :
-                    // DESCRIPTION
-                    // if the langstring tag is a children of a description tag
-                    if ( $elementsPile[sizeof($elementsPile)-2] == "DESCRIPTION" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
-                    {
-                        $manifestData['assets'][$flagTag['value']]['description'] .= $data;
-                    }
-                    // title found in metadata of an item (only if we haven't already one title for this sco)
-                    if( $manifestData['assets'][$flagTag['value']]['title'] == '' || !isset( $manifestData['assets'][$flagTag['value']]['title'] ) )
-                    {
-                           if ( $elementsPile[sizeof($elementsPile)-2] == "TITLE" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
-                           {
-                               $manifestData['assets'][$flagTag['value']]['title'] .= $data;
-                           }
-                    }
-                    break;
-             default :
-                   // DESCRIPTION
-                   $posPackageDesc = array("MANIFEST", "METADATA", "LOM", "GENERAL", "DESCRIPTION");
-                   if(compareArrays($posPackageDesc,$elementsPile))
-                   {
-                      $manifestData['packageDesc'] .= $data;
-                   }
-
-                   if ( $manifestData['packageTitle'] == '' || !isset( $manifestData['packageTitle'] ) )
-                   {
-                       $posPackageTitle = array("MANIFEST", "METADATA","LOM","GENERAL","TITLE");
-                       if (compareArrays($posPackageTitle,$elementsPile))
-                       {
-                          $manifestData['packageTitle'] = $data;
-                          //echo $data;
-                       }
-                   }
-                   break;
-
-             } // end switch ( $flagTag['type'] )
-
-             break;
-        default :
-             break;
-      } // end switch ($elementsPile[count($elementsPile)-1] )
+	global $elementsPile;
+	global $itemsPile;
+	global $manifestData;
+	global $flagTag;
+	global $iterator;
+	global $dialogBox;
+	global $errorFound;
+	global $langErrorReadingXMLFile;
+	global $zipFile;
+	global $errorMsgs,$okMsgs;
+	global $pathToManifest;
+	
+	$data = trim(utf8_decode_if_is_utf8($data));
+	
+	
+	
+	switch ( $elementsPile[count($elementsPile)-1] )
+	{
+	
+		case "RESOURCE" :
+			//echo "Resource : ".$data;
+			break;
+		case "TITLE" :
+			// $data == '' (empty string) means that title tag contains elements (<langstring> for an exemple), so it's not the title we need
+			if( $data != '' )
+			{
+				if ( $flagTag['type'] == "item" ) // item title check
+				{
+					$manifestData['items'][$flagTag['value']]['title'] .= $data;
+				}
+				
+				
+				// get title of package if it was not find in the manifest metadata in the default organization
+				if ( $elementsPile[sizeof($elementsPile)-2]  == "ORGANIZATION" && $flagTag['type'] == "organization" && $flagTag['value'] == $manifestData['defaultOrganization'])
+				{
+					// if we do not find this title
+					//  - the metadata title has been set as package title
+					//  - if there was nor title for metadata nor for default organization set 'unamed path'
+					// If we are here it means we have found the title in organization, this is the best to chose
+					$manifestData['packageTitle'] = $data;
+				}
+			}
+			break;
+		
+		case "ITEM" :
+			break;
+			  
+		case "ADLCP:DATAFROMLMS" :
+			$manifestData['items'][$flagTag['value']]['datafromlms'] = $data;
+			break;
+		
+		// found a link to another XML file, parse it ...
+		case "ADLCP:LOCATION" :
+			if (!$errorFound)
+       		{
+				$xml_parser = xml_parser_create();
+				xml_set_element_handler($xml_parser, "startElement", "endElement");
+				xml_set_character_data_handler($xml_parser, "elementData");
+			
+				$file = $data; //url of secondary manifest files is relative to the position of the base imsmanifest.xml
+			    
+				// PHP extraction of zip file using zlib
+				$unzippingState = $zipFile->extract(PCLZIP_OPT_BY_NAME,$pathToManifest.$file, PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
+				if ( !($fp = @fopen($file, "r")) )
+				{
+					$errorFound = true;
+					array_push ($errorMsgs, $langErrorOpeningXMLFile.$pathToManifest.$file );
+				}
+				else
+				{
+					while ($readdata = str_replace("\n","",fread($fp, 4096)))
+					{
+						// fix for fread breaking thing 
+						// msg from "ml at csite dot com" 02-Jul-2003 02:29 on http://www.php.net/xml
+						// preg expression has been modified to match tag with inner attributes
+						$readdata = $cache . $readdata;
+						if (!feof($fp)) 
+						{
+							if (preg_match_all("/<[^\>]*.>/", $readdata, $regs)) 
+							{
+								$lastTagname = $regs[0][count($regs[0])-1];
+								$split = false;
+								for ($i=strlen($readdata)-strlen($lastTagname); $i>=strlen($lastTagname); $i--) 
+								{
+									if ($lastTagname == substr($readdata, $i, strlen($lastTagname))) 
+									{
+										$cache = substr($readdata, $i, strlen($readdata));
+										$readdata = substr($readdata, 0, $i);
+										$split = true;
+										break;
+									}
+								}
+							}
+							if (!$split) 
+							{
+								$cache = $readdata;
+							}
+						}
+						// end of fix 
+						if (!xml_parse($xml_parser, $readdata, feof($fp)))
+						{
+							// if reading of the xml file in not successfull :
+							// set errorFound, set error msg, break while statement
+							$errorFound = true;
+							array_push ($errorMsgs, $langErrorReadingXMLFile.$pathToManifest.$file );
+							break;
+						}
+					} // while $readdata
+				}    //if fopen
+			    // close file
+			    @fclose($fp);
+			}
+			break;
+		
+		case "LANGSTRING" :
+			//echo $data."<br>";
+			switch ( $flagTag['type'] )
+			{
+				case "item" :
+					// DESCRIPTION
+					// if the langstring tag is a children of a description tag
+					if ( $elementsPile[sizeof($elementsPile)-2] == "DESCRIPTION" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
+					{
+						$manifestData['items'][$flagTag['value']]['description'] .= $data;
+					}
+					// title found in metadata of an item (only if we haven't already one title for this sco)
+					if( $manifestData['items'][$flagTag['value']]['title'] == '' || !isset( $manifestData['items'][$flagTag['value']]['title'] ) )
+					{
+						if ( $elementsPile[sizeof($elementsPile)-2] == "TITLE" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
+						{
+							$manifestData['items'][$flagTag['value']]['title'] .= $data;
+						}
+					}
+					break;
+				case "sco" :
+					// DESCRIPTION
+					// if the langstring tag is a children of a description tag
+					if ( $elementsPile[sizeof($elementsPile)-2] == "DESCRIPTION" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
+					{
+						$manifestData['scos'][$flagTag['value']]['description'] .= $data;
+					}
+					// title found in metadata of an item (only if we haven't already one title for this sco)
+					if( $manifestData['scos'][$flagTag['value']]['title'] == '' || !isset( $manifestData['scos'][$flagTag['value']]['title'] ) )
+					{
+						if ( $elementsPile[sizeof($elementsPile)-2] == "TITLE" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
+						{
+							$manifestData['scos'][$flagTag['value']]['title'] .= $data;
+						}
+					}
+					break;
+				case "asset" :
+					// DESCRIPTION
+					// if the langstring tag is a children of a description tag
+					if ( $elementsPile[sizeof($elementsPile)-2] == "DESCRIPTION" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
+					{
+						$manifestData['assets'][$flagTag['value']]['description'] .= $data;
+					}
+					// title found in metadata of an item (only if we haven't already one title for this sco)
+					if( $manifestData['assets'][$flagTag['value']]['title'] == '' || !isset( $manifestData['assets'][$flagTag['value']]['title'] ) )
+					{
+						if ( $elementsPile[sizeof($elementsPile)-2] == "TITLE" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
+						{
+							$manifestData['assets'][$flagTag['value']]['title'] .= $data;
+						}
+					}
+					break;
+				default :
+					// DESCRIPTION
+					$posPackageDesc = array("MANIFEST", "METADATA", "LOM", "GENERAL", "DESCRIPTION");
+					if(compareArrays($posPackageDesc,$elementsPile))
+					{
+						$manifestData['packageDesc'] .= $data;
+					}
+					
+					if ( $manifestData['packageTitle'] == '' || !isset( $manifestData['packageTitle'] ) )
+					{
+						$posPackageTitle = array("MANIFEST", "METADATA","LOM","GENERAL","TITLE");
+						if (compareArrays($posPackageTitle,$elementsPile))
+						{
+							$manifestData['packageTitle'] = $data;
+							//echo $data;
+						}
+					}
+					break;
+			
+			} // end switch ( $flagTag['type'] )
+			
+			break;
+			
+		default :
+			break;
+	} // end switch ($elementsPile[count($elementsPile)-1] )
 
 }
 
@@ -432,12 +427,12 @@ function elementData($parser,$data)
  */
 function compareArrays($array1, $array2)
 {
-        // sizeof(array2) so we do not compare the last tag, this is the one we are in, so we not that already.
-        for ($i = 0; $i < sizeof($array2)-1; $i++)
-        {
-                if ( $array1[$i] != $array2[$i] ) return false;
-        }
-        return true;
+	// sizeof(array2) so we do not compare the last tag, this is the one we are in, so we not that already.
+	for ($i = 0; $i < sizeof($array2)-1; $i++)
+	{
+		if ( $array1[$i] != $array2[$i] ) return false;
+	}
+	return true;
 }
 
 /**
@@ -447,29 +442,29 @@ function compareArrays($array1, $array2)
  */
 function seems_utf8($str) 
 {
-   for ($i=0; $i<strlen($str); $i++) 
-   {
-        if (ord($str[$i]) < 0x80) continue; // 0bbbbbbb
-        elseif ((ord($str[$i]) & 0xE0) == 0xC0) $n=1; // 110bbbbb
-        elseif ((ord($str[$i]) & 0xF0) == 0xE0) $n=2; // 1110bbbb
-        elseif ((ord($str[$i]) & 0xF8) == 0xF0) $n=3; // 11110bbb
-        elseif ((ord($str[$i]) & 0xFC) == 0xF8) $n=4; // 111110bb
-        elseif ((ord($str[$i]) & 0xFE) == 0xFC) $n=5; // 1111110b
-        else return false; // Does not match any model
-        for ($j=0; $j<$n; $j++) // n bytes matching 10bbbbbb follow ?
-        {
-             if ((++$i == strlen($str)) || ((ord($str[$i]) & 0xC0) != 0x80))
-                return false;
-        }
-  }
-   return true;
+	for ($i=0; $i<strlen($str); $i++) 
+	{
+		if (ord($str[$i]) < 0x80) continue; // 0bbbbbbb
+		elseif ((ord($str[$i]) & 0xE0) == 0xC0) $n=1; // 110bbbbb
+		elseif ((ord($str[$i]) & 0xF0) == 0xE0) $n=2; // 1110bbbb
+		elseif ((ord($str[$i]) & 0xF8) == 0xF0) $n=3; // 11110bbb
+		elseif ((ord($str[$i]) & 0xFC) == 0xF8) $n=4; // 111110bb
+		elseif ((ord($str[$i]) & 0xFE) == 0xFC) $n=5; // 1111110b
+		else return false; // Does not match any model
+		for ($j=0; $j<$n; $j++) // n bytes matching 10bbbbbb follow ?
+		{
+			if ((++$i == strlen($str)) || ((ord($str[$i]) & 0xC0) != 0x80))
+			return false;
+		}
+	}
+	return true;
 }
 
 /**
  * 
  */
 function utf8_decode_if_is_utf8($str) {
-   return seems_utf8($str)? utf8_decode($str): $str;
+	return seems_utf8($str)? utf8_decode($str): $str;
 }
 
 /*======================================
@@ -785,66 +780,58 @@ function utf8_decode_if_is_utf8($str) {
         }// if errorFound
 
 
-         // unzip all files
-         // &&
-         // insert corresponding entries in database
-         if ( !$errorFound )
-         {
+		// unzip all files
+		// &&
+		// insert corresponding entries in database
+		if ( !$errorFound )
+		{
+			// PHP extraction of zip file using zlib
+			chdir($baseWorkDir);
+			// PCLZIP_OPT_PATH is the path where files will be extracted ( '' )
+			// PLZIP_OPT_REMOVE_PATH suppress a part of the path of the file ( $pathToManifest )
+			// the result is that the manifest is in th eroot of the path_# directory and all files will have a path related to the root
+			$unzippingState = $zipFile->extract(PCLZIP_OPT_PATH, '',PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
 
-	      if (PHP_OS == 'Linux' && ! get_cfg_var('safe_mode'))
-	      {
-		// Shell Method - if this is possible, it gains some speed
-		exec("unzip -d \"".$baseWorkDir."/\" ".$uploadedPackage);
-	      } 
-	      else
-	      {
-		// PHP extraction of zip file using zlib
-              	chdir($baseWorkDir);
-              // PCLZIP_OPT_PATH is the path where files will be extracted ( '' )
-              // PLZIP_OPT_REMOVE_PATH suppress a part of the path of the file ( $pathToManifest )
-              // the result is that the manifest is in th eroot of the path_# directory and all files will have a path related to the root
-              	$unzippingState = $zipFile->extract(PCLZIP_OPT_PATH, '',PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
-	      }
+			// insert informations in DB :
+			//        - 1 learning path ( already added because we needed its id to create the package directory )
+			//        - n modules
+			//        - n asset as start asset of modules
+			
+			if ( sizeof( $manifestData['items'] ) == 0 )
+			{
+			         $errorFound = true;
+			         array_push ($errorMsgs, $langErrorNoModuleInPackage );
+			}
+			else
+			{
+				$i = 0;
+				$insertedLPMid = array(); // array of learnPath_module_id && order of related group   
+				$inRootRank = 1; // default rank for root module (parent == 0)
+	                  
+				foreach ( $manifestData['items'] as $item )
+				{
+					if ( isset($item['parent']) && isset($insertedLPMid[$item['parent']]) ) 
+					{
+						$parent = $insertedLPMid[$item['parent']]['LPMid'];
+						$rank = $insertedLPMid[$item['parent']]['rank']++;
+					}
+					else
+					{
+					    $parent = 0;
+					    $rank = $inRootRank++;
+					}
+					
+					//-------------------------------------------------------------------------------
+					// add chapter head 
+					if( (!isset($item['identifierref']) || $item['identifierref'] == '') && isset($item['title']) && $item['title'] !='') 
+					{
+						// add title as a module
+						$chapterTitle = $item['title'];
 
-              // insert informations in DB :
-              //        - 1 learning path ( already added because we needed its id to create the package directory )
-              //        - n modules
-              //        - n asset as start asset of modules
-
-              if ( sizeof( $manifestData['items'] ) == 0 )
-              {
-                       $errorFound = true;
-                       array_push ($errorMsgs, $langErrorNoModuleInPackage );
-              }
-              else
-              {
-                  $i = 0;
-                  $insertedLPMid = array(); // array of learnPath_module_id && order of related group   
-                  $inRootRank = 1; // default rank for root module (parent == 0)
-                  foreach ( $manifestData['items'] as $item )
-                  {
-                      if ( isset($item['parent']) && isset($insertedLPMid[$item['parent']]) ) 
-                      {
-                          $parent = $insertedLPMid[$item['parent']]['LPMid'];
-                          $rank = $insertedLPMid[$item['parent']]['rank']++;
-                      }
-                      else
-                      {
-                          $parent = 0;
-                          $rank = $inRootRank++;
-                      }
-                      
-                     //-------------------------------------------------------------------------------
-                     // add chapter head 
-                      if( (!isset($item['identifierref']) || $item['identifierref'] == '') && isset($item['title']) && $item['title'] !='') 
-                      {
-                        // add title as a module
-                        $chapterTitle = $item['title'];
-                      
-                        $sql = "INSERT
-                     INTO `".$TABLEMODULE."`
-                          (`name` , `comment`, `contentType`)
-                   VALUES ('".addslashes($chapterTitle)."' , '', '".CTLABEL_."')";
+						$sql = "INSERT
+						        INTO `".$TABLEMODULE."`
+								(`name` , `comment`, `contentType`)
+								VALUES ('".addslashes($chapterTitle)."' , '', '".CTLABEL_."')";
                         //echo "<br /><title-1> ".$sql;
                         $query = claro_sql_query($sql);
                          if ( mysql_error() )
