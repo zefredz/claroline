@@ -25,17 +25,9 @@ $conf_def['section']['main']['properties'] =
 array ( 'defaultOrder'
       );
 
-$conf_def['section']['log']['label']='Tracking';
-$conf_def['section']['log']['description']='Log activity in the tracking tool';
-$conf_def['section']['log']['properties'] = 
-array ( 'CONFVAL_LOG_CALENDAR_INSERT'
-      , 'CONFVAL_LOG_CALENDAR_DELETE'
-      , 'CONFVAL_LOG_CALENDAR_UPDATE'
-      );
-
-
 $conf_def_property_list['defaultOrder'] = 
 array ('label'       => 'Default order'
+      ,'description' => 'Events can appear by newest event first or oldest event first'
       ,'default'     => 'asc'
       ,'type'        => 'enum'
       ,'display'     => TRUE
@@ -43,42 +35,6 @@ array ('label'       => 'Default order'
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('asc'=>'Ascending'
                                 ,'desc'=>'Descending'
-                              )
-      );
-
-$conf_def_property_list['CONFVAL_LOG_CALENDAR_INSERT'] = 
-array ('label'       => 'Log add'
-      ,'default'     => 'TRUE'
-      ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'Enabled'
-                              ,'FALSE'=>'Disabled'
-                              )
-      );
-
-$conf_def_property_list['CONFVAL_LOG_CALENDAR_DELETE'] = 
-array ('label'       => 'Log deletion'
-      ,'default'     => 'TRUE'
-      ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'Enabled'
-                              ,'FALSE'=>'Disabled'
-                              )
-      );
-      
-$conf_def_property_list['CONFVAL_LOG_CALENDAR_UPDATE'] = 
-array ('label'       => 'Log edition'
-      ,'default'     => 'TRUE'
-      ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'Enabled'
-                              ,'FALSE'=>'Disabled'
                               )
       );
 
