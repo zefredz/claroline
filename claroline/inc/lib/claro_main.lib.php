@@ -1094,7 +1094,7 @@ function claro_disp_html_area($name, $content =    '',
     global $urlAppend, $iso639_1_code, $langTextEditorDisable, $langTextEditorEnable,$langSwitchEditorToTextConfirm;
     $incPath = $urlAppend.'/claroline/inc/htmlarea';
 
-    if ($_REQUEST['areaContent']) $content = stripslashes($_REQUEST['areaContent']);
+    if (isset($_REQUEST['areaContent'])) $content = stripslashes($_REQUEST['areaContent']);
 
     if (claro_is_javascript_enabled())
     {
@@ -1102,7 +1102,7 @@ function claro_disp_html_area($name, $content =    '',
         {
             $switchState = 'off';
             $message     = $langTextEditorDisable;
-			$areaContent = 'escape(document.getElementById(\''.$name.'\').value)';
+			$areaContent = ' editor.getHTML() ';
             $confirmCommand = "if(!confirm('".$langSwitchEditorToTextConfirm."'))return(false);";
         }
         else
