@@ -14,6 +14,7 @@ $l_emptymsg = "不能张贴空消息.";
 $l_enterpassword = "输入密码是必需的.";
 $l_error = "错误";
 $l_go = "转到";
+$l_guest = "过客";
 $l_here = "这里";
 $l_icq = "ICQ";
 $l_icqadd = "增加";
@@ -34,6 +35,7 @@ $l_nopmsgs = "不存在任何内部 消息.";
 $l_nopostlock = "您不能回复这个话题,已经被锁定了.";
 $l_noposts = "禁止 文章";
 $l_norecipient = "您必需填写.";
+$l_notify = "有回复文章,用邮件通知我.";
 $l_notifybody = "您收到这封邮件,是因为在论坛中有文章回复了在,您的设置中选择有回复文章时发信通知您.
 
 阅读这个话题请到:
@@ -349,6 +351,7 @@ $langNoEx = "现在还没有课程练习.";
 $langNoPsychology = "No. Socratic irony is not a matter of psychology, it concerns argumentation.";
 $langNoSeduction = "No. Socratic irony is not a seduction strategy or a method based on the example.";
 $langNoSpace = "上传失败!目录空间不足.";
+$langNone = "无";
 $langNotAllowed = "操作禁止";
 $langNotFalse = "This answer is not false. It is true that the revelation of the interlocutor\'s ignorance means showing the contradictory conclusions where lead his premisses.";
 $langNow = "现在";

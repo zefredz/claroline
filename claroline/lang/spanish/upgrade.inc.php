@@ -27,7 +27,7 @@ $langTitleUpgrade = "<h2>Herramienta de Actualización de Claroline<br />\n
 
 $langDone = "Paso realizado (echo)";
 $langTodo = "Pasos por hacer (Steps todo)";
-$langAchieved = "Actualizar el proceso de archivado";
+$langUpgradeAchieved = "Actualizar el proceso de archivado";
 
 /* Step 0 */
 

@@ -14,6 +14,7 @@ $l_emptymsg = "Sinun täytyy kirjoittaa Viesti viestiin. Et voi lähettää tyhjää V
 $l_enterpassword = "Sinun täytyy kirjoittaa salasanasi.";
 $l_error = "Virhe";
 $l_go = "Mene";
+$l_guest = "Vieras";
 $l_here = "Tästä";
 $l_icq = "ICQ";
 $l_icqadd = "Add";
@@ -34,6 +35,7 @@ $l_nopmsgs = "Sinulla ei ole yhtään Yksityinen Viestit.";
 $l_nopostlock = "Et voi lähettää viestiä vastaukseksi tähän aiheeseen, se on lukittu.";
 $l_noposts = "Ei Lähettäjät";
 $l_norecipient = "Sinun täytyy kirjoittaa tunnus, jolle haluat lähettä viestin Viesti .";
+$l_notify = "Huomauta minua sähköpostilla, kun viestiin on vastattu.";
 $l_notifybody = "Saat tämän viestin, koska olet pyytänyt sähköpostiviestiä, kun  foorumeihin on vastattu.
 
 Voit katsoa aihetta:
@@ -321,6 +323,7 @@ $langNoEx = "Tällä hetkellä ei ole harjoituksia";
 $langNoPsychology = "Ei. Sokraattinen ironia ei liity psykologiaan, se käsittelee argumentaatiota.";
 $langNoSeduction = "Ei. Sokraattinen ironia ei ole houkutukseen perustuva startegia tai esimerkkiin perustuva menetelmä.";
 $langNoSpace = "Lataus epäonnistui, hakemistossa ei ole riittävästi tilaa.";
+$langNone = "Ei kukaan";
 $langNotAllowed = "Ei sallittu";
 $langNotFalse = "Tämä vastaus ei ole väärin. On totta, että puhekumppanin tietämättömyys paljastaminen tarkoittaa kieltävien johtopäätelmien näyttämistä, jotka johtuvat hänen lähtökohdistaan.";
 $langNow = "Nyt";

@@ -14,6 +14,7 @@ $l_emptymsg = "You must type a Съобщение to post. You cannot post an empty Съобщ
 $l_enterpassword = "Трябва да си въведете паролата.";
 $l_error = "Грешка";
 $l_go = "Go";
+$l_guest = "Гост";
 $l_here = "тук";
 $l_icq = "ICQ";
 $l_icqadd = "Add";
@@ -34,6 +35,7 @@ $l_nopmsgs = "You don't have any Private Съобщения.";
 $l_nopostlock = "You cannot post a reply to this topic, it has been locked.";
 $l_noposts = "No Обяви";
 $l_norecipient = "You must enter the username you want to send the Съобщение to.";
+$l_notify = "Notify by email when replies are posted";
 $l_notifybody = "You are receiving this Email because a message
 you posted on  forums has been replied to, and
 you selected to be notified on this event.
@@ -515,8 +517,6 @@ $langImpossible = "Операцията невъзможна";
 $langIn = "в";
 $langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
 $langInfo2Say = "Информация, която да дадете на студентите";
-$langInstituteName = "URL на тази институция";
-$langInstituteShortName = "Кратко име на институцията";
 $langInvalidId = "Неуспешен login.<BR>Ако не сте регистрирани, използвайте <a href=claroline/auth/inscription.php>формата за регистрация</a></font color>";
 $langIs = "е";
 $langIsNowInYourDocDir = "е сега в твоята директория с документи. <br><B>Този файл е видим</B>";
@@ -575,6 +575,7 @@ $langNoGroupStudents = "Незаписани студенти";
 $langNoPsychology = "No. Socratic irony is not a matter of psychology, it concerns argumentation.";
 $langNoSeduction = "No. Socratic irony is not a seduction strategy or a method based on the example.";
 $langNoSpace = "Качването неуспешно. Няма достатъчно свободно място в директорията";
+$langNone = "Нищо";
 $langNotAllowed = "Не разрешено";
 $langNotFalse = "This answer is not false. It is true that the revelation of the interlocutor\'s ignorance means showing the contradictory conclusions where lead his premisses.";
 $langNow = "Сега";

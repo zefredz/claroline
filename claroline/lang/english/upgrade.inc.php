@@ -7,7 +7,7 @@ $langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />\n
 
 $langDone = "Steps done";
 $langTodo = "Steps todo";
-$langAchieved = "Upgrade Process Achieved";
+$langUpgradeAchieved = "Upgrade Process Achieved";
 
 /* Step 0 */
 

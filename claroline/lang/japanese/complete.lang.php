@@ -14,6 +14,7 @@ $l_emptymsg = "You must type a Message to post. You cannot post an empty Message
 $l_enterpassword = "You must enter your password.";
 $l_error = "Error";
 $l_go = "Go";
+$l_guest = "Guest";
 $l_here = "here";
 $l_icq = "ICQ";
 $l_icqadd = "Add";
@@ -34,6 +35,7 @@ $l_nopmsgs = "You don't have any Private Messages.";
 $l_nopostlock = "You cannot post a reply to this topic, it has been locked.";
 $l_noposts = "No Posts";
 $l_norecipient = "You must enter the username you want to send the Message to.";
+$l_notify = "Notify by email when replies are posted";
 $l_notifybody = "You are receiving this Email because a message
 you posted on forums has been replied to, and
 you selected to be notified on this event.
@@ -313,6 +315,7 @@ $langNoEx = "現在演習問題はありません";
 $langNoPsychology = "No. Socratic irony is not a matter of psychology, it concerns argumentation.";
 $langNoSeduction = "No. Socratic irony is not a seduction strategy or a method based on the example.";
 $langNoSpace = "アップロードが失敗しました。ディスクスペースの不足です。";
+$langNone = "none";
 $langNotAllowed = "このコース受講が許可されていません";
 $langNotFalse = "This answer is not false. It is true that the revelation of the interlocutor\'s ignorance means showing the contradictory conclusions where lead his premisses.";
 $langNow = "Now";

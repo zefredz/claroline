@@ -14,6 +14,7 @@ $l_emptymsg = "Morate napisati oruku da bi je poslali. Ne možete poslati praznu 
 $l_enterpassword = "Morate unijeti zaporku.";
 $l_error = "Greška";
 $l_go = "Idi";
+$l_guest = "Gost";
 $l_here = "ovdje";
 $l_icq = "ICQ";
 $l_icqadd = "Dodati";
@@ -34,6 +35,7 @@ $l_nopmsgs = "Nemate novih Privatne Poruke poruka.";
 $l_nopostlock = "Ne možete poslati ili odgovoriti na ovu temu, jer je ona zakljuèana.";
 $l_noposts = "Nema Poruka";
 $l_norecipient = "Morate unijeti korisnièko ime ukoliko želite poslati poruku .";
+$l_notify = "Obavijesti putem emaila kada su odgovori poslani";
 $l_notifybody = "primili ste ovaj email jer na poruku, koju ste poslali na forum, je odgovoreno, a odabrali ste da budete obaviješteni o tom dogaðaju utem emaila. 
 
 Možete vidjeti teme na:
@@ -213,8 +215,8 @@ $langCreateClaroTables = "Napravi tablicu u bazi podataka";
 $langCreateDir = "Stvaranje foldera";
 $langCreateMissingDirectories = "Stvaranje nepostojeæih foldera";
 $langCreateSite = "Stvaranje stranica predmeta";
-$langCreatedIn = "stvoren u";
 $langCreatedIn = "stvoren u ";
+$langCreatedIn = "stvoren u";
 $langDBHost = "Naziv raèunala  baze podataka";
 $langDBLogin = "Korisnièko ime baze podataka";
 $langDBPassword = "Zaporka baze podataka";
@@ -491,8 +493,6 @@ $langImpossible = "Greška. Nemoguæa operacija";
 $langIn = "u";
 $langIndeed = "Zaista. Sokratova ironija je metoda govorništva. Grèki  \"eirotao\" znaèi \"postavi pitanje\"";
 $langInfo2Say = "Informacije za studente";
-$langInstituteName = "URL ove institucije";
-$langInstituteShortName = "Kraæe ime institucije";
 $langInvalidId = "Neuspjela prijava. Niste registrirani korisnik";
 $langIs = "je";
 $langIsNowInYourDocDir = " se nalazi  u vašim dokumentima. <br><B>Datoteka je vidljiva</B>";
@@ -555,6 +555,7 @@ $langNoGroupStudents = "Neprijavljeni studenti";
 $langNoPsychology = "Ne. Sokratova ironija nije predmet psihologije, ona se tièe argumentacije.";
 $langNoSeduction = "Ne. Sokratova ironija nije zavodljiva strategija ili metoda temeljena na primjeru.";
 $langNoSpace = "Uèitavanje nije završeno, jer nema dovoljno mjesta u folderu";
+$langNone = "Ništa";
 $langNotAllowed = "Nije dozvoljeno";
 $langNotFalse = "Ovaj odgovor nije netoèan. Istina je da ignoracija od strane sugovornika pokazuje opovrgavajuæe zakljuèke kada je voðen vlastitim premisama.";
 $langNow = "Sada";
@@ -661,8 +662,8 @@ $langUserContent = "<b>Uloge</b><p>Uloge nemaju raèunalno povezanu funkciju.
  Polje 'Nastavnici' je potpuno neovisan od Korisnièke liste.</p><hr>
 <b>Dodaj korisnika</b>
 <p>Kako bi dodali korisnika na vaš predmet, popunite polje i  potvrdite. Osoba 'e primiti obavijest putem emaila o prijavi i svom korisni;kom imenu i zaporki.</p>";
-$langUserName = "Korisnièko ime";
 $langUserName = "Korisnièko ime ";
+$langUserName = "Korisnièko ime";
 $langUserNo = "Korisnièko ime koje ste izabrali";
 $langUserNumber = "broj";
 $langUserOneByOneExplanation = "On (ona) æe primiti emailom potvrdu sa korisnièkim imenom i zaporkom";
