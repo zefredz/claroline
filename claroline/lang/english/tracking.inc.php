@@ -103,9 +103,10 @@ $langDocumentsTitleCountColumn = "Total Downloads";
 
 
 /* works */
-$langWorkTitle = "Title";
+$langAssignment = "Assignment";
+$langWorkTitle = "Work title";
 $langWorkAuthors = "Authors";
-$langWorkDescription = "Description";
+$langNoScore = "No score";
 
 $langDate = "Date";
 
