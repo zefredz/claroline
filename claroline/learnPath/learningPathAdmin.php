@@ -202,7 +202,7 @@
                       list($orderMax) = mysql_fetch_row($result);
                       $order = $orderMax + 1;
                       
-                      // change parent module reference in the moved module and set order to 999 (added to the end of target group)
+                      // change parent module reference in the moved module and set order (added to the end of target group)
                       $sql = "UPDATE `".$TABLELEARNPATHMODULE."`
                        SET `parent` = ".$_POST['newPos'].",
                             `rank` = $order
@@ -237,7 +237,7 @@
                   $elementList = build_element_list($extendedList);
                  
                   $topElement['name'] = $langRoot;
-                  $topElement['value'] = 0;
+                  $topElement['value'] = 0;	// value is required by claro_nested_build_select_menu
                   if (!is_array($elementList)) $elementList = array();
                   array_unshift($elementList,$topElement);
                   
