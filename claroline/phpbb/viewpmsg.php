@@ -26,75 +26,57 @@ $pagetitle = 'Private Messages';
 $pagetype =  'privmsgs';
 require 'page_header.php';
 
-if ( ! $submit && !$user_logged_in)
+
+if ( ! $user_logged_in ) error_die("You're not logged");
+
+$sql = "SELECT msg_id, from_userid, to_userid, msg_time, 
+               poster_ip, msg_status, msg_text  
+        FROM `".$tbl_priv_msgs."`
+        WHERE to_userid = ".$userdata['user_id']."
+        ORDER BY msg_time DESC";
+
+$msgList = claro_sql_query_fetch_all($sql);
+
+
+if ( count($msgList) == 0 )
 {
-//...
-} else {
+    echo "<div align=\"center\">".$l_nopmsgs."</div>";
+}
 
-   if ( ! $user_logged_in ) error_die("You're not logged");
+echo "<table>"; 
 
+foreach($msgList as $thisMsg )
+{
+    $posterdata = get_userdata_from_id( $thisMsg['from_userid'] );
 
+    echo "<tr align=\"left\">\n"
 
-    $sql = "SELECT * FROM `".$tbl_priv_msgs."`
-            WHERE to_userid = ".$userdata['user_id']."
-            ORDER BY msg_time DESC";
+        ."<td valign=top>"
+        .$l_from." <b>".$posterdata['first_name']." ".$posterdata['last_name']."</b>"
 
-    $msgList = claro_sql_query_fetch_all($sql);
-
-
-
-echo "<table>"
-     ."<tr>\n"
-     ."<td colspan=\"2\">".$l_from."</td>\n"
-     ."</tr>\n";
-
-    if ( count($msgList) == 0 )
-    {
-        echo "<td colspan = 2 align=center>".$l_nopmsgs."</td></tr>\n";
-    }
-
-    foreach($msgList as $thisMsg )
-    {
-        $posterdata = get_userdata_from_id($thisMsg['from_userid'], $db);
-        $posts = $posterdata['user_posts'];
-
-        echo "<tr align=\"left\">\n"
-
-            ."<td valign=top>"
-            ."<b>".$posterdata['username']."</b><br>\n"
-            .$posts < 15 ? "<font size=-2>".$rank1."<br>\n" : $rank2."<br>\n"
-            ."<br>".$l_posts." : ".$posts."<br>\n"
-            .$l_location." : ".$posterdata['user_from']."<br>"
-            ."</td>\n"
-
-            ."<td>\n"
-            ."<img src=\"".$posticon."\">".$l_posted." : ".$thisMsg['msg_time']
-            ."<hr>\n"
-            .stripslashes($thisMsg['msg_text'])
-            ."<hr>\n"
-            ."<a href=\"bb_profile.php?mode=view&user=".$posterdata['user_id']."\">"
-            .$l_profileof." ".$thisMsg['poster_name']
-            ."</a> \n";
-
-		if($posterdata['user_viewemail'] != 0)
-        {
-			echo "<a href=\"mailto:".$posterdata['user_email']."\">"
-                 .$l_email." ".$posterdata['username']
-                 ."</a> \n";
-        }
-
-        echo "<img src=\"images/div.gif\">\n"
-            ."<a href=\"replypmsg.php?msgid=".$thisMsg['msg_id']."&quote=1\">"
-            ."<img src=\"".$reply_wquote_image."\" border=\"0\" alt=\"".$l_replyquote."\">"
-            ."</a>\n"
-            ."<img src=\"images/div.gif\">\n"
-            ."<a href=\"replypmsg.php?msgid=".$thisMsg['msg_id']."\">".$l_reply."</a>\n"
-            ."<IMG SRC=\"images/div.gif\">\n"
-            ."<a href=\"".$url_phpbb."/delpmsg.php?msgid=".$thisMsg['msg_id']."\">"
-            .$l_delete
-            ."</a>\n"
-            ."</td>\n"
-            ."</tr>";
+        ." ".$l_posted." : ".$thisMsg['msg_time']
+        ."<hr>\n"
+        .stripslashes($thisMsg['msg_text'])
+        ."<hr>\n"
+        ."<small>"
+        ."<b>"
+        ."<a href=\"../user/userInfo.php?uInfo=".$posterdata['user_id']."\">"
+        .$l_profileof." ".$posterdata['first_name']." ".$posterdata['last_name']
+        ."</a> \n"
+        ." | "
+        ."<a href=\"replypmsg.php?msgid=".$thisMsg['msg_id']."&quote=1\">"
+        ."<img src=\"".$reply_wquote_image."\" border=\"0\" alt=\"".$l_replyquote."\">"
+        ."</a>\n"
+        ." | "
+        ."<a href=\"replypmsg.php?msgid=".$thisMsg['msg_id']."\">".$l_reply."</a>\n"
+        ." | "
+        ."<a href=\"".$url_phpbb."/delpmsg.php?msgid=".$thisMsg['msg_id']."\">"
+        .$l_delete
+        ."</a>\n"
+        ."</b>"
+        ."</small>"
+        ."</td>\n"
+        ."</tr>";
 
 	} // end foreach
 
@@ -104,16 +86,8 @@ echo "<table>"
 
 	$result = claro_sql_query($sql);
 
-    echo "</table>"
-        ."</td>";
+    echo "</table>";
 
-    echo "<div align=\"right\">\n";
-
-    make_jumpbox();
-
-	echo "</div>\n";
-
-} // if/else
 
 require('page_tail.php');
 ?>

@@ -37,13 +37,13 @@ if($submit) {
     $message = trim($_REQUEST['message']);
 
     if ($message  == '')             error_die($l_emptymsg);
-    if ($_REQUEST['touserid'] == '') error_die($l_norecipient);
+    if ( trim($_REQUEST['touserid']) == '') error_die($l_norecipient);
 
     $touserdata         = get_userdata_from_id($_REQUEST['touserid']);
     if (! $touserdata ) error_die($l_norecipient);
 
     $fromuserdata = $userdata; // fromuser = current user.
-    if ($userdata['user_id'] == -1) error_die('operation not allowed');
+    if ($fromuserdata['user_id'] == -1) error_die('operation not allowed');
    
 
     $message = addslashes($message);
@@ -51,11 +51,11 @@ if($submit) {
 
     $sql = "INSERT INTO `".$tbl_priv_msgs."`
             SET from_userid = '".$fromuserdata['user_id']."',
-                to_userid   = '".$touserdata['user_id']."', 
+                to_userid   = '".$touserdata  ['user_id']."', 
                 msg_time    = '".$time."', 
                 msg_text    = '".$message."'";
 
-    if ( claroline_sql_query($sql) !== false)
+    if ( claro_sql_query($sql) !== false)
     {
         disp_confirmation_message($l_stored."<br />\n"    
                                ."<a href=\"sendpmsg.php\">"
@@ -70,7 +70,7 @@ if($submit) {
 }
 else
 {
-    $touserid = 1;
+    $touserid = 1; // for the purpose fo the test. It has to be removed
     $touserdata = get_userdata_from_id($touserid);
 
 /* displaying the login form */
