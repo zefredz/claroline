@@ -12,6 +12,10 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
+// ---------------------------------------
+// EXTERNAL AUTHENTICATION MODULES SECTION
+// ---------------------------------------
+
 /**
  * CLAROLINE EXTERNAL AUTHENTICATION SYSTEM
  * 
@@ -23,52 +27,109 @@
  * See more information in : /claroline/auth/extauth/README.txt
  */
 
-// ---------------------------------------
-// EXTERNAL AUTHENTICATION MODULES SECTION
-// ---------------------------------------
 
 /* LDAP */
 
-$extAuthSource['ldap']['login'  ] = "./claroline/auth/extauth/drivers/ldap.inc.php";
-$extAuthSource['ldap']['newUser'] = "./claroline/auth/extauth/drivers/ldap.inc.php";
+// $extAuthSource['ldap']['login'  ] = "./claroline/auth/extauth/drivers/ldap.inc.php";
+// $extAuthSource['ldap']['newUser'] = "./claroline/auth/extauth/drivers/ldap.inc.php";
+
+/* DB GENERIC */
+
+// $extAuthSource['db-generic']['login'  ] = "./claroline/auth/extauth/drivers/ldap.inc.php";
+// $extAuthSource['db-generic']['newUser'] = "./claroline/auth/extauth/drivers/ldap.inc.php";
 
 /* SPIP */
 
-$extAuthSource['spip']['login'  ] = "./claroline/auth/extauth/drivers/spip.inc.php";
-$extAuthSource['spip']['newUser'] = "./claroline/auth/extauth/drivers/spip.inc.php";
+// $extAuthSource['spip']['login'  ] = "./claroline/auth/extauth/drivers/spip.inc.php";
+// $extAuthSource['spip']['newUser'] = "./claroline/auth/extauth/drivers/spip.inc.php";
 
 /* POSTNUKE */
 
-$extAuthSource['postnuke']['login'  ] = "./claroline/auth/extauth/drivers/postnuke.inc.php";
-$extAuthSource['postnuke']['newUser'] = "./claroline/auth/extauth/drivers/postnuke.inc.php";
+// $extAuthSource['postnuke']['login'  ] = "./claroline/auth/extauth/drivers/postnuke.inc.php";
+// $extAuthSource['postnuke']['newUser'] = "./claroline/auth/extauth/drivers/postnuke.inc.php";
 
 /* PHPNUKE */
 
-$extAuthSource['phpnuke']['login'  ] = "./claroline/auth/extauth/drivers/phpnuke.inc.php";
-$extAuthSource['phpnuke']['newUser'] = "./claroline/auth/extauth/drivers/phpnukev.php";
+// $extAuthSource['phpnuke']['login'  ] = "./claroline/auth/extauth/drivers/phpnuke.inc.php";
+// $extAuthSource['phpnuke']['newUser'] = "./claroline/auth/extauth/drivers/phpnukev.php";
 
 /* MOODLE */
 
-extAuthSource['moodle']['login'  ] = "./claroline/auth/extauth/drivers/moodle.inc.php";
-extAuthSource['moodle']['newUser'] = "./claroline/auth/extauth/drivers/moodle.inc.php";
+// $extAuthSource['moodle']['login'  ] = "./claroline/auth/extauth/drivers/moodle.inc.php";
+// $extAuthSource['moodle']['newUser'] = "./claroline/auth/extauth/drivers/moodle.inc.php";
 
 /* DOKEOS */
 
-$extAuthSource['dokeos']['login'  ] = "./claroline/auth/extauth/drivers/dokeos.inc.php";
-$extAuthSource['dokeos']['newUser'] = "./claroline/auth/extauth/drivers/dokeos.inc.php";
+// $extAuthSource['dokeos']['login'  ] = "./claroline/auth/extauth/drivers/dokeos.inc.php";
+// $extAuthSource['dokeos']['newUser'] = "./claroline/auth/extauth/drivers/dokeos.inc.php";
 
 /* GANESHA */
 
-$extAuthSource['ganesha']['login'  ] = "./claroline/auth/extauth/drivers/ganesha.inc.php";
-$extAuthSource['ganesha']['newUser'] = "./claroline/auth/extauth/drivers/ganesha.inc.php";
+// $extAuthSource['ganesha']['login'  ] = "./claroline/auth/extauth/drivers/ganesha.inc.php";
+// $extAuthSource['ganesha']['newUser'] = "./claroline/auth/extauth/drivers/ganesha.inc.php";
 
 /* DOCEBO */
 
-$extAuthSource['docebo']['login'  ] = "./claroline/auth/extauth/drivers/docebo.inc.php";
-$extAuthSource['docebo']['newUser'] = "./claroline/auth/extauth/drivers/docebo.inc.php";
+// $extAuthSource['docebo']['login'  ] = "./claroline/auth/extauth/drivers/docebo.inc.php";
+// $extAuthSource['docebo']['newUser'] = "./claroline/auth/extauth/drivers/docebo.inc.php";
 
 /* A TUTOR */
 
-$extAuthSource['atutor']['login'  ] = "./claroline/auth/extauth/drivers/atutor.inc.php";
+// $extAuthSource['atutor']['login'  ] = "./claroline/auth/extauth/drivers/atutor.inc.php";
+// $extAuthSource['atutor']['login'  ] = "./claroline/auth/extauth/drivers/atutor.inc.php";
+
+
+
+
+// ---------------------------------------
+// SINGLE SIGN OUT (SSO) SECTION
+// ---------------------------------------
+
+/**
+ * SINGLE SIGN OUT (SSO)
+ *
+ * Once a user logs to the Claroline platform a cookie is sent to the 
+ * user browser if the authentication process succeeds. The cookie value 
+ * is also stored in a internal table of the Claroline platform for a certain 
+ * time.
+ *
+ * If requested, the Claroline SSO server provides a way a way to retrieve 
+ * the user parameters from another server on the internet on the base of this 
+ * cookie value.
+ */
+
+
+// SSO ENABLED. Enable the Claroline SSO system.
+// Set this parameter to TRUE if you want to enable SSO. 
+
+$ssoEnabled          = false;
+
+// COOKIE NAME. The name of the cookie the Claroline platform has set into the 
+// user browser. By default this name is 'clarolineSsoCookie'. But it can be 
+// changed by the Claroline platform administrator.
+
+$ssoCookieName       = 'clarolineSsoCookie';
+
+// SSO COOKIE PERIOD VALIDITY. Number of seconds before before the 
+// cookie to expire.
+
+$ssoCookiePeriodValidity = 3600;
+
+// SSO COOKIE DOMAIN.  The domain that the cookie is available.  To make 
+// the cookie available on all subdomains of example.com then you'd set 
+// it to '.example.com'. The . is not required but makes it compatible 
+// with more browsers. Setting it to www.example.com  will make the 
+// cookie only available in the www  subdomain.
+
+$ssoCookieDomain     = 'www.my.domain.com';
+
+// SSO COOKIE PATH. The path on the server in which the cookie will be 
+// available on.  If set to '/', the cookie will be available within the 
+// entire domain. If set to '/foo/', the cookie will only be available 
+// within the /foo/ directory and all sub-directories such as /foo/bar/ 
+// of domain. The default value is the current directory that the cookie 
+// is being set in.
+
+$ssoCookiePath       = '/';
 
 ?>
