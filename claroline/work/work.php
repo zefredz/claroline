@@ -62,8 +62,6 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 /*============================================================================
                      CLEAN INFORMATIONS SEND BY USER
   =============================================================================*/
-stripSubmitValue($HTTP_POST_VARS);
-stripSubmitValue($HTTP_GET_VARS);
 stripSubmitValue($_REQUEST);
 
 $cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
@@ -75,72 +73,72 @@ $cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
 // this instruction bloc will set some vars that will be used in the corresponding queries
 if( isset($_REQUEST['submitAssignment']) && $is_allowedToEdit ) 
 {
-    $formCorrectlySent = true;
-    
-    // title is a mandatory element     
-    $title = trim( strip_tags($_REQUEST['assigTitle']) );
-            
-    if( empty($title) )
-    {
-      $dialogBox .= $langAssignmentTitleRequired."<br />";
-      $formCorrectlySent = false;
-    }
-    else
-    {
-      // check if title already exists
-      if( isset($_REQUEST['assigId']) )
-      {
-        // if assigId isset it means we are modifying an assignment
-        // and assignment can have the same title as itself
-        $sql = "SELECT `title`
-                 FROM `".$tbl_wrk_assignment."`
-                WHERE `title` = '".addslashes($title)."'
-                  AND `id` != ".$_REQUEST['assigId'];
-      }
-      else
-      {
-        // creating an assignment
-        $sql = "SELECT `title`
-                 FROM `".$tbl_wrk_assignment."`
-                WHERE `title` = '".addslashes($title)."'";
-      }
-      
-      $query = claro_sql_query($sql);
-      
-      if(mysql_num_rows($query) != 0 )
-      {
-        $dialogBox .= $langAssignmentTitleAlreadyExists."<br />";
-        $formCorrectlySent = false;
-      }
-      else
-      {
-        $wrkForm['assigTitle'] = $_REQUEST['assigTitle'];
-        // $formCorrectlySent stays true
-      }
+	$formCorrectlySent = true;
+	
+	// title is a mandatory element     
+	$title = trim( strip_tags($_REQUEST['assigTitle']) );
+	        
+	if( empty($title) )
+	{
+		$dialogBox .= $langAssignmentTitleRequired."<br />";
+		$formCorrectlySent = false;
+	}
+	else
+	{
+		// check if title already exists
+		if( isset($_REQUEST['assigId']) )
+		{
+			// if assigId isset it means we are modifying an assignment
+			// and assignment can have the same title as itself
+			$sql = "SELECT `title`
+					FROM `".$tbl_wrk_assignment."`
+					WHERE `title` = '".addslashes($title)."'
+					AND `id` != ".$_REQUEST['assigId'];
+		}
+		else
+		{
+			// creating an assignment
+			$sql = "SELECT `title`
+				FROM `".$tbl_wrk_assignment."`
+				WHERE `title` = '".addslashes($title)."'";
+		}
+		
+		$query = claro_sql_query($sql);
+		
+		if(mysql_num_rows($query) != 0 )
+		{
+			$dialogBox .= $langAssignmentTitleAlreadyExists."<br />";
+			$formCorrectlySent = false;
+		}
+		else
+		{
+			$wrkForm['assigTitle'] = $_REQUEST['assigTitle'];
+			// $formCorrectlySent stays true
+		}
     }
 
     // authorized type
     if( isset($_REQUEST['authorizeText']) && isset($_REQUEST['authorizeFile']) )
     {
-      $authorizedContent = "TEXTFILE";
+		$authorizedContent = "TEXTFILE";
     }
     elseif( isset($_REQUEST['authorizeText']) && $_REQUEST['authorizeText'])
     {
-      $authorizedContent = "TEXT";       
+		$authorizedContent = "TEXT";       
     }
     elseif( isset($_REQUEST['authorizeFile']) && $_REQUEST['authorizeFile'])
     {
-      $authorizedContent = "FILE";       
+		$authorizedContent = "FILE";       
     }
       
     // description
     if( trim( strip_tags($_REQUEST['assigDesc'], $allowedTags ) ) == "" ) 
     {
-      $assigDesc = ""; // avoid multiple br tags to be added when editing an empty form
+		$assigDesc = ""; // avoid multiple br tags to be added when editing an empty form
     }
     else
     {
-      $assigDesc = addslashes( trim($_REQUEST['assigDesc']) );
+		$assigDesc = addslashes( trim($_REQUEST['assigDesc']) );
     }
     
     // dates : check if start date is lower than end date else we will have a paradox
@@ -149,255 +147,242 @@ if( isset($_REQUEST['submitAssignment']) && $is_allowedToEdit )
     
     if( $unixEndDate <= $unixStartDate )
     {
-      $dialogBox .= $langIncorrectDate."<br />";
-      $formCorrectlySent = false;
+		$dialogBox .= $langIncorrectDate."<br />";
+		$formCorrectlySent = false;
     }
     else
     {
-      $composedStartDate = $_REQUEST['startYear']."-"
-                        .$_REQUEST['startMonth']."-"
-                        .$_REQUEST['startDay']." "
-                        .$_REQUEST['startHour'].":"
-                        .$_REQUEST['startMinute'].":00";
+		$composedStartDate = $_REQUEST['startYear']."-"
+							.$_REQUEST['startMonth']."-"
+							.$_REQUEST['startDay']." "
+							.$_REQUEST['startHour'].":"
+							.$_REQUEST['startMinute'].":00";
       
-      $composedEndDate = $_REQUEST['endYear']."-"
-                        .$_REQUEST['endMonth']."-"
-                        .$_REQUEST['endDay']." "
-                        .$_REQUEST['endHour'].":"
-                        .$_REQUEST['endMinute'].":00";
+		$composedEndDate = $_REQUEST['endYear']."-"
+							.$_REQUEST['endMonth']."-"
+							.$_REQUEST['endDay']." "
+							.$_REQUEST['endHour'].":"
+							.$_REQUEST['endMinute'].":00";
     }
 } // if( isset($_REQUEST['submitAssignment']) ) // handling form data 
 
 
 if($is_allowedToEdit)
 {
-  /*--------------------------------------------------------------------
-                        CHANGE VISIBILITY
-  --------------------------------------------------------------------*/
+	/*--------------------------------------------------------------------
+	                      CHANGE VISIBILITY
+	--------------------------------------------------------------------*/
 
-  // change visibility of an assignment
-  if( $cmd == 'exChVis' )
-  {
-    if( isset($_REQUEST['vis']) )
-    {
-      $_REQUEST['vis'] == "v" ? $visibility = 'VISIBLE' : $visibility = 'INVISIBLE';
-      
-      $sql = "UPDATE `".$tbl_wrk_assignment."`
-                 SET `visibility` = '$visibility'
-               WHERE `id` = ".$_REQUEST['assigId']."
-                 AND `visibility` != '$visibility'";
-      claro_sql_query ($sql);
-      
-    }
-  }
+	// change visibility of an assignment
+	if( $cmd == 'exChVis' )
+	{
+		if( isset($_REQUEST['vis']) )
+		{
+			$_REQUEST['vis'] == "v" ? $visibility = 'VISIBLE' : $visibility = 'INVISIBLE';
+			
+			$sql = "UPDATE `".$tbl_wrk_assignment."`
+			           SET `visibility` = '$visibility'
+			         WHERE `id` = ".$_REQUEST['assigId']."
+			           AND `visibility` != '$visibility'";
+			claro_sql_query ($sql);
+		}
+	}
 
-  /*--------------------------------------------------------------------
-                        DELETE AN ASSIGNMENT
-  --------------------------------------------------------------------*/
+	/*--------------------------------------------------------------------
+	                      DELETE AN ASSIGNMENT
+	--------------------------------------------------------------------*/
 
-  // delete/remove an assignment
-  if( $cmd == 'exRmAssig' )
-  {
-    // delete all works in this assignment if the delete of the files worked
-    if( claro_delete_file($wrkDir."assig_".$_REQUEST['assigId']) )
-    {
-      $sql = "DELETE FROM `".$tbl_wrk_submission."`
-              WHERE `assignment_id` = ".$_REQUEST['assigId'];
-      claro_sql_query($sql);
-    }    
-    
-    $sql = "DELETE FROM `".$tbl_wrk_assignment."`
-            WHERE `id` = ".$_REQUEST['assigId'];
-
-    claro_sql_query($sql);
-    
-    $dialogBox .= $langAssignmentDeleted;
-    
-  }
+	// delete/remove an assignment
+	if( $cmd == 'exRmAssig' )
+	{
+		// delete all works in this assignment if the delete of the files worked
+		if( claro_delete_file($wrkDir."assig_".$_REQUEST['assigId']) )
+		{
+			$sql = "DELETE FROM `".$tbl_wrk_submission."`
+					WHERE `assignment_id` = ".$_REQUEST['assigId'];
+			claro_sql_query($sql);
+		}    
+		
+		$sql = "DELETE FROM `".$tbl_wrk_assignment."`
+				WHERE `id` = ".$_REQUEST['assigId'];
+		
+		claro_sql_query($sql);
+		
+		$dialogBox .= $langAssignmentDeleted;	
+	}
    
-  /*--------------------------------------------------------------------
-                        MODIFY An ASSIGNMENT
-  --------------------------------------------------------------------*/
-  /*-----------------------------------
-      STEP 2 : check & query
-  -------------------------------------*/
-  // edit an assignment / form has been sent
-  if( $cmd == 'exEditAssig' )
-  {
-    // form data have been handled before this point if the form was sent
-    if( isset($_REQUEST['assigId']) && $formCorrectlySent )
-    {
-          $sql = "UPDATE `".$tbl_wrk_assignment."`
-                  SET `title` = \"".$title."\",
-                      `description` = \"".$assigDesc."\", 
-                      `assignment_type` = \"".$_REQUEST['assignmentType']."\", 
-                      `authorized_content` = \"".$authorizedContent."\",  
-                      `authorize_anonymous` = \"".$_REQUEST['allowAnonymous']."\",
-                      `start_date` = \"".$composedStartDate."\", 
-                      `end_date` = \"".$composedEndDate."\", 
-                      `def_submission_visibility` = \"".$_REQUEST['defSubVis']."\", 
-                      `allow_late_upload` = \"".$_REQUEST['allowLateUpload']."\"
-                  WHERE `id` = ".$_REQUEST['assigId'];
-          claro_sql_query($sql);
-          $dialogBox .= $langAssignmentEdited;
-    } 
-    else
-    {
-      $cmd = 'rqEditAssig';
-    }
-  }
-  /*-----------------------------------
-      STEP 1 : display form
-  -------------------------------------*/
-  // edit aassignment / display the form
-  if( $cmd == 'rqEditAssig' )
-  {
-    include($includePath."/lib/form.lib.php");
-    
-    // check if it was already sent
-    if( !isset($_REQUEST['submitAssignment'] ) )
-    {
-        // get current settings to fill in the form
-        $sql = "SELECT * 
-                FROM `".$tbl_wrk_assignment."`
-                WHERE `id` = ".$_REQUEST['assigId'];
-        list($modifiedAssignment) = claro_sql_query_fetch_all($sql);
-        
-    
-        // set values to pre-fill the form
-        $form['assigTitle'          ] = $modifiedAssignment['title'];
-        $form['assigDesc'           ] = $modifiedAssignment['description'];
-        
-        list($form['startDate'], $form['startTime']) = split(' ', $modifiedAssignment['start_date']);
-        list($form['endDate'], $form['endTime']) = split(' ', $modifiedAssignment['end_date']);
-        
-        $form['authorizedContent' ] = $modifiedAssignment['authorized_content'];
-        $form['defSubVis'         ] = $modifiedAssignment['def_submission_visibility'];
-        $form['assignmentType'    ] = $modifiedAssignment['assignment_type'];
-        $form['allowAnonymous'    ] = $modifiedAssignment['authorize_anonymous'];
-        $form['allowLateUpload'   ] = $modifiedAssignment['allow_late_upload'];
-
-    }
-    else
-    {
-      // there was an error in the form so display it with already modified values
-      $form['assigTitle'          ] = $_REQUEST['assigTitle'];
-      $form['assigDesc'           ] = $_REQUEST['assigDesc'];
-      $form['authorizedContent' ] = $_REQUEST['authorizedContent'];      
-      $form['startDate'         ] = $_REQUEST['startYear']."-".$_REQUEST['startMonth']."-".$_REQUEST['startDay'];
-      $form['startTime'         ] = $_REQUEST['startHour'].":".$_REQUEST['startMinute'].":00";
-      $form['endDate'           ] = $_REQUEST['endYear']."-".$_REQUEST['endMonth']."-".$_REQUEST['endDay'];
-      $form['endTime'           ] = $_REQUEST['endHour'].":".$_REQUEST['endMinute'].":00";
-      $form['defSubVis'         ] = $_REQUEST['defSubVis'];
-      $form['assignmentType'    ] = $_REQUEST['assignmentType'];
-      $form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
-      $form['allowLateUpload'   ] = $_REQUEST['allowLateUpload'];
-    }
-    // modify the command 'cmd' sent by the form
-    $cmdToSend = "exEditAssig";
-    // ask the display of the form
-    $displayAssigForm = true;
-  }
+	/*--------------------------------------------------------------------
+	                      MODIFY An ASSIGNMENT
+	--------------------------------------------------------------------*/
+	/*-----------------------------------
+	    STEP 2 : check & query
+	-------------------------------------*/
+	// edit an assignment / form has been sent
+	if( $cmd == 'exEditAssig' )
+	{
+		// form data have been handled before this point if the form was sent
+		if( isset($_REQUEST['assigId']) && $formCorrectlySent )
+		{
+		      $sql = "UPDATE `".$tbl_wrk_assignment."`
+		              SET `title` = \"".$title."\",
+		                  `description` = \"".$assigDesc."\", 
+		                  `assignment_type` = \"".$_REQUEST['assignmentType']."\", 
+		                  `authorized_content` = \"".$authorizedContent."\",  
+		                  `authorize_anonymous` = \"".$_REQUEST['allowAnonymous']."\",
+		                  `start_date` = \"".$composedStartDate."\", 
+		                  `end_date` = \"".$composedEndDate."\", 
+		                  `def_submission_visibility` = \"".$_REQUEST['defSubVis']."\", 
+		                  `allow_late_upload` = \"".$_REQUEST['allowLateUpload']."\"
+		              WHERE `id` = ".$_REQUEST['assigId'];
+		      claro_sql_query($sql);
+		      $dialogBox .= $langAssignmentEdited;
+		} 
+		else
+		{
+			$cmd = 'rqEditAssig';
+		}
+	}
+	/*-----------------------------------
+	STEP 1 : display form
+	-------------------------------------*/
+	// edit aassignment / display the form
+	if( $cmd == 'rqEditAssig' )
+	{
+		include($includePath."/lib/form.lib.php");
+		
+		// check if it was already sent
+		if( !isset($_REQUEST['submitAssignment'] ) )
+		{
+			// get current settings to fill in the form
+			$sql = "SELECT * 
+					FROM `".$tbl_wrk_assignment."`
+					WHERE `id` = ".$_REQUEST['assigId'];
+			list($modifiedAssignment) = claro_sql_query_fetch_all($sql);
+			
+			
+			// set values to pre-fill the form
+			$form['assigTitle'          ] = $modifiedAssignment['title'];
+			$form['assigDesc'           ] = $modifiedAssignment['description'];
+			
+			list($form['startDate'], $form['startTime']) = split(' ', $modifiedAssignment['start_date']);
+			list($form['endDate'], $form['endTime']) = split(' ', $modifiedAssignment['end_date']);
+			
+			$form['authorizedContent' ] = $modifiedAssignment['authorized_content'];
+			$form['defSubVis'         ] = $modifiedAssignment['def_submission_visibility'];
+			$form['assignmentType'    ] = $modifiedAssignment['assignment_type'];
+			$form['allowAnonymous'    ] = $modifiedAssignment['authorize_anonymous'];
+			$form['allowLateUpload'   ] = $modifiedAssignment['allow_late_upload'];
+		
+		}
+		else
+		{
+			// there was an error in the form so display it with already modified values
+			$form['assigTitle'          ] = $_REQUEST['assigTitle'];
+			$form['assigDesc'           ] = $_REQUEST['assigDesc'];
+			$form['authorizedContent' ] = $_REQUEST['authorizedContent'];      
+			$form['startDate'         ] = $_REQUEST['startYear']."-".$_REQUEST['startMonth']."-".$_REQUEST['startDay'];
+			$form['startTime'         ] = $_REQUEST['startHour'].":".$_REQUEST['startMinute'].":00";
+			$form['endDate'           ] = $_REQUEST['endYear']."-".$_REQUEST['endMonth']."-".$_REQUEST['endDay'];
+			$form['endTime'           ] = $_REQUEST['endHour'].":".$_REQUEST['endMinute'].":00";
+			$form['defSubVis'         ] = $_REQUEST['defSubVis'];
+			$form['assignmentType'    ] = $_REQUEST['assignmentType'];
+			$form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
+			$form['allowLateUpload'   ] = $_REQUEST['allowLateUpload'];
+		}
+		// modify the command 'cmd' sent by the form
+		$cmdToSend = "exEditAssig";
+		// ask the display of the form
+		$displayAssigForm = true;
+	}
   
-  /*--------------------------------------------------------------------
-                        CREATE NEW ASSIGNMENT
-  --------------------------------------------------------------------*/
+	/*--------------------------------------------------------------------
+	                      CREATE NEW ASSIGNMENT
+	--------------------------------------------------------------------*/
+	
+	/*-----------------------------------
+	    STEP 2 : check & query
+	-------------------------------------*/
+	//--- create an assignment / form has been sent
+	if( $cmd == 'exMkAssig' )
+	{
+		// form data have been handled before this point if the form was sent
+		if( $formCorrectlySent )
+		{
+			$sql = "INSERT INTO `".$tbl_wrk_assignment."`
+					( `title`,`description`, `assignment_type`,
+					`authorized_content`, `authorize_anonymous`,
+					`start_date`, `end_date`, 
+					`def_submission_visibility`, `allow_late_upload`)
+					VALUES
+					( \"".$title."\", \"".$assigDesc."\", \"".$_REQUEST['assignmentType']."\",
+					\"".$authorizedContent."\", \"".$_REQUEST['allowAnonymous']."\",
+					\"".$composedStartDate."\", \"".$composedEndDate."\",
+					\"".$_REQUEST['defSubVis']."\", \"".$_REQUEST['allowLateUpload']."\")";
+			
+			// execute the creation query and return id of inserted assignment
+			$lastassigId = claro_sql_query_insert_id($sql);
+			
+			// create the assignment directory if query was successfull and dir not already exists
+			$wrkAssigDir = $wrkDir."assig_".$lastassigId;
+			
+			if( $lastassigId && !is_dir( $wrkAssigDir ) )
+			{
+				mkdir( $wrkAssigDir , 0777 );
+			}
+		
+			// confirmation message
+			$dialogBox .= $langAssignmentAdded;
+		}
+		else
+		{
+			$cmd = 'rqMkAssig';
+		}
+	}
   
-  /*-----------------------------------
-      STEP 2 : check & query
-  -------------------------------------*/
-  //--- create an assignment / form has been sent
-  if( $cmd == 'exMkAssig' )
-  {
-    // form data have been handled before this point if the form was sent
-    if( $formCorrectlySent )
-    {
-          $sql = "INSERT INTO `".$tbl_wrk_assignment."`
-                  ( `title`,`description`, `assignment_type`,
-                    `authorized_content`, `authorize_anonymous`,
-                    `start_date`, `end_date`, 
-                    `def_submission_visibility`, `allow_late_upload`)
-                  VALUES
-                  ( \"".$title."\", \"".$assigDesc."\", \"".$_REQUEST['assignmentType']."\",
-                    \"".$authorizedContent."\", \"".$_REQUEST['allowAnonymous']."\",
-                    \"".$composedStartDate."\", \"".$composedEndDate."\",
-                    \"".$_REQUEST['defSubVis']."\", \"".$_REQUEST['allowLateUpload']."\")";
-    
-          // execute the creation query and return id of inserted assignment
-          $lastassigId = claro_sql_query_insert_id($sql);
-          
-          // create the assignment directory if query was successfull and dir not already exists
-          $wrkAssigDir = $wrkDir."assig_".$lastassigId;
-          if( $lastassigId && !is_dir( $wrkAssigDir ) )
-          {
-            mkdir( $wrkAssigDir , 0777 );
-          }
-          
-          // move the uploaded file from temporary folder to the work assignment folder
-          if( isset($prefillDocPath) && $prefillDocPath != "" )
-          {
-            if( ! @rename($wrkDir.$tmpWorkUrl, $wrkAssigDir."/".$prefillDocPath) )
-            {
-                  $dialogBox .= $langCannotCopyFile."<br />";
-                  $formCorrectlySent = false;
-            }
-            // remove the temporary file
-            @unlink($wrkDir.$tmpWorkUrl);
-          }
-          
-          // confirmation message
-          $dialogBox .= $langAssignmentAdded;
-    }
-    else
-    {
-      $cmd = 'rqMkAssig';
-    }
-  }
-  
-  /*-----------------------------------
-      STEP 1 : display form
-  -------------------------------------*/
-  //--- create an assignment / display form
-  if( $cmd == 'rqMkAssig' )
-  {
-    include($includePath."/lib/form.lib.php");
-    
-    if( !isset($_REQUEST['submitAssignment']) )
-    {
-      // set default values to prefill the form if nothing was posted
-      $form['assigTitle'             ] = "";
-      $form['assigDesc'           ] = "";
-      $form['authorizedContent' ] = "FILE";
-      $form['startDate'         ] = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y") ) );
-      $form['startTime'         ] = date("H:i:00", mktime( date("H"),date("i"),0) );
-      $form['endDate'           ] = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
-      $form['endTime'           ] = date("H:i:00", mktime( date("H"),date("i"),0) );
-      $form['defSubVis'         ] = "VISIBLE";
-      $form['assignmentType'    ] = "INDIVIDUAL";
-      $form['allowAnonymous'    ] = "YES";
-      $form['allowLateUpload'   ] = "NO";
-    }
-    else
-    {
-      // there was an error in the form so display it with already modified values
-      $form['assigTitle'          ] = $_REQUEST['assigTitle'];
-      $form['assigDesc'           ] = $_REQUEST['assigDesc'];
-      $form['authorizedContent' ] = $_REQUEST['authorizedContent'];      
-      $form['startDate'         ] = $_REQUEST['startYear']."-".$_REQUEST['startMonth']."-".$_REQUEST['startDay'];
-      $form['startTime'         ] = $_REQUEST['startHour'].":".$_REQUEST['startMinute'].":00";
-      $form['endDate'           ] = $_REQUEST['endYear']."-".$_REQUEST['endMonth']."-".$_REQUEST['endDay'];
-      $form['endTime'           ] = $_REQUEST['endHour'].":".$_REQUEST['endMinute'].":00";
-      $form['defSubVis'         ] = $_REQUEST['defSubVis'];
-      $form['assignmentType'    ] = $_REQUEST['assignmentType'];
-      $form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
-      $form['allowLateUpload'   ] = $_REQUEST['allowLateUpload'];
-    }
-    
-    // modify the command 'cmd' sent by the form
-    $cmdToSend = "exMkAssig";
-    // ask the display of the form
-    $displayAssigForm = true;
-  }
+	/*-----------------------------------
+	    STEP 1 : display form
+	-------------------------------------*/
+	//--- create an assignment / display form
+	if( $cmd == 'rqMkAssig' )
+	{
+		include($includePath."/lib/form.lib.php");
+		
+		if( !isset($_REQUEST['submitAssignment']) )
+		{
+			// set default values to prefill the form if nothing was posted
+			$form['assigTitle'             ] = "";
+			$form['assigDesc'           ] = "";
+			$form['authorizedContent' ] = "FILE";
+			$form['startDate'         ] = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y") ) );
+			$form['startTime'         ] = date("H:i:00", mktime( date("H"),date("i"),0) );
+			$form['endDate'           ] = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
+			$form['endTime'           ] = date("H:i:00", mktime( date("H"),date("i"),0) );
+			$form['defSubVis'         ] = "VISIBLE";
+			$form['assignmentType'    ] = "INDIVIDUAL";
+			$form['allowAnonymous'    ] = "YES";
+			$form['allowLateUpload'   ] = "NO";
+		}
+		else
+		{
+			// there was an error in the form so display it with already modified values
+			$form['assigTitle'          ] = $_REQUEST['assigTitle'];
+			$form['assigDesc'           ] = $_REQUEST['assigDesc'];
+			$form['authorizedContent' ] = $_REQUEST['authorizedContent'];      
+			$form['startDate'         ] = $_REQUEST['startYear']."-".$_REQUEST['startMonth']."-".$_REQUEST['startDay'];
+			$form['startTime'         ] = $_REQUEST['startHour'].":".$_REQUEST['startMinute'].":00";
+			$form['endDate'           ] = $_REQUEST['endYear']."-".$_REQUEST['endMonth']."-".$_REQUEST['endDay'];
+			$form['endTime'           ] = $_REQUEST['endHour'].":".$_REQUEST['endMinute'].":00";
+			$form['defSubVis'         ] = $_REQUEST['defSubVis'];
+			$form['assignmentType'    ] = $_REQUEST['assignmentType'];
+			$form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
+			$form['allowLateUpload'   ] = $_REQUEST['allowLateUpload'];
+		}
+		
+		// modify the command 'cmd' sent by the form
+		$cmdToSend = "exMkAssig";
+		// ask the display of the form
+		$displayAssigForm = true;
+	}
 }
 
 /*================================================================
@@ -426,15 +411,15 @@ if(isset($_gid))
 
 if( ( isset($displayAssigForm) && $displayAssigForm ) )
 {
-      // bredcrump to return to the list when in a form
-      $interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langWork);
-      $nameTools = $langAssignment;
+	// bredcrump to return to the list when in a form
+	$interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langWork);
+	$nameTools = $langAssignment;
 }
 else
 {
-  $nameTools = $langWork;
-  // to prevent parameters to be added in the breadcrumb
-  //$QUERY_STRING='';
+	$nameTools = $langWork;
+	// to prevent parameters to be added in the breadcrumb
+	//$QUERY_STRING='';
 }
 
 include($includePath.'/claro_init_header.inc.php');
@@ -449,30 +434,30 @@ claro_disp_tool_title($nameTools);
 if($is_allowedToEdit)
 {
 
-  /*--------------------------------------------------------------------
-                          DIALOG BOX SECTION
-    --------------------------------------------------------------------*/
+	/*--------------------------------------------------------------------
+	                        DIALOG BOX SECTION
+	  --------------------------------------------------------------------*/
+	
+	if ( isset($dialogBox) && !empty($dialogBox) )
+	{
+		claro_disp_message_box($dialogBox);
+	}
 
-  if ( isset($dialogBox) && !empty($dialogBox) )
-  {
-          claro_disp_message_box($dialogBox);
-  }
-
-  /*--------------------------------------------------------------------
-                        CREATE AND EDIT FORM
-    --------------------------------------------------------------------*/
-  if ( isset($displayAssigForm) && $displayAssigForm ) 
-  {
+	/*--------------------------------------------------------------------
+	                      CREATE AND EDIT FORM
+	  --------------------------------------------------------------------*/
+	if ( isset($displayAssigForm) && $displayAssigForm ) 
+	{
 ?>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
     <input type="hidden" name="cmd" value="<?php echo $cmdToSend; ?>">
 <?php
-  if( isset($_REQUEST['assigId']) )
-  {
+	if( isset($_REQUEST['assigId']) )
+	{
 ?>
     <input type="hidden" name="assigId" value="<?php echo $_REQUEST['assigId']; ?>">
 <?php
-  }
+	}
 ?>
     <table cellpadding="5" width="100%">
       <tr>
@@ -484,7 +469,7 @@ if($is_allowedToEdit)
         <td valign="top"><label for="assigDesc"><?php echo $langAssignmentDescription; ?>&nbsp;:<br /></label></td>
         <td>
 <?php          
-      claro_disp_html_area('assigDesc', $form['assigDesc']);
+	claro_disp_html_area('assigDesc', $form['assigDesc']);
 ?> 
         </td>
       </tr>
@@ -508,8 +493,8 @@ if($is_allowedToEdit)
         <td valign="top"><?php echo $langStartDate; ?>&nbsp;:</td>
         <td>
 <?php
-         echo claro_disp_date_form("startDay", "startMonth", "startYear", $form['startDate'])." ".claro_disp_time_form("startHour", "startMinute", $form['startTime']);
-         echo "&nbsp;<small>".$langChooseDateHelper."</small>";
+	echo claro_disp_date_form("startDay", "startMonth", "startYear", $form['startDate'])." ".claro_disp_time_form("startHour", "startMinute", $form['startTime']);
+	echo "&nbsp;<small>".$langChooseDateHelper."</small>";
 ?>      
         </td>
       </tr>    
@@ -518,8 +503,8 @@ if($is_allowedToEdit)
         <td valign="top"><?php echo $langEndDate; ?>&nbsp;:</td>
         <td>
 <?php
-         echo claro_disp_date_form("endDay", "endMonth", "endYear", $form['endDate'])." ".claro_disp_time_form("endHour", "endMinute", $form['endTime']);
-         echo "&nbsp;<small>".$langChooseDateHelper."</small>";
+	echo claro_disp_date_form("endDay", "endMonth", "endYear", $form['endDate'])." ".claro_disp_time_form("endHour", "endMinute", $form['endTime']);
+	echo "&nbsp;<small>".$langChooseDateHelper."</small>";
 ?>      
         </td>
       </tr>
@@ -576,7 +561,7 @@ if($is_allowedToEdit)
         <td>
           <input type="submit" name="submitAssignment" value="<?php echo $langOk; ?>">
 <?php
-          claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
+	claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
 ?>
         </td>
       </tr>
@@ -605,8 +590,8 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
       --------------------------------------------------------------------*/
     if( $is_allowedToEdit )
     {
-      // link to create a new assignment
-      echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkAssig\">".$langCreateAssignment."</a>\n";
+		// link to create a new assignment
+		echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkAssig\">".$langCreateAssignment."</a>\n";
     }
 
     /*--------------------------------------------------------------------
@@ -617,19 +602,19 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
     {
 		// select only the group assignments
       	$sql = "SELECT `id`, `title`, `visibility`, 
-				`description`, `assignment_type`, `authorized_content`,
-				unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
-				FROM `".$tbl_wrk_assignment."`
-				WHERE `assignment_type` = 'GROUP'
-				ORDER BY `end_date` ASC";    
+			`description`, `assignment_type`, `authorized_content`,
+			unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
+			FROM `".$tbl_wrk_assignment."`
+			WHERE `assignment_type` = 'GROUP'
+			ORDER BY `end_date` ASC";    
     }
     else
     {
-      $sql = "SELECT `id`, `title`, `visibility`, 
-	  			`description`, `assignment_type`, `authorized_content`,
-				unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
-              	FROM `".$tbl_wrk_assignment."` 
-              	ORDER BY `end_date` ASC";
+		$sql = "SELECT `id`, `title`, `visibility`, 
+			`description`, `assignment_type`, `authorized_content`,
+			unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
+			FROM `".$tbl_wrk_assignment."` 
+			ORDER BY `end_date` ASC";
     }          
     $assignmentList = claro_sql_query_fetch_all($sql);
 
