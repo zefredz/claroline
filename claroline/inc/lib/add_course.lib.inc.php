@@ -862,7 +862,8 @@ mysql_query ("
                   `access_id` int(11) NOT NULL auto_increment,
                   `access_user_id` int(10) default NULL,
                   `access_date` datetime NOT NULL default '0000-00-00 00:00:00',
-                  `access_tool` varchar(30) default NULL,
+                  `access_tid` int(10) default NULL,
+                  `access_tlabel` varchar(8) default NULL,
                   PRIMARY KEY  (`access_id`)
                 ) TYPE=MyISAM COMMENT='Record informations about access to course or tools'";
         mysql_query($sql);
