@@ -78,11 +78,11 @@ $langAgendaText="Introduction générale à la philosophie et explication sur le fo
 $langMicro="Micro-trottoir";
 $langVideoText="Ceci est un exemple en RealVideo. Vous pouvez envoyer des vidéos de tous formats (.mov, .rm, .mpeg...), pourvu que vos étudiants soient en mesure de les lire";
 $langGoogle="Moteur de recherche généraliste performant";
-$langIntroductionText="Ceci est le texte d\'introduction de votre cours. Modifier ce texte régulièrement est une bonne façon d\'indiquer clairement que ce site est un lieu d\'interaction vivant et non un simple répertoire de documents.";
+//$langIntroductionText="Ceci est le texte d\'introduction de votre cours. Modifier ce texte régulièrement est une bonne façon d\'indiquer clairement que ce site est un lieu d\'interaction vivant et non un simple répertoire de documents.";
 
-$langIntroductionTwo="Cette page est un espace de publication. Elle permet à chaque étudiant ou groupe d\'étudiants d\'envoyer un document (Word, Excel, HTML... ) vers le site du cours afin de le rendre accessible aux autres étudiants ainsi qu\'au professeur.
-Si vous passez par votre espace de groupe pour publier le document (option publier), l\'outil de travaux fera un simple lien vers le document là où il se trouve dans votre répertoire de groupe sans le déplacer.";
-$langIntroductionLearningPath="<p>Ceci est le texte d\'introduction des parcours p&eacute;dagogique de votre cours.  Utiliser cet outils pour fournir à vos apprenants un parcours s&eacute;quentiel d&eacute;fini par vos soins entre des documents, exercices, pages HTML,... ou importer des contenus SCORM existants</p><p>Remplacez ce texte par votre propre introduction.<br></p>";
+//$langIntroductionTwo="Cette page est un espace de publication. Elle permet à chaque étudiant ou groupe d\'étudiants d\'envoyer un document (Word, Excel, HTML... ) vers le site du cours afin de le rendre accessible aux autres étudiants ainsi qu\'au professeur.
+//Si vous passez par votre espace de groupe pour publier le document (option publier), l\'outil de travaux fera un simple lien vers le document là où il se trouve dans votre répertoire de groupe sans le déplacer.";
+//$langIntroductionLearningPath="<p>Ceci est le texte d\'introduction des parcours p&eacute;dagogique de votre cours.  Utiliser cet outils pour fournir à vos apprenants un parcours s&eacute;quentiel d&eacute;fini par vos soins entre des documents, exercices, pages HTML,... ou importer des contenus SCORM existants</p><p>Remplacez ce texte par votre propre introduction.<br></p>";
 $langCourseDescription="Ecrivez ici la description qui apparaîtra dans la liste des cours (Le contenu de ce champ ne s\'affiche actuellement nulle part et ne se trouve ici qu\'en préparation à une version prochaine de Claroline).";
 $langProfessor="Responsables de cours";
 $langAnnouncementExTitle = "Exemple d\'annonce";

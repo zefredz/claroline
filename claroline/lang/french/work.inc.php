@@ -25,6 +25,10 @@ $langTitle="Titre";
 $langHelp="aide";
 $langAddIntro="Ajouter un texte d'introduction";
 $langBackList="Retour à la liste";
+$langIntroWork="Cette page est un espace de publication. Elle permet à chaque étudiant ou groupe d'étudiants d'envoyer un document (Word, Excel, HTML... ) vers le site du cours afin de le rendre accessible aux autres étudiants ainsi qu'au professeur.
+<BR><BR>Si vous passez par votre espace de groupe pour publier le document (option publier), l'outil de travaux fera un simple lien vers le document là où il se trouve dans votre répertoire de groupe sans le déplacer.
+<BR><BR>Si vous désirez donner des consignes aux étudiants, cliquer sur ce bouton";
+
 
 // WORKS
 $langDownloadFile="Envoyer le document";

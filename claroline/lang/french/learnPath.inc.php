@@ -15,6 +15,7 @@
    $langVisible="Visibilit&eacute;";
    $langBlock = "Bloquer";
    $langProgress = "Progression";
+   $langIntroLearningPath="Utiliser cet outils pour fournir à vos apprenants un parcours s&eacute;quentiel d&eacute;fini par vos soins entre des documents, exercices, pages HTML, liens... ou importer des contenus SCORM existants<BR><BR>Si vous désirez ajouter un texte d'introduction, cliquer sur ce bouton.<br>";
 
    $langStartModule = "Commencer le module";
    $langModuleAdmin = "Administration du module";
@@ -191,7 +192,7 @@
    $langErrorSql = "Erreur dans les requ&ecirc;tes SQL";
 
    // import learning path / ok messages
-   $langScormIntroTextForDummies = "Les packages import&eacute;s doivent &ecirc;tre des fichiers zip et r&eacute;pondre &agrave; la norme SCORM 1.2";
+   $langScormIntroTextForDummies = "Les packages import&eacute;s doivent consist&eacute; &ecirc;tre des fichiers zip et r&eacute;pondre &agrave; la norme SCORM 1.2";
    $langOkFileReceived = "Fichier reçu : ";
    $langOkManifestRead = "Manifest lu.";
    $langOkManifestFound = "Manifest trouv&eacute;.";

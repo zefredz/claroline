@@ -40,10 +40,16 @@ $langPrivOpen="Accès privé, inscription ouverte";
 $langPrivate="Accès privé (site réservé aux personnes figurant dans la liste <a href=../user/user.php>utilisateurs</a>)";
 $langForbidden="Accès non autorisé";
 $langLanguage="Langue";
-$langConfTip="Par d&eacute;faut, votre cours est accessible &agrave; tout le monde. Si vous souhaitez un minimum de confidentialit&eacute;, le plus simple est d'ouvrir
-l'inscription pendant une semaine, de demander aux &eacute;tudiants de s'inscrire eux-m&ecirc;mes
-puis de fermer l'inscription et de v&eacute;rifier dans la liste des utilisateurs les intrus &eacute;ventuels.";
+$langConfTip="Par défaut, votre cours n'est accessible
+qu'à vous qui en êtes le seul utilisateur. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir
+l'inscription pendant une semaine, de demander aux étudiants de s'inscrire eux-mêmes
+puis de fermer l'inscription et de vérifier dans la liste des utilisateurs les intrus éventuels.";
 $langTipLang="Cette langue vaudra pour tous les visiteurs de votre site de cours.";
+$langEditToolList="Modifier la liste d'outils";
+$langIntroCourse="Bienvenu sur la page d'accueil du cours.<br><br>Vous pouvez sur cette page :
+<li class=HelpText>activer ou désactiver des outils (cliquer sur le bouton '".$langEditToolList."' dans le bas à gauche).
+<li class=HelpText>changer les propriétés ou voir les statistiques (Cliquer sur les liens correspondants).<BR><BR>
+Pour présenter votre cours aux éudiants, cliquer sur ce bouton";
 
 // Change Home Page
 $langAgenda="Agenda";
@@ -126,5 +132,26 @@ $langSearchCours	= "Revenir sur les informations du cours";
 $langManage			= "Gestion du campus";
 
 $langAreYouSureToDelete ="Êtes vous sûr de vouloir supprimer ";
+$langBackToAdminPage = "Retour à la page d'administration";
+$langToCourseSettings = "Retour aus propriétés du cours";
+$langSeeCourseUsers = "Voir les utilisateurs du cours";
+$langBackToCourseList = "Retour à la liste de cours";
+$langBackToList = "Retour à la liste";
+$langIntroEditToolList="Sélectionner les outils que vous voulez activer.
+Les outils invisible seront grisés dans votre page d'accueil du cours.";
+$langTools="Outils";
+$langActivate="Activer";
+$langAddExternalTool="Ajouter un lien externe.";
+$langAddedExternalTool="Lien externe ajouté.";  
+$langUnableAddExternalTool="Impossible d'ajouter cet outil";
+$langMissingValue="Valeur manquante";
+$langToolName="Nom du  lien";
+$langToolUrl="URL du lien";
+$langChangedTool="L'accès au lien a été changé";
+$langUnableChangedTool="Impossible de changer l'accès au lien";
+$langUpdatedExternalTool="Lien externe modifié";
+$langUnableUpdateExternalTool="Impossible de changer le lien externe";
+$langDeletedExternalTool='Lien externe effacé';
+$langUnableDeleteExternalTool='Impossible d\'effacer le lien externe';
 
 ?>
