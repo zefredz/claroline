@@ -1,7 +1,7 @@
 <?php // $Id$
-$conf_def['config_file']='agenda.conf.inc.php';
+$conf_def['config_file']='CLCAL___.conf.php';
 $conf_def['config_code']='CLCAL';
-$conf_def['config_name']='general setting for calendar';
+$conf_def['config_name']='General setting for calendar';
 
 $conf_def['section']['log']['label']='Track activity';
 // $conf_def['config_repository']=''; dislabed = includePath.'/conf'
@@ -13,38 +13,37 @@ array ( 'CONFVAL_LOG_CALENDAR_INSERT'
       );
 
 $conf_def_property_list['CONFVAL_LOG_CALENDAR_INSERT'] = 
-array ('label'       => 'Logguer les ajouts d\'agenda'
+array ('label'       => 'Log add'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      ,'technicalInfo' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam dolor mi, semper vel, euismod a, sodales quis, libero. Etiam eros risus, ornare eget, placerat ac, eleifend quis, mauris. Cras blandit sapien sed magna. Duis convallis vehicula leo. Aliquam sed ipsum in orci ornare dictum. Phasellus dignissim, tortor at ornare tincidunt.'
       ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'enabled'
                               ,'FALSE'=>'dislabed'
                               )
       );
 $conf_def_property_list['CONFVAL_LOG_CALENDAR_DELETE'] = 
-array ('label'       => 'Logguer les suppressions dans l\'agenda'
+array ('label'       => 'Log deletion'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'enabled'
-                              ,'FALSE'=>'dislabed'
+      ,'acceptedValue' => array ('TRUE'=>'Enabled'
+                              ,'FALSE'=>'Dislabed'
                               )
       );
       
 $conf_def_property_list['CONFVAL_LOG_CALENDAR_UPDATE'] = 
-array ('label'       => 'Logguer les éditions dans l\'agenda'
+array ('label'       => 'Log edition'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'enabled'
-                              ,'FALSE'=>'dislabed'
+      ,'acceptedValue' => array ('TRUE'=>'Enabled'
+                              ,'FALSE'=>'Dislabed'
                               )
       );
 

@@ -1,7 +1,7 @@
 <?php // $Id$
 // TOOL
 $conf_def['config_code']='CLGRP';
-$conf_def['config_file']='group.conf.php';
+$conf_def['config_file']='CLGRP___.conf.php';
 $conf_def['config_name']='General setting for groups';
 // $conf_def['config_repository']=''; dislabed = includePath.'/conf'
 $conf_def['section']['multigroup']['label']='multigroup';
@@ -46,5 +46,4 @@ array ( 'description' => 'Not implemented, name reserved  for future version of 
       , 'display'     => FALSE
       , 'readonly'    => TRUE
       );
-
 ?>

@@ -1,5 +1,4 @@
 <?php //$Id$
-
 // TOOL
 $conf_def['config_code']='CLSAVE';
 $conf_def['config_file']='export.conf.inc.php';

@@ -1,11 +1,11 @@
 <?php // $Id$
 // TOOL
 $conf_def['config_code']='CLUSR';
-$conf_def['config_file']='user.conf.inc.php';
-$conf_def['config_name']='general setting for users';
+$conf_def['config_file']='CLUSR___.conf.php';
+$conf_def['config_name']='General setting for users listing (include User info tool)';
 // $conf_def['config_repository']=''; dislabed = includePath.'/conf'
 $conf_def['section']['list']['label']='Listing properties';
-$conf_def['section']['list']['description']='common properties for listing of users';
+$conf_def['section']['list']['description']='Common properties for listing of users';
 $conf_def['section']['list']['properties'] = 
 array ( 'linkToUserInfo'
       , 'nbUsersPerPage'
@@ -15,28 +15,31 @@ array ( 'linkToUserInfo'
 //PROPERTIES
 
 $conf_def_property_list['linkToUserInfo'] =
-array ('label'         => 'Afficher le lien vers les infos supplémentaires de l\'utilisateur'
+array ('label'         => 'Show the link to user info'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'enabled'
-                                ,'FALSE' => 'dislabed'
+      ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                ,'FALSE' => 'No'
                                 )
       );
 
 $conf_def_property_list['nbUsersPerPage'] = 
-array ( 'label'   => 'Nombre d\'utilisateurs par page',
-        'default' => '25',
-        'type'    => 'integer');
+array ( 'label'   => 'Paging with ..'
+      , 'default' => '25'
+      , 'unit'    => 'users per lines'
+      ,  'type'    => 'integer'
+      ,'acceptedValue' => array ('Min'=>'5')
+      );
 
 $conf_def_property_list['CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER'] =
-array('label'         => 'Le professeur peut-il ajouter des utilisateurs à son cours'
+array('label'         => 'Teacher can add himself user in his course'
      ,'default'       => 'TRUE'
      ,'type'          => 'boolean'
      ,'display'       => TRUE
      ,'readonly'      => FALSE
      ,'container'     => 'CONST'
-     ,'acceptedValue' => array ('TRUE'=>'oui'
-                              ,'FALSE'=>'non'
+     ,'acceptedValue' => array ('TRUE'=>'Yes'
+                              ,'FALSE'=>'No'
                               )
      );
 

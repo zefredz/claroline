@@ -1,9 +1,10 @@
 <?php // $Id$
-$conf_def['config_file']='announcement.conf.inc.php';
+$conf_def['config_file']='CLANN___.conf.php';
 $conf_def['config_code']='CLANN';
 $conf_def['config_name']='general setting for announcements';
-
 $conf_def['description'] = 'Use by Announcement tool. This is a course tool';
+$conf_def['old_config_file']= array ('CLANN.conf.php','announcement.conf.inc.php');
+
 $conf_def['section']['log']['label']='Track activity';
 $conf_def['section']['log']['properties'] = 
 array ( 'CONFVAL_LOG_ANNOUNCEMENT_INSERT'
@@ -13,7 +14,7 @@ array ( 'CONFVAL_LOG_ANNOUNCEMENT_INSERT'
       
 //PROPERTIES
 $conf_def_property_list['CONFVAL_LOG_ANNOUNCEMENT_INSERT'] =
-array( 'label'      => 'Logguer les ajouts dans les annonces'
+array( 'label'      => 'Log add'
      , 'default'    => 'TRUE'
      , 'type'       => 'boolean'
      , 'acceptedValue'=> array ('TRUE'=>'enabled'
@@ -25,9 +26,10 @@ array( 'label'      => 'Logguer les ajouts dans les annonces'
      ); 
 
 $conf_def_property_list['CONFVAL_LOG_ANNOUNCEMENT_DELETE'] =
-array( 'default'  => 'TRUE'
-     , 'label'    => 'Logguer les suppressions d\'annonce'
-     , 'type'     => 'boolean'
+array( 'default'     => 'TRUE'
+     , 'label'       => 'Log delete'
+     , 'description' => 'Record in tracking when an announcement is deleted'
+     , 'type'        => 'boolean'
      , 'acceptedValue'=> array ('TRUE'=>'enabled'
                              ,'FALSE'=>'dislabed'
                              )
@@ -45,7 +47,7 @@ array( 'default'  => 'FALSE'
      , 'display'  => TRUE
      , 'readonly' => FALSE
      , 'container'=> 'CONST'
-     , 'label'    => 'Logguer les éditions d\'annonce'
+     , 'label'    => 'Log update'
      );
 
 ?>

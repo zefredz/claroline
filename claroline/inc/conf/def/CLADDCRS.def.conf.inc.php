@@ -1,6 +1,6 @@
 <?php // $Id$
 $conf_def['config_code']='CLADDCRS';
-$conf_def['config_file']='add_course.conf.inc.php';
+$conf_def['config_file']='core.add_course.conf.php';
 $conf_def['config_name']='general setting for course creation';
 // $conf_def['config_repository']=''; dislabed = includePath.'/conf'
 
