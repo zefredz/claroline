@@ -35,7 +35,7 @@ $langBackList="Retour à la liste";
 $langLoginBeforePost1 = "Pour publier des messages dans le forum, ";
 $langLoginBeforePost2 = "vous devez d'abord ";
 $langLoginBeforePost3 = "vous identifier sur le Campus";
-
+$langNoPost = "Pas de message";
 
 // page_header.php
 
@@ -48,7 +48,7 @@ $langAdm="Administrer";
 $langQuote="citer";
 $langEditDel="éditer/effacer";
 $langSeen="Vu";
-$langLastMsg="Dernier msg";
+$langLastMsg="Dernier message";
 $langLastMsgs ="Derniers Messages";
 
 $l_forum 	= "Forum";

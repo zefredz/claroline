@@ -29,6 +29,7 @@ $langLastMsg="Last message";
 $langLoginBeforePost1 = "To post messages on the forum, ";
 $langLoginBeforePost2 = "beforehand, you must ";
 $langLoginBeforePost3 = "login on the Campus";
+$langNoPost = "No Post";
 
 // page_header.php
 
