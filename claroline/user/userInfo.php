@@ -174,7 +174,7 @@ claro_disp_tool_title($nameTools);
   ======================================*/
 
 // Back button for each display mode (Top)
-echo '<p align="right"><a href="user.php">'.$langBackToUsersList."</a></p>\n";
+echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.$langBackToUsersList.'</a></small></p>'."\n";
 
 if ($displayMode == "viewDefEdit")
 {
@@ -461,7 +461,7 @@ elseif ($displayMode == "viewContentList") // default display
             .'</table>'
             .'<p><a href="mailto:'.$mainUserInfo['email'].'">'.$mainUserInfo['email'].'</a>'
             .'<p>'."\n"
-            .'<hr noshade size="1">'."\n"
+            .'<hr noshade="noshade" size="1">'."\n"
             ;
     }
 
@@ -516,7 +516,7 @@ elseif ($displayMode == "viewContentList") // default display
 }
 
 // Back button for each display mode (bottom)
-echo '<p align="right"><a href="user.php">'.$langBackToUsersList.'</a></p>'."\n";
+echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.$langBackToUsersList.'</a></small></p>'."\n";
 
 include($includePath."/claro_init_footer.inc.php");
 ?>

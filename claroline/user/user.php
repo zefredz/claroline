@@ -103,25 +103,26 @@ if($dialogBox)
 
 if ($disp_tool_link)
 {
+	echo "<p>";
     if ($can_add_user)
 	{ 
 	   //add CSV file of user link
 	?>
-	<a href="AddCSVusers.php?AddType=userTool"><?php echo $langAddListUser; ?></a> |
+	<a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><?php echo $langAddListUser; ?></a> |
 	<?php 
 	   //add a class link
 	?>
-	<a href="class_add.php"><?php echo $langAddAClass; ?></a> |
+	<a class="claroCmd" href="class_add.php"><?php echo $langAddAClass; ?></a> |
 	<?php
 	
 	   //add a user link
 	?>
-	<a href="user_add.php"><?php echo $langAddAU; ?></a> |
+	<a class="claroCmd" href="user_add.php"><?php echo $langAddAU; ?></a> |
 	<?php
 	}
 	?>
-	<a href="../group/group.php"><?php echo $langGroupUserManagement; ?></a>
-
+	<a class="claroCmd" href="../group/group.php"><?php echo $langGroupUserManagement; ?></a>
+	</p>
 <?php
 }
 
