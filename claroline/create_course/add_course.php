@@ -263,6 +263,13 @@ else
 		$displayCourseAddResult = TRUE;
 		$displayCoursePropertiesForm = FALSE;
 		$displayWhatAdd = FALSE;
+
+    // warn platform administrator of the course creation
+    mail($emailAdministrator, 
+        "Course creation on ".$siteName,
+        "The following course has been created on ".$siteName." by user "
+        .$_user['firstName'].' '.$_user['lastName']." (".$_user['mail'].") \n\n ".$coursesRepositoryWeb.$currentCourseRepository."/\n\n");
+
 	}
 }
 
