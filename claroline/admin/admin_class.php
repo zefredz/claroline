@@ -41,6 +41,7 @@ $langClassMoved = "The class has been moved";
 $langErrorMove = "You can not move a class in itself!";
 $langTopLevel = "top level";
 $langMove = "Move";
+$langUsers = "users";
 
 //---------------------- END LANG TO ADD ----------------------------------------------------------------------------
 
@@ -54,6 +55,7 @@ $is_allowedToAdmin   = $is_platformAdmin || $PHP_AUTH_USER;
 
 $tbl_user            = $mainDbName."`.`user";
 $tbl_class           = $mainDbName."`.`class";
+$tbl_class_user            = $mainDbName."`.`rel_class_user";
 
 // USED SESSION VARIABLES 
 
@@ -264,7 +266,7 @@ switch ($cmd)
 /*	Get information 	     */
 /*-----------------------------------*/
 
-$sql = "SELECT * FROM `".$tbl_class."`";
+$sql = "SELECT * FROM `".$tbl_class."` ORDER BY `name`";
 $class_list = claro_sql_query_fetch_all($sql);
 
 /*-----------------------------------*/
@@ -337,6 +339,8 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
     //global variables needed    
 
     global $clarolineRepositoryWeb;
+    global $tbl_class_user; 
+    global $langUsers;
      
     foreach ($class_list as $cur_class)
     {
@@ -395,10 +399,15 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
                 ."  </td>\n";
 
 	      //Users
-	      	
+	    
+	    $sqlcount="SELECT COUNT(`user_id`) AS qty_user FROM `".$tbl_class_user ."` WHERE `class_id`='".$cur_class['id']."'";  
+	    $resultcount = claro_sql_query_fetch_all($sqlcount);	   
+	    $qty_user = $resultcount[0]['qty_user'];
+	    
 	    echo "  <td align=\"center\">\n"
 	        ."    <a href=\"".$clarolineRepositoryWeb."admin/admin_class_user.php?class=".$cur_class['id']."\">\n"
-                ."      <img src=\"".$clarolineRepositoryWeb."img/membres.gif\" border=\"0\" >\n"
+                ."      <img src=\"".$clarolineRepositoryWeb."img/membres.gif\" border=\"0\"> "
+		."        (".$qty_user."  ".$langUsers.") \n"
 	        ."    </a>\n"
 		."  </td>\n";
 		
@@ -453,7 +462,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	global $tbl_class;
 	global $langTopLevel;
 	
-	$sql ="SELECT * FROM `".$tbl_class."`";
+	$sql ="SELECT * FROM `".$tbl_class."`  ORDER BY `name`";
 	$classes = claro_sql_query_fetch_all($sql);
 	
 	$result .= "<select name=\"theclass\">\n"
