@@ -86,6 +86,10 @@ $is_allowedToDocAccess      = (bool) (   $is_courseAdmin
                                       || $is_groupMember
                                       || $is_groupTutor);
 
+$is_allowedToChatAccess     = (bool) ( 	$is_courseAdmin
+					|| $is_groupMember 
+					|| $is_groupTutor );
+
 
 
 /*============================================================================
@@ -274,7 +278,7 @@ if($_groupProperties['tools']['wiki'])
     echo "<a href=\"../wiki/wiki.php\">".$langWiki."</a><br>";
 }
 
-if($_groupProperties['tools']['chat'])
+if($_groupProperties['tools']['chat'] && $is_allowedToChatAccess)
 {
   echo "<a href=\"../chat/chat.php?gidReq=".$_gid."\">".$langChat."</a><br>";
 }
