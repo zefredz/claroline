@@ -115,19 +115,26 @@ claro_disp_tool_title( array('mainTitle' => $nameTools,
 			 ?>
 			<input type="hidden" name="maxGroupByUser" value="MANY" >
 			<select name="limitNbGroupPerUser" >
-				<OPTION value="<? echo $nbGroupsPerUserShow ?>" selected="selected" ><?php echo $nbGroupsPerUserShow ?></OPTION>
-				<OPTION value="1"  >    1</OPTION>
-				<OPTION value="2"  >    2</OPTION>
-				<OPTION value="3"  >    3</OPTION>
-				<OPTION value="4"  >    4</OPTION>
-				<OPTION value="5"  >    5</OPTION>
-				<OPTION value="6"  >    6</OPTION>
-				<OPTION value="7"  >    7</OPTION>
-				<OPTION value="8"  >    8</OPTION>
-				<OPTION value="9"  >    9</OPTION>
-				<OPTION value="10"  >   10</OPTION>
-				<OPTION value="ALL"  >  ALL</OPTION>
-				<!--OPTION value="CHOOSE"  ><?php echo $langChooseAValue ?></OPTION-->
+			<?php
+				for( $i = 1; $i <= 10; $i++ )
+				{
+					echo "<option value=\"".$i."\"";
+					if( $nbGroupsPerUserShow == $i )
+					{
+						echo " selected=\"selected\"";
+					}
+					echo ">".$i."</option>";
+				}
+				
+				if( $nbGroupsPerUserShow == "ALL" )
+				{
+					echo "<option value=\"ALL\" selected=\"selected\">ALL</option>";
+				}
+				else
+				{
+					echo "<option value=\"ALL\">ALL</option>";
+				}
+			?>
 			</select>
 			<?php echo $langQtyOfUserCanSubscribe_PartAfterNumber ?>
 
