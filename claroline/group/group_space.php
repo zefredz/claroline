@@ -28,14 +28,6 @@ if (!$_gid || (!$is_groupAllowed & !($HTTP_GET_VARS['selfReg'] ) ))
 $nameTools        = $langGroupSpace;
 $interbredcrump[] = array ('url'=>'group.php', 'name'=> $langGroupManagement);
 
-$htmlHeadXtra[]= "
-<style type=\"text/css\">
-<!--
-.select {border-color:blue;border-width : 3px;}
-.box {  width: 200px}
--->
-</style>";
-
 /*============================================================================
                                CONNECTION SECTION
   ============================================================================*/

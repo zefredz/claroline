@@ -21,16 +21,7 @@
  */
 $langFile = "postpone";
 //$interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
-$htmlHeadXtra[] = "
-<style type=\"text/css\">
-<!--
-.month {font-weight : bold;color : #FFFFFF;background-color : #4171B5;padding-left : 15px;padding-right : 15px;}
-.content {position: relative; left: 25px;}
--->
-</style>
-<STYLE media=\"print\" type=\"text/css\">
-TD {border-bottom: thin dashed Gray;}
-</STYLE>";
+
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();
 

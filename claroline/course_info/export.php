@@ -45,18 +45,6 @@ if (extension_loaded("zlib"))
 }
 
 $htmlHeadXtra[] = "
-<style type=\"text/css\">
-<!--
-body, p, blockquote, input, td {font-size: 12px;}
-.content {position: relative; left: 25px;}
-table.forms {	background-color: white;	empty-cells: show;}
-table.forms tr {	background-color: #ccffcc;	border: thin solid;}
-table.forms td {	background-color: #ccffcc;	border: none;}
-.inactive { background-color: Silver;}
-.normal { background-color: #ccffcc;}
-.msgErreur { color : red; background-color: #ccffcc;	border: thin solid;}
--->
-</STYLE>
 <SCRIPT>
 function checkChild(me,child)
 {

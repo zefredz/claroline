@@ -466,7 +466,7 @@ elseif ($displayMode == "viewContentList") // default display
 				"<p><a href=\"mailto:",$mainUserInfo['email'],"\">",$mainUserInfo['email'],"</a>",
 
 				"<p>\n",
-				"<hr noshade size=\"1\" style=\"color:#99CCFF\">\n";
+				"<hr noshade size=\"1\">\n";
 	}
 
 	if ($allowedToEditDef) // only course administrators see this line
@@ -476,7 +476,7 @@ elseif ($displayMode == "viewContentList") // default display
 				.$langCourseAdministratorOnly.' : '
 				.'<input type="submit" name="viewDefList" value="'.$langDefineHeadings.'">'
 				.'</form>'
-				.'<hr noshade size="1" style="color:#99CCFF">'
+				.'<hr noshade size="1">'
 				.'</div>'."\n";
 	}
 

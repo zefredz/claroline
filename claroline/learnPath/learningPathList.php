@@ -67,15 +67,6 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   include($includePath."/lib/events.lib.inc.php");
   event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
-
-  $htmlHeadXtra[] =
-         "<style type=text/css>
-         <!--
-         .comment { margin-left: 30px}
-         .invisible {color: #999999}
-         .invisible a {color: #999999}
-         -->
-         </style>";
   $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
