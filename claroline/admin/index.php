@@ -135,9 +135,6 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <a href="managing/editFile.php"><?php echo $langHomePageTextZone ?></a>
 </li>
 <li>
-<a href="technical/config.php"><?php echo $langConfiguration?></a>
-</li>
-<li>
 <a href="campusLog.php"><?php echo $langViewPlatFormStatistics?></a>
 </li>
 <li>
@@ -147,8 +144,19 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <a href="maintenance/index.php"><?php echo $langUpgrade?></a>
 </li>
 </ul>
-<h4><?php echo $langSDK?></h4>
-<p><img src="<?php echo 'xtra/sdk/lang/language.png'?>" style="vertical-align: middle;" alt="" /> <a href="xtra/sdk/translation_index.php"><?php echo $langTranslationTools?></a></p>
+
+<?php
+if ( defined(LANGMODE) && LANGMODE == 'TRANSLATION')
+{
+?>
+    <h4><?php echo $langSDK?></h4>
+
+    <p><img src="<?php echo 'xtra/sdk/lang/language.png'?>" style="vertical-align: middle;" alt="" /> <a href="xtra/sdk/translation_index.php"><?php echo $langTranslationTools?></a></p>
+
+<?php
+}
+?>
+
 <?php
 include($includePath."/claro_init_footer.inc.php");
 ?>
