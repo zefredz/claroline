@@ -1,5 +1,7 @@
 <?php # $Id$
 
+I abord the dev  in 1.6
+
 #### SETTINGS ####
 $_tid				= "MERGE_USER";
 
@@ -37,7 +39,7 @@ $tbl_track_upload	= $statsDbName."`.`track_e_uploads";// upload_user_id
 
 //include($includePath."/conf/".$_tool["pathId"].".conf.php");
 @include($includePath."/lib/debug.lib.inc.php");
-include ($includePath."/lib/main.db.lib.inc.php");
+include ($includePath."/lib/main.db.lib.inc.php"); 
 
 $sql = "CREATE TABLE IF NOT EXISTS `".$tbl_user_bak."` (
   idGarbage int(10) unsigned NOT NULL auto_increment,
