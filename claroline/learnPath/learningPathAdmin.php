@@ -456,7 +456,7 @@
               <th><?php echo $langModify; ?></th>
               <th><?php echo $langRemoveFromLPShort; ?></th>
               <th><?php echo $langBlock; ?></th>
-              <th><?php echo $langVisible; ?></th>
+              <th><?php echo $langVisibility; ?></th>
               <th><?php echo $langMove; ?></th>
               <th colspan="2"><?php echo $langOrder; ?></th>
              </tr>

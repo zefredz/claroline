@@ -11,7 +11,7 @@
    $langStatistics="Statistics";
    $langTracking = "Tracking";
    $langOrder="Order";
-   $langVisible="Visibility";
+   $langVisibility="Visibility";
    $langBlock = "Block";
    $langProgress = "Progress";
    $langIntroLearningPath="Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br><br>If you want to present your learning path at students, click on the button below.<br>";

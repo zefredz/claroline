@@ -76,7 +76,7 @@ $langIntroText = "Para enviar un mensaje, Seleccione un grupo de ususs (marcado 
 
 //agregados por Rodrigo Parra Soto (raparra)
 $langSelMess  = "Advertencia a ciertos usuarios"; //Español por raparra
-$langUp = "Ordenar hacia arriba";                 //Español por raparra
+$langOrderUp = "Ordenar hacia arriba";                 //Español por raparra
 $langDown = "Ordenar hacia abajo";                //Español por raparra
 $langAnnouncement ="Anuncios";		//Español por raparra
 ///////////////////////////////////////////////

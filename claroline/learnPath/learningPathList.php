@@ -439,7 +439,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
         echo "<th>".$langModify."</th>"
                ."<th>".$langDelete."</th>"
                ."<th>".$langBlock."</th>"
-               ."<th>".$langVisible."</th>"
+               ."<th>".$langVisibility."</th>"
                ."<th colspan=\"2\">".$langOrder."</th>"
                ."<th>".$langTracking."</th>";
    }

@@ -137,7 +137,7 @@ $langOnly = "Solo";
 $langRandomLanguage = "Trasferisci selezione nei linguaggi disponibili";
 
 //Display
-$langCreateCourse="Crea corsi";
+$langCreateCourses="Crea corsi";
 $langQantity="Quantità  : ";
 $langPrefix="Prefisso  : ";
 $langStudent="Studenti";

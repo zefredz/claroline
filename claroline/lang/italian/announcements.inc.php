@@ -14,7 +14,7 @@
 
 
 $langSelMess="Ad attenzione degli utenti";
-$langUp="Ordine crescente";
+$langOrderUp="Ordine crescente";
 $langDown="Ordine decrescente";
 
 $langAn="Annunci";

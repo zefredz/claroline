@@ -71,6 +71,6 @@ $langUp="Hoch";
 $langUploadFile = "Upload Datei";
 $langURL = "URL : ";
 $langViMod="Sichtbarkeit geändert";
-$langVisible="Sichtbar/Unsichtbar";
+$langVisibility="Sichtbar/Unsichtbar";
 $langZipNoPhp="Die zip-Datei darf keine .PHP-Dateien enthalten";
 ?>

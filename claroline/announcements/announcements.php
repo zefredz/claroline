@@ -487,7 +487,7 @@ if ($displayList)
 //                  echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
 // the anchor dont refreshpage.
                     echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&id=",$thisAnnouncement['id'],"\">",
-                            "<img src=\"".$clarolineRepositoryWeb."/img/up.gif\" alt=\"".$langUp."\">".
+                            "<img src=\"".$clarolineRepositoryWeb."/img/up.gif\" alt=\"".$langOrderUp."\">".
                             "</a>\n";
                 }
 

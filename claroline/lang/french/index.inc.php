@@ -55,7 +55,7 @@ $langLostPassword = "Mot de passe perdu";
 $langAgendaNextEvents = "Agenda : prochains événements";  // JCC
 $langValvas = "Dernières annonces" ;
 
-$langUp = "catégorie supérieure";
+$langPreviousLevel = "catégorie supérieure";
 $langCatList = "Catégories";
 $langCourseList = "Liste des cours";
 

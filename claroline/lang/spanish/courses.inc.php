@@ -29,7 +29,6 @@ $lang_my_personnal_course_list             = "Mi lista personal de cursos";
 $lang_course_enrollment                    = "Matr&iacute;cula de curso";
 $lang_course_not_available                 = "Curso no disponible...";
 $lang_enroll                               = "Matricularse";
-$lang_enroll_to_a_new_course               = "Matricularse en un curso nuevo";
 $lang_my_present_course_list               = "Mi lista actual de cursos";
 $lang_no_course_to_enroll_in_this_category = "No hay curso del que matricularse en esta categor&iacute;a...\n";
 $lang_or_search_from_the_course_code       = "O busca por el c&oacute;digo de curso";

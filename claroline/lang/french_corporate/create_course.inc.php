@@ -28,7 +28,7 @@ $langCodeTaken="Ce code est déjà pris.<br>Utilisez le bouton de retour en arrièr
 
 
 // tables MySQL
-$langFormula="Cordialement, le Modérateur";
+$langFormula="Cordialement";
 $langForumLanguage="french";	// other possibilities are english, spanish (this uses phpbb language functions)
 $langTestForum="Forum d\'essais";
 $langDelAdmin="A supprimer via l\'administration des forums";

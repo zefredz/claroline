@@ -23,7 +23,7 @@
    $langStatistics="Statistiken";
    $langTracking = "Tracking";
    $langOrder="Sortierung";
-   $langVisible="Sichtbarkeit";
+   $langVisibility="Sichtbarkeit";
    $langBlock = "Sperren/Freischalten";
    $langProgress = "Fortschritt";
    $langIntroLearningPath="Verwenden Sie dieses Tool, um den Benutzern einen geplanten Ablauf zwischen Dokumenten, Tests, HTML-Seiten, Links usw. vorzugeben.<br><br>

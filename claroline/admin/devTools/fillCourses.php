@@ -393,7 +393,7 @@ switch ($display)
 
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" target="_self">
     <fieldset>
-    <legend > <?php echo $langCreateCourse ?> </legend>
+    <legend > <?php echo $langCreateCourses ?> </legend>
     <label for="nc"> <?php echo $langQantity ?> </label>
     <input align="right" type="text" id="nc" name="nc" value="<?php echo $nc ?>" size="5" maxlength="3"><br>
     <label for="pfCode"> <?php echo $langPrefix ?> </label>

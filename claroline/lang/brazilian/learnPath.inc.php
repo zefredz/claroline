@@ -11,7 +11,7 @@
    $langStatistics="Estatísticas";
    $langTracking = "Rastreamento";
    $langOrder="Ordem";
-   $langVisible="Visibilidade";
+   $langVisibility="Visibilidade";
    $langBlock = "Bloquear";
    $langProgress = "Progresso";
    $langIntroLearningPath="Use essa ferramenta para fornecer aos seus estudantes uma rota seqüêncial entre documentos, exercícios, páginas HTML, links, etc.<br><br>Se você quiser apresentar sua rota de aprendizagem aos estudantes, clique no botão abaixo.<br>";

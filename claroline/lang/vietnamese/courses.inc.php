@@ -5,7 +5,6 @@ $lang_my_personnal_course_list             = "Danh mục khoá học cá nhân";
 $lang_course_enrollment                    = "Tham gia khoá học";
 $lang_course_not_available                 = "không có khoá này...";
 $lang_enroll                               = "Tham gia";
-$lang_enroll_to_a_new_course               = "Tham gia khoá học mới";
 $lang_my_present_course_list               = "Danh mục khoá học hiện nay";
 $lang_no_course_to_enroll_in_this_category = "Không có khoá nào để tham gia trong chủ đề nay...\n";
 $lang_or_search_from_the_course_code       = "Hoặc tìm trong mã khoá học";

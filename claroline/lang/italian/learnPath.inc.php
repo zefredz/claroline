@@ -22,7 +22,7 @@
    $langStatistics="Statistiche";
    $langTracking = "Monitorizza";
    $langOrder="Ordina";
-   $langVisible="Visibilita";
+   $langVisibility="Visibilita";
    $langBlock = "Blocco";
    $langProgress = "Progressione";
    $langIntroLearningPath="Usare questa utilità per fornire agli studenti un path per gestire documenti, esercizi, pagine HTML , links,...<br><br>Se volete rendere noto il vostro learning path agli studenti, premere il pulsante sottostante.<br>";

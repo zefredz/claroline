@@ -42,7 +42,7 @@ $lang_edit_my_course_list = "Edit my course List";
 $langAgendaNextEvents = "Agenda next events";
 $langValvas = "Last announcements" ;
 
-$langUp = "previous level";
+$langPreviousLevel = "previous level";
 $langCatList = "Categories";
 $langCourseList = "Course list";
 

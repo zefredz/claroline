@@ -24,7 +24,7 @@ $langAnotherCreateSite = "Créer un autre cours";
 $langAdministrationTools = "Administration";
 
 // tables MySQL
-$langFormula="Cordialement, votre professeur";
+$langFormula="Cordialement";
 $langForumLanguage="french";	// other possibilities are english, spanish (this uses phpbb language functions)
 $langTestForum="Forum d\'essais";
 $langDelAdmin="A supprimer via l\'administration des forums";
@@ -121,22 +121,22 @@ l'inscription pendant une semaine, de demander aux étudiants de s'inscrire eux-m
 puis de fermer l'inscription et de vérifier dans la liste des utilisateurs les intrus éventuels.";
 
 //Display
-$langCreateCourse="Cours à créer";
+$langCreateCourses="Cours à créer";
 $langQantity="Quantité  : ";
 $langPrefix="Préfixe  : "; // JCC 
-$langStudent="étudiants";
+$langStudent="Etudiant";
 $langMin="Minimum : ";
 $langMaximum =  "Maximum : ";
 $langNumGroup="Nombre de groupes par cours"; // JCC 
 $langMaxStudentGroup="Nombre maximum d'étudiants par groupe"; // JCC 
-$langAdmin ="administration";
+$langAdmin ="Admin";
 $langNumGroupStudent="Nombre de groupes dont peut faire partie un étudiant dans un cours"; // JCC 
 
 $langLabelCanBeEmpty ="L'intitulé est obligatoire";
 $langTitularCanBeEmpty ="Le champs gestionnaire de cours doit être rempli";
 $langEmailCanBeEmpty ="Le champs e-mail doit être rempli"; // JCC
 $langCodeCanBeEmpty ="Le code cours doit être rempli";
-$langEmailWrong = "L'e-mail n'est pas correct (corrigez-le, ou effacez-le)"; // JCC
+$langEmailWrong = "L'adresse e-mail n'est pas valide"; // JCC
 $langCreationMailNotificationSubject = 'Création de cours';
 $langCreationMailNotificationBody = 'Cours ajouté sur'; 
 $langByUser = 'par l\'utilisateur';

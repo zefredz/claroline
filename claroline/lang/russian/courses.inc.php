@@ -5,7 +5,6 @@ $lang_my_personnal_course_list			   = "Мой личный список курсов";
 $lang_course_enrollment                    = "Регистрация на курсы";
 $lang_course_not_available                 = "Курс недоступен...";
 $lang_enroll                               = "Регистрация";
-$lang_enroll_to_a_new_course               = "Запись на новый курс";
 $lang_my_present_course_list               = "Мой список курсов";
 $lang_no_course_to_enroll_in_this_category = "В данном разделе нет курсов, открытых для регистрации";
 $lang_or_search_from_the_course_code       = "Или ищите по коду курса";

@@ -11,7 +11,7 @@
    $langStatistics="Statistiques";
    $langTracking = "Suivi";
    $langOrder="Ordre";
-   $langVisible="Visibilité";
+   $langVisibility="Visibilité";
    $langBlock = "Bloquer";
    $langProgress = "Progression";
    $langIntroLearningPath="Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants<br /><br />Si vous désirez ajouter un texte d'introduction, cliquez sur ce bouton.<br />"; // JCC 
@@ -198,7 +198,7 @@
    $langInfoProgNameTitle = "Information";
    $langPersoValue = "Valeurs";
    $langTotalTimeSpent = "Temps total";
-   $langLastSessionTimeSpent = "Temps de la dernière session";
+   $langLastSessionTimeSpent = "Durée de la dernière session";
    $langLessonStatus = "Statut du module";
    $langYourBestScore = "Votre meilleur score";
    $langNumbAttempt = "Tentative(s)";

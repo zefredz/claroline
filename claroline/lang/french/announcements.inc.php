@@ -12,7 +12,7 @@
 
 $langSelMess  = "Alertes à certains utilisateurs";
 
-$langUp = "Monter";
+$langOrderUp = "Monter";
 $langDown = "Descendre";
 
 $langButtonCancel = "Annuler";

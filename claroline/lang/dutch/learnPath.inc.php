@@ -11,7 +11,7 @@
    $langStatistics="Statistieken";
    $langTracking = "Volgen";
    $langOrder="Volgorde";
-   $langVisible="Zichtbaarheid";
+   $langVisibility="Zichtbaarheid";
    $langBlock = "Blokkeren";
    $langProgress = "Voortgang";
    $langIntroLearningPath="Gebruik dit gereedschap om uw studenten documenten, oefeningen, HTML pagina's en links in een bepaalde volgorde aan te bieden<br><br>If you want to present your learning path at students, klik op de onderstaande knop.<br>";

@@ -87,8 +87,8 @@ $langExplainReplaceFile = "Envoyez un nouveau fichier pour remplacer le fichier 
 $langFileDesc = "Description du fichier";
 $langAnswer = "Réponse";
 $langNoFile = "- pas de fichier -";
-$langScore = "Note";
-$langNoScore = "Pas de note";
+$langScore = "Résultat";
+$langNoScore = "Pas de résultat";
 
 // -- Form errors and confirmations
 //confirmations

@@ -134,7 +134,7 @@ $langOnly = "Apenas";
 $langRandomLanguage = "Escolha aleatória entre as linguas disponíveis";
 
 //Display
-$langCreateCourse="Criar cursos";
+$langCreateCourses="Criar cursos";
 $langQantity="Quantidade : ";
 $langPrefix="Prefíxo : ";
 $langStudent="Estudantes";

@@ -5,7 +5,6 @@ $lang_my_personnal_course_list             = "Senarai Subjek Individu";
 $lang_course_enrollment                    = "Penyertaan dalam Subjek";
 $lang_course_not_available                 = "Subjek tidak ditawarkan...";
 $lang_enroll                               = "Sertai";
-$lang_enroll_to_a_new_course               = "Sertai Subjek Baru";
 $lang_my_present_course_list               = "Senarai Subjek Pengguna";
 $lang_no_course_to_enroll_in_this_category = "Tiada Subjek yang ditawarkan oleh Pusat Pengajian ini...\n";
 $lang_or_search_from_the_course_code       = "Atau cari berdasarkan Kod Subjek";

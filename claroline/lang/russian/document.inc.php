@@ -96,7 +96,7 @@ $langRename="Переименовать";
 
 $langComment="Комментарий";
 
-$langVisible="Видимая/скрытая";
+$langVisibility="Видимая/скрытая";
 
 $langCopy="Скопировать";
 

@@ -5,7 +5,6 @@ $lang_my_personnal_course_list             = "Min personlige kursusliste";
 $lang_course_enrollment                    = "Kursustilmelding";
 $lang_course_not_available                 = "Kurset er ikke tilgængeligt...";
 $lang_enroll                               = "Tilmeld";
-$lang_enroll_to_a_new_course               = "Tilmelding til et nyt kursus";
 $lang_my_present_course_list               = "Min nuværende kursusliste";
 $lang_no_course_to_enroll_in_this_category = "Der er ingen kurser at tilmelde sig i denne kategori...\n";
 $lang_or_search_from_the_course_code       = "Eller søg efter kursuskoden";

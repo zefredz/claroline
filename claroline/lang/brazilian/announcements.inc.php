@@ -14,7 +14,7 @@
 
 $langSelMess  = "Avisos para usuários específicos";
 
-$langUp = "Ordem crescente";
+$langOrderUp = "Ordem crescente";
 $langDown = "Ordem decrescente";
 
 

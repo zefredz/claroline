@@ -1,7 +1,7 @@
 <?php # $Id$
 $langAdd_users = "Ajouter une série d'utilisateurs";
 $lang_you_had_request ="Vous aviez demandé" ;
-$langAdmin = "Administration du campus";
+$langAdmin = "Admin";
 $langTeachers="gestionnaires";
 $langStudents="étudiants";
 $langDevTools = "Outils de développement";

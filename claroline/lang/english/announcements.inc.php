@@ -14,7 +14,7 @@
 
 $langSelMess  = "Warnings to certain users";
 
-$langUp = "Order up";
+$langOrderUp = "Order up";
 $langDown = "Order down";
 
 

@@ -60,7 +60,7 @@ $langStats="Statistiques";
 
 // delete_course.php
 $langDelCourse="Supprimer la totalité du cours";
-$langCourse="Le cours ";
+$langCourse="Cours";
 $langHasDel="a été supprimé";
 $langBackHomeOf="Retour à la page d'accueil de ";
 $langByDel="En supprimant ce site, vous supprimerez tous les documents

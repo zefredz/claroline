@@ -6,7 +6,6 @@ $lang_my_personnal_course_list             = "My personal course list";
 $lang_course_enrollment                    = "Course enrollment";
 $lang_course_not_available                 = "This course is not available or doesn't exist..";
 $lang_enroll                               = "Enroll";
-$lang_enroll_to_a_new_course               = "Enroll to a new course";
 $lang_my_present_course_list               = "My present course list";
 $lang_no_course_to_enroll_in_this_category = "No course to enroll in this category...\n";
 // $lang_or_search_from_the_course_code       = "Or search from the course code";

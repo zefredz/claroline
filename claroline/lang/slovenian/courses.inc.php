@@ -5,7 +5,6 @@ $lang_my_personnal_course_list             = "moj osebni seznam tecajev";
 $lang_course_enrollment                    = "Vpis v tecaj";
 $lang_course_not_available                 = "Tecaja ni na voljo...";
 $lang_enroll                               = "Vpis";
-$lang_enroll_to_a_new_course               = "Vpis v novi tecaj";
 $lang_my_present_course_list               = "Seznam mojih trenutnih tecajev";
 $lang_no_course_to_enroll_in_this_category = "V tej kategoriji ni nobenega tecaja za vpis...\n";
 $lang_or_search_from_the_course_code       = " ali iskanje s pomocjo kode tecaja";

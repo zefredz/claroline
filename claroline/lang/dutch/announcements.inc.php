@@ -33,7 +33,7 @@ $langPlatform= $institution["name"] . " gebruikt het platform";
 
 $langModify="Wijzigen";
 $langDelete="Verwijderen";
-$langUp = "Omhoog";
+$langOrderUp = "Omhoog";
 $langDown = "Omlaag";
 $langTitle="Titel";
 $langHelp="help";

@@ -18,7 +18,6 @@ $lang_course_enrollment                    = "Kursanmeldung";
 $lang_course_enrollment = "Kurs des Benutzers";
 $lang_course_not_available                 = "Kurs nicht verfügbar...";
 $lang_enroll                               = "Anmeldung";
-$lang_enroll_to_a_new_course               = "Anmeldung für einen neuen Kurs";
 $lang_main_categories_list                 = "Kategoriene-Übersicht";
 $lang_my_personnal_course_list             = "Persönliche Kursübersicht";
 $lang_my_present_course_list               = "Meine aktuelle Kursübersicht";

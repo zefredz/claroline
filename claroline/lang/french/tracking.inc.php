@@ -90,8 +90,8 @@ $langModule = "Module";
 $langModules = "Modules";
 $langTimeInLearnPath = "Total du parcours";
 $langGlobalProgress = "Progression du parcours pédagogique : ";
-$langLastSessionTimeSpent = "Durée du dernier accès"; // JCC 
-$langTotalTimeSpent = "Total des accès";
+$langLastSessionTimeSpent = "Durée de la dernière session"; // JCC 
+$langTotalTimeSpent = "Temps total";
 $langLessonStatus = "Statut du module";
 
 /* documents */

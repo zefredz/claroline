@@ -43,9 +43,8 @@ $langSearchCourseAdvanced = "Recherche avancée d'un cours";
 $langPublic = "Public";
 $langPrivate = "Privé";
 $langAllowed = "Autorisé";   //for inscription settings
-$langDenied = "Bloquée";    //for inscription settings
+$langDenied = "Refusé";    //for inscription settings
 $langFollowCourse = "Suivre des cours";
-$langCreateCourse = "Créer des cours";
 
 
 $langAction = "Action";
@@ -171,7 +170,7 @@ $langSearchAgain = "Nouvelle recherche (avancée)";
 $langAppliedChange = "Changements sauvés pour les paramètres de l'utilisateur";
 $langUserTaken = "Le nom d'utilisateur que vous avez choisi est déjà pris";
 $langFields = "Vous n'avez pas rempli tous les champs";
-$langEmailWrong = "L'adresse d'e-mail n'est pas valide"; // JCC
+$langEmailWrong = "L'adresse e-mail n'est pas valide"; // JCC
 $langUserHasNoCourse = "L'utilisateur n'est inscrit à aucun cours";
 $langUserUnregisteredFromCourse = "L'utilisateur  a été radié du cours"; // JCC 
 $langUserIsNowCourseManager = "L'utilisateur est maintenant gestionnaire du cours";

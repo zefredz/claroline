@@ -26,7 +26,7 @@
    $langStatistics="Estadisticas";
    $langTracking = "Seguimiento";
    $langOrder="ORdenar";
-   $langVisible="Visible";
+   $langVisibility="Visible";
    $langBlock = "Bloqueado";
    $langProgress = "Progreso";
    $langIntroLearningPath="Use esta herramienta para proveera sus estudiantes un seguimiento secuencial entre documentos, ejercicios, paginas HTML, ligas,...<br><br>Si usted desea mostrar su seguimiento de aprendizaje a los estudiantes, Presione el boton de abajo.<br>";

@@ -23,7 +23,6 @@ $lang_my_personnal_course_list             = "A minha lista pessoal de cursos";
 $lang_course_enrollment                    = "Inscri&ccedil;&atilde;o no curso";
 $lang_course_not_available                 = "Curso n&atilde;o dispon&iacute;vel...";
 $lang_enroll                               = "Inscrever-se";
-$lang_enroll_to_a_new_course               = "Inscrever-se num curso novo";
 $lang_my_present_course_list               = "A minha lista actual de cursos";
 $lang_no_course_to_enroll_in_this_category = "N&atilde;o h&aacute; cursos em que se possa inscrever nesta categoria...\n";
 $lang_or_search_from_the_course_code       = "Ou procure a partir do c&oacute;digo do curso";

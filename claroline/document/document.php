@@ -1098,7 +1098,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 
                 if ($courseContext)
                 {
-                	echo "<th>".$langVisible."</th>\n";
+                	echo "<th>".$langVisibility."</th>\n";
                 }
                 elseif ($groupContext)
                 {

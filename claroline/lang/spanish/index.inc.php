@@ -77,7 +77,7 @@ $lang_No_course_publicly_available = "No hay cursos p&uacute;blicos disponibles"
 $lang_edit_my_course_list = "Editar mi lista de cursos";
 
 
-$langUp = "Anterior";
+$langPreviousLevel = "Anterior";
 $langCatList = "Categoría";
 $langCourseList = "Cursos";
 

@@ -5,7 +5,6 @@ $lang_my_personnal_course_list             = "Daftar pelajaran-ku";
 $lang_course_enrollment                    = "Pendaftaran pelajaran";
 $lang_course_not_available                 = "Pelajaran tidak ada...";
 $lang_enroll                               = "Daftar";
-$lang_enroll_to_a_new_course               = "Daftar ke pelajaran baru";
 $lang_my_present_course_list               = "Daftar pelajaran-ku saat ini";
 $lang_no_course_to_enroll_in_this_category = "Tidak tersedia pelajaran untuk mendaftar pada kategori ini ...\n";
 $lang_or_search_from_the_course_code       = "Atau cari melalui kode pelajaran";

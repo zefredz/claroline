@@ -82,7 +82,7 @@ if ( trim($category) != '' ) // means that we are not on the root level of the c
     $backCommandLine = "<p>"
                       ."<small>"
                       ."<a href=\"".$_SERVER['PHP_SELF']."?category=".$parentCategory['code_P']."\">"
-                      ."&lt;&lt; ".$langUp
+                      ."&lt;&lt; ".$langPreviousLevel
                       ."</a>"
                       ."</small>"
                       ."</p>";

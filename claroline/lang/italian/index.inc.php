@@ -64,7 +64,7 @@ $lang_edit_my_course_list = "Modifica la mia lista dei corsi";
 $langAgenda = "Agenda - Prossimo evento";
 $langValvas = "Ultimo annuncio" ;
 
-$langUp = "livello precedente";
+$langPreviousLevel = "livello precedente";
 $langCatList = "Categoria";
 $langCourseList = "Corsi";
 

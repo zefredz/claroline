@@ -114,8 +114,7 @@ $langPassTwo      = "Vous n'avez pas tapé deux fois le même mot de passe";
 $langAgain        = "Recommencez !"; // JCC 
 $langFields       = "Vous n'avez pas rempli tous les champs";
 $langUserTaken    = "Le nom d'utilisateur que vous avez choisi est déjà pris";
-$langEmailWrong   = "L'adresse d'e-mail que vous avez introduite n'est pas complète
-ou contient certains caractères non valides"; // JCC 
+$langEmailWrong   = "L'adresse e-mail n'est pas valide"; // JCC 
 $langProfileReg   = "Votre nouveau profil a été enregistré";
 $langHome         = "Retourner à la page d'accueil";
 $langMyStats      = "Voir mes statistiques";
