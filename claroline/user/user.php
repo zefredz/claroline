@@ -104,10 +104,16 @@ if ($is_allowedToEdit)
 <p align="right">
 	<?php if ($can_add_user)
 	{ 
+	   //add CSV file of user link
+	?>
+	<a href="AddCSVusers.php?AddType=userTool"><?php echo "Add a CSV file of users"; ?></a> |
+	<?php 
+	   
 	   //add a class link
 	?>
 	<a href="class_add.php"><?php echo "Add a class of users"; ?></a> |
 	<?php
+	
 	   //add a user link
 	?>
 	<a href="user_add.php"><?php echo $langAddAU; ?></a> |
