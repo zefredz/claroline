@@ -1,4 +1,6 @@
 <?php // $Id$
+
+	// vim: expandtab sw=4 ts=4 sts=4:
      
     //----------------------------------------------------------------------
     // CLAROLINE
@@ -108,7 +110,7 @@
          
         if (is_array($fileList))
         {
-            foreach($fileList['name'] as $num => $value)
+            foreach($fileList['path'] as $num => $value)
             {
                 if (is_image($value )
                     && ($fileList['visibility'][$num] != 'i' || $allowed))
@@ -161,7 +163,7 @@
          
         $imgPath = $coursesRepositorySys 
 			. $courseDir
-			. $curDirPath . '/' . basename( $file )
+			. $file
 			;
          
         list($width, $height, $type, $attr) = getimagesize($imgPath);
@@ -176,7 +178,7 @@
             $newHeight = $height;
         }
          
-        $fileUrl = $curDirPath . '/' . basename( $file );
+        $fileUrl = $file;
         
         $img_url = $coursesRepositoryWeb
 			. $courseDir
@@ -194,8 +196,7 @@
     
     function image_search($file, $fileList)
     {
-    	$fileList = array_map( 'basename', $fileList['name'] );
-    	return array_search( $file, $fileList );
+        return array_search( $file, $fileList['path'] );
     }
      
     /*-------------------------------------------------------------------------------
@@ -302,7 +303,7 @@
         {
             $prev = get_previous_image_index($imageList, $current);
              
-            $prevName = $fileList['name'][$prev];
+            $prevName = $fileList['path'][$prev];
              
             if ($fileList['visibility'][$prev] == 'i')
             {
@@ -362,7 +363,7 @@
         {
             $next = get_next_image_index($imageList, $current);
              
-            $nextName = $fileList['name'][$next];
+            $nextName = $fileList['path'][$next];
              
             if ($fileList['visibility'][$next] == 'i')
             {
@@ -513,7 +514,7 @@
                 $num = $imageList[$displayed];
                  
                 // get file name
-                $fileName = basename( $fileList['name'][$num] );
+                $fileName = $fileList['path'][$num];
                  
                 // visibility style
                 if ($fileList['visibility'][$num] == i)
@@ -560,7 +561,7 @@
                 echo "</a>\n";
                  
                 // display image name
-                echo "<p " . $style . ">" . basename( $fileList['name'][$num] ) . "</p>";
+                echo "<p " . $style . ">" . basename( $fileList['path'][$num] ) . "</p>";
                  
                 echo "</td>\n";
                  

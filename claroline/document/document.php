@@ -892,7 +892,7 @@ if ( count($filePathList) > 0 )
 
     foreach($filePathList as $thisFile)
     {
-        $fileList['name'][] = $thisFile;
+        $fileList['path'][] = $thisFile;
         
         if( is_dir($baseWorkDir.$thisFile) )
         {
@@ -921,7 +921,7 @@ if ($courseContext && $fileList)
 
         $sql = "SELECT `path`, `visibility`, `comment` 
                 FROM `".$dbTable."` 
-                WHERE path IN ('".implode("', '", array_map('addslashes', $fileList['name']) )."')";
+                WHERE path IN ('".implode("', '", array_map('addslashes', $fileList['path']) )."')";
 
     $attributeList = claro_sql_query_fetch_all_cols($sql);
 
@@ -931,7 +931,7 @@ if ($courseContext && $fileList)
      * and info given by the DB
      */
 
-    foreach($fileList['name'] as $thisFile)
+    foreach($fileList['path'] as $thisFile)
     {
         $keyAttribute = array_search($thisFile, $attributeList['path']);
 
@@ -990,13 +990,13 @@ if ($fileList)
 {
     if ($courseContext)
     {
-        array_multisort($fileList['type'   ], $fileList['name'      ], 
+        array_multisort($fileList['type'   ], $fileList['path'      ],
                         $fileList['size'   ], $fileList['date'      ],
                         $fileList['comment'], $fileList['visibility']);
     }
     else
     {
-        array_multisort($fileList['type'], $fileList['name'], 
+        array_multisort($fileList['type'], $fileList['path'],
                         $fileList['size'], $fileList['date']);
     }
 }
@@ -1095,7 +1095,7 @@ claro_disp_tool_title($titleElement,
 		}
 		else
 		{
-			$file = $fileList['name'][$imageList[0]];
+			$file = $fileList['path'][$imageList[0]];
 			$fileName = basename( $file );
 		}
 		
@@ -1485,7 +1485,7 @@ claro_disp_tool_title($titleElement,
 	
 		if ($fileList)
 		{
-	        foreach($fileList['name'] as $fileKey => $fileName )
+	        foreach($fileList['path'] as $fileKey => $fileName )
 			{
 	            // Note. We've switched from 'each' to 'foreach', as 'each' seems to 
 	            // poses problems on PHP 4.1, when the array contains only 
