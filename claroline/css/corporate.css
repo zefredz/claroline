@@ -139,7 +139,7 @@ h3{	font-size: 110%; }
 	display: inline;
 	padding: 0;
 	margin: 0;
-	margin-left: 10px;
+	margin-left: 6px;
 }
 
 #userBanner li 
@@ -147,8 +147,8 @@ h3{	font-size: 110%; }
 	display: inline;
 	margin: 0;
 	list-style-type: none;
-	padding-left: 6px;
-	padding-right: 5px;
+	padding-left: 5px;
+	padding-right: 3px;
 	border-left: 1px solid #333;
 }
 
@@ -243,8 +243,8 @@ h3{	font-size: 110%; }
 #breadCrumbLine ul li
 {
 	display: inline;
-	margin-left: 3px;
-	padding-left: 10px;
+	margin: 0;
+	padding-left: 12px;
 	padding-right: 2px;
 	background-image: url(corporate/arrow.gif);
 	background-repeat: no-repeat;
@@ -342,12 +342,12 @@ h3{	font-size: 110%; }
 
 #platformManager
 {
-	float: left;
+	float: right;
 }
 
 #courseManager
 {
-	float: right;
+	float: left;
 	text-align: center;
 }
 

@@ -219,7 +219,7 @@ h3{	font-size: 110%; }
 #breadCrumbLine ul li
 {
 	display: inline;
-	margin-left: 3px;
+	margin: 0;
 	padding-left: 10px;
 	background-image: url(corporate/arrow.gif);
 	background-repeat: no-repeat;
@@ -271,12 +271,12 @@ h3{	font-size: 110%; }
 
 #platformManager
 {
-	float: left;
+	float: right;
 }
 
 #courseManager
 {
-	float: right;
+	float: left;
 	text-align: center;
 }
 
