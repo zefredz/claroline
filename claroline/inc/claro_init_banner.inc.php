@@ -189,32 +189,30 @@ if (is_array($_courseToolList))
                                 BREADCRUMB LINE
  ******************************************************************************/
 
-echo "<div id=\"breadCrumbLine\">\n\n<hr />\n";
+echo "<div id=\"breadcrumbLine\">\n\n<hr />\n";
 
 if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($interbredcrump)) )
 {
-	echo "<ul>"
-   		."<li id=\"home\"><a href=\"".$rootWeb."index.php\" target=\"_top\">"
+	echo "<div id=\"breadcrumb\">\n";
+	echo "<a href=\"".$rootWeb."index.php\" target=\"_top\">"
         ."<img src=\"".$clarolineRepositoryWeb."img/home.gif\" alt=\"\">"
         .$siteName
-        ."</a></li>\n";
+        ."</a>\n";
 
     if ( isset($_cid) )
     {
-        echo "<li>"
-            ."<a href=\"".$coursesRepositoryWeb.$_course['path']."/index.php\" target=\"_top\">"
+        echo "&gt;&nbsp;<a href=\"".$coursesRepositoryWeb.$_course['path']."/index.php\" target=\"_top\">"
             .((isset($course_homepage) && $course_homepage == TRUE) ? '<em>'.$_course['officialCode'].'</em>' : $_course['officialCode'])
-            ."</a></li>\n";
+            ."</a>\n";
     }
 
     if (isset($interbredcrump) && is_array($interbredcrump) )
     {
         while ( (list(,$bredcrumpStep) = each($interbredcrump)) )
         {
-            echo	"<li>"
-                    ."<a href=\"",$bredcrumpStep['url']
+            echo	"&gt;&nbsp;<a href=\"",$bredcrumpStep['url']
                     ."\" target=\"_top\">",$bredcrumpStep['name']
-                    ."</a></li>\n";
+                    ."</a>\n";
         }
     }
 
@@ -222,16 +220,15 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
     {
         if (isset($noPHP_SELF) && $noPHP_SELF)
         {
-            echo	"<li><b>",$nameTools,"</b></li>\n";
+            echo	"&gt;&nbsp;<b>",$nameTools,"</b>\n";
         }
         elseif (isset($noQUERY_STRING) && $noQUERY_STRING)
         {
-            echo	"<li>"
-                    ."<b>"
+            echo	"&gt;&nbsp;<b>"
                     ."<a href=",$_SERVER['PHP_SELF']," target=\"_top\">"
                     .$nameTools
                     ."</a>"
-                    ."</b></li>\n";
+                    ."</b>\n";
         }
         else
         {
@@ -239,15 +236,14 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
             // set Query string to empty if not exists
             if (!isset($QUERY_STRING)) $QUERY_STRING = ""; 
 
-            echo	"<li>" 
-                    ."<b>"
+            echo	"&gt;&nbsp;<b>"
                     ."<a href=",$_SERVER['PHP_SELF'],'?',$QUERY_STRING," target=\"_top\">"
                     .$nameTools
                     ."</a>"
-                    ."</b></li>\n";
+                    ."</b>\n";
         }
     }
-	echo "</ul>";
+	echo "</div>\n";
 }
 
 if ( claro_is_display_mode_available() )
