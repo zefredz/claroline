@@ -63,10 +63,9 @@ if ($fileTarget=="")
 @include ($fileSource); // read Values in sources
 
 define("DISPVAL_upgrade_backup_needed",0);
-define("DISPVAL_upgrade_main_conf_needed",1);
-define("DISPVAL_upgrade_main_db_needed",2);
-define("DISPVAL_upgrade_courses_needed",3);
-define("DISPVAL_upgrade_done",4);
+define("DISPVAL_upgrade_main_db_needed",1);
+define("DISPVAL_upgrade_courses_needed",2);
+define("DISPVAL_upgrade_done",3);
 
 // save confirm backup in session
 
@@ -98,12 +97,12 @@ else
 if (!$confirm_backup) 
 {
 	// ask to confirm backup
-	$display = DISPVAL_backup_needed;	
+	$display = DISPVAL_upgrade_backup_needed;	
 }
 elseif ($thisClarolineVersion!=$clarolineVersion)
 {
-	// upgrade of main conf needed.upgrade_main_conf_needed
-	$display = DISPVAL_upgrade_main_conf_needed;
+	// config file not upgraded go to first step
+         header("Location: upgrade_conf.php");
 }
 elseif ($thisVersionDb!=$versionDb)
 {
@@ -138,7 +137,7 @@ else
 
 <head>
   <meta http-equiv="Content-Type" content="text/HTML; charset=iso-8859-1"  />
-  <title>-- Claroline upgrade -- version <?php echo $clarolineVersion ?></title>  
+  <title>-- Claroline upgrade -- version <?php echo $thisClarolineVersion ?></title>  
   <link rel="stylesheet" type="text/css" href="upgrade.css" media="screen" />
   <style media="print" >
     .notethis {	border: thin double Black;	margin-left: 15px;	margin-right: 15px;}
@@ -154,7 +153,7 @@ else
 <td valign="top" align="left">
 <div id="header">
 <?php
- echo sprintf("<h1>Claroline (%s) - upgrade</h1>",$clarolineVersion);
+ echo sprintf("<h1>Claroline (%s) - upgrade</h1>",$thisClarolineVersion);
 ?>
 </div>
 </td>
@@ -172,22 +171,9 @@ switch ($display)
                 $str1 = "<input type=\"checkbox\" id=\"confirm_backup\" name=\"confirm_backup\" value=\"1\" /><label for=\"confirm_backup\">" . $langConfirm . "</label>";
                 $str2 = "<input type=\"checkbox\" id=\"confirm_copy_conf\" name=\"confirm_copy_conf\" value=\"1\" /><label for=\"confirm_copy_conf\">" . $langConfirm . "</label>";
 		echo sprintf($langMakeABackupBefore,$str1,$str2);
-		echo "<input type=\"submit\" value=\"Next >\" />";
+		echo "<div align=\"right\"><input type=\"submit\" value=\"Next >\" /></div>";
 		echo "</p>";
 		echo "</form>";
-		break;
-	case DISPVAL_upgrade_main_conf_needed :
-                echo $langTitleUpgrade;
-		echo "<h2>$langDone:</h2>";
-		echo "<ul>";	
-		echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langStep0);
-		echo "</ul>";
-		echo "<h2>$langTodo:</h2>";
-		echo "<ul>";
-		echo sprintf("<li><a href=\"upgrade_conf.php\">%s</a></li>",$langStep1);
-		echo "<li>$langStep2</li>";
-		echo "<li>$langStep3</li>";
-		echo "</ul>";
 		break;
 	case DISPVAL_upgrade_main_db_needed :
                 echo $langTitleUpgrade;
