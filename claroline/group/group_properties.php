@@ -1,7 +1,7 @@
 <?php # $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.6.*
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
@@ -156,9 +156,13 @@ claro_disp_tool_title( array('mainTitle' => $nameTools,
 				<?php echo $langGroupAlwaysPrivate; ?></label>
 		</td>
 	</tr>
+<?php 
+if ($wikiInGroup)
+{
+?>
 	<tr>
 		<td valign="top">
-			<input type="checkbox" name="chat" id="chat" value="1"
+			<input type="checkbox" name="wiki" id="wiki" value="1"
 			<?php
 				if($_groupProperties['tools'] ['wiki'])
 					echo "checked" ?> >
@@ -167,6 +171,9 @@ claro_disp_tool_title( array('mainTitle' => $nameTools,
 				<?php echo $langGroupAlwaysPrivate; ?></label>
 		</td>
 	</tr>
+<?php 
+}
+?>
 	<tr>
 		<td valign="top">
 			<input type="submit" name="properties" value="<?php echo $langOk ?>">

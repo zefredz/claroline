@@ -53,12 +53,12 @@ function confirmationDelete ()
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 
-$tbl_Users                  = $tbl_mdb_names['user'             ];
-$tbl_CoursUsers             = $tbl_mdb_names['rel_course_user'  ];
-$tbl_Groups                 = $tbl_cdb_names['group_team'             ];
-$tbl_GroupsProperties       = $tbl_cdb_names['group_property'         ];
-$tbl_GroupsUsers            = $tbl_cdb_names['group_rel_team_user'    ];
-$tbl_Forums                 = $tbl_cdb_names['bb_forums'             ];
+$tbl_user                  = $tbl_mdb_names['user'               ];
+$tbl_CoursUsers             = $tbl_mdb_names['rel_course_user'    ];
+$tbl_Groups                 = $tbl_cdb_names['group_team'         ];
+$tbl_GroupsProperties       = $tbl_cdb_names['group_property'     ];
+$tbl_GroupsUsers            = $tbl_cdb_names['group_rel_team_user'];
+$tbl_Forums                 = $tbl_cdb_names['bb_forums'          ];
 
 /*
  * MAIN SETTINGS INIT
@@ -500,12 +500,13 @@ echo  '<table border="0" cellspacing="0" cellpadding="0">'."\n"
 		."<td align=\"right\">",$langChat,"</td>"
 		."<td>".($tools['chat']?$langYes:$langNo)."</td>"
 		."</tr>";
-
+if ($wikiInGroup)
+{
 	echo "<tr valign=\"top\">"
 		."<td align=\"right\">",$langWiki."</td>"
 		."<td>".($tools['wiki']?$langYes:$langNo)."</td>"
 		."</tr>";
-
+}
 
 	echo '<tr>'
 		.'<td>&nbsp;</td>'
@@ -616,7 +617,7 @@ echo "</tr><tbody>";
 	        FROM `".$tbl_Groups."` `g`
 
 	      # retrieve the tutor id
-	        LEFT JOIN  `".$tbl_Users."` `tutor`
+	        LEFT JOIN  `".$tbl_user."` `tutor`
 	        ON `tutor`.`user_id` = `g`.`tutor`
 
 	      # retrieve the user group(s)
