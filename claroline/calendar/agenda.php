@@ -83,7 +83,7 @@ if ($is_allowedToEdit)
 
         if ( claro_sql_query($sql) != false)
         {
-            $msg .= '<p>Event added to the agenda.</p>';
+            $msg .= '<p>'.$langEventAdded.'</p>';
 
             if (CONFVAL_LOG_CALENDAR_INSERT)
             {
@@ -92,7 +92,7 @@ if ($is_allowedToEdit)
         }
         else
         {
-            $msg .= '<p>Unable to add the event to the agenda.</p>';
+            $msg .= '<p>'.$langUnableToAdd.'</p>';
         }
     }
 
@@ -113,11 +113,11 @@ if ($is_allowedToEdit)
 
             if ( claro_sql_query($sql) !== false)
             {
-                $msg .= '<p>Event updated into the agenda.</p>';
+                $msg .= '<p>'.$langEventUpdated.'</p>';
             }
             else
             {
-                $msg .= '<p>Unable to update the event intto the agenda.</p>';
+                $msg .= '<p>'.$langUnableToUpdate.'</p>';
             }
         }
     }
@@ -138,7 +138,7 @@ if ($is_allowedToEdit)
 
         if ( claro_sql_query($sql) !== false)
         {
-            $msg .= '<p>Event Deleted from the agenda</p>';
+            $msg .= '<p>'.$langEventDeleted.'</p>';
 
             if (CONFVAL_LOG_CALENDAR_DELETE)
             {
@@ -147,7 +147,7 @@ if ($is_allowedToEdit)
         }
         else
         {
-            $msg = '<p>Unable to delete event form the agenda.</p>';
+            $msg = '<p>'.$langUnableToDelete.'</p>';
         }
     }
 
@@ -398,16 +398,16 @@ if ($is_allowedToEdit)
          */
 
         claro_disp_button($_SERVER['PHP_SELF'].'?cmd=rqAdd', 
-                       '<img src="'.$clarolineRepositoryWeb.'img/agenda.gif" width="20" alt=" ">'
-                      .'Add event');
+                       '<img src="'.$clarolineRepositoryWeb.'img/agenda.gif" width="20" alt="">'
+                      .$langAddEvent);
 
         /*
          * remove all event button
          */
 
         claro_disp_button($_SERVER['PHP_SELF'].'?cmd=exDelete&id=ALL', 
-                          '<img src="'.$clarolineRepositoryWeb.'img/delete.gif" width="20" alt=" ">'
-                          .'Clear up event list');
+                          '<img src="'.$clarolineRepositoryWeb.'img/delete.gif" width="20" alt="">'
+                          .$langClearList);
 
         echo '</p>';
     } // end if diplayMainCommands

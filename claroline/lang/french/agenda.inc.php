@@ -34,6 +34,13 @@ $langNow = "Maintenant";
 
 $langEditEvent = "Editer l'évenement";
 $langAddEvent="Ajouter un événement";
+$langClearList = "Effacer la liste";
+$langEventAdded = "Ev&egrave;nement ajout&eacute; dans l'agenda.";
+$langEventUpdated = "Ev&egrave;nement mis &agrave; jour dans l'agenda.";
+$langEventDeleted = "Ev&egrave;nement supprim&eacute; de l'agenda.";
+$langUnableToAdd = "Impossible d'ajouter l'&eacute;v&egrave;nement dans l'agenda.";
+$langUnableToUpdate = "Impossible de mettre &agrave; jour l'&eacute;v&egrave;nement dans l'agenda.";
+$langUnableToDelete = "Impossible de supprimer l'&eacute;v&egrave;nement de l'agenda.";
 $langDetail="Détail";
 
 $hour51="non précisé";
