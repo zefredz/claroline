@@ -70,7 +70,7 @@ $l_quotemsg = "[引用]
 在 %1\$s, %2\$s 写到:
 %3\$s
 [/引用]";
-$l_quotemsg = "[引用]\n在 %1i\$s, %2\$s 写到:\n%3\$s\n[/引用]"
+$l_quotemsg = "[引用]\n在 %1i\$s, %2\$s 写到:\n%3\$s\n[/引用]";
 $l_recptname = "接收者用户名";
 $l_replies = "回复";
 $l_reply = "回复";
