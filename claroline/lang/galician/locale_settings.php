@@ -18,7 +18,7 @@
  */
 
 
-$englishLangName = "Galician"; // should be Gallegan I think 
+$englishLangName = "Gallegan"; // should be Gallegan I think 
 $localLangName = "galego";
 
 $iso639_1_code = "gl";
