@@ -76,9 +76,6 @@ if ($_SESSION['inPathMode'] == true)
         header('Location: '.$backUrl);
         exit();
     }
-    // need to include the learningPath langfile for the added interbredcrump
-    @include("../lang/english/learnPath.inc.php");
-    @include("../lang/".$languageInterface."/learnPath.inc.php");
 }
 else
 {    // if the user has clicked on the "Cancel" button
@@ -135,8 +132,6 @@ if($formSent)
 		exit();
 	}
 }
-//print_r($_SESSION);
-//print_r($_SESSION);
 // if the object is not in the session
 if(!isset($_SESSION['objExercise']))
 {
@@ -188,26 +183,6 @@ if(!$questionNum || $HTTP_POST_VARS['questionNum'])
 $nameTools=$langExercice;
 
 
-// do not touch to interbredcrump in learning path mode
-
-if ($_SESSION['inPathMode']!= true)
-{
-    $interbredcrump[]=array("url" => "exercice.php","name" => $langExercices);
-}
-else // path mode
-{
-      $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
-      if ( $is_courseAdmin )
-      {
-           $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> $langLearningPathAdmin);
-      }
-      else
-      {
-           $interbredcrump[]= array ("url"=>"../learnPath/learningPath.php", "name"=> $langLearningPath);
-      }
-      $interbredcrump[]= array ("url"=>"../learnPath/module.php", "name"=> $langModule);
-}
-
 if($HTTP_POST_VARS['questionNum'])
 {
 	$QUERY_STRING="questionNum=$questionNum";
@@ -225,6 +200,7 @@ if ($_SESSION['inPathMode'] == true)
 }
 else
 {
+  $interbredcrump[]=array("url" => "exercice.php","name" => $langExercices);
   include($includePath.'/claro_init_header.inc.php');
 }
 ?>
