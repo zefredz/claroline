@@ -257,6 +257,10 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
          . '</div>' . "\n";
 
 }
+else
+{
+	echo '<br />';
+}
 
 ?>
 
