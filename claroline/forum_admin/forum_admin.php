@@ -876,7 +876,7 @@ elseif($display == DISP_FORUM_ADMIN)
 }
 else
 {
-    echo "<center>You are not allowed here</center>";
+    echo "<center>" . $langNotAllowed . "</center>";
 }
 include($includePath."/claro_init_footer.inc.php");
 ?>
