@@ -285,3 +285,28 @@ Assigné à : Guim
 B27------------------------------------------------
 Refaire les textes de tous les popups d'aide contextuelle
 en ajouter d'éventuels
+
+
+B28-----------------------------------------------
+Hello,
+
+I think I found a bug on the upload process.
+In fact, when you upload an HTML document where the name contains spaces, we have the following behaviour :
+- in v1.5 : an error message appears when Claroline try to open the HTML file to read the images,
+- in v1.5.2 : I think (I have not installed it, but I read the source) that there was no error message, but the user can't upload images linked to this HTML document.
+
+To solve this, I do the following modifications in Document.php :
+
+- I added this line
+$uploadedFile = str_replace(" ", "_", $uploadedFile);
+near the line 255.
+
+- I modified this ~260 line (I added the call of str_replace) :
+replace_img_path_in_html_file($_POST['imgFilePath'], $newImgPath, $baseWorkDir . str_replace(" ", "_", $_REQUEST['relatedFile']));
+
+
+On my v1.5, this is okay now : the users can upload HTML document with spaces, and its images.
+
+Regards,
+
+Loïc Bonavent 
