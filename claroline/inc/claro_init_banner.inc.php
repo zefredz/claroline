@@ -10,12 +10,12 @@ ob_start();
 
 <div id="platformBanner">
 
-<div id="siteName">
+<h1 id="siteName">
 <a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $siteName ?></a>
-</div>
+</h1>
 
-<div id="institution">
-&nbsp;<a href="<?php echo $institution['url'] ?>" target="_top"><?php echo $institution['name'] ?></a>
+<h1 id="institution">
+<a href="<?php echo $institution['url'] ?>" target="_top"><?php echo $institution['name'] ?></a>
 <?php
 
 if ($_course['extLink']['name'] != '')    /* --- External Link Section --- */
@@ -34,8 +34,9 @@ if ($_course['extLink']['name'] != '')    /* --- External Link Section --- */
 }
 ?>
 
-</div>
+</h1>
 
+<div class="spacer"></div>
 </div>
 
 
@@ -52,27 +53,23 @@ if($_uid)
 
 <div id="userBanner">
 
-<div id="userLinks">
-<?php echo $_user ['firstName'].' '.$_user ['lastName'] ?> : 
-<a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $langMyCourses; ?></a>
- |
-<a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo $langMyAgenda; ?></a>
+<h2><?php echo $_user ['firstName'].' '.$_user ['lastName'] ?></h2>
+<ul id="userLinks">
+<li><a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $langMyCourses; ?></a></li>
+<li><a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo $langMyAgenda; ?></a></li>
 <?php 
 
 if($is_platformAdmin)
 {
 ?>
- | 
-<a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><?php echo $langPlatformAdministration ?></a>
+<li><a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><?php echo $langPlatformAdministration ?></a></li>
 <?php 
 } 
 ?>
- |
-<a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo $langModifyProfile; ?></a>
- |
-<a href="<?php echo $rootWeb?>index.php?logout=true" target="_top"><?php echo $langLogout; ?></a>
-</div>
-
+<li><a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo $langModifyProfile; ?></a></li>
+<li><a href="<?php echo $rootWeb?>index.php?logout=true" target="_top"><?php echo $langLogout; ?></a></li>
+</ul>
+<div class="spacer"></div>
 </div>
 
 <?php
@@ -93,6 +90,12 @@ if (isset($_cid))
 ?>
 
 <div id="courseBanner">
+
+
+<div id="course">
+<h2 id="courseName"><a href="<?php echo $coursesRepositoryWeb.$_course['path'] ?>/index.php" target="_top"><?php echo $_course['name'] ?></a></h2>
+<span id="courseCode"><?php echo $_course['officialCode']," - ", $_course['titular'] ?></span>
+</div>
 
 <div id="courseToolList">
 <?php
@@ -160,13 +163,7 @@ if (is_array($_courseToolList))
 
 </form>
 </div>
-
-<div id="course">
-<span class="courseName"><a href="<?php echo $coursesRepositoryWeb.$_course['path'] ?>/index.php" target="_top"><?php echo $_course['name'] ?></a></span>
-<span class="courseCode"><?php echo $_course['officialCode']," - ", $_course['titular'] ?></span>
-</div>
-
-
+<div class="spacer"></div>
 </div>
 
 
@@ -176,7 +173,6 @@ if (is_array($_courseToolList))
 } // end if _cid
 ?>
 
-<hr />
 </div>
 
 <?php
@@ -195,38 +191,32 @@ if (is_array($_courseToolList))
                                 BREADCRUMB LINE
  ******************************************************************************/
 
-echo "<div id=\"breadCrumbLine\">\n\n";
-
-if ($claro_toolViewOptionEnabled)
-{
-  	echo "<div id=\"toolViewOption\">\n";
-	claro_disp_tool_view_option($_REQUEST['viewMode']);
-	echo "\n</div>\n";
-}
+echo "<div id=\"breadCrumbLine\">\n\n<hr />\n";
 
 if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
 {
-    echo "<a href=\"".$rootWeb."index.php\" target=\"_top\">"
-        ."<img src=\"".$clarolineRepositoryWeb."img/home.gif\" hspace=\"5\" alt=\"\">"
+	echo "<ul>"
+   		."<li id=\"home\"><a href=\"".$rootWeb."index.php\" target=\"_top\">"
+        ."<img src=\"".$clarolineRepositoryWeb."img/home.gif\" alt=\"\">"
         .$siteName
-        ."</a>";
+        ."</a></li>\n";
 
     if ( isset($_cid) )
     {
-        echo " &gt; "
+        echo "<li>"
             ."<a href=\"".$coursesRepositoryWeb.$_course['path']."/index.php\" target=\"_top\">"
             .(($langFile == 'course_home') ? '<em>'.$_course['officialCode'].'</em>' : $_course['officialCode'])
-            ."</a>\n";
+            ."</a></li>\n";
     }
 
     if (is_array($interbredcrump) )
     {
         while ( (list(,$bredcrumpStep) = each($interbredcrump)) )
         {
-            echo	" &gt; "
+            echo	"<li>"
                     ."<a href=\"",$bredcrumpStep['url']
                     ."\" target=\"_top\">",$bredcrumpStep['name']
-                    ."</a>\n";
+                    ."</a></li>\n";
         }
     }
 
@@ -234,35 +224,39 @@ if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
     {
         if ($noPHP_SELF)
         {
-            echo	" &gt; <b>",$nameTools,"</b>\n";
+            echo	"<li><b>",$nameTools,"</b></li>\n";
         }
         elseif ($noQUERY_STRING)
         {
-            echo	" &gt;  "
+            echo	"<li>"
                     ."<b>"
                     ."<a href=",$_SERVER['PHP_SELF']," target=\"_top\">"
                     .$nameTools
                     ."</a>"
-                    ."</b>\n";
+                    ."</b></li>\n";
         }
         else
         {
-            echo	" &gt; " 
+            echo	"<li>" 
                     ."<b>"
                     ."<a href=",$_SERVER['PHP_SELF'],'?',$QUERY_STRING," target=\"_top\">"
                     .$nameTools
                     ."</a>"
-                    ."</b>\n";
+                    ."</b></li>\n";
         }
     }
-}
-else
-{
-	echo "&nbsp;\n";
+	echo "</ul>";
 }
 
+if ($claro_toolViewOptionEnabled)
+{
+  	echo "<div id=\"toolViewOption\">\n";
+	claro_disp_tool_view_option($_REQUEST['viewMode']);
+	echo "\n</div>\n";
+}
 ?>
 
+<div class="spacer"></div>
 <hr />
 </div>
 
