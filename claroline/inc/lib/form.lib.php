@@ -33,6 +33,7 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
         {
             $monthField .= " selected=\"true\"";
         }
+	
         $monthField .= ">".$langMonthNames['long'][$i-1]."</option>\n";
     }
     $monthField .="</select>\n";
@@ -88,10 +89,10 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
             $minuteField .= "<option value=\"".$i."\"";
             if($i == $selMinute)
             {
-                $minuteField .= " selected=\"true\"";
+                $minuteField .= " selected=\"selected\"";
             }
             $minuteField .= ">".$i."</option>\n";
-            $i += 5;
+            $i++;
         }
         $minuteField .= "</select>";
     }
