@@ -127,7 +127,7 @@ if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
   --------------------------------------------------------------------*/
 if( $wrkSession['authorized_content'] == "TEXTFILE" 
       || ( $is_courseAdmin && !empty($wrk['parent_id']) ) 
-      || ( $is_courseAdmin && $cmd == 'rqGradeWrk' )
+      || ( $is_courseAdmin && ( $cmd == 'rqGradeWrk' || $cmd == 'exGradeWrk') )
   )
 {
       // IF text file is the default session type
@@ -148,8 +148,8 @@ else //if( $wrkSession['authorized_content'] == "TEXT" )
 /*============================================================================
                           PERMISSIONS
   =============================================================================*/
- 
-// session start_date is in the future
+
+// is between start and end date or after and date and late upload is allowed
 if( $wrkSession['unix_start_date'] <= time() )
 {
       $afterStartDate = true;
@@ -161,14 +161,22 @@ else
 // session is invisible 
 if( $wrkSession['sess_visibility'] == "VISIBLE" )
 {
-      $isVisible = true;
+      $sessionIsVisible = true;
 }
 else
 {
-      $isVisible = false;
+      $sessionIsVisible = false;
 }
 
-// /!\ submit en anonyme si c'est interdit !
+//  anonymous post are allowed
+if( $wrkSession['authorize_anonymous'] == "YES" )
+{
+      $anonCanPost = true;
+}
+else
+{
+      $anonCanPost = false;
+}
 
 // 3 rights levels 
 
@@ -177,34 +185,30 @@ else
 $is_allowedToEditAll  = (bool) $is_courseAdmin;
 
 
-// can add a work and modify it (std authed user) // can only modify its works !
-// IF is_allowedToEditAll OR session is visible, we are after start date and "work is mine"
-$is_allowedToEdit = (bool)    (
-                                    $isVisible 
-                                    && $afterStartDate
-                                    && ( isset($wrk) && isset($_uid) && $wrk['user_id'] == $_uid )
-                              )
+//-- is_allowedToEdit
+
+// a work is set, user is authed and the work is his work
+$userCanEdit = (bool) ( isset($wrk) && isset($_uid) && $wrk['user_id'] == $_uid );
+
+$is_allowedToEdit = (bool)    ( $sessionIsVisible && $afterStartDate && $userCanEdit )
                               || $is_allowedToEditAll;
 
 
-// allowed to submit a new work , CANNOT edit any work
-// IF   is_allowedToEditAll
-// OR   session is visible, we are after start date, anonymous can submit works 
-//      or I'm authenticated and allowed in the course
-$is_allowedToSubmit   = (bool) (
-                              $isVisible 
-                              && $afterStartDate
-                              && 
-                                    (
-                                    $is_allowedToEdit 
-                                    || ( !isset($_uid) && $wrkSession['authorize_anonymous'] == "YES" && $is_courseAllowed ) 
-                                    || ( isset($_uid) && $is_courseAllowed ) 
-                                    )
-                              )
-                              || $is_allowedToEditAll;
+//-- is_allowedToSubmit
+
+// upload is between start and end date or after end date and late upload is allowed
+$uploadDateIsOk = (bool) $afterStartDate 
+                              && ( time() < $wrkSession['unix_end_date'] || $wrkSession['allow_late_upload'] == "YES" );
+// user is anonyme , anonymous users can post and user is course allowe or user is authed and allowed
+$userCanPost = (bool) ( !isset($_uid) && $anonCanPost && $is_courseAllowed ) 
+                  || ( isset($_uid) && $is_courseAllowed );
+
+$is_allowedToSubmit   = (bool) ( $sessionIsVisible  && $uploadDateIsOk  && $userCanPost )
+                                    || $is_allowedToEdit
+                                    || $is_allowedToEditAll;
                      
 // allowed to display work list and work details                     
-$is_allowedToView = (bool) ($isVisible && $afterStartDate) || $is_allowedToEditAll;
+$is_allowedToView = (bool) ($sessionIsVisible && $afterStartDate) || $is_allowedToEditAll;
 
 /*============================================================================
                           HANDLING FORM DATA
@@ -1010,23 +1014,14 @@ if( $dispWrkLst && $is_allowedToView )
         ."<tbody>\n\n";
     foreach($flatElementList as $thisWrk)
     {
-      /*
-      if( $wrkSession['unix_end_date'] < $thisWrk['unix_last_edit_date'] && !isset($wrksAfterLastDate) )
+      /*if( $wrkSession['unix_end_date'] < $thisWrk['unix_last_edit_date'] )
       {
-            if( $is_allowedToEditAll )
-            {
-                  $colspan = 2;
-            }
-            // display a separation line
-            echo "<tr>\n"
-                  ."<td colspan=\"".(($is_allowedToEdit)?$maxDeep+6:$maxDeep+2)."\"><small>"
-                  .$langEndDate." : "
-                  .claro_disp_localised_date($dateTimeFormatLong, $wrkSession['unix_end_date'])
-                  ."</small></td>\n"
-                  ."</tr>\n\n";
-            $wrksAfterLastDate = true;
+            $lateUploadAlert = "";
       }
-      */
+      else
+      {
+            $lateUploadAlert = "";
+      }*/
       
       if ($thisWrk['visibility'] == "INVISIBLE")
 			{
@@ -1051,7 +1046,9 @@ if( $dispWrkLst && $is_allowedToView )
       
       echo "<tr align=\"center\"".$style." >\n"
           .$spacingString
-          ."<td colspan=\"".$colspan."\" align=\"left\"><a href=\"workList.php?sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."&cmd=exShwDet\">".$thisWrk['title']."</a></td>\n"
+          ."<td colspan=\"".$colspan."\" align=\"left\">"
+          ."<a href=\"workList.php?sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."&cmd=exShwDet\">"
+          .$thisWrk['title']."</a></td>\n"
           ."<td>".$thisWrk['authors']."</td>\n"
           ."<td><small>"
           .claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_last_edit_date'])
@@ -1060,7 +1057,9 @@ if( $dispWrkLst && $is_allowedToView )
       
       if( $is_allowedToEditAll )
       {
-        echo "<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a></td>\n"
+        echo "<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&sesId="
+            .$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\">"
+            ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a></td>\n"
             ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\"><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\"></a></td>\n"
             ."<td>";
         if ($thisWrk['visibility'] == "INVISIBLE")
