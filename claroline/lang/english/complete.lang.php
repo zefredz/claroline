@@ -1,4 +1,4 @@
-<?php 
+<?php
 $l_author = "Author";
 $l_banned = "You have been banned from this forum. Contact the system administrator if you have any questions.";
 $l_body = "Message Body";
@@ -131,14 +131,14 @@ $langAdvanced = "Advanced";
 $langAgain = "Try again!";
 $langAgenda = "Agenda";
 $langAgendaNextEvents = "Agenda next events";
-$langAlertBlockingMakedInvisible = "This module is blocked. 
-Making it invisible will allow students to access 
- the next module without having to complete this one. 
+$langAlertBlockingMakedInvisible = "This module is blocked.
+Making it invisible will allow students to access
+ the next module without having to complete this one.
 
 Confirm ?";
-$langAlertBlockingPathMadeInvisible = "This path is blocking. 
-Making it invisible will allow students to access 
- the next path without having to complete this one. 
+$langAlertBlockingPathMadeInvisible = "This path is blocking.
+Making it invisible will allow students to access
+ the next path without having to complete this one.
 
 Confirm ?";
 $langAll = "All";
@@ -442,27 +442,27 @@ $langDBPassword = "Database Password";
 $langDBSetting = "MySQL database settings";
 $langDBSettingNamesIntro = "
 
-				Install script will create main claroline databases. 
+                Install script will create main claroline databases.
 
-				You can create different database 
+                You can create different database
 
-				for tracking and PhpMyAdmin extension if you want 
+                for tracking and PhpMyAdmin extension if you want
 
-				or gathering all these stuff in one database, like you want. 
+                or gathering all these stuff in one database, like you want.
 
-				Afterwards, Claroline will create a new database for each new course created. 
+                Afterwards, Claroline will create a new database for each new course created.
 
-				You can specify a prefix for these database names.
+                You can specify a prefix for these database names.
 
-				<p>
+                <p>
 
-				If you are allowed to use only one database by your database system administrator, 
+                If you are allowed to use only one database by your database system administrator,
 
-				get back to the previous page and select option \"Single\"
+                get back to the previous page and select option \"Single\"
 
-				</p>
+                </p>
 
-				";
+                ";
 $langDBUse = "Database usage";
 $langDOCUMENTTypeDesc = "Document";
 $langDate = "Date";
@@ -550,207 +550,207 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 
  type=submit value=Browse name=submit2>
 
-	on the right of your screen.</li>
+    on the right of your screen.</li>
 
-		<li>
+        <li>
 
-			Launch the upload with the Upload Button <input type=submit value=Upload name=submit2>.
+            Launch the upload with the Upload Button <input type=submit value=Upload name=submit2>.
 
-		</li>
+        </li>
 
-	</ul>
+    </ul>
 
-	<h4>
+    <h4>
 
-		Rename a document (a directory)
+        Rename a document (a directory)
 
-	</h4>
+    </h4>
 
-	<ul>
+    <ul>
 
-		<li>
+        <li>
 
-			click on the <img src=img/edit.gif width=20 height=20 align=baseline>
+            click on the <img src=img/edit.gif width=20 height=20 align=baseline>
 
-			button in the Rename column
+            button in the Rename column
 
-		</li>
+        </li>
 
-		<li>
+        <li>
 
-			Type the new name in the field (top left)
+            Type the new name in the field (top left)
 
-		</li>
+        </li>
 
-		<li>
+        <li>
 
-			Validate by clicking <input type=submit value=Ok name=submit24>.
+            Validate by clicking <input type=submit value=Ok name=submit24>.
 
-		</li>
+        </li>
 
-	</ul>
+    </ul>
 
-		<h4>
+        <h4>
 
-			Delete a document (or a directory)
+            Delete a document (or a directory)
 
-		</h4>
+        </h4>
 
-		<ul>
+        <ul>
 
-			<li>
+            <li>
 
-				Click on <img src=img/delete.gif width=20 height=20>
+                Click on <img src=img/delete.gif width=20 height=20>
 
-				in column 'Delete'.
+                in column 'Delete'.
 
-			</li>
+            </li>
 
-		</ul>
+        </ul>
 
-		<h4>
+        <h4>
 
-			Make a document (or directory) invisible to students
+            Make a document (or directory) invisible to students
 
-		</h4>
+        </h4>
 
-		<ul>
+        <ul>
 
-			<li>
+            <li>
 
-				Click on <img src=img/visible.gif width=20 height=20>
+                Click on <img src=img/visible.gif width=20 height=20>
 
-				in column 'Visible/invisible'.
+                in column 'Visible/invisible'.
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				The document (or directory) still exists but it is not visible by students anymore.
+                The document (or directory) still exists but it is not visible by students anymore.
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				To make it invisible back again, click on
+                To make it invisible back again, click on
 
-				<img src=img/invisible.gif width=24 height=20>
+                <img src=img/invisible.gif width=24 height=20>
 
-				in column 'Visible/invisible'
+                in column 'Visible/invisible'
 
-			</li>
+            </li>
 
-		</ul>
+        </ul>
 
-		<h4>
+        <h4>
 
-			Add or modify a comment to a document (or a directory)
+            Add or modify a comment to a document (or a directory)
 
-		</h4>
+        </h4>
 
-		<ul>
+        <ul>
 
-			<li>
+            <li>
 
-				Click on <img src=img/comment.gif width=20 height=20> in column 'Comment'
+                Click on <img src=img/comment.gif width=20 height=20> in column 'Comment'
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				Type new comment in the corresponding field (top right).
+                Type new comment in the corresponding field (top right).
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				Validate by clicking <input type=submit value=OK name=submit2>
+                Validate by clicking <input type=submit value=OK name=submit2>
 
-			.</li>
+            .</li>
 
-		</ul>
+        </ul>
 
-		<p>
+        <p>
 
-		To delete a comment, click on <img src=img/comment.gif width=20 height=20>,
+        To delete a comment, click on <img src=img/comment.gif width=20 height=20>,
 
-		delete the old comment in the field and click
+        delete the old comment in the field and click
 
-		<input type=submit value=OK name=submit22>.
+        <input type=submit value=OK name=submit22>.
 
-		<hr>
+        <hr>
 
-		<p>
+        <p>
 
-			You can organise your content through filing. For this:
+            You can organise your content through filing. For this:
 
-		</p>
+        </p>
 
-		<h4>
+        <h4>
 
-			<b>
+            <b>
 
-				Create a directory
+                Create a directory
 
-			</b>
+            </b>
 
-		</h4>
+        </h4>
 
-		<ul>
+        <ul>
 
-			<li>
+            <li>
 
-				Click on
+                Click on
 
-				<img src=img/dossier.gif width=20 height=20>
+                <img src=img/dossier.gif width=20 height=20>
 
-				'Create a directory' (top left)
+                'Create a directory' (top left)
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				Type the name of your new directory in the corresponding field (top left)
+                Type the name of your new directory in the corresponding field (top left)
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				Validate by clicking <input type=submit value=OK name=submit23>.
+                Validate by clicking <input type=submit value=OK name=submit23>.
 
-			</li>
+            </li>
 
-		</ul>
+        </ul>
 
-		<h4>
+        <h4>
 
-			Move a document (or directory)
+            Move a document (or directory)
 
-		</h4>
+        </h4>
 
-		<ul>
+        <ul>
 
-			<li>
+            <li>
 
-				Click on button <img src=img/deplacer.gif width=34 height=16>
+                Click on button <img src=img/deplacer.gif width=34 height=16>
 
-				in column 'Move'
+                in column 'Move'
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				Choose the directory into which you want to move the document (or directory) in the corresponding scrolling menu (top left) (note: the word 'root' means you cannot go higher than that level in the document tree of the server).
+                Choose the directory into which you want to move the document (or directory) in the corresponding scrolling menu (top left) (note: the word 'root' means you cannot go higher than that level in the document tree of the server).
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				Validate by clicking on <input type=submit value=OK name=submit232>.
+                Validate by clicking on <input type=submit value=OK name=submit232>.
 
-			</li>
+            </li>
 
-		</ul>
+        </ul>
 
 <center>
 
@@ -1225,9 +1225,9 @@ $langGroupStructure = "Group Structure";
 $langGroupStudentsInGroup = "students registered in groups";
 $langGroupStudentsRegistered = "students registered to this course";
 $langGroupThisSpace = "Area for this group";
-$langGroupTooMuchMembers = "Number proposed exceeds max. that you allowed (you can modify it below). 
+$langGroupTooMuchMembers = "Number proposed exceeds max. that you allowed (you can modify it below).
 
-				Group composition has not been modified";
+                Group composition has not been modified";
 $langGroupTools = "Tools";
 $langGroupTutor = "Tutor";
 $langGroupTutors = "Tutors";
@@ -1343,14 +1343,14 @@ $langIntroEditToolList = "Select the tools you want to make visible for your use
 
 An invisible tool will be greyed out on your personal interface";
 $langIntroLearningPath = "Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br><br>If you want to present your learning path to students, click on the button below.<br>";
-$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade. 
+$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade.
 
                 These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
-$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to upgrade the data stored into the main Claroline tables 
+$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to upgrade the data stored into the main Claroline tables
 
                     (users, course categories, tools list, ...) and set it to be compatible with the new Claroline version.</p>
 
-                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this 
+                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this
 
                    operation may take some time.</p>";
 $langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going to update course data (directories and database tables) one by one.
@@ -1362,7 +1362,7 @@ $langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the cou
 $langIntroText = "To send a message, select groups of users (marked with a * in the front)
 
  or single users from the list on the left.";
-$langIntroWork = "This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course's website. 
+$langIntroWork = "This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course's website.
 
 <br />You will be able to add a comment or a grade to each work.
 
@@ -2204,4 +2204,8 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
+
+$langThisIsAnErrorInDefinitionFile = 'This is an error in definition file.';
+$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile ='Request to the coder of this config to add theses proporties in a section of the definition file.';
+
 ?>

@@ -29,8 +29,8 @@
 $display=DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
 
 // PATCH TO ACCEPT Prefixed DBs
-$mainDbName 	= $dbNameForm;
-$statsDbName 	= $dbStatsForm;
+$mainDbName     = $dbNameForm;
+$statsDbName    = $dbStatsForm;
 $resBdbHome = @claro_sql_query("SHOW VARIABLES LIKE 'datadir'");
 $mysqlRepositorySys = mysql_fetch_array($resBdbHome,MYSQL_ASSOC);
 $mysqlRepositorySys = $mysqlRepositorySys ["Value"];
@@ -42,39 +42,39 @@ $mysqlRepositorySys = $mysqlRepositorySys ["Value"];
 mysql_query("CREATE DATABASE `".$mainDbName."`");
 if (mysql_errno() >0)
 {
-	if (mysql_errno() == 1007)
-	{
-		if ($confirmUseExistingMainDb)
-		{
-			$runfillMainDb = TRUE;
-			$mainDbSuccesfullCreated = TRUE;
-		}
-		else
-		{
-			$mainDbNameExist = TRUE;
-			$display=DISP_DB_NAMES_SETTING;
-		}
-	}
-	else
-	{
-		$mainDbNameCreationError = '
-				<P class="setup_error">
-					<font color="red">Warning !</font> 
-					<small>['.mysql_errno().'] - '.mysql_error().'</small>
-					<br>
-					Error on creation '.$langMainDB.' : <I>'.$dbHostForm.'</I>
-					<BR>
-					<font color="blue">
-						Fix this problem before going further
-					</font>
-				</P>';
-		$display=DISP_DB_NAMES_SETTING;
-	}
+    if (mysql_errno() == 1007)
+    {
+        if ($confirmUseExistingMainDb)
+        {
+            $runfillMainDb = TRUE;
+            $mainDbSuccesfullCreated = TRUE;
+        }
+        else
+        {
+            $mainDbNameExist = TRUE;
+            $display=DISP_DB_NAMES_SETTING;
+        }
+    }
+    else
+    {
+        $mainDbNameCreationError = '
+                <P class="setup_error">
+                    <font color="red">Warning !</font>
+                    <small>['.mysql_errno().'] - '.mysql_error().'</small>
+                    <br>
+                    Error on creation '.$langMainDB.' : <I>'.$dbHostForm.'</I>
+                    <BR>
+                    <font color="blue">
+                        Fix this problem before going further
+                    </font>
+                </P>';
+        $display=DISP_DB_NAMES_SETTING;
+    }
 }
 else
 {
-	$runfillMainDb = TRUE;
-	$confirmUseExistingMainDb = TRUE;
+    $runfillMainDb = TRUE;
+    $confirmUseExistingMainDb = TRUE;
 }
 
 
@@ -83,82 +83,82 @@ else
 // DB with tracking info of  Claroline //
 if($statsDbName != $mainDbName)
 {
-	if(!$singleDbForm)
-	{
-		// multi DB mode AND tracking has its own DB so create it
-		claro_sql_query("CREATE DATABASE `$statsDbName`");
-		if (mysql_errno() >0)
-		{
-			if (mysql_errno() == 1007)
-			{
-				if ($confirmUseExistingStatsDb)
-				{
-					$runfillStatsDb = TRUE;
-					$statsDbSuccesfullCreated = TRUE;
-				}
-				else
-				{
-					$statsDbNameExist = TRUE;
-					$display=DISP_DB_NAMES_SETTING;
-				}
-			}
-			else
-			{
-				$statsDbNameCreationError = '
-				<P class="setup_error">
-					<font color="red">Warning !</font> 
-					<small>['.mysql_errno().'] - '.mysql_error().'</small>
-					<br>
-					Error on creation '.$langStatDB.' : <I>'.$dbStatsForm.'</I>
-					<BR>
-					<font color="blue">
-						Fix this problem before going further
-					</font>
-				</P>';
-				$display=DISP_DB_NAMES_SETTING;
-			}
-		}
-		else
-		{
-			$runfillStatsDb = TRUE;
-		}
-	}
-	else
-	{
-		// single DB mode so $statsDbName MUST BE the SAME than $mainDbName
-		// because it's actually singleDB and not singleCourseDB
-		$statsDbName = $mainDbName;
-		$runfillStatsDb = TRUE;
-	}
+    if(!$singleDbForm)
+    {
+        // multi DB mode AND tracking has its own DB so create it
+        claro_sql_query("CREATE DATABASE `$statsDbName`");
+        if (mysql_errno() >0)
+        {
+            if (mysql_errno() == 1007)
+            {
+                if ($confirmUseExistingStatsDb)
+                {
+                    $runfillStatsDb = TRUE;
+                    $statsDbSuccesfullCreated = TRUE;
+                }
+                else
+                {
+                    $statsDbNameExist = TRUE;
+                    $display=DISP_DB_NAMES_SETTING;
+                }
+            }
+            else
+            {
+                $statsDbNameCreationError = '
+                <P class="setup_error">
+                    <font color="red">Warning !</font>
+                    <small>['.mysql_errno().'] - '.mysql_error().'</small>
+                    <br>
+                    Error on creation '.$langStatDB.' : <I>'.$dbStatsForm.'</I>
+                    <BR>
+                    <font color="blue">
+                        Fix this problem before going further
+                    </font>
+                </P>';
+                $display=DISP_DB_NAMES_SETTING;
+            }
+        }
+        else
+        {
+            $runfillStatsDb = TRUE;
+        }
+    }
+    else
+    {
+        // single DB mode so $statsDbName MUST BE the SAME than $mainDbName
+        // because it's actually singleDB and not singleCourseDB
+        $statsDbName = $mainDbName;
+        $runfillStatsDb = TRUE;
+    }
 }
 else
 {
-	$runfillStatsDb = true;
-	$confirmUseExistingStatsDb = TRUE;
+    $runfillStatsDb = true;
+    $confirmUseExistingStatsDb = TRUE;
 }
 
 if ($runfillMainDb && $runfillStatsDb)
 {
-	mysql_select_db ($mainDbName);
-	include ("./createMainBase.inc.php");
-	include ("./fillMainBase.inc.php");
+    mysql_select_db ($mainDbName);
+    include ("./createMainBase.inc.php");
+    include ("./fillMainBase.inc.php");
 
-	mysql_select_db ($statsDbName);
-	include ("./createStatBase.inc.php");
-	include ("./fillStatBase.inc.php");
+    mysql_select_db ($statsDbName);
+    include ("./createStatBase.inc.php");
+    include ("./fillStatBase.inc.php");
 }
 
 // FILE SYSTEM OPERATION
 //
 // Build path
 
-$rootSys					=	str_replace("\\","/",realpath($pathForm)."/") ;
-$coursesRepositoryAppend	= "";
+$rootSys                    =   str_replace("\\","/",realpath($pathForm)."/") ;
+$coursesRepositoryAppend    = "";
 $coursesRepositorySys = $rootSys.$courseRepositoryForm;
 @mkdir($coursesRepositorySys,0777);
 $clarolineRepositoryAppend  = "claroline/";
-$clarolineRepositorySys		= $rootSys.$clarolineRepositoryAppend;
-$garbageRepositorySys	= str_replace("\\","/",realpath($clarolineRepositorySys)."/claroline_garbage");
+$clarolineRepositorySys     = $rootSys.$clarolineRepositoryAppend;
+$garbageRepositorySys   = str_replace("\\","/",realpath($clarolineRepositorySys)."/claroline_garbage");
 @mkdir($garbageRepositorySys,0777);
 
 ########################## WRITE claro_main.conf.php ##################################
@@ -173,13 +173,13 @@ $garbageRepositorySys	= str_replace("\\","/",realpath($clarolineRepositorySys)."
 $fd=@fopen($configFilePath, "w");
 if (!$fd)
 {
-	$fileConfigCreationError = true;
-	$display=DISP_RUN_INSTALL_NOT_COMPLETE;
+    $fileConfigCreationError = true;
+    $display=DISP_RUN_INSTALL_NOT_COMPLETE;
 }
 else
 {
-	// str_replace() removes \r that cause squares to appear at the end of each line
-	$stringConfig=str_replace("\r","",'<?php
+    // str_replace() removes \r that cause squares to appear at the end of each line
+    $stringConfig=str_replace("\r","",'<?php
 
 # CLAROLINE version '.$clarolineVersion.'
 # File generated by /install/index.php script - '.date("r").'
@@ -220,110 +220,113 @@ and they doesn\'t actually have an ; in value of a variable
 
 // This file was generate by script /install/index.php
 // on '.date("r").'
-// REMOTE_ADDR : 		'.$_REMOTE_ADDR.' = '.gethostbyaddr($REMOTE_ADDR).'
-// REMOTE_HOST :		'.$REMOTE_HOST.'
-// REMOTE_PORT : 		'.$REMOTE_PORT.'
-// REMOTE_USER : 		'.$REMOTE_USER.'
-// REMOTE_IDENT :	 	'.$REMOTE_IDENT.'
-// HTTP_USER_AGENT : 	'.$HTTP_USER_AGENT.'
-// SERVER_NAME :		'.$SERVER_NAME.'
-// HTTP_COOKIE :		'.$HTTP_COOKIE.'
+// REMOTE_ADDR :        '.$_REMOTE_ADDR.' = '.gethostbyaddr($REMOTE_ADDR).'
+// REMOTE_HOST :        '.$REMOTE_HOST.'
+// REMOTE_PORT :        '.$REMOTE_PORT.'
+// REMOTE_USER :        '.$REMOTE_USER.'
+// REMOTE_IDENT :       '.$REMOTE_IDENT.'
+// HTTP_USER_AGENT :    '.$HTTP_USER_AGENT.'
+// SERVER_NAME :        '.$SERVER_NAME.'
+// HTTP_COOKIE :        '.$HTTP_COOKIE.'
 
 
 $platform_id        = "'.md5(realpath(__FILE__)).'";
 
-$rootWeb 			= "'.$urlForm.'";
-$urlAppend			= "'.$urlAppendPath.'";
-$rootSys			= "'.$rootSys.'" ;
+$rootWeb            = "'.$urlForm.'";
+$urlAppend          = "'.$urlAppendPath.'";
+$rootSys            = "'.$rootSys.'" ;
 
 /* CLAROLANG : Translation: use a single language file, Production: each script use its own language file */
 define("CLAROLANG","TRANSLATION");
 
 // MYSQL
-$dbHost 			= "'.$dbHostForm.'";
-$dbLogin 			= "'.$dbUsernameForm.'";
-$dbPass				= "'.$dbPassForm.'";
+$dbHost             = "'.$dbHostForm.'";
+$dbLogin            = "'.$dbUsernameForm.'";
+$dbPass             = "'.$dbPassForm.'";
 
-$mainDbName			= "'.$mainDbName.'";
-$statsDbName		= "'.$statsDbName.'";
-$dbNamePrefix		= "'.$dbPrefixForm.'"; // prefix all created base (for courses) with this string
+$mainDbName         = "'.$mainDbName.'";
+$mainTblPrefix      = "'.$mainTblPrefixForm.'";
+$statsDbName        = "'.$statsDbName.'";
+$statTblPrefix      = "'.$statTblPrefixForm.'";
 
-$is_trackingEnabled	= '.trueFalse($enableTrackingForm).';
-$singleDbEnabled	= '.trueFalse($singleDbForm).'; // DO NOT MODIFY THIS
-$courseTablePrefix	= "'.($singleDbForm && empty($dbPrefixForm)?'crs_':'').'"; // IF NOT EMPTY, CAN BE REPLACED BY ANOTHER PREFIX, ELSE LEAVE EMPTY
-$dbGlu				= "'.($singleDbForm?'_':'`.`').'"; // DO NOT MODIFY THIS
+$dbNamePrefix       = "'.$dbPrefixForm.'"; // prefix all created base (for courses) with this string
+
+$is_trackingEnabled = '.trueFalse($enableTrackingForm).';
+$singleDbEnabled    = '.trueFalse($singleDbForm).'; // DO NOT MODIFY THIS
+$courseTablePrefix  = "'.($singleDbForm && empty($dbPrefixForm)?'crs_':'').'"; // IF NOT EMPTY, CAN BE REPLACED BY ANOTHER PREFIX, ELSE LEAVE EMPTY
+$dbGlu              = "'.($singleDbForm?'_':'`.`').'"; // DO NOT MODIFY THIS
 $mysqlRepositorySys = "'.str_replace("\\","/",realpath($mysqlRepositorySys)."/").'";
 
 $clarolineRepositoryAppend  = "claroline/";
-$coursesRepositoryAppend	= "'.$courseRepositoryForm.'";
-$rootAdminAppend			= "admin/";
-$phpMyAdminAppend			= "mysql/";
-$phpSysInfoAppend			= "sysinfo/";
-$clarolineRepositorySys		= $rootSys.$clarolineRepositoryAppend;
-$clarolineRepositoryWeb 	= $rootWeb.$clarolineRepositoryAppend;
-$coursesRepositorySys		= $rootSys.$coursesRepositoryAppend;
-$coursesRepositoryWeb		= $rootWeb.$coursesRepositoryAppend;
-$rootAdminSys				= $clarolineRepositorySys.$rootAdminAppend;
-$rootAdminWeb				= $clarolineRepositoryWeb.$rootAdminAppend;
-$phpMyAdminWeb				= $rootAdminWeb.$phpMyAdminAppend;
-$phpMyAdminSys				= $rootAdminSys.$phpMyAdminAppend;
-$phpSysInfoWeb				= $rootAdminWeb.$phpSysInfoAppend;
-$phpSysInfoSys				= $rootAdminSys.$phpSysInfoAppend;
-$garbageRepositorySys		= "'.$garbageRepositorySys.'";
-$imgRepositorySys		    = $rootSys.$clarolineRepositoryAppend.\'img/\';
-$imgRepositoryWeb 	        = $rootWeb.$clarolineRepositoryAppend.\'img/\';
+$coursesRepositoryAppend    = "'.$courseRepositoryForm.'";
+$rootAdminAppend            = "admin/";
+$phpMyAdminAppend           = "mysql/";
+$phpSysInfoAppend           = "sysinfo/";
+$clarolineRepositorySys     = $rootSys.$clarolineRepositoryAppend;
+$clarolineRepositoryWeb     = $rootWeb.$clarolineRepositoryAppend;
+$coursesRepositorySys       = $rootSys.$coursesRepositoryAppend;
+$coursesRepositoryWeb       = $rootWeb.$coursesRepositoryAppend;
+$rootAdminSys               = $clarolineRepositorySys.$rootAdminAppend;
+$rootAdminWeb               = $clarolineRepositoryWeb.$rootAdminAppend;
+$phpMyAdminWeb              = $rootAdminWeb.$phpMyAdminAppend;
+$phpMyAdminSys              = $rootAdminSys.$phpMyAdminAppend;
+$phpSysInfoWeb              = $rootAdminWeb.$phpSysInfoAppend;
+$phpSysInfoSys              = $rootAdminSys.$phpSysInfoAppend;
+$garbageRepositorySys       = "'.$garbageRepositorySys.'";
+$imgRepositorySys           = $rootSys.$clarolineRepositoryAppend.\'img/\';
+$imgRepositoryWeb           = $rootWeb.$clarolineRepositoryAppend.\'img/\';
 
-// Path to the PEAR library. PEAR stands for "PHP Extension and Application 
-// Repository". It is a framework and distribution system for reusable PHP 
+// Path to the PEAR library. PEAR stands for "PHP Extension and Application
+// Repository". It is a framework and distribution system for reusable PHP
 // components. More on http://pear.php.net.
-// Claroline is provided with the basic PEAR components needed by the 
-// application in the "claroline/inc/lib/pear" directory. But, server 
-// administator can redirect to their own PEAR library directory by setting 
+// Claroline is provided with the basic PEAR components needed by the
+// application in the "claroline/inc/lib/pear" directory. But, server
+// administator can redirect to their own PEAR library directory by setting
 // its path to the PEAR_LIB_PATH constant.
 
 define(\'PEAR_LIB_PATH\', $includePath.\'/lib/pear\');
 
 
 // Strings
-$siteName				=	"'.cleanwritevalue($campusForm).'";
-$administrator_name	=	"'.cleanwritevalue($contactNameForm).'";
-$administrator_phone	=	"'.cleanwritevalue($contactPhoneForm).'";
-$administrator_email	=	"'.cleanwritevalue((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'";
+$siteName               =   "'.cleanwritevalue($campusForm).'";
+$administrator_name =   "'.cleanwritevalue($contactNameForm).'";
+$administrator_phone    =   "'.cleanwritevalue($contactPhoneForm).'";
+$administrator_email    =   "'.cleanwritevalue((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'";
 
-$institution_name		=	"'.cleanwritevalue($institutionForm).'";
-$institution_url			=	"'.$institutionUrlForm.'";
+$institution_name       =   "'.cleanwritevalue($institutionForm).'";
+$institution_url            =   "'.$institutionUrlForm.'";
 
 // param for new and future features
-$checkEmailByHashSent 			= 	'.trueFalse($checkEmailByHashSent).';
-$ShowEmailnotcheckedToStudent 	= 	'.trueFalse($ShowEmailnotcheckedToStudent).';
-$userMailCanBeEmpty 			= 	'.trueFalse($userMailCanBeEmpty).';
-$userPasswordCrypted			=	'.trueFalse($encryptPassForm).';
-$allowSelfReg					= '.trueFalse($allowSelfReg).';
-$allowSelfRegProf				= '.trueFalse($allowSelfRegProf).';
+$checkEmailByHashSent           =   '.trueFalse($checkEmailByHashSent).';
+$ShowEmailnotcheckedToStudent   =   '.trueFalse($ShowEmailnotcheckedToStudent).';
+$userMailCanBeEmpty             =   '.trueFalse($userMailCanBeEmpty).';
+$userPasswordCrypted            =   '.trueFalse($encryptPassForm).';
+$allowSelfReg                   = '.trueFalse($allowSelfReg).';
+$allowSelfRegProf               = '.trueFalse($allowSelfRegProf).';
 
-$platformLanguage 	= 	"'.$languageForm.'";
+$platformLanguage   =   "'.$languageForm.'";
 $claro_stylesheet   =   "default.css";
-$clarolineVersion	=	"'.$clarolineVersion.'";
-$versionDb 			= 	"'.$versionDb.'";
+$clarolineVersion   =   "'.$clarolineVersion.'";
+$versionDb          =   "'.$versionDb.'";
 
-// Put below the complete url of your TEX renderer. This url doesn\'t have to be 
+// Put below the complete url of your TEX renderer. This url doesn\'t have to be
 // specially on the same server than Claroline.
-// 
-// Claroline uses the MIMETEX renderer created by John Forkosh and available 
-// under the GNU licences at http://www.forkosh.com. 
-// 
-// MIMETEX parses TEX/LaTEX mathematical expressions and emits gif images from 
-// them. You\'ll find precompilated versions of MIMETEX for various platform in 
-// the \'claroline/inc/lib/\' directory. Move the executable file that 
-// corresponding to your platform into its \'cgi-bin/\' directory, where cgi 
-// programs are expected (this directory are typically of the form 
+//
+// Claroline uses the MIMETEX renderer created by John Forkosh and available
+// under the GNU licences at http://www.forkosh.com.
+//
+// MIMETEX parses TEX/LaTEX mathematical expressions and emits gif images from
+// them. You\'ll find precompilated versions of MIMETEX for various platform in
+// the \'claroline/inc/lib/\' directory. Move the executable file that
+// corresponding to your platform into its \'cgi-bin/\' directory, where cgi
+// programs are expected (this directory are typically of the form
 // \'somewhere/www/cgi-bin/\'), and change the execution permissions if necessary.
-// 
-// If you\'re not able or allowed to set MIMETEX on a server, leave the setting 
-// below to \'false\'. Claroline will then try to use another method for rendering 
-// TEX/LaTEX mathematical expression, relying on a plug-in client side this 
-// time. For this, user has to install the TECHEXPLORER plug-in, freely 
-// available for both Windows, Macintosh and Linux at 
+//
+// If you\'re not able or allowed to set MIMETEX on a server, leave the setting
+// below to \'false\'. Claroline will then try to use another method for rendering
+// TEX/LaTEX mathematical expression, relying on a plug-in client side this
+// time. For this, user has to install the TECHEXPLORER plug-in, freely
+// available for both Windows, Macintosh and Linux at
 // http://www.integretechpub.com/.
 
 $claro_texRendererUrl = \'\';
@@ -332,17 +335,17 @@ $claro_texRendererUrl = \'\';
 
 ######### DEALING WITH FILES #########################################
 
-	fwrite($fd, $stringConfig);
+    fwrite($fd, $stringConfig);
 
 
-	
+
 /**
 * Config file to undist
 */
 
 
 
-$arr_file_to_undist = 
+$arr_file_to_undist =
 array (
 $newIncludePath.'../../textzone_top.inc.html',
 $newIncludePath.'../../textzone_right.inc.html',
@@ -350,7 +353,7 @@ $newIncludePath.'conf/auth.conf.php'
 );
 
 foreach ($arr_file_to_undist As $undist_this)
-	claro_undist_file($undist_this);
+    claro_undist_file($undist_this);
 
 /***
  * Generate conf from definition files.
@@ -368,14 +371,14 @@ foreach ( $def_file_list as $def_file_bloc)
         if ( $config_code == 'CLMAIN' ) continue;
 
         $okToSave = TRUE;
-        
+
         unset($conf_def, $conf_def_property_list);
-        
+
         $def_file  = get_def_file($config_code);
-        
+
         if ( file_exists($def_file) )
             require($def_file);
-            
+
         if ( is_array($conf_def_property_list) )
         {
             foreach($conf_def_property_list as $propName => $propDef )
@@ -391,8 +394,8 @@ foreach ( $def_file_list as $def_file_bloc)
         {
             $okToSave = FALSE;
         }
-    
-        if ($okToSave) 
+
+        if ($okToSave)
         {
             reset($conf_def_property_list);
             foreach($conf_def_property_list as $propName => $propDef )
@@ -400,110 +403,110 @@ foreach ( $def_file_list as $def_file_bloc)
                 $propValue     = $propDef['default']; // USe default as effective value
                 save_property_in_db($propName,$propValue, $config_code);
             }
-            
+
             $conf_file = get_conf_file($config_code);
-            
+
             if ( !file_exists($conf_file) ) touch($conf_file);
-            
+
             $storedPropertyList = read_properties_in_db($config_code);
-    
+
             if ( is_array($storedPropertyList) && count($storedPropertyList)>0 )
             {
-                
+
                 if ( write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$conf_file,realpath(__FILE__)) )
                 {
-                    // calculate hash of the config file 
-                    //$conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
-                    $conf_hash = filemtime($conf_file); 
+                    // calculate hash of the config file
+                    $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
+                    //$conf_hash = filemtime($conf_file);
                     save_config_hash_in_db($conf_file,$config_code,$conf_hash);
-                }               
-            }                            
+                }
+            }
         }
     }
-}	
+}
 #### CREATE AND WRITE .HTACCESS AND .HTPASSWD4ADMIN HIDDEN FILES #####
 
-	if (PHP_OS!="WIN32" && PHP_OS!="WINNT")
-	{
-		$passFormToStore=crypt($passForm);
-	}
-	else
-	{
-		$passFormToStore=$passForm;
-	}
+    if (PHP_OS!="WIN32" && PHP_OS!="WINNT")
+    {
+        $passFormToStore=crypt($passForm);
+    }
+    else
+    {
+        $passFormToStore=$passForm;
+    }
 
-	// ADD htPassword
+    // ADD htPassword
 
-	$htPasswordPath = "../admin/";
-	$htPasswordName = ".htpasswd4admin";
-	@rename ($htPasswordPath.$htPasswordName,$htPasswordPath.$htPasswordName."_old");
+    $htPasswordPath = "../admin/";
+    $htPasswordName = ".htpasswd4admin";
+    @rename ($htPasswordPath.$htPasswordName,$htPasswordPath.$htPasswordName."_old");
 
-	$filePasswd=@fopen($htPasswordPath.$htPasswordName, "w");
-	if (!$filePasswd)
-	{
-		$filePasswordCreationError = TRUE;
-		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
-	}
-	else
-	{
-		$stringPasswd=cleanwritevalue($loginForm.':'.$passFormToStore);
-		@fwrite($filePasswd, $stringPasswd);
-	}
+    $filePasswd=@fopen($htPasswordPath.$htPasswordName, "w");
+    if (!$filePasswd)
+    {
+        $filePasswordCreationError = TRUE;
+        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
+    }
+    else
+    {
+        $stringPasswd=cleanwritevalue($loginForm.':'.$passFormToStore);
+        @fwrite($filePasswd, $stringPasswd);
+    }
 
-	// htaccess files
+    // htaccess files
 
-	$htAccessAdminPath = "../admin/";
-	$htAccessName = ".htaccess";
-	@rename ($htAccessAdminPath.$htAccessName, 			$htAccessAdminPath.$htAccessName."_old");
-	$fileAccess=@fopen($htAccessAdminPath.$htAccessName, "w");
-	if (!$fileAccess)
-	{
-		$fileAccessInAdminSectionCreationError = TRUE;
-		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
-	}
-	else
-	{
-		$stringAccess='AuthName "Administration Claroline"
-		AuthType Basic
-		Require valid-user
-		AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
+    $htAccessAdminPath = "../admin/";
+    $htAccessName = ".htaccess";
+    @rename ($htAccessAdminPath.$htAccessName,          $htAccessAdminPath.$htAccessName."_old");
+    $fileAccess=@fopen($htAccessAdminPath.$htAccessName, "w");
+    if (!$fileAccess)
+    {
+        $fileAccessInAdminSectionCreationError = TRUE;
+        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
+    }
+    else
+    {
+        $stringAccess='AuthName "Administration Claroline"
+        AuthType Basic
+        Require valid-user
+        AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
 
-		fwrite($fileAccess, $stringAccess);
-	}
+        fwrite($fileAccess, $stringAccess);
+    }
 
-	$htAccessLangPath = "../lang/";
-	$fileAccess=@fopen($htAccessLangPath.$htAccessName, "w");
-	if (!$fileAccess)
-	{
-		$fileAccessInLangRepositoryCreationError = TRUE;
-		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
-	}
-	else
-	{
-		$stringAccess='AuthName "Administration Claroline"
-		AuthType Basic
-		Require valid-user
-		AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
+    $htAccessLangPath = "../lang/";
+    $fileAccess=@fopen($htAccessLangPath.$htAccessName, "w");
+    if (!$fileAccess)
+    {
+        $fileAccessInLangRepositoryCreationError = TRUE;
+        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
+    }
+    else
+    {
+        $stringAccess='AuthName "Administration Claroline"
+        AuthType Basic
+        Require valid-user
+        AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
 
-		fwrite($fileAccess, $stringAccess);
-	}
+        fwrite($fileAccess, $stringAccess);
+    }
 
-	$htAccessSqlPath = "../sql/";
-	$fileAccess=@fopen($htAccessSqlPath.$htAccessName, "w");
-	if (!$fileAccess)
-	{
-		$fileAccessInSqlRepositoryCreationError = TRUE;
-		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
-	}
-	else
-	{
-		$stringAccess='AuthName "Administration Claroline"
-		AuthType Basic
-		Require valid-user
-		AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
+    $htAccessSqlPath = "../sql/";
+    $fileAccess=@fopen($htAccessSqlPath.$htAccessName, "w");
+    if (!$fileAccess)
+    {
+        $fileAccessInSqlRepositoryCreationError = TRUE;
+        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
+    }
+    else
+    {
+        $stringAccess='AuthName "Administration Claroline"
+        AuthType Basic
+        Require valid-user
+        AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
 
-		fwrite($fileAccess, $stringAccess);
-	}
+        fwrite($fileAccess, $stringAccess);
+    }
 
 ############ PROTECTING FILES AGAINST WEB WRITING ###################
 }
@@ -511,36 +514,36 @@ foreach ( $def_file_list as $def_file_bloc)
 // Check File System
 
 $coursesRepositorySysWriteProtected = FALSE;
-$coursesRepositorySysMissing 	    = FALSE;
+$coursesRepositorySysMissing        = FALSE;
 $garbageRepositorySysWriteProtected = FALSE;
 $garbageRepositorySysMissing        = FALSE;
 
 if (file_exists($coursesRepositorySys))
 {
-	if (!is_writable($coursesRepositorySys))
-	{
-		$coursesRepositorySysWriteProtected = TRUE;
-		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
-	}
+    if (!is_writable($coursesRepositorySys))
+    {
+        $coursesRepositorySysWriteProtected = TRUE;
+        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
+    }
 }
 else
 {
-	$coursesRepositorySysMissing = TRUE;
-	$display=DISP_RUN_INSTALL_NOT_COMPLETE;
+    $coursesRepositorySysMissing = TRUE;
+    $display=DISP_RUN_INSTALL_NOT_COMPLETE;
 }
 
 
 if (file_exists($garbageRepositorySys))
 {
-	if (!is_writable($garbageRepositorySys))
-	{
-		$garbageRepositorySysWriteProtected = TRUE;
-		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
-	}
+    if (!is_writable($garbageRepositorySys))
+    {
+        $garbageRepositorySysWriteProtected = TRUE;
+        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
+    }
 }
 else
 {
-	$garbageRepositorySysMissing = TRUE;
-	$display=DISP_RUN_INSTALL_NOT_COMPLETE;
+    $garbageRepositorySysMissing = TRUE;
+    $display=DISP_RUN_INSTALL_NOT_COMPLETE;
 }
 ?>

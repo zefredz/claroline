@@ -1,35 +1,38 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6.*
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * --------------------------------------------------------------------------
+ * @version CLAROLINE 1.6
+ * --------------------------------------------------------------------------
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * --------------------------------------------------------------------------
+ * @license GPL
+ * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * --------------------------------------------------------------------------
+ * @author claro team <info@claroline.net>
+ * --------------------------------------------------------------------------
+ */
 
-//	$chmod0444=chmod( "../inc/conf/config.inc.php", 0444 );
+ // $chmod0444=chmod( "../inc/conf/config.inc.php", 0444 );
 
-// CREATE TABLE `admin`
-// CREATE TABLE `cours`
-// CREATE TABLE `cours_user`
-// CREATE TABLE `course_tool`
+// CREATE TABLE `".$mainTblPrefixForm."admin`
+// CREATE TABLE `".$mainTblPrefixForm."cours`
+// CREATE TABLE `".$mainTblPrefixForm."cours_user`
+// CREATE TABLE `".$mainTblPrefixForm."course_tool`
 // CREATE TABLE faculte
-// CREATE TABLE `user`
+// CREATE TABLE `".$mainTblPrefixForm."user`
 
 ############# claroline DB CREATE #############################
 
-	$sql ="
-CREATE TABLE `admin` (
+    $sql ="
+CREATE TABLE `".$mainTblPrefixForm."admin` (
   `idUser` int(11) unsigned NOT NULL default '0',
   UNIQUE KEY `idUser` (`idUser`)
 ) TYPE=MyISAM";
-	claro_sql_query($sql);
-	$sql ="
-CREATE TABLE `cours` (
+    claro_sql_query($sql);
+    $sql ="
+CREATE TABLE `".$mainTblPrefixForm."cours` (
   `cours_id` int(11) NOT NULL auto_increment,
   `code` varchar(40) default NULL,
   `directory` varchar(20) default NULL,
@@ -59,9 +62,9 @@ CREATE TABLE `cours` (
 ) TYPE=MyISAM COMMENT='data of courses'";
 
 
-	claro_sql_query($sql);
-	$sql ="
-CREATE TABLE `cours_user` (
+    claro_sql_query($sql);
+    $sql ="
+CREATE TABLE `".$mainTblPrefixForm."cours_user` (
   `code_cours` varchar(40) NOT NULL default '0',
   `user_id` int(11) unsigned NOT NULL default '0',
   `statut` tinyint(4) NOT NULL default '5',
@@ -72,16 +75,16 @@ CREATE TABLE `cours_user` (
   KEY `statut` (`statut`)
 ) TYPE=MyISAM";
 claro_sql_query($sql);
-$sql ="CREATE TABLE faculte (
-  id 					int(11) NOT NULL auto_increment,
-  name 					varchar(100) NOT NULL default '',
-  code 					varchar(12) NOT NULL default '',
-  code_P 				varchar(40) default NULL,
-  bc 					varchar(255) default NULL,
-  treePos 				int(10) unsigned default NULL,
-  nb_childs 			smallint(6) default NULL,
-  canHaveCoursesChild 	enum('TRUE','FALSE') default 'TRUE',
-  canHaveCatChild 		enum('TRUE','FALSE') default 'TRUE',
+$sql ="CREATE TABLE `".$mainTblPrefixForm."faculte` (
+  id                    int(11) NOT NULL auto_increment,
+  name                  varchar(100) NOT NULL default '',
+  code                  varchar(12) NOT NULL default '',
+  code_P                varchar(40) default NULL,
+  bc                    varchar(255) default NULL,
+  treePos               int(10) unsigned default NULL,
+  nb_childs             smallint(6) default NULL,
+  canHaveCoursesChild   enum('TRUE','FALSE') default 'TRUE',
+  canHaveCatChild       enum('TRUE','FALSE') default 'TRUE',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `code` (`code`),
   KEY `code_P` (`code_P`),
@@ -89,8 +92,8 @@ $sql ="CREATE TABLE faculte (
 
 ) TYPE=MyISAM;";
 claro_sql_query($sql);
-	$sql ="
-CREATE TABLE `user` (
+    $sql ="
+CREATE TABLE `".$mainTblPrefixForm."user` (
   `user_id` int(11)  unsigned NOT NULL auto_increment,
   `nom` varchar(60) default NULL,
   `prenom` varchar(60) default NULL,
@@ -106,10 +109,10 @@ CREATE TABLE `user` (
    PRIMARY KEY  (`user_id`),
   KEY `loginpass` (`username`,`password`)
 ) TYPE=MyISAM";
-	claro_sql_query($sql);
-        
+    claro_sql_query($sql);
+
 $sql ="
-CREATE TABLE `course_tool` (
+CREATE TABLE `".$mainTblPrefixForm."course_tool` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `claro_label` varchar(8) NOT NULL default '',
   `script_url` varchar(255) NOT NULL default '',
@@ -123,7 +126,7 @@ CREATE TABLE `course_tool` (
 ) TYPE=MyISAM COMMENT='based definiton of the claroline tool used in each course'" ;
         claro_sql_query($sql);
 $sql ="
-CREATE TABLE `class` (
+CREATE TABLE `".$mainTblPrefixForm."class` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(100) NOT NULL default '',
   `class_parent_id` int(11) default NULL,
@@ -133,7 +136,7 @@ CREATE TABLE `class` (
 claro_sql_query($sql);
 
 $sql ="
-CREATE TABLE `rel_class_user` (
+CREATE TABLE `".$mainTblPrefixForm."rel_class_user` (
   `id` int(11) NOT NULL auto_increment,
   `user_id` int(11) NOT NULL default '0',
   `class_id` int(11) NOT NULL default '0',
@@ -141,7 +144,7 @@ CREATE TABLE `rel_class_user` (
 ) TYPE=MyISAM";
 claro_sql_query($sql);
 $sql ="
-CREATE TABLE `config_property` (
+CREATE TABLE `".$mainTblPrefixForm."config_property` (
   `id_property`  int(11) unsigned NOT NULL auto_increment,
   `propName`     varchar(100) NOT NULL,
   `propValue`    varchar(255) NOT NULL,
@@ -151,16 +154,17 @@ CREATE TABLE `config_property` (
   PRIMARY KEY  (`id_property`)
 ) TYPE=MyISAM COMMENT='contain config value of platform'";
 claro_sql_query($sql);
-	
+
 $sql ="
-CREATE TABLE `config_file` (
+CREATE TABLE `".$mainTblPrefixForm."config_file` (
   `config_code` varchar(30) NOT NULL default '',
   `config_hash` varchar(40) NOT NULL default '',
   PRIMARY KEY  (`config_code` )
 ) TYPE=MyISAM  AVG_ROW_LENGTH=48";
 claro_sql_query($sql);
 
-$sql = "CREATE TABLE `sso` (
+
+$sql = "CREATE TABLE `".$mainTblPrefixForm."sso` (
   `id` int(11) NOT NULL auto_increment,
   `cookie` varchar(255) NOT NULL default '',
   `rec_time` datetime NOT NULL default '0000-00-00 00:00:00',

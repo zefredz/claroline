@@ -12,58 +12,60 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-	$dbHostForm		= "localhost";
-	$dbUsernameForm	= "root";
+    $dbHostForm     = "localhost";
+    $dbUsernameForm = "root";
 
-	$dbPrefixForm	= "";
-	$dbNameForm		= $dbPrefixForm."claroline";
-	$dbStatsForm    = $dbPrefixForm."claroline";
-	$dbPrefixForm	= $dbPrefixForm."c_";
+    $dbPrefixForm   = "";
+    $dbNameForm     = $dbPrefixForm."claroline";
+    $dbStatsForm    = $dbPrefixForm."claroline";
+    $dbPrefixForm   = $dbPrefixForm."c_";
+    $mainTblPrefixForm  = "CL_";
+    $statTblPrefixForm  = "CL_";
 
- 	$singleDbForm	= true;
-	$enableTrackingForm = true;
-	/*
-	 * extract the path to append to the url if Claroline is not installed on the web root directory
-	 */
-	 
-	 // remove possible double slashes
-	$urlAppendPath = str_replace( array('///', '//'), '/', $PHP_SELF);
-	// detect if url case sensitivity does matter
-	$caseSensitive = (PHP_OS == 'WIN32' || PHP_OS == 'WINNT') ? 'i' : '';
-	// build the regular expression pattern
-	$ereg = "#/claroline/install/".basename($_SERVER['SCRIPT_NAME'])."$#$caseSensitive";
-    $urlAppendPath 	= preg_replace ($ereg, '', $urlAppendPath);
-  	$urlForm 		= "http://".$_SERVER['SERVER_NAME'].$urlAppendPath."/";
-	$pathForm		= realpath("../..")."/";
+    $singleDbForm   = true;
+    $enableTrackingForm = true;
+    /*
+     * extract the path to append to the url if Claroline is not installed on the web root directory
+     */
 
-	$courseRepositoryForm = "courses/";
-	
-	$adminEmailForm		= '';//$_SERVER['SERVER_ADMIN'];
+     // remove possible double slashes
+    $urlAppendPath = str_replace( array('///', '//'), '/', $PHP_SELF);
+    // detect if url case sensitivity does matter
+    $caseSensitive = (PHP_OS == 'WIN32' || PHP_OS == 'WINNT') ? 'i' : '';
+    // build the regular expression pattern
+    $ereg = "#/claroline/install/".basename($_SERVER['SCRIPT_NAME'])."$#$caseSensitive";
+    $urlAppendPath  = preg_replace ($ereg, '', $urlAppendPath);
+    $urlForm        = "http://".$_SERVER['SERVER_NAME'].$urlAppendPath."/";
+    $pathForm       = realpath("../..")."/";
 
-	$adminNameForm		= 'Doe';
-	$adminSurnameForm	= 'John';
-	$adminPhoneForm    = '(00) 1-23 456 789';
-	$adminEmailForm    = ''; // 
+    $courseRepositoryForm = "courses/";
 
-	$loginForm		    = 'admin';
-	$passForm  		    = '';
+    $adminEmailForm     = '';//$_SERVER['SERVER_ADMIN'];
 
-	$campusForm		     = 'My campus';
-	$contactNameForm     = '*not set*'; // This magic value is use to detect if the content is edit or not.
-	$contactPhoneForm    = '*not set*'; // if <not set> is found, the data form admin are copied
-	$contactEmailForm    = '*not set*'; // This tips  permit to  empty these fields
-	$institutionForm     = '';
-	$institutionUrlForm  = '';
+    $adminNameForm      = 'Doe';
+    $adminSurnameForm   = 'John';
+    $adminPhoneForm    = '(00) 1-23 456 789';
+    $adminEmailForm    = ''; //
 
-	$languageForm = 'english';
+    $loginForm          = 'admin';
+    $passForm           = '';
 
-	$checkEmailByHashSent 			= FALSE;
-	$ShowEmailnotcheckedToStudent 	= TRUE;
-	$userMailCanBeEmpty 			= TRUE;
-	$userPasswordCrypted 			= FALSE;
+    $campusForm          = 'My campus';
+    $contactNameForm     = '*not set*'; // This magic value is use to detect if the content is edit or not.
+    $contactPhoneForm    = '*not set*'; // if <not set> is found, the data form admin are copied
+    $contactEmailForm    = '*not set*'; // This tips  permit to  empty these fields
+    $institutionForm     = '';
+    $institutionUrlForm  = '';
 
-	$allowSelfReg = TRUE;
-	$allowSelfRegProf = TRUE;
+    $languageForm = 'english';
+
+    $checkEmailByHashSent           = FALSE;
+    $ShowEmailnotcheckedToStudent   = TRUE;
+    $userMailCanBeEmpty             = TRUE;
+    $userPasswordCrypted            = FALSE;
+
+    $allowSelfReg = TRUE;
+    $allowSelfRegProf = TRUE;
 
 
 ?>

@@ -82,8 +82,8 @@ $panelTitle[DISP_ADMINISTRATIVE_SETTING]    = 'Additional Informations<small> (o
 $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] = $langLastCheck;
 $panelTitle[DISP_RUN_INSTALL_COMPLETE]      = 'Claroline Installation succeeds';
 
-##### STEP 0 INITIALISE FORM VARIABLES IF FIRST VISIT ##################
 //$rootSys="'.realpath($pathForm).'";
+
 
 if($_REQUEST['cmdLicence'])
 {
@@ -121,6 +121,8 @@ elseif($_REQUEST['cmdDoInstall'])
 {
     $cmd=DISP_RUN_INSTALL_COMPLETE;
 }
+
+##### STEP 0 INITIALISE FORM VARIABLES IF FIRST VISIT ##################
 
 if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step prupose values
 {
@@ -165,13 +167,13 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInsta
         {
             $display=DISP_ADMINISTRATOR_SETTING;
         }
-        else 
+        else
         {
             $display=$cmd;
         }
         $canRunCmd = FALSE;
     }
-    else 
+    else
     {
         // here add some check  on email, password crackability, ... of admin.
     }
@@ -190,7 +192,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
         if (empty($contactEmailForm)||!is_well_formed_email_address($contactEmailForm))
         {
             $check_administrative_data[] = 'email ';
-            if (empty($contactEmailForm))  
+            if (empty($contactEmailForm))
             {
                 $contactEmailForm = $adminEmailForm;
             }
@@ -204,13 +206,13 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
         {
             $display = DISP_ADMINISTRATIVE_SETTING;
         }
-        else 
+        else
         {
             $display = $cmd;
         }
         $canRunCmd = FALSE;
     }
-    else 
+    else
     {
         // here add some check  on email, password crackability, ... of admin.
     }
@@ -227,15 +229,15 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
         $msg = mysql_error();
         $msg_no_connection = '
                 <P class="setup_error">
-                    <font color="red">Warning !</font> 
+                    <font color="red">Warning !</font>
                     <small>['.$no.'] - '.$msg.'</small>
                     <br>';
         if ($no=="2005")
-        $msg_no_connection .= '        
+        $msg_no_connection .= '
                     Wrong '.$langDBHost.' : <I>'.$dbHostForm.'</I>';
         elseif ($no=="1045")
         $msg_no_connection .= '
-                    Wrong database Login : (<I>'.$dbUsernameForm.'</I>) 
+                    Wrong database Login : (<I>'.$dbUsernameForm.'</I>)
                     or Password (<I>'.$dbPassForm.'</I>)';
         else
         $msg_no_connection .= '
@@ -253,13 +255,15 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
         {
             $display=DISP_DB_CONNECT_SETTING;
         }
-        else 
+        else
         {
             $display=$cmd;
         }
     }
 }
 
+
+// CHECK DATA OF DB NAMES Form
 if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall'])
 {
     // re Check Connection //
@@ -293,14 +297,53 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
     {
         $databaseAlreadyExist = false;
     }
-    
+
     // Check to add
     // If database already exist but confirm , ok but not if one of table exist in the db.
 
 }
 
+if($_REQUEST['fromPanel'] == DISP_PLATFORM_SETTING || $_REQUEST['cmdDoInstall'])
+{
+    $platformDataMissing = FALSE;
+    if (empty($urlForm))
+    {
+        $platformDataMissing = TRUE;
+        $missing_platform_data[]='the <B>complete url</b> to your campus (something like <em>http://'.$_SERVER['SERVER_NAME'].$urlAppendPath.'/</em>)';
+
+    }
+
+    if (empty($campusForm))
+    {
+        $platformDataMissing = TRUE;
+        $missing_platform_data[]='the <B>name</b> of your online campus';
+    }
+
+    if($platformDataMissing)
+    {
+        $canRunCmd = FALSE;
+        $msg_missing_platform_data = '<font color="red" >Please fill '.implode(', ',$missing_platform_data).'</font><br>';
+        if ($cmd > DISP_PLATFORM_SETTING)
+        {
+            $display = DISP_PLATFORM_SETTING;
+        }
+        else
+        {
+            $display= $cmd;
+        }
+
+    }
+}
+
+
+
+// ALL Check are done.
+// $canRunCmd has set during checks
+
 if ($canRunCmd)
 {
+    // OK TEST WAS GOOD, What's the next step ?
+
     // SET default display
     $display=DISP_WELCOME;
     if($_REQUEST['cmdLicence'])
@@ -340,7 +383,14 @@ if ($canRunCmd)
         include("./do_install.inc.php");
     }
  }
- 
+
+
+
+
+
+//PREPARE DISPLAY
+
+
 if ($display==DISP_DB_NAMES_SETTING)
 {
     // GET DB Names  //
@@ -361,7 +411,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
     {
         $contactNameForm     = $adminSurnameForm.' '.$adminNameForm;
     }
-    
+
     if ($contactEmailForm == '*not set*')
     {
         $contactEmailForm     = $adminEmailForm;
@@ -394,7 +444,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 
 
 // BEGIN OUTPUT
-    
+
 // COMMON OUTPUT Including top of form  and list of hidden values
 ?>
 <html>
@@ -434,6 +484,8 @@ echo '<input type="hidden" name="alreadyVisited" value="1">'                    
     .'<input type="hidden" name="dbPrefixForm"                 value="'.$dbPrefixForm.'">'                   ."\n"
     .'<input type="hidden" name="dbNameForm"                   value="'.$dbNameForm.'">'                     ."\n"
     .'<input type="hidden" name="dbStatsForm"                  value="'.$dbStatsForm.'">'                    ."\n"
+    .'<input type="hidden" name="mainTblPrefixForm"            value="'.$mainTblPrefixForm.'">'              ."\n"
+    .'<input type="hidden" name="statTblPrefixForm"            value="'.$statTblPrefixForm.'">'              ."\n"
     .'<input type="hidden" name="dbMyAdmin"                    value="'.$dbMyAdmin.'">'                      ."\n"
     .'<input type="hidden" name="dbPassForm"                   value="'.$dbPassForm.'">'                     ."\n\n"
     .'<input type="hidden" name="urlForm"                      value="'.$urlForm.'">'                        ."\n"
@@ -539,19 +591,19 @@ if ($display==DISP_WELCOME)
     if(!$stable)
     {
         echo '
-        <strong>Warning !</strong> 
+        <strong>Warning !</strong>
         This version is not considered as stable
         and is not aimed for production.<br>
 
         If  something goes wrong,
-        come talk on our support forum at 
+        come talk on our support forum at
         <a href="http://www.claroline.net/forum/index.php?c=8" target="_clarodev">http://www.claroline.net</a>.';
     }
 
     if($SERVER_SOFTWARE=="") $SERVER_SOFTWARE = $_SERVER["SERVER_SOFTWARE"];
     $WEBSERVER_SOFTWARE = explode(" ",$SERVER_SOFTWARE,2);
     echo '
-    <p>Read thoroughly <a href="../../INSTALL.txt">INSTALL.txt</a> 
+    <p>Read thoroughly <a href="../../INSTALL.txt">INSTALL.txt</a>
     before proceeding to install.</p>
     <h4>Checking requirement</h4>
 <ul>
@@ -565,7 +617,7 @@ if ($display==DISP_WELCOME)
     warnIfExtNotLoaded("mysql");
     warnIfExtNotLoaded("zlib");
     warnIfExtNotLoaded("pcre");
-	warnIfExtNotLoaded("tokenizer");    
+    warnIfExtNotLoaded("tokenizer");
 //    warnIfExtNotLoaded("exif"); // exif  would be needed later for pic view properties.
 //    warnIfExtNotLoaded("nameOfExtention"); // list here http://www.php.net/manual/fr/resources.php
 
@@ -581,7 +633,7 @@ if ($display==DISP_WELCOME)
         echo '
             <li>
                 <p class="setup_error">
-                    <font color="red">Warning !</font> 
+                    <font color="red">Warning !</font>
                     register_globals is set to <strong>off</strong>.
                     <br>
                     Change the following parameter in your <i>php.ini</i> file to this value :<br>
@@ -605,7 +657,7 @@ if ($display==DISP_WELCOME)
             </LI>';
     }
 
-    if (    ini_get('display_errors') 
+    if (    ini_get('display_errors')
         && (ini_get('error_reporting') & E_NOTICE )
         )
     {
@@ -613,7 +665,7 @@ if ($display==DISP_WELCOME)
             <LI>
                 <font color="red">
                     Warning !
-                </font> 
+                </font>
                 error_reporting include <strong>E_NOTICE</strong>.
                 <br>
                 Change the following parameter in your <i>php.ini</i> file to this value :<br>
@@ -623,7 +675,7 @@ if ($display==DISP_WELCOME)
                 or<BR>
 
                 <font color="blue">
-                    <code>display_errors = off</code> 
+                    <code>display_errors = off</code>
                 </font>
                 <br>
             </LI>';
@@ -742,7 +794,7 @@ elseif($display==DISP_FILE_SYSTEM_SETTING)
                         </td>
                     </tr>
                 </table>';
-}     // cmdDB_CONNECT_SETTING 
+}     // cmdDB_CONNECT_SETTING
 
 
 */
@@ -816,13 +868,13 @@ elseif($display==DISP_DB_CONNECT_SETTING)
                                     Tracking</label>
                             </td>
                             <td>
-                                    <input type="radio" id="enableTrackingForm_enabled" name="enableTrackingForm" value="1" '.($enableTrackingForm?'checked':'').'> 
+                                    <input type="radio" id="enableTrackingForm_enabled" name="enableTrackingForm" value="1" '.($enableTrackingForm?'checked':'').'>
                                     <label for="enableTrackingForm_enabled">
                                         Enabled
                                     </label>
                             </td>
                             <td>
-                                    <input type="radio" id="enableTrackingForm_disabled" name="enableTrackingForm" value="0" '.($enableTrackingForm?'':'checked').'> 
+                                    <input type="radio" id="enableTrackingForm_disabled" name="enableTrackingForm" value="0" '.($enableTrackingForm?'':'checked').'>
                                     <label for="enableTrackingForm_disabled">
                                         Disabled
                                     </label>
@@ -833,13 +885,13 @@ elseif($display==DISP_DB_CONNECT_SETTING)
                             Database mode
                         </td>
                         <td>
-                            <input type="radio" id="singleDbForm_single" name="singleDbForm" value="1" '.($singleDbForm?'checked':'').' > 
+                            <input type="radio" id="singleDbForm_single" name="singleDbForm" value="1" '.($singleDbForm?'checked':'').' >
                             <label for="singleDbForm_single">
                                 Single
                             </label>
                         </td>
                         <td>
-                            <input type="radio" id="singleDbForm_multi" name="singleDbForm" value="0" '.($singleDbForm?'':'checked').' > 
+                            <input type="radio" id="singleDbForm_multi" name="singleDbForm" value="0" '.($singleDbForm?'':'checked').' >
                             <label for="singleDbForm_multi">
                                 Multi
                                 <small>
@@ -862,7 +914,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
                         </td>
                     </tr>
                 </table>';
-}     // cmdDB_CONNECT_SETTING 
+}     // cmdDB_CONNECT_SETTING
 
 
 
@@ -892,23 +944,23 @@ elseif($display == DISP_DB_NAMES_SETTING )
             <td>
                 '.$msg_no_connection.'
                 <h4>'.$langDBNamesRules.'</h4>
-    
+
                 <table width="100%">';
                 if ($mainDbNameExist)
             echo '
                     <tr>
                         <td colspan="2">
                             <P class="setup_error">
-                                <font color="red">Warning</font> 
+                                <font color="red">Warning</font>
                                 : Database <em>'.$dbNameForm.'</em> already exists
                                 <BR>
                                 <input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>
                                 <label for="confirmUseExistingMainDb" >
-                                    I know, I want use it. 
-                                    (Claroline will write in this database 
-                                    over data already present.  
+                                    I know, I want use it.
+                                    (Claroline will write in this database
+                                    over data already present.
                                     Data not overwritten will be kept.
-                                    It would be strange. 
+                                    It would be strange.
                                     Renames or delete your tables is better
                                     )
                                 </label>
@@ -928,6 +980,19 @@ elseif($display == DISP_DB_NAMES_SETTING )
                         <td>
                             &nbsp;
                         </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="mainTblPrefixForm">
+                                Table prefix for central tables
+                            </label>
+                        </td>
+                        <td>
+                            <input type="text"  size="5" id="mainTblPrefixForm" name="mainTblPrefixForm" value="'.cleanoutputvalue($mainTblPrefixForm).'">
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
                     </tr>';
     if (!$singleDbForm)
     {
@@ -937,7 +1002,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     <tr>
                         <td colspan="2">
                             <P class="setup_error">
-                                <font color="red">Warning</font> 
+                                <font color="red">Warning</font>
                                 : '.$dbStatsForm.' already exist
                                 <BR>
                                 <input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>
@@ -945,6 +1010,19 @@ elseif($display == DISP_DB_NAMES_SETTING )
                                     I know, I want use it. (This script write in tables use by claroline.)
                                 </label>
                             </P>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="statTblPrefixForm">
+                                table prefix for central stats tables
+                            </label>
+                        </td>
+                        <td>
+                            <input type="text"  size="5" id="statTblPrefixForm" name="statTblPrefixForm" value="'.cleanoutputvalue($statTblPrefixForm).'">
+                        </td>
+                        <td>
+                            &nbsp;
                         </td>
                     </tr>';
         }
@@ -1008,7 +1086,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     unset($__dbName);
                 }
 */
-}     // cmdDB_CONNECT_SETTING 
+}     // cmdDB_CONNECT_SETTING
 
 
 
@@ -1034,7 +1112,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
                 <h4>Administrator</h4>
                   '.$msg_missing_admin_data.'
                   '.$msg_admin_exist.'
-    
+
                 <table width="100%">
                     <tr>
                         <tr>
@@ -1202,7 +1280,7 @@ echo '
                     </tr>
             <tr>
                 <td colspan=3><br>
-                
+
                     <h5>User self-registration</h5>
                 </td>
             </tr>
@@ -1211,11 +1289,11 @@ echo '
                     Simple user
                 </td>
                 <td>
-                    <input type="radio" id="allowSelfReg_1" name="allowSelfReg" value="1" '.($allowSelfReg?'checked':'').'> 
+                    <input type="radio" id="allowSelfReg_1" name="allowSelfReg" value="1" '.($allowSelfReg?'checked':'').'>
                        <label for="allowSelfReg_1">Enabled</label>
                 </td>
                 <td>
-                    <input type="radio" id="allowSelfReg_0" name="allowSelfReg" value="0" '.($allowSelfReg?'':'checked').'> 
+                    <input type="radio" id="allowSelfReg_0" name="allowSelfReg" value="0" '.($allowSelfReg?'':'checked').'>
                        <label for="allowSelfReg_0">Disabled</label>
                 </td>
             </tr>
@@ -1226,32 +1304,32 @@ echo '
                             Course creator
                         </td>
                         <td>
-                            <input type="radio" id="allowSelfRegProf_1" name="allowSelfRegProf" value="1" '.($allowSelfRegProf?'checked':'').'> 
+                            <input type="radio" id="allowSelfRegProf_1" name="allowSelfRegProf" value="1" '.($allowSelfRegProf?'checked':'').'>
                             <label for="allowSelfRegProf_1">Enabled</label>
                         </td>
                         <td>
-                            <input type="radio" id="allowSelfRegProf_0" name="allowSelfRegProf" value="0" '.($allowSelfRegProf?'':'checked').'> 
+                            <input type="radio" id="allowSelfRegProf_0" name="allowSelfRegProf" value="0" '.($allowSelfRegProf?'':'checked').'>
                             <label for="allowSelfRegProf_0">Disabled</label>
                         </td>
                     </tr>
-        
+
                     <tr>
                         <td colspan="3">
                             &nbsp;
                         </td>
-                    
+
                     </tr>
-        
+
                     <tr>
                         <td>
                             User password
                         </td>
                         <td>
-                            <input type="radio" name="encryptPassForm" id="encryptPassForm_0" value="0"  '.($encryptPassForm?'':'checked').'> 
+                            <input type="radio" name="encryptPassForm" id="encryptPassForm_0" value="0"  '.($encryptPassForm?'':'checked').'>
                             <label for="encryptPassForm_0">Clear text</label>
                         </td>
                         <td>
-                            <input type="radio" name="encryptPassForm" id="encryptPassForm_1" value="1" '.($encryptPassForm?'checked':'').'> 
+                            <input type="radio" name="encryptPassForm" id="encryptPassForm_1" value="1" '.($encryptPassForm?'checked':'').'>
                             <label for="encryptPassForm_1">Crypted</label>
                         </td>
                     </tr>
@@ -1487,11 +1565,11 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
             <BR>
             <input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>
             <label for="confirmUseExistingStatsDb" >I know, I want use it.</label><BR>
-            <font color="red">Warning</font> 
+            <font color="red">Warning</font>
             : this script write in tables use by claroline.
         </P>';
         echo '
-        <P> 
+        <P>
             OR <input type="submit" name="cmdDbNameSetting" value="set DB Names">
         </P>
         <HR>';
@@ -1556,14 +1634,14 @@ elseif($display==DISP_RUN_INSTALL_NOT_COMPLETE)
 Your problems can be related on two possible causes :<br>
 <UL>
     <LI>
-        Permission problems. 
-        <br>Try initially with 
+        Permission problems.
+        <br>Try initially with
         <EM>chmod 777 -R</EM> and increase restrictions gradually.
     </LI>
     <LI>
         PHP is running in
         <a href="http://www.php.net/manual/en/features.safe-mode.php" target="_phpman">
-        SAFE MODE</a>. 
+        SAFE MODE</a>.
         If possible, try to switch it off.
     </LI>
 </UL>
@@ -1628,21 +1706,21 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
                     echo sprintf($langStepNOfN,(array_search(DISP_RUN_INSTALL_COMPLETE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_RUN_INSTALL_COMPLETE];
 
  ?>
-                
+
             </h2>
             <br>
             <br>
             <b>
                 Last tip
-            </b> 
+            </b>
             : we highly recommend that you <strong>protect</strong> or <strong>remove</strong> installer directory.
             <br>
             <br>
-            
+
             <br>
             <br>
-            
-            
+
+
 </form>
 <form action="../../" method="POST">
         <input type="hidden" name="logout" value="TRUE">
@@ -1656,7 +1734,7 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 else
 {
     echo '
-            <pre>$display</pre not set. 
+            <pre>$display</pre not set.
             <BR>
             Error in script. <BR>
             <BR>

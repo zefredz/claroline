@@ -1,17 +1,17 @@
-<?php // $Id$ 
+<?php // $Id$
 /** ***************************************************
  * config lib contain function to manage conf file
  ******************************************************
  * @version CLAROLINE 1.6
  * @copyright &copy; 2001-2005 Universite catholique de Louvain (UCL)
- * @license This program is under the terms of the 
- * GENERAL PUBLIC LICENSE (GPL) as published by the 
- * FREE SOFTWARE FOUNDATION. The GPL is available 
- * through the world-wide-web at 
+ * @license This program is under the terms of the
+ * GENERAL PUBLIC LICENSE (GPL) as published by the
+ * FREE SOFTWARE FOUNDATION. The GPL is available
+ * through the world-wide-web at
  * http://www.gnu.org/copyleft/gpl.html
  * @see http://www.claroline.net/wiki/config_def/
  * @package CONFIG
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½<moosh@claroline.net>
  ******************************************************
  */
 
@@ -283,7 +283,7 @@ function get_conf_file($config_code)
 {
    global $includePath;
 
-   // include definition file and get $conf_def array 
+   // include definition file and get $conf_def array
    $def_file = get_def_file($config_code);
    if (file_exists($def_file)) include $def_file;
 
@@ -323,7 +323,7 @@ function get_conf_name($config_code)
     $def_file = get_def_file($config_code);
 
     // include definition file and get $conf_def array
-    if ( file_exists($def_file) ) 
+    if ( file_exists($def_file) )
         include $def_file;
 
     if ( isset($conf_def['config_name']) )
@@ -358,7 +358,7 @@ function get_conf_hash($config_code)
 
    $result = claro_sql_query($sql);
 
-   if ($row = mysql_fetch_row($result)) 
+   if ($row = mysql_fetch_row($result))
    {
        // return hash value
        return $row[0];
@@ -377,8 +377,8 @@ function is_conf_file_modified($config_code)
     if ( file_exists($conf_file) )
     {
         $hash = get_conf_hash($config_code);
-        //if ( !empty($hash) && $hash != md5_file($conf_file) )
-        if ( !empty($hash) && $hash != filemtime($conf_file) )
+        if ( !empty($hash) && $hash != md5_file($conf_file) )
+        //if ( !empty($hash) && $hash != filemtime($conf_file) )
         {
             // file is modified
             return TRUE;
@@ -400,7 +400,7 @@ function is_conf_file_modified($config_code)
 function validate_property ($propertyValue, $propertyDef)
 {
     global $controlMsg;
-    
+
     $is_valid = TRUE;
 
     // get validation value from property definition
@@ -408,7 +408,7 @@ function validate_property ($propertyValue, $propertyDef)
     $propertyName  = $propertyDef['label'];
     $type          = $propertyDef['type'];
 
-    
+
 
     if( is_array($propertyDef) )
     {
@@ -454,8 +454,8 @@ function validate_property ($propertyValue, $propertyDef)
                 break;
         }
 
-        
-        
+
+
         switch($type)
         {
             case 'boolean' :
@@ -605,7 +605,7 @@ function read_properties_in_db($config_code)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_config_property  = $tbl_mdb_names['config_property'];
 
-    // get value from 
+    // get value from
     $sql = 'SELECT `propName`, `propValue`, unix_timestamp(`lastChange`) `lastChange`
                              FROM `'.$tbl_config_property.'`
                              WHERE config_code = "'.$config_code.'"';
@@ -648,14 +648,14 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
 
         // write header
         fwrite($handle,$fileHeader);
-    
+
         foreach($storedPropertyList as $storedProperty)
         {
             // Writting of a properties include
             // The  comment from technical info
             // the creation (const or var)
             // the comment  of lastChange
-    
+
             $propertyName = $storedProperty['propName'];
             $propertyValue = $storedProperty['propValue'];
 
@@ -667,7 +667,7 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
             {
                 $container = '';
             }
-            
+
             if ( isset($conf_def_property_list[$propertyName]['description']) )
             {
                 $description = $conf_def_property_list[$propertyName]['description'];
@@ -685,8 +685,8 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
             {
                 $technicalInfo = '';
             }
-    
-            // property type define how to write the value 
+
+            // property type define how to write the value
             switch ($conf_def_property_list[$propertyName]['type'])
             {
                 case 'boolean':
@@ -698,15 +698,15 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
                     $valueToWrite = "'". $propertyValue . "'";
                     break;
             }
-            
+
             // description
-            if ( !empty($description) ) 
+            if ( !empty($description) )
             {
                 $propertyDesc = '/* ' . $propertyName . ' : ' . str_replace("\n","",$description) . ' */' . "\n";
             }
             else
             {
-                if ( isset($conf_def_property_list[$propertyName]['label']) ) 
+                if ( isset($conf_def_property_list[$propertyName]['label']) )
                 {
                     $propertyDesc = '/* '.$propertyName.' : '.str_replace("\n","",$conf_def_property_list[$propertyName]['label']).' */'."\n";
                 }
@@ -715,16 +715,16 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
                     $propertyDesc = '';
                 }
             }
-            
-            // technical information 
-            if ( !empty($technicalInfo) ) 
+
+            // technical information
+            if ( !empty($technicalInfo) )
             {
                 $propertyDesc .= '/*'."\n"
                                . str_replace('*/', '* /', $conf_def_property_list[$propertyName]['technicalInfo'])."\n"
                                . '*/'."\n";
             }
 
-            
+
             // container : Constance or variable
             $container = $conf_def_property_list[$propertyName]['container'];
             if ( strtoupper($container)=='CONST' )
@@ -736,13 +736,13 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
                 $propertyLine = '$'.$propertyName.' = '.$valueToWrite.';'."\n";
             }
             $propertyLine .= "\n\n";
-    
 
-             
+
+
             fwrite($handle,$propertyDesc);
             fwrite($handle,$propertyLine);
             fwrite($handle,$propertyGenComment);
-    
+
         }
         fwrite($handle,"\n".'?>');
         fclose($handle);
@@ -798,7 +798,7 @@ function parse_config_file($conf_file)
                     }
                 }
                 //$propList[$possibleVar] =  $vars[$possibleVar];
-                $propList[$possibleVar] =  $$possibleVar;                
+                $propList[$possibleVar] =  $$possibleVar;
             }
             elseif (($tokens[$i][0] == T_CONSTANT_ENCAPSED_STRING ))
             {
@@ -1122,6 +1122,21 @@ function validate_conf_properties ($properties, $config_code)
 
 }
 
+
+
+/**
+ * redefine  unexisting function (for older php)
+ */
+
+if (!function_exists('md5_file'))
+{
+    function md5_file($file_name)
+    {
+       $fileContent = file($file_name);
+       $fileContent = !$file ? false : implode('', $fileContent);
+       return md5($fileContent);
+    }
+}
 
 
 ?>

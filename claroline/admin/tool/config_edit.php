@@ -1,17 +1,17 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6.*
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
 /**
+ * @version CLAROLINE 1.6.*
+ * ----------------------------------------------------------------------
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * ----------------------------------------------------------------------
+ * @license
+ * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * ----------------------------------------------------------------------
+ * @author Mathieu Laurent   <mla@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * ----------------------------------------------------------------------
  * This tool is write to edit setting  of  claroline.
  * In the old claroline, there was a central config file
  * in next release a conf repository was build  with conf files
@@ -84,40 +84,40 @@ $toolNameList = array('CLANN___' => $langAnnouncement,
                       'CLUSR___' => $langUsers);
 
 /* ************************************************************************** */
-/* Process                   
+/* Process
 /* ************************************************************************** */
 
 $display_form = TRUE;
 
 if ( !isset($_REQUEST['config_code']) )
 {
-	// no config_code
-	// return to index
-	$controlMsg['info'][] = "No configuration code";
-	$display_form = FALSE;
+    // no config_code
+    // return to index
+    $controlMsg['info'][] = "No configuration code";
+    $display_form = FALSE;
 }
 else
 {
     // get config_code
-	$config_code = trim($_REQUEST['config_code']);
+    $config_code = trim($_REQUEST['config_code']);
 
     // Get info def and conf file (existing or not) for this config code.
     $def_file  = get_def_file($config_code);
     $conf_file = get_conf_file($config_code);
 
-	if ( file_exists($def_file) )
+    if ( file_exists($def_file) )
     {
         $config_name = get_conf_name($config_code);
 
         if ( isset($_REQUEST['cmd']) && isset($_REQUEST['prop']) )
         {
             if ( $_REQUEST['cmd'] = 'save')
-			{                
+            {
                 $okToSave = TRUE;
 
-				// unset $conf_def & $conf_def_property_list array
+                // unset $conf_def & $conf_def_property_list array
                 unset($conf_def,$conf_def_property_list);
-        
+
                 // get $conf_def & $conf_def_property_list array from definition files
                 require($def_file);
 
@@ -153,22 +153,22 @@ else
                     $okToSave = FALSE;
                     $controlMsg['info'][] = 'Save aborded';
                 }
-        
+
                 if ( $okToSave )
                 {
                     // build the conf file.
-        
+
                     // 1° Get extra info from the def file.
                     require($def_file);
-        
+
                     // 2° Perhaps it's the first creation
                     if ( !file_exists($conf_file) )
                     {
                         // create an empty file
                         if ( touch($conf_file) )
-                        { 
+                        {
                             $controlMsg['info'][] = sprintf($lang_p_config_file_creation,$conf_file);
-                        } 
+                        }
                         else
                         {
                             $controlMsg['info'][] = sprintf($lang_p_config_file_creation,$conf_file);
@@ -176,42 +176,60 @@ else
                     }
 
                     $storedPropertyList = read_properties_in_db($config_code);
-        
+
                     if ( is_array($storedPropertyList) && count($storedPropertyList)>0 )
                     {
-                        
-                        if ( write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$conf_file,realpath(__FILE__)) )
+
+                        if ( write_conf_file( $conf_def
+                                            , $conf_def_property_list
+                                            , $storedPropertyList
+                                            , $conf_file,realpath(__FILE__))
+                                            )
                         {
-                            // calculate hash of the config file 
-                            //$conf_hash = md5_file($conf_file); // not in php 4.1
-                            $conf_hash = filemtime($conf_file);
+                            // calculate hash of the config file
+                            $conf_hash = md5_file($conf_file); // not in php 4.1
+                            //$conf_hash = filemtime($conf_file);
                             if (save_config_hash_in_db($conf_file,$config_code,$conf_hash) )
                             {
-                                $controlMsg['info'][] =  sprintf($lang_p_PropForConfigCommited,$config_name,$config_code);
-                                $controlMsg['debug'][] = 'file generated for <B>'.$config_name.'</B> is <em>'.$conf_file.'</em>'.'<br>Signature : <TT>'.$conf_hash.'</tt>';
+                                $controlMsg['info'][] = sprintf( $lang_p_PropForConfigCommited
+                                                               , $config_name
+                                                               , $config_code
+                                                               );
+                                $controlMsg['debug'][] = 'file generated for '
+                                                       . '<B>'.$config_name.'</B>'
+                                                       .' is '
+                                                       .'<em>'.$conf_file.'</em>'
+                                                       .'<br>Signature : '
+                                                       .'<TT>'.$conf_hash.'</tt>';
                             }
                         }
                         else
                         {
-                            $controlMsg['error'][] = sprintf($lang_p_ErrorOnBuild_S_for_S,$confFile,$config_code);
+                            $controlMsg['error'][] = sprintf( $lang_p_ErrorOnBuild_S_for_S
+                                                            , $confFile
+                                                            , $config_code);
                         }
                     }
                     else
                     {
                         $controlMsg['info'][] = 'No Properties for '.$config_name
-                                               .' ('.$config_code.').<BR><em>'.$confFile.'</em> is not generated';
+                                              . ' ('.$config_code.')
+                                              . <BR>'
+                                              . '<em>'.$confFile.'</em>'
+                                              . ' is not generated'
+                                              ;
                     }
                 }
-				
-			}
 
-		}
+            }
 
-        /*		
+        }
+
+        /*
          *  Get values from database and the configuration file.
          */
 
-		require($def_file);
+        require($def_file);
 
         // read value from buffer (database)
         $storedPropertyList = read_properties_in_db($config_code);
@@ -220,7 +238,7 @@ else
         {
             foreach ( $storedPropertyList as $storedProperty )
             {
-                if ( isset($cond_def[$storedProperty['propName']]) ) 
+                if ( isset($cond_def[$storedProperty['propName']]) )
                 {
                     $conf_def_property_list[$storedProperty['propName']]['actualValue'] = $storedProperty['propValue'];
                 }
@@ -231,7 +249,7 @@ else
         $currentConfContent = parse_config_file($conf_file);
 
         unset($currentConfContent[$config_code.'GenDate']);
-        
+
         $currentConfContentKeyList = is_array($currentConfContent)?array_keys($currentConfContent):array();
         $conf_def_property_listKeyList = is_array($conf_def_property_list)?array_keys($conf_def_property_list):array();
         $unknowValueInConfigFileList = array_diff($currentConfContentKeyList,$conf_def_property_listKeyList);
@@ -269,17 +287,18 @@ else
         if (isset($conf_def['section']['sectionmissing']))
         {
             $conf_def['section']['sectionmissing']['label'] = $langPropertiesNotIncludeInSections;
-            $conf_def['section']['sectionmissing']['description'] = 'This is an error in definition file. Request to the coder of this config to add theses proporties in a section of the definition file.';
+            $conf_def['section']['sectionmissing']['description'] =
+            $langThisIsAnErrorInDefinitionFile.' '.
+            $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile;
+        }
 
-        }	
-
-	}
-	else 
-	{
-		// Definition file doesn't exists
-		$controlMsg['info'][] = sprintf("This %s doesn't exist",$config_code.'.def.conf.php');
-		$display_form = FALSE;
-	}
+    }
+    else
+    {
+        // Definition file doesn't exists
+        $controlMsg['info'][] = sprintf("This %s doesn't exist",$config_code.'.def.conf.php');
+        $display_form = FALSE;
+    }
 
 }
 
@@ -291,20 +310,20 @@ if ( is_conf_file_modified($_REQUEST['config_code']) )
            .'Actually the script prefill with values found in the current conf, '
            .'and overwrite values set in the database'
            ;
-    
+
 }
 
 /* ************************************************************************** */
 /* Display
 /* ************************************************************************** */
 
-if ( !isset($config_name) ) 
+if ( !isset($config_name) )
 {
     $nameTools = $langConfiguration;
 }
 else
 {
-    // tool name and url to edit config file 
+    // tool name and url to edit config file
     $nameTools = $config_name; // the name of the configuration page
     $QUERY_STRING = 'config_code='.$config_code;
 }
@@ -322,9 +341,9 @@ claro_disp_tool_title(array('mainTitle'=>$langConfiguration,'subTitle'=>$nameToo
 // display message
 if ( is_array($controlMsg['debug']) ) unset($controlMsg['debug']);
 
-if ( !empty($controlMsg) ) 
+if ( !empty($controlMsg) )
 {
-	claro_disp_msg_arr($controlMsg);
+    claro_disp_msg_arr($controlMsg);
 }
 
 // Display edition form
@@ -338,27 +357,27 @@ if ( $display_form )
         {
             echo '<p>'.$conf_def['description'].'</p>' . "\n";
         }
-    
+
         // start edition form
         echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '" name="editConfClass" >' . "\n";
         echo '<input type="hidden" name="config_code" value="' . $config_code . '" >' . "\n";
         echo '<input type="hidden" name="cmd" value="save" >' . "\n";
-    
+
         if (is_array($conf_def['section']) )
         {
-    
+
             echo '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n";
 
             // display each section of properties
             foreach($conf_def['section'] as $section)
             {
                 if (!(isset($section['display'])) || $section['display'] )
-                { 
+                {
                     // display fieldset with the label of the section
                     echo '<tr>'
                         .'<th class="superHeader" colspan="3">' . $section['label'] . '</th>'
                         .'</tr>' . "\n";
-        
+
                     // display description of the section
                     if ( !empty($section['description']) )
                     {
@@ -374,7 +393,7 @@ if ( $display_form )
                 // If a value is already set the default value is show as sample.
                 if ( is_array($section['properties']) )
                 {
-    
+
                     // display each property of the section
                     foreach( $section['properties'] as $property )
                     {
@@ -395,10 +414,10 @@ if ( $display_form )
                         }
                     }
                 }
-    
+
             }
             echo '</table>' . "\n";
-    
+
             echo '<input type="submit" value="Save" >' . "\n";
         }
         else
@@ -415,8 +434,8 @@ if ( $display_form )
             foreach ($unknowValueInConfigFileList as $key => $unknowValueInConfigFile)
             {
                 $htmlPropLabel = $unknowValueInConfigFile;
-                echo '<tr style="vertical-align: top">' 
-		           . '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' . "\n"
+                echo '<tr style="vertical-align: top">'
+                   . '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' . "\n"
                    . '<td nowrap="nowrap" colspan="2">' . "\n"
                    . var_export($currentConfContent[$unknowValueInConfigFile],1)
                    .'</td></tr>' . "\n"
