@@ -1,7 +1,7 @@
-<?php # $Id$
+<?php // $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE 1.5.*
+// CLAROLINE 1.6.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -39,7 +39,7 @@ $mysqlRepositorySys = $mysqlRepositorySys ["Value"];
 // MAIN DB                             //
 // DB with central info  of  Claroline //
 
-mysql_query("CREATE DATABASE `$mainDbName`");
+mysql_query("CREATE DATABASE `".$mainDbName."`");
 if (mysql_errno() >0)
 {
 	if (mysql_errno() == 1007)
@@ -244,7 +244,7 @@ $dbNamePrefix		= "'.$dbPrefixForm.'"; // prefix all created base (for courses) w
 
 $is_trackingEnabled	= '.trueFalse($enableTrackingForm).';
 $singleDbEnabled	= '.trueFalse($singleDbForm).'; // DO NOT MODIFY THIS
-$courseTablePrefix	= "'.($singleDbForm?'crs_':'').'"; // IF NOT EMPTY, CAN BE REPLACED BY ANOTHER PREFIX, ELSE LEAVE EMPTY
+$courseTablePrefix	= "'.($singleDbForm && empty($dbPrefixForm)?'crs_':'').'"; // IF NOT EMPTY, CAN BE REPLACED BY ANOTHER PREFIX, ELSE LEAVE EMPTY
 $dbGlu				= "'.($singleDbForm?'_':'`.`').'"; // DO NOT MODIFY THIS
 $mysqlRepositorySys = "'.str_replace("\\","/",realpath($mysqlRepositorySys)."/").'";
 
@@ -273,10 +273,9 @@ $CourseProgram="http://www.ucl.ac.be/etudes/cours";
 
 // Strings
 $siteName				=	"'.$campusForm.'";
-
-$administrator["name"]	=	"'.$adminSurnameForm.' '.$adminNameForm.'";
-$administrator["phone"]	=	"'.$adminPhoneForm.'";
-$administrator["email"]	=	"'.$adminEmailForm.'";
+$administrator["name"]	=	"'.$contactNameForm.'";
+$administrator["phone"]	=	"'.$contactPhoneForm.'";
+$administrator["email"]	=	"'.(empty($contactEmailForm)?$adminEmailForm:$contactEmailForm).'";
 
 $institution["name"]		=	"'.$institutionForm.'";
 $institution["url"]			=	"'.$institutionUrlForm.'";

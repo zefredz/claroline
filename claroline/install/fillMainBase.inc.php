@@ -1,7 +1,7 @@
-<?php # $Id$
+<?php // $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE 1.5.*
+// CLAROLINE 1.6.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -13,7 +13,7 @@
 //----------------------------------------------------------------------
 
 $sql_insert_sample_cats = "
-INSERT INTO faculte
+INSERT INTO `faculte`
 (`code`, `code_P`, `bc`, `treePos`, `nb_childs`, `canHaveCoursesChild`, `canHaveCatChild`, `name`)
 VALUES
 ( 'SC',    NULL, NULL, 1, 0, 'TRUE', 'TRUE', 'Sciences'),
@@ -23,7 +23,7 @@ VALUES
 ( 'MD',     NULL, NULL, 5, 0, 'TRUE', 'TRUE', 'Medicine')
 ";
 
-mysql_query($sql_insert_sample_cats);
+claro_sql_query($sql_insert_sample_cats);
 
 	# add admin as user with statut prof (1)
 	if ($encryptPassForm)
@@ -33,7 +33,7 @@ mysql_query($sql_insert_sample_cats);
 
 
 	$sql = 'select username, nom lastname, prenom firstname  from `'.$dbNameForm.'`.`user` where username = "'.$loginForm.'"';
-	$res = @mysql_query($sql);
+	$res = @claro_sql_query($sql);
 	if(mysql_errno()>0)
 	{
 	// No problem
@@ -42,27 +42,27 @@ mysql_query($sql_insert_sample_cats);
 	$controlUser = mysql_num_rows($res);
 	
 	$sql = "
-INSERT INTO `user` (`nom`, `prenom`, `username`, `password`, `email`, `statut`)
+INSERT INTO `user` (`nom`, `prenom`, `username`, `password`, `email`, `statut`, `phoneNumber` )
 VALUES
-(  '$adminNameForm', '$adminSurnameForm', '$loginForm','$passToStore','$adminEmailForm','1')
+(  '".$adminNameForm."', '".$adminSurnameForm."', '".$loginForm."','".$passToStore."','".$adminEmailForm."','1','".$adminPhoneForm."' )
 ";
 	if ($controlUser>0)
 	{
 		$sql = "
-		UPDATE `user` SET (`nom`, `prenom`, `username`, `password`, `email`, `statut`)
+		UPDATE `user` SET (`nom`, `prenom`, `username`, `password`, `email`, `statut`, `phoneNumber` )
 			VALUES
-		(  '$adminNameForm', '$adminSurnameForm', '$loginForm','$passToStore','$adminEmailForm','1')
+		(  '".$adminNameForm."', '".$adminSurnameForm."', '".$loginForm."','".$passToStore."','".$adminEmailForm."','1','".$adminPhoneForm."' )
 				";	
 	}
 	else
 	{
-		mysql_query($sql);
+		claro_sql_query($sql);
 		## get id of admin  to  write  it in admin table.
 		$idOfAdmin=mysql_insert_id();
 		
 		#add admin in list of admin
 		$sql = "INSERT INTO admin VALUES ('".$idOfAdmin."')";
-		mysql_query($sql);
+		claro_sql_query($sql);
 	}
 $sql = " INSERT INTO `course_tool` 
 (`id`,`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
@@ -79,6 +79,6 @@ VALUES
 (10, 'CLUSR___', 'user/user.php', 'membres.gif', 'ALL', 10, 'AUTOMATIC', 'COURSE_ADMIN'),
 (11, 'CLCHT___', 'chat/chat.php', 'forum.gif', 'ALL', 11, 'AUTOMATIC', 'COURSE_ADMIN')
 ";
-mysql_query($sql);
+claro_sql_query($sql);
 
 ?>

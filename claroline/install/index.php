@@ -1,7 +1,7 @@
-<?php # $Id$
+<?php // $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -17,14 +17,15 @@ GOAL : install claroline 1.5.* on server
 */
 $langAdminSetting ="Admin Setting";
 /* LET DEFINE ON SEPARATE LINES !!!*/
-// __LINE__ use to have arbitrary number
+// __LINE__ use to have arbitrary number but order of panels
 
 define ("DISP_WELCOME",__LINE__);
 define ("DISP_LICENCE",__LINE__);
 define ("DISP_DB_CONNECT_SETTING",__LINE__);
 define ("DISP_DB_NAMES_SETTING",__LINE__);
-define ("DISP_ADMIN_SETTING",__LINE__);
+define ("DISP_ADMINISTRATOR_SETTING",__LINE__);
 define ("DISP_PLATFORM_SETTING",__LINE__);
+define ("DISP_ADMINISTRATIVE_SETTING",__LINE__);
 define ("DISP_LAST_CHECK_BEFORE_INSTALL",__LINE__);
 define ("DISP_RUN_INSTALL_NOT_COMPLETE",__LINE__);
 define ("DISP_RUN_INSTALL_COMPLETE",__LINE__);
@@ -53,6 +54,7 @@ include ("../lang/english/install.inc.php");
 
 include ($newIncludePath."lib/auth.lib.inc.php"); // to generate pass and to cryto it if needed
 include ($newIncludePath."lib/config.lib.inc.php");
+include ($newIncludePath."lib/claro_main.lib.php");
 
 ##### STEP 0 INITIALISE FORM VARIABLES IF FIRST VISIT ##################
 //$rootSys="'.realpath($pathForm).'";
@@ -71,19 +73,27 @@ elseif($_REQUEST['cmdDbNameSetting'])
 {
 	$cmd=DISP_DB_NAMES_SETTING;
 }
-elseif($_REQUEST['cmdAdminSetting'])
+elseif($_REQUEST['cmdAdministratorSetting'])
 {
-	$cmd=DISP_ADMIN_SETTING;
+	$cmd=DISP_ADMINISTRATOR_SETTING;
 }
 elseif($_REQUEST['cmdPlatformSetting'])
 {
 	$cmd=DISP_PLATFORM_SETTING;
 }
+elseif($_REQUEST['install6'])
+{
+	$cmd=DISP_LAST_CHECK_BEFORE_INSTALL;
+}
+elseif($_REQUEST['cmdAdministrativeSetting'])
+{
+	$cmd=DISP_ADMINISTRATIVE_SETTING;
+}
 elseif($_REQUEST['cmdDoInstall'])
 {
 	$cmd=DISP_RUN_INSTALL_COMPLETE;
 }
- 
+
 if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step prupose values
 {
 
@@ -95,7 +105,6 @@ if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step pr
 	$dbStatsForm    = $dbPrefixForm."claroline";
 	$dbPrefixForm	= $dbPrefixForm."c_";
  	$singleDbForm	= true;
-
 
 	/*
 	 * extract the path to append to the url if Claroline is not installed on the web root directory
@@ -111,21 +120,24 @@ if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step pr
   	$urlForm 		= "http://".$_SERVER['SERVER_NAME'].$urlAppendPath."/";
 	$pathForm		= realpath("../..")."/";
 
+	$adminEmailForm		= '';//$_SERVER['SERVER_ADMIN'];
 
-	$adminEmailForm		= $_SERVER['SERVER_ADMIN'];
+	$adminNameForm		= 'Doe';
+	$adminSurnameForm	= 'John';
+	$adminPhoneForm    = '(00) 1-23 456 789';
+	$loginForm		    = 'admin';
+	$passForm  		    = '';
 
-	$adminNameForm		= "Doe";
-	$adminSurnameForm	= "John";
-	$loginForm		= "admin";
-	$passForm  		= "";
+	$campusForm		     = 'My campus';
+	$adminPhoneForm	     = '';
+	$contactNameForm     = '<not set>'; // This magic value is use to detect if the content is edit or not.
+	$contactPhoneForm    = '<not set>'; // if <not set> is found, the data form admin are copied
+	$contactEmailForm    = '<not set>'; // This tips  permit to  empty these fields
+	$institutionForm     = '';
+	$institutionUrlForm  = '';
+	$urlEndForm		     = 'mydir/';
 
-	$campusForm		= "My campus";
-	$adminPhoneForm	= "(000) 001 02 03";
-	$institutionForm= "My Univ";
-	$institutionUrlForm="http://www.google.com/";
-	$urlEndForm		= "mydir/";
-
-	$languageForm = "english";
+	$languageForm = 'english';
 
 	$checkEmailByHashSent 			= false;
 	$ShowEmailnotcheckedToStudent 	= true;
@@ -151,9 +163,9 @@ if ($PHP_SELF == "") $PHP_SELF = $_SERVER["PHP_SELF"];
 
 
 $canRunCmd = true;
-if($_REQUEST['fromPanel'] == DISP_ADMIN_SETTING || $_REQUEST['cmdDoInstall'])
+if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInstall'])
 {
-	if (empty($adminSurnameForm)||empty($passForm)||empty($loginForm)||empty($adminNameForm)||empty($adminEmailForm))
+	if (empty($adminSurnameForm)||empty($passForm)||empty($loginForm)||empty($adminNameForm)||empty($adminEmailForm)||!is_well_formed_email_address($adminEmailForm))
 	{
 		$adminDataMissing = true;
 		if (empty($loginForm)) 			$missing_admin_data[] = 'login';
@@ -161,11 +173,12 @@ if($_REQUEST['fromPanel'] == DISP_ADMIN_SETTING || $_REQUEST['cmdDoInstall'])
 		if (empty($adminSurnameForm)) 	$missing_admin_data[] = 'firstname';
 		if (empty($adminNameForm)) 		$missing_admin_data[] = 'lastname';
 		if (empty($adminEmailForm)) 	$missing_admin_data[] = 'email';
-		
-		$msg_missing_admin_data = '<font color="red" >Please fill '.implode(', ',$missing_admin_data).'</font>';
-		if ($cmd>DISP_ADMIN_SETTING)
+		if (!empty($adminEmailForm) && !is_well_formed_email_address($adminEmailForm)) 	$error_in_admin_data[] = 'email';
+		if (is_array ($missing_admin_data))  $msg_missing_admin_data = '<font color="red" >Please fill '.implode(', ',$missing_admin_data).'</font><br>';
+		if (is_array ($error_in_admin_data)) $msg_missing_admin_data .= '<font color="red" >Please check '.implode(', ',$error_in_admin_data).'</font><br>';
+		if ($cmd>DISP_ADMINISTRATOR_SETTING)
 		{
-			$display=DISP_ADMIN_SETTING;
+			$display=DISP_ADMINISTRATOR_SETTING;
 		}
 		else 
 		{
@@ -179,15 +192,53 @@ if($_REQUEST['fromPanel'] == DISP_ADMIN_SETTING || $_REQUEST['cmdDoInstall'])
 	}
 }
 
+if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
+{
+	if (empty($contactEmailForm)||empty($contactNameForm)||!is_well_formed_email_address($contactEmailForm))
+	{
+		$administrativeDataMissing = true;
+		if (empty($contactNameForm))
+		{
+			$check_administrative_data[] = 'name of contact';
+			$contactNameForm = $adminNameForm;
+		}
+		if (empty($contactEmailForm)||!is_well_formed_email_address($contactEmailForm))
+		{
+			$check_administrative_data[] = 'email ';
+			if (empty($contactEmailForm))  
+			{
+				$contactEmailForm = $adminEmailForm;
+			}
+			else 	// if not empty but wrong, I can suppose the good value, so I let it blank
+			{
+				$contactEmailForm ="";
+			}
+		}
+		$msg_missing_administrative_data = '<font color="red" >Please check '.implode(', ',$check_administrative_data).'</font><br>';
+		if ( $cmd > DISP_ADMINISTRATIVE_SETTING )
+		{
+			$display = DISP_ADMINISTRATIVE_SETTING;
+		}
+		else 
+		{
+			$display = $cmd;
+		}
+		$canRunCmd = false;
+	}
+	else 
+	{
+		// here add some check  on email, password crackability, ... of admin.
+	}
+}
 
 if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall'])
 {
 	// Check Connection //
 	$databaseParam_ok = true;
 	$db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
-	if (mysql_errno()>0) // problem with server
+	if ( mysql_errno() > 0 ) // problem with server
 	{
-		$no = mysql_errno();
+		$no  = mysql_errno();
 		$msg = mysql_error();
 		$msg_no_connection = '
 				<P class="setup_error">
@@ -238,10 +289,10 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
 			($valStat && !$confirmUseExistingStatsDb)
 		)
 	{
-		$databaseAlreadyExist = true;
+		$databaseAlreadyExist             = true;
 		if ($valMain)	$mainDbNameExist  = true;
 		if ($valStat)	$statsDbNameExist = true;
-		$canRunCmd = false;
+		$canRunCmd                        = false;
 	    if ($cmd > DISP_DB_NAMES_SETTING)
 	    {
 	    	$display = DISP_DB_NAMES_SETTING;
@@ -255,6 +306,10 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
 	{
 		$databaseAlreadyExist = false;
 	}
+	
+	// Check to add
+	// If database already exist but confirm , ok but not if one of table exist in the db.
+
 }
 
 if ($canRunCmd)
@@ -277,13 +332,17 @@ if ($canRunCmd)
 	{
 		$display = DISP_DB_NAMES_SETTING;
 	}
-	elseif($_REQUEST['cmdAdminSetting'])
+	elseif($_REQUEST['cmdAdministratorSetting'])
 	{
-		$display = DISP_ADMIN_SETTING;
+		$display = DISP_ADMINISTRATOR_SETTING;
 	}
 	elseif($_REQUEST['cmdPlatformSetting'])
 	{
 		$display = DISP_PLATFORM_SETTING;
+	}
+	elseif($_REQUEST['cmdAdministrativeSetting'])
+	{
+		$display = DISP_ADMINISTRATIVE_SETTING;
 	}
 	elseif($_REQUEST['cmdDoInstall'])
 	{
@@ -305,6 +364,24 @@ if ($display==DISP_DB_NAMES_SETTING)
 	unset($__dbName);
 }
 
+
+if ($display==DISP_ADMINISTRATIVE_SETTING)
+{
+	if ($contactNameForm == '<not set>')
+	{
+		$contactNameForm     = $adminSurnameForm.' '.$adminNameForm;
+	}
+	
+	if ($contactEmailForm == '<not set>')
+	{
+		$contactEmailForm     = $adminEmailForm;
+	}
+
+	if ($contactPhoneForm == '<not set>')
+	{
+		$contactPhoneForm     = $adminPhoneForm;
+	}
+}
 
 
 
@@ -350,7 +427,7 @@ if ($display==DISP_DB_NAMES_SETTING)
 	<tr bgcolor="navy">
 		<td valign="top">
 			<font color="white">
-				Claroline 1.5 Release Candidate (<?php echo $clarolineVersion ?>) - installation
+				Claroline 1.5 (<?php echo $clarolineVersion ?>) - installation
 			</font>
 		</td>
 	</tr>
@@ -381,6 +458,7 @@ echo "
 
 			<input type=\"hidden\" name=\"urlForm\" value=\"$urlForm\">
 			<input type=\"hidden\" name=\"adminEmailForm\" value=\"$adminEmailForm\">
+			<input type=\"hidden\" name=\"adminPhoneForm\" value=\"$adminPhoneForm\">
 			<input type=\"hidden\" name=\"adminNameForm\" value=\"$adminNameForm\">
 			<input type=\"hidden\" name=\"adminSurnameForm\" value=\"$adminSurnameForm\">
 
@@ -393,6 +471,9 @@ echo "
 
 			<input type=\"hidden\" name=\"campusForm\" value=\"$campusForm\">
 			<input type=\"hidden\" name=\"adminPhoneForm\" value=\"$adminPhoneForm\">
+			<input type=\"hidden\" name=\"contactNameForm\" value=\"$contactNameForm\">
+			<input type=\"hidden\" name=\"contactEmailForm\" value=\"$contactEmailForm\">
+			<input type=\"hidden\" name=\"contactPhoneForm\" value=\"$contactPhoneForm\">
 			<input type=\"hidden\" name=\"institutionForm\" value=\"$institutionForm\">
 			<input type=\"hidden\" name=\"institutionUrlForm\" value=\"$institutionUrlForm\">
 
@@ -881,7 +962,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 							&nbsp;
 						</td>
 						<td align="right">
-							<input type="submit" name="cmdAdminSetting" value="Next &gt;">
+							<input type="submit" name="cmdAdministratorSetting" value="Next &gt;">
 						</td>
 					</tr>
 				</table>';
@@ -913,7 +994,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 ##########################################################################
 ###### STEP CONFIG SETTINGS ##############################################
 ##########################################################################
-elseif($display==DISP_ADMIN_SETTING)
+elseif($display==DISP_ADMINISTRATOR_SETTING)
 
 {
 	echo '
@@ -921,7 +1002,7 @@ elseif($display==DISP_ADMIN_SETTING)
 				<h2>
 					'.$langStep5.' : '.$langAdminSetting.'
 				</h2>
-				The following values will be written in `<em>'.$configFilePath.'</em>´
+				The following values will be written in table <em>`'.$dbNameForm.'`.`user`</em>
 			</td>
 		</tr>
 		<tr>
@@ -958,6 +1039,15 @@ elseif($display==DISP_ADMIN_SETTING)
 							</td>
 							<td>
 							<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.$adminEmailForm.'">
+							</td>
+							<td>
+							</td>
+						</tr>
+						<td>
+								<label for="adminPhoneForm">Phone</label>
+							</td>
+							<td>
+							<input type="text" size="40" id="adminPhoneForm" name="adminPhoneForm" value="'.$adminPhoneForm.'">
 							</td>
 							<td>
 							</td>
@@ -1092,10 +1182,9 @@ echo '
 						</tr>
 -->
 			<tr>
-				<td colspan=3><br><br>
+				<td colspan=3><br>
 				
-				
-					User self-registration
+					<h5>User self-registration</h5>
 				</td>
 			</tr>
 			<tr>
@@ -1147,21 +1236,14 @@ echo '
 							<label for="encryptPassForm_1">Crypted</label>
 						</td>
 					</tr>
-
-					<tr>
-						<td>
-						</td>
-						<td>
-						</td>
-						</tr>
 				</table>
 				<table width="100%">
 						<tr>
 							<td>
-								<input type="submit" name="cmdAdminSetting" value="&lt; Back">
+								<input type="submit" name="cmdAdministratorSetting" value="&lt; Back">
 							</td>
 							<td align="right">
-								<input type="submit" name="install6" value="Next &gt;">
+								<input type="submit" name="cmdAdministrativeSetting" value="Next &gt;">
 							</td>
 						</tr>
 					</table>';
@@ -1169,6 +1251,104 @@ echo '
 
 
 
+
+
+
+
+
+
+###################################################################
+###### STEP CONFIG SETTINGS #######################################
+###################################################################
+elseif($display==DISP_ADMINISTRATIVE_SETTING)
+
+{
+	echo '
+	             <input type="hidden" name="fromPanel" value="'.$display.'">
+				<h2>
+					'.$langStep7.' : Additional Informations
+					<small> (optional)</small>
+				</h2>'
+				.$msg_missing_administrative_data ;
+	echo '
+				The following values will be written in `<em>'.$configFilePath.'</em>´
+			</td>
+		</tr>
+		<tr>
+			<td>
+				'.$msg_missing_platform_data.'
+				<table >
+					<tr>
+						<td colspan="3">
+						<H5>Related organisation</H5>
+					</tr>
+					<tr>
+							<td>
+								<label for="institutionForm">Name</label>
+							</td>
+							<td colspan="2">
+								<input type="text" size="40" id="institutionForm" name="institutionForm" value="'.$institutionForm.'">
+							</td>
+						</tr>
+					<tr>
+						<td>
+							<label for="institutionUrlForm">URL</label>
+						</td>
+						<td colspan="2">
+							<input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="'.$institutionUrlForm.'">
+							<br>
+						</td>
+					</tr>
+				<tr>
+						<td colspan="3"><br>
+						
+					</tr>
+					<tr>
+						<td colspan="3">
+						<H5>Campus contact</H5>
+					</tr>
+					<tr>
+						<td>
+							<label for="contactNameForm">Name</label>
+						</td>
+						<td colspan="2">
+							<input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.$contactNameForm.'">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="contactEmailForm">URL</label>
+						</td>
+						<td colspan="2">
+							<input type="text" size="40" id="contactEmailForm" name="contactEmailForm" value="'.$contactEmailForm.'">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="contactPhoneForm">Phone</label>
+						</td>
+						<td colspan="2">
+							<input type="text" size="40" id="contactPhoneForm" name="contactPhoneForm" value="'.$contactPhoneForm.'">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							&nbsp;
+						</td>
+					
+					</tr>
+				</table>
+				<table width="100%">
+						<tr>
+							<td>
+								<input type="submit" name="cmdPlatformSetting" value="&lt; Back">
+							</td>
+							<td align="right">
+								<input type="submit" name="install6" value="Next &gt;">
+							</td>
+						</tr>
+					</table>';
+}
 
 
 
@@ -1192,7 +1372,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 
 	echo '
 				<h2>
-					'.$langStep7.' : '.$langLastCheck.'
+					'.$langStep8.' : '.$langLastCheck.'
 				</h2>
 		Here are the values you entered <br>
 		<Font color="red">
@@ -1222,8 +1402,8 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 		<FIELDSET>
 		<LEGEND>Admin</LEGEND>
 		Administrator email : '.$adminEmailForm.'<br>
+		Administrator phone : '.$adminPhoneForm.'<br>
 		Administrator Name : '.$adminNameForm.'<br>
-
 		Administrator Surname : '.$adminSurnameForm.'<br>
 		<table border=0 class="notethis">
 			<tr>
@@ -1236,14 +1416,20 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 			<tr>
 		</table>
 		</FIELDSET>
-		
+		<FIELDSET>
+		<LEGEND>Contact</LEGEND>
+
+		Name : '.(empty($contactNameForm)?"--empty--":$contactNameForm).'<br>
+		Email : '.(empty($contactEmailForm)?$adminEmailForm:$contactEmailForm).'<br>
+		Phone : '.(empty($contactPhoneForm)?"--empty--":$contactPhoneForm).'
+		</FIELDSET>
 		<FIELDSET>
 		<LEGEND>Campus</LEGEND>
-		Language : '.$languageForm.'<br>
-		URL of claroline : '.$urlForm.'<br>
 		Your campus Name : '.$campusForm.'<br>
 		Your organisation : '.$institutionForm.'<br>
 		URL of this organisation : '.$institutionUrlForm.'<br>
+		Language : '.$languageForm.'<br>
+		URL of claroline : '.$urlForm.'<br>
 		</FIELDSET>
 		<FIELDSET>
 		<LEGEND>Config</LEGEND>
@@ -1261,7 +1447,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 		<table width="100%">
 			<tr>
 				<td>
-					<input type="submit" name="cmdPlatformSetting" value="&lt; Back">
+					<input type="submit" name="cmdAdministrativeSetting" value="&lt; Back">
 				</td>
 				<td align="right">
 					<input type="submit" name="cmdDoInstall" value="Install Claroline &gt;">
@@ -1593,4 +1779,21 @@ function check_if_db_exist($db_name,$db=null)
 	$foundDbName = mysql_fetch_array($res, MYSQL_NUM);
 	return $foundDbName;
 }
+
+function check_claro_table_in_db_exist($dbType,$db=null)
+{
+	GLOBAL $dbName;
+	switch ($dbType)
+	{
+		case 'main' :
+			
+			break;
+		case 'stat' :
+			break;
+		default :
+			die('error in check_claro_table_in_db_exist function called with an unknow type : "'.$dbType.'"');
+	}
+	return false;
+}
+
 ?>
