@@ -167,6 +167,7 @@ function prepare_course_repository($courseRepository, $courseId)
 		mkdir($coursesRepositorySys.$courseRepository."/page", 0777);
 		mkdir($coursesRepositorySys.$courseRepository."/work", 0777);
 		mkdir($coursesRepositorySys.$courseRepository."/group", 0777);
+		mkdir($coursesRepositorySys.$courseRepository."/chat", 0777);
 
 		mkdir($coursesRepositorySys.$courseRepository."/modules", 0777);
 		mkdir($coursesRepositorySys.$courseRepository."/scormPackages", 0777);
