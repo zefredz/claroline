@@ -252,7 +252,7 @@ if($is_allowedToUse)	// check teacher status
                 {
                     if (!claro_mail_user($userId, $emailBody, $emailSubject, $senderMail, $senderFirstName." ".$senderLastName))
                     {
-                        $messageFailed.= claro_failure::get_last_failure() . "<br />";
+                        $messageFailed.= claro_failure::get_last_failure();
                         $countUnvalid++;
                     }
                 }
