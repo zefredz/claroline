@@ -55,6 +55,13 @@ $langAllowLateUploadShort = "Soumissions tardives";
 $langAllowLateUpload = "Oui, autoriser les utilisateurs à soumettre leur travail après la date de fin";
 $langPreventLateUpload = "Non, ne pas autoriser les utilisateurs à soumettre leur travail après la date de fin";
 
+$langStandardGradingHelp = "La correction standard est optionnelle, si elle est complétée elle sera affichée aux étudiants à partir de la date de soumission choisie.";
+$langStandardGrading = "Correction standard";
+$langStandardGradingText = "Texte correctif";
+$langStandardGradingFile = "Fichier correctif";
+$langCurrentStandardGradingFile = "Fichier correctif actuel";
+$langStandardGradingDate = "Date de soumission de la correction";
+
 // work
 $langWrkTitle = "Titre du travail";
 $langWrkAuthors = "Auteur(s)";
@@ -81,7 +88,7 @@ $langGradeAdded = "Correction ajoutée";
 // errors
 $langTooBig = "Fichier trop grand";
 $langSessionTitleRequired = "Titre de la session requis";
-$langTitleAlreadyExists = "Le titre de la session existe déjà";
+$langSesTitleAlreadyExists = "Le titre de la session existe déjà";
 $langCannotCopyFile = "Impossible de copier le fichier";
 $langWrkTitleAlreadyExists = "Le titre du travail existe déjà";
 $langWrkTitleRequired = "Titre du travail requis";
