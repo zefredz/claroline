@@ -123,7 +123,33 @@ NEW CLAROLINE INSTALLATION
 UPDGRADE FROM PREVIOUS CLAROLINE VERSION
 ----------------------------------------
 
-	No upgrade are provided in beta stage
+Before upgrading we heavily recommend you do a full backup of the previous
+Claroline directories and databases. If you are unsure how to achieve this
+please ask your hosting provider for advice.
+
+
+1. Download 'claroline150RC2.tar.gz'
+   Windows : download 'claroline150RC2.zip'.
+
+2. Open a shell, go to download directory and type
+   tar -zxvf claroline150RC2.tar.gz
+   Windows : unzip 'claroline150RC2.zip'.
+
+3. Replace your previous Claroline directory and index.php by the new one.
+
+       Warning : don't delete the previous directory before installing
+       the new one. You will loose your config.php file. Replace it with
+       a 'copy' command.
+
+4. CHMOD 666 claroline/include/config.php if necessary
+
+5. Open Web Browser and go to
+   http://www.mydomain.org/mysite/mydir/claroline/admin/maintenance/upgrade.php
+   Windows with easyphp locally, open:
+   http://localhost/mydir/claroline/admin/maintenance/upgrade.php
+
+6. Follow instructions.
+
 
 TROUBLESHOOTING
 ===============
