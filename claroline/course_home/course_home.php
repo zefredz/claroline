@@ -55,9 +55,9 @@ if ( ! isset($coursesAlreadyVisited[$_cid]))
 
 
 ?>
-<table border="0" cellspacing="10">
+<table border="0" cellspacing="10" cellpadding="10">
 <tr>
-<td nowrap valign="top">
+<td nowrap valign="top" style="border-right: gray solid 1px;">
 <?php
 
 /*
