@@ -11,7 +11,10 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-require '../../../inc/claro_init_global.inc.php';
+$cidReset=true;
+$gidReset=true;
+
+require '../../../inc/claro_init_global.inc.php'
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
 
