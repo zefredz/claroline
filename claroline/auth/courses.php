@@ -145,7 +145,20 @@ if ($cmd == 'exUnreg')
 
 if ($cmd == 'exReg')
 {
-    if ( add_user_to_course($userId, $_REQUEST['course']) )
+    // if user is platform admin, register to private course can be forced. Otherwise not
+    
+    if ($is_platformAdmin)
+    {
+      $forceReg = true;
+    }
+    else
+    {
+      $forceReg = false;
+    }
+    
+    // try to register user
+    
+    if ( add_user_to_course($userId, $_REQUEST['course'],$forceReg) )
     {
         if ($_uid!=$uidToEdit)
         {
@@ -217,8 +230,21 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
         /*
          * Get the courses contained in this category
          */
-
-        $sql = "SELECT c.visible, c.intitule, c.directory, c.code, 
+        
+	// 1 platform admin can also see private courses so they must be displayed, other users can not.
+	
+	if (!$is_platformAdmin) 
+	{
+	    $visibility_cond = "(c.visible=\"2\" OR c.visible=\"1\")";
+	}
+	else
+	{
+	    $visibility_cond = "1=1";
+	}
+	
+	// 2 build the query taking account with the user rights   
+        
+	$sql = "SELECT c.visible, c.intitule, c.directory, c.code, 
                         c.titulaires, c.languageCourse, c.fake_code officialCode,
                         cu.user_id enrolled
 
@@ -228,7 +254,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
                 ON (c.code = cu.code_cours AND cu.user_id = ".$userId.")
 
                 WHERE faculte = '".$category."'
-                AND   (c.visible=\"2\" OR c.visible=\"1\")
+                AND   ".$visibility_cond."
 
                 ORDER BY UPPER(fake_code)";
 
@@ -256,7 +282,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 
         $sql = "SELECT `faculte`.`code`  , `faculte`.`name`,
                        `faculte`.`code_P`, `faculte`.`nb_childs`,
-                       COUNT( `cours`.`cours_id` ) `nbCourse`
+                       COUNT( c.`cours_id` ) `nbCourse`
 
                 FROM `".$tbl_course_nodes."` `faculte`
 
@@ -266,9 +292,9 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
                 ON  `subCat`.`treePos` >= `faculte`.`treePos`
                 AND `subCat`.`treePos` <= (`faculte`.`treePos` + `faculte`.`nb_childs`)
 
-                LEFT JOIN `".$tbl_course."` `cours`
-                ON `cours`.`faculte` = `subCat`.`code`
-                AND (`cours`.`visible` = \"2\" OR `cours`.`visible` = \"1\")
+                LEFT JOIN `".$tbl_course."` c
+                ON c.`faculte` = `subCat`.`code`
+                AND ".$visibility_cond."
 
                 # filter to get the current and direct children categories
 
@@ -681,32 +707,44 @@ include($includePath."/claro_init_footer.inc.php");
 
 function search_course($keyword)
 {
-	global $userId;
-	$tbl_mdb_names = claro_sql_get_main_tbl();
-	$tbl_course           = $tbl_mdb_names['course'           ];
-	$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+    global $userId;
+    global $is_platformAdmin;
+    
+    $tbl_mdb_names        = claro_sql_get_main_tbl();
+    $tbl_course           = $tbl_mdb_names['course'           ];
+    $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
 
-	$keyword = trim($keyword);
+    $keyword = trim($keyword);
+    
+    if (!$is_platformAdmin) 
+    {
+        $visibility_cond = "(c.visible=\"2\" OR c.visible=\"1\")";
+    }
+    else
+    {
+        $visibility_cond = "1=1";
+    }
     
     if (empty($keyword) ) return array();
     $upperKeyword = trim(strtoupper($keyword));
 
 	$sql = 'SELECT c.intitule, c.titulaires, c.fake_code officialCode, c.code,
-                   cu.user_id enrolled
+                   cu.user_id enrolled, c.visible
             FROM `'.$tbl_course.'` c
             
             LEFT JOIN `'.$tbl_rel_course_user.'` cu
             ON  c.code = cu.code_cours 
             AND cu.user_id = "'.$userId.'"
 
-            WHERE UPPER(fake_code)  LIKE "%'.$upperKeyword.'%"
+            WHERE '.$visibility_cond.'
+	    AND   (UPPER(fake_code)  LIKE "%'.$upperKeyword.'%"
             OR    UPPER(intitule)   LIKE "%'.$upperKeyword.'%"
-            OR    UPPER(titulaires) LIKE "%'.$upperKeyword.'%"
+            OR    UPPER(titulaires) LIKE "%'.$upperKeyword.'%")
 
-            AND (c.visible = 1 OR  c.visible = 2)
+            
             
             ORDER BY officialCode';
-                            
+                        
     $courseList = claro_sql_query_fetch_all($sql);
 
 	if (count($courseList) > 0) return $courseList;
