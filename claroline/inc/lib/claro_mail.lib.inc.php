@@ -23,7 +23,6 @@ require("class.phpmailer.php");
 
 function claro_mail_spool($mails) 
 {
-	global $From;
 	global $administrator;
 
 	$tbl = claro_sql_get_main_tbl();
@@ -31,7 +30,7 @@ function claro_mail_spool($mails)
 
 	foreach ($mails as $mailToSend)
 	{
-		$specificFrom = trim( $mailToSend['from']==""?$From:$mailToSend['from']);
+		$specificFrom = trim( $mailToSend['from']==""?$administrator['email']:$mailToSend['from']);
      //find user email in claro db
 	   $sql = '	SELECT * 
 	   				FROM `'.$tbl_user.'` as `claro_user`
@@ -72,7 +71,7 @@ function claro_mail_spool($mails)
 	   }
 	   else
 	   {
-	        $mail->From = $From;
+	        $mail->From = $administrator['email'];
 	   }
 
 	   if ($specificFromName!="") //takes from name if given in parameters
@@ -156,23 +155,18 @@ function claro_mail_spool($mails)
 
 function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specificFromName="" ) 
 {
-	include('../inc/conf/claro_main.conf.php');
+//	include('../inc/conf/claro_main.conf.php');
 
-	global $From, $administrator, $regexp;
+	global $administrator, $regexp;
 
 	$tbl = claro_sql_get_main_tbl();
-	$TABLEUSER = $tbl['user'];
-		
-	if ($specificFrom=="") 
-	{
-		$specificFrom = $From;
-	}
-	$tbl_user = $mainDbName."`.`user";
+	$tbl_user = $tbl['user'];
 
 	//find user email in claro db
 
-	$sql = 'SELECT * FROM `'.$tbl_user.'` as claro_user
-		            WHERE claro_user.user_id = "'.$user_id.'"';
+	$sql = 'SELECT * FROM `'.$tbl_user.'` as `claro_user`
+		            WHERE `claro_user`.`user_id` = "'.$user_id.'"';
+
 	$result = mysql_query($sql);
 	if (mysql_num_rows($result))
 	{
@@ -198,7 +192,8 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
 	}
 	else
 	{
-		$mail->From = $From;
+		// by default the mail is sent by the administrator
+		$mail->From = $administrator["email"];
 	}
 		
 	if ($specificFromName!="") //takes from name if given in parameters
