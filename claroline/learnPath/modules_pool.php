@@ -141,7 +141,7 @@
          //get current comment from DB
          $query="SELECT `name`
                    FROM `".$TABLEMODULE."`
-                  WHERE `module_id` = '".$_GET['mod_id']."'";
+                  WHERE `module_id` = '".$_GET['module_id']."'";
          $result = claro_sql_query($query);
          $list = mysql_fetch_array($result);
          echo "
@@ -150,7 +150,7 @@
              <input type=\"text\" name=\"newName\" id=\"newName\" value=\"".htmlspecialchars($list['name'])."\"></input>
              <input type=\"submit\" value=\" Ok \" name=\"submit\">
              <input type=\"hidden\" name=\"cmd\" value=\"mkrename\">
-             <input type=\"hidden\" name=\"mod_id\" value=\"".$_GET['mod_id']."\">
+             <input type=\"hidden\" name=\"module_id\" value=\"".$_GET['module_id']."\">
          </form>
          ";
          break;
@@ -173,7 +173,7 @@
                  // if no error occurred, update module's name in the database
                  $query="UPDATE `".$TABLEMODULE."`
                          SET `name`= '".claro_addslashes($_POST['newName'])."'
-                         WHERE module_id = '".$mod_id."'";
+                         WHERE module_id = '".$module_id."'";
                   //echo $query."<br>";
                   $result = claro_sql_query($query);
               }
@@ -194,7 +194,7 @@
          //get current comment from DB
          $query="SELECT *
                  FROM `".$TABLEMODULE."`
-                 WHERE `module_id` = '".$_GET['mod_id']."'";
+                 WHERE `module_id` = '".$_GET['module_id']."'";
          $result = claro_sql_query($query);
          $list = mysql_fetch_array($result);
          if ( $cmd == "comment" )
@@ -264,10 +264,10 @@
                         </a>
                     </td>
                     <td align=\"center\">
-                       <a href=\"",$PHP_SELF,"?cmd=rename&mod_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=0 alt=\"$langRename\" /></a>
+                       <a href=\"",$PHP_SELF,"?cmd=rename&module_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=0 alt=\"$langRename\" /></a>
                     </td>
                     <td align=\"center\">
-                       <a href=\"",$PHP_SELF,"?cmd=comment&mod_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/comment.gif\" border=0 alt=\"$langComment\" /></a>
+                       <a href=\"",$PHP_SELF,"?cmd=comment&module_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/comment.gif\" border=0 alt=\"$langComment\" /></a>
                     </td>";
             echo "</tr>";
             /*
