@@ -31,8 +31,8 @@ include($includePath.'/lib/claro_mail.lib.inc.php');
 
 
 $nameTools        = $langAddAU;
-$interbredcrump[] = array ("url"=>"user.php", "name"=> $langUsers);
-include("../inc/claro_init_header.inc.php");
+$interbredcrump[] = array ('url'=>'user.php', 'name'=> $langUsers);
+include('../inc/claro_init_header.inc.php');
 
 claro_disp_tool_title(array('mainTitle' =>$nameTools, 'subTitle' => $langUsers),
 				'help_user.php');
