@@ -424,13 +424,13 @@ Bemærk : Adskillige elementer fra den første nehd kan pege på det samme element 
 Angiv værdi på hvert korrekt svar, og gem din svar.</p>
 <hr>
 <b>Ændre i øvelserne</b>
-<p>For at kunne ændre i en øvelse er princippet det samme som, når du opretter en øvelse. Klik på billedet <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> ved siden af øvelsen for at ændre og følg instruktionerne.</p>
+<p>For at kunne ændre i en øvelse er princippet det samme som, når du opretter en øvelse. Klik på billedet <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> ved siden af øvelsen for at ændre og følg instruktionerne.</p>
 <hr>
 <b>Slette øvelser</b>
-<p>For at kunne slette en øvelse, klik på billedet <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> ved siden af øvelsen.</p>
+<p>For at kunne slette en øvelse, klik på billedet <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> ved siden af øvelsen.</p>
 <hr>
 <b>Aktivering af øvelse</b>
-<p>For at kunne bruge en øvelse, skal du aktivere denne ved at klikke på billedet <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> ved siden af øvelsen.</p>
+<p>For at kunne bruge en øvelse, skal du aktivere denne ved at klikke på billedet <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> ved siden af øvelsen.</p>
 <hr>
 <b>Test øvelserne</b>
 <p>Du kan teste din øvelse ved at klikke på dens navn på øvelseslisten.</p>
@@ -456,8 +456,8 @@ $langExMessage = "Eksempel på meddelelse";
 $langExpectedChoice = "Forventet svar";
 $langExpirationDate = "Udløb";
 $langExplanation = "Når du klikker ok, så vil en hjemmeside med Diskussionforum, Kalender, Dokumenter osv. bliver oprettet. Dit login, som skaber af kursushjemmesiden, giver dig ret til at ændre og tilpasse hjemmesiden efter dine egne ønsker";
-$langExplanation = "Dokumentet skal være i HTML format (f.eks.\"min_side.ht\"). Der vil blive linket til dokumentet fra Kursushjemmesiden. Ønsker du at sende et ikke-HTML dokument (PDF, Word, Power Point, Video, etc.) brug <a href=../document/document.php>Dokumentværktøjet</a>";
-$langExplanation = "Teksten skal være i HTML format (f.eks.\"min_tekst.ht\"). Den vil blive linket til fra hjemmesiden. Ønsker du at lægge ikke-HTML tekster ud (PDF, Word, Power Point, Video, etc.) brug <a href=../document/document.php>Værktøjet til håndtering af dokumenter</a>";
+$langExplanation = "Dokumentet skal være i HTML format (f.eks. \"min_side.htm\"). Der vil blive linket til dokumentet fra Kursushjemmesiden. Ønsker du at sende et ikke-HTML dokument (PDF, Word, Power Point, Video, etc.) brug <a href=../document/document.php>Dokumentværktøjet</a>";
+$langExplanation = "Teksten skal være i HTML format (f.eks. \"min_tekst.htm\"). Den vil blive linket til fra hjemmesiden. Ønsker du at lægge ikke-HTML tekster ud (PDF, Word, Power Point, Video, etc.) brug <a href=../document/document.php>Værktøjet til håndtering af dokumenter</a>";
 $langFac = "Fakultet";
 $langFaculty = "Fakultet";
 $langFields = "Du efterlod tomme felter";
@@ -635,7 +635,7 @@ $langHUser = "Brugerhjælp";
 $langImpossible = "Umulig handling";
 $langIn = "i";
 $langIncludeUserPersonalInfo = "inclure les présentations personnelles des utilisateurs";
-$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek\"eirota\" means\"ask question\"";
+$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
 $langInfo2Say = "Information til de studerende";
 $langInstituteName = "URL på denne organisation";
 $langInstituteShortName = "Organisation forkortelse";
@@ -784,8 +784,8 @@ $langNowGoCreateYourCourse = "Du kan nu oprette dine kurser";
 $langNULLValue = "Tom (eller nul)";
 $langOk = "Ok";
 $langOkSent = "Din tekst er lagt ud.<p>Den er nu linket til fra kurset <a href=../..//index.php>Homepage</a>";
-$langOkSentLink = "Dit link er sendt.<p>Der er nu oprettet adgang fra <a href\"../..//index.ph\">Kursushjemmesiden</a>";
-$langOkSentPage = "Din side er sendt.<p>Der er nu oprettet et link fra <a href\"../..//index.ph\">Kursushjemmesiden</a>";
+$langOkSentLink = "Dit link er sendt.<p>Der er nu oprettet adgang fra <a href=\"../..//index.php\">Kursushjemmesiden</a>";
+$langOkSentPage = "Din side er sendt.<p>Der er nu oprettet et link fra <a href=\"../..//index.php\">Kursushjemmesiden</a>";
 $langOldToNew = "Ældste først";
 $langOn = "Til";
 $langOneByOne = "Tilføj deltagerne manuelt";
@@ -911,7 +911,7 @@ $langStudent = "studerende";
 $langStudentsNotInThisGroups = "Deltagere som ikke er i denne gruppe";
 $langSubscribed = "deltagere tilmeldt dette kursus";
 $langSubscription = "Kursustilmelding";
-$langSubTitle = "Du kan tilføje et link (URL) i menuen på din kursushjemmeside.<br> Tip: hvis du ønsker at linke til et website, åben dette website, kopier dets URL adresse øverst i browservinduet og indsæt i\"lin\" feltet nedenfor.";
+$langSubTitle = "Du kan tilføje et link (URL) i menuen på din kursushjemmeside.<br> Tip: hvis du ønsker at linke til et website, åben dette website, kopier dets URL adresse øverst i browservinduet og indsæt i \"link\" feltet nedenfor.";
 $langSupportForum = "Claroline hjælpeforum";
 $langSysInfo = "Info om systemet";
 $langTableStructureDontKnow = "Ukendt tabelstruktur";
@@ -1102,7 +1102,7 @@ $l_onlyreq = "Kun nødvendig hvis det er ændret";
 $l_options = "Valg";
 $l_password = "Adgangskode";
 $l_perday = "beskeder per dag";
-$l_pmposted = "Svar sendt, du kan klikke <a href\"viewpmsg.ph\">here</a> for at se dine Private beskeder";
+$l_pmposted = "Svar sendt, du kan klikke <a href=\"viewpmsg.php\">here</a> for at se dine Private beskeder";
 $l_posted = "Lagt ud";
 $l_poster = "Lagt ud af";
 $l_posts = "Indlæg";

@@ -22,7 +22,7 @@ $langAddEvent = "Aggiungi evento";
 $langAddEvent = "Aggiungere un evento";
 $langAddExternalTool = "Aggiungi link esterno";
 $langAddForCat = "Aggiungi un Forum alla categoria";
-$langAddForums = "Per aggiungere un forum, clicca su\"Foru\" all'interno della categoria prescelta. Una categoria vuota (senza forum) non sarà visibile per il corsista";
+$langAddForums = "Per aggiungere un forum, clicca su \"Forum\" all'interno della categoria prescelta. Una categoria vuota (senza forum) non sarà visibile per il corsista";
 $langAddImage = "Includi foto";
 $langAddIntro = "Aggiungere un testo di presentazione";
 $langAddIntro = "Aggiungere un testo di introduzione";
@@ -312,7 +312,7 @@ $langDBSettingNamesIntro = "
 				<p>
 				Se siete autorizzati a gestire solo un
 				DB per il vostro website dal vostro servizio di Host,
-				tornate alla pagina precedente e selezionate la voce\"Singl\"
+				tornate alla pagina precedente e selezionate la voce \"Single\"
 				</p>
 				";
 $langDBUse = "Database - uso";
@@ -326,7 +326,7 @@ $langDefineBlanks = "Per cortesia definisci minimo un bianco con parentesi [...]
 $langDefineHeadings = "Define Headings";
 $langDefineHeadings = "Definisci Titoli";
 $langDefineOptions = "Per cortesia, definisci le opzioni";
-$langDelAdmin = "Da rimuovere tramite l'opzione\"Amministrazion\" dei forum";
+$langDelAdmin = "Da rimuovere tramite l'opzione \"Amministrazione\" dei forum";
 $langDelCourse = "Rimuovere il sito del corso";
 $langDelete = "Cancella";
 $langDelete = "Eliminare";
@@ -567,13 +567,13 @@ Notice : Several elements from the first unit can point to the same element in t
 Give a weighting to each correct matching, and save your answer.</p>
 <hr>
 <b>Exercise modification</b>
-<p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> beside the exercise to modify, and follow instructions above.</p>
+<p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify, and follow instructions above.</p>
 <hr>
 <b>Exercise deleting</b>
-<p>In order to delete an exercise, click on the picture <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> beside the exercise to delete.</p>
+<p>In order to delete an exercise, click on the picture <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete.</p>
 <hr>
 <b>Exercise enabling</b>
-<p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> beside the exercise to enable.</p>
+<p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to enable.</p>
 <hr>
 <b>Exercise running</b>
 <p>You can test your exercise by clicking on its name in the exercise list.</p>
@@ -606,13 +606,13 @@ $langExpectedChoice = "Scelta attesa";
 $langExpirationDate = "Scaduto";
 $langExpire = "Scadenza";
 $langExplanation = "Una volta cliccato su 'Conferma' sarà creato un sito contenente Forum, elenco dei Collegamenti,Esercizi, Calendario elenco dei Documenti... . Potrete modificarne il contenuto accedendo con il vostro identificativo";
-$langExplanation = "La pagina deve essere in formato HTML (es.\"pagina.ht\"). Sarà linkabile dalla Homepage. Se devi inviare documenti non HTML(PDF, Word, Power Point, Video, etc.) usa <a href=../document/document.php>il tool Documenti</a>";
-$langExplanation = "La pagina dev'essere in formato HTML (per es.\"mia_pagina.ht\"). Sarà leggigile tramite un collegamento attivabile dalla pagina principale del sito. Se volete trasmettere un documento non HTML (PDF, Power Point, Word...) utilizzate lo strumento <a href=../document/document.php> Documenti</a>";
+$langExplanation = "La pagina deve essere in formato HTML (es. \"pagina.htm\"). Sarà linkabile dalla Homepage. Se devi inviare documenti non HTML(PDF, Word, Power Point, Video, etc.) usa <a href=../document/document.php>il tool Documenti</a>";
+$langExplanation = "La pagina dev'essere in formato HTML (per es. \"mia_pagina.htm\"). Sarà leggigile tramite un collegamento attivabile dalla pagina principale del sito. Se volete trasmettere un documento non HTML (PDF, Power Point, Word...) utilizzate lo strumento <a href=../document/document.php> Documenti</a>";
 $langExternalToolName = "Nome Link";
 $langExternalToolUrl = "URL link";
 $langFac = "Categoria";
 $langFaculty = "Dipartimento";
-$langFailed = "<span style\"color: re\">Fallito</span>";
+$langFailed = "<span style=\"color: red\">Fallito</span>";
 $langFields = "C'è ancora un campo vuoto";
 $langFields = "Non avete riempito tutti i campi";
 $langFieldsRequ = "Tutti i campi sono obbligatori";
@@ -638,7 +638,7 @@ $langForbidden = "Non siete registrato a questo corso come Responsabile";
 $langForCat = "Forum della categoria";
 $langForCategories = "Categorie dei Forum";
 $langForce = "Contraddire l'interlocutore tramite una serie di domande e sotto-domande, il modo da far riconoscere che egli non conosce affatto quanto pretende di conoscere.";
-$langForContent = "Il forum è uno strumento di discussione scritta a tempo differito. A differenza della posta elettronica, il forum colloca la discussione in uno spazio pubblico o semi-pubblico (molti a molti).</p><p>Per usare il forum del campus. i corsisti hanno bisogno solo di un browser web (Netscape, Explorer...), non di un sistema di posta elettronica (Eudora, Outlook...).</P><p>Per organizzare dei forum, , cliccate su 'Amministrare'. Le discussioni sono organizzate in modo gerarchico secondo la struttura 'ad albero' seguente:</p><p><b>Categoria > Forum > Argomento > Risposta</b></p>Per permettre ai corsisti di  discutere in modo strutturato, è opportuno per prima cosa organizzare le discussioni in Categorie e Forum (i corsisti stessi proporrannno gli argomenti e le risposte). Per default il Forum contiene unicamente la Categoria Pubblico,un argomento esemplificativo e un messaggio d'esempio. Potete aggiungere dei forum nella categoria Pubblico,oppure modificare l'intestazione o ancora creare nuove Categorie al cui interno potrete creare nuovi Forum. Una Categoria che non contenga Forum non sarà utilizzabile. Se ad esempio create una Categoria 'discussione per piccoli gruppi', dovrete creare creare una serie di forum nella Categoria, ad esempio 'gruppo 1', 'gruppo 2', 'gruppo 3', ecc.</p><p>La Descrizione di un forum di gruppo potrebbe essere l'elenco delle persone che sono invitate ad usarlo, ma anche una spiegazione sulle sue finalità. Se create, per qualsiasi ragione, un Forum\"Richieste d'aiut\", potete aggiungere come descrizione: 'Segnalare le difficoltà relative al contenuto o all'organizzazione'.";
+$langForContent = "Il forum è uno strumento di discussione scritta a tempo differito. A differenza della posta elettronica, il forum colloca la discussione in uno spazio pubblico o semi-pubblico (molti a molti).</p><p>Per usare il forum del campus. i corsisti hanno bisogno solo di un browser web (Netscape, Explorer...), non di un sistema di posta elettronica (Eudora, Outlook...).</P><p>Per organizzare dei forum, , cliccate su 'Amministrare'. Le discussioni sono organizzate in modo gerarchico secondo la struttura 'ad albero' seguente:</p><p><b>Categoria > Forum > Argomento > Risposta</b></p>Per permettre ai corsisti di  discutere in modo strutturato, è opportuno per prima cosa organizzare le discussioni in Categorie e Forum (i corsisti stessi proporrannno gli argomenti e le risposte). Per default il Forum contiene unicamente la Categoria Pubblico,un argomento esemplificativo e un messaggio d'esempio. Potete aggiungere dei forum nella categoria Pubblico,oppure modificare l'intestazione o ancora creare nuove Categorie al cui interno potrete creare nuovi Forum. Una Categoria che non contenga Forum non sarà utilizzabile. Se ad esempio create una Categoria 'discussione per piccoli gruppi', dovrete creare creare una serie di forum nella Categoria, ad esempio 'gruppo 1', 'gruppo 2', 'gruppo 3', ecc.</p><p>La Descrizione di un forum di gruppo potrebbe essere l'elenco delle persone che sono invitate ad usarlo, ma anche una spiegazione sulle sue finalità. Se create, per qualsiasi ragione, un Forum \"Richieste d'aiuto\", potete aggiungere come descrizione: 'Segnalare le difficoltà relative al contenuto o all'organizzazione'.";
 $langFormula = "Cordialmente, il Vostro docente";
 $langFormula = "Cordialemente";
 $langForName = "Nome del Forum";
@@ -756,7 +756,7 @@ $langHits = "Punteggi";
 $langHome = "Ritorno alla pagina principale";
 $langHome = "Torna alla home page";
 $langHome = "Ritornare all'inizio";
-$langHomeContent = "La maggior parte delle rubriche del campus sono già state riempite con breve testo, un collegamento di default o un esempio. E' vostro interesse modificarli.</p><p>Un breve testo è anche presente, ben visibile, nella pagina principale del vostro sito: modificatelo approfittando dell'occasione per descrivere il corso, gli obiettivi da raggiungere, l'organizzazione. Queste informazioni daranno una chiara visibilità al vostro lavoro.</p><p>Alla creazione del sito risulteranno attivi per default numerosi strumenti (Calendario, Documenti, Esercizi...). Vi consigliamo di disattivare quelli che non utilizzate per non far inutilmente perder tempo ai vostri utenti o ai visitatori.</p><p>Potete anche aggiungere collegamenti a pagine alla pagina principale. Utilizzate l'opzione 'Collegare una pagina...' per aggiungere una pagina (con formato HTML) trasmettendola al server. Se invece volete rinviare verso una pagina o un sito web esistente, utilizzate l'opzione\"Collegare un sito..\" . Le pagine e i collegamenti che aggiungete all pagina iniziale possono essere disattivati ed in seguito eliminati, a differenza di quanto accade per gli strumenti esistenti per default, che possono essere disattivati ma non eliminati.</p><p>Dovrete decidere anche se il vostro corso debba comparire nell'elenco dei corsi. E' desiderabile che un corso ancora 'in lavorazione' non compaia nell'elenco (vedi l'opzione 'Modificare le informazioni sul corso') e resti privo della possibilità di iscrizioni nel tempo in cui viene messo a punto.</p>";
+$langHomeContent = "La maggior parte delle rubriche del campus sono già state riempite con breve testo, un collegamento di default o un esempio. E' vostro interesse modificarli.</p><p>Un breve testo è anche presente, ben visibile, nella pagina principale del vostro sito: modificatelo approfittando dell'occasione per descrivere il corso, gli obiettivi da raggiungere, l'organizzazione. Queste informazioni daranno una chiara visibilità al vostro lavoro.</p><p>Alla creazione del sito risulteranno attivi per default numerosi strumenti (Calendario, Documenti, Esercizi...). Vi consigliamo di disattivare quelli che non utilizzate per non far inutilmente perder tempo ai vostri utenti o ai visitatori.</p><p>Potete anche aggiungere collegamenti a pagine alla pagina principale. Utilizzate l'opzione 'Collegare una pagina...' per aggiungere una pagina (con formato HTML) trasmettendola al server. Se invece volete rinviare verso una pagina o un sito web esistente, utilizzate l'opzione \"Collegare un sito...\" . Le pagine e i collegamenti che aggiungete all pagina iniziale possono essere disattivati ed in seguito eliminati, a differenza di quanto accade per gli strumenti esistenti per default, che possono essere disattivati ma non eliminati.</p><p>Dovrete decidere anche se il vostro corso debba comparire nell'elenco dei corsi. E' desiderabile che un corso ancora 'in lavorazione' non compaia nell'elenco (vedi l'opzione 'Modificare le informazioni sul corso') e resti privo della possibilità di iscrizioni nel tempo in cui viene messo a punto.</p>";
 $langHomePageTextZone = "Area di testo della Home Page";
 $langHomePageTextZone = "Zone di testo della Home Page";
 $langHour = "Ora";
@@ -768,7 +768,7 @@ $langImport = "Importazione";
 $langImpossible = "Non è possibile effettuare l'operazione";
 $langIn = "in";
 $langIncludeUserPersonalInfo = "includere la presentazione personale dell'utilizzatore";
-$langIndeed = "In efetti, l'ironia socratica è un metodo interrogativo. Il greco\"eirota\" significa innanzitutto\"interrogar\".";
+$langIndeed = "In efetti, l'ironia socratica è un metodo interrogativo. Il greco \"eirotao\" significa innanzitutto \"interrogare\".";
 $langInfo2Say = "Informazioni da dare agli Studenti";
 $langInfoProgNameTitle = "Informazione";
 $langInFrames = "A fotogramma";
@@ -788,10 +788,10 @@ $langIntroStep1 = "<p>Lo <em>strumento per l'aggiornamento di Claroline</em> è p
                 Queste informazioni erano scritte all'interno del file claroline/include/config.inc.php nella tua precedente installazione.</p>";
 $langIntroStep2 = "<p>Ora lo <em>strumento per l'aggiornamento di Claroline</em> aggiornerà i dati contenuti nelle tabelle principali di Claroline
                     (utenti, categorie dei corsi, lista degli strumenti, ...) e li renderà compatibili con la nuova versione.</p>
-                   <p class\"hel\">Attenzione: a seconda della velocità del tuo server o della quantità di dati contenuti sulla piattaforma, questa
+                   <p class=\"help\">Attenzione: a seconda della velocità del tuo server o della quantità di dati contenuti sulla piattaforma, questa
                    operazione potrebbe durare un po' di tempo.</p>";
 $langIntroStep3 = "<p>Ora lo <em>strumento per l'aggiornamento di Claroline</em> aggiornerà i dati dei corsi (directory e tabelle del database) uno per uno.
-                   <p class\"hel\">Attenzione: a seconda della velocità del tuo server o della quantità di dati contenuti sulla piattaforma, questa
+                   <p class=\"help\">Attenzione: a seconda della velocità del tuo server o della quantità di dati contenuti sulla piattaforma, questa
                    operazione potrebbe durare un po' di tempo.</p>";
 $langIntroStep3Run = "<p>Lo <em>strumento per l'aggiornamento di Claroline</em> procede con l'aggiornamento dei dati dei corsi</p>";
 $langIntroText = "Per inviare un messaggio, selezionare il gruppo di utenti (shift + click) o un singolo utente dalla lista a sinistra";
@@ -819,9 +819,9 @@ $langLastname = "Cognome";
 $langLastSessionTimeSpent = "Durata dell'utima sessione";
 $langLastSessionTimeSpent = "Tempo Ultima sessione";
 $langLastVisit = "Ultima visita";
-$langLaunchStep1 = "<p><button onclick\"document.location='%s'\">Procedi con l'aggiornamento dei file di configurazione</button></p>";
-$langLaunchStep2 = "<p><button onclick\"document.location='%s'\">Procedi con l'aggiornamento delle tabelle</button></p>";
-$langLaunchStep3 = "<p><button onclick\"document.location='%s'\">Procedi con l'aggiornamento dei dati dei corsi</button></p>";
+$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Procedi con l'aggiornamento dei file di configurazione</button></p>";
+$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Procedi con l'aggiornamento delle tabelle</button></p>";
+$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Procedi con l'aggiornamento dei dati dei corsi</button></p>";
 $langLearningPath = "Learning Path";
 $langLearningPathAdmin = "Learning Path - Amministra";
 $langLearningPathList = "Learning Path - Lista";
@@ -894,7 +894,7 @@ e li renderà compatibili con la nuova versione di Claroline. Questo aggiornament
 
 <table>
 <tbody>
-<tr valign\"to\"><td>-</td><td>Fai un backup completo di tutti i file della piattaforma (file e database)</td><td>%s</td></tr>
+<tr valign=\"top\"><td>-</td><td>Fai un backup completo di tutti i file della piattaforma (file e database)</td><td>%s</td></tr>
 
 </tbody>
 </table>
@@ -977,7 +977,7 @@ $langNameDir = "Nome della nuova cartella";
 $langNameOfLang = "Array";
 $langNbAnnoucement = "Numero di annunci";
 $langNbAnnoucement = "Numbero Annunci";
-$langNbCoursesUpgraded = "<p style\"text-align: cente\"><strong>%s i corsi sono %s già aggiornati</strong><br /></p>";
+$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s i corsi sono %s già aggiornati</strong><br /></p>";
 $langNbLines = "Qta di linee";
 $langNbLogin = "Numero di Login";
 $langNbLogin = "Numbero Login";
@@ -1003,7 +1003,7 @@ $langNext = "Avanti";
 $langNextDay = "Giorno successivo";
 $langNextMonth = "Mese successivo";
 $langNextPage = "Pag. Avanti";
-$langNextStep = "<p><button onclick\"document.location='%s'\">Prossimo ></button></p>";
+$langNextStep = "<p><button onclick=\"document.location='%s';\">Prossimo ></button></p>";
 $langNextWeek = "Settimana successiva";
 $langNextYear = "Anno successivo";
 $langNo = "No";
@@ -1058,8 +1058,8 @@ $langOkManifestFound = "Manifesto trovato nel zip file : ";
 $langOkManifestRead = "Manifesto letto.";
 $langOkModuleAdded = "Modulo aggiunto : ";
 $langOkSent = "La pagina è stata trasmessa<p>E' accessibile alla<a href=../..//index.php>pagina principale</a> del vostro corso";
-$langOkSentLink = "Il link è stato inviato.<p>Ora è accessibile dalla <a href\"../..//index.ph\">Home Page del corso</a>";
-$langOkSentPage = "La pagina è stata inviato.<p>Ora è linkabile dalla <a href\"../..//index.ph\">Home Page del corso</a>";
+$langOkSentLink = "Il link è stato inviato.<p>Ora è accessibile dalla <a href=\"../..//index.php\">Home Page del corso</a>";
+$langOkSentPage = "La pagina è stata inviato.<p>Ora è linkabile dalla <a href=\"../..//index.php\">Home Page del corso</a>";
 $langOldToNew = "Vecchi prima";
 $langOn = "Attivo";
 $langOneByOne = "Aggiungi manualmente un utente";
@@ -1611,7 +1611,7 @@ $l_onlyreq = "Richiesto solo se si desidera cambiarlo";
 $l_options = "Opzioni";
 $l_password = "Password";
 $l_perday = "Messaggi al giorno";
-$l_pmposted = "risposta inviata, ora &egrave; possibile cliccare <a href\"viewpmsg.ph\">qui</a> per visualizzare i tuoi Messaggi privati";
+$l_pmposted = "risposta inviata, ora &egrave; possibile cliccare <a href=\"viewpmsg.php\">qui</a> per visualizzare i tuoi Messaggi privati";
 $l_posted = "Inviato";
 $l_poster = "Mittente";
 $l_posts = "Messaggi";

@@ -22,7 +22,7 @@ $langAddEvent = "Termin hinzufügen";
 $langAddEvent = "Termin / Ergeignis hinzufügen";
 $langAddExternalTool = "Exterenen Link hinzufügen";
 $langAddForCat = "Forum in Kategorie hinzufügen";
-$langAddForums = "Um ein Forum hinzuzufügen, klicken Sie auf\"Fore\" in der Kategorie Ihrer Wahl. Eine leere Kategorie (ohne Foren) ist für die Lerner nicht sichtbar";
+$langAddForums = "Um ein Forum hinzuzufügen, klicken Sie auf \"Foren\" in der Kategorie Ihrer Wahl. Eine leere Kategorie (ohne Foren) ist für die Lerner nicht sichtbar";
 $langAddImage = "Bild einfügen";
 $langAddIntro = "Einführungstext hinzufügen";
 $langAddIntro = "Add introduction text";
@@ -317,7 +317,7 @@ $langDBSettingNamesIntro = "
 				You can specify a prefix for these database names.
 				<p>
 				If you are allowed to use only one database by your database system administrator, 
-				get back to the previous page and select option\"Singl\"
+				get back to the previous page and select option \"Single\"
 				</p>
 				";
 $langDBUse = "Database usage";
@@ -545,13 +545,13 @@ Anmerkung: Einzelne Elemente der ersten Einheit können zu der zweiten Einheit pa
 Vergeben Sie nun Punkte für jede richtige Zuordnung.</p>
 <hr>
 <b>Tests bearbeiten</b>
-<p>Um Ihre Tests zu bearbeiten, können Sie genauso vorgehen, wie bei der Erstellung des Tests. Klicken Sie auf das Symbol zum Bearbeiten neben des Tests <img src\"img/edit.gi\" border\"\" align\"absmiddl\">, und folgen Sie der Anleitung oben auf dieser Seite.</p>
+<p>Um Ihre Tests zu bearbeiten, können Sie genauso vorgehen, wie bei der Erstellung des Tests. Klicken Sie auf das Symbol zum Bearbeiten neben des Tests <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\">, und folgen Sie der Anleitung oben auf dieser Seite.</p>
 <hr>
 <b>Tests löschen</b>
-<p>Um Ihre Tests zu löschen, klicken sie auf das Symbol <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> neben dem Test.</p>
+<p>Um Ihre Tests zu löschen, klicken sie auf das Symbol <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> neben dem Test.</p>
 <hr>
 <b>Tests aktivieren</b>
-<p>Wenn Ihre Tests nun veröffentlicht  werden soll, müssen Sie sie durch einen Klick auf das Symbol <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> neben dem Test aktivieren.</p>
+<p>Wenn Ihre Tests nun veröffentlicht  werden soll, müssen Sie sie durch einen Klick auf das Symbol <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> neben dem Test aktivieren.</p>
 <hr>
 <b>Test ausführen</b>
 <p>Probieren Sie den Test selber aus. Klicken Sie im Verzeichnis der Tests auf den Namen des Tests.</p>
@@ -584,12 +584,12 @@ $langExpectedChoice = "Erwartete Antwort";
 $langExpirationDate = "Abschluß/Ende";
 $langExpire = "Ablauf";
 $langExplanation = "Wenn Sie OK geklickt haben wird eine komplette KursSite mit Forum, Agenda, Dokumenten-/Dateiverwaltung usw. erzeugt werden. Ihr Login, als Tutor/Dozent des Kurses, erlaubt es Ihnen, die Site nach Ihren Wünschen zu verändern.";
-$langExplanation = "Die Seite muß ein HTML-Format haben (z.B.\"meine_seite.ht\"). Es wird von der Homepage verlinkt. Dokumente in anderen Formaten (PDF, Word, Power Point, Video, etc.) können als <a href=../document/document.php>Dokument</a> hinterlegt werden";
-$langExplanation = "Die Seite muss im HTML-Format vorliegen (z.B.\"my_page.ht\"). Es wird von der Homepage verknüpft. Wenn Sie Dokumente verknüpfen möchten, die nicht im HTML Format vorliegen (PDF, Word, Power Point, Video, etc.) benutzen Sie bitte <a href=../document/document.php>das Tool Dokumente</a>";
+$langExplanation = "Die Seite muß ein HTML-Format haben (z.B. \"meine_seite.htm\"). Es wird von der Homepage verlinkt. Dokumente in anderen Formaten (PDF, Word, Power Point, Video, etc.) können als <a href=../document/document.php>Dokument</a> hinterlegt werden";
+$langExplanation = "Die Seite muss im HTML-Format vorliegen (z.B. \"my_page.htm\"). Es wird von der Homepage verknüpft. Wenn Sie Dokumente verknüpfen möchten, die nicht im HTML Format vorliegen (PDF, Word, Power Point, Video, etc.) benutzen Sie bitte <a href=../document/document.php>das Tool Dokumente</a>";
 $langExternalToolUrl = "URL des Link";
 $langFac = "Bereich";
 $langFaculty = "Bereich";
-$langFailed = "<span style\"color: re\">Failed</span>";
+$langFailed = "<span style=\"color: red\">Failed</span>";
 $langFields = "Es gibt noch mindestens ein unausgefülltes Pflichtfeld";
 $langFields = "Sie haben einige Felder leer gelassen";
 $langFieldsRequ = "Alle Felder müssen ausgefüllt sein";
@@ -752,7 +752,7 @@ $langImport = "Import";
 $langImpossible = "Vorgang nicht möglich";
 $langIn = "in";
 $langIncludeUserPersonalInfo = "inkl. Profile der Teilnehmer";
-$langIndeed = "Sokratische Ironie ist eine Technik für Verhöre. Das griechische\"eirota\" bedeutet\"Fragen stelle\"";
+$langIndeed = "Sokratische Ironie ist eine Technik für Verhöre. Das griechische \"eirotao\" bedeutet \"Fragen stellen\"";
 $langInfo2Say = "Informationen für Benutzer";
 $langInfoProgNameTitle = "Information";
 $langInFrames = "In Frames";
@@ -772,10 +772,10 @@ $langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to
                 These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
 $langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going upgrade the data stored into the main Claroline tables 
                     (users, course categories, tools list, ...) and set it compatible with the new Claroline version.</p>
-                   <p class\"hel\">Note: According to the speed of your server or the amount of data stored on your platform, this 
+                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this 
                    operation may take some time.</p>";
 $langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going update course data (directories and database tables) one by one.
-                   <p class\"hel\">Note: According to the speed of your server or the amount of data stored on your platform,
+                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
                    this operation may take some time.</p>";
 $langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>";
 $langIntroText = "Um eine Nachricht zu senden, wählen Sie bitte eine Gruppe von Benutzern (markiert mit einem * am Anfang) oder einen einzelnen Benutzer aus der Liste links.";
@@ -807,9 +807,9 @@ $langLastname = "Nachname";
 $langLastSessionTimeSpent = "Zeit der letzten Sitzung";
 $langLastSessionTimeSpent = "Letzte Sitzungszeit";
 $langLastVisit = "Letzter Besuch";
-$langLaunchStep1 = "<p><button onclick\"document.location='%s'\">Launch platform main settings upgrade</button></p>";
-$langLaunchStep2 = "<p><button onclick\"document.location='%s'\">Launch main platform tables upgrade</button></p>";
-$langLaunchStep3 = "<p><button onclick\"document.location='%s'\">Launch course data upgrade</button></p>";
+$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";
+$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Launch main platform tables upgrade</button></p>";
+$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
 $langLearningPath = "Lernpfad";
 $langLearningPathAdmin = "Lernpfad Admin";
 $langLearningPathList = "Lernpfad Übersicht";
@@ -881,7 +881,7 @@ installation and set them to be compatible with the new Claroline version. This 
 
 <table>
 <tbody>
-<tr valign\"to\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>
+<tr valign=\"top\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>
 
 </tbody>
 </table>
@@ -960,7 +960,7 @@ $langNameCat = "Name der Kategorie wurde erfolgreich geändert.";
 $langNameDir = "Name des neuen Verzeichnisses";
 $langNbAnnoucement = "Anzahl der Bekanntmachungen";
 $langNbAnnoucement = "Zahl der Bekanntmachungen";
-$langNbCoursesUpgraded = "<p style\"text-align: cente\"><strong>%s courses on %s already upgraded</strong><br /></p>";
+$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on %s already upgraded</strong><br /></p>";
 $langNbLines = "Sparten";
 $langNbLogin = "Anzahl der Anmeldungen (Logins)";
 $langNbLogin = "Zahl der Logins";
@@ -987,7 +987,7 @@ $langNext = "weiter";
 $langNextDay = "Nächster Tag";
 $langNextMonth = "Nächster Monat";
 $langNextPage = "Nächste Seite";
-$langNextStep = "<p><button onclick\"document.location='%s'\">Next ></button></p>";
+$langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
 $langNextWeek = "Nächste Woche";
 $langNextYear = "Nächstes Jahr";
 $langNo = "NEIN";
@@ -1042,8 +1042,8 @@ $langOkManifestFound = "Datei imsmanifest im ZIP-Archiv gefunden : ";
 $langOkManifestRead = "Datei imsmanifest ausgelesen.";
 $langOkModuleAdded = "Modul hinzugefügt : ";
 $langOkSent = "Ihre Seite wurde gesendet.<p>Sie ist nun mit der <a href=../..//index.php>Kurshomepage</a> verknüpft";
-$langOkSentLink = "Der Link wurde eingefügt.<p>Er ist nun auf der <a href\"../..//index.ph\">Kursseite</a> verfügbar.";
-$langOkSentPage = "Seite wurde übertragen.<p>Sie ist nun eingefügt in die <a href\"../..//index.ph\">Kursseite</a>";
+$langOkSentLink = "Der Link wurde eingefügt.<p>Er ist nun auf der <a href=\"../..//index.php\">Kursseite</a> verfügbar.";
+$langOkSentPage = "Seite wurde übertragen.<p>Sie ist nun eingefügt in die <a href=\"../..//index.php\">Kursseite</a>";
 $langOldToNew = "Letzte zuerst";
 $langOn = "An";
 $langOneByOne = "Teilnehmer manuell eintragen";
@@ -1252,7 +1252,7 @@ $langSubscription = "Subscription";
 $langSubscription = "Zustimmung";
 $langSubscriptionAllowedOnly = "Eintragen nur erlaubt für ";
 $langSubscriptionDeniedOnly = "Nur Eintragen verboten";
-$langSubTitle = "Fügt dem Hauptmenü Ihrer Kurshomepage einen Link zu einer Seite oder einer beliebigen URL zu. Hinweis: Wenn Sie einen Link auf eine Seite hinzufügen möchten, gehen Sie zu dieser Seite, kopieren Sie die Adresse und fügen sie in das\"Hyperlin\" Feld unten ein.";
+$langSubTitle = "Fügt dem Hauptmenü Ihrer Kurshomepage einen Link zu einer Seite oder einer beliebigen URL zu. Hinweis: Wenn Sie einen Link auf eine Seite hinzufügen möchten, gehen Sie zu dieser Seite, kopieren Sie die Adresse und fügen sie in das \"Hyperlink\" Feld unten ein.";
 $langSubTitleChangeParent = "Hauptkategorie ändern von ";
 $langSubTitleCreate = "Kategorie erstellen";
 $langSubTitleEdit = "Kategorie bearbeiten";
@@ -1651,8 +1651,8 @@ $l_password = "Passwort";
 $l_password = "Password";
 $l_perday = "Nachrichten pro Tag";
 $l_perday = "Messages per day";
-$l_pmposted = "Ihre Antwort wurde abgeschickt. Sie k&ouml;nnen <a href\"viewpmsg.ph\">hier</a>  klicken, um Ihre Private Nachrichten einzusehen.";
-$l_pmposted = "Reply Posted, you can click <a href\"viewpmsg\">here</a> to view your Private Messages";
+$l_pmposted = "Ihre Antwort wurde abgeschickt. Sie k&ouml;nnen <a href=\"viewpmsg.php\">hier</a>  klicken, um Ihre Private Nachrichten einzusehen.";
+$l_pmposted = "Reply Posted, you can click <a href=\"viewpmsg.\">here</a> to view your Private Messages";
 $l_posted = "Erstellt am";
 $l_posted = "Posted";
 $l_poster = "Poster";

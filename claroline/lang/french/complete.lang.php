@@ -18,7 +18,7 @@ $langAddExternalTool = "Ajouter un lien externe.";
 $langAddFaculties = "Ajouter un ensemble de cours (faculté)";
 $langAddFeedback = "Corriger";
 $langAddForCat = "Ajouter un forum dans la catégorie";
-$langAddForums = "Pour ajouter des forums, cliquez sur\"Forum\" dans la catégorie de votre choix. Une catégorie sans forums ne sera pas visible pour les étudiants";
+$langAddForums = "Pour ajouter des forums, cliquez sur \"Forums\" dans la catégorie de votre choix. Une catégorie sans forums ne sera pas visible pour les étudiants";
 $langAddImage = "Ajoutez une photo";
 $langAddIntro = "AJOUTER UN TEXTE D'INTRODUCTION";
 $langAddLoginPass = "Ajoute un login-pass dans .htAccess";
@@ -598,13 +598,13 @@ Remarque : Plusieurs éléments du premier ensemble peuvent pointer vers le même é
 Donnez une pondération à chaque correspondance correctement établie, et enregistrez votre réponse.</p>
 <hr>
 <b>Modification d'un exercice</b>
-<p>Pour modifier un exercice, le principe est le même que pour la création. Cliquez simplement sur l'image <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> à côté de l'exercice à modifier, et suivez les instructions ci-dessus.</p>
+<p>Pour modifier un exercice, le principe est le même que pour la création. Cliquez simplement sur l'image <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à modifier, et suivez les instructions ci-dessus.</p>
 <hr>
 <b>Suppression d'un exercice</b>
-<p>Pour supprimer un exercice, cliquez sur l'image <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> à côté de l'exercice à supprimer.</p>
+<p>Pour supprimer un exercice, cliquez sur l'image <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à supprimer.</p>
 <hr>
 <b>Activation d'un exercice</b>
-<p>Avant qu'un exercice ne puisse être utilisé par un étudiant, vous devez l'activer en cliquant sur l'image <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> à côté de l'exercice à activer.</p>
+<p>Avant qu'un exercice ne puisse être utilisé par un étudiant, vous devez l'activer en cliquant sur l'image <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à activer.</p>
 <hr>
 <b>Exécution d'un exercice</b>
 <p>Vous pouvez tester votre exercice en cliquant sur son nom dans la liste des exercices.</p>
@@ -1099,8 +1099,8 @@ $langOkManifestFound = "Manifest trouvé.";
 $langOkManifestRead = "Manifest lu.";
 $langOkModuleAdded = "Module ajouté : ";
 $langOkSent = "Votre page a été envoyée.<p>Elle est accessible depuis la <a href=../..//index.php>page d'accueil</a> de votre cours";
-$langOkSentLink = "Votre lien a été ajouté. <p>Il est à présent accessible depuis le <a href\"../..//index.ph\">sommaire du cours</a>";
-$langOkSentPage = "Votre page a été envoyée. <p>Elle est à présent accessible depuis le <a href\"../..//index.ph\">sommaire du cours</a>";
+$langOkSentLink = "Votre lien a été ajouté. <p>Il est à présent accessible depuis le <a href=\"../..//index.php\">sommaire du cours</a>";
+$langOkSentPage = "Votre page a été envoyée. <p>Elle est à présent accessible depuis le <a href=\"../..//index.php\">sommaire du cours</a>";
 $langOldToNew = "Inverser";
 $langOn = "Sur";
 $langOneByOne = "Ajouter manuellement un utilisateur";
@@ -1305,7 +1305,7 @@ $langSubscribeUser = "Inscrire l'utilisateur";
 $langSubscription = "Inscription";
 $langSubscriptionAllowedOnly = "Inscription permise seulement";
 $langSubscriptionDeniedOnly = "Inscription interdite seulement";
-$langSubTitle = "Ajoute un lien ou une page sur le sommaire de votre site de cours. Astuce : si vous souhaitez ajouter un lien vers une page, allez sur cette page, copiez son URL qui se trouve dans la barre d'adresse de votre navigateur, et insérez-la dans le champ\"Lie\" ci-dessous.";
+$langSubTitle = "Ajoute un lien ou une page sur le sommaire de votre site de cours. Astuce : si vous souhaitez ajouter un lien vers une page, allez sur cette page, copiez son URL qui se trouve dans la barre d'adresse de votre navigateur, et insérez-la dans le champ \"Lien\" ci-dessous.";
 $langSubTitleChangeParent = "Changer le père de la catégorie ";
 $langSubTitleCreate = "Créer une catégorie";
 $langSubTitleEdit = "Modifier une catégorie";
@@ -1657,7 +1657,7 @@ $l_onlyreq = "Demandé seulement si changé";
 $l_options = "Options";
 $l_password = "Mot de passe";
 $l_perday = "Messages par jour";
-$l_pmposted = "Réponse postée, vous pouvez cliquer <a href\"viewpmsg.ph\">ici</a> pour voir vos Messages privés";
+$l_pmposted = "Réponse postée, vous pouvez cliquer <a href=\"viewpmsg.php\">ici</a> pour voir vos Messages privés";
 $l_posted = "Posté le";
 $l_poster = "Initiateur";
 $l_posts = "Messages";

@@ -15,7 +15,7 @@ $langAddEvent = "Lägg till en händelse";
 $langAddEvent = "Add an event";
 $langAddFaculties = "Lägg till fakulteter";
 $langAddForCat = "Lägg till forum i kategori";
-$langAddForums = "För att lägga till forum, klicka på\"Foru\" i vald kategori. En tom kategori (utan forum) visas ej för eleverna";
+$langAddForums = "För att lägga till forum, klicka på \"Forum\" i vald kategori. En tom kategori (utan forum) visas ej för eleverna";
 $langAddIntro = "Add introduction text";
 $langAddIntro = "Lägg till introduktionstext";
 $langAddNewCourse = "Lägg till en ny kurs";
@@ -334,13 +334,13 @@ Notera : Flera element från ena gruppen kan kopplas till samma element i den and
 Ange viktning för vart och ett av de korrekta svaren, och spara sedan frågan.</p>
 <hr>
 <b>Modifiera övningar</b>
-<p>För att kunna modifiera övningar, gäller samma principer som för att skapa övningarna. Klicka bara på bilden <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> på sidan om övningen för att modifiera, och följ sedan instruktionerna ovan.</p>
+<p>För att kunna modifiera övningar, gäller samma principer som för att skapa övningarna. Klicka bara på bilden <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> på sidan om övningen för att modifiera, och följ sedan instruktionerna ovan.</p>
 <hr>
 <b>Radera övningar</b>
-<p>För att radera en övning, klicka på bilden <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> på sidan av övningen du vill radera.</p>
+<p>För att radera en övning, klicka på bilden <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> på sidan av övningen du vill radera.</p>
 <hr>
 <b>Aktivera övning</b>
-<p>För att en övning skall kunna användas så måste du aktivera den genom att klicka på bilden <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> på sidan för att aktivera den.</p>
+<p>För att en övning skall kunna användas så måste du aktivera den genom att klicka på bilden <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> på sidan för att aktivera den.</p>
 <hr>
 <b>Utföra en övning</b>
 <p>Du kan testa din övning genom att klicka på dess namn i övningslistan.</p>
@@ -367,8 +367,8 @@ $langExpectedChoice = "Förväntat val";
 $langExpirationDate = "Utgår";
 $langExpire = "Utgår";
 $langExplanation = "När du klickar på OK, kommer en sajt att skapas med Forum, Agenda, Dokumenthanterare m.m. Ditt login, som skapare av sajten, ger dig möjlighet att modifiera den efter dina behov.";
-$langExplanation = "Sidan måste vara i HTML-format (eg.\"my_page.htm\"). Den kommer att länka till från Hemsidan. Om du vill sända icke HTML-dokument (PDF, Word, Power Point, Video, etc.) använd <a href=../document/document.php>Dokumentverkyget</a>";
-$langExplanation = "Filen måste skickas i HTML-format (e.g.\"my_sida.htm\"). Den kommer att länkas till från hemsidan. Om du vill skicka upp icke HTML-dokument (PDF, Word, Power Point, Video, etc.) använder du <a href=../document/document.php>Dokumentverktyget</a>";
+$langExplanation = "Sidan måste vara i HTML-format (eg. \"my_page.html\"). Den kommer att länka till från Hemsidan. Om du vill sända icke HTML-dokument (PDF, Word, Power Point, Video, etc.) använd <a href=../document/document.php>Dokumentverkyget</a>";
+$langExplanation = "Filen måste skickas i HTML-format (e.g. \"my_sida.html\"). Den kommer att länkas till från hemsidan. Om du vill skicka upp icke HTML-dokument (PDF, Word, Power Point, Video, etc.) använder du <a href=../document/document.php>Dokumentverktyget</a>";
 $langFac = "Fakultet";
 $langFaculty = "Fakultet";
 $langFields = "Du har lämnat några fält tomma";
@@ -503,7 +503,7 @@ $langHUser = "Hjälp Användare";
 $langImpossible = "Operation omöjlig";
 $langIn = "i";
 $langIncludeUserPersonalInfo = "inkludera personlig personlig presentation på användarna";
-$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek\"eirota\" means\"ask question\"";
+$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
 $langInfo2Say = "Information att ge till eleverna";
 $langInstituteName = "URL till denna institution";
 $langInstituteShortName = "Institution kortnamn";
@@ -645,8 +645,8 @@ $langNULLValue = "Tom (eller NULL)";
 $langOk = "validate";
 $langOk = "Ok";
 $langOkSent = "din sida har skickats.<p>Den är nu länkad till från kursens <a href=../..//index.php>hemsida</a>";
-$langOkSentLink = "Din länk är nu skickad.<p>Den är nu tillgänglig från <a href\"../..//index.ph\">Kurshemsidan</a>";
-$langOkSentPage = "Din sida är nu skickad.<p>Den är nu länkad från <a href\"../..//index.ph\">Kurshemsidan</a>";
+$langOkSentLink = "Din länk är nu skickad.<p>Den är nu tillgänglig från <a href=\"../..//index.php\">Kurshemsidan</a>";
+$langOkSentPage = "Din sida är nu skickad.<p>Den är nu länkad från <a href=\"../..//index.php\">Kurshemsidan</a>";
 $langOldToNew = "Äldst först";
 $langOldToNew = "Inverser";
 $langOn = "På";
@@ -766,7 +766,7 @@ $langStudent = "elev";
 $langStudentsNotInThisGroups = "Användarna är ej i denna grupp";
 $langSubscribed = "registrerad(e) deltagare i denna kurs";
 $langSubscription = "Prenumeration";
-$langSubTitle = "Lägger sig till menyn på kursens hemsida som en länk till en sajt, en sida eller valfri URL. Tips: om du vill lägga till en länk till en sida, gå till den sidan, kopiera och klistra sedan in länkens address, som du hittar i URL-fältet högst upp i din webbläsare, i\"län\"-fältet nedan.";
+$langSubTitle = "Lägger sig till menyn på kursens hemsida som en länk till en sajt, en sida eller valfri URL. Tips: om du vill lägga till en länk till en sida, gå till den sidan, kopiera och klistra sedan in länkens address, som du hittar i URL-fältet högst upp i din webbläsare, i \"länk\"-fältet nedan.";
 $langSupportForum = "Supportforum";
 $langSysId = "Systemidentitet";
 $langSysInfo = "Info om Systemet";
@@ -933,7 +933,7 @@ $l_onlyreq = "Behövs endast vid förändring";
 $l_options = "Tillval";
 $l_password = "Lösenord";
 $l_perday = "Inlägg per dag";
-$l_pmposted = "Har besvarats, klicka <a href\"viewpmsg.ph\">här</a> för att läsa dina Privata meddelanden";
+$l_pmposted = "Har besvarats, klicka <a href=\"viewpmsg.php\">här</a> för att läsa dina Privata meddelanden";
 $l_posted = "Postad";
 $l_poster = "Postare";
 $l_posts = "Inlägg";

@@ -21,7 +21,7 @@ $langAddEvent = "Añadir un evento";
 $langAddEvent = "A&ntilde;adir un evento";
 $langAddExternalTool = "Agregar un enlace externo";
 $langAddForCat = "A&ntilde;adir un foro a la categor&iacute;a";
-$langAddForums = "Para a&ntilde;adir foros, haz click en\"Foro\" en la categor&iacute;a escogida. Una categor&iacute;a que no tenga foros no podr&aacute; ser vista por los estudiantes";
+$langAddForums = "Para a&ntilde;adir foros, haz click en \"Foros\" en la categor&iacute;a escogida. Una categor&iacute;a que no tenga foros no podr&aacute; ser vista por los estudiantes";
 $langAddImage = "Incluir foto";
 $langAddIntro = "A&ntilde;adir un texto de introducci&oacute;n";
 $langAddIntro = "AGREGAR UN TEXTO DE INTRODUCCI&Oacute;N";
@@ -372,7 +372,7 @@ $langDBSettingNamesIntro = "
 				También puede especificar el prefijo de estas bases de datos.
 				<p>
 				Si usted solo está autorizado para usar una sola base de datos, 
-				debe volver a la página anteriory seleccionar la opció\"una sola(Single\"
+				debe volver a la página anteriory seleccionar la opción\"una sola(Single)\"
 				</p>
 				";
 $langDBUse = "Uso de la base de datos";
@@ -654,15 +654,15 @@ Atenci&oacute;n : Varios elementos de la primera unidad pueden referirse al mism
 Otorgue un peso a cada relaci&oacute;n correcta, y salve su respuesta.</p>
 <hr>
 <b>Modificaci&oacute;n de Ejercicios</b>
-<p>Para modificar un ejercicio, siga los mismos pasos que hizo para crearlo. S&oacute;lo pulse en la imagen <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> al lado del ejercicio que quiere
+<p>Para modificar un ejercicio, siga los mismos pasos que hizo para crearlo. S&oacute;lo pulse en la imagen <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> al lado del ejercicio que quiere
 modificar y siga las instrucciones de anteriores.</p>
 <hr>
 <b>Borrar Ejercicios</b>
-<p>Para borrar un ejercicio, pulse en la imagen <img src\"img/delete.gi\" border\"\" align\"absmiddl\">
+<p>Para borrar un ejercicio, pulse en la imagen <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\">
 al lado del ejercicio que quiera borrar.</p>
 <hr>
 <b>Activar Ejercicios</b>
-<p>Para que los alumnos puedan hacer un ejercicio, Vd. tiene que activarlo pulsando en la imagen <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> 
+<p>Para que los alumnos puedan hacer un ejercicio, Vd. tiene que activarlo pulsando en la imagen <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> 
 al lado del ejercicio que quiere activar.</p>
 <hr>
 <b>Probar un Ejercicio</b>
@@ -706,13 +706,13 @@ $langExpectedChoice = "Elecci&oacute;n esperada";
 $langExpirationDate = "Finalizado";
 $langExpire = "Fecha de caducidad";
 $langExplanation = "Una vez que usted haya pulsado OK, ser&aacute; creada una web que incluir&aacute; Foro, Lista de enlaces, Ejercicios, Agenda, Lista de documentos... Por medio de su c&oacute;digo de identificaci&oacute;n, usted podr&aacute; modificar su contenido";
-$langExplanation = "La p&aacute;gina debe estar en formato HTML (e.g.\"my_page.ht\"). Se enlazar&aacute; a la p&aacute;gina inicial. Si quieres enviar documentos que no sean HTML (PDF, Word, Power Point, Video, etc.) utiliza la <a href=../document/document.php>herramienta Documentos</a>";
-$langExplanation = "Esta p&aacute;gina debe estar en formato HTML (por ejemplo\"mi_pagina.ht\"). Aparecer&aacute; el enlace en la p&aacute;gina principal de su curso. Si usted desea enviar un documento que no est&eacute; en formato HTML (PDF, Power Point, Word...) utilice la funci&oacute;n <a href=../document/document.php> Documentos</a>";
+$langExplanation = "La p&aacute;gina debe estar en formato HTML (e.g. \"my_page.htm\"). Se enlazar&aacute; a la p&aacute;gina inicial. Si quieres enviar documentos que no sean HTML (PDF, Word, Power Point, Video, etc.) utiliza la <a href=../document/document.php>herramienta Documentos</a>";
+$langExplanation = "Esta p&aacute;gina debe estar en formato HTML (por ejemplo \"mi_pagina.htm\"). Aparecer&aacute; el enlace en la p&aacute;gina principal de su curso. Si usted desea enviar un documento que no est&eacute; en formato HTML (PDF, Power Point, Word...) utilice la funci&oacute;n <a href=../document/document.php> Documentos</a>";
 $langExternalToolName = "Nombre del enlace";
 $langExternalToolUrl = "URL del enlace";
 $langFac = "facultad";
 $langFaculty = "Facultad";
-$langFailed = "<span style\"color: re\">Fallo!</span>";
+$langFailed = "<span style=\"color: red\">Fallo!</span>";
 $langFields = "Existe al menos un campo que se ha dejado vació";
 $langFields = "No ha rellenado todos los campos";
 $langFieldsRequ = "Todos los campos son obligatorios";
@@ -907,7 +907,7 @@ $langImport = "Importar";
 $langImpossible = "Acción imposible";
 $langIn = "en";
 $langIncludeUserPersonalInfo = "Incluir las presentaciones personales de los usuarios";
-$langIndeed = "Correcto. La iron&iacute;a socr&aacute;tica es un m&eacute;todo interrogativo. El t&eacute;rmino griego\"eirota\" significa , por otro lado,\"interroga\".";
+$langIndeed = "Correcto. La iron&iacute;a socr&aacute;tica es un m&eacute;todo interrogativo. El t&eacute;rmino griego \"eirotao\" significa , por otro lado, \"interrogar\".";
 $langInfo2Say = "Informaci&oacute;n para dar a los estudiantes";
 $langInfoProgNameTitle = "Información";
 $langInFrames = "Con frames (In frames)";
@@ -930,10 +930,10 @@ $langIntroStep1 = "<p>La <em>herramienta de actualización de Claroline</em> está
                 Esta configuración será guardada dentro de claroline/include/config.inc.php dentro de la versión anterior de su plataforma.</p>";
 $langIntroStep2 = "<p>Ahora, la <em>herramienta de actualización de Claroline</em> está a punto de actualizar los datos guardados dentro de las tablas principales de Claroline  
                     (usuarios, categorías de cursos, lista de herramienta, ...) y las hará compatibles con la nueva versión de Claroline.</p>
-                   <p class\"hel\">Nota: Dependiendo de la velocidad del servidor esta tarea podría tomar algún tiempo  
+                   <p class=\"help\">Nota: Dependiendo de la velocidad del servidor esta tarea podría tomar algún tiempo  
                    en ser ejecutada.</p>";
 $langIntroStep3 = "<p>Ahora, la <em>herramienta de actualización de Claroline </em> está a punto de actualización los datos de los cursos(directorios y tablas de la base de dato) uno por uno.
-                   <p class\"hel\">Nota: Dependiendo de la velocidad del servidor esta tarea podría tomar algún tiempo
+                   <p class=\"help\">Nota: Dependiendo de la velocidad del servidor esta tarea podría tomar algún tiempo
                     en ser ejecutada.</p>";
 $langIntroStep3Run = "<p>La <em>herramienta de actualización de Claroline </em> procederá con la actualización de los datos de los cursos</p>";
 $langIntroText = "Para enviar un mensaje, Seleccione un grupo de ususs (marcado con un * en el frente)
@@ -963,9 +963,9 @@ $langLastName = "Apellido";
 $langLastname = "Apellido";
 $langLastSessionTimeSpent = "Tiempo de la ultima sesión";
 $langLastVisit = "&Uacute;ltima Visita";
-$langLaunchStep1 = "<p><button onclick\"document.location='%s'\">Actualizar la configuración de la plataforma principal</button></p>";
-$langLaunchStep2 = "<p><button onclick\"document.location='%s'\">Actualizar las tablas de la plataforma principal.</button></p>";
-$langLaunchStep3 = "<p><button onclick\"document.location='%s'\">Actualizar los datos de cursos</button></p>";
+$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Actualizar la configuración de la plataforma principal</button></p>";
+$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Actualizar las tablas de la plataforma principal.</button></p>";
+$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Actualizar los datos de cursos</button></p>";
 $langLearningPath = "Seguimiento de aprendizaje";
 $langLearningPathAdmin = "Administrador de seguimiento de aprendizaje";
 $langLearningPathList = "Lista seguimiento de aprendizaje ";
@@ -1039,7 +1039,7 @@ y los hará compatibles con la nueva versión de Claroline. Esta actualización se 
 
 <table>
 <tbody>
-<tr valign\"to\"><td>-</td><td>Respalde Todos sus datos de toda su plataforma (Archivos y bases de datos)</td><td>%s</td></tr>
+<tr valign=\"top\"><td>-</td><td>Respalde Todos sus datos de toda su plataforma (Archivos y bases de datos)</td><td>%s</td></tr>
 
 </tbody>
 </table>
@@ -1067,7 +1067,7 @@ $langMaxFileSize = "Tamaño Máximo de archivo : ";
 $langMaximum = "Máximo : ";
 $langMaxSizeCourseCode = "max. 12 caracteres, p. ej.<i>ROM2121</i>";
 $langMaxStudentGroup = "Máximo de estudiantes por grupo";
-$langMessage = "en el momento que usted suprima el foro\"Foro de prueba\", igualmente se suprimir&aacute; el presente tema que no contiene m&aacute;s que este mensaje";
+$langMessage = "en el momento que usted suprima el foro \"Foro de pruebas\", igualmente se suprimir&aacute; el presente tema que no contiene m&aacute;s que este mensaje";
 $langMessages = "Mensajes";
 $langMessageToSelectedUsers = "Mensajes a usuarios seleccionados";
 $langMin = "Mínimo : ";
@@ -1121,7 +1121,7 @@ $langNameCat = "El nombre de la categor&iacute;a ha sido modificado";
 $langNameDir = "Nombre del nuevo directorio";
 $langNameOfLang = "Array";
 $langNbAnnoucement = "Número de anuncios";
-$langNbCoursesUpgraded = "<p style\"text-align: cente\"><strong>%s cursos de %s han sido actualizados.</strong><br /></p>";
+$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s cursos de %s han sido actualizados.</strong><br /></p>";
 $langNbLogin = "Número de login";
 $langNbProf = "Número de profesores";
 $langNbrAccess = "Cantidad de accesos";
@@ -1144,7 +1144,7 @@ $langNext = "Siguiente";
 $langNextDay = "D&iacute;a Siguiente";
 $langNextMonth = "Mes Siguiente";
 $langNextPage = "Pagina siguiente";
-$langNextStep = "<p><button onclick\"document.location='%s'\">Siguiente ></button></p>";
+$langNextStep = "<p><button onclick=\"document.location='%s';\">Siguiente ></button></p>";
 $langNextWeek = "Semana Siguiente";
 $langNextYear = "A&ntilde;o Siguiente";
 $langNo = "No";
@@ -1203,8 +1203,8 @@ $langOkManifestFound = "mostrado encontrado en un archivo comprimido: ";
 $langOkManifestRead = "leer lo mostrado.";
 $langOkModuleAdded = "Módulo agregado : ";
 $langOkSent = "Su p&aacute;gina ha sido enviada al servidor.<p>Es accesible desde la <a href=../..//index.php>p&aacute;gina principal</a> de su curso";
-$langOkSentLink = "El enlace ha sido enviado.<p>Ahora est&aacute; accesible desde <a href\"../..//index.ph\">P&aacute;gina inicial del curso</a>";
-$langOkSentPage = "La p&aacute;gina ha sido enviada.<p>Ahora est&aacute; en<a href\"../..//index.ph\">P&aacute;gina inicial del curso</a>";
+$langOkSentLink = "El enlace ha sido enviado.<p>Ahora est&aacute; accesible desde <a href=\"../..//index.php\">P&aacute;gina inicial del curso</a>";
+$langOkSentPage = "La p&aacute;gina ha sido enviada.<p>Ahora est&aacute; en<a href=\"../..//index.php\">P&aacute;gina inicial del curso</a>";
 $langOldToNew = "Viejos primero";
 $langOn = "Hay";
 $langOn = "en";
@@ -1775,7 +1775,7 @@ $l_onlyreq = "Requerido solamente si cambi&oacute;";
 $l_options = "Opciones";
 $l_password = "Clave de Acceso";
 $l_perday = "Mensajes por d&iacute;a";
-$l_pmposted = "Respuesta enviada, puede hacer click <a href\"viewpmsg.ph\">aqu&iacute;</a> para ver sus Mensajes Privados";
+$l_pmposted = "Respuesta enviada, puede hacer click <a href=\"viewpmsg.php\">aqu&iacute;</a> para ver sus Mensajes Privados";
 $l_posted = "Enviado el";
 $l_poster = "Iniciador";
 $l_posts = "Enviar mensajes";

@@ -16,7 +16,7 @@ $langAddedToCourse = "đã đăng ký theo khoá học";
 $langAddEvent = "Thêm sự kiện";
 $langAddFaculties = "Thêm bộ môn";
 $langAddForCat = "Thêm diễn đàn vào chuyên mục";
-$langAddForums = "Để thêm diễn đàn, bạn bấm chuột vào\"Diễn đà\" trên dòng chuyên mục tương ứng. <br>Chú ý rằng với chuyên mục rỗng thì học sinh không thấy được";
+$langAddForums = "Để thêm diễn đàn, bạn bấm chuột vào \"Diễn đàn\" trên dòng chuyên mục tương ứng. <br>Chú ý rằng với chuyên mục rỗng thì học sinh không thấy được";
 $langAddIntro = "Lời giới thiệu";
 $langAddLoginPass = "Thêm login/pass trong .htpassword</a><br>";
 $langAddNewCourse = "Thêm khoá học mới";
@@ -438,13 +438,13 @@ Notice : Several elements from the first unit can point to the same element in t
 Give a weighting to each correct matching, and save your answer.</p>
 <hr>
 <b>Exercise modification</b>
-<p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> beside the exercise to modify, and follow instructions above.</p>
+<p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify, and follow instructions above.</p>
 <hr>
 <b>Exercise deleting</b>
-<p>In order to delete an exercise, click on the picture <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> beside the exercise to delete.</p>
+<p>In order to delete an exercise, click on the picture <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete.</p>
 <hr>
 <b>Exercise enabling</b>
-<p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> beside the exercise to enable.</p>
+<p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to enable.</p>
 <hr>
 <b>Exercise running</b>
 <p>You can test your exercise by clicking on its name in the exercise list.</p>
@@ -471,8 +471,8 @@ $langExpectedChoice = "Cần chọn";
 $langExpirationDate = "Expire";
 $langExpire = "Expiration";
 $langExplanation = "Sau khi bấm OK, một website sẽ được tạo ra với đầy đủ các chuyên mục. Bạn chỉ cần đăng nhập và hiệu chỉnh website theo ý thích.";
-$langExplanation = "Trang này phải có dạng HTML (e.g.\"my_page.ht\"). Nó sẽ được liên kết vào trang chủ. Nếu bạn muốn gửi các tệp không phải HTML (PDF, Word, Power Point, Video, etc.) hãy dùng  <a href=../document/document.php>Công cụ tài liệu</a>";
-$langExplanation = "The page must be in HTML format (e.g.\"my_page.ht\"). It will be linked from Homepage. If you want to send non HTML documents (PDF, Word, Power Point, Video, etc.) use <a href=../document/document.php>Documents tool</a>";
+$langExplanation = "Trang này phải có dạng HTML (e.g. \"my_page.htm\"). Nó sẽ được liên kết vào trang chủ. Nếu bạn muốn gửi các tệp không phải HTML (PDF, Word, Power Point, Video, etc.) hãy dùng  <a href=../document/document.php>Công cụ tài liệu</a>";
+$langExplanation = "The page must be in HTML format (e.g. \"my_page.htm\"). It will be linked from Homepage. If you want to send non HTML documents (PDF, Word, Power Point, Video, etc.) use <a href=../document/document.php>Documents tool</a>";
 $langFac = "Chủ đề (phân loại theo bộ môn)";
 $langFaculty = "Bộ môn";
 $langFields = "You left some fields empty";
@@ -661,7 +661,7 @@ $langHUser = "Help Users";
 $langImpossible = "Không được";
 $langIn = "trong";
 $langIncludeUserPersonalInfo = "bao gồm thông tin cá nhân";
-$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek\"eirota\" means\"ask question\"";
+$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
 $langInfo2Say = "Thông tin đến học sinh";
 $langInstituteName = "URL of this organisation";
 $langInstituteShortName = "Organisation short name";
@@ -813,8 +813,8 @@ $langNowGoCreateYourCourse = "You can now go to create  your  course";
 $langNULLValue = "Empty (or NULL)";
 $langOk = "Ok";
 $langOkSent = "Your page has been sent.<p>It is now linked from course <a href=../..//index.php>Homepage</a>";
-$langOkSentLink = "Liên kết của bạn đã được gửi.<p>Bây giờ bạn đã có liên kết tại <a href\"../..//index.ph\">trang chính của khoá học</a>";
-$langOkSentPage = "Trang của bạn đã được gửi<p>Bây giờ bạn đã có liên kết tại <a href\"../..//index.ph\">trang chính của khoá học</a>";
+$langOkSentLink = "Liên kết của bạn đã được gửi.<p>Bây giờ bạn đã có liên kết tại <a href=\"../..//index.php\">trang chính của khoá học</a>";
+$langOkSentPage = "Trang của bạn đã được gửi<p>Bây giờ bạn đã có liên kết tại <a href=\"../..//index.php\">trang chính của khoá học</a>";
 $langOldToNew = "Từ cũ đến mới";
 $langOn = "On";
 $langOneByOne = "Sau khi đăng ký";
@@ -1128,7 +1128,7 @@ $l_onlyreq = "Ch? c?n thi?t n?u dã thay d?i";
 $l_options = "Các tu? ch?n";
 $l_password = "Password";
 $l_perday = "Bài /ngày";
-$l_pmposted = "Reply Posted, you can click <a href\"viewpmsg.ph\">here</a> to view your Bài riêng tu";
+$l_pmposted = "Reply Posted, you can click <a href=\"viewpmsg.php\">here</a> to view your Bài riêng tu";
 $l_posted = "Ngày";
 $l_poster = "Ngu?i g?i";
 $l_posts = "Bài g?i";

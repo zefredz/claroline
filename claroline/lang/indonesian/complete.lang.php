@@ -15,7 +15,7 @@ $langAddedToCourse = "telah terdaftar dalam pelajaran anda";
 $langAddEvent = "Tambah event";
 $langAddFaculties = "Tambah fakultas";
 $langAddForCat = "Tambah forum kedalam kategori";
-$langAddForums = "Untuk menambah forum, klik\"Foru\" dalam kategori pilihan anda. Kategori kosong (tanpa forum) tidak nampak oleh siswa";
+$langAddForums = "Untuk menambah forum, klik \"Forum\" dalam kategori pilihan anda. Kategori kosong (tanpa forum) tidak nampak oleh siswa";
 $langAddIntro = "Tambah teks pendahuluan";
 $langAddLoginPass = "Tambah login/password di .htpassword</a><br>";
 $langAddNewCourse = "Tambah pelajaran baru";
@@ -400,13 +400,13 @@ Catatan : Beberapa unsur dari unit pertama dapat berjodoh dengan satu unsur yang
 Beri bobot kepada setiap penjodoham, dan simpan jawaban anda.</p>
 <hr>
 <b>Modifikasi Latihan</b>
-<p>Modifikasi latihan secara prinsip sama dengan pembuatannya. Klik saja gambar <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> disamoi latihan yang akan dimodifikasi, dan ikuti petunjuk di atas.</p>
+<p>Modifikasi latihan secara prinsip sama dengan pembuatannya. Klik saja gambar <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> disamoi latihan yang akan dimodifikasi, dan ikuti petunjuk di atas.</p>
 <hr>
 <b>Penghapusan Latihan</b>
-<p>Untuk menghapus klik pada gambar <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> disamping latihan yang ingin dihapus.</p>
+<p>Untuk menghapus klik pada gambar <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> disamping latihan yang ingin dihapus.</p>
 <hr>
 <b>Pengaktifan Latihan</b>
-<p>Agar latihan dapat digunakan anda harus mengaktifkannya dengan meng-klik gambar <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> fisamping latihan yang ingin diaktifkan.</p>
+<p>Agar latihan dapat digunakan anda harus mengaktifkannya dengan meng-klik gambar <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> fisamping latihan yang ingin diaktifkan.</p>
 <hr>
 <b>Menjakankan Latihan</b>
 <p>Anda dapat mencobs latihan anda dengan meng-klik pada nama dalam daftar latihan.</p>
@@ -432,8 +432,8 @@ $langExpectedChoice = "Pilihan yang diharapkan";
 $langExpirationDate = "Kadaluarsa";
 $langExpire = "Kadaluarsa";
 $langExplanation = "Begitu anda klik  OK, Situs berisi Forum, Agenda, Document manager dll. dibuat. Login anda sebagai kreator situs,  memungkinkan untuk memodifikasinya sesuai kebutuhan anda.";
-$langExplanation = "Halaman harus dalam format HTML (e.g.\"my_page.ht\"). Halaman tsb akan di-link ke Homepage. Jika anda ingin mengirim dokumen non HTML (PDF, Word, Power Point, Video, dll.) gunakan <a href=../document/document.php>Tool Dokumen</a>";
-$langExplanation = "Halaman musti dalam format HTML(misal\"my_page.ht\"). Halaman tsb akan di-link-kan ke  Homepage. Jika anda ingin mengirim dokumen non HTML (PDF, Word, Power Point, Video, dll.) gunakan <a href=../document/document.php>Tool Dokumen</a>";
+$langExplanation = "Halaman harus dalam format HTML (e.g. \"my_page.htm\"). Halaman tsb akan di-link ke Homepage. Jika anda ingin mengirim dokumen non HTML (PDF, Word, Power Point, Video, dll.) gunakan <a href=../document/document.php>Tool Dokumen</a>";
+$langExplanation = "Halaman musti dalam format HTML(misal \"my_page.htm\"). Halaman tsb akan di-link-kan ke  Homepage. Jika anda ingin mengirim dokumen non HTML (PDF, Word, Power Point, Video, dll.) gunakan <a href=../document/document.php>Tool Dokumen</a>";
 $langFac = "Kategori";
 $langFaculty = "Facultas";
 $langFields = "Anda belum mengisi semua field";
@@ -578,7 +578,7 @@ $langHUser = "Pertolongan User";
 $langImpossible = "Operasi tidak mungkin";
 $langIn = "dalam";
 $langIncludeUserPersonalInfo = "inclure les présentations personnelles des utilisateurs";
-$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek\"eirota\" means\"ask question\"";
+$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
 $langInfo2Say = "Informasi untuk siswa";
 $langInstituteName = "URL organisasi";
 $langInstituteShortName = "Nama singkat organisasi";
@@ -731,8 +731,8 @@ $langNowGoCreateYourCourse = "Anda kini dapat membuat situs pelajaran anda";
 $langNULLValue = "Empty (or NULL)";
 $langOk = "Ok";
 $langOkSent = "Halaman anda telah dikirim.<p>Kini telah di-link-kan ke <a href=../..//index.php>Situs Pelajaran</a>";
-$langOkSentLink = "Link anda telah dikirim.<p>Sekarang dapat diakses dari<a href\"../..//index.ph\">Situs pelajaran</a>";
-$langOkSentPage = "Halaman anda telah dikirim.<p>Sekarang sudah terhubung ke   <a href\"../..//index.ph\">Situs pelajaran</a>";
+$langOkSentLink = "Link anda telah dikirim.<p>Sekarang dapat diakses dari<a href=\"../..//index.php\">Situs pelajaran</a>";
+$langOkSentPage = "Halaman anda telah dikirim.<p>Sekarang sudah terhubung ke   <a href=\"../..//index.php\">Situs pelajaran</a>";
 $langOldToNew = "Yang lama lebih dulu";
 $langOn = "Tampil";
 $langOneByOne = "Tambah user secara manual";
@@ -856,7 +856,7 @@ $langStudent = "siswa";
 $langStudentsNotInThisGroups = "User tidak dalam group ini";
 $langSubscribed = "orang terdaftar dalam pelajaran ini";
 $langSubscription = "Pendaftaran";
-$langSubTitle = "Tambahkan link ke menu utama situs pelajaran anda. Tip: jika anda ingin menambahkan link ke suatu halaman, kunjungi halaman tersebut, cut dan paste alamatnya dalam bar URL di bagian atas browser dan insert-kan kedalam field\"lin\" di bawah ini.";
+$langSubTitle = "Tambahkan link ke menu utama situs pelajaran anda. Tip: jika anda ingin menambahkan link ke suatu halaman, kunjungi halaman tersebut, cut dan paste alamatnya dalam bar URL di bagian atas browser dan insert-kan kedalam field \"link\" di bawah ini.";
 $langSupportForum = "Forum dukungan";
 $langSysId = "Id Système";
 $langSysInfo = "Info tentang System";
@@ -1039,7 +1039,7 @@ $l_onlyreq = "Hanya dibutuhkan jika sedang diubah";
 $l_options = "Opsi";
 $l_password = "Password";
 $l_perday = "Pesan-pesan per hari";
-$l_pmposted = "Tanggapan Terkirim, anda dapat meng-klik <a href\"viewpmsg.ph\">disini</a> untuk melihat Pesan-pesan Privat anda";
+$l_pmposted = "Tanggapan Terkirim, anda dapat meng-klik <a href=\"viewpmsg.php\">disini</a> untuk melihat Pesan-pesan Privat anda";
 $l_posted = "Diposkan";
 $l_poster = "Pengirim";
 $l_posts = "Kiriman";

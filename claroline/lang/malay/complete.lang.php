@@ -17,7 +17,7 @@ $langAddEvent = "Tambah Agenda";
 $langAddEvent = "Tambah peristiwa";
 $langAddFaculties = "Tambah Pusat Pengajian";
 $langAddForCat = "Tambah Forum ke Kategori";
-$langAddForums = "Untuk tambah Forum,klik pada\"Foru\" dalam Kategori pilihan anda. Kategori yang kosong tidak akan dipaparkan kepada Pelajar ";
+$langAddForums = "Untuk tambah Forum,klik pada \"Forum\" dalam Kategori pilihan anda. Kategori yang kosong tidak akan dipaparkan kepada Pelajar ";
 $langAddIntro = "Tambah pengenalan";
 $langAddLoginPass = "Add a login/pass in .htpassword</a><br>";
 $langAddNewCourse = "Tambah Subjek Baru";
@@ -402,13 +402,13 @@ Notis : Kebanyakan elemen dari unit pertama boleh dihalakan ke elemen pada unit 
 Kemudian, sediakan skema jawapan untuk setiap soalan yang disuaikan dengan betul dan simpan jawapan tersebut.</p>
 <hr>
 <b>Ubahsuai Latihan</b>
-<p>Untuk mengubahsuai Latihan, cara pengubahsuaian adalah sama seperti cara untuk membina Latihan. Anda hanya perlu klik pada ikon ini <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> kemudian tentukan Latihan yang ingin diubahsuai dan kemudian ikut arahan sistem.</p>
+<p>Untuk mengubahsuai Latihan, cara pengubahsuaian adalah sama seperti cara untuk membina Latihan. Anda hanya perlu klik pada ikon ini <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> kemudian tentukan Latihan yang ingin diubahsuai dan kemudian ikut arahan sistem.</p>
 <hr>
 <b>Padam Latihan</b>
-<p>Untuk memadam Latihan, klik pada ikon ini <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> dan pilih Latihan yang ingin dipadam.</p>
+<p>Untuk memadam Latihan, klik pada ikon ini <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> dan pilih Latihan yang ingin dipadam.</p>
 <hr>
 <b>Papar Latihan</b>
-<p>Untuk memaparkan Latihan kepada pelajar, anda perlu menukar <i>mode</i> paparan iaitu dengan klik pada ikon ini <img src\"img/invisible.gi\" border\"\" align\"absmiddl\">.</p>
+<p>Untuk memaparkan Latihan kepada pelajar, anda perlu menukar <i>mode</i> paparan iaitu dengan klik pada ikon ini <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\">.</p>
 <hr>
 <b>Uji Latihan</b>
 <p>Anda boleh menguji Latihan yang telah dibina dengan klik pada nama Latihan tersebut yang terdapat pada senarai Latihan.</p>
@@ -434,8 +434,8 @@ $langExpectedChoice = "Pilihan Jangkaan";
 $langExpirationDate = "Luput";
 $langExpire = "Luput";
 $langExplanation = "Apabila anda klik pada butang <b>Proses</b>,satu Laman Subjek yang mempunyai Forum, Agenda, Pengumuman dan sebagainya akan dibina. Anda boleh mengubahsuai Laman Subjek tersebut mengikut keperluan anda";
-$langExplanation = "<i>Page</i> tersebut mestilah berada dalam format HTML (cth.\"page_saya.ht\"). Ia akan dipautkan pada Laman Subjek. Jika anda ingin memaut dokumen bukan dalam format HTML (CTH. PDF, Word, Power Point, Video, dsb.) sila ke <a href=../document/document.php>Pengurusan Dokumen</a>";
-$langExplanation = "<i>Page<i/> anda mestilah dalam format HTML (e.g.\"my_page.ht\"). Ia akan dipautkan dari laman subjeke. Jika anda ingin menghantar fail  yang bukan dalam format HTML seperti (PDF, Word, Power Point, Video, etc.), sila gunakan <a href=../document/document.php>Alat bantu dokumen</a>";
+$langExplanation = "<i>Page</i> tersebut mestilah berada dalam format HTML (cth. \"page_saya.htm\"). Ia akan dipautkan pada Laman Subjek. Jika anda ingin memaut dokumen bukan dalam format HTML (CTH. PDF, Word, Power Point, Video, dsb.) sila ke <a href=../document/document.php>Pengurusan Dokumen</a>";
+$langExplanation = "<i>Page<i/> anda mestilah dalam format HTML (e.g. \"my_page.htm\"). Ia akan dipautkan dari laman subjeke. Jika anda ingin menghantar fail  yang bukan dalam format HTML seperti (PDF, Word, Power Point, Video, etc.), sila gunakan <a href=../document/document.php>Alat bantu dokumen</a>";
 $langFac = "Pusat Pengajian";
 $langFaculty = "Pusat Pengajian";
 $langFields = "Terdapat ruang kosong yang tidak diisi";
@@ -579,7 +579,7 @@ $langHUser = "Bantuan Pengguna - Pengguna";
 $langImpossible = "Permintaan tidak dapat diproses";
 $langIn = "kepada";
 $langIncludeUserPersonalInfo = "inclure les présentations personnelles des utilisateurs";
-$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek\"eirota\" means\"ask question\"";
+$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
 $langInfo2Say = "Maklumat untuk Pelajar";
 $langInstituteName = "URL of this organisation";
 $langInstituteShortName = "Organisation short name";
@@ -738,8 +738,8 @@ $langNULLValue = "Kosong (atau Tiada Nilai)";
 $langOk = "Proses";
 $langOk = "Ok";
 $langOkSent = "<i>Page<i/> telah dihantar.<p>ia telah dipautkan pada <a href=../..//index.php>laman subjek</a>";
-$langOkSentLink = "Pautan telah dimuatnaik.<p>Ia boleh dicapai pada <a href\"../..//index.ph\">Laman Subjek</a>";
-$langOkSentPage = "Page</i> telah dimuatnaik.<p>ia dipautkan pada <a href\"../..//index.ph\">Laman Subjek</a>";
+$langOkSentLink = "Pautan telah dimuatnaik.<p>Ia boleh dicapai pada <a href=\"../..//index.php\">Laman Subjek</a>";
+$langOkSentPage = "Page</i> telah dimuatnaik.<p>ia dipautkan pada <a href=\"../..//index.php\">Laman Subjek</a>";
 $langOldToNew = "Yang lama dahulu";
 $langOn = "Terdapat";
 $langOneByOne = "Tambah Pengguna secara manual";
@@ -1048,7 +1048,7 @@ $l_onlyreq = "Hanya perkara yang dibenarkan sahaja boleh diubah.";
 $l_options = "Pilihan";
 $l_password = "Katalaluan";
 $l_perday = "Mesej harian";
-$l_pmposted = "Mesej yang hendak dibalas, telah dihantar, anda boleh klik <a href\"viewpmsg.ph\">di sini</a> untuk melihat Mesej Peribadi";
+$l_pmposted = "Mesej yang hendak dibalas, telah dihantar, anda boleh klik <a href=\"viewpmsg.php\">di sini</a> untuk melihat Mesej Peribadi";
 $l_posted = "Dihantar";
 $l_poster = "Penghantar";
 $l_posts = "Hantar";

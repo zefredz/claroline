@@ -18,7 +18,7 @@ $langAddEvent = "Add an event";
 $langAddExternalTool = "Add external link";
 $langAddFeedback = "Add feedback";
 $langAddForCat = "Add forum into category";
-$langAddForums = "To add forums,click on\"Forum\" in the category of your choice. An empty category (without forums) won't be visible for students";
+$langAddForums = "To add forums,click on \"Forums\" in the category of your choice. An empty category (without forums) won't be visible for students";
 $langAddImage = "Include picture";
 $langAddIntro = "Add introduction text";
 $langAddLoginPass = "Add a login/pass in .htpassword</a><br>";
@@ -327,7 +327,7 @@ $langDBSettingNamesIntro = "
 				You can specify a prefix for these database names.
 				<p>
 				If you are allowed to use only one database by your database system administrator, 
-				get back to the previous page and select option\"Singl\"
+				get back to the previous page and select option \"Single\"
 				</p>
 				";
 $langDBUse = "Database usage";
@@ -623,13 +623,13 @@ Notice : Several elements from the first unit can point to the same element in t
 Give a weighting to each correct matching, and save your answer.</p>
 <hr>
 <b>Exercise modification</b>
-<p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> beside the exercise to modify, and follow instructions above.</p>
+<p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify, and follow instructions above.</p>
 <hr>
 <b>Exercise deleting</b>
-<p>In order to delete an exercise, click on the picture <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> beside the exercise to delete.</p>
+<p>In order to delete an exercise, click on the picture <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete.</p>
 <hr>
 <b>Exercise enabling</b>
-<p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> beside the exercise to enable.</p>
+<p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to enable.</p>
 <hr>
 <b>Exercise running</b>
 <p>You can test your exercise by clicking on its name in the exercise list.</p>
@@ -675,7 +675,7 @@ $langExternalToolName = "Name link";
 $langExternalToolUrl = "URL link";
 $langFac = "Category";
 $langFaculty = "Faculty";
-$langFailed = "<span style\"color: re\">Failed</span>";
+$langFailed = "<span style=\"color: red\">Failed</span>";
 $langFeedback = "Feedback";
 $langFeedbackAdded = "Feedback added";
 $langFeedbackDetails = "Feedback details";
@@ -879,7 +879,7 @@ $langImport = "Import";
 $langImpossible = "Operation impossible";
 $langIn = "in";
 $langIncorrectDate = "Start date must be before end date ...";
-$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek\"eirota\" means\"ask question\"";
+$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
 $langIndividual = "Individual";
 $langInfo2Say = "Information to give to students";
 $langInfoProgNameTitle = "Information";
@@ -903,10 +903,10 @@ $langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to
                 These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
 $langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going upgrade the data stored into the main Claroline tables 
                     (users, course categories, tools list, ...) and set it compatible with the new Claroline version.</p>
-                   <p class\"hel\">Note: According to the speed of your server or the amount of data stored on your platform, this 
+                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this 
                    operation may take some time.</p>";
 $langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going update course data (directories and database tables) one by one.
-                   <p class\"hel\">Note: According to the speed of your server or the amount of data stored on your platform,
+                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
                    this operation may take some time.</p>";
 $langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>";
 $langIntroText = "To send a message, select groups of users (marked with a * in the front)
@@ -937,9 +937,9 @@ $langLastname = "Last name";
 $langLastSessionTimeSpent = "Last session time";
 $langLastVisit = "Last visit";
 $langLateUpload = "Late upload";
-$langLaunchStep1 = "<p><button onclick\"document.location='%s'\">Launch platform main settings upgrade</button></p>";
-$langLaunchStep2 = "<p><button onclick\"document.location='%s'\">Launch main platform tables upgrade</button></p>";
-$langLaunchStep3 = "<p><button onclick\"document.location='%s'\">Launch course data upgrade</button></p>";
+$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";
+$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Launch main platform tables upgrade</button></p>";
+$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
 $langLearningPath = "Learning Path";
 $langLearningPathAdmin = "Learning Path Admin";
 $langLearningPathList = "Learning Path List";
@@ -1000,7 +1000,7 @@ installation and set them to be compatible with the new Claroline version. This 
 
 <table>
 <tbody>
-<tr valign\"to\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>
+<tr valign=\"top\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>
 
 </tbody>
 </table>
@@ -1073,7 +1073,7 @@ $langNameChanged = "Name of the class has been changed";
 $langNameDir = "Name of the new directory";
 $langNameOfLang = "Array";
 $langNbAnnoucement = "Number of announcements";
-$langNbCoursesUpgraded = "<p style\"text-align: cente\"><strong>%s courses on %s already upgraded</strong><br /></p>";
+$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on %s already upgraded</strong><br /></p>";
 $langNbLines = "Qty of lines";
 $langNbLogin = "Number of login";
 $langNbProf = "Number of teachers";
@@ -1099,7 +1099,7 @@ $langNext = "Next";
 $langNextDay = "Next Day";
 $langNextMonth = "Next Month";
 $langNextPage = "Next page";
-$langNextStep = "<p><button onclick\"document.location='%s'\">Next ></button></p>";
+$langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
 $langNextWeek = "Next Week";
 $langNextYear = "Next Year";
 $langNo = "No";
@@ -1160,8 +1160,8 @@ $langOkManifestFound = "Manifest found in zip file : ";
 $langOkManifestRead = "Manifest read.";
 $langOkModuleAdded = "Module added : ";
 $langOkSent = "Your page has been sent.<p>It is now linked from course <a href=../..//index.php>Homepage</a>";
-$langOkSentLink = "Your link has been sent.<p>It is now accessible from the <a href\"../..//index.ph\">course Homepage</a>";
-$langOkSentPage = "Your page has been sent.<p>It is now linked from the <a href\"../..//index.ph\">course Homepage</a>";
+$langOkSentLink = "Your link has been sent.<p>It is now accessible from the <a href=\"../..//index.php\">course Homepage</a>";
+$langOkSentPage = "Your page has been sent.<p>It is now linked from the <a href=\"../..//index.php\">course Homepage</a>";
 $langOldToNew = "Oldest first";
 $langOn = "On";
 $langOneByOne = "Add user manually";
@@ -1372,7 +1372,7 @@ $langSubscribeUser = "Register user";
 $langSubscription = "Subscription";
 $langSubscriptionAllowedOnly = "Subscription allowed only ";
 $langSubscriptionDeniedOnly = "Subscription denied only";
-$langSubTitle = "Adds to your Course Homepage Main Menu a link to a site, a page or any URL. Tip: if you want to add a link to a page, go to that page, cut and paste its address in the URL bar on the top of your browser and insert it into the\"lin\" field below.";
+$langSubTitle = "Adds to your Course Homepage Main Menu a link to a site, a page or any URL. Tip: if you want to add a link to a page, go to that page, cut and paste its address in the URL bar on the top of your browser and insert it into the \"link\" field below.";
 $langSubTitleChangeParent = "Change parent's category of ";
 $langSubTitleCreate = "Create a category";
 $langSubTitleEdit = "Edit a category";
@@ -1449,7 +1449,7 @@ $langUniqueSelect = "Multiple choice (Unique answer)";
 $langUnlimitedAttempts = "Unlimited attempts";
 $langUnreg = "Unregister";
 $langUnsubscribe = "Unregister user";
-$langUnsubscribeClass = "Unregister user from class";
+$langUnsubscribeClass = "Unregister from class";
 $langUntil = "to";
 $langUnvalid = "have unvalid or no email address";
 $langUp = "Up";
@@ -1755,7 +1755,7 @@ $l_onlyreq = "Only requried if being changed";
 $l_options = "Options";
 $l_password = "Password";
 $l_perday = "Messages per day";
-$l_pmposted = "Reply Posted, you can click <a href\"viewpmsg.ph\">here</a> to view your Private Messages";
+$l_pmposted = "Reply Posted, you can click <a href=\"viewpmsg.php\">here</a> to view your Private Messages";
 $l_posted = "Posted";
 $l_poster = "Poster";
 $l_posts = "Posts";

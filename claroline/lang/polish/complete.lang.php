@@ -16,7 +16,7 @@ $langAddedToCourse = "jest ju¿ zarejestrowany w serwerze ale nie w kursie. Bêdzi
 $langAddEvent = "Dodaj termin";
 $langAddFaculties = "Dodaj prowadz±cego";
 $langAddForCat = "Dodaj Forum do kategorii";
-$langAddForums = "¯eby dodaæ Forum, kliknij na\"For\" w kategorii, któr± wybra³e¶. Pusta kategoria (bez Forum) bêdzie dostêpna dla studentów";
+$langAddForums = "¯eby dodaæ Forum, kliknij na \"Fora\" w kategorii, któr± wybra³e¶. Pusta kategoria (bez Forum) bêdzie dostêpna dla studentów";
 $langAddIntro = "Dodaj tekst wprowadzenia";
 $langAddNewCourse = "Dodaj nowy kurs";
 $langAddNewHeading = "Dodaj now± rubrykê";
@@ -361,13 +361,13 @@ Notice : Several elements from the first unit can point to the same element in t
 Give a weighting to each correct matching, and save your answer.</p>
 <hr>
 <b>Exercise modification</b>
-<p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> beside the exercise to modify, and follow instructions above.</p>
+<p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify, and follow instructions above.</p>
 <hr>
 <b>Exercise deleting</b>
-<p>In order to delete an exercise, click on the picture <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> beside the exercise to delete.</p>
+<p>In order to delete an exercise, click on the picture <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete.</p>
 <hr>
 <b>Exercise enabling</b>
-<p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> beside the exercise to enable.</p>
+<p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to enable.</p>
 <hr>
 <b>Exercise running</b>
 <p>You can test your exercise by clicking on its name in the exercise list.</p>
@@ -393,8 +393,8 @@ $langExpectedChoice = "Spodziewany wybór";
 $langExpirationDate = "Wygasa";
 $langExpire = "Expiration";
 $langExplanation = "Klikniêcie OK spowoduje utworzenie stron kursu z Forum, Terminarzem, Obszarem dokumentów itd. Tylko Ty, jako twórca kursu mo¿esz te strony modyfikowaæ";
-$langExplanation = "Strona musi byæ plikiem HTML (np.\"my_page.ht\"). Bêdzie ona dostêpna jako odno¶nik ze strony g³ównej. Je¶li chcesz wys³aæ dokument w innym formacie (PDF, Word, Power Point, Video, etc.) u¿yj <a href=../document/document.php>narzêdzia Dokumentu</a>";
-$langExplanation = "Strona musi byæ w formacie HTML (np.\"my_page.ht\"). Odno¶nik do strony umieszczone zostanie na Stronie g³ównej. Je¶li chcesz wys³aæ dokument inny i¿ HTML (PDF, Word, Power Point, Video, etc.) u¿yj <a href=../document/document.php>narzêdzia Dokumenty</a>";
+$langExplanation = "Strona musi byæ plikiem HTML (np. \"my_page.htm\"). Bêdzie ona dostêpna jako odno¶nik ze strony g³ównej. Je¶li chcesz wys³aæ dokument w innym formacie (PDF, Word, Power Point, Video, etc.) u¿yj <a href=../document/document.php>narzêdzia Dokumentu</a>";
+$langExplanation = "Strona musi byæ w formacie HTML (np. \"my_page.htm\"). Odno¶nik do strony umieszczone zostanie na Stronie g³ównej. Je¶li chcesz wys³aæ dokument inny i¿ HTML (PDF, Word, Power Point, Video, etc.) u¿yj <a href=../document/document.php>narzêdzia Dokumenty</a>";
 $langFac = "Kategoria";
 $langFaculty = "Wydzia³";
 $langFields = "pozostawi³e¶ puste pola";
@@ -532,7 +532,7 @@ $langHUser = "U¿ytkownicy - Pomoc ";
 $langImpossible = "Czynno¶æ niemo¿liwa";
 $langIn = "w";
 $langIncludeUserPersonalInfo = "inclure les présentations personnelles des utilisateurs";
-$langIndeed = "Tak, Sokratyczna ironia jest metod± pytaj±c±. Z greckiego\"eirota\" -\"zadawaæ pytani\"";
+$langIndeed = "Tak, Sokratyczna ironia jest metod± pytaj±c±. Z greckiego \"eirotao\" - \"zadawaæ pytania\"";
 $langInfo2Say = "Informacje dla studentów";
 $langInstituteName = "URL instytucji";
 $langInstituteShortName = "Skrót nazwy instytucji";
@@ -670,8 +670,8 @@ $langNowGoCreateYourCourse = "Teraz mo¿esz tworzyæ swoje kursy";
 $langNULLValue = "Empty (or NULL)";
 $langOk = "Ok";
 $langOkSent = "Twoja strona zosta³a wys³ana.<p>Jest ona dostêpna ze <a href=../..//index.php>Strony g³ównej</a> kursu";
-$langOkSentLink = "Odno¶nik sosta³ dodany.<p>Jest on dostêpny ze <a href\"../..//index.ph\">strony g³ównej kursu</a>";
-$langOkSentPage = "Strona zosta³a wys³ana.<p>Jest ona po³±czona ze <a href\"../..//index.ph\">stron± g³ówn± kursu.</a>";
+$langOkSentLink = "Odno¶nik sosta³ dodany.<p>Jest on dostêpny ze <a href=\"../..//index.php\">strony g³ównej kursu</a>";
+$langOkSentPage = "Strona zosta³a wys³ana.<p>Jest ona po³±czona ze <a href=\"../..//index.php\">stron± g³ówn± kursu.</a>";
 $langOldToNew = "Zmieñ kolejno¶æ";
 $langOn = "W³±czone";
 $langOneByOne = "Rêczne dodawanie u¿ytkownika";
@@ -790,7 +790,7 @@ $langStudent = "student";
 $langStudentsNotInThisGroups = "Users not in this group";
 $langSubscribed = "osoby zarejestrowane w kursie";
 $langSubscription = "Zapisy";
-$langSubTitle = "Dodanie odno¶nika do zewnêtrzego adresu URL na Stronie g³ównej kursu. Uwaga: Je¶li chcesz pod³±czyæ jak±¶ stronê z Internetu, wejd¼ na tê stronê, skopiuj jej adres z pola Adres okienka przegl±darki a nastêpnie wklej ten adres do pola\"Odno¶ni\" poni¿ej.";
+$langSubTitle = "Dodanie odno¶nika do zewnêtrzego adresu URL na Stronie g³ównej kursu. Uwaga: Je¶li chcesz pod³±czyæ jak±¶ stronê z Internetu, wejd¼ na tê stronê, skopiuj jej adres z pola Adres okienka przegl±darki a nastêpnie wklej ten adres do pola \"Odno¶nik\" poni¿ej.";
 $langSupportForum = "Forum u¿ytkowników Claroline";
 $langSysId = "Id Système";
 $langSysInfo = "Informacja o Systemie";
@@ -964,7 +964,7 @@ $l_onlyreq = "Only requried if being changed";
 $l_options = "Opcje";
 $l_password = "Has³o";
 $l_perday = "Wiadomo¶ci per day";
-$l_pmposted = "Reply Posted, you can click <a href\"viewpmsg.ph\">here</a> to view your Private Wiadomo¶ci";
+$l_pmposted = "Reply Posted, you can click <a href=\"viewpmsg.php\">here</a> to view your Private Wiadomo¶ci";
 $l_posted = "Posted";
 $l_poster = "Wys³a³";
 $l_posts = "Listy";

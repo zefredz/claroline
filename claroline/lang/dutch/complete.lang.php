@@ -16,7 +16,7 @@ $langAddComment = "Add a comment";
 $langAddedToCourse = "is nu geregistreerd voor uw cursus";
 $langAddEvent = "Item toevoegen";
 $langAddForCat = "Forum toevoegen aan de categorie";
-$langAddForums = "Om forums toe te voegen, klik op\"Forum\" in de categorie van uw keuze. Een categorie zonder forum zal niet zichtbaar zijn voor studenten";
+$langAddForums = "Om forums toe te voegen, klik op \"Forums\" in de categorie van uw keuze. Een categorie zonder forum zal niet zichtbaar zijn voor studenten";
 $langAddIntro = "Inleiding toevoegen";
 $langAddIntro = "INLEIDENDE TEKST TOEVOEGEN";
 $langAddModule = "Add";
@@ -372,13 +372,13 @@ Merk op : verschillende elementen van de eerste lijst kunnen wijzen naar hetzelf
 Geef een gewicht aan elk goed koppel, en dan kunt u uw vraag bewaren.</p>
 <hr>
 <b>Oefeningen wijzigen</b>
-<p>Een oefening wijzigen werkt analoog aan het maken van een nieuwe oefening. Klik op de tekening<img src\"img/edit.gi\" border\"\" align\"absmiddl\"> naast de oefening om ze te wijzigen. Volg bovenstaande instructies voor het maken van oefeningen.</p>
+<p>Een oefening wijzigen werkt analoog aan het maken van een nieuwe oefening. Klik op de tekening<img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> naast de oefening om ze te wijzigen. Volg bovenstaande instructies voor het maken van oefeningen.</p>
 <hr>
 <b>Oefeningen wissen</b>
-<p>Klik voor het wissen van een oefening op het <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> ikoontje naast de oefening.</p>
+<p>Klik voor het wissen van een oefening op het <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> ikoontje naast de oefening.</p>
 <hr>
 <b>Oefeningen activeren</b>
-<p>Om een oefening open te stellen voor studenten, moet u ze activeren door op de <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> tekening naast de oefening te klikken.</p>
+<p>Om een oefening open te stellen voor studenten, moet u ze activeren door op de <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> tekening naast de oefening te klikken.</p>
 <hr>
 <b>Oefening uitvoeren</b>
 <p>U kunt uw oefening testen door op haar naam te klikken in de oefeningenlijst.</p>
@@ -415,7 +415,7 @@ $langExistingGroups = "Groepen";
 $langExMessage = "Voorbeeldbericht";
 $langExpectedChoice = "Correcte antwoord";
 $langExplanation = "Wanneer U Ok drukt wordt een pagina aangemaakt met o.a. de onderdelen: forum, links, oefeningen, agenda en cursusmateriaal. Met uw login kan U de inhoud later wijzigen";
-$langExplanation = "Deze pagina moet in HTML formaat zijn (bijv.\"mijn_pagina.ht\"). Die zal door een link verbonden worden met de Homepage van de cursussite. Om een niet-HTML document (PDF, Power Point, Word...) op te sturen, gebruik <a href=../document/document.php>Documenten</a>";
+$langExplanation = "Deze pagina moet in HTML formaat zijn (bijv. \"mijn_pagina.htm\"). Die zal door een link verbonden worden met de Homepage van de cursussite. Om een niet-HTML document (PDF, Power Point, Word...) op te sturen, gebruik <a href=../document/document.php>Documenten</a>";
 $langFac = "Categorie";
 $langFaculty = "Faculteit";
 $langFields = "U hebt niet alle velden ingevuld";
@@ -557,7 +557,7 @@ $langHUser = "Hulp gebruikers";
 $langImport = "Import";
 $langImpossible = "Onmogelijk";
 $langIn = "in";
-$langIndeed = "Juist. Socratische ironie is inderdaad een ondervragende methode. Het Griekse woord\"eirota\" betekent trouwens\"ondervrage\".";
+$langIndeed = "Juist. Socratische ironie is inderdaad een ondervragende methode. Het Griekse woord \"eirotao\" betekent trouwens \"ondervragen\".";
 $langInfo2Say = "Informatie om mee te delen aan <BR>de student";
 $langInfoProgNameTitle = "Information";
 $langInFrames = "In frames";
@@ -1008,7 +1008,7 @@ $l_onlyreq = "Enkel gewijzigd";
 $l_options = "Opties";
 $l_password = "Wachtwoord";
 $l_perday = "berichten per dag";
-$l_pmposted = "Antwoord opgestuurd. U mag hier <a href\"viewpmsg.ph\" klikken> </a> om uw Privé berichten te bekijken";
+$l_pmposted = "Antwoord opgestuurd. U mag hier <a href=\"viewpmsg.php\" klikken> </a> om uw Privé berichten te bekijken";
 $l_posted = "Ingediend op";
 $l_poster = "Indiener";
 $l_posts = "berichten";

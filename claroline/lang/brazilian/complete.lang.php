@@ -18,7 +18,7 @@ $langAddedToCourse = "foi registrado para seu curso";
 $langAddEvent = "Adicionar um evento";
 $langAddExternalTool = "Adicionar link externo";
 $langAddForCat = "Adicionar fórum à categoria";
-$langAddForums = "Para adicionar fóruns, clique em\"Fórun\" na categoria da sua escolha. Uma categoria vazia (sem fóruns) não estará visível para estudantes";
+$langAddForums = "Para adicionar fóruns, clique em \"Fóruns\" na categoria da sua escolha. Uma categoria vazia (sem fóruns) não estará visível para estudantes";
 $langAddImage = "Imagem";
 $langAddIntro = "Adicionar texto introdutório";
 $langAddIntro = "Acrescentar um texto de apresentação";
@@ -312,7 +312,7 @@ $langDBSettingNamesIntro = "
 				Você pode especificar o prefixo para esses nomes de bases de dados.
 				<p>
 				Se você tem permissão para usar apenas uma base de dados, 
-				volte para a página anterior e selecione a opção\"Únic\"
+				volte para a página anterior e selecione a opção \"Único\"
 				</p>
 				";
 $langDBUse = "Utilização da base de dados";
@@ -538,13 +538,13 @@ $langExpectedChoice = "Escolha esperada";
 $langExpirationDate = "Expirar";
 $langExpire = "Expiração";
 $langExplanation = "Assim que clicar em OK, um site com Fórum, Agenda, Gerenciador de documentos, etc. será criado. Seu login, como criador do site, permite a você modifica-lo de acordo com suas necessidades.";
-$langExplanation = "A página precisa estar no formato HTML (ex.\"minha_pagina.ht\"). Ela pode ser referenciada apartir da Página inicial. Se você quer enviar documentos em formatos diferentes do HTML (PDF, Word, Power Point, Vídeo, etc.) use a <a href=../document/document.php>Ferramenta de documentos</a>";
-$langExplanation = "A página precisa estar em formato HTML (Ex.:\"minha_pagina.ht\"). Ela será referenciada pela Home Page. Se você deseja enviar documentos não HTML (PDF, Word, Power Point, Video, etc.) use <a href=../document/document.php>Ferramenta Documentos</a>";
+$langExplanation = "A página precisa estar no formato HTML (ex. \"minha_pagina.htm\"). Ela pode ser referenciada apartir da Página inicial. Se você quer enviar documentos em formatos diferentes do HTML (PDF, Word, Power Point, Vídeo, etc.) use a <a href=../document/document.php>Ferramenta de documentos</a>";
+$langExplanation = "A página precisa estar em formato HTML (Ex.: \"minha_pagina.htm\"). Ela será referenciada pela Home Page. Se você deseja enviar documentos não HTML (PDF, Word, Power Point, Video, etc.) use <a href=../document/document.php>Ferramenta Documentos</a>";
 $langExternalToolName = "Nome do link";
 $langExternalToolUrl = "URL do link";
 $langFac = "Categoria";
 $langFaculty = "Faculdade";
-$langFailed = "<span style\"color: re\">Falhou</span>";
+$langFailed = "<span style=\"color: red\">Falhou</span>";
 $langFields = "Há pelo menos um campo vazio";
 $langFields = "Você deixou alguns campos vazios";
 $langFieldsRequ = "Todos os campos requeridos";
@@ -711,7 +711,7 @@ $langImport = "Importar";
 $langImpossible = "Operação impossível";
 $langIn = "em";
 $langIncludeUserPersonalInfo = "incluir as apresentações pessoais dos usuários";
-$langIndeed = "Certamente. Ironia socrática é um método interrogativo. O Grego\"eirota\" siginifica\"fazer pergunta\"";
+$langIndeed = "Certamente. Ironia socrática é um método interrogativo. O Grego \"eirotao\" siginifica \"fazer perguntas\"";
 $langInfo2Say = "Informação a ser dada aos estudantes";
 $langInfoProgNameTitle = "Informações";
 $langInFrames = "Em frames";
@@ -734,10 +734,10 @@ $langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to
                 These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
 $langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going upgrade the data stored into the main Claroline tables 
                     (users, course categories, tools list, ...) and set it compatible with the new Claroline version.</p>
-                   <p class\"hel\">Note: According to the speed of your server or the amount of data stored on your platform, this 
+                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this 
                    operation may take some time.</p>";
 $langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going update course data (directories and database tables) one by one.
-                   <p class\"hel\">Note: According to the speed of your server or the amount of data stored on your platform,
+                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
                    this operation may take some time.</p>";
 $langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>";
 $langIntroText = "Para enviar uma mensagem, selecione grupos de usuários (marcados com um * na frente)
@@ -765,9 +765,9 @@ $langLastname = "Último Nome";
 $langLastName = "Último Nome";
 $langLastSessionTimeSpent = "Tempo da última sessão";
 $langLastVisit = "Última visita";
-$langLaunchStep1 = "<p><button onclick\"document.location='%s'\">Launch platform main settings upgrade</button></p>";
-$langLaunchStep2 = "<p><button onclick\"document.location='%s'\">Launch main platform tables upgrade</button></p>";
-$langLaunchStep3 = "<p><button onclick\"document.location='%s'\">Launch course data upgrade</button></p>";
+$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";
+$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Launch main platform tables upgrade</button></p>";
+$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
 $langLearningPath = "Rota de Aprendizagem";
 $langLearningPathAdmin = "Administrador de Rotas de Aprendizagem";
 $langLearningPathList = "Lista de Rotas de Aprendizagem";
@@ -840,7 +840,7 @@ installation and set them to be compatible with the new Claroline version. This 
 
 <table>
 <tbody>
-<tr valign\"to\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>
+<tr valign=\"top\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>
 
 </tbody>
 </table>
@@ -919,7 +919,7 @@ $langNameDir = "Nome do novo diretório";
 $langNameOfLang = "Array";
 $langNbAnnoucement = "Número de anúncios";
 $langNbAnnoucement = "Número de avisos";
-$langNbCoursesUpgraded = "<p style\"text-align: cente\"><strong>%s courses on %s already upgraded</strong><br /></p>";
+$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on %s already upgraded</strong><br /></p>";
 $langNbLines = "Qtde. de linhas";
 $langNbLogin = "Número de logins";
 $langNbProf = "Número de professores";
@@ -942,7 +942,7 @@ $langNext = "Próximo";
 $langNextDay = "Próximo Dia";
 $langNextMonth = "Próximo Mês";
 $langNextPage = "Próxima página";
-$langNextStep = "<p><button onclick\"document.location='%s'\">Próximo ></button></p>";
+$langNextStep = "<p><button onclick=\"document.location='%s';\">Próximo ></button></p>";
 $langNextWeek = "Próxima Semana";
 $langNextYear = "Próximo Ano";
 $langNo = "Não";
@@ -996,8 +996,8 @@ $langOkManifestFound = "Manifesto encontrado no arquivo zip : ";
 $langOkManifestRead = "Manifesto lido.";
 $langOkModuleAdded = "Módulo adicionado : ";
 $langOkSent = "Sua página foi enviada.<p>Ela está agora referenciada pelo curso na <a href=../..//index.php>Home Page</a>";
-$langOkSentLink = "Seu link foi enviado.<p>Ele agora está disponível apartir da <a href\"../..//index.ph\">Página Inicial do curso</a>";
-$langOkSentPage = "Sua página foi enviada.<p>Ela agora está disponível apartir da <a href\"../..//index.ph\">Página Inicial do curso</a>";
+$langOkSentLink = "Seu link foi enviado.<p>Ele agora está disponível apartir da <a href=\"../..//index.php\">Página Inicial do curso</a>";
+$langOkSentPage = "Sua página foi enviada.<p>Ela agora está disponível apartir da <a href=\"../..//index.php\">Página Inicial do curso</a>";
 $langOldToNew = "Antigos primeiro";
 $langOn = "Ativo";
 $langOneByOne = "Adicionar usuário manualmente";
@@ -1196,7 +1196,7 @@ $langSubscribeUser = "Registrar usuário";
 $langSubscription = "Inscrição";
 $langSubscriptionAllowedOnly = "Inscrição permitida apenas ";
 $langSubscriptionDeniedOnly = "Inscrição negada apenas";
-$langSubTitle = "Adiciona ao Menu Principal da Home Page do seu Curso um link para um site, uma página ou uma URL. Dica: se você quer adicionar um link para uma página, vá até a página, copie e cole o endereço da barra no topo de seu browser e insira dentro do campo\"lin\" abaixo.";
+$langSubTitle = "Adiciona ao Menu Principal da Home Page do seu Curso um link para um site, uma página ou uma URL. Dica: se você quer adicionar um link para uma página, vá até a página, copie e cole o endereço da barra no topo de seu browser e insira dentro do campo \"link\" abaixo.";
 $langSubTitleChangeParent = "Alterar a categoria pai de ";
 $langSubTitleCreate = "Criar uma categoria";
 $langSubTitleEdit = "Editar uma categoria";
@@ -1552,7 +1552,7 @@ $l_onlyreq = "Apenas solicitada se for modificada";
 $l_options = "Opções";
 $l_password = "Senha";
 $l_perday = "Menssagens por dia";
-$l_pmposted = "Resposta Postada, você pode clicar <a href\"viewpmsg.ph\">aqui</a> para ver suas Menssagens privadas";
+$l_pmposted = "Resposta Postada, você pode clicar <a href=\"viewpmsg.php\">aqui</a> para ver suas Menssagens privadas";
 $l_posted = "Postado";
 $l_poster = "Postador";
 $l_posts = "Postagens";

@@ -15,7 +15,7 @@ $langAddedToCourse = "je bil registriran za tvoj tecaj";
 $langAddEvent = "Dodaj dogodek";
 $langAddFaculties = "Dodaj fakultete";
 $langAddForCat = "Dodaj forum v kategorijo";
-$langAddForums = "Za dodajanje forumov klikni na\"Forum\" v kategoriji po tvoji izbiri. Praznih kategorij (brez forumov) studenti ne bodo videli";
+$langAddForums = "Za dodajanje forumov klikni na \"Forumi\" v kategoriji po tvoji izbiri. Praznih kategorij (brez forumov) studenti ne bodo videli";
 $langAddIntro = "Dodaj uvodno besedilo";
 $langAddLoginPass = "Dodaj administratorsko ime/geslo v .htpassword</a><br>";
 $langAddNewCourse = "Dodaj nov tecaj";
@@ -432,15 +432,15 @@ Opomba : Vec elementov iz prve enote lahko kaze na isti element iz druge enote.<
 Podamom utez za vsako pravilno ujemanje in shranimo odgovor.</p>
 <hr>
 <b>Spremembe vaj</b>
-<p>Vaje lahko spreminjamo na enak nacin, kot jih tvorimo. Kliknemo na sliko <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> ob vaji, ki jo spreminjamo, 
+<p>Vaje lahko spreminjamo na enak nacin, kot jih tvorimo. Kliknemo na sliko <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> ob vaji, ki jo spreminjamo, 
 in sledimo navodilom.</p>
 <hr>
 <b>Brisanje vaj</b>
-<p>Vajo brisemo tako, da kliknemo na sliko <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> 
+<p>Vajo brisemo tako, da kliknemo na sliko <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> 
 ob vaji, ki jo brisemo.</p>
 <hr>
 <b>Omogocanje vaj</b>
-<p>Vajo, ki naj bi bila uporabljena, moramo omogociti s klikom na sliko <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> ob vaji, ki jo omogocamo.</p>
+<p>Vajo, ki naj bi bila uporabljena, moramo omogociti s klikom na sliko <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> ob vaji, ki jo omogocamo.</p>
 <hr>
 <b>Izvajanje vaj</b>
 <p>Vaje lahko preskusamo s klikom na njeno ime v seznamu vaj.</p>
@@ -467,8 +467,8 @@ $langExpectedChoice = "Pricakovana izbira";
 $langExpirationDate = "Potece";
 $langExpire = "Potek";
 $langExplanation = "Ko kliknes OK, se bo tvorila stran s forumom, agendo, upravnikom dokumentov itd. Tvoje uporabnisko ime ti, kot tvorcu tecaja, dovoljuje spremembe.";
-$langExplanation = "The page must be in HTML format (e.g.\"my_page.ht\"). It will be linked from Homepage. If you want to send non HTML documents (PDF, Word, Power Point, Video, etc.) use <a href=../document/document.php>Documents tool</a>";
-$langExplanation = "Stran mora biti v formatu HTML(na pr.\"my_page.ht\"). Povezana bo z domace strani. Ce zelis poslati vec dokumentov, ki niso HTML (PDF, Word, Power Point, Video, itd.) uporabi <a href=../document/document.php>Dokumentno orodje</a>";
+$langExplanation = "The page must be in HTML format (e.g. \"my_page.htm\"). It will be linked from Homepage. If you want to send non HTML documents (PDF, Word, Power Point, Video, etc.) use <a href=../document/document.php>Documents tool</a>";
+$langExplanation = "Stran mora biti v formatu HTML(na pr. \"my_page.htm\"). Povezana bo z domace strani. Ce zelis poslati vec dokumentov, ki niso HTML (PDF, Word, Power Point, Video, itd.) uporabi <a href=../document/document.php>Dokumentno orodje</a>";
 $langFac = "Kategorija";
 $langFaculty = "Fakulteta";
 $langFields = "Nekatera polja si pustil prazna";
@@ -646,7 +646,7 @@ $langHUser = "Pomoc uporabniki";
 $langImpossible = "Operacija ni mozna";
 $langIn = "v";
 $langIncludeUserPersonalInfo = "inclure les présentations personnelles des utilisateurs";
-$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek\"eirota\" means\"ask question\"";
+$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
 $langInfo2Say = "Informacija za studente";
 $langInstituteName = "URL te ustanove";
 $langInstituteShortName = "Kratko ime ustanove";
@@ -796,8 +796,8 @@ $langNowGoCreateYourCourse = "Sedaj lahko tvoris svoj tecaj";
 $langNULLValue = "Prazno (oziroma NULL)";
 $langOk = "Ok";
 $langOkSent = "Tvoja stran je bila poslana.<p>Sedaj je povezana s tecajem <a href=../..//index.php>Homepage</a>";
-$langOkSentLink = "Your link has been sent.<p>It is now accessible from the <a href\"../..//index.ph\">course Homepage</a>";
-$langOkSentPage = "Your page has been sent.<p>It is now linked from the <a href\"../..//index.ph\">course Homepage</a>";
+$langOkSentLink = "Your link has been sent.<p>It is now accessible from the <a href=\"../..//index.php\">course Homepage</a>";
+$langOkSentPage = "Your page has been sent.<p>It is now linked from the <a href=\"../..//index.php\">course Homepage</a>";
 $langOldToNew = "Najprej najstarejse";
 $langOn = "o";
 $langOneByOne = "Uporabnika dodaj rocno";
@@ -921,7 +921,7 @@ $langStudent = "student";
 $langStudentsNotInThisGroups = "Uporabniki, ki niso v tej skupini";
 $langSubscribed = "ljudje, vpisani v ta tecaj";
 $langSubscription = "Prijava";
-$langSubTitle = "Adds to your Course Homepage Main Menu a link to a site, a page or any URL. Tip: if you want to add a link to a page, go to that page, cut and paste its address in the URL bar on the top of your browser and insert it into the\"lin\" field below.";
+$langSubTitle = "Adds to your Course Homepage Main Menu a link to a site, a page or any URL. Tip: if you want to add a link to a page, go to that page, cut and paste its address in the URL bar on the top of your browser and insert it into the \"link\" field below.";
 $langSupportForum = "Forum podpore";
 $langSysId = "Id Systï¿½e";
 $langSysInfo = "Informacija o sistemu";
@@ -1115,7 +1115,7 @@ $l_onlyreq = "Only requried if being changed";
 $l_options = "Options";
 $l_password = "Password";
 $l_perday = "Messages per day";
-$l_pmposted = "Reply Posted, you can click <a href\"viewpmsg.ph\">here</a> to view your Private Messages";
+$l_pmposted = "Reply Posted, you can click <a href=\"viewpmsg.php\">here</a> to view your Private Messages";
 $l_posted = "Posted";
 $l_poster = "Poster";
 $l_posts = "Posts";

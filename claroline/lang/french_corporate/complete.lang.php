@@ -13,7 +13,7 @@ $langAddedToCourse = "a été inscrit à votre site";
 $langAddEvent = "Ajouter un événement";
 $langAddFaculties = "Ajouter un ensemble de cours (faculté)";
 $langAddForCat = "Ajouter un forum dans la catégorie";
-$langAddForums = "Pour ajouter des forums, cliquez sur\"Forum\" dans la catégorie de votre choix. Une catégorie sans forums ne sera pas visible pour les étudiants";
+$langAddForums = "Pour ajouter des forums, cliquez sur \"Forums\" dans la catégorie de votre choix. Une catégorie sans forums ne sera pas visible pour les étudiants";
 $langAddIntro = "AJOUTER UN TEXTE D'INTRODUCTION";
 $langAddNewHeading = "Ajouter un intitulé";
 $langAddPage = "Ajouter une page";
@@ -395,13 +395,13 @@ Remarque : Plusieurs éléments du premier ensemble peuvent pointer vers le même é
 Donnez une pondération à chaque correspondance correctement établie, et enregistrez votre réponse.</p>
 <hr>
 <b>Modification d'un Quizz</b>
-<p>Pour modifier un Quizz, le principe est le même que pour la création. Cliquez simplement sur l'image <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> à côté du Quizz à modifier, et suivez les instructions ci-dessus.</p>
+<p>Pour modifier un Quizz, le principe est le même que pour la création. Cliquez simplement sur l'image <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> à côté du Quizz à modifier, et suivez les instructions ci-dessus.</p>
 <hr>
 <b>Suppression d'un Quizz</b>
-<p>Pour supprimer un Quizz, cliquez sur l'image <img src\"img/delete.gi\" border\"\" align\"absmiddl\"> à côté du Quizz à supprimer.</p>
+<p>Pour supprimer un Quizz, cliquez sur l'image <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> à côté du Quizz à supprimer.</p>
 <hr>
 <b>Activation d'un Quizz</b>
-<p>Avant qu'un Quizz ne puisse être utilisé par un cadre, vous devez l'activer en cliquant sur l'image <img src\"img/invisible.gi\" border\"\" align\"absmiddl\"> à côté du Quizz à activer.</p>
+<p>Avant qu'un Quizz ne puisse être utilisé par un cadre, vous devez l'activer en cliquant sur l'image <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> à côté du Quizz à activer.</p>
 <hr>
 <b>Exécution d'un Quizz</b>
 <p>Vous pouvez tester votre Quizz en cliquant sur son nom dans la liste des Quizz.</p>
@@ -423,8 +423,8 @@ $langExerciseType = "Type de Quizz";
 $langExistingGroups = "Groupes";
 $langExMessage = "Message exemple";
 $langExplanation = "Une fois que vous aurez cliqué sur OK, un site contenant Forum, Liste de liens, Quizz, Agenda, Liste de documents... sera créé. Grâce à votre identifiant, vous pourrez en modifier le contenu";
-$langExplanation = "La page doit être au format HTML (ex.\"ma_page.ht\"). Elle devra pouvoir être accessible depuis le sommaire de votre site. Si vous souhaitez envoyer un document non HTML (PDF, Word, Power Point, Video, etc.) utilisez <a href\"../document/document.ph\">l'outil de documents</a>.";
-$langExplanation = "Cette page doit être au format HTML (p. ex.\"ma_page.ht\"). Elle sera accrochée par un lien sur la page d'accueil du site. Si vous désirez envoyer un document non HTML (PDF, Power Point, Word...) utilisez l'outil <a href=../document/document.php> Documents</a>";
+$langExplanation = "La page doit être au format HTML (ex. \"ma_page.htm\"). Elle devra pouvoir être accessible depuis le sommaire de votre site. Si vous souhaitez envoyer un document non HTML (PDF, Word, Power Point, Video, etc.) utilisez <a href=\"../document/document.php\">l'outil de documents</a>.";
+$langExplanation = "Cette page doit être au format HTML (p. ex. \"ma_page.htm\"). Elle sera accrochée par un lien sur la page d'accueil du site. Si vous désirez envoyer un document non HTML (PDF, Power Point, Word...) utilisez l'outil <a href=../document/document.php> Documents</a>";
 $langFac = "Catégorie";
 $langFaculty = "Catégorie";
 $langFields = "Vous n'avez pas rempli tous les champs";
@@ -609,7 +609,7 @@ $langHUser = "Aide utilisateurs";
 $langImpossible = "Impossible d'effectuer cette opération";
 $langIn = "en";
 $langIncludeUserPersonalInfo = "inclure les présentations personnelles des utilisateurs";
-$langIndeed = "En effet. L\'ironie socratique est une méthode interrogative. Le grec\"eirota\" signifie d\'ailleurs\"interroge\".";
+$langIndeed = "En effet. L\'ironie socratique est une méthode interrogative. Le grec \"eirotao\" signifie d\'ailleurs \"interroger\".";
 $langInfo2Say = "Informations &agrave; communiquer <BR>au cadre";
 $langInvalidId = "Cet identifiant n'est pas valide. Si vous n'êtes pas encore inscrit,
 remplissez le <a href='claroline/auth/inscription.php'>formulaire d'inscription</a></font color>";
@@ -664,7 +664,7 @@ $langMatching = "Correspondance";
 $langMax = "maximum";
 $langMaxFileSize = "La taille maximum est de";
 $langMaxSizeCourseCode = "max. 12 caractères, p. ex.<i>Les Cadres</i>";
-$langMessage = "Lorsque vous supprimerez le forum\"Forum d\'essa\", cela supprimera également le présent sujet qui ne contient que ce seul message";
+$langMessage = "Lorsque vous supprimerez le forum \"Forum d\'essai\", cela supprimera également le présent sujet qui ne contient que ce seul message";
 $langMinute = "Minutes";
 $langMissing = "manquant";
 $langMissingImagesDetected = "Images manquantes détectées";
@@ -738,8 +738,8 @@ $langNULLValue = "Vide (ou <i>NULL</i>)";
 $langOk = "valider";
 $langOk = "Ok";
 $langOkSent = "Votre page a été envoyée.<p>Elle est accessible depuis la <a href=../..//index.php>page d'accueil</a> de votre site";
-$langOkSentLink = "Votre lien a été ajouté. <p>Il est à présent accessible depuise le <a href\"../..//index.ph\">sommaire du site</a>";
-$langOkSentPage = "Votre page a été envoyée. <p>Elle est à présent accessible depuise le <a href\"../..//index.ph\">sommaire du site</a>";
+$langOkSentLink = "Votre lien a été ajouté. <p>Il est à présent accessible depuise le <a href=\"../..//index.php\">sommaire du site</a>";
+$langOkSentPage = "Votre page a été envoyée. <p>Elle est à présent accessible depuise le <a href=\"../..//index.php\">sommaire du site</a>";
 $langOldToNew = "Inverser";
 $langOn = "Sur";
 $langOneByOne = "Ajouter manuellement un utilisateur";
@@ -846,7 +846,7 @@ $langStudent = "participant";
 $langStudentsNotInThisGroups = "Utilisateurs non inscrits à ce groupe";
 $langSubscribed = "participants(s) inscrit(s) à ce site";
 $langSubscription = "Inscription";
-$langSubTitle = "Ajoute un lien ou une page sur le sommaire de votre site. Astuce : si vous souhaitez ajouter un lien vers une page, allez sur cette page, copiez son URL qui se trouve dans la barre d'adresse de votre navigateur, et insérez-la dans le champ\"Lie\" ci-dessous.";
+$langSubTitle = "Ajoute un lien ou une page sur le sommaire de votre site. Astuce : si vous souhaitez ajouter un lien vers une page, allez sur cette page, copiez son URL qui se trouve dans la barre d'adresse de votre navigateur, et insérez-la dans le champ \"Lien\" ci-dessous.";
 $langSupportForum = "Forum de support";
 $langSysInfo = "Info Système";
 $langTableStructureDontKnow = "Structure of this table unknown";
@@ -1022,7 +1022,7 @@ $l_onlyreq = "Demandé seulement si changé";
 $l_options = "Options";
 $l_password = "Mot de Passe";
 $l_perday = "Messages par jour";
-$l_pmposted = "Réponse postée, vous pouvez cliquer <a href\"viewpmsg.ph\">ici</a> pour voir vos Messages Privés";
+$l_pmposted = "Réponse postée, vous pouvez cliquer <a href=\"viewpmsg.php\">ici</a> pour voir vos Messages Privés";
 $l_posted = "Posté le";
 $l_poster = "Initiateur";
 $l_posts = "Messages";

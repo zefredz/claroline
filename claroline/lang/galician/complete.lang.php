@@ -14,7 +14,7 @@ $langAddedToCourse = "rexistrouse no seu curso";
 $langAddEvent = "Engadir un evento";
 $langAddFaculties = "Engadir facultades";
 $langAddForCat = "Engadir un foro &aacute; categor&iacute;a";
-$langAddForums = "Para engadir foros, fai click en\"Foro\" na categor&iacute;a elexida. Unha categor&iacute;a que non te&ntilde;a foros non se poder&aacute; ver polos estudiantes";
+$langAddForums = "Para engadir foros, fai click en \"Foros\" na categor&iacute;a elexida. Unha categor&iacute;a que non te&ntilde;a foros non se poder&aacute; ver polos estudiantes";
 $langAddImage = "Engadir foto";
 $langAddIntro = "Engadir un texto de introducci&oacute;n";
 $langAddIntro = "Engadir texto de Introducci&oacute;n";
@@ -437,15 +437,15 @@ Atenci&oacute;n : Varios elementos da primeira unidade poden referirse &oacute; 
 Outorgue un peso a cada relaci&oacute;n correcta, e garde a s&uacute;a resposta.</p>
 <hr>
 <b>Modificaci&oacute;n de Exercicios</b>
-<p>Para modificar un exercicio, siga os mesmos pasos que fixo para crealo. S&oacute; prema na imaxe <img src\"img/edit.gi\" border\"\" align\"absmiddl\"> &oacute; lado do exercicio que quere
+<p>Para modificar un exercicio, siga os mesmos pasos que fixo para crealo. S&oacute; prema na imaxe <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> &oacute; lado do exercicio que quere
 modificar e siga as instrucci&oacute;ns anteriores.</p>
 <hr>
 <b>Borrar Exercicios</b>
-<p>Para borrar un exercicio, prema na imaxen <img src\"img/delete.gi\" border\"\" align\"absmiddl\">
+<p>Para borrar un exercicio, prema na imaxen <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\">
 &oacute; lado do exercicio que queira borrar.</p>
 <hr>
 <b>Activar Exercicios</b>
-<p>Para que os alumnos poidan facer un exercicio, Vde. ten que activalo premendo na imaxe <img src\"img/invisible.gi\" border\"\" align\"absmiddl\">
+<p>Para que os alumnos poidan facer un exercicio, Vde. ten que activalo premendo na imaxe <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\">
 &oacute; lado do exercicio que quere activar.</p>
 <hr>
 <b>Probar un Exercicio</b>
@@ -477,8 +477,8 @@ $langExpectedChoice = "Elecci&oacute;n esperada";
 $langExpirationDate = "Finalizado";
 $langExpire = "Data de caducidade";
 $langExplanation = "Unha vez que vostede prema OK, crearase unha web que incluir&aacute; Foro, Lista de ligaz&oacute;ns, Exercicios, Axenda, Lista de documentos... Por medio do seu c&oacute;digo de identificaci&oacute;n, vostede poder&aacute; modificar o seu contido";
-$langExplanation = "A p&aacute;xina debe estar en formato HTML (e.x.\"my_page.ht\"). Enlazar&aacute;se &aacute; p&aacute;xina inicial. Se queres enviar documentos que non sexan HTML (PDF, Word, Power Point, V&iacute;deo, etc.) utiliza a <a href=../document/document.php>ferramenta Documentos</a>";
-$langExplanation = "Esta p&aacute;xina debe estar en formato HTML (por exemplo\"mi_pagina.ht\"). Aparecer&aacute; a ligaz&oacute;n na p&aacute;xina principal do seu curso. Se vostede desexa enviar un documento que non est&eacute; en formato HTML (PDF, Power Point, Word...) utilice a funci&oacute;n <a href=../document/document.php> Documentos</a>";
+$langExplanation = "A p&aacute;xina debe estar en formato HTML (e.x. \"my_page.htm\"). Enlazar&aacute;se &aacute; p&aacute;xina inicial. Se queres enviar documentos que non sexan HTML (PDF, Word, Power Point, V&iacute;deo, etc.) utiliza a <a href=../document/document.php>ferramenta Documentos</a>";
+$langExplanation = "Esta p&aacute;xina debe estar en formato HTML (por exemplo \"mi_pagina.htm\"). Aparecer&aacute; a ligaz&oacute;n na p&aacute;xina principal do seu curso. Se vostede desexa enviar un documento que non est&eacute; en formato HTML (PDF, Power Point, Word...) utilice a funci&oacute;n <a href=../document/document.php> Documentos</a>";
 $langFac = "facultade";
 $langFaculty = "Facultade";
 $langFields = "Non cubr&iacute;u todos os campos";
@@ -651,7 +651,7 @@ $langHUser = "Axuda usuarios";
 $langImpossible = "&eacute; imposible realizar esta operaci&oacute;n";
 $langIn = "en";
 $langIncludeUserPersonalInfo = "Incluir as presentaci&oacute;ns persoais dos usuarios";
-$langIndeed = "Correcto. A iron&iacute;a socr&aacute;tica &eacute; un m&eacute;todo interrogativo. O termo grego\"eirota\" significa , por outro lado,\"interroga\".";
+$langIndeed = "Correcto. A iron&iacute;a socr&aacute;tica &eacute; un m&eacute;todo interrogativo. O termo grego \"eirotao\" significa , por outro lado, \"interrogar\".";
 $langInfo2Say = "Informaci&oacute;n para dar &oacute;s estudiantes";
 $langInstituteName = "URL da Instituci&oacute;n";
 $langInstituteShortName = "Acrónimo da Instituci&oacute;n";
@@ -714,7 +714,7 @@ $langMatching = "Relacionar";
 $langMax = "max.";
 $langMaxFileSize = "O tama&ntilde;o m&aacute;ximo do ficheiro &eacute;";
 $langMaxSizeCourseCode = "max. 12 caracteres, p. ex.<i>ROM2121</i>";
-$langMessage = "no momento en que vostede suprima o foro\"Foro de proba\", igualmente suprimir&aacute;se o presente tema que non ten m&aacute;s que esta mensaxe";
+$langMessage = "no momento en que vostede suprima o foro \"Foro de probas\", igualmente suprimir&aacute;se o presente tema que non ten m&aacute;s que esta mensaxe";
 $langMinute = "Minutos";
 $langMissing = "falta";
 $langMissingImagesDetected = "Detect&aacute;ronse im&aacute;xes perdidas";
@@ -749,6 +749,7 @@ $langMyStats = "Estad&iacute;sticas";
 $langNameCat = "Cambiouse o nome da categor&iacute;a";
 $langNameDir = "Nome do novo directorio";
 $langNameOfLang = "Nome do idioma";
+$langNameOfLang = "Array";
 $langNbAnnoucement = "N&uacute;mero de anuncios";
 $langNbLogin = "N&uacute;mero de login";
 $langNbProf = "N&uacute;mero de profesores";
@@ -789,8 +790,8 @@ $langOk = "validar";
 $langOk = "aceptar";
 $langOk = "OK";
 $langOkSent = "A s&uacute;a p&aacute;xina enviouse &oacute; servidor.<p>&Eacute;s accesible desde a <a href=../..//index.php>p&aacute;xina principal</a> do seu curso";
-$langOkSentLink = "Enviouse a ligaz&oacute;n.<p>Agora est&aacute; accesible desde <a href\"../..//index.ph\">P&aacute;xina inicial do curso</a>";
-$langOkSentPage = "Enviouse a p&aacute;xina.<p>Agora est&aacute; na<a href\"../..//index.ph\">P&aacute;xina inicial do curso</a>";
+$langOkSentLink = "Enviouse a ligaz&oacute;n.<p>Agora est&aacute; accesible desde <a href=\"../..//index.php\">P&aacute;xina inicial do curso</a>";
+$langOkSentPage = "Enviouse a p&aacute;xina.<p>Agora est&aacute; na<a href=\"../..//index.php\">P&aacute;xina inicial do curso</a>";
 $langOldToNew = "Inverter";
 $langOn = "Hai";
 $langOneByOne = "Engadir un usuario de forma manual";
@@ -1101,7 +1102,7 @@ $l_onlyreq = "Requerido soamente se cambiou";
 $l_options = "Opci&oacute;ns";
 $l_password = "Clave de Acceso";
 $l_perday = "Mensaxes por d&iacute;a";
-$l_pmposted = "Resposta enviada, pode facer click <a href\"viewpmsg.ph\">aqu&iacute;</a> para ver as s&uacute;as Mensaxes Privados";
+$l_pmposted = "Resposta enviada, pode facer click <a href=\"viewpmsg.php\">aqu&iacute;</a> para ver as s&uacute;as Mensaxes Privados";
 $l_posted = "Enviado o";
 $l_poster = "Iniciador";
 $l_posts = "Enviar mensaxes";
