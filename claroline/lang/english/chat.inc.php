@@ -16,8 +16,9 @@ Translate the chat interface in chosen language
  $langRefresh = "Refresh";
  $langIsNowInYourDocDir = "is now  in  your document tool. <br><B>This  file  is  visible</B>";
  $langCopyFailed = "Print failed";
- $langChat_reset_by = "chat reset by";
  $langResetChat = "Reset";
  $langChatResetBy = "Chat reset by";
  $langStoreChat = "Store Chat";
+ $langDateLastWrite = "Last message was on : ";
+ $langNewChat = "New chat";
 ?>
