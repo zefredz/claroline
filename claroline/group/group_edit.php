@@ -1,16 +1,10 @@
-<?php # $Id$
+<?php // $Id$
 /*
 +----------------------------------------------------------------------+
 | CLAROLINE 1.6
 +----------------------------------------------------------------------+
 | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
 +----------------------------------------------------------------------+
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
 */
 /**************************************
        CLAROLINE MAIN SETTINGS
@@ -18,6 +12,7 @@
 
 $langFile = "group";
 require '../inc/claro_init_global.inc.php';
+if ( ! $_cid) claro_disp_select_course();
 @include($includePath."/lib/debug.lib.inc.php");
 include('../inc/conf/group.conf.php');
 
@@ -273,7 +268,7 @@ claro_disp_message_box($langGroupEdited);
 
     echo $langMax."</label>";
 
-	if($myStudentGroup[maxMember]==0)
+	if($myStudentGroup['maxMember']==0)
 	{
 		echo "<input type=\"text\" name=\"maxMember\" id=\"maxMember\" size=\"2\" value = \"-\">\n";
 	}
