@@ -303,7 +303,7 @@ if($is_allowedToUse)	// check teacher status
 	{
 		claro_disp_message_box($message);
 		echo	"<br>",
-				"<a	href=\"",$PHP_SELF,"\">",$langBackList,"&nbsp;&gt;</a>",
+				"<a	href=\"".$_SERVER['PHP_SELF']."\">".$langBackList,"&nbsp;&gt;</a>",
 				"<br>";
 
 		$displayForm = false;

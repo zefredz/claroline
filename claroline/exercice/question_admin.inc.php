@@ -5,13 +5,11 @@
 +----------------------------------------------------------------------+
 | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
 +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      +----------------------------------------------------------------------+
-      | Authors: Olivier Brouckaert <oli.brouckaert@skynet.be>               |
-      +----------------------------------------------------------------------+
+|   This program is free software; you can redistribute it and/or      |
+|   modify it under the terms of the GNU General Public License        |
+|   as published by the Free Software Foundation; either version 2     |
+|   of the License, or (at your option) any later version.             |
++----------------------------------------------------------------------+
 */
 
 		/*>>>>>>>>>>>>>>>>>>>> QUESTION ADMINISTRATION <<<<<<<<<<<<<<<<<<<<*/
@@ -39,7 +37,7 @@ if($usedInSeveralExercises)
   <?php echo $questionName; ?>
 </h3>
 
-<form method="post" action="<?php echo $PHP_SELF; ?>?modifyQuestion=<?php echo $modifyQuestion; ?>&modifyAnswers=<?php echo $modifyAnswers; ?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyQuestion=<?php echo $modifyQuestion; ?>&modifyAnswers=<?php echo $modifyAnswers; ?>">
 <table border="0" cellpadding="5">
 <tr>
   <td>
@@ -157,7 +155,7 @@ else
 	{
 ?>
 
-<a href="<?php echo $PHP_SELF; ?>?modifyQuestion=<?php echo $questionId; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><small><?php echo $langEditQuestion ; ?></small></a>
+<a href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyQuestion=<?php echo $questionId; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><small><?php echo $langEditQuestion ; ?></small></a>
 
 <?php
 	}
@@ -220,7 +218,7 @@ else
 	{
 ?>
 
-<a href="<?php echo $PHP_SELF; ?>?modifyAnswers=<?php echo $questionId; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><small><?php echo $langEditAnswers; ?></small></a>
+<a href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $questionId; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><small><?php echo $langEditAnswers; ?></small></a>
 
 <?php
 	}

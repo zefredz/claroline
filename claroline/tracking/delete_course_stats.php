@@ -1,9 +1,9 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.1 $Revision$                            |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
@@ -98,7 +98,7 @@ if( $isAllowedToDelete )
     
           ."<p>";
     
-      echo "<a href=\"".$PHP_SELF."?delete=yes\">"
+      echo "<a href=\"".$_SERVER['PHP_SELF']."?delete=yes\">"
         .$langYes
         ."</a>";
     

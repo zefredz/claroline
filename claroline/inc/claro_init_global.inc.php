@@ -27,7 +27,7 @@ session_start();
 
 // a shorter reference to $PHP_SELF. Useful to lighten the HTML code.
 
-$_SELF = basename($PHP_SELF);
+$_SELF = basename($_SERVER['PHP_SELF']);
 
 // include the main Claroline platform configuration file
 
