@@ -16,8 +16,8 @@
  */
 
 $langDoc="Εγγραφα";
-$langDownloadFile= "Ανέβασμα αρχείου στον εξυπηρέτη";
-$langDownload="Ανέβασμα";
+$langUploadFile= "Ανέβασμα αρχείου στον εξυπηρέτη";
+$langUpload="Ανέβασμα";
 $langCreateDir="Δημιουργία καταλόγου";
 $langName="Όνομα";
 $langNameDir="Όνομα του καινούριου καταλόγου";
@@ -30,7 +30,7 @@ $langVisible="Ορατό / Αόρατο";
 $langCopy="Αντιγραφή";
 $langTo="στο";
 $langNoSpace="Το ανέβασμα του αρχείου απότυχε. Δεν υπάρχει αρκετός χώρος στον κατάλογο σας";
-$langDownloadEnd="Ολοκληρώθηκε το ανέβασμα";
+$langUploadEnd="Ολοκληρώθηκε το ανέβασμα";
 $langFileExists="Δεν είναι δυνατή η λειτουργία.<br>Υπάρχει ήδη ένα αρχείο με το ίδιο όνομα.";
 $langDocCopied="Αντιγράφτηκε το έγγραφο";
 $langDocDeleted="Διαγράφτηκε το έγγραφο";
@@ -54,7 +54,7 @@ $langGroupSpaceLink="Ομάδα χρηστών";
 $langGroupForumLink="Περιοχή συζητήσεων ομάδας χρηστών";
 $langZipNoPhp="Το αρχείο zip δεν πρέπει να περιέχει αρχεία.PHP";
 $langUncompress="αποσυμπίεση του αρχείο (.zip) στον εξυπηρέτη";
-$langDownloadAndZipEnd="Το αρχείο zip ανέβηκε και αποσυμπιέστηκε";
+$langUploadAndZipEnd="Το αρχείο zip ανέβηκε και αποσυμπιέστηκε";
 $langAreYouSureToDelete = "Είστε βέβαιος ότι θέλετε να το διαγράψετε";
 
 $langPublish = "Δημοσίευση";

@@ -16,8 +16,8 @@
  */
 
 $langDoc="เอกสารประกอบการศึกษา";
-$langDownloadFile= "อัพโหลดข้อมูลไปที่เครื่องแม่ข่าย";
-$langDownload="upload";
+$langUploadFile= "อัพโหลดข้อมูลไปที่เครื่องแม่ข่าย";
+$langUpload="upload";
 $langCreateDir="สร้าง directory";
 $langName="ชื่อเอกสาร";
 $langNameDir="ชื่อของdirectoryใหม่";
@@ -30,7 +30,7 @@ $langVisible="Visible/invisible";
 $langCopy="ย้าย";
 $langTo="ไปยัง";
 $langNoSpace="การอัพโหลดล้มเหลว มีเนื้อที่ไม่พอในไดเร็กทอรีของท่าน";
-$langDownloadEnd="สิ้นสุดการอัพโหลด";
+$langUploadEnd="สิ้นสุดการอัพโหลด";
 $langFileExists="ไม่สามารถปฏิบัติได้<br>มีไฟล์ชื่อนี้อยู่แล้ว";
 $langDocCopied="ย้ายเอกสารแล้ว";
 $langDocDeleted="ลบเอกสารแล้ว";
@@ -53,7 +53,7 @@ $langGroupSpaceLink="พื้นที่กลุ่ม";
 $langGroupForumLink="กระดานข่าวกลุ่ม";
 $langZipNoPhp="ไฟล์ zip ไม่สามารถบรรจุ PHP filesได้";
 $langUncompress="ขยายไฟล์บีบอัดบนเครื่องแม่ข่าย";
-$langDownloadAndZipEnd=" ส่งข้อมูลไฟล์บีบอัดและทำการขยายเรียบร้อยแล้ว";
+$langUploadAndZipEnd=" ส่งข้อมูลไฟล์บีบอัดและทำการขยายเรียบร้อยแล้ว";
 $langAreYouSureToDelete = "ท่านแน่ใจหรือว่าต้องการลบ";
 
 $langPublish = "ตีพิมพ์";

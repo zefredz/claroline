@@ -23,8 +23,8 @@ Translate the interface in chosen language
 // DOCUMENT
 
 $langDoc="Documents";
-$langDownloadFile= "T&eacute;l&eacute;charger sur le serveur le fichier";
-$langDownload="T&eacute;l&eacute;charger";
+$langUploadFile= "T&eacute;l&eacute;charger sur le serveur le fichier";
+$langUpload="T&eacute;l&eacute;charger";
 $langCreateDir="Cr&eacute;er un r&eacute;pertoire";
 $langName="Nom";
 $langNameDir="Nom du nouveau r&eacute;pertoire";
@@ -36,7 +36,7 @@ $langVisible="Visible/invisible";
 $langCopy="Copier";
 $langTo="vers";
 $langNoSpace="Le t&eacute;l&eacute;chargement a &eacute;chou&eacute;. Il n'y a plus assez de place dans votre r&eacute;pertoire";
-$langDownloadEnd="Le t&eacute;l&eacute;chargement est termin&eacute;";
+$langUploadEnd="Le t&eacute;l&eacute;chargement est termin&eacute;";
 $langFileExists="Impossible d'effectuer cette op&eacute;ration.
 <br>Un fichier portant ce nom existe déj&agrave;.";
 $langIn="en";
@@ -66,7 +66,7 @@ $langZipNoPhp="Le fichier ZIP ne peut pas contenir de fichiers en .php";
 
 $langUncompress="Décompresser fichier zipé (.zip)";
 
-$langDownloadAndZipEnd=" Le fichier .zip a été envoyé et décompressé";
+$langUploadAndZipEnd=" Le fichier .zip a été envoyé et décompressé";
 
 $langAreYouSureToDelete = "Êtes vous sûr de vouloir supprimer";
 

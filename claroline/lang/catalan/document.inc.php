@@ -15,8 +15,8 @@
       +----------------------------------------------------------------------+
  */
 $langDoc="Documents";
-$langDownloadFile= "Puja fitxer al servidor";
-$langDownload="Puja";
+$langUploadFile= "Puja fitxer al servidor";
+$langUpload="Puja";
 $langCreateDir="Crea un directori";
 $langName="Nom";
 $langNameDir="Nom del nou directori";
@@ -29,7 +29,7 @@ $langVisible="Visible/invisible";
 $langCopy="Copia";
 $langTo="a";
 $langNoSpace="La pujada de fitxers ha fallat. No hi ha prou espai en el teu directori";
-$langDownloadEnd="La pujada de fitxers ha finalitzat";
+$langUploadEnd="La pujada de fitxers ha finalitzat";
 $langFileExists="Operació impossible.<br>Ja existeix un fitxer amb aquest nom.";
 $langDocCopied="Document copiat";
 $langDocDeleted="Document esborrat";
@@ -52,7 +52,7 @@ $langGroupSpaceLink="Àrea de grup";
 $langGroupForumLink="Fòrum de grup";
 $langZipNoPhp="Èl fitxer zip no pot contenir fitxers .PHP";
 $langUncompress="descomprimeix el fitxer '.zip' en el servidor";
-$langDownloadAndZipEnd="Fitxer Zip pujat i descomprimit";
+$langUploadAndZipEnd="Fitxer Zip pujat i descomprimit";
 $langAreYouSureToDelete = "Estàs segur que vols esborrar";
 
 $langPublish = "Publica";

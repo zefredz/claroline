@@ -15,8 +15,8 @@
       +----------------------------------------------------------------------+
  */
 $langDoc="Belgeler";
-$langDownloadFile= "Sunucuya dosya yükle";
-$langDownload="Yükle";
+$langUploadFile= "Sunucuya dosya yükle";
+$langUpload="Yükle";
 $langCreateDir="Dizin yarat";
 $langName="Adý";
 $langNameDir="Yeni dizin adý";
@@ -29,7 +29,7 @@ $langVisible="Görünür/Görünmez";
 $langCopy="Kopyala";
 $langTo="buraya";
 $langNoSpace="Yükleme baþarýsýz. Yeterli alan yok.";
-$langDownloadEnd="Yükleme tamamlandý";
+$langUploadEnd="Yükleme tamamlandý";
 $langFileExists="Ýþlem yapýlamýyor.<br>Ayný isimde bir dosya var.";
 $langDocCopied="Belge kopyalandý";
 $langDocDeleted="Belge silindi";
@@ -52,7 +52,7 @@ $langGroupSpaceLink="Grup alaný";
 $langGroupForumLink="Grup forumu";
 $langZipNoPhp="The zip file can not contain .PHP files";
 $langUncompress="sýkýþtýrýlmýþ dosyayý (*.zip) sunucuda aç";
-$langDownloadAndZipEnd=" Sýkýþtýrýlmýþ dosya sunucuya yüklendi ve açýldý";
+$langUploadAndZipEnd=" Sýkýþtýrýlmýþ dosya sunucuya yüklendi ve açýldý";
 $langAreYouSureToDelete = "Silmek istediðinizden emin misiniz?";
 
 $langPublish = "Yayýnla";

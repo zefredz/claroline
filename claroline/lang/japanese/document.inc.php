@@ -26,8 +26,8 @@ $langBackList="リストに戻る";
 // DOCUMENT
 
 $langDoc="文書";
-$langDownloadFile="文書のアップロード";
-$langDownload="アップロード";
+$langUploadFile="文書のアップロード";
+$langUpload="アップロード";
 $langCreateDir="ディレクトリを作る";
 $langName="名称";
 $langNameDir="新ディレクトリの名前";
@@ -40,7 +40,7 @@ $langVisible="見えるようにする/見えないようにする";
 $langCopy="コピー";
 $langTo="to";
 $langNoSpace="アップロードが失敗しました。ディスクスペースの不足です。";
-$langDownloadEnd="アップロード終了";
+$langUploadEnd="アップロード終了";
 $langFileExists="不可能な操作です<br />同じ名前のファイルが存在しています。";
 $langDocCopied="文書をコピーしました";
 $langDocDeleted="文書を削除しました";

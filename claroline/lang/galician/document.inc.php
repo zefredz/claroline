@@ -29,8 +29,8 @@ $langBackList = "Volver &aacute; lista";
 
 $langDoc = "Documentos";
 
-$langDownloadFile = "Subir &oacute; servidor o ficheiro";
-$langDownload     = "subir";
+$langUploadFile = "Subir &oacute; servidor o ficheiro";
+$langUpload     = "subir";
 $langCreateDir    = "Crear un directorio";
 $langName         = "Nome";
 $langNameDir      = "Nome do novo directorio";
@@ -43,7 +43,7 @@ $langVisible      = "Visible/invisible";
 $langCopy         = "Copiar";
 $langTo           = "hacia";
 $langNoSpace      = "Non se puido subir o documento &oacute; servidor. Non hai espacio suficiente no seu directorio";
-$langDownloadEnd  = "O documento xa est&aacute; no servidor";
+$langUploadEnd  = "O documento xa est&aacute; no servidor";
 $langFileExists   = "Imposible poder realizar esta operaci&oacute;n.<br>Xa existe un elemento co mesmo nome.";
 $langDocCopied    = "documento copiado";
 $langDocDeleted   = "documento suprimido";
@@ -68,7 +68,7 @@ $langGroupSpaceLink="&Aacute;rea do grupo";
 $langGroupForumLink="Foro do grupo";
 $langZipNoPhp="O fichero zip non pode conter ficheiros .PHP";
 $langUncompress="descomprimir arquivos(.zip) no servidor";
-$langDownloadAndZipEnd="ficheiro Zip subido e descomprimido";
+$langUploadAndZipEnd="ficheiro Zip subido e descomprimido";
 $langAreYouSureToDelete = "Estás seguro de que queres borrar";
 
 $langPublish = "Publicar";

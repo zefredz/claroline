@@ -26,8 +26,7 @@ $langDoc="Documents";
 $langCreateDocument = "Créer un Document";
 $langCreateHyperlink = "Créer un lien hypertexte";
 $langUploadFile = "Ajouter un fichier"; // JCC
-$langDownloadFile= "Ajouter le fichier"; // JCC
-$langDownload="Ajouter"; // JCC
+$langUpload="Ajouter"; // JCC
 $langCreateDir="Créer un répertoire";
 $langName="Nom";
 $langNameDir="Nom du nouveau répertoire";
@@ -41,7 +40,7 @@ $langMakeInvisible = "Rendre invisible";
 $langCopy="Copier";
 $langTo="vers";
 $langNoSpace="Le téléchargement a échoué. Il n'y a plus assez de place dans votre répertoire";
-$langDownloadEnd="Le téléchargement est terminé";
+$langUploadEnd="Le téléchargement est terminé";
 $langFileExists="Impossible d'effectuer cette opération.
 <br>Un fichier portant ce nom existe déjà.";
 $langIn="en";
@@ -72,7 +71,7 @@ $langZipNoPhp="Le fichier ZIP ne peut pas contenir de fichiers en .php";
 
 $langUncompress="Décompresser fichier zippé (.zip)"; // JCC
 
-$langDownloadAndZipEnd=" Le fichier .zip a été envoyé et décompressé";
+$langUploadAndZipEnd=" Le fichier .zip a été envoyé et décompressé";
 
 $langAreYouSureToDelete = "Êtes vous sûr de vouloir supprimer";
 

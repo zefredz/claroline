@@ -16,8 +16,8 @@
       +----------------------------------------------------------------------+
  */
 $langDoc="Dokumen;
-$langDownloadFile= "Upload file ke server";
-$langDownload="Upload";
+$langUploadFile= "Upload file ke server";
+$langUpload="Upload";
 $langCreateDir="Buat direktori";
 $langName="Nama";
 $langNameDir="Nama direktori baru";
@@ -29,7 +29,7 @@ $langVisible="Nampak/Sembunyi";
 $langCopy="Copy";
 $langTo="ke";
 $langNoSpace="Upload gagal. Tempat penyimpanan di direktori tidak cukup";
-$langDownloadEnd="Upload selesai";
+$langUploadEnd="Upload selesai";
 $langFileExists="Operasi tidak mungkin.<br>File dengan nama sama sudah ada terlebih dulu.";
 $langDocCopied="Dokumen di-copy";
 $langDocDeleted="Dokumen dihapus";
@@ -54,7 +54,7 @@ $langGroupSpaceLink="ArealGroup";
 $langGroupForumLink="Forum Group";
 $langZipNoPhp="File zip tidak dapat berisi file .PHP";
 $langUncompress="uncompress file zip(.zip) di server";
-$langDownloadAndZipEnd=" file Zip di-upload dan di-uncompress";
+$langUploadAndZipEnd=" file Zip di-upload dan di-uncompress";
 $langAreYouSureToDelete = "Apakah anda sungguh-sungguh ingin menghapus";
 
 $langPublish = "Terbitkan";

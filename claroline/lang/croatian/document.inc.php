@@ -16,8 +16,8 @@
       +----------------------------------------------------------------------+
  */
 $langDoc="Dokumenti";
-$langDownloadFile= "Uèitavanje datoteke na server";
-$langDownload="Uèitavanje";
+$langUploadFile= "Uèitavanje datoteke na server";
+$langUpload="Uèitavanje";
 $langCreateDir="Stvaranje foldera";
 $langName="Naziv";
 $langNameDir="Naziv foldera";
@@ -30,7 +30,7 @@ $langVisible="Vidljivo/nevidljivo";
 $langCopy="Kopiraj";
 $langTo="u";
 $langNoSpace="Uèitavanje nije završeno, jer nema dovoljno mjesta u folderu";
-$langDownloadEnd="Uèitavanje okonèano";
+$langUploadEnd="Uèitavanje okonèano";
 $langFileExists="Greška.<br>Veæ postoji datoteka s istim imenom";
 $langDocCopied="Dokument kopiran";
 $langDocDeleted="Dokument izbrisan";
@@ -53,7 +53,7 @@ $langGroupSpaceLink="Groupno podruèje";
 $langGroupForumLink="Groupni  forum";
 $langZipNoPhp="Zip datoteka ne smije sadržavati PHP datoteke";
 $langUncompress="otvori  (.zip) datoteku na serveru";
-$langDownloadAndZipEnd=" Zip datoteka uèitana i otvorena";
+$langUploadAndZipEnd=" Zip datoteka uèitana i otvorena";
 $langAreYouSureToDelete = "Želite li pobrisati";
 
 $langPublish = "Objava";

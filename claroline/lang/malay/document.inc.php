@@ -16,8 +16,8 @@
       +----------------------------------------------------------------------+
  */
 $langDoc="Dokumen";
-$langDownloadFile= "Muatnaik fail ke server";
-$langDownload="Muatnaik";
+$langUploadFile= "Muatnaik fail ke server";
+$langUpload="Muatnaik";
 $langCreateDir="Bina Direktori";
 $langName="Nama";
 $langNameDir="Nama direktori baru";
@@ -29,7 +29,7 @@ $langVisible="Papar/Tidak Papar";
 $langCopy="Pindah";
 $langTo="ke";
 $langNoSpace="Proses muatnaik gagal. Ruang tidak mencukupi";
-$langDownloadEnd="Proses muatnaik selesai";
+$langUploadEnd="Proses muatnaik selesai";
 $langFileExists="Permintaan tidak dapat diproses<br>Nama fail telah wujud.";
 $langDocCopied="Dokumen disalin";
 $langDocDeleted="Dokumen dipadam";
@@ -54,7 +54,7 @@ $langGroupSpaceLink="Ruangan Kumpulan";
 $langGroupForumLink="Forum Kumpulan";
 $langZipNoPhp="Fail zip file can not contain .PHP files";
 $langUncompress="Jangan <i>unzip</i>kan fail(.zip) yang dimuat naik ke server";
-$langDownloadAndZipEnd=" Zip file uploaded and uncompressed";
+$langUploadAndZipEnd=" Zip file uploaded and uncompressed";
 $langAreYouSureToDelete = "Anda pasti untuk memadam";
 
 $langPublish = "Terbitkan";

@@ -78,9 +78,9 @@ Translate the interface in chosen language
 
 $langDoc="Учебные материалы";
 
-$langDownloadFile= "Разместить файл на сервере";
+$langUploadFile= "Разместить файл на сервере";
 
-$langDownload="Разместить";
+$langUpload="Разместить";
 
 $langCreateDir="Создать папку";
 
@@ -104,7 +104,7 @@ $langTo="в";
 
 $langNoSpace="Размещение файла не удалось. В вашей папке недостаточно места";
 
-$langDownloadEnd="Размещение файла завершено";
+$langUploadEnd="Размещение файла завершено";
 
 $langFileExists="Невозможно осуществить операцию.
 
@@ -164,7 +164,7 @@ $langUncompress="Раскрыть архив .zip";
 
 
 
-$langDownloadAndZipEnd=" Файл .zip был послан и раскрыт";
+$langUploadAndZipEnd=" Файл .zip был послан и раскрыт";
 
 
 

@@ -20,8 +20,8 @@
       +----------------------------------------------------------------------+
  */
 $langDoc="Dokumenti";
-$langDownloadFile= "Prepisi datoteko na streznik";
-$langDownload="Prepisi (upload)";
+$langUploadFile= "Prepisi datoteko na streznik";
+$langUpload="Prepisi (upload)";
 $langCreateDir="Tvori direktorij";
 $langName="Ime";
 $langNameDir="Ime novega direktorija";
@@ -33,7 +33,7 @@ $langVisible="Vidno/nevidno";
 $langCopy="Kopiraj";
 $langTo="na";
 $langNoSpace="Prepis ni uspel. V vasem direktoriju ni dovolj prostora";
-$langDownloadEnd="Prepis (upload) je koncan";
+$langUploadEnd="Prepis (upload) je koncan";
 $langFileExists="Operacija ni mozna.<br>Datoteka s tem imenom ze obstaja.";
 $langDocCopied="Dokument je kopiran";
 $langDocDeleted="Dokument je zbrisan";
@@ -58,7 +58,7 @@ $langGroupSpaceLink="Podrocje skupine";
 $langGroupForumLink="Forum skupine";
 $langZipNoPhp="Datoteka zip file ne more vsebovati datotek .PHP";
 $langUncompress="dekomprimiraj komprimirano datoteko (.zip) na strezniku";
-$langDownloadAndZipEnd=" Datoteka Zip file prepisana in dekomprimirana";
+$langUploadAndZipEnd=" Datoteka Zip file prepisana in dekomprimirana";
 $langAreYouSureToDelete = "Ali naj res zbrisem";
 
 $langPublish = "Objavi";

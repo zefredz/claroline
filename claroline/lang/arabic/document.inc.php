@@ -12,8 +12,8 @@
       +----------------------------------------------------------------------+
 */
 $langDoc=" وثائق ";
-$langDownloadFile= " تحميل الجذاذية";
-$langDownload=" تحميل";
+$langUploadFile= " تحميل الجذاذية";
+$langUpload=" تحميل";
 $langCreateDir=" خلق ملف";
 $langName=" اسم ";
 $langNameDir=" اسم الملف الجديد";
@@ -26,7 +26,7 @@ $langVisible=" مرئي/غير مرئي ";
 $langCopy=" نسخ ";
 $langTo=" إلى ";
 $langNoSpace=" تحميل غير ناجح، لا يوجد مكان في ملفّكم     ";
-$langDownloadEnd=" تمّ التشحين   ;";
+$langUploadEnd=" تمّ التشحين   ;";
 $langFileExists=" عملية مستحيلة
 <br> توجد جذاذيّة أخرى بنفس    الاسم;.";
 $langIn="فى";
@@ -49,5 +49,5 @@ $langGroupSpaceLink=" فضاء المجموعة ";
 $langGroupForumLink=" منتدى المجموعة ";
 $langZipNoPhp="  phpلا يمكن للجذاذيّة  المضغوطةالاحتواء على جذاذية من نوع ";
 $langUncompress="Décompresser fichier zipé (.zip)";
-$langDownloadAndZipEnd=" إرسال الجذاذيّة المضغوطةّ تم";
+$langUploadAndZipEnd=" إرسال الجذاذيّة المضغوطةّ تم";
 ?>

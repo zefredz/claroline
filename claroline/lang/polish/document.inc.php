@@ -14,8 +14,8 @@
       +----------------------------------------------------------------------+
  */
 $langDoc="Dokumenty";
-$langDownloadFile= "Za³aduj plik do serwera";
-$langDownload="za³aduj";
+$langUploadFile= "Za³aduj plik do serwera";
+$langUpload="za³aduj";
 $langCreateDir="Utwórz katalog";
 $langName="Nazwa";
 $langNameDir="Nazwa nowego katalogu";
@@ -28,7 +28,7 @@ $langVisible="Poka¿/ukryj";
 $langCopy="Kopiuj";
 $langTo="do";
 $langNoSpace="£adowanie pliku nie powiod³o siê. Nie ma wystarczaj±cej przestrzeni w Twoim katalogu";
-$langDownloadEnd="£adowanie pliku zakoñczone";
+$langUploadEnd="£adowanie pliku zakoñczone";
 $langFileExists="Operacja niemo¿liwa.<br>Plik o tej nazwie ju¿ istnieje.";
 $langDocCopied="Dokument skopiowany";
 $langDocDeleted="Dokument usuniêty";
@@ -53,7 +53,7 @@ $langGroupSpaceLink="Obszar grup";
 $langGroupForumLink="Fora grup";
 $langZipNoPhp="Plik zip nie mo¿e zawieraæ plików .PHP";
 $langUncompress="rozpakuj plik archiwum (.zip) w serwerze";
-$langDownloadAndZipEnd=" Plik zip za³adowany i rozpakowany";
+$langUploadAndZipEnd=" Plik zip za³adowany i rozpakowany";
 $langAreYouSureToDelete = "Usun±æ? Jeste¶ pewien?";
 
 $langPublish = "Publikowanie";

@@ -1,8 +1,8 @@
 <?php // $Id$
 
 $langDoc="Документи";
-$langDownloadFile= "Качи файл на сървъра";
-$langDownload="Качи";
+$langUploadFile= "Качи файл на сървъра";
+$langUpload="Качи";
 $langCreateDir="Създай директория";
 $langName="Име";
 $langNameDir="Име на новата директория";
@@ -16,7 +16,7 @@ $langVisible="Видим/Невидим";
 $langCopy="Копирай";
 $langTo="в";
 $langNoSpace="Качването неуспешно. Няма достатъчно свободно място в директорията";
-$langDownloadEnd="Качването приключи";
+$langUploadEnd="Качването приключи";
 $langFileExists="Операцията невъзможна.<br>Съществува файл със същото име.";
 $langDocCopied="Документът е копиран";
 $langDocDeleted="Документът е изтрит";
@@ -39,7 +39,7 @@ $langGroupSpaceLink="Group area";
 $langGroupForumLink="Форум на групата";
 $langZipNoPhp="Zip архивът не бива да съдържа PHP файлове";
 $langUncompress="разкомпресирай архивът (zip) на сървъра";
-$langDownloadAndZipEnd=" Zip файлът записан и разкомпресиран";
+$langUploadAndZipEnd=" Zip файлът записан и разкомпресиран";
 $langAreYouSureToDelete = "Сигурен ли сте, че искате да изтриете ";
 
 $langPublish = "Публикувай";

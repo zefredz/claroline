@@ -30,8 +30,8 @@ $langBackList = "Voltar &agrave; lista";
 
 $langDoc = "Documentos";
 
-$langDownloadFile = "Transferir o ficheiro para o servidor";
-$langDownload     = "transferir";
+$langUploadFile = "Transferir o ficheiro para o servidor";
+$langUpload     = "transferir";
 $langCreateDir    = "Criar um direct&oacute;rio";
 $langName         = "Nome";
 $langNameDir      = "Nome do novo direct&oacute;rio";
@@ -44,7 +44,7 @@ $langVisible      = "Vis&iacute;vel/invis&iacute;vel";
 $langCopy         = "Copiar";
 $langTo           = "para";
 $langNoSpace      = "N&atilde;o foi poss&iacute;vel colocar o documento no servidor: n&atilde;o h&aacute; suficiente espaço livre no seu direct&oacute;rio";
-$langDownloadEnd  = "O documento foi colocado no servidor";
+$langUploadEnd  = "O documento foi colocado no servidor";
 $langFileExists   = "N&atilde;o &eacute; poss&iacute;vel realizar esta opera&ccedil;&atilde;o:<br>j&aacute; existe um elemento com o mesmo nome.";
 $langDocCopied    = "documento copiado";
 $langDocDeleted   = "documento eliminado";
@@ -69,7 +69,7 @@ $langGroupSpaceLink="&Aacute;rea do grupo";
 $langGroupForumLink="Foro do grupo";
 $langZipNoPhp="O arquivo zip n&atilde;o pode conter ficheiros .PHP";
 $langUncompress="descomprimir arquivos(.zip) no servidor";
-$langDownloadAndZipEnd="ficheiro Zip transferido e descomprimido";
+$langUploadAndZipEnd="ficheiro Zip transferido e descomprimido";
 $langAreYouSureToDelete = "Tem a certeza de querer apagar?";
 
 $langPublish = "Publicar";

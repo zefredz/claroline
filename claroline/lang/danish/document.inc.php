@@ -15,8 +15,8 @@
       +----------------------------------------------------------------------+
  */
 $langDoc="Dokumenter";
-$langDownloadFile= "Læg filen ud på serveren";
-$langDownload="Læg ud";
+$langUploadFile= "Læg filen ud på serveren";
+$langUpload="Læg ud";
 $langCreateDir="Opret en mappe";
 $langName="Navn";
 $langNameDir="Navn på den nye mappe";
@@ -28,7 +28,7 @@ $langVisible="Synlig/usynlig";
 $langCopy="kopi";
 $langTo="til";
 $langNoSpace="Udlægningen mislykkedes. Der er ikke plads i din mappe.";
-$langDownloadEnd="Udlægning er afsluttet";
+$langUploadEnd="Udlægning er afsluttet";
 $langFileExists="Udlægningen kan ikke gennemføres.<br>Der er allerede en fil med samme navn.";
 $langDocCopied="Dokumentet er kopieret";
 $langDocDeleted="Dokumentet er slettet";
@@ -53,7 +53,7 @@ $langGroupSpaceLink="Gruppeområde";
 $langGroupForumLink="Gruppe diskussionsforum";
 $langZipNoPhp="Zip fil må ikke indeholde .PHP filer";
 $langUncompress="dekomprimer zipped (.zip) fil på serveren";
-$langDownloadAndZipEnd=" Zip fil er lagt ud og dekomprimeret";
+$langUploadAndZipEnd=" Zip fil er lagt ud og dekomprimeret";
 $langAreYouSureToDelete = "Er du sikker på, at du vil slette";
 $langPublish = "Udgiv";
 $langMissingImagesDetected = "Billederne mangler";

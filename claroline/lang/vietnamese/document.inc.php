@@ -3,8 +3,8 @@
       
  */
 $langDoc="Tài liệu";
-$langDownloadFile= "Upload file lên máy chủ web";
-$langDownload="Upload";
+$langUploadFile= "Upload file lên máy chủ web";
+$langUpload="Upload";
 $langCreateDir="Tạo thư mục";
 $langName="Tên";
 $langNameDir="Tên thư mục mới";
@@ -16,7 +16,7 @@ $langVisible="Hiển thị/không hiển thị";
 $langCopy="Sao chép";
 $langTo="đến";
 $langNoSpace="Upload có lỗi. Không đủ chỗ trống trong thư mục";
-$langDownloadEnd="Upload xong";
+$langUploadEnd="Upload xong";
 $langFileExists="Không được.<br>Trùng tên file.";
 $langDocCopied="Tài liệu đã được sao";
 $langDocDeleted="Tài liệu đã xoá";
@@ -41,7 +41,7 @@ $langGroupSpaceLink="Khu vực nhóm";
 $langGroupForumLink="Diễn đàn nhóm";
 $langZipNoPhp="";
 $langUncompress="giải nén tệp (.zip) trên server";
-$langDownloadAndZipEnd=" Tệp Zip đã tải lên và giải nén";
+$langUploadAndZipEnd=" Tệp Zip đã tải lên và giải nén";
 $langAreYouSureToDelete = "Chắc chắn xoá?";
 
 $langPublish = "Xuất bản";

@@ -40,8 +40,8 @@ $langPlatform= $institution["name"] . " gebruikt het platform";
 // DOCUMENT
 
 $langDoc="Documenten";
-$langDownloadFile= "Upload volgend bestand naar de server";
-$langDownload="Uploaden";
+$langUploadFile= "Upload volgend bestand naar de server";
+$langUpload="Uploaden";
 $langCreateDir="Folder aanmaken";
 $langName="Naam";
 $langNameDir="Naam van nieuwe folder";
@@ -54,7 +54,7 @@ $langVisible="Zichtbaar/onzichtbaar";
 $langCopy="Knippen";
 $langTo="naar";
 $langNoSpace="Upload is niet geslaagd. Niet genoeg ruimte op de harde schijf.";
-$langDownloadEnd="Upload is geslaagd";
+$langUploadEnd="Upload is geslaagd";
 $langFileExists="Onmogelijk.<br>Er bestaat al een bestand met dezelfde naam.";
 $langIn="in";
 $langNewDir="Naam van nieuwe folder";
@@ -81,7 +81,7 @@ $langGroupSpaceLink="Ruimte van deze groep";
 $langGroupForumLink="Forum van deze groep";
 $langZipNoPhp="Het ZIP bestand mag geen php-bestanden bevatten";
 $langUncompress="ZIP bestand decomprimeren";
-$langDownloadAndZipEnd=" ZIP bestand werd opgestuurd en gedecomprimeerd";
+$langUploadAndZipEnd=" ZIP bestand werd opgestuurd en gedecomprimeerd";
 $langAreYouSureToDelete = "Wilt u dit document verwijderen: ";
 
 $langPublish = "Publiceren";

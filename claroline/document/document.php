@@ -186,11 +186,11 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         {
             if ( $_REQUEST['uncompress'] == 1)
             {
-                $dialogBox .= $langDownloadAndZipEnd;
+                $dialogBox .= $langUploadAndZipEnd;
             }
             else
             {
-                $dialogBox .= $langDownloadEnd;
+                $dialogBox .= $langUploadEnd;
 
                 if (trim($_REQUEST['comment']) != '') // insert additional comment
                 {
@@ -271,9 +271,9 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\" enctype=\"multipart/form-data\">"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exUpload\">"
                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
-                     ."<label for=\"userFile\">".$langDownloadFile." : </label>"
+                     ."<label for=\"userFile\">".$langUploadFile." : </label>"
                      ."<input type=\"file\" id=\"userFile\" name=\"userFile\"> "
-                     ."<input style=\"font-weight: bold\" type=\"submit\" value=\"".$langDownload."\"><br>"
+                     ."<input style=\"font-weight: bold\" type=\"submit\" value=\"".$langUpload."\"><br>"
                      ."<small>".$langMaxFileSize.format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) )."</small><br>";
 
 
