@@ -108,7 +108,10 @@ function claro_sql_get_course_tbl($dbNameGlued = NULL)
               'tool_list'              => $courseDb.'tool_list',
               'userinfo_content'       => $courseDb.'userinfo_content',
               'userinfo_def'           => $courseDb.'userinfo_def',
-              'work_student'           => $courseDb.'work_student'
+              'work_student'           => $courseDb.'work_student',
+              'wrk_session'            => $courseDb.'wrk_session',
+              'wrk_submission'         => $courseDb.'wrk_submission'
+              
 
               ); // end array
 
@@ -1145,9 +1148,9 @@ initEditor();
 
 function claro_build_nested_select_menu($name, $elementList)
 {
-    return '<select name="'.$name.">\n"
+    return "<select name=\"".$name."\">\n"
           .implode("\n", prepare_option_tags($elementList) )
-          .'</select>'."\n";
+          ."</select>\n";
 }
 
 /**
