@@ -163,7 +163,12 @@ if(!isset($_SESSION['questionList']))
 	//session_register('questionList');
   $_SESSION['questionList'] = $questionList;
 }
-
+// start time of the exercise (use session because in post it could be modified
+// to easily by user using a development bar in mozilla for an example)
+if(!isset($_SESSION['exeStartTime']) )
+{
+	$_SESSION['exeStartTime'] = time();
+}
 $nbrQuestions=sizeof($questionList);
 
 // if questionNum comes from POST and not from GET
@@ -203,6 +208,7 @@ else
   $interbredcrump[]=array("url" => "exercice.php","name" => $langExercices);
   include($includePath.'/claro_init_header.inc.php');
 }
+
 ?>
 
 <h3><?php echo $exerciseTitle; ?></h3>
