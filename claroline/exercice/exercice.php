@@ -238,8 +238,8 @@ if($is_allowedToEdit)
 ?>
 
   <td width="50%">
-	<a href="admin.php"><?php echo $langNewEx; ?></a> |
-	<a href="question_pool.php"><?php echo $langQuestionPool; ?></a>
+	<a class="claroCmd" href="admin.php"><?php echo $langNewEx; ?></a> |
+	<a class="claroCmd" href="question_pool.php"><?php echo $langQuestionPool; ?></a>
   </td>
   <td width="50%" align="right">
 

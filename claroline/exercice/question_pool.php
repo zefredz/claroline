@@ -94,11 +94,8 @@ include($includePath.'/claro_init_header.inc.php');
 // if admin of course
 if($is_allowedToEdit)
 {
+	claro_disp_tool_title($nameTools);
 ?>
-
-<h3>
-  <?php echo $nameTools; ?>
-</h3>
 
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <input type="hidden" name="fromExercise" value="<?php echo $fromExercise; ?>">
@@ -163,7 +160,7 @@ if($is_allowedToEdit)
 	{
 ?>
 
-		<a href="admin.php">&lt;&lt; <?php echo $langGoBackToEx; ?></a>
+		<a class="claroCmd" href="admin.php">&lt;&lt; <?php echo $langGoBackToEx; ?></a>
 
 <?php
 	}
@@ -171,7 +168,7 @@ if($is_allowedToEdit)
 	{
 ?>
 
-		<a href="admin.php?newQuestion=yes"><?php echo $langNewQu; ?></a>
+		<a class="claroCmd" href="admin.php?newQuestion=yes"><?php echo $langNewQu; ?></a>
 
 <?php
 	}

@@ -67,7 +67,7 @@ if($deleteQuestion)
 
 <hr size="1" noshade="noshade">
 
-<a href="<?php echo $_SERVER['PHP_SELF']; ?>?newQuestion=yes"><?php echo $langNewQu; ?></a> | <a href="question_pool.php?fromExercise=<?php echo $exerciseId; ?>"><?php echo $langGetExistingQuestion; ?></a>
+<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?newQuestion=yes"><?php echo $langNewQu; ?></a> | <a class="claroCmd" href="question_pool.php?fromExercise=<?php echo $exerciseId; ?>"><?php echo $langGetExistingQuestion; ?></a>
 
 <br><br>
 

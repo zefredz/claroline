@@ -155,7 +155,7 @@ else
 	{
 ?>
 
-<a href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyQuestion=<?php echo $questionId; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><small><?php echo $langEditQuestion ; ?></small></a>
+<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyQuestion=<?php echo $questionId; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><?php echo $langEditQuestion ; ?></a>
 
 <?php
 	}
@@ -169,7 +169,7 @@ else
 	{
 ?>
 
-<a href="<?php echo $_SERVER['PHP_SELF']; ?>">&lt;&lt; <?php echo $langGoBackToQuestionList; ?></a>
+<small><a href="<?php echo $_SERVER['PHP_SELF']; ?>">&lt;&lt; <?php echo $langGoBackToQuestionList; ?></a></small>
 
 <?php
 	}
@@ -178,7 +178,7 @@ else
 	{
 ?>
 
-<a href="question_pool.php?fromExercise=<?php echo $fromExercise; ?>">&lt;&lt; <?php echo $langGoBackToQuestionPool; ?></a>
+<a class="claroCmd" href="question_pool.php?fromExercise=<?php echo $fromExercise; ?>">&lt;&lt; <?php echo $langGoBackToQuestionPool; ?></a>
 
 <?php
 	}
@@ -218,7 +218,7 @@ else
 	{
 ?>
 
-<a href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $questionId; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><small><?php echo $langEditAnswers; ?></small></a>
+<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $questionId; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><?php echo $langEditAnswers; ?></a>
 
 <?php
 	}

@@ -437,16 +437,15 @@ else
   </li>
 </ul>
 </small>
-<small><?php echo $langEditExercise; ?> :
-<a href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=yes">
+<?php echo $langEditExercise; ?> :
+<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=yes">
 <img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="">
 <?php echo $langSimple; ?>
 </a>
-<a href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=yes&adv=yes">
+<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=yes&adv=yes">
 <img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="">
 <?php echo $langAll; ?>
 </a>
-</small>
 <?php
 }
 ?>

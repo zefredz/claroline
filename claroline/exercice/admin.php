@@ -265,13 +265,10 @@ if($modifyIn == 'thisExercise')
 }
 
 include($includePath.'/claro_init_header.inc.php');
-?>
 
-<h4>
-  <?php echo $nameTools; ?>
-</h4>
+claro_disp_tool_title($nameTools);
 
-<?php
+
 if($newQuestion || $modifyQuestion)
 {
 	// statement management
