@@ -151,5 +151,6 @@ $langGroups ="Groups";
 $langChat ="Chat";
 $langLearnPath="Learning Path";
 $langDescriptionCours  = "Course description";
+$langPlatformAdministration = "Platform Administration";
 
 ?>

@@ -45,7 +45,7 @@ if($_uid)                                    /* --- User Section --- */
 if($is_platformAdmin)
 {
 ?>
- | <a href="<?= $clarolineRepositoryWeb ?>admin/" target="_top"><font color="white">Platform Administration</font></a>
+ | <a href="<?= $clarolineRepositoryWeb ?>admin/" target="_top"><font color="white"><?php echo $langPlatformAdministration ?></font></a>
 <?php 
 } 
 ?>
