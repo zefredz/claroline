@@ -1132,7 +1132,7 @@ claro_disp_tool_title($titleElement,
 
         if ($cmd == 'exSearch')
 		{
-            $curDirLine = 'Search result';
+            $curDirLine = $langSearchResult;
 		}
 		elseif ($curDirName)
         {
@@ -1300,7 +1300,7 @@ claro_disp_tool_title($titleElement,
 
         if ($cmd == 'exSearch')
 		{
-            $curDirLine = 'Search result';
+            $curDirLine = $langSearchResult;
 		}
 		elseif ($curDirName)
         {
@@ -1479,7 +1479,7 @@ claro_disp_tool_title($titleElement,
 		
 		if ($cmd == 'exSearch')
 		{
-            $curDirLine = 'Search result';
+            $curDirLine = $langSearchResult;
 		}
 		elseif ($curDirName)
         {
