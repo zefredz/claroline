@@ -220,11 +220,11 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
 
     if (isset($nameTools) && $langFile != 'course_home')
     {
-        if ($noPHP_SELF)
+        if (isset($noPHP_SELF) && $noPHP_SELF)
         {
             echo	"<li><b>",$nameTools,"</b></li>\n";
         }
-        elseif ($noQUERY_STRING)
+        elseif (isset($noQUERY_STRING) && $noQUERY_STRING)
         {
             echo	"<li>"
                     ."<b>"
@@ -235,6 +235,10 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
         }
         else
         {
+            
+            // set Query string to empty if not exists
+            if (!isset($QUERY_STRING)) $QUERY_STRING = ""; 
+
             echo	"<li>" 
                     ."<b>"
                     ."<a href=",$_SERVER['PHP_SELF'],'?',$QUERY_STRING," target=\"_top\">"
