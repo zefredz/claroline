@@ -295,67 +295,6 @@ $sqlForUpdate[] = " UPDATE faculte set `nb_childs`='0' where `nb_childs` is NULL
 
 /** 
  *
- * TRY TO CREATE todo table
- *
- *
-*/
-
-{
-
-$sqlForUpdate[] = "# Try create todo table";
-$sqlForUpdate[] = "
-CREATE TABLE IF NOT EXISTS  `todo` (
-  `id` mediumint(9) NOT NULL auto_increment,
-  `contenu` text,
-  `temps` datetime default '0000-00-00 00:00:00',
-  `auteur` varchar(80) default NULL,
-  `email` varchar(80) default NULL,
-  `priority` tinyint(4) default '0',
-  `type` varchar(8) default NULL,
-  `cible` varchar(30) default NULL,
-  `statut` varchar(8) default NULL,
-  `assignTo` mediumint(9) default NULL,
-  `showToUsers` enum('YES','NO') NOT NULL default 'YES',
-  PRIMARY KEY  (`id`),
-  KEY `temps` (`temps`)
-) TYPE=MyISAM;";
-
-// try to add missing fields
-
-$sqlForUpdate[] = " ALTER IGNORE  TABLE todo ADD `id` mediumint(9) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE  TABLE todo ADD `contenu` text;";
-$sqlForUpdate[] = " ALTER IGNORE  TABLE todo ADD `temps` datetime default '0000-00-00 00:00:00';";
-$sqlForUpdate[] = " ALTER IGNORE  TABLE todo ADD `auteur` varchar(80) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE  TABLE todo ADD `email` varchar(80) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE  TABLE todo ADD `priority` tinyint(4) default '0';";
-$sqlForUpdate[] = " ALTER IGNORE  TABLE todo ADD `type` varchar(8) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE  TABLE todo ADD `cible` varchar(30) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE  TABLE todo ADD `statut` varchar(8) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE  TABLE todo ADD `assignTo` mediumint(9) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE  TABLE todo ADD `showToUsers` enum('YES','NO') NOT NULL default 'YES';";
-
-// alter fields
-
-$sqlForUpdate[] = " ALTER IGNORE TABLE  todo CHANGE `id` `id` mediumint(9) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE  todo CHANGE `contenu` `contenu` text;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE  todo CHANGE `temps` `temps` datetime default '0000-00-00 00:00:00';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE  todo CHANGE `auteur` `auteur` varchar(80) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE  todo CHANGE `email` `email` varchar(80) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE  todo CHANGE `priority` `priority` tinyint(4) default '0';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE  todo CHANGE `type` `type` varchar(8) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE  todo CHANGE `cible` `cible` varchar(30) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE  todo CHANGE `statut` `statut` varchar(8) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE  todo CHANGE `assignTo` `assignTo`  mediumint(9) UNSIGNED DEFAULT '0' NOT NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE  todo CHANGE `showToUsers` `showToUsers` enum('YES','NO') NOT NULL default 'YES';";
-
-// comment
-
-$sqlForUpdate[] = " ALTER IGNORE TABLE  `todo` COMMENT='suggestion';";
-
-}
-
-/** 
- *
  * TRY TO CREATE user table
  *
  *
