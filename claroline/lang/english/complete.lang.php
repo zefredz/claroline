@@ -1756,6 +1756,7 @@ $langVersionDb = "Database version used at archive time";
 $langViMod = "Visibility modified";
 $langView = "View";
 $langViewCourse = "View course";
+$langViewMode = "View mode";
 $langViewPlatFormError = "Scan technical fault";
 $langViewPlatFormStatistics = "Platform statistics";
 $langViewToolList = "View List of All Tools";
