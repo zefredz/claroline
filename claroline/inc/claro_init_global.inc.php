@@ -18,6 +18,12 @@ session_start();
 ///////////////////////////////////////////////////////////////////////
 
 
+// Most PHP package has increase the error reporting. 
+// The line below set the error reporting to the most fitting one for Claroline
+
+error_reporting(E_COMPILE_ERROR | E_ERROR | E_CORE_ERROR);
+
+
 // a shorter reference to $PHP_SELF. Useful to lighten the HTML code.
 
 $_SELF = basename($PHP_SELF);
