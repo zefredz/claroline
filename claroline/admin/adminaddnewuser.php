@@ -326,7 +326,7 @@ if ($display_success)
 {
    echo $langUserCreated."<br><br>
    <ul>";
-   echo "<li><a href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$inserted_uid."&category=\"> ".$langRegisterTheNewUser." </a></li>";
+   echo "<li><a href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$inserted_uid."&category=&fromAdmin=settings\"> ".$langRegisterTheNewUser." </a></li>";
    echo "<li><a href=\"adminprofile.php?uidToEdit=".$inserted_uid."&category=\"> ".$langGoToUserSettings." </a></li>";
    echo "<li><a href=\"adminaddnewuser.php\"> ".$langCreateAnotherUser." </a></li>";
    echo "<li><a href=\"index.php\"> ".$langBackToAdmin." </a></li>
