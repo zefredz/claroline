@@ -205,9 +205,9 @@ switch($pagetype)
 
 if($is_forumAdmin)
 {
-	$toolBar [] =	"<a class=\"claroCmd\" href=../forum_admin/forum_admin.php>".$langAdm."</a>";
+   if ( isset($catId) && $catId>0 ) $toAdd = '?forumgo=yes&cat_id=' . $catId;
+   $toolBar[] = '<a class="claroCmd" href="../forum_admin/forum_admin.php' . $toAdd . '">' . $langAdm . "</a>";
 }
-
 
 switch($pagetype)
 {
