@@ -270,7 +270,7 @@ if($is_allowedToEdit) // check teacher status
         	$msgContent = preg_replace('/<br( \/)?>/',"\n",$msgContent);
         	$msgContent = preg_replace('/<p>/',"\n\n",$msgContent);
         	$msgContent = preg_replace('/  /',' ',$msgContent);
-        	$msgContent = html_entity_decode($msgContent);
+        	$msgContent = unhtmlentities($msgContent);
 	    	$msgContent = strip_tags($msgContent);
         
         	$emailBody = $msgContent . "\n" .
