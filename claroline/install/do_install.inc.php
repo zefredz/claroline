@@ -249,7 +249,7 @@ $dbGlu				= "'.($singleDbForm?'_':'`.`').'"; // DO NOT MODIFY THIS
 $mysqlRepositorySys = "'.str_replace("\\","/",realpath($mysqlRepositorySys)."/").'";
 
 $clarolineRepositoryAppend  = "claroline/";
-$coursesRepositoryAppend	= "";
+$coursesRepositoryAppend	= "'.$courseRepositoryForm.'";
 $rootAdminAppend			= "admin/";
 $phpMyAdminAppend			= "mysql/";
 $phpSysInfoAppend			= "sysinfo/";

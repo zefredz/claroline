@@ -15,12 +15,16 @@
 /*
 GOAL : install claroline 1.5.* on server
 */
+$langStepN = "Step %d of %d";
 $langAdminSetting ="Admin Setting";
+$langFileSystemSetting = 'File System Setting';
+$langMysqlNames='MySQL Names';
 /* LET DEFINE ON SEPARATE LINES !!!*/
 // __LINE__ use to have arbitrary number but order of panels
 
 define ("DISP_WELCOME",__LINE__);
 define ("DISP_LICENCE",__LINE__);
+define ("DISP_FILE_SYSTEM_SETTING",__LINE__);
 define ("DISP_DB_CONNECT_SETTING",__LINE__);
 define ("DISP_DB_NAMES_SETTING",__LINE__);
 define ("DISP_ADMINISTRATOR_SETTING",__LINE__);
@@ -56,6 +60,29 @@ include ($newIncludePath."lib/auth.lib.inc.php"); // to generate pass and to cry
 include ($newIncludePath."lib/config.lib.inc.php");
 include ($newIncludePath."lib/claro_main.lib.php");
 
+$panelSequence  = array(
+DISP_WELCOME,
+DISP_LICENCE,
+DISP_FILE_SYSTEM_SETTING,
+DISP_DB_CONNECT_SETTING,
+DISP_DB_NAMES_SETTING,
+DISP_ADMINISTRATOR_SETTING,
+DISP_PLATFORM_SETTING,
+DISP_ADMINISTRATIVE_SETTING,
+DISP_LAST_CHECK_BEFORE_INSTALL,
+DISP_RUN_INSTALL_COMPLETE);
+//DISP_RUN_INSTALL_NOT_COMPLETE is not a panel of sequence
+$panelTitle[DISP_WELCOME] = $langRequirements;
+$panelTitle[DISP_LICENCE] = $langLicence;
+$panelTitle[DISP_FILE_SYSTEM_SETTING]=$langFileSystemSetting;
+$panelTitle[DISP_DB_CONNECT_SETTING]=$langDBSetting;
+$panelTitle[DISP_DB_NAMES_SETTING]=$langMysqlNames;
+$panelTitle[DISP_ADMINISTRATOR_SETTING]=$langAdminSetting;
+$panelTitle[DISP_PLATFORM_SETTING]=$langCfgSetting;
+$panelTitle[DISP_ADMINISTRATIVE_SETTING]='Additional Informations<small> (optional)</small>';
+$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL]=$langLastCheck;
+$panelTitle[DISP_RUN_INSTALL_COMPLETE]='Claroline Installation succeeds';
+
 ##### STEP 0 INITIALISE FORM VARIABLES IF FIRST VISIT ##################
 //$rootSys="'.realpath($pathForm).'";
 
@@ -64,6 +91,10 @@ $topRigthPath = topRigthPath(); // to known right (read and write)
 if($_REQUEST['cmdLicence'])
 {
 	$cmd=DISP_LICENCE;
+}
+elseif($_REQUEST['cmdFILE_SYSTEM_SETTING'])
+{
+	$cmd=DISP_FILE_SYSTEM_SETTING;
 }
 elseif($_REQUEST['cmdDB_CONNECT_SETTING'])
 {
@@ -119,6 +150,7 @@ if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step pr
     $urlAppendPath 	= preg_replace ($ereg, '', $urlAppendPath);
   	$urlForm 		= "http://".$_SERVER['SERVER_NAME'].$urlAppendPath."/";
 	$pathForm		= realpath("../..")."/";
+	$courseRepositoryForm = "courses/";
 
 	$adminEmailForm		= '';//$_SERVER['SERVER_ADMIN'];
 
@@ -139,10 +171,10 @@ if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step pr
 
 	$languageForm = 'english';
 
-	$checkEmailByHashSent 			= false;
-	$ShowEmailnotcheckedToStudent 	= true;
-	$userMailCanBeEmpty 			= true;
-	$userPasswordCrypted 			= false;
+	$checkEmailByHashSent 			= FALSE;
+	$ShowEmailnotcheckedToStudent 	= TRUE;
+	$userMailCanBeEmpty 			= TRUE;
+	$userPasswordCrypted 			= FALSE;
 }
 
 if ($PHP_SELF == "") $PHP_SELF = $_SERVER["PHP_SELF"];
@@ -162,12 +194,12 @@ if ($PHP_SELF == "") $PHP_SELF = $_SERVER["PHP_SELF"];
 //  * Protect some  directory with an .htaccess (work only  for apache)
 
 
-$canRunCmd = true;
+$canRunCmd = TRUE;
 if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInstall'])
 {
 	if (empty($adminSurnameForm)||empty($passForm)||empty($loginForm)||empty($adminNameForm)||empty($adminEmailForm)||!is_well_formed_email_address($adminEmailForm))
 	{
-		$adminDataMissing = true;
+		$adminDataMissing = TRUE;
 		if (empty($loginForm)) 			$missing_admin_data[] = 'login';
 		if (empty($passForm)) 			$missing_admin_data[] = 'password';
 		if (empty($adminSurnameForm)) 	$missing_admin_data[] = 'firstname';
@@ -184,7 +216,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInsta
 		{
 			$display=$cmd;
 		}
-		$canRunCmd = false;
+		$canRunCmd = FALSE;
 	}
 	else 
 	{
@@ -196,7 +228,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
 {
 	if (empty($contactEmailForm)||empty($contactNameForm)||!is_well_formed_email_address($contactEmailForm))
 	{
-		$administrativeDataMissing = true;
+		$administrativeDataMissing = TRUE;
 		if (empty($contactNameForm))
 		{
 			$check_administrative_data[] = 'name of contact';
@@ -223,7 +255,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
 		{
 			$display = $cmd;
 		}
-		$canRunCmd = false;
+		$canRunCmd = FALSE;
 	}
 	else 
 	{
@@ -234,7 +266,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
 if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall'])
 {
 	// Check Connection //
-	$databaseParam_ok = true;
+	$databaseParam_ok = TRUE;
 	$db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
 	if ( mysql_errno() > 0 ) // problem with server
 	{
@@ -262,8 +294,8 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
 					</font>
 					<BR>
 				</P>';
-		$databaseParam_ok = false;
-		$canRunCmd = false;
+		$databaseParam_ok = FALSE;
+		$canRunCmd = FALSE;
 		if ($cmd>DISP_DB_CONNECT_SETTING)
 		{
 			$display=DISP_DB_CONNECT_SETTING;
@@ -278,7 +310,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
 if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall'])
 {
 	// re Check Connection //
-	$databaseParam_ok = true;
+	$databaseParam_ok = TRUE;
 	if ($singleDbForm) $dbStatsForm = $dbNameForm;
 	$db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
 	$valMain = check_if_db_exist($dbNameForm  ,$db);
@@ -289,10 +321,10 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
 			($valStat && !$confirmUseExistingStatsDb)
 		)
 	{
-		$databaseAlreadyExist             = true;
-		if ($valMain)	$mainDbNameExist  = true;
-		if ($valStat)	$statsDbNameExist = true;
-		$canRunCmd                        = false;
+		$databaseAlreadyExist             = TRUE;
+		if ($valMain)	$mainDbNameExist  = TRUE;
+		if ($valStat)	$statsDbNameExist = TRUE;
+		$canRunCmd                        = FALSE;
 	    if ($cmd > DISP_DB_NAMES_SETTING)
 	    {
 	    	$display = DISP_DB_NAMES_SETTING;
@@ -319,6 +351,10 @@ if ($canRunCmd)
 	if($_REQUEST['cmdLicence'])
 	{
 		$display = DISP_LICENCE;
+	}
+	elseif($_REQUEST['cmdFILE_SYSTEM_SETTING'])
+	{
+		$display = DISP_FILE_SYSTEM_SETTING;
 	}
 	elseif($_REQUEST['cmdDB_CONNECT_SETTING'])
 	{
@@ -437,6 +473,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 echo "
 			<input type=\"hidden\" name=\"languageCourse\" value=\"$languageCourse\">
 			<input type=\"hidden\" name=\"urlAppendPath\" value=\"$urlAppendPath\">
+			<input type=\"hidden\" name=\"courseRepositoryForm\" value=\"$courseRepositoryForm\">
 			<input type=\"hidden\" name=\"urlEndForm\" value=\"$urlEndForm\">
 			<input type=\"hidden\" name=\"pathForm\" value=\"".str_replace("\\","/",realpath($pathForm)."/")."\" >
 
@@ -528,7 +565,7 @@ if ($display==DISP_WELCOME)
 	echo '
 				<input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-					'.$langStep1.' : '.$langRequirements.'
+				'.sprintf($langStepN,(array_search(DISP_WELCOME, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_WELCOME].'
 				</h2>';
 	// check if an claroline configuration file doesn't already exists.
 	if (
@@ -703,7 +740,7 @@ elseif($display==DISP_LICENCE)
 	echo '
 				<input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-					'.$langStep2.' : '.$langLicence.'
+				'.sprintf($langStepN,(array_search(DISP_LICENCE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LICENCE].'
 				</h2>
 				<P>
 				Claroline is free software, distributed under GNU General Public licence (GPL).
@@ -724,12 +761,61 @@ elseif($display==DISP_LICENCE)
 					</td>
 					<td align="right">
 					<input type="submit" name="cmdWelcomePanel" value="&lt; Back">
-					<input type="submit" name="cmdDB_CONNECT_SETTING" value="I accept &gt;">
+					<input type="submit" name="cmdFILE_SYSTEM_SETTING" value="I accept &gt;">
 					</td>
 				</tr>
 			</table>';
 
 }
+
+
+
+
+
+##########################################################################
+###### STEP 3 MYSQL DATABASE SETTINGS ####################################
+##########################################################################
+
+elseif($display==DISP_FILE_SYSTEM_SETTING)
+{
+
+	echo '
+				<input type="hidden" name="fromPanel" value="'.$display.'">
+				<h2>
+                    '.sprintf($langStepN,(array_search(DISP_FILE_SYSTEM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_FILE_SYSTEM_SETTING].'
+				</h2>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<h4>Absolute path</h4>
+				<label for="urlForm">Campus Path (absolute path to your campus)</label><br>
+				<input type="text" size="85" id="urlForm" name="urlForm" value="'.$urlForm.'"><br>
+				<h4>Relative path</h4>
+				<label for="urlAppend">Campus Path (relative path  from document root to your campus)</label><br>
+				<input type="text" size="85" id="urlAppend" name="urlAppendPath" value="'.$urlAppendPath.'"><br>
+				<br>
+				<label for="courseRepositoryForm"> Course Repository path (relative to index of your campus) </label><br>
+				<input type="text"  size="85" id="courseRepositoryForm" name="courseRepositoryForm" value="'.$courseRepositoryForm.'">
+				<br>
+				<br>
+				<table width="100%">
+					<tr>
+						<td>
+							<input type="submit" name="cmdLicence" value="&lt; Back">
+						</td>
+						<td >
+							&nbsp;
+						</td>
+						<td align="right">
+							<input type="submit" name="cmdDB_CONNECT_SETTING" value="Next &gt;">
+						</td>
+					</tr>
+				</table>';
+}	 // cmdDB_CONNECT_SETTING 
+
+
+
 
 
 
@@ -747,7 +833,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 	echo '
 				<input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-					'.$langStep3.' : '.$langDBSetting.'
+                    '.sprintf($langStepN,(array_search(DISP_DB_CONNECT_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_CONNECT_SETTING].'
 				</h2>
 			</td>
 		</tr>
@@ -834,7 +920,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 					</tr>
 					<tr>
 						<td>
-							<input type="submit" name="cmdLicence" value="&lt; Back">
+							<input type="submit" name="cmdFILE_SYSTEM_SETTING" value="&lt; Back">
 						</td>
 						<td >
 							&nbsp;
@@ -865,7 +951,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 	echo '
 			<input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-					'.$langStep4.' : MySQL Names
+                    '.sprintf($langStepN,(array_search(DISP_DB_NAMES_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_NAMES_SETTING].'
 				</h2>
 				'.($singleDbForm?'':$langDBSettingNamesIntro).'
 			</td>
@@ -1000,7 +1086,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
 	echo '
 	            <input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-					'.$langStep5.' : '.$langAdminSetting.'
+                    '.sprintf($langStepN,(array_search(DISP_ADMINISTRATOR_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATOR_SETTING].'
 				</h2>
 				The following values will be written in table <em>`'.$dbNameForm.'`.`user`</em>
 			</td>
@@ -1106,7 +1192,7 @@ elseif($display==DISP_PLATFORM_SETTING)
 	echo '
 	             <input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-					'.$langStep6.' : '.$langCfgSetting.'
+                    '.sprintf($langStepN,(array_search(DISP_PLATFORM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_PLATFORM_SETTING].'
 				</h2>';
 	echo '
 				The following values will be written in `<em>'.$configFilePath.'</em>`
@@ -1266,8 +1352,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 	echo '
 	             <input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-					'.$langStep7.' : Additional Informations
-					<small> (optional)</small>
+                    '.sprintf($langStepN,(array_search(DISP_ADMINISTRATIVE_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATIVE_SETTING].'
 				</h2>'
 				.$msg_missing_administrative_data ;
 	echo '
@@ -1372,7 +1457,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 
 	echo '
 				<h2>
-					'.$langStep8.' : '.$langLastCheck.'
+                    '.sprintf($langStepN,(array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL].'
 				</h2>
 		Here are the values you entered <br>
 		<Font color="red">
@@ -1624,7 +1709,11 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 {
 ?>
 			<h2>
-				Claroline Installation succeeds
+<?php
+                    echo sprintf($langStepN,(array_search(DISP_RUN_INSTALL_COMPLETE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_RUN_INSTALL_COMPLETE];
+
+ ?>
+				
 			</h2>
 			<br>
 			<br>
