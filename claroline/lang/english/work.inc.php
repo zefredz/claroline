@@ -23,6 +23,7 @@ $langSubmitWork = "Submit a work";
 $langEditWork = "Modify a work";
 $langWorkDetails = "Work details";
 $langGradeWork = "Grade";
+$langShowGrade = "Show grade";
 
 // -- Forms
 
@@ -97,6 +98,7 @@ $langLastSubmissionDate = "Last submission date";
 $langLastEditDate = "Last edit date";
 $langSubmittedBy = "Submitted by";
 $langAnonymousUser = "anonymous user";
+$langAfterEndDate = "After deadline";
 
 $langRequired = "Required";
 $langChooseDateHelper = "(d/m/y hh:mm)";
