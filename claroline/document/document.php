@@ -333,10 +333,15 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 			// move the uploaded image files into the corresponding image directory
 
 			// Try to create  a directory to store the image files
-            $newImgPath = move_uploaded_file_collection_into_directory($_FILES['imgFile'], $imgDirectory);
+            $newImgPathList = move_uploaded_file_collection_into_directory($_FILES['imgFile'], $imgDirectory);
+
+
+            $newImgPathList = array_map('urlencode', $newImgPathList);
+            // urlencode() does too much. We don't need to replace '/' by '%2F'
+            $newImgPathList = str_replace('%2F', '/', $newImgPathList);
 
             replace_img_path_in_html_file($_POST['imgFilePath'], 
-                                          $newImgPath, 
+                                          $newImgPathList, 
                                           $baseWorkDir.$_REQUEST['relatedFile']);
 
 		}											// end if ($uploadImgFileNb > 0)
@@ -493,23 +498,23 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
                         MOVE FILE OR DIRECTORY : STEP 2
 	--------------------------------------------------------------------------*/
 
-	if ($cmd == 'exMv')
-	{
-		if ( claro_move_file($baseWorkDir.$_REQUEST['file'],$baseWorkDir.$_REQUEST['destination']) )
-		{
-			if ($courseContext)
-			{
+    if ($cmd == 'exMv')
+    {
+        if ( claro_move_file($baseWorkDir.$_REQUEST['file'],$baseWorkDir.$_REQUEST['destination']) )
+        {
+            if ($courseContext)
+            {
                 update_db_info( 'update', $_REQUEST['file'],
                                 array('path' => $_REQUEST['destination'].'/'.basename($_REQUEST['file'])) );
                 update_Doc_Path_in_Assets("update",$_REQUEST['file'],
-												   $_REQUEST['destination'].'/'.basename($_REQUEST['file']));
-			}
+                                                   $_REQUEST['destination'].'/'.basename($_REQUEST['file']));
+            }
 
-			$dialogBox = $langDirMv.'<br>';
-		}
-		else
-		{
-			$dialogBox = $langImpossible.'<br>';
+            $dialogBox = $langDirMv.'<br>';
+        }
+        else
+        {
+            $dialogBox = $langImpossible.'<br>';
 
             if ( claro_failure::get_last_failure() == 'FILE EXISTS' )
             {
@@ -1437,12 +1442,11 @@ claro_disp_tool_title($titleElement,
 			echo "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n"
 				."<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" alt=\"\">\n"
 				.$langUp
-				."</a>\n | ";
+				."</a>\n";
 		}
 	    else
 	    {
-	        echo "&nbsp;\n"
-	            ."<span class='claroCmdDisabled'>"
+	        echo "<span class='claroCmdDisabled'>"
 	            ."<img src=\"".$clarolineRepositoryWeb."img/parentdisabled.gif\" border=\"0\" alt=\"\">\n"
 	            .$langUp
 	            ."</span>\n";
