@@ -85,19 +85,11 @@ if ( mysql_num_rows($res) >0 )
 	while ($bloc = mysql_fetch_array($res))
 	{ 
 		echo "
-<H4>
+<h4>
 	".$bloc["title"]."
-</H4>
+</h4>
 ".make_clickable(claro_parse_user_text($bloc["content"]));
 	}
-}
-else
-{
-	echo "
-<br>
-<H4>
-	$langThisCourseDescriptionIsEmpty
-</h4>";
 }
 
 include($includePath."/claro_init_footer.inc.php");
