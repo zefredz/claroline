@@ -228,7 +228,7 @@ if($is_allowedToUse)	// check teacher status
 			{
 				while ($u = mysql_fetch_array($groupMemberResult))
 				{
-					$userIdList [] = $u[user_id]; // complete the user id list ...
+					$userIdList [] = $u['user_id']; // complete the user id list ...
 				}
 			}
 		}
@@ -247,13 +247,13 @@ if($is_allowedToUse)	// check teacher status
 			{
 				while ($e = mysql_fetch_array($emailResult))
 				{
-					if(eregi('^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,3})$', $e[email] ))
+					if(eregi('^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,3})$', $e['email'] ))
 					{
-						$emailList [] = $e[firstName].' '.$e[lastName].' <'.$e[email].'>';
+						$emailList [] = $e['firstName'].' '.$e['lastName'].' <'.$e['email'].'>';
 					}
 					else
 					{
-						$invalidMailUserList [] = $e[firstName].' '.$e[lastName];
+						$invalidMailUserList [] = $e['firstName'].' '.$e['lastName'];
 					}
 				}
 			}
@@ -273,8 +273,8 @@ if($is_allowedToUse)	// check teacher status
 
 			$emailSubject = $courseCode." - ".$professorMessage;
 		
-			$emailHeaders = 'From:	'.$senderFirstName.' '.$senderLastName.' <'.$senderMail.'>\n'
-			               .'Reply-To:	'.$senderMail;
+			$emailHeaders = "From:	".$senderFirstName." ".$senderLastName." <".$senderMail.">\n"
+			               ."Reply-To:	".$senderMail;
 
 			$emailContent = stripslashes($emailContent);
 
@@ -288,8 +288,8 @@ if($is_allowedToUse)	// check teacher status
 			{
 				//AVOID ANTISPAM BY	VARYING STRING
 
-				$emailBody = $courseName.' \n'
-							.$emailTo.'\n\n'
+				$emailBody = $courseName." \n"
+							.$emailTo."\n\n"
 							.$emailContent; 
 
 				@mail($emailTo,	$emailSubject, $emailBody, $emailHeaders);		
@@ -409,7 +409,7 @@ if($is_allowedToUse)	// check teacher status
 		{
 			foreach($groupList as $thisGroup)
 			{
-				echo	"<option value=\"GROUP:".$thisGroup[id]."\">",
+				echo	"<option value=\"GROUP:".$thisGroup['id']."\">",
 						"* ",$thisGroup['name']," (",$thisGroup['userNb']," ",$langUsers,")",
 						"</option>";
 			}
@@ -423,7 +423,7 @@ if($is_allowedToUse)	// check teacher status
 
 		foreach($userList as $thisUser)
 		{
-			echo	"<option value=\"USER:",$thisUser[uid],"\">",
+			echo	"<option value=\"USER:",$thisUser['uid'],"\">",
 					$thisUser['lastName']," ",$thisUser['firstName'],
 					"</option>";
 		}
