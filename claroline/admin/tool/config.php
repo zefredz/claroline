@@ -677,7 +677,11 @@ switch ($panel)
                     foreach($section['properties'] as $property )
                     {
                         $htmlPropLabel = htmlentities($conf_def_property_list[$property]['label']);
-                        $htmlPropDesc = ($conf_def_property_list[$property]['description']?nl2br(htmlentities($conf_def_property_list[$property]['description'])).'<br />':'');
+                        $htmlPropDesc = ($conf_def_property_list[$property]['description']?
+                                            '<div class="propDescription">'
+                                            .nl2br(htmlentities($conf_def_property_list[$property]['description'])).'<br />'
+                                            .'</div>'
+                                            :'');
                         if ($conf_def_property_list[$property]['container']=='CONST')
                              eval('$htmlPropValue = '.$property.';');
                         else eval('$htmlPropValue = $'.$property.';');
@@ -688,9 +692,9 @@ switch ($panel)
                             .'('.$conf_def_property_list[$property]['type'].')'
                             .'</span>'
                             .'</H2>'."\n"
-                            .'<div class="propDescription">'
+                            
                             .$htmlPropDesc
-                            .'</div>'."\n"
+                            ."\n"
                             .'<em class="propName">'
                             .$property
                             .'</em>: '
