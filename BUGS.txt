@@ -342,18 +342,16 @@ Repéré par : M
 Assigné à : ?
 Etat : RESOLU ( message d'erreur apparait si intitulé est vide )  
 	
-Etat : New ------------------------------------------------------
+Etat : Resolu ------------------------------------------------------
 M.38 où : agenda
 type : chaines vide
 quoi : je peux ajouter une entrée  avec titre vide 
 Pas de problème dans l'agenda 
 mais problème dans la liste des dernières entrée e page de garde.
 et dans  "myagenda"
-Solution 1 : obliger les titres (mais bof)
-Solution 2 : aficher "agenda - date" quand le titre est vide
-Solution 3 : comme annonce, afficher le début du contenu.
+Solution 3 : comme annonce, afficher le début du contenu. ignorer si les 2 sont vides
 Repéré par : M
-Assigné à : 
+Assigné à : M
 	
 	
 	
@@ -373,6 +371,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.52  2004/07/07 07:25:33  moosh
+buges 37,38 résolus
+
 Revision 1.51  2004/07/06 12:51:43  seb
 Bugs 35 done
 
