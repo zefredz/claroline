@@ -189,8 +189,6 @@ function read_param_value_in_buffer($config_code)
                              FROM `'.$tbl_config_property.'` 
                              WHERE config_code = "'.$config_code.'"';
     $valueFromTblConf = claro_sql_query_fetch_all($sqlGetPropertyValues);
-  //var_dump::display($sqlGetPropertyValues);
-  //var_dump::display($valueFromTblConf);
     return $valueFromTblConf;
 };
 
@@ -592,9 +590,6 @@ function parse_config_file($confFileName)
 function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $currentValue=NULL)
 {
     global $langFirstDefOfThisValue;
-    //var_dump::display($conf_def_property_list);
-    //var_dump::display($property);
-    //var_dump::display($currentValue);
     $currentValue = (is_bool($currentValue)?($currentValue?'TRUE':'FALSE'):$currentValue);
     $htmlPropDesc = ($conf_def_property_list['description']?'<div class="propDesc">'.nl2br(htmlentities($conf_def_property_list['description'])).'</div><br />':'');
     $htmlPropName = 'prop['.($property).']';

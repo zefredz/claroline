@@ -68,9 +68,6 @@ Write config file if all value needed are set
 */
 
 ///// CAUTION DEVS ////
-///// This script use the PEAR package var_dump
-// If you dont have pear, comment these lines 
-// and replace Var_Dump::display by Var_Dump
 
 define('CLARO_DEBUG_MODE',TRUE);
 
@@ -130,11 +127,6 @@ require '../../inc/claro_init_global.inc.php';
 include($includePath.'/lib/debug.lib.inc.php');
 include($includePath.'/lib/course.lib.inc.php');
 include($includePath.'/lib/config.lib.inc.php');
-
-// use Var_Dump PEAR package
-
-require_once('Var_Dump.php');
-Var_Dump::displayInit(array('display_mode' => 'HTML4_Table'));
 
 // define
 
@@ -454,7 +446,6 @@ if ($panel == DISP_LIST_CONF)
         // wich can be build by collision during array_merge_recursive 
         $config['config_code'] = (is_array($config['config_code'])?$config['config_code'][0]:$config['config_code']);
         
-//        $controlMsg['info'][] =  var_dump::display($config,1);
         $config_item = array_merge($def_list[$key],$conf_list[$key]);
         $config_item['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config['config_code']))&&$config['config_hash'] != md5_file(claro_get_conf_file($config['config_code'])));
         $config_item['tool']        = get_tool_name($config['claro_label']);
@@ -483,7 +474,6 @@ elseif ($panel == DISP_EDIT_CONF_CLASS)
                                .'Actually the script prefill with values found in the current conf, and overwrite values set in the database'
                                ;        
         $currentConfContent = parse_config_file(basename(claro_get_conf_file($config_code)));
-        $controlMsg['debug'][] = Var_Dump::display($currentConfContent,1);        
     }
     $storedPropertyList = read_param_value_in_buffer($config_code);
     if (is_array($storedPropertyList))
@@ -542,10 +532,6 @@ switch ($panel)
                 .'</td>'
                 .'</tr>'
                 ;
-            //echo '<tr class="tool_bloc" >'
-            //    .'<td colspan="3">'.Var_Dump::display($tool_bloc).'</td>'
-            //    .'</tr>'
-            //    ;
             
             foreach($tool_bloc as $numconf => $config)
             {
