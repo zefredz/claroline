@@ -7,7 +7,7 @@ function importVarFromConfigOfClaroline ($what="")
 	$claroRootWeb 	= $rootWeb;
 	$claroRootAdminWeb	= $rootAdminWeb;
 
-	$cfg['PmaAbsoluteUri'] 		   = $phpMyAdminWeb;
+	$cfg['PmaAbsoluteUri'] 		   = $claroRootAdminWeb.'/mysql';
 	$cfgOfAServer['host']          = $dbHost;
 	$cfgOfAServer['port']          = '';
 	$cfgOfAServer['socket']        = '';

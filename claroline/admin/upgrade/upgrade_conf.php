@@ -196,18 +196,12 @@ if ($_REQUEST['cmd'] == 'run')
 	$clarolineRepositoryAppend  = "claroline/";
 	$coursesRepositoryAppend	= "";
 	$rootAdminAppend		= "admin/";
-	$phpMyAdminAppend		= "mysql/";
-	$phpSysInfoAppend		= "sysinfo/";
 	$clarolineRepositorySys		= $rootSys.$clarolineRepositoryAppend;
 	$clarolineRepositoryWeb 	= $rootWeb.$clarolineRepositoryAppend;
 	$coursesRepositorySys		= $rootSys.$coursesRepositoryAppend;
 	$coursesRepositoryWeb		= $rootWeb.$coursesRepositoryAppend;
 	$rootAdminSys			= $clarolineRepositorySys.$rootAdminAppend;
 	$rootAdminWeb			= $clarolineRepositoryWeb.$rootAdminAppend;
-	$phpMyAdminWeb			= $rootAdminWeb.$phpMyAdminAppend;
-	$phpMyAdminSys			= $rootAdminSys.$phpMyAdminAppend;
-	$phpSysInfoWeb			= $rootAdminWeb.$phpSysInfoAppend;
-	$phpSysInfoSys			= $rootAdminSys.$phpSysInfoAppend;
 	$garbageRepositorySys		= "'.$garbageRepositorySys.'";
 	
 	//for new login module
@@ -428,7 +422,6 @@ switch ($display)
                 <p>Course database Prefix: ".($dbNamePrefix?$dbNamePrefix:$langNo)."<br />
                 Main database Name: $mainDbName <br />
 		Statistics and Tracking database Name: $statsDbName <br />
-		PhpMyAdmin Extention database Name: $pmaDbName <br />
 		Enable Single database: ".($singleDbEnabled?$langYes:$langNo)."</p>
 		</fieldset>
                 <br />

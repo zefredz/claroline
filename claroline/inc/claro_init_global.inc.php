@@ -18,10 +18,18 @@ $includePath = dirname(__FILE__);
 // YOU CAN REMOVE THE @ of the following line after install.
 @include($includePath.'/conf/claro_main.conf.php');
 
+$clarolineRepositorySys = $rootSys.$clarolineRepositoryAppend;
+$clarolineRepositoryWeb = $rootWeb.$clarolineRepositoryAppend;
+$userImageRepositorySys = $rootSys.$userImageRepositoryAppend;
+$userImageRepositoryWeb = $rootWeb.$userImageRepositoryAppend;
+$coursesRepositorySys   = $rootSys.$coursesRepositoryAppend;
+$coursesRepositoryWeb   = $rootWeb.$coursesRepositoryAppend;
+$rootAdminSys           = $clarolineRepositorySys.$rootAdminAppend;
+$rootAdminWeb           = $clarolineRepositoryWeb.$rootAdminAppend;
 
 // Add the Claroline PEAR path to the php.ini include path
 // This action is mandatory because PEAR inner include() statements 
-// rely on the php.ini include_path settings
+// rely on the php.ini include_path settings= 
 
 ini_set('include_path', 
         ini_get('include_path') . ( strstr(PHP_OS, 'WIN') ?';':':') . PEAR_LIB_PATH );
@@ -38,6 +46,7 @@ else
     die ('<strong>$platform_id</strong> missing in config. <br>
     Reinstall claroline<br>
     or <br>
+    
     add the following line in <tt>'.realpath($includePath.'/conf/claro_main.conf.php').'</tt><br><br>
     
     &nbsp;&nbsp;<em>$platform_id="'.md5(realpath($includePath.'/../install/do_install.inc.php')).'";</em>');

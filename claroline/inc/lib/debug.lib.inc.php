@@ -459,7 +459,7 @@ $is_groupAllowed;
 
 function printConfig()
 {
-	GLOBAL $dbHost, $dbLogin, $dbPass, $mainDbName, $clarolineVersion, $versionDb, $rootWeb, $urlAppend, $serverAddress, $checkEmailByHAshSent 			, $ShowEmailnotcheckedToStudent 	, $userMailCanBeEmpty 			, $userPasswordCrypted 			, $userPasswordCrypted			, $platformLanguage 	, $siteName			, $rootWeb			, $rootSys			, $clarolineRepositoryAppend  , $coursesRepositoryAppend	, $rootAdminAppend			, $phpMyAdminAppend			, $phpSysInfoAppend			, $clarolineRepositoryWeb 	, $clarolineRepositorySys		, $coursesRepositoryWeb		, $coursesRepositorySys		, $rootAdminSys				, $rootAdminWeb				, $phpMyAdminWeb				, $phpMyAdminSys				, $phpSysInfoWeb				, $phpSysInfoSys;
+	GLOBAL $dbHost, $dbLogin, $dbPass, $mainDbName, $clarolineVersion, $versionDb, $rootWeb, $urlAppend, $serverAddress, $checkEmailByHAshSent 			, $ShowEmailnotcheckedToStudent 	, $userMailCanBeEmpty 			, $userPasswordCrypted 			, $userPasswordCrypted			, $platformLanguage 	, $siteName			, $rootWeb			, $rootSys			, $clarolineRepositoryAppend  , $coursesRepositoryAppend	, $rootAdminAppend			, $clarolineRepositoryWeb 	, $clarolineRepositorySys		, $coursesRepositoryWeb		, $coursesRepositorySys		, $rootAdminSys				, $rootAdminWeb;
 	echo "<table width=\"100%\" border=\"1\" cellspacing=\"1\" cellpadding=\"1\" bordercolor=\"#808080\" bgcolor=\"#C0C0C0\" lang=\"en\"><TR>";
 		echo "
 	<tr><td colspan=2><strong>Mysql</strong></td></tr>
@@ -487,8 +487,6 @@ function printConfig()
 	<tr><td>clarolineRepository<strong>Append</strong>  	</TD><TD>$clarolineRepositoryAppend </td></tr>
 	<tr><td>coursesRepository<strong>Append</strong>		</TD><TD>$coursesRepositoryAppend	</td></tr>
 	<tr><td>rootAdmin<strong>Append</strong>				</TD><TD>$rootAdminAppend			</td></tr>
-	<tr><td>phpMyAdmin<strong>Append</strong>			</TD><TD>$phpMyAdminAppend			</td></tr>
-	<tr><td>phpSysInfo<strong>Append	</strong>		</TD><TD>$phpSysInfoAppend			</td></tr>
 	<tr><td colspan=2></td></tr>
 	<tr><td>clarolineRepository<strong>Web</strong>	</TD><TD>$clarolineRepositoryWeb 	</td></tr>
 	<tr><td>clarolineRepository<strong>Sys</strong>	</TD><TD>$clarolineRepositorySys		</td></tr>
@@ -496,10 +494,6 @@ function printConfig()
 	<tr><td>coursesRepository<strong>Sys</strong>	</TD><TD>$coursesRepositorySys		</td></tr>
 	<tr><td>rootAdmin<strong>Sys</strong>			</TD><TD>$rootAdminSys				</td></tr>
 	<tr><td>rootAdmin<strong>Web</strong>			</TD><TD>$rootAdminWeb				</td></tr>
-	<tr><td>phpMyAdmin<strong>Web</strong>			</TD><TD>$phpMyAdminWeb				</td></tr>
-	<tr><td>phpMyAdmin<strong>Sys</strong>			</TD><TD>$phpMyAdminSys				</td></tr>
-	<tr><td>phpSysInfo<strong>Web</strong>			</TD><TD>$phpSysInfoWeb				</td></tr>
-	<tr><td>phpSysInfo<strong>Sys</strong>			</TD><TD>$phpSysInfoSys				</td></tr>
 				";
 	echo "</TABLE>";
 }

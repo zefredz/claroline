@@ -1,4 +1,4 @@
-<?php # $Id$
+<?php // $Id$
 /**
  * This file describe the parameter for Claroline main config file
  *
@@ -58,21 +58,7 @@ array ('rootWeb'
       , 'clarolineRepositoryAppend'
       , 'coursesRepositoryAppend'
       , 'rootAdminAppend'
-      , 'phpMyAdminAppend'
-      , 'phpSysInfoAppend'
       , 'userImageRepositoryAppend'
-      , 'clarolineRepositorySys'
-      , 'clarolineRepositoryWeb'
-      , 'userImageRepositorySys'
-      , 'userImageRepositoryWeb'
-      , 'coursesRepositorySys'
-      , 'coursesRepositoryWeb'
-      , 'rootAdminSys'
-      , 'rootAdminWeb'
-      , 'phpMyAdminWeb'
-      , 'phpMyAdminSys'
-      , 'phpSysInfoWeb'
-      , 'phpSysInfoSys'
       , 'PEAR_LIB_PATH'
       );
 
@@ -105,8 +91,6 @@ array ( 'claro_texRendererUrl'
       , 'CLAROLANG'
       , 'userPasswordCrypted'
       , 'allowSelfReg'
-      , 'userImageRepositorySys'
-      , 'userImageRepositoryWeb'
       , 'clarolineVersion'
       , 'versionDb'
       , 'platform_id'
@@ -443,92 +427,23 @@ array ( 'label'      => 'relative path from root campus to courses'
       );
 
 $conf_def_property_list['rootAdminAppend'] =
-array ('type'        => 'relpath'
+array ('label'        => 'relative path from claroline kernel to root of admin section'
+      ,'type'        => 'relpath'
       ,'default'     => 'admin/'
       ,'display'     => false
       );
-
-$conf_def_property_list['phpMyAdminAppend'] =
-array ('type'        => 'relpath'
-      ,'default'     => 'mysql/'
-      ,'display'     => false
-      );
-$conf_def_property_list['phpSysInfoAppend'] =
-array ('type'        => 'relpath'
-      ,'default'     => 'sysinfo/'
-      ,'display'     => false
-      );
 $conf_def_property_list['userImageRepositoryAppend'] =
-array ('type'        => 'relpath'
-      ,'default'     => 'img/users/'
+array ('label'        => 'relative path from root web to user pic repository'
+      ,'type'        => 'relpath'
+      ,'default'     => 'claroline/img/users/'
       );
 
-$conf_def_property_list['clarolineRepositorySys'] =
-array ('type'        => 'syspath'
-      ,'default'     => str_replace('\\','/',$rootSys.$clarolineRepositoryAppend)
-      ,'display'     => false
-      );
-$conf_def_property_list['clarolineRepositoryWeb'] =
-array ('type'        => 'syspath'
-      ,'default'     => str_replace('\\','/',$rootWeb.$clarolineRepositoryAppend)
-      );
-$conf_def_property_list['userImageRepositorySys'] =
-array ('type'        => 'syspath'
-      ,'default'     => str_replace('\\','/',$rootSys.$userImageRepositoryAppend)
-      ,'display'     => false
-      );
-$conf_def_property_list['userImageRepositoryWeb'] =
-array ('type'        => 'syspath'
-      ,'default'     => str_replace('\\','/',$rootWeb.$userImageRepositoryAppend)
-      );
-$conf_def_property_list['coursesRepositorySys'] =
-array ('type'        => 'syspath'
-      ,'display'     => false
-      ,'default'     => str_replace('\\','/',$rootSys.$coursesRepositoryAppend)
-      );
-$conf_def_property_list['coursesRepositoryWeb'] =
-array ('type'        => 'syspath'
-      ,'label'       => 'complete path to courses'
-      ,'description' => 'update this  field if  you update root web'
-      ,'default'     => str_replace('\\','/',$rootWeb.$coursesRepositoryAppend)
-      );
-$conf_def_property_list['rootAdminSys'] =
-array ('type'        => 'syspath'
-      ,'default'     => str_replace('\\','/',$clarolineRepositorySys.$rootAdminAppend)
-      ,'display'     => false
-      );
-$conf_def_property_list['rootAdminWeb'] =
-array ('label'       => 'Complete path to courses'
-      ,'type'        => 'syspath'
-      ,'default'     => str_replace('\\','/',$clarolineRepositoryWeb.$rootAdminAppend)
-      );
-$conf_def_property_list['phpMyAdminWeb'] =
-array ('type'        => 'syspath'
-      ,'default'     => str_replace('\\','/',$rootAdminWeb.$phpMyAdminAppend)
-      );
-$conf_def_property_list['phpMyAdminSys'] =
-array ('type'        => 'syspath'
-      ,'default'     => $rootAdminSys.$phpMyAdminAppend
-      );
-$conf_def_property_list['phpSysInfoWeb'] =
-array ('type'        => 'syspath'
-      ,'default'     => $rootAdminWeb.$phpSysInfoAppend
-      );
-$conf_def_property_list['phpSysInfoSys'] =
-array (
-       'type'        => 'syspath'
-      ,'default'     => str_replace('\\','/',$rootAdminSys.$phpSysInfoAppend)
-      ,'display'     => FALSE
-      );
 $conf_def_property_list['PEAR_LIB_PATH'] =
 array ('type'        => 'syspath'
       ,'label'       => 'Pear lib'
       ,'default'     => str_replace('\\','/',$includePath.'/lib/pear')
       ,'container'   => 'CONST'
       );
-
-
-
 //
 $conf_def_property_list['CLARO_DEBUG_MODE'] =
 array ('type'        => 'boolean'
