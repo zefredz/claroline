@@ -1248,10 +1248,15 @@ claro_disp_tool_title($titleElement,
 		
 		// -> color depth
 		echo " - " . $depth . "bits";
-		
+
 		// -> mime type
-		$mime_type = image_type_to_mime_type($type);
-		echo " - " . $mime_type . " ]</small>\n";
+		if(version_compare(phpversion(), "4.3.0", ">"))
+		{
+			$mime_type = image_type_to_mime_type($type);
+			echo " - " . $mime_type ;
+		}
+		
+		echo " ]</small>\n";
 	}
 	
 	/*-----------------------------------------------------------------------
