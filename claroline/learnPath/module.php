@@ -28,12 +28,6 @@
   $tlabelReq = 'CLLNP___';
   require '../inc/claro_init_global.inc.php';
 
-  $langAddModuleComment = $langAddComment; // include of document.inc.php will overwrite this var, so save it ...
-  // also include the document languague file
-  @include($includePath."/../lang/".$languageInterface."/document.inc.php");
-  $langAddComment = $langAddModuleComment; // ...to restore it
-
-
   $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
