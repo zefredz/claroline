@@ -743,9 +743,10 @@ else
 	echo	"<tr>\n",
 			"<td valign=\"top\">\n";
 
-	@include("infoImportante.html");	// Introduction message if needed
-	// (ascending compatibility with 1.4.0)
-	@include("home_include.html");	// Introduction message if needed
+	@include 'infoImportante.html'; // Previous text zone, kept for ascending 
+                                    // compatibility with claroline 1.4
+
+	@include 'textzone_top.inc.html'; // Introduction message if needed
 
 
 /*==================================
@@ -1016,7 +1017,7 @@ echo "<p><a href=\"claroline/auth/inscription.php\">$langReg</a></p>";
 <p><a href="claroline/auth/lostPassword.php"><?php echo $langLostPassword ?></a></p>
 <p><a href="#" onClick="MyWindow=window.open('claroline/help/help_claroline.php','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=400,height=500,left=300,top=10'); return false;" ><?= $langHelp ?></a></p>
 <p><a href="http://www.claroline.net/forum/"><?php echo $langSupportForum ?></a></p>
-<?php @include 'includeInHomePage.html'; ?>
+<?php @include 'textzone_left.inc.html'; ?>
 
 </td>
 </tr>
