@@ -37,9 +37,6 @@ require 'config.php';
 $pagetitle = 'New Topic';
 $pagetype =  'newtopic';
 
-$userFirstName = $_user['firstName'];
-$userLastName  = $_user['lastName' ];
-
 $forumSettingList = get_forum_settings($forum);
 
 $forum_name 		= $forumSettingList['forum_name'  ];
@@ -109,9 +106,8 @@ if($submit)
      * USER (ADDED FOR CLAROLINE)
      */
     
-    $userdata      = array('user_id' => -1); // set as anonymous phpBB user. 
-    $userLastName  = addslashes($userLastName);
-    $userFirstName = addslashes($userFirstName);
+    $userLastname  = addslashes($nom);
+    $userFirstname = addslashes($prenom);
     $poster_ip     = $REMOTE_ADDR;
 
     $time      = date('Y-m-d H:i');
@@ -129,7 +125,7 @@ if($submit)
     if ($topic_id)
     {
         create_new_post($topic_id, $forum, $userdata['user_id'], $time, $poster_ip, 
-                             $userLastName, $userFirstName, $message);
+                             $userLastname, $userFirstname, $message);
     }
 
 
