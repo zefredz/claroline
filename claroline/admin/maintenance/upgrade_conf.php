@@ -269,11 +269,6 @@ if ($_REQUEST['cmd'] == 'run')
 	$allowSelfReg			= '.trueFalse($allowSelfReg).';
 	$allowSelfRegProf		= '.trueFalse($allowSelfRegProf).';
 	
-	//backgrounds
-	$colorLight	= "#99CCFF"; //
-	$colorMedium	= "#6699FF"; // these 3 colors are used in header
-	$colorDark	= "#000066"; //
-	
 	$platformLanguage = "'.$platformLanguage.'";
 	
 	$clarolineVersion = "'.$clarolineVersion.'";

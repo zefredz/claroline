@@ -81,12 +81,6 @@ $educationManager["email"]	=	"";
 $institution["name"]		=	"inc";
 $institution["url"]			=	"http://www.google.com/";
 
-
-//backgrounds
-$colorLight	=	"#99CCFF"; //
-$colorMedium= 	"#6699FF"; // these 3 colors are used in header
-$colorDark	= 	"#000066"; //
-
 //for new login module
 //uncomment these to activate ldap
 //$extAuthSource['ldap']['login'] = "./claroline/auth/ldap/login.php";
