@@ -27,6 +27,7 @@ $langBackupThisCourse = "Faire une sauvegarde de ce cours";
 $langBuildTheCompressedFile = "Création du fichier compressé";
 $langByDel = "En supprimant ce site, vous supprimerez tous les documents
 qu'il contient et radierez tous les étudiants qui y sont inscrits. <p>Voulez-vous réellement supprimer le cours";
+$langCategory = "Catégorie";
 $langChat = "Discussion";
 $langCode = "Code du cours";
 $langCodeAppearAlready = "Ce code officiel apparait déjà dans une ligne précédente du fichier CSV.";
@@ -68,7 +69,6 @@ $langDownload = "Télécharger";
 $langEmail = "E-mail";
 $langExercises = "Exercices";
 $langExpirationDate = "Date d'expiration";
-$langFaculty = "Faculté";
 $langFileCopied = "fichier copié";
 $langForumContent = "Contenu du forum";
 $langForumStructure = "Structure du forum";

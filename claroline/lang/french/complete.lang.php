@@ -789,7 +789,6 @@ $langExtractFromLangFile = "Extraire des fichiers de traductions";
 $langExtractFromScriptFile = "Extraire des scripts";
 $langExtractLangVariable = "Extraire les variables de langues";
 $langFac = "Catégorie";
-$langFaculty = "Faculté";
 $langFailed = "<span style=\"color: red\">Echec</span>";
 $langFeedback = "Correction";
 $langFeedbackAdded = "Correction ajoutée";

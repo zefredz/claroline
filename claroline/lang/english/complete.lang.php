@@ -1017,7 +1017,6 @@ $langExtractFromLangFile = "From language files";
 $langExtractFromScriptFile = "From script files";
 $langExtractLangVariable = "Extract language variables";
 $langFac = "Category";
-$langFaculty = "Faculty";
 $langFailed = "<span style=\"color: red\">Failed</span>";
 $langFeedback = "Feedback";
 $langFeedbackAdded = "Feedback added";
