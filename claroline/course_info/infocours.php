@@ -258,6 +258,11 @@ $currentCourseExpirationDate	= $currentCourseExtentionData["expirationDate"];
 </tr>
 
 <tr>
+<td align="right"><label for="int"><?php echo $langCourseTitle ?></label> :</td>
+<td><input type="Text" name="int" id="int" value="<?php echo htmlentities($int); ?>" size="60"></td>
+</tr>
+
+<tr>
 <td align="right"><label for="screenCode"><?php echo $langCode ?></label>&nbsp;:</td>
 <td><input type="text" id="screenCode" name="screenCode" value="<?php echo htmlentities($currentCourseCode); ?>" size="20"></td>
 </tr>
@@ -270,11 +275,6 @@ $currentCourseExpirationDate	= $currentCourseExtentionData["expirationDate"];
 <tr>
 <td align="right"><label for="email"><?php echo $langEmail ?></label>&nbsp;:</td>
 <td><input type="text"  id="email" name="email" value="<?php echo htmlentities($email); ?>" size="30" maxlength="255"></td>
-</tr>
-
-<tr>
-<td align="right"><label for="int"><?php echo $langCourseTitle ?></label> :</td>
-<td><input type="Text" name="int" id="int" value="<?php echo htmlentities($int); ?>" size="60"></td>
 </tr>
 
 <tr>

@@ -554,18 +554,6 @@ elseif($displayCoursePropertiesForm)
 
 <tr valign="top">
 <td align="right">
-<label for="faculte"><?php echo $langFac ?></label> : 
-</td>
-<td>
-<?php
-BuildEditableCatTable(""," &gt; ");      
-?>
-<br><small><?php echo $langTargetFac ?></small>
-</td>
-</tr>
-
-<tr valign="top">
-<td align="right">
 	<label for="wantedCode"><?php echo $langCode ?></label> : 
 </td>
 <td >
@@ -595,7 +583,19 @@ BuildEditableCatTable(""," &gt; ");
 
 <tr valign="top">
 <td align="right">
-<label for="languageCourse"><?php echo $langLanguage ?></label>:
+<label for="faculte"><?php echo $langFac ?></label> : 
+</td>
+<td>
+<?php
+BuildEditableCatTable(""," &gt; ");      
+?>
+<br><small><?php echo $langTargetFac ?></small>
+</td>
+</tr>
+
+<tr valign="top">
+<td align="right">
+<label for="languageCourse"><?php echo $langLanguage ?></label> :
 </td>
 <td>
 <select name="languageCourse" id="languageCourse">";
