@@ -153,7 +153,7 @@ if( isset($_REQUEST['submitSession']) )
     }
     else
     {
-      $sesDesc = claro_parse_user_text( claro_addslashes( trim($_REQUEST['sesDesc']) ) );
+      $sesDesc = claro_addslashes( trim($_REQUEST['sesDesc']) );
     }
     
     // dates : check if start date is lower than end date else we will have a paradox
@@ -179,6 +179,77 @@ if( isset($_REQUEST['submitSession']) )
                         .$_REQUEST['endHour'].":"
                         .$_REQUEST['endMinute'].":00";
     }
+    
+    // standard grading 
+    $prefillText = claro_addslashes( trim($_REQUEST['prefillText']) );
+
+    if ( is_uploaded_file($_FILES['prefillDocPath']['tmp_name']) )
+    {      
+          if ($_FILES['prefillDocPath']['size'] > $fileAllowedSize)
+          {
+                $dialogBox .= $langTooBig."<br />";
+                $formCorrectlySent = false;
+          }
+          else
+          {     
+                // add file extension if it doesn't have one
+                $newFileName = add_ext_on_mime($_FILES['prefillDocPath']['name']);
+
+                // Replace dangerous characters
+                $newFileName = replace_dangerous_char($newFileName);
+                
+                // Transform any .php file in .phps fo security
+                $newFileName = php2phps($newFileName);
+                // compose a unique file name to avoid any conflict
+                
+                $prefillDocPath = uniqid('')."_".$newFileName;
+                
+                // if edit mode ...
+                if( isset($_REQUEST['sesId']) )
+                {
+                    // if edit of a session we know its sesId so we don't have to use a tmp directory
+                    $tmpWorkUrl = "ws".$_REQUEST['sesId']."/".$prefillDocPath;
+                    
+                    if( ! @copy($_FILES['prefillDocPath']['tmp_name'], $wrkDir.$tmpWorkUrl) )
+                    {
+                          $dialogBox .= $langCannotCopyFile."<br />";
+                          $formCorrectlySent = false;
+                    }
+                    
+                    // remove the previous file if there was one
+                    if( isset($_REQUEST['currentPrefillDocPath']) )
+                    {
+                          @unlink($wrkDir."ws".$_REQUEST['sesId']."/".$_REQUEST['currentPrefillDocPath']);
+                    }
+                }
+                else
+                {
+                    // put the file in a tmp location, remove it from there at the end of the script
+                    // we don't know the session id yet so we cannot already put it in the right folder
+                    $tmpWorkUrl = "tmp/".$prefillDocPath;
+                    
+                    if( !is_dir( $wrkDir."tmp" ) )
+                    {
+                          mkdir( $wrkDir."tmp" , 0777 );
+                    }
+                    
+                    if( ! @copy($_FILES['prefillDocPath']['tmp_name'], $wrkDir.$tmpWorkUrl) )
+                    {
+                          $dialogBox .= $langCannotCopyFile."<br />";
+                          $formCorrectlySent = false;
+                    }
+                }    
+                
+                // else : file sending shows no error
+                // $formCorrectlySent stay true;
+          }
+    }
+    
+    $composedPrefillDate = $_REQUEST['prefillYear']."-"
+                        .$_REQUEST['prefillMonth']."-"
+                        .$_REQUEST['prefillDay']." "
+                        .$_REQUEST['prefillHour'].":"
+                        .$_REQUEST['prefillMinute'].":00";
 
 } // if( isset($_REQUEST['submitSession']) ) // handling form data 
 
@@ -252,7 +323,10 @@ if($is_allowedToEdit)
                       `start_date` = \"".$composedStartDate."\", 
                       `end_date` = \"".$composedEndDate."\", 
                       `def_submission_visibility` = \"".$_REQUEST['defSubVis']."\", 
-                      `allow_late_upload` = \"".$_REQUEST['allowLateUpload']."\"
+                      `allow_late_upload` = \"".$_REQUEST['allowLateUpload']."\",
+                      `prefill_text` = \"".$prefillText."\",
+                      `prefill_doc_path` = \"".$prefillDocPath."\",
+                      `prefill_date` = \"".$composedPrefillDate."\"
                   WHERE `id` = ".$_REQUEST['sesId'];
           claro_sql_query($sql);
           $dialogBox .= $langSessionEdited;
@@ -280,7 +354,7 @@ if($is_allowedToEdit)
         list($modifiedSession) = claro_sql_query_fetch_all($sql);
         
     
-        // set values to prefill the form
+        // set values to pre-fill the form
         $form['sesTitle'          ] = $modifiedSession['title'];
         $form['sesDesc'       ] = $modifiedSession['description'];
         
@@ -337,6 +411,11 @@ if($is_allowedToEdit)
         {
           $form['allowLateUpload'] = "NO";
         }
+        
+        // standard grading
+        $form['prefillText'       ] = $modifiedSession['prefill_text'];
+        $form['currentPrefillDocPath'] = $modifiedSession['prefill_doc_path'];
+        list($form['prefillDate'], $form['prefillTime']) = split(' ', $modifiedSession['prefill_date']);
     }
     else
     {
@@ -351,7 +430,11 @@ if($is_allowedToEdit)
       $form['defSubVis'         ] = $_REQUEST['defSubVis'];
       $form['sessionType'       ] = $_REQUEST['sessionType'];
       $form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
-      $form['allowLateUpload' ] = $_REQUEST['allowLateUpload'];
+      $form['allowLateUpload'   ] = $_REQUEST['allowLateUpload'];
+      $form['prefillText'       ] = $_REQUEST['prefillText'];
+      $form['currentPrefillDocPath'] = $_REQUEST['currentPrefillDocPath'];
+      $form['prefillDate'       ] = $_REQUEST['prefillYear']."-".$_REQUEST['prefillMonth']."-".$_REQUEST['prefillDay'];
+      $form['prefillTime'       ] = $_REQUEST['prefillHour'].":".$_REQUEST['prefillMinute'].":00";
     }
     // modify the command 'cmd' sent by the form
     $cmdToSend = "exEditSes";
@@ -376,20 +459,35 @@ if($is_allowedToEdit)
                   ( `title`,`description`, `session_type`, 
                     `authorized_content`, `authorize_anonymous`,
                     `start_date`, `end_date`, 
-                    `def_submission_visibility`, `allow_late_upload`)
+                    `def_submission_visibility`, `allow_late_upload`,
+                    `prefill_text`,`prefill_doc_path`,`prefill_date`)
                   VALUES
-                  ( \"".$title."\", \"".$description."\", \"".$_REQUEST['sessionType']."\",
+                  ( \"".$title."\", \"".$sesDesc."\", \"".$_REQUEST['sessionType']."\",
                     \"".$authorizedContent."\", \"".$_REQUEST['allowAnonymous']."\",
                     \"".$composedStartDate."\", \"".$composedEndDate."\",
-                    \"".$_REQUEST['defSubVis']."\", \"".$_REQUEST['allowLateUpload']."\" )";
+                    \"".$_REQUEST['defSubVis']."\", \"".$_REQUEST['allowLateUpload']."\",
+                    \"".$prefillText."\", \"".$prefillDocPath."\", \"".$composedPrefillDate."\")";
     
           // execute the creation query and return id of inserted session
           $lastSesId = claro_sql_query_insert_id($sql);
           
           // create the session directory if query was successfull and dir not already exists
-          if( $lastSesId && !is_dir( $wrkDir."ws".$lastSesId ) )
+          $wrkSessDir = $wrkDir."ws".$lastSesId;
+          if( $lastSesId && !is_dir( $wrkSessDir ) )
           {
-            mkdir( $wrkDir."ws".$lastSesId , 0777 );
+            mkdir( $wrkSessDir , 0777 );
+          }
+          
+          // move the uploaded file from temporary folder to the work session folder
+          if( isset($prefillDocPath) && $prefillDocPath != "" )
+          {
+            if( ! @rename($wrkDir.$tmpWorkUrl, $wrkSessDir."/".$prefillDocPath) )
+            {
+                  $dialogBox .= $langCannotCopyFile."<br />";
+                  $formCorrectlySent = false;
+            }
+            // remove the temporary file
+            @unlink($wrkDir.$tmpWorkUrl);
           }
           
           // confirmation message
@@ -423,6 +521,9 @@ if($is_allowedToEdit)
       $form['sessionType'       ] = "INDIVIDUAL";
       $form['allowAnonymous'    ] = "YES";
       $form['allowLateUpload' ] = "NO";
+      $form['prefillText'       ] = "";
+      $form['prefillDate'       ] = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
+      $form['prefillTime'       ] = date("H:i:00", mktime( date("H"),date("i"),0) );
     }
     else
     {
@@ -437,7 +538,10 @@ if($is_allowedToEdit)
       $form['defSubVis'         ] = $_REQUEST['defSubVis'];
       $form['sessionType'       ] = $_REQUEST['sessionType'];
       $form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
-      $form['allowLateUpload' ] = $_REQUEST['allowLateUpload'];
+      $form['allowLateUpload'   ] = $_REQUEST['allowLateUpload'];
+      $form['prefillText'       ] = $_REQUEST['prefillText'];
+      $form['prefillDate'       ] = $_REQUEST['prefillYear']."-".$_REQUEST['prefillMonth']."-".$_REQUEST['prefillDay'];
+      $form['prefillTime'       ] = $_REQUEST['prefillHour'].":".$_REQUEST['prefillMinute'].":00";
     }
     
     // modify the command 'cmd' sent by the form
@@ -476,7 +580,7 @@ if($is_allowedToEdit)
   if ( $displaySesForm ) 
   {
 ?>
-    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
     <input type="hidden" name="cmd" value="<?php echo $cmdToSend; ?>">
 <?php
   if( isset($_REQUEST['sesId']) )
@@ -561,8 +665,54 @@ if($is_allowedToEdit)
         <input type="radio" name="allowLateUpload" id="preventUpload" value="NO" <?php if($form['allowLateUpload'] == "NO") echo 'checked="checked"'; ?>><label for="preventUpload">&nbsp;<?php echo $langPreventLateUpload; ?></label><br />
         </td>
       </tr>
-
-    
+      
+      
+      <tr>
+        <td valign="top" colspan="2"><h4><?php echo $langStandardGrading; ?></h4><?php echo $langStandardGradingHelp; ?></td>
+      </tr>
+      <tr>
+        <td valign="top"><label for="prefillText"><?php echo $langStandardGradingText; ?>&nbsp;:<br /></label></td>
+        <td>
+<?php          
+      claro_disp_html_area('prefillText', $form['prefillText']);
+?> 
+        </td>
+      </tr>
+<?php
+  if( isset($form['currentPrefillDocPath']) && $form['currentPrefillDocPath'] != "" )
+  {
+        echo "<tr>\n"
+             ."<td valign=\"top\">"
+             .$langCurrentStandardGradingFile;
+        // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
+        $completeFileUrl = $currentCourseRepositoryWeb."work/ws".$_REQUEST['sesId']."/".$form['currentPrefillDocPath'];
+        echo "&nbsp;:<input type=\"hidden\" name=\"currentPrefillDocPath\" value=\"".$form['currentPrefillDocPath']."\">"
+              ."</td>\n"
+              ."<td>"
+              ."<a href=\"".$completeFileUrl."\">".$form['currentPrefillDocPath']."</a>"
+              ."<br /><input type=\"checkBox\" name=\"delAttacheDFile\" id=\"delAttachedFile\">"
+              ."<label for=\"delAttachedFile\">".$langExplainModifyAttachedfile."</label> "
+              ."</td>\n"
+              ."</tr>\n\n";
+  }
+?>
+      <tr>
+        <td valign="top"><label for="prefillDocPath"><?php echo $langStandardGradingFile; ?>&nbsp;:<br /></label></td>
+        <td>
+        <input type="file" name="prefillDocPath" id="prefillDocPath" size="30">
+        </td>
+      </tr>
+      <tr>
+        <td valign="top"><?php echo $langStandardGradingDate; ?>&nbsp;:</td>
+        <td>
+<?php
+         echo claro_disp_date_form("prefillDay", "prefillMonth", "prefillYear", $form['prefillDate'])." ".claro_disp_time_form("prefillHour", "prefillMinute", $form['prefillTime']);
+         echo "&nbsp;<small>".$langChooseDateHelper."</small>";
+?>      
+        </td>
+      </tr>  
+      
+      
       <tr>
         <td colspan="2" align="center">
         <input type="submit" name="submitSession" value="<?php echo $langOk; ?>">
@@ -599,10 +749,20 @@ if( !$displaySesForm )
     /*--------------------------------------------------------------------
                                   LIST
       --------------------------------------------------------------------*/
+    //if user come from a group
+    if( isset($_gid) && isset($is_groupAllowed) && $is_groupAllowed ) 
+    {
+      $sql = "SELECT `id`, `title`, `sess_visibility` 
+              FROM `".$tbl_wrk_session."`
+              WHERE `session_type` = 'GROUP'
+              ORDER BY `title` ASC";    
+    }
+    else
+    {
       $sql = "SELECT `id`, `title`, `sess_visibility`
               FROM `".$tbl_wrk_session."` 
               ORDER BY `title` ASC";
-              
+    }          
     $sessionList = claro_sql_query_fetch_all($sql);
 
     echo "<table class=\"claroTable\" width=\"100%\">\n"
