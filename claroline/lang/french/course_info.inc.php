@@ -45,7 +45,7 @@ l'inscription pendant une semaine, de demander aux étudiants de s'inscrire eux-m
 puis de fermer l'inscription et de vérifier dans la liste des utilisateurs les intrus éventuels.";
 $langTipLang="Cette langue vaudra pour tous les visiteurs de votre site de cours.";
 $langEditToolList="Modifier la liste d'outils";
-$langIntroCourse="Bienvenu sur la page d'accueil du cours.<br /><br />Vous pouvez sur cette page :
+$langIntroCourse="Bienvenue sur la page d'accueil du cours.<br /><br />Vous pouvez sur cette page :
 <li class=HelpText>activer ou désactiver des outils (cliquer sur le bouton '".$langEditToolList."' dans le bas à gauche).
 <li class=HelpText>changer les propriétés ou voir les statistiques (Cliquer sur les liens correspondants).<br /><br />
 Pour présenter votre cours aux étudiants, cliquer sur ce bouton.<br />";
