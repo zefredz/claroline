@@ -3,6 +3,8 @@ $tlabelReq = "CLUSR___";
 require '../inc/claro_init_global.inc.php';
 if (!($_cid)) 	claro_disp_select_course();
 
+
+
 $htmlHeadXtra[] =
 "
 <script type=\"text/javascript\" language=\"JavaScript\" >
@@ -16,17 +18,19 @@ function confirmation (name)
 </script>
 ";
 
-include($includePath."/conf/user.conf.php");
 include($includePath."/lib/admin.lib.inc.php");
-
 @include($includePath."/lib/debug.lib.inc.php");
 
 claro_set_display_mode_available(true);
 
-$step             = $nbUsersPerPage;
+$step             = (isset($nbUsersPerPage)?$nbUsersPerPage:50);
+
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-$can_add_user     = ($is_courseAdmin && CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER)
+$can_add_user     = (   $is_courseAdmin 
+                     && defined('CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER')
+                     && CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER
+                    )
 				    || $is_platformAdmin;
 $currentCourse    = $currentCourseID  = $_course['sysCode'];
 
@@ -46,7 +50,8 @@ $tbl_groups          = $tbl_cdb_names['group_team'             ];
 
 if ($is_allowedToEdit)
 {
-	// Unregister user from course
+    $disp_tool_link=TRUE;
+    // Unregister user from course
 	// (notice : it does not delete user from claroline main DB)
 
 	if($unregister)
@@ -71,9 +76,8 @@ $sqlNbUser = 'SELECT count(user.user_id) `nb_users`
               WHERE `cours_user`.`code_cours` = "'.$currentCourseID.'"
               AND cours_user.user_id = `user`.user_id';
 
-$result      = claro_sql_query($sqlNbUser);
-$userTotalNb = mysql_fetch_array($result, MYSQL_ASSOC);
-$userTotalNb = $userTotalNb["nb_users"];
+$userTotalNb = claro_sql_query_fetch_all($sqlNbUser);
+$userTotalNb = $userTotalNb[0]['nb_users'];
 
 $nameTools = $langUsers;
 
@@ -99,7 +103,7 @@ if($dialogBox)
 
 // display tool links
 
-if ($is_allowedToEdit)
+if ($disp_tool_link)
 {
 ?>
 
