@@ -212,8 +212,9 @@ function showQuestion($questionId, $onlyAnswers=false)
 	  <td colspan="2">
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr>
-		  <td width="60%" colspan="2">&nbsp;</td>
-		  <td width="40%" align="right" valign="top"><?php echo '<b>'.$Select[$cpt2]['Lettre'].'.</b> '.$Select[$cpt2]['Reponse']; ?></td>
+		  <td width="40%">&nbsp;</td>
+		  <td width="20%">&nbsp;</td>
+		  <td width="40%" valign="top"><?php echo '<b>'.$Select[$cpt2]['Lettre'].'.</b> '.$Select[$cpt2]['Reponse']; ?></td>
 		</tr>
 		</table>
 	  </td>
