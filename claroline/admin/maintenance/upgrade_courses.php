@@ -445,7 +445,8 @@ function upgrade_tool_list ($dbNameGlu)
 	{
 		$sql_insert = " INSERT IGNORE INTO `".$dbNameGlu."tool_list` " 
 				. " (id,tool_id, rank, access) " 
-				. " VALUES ('". $courseTool['id'] ."','" . $courseTool['id'] . "','" . $courseTool['def_rank'] . "','" . $courseTool['def_access'] . "')";
+				. " VALUES ('". $courseTool['id'] ."','" . $courseTool['id'] . "','" . $courseTool['def_rank'] . "','COURSE_ADMIN')";
+// . " VALUES ('". $courseTool['id'] ."','" . $courseTool['id'] . "','" . $courseTool['def_rank'] . "','" . $courseTool['def_access'] . "')";
 		claro_sql_query($sql_insert);
 		$nb_tool++;
 	}
