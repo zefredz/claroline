@@ -26,10 +26,7 @@ include($includePath.'/claro_init_header.inc.php');
 
 if(!strstr($link,'/') && preg_match("/.html?$/",$link) && file_exists($coursesRepositoryWeb.$_course['path'].'/page/'.$link))
 {
-        //stats
-        @include($includePath."/lib/events.lib.inc.php");
-        event_access_tool($link);
-	readfile($coursesRepositoryWeb.$_course['path'].'/page/'.$link);
+    readfile($coursesRepositoryWeb.$_course['path'].'/page/'.$link);
 }
 
 @include($includePath.'/claro_init_footer.inc.php');
