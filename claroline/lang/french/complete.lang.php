@@ -1603,6 +1603,8 @@ séances de laboratoire, visites, recueil d'informations sur le terrain,
 $langTechAdmin = "Administration technique";
 $langTechnical = "Outils techniques";
 $langTestForum = "Forum d\'essais";
+$langTextEditorDisable = "Désactiver l'éditeur de texte";
+$langTextEditorEnable = "Activer l'éditeur de texte";
 $langTextFile = "Texte avec un fichier attaché (texte requis, fichier optionnel)";
 $langTextOnly = "Texte seul (texte requis, pas de fichier)";
 $langTheFields = "Les champs";
