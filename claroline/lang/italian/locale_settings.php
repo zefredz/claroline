@@ -1,23 +1,20 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                              |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   $Id$        |
-      |   Italian translation                                                |
-      +----------------------------------------------------------------------+
-
-      +----------------------------------------------------------------------+
-      | Translator:                                                          |
-      +----------------------------------------------------------------------+
- */
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 
 /* Original was : Pietro Danesi <danone@aruba.it>  07.09.2001 init version  in PHPMyAdmin */
 
-$englishLangName = "italian";
-$localLangName = "italiano";
+$englishLangName = "Italian";
+$localLangName = "Italiano";
 
 $iso639_1_code = "it";
 $iso639_2_code = "ita";
