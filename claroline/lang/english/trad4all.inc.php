@@ -153,4 +153,8 @@ $langLearnPath="Learning Path";
 $langDescriptionCours  = "Course description";
 $langPlatformAdministration = "Platform Administration";
 
+$langFirstName = "First Name";
+$langLastName  = "Last Name";
+$langName  = "Name";
+
 ?>

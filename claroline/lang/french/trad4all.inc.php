@@ -138,5 +138,10 @@ $langLearnPath="Parcours pédagogique";
 $langDescriptionCours  = "Description du cours";
 $langCourseManagerview = "Responsable du cours";
 $lang_footer_CourseManager = "Responsable(s) du cours";
-$langPlatformAdministration = "Administration";
+$langPlatformAdministration = "Administration de la plate-forme";
+
+$langFirstName = "Prénom";
+$langLastName = "Nom";
+$langName = "Nom";
+
 ?>
