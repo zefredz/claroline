@@ -457,7 +457,7 @@ if (isset($cfrom) && ($is_platformAdmin))
 ####################STUDENT VIEW ##################################
 else
 {
-	echo $langForbidden;
+	echo $langNotAllowed;
 }   // else
 
 include($includePath."/claro_init_footer.inc.php");

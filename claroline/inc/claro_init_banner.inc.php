@@ -113,7 +113,7 @@ if (is_array($_courseToolList))
 	                      'CLDOC___' => $langDocument,
 	                      'CLDSC___' => $langDescriptionCours,
 	                      'CLGRP___' => $langGroups,
-	                      'CLLNP___' => $langLearnPath,
+	                      'CLLNP___' => $langLearningPath,
 	                      'CLQWZ___' => $langExercises,
 	                      'CLWRK___' => $langWork,
 	                      'CLUSR___' => $langUsers);

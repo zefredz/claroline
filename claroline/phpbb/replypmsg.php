@@ -142,7 +142,7 @@ else
 <td>
 <input type="hidden" name="msgid" value="<?php echo $msgid?>">
 <input type="hidden" name="quote" value="<?php echo $quote?>">
-<input type="submit" name="submit" value="<?php echo $l_submit?>">
+<input type="submit" name="submit" value="<?php echo $langSubmit?>">
 </td>
 </tr>
 

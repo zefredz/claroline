@@ -250,15 +250,15 @@ if($mode) {
 	       </FONT></TD>
 	</TR>
 	<TR ALIGN="LEFT">
-		<TD  BGCOLOR="<?php echo $color1?>" width="25%"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><b><?php echo $l_password?>: *</FONT></b></TD>
+		<TD  BGCOLOR="<?php echo $color1?>" width="25%"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><b><?php echo $langPassword?>: *</FONT></b></TD>
 		<TD  BGCOLOR="<?php echo $color2?>"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><INPUT TYPE="PASSWORD" NAME="password" SIZE="25" MAXLENGTH="25"></TD>
 	</TR>
 		<TR ALIGN="LEFT">
-		<TD  BGCOLOR="<?php echo $color1?>" width="25%"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><b><?php echo $l_new ." " .$l_password?>: </FONT></b></TD>
+		<TD  BGCOLOR="<?php echo $color1?>" width="25%"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><b><?php echo $l_new ." " .$langPassword?>: </FONT></b></TD>
 		<TD  BGCOLOR="<?php echo $color2?>"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><INPUT TYPE="PASSWORD" NAME="new_password" SIZE="25" MAXLENGTH="25"></TD>
 	</TR>
 	<TR ALIGN="LEFT">
-		<TD  BGCOLOR="<?php echo $color1?>" width="25%"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><b><?php echo $langConfirm . " " . $l_password?>:</b></FONT><br><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize1?>" COLOR="<?php echo $textcolor?>">(<?php echo $l_onlyreq?>)</FONT></TD>
+		<TD  BGCOLOR="<?php echo $color1?>" width="25%"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><b><?php echo $langConfirm . " " . $langPassword?>:</b></FONT><br><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize1?>" COLOR="<?php echo $textcolor?>">(<?php echo $l_onlyreq?>)</FONT></TD>
 		<TD  BGCOLOR="<?php echo $color2?>"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><INPUT TYPE="PASSWORD" NAME="password2" SIZE="25" MAXLENGTH="25"></TD>
 	</TR>
 
@@ -322,7 +322,7 @@ if($mode) {
 		<INPUT TYPE="HIDDEN" NAME="mode" VALUE="edit">
 		<INPUT TYPE="HIDDEN" NAME="save" VALUE="1">
 		<INPUT TYPE="HIDDEN" NAME="user_id" VALUE="<?php echo $userdata[user_id]?>">
-		<INPUT TYPE="SUBMIT" NAME="submit" VALUE="<?php echo $l_submit?>">
+		<INPUT TYPE="SUBMIT" NAME="submit" VALUE="<?php echo $langSubmit?>">
 		</TD>
 	</TR>
 	</TABLE></TD></TR></TABLE></FORM>

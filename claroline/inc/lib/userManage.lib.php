@@ -169,7 +169,7 @@ function InfoOk($firstname, $lastname, $status,$email, $username, $password, $of
 function sendMail($lastname,$firstname,$username,$password,$email)
 {
 	global $administratorEmail,$siteName,$lang_addUser_YourReg,$administratorSurname,$administratorName,$langDear,$langYouAreReg,
-			$langSettings,$langPass,$langAddress,$langIs,$serverAddress,$langProblem,$langFormula,$langManager,$telephone,$langEmail,
+			$langSettings,$langPassword,$langAddress,$langIs,$serverAddress,$langProblem,$langFormula,$langManager,$telephone,$langEmail,
 			$emailAdministrator,$emailbody;
 
 	$emailto       = "$lastname $firstname <$email>";
@@ -183,7 +183,7 @@ function sendMail($lastname,$firstname,$username,$password,$email)
 	$emailheaders .= "X-Sender-IP: $REMOTE_ADDR"; // (small security precaution...)
 
 
-	$emailbody = "$langDear  $firstname $lastname,\n $langYouAreReg $siteName $langSettings $username\n$langPass: $password \n$langAddress $siteName $langIs: $serverAddress\n$langProblem\n$langFormula,\n$administratorSurname $administratorName\n$langManager $siteName\nT. $telephone\n$langEmail: $emailAdministrator\n";
+	$emailbody = "$langDear  $firstname $lastname,\n $langYouAreReg $siteName $langSettings $username\n$langPassword: $password \n$langAddress $siteName $langIs: $serverAddress\n$langProblem\n$langFormula,\n$administratorSurname $administratorName\n$langManager $siteName\nT. $telephone\n$langEmail: $emailAdministrator\n";
 
 	@mail($emailto, $emailsubject, $emailbody, $emailheaders);
 }

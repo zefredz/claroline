@@ -22,7 +22,7 @@ include('extention.inc');
 include('functions.'.$phpEx);
 include('config.'.$phpEx);
 require('auth.'.$phpEx);
-$pagetitle = $l_search;
+$pagetitle = $langSearch;
 $pagetype = "other";
 include('page_header.'.$phpEx);
 
@@ -121,7 +121,7 @@ if(!$submit)
 </TABLE>
 <br>
 	<CENTER>
-	<INPUT TYPE="Submit" Name="submit" Value="<?php echo $l_search?>">
+	<INPUT TYPE="Submit" Name="submit" Value="<?php echo $langSearch?>">
 	</FORM>
 	</CENTER>
 

@@ -179,7 +179,7 @@ else
 
 <td>
 <input type="hidden" name="forum" value="<?php echo $forum?>">
-<input type="submit" name="submit" value="<?php echo $l_submit?>">
+<input type="submit" name="submit" value="<?php echo $langSubmit?>">
 &nbsp;<input type="submit" name="cancel" value="<?php echo $l_cancelpost?>">
 </td>
 

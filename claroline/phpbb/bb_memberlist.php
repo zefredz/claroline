@@ -94,7 +94,7 @@ if($all_topics > $topics_per_page)
 {
    if ($next < $all_topics)
    {
-   	echo "<font size=-1>\n<a href=\"bb_memberlist.$phpEx?start=$next&sortby=$sortlink\">$l_nextpage</a> | ";
+   	echo "<font size=-1>\n<a href=\"bb_memberlist.$phpEx?start=$next&sortby=$sortlink\">$langNextPage</a> | ";
    }
    for($x = 0; $x < $all_topics; $x++) 
    {
@@ -212,7 +212,7 @@ if($all_topics > $topics_per_page)
 {
    if ($next < $all_topics)
    {
-   	echo "<font size=-1>\n<a href=\"bb_memberlist.$phpEx?start=$next&sortby=$sortlink\">$l_nextpage</a> | ";
+   	echo "<font size=-1>\n<a href=\"bb_memberlist.$phpEx?start=$next&sortby=$sortlink\">$langNextPage</a> | ";
    }
    for($x = 0; $x < $all_topics; $x++) 
    {

@@ -163,7 +163,7 @@ if($is_courseAdmin)
 <td>
 <input type="hidden" name="post_id" value="<?php echo $post_id?>">
 <input type="hidden" name="forum" value="<?php echo $forum?>">
-<input type="submit" name="submit" value="<?php echo $l_submit?>">
+<input type="submit" name="submit" value="<?php echo $langSubmit?>">
 </td>
 </tr>
 </table>

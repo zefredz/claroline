@@ -725,7 +725,7 @@ function claro_disp_auth_form()
 {
     global  $includePath, $clarolineRepositoryWeb,
             $_uid, $is_courseAllowed, $_course,
-            $siteName, $lang_password ,
+            $siteName, $langPassword ,
             $langUserName, $langLogin, 
             $langReg;
 
@@ -765,7 +765,7 @@ function claro_disp_auth_form()
                 ."<label for=\"username\">".$langUserName." : </label><br>\n"
                 ."<input type=\"text\" name=\"login\" id=\"username\"><br>\n"
                 
-                ."<label for=\"password\">".$lang_password." : </labeL><br>\n"
+                ."<label for=\"password\">".$langPassword." : </labeL><br>\n"
                 ."<input type=\"password\" name=\"password\" id=\"password\"><br>\n"
                 ."<input type=\"submit\" >\n"
                 

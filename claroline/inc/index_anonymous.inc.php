@@ -92,7 +92,7 @@ if ( trim($category) != '' ) // means that we are not on the root level of the c
 else
 {
 	$backCommandLine = "<p>&nbsp;</p>";
-    $pageTitle       = $langCatList;
+    $pageTitle       = $langCategories;
 }
 
 echo $backCommandLine;
@@ -103,7 +103,7 @@ claro_disp_tool_title($pageTitle);
 
 if ( ( count($categoryList) - 1 )  > 0 )
 {
-    echo "<h4>".$langCatList."</h4>\n";
+    echo "<h4>".$langCategories."</h4>\n";
     echo "<ul>\n";
 
     foreach($categoryList as $thisCategory)
@@ -188,7 +188,7 @@ echo '</td>';
 </label>
 
 <label for="password" >
-<?php echo $langPass ?><br>
+<?php echo $langPassword ?><br>
 <input type="password" name="password" id="password" size="12"><br>
 </label>
 <input type="submit" value="<?php echo $langEnter ?>" name="submitAuth">

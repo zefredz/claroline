@@ -103,7 +103,7 @@ else
 <td>
 </td>
 <td>
-<input type="submit" name="submit" value="<?php echo $l_submit?>">
+<input type="submit" name="submit" value="<?php echo $langSubmit?>">
 </tr>
 </table>
 </form>
