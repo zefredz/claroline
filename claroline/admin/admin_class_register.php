@@ -25,6 +25,7 @@ $langUserNotInClass            = "User not in the class";
 $langUserRegisteredClass       = "User has been sucessfully registered to the class";
 $langUserUnregisteredClass     = "User has been sucessfully unregistered from the class";
 $langClassMembers              = "Class members";
+$langClass                     = "Classes";
 
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
    
@@ -47,6 +48,7 @@ $userPerPage = 20; // numbers of user to display on the same page
 // Deal with interbredcrumps
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb."/admin_class.php", "name"=> $langClass);
 $nameTools = $langRegisterUserToClass;
 
 //Header

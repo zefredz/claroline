@@ -57,6 +57,7 @@ if (isset($_GET['dir']))       {$_SESSION['admin_user_dir'] = $_GET['dir'];}
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
 	    	    
 $langListClassUser             = "Class users";
+$langClass                     = "Classes";
 $langClassRegisterUser         = "Register a user to this class";
 $langClassRegisterWholeClass   = "Register the whole class to a course";
 $langUserUnregisteredFromClass = "User has been sucessfully unregistered from the class";
@@ -66,8 +67,8 @@ $langUnsubscribeClass          = "Unregister user from class";
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
     
 // Deal with interbredcrumps
-
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb."/admin_class.php", "name"=> $langClass);
 $nameTools = $langListClassUser;
 
 //Header
