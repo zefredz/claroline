@@ -89,32 +89,8 @@ if($is_allowedToEdit)
 		mysql_query("UPDATE `".$TABLECOURSE."`
 					 SET ".implode(",",$fieldsToUpdate)."
 					 WHERE code=\"".$current_cid."\"");
-// Change Lang
-		include("../lang/english/create_course.inc.php");
-		@include("../lang/".$HTTP_POST_VARS["lanCourseForm"]."/create_course.inc.php");
-
-                mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langAgenda' WHERE lien ='../claroline/calendar/agenda.php';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langLinks' WHERE lien ='../claroline/link/link.php';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langDoc' WHERE lien ='../claroline/document/document.php';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langVideo' WHERE lien ='../claroline/video/video.php';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langWorks' WHERE lien ='../claroline/work/work.php';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langCourseProgram' WHERE lien ='../claroline/course_program/cahier.php';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langAnnouncements' WHERE lien ='../claroline/announcements/announcements.php';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langUsers' WHERE lien ='../claroline/user/user.php';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langForums' WHERE lien ='../claroline/phpbb/index.php';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langExercices' WHERE lien ='../claroline/exercice/exercice.php';");
-		//mysql_query("Update `".$TABLECOURSEHOME."` set Rubrique = '$langStatistics' WHERE lien LIKE '../claroline/stat/index2.php%';");
-		//mysql_query("Update `".$TABLECOURSEHOME."` set Rubrique = '$langStatistics' WHERE lien LIKE '../claroline/stat/%';");
-                mysql_query("Update `".$TABLECOURSEHOME."` set Rubrique = '$langStatistics' WHERE lien LIKE '../claroline/tracking/%';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langUplPage' WHERE lien LIKE '../claroline/import/import.ph%';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langLinkSite' WHERE lien ='../claroline/external_module/external_module.php?';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langModifyInfo' WHERE lien LIKE '../claroline/course_info/infocours.ph%';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langChat' WHERE lien ='../claroline/chat/chat.php';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langGroups' WHERE lien ='../claroline/group/group.php';");
-		mysql_query("Update `".$TABLECOURSEHOME."` SET rubrique = '$langCourseDesc' WHERE lien LIKE '../claroline/course_description/%';");
-
-
-
+           
+           
 $controlMsg["success"][]= $langModifDone;
 
 claro_disp_msg_arr($controlMsg);
