@@ -301,7 +301,6 @@ foreach($toolList as $thisTool)
     if ( ! empty($thisTool['label'])) // standart claroline tool
     {
         $toolName      = $toolNameList[ $thisTool['label'] ];
-        $url           = trim($toolRepository.$thisTool['url']);
         $removableTool = false;
     }
     else                            // external tool added by course manager
@@ -313,7 +312,6 @@ foreach($toolList as $thisTool)
             if ( ! empty($thisTool['name'])) $toolName = $thisTool['name'];
             else                             $toolName = '<i>no name</i>';
             
-            $url = trim($thisTool['url']);
         }
     }
     
@@ -337,20 +335,12 @@ foreach($toolList as $thisTool)
 
     echo "<tr>";
     
-    if ( ! empty($url) )
-    {
-        echo "<td><a href=\"".$url."\"><img src=\"".$icon."\"></a> "
-            ."<a href=\"".$url."\">".$toolName."</a></td>"
-            ."<td><input type=\"checkbox\" name=\"toolAccessList[]\" value=\"".$thisTool['id']."\"".$checkState.">";
-    }
-    else
-    {
-        echo "<td ".$style.">"
-            ."<img src=\"".$icon."\">"
-            .$toolName . "</td>"
-            ."<td><input type=\"checkbox\" name=\"toolAccessList[]\" value=\"".$thisTool['id']."\"".$checkState.">";
-    }
-    
+    echo "<td ".$style.">"
+        ."<img src=\"".$icon."\" alt=\" \"> "
+        .$toolName . "</td>"
+        ."<td><input type=\"checkbox\" name=\"toolAccessList[]\" value=\"".$thisTool['id']."\"".$checkState.">";
+
+
     if ($removableTool)
     {
         echo "<a href=\"". $PHP_SELF ."?cmd=rqEdit&externalToolId=".$thisTool['id']."\">"
