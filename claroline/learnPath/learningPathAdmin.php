@@ -1,8 +1,7 @@
-<?php
-    // $Id$
+<?php // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version 1.3.2 $Revision$                            |
+  | CLAROLINE version 1.5.*
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
@@ -81,10 +80,10 @@
   $QUERY_STRING=''; // used forthe breadcrumb 
                   // when one need to add a parameter after the filename
   //header
-  @include($includePath."/claro_init_header.inc.php");
+  include($includePath."/claro_init_header.inc.php");
 
   //lib of document tool
-  @include($includePath."/lib/fileDisplay.lib.php");
+  include($includePath."/lib/fileDisplay.lib.php");
 
   // tables names
   $TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
@@ -384,8 +383,8 @@
     if ($displayCreateLabelForm)
    {
             $dialogBox .= "<form action=\"$PHP_SELF\" method=\"post\">
-                        <h4>".$langNewLabel."</h4>
-                        <input type=\"text\" name=\"newLabel\" maxlength=\"255\" />
+                        <h4><label for=\"newLabel\">".$langNewLabel."</label></h4>
+                        <input type=\"text\" name=\"newLabel\" id=\"newLabel\" maxlength=\"255\" />
                         <input type=\"hidden\" name=\"cmd\" value=\"createLabel\" />
                         <input type=\"submit\" value=\"".$langOk."\" />
                       </form>";
@@ -640,5 +639,5 @@
    echo "</table>";
 
    // footer
-   @include($includePath."/claro_init_footer.inc.php");
+   include($includePath."/claro_init_footer.inc.php");
 ?>

@@ -324,8 +324,8 @@
               else  // create form requested
               {
                  echo "<form method=\"POST\">
-                        <h4>".$langCreateNewLearningPath."</h4>
-                        ".$langLearningPathName."<input type=\"text\" name=\"newPathName\" maxlength=\"255\"></input>
+                        <h4><label for=\"newPathName\">".$langCreateNewLearningPath."</label></h4>
+                        ".$langLearningPathName."<input type=\"text\" name=\"newPathName\" id=\"newPathName\" maxlength=\"255\"></input>
                         <input type=\"hidden\" name=\"cmd\" value=\"create\">
                         <input type=\"submit\" value=\"".$langOk."\"></input>
                       </form>";

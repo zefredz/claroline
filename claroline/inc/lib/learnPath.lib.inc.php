@@ -293,7 +293,7 @@
 
                      $query = claro_sql_query($sql);
                      $oldName = @mysql_fetch_array($query);
-                     echo        "<form method=\"POST\" action=\"$PHP_SELF\">\n",
+                     echo        "<form method=\"POST\" action=\"".$_SERVER['PHP_SELF']."\">\n",
                                     "<input type=\"text\" name=\"newName\" size=\"50\" maxlength=\"255\" value=\"".htmlentities($oldName['name'])."\"",
                                     "<br />\n",
                                     "<input type=\"hidden\" name=\"cmd\" value=\"updateName\">\n",
@@ -650,11 +650,11 @@
                       echo "
                            <tr>
                               <td align=\"center\">
-                                 <input type=\"checkbox\" name=\"check_".$exercise['id']."\" value=\"".$exercise['id']."\">
+                                 <input type=\"checkbox\" name=\"check_".$exercise['id']."\" id=\"check_".$exercise['id']."\" value=\"".$exercise['id']."\">
                               </td>
 
                               <td align=\"left\">
-                                 <img src=\"../img/quiz.gif\" alt=\"$langExercise\" />".$exercise['titre']."
+                                 <label for=\"check_".$exercise['id']."\" ><img src=\"../img/quiz.gif\" alt=\"".$langExercise."\" />".$exercise['titre']."</label>
                               </td>
                            </tr>";
 
@@ -825,7 +825,7 @@
                           {
                               $iterator++;
                               echo        "<td>",
-                                              "<input type=\"checkbox\" name=\"insertDocument_".$iterator."\" value=\"",$curDirPath."/".$fileName,"\" />",
+                                              "<input type=\"checkbox\" name=\"insertDocument_".$iterator."\" id=\"insertDocument_".$iterator."\" value=\"",$curDirPath."/".$fileName,"\" />",
                                               "</td>\n";
 
                           }

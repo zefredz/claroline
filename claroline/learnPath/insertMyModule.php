@@ -1,8 +1,7 @@
-<?php
-    // $Id$
+&iquest;<?php // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version 1.3.2 $Revision$                            |
+  | CLAROLINE version 1.5.*
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
@@ -44,7 +43,7 @@
   $nameTools = $langInsertMyModuleToolName;
 
   //header
-  @include($includePath."/claro_init_header.inc.php");
+  include($includePath."/claro_init_header.inc.php");
 
 
   // tables names
@@ -56,10 +55,10 @@
 
 
   //lib of this tool
-  @include($includePath."/lib/learnPath.lib.inc.php");
+  include($includePath."/lib/learnPath.lib.inc.php");
 
   //lib of document tool
-  @include($includePath."/lib/fileDisplay.lib.php");
+  include($includePath."/lib/fileDisplay.lib.php");
   
   // $_SESSION
   if ( !isset($_SESSION['path_id']) )
@@ -204,11 +203,11 @@
             echo "
                  <tr>
                     <td align=\"center\">
-                       <input type=\"checkbox\" name=\"check_".$list['module_id']."\">
+                       <input type=\"checkbox\" name=\"check_".$list['module_id']."\"  id=\"check_".$list['module_id']."\">
                     </td>
 
                     <td align=\"left\">
-                       <img src=\"../img/".$moduleImg."\" alt=\"".$contentType_alt."\" />".$list['name']."
+                       <label for=\"check_".$list['module_id']."\" ><img src=\"../img/".$moduleImg."\" alt=\"".$contentType_alt."\" />".$list['name']."</label>
                     </td>";
 
             // COMMENT
@@ -247,5 +246,5 @@
 
    // footer
 
-   @include($includePath."/claro_init_footer.inc.php");
+   include($includePath."/claro_init_footer.inc.php");
 ?>

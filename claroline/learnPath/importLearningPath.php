@@ -1,8 +1,7 @@
-<?php
-
+<?php // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version 1.5.*                          |
+  | CLAROLINE version 1.5.*
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
@@ -10,16 +9,13 @@
   | available through the world-wide-web at                              |
   | http://www.gnu.org/copyleft/gpl.html                                 |
   +----------------------------------------------------------------------+
-  | Authors: Piraux Sebastien <pir@cerdecam.be>      |
-  |              Lederer Guillaume <led@cerdecam.be>   |
+  | Authors: Piraux Sebastien      <pir@cerdecam.be>
+  |              Lederer Guillaume <led@cerdecam.be>
   +----------------------------------------------------------------------+
 
   DESCRIPTION:
   ****
-
-
    /!\ Unzip in unix environment has to be done !! ( at present it use the pclzip on unix too )
-
 */
 
 /*======================================
@@ -32,7 +28,7 @@
   $tlabelReq = 'CLLNP___';
   include ('../inc/claro_init_global.inc.php');
 
-  @include($includePath."/../lang/english/document.inc.php");
+  include($includePath."/../lang/english/document.inc.php");
   @include($includePath."/../lang/".$languageInterface."/document.inc.php");
 
   $htmlHeadXtra[] =
@@ -50,7 +46,7 @@
   $nameTools = $langimportLearningPath;
 
   //header
-  @include($includePath."/claro_init_header.inc.php");
+  include($includePath."/claro_init_header.inc.php");
 
 
 
@@ -63,7 +59,7 @@
 
 
   //lib of this tool
-  @include($includePath."/lib/learnPath.lib.inc.php");
+  include($includePath."/lib/learnPath.lib.inc.php");
   include($includePath."/lib/fileManage.lib.php");
   include($includePath."/lib/fileUpload.lib.php");
   include($includePath."/lib/fileDisplay.lib.php");
@@ -1175,10 +1171,10 @@ function utf8_decode_if_is_utf8($str) {
         echo $langScormIntroTextForDummies;
         ?>
            <br /><br />
-           <form enctype="multipart/form-data" action="<?= $PHP_SELF ?>" method="post">
+           <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                  <input type="file" name="uploadedPackage">
-                 <input type="submit" value="<?= $langImport ?>"><br />
-                 <small><?= $langMaxFileSize; ?> : <?= format_file_size($maxFileSize); ?></small>
+                 <input type="submit" value="<?php echo $langImport ?>"><br />
+                 <small><?php echo $langMaxFileSize; ?> : <?php echo format_file_size($maxFileSize); ?></small>
            </form>
         <?php
    } // else if method == 'post'
