@@ -113,5 +113,7 @@ $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;groups";
 
 $langNoLimitForQtyOfUserCanSubscribe ="A user can be member of all groups";
 $langGroupDocumentAlwaysPrivate = "(always private)";
+$langGroupLimit				= "Limit";
+
 
 ?>
