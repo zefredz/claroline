@@ -24,11 +24,6 @@ a img {
 	text-decoration: none;
 }
 
-a | img {
-	border: 0px;
-	text-decoration: none;
-}
-
 /******************************************************************************
                               CLAROLINE TOP BANNER
  ******************************************************************************/
@@ -37,134 +32,185 @@ a | img {
  /*----------------------------------------------------------------------------
                               MAIN BANNER SETTINGS
  ----------------------------------------------------------------------------*/
- 
+
+#topBanner{}
+
+
+#topBanner hr
+{
+	display: none;
+}
+
+
 .claroTopBanner {
-}
-
-/*
- * ANCHORS BEHAVIOUR
- */
- 
-.claroTopBanner a {
-  text-decoration:none
-  color: #33333;
-}
-.claroTopBanner a:hover {
-  color: #FFB848;
-}
-
-/*
- * BORDER BEHAVIOR
- *
- * Note : Maybe you should change the color parameter
- * if you aim to change the page background color
- */
-
-.claroTopBanner .platformBanner td,
-.claroTopBanner .userBanner td  ,
-.claroTopBanner .courseBanner td { 
-	border-top: 1px solid #FFFFFF;
 }
 
 
  /*----------------------------------------------------------------------------
                                   CAMPUS LINE
  ----------------------------------------------------------------------------*/
-
-.claroTopBanner .platformBanner {
+div#platformBanner
+{
 	background-color:#FFB848;
-	color: #333333;
+	color: #333;
 	font-size: 120%;
+	padding: 4px;
 }
 
-.claroTopBanner .platformBanner  a {
-	color: #333333;
+#platformBanner a,
+#platformBanner a:active,
+#platformBanner a:link,
+#platformBanner a:visited
+{
+	text-decoration: none;
+   	color: #333;
 }
 
-.claroTopBanner .platformBanner  a:hover {
+#platformBanner a:hover
+{
 	color: #FDD088;
+}
+
+div#siteName
+{
+	float: left;
+	text-align: left;
+}
+
+div#institution
+{
+	text-align: right;
 }
 
  /*----------------------------------------------------------------------------
                                    USER LINE
  ----------------------------------------------------------------------------*/
-
-.claroTopBanner .userBanner {
-		background-color: #FDD088;
-		color: #333333;
-		font-size: 80%;
-		margin-top:1px;
+div#userBanner
+{
+	background-color: #FDD088;
+	color: #333;
+	font-size: 80%;
+	padding: 4px;
+	border-top: 1px #FFF solid;
 }
 
-.claroTopBanner .userBanner a,
-.claroTopBanner .userBanner a:link,
-.claroTopBanner .userBanner a:visited {
-		color: #333333;
+#userBanner a,
+#userBanner a:active,
+#userBanner a:link,
+#userBanner a:visited
+{
+	text-decoration: none;
+    color: #333;
 }
-.claroTopBanner .userBanner a:hover {
-		color: #ffecce;
+
+#userBanner a:hover
+{
+    color: #FFECCE;
+	text-decoration: underline;
+}
+div#userLinks
+{
+	text-align: left;
 }
 
  /*----------------------------------------------------------------------------
                                   COURSE LINE
  ----------------------------------------------------------------------------*/
-
-.claroTopBanner .courseBanner {
-		background-color: #ffecce;
-		color: #003366;
-		font-weight:bold;
+#courseBanner
+{
+   	padding: 4px;
+	background-color: #ffecce;
+	color: #036;
+	font-weight:bold;
     border-top:1px solid #FFF;
 }
 
-.claroTopBanner .courseBanner p {
-	margin: 0px;
+#course
+{
+	text-align: left;
 }
 
-.claroTopBanner .courseBanner p .courseName {
+#course span
+{
+   	display: block;
+}
+
+#courseToolList
+{
+	float: right;
+    text-align: right;
+}
+
+#courseBanner .courseName {
 	font-size: 120%;
 }
 
-.claroTopBanner .courseBanner p .courseCode {
+#courseBanner .courseName a,
+#courseBanner .courseName a:active,
+#courseBanner .courseName a:link,
+#courseBanner .courseName a:visited
+{
+	color: #c60;
+	text-decoration: none;
+}
+
+#courseBanner .courseName a:hover
+{
+	color: #369;
+}
+
+#courseBanner .courseCode {
 	font-size: 80%;
 }
 
+#courseBanner form
+{
+	padding: 5px;
+	margin: 0;
+}
 
-.claroTopBanner .courseBanner a,
-.claroTopBanner .courseBanner a:link,
-.claroTopBanner .courseBanner a:visited {
-		color:#c60;
-}
-	
-.claroTopBanner .courseBanner a:hover {
-		color:#369;		
-}
  /*----------------------------------------------------------------------------
                                   BREAD CRUMB TRAIL
  ----------------------------------------------------------------------------*/
-
-.claroBreadCrumbTrail {
+#breadCrumbLine
+{
+	border: none;
 	font-size: 80%;
 }
 
-.claroBreadCrumbTrail a,
-.claroBreadCrumbTrail a:link,
-.claroBreadCrumbTrail a:visited {
-		color:#c60;
-}
-	
-.claroBreadCrumbTrail a:hover {
-		color:#FFB848;		
+#breadCrumbLine hr
+{
+	display: none;
 }
 
+#breadCrumb{}
+
+#breadCrumb a,
+#breadCrumb a:active,
+#breadCrumb a:link,
+#breadCrumb a:visited,
+{
+    color:#c60;
+}
+
+#breadCrumb a:hover,
+{
+    color:#FFB848;
+}
+
+
+#toolViewOption
+{
+	float: right;
+	text-align: right;
+}
 
 
 /******************************************************************************
                              CLAROLINE BODY
  ******************************************************************************/
 
-claroBody  {
-
-}
+#claroBody {}
 
 
 
@@ -174,17 +220,34 @@ claroBody  {
                               CLAROLINE FOOTER
  ******************************************************************************/
 
-.claroFooter  {
+#footer
+{
 	background-color: #FFFFF;
 	font-size: 80%;
 }
 
-.claroFooter a, 
-.claroFooter a:visited, 
-.claroFooter a:active {	
+#footer hr
+{
+	border: 0;
+	height: 1px;
+	background-color: gray;
 }
-	
-.claroFooter a:hover {
+
+#platformManager
+{
+	float: left;
+}
+
+#poweredBy
+{
+	float: right;
+	text-align: right;
+}
+
+#courseManager
+{
+	margin: auto;
+	text-align: center;
 }
 
 
@@ -381,17 +444,3 @@ a:visited.invisible{
 .HelpText {
     color:gray
 }
-
-
-/*
- * MOOSH ATTIC -- could be nice if one can put some order here ...
- */
- 
-.alternativeBgLight { background-color: #F5F5F5; }
-.alternativeBgDark 	{ background-color: #E6E6E6; }
-.forms 		{ background-color : #E6E6E6; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px ; }
-.formsTips	{ text-align: justify; text-indent: 15pt; word-spacing: normal; }
-INPUT.forms	{ letter-spacing: normal; text-align: justify; text-indent: 3pt;	word-spacing: normal;	padding-top: 0px;	padding-right: 0px;	padding-bottom: 0px;	padding-left: 0px;}
-.warn {	border: thin double Silver;	margin-left: 15px;	margin-right: 15px;  font-family: serif;  color: Red;  padding-left: 25px;    }
-.typeElement { border: thin sol id #E6E6E6; margin-left: 15px;	margin-right: 25px;padding-left: 25px;color:#003399 }
-.claro_listInTable tr:hover {background-color: #CCCCCC;}
