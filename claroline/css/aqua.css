@@ -1,0 +1,400 @@
+/******************************************************************************
+                              MAIN HTML TAGS STYLE
+ ******************************************************************************/
+
+body {
+background-color:#E0FFFF;
+color:#000080;
+font-family: tahoma,Verdana,Geneva,Arial,Helvetica,sans-serif;
+font-size: 12px/17px;
+font-weight: bold;
+padding:0;
+}
+
+a:link, a:active, a:visited {
+  color: #4169E1;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #000000;
+}
+
+a img {
+	border:none;
+	text-decoration: none;
+}
+
+a | img {
+	border: 0px;
+	text-decoration: none;
+}
+
+/******************************************************************************
+                              CLAROLINE TOP BANNER
+ ******************************************************************************/
+
+ 
+ /*----------------------------------------------------------------------------
+                              MAIN BANNER SETTINGS
+ ----------------------------------------------------------------------------*/
+ 
+.claroTopBanner {
+}
+
+/*
+ * ANCHORS BEHAVIOUR
+ */
+ 
+.claroTopBanner a {
+	text-decoration:none
+  color: #33333;
+}
+.claroTopBanner a:hover {
+  color: #000000;
+}
+
+/*
+ * BORDER BEHAVIOR
+ *
+ * Note : Maybe you should change the color parameter
+ * if you aim to change the page background color
+ */
+
+.claroTopBanner .platformBanner td, 
+.claroTopBanner .userBanner td  ,
+.claroTopBanner .courseBanner td { 
+	border-top:1px solid #E0FFFF;
+}
+
+
+ /*----------------------------------------------------------------------------
+                                  CAMPUS LINE
+ ----------------------------------------------------------------------------*/
+
+.claroTopBanner .platformBanner {
+	
+	background-image: url('aqua/blueMotive.jpg');
+	background-repeat: repeat;	
+	color: #ffffff;
+	font-size: 150%;
+}
+
+.claroTopBanner .platformBanner  a {
+	color: #FFFFFF;
+}
+
+.claroTopBanner .platformBanner  a:hover {
+	color: #000000;
+}
+
+ /*----------------------------------------------------------------------------
+                                   USER LINE
+ ----------------------------------------------------------------------------*/
+
+.claroTopBanner .userBanner {
+		background-color:#E0FFFF;
+		background-image: url('aqua/gradiantBlue600.jpg');
+		background-repeat: repeat-y;
+		color: #ffffff;
+		font-size: 80%;
+		margin-top:1px;
+		
+}
+
+.claroTopBanner .userBanner a,
+.claroTopBanner .userBanner a:link,
+.claroTopBanner .userBanner a:visited {
+		color: #ffffff;
+}
+.claroTopBanner .userBanner a:hover {
+		color: #000000;
+}
+
+ /*----------------------------------------------------------------------------
+                                  COURSE LINE
+ ----------------------------------------------------------------------------*/
+
+.claroTopBanner .courseBanner {
+		background-color:#E0FFFF;
+		background-image: url('aqua/gradiantBlue600.jpg');
+		background-repeat: repeat-y;
+		color: #003366;
+		font-weight:bold;
+    border-top:1px solid #FFF;
+}
+
+.claroTopBanner .courseBanner p {
+	margin: 0px;
+}
+
+.claroTopBanner .courseBanner p .courseName {
+	font-size: 120%;
+}
+
+.claroTopBanner .courseBanner p .courseCode {
+	font-size: 80%;
+}
+
+
+.claroTopBanner .courseBanner a,
+.claroTopBanner .courseBanner a:link,
+.claroTopBanner .courseBanner a:visited {
+		color:#191970;
+}
+	
+.claroTopBanner .courseBanner a:hover {
+		color:#ffffff;
+}
+ /*----------------------------------------------------------------------------
+                                  BREAD CRUMB TRAIL
+ ----------------------------------------------------------------------------*/
+
+.claroBreadCrumbTrail {
+	font-size: 80%;
+}
+
+.claroBreadCrumbTrail a,
+.claroBreadCrumbTrail a:link,
+.claroBreadCrumbTrail a:visited {
+		color:#191970;
+}
+	
+.claroBreadCrumbTrail a:hover {
+		color:#4169E1;		
+}
+
+
+
+/******************************************************************************
+                             CLAROLINE BODY
+ ******************************************************************************/
+
+claroBody  {
+
+}
+
+
+
+
+
+/******************************************************************************
+                              CLAROLINE FOOTER
+ ******************************************************************************/
+
+.claroFooter  {
+	background-color: #FFFFF;
+	font-size: 80%;
+}
+
+.claroFooter a, 
+.claroFooter a:visited, 
+.claroFooter a:active {	
+}
+	
+.claroFooter a:hover {
+}
+
+
+
+
+/******************************************************************************
+                             CLAROLINE TABLE
+ ******************************************************************************/
+
+/* Uniformize claroline table format. The class provide 3 header type
+ *
+ *     - superHeader : allowing to define table title above the column header
+ *     - headerX : define header in the X axis for each column
+ *     - headerY : define header in the Y axis for each rank
+ * 
+ * Example of table using a super header and header in X axis
+ *
+ * <table class="claroTable">
+ * <tr class="superHeader">
+ * <th colspan="3">User Birthdate</th>
+ * </tr>
+ * <tr class="headerX">
+ * <th>Firstname</th>
+ * <th>Lastname</th>
+ * <th>Birthdate</th>
+ * </tr>
+ * 
+ * <tbody>
+ * 
+ * <tr>
+ * <td>Hugues</td>
+ * <td>Peeters</td>
+ * <td>1969-09-27</td>
+ * </tr>
+ * <tr>
+ * ...
+ * </tr>
+ * 
+ * </tbody>
+ * 
+ * </table>
+ * 
+ * Example of table using header in Y axis
+ * 
+ * 
+ * <table class="claroTable">
+ *
+ * <tr class="superHeader">
+ * <th colspan="3">User Birthdate</th>
+ * </tr>
+ * 
+ * <tr>
+ * <th class="headerY">Firstname</th>
+ * <td>Hugues</td>
+ * <td> ...  </td>
+ * </tr>
+ * 
+ * <tr>
+ * <th class="headerY">Lastname</th>
+ * <td>Peeters</td>
+ * <td> ...  </td>
+ * </tr>
+ * 
+ * <tr>
+ * <th class="headerY">Birthdate</th>
+ * <td>1969-09-27</td>
+ * <td> ...  </td>
+ * </tr>
+ *
+ * </table>
+ */
+
+.claroTable td, th {
+	margin:  1px;
+	padding: 4px;
+	border: none;
+}
+
+
+.claroTable .superHeader th, .claroTable th.superHeader {
+        
+	color: white;
+	background-color: #cccccc;
+	font-weight: bold;
+	text-align: left;
+}
+
+.claroTable .superHeader a,
+.claroTable .superHeader a:link,
+.claroTable .superHeader a:visited {
+	color: white;
+}
+
+
+.claroTable th.headerY, .claroTable .headerY th, 
+.claroTable th.headerX, .claroTable .headerX th {
+        
+	font-weight: normal;
+	text-align: left;
+}
+
+.claroTable .headerX th,  .claroTable th.headerX {
+	 background-image: url('aqua/gradiantDarkblue200.jpg');
+	 background-repeat: repeat-y;
+	 color:#191970;
+	 font-weight: bold;
+}
+
+.claroTable .headerX a{
+	color:#191970;
+}
+
+.claroTable .headerX a:hover{
+	color:#ffffff;
+	
+}
+
+.claroTable tbody tr:hover {
+	background-color: #6495ED;
+}
+.noHover {
+	background-color: white;
+}
+
+
+/******************************************************************************
+                             VARIOUS CLAROLINE CSS CLASS
+ ******************************************************************************/
+
+/*
+ * 'claroMessageBox' is used to display all messages from the platform like 
+ * action confirmation, parameter request, warning mesage...
+ * Things that are usually displayed in a dialog box into offline applications
+ */ 
+ 
+.claroMessageBox {
+	background-color: #FF9900;
+  color: #000000;
+  border:1px solid #666;
+}
+
+.claroIntroSection { 
+	background-color: #F5F5F5;
+}
+
+/*
+ * 'invisible' is generally attached to element that shouldn't be visible into 
+ * common user interface but which are visible in course manager or platform 
+ * administrator screen, showing that the element is deactivated or isn't 
+ * visible fo the other users
+ */
+
+.invisible  {
+	color: #999999;
+}
+
+.invisible a, 
+.invisible a:link, 
+.invisible a:visited,
+a.invisible,
+a:link.invisible,
+a:visited.invisible{
+	color: #999999;
+}
+
+
+/*
+ * 'rightMenu' is mainly use in the platform home page
+ */
+
+.claroRightMenu  {
+  color: #000000;
+  background-color: #4169E1;
+
+}
+
+.claroRightMenu a,
+.claroRightMenu a:link,
+.claroRightMenu a:visited {
+		color:#ffffff;
+}
+
+.claroRightMenu a:hover {
+		color:#000000;
+}
+
+
+
+.HelpText {
+    color:gray
+}
+
+
+/*
+ * MOOSH ATTIC -- could be nice if one can put some order here ...
+ */
+ 
+.alternativeBgLight { background-color: #F5F5F5; }
+.alternativeBgDark 	{ background-color: #E6E6E6; }
+.forms 		{ background-color : #E6E6E6; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px ; }
+.formsTips	{ text-align: justify; text-indent: 15pt; word-spacing: normal; }
+INPUT.forms	{ letter-spacing: normal; text-align: justify; text-indent: 3pt;	word-spacing: normal;	padding-top: 0px;	padding-right: 0px;	padding-bottom: 0px;	padding-left: 0px;}
+.warn {	border: thin double Silver;	margin-left: 15px;	margin-right: 15px;  font-family: serif;  color: Red;  padding-left: 25px;    }
+.typeElement { border: thin sol id #E6E6E6; margin-left: 15px;	margin-right: 25px;padding-left: 25px;color:#003399 }
+.claro_listInTable tr:hover {background-color: #CCCCCC;}
