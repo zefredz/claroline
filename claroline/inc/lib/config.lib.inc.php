@@ -643,6 +643,7 @@ function get_group_of_def_list()
 		$defConfFileList['course']['name'] = 'Course';
 		$defConfFileList['user']['name'] = 'User';
 		$defConfFileList['tool']['name'] = 'Tool';
+		$defConfFileList['others']['name'] = 'Others';
 
        while (FALSE !== ($file = readdir($handle)))
        {
@@ -671,7 +672,7 @@ function get_group_of_def_list()
 				} 
 				else
 				{
-					// Don't display this file
+					$defConfFileList['others']['conf'][$config_code] = $config_code;
 				}	
            }
        }
@@ -898,16 +899,6 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
 		$currentValue = $currentValue?'TRUE':'FALSE';
 	}
 
-	// description
-	if ( isset($conf_def_property_list['description']) )
-	{
-		$htmlPropDesc = nl2br(htmlentities($conf_def_property_list['description']));
-	}
-	else
-	{
-		$htmlPropDesc = '';
-	}
-
 	// name
 	$htmlPropName = 'prop['.($property).']';
 
@@ -931,14 +922,44 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
 		$htmlPropType = '';
 	}
 
+	// actual value
+    if ( isset($conf_def_property_list['acceptedValue'][$conf_def_property_list['actualValue']]) )
+    {
+        $actual_value = $conf_def_property_list['acceptedValue'][$conf_def_property_list['actualValue']];
+    }
+    else
+    {
+        $actual_value = $conf_def_property_list['actualValue'];
+    }
+
+    // default value
+    if ( isset($conf_def_property_list['acceptedValue'][$conf_def_property_list['default']]) )
+    {
+        $default_value = $conf_def_property_list['acceptedValue'][$conf_def_property_list['default']];
+    }
+    else
+    {
+        $default_value = $conf_def_property_list['default'];
+    }
+    
+    // description
+    if ( isset($conf_def_property_list['description']) )
+	{
+		$htmlPropDesc = nl2br(htmlentities($conf_def_property_list['description']));
+	}
+	else
+	{
+		$htmlPropDesc = '';
+	}
+
     if ( isset($currentValue) && $currentValue!=$conf_def_property_list['actualValue'] ) 
     {
         $htmlPropValue = $currentValue;
 
 		if ( isset($conf_def_property_list['actualValue']) )
 		{
-			$htmlPropDefault = 'In buffer : '  . $conf_def_property_list['actualValue'];
-			$htmlPropDefault .= 'Default :' . $conf_def_property_list['default'];
+			$htmlPropDefault = 'In buffer : '  . $actual_value;
+			$htmlPropDefault .= 'Default : ' . $default_value;
 		}
 		else
 		{
@@ -950,12 +971,12 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
 		if ( isset($conf_def_property_list['actualValue']) )
 		{
 			$htmlPropValue = $conf_def_property_list['actualValue'];
-			$htmlPropDefault = 'Default : ' . (empty($conf_def_property_list['default'])?$langEmpty:$conf_def_property_list['default']);
+			$htmlPropDefault = 'Default : ' . (empty($conf_def_property_list['default'])?$langEmpty:$actual_value);
 		}
 		else
 		{
 			$htmlPropValue = $conf_def_property_list['default'];
-			//$htmlPropDefault = $langFirstDefOfThisValue;
+		//	$htmlPropDefault = $langFirstDefOfThisValue;
 		}
     }
         
