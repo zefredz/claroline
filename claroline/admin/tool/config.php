@@ -92,7 +92,10 @@ $langApplied         = 'Appliqué';
 $langConfig          = 'Configuration';
 $lang_p_defFileOf_S = 'Fichier de définition pour la configuration %s.';
 $lang_the_active_config_has_manually_change='Version de production modifiée';
+$langFirstDefOfThisValue = '!!! Nouvelle valeur !!!';
 
+
+$langFirstDefOfThisValue = '!!!First definition of this value!!!';
 $langNoPropertiesSet = 'No properties set';
 $langShowConf        = 'Show Config file';
 $langShowDef         = 'Show Definition file';
@@ -183,6 +186,14 @@ fieldset    {
     font-variant: small-caps;  
     font-size: x-small;   }
 
+fieldset .default
+{
+    color:blue;
+}
+fieldset .buffer
+{
+    color:red;
+}
 </style>
 ';
 
@@ -227,17 +238,18 @@ if(!$is_allowedToAdmin)
 
 $panel = DISP_LIST_CONF;
 
+
+// Command on a specified config.
 if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
 {
-    $config_code = $_REQUEST['config_code'];
+    $config_code = trim($_REQUEST['config_code']);
     $confDef  = claro_get_def_file($config_code);
     $confFile = claro_get_conf_file($config_code); 
 
     if( $_REQUEST['cmd']=='dispEditConfClass' )
     {
         // Edit settings of a config_code 
- 
-        if(file_exists($confDef))
+         if(file_exists($confDef))
         {
             $panel = DISP_EDIT_CONF_CLASS;
         }
@@ -250,7 +262,6 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
     elseif( $_REQUEST['cmd']=='showConf' )
     {
         // Show Configuration
-
         if(file_exists($confFile))
         {
             @require($confDef);
@@ -268,7 +279,6 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
     elseif( $_REQUEST['cmd']=='showDefFile' )
     {
         // Show Definition File
-        
         if(file_exists($confDef))
         {
             $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $lang_config_config_short);
@@ -284,7 +294,6 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
     elseif($_REQUEST['cmd']=='showConfFile')
     {
         // Show configuration file
-
         if(file_exists($confFile))
         {
             $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $lang_config_config_short);
@@ -299,18 +308,12 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
     }
     elseif(isset($_REQUEST['cmdSaveProperties']) || isset($_REQUEST['cmdSaveAndApply']))
     {
-        if(file_exists($confDef))
-        {
-            require($confDef);
-        }
-
-        //  var_dump::display($_REQUEST['prop']);
+        if(file_exists($confDef)) require($confDef);
         $okToSave = TRUE;
         if ($conf_def['config_code']=='')
         {
             $okToSave = FALSE;
             $controlMsg['error'][] = 'Configuration is missing '.basename($confDef);
-    
         }
         if ($config_code != $conf_def['config_code'])
         {
@@ -325,99 +328,27 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
                 $validator     = $conf_def_property_list[$propName]['type'];
                 $acceptedValue = $conf_def_property_list[$propName]['acceptedValue'];
                 $container     = $conf_def_property_list[$propName]['container'];
-                //      config_checkToolProperty($propValue, $conf_def_property_list[$propName]);
-                //      $controlMsg['log'][] = $propName.' '.$validator.' '.var_export($acceptedValue,1);
-                switch($validator)
+                if (!config_checkToolProperty($propValue, $conf_def_property_list[$propName]))
                 {
-                    case 'boolean' : 
-                        if (!($propValue=='TRUE'||$propValue=='FALSE') )
-                        {
-                            $controlMsg['error'][] = $propName.' would be boolean';
-                            $okToSave = FALSE;
-                        }   
-                        break;
-                    case 'integer' : 
-                        $propValue = (int) $propValue;
-                        if (!is_integer($propValue)) 
-                        {
-                            $controlMsg['error'][] = $propName.' would be integer';
-                            $okToSave = FALSE;
-                        }
-                        elseif (isset($acceptedValue['max'])&& $acceptedValue['max']<$propValue)
-                        {
-                            $controlMsg['error'][] = $propName.' would be integer inferior or equal to '.$acceptedValue['max'];
-                            $okToSave = FALSE;
-                        }   
-                        elseif (isset($acceptedValue['min'])&& $acceptedValue['min']>$propValue)
-                        {
-                            $controlMsg['error'][] = $propName.' would be integer superior or equal to '.$acceptedValue['min'];
-                            $okToSave = FALSE;
-                        }   
-                        break;
-                    case 'enum' : 
-                        if (!in_array($propValue,array_keys($acceptedValue))) 
-                        {
-                            $controlMsg['error'][] = $propName.' would be in enum list';
-                            $okToSave = FALSE;
-                        }   
-                        break;
-                    case 'relpath' :
-                    case 'syspath' :
-                    case 'wwwpath' :
-                        if (empty($propValue))
-                        {
-                            $controlMsg['error'][] = $propName.' is empty';
-                            $okToSave = FALSE;
-                        }   
-                        break;
-                    case 'regexp' :
-                        if (!eregi( $acceptedValue, $propValue )) 
-                        {
-                            $controlMsg['error'][] = $propName.' would be valid';
-                            $controlMsg['error'][] = $acceptedValue.' '.$propValue;
-                            $okToSave = FALSE;
-                        }   
-                        break;
-                    default :
-                }
-                if ($okToSave) 
-                {
-                    $sqlParamExist = 'SELECT count(id_property) nbline
-                                      FROM `'.$tbl_config_property.'` 
-                                      WHERE propName    ="'.$propName.'" 
-                                        AND config_code ="'.$config_code.'"';
-                    $exist = claro_sql_query_fetch_all($sqlParamExist);
-                    if ($exist[0]['nbline']==0) 
-                    {
-                        $sql ='INSERT 
-                               INTO `'.$tbl_config_property.'` 
-                               SET propName    = "'.$propName.'", 
-                                   propValue   = "'.$propValue.'", 
-                                   lastChange  = now(), 
-                                   config_code = "'.$config_code.'"';
-                    }
-                    else
-                    {
-                        $sql ='UPDATE 
-                                `'.$tbl_config_property.'` 
-                               SET propName    ="'.$propName.'", 
-                                   propValue   ="'.$propValue.'", 
-                                   lastChange  = now()
-                               WHERE propName    ="'.$propName.'" 
-                                 AND config_code ="'.$config_code.'"
-                                 AND not (propValue   ="'.$propValue.'") # do not update if same value 
-                                 ';
-                    }
-                    claro_sql_query($sql);                 
-                }
-                else
-                {
-                    $controlMsg['info'][] = 'Save aborded';
-                    $panel = DISP_EDIT_CONF_CLASS;
+                    $okToSave = false;
                 }
             }
-            $controlMsg['info'][] = sprintf($lang_p_Properties_of_S_saved_in_buffer 
-                           ,get_config_name($config_code));
+            reset($_REQUEST['prop']);
+            if ($okToSave) 
+            {
+                foreach($_REQUEST['prop'] as $propName => $propValue )
+                {
+                    save_param_value_in_buffer($propName,$propValue, $config_code);
+                }
+            }
+            else
+            {
+                $controlMsg['info'][] = 'Save aborded';
+                $panel = DISP_EDIT_CONF_CLASS;
+            }
+            if (!isset($_REQUEST['cmdSaveAndApply']))
+                $controlMsg['info'][] = sprintf($lang_p_Properties_of_S_saved_in_buffer 
+                                               ,get_config_name($config_code));
         }
         else
         {
@@ -425,9 +356,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         }            
     }
 
-    if(   $_REQUEST['cmd']=='generateConf' 
-       || ( $okToSave 
-            && isset($_REQUEST['cmdSaveAndApply'])))
+    if($_REQUEST['cmd']=='generateConf'||($okToSave && isset($_REQUEST['cmdSaveAndApply'])))
     {
         // OK to build the conf file. 
         // 1° Get extra info from the def file.
@@ -460,27 +389,33 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             $nameTools = get_config_name($config_code);
         }
         
-        $storedPropertyList = readValueFromTblConf($config_code);
+        $storedPropertyList = read_param_value_in_buffer($config_code);
         
         if (is_array($storedPropertyList)&& count($storedPropertyList)>0)
         {
-            write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile, realpath(__FILE__));
-            $hashConf = md5_file($confFile);
-            $sql =' UPDATE `'.$tbl_config_file.'`          '
-                 .' SET config_hash = "'.$hashConf.'"      '
-                 .' WHERE config_code = "'.$config_code.'" ';
-            $controlMsg['debug'][] = '<tt>'.$sql.'</tt>';        
-            
-            if (!claro_sql_query_affected_rows($sql))
+            if (write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile, realpath(__FILE__)))
             {
-                $sql =' INSERT  INTO `'.$tbl_config_file.'`          '
+                $hashConf = md5_file($confFile);
+                $sql =' UPDATE `'.$tbl_config_file.'`          '
                      .' SET config_hash = "'.$hashConf.'"      '
-                     .' , config_code = "'.$config_code.'" ';
-                claro_sql_query($sql);
+                     .' WHERE config_code = "'.$config_code.'" ';
+                $controlMsg['debug'][] = '<tt>'.$sql.'</tt>';        
+                
+                if (!claro_sql_query_affected_rows($sql))
+                {
+                    $sql =' INSERT  INTO `'.$tbl_config_file.'`          '
+                         .' SET config_hash = "'.$hashConf.'"      '
+                         .' , config_code = "'.$config_code.'" ';
+                    claro_sql_query($sql);
+                }
+                $controlMsg['info'][] = 'Properties for '.$nameTools.' ('.$config_code.') are now effective on server.';
+                $controlMsg['debug'][] = 'file generated for <B>'.$config_code.'</B> is <em>'.$confFile.'</em>'.'<br>Signature : <TT>'.$hashConf.'</tt>';        
+                $panel = DISP_LIST_CONF;
             }
-            $controlMsg['info'][] = 'Properties for '.$nameTools.' ('.$config_code.') are now effective on server.';
-            $controlMsg['debug'][] = 'file generated for <B>'.$config_code.'</B> is <em>'.$confFile.'</em>'.'<br>Signature : <TT>'.$hashConf.'</tt>';        
-            $panel = DISP_LIST_CONF;
+            else 
+            {
+                $controlMsg['error'][] = 'Error in building of <em>'.$confFile.'</em> for <B>'.$config_code.'</B>';    
+            }
         }
         else 
         {
@@ -532,44 +467,25 @@ elseif ($panel == DISP_EDIT_CONF_CLASS)
     require($confDef);
     $interbredcrump[] = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $lang_config_config);
     $nameTools = get_config_name($config_code);
+    $conf_info = get_conf_info($config_code);    
     
-    $sql_get_conf_info = 'SELECT `cfg`.`config_code` `config_code`, 
-                                 `cfg`.`config_hash` `config_hash`,  
-                                 `r_t_cfg`.*, 
-                                 `r_t_cfg`.`claro_label` `claro_label`, 
-                                 `t`.`icon` `icon`
-                                 
-                          FROM `'.$tbl_config_file.'` `cfg`
-                          LEFT JOIN `'.$tbl_rel_tool_config.'` `r_t_cfg`
-
-                           ON `cfg`.`config_code` = `r_t_cfg`.`config_code` 
-                          LEFT JOIN `'.$tbl_tool.'` `t`
-                           ON `t`.`claro_label`  = `r_t_cfg`.`claro_label`
-                           
-                           WHERE `cfg`.config_code = "'.$config_code.'"';    
-
-    
-    $conf_info = claro_sql_query_fetch_all($sql_get_conf_info);
-    
-    $is_manual_edit = (bool) (file_exists(claro_get_conf_file($config_code))&&$conf_info[0]['config_hash'] != md5_file(claro_get_conf_file($config_code)));
     $controlMsg['debug'][] = '<small>'
-                             .$conf_info[0]['config_hash'].'<BR>'
+                             .$conf_info['config_hash'].'<BR>'
                              .claro_get_conf_file($config_code).' : '
                              .(file_exists(claro_get_conf_file($config_code))?md5_file(claro_get_conf_file($config_code)):'no '.file_exists(claro_get_conf_file($config_code)))
                              .'</small>'
                              ;        
 
-    if ($is_manual_edit)
+    if ($conf_info['manual_edit'])
     {
         $controlMsg['info'][] = 'The config file has manually change.<BR>'
                                .'<BR>'
-                               .'Actually the script prefill with values found in the database, and overwrite effective values'
+                               .'Actually the script prefill with values found in the current conf, and overwrite values set in the database'
                                ;        
         $currentConfContent = parse_config_file(basename(claro_get_conf_file($config_code)));
-        $controlMsg['info'][] = Var_Dump::display($currentConfContent,1);        
-
+        $controlMsg['debug'][] = Var_Dump::display($currentConfContent,1);        
     }
-    $storedPropertyList = readValueFromTblConf($config_code);
+    $storedPropertyList = read_param_value_in_buffer($config_code);
     if (is_array($storedPropertyList))
     {
         foreach($storedPropertyList as $storedProperty)
@@ -593,7 +509,7 @@ claro_disp_tool_title(array('mainTitle'=>$nameTools),(isset($helpSection)?$helpS
 
 // display control message
 
-//unset($controlMsg['debug']);
+unset($controlMsg['debug']);
 if (!empty($controlMsg))
 {
     claro_disp_msg_arr($controlMsg);
@@ -713,7 +629,7 @@ switch ($panel)
                     foreach($section['properties'] as $property )
                     if (is_array($conf_def_property_list[$property]))
                     {
-                        claroconf_disp_editbox_of_a_value($conf_def_property_list[$property], $property);
+                        claroconf_disp_editbox_of_a_value($conf_def_property_list[$property], $property, $currentConfContent[$property]);
                     }
                     else 
                     {
@@ -751,9 +667,11 @@ switch ($panel)
     case DISP_SHOW_CONF : 
         echo '<div>'
             .'[<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConfFile&amp;config_code='.$config_code.'" >'.$langShowContentFile.'</a>]'
-            .'[<a href="'.$_SERVER['PHP_SELF'].'" >'
+            .' [<a href="'.$_SERVER['PHP_SELF'].'" >'
             .$langBackToMenu
-            .'</a>]</div>'
+            .'</a>]'
+            .' [<a href="'.$_SERVER['PHP_SELF'].'?cmd=dispEditConfClass&amp;config_code='.$config_code.'" >'.$langEdit.'</a>]'
+            .'</div>'
             ;
         if (is_array($conf_def))
         {
@@ -823,8 +741,5 @@ switch ($panel)
 
 }
 
-//var_dump::display($config_list);
-//var_dump::display($conf_def);
-//var_dump::display($conf_def_property_list);
 include($includePath."/claro_init_footer.inc.php");
 ?>

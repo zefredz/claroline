@@ -8,6 +8,7 @@
  * @return wether the success
  * @param $file string path to file
  * @desc find config file if not exist get the '.dist' file and rename it
+ * @author Benoit
  */
 function claro_undist_file ($file) 
 {
@@ -43,15 +44,11 @@ function claro_undist_file ($file)
  * function trueFalse($booleanState)
  * @return the boolean value as string
  * @param $booleanState boolean
- *
+ * @author Moosh
  */
 function trueFalse($booleanState)
 {
-	if ($booleanState)
-		$booleanState = "TRUE";
-	else
-		$booleanState = "FALSE";
-	return $booleanState;
+	return ($booleanState?'TRUE':'FALSE');
 }
 
 /**
@@ -61,6 +58,7 @@ function trueFalse($booleanState)
  * @param $value new value of the variable
  * @param $file string path to file
  * @desc replace value of variable in file
+ * @author Benoit
 */
 
 function replace_var_value_in_conf_file ($varName,$value,$file)
@@ -177,13 +175,13 @@ function cleanwritevalue($string)
 // - - - - - - - - - - - -- - 
 
 /**
- * readValueFromTblConf()
+ * read_param_value_in_buffer()
  * 
  * @author moosh moosh@claroline.net
- * @param $tool tlabel of tool to get proerties
+ * @param $config_code id of def file correcponding to data to found
  * @return an array containning name and value of properties.
  **/
-function readValueFromTblConf($config_code)
+function read_param_value_in_buffer($config_code)
 {
     $tbl_mdb_names   = claro_sql_get_main_tbl();
     $tbl_config_property      = $tbl_mdb_names['config_property'];
@@ -261,39 +259,78 @@ function lastConfUpdate($config_code)
     return $valueFromTblConf[0]['lastChange'];
 }
 
+/** config_checkToolProperty($propValue, $propertyDef)
+ *
+ * @param    $propValue mixed value to check with condition of definition bloc
+ * @param    $propertyDef array containing rules to validate a propertyValue.
+ * @return   boolean State of validity 
+ * @author   moosh
+ * @internal $is_validValue boolean flag to record stat of validity
+ * @version  claroline 1.6
+ * @desc     check the validity of a config value.
+ */
 function config_checkToolProperty($propValue, $propertyDef)
 {
-    global $acceptedValue;
-    $allVarOk = TRUE;
+    global $controlMsg; 
+    $acceptedval = $propertyDef['acceptedval'];
+    $propName  = $propertyDef['label'];
+    $validator = $propertyDef['type'];
+    $is_validValue = TRUE;
     if(is_array($propertyDef))
     {
-        switch($propertyDef['type'])
+        switch($validator)
         {
             case 'boolean' : 
                 if (!($propValue=='TRUE'||$propValue=='FALSE') )
                 {
-                    $allVarOk = FALSE;
+                    $controlMsg['error'][] = $propName.' would be boolean';
+                    $is_validValue = FALSE;
                 }   
                 break;
             case 'integer' : 
-                if (!is_integer($propValue)) 
+                // $propValue = (int) $propValue;
+                if (eregi("[^0-9]",$propValue))
                 {
-                    $allVarOk = FALSE;
-                }   
-    
-                break;
-            case 'enum'    : 
-                if (!is_array($propValue,$acceptedValue)) 
+                    $controlMsg['error'][] = $propName.' would be integer';
+                    $is_validValue = FALSE;
+                }
+                elseif (isset($acceptedval['max'])&& $acceptedval['max']<$propValue)
                 {
-                    $allVarOk = FALSE;
+                    $controlMsg['error'][] = $propName.' would be integer inferior or equal to '.$acceptedval['max'];
+                    $is_validValue = FALSE;
                 }   
-                break;
-            case 'regexp' : 
-                if (!eregi( $acceptedValue, $propValue )) 
+                elseif (isset($acceptedval['min'])&& $acceptedval['min']>$propValue)
                 {
-                    $allVarOk = FALSE;
+                    $controlMsg['error'][] = $propName.' would be integer superior or equal to '.$acceptedval['min'];
+                    $is_validValue = FALSE;
+                }   
+
+                break;
+            case 'enum' : 
+                if (!in_array($propValue,array_keys($acceptedval))) 
+                {
+                    $controlMsg['error'][] = $propName.' would be in enum list';
+                    $is_validValue = FALSE;
                 }   
                 break;
+            case 'relpath' :
+            case 'syspath' :
+            case 'wwwpath' :
+                if (empty($propValue))
+                {
+                    $controlMsg['error'][] = $propName.' is empty';
+                    $is_validValue = FALSE;
+                }   
+                break;
+            case 'regexp' :
+                if (!eregi( $acceptedval, $propValue )) 
+                {
+                    $controlMsg['error'][] = $propName.' would be valid for '.$acceptedval;
+                    $is_validValue = FALSE;
+                }   
+                break;
+            case 'string' :
+            default :
         }
     }
     else
@@ -301,7 +338,8 @@ function config_checkToolProperty($propValue, $propertyDef)
         trigger_error('propertyDef is not an array, coding error',E_USER_ERROR);
         return false;
     }
-    return $allVarOk;
+    //$controlMsg['debug'][] = 'check : '.$propName.' : '.$propValue.' is '.$validator.' : '.var_export($is_validValue,1);
+    return $is_validValue;
 }
 
 function claro_get_conf_file($config_code)
@@ -345,8 +383,39 @@ function get_config_name($config_code)
 {
     unset($conf_def);
     @include(claro_get_def_file($config_code));
-    return (isset($conf_def['config_name'])?$conf_def['config_file']:   
-    isset($conf_def['config_file'])?$conf_def['config_file']:$config_code);
+    return (isset($conf_def['config_name'])
+            ? $conf_def['config_name']
+            : ( isset($conf_def['config_file'])
+              ? $conf_def['config_file']
+              : $config_code));
+}
+
+function get_conf_info($config_code)
+{
+    $tbl_mdb_names       = claro_sql_get_main_tbl();
+    $tbl_tool            = $tbl_mdb_names['tool'];
+    $tbl_config_file     = $tbl_mdb_names['config_file'];
+    $tbl_rel_tool_config = $tbl_mdb_names['rel_tool_config'];
+
+    $sql_get_conf_info = 'SELECT `cfg`.`config_code` `config_code`, 
+                                 `cfg`.`config_hash` `config_hash`,  
+                                 `r_t_cfg`.*, 
+                                 `r_t_cfg`.`claro_label` `claro_label`, 
+                                 `t`.`icon` `icon`
+                                 
+                          FROM `'.$tbl_config_file.'` `cfg`
+                          LEFT JOIN `'.$tbl_rel_tool_config.'` `r_t_cfg`
+
+                           ON `cfg`.`config_code` = `r_t_cfg`.`config_code` 
+                          LEFT JOIN `'.$tbl_tool.'` `t`
+                           ON `t`.`claro_label`  = `r_t_cfg`.`claro_label`
+                           
+                           WHERE `cfg`.config_code = "'.$config_code.'"';    
+
+    
+    $conf_info = claro_sql_query_fetch_all($sql_get_conf_info);
+    $conf_info[0]['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config_code))&&$conf_info['config_hash'] != md5_file(claro_get_conf_file($config_code)));
+    return $conf_info[0];
 }
 
 function claro_get_def_file($config_code)
@@ -444,7 +513,7 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
             $valueToWrite  = $storedProperty['propValue']; 
             $container     = $conf_def_property_list[$storedProperty['propName']]['container'];
             $description   = $conf_def_property_list[$storedProperty['propName']]['$description'];
-            if ($conf_def_property_list[$storedProperty['propName']]['type']!='boolean') 
+            if (strtolower($conf_def_property_list[$storedProperty['propName']]['type'])!='boolean') 
             {
                 $valueToWrite = "'".$valueToWrite."'";   
             }
@@ -520,15 +589,54 @@ function parse_config_file($confFileName)
 
 
 
-function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property)
+function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $currentValue=NULL)
 {
+    global $langFirstDefOfThisValue;
+    //var_dump::display($conf_def_property_list);
+    //var_dump::display($property);
+    //var_dump::display($currentValue);
+    $currentValue = (is_bool($currentValue)?($currentValue?'TRUE':'FALSE'):$currentValue);
     $htmlPropDesc = ($conf_def_property_list['description']?'<div class="propDesc">'.nl2br(htmlentities($conf_def_property_list['description'])).'</div><br />':'');
     $htmlPropName = 'prop['.($property).']';
     $htmlPropLabel = (isset($conf_def_property_list['label'])?htmlentities($conf_def_property_list['label']):$htmlPropName);
-    $htmlPropValue = isset($conf_def_property_list['actualValue'])?$conf_def_property_list['actualValue']:$conf_def_property_list['default'];
+    
+    if (isset($currentValue)&&$currentValue!=$conf_def_property_list['actualValue']) 
+    {
+        $htmlPropValue = $currentValue;
+        $htmlPropDefault = (isset($conf_def_property_list['actualValue'])
+                           ?'<span class="buffer"> In buffer : '
+                            .$conf_def_property_list['actualValue']
+                            .'</span><br />'
+                           :''
+                           ).(isset($conf_def_property_list['actualValue'])
+                            ?'<span class="default"> Default : '
+                             .$conf_def_property_list['default']
+                             .'</span><br />'
+                            :'<span class="firstDefine">'
+                             .$langFirstDefOfThisValue
+                             .'</span>'
+                             .'<br>'
+                            )
+                          ;
+        $htmlPropDefault .= 'diff buffer conf';
+    }
+    else 
+    {
+        $htmlPropValue = isset($conf_def_property_list['actualValue'])?$conf_def_property_list['actualValue']:$conf_def_property_list['default'];
+        $htmlPropDefault = isset($conf_def_property_list['actualValue'])
+                           ?'<span class="default">'
+                          .'Default : '
+                           .$conf_def_property_list['default']
+                           .'</span><br />'
+                           :'<span class="firstDefine">'
+                           .$langFirstDefOfThisValue
+                           .'</span>'
+                           .'<br>'
+                           ;
+        $htmlPropDefault .= 'normal value';
+    }
     $size = (int) strlen($htmlPropValue);
     $size = 2+(($size > 90)?90:(($size < 15)?15:$size));
-    $htmlPropDefault = isset($conf_def_property_list['actualValue'])?'<span class="default"> Default : '.$conf_def_property_list['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
     $htmlUnit = (isset($conf_def_property_list['unit'])?''.htmlentities($conf_def_property_list['unit']).' ':'');
     
     if (isset($conf_def_property_list['display']) 
@@ -548,7 +656,7 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property)
         {
        	    case 'boolean' : 
    	        case 'enum' : 
-                echo (isset($conf_def_property_list['acceptedValue'][$htmlPropValue])?$conf_def_property_list['acceptedValue'][$htmlPropValue]:$htmlPropValue);
+                echo (isset($conf_def_property_list['acceptedval'][$htmlPropValue])?$conf_def_property_list['acceptedval'][$htmlPropValue]:$htmlPropValue);
         		break;
        	    case 'integer' : 
    	        case 'string' : 
@@ -564,12 +672,6 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property)
     switch($conf_def_property_list['type'])
     {
    	    case 'boolean' : 
-            $htmlPropDefault = isset($conf_def_property_list['actualValue'])
-                               ?'<span class="default"> Default : '
-                               .($conf_def_property_list['acceptedValue'][$conf_def_property_list['default']]?$conf_def_property_list['acceptedValue'][$conf_def_property_list['default']]:$conf_def_property_list['default'] )
-                               .'</span><br />'
-                               :'<span class="firstDefine">!!!First definition of this value!!!</span><br />'
-                               ;
             echo '<H2>'
                 .$htmlPropLabel
                 .'</H2>'."\n"
@@ -578,26 +680,20 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property)
                 .'<span>'
                 .'<input id="'.$property.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '.($htmlPropValue=='TRUE'?' checked="checked" ':' ').' >'
                 .'<label for="'.$property.'_TRUE"  >'
-                .($conf_def_property_list['acceptedValue']['TRUE' ]?$conf_def_property_list['acceptedValue']['TRUE' ]:'TRUE' )
+                .($conf_def_property_list['acceptedval']['TRUE' ]?$conf_def_property_list['acceptedval']['TRUE' ]:'TRUE' )
                 .'</label>'
                 .'</span>'."\n"
                 .'<span>'
-                .'<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '.($htmlPropValue=='TRUE'?' ':' checked="checked" ').' ><label for="'.$property.'_FALSE" >'.($conf_def_property_list['acceptedValue']['FALSE']?$conf_def_property_list['acceptedValue']['FALSE']:'FALSE').'</label></span>'."\n"
+                .'<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '.($htmlPropValue=='TRUE'?' ':' checked="checked" ').' ><label for="'.$property.'_FALSE" >'.($conf_def_property_list['acceptedval']['FALSE']?$conf_def_property_list['acceptedval']['FALSE']:'FALSE').'</label></span>'."\n"
                 ;
     		break;
    	    case 'enum' : 
-            $htmlPropDefault = isset($conf_def_property_list['actualValue'])
-                               ?'<span class="default"> Default : '
-                               .($conf_def_property_list['acceptedValue'][$conf_def_property_list['default']]?$conf_def_property_list['acceptedValue'][$conf_def_property_list['default']]:$conf_def_property_list['default'] )
-                               .'</span><br />'
-                               :'<span class="firstDefine">!!!First definition of this value!!!</span><br />'
-                               ;
             echo '<H2>'
                 .$htmlPropLabel
                 .'</H2>'."\n"
                 .$htmlPropDesc."\n"
                 .$htmlPropDefault."\n";
-            foreach($conf_def_property_list['acceptedValue'] as  $keyVal => $labelVal)
+            foreach($conf_def_property_list['acceptedval'] as  $keyVal => $labelVal)
             {
                 echo '<span>'
                     .'<input id="'.$property.'_'.$keyVal.'"  type="radio" name="'.$htmlPropName.'" value="'.$keyVal.'"  '.($htmlPropValue==$keyVal?' checked="checked" ':' ').' >'
@@ -610,7 +706,6 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property)
     		
 //TYPE : integer, an integer is attempt
     	case 'integer' : 
-            $htmlPropDefault = isset($conf_def_property_list['actualValue'])?'<span class="default"> Default : '.$conf_def_property_list['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
             echo '<H2>'
                 .'<label for="'.$property.'">'
                 .$conf_def_property_list['label']
@@ -628,7 +723,6 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property)
     		break;
     	default:
     	// probably a string
-            $htmlPropDefault = isset($conf_def_property_list['actualValue'])?'<span class="default"> Default : '.$conf_def_property_list['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
             echo '<h2>'."\n"
                 .'<label for="'.$property.'">'
                 .$conf_def_property_list['label']
@@ -645,4 +739,32 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property)
     } // switch
 }
 
+function save_param_value_in_buffer($propName,$propValue,$config_code)
+{
+
+    $mainTblName = claro_sql_get_main_tbl();
+    $tbl_config_property = $mainTblName['config_property'];
+
+    $sql ='UPDATE 
+            `'.$tbl_config_property.'` 
+           SET propName    ="'.$propName.'", 
+               propValue   ="'.$propValue.'", 
+               lastChange  = now()
+           WHERE propName    ="'.$propName.'" 
+             AND config_code ="'.$config_code.'"
+             AND not (propValue   ="'.$propValue.'") # do not update if same value 
+             ';
+    if (!claro_sql_query_affected_rows($sql))
+    {
+        $sql ='INSERT 
+                   INTO `'.$tbl_config_property.'` 
+                   SET propName    = "'.$propName.'", 
+                       propValue   = "'.$propValue.'", 
+                       lastChange  = now(), 
+                       config_code = "'.$config_code.'"';
+        return claro_sql_query($sql);
+    }
+    else 
+        return true;
+}
 ?>
