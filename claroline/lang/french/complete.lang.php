@@ -1834,4 +1834,19 @@ $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
 $langForumDeleted = 'Forum supprimé';
 $langForumCategoryDeleted = 'Catégorie supprimée';
+$langRegisterMyCampus = "Enregistrer mon campus";
+$langAddMyCampusOnClarolineNet = "Ajouter mon campus sur le site web de Claroline";
+$langCampusRegistrationSubmitted = "Votre campus a été soumis et est en attente de validation par l'équipe de Claroline";
+$langRegisterLocalUrl = "L'URL de votre campus semble être locale.\n"
+					."Une URL accessible est nécessaire pour enregistrer votre campus.<br /><br />\n"
+					."Veuillez vérifier la valeur de 'Web base' dans la configuration de votre campus.";
+$langCountryCodeError = "Le code du pays semble incorrect.";
+$langCampusAlreadyRegistered = "Votre campus est déjà enregistré.";
+$langUnkownSOAPError = "Une erreur est survenue lors de la tentative d'enregistrement.";
+$langCurrentStatus = "Statut de votre enregistrement : <br /> <br />\n";
+$langCampusSubmitted = "<strong>Soumis</strong><p>En attente de validation par l'équipe de Claroline.</p>";
+$langCampusRegistered = "<strong>Approuvée</strong><p>L'enregistrement de votre campus a été accepté.<br />Un lien vers votre plateforme est à présent disponible sur la page 'Worldwide' de Claroline.net</p>";
+$langCampusRemoved = "<strong>Masqué</strong><p>Votre campus n'est plus visible sur la page 'Worldwide' de Claroline.net</p>";
+$langCampusDeleted = "<strong>Supprimé</strong><p>Votre campus a été supprimé de la page 'Worldwide' de Claroline.net, contactez nous si vous pensez que c'est une erreur.</p>";
+$langCountry = "Pays";
 ?>
