@@ -221,66 +221,6 @@ if( isset($_REQUEST['submitWrk']) )
 
       $formCorrectlySent = true;
       
-      if ( is_uploaded_file($_FILES['wrkFile']['tmp_name']) && $sessionContent != "TEXT" )
-      {        
-            if ($_FILES['wrkFile']['size'] > $fileAllowedSize)
-            {
-                  $dialogBox .= $langTooBig."<br />";
-                  $formCorrectlySent = false;
-            }
-            else
-            {     
-                  // add file extension if it doesn't have one
-                  $newFileName = add_ext_on_mime($_FILES['wrkFile']['name']);
-  
-                  // Replace dangerous characters
-                  $newFileName = replace_dangerous_char($newFileName);
-                  
-                  // Transform any .php file in .phps fo security
-                  $newFileName = php2phps($newFileName);
-                  // compose a unique file name to avoid any conflict
-                  
-                  $wrkForm['fileName'] = uniqid('').$newFileName;
-                  
-                  $wrkUrl = "ws".$_REQUEST['sesId']."/".$wrkForm['fileName'];
-                  
-                  if( !is_dir( $wrkDir."ws".$_REQUEST['sesId'] ) )
-                  {
-                        mkdir( $wrkDir."ws".$_REQUEST['sesId'] , 0777 );
-                  }
-                  
-                  if( ! copy($_FILES['wrkFile']['tmp_name'], $wrkDir.$wrkUrl) )
-                  {
-                        $dialogBox .= $langCannotCopyFile."<br />";
-                        $formCorrectlySent = false;
-                  }
-                  else
-                  {
-                        // file sending shows no error
-                        // $formCorrectlySent stay true;
-                  }
-            }
-      }
-      elseif( $sessionContent == "FILE" )
-      {
-            if( isset($_REQUEST['currentWrkUrl']) )
-            {
-                  // if there was already a file and nothing was provided to replace it, reuse it of course
-                  $wrkForm['fileName'] = $_REQUEST['currentWrkUrl'];
-            }
-            else
-            {
-                  // if the main thing to provide is a file and that no file was sent
-                  $dialogBox .= $langFileRequired."<br />";
-                  $formCorrectlySent = false;
-            }
-      }
-      elseif( $sessionContent == "TEXTFILE" )
-      {
-            // attached file is optionnal if work type is TEXT and FILE
-            // $formCorrectlySent stay true;
-      }
-
       // if authorized_content is TEXT or TEXTFILE, a text is required !
       if( $sessionContent == "TEXT" || $sessionContent == "TEXTFILE" )
       {
@@ -338,6 +278,68 @@ if( isset($_REQUEST['submitWrk']) )
         $wrkForm['authors'] = $_REQUEST['wrkAuthors'];
         // $formCorrectlySent stay true;
       }
+      
+      // no need to check and/or upload the file if there is already an error
+      if($formCorrectlySent)
+      {
+            if ( is_uploaded_file($_FILES['wrkFile']['tmp_name']) && $sessionContent != "TEXT" )
+            {        
+                  if ($_FILES['wrkFile']['size'] > $fileAllowedSize)
+                  {
+                        $dialogBox .= $langTooBig."<br />";
+                        $formCorrectlySent = false;
+                  }
+                  else
+                  {     
+                        // add file extension if it doesn't have one
+                        $newFileName = add_ext_on_mime($_FILES['wrkFile']['name']);
+        
+                        // Replace dangerous characters
+                        $newFileName = replace_dangerous_char($newFileName);
+                        
+                        // Transform any .php file in .phps fo security
+                        $newFileName = php2phps($newFileName);
+                        // compose a unique file name to avoid any conflict
+                        
+                        $wrkForm['fileName'] = uniqid('').$newFileName;
+                        
+                        $wrkUrl = "ws".$_REQUEST['sesId']."/".$wrkForm['fileName'];
+                        
+                        if( !is_dir( $wrkDir."ws".$_REQUEST['sesId'] ) )
+                        {
+                              mkdir( $wrkDir."ws".$_REQUEST['sesId'] , 0777 );
+                        }
+                        
+                        if( ! copy($_FILES['wrkFile']['tmp_name'], $wrkDir.$wrkUrl) )
+                        {
+                              $dialogBox .= $langCannotCopyFile."<br />";
+                              $formCorrectlySent = false;
+                        }
+                        // else : file sending shows no error
+                        // $formCorrectlySent stay true;
+                  }
+            }
+            elseif( $sessionContent == "FILE" )
+            {
+                  if( isset($_REQUEST['currentWrkUrl']) )
+                  {
+                        // if there was already a file and nothing was provided to replace it, reuse it of course
+                        $wrkForm['fileName'] = $_REQUEST['currentWrkUrl'];
+                  }
+                  else
+                  {
+                        // if the main thing to provide is a file and that no file was sent
+                        $dialogBox .= $langFileRequired."<br />";
+                        $formCorrectlySent = false;
+                  }
+            }
+            elseif( $sessionContent == "TEXTFILE" )
+            {
+                  // attached file is optionnal if work type is TEXT and FILE
+                  // $formCorrectlySent stay true;
+            }
+      }// if($formCorrectlySent)
+            
 } //end if($_REQUEST['submitWrk'])
 
 
@@ -843,10 +845,11 @@ if( $dispWrkDet && $is_allowedToView )
                   ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a>";
       }
       
-      if( $is_allowedToEditAll )
+      // 
+      if( $is_allowedToEditAll && empty($wrk['parent_id']) )
       {
             // correction / grading
-            echo "&nbsp;[&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">".$langGradeSubmission."grade</a>&nbsp;]";
+            echo "&nbsp;[&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">".$langGradeWork."</a>&nbsp;]";
       }
       
       
@@ -1006,9 +1009,10 @@ if( $dispWrkLst && $is_allowedToView )
           
     if ( $is_allowedToEditAll ) 
     {
-        echo  "<th>".$langModify."</th>\n"
-              ."<th>".$langDelete."</th>\n"
-              ."<th>".$langVisibility."</th>\n";
+        echo  "<th>".$langGradeWork."</th>\n"
+            ."<th>".$langModify."</th>\n"
+            ."<th>".$langDelete."</th>\n"
+            ."<th>".$langVisibility."</th>\n";
     }
     echo "</tr>\n\n"
         ."<tbody>\n\n";
@@ -1041,8 +1045,9 @@ if( $dispWrkLst && $is_allowedToView )
       
       $spacingString = "";
       for($i = 0; $i < $thisWrk['children']; $i++)
-        $spacingString .= "<td width=\"5\">&nbsp;</td>";
+        $spacingString .= "<td width=\"5\">&gt;</td>";
       $colspan = $maxDeep - $thisWrk['children']+1;
+      
       
       echo "<tr align=\"center\"".$style." >\n"
           .$spacingString
@@ -1056,11 +1061,20 @@ if( $dispWrkLst && $is_allowedToView )
       
       
       if( $is_allowedToEditAll )
-      {
-        echo "<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&sesId="
-            .$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\">"
+      { 
+        if( empty($thisWrk['parent_id']) )
+        {
+            $gradeString  = "[&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">".$langGradeWork."</a>&nbsp;]";
+        }
+        else
+        {
+            $gradeString = "&nbsp;";
+        }
+        echo "<td>".$gradeString."</td>" 
+            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a></td>\n"
-            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\"><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\"></a></td>\n"
+            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\">"
+            ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\"></a></td>\n"
             ."<td>";
         if ($thisWrk['visibility'] == "INVISIBLE")
         {
