@@ -246,6 +246,11 @@ else
                     //first login for a not self registred
                     //e.g. registered by a teacher
                     //do nothing (code may be added later)
+		            $sql = "UPDATE `".$mainDbName."`.`user`
+							SET creatorId=user_id
+							WHERE user_id='".$_uid."'";
+
+					claro_sql_query($sql);
                 }
             }
             else // no standard claroline login - try external authentification
