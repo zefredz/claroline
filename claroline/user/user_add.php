@@ -15,16 +15,20 @@
 /*==========================
             INIT
   ==========================*/
+// Status definition
+
+define ("STUDENT"      , 5);
+define ("COURSEMANAGER", 1);
 
 $langFile="registration";
 $tlabelReq = "CLUSR___";
 
 require '../inc/claro_init_global.inc.php';
+if (! ($is_courseAdmin || $is_platformAdmin)) claro_disp_auth_form();
+
 @include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/conf/profile.conf.inc.php");
-include($includePath.'/lib/claro_mail.lib.inc.php');		
-
-if (! ($is_courseAdmin || $is_platformAdmin)) claro_disp_auth_form();
+include($includePath.'/lib/claro_mail.lib.inc.php');
 
 
 $nameTools        = $langAddAU;
@@ -36,18 +40,15 @@ claro_disp_tool_title(array('mainTitle' =>$nameTools, 'subTitle' => $langUsers),
 
 $currentCourseID   = $_course['sysCode'];
 $currentCourseName = $_course['officialCode'];
-$tbl_user          = "user";
-$tbl_courseUser    = "cours_user";
 
-// Status definition
-
-define ("STUDENT"      , 5);
-define ("COURSEMANAGER", 1);
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user            = $tbl_mdb_names['user'             ];
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 
 // variables
 
 $platformRegSucceed = false;
-
 
 /*==========================
          DATA CHECKING
@@ -112,10 +113,10 @@ if($register)
 	if($dataChecked)
 	{
 		$result=claro_sql_query("SELECT user_id,
-		                       (username='$username_form') AS loginExists,
-		                       (nom='$nom_form' AND prenom='$prenom_form' AND email='$email_form') AS userExists
-		                     FROM $tbl_user
-		                     WHERE username='$username_form' OR (nom='$nom_form' AND prenom='$prenom_form' AND email='$email_form')
+		                       (username='".$username_form."') AS loginExists,
+		                       (nom='".$nom_form."' AND prenom='".$prenom_form."' AND email='".$email_form."') AS userExists
+		                     FROM `".$tbl_user."`
+		                     WHERE username='".$username_form."' OR (nom='".$nom_form."' AND prenom='".$prenom_form."' AND email='".$email_form."')
 		                     ORDER BY userExists DESC, loginExists DESC");
 
 		if(mysql_num_rows($result))
@@ -166,7 +167,7 @@ if($register)
 		if ($userPasswordCrypted) $pw = md5($password_form);
 		else                      $pw = $password_form;
 
-		$result = claro_sql_query("INSERT INTO $tbl_user
+		$result = claro_sql_query("INSERT INTO `".$tbl_user."`
 		                       SET nom         = \"$nom_form\",
 		                           prenom      = \"$prenom_form\",
 		                           username    = \"$username_form\",
@@ -205,12 +206,12 @@ if($register)
 		 * check the return value of the query
 		 * if 0, the user is already registered to the course
 		 */
-
-		if (claro_sql_query("INSERT INTO $tbl_courseUser
-						SET user_id     = '$userId',
-							code_cours  = '$currentCourseID',
-							statut      = '$admin_form',
-							tutor       = '$tutor_form'"))
+		 
+		if (claro_sql_query("INSERT IGNORE INTO `".$tbl_rel_course_user."`
+						SET user_id     = '".$userId."',
+							code_cours  = '".$currentCourseID."',
+							statut      = '".$admin_form."',
+							tutor       = '".$tutor_form."'"))
 		{
 			$courseRegSucceed = true;
 		}
