@@ -42,7 +42,7 @@ if ( ! $is_courseAllowed) die ("<center>Not allowed</center>");
 
 //stats
 @include($includePath."/lib/events.lib.inc.php");
-event_access_tool($_tid);
+event_access_tool($nameTools);
 
 $TABLECOURSEDESCRIPTION = $_course['dbNameGlu']."course_description";
 $is_allowedToEdit = $is_courseAdmin;
