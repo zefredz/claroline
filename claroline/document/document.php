@@ -868,6 +868,27 @@ if ($parentDir == '/' || $parentDir == '\\')
 
 if ($cmd == 'exSearch')
 {
+    if (! $is_allowedToEdit && $courseContext)
+    {
+        // Build an exclude file list to prevent simple user 
+        // to see document contained in "invisible" directories
+
+        $sql = "SELECT path FROM `".$dbTable."` 
+                WHERE visibility ='i'";
+
+        $searchExcludeList = claro_sql_query_fetch_all_cols($sql);
+        $searchExcludeList = $searchExcludeList['path'];
+
+        for( $i=0; $i < count($searchExcludeList); $i++ )
+        {
+            $searchExcludeList[$i] = $baseWorkDir.$searchExcludeList[$i];
+        }
+    }
+    else
+    {
+      $searchExcludeList = array();
+    }
+
     $searchPattern   = $_REQUEST['searchPattern'];
 
     $searchPattern   = str_replace('.', '\\.', $searchPattern);
@@ -883,18 +904,21 @@ else
     $searchPattern   = '||';
     $searchRecursive = false;
     $searchBasePath  = $baseWorkDir.$curDirPath;
+    $searchExcludeList = array();
 }
 
 $filePathList = claro_search_file($searchPattern, 
                                   $searchBasePath, 
-                                  $searchRecursive);
+                                  $searchRecursive,
+                                  'ALL',
+                                  $searchExcludeList);
 
 for ($i =0; $i < count($filePathList); $i++ )
 {
     $filePathList[$i] = str_replace($baseWorkDir, '', $filePathList[$i]);
 }
 
-if ($cmd == 'exSearch')
+if ($cmd == 'exSearch' && $courseContext)
 {
 	$sql = "SELECT path FROM `".$dbTable."` 
             WHERE comment LIKE '%".addslashes($searchPattern)."%'";
