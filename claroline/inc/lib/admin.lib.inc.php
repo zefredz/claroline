@@ -796,12 +796,15 @@ function add_user($name,$surname,$email,$phone,$admincode,$username,$password,$t
  *
  * @param  int     $userId     user ID from the course_user table
  * @param  string  $courseCode course code from the cours table
+ * @param boolean $force_it if true : it means we must'nt check if subcription is the course is set to allowed or not
+ *                          if false : (default value) it means we must take account of the subscription setting 
+ *
  *
  * @return boolean TRUE        if subscribtion suceed
  *         boolean FALSE       otherwise.
  */
 
-function add_user_to_course($userId, $courseCode)
+function add_user_to_course($userId, $courseCode, $force_it=false)
 {
 	$tbl_mdb_names = claro_sql_get_main_tbl();
 	$tbl_course           = $tbl_mdb_names['course'           ];
@@ -843,7 +846,7 @@ function add_user_to_course($userId, $courseCode)
                                         WHERE  code = \"".$courseCode."\"
                                         AND    (visible = 0 OR visible = 3)");
 
-                if (mysql_num_rows($handle) > 0)
+                if ((mysql_num_rows($handle) > 0) && !($force_it))
                 {
                     return false; // subscribtion not allowed for this course
                 }

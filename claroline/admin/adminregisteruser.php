@@ -71,7 +71,7 @@ switch ($cmd)
         {
            if (!isRegisteredTo($user_id, $cidToEdit))    //..add user and set as teacher
            {
-               $done = add_user_to_course($user_id, $cidToEdit);
+               $done = add_user_to_course($user_id, $cidToEdit,true);
                $properties['status'] = 1;
                $properties['role']   = "Professor";
                $properties['tutor']  = 1;
@@ -89,7 +89,7 @@ switch ($cmd)
         {
           if (!isRegisteredTo($user_id, $cidToEdit)) //add new user (student is default)
           {
-                $done = add_user_to_course($user_id, $cidToEdit);
+                $done = add_user_to_course($user_id, $cidToEdit,true);
 
           }
           else                   // only set as student
