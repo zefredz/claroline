@@ -1,5 +1,5 @@
-<?php # $Id$
-// diskUsage
+<?php // $Id$
+// This  tool comput the disk Usage of each course.
 
 $langFile = "admin.disk.usage";
 require '../../inc/claro_init_global.inc.php';
@@ -21,11 +21,9 @@ claro_disp_tool_title(
 	'mainTitle'=>$nameTools,
 	'subTitle'=> $siteName." - ".$clarolineVersion." - ".$dateNow
 	)
-	);
+);
 
 echo $langCourse_Repository." : ".$coursesRepositorySys."<BR>".$langMysql_Repository." : ".($mysqlRepositorySys?$mysqlRepositorySys:"!!! ".$langMissing)."<BR>";
-
-
 
 ?>
 <UL>
@@ -68,7 +66,7 @@ if ($display_all_size_of_garbageRepositorySys )
 			$resCoursesSel= mysql_query_dbg($sqlListCoursesSel);
 			while ($courseSel = mysql_fetch_array($resCoursesSel,MYSQL_ASSOC))
 			{
-				echo "\t<option value=\"".$courseSel[sysCode]."\" >".$courseSel[officialCode]."</option>\n";
+				echo "\t<option value=\"".$courseSel['sysCode']."\" >".$courseSel['officialCode']."</option>\n";
 			}
 			mysql_free_result($resCoursesSel);
 
@@ -178,7 +176,7 @@ function getdbsize($tdb)
 		$size = 0;
 		while ($data = mysql_fetch_array($result))
 		{
-			$size = $size + $data["Data_length"] + $data["Index_length"];
+			$size = $size + $data['Data_length'] + $data['Index_length'];
 		}
 		return $size;
 	}
