@@ -62,7 +62,7 @@ $tbl_group_team              = $tbl_cdb_names['group_team'             ];
 // (needed to give or refuse selfreg right)
 
 $sql = "SELECT COUNT(id) qtyMember
-        FROM `".$tbl_group_team."`
+        FROM `".$tbl_group_rel_team_user."`
         WHERE `team` = '".$_gid."'";
 
 list($result) = claro_sql_query_fetch_all($sql);
