@@ -28,9 +28,8 @@ include($includePath."/claro_init_header.inc.php");
 include($includePath."/lib/events.lib.inc.php");
 event_access_tool($nameTools);
 
+$titleElement['mainTitle'] = $nameTools;
+if ( $_gid ) $titleElement['subTitle'] = $_group['name'];
 
+claro_disp_tool_title($titleElement);
 ?>
-<h3>
-<?php echo $nameTools ?>
-<?php   echo $_gid ?"<br><small>".$_group['name']."</small>":"" ?></h3>
-
