@@ -2,18 +2,19 @@
 /**
  * @version CLAROLINE 1.6
  * ----------------------------------------------------------------------
- * @Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @Copyright (c) 2001-2005 UniversitÃ© catholique de Louvain (UCL)
  * ----------------------------------------------------------------------
  * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
  * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
  * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
  * 
- * @Author : Christophe Gesché <moosh@claroline.net>
+ * @author : Christophe GeschÃ© <moosh@claroline.net>
  */
 
 require '../../inc/claro_init_global.inc.php';
 
-
+$langNoFunctionInThisSection = 'No functions in this extention';
+$langFunctions = 'Functions list';
 $nameTools = $lang_php_info;
 $interbredcrump[]= array ("url"=>"..", "name"=> $langAdmin);
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langTechnical);
@@ -99,22 +100,24 @@ if ($is_allowedToAdmin)
 		@sort($extensions);
 		foreach($extensions as $extension)
 		{
-			echo "$extension &nbsp; <a href=\"".$_SERVER['PHP_SELF']."?to=ext&ext=$extension\" >fonctions</a><br>\n";
+			echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?to=ext&amp;ext='.$extension.'" >'.$langFunctions.'</a><br>'."\n";
 			if ($extension==$ext)
 			{
-				echo "
-	<OL>";
 				$functions = @get_extension_funcs($ext);
 				@sort($functions);
-				foreach($functions as $function)
+				if (is_array($functions))
 				{
-					print "
-		<LI>
-			$function
-		</li>";
+    				echo '<OL>';
+    				foreach($functions as $function)
+    				{
+    					print '<LI>'.$function.'</li>';
+    				}
+    				echo '</OL>';
 				}
-				echo "
-			</OL>";
+				else 
+				{
+				    echo '!! '.$langNoFunctionInThisSection.'!!<BR>';
+				}
 			}
 		}
 	}
@@ -142,7 +145,7 @@ teachers and developers scattered around the world. It recycles entire programs
 or pieces of code found in the vast programmes and scripts library of the
 GPL Open Source internet mediated community. Thomas De Praetere initiated the process of gathering
 this code together and was quickly followed by Hugues Peeters (who coined the name "claroline") and Christophe
-Gesché. Next came Andrew Lynn, Emmanuel Pecquet, Emmanuel Mathot,
+Geschï¿½. Next came Andrew Lynn, Emmanuel Pecquet, Emmanuel Mathot,
 Akira Yoshii, Dennis Daniels, Furio Petrossi, Francis Dubois, Maria Jose
 Rodriges Malmierca and many others.<br>
 
@@ -150,7 +153,7 @@ Rodriges Malmierca and many others.<br>
 <ul>
 
         <li>
-          <a href="http://www.ucl.ac.be">Université catholique de Louvain</a> encouraged us at  <a href="http://www.ipm.ucl.ac.be/">Institut de Pédagogie universitaire et des Multimédias</a> (Institute for Education and Multimedia) to develop and distribute this software,</li>
+          <a href="http://www.ucl.ac.be">Universitï¿½ catholique de Louvain</a> encouraged us at  <a href="http://www.ipm.ucl.ac.be/">Institut de Pï¿½dagogie universitaire et des Multimï¿½dias</a> (Institute for Education and Multimedia) to develop and distribute this software,</li>
 
 
 <li>
@@ -196,10 +199,10 @@ Furio  Petrossi&nbsp; (<a href="mailto:Furio.Petrossi@scuolefvg.org">Furio.Petro
 
               </li><li>Spanish : Xavier Casassas ( <a href="mailto:xcc@mail.ics.co.at">xcc@mail.ics.co.at</a>),
 Jorge Gonzales (&nbsp;<a href="mailto:jgonzalez@athenasoft.com.mx">jgonzalez@athenasoft.com.mx</a>),
-Javier&nbsp;Picado Ladrón de Guevara (<a href="mailto:jpicado@eurosur.com">jpicado@eurosur.com</a>),
+Javier&nbsp;Picado Ladrï¿½n de Guevara (<a href="mailto:jpicado@eurosur.com">jpicado@eurosur.com</a>),
 Oda Begares (<a href="mailto:begaeres@arch.ucl.ac.be">begaeres@arch.ucl.ac.be</a>),</li>
 
-<li>Thaï : Sutas Jitchuen (<a href="mailto:dtsjc@mucc.mahidol.ac.th">dtsjc@mucc.mahidol.ac.th</a>).</li></ul><br>
+<li>Thaï¿½ : Sutas Jitchuen (<a href="mailto:dtsjc@mucc.mahidol.ac.th">dtsjc@mucc.mahidol.ac.th</a>).</li></ul><br>
 </li><li>Main Database structure and authentication process are inspired from <a href="http://www.phpnuke.org/">PhpNuke</a>,</li>
         <li>Course Home Page Layout is inspired from Yahoo,</li>
         <li>Forum tool is adapted from <a href="http://www.phpbb.com/">phpBB,</a></li>
@@ -225,7 +228,7 @@ Oda Begares (<a href="mailto:begaeres@arch.ucl.ac.be">begaeres@arch.ucl.ac.be</a
 
             <li>
 Thanks also to Denis Daniel, Jean-Pierre Mitsch,
-Paul Muraille, Bret Watson, Jan Olsson, Carlos Seabra, Damien Séguy,
+Paul Muraille, Bret Watson, Jan Olsson, Carlos Seabra, Damien Sï¿½guy,
 Giuseppe Filice.</li>
 <hr size="1" noshade="">
 
