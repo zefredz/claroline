@@ -15,7 +15,7 @@
  * function delete_groups($groupIdList = 'ALL')
  * deletes groups and their datas.
  *
- * @author Christophe Gesche <christophe.gesche@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  *
  * @param  mixed   $groupIdList - group(s) to delete. It can be a single id
@@ -113,7 +113,7 @@ function delete_groups($groupIdList = 'ALL')
 
 		// define repository for deleted element
 
-		$groupGarbage =	$garbageRepositorySys.$currentCourseRepository."/group/";
+		$groupGarbage =	$garbageRepositorySys."/".$currentCourseRepository."/group/";
 		if ( ! file_exists($groupGarbage) ) mkdirs($groupGarbage, '0777');
 
 		foreach($groupList['directory'] as $thisDirectory)
