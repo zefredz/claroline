@@ -40,7 +40,6 @@ $currentUserFirstName       = $_user['firstName'];
 $currentUserLastName        = $_user['lastName'];
 
 
-
 $nameTools = $langWorks;
 // to prevent parameters to be added in the breadcrumb
 $QUERY_STRING=''; 
@@ -423,7 +422,7 @@ if($is_allowedToEdit)
       $form['defSubVis'         ] = "VISIBLE";
       $form['sessionType'       ] = "INDIVIDUAL";
       $form['allowAnonymous'    ] = "YES";
-      $form['allowLateUpload' ] = "YES";
+      $form['allowLateUpload' ] = "NO";
     }
     else
     {
