@@ -88,7 +88,7 @@ if ( mysql_num_rows($res) >0 )
 <h4>
 	".$bloc["title"]."
 </h4>
-".make_clickable(claro_parse_user_text($bloc["content"]));
+". claro_parse_user_text($bloc["content"]);
 	}
 }
 

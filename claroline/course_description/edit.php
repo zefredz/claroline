@@ -247,7 +247,7 @@ if (count($listExistingBloc)>0)
 	</TR>
 	<TR>
 		<TD colspan="2">
-			'.make_clickable(claro_parse_user_text($contentBloc[$numBloc]))."
+			'.claro_parse_user_text($contentBloc[$numBloc])."
 		</TD>
 	</TR>";
 			}
@@ -307,7 +307,12 @@ if (count($listExistingBloc)>0)
 		<td valign="top">		
 			<p>
 				<label for="edContentBloc"><?php echo $langContenuPlan ?></label>
-				<textarea cols="40" rows="10" name="edContentBloc" id="edContentBloc" wrap="virtual"><?php echo $contentBloc ?></textarea>
+<?
+            claro_disp_html_area('edContentBloc', $contentBloc, 20, 80, $optAttrib=' wrap="virtual"');
+?>
+
+
+
 			</p>
 		</td>
 <?php 
