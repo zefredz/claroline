@@ -38,7 +38,8 @@
   require '../../inc/claro_init_global.inc.php';
   
   // header
-  $hide_banner=TRUE;
+  $hide_banner = true;
+  $hide_body = true;
   include($includePath."/claro_init_header.inc.php");
   // footer
   include($includePath."/claro_init_footer.inc.php");
