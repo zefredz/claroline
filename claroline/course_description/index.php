@@ -58,11 +58,12 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 if ($is_allowedToEdit)
 {
 ?>
-<a class="claroCmd" href="edit.php"><?php echo $langEditCourseProgram ?></a>
+
+<p><a class="claroCmd" href="edit.php"><?php echo $langEditCourseProgram ?></a></p>
 
 <?php
 }
-echo "\n\n";
+
 if (count($blocList))
 {
     foreach($blocList as $thisBloc)
