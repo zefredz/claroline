@@ -15,13 +15,16 @@
  * This script display list of configuration file
  */
 
+$cidReset=true;
+$gidReset=true;
+
 // include init and library files
 
 require '../../inc/claro_init_global.inc.php';
 
 include($includePath.'/lib/debug.lib.inc.php');
 include($includePath.'/lib/course.lib.inc.php');
-include($includePath.'/lib/config.lib.inc.php');
+include('config.lib.inc.php');
 
 // define
 $langConfiguration          = 'Configuration';
@@ -81,7 +84,7 @@ if ( !empty($controlMsg) )
 // Get the list of definition files. 
 // Each one corresponding to a config file.
 
-$def_list = get_group_of_def_list();
+$def_list = get_def_file_list();
 
 if ( is_array($def_list) )
 {
