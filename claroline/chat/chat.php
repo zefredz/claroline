@@ -25,10 +25,10 @@ if (is_array($paramList))
 
 <head><title></title></head>
 
-	<frameset rows="*,*,*" marginwidth="0" frameborder="NO" border="0">
-		<frame src="chat_header.php" name="topBanner">
+	<frameset rows="215,*,120" marginwidth="0" frameborder="yes">
+		<frame src="chat_header.php" name="topBanner" scrolling="no">
 		<frame src="messageList.php#final<?php echo $paramLine ?>" name="messageList">
-		<frame src="messageEditor.php" name="messageEditor">
+		<frame src="messageEditor.php" name="messageEditor" scrolling="no">
 	</frameset>
 
 </html>
