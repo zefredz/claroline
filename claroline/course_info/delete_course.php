@@ -1,5 +1,4 @@
 <?php # $Id$
-
 /*
 +----------------------------------------------------------------------+
 | CLAROLINE 1.6
@@ -26,8 +25,8 @@ if (isset($cidToEdit) && ($is_platformAdmin))
     $currentCourseId   = $cidToEdit;
     $cidReq            = $cidToEdit;
     $isAllowedToDelete = true;
-    $addToURL          = "&cidToEdit=".$cidToEdit;
-    $addToURL         .="&cfrom=".$cfrom;
+    $addToURL          = "&amp;cidToEdit=".$cidToEdit;
+    $addToURL         .="&amp;cfrom=".$cfrom;
 }
 else
 {
@@ -82,16 +81,16 @@ if($isAllowedToDelete)
 
           // DELETE CONFIRMATION MESSAGE
 
-        event_default("DELETION COURSE",array ("courseName"=>$currentCourseName, "_uid"=> $_uid));
-        echo     "<p>"
-                .$langCourse." &quot;".$currentCourseName."&quot; "
-                ."(",$currentCourseCode,") "
-                .$langHasDel."</p>";
+        event_default("DELETION COURSE",array ("courseName"=>addslashes($currentCourseName), "uid"=> $_uid));
+        echo     '<p>'
+                .$langCourse.' &quot;'.$currentCourseName.'&quot; '
+                .'('.$currentCourseCode.') '
+                .$langHasDel.'</p>';
 
-        echo     "<p>"
-                ."<a href=\"../../index.php\">"
-                .$langBackHome." ". $siteName
-                ."</a>"
+        echo     '<p>'
+                .'<a href="../../index.php">'
+                .$langBackHome.' '. $siteName
+                .'</a>'
                 ;
         if (isset($cidToEdit))    //we can suppose that script is accessed from admin tool in this case
         {
