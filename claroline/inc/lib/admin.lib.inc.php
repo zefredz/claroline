@@ -419,9 +419,13 @@ function backup_course($cid)
 function update_user_course_properties($user_id, $course_id, $properties)
 {
     global $tbl_courseUser,$_uid;
-        $sqlChangeStatus = "";
-        if ($user_id != $_uid)
-            $sqlChangeStatus = "`statut`     = \"".$properties['status']."\",";
+    
+    $sqlChangeStatus = "";
+    
+    //if ($user_id != $_uid) //do we allow user to change his own settings? what about course without teacher?
+         
+    $sqlChangeStatus = "`statut` = \"".$properties['status']."\",";
+    
     $result = claro_sql_query("UPDATE `$tbl_courseUser`
                             SET     `role`       = \"".$properties['role']."\",
                                     ".$sqlChangeStatus."
