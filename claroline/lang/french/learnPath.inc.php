@@ -15,12 +15,11 @@
    $langVisible="Visibilit&eacute;";
    $langBlock = "Bloquer";
    $langProgress = "Progression";
-   $langIntroLearningPath="Utiliser cet outils pour fournir à vos apprenants un parcours s&eacute;quentiel d&eacute;fini par vos soins entre des documents, exercices, pages HTML, liens... ou importer des contenus SCORM existants<BR><BR>Si vous désirez ajouter un texte d'introduction, cliquer sur ce bouton.<br>";
+   $langIntroLearningPath="Utilisez cet outil pour fournir à vos apprenants un parcours s&eacute;quentiel d&eacute;fini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants<br /><br />Si vous désirez ajouter un texte d'introduction, cliquer sur ce bouton.<br />";
 
    $langStartModule = "Commencer le module";
    $langModuleAdmin = "Administration du module";
-   $langModuleHelpHandmade = "Liste des ressources utilis&eacute;es dans ce module.<br /> La ressource de d&eacute;marrage est le point d'entr&eacute;e des apprenants dans le module, la premi&egrave;re page qui leur sera montr&eacute;e.<br /> Un module sans aucune ressource de d&eacute;marrage d&eacute;finie ne sera pas rendu accessible aux apprenants!<br /> Rappelez-vous que les apprenants naviguerons dans le module en utilsant les liens que vous int&eacute;grerez dans vos pages.";
-   $langModuleHelpDocument = "Vous pouvez choisir un document qui remplacera l'actuel docuement de ce module.";
+   $langModuleHelpDocument = "Vous pouvez choisir un document qui remplacera l'actuel document de ce module.";
    $langAsset = "Ressource";
    $langStartAsset = "Ressource de d&eacute;marrage";
 
@@ -29,13 +28,10 @@
    $langRemoveFromLPLong = "Retirer de ce parcours p&eacute;dagogique";
    $langComment = "Commentaire";
    $langModuleType = "Type";
-   $langAccess = "Accessibilit&eacute;";
    $langAddModulesButton = "Ajouter le(s) module(s)";
    $langAddOneModuleButton = "Ajouter le module";
    $langInsertNewModuleName="Ins&eacute;rer le nouveau nom";
    $langModifyCommentModuleName="Ins&eacute;rer un nouveau commentaire pour";
-   $langShareWithOtherCourse="Cliquez pour partager ce module avec les modules des autres cours";
-   $langStopShare="Cliquez pour cacher ce module aux professeurs des autres cours";
 
    $langGlobalProgress = "Progression du parcours p&eacute;dagogique : ";
 
@@ -52,8 +48,7 @@
    $langAltMakeInvisible = "Rendre invisible";
    $langAltMakeBlocking = "Rendre bloquant";
    $langAltMakeNotBlocking = "Rendre non bloquant";
-   $langAltPathBlocked = "Les apprenants doivent finir le dernier module de ce parcours pour acc&eacute;der aux parcours suivants";
-   $langAltPathNotBlocked = "Les apprenants peuvent acc&eacute;der aux parcours suivants sans finir ce parcours";
+   
    // forms
    $langLearningPathName= "Nom du nouveau parcours : ";
    $langNewModuleName = "Nom du nouveau module name et type de contenu : ";
@@ -67,7 +62,6 @@
    $langExerciseAsModule    = "Utiliser un exercice";
    $langDocumentAsModule     =  "Utiliser un document";
    $langModuleOfMyCourse  = "Utiliser un module de ce cours";
-   $langGetModuleFromOtherCourse   = "Ajouter un module d'un autre cours";
    $langAlertBlockingMakedInvisible = "Ce module est bloquant, \\nle rendre invisible permettra aux apprenants d\'acc&eacute;der \\n aux modules suivants du parcours sans devoir r&eacute;ussir celui-ci. \\n\\nConfirmer ?";
    $langAlertBlockingPathMadeInvisible = "Ce parcours est bloquant. \\nle rendre invisible permettra aux apprenants d\'acc&eacute;der \\n aux parcours suivants sans devoir r&eacute;sussir celui-ci. \\n\\nConfirmer ?";
    $langCreateLabel = "Cr&eacute;er un titre";
@@ -93,7 +87,7 @@
    $langAreYouSureToRemoveSCORM = "Les modules conformes &agrave; SCORM sont d&eacute;finitivement effac&eacute;s du serveur lorsqu\'ils sont effac&eacute;s dans un parcours p&eacute;dagogique.";
    $langAreYouSureToRemoveStd = "Le module sera toujours accessible dans la banque de modules.";
    $langAreYouSureToRemoveLabel = "Effacer un titre efface &eacute;galement tous les titres et modules qu\'il contient.";   
-   $langAreYouSureToDeleteScorm = "Ce parcours est issu de l\'importation d'un package SCORM. Si vous effacer ce parcours, tout les contenus SCORM de ses modules seront supprimer du serveur.  Etes-vous sur de vouloir effacer le parcours p&eacute;dagogique ";
+   $langAreYouSureToDeleteScorm = "Ce parcours est issu de l\'importation d'un package SCORM. Si vous effacez ce parcours, tout les contenus SCORM de ses modules seront supprim&eacute;s du serveur.  Etes-vous sur de vouloir effacer le parcours p&eacute;dagogique ";
    $langAreYouSureToDeleteScormModule = "Etes vous sur de vouloir effacer ce module SCORM? Le module ne sera plus accessible sur le serveur.";
 
    // this var is used in javascript popup so \n are escaped to be read by javascript only
@@ -105,8 +99,6 @@
 
    // errors messages
    $langErrorNameAlreadyExists = "Erreur : Le nom existe d&eacute;j&agrave;";
-   $langErrorInvalidParms = "Erreur : param&egrave;tre invalide (utilisez seulement des nombres)";
-   $langErrorValuesInDouble = "Erreur : Une ou plusieures valeurs sont doubl&eacute;es";
 
    // insertMyModule
    $langNoMoreModuleToAdd="Tous les modules de ce cours sont d&eacute;j&agrave; utilis&eacute;s dans ce parcours.";
@@ -127,12 +119,8 @@
 
    // insertPublicModule
    $langCategories = "Cat&eacute;gories de cours";
-   $langPublicModule = "Module(s) publique(s)";
    $langClose ="Fermer";
-   $langInsertPublicModuleToolName="Ajouter un module publique";
-   $langNoPublicModule = "Pas de module publique disponible";
    $langAvailable = "module(s) disponible(s)";
-   $langImportedCourse = "Import&eacute; d'un cours";
 
    // insertMyExercise
    $langInsertMyExerciseToolName = "Ajouter mon exercice";
@@ -144,12 +132,10 @@
    // modules pool
    $langModulesPoolToolName = "Banque de modules";
    $langNoModule = "Pas de module";
-   $langUseOfPool = "Cette page vous permet de voir tous les modules disponibles dans votre cours. <br>
+   $langUseOfPool = "Cette page vous permet de voir tous les modules disponibles dans votre cours. <br />
                      Tous les exercices ou document qui ont &eacute;t&eacute; ajout&eacute; dans un parcours apparaîtront aussi dans cette liste.";
 
    //assets
-   $langStartAssetSet = "La ressource de d&eacute;marrage a &eacute;t&eacute; modifi&eacute;e";
-   $langNoMoreStartAsset = "Vous avez effac&eacute; la ressource de d&eacute;marrage.<br>Il n'y a plus de ressource de d&eacute;marrage pour ce module.";
    $langNoStartAsset = "Il n'y a pas de ressource de d&eacute;marrage d&eacute;finie pour ce module.";
 
    // module admin / exercise
