@@ -24,12 +24,12 @@
 function claro_sql_get_main_tbl()
 {
     global $mainDbName,$statsDbName, $mainTblPrefix, $statsTblPrefix;
-
     static $mainTblList = array();
 
     if ( count($mainTblList) == 0 )
     {
         $mainTblList= array (
+        'config'                    => $mainDbName.'`.`'.$mainTblPrefix.'config',
         'admin'                     => $mainDbName.'`.`'.$mainTblPrefix.'admin',
         'course'                    => $mainDbName.'`.`'.$mainTblPrefix.'cours',
         'rel_course_user'           => $mainDbName.'`.`'.$mainTblPrefix.'cours_user',
@@ -192,9 +192,9 @@ function claro_sql_fetch_all($sqlResultHandler, $resultType    = MYSQL_ASSOC)
  * in an associative array.
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>,
- * @param  string  $sql - the sql query
- * @param  handler $db  - optional
- * @return array        - associative array containing all the result rows
+ * @param  string  $sqlQuery - the sql query
+ * @param  handler $dbHandler - optional
+ * @return array   - associative array containing all the result rows
  *
  * @see    claro_sql_query(), claro_sql_fetch_all
  *
@@ -223,7 +223,7 @@ function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
 
 function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
 {
-    $result = claro_sql_query($sqlQuery, $dbHandler = '#');
+    $result = claro_sql_query($sqlQuery, $dbHandler);
 
     if ($result)
     {
@@ -552,7 +552,7 @@ function claro_disp_tool_view_option($viewModeRequested = false)
     {
         case 'COURSE_ADMIN' :
 
-            $studentButton     = '<a href="'.$url.'&viewMode=STUDENT">'
+            $studentButton     = '<a href="'.$url.'&amp;viewMode=STUDENT">'
                                  .$langStudent
                                  .'</a>';
             $courseAdminButton = '<b>'.$langCourseManager.'</b>';
@@ -562,7 +562,7 @@ function claro_disp_tool_view_option($viewModeRequested = false)
         case 'STUDENT' :
 
             $studentButton     = '<b>'.$langStudent.'</b>';
-            $courseAdminButton = '<a href="'.$url.'&viewMode=COURSE_ADMIN">'
+            $courseAdminButton = '<a href="'.$url.'&amp;viewMode=COURSE_ADMIN">'
                                  .$langCourseManager
                                  .'</a>';
             break;
@@ -696,7 +696,7 @@ function claro_set_display_mode_available($mode)
     USE claro_disp_message_box($message) INSTEAD
 
     @param $msgArrBody array of    messages
-    @author    Christophe gesché <moosh@phpFrance.com>
+    @author    Christophe gesché <moosh@claroline.net>
     @version 1.0
 
     Example    code for using this    in your    tools:
@@ -723,7 +723,7 @@ function claro_disp_msg_arr($msgArrBody)
 /**
     Display    authencation form if needed
 
-    @author    Christophe gesché <moosh@phpFrance.com>
+    @author    Christophe gesché <moosh@claroline.net>
     @version 0.1
 */
 
@@ -752,35 +752,35 @@ function claro_disp_auth_form()
                     Si vous souhaitez vous inscrire à ce cours cliquez ici.
         */
 
-        echo "<p align=\"center>\">"
-            .$lang_this_course_is_protected."<br>"
+        echo '<p align="center>">'
+            .$lang_this_course_is_protected.'<br>'
             .$lang_enter_your_user_name_and_password
-            ."</p>";
+            .'</p>';
         
         if( ! $_uid && ! $_course['visibility'])
         {
-            echo "<table align=\"center\">\n"
-                ."<tr>"
-                ."<td>"
-                ."<form action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\">\n"
+            echo '<table align="center">'."\n"
+                .'<tr>'
+                .'<td>'
+                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                 
-                ."<fieldset>\n"
+                .'<fieldset>'."\n"
                 
-                ."<legend>".$langLogin."</legend>\n"
+                .'<legend>'.$langLogin.'</legend>'."\n"
                 
-                ."<label for=\"username\">".$langUserName." : </label><br>\n"
-                ."<input type=\"text\" name=\"login\" id=\"username\"><br>\n"
+                .'<label for="username">'.$langUserName.' : </label><br>'."\n"
+                .'<input type="text" name="login" id="username"><br>'."\n"
                 
-                ."<label for=\"password\">".$langPassword." : </labeL><br>\n"
-                ."<input type=\"password\" name=\"password\" id=\"password\"><br>\n"
-                ."<input type=\"submit\" >\n"
+                .'<label for="password">".$langPassword." : </labeL><br>'."\n"
+                .'<input type="password" name="password" id="password"><br>'."\n"
+                .'<input type="submit" >'."\n"
                 
-                ."</fieldset>\n"
+                .'</fieldset>'."\n"
                 
-                ."</form>\n"
-                ."</td>"
-                ."</tr>"
-                ."</table>";
+                .'</form>'."\n"
+                .'</td>'
+                .'</tr>'
+                .'</table>';
                 
             /*
              * If users are allowed to register themselves to the platform
