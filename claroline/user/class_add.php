@@ -248,7 +248,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 			
             echo "  <td align=\"center\">\n"
 	        ."    <a onClick=\"return confirmation('",addslashes($cur_class['name']),"');\" href=\"".$_SERVER['PHP_SELF']."?cmd=subscribe&class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
-                ."      <img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" >\n"
+                ."      <img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" border=\"0\" >\n"
 	        ."    </a>\n"
 		."  </td>\n";
 	    

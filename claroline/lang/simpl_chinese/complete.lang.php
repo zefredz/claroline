@@ -225,31 +225,31 @@ $langDocContent = "<p>╫╡рЕ╡дао ╧эюМ╧╓╬ъюЮкфвюцФ╣Гдтс╕сцжп╣днд╪Ч╧эюМфВ.</p><p>дЗ©
 	  
   <li>╣Ц╩В <img src=../document/img/visible.gif width=20 height=20>н╩сз'отй╬/рЧ╡ь'ю╦.</li>
 	  <li>рЧ╡ьнд╪Ч(╩Рд©б╪)╨С,кЭ╩╧йг╢Фтз╣д,ж╩йг╤тя╖иЗря╬╜╡╩©и╪Ш.</li>	  
-  <li>р╙й╧╣цфД╤тя╖иЗ©и╪Ш, ╣Ц╩В <img src=../document/../document/img/invisible.gif width=24 height=20> 
+  <li>р╙й╧╣цфД╤тя╖иЗ©и╪Ш, ╣Ц╩В <img src=../img/invisible.gif width=24 height=20> 
 	(н╩сз'отй╬/рЧ╡ь'ю╦)</li>
 	</ul>
 	<h4>н╙нд╪Ч(╩Рд©б╪)лМ╪с╩Р╦Эпбу╙р╙</h4>
 	<ul>	  
-  <li>╣Ц╩В <img src=../document/../document/img/comment.gif width=20 height=20> 
+  <li>╣Ц╩В <img src=../img/comment.gif width=20 height=20> 
 	(н╩сз'у╙р╙'ю╦)</li>
 	  <li>тзсрио╫гоЮс╕гЬсРлНп╢пб╣ду╙р╙.</li>
 	  <li>х╥хо,╣Ц╩В<input type=submit value=OK name=submit2>
 		.</li>
 	</ul> 
-	<p>и╬ЁЩу╙р╙,╣Ц╩В <img src=../document/../document/img/comment.gif width=20 height=20>, 
+	<p>и╬ЁЩу╙р╙,╣Ц╩В <img src=../img/comment.gif width=20 height=20>, 
 	  и╬ЁЩоЮс╕гЬсР╬и╣ду╙р╙ <input type=submit value=OK name=submit22>
 	  . 
 	<hr>
 	<p>м╗╧Щ ╥жюЮ уШюМю╢вИж╞дзхщ. хГобкЫй╬:</p>
 	<h4><b>╢╢╫╗р╩╦Жд©б╪</b></h4>
 	<ul>
-	  <li>╣Ц╩В <img src=../document/../document/img/dossier.gif width=20 height=20> '╢╢╫╗д©б╪'(вСио╫г)</li>
+	  <li>╣Ц╩В <img src=../img/folder.gif> '╢╢╫╗д©б╪'(вСио╫г)</li>
 	  <li>тзоЮс╕гЬсР╪ЭхКпбд©б╪╣дцШЁф(вСио╫г)</li>
 	  <li>х╥хо,╣Ц╩В <input type=submit value=OK name=submit23>.</li>
 	</ul>
 	<h4>рф╤╞нд╪Ч(╩Рд©б╪)</h4>
 	<ul>
-	  <li>╣Ц╩В <img src=../document/../document/img/deplacer.gif width=34 height=16> 
+	  <li>╣Ц╩В <img src=../img/deplacer.gif width=34 height=16> 
 		н╩сз'рф╤╞'ю╦</li>
 	  <li>тзоЮс╕обю╜╡к╣╔(вСио)я║тЯд©╠Йнд╪Ч(╩Рд©б╪).(лАй╬: 'root' рБк╪йгря╬╜н╩сзнд╪Чд©б╪йВ╣д╤╔╡Цак,╥ЧнЯфВио╣доЮс╕ио╡Цд©б╪╡╩дэио╢╚нд╪Ч.</li>
 	  <li>х╥хо,╣Ц╩В <input type=submit value=OK name=submit232>.</li>

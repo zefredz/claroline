@@ -291,7 +291,7 @@ $langDocContent = "<p> Alati dokumenata su slièni FileManageru na vašoj radnoj p
 			</li>
 			<li>
 				Da bi te ga ponovo uèinili vidljivim, kliknite na 
-				<img src=../document/../document/img/invisible.gif width=24 height=20> 
+				<img src=../img/invisible.gif width=24 height=20> 
 				kolonu 'Vidljiv/nevidljiv'
 			</li>
 		</ul>
@@ -300,7 +300,7 @@ $langDocContent = "<p> Alati dokumenata su slièni FileManageru na vašoj radnoj p
 		</h4>
 		<ul>
 			<li>
-				klikom na <img src=../document/../document/img/comment.gif width=20 height=20> u koloni 'Primjedba'
+				klikom na <img src=../img/comment.gif width=20 height=20> u koloni 'Primjedba'
 			</li>
 			<li>
 				Utipkajte novi komentar u odgovarajuæe polje (gore desno).
@@ -310,7 +310,7 @@ $langDocContent = "<p> Alati dokumenata su slièni FileManageru na vašoj radnoj p
 			.</li>
 		</ul>
 		<p>
-		Da bi izbrisali primjedbu, kliknite na <img src=../document/../document/img/comment.gif width=20 height=20>, 
+		Da bi izbrisali primjedbu, kliknite na <img src=../img/comment.gif width=20 height=20>, 
 		obrišite staru primjedbu u polju i kliknite 
 		<input type=submit value=OK name=submit22>.
 		<hr>
@@ -325,7 +325,7 @@ $langDocContent = "<p> Alati dokumenata su slièni FileManageru na vašoj radnoj p
 		<ul>
 			<li>
 				Klikom na 
-				<img src=../document/../document/img/dossier.gif width=20 height=20>
+				<img src=../img/folder.gif>
 				'Stvaranje foldera' (na vrhu lijevo)
 			</li>
 			<li>
@@ -340,7 +340,7 @@ $langDocContent = "<p> Alati dokumenata su slièni FileManageru na vašoj radnoj p
 		</h4>
 		<ul>
 			<li>
-				Klikom na opciju <img src=../document/../document/img/deplacer.gif width=34 height=16> 
+				Klikom na opciju <img src=../img/deplacer.gif width=34 height=16> 
 				u koloni 'Pomakni'
 			</li>
 			<li>

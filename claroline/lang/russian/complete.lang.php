@@ -381,14 +381,14 @@ $langDocContent = "<p>Раздел Учебные материалы работает подобно
 	<ul>
 
   <li> Если вы хотите снова сделать документ доступным для студентов,
-	нажмите на кнопку <img src=../document/../document/img/invisible.gif
+	нажмите на кнопку <img src=../img/invisible.gif
  width=24 height=20> в столбце Видимый/невидимый</li>
 	</ul>
 	<h4>Добавить или изменить комментарий к документу (или к папке)</h4>
 	<ul>
 
   <li>Нажмите на кнопку <img
- src=../document/../document/img/comment.gif width=20 height=20>
+ src=../img/comment.gif width=20 height=20>
 	в столбце &quot;Комментарий&quot;</li>
 	  <li>Введите новый комментарий в предложенном поле, которое появится слева вверху.</li>
 	  <li>Подтвердите, нажав на кнопку &quot;OK&quot;
@@ -396,7 +396,7 @@ $langDocContent = "<p>Раздел Учебные материалы работает подобно
 		.</li>
 	</ul>
 	<p>Если вы хотите удлаить комментарий, нажмите на кнопку <img
- src=../document/../document/img/comment.gif width=20 height=20>,
+ src=../img/comment.gif width=20 height=20>,
 	  удалите старый комментарий в поле и подтвердите кнопкой &quot;OK&quot;
 	  <input type=submit value=OK name=submit22>
 	  .
@@ -406,8 +406,7 @@ $langDocContent = "<p>Раздел Учебные материалы работает подобно
 	<h4><b>Создать папку</b></h4>
 	<ul>
 	  <li>Щелкнуть на кнопке &quot;<img
- src=../document/../document/img/dossier.gif width=20
- height=20>создать папку&quot; слева вверзу на экране.</li>
+ src=../img/folder.gif>создать папку&quot; слева вверзу на экране.</li>
 	  <li>Ввести название вашей новой папки в предложенной зоне, которая появится слева вверху
 	  экрана.</li>
 	  <li>Подтвердить, нажав &quot;OK&quot;
@@ -417,7 +416,7 @@ $langDocContent = "<p>Раздел Учебные материалы работает подобно
 	<h4>Переместить документ (или папку)</h4>
 	<ul>
 	  <li>Щелкните на кнопку<img
- src=../document/../document/img/deplacer.gif width=34 height=16>
+ src=../img/deplacer.gif width=34 height=16>
 		в столбце Переместить</li>
 	  <li>Выберите папку, в которую вы хотите переместить документ или папку в 
 	  разворачивающемся списке, который появится слева вверху. 

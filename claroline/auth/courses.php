@@ -1,6 +1,6 @@
 <?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE 1.6.*
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -549,12 +549,12 @@ switch ($displayMode)
                          { 
                             echo "<td valign=\"top\" align=\"center\">\n"
                                 ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&course=".$thisCourse['code'].$inURL."\">"
-                                ."<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" alt=\"".$langEnrollAsStudent."\">"
+                                ."<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" alt=\"".$langEnrollAsStudent."\">"
                                 ."</a>\n"
                                 ."</td>\n"
                                 ."<td valign=\"top\" align=\"center\">\n"
                                 ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&asTeacher=true&course=".$thisCourse['code'].$inURL."\">"
-                                ."<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\"  alt=\"".$langEnrollAsTeacher."\">"
+                                ."<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\"  alt=\"".$langEnrollAsTeacher."\">"
                                ."</a>"
                                ."</td>\n";
                         }
@@ -562,7 +562,7 @@ switch ($displayMode)
                         {
                             echo "<td valign=\"top\"  align=\"center\">\n"
                                 ."<a href=\"".$clarolineRepositoryWeb."admin/admin_class_course_registered.php?cmd=exReg&course=".$thisCourse['code']."&class=",$classinfo['id'].$inURL."\">"
-                                ."<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"".$langEnrollClass."\">"
+                                ."<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"".$langEnrollClass."\">"
                                 ."</a>\n"
                                 ."</td>\n";
                         }
@@ -581,7 +581,7 @@ switch ($displayMode)
     				else
     				{
     					echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&course=".$thisCourse['code'].$inURL."\">"
-    						 ."<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"".$lang_enroll."\">"
+    						 ."<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"".$lang_enroll."\">"
     						 ."</a>"
                             ."</td>\n";
     				}

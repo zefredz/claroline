@@ -676,7 +676,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 
                 Click on
 
-                <img src=img/dossier.gif width=20 height=20>
+                <img src=img/folder.gif>
 
                 'Create a directory' (top left)
 

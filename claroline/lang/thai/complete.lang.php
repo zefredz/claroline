@@ -203,19 +203,19 @@ $langDocContent = "<p> ระบบจัดการเอกสารประกอบการศึกษา มีลักษณะคล้าย FileManager
   ในคอลัมม์  'Visible/invisible'</li>
 <li>เอกสาร (หรือ directory) ยังคงมีอยู่ แต่นักศึกษาจะไม่สามารถมองเห็นได้</li>	  
   <li>ทำให้กลับมามองเห็นเช่นเดิม คลิกที่รูป <img
- src=../document/../document/img/invisible.gif width=24 height=20> 
+ src=../img/invisible.gif width=24 height=20> 
 	ในคอลัมม์ 'Visible/invisible'</li>
 	</ul>
 	<h4>เพิ่มหรือปรับปรุงหมายเหตุของเอกสาร (หรือ directory)</h4>
 	<ul>	  
-  <li>คลิกที่รูป <img src=../document/../document/img/comment.gif width=20
+  <li>คลิกที่รูป <img src=../img/comment.gif width=20
  height=20> 
 	ในคอลัมม์ 'หมายเหตุ'</li>
 	  <li>พิมพ์หมายเหตุในกรอบโต้ตอบ (ด้านบนซ้าย)</li>
 	  <li>คลิกปุ่ม <input type=submit value=OK name=submit2></li>
 	</ul>
 	<p> ต้องการลบหมายเหตุ คลิกที่รูป <img
- src=../document/../document/img/comment.gif width=20 height=20>, 
+ src=../img/comment.gif width=20 height=20>, 
 	 ลบหมายเหตุเก่าในช่องออก และคลิกปุ่ม <input type=submit
  value=OK name=submit22>
 
@@ -223,15 +223,14 @@ $langDocContent = "<p> ระบบจัดการเอกสารประกอบการศึกษา มีลักษณะคล้าย FileManager
 	<p>ท่านสามารถจัดระบบการเก็บเอกสารของท่านได้ โดย :</p>
 	<h4><b>สร้าง directory</b></h4>
 	<ul>
-	  <li>คลิกที่รูป <img src=../document/../document/img/dossier.gif width=20
- height=20> 'สร้าง directory' (top left)</li>
+	  <li>คลิกที่รูป <img src=../img/folder.gif> 'สร้าง directory' (top left)</li>
 	  <li>พิมพ์ชื่อ directory ใหม่ในช่องกรอบโต้ตอบ (ซ้ายมือบน)</li>
 	  <li>คลิกปุ่ม <input type=submit value=OK
  name=submit23></li>
 	</ul>
 	<h4>ย้ายเอกสาร (หรือ directory)</h4>
 	<ul>
-	  <li>คลิกที่รูป <img src=../document/../document/img/deplacer.gif
+	  <li>คลิกที่รูป <img src=../img/deplacer.gif
  width=34 height=16> 
 		ในคอลัมม์ 'ย้าย'</li>
 	  <li>เลือก directory ที่ต้องการจะย้ายเอกสารไปไว้ ในกรอบโต้ตอบ (ด้านซ้ายบน) <br>

@@ -358,7 +358,7 @@ $langDocContent = "<p>Fungsi Alat Bantu Dokumen adalah sama seperti fungsi pengu
 				Dokumen (atau direktori) masih wujud cuma ia tidak dipaparkan kepada pelajar.
 			</li>
 			<li>
-				Bagi memaparkan semula dokumen anda kepada pelajar, sila klik ikon ini <img src=../document/../document/img/invisible.gif width=24 height=20>
+				Bagi memaparkan semula dokumen anda kepada pelajar, sila klik ikon ini <img src=../img/invisible.gif width=24 height=20>
 				pada  lajur <i>Papar/Tidak Papar</i>
 			</li>
 		</ul>
@@ -367,7 +367,7 @@ $langDocContent = "<p>Fungsi Alat Bantu Dokumen adalah sama seperti fungsi pengu
 		</h4>
 		<ul>
 			<li>
-				Sila klik ikon ini <img src=../document/../document/img/comment.gif width=20 height=20> pada column <i>Komen</i>
+				Sila klik ikon ini <img src=../img/comment.gif width=20 height=20> pada column <i>Komen</i>
 			</li>
 			<li>
 				Masukkan komen yang baru pada lajur yang disediakan (di sebelah atas bahagian kiri).
@@ -377,7 +377,7 @@ $langDocContent = "<p>Fungsi Alat Bantu Dokumen adalah sama seperti fungsi pengu
 			.</li>
 		</ul>
 		<p>
-		Untuk memadam komen, sila klik ikon ini <img src=../document/../document/img/comment.gif width=20 height=20>, padam komen lama yang terdapat dalam lajur dahulu kemudian klik butang ini.
+		Untuk memadam komen, sila klik ikon ini <img src=../img/comment.gif width=20 height=20>, padam komen lama yang terdapat dalam lajur dahulu kemudian klik butang ini.
 		<input type=submit value=Proses name=submit22>.
 		<hr>
 		<p>
@@ -390,7 +390,7 @@ $langDocContent = "<p>Fungsi Alat Bantu Dokumen adalah sama seperti fungsi pengu
 		</h4>
 		<ul>
 			<li>
-				Sila klik ikon ini <img src=../document/../document/img/dossier.gif width=20 height=20>
+				Sila klik ikon ini <img src=../img/folder.gif>
 				<i>Bina Direktori</i> (dibahagian atas sebelah kiri)
 			</li>
 			<li>
@@ -405,7 +405,7 @@ $langDocContent = "<p>Fungsi Alat Bantu Dokumen adalah sama seperti fungsi pengu
 		</h4>
 		<ul>
 			<li>
-				Sila klik ikon ini <img src=../document/../document/img/deplacer.gif width=34 height=16>
+				Sila klik ikon ini <img src=../img/deplacer.gif width=34 height=16>
 				di lajur <i>Pindah</i>
 	</li>
 			<li>

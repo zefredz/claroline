@@ -608,7 +608,7 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 
   <li> Si vous souhaitez rendre cet &eacute;l&eacute;ment &agrave; nouveau
  visible,
-	cliquez sur le bouton <img src=../document/../document/img/invisible.gif
+	cliquez sur le bouton <img src=../img/invisible.gif
  width=24 height=20>
 	dans la colonne Visible/invisible</li>
 	</ul>
@@ -617,7 +617,7 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 	<ul>
 
   <li>Cliquez sur le bouton <img
- src=../document/../document/img/comment.gif width=20 height=20>
+ src=../img/comment.gif width=20 height=20>
 	dans la colonne &quot;Commentaire&quot;</li>
 	  <li>Tapez le nouveau commentaire dans la zone pr&eacute;vue &agrave; cet
 
@@ -627,7 +627,7 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 		.</li>
 	</ul>
 	<p>Si vous souhaitez supprimer un commentaire, cliquez sur le bouton <img
- src=../document/../document/img/comment.gif width=20 height=20>,
+ src=../img/comment.gif width=20 height=20>,
 	  effacez l&acute;ancien commentaire de la zonne et validez en cliquant
  &quot;OK&quot;
 	  <input type=submit value=OK name=submit22>
@@ -639,8 +639,7 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 	<h4><b>Cr&eacute;er un r&eacute;pertoire</b></h4>
 	<ul>
 	  <li>Cliquez sur la commande &quot;<img
- src=../document/../document/img/dossier.gif width=20
- height=20>cr&eacute;er
+ src=../img/folder.gif>cr&eacute;er
 		un r&eacute;pertoire&quot; en haut &agrave; gauche de l&acute;&eacute;cran</li>
 	  <li>Tapez le nom de votre nouveau r&eacute;pertoire dans la zone
  pr&eacute;vue
@@ -652,7 +651,7 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 	<h4>D&eacute;placer un document (ou un r&eacute;pertoire)</h4>
 	<ul>
 	  <li>Cliquez sur le bouton <img
- src=../document/../document/img/deplacer.gif width=34 height=16>
+ src=../img/deplacer.gif width=34 height=16>
 		dans la colonne d&eacute;placer</li>
 	  <li>Choisissez le r&eacute;pertoire dans lequel vous souhaitez
  d&eacute;placer

@@ -203,28 +203,28 @@ $langDocContent = "<p>この文書ツールは、コンピュータのファイルマネージャに似てい
 	  
   <li><img src=../document/img/visible.gif width=20 height=20>「見えるようにする/見えないようにする」ボタン</li>
 	  <li>文書、ディレクトリは存在しています(削除されるわけではありません)。学生が見えなくなるだけです。</li>	  
-  <li>再度見えるようにするには、同じボタンを押してください<img src=../document/../document/img/invisible.gif width=24 height=20> </li>
+  <li>再度見えるようにするには、同じボタンを押してください<img src=../img/invisible.gif width=24 height=20> </li>
 	</ul>
 	<h4>コメントを文書、ディレクトリに加えたり修正したりする</h4>
 	<ul>	  
-  <li>コメントボタン <img src=../document/../document/img/comment.gif width=20 height=20></li>
+  <li>コメントボタン <img src=../img/comment.gif width=20 height=20></li>
 	  <li>右側に欄が出ます</li>
 	  <li>変更確認ボタンをおす <input type=submit value=OK name=submit2>
 		.</li>
 	</ul>
-	<p>コメントを削除<img src=../document/../document/img/comment.gif width=20 height=20>, 	欄内の古いコメントを空白にする <input type=submit value=OK name=submit22>
+	<p>コメントを削除<img src=../img/comment.gif width=20 height=20>, 	欄内の古いコメントを空白にする <input type=submit value=OK name=submit22>
 	  . 
 	<hr>
 	<p>文書整理は次のようにします:</p>
 	<h4><b>ディレクトリを作る</b></h4>
 	<ul>
-	  <li> <img src=../document/../document/img/dossier.gif width=20 height=20> 左側に「ディレクトリを作る」欄が出ます</li>
+	  <li> <img src=../img/folder.gif> 左側に「ディレクトリを作る」欄が出ます</li>
 	  <li>ディレクトリ名を入れます</li>
 	  <li>変更確認<input type=submit value=OK name=submit23>.</li>
 	</ul>
 	<h4>文書、ディレクトリの移動</h4>
 	<ul>
-	  <li>「移動」ボタンを押します <img src=../document/../document/img/deplacer.gif width=34 height=16></li>
+	  <li>「移動」ボタンを押します <img src=../img/deplacer.gif width=34 height=16></li>
 
 	  <li>移動したい文書、ディレクトリをスクロールメニュで選びます(左にでます)(注意'root'という言葉は、文書を一つ上の場所を指します).</li>
 	  <li>変更確認ボタン<input type=submit value=OK name=submit232>.</li>

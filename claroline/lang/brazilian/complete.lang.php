@@ -514,12 +514,12 @@ $langDocContent = "<p>A ferramenta Documentos é similar ao gerenciador de arquiv
 	  <li>The document (or directory) still exists but it is not visible by
  students anymore.</li>	  
   <li>To make it invisible back again, click on <img
- src=../document/../document/img/invisible.gif width=24 height=20> 
+ src=../img/invisible.gif width=24 height=20> 
 	in column 'Visible/invisible'</li>
 	</ul>
 	<h4>Add or modify a comment to a document (or a directory)</h4>
 	<ul>	  
-  <li>Click on <img src=../document/../document/img/comment.gif width=20
+  <li>Click on <img src=../img/comment.gif width=20
  height=20> 
 	in column 'Comment'</li>
 	  <li>Type new comment in the corresponding field (top right).</li>
@@ -527,7 +527,7 @@ $langDocContent = "<p>A ferramenta Documentos é similar ao gerenciador de arquiv
 		.</li>
 	</ul>
 	<p>To delete a comment, click on <img
- src=../document/../document/img/comment.gif width=20 height=20>, 
+ src=../img/comment.gif width=20 height=20>, 
 	  delete the old comment in the field and click <input type=submit
  value=OK name=submit22>
 	  . 
@@ -535,8 +535,7 @@ $langDocContent = "<p>A ferramenta Documentos é similar ao gerenciador de arquiv
 	<p>You can organise your content through filing. For this:</p>
 	<h4><b>Create a directory</b></h4>
 	<ul>
-	  <li>Click on <img src=../document/../document/img/dossier.gif width=20
- height=20> 'Create a directory' (top left)</li>
+	  <li>Click on <img src=../img/folder.gif> 'Create a directory' (top left)</li>
 	  <li>Type the name of your new directory in the corresponding field (top
  left)</li>
 	  <li>Validate by clicking <input type=submit value=OK
@@ -544,7 +543,7 @@ $langDocContent = "<p>A ferramenta Documentos é similar ao gerenciador de arquiv
 	</ul>
 	<h4>Move a document (or directory)</h4>
 	<ul>
-	  <li>Cllick on button <img src=../document/../document/img/deplacer.gif
+	  <li>Cllick on button <img src=../img/deplacer.gif
  width=34 height=16> 
 		in column 'Move'</li>
 	  <li>Choose the directory into which you want to move the document (or

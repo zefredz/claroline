@@ -384,7 +384,7 @@ Ce jih hoces predstaviti v drugacnem zaporedju, jih ostevilci: 01, 02,  03...</p
 			</li>
 			<li>
 				Ponovno postane viden s klikom na 
-				<img src=../document/../document/img/invisible.gif width=24 height=20>
+				<img src=../img/invisible.gif width=24 height=20>
 				v stolpcu 'Vidno/nevidno'
 			</li>
 		</ul>
@@ -393,7 +393,7 @@ Ce jih hoces predstaviti v drugacnem zaporedju, jih ostevilci: 01, 02,  03...</p
 		</h4>
 		<ul>
 			<li>
-				Klikni na <img src=../document/../document/img/comment.gif width=20 height=20> v stolpcu 'Komentar'
+				Klikni na <img src=../img/comment.gif width=20 height=20> v stolpcu 'Komentar'
 			</li>
 			<li>
 				Vtipkaj nov komentar v ustrezno polje (desno zgoraj).
@@ -403,7 +403,7 @@ Ce jih hoces predstaviti v drugacnem zaporedju, jih ostevilci: 01, 02,  03...</p
 			.</li>
 		</ul>
 		<p>
-		Za brisanje komentarja klikni na <img src=../document/../document/img/comment.gif width=20 height=20>,
+		Za brisanje komentarja klikni na <img src=../img/comment.gif width=20 height=20>,
 		brisi stari komentar v polju in klikni 
 		<input type=submit value=OK name=submit22>.
 		<hr>
@@ -418,7 +418,7 @@ Ce jih hoces predstaviti v drugacnem zaporedju, jih ostevilci: 01, 02,  03...</p
 		<ul>
 			<li>
 				Klilkni na
-				<img src=../document/../document/img/dossier.gif width=20 height=20>
+				<img src=../img/folder.gif>
 				'Tvori direktorij' (levo zgoraj)
 			</li>
 			<li>
@@ -433,7 +433,7 @@ Ce jih hoces predstaviti v drugacnem zaporedju, jih ostevilci: 01, 02,  03...</p
 		</h4>
 		<ul>
 			<li>
-				Klikni na gumb <img src=../document/../document/img/deplacer.gif width=34 height=16>
+				Klikni na gumb <img src=../img/deplacer.gif width=34 height=16>
 				v stolpcu 'Premik'
 			</li>
 			<li>

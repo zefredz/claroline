@@ -198,7 +198,7 @@ $langDocContent = "<p>Työkalu dokumentteja varten on samankaltainen kuin tietoko
 <ul>
   <li>Klikkaa <img src=../document/img/visible.gif width=20 height=20> sarakkeessa 'Näkyvä/Näkymätön'.</li>
   <li>Dokumetti (tai hakemisto) on edelleen olemassa, mutta ei näy enää opiskelijoille.</li>
-  <li>Muuttaaksesi sen takaisin näkyväksi, klikkaa <img src=../document/../document/img/invisible.gif width=24 height=20> saraketta 'Näkyvä/Näkymätön'</li>
+  <li>Muuttaaksesi sen takaisin näkyväksi, klikkaa <img src=../img/invisible.gif width=24 height=20> saraketta 'Näkyvä/Näkymätön'</li>
 </ul>
 <h4>Lisää tai muokkaa dokumentin (tai hakemiston) kommenttia</h4>
 <ul>
@@ -211,7 +211,7 @@ $langDocContent = "<p>Työkalu dokumentteja varten on samankaltainen kuin tietoko
 <p>Voit järjestää sisältöä täyttämällä tähän tapaan:</p>
 <h4><b>Luo hakemisto</b></h4>
 <ul>
-   <li>Klikkaa <img src=../document/img/dossier.gif width=20 height=20> 'Luo hakemisto' (vasemmalla ylhäällä)</li>
+   <li>Klikkaa <img src=../document/img/folder.gif> 'Luo hakemisto' (vasemmalla ylhäällä)</li>
    <li>Kirjoita hakemiston uusi nimi asianmukaiseen kenttään (vasemmalla ylhäällä)</li>
    <li>Hyväksy klikkaamalla <input type=submit value=OK name=submit23>.</li>
 </ul>

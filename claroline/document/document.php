@@ -1457,7 +1457,7 @@ claro_disp_tool_title($titleElement,
 	            ."</a>\n"
 	            ." | "
 	            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">"
-	            ."<img src=\"".$clarolineRepositoryWeb."img/dossier.gif\" alt=\"\">"
+	            ."<img src=\"".$clarolineRepositoryWeb."img/folder.gif\" alt=\"\">"
 	            .$langCreateDir
 	            ."</a>\n"
 	            ."| "
@@ -1595,7 +1595,7 @@ claro_disp_tool_title($titleElement,
 				}
 				elseif ($fileList['type'][$fileKey] == A_DIRECTORY)
 				{
-					$image       = 'dossier.gif';
+					$image       = 'folder.gif';
 					$size        = '';
 					$date        = '';
 					$urlFileName = $_SERVER['PHP_SELF'].'?cmd=exChDir&file='.$cmdFileName;

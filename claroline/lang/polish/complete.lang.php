@@ -341,19 +341,19 @@ $langDocContent = "<p>Narzedzie Dokumenty jest podobne do Menad¿era Plików w kom
   <li>Kliknij <img src=../document/img/visible.gif width=20 height=20>w kolumnie 'Poka¿/ukryj'.</li>
 	  <li>Dokument (lub katalog) ca³y czas istnieje ale jest niewidoczny dla studentów.</li>	  
   <li>¯eby przywrócic jego dostêpno¶æ, kliknij ponownie <img
- src=../document/../document/img/invisible.gif width=24 height=20> 
+ src=../img/invisible.gif width=24 height=20> 
 	w kolumnie 'Poka¿/ukryj'</li>
 	</ul>
 	<h4>Dodawaæ lub modyfikowaæ komentarze do dokumentu</h4>
 	<ul>	  
-  <li>Kliknij <img src=../document/../document/img/comment.gif width=20
+  <li>Kliknij <img src=../img/comment.gif width=20
  height=20> w kolumnie 'Komentarz'</li>
 	  <li>Wpisz komentarze do odpowiedniego pola (na górze, po prawej).</li>
 	  <li>Zatwoierd¼, przez klikniêcie <input type=submit value=OK name=submit2>
 		.</li>
 	</ul>
 	<p>¯eby usun±æ komentarz, kliknij <img
- src=../document/../document/img/comment.gif width=20 height=20>, 
+ src=../img/comment.gif width=20 height=20>, 
 	  skasuj istniej±cy komentarz i kliknij <input type=submit
  value=OK name=submit22>
 	  . 
@@ -361,15 +361,14 @@ $langDocContent = "<p>Narzedzie Dokumenty jest podobne do Menad¿era Plików w kom
 	<p>Mo¿esz dowolnie zorganizowaæ zawarto¶æ. W tym celu:</p>
 	<h4><b>Twórz katalogi</b></h4>
 	<ul>
-	  <li>Kliknij <img src=../document/../document/img/dossier.gif width=20
- height=20> 'Utwórz katalog' (na górze, po lewo)</li>
+	  <li>Kliknij <img src=../img/folder.gif> 'Utwórz katalog' (na górze, po lewo)</li>
 	  <li>Wpisz nazwê Twojego nowego katalogu w odpowiednim polu (na górze po lewej)</li>
 	  <li>Zatwierd¼ przez klikniêcie <input type=submit value=OK
  name=submit23>.</li>
 	</ul>
 	<h4>Przeno¶ pliki (lub katalogi)</h4>
 	<ul>
-	  <li>Kliknij na przycik <img src=../document/../document/img/deplacer.gif
+	  <li>Kliknij na przycik <img src=../img/deplacer.gif
  width=34 height=16> w kolumnie 'Przeno¶'</li>
 	  <li>Z menu (na górze, po lewej) wybierz katalog, do którego chcesz przenie¶æ dokument lub katalog (Uwaga: s³owo 'root' oznacza, ¿e znajdujesz siê g³ównym katalogu serwera).</li>
 	  <li>Zatwierd¼ przez klikniêcie <input type=submit value=OK

@@ -351,7 +351,7 @@ $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>
 			</li>
 			<li>
 				Untuk membuatnya nampak kembali lagi dan klik pada
-				<img src=../document/../document/img/invisible.gif width=24 height=20>
+				<img src=../img/invisible.gif width=24 height=20>
 				dalam kolom 'Tampilkan/sembunyikan'
 			</li>
 		</ul>
@@ -360,7 +360,7 @@ $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>
 		</h4>
 		<ul>
 			<li>
-				Kilk pada <img src=../document/../document/img/comment.gif width=20 height=20> dalam kolom 'komentar'
+				Kilk pada <img src=../img/comment.gif width=20 height=20> dalam kolom 'komentar'
 			</li>
 			<li>
 				Ketik komentar yang baru dalam field yang disediakan (kanan atas).
@@ -370,7 +370,7 @@ $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>
 			.</li>
 		</ul>
 		<p>
-		Untuk menghapus sebuah komentar, klik pada <img src=../document/../document/img/comment.gif width=20 height=20>,
+		Untuk menghapus sebuah komentar, klik pada <img src=../img/comment.gif width=20 height=20>,
 		hapus komentar lama di field tsb dan klik
 		<input type=submit value=OK name=submit22>.
 		<hr>
@@ -385,7 +385,7 @@ $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>
 		<ul>
 			<li>
 				Klik pada
-				<img src=../document/../document/img/dossier.gif width=20 height=20>
+				<img src=../img/folder.gif>
 				'Buat direktori' (kiri atas)
 			</li>
 			<li>
@@ -400,7 +400,7 @@ $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>
 		</h4>
 		<ul>
 			<li>
-				Klik pada tombol <img src=../document/../document/img/deplacer.gif width=34 height=16>
+				Klik pada tombol <img src=../img/deplacer.gif width=34 height=16>
 				dalam kolom 'Pindahkan'
 			</li>
 			<li>

@@ -327,31 +327,31 @@ $langDocContent = "<p>Dokumentverktyget är liknande Filhanteraren på din dator.<
 	  
   <li>Klicka på <img src=../document/img/visible.gif width=20 height=20>i kolumnen 'Synlig/osynlig'.</li>
 	  <li>Dokumentet (eller mappen) existerar fortfarande men är är inte synlig för studenterna längre.</li>	  
-  <li>För att göra det synligt igen, klicka på <img src=../document/../document/img/invisible.gif width=24 height=20> 
+  <li>För att göra det synligt igen, klicka på <img src=../img/invisible.gif width=24 height=20> 
 	i kolumnen 'Synlig/osynlig'</li>
 	</ul>
 	<h4>Lägga till eller ändra på kommentar till ett dokument (eller en mapp)</h4>
 	<ul>	  
-  <li>Klicka på <img src=../document/../document/img/comment.gif width=20 height=20> 
+  <li>Klicka på <img src=../img/comment.gif width=20 height=20> 
 	i kolumnen 'Kommentar'</li>
 	  <li>Skriv in ny kommentar i motsvarande fält (uppe till höger).</li>
 	  <li>Godkänn genom att klicka på <input type=submit value=OK name=submit2>
 		.</li>
 	</ul>
-	<p>För att radera kommentar, klick på <img src=../document/../document/img/comment.gif width=20 height=20>, 
+	<p>För att radera kommentar, klick på <img src=../img/comment.gif width=20 height=20>, 
 	  radera den gamla kommentaren i fältet och klicka på <input type=submit value=OK name=submit22>
 	  . 
 	<hr>
 	<p>Du kan organisera innehållet genom mappanvändning. För detta:</p>
 	<h4><b>Skapa en mapp</b></h4>
 	<ul>
-	  <li>Klicka på <img src=../document/../document/img/dossier.gif width=20 height=20> 'Skapa en mapp' (överst tillvänster)</li>
+	  <li>Klicka på <img src=../img/folder.gif> 'Skapa en mapp' (överst tillvänster)</li>
 	  <li>Skriv in namn på ny mapp i motsvarande fält (överst till vänster)</li>
 	  <li>Godkänn genom att klicka på <input type=submit value=OK name=submit23>.</li>
 	</ul>
 	<h4>Flytta ett dokument (eller en mapp)</h4>
 	<ul>
-	  <li>Klicka på knappen <img src=../document/../document/img/deplacer.gif width=34 height=16> 
+	  <li>Klicka på knappen <img src=../img/deplacer.gif width=34 height=16> 
 		i kolumnen 'Flytta'</li>
 	  <li>Välj till vilken du vill flytta dokumentet (eller mappen) i 
 	  motsvarande bläddringsmeny (överst till vänster) (notera: ordet 'root' betyder att du inte kan gå 

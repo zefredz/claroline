@@ -376,7 +376,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 			</li>
 			<li>
 				To make it invisible back again, click on
-				<img src=../document/../document/img/invisible.gif width=24 height=20>
+				<img src=../img/invisible.gif width=24 height=20>
 				in column 'Visible/invisible'
 			</li>
 		</ul>
@@ -385,7 +385,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 		</h4>
 		<ul>
 			<li>
-				Click on <img src=../document/../document/img/comment.gif width=20 height=20> in column 'Comment'
+				Click on <img src=../img/comment.gif width=20 height=20> in column 'Comment'
 			</li>
 			<li>
 				Type new comment in the corresponding field (top right).
@@ -395,7 +395,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 			.</li>
 		</ul>
 		<p>
-		To delete a comment, click on <img src=../document/../document/img/comment.gif width=20 height=20>,
+		To delete a comment, click on <img src=../img/comment.gif width=20 height=20>,
 		delete the old comment in the field and click
 		<input type=submit value=OK name=submit22>.
 		<hr>
@@ -410,7 +410,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 		<ul>
 			<li>
 				Click on
-				<img src=../document/../document/img/dossier.gif width=20 height=20>
+				<img src=../img/folder.gif>
 				'Create a directory' (top left)
 			</li>
 			<li>
@@ -425,7 +425,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 		</h4>
 		<ul>
 			<li>
-				Click on button <img src=../document/../document/img/deplacer.gif width=34 height=16>
+				Click on button <img src=../img/deplacer.gif width=34 height=16>
 				in column 'Move'
 			</li>
 			<li>

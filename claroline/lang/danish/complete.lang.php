@@ -383,7 +383,7 @@ $langDocContent = "<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
 			</li>
 			<li>
 				For at gøre det synligt igen, klik på 
-				<img src=../document/../document/img/invisible.gif width=24 height=20> 
+				<img src=../img/invisible.gif width=24 height=20> 
 				i kolonnen 'synlig/usynlig'
 			</li>
 		</ul>
@@ -392,7 +392,7 @@ $langDocContent = "<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
 		</h4>
 		<ul>
 			<li>
-				Klik på <img src=../document/../document/img/comment.gif width=20 height=20> in column 'Comment'
+				Klik på <img src=../img/comment.gif width=20 height=20> in column 'Comment'
 			</li>
 			<li>
 				Skriv en ny kommentar i det korresponderende felt (øverst til højre).
@@ -402,7 +402,7 @@ $langDocContent = "<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
 			.</li>
 		</ul>
 		<p>
-		For at fjerne en kommentar, klik på <img src=../document/../document/img/comment.gif width=20 height=20>, 
+		For at fjerne en kommentar, klik på <img src=../img/comment.gif width=20 height=20>, 
 		slet den gamle kommentar i feltet og klik 
 		<input type=submit value=OK name=submit22>.
 		<hr>
@@ -417,7 +417,7 @@ $langDocContent = "<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
 		<ul>
 			<li>
 				klik på 
-				<img src=../document/../document/img/dossier.gif width=20 height=20>
+				<img src=../img/folder.gif>
 				'Opret en mape' (øverst til venstre)
 			</li>
 			<li>
@@ -432,7 +432,7 @@ $langDocContent = "<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
 		</h4>
 		<ul>
 			<li>
-				Klik på <img src=../document/../document/img/deplacer.gif width=34 height=16> 
+				Klik på <img src=../img/deplacer.gif width=34 height=16> 
 				i kolonnen 'Flyt'
 			</li>
 			<li>

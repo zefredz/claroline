@@ -363,20 +363,20 @@ no est&eacute;n infectados antes de colocarlos en iCampus.</p>
 	<ul>
 	  
   <li>Si ustede desea que este elemento vuelva a ser visible, 
-	haga click en el bot&oacute;n <img src=../document/../document/img/invisible.gif width=24 height=20> 
+	haga click en el bot&oacute;n <img src=../img/invisible.gif width=24 height=20> 
 	en la columna &quot;Visible/invisible&quot;</li>
 	</ul>
 	<h4>A&ntilde;adir o modificar un comentario a un documento (o a un directorio)</h4>
 	<ul>
 	  
-  <li>Haga click en el bot&oacute;n  <img src=../document/../document/img/comment.gif width=20 height=20> 
+  <li>Haga click en el bot&oacute;n  <img src=../img/comment.gif width=20 height=20> 
 	en la columna &quot;Commentario&quot;</li>
 	  <li>Introduzca el nuevo comentario en la zona prevista para tal efecto qui aparecer&aacute; arriba a la izquierda.</li>
 	  <li>Valide haciendo click en &quot;OK&quot; 
 		<input type=submit value=OK name=submit2>
 		.</li>
 	</ul>
-	<p>Si ustede desea suprimir un comentario, haga click en el bot&oacute;n <img src=../document/../document/img/comment.gif width=20 height=20>, 
+	<p>Si ustede desea suprimir un comentario, haga click en el bot&oacute;n <img src=../img/comment.gif width=20 height=20>, 
 	  &quot;borrar el antiguo comentario de la zona&quot; y valide haciendo click en &quot;OK&quot; 
 	  <input type=submit value=OK name=submit22>
 	  . 
@@ -385,7 +385,7 @@ no est&eacute;n infectados antes de colocarlos en iCampus.</p>
 	  los documentos en directorios. Para hacer esto usted debe :</p>
 	<h4><b>Crear un directorio</b></h4>
 	<ul>
-	  <li>Hacer click en la funci&oacute;n &quot;<img src=../document/../document/img/dossier.gif width=20 height=20>crear 
+	  <li>Hacer click en la funci&oacute;n &quot;<img src=../img/folder.gif>crear 
 		un directorio&quot; arriba a la izquierda de la pantalla</li>
 	  <li>Introduzca el nombre de su nuevo repertorio en la zona prevista para tal efecto 
           arriba a la izquierda de la pantalla.</li>
@@ -395,7 +395,7 @@ no est&eacute;n infectados antes de colocarlos en iCampus.</p>
 	</ul>
 	<h4>Desplazar un documento (o un directorio)</h4>
 	<ul>
-	  <li>Haga click sobre el bot&oacute;n <img src=../document/../document/img/deplacer.gif width=34 height=16> 
+	  <li>Haga click sobre el bot&oacute;n <img src=../img/deplacer.gif width=34 height=16> 
 		en la columna &quot;desplazar&quot;</li>
 	  <li>Escoja el repertorio al que usted quiere desplazar el documento
               o el directorio en el men&uacute; de selecci&oacute;n previsto

@@ -599,29 +599,29 @@ $langDocContent = "<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanag
 
   <li>Klicken Sie auf <img src=../document/img/visible.gif width=20 height=20>in der Spalte 'sichtbar/unsichtbar'.</li>
           <li>Das Dokument (oder Verzeichnis) existiert noch, ist aber nicht mehr für die Teilnehmer sichtbar.</li>
-  <li>Um es wieder sichtbar zu machen, klicken Sie auf <img src=../document/../document/img/invisible.gif width=24 height=20>
+  <li>Um es wieder sichtbar zu machen, klicken Sie auf <img src=../img/invisible.gif width=24 height=20>
         in der Spalte 'sichtbar/unsichtbar'</li>
         </ul>
         <h4>Einen Kommentar zu einem Dokument (oder Verzeichnis) bearbeiten</h4>
         <ul>
-  <li>Klicken Sie auf <img src=../document/../document/img/comment.gif width=20 height=20>
+  <li>Klicken Sie auf <img src=../img/comment.gif width=20 height=20>
         in der Spalte 'Kommentar'</li>
           <li>Schreiben Sie einen neuen Kommentar in das entsprechende Feld (oben rechts).</li>
           <li>Bestätigen Sie durch Anklicken <input type=submit value=OK name=submit2>.</li>
         </ul>
-        <p>Um einen Kommentar zu entfernen, klicken Sie auf <img src=../document/../document/img/comment.gif width=20 height=20>,
+        <p>Um einen Kommentar zu entfernen, klicken Sie auf <img src=../img/comment.gif width=20 height=20>,
           entfernen Sie den alten Kommentar im Feld und klicken Sie auf <input type=submit value=OK name=submit22>.
         <hr>
         <p>Der Inhalt kann durch Verschieben sortiert werden. Dazu:</p>
         <h4><b>Ein Verzeichnis einrichten</b></h4>
         <ul>
-  <li>Klicken Sie auf <img src=../document/../document/img/dossier.gif width=20 height=20> 'Verzeichnis anlegen' (oben links)</li>
+  <li>Klicken Sie auf <img src=../img/folder.gif> 'Verzeichnis anlegen' (oben links)</li>
           <li>Tragen Sie den Name des neuen Verzeichnisses in das entsprechende Feld ein (oben links).</li>
           <li>Bestätigen Sie durch Anklicken <input type=submit value=OK name=submit23>.</li>
         </ul>
         <h4>Ein Dokument (oder Verzeichnis) verschieben</h4>
         <ul>
-  <li>Klicken Sie auf <img src=../document/../document/img/deplacer.gif width=34 height=16> in der Spalte 'verschieben'</li>
+  <li>Klicken Sie auf <img src=../img/deplacer.gif width=34 height=16> in der Spalte 'verschieben'</li>
           <li>Suchen Sie das Verzeichnis, in das Sie die Datei (oder das Verzeichnis) verschieben wollen
           m entsprechenden Auswahlmenü (oben links) (Hinweis: Das Wort 'root' bedeutet, dass Sie nicht noch höher in der Verzeichnisstrucktur des Servers wechseln können).</li>
           <li>Bestätigen Sie durch Anklicken <input type=submit value=OK name=submit232>.</li>

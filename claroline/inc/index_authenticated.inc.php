@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -138,7 +138,7 @@ echo "<p>"
     }
 
     echo '<a href="claroline/auth/courses.php?cmd=rqReg&category=">'
-        .'<img src="'.$clarolineRepositoryWeb.'img/subscribe.gif"> '
+        .'<img src="'.$clarolineRepositoryWeb.'img/enroll.gif"> '
         .$lang_enroll_to_a_new_course
         .'</a>'
         .'&nbsp;|&nbsp;'

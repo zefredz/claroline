@@ -612,20 +612,20 @@ $langDocContent = "<p>Il modulo di gestione dei documenti funziona in modo simil
 	<ul>
 
   <li> Se desiderate rendelo di nuovo visibile,
-	cliccate sul pulsante <img src=../document/../document/img/invisible.gif width=24 height=20>
+	cliccate sul pulsante <img src=../img/invisible.gif width=24 height=20>
 	nella colonna &quot;Visibile/invisibile&quot;</li>
 	</ul>
 	<h4>Aggiungere o modificare un commento al documento (o alla cartella)</h4>
 	<ul>
 
-  <li>cliccate sl pulsante <img src=../document/../document/img/comment.gif width=20 height=20>
+  <li>cliccate sl pulsante <img src=../img/comment.gif width=20 height=20>
 	nella colonna &quot;Commento&quot;</li>
 	  <li>Scrivete il nuovo commento nella zona che comparirà in alto a sinistra.</li>
 	  <li>Confermate cliccando su  &quot;Ok&quot;
 		<input type=submit value=Ok name=submit2>
 		.</li>
 	</ul>
-	<p>Se desiderate rimuovere un commento, cliccate sul pulsante <img src=../document/../document/img/comment.gif width=20 height=20>,
+	<p>Se desiderate rimuovere un commento, cliccate sul pulsante <img src=../img/comment.gif width=20 height=20>,
 	  cancellate il vecchio commento nella zona in cui comparirà e confermate cliccando &quot;OK&quot;
 	  <input type=submit value=OK name=submit22>
 	  .
@@ -633,7 +633,7 @@ $langDocContent = "<p>Il modulo di gestione dei documenti funziona in modo simil
 	<p>Potete altresì organizzare il contenuto del modulo Documenti ripartendo i documenti in diverse cartelle. Per far ciò dovete innanzitutto :</p>
 	<h4><b>Creare una cartella</b></h4>
 	<ul>
-	  <li>cliccate sull'opzione &quot;<img src=../document/../document/img/dossier.gif width=20 height=20>Creare una cartella&quot; in alto a sinistra sullo schermo</li>
+	  <li>cliccate sull'opzione &quot;<img src=../img/folder.gif>Creare una cartella&quot; in alto a sinistra sullo schermo</li>
 	  <li>Scrivete il nome della nuova cartella nella zona che comparirà in alto a sinistra sullo schermo.</li>
 	  <li>Confermate cliccando &quot;OK&quot;
 		<input type=submit value=OK name=submit23>
@@ -642,7 +642,7 @@ $langDocContent = "<p>Il modulo di gestione dei documenti funziona in modo simil
 	<h4>Spostare un documento (o una cartella)</h4>
 L'operazione potrà essere compita solo se precedentemente sarà stata creata almeno una cartella
 	<ul>
-	  <li>Cliccate sul pulsante <img src=../document/../document/img/deplacer.gif width=34 height=16>
+	  <li>Cliccate sul pulsante <img src=../img/deplacer.gif width=34 height=16>
 		nella colonna dans la colonne &quot;Spostare&quot;</li>
 	  <li>Scegliete la cartella di destinazione del documento o della cartella che state spostando usando il menu' a scorrimento che comparirà in alto a sinistraì.(Nota: la parola &quot;racine&quot; nel menu rappresenta la raice del modulo Documenti).</li>
 	  <li>Confermate cliccando  &quot;OK&quot;

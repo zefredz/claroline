@@ -392,13 +392,13 @@ de maneira semellante &aacute; xesti&oacute;n dos seus documentos nun ordenador.
 	<ul>
 	  
   <li>Se vostede desexa que este elemento volva ser visible,
-	faga click no bot&oacute;n <img src=../document/../document/img/invisible.gif width=24 height=20>
+	faga click no bot&oacute;n <img src=../img/invisible.gif width=24 height=20>
 	na columna &quot;Visible/invisible&quot;</li>
 	</ul>
 	<h4>Engadir ou modificar un comentario a un documento (ou a un directorio)</h4>
 	<ul>
 	  
-  <li>Faga click no bot&oacute;n  <img src=../document/../document/img/comment.gif width=20 height=20>
+  <li>Faga click no bot&oacute;n  <img src=../img/comment.gif width=20 height=20>
 	na columna &quot;Commentario&quot;</li>
 	  <li>Introduza o novo comentario na zona prevista para tal efecto que
           aparecer&aacute; arriba &aacute; esquerda.</li>
@@ -406,7 +406,7 @@ de maneira semellante &aacute; xesti&oacute;n dos seus documentos nun ordenador.
 		<input type=submit value=OK name=submit2>
 		.</li>
 	</ul>
-	<p>Se vostede desexa suprimir un comentario, faga click no bot&oacute;n <img src=../document/../document/img/comment.gif width=20 height=20>,
+	<p>Se vostede desexa suprimir un comentario, faga click no bot&oacute;n <img src=../img/comment.gif width=20 height=20>,
 	  &quot;borrar o antigo comentario da zona&quot; e valide facendo click en &quot;OK&quot;
 	  <input type=submit value=OK name=submit22>
 	  . 
@@ -415,7 +415,7 @@ de maneira semellante &aacute; xesti&oacute;n dos seus documentos nun ordenador.
 	  os documentos en directorios. Para facer isto vostede debe :</p>
 	<h4><b>Crear un directorio</b></h4>
 	<ul>
-	  <li>Facer click na funci&oacute;n &quot;<img src=../document/../document/img/dossier.gif width=20 height=20>crear
+	  <li>Facer click na funci&oacute;n &quot;<img src=../img/folder.gif>crear
 		un directorio&quot; arriba &aacute; esquerda da pantalla</li>
 	  <li>Introduza o nome do seu novo repertorio na zona prevista para tal efecto
           arriba &aacute; esquerda da pantalla.</li>
@@ -425,7 +425,7 @@ de maneira semellante &aacute; xesti&oacute;n dos seus documentos nun ordenador.
 	</ul>
 	<h4>Desprazar un documento (ou un directorio)</h4>
 	<ul>
-	  <li>Faga click sobre o bot&oacute;n <img src=../document/../document/img/deplacer.gif width=34 height=16>
+	  <li>Faga click sobre o bot&oacute;n <img src=../img/deplacer.gif width=34 height=16>
 		na columna &quot;desprazar&quot;</li>
 	  <li>Escolla o repertorio &oacute; que vostede quere despraza-lo documento
               ou o directorio no men&uacute; de selecci&oacute;n previsto

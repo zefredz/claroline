@@ -363,26 +363,26 @@ $langDocContent = "<p>De module voor het beheer van documenten (cursusmaterialen
   <li>Klik op <img src=../document/img/visible.gif width=20
  height=20>in de kolom 'Zichtbaar/onzichtbaar'. Het oog sluit zich. Het document (of de folder) bestaat nog, maar is niet meer zichtbaar voor de studenten.</li></ul>
 <ul>
-  <li> Als u dit element opnieuw zichtbaar wil maken, klik op de toets <img src=../document/../document/img/invisible.gif width=24 height=20> in de kolom 'Zichtbaar/onzichtbaar'</li></ul>
+  <li> Als u dit element opnieuw zichtbaar wil maken, klik op de toets <img src=../img/invisible.gif width=24 height=20> in de kolom 'Zichtbaar/onzichtbaar'</li></ul>
 <h4>Commentaar op document (of repertorium) toevoegen of wijzigen</h4>
 <ul>
-  <li>Klik op <img src=../document/../document/img/comment.gif width=20 height=20> in de kolom 'Commentaar'</li>
+  <li>Klik op <img src=../img/comment.gif width=20 height=20> in de kolom 'Commentaar'</li>
   <li>Breng de nieuwe commentaar in het kader, dat boven links op het scherm verschijnt.</li>
   <li>Klik op 'OK' <input type=submit value=OK name=submit2>.</li></ul>
 <ul>
 <p>Als u een commentaar wenst uit te verwijderen, klik op <img
- src=../document/../document/img/comment.gif width=20 height=20>.</li>
+ src=../img/comment.gif width=20 height=20>.</li>
   <li>Wis het oud commentaar uit het kader, dat bovenaan links op het scherm verschijnt, en klik op 'OK'; <input type=submit value=OK name=submit22>.</hr>
 <p>U kunt ook de inhoud organiseren door de documenten in folders te zetten:</p>
 <h4><b>Maak een folder aan:</b></h4>
 <ul>
-  <li>Klik op <img src=../document/../document/img/dossier.gif width=20 height=20> (Nieuwe folder) bovenaan links op het scherm</li>
+  <li>Klik op <img src=../img/folder.gif> (Nieuwe folder) bovenaan links op het scherm</li>
   <li>Geef de nieuwe folder een naam in het kader, dat bovenaan links op het scherm verschijnt.</li>
   <li>Klik op 'OK'; <input type=submit value=OK name=submit23>.</li></ul>
 <h4>Een document (of een folder) verplaatsen</h4>
 <ul>
   <li>Klik op <img
- src=../document/../document/img/deplacer.gif width=34 height=16> in de kolom 'verplaatsen'</li>
+ src=../img/deplacer.gif width=34 height=16> in de kolom 'verplaatsen'</li>
   <li>Kies de folder waarin u het het document of de folder wenst te verplaatsen.  Een kader verschijnt bovenaan links op uw scherm. (Nota : het woord ‘basis’ in deze menu staat voor de basis van uw documentmodule).</li>
   <li>Klik op 'OK'; <input type=submit value=OK name=submit232>.</li></ul>
 <center>

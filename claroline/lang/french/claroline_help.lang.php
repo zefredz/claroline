@@ -92,7 +92,7 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 
   <li> Si vous souhaitez rendre cet élément à nouveau
  visible,
-	cliquez sur le bouton <img src=../document/../document/img/invisible.gif
+	cliquez sur le bouton <img src=../img/invisible.gif
  width=24 height=20>
 	dans la colonne Visible/invisible</li>
 	</ul>
@@ -101,7 +101,7 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 	<ul>
 
   <li>Cliquez sur le bouton <img
- src=../document/../document/img/comment.gif width=20 height=20>
+ src=../img/comment.gif width=20 height=20>
 	dans la colonne 'Commentaire'</li>
 	  <li>Tapez le nouveau commentaire dans la zone prévue à cet
 
@@ -111,7 +111,7 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 		.</li>
 	</ul>
 	<p>Si vous souhaitez supprimer un commentaire, cliquez sur le bouton <img
- src=../document/../document/img/comment.gif width=20 height=20>,
+ src=../img/comment.gif width=20 height=20>,
 	  effacez l'ancien commentaire de la zone et validez en cliquant
  'OK'
 	  <input type=submit value=OK name=submit22>
@@ -123,8 +123,7 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 	<h4><b>Créer un répertoire</b></h4>
 	<ul>
 	  <li>Cliquez sur la commande '<img
- src=../document/../document/img/dossier.gif width=20
- height=20>créer
+ src=../img/folder.gif>créer
 		un répertoire' en haut à gauche de l'écran</li>
 	  <li>Tapez le nom de votre nouveau répertoire dans la zone
  prévue
@@ -136,7 +135,7 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 	<h4>Déplacer un document (ou un répertoire)</h4>
 	<ul>
 	  <li>Cliquez sur le bouton <img
- src=../document/../document/img/deplacer.gif width=34 height=16>
+ src=../img/deplacer.gif width=34 height=16>
 		dans la colonne déplacer</li>
 	  <li>Choisissez le répertoire dans lequel vous souhaitez
  déplacer

@@ -798,7 +798,7 @@
                           }
                           elseif ($fileList['type'][$fileKey] == A_DIRECTORY)
                           {
-                                  $image       = 'dossier.gif';
+                                  $image       = 'folder.gif';
                                   $size        = '&nbsp;';
                                   $date        = '&nbsp;';
                                   $urlFileName = $_SERVER['PHP_SELF'].'?openDir='.$cmdFileName;
