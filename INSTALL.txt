@@ -1,8 +1,8 @@
 *********************************************
-CLAROLINE 1.5.0 RELEASE CANDIDATE 2 - INSTALL
+CLAROLINE 1.5.0 FINAL - INSTALL
 *********************************************
 
-Thank you for downloading Claroline 1.5.0 Beta. This text will guide you 
+Thank you for downloading Claroline 1.5.0 . This text will guide you 
 through the basics of installation and operation of Claroline 1.5. Please 
 ensure you read this fully BEFORE proceeding with the installation.
 
@@ -100,16 +100,16 @@ INSTALLATION PROCEDURE
 NEW CLAROLINE INSTALLATION
 --------------------------
 
-1. Download 'claroline150RC2.tar.gz' 
+1. Download 'claroline150.tar.gz' 
 
-   Windows : download 'claroline150RC2.zip'.
+   Windows : download 'claroline150.zip'.
 
 
 2. Open a shell, go to download directory and type 
 
-	tar -zxvf claroline150RC2.tar.gz
+	tar -zxvf claroline150.tar.gz
 
-   Windows : unzip 'claroline150RC2.zip'.
+   Windows : unzip 'claroline150.zip'.
 
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
@@ -142,16 +142,16 @@ Claroline directories and databases. If you are unsure how to achieve this
 please ask your hosting provider for advice.
 
 
-1. Download 'claroline150RC2.tar.gz'
+1. Download 'claroline150.tar.gz'
 
-   Windows : download 'claroline150RC2.zip'.
+   Windows : download 'claroline150.zip'.
 
 
 2. Open a shell, go to download directory and type
 
-	tar -zxvf claroline150RC2.tar.gz
+	tar -zxvf claroline150.tar.gz
 
-   Windows : unzip 'claroline150RC2.zip'.
+   Windows : unzip 'claroline150.zip'.
 
 
 3. Replace your previous Claroline directory and index.php by the new one.
@@ -210,5 +210,5 @@ If this doesn't work, delete '.htaccess'.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - June 29 2004
+                Europe, Belgium, Louvain-la-Neuve - July 7 2004
 ================================== END ===================================

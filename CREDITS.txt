@@ -1,5 +1,5 @@
 *******************************************
-CLAROLINE 1.5 RELEASE CANDIDATE 2 - CREDITS
+CLAROLINE 1.5 - CREDITS
 *******************************************
 
 Claroline Core Team :           Thomas De Praetere (depraetere@ipm.ucl.ac.be)
@@ -103,5 +103,5 @@ Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - June 29 2004
+                Europe, Belgium, Louvain-la-Neuve - July 7 2004
 ================================== END ===================================
