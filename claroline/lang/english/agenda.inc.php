@@ -39,4 +39,6 @@ $langNow = "Now";
 
 $langAddEvent="Add an event";
 $langDetail="Detail";
+
+$langEditEvent = "Edit Event";
 ?>
