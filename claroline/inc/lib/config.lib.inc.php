@@ -272,9 +272,9 @@ function lastConfUpdate($config_code)
 function config_checkToolProperty($propValue, $propertyDef)
 {
     global $controlMsg; 
-    $acceptedval = $propertyDef['acceptedval'];
-    $propName  = $propertyDef['label'];
-    $validator = $propertyDef['type'];
+    $acceptedValue = $propertyDef['acceptedValue'];
+    $propName      = $propertyDef['label'];
+    $validator     = $propertyDef['type'];
     $is_validValue = TRUE;
     if(is_array($propertyDef))
     {
@@ -294,20 +294,20 @@ function config_checkToolProperty($propValue, $propertyDef)
                     $controlMsg['error'][] = $propName.' would be integer';
                     $is_validValue = FALSE;
                 }
-                elseif (isset($acceptedval['max'])&& $acceptedval['max']<$propValue)
+                elseif (isset($acceptedValue['max'])&& $acceptedValue['max']<$propValue)
                 {
-                    $controlMsg['error'][] = $propName.' would be integer inferior or equal to '.$acceptedval['max'];
+                    $controlMsg['error'][] = $propName.' would be integer inferior or equal to '.$acceptedValue['max'];
                     $is_validValue = FALSE;
                 }   
-                elseif (isset($acceptedval['min'])&& $acceptedval['min']>$propValue)
+                elseif (isset($acceptedValue['min'])&& $acceptedValue['min']>$propValue)
                 {
-                    $controlMsg['error'][] = $propName.' would be integer superior or equal to '.$acceptedval['min'];
+                    $controlMsg['error'][] = $propName.' would be integer superior or equal to '.$acceptedValue['min'];
                     $is_validValue = FALSE;
                 }   
 
                 break;
             case 'enum' : 
-                if (!in_array($propValue,array_keys($acceptedval))) 
+                if (!in_array($propValue,array_keys($acceptedValue))) 
                 {
                     $controlMsg['error'][] = $propName.' would be in enum list';
                     $is_validValue = FALSE;
@@ -323,9 +323,9 @@ function config_checkToolProperty($propValue, $propertyDef)
                 }   
                 break;
             case 'regexp' :
-                if (!eregi( $acceptedval, $propValue )) 
+                if (isset($acceptedValue) && !eregi( $acceptedValue, $propValue )) 
                 {
-                    $controlMsg['error'][] = $propName.' would be valid for '.$acceptedval;
+                    $controlMsg['error'][] = $propName.' would be valid for '.$acceptedValue;
                     $is_validValue = FALSE;
                 }   
                 break;
@@ -654,7 +654,7 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
         {
        	    case 'boolean' : 
    	        case 'enum' : 
-                echo (isset($conf_def_property_list['acceptedval'][$htmlPropValue])?$conf_def_property_list['acceptedval'][$htmlPropValue]:$htmlPropValue);
+                echo (isset($conf_def_property_list['acceptedValue'][$htmlPropValue])?$conf_def_property_list['acceptedValue'][$htmlPropValue]:$htmlPropValue);
         		break;
        	    case 'integer' : 
    	        case 'string' : 
@@ -678,11 +678,11 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 .'<span>'
                 .'<input id="'.$property.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '.($htmlPropValue=='TRUE'?' checked="checked" ':' ').' >'
                 .'<label for="'.$property.'_TRUE"  >'
-                .($conf_def_property_list['acceptedval']['TRUE' ]?$conf_def_property_list['acceptedval']['TRUE' ]:'TRUE' )
+                .($conf_def_property_list['acceptedValue']['TRUE' ]?$conf_def_property_list['acceptedValue']['TRUE' ]:'TRUE' )
                 .'</label>'
                 .'</span>'."\n"
                 .'<span>'
-                .'<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '.($htmlPropValue=='TRUE'?' ':' checked="checked" ').' ><label for="'.$property.'_FALSE" >'.($conf_def_property_list['acceptedval']['FALSE']?$conf_def_property_list['acceptedval']['FALSE']:'FALSE').'</label></span>'."\n"
+                .'<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '.($htmlPropValue=='TRUE'?' ':' checked="checked" ').' ><label for="'.$property.'_FALSE" >'.($conf_def_property_list['acceptedValue']['FALSE']?$conf_def_property_list['acceptedValue']['FALSE']:'FALSE').'</label></span>'."\n"
                 ;
     		break;
    	    case 'enum' : 
@@ -691,7 +691,7 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 .'</H2>'."\n"
                 .$htmlPropDesc."\n"
                 .$htmlPropDefault."\n";
-            foreach($conf_def_property_list['acceptedval'] as  $keyVal => $labelVal)
+            foreach($conf_def_property_list['acceptedValue'] as  $keyVal => $labelVal)
             {
                 echo '<span>'
                     .'<input id="'.$property.'_'.$keyVal.'"  type="radio" name="'.$htmlPropName.'" value="'.$keyVal.'"  '.($htmlPropValue==$keyVal?' checked="checked" ':' ').' >'

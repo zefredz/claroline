@@ -19,7 +19,7 @@ array ( 'description' => 'if field limitNbGroupByUser is  missing in groupProper
       , 'type'        => 'boolean'
       , 'display'     => TRUE
       , 'readonly'    => FALSE
-      , 'acceptedval' => array ( 'TRUE'=>'enabled (set  limitNbGroupByUser = ALL if not defined)'
+      , 'acceptedValue' => array ( 'TRUE'=>'enabled (set  limitNbGroupByUser = ALL if not defined)'
                                , 'FALSE'=>'dislabed (set  limitNbGroupByUser = 1 if not defined)')
       );
 
@@ -28,7 +28,7 @@ array ( 'description' => 'if field limitNbGroupByUser is  missing in groupProper
       , 'label'       => 'Tutors can subscribe a team as simple member'
       , 'default'     => 'FALSE'
       , 'type'        => 'boolean'
-      , 'acceptedval' => array ('TRUE'=>'yes, he can'
+      , 'acceptedValue' => array ('TRUE'=>'yes, he can'
                                ,'FALSE'=>'No, he can\'t'
                                )
       , 'display'     => TRUE
@@ -40,7 +40,7 @@ array ( 'description' => 'Not implemented, name reserved  for future version of 
       , 'label'       => 'whether include tutors in the displayed member list'
       , 'default'     => 'FALSE'
       , 'type'        => 'boolean'
-      , 'acceptedval' => array ('TRUE'=>'enabled'
+      , 'acceptedValue' => array ('TRUE'=>'enabled'
                                ,'FALSE'=>'dislabed'
                                )
       , 'display'     => TRUE

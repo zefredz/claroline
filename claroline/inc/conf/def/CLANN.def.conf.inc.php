@@ -16,7 +16,7 @@ $conf_def_property_list['CONFVAL_LOG_ANNOUNCEMENT_INSERT'] =
 array( 'label'      => 'Logguer les ajouts dans les annonces'
      , 'default'    => 'TRUE'
      , 'type'       => 'boolean'
-     , 'acceptedval'=> array ('TRUE'=>'enabled'
+     , 'acceptedValue'=> array ('TRUE'=>'enabled'
                              ,'FALSE'=>'dislabed'
                              )
      , 'display'    => TRUE
@@ -28,7 +28,7 @@ $conf_def_property_list['CONFVAL_LOG_ANNOUNCEMENT_DELETE'] =
 array( 'default'  => 'TRUE'
      , 'label'    => 'Logguer les suppressions d\'annonce'
      , 'type'     => 'boolean'
-     , 'acceptedval'=> array ('TRUE'=>'enabled'
+     , 'acceptedValue'=> array ('TRUE'=>'enabled'
                              ,'FALSE'=>'dislabed'
                              )
      , 'display'  => TRUE
@@ -39,7 +39,7 @@ array( 'default'  => 'TRUE'
 $conf_def_property_list['CONFVAL_LOG_ANNOUNCEMENT_UPDATE'] =
 array( 'default'  => 'FALSE'
      , 'type'     => 'boolean'
-     , 'acceptedval'=> array ('TRUE'=>'enabled'
+     , 'acceptedValue'=> array ('TRUE'=>'enabled'
                              ,'FALSE'=>'dislabed'
                              )
      , 'display'  => TRUE
