@@ -66,7 +66,7 @@ if( $isAllowedToDelete )
         claro_sql_query($sql);
         
         // display confirm msg and back link
-        echo $langDeleteDone 
+        echo $langDelCourseStatsDone 
               ."<br /><br />"
               ."<a href=\"courseLog.php\">"
               .$langBack
