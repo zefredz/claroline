@@ -414,6 +414,12 @@ if ($display == USER_DATA_FORM)
        </td>
     </tr>
 
+    <tr>
+     <td>
+     <?echo "<a  href=\"adminusercourses.php?uidToEdit=".$user_id."\"> ".$langAllUserOfThisCourse." </a>\n";?>
+     </td>
+   </tr>
+
 	<tr>
 	  <td>
 	  </td>
@@ -424,6 +430,7 @@ if ($display == USER_DATA_FORM)
 	    <br>
       </td>
    </tr>
+
   </table>
 </form>
 <?php
@@ -439,7 +446,7 @@ echo "<a class=\"claroButton\"
        onClick=\"return confirmation('",addslashes($username_form),"');\"
        href=\"adminuserdeleted.php?uidToEdit=".$user_id."&cmd=delete\" > ".$langDeleteUser." </a>\n";
 echo "<a class=\"claroButton\" href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$user_id."&category=\" >  ".$langRegisterUser." </a>\n";
-echo "<a class=\"claroButton\" href=\"adminusercourses.php?uidToEdit=".$user_id."\"> ".$langUserCourseList." </a>\n";
+
 
 if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
 {
