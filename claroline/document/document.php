@@ -1451,7 +1451,7 @@ claro_disp_tool_title($titleElement,
 	
 	    echo "</p>\n";
 	
-	    echo "<table class=\"claroTable emLine\" width=\"100%\">\n";
+	    echo "<table class=\"claroTable emphaseLine\" width=\"100%\">\n";
 	
 		/* CURRENT DIRECTORY */
 		
