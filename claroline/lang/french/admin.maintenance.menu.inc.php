@@ -1,31 +1,30 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.0 $Revision$
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-
-
-
       +----------------------------------------------------------------------+
  */
 // INDEX
 
-$langAdminBy = "Administration  par";
-$langAdministration = "Administration";
-$langTools = "Outils";
-$langState = "Etat";
-$langDevAdmin ="Administration du développement";
+$langAdminBy             = "Administration  par";
+$langAdministration      = "Administration";
+$langAdministrationTools = "Administration";
+$langAlreadyDone         = "A jour";
+$langTools               = "Outils";
+$langState               = "Etat";
+$langDevAdmin            = "Administration du développement";
 $langLinksToClaroProjectSite ="Liens vers le site du projet";
-$langNomOutilTodo 		= "Gestion des suggestions"; // to do
-$langNomPageAdmin 		= "Administration";
-$langSysInfo  			= "Info Système";        // Show system status
-$langCheckDatabase  	= "Vérificateur d'état des bases";        // Check Database
-$langDiffTranslation 	= "Comparaison des traductions"; // diff of translation
-$langStatOf 			= "Statistiques de "; // Stats of...
-$langSpeeSubscribe 		= "Inscription Rapide comme Testeur d'un cours";
-$langLogIdentLogout 	= "Liste des logins"; // JCC
-$langLogIdentLogoutComplete = "Liste étendue des logins";
+$langNomOutilTodo              = "Gestion des suggestions"; // to do
+$langNomPageAdmin              = "Administration";
+$langSysInfo                    = "Info Système";        // Show system status
+$langCheckDatabase           = "Vérificateur d'état des bases";        // Check Database
+$langDiffTranslation           = "Comparaison des traductions"; // diff of translation
+$langStatOf                  = "Statistiques de "; // Stats of...
+$langSpeeSubscribe              = "Inscription Rapide comme Testeur d'un cours";
+$langLogIdentLogout          = "Liste des logins"; // JCC
+$langLogIdentLogoutComplete  = "Liste étendue des logins";
 
 // Stat
 $langStatistiques = "Statistiques";
@@ -37,9 +36,7 @@ $langToday   ="Aujourd'hui";
 $langLast7Days ="Ces 7 derniers jours";
 $langLast30Days ="Ces 30 derniers jours";
 
-
 $langNbAnnoucement = "Nombre d'annonces";
-
 
 // Check data base
 $langCheckDatabase ="Analyse de la Base de données";
@@ -79,22 +76,22 @@ $langtitulary ="Titulary"; // JCC "Propriétaire" ?
 $langLanguage ="Langue"; // JCC
 $langUpgradeBase = "Mise à jour de la base de données"; // JCC
 
-$langAddAUser 		="Ajouter un utilisateur";
-$langSearchAUser 	="Chercher un utilisateur";
-$langBrowseUser		="Explorer la liste d'utilisateurs";  // JCC
-$langListOfUser		="Lister les utilisateurs";
+$langAddAUser         ="Ajouter un utilisateur";
+$langSearchAUser     ="Chercher un utilisateur";
+$langBrowseUser        ="Explorer la liste d'utilisateurs";  // JCC
+$langListOfUser        ="Lister les utilisateurs";
 
 $langSearchACourse ="Chercher un cours";
 $langBrowseCourse = "Explorer la liste des cours";
 $langListOfCourse = "Lister les cours";
 $langAddFaculties  ="Ajouter un ensemble de cours (faculté)";
-$langLogIdentLogout		= "Explorer les connections";
+$langLogIdentLogout        = "Explorer les connections";
 $langLogIdentLogoutComplete ="Explorer les connections (plus complet)";
-$langCourseOfAUser		= "Cours d'un utilisateur";
-$langCourseOfListUser	= "Cours des utilisateurs";
-$langCourses 			= "Cours";
-$langUsers				= "Utilisateurs";
-$langManage				= "Gestion du campus";
+$langCourseOfAUser        = "Cours d'un utilisateur";
+$langCourseOfListUser    = "Cours des utilisateurs";
+$langCourses             = "Cours";
+$langUsers                = "Utilisateurs";
+$langManage                = "Gestion du campus";
 $langAdminProfileUser   = "Compte utilisateur";
 $langMaintenance ="Maintenance";
 $langUpgrade ="Mise à jour de Claroline"; // JCC
