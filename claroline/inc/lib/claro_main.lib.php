@@ -524,13 +524,10 @@ function claro_enable_tool_view_option()
 
 function claro_disp_tool_view_option($viewModeRequested = false)
 {
-    global $REQUEST_URI, $clarolineRepositoryWeb;
-    global $langCourseManagerView, $langStudentView;
-	global $is_courseAdmin;
+    global $clarolineRepositoryWeb, $is_courseAdmin,
+           $langCourseManagerView,  $langStudentView;
 	
-	if (!$is_courseAdmin) return false;
-	
-    claro_set_display_mode_available(true);
+	if ( ! $is_courseAdmin && ! is_display_mode_available() ) return false;
 
     if ($viewModeRequested) claro_set_tool_view_mode($viewModeRequested);
 
@@ -545,8 +542,8 @@ function claro_disp_tool_view_option($viewModeRequested = false)
      * (thus a questionmark)
      */
 
-    if ( strstr($REQUEST_URI, '?') ) $url = $REQUEST_URI;
-    else                             $url = $_SERVER['PHP_SELF'].'?';
+    if ( strstr($_SERVER['REQUEST_URI' ], '?') ) $url = $_SERVER['REQUEST_URI' ];
+    else                                         $url = $_SERVER['PHP_SELF'].'?';
 
     /*
      * remove previous view mode request from the url
