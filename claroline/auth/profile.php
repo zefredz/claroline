@@ -650,12 +650,12 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
             </label> :
         </td>
         <td >
-            <input type="text" size="40" name="form_email" id="form_email" value="",$form_email,"">
+            <input type="text" size="40" name="form_email" id="form_email" value="<?php echo $form_email ?>">
         </td>
     </tr>
     <tr>
         <td align="right">
-            <label for="form_email">
+            <label for="form_phone">
                 <?php echo $langPhone ?>
             </label> : 
         </td>
