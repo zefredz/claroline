@@ -105,3 +105,7 @@ function or functions defined by your own.
                 'status'       => 'treat_status_from_extauth_to_claroline'
 
         );
+
+
+Hugues Peeters
+peeters@ipm.ucl.ac.be
