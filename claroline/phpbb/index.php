@@ -53,14 +53,14 @@ $sql = "SELECT f.*, u.username, u.user_id, p.post_time, g.id gid
         LEFT JOIN `".$tbl_users."` u 
                ON u.user_id = p.poster_id
         LEFT JOIN `".$tbl_student_group."` g 
-                 ON g.forumId = f.forum_id
+               ON g.forumId = f.forum_id
           ".$limit_forums."
         ORDER BY f.forum_order, f.cat_id, f.forum_id ";
 
 $forumList = claro_sql_query_fetch_all($sql);
 
 
-// GET FORUM IDS OF CURRENT USER 
+// GET GROUP FORUM IDS OF CURRENT USER 
 
 $sql = "SELECT `g`.`forumId`
         FROM `".$tbl_student_group."` `g`,
