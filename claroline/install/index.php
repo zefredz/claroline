@@ -149,6 +149,13 @@ elseif($doInstall)
 	// Forth block check some right
 
 	$display=DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
+
+	if (empty($adminSurnameForm)||empty($passForm)||empty($loginForm)||empty($adminNameForm))
+	{
+		$adminDataMissing = true;
+		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
+	}
+
 	$db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
 	if (mysql_errno()>0) // problem with server
 	{
@@ -1504,6 +1511,12 @@ elseif($display==DISP_RUN_INSTALL_NOT_COMPLETE)
 				<h2>
 					Install Problem
 				</h2>";
+	if ($adminDataMissing)
+	{
+		echo "<strong>Admin Data missing</strong><br>
+			<input type=\"submit\" name=\"back4\" value=\"Admin Data\">
+		";	
+	}
 	if ($noMysqlConnection)
 	{
 
