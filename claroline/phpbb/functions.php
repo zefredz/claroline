@@ -460,9 +460,7 @@ function get_translated_file($file)
 
 function get_syslang_string($sys_lang, $string)
 {
-	global $phpEx;
-	@include('language/lang_'.$sys_lang.'.'.$phpEx);
-	$ret_string = $$string;
+	$ret_string = $GLOBALS[$string];
 	return($ret_string);
 }
 
