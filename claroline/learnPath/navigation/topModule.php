@@ -44,7 +44,11 @@
   $interbredcrump[]= array ("url"=>"../module.php", "name"=> $langModule);
   //$htmlHeadXtra[] = "<script src=\"APIAdapter.js\" type=\"text/javascript\" language=\"JavaScript\">";
   //header
-  @include($includePath."/claro_init_header.inc.php");
+  $hide_body = true;
+  include($includePath."/claro_init_header.inc.php");
+  // footer
+  $hide_footer = true;
+  include($includePath."/claro_init_footer.inc.php");
 
 
 ?>
