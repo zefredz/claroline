@@ -1830,4 +1830,13 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
+
+$langINeedToCreateCourse      = "I need to create course";
+$langRequestCourseManagerStatus      = "Request a course manager status";
+$langDeleteMyAccount = "Delete my account";
+$langYourRequestToRemoveYourAccountIsSent = "Your request to remove your account is sent";
+$langYourRequestToBeCourseManagerIsSent = "Your request to become a course manager is sent";
+$langCourseManagerStatusToUser = "Course creator status to %s %s";
+$langRevoquationOfUser = "Revocation of %s %s";
+
 ?>
