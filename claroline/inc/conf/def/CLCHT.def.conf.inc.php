@@ -1,7 +1,7 @@
 <?php // $Id$
-$conf_def['config_file']='chat.conf.inc.php';
+$conf_def['config_file']='CLCHT___.conf.php';
 $conf_def['config_code']='CLCHT';
-$conf_def['config_name']='general setting for chat tool';
+$conf_def['config_name']='General setting for chat tool';
 $conf_def['description']='Note : these value would be COPY in the script to win an include.';
 
 $conf_def['section']['buffer']['label']='buffer';
@@ -39,9 +39,9 @@ array ( 'description'   => 'Maximum line diplayed to the user screen. '
       
 $conf_def_property_list['REFRESH_DISPLAY_RATE'] =
 array ( 'description' => 'Time to automaticly refresh  user screen'
-      , 'label'       => 'delay in second'
+      , 'label'       => 'Delay in second'
       , 'default'     => '10'
-      , 'unit'         => 'second'
+      , 'unit'        => 'second'
       , 'type'        => 'integer'
       );
 ?>
