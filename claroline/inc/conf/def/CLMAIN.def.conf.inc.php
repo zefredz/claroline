@@ -104,6 +104,7 @@ array ( 'claro_texRendererUrl'
       , 'clarolineVersion'
       , 'versionDb'
       , 'platform_id'
+      , 'CLARO_DEBUG_MODE'
       );
 
 
@@ -544,6 +545,13 @@ array ('type'        => 'syspath'
 
 
 //
+$conf_def_property_list['CLARO_DEBUG_MODE'] =
+array ('type'        => 'boolean'
+      ,'default'     => 'FALSE'
+      ,'container'   => 'CONST'
+      ,'display'     => FALSE
+      ,'readonly'    => FALSE
+      );
 $conf_def_property_list['clarolineVersion'] =
 array ('type'        => 'string'
       ,'default'     => '1.6.beta2'
