@@ -10,7 +10,6 @@ ob_start();
 
 <div id="platformBanner">
 
-<h1>
 <span id="siteName"><a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $siteName ?></a></span>
 <span id="institution">
 <a href="<?php echo $institution['url'] ?>" target="_top"><?php echo $institution['name'] ?></a>
@@ -32,7 +31,6 @@ if ($_course['extLink']['name'] != '')    /* --- External Link Section --- */
 }
 ?>
 </span>
-</h1>
 
 <div class="spacer"></div>
 </div>
@@ -51,7 +49,7 @@ if($_uid)
 
 <div id="userBanner">
 
-<h2><?php echo $_user ['firstName'].' '.$_user ['lastName'] ?></h2>
+<span id="userName"><?php echo $_user ['firstName'].' '.$_user ['lastName'] ?></span>
 <ul id="userLinks">
 <li><a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $langMyCourses; ?></a></li>
 <li><a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo $langMyAgenda; ?></a></li>
