@@ -306,7 +306,7 @@ if ($platformRegSucceed == false)
 <td><input type="text" size="40" name="prenom_form" id="prenom_form" value="<?php echo htmlentities(stripslashes($prenom_form)); ?>"></td>
 </tr>
 
-<?
+<?php
 if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 {
 ?>
@@ -317,7 +317,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
     <input type="text" size="40" id="official_code" name="official_code" value="<?php echo htmlentities(stripslashes($official_code)); ?>">
     </td>
 </tr>
-<?
+<?php
 }
 ?>
 <tr>
@@ -373,7 +373,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 </tr>
 
 <tr>
-<?
+<?php
 
 if ($_cid) // if we're inside a course, then it's a course registration
 {
@@ -395,7 +395,7 @@ if ($_cid) // if we're inside a course, then it's a course registration
   <input type="radio" name="admin_form" value="5" <?php if(!isset($admin_form) || $admin_form == 5) echo 'checked="checked"'; ?> id="no" > <label for="no"><?php echo $langNo ?></label>
   <input type="radio" name="admin_form" value="1" <?php if($admin_form == 1) echo 'checked="checked"';                        ?> id="yes"> <label for="yes"><?php echo  $langYes; ?></label></td>
 </tr>
-<?
+<?php
 
 }			// end if $_cid - for the case we're not in a course registration
 			// but a platform registration
@@ -413,7 +413,7 @@ else
 </td>
 </tr>
 
-<?
+<?php
 } // end else if $_cid
 ?>
 <tr>

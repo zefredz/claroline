@@ -64,7 +64,7 @@ $myrow = mysql_fetch_array($result);
 $countUser = $myrow["nbUser"] ;
 ?>
 	<LI>il y a <?php echo $countUser ?> utilisateurs
-<?
+<?php
 $sqlNb = "SELECT count(id) nb FROM `".$TABLEAGENDA."`";
 $result = mysql_query($sqlNb);
 $myrow = mysql_fetch_array($result);
@@ -83,7 +83,7 @@ $count = $myrow["nb"] ;
 				les documents
 			</H3>
 			<OL>
-<?
+<?php
 $sqlNb = "SELECT count(id) nb FROM `".$TABLEDOCUMENT."`";
 $result = mysql_query($sqlNb);
 $myrow = mysql_fetch_array($result);
@@ -91,7 +91,7 @@ $count = $myrow["nb"] ;
 ?>
 				<LI>
 					il y a <?php echo $count ?> documents
-<?
+<?php
 $sqlNb = "SELECT count(id) nb FROM `".$TABLEDOCUMENT."` where visibility = 'v'";
 $result = mysql_query($sqlNb);
 $myrow = mysql_fetch_array($result);
@@ -138,12 +138,12 @@ $count2 = $myrow["nb"] ;
 			<H3>
 				Les  Forums
 			</H3>
-<?
+<?php
 $sqlNb = "SELECT * FROM `".$TABLEFORUM."`";
 $result = mysql_query($sqlNb);
 ?>
 <table width="95%" border="0" cellspacing="0" cellpadding="2" align="left" bgcolor="#C0C0C0">
-<?
+<?php
 while ($myrow = mysql_fetch_array($result))
 { 
 	echo "

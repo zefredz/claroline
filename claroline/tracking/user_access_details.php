@@ -1,16 +1,13 @@
-<?
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*			                             |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   $Id$         |
-      +----------------------------------------------------------------------+
-      |   Authors : see CREDITS.txt                                     |
-      +----------------------------------------------------------------------+
-
-*/ 
+<?php // $Id$
+/**
+ * --------------------------------------------------------------------
+ * @version CLAROLINE 1.6
+ * --------------------------------------------------------------------
+ * @copyright 2001, 2005 Universite catholique de Louvain (UCL)
+ * @license GPL
+ * @author see CREDITS.txt
+ *
+ */ 
 require '../inc/claro_init_global.inc.php';
 
 $nameTools = $langUserAccessDetails;
@@ -130,5 +127,5 @@ else
 }
 
 // footer
-@include($includePath."/claro_init_footer.inc.php");
+include($includePath."/claro_init_footer.inc.php");
 ?>

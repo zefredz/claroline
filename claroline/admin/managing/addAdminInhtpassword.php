@@ -229,7 +229,7 @@ elseif ($display == WHAT_YOU_WANT_TO_DO)
 			<a href="<?php echo $_SERVER['PHP_SELF'] ?>?listHtLogins=1"><?php echo $langListHtUsers; ?></a>
 		</LI>
 	</UL>
-	<?
+	<?php
 }
 elseif ($display == AFTER_ADD_ADMIN)
 {
@@ -252,7 +252,7 @@ elseif ($display == AFTER_ADD_ADMIN)
 			<a href="<?php echo $_SERVER['PHP_SELF'] ?>?giveAdminRight=1"><?php echo $langGiveAdminRight; ?></a>
 		</LI>
 	</UL>
-	<?
+	<?php
 
 }
 elseif ($display == USER_SELECT_FORM)
@@ -381,7 +381,7 @@ elseif ($display == FINAL_MESSAGE)
 			<a href="<?php echo $_SERVER['PHP_SELF'] ?>"><?php echo $langNomPageAddHtPass; ?></a>
 		</LI>
 	</UL>
-	<?
+	<?php
 }
 else
 {

@@ -236,7 +236,7 @@ foreach($descSizeToPrupose as $nblines)
 </table>
 </form>
 
-<?
+<?php
 }
 elseif ($displayMode == "viewDefList")
 {

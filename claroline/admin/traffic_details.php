@@ -189,6 +189,6 @@ include($includePath."/claro_init_header.inc.php");
 ?>
 </table>
 
-<?
-@include($includePath."/claro_init_footer.inc.php");
+<?php
+include($includePath."/claro_init_footer.inc.php");
 ?>

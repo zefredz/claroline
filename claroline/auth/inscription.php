@@ -76,7 +76,7 @@ claro_disp_tool_title($langRegistration);
 			<input type="text" size="40" id="firstname" name="firstname" value="<?php echo $firstname?>">
 		</td>
 	</tr>
-<?
+<?php
 if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 {
 ?>

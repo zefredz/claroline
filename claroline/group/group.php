@@ -825,7 +825,7 @@ if ($is_allowedToManage)
 	<td><?php echo $langAdminsOfThisCours ?></td>
 	</tr>
 
-	<?
+	<?php
 		if	($tutors[1] > 0)
 		{
 			echo	"<tr>",

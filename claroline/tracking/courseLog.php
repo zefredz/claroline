@@ -537,6 +537,6 @@ else
 <img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" alt="">
 <?php echo $langDelCourseStats; ?>
 </a>
-<?
+<?php
 include($includePath."/claro_init_footer.inc.php");
 ?>

@@ -114,7 +114,7 @@ claro_disp_tool_title( array('mainTitle' => $nameTools,
 		</td>
 	</tr>
 
-<?
+<?php
 	}
 ?>
 	<tr>
@@ -129,11 +129,11 @@ claro_disp_tool_title( array('mainTitle' => $nameTools,
 	<tr>
 		<td valign="top">
 				<?php echo $langGroupForum; ?>
-			<input type="radio" name="private" id="private_1" value="1" <?
+			<input type="radio" name="private" id="private_1" value="1" <?php
 				if(!$groupPrivate)
 					echo "checked"?> >
 				<label for="private_1"><?php echo $langPrivate; ?></label>
-			<input type="radio" name="private" id="private_0" value="0" <?
+			<input type="radio" name="private" id="private_0" value="0" <?php
 				if($groupPrivate)
 					echo "checked"?> >
 				<label for="private_0"><?php echo $langPublic; ?></label>

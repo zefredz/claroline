@@ -81,7 +81,7 @@ Run creating request of  each tables.
 Demo
 <hr>
 
-<?
+<?php
 if (isset($create))
 {
     echo "

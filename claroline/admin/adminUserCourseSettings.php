@@ -162,7 +162,7 @@ claro_disp_tool_title($nameTools." : ".$courseList['intitule']);
   //subttitle
 ?>
 <h4><?php echo $langUser." : ".$prenom_form." ".$nom_form; ?></h4>
-<?
+<?php
 
 //Display Forms or dialog box(if needed)
 

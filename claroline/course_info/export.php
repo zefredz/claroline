@@ -537,7 +537,7 @@ if ($displayFormWhatSaveMain)
 
 </table>
 </form>
-<?
+<?php
 }
 elseif ($displayFormWhatDoNow)
 {
@@ -547,7 +547,7 @@ elseif ($displayFormWhatDoNow)
 </H3>
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" name="STEP3" id="STEP2">
 <table  class="forms" width="100%" >
-<?
+<?php
 if ($downloadArchiveAivailable)
 {
 ?>

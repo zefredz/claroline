@@ -157,8 +157,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
               
              </tr>
              <tbody>
-<?
-  
+<?php
   //### DISPLAY LIST OF ELEMENTS #####################################
   foreach ($flatElementList as $module)
   {

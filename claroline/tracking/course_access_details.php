@@ -192,6 +192,6 @@ claro_disp_tool_title($nameTools);
 ?>
 </table>
 
-<?
-@include($includePath."/claro_init_footer.inc.php");
+<?php
+include($includePath."/claro_init_footer.inc.php");
 ?>

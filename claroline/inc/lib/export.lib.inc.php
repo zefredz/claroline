@@ -771,7 +771,7 @@ INSERT INTO users SET ";
 		non réalisé
 	</font>
 	-->
-	<?
+	<?php
 	return 1;
 }  // function makeTheBackup()
 

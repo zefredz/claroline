@@ -233,7 +233,7 @@ include($includePath."/lib/statsUtils.lib.inc.php");
     
 ?>
 </table>
-<?
+<?php
 // footer
-@include($includePath."/claro_init_footer.inc.php");
+include($includePath."/claro_init_footer.inc.php");
 ?>
