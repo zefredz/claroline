@@ -107,7 +107,7 @@ if($display==DISP_FILE_LIST
 
 		<table cellspacing="2" cellpadding="2" border="0" class="claroTable">
 <tr class="headerX">
-    <th ><?php echo $langFilename ?></th>
+    <th ><?php echo $langFileName ?></th>
     <th ><?php echo $langEdit ?></th>
     <th ><?php echo $langPreview ?></th>
 </tr>
