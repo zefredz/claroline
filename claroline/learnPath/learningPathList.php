@@ -106,11 +106,12 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   $lpUid = $_uid;
 
   // display introduction
-  $moduleId = 6; // Id of the Learning Path introduction Area
-  $helpAddIntroText=$langIntroLearningPath;
+  $moduleId = $_tid; // Id of the Learning Path introduction Area
+  $helpAddIntroText = $langIntroLearningPath;
   include($includePath."/introductionSection.inc.php");
 
 
+   $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
    // execution of commands
    switch ($cmd)
    {
