@@ -46,8 +46,6 @@ List  of  views
 	- displayCourseAddResult
 		New course is added.  Show  success message.
 */
-
-
 $langFile = "create_course";
 include('../inc/claro_init_global.inc.php');
 
@@ -64,11 +62,12 @@ include($includePath."/conf/course_info.conf.php");
 
 $nameTools = $langCreateSite;
 
-$TABLECOURSE 		= "$mainDbName`.`cours";
-$TABLECOURSDOMAIN	= "$mainDbName`.`faculte";
-$TABLEUSER			= "$mainDbName`.`user";
-$TABLECOURSUSER 	= "$mainDbName`.`cours_user";
-$TABLEANNOUNCEMENTS	= "announcement";
+$TABLECOURSE 		= $mainDbName.'`.`cours';
+$TABLECOURSE 		= $mainDbName.'`.`cours';
+$TABLECOURSDOMAIN	= $mainDbName.'`.`faculte';
+$TABLEUSER			= $mainDbName.'`.`user';
+$TABLECOURSUSER 	= $mainDbName.'`.`cours_user';
+$TABLEANNOUNCEMENTS	= 'announcement';
 $can_create_courses = (bool) ($is_allowedCreateCourse);
 $coursesRepositories = $rootSys;
 
@@ -77,10 +76,9 @@ if (empty($valueEmail)) $valueEmail = $_user['mail'];
 //// Starting script
 $displayNotForU = FALSE;
 if (!$can_create_courses)
-// if (!$is_platformAdmin)
 {
 	$displayNotForU = TRUE;
-}
+} // (!$can_create_courses)
 else
 {
 	if (	$sendByUploadAivailable
@@ -116,7 +114,7 @@ else
 		{
 			$displayWhatAdd 				= TRUE;
 		}
-	}
+	} // if (isset($HTTP_POST_VARS["fromWhatAdd"]))
 	elseif (isset($HTTP_POST_VARS["selectArchive"]))
 	{
 		$displayWhatAdd = FALSE;
@@ -197,10 +195,9 @@ else
 				$displayWhatAdd = TRUE;
 				$okToUnzip = FALSE;
 				// gloups
-		}
+		} // elseif (isset($HTTP_POST_VARS["selectArchive"]))
 
-//2° unzip archive in $pathToStorgeArchiveBeforeUnzip
-
+		//2° unzip archive in $pathToStorgeArchiveBeforeUnzip
 		if ($okToUnzip)
 		{
 			checkArchive($pathToStorgeArchiveBeforeUnzip."/".$nameOfZipFile);
@@ -237,11 +234,52 @@ else
 			$valueLastVisit		= $courseProperties["lastVisit"];
 			$valueLastEdit 		= $courseProperties["lastEdit"];
 			$valueExpire 		= $courseProperties["expirationDate"];
-		}
+		} //if ($okToUnzip)
 	}
 	elseif ($submitFromCoursProperties)
 	{
-		$wantedCode = $HTTP_POST_VARS["wantedCode"];
+		
+		$wantedCode 		= (string) $_REQUEST["wantedCode"];
+		$newcourse_category	= (string) $_REQUEST["faculte"];
+		$newcourse_label	= (string) $_REQUEST["intitule"];
+		$newcourse_language = (string) $_REQUEST["languageCourse"];
+		$newcourse_titulars	= (string) $_REQUEST["titulaires"];
+		$newcourse_email 	= (string) $_REQUEST["email"];
+		
+		$okToCreate = true;
+		
+		
+		/////CHECK DATA
+		
+		
+		// LABEL (Previously called intitule
+		if (HUMAN_LABEL_NEEDED && empty($newcourse_label)) 
+		{
+			$okToCreate = FALSE;
+			$controlMsg["error"][] = $langLabelCanBeEmpty;
+		}
+		
+		if (HUMAN_CODE_NEEDED && empty($wantedCode)) 
+		{
+			$okToCreate = FALSE;
+			$controlMsg["error"][] = $langCodeCanBeEmpty;
+		}
+		
+		if (COURSE_EMAIL_NEEDED && empty($newcourse_email)) 
+		{
+			$okToCreate = FALSE;
+			$controlMsg["error"][] = $langEmailCanBeEmpty;
+		}
+		
+		// if an email is given It would be correct
+		$regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
+		if (!empty($newcourse_email)&&!eregi( $regexp, $newcourse_email)) 
+		{
+			$okToCreate = FALSE;
+			$controlMsg["error"][] = $langEmailWrong;
+		}
+		
+		
 	//  function define_course_keys ($wantedCode, $prefix4all="", $prefix4baseName="", 	$prefix4path="", $addUniquePrefix =false,	$useCodeInDepedentKeys = TRUE	)
 		$keys = define_course_keys ($wantedCode,"",$dbNamePrefix);
 		$currentCourseCode		 = $keys["currentCourseCode"];
@@ -249,29 +287,57 @@ else
 		$currentCourseDbName	 = $keys["currentCourseDbName"];
 		$currentCourseRepository = $keys["currentCourseRepository"];
 		$expirationDate 		= 	time() + $firstExpirationDelay;
-	 if ($DEBUG) echo "[Code:",	$currentCourseCode,"][Id:",$currentCourseId,"][Db:",$currentCourseDbName	 ,"][Path:",$currentCourseRepository ,"]";
+	
+		if ($okToCreate)
+		{
+			if ($DEBUG) echo "[Code:",	$currentCourseCode,"][Id:",$currentCourseId,"][Db:",$currentCourseDbName	 ,"][Path:",$currentCourseRepository ,"]";
 
-	//function prepare_course_repository($courseRepository, $courseId)
+			//function prepare_course_repository($courseRepository, $courseId)
+	
+			prepare_course_repository($currentCourseRepository,$currentCourseId);
+			update_Db_course($currentCourseDbName);
+			fill_course_repository($currentCourseRepository);
+	
+			// function 	fill_Db_course($courseDbName,$courseRepository)
+			fill_Db_course(	$currentCourseDbName, 
+							$currentCourseRepository, 
+							$newcourse_language);
+							
+			register_course($currentCourseId, 
+							$currentCourseCode, 
+							$currentCourseRepository, 
+							$currentCourseDbName, 
+							$newcourse_titulars,
+							$newcourse_email,
+							$newcourse_category,
+							$newcourse_label,
+							$newcourse_language , 
+							$_uid, 
+							$expirationDate);
+							
+			$displayCourseAddResult = TRUE;
+			$displayCoursePropertiesForm = FALSE;
+			$displayWhatAdd = FALSE;
+	
+	    // warn platform administrator of the course creation
+		    mail($administrator["email"], 
+        		
+		    '['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$newcourse_label,
+		    
+		    claro_format_locale_date($dateTimeFormatLong)."\n"
+		    .$langCreationMailNotificationBody.' '.$siteName.' '
+		    .$langByUser.$_user['firstName'].' '.$_user['lastName']." (".$_user['mail'].") \n"
+		    .' '.$langCode			.' : '.$currentCourseCode."\n"
+		    .' '.$langTitle			.' : '.$newcourse_label."\n"
+		    .' '.$langProfessors	.' : '.$newcourse_titulars."\n"
+		    .' '.$langEmail			.' : '.$newcourse_email."\n\n"
+		    .' '.$langFac.' : '.$newcourse_category."\n"
+		    .' '.$langLn.' : '.$newcourse_language."\n"
+		    ."\n ".$coursesRepositoryWeb.$currentCourseRepository."/\n\n");
 
-		prepare_course_repository($currentCourseRepository,$currentCourseId);
-		update_Db_course($currentCourseDbName);
-		fill_course_repository($currentCourseRepository);
-
-		// function 	fill_Db_course($courseDbName,$courseRepository)
-		fill_Db_course($currentCourseDbName, $currentCourseRepository, $HTTP_POST_VARS["languageCourse"]);
-		register_course($currentCourseId, $currentCourseCode, $currentCourseRepository, $currentCourseDbName, $HTTP_POST_VARS["titulaires"],$HTTP_POST_VARS["email"],$HTTP_POST_VARS["faculte"],$HTTP_POST_VARS["intitule"], $HTTP_POST_VARS["languageCourse"], $_uid, $expirationDate);
-		$displayCourseAddResult = TRUE;
-		$displayCoursePropertiesForm = FALSE;
-		$displayWhatAdd = FALSE;
-
-    // warn platform administrator of the course creation
-    mail($emailAdministrator, 
-        "Course creation on ".$siteName,
-        "The following course has been created on ".$siteName." by user "
-        .$_user['firstName'].' '.$_user['lastName']." (".$_user['mail'].") \n\n ".$coursesRepositoryWeb.$currentCourseRepository."/\n\n");
-
-	}
-}
+		} // if ($okToCreate)
+	} // elseif ($submitFromCoursProperties)
+} // else (!$can_create_courses)
 
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
@@ -285,16 +351,16 @@ $chemin="<a href=../../index.php>$siteName</a>&nbsp;&gt;&nbsp;<b>$langCreateSite
 if($displayNotForU)
 {
 	echo $langNotAllowed;
-}
+} 
 elseif($displayWhatAdd)
 {
 ?>
-<form class="forms" action="<?php echo $PHP_SELF; ?>" method="post">
+<form lang="<?php echo $iso639_2_code ?>" class="forms" action="<?php echo $PHP_SELF; ?>" method="post" accept-charset="<?php echo $charset ?>">
 <table  width="100%">
 	<tr valign="top">
 		<td colspan="2" valign="top">
 			<H5>
-				<?php echo $langAddNewCourse ?>
+			<?php echo $langAddNewCourse ?>
 			</H5>
 			<br>
 		</td>
@@ -348,7 +414,7 @@ elseif($displayCourseRestore)
 			<label for="typeStorage_upload">Upload</label>
 		</TD>
 		<td >
-			<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="7000000">
+			<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="<?php echo MAX_FILE_SIZE_UPLOAD ?>">
 			<input type="file" name="postFile" accept="application/x-zip-compressed">
 			<DIV class="formsTips">
 				<?php echo $langPostFileTips; ?>
@@ -425,7 +491,7 @@ elseif($displayCoursePropertiesForm)
 {
 ?>
 <b><?php echo $langFieldsRequ ?></b>
-<form method="post" action="<?php echo $PHP_SELF ?>">
+<form lang="<?php echo $iso639_2_code ?>" action="<?php echo $PHP_SELF; ?>" method="post" accept-charset="<?php echo $charset ?>">
 <table>
 <tr valign="top">
 <td colspan="2">
@@ -458,8 +524,10 @@ BuildEditableCatTable(""," &gt; ");
 <td align="right">
 <label for="wantedCode"><?php echo $langCode ?></label> : 
 </td>
-<td ><input type="Text" id="wantedCode" name="wantedCode" maxlength="12" value="<?php echo $valuePublicCode ?>">
-<br><small><?php echo $langMax ?></small>
+<td >
+	<input type="Text" id="wantedCode" name="wantedCode" maxlength="12" value="<?php echo $valuePublicCode ?>">
+	<br>
+	<small><?php echo $langMax ?></small>
 </td>
 </tr>
 
@@ -699,6 +767,4 @@ elseif($displayCourseAddResult)
 
 
 include($includePath."/claro_init_footer.inc.php");
-
-
 ?>
