@@ -44,7 +44,7 @@ $sql = "SELECT 	`f`.`forum_name`   `forum_name`,
          AND  `t`.`topic_id` = '".$topic."'
          AND  `t`.`forum_id` = f.forum_id    ";
 
-list($myrow) = claro_sql_query_fetch_all($sql);
+list($forumSettingList) = claro_sql_query_fetch_all($sql);
 
 /* 
  * Check if the topic isn't attached to a group,  or -- if it is attached --, 
@@ -62,7 +62,7 @@ if (   ! is_null($forumSettingList['idGroup'])
     die ('<center>not allowed</center>');
 }
 
-$forum_name = own_stripslashes($myrow['forum_name']);
+$forum_name = own_stripslashes($forumSettingList['forum_name']);
 
 $total      = get_total_posts($topic, $db, 'topic');
 
@@ -77,11 +77,9 @@ $sql = "SELECT topic_title, topic_status
         FROM `".$tbl_topics."` 
         WHERE topic_id = '".$topic."'";
 
-$result        = claro_sql_query($sql);
-
-$myrow         = mysql_fetch_array($result);
-$topic_subject = own_stripslashes($myrow['topic_title']);
-$lock_state    = $myrow['topic_status'];
+$topicSettingList = claro_sql_query_fetch_all($sql);
+$topic_subject    = own_stripslashes($myrow['topic_title']);
+$lock_state       = $myrow['topic_status'];
 
 include('page_header.'.$phpEx);
 
@@ -139,6 +137,8 @@ if($total > $posts_per_page)
         ."</table>\n";
 }
 
+
+
 echo "<table class=\"claroTable\" width=\"100%\">"
     ."<tr align=\"left\">"
     ."<th class=\"superHeader\">";
@@ -150,26 +150,29 @@ echo "<table class=\"claroTable\" width=\"100%\">"
 // For (Added for claro 1.5) execute notification preference change 
 // if the command was called
 
-switch ($cmd)
+if ($cmd && $_uid)
 {
-        case 'exNotify' :
+    switch ($cmd)
+    {
+            case 'exNotify' :
 
-              $sql = "INSERT INTO `$tbl_user_notify`
-                      SET `user_id`  = '".$_uid."',
-                          `topic_id` = '".$topic."'";
+                  $sql = "INSERT INTO `$tbl_user_notify`
+                          SET `user_id`  = '".$_uid."',
+                              `topic_id` = '".$topic."'";
 
-              claro_sql_query($sql);
-              $notifyChange = true;
-              break;
+                  claro_sql_query($sql);
+                  $notifyChange = true;
+                  break;
 
-        case 'exdoNotNotify' :
-              $sql = "DELETE FROM `$tbl_user_notify`
-                      WHERE topic_id = '".$topic."'
-                        AND user_id  = '".$_uid."'";
+            case 'exdoNotNotify' :
+                  $sql = "DELETE FROM `$tbl_user_notify`
+                          WHERE topic_id = '".$topic."'
+                            AND user_id  = '".$_uid."'";
 
-              claro_sql_query($sql);
-              $notifyChange = true;
-              break;
+                  claro_sql_query($sql);
+                  $notifyChange = true;
+                  break;
+    }
 }
 
 // For (Added for claro 1.5) allow user to be have notification for this 
@@ -218,16 +221,16 @@ if (isset($_uid))  //anonymous user do not have this function
 
     } //end not anonymous user
 
-   	echo $topic_subject
+   echo $topic_subject
 
         ."</th>\n"
         ."</tr>\n";
 
     if ( ! $start) $start = 0;
 
-    $sql = "SELECT p.`post_id`, p.`topic_id`, p.`forum_id`,
+    $sql = "SELECT p.`post_id`,   p.`topic_id`,  p.`forum_id`,
                    p.`poster_id`, p.`post_time`, p.`poster_ip`,
-                   p.`nom`, p.`prenom`, 
+                   p.`nom` lastname, p.`prenom` firstname,
                    pt.`post_text` 
             FROM `".$tbl_posts."`      p, 
                  `".$tbl_posts_text."` pt 
@@ -236,66 +239,52 @@ if (isset($_uid))  //anonymous user do not have this function
             ORDER BY post_id 
             LIMIT ".$start.", ".$posts_per_page;
 
-    $result = claro_sql_query($sql, $db);
-
-    $myrow = mysql_fetch_array($result);
+    $postList = claro_sql_query_fetch_all($sql, $db);
 
     $count = 0;
 
-    do
+    foreach($postList as $thisPost )
     {
         // Check if the forum post is after the last login
         // and choose the image according this state
 
-        $post_time = datetime_to_timestamp($myrow['post_time']);
+        $post_time = datetime_to_timestamp($thisPost['post_time']);
 
         if($post_time < $last_visit) $postImg = 'post.gif';
         else                         $postImg = 'postred.gif';
-        
-        echo	"<tr>\n",
-                "<th class=\"headerX\">\n",
-                "<img src=\"".$clarolineRepositoryWeb."img/".$postImg."\" alt=\"\">",
-                $l_author," : <b>",$myrow['prenom']," ",$myrow['nom'],"</b>",
-                " <small>",$l_posted," : ",$myrow['post_time'],"</small>\n",
-                "</td>\n",
-                "</tr>\n";
-
-        $message = own_stripslashes($myrow[post_text]);
-
-        // Before we insert the sig, we have to strip its HTML if HTML is disabled by the admin.
-        // We do this _before_ bbencode(), otherwise we'd kill the bbcode's html.
-
-        $sig = $posterdata['user_sig'];
-
-        if ( ! $allow_html)
-        {
-            $sig = htmlspecialchars($sig);
-            $sig = preg_replace("#&lt;br&gt;#is", "<BR>", $sig);
-        }
-
-        $message = eregi_replace("\[addsig]$", "<BR>_________________<BR>" . own_stripslashes(bbencode($sig, $allow_html)), $message);
 
         echo "<tr>\n"
-            ."<td>\n"
-            .$message."\n";
 
-        // Added by Thomas 30-11-2001
-        //  echo "<a href=\"".$url_phpbb."/reply.".$phpEx."?topic=".$topic
-        //      ."&forum=".$forum."&post=".$myrow['post_id']."&quote=1\">"
-        //      .$langQuote
-        //      ."</a>&nbsp;&nbsp;";
+            ."<th class=\"headerX\">\n"
+            ."<img src=\"".$clarolineRepositoryWeb."img/".$postImg."\" alt=\"\">"
+            .$l_author," : <b>",$thisPost['firstname']." ".$thisPost['lastname']."</b> "
+            ."<small>".$l_posted." : ".$thisPost['post_time']."</small>\n"
+            ."</th>\n"
+
+            ."</tr>\n"
+
+            ."<tr>\n"
+
+            ."<td>\n"
+            .own_stripslashes($thisPost['post_text'])."\n";
+
+                    // Added by Thomas 30-11-2001
+                    //  echo "<a href=\"".$url_phpbb."/reply.".$phpEx."?topic=".$topic
+                    //      ."&forum=".$forum."&post=".$thisPost['post_id']."&quote=1\">"
+                    //      .$langQuote
+                    //      ."</a>&nbsp;&nbsp;";
 
         if($is_allowedToEdit)
         {
             echo "<p>\n"
 
                 ."<a href=\"".$url_phpbb."/editpost.".$phpEx
-                ."?post_id=".$myrow['post_id']."&topic=".$topic."&forum=".$forum."\">"
+                ."?post_id=".$thisPost['post_id']."&topic=".$topic."&forum=".$forum."\">"
                 ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langEditDel."\">"
-		        ."</a>\n"
+                ."</a>\n"
 
-		        ."<a href=\"".$url_phpbb."/editpost.".$phpEx
-                ."?post_id=".$myrow['post_id']."&topic=".$topic."&forum=".$forum
+                ."<a href=\"".$url_phpbb."/editpost.".$phpEx
+                ."?post_id=".$thisPost['post_id']."&topic=".$topic."&forum=".$forum
                 ."&delete=delete&submit=submit\">"
                 ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" "
                      ."border=\"0\" alt\"".$langEditDel."\">"
@@ -309,13 +298,13 @@ if (isset($_uid))  //anonymous user do not have this function
 
        $count++;
 
-    } while($myrow = mysql_fetch_array($result)); // do while
+    } // end for each
 
     if ($notifyChange != true)
     {
          $sql = "UPDATE `".$tbl_topics."`
                  SET   topic_views = topic_views + 1
-                 WHERE topic_id = '".$topic."'";
+                 WHERE topic_id    = '".$topic."'";
 
         claro_sql_query($sql);
     }
