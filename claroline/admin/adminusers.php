@@ -274,10 +274,10 @@ echo "<form name=\"indexform\" action=\"",$_SERVER['PHP_SELF'],"\" method=\"GET\
 
       //see passed search parameters :
 
-if ($_SESSION['admin_user_search']!="")               { $isSearched .= $_SESSION['admin_user_search']."* ";}
-if ($_SESSION['admin_user_firstName']!="")            { $isSearched .= $langFirstName."=".$_SESSION['admin_user_firstName']."* ";}
-if ($_SESSION['admin_user_lastName']!="")             { $isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']."* ";}
-if ($_SESSION['admin_user_userName']!="")             { $isSearched .= $langUsername."=".$_SESSION['admin_user_userName']."* ";}
+if ($_SESSION['admin_user_search']!="")               { $isSearched .= $_SESSION['admin_user_search']." ";}
+if ($_SESSION['admin_user_firstName']!="")            { $isSearched .= $langFirstName."=".$_SESSION['admin_user_firstName']." ";}
+if ($_SESSION['admin_user_lastName']!="")             { $isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']." ";}
+if ($_SESSION['admin_user_userName']!="")             { $isSearched .= $langUsername."=".$_SESSION['admin_user_userName']." ";}
 if ($_SESSION['admin_user_mail']!="")                 { $isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";}
 if ($_SESSION['admin_user_action']=="createcourse")   { $isSearched .= "<b> <br>".$langCourseCreator."  </b> ";}
 if ($_SESSION['admin_user_action']=="plateformadmin") { $isSearched .= "<b> <br>".$langPlatformAdmin."  </b> ";}
@@ -351,14 +351,18 @@ foreach($resultList as $list)
 
 
      if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!="")) {  //trick to prevent "//1" display when no keyword used in search 
-
+	 
+         $bold_search = str_replace("*",".*",$_SESSION['admin_user_search']);
+     
          // name
-
-         echo "<td align=\"left\">".eregi_replace("(".$_SESSION['admin_user_search'].")",'<b>\\1</b>', $list['nom'])."</td>";
+	 	 
+	 $bolded_name = eregi_replace("(".$bold_search.")",'<b>\\1</b>', $list['nom']);	 
+         echo "<td align=\"left\">".$bolded_name."</td>";
 
          //  Firstname
-
-         echo "<td align=\"left\">".eregi_replace("(".$_SESSION['admin_user_search'].")","<b>\\1</b>", $list['prenom'])."</td>";
+	 
+	 $bolded_firstname = eregi_replace("(".$bold_search.")",'<b>\\1</b>', $list['prenom']);
+         echo "<td align=\"left\">".$bolded_firstname."</td>";
      }
      else
      {
@@ -380,8 +384,9 @@ foreach($resultList as $list)
      if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!="")) {
 
          // mail
-
-         echo "<td align=\"left\">".eregi_replace("(".$_SESSION['admin_user_search'].")",'<b>\\1</b>', $list['email'])."</td>";
+	 
+	 $bolded_email = eregi_replace("(".$bold_search.")",'<b>\\1</b>', $list['email']);
+         echo "<td align=\"left\">".$bolded_email."</td>";
 
      }
      else
