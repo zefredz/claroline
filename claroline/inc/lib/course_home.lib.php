@@ -443,72 +443,6 @@ function move_course_tool($reqToolId, $moveDirection)
 
 //////////////////////////////////////////////////////////////////////////////
 
-/*
-dans cours
-CREATE TABLE `tool_list` (
-  `id` int(11) NOT NULL auto_increment,
-  `tool_id` int(10) unsigned default NULL,
-  `rank` int(10) unsigned NOT NULL default '1',
-  `access` enum('ALL','COURSE_MEMBER','GROUP_MEMBER','COURSE_TUTOR','COURSE_ADMIN','PLATFORM_ADMIN') NOT NULL default 'ALL',
-  `script_url` varchar(255) default NULL,
-  `script_name` varchar(255) default NULL,
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=12 ;
-
-#
-# Dumping data for table `tool_list`
-#
-
-INSERT INTO `tool_list` VALUES (1, 1, 1, 'ALL', NULL, NULL);
-INSERT INTO `tool_list` VALUES (2, 2, 2, 'ALL', NULL, NULL);
-INSERT INTO `tool_list` VALUES (3, 3, 3, 'ALL', NULL, NULL);
-INSERT INTO `tool_list` VALUES (4, 4, 4, 'ALL', NULL, NULL);
-INSERT INTO `tool_list` VALUES (5, 5, 5, 'ALL', NULL, NULL);
-INSERT INTO `tool_list` VALUES (6, 6, 6, 'ALL', NULL, NULL);
-INSERT INTO `tool_list` VALUES (7, 7, 7, 'ALL', NULL, NULL);
-INSERT INTO `tool_list` VALUES (8, 8, 8, 'ALL', NULL, NULL);
-INSERT INTO `tool_list` VALUES (9, 9, 9, 'ALL', NULL, NULL);
-INSERT INTO `tool_list` VALUES (10, 10, 10, 'ALL', NULL, NULL);
-INSERT INTO `tool_list` VALUES (11, 11, 11, 'ALL', NULL, NULL);
-
-#
-# Table structure for table `course_tool`
-#
-
-CREATE TABLE `course_tool` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `claro_label` varchar(8) NOT NULL default '',
-  `script_url` varchar(255) NOT NULL default '',
-  `icon` varchar(255) default NULL,
-  `def_access` enum('ALL','COURSE_MEMBER','GROUP_MEMBER','GROUP_TUTOR','COURSE_ADMIN','PLATFORM_ADMIN') NOT NULL default 'ALL',
-  `def_rank` int(10) unsigned default NULL,
-  `add_in_course` enum('MANUAL','AUTOMATIC') NOT NULL default 'AUTOMATIC',
-  `access_manager` enum('PLATFORM_ADMIN','COURSE_ADMIN') NOT NULL default 'COURSE_ADMIN',
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `claro_label` (`claro_label`)
-) TYPE=MyISAM COMMENT='based definiton of the claroline tool used in each course' AUTO_INCREMENT=12 ;
-
-#
-# Dumping data for table `course_tool`
-#
-
-INSERT INTO `course_tool` VALUES (1, 'CLCAL___', '../claroline/calendar/agenda.php', '../claroline/img/agenda.gif', 'ALL', 1, 'AUTOMATIC', 'COURSE_ADMIN');
-INSERT INTO `course_tool` VALUES (2, 'CLDOC___', '../claroline/document/document.php', '../claroline/img/documents.gif', 'ALL', 2, 'AUTOMATIC', 'COURSE_ADMIN');
-INSERT INTO `course_tool` VALUES (3, 'CLWRK___', '../claroline/work/work.php', '../claroline/img/works.gif', 'ALL', 3, 'AUTOMATIC', 'COURSE_ADMIN');
-INSERT INTO `course_tool` VALUES (4, 'CLANN___', '../claroline/announcements/announcements.php', '../claroline/img/valves.gif', 'ALL', 4, 'AUTOMATIC', 'COURSE_ADMIN');
-INSERT INTO `course_tool` VALUES (5, 'CLUSR___', '../claroline/user/user.php', '../claroline/img/membres.gif', 'ALL', 5, 'AUTOMATIC', 'COURSE_ADMIN');
-INSERT INTO `course_tool` VALUES (6, 'CLFRM___', '../claroline/phpbb/index.php', '../claroline/img/forum.gif', 'ALL', 6, 'AUTOMATIC', 'COURSE_ADMIN');
-INSERT INTO `course_tool` VALUES (7, 'CLQWZ___', '../claroline/exercice/exercice.php', '../claroline/img/quiz.gif', 'ALL', 7, 'AUTOMATIC', 'COURSE_ADMIN');
-INSERT INTO `course_tool` VALUES (8, 'CLGRP___', '../claroline/group/group.php', '../claroline/img/group.gif', 'ALL', 8, 'AUTOMATIC', 'COURSE_ADMIN');
-INSERT INTO `course_tool` VALUES (9, 'CLDSC___', '../claroline/course_description/index.php', '../claroline/img/info.gif', 'ALL', 9, 'AUTOMATIC', 'COURSE_ADMIN');
-INSERT INTO `course_tool` VALUES (10, 'CLCHT___', '../claroline/chat/chat.php', '../claroline/img/forum.gif', 'ALL', 10, 'AUTOMATIC', 'COURSE_ADMIN');
-INSERT INTO `course_tool` VALUES (11, 'CLLNP___', '../claroline/learnPath/learningPathList.php', '../claroline/img/step.gif', 'ALL', 11, 'AUTOMATIC', 'COURSE_ADMIN');
-
-*/
-
-
-
-
 //insert_course_tool('CLDOC___');
 //insert_course_tool('CLDOC___');
 //insert_course_tool('CLXXX___');
@@ -527,5 +461,5 @@ INSERT INTO `course_tool` VALUES (11, 'CLLNP___', '../claroline/learnPath/learni
 //var_dump($toolList);
 //echo "</pre>";
 //// DEBUG END ------------------------------
-//
+
 ?>
