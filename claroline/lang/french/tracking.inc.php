@@ -225,4 +225,9 @@ $langNULLValue = "Vide (ou <i>NULL</i>)";
 $langNeverUsed = "Jamais utilisé";
 $langTrafficDetails = "Détails du trafic";
 $langNbLines = "Nombre de lignes";
+
+/* delete course stats */
+$langDelCourseStats = "Effacer les statistiques du cours";
+$langConfirmDelete  = "Attention : l'effacement des données statistiques est définitif !<br /><br />Etes vous sûr de vouloir les effacer ?";
+$langDeleteDone = "Les statistiques du cours ont été effacées.";
 ?>

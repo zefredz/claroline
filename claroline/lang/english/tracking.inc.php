@@ -227,4 +227,9 @@ $langNULLValue = "Empty (or NULL)";
 $langNeverUsed = "Never used";
 $langTrafficDetails = "Traffic Details";
 $langNbLines = "Qty of lines"; //quantity of lines
+
+/* delete course stats */
+$langDelCourseStats = "Delete all course statistics";
+$langConfirmDelete  = "If you delete the courses statistics there is no way to get them back !<br /><br />Are you sure to totally delete the statistics ?";
+$langDeleteDone = "Course statistics deleted";
 ?>
