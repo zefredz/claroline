@@ -1,5 +1,4 @@
 <?php # -$Id$
-
 /*
  * This is an example in PHP and SOAP of a Single Sign On (SSO) client allowing 
  * a system to request user parameter from a cookie retrieved on the user 
@@ -116,7 +115,7 @@ if ( isset($_COOKIE[$cookieName]) )
          //         ...
            
         echo '<h1 align="center">SSO Result</h1>'
-            .'<pre>'
+            .'<pre>';
 
         var_dump($result);
 
