@@ -51,6 +51,7 @@ $langAction = "Action";
 
 $langCategory = "Catégorie"; // JCC
 
+$langNumero = "N°";
 $langLastName = "Nom"; //same!
 $langFirstName = "Prénom"; // JCC
 $langUserName  = "Nom d'utilisateur";
@@ -193,6 +194,19 @@ $lang_p_d_students = '%2d étudiants'; // plural
 $lang_p_d_student  = '%2d étudiant'; // nul or singular
 $lang_p_d_course_managers = '%2d prof. '; // plural
 $lang_p_d_course_manager = '%2d prof. '; // nul or singular
+
+$langNormalUser = "Normal";
+$langNever = "Jamais";
+$langLastLogin = "Dernière connection";
+
+$langpyear   = '%d&nbsp;an(s)';
+$langpweek   = '%d&nbsp;semaine(s)';
+$langpday    = '%d&nbsp;jour(s)';
+$langphours  = '%d&nbsp;heure(s)';
+$langpminute = '%d&nbsp;minute(s)';
+$langpsecond = '%d&nbsp;seconde(s)';
+$lang_recently = 'récement';
+
 
 $langUserSettings="Paramètres de l'utilisateur";
 

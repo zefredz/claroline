@@ -56,7 +56,7 @@ $langCreateCourse = "Create course";
 $langAction = "Action";
 
 $langCategory = "Category";
-
+$langNumero = "N°";
 $langLastName = "Last name"; //same!
 $langFirstName = "First name";
 $langUserName  = "User name";
@@ -204,5 +204,16 @@ $lang_p_d_course_managers = '%2d profs '; // plural         // english of moosh
 $lang_p_d_course_manager = '%2d prof '; // nul or singular  // english of moosh
 
 $langUserSettings="User settings";
+$langNormalUser = "Normal";
+$langNever = "Never";
+$langLastLogin = "Last login";
+
+$langpyear   = '%d&nbsp;year(s)';
+$langpweek   = '%d&nbsp;week(s)';
+$langpday    = '%d&nbsp;day(s)';
+$langphours  = '%d&nbsp;hour(s)';
+$langpminute = '%d&nbsp;minute(s)';
+$langpsecond = '%d&nbsp;second(s)';
+$lang_recently = 'recently';
 
 ?>
