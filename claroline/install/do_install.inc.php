@@ -298,6 +298,29 @@ $platformLanguage 	= 	"'.$languageForm.'";
 
 $clarolineVersion	=	"'.$clarolineVersion.'";
 $versionDb 			= 	"'.$versionDb.'";
+
+// Put below the complete url of your TEX renderer. This url doesn\'t have to be 
+// specially on the same server than Claroline.
+// 
+// Claroline uses the MIMETEX renderer created by John Forkosh and available 
+// under the GNU licences at http://www.forkosh.com. 
+// 
+// MIMETEX parses TEX/LaTEX mathematical expressions and emits gif images from 
+// them. You\'ll find precompilated versions of MIMETEX for various platform in 
+// the \'claroline/inc/lib/\' directory. Move the executable file that 
+// corresponding to your platform into its \'cgi-bin/\' directory, where cgi 
+// programs are expected (this directory are typically of the form 
+// \'somewhere/www/cgi-bin/\'), and change the execution permissions if necessary.
+// 
+// If you\'re not able or allowed to set MIMETEX on a server, leave the setting 
+// below to \'false\'. Claroline will then try to use another method for rendering 
+// TEX/LaTEX mathematical expression, relying on a plug-in client side this 
+// time. For this, user has to install the TECHEXPLORER plug-in, freely 
+// available for both Windows, Macintosh and Linux at 
+// http://www.integretechpub.com/.
+
+$claro_texRendererUrl = false;
+
 ?>');
 
 ######### DEALING WITH FILES #########################################
