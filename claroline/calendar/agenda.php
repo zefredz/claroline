@@ -24,12 +24,15 @@
 $tlabelReq = "CLCAL___";
 
 require '../inc/claro_init_global.inc.php';
+define("CONFVAL_LOG_CALENDAR_INSERT",FALSE);
+define("CONFVAL_LOG_CALENDAR_DELETE",FALSE);
+define("CONFVAL_LOG_CALENDAR_UPDATE",FALSE);
 if ( ! $_cid) claro_disp_select_course();
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 $nameTools = $langAgenda;
 
-claro_set_display_mode_available(true);
+claro_set_display_mode_available(TRUE);
 
 include($includePath."/claro_init_header.inc.php");
 
@@ -68,7 +71,7 @@ if ($is_allowedToEdit)
                       hour    = '".$hour."',
                       lasting = '".$_REQUEST['lasting']."'";
 
-        if ( claro_sql_query($sql) != false)
+        if ( claro_sql_query($sql) != FALSE)
         {
             $msg .= '<p>'.$langEventAdded.'</p>';
 
@@ -98,7 +101,7 @@ if ($is_allowedToEdit)
                           lasting = '".$_REQUEST['lasting']."'
                     WHERE id      ='".$_REQUEST['id']."'";
 
-            if ( claro_sql_query($sql) !== false)
+            if ( claro_sql_query($sql) !== FALSE)
             {
                 $msg .= '<p>'.$langEventUpdated.'</p>';
             }
@@ -123,7 +126,7 @@ if ($is_allowedToEdit)
                     WHERE id ='".$id."'";
         }
 
-        if ( claro_sql_query($sql) !== false)
+        if ( claro_sql_query($sql) !== FALSE)
         {
             $msg .= '<p>'.$langEventDeleted.'</p>';
 
@@ -152,15 +155,15 @@ if ($is_allowedToEdit)
             list($editedEvent) = claro_sql_query_fetch_all($sql);
 
             $nextCommand = 'exEdit';
-    	}
+        }
         else
         {
             $editedEvent['id'            ] = '';
             $editedEvent['titre'         ] = '';
             $editedEvent['contenu'       ] = '';
-            $editedEvent['dayAncient'    ] = false;
-            $editedEvent['hourAncient'   ] = false;
-            $editedEvent['lastingAncient'] = false;
+            $editedEvent['dayAncient'    ] = FALSE;
+            $editedEvent['hourAncient'   ] = FALSE;
+            $editedEvent['lastingAncient'] = FALSE;
 
             $nextCommand = 'exAdd';
 
@@ -335,7 +338,7 @@ if ($is_allowedToEdit)
 </td>
 
 <td>
-	<input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="<?php echo $editedEvent['lastingAncient']; ?>">
+    <input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="<?php echo $editedEvent['lastingAncient']; ?>">
 </td>
 
 </tr>
@@ -423,21 +426,21 @@ $monthBar     = '';
 
 if (count($eventList) < 1)
 {
-	echo '<br><blockquote>'.$langNoEventInTheAgenda.'</blockquote>';
+    echo '<br><blockquote>'.$langNoEventInTheAgenda.'</blockquote>';
 }
 else
 {
     if ($orderDirection == 'DESC')
     {
-        echo "<a href=\"".$_SERVER['PHP_SELF']."?order=asc\" >".$langOldToNew."</a>\n";
+        echo '<a href="'.$_SERVER['PHP_SELF'].'?order=asc" >'.$langOldToNew.'</a>'."\n";
     }
     else
     {
-        echo "<a href=\"".$_SERVER['PHP_SELF']."?order=desc\" >".$langNewToOld."</a>\n";
+        echo '<a href="'.$_SERVER['PHP_SELF'].'?order=desc" >'.$langNewToOld.'</a>'."\n";
     }
 }
 
-$nowBarAlreadyShowed = false;
+$nowBarAlreadyShowed = FALSE;
 
 foreach($eventList as $thisEvent)
 {
@@ -477,7 +480,7 @@ foreach($eventList as $thisEvent)
             ."</td>\n"
             ."</tr>\n";
 
-         $nowBarAlreadyShowed = true;
+         $nowBarAlreadyShowed = TRUE;
     }
 
 
@@ -531,7 +534,7 @@ foreach($eventList as $thisEvent)
         .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;id='.$thisEvent['id'].'" '
         .'onclick="javascript:if( ! confirm(\''
         .addslashes (htmlspecialchars($langDelete.' '.$thisEvent['titre'].' ?'))
-        .'\')) return false;" >'
+        .'\')) return FALSE;" >'
         .'<img src="'.$clarolineRepositoryWeb.'img/delete.gif" border="0" alt="'.$langDelete.'">'
         .'</a>'
         ;
