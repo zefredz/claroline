@@ -235,7 +235,7 @@ $interbredcrump[]=array("url" => "exercice.php","name" => $langExercices);
 if($editQuestion || $modifyQuestion || $newQuestion || $modifyAnswers)
 {
 	$nameTools=$langQuestionManagement;
-	$interbredcrump[]=array("url" => "question_pool.php?fromExercise=$fromExercise","name" => $objExercise->selectTitle());
+	$interbredcrump[]=array("url" => "admin.php?exerciseId=$fromExercise","name" => $objExercise->selectTitle());
 	$QUERY_STRING=$questionId?'editQuestion='.$questionId.'&fromExercise='.$fromExercise:'newQuestion=yes';
 }
 else
