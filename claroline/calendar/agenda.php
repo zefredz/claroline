@@ -25,6 +25,7 @@ $langFile = 'agenda';
 $tlabelReq = "CLCAL___";
 
 require '../inc/claro_init_global.inc.php';
+if ( ! $_cid) claro_disp_select_course();
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 include($includePath."/conf/agenda.conf.inc.php");
@@ -424,14 +425,23 @@ if ($is_allowedToEdit)
 
 echo "<table class=\"claroTable\" width=\"100%\">\n";
 
+if (isset($_REQUEST['order']) && $_REQUEST['order']=='desc')
+{
+    $orderDirection = 'DESC';
+}
+else
+{
+    $orderDirection = 'ASC';
+}
+
+
 $sql = "SELECT id, titre, contenu, day, hour, lasting
         FROM `".$tbl_calendar_event."`
-        ORDER BY day ".$orderDirection.", hour ".$orderDirection;
+        ORDER BY day ".$orderDirection." , hour ".$orderDirection;
 
 $eventList = claro_sql_query_fetch_all($sql);
 
 $monthBar     = '';
-$nowBarShowed = false;
 
 if (count($eventList) < 1)
 {
@@ -442,65 +452,64 @@ else
     echo "<tr>\n"
         ."<td align=\"right\" valign=\"top\">\n"
         ."<small>\n";
-    
-    $orderDirection = ' ASC';
-    
-    if (isset($_REQUEST['sens']) && $_REQUEST['sens']=="d") 
+
+    if ($orderDirection == 'DESC')
     {
-        echo "<a href=\"".$_SERVER['PHP_SELF']."?sens=\" >".$langOldToNew."</a>\n";
-        $orderDirection = ' DESC ';
+        echo "<a href=\"".$_SERVER['PHP_SELF']."?order=asc\" >".$langOldToNew."</a>\n";
     }
     else
     {
-      echo "<a href=\"".$_SERVER['PHP_SELF']."?sens=d\" >".$langNewToOld."</a>\n";
+        echo "<a href=\"".$_SERVER['PHP_SELF']."?order=desc\" >".$langNewToOld."</a>\n";
     }
     
     echo "</small>\n"
-        ."</div>\n"
         ."</td>\n"
         ."</tr>\n";
-    
-     /******** end of Order *********/
 }
+
+$nowBarAlreadyShowed = false;
 
 foreach($eventList as $thisEvent)
 {
-  if ( ! $nowBarShowed )
-  {
-    if (( ( strtotime($thisEvent['day'].' '.$thisEvent['hour'] ) > time()) && ( $orderDirection == ' ASC' ) )
+
+    // TREAT "NOW" BAR CASE
+
+    if( ! $nowBarAlreadyShowed)
+    if (( ( strtotime($thisEvent['day'].' '.$thisEvent['hour'] ) > time() ) && $orderDirection == 'ASC'  )
         ||
-      ( (  strtotime($thisEvent['day'].' '.$thisEvent['hour']  ) < time()) && ( $orderDirection ==' DESC ') )
+        ( ( strtotime($thisEvent['day'].' '.$thisEvent['hour'] ) < time() ) && $orderDirection == 'DESC' )
       )
     {
-      if ($monthBar != date('m',time()))
-      {
-        $monthBar = date('m',time());
+        if ($monthBar != date('m',time()))
+        {
+            $monthBar = date('m',time());
+
+            echo "<tr>\n"
+                ."<th class=\"superHeader\" colspan=\"2\" valign=\"top\">\n"
+                .ucfirst(claro_format_locale_date('%B %Y',time()))
+                ."</th>\n"
+                ."</tr>\n";
+        }
+
+
+        // 'NOW' Bar
 
         echo "<tr>\n"
-            ."<th class=\"superHeader\" colspan=\"2\" valign=\"top\">\n"
-            .ucfirst(claro_format_locale_date('%B %Y',time()))
-            ."</th>\n"
+            ."<td style=\"border-top: #CC3300 1px solid; border-bottom: #CC3300	1px	solid\">\n"
+            ."<img src=\"".$clarolineRepositoryWeb."img/pixel.gif\" width=\"20\" alt=\" \">"
+            ."<font color=\"#CC3300\">"
+            ."<i>"
+            .ucfirst(claro_format_locale_date( $dateFormatLong))." "
+            .ucfirst( strftime( $timeNoSecFormat))
+            ." -- ".$langNow
+            ."</i>"
+            ."</font>\n"
+            ."</td>\n"
             ."</tr>\n";
-      }
 
-      $nowBarShowed = true;
-
-      // 'NOW' Bar
-
-      echo "<tr>\n"
-          ."<td style=\"border-top: #CC3300 1px solid; border-bottom: #CC3300	1px	solid\">\n"
-          ."<img src=\"".$clarolineRepositoryWeb."img/pixel.gif\" width=\"20\" alt=\" \">"
-          ."<font color=\"#CC3300\">"
-          ."<i>"
-          .ucfirst(claro_format_locale_date( $dateFormatLong))." "
-          .ucfirst( strftime( $timeNoSecFormat))
-          ." -- ".$langNow
-          ."</i>"
-          ."</font>\n"
-          ."</td>\n"
-          ."</tr>\n";
+         $nowBarAlreadyShowed = true;
     }
-  }
+
 
   /*
    * Display the month bar when the current month 
