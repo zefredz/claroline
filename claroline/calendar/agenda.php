@@ -416,31 +416,7 @@ if ($is_allowedToEdit)
 
 
 
-
-
-echo "<table class=\"claroTable\" width=\"100%\">\n"
-    ."<tr>\n"
-    ."<td align=\"right\" valign=\"top\">\n"
-    ."<small>\n";
-
-$orderDirection = ' ASC';
-
-if (isset($_REQUEST['sens']) && $_REQUEST['sens']=="d") 
-{
-    echo "<a href=\"".$PHP_SELF."?sens=\" >".$langOldToNew."</a>\n";
-    $orderDirection = ' DESC ';
-}
-else
-{
-  echo "<a href=\"".$PHP_SELF."?sens=d\" >".$langNewToOld."</a>\n";
-}
-
-echo "</small>\n"
-    ."</div>\n"
-    ."</td>\n"
-    ."</tr>\n";
-
- /******** end of Order *********/
+echo "<table class=\"claroTable\" width=\"100%\">\n";
 
 $sql = "SELECT id, titre, contenu, day, hour, lasting
         FROM `".$tbl_calendar_event."`
@@ -454,6 +430,31 @@ $nowBarShowed = false;
 if (count($eventList) < 1)
 {
 	echo '<br><blockquote>No event in the agenda</blockquote>';
+}
+else
+{
+    echo "<tr>\n"
+        ."<td align=\"right\" valign=\"top\">\n"
+        ."<small>\n";
+    
+    $orderDirection = ' ASC';
+    
+    if (isset($_REQUEST['sens']) && $_REQUEST['sens']=="d") 
+    {
+        echo "<a href=\"".$PHP_SELF."?sens=\" >".$langOldToNew."</a>\n";
+        $orderDirection = ' DESC ';
+    }
+    else
+    {
+      echo "<a href=\"".$PHP_SELF."?sens=d\" >".$langNewToOld."</a>\n";
+    }
+    
+    echo "</small>\n"
+        ."</div>\n"
+        ."</td>\n"
+        ."</tr>\n";
+    
+     /******** end of Order *********/
 }
 
 
