@@ -94,7 +94,7 @@ else
     $courseDir   = $_course['path'].'/document';
     $dbTable     = $_course['dbNameGlu'].'document';
 
-    $interbredcrump[] = array ();
+    //$interbredcrump[] = array ();
 
     $is_allowedToEdit  = $is_courseAdmin;
     $is_allowedToUnzip = $is_courseAdmin;
