@@ -21,6 +21,7 @@ $langFile = 'course_info';
 $gidReset = true; 
 $tidReset = true;
 
+if ( !isset($claroGlobalPath) ) $claroGlobalPath = '../claroline/inc';
 include $claroGlobalPath.'/claro_init_global.inc.php';
 
 $htmlHeadXtra[] =
