@@ -441,7 +441,7 @@ function check_duplicate_officialcode_userlist($userlist)
                    return;
        }
 
-       function CSV($filename,$delim,$linedef,$enclosed_by="",$eol="\n")
+       function CSV($filename,$delim,$linedef,$enclosed_by="\"",$eol="\n")
            {
                //open the file
                $this->raw_data = implode("",file($filename));
