@@ -26,14 +26,6 @@ die("---");
 if ( !isset($claroGlobalPath) ) $claroGlobalPath = '../claroline/inc';
 include $claroGlobalPath.'/claro_init_global.inc.php';
 
-$htmlHeadXtra[] =
-"<style type=text/css>
-<!--
-.invisible {color: #999999}
-.invisible a {color: #999999}
--->
-</style>";
-
 $toolRepository = $clarolineRepositoryWeb;
 $imgRepository  = $clarolineRepositoryWeb."/img/";
 
@@ -142,11 +134,10 @@ foreach($toolList as $thisTool)
 
     if ( ! empty($url) )
     {
-        echo "<span".$style.">"
-            ."<a href=\"".$url."\">"
+        echo "<a $style href=\"".$url."\">"
             ."<img src=\"".$icon."\" hspace=\"5\" alt=\" \">".$toolName
             ."</a>"
-            ."</span><br>\n";
+            ."<br>\n";
     }
     else
     {
