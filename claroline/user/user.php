@@ -79,7 +79,8 @@ if ( ! $is_courseAllowed)
 //stats
 include($includePath."/lib/events.lib.inc.php");
 event_access_tool($nameTools);
-claro_disp_tool_title($nameTools." (".$langUserNumber." : ".$userTotalNb.")");
+claro_disp_tool_title($nameTools." (".$langUserNumber." : ".$userTotalNb.")",
+			$is_allowedToEdit ? 'help_user.php' : false);
 
 // Display Forms or dialog box(if needed)
 
@@ -92,9 +93,6 @@ if($dialogBox)
 if ($is_allowedToEdit)
 {
 ?>
-<a href="#" onClick="MyWindow=window.open('../help/help_user.php','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=450,height=550,left=10,top=10'); return false;">
-<?php echo $langHelp ?>
-</a>
 <p align="right">
 	<?php if ($can_add_user)
 	{ ?>
