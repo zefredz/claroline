@@ -81,8 +81,7 @@ $pagerUrl = 'viewforum.php?forum='.$forum.'&gidReq='.$_gid;
 
 $topicPager->disp_pager_tool_bar($pagerUrl);
 
-echo "<table class=\"claroTable\" border=\"0\""
-    .      " cellpadding=\"1\" cellspacing=\"1\" width=\"100%\">"
+echo "<table class=\"claroTable emphaseLine\" width=\"100%\">"
 
     ."<tr class=\"superHeader\">"
     ."<th colspan=\"6\">".$forum_name."</th>\n"

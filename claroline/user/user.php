@@ -181,7 +181,7 @@ $i= $offset;
  --------------------------------------*/
 
 
-echo	"<table class=\"claroTable\" ",
+echo	"<table class=\"claroTable emphaseLine\" ",
 		"width=\"100%\" cellpadding=\"2\" cellspacing=\"1\" ",
 		"border=\"0\" summary=\"".$langListCourseUsers."\">\n",
 

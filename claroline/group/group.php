@@ -569,7 +569,7 @@ if (is_integer($nbGroupPerUser))
 }
 
 
-echo	"<table class=\"claroTable\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\" width=\"100%\">";
+echo	"<table class=\"claroTable emphaseLine\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\" width=\"100%\">";
 
  /*-------------
       HEADINGS

@@ -83,7 +83,7 @@ $tutorGroupList = claro_sql_query_fetch_all_cols($sql);
 
 
 
-echo "<table width=\"100%\" class=\"claroTable\">";
+echo "<table width=\"100%\" class=\"claroTable emphaseLine\">";
 
 for($i = 0; $i < $total_categories; $i++)
 {
