@@ -522,6 +522,7 @@ claro_disp_tool_title(
         'mainTitle'=>$nameTools,
         'subTitle'=>$subTitle
         )
+    , 'help_forum.php'
     );
 
 /*---------------------------------------------------------------------
@@ -533,16 +534,9 @@ if ( !empty($controlMsg) )
     claro_disp_msg_arr($controlMsg);
 }
 
-?>
-
-<div align="right">
-<a href="#" onClick="MyWindow=window.open('../help/help_forum.php','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=450,height=550,left=10,top=10'); return false;">
-    <?php echo $langHelp ?>
-</a>
-</div>
-
-<?php
-
+/*---------------------------------------------------------------------
+ Display statement
+ ---------------------------------------------------------------------*/
 
 switch ($display)
 {
