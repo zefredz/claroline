@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -975,11 +975,11 @@ For more details, see
 				The installer has detected an existing
 				claroline platform on your system.
 				<br>";
-		if ($stable)
+		if ($is_upgrade_available)
 		{
 			echo "
 				For claroline upgrade click
-				<a href=\"../admin/maintenance/updateClaroline.php\">here.</a>
+				<a href=\"../admin/maintenance/upgrade.php\">here.</a>
 				<br>";
 		}
 		else
