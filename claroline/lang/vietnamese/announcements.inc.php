@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langAn ="Thông báo";
 $langOn="On";

@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $lang_EditFile_ListFileEdit			= "Liste des fichiers éditables";
 $lang_EditFile_ViewFile				= "Contenu du fichier";

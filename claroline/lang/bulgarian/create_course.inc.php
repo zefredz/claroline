@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 // create_course.php
 $langLn="≈зик";

@@ -1,21 +1,17 @@
-<?php
+<?php // $Id$
 
 /*
 
       +----------------------------------------------------------------------+
-
-      | CLAROLINE version 1.3.0 $Revision$                            |
-
-      +----------------------------------------------------------------------+
-
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      | CLAROLINE version 1.5.*                             |
 
       +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
 
+      +----------------------------------------------------------------------+
       |   $Id$         |
 
       +----------------------------------------------------------------------+
-
       |   This program is free software; you can redistribute it and/or      |
 
       |   modify it under the terms of the GNU General Public License        |
@@ -47,7 +43,6 @@
       |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
 
       +----------------------------------------------------------------------+
-
       | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
 
       |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
@@ -55,7 +50,6 @@
       |          Christophe Geschй <gesche@ipm.ucl.ac.be>                    |
 
       +----------------------------------------------------------------------+
-
  */
 
 $langAgenda="Календарь";

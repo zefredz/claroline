@@ -3,11 +3,10 @@
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.4.0 $Revision$                            |
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+
+
+
       +----------------------------------------------------------------------+
  */
 

@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langPropositions="To do list for ";
 $lang_subscribe_processing ="Registration process";

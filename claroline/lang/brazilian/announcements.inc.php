@@ -1,4 +1,4 @@
-<?
+<?php // $Id$ 
 // ANNOUNCEMENTS
 
 $langAn ="anúncio";

@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 $lang_already_enrolled                     = "Déjà inscrit";
 $lang_main_categories_list			       = "Liste des catégories";
 $lang_my_personnal_course_list			   = "Ma liste de sites directement accessibles";

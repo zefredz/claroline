@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 $langUsers = "Users";
 $langTitle = "Heading";
 $langComment = "Comment";

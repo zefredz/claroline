@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langInvalidId="Невалидно потребителско име или парола.  Ако не сте регистриран, попълнете   <a href='claroline/auth/inscription.php'>формата за регистрация</a></font color>";
 // Ако не сте регистриран, попълнете   <a href='claroline/auth/inscription.php'>формата за регистрация</a></font color>

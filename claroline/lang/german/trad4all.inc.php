@@ -4,10 +4,9 @@
       | CLAROLINE version 1.5.0 $Revision$                            |
       +----------------------------------------------------------------------+
       |   German translation                                                 |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+
+
+
       +----------------------------------------------------------------------+
  */
 

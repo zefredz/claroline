@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langNo="Không";
 $langYes="Có";

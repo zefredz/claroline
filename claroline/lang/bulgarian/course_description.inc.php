@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langCourseProgram = "Описание на курса";
 $langThisCourseDescriptionIsEmpty = "Няма описание за този курс";

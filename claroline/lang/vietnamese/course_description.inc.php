@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langCourseProgram = "Mô tả tóm tắt";
 $langThisCourseDescriptionIsEmpty = "Giáo trình này không có phần diễn giải";

@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 $lang_already_enrolled                     = "allerede tilmeldt";
 $lang_main_categories_list                 = "Hovedkategoriliste";
 $lang_my_personnal_course_list             = "Min personlige kursusliste";

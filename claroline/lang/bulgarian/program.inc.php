@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langProgram="Програма на курса";
 $langAddressProgram="Адрес на курсовата програма";

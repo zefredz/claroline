@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 
 $lang_already_enrolled                     = "Déjà inscrit";

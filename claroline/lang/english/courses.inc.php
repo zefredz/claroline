@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $lang_already_enrolled                     = "already enrolled";
 $lang_main_categories_list                 = "Main category list";

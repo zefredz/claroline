@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 $lang_already_enrolled                     = "ze vpisani";
 $lang_main_categories_list                 = "Seznam glavnih kategorij";
 $lang_my_personnal_course_list             = "moj osebni seznam tecajev";

@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langInvalidId="Неуспешен login.<BR>Ако не сте регистрирани, използвайте <a href=claroline/auth/inscription.php>формата за регистрация</a></font color>";
 $langMyCourses="Моите курсове";

@@ -5,7 +5,6 @@
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-
  */
 // create_course.php
 $langCreateSite="Créer un site de cours";

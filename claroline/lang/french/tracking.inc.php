@@ -2,10 +2,9 @@
 /*
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.5.0 $Revision$                            |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+
+
+
       |          Piraux Sébastien  <piraux_seb@hotmail.com>                  |
       +----------------------------------------------------------------------+
  */

@@ -1,4 +1,4 @@
-<?
+<?php // $Id$ 
 
 unset($titreBloc);
 unset($titreBlocNotEditable);

@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 /* translation by Ralf Hilgenstock mailto:rh@dialoge.net
 $lang_already_enrolled                     = "immer eingeschrieben";
 $lang_main_categories_list                 = "Bereichsübersicht";

@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langDoc="Документи";
 $langDownloadFile= "Качи файл на сървъра";

@@ -1,9 +1,9 @@
-<?php
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.3.0 $Revision. 1.1 $                               |
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   $Id. agenda.inc.php,v 1.1 2002/09/25 16.46.44 moosh Exp $           |
       |   Danish Translation                                                |

@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 $lang_already_enrolled                     = "đã tham gia rồi";
 $lang_main_categories_list                 = "Danh mục chính";
 $lang_my_personnal_course_list             = "Danh mục khoá học cá nhân";

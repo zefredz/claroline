@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 $lang_config_AdministrationTools	=	"Administration Tools";
 $lang_config_config					=	"Configuration";
 $lang_config_TitleConfig			=	"Configuration de votre plateforme : ";

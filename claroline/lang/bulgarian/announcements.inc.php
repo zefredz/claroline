@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langAn ="Обяви";
 $langOn="Включени";

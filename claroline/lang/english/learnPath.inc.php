@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
    
    $langToolName="Learning Path";

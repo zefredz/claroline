@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 $lang_already_enrolled                     = "Уже записан";
 $lang_main_categories_list			       = "Список разделов";
 $lang_my_personnal_course_list			   = "Мой личный список курсов";

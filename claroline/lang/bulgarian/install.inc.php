@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langEG 			= "например"; 
 $langDBHost			= "Database Host";

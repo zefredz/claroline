@@ -3,13 +3,12 @@
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.4.0 $Revision$
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
 	  |   Danish Translation                                                |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+
+
+
       +----------------------------------------------------------------------+
       | Danish Translator :  Helle meldgaard <helle@iktlab.au.dk>            |
       |                                                                      |                        

@@ -2,15 +2,13 @@
 /*
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.5.0 $Revision$                            |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+
+
+
       |          Piraux Sébastien  <piraux_seb@hotmail.com>                  |
       +----------------------------------------------------------------------+
       | Translation: Ralf Hilgenstock  <rh@dialoge.net>                      |
       +----------------------------------------------------------------------+
-
 /* general */
 $langTrackingDisabled = "Tracking wurde vom Systemadministrator abgestellt.";
 $langToolName="Statistik";

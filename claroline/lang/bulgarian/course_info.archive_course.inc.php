@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langArchiveCourse = "Архивиране на курса";
 $langCreatedIn = "създаден в";

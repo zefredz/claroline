@@ -1,9 +1,9 @@
-<?php
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.0 $Revision$                            |
+      | CLAROLINE version 1.5.*                             |
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   $Id$     |
       |   English Translation                                                |
@@ -12,10 +12,9 @@
       |   modify it under the terms of the GNU General Public License        |
       |   as published by the Free Software Foundation; either version 2     |
       |   of the License, or (at your option) any later version.             |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+
+
+
       |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
       +----------------------------------------------------------------------+
       | Translator :                                                         |

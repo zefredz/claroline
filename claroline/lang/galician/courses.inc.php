@@ -1,6 +1,6 @@
 
 
-<?php
+<?php // $Id$
 
 $lang_already_enrolled                     = "xa foi matriculado";
 $lang_main_categories_list                 = "Lista de categor&iacute;s principais";

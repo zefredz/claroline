@@ -1,4 +1,4 @@
-<?
+<?php // $Id$ 
 /* Translation by Ralf Hilgenstock mailto:rh@dialoge.net
 
 

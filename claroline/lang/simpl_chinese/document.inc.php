@@ -1,9 +1,9 @@
-<?php
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.3.0                                                |
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |

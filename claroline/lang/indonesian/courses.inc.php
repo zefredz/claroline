@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 $lang_already_enrolled                     = "telah terdaftar";
 $lang_main_categories_list                 = "Daftar kategori utama";
 $lang_my_personnal_course_list             = "Daftar pelajaran-ku";

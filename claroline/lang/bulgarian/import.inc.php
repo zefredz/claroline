@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langAddPage="Добави страница";
 $langPageAdded="Страницата е добавена";

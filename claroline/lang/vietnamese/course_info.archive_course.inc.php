@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
 $langArchiveCourse = "Đang backup khoá học ";
 $langCreatedIn = "tạo trong";
