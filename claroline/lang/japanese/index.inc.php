@@ -38,7 +38,7 @@ $langPass="パスワード";
 $langEnter="Entrer";
 $langHelp="へルプ";
 $langManager="運用者";
-$langPlatform="iCampus utilise la plate-forme";
+$langPoweredBy="iCampus utilise la plate-forme";
 $langReg="登録";
 $langMenu="メニュ";
 ?>

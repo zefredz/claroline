@@ -24,7 +24,7 @@ $langPass=" كلمة السرّ ";
 $langEnter=" دخول ";
 $langHelp="  ؟ كيف تنطلق ";
 $langManager=" المسؤول ";
-$langPlatform="-كمبوس يستعمل هذه المسّطحة ";
+$langPoweredBy="-كمبوس يستعمل هذه المسّطحة ";
 $langReg=" ترسيم ";
 $langMenu =" قائمة ";
 ?>

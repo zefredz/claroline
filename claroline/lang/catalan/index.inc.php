@@ -28,7 +28,7 @@ $langPass="Paraula de pas";
 $langEnter="Entra";
 $langHelp="Ajuda d'Inici";
 $langManager="Administrador";
-$langPlatform="Potenciat per ";
+$langPoweredBy="Potenciat per ";
 $langReg="Enregistrament";
 $langMenu ="Menú";
 

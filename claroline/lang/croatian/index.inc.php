@@ -27,7 +27,7 @@ $langPass="Zaporka";
 $langEnter="Ulaz";
 $langHelp="Poèetak";
 $langManager="Manager";
-$langPlatform="Upravljano s ";
+$langPoweredBy="Upravljano s ";
 $langReg="Prijava";
 $langMenu ="Izbornik";
 

@@ -27,7 +27,7 @@ $langPass="Þifre";
 $langEnter="Giriþ";
 $langHelp="Baþlangýç Açýklamalarý";
 $langManager="Yönetici";
-$langPlatform="Powered by";
+$langPoweredBy="Powered by";
 $langReg="Kayýt";
 $langMenu ="Menü";
 

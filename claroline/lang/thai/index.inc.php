@@ -26,7 +26,7 @@ $langPass="รหัสผ่าน";
 $langEnter="ตกลง";
 $langHelp="ช่วยเหลือ";
 $langManager="ผู้จัดการ";
-$langPlatform="Powered by";
+$langPoweredBy="Powered by";
 $langReg="ลงทะเบียน";
 $langMenu ="เมนู";
 

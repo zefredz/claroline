@@ -47,7 +47,7 @@ $langPass="Salasana";
 $langEnter="Sisään";
 $langHelp="Apua";
 $langManager="Ylläpito";
-$langPlatform="Alusta";
+$langPoweredBy="Alusta";
 $langReg="Rekisteröinti";
 $langMenu ="Menu";
 ?>

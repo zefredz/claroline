@@ -53,7 +53,7 @@ else
 </td>
 <td align="right" width="30%">
 
-<?php echo $langPlatform ?> <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2004
+<?php echo $langPoweredBy ?> <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2004
 
 </td>
 </tr>

@@ -48,7 +48,7 @@ $langPass="密码";
 $langEnter="进入";
 $langHelp="使用帮助";
 $langManager="管理员";
-$langPlatform="技术支持";
+$langPoweredBy="技术支持";
 $langReg="注册";
 $langMenu ="系统菜单";
 

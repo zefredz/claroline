@@ -146,6 +146,7 @@ $langModifyProfile="Mijn profiel";
 $langLogout="Logout";
 $langManager="Platformbeheerder";
 $langPlatform= $institution["name"] . " gebruikt het platform";
+$langPoweredBy= $institution["name"] . " gebruikt het platform";
 
 //needed for student view
 $langCourseManagerview = "Cursusbeheerder zicht";
