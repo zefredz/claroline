@@ -106,20 +106,21 @@ if($display==DISP_FILE_LIST
 		echo  $lang_EditFile_ListFileEdit." : ";
 	?>
 		<br>
-		<UL>
+		<dl>
 	<?php
 		foreach($NameFile as $idFile => $nameFile)
 		{
 	?>
-			<LI>				
+			<DT> <TT><?php echo basename($nameFile); ?></TT> 
+			<DD>
 				<a href="<?php echo $PHP_SELF."?cmd=edit&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEdit ?>" ></a>
-				<a href="<?php echo $PHP_SELF."?cmd=view&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/visible.gif" border="0" alt="<?php echo $langPreview ?>" ></a>
-				<?php echo basename($nameFile); ?> 
+				<a href="<?php echo $PHP_SELF."?cmd=view&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/preview.gif" border="0" alt="<?php echo $langPreview ?>" ></a>
+			</DD>				
 			</LI>
 	<?php
 		}
 	?>
-		</UL>
+		</dL>
 	<?php
 }
 
@@ -131,10 +132,16 @@ if($display==DISP_EDIT_FILE)
 		<br>
 
 		<form action="<?php echo $PHP_SELF; ?>">
-			<textarea name="textFile" cols="90" rows="20"> <?php echo $TextFile; ?> </textarea>
+<?php
+		//	<textarea name="textFile" cols="90" rows="20"> <?php echo $TextFile; > </textarea>
+			claro_disp_html_area('textFile', $TextFile);
+?>
+  
+			
 			<br><br> &nbsp;&nbsp;
 			<input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>">
-			<input type="submit" name="modify" value=" <?php echo $lang_EditFile_ButtonSubmit; ?>">
+			<input type="submit" class=\"claroButton\" name="modify" value=" <?php echo $lang_EditFile_ButtonSubmit; ?>">
+			<?php   claro_disp_button($PHP_SELF, 'Cancel'); ?>
 		</form>
 	<?php
 }
