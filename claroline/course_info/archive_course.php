@@ -19,11 +19,23 @@
  * 	- compress the directory and content in an archive file.
  */
 
+
+// Debug 
+
+$verboseBackup = 0;
+$message = "";
+
+// Lang
+
 $langFile='course_info';
 
+$langCreateDirectory = "Create Directory";
+$langBackupCourseInformation = "Backup course information";
+
+
+// Include global and libs
+
 require '../inc/claro_init_global.inc.php';
-$isAllowedToBackUp=$is_courseAdmin;
-if (! $isAllowedToBackUp) claro_disp_auth_form();
 
 if(extension_loaded('zlib'))
 {
@@ -31,15 +43,9 @@ if(extension_loaded('zlib'))
 }
 
 @include($includePath."/lib/debug.lib.inc.php");
+include($includePath."/lib/fileManage.lib.php");
 
-$tbl_mdb_names = claro_sql_get_main_tbl();
-//$tbl_course           = $tbl_mdb_names['course'           ];
-$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
-//$tbl_course_nodes     = $tbl_mdb_names['category'         ];
-//$tbl_user             = $tbl_mdb_names['user'             ];
-//$tbl_class            = $tbl_mdb_names['class'            ];
-//$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
-
+// Courses variables
 
 $currentCourseId		= $_course["sysCode"];
 $currentCourseDbName 	= $_course["dbName"];
@@ -48,85 +54,76 @@ $currentCoursePath 		= $_course["path"];
 $currentCourseCode 		= $_course["officialCode"];
 $currentCourseName 		= $_course["name"];
 
-$archivePath=$rootSys.$archiveDirName.'/'.$currentCoursePath.'/';
-$archiveFile=$archivePath. date("Y-m-d-H-i-s") .'.'.$archiveExt;
+// Tables variables
 
-$nameTools=$langArchiveCourse;
+$tbl_mdb_names   = claro_sql_get_main_tbl();
+$TABLECOURSUSER  = $tbl_mdb_names['rel_course_user'];
+$TABLECOURS      = $tbl_mdb_names['course'];
+$TABLEUSERS      = $tbl_mdb_names['user'];
+
+// Path and files variables
+
+$archiveDirName    = "archive"; // claro_main_conf 
+$archiveExt         = "claro";
+
+$archivePath       = $rootSys.$archiveDirName ;
+$archiveCoursePath = $archivePath .'/'.$currentCoursePath;
+$archiveFile       = $archiveCoursePath . "/" . date("Ymd-Hi") . "." . $archiveExt;
+$dirCourseBase     = $archiveCoursePath . "/" . "courseBase";
+$dirMainBase       = $archiveCoursePath . "/" . "mainBase";
+$dirHtml           = $archiveCoursePath . "/" . "html";
+$courseFile        = $dirMainBase . "/" . "course.sql";
+$userCSVFile       = $dirMainBase . "/" . "users.csv";
+$coursePath        = $coursesRepositorySys.$currentCoursePath.'/';
+    
+$archiveName       = "archive." . $currentCourseId.'.'. date("Ymd-Hi") . ".zip";
+$archiveLocation   = str_replace($currentCoursePath.'/','',$archivePath);
+
+// Display header
 
 $interbredcrump[]=array("url" => "infocours.php","name" => $langModifInfo);
-
 include($includePath."/claro_init_header.inc.php");
-claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>'&quot;'.$currentCourseName.'&quot;');
+
+// Display tool title
+
+claro_disp_tool_title(array('mainTitle'=>$langArchiveCourse,'subTitle'=>'&quot;'.$currentCourseName.'&quot;'));
+
+// User is allowed ?
+
+$isAllowedToBackUp = $is_courseAdmin;
+if (!$isAllowedToBackUp) claro_disp_auth_form();
+
 if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if confirmed
 {
 	// does the course exist ?
 
-	$result=claro_sql_query('SELECT code_cours, user_id, statut
-						 FROM `'.$tbl_rel_course_user.'`
-		                 WHERE code_cours="'.$currentCourseId.'"
-		                 AND user_id="'.$_uid.'"
-		                 AND statut="1"');
+	$sql = "SELECT code_cours, user_id, statut
+		     FROM `" . $TABLECOURSUSER . "`
+		     WHERE code_cours='" . $currentCourseId . "'
+		     AND user_id='" . $_uid . "'
+		     AND statut='1'";
+    $result = claro_sql_query($sql);
 
 	if(!mysql_num_rows($result))
 	{
 		include($includePath."/claro_init_footer.inc.php");
 		exit();
 	}
-?>
 
-<table border="0" align="center" cellpadding="0" cellspacing="0" width="100%">
-<tr>
-  <td>
-	<hr noshade="noshade" size="1">
+    // Display file name
 
-	<u><?php echo $langArchiveName; ?></u> : archive.<?php echo $currentCourseId.'.'. date("YzBs"); ?>.zip
+    echo "<hr noshade=\"noshade\" size=\"1\">\n";
+    echo "<p><u>" . $langArchiveName . "</u>: " . $archiveName .  "</p>\n";
+    echo "<p><u>" . $langArchiveLocation . "</u>: " .  $archiveLocation . "</p>\n";
+    echo "<hr noshade=\"noshade\" size=\"1\">\n";
 
-	<br>
-
-	<u><?php echo $langArchiveLocation; ?></u> : <?php echo str_replace($currentCoursePath.'/','',$archivePath); ?>
-
-	<br>
-
-<?php
-	
-// Thomas debugging for 1.4.1
-/* $courseDirSize=dirSize($rootSys.$currentCoursePath.'/');
-
-
-$courseDirSize=($courseDirSize >= 1048576) ? round($courseDirSize/(1024*1024),2).' Mb'
-											   : round($courseDirSize/1024,2).' Kb';
-?>
-
-	<u><?php echo $langSizeOf.' '.$coursesRepositorySys.$currentCoursePath.'/'; ?></u> : <?php echo $courseDirSize; ?>
-
-<?php
-	if(function_exists('diskfreespace'))
-	{
-		$diskFreeSpace=diskfreespace('/');
-
-		$diskFreeSpace=($diskFreeSpace >= 1073741824) ? round($diskFreeSpace/(1024*1024*1024),2).' Gb'
-													  : round($diskFreeSpace/(1024*1024),2).' Mb';
-?>
-
-	<br>
-
-	<u><?php echo $langDisk_free_space; ?></u> : <?php echo $diskFreeSpace; ?>
-
-<?php
-	}
-*/
-?>
-
-	<hr noshade="noshade" size="1">
-
-<?php
-// ********************************************************************
-// build config file
-// ********************************************************************
+    // ********************************************************************
+    // build config file
+    // ********************************************************************
 
 	// str_replace() removes \r that cause squares to appear at the end of each line
 	$stringConfig=str_replace("\r","","<?php
-/*
+    /*
       ----------------------------------------------------------------------
         CLAROLINE version $clarolineVersion
       ----------------------------------------------------------------------
@@ -138,159 +135,160 @@ $courseDirSize=($courseDirSize >= 1048576) ? round($courseDirSize/(1024*1024),2)
         modify it under the terms of the GNU General Public License
         as published by the Free Software Foundation; either version 2
       ----------------------------------------------------------------------
-        Source are in $archivePath
+        Source are in $archiveCoursePath
       ----------------------------------------------------------------------
-*/
-");
+    */
+    ");
 
-	// begin list of works
+	// Begin list of works
 
-	echo '<ol>';
+	echo "<h3>" . $langCreateDirectory . "</h3>";
+	echo "<ol>";
 
-	// if dir is missing, first we create it. mkpath() is a recursive function
+    // Create folder for Course Database in archive folder
 
-    $dirCourBase=$archivePath.'courseBase';
-
-	if(!is_dir($dirCourBase))
+    
+    
+	if(!is_dir($dirCourseBase))
 	{
-		echo '<li>'.$langCreateMissingDirectories.' : '.$dirCourBase;
-
-		if($verboseBackup)
-		{
-			echo '<hr size="1" noshade="noshade">';
-		}
-
-		mkpath($dirCourBase,$verboseBackup);
-
-		echo '</li>';
+		echo "<li>" . $langCreateMissingDirectories . ": " . $dirCourseBase;
+		mkpath($dirCourseBase,$verboseBackup);
+		echo "</li>\n";
 	}
 
-    $dirMainBase=$archivePath.'mainBase';
+    // Create folder for Main Database in archive folder
 
 	if(!is_dir($dirMainBase))
 	{
-		echo '<li>'.$langCreateMissingDirectories.' : '.$dirMainBase;
-
-		if($verboseBackup)
-		{
-			echo '<hr size="1" noshade="noshade">';
-		}
-
+		echo "<li>" . $langCreateMissingDirectories . ": " . $dirMainBase;
 		mkpath($dirMainBase,$verboseBackup);
-
-		echo '</li>';
+		echo "</li>\n";
 	}
 
-	$dirhtml=$archivePath.'html';
+    // Create folder for Html 
 
-	if(!is_dir($dirhtml))
+	if(!is_dir($dirHtml))
 	{
-		echo '<li>'.$langCreateMissingDirectories.' : '.$dirhtml;
-
-		if($verboseBackup)
-		{
-			echo '<hr size="1" noshade="noshade">';
-		}
-
-		mkpath($dirhtml,$verboseBackup);
-
-		echo '</li>';
+		echo "<li>" . $langCreateMissingDirectories . ": " . $dirHtml;
+		mkpath($dirHtml,$verboseBackup);
+		echo "</li>\n";
 	}
+
+    echo "</ol>\n";
 
 // ********************************************************************
 //  copy datas of "cours" table from the main database
 // ********************************************************************
 
-	echo '<li>'.$langBUCourseDataOfMainBase.'  '.$currentCourseCode;
+	echo "<h3>" . $langBackupCourseInformation . "</h3>\n";
 
-	if($verboseBackup)
-	{
-		echo '<hr size="1" noshade="noshade">';
-	}
+	echo "<ol>\n";
 
-	$sqlInsertCourse='INSERT INTO `cours` SET ';
+	echo "<li>" . $langBUCourseDataOfMainBase . "  " . $currentCourseCode . "</li>\n";
 
-	$sqlSelectInfoCourse="SELECT * FROM `cours` WHERE code='$currentCourseId'";
-	$resInfoCourse=mysql_query_dbg($sqlSelectInfoCourse);
+	$sqlInsertCourse= "INSERT INTO `" . $TABLECOURS . "` SET ";
+
+    // Select course information
+	$sql = "SELECT * 
+            FROM `" . $TABLECOURS . "` 
+            WHERE code='" . $currentCourseId . "'";
+
+	$resInfoCourse= claro_sql_query($sql);
 
 	$infoCourse=mysql_fetch_array($resInfoCourse);
+
+    // create sql insert query
 
 	for($noField=0;$noField < mysql_num_fields($resInfoCourse);$noField++)
 	{
 		if($noField)
 		{
-			$sqlInsertCourse.=', ';
+			$sqlInsertCourse.=", ";
 		}
-
 		$nameField=mysql_field_name($resInfoCourse,$noField);
-
 		$sqlInsertCourse.="$nameField='".addslashes($infoCourse[$nameField])."'";
 	}
-
 	$sqlInsertCourse.=';';
 
-	$stringConfig.="\n# Insert Course\n#------------------------------------------\n$sqlInsertCourse\n#------------------------------------------";
+    // add to config
 
-	if($verboseBackup)
-	{
-		echo $sqlInsertCourse.'<br><br></li>';
-	}
+	$stringConfig .= "\n" .
+                    "# Insert Course\n" .
+                    "#------------------------------------------\n" .
+                    $sqlInsertCourse . "\n" .
+                    "#------------------------------------------\n" ;
 
-	$fcoursql=fopen($archivePath."mainBase/cours.sql","w");
-	fwrite($fcoursql, $sqlInsertCourse);
-	fclose($fcoursql);
+    if ($verboseBackup)
+    {
+	    echo "<p style='color: green'>" . $sqlInsertCourse . "</p>\n";
+    }
+
+    // save in courseFile
+
+	$fcourse=fopen($courseFile,"w");
+	fwrite($fcourse, $sqlInsertCourse);
+	fclose($fcourse);
 
 // ********************************************************************
 //  copy info about users
 // ********************************************************************
 
-	echo '<li>'.$langBUUsersInMainBase.' '.$currentCourseCode;
+	echo "<li>" . $langBUUsersInMainBase . " " . $currentCourseCode . "</li>\n";
 
-	if($verboseBackup)
-	{
-		echo '<hr size="1" noshade="noshade">';
-	}
+	// Select user of the course
 
-	// recup users
+	$sql = "SELECT u.* 
+            FROM `" . $TABLEUSERS . "` as `u`, `" . $TABLECOURSUSER  . "` as `cu` 
+            WHERE u.user_id=cu.user_id 
+              AND cu.code_cours='". $currentCourseId . "'";
 
-	$sqlUserOfTheCourse="SELECT	u.* FROM `".$tbl_user."` u, `".$tbl_rel_course_user."` cu WHERE u.user_id=cu.user_id AND cu.code_cours='$currentCourseId'";
+	$resUsers = claro_sql_query($sql);
+	$nbFields = mysql_num_fields($resUsers);
 
-	$resUsers=mysql_query_dbg($sqlUserOfTheCourse,$db);
-	$nbFields=mysql_num_fields($resUsers);
+	$csvInsertUsers = "";
 
-	$csvInsertUsers='';
-
-	// creation of header
+	// creation of csv column title
 
 	for($noField=0;$noField < $nbFields;$noField++)
 	{
-		$nameField=mysql_field_name($resUsers,$noField);
-
-		$csvInsertUsers.="'".addslashes($nameField)."';";
+		$nameField = mysql_field_name($resUsers,$noField);
+        if ($nameField != "password") {
+    		$csvInsertUsers .= "'" . addslashes($nameField) . "';";
+        }
 	}
 
-	// creation of body
+	// creation of csv data
 
 	while($users=mysql_fetch_array($resUsers))
 	{
-		$csvInsertUsers.="\n";
+		$csvInsertUsers .= "\n";
 
 		for($noField=0;$noField < $nbFields;$noField++)
 		{
 			$nameField=mysql_field_name($resUsers,$noField);
-
-			$csvInsertUsers.="'".addslashes($users[$nameField])."';";
+            if ($nameField != "password") {
+    			$csvInsertUsers .= "'" . addslashes($users[$nameField]) . "';";
+            }
 		}
 	}
 
-	if($verboseBackup)
-	{
-		echo claro_parse_user_text($csvInsertUsers).'<br><br></li>';
-	}
+    if ($verboseBackup) 
+    {
+    	echo "<p style='color: green'>" . claro_parse_user_text($csvInsertUsers). "<p>\n";
+    }
 
-	$stringConfig.="\n\n# CSV of Users\n#------------------------------------------\n$csvInsertUsers\n#------------------------------------------";
+    // add to config
 
-	$fuserscsv=fopen($archivePath."mainBase/users.csv","w");
+	$stringConfig .= "\n" . 
+                     "\n" .
+                     "# CSV of Users\n" . 
+                     "#------------------------------------------\n" . 
+                     $csvInsertUsers . "\n" .
+                     "#------------------------------------------\n";
+    
+    // write to file
+
+	$fuserscsv=fopen($userCSVFile,"w");
 	fwrite($fuserscsv, $csvInsertUsers);
 	fclose($fuserscsv);
 
@@ -298,34 +296,32 @@ $courseDirSize=($courseDirSize >= 1048576) ? round($courseDirSize/(1024*1024),2)
 //  copy course's files
 // ********************************************************************
 
-	echo '<li>'.$langCopyDirectoryCourse;
+	echo "<li>" . $langCopyDirectoryCourse ;
+
+    // copy course's files
+
+    copyDirTo($coursePath, $dirHtml, false);
 
 	if($verboseBackup)
 	{
-		echo '<hr size="1" noshade="noshade">';
+		echo "<p style='color: green'>copyDirTo($coursePath, $dirHtml) </p> " ;
 	}
+    else 
+    {
+        echo "</li>\n";
+    }
 
-	$nbFiles=copydir($coursesRepositorySys.$currentCoursePath.'/', $dirhtml, $verboseBackup);
-
-	if($verboseBackup)
-	{
-		echo '<strong>'.$nbFiles.'</strong> '.$langFileCopied.'<br><br></li>';
-	}
-
-	$stringConfig.="\n\n".$nbFiles." files were in ".$coursesRepositorySys.$currentCoursePath."/";
+	$stringConfig .= "\n".
+                     "\n".
+                     $nbFiles." files were in ".$coursePath."/ \n" ;
 
 // ********************************************************************
 //  copy course database
 // ********************************************************************
 
-	echo '<li>'.$langBackupOfDataBase.' '.$currentCourseDbName.'  (SQL)';
+	echo "<li>" . $langBackupOfDataBase . " " . $currentCourseDbName . " (SQL)";
 
-	if($verboseBackup)
-	{
-		echo '<hr size="1" noshade="noshade">';
-	}
-
-	backupDatabase($db, $currentCourseDbName, true, true, 'SQL', $archivePath.'courseBase/', true, $verboseBackup);
+   // backupDatabase($db, $currentCourseDbName, true, true, 'SQL', $archivePath.'courseBase/', true, $verboseBackup);
 
 // ********************************************************************
 //  compress the archive
@@ -335,103 +331,62 @@ $courseDirSize=($courseDirSize >= 1048576) ? round($courseDirSize/(1024*1024),2)
 	fwrite($fdesc,$stringConfig);
 	fclose($fdesc);
 
-	echo '</li><li>'.$langBuildTheCompressedFile.'<hr size="1" noshade="noshade">';
+	echo "</li>\n" . 
+         "<li>" . $langBuildTheCompressedFile . "</li>\n" . 
+         "</ol>\n";
 
-	echo '<font color="#FF0000">'.$langBackupSuccesfull.'</font>';
 
 	if(extension_loaded('zlib'))
 	{
-		$zipCourse=new PclZip($archivePath.'../archive.'.$currentCourseId.'.'. date("YzBs") .'.zip');
-		$zipCourse->create('../../'.$archiveDirName.'/'.$currentCoursePath,PCLZIP_OPT_REMOVE_PATH,'../../'.$archiveDirName.'/'.$currentCoursePath.'/');
-
-		echo ' - <a href="../../'.$archiveDirName.'/archive.'.$currentCourseId.'.'. date("YzBs") .'.zip">'.$langDownload.'</a>';
-
-		removeDir($archivePath);
+		$zipCourse=new PclZip($archivePath . '/' . $archiveName);
+		$zipCourse->create($archiveCoursePath,PCLZIP_OPT_REMOVE_PATH,$archivePath);
+		removeDir($archiveCoursePath);
+        $message .= $langBackupSuccesfull . " - <a href=\"$rootWeb".$archiveDirName."/$archiveName\">" . $langDownload . "</a>";
 	}
 
-	echo '</ol>';
 }	// if allowed to backup
- /**************************************************************************************/
+
+// **************************************************************************************
+
 elseif(!$isAllowedToBackUp) //  not allowed to backup
 {
 	echo $langNotAllowed;
 }
 else
 {
-	echo	"<p>",
-			"$langConfirmBackup &quot;$currentCourseName&quot; ($currentCourseCode) ?",
-			"</p>",
-			"<p>",
-			"<a href=\"".$_SERVER['PHP_SELF']."?confirmBackup=yes\">$langY</a>",
-			"&nbsp;|&nbsp;",
-			"<a href=\"infocours.php\">$langN</a>",
-			"</p>";
+    $message .= "<p>" . $langConfirmBackup . " &quot;" . $currentCourseName . "&quot; (" . $currentCourseCode . ") ?" . "</p>\n" ;
+    $message .= "<p>" . "<a href=\"".$_SERVER['PHP_SELF']."?confirmBackup=yes\">$langY</a>" . "&nbsp;|&nbsp;" . "<a href=\"infocours.php\">$langN</a>" . "</p>";
+
+
 }
-?>
+    
+if ($message)
+{
+   claro_disp_message_box($message);
+}
 
-  </td>
-</tr>
-</table>
-
-<?php
 @include($includePath."/claro_init_footer.inc.php");
 
-/*******************************/
-/* FUNCTIONS					/
-/*******************************/
+/*
 
-/**
- * Returns the size of a directory
- *
- * @return		integer		size of the directory
- *
- * @param		string		$path			directory path
- * @param		boolean		$recursive		set to true if must go to sub-directories
- */
-function dirSize($path, $recursive=true)
-{
-	$result=0;
+// *******************************
+// * FUNCTIONS					
+// *******************************
 
-	if(!is_dir($path) || !is_readable($path))
-	{
-		return 0;
-	}
+// **
+// * Backup a db to a file
+// *
+// * @param ressource	$link			lien vers la base de donnees
+// * @param string	$db_name		nom de la base de donnees
+// * @param boolean	$structure		true => sauvegarde de la structure des tables
+// * @param boolean	$donnees		true => sauvegarde des donnes des tables
+// * @param boolean	$format			format des donnees
+// 									'INSERT' => des clauses SQL INSERT
+//									'CSV' => donnees separees par des virgules
+// * @param boolean	$insertComplet	true => clause INSERT avec nom des champs
+// * @param boolean	$verbose 		true => comment are printed
+// *
 
-	$fd=dir($path);
-
-	while($file = $fd->read())
-	{
-	   	if($file != '.' && $file != '..')
-		{
-			if(is_dir($path.$file.'/'))
-			{
-	 			$result+=$recursive?dirSize($path.$file.'/'):0;
-			}
-			else
-			{
-				$result+=filesize($path.$file);
-			}
-		}
-	}
-
-	$fd->close();
-
-	return $result;
-}
-
-/**
- * Backup a db to a file
- *
- * @param ressource	$link			lien vers la base de donnees
- * @param string	$db_name		nom de la base de donnees
- * @param boolean	$structure		true => sauvegarde de la structure des tables
- * @param boolean	$donnees		true => sauvegarde des donnes des tables
- * @param boolean	$format			format des donnees
- 									'INSERT' => des clauses SQL INSERT
-									'CSV' => donnees separees par des virgules
- * @param boolean	$insertComplet	true => clause INSERT avec nom des champs
- * @param boolean	$verbose 		true => comment are printed
- */
 function backupDatabase($link, $db_name, $structure, $donnees, $format="SQL", $whereSave=".", $insertComplet="", $verbose=false)
 {
 	global $singleDbEnabled, $currentCourseDbNameGlu;
@@ -553,180 +508,6 @@ function backupDatabase($link, $db_name, $structure, $donnees, $format="SQL", $w
 	fclose($fp);
 }
 
-/**
- * copy a directory from a source location to a target location
- *
- * @return		integer		total of file copied
- *
- * @param string	$origine		source location
- * @param string	$destination	target location
- * @param boolean	$verbose 		true => comment are printed
- */
-function copydir($origine, $destination, $verbose=false)
-{
-	if(!is_dir($destination))
-	{
-		mkdir($destination, 0770);
-	}
+*/
 
-	if($verbose)
-	{
-		echo '<strong>['.basename($destination).']</strong><ol>';
-
-		$total=0;
-	}
-
-	$dossier=opendir($origine);
-
-	while($fichier = readdir($dossier))
-	{
-		$l=array('.', '..');
-
-		if(!in_array($fichier,$l))
-		{
-			if(is_dir($origine.'/'.$fichier))
-			{
-				if($verbose)
-				{
-					echo '<li>';
-				}
-
-				$total+=copydir("$origine/$fichier", "$destination/$fichier", $verbose);
-			}
-			else
-			{
-				copy("$origine/$fichier", "$destination/$fichier");
-
-				if($verbose)
-				{
-					echo '<li>'.$fichier;
-				}
-
-				$total++;
-			}
-
-			if($verbose)
-			{
-				echo '</li>';
-			}
-		}
-	}
-
-	if($verbose)
-	{
-		echo '</ol>';
-	}
-
-	return $total;
-}
-
-/**
- * to create missing directory in a gived path
- *
- * @returns a resource identifier or FALSE if the query was not executed correctly.
- * @author KilerCris@Mail.com original function from  php manual
- * @author Christophe Gesché gesche@ipm.ucl.ac.be Claroline Team
- * @since  28-Aug-2001 09:12
- * @param sting		$path 		wanted path
- * @param boolean	$verbose	fix if comments must be printed
- * @param string	$mode		fix if chmod is same of parent or default
- */
-function mkpath($path, $verbose = false, $mode = "herit")
-{
-	global $langCreatedIn;
-
-	$path=str_replace("/","\\",$path);
-	$dirs=explode("\\",$path);
-
-	$path=$dirs[0];
-
-	if($verbose)
-	{
-		echo "<UL>";
-	}
-
-	for($i=1;$i < sizeof($dirs);$i++)
-	{
-		$path.='/'.$dirs[$i];
-
-		if(!is_dir($path))
-		{
-			$ret=mkdir($path,0770);
-
-			if($ret)
-			{
-				if($verbose)
-				{
-					echo '<li><strong>'.basename($path).'</strong><br>'.$langCreatedIn.'<br><strong>'.realpath($path.'/..').'</strong></li>';
-				}
-			}
-			else
-			{
-				if($verbose)
-				{
-					echo '</UL>error : '.$path.' not created';
-				}
-
-				$ret=false;
-
-				break;
-			}
-		}
-	}
-
-	if($verbose)
-	{
-		echo '</UL>';
-	}
-
-	return $ret;
-}
-
-/**
- * removes a directory recursively
- *
- * @returns true if OK, otherwise false
- *
- * @author Amary <MasterNES@aol.com> (from Nexen.net)
- * @author Olivier Brouckaert <oli.brouckaert@skynet.be>
- *
- * @param string	$dir		directory to remove
- */
-function removeDir($dir)
-{
-	if(!@$opendir = opendir($dir))
-	{
-		return false;
-	}
-
-	while($readdir = readdir($opendir))
-	{
-		if($readdir != '..' && $readdir != '.')
-		{
-			if(is_file($dir.'/'.$readdir))
-			{
-				if(!@unlink($dir.'/'.$readdir))
-				{
-					return false;
-				}
-			}
-			elseif(is_dir($dir.'/'.$readdir))
-			{
-				if(!removeDir($dir.'/'.$readdir))
-				{
-					return false;
-				}
-			}
-		}
-	}
-
-	closedir($opendir);
-
-	if(!@rmdir($dir))
-	{
-		return false;
-	}
-
-	return true;
-}
 ?>
