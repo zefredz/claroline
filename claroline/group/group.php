@@ -76,7 +76,7 @@ $nbGroupPerUser             = $_groupProperties ['nbGroupPerUser'     ];
 $tools['forum'   ]          = $_groupProperties ['tools'] ['forum'    ];
 $tools['document']          = $_groupProperties ['tools'] ['document' ];
 $tools['wiki'    ]          = $_groupProperties ['tools'] ['wiki'     ];
-$tools['agenda'  ]          = $_groupProperties ['tools'] ['agenda'   ];
+$tools['chat'  ]          = $_groupProperties ['tools'] ['chat'   ];
 
 
 //  THIS 2 SQL query  upgrade course db on fly.  
@@ -244,7 +244,7 @@ if ($is_allowedToManage)
         $groupHaveForum  = $_groupProperties ['tools'] ['forum'    ];
         $groupHaveDocs   = $_groupProperties ['tools'] ['document' ];
         $groupHaveWiki   = $_groupProperties ['tools'] ['wiki'     ];
-        $groupHaveAgenda = $_groupProperties ['tools'] ['agenda'   ];
+        $groupHaveChat = $_groupProperties ['tools'] ['chat'   ];
 
     }	// end if $submit
 

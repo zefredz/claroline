@@ -256,7 +256,6 @@ else
  * session_register("userGroupId");
  * session_register("forumId");
  */
-
 if($_groupProperties['tools']['forum'])
 {
     echo "<a href=\"../phpbb/viewforum.php?forum=".$forumId."\">"
@@ -276,30 +275,11 @@ if($_groupProperties['tools']['wiki'])
     echo "<a href=\"../wiki/wiki.php\">".$langWiki."</a><br>";
 }
 
-if($_groupProperties['tools']['agenda'])
+if($_groupProperties['tools']['chat'])
 {
-    echo "<a href=\"../calendar/agenda.php\">".$langAgenda."</a><br>";
-		// Drive members into their own File Manager
-	if($_groupProperties['tools']['document'] && $is_allowedToDocAccess)
-	{
-//		echo "<a href=\"document.php?gidReq=$thisGid\">$langDocuments</a><br>";
-// We are already in the  group. We don't need re req
-		echo "<a href=\"document.php\">$langDocuments</a><br>";
-	}	// while loop
-
-	if($_groupProperties['tools']['wiki'])
-	{
-		echo "<a href=\"../wiki/wiki.php\">".$langWiki."</a><br>";
-	}
-
-	if($_groupProperties['tools']['agenda']) // Horrible hacking don't read agenda,  read chat!
-	{
-		echo "<a href=\"../chat/chat.php?gidReq=".$_gid."\">".$langChat."</a><br>";
-	}
-
-	echo "<br>
-	</td>";
+  echo "<a href=\"../chat/chat.php?gidReq=".$_gid."\">".$langChat."</a><br>";
 }
+
 
 ?>
 </td>

@@ -774,7 +774,7 @@ mysql_query("
 		forum tinyint(4) default '1',
 		document tinyint(4) default '1',
 		wiki tinyint(4) default '0',
-		agenda tinyint(4) default '0',
+		chat tinyint(4) default '1',
 	PRIMARY KEY  (id)
 	)");
 
@@ -1038,8 +1038,8 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 	mysql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (2,'$langCatagoryMain',2)");
 ############################## GROUPS ###########################################
 	mysql_query("INSERT INTO `".$TABLEGROUPPROPERTIES."`
-(id, self_registration, private, forum, document, wiki, agenda)
-VALUES (NULL, '1', '0', '1', '1', '0', '0')");
+(id, self_registration, private, forum, document, wiki, chat)
+VALUES (NULL, '1', '0', '1', '1', '0', '1')");
 	mysql_query("INSERT INTO `".$TABLEPHPBBCONFIG."` VALUES (
          '1',
          '$intitule',

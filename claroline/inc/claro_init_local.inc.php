@@ -91,7 +91,7 @@
  * boolean $_groupProperties ['tools'] ['forum'    ]
  * boolean $_groupProperties ['tools'] ['document' ]
  * boolean $_groupProperties ['tools'] ['wiki'     ]
- * boolean $_groupProperties ['tools'] ['agenda'   ]
+ * boolean $_groupProperties ['tools'] ['chat'   ]
  * 
  * string  $_courseUser['role']
  * boolean $is_courseMember
@@ -411,18 +411,18 @@ if ($cidReset) // course session data refresh requested
             // read of group tools config related to this course
 
             $sql = "SELECT * FROM `".$_course['dbNameGlu']."group_property`";
-
+            
             $result = mysql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! $sql ".__LINE__." ".mysql_errno());
-
+            
             $gpData = mysql_fetch_array($result);
-
+            
             $_groupProperties ['registrationAllowed'] = (bool) ($gpData['self_registration'] == 1);
             $_groupProperties ['private'            ] = (bool) ($gpData['private']           == 1);
             $_groupProperties ['nbCoursPerUser'     ] = $gpData['nbCoursPerUser'];
             $_groupProperties ['tools'] ['forum'    ] = (bool) ($gpData['forum']             == 1);
             $_groupProperties ['tools'] ['document' ] = (bool) ($gpData['document']          == 1);
             $_groupProperties ['tools'] ['wiki'     ] = (bool) ($gpData['wiki']              == 1);
-            $_groupProperties ['tools'] ['agenda'   ] = (bool) ($gpData['agenda']            == 1);
+            $_groupProperties ['tools'] ['chat'   ] = (bool) ($gpData['chat']            == 1);
 
         }
         else
@@ -444,7 +444,7 @@ if ($cidReset) // course session data refresh requested
         $_groupProperties ['tools'] ['forum'    ] = false;
         $_groupProperties ['tools'] ['document' ] = false;
         $_groupProperties ['tools'] ['wiki'     ] = false;
-        $_groupProperties ['tools'] ['agenda'   ] = false;
+        $_groupProperties ['tools'] ['chat'   ] = false;
         $_groupProperties ['private'            ] = true;
     }
 

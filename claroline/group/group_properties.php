@@ -33,7 +33,7 @@ $TABLEGROUPPROPERTIES 	= $_course['dbNameGlu']."group_property";
 	$_groupProperties ['tools'] ['forum'    ] =   $gpData['forum']             == 1;
 	$_groupProperties ['tools'] ['document' ] =   $gpData['document']          == 1;
 	$_groupProperties ['tools'] ['wiki'     ] =   $gpData['wiki']              == 1;
-	$_groupProperties ['tools'] ['agenda'   ] =   $gpData['agenda']            == 1;
+	$_groupProperties ['tools'] ['chat'   ] =   $gpData['chat']            == 1;
 	session_register("_groupProperties");
 	$registrationAllowedInGroup = $_groupProperties ['registrationAllowed'];
 	$groupPrivate 				= $_groupProperties ['private'            ];
