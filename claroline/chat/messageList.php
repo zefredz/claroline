@@ -234,10 +234,19 @@ $curDisplayLineList = $activeLineList;
 // DISPLAY
 
 // CHAT MESSAGE LIST OWN'S HEADER
+// add a unique number in the url to make IE believe that the url is different and to force refresh
+if( !isset($_REQUEST['x']) || $x == 1 )
+{
+	$x = 0;
+}
+else
+{
+	$x = 1;
+}
 
 echo "<html>\n\n"
     ."<head>\n"
-    ."<meta http-equiv=\"refresh\" content=\"".REFRESH_DISPLAY_RATE.";url=".$_SERVER['PHP_SELF']."#final\">\n"
+    ."<meta http-equiv=\"refresh\" content=\"".REFRESH_DISPLAY_RATE.";url=./messageList.php?x=".$x."#final\">\n"
     ."<link rel=\"stylesheet\" type=\"text/css\" href=\"".$clarolineRepositoryWeb."css/".$claro_stylesheet."\" />\n"
     ."</head>\n\n"
     ."<body>\n";
