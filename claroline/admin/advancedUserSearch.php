@@ -66,14 +66,6 @@ claro_disp_tool_title($nameTools);
 <small><?=$langYouCanUsefields?> : </small><br>
 <form action="adminusers.php" method="GET" >
 <table border="0">
-<tr>
-  <td>
-   <?=$langFirstName?> : <br>
-  </td>
-  <td>
-    <input type="text" name="firstName" value="<?=$_GET['firstName']?>"/>
-  </td>
-</tr>
 
 <tr>
   <td>
@@ -81,6 +73,15 @@ claro_disp_tool_title($nameTools);
   </td>
   <td>
     <input type="text" name="lastName" value="<?=$_GET['lastName']?>"/>
+  </td>
+</tr>
+
+<tr>
+  <td>
+   <?=$langFirstName?> : <br>
+  </td>
+  <td>
+    <input type="text" name="firstName" value="<?=$_GET['firstName']?>"/>
   </td>
 </tr>
 
