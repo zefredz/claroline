@@ -1149,7 +1149,7 @@ installation and set them to be compatible with the new Claroline version. This 
 <p>You won't be allowed to start the upgrade process before this point is marked as 'done'.</p>
 ";
 $langMakeBackupBefore = "Make a backup before !";
-$langMakeBackupBefore = "Make a backup before !!!";
+$langMakeBackupBefore = "Make a backup before !";
 $langMakeCorrespond = "Make correspond";
 $langMakeFileOfTranslation = "Build a translation file";
 $langMakeInvisible = "Make invisible";
@@ -1605,7 +1605,7 @@ $langUpdateImage = "Change picture";
 $langUpdated = "Updated";
 $langUpdatedExternalTool = "External tool updated";
 $langUpgrade = "Upgrade";
-$langUpgrade = "Upgrade claroline";
+$langUpgrade = "Upgrade";
 $langUpgradeAll = "Upgrade the whole platform.";
 $langUpgradeStep0 = "Backup confirm";
 $langUpgradeStep1 = "Step 1 of 3: platform main settings";
@@ -1847,6 +1847,9 @@ $langSendToUserAccountInfoByMail = "Send account information to user by mail";
 $langDeleteOfUserWasDoneSucessfully = "Delete of the user was done sucessfully";
 $langAddListUser = "Add a list of users";
 $langAddAClass = "Subscribe a class";
+$langUpgradeDataBase = "Upgrading Main Database ";
+$langYouCannotDelCatOfGroupsForums = "You can not delete the group forum category.
+If you need to remove group forums, you rather have to delete the group";
 $langErrorFormatCSV = "ERROR: The format you gave is not compatible with Claroline";
 $langTheFields = "The fields";
 $langAreCompulsory = "are compulsory";
