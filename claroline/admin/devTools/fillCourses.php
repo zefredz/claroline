@@ -66,7 +66,7 @@ include($includePath."/lib/fileManage.lib.php");
 include($includePath."/conf/course_info.conf.php");
 
 $nameTools = $langCreateSite;
-$interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
+$interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdministration);
 
 $htmlHeadXtra[] =
 "<style type=\"text/css\">
