@@ -66,14 +66,16 @@ $nameTools=$langExercice;
 if (isset($_SESSION['exeStartTime']))
 {
 	$timeToCompleteExe =  time() - $_SESSION['exeStartTime'];
+	unset($_SESSION['exeStartTime']);
 }
 
 // deal with the learning path mode
 
 if ($_SESSION['inPathMode']== true)          // learning path mode
 {
-     $is_allowedToEdit = false; // do not allow to be in admin mode during a path progression
-     // need to include the learningPath langfile for the added interbredcrump
+	include($includePath."/lib/learnPath.lib.inc.php");
+	$is_allowedToEdit = false; // do not allow to be in admin mode during a path progression
+    // need to include the learningPath langfile for the added interbredcrump
    	// echo minimal html page header so that the page is valid
 	// FIXME : find a better solution than duplicate the css link
 	echo '<html>
@@ -428,9 +430,6 @@ else                                        // normal exercise mode
 
 <?php
 
-// deal with the learning path mode
-
-
 /*******************************/
 /* Tracking of results         */
 /*******************************/
@@ -461,33 +460,53 @@ if($_SESSION['inPathMode'] == true ) // learning path mode
         $scoreMin = 0;
         $scoreMax = $totalWeighting;
         // need learningPath_module_id and raw_to_pass value
-        $sql = "SELECT *
-                  FROM `".$TABLELEARNPATHMODULE."`
-                 WHERE `learnPath_id` = '".$_SESSION['path_id']."'
-                   AND `module_id` = '".$_SESSION['module_id']."'";
+        $sql = "SELECT LPM.`raw_to_pass`, LPM.`learnPath_module_id`, UMP.`total_time`, UMP.`raw`
+                  FROM `".$TABLELEARNPATHMODULE."` AS LPM, `".$TABLEUSERMODULEPROGRESS."` AS UMP
+                 WHERE LPM.`learnPath_id` = '".$_SESSION['path_id']."'
+                   AND LPM.`module_id` = '".$_SESSION['module_id']."'
+				   AND LPM.`learnPath_module_id` = UMP.`learnPath_module_id`
+				   AND UMP.`user_id`";
 
         $query = mysql_query($sql);
         $row = mysql_fetch_array($query);
 
+		$scormSessionTime = seconds_to_scorm_time($timeToCompleteExe);
+        
+		// build sql query
+		$sql = "UPDATE `".$TABLEUSERMODULEPROGRESS."` SET ";
+		// if recorded score is less then the new score => update raw, credit and status
+		if ($row['raw'] < $totalScore) 
+		{ 
+			// update raw
+			$sql .= "`raw` = $totalScore,";
+			// update credit and statut if needed ( score is better than raw_to_pass )
+			if ($row['raw_to_pass'] <= $newRaw)
+			{
+				$sql .= "	`credit` = 'CREDIT',
+					 		`lesson_status` = 'PASSED',";
+			}
+			else // minimum raw to pass needed to get credit 
+			{
+				$sql .= "	`credit` = 'NO-CREDIT',
+							`lesson_status` = 'FAILED',";
+			}
+		}// else don't change raw, credit and lesson_status
 
-        $sql = "UPDATE `".$TABLEUSERMODULEPROGRESS."`
-                   SET `raw` = $totalScore,
-                       `credit` = IF( ".$row['raw_to_pass']." <= $newRaw,'CREDIT','NO-CREDIT'),
-                       `scoreMin` = $scoreMin,
-                       `scoreMax` = $scoreMax,
-                       `lesson_status` = IF( ".$row['raw_to_pass']." <= $newRaw,'PASSED','FAILED')
+		// default query statements
+		$sql .= "	`scoreMin` 		= $scoreMin,
+					`scoreMax` 		= $scoreMax,
+					`total_time`	= '".addScormTime($row['total_time'], $scormSessionTime)."',
+					`session_time`	= '".$scormSessionTime."'
                  WHERE `learnPath_module_id` = ".$row['learnPath_module_id']."
-                   AND `user_id` = $_uid
-                   AND `raw` < $totalScore";
-
-        mysql_query($sql);
+                   AND `user_id` = $_uid";
+	    mysql_query($sql);
     }
 
 }
 
 if ($_SESSION['inPathMode'] != true) 
 {
-  @include($includePath.'/claro_init_footer.inc.php');
+  include($includePath.'/claro_init_footer.inc.php');
 }
 else
 {
