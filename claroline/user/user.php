@@ -107,21 +107,21 @@ if ($disp_tool_link)
 	{ 
 	   //add a user link
 	?>
-	<a class="claroCmd" href="user_add.php"><img src="<?php echo $clarolineRepositoryWeb; ?>img/user.gif"><?php echo $langAddAU; ?></a> |
+	<a class="claroCmd" href="user_add.php"><img src="<?php echo $imgRepositoryWeb; ?>user.gif"><?php echo $langAddAU; ?></a> |
 	<?php
 
        //add CSV file of user link
 	?>
-	<a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $clarolineRepositoryWeb; ?>img/importlist.gif"> <?php echo $langAddListUser; ?></a> |
+	<a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $imgRepositoryWeb; ?>importlist.gif"> <?php echo $langAddListUser; ?></a> |
 	<?php 
 	   //add a class link
 	?>
-	<a class="claroCmd" href="class_add.php"><img src="<?php echo $clarolineRepositoryWeb; ?>img/class.gif"> <?php echo $langAddClass; ?></a> |
+	<a class="claroCmd" href="class_add.php"><img src="<?php echo $imgRepositoryWeb; ?>class.gif"> <?php echo $langAddClass; ?></a> |
 	<?php
 	
 	}
 	?>
-	<a class="claroCmd" href="../group/group.php"><img src="<?php echo $clarolineRepositoryWeb; ?>img/group.gif"><?php echo $langGroupUserManagement; ?></a>
+	<a class="claroCmd" href="../group/group.php"><img src="<?php echo $imgRepositoryWeb; ?>group.gif"><?php echo $langGroupUserManagement; ?></a>
 	</p>
 <?php
 }
