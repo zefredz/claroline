@@ -70,18 +70,17 @@ event_access_tool($nameTools);
 
 claro_disp_tool_title($nameTools);
 
+
+$fileAllowedSize = CONFVAL_MAX_FILE_SIZE_PER_WORKS ;    //file size in bytes
+$updir           = $currentCourseRepositorySys.'work/'; //directory path to upload
+
+
 //////////////////////////////////////////////////////////////////////////////
 
-if (isset($HTTP_POST_VARS['submitWork']) || $submitGroupWorkUrl)
-{
-	// these libraries are only used for upload purpose
-	// Thus we dont include the all the times
 
-	include($includePath."/lib/fileUpload.lib.php");
-	include($includePath."/lib/fileDisplay.lib.php"); // need format_url function
-}
-
-//------------------------------------------------------------------------------
+include($includePath."/lib/fileUpload.lib.php");
+include($includePath."/lib/fileDisplay.lib.php"); // need format_url function
+					
 
 /*========================================
            INTRODUCTION SECTION
@@ -232,8 +231,6 @@ if ( isset($submitWork) )
 				// $urlAppend="/cvs130/Claroline010";
 				// $webDir="/var/www/html/cvs130/Claroline010/";
 
-		$updir           = $currentCourseRepositorySys.'work/'; //directory path to upload
-		$fileAllowedSize = CONFVAL_MAX_FILE_SIZE_PER_WORKS ;    //file size in bytes
 
 		// Try to add an extension to the file if it has'nt one
 		$new_file_name = add_ext_on_mime($file_name);
@@ -360,7 +357,6 @@ else
 	/*=======================================
 		 PERMANENT FORM TO UPLOAD PAPER
 	  =======================================*/
-
 	echo	"<form method=\"post\" action=\"",$PHP_SELF,"\" enctype=\"multipart/form-data\" >\n",
 			"<table>\n";
 	if ($submitGroupWorkUrl) // For user comming from group space to publish his work
@@ -407,11 +403,14 @@ else
 				"<input type=\"file\" name=\"file\" id=\"file\" size=\"20\">",
 				"</td>\n",
 
-				"</tr>\n";
+				"</tr>\n".
+			"<tr>
+				<td>&nbsp;</td>
+				<td><small>Max. file size : ".format_file_size( get_max_upload_size($fileAllowedSize,$updir) )."</small></td>
+			</tr>";
 	}
-
-	echo	"<tr>\n",
-
+	echo
+			"<tr>",
 			"<td  align=\"right\"><label for=\"titre\">",
 			$langTitleWork,"</label> : ",
 			"</td>\n",
