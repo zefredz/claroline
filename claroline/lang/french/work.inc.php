@@ -30,7 +30,7 @@ $langEditWork = "Modifier une soummission";
 $langSubmittedWork = "Soumission";
 $langWorkDetails = "Détails de la soumission";
 $langFeedbackDetails = "Détails de la correction";
-$langShowFeedback = "Voir correction";
+$langShowFeedback = "Voir la dernière correction";
 $langShowWork = "Voir la soumission";
 $langAddFeedback = "Corriger";
 
@@ -85,7 +85,8 @@ $langExplainReplaceFile = "Envoyez un nouveau fichier pour remplacer le fichier 
 $langFileDesc = "Description du fichier";
 $langAnswer = "Réponse";
 $langNoFile = "- pas de fichier -";
-$langScore = "Score";
+$langScore = "Note";
+$langNoScore = "Pas de note";
 
 // -- Form errors and confirmations
 //confirmations

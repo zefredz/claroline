@@ -29,7 +29,7 @@ $langSubmittedWork = "Work";
 $langEditWork = "Modify a work";
 $langWorkDetails = "Work details";
 $langFeedbackDetails = "Feedback details";
-$langShowFeedback = "Show feedback";
+$langShowFeedback = "Show last feedback";
 $langShowWork = "Show work";
 $langAddFeedback = "Add feedback";
 
@@ -85,6 +85,7 @@ $langFileDesc = "File description";
 $langAnswer = "Answer";
 $langNoFile = "- none -";
 $langScore = "Score";
+$langNoScore = "No score";
 
 // -- Form errors and confirmations
 //confirmations
