@@ -131,20 +131,22 @@ echo "<p>"
                                      Only available for teacher. */
     {
         echo '<a href="claroline/create_course/add_course.php">'
+            .'<img src="'.$clarolineRepositoryWeb.'img/course.gif"> '
             .$langCourseCreate
             .'</a>'
             .'&nbsp;|&nbsp;';
     }
 
     echo '<a href="claroline/auth/courses.php?cmd=rqReg&category=">'
+        .'<img src="'.$clarolineRepositoryWeb.'img/subscribe.gif"> '
         .$lang_enroll_to_a_new_course
         .'</a>'
         .'&nbsp;|&nbsp;'
 
         .'<a href="claroline/auth/courses.php?cmd=rqUnreg">'
+        .'<img src="'.$clarolineRepositoryWeb.'img/unenroll.gif"> '
         .$lang_remove_course_enrollment
         .'</a>'
-
         ."</b>"
         ."</small>\n"
         ."</p>\n";
