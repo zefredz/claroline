@@ -41,6 +41,10 @@ partir des $*Sys et $*Web du fichier de config
 modifications des paths des images au sein du document, les images ne 
 s'affichent pas du tout.
 
+Repéré par : SEB
+Assigné à : HUGUES
+Etat      : RESOLU
+
 8. CLARO_MAIN.CONF. présence de code couleurs qui ne sont, à ma connaissance pas 
 utilisés.  Ils sont signalé comme étant utilisés dans le banner mais ne le sont 
 pas.
@@ -85,6 +89,9 @@ Repéré par : MOOSH
 
 -------------
 $Log$
+Revision 1.15  2004/06/14 09:39:54  peeters
+no message
+
 Revision 1.14  2004/06/14 08:18:51  peeters
 no message
 
