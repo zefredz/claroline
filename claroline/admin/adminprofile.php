@@ -432,14 +432,17 @@ else
 
 // display TOOL links :
 
-claro_disp_button("adminuserdeleted.php?uidToEdit=".$user_id."&amp;cmd=delete",$langDeleteUser,$langAreYouSureToDelete." ".$username_form);
-claro_disp_button("../auth/courses.php?cmd=rqReg&amp;uidToEdit=".$user_id."&amp;fromAdmin=settings&amp;category=",$langRegisterUser);
-claro_disp_button("../auth/lostPassword.php?Femail=".$email_form."&amp;searchPassword=1",$langSendToUserAccountInfoByMail);
+echo "<a class=\"claroCmd\" href=\"adminuserdeleted.php?uidToEdit=".$user_id."&cmd=delete\" onClick=\"return confirmation('".$langAreYouSureToDelete." ".$username_form."');\" >".$langDeleteUser."</a> | ";
+
+echo "<a class=\"claroCmd\" href=\"../auth/courses.php?cmd=rqReg&amp;uidToEdit=".$user_id."&amp;fromAdmin=settings&amp;category=\" >".$langRegisterUser."</a> | ";
+
+echo "<a class=\"claroCmd\" href=\"../auth/lostPassword.php?Femail=".$email_form."&amp;searchPassword=1\" >".$langSendToUserAccountInfoByMail."</a>";
 
 if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
 {
-    claro_disp_button("adminusers.php", $langBackToUserList);
+    echo " | <a class=\"claroCmd\" href=\"adminusers.php\" >".$langBackToUserList."</a>";
 }
+
 // display footer
 
 include($includePath."/claro_init_footer.inc.php");
