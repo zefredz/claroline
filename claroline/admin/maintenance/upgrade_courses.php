@@ -39,8 +39,6 @@ if (!$is_allowedToEdit)
  die ('Not Allowed');
 }
 
-include("createBaseOfACourse.sql.php");
-
 $db = mysql_connect($dbHost, $dbLogin, $dbPass);
 
 // count courses upgraded
@@ -160,8 +158,8 @@ switch ($display)
 			
 			// initialise $sqlForUpdate
 			unset($sqlForUpdate);
-			include("createBaseOfACourse.sql.php");
 			@include("repairTables.sql.php");
+			include("createBaseOfACourse.sql.php");
 			
 			@mysql_query ( "SET @currentCourseCode := '".$currentCourseIDsys."'");
 		

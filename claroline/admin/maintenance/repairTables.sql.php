@@ -7,7 +7,10 @@
  
 if  (!is_array($tableToRepair))
 {
-	$sql_getTablesNames = "SHOW TABLES";
+	$sql_getTablesNames = "SHOW TABLES FROM " . $currentCourseDbName ;
+
+	if ($singleDbEnabled) $sql_getTablesNames .= " like '" .  $currentCourseDbName ."%' "; 
+
 	$res_getTablesNames = mysql_query($sql_getTablesNames);
 	if($res_getTablesNames)
 	{
@@ -18,15 +21,14 @@ if  (!is_array($tableToRepair))
 	}
 }
 
-
 if  (is_array($tableToRepair))
 {
 	reset($tableToRepair);
+	$sqlRepair = "REPAIR TABLE  ";
 	while(list($count,$tableName)=each($tableToRepair))
-	$sqlForUpdate[] = "REPAIR TABLE  `".$tableName."`";
+		$sqlRepair .= "`".$currentCourseDbNameGlu.$tableName."`, ";
+	$sqlRepair .= "`".$currentCourseDbNameGlu.$tableName."` ";
+  	$sqlForUpdate[] = $sqlRepair;
 }
-
-
-
 
 ?>
