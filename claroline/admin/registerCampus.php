@@ -396,7 +396,7 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
 		."</li>\n"
 	    ."</ul>\n"
 	    ."<br />\n"
-		."<input type=\"submit\" name=\"register\" value=\"".$langOk."\" />"
+		."<input type=\"submit\" name=\"register\" value=\"".$langRegisterMyCampus."\" />"
 		."</form>\n";
 }
 
