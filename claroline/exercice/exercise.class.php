@@ -31,6 +31,11 @@ class Exercise
 	var $type;
 	var $random;
 	var $active;
+	
+	var $maxTime;
+	var $maxTries;
+	var $showAnon;
+	var $showAnswer;
 
 	var $questionList;  // array with the list of this exercise's questions
 
@@ -41,12 +46,17 @@ class Exercise
 	 */
 	function Exercise()
 	{
-		$this->id=0;
-		$this->exercise='';
-		$this->description='';
-		$this->type=1;
-		$this->random=0;
-		$this->active=1;
+		$this->id			= 0;
+		$this->exercise		= '';
+		$this->description	= '';
+		$this->type			= 1;
+		$this->random		= 0;
+		$this->active		= 0;
+
+		$this->maxTime		= 0;
+		$this->maxTries		= 0;
+		$this->showAnon		= '';
+		$this->showAnswer	= '';
 
 		$this->questionList=array();
 	}
@@ -62,20 +72,32 @@ class Exercise
 	{
 		global $TBL_EXERCICES, $TBL_EXERCICE_QUESTION, $TBL_QUESTIONS;
 
-		$sql="SELECT titre,description,type,random,active FROM `$TBL_EXERCICES` WHERE id='$id'";
+		$sql="	SELECT 	`titre`,`description`,
+				`type`,`random`,`active`,
+				`max_time`,`max_tries`,`show_anon`,`show_answer`
+			FROM `$TBL_EXERCICES` 
+			WHERE `id` = '$id'";
 		$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
 		// if the exercise has been found
 		if($object=mysql_fetch_object($result))
 		{
-			$this->id=$id;
-			$this->exercise=$object->titre;
-			$this->description=$object->description;
-			$this->type=$object->type;
-			$this->random=$object->random;
-			$this->active=$object->active;
-
-			$sql="SELECT question_id,q_position FROM `$TBL_EXERCICE_QUESTION`,`$TBL_QUESTIONS` WHERE question_id=id AND exercice_id='$id' ORDER BY q_position";
+			$this->id 			= $id;
+			$this->exercise 	= $object->titre;
+			$this->description 	= $object->description;
+			$this->type	 		= $object->type;
+			$this->random 		= $object->random;
+			$this->active 		= $object->active;
+			
+			$this->maxTime 		= $object->max_time;			
+			$this->maxTries		= $object->max_tries;
+			$this->showAnon		= $object->show_anon;
+			$this->showAnswer	= $object->show_answer;
+			
+			$sql="	SELECT 	`question_id`,`q_position` 
+				FROM `$TBL_EXERCICE_QUESTION`,`$TBL_QUESTIONS`
+				WHERE `question_id` = `id` AND `exercice_id` = '$id' 
+				ORDER BY `q_position`";
 			$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
 			// fills the array with the question ID for this exercise
@@ -162,6 +184,58 @@ class Exercise
 	function selectStatus()
 	{
 		return $this->active;
+	}
+
+	/**
+	 * returns the max allowed time to complete the exercise
+	 * 
+	 * @author - Piraux Sebastien <pir@cerdecam.be>
+	 * @return - integer - max allowed time (in seconds)
+	 */
+	function get_max_time()
+	{
+		return $this->maxTime;
+	}
+	
+	/**
+	 * returns the max allowed tries(attemps) to complete the exercise
+	 * 
+	 * @author - Piraux Sebastien <pir@cerdecam.be>
+	 * @return - integer - max allowed tries count
+	 */
+	function get_max_tries()
+	{
+		return $this->maxTries;
+	}
+
+	/**
+	 * tells if the exercise is accessible to non course registered users
+	 * 
+	 * @author - Piraux Sebastien <pir@cerdecam.be>
+	 * @return - boolean - 0 if hidden to anonymous users, 1 if show
+	 */
+	function get_show_anon()
+	{
+		if($this->showAnon == 'SHOW')
+		{
+			return true;
+		}
+		else
+		{
+			 return false;
+		}
+	}
+
+	/**
+	 * returns when the answers have to be shown
+	 * 
+	 * @author - Piraux Sebastien <pir@cerdecam.be>
+	 * @return - string - string representation of the condition when 
+	 *					answers have to be showned. e.g. : ALWAYS, NEVER, LASTTRY
+	 */
+	function get_show_answer()
+	{
+		return $this->showAnswer;
 	}
 
 	/**
@@ -325,6 +399,43 @@ class Exercise
 	}
 
 	/**
+	 * set max allowed time to complete the exercise
+   	 *
+	 * @author Piraux Sebastien <pir@cerdecam.be>
+	 * @param integer time in seconds
+	 *
+	 */
+	function set_max_time($time)
+	{
+		$this->maxTime = $time;
+		return true;
+	}
+	
+	function set_max_tries($tries)
+	{
+		$this->maxTries = $tries;
+		return true;
+	}
+
+	function set_show_anon()
+	{
+		$this->showAnon = 'SHOW';
+		return true;
+	}
+	
+	function set_hide_anon()
+	{
+		$this->showAnon = 'HIDE';
+		return true;
+	}
+
+	function set_show_answer($showType)
+	{
+		$this->showAnswer = $showType;
+		return true;
+	}
+	
+	/**
 	 * updates the exercise in the data base
 	 *
 	 * @author - Olivier Brouckaert
@@ -333,23 +444,42 @@ class Exercise
 	{
 		global $TBL_EXERCICES, $TBL_QUESTIONS;
 
-		$id=$this->id;
-		$exercise=addslashes($this->exercise);
-		$description=addslashes($this->description);
-		$type=$this->type;
-		$random=$this->random;
-		$active=$this->active;
+		$id				= $this->id;
+		$exercise		= addslashes($this->exercise);
+		$description	= addslashes($this->description);
+		$type			= $this->type;
+		$random			= $this->random;
+		$active			= $this->active;
+
+		$maxTime 		= $this->maxTime;
+		$maxTries		= $this->maxTries;
+		$showAnon		= $this->showAnon;
+		$showAnswer		= $this->showAnswer;
 
 		// exercise already exists
 		if($id)
 		{
-			$sql="UPDATE `$TBL_EXERCICES` SET titre='$exercise',description='$description',type='$type',random='$random',active='$active' WHERE id='$id'";
+			$sql = "UPDATE `$TBL_EXERCICES` 
+					SET `titre` = '$exercise',
+						`description` = '$description',
+						`type` = '$type',
+ 						`random` = '$random',
+						`active` = '$active',
+						`max_time` = $maxTime, 
+						`max_tries` = $maxTries,
+						`show_anon` = '$showAnon',
+						`show_answer` = '$showAnswer'
+					WHERE `id` = '$id'";
 			mysql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
 		}
 		// creates a new exercise
 		else
 		{
-			$sql="INSERT INTO `$TBL_EXERCICES`(titre,description,type,random,active) VALUES('$exercise','$description','$type','$random','$active')";
+			$sql=	"INSERT INTO `$TBL_EXERCICES`
+					(`titre`,`description`,`type`,`random`,`active`,
+					 `max_time`, `max_tries`, `show_anon`, `show_answer`) 
+					VALUES('$exercise','$description','$type','$random','$active',
+							$maxTime,$maxTries,'$showAnon','$showAnswer')";
 			mysql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 
 			$this->id=mysql_insert_id();
@@ -358,7 +488,7 @@ class Exercise
 		// updates the question position
 		foreach($this->questionList as $position=>$questionId)
 		{
-			$sql="UPDATE `$TBL_QUESTIONS` SET q_position='$position' WHERE id='$questionId'";
+			$sql="UPDATE `$TBL_QUESTIONS` SET `q_position` = '$position' WHERE `id` = '$questionId'";
 			mysql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
 		}
 	}
