@@ -1,9 +1,8 @@
-<?php
-// $Id$
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -19,24 +18,16 @@ include($includePath."/claro_init_header.inc.php");
 include($includePath."/conf/profile.conf.inc.php");
 $nameTools = "1";
 
-define ("STUDENT",5);
-define ("COURSEMANAGER",1);
+$display_status_selector = (bool) ($is_platformAdmin OR $allowSelfRegProf);
 
-
-// Forbidden to self-register Claroline 1.4.0
 if(!$allowSelfReg and isset($allowSelfReg))
 {
 	echo "<BR><BR>You are not allowed here<BR><BR><BR><BR>";
 }
 else
 {
-
+	claro_disp_tool_title($langRegistration);
 ?>
-
-<h3>
-	<?php echo $langRegistration ?>
-</h3>
-
 <form action="inscription_second.php" method="post">
 <table cellpadding="3" cellspacing="0" border="0">
 
@@ -48,7 +39,7 @@ else
             &nbsp; :
         </td>
         <td>
-            <input type="text" size="40" name="nom" id="name" value="<?=$nom?>">
+            <input type="text" size="40" name="nom" id="name" value="<?php echo $nom?>">
         </td>
     </tr>
 
@@ -60,7 +51,7 @@ else
 			&nbsp; :
 		</td>
 		<td>
-			<input type="text" size="40" id="surname" name="prenom" value="<?=$prenom?>">
+			<input type="text" size="40" id="surname" name="prenom" value="<?php echo $prenom?>">
 		</td>
 	</tr>
 <?
@@ -75,7 +66,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
             &nbsp; :
         </td>
         <td>
-            <input type="text" size="40" id="name" name="officialCode" value="<?=$officialCode?>">
+            <input type="text" size="40" id="name" name="officialCode" value="<?php echo $officialCode?>">
         </td>
     </tr>
 <?
@@ -97,7 +88,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 			&nbsp;:
 		</td>
 		<td>
-			<input type="text" size="40" name="uname" id="username" value="<?=$uname?>">
+			<input type="text" size="40" name="uname" id="username" value="<?php echo $uname?>">
 		</td>
 	</tr>
 
@@ -143,7 +134,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 			</label> :
 		</td>
 		<td>
-			<input type="text" size="40" name="email" id="email" value="<?=$email?>">
+			<input type="text" size="40" name="email" id="email" value="<?php echo $email?>">
 		</td>
 	</tr>
 
@@ -154,43 +145,43 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
             </label> :
         </td>
         <td>
-            <input type="text" size="40" name="phone" id="phone" value="<?=$phone?>">
+            <input type="text" size="40" name="phone" id="phone" value="<?php echo $phone?>">
         </td>
     </tr>
 
+<?php
+// Deactivate Teacher Self-registration if $allowSelfRegProf=FALSE
+
+if ($display_status_selector)
+{
+?>
 	<tr>
 		<td align="right">
-			<label for="language">
+			<label for="status">
 				<?php echo $langStatus ?>
 			</label>
 			:
 		</td>
 		<td>
-		
+			<select name="statut" id="status">
+				<option value="<?php echo STUDENT ?>">
+                <?php echo $langRegStudent; ?>
+                </option>
+				<option value="<?php echo COURSEMANAGER ?>" <?php echo $statut == COURSEMANAGER ? 'selected' : ''?>>
+                <?php echo $langRegAdmin; ?>
+                </option>
+			</select>
+		</td></tr>
 <?php
-// Deactivate Teacher Self-registration if $allowSelfRegProf=FALSE
-
-if ($is_platformAdmin OR $allowSelfRegProf)
-	{
-	echo "
-		<select name=\"statut\" id=\"language\">
-		<option value=\"".STUDENT."\">$langRegStudent</option>
-		<option value=\"".COURSEMANAGER."\">$langRegAdmin</option>
-		</select>";
 	}
-else
-	{
-	echo "
-		<input type=\"hidden\" name=\"statut\" id=\"language\" value=\"STUDENT\">
-		$langRegStudent";
-}
 ?>
-
-</td></tr><tr>
-<td>
-	<input type="hidden" name="submitRegistration" value="true">
-</td>
-<td><input type="submit" value="<?php echo $langRegister;?>" ></td>
+<tr>
+	<td>
+		<input type="hidden" name="submitRegistration" value="true">
+	</td>
+	<td>
+		<input type="submit" value="<?php echo $langRegister;?>" >
+	</td>
 </tr>
 
 </table>
@@ -199,5 +190,7 @@ else
 
 <?php
 }	// END else == $allowSelfReg
+
+
+include ("../inc/claro_init_footer.inc.php");
 ?>
-<?php include ("../inc/claro_init_footer.inc.php");

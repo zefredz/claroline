@@ -1,9 +1,9 @@
-<?php
-// $Id$
+<?php // $Id$
+
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.5.1
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
@@ -32,31 +32,28 @@ $nameTools = "2";
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $TABLEUSER  = $tbl_mdb_names['user'];
 
-define ('STUDENT'       ,5 );
-define ('COURSEMANAGER' ,1 );
+
 
 if (!isset($userMailCanBeEmpty))   $userMailCanBeEmpty   = true;
 if (!isset($checkEmailByHashSent)) $checkEmailByHashSent = false;
 if (!isset($userPasswordCrypted))  $userPasswordCrypted	 = false;
 
 $regDataOk = false; // default value...
-?>
-<h3><?= $langRegistration ?></h3>
 
-<?
+claro_disp_tool_title($langRegistration);
 
 if($submitRegistration)
 {
 	$regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 
-	$uname        = strip_tags ( trim ($HTTP_POST_VARS['uname'       ]) );
-	$email        = strip_tags ( trim ($HTTP_POST_VARS['email'       ]) );
-	$nom          = strip_tags ( trim ($HTTP_POST_VARS['nom'         ]) );
-	$prenom       = strip_tags ( trim ($HTTP_POST_VARS['prenom'      ]) );
-	$password     = trim ($HTTP_POST_VARS['password'    ]);
-	$password1    = trim ($HTTP_POST_VARS['password1'   ]);
+    $uname        = strip_tags ( trim ($HTTP_POST_VARS['uname'       ]) );
+    $email        = strip_tags ( trim ($HTTP_POST_VARS['email'       ]) );
+    $nom          = strip_tags ( trim ($HTTP_POST_VARS['nom'         ]) );
+    $prenom       = strip_tags ( trim ($HTTP_POST_VARS['prenom'      ]) );
+    $password     = trim ($HTTP_POST_VARS['password'    ]);
+    $password1    = trim ($HTTP_POST_VARS['password1'   ]);
     $officialCode = strip_tags ( trim ($HTTP_POST_VARS['officialCode']) );
-    $statut     = ($HTTP_POST_VARS['statut'] == COURSEMANAGER) ? COURSEMANAGER : STUDENT;
+    $statut       = ($allowSelfRegProf && $_REQUEST['statut'] == COURSEMANAGER) ? COURSEMANAGER : STUDENT;
 
 
 	/*==========================
@@ -138,7 +135,7 @@ if($submitRegistration)
 if ( ! $regDataOk)
 {
 	echo	"<p>",
-			"<a href=\"inscription.php?nom=",$nom,"&prenom=",$prenom,"&uname=",$uname,"&email=",$email,"&officialCode=",$officialCode,"&phone=",$phone,"\">",
+			"<a href=\"inscription.php?nom=",$nom,"&prenom=",$prenom,"&uname=",$uname,"&email=",$email,"&officialCode=",$officialCode,"&phone=",$phone,"&statut=",$statut,"\">",
 			$langAgain,
 			"</a>",
 			"</p>\n";
@@ -255,63 +252,4 @@ $already_second=1;
 
 include($includePath."/claro_init_footer.inc.php");
 
-
-
-/* Don't understant this part of the code -- so I comment it.
-
-				$errorAddHash = mysql_errno();
-
-				if ($errorAddHash && $checkEmailByHashSent)
-				{
-					// $checkEmailByHashSent is  true and userHash is missing
-
-					$emailbody = "Error detected in ".__FILE__." <br>
-					";
-					switch($errorAddHash)
-					{
-						case "1146"  :
-							$emailbody .= date(" d - m - Y -- H:I")."<br>
-							<br>
-							<font color=\"red\">
-							Table : ".$mainDbName.".user_hash don't exist.  
-							</font>
-							<br><br>
-							They must be created when \$checkEmailByHAshSent is on. (config.php)
-							<br>
-							<br>
-							
-							Error : ".$errorAddHash." : ".mysql_error()."<br><br>
-							".$sqlIncriptUserHash."<hr>";
-							break;
-						default : 
-							$emailbody .= " error : ".$errorAddHash." : ".mysql_error()."<br>
-							".$sqlIncriptUserHash."<br>
-							".date("B d, Y at I:M p");
-					}
-
-					$emailto = "\"$administratorSurname $administratorName\" <$emailAdministrator>";
-					$emailsubject ="[".$siteName."] error with email hash";
-					$emailheaders = "From: $administratorSurname $administratorName <$emailAdministrator>\n";
-					$emailheaders .= "Reply-To: $emailAdministrator"; 
-					// Because I predefined all of my variables, this mail() function looks nice and clean hmm?
-					@mail( $emailto, $emailsubject, $emailbody, $emailheaders);
-					echo $emailbody;
-				};
-
-				$result=mysql_query("SELECT user_id, nom, prenom 
-									 FROM `".$TABLEUSER."`
-									 WHERE user_id='$last_id'");
-
-				while ($myrow = mysql_fetch_array($result)) 
-				{
-					$uid=$myrow[0];
-					$nom=$myrow[1];
-					$prenom=$myrow[2];
-				}
-
-				mysql_query("INSERT INTO `".$TABLELOGINOUT."` 
-							 (loginout.idLog, loginout.id_user, loginout.ip, loginout.when, loginout.action) 
-							 VALUES 
-							 ('', '".$uid."', '".$REMOTE_ADDR."', NOW(), 'LOGIN')");
-		*/
  ?>
