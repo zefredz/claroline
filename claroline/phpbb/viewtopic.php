@@ -107,7 +107,7 @@ if ($cmd && $_uid)
             break;
     }
 
-    $increaseTopicView = false; // the notification chanage command doesn't 
+    $increaseTopicView = false; // the notification change command doesn't 
                                 // have to be considered as a new topic 
                                 // consult
 }
@@ -131,25 +131,19 @@ if ( isset($_uid) )  //anonymous user do not have this function
     {
         echo "<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
             .get_syslang_string($sys_lang, 'l_notify')
-            ." [<a href=\"".$PHP_SELF."?mode=viewtopic"
-            ."&topic=".$topic."&forum=".$forum."&cmd=exdoNotNotify\">"
+            ." [<a href=\"".$PHP_SELF."?topic=".$topic."&cmd=exdoNotNotify\">"
             .$l_disable
             ."</a>]";
     }
     else   //display link to be notified for this topic
     {
-        echo  "<a href=\"".$PHP_SELF."?mode=viewtopic"
-            ."&topic=".$topic."&forum=".$forum."&cmd=exNotify\">"
-            ."<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
-            ."</a>"
-
-            ."<a href=\"".$PHP_SELF."?mode=viewtopic"
-            ."&topic=".$topic."&forum=".$forum."&cmd=exNotify\">"
+        echo  "<a href=\"".$PHP_SELF."?topic=".$topic."&cmd=exNotify\">"
+            ."<img src=\"".$clarolineRepositoryWeb."img/email.gif\"> "
             .get_syslang_string($sys_lang, 'l_notify')
             ."</a>";
     }
 
-    echo  "</small>\n"
+    echo "</small>\n"
         ."</div>\n";
 
     } //end not anonymous user
