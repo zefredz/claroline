@@ -828,55 +828,79 @@ function parse_config_file($confFileName)
 function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $currentValue=NULL)
 {
     global $langFirstDefOfThisValue, $langEmpty;
-    $currentValue = (is_bool($currentValue)?($currentValue?'TRUE':'FALSE'):$currentValue);
-    $htmlPropDesc = ( isset($conf_def_property_list['description'])
-                    ? '<div class="propDescription">'
-                      .nl2br(htmlentities($conf_def_property_list['description']))
-                      .'</div>'
-                    : ''
-                    );
-    $htmlPropName = 'prop['.($property).']';
-    $htmlPropLabel = (isset($conf_def_property_list['label'])
-                     ? htmlentities($conf_def_property_list['label'])
-                     : $htmlPropName
-                     );
-    $htmlPropType = (is_string($conf_def_property_list['type'])
-                    ? '('.htmlentities($conf_def_property_list['type']).')'
-                    : ''
-                    );
-    if (isset($currentValue)&&$currentValue!=$conf_def_property_list['actualValue']) 
+
+	// current value: set to TRUE or false if boolean
+	if ( is_bool($currentValue) )
+	{
+		$currentValue = $currentValue?'TRUE':'FALSE';
+	}
+
+	// description
+	if ( isset($conf_def_property_list['description']) )
+	{
+		$htmlPropDesc = nl2br(htmlentities($conf_def_property_list['description']));
+	}
+	else
+	{
+		$htmlPropDesc = '';
+	}
+
+	// name
+	$htmlPropName = 'prop['.($property).']';
+
+	// label
+	if ( isset($conf_def_property_list['label']) )
+	{
+		$htmlPropLabel = htmlentities($conf_def_property_list['label']);
+	}
+	else
+	{
+		$htmlPropLabel = $htmlPropName;
+	}
+
+	// type
+	if ( is_string($conf_def_property_list['type']) )
+	{
+		$htmlPropType = htmlentities($conf_def_property_list['type']);
+	}
+	else
+	{
+		$htmlPropType = '';
+	}
+
+    if ( isset($currentValue) && $currentValue!=$conf_def_property_list['actualValue'] ) 
     {
         $htmlPropValue = $currentValue;
-        $htmlPropDefault = (isset($conf_def_property_list['actualValue'])
-                           ?'<span class="propBuffer"> In buffer : '
-                            .$conf_def_property_list['actualValue']
-                            .'</span><br />'
-                           :''
-                           ).(isset($conf_def_property_list['actualValue'])
-                            ?'<span class="propDefault"> Default : '
-                             .$conf_def_property_list['default']
-                             .'</span>'
-                            :'<span class="firstDefine">'
-                             .$langFirstDefOfThisValue
-                             .'</span>'
-                            )
-                          ;
+
+		if ( isset($conf_def_property_list['actualValue']) )
+			$htmlPropDefault = 'In buffer : '  . $conf_def_property_list['actualValue'];
+		else
+			$htmlPropDefault = '';
+
+		if ( isset($conf_def_property_list['actualValue']) )
+			$htmlPropDefault .= 'Default :' . $conf_def_property_list['default'];
+		else 
+			$htmlPropDefault .= $langFirstDefOfThisValue;
     }
     else 
     {
-        $htmlPropValue = isset($conf_def_property_list['actualValue'])?$conf_def_property_list['actualValue']:$conf_def_property_list['default'];
-        $htmlPropDefault = isset($conf_def_property_list['actualValue'])
-                           ? '<span class="propDefault">'
-                             .'Default : '
-                             . (empty($conf_def_property_list['default'])
-                               ? '['.$langEmpty.']'
-                               : $conf_def_property_list['default']
-                               )
-                             .'</span>'
-                           :'<span class="firstDefine">'
-                           .$langFirstDefOfThisValue
-                           .'</span>'
-                           ;
+		if ( isset($conf_def_property_list['actualValue']) )
+		{
+			$htmlPropValue = $conf_def_property_list['actualValue'];
+		}
+		else
+		{
+			$htmlPropValue = $conf_def_property_list['default'];
+		}
+
+		if ( isset($conf_def_property_list['actualValue']) )
+		{
+			$htmlPropDefault = 'Default : ' . (empty($conf_def_property_list['default'])?$langEmpty:$conf_def_property_list['default']);
+		}
+		else
+		{
+			$htmlPropDefault = $langFirstDefOfThisValue;
+		}
     }
         
     $size = (int) strlen($htmlPropValue);
@@ -891,112 +915,99 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
     } 
     elseif ($conf_def_property_list['readonly']) 
     {
-        echo '<div class="propBloc">'
-            .'<div class="propLabel">'
-            .$htmlPropLabel
-            .'</div>'."\n"
-            .'<span>'
-            ;
+        echo '<h4>' . $htmlPropLabel . '</h4>' . "\n";
+        
+		echo '<input type="hidden" value="'.$htmlPropValue.'" name="'.$htmlPropName.'">'."\n";
+
         switch($conf_def_property_list['type'])
         {
-               case 'boolean' : 
-               case 'lang' : 
-               case 'enum' : 
-                echo (isset($conf_def_property_list['acceptedValue'][$htmlPropValue])?$conf_def_property_list['acceptedValue'][$htmlPropValue]:$htmlPropValue);
+        	case 'boolean' : 
+            case 'lang' : 
+            case 'enum' : 
+				if ( isset($conf_def_property_list['acceptedValue'][$htmlPropValue]) )
+				{
+					echo $conf_def_property_list['acceptedValue'][$htmlPropValue];
+				}
+				else
+				{
+					echo $htmlPropValue;
+				}
                 break;
-               case 'integer' : 
-               case 'string' : 
-             default:
+			case 'integer' : 
+            case 'string' : 
+            default:
                 // probably a string or integer
                 echo $conf_def_property_list['default'];
         } // switch
-    echo '</span><BR>'."\n"
-        .$htmlPropDesc."\n"
-        .'<input type="hidden" value="'.$htmlPropValue.'" name="'.$htmlPropName.'">'."\n"
-        .'</div>'
-        ;
+
+        echo '<p>' . $htmlPropDesc . '</p>' . "\n";
     } 
     else
     // Prupose a form following the type 
     {
-        echo '<div class="propBloc">';
+		// display label
+        echo '<h4>' . $htmlPropLabel . '</h4>' . "\n" ;
+
+		echo '<div style="margin-left: 20px">';
+
         switch($conf_def_property_list['type'])
         {
-           case 'boolean' : 
-            echo '<div class="propLabel">'
-                .$htmlPropLabel
-                .'</div>'."\n"
-                .'<span>'
-                .'<input id="'.$property.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '.($htmlPropValue=='TRUE'?' checked="checked" ':' ').' >'
-                .'<label for="'.$property.'_TRUE"  >'
-                .($conf_def_property_list['acceptedValue']['TRUE' ]?$conf_def_property_list['acceptedValue']['TRUE' ]:'TRUE' )
-                .'</label>'
-                .'</span>'."\n"
-                .'<span>'
-                .'<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '
-                .  ($htmlPropValue=='TRUE'?' ':' checked="checked" ')
-                .' ><label for="'.$property.'_FALSE" >'
-                .($conf_def_property_list['acceptedValue']['FALSE']?$conf_def_property_list['acceptedValue']['FALSE']:'FALSE')
-                .'</label></span>'
-                .'<BR>'."\n"
-                .$htmlPropDesc."\n"
-                .$htmlPropDefault."\n"
-                ;
-            break;
-           case 'lang' : 
-           case 'enum' : 
-            echo '<div class="propLabel">'
-                .$htmlPropLabel
-                .'</div>'."\n"
-                ;
-            foreach($conf_def_property_list['acceptedValue'] as  $keyVal => $labelVal)
-            {
-                echo '&nbsp;<span >&nbsp;&nbsp;'
-                    .'<input id="'.$property.'_'.$keyVal.'"  type="radio" name="'.$htmlPropName.'" value="'.$keyVal.'"  '.($htmlPropValue==$keyVal?' checked="checked" ':' ').' >'
+        	case 'boolean' : 
+				echo '<input id="'.$property.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '
+					. ($htmlPropValue=='TRUE'?' checked="checked" ':' ')
+					. ' >' ;
+				echo '<label for="'.$property.'_TRUE"  >'
+                	 . ($conf_def_property_list['acceptedValue']['TRUE' ]?$conf_def_property_list['acceptedValue']['TRUE' ]:'TRUE' )
+                	 . '</label>';
+
+				echo '<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" ' 
+				     . ($htmlPropValue=='TRUE'?' ':' checked="checked" ') 
+					 . ' >' ;
+				echo '<label for="'.$property.'_FALSE" >'
+		             .($conf_def_property_list['acceptedValue']['FALSE']?$conf_def_property_list['acceptedValue']['FALSE']:'FALSE')
+                     .'</label>';
+                break;
+
+			case 'lang' : 
+
+            case 'enum' : 
+				foreach($conf_def_property_list['acceptedValue'] as  $keyVal => $labelVal)
+            	{
+                	echo '&nbsp;'
+                    .'<input id="'.$property.'_'.$keyVal.'"  type="radio" name="'.$htmlPropName.'" value="'.$keyVal.'"  '
+					.($htmlPropValue==$keyVal?' checked="checked" ':' ')
+					.' >'
                     .'<label for="'.$property.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
                     .'<span class="propUnit">'.$htmlUnit.'</span>'
-                    .'</span>'
                     .'<br>'."\n";
-            }   
-            echo '<BR>'
-                .$htmlPropDesc."\n"
-                .$htmlPropDefault."\n"
-                ;
-            break;
+            	}   
+            	break;
             
-//TYPE : integer, an integer is attempt
-        case 'integer' : 
-            echo '<div class="propLabel">'
-                .'<label for="'.$property.'">'
-                .$htmlPropLabel
-                .'</label>'
-                .'</div>'."\n"
-                .'<br>'."\n"
-                .'<input size="'.$size.'"  align="right" id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '."\n"
+			//TYPE : integer, an integer is attempt
+        	case 'integer' : 
+            	echo '<input size="'.$size.'"  align="right" id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '."\n"
                 .'<span class="propUnit">'.$htmlUnit.'</span>'
                 .'<span class="propType">'.$htmlPropType.'</span>'
-                .''."\n"
-                .$htmlPropDesc."\n"
-                .$htmlPropDefault."\n"
-                ;
+                ."\n" ;
             break;
         default:
         // probably a string
-            echo '<div class="propLabel">'."\n"
-                .'<label for="'.$property.'">'
-                .$conf_def_property_list['label']
-                .'</label>'."\n"
-                .'</div>'."\n"
-                .'<input size="'.$size.'"  id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '
+                echo '<input size="'.$size.'"  id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '
                 .'<span class="propUnit">'.$htmlUnit.'</span>'
-                .'<span class="propType">'.$htmlPropType.'</span><BR>'."\n"
-                .$htmlPropDesc."\n"
-                .$htmlPropDefault."\n"
-                ."\n"
-                ;
-            ;
+                .'<span class="propType">'.$htmlPropType.'</span>'."\n";
         } // switch
-        echo '</div>';
+
+        echo '<p>'
+			. '<small>(' . $htmlPropDefault . ') ';
+
+		if (!empty($htmlPropDesc))
+		{
+			echo '- <em>' . $htmlPropDesc. '</em>';
+		}
+		echo '</small>'.
+			 '</p>' . "\n";
+		echo '</div>' . "\n";
+
     } // else
 }
 
