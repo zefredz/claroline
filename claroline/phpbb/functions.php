@@ -488,7 +488,7 @@ function normalize_whitespace($str)
 	return $output;
 }
 
-function sync($db, $id, $type)
+function sync($id, $type)
 {
 	global $tbl_posts, $tbl_topics, $tbl_forums, $tbl_forums;
 
@@ -885,8 +885,8 @@ function delete_post($postId, $topicId, $forumId, $userId)
 //    }
 
     // don't understand these two lines below    
-    sync($db, $forumId, 'forum');
-    if(!$topic_removed) sync($db, $topicId, 'topic');
+    sync($forumId, 'forum');
+    if(!$topic_removed) sync($topicId, 'topic');
 
 }
 
