@@ -212,7 +212,7 @@ if($_REQUEST['modifyExercise'])
 </tr>
 
 <tr>
-  <td valign="top"><?php echo $langAllowAnonymousAttempts.$anonymousAttempts; ?> : </td>
+  <td valign="top"><?php echo $langAllowAnonymousAttempts; ?> : </td>
   <td>
     <input type="radio" name="anonymousAttempts" id="anonymousAttemptsYes" value="YES" <?php if( $anonymousAttempts ) echo 'checked="checked"'; ?>>
     <label for="anonymousAttemptsYes"><?php echo $langAnonymousAttemptsAllowed; ?></label><br />
