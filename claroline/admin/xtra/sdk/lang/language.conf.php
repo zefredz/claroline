@@ -13,9 +13,8 @@ define ('DEFAULT_LANGUAGE','english');
  
 // database authentification data
 
-define('DB_TRANSLATION','`claro_translation`');
-define('TABLE_TRANSLATION','`claro_translation`.`translation`');
-define('TABLE_USED_LANG_VAR','`claro_translation`.`used_language`');
+define('TABLE_TRANSLATION','translation');
+define('TABLE_USED_LANG_VAR','used_language');
 
 // message
 

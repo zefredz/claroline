@@ -11,6 +11,10 @@
 include ('language.conf.php');
 include ('language.lib.php');
 
+// table
+
+$tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATION . '`';
+
 // get start time
 
 $starttime = get_time();
@@ -25,16 +29,14 @@ echo "<html>
 
 echo "<h1>Extract variables from language files</h1>\n";
 
-$dbTableName = TABLE_TRANSLATION ;
-
 // drop table if exists
 
-$sql = "DROP TABLE IF EXISTS ". $dbTableName ." ";
+$sql = "DROP TABLE IF EXISTS ". $tbl_translation ." ";
 mysql_query ($sql) or die($problemMessage);
 
 // create table 
 
-$sql = "CREATE TABLE ". $dbTableName ." (
+$sql = "CREATE TABLE ". $tbl_translation ." (
  id INTEGER NOT NULL auto_increment,
  language VARCHAR(250) NOT NULL,
  varName VARCHAR(250) BINARY NOT NULL,

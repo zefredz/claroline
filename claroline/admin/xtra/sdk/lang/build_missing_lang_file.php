@@ -9,6 +9,11 @@
 include ('language.conf.php');
 include ('language.lib.php');
 
+// table
+
+$tbl_used_lang = '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_USED_LANG_VAR . '`';
+$tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATION . '`';
+
 // get start time
 
 $starttime = get_time();
@@ -59,8 +64,8 @@ if ( sizeof($languageList) > 0)
 		// get the different variables 
 
     	$sql = " SELECT DISTINCT u.varName
-	         FROM ". TABLE_USED_LANG_VAR . " u 
-	         LEFT JOIN " . TABLE_TRANSLATION . " t ON 
+	         FROM ". $tbl_used_lang . " u 
+	         LEFT JOIN " . $tbl_translation . " t ON 
 	         (
 	            u.varName = t.varName 
 	            AND t.language=\"" . $language . "\"

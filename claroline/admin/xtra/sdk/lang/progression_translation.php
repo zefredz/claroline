@@ -8,6 +8,11 @@
 include ('language.conf.php');
 include ('language.lib.php');
 
+// table
+
+$tbl_used_lang = '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_USED_LANG_VAR . '`';
+$tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATION . '`';
+
 // get start time
 $starttime = get_time();
 
@@ -22,7 +27,7 @@ echo "<h1>Display Progression of Translations</h1>\n";
 
 // count different variables in script
 $sql = " SELECT count(DISTINCT varName) 
-        FROM " . TABLE_USED_LANG_VAR . "";
+        FROM " . $tbl_used_lang . "";
 
 $results = mysql_query($sql);
 $row = mysql_fetch_row($results);
@@ -47,8 +52,8 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     
     // count missing lang var in devel complete file for this language
 	$sql = " SELECT DISTINCT u.varName, u.sourceFile 
-	         FROM ". TABLE_USED_LANG_VAR . " u 
-	         LEFT JOIN " . TABLE_TRANSLATION . " t ON 
+	         FROM ". $tbl_used_lang . " u 
+	         LEFT JOIN " . $tbl_translation . " t ON 
 	         (
 	            u.varName = t.varName 
 	            AND t.language=\"" . $language . "\"
@@ -110,7 +115,7 @@ else
 
 	// get all languages
 	$sql = " SELECT DISTINCT language 
-	         FROM " . TABLE_TRANSLATION . "";
+	         FROM " . $tbl_translation . "";
 	$result_language = mysql_query($sql);
 	
 
@@ -133,8 +138,8 @@ else
 	
 		// count missing lang var in devel complete file for this language
 		$sql = " SELECT count(DISTINCT u.varName) 
-		         FROM ". TABLE_USED_LANG_VAR . " u 
-		         LEFT JOIN " . TABLE_TRANSLATION . " t ON 
+		         FROM ". $tbl_used_lang . " u 
+		         LEFT JOIN " . $tbl_translation . " t ON 
 		         (
 		            u.varName = t.varName 
 		            AND t.language=\"" . $language . "\"

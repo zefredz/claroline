@@ -10,6 +10,10 @@
 include ('language.conf.php');
 include ('language.lib.php');
 
+// table
+
+$tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATION . '`';
+
 // get start time
 
 $starttime = get_time();
@@ -46,7 +50,7 @@ echo "<p>Language: $language</p>";
 echo "<p>Change Language: ";
 echo "<select name=\"language\">";
 $sql = "SELECT DISTINCT language 
-        FROM ". TABLE_TRANSLATION . "
+        FROM ". $tbl_translation . "
         ORDER BY language ";
 $results = mysql_query($sql);
 
@@ -71,8 +75,8 @@ echo "</form>";
 // select variables with different content
 
 $sql = " SELECT DISTINCT L1.language , L1.varName, L1.varContent , L1.sourceFile
-    FROM ". TABLE_TRANSLATION . " L1,
-         ". TABLE_TRANSLATION . " L2
+    FROM ". $tbl_translation . " L1,
+         ". $tbl_translation . " L2
     WHERE L1.language = \"". $language ."\" and
         L1.language = L2.language and
         L1.varName = L2.varName and

@@ -119,11 +119,11 @@ function retrieve_lang_var($fileName, $languageName)
 function store_lang_var($languageVarList, $sourceFileName, $languageName)
 {
 
-	global $problemMessage, $rootSys;
+	global $problemMessage, $rootSys, $tbl_translation;
 
 	foreach($languageVarList as $thisVarKey => $thisVarContent)
 	{
-		$sql = "INSERT INTO " . TABLE_TRANSLATION . " SET 
+		$sql = "INSERT INTO " . $tbl_translation . " SET 
 		 VarName    = \"".$thisVarKey."\", 
 		 VarContent = \"".$thisVarContent."\", 
          varFullContent  = \"".$thisVarContent."\", 
@@ -255,14 +255,14 @@ function is_scannable($filePath,
 function store_lang_used_in_script($languageVarList, $sourceFileName)
 {
 
-	global $problemMessage, $rootSys;
+	global $problemMessage, $rootSys, $tbl_used_lang;
 
     $sourceFileName =  str_replace($rootSys,"",$sourceFileName);
     $languageFileName = compose_language_production_filename($sourceFileName);
 
 	foreach($languageVarList as $thisVar)
 	{
-		$sql = "INSERT INTO " . TABLE_USED_LANG_VAR . " SET 
+		$sql = "INSERT INTO " . $tbl_used_lang . " SET 
 		 VarName    = \"".$thisVar."\", 
 		 langFile    = \"".$languageFileName."\", 
 		 sourceFile = \"" . $sourceFileName ."\"";
@@ -544,7 +544,7 @@ function compose_language_production_filename ($file)
 function store_lang_used_in_script($languageVarList)
 {
 
-	global $problemMessage ;
+	global $problemMessage, $tbl_translation ;
 
 	$language = DEFAULT_LANGUAGE ;
 
@@ -554,21 +554,21 @@ function store_lang_used_in_script($languageVarList)
 		// find if variable exists in lang file table 
 	
 		$sql = " SELECT count(varName) as nb
-				 FROM " . TABLE_TRANSLATION . "
+				 FROM " . $tbl_translation . "
 				 WHERE VarName =  \"" . $varName . "\"";
 		$results = mysql_query($sql) or die ($problemMessage);
 		$result=mysql_fetch_array($results);
 		
 		if ($result['nb']>0) 
 		{
-			$sql = " UPDATE " . TABLE_TRANSLATION . " 
+			$sql = " UPDATE " . $tbl_translation . " 
 					 SET used = 1
 					 WHERE VarName    = \"". $varName ."\"";
 			mysql_query($sql) or die ($problemMessage);
 		} 
 		else
 		{
-			$sql = " INSERT INTO " . TABLE_TRANSLATION . "
+			$sql = " INSERT INTO " . $tbl_translation . "
 			 		 SET VarName    = \"". $varName ."\", 
 					 VarContent = \"". $varName ."\", 
 			         varFullContent  = \"". $varName ."\", 

@@ -8,6 +8,11 @@
 include ('language.conf.php');
 include ('language.lib.php');
 
+// table
+
+$tbl_used_lang = '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_USED_LANG_VAR . '`';
+$tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATION . '`';
+
 // get start time
 $starttime = get_time();
 
@@ -88,8 +93,8 @@ if (isset($_REQUEST['language']))
 	$sql = " SELECT DISTINCT used.langFile, 
                              used.varName,
                              translation.varFullContent
-    		FROM ".TABLE_USED_LANG_VAR . " used,
-                 ". TABLE_TRANSLATION  . " translation
+    		FROM ". $tbl_used_lang . " used,
+                 ". $tbl_translation  . " translation
     		WHERE translation.language = '$language' 
                   AND used.varName = translation.varName
             GROUP BY used.langFile, used.varName

@@ -12,6 +12,10 @@ include ('language.lib.php');
 
 $includePath = $rootSys.'claroline/inc';
 
+// table
+
+$tbl_used_lang = '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_USED_LANG_VAR . '`';
+
 // get start time
 
 $starttime = get_time();
@@ -27,12 +31,12 @@ echo "<h1>Extract variables from scripts</h1>\n";
 
 // drop table if exists 
 
-$sql = "DROP TABLE IF EXISTS ". TABLE_USED_LANG_VAR ." ";
+$sql = "DROP TABLE IF EXISTS ". $tbl_used_lang ." ";
 mysql_query ($sql) or die($problemMessage);
 
 // create table 
 
-$sql = "CREATE TABLE ". TABLE_USED_LANG_VAR ." (
+$sql = "CREATE TABLE ". $tbl_used_lang ." (
  id INTEGER NOT NULL auto_increment,
  varName VARCHAR(250) BINARY NOT NULL,
  langFile VARCHAR(250) NOT NULL,
