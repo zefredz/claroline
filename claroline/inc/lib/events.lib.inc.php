@@ -385,25 +385,22 @@ function event_link($link_id)
  * @author Sebastien Piraux <pir@cerdecam.be>
  * @desc Record result of user when an exercice was done
 */
-function event_exercice($exo_id,$score,$weighting,$time)
+function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
 {
     global $is_trackingEnabled ;
     // if tracking is disabled record nothing
     if( ! $is_trackingEnabled ) return 0;
 
-    global $_uid;
     global $TABLETRACK_EXERCICES;
 
     $reallyNow = time();
-    if($_uid)
+    if($uid && $uid != "")
     {
-        $user_id = "'".$_uid."'";
+        $user_id = "'".$uid."'";
     }
     else // anonymous
     {
-        // do not record event if user is anonymous ...
-        return 0;
-        //$user_id = "NULL";
+        $user_id = "NULL";
     }
     $sql="INSERT INTO `".$TABLETRACK_EXERCICES."`
           (
