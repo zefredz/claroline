@@ -30,14 +30,13 @@ $htmlHeadXtra[] = "<style type='text/css'>
 TD {border-bottom: thin dashed Gray;}
 -->
 </STYLE>";
+$tbl_mdb_names       = claro_sql_get_main_tbl();
+$TABLEUSER           = $tbl_mdb_names['user'  ];
+$tbl_cdb_names       = claro_sql_get_course_tbl()
+$TABLETRACK_ACCESS        = $tbl_cdb_names['track_e_access'];
+$TABLETRACK_DOWNLOADS        = $tbl_cdb_names['track_e_downloads'];
 
-$TABLEUSER              = $mainDbName."`.`user";
-$TABLETRACK_ACCESS = $_course['dbNameGlu']."track_e_access";
-$TABLETRACK_DOWNLOADS     = $_course['dbNameGlu']."track_e_downloads";
-
-include($includePath."/claro_init_header.inc.php");
 include($includePath."/lib/statsUtils.lib.inc.php");
-
 
 $toolTitle['mainTitle'] = $nameTools;
 switch ($_GET['cmd'])
@@ -67,6 +66,8 @@ switch ($_GET['cmd'])
 			ORDER BY nom, prenom	";
 		break;
 }
+
+include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($toolTitle);
 
 $is_allowedToTrack = $is_courseAdmin; 

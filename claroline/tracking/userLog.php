@@ -43,11 +43,11 @@ $nameTools = $langStatistics;
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user         = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user                    = $tbl_mdb_names['user'             ];
-$tbl_track_e_login           = $tbl_mdb_names['track_e_login'];
+$tbl_track_e_login           = $tbl_mdb_names['track_e_login'    ];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'    ];
-$tbl_group_team              = $tbl_cdb_names['group_team'       ];
+$tbl_group_team              = $tbl_cdb_names['group_team'             ];
 $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
 $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
 $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
@@ -59,8 +59,8 @@ $tbl_wrk_submission          = $tbl_cdb_names['wrk_submission'         ];
 $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
 $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 $tbl_track_e_uploads         = $tbl_cdb_names['track_e_uploads'        ];
-$tbl_bb_topics				 = $tbl_cdb_names['bb_topics'				];
-$tbl_bb_posts				 = $tbl_cdb_names['bb_posts'				];
+$tbl_bb_topics               = $tbl_cdb_names['bb_topics'                ];
+$tbl_bb_posts                 = $tbl_cdb_names['bb_posts'                ];
 
 
 // for learning paths section 
@@ -95,7 +95,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
     {
         /***************************************************************************
          *              
-         *		Display list of user of this group
+         *        Display list of user of this group
          *
          ***************************************************************************/
         echo "<h4>$langListStudents</h4>";
@@ -103,15 +103,15 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         {
             // if user can track everybody : list user of course
             $sql = "SELECT count(user_id)
-                        FROM `$tbl_rel_course_user` 
-                        WHERE `code_cours` = '$_cid'";
+                        FROM `".$tbl_rel_course_user."` 
+                        WHERE `code_cours` = '".$_cid."'";
         }
         else
         {
             // if user can only track one group : list users of this group
             $sql = "SELECT count(user)
-                        FROM `$tbl_group_rel_team_user`
-                        WHERE `team` = '$_gid'";
+                        FROM `".$tbl_group_rel_team_user."`
+                        WHERE `team` = '".$_gid."'";
         }
         $userGroupNb = getOneResult($sql);
         $step = 25; // number of student per page
@@ -125,13 +125,14 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             $next     = $offset + $step;
             $previous = $offset - $step;
     
-            $navLink = "<table width='100%' border='0'>\n"
-                      ."<tr>\n"
-                              ."<th align='left'>";
+            $navLink = '<table width="100%" border="0">'."\n"
+                      .'<tr>'."\n"
+                      .'<th align="left">'
+                      ;
     
             if ($previous >= 0)
             {
-                    $navLink .= "<small><a href='".$_SERVER['PHP_SELF']."?offset=$previous'>&lt;&lt; $langPreviousPage</a></small>";
+                    $navLink .= "<small><a href='".$_SERVER['PHP_SELF']."?offset=".$previous."'>&lt;&lt; ".$langPreviousPage."</a></small>";
             }
     
             $navLink .= "</td>\n"
@@ -139,12 +140,13 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
     
             if ($next < $userGroupNb)
             {
-                    $navLink .= "<small><a href='".$_SERVER['PHP_SELF']."?offset=$next'>$langNextPage &gt;&gt;</a></small>";
+                    $navLink .= "<small><a href='".$_SERVER['PHP_SELF']."?offset=".$next."'>".$langNextPage." &gt;&gt;</a></small>";
             }
     
-            $navLink .= "</td>\n"
-                       ."</tr>\n"
-                       ."</table>\n";
+            $navLink .= '</td>'."\n"
+                     .  '</tr>'."\n"
+                     .  '</table>'."\n"
+                     ;
         }
         else
         {
@@ -157,25 +159,25 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         {
             // list of users in this course
             $sql = "SELECT `u`.`user_id`, `u`.`prenom`,`u`.`nom`
-                        FROM `$tbl_rel_course_user` cu , `$tbl_user` u 
+                        FROM `".$tbl_rel_course_user."` cu , `".$tbl_user."` u 
                         WHERE `cu`.`user_id` = `u`.`user_id`
                             AND `cu`.`code_cours` = '$_cid'
-                        LIMIT $offset,$step";
+                        LIMIT ".$offset.", ".$step." ";
         }
         else
         {
             // list of users of this group
             $sql = "SELECT `u`.`user_id`, `u`.`prenom`,`u`.`nom`
-                        FROM `$tbl_group_rel_team_user` gu , `$tbl_user` u 
+                        FROM `".$tbl_group_rel_team_user."` gu , `".$tbl_user."` u 
                         WHERE `gu`.`user` = `u`.`user_id`
-                            AND `gu`.`team` = '$_gid'
-                        LIMIT $offset,$step";
+                            AND `gu`.`team` = '".$_gid."'
+                        LIMIT ".$offset.", ".$step." ";
         }
         $list_users = getManyResults3Col($sql);
-        echo 	"<table class=\"claroTable\" width=\"100%\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\">\n"
-                    ."<tr class=\"headerX\" align=\"center\" valign=\"top\">\n"
-                    ."<th align=\"left\">",$langUserName,"</th>\n"
-                    ."</tr>\n";
+        echo '<table class="claroTable" width="100%" cellpadding="2" cellspacing="1" border="0">'."\n"
+            .'<tr class="headerX" align="center" valign="top">'."\n"
+            .'<th align="left">'.$langUserName.'</th>'."\n"
+            .'</tr>'."\n";
         for($i = 0 ; $i < sizeof($list_users) ; $i++)
         {
             echo    "<tr valign=\"top\" align=\"center\">\n"
@@ -193,7 +195,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
     {
         /***************************************************************************
          *              
-         *		Informations about student uInfo
+         *        Informations about student uInfo
          *
          ***************************************************************************/
         // these checks exists for security reasons, neither a prof nor a tutor can see statistics of an user from 
@@ -203,19 +205,19 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         {
             // check if user is in this course
             $sql = "SELECT `u`.`nom`,`u`.`prenom`, `u`.`email`
-                        FROM `$tbl_rel_course_user` as `cu` , `$tbl_user` as `u`
+                        FROM `".$tbl_rel_course_user."` as `cu` , `".$tbl_user."` as `u`
                         WHERE `cu`.`user_id` = `u`.`user_id`
-                            AND `cu`.`code_cours` = '$_cid'
-                            AND `u`.`user_id` = '$uInfo'";
+                            AND `cu`.`code_cours` = '".$_cid."'
+                            AND `u`.`user_id` = '".$uInfo."'";
         }
         else
         {
             // check if user is in the group of this tutor
             $sql = "SELECT `u`.`nom`,`u`.`prenom`, `u`.`email`
-                        FROM `$tbl_group_rel_team_user` as `gu` , `$tbl_user` as `u`
+                        FROM `".$tbl_group_rel_team_user."` as `gu` , `".$tbl_user."` as `u`
                         WHERE `gu`.`user` = `u`.`user_id`
-                            AND `gu`.`team` = '$_gid'
-                            AND `u`.`user_id` = '$uInfo'";
+                            AND `gu`.`team` = '".$_gid."'
+                            AND `u`.`user_id` = '".$uInfo."'";
         }
         $query = @claro_sql_query($sql);
         $res = @mysql_fetch_array($query);
@@ -224,26 +226,26 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             $res[2] == "" ? $res2 = $langNoEmail : $res2 = $res[2];
                 
             echo "<p>"
-                    ."<ul>\n"
-                    ."<li>".$langLastName." : ".$res[0]."</li>\n"
-                    ."<li>".$langFirstName." : ".$res[1]."</li>\n"
-                    ."<li>".$langEmail." : ".$res2."</li>\n"
-                    ."</ul>"
-                    ."</p>";
+                ."<ul>\n"
+                ."<li>".$langLastName." : ".$res[0]."</li>\n"
+                ."<li>".$langFirstName." : ".$res[1]."</li>\n"
+                ."<li>".$langEmail." : ".$res2."</li>\n"
+                ."</ul>"
+                ."</p>";
             
             // in $view, a 1 in X posof the $view string means that the 'category' number X
             // will be show, 0 means don't show
             echo "\n<small>"
-                    ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=1111111\">$langShowAll</a>]&nbsp;"
-                    ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=0000000\">$langShowNone</a>]"
-                    ."</small>\n\n";        
+                ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&amp;view=1111111\">".$langShowAll."</a>]&nbsp;"
+                ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&amp;view=0000000\">".$langShowNone."</a>]"
+                ."</small>\n\n";        
             if(!isset($view)) $view ="0000000";
             $viewLevel = -1; //  position of the flag of the view in the $view array/string
             
             
             /***************************************************************************
              *              
-             *		Logins
+             *        Logins
              *
              ***************************************************************************/
             $tempView = $view;
@@ -303,7 +305,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             echo "<br /></p>\n\n";
             /***************************************************************************
              *              
-             *		Exercises
+             *        Exercises
              *
              ***************************************************************************/
             $tempView = $view;
@@ -353,11 +355,11 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                       echo "<tbody>\n";
                       while( $exo_details = mysql_fetch_array($result) )
                       { 
-                      	echo "<tr>\n"
-                             	."<td><a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_GET['uInfo']."&view=".$view."&exoDet=".$exo_details['id']."\">".$exo_details['titre']."</td>\n"
+                          echo "<tr>\n"
+                                 ."<td><a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_GET['uInfo']."&view=".$view."&exoDet=".$exo_details['id']."\">".$exo_details['titre']."</td>\n"
                               ."<td>".$exo_details['minimum']."</td>\n"
-                             	."<td>".$exo_details['maximum']."</td>\n"
-                             	."<td>".(round($exo_details['average']*10)/10)."</td>\n"
+                                 ."<td>".$exo_details['maximum']."</td>\n"
+                                 ."<td>".(round($exo_details['average']*10)/10)."</td>\n"
                               ."<td>".(round($exo_details['avgTime']*10)/10)."</td>\n"
                               ."<td>".$exo_details['attempts']."</td>\n"
                               ."<td>".$exo_details['lastAttempt']."</td>\n"
@@ -386,11 +388,11 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                                 
                                 while ( $exo_attempt = mysql_fetch_array($resListAttempts) )
                                 {
-                                    	echo "<tr>\n"
-                                    	."<td><small>".$exo_attempt['exe_date']."</small></td>\n"
+                                        echo "<tr>\n"
+                                        ."<td><small>".$exo_attempt['exe_date']."</small></td>\n"
                                       ."<td><small>".$exo_attempt['exe_result']."/".$exo_attempt['exe_weighting']."</small></td>\n"
                                       ."<td><small>".$exo_attempt['exe_time']."</small></td>\n"
-                                    	."</tr>\n";
+                                        ."</tr>\n";
                                 }
                                 echo  "</tbody>\n</table>\n\n"
                                     ."</td>\n"
@@ -413,7 +415,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             echo "<br /></p>\n\n";
             /***************************************************************************
              *              
-             *		Learning paths // doesn't use the tracking table but the lp_user_module_progress learnPath table
+             *        Learning paths // doesn't use the tracking table but the lp_user_module_progress learnPath table
              *
              ***************************************************************************/
             $tempView = $view;
@@ -478,7 +480,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             echo "<br /></p>\n\n";
             /***************************************************************************
              *              
-             *		Works
+             *        Works
              *
              ***************************************************************************/
             $tempView = $view;
@@ -613,7 +615,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             echo "<br /></p>\n\n";
             /***************************************************************************
              *              
-             *		Access to documents
+             *        Access to documents
              *
              ***************************************************************************/
             $tempView = $view;
@@ -666,7 +668,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             
             /***************************************************************************
              *
-             *		Forum posts
+             *        Forum posts
              *
              ***************************************************************************/
             $tempView = $view;
@@ -678,41 +680,41 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
                 echo "-&nbsp;&nbsp;<b>".$langTrackForumUsage."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
                         ."<br />\n";
-				// total number of messages posted by user
-				$sql = "SELECT count(`post_id`)
+                // total number of messages posted by user
+                $sql = "SELECT count(`post_id`)
                             FROM `".$tbl_bb_posts."`
                             WHERE `poster_id` = '$uInfo'
-							";
-				$totalPosts = claro_sql_query_get_single_value($sql);
-				
-				// total number of threads started by user
-				$sql = "SELECT count(`topic_title`)
+                            ";
+                $totalPosts = claro_sql_query_get_single_value($sql);
+                
+                // total number of threads started by user
+                $sql = "SELECT count(`topic_title`)
                             FROM `".$tbl_bb_topics."`
                             WHERE `topic_poster` = '$uInfo'
-							";
-				$totalTopics = claro_sql_query_get_single_value($sql);
+                            ";
+                $totalTopics = claro_sql_query_get_single_value($sql);
 
-				echo "<ul>\n"
-					."<li>".$langTrackTotalPosts." : ".$totalPosts."</li>"
-					."<li>".$langTrackTotalTopics." : ".$totalTopics."</li>"
-					."<li>".$langLastMsgs."\n";
-				// last 10 distinct messages posted
+                echo "<ul>\n"
+                    ."<li>".$langTrackTotalPosts." : ".$totalPosts."</li>"
+                    ."<li>".$langTrackTotalTopics." : ".$totalTopics."</li>"
+                    ."<li>".$langLastMsgs."\n";
+                // last 10 distinct messages posted
                 $sql = "SELECT `bb_t`.`topic_id`,
-								`bb_t`.`topic_title`, 
-								max(`bb_t`.`topic_time`) as `last_message`
+                                `bb_t`.`topic_title`, 
+                                max(`bb_t`.`topic_time`) as `last_message`
                             FROM `".$tbl_bb_posts."` as `bb_p`, `".$tbl_bb_topics."` as `bb_t`
                             WHERE `bb_p`.`poster_id` = '$uInfo'
-							AND `bb_t`.`topic_id` = `bb_p`.`topic_id`
+                            AND `bb_t`.`topic_id` = `bb_p`.`topic_id`
                             GROUP BY `bb_t`.`topic_title`
-							ORDER BY `bb_p`.`post_time` DESC
-							LIMIT 10";
+                            ORDER BY `bb_p`.`post_time` DESC
+                            LIMIT 10";
 
                 $results = getManyResults3Col($sql);
 
                 echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n"
-                		."<tr class=\"headerX\">\n"
+                        ."<tr class=\"headerX\">\n"
                         ."<th>".$l_topic."</th>\n"
-                        ."<th>".$langLastMsg."</th>\n"						
+                        ."<th>".$langLastMsg."</th>\n"                        
                         ."</tr>\n";
                 if (is_array($results))
                 {
@@ -721,7 +723,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                     {
                             echo "<tr>\n"
                                     ."<td><a href=\"../phpbb/viewtopic.php?topic=".$results[$j][0]."\"\">".$results[$j][1]."</a></td>\n"
-                                    ."<td>".$results[$j][2]."</td>\n"									
+                                    ."<td>".$results[$j][2]."</td>\n"                                    
                                     ."</tr>\n";
                     }
                     echo "</tbody>\n";
@@ -734,8 +736,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                             ."</tr>\n</tfoot>\n";
                 }
                 echo "</table>\n"
-					."</li>\n</ul>";
-				
+                    ."</li>\n</ul>";
+                
             }
             else
             {
