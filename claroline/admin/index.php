@@ -120,6 +120,9 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <h4><?php echo $langPlatform?></h4>
 <ul>
 <li>
+<a href="managing/editFile.php"><?php echo $langHomePageTextZone ?></a>
+</li>
+<li>
 <a href="technical/config.php"><?php echo $langConfiguration?></a>
 </li>
 <li>
