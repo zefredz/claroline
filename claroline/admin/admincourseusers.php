@@ -264,18 +264,19 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit);
    // start table...
 
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
-
+    <thead>
     <tr class=\"headerX\" align=\"center\" valign=\"top\">
        <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=user_id&chdir=yes&cidToEdit=".$cidToEdit."\">".$langUserid."</a></th>
        <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=nom&chdir=yes&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
-       <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=prenom&chdir=yes".$dir."&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
-echo "<th>".$langCourseManager."</th>";
-echo "<th>".$langEditUserCourseSetting."</th>
-      <th>".$langUnsubscribe."</th>";
+       <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=prenom&chdir=yes".$dir."&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>
+       <th>".$langCourseManager."</th>
+       <th>".$langEditUserCourseSetting."</th>
+       <th>".$langUnsubscribe."</th>
+    </tr>
+    <thead>
+    <tbody> ";
 
-echo "</tr><tbody> ";
-
-   // Start the list of users...
+// Start the list of users...
 
 foreach($resultList as $list)
 {

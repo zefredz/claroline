@@ -305,18 +305,18 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit.$add
    //columns titles...
 
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
-
+    <thead>
     <tr class=\"headerX\" align=\"center\" valign=\"top\">
        <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=user_id&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langUserid."</a></th>
        <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=nom&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
-       <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=prenom&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
+       <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=prenom&chdir=yes&search=".$search."&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>
+       <th>".$langEnrollAsStudent."</th>
+       <th>".$langEnrollAsManager."</th>
+    </tr>
+    </thead>
+    <tbody>";
 
-echo "<th>".$langEnrollAsStudent."</th>
-      <th>".$langEnrollAsManager."</th>";
-
-echo "</tr><tbody> ";
-
-   // Start the list of users...
+// Start the list of users...
 
 if (isset($order_crit))
 {

@@ -830,6 +830,7 @@ if($BOM)
     <hr>
 
 	<table class="claroTable" width="100%" border="0" cellspacing="2">
+    <thead>
        <tr class="headerX" align="center" valign="top">
 
 <?    
@@ -841,13 +842,12 @@ echo       "<th>".$lang_faculty_CodeCat."</td>"
           ."<th style='text-align:center'>".$langDelete."</th>"
           ."<th style='text-align:center' colspan=2>".$langOrder."</th>";
 
-echo "</tr>"
+echo "</tr></thead>";
+
+displayBom($faculty,NULL,"");
+
 ?>
-<?php
-
-    displayBom($faculty,NULL,"");
-
-    ?>    </table>
+</table>
 <?php
 }
 
@@ -979,6 +979,7 @@ claro_disp_msg_arr($controlMsg);
 
 
     <?    echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
+       <thead>
        <tr class=\"headerX\" align=\"center\" valign=\"top\">
        ";
 
@@ -990,27 +991,15 @@ echo "<th>".$lang_faculty_CodeCat."</th>"
           ."<th style='text-align:center'>".$langDelete."</th>"
           ."<th style='text-align:center' colspan=2>".$langOrder."</th>";
 
-echo "</tr>"
-?>
-<?php
+echo "</tr></thead>";
 
-    displayBom($faculty,NULL,"");
+displayBom($faculty,NULL,"");
 
-    ?>
-     <?php  // displaySimpleBom($faculty,NULL,$EditCode);
+// displaySimpleBom($faculty,NULL,$EditCode);
 
 }
 
 include($includePath."/claro_init_footer.inc.php");
-
-
-
-
-
-
-
-
-
 
 /***************************
 *  functions
@@ -1058,6 +1047,7 @@ include($includePath."/claro_init_footer.inc.php");
         {
             $space.="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
             $num=0;
+            echo "<tbody>";
             foreach($elem as $one_faculty)
             {
 
@@ -1172,6 +1162,7 @@ include($includePath."/claro_init_footer.inc.php");
                         displayBom($elem,$one_faculty["code"],$space);
                 }
             }
+            echo "</tbody>";
         }
     }
 

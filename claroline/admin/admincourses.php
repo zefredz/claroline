@@ -347,20 +347,23 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 // display list
 
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
-       <tr class=\"headerX\" align=\"center\" valign=\"top\">
-       ";
+      <thead>
+       <tr class=\"headerX\" align=\"center\" valign=\"top\">";
 
-     //add titles for the table
+//add titles for the table
 
 echo "<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=fake_code&chdir=yes\">".$langCode."</a></th>"
-     ."<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=intitule&chdir=yes\">".$langCourseTitle."</a></th>"
-     ."<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=faculte&chdir=yes\">".$langCategory."</a></th>";
+     . "<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=intitule&chdir=yes\">".$langCourseTitle."</a></th>"
+     . "<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=faculte&chdir=yes\">".$langCategory."</a></th>"
+     . "<th>".$langAllUsersOfThisCourse."</th>"
+     . "<th>".$langCourseSettings."</th>"
+     . "<th>".$langDelete."</th>"
+     . "</tr>"
+     . "</thead>\n";
 
-echo "<th>".$langAllUsersOfThisCourse."</th>";
-echo "<th>".$langCourseSettings."</th>"
-     ."<th>".$langDelete."</th>";
+// Display list of the course of the user :
 
-   // Display list of the course of the user :
+echo "<tbody>\n";
 
 foreach($resultList as $list)
 {
@@ -437,7 +440,7 @@ if ($atleastOneResult != true)
           </td>
          </tr>";
 }
-echo "<tbody></table>";
+echo "</tbody></table>";
 
 //Pager
 

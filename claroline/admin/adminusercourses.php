@@ -248,21 +248,25 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?uidToEdit=".$uidToEdit);
 
 // display User's course list
 
-     // table
+// table
 
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
-       <tr class=\"headerX\" align=\"center\" valign=\"top\">
-       ";
+      <thead>\n
+       <tr class=\"headerX\" align=\"center\" valign=\"top\">";
 
-     //add titles for the table
+//add titles for the table
 
-echo "<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=fake_code&chdir=yes&uidToEdit=".$uidToEdit."\">".$langOfficialCode."</a></th>".
-     "<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=intitule&chdir=yes&uidToEdit=".$uidToEdit."\">".$langCourseTitle."</a></th>";
-echo "<th>".$langTitular."</th>";
-echo "<th>".$langEditUserCourseSetting."</th>";
-echo "<th>".$langUnsubscribe."</th>";
+echo "<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=fake_code&chdir=yes&uidToEdit=".$uidToEdit."\">".$langOfficialCode."</a></th>" 
+    . "<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=intitule&chdir=yes&uidToEdit=".$uidToEdit."\">".$langCourseTitle."</a></th>"
+    . "<th>".$langTitular."</th>"
+    . "<th>".$langEditUserCourseSetting."</th>"
+    . "<th>".$langUnsubscribe."</th>"
+    . "</tr>"
+    . "</thead>\n";
 
-   // Display list of the course of the user :
+// Display list of the course of the user :
+    
+echo "<tbody>\n";
 
 foreach($resultList as $list)
 {
@@ -308,8 +312,7 @@ if (!$atLeastOne)
           </tr>";
 }
 
-
-echo "<tbody></table>";
+echo "</tbody>\n</table>\n";
 
 //Pager
 
