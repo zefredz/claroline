@@ -283,33 +283,20 @@ function update_Db_course($courseDbName)
 	$TABLETOOLWRKASSIGNMENT = $tbl_cdb_names['wrk_assignment'];// $courseDbName."wrk_assignment";
 	$TABLETOOLWRKSUBMISSION = $tbl_cdb_names['wrk_submission'];// $courseDbName."wrk_submission";
 
-
-
 	$TABLEQUIZ				= $tbl_cdb_names['quiz_test'];//  $courseDbName."quiz_test";
 	$TABLEQUIZQUESTION		= $tbl_cdb_names['quiz_rel_test_question'];
 	$TABLEQUIZQUESTIONLIST	= $tbl_cdb_names['quiz_question'];//  "quiz_question";
 	$TABLEQUIZANSWERSLIST	= $tbl_cdb_names['quiz_answer'];//  "quiz_answer";
 
-	$TABLEPHPBBACCESS		= $tbl_cdb_names['bb_access'];//  "bb_access";
-	$TABLEPHPBBBANLIST		= $tbl_cdb_names['bb_banlist'];//  "bb_banlist";
 	$TABLEPHPBBCATEGORIES	= $tbl_cdb_names['bb_categories'];//  "bb_categories";
-	$TABLEPHPBBCONFIG		= $tbl_cdb_names['bb_config'];//  "bb_config";
-	$TABLEPHPBBDISALLOW		= $tbl_cdb_names['bb_disallow'];//  "bb_disallow";
-	$TABLEPHPBBFORUMACCESS	= $tbl_cdb_names['bb_forum_access'];//  "bb_forum_access";
-	$TABLEPHPBBFORUMMODS	= $tbl_cdb_names['bb_forum_mods'];//  "bb_forum_mods";
 	$TABLEPHPBBFORUMS		= $tbl_cdb_names['bb_forums'];//  "bb_forums";
-	$TABLEPHPBBHEADFOOT		= $tbl_cdb_names['bb_headermetafooter'];//  "bb_headermetafooter";
+    $TABLEPHPBBNOTIFY       = $tbl_cdb_names['bb_rel_topic_userstonotify'];//  "bb_rel_topic_userstonotify"; //added for notification by email sytem for claroline 1.5
 	$TABLEPHPBBPOSTS		= $tbl_cdb_names['bb_posts'];//  "bb_posts";
 	$TABLEPHPBBPOSTSTEXT	= $tbl_cdb_names['bb_posts_text'];//  "bb_posts_text";
 	$TABLEPHPBBPRIVMSG		= $tbl_cdb_names['bb_priv_msgs'];//  "bb_priv_msgs";
-	$TABLEPHPBBRANK			= $tbl_cdb_names['bb_ranks'];//  "bb_ranks";
-	$TABLEPHPBBSESSIONS		= $tbl_cdb_names['bb_sessions'];//  "bb_sessions";
-	$TABLEPHPBBTHEMES		= $tbl_cdb_names['bb_themes'];//  "bb_themes";
 	$TABLEPHPBBTOPICS		= $tbl_cdb_names['bb_topics'];//  "bb_topics";
 	$TABLEPHPBBUSERS		= $tbl_cdb_names['bb_users'];//  "bb_users";
 	$TABLEPHPBBWHOSONLINE	= $tbl_cdb_names['bb_whosonline'];//  "bb_whosonline";
-	$TABLEPHPBBWORDS		= $tbl_cdb_names['bb_words'];//  "bb_words";
-    $TABLEPHPBBNOTIFY       = $tbl_cdb_names['bb_rel_topic_userstonotify'];//  "bb_rel_topic_userstonotify"; //added for notification by email sytem for claroline 1.5
 
     $TABLELEARNPATH         = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
     $TABLEMODULE            = $tbl_cdb_names['lp_module'];//  "lp_module";
@@ -322,7 +309,7 @@ function update_Db_course($courseDbName)
     $TABLETRACKUPLOADS       = $tbl_cdb_names['track_e_uploads'];//  "track_e_uploads";
     $TABLETRACKEXERCICES     = $tbl_cdb_names['track_e_exercices'];//  "track_e_exercices";
 
-		$sql ="
+	$sql ="
 CREATE TABLE `".$TABLETOOLANNOUNCEMENTS."` (
   `id` mediumint(11) NOT NULL auto_increment,
   `title` varchar(80) default NULL,
@@ -333,7 +320,7 @@ CREATE TABLE `".$TABLETOOLANNOUNCEMENTS."` (
 ) TYPE=MyISAM COMMENT='announcements table'";
 claro_sql_query($sql);
 
-		$sql ="
+	$sql ="
 CREATE TABLE `".$TABLETOOLUSERINFOCONTENT."` (
    `id` int(10) unsigned NOT NULL auto_increment,
    `user_id` mediumint(8) unsigned NOT NULL default '0',
@@ -348,7 +335,7 @@ userinf'";
 
 claro_sql_query($sql);
 
-		$sql ="
+	$sql ="
 CREATE TABLE `".$TABLETOOLUSERINFODEF."` (
    `id` int(10) unsigned NOT NULL auto_increment,
    `title` varchar(80) NOT NULL default '',
@@ -359,76 +346,17 @@ CREATE TABLE `".$TABLETOOLUSERINFODEF."` (
 ) TYPE=MyISAM COMMENT='categories definition for user information of a course'";
 claro_sql_query($sql);
 
-		$sql ="
-	CREATE
-	TABLE `".$TABLEPHPBBACCESS."`
-	(
-		access_id int(10) NOT NULL auto_increment,
-		access_title varchar(20),
-	PRIMARY KEY (access_id)
-	)";
-claro_sql_query($sql);
-
-claro_sql_query("
-	CREATE TABLE `".$TABLEPHPBBBANLIST."` (
-		ban_id int(10) NOT NULL auto_increment,
-		ban_userid int(10),
-		ban_ip varchar(16),
-		ban_start int(32),
-		ban_end int(50),
-		ban_time_type int(10),
-	PRIMARY KEY (ban_id),
-		KEY ban_id (ban_id)
-	)");
-claro_sql_query("
-
+    $sql = "
 	CREATE TABLE `".$TABLEPHPBBCATEGORIES."` (
 		cat_id int(10) NOT NULL auto_increment,
 		cat_title varchar(100),
 		cat_order varchar(10),
 	PRIMARY KEY (cat_id)
-	)");
-claro_sql_query("
-	CREATE TABLE `".$TABLEPHPBBCONFIG."`
-	(
-		config_id int(10) NOT NULL auto_increment,
-		sitename varchar(100),
-		allow_html int(2),
-		allow_bbcode int(2),
-		allow_sig int(2),
-		allow_namechange int(2) DEFAULT '0',
-		admin_passwd varchar(32),
-		selected int(2) DEFAULT '0' NOT NULL,
-		posts_per_page int(10),
-		hot_threshold int(10),
-		topics_per_page int(10),
-		allow_theme_create int(10),
-		override_themes int(2) DEFAULT '0',
-		email_sig varchar(255),
-		email_from varchar(100),
-		default_lang varchar(255),
-	PRIMARY KEY (config_id),
-		UNIQUE selected (selected)
-	)");
-claro_sql_query("
-	CREATE TABLE `".$TABLEPHPBBDISALLOW."`(
-		disallow_id int(10) NOT NULL auto_increment,
-		disallow_username varchar(50),
-	PRIMARY KEY (disallow_id)
-	)");
-claro_sql_query("
-	CREATE TABLE `".$TABLEPHPBBFORUMACCESS."`(
-		forum_id int(10) DEFAULT '0' NOT NULL,
-		user_id int(10) DEFAULT '0' NOT NULL,
-		can_post tinyint(1) DEFAULT '0' NOT NULL,
-	PRIMARY KEY (forum_id, user_id)
-	)");
-claro_sql_query("
-	CREATE TABLE `".$TABLEPHPBBFORUMMODS."`(
-		forum_id int(10) DEFAULT '0' NOT NULL,
-		user_id int(10) DEFAULT '0' NOT NULL
-	)");
-claro_sql_query("
+	)";
+claro_sql_query($sql);
+
+
+$sql = "
 	CREATE TABLE `".$TABLEPHPBBFORUMS."`(
 		forum_id int(10) NOT NULL auto_increment,
 		forum_name varchar(150),
@@ -444,14 +372,10 @@ claro_sql_query("
 	PRIMARY KEY (forum_id),
 		KEY forum_last_post_id (forum_last_post_id),
         forum_order int(10) DEFAULT '0'
-	)");
-claro_sql_query("
-	CREATE TABLE `".$TABLEPHPBBHEADFOOT."`(
-		header text,
-		meta text,
-		footer text
-	)");
-claro_sql_query("
+	)";
+claro_sql_query($sql);
+
+    $sql = "
 	CREATE TABLE `".$TABLEPHPBBPOSTS."`(
 		post_id int(10) NOT NULL auto_increment,
 		topic_id int(10) DEFAULT '0' NOT NULL,
@@ -466,10 +390,11 @@ claro_sql_query("
 		KEY forum_id (forum_id),
 		KEY topic_id (topic_id),
 		KEY poster_id (poster_id)
-	)");
+	)";
+claro_sql_query($sql);
 
 //  Structure de la table 'priv_msgs'
-claro_sql_query("
+    $sql = "
 	CREATE TABLE `".$TABLEPHPBBPRIVMSG."` (
 		msg_id int(10) NOT NULL auto_increment,
 		from_userid int(10) DEFAULT '0' NOT NULL,
@@ -481,38 +406,11 @@ claro_sql_query("
 	PRIMARY KEY (msg_id),
 		KEY msg_id (msg_id),
 		KEY to_userid (to_userid)
-	)");
-
-//  Structure de la table 'ranks'
-claro_sql_query("
-	CREATE TABLE `".$TABLEPHPBBRANK."` (
-
-		rank_id int(10) NOT NULL auto_increment,
-		rank_title varchar(50) NOT NULL,
-		rank_min int(10) DEFAULT '0' NOT NULL,
-		rank_max int(10) DEFAULT '0' NOT NULL,
-		rank_special int(2) DEFAULT '0',
-		rank_image varchar(255),
-	PRIMARY KEY (rank_id),
-		KEY rank_min (rank_min),
-		KEY rank_max (rank_max)
-	)");
-
-//  structure de la table 'session'
-claro_sql_query("
-	CREATE TABLE `".$TABLEPHPBBSESSIONS."` (
-		sess_id int(10) unsigned DEFAULT '0' NOT NULL,
-		user_id int(10) DEFAULT '0' NOT NULL,
-		start_time int(10) unsigned DEFAULT '0' NOT NULL,
-		remote_ip varchar(15) NOT NULL,
-	PRIMARY KEY (sess_id),
-		KEY sess_id (sess_id),
-		KEY start_time (start_time),
-		KEY remote_ip (remote_ip)
-	)");
+	)";
+claro_sql_query($sql);
 
 //  Structure de la table 'topics'
-claro_sql_query("
+    $sql = "
 	CREATE TABLE `".$TABLEPHPBBTOPICS."` (
 		topic_id int(10) NOT NULL auto_increment,
 		topic_title varchar(100),
@@ -530,10 +428,11 @@ claro_sql_query("
 		KEY topic_id (topic_id),
 		KEY forum_id (forum_id),
 		KEY topic_last_post_id (topic_last_post_id)
-	)");
+	)";
+claro_sql_query($sql);
 
 //  Structure de la table 'users'
-claro_sql_query("
+    $sql = "
 	CREATE TABLE `".$TABLEPHPBBUSERS."` (
 		user_id int(10) NOT NULL auto_increment,
 		username varchar(40) NOT NULL,
@@ -562,10 +461,11 @@ claro_sql_query("
 		user_actkey varchar(32),
 		user_newpasswd varchar(32),
 	PRIMARY KEY (user_id)
-	)");
+	)";
+claro_sql_query($sql);
 
 //  Structure de la table 'whosonline'
-claro_sql_query("
+    $sql = "
 	CREATE TABLE `".$TABLEPHPBBWHOSONLINE."` (
 		id int(3) NOT NULL auto_increment,
 		ip varchar(255),
@@ -575,22 +475,17 @@ claro_sql_query("
 		username varchar(40),
 		forum int(10),
 	PRIMARY KEY (id)
-	)");
-//  Structure de la table 'words'
-claro_sql_query("
-	CREATE TABLE `".$TABLEPHPBBWORDS."` (
-		word_id int(10) NOT NULL auto_increment,
-		word varchar(100),
-		replacement varchar(100),
-	PRIMARY KEY (word_id)
-	)");
-claro_sql_query("CREATE TABLE `".$TABLEPHPBBNOTIFY."` (
+	)";
+claro_sql_query($sql);
+
+    $sql = "CREATE TABLE `".$TABLEPHPBBNOTIFY."` (
   `notify_id` int(10) NOT NULL auto_increment,
   `user_id` int(10) NOT NULL default '0',
   `topic_id` int(10) NOT NULL default '0',
   PRIMARY KEY  (`notify_id`),
   KEY `SECONDARY` (`user_id`,`topic_id`)
-  ) ");
+  )";
+claro_sql_query($sql);
 
 //  EXERCICES
 claro_sql_query("
@@ -978,25 +873,14 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 	$TABLEQUIZQUESTIONLIST	= $tbl_cdb_names['quiz_question'];//  "quiz_question";
 	$TABLEQUIZANSWERSLIST	= $tbl_cdb_names['quiz_answer'];//  "quiz_answer";
 
-	$TABLEPHPBBACCESS		= $tbl_cdb_names['bb_access'];//  "bb_access";
-	$TABLEPHPBBBANLIST		= $tbl_cdb_names['bb_banlist'];//  "bb_banlist";
 	$TABLEPHPBBCATEGORIES	= $tbl_cdb_names['bb_categories'];//  "bb_categories";
-	$TABLEPHPBBCONFIG		= $tbl_cdb_names['bb_config'];//  "bb_config";
-	$TABLEPHPBBDISALLOW		= $tbl_cdb_names['bb_disallow'];//  "bb_disallow";
-	$TABLEPHPBBFORUMACCESS	= $tbl_cdb_names['bb_forum_access'];//  "bb_forum_access";
-	$TABLEPHPBBFORUMMODS	= $tbl_cdb_names['bb_forum_mods'];//  "bb_forum_mods";
 	$TABLEPHPBBFORUMS		= $tbl_cdb_names['bb_forums'];//  "bb_forums";
-	$TABLEPHPBBHEADFOOT		= $tbl_cdb_names['bb_headermetafooter'];//  "bb_headermetafooter";
 	$TABLEPHPBBPOSTS		= $tbl_cdb_names['bb_posts'];//  "bb_posts";
 	$TABLEPHPBBPOSTSTEXT	= $tbl_cdb_names['bb_posts_text'];//  "bb_posts_text";
 	$TABLEPHPBBPRIVMSG		= $tbl_cdb_names['bb_priv_msgs'];//  "bb_priv_msgs";
-	$TABLEPHPBBRANK			= $tbl_cdb_names['bb_ranks'];//  "bb_ranks";
-	$TABLEPHPBBSESSIONS		= $tbl_cdb_names['bb_sessions'];//  "bb_sessions";
-	$TABLEPHPBBTHEMES		= $tbl_cdb_names['bb_themes'];//  "bb_themes";
 	$TABLEPHPBBTOPICS		= $tbl_cdb_names['bb_topics'];//  "bb_topics";
 	$TABLEPHPBBUSERS		= $tbl_cdb_names['bb_users'];//  "bb_users";
 	$TABLEPHPBBWHOSONLINE	= $tbl_cdb_names['bb_whosonline'];//  "bb_whosonline";
-	$TABLEPHPBBWORDS		= $tbl_cdb_names['bb_words'];//  "bb_words";
     $TABLEPHPBBNOTIFY       = $tbl_cdb_names['wrk_submission'];//  "bb_rel_topic_userstonotify"; //added for notification by email sytem for claroline 1.5
 
     $TABLELEARNPATH         = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
@@ -1017,11 +901,6 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 
 	mysql_select_db("$courseDbName");
 
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'-1',	'Deleted')");
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'1',	'User')");
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'2',	'Moderator')");
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'3',	'Super Moderator')");
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'4',	'Administrator')");
 // Create a hidden catagory for group forums
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (1,'".$langCatagoryGroup."',1)");
 // Create an example catagory
@@ -1030,39 +909,12 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 	claro_sql_query("INSERT INTO `".$TABLEGROUPPROPERTIES."`
 (id, self_registration, private, forum, document, wiki, chat)
 VALUES (NULL, '1', '0', '1', '1', '0', '1')");
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBCONFIG."` VALUES (
-         '1',
-         '".addslashes($intitule)."',
-         '1',
-         '1',
-         '1',
-         '0',
-         NULL,
-         '1',
-         '15',
-         '15',
-         '50',
-         NULL,
-         '0',
-         '".addslashes($langFormula)."',
-         '".addslashes($email)."',
-         '".addslashes($language)."'
-         )");
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBFORUMMODS."` VALUES (
-         '1',
-         '1'
-         )");
 	claro_sql_query("INSERT 
                         INTO `".$TABLEPHPBBFORUMS."` 
                         VALUES ( 1
                                , '".addslashes($langTestForum)."'
                                , '".addslashes($langDelAdmin)."'
                                ,2,1,1,1,1,2,0,'c4ca4238a0b923820dcc509a6f75849b',1)");
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBHEADFOOT."` VALUES (
-         '<center><a href=\"../".$courseRepository."\"><img border=0 src=../claroline/img/logo.gif></a></center>',
-         '',
-         ''
-         )");
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTS."` VALUES (1,1,1,1,NOW(),'127.0.0.1',\"".addslashes($nom)."\",\"".addslashes($prenom)."\")");
 	claro_sql_query("CREATE TABLE `".$TABLEPHPBBPOSTSTEXT."` (
         post_id int(10) DEFAULT '0' NOT NULL,
@@ -1104,8 +956,6 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
        NULL,       NULL,       NULL,       NULL,       NULL,       NULL,       NULL,
        NULL,       NULL,       NULL,       NULL,       '0',       '0',       '0',       '0',       '0',
        '0',       '1',       NULL,       NULL,       NULL       )");
-
-
 
 ##################### register tools in course ######################################
 
