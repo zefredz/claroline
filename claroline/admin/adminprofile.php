@@ -12,7 +12,6 @@
 //----------------------------------------------------------------------
 
 define ('USER_DATA_FORM', 2);
-$langSendToUserAccountInfoByMail = 'Envoyer les infos de connection par email';
 
 $langFile='admin';
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
@@ -27,8 +26,11 @@ include $includePath.'/conf/profile.conf.inc.php';
 
 $nameTools=$langModifOneProfile;
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-//$interbredcrump[]= array ("url"=>$rootAdminWeb."/adminusers.php"=> $langManage);
+$interbredcrump[]= array ("url" => $rootAdminWeb, "name" => $langAdministration);
+if( isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == "ulist")
+{
+	$interbredcrump[]= array ("url" => $rootAdminWeb."adminusers.php", "name" => $langListUsers);
+}
 
 $htmlHeadXtra[] =
             "<script>
@@ -64,6 +66,8 @@ $user_id = $_REQUEST['uidToEdit'];
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
+if (empty($user_id))
+	header("Location: adminusers.php");
 
 if (isset($applyChange))  //for formular modification
 {
@@ -298,7 +302,7 @@ if ($display == USER_DATA_FORM)
 
 ?>
 
-<form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>?uidToEdit=<?php echo $user_id?>">
 <input type="hidden" name="applyChange" value="yes">
 <table border="0">
 
