@@ -13,51 +13,6 @@
 //----------------------------------------------------------------------
 
 $langFile = "work";
-////// lang vars DEV ONLY HAS TO BE MOVED :@
-
-// -- Session list
-$langCreateSession = "Create a new work session";
-$langVisibility = "Visibility";
-
-// -- Form
-$langSessionTitle = "Title";
-$langSessionDescription = "Description";
-
-$langSubmissionType = "Submission type";
-$langAuthorizeText = "Text";
-$langAuthorizeFile = "File";
-
-$langStartDate = "Start date";
-$langEndDate = "Deadline";
-
-$langDefSubVisibility = "Default visibility";
-$langVisible = "Visible";
-$langInvisible = "Invisible";
-
-$langSessionType = "Session type";
-$langIndividual = "Individual";
-$langGroup = "Group";
-
-$langAllowAnonymous = "Allow anonymous users";
-$langAnonAllowed = "Yes, anonymous users can submit works"; 
-$langAnonNotAllowed = "No, anonymous users can not submit works";
-
-$langPreventLateUploadShort = "Prevent late upload";
-$langPreventLateUpload = "Yes, prevent users to submit works after deadline";
-$langAllowLateUpload = "No, allow users to submit works after deadline";
-
-// -- Form errors and confirmations
-$langSessionAdded = "New session created";
-$langTitleAlreadyExists = "Error : Name already exists";
-$langGiveTitle = "Please give the session title";
-$langAreYouSureToDelete = "Are you sure to delete";
-$langDeleteCaution = "! This will also delete all works submitted in this session !";
-$langSessionDeleted = "Session deleted";
-$langSessionEdited = "Session modified";
-
-$langChooseDateHelper = "(d/m/y hh:mm)";
-
-///// END OF LANG VARS FFS
 
 $tlabelReq = "CLWRK___";
 require '../inc/claro_init_global.inc.php';
@@ -264,7 +219,7 @@ if($is_allowedToEdit)
     }
     else
     {
-      $dialogBox .= $langGiveTitle;
+      $dialogBox .= $langSessionTitleRequired;
       $cmd = 'rqEditSes';
     }
   }
@@ -458,7 +413,7 @@ if($is_allowedToEdit)
     }
     else
     {
-      $dialogBox .= $langGiveTitle;
+      $dialogBox .= $langSessionTitleRequired;
       $cmd = 'rqMkSes';
     }
   }
@@ -568,8 +523,8 @@ if($is_allowedToEdit)
       <tr>
         <td valign="top"><?php echo $langSubmissionType; ?>&nbsp;:</td>
         <td>
-          <input type="checkbox" name="authorizeFile" id="authorizeFile" value="1" <?php if( $form['authorizeFile'] ) echo 'checked="checked"'; ?>><label for="authorizeFile">&nbsp;<?php echo $langAuthorizeFile; ?></label><br />
-          <input type="checkbox" name="authorizeText" id="authorizeText" value="1" <?php if( $form['authorizeText'] ) echo 'checked="checked"'; ?>><label for="authorizeText">&nbsp;<?php echo $langAuthorizeText; ?></label><br />
+          <input type="checkbox" name="authorizeFile" id="authorizeFile" value="1" <?php if( $form['authorizeFile'] ) echo 'checked="checked"'; ?>><label for="authorizeFile">&nbsp;<?php echo $langFile; ?></label><br />
+          <input type="checkbox" name="authorizeText" id="authorizeText" value="1" <?php if( $form['authorizeText'] ) echo 'checked="checked"'; ?>><label for="authorizeText">&nbsp;<?php echo $langText; ?></label><br />
         </td>
       </tr>
       
