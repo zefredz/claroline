@@ -1,4 +1,4 @@
-<?php # $Id:
+<?php # $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -8,10 +8,11 @@
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
 // through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
 //----------------------------------------------------------------------
-// Authors: Muret Benoît
+// Authors: Muret Benoît && claroline Team.
 //----------------------------------------------------------------------
+
 $langFile = "faculty";
-$cidReset=TRUE;
+$cidReset = TRUE;
 include('../inc/claro_init_global.inc.php');
 $nameTools             = $lang_categories;
 $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
@@ -839,7 +840,7 @@ claro_disp_msg_arr($controlMsg);
         </td>
 
         <td>
-        <input type="texte" name="nameCat" value="<?php echo $EditName; ?>" size="20" maxlength="100">
+        <input type="texte" name="nameCat" id="nameCat" value="<?php echo $EditName; ?>" size="20" maxlength="100">
         </td>
     </tr>
     <tr>
@@ -848,7 +849,7 @@ claro_disp_msg_arr($controlMsg);
         </td>
 
         <td>
-        <input type="texte" name="codeCat" value="<?php echo $EditCode; ?>" size="20" maxlength="40">
+        <input type="texte" name="codeCat" id="codeCat" value="<?php echo $EditCode; ?>" size="20" maxlength="40">
         </td>
     </tr>
     <tr>
@@ -857,19 +858,19 @@ claro_disp_msg_arr($controlMsg);
         </td>
 
         <td>
-        <input type="radio" name="canHaveCoursesChild"
+        <input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_1"
             <?php    if(isset($EditCanHaveCoursesChild))
                         echo (!strcmp($EditCanHaveCoursesChild,"TRUE")?"checked":"");
                     else
                         echo "checked";
             ?>
-         value="1"> <?php echo $lang_faculty_Yes; ?>
+         value="1"> <label for="canHaveCoursesChild_1"><?php echo $lang_faculty_Yes; ?></label>
 
-        <input type="radio" name="canHaveCoursesChild"
+        <input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_0"
             <?php    if(isset($EditCanHaveCoursesChild))
                         echo (!strcmp($EditCanHaveCoursesChild,"FALSE")?"checked":"");
             ?>
-        value="0"> <?php echo $lang_faculty_No; ?>
+        value="0"> <label for="canHaveCoursesChild_0"><?php echo $lang_faculty_No; ?></label>
 
         </td>
     </tr>
@@ -918,27 +919,26 @@ claro_disp_msg_arr($controlMsg);
         </td>
 
         <td align="RIGHT">
-        <select name="fatherCat">
-        <option value="NULL" > &nbsp;&nbsp;&nbsp;<?php echo $siteName;?> </option>
+			<select name="fatherCat">
+				<option value="NULL" > &nbsp;&nbsp;&nbsp;<?php echo $siteName;?> </option>
         <?php
         //Display each category in the select
          buildSelectFaculty($savFaculty,NULL,$EditFather,"");
         ?>
-        </select>
+			</select>
         </td>
     </tr>
+    <tr>
+        <td>
+			<br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
             <input type="hidden" name="id" value="<?php echo $EditId ?>">
-    <tr>
-        <td><br>
-        </td>
-    </tr>
-    <tr>
-        <td>
-        </td>
-
-        <td>
-        <input type="submit" name="change" value="Ok">
-
+			<input type="submit" name="change" value="Ok">
         </td>
     </tr>
     </table>

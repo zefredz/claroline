@@ -1,7 +1,7 @@
-<?php // | $Id$ |
+<?php // $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.5.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -182,7 +182,7 @@ if ($is_allowedToEdit)
         }
 
 ?>
-<form method="post" action="<?php echo $PHP_SELF ?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 
 <input type="hidden" name="cmd" value="<?php echo $nextCommand       ?>"> 
 <input type="hidden" name="id"  value="<?php echo $editedEvent['id'] ?>">
@@ -374,7 +374,7 @@ if ($is_allowedToEdit)
 <?php claro_disp_html_area('contenu', $contenu, 12, 67, $optAttrib = ' wrap="virtual" '); ?>
 <br>
 <input class="claroButton" type="Submit" name="submitEvent" value="<?php echo $langOk ?>">
-<?php claro_disp_button($PHP_SELF, 'Cancel'); ?>
+<?php claro_disp_button($_SERVER['PHP_SELF'], 'Cancel'); ?>
 </td>
 
 </tr>
@@ -397,7 +397,7 @@ if ($is_allowedToEdit)
          * Add event button
          */
 
-        claro_disp_button($PHP_SEF.'?cmd=rqAdd', 
+        claro_disp_button($_SERVER['PHP_SELF'].'?cmd=rqAdd', 
                        '<img src="'.$clarolineRepositoryWeb.'img/agenda.gif" width="20" alt=" ">'
                       .'Add event');
 
@@ -405,7 +405,7 @@ if ($is_allowedToEdit)
          * remove all event button
          */
 
-        claro_disp_button($PHP_SEF.'?cmd=exDelete&id=ALL', 
+        claro_disp_button($_SERVER['PHP_SELF'].'?cmd=exDelete&id=ALL', 
                           '<img src="'.$clarolineRepositoryWeb.'img/delete.gif" width="20" alt=" ">'
                           .'Clear up event list');
 
@@ -441,12 +441,12 @@ else
     
     if (isset($_REQUEST['sens']) && $_REQUEST['sens']=="d") 
     {
-        echo "<a href=\"".$PHP_SELF."?sens=\" >".$langOldToNew."</a>\n";
+        echo "<a href=\"".$_SERVER['PHP_SELF']."?sens=\" >".$langOldToNew."</a>\n";
         $orderDirection = ' DESC ';
     }
     else
     {
-      echo "<a href=\"".$PHP_SELF."?sens=d\" >".$langNewToOld."</a>\n";
+      echo "<a href=\"".$_SERVER['PHP_SELF']."?sens=d\" >".$langNewToOld."</a>\n";
     }
     
     echo "</small>\n"
@@ -539,11 +539,11 @@ foreach($eventList as $thisEvent)
 
   if ($is_allowedToEdit)
   {
-    echo "<a href=\"".$PHP_SELF."?cmd=rqEdit&id=".$thisEvent['id']."\">"
+    echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEdit&id=".$thisEvent['id']."\">"
         ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"O\" alt=\"".$langModify."\">"
         ."</a> "
          
-        ."<a href=\"".$PHP_SELF."?cmd=exDelete&id=".$thisEvent['id']."\" "
+        ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exDelete&id=".$thisEvent['id']."\" "
         ."onclick=\"javascript:if( ! confirm('"
         .addslashes (htmlspecialchars($langDelete.' '.$thisEvent['titre']." ?"))
         ."')) return false;\" >"

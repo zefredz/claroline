@@ -1,10 +1,8 @@
-<?php
-
-// $Id$
+<?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.5.*
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -19,11 +17,11 @@ include('../inc/claro_init_global.inc.php');
 
 if($addNewCourse || $selectCategory || isset($courseCode))
 {
-	$interbredcrump[]=array("url" => $PHP_SELF,"name" => $lang_my_personnal_course_list);
+	$interbredcrump[]=array("url" => $_SERVER['PHP_SELF'],"name" => $lang_my_personnal_course_list);
 
 	if($selectCategory || isset($courseCode))
 	{
-		$interbredcrump[]=array("url" => $PHP_SELF.'?addNewCourse=1',"name" => $lang_main_categories_list);
+		$interbredcrump[]=array("url" => $_SERVER['PHP_SELF'].'?addNewCourse=1',"name" => $lang_main_categories_list);
 	}
 }
 
@@ -52,7 +50,6 @@ if (isset($uidToEdit))
 }
 
 //security : only platfrom admin can edit other user than himself...
-
 if (!$is_platformAdmin)
 {
     $uidToEdit = $_uid;
@@ -65,6 +62,7 @@ else
     $userSettingMode = $uidToEdit;
     $inURL = "&uidToEdit=".$uidToEdit."&fromAdmin=".$fromAdmin;
   }
+  
   if (isset($uidToEdit) && (!($uidToEdit == ""))) // in admin mode, there 2 possibilities : we might want to enroll ourself or either be here from admin tool
   {
     $userId = $uidToEdit;
@@ -73,10 +71,10 @@ else
   {
     $userId = $_uid;
     $uidToEdit = $_uid;
-  }
-}
+  } //  if (isset($uidToEdit) && (!($uidToEdit == ""))) 
+} // if (!$is_platformAdmin)
 
-echo "llala".$userId." okok";
+
 /*
  * DB tables initialisation
  */
@@ -111,7 +109,7 @@ if ($cmd == 'exUnreg')
 
 
     $displayMode = DISPLAY_MESSAGE_SCREEN;
-}
+} //if ($cmd == 'exUnreg')
 
 
 
@@ -146,7 +144,7 @@ if ($cmd == 'exReg')
     }
 
     $displayMode = DISPLAY_MESSAGE_SCREEN;
-}
+} //if ($cmd == 'exReg')
 
 
 
@@ -297,7 +295,8 @@ if ($cmd == 'rqUnreg')
         $courseList = claro_sql_query_fetch_all($sql);
 
         $displayMode = DISPLAY_USER_COURSES;
-}
+} // if ($cmd == 'rqUnreg')
+
 
 
 
@@ -311,7 +310,7 @@ if ($cmd == 'rqUnreg')
 
 if ($cmd == 'rqReg' && ($category || ! is_null($parentCategoryCode) ) )
 {
-        $backUrl   = $PHP_SELF.'?cmd=rqReg&category='.$parentCategoryCode;
+        $backUrl   = $_SERVER['PHP_SELF'].'?cmd=rqReg&category='.$parentCategoryCode;
         $backLabel = $lang_back_to_parent_category;
 }
 else
@@ -335,11 +334,11 @@ else
         $backUrl   = "../../index.php";
 	    $backLabel = $lang_back_to_my_personnal_course_list;
     }
-}
+} // ($cmd == 'rqReg' && ($category || ! is_null($parentCategoryCode) ) )
 
 $backUrl .= $inURL; //notify userid of the user we are working with in admin mode and that we come from admin
 
-$backLink = "<p><small><a href=\"".$backUrl."\">&lt;&lt; ".$backLabel."</a></small></p>";
+$backLink = "<p><small><a href=\"".$backUrl."\" title=\"".$backLabel."\" >&lt;&lt; ".$backLabel."</a></small></p>";
 
 echo $backLink;
 
@@ -383,7 +382,7 @@ switch ($displayMode)
 
 					if ($thisCategory['nbCourse'] + $thisCategory['nbChilds'] > 0)
 					{
-						echo	"<a href=\"",$PHP_SELF,"?cmd=rqReg&category=",$thisCategory['code'],$inURL,"\">",
+						echo	"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqReg&category=",$thisCategory['code'],$inURL,"\">",
 								$thisCategory['name'],
 								"</a>",
 								" <small>(".$thisCategory['nbCourse'].")</small>";
@@ -421,7 +420,8 @@ switch ($displayMode)
 
 					"<table class=\"claroTable\" >";
 
-            if ($userSettingMode) {
+            if ($userSettingMode) 
+			{
 
                echo "<tr class=\"headerX\">
                       <th>
@@ -452,7 +452,8 @@ switch ($displayMode)
 
                 //enroll link
 
-                if ($userSettingMode) {
+                if ($userSettingMode) 
+				{
 
                     if ($thisCourse['enrolled'])
                     {
@@ -462,14 +463,14 @@ switch ($displayMode)
                     else
                     {
                         echo "<td valign=\"top\"  align=\"center\">";
-                        echo    " <a href=\"",$PHP_SELF,"?cmd=exReg&course=",$thisCourse['code'],$inURL,"\">\n",
-                                "<img src=\"../img/subscribe.gif\" border=\"0\" alt=\"",$langEnrollAsStudent,"\">\n",
+                        echo    " <a href=\"",$_SERVER['PHP_SELF'],"?cmd=exReg&course=",$thisCourse['code'],$inURL,"\">\n",
+                                "<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$langEnrollAsStudent,"\">\n",
                                 "</a>
                               </td>\n";
 
                         echo "<td valign=\"top\"  align=\"center\">";
-                        echo    " <a href=\"",$PHP_SELF,"?cmd=exReg&asTeacher=true&course=",$thisCourse['code'],$inURL,"\">\n",
-                                "<img src=\"../img/subscribe.gif\" border=\"0\" alt=\"",$langEnrollAsTeacher,"\">\n",
+                        echo    " <a href=\"",$_SERVER['PHP_SELF'],"?cmd=exReg&asTeacher=true&course=",$thisCourse['code'],$inURL,"\">\n",
+                                "<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$langEnrollAsTeacher,"\">\n",
                                 "</a>\n";
                     }
                 }
@@ -482,8 +483,8 @@ switch ($displayMode)
     				}
     				else
     				{
-    					echo	" <a href=\"",$PHP_SELF,"?cmd=exReg&course=",$thisCourse['code'],$inURL,"\">\n",
-    							"<img src=\"../img/subscribe.gif\" border=\"0\" alt=\"",$lang_enroll,"\">\n",
+    					echo	" <a href=\"",$_SERVER['PHP_SELF'],"?cmd=exReg&course=",$thisCourse['code'],$inURL,"\">\n",
+    							"<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$lang_enroll,"\">\n",
     							"</a>\n";
     				}
 
@@ -503,7 +504,7 @@ switch ($displayMode)
 				"<p>",
                 "<label for=\"keyword\">",$lang_or_search_from_keyword,"</label>",
                 " : </p>\n",
-				"<form method=\"post\" action=\"".$PHP_SELF."\">",
+				"<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">",
 				"<input type=\"hidden\" name=\"cmd\" value=\"rqReg\">",
 				"<input type=\"hidden\" name=\"fromAdmin\" value=\"",$fromAdmin,"\">",
 				"<input type=\"hidden\" name=\"cmd\" value=\"rqReg\">",
@@ -558,11 +559,11 @@ switch ($displayMode)
 
 				if($thisCourse['statut'] != 1)
 				{
-					echo "<a href=\"",$PHP_SELF,"?cmd=exUnreg&course=",$thisCourse['code'],$inURL,
+					echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exUnreg&course=",$thisCourse['code'],$inURL,
                          "\" onclick=\"javascript:if(!confirm('"
                          .addslashes(htmlentities($lang_are_you_sure_to_remove_the_course_from_your_list))
                          ."')) return false;\">\n",
-						 "<img src=\"../img/unenroll.gif\" border=\"0\" alt=\"".$lang_unsubscribe."\">\n",
+						 "<img src=\"".$clarolineRepositoryWeb."img/unenroll.gif\" border=\"0\" alt=\"".$lang_unsubscribe."\">\n",
 						 "</a>\n";
 				}
                 else
@@ -640,7 +641,8 @@ function search_course($keyword)
 
 	if (count($courseList) > 0) return $courseList;
 	else                        return false;
-}
+} // function search_course($keyword)
+
 
 
 ?>
