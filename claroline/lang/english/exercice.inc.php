@@ -78,6 +78,8 @@ $langAttemptsAllowed = "attempts allowed";
 $langAllowAnonymousAttempts = "Anonymous attempts";
 $langAnonymousAttemptsAllowed = "Allowed : don't record user names in tracking, anonymous users can make the exercise.";
 $langAnonymousAttemptsNotAllowed = "Not allowed : record user names in tracking, anonymous users cannot make the exercise.";
+$langExerciseOpening = "Exercise opening";
+$langExerciseClosing = "Exercise closing";
 
 
 // question_admin.inc.php
