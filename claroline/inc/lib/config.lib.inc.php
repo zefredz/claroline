@@ -1,34 +1,37 @@
 <?php // $Id$
-/** ***************************************************
- * config lib contain function to manage conf file
- ******************************************************
+/** 
+ * Config lib contain function to manage conf file
+ *
  * @version CLAROLINE 1.6
- * @copyright &copy; 2001-2005 Universite catholique de Louvain (UCL)
- * @license This program is under the terms of the
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE (GPL) 
+ * This program is under the terms of the
  * GENERAL PUBLIC LICENSE (GPL) as published by the
  * FREE SOFTWARE FOUNDATION. The GPL is available
  * through the world-wide-web at
  * http://www.gnu.org/copyleft/gpl.html
+ *
  * @see http://www.claroline.net/wiki/config_def/
+ *
  * @package CONFIG
- * @author Christophe Geschï¿½<moosh@claroline.net>
- ******************************************************
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
  */
 
 /**
- * Config tools 1.5
+ * proceed to rename conf.php.dist file in unexisting .conf.php files
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ * @param $file syspath:complete path to .dist file
+ * @return  boolean:wheter succes return true
+ * @var $perms file permission of dist file are keep to set perms of new file
+ * @var $group internal var for affect same group to new file
  */
-
-/**
-* proceed to rename conf.php.dist file in unexisting .conf.php files
-*
-* @author Mathieu Laurent <laurent@cerdecam.be>
-*
-* @param $file syspath:complete path to .dist file
-* @return  boolean:wheter succes return true
-* @var $perms file permission of dist file are keep to set perms of new file
-* @var $group internal var for affect same group to new file
-**/
 
 function claro_undist_file ($file)
 {
@@ -79,7 +82,7 @@ function trueFalse($booleanState)
  * @param $value new value of the variable
  * @param $file string path to file
  * @author Benoit
-*/
+ */
 
 function replace_var_value_in_conf_file ($varName,$value,$file)
 {
@@ -167,17 +170,16 @@ function replace_var_value_in_conf_file ($varName,$value,$file)
 
 }
 
-/// these functions are  use to manage free strings.
-// function cleanvalue($string) this function remove tags, ; , top and terminal blank
-// this function is called by two others
-
-// function cleanoutputvalue($string) protect html entities before an output (in html page)
-// function cleanwritevalue($string) protect befor write it in a file between " ";
-
 
 /**
  * brutal replacement of ; by :
  * stripslashes striptags trim
+ * these functions are  use to manage free strings.
+ * function cleanvalue($string) this function remove tags, ; , top and terminal blank
+ * this function is called by two others
+ *
+ * function cleanoutputvalue($string) protect html entities before an output (in html page)
+ * function cleanwritevalue($string) protect befor write it in a file between " ";
  *
  * @param string string:
  * @return string:trimed and without ;
@@ -188,7 +190,7 @@ function cleanvalue($string)
 }
 
 /**
- * cleanoutputvalue()
+ * Make string ready to output in a html stream
  *
  * @param $string string change
  * @return string:prepare to output in html stream
@@ -199,7 +201,7 @@ function cleanoutputvalue($string)
 }
 
 /**
- * cleanwritevalue()
+ * Make string ready to output in a php file
  *
  * @param $string
  * @return string:cleaned string
@@ -218,8 +220,7 @@ function get_def_file_list()
     global $includePath, $toolNameList;
 
     $defConfFileList = array();
-
-    if ($handle = opendir($includePath.'/conf/def'))
+    if (is_dir($includePath.'/conf/def') && $handle = opendir($includePath.'/conf/def'))
     {
         // group of def list
 
@@ -580,8 +581,8 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
                   . ' * -------------------------------------------------'."\n"
                   . ' * DONT EDIT THIS FILE - NE MODIFIEZ PAS CE FICHIER '."\n"
                   . ' **/'."\n\n"
-                  . ' // $'.$conf_def['config_code'].'GenDate is an interna mark'."\n"
-                  . '$'.$conf_def['config_code'].'GenDate = "'.time().'";'."\n\n"
+                  . '// $'.$conf_def['config_code'].'GenDate is an internal mark'."\n"
+                  . '   $'.$conf_def['config_code'].'GenDate = "'.time().'";'."\n\n"
                   . (isset($conf_def['technicalInfo'])
                   ? '/*'
                   . str_replace('*/', '* /', $conf_def['technicalInfo'])
@@ -1069,6 +1070,33 @@ function validate_conf_properties ($properties, $config_code)
 }
 
 
+/**
+ * return value found in a given file following a given property list
+ *
+ */
+function get_values_from_confFile($file_name,$conf_def_property_list)
+{
+    if(file_exists($file_name))
+    {
+        include($file_name);
+        if ( is_array($conf_def_property_list) )
+        {
+            foreach($conf_def_property_list as $propName => $propDef )
+            {
+                if ($propDef['container']=='CONST')
+                {
+                    @eval('$value_list[$propName] = '.$propName.';');
+                }
+                else 
+                {
+                    $value_list[$propName] = $$propName;
+                }
+            }
+        }
+    }
+    return $value_list;
+}
+
 
 /**
  * redefine  unexisting function (for older php)
@@ -1079,7 +1107,7 @@ if (!function_exists('md5_file'))
     function md5_file($file_name)
     {
        $fileContent = file($file_name);
-       $fileContent = !$file ? false : implode('', $fileContent);
+       $fileContent = !$file ? FALSE : implode('', $fileContent);
        return md5($fileContent);
     }
 }
