@@ -141,6 +141,13 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 </li>
 </ul>
 
+<h4>Claroline.net</h4>
+<ul>
+<li>
+<a href="registerCampus.php"><?php echo $langRegisterCampus; ?><?php echo $langRegisterMyCampus; ?></a>
+</li>
+</ul>
+
 <?php
 
 if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION')
