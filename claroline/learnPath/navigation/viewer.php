@@ -17,7 +17,11 @@
   $langFile = "learnPath";
 
   require '../../inc/claro_init_global.inc.php'; 
-
+  // the following constant defines the default display of the learning path browser
+  // 0 : display only table of content and content
+  // 1 : display claroline header and footer and table of content, and content
+  define ( "USE_FRAMES" , 1 ); 
+  
   $nameTools = $langToolName;
   if(!empty($nameTools))
   {
@@ -38,7 +42,18 @@
     <title><?php echo $titlePage; ?></title>
   </head>
 <?PHP
-if (!isset($noFrames))
+if ( !isset($_GET['frames']) )
+{
+    // choose default display
+    // default display is without frames
+    $displayFrames = USE_FRAMES;
+}
+else
+{
+    $displayFrames = $_GET['frames'];
+}
+
+if( $displayFrames )
 {
 ?>
     <frameset border="0" rows="150,*,70" frameborder="no" />
