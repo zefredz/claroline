@@ -950,7 +950,7 @@ function delete_course($code)
         mkPath($garbageRepositorySys);
 
         rename($coursesRepositorySys.$currentCoursePath."/",
-            $garbageRepositorySys."/".$currentCoursePath.'_'.time());
+            $garbageRepositorySys."/".$currentCoursePath.'_'.date('YmdHis'));
 }
 
 /**
