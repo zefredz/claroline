@@ -202,7 +202,6 @@ $l_statsblock   = '$statsblock = "Nos membres ont posté un total de -$total_post
 Nous avons -$total_users- Membres Enregistrés.<br>
 Le Membre Enregistré le plus récent est -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"membre est":"membres sont") ." <a href=\"$online_url\">actuellement</a> sur ces forums.<br>";';
-$l_privnotify   = '$privnotify = "<br>Vous avez $new_message <a href=\"$privmsg_url\">new private ".($new_message>1?"messages":"message")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Panneau d'Administration";
@@ -307,26 +306,23 @@ $l_cancelpost	= "Annuler ce Message";
 $l_nopostlock	= "Vous ne pouvez répondre sur ce sujet, il a été fermé.";
 $l_topicreview  = "Revue du Sujet";
 $l_notifysubj	= "Une réponse à votre sujet a été posté.";
-$l_notifybody	= 'Cher $m[username]\r\nVous recevez cet Email parce qu\'un message
-que vous avez posté sur les forums $sitename a reçu une réponse, et que
+$l_notifybody	= "Vous recevez cet Email parce qu\'un message
+que vous avez posté sur les forums a reçu une réponse, et que
 vous avez choisi d\'en être informé.
 
 Vous pouvez voir le sujet à:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
-Ou voir l\'index du forum $sitename à
+Ou voir l\'index du forum à
 
-http://$SERVER_NAME$url_phpbb
+%s2
 
-Merci d\'utiliser les forums $sitename.
+Merci d\'utiliser les forums.
 
-Bonne journée.
+Bonne journée.";
 
-$email_sig';
-
-
-$l_quotemsg	= '[quote]\nLe $m[post_time], $m[username] a écrit:\n$text\n[/quote]';
+$l_quotemsg	= '[quote]\nLe %s1, %s2 a écrit:\n%s3\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Vous devez entrer le nom d'utilisateur à qui vous désirez envoyer ce $l_message.";

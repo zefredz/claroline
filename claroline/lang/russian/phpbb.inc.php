@@ -204,8 +204,6 @@ $l_statsblock   = '$statsblock = "Наши участники отправили -$total_posts- $l_mes
 Последний зарегистрированный участник -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"участник":"участники") ." 
 <a href=\"$online_url\">сейчас</a> в этих форумах.<br>";';
-$l_privnotify   = '$privnotify = "<br>У вас есть
- $new_message <a href=\"$privmsg_url\">новое частное".($new_message>1?"messages":"message")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Администрирование";
@@ -310,25 +308,23 @@ $l_cancelpost	= "Отменить это сообщение";
 $l_nopostlock	= "Вы не можете послать сообщение в эту тему, она закрыта.";
 $l_topicreview  = "Обзор темы";
 $l_notifysubj	= "Поступил ответ на вашу тему.";
-$l_notifybody	= 'Уважаемый $m[username]\r\nВы получили это письмо, так как поступил ответ на сообщение, которое вы разместили на
+$l_notifybody	= "Вы получили это письмо, так как поступил ответ на сообщение, которое вы разместили на
 форуме, и вы просили проинформировать вас об этом.
 
 Вы можете увидеть тему по адресу:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
-Или просмотреть оглавление форума $sitename по адресу
+Или просмотреть оглавление форума по адресу
 
-http://$SERVER_NAME$url_phpbb
+%s2
 
-Спасибо за использование форума $sitename.
+Спасибо за использование форума.
 
-До свидания.
-
-$email_sig';
+До свидания.";
 
 
-$l_quotemsg	= '[quote]\nLe $m[post_time], $m[username] написал:\n$text\n[/quote]';
+$l_quotemsg	= '[quote]\nLe %s1, %s2 написал:\n%s3\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Вы должны ввести имя пользователя, которому вы хотите отправить это $l_message.";

@@ -310,7 +310,7 @@ $l_nopostlock	= "Vous ne pouvez répondre sur ce sujet, il a été fermé.";
 $l_topicreview  = "Revue du sujet"; // JCC 
 $l_notifysubj	= "Une réponse à votre sujet a été posté.";
 $l_dear         = "Chèr(e),";
-$l_notifybody	= 'Vous recevez cet e-mail parce qu\'un message
+$l_notifybody	= "Vous recevez cet e-mail parce qu\'un message
 que vous avez posté sur nos forums a reçu une réponse, et que
 vous avez choisi d\'en être informé.
 
@@ -324,7 +324,7 @@ Ou voir l\'index du forum $sitename à
 
 Merci d\'utiliser les forums $sitename.
 
-Bonne journée.';
+Bonne journée.";
 
 
 $l_quotemsg	= "[quote]\nLe %s1, %s2 a écrit:\n%s3\n[/quote]";

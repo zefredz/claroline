@@ -194,7 +194,6 @@ $l_memberslist	= "Lista èlanova";
 $l_faq		= "FAQ - èesto postavljena pitanja";
 $l_privmsgs	= "Privatne $l_messages";
 $l_sendpmsg	= "Pošalji Privatnu poruku";
-$l_privnotify   = '$privatna obavijest = "<br>Vi imate $novu_poruku <a href=\"$privmsg_url\">nova privatna ".($nova_poruka>1?"poruke":"poruka")."</a>.";';
 
 
 
@@ -202,8 +201,6 @@ $l_statsblock   = '$statsblock = "Naši korisnici poslali su  -$total_posts- $l_m
 Imamo  -$total_users- registriranih korisnika.<br>
 Zadnji prijavljeni korisnik je  -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?" korisnik je ":" korisnici su") ." <a href=\"$online_url\">trenutno ukljuèeni u</a> forum<br>";';
-$l_privnotify   = '$privnotify = "<br>Imate  $new_message <a href=\"$privmsg_url\">novih osobnih ".($new_message>1?"poruka":"message")."</a>.";';
-
 // Page_tail
 $l_adminpanel	= "Administracijska Ploèa";
 $l_poweredby	= "Pokrenuto do";
@@ -307,24 +304,21 @@ $l_cancelpost	= "Otkaži slanje";
 $l_nopostlock	= "Ne možete poslati ili odgovoriti na ovu temu, jer je ona zakljuèana.";
 $l_topicreview  = "Pregled tema";
 $l_notifysubj	= "Odgovor na tvoju temu je poslan.";
-$l_notifybody	= 'Poštovani $m[username]\r\n primili ste ovaj email jer na poruku, koju ste poslali na forum, je odgovoreno, a odabrali ste da budete obaviješteni o tom dogaðaju utem emaila. 
+$l_notifybody	= "primili ste ovaj email jer na poruku, koju ste poslali na forum, je odgovoreno, a odabrali ste da budete obaviješteni o tom dogaðaju utem emaila. 
 
 Možete vidjeti teme na:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
-ili vidite na $sitename forum indeks na
+ili vidite na forum indeks na
 
-http://$SERVER_NAME$url_phpbb
+%s2
 
-Hvala Vam što koristite  $sitename forume.
+Hvala Vam što koristite  forume.
 
-Ugodan dan Vam želimo.
-
-$email_sig';
+Ugodan dan Vam želimo.";
 
 
-// $l_quotRRRRemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Morate unijeti korisnièko ime ukoliko želite poslati poruku .";

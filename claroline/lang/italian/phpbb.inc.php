@@ -187,7 +187,6 @@ $l_statsblock   = '$statsblock = "Gli utenti del sistema hanno inviato un totale
 Si contano -$total_users- utenti registrati.<br>
 Il pi&ugrave; recente utente registrato &egrave; -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"l\'utente &egrave;":"gli utenti sono") ." <a href=\"$online_url\">stanno visualizzando</a> i forum in questo momento.<br>";';
-$l_privnotify   = '$privnotify = "<br>Tu hai $new_message <a href=\"$privmsg_url\">nuovi privati ".($new_message>1?"messaggi":"messaggio")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Pannello di amministrazione";
@@ -291,25 +290,23 @@ $l_cancelpost	= "Cancella messaggio";
 $l_nopostlock	= "Non &egrave; possibile inviare risposte a questo messaggio, l'argomento &egrave; stato chiuso.";
 $l_topicreview  = "Rivedi l'argomento";
 $l_notifysubj	= "E' stata inviata una risposta a un tuo messaggio.";
-$l_notifybody	= 'Caro $m[username]\r\nTi e\' stata inviata questa mail perche\' a un messaggio
-che tu hai inviato sui forum di $sitename e\' stata inviata una risposta, e
+$l_notifybody	= "Ti e\' stata inviata questa mail perche\' a un messaggio
+che tu hai inviato sui forum e\' stata inviata una risposta, e
 tu avevi richiesto di essere avvertito in questa occasione.
 
 Puoi visionare la risposta all\'indirizzo:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
-o visualizzare l\'indice dei forum di $sitename all\'indirizzo:
+o visualizzare l\'indice dei forum di all\'indirizzo:
 
-http://$SERVER_NAME$url_phpbb
+%s2
 
-Grazie per aver utilizzato i forum di $sitename.
+Grazie per aver utilizzato i forum di.
 
-Arrivederci.
+Arrivederci.";
 
-$email_sig';
-
-$l_quotemsg	= '[quote]\nIn data $m[post_time], $m[username] scrive:\n$text\n[/quote]';
+$l_quotemsg	= '[quote]\nIn data %s1, %s2 scrive:\n%s3\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "E' necessario inserire lo username di un destinatario al quale vuoi inviare un messaggio.";

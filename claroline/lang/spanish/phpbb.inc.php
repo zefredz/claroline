@@ -228,7 +228,6 @@ $l_statsblock   = '$statsblock = "Nuestros usuarios han enviado un total de -$to
 Hay -$total_users- Usuarios Registrados.<br>
 El usuario registrado m&aacute;s recientemente es -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"usuario es":"usuarios son") ." <a href=\"$online_url\">actualmente</a> en los foros.<br>";';
-$l_privnotify   = '$privnotify = "<br>Tiene $new_message <a href=\"$privmsg_url\"> ".($new_message>1?"nuevos mensajes privados":"nuevo mensaje privado")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Panel de administraci&oacute;n";
@@ -333,25 +332,23 @@ $l_cancelpost	= "Anular el mensaje";
 $l_nopostlock	= "No puede responder a este tema, este tema est&aacute; cerrado.";
 $l_topicreview  = "Revisi&oacute;n de t&oacute;pico";
 $l_notifysubj	= "Se ha enviado un mensaje de respuesta sobre su tema.";
-$l_notifybody	= 'Estimado $m[username]\r\nUsted recibe este correo electr&oacute;nico como respuesta a un mensaje 
-que ha enviado al foro $sitename, ya que usted ha elegido ser informado.
+$l_notifybody	= "Usted recibe este correo electr&oacute;nico como respuesta a un mensaje 
+que ha enviado al foro, ya que usted ha elegido ser informado.
 
 Usted puede ver el tema en:
 
-$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
-O ver el &iacute;ndice del foro en $sitename en
+O ver el &iacute;ndice del foro en
 
-$url_phpbb
+%s2
 
-Gracias por utilizar los foros de $sitename.
+Gracias por utilizar los foros.
 
-Que tenga un buen d&iacute;a.
-
-$email_sig';
+Que tenga un buen d&iacute;a.";
 
 
-$l_quotemsg	= '[quote]\nEl $m[post_time], $m[username] ha escrito:\n$text\n[/quote]';
+$l_quotemsg	= '[quote]\nEl %s1, %s2 ha escrito:\n%s3\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Debe escribir el nombre de usuario a quien desea enviar el $l_message.";

@@ -205,7 +205,6 @@ $l_statsblock   = '$statsblock = "用户总计张贴 -$total_posts- $l_messages.<br>
 注册用户 -$total_users- 人.<br>
 最近注册用户: -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"user is":"users are") ." <a href=\"$online_url\">浏览</a> 论坛.<br>";';
-$l_privnotify   = '$privnotify = "<br>您有 $new_message <a href=\"$privmsg_url\">内部消息 ".($new_message>1?"messages":"message")."</a>篇.";';
 
 // Page_tail
 $l_adminpanel	= "管理面板";
@@ -307,24 +306,22 @@ $l_cancelpost	= "取消";
 $l_nopostlock	= "您不能回复这个话题,已经被锁定了.";
 $l_topicreview  = "话题评论";
 $l_notifysubj	= "有文章回复您的话题.";
-$l_notifybody	= ' $m[username],你好!\r\n您收到这封邮件,是因为在论坛中有文章回复了在$sitename论坛中您的话题,您的设置中选择有回复文章时发信通知您.
+$l_notifybody	= "您收到这封邮件,是因为在论坛中有文章回复了在$sitename论坛中您的话题,您的设置中选择有回复文章时发信通知您.
 
 阅读这个话题请到:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
 阅读$sitename论坛索引请到:
 
-http://$SERVER_NAME$url_phpbb
+%s2
 
 非常感谢使用$sitename论坛.
 
-祝心情愉快.
-
-$email_sig';
+祝心情愉快.";
 
 
-$l_quotemsg	= '[引用]\n在 $m[post_time], $m[username] 写到:\n$text\n[/引用]';
+$l_quotemsg	= '[引用]\n在 %s1, %s2 写到:\n%s3\n[/引用]';
 
 // Sendpmsg
 $l_norecipient	= "您必需填写$l_message接收者的用户名.";

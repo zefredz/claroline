@@ -202,7 +202,6 @@ $l_statsblock   = '$statsblock = "Onze gebruikers hebben een totaal van -$total_
 We hebben -$total_users- geregistreerde gebruikers.<br>
 De meeste recente geregistreede gebruiker is -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"gebruiker is":"gebruikers zijn") ." <a href=\"$online_url\">nu</a> op dit forum.<br>";';
-$l_privnotify   = '$privnotify = "<br>U hebt $new_message <a href=\"$privmsg_url\">new private ".($new_message>1?"berichten":"bericht")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Administratiepaneel";
@@ -306,25 +305,22 @@ $l_cancelpost	= "Dit bericht verwijderen";
 $l_nopostlock	= "Uw kan niet op dit onderwerp antwoorden. Dit is afgesloten";
 $l_topicreview  = "Onderwerpsoverzicht";
 $l_notifysubj	= "Er werd een antwoord op uw onderwerp ingediend.";
-$l_notifybody	= 'Beste $m[username].\r\nU krijgt deze e-mail omdat een bericht dat u ingediend had op het forum van $sitename een antwoord heeft gekregen
+$l_notifybody	= "U krijgt deze e-mail omdat een bericht dat u ingediend had op het forum een antwoord heeft gekregen
 	en u had gevraagd om verwittigd te worden.
 
 U kan het onderwerp zien op:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
-Of de forumindex $sitename bekijken op
+Of de forumindex bekijken op
 
-http://$SERVER_NAME$url_phpbb
+%s2
 
-Bedankt voor het gebruiken van het forum van $sitename.
+Bedankt voor het gebruiken van het forum.
 
-Tot ziens.
+Tot ziens.";
 
-$email_sig';
-
-
-$l_quotemsg	= '[quote]\nPersoon $m[post_time], $m[username] heeft geschreven:\n$text\n[/quote]';
+$l_quotemsg	= '[quote]\nPersoon %s1, %s2 heeft geschreven:\n%s3\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "U moet de gebruikersnaam inbrengen aan wie u dit $l_message wenst op te sturen.";

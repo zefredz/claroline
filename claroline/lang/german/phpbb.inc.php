@@ -208,7 +208,6 @@ $l_statsblock   = '$statsblock = "In den Foren wurden insgesamt -$total_posts- $
 Wir haben -$total_users- registrierte Benutzer.<br>
 Wir begr&uuml;ssen unser neuestes Mitglied, -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"Benutzer ist":"Benutzer sind") ." <a href=\"$online_url\">zur Zeit online</a>.<br>";';
-$l_privnotify   = '$privnotify = "<br>Sie haben $new_message <a href=\"$privmsg_url\">".($new_message>1?" neue private Nachrichten":" neue private Nachricht")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Administrationsbereich";
@@ -314,26 +313,23 @@ $l_cancelpost	= "Abbruch";
 $l_nopostlock	= "Sie k&ouml;nnen nicht auf dieses Thema antworten, da es geschlossen ist.";
 $l_topicreview  = "Thema ansehen";
 $l_notifysubj	= "Eine Antwort auf Ihr Thema wurde gepostet";
-$l_notifybody	= 'Liebe/r $m[username]\r\n
-Sie erhalten diese Email, da ein Benutzer auf Ihr
-Thema in den $sitename Foren geantwortet hat und Sie die Emailbenachrichtung aktiviert haben.
+$l_notifybody	= "Sie erhalten diese Email, da ein Benutzer auf Ihr
+Thema in Foren geantwortet hat und Sie die Emailbenachrichtung aktiviert haben.
 
 Sie k&ouml;nnen Ihr Thema auf
 
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
-einsehen. Oder besuchen Sie den Index der $sitename Foren auf
+einsehen. Oder besuchen Sie den Index der Foren auf
 
-http://$SERVER_NAME$url_phpbb
+%s2
 
-Vielen Dank f&uuml;r die Benutzung der $sitename Foren.
+Vielen Dank f&uuml;r die Benutzung der Foren.
 
-Mit freundlichen Gr&uuml;ssen,
-
-$email_sig';
+Mit freundlichen Gr&uuml;ssen,";
 
 
-$l_quotemsg	= '[quote]\n$m[username] schrieb am $m[post_time] :\n$text\n[/quote]';
+$l_quotemsg	= '[quote]\n%s1 schrieb am %s2 :\n%s3\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Sie m&uuml;ssen den Benutzernamen des Empf&auml;ngers Ihrer $l_message eingeben.";

@@ -200,7 +200,6 @@ $l_statsblock   = '$statsblock = "User kami telah memposkan sejumlah  -$total_po
 Kami memiliki -$total_users- User yang terdaftar.<br>
 User terbaru yang terdaftar adalah -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"user adalah":"user-user adalah ") ." <a href=\"$online_url\">kini sedang browsing</a> forum ini.<br>";';
-$l_privnotify   = '$privnotify = "<br>Anda memiliki $new_message <a href=\"$privmsg_url\">- ".($new_message>1?"pesan privat baru":"pesan privat baru")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Panel Administrasi";
@@ -305,22 +304,19 @@ $l_cancelpost	= "Batalkan Pengiriman";
 $l_nopostlock	= "Anda tidak dapat menanggapi topik ini karens dikunci.";
 $l_topicreview  = "Review Topik";
 $l_notifysubj	= "Tanggapan terhadap topik anda telah masuk.";
-$l_notifybody	= 'Yth.  $m[username]\r\nAnda menerima Email ini karena pesan yang anda kirimkan ke forum  $sitename telah ditanggapi, dan anda memilih untuk diberitahu.
+$l_notifybody	= "Anda menerima Email ini karena pesan yang anda kirimkan ke forum telah ditanggapi, dan anda memilih untuk diberitahu.
 
 Anda dapat melihat topik tsb pada:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
-Atau lihat index forum $sitename pada  
+Atau lihat index forum pada  
 
-http://$SERVER_NAME$url_phpbb
+%s2
 
-Terima kasih telah menggunakan forum $sitename .
-
-$email_sig';
+Terima kasih telah menggunakan forum.";
 
 
-// $l_quotRRRRemsg	= '[quote]\nPada $m[post_time], $m[username] menulis:\n$text\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Anda musti memasukkan nama user tujuan yang akan kirimkan $l_message .";

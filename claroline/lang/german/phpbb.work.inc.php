@@ -206,7 +206,6 @@ $l_statsblock   = '$statsblock = "Our users have posted a total of -$total_posts
 We have -$total_users- Registered Users.<br>
 The newest Registered User is -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"user is":"users are") ." <a href=\"$online_url\">currently browsing</a> the forums.<br>";';
-$l_privnotify   = '$privnotify = "<br>You have $new_message <a href=\"$privmsg_url\">new private ".($new_message>1?"messages":"message")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Administration Panel";
@@ -330,7 +329,7 @@ Have a nice day.
 $email_sig';
 
 
-$l_quotemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
+$l_quotemsg	= '[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "You must enter the username you want to send the $l_message to.";

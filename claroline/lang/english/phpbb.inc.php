@@ -308,7 +308,7 @@ $l_notifysubj	= "A reply to your topic has been posted.";
 
 $l_dear = "Dear";
 
-$l_notifybody	= 'You are receiving this Email because a new message in one of your favorit topics
+$l_notifybody	= "You are receiving this Email because a new message in one of your favorit topics
  on our forums has been added, and
 you selected to be notified on this event.
 
@@ -322,7 +322,7 @@ Or view the forum index at
 
 Thank you for using our forums.
 
-Have a nice day.';
+Have a nice day.";
 
 $l_quotemsg	= "[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]";
 

@@ -200,7 +200,6 @@ $l_statsblock   = '$statsblock = "Our users have posted a total of -$total_posts
 We have -$total_users- Registered Users.<br>
 The newest Registered User is -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"user is":"users are") ." <a href=\"$online_url\">currently browsing</a> the forums.<br>";';
-$l_privnotify   = '$privnotify = "<br>You have $new_message <a href=\"$privmsg_url\">new private ".($new_message>1?"messages":"message")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Panell d'administració";
@@ -305,26 +304,7 @@ $l_cancelpost	= "Cancel·la Publicació";
 $l_nopostlock	= "You cannot post a reply to this topic, it has been locked.";
 $l_topicreview  = "Revisió de Tòpic";
 $l_notifysubj	= "S'ha publicat una resposta al teu tòpic.";
-$l_notifybody	= 'Dear $m[username]\r\nYou are receiving this Email because a message
-you posted on $sitename forums has been replied to, and
-you selected to be notified on this event.
 
-You may view the topic at:
-
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
-
-Or view the $sitename forum index at
-
-http://$SERVER_NAME$url_phpbb
-
-Thank you for using $sitename forums.
-
-Have a nice day.
-
-$email_sig';
-
-
-// $l_quotRRRRemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "You must enter the username you want to send the $l_message to.";

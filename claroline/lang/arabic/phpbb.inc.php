@@ -202,7 +202,6 @@ $l_statsblock   = '$statsblock = "Nos membres ont posté un total de -$total_pos
 لدينا -$total_users- .أعضاء مسجّلون<br>
 العضو المسجّل الأخير هو-<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"membre est":"membres sont") ." <a href=\"$online_url\">actuellement</a> sur ces forums.<br>";';
-$l_privnotify   = '$privnotify = "<br> لديكم $ رسالة جديدة <a href=\"$privmsg_url\">new private ".($new_message>1?"messages":"message")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= " لوح الإدارة ";
@@ -304,25 +303,8 @@ $l_cancelpost	= " إلغاء هذه الرسالة ";
 $l_nopostlock	= " لا يمكن لكم الإجابة عن هذا الموضوع";
 $l_topicreview  = " إعادة نظر في الموضوع ";
 $l_notifysubj	= " تمّت مراسلتكم بإجابة على موضوعكم";
-$l_notifybody	= 'Cher $m[username]\r\nVous recevez cet Email parce qu\'un message
-que vous avez posté sur les forums $sitename a reçu une réponse, et que
-vous avez choisi d\'en être informé.
 
-يمكنكم الإطلاع على الموضوع على الصفحة
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
-
-أو يمكنكم الاطلاع على فهرسة المنتدى على
-
-http://$SERVER_NAME$url_phpbb
-
-شكرا لاستعمالكم المنتديات
-
-نهاركم سعيد
-
-$email_sig';
-
-
-$l_quotemsg	= '[quote]\nLe $m[post_time], $m[username] a écrit:\n$text\n[/quote]';
+$l_quotemsg	= '[quote]\nLe %s1, %s2 a écrit:\n%s3\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= " يجب إدخال اسم مستخدم الموقع الذي ستبعثون له هذه الرسالة";

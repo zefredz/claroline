@@ -200,7 +200,6 @@ $l_statsblock   = '$statsblock = "Nossos usuários postaram um total de -$total_p
 Nós possuimos -$total_users- Usuários Registrados.<br>
 O mais novo usuário registrado é -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"usuário é":"users are") ." <a href=\"$online_url\">atualmente visualizando</a> os fóruns.<br>";';
-$l_privnotify   = '$privnotify = "<br>Você tem $new_message <a href=\"$privmsg_url\">nova privada ".($new_message>1?"mensagens":"mensagem")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Painel de Administração";
@@ -305,26 +304,23 @@ $l_cancelpost	= "Cancelar Postagem";
 $l_nopostlock	= "Você não pode postar uma resposta para este tópico, ele está bloqueado.";
 $l_topicreview  = "Revisão de Tópico";
 $l_notifysubj	= "Uma resposta para o seu tópico foi postada.";
-$l_notifybody	= 'Caro $m[username]\r\nVocê está recebendo este e-mail porque uma mensagem
-que você postou no fórum do $sitename foi respondida e você selecionou a opção para que
+$l_notifybody	= "Você está recebendo este e-mail porque uma mensagem
+que você postou no fórum foi respondida e você selecionou a opção para que
 fosse notificado por esse evento.
 
 Você pode ver o tópico em:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
-Ou ver o índice de fóruns em $sitename
+Ou ver o índice de fóruns.
 
-http://$SERVER_NAME$url_phpbb
+%s2
 
-Obrigado por utilizar os fóruns do $sitename.
+Obrigado por utilizar os fóruns.
 
-Tenha um bom dia.
+Tenha um bom dia.";
 
-$email_sig';
-
-
-// $l_quotemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
+$l_quotemsg	= '[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Você precisa entrar com um nome de usuário e senha para emviar $l_message para.";

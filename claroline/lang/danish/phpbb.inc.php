@@ -200,7 +200,6 @@ $l_statsblock   = '$statsblock = "Vores deltagere har indsendt i alt -$total_pos
 Vi har -$total_users- Registrerede deltagere.<br>
 Sidste nye registrerede deltager er -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"deltager er":"deltagerne er") ." <a href=\"$online_url\">browser lige nu</a> diskussionsforum.<br>";';
-$l_privnotify   = '$privnotify = "<br>Du har $new_message <a href=\"$privmsg_url\">ny privat ".($new_message>1?"besked":"besked")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Administrationspanel";
@@ -305,27 +304,25 @@ $l_cancelpost	= "Fortryd indlæg";
 $l_nopostlock	= "Du kan ikke sende et svar til dette indlæg, det er blevet låst.";
 $l_topicreview  = "Emne gennemgang";
 $l_notifysubj	= "Et svar på dit indlæg er blevet indsendt.";
-$l_notifybody	= 'Kære $m[username]\r\nDu får denne Email, fordi der er indkommet
-et svar på det indlæg, du lagde ud på $sitename forum, og du ville gerne gøres 
+$l_notifybody	= "Du får denne Email, fordi der er indkommet
+et svar på det indlæg, du lagde ud på forum, og du ville gerne gøres 
 opmærksom på dette, når det skete.
 
 
 You may view the topic at:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
-Or view the $sitename forum index at
+Or view the forum index at
 
-http://$SERVER_NAME$url_phpbb
+%s2
 
-Thank you for using $sitename forums.
+Thank you for using forums.
 
-Have a nice day.
-
-$email_sig';
+Have a nice day.";
 
 
-// $l_quotRRRRemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
+$l_quotemsg	= '[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Du skal anføre brugernavnet som du ønsker at sende beskeden til.";

@@ -208,7 +208,6 @@ $l_statsblock   = '$statsblock = "Käyttäjät ovat lähettäneet kaikkiaan viestejä:
                    ($users_online==1?"Käyttäjä on":"Käyttäjät ovat") ."
                    <a href=\"$online_url\">parhaillaan selaavat</a> foorumeita.<br>";';
 
-// $l_privnotify   = "'$privnotify = "<br>Sinulla on $new_message<a href=\"$privmsg_url\">uusi yksityinen ".($new_message>1?"viestit":"viesti")."</a>."';
 
 // Page_tail
 
@@ -317,24 +316,20 @@ $l_cancelpost	= "Peru viesti";
 $l_nopostlock	= "Et voi lähettää viestiä vastaukseksi tähän aiheeseen, se on lukittu.";
 $l_topicreview  = "Aiheen esittely";
 $l_notifysubj	= "Vastauksesi aiheeseen on lähetetty.";
-$l_notifybody	= 'Hyvä $m[username]\r\nSaat tämän viestin, koska olet pyytänyt sähköpostiviestiä, kun $sitename foorumeihin on vastattu.
+$l_notifybody	= "Saat tämän viestin, koska olet pyytänyt sähköpostiviestiä, kun $sitename foorumeihin on vastattu.
 
 Voit katsoa aihetta:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
-tai katsoa $sitename foorumien listaa:
+tai katsoa foorumien listaa:
 
-http://$SERVER_NAME$url_phpbb
+%s2
 
-Kiitos, että olet käyttänyt $sitename foorumeita.
+Kiitos, että olet käyttänyt foorumeita.
 
-Hyvää päivän jatkoa.
+Hyvää päivän jatkoa.";
 
-$email_sig';
-
-
-$l_quotemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
 
 // Sendpmsg
 

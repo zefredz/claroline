@@ -201,7 +201,6 @@ $l_statsblock   = '$statsblock = "Pengguna kami telah menghantar sejumlah -$tota
 Forum ini mempunyai -$total_users- pengguna berdaftar.<br>
 Pengguna baru yang mendaftar adalah -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"user is":"users are") ." <a href=\"$online_url\">sedang melayari</a> forum.<br>";';
-$l_privnotify   = '$privnotify = "<br>Anda mempunyai $new_message <a href=\"$privmsg_url\">mesej peribadi yang baru".($new_message>1?"messages":"message")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Panel Pentadbir";
@@ -305,24 +304,21 @@ $l_cancelpost	= "Batal";
 $l_nopostlock	= "Anda tidak dibenarkan menghantar balasan mesej ke topik ini.Topik ini telah dikunci.";
 $l_topicreview  = "Papar kembali topik";
 $l_notifysubj	= "Mesej yang hendak dibalas telah dihantar.";
-$l_notifybody	= 'Kepada $m[username]\r\nAnda menerima Email ini kerana mesej yang anda hantar di forum $sitename telah dibalas, dan anda terpilih untuk diberitahu.
+$l_notifybody	= "Anda menerima Email ini kerana mesej yang anda hantar di forum telah dibalas, dan anda terpilih untuk diberitahu.
 
 Anda boleh melihat topik ini di:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
+%s1
 
-Atau lihat indeks forum  $sitename di
+Atau lihat indeks forum di
 
-http://$SERVER_NAME$url_phpbb
+%s2
 
-Terima Kasih kerana menggunakan forum $sitename.
+Terima Kasih kerana menggunakan forum.
 
-Semoga Ceria Selalu.
+Semoga Ceria Selalu.";
 
-$email_sig';
-
-
-// $l_quotRRRRemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
+// $l_quotemsg	= '[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Anda perlu mengisi ID Pengguna ahli yang akan dihantarkan mesej $l_message ini.";

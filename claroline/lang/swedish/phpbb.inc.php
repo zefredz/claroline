@@ -206,7 +206,6 @@ $l_statsblock   = '$statsblock = "Våra användare har totalt postat -$total_posts
 Vi har -$total_users- registrerade medlemmar.<br>
 Den senast registrerade medlemmen är -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"användare":"användare") ." <a href=\"$online_url\">läser förnärvarande</a> i forumen.<br>";';
-$l_privnotify   = '$privnotify = "<br>Du har $new_message <a href=\"$privmsg_url\"> ".($new_message>1?"nya privata meddelanden":"nytt privat meddelande")."</a>.";';
 
 // Page_tail
 $l_adminpanel	= "Administration";
@@ -311,26 +310,24 @@ $l_cancelpost	= "Avbryt";
 $l_nopostlock	= "Du kan inte posta ett svar här eftersom det är låst.";
 $l_topicreview  = "Visa inlägg"; 
 $l_notifysubj	= "Ett svar på ditt inlägg har postats.";
-$l_notifybody	= 'Hej $m[username]\r\nDu får detta meddelande eftersom ett inlägg 
-du postade på $sitename forumet har besvarats och du har tidigare valt att
+$l_notifybody	= "Du får detta meddelande eftersom ett inlägg 
+du postade på forumet har besvarats och du har tidigare valt att
 du vill bli informerade när detta händer.
 
 Du kan läsa mer på:
-		                
-http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
-Eller läs $sitename forum indexet på
+%s1		                
 
-http://$SERVER_NAME$url_phpbb
+Eller läs forum indexet på
 
-Tack för att du använder $sitename forum.
+%s2
 
-Ha en bra dag.
+Tack för att du använder forum.
 
-$email_sig';
+Ha en bra dag.";
 
 
-$l_quotemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
+$l_quotemsg	= '[quote]\nOn %s1, %s2 wrote:\n%s3\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Du måste ange användarnamnet på den du vill skicka $l_message till.";
