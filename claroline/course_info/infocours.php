@@ -61,14 +61,6 @@ $thecourse['registrationAllowed']  = (bool) ($thecourse['visible'] == 1 || $thec
 $visibleChecked             [$thecourse['visibility'         ]] = 'checked';
 $registrationAllowedChecked [$thecourse['registrationAllowed']] = 'checked';
 
-$currentCourseDiskQuota 		= $thecourse['diskQuota'     ];
-$currentCourseLastVisit 		= $thecourse['lastVisit'     ];
-$currentCourseLastEdit			= $thecourse['lastEdit'      ];
-$currentCourseCreationDate 		= $thecourse['creationDate'  ];
-$currentCourseExpirationDate	= $thecourse['expirationDate'];
-
-
-
 
 
 //if values were posted, we overwrite DB info with values previously set by user
@@ -412,117 +404,19 @@ if (isset($cidToEdit))
 </td>
 </tr>
 
-<?php
-if ($showDiskQuota && $currentCourseDiskQuota!="" )
-{
-?>
-<tr>
-<td><?php echo $langDiskQuota; ?>&nbsp;:</td>
-<td><?php echo $currentCourseDiskQuota; ?> <?php echo $byteUnits[0] ?></td>
-</tr>
-
-<?php
-}
-if ($showLastEdit && $currentCourseLastEdit!="" && $currentCourseLastEdit!="0000-00-00 00:00:00")
-{
-?>
-<tr>
-<td><?php echo $langLastEdit; ?>&nbsp;:</td>
-<td><?php echo claro_disp_localised_date($dateTimeFormatLong,strtotime($currentCourseLastEdit)); ?></td>
-</tr>
-
-<?php
-}
-if ($showLastVisit && $currentCourseLastVisit != "" && $currentCourseLastVisit!="0000-00-00 00:00:00")
-{
-?>
-<tr>
-<td><?php echo $langLastVisit; ?>&nbsp;:</td>
-<td><?php echo claro_disp_localised_date($dateTimeFormatLong,strtotime($currentCourseLastVisit)); ?></td>
-</tr>
-
-<?php
-}
-if ($showCreationDate && $currentCourseCreationDate!="" && $currentCourseCreationDate!="0000-00-00 00:00:00")
-{
-?>
-<tr>
-<td><?php echo $langCreationDate; ?>&nbsp;:</td>
-<td><?php echo claro_disp_localised_date($dateTimeFormatLong,strtotime($currentCourseCreationDate)); ?></td>
-</tr>
-
-<?php
-}
-if ($showExpirationDate && $currentCourseExpirationDate!="" && $currentCourseExpirationDate!="0000-00-00 00:00:00")
-{
-?>
-<tr>
-<td><?php echo $langExpirationDate; ?>&nbsp;:</td>
-<td>
-<?php
-	echo claro_disp_localised_date($dateTimeFormatLong,strtotime($currentCourseExpirationDate));
-	echo "<BR>Soit dans : ";
-	$nbJour = (strtotime($currentCourseExpirationDate) - time()) / (60*60*24);
-	$nbAnnees  = round($nbJour / 365);
-	$nbJour = round($nbJour - $nbAnnees*365);
-	switch ($nbAnnees)
-	{
-		case "1" : 	echo $nbAnnees, " an "; break;
-		case "0" : 	break;
-		default	 : 	echo $nbAnnees, " ans ";
-	};
-	switch ($nbJour)
-	{
-		case "1" : 	echo $nbJour, " jour "; break;
-		case "0" : 	break;
-		default	 : 	echo $nbJour, " jours ";
-	}
-
-	if ($canReportExpirationDate)
-	{
-		echo " -&gt; <a href=\"".$urlScriptToReportExpirationDate."\">".$langPostPone."</a>";
-	}
-?>
-</td>
-</tr>
-
-<?php
-}
-?>
-<tr>
-<td colspan="2">
-<?php
-		if($showLinkToExportThisCourse || $showLinkToDeleteThisCourse)
-		{
-?>
-
+</table>
+</form>
 <hr noshade size="1">
-
 <?php
-		}
 
-		if($showLinkToExportThisCourse)
-		{
-?>
-
-<a href="archive_course.php"><?php echo $langBackupCourse; ?></a>
-
-<?php
-		}
-
-		if($showLinkToExportThisCourse && $showLinkToDeleteThisCourse)
-		{
-			echo ' | ';
-		}
-
-		if($showLinkToDeleteThisCourse)
-		{
-
-if (isset($cidToEdit))
+if($showLinkToDeleteThisCourse)
 {
-    $toAdd="?cidToEdit=".$current_cid;
-    $toAdd.="&cfrom=".$cfrom;
-}
+
+	if (isset($cidToEdit))
+	{
+	    $toAdd="?cidToEdit=".$current_cid;
+	    $toAdd.="&cfrom=".$cfrom;
+	}
 ?>
 
 <a class="claroCmd" href="delete_course.php<?php echo $toAdd ?>">
@@ -533,16 +427,16 @@ if (isset($cidToEdit))
 
 //Display tool links
 
-echo "<a class=\"claroCmd\" href=\"".$coursesRepositoryWeb.$currentCourseRepository."/index.php?\">".$langHome."</a>";
+	echo "<a class=\"claroCmd\" href=\"".$coursesRepositoryWeb.$currentCourseRepository."/index.php?\">".$langHome."</a>";
 
 
-if($is_platformAdmin && isset($_REQUEST['cidToEdit']))
-{
-echo " |
-<a class=\"claroCmd\" href=\"../admin/index.php\">".$langBackToAdmin."</a>";
-}
+	if($is_platformAdmin && isset($_REQUEST['cidToEdit']))
+	{
+		echo " |
+		<a class=\"claroCmd\" href=\"../admin/index.php\">".$langBackToAdmin."</a>";
+	}
 
-if (isset($cfrom) && ($is_platformAdmin))
+	if (isset($cfrom) && ($is_platformAdmin))
       {
         if ($cfrom=="clist")  //in case we come from the course list in admintool
         {
@@ -555,10 +449,6 @@ if (isset($cfrom) && ($is_platformAdmin))
 }
 ?>
 
-</td>
-</tr>
-</table>
-</form>
 
 <?php
 
