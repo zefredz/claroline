@@ -466,103 +466,92 @@ switch ($displayMode)
 
 		if ($courseList)
 		{
-			echo	"<h4>",$langCourseList,"</h4>",
+			echo "<h4>",$langCourseList,"</h4>"
 			
-					"<blockquote>",
+				."<blockquote>",
 
-					"<table class=\"claroTable\" >";
+				"<table class=\"claroTable\" >";
 
             if ($userSettingMode) //display links to enroll as student and also as teacher (but not for a class)
 	    {
                
 	      if ($_REQUEST['fromAdmin']!="class")
 	      { 	      
-                  echo "<tr class=\"headerX\">
-                      <th>
-                      </th>
-                      <th>
-                      ".$langEnrollAsStudent."
-                      </th>";
-		  echo   "<th>
-                          ".$langEnrollAsTeacher."
-                          </th>
-                         <tr>";
+                echo "<tr class=\"headerX\">\n"
+                    ." <th></th>\n"
+                    ." <th>".$langEnrollAsStudent."</th>\n"
+                    ." <th>".$langEnrollAsTeacher."</th>\n"
+                    ."<tr>\n";
 	      }
 	      else
 	      {
-	          echo "<tr class=\"headerX\">
-                      <th>
-                      </th>
-                      <th>
-                      ".$langEnrollClass."
-                      </th>";
+              echo "<tr class=\"headerX\">\n"
+                  ." <th></th>\n"
+                  ." <th>".$langEnrollClass."</th>\n";
 	      }
             }
 
 			foreach($courseList as $thisCourse)
 			{
-				echo	"<tr>",
-
-						"<td>",$thisCourse['officialCode']," - ",$thisCourse['intitule'],
-
-						"<br>",
-						"<small>",$thisCourse['titulaires'],"</small>",
-
-						"</td>";
-
-
+				echo "<tr>\n"
+					." <td>\n".$thisCourse['officialCode']." - ".$thisCourse['intitule']
+					."  <br>\n"
+					."  <small>".$thisCourse['titulaires']."</small>"
+					." </td>";
 
                 //enroll link
 
                 if ($userSettingMode) 
 				{
-
                     if ($thisCourse['enrolled'])
                     {
-                        echo "<td valign=\"top\" colspan=\"2\" align=\"center\">";
-                        echo    " <small><font color=\"gray\">",$lang_already_enrolled,"</font></small>\n";
+                        echo "<td valign=\"top\" colspan=\"2\" align=\"center\">\n"
+                            ." <small><font color=\"gray\">".$lang_already_enrolled."</font></small>\n";
                     }
                     else
                     {
-                        
-
-                         if ($_REQUEST['fromAdmin']!="class") // class may not be enrolled as teachers
-	      		 { 
-			     echo "<td valign=\"top\"  align=\"center\">";
-                             echo    " <a href=\"",$_SERVER['PHP_SELF'],"?cmd=exReg&course=",$thisCourse['code'],$inURL,"\">\n",
-                                     "<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$langEnrollAsStudent,"\">\n",
-                                     "</a>
-                                   </td>\n";
-			     
-			     echo "<td valign=\"top\"  align=\"center\">";
-                             echo    " <a href=\"",$_SERVER['PHP_SELF'],"?cmd=exReg&asTeacher=true&course=",$thisCourse['code'],$inURL,"\">\n",
-                                     "<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$langEnrollAsTeacher,"\">\n",
-                                      "</a></td>\n";
-			 }
-			 else 
-			 {
-			     echo "<td valign=\"top\"  align=\"center\">";
-                             echo    " <a href=\"",$clarolineRepositoryWeb,"admin/admin_class_course_registered.php?cmd=exReg&course=",$thisCourse['code'],"&class=",$classinfo['id'],$inURL,"\">\n",
-                                     "<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$langEnrollClass,"\">\n",
-                                     "</a>
-                                  </td>\n";
-			 }
-			 
-			 
+                         if ( $_REQUEST['fromAdmin'] != 'class') // class may not be enrolled as teachers
+                         { 
+                            echo "<td valign=\"top\" align=\"center\">"
+                                ." <a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&course=".$thisCourse['code'].$inURL."\">\n"
+                                ." <img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" alt=\"".$langEnrollAsStudent."\">\n"
+                                ."</a>\n"
+                                ."</td>\n"
+                                
+                                ."<td valign=\"top\" align=\"center\">"
+                                ." <a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&asTeacher=true&course=".$thisCourse['code'].$inURL."\">\n"
+                                ." <img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\"  alt=\"".$langEnrollAsTeacher."\">\n"
+                               ."</a>\n"
+                               ."</td>\n";
+                        }
+                        else 
+                        {
+                            echo "<td valign=\"top\"  align=\"center\">"
+                                ." <a href=\"".$clarolineRepositoryWeb."admin/admin_class_course_registered.php?cmd=exReg&course=".$thisCourse['code']."&class=",$classinfo['id'].$inURL."\">\n"
+                                ." <img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"".$langEnrollClass."\">\n"
+                                ." </a>
+                                .</td>\n";
+                        }
                     }
                 }
                 else
                 {
-                    echo "<td valign=\"top\">";
+                    echo "<td valign=\"top\">\n";
+
     				if ($thisCourse['enrolled'])
     				{
-    					echo	" <small><font color=\"gray\">",$lang_already_enrolled,"</font></small>\n";
+    					echo " <small>"
+                             ."<font color=\"gray\">"
+                             .$lang_already_enrolled
+                             ."</font>"
+                             ."</small>\n";
     				}
     				else
     				{
-    					echo	" <a href=\"",$_SERVER['PHP_SELF'],"?cmd=exReg&course=",$thisCourse['code'],$inURL,"\">\n",
-    							"<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"",$lang_enroll,"\">\n",
-    							"</a></td>\n";
+    					echo " <a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&course=".$thisCourse['code'].$inURL."\">\n"
+    						 ."<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"".$lang_enroll."\">\n"
+    						 ."</a>\n"
+                            ."</td>\n";
     				}
 
                }

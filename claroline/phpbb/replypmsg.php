@@ -26,44 +26,45 @@ $pagetype  = "pmreply";
 
 require 'page_header.php';
 
-if($submit) {
-	if($message == '') error_die($l_emptymsg.' '.$l_tryagain);
+if($submit)
+{
+    $msgid   = (int) $_REQUEST['msgid'];
+    $message = trim( $_REQUEST['message']);
 
-	$sql = "SELECT u.* FROM `".$tbl_users."` u, `".$tbl_priv_msgs."` p 
-	        WHERE  u.user_id = p.to_userid
+    if($message == '') error_die($l_emptymsg.' '.$l_tryagain);
+
+    $sql = "SELECT u.* 
+            FROM `".$tbl_users."` u, 
+                `".$tbl_priv_msgs."` p 
+            WHERE  u.user_id = p.to_userid
               AND  p.msg_id  = '".$msgid."'";
 
-	$result       = claro_sql_query($sql);
-	$fromuserdata = mysql_fetch_array($result, MYSQL_ASSOC);
+    $result       = claro_sql_query($sql);
+    $fromuserdata = mysql_fetch_array($result, MYSQL_ASSOC);
 
-	$message = addslashes($message);
-	$time    = date('Y-m-d H:i');
-
-	$sql = "SELECT from_userid 
+    $sql = "SELECT from_userid 
             FROM `".$tbl_priv_msgs."` 
             WHERE msg_id = '".$msgid."'";
 
     $touserid = claro_sql_query_get_single_value($sql);
 
-	$sql = "INSERT INTO `".$tbl_priv_msgs."` 
+    $message = addslashes($message);
+    $time    = date('Y-m-d H:i');
+
+    $sql = "INSERT INTO `".$tbl_priv_msgs."` 
             SET from_userid = ".$fromuserdata['user_id']."', 
                 to_userid   = '".$touserid."', 
                 msg_time    = '".$time."', 
                 msg_text    = '".$message."', 
                 poster_ip   = '".$poster_ip."'";
 
-    $result = claro_sql_query($sql);
-	
-   echo "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" align=\"center\" width=\"".$tablewidth."\">"
-       ."<tr>"
-       ."<td><center>".$l_pmposted."</center></td>"
-        ."</tr>"
-        ."</table>";
-		
+   $result = claro_sql_query($sql);
+
+   disp_confirmation_message($l_pmposted);
+
 } // end if submit
 else
 {
-
     $sql = "SELECT from_userid, to_userid 
             FROM `".$tbl_priv_msgs."` 
             WHERE msg_id = '".$msgid."'";
@@ -71,8 +72,9 @@ else
 	$result = claro_sql_query_fetch_all($sql);
     if ( count($result) == 0 ) error_die('Message not found');
     else                       $row = $result[0];
-	$fromuserdata = get_userdata_from_id($row['from_userid'], $db);
-	$touserdata   = get_userdata_from_id($row['to_userid'], $db);
+
+	$fromuserdata = get_userdata_from_id($row['from_userid']);
+	$touserdata   = get_userdata_from_id($row['to_userid']);
 
 
 	if ( $user_logged_in && ($userdata['user_id'] != $touserdata['user_id']) ) {
@@ -84,12 +86,12 @@ else
 <table border="0" cellpadding="1" align="center" width="95%">
 
 <tr>
-<td><b><?php echo $l_aboutpost?>:</b></td>
-<td><?php echo $l_regusers." ".$l_cansend ?></td> 
+<td><?php echo $l_aboutpost?>:</td>
+<td><?php echo $l_regusers.' '.$l_cansend ?></td> 
 </tr>
 
 <tr>
-<td><b><?php echo $l_yourname?>:<b></td>
+<td><?php echo $l_yourname?>:</td>
 <td>
 <?php
     if ($user_logged_in) echo $userdata['username']."\n";
@@ -115,7 +117,8 @@ else
                     WHERE p.msg_id      = '".$msgid."' 
                       AND p.from_userid = u.user_id";
 
-            if($result = mysql_query($sql, $db)) {
+            if($result = mysql_query($sql, $db))
+            {
                 $m                  = mysql_fetch_array($result,MYSQL_ASSOC);
                 $m['post_time']     = $m['msg_time'];
                 $text               = stripslashes($text);
@@ -136,7 +139,7 @@ else
 </tr>
 
 <tr>
-<td  colspan=2 align="center">
+<td  colspan='2' align="center">
 <input type="hidden" name="msgid" value="<?php echo $msgid?>">
 <input type="hidden" name="quote" value="<?php echo $quote?>">
 <input type="submit" name="submit" value="<?php echo $l_submit?>">
