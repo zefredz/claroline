@@ -2,7 +2,7 @@
 require("class.phpmailer.php");
 
   //needed to see if email is valid to try sending the notification
- $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,3})$";
+ $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 
 
  /*
@@ -18,6 +18,7 @@ require("class.phpmailer.php");
 
    global $From;
    global $administrator;
+   global $regexp;
 
    if ($specificFrom=="") {$specificFrom = $From;}
    $TABLEUSER = $mainDbName.".user";
@@ -34,8 +35,14 @@ require("class.phpmailer.php");
    }
    else
    {
-        echo "No user with such an ID !!!";
+        claro_set_failure("No user with such an ID !!!");
         return 0;
+   }
+
+   if(!eregi($regexp,$list['email']) or empty($list['email']) )
+   {
+       claro_set_failure("Wrong or empty email address for " . $list['nom'] . " " . $list['prenom'] . " !!!");
+	   return 0;
    }
 
    // create mailer and configure it.
@@ -72,7 +79,7 @@ require("class.phpmailer.php");
 
    if (!$mail->Send())
    {
-        echo "There has been a mail error sending to " .$usermail."<br>";
+        claro_set_failure("There has been a mail error sending to " .$usermail."<br>");
         return 0;
    }
 
