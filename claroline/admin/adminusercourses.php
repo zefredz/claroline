@@ -157,7 +157,7 @@ $resultList = $myPager->get_result_list();
 
   //display title
 
-$nameTools .= " : ".$resultTitle['prenom']." ".$resultTitle['nom'];
+$nameTools .= " : ".$resultTitle[0]['prenom']." ".$resultTitle[0]['nom'];
 
 claro_disp_tool_title($nameTools);
 
