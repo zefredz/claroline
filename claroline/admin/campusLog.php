@@ -501,10 +501,9 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                       FROM `$TABLEACCESSCOURSE`
                       WHERE `access_tid` IS NOT NULL
                       GROUP BY `access_tid`";
-          
+
           $result = mysql_query($sql);
-          $count = mysql_fetch_array($result);
-          
+
           // look for each tool of the course in re
           while( $count = mysql_fetch_array($result) )
           {
