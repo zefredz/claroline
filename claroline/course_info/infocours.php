@@ -91,6 +91,9 @@ if($is_allowedToEdit)
 		mysql_query("UPDATE `".$TABLECOURSE."`
 					 SET ".implode(",",$fieldsToUpdate)."
 					 WHERE code=\"".$current_cid."\"");
+		$cidReset = true;
+		$cidReq = $current_cid;
+		include($includePath."/claro_init_local.inc.php");
            
            
 $controlMsg["success"][]= $langModifDone;
