@@ -610,9 +610,15 @@ function claro_get_tool_view_mode()
 {
     if ( ! isset($_SESSION['claro_toolViewMode']) )
     {
-        $_SESSION['claro_toolViewMode'] = 'COURSE_ADMIN'; // default
+        if ( isset($_REQUEST['viewMode']) )
+        {
+        	claro_set_tool_view_mode($_REQUEST['viewMode']);
+        }
+        else
+        {
+            claro_set_tool_view_mode('COURSE_ADMIN');
+        }
     }
-
     return $_SESSION['claro_toolViewMode'];
 }
 
