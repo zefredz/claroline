@@ -974,7 +974,6 @@ if (isset($_cid) && $_courseTool['label'])
         require $includePath.'/conf/'.$_courseTool['label'].'.conf.php';
     if (isset($_cid) && file_exists($coursesRepositorySys.$_course['path'].'/conf/'.$_courseTool['label'].'.conf.php'))
         require $coursesRepositorySys.$_course['path'].'/conf/'.$_courseTool['label'].'.conf.php';
-    $debugMsg[__FILE__][]=$includePath.'/conf/'.$_courseTool['label'].'.conf.php';
 }
 
 ?>
