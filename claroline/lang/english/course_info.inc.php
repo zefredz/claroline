@@ -26,8 +26,8 @@ $langModifDone="The information has been modified";
 $langHome="Back to HomePage";
 $langCode="Course code";
 $langDelCourse="Delete this course";
-$langProfessor="Professor(s)";
-$langProfessors="Professors";
+$langProfessor="Professor";
+$langProfessors="Professor(s)";
 $langTitle="Course title";
 $langFaculty="Faculty";
 $langDescription="Description";
@@ -50,15 +50,15 @@ Now, to add an introduction text presenting your course to students, click on th
 $langEditToolList="Edit Tool list";
 $langProgramMenu="Course program";
 $langStats="Statistics";
-$langUplPage="Upload page and link to Home Page";
-$langLinkSite="Add link to page on Home Page";
+$langUplPage="Upload page and link to Homepage";
+$langLinkSite="Add link on Homepage";
 $langVid="Video";
 
 
 
 // delete_course.php
 $langDelCourse="Delete the whole course website";
-$langCourse="The website ";
+$langCourse="Course";
 $langHasDel="has been deleted";
 $langBackHome="Back to Home Page of ";
 $langByDel="Deleting this course website will permanently delete all the documents it contains and unregister all its students (not remove them from other courses).<p>Do you really want to delete the course";

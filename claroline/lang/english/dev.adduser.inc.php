@@ -15,5 +15,12 @@ $langEdit = "Editer";
 $langLine = "line";
 $langLineNumber =  "Lines Number";
 $langLineOrLines = "line(s)";
+$langUserName = "Username";
+$langUsers = "Users";
+$langEdit = "Edit";
+$langLines =  "lines";
+$langTitle =  "Title";
+$langTracking = "Tracking";
+$langUserName = "Username";
 
 ?>

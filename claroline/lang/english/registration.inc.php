@@ -129,7 +129,7 @@ $langUnreg = "Unregister";
 $langAddHereSomeCourses = "<font size=2 face='Arial, Helvetica'><big>Modify courses list</big><br><br>
 Check the courses you want to follow.<br>
 Uncheck the ones you don't want to follow anymore.<br> Then click Ok at the bottom of the list";
-$langTitular = "Author";
+$langTitular = "Titular";
 $langCanNotUnsubscribeYourSelf = "You can't unsubscribe yourself from a course that you admin, only another admin of the course can do it.";
 
 $langGroup="Group";
@@ -187,7 +187,7 @@ $langAction = "Action";
 $langLogin = "Log In";
 $langModify = "Modify";
 
-$langUserName = "User name";
+$langUserName = "Username";
 
 
 $langEdit = "Edit";
@@ -209,7 +209,7 @@ $langNoUserSelected = "No user selected!";
 
 // dialogbox messages
 
-$langUserUnsubscribed = "User has been sucessfully unregistered from course";
+$langUserUnsubscribed = "The user has been successfully unregistered from course";
 $langUserNotUnsubscribed = "Error!! you can not unregister a course manager";
 
 ?>

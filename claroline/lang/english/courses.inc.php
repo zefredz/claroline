@@ -34,7 +34,7 @@ $langAdminThisUser	= "Back to user";
 $langBackToListOfThisUser = "Back to course list";
 
 $langAdministration = "Administration";
-$langManage				 = "Campus management";
+$langManage				 = "Manage Campus";
 
 $lang_back_to_parent_category              = "Back to parent category";
 $lang_back_to_course_selection             = "Back to course selection";

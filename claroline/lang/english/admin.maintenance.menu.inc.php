@@ -25,7 +25,7 @@ $langAdministration = "Administration";
 $langTools = "Tools";
 $langState = "State";
 $langDevAdmin ="Development Administration";
-$langLinksToClaroProjectSite ="Links to the project website";
+$langLinksToClaroProjectSite ="Links to the project's website";
 $langNomOutilTodo 		= "Manage Todo list"; // to do
 $langNomPageAdmin 		= "Administration";
 $langSysInfo  			= "Info about System";        // Show system status
@@ -53,7 +53,7 @@ $langNbAnnoucement = "Number of announcements";
 
 $langPleaseCheckConfigForMainDataBaseName = "Please check these values
 <br>
-Main database name in 
+Main database name in
 <br>";
 $langBaseFound ="Found
 <br>
@@ -90,8 +90,8 @@ $langSearchACourse ="Search a course";
 $langBrowseCourse = "Browse courses";
 $langListOfCourse = "List courses";
 
-$langListOfCourseSubscriptionSimple = "List registration in course (handly version)";
-$langListOfCourseSubscriptionComplete = "List registration in course (complete version)";
+$langListOfCourseSubscriptionSimple = "List registration in courses (handly version)";
+$langListOfCourseSubscriptionComplete = "List registration in courses (complete version)";
 $langLogIdentLogout ="Browse Login actions";
 $langLogIdentLogoutComplete ="Browse Login actions (with max info)";
 
@@ -99,8 +99,8 @@ $langCourseOfAUser 		= "Courses of one user";
 $langCourseOfListUser 	= "Courses of all users";
 $langCourses			= "Courses";
 $langUsers				= "Users";
-$langManage				= "Managing the campus";
-$langNoteAboutViaPMA = " &laquo;Via pma&raquo; = Direct link to a PhpMyAdmin window.";
+$langManage				= "Manage Campus";
+$langNoteAboutViaPMA = "PMA = Opens PhpMyAdmin in a new window";
 $langAddACourse = "Create a course";
 $langCategories = "Course Categories";
 $langAdminProfileUser = "Edit User Profile";
@@ -108,7 +108,7 @@ $langListOfCourseOfUser ="List of users registered in a course";
 $langAddAdminInApache = "Add an admin";
 $langAddCategories = "Add Categories";
 $langMaintenance ="Maintenance";
-$langUpgrade ="Upgrade claroline";
+$langUpgrade ="Upgrade";
 $langUpgradeAll = "Upgrade the whole platform.";
 $langMakeBackupBefore = "Make a backup before !";
 

@@ -4,7 +4,7 @@ $langEditNode = "Editer";
 $langOpenNode = "Ouvrir";
 $langAdministration = "Administration";
 $langAddChildNode ="Ajouter une sous-catégorie";
-$langManage ="Gestion du Campus";
+$langManage ="Manage Campus";
 $langViewChildren = "VisuArbre";
 $langDeleteNode = "Supprimer cette catégorie";
 

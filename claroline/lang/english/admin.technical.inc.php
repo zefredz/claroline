@@ -115,7 +115,7 @@ $langAdminTree = "Manage courses tree";
 
 $langInfoServer = "hardware status";
 $langMailTo = "Mail to : ";
-$lang_no_access_here ="Pas d'accès ";
+$lang_no_access_here ="No way";
 $lang_php_info = "information sur le système php";
 $langAdmin ="Admin";
 $langCheckDatabase = "Check Database";

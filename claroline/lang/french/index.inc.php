@@ -28,7 +28,6 @@ $langInvalidId="Cet identifiant n'est pas valide. Si vous n'êtes pas encore insc
 remplissez le <a href='claroline/auth/inscription.php'>formulaire d'inscription</a></font color>";
 $langOtherCourses="Autres cours";
 $langCourseCreate="Créer un site de cours";
-$langTodo="Suggestions";
 $langWelcome="sites sont en libre accès ci-dessous. Les autres cours existants
 nécessitent un nom d'utilisateur et un mot de passe que l'on peut
 obtenir en cliquant sur la mention 'inscription'. Il est possible aux
