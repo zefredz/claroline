@@ -1,11 +1,9 @@
-<?
+<?php // $Id$
 /**
     +-------------------------------------------------------------------+
-    | CLAROLINE version $Revision$                                |
+    | CLAROLINE 1.6
     +-------------------------------------------------------------------+
-    | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)   |
-    +-------------------------------------------------------------------+
-    | $Id$ |
+    | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)   |
     +-------------------------------------------------------------------+
     | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>             |
     |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                |
@@ -57,7 +55,6 @@ $TABLESTATS_COUNTRIES   = $statsDbName."`.`track_c_countries";
 $TABLESTATS_BROWSERS    = $statsDbName."`.`track_c_browsers";
 $TABLESTATS_OS          = $statsDbName."`.`track_c_os";
 $TABLESTATS_REFERERS    = $statsDbName."`.`track_c_referers";
-
 
 /***************************************************************************
  *
