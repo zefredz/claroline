@@ -28,10 +28,9 @@ $currentCourse = $currentCourseID;
 $nameTools = $langUser;
 
 /** OUTPUT **/
+claro_set_display_mode_available(true);
 
-include($includePath."/claro_init_header.inc.php");
-if ( ! $is_courseAllowed) claro_disp_auth_form();
-define ("WARNING_MESSAGE", "<h4 style='color:red'> Database problem !! </h4>");
+if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
 /*
  * data  found  in settings  are :
@@ -50,14 +49,13 @@ $userIdViewed = $uInfo; // Id of the user we want to view coming from the user.p
 $courseCode = $currentCourseID = $_course['sysCode'];
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
-//mysql_select_db($_course['dbName']) or die (WARNING_MESSAGE); // select Course DB
 
 $userIdViewer = $_uid; // id fo the user currently online
 //$userIdViewed = $HTTP_GET_VARS['userIdViewed']; // Id of the user we want to view
 
-$allowedToEditContent     = ($userIdViewer == $userIdViewed) || $is_platformAdmin;
-$allowedToEditDef         = $is_courseAdmin;
-$is_allowedToTrack         = $is_courseAdmin && $is_trackingEnabled || ($userIdViewer == $userIdViewed );
+$allowedToEditContent     = ($userIdViewer == $userIdViewed) || claro_is_allowed_to_edit();
+$allowedToEditDef         = claro_is_allowed_to_edit();
+$is_allowedToTrack         = claro_is_allowed_to_edit() && $is_trackingEnabled || ($userIdViewer == $userIdViewed );
 
 
 // clean field submited by the user
@@ -165,8 +163,11 @@ if ($allowedToEditContent)
 //////////////////////////////////////////////////////////////////////////////
 // OUTPUT
 //////////////////////////////
+if( $displayMode != "viewContentList" ) claro_set_display_mode_available(false);
 
 event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+
+include($includePath."/claro_init_header.inc.php");
 
 claro_disp_tool_title($nameTools);
 
@@ -184,7 +185,7 @@ if ($displayMode == "viewDefEdit")
     $catToEdit = claro_user_info_get_cat_def($editDef);
 ?>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?uInfo=<?php echo $userIdViewed; ?>">
 <input type="hidden" name="id" value="<?php echo $catToEdit['id']?>">
 <table>
 <tr>
@@ -290,7 +291,7 @@ elseif ($displayMode == "viewDefList")
 
 
     echo     '<div align="center">' ."\n"
-            .'<form method="post" action="'.$_SERVER['PHP_SELF'].'">'
+            .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">'
             .'<input type="submit" name="addDef" value="'.$langAddNewHeading.'">'
             .'</form>'  ."\n"
             .'</div>' ."\n";
@@ -302,7 +303,7 @@ elseif ($displayMode == "viewContentEdit")
     $catToEdit = claro_user_info_get_cat_content($userIdViewed,$editContent);
 ?>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?uInfo=<?php echo $userIdViewed; ?>">
 <input type="hidden" name="cntId" value="<?php echo $catToEdit['contentId']; ?>">
 <input type="hidden" name="catId" value="<?php echo $catToEdit['catId'    ]; ?>">
 <input type="hidden" name="uInfo"  value="<?php echo $userIdViewed; ?>">
@@ -334,7 +335,7 @@ elseif ($displayMode =="viewMainInfoEdit")
         ($mainUserInfo['tutor' ] == 1) ? $tutorChecked       = "checked" : $tutorChecked       = "";
 
 
-        echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'
+        echo '<form action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'" method="post">'
             .'<input type="hidden" name="submitMainUserInfo" value="'.$userIdViewed.'">'."\n"
             .'<table class="claroTable" width="80%" border="0">'
             .'<thead>'."\n"
@@ -470,7 +471,7 @@ elseif ($displayMode == "viewContentList") // default display
     {
         echo "\n\n"
             .'<div align="right">'."\n"
-            .'<form method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
+            .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">'."\n"
             .$langCourseAdministratorOnly.' : '
             .'<input type="submit" name="viewDefList" value="'.$langDefineHeadings.'">'."\n"
             .'</form>'."\n"
