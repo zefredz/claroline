@@ -269,7 +269,7 @@ if($is_allowedToEdit)
 			{
 ?>
 
-	<a href="admin.php?editQuestion=<?php echo $row[id]; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langModify; ?>"></a>
+	<a href="admin.php?editQuestion=<?php echo $row[id]; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEditQuestion; ?>"></a>
 
 <?php
 			}

@@ -94,7 +94,7 @@ if($nbrQuestions)
 </tr>
 <tr>
   <td>
-	<a href="<?php echo $PHP_SELF; ?>?editQuestion=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langModify; ?>"></a>
+	<a href="<?php echo $PHP_SELF; ?>?editQuestion=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langEditQuestion; ?>"></a>
 	<a href="<?php echo $PHP_SELF; ?>?deleteQuestion=<?php echo $id; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmYourChoice)); ?>')) return false;"><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" align="absmiddle" alt="<?php echo $langDelete; ?>"></a>
 
 <?php
