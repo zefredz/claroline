@@ -153,8 +153,8 @@ stripSubmitValue($_REQUEST);
 
 // table names for learning path (needed to check integrity)
 
-$TABLELEARNPATH            = $_course['dbNameGlu']."lp_learnpath";
-$TABLELEARNPATHMODULE      = $_course['dbNameGlu']."lp_rel_learnpath_module";
+$TABLELEARNPATH            = $_course['dbNameGlu']."lp_learnPath";
+$TABLELEARNPATHMODULE      = $_course['dbNameGlu']."lp_rel_learnPath_module";
 $TABLEUSERMODULEPROGRESS   = $_course['dbNameGlu']."lp_user_module_progress";
 $TABLEMODULE               = $_course['dbNameGlu']."lp_module";
 $TABLEASSET                = $_course['dbNameGlu']."lp_asset";
