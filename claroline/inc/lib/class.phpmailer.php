@@ -378,9 +378,10 @@ class PHPMailer
         }
         elseif($this->Mailer == "debug")
         {
+		
 			echo '<br>
-			<strong>Headers:</strong><PRE>'.$header.'</PRE><br>
-			<strong>body:</strong><PRE>'.$body.'</PRE>';
+			<strong>Headers:</strong><PRE>'.htmlentities($header).'</PRE><br>
+			<strong>body:</strong><PRE>'.htmlentities($body).'</PRE>';
               return false;
         }
         else
@@ -427,7 +428,8 @@ class PHPMailer
      * @access private
      * @return bool
      */
-    function MailSend($header, $body) {
+    function MailSend($header, $body) 
+	{
         $to = "";
         for($i = 0; $i < count($this->to); $i++)
         {
@@ -568,7 +570,7 @@ class PHPMailer
                         $connection = false;
                     }
                 }
-                $connection = true;
+                $connection = TRUE;
             }
             $index++;
         }
@@ -1260,7 +1262,7 @@ class PHPMailer
         $this->attachment[$cur][2] = $filename;
         $this->attachment[$cur][3] = $encoding;
         $this->attachment[$cur][4] = $type;
-        $this->attachment[$cur][5] = true; // isString
+        $this->attachment[$cur][5] = TRUE; // isString
         $this->attachment[$cur][6] = "attachment";
         $this->attachment[$cur][7] = 0;
     }
@@ -1316,7 +1318,7 @@ class PHPMailer
         {
             if($this->attachment[$i][6] == "inline")
             {
-                $result = true;
+                $result = TRUE;
                 break;
             }
         }
