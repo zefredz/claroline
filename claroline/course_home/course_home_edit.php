@@ -356,8 +356,9 @@ foreach($toolList as $thisTool)
 
 echo "</table>";
 
-echo "<input class=\"claroButton\" type=\"submit\" value=\"OK\" />\n"
-    ."</form>\n"
+echo "<input class=\"claroButton\" type=\"submit\" value=\"OK\" />\n";
+claro_disp_button($coursesRepositoryWeb.$_course['path'], 'Cancel');
+echo "</form>\n"
     ."</blockquote>\n";
 
 echo "<hr size=\"1\" noshade=\"noshade\"  />";
