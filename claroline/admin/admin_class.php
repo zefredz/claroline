@@ -358,13 +358,13 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	            if ($_SESSION['admin_visible_class'][$cur_class['id']]=="open")
     	    	{
 	    	        $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&class=".$cur_class['id']."\">\n"
-		                              ."   <img src=\"".$clarolineRepositoryWeb."img/minus.jpg\" border=\"0\" >\n"
+		                              ."   <img src=\"".$clarolineRepositoryWeb."img/minus.gif\" border=\"0\" >\n"
 				                      ."</a>\n";
 		        }
 		        else
 		        {
 		            $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&class=".$cur_class['id']."\">\n"
-		                              ."  <img src=\"".$clarolineRepositoryWeb."img/plus.jpg\" border=\"0\" >\n"
+		                              ."  <img src=\"".$clarolineRepositoryWeb."img/plus.gif\" border=\"0\" >\n"
 				                      ."</a>\n";
 		        }    
 	        }
