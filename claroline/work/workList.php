@@ -58,6 +58,7 @@ $currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course["path"]."/";
 $fileAllowedSize = CONFVAL_MAX_FILE_SIZE_PER_WORKS ;    //file size in bytes
 $wrkDirSys          = $currentCourseRepositorySys."work/"; // systeme work directory
 $wrkDirWeb          = $currentCourseRepositoryWeb."work/"; // web work directory
+$maxFilledSpace 	= 100000000;
 
 // use with strip_tags function when strip_tags is used to check if a text is empty
 // but a 'text' with only an image don't have to be considered as empty 
@@ -1309,8 +1310,12 @@ if( $is_allowedToSubmit )
                         // if the file is required and the text is only a description of the file
                         echo $langUploadDoc."&nbsp;*";
                   }
+                  
+                  $maxFileSize = min(get_max_upload_size($maxFilledSpace,$wrkDirSys), $fileAllowedSize);
+
                   echo "&nbsp;:</label></td>\n"
-                        ."<td><input type=\"file\" name=\"wrkFile\" id=\"wrkFile\" size=\"30\"></td>\n"
+                        ."<td><input type=\"file\" name=\"wrkFile\" id=\"wrkFile\" size=\"30\"><br />"
+						."<small>".$langMaxFileSize." ".format_file_size($maxFileSize)."</small></td>\n"
                         ."</tr>\n\n";
             }
             
