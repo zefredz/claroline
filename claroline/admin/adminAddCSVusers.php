@@ -40,6 +40,7 @@ $uploadTempDir = "tmp/";
 
 // Deal with interbredcrumps  and title variable
 
+$noQUERY_STRING = true;
 $nameTools        = "Add a user list";
 $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> "Administration");
 
@@ -60,7 +61,7 @@ if ((($cmd=="exImpSec"  || $cmd=="exImp") && $_SESSION['claro_CSV_done']) || emp
     $_SESSION['claro_CSV_done'] = FALSE;
 }
 
-//Set format used for CSV files
+//Set format, fields separator and enclosion used for CSV files
 
 $defaultFormat = "surname;name;email;phone;username;password;officialCode";
 
@@ -145,12 +146,25 @@ switch ($cmd)
 	
 	//Read each ligne : we put one user in an array, and build an array of arrays for the list of user.
 	
+	   //see where the line format must be found and which seperator and enclosion must be used
+	
 	if ($_REQUEST['firstLineFormat']=="YES")
 	{
-	    $usedFormat = "FIRSTLINE";
+	    $usedFormat      = "FIRSTLINE";
+	    $fieldSeparator = ";";
+	    $enclosedBy     = "";
 	}
-		
-	$CSVParser = new CSV($uploadTempDir.$_FILES["CSVfile"]["name"],";",$usedFormat);
+	else
+	{
+	    $fieldSeparator  = $_REQUEST['fieldSeparator'];	    
+	    $enclosedBy      = $_REQUEST['enclosedBy'];
+	    if ($_REQUEST['enclosedBy']=="dbquote") 
+	    {
+	        $enclosedBy = "\"";
+	    }	    
+	}
+	
+	$CSVParser = new CSV($uploadTempDir.$_FILES["CSVfile"]["name"],$fieldSeparator,$usedFormat,$enclosedBy);
 	$userlist = $CSVParser->results;
 	
 	//save this 2D array userlist in session
@@ -285,13 +299,33 @@ You must specify the CSV format used in your file :<br><br>
   <input type="radio" name="firstLineFormat" value="YES"> Use format defined in first line of file<br><br>
   <input type="radio" name="firstLineFormat" value="NO" checked > Use the following format :<br><br>
     <b>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $usedFormat; ?><br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $usedFormat; ?><br><br>
     </b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     [<a href="<?php echo $_PHP_SELF."?display=default&usedFormat=".$defaultFormat.""; ?>">Load default format</a>] 
-     | [<a href="<?php echo $_PHP_SELF."?display=default&chformat=yes"; ?>">Edit format to use</a>]
-    <br><br>
+    | [<a href="<?php echo $_PHP_SELF."?display=default&chformat=yes"; ?>">Edit format to use</a>]<br><br>
     
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Fields separator used: 
+    
+    <select name="fieldSeparator">
+      <option value=";">;</option>
+      <option value=" ">(Blank space)</option>       
+    </select> 
+    
+    
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Fields enclosed by :
+    
+    <select name="enclosedBy">
+      <option value="dbquote">"</option>
+      <option value=",">,</option>
+      <option value=".">.</option>
+      <option value="">(None)</option>
+      
+    </select>
+    
+    <br><br>
     <input type="file" name="CSVfile">
     <br><br>
     <input type="submit" name="submitCSV" value="Add user list">

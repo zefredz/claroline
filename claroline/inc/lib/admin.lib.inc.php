@@ -108,7 +108,8 @@ function check_email_synthax_userlist($userlist)
     
     for ($i=0, $size=sizeof($userlist['email']); $i<$size; $i++)
     {
-        if ((!empty($userlist['email'][$i])) && !eregi( $regexp, $userlist['email'][$i] )) 
+        
+	if ((!empty($userlist['email'][$i])) && !eregi( $regexp, $userlist['email'][$i] )) 
         {
 	    $errors[$i] = TRUE;
         }
@@ -143,7 +144,7 @@ function check_username_used_userlist($userlist)
     {
         if (!empty($userlist['username'][$i]) && ($userlist['username'][$i]!=""))
 	{
-	    $sql .= " OR username=\"".$userlist['username'][$i]."\"";
+	    $sql .= " OR username=\"".addslashes($userlist['username'][$i])."\"";
 	}  
     }  
     
@@ -193,7 +194,7 @@ function check_officialcode_used_userlist($userlist)
     {
         if (!empty($userlist['officialCode'][$i]) && ($userlist['officialCode'][$i]!=""))
 	{
-	    $sql .= " OR officialCode=\"".$userlist['officialCode'][$i]."\"";
+	    $sql .= " OR officialCode=\"".addslashes($userlist['officialCode'][$i])."\"";
 	}  
     }
     
@@ -270,7 +271,7 @@ function check_mail_used_userlist($userlist)
     {
         if (!empty($userlist['email'][$i]) && ($userlist['email'][$i]!=""))
 	{
-	    $sql .= " OR email=\"".$userlist['email'][$i]."\"";
+	    $sql .= " OR email=\"".addslashes($userlist['email'][$i])."\"";
 	}  
     }
     
@@ -400,7 +401,7 @@ function check_duplicate_officialcode_userlist($userlist)
     return $errors;
 }
 /**
- * Class needed for parsing CSv files
+ * Class needed for parsing CSV files
  *
  *
  */
