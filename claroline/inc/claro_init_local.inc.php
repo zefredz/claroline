@@ -244,7 +244,7 @@ else
 
         $sql = "SELECT user_id, username, password, authSource, creatorId
                 FROM `".$tbl_user."` `user`
-                WHERE username = \"". $login ."\"";
+                WHERE BINARY username = \"". $login ."\"";
 
         $result = claro_sql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
 
