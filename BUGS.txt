@@ -1,5 +1,5 @@
 
-> > > > > > > > > > > CLAROLINE 1.5 RC1 - BUG LIST < < < < < < < < < < <
+> > > > > > > > > > > CLAROLINE 1.6 - BUG LIST < < < < < < < < < < <
 
 RESOLU--------------------
 1. DOCUMENT. Quand on crée un document avec l'outil create document, si on ne met pas 
@@ -371,6 +371,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.55  2004/07/23 08:05:43  guillaume
+commit test ,  just changing 1.5 to 1.6 title
+
 Revision 1.54  2004/07/09 13:27:45  seb
 Test join
 
