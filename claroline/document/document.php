@@ -208,11 +208,11 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         }
         else
         {
-            if (claro_failure::get_last_failure() == 'not_enough_space')
+            if (    claro_failure::get_last_failure() == 'not_enough_space'    )
             {
                 $dialogBox .= $langNoSpace;
             }
-            elseif (claro_failure::get_last_failure() == 'php_file_in_zip_file')
+            elseif( claro_failure::get_last_failure() == 'php_file_in_zip_file')
             {
                 $dialogBox .= $langZipNoPhp;
             }
@@ -426,7 +426,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
         // check for "http://", if the user forgot "http://" or "ftp://" or ...
         // the link will not be correct
-        if( !ereg( "://",$url ) )
+        if( !ereg( '://',$url ) )
         {
             // add "http://" as default protocol for url
             $url = "http://".$url;
@@ -456,7 +456,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exMkUrl\">\n"
                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
                      ."<label for=\"fileName\">".$langName." : </label><br />\n"
-                     ."<input type=\"text\" id=\"fileName\" name=\"fileName\" value=\"".$fileName."\"><br />\n"
+                     ."<input type=\"text\" id=\"fileName\" name=\"fileName\"><br />\n"
                      ."<label for=\"url\">".$langURL."</label><br />\n"
                      ."<input type=\"text\" id=\"url\" name=\"url\" value=\"".$url."\">\n"
                      ."<input type=\"submit\" value=\"".$langOk."\">\n"
@@ -481,7 +481,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 			if ($courseContext)
 			{
                 update_db_info( 'update', $_REQUEST['file'],
-                                array('path' => $destination.'/'.basename($_REQUEST['file'])) );
+                                array('path' => $_REQUEST['destination'].'/'.basename($_REQUEST['file'])) );
                 update_Doc_Path_in_Assets("update",$_REQUEST['file'],
 												   $_REQUEST['destination'].'/'.basename($_REQUEST['file']));
 			}
