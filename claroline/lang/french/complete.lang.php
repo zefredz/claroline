@@ -1850,7 +1850,7 @@ $langpday = "%d&nbsp;jour(s)";
 $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
-$langFileForCSVUpload = "Fichier CSV avec la liste d'utilisateurs";
+$langFileForCSVUpload = "Fichier CSV avec la liste d'utilisateurs : ";
 $langThisIsAnErrorInDefinitionFile = "C'est une erreur dans la définition du fichier";
 $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Demandez au développeur de cette configuration d'ajouter ces propriétés dans une section du fichier de définition.";
 $langErrorCourseCodeEmpty = "Le champs \"code du cours\" ne peut pas être vide";
@@ -1864,4 +1864,5 @@ $langErrorLanguageEmpty = "Le champs \"langue\" can not be empty";
 $langErrorDepartmentURLWrong = "L'URL du département est invalide";
 $langErrorEmailInvalid = "L'adresse email est incorrecte";
 $langErrorMyOwnSettings = "Vous ne pouvez pas changer votre propre statut";
+$langMustSelectAFile = "Vous devez sélectionner un fichier";
 ?>
