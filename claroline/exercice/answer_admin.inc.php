@@ -620,10 +620,10 @@ if($modifyAnswers)
 <tfoot>
 <tr>
   <td colspan="5" align="center">
-	<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
+	<input type="submit" name="submitAnswers" value="<?php echo $langOk; ?>">
 	&nbsp;&nbsp;<input type="submit" name="lessAnswers" value="<?php echo $langLessAnswers; ?>">
 	&nbsp;&nbsp;<input type="submit" name="moreAnswers" value="<?php echo $langMoreAnswers; ?>">
-	&nbsp;&nbsp;<input type="submit" name="submitAnswers" value="<?php echo $langOk; ?>">
+	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
   </td>
 </tr>
 </tfoot>
@@ -672,8 +672,8 @@ if($modifyAnswers)
 </tr>
 <tr>
   <td colspan="5" align="center">
-	<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
-	&nbsp;&nbsp;<input type="submit" name="submitAnswers" value="<?php echo $langNext; ?> &gt;">
+	<input type="submit" name="submitAnswers" value="<?php echo $langNext; ?> &gt;">
+	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
   </td>
 </tr>
 </table>
@@ -722,8 +722,8 @@ if($modifyAnswers)
 <tr>
   <td colspan="2" align="center">
 	<input type="submit" name="buttonBack" value="&lt; <?php echo $langBack; ?>">
-	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
 	&nbsp;&nbsp;<input type="submit" name="submitAnswers" value="<?php echo $langOk; ?>">
+	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
   </td>
 </tr>
 </table>
@@ -837,8 +837,8 @@ if($modifyAnswers)
 </tr>
 <tr>
   <td colspan="4" align="center">
-	<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
-	&nbsp;&nbsp;<input type="submit" name="submitAnswers" value="<?php echo $langOk; ?>">
+	<input type="submit" name="submitAnswers" value="<?php echo $langOk; ?>">
+	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
   </td>
 </tr>
 </table>
