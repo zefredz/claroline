@@ -2,7 +2,7 @@
 // TOOL
 $conf_def['config_code']='CLGRP';
 $conf_def['config_file']='group.conf.php';
-$conf_def['config_name']='general setting for groups';
+$conf_def['config_name']='General setting for groups';
 // $conf_def['config_repository']=''; dislabed = includePath.'/conf'
 $conf_def['section']['multigroup']['label']='multigroup';
 $conf_def['section']['multigroup']['properties'] = 
@@ -13,8 +13,8 @@ array ( 'multiGroupAllowed'
       
 //PROPERTIES
 $conf_def_property_list['multiGroupAllowed'] =
-array ( 'description' => 'if field limitNbGroupByUser is  missing in groupProperties table'
-      , 'label'       => 'Autoriser les multigroupes'
+array ( 'description' => 'Whether teacher can fix than a user can subscribe in many team'
+      , 'label'       => 'Multi group allowed'
       , 'default'     => 'TRUE'
       , 'type'        => 'boolean'
       , 'display'     => TRUE
@@ -24,7 +24,7 @@ array ( 'description' => 'if field limitNbGroupByUser is  missing in groupProper
       );
 
 $conf_def_property_list['tutorCanBeSimpleMemberOfOthersGroupsAsStudent'] =
-array ( 'description' => 'if field limitNbGroupByUser is  missing in groupProperties table'
+array ( 'description' => 'Fix if a us user mark as potential tutor attached to a group, can subscribe himself to another group (as simple student).'
       , 'label'       => 'Tutors can subscribe a team as simple member'
       , 'default'     => 'FALSE'
       , 'type'        => 'boolean'
@@ -43,9 +43,8 @@ array ( 'description' => 'Not implemented, name reserved  for future version of 
       , 'acceptedValue' => array ('TRUE'=>'enabled'
                                ,'FALSE'=>'dislabed'
                                )
-      , 'display'     => TRUE
+      , 'display'     => FALSE
       , 'readonly'    => TRUE
       );
-
 
 ?>
