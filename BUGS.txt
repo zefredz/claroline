@@ -99,7 +99,7 @@ B10 Etat : New ------------------------------------------------------
 .48 où : admin - ajout user	
 Etat : à résoudre pour 1.6
 type : intégrité
-quoi : si j'ajoute un user avec un email d'éjà dans la base il l'accepte.
+quoi : si j'ajoute un user avec un email déjà dans la base il l'accepte.
 Normal en considérant que l'admin peut tout faire. 
 Mais il n'est même pas prévenu qu'il a probablement créé un doubloun
 Repéré par : Moosh
@@ -263,7 +263,7 @@ Repéré par : Aurélien
 Assigné à : 
 
 
-B26 Etat : A MERGER 1.5 -> 1.6 ------------------------------------------------------
+B26 RESOLU ------------------------------------------------------
 .144 où :	Administration
 type :
 quoi :	dans l'admin zone , je modifie les propriétés d'un utilisateur, 
@@ -288,6 +288,8 @@ en ajouter d'éventuels
 
 
 B28-----------------------------------------------
+DOCUMENTS
+
 Hello,
 
 I think I found a bug on the upload process.
