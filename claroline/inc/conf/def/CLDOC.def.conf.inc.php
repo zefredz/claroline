@@ -1,7 +1,6 @@
 <?php //$Id$
-
 // TOOL
-$toolConf['label']='CLDOC';
+$toolConf['config_code']='CLDOC';
 $toolConf['config_file']='CLDOC.conf.inc.php';
 // $toolConf['config_repository']=''; dislabed = includePath.'/conf'
 $toolConf['description'] = 'Document tool. This is a course tool';

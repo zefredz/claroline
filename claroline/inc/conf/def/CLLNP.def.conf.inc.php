@@ -1,8 +1,8 @@
 <?php //$Id$
 
 // TOOL
-$toolConf['label']='CLLNP';
-// $toolConf['config_file']='CLLNP.conf.inc.php';
+$toolConf['config_code']='CLLNP';
+$toolConf['config_file']='CLLNP.conf.inc.php';
 // $toolConf['config_repository']=''; dislabed = includePath.'/conf'
 $toolConf['description'] = 'Learning Path tool. This is a course tool';
 /*

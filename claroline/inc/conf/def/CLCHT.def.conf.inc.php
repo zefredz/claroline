@@ -1,5 +1,6 @@
 <?php // $Id$
-$toolConf['label']='CLCHT';
+$toolConf['config_file']='chat.conf.inc.php';
+$toolConf['config_code']='CLCHT';
 $toolConf['description']='Note : these value would be COPY in the script to win an include.';
 
 $toolConf['section']['buffer']['label']='buffer';

@@ -1,6 +1,6 @@
 <?php // $Id$
 // TOOL
-$toolConf['label']='CLUSR';
+$toolConf['config_code']='CLUSR';
 $toolConf['config_file']='user.conf.inc.php';
 // $toolConf['config_repository']=''; dislabed = includePath.'/conf'
 $toolConf['section']['list']['label']='Listing properties';

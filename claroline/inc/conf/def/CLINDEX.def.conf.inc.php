@@ -6,7 +6,7 @@ die("ce fichier de def n'est pas du tout prêt");
 //******************************************* Cat LIST option
 define("CONFVAL_showNodeEmpty",TRUE);
 define("CONFVAL_showNumberOfChild",TRUE); // actually  count are only for direct childs
-define("CONFVAL_ShowLinkBackToTopOfTree",false);
+define("CONFVAL_ShowLinkBackToTopOfTree",FALSE);
 
 //******************************************* Course List Option
 define("CONFVAL_showCourseLangIfNotSameThatPlatform",TRUE);

@@ -1,5 +1,5 @@
 <?php // $Id$
-$toolConf['label']='PLVIDEO';
+$toolConf['config_code']='PLVIDEO';
 $toolConf['config_file']='PLVIDEO.conf.inc.php';
 // $toolConf['config_repository']=''; dislabed = includePath.'/conf'
 $toolConf['section']['image']['label']='Images settings';

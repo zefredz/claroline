@@ -1,6 +1,6 @@
 <?php // $Id$
 // TOOL
-$toolConf['label']='CLGRP';
+$toolConf['config_code']='CLGRP';
 $toolConf['config_file']='group.conf.php';
 // $toolConf['config_repository']=''; dislabed = includePath.'/conf'
 $toolConf['section']['multigroup']['label']='multigroup';

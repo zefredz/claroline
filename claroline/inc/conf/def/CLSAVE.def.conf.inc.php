@@ -1,7 +1,7 @@
 <?php //$Id$
 
 // TOOL
-$toolConf['label']='CLSAVE';
+$toolConf['config_code']='CLSAVE';
 $toolConf['config_file']='export.conf.inc.php';
 // $toolConf['config_repository']=''; dislabed = includePath.'/conf'
 $toolConf['description'] = 'Export tool. This is a course tool';

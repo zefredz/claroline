@@ -1,7 +1,6 @@
 <?php //$Id$
-
 // TOOL
-$toolConf['label']='CLWRK';
+$toolConf['config_code']='CLWRK';
 $toolConf['config_file'] = 'work.conf.inc.php';
 $toolConf['description'] = 'Assignment tool. this is a course tool';
 $toolConf['section']['storage']['label']='Quota';

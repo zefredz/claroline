@@ -1,8 +1,7 @@
 <?php // $Id$
-
 // TOOL
-$toolConf['label']='CLCRSCONF';
-$toolConf['file']='course_info.conf.php';
+$toolConf['config_code']='CLCRSCONF';
+$toolConf['config_file']='course_info.conf.php';
 $toolConf['description']='Configuration du cours';
 $toolConf['section']['links']['label']='links';
 $toolConf['section']['links']['description']='links to  commands';
@@ -39,7 +38,7 @@ $toolConfProperties['showLinkToRestoreCourse']
         ,'container' => 'VAR'
         );
 
-// If true, these fileds  keep the previous content.
+// If TRUE, these fileds  keep the previous content.
 $canBeEmpty["screenCode"] 	= FALSE;
 $canBeEmpty["int"] 			= FALSE;
 $canBeEmpty["facu"] 		= FALSE;
@@ -117,7 +116,7 @@ $toolConfProperties['showLastVisit']
 
 $toolConfProperties['canReportExpirationDate'] 
 = array ( 'label'        => 'Is  course admin eable to request an time credit  for his courses'
-        , 'description' => 'need to be true if ScriptToReportExpirationDate  is not automaticly called'
+        , 'description' => 'need to be TRUE if ScriptToReportExpirationDate  is not automaticly called'
         , 'default'      => 'FALSE'
         , 'type'         => 'boolean'
         , 'container'    => 'VAR'

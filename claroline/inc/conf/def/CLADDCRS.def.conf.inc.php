@@ -1,5 +1,5 @@
 <?php // $Id$
-$toolConf['label']='CLADDCRS';
+$toolConf['config_code']='CLADDCRS';
 $toolConf['config_file']='add_course.conf.inc.php';
 // $toolConf['config_repository']=''; dislabed = includePath.'/conf'
 

@@ -1,7 +1,8 @@
 <?php // $Id$
+$toolConf['config_file']='announcement.conf.inc.php';
+$toolConf['config_code']='CLANN';
 
-$toolConf['label']='CLANN';
-$toolConf['description'] = 'Announcement tool. This is a course tool';
+$toolConf['description'] = 'Use by Announcement tool. This is a course tool';
 $toolConf['section']['log']['label']='Track activity';
 $toolConf['section']['log']['properties'] = 
 array ( 'CONFVAL_LOG_ANNOUNCEMENT_INSERT'

@@ -1,7 +1,7 @@
 <?php # $Id$
 //// config  this tools
-$toolConf['label']='CLADMUSR';
-
+$toolConf['config_code']='CLADMUSR';
+$toolConf['config_file']='admin.usermanagement.conf.inc.php';
 $toolConf['section']['create']['label']='Creation properties';
 $toolConf['section']['create']['properties'] = 
 array ( 'defaultVisibilityForANewCourse'
@@ -19,19 +19,19 @@ $stepUser 		= 20;
 $stepCourse 	= 20;
 
 //uncomment to force but so think  to  comment  link in bottom of page
-$display1colPerCourse		= True; // true -> synopsis | False -> List
-//$listAllCourses4EachUser 	= false;
+$display1colPerCourse		= TRUE; // TRUE -> synopsis | FALSE -> List
+//$listAllCourses4EachUser 	= FALSE;
 
-$showCheckBox 		= true;
-$editSubscription	= true;
-$editStatut			= false;
-$editTutor			= false;
-$showIfMember		= false;
-$showStatut			= false;
+$showCheckBox 		= TRUE;
+$editSubscription	= TRUE;
+$editStatut			= FALSE;
+$editTutor			= FALSE;
+$showIfMember		= FALSE;
+$showStatut			= FALSE;
 
-$showRemoveOfClarolineButton	= true;
-$showLockUnlockUserButton		= false;
-$showUpdateSubscriptionButton	= true;
+$showRemoveOfClarolineButton	= TRUE;
+$showLockUnlockUserButton		= FALSE;
+$showUpdateSubscriptionButton	= TRUE;
 
 $urlUnderCoursesNamesBefore = "../../../";
 $urlUnderCoursesNamesAfter = "/";

@@ -1,8 +1,8 @@
 <?php // $Id$
-$toolConf['label']='CLCAL';
-$toolConf['section']['log']['label']='Track activity';
-
 $toolConf['config_file']='agenda.conf.inc.php';
+$toolConf['config_code']='CLCAL';
+
+$toolConf['section']['log']['label']='Track activity';
 // $toolConf['config_repository']=''; dislabed = includePath.'/conf'
 
 $toolConf['section']['log']['properties'] = 
@@ -17,7 +17,7 @@ array ('label'       => 'Logguer les ajouts d\'agenda'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      ,'technicalInfo' => 'lnqr qerg i qerio ijrùgihqùgo  qriuhgh  qerighjqùehù qreùi ùirùiohrqùg ùoihqr gùihj ù ùiqrgùihqùe ihjgù ùiohjùiherù gùih ùjqerùgihqmrhbgùporkjhgbuqh ùijhg ùiqjreùih ùqerùpiogjùijherùoi ùihjnqùerhgùoihùi */ ùijhù ùqirgùihùihrg ùijhq ùihgùqiherùgihqùih qerùigjhù iùjhqùioeg'
+      ,'technicalInfo' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam dolor mi, semper vel, euismod a, sodales quis, libero. Etiam eros risus, ornare eget, placerat ac, eleifend quis, mauris. Cras blandit sapien sed magna. Duis convallis vehicula leo. Aliquam sed ipsum in orci ornare dictum. Phasellus dignissim, tortor at ornare tincidunt.'
       ,'container'   => 'CONST'
       ,'acceptedval' => array ('TRUE'=>'enabled'
                               ,'FALSE'=>'dislabed'
