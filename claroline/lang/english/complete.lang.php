@@ -1909,5 +1909,13 @@ $langWhatDoAfterBackup = "What do after backup";
 $langWikiContent = "Wiki content";
 $langWorkContent = "Work content";
 $langWorkStructure = "Work structure";
+$langMailSynthaxError = "Mail synthax error.";
+$langMailUsed = "Mail is already used by another user.";
+$langUsernameUsed = "This username is already used by another user.";
+$langCodeUsed = "This official code is already used by another user.";
+$langPasswordSimple = "Password given to simple or to close to username.";
+$langMailAppearAlready = "This mail appears already in a previous line of the CSV file.";
+$langUsernameAppearAlready = "This username appears already in a previous line of the CSV file.";
+$langCodeAppearAlready = "This official code appears already in a previous line of the CSV file.";
 
 ?>
