@@ -1,19 +1,14 @@
-<?php # $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-/*
-info : Cette  page  sert d'index  pour les  outils de développements
-*
-* Elle nécéssite une  protection
+<?php // $Id$
+/**
+ * @version CLAROLINE 1.6
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE (GPL)
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ * 
+ * This is the index page of sdk tools
 */
 
 require '../../inc/claro_init_global.inc.php';
@@ -48,11 +43,8 @@ if ($is_allowedToAdmin)
 </H4>
 <ul>
 	<LI>
-		<a href="./langFile.php"><?php echo $langDiffTranslation ?></a>
+		<a href="../xtra/sdk/translation_index.php"><?php echo $langTranslations ?></a>
 	</LI>
-	<!--LI>
-		<a href="./makeLangFile.php"><?php echo $langMakeFileOfTranslation ?></a>
-	</LI-->
 </uL>
 <H4><?php echo $langFilling ?></H4>
 <UL>
@@ -60,10 +52,10 @@ if ($is_allowedToAdmin)
 		<a href="./fillUser.php"><?php echo $langFillUsers ?></a>
 	</LI>
 	<LI>
-		<a href="./fillTree.php"><?php echo $langFillTree ?></a>
+		<a href="./fillCourses.php"><?php echo $langFillCourses ?></a>(and  subscribe some existing students)
 	</LI>
 	<LI>
-		<a href="./fillCourses.php"><?php echo $langFillCourses ?></a>
+		<a href="./fillTree.php"><?php echo $langFillTree ?></a>
 	</LI>
 </UL>
 <?php
