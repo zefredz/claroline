@@ -66,39 +66,39 @@ $registrationAllowedChecked [$thecourse['registrationAllowed']] = "checked";
 
 //if values were posted, we overwrite DB info with values previously set by user
 
-if (!empty($_REQUEST['screenCode']))
+if (isset($_REQUEST['screenCode']))
 {
     $currentCourseCode = $_REQUEST['screenCode'];
 }
-if (!empty($_REQUEST['titulary']))
+if (isset($_REQUEST['titulary']))
 {
     $titulary = $_REQUEST['titulary'];
 }
-if (!empty($_REQUEST['email']))
+if (isset($_REQUEST['email']))
 {
     $email = $_REQUEST['email'];
 }
-if (!empty($_REQUEST['int']))
+if (isset($_REQUEST['int']))
 {
     $int = $_REQUEST['int'];
 }
-if (!empty($_REQUEST['extLinkName']))
+if (isset($_REQUEST['extLinkName']))
 {
     $extLinkName = $_REQUEST['extLinkName'];
 }
-if (!empty($_REQUEST['extLinkUrl']))
+if (isset($_REQUEST['extLinkUrl']))
 {
     $extLinkUrl = $_REQUEST['extLinkUrl'];
 }
-if (!empty($_REQUEST['lanCourseForm']))
+if (isset($_REQUEST['lanCourseForm']))
 {
     $languageCourse = $_REQUEST['lanCourseForm'];
 }
-if (!empty($_REQUEST['faculte']))
+if (isset($_REQUEST['faculte']))
 {
     $facu = $_REQUEST['faculte'];
 }
-if (!empty($_REQUEST['visible']))
+if (isset($_REQUEST['visible']))
 {
     if ($_REQUEST['visible']=="true")
     {    
@@ -111,7 +111,7 @@ if (!empty($_REQUEST['visible']))
 	$visibleChecked[FALSE] = "checked";
     } 
 }
-if (!empty($_REQUEST['allowedToSubscribe']))
+if (isset($_REQUEST['allowedToSubscribe']))
 {
     if ($_REQUEST['allowedToSubscribe']=="true")
     { 

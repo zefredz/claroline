@@ -89,33 +89,24 @@ $coursesRepositories = $coursesRepositorySys;
 $wantedCode         = $_REQUEST['wantedCode'];
 $valueIntitule      = $_REQUEST['intitule'];
 $valueLanguage      = $_REQUEST['languageCourse'];
+$valueTitular       = $_user['firstName']." ".$_user['lastName'];
+$valueEmail         = $_user['mail'];
+$valueLanguage      = $platformLanguage;
 
 //2- then we overwrite with entered value if the form was already posted before
-if (empty($_REQUEST['titulaires'])) 
+if (isset($_REQUEST['titulaires'])) 
 {
-    $valueTitular = $_user['firstName']." ".$_user['lastName'];
+    $valueTitular = $_REQUEST['titulaires'] ; 
 } 
-else 
-{
-    $valueTitular = $_REQUEST['titulaires'];
-}
-if (empty($_REQUEST['email']))      
-{
-    $valueEmail = $_user['mail'];
-} 
-else 
+if (isset($_REQUEST['email']))      
 {
     $valueEmail = $_REQUEST['email'];
 }
-if (!empty($_REQUEST['languageCourse']))
+if (isset($_REQUEST['languageCourse']))
 {
     $valueLanguage = $_REQUEST['languageCourse'];
 }
-else
-{
-    $valueLanguage = $platformLanguage;
-}
-if (!empty($_REQUEST['faculte']))
+if (isset($_REQUEST['faculte']))
 {
     $facu = $_REQUEST['faculte'];
 }
