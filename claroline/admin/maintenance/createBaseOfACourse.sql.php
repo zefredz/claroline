@@ -1195,39 +1195,7 @@ $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."lp_use
   `credit` enum('CREDIT','NO-CREDIT') NOT NULL default 'NO-CREDIT',
   PRIMARY KEY  (`user_module_progress_id`)
 ) TYPE=MyISAM COMMENT='Record the last known status of the user in the course';";
-
 }
-
-/**
- *
- * TRY TO CREATE PAGES TABLE
- *
- */
-
-// pages
-
-$sqlForUpdate[] = "# table `pages`";
-$sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."pages` (
-  `id` int(11) NOT NULL auto_increment,
-  `url` varchar(200) default NULL,
-  `titre` varchar(200) default NULL,
-  `description` text,
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM;";
-
-// pages : add missing fields 
-
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."pages` ADD `id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."pages` ADD `url` varchar(200) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."pages` ADD `titre` varchar(200) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."pages` ADD `description` text;";
-
-// pages : alter 
-
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."pages` CHANGE `id` `id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."pages` CHANGE `url` `url` varchar(200) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."pages` CHANGE `titre` `titre` varchar(200) default NULL;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."pages` CHANGE `description` `description` text;";
 
 /**
  * RENAME AND TRY TO CREATE QUIZZ TABLE
@@ -1707,19 +1675,23 @@ $sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_forum_access` COM
 $sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_forum_mods` COMMENT='data for forum tool';";
 $sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_forums` COMMENT='data for forum tool';";
 $sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_headermetafooter` COMMENT='data for forum tool';";
-$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_pages` COMMENT='data for forum tool';";
-$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_posts` COMMENT='data for forum tool';";
+$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_posts`      COMMENT='data for forum tool';";
 $sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_posts_text` COMMENT='data for forum tool';";
-$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_priv_msgs` COMMENT='data for forum tool';";
-$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_sessions` COMMENT='data for forum tool';";
-$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_themes` COMMENT='data for forum tool';";
-$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_topics` COMMENT='data for forum tool';";
-$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_users` COMMENT='data for forum tool';";
+$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_priv_msgs`  COMMENT='data for forum tool';";
+$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_sessions`   COMMENT='data for forum tool';";
+$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_themes`     COMMENT='data for forum tool';";
+$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_topics`     COMMENT='data for forum tool';";
+$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_users`      COMMENT='data for forum tool';";
 $sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_whosonline` COMMENT='data for forum tool';";
-$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_words` COMMENT='data for forum tool';";
+$sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_words`      COMMENT='data for forum tool';";
 
 /**
  * $Log$
+ * Revision 1.8  2004/12/09 21:36:59  moosh
+ * use claro_get_cdb_tbl
+ * add bb_rel_topic_userstonotify
+ * remove bb_pages
+ *
  * Revision 1.7  2004/09/16 12:07:33  seb
  * Remove work_student table
  *

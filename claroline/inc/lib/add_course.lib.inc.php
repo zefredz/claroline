@@ -265,64 +265,62 @@ function update_Db_course($courseDbName)
 		called to replace the table name assignement
 	*/
 
-	
-    $TABLECOURSEHOMEPAGE	= $courseDbName."tool_list";
-	$TABLEINTROS			= $courseDbName."tool_intro";
+	$tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
+    $TABLECOURSEHOMEPAGE	= $tbl_cdb_names['tool'];
+	$TABLEINTROS			= $tbl_cdb_names['tool_intro'];
 
-	$TABLEGROUPS			= $courseDbName."group_team";
-	$TABLEGROUPUSER			= $courseDbName."group_rel_team_user";
-	$TABLEGROUPPROPERTIES	= $courseDbName."group_property";
+	$TABLEGROUPS			= $tbl_cdb_names['group_team'];// $courseDbName."group_team";
+	$TABLEGROUPUSER			= $tbl_cdb_names['group_rel_team_user'];//$courseDbName."group_rel_team_user";
+	$TABLEGROUPPROPERTIES	= $tbl_cdb_names['group_property'];// $courseDbName."group_property";
 
-	$TABLETOOLUSERINFOCONTENT	= $courseDbName."userinfo_content";
-	$TABLETOOLUSERINFODEF		= $courseDbName."userinfo_def";
+	$TABLETOOLUSERINFOCONTENT	= $tbl_cdb_names['userinfo_content'];// $courseDbName."userinfo_content";
+	$TABLETOOLUSERINFODEF		= $tbl_cdb_names['userinfo_def'];// $courseDbName."userinfo_def";
 
-	$TABLETOOLCOURSEDESC	= $courseDbName."course_description";
-	$TABLETOOLAGENDA		= $courseDbName."calendar_event";
-	$TABLETOOLANNOUNCEMENTS	= $courseDbName."announcement";
-	$TABLETOOLDOCUMENT		= $courseDbName."document";
-	$TABLETOOLWRKASSIGNMENT = $courseDbName."wrk_assignment";
-	$TABLETOOLWRKSUBMISSION = $courseDbName."wrk_submission";
+	$TABLETOOLCOURSEDESC	= $tbl_cdb_names['course_description'];// $courseDbName."course_description";
+	$TABLETOOLAGENDA		= $tbl_cdb_names['calendar_event'];// $courseDbName."calendar_event";
+	$TABLETOOLANNOUNCEMENTS	= $tbl_cdb_names['announcement'];// $courseDbName."announcement";
+	$TABLETOOLDOCUMENT		= $tbl_cdb_names['document'];// $courseDbName."document";
+	$TABLETOOLWRKASSIGNMENT = $tbl_cdb_names['wrk_assignment'];// $courseDbName."wrk_assignment";
+	$TABLETOOLWRKSUBMISSION = $tbl_cdb_names['wrk_submission'];// $courseDbName."wrk_submission";
 
-	//$TABLETOOLLINK			= $courseDbName."link";
 
-	$TABLEQUIZ				= $courseDbName."quiz_test";
-	$TABLEQUIZQUESTION		= $courseDbName."quiz_rel_test_question";
-	$TABLEQUIZQUESTIONLIST	= $courseDbName."quiz_question";
-	$TABLEQUIZANSWERSLIST	= $courseDbName."quiz_answer";
 
-	$TABLEPHPBBACCESS		= $courseDbName."bb_access";
-	$TABLEPHPBBBANLIST		= $courseDbName."bb_banlist";
-	$TABLEPHPBBCATEGORIES	= $courseDbName."bb_categories";
-	$TABLEPHPBBCONFIG		= $courseDbName."bb_config";
-	$TABLEPHPBBDISALLOW		= $courseDbName."bb_disallow";
-	$TABLEPHPBBFORUMACCESS	= $courseDbName."bb_forum_access";
-	$TABLEPHPBBFORUMMODS	= $courseDbName."bb_forum_mods";
-	$TABLEPHPBBFORUMS		= $courseDbName."bb_forums";
-	$TABLEPHPBBHEADFOOT		= $courseDbName."bb_headermetafooter";
-	$TABLEPHPBBDOMAINLIST	= $courseDbName."liste_domaines";
-	$TABLEPHPBBPAGES		= $courseDbName."pages";
-	$TABLEPHPBBPOSTS		= $courseDbName."bb_posts";
-	$TABLEPHPBBPOSTSTEXT	= $courseDbName."bb_posts_text";
-	$TABLEPHPBBPRIVMSG		= $courseDbName."bb_priv_msgs";
-	$TABLEPHPBBRANK			= $courseDbName."bb_ranks";
-	$TABLEPHPBBSESSIONS		= $courseDbName."bb_sessions";
-	$TABLEPHPBBTHEMES		= $courseDbName."bb_themes";
-	$TABLEPHPBBTOPICS		= $courseDbName."bb_topics";
-	$TABLEPHPBBUSERS		= $courseDbName."bb_users";
-	$TABLEPHPBBWHOSONLINE	= $courseDbName."bb_whosonline";
-	$TABLEPHPBBWORDS		= $courseDbName."bb_words";
-    $TABLEPHPBBNOTIFY       = $courseDbName."bb_rel_topic_userstonotify"; //added for notification by email sytem for claroline 1.5
+	$TABLEQUIZ				= $tbl_cdb_names['quiz_test'];//  $courseDbName."quiz_test";
+	$TABLEQUIZQUESTION		= $tbl_cdb_names['quiz_rel_test_question'];
+	$TABLEQUIZQUESTIONLIST	= $tbl_cdb_names['quiz_question'];//  "quiz_question";
+	$TABLEQUIZANSWERSLIST	= $tbl_cdb_names['quiz_answer'];//  "quiz_answer";
 
-  $TABLELEARNPATH         = $courseDbName."lp_learnPath";
-  $TABLEMODULE            = $courseDbName."lp_module";
-  $TABLELEARNPATHMODULE   = $courseDbName."lp_rel_learnPath_module";
-  $TABLEASSET             = $courseDbName."lp_asset";
-  $TABLEUSERMODULEPROGRESS= $courseDbName."lp_user_module_progress";
-  // stats
-  $TABLETRACKACCESS        = $courseDbName."track_e_access";
-  $TABLETRACKDOWNLOADS     = $courseDbName."track_e_downloads";
-  $TABLETRACKUPLOADS       = $courseDbName."track_e_uploads";
-  $TABLETRACKEXERCICES     = $courseDbName."track_e_exercices";
+	$TABLEPHPBBACCESS		= $tbl_cdb_names['bb_access'];//  "bb_access";
+	$TABLEPHPBBBANLIST		= $tbl_cdb_names['bb_banlist'];//  "bb_banlist";
+	$TABLEPHPBBCATEGORIES	= $tbl_cdb_names['bb_categories'];//  "bb_categories";
+	$TABLEPHPBBCONFIG		= $tbl_cdb_names['bb_config'];//  "bb_config";
+	$TABLEPHPBBDISALLOW		= $tbl_cdb_names['bb_disallow'];//  "bb_disallow";
+	$TABLEPHPBBFORUMACCESS	= $tbl_cdb_names['bb_forum_access'];//  "bb_forum_access";
+	$TABLEPHPBBFORUMMODS	= $tbl_cdb_names['bb_forum_mods'];//  "bb_forum_mods";
+	$TABLEPHPBBFORUMS		= $tbl_cdb_names['bb_forums'];//  "bb_forums";
+	$TABLEPHPBBHEADFOOT		= $tbl_cdb_names['bb_headermetafooter'];//  "bb_headermetafooter";
+	$TABLEPHPBBPOSTS		= $tbl_cdb_names['bb_posts'];//  "bb_posts";
+	$TABLEPHPBBPOSTSTEXT	= $tbl_cdb_names['bb_posts_text'];//  "bb_posts_text";
+	$TABLEPHPBBPRIVMSG		= $tbl_cdb_names['bb_priv_msgs'];//  "bb_priv_msgs";
+	$TABLEPHPBBRANK			= $tbl_cdb_names['bb_ranks'];//  "bb_ranks";
+	$TABLEPHPBBSESSIONS		= $tbl_cdb_names['bb_sessions'];//  "bb_sessions";
+	$TABLEPHPBBTHEMES		= $tbl_cdb_names['bb_themes'];//  "bb_themes";
+	$TABLEPHPBBTOPICS		= $tbl_cdb_names['bb_topics'];//  "bb_topics";
+	$TABLEPHPBBUSERS		= $tbl_cdb_names['bb_users'];//  "bb_users";
+	$TABLEPHPBBWHOSONLINE	= $tbl_cdb_names['bb_whosonline'];//  "bb_whosonline";
+	$TABLEPHPBBWORDS		= $tbl_cdb_names['bb_words'];//  "bb_words";
+    $TABLEPHPBBNOTIFY       = $tbl_cdb_names['bb_rel_topic_userstonotify'];//  "bb_rel_topic_userstonotify"; //added for notification by email sytem for claroline 1.5
+
+    $TABLELEARNPATH         = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
+    $TABLEMODULE            = $tbl_cdb_names['lp_module'];//  "lp_module";
+    $TABLELEARNPATHMODULE   = $tbl_cdb_names['lp_rel_learnPath_module'];//  "lp_rel_learnPath_module";
+    $TABLEASSET             = $tbl_cdb_names['lp_asset'];//  "lp_asset";
+    $TABLEUSERMODULEPROGRESS= $tbl_cdb_names['lp_user_module_progress'];//  "lp_user_module_progress";
+    // stats
+    $TABLETRACKACCESS        = $tbl_cdb_names['track_e_access'];//  "track_e_access";
+    $TABLETRACKDOWNLOADS     = $tbl_cdb_names['track_e_downloads'];//  "track_e_downloads";
+    $TABLETRACKUPLOADS       = $tbl_cdb_names['track_e_uploads'];//  "track_e_uploads";
+    $TABLETRACKEXERCICES     = $tbl_cdb_names['track_e_exercices'];//  "track_e_exercices";
 
 		$sql ="
 CREATE TABLE `".$TABLETOOLANNOUNCEMENTS."` (
@@ -681,15 +679,6 @@ claro_sql_query("
 		lasting varchar(20),
 	PRIMARY KEY (id))");
 
-############################# PAGES ###########################################
-claro_sql_query("
-	CREATE TABLE `".$TABLEPHPBBPAGES."` (
-		id int(11) NOT NULL auto_increment,
-		url varchar(200),
-		titre varchar(200),
-		description text,
-	PRIMARY KEY (id))");
-
 ############################# DOCUMENTS ###########################################
 claro_sql_query ("
 	CREATE TABLE `".$TABLETOOLDOCUMENT."` (
@@ -966,66 +955,62 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 
 
 	$courseDbName=$courseTablePrefix.$courseDbName.$dbGlu;
+	$tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
+    $TABLECOURSEHOMEPAGE	= $tbl_cdb_names['tool'];
+	$TABLEINTROS			= $tbl_cdb_names['tool_intro'];
 
-	$TABLECOURSEHOMEPAGE	= $courseDbName."tool_list";
-	$TABLEINTROS			= $courseDbName."tool_intro";
+	$TABLEGROUPS			= $tbl_cdb_names['group_team'];// $courseDbName."group_team";
+	$TABLEGROUPUSER			= $tbl_cdb_names['group_rel_team_user'];//$courseDbName."group_rel_team_user";
+	$TABLEGROUPPROPERTIES	= $tbl_cdb_names['group_property'];// $courseDbName."group_property";
 
-	$TABLEGROUPS			= $courseDbName."group_team";
-	$TABLEGROUPUSER			= $courseDbName."group_rel_team_user";
-	$TABLEGROUPPROPERTIES	= $courseDbName."group_property";
+	$TABLETOOLUSERINFOCONTENT	= $tbl_cdb_names['userinfo_content'];// $courseDbName."userinfo_content";
+	$TABLETOOLUSERINFODEF		= $tbl_cdb_names['userinfo_def'];// $courseDbName."userinfo_def";
 
-	$TABLETOOLCOURSEDESC	= $courseDbName."course_description";
-	$TABLETOOLAGENDA		= $courseDbName."calendar_event";
-	$TABLETOOLANNOUNCEMENTS	= $courseDbName."announcement";
-	$TABLETOOLWRKSUBMISSION = $courseDbName."wrk_submission";
-	$TABLETOOLWRKASSIGNMENT = $courseDbName."wrk_assignment";
-	$TABLETOOLDOCUMENT		= $courseDbName."document";
+	$TABLETOOLCOURSEDESC	= $tbl_cdb_names['course_description'];// $courseDbName."course_description";
+	$TABLETOOLAGENDA		= $tbl_cdb_names['calendar_event'];// $courseDbName."calendar_event";
+	$TABLETOOLANNOUNCEMENTS	= $tbl_cdb_names['announcement'];// $courseDbName."announcement";
+	$TABLETOOLDOCUMENT		= $tbl_cdb_names['document'];// $courseDbName."document";
+	$TABLETOOLWRKASSIGNMENT = $tbl_cdb_names['wrk_assignment'];// $courseDbName."wrk_assignment";
+	$TABLETOOLWRKSUBMISSION = $tbl_cdb_names['wrk_submission'];// $courseDbName."wrk_submission";
 
-	//$TABLETOOLLINK			= $courseDbName."link";
+	$TABLEQUIZ				= $tbl_cdb_names['quiz_test'];//  $courseDbName."quiz_test";
+	$TABLEQUIZQUESTION		= $tbl_cdb_names['quiz_rel_test_question'];
+	$TABLEQUIZQUESTIONLIST	= $tbl_cdb_names['quiz_question'];//  "quiz_question";
+	$TABLEQUIZANSWERSLIST	= $tbl_cdb_names['quiz_answer'];//  "quiz_answer";
 
-	$TABLEQUIZ				= $courseDbName."quiz_test";
-	$TABLEQUIZQUESTION		= $courseDbName."quiz_rel_test_question";
-	$TABLEQUIZQUESTIONLIST	= $courseDbName."quiz_question";
-	$TABLEQUIZANSWERSLIST	= $courseDbName."quiz_answer";
+	$TABLEPHPBBACCESS		= $tbl_cdb_names['bb_access'];//  "bb_access";
+	$TABLEPHPBBBANLIST		= $tbl_cdb_names['bb_banlist'];//  "bb_banlist";
+	$TABLEPHPBBCATEGORIES	= $tbl_cdb_names['bb_categories'];//  "bb_categories";
+	$TABLEPHPBBCONFIG		= $tbl_cdb_names['bb_config'];//  "bb_config";
+	$TABLEPHPBBDISALLOW		= $tbl_cdb_names['bb_disallow'];//  "bb_disallow";
+	$TABLEPHPBBFORUMACCESS	= $tbl_cdb_names['bb_forum_access'];//  "bb_forum_access";
+	$TABLEPHPBBFORUMMODS	= $tbl_cdb_names['bb_forum_mods'];//  "bb_forum_mods";
+	$TABLEPHPBBFORUMS		= $tbl_cdb_names['bb_forums'];//  "bb_forums";
+	$TABLEPHPBBHEADFOOT		= $tbl_cdb_names['bb_headermetafooter'];//  "bb_headermetafooter";
+	$TABLEPHPBBPOSTS		= $tbl_cdb_names['bb_posts'];//  "bb_posts";
+	$TABLEPHPBBPOSTSTEXT	= $tbl_cdb_names['bb_posts_text'];//  "bb_posts_text";
+	$TABLEPHPBBPRIVMSG		= $tbl_cdb_names['bb_priv_msgs'];//  "bb_priv_msgs";
+	$TABLEPHPBBRANK			= $tbl_cdb_names['bb_ranks'];//  "bb_ranks";
+	$TABLEPHPBBSESSIONS		= $tbl_cdb_names['bb_sessions'];//  "bb_sessions";
+	$TABLEPHPBBTHEMES		= $tbl_cdb_names['bb_themes'];//  "bb_themes";
+	$TABLEPHPBBTOPICS		= $tbl_cdb_names['bb_topics'];//  "bb_topics";
+	$TABLEPHPBBUSERS		= $tbl_cdb_names['bb_users'];//  "bb_users";
+	$TABLEPHPBBWHOSONLINE	= $tbl_cdb_names['bb_whosonline'];//  "bb_whosonline";
+	$TABLEPHPBBWORDS		= $tbl_cdb_names['bb_words'];//  "bb_words";
+    $TABLEPHPBBNOTIFY       = $tbl_cdb_names['wrk_submission'];//  "bb_rel_topic_userstonotify"; //added for notification by email sytem for claroline 1.5
 
-	$TABLEPHPBBACCESS		= $courseDbName."bb_access";
-	$TABLEPHPBBBANLIST		= $courseDbName."bb_banlist";
-	$TABLEPHPBBCATEGORIES	= $courseDbName."bb_categories";
-	$TABLEPHPBBCONFIG		= $courseDbName."bb_config";
-	$TABLEPHPBBDISALLOW		= $courseDbName."bb_disallow";
-	$TABLEPHPBBFORUMACCESS	= $courseDbName."bb_forum_access";
-	$TABLEPHPBBFORUMMODS	= $courseDbName."bb_forum_mods";
-	$TABLEPHPBBFORUMS		= $courseDbName."bb_forums";
-	$TABLEPHPBBHEADFOOT		= $courseDbName."bb_headermetafooter";
-	$TABLEPHPBBDOMAINLIST	= $courseDbName."bb_liste_domaines";
-	$TABLEPHPBBPAGES		= $courseDbName."pages";
-	$TABLEPHPBBPOSTS		= $courseDbName."bb_posts";
-	$TABLEPHPBBPOSTSTEXT	= $courseDbName."bb_posts_text";
-	$TABLEPHPBBPRIVMSG		= $courseDbName."bb_priv_msgs";
-	$TABLEPHPBBRANK			= $courseDbName."bb_ranks";
-	$TABLEPHPBBSESSIONS		= $courseDbName."bb_sessions";
-	$TABLEPHPBBTHEMES		= $courseDbName."bb_themes";
-	$TABLEPHPBBTOPICS		= $courseDbName."bb_topics";
-	$TABLEPHPBBUSERS		= $courseDbName."bb_users";
-	$TABLEPHPBBWHOSONLINE	= $courseDbName."bb_whosonline";
-	$TABLEPHPBBWORDS		= $courseDbName."bb_words";
-   $TABLEPHPBBNOTIFY        = $courseDbName."bb_rel_topic_userstonotify";
+    $TABLELEARNPATH         = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
+    $TABLEMODULE            = $tbl_cdb_names['lp_module'];//  "lp_module";
+    $TABLELEARNPATHMODULE   = $tbl_cdb_names['lp_rel_learnPath_module'];//  "lp_rel_learnPath_module";
+    $TABLEASSET             = $tbl_cdb_names['lp_asset'];//  "lp_asset";
+    $TABLEUSERMODULEPROGRESS= $tbl_cdb_names['lp_user_module_progress'];//  "lp_user_module_progress";
+    // stats
+    $TABLETRACKACCESS        = $tbl_cdb_names['track_e_access'];//  "track_e_access";
+    $TABLETRACKDOWNLOADS     = $tbl_cdb_names['track_e_downloads'];//  "track_e_downloads";
+    $TABLETRACKUPLOADS       = $tbl_cdb_names['track_e_uploads'];//  "track_e_uploads";
+    $TABLETRACKEXERCICES     = $tbl_cdb_names['track_e_exercices'];//  "track_e_exercices";
 
-
-  $TABLELEARNPATH         = $courseDbName."lp_learnPath";
-  $TABLEMODULE            = $courseDbName."lp_module";
-  $TABLELEARNPATHMODULE   = $courseDbName."lp_rel_learnPath_module";
-  $TABLEASSET             = $courseDbName."lp_asset";
-  $TABLEUSERMODULEPROGRESS= $courseDbName."lp_user_module_progress";
-
-  // stats
-  $TABLETRACKACCESS        = $courseDbName."`.`track_e_access";
-  $TABLETRACKDOWNLOADS     = $courseDbName."`.`track_e_downloads";
-  $TABLETRACKUPLOADS       = $courseDbName."`.`track_e_uploads";
-  $TABLETRACKEXERCICES     = $courseDbName."`.`track_e_exercices";
-
-    
-	$cahier_charges="$CourseProgram/$repertoire.html";
+   $cahier_charges="$CourseProgram/$repertoire.html";
 
 	$nom = $_user['lastName'];
 	$prenom =$_user['firstName'];
@@ -1038,16 +1023,16 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'3',	'Super Moderator')");
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'4',	'Administrator')");
 // Create a hidden catagory for group forums
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (1,'$langCatagoryGroup',1)");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (1,'".$langCatagoryGroup."',1)");
 // Create an example catagory
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (2,'$langCatagoryMain',2)");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (2,'".$langCatagoryMain."',2)");
 ############################## GROUPS ###########################################
 	claro_sql_query("INSERT INTO `".$TABLEGROUPPROPERTIES."`
 (id, self_registration, private, forum, document, wiki, chat)
 VALUES (NULL, '1', '0', '1', '1', '0', '1')");
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBCONFIG."` VALUES (
          '1',
-         '$intitule',
+         '".addslashes($intitule)."',
          '1',
          '1',
          '1',
@@ -1059,34 +1044,39 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
          '50',
          NULL,
          '0',
-         '$langFormula',
-         '$email',
-         '$language'
+         '".addslashes($langFormula)."',
+         '".addslashes($email)."',
+         '".addslashes($language)."'
          )");
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBFORUMMODS."` VALUES (
          '1',
          '1'
          )");
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBFORUMS."` VALUES (1,'$langTestForum','$langDelAdmin',2,1,1,1,1,2,0,'c4ca4238a0b923820dcc509a6f75849b',1)");
+	claro_sql_query("INSERT 
+                        INTO `".$TABLEPHPBBFORUMS."` 
+                        VALUES ( 1
+                               , '".addslashes($langTestForum)."'
+                               , '".addslashes($langDelAdmin)."'
+                               ,2,1,1,1,1,2,0,'c4ca4238a0b923820dcc509a6f75849b',1)");
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBHEADFOOT."` VALUES (
          '<center><a href=\"../".$courseRepository."\"><img border=0 src=../claroline/img/logo.gif></a></center>',
          '',
          ''
          )");
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTS."` VALUES (1,1,1,1,NOW(),'127.0.0.1',\"$nom\",\"$prenom\")");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTS."` VALUES (1,1,1,1,NOW(),'127.0.0.1',\"".addslashes($nom)."\",\"".addslashes($prenom)."\")");
 	claro_sql_query("CREATE TABLE `".$TABLEPHPBBPOSTSTEXT."` (
         post_id int(10) DEFAULT '0' NOT NULL,
         post_text text,
         PRIMARY KEY (post_id)
         )");
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTSTEXT."` VALUES ('1', '$langMessage')");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTSTEXT."` VALUES ('1', '".addslashes($langMessage)."')");
 // Contenu de la table 'users'
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBUSERS."` VALUES (
        '1',
-       '$nom $prenom',
+       '".addslashes($nom." ".$prenom)."',
        NOW(),
        'password',
-       '$email',
+       '".addslashes($email)."',
        NULL,
        NULL,
        NULL,
@@ -1110,7 +1100,7 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
        NULL
        )");
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBUSERS."` VALUES (
-       '-1',       '$langAnonymous',       NOW(),       'password',       '',
+       '-1',       '".addslashes($langAnonymous)."',       NOW(),       'password',       '',
        NULL,       NULL,       NULL,       NULL,       NULL,       NULL,       NULL,
        NULL,       NULL,       NULL,       NULL,       '0',       '0',       '0',       '0',       '0',
        '0',       '1',       NULL,       NULL,       NULL       )");
@@ -1131,8 +1121,8 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
         while ( $courseTool = mysql_fetch_array($result, MYSQL_ASSOC))
         {
             $sql_insert = " INSERT INTO `" . $TABLECOURSEHOMEPAGE . "` "
-                          . " (tool_id, rank, access) "
-                          . " VALUES ('" . $courseTool['id'] . "','" . $courseTool['def_rank'] . "','" . $courseTool['def_access'] . "')";
+                        . " (tool_id, rank, access) "
+                        . " VALUES ('" . $courseTool['id'] . "','" . $courseTool['def_rank'] . "','" . $courseTool['def_access'] . "')";
             $intro_id = claro_sql_query_insert_id($sql_insert);
         }
     }
@@ -1160,7 +1150,7 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
   claro_sql_query("INSERT INTO `".$TABLEASSET."` VALUES ('2', '2', '1', '')");
 
 ############################## FORUMS  #######################################
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBTOPICS."` VALUES (1,'$langExMessage',-1,'2001-09-18 20:25',1,'',1,1,'0','1', '$nom', '$prenom')");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBTOPICS."` VALUES (1,'$langExMessage',-1,'2001-09-18 20:25',1,'',1,1,'0','1', '".addslashes($nom)."', '".addslashes($prenom)."')");
 
 	return 0;
 };

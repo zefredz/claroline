@@ -86,6 +86,8 @@ function claro_sql_get_course_tbl($dbNameGlued = NULL)
               'bb_forum_mods'          => $courseDb.'bb_forum_mods',
               'bb_forums'              => $courseDb.'bb_forums',
               'bb_headermetafooter'    => $courseDb.'bb_headermetafooter',
+              'bb_rel_topic_userstonotify'
+                                       => $courseDb.'bb_rel_topic_userstonotify',
               'bb_posts'               => $courseDb.'bb_posts',
               'bb_posts_text'          => $courseDb.'bb_posts_text',
               'bb_priv_msgs'           => $courseDb.'bb_priv_msgs',
