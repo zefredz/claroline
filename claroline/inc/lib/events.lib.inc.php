@@ -183,19 +183,12 @@ function event_access_course()
 }
 
 /**
- * @param tool name of the tool (rubrique in mainDb.accueil table)
+ * @param tid id of the tool user access (tid is a unique identifier of a tool occurence)
+ * @param tlabel label of the tool the user access (tlabel is a unique identifier for a type of tool
  * @author Sebastien Piraux <pir@cerdecam.be>
  * @desc Record information for access event for tools
  */
-/*
- *  $tool can take this values :
- *  Links, Calendar, Document, Announcements,
- *  Group, Video, Works, Users, Exercices, Course Desc
- *  ...
- *  Values can be added if new modules are created (15char max)
- *  I encourage to use $nameTool as $tool when calling this function
- */
-function event_access_tool($tool)
+function event_access_tool($tid, $tlabel)
 {
     global $is_trackingEnabled ;
     // if tracking is disabled record nothing
@@ -207,11 +200,8 @@ function event_access_tool($tool)
     global $_course;
 
     $reallyNow = time();
-    // record information
-    // only if user comes from the course $_cid
-    //$pos = strpos($_SERVER['HTTP_REFERER'],$rootWeb.$_cid);
-    $pos = strpos(strtolower($_SERVER['HTTP_REFERER']),strtolower($rootWeb.$_course['path']));
-    if( $pos !== false )
+    // record information only if user doesn't come fromthe tool itself
+    if( $_SESSION['tracking']['lastUsedTool'] != $tlabel )
     {
         if($_uid)
         {
@@ -221,21 +211,22 @@ function event_access_tool($tool)
         {
             $user_id = "NULL";
         }
-        // htmlspecialchars is used to protect queries, I use unhtmlentities to decode already encoded chars
-        // so that it prevents "&eacutes;" to become an ugly "&amp;eacute;" that will give "&eacute;" in the html ouput
-        // ex : "présent" that will be encoded as "pr&amp;eacute;" and will give "pr&eacute;sent" in html output
+
         $sql = "INSERT INTO `".$TABLETRACK_ACCESS."`
                 (`access_user_id`,
-                 `access_tool`,
+                 `access_tid`,
+                 `access_tlabel`,
                  `access_date`)
 
              VALUES
 
              (".$user_id.",
-              '".htmlspecialchars(unhtmlentities($tool),ENT_QUOTES)."',
+              ".$tid.",
+              '".$tlabel."',
               FROM_UNIXTIME(".$reallyNow."))";
+              
         $res = claro_sql_query($sql);
-        //$mysql_query($sql);
+        $_SESSION['tracking']['lastUsedTool'] = $tlabel;
     }
     return 1;
 }
