@@ -18,33 +18,7 @@
 
 // lang variable
 
-$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />\n
-                     from 1.4.* to 1.5</h2>\n";
-
-$langMakeABackupBefore = "<p>The Claroline Upgrade Tool will retrieve the data of your previous Claroline
-installation and set them to be compatible with the new Claroline version. This upgrade proceeds in three steps:</p>\n
-<ol>\n
-<li>It will get your previous platform main settings and put them in new configuration files</li>\n
-<li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.</li>\n
-<li>It will update one by one each course data (directories, database tables, ...)</li>\n
-</ol>\n
-<p>Befor proceeding to this upgrade:</p>\n
-<table>
-<tbody>
-<tr valign=\"top\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>\n
-<tr valign=\"top\"><td>-</td><td>Get a copy of the previous Claroline configuration files (claroline/include/config.inc.php) whithin easy reach.</td><td>%s</td></tr>\n
-</tbody>
-</table>
-<p>You won't be allowed to start the upgrade process before this point is marked as 'done'.</p>
-";
-$langConfirm = "done";
-$langStep0 = "Backup confirm";
-$langStep1 = "Step 1 of 3: platform main setting";
-$langStep2 = "Step 2 of 3: main platform tables upgrade";
-$langStep3 = "Step 3 of 3: course upgrade";
-$langDone = "Steps done";
-$langTodo = "Steps todo";
-$langAchieved = "Upgrade Process Achieved";
+include ("../../lang/english/upgrade.inc.php");
 
 // inclue lib files
 

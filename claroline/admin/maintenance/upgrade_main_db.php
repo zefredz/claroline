@@ -4,24 +4,10 @@
  * try to create main database of claroline without remove existing content
  */
 
-/**
- * 
- * lang var
- *
-*/
-
-$langStep2 = "Step 2 of 3: main platform tables upgrade";
-$langIntroStep2 = "<p>Now, the claroline Upgrade Tool is going upgrade of the date stored into the main Claroline tables 
-                    (users, course categories, tools list, ...) and set it compatible with the new Claroline version.</p>
-                   <p class=\"help\">Note: According to the speed of your server ot the amount of data stored on your platform, this 
-                   operation may take some time.</p>";
-$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Launch main platform tables upgrade</button></p>";
-$langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
-
 DEFINE("DISPLAY_WELCOME_PANEL", 1);
 DEFINE("DISPLAY_RESULT_PANEL",  2);
 
-$langFile = "trad4all";
+$langFile = "upgrade";
 include('../../inc/claro_init_global.inc.php');
 
 // Include lib for config files

@@ -25,21 +25,10 @@ include ($newIncludePath."/lib/config.lib.inc.php");
 	
 $thisClarolineVersion = $version_file_cvs;
 
-/*
- * lang var
-*/
+/* lang var */
 
-$langYes="yes";
-$langNO="no";
-$langSucceed="succeed";
-$langFailed="<span style=\"color: red\">Failed</span>";
-$langStep1 = "Step 1 of 3: platform main settings";
-$langIntroStep1 = "<p>The Claroline upgrader is going to proceed the main setting upgrade. 
-                These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
-$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";
-$langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
+include ("../../lang/english/upgrade.inc.php");
 
-/* */
 
 $error = 0;
 

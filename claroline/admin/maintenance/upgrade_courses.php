@@ -23,25 +23,8 @@ if (!function_exists(mysql_info)) {function mysql_info() {return "";}} // mysql_
 $mtime = microtime();$mtime = explode(" ",$mtime);$mtime = $mtime[1] + $mtime[0];$starttime = $mtime;$steptime =$starttime;
 
 // init language
-$langFile = "admin";
+$langFile = "upgrade";
 include('../../inc/claro_init_global.inc.php');
-
-/**
- * lang var
-*/
-
-$langYes="yes";
-$langNO="no";
-$langSucceed="succeed";
-$langFailed="<span style=\"color: red\">Failed</span>";
-$langStep3 = "Step 3 of 3: courses upgrade";
-$langIntroStep3 = "<p>Now the Claroline upgrade tool is going update (directories and database tables) one by one.
-                   <p class=\"help\">Note: According to the speed of your server or the amount of data stroed on your platform,
-                   this operation may take some time.</p>";
-$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
-$langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
-
-/* */
 
 // force upgrade for debug
 if ($HTTP_GET_VARS["forceUpgrade"])
