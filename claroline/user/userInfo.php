@@ -11,8 +11,10 @@
 
 
 $tlabelReq = "CLUSR___";
-define("CLARO_COURSE_CREATOR_STATUS",1);
-define("CLARO_STUDENT_STATUS",5);
+
+define('CLARO_COURSE_CREATOR_STATUS', 1);
+define('CLARO_STUDENT_STATUS',        5);
+
 $descSizeToPrupose = array(3,5,10,15,20); // size in lines for desc - don't add 1
 
 require '../inc/claro_init_global.inc.php';
@@ -44,9 +46,12 @@ $userIdViewed = $_REQUEST['uInfo']; // Id of the user we want to view coming fro
   Connection API between Claroline and the current script
   --------------------------------------------------------*/
 
-$courseCode = $_course['sysCode'];
-$tbl_mdb_names       = claro_sql_get_main_tbl();
-$tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
+$courseCode              = $_course['sysCode'];
+$tbl_mdb_names           = claro_sql_get_main_tbl();
+$tbl_crs_names           = claro_sql_get_course_tbl();
+$tbl_rel_course_user     = $tbl_mdb_names['rel_course_user'    ];
+$tbl_group_rel_team_user = $tbl_crs_names['group_rel_team_user'];
+
 
 $userIdViewer = $_uid; // id fo the user currently online
 //$userIdViewed = $HTTP_GET_VARS['userIdViewed']; // Id of the user we want to view
@@ -137,12 +142,26 @@ if ($allowedToEditDef)
 	
 	if (isset($_REQUEST['promoteTutor']))
 	{
-	    $userProperties['tutor' ] = 1;
-	}
-	else
-	{
-	    $userProperties['tutor' ] = 0;
-	}
+        // check first the user isn't registered to a group yet
+
+        $sql = "SELECT COUNT(user) 
+                FROM `".$tbl_group_rel_team_user."`
+                WHERE user = ".(int) $userIdViewed;
+
+        if ( 0 == claro_sql_query_get_single_value($sql) )
+        {
+            $userProperties['tutor' ] = 1;
+        }
+        else
+        {
+            $userProperties['tutor' ] = 0;
+            $dialogBox .= 'Impossible to promote group tutor a student already register to group';
+        }
+    }
+    else
+    {
+        $userProperties['tutor' ] = 0;
+    }
         
 	//set variable for role setting
 	
