@@ -1093,12 +1093,14 @@ function claro_disp_html_area($name, $content =    '',
             $switchState = 'off';
             $message     = 'Disable text editor';
             $areaContent = 'editor.getHTML()';
+            $confirmCommand = "if(!confirm('This command is going to remove the current text layout. Do you want to continue ?'))return(false);";
         }
         else
         {
             $switchState = 'on';
             $message     = 'Enable text editor';
-            $areaContent = 'document.getElementById(\''.$name.'\').value';
+            $areaContent = 'escape(document.getElementById(\''.$name.'\').value)';
+            $confirmCommand = '';
         }
 
         $location = '\''
@@ -1109,10 +1111,11 @@ function claro_disp_html_area($name, $content =    '',
                    .'\''
                   .'+'.$areaContent;
 
+        
         echo '<div align="right">'
             .'<small>'
             .'<b>'
-            .'<a href="" onClick ="window.location='.$location.';return(false);">'
+            .'<a href="" onClick ="'.$confirmCommand.'window.location='.$location.';return(false);">'
             .$message
            .'</a>'
             .'</b>'
