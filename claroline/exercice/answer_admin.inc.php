@@ -28,9 +28,10 @@ if(!defined('ALLOWED_TO_INCLUDE'))
 	exit();
 }
 
-$questionName=$objQuestion->selectTitle();
-$answerType=$objQuestion->selectType();
-$attachedFile=$objQuestion->selectAttachedFile();
+$questionName = $objQuestion->selectTitle();
+$questionStatement = $objQuestion->selectDescription();
+$answerType = $objQuestion->selectType();
+$attachedFile = $objQuestion->selectAttachedFile();
 
 $okAttachedFile=empty($attachedFile)?false:true;
 
@@ -103,7 +104,7 @@ if($submitAnswers || $buttonBack)
 		{
 			$reponse[$i]=trim($reponse[$i]);
 			$comment[$i]=trim($comment[$i]);
-			$weighting[$i]=intval($weighting[$i]);
+			$weighting[$i]=floatval($weighting[$i]);
 
 			if($answerType == UNIQUE_ANSWER)
 			{
@@ -314,7 +315,7 @@ if($submitAnswers || $buttonBack)
 			for($j=1;$j <= $nbrMatches;$i++,$j++)
 			{
 				$match[$i]=trim($match[$i]);
-				$weighting[$i]=abs(intval($weighting[$i]));
+				$weighting[$i]=abs(floatval($weighting[$i]));
 
 				$questionWeighting+=$weighting[$i];
 
@@ -545,20 +546,23 @@ if($modifyAnswers)
   <?php echo $questionName; ?>
 </h3>
 
+<?php
+			if(!empty($questionStatement))
+			{
+				echo "<p>".$questionStatement."</p>";
+			}
+			
+			if($okAttachedFile)
+			{
+				echo "<p>".display_attached_file($attachedFile)."</p>";
+			}			
+?>			
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
 <input type="hidden" name="formSent" value="1">
 <input type="hidden" name="nbrAnswers" value="<?php echo $nbrAnswers; ?>">
 
-<?php
-			if($okAttachedFile)
-			{
-?>
-
-<p><?php echo display_attached_file($attachedFile); ?></p>
 
 <?php
-			}
-
 			// if there is an error message
 			if(!empty($msgErr))
 			{
@@ -707,7 +711,7 @@ if($modifyAnswers)
 
 <tr>
   <td width="50%"><?php echo $blank; ?> :</td>
-  <td width="50%"><input type="text" name="weighting[<?php echo $i; ?>]" size="5" value="<?php echo intval($weighting[$i]); ?>"></td>
+  <td width="50%"><input type="text" name="weighting[<?php echo $i; ?>]" size="5" value="<?php echo floatval($weighting[$i]); ?>"></td>
 </tr>
 
 <?php
