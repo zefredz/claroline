@@ -134,7 +134,7 @@ if( isset($_REQUEST['submitAssignment']) )
     }
       
     // description
-    if( trim( strip_tags($_REQUEST['assigDesc']), $allowedTags ) == "" ) 
+    if( trim( strip_tags($_REQUEST['assigDesc'], $allowedTags ) ) == "" ) 
     {
       $assigDesc = ""; // avoid multiple br tags to be added when editing an empty form
     }
@@ -180,7 +180,7 @@ if( isset($_REQUEST['submitFeedback']) )
     $formCorrectlySent = true;
     // Feedback 
     // check if there is text in it 
-    if( trim( strip_tags($_REQUEST['prefillText']), $allowedTags ) == "" ) 
+    if( trim( strip_tags($_REQUEST['prefillText'], $allowedTags ) ) == "" )
     {
       $prefillText = "";
     }
