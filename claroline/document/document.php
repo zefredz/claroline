@@ -75,7 +75,7 @@ if ($_gid && $is_groupAllowed)
     $courseDir         = $_course['path'].'/group/'.$_group['directory'];
     $groupDir          = 'group/'.$_group['directory']; 
 
-    $interbredcrump[]  = array ('url'=>'group.php', 'name'=> $langGroupManagement);
+    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroupManagement);
 
     $is_allowedToEdit  = $is_groupMember || $is_courseAdmin;
     $is_allowedToUnzip = false;
