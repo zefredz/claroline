@@ -430,8 +430,8 @@ $langSendPage = "Plana a ser enviada";
 $langSettings = "amb els següents detalls:
 Nom d'usuari:";
 $langSize = "Mida";
-$langSizeOf = "Mida de ";
 $langSizeOf = "Mida de";
+$langSizeOf = "Mida de ";
 $langSocraticIrony = "La ironia socràtica és...";
 $langStatistics = "Estadístiques";
 $langStatus = "Acció";

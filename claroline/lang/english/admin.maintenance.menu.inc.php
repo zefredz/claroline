@@ -76,7 +76,7 @@ $langDataBase = "Database ";
 $langRun = "work";
 $langClient = "MySql Client ";
 $langServer = "MySql Server ";
-$langtitulary ="Owner";
+$langtitulary ="Owner of course";
 $langLanguage ="Language";
 $langUpgradeBase = "Upgrade database";
 

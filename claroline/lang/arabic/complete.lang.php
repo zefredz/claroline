@@ -482,8 +482,8 @@ $langHHome = " إعانة متعلّقة بصفحة الإستقبال ";
 $langHUser = "Aide utilisateurs";
 $langHasDel = " تمّت إزالة الدرس ";
 $langHelp = " ????? ";
-$langHelp = " إعانة  ";
 $langHelp = " إعانة ";
+$langHelp = " إعانة  ";
 $langHelpGroups = "Gestion des groupes";
 $langHome = " رجوع إلى ص�?حة الإستقبال ";
 $langHome = " رجوع إلى صفحة الاستقبال";

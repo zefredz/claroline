@@ -479,7 +479,6 @@ $langDetailView = "Niveau de détail";
 $langDetails = "Détails";
 $langDevTools = "Outils de développement";
 $langDiffTranslation = "Comparaison des traductions";
-$langDiffTranslation = "Comparer des fichers de traduction";
 $langDirCr = "répertoire créé";
 $langDirMv = "élément déplacé";
 $langDisable = "Désactiver";
