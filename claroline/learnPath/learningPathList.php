@@ -323,12 +323,13 @@
               }
               else  // create form requested
               {
-                 echo "<form action=\"".$PHP_SELF."\" method=\"POST\">
-                        <h4><label for=\"newPathName\">".$langCreateNewLearningPath."</label></h4>
-                        ".$langLearningPathName."<input type=\"text\" name=\"newPathName\" id=\"newPathName\" maxlength=\"255\"></input>
-                        <input type=\"hidden\" name=\"cmd\" value=\"create\">
-                        <input type=\"submit\" value=\"".$langOk."\"></input>
-                      </form>";
+                 $dialogBox .= "<form action=\"".$PHP_SELF."\" method=\"POST\">\n"
+                                ."<h4>".$langCreateNewLearningPath."</h4>\n"
+                                ."<label for=\"newPathName\">".$langLearningPathName."</label>\n"
+                                ."<input type=\"text\" name=\"newPathName\" id=\"newPathName\" maxlength=\"255\"></input>\n"
+                                ."<input type=\"hidden\" name=\"cmd\" value=\"create\">\n"
+                                ."<input type=\"submit\" value=\"".$langOk."\"></input>\n"
+                                ."</form>\n\n";
               }
               break;
    }
