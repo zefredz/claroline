@@ -36,6 +36,37 @@ function generePass($nbcar=5,$lettresseules = false)
 	} 
 	return $pass;
 }
+
+/**
+ * Check if the password chosen by the user is not too much easy to find
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string requested password
+ * @param array list of other values of the form we wnt to check the password
+ *
+ * @return boolean true if not too much easy to find
+ *
+ */
+function is_password_secure_enough($requestedPassword, $forbiddenValueList)
+{
+    // Temporarly deactivated ...
+    //
+    // if (strlen($requestedPassword) < 8)
+    // {
+    //    return false;
+    // }
+
+    foreach($forbiddenValueList as $thisValue)
+    {
+        if( strtoupper($requestedPassword) == strtoupper($thisValue) )
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 /**
  * ifsnow's email valid check function SnowCheckMail Ver 0.1
  * funtion SnowCheckMail ($Email,$debug=false)
@@ -159,5 +190,6 @@ function SnowCheckMail($Email,$debug=false)
 	$return[1]="{$Email} is E-Mail address that there is no any problem.";
 	return $return;
 }
+
 
 ?>
