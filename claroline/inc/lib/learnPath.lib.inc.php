@@ -342,12 +342,12 @@
       */
      function selectAlt($contentType)
      {
-          global $langAlt;
+          global $langAltDocument, $langAltClarodoc, $langAltExercise, $langAltScorm;
 
-          $altList[CTDOCUMENT_] = $langAlt['document'];
-          $altList[CTCLARODOC_] = $langAlt['clarodoc'];
-          $altList[CTEXERCISE_] = $langAlt['exercise'];
-          $altList[CTSCORM_] = $langAlt['scorm'];
+          $altList[CTDOCUMENT_] = $langAltDocument;
+          $altList[CTCLARODOC_] = $langAltClarodoc;
+          $altList[CTEXERCISE_] = $langAltExercise;
+          $altList[CTSCORM_] = $langAltScorm;
 
           if (array_key_exists( $contentType , $altList ))
           {
