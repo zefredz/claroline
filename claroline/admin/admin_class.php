@@ -41,7 +41,7 @@ $langClassMoved = "The class has been moved";
 $langErrorMove = "You can not move a class in itself!";
 $langTopLevel = "top level";
 $langMove = "Move";
-$langUsers = "users";
+$langUsersMin = "users";
 
 //---------------------- END LANG TO ADD ----------------------------------------------------------------------------
 
@@ -340,7 +340,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 
     global $clarolineRepositoryWeb;
     global $tbl_class_user; 
-    global $langUsers;
+    global $langUsersMin;
      
     foreach ($class_list as $cur_class)
     {
@@ -407,7 +407,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	    echo "  <td align=\"center\">\n"
 	        ."    <a href=\"".$clarolineRepositoryWeb."admin/admin_class_user.php?class=".$cur_class['id']."\">\n"
                 ."      <img src=\"".$clarolineRepositoryWeb."img/membres.gif\" border=\"0\"> "
-		."        (".$qty_user."  ".$langUsers.") \n"
+		."        (".$qty_user."  ".$langUsersMin.") \n"
 	        ."    </a>\n"
 		."  </td>\n";
 		
