@@ -256,11 +256,11 @@ if ($_SESSION['admin_user_action']=="plateformadmin") { $isSearched .= "<b> <br>
 
      //see what must be kept for advanced links
 
-$addtoAdvanced = "?firstName=".$_SESSION['admin_user_firstName'];
-$addtoAdvanced .="&lastName=".$_SESSION['admin_user_lastName'];
-$addtoAdvanced .="&userName=".$_SESSION['admin_user_userName'];
-$addtoAdvanced .="&mail=".$_SESSION['admin_user_mail'];
-$addtoAdvanced .="&action=".$_SESSION['admin_user_action'];
+$addtoAdvanced  = "?firstName=".$_SESSION['admin_user_firstName'];
+$addtoAdvanced .= "&amp;lastName=".$_SESSION['admin_user_lastName'];
+$addtoAdvanced .= "&amp;userName=".$_SESSION['admin_user_userName'];
+$addtoAdvanced .= "&amp;mail=".$_SESSION['admin_user_mail'];
+$addtoAdvanced .= "&amp;action=".$_SESSION['admin_user_action'];
 
     //finaly, form itself
 
@@ -284,51 +284,8 @@ if($dialogBox)
     claro_disp_message_box($dialogBox);
 }
 
-//Display selectbox, alphabetic choice, and advanced search link search
+//Display selectbox and advanced search link search
 
-  // ALPHABETIC SEARCH
-/*
-echo "<form name=\"indexform\" action=\"",$_SERVER['PHP_SELF'],"\" method=\"GET\">
-             ";
-
-            if (isset($cidToEdit)) {$toAdd = "cidToEdit=".$cidToEdit;} else {$toAdd = "";}
-
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?".$toAdd."\"><b> ".$langAll."</b></a> | ";
-
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=A&".$toAdd."\">A</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=B&".$toAdd."\">B</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=C&".$toAdd."\">C</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=D&".$toAdd."\">D</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=E&".$toAdd."\">E</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=F&".$toAdd."\">F</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=G&".$toAdd."\">G</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=H&".$toAdd."\">H</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=I&".$toAdd."\">I</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=J&".$toAdd."\">J</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=K&".$toAdd."\">K</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=L&".$toAdd."\">L</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=M&".$toAdd."\">M</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=N&".$toAdd."\">N</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=O&".$toAdd."\">O</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=P&".$toAdd."\">P</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=Q&".$toAdd."\">Q</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=R&".$toAdd."\">R</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=S&".$toAdd."\">S</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=T&".$toAdd."\">T</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=U&".$toAdd."\">U</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=V&".$toAdd."\">V</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=W&".$toAdd."\">W</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=X&".$toAdd."\">X</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=Y&".$toAdd."\">Y</a> | ";
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=Z&".$toAdd."\">Z</a>";
-            echo "
-            <input type=\"text\" name=\"search\">
-            <input type=\"hidden\" name=\"cidToEdit\" value=\"".$cidToEdit."\">
-            <input type=\"submit\" value=\"".$langSearch."\">
-
-      </form>
-     ";
-*/
 //TOOL LINKS
 
    //Display search form
@@ -381,9 +338,6 @@ echo "</tr><tbody> ";
 foreach($userList as $list)
 //while ($list = mysql_fetch_array($query))
 {
-
-
-
      echo '<tr>';
 
      //  Id
