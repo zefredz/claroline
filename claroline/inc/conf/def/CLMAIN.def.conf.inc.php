@@ -60,8 +60,7 @@ array ('rootWeb'
       , 'rootAdminAppend'
       , 'imgRepositoryAppend'
       , 'userImageRepositoryAppend'
-      , 'PEAR_LIB_PATH'
-      );
+     );
 
 $conf_def['section']['DB_CONNECT_SETTING']['label']= 'MySQL database settings';
 $conf_def['section']['DB_CONNECT_SETTING']['properties'] =
@@ -448,13 +447,6 @@ array ('label'        => 'relative path from root web to user pic repository'
       ,'default'     => 'claroline/img/users/'
       );
 
-$conf_def_property_list['PEAR_LIB_PATH'] =
-array ('type'        => 'syspath'
-      ,'label'       => 'Pear lib'
-      ,'default'     => str_replace('\\','/',$includePath.'/lib/pear')
-      ,'container'   => 'CONST'
-      );
-//
 $conf_def_property_list['CLARO_DEBUG_MODE'] =
 array ('type'        => 'boolean'
       ,'default'     => 'FALSE'

@@ -278,17 +278,6 @@ $rootAdminSys               = $clarolineRepositorySys.$rootAdminAppend;
 $rootAdminWeb               = $clarolineRepositoryWeb.$rootAdminAppend;
 $garbageRepositorySys       = "'.$garbageRepositorySys.'";
 
-// Path to the PEAR library. PEAR stands for "PHP Extension and Application
-// Repository". It is a framework and distribution system for reusable PHP
-// components. More on http://pear.php.net.
-// Claroline is provided with the basic PEAR components needed by the
-// application in the "claroline/inc/lib/pear" directory. But, server
-// administator can redirect to their own PEAR library directory by setting
-// its path to the PEAR_LIB_PATH constant.
-
-define(\'PEAR_LIB_PATH\', $includePath.\'/lib/pear\');
-
-
 // Strings
 $siteName               =   "'.cleanwritevalue($campusForm).'";
 $administrator_name =   "'.cleanwritevalue($contactNameForm).'";
@@ -341,8 +330,6 @@ $claro_texRendererUrl = \'\';
 * Config file to undist
 */
 
-
-
 $arr_file_to_undist =
 array (
 $newIncludePath.'../../textzone_top.inc.html',
@@ -362,9 +349,8 @@ if(is_array($def_file_list))
 foreach ( $def_file_list as $def_file_bloc)
 {
     if (is_array($def_file_bloc['conf']))
-    foreach ( $def_file_bloc['conf'] as $config_code => $def_file)
+    foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
     {
-
         // tmp: skip the main conf
         if ( $config_code == 'CLMAIN' ) continue;
 
@@ -398,8 +384,8 @@ foreach ( $def_file_list as $def_file_bloc)
             reset($conf_def_property_list);
             foreach($conf_def_property_list as $propName => $propDef )
             {
-                $propertyList[] = array('propName'=>$propName
-                                             ,'propValue'=>$propDef['default']);
+                $propertyList[] = array('propName'  => $propName
+                                       ,'propValue' => $propDef['default']);
             }
 
             $conf_file = get_conf_file($config_code);
