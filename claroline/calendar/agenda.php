@@ -519,7 +519,7 @@ foreach($eventList as $thisEvent)
   echo "<tr class=\"headerX\" valign=\"top\">\n"
       ."<th>\n"
       ."<a href=\"#form\" name=\"event".$thisEvent['id']."\"></a>\n"
-      ."<img src=\"".$imgRepository."/agenda.gif\" alt=\"\">"
+      ."<img src=\"".$clarolineRepositoryWeb."img/agenda.gif\" alt=\"\">"
       .ucfirst(claro_format_locale_date( $dateFormatLong, strtotime($thisEvent['day'])))." "
       .ucfirst( strftime( $timeNoSecFormat, strtotime($thisEvent['hour'])))." "
       .( empty($thisEvent['lasting']) ? '' : $langLasting.' : '.$thisEvent['lasting'] );
@@ -540,14 +540,14 @@ foreach($eventList as $thisEvent)
   if ($is_allowedToEdit)
   {
     echo "<a href=\"".$PHP_SELF."?cmd=rqEdit&id=".$thisEvent['id']."\">"
-        ."<img src=\"".$imgRepository."/edit.gif\" border=\"O\" alt=\"".$langModify."\">"
-        ."</a>"
+        ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"O\" alt=\"".$langModify."\">"
+        ."</a> "
          
         ."<a href=\"".$PHP_SELF."?cmd=exDelete&id=".$thisEvent['id']."\" "
         ."onclick=\"javascript:if( ! confirm('"
         .addslashes (htmlspecialchars($langDelete.' '.$thisEvent['titre']." ?"))
         ."')) return false;\" >"
-        ."<img src=\"".$imgRepository."/delete.gif\" border=\"0\" alt=\"".$langDelete."\">"
+        ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\">"
         ."</a>";
   }
   echo "</td>\n"
