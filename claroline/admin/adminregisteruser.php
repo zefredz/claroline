@@ -372,7 +372,7 @@ foreach($resultList as $list)
          echo  "<td align=\"center\">\n",
                         "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=teach".$addToURL."\" ",
                         ">\n",
-                        "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
+                        "<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
                         "</a>\n",
                     "</td>\n";
 

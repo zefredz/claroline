@@ -409,7 +409,7 @@ foreach($resultList as $list)
     // Modify course settings
 
     echo  "<td align=\"center\">\n
-           <a href=\"../course_info/infocours.php?cidToEdit=".$list['code'].$addToURL."&cfrom=clist\"><img src=\"../img/referencement.gif\" alt=\"$langCourseSettings\"></a>
+           <a href=\"../course_info/infocours.php?cidToEdit=".$list['code'].$addToURL."&cfrom=clist\"><img src=\"".$clarolineRepositoryWeb."img/referencement.gif\" alt=\"$langCourseSettings\"></a>
            </td>\n";
 
     //  Delete link
