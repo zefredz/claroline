@@ -6,7 +6,7 @@ unset($questionPlan);
 unset($info2Say);
 
 $titreBloc[] = "Descrição";  
-$titreBlocNotEditable[] = FALSE  
+$titreBlocNotEditable[] = FALSE ; 
 $questionPlan[] = "Qual é o lugar e a especialidade do curso no programa?  Existem cursos pré-requeridos?  Quais são as ligações com outros cursos?";  
 $info2Say[] = "Informações que permitam identificar o curso (iniciais, título, o número de horas, atividades...) e seu professor (nome, sobrenome, endereço, telefone., e-mail, disponibilidade possível). Apresentação geral do curso no programa.";  
 $titreBloc[] = "Qualificações e Objetivos";  
