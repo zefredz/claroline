@@ -1150,31 +1150,13 @@ function utf8_decode_if_is_utf8($str) {
         /*--------------------------------------
            UPLOAD FORM
           --------------------------------------*/
-        /*
-         * Determine the maximum size allowed to upload. This size is based on 
-         * the tool $maxFilledSpace regarding the space already opccupied 
-         * by previous uploaded files, and the php.ini upload_max_filesize 
-         * and post_max_size parameters. This value is diplayed on the upload 
-         * form.
-         */
-
-        $php_uploadMaxFile = ini_get('upload_max_filesize');
-        if (strstr($php_uploadMaxFile, 'M')) $php_uploadMaxFile = intval($php_uploadMaxFile) * 1048576;
-        $php_postMaxFile  = ini_get('post_max_size');
-        if (strstr($php_postMaxFile, 'M')) $php_postMaxFile     = intval($php_postMaxFile) * 1048576;
-        $docRepSpaceAvailable  = $maxFilledSpace - dir_total_space($coursesRepositorySys.$courseDir);
-
-        $fileSizeLimitList = array( $php_uploadMaxFile, $php_postMaxFile , $docRepSpaceAvailable );
-        sort($fileSizeLimitList);
-        list($maxFileSize) = $fileSizeLimitList;  
-        
         echo $langScormIntroTextForDummies;
         ?>
            <br /><br />
            <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                  <input type="file" name="uploadedPackage">
                  <input type="submit" value="<?php echo $langImport ?>"><br />
-                 <small><?php echo $langMaxFileSize; ?> : <?php echo format_file_size($maxFileSize); ?></small>
+                 <small><?php echo $langMaxFileSize; ?> : <?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
            </form>
         <?php
    } // else if method == 'post'
