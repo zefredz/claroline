@@ -186,4 +186,5 @@ $langCreateAnotherUser = "Créer un autre utilisateur";
 $langPasswordWrong = "Les mots de passe entrés doivent être identiques";
 $langStatusChangeNotMade = "Aucun changement appliqué";
 $langNotUnregYourself ="Vous ne pouvez pas changer vos propres paramètres !"; // JCC
+$langHomePageTextZone = "Zones de texte de la page de garde";
 ?>
