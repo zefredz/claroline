@@ -1091,10 +1091,10 @@ function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
 function claro_disp_html_area($name, $content =    '',    
                               $rows=20,    $cols=80, $optAttrib='')
 {
-    global $urlAppend, $iso639_1_code, $langTextEditorDisable, $langTextEditorEnable;
+    global $urlAppend, $iso639_1_code, $langTextEditorDisable, $langTextEditorEnable,$langSwitchEditorToTextConfirm;
     $incPath = $urlAppend.'/claroline/inc/htmlarea';
 
-    if ($_REQUEST['areaContent']) $content = $_REQUEST['areaContent'];
+    if ($_REQUEST['areaContent']) $content = stripslashes($_REQUEST['areaContent']);
 
     if (claro_is_javascript_enabled())
     {
@@ -1102,8 +1102,8 @@ function claro_disp_html_area($name, $content =    '',
         {
             $switchState = 'off';
             $message     = $langTextEditorDisable;
-            $areaContent = 'editor.getHTML()';
-            $confirmCommand = "if(!confirm('This command is going to remove the current text layout. Do you want to continue ?'))return(false);";
+			$areaContent = 'escape(document.getElementById(\''.$name.'\').value)';
+            $confirmCommand = "if(!confirm('".$langSwitchEditorToTextConfirm."' + editor.getHTML() ))return(false);";
         }
         else
         {
