@@ -56,13 +56,11 @@ Making it invisible will allow students to access
  next modules without having to complete this one. 
 
 Confirm ?";
-$langAlertBlockingMakedInvisible = "This module is blocking. \nMaking it invisible will allow students to access \n next modules without having to complete this one. \n\nConfirm ?";
 $langAlertBlockingPathMadeInvisible = "This path is blocking. 
 Making it invisible will allow students to access 
  next paths without having to complete this one. 
 
 Confirm ?";
-$langAlertBlockingPathMadeInvisible = "This path is blocking. \nMaking it invisible will allow students to access \n next paths without having to complete this one. \n\nConfirm ?";
 $langAll = "All";
 $langAllExercises = "All exercises";
 $langAllowAnonymous = "Allow anonymous users";
@@ -122,8 +120,6 @@ It will be definitively deleted from the server and from any learning path it is
 You won't be able to used it in any learning path.
 
 Confirm delete of : ";
-$langAreYouSureDeleteModule = "Are you sure to totally delete this module ?\n\nIt will be definitively deleted from the server and from any learning path it is in.\nYou won't be able to used it in any learning path.\n\nConfirm delete of : ";
-$langAreYouSureToDelete = "Are you sure to delete ";
 $langAreYouSureToDelete = "Are you sure to delete";
 $langAreYouSureToDeleteScorm = "This learning path is issue of a SCORM importation package. If you delete this path, all its SCORM conformant modules and related files will be deleted from the platform.  Are you sure you want to delete the learning path named ";
 $langAreYouSureToDeleteScormModule = "Are you sure you want to delete this SCORM conformant modules? The module won't be available on the platform any longer.";
@@ -1486,7 +1482,6 @@ $langUploadFile = "Upload file";
 $langURL = "URL : ";
 $langUsedInLearningPaths = "
 Number of learning paths using this module : ";
-$langUsedInLearningPaths = "\nNumber of learning paths using this module : ";
 $langUsedInSeveralExercises = "Warning ! This question and its answers are used in several exercises. Would you like to modify them";
 $langUsedInSeveralPath = "This exercise is used in one or more learning path. If you delete it it will be no more available in the learning path.";
 $langUseOfPool = "This page allow you to view all the modules available in this course. <br>
@@ -1758,7 +1753,6 @@ $l_pmposted = "Reply Posted, you can click <a href=\"viewpmsg.php\">here</a> to 
 $l_posted = "Posted";
 $l_poster = "Poster";
 $l_posts = "Posts";
-$l_privnotify = "<br>You have %s1 <a href=\"%s2\">new private message(s)</a>.";
 $l_privnotify = "<br>You have %s1 <a href=\"%s2\">new private message(s)</a>.";
 $l_profile = "Profile";
 $l_profileof = "View Profile of";
