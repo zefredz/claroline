@@ -231,7 +231,7 @@ if ($is_allowedToEdit)
                                 :
                                 '<input type="text" name="descTitle" id="descTitle" size="50" value="'.$descItem['title'].'">'."\n")
 
-            .'<p><label for="descContent"><b>'.$langContent.' : </b></label><br />'."\n";
+            .'<p><label for="descContent"><b>'.$langContent.' : </b></label><br /></td></tr><tr><td>'."\n";
 
         claro_disp_html_area('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n";
 
@@ -243,7 +243,7 @@ if ($is_allowedToEdit)
             
             .'</td>'  ."\n"
 
-            .'<td>'."\n";
+            .'<td valign="top">'."\n";
             
             if ($descPresetQuestion)
             {
