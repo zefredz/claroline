@@ -20,7 +20,7 @@ if (!$is_allowedToAdmin) claro_disp_auth_form();
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/userManage.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
-include($includePath."/conf/profile.conf.inc.php");
+include($includePath."/conf/user_profile.conf.php");
 
 $nameTools             = $langAddUser;
 

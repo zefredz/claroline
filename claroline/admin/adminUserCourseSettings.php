@@ -20,7 +20,7 @@ require '../inc/claro_init_global.inc.php';
 if (!$_SESSION['is_platformAdmin']) claro_disp_auth_form();
 
 include($includePath.'/lib/admin.lib.inc.php');
-include($includePath.'/conf/profile.conf.inc.php'); // find this file to modify values.
+include($includePath.'/conf//user_profile.conf.php'); // find this file to modify values.
 
 $nameTools=$langModifUserCourseSettings;
 
