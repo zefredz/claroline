@@ -44,7 +44,7 @@ $langTextFile = "Texte avec un fichier attaché (texte requis, fichier optionnel)
 $langStartDate = "Date de début";
 $langEndDate = "Date de fin";
 
-$langDefSubVisibility = "Visibilité par défaut";
+$langDefSubVisibility = "Visibilité par défautdes soumissions";
 $langVisible = "Visible";
 $langInvisible = "Invisible";
 
@@ -74,7 +74,8 @@ $langUploadDoc = "Envoyer un fichier";
 $langAttachDoc = "Attacher un fichier";
 $langCurrentAttachedDoc = "Fichier attaché actuel";
 $langCurrentDoc = "Fichier actuel";
-$langExplainModifyAttachedfile = "Cochez cette case pour effacer le fichier attaché, envoyez un nouveau fichier pour le remplacer.";
+$langExplainDeleteFile = "Cochez cette case pour effacer le fichier attaché.";
+$langExplainReplaceFile = "Envoyez un nouveau fichier pour remplacer le fichier actuel";
 $langFileDesc = "Description du fichier";
 $langAnswer = "Réponse";
 $langNoFile = "- pas de fichier -";

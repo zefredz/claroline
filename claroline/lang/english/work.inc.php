@@ -43,7 +43,7 @@ $langTextFile = "Text with attached file (text required, file optionnal)";
 $langStartDate = "Start date";
 $langEndDate = "Deadline";
 
-$langDefSubVisibility = "Default visibility";
+$langDefSubVisibility = "Default works visibility";
 $langVisible = "Visible";
 $langInvisible = "Invisible";
 
@@ -73,7 +73,8 @@ $langUploadDoc = "Upload document";
 $langAttachDoc = "Attach a file";
 $langCurrentAttachedDoc = "Current attached file";
 $langCurrentDoc = "Current file";
-$langExplainModifyAttachedfile = "Check this box to delete the attached file, upload a new file to replace it.";
+$langExplainDeleteFile = "Check this box to delete the attached file.";
+$langExplainReplaceFile = "Upload a new file to replace the file.";
 $langFileDesc = "File description";
 $langAnswer = "Answer";
 $langNoFile = "- none -";
