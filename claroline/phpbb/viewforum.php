@@ -1,4 +1,5 @@
 <?php
+
 /***************************************************************************
                             viewforum.php  -  description
                              -------------------
@@ -59,18 +60,14 @@ $forum_name = own_stripslashes($forumSettingList['forum_name']);
  * GET TOPIC LIST
  */
 
-require('page_header.php');
+require 'page_header.php';
 
-$sql = "SELECT t.*, u.username, u2.username as last_poster, p.post_time
-        FROM `".$tbl_topics."` t
-        LEFT JOIN `".$tbl_users."` u 
-               ON t.topic_poster = u.user_id
+$sql = "SELECT    t.*, p.post_time
+        FROM      `".$tbl_topics."` t
         LEFT JOIN `".$tbl_posts."` p 
                ON t.topic_last_post_id = p.post_id
-        LEFT JOIN `".$tbl_users."` u2 
-               ON p.poster_id = u2.user_id
-        WHERE t.forum_id = '".$forum."'
-        ORDER BY topic_time DESC";
+        WHERE     t.forum_id = '".$forum."'
+        ORDER BY  topic_time DESC";
 
 if ( ! $start) $start = 0;
 
