@@ -18,8 +18,7 @@ $sqlForUpdate[] = "
 CREATE TABLE IF NOT EXISTS  `admin` (
   `idUser` mediumint(8) unsigned NOT NULL default '0',
   UNIQUE KEY `idUser` (`idUser`)
-) TYPE=MyISAM;
-";
+) TYPE=MyISAM;";
 
 // try to add missing fields
 
@@ -69,8 +68,7 @@ $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS  `cours` (
   PRIMARY KEY  (`cours_id`),
   KEY `fake_code` (`fake_code`),
   KEY `faculte` (`faculte`)
-) TYPE=MyISAM;
-";
+) TYPE=MyISAM;";
 
 // Add missing fields
 
@@ -258,8 +256,7 @@ CREATE TABLE IF NOT EXISTS  `faculte` (
   UNIQUE KEY `code` (`code`),
   KEY `code_P` (`code_P`),
   KEY `treePos` (`treePos`)
-) TYPE=MyISAM;
-";
+) TYPE=MyISAM;";
 
 // Try to add missing fields
 
@@ -321,8 +318,7 @@ CREATE TABLE IF NOT EXISTS  `todo` (
   `showToUsers` enum('YES','NO') NOT NULL default 'YES',
   PRIMARY KEY  (`id`),
   KEY `temps` (`temps`)
-) TYPE=MyISAM;
-";
+) TYPE=MyISAM;";
 
 // try to add missing fields
 
@@ -383,8 +379,7 @@ $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS  `user` (
   `creatorId` mediumint(8) unsigned default NULL,
   PRIMARY KEY  (`user_id`),
   KEY `loginpass` (`username`,`password`)
-) TYPE=MyISAM;
-";
+) TYPE=MyISAM;";
 
 // try to add missing fields
 

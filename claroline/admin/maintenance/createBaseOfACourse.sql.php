@@ -385,7 +385,7 @@ $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."bb_forums` AD
 $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."bb_forums` ADD `cat_id` int(10) default NULL;";
 $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."bb_forums` ADD `forum_type` int(10) default '0';";
 $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."bb_forums` ADD `md5` varchar(32) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."bb_forums` ADD `forum_order` int(10) default '0'; ";
+$sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."bb_forums` ADD `forum_order` int(10) default '0';";
 
 // bb_forums : alter 
 
@@ -1746,6 +1746,9 @@ $sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_words` COMMENT='d
 
 /**
  * $Log$
+ * Revision 1.6  2004/07/01 10:15:20  mathieu
+ * remove char and line return after ; of query
+ *
  * Revision 1.5  2004/06/24 10:14:10  mathieu
  * replace sql with function to fill picture_name with id, previously implicit
  *
