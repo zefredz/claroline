@@ -358,10 +358,10 @@ function claro_get_conf_file($config_code)
 {
    global $includePath;
    unset($conf_def);
-   $confDefFile = claro_get_def_file(config_code);
+   $confDefFile = claro_get_def_file($config_code);
    if(file_exists($confDefFile)) include $confDefFile;
    
-   if (isset($conf_def['config_file']))
+   if (isset($conf_def['config_file'])&& !empty($conf_def['config_file']))
    {
        $confFile = realpath($includePath.'/conf/').'/'.$conf_def['config_file'];
    }
@@ -372,7 +372,7 @@ function claro_get_conf_file($config_code)
    // 1 config_code = 1 def_file
    // 1 def_file    = 1 conf_file
    {
-       $confFile = realpath($includePath.'/conf/').'/'.$config_code.'.conf.inc.php';
+       $confFile = realpath($includePath.'/conf/').'/'.$config_code.'.conf.php';
    }
    return $confFile;
 }
