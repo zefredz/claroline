@@ -1853,4 +1853,12 @@ $langpyear = "%d&nbsp;an(s)";
 $langFileForCSVUpload = "Fichier CSV avec la liste d'utilisateurs";
 $langThisIsAnErrorInDefinitionFile = "C'est une erreur dans la définition du fichier";
 $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Demandez au développeur de cette configuration d'ajouter ces propriétés dans une section du fichier de définition.";
+$langErrorCourseCodeEmpty = "Le champs \"code du cours\" ne peut pas être vide";
+$langErrorLecturerEmpty = "Le champs \"gestionnaire de cours\" ne peut pas être vide";
+$langErrorEmailEmpty = "Le champs \"email\" ne peut pas être vide";
+$langErrorCourseTitleEmpty = "Le champs \"titre du cours\" ne peut pas être vide";
+$langErrorCategoryEmpty = "Le champs \"catégorie\" ne peut pas être vide";
+$langErrorDepartmentEmpty = "Le champs \"département\" ne peut pas être vide";
+$langErrorDepartmentURLEmpty = "Le champs \"URL du département\" ne peut pas être vide";
+$langErrorLanguageEmpty = "Le champs \"langue\" can not be empty";
 ?>

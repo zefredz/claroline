@@ -2200,4 +2200,13 @@ $langpyear = "%d&nbsp;year(s)";
 $langFileForCSVUpload = "CSV file with the user list : ";
 $langThisIsAnErrorInDefinitionFile = 'This is an error in definition file.';
 $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile ='Request to the coder of this config to add theses proporties in a section of the definition file.';
+$langErrorCourseCodeEmpty = "Course Code can not be empty";
+$langErrorLecturerEmpty = "Lecturer can not be empty";
+$langErrorEmailEmpty = "Email can not be empty";
+$langErrorCourseTitleEmpty = "Course title can not be empty";
+$langErrorCategoryEmpty = "Category can not be empty";
+$langErrorDepartmentEmpty = "Department can not be empty";
+$langErrorDepartmentURLEmpty = "Department URL can not be empty";
+$langErrorLanguageEmpty = "Language can not be empty";
+
 ?>
