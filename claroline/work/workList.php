@@ -152,12 +152,11 @@ if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
                WHERE `tu`.`user` = ".$_uid."
                  AND `tu`.`team` = `t`.`id`";
       $result = claro_sql_query($sql);
-      $i = 0;
       while( $row = mysql_fetch_array($result) )
       {
-            $userGroupList[$i]['id'] = $row['team'];
-            $userGroupList[$i]['name'] = $row['name'];
-            $i++;
+            // yes it is redundant but it is for a easier user later in the script
+            $userGroupList[$row['team']]['id'] = $row['team'];
+            $userGroupList[$row['team']]['name'] = $row['name'];
       }
 }
   /*--------------------------------------------------------------------
@@ -228,7 +227,9 @@ $is_allowedToEditAll  = (bool) $is_courseAdmin;
 $uploadDateIsOk = (bool) ( $afterStartDate 
                               && ( time() < $assignment['unix_end_date'] || $assignment['allow_late_upload'] == "YES" ) );
                               
-if( isset($wrk) && isset($_uid) )
+// anonymous cannot edit and we have to 
+// if correction is automatically submitted user cannot edit his work
+if( isset($wrk) && isset($_uid) && $assignment['prefill_submit'] != 'AFTERPOST')
 {
       if( $assignment['assignment_type'] == 'GROUP' && isset($_gid) )
       {
@@ -249,22 +250,16 @@ if( isset($wrk) && isset($_uid) )
             // if the user accessed
             // check if user is in the group that owns the work
             $groupFound = false;  
-            if( isset($userGroupList) )
+            if( isset($userGroupList[$wrk['group_id']]))
             {
-                  foreach( $userGroupList as $group )
-                  {
-                        if( $group['id'] == $wrk['group_id'] )
-                        {
-                              $groupFound = true;
-                              $wrkForm['wrkGroup'] = $_REQUEST['wrkGroup'];
-                        }
-                  }
+                  $groupFound = true;
+                  $wrkForm['wrkGroup'] = $_REQUEST['wrkGroup'];
             }
             $userCanEdit = ( isset($userGroupList) && $groupFound );
       }
       elseif( $assignment['assignment_type'] == 'INDIVIDUAL' )
       {
-            // a work is set, assignment is individual, user is authed and the work is his wor
+            // a work is set, assignment is individual, user is authed and the work is his work
             $userCanEdit = (bool) ($wrk['user_id'] == $_uid);
       }
 }
@@ -415,13 +410,10 @@ if( isset($_REQUEST['submitWrk']) )
       {
             $groupFound = false;
             // check that the group id is one of the student
-            foreach( $userGroupList as $group )
+            if( isset($userGroupList[$_REQUEST['wrkGroup']]) )
             {
-                  if( $group['id'] == $_REQUEST['wrkGroup'] )
-                  {
-                        $groupFound = true;
-                        $wrkForm['wrkGroup'] = $_REQUEST['wrkGroup'];
-                  }
+                  $groupFound = true;
+                  $wrkForm['wrkGroup'] = $_REQUEST['wrkGroup'];
             }
             
             if( !$groupFound ) 
@@ -1211,25 +1203,35 @@ if( $is_allowedToSubmit )
                   ."</tr>\n\n";
 
             // display the list of groups of the user
-            if( $assignment['assignment_type'] == "GROUP" && count($userGroupList) > 0 )
+            if( $assignment['assignment_type'] == "GROUP" && isset($userGroupList) && count($userGroupList) > 0 )
             {
                   echo "<tr>\n"
-                        ."<td valign=\"top\"><label for=\"wrkGroup\">".$langGroup."&nbsp;*&nbsp;:</label></td>\n"
-                        ."<td>\n<select name=\"wrkGroup\" id=\"wrkGroup\">\n";
+                        ."<td valign=\"top\"><label for=\"wrkGroup\">".$langGroup."&nbsp;*&nbsp;:</label></td>\n";
                   
-                  foreach( $userGroupList as $group )
+                  if( isset($_gid) )
                   {
-                        echo "<option value=\"".$group['id']."\"";
-                        if( isset($form['wrkGroup']) && $form['wrkGroup'] == $group['id'] )
-                        {
-                              echo "selected=\"selected\"";
-                        }
-                        echo ">".$group['name']."</option>\n";
-                        
+                        echo "<td>\n"
+                              ."<input type=\"hidden\" name=\"wrkGroup\" value=\"".$_gid."\" />"
+                              .$userGroupList[$_gid]['name']
+                              ."</td>\n";
                   }
-                  echo "</select>\n"
-                        ."</td>\n"
-                        ."</tr>\n\n";
+                  else
+                  {
+                        echo "<td>\n<select name=\"wrkGroup\" id=\"wrkGroup\">\n";
+                        foreach( $userGroupList as $group )
+                        {
+                              echo "<option value=\"".$group['id']."\"";
+                              if( isset($form['wrkGroup']) && $form['wrkGroup'] == $group['id'] )
+                              {
+                                    echo "selected=\"selected\"";
+                              }
+                              echo ">".$group['name']."</option>\n";
+                              
+                        }
+                        echo "</select>\n"
+                              ."</td>\n";
+                  }
+                  echo "</tr>\n\n";
             }
             
             // display file box
