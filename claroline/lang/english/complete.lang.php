@@ -2197,8 +2197,7 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
-
+$langFileForCSVUpload = "CSV file with the user list : ";
 $langThisIsAnErrorInDefinitionFile = 'This is an error in definition file.';
 $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile ='Request to the coder of this config to add theses proporties in a section of the definition file.';
-
 ?>
