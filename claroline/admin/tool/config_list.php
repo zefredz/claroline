@@ -24,8 +24,9 @@ include($includePath.'/lib/course.lib.inc.php');
 include($includePath.'/lib/config.lib.inc.php');
 
 // define
-$nameTools          = 'Configuration';
-$interbredcrump[]   = array ('url'=>$rootAdminWeb, 'name'=> $lang_config_AdministrationTools);
+$langConfiguration          = 'Configuration';
+$nameTools          = $langConfiguration;
+$interbredcrump[]   = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
 $noQUERY_STRING     = TRUE;
 
 /* ************************************************************************** */
@@ -36,7 +37,6 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_tool = $tbl_mdb_names['tool'];
 
 $urlEditConf = 'config_edit.php';
-
 
 $toolNameList = array('CLANN___' => $langAnnouncement,
                           'CLFRM___' => $langForums,

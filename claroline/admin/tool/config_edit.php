@@ -45,6 +45,7 @@
 
 // LANGUAGE
 
+$langConfiguration = "Configuration";
 $lang_config_config = 'Édition des fichiers de configuration';
 $lang_config_config_short = 'Configuration';
 $lang_nothingToConfigHere='Il n\'y a pas de paramétrage pour <B>%s</B>';
@@ -134,10 +135,10 @@ if(!$is_allowedToAdmin)
 
 // define bredcrump
 
-$nameTools = $lang_config_config;
+$nameTools = $langConfiguration;
 
-$interbredcrump[] = array ('url'=>$rootAdminWeb, 'name'=> $lang_config_AdministrationTools);
-$interbredcrump[] = array ('url'=>$rootAdminWeb.'/tool/config_list.php', 'name'=> $lang_config_config);
+$interbredcrump[] = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
+$interbredcrump[] = array ('url'=>$rootAdminWeb.'/tool/config_list.php', 'name'=> $langConfiguration);
 
 /**
  * Process
@@ -331,7 +332,7 @@ include($includePath."/claro_init_header.inc.php");
 
 // display tool title
 
-claro_disp_tool_title(array('mainTitle'=>$nameTools),(isset($helpSection)?$helpSection:false));
+claro_disp_tool_title(array('mainTitle'=>$langConfiguration,'subTitle'=>$nameTools));
 
 // Verify integrity md5sum
 
@@ -390,6 +391,10 @@ if ( $display_form )
                 if ( !empty($section['description']) )
                 {
                     echo '<tr><th class="headerX" colspan="3">' . $section['description'] . '</th></tr>' . "\n";
+                }
+                else
+                {
+                    echo '<tr><th class="headerX" colspan="3">&nbsp;</th></tr>' . "\n";
                 }
     
                 // The default value is show in input or preselected value if there is no value set.
