@@ -63,12 +63,11 @@ if ( ! $is_courseAllowed)
 echo "<a href=\"./search.php?addterms=any&forum=all&sortby=p.post_time%20desc&searchboth=both&submit=Rechercher\">$langLastMsgs</a>";
 */
 
-echo	"<h3>",$l_forums,"</h3>";
-
-
 if($is_forumAdmin)
 {
-$toolBar [] = "<a href=\"#\" onClick=\"MyWindow=window.open('../help/help_forum.php','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">".$langHelp."</a>";
+
+claro_disp_tool_title($l_forums, 
+                      $is_allowedToEdit ? 'help_forum.php' : false);
 }	// end if prof or assistant
 
 
