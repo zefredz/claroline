@@ -1,9 +1,9 @@
-<?php # $Id$
+<?php // $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6.*
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -17,6 +17,7 @@
 // CREATE TABLE `admin`
 // CREATE TABLE `cours`
 // CREATE TABLE `cours_user`
+// CREATE TABLE `course_tool`
 // CREATE TABLE faculte
 // CREATE TABLE `user`
 
@@ -24,10 +25,10 @@
 
 	$sql ="
 CREATE TABLE `admin` (
-  `idUser` mediumint(8) unsigned NOT NULL default '0',
+  `idUser` int(11) unsigned NOT NULL default '0',
   UNIQUE KEY `idUser` (`idUser`)
 ) TYPE=MyISAM";
-	mysql_query($sql);
+	claro_sql_query($sql);
 	$sql ="
 CREATE TABLE `cours` (
   `cours_id` int(11) NOT NULL auto_increment,
@@ -59,7 +60,7 @@ CREATE TABLE `cours` (
 ) TYPE=MyISAM COMMENT='data of courses'";
 
 
-	mysql_query($sql);
+	claro_sql_query($sql);
 	$sql ="
 CREATE TABLE `cours_user` (
   `code_cours` varchar(40) NOT NULL default '0',
@@ -71,7 +72,7 @@ CREATE TABLE `cours_user` (
    PRIMARY KEY  (`code_cours`,`user_id`),
   KEY `statut` (`statut`)
 ) TYPE=MyISAM";
-mysql_query($sql);
+claro_sql_query($sql);
 $sql ="CREATE TABLE faculte (
   id 					int(11) NOT NULL auto_increment,
   name 					varchar(100) NOT NULL default '',
@@ -88,10 +89,10 @@ $sql ="CREATE TABLE faculte (
   KEY `treePos` (`treePos`)
 
 ) TYPE=MyISAM;";
-mysql_query($sql);
+claro_sql_query($sql);
 	$sql ="
 CREATE TABLE `user` (
-  `user_id` mediumint(8) unsigned NOT NULL auto_increment,
+  `user_id` int(11)  unsigned NOT NULL auto_increment,
   `nom` varchar(60) default NULL,
   `prenom` varchar(60) default NULL,
   `username` varchar(20) default 'empty',
@@ -102,11 +103,11 @@ CREATE TABLE `user` (
   `officialCode` varchar(40) default NULL,
   `phoneNumber` varchar(30) default NULL,
   `pictureUri` varchar(250) default NULL,
-  `creatorId` mediumint(8) unsigned default NULL,
+  `creatorId` int(11)  unsigned default NULL,
    PRIMARY KEY  (`user_id`),
   KEY `loginpass` (`username`,`password`)
 ) TYPE=MyISAM";
-	mysql_query($sql);
+	claro_sql_query($sql);
         
 $sql ="
 CREATE TABLE `course_tool` (
@@ -121,7 +122,7 @@ CREATE TABLE `course_tool` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `claro_label` (`claro_label`)
 ) TYPE=MyISAM COMMENT='based definiton of the claroline tool used in each course'" ;
-        mysql_query($sql);
+        claro_sql_query($sql);
 $sql ="
 CREATE TABLE `class` (
   `id` int(11) NOT NULL auto_increment,
@@ -130,7 +131,7 @@ CREATE TABLE `class` (
   `class_level` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='classe_id, name, classe_parent_id, classe_level'";
-mysql_query($sql);
+claro_sql_query($sql);
 
 $sql ="
 CREATE TABLE `rel_class_user` (
@@ -139,6 +140,6 @@ CREATE TABLE `rel_class_user` (
   `class_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM";
-mysql_query($sql);
+claro_sql_query($sql);
 	
 ?>

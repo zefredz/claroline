@@ -1,9 +1,9 @@
 <?php # $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6.*
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -24,7 +24,7 @@ CREATE TABLE `pma_bookmark` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='Bookmarks'";
 
-	mysql_query($sql);
+	claro_sql_query($sql);
 	$sql ="
 CREATE TABLE `pma_column_comments` (
   `id` int(5) unsigned NOT NULL auto_increment,
@@ -35,7 +35,7 @@ CREATE TABLE `pma_column_comments` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `db_name` (`db_name`,`table_name`,`column_name`)
 ) TYPE=MyISAM COMMENT='Comments for Columns'";
-	mysql_query($sql);
+	claro_sql_query($sql);
 	$sql ="
 CREATE TABLE `pma_pdf_pages` (
   `db_name` varchar(64) NOT NULL default '',
@@ -44,7 +44,7 @@ CREATE TABLE `pma_pdf_pages` (
   PRIMARY KEY  (`page_nr`),
   KEY `db_name` (`db_name`)
 ) TYPE=MyISAM COMMENT='PDF Relationpages for PMA'";
-	mysql_query($sql);
+	claro_sql_query($sql);
 	$sql ="
 CREATE TABLE `pma_relation` (
   `master_db` varchar(64) NOT NULL default '',
@@ -58,7 +58,7 @@ CREATE TABLE `pma_relation` (
 ) TYPE=MyISAM COMMENT='Relation table'
 ";
 
-	mysql_query($sql);
+	claro_sql_query($sql);
 	$sql ="
 CREATE TABLE `pma_table_coords` (
   `db_name` varchar(64) NOT NULL default '',
@@ -68,7 +68,7 @@ CREATE TABLE `pma_table_coords` (
   `y` float unsigned NOT NULL default '0',
   PRIMARY KEY  (`db_name`,`table_name`,`pdf_page_number`)
 ) TYPE=MyISAM COMMENT='Table coordinates for phpMyAdmin PDF output'";
-	mysql_query($sql);
+	claro_sql_query($sql);
 	$sql ="
 CREATE TABLE `pma_table_info` (
   `db_name` varchar(64) NOT NULL default '',
@@ -76,6 +76,6 @@ CREATE TABLE `pma_table_info` (
   `display_field` varchar(64) NOT NULL default '',
   PRIMARY KEY  (`db_name`,`table_name`)
 ) TYPE=MyISAM COMMENT='Table information for phpMyAdmin'";
-	mysql_query($sql);
+	claro_sql_query($sql);
 
 ?>
