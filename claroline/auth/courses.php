@@ -496,7 +496,7 @@ switch ($displayMode)
 		{
 			echo "<h4>".$langCourseList."</h4>\n"
 				."\n<blockquote>\n"
-				."<table class=\"claroTable\" >\n";
+				."<table class=\"claroTable emphaseLine\" >\n";
 
             if ($userSettingMode) //display links to enroll as student and also as teacher (but not for a class)
 	    {
