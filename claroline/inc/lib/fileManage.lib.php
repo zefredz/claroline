@@ -318,7 +318,7 @@ function index_and_sort_dir($path)
 
 function form_dir_list($file, $baseWorkDir)
 {
-	global $_SERVER, $langCopy, $langTo;
+    global $_SERVER, $langCopy, $langTo;
 
 	$dirList = index_and_sort_dir($baseWorkDir);
 
@@ -328,7 +328,7 @@ function form_dir_list($file, $baseWorkDir)
 	             .$langCopy.' <i>'.basename($file).'</i> '.$langTo." :\n"
 	             ."<select name=\"destination\">\n";
 
-    if ( dirname($file) == '/' )
+    if ( dirname($file) == '/' || dirname($file) == '\\')
     {
         $dialogBox .= "<option value=\"\" class=\"invisible\">root</option>\n";
     }
@@ -347,26 +347,26 @@ function form_dir_list($file, $baseWorkDir)
 		while (list( , $pathValue) = each($dirList) )
 		{
 
-			$pathValue = substr ( $pathValue , $bwdLen );		// truncate cunfidential informations confidentielles
-			$dirname = basename ($pathValue);					// extract $pathValue directory name du nom
+			$pathValue = substr ( $pathValue , $bwdLen );		// truncate confidential informations
+			$dirname = basename ($pathValue);					// extract $pathValue directory name
 
 			/* compute de the display tab */
 
-			$tab = "";										// $tab reinitialisation
-			$depth = substr_count($pathValue, "/");			// The number of nombre '/' indicates the directory deepness
+			$tab = '';										// $tab reinitialisation
+			$depth = substr_count($pathValue, '/');			// The number of nombre '/' indicates the directory deepness
 
-			for ($h=0; $h<$depth; $h++)
+			for ($h = 0; $h < $depth; $h++)
 			{
-				$tab .= "&nbsp;&nbsp";
+				$tab .= '&nbsp;&nbsp';
 			}
 
             if ($file == $pathValue OR dirname($file) == $pathValue)
             {
-                $dialogBox .= "<option class=\"invisible\" value=\"$pathValue\">$tab>$dirname</option>\n";
+                $dialogBox .= '<option class="invisible" value="'.$pathValue.'">'.$tab.' &gt; '.$dirname.'</option>'."\n";
             }
             else
             {
-                $dialogBox .= "<option value=\"$pathValue\">$tab>$dirname</option>\n";
+                $dialogBox .= '<option value="'.$pathValue.'">'.$tab.' &gt; '.$dirname.'</option>'."\n";
             }
 		}
 	}
