@@ -194,7 +194,7 @@
    $langErrorSql = "Erreur dans les requ&ecirc;tes SQL";
 
    // import learning path / ok messages
-   $langScormIntroTextForDummies = "Les packages import&eacute;s doivent consist&eacute; &ecirc;tre des fichiers zip et r&eacute;pondre &agrave; la norme SCORM 1.2";
+   $langScormIntroTextForDummies = "Les packages import&eacute;s doivent &ecirc;tre des fichiers zip et r&eacute;pondre &agrave; la norme SCORM 1.2";
    $langOkFileReceived = "Fichier reçu : ";
    $langOkManifestRead = "Manifest lu.";
    $langOkManifestFound = "Manifest trouv&eacute;.";
