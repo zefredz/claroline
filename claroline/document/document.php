@@ -983,10 +983,10 @@ function confirmation (name)
 
 $nameTools = $langDoc;
 
-$QUERY_STRING=''; // used forthe breadcrumb 
+$QUERY_STRING=''; // used for the breadcrumb 
                   // when one need to add a parameter after the filename
 
-if (!$_gid) claro_enable_tool_view_option();
+if (!$_gid) claro_set_display_mode_available(true);
 
 include($includePath.'/claro_init_header.inc.php');
 
@@ -1001,11 +1001,6 @@ if ( $_gid && $is_groupAllowed) $titleElement['subTitle'] = $_group['name'];
 
 claro_disp_tool_title($titleElement, 
                       $is_allowedToEdit ? 'help_document.php' : false);
-
-//if ($is_courseAdmin)
-//{
-//    claro_disp_tool_view_option($_REQUEST['viewMode']);
-//}
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
