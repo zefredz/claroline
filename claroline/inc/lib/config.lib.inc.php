@@ -284,9 +284,8 @@ function get_conf_file($config_code)
     global $includePath;
 
     // include definition file and get $conf_def array
-    unset($conf_def);
-    define('CONST_DEF_FILE', get_def_file($config_code));
-    if (file_exists(CONST_DEF_FILE)) include CONST_DEF_FILE; 
+    $def_file = get_def_file($config_code);
+    if (file_exists($def_file)) include $def_file;
 
     if ( isset($conf_def['config_file']) && !empty($conf_def['config_file']) )
     {
@@ -321,10 +320,11 @@ function get_def_file($config_code)
 
 function get_conf_name($config_code)
 {
-    // include definition file and get $conf_def array
-    unset($conf_def);
-    define('CONST_DEF_FILE', get_def_file($config_code));
-    if (file_exists(CONST_DEF_FILE)) include CONST_DEF_FILE;
+    $def_file = get_def_file($config_code);
+
+     // include definition file and get $conf_def array
+    if ( file_exists($def_file) )
+        include $def_file;
 
     if ( isset($conf_def['config_name']) )
     {
