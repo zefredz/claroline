@@ -2,7 +2,7 @@
 
 $lang_already_enrolled                     = "already enrolled";
 $lang_main_categories_list                 = "Main category list";
-$lang_my_personnal_course_list             = "My personnal course list";
+$lang_my_personnal_course_list             = "My personal course list";
 $lang_course_enrollment                    = "Course enrollment";
 $lang_course_not_available                 = "This course is not available or doesn't exist..";
 $lang_enroll                               = "Enroll";
@@ -18,7 +18,7 @@ $lang_select_course_in_search_results      = "Select course in search results";
 $lang_select_course_in_search_results      = "Select course in search results";
 $lang_unsubscribe                          = "Unsubscribe";
 $lang_back_to_my_home_page                 = "Back to my home page";
-$lang_back_to_my_personnal_course_list     = "Back to my personnal course list";
+$lang_back_to_my_personnal_course_list     = "Back to my personal course list";
 $lang_back_to_main_category_list	   = "Back to the main category list";
 $langAdded 	= "Added";
 $langDeleted 	= "Deleted";
@@ -51,7 +51,7 @@ $langCourses	= "courses";
 $langIn			= "in";
 $langSubCat		= "sub-categories";
 
-$lang_remove_course_from_your_personnal_course_list = 'Remove course from your personnal course list';
+$lang_remove_course_from_your_personnal_course_list = 'Remove course from your personal course list';
 $lang_your_enrollment_to_the_course_has_been_removed = "Your enrollment to the course has been removed";
 $lang_you_have_been_enrolled_to_the_course = "You've been enrolled to the course";
 $lang_user_has_been_enrolled_to_the_course = "The user has been enrolled to the course";

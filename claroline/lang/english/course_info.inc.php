@@ -128,7 +128,7 @@ $langViewCourse = "View course";
 // course_home_edit.php
 
 $langIntroEditToolList="Select the tools you want to make visible for your user.
-Univisible tool will be grayed out on your personnal interface";
+Univisible tool will be grayed out on your personal interface";
 $langTools="Tools";
 $langActivate="Activate";
 $langAddExternalTool="Add external link";
