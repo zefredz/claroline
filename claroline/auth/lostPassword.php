@@ -95,7 +95,7 @@ if ($searchPassword)
 			{
 				$userAccountList [] = $thisUser['firstName']." ".$thisUser['lastName']."\r\n\r\n"
 									 ."\t".$langUserName." : ".$thisUser['loginName']."\r\n"
-									 ."\t".$langPass." : ".$thisUser['password']." \r\n";
+									 ."\t".$langPassword." : ".$thisUser['password']." \r\n";
 			}
 
 			if ($userAccountList)

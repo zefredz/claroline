@@ -891,7 +891,7 @@ function confirmation (name)
 }
 </script>";
 
-$interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langAssignments);
+$interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langWork);
 
 if( $dispWrkDet || $dispWrkForm )
 {

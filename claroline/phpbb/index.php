@@ -100,7 +100,7 @@ for($i = 0; $i < $total_categories; $i++)
                 ."</tr>\n\n"
 
                 ."<tr class=\"headerX\" align=\"center\">"
-                ."<th colspan=\"2\" align=\"left\"><small>".$l_forum."</small></th>\n"
+                ."<th colspan=\"2\" align=\"left\"><small>".$langForum."</small></th>\n"
                 ."<th><small>".$l_topics  ."</small></th>\n"
                 ."<th><small>".$l_posts   ."</small></th>\n"
                 ."<th><small>".$l_lastpost."</small></th>\n"
@@ -130,7 +130,7 @@ for($i = 0; $i < $total_categories; $i++)
         ."</tr>\n\n"
 
         ."<tr class=\"headerX\" align=\"center\">"
-        ."<th colspan=\"2\" align=\"left\">".$l_forum."</td>"
+        ."<th colspan=\"2\" align=\"left\">".$langForum."</td>"
         ."<th>".$l_topics  ."</th>"
         ."<th>".$l_posts   ."</th>"
         ."<th>".$l_lastpost."</th>"

@@ -23,7 +23,7 @@
   // 1 : display claroline header and footer and table of content, and content
   define ( "USE_FRAMES" , 1 ); 
   
-  $nameTools = $langLearnPath;
+  $nameTools = $langLearningPath;
   if(!empty($nameTools))
   {
     $titlePage .= $nameTools.' - ';

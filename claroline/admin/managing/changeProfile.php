@@ -526,7 +526,7 @@ if(!empty($_uid))
 			"</tr>\n",
 			"<tr>\n",
 			"<td align=\"right\">\n<label for=\"form_password1\">",
-			$langPass,"</label> : \n",
+			$langPassword,"</label> : \n",
 			"</td>\n",
 			"<td>\n",
 			"<input type=\"password\" size=\"40\" name=\"form_password1\" id=\"form_password1\" value=\"\">\n",

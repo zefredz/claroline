@@ -114,7 +114,7 @@ if ( isset($_uid) )  //anonymous user do not have this function
         echo "<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
             .get_syslang_string($sys_lang, 'l_notify')
             ." [<a href=\"".$_SERVER['PHP_SELF']."?topic=".$topic."&cmd=exdoNotNotify\">"
-            .$l_disable
+            .$langDisable
             ."</a>]";
     }
     else   //display link to be notified for this topic

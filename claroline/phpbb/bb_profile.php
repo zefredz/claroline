@@ -258,7 +258,7 @@ if($mode) {
 		<TD  BGCOLOR="<?php echo $color2?>"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><INPUT TYPE="PASSWORD" NAME="new_password" SIZE="25" MAXLENGTH="25"></TD>
 	</TR>
 	<TR ALIGN="LEFT">
-		<TD  BGCOLOR="<?php echo $color1?>" width="25%"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><b><?php echo $l_confirm . " " . $l_password?>:</b></FONT><br><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize1?>" COLOR="<?php echo $textcolor?>">(<?php echo $l_onlyreq?>)</FONT></TD>
+		<TD  BGCOLOR="<?php echo $color1?>" width="25%"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><b><?php echo $langConfirm . " " . $l_password?>:</b></FONT><br><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize1?>" COLOR="<?php echo $textcolor?>">(<?php echo $l_onlyreq?>)</FONT></TD>
 		<TD  BGCOLOR="<?php echo $color2?>"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><INPUT TYPE="PASSWORD" NAME="password2" SIZE="25" MAXLENGTH="25"></TD>
 	</TR>
 

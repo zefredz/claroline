@@ -99,7 +99,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 	<tr>
 		<td align="right">
 			<label for="pass1">
-				<?php echo $langPass ?>
+				<?php echo $langPassword ?>
 			</label>
 			&nbsp;:
 		</td>
@@ -111,7 +111,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 	<tr>
 		<td align="right">
 			<label for="pass2">
-				<?php echo $langPass ?>
+				<?php echo $langPassword ?>
 			</label> :
 			<br>
 			<small>

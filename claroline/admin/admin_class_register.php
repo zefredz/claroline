@@ -14,20 +14,6 @@
 // Lang files needed :
 
 $langFile = "admin";
-
-//----------------------LANG TO ADD -------------------------------------------------------------------------------
-   
-$langRegisterUserToClass       = "Register user to class"; 
-$langSubscribeClass            = "Register to the class";
-$langUnsubscribeClass          = "Unregister from class";
-$langUserAlreadyInClass        = "User already in class";
-$langUserNotInClass            = "User not in the class";
-$langUserRegisteredClass       = "User has been sucessfully registered to the class";
-$langUserUnregisteredClass     = "User has been sucessfully unregistered from the class";
-$langClassMembers              = "See class members";
-$langClass                     = "Classes";
-
-//----------------------LANG TO ADD -------------------------------------------------------------------------------
    
 // initialisation of global variables and used libraries
 

@@ -713,7 +713,7 @@ elseif($display == DISP_FORUM_CAT_EDIT)
         echo    "
 <form action=\"forum_admin.php?forumcatsave=yes\" method=post>
                 <input type=hidden name=cat_id value=".$cat_id.">",
-                "<label for=\"cat_title\">".$langCat." : </label>".
+                "<label for=\"cat_title\">".$langCategory." : </label>".
                 "<input type=\"text\" name=\"cat_title\" id=\"cat_title\" size=\"55\" value=\"",$cat_title,"\">\n",
                 "<input type=submit value=\"",$langSave,"\">\n",
                 "</form>";
@@ -866,7 +866,7 @@ elseif($display == DISP_FORUM_ADMIN)
 
             ."<h4>".$langAddCategory."</h4>"
             ."<form action=\"forum_admin.php\" method=\"post\">\n"
-            ."<label for=\"catagories\">".$langCat." : </label>"
+            ."<label for=\"catagories\">".$langCategory." : </label>"
             ."<input type=\"text\" name=\"catagories\" id=\"catagories\" size=\"50\">\n"
             ."<input type=\"submit\" value=\"".$langAdd."\">\n"
             ."<input type=\"hidden\" name=\"forumcatadd\" value=\"yes\">\n"

@@ -39,7 +39,7 @@ $toolNameList = array('CLANN___' => $langAnnouncement,
                       'CLDOC___' => $langDocument,
                       'CLDSC___' => $langDescriptionCours,
                       'CLGRP___' => $langGroups,
-                      'CLLNP___' => $langLearnPath,
+                      'CLLNP___' => $langLearningPath,
                       'CLQWZ___' => $langExercises,
                       'CLWRK___' => $langWork,
                       'CLUSR___' => $langUsers);
@@ -222,7 +222,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         
         //---------------------------- view details of traffic
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langTrafficDetails."</b><br />\n"
-                ."&nbsp;&nbsp;&nbsp;<a href='traffic_details.php'>".$langStatsDatabaseLink."</a><br />\n";
+                ."&nbsp;&nbsp;&nbsp;<a href='traffic_details.php'>".$lang_click_here."</a><br />\n";
                 
                 
         //----------------------------  logins

@@ -69,7 +69,7 @@ $toolNameList = array('CLANN___' => $langAnnouncement,
                       'CLDOC___' => $langDocument,
                       'CLDSC___' => $langDescriptionCours,
                       'CLGRP___' => $langGroups,
-                      'CLLNP___' => $langLearnPath,
+                      'CLLNP___' => $langLearningPath,
                       'CLQWZ___' => $langExercises,
                       'CLWRK___' => $langWork,
                       'CLUSR___' => $langUsers);
@@ -198,8 +198,7 @@ if ($is_allowedToEdit)
 
     echo "Course Administration :&nbsp;&nbsp;&nbsp;&nbsp;";
     echo "<img src=\"".$imgRepository."/referencement.gif\" alt=\"\">";
-    echo "<a href=\"".$toolRepository."course_info/infocours.php\">".$langModifInfo."</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-    // langModifInfo stands for 'course setting' ...
+    echo "<a href=\"".$toolRepository."course_info/infocours.php\">".$langCourseSettings."</a>&nbsp;&nbsp;&nbsp;&nbsp;";
     echo "<img src=\"".$imgRepository."/statistiques.gif\" alt=\"\">";
 
     echo "<a href=\"".$toolRepository."tracking/courseLog.php\">".$langStats."</a>";

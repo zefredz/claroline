@@ -399,7 +399,7 @@ function error_die($msg)
 
 function make_jumpbox()
 {
-    global $l_jumpto, $l_selectforum, $l_go;
+    global $l_selectforum, $l_go;
     global $tbl_catagories, $tbl_forums;
 
     echo "<form action=\"viewforum.php\" method=\"get\">\n"
@@ -956,7 +956,7 @@ function is_topic_notification_requested($userId, $topicId)
 function trig_topic_notification($topicId)
 {
     global $tbl_user_notify, $tbl_users, $sys_lang;
-    global $l_dear, $l_notifybody, $l_notifysub;
+    global $langDear, $l_notifybody, $l_notifysub;
     global $url_phpbb, $_course;
 
     $sql = "SELECT u.user_id, u.prenom firstname, u.nom lastname
@@ -975,7 +975,7 @@ function trig_topic_notification($topicId)
 
     while ($list = mysql_fetch_array($notifyResult))
     {
-       $message = $l_dear . " " . $list['firstname']." ".$list['lastname'].",\n\n";
+       $message = $langDear . " " . $list['firstname']." ".$list['lastname'].",\n\n";
        $message.= sprintf($l_notifybody,$url_topic,$url_forum);
 
        claro_mail_user($list['user_id'], $message, $subject);

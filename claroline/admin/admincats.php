@@ -24,7 +24,7 @@ if (!$is_allowedToAdmin) claro_disp_auth_form();
 include($includePath."/lib/admin.lib.inc.php");
 
 $dateNow          = claro_disp_localised_date($dateTimeFormatLong);
-$nameTools        = $lang_categories;
+$nameTools        = $langCategories;
 $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 include($includePath."/claro_init_header.inc.php");
 //SECURITY CHECK
@@ -331,7 +331,7 @@ else
         $MOVE=FALSE;
 
         //$nameTools             = $lang_faculty_EditCat;
-        $interbredcrump[]    = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $lang_categories);
+        $interbredcrump[]    = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langCategories);
 
         //Search information of the category edit
         $sql_SearchInfoTreeFaculty="select * from `$tbl_course_node` where id='".$_REQUEST["id"]."'";
@@ -1105,7 +1105,7 @@ include($includePath."/claro_init_footer.inc.php");
                     <td  align="center">
 
                         <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1"; ?>" >
-                        <img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $lang_faculty_imgEdit ?>" > </a>
+                        <img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEdit ?>" > </a>
                     </td>
                     <td align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1&move=1"; ?>" >

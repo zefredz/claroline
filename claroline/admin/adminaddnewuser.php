@@ -177,7 +177,7 @@ if ($regDataOk)
     // The body can be as long as you wish, and any combination of text and variables
 
     $emailbody    = "$langDear $prenom $nom,\n
-    $langYouAreReg $siteName $langSettings $uname\n$langPass : $password\n$langAddress $siteName $langIs : $rootWeb\n$langProblem\n$langFormula,\n" .
+    $langYouAreReg $siteName $langSettings $uname\n$langPassword : $password\n$langAddress $siteName $langIs : $rootWeb\n$langProblem\n$langFormula,\n" .
     $administrator["name"] . "\n $langManager $siteName\nT. " . $administrator["phone"] . "\n$langEmail : " . $administrator["email"] . "\n";
 
     // Here we are forming one large header line

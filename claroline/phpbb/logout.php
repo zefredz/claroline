@@ -28,7 +28,7 @@ include('extention.inc');
 include('functions.'.$phpEx);
 include('config.'.$phpEx);
 require('auth.'.$phpEx);
-$pagetitle = $l_logout;
+$pagetitle = $langLogout;
 $pagetype = "logout";
 
 /* Note: page_header.php is included later on, because this page needs to be able to send a cookie. */

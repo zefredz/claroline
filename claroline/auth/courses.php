@@ -430,7 +430,7 @@ switch ($displayMode)
 
 		if ( count($categoryList) > 0)
 		{
-			echo	"<h4>",$langCatList,"</h4>",
+			echo	"<h4>",$langCategories,"</h4>",
 
 					"<ul>";
 			

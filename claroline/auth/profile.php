@@ -42,7 +42,7 @@ include $includePath.'/lib/fileManage.lib.php';
 include $includePath.'/lib/auth.lib.inc.php';
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
-$nameTools = $langModifProfile;
+$nameTools = $langModifyProfile;
 
 /*
  * DB tables definition
@@ -485,7 +485,7 @@ switch($display)
 		<legend ><?php echo $langConfirmation ?></legend>
 		<?php echo $langUserName ?><br>
 		<input type="text" name="loginToDelete" ><br>
-        <?php echo $langPass ?><br>
+        <?php echo $langPassword ?><br>
 		<input type="password" name="passwordToDelete" ><br>
 		</fieldset><br>
 		<input type="hidden" name="exRevoquation" value="1">
@@ -618,7 +618,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
     <tr>
         <td  align="right">
             <label for="form_password1">
-                <?php echo $langPass ?>
+                <?php echo $langPassword ?>
             </label> : 
         </td>
         <td>

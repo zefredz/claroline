@@ -14,7 +14,7 @@
 $langFile = "config";
 require '../../inc/claro_init_global.inc.php';
 
-$nameTools 			= $lang_config_config;
+$nameTools 			= $langConfiguration;
 $interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $lang_config_AdministrationTools);
 $noQUERY_STRING 	= TRUE;
 

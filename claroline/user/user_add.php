@@ -233,7 +233,7 @@ if($register)
 		{
 		    $emailBody = "$langDear $prenom_form $nom_form,\n
             $langOneResp $currentCourseName $langRegYou $siteName $langSettings $username_form\n
-            $langPass: $password_form\n
+            $langPassword: $password_form\n
             $langAddress $siteName $langIs: $serverAddress\n
             $langProblem\n\n
             $langFormula,\n
@@ -247,7 +247,7 @@ if($register)
 		{
             $emailBody = "$langDear  $prenom_form $nom_form,\n
             $langYouAreReg $siteName $langSettings $username_form\n
-            $langPass: $password_form\n
+            $langPassword: $password_form\n
             $langAddress $siteName $langIs: $serverAddress\n
             $langProblem\n\n
             $langFormula,\n
@@ -339,7 +339,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 
 <tr>
 <td align="right">
-	<label for="password_form"><?php echo  $langPass ?></label> 
+	<label for="password_form"><?php echo  $langPassword ?></label> 
 	:
 </td>
 <td>

@@ -52,7 +52,7 @@ foreach($msgList as $thisMsg )
     echo "<tr align=\"left\">\n"
 
         ."<td valign=top>"
-        .$l_from." <b>".$posterdata['first_name']." ".$posterdata['last_name']."</b>"
+        .$langFrom." <b>".$posterdata['first_name']." ".$posterdata['last_name']."</b>"
 
         ." ".$l_posted." : ".$thisMsg['msg_time']
         ."<hr>\n"

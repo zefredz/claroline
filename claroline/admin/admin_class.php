@@ -23,27 +23,6 @@ include($includePath."/lib/admin.lib.inc.php");
 
 if (!$is_platformAdmin) treatNotAuthorized();
 
-//----------------------LANG TO ADD -------------------------------------------------------------------------------
-
-$langAdministrationClassTools = "Classes";
-$langId = "Id";
-$langEditSettings = "Edit settings";
-$langNewClassName = "New Class name";
-$langClassName = "Class name";
-$langNameChanged = "Name of the class has been changed";
-$langErrorClassNotEmpty = "This class still contains some sub classes, delete them first";
-$langLocation = "Location";
-$langCannotBeBlank = "You can not give a blank name to a class";
-$langNewClassCreated = "The new class has been created";
-$langCreateNewClass = "Create a new class";
-$langClassMoved = "The class has been moved";
-$langErrorMove = "You can not move a class in itself!";
-$langTopLevel = "top level";
-$langMove = "Move";
-$langUsersMin = "users";
-
-//---------------------- END LANG TO ADD ----------------------------------------------------------------------------
-
 $is_allowedToAdmin   = $is_platformAdmin || $PHP_AUTH_USER;
 
 /*

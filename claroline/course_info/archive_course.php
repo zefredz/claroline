@@ -80,7 +80,7 @@ $archiveLocation   = str_replace($currentCoursePath.'/','',$archivePath);
 
 // Display header
 
-$interbredcrump[]=array("url" => "infocours.php","name" => $langModifInfo);
+$interbredcrump[]=array("url" => "infocours.php","name" => $langCourseSettings);
 include($includePath."/claro_init_header.inc.php");
 
 // Display tool title

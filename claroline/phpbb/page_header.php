@@ -43,7 +43,7 @@ $is_forumAdmin    = $is_courseAdmin || $is_platformAdmin;
 
 
 
-$nameTools = $l_forums;
+$nameTools = $langForums;
 
 $noPHP_SELF = true; //because  phpBB need always param IN URL
 
@@ -57,7 +57,7 @@ if ( ! $is_courseAllowed) claro_disp_auth_form();
 echo "<a href=\"./search.php?addterms=any&forum=all&sortby=p.post_time%20desc&searchboth=both&submit=Rechercher\">$langLastMsgs</a>";
 */
 
-claro_disp_tool_title($l_forums, 
+claro_disp_tool_title($langForums, 
                       $is_allowedToEdit ? 'help_forum.php' : false);
 
 

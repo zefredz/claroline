@@ -583,12 +583,12 @@ function confirmation (name)
 if( ( isset($displayAssigForm) && $displayAssigForm ) || ( isset($displayFeedbackForm) && $displayFeedbackForm ) )
 {
       // bredcrump to return to the list when in a form
-      $interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langAssignments);
+      $interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langWork);
       $nameTools = $langAssignment;
 }
 else
 {
-  $nameTools = $langAssignments;
+  $nameTools = $langWork;
   // to prevent parameters to be added in the breadcrumb
   $QUERY_STRING='';
 }

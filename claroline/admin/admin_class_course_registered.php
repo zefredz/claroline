@@ -13,17 +13,6 @@
 
 $langFile='admin';
 
-//----------------------LANG TO ADD -------------------------------------------------------------------------------
- 
-$langClassRegistered              = "Class registered";
-$langClassRegisterWholeClassAgain = "Register whole class to another course";
-$langBackToClassMembers           = "Back to class members";
-$lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> has been sucessfully registered to the course";
-$lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> has not been sucessfully registered to the course";
-
-//----------------------LANG TO ADD -------------------------------------------------------------------------------
-
-
 require '../inc/claro_init_global.inc.php';
 include $includePath."/lib/admin.lib.inc.php";
 include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.

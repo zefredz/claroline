@@ -58,7 +58,7 @@ if(!$submit)
 	</TR>
 	<TR>
 	<TD BGCOLOR="<?php echo $color1?>" WIDTH="50%" ALIGN="RIGHT">
-		<font face="<?php echo $FontFace?>" size="<?php echo $FontSize2?>"><b><?php echo $l_forum?></b>:&nbsp;
+		<font face="<?php echo $FontFace?>" size="<?php echo $FontSize2?>"><b><?php echo $langForum?></b>:&nbsp;
 	</TD>
 	<TD BGCOLOR="<?php echo $color2?>" WIDTH="50%">
 		<select name="forum">
@@ -85,11 +85,11 @@ if(!$submit)
 	<TD BGCOLOR="<?php echo $color2?>" WIDTH="50%">
         <font face="<?php echo $FontFace?>" size="<?php echo $FontSize3?>">
 	<?php //All values are the fields used to search the database - a table must be specified for each field ?>
-		<INPUT TYPE="radio" name="sortby" value="p.post_time desc" CHECKED><?php echo $l_date?>
+		<INPUT TYPE="radio" name="sortby" value="p.post_time desc" CHECKED><?php echo $langDate?>
 		&nbsp;&nbsp;
 		<INPUT TYPE="radio" name="sortby" value="t.topic_title"><?php echo $l_topic?>
 		&nbsp;&nbsp;
-		<INPUT TYPE="radio" name="sortby" value="f.forum_name"><?php echo $l_forum?>
+		<INPUT TYPE="radio" name="sortby" value="f.forum_name"><?php echo $langForum?>
 	</TD>
 	</TR>
 
@@ -232,7 +232,7 @@ else
 <TD  BGCOLOR="<?php echo $table_bgcolor; ?>">
 <TABLE BORDER="0" CELLPADDING="1" CELLSPACING="1" WIDTH="100%">
 <TR BGCOLOR="<?php echo $color1?>" ALIGN="LEFT">
-        <TD ALIGN="CENTER" WIDTH="30%"><font face="Verdana" size="2"><B><?php echo $l_forum?></B></font></TD>
+        <TD ALIGN="CENTER" WIDTH="30%"><font face="Verdana" size="2"><B><?php echo $langForum?></B></font></TD>
         <TD ALIGN="CENTER" WIDTH="30%"><font face="Verdana" size="2"><B><?php echo $l_topic?></B></font></TD>
         <TD ALIGN="CENTER" WIDTH="15%"><font face="Verdana" size="2"><B><?php echo $l_posted?></B></font></TD>
 </TR>

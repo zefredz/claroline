@@ -24,7 +24,7 @@ if ( ! $_cid) claro_disp_select_course();
 include($includePath."/lib/course.lib.inc.php");
 include($includePath."/conf/course_info.conf.php");
 
-$nameTools = $langModifInfo;
+$nameTools = $langCourseSettings;
 
 
 @include($includePath."/lib/debug.lib.inc.php");
@@ -73,7 +73,7 @@ else
 
 ####################### SUBMIT #################################
 if ( ! $is_courseAllowed) claro_disp_auth_form();
-$nameTools = $langModifInfo;
+$nameTools = $langCourseSettings;
 
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
@@ -134,7 +134,7 @@ echo "
 		if($is_platformAdmin && isset($_REQUEST['cidToEdit']))
 		{
 		echo " |
-		<a href=\"../admin/index.php\">".$langBackToAdminPage."</a>";
+		<a href=\"../admin/index.php\">".$langBackToAdmin."</a>";
 		}
 
 echo "<br>";

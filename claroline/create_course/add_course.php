@@ -342,7 +342,7 @@ else
 		    .' '.$langProfessors	.' : '.$newcourse_titulars."\n"
 		    .' '.$langEmail			.' : '.$newcourse_email."\n\n"
 		    .' '.$langFac.' : '.$newcourse_category."\n"
-		    .' '.$langLn.' : '.$newcourse_language."\n"
+		    .' '.$langLanguage.' : '.$newcourse_language."\n"
 		    ."\n ".$coursesRepositoryWeb.$currentCourseRepository."/\n\n";
 		    if (    
 					!@mail(	$administrator["email"], 
@@ -357,7 +357,7 @@ else
 
 if ($fromAdmin=="yes")
 {
-    $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+    $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 }
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
@@ -566,7 +566,7 @@ BuildEditableCatTable(""," &gt; ");
 
 <tr valign="top">
 <td align="right">
-<label for="languageCourse"><?php echo $langLn ?></label>:
+<label for="languageCourse"><?php echo $langLanguage ?></label>:
 </td>
 <td>
 <select name="languageCourse" id="languageCourse">";

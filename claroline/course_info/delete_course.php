@@ -55,7 +55,7 @@ $currentCourseName 		= $course_to_delete['intitule'];
 
 $nameTools = $langDelCourse;
 
-$interbredcrump[]=array("url" => "infocours.php?".$addToURL,"name" => $langModifInfo);
+$interbredcrump[]=array("url" => "infocours.php?".$addToURL,"name" => $langCourseSettings);
 
 include($includePath."/claro_init_header.inc.php");
 include($includePath."/lib/fileManage.lib.php");
@@ -91,7 +91,7 @@ if($isAllowedToDelete)
         {
             echo " | "
                 ."<a href=\"../admin/index.php\">"
-                .$langBackToAdminPage." </a>"
+                .$langBackToAdmin." </a>"
                 ;
         }
         echo "</p>";

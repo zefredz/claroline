@@ -14,18 +14,6 @@
 //used langfile
 $langFile = "admin";
 
-//----------------------LANG TO ADD -------------------------------------------------------------------------------
-$lang_add_user_list                       = 'Add user list';
-$lang_fields_enclosed_by                  = 'Fields enclosed by';
-$lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored= 'if you choose to continue, lines with errors will be simply ignored';
-$lang_the_following_errors_were_found ='The following errors were found ';
-$lang_no_error_in_file_found              = "No error in file found.";
-$lang_do_you_want_to_continue             = "Do you want to continue?";
-$langUsers                                = "Users";
-$langClass                                = "Classes";
-$langClassMembers                         = "Class members";
-//----------------------LANG TO ADD -------------------------------------------------------------------------------
-
 /*--------------------------------------------------------------------------------------------------------------*/
 /*	Declaration and preliminar tests section                                                                */
 /*--------------------------------------------------------------------------------------------------------------*/
@@ -227,13 +215,13 @@ switch ($AddType)
     case "adminTool":
         $noQUERY_STRING   = true;
         $nameTools        = "Add a user list";
-        $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+        $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
     break;
         
     case "adminClassTool":
         $noQUERY_STRING      = true;
         $nameTools           = "Add a user list in class";
-        $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+        $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 	$interbredcrump[]    = array ("url"=>$rootAdminWeb."admin_class.php", "name"=> $langClass);
 	$interbredcrump[]    = array ("url"=>$rootAdminWeb."admin_class_user.php", "name"=> $langClassMembers);
     break;
