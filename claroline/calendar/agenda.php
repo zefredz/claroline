@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE 1.6.*
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -26,9 +26,6 @@ $tlabelReq = "CLCAL___";
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();
 if ( ! $is_courseAllowed) claro_disp_auth_form();
-
-include($includePath."/conf/agenda.conf.inc.php");
-
 
 $nameTools = $langAgenda;
 
@@ -516,27 +513,28 @@ foreach($eventList as $thisEvent)
    * Display the event content
    */
 
-  echo "</th>\n"
-      ."</tr>\n"
-      ."<tr>\n"
-      ."<td>\n"
-      ."<div class=\"content\">\n"
-      .( empty($thisEvent['titre']  ) ? '' : "<p><strong>".$thisEvent['titre']."</strong></p>\n" )
+  echo '</th>'."\n"
+      .'</tr>'."\n"
+      .'<tr>'."\n"
+      .'<td>'."\n"
+      .'<div class="content">'."\n"
+      .( empty($thisEvent['titre']  ) ? '' : '<p><strong>'.$thisEvent['titre'].'</strong></p>'."\n" )
       .( empty($thisEvent['contenu']) ? '' :  claro_parse_user_text($thisEvent['contenu']) )
-      ."</div>\n";
+      .'</div>'."\n"
+      ;
 
   if ($is_allowedToEdit)
   {
-    echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEdit&id=".$thisEvent['id']."\">"
-        ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"O\" alt=\"".$langModify."\">"
-        ."</a> "
-         
-        ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exDelete&id=".$thisEvent['id']."\" "
-        ."onclick=\"javascript:if( ! confirm('"
-        .addslashes (htmlspecialchars($langDelete.' '.$thisEvent['titre']." ?"))
-        ."')) return false;\" >"
-        ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\">"
-        ."</a>";
+    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id='.$thisEvent['id'].'">'
+        .'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="O" alt="'.$langModify.'">'
+        .'</a> '
+        .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;id='.$thisEvent['id'].'" '
+        .'onclick="javascript:if( ! confirm(\''
+        .addslashes (htmlspecialchars($langDelete.' '.$thisEvent['titre'].' ?'))
+        .'\')) return false;" >'
+        .'<img src="'.$clarolineRepositoryWeb.'img/delete.gif" border="0" alt="'.$langDelete.'">'
+        .'</a>'
+        ;
   }
   echo "</td>\n"
       ."</tr>\n";
