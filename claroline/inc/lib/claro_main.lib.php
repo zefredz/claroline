@@ -278,7 +278,7 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
  * @param  string  $sqlQuery - the sql query
  * @param  handler $dbHandler  - optional
  * @return associative array containing all the result rows
- *
+ * @since 1.5.1
  * @see    claro_sql_query()
  *
  */
