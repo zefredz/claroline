@@ -7,27 +7,93 @@
 //+----------------------------------------------------------------------+
 */
 // WORKS
-$langDownloadFile="Upload document";
-$langMaxFileSize = "Max file size : ";
-$langTooBig="You didn't choose any file or the file is too big.";
-$langListDeleted="The whole list has been deleted.";
-$langDocModif="paper title modified";
-$langDocAdd="Paper added";
-$langDocDel="Paper deleted";
-$langTitleWork="Paper Title";
-$langAuthors="Authors";
-$langDescription="Paper Description";
-$langDelList="Delete whole list";
-$langWorks="Assignments";
-$langDocument = "Document";
+$langWorks = "Assignments";
 
-$langWorkConfirmDelete="Do you really want to delete this paper";
-$langAllFiles="All files";
+// generic
+$langMakeVisible = "Make Visible";
+$langMakeInvisible = "Make Invisible";
 
-$lang_make_invisible = "make invisible";
-$lang_make_visible = "make visible";
-$langNotPossible = "Impossible";
+// -- Session list
+$langCreateSession = "Create a new work session";
+$langVisibility = "Visibility";
 
-$langIntroWork="This page allows any student or group to upload a document on the course's website. <br>Send HTML file only if it contains no image.<br><br>If you want to present this tool or give some recommandations at students, click on the button below.<br>";
+// -- Work list
+$langWrkSession = "Session";
+$langSubmitWork = "Submit a work";
+$langEditWork = "Modify a work";
+$langWorkDetails = "Work details";
+$langGradeWork = "Grade work";
+
+// -- Forms
+
+// session
+$langSessionTitle = "Session title";
+$langSessionDescription = "Description";
+
+$langSubmissionType = "Submission type";
+$langText = "Text";
+$langFile = "File";
+
+$langStartDate = "Start date";
+$langEndDate = "Deadline";
+
+$langDefSubVisibility = "Default visibility";
+$langVisible = "Visible";
+$langInvisible = "Invisible";
+
+$langSessionType = "Session type";
+$langIndividual = "Individual";
+$langGroup = "Group";
+
+$langAllowAnonymous = "Allow anonymous users";
+$langAnonAllowed = "Yes, anonymous users can submit works"; 
+$langAnonNotAllowed = "No, anonymous users can not submit works";
+
+$langPreventLateUploadShort = "Prevent late upload";
+$langPreventLateUpload = "Yes, prevent users to submit works after deadline";
+$langAllowLateUpload = "No, allow users to submit works after deadline";
+
+// work
+$langWrkTitle = "Work title";
+$langWrkAuthors = "Author(s)";
+$langUploadDoc = "Upload document";
+$langAttachDoc = "Attach a file";
+$langCurrentAttachedDoc = "Current attached file";
+$langCurrentDoc = "Current file";
+$langExplainReplaceFile = "Upload a new file to replace this one";
+$langFileDesc = "File description";
+$langAnswer = "Answer";
+
+// -- Form errors and confirmations
+//confirmations
+$langSessionAdded = "New session created";
+$langAreYouSureToDelete = "Are you sure to delete";
+$langDeleteCaution = "! This will also delete all works submitted in this session !";
+$langSessionDeleted = "Session deleted";
+$langSessionEdited = "Session modified";
+$langWrkAdded = "Work added";
+$langWrkEdited = "Work modified";
+$langGradeAdded = "Grade added";
+// errors
+$langTooBig = "File is too big";
+$langSessionTitleRequired = "Session title required";
+$langTitleAlreadyExists = "Session title already exists";
+$langCannotCopyFile = "Cannot copy the file.";
+$langWrkTitleAlreadyExists = "Work title already exists";
+$langWrkTitleRequired = "Work title required";
+$langAnswerRequired = "Answer is required";
+$langWrkAuthorsRequired = "Author(s) is(are) required";
+$langFileRequired = "A file is required";
+
+// work details
+$langUploadedFile = "Uploaded file";
+$langAttachedFile = "Attached file";
+$langSubmissionDate = "First submission date";
+$langLastEditDate = "Last edit date";
+$langSubmittedBy = "Submitted by";
+$langAnonymousUser = "anonymous user";
+
+$langRequired = "Required";
+$langChooseDateHelper = "(d/m/y hh:mm)";
 
 ?>
