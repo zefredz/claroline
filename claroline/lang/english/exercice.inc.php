@@ -80,6 +80,8 @@ $langAnonymousAttemptsAllowed = "Allowed : don't record user names in tracking, 
 $langAnonymousAttemptsNotAllowed = "Not allowed : record user names in tracking, anonymous users cannot make the exercise.";
 $langExerciseOpening = "Exercise opening";
 $langExerciseClosing = "Exercise closing";
+$langRequired = "Required";
+$langNoEndDate = "No closing date";
 
 
 // question_admin.inc.php
