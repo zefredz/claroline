@@ -39,6 +39,7 @@ $langCannotAddForumInGroups = "Groups forum are added when creating a group and 
 $langemptyforumname = "You must give a name to your new forum!";
 $langemptycatname = "You must give a name to your new category!";
 $langforumcreated = "The new forum has been created.";
+$langForumModified = "The forum has been modified";
 $langcatcreated = "The new category has been created.";
 
 ?>
