@@ -3,21 +3,21 @@
  ******************************************************************************/
 
 body {
- background-color:#E5E5E5;
- color:#000;
- font-family: Verdana, 'bitstream vera sans',Arial,Helvetica,sans-serif;
- font-size: 14px;
- padding: 3px;
+	background-color:#E5E5E5;
+	color:#000;
+	font-family: Verdana, 'bitstream vera sans',Arial,Helvetica,sans-serif;
+	font-size: 14px;
+	padding: 3px;
 }
 
 a, a:link, a:active, a:visited {
-  color: #333;
-  text-decoration: none;
+	color: #333;
+	text-decoration: none;
 }
 
 a:hover {
-  text-decoration: none; 
-  color : #069;
+	text-decoration: none; 
+	color: #069;
 }
 
 a img {
@@ -61,10 +61,6 @@ h3{	font-size: 110%; }
     color: #FFB848;
 }
 
-#topBanner h2
-{
-	margin: 0;
-}
  /*----------------------------------------------------------------------------
                                   CAMPUS LINE
  ----------------------------------------------------------------------------*/
@@ -101,6 +97,8 @@ h3{	font-size: 110%; }
 	position: relative;
 	float: left;
 	text-align: left;
+	margin: 0;
+	font-size: 120%;
 }
 
 #institution
@@ -108,6 +106,8 @@ h3{	font-size: 110%; }
 	position: relative;
 	float: right;
 	text-align: right;
+	margin: 0;
+	font-size: 120%;
 }
 
  /*----------------------------------------------------------------------------
@@ -116,17 +116,17 @@ h3{	font-size: 110%; }
 
 #userBanner
 {
-   	padding: 5px;
-    border: 1px solid #98AAB1;
-    border-top: none;
-    font-size: small;
+	padding: 5px;
+	border: 1px solid #98AAB1;
+	border-top: none;
+	font-size: small;
 }
 
-#userBanner h2
+#userBanner #userName
 {
-	 display: inline;
-	 font-size: 115%;
-	 margin: 0px;
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
 }
 
 #userLinks
@@ -139,7 +139,6 @@ h3{	font-size: 110%; }
 	display: inline;
 	padding: 0;
 	margin: 0;
-	margin-left: 6px;
 }
 
 #userBanner li 
@@ -162,7 +161,7 @@ h3{	font-size: 110%; }
 
 #userBanner li a:hover
 {
-	text-decoration: underline;
+    text-decoration: underline;
     color: #369;
 	
 }
@@ -173,8 +172,8 @@ h3{	font-size: 110%; }
 #courseBanner
 {
    	padding: 5px;
-    border: 1px solid #98AAB1;
-    border-top: none;
+	border: 1px solid #98AAB1;
+	border-top: none;
 }
 
 #course
@@ -193,11 +192,13 @@ h3{	font-size: 110%; }
 {
 	position: relative;
 	float: right;
-    text-align: right;
+	text-align: right;
 }
 
 #courseName {
 	font-size: 120%;
+	margin: 0;
+	padding: 0;
 }
 
 #courseCode {
@@ -214,11 +215,11 @@ h3{	font-size: 110%; }
 #courseBanner a:active,
 #courseBanner a:link,
 #courseBanner a:visited {
-		color:#c60;
+	color:#c60;
 }
 
 #courseBanner a:hover {
-		color:#369;
+	color:#369;
 }
 
  /*----------------------------------------------------------------------------
@@ -267,13 +268,13 @@ h3{	font-size: 110%; }
 
 #claroBody
 {
- padding: 5px;
- height: 100%;
- background-color: #FFF;
- border: 1px #98AAB1 solid;
- background-image: url(./corporate/caliope.png);
- background-position: top right;
- background-repeat: no-repeat;
+	padding: 5px;
+	height: 100%;
+	background-color: #FFF;
+	border: 1px #98AAB1 solid;
+	background-image: url(./corporate/caliope.png);
+	background-position: top right;
+	background-repeat: no-repeat;
 }
 
 /******************************************************************************
@@ -430,9 +431,9 @@ a:visited.invisible{
  */
 
 .claroRightMenu  {
-  color: #000;
-  background-color: #E5ECF9;	
-  border: 1px solid #808080;
+	color: #000;
+	background-color: #E5ECF9;	
+	border: 1px solid #808080;
 }
 
 .claroRightMenu a,

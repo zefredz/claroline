@@ -31,12 +31,6 @@ h3{	font-size: 110%; }
                               MAIN BANNER SETTINGS
  ----------------------------------------------------------------------------*/
 
-#topBanner h1
-{
-	margin: 0px;
-	font-size: 120%;
-}
-
 #topBanner h2
 {
 	margin: 0px;
@@ -51,6 +45,8 @@ h3{	font-size: 110%; }
 	color: #FFF;
 	background-color:#006;
 	padding: 4px;
+	font-size: 120%;
+	font-weight: bold;
 }
 
 #platformBanner a,
@@ -73,6 +69,7 @@ h3{	font-size: 110%; }
 	position: relative;
 	float: left;
 	text-align: left;
+	margin: 0;
 }
 
 #institution
@@ -80,6 +77,7 @@ h3{	font-size: 110%; }
 	position: relative;
 	float: right;
 	text-align: right;
+	margin: 0;
 }
 
  /*----------------------------------------------------------------------------
@@ -96,10 +94,10 @@ h3{	font-size: 110%; }
 	padding: 4px;
 }
 
-#userBanner h2
+#userBanner #userName
 {
-	 display: inline;
 	 font-size: 115%;
+	 margin: 0;
 }
 
 #userBanner a,
@@ -122,7 +120,6 @@ h3{	font-size: 110%; }
 	display: inline;
 	padding: 0;
 	margin: 0;
-	margin-left: 10px;
 }
 
 #userBanner li 
@@ -170,6 +167,8 @@ h3{	font-size: 110%; }
 
 #courseName {
 	font-size: 120%;
+	padding: 0;
+	margin: 0;
 }
 
 #courseName a,
