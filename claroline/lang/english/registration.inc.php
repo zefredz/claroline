@@ -26,11 +26,11 @@ $langMailSentToAdmin = "A mail is sent to  administrator.";// by moosh
 $langAccountNotExist = "Account not found.<BR>".$langMailSentToAdmin." They  would search manually.<BR>";// by moosh
 $langAccountExist = "This account exist.<BR>".$langMailSentToAdmin."<BR>";// by moosh
 $langWaitAMailOn = "A mail  can be sent to ";// by moosh
-$langCaseSensitiveCaution = "Le système fait la différence entre les minuscules et les majuscules.";// by moosh
+$langCaseSensitiveCaution = "System made difference between uppercase and lowercase letters";// by moosh
 $langDataFromUser = "Data sent by user";// by moosh
 $langDataFromDb = "Data in the database";// by moosh
 $langLoginRequest = "Login request";// by moosh
-$langExplainFormLostPass = "Entrez ce que  vous pensez avoir  introduit comme données lors de votre inscription.";// by moosh
+$langExplainFormLostPass = "Enter data as you think you have input it while registering.";// by moosh
 $langTotalEntryFound = "Entry  found";// by moosh
 $langEmailNotSent = "Somethink doesn't work, mail this to ";// by moosh
 $langYourAccountParam = "This  is  your account Login-Pass";// by moosh
@@ -69,8 +69,8 @@ $langFormula="Yours sincerely";
 $langManager="Manager";
 $langPersonalSettings="Your personnal settings have been registered and an email has been sent to help you remember your username and password.</p>";
 
-$langNowGoChooseYourCourses ="Vous can now go to select, in the list, the courses you want to access.";
-$langNowGoCreateYourCourse  ="Vous can now go to create  your  course";
+$langNowGoChooseYourCourses ="You can now go select, in the list, the courses you want to access.";
+$langNowGoCreateYourCourse  ="You can now go create  your  course";
 
 $langYourRegTo="Your are registered to";
 $langIsReg="has been updated";
