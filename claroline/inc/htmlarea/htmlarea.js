@@ -1830,7 +1830,8 @@ HTMLArea.is_opera  = (HTMLArea.agt.indexOf("opera") != -1);
 HTMLArea.is_mac	   = (HTMLArea.agt.indexOf("mac") != -1);
 HTMLArea.is_mac_ie = (HTMLArea.is_ie && HTMLArea.is_mac);
 HTMLArea.is_win_ie = (HTMLArea.is_ie && !HTMLArea.is_mac);
-HTMLArea.is_gecko  = (navigator.product == "Gecko" && (HTMLArea.agt.indexOf("k-meleon") == -1) ); //k-meleon 's not compatible 
+//k-meleon is based on mozilla 1.5 but is NOT compatible so we make a special check for it
+HTMLArea.is_gecko  = (navigator.product == "Gecko" && (HTMLArea.agt.indexOf("k-meleon") == -1) ); 
 
 // variable used to pass the object to the popup editor window.
 HTMLArea._object = null;
@@ -1858,19 +1859,14 @@ HTMLArea.cloneObject = function(obj) {
 
 // FIXME!!! this should return false for IE < 5.5
 HTMLArea.checkSupportedBrowser = function() {
-	/*if (HTMLArea.is_gecko) {
-		if (navigator.productSub < 20021201) {
-			alert("You need at least Mozilla-1.3 Alpha.\n" +
-			      "Sorry, your Gecko is not supported.");
-			return false;
-		}
-		if (navigator.productSub < 20030210) {
-			alert("Mozilla < 1.3 Beta is not supported!\n" +
-			      "I'll try, though, but it might not work.");
-		}
-	}
-	return HTMLArea.is_gecko || HTMLArea.is_ie;
-  */
+/*
+  Claroline PATCH !
+  *****************
+  according to the posts on the html area 3.0 beta forums 
+  ( http://www.interactivetools.com/forum/gforum.cgi?post=18697 )
+  I modified the browser check to use the object the browser can provide
+  the detection become more accurate than the useragent one
+*/
   if(document.all && document.URLUnencoded) {
     return HTMLArea.is_ie;
   }
