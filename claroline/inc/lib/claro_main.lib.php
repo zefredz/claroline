@@ -60,22 +60,28 @@ function claro_sql_get_main_tbl()
  * @return array list of the current course database tables
  */
 
-function claro_sql_get_course_tbl($dbNameGlued = NULL)
+function claro_sql_get_course_tbl($dbNameGlued = null)
 {
-    GLOBAL $_course;
+    global $_course;
     static $courseTblList = array();
-    static $courseDb = null;
-    if (is_null($dbNameGlued))
-    {
+    static $courseDb      = null;
+
+    if ( is_null($dbNameGlued) )
+    { 
+        if ( $courseDb != $_course['dbNameGlu'] ) $forceTableSet = true;
+        else                                      $forceTableSet = false;
+
         $courseDb = $_course['dbNameGlu'];
     }
-
     else
     {
+        if ( $courseDb != $dbNameGlued ) $forceTableSet = true;
+        else                             $forceTableSet = false;
+
         $courseDb = $dbNameGlued;
-        $courseTblList = array();
     }
-    if ( count($courseTblList) == 0 )
+
+    if ( count($courseTblList) == 0 || $forceTableSet )
     {
         $courseTblList = array(
 
