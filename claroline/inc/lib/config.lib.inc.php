@@ -89,7 +89,8 @@ function replace_var_value_in_conf_file ($varName,$value,$file)
 		// take all lines in the file
 		while(!feof($fp))
 		{
-			$line=fgets($fp);
+			// length param in fgets is required before PHP 4.2.0
+			$line=fgets($fp,1024);
 			trim($line);
 			
 			unset($find);
