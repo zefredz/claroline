@@ -226,7 +226,7 @@ foreach($resultList as $list)
 
      //  Status
      echo '<td align="center">'
-	     .'<a href="adminUserCourseSettings.php?cidToEdit='.$list['code'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist\">'
+	     .'<a href="adminUserCourseSettings.php?cidToEdit='.$list['code'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
 	     .'<img src="'.$clarolineRepositoryWeb.'/img/'.$iconForCuStatus[$list['cu_statut']].'" alt="'.$list['cu_statut'].'" border="0" title="'.$list['cu_statut'].'" >'
 		 .'</a>'
 		 .'</td>'
