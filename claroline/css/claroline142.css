@@ -3,18 +3,18 @@
  ******************************************************************************/
 
 body {
- font-family: verdana, arial, helvetica, sans-serif;
+ font-family: arial, helvetica, sans-serif;
  color: #000;
  margin: 10px;
  padding: 0;
 }
 
 a:link, a:active, a:visited {
-	color: text-decoration: none; font-weight : bold; color : #4171b5;
+	color : #003390;
 }
 
 a:hover {
-    text-decoration: none; color: red; font-weight: bold;
+    color : #003390;
 }
 
 a img {
@@ -353,7 +353,7 @@ h3{	font-size: 110%; }
 
 .claroTable .superHeader th, .claroTable th.superHeader {
 	color: #fff;
-	background-color: #666;
+	background-color: #4171B5;
 	font-weight: bold;
 	text-align: left;
 }
@@ -369,7 +369,7 @@ h3{	font-size: 110%; }
 }
 
 .claroTable .headerX th,  .claroTable th.headerX {
-	background-color: #dfdfdf;
+	background-color: #E6E6E6;8:02 29/03/2005
 }
 
 /* extension of claroTable class for Image Viewer */
