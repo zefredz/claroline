@@ -301,11 +301,17 @@ else
         {
             foreach($conf_def['section'] as $sectionKey => $section)
             {
+                // set force display off if section is hidden
+                $force_display_off = (isset($section['display']) && !$section['display'] );
+
                 if (is_array($section['properties']))
                 {
                     foreach($section['properties'] as $propertyName )
                     {
                         $conf_def_property_list[$propertyName]['section']=$sectionKey;
+
+                        // force display FALSE for properties in hidden section
+                        if ($force_display_off) $conf_def_property_list[$propertyName]['display'] = FALSE;
                     }
                 }
             }
@@ -391,22 +397,24 @@ if ( $display_form )
     
             foreach($conf_def['section'] as $section)
             {
-    
-                // display fieldset with the label of the section
-                echo '<tr>'
-                    .'<th class="superHeader" colspan="3">' . $section['label'] . '</th>'
-                    .'</tr>' . "\n";
-    
-                // display description of the section
-                if ( !empty($section['description']) )
-                {
-                    echo '<tr><th class="headerX" colspan="3">' . $section['description'] . '</th></tr>' . "\n";
+                if (!(isset($section['display'])) || $section['display'] )
+                { 
+                    // display fieldset with the label of the section
+                    echo '<tr>'
+                        .'<th class="superHeader" colspan="3">' . $section['label'] . '</th>'
+                        .'</tr>' . "\n";
+        
+                    // display description of the section
+                    if ( !empty($section['description']) )
+                    {
+                        echo '<tr><th class="headerX" colspan="3">' . $section['description'] . '</th></tr>' . "\n";
+                    }
+                    else
+                    {
+                        echo '<tr><th class="headerX" colspan="3">&nbsp;</th></tr>' . "\n";
+                    }
                 }
-                else
-                {
-                    echo '<tr><th class="headerX" colspan="3">&nbsp;</th></tr>' . "\n";
-                }
-    
+
                 // The default value is show in input or preselected value if there is no value set.
                 // If a value is already set the default value is show as sample.
                 if ( is_array($section['properties']) )
