@@ -91,7 +91,6 @@ $langBrowseCourse = "Kurse durchsehen";
 $langListOfCourse = "Kursiste";
 
 $langListOfCourseSubscriptionSimple = "Anmeldeübersicht für Kurse (Übersicht)";
-$langListOfCourseSubscriptionComplete = "Anmeldeübersicht für Kurse (komplett)";
 $langLogIdentLogout ="Übersicht Login-Vorgänge";
 $langLogIdentLogoutComplete ="Übersicht Login-Vorgänge (komplette Information)";
 

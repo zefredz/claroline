@@ -60,7 +60,7 @@ $langAnotherCreateSite = "Create another course website";
 
 
 // tables MySQL
-$langFormula="Yours sincerely, your professor";
+$langFormula="Yours sincerely";
 $langForumLanguage="english";	// other possibilities are english, spanish (this uses phpbb language functions)
 $langTestForum="Test forum";
 $langDelAdmin="Remove this through the forum admin tool";

@@ -91,7 +91,6 @@ $langBrowseCourse = "Browse kurser";
 $langListOfCourse = "Kursusliste";
 
 $langListOfCourseSubscriptionSimple = "Registreringslisten på kurset (behandlet version)";
-$langListOfCourseSubscriptionComplete = "Registreringslisten på kurset (fuldstændig version)";
 $langLogIdentLogout ="Browse Login handlinger";
 $langLogIdentLogoutComplete ="Browse Login handlinger (med max info)";
 

@@ -93,7 +93,7 @@ $langFields="You left some fields empty";
 $langUserTaken="This user name is already taken";
 $langEmailWrong="The email address is not complete or contains some unvalid characters";
 $langProfileReg="Your new profile has been saved";
-$langHome="Back to Home Page";
+$langHome="Back to Home page";
 $langMyStats = "View my statistics";
 $langReturnSearchUser="Return to the user";
 

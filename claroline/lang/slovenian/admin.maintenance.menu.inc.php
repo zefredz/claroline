@@ -92,7 +92,6 @@ $langBrowseCourse = "Pregledovanje tecajev";
 $langListOfCourse = "Seznam tecajev";
 
 $langListOfCourseSubscriptionSimple = "Seznam registracije v tecaj (prirocna verzija)";
-$langListOfCourseSubscriptionComplete = "Seznam registracije v tecaj (popolna verzija)";
 $langLogIdentLogout ="Pregled vstopov";
 $langLogIdentLogoutComplete ="Pregled vstopov (z najvec podatki)";
 

@@ -91,7 +91,6 @@ $langBrowseCourse = "Browse courses";
 $langListOfCourse = "List courses";
 
 $langListOfCourseSubscriptionSimple = "List registration to courses (handly version)";
-$langListOfCourseSubscriptionComplete = "List registration to courses (complete version)";
 $langLogIdentLogout ="Browse Login actions";
 $langLogIdentLogoutComplete ="Browse Login actions (with max info)";
 

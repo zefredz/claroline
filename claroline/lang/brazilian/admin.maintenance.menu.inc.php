@@ -91,7 +91,6 @@ $langBrowseCourse = "Pesquisar cursos";
 $langListOfCourse = "Listar cursos";
 
 $langListOfCourseSubscriptionSimple = "Listar registros em curso (versão manual)";
-$langListOfCourseSubscriptionComplete = "Listar registros em curso (versão competa)";
 $langLogIdentLogout ="Pesquisar ações de Login";
 $langLogIdentLogoutComplete ="Pesquisar ações de Login (com o máximo de informação)";
 

@@ -91,7 +91,6 @@ $langBrowseCourse = "Browse pelajaran ";
 $langListOfCourse = "Daftar pelajaran";
 
 $langListOfCourseSubscriptionSimple = "Daftar registrasi dalam pelajaran (versi ringkas)";
-$langListOfCourseSubscriptionComplete = "Daftar registrasi dalam pelajaran (versi lengkap )";
 $langLogIdentLogout ="Browse aksi Login";
 $langLogIdentLogoutComplete ="Browse aksi Login actions (info maksimum)";
 

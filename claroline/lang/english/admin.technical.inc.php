@@ -91,7 +91,6 @@ $langBrowseCourse = "Browse courses";
 $langListOfCourse = "List courses";
 
 $langListOfCourseSubscriptionSimple = "List registration to courses (handly version)";
-$langListOfCourseSubscriptionComplete = "List registration to courses (complete version)";
 $langLogIdentLogout ="Browse Login actions";
 $langLogIdentLogoutComplete ="Browse Login actions (with max info)";
 
@@ -105,7 +104,7 @@ $langNoteAboutViaPMA = "PMA = Opens PhpMyAdmin in a new window";
 $langAddACourse = "Create a course";
 $langCategories = "Cours Categories";
 $langAdminProfileUser = "Edit User Profile";
-$langListOfCourseOfUser ="List of users registred in a course";
+$langListOfCourseOfUser ="List of users registered in a course";
 $langAddAdminInApache = "Add an admin";
 $langAddCategories = "Add Categories";
 

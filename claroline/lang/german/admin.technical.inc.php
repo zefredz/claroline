@@ -64,7 +64,6 @@ $langLast7Days ="Die letzen 7 Tage";
 $langLinksToClaroProjectSite ="Links zur Projekt-Website";
 $langListOfCourse = "Kurs-Liste";
 $langListOfCourseOfUser ="Übersicht der registrierten Benutzer eines Kurses";
-$langListOfCourseSubscriptionComplete = "Kurs-Registrierungs-Liste (vollständig)";
 $langListOfCourseSubscriptionSimple = "Kurs-Registrierungs-Liste (kompakt)";
 $langListOfUser		="Benutzer auflisten";
 $langLogIdentLogout 	= "Login Liste";

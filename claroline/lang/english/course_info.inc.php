@@ -24,7 +24,7 @@
 
 $langModifInfo="Course settings";
 $langModifDone="The information has been modified";
-$langHome="Back to HomePage";
+$langHome="Back to Home page";
 $langCode="Course code";
 $langDelCourse="Delete this course";
 $langProfessor="Professor";

@@ -89,7 +89,6 @@ $langBrowseCourse = "Explorer la liste des cours";
 $langRestoreACourse = "Restaurer un cours";
 $langAddFaculties  ="Ajouter un ensemble de cours (faculté)";
 $langListOfCourseSubscriptionSimple = "Liste des inscriptions dans les cours (version utile)";  // JCC "... version abrégée" ?
-$langListOfCourseSubscriptionComplete = "Liste des inscriptions dans les cours (version complète)";
 $langLogIdentLogout		= "Explorer les connections";
 $langLogIdentLogoutComplete ="Explorer les connections (plus complet)";
 $langCourseOfAUser		= "Cours d'un utilisateur";

@@ -84,7 +84,6 @@ $langSearchACourse ="Einen Kurs suchen";
 $langBrowseCourse = "Kurse durchsehen";
 $langRestoreACourse ="Kurs wieder herstellen";
 $langListOfCourseSubscriptionSimple = "Kurs-Registrierungs-Liste (kompakt)";
-$langListOfCourseSubscriptionComplete = "Kurs-Registrierungs-Liste (vollständig)";
 $langLogIdentLogout ="Logins durchsehen";
 $langLogIdentLogoutComplete ="Logins durchsehen(mit. max. Info)";
 $langCourseOfAUser 		= "Kurse eines Benutzers";
