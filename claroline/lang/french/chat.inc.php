@@ -25,13 +25,13 @@ Translate the interface in chosen language
  $langSave = "Enregistrer";
  $langRefresh = "Actualiser";
  $langIsNowInYourDocDir = "est maintenant dans votre outil document. <br><B>Attention il est visible pour tous</B>";
- $langCopyFailed = "La copie du fichier courant n'a pas réussit..."; // JCC 
+ $langCopyFailed = "La copie du fichier courant n'a pas été réussie..."; // JCC 
  $langResetChat = "Vider";
  $langChatResetBy = "La discussion a été réinitialisée par";
  $langStoreChat = "Sauvegarder la discussion";
  $langDateLastWrite = "Dernier message : ";
  $langNewChat = "Nouvelle discussion";
- $langNotCourseAllowed = "Vous nêtes pas autorisé ici.";
- $langNotGroupMember = "Vous nêtes pas autorisé à participer à cette discussion de groupe."; // JCC
+ $langNotCourseAllowed = "Vous n'êtes pas autorisé ici.";
+ $langNotGroupMember = "Vous n'êtes pas autorisé à participer à cette discussion de groupe."; // JCC
  $langArchive = "Archive";
 ?>
