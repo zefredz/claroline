@@ -360,7 +360,7 @@ function is_first_post($topic_id, $post_id)
  * Checks if the given userid is allowed to log into the given (private) forumid.
  * If the "is_posting" flag is true, checks if the user is allowed to post to that forum.
  */
-function check_priv_forum_auth($userid, $forumid, $is_posting, $db)
+function check_priv_forum_auth($userid, $forumid, $is_posting)
 {
 	global $tbl_forum_access;
 
