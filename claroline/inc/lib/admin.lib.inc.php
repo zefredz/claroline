@@ -802,13 +802,12 @@ function add_user($name,$surname,$email,$phone,$admincode,$username,$password,$t
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
- * @param  int     $userId     user ID from the course_user table
- * @param  string  $courseCode course code from the cours table
- * @param boolean $force_it if true : it means we must'nt check if subcription is the course is set to allowed or not
+ * @param int     $userId     user ID from the course_user table
+ * @param string  $courseCode course code from the cours table
+ * @param boolean $force_it if true  : it means we must'nt check if subcription is the course is set to allowed or not
  *                          if false : (default value) it means we must take account of the subscription setting 
  *
- *
- * @return boolean TRUE        if subscribtion suceed
+ * @return boolean TRUE        if subscribtion succeed
  *         boolean FALSE       otherwise.
  */
 
@@ -826,7 +825,7 @@ function add_user_to_course($userId, $courseCode, $force_it=false)
     else
     {
         // previously check if the user are already registered on the platform
-		$sql = 'SELECT statut FROM `'.$tbl_user.'`
+		$sql = 'SELECT `statut` `status` FROM `'.$tbl_user.'`
                                WHERE user_id = "'.$userId.'"';
         $handle = claro_sql_query($sql);
 
@@ -839,8 +838,8 @@ function add_user_to_course($userId, $courseCode, $force_it=false)
             // previously check if the user isn't already subscribed to the course
 
             $handle = claro_sql_query("SELECT * FROM `".$tbl_rel_course_user."`
-                                   WHERE user_id = \"".$userId."\"
-                                   AND code_cours =\"".$courseCode."\"");
+                                   WHERE `user_id` = \"".$userId."\"
+                                   AND `code_cours` =\"".$courseCode."\"");
 
             if (mysql_num_rows($handle) > 0)
             {
@@ -850,18 +849,18 @@ function add_user_to_course($userId, $courseCode, $force_it=false)
             {
                 // previously check if subscribtion is allowed for this course
 
-                $handle = claro_sql_query( "SELECT code, visible FROM `".$tbl_course."`
-                                        WHERE  code = \"".$courseCode."\"
-                                        AND    (visible = 0 OR visible = 3)");
+                $handle = claro_sql_query( "SELECT `code`, `visible` FROM `".$tbl_course."`
+                                        WHERE  `code` = \"".$courseCode."\"
+                                        AND    (`visible` = 0 OR `visible` = 3)");
 
                 if ((mysql_num_rows($handle) > 0) && !($force_it))
                 {
                     return false; // subscribtion not allowed for this course
                 }
                 elseif ( claro_sql_query("INSERT INTO `".$tbl_rel_course_user."`
-                                     SET code_cours = \"".$courseCode."\",
-                                         user_id    = \"".$userId."\",
-                                         statut     = \"5\""))
+                                     SET `code_cours` = \"".$courseCode."\",
+                                         `user_id`    = \"".$userId."\",
+                                         `statut`     = \"5\""))
                 {
                     return true;
                 }
@@ -1135,48 +1134,63 @@ function delete_course($code)
 	$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
 	$tbl_course_nodes     = $tbl_mdb_names['category'         ];
 
-    $sql = "SELECT *
-                 FROM `".$tbl_course."`
-                 WHERE `code` = '".$code."'";
+    $sql = "SELECT `code`      `code`, 
+                   `dbName`    `dbName`, 
+                   `directory` `directory`, 
+                   `fake_code` `officialCode`, 
+                   `intitule`   `name`
+            FROM `".$tbl_course."`
+            WHERE `code` = '".$code."'";
 
-    $result = claro_sql_query($sql);
-    $the_course = mysql_fetch_array($result);
+    $this_course = claro_sql_query_fetch_all($sql);
+    
+    $currentCourseId        = $this_course[0]['code'];
+    $currentCourseDbName    = $this_course[0]['dbName'];
+    $currentCourseDbNameGlu = $courseTablePrefix.$this_course[0]['dbName'].$dbGlu;
+    $currentCoursePath      = $this_course[0]['directory'];
+    $currentCourseCode      = $this_course[0]['officialCode'];
+    $currentCourseName      = $this_course[0]['name'];
 
-    $sql = "SELECT *
-                 FROM `".$tbl_course."`
-                 WHERE `code` = '".$code."'";
-
-    $currentCourseId           = $the_course['code'];
-    $currentCourseDbName       = $the_course['dbName'];
-    $currentCourseDbNameGlu    = $courseTablePrefix.$the_course['dbName'].$dbGlu;
-    $currentCoursePath         = $the_course['directory'];
-    $currentCourseCode         = $the_course['officialCode'];
-    $currentCourseName         = $the_course['name'];
-
-
-    if( !$singleDbEnabled) // IF THE PLATFORM IS IN MULTI DATABASE MODE
-    {
-
-        $sql = "DROP DATABASE `".$currentCourseDbName."`";
-
-        claro_sql_query($sql);
-    }
-    else // IF THE PLATFORM IS IN MONO DATABASE MODE
+    if($singleDbEnabled) 
+    // IF THE PLATFORM IS IN MONO DATABASE MODE
     {
         // SEARCH ALL TABLES RELATED TO THE CURRENT COURSE
         claro_sql_query("use ".$mainDbName);
-        // underscores must be replaced because they are used as wildcards in LIKE sql statement
-        $cleanCourseDbNameGlu = str_replace("_","\_", $currentCourseDbNameGlu);
-        
-        $sql = "SHOW TABLES LIKE \"".$cleanCourseDbNameGlu."%\"";
-
-        claro_sql_query($sql);
-        // DELETE ALL TABLES OF THE CURRENT COURSE
-        while( $courseTable = mysql_fetch_array($result,MYSQL_NUM ) )
+        $tbl_to_delete = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+        foreach($tbl_to_delete as $tbl_name)
         {
-            $sql = "DROP TABLE ".$courseTable[0]."";
+            $dbgoutput[]=$courseTable;
+            $sql = 'DROP TABLE `'.$tbl_name.'`';
             claro_sql_query($sql);
         }
+        // underscores must be replaced because they are used as wildcards in LIKE sql statement
+        $cleanCourseDbNameGlu = str_replace("_","\_", $currentCourseDbNameGlu);
+        $sql = 'SHOW TABLES LIKE "'.$cleanCourseDbNameGlu.'%"';
+
+        $result = claro_sql_query($sql);
+        // DELETE ALL TABLES OF THE CURRENT COURSE
+
+        $tblSurvivor = array();
+        while( $courseTable = mysql_fetch_array($result,MYSQL_NUM ) )
+        {
+            $tblSurvivor[]=$courseTable[0];
+            //$tblSurvivor[$courseTable]='not deleted';
+        }
+        if (sizeof($tblSurvivor)>0)
+        {
+             event_default( "DELETE_COURSE"
+                         , array_merge(array ("DELETED_COURSE_CODE"=>$code
+                                             ,"UNDELETED_TABLE_COUNTER"=>sizeof($tblSurvivor)
+                                             )
+                                      , $tblSurvivor )
+                          );
+        }
+    }
+    else 
+    // IF THE PLATFORM IS IN MULTI DATABASE MODE
+    {
+        $sql = "DROP DATABASE `".$currentCourseDbName."`";
+        claro_sql_query($sql);
     }
     
     // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
@@ -1241,7 +1255,9 @@ function update_user_course_properties($user_id, $course_id, $properties)
     if ($user_id != $_uid //do we allow user to change his own settings? what about course without teacher?
 		and ($properties['status']=="1" or $properties['status']=="5") 
 		)
-    $sqlChangeStatus = "`statut` = \"".$properties['status']."\",";
+	{
+        $sqlChangeStatus = "`statut` = \"".$properties['status']."\",";
+	}
     
     $result = claro_sql_query("UPDATE `".$tbl_rel_course_user."`
                             SET     `role`       = \"".$properties['role']."\",
@@ -1270,16 +1286,15 @@ function update_user_course_properties($user_id, $course_id, $properties)
  */
 function isRegisteredTo($user_id, $course_id)
 {
-	$tbl_mdb_names = claro_sql_get_main_tbl();
+ 
+    $tbl_mdb_names = claro_sql_get_main_tbl();
 	$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
-    $sql = "SELECT *
+    $sql = "SELECT count(*) `user_reg`
                  FROM `".$tbl_rel_course_user."`
                  WHERE `code_cours` = '".$course_id."' AND `user_id` = '".$user_id."'";
-
-    $result = claro_sql_query($sql);
-    $list = mysql_fetch_array($result);
-    if (mysql_num_rows($result)>0) {return true;} else {return false;}
+    $res = claro_sql_query_fetch_all($sql);
+    return (bool) ($res[0]['user_reg']>0);
 }
 
 /**
