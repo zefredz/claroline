@@ -1042,8 +1042,8 @@ claro_disp_tool_title($titleElement,
     echo "<p>\n"
         ."<b>\n";
 
-	if ($curDirName) /* if the $curDirName is empty, we're in the root point 
-	                    and we can't go to a parent dir */
+	if ($curDirName || $cmd == 'exSearch') /* if the $curDirName is empty, we're in the root point 
+	                                          and we can't go to a parent dir */
 	{
 		echo "&nbsp;"
             ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n"
