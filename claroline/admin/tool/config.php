@@ -513,12 +513,13 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
 if ($panel == DISP_LIST_CONF)
 {
     $helpSection = 'help_config_menu.php';
-    $toolList  = get_def_list();
-    $confList = get_conf_list();
-    foreach($confList as $key => $config)
+    $config_list  = get_def_list();
+    $conf_list = get_conf_list();
+    foreach($conf_list as $key => $config)
     {
-        $toolList[$key]['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config['config_code']))&&$config['config_hash'] != md5_file(claro_get_conf_file($config['config_code'])));
+        $config_list[$key]['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config['config_code']))&&$config['config_hash'] != md5_file(claro_get_conf_file($config['config_code'])));
     }
+    
 }
 elseif ($panel == DISP_EDIT_CONF_CLASS)
 {
@@ -571,7 +572,7 @@ switch ($panel)
     </tr>
     </thead>
 <?php
-        foreach($toolList as $config_code => $tool)
+        foreach($config_list as $config_code => $tool)
         {
             echo '<tr>'
                 .'<td>'
