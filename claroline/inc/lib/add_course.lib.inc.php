@@ -183,7 +183,7 @@ function prepare_course_repository($courseRepository, $courseId)
 		$string=str_replace("\r","","<?"."php
 //		session_start();
 	\$cidReq = \"$courseId\";
-  \$claroGlobalPath = \"$includePath\";
+  \$claroGlobalPath = '$includePath';
 	include(\"".$clarolineRepositorySys."course_home/course_home.php\");
 	?>");
 		fwrite($fd, "$string");
