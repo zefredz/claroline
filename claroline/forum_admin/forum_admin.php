@@ -272,10 +272,17 @@ if ($is_allowedToEdit)
 	elseif ($forumcatsave)
 	{
 		$display = DISP_FORUM_CAT_SAVE;
+		if ($cat_title != "")
+		{
 
-		mysql_query("UPDATE `$TBL_CATAGORIES`
-                     SET   cat_title = '".$cat_title."'
-                     WHERE cat_id    = '".$cat_id."'");
+			mysql_query("UPDATE `$TBL_CATAGORIES`
+        	             SET   cat_title = '".$cat_title."'
+                	     WHERE cat_id    = '".$cat_id."'");
+		}
+		else
+		{
+            		$display_error_mess = true;
+		}
 	}
 
 /*=============================
@@ -285,24 +292,31 @@ if ($is_allowedToEdit)
 	elseif($forumgosave)
 	{
 		$display = DISP_FORUM_GO_SAVE;
-		$result  = mysql_query("SELECT user_id
+		if($forum_name != "")
+		{
+			$result  = mysql_query("SELECT user_id
                                 FROM `".$TBL_USERS."`
                                 WHERE username = \"".$forum_moderator."\"");
 
-		list($forum_moderator) = mysql_fetch_row($result);
+			list($forum_moderator) = mysql_fetch_row($result);
 
-		mysql_query("UPDATE `".$TBL_USERS."`
-                     SET user_level = '2'
-                     WHERE user_id = '".$forum_moderator."'");
+			mysql_query("UPDATE `".$TBL_USERS."`
+                	     SET user_level = '2'
+	                     WHERE user_id = '".$forum_moderator."'");
 
-		mysql_query("UPDATE `".$TBL_FORUMS."`
-		             SET forum_name     = '".$forum_name."',
-		                 forum_desc     = '".$forum_desc."',
-		                 forum_access   = '2',
-		                 forum_moderator= '1',
-		                 cat_id         = '".$cat_id."',
-		                 forum_type     = '".$forum_type."'
-		             WHERE forum_id = '".$forum_id."'");
+			mysql_query("UPDATE `".$TBL_FORUMS."`
+			             SET forum_name     = '".$forum_name."',
+		        	         forum_desc     = '".$forum_desc."',
+		                	 forum_access   = '2',
+			                 forum_moderator= '1',
+			                 cat_id         = '".$cat_id."',
+			                 forum_type     = '".$forum_type."'
+		        	     WHERE forum_id = '".$forum_id."'");
+		}
+		else
+		{
+            		$display_error_mess = true;
+		}
 
 	}
 
@@ -689,12 +703,29 @@ elseif($display == DISP_FORUM_CAT_EDIT)
 }
 elseif($display == DISP_FORUM_CAT_SAVE)
 {
-		// echo "<META http-equiv=\"REFRESH\" CONTENT=\"0; URL=\"$PHP_SELF?forumadmin=yes\"> ";
-		echo "$langNameCat, &nbsp;<a href=\"$PHP_SELF?forumadmin=yes\">$langBack</a>";
+    if ($display_error_mess)
+    {
+       echo "<center>".$langemptycatname."</center>".
+		"<a href=\"$PHP_SELF?forumcatedit=yes&cat_id=".$cat_id."\">$langBack</a>";
+    }
+    else
+    {
+	echo "<center>".$langNameCat."</center>".
+		"<a href=\"$PHP_SELF?forumadmin=yes\">$langBack</a>";
+    }
 }
 elseif($display == DISP_FORUM_GO_SAVE)
 {
-	echo	"<a href=\"$PHP_SELF?forumgo=yes&cat_id=$cat_id&ctg=".urlencode($ctg)."\">",$langBack,"</a>";
+    if ($display_error_mess)
+    {
+       echo "<center>".$langemptyforumname."</center>".
+    	"<a href=\"$PHP_SELF?forumgoedit=yes&forum_id=$forum_id&cat_id=$cat_id&ctg=".urlencode($ctg)."\">".$langBack."</a>";
+    }
+    else
+    {
+      echo "<center>".$langForumModified."</center>".
+    	"<a href=\"$PHP_SELF?forumgo=yes&cat_id=$cat_id&ctg=".urlencode($ctg)."\">".$langBack."</a>";
+    }
 }
 elseif($display == DISP_FORUM_CAT_ADD)
 {
