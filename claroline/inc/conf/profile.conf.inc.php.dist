@@ -7,7 +7,8 @@
 // AUTHENTICATION //
 //// PASSWORD //////
 
-define ('CHECK_PASS_EASY_TO_FIND', true);
+// check if the password is not too much easy to find
+define ('SECURE_PASSWORD_REQUIRED', true);
 
 
 $userOfficialCodeCanBeEmpty = true;
