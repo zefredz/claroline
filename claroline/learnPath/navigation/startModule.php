@@ -142,6 +142,11 @@
                 unset($_SESSION['objAnswer']);
                 unset($_SESSION['questionList']);
                 unset($_SESSION['exerciseResult']);
+                session_unregister('objExercise');
+                session_unregister('objQuestion');
+                session_unregister('objAnswer');
+                session_unregister('questionList');
+                session_unregister('exerciseResult');
                 $_SESSION['inPathMode'] = true;
                 $startAssetpage = $clarolineRepositoryWeb."exercice/exercice_submit.php";
                 $exerciseId     = $asset['path'];
