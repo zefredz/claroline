@@ -1,16 +1,13 @@
-<?php
-// $Id$
+<?php // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version 1.3.2 $Revision$                            |
+  | CLAROLINE version 1.6
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
   | This source file is subject to the GENERAL PUBLIC LICENSE,           |
   | available through the world-wide-web at                              |
   | http://www.gnu.org/copyleft/gpl.html                                 |
-  +----------------------------------------------------------------------+
-  | Authors:                                                             |
   +----------------------------------------------------------------------+
 
   DESCRIPTION:
@@ -71,4 +68,3 @@
    // same as header
    echo "</tbody></table>";
 ?>
-
