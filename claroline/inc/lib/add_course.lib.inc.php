@@ -1331,7 +1331,6 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 			titulaires = '".$titular."',
 			email = '".$email."',
 			fake_code = '".$courseScreenCode."'";
-					echo $sql;
 		claro_sql_query($sql);
 		$sql = "INSERT INTO `".$TABLECOURSUSER."` SET
 			code_cours = '".$courseSysCode."',
@@ -1340,7 +1339,6 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 			role = '".$langProfessor."',
 			tutor='1'";
 		claro_sql_query($sql);
-		echo $sql;
 	}
 	else //if ($okForRegisterCourse)
 	{
