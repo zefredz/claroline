@@ -200,19 +200,19 @@ if($dialogBox)
 
 // display TOOL links :
 
-claro_disp_button("adminuserunregistered.php?cidToEdit=".$cidToEdit."&cmd=UnReg&uidToEdit=".$user_id, $langUnsubscribe, $langAreYouSureToUnsubscribe." ".$prenom_form." ".$nom_form);
+echo "<a class=\"claroCmd\" href=\"adminuserunregistered.php?cidToEdit=".$cidToEdit."&cmd=UnReg&uidToEdit=".$user_id."\" onClick=\"return confirmationUnReg('".$prenom_form." ".$nom_form."');\">".$langUnsubscribe."</a> | ";
 
-claro_disp_button("adminprofile.php?uidToEdit=".$uidToEdit,$langGoToMainUserSettings);
+echo "<a class=\"claroCmd\" href=\"adminprofile.php?uidToEdit=".$uidToEdit."\">".$langGoToMainUserSettings."</a>";
 
-       //link to go back to list : depend where we come from...
+//link to go back to list : depend where we come from...
 
 if ($ccfrom=="culist")//coming from courseuser list
 {
-    claro_disp_button("admincourseusers.php?cidToEdit=".$cidToEdit."&uidToEdit=".$uidToEdit,$langBackToList);
+    echo " | <a class=\"claroCmd\" href=\"admincourseusers.php?cidToEdit=".$cidToEdit."&uidToEdit=".$uidToEdit."\">".$langBackToList."</a> ";
 }
 elseif ($ccfrom=="uclist")//coming from usercourse list
 {
-    claro_disp_button("adminusercourses.php?cidToEdit=".$cidToEdit."&uidToEdit=".$uidToEdit,$langBackToList);
+    echo " | <a class=\"claroCmd\" href=\"adminusercourses.php?cidToEdit=".$cidToEdit."&uidToEdit=".$uidToEdit."\">".$langBackToList."</a> ";
 }
 
 // display footer
