@@ -140,12 +140,12 @@ if (     is_null($myrow['idGroup'])
 				// Claroline statements
 				if($last_post_time < $last_visit)
 				{
-					$image = $clarolineRepositoryWeb."img/forum.png";
+					$image = $clarolineRepositoryWeb."img/forum.gif";
 					$alt="";
 				}
 				else
 				{
-					$image = $clarolineRepositoryWeb."img/red_forum.png";
+					$image = $clarolineRepositoryWeb."img/red_forum.gif";
 					$alt="";
 				}
 			}
