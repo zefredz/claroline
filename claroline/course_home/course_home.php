@@ -30,8 +30,7 @@ $toolRepository = $clarolineRepositoryWeb;
 $imgRepository  = $clarolineRepositoryWeb."/img/";
 
 include($includePath.'/claro_init_header.inc.php');
-
-include 'course_home.lib.php';
+include($includePath.'/lib/course_home.lib.php');
 
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 
