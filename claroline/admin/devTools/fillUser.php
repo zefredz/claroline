@@ -38,7 +38,7 @@ if (!isset($_uid)) die("you need to be logged");
 include($includePath."/conf/add_course.conf.php");
 include($includePath."/conf/user.conf.php");
 //// LIBS
-include($includePath."/lib/text.lib.php");
+
 include($includePath."/lib/add_course.lib.inc.php");
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");

@@ -18,12 +18,12 @@ $nameTools 			= $lang_faculty_faculty;
 $interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $interbredcrump[]	= array ("url"=>"../managing/index.php", "name"=>$langManage);
 
-include($includePath."/lib/text.lib.php");
+
 include($includePath."/lib/debug.lib.inc.php");
 include("../../inc/lib/faculty.lib.inc.php");
 
 
-$dateNow 			= claro_format_locale_date($dateTimeFormatLong);
+$dateNow 			= claro_disp_localised_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin;
 
 //TABLES

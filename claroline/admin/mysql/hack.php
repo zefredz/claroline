@@ -17,9 +17,9 @@ require '../../inc/claro_init_global.inc.php';
 $nameTools = $langMysql;
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
-include($includePath."/lib/text.lib.php");
+
 include($includePath."/lib/debug.lib.inc.php");
-$dateNow 			= claro_format_locale_date($dateTimeFormatLong);
+$dateNow 			= claro_disp_localised_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
 
 // make here some  test

@@ -60,7 +60,6 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();
 
 include($includePath.'/conf/announcement.conf.inc.php');
-include($includePath.'/lib/text.lib.php');
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
@@ -458,7 +457,7 @@ if ($displayList)
 
                 "<th class=\"headerX\">\n",
                 "<img src=\"".$clarolineRepositoryWeb."/img/".$imageFile."\" alt=\"".$altImg."\">\n".
-                $langPubl," : ", claro_format_locale_date($dateFormatLong,
+                $langPubl," : ", claro_disp_localised_date($dateFormatLong,
                                                           strtotime($last_post_date)),"\n",
                 "</th>\n",
 

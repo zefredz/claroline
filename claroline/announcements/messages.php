@@ -37,7 +37,6 @@ $langFile =	'announcements';
 
 require '../inc/claro_init_global.inc.php'; //	settings initialisation	
 if ( ! $_cid) claro_disp_select_course();
-include($includePath.'/lib/text.lib.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
 $htmlHeadXtra[]="<script type=\"text/javascript\" language=\"JavaScript\">

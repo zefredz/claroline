@@ -22,12 +22,12 @@ $noQUERY_STRING 	= TRUE;
 //****************************
 //Change $includePath
 //****************************
-include($includePath."/lib/text.lib.php");
+
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath.'/conf/profile.conf.inc.php'); // find this file to modify values.
 include($includePath.'/lib/fileManage.lib.php');
 
-$dateNow 			= claro_format_locale_date($dateTimeFormatLong);
+$dateNow 			= claro_disp_localised_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
 
 $tbl_user   = $mainDbName."`.`user";

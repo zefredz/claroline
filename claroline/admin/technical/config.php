@@ -18,7 +18,7 @@ $nameTools 			= $lang_config_config;
 $interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $lang_config_AdministrationTools);
 $noQUERY_STRING 	= TRUE;
 
-include($includePath."/lib/text.lib.php");
+
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/course.lib.inc.php");
 include($includePath."/lib/config.lib.inc.php");
@@ -28,7 +28,7 @@ include($includePath."/lib/admin.lib.inc.php");
 
 if (!$is_platformAdmin) treatNotAuthorized();
 
-$dateNow 			= claro_format_locale_date($dateTimeFormatLong);
+$dateNow 			= claro_disp_localised_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin;
 
 if(!$is_allowedToAdmin)

@@ -14,7 +14,7 @@
 $cidReset=TRUE;
 $langFile = "editFile";
 require '../../inc/claro_init_global.inc.php';
-include($includePath."/lib/text.lib.php");
+
 include($includePath."/lib/debug.lib.inc.php");
 include("../../inc/lib/file.lib.inc.php");
 
@@ -23,7 +23,7 @@ define("DISP_EDIT_FILE",__LINE__);
 define("DISP_PREVIEW_FILE",__LINE__);
 
 $nameTools = $langHomePageTextZone;
-$dateNow 			= claro_format_locale_date($dateTimeFormatLong);
+$dateNow 			= claro_disp_localised_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin;
 
 $interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $lang_EditFile_AdministrationTools);
