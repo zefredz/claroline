@@ -77,7 +77,7 @@ if ($is_allowedToEdit)
 }
 
 $sql     =  "SELECT `id`,`title`,`content` 
-             FROM `".$TABLECOURSEDESCRIPTION."` order by id";
+             FROM `".$tbl_course_description."` order by id";
 
 $blocList = claro_sql_query_fetch_all($sql);
 
