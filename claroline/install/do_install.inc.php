@@ -295,7 +295,7 @@ $colorMedium= 	"#6699FF"; // these 3 colors are used in header
 $colorDark	= 	"#000066"; //
 
 $platformLanguage 	= 	"'.$languageForm.'";
-
+$claro_stylesheet   =   "default.css";
 $clarolineVersion	=	"'.$clarolineVersion.'";
 $versionDb 			= 	"'.$versionDb.'";
 
