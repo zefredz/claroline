@@ -15,16 +15,7 @@
 
 // 4 Commands, 3 displays
 // default Display : Form to edit own profile
-// 
-$lang_IWantCreateCourse      = "I need to create course";
-$lang_ReqCourseCreatorStatus      = "Request a Course Creator Status";
-$lang_explanation = "Commentaire";
-$lang_IWantBeRemovedFromBase = "Destroy my account"; // %s = siteName
-$lang_p_IWantBeRemovedFromBase = "Destroy my &quot;<EM>%s</EM>&quot; account"; // %s = siteName
-$lang_p_u_ReqCourseCreatorStatus = "Course creator status to %s %s"; // %S%S name firstname
-$lang_p_u_ReqRevoquation = "Revocation of %s %s"; // %S%S name firstname
-$lang_YourRequestToRemoveYourAccountIsSent = "Votre demande de révoquation à été communiquée";
-$lang_YourRequestToBePromoteCourseCreatorIsSent = "Votre demande de d'accès à la création de cours à été communiquée";
+
 $langFile = 'registration';
 $cidReset = TRUE;
 $gidReset = TRUE;
@@ -61,10 +52,10 @@ if (CAN_REQUEST_COURSE_CREATOR_STATUS && $_REQUEST['exCCstatus'])
 	$mailToUidList = claro_get_uid_of_platform_admin();
 	
 	$requestMessage_Title = '['.$siteName.'][Rq]'
-	                   .sprintf($lang_p_u_ReqCourseCreatorStatus,$_user['lastName'],$_user['firstName']);
+	                   .sprintf($langCourseManagerStatusToUser,$_user['lastName'],$_user['firstName']);
 	$requestMessage_Content = '
      '.claro_disp_localised_date( $dateFormatLong).'
-	 '.sprintf($lang_p_u_ReqCourseCreatorStatus,$_user['lastName'],$_user['firstName']).'
+	 '.sprintf($langCourseManagerStatusToUser,$_user['lastName'],$_user['firstName']).'
 User:'.$_uid.'
      '.$_user['firstName'].'
      '.$_user['lastName'].'
@@ -77,16 +68,16 @@ User:'.$_uid.'
 		claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator['email'], 'profile');
 	}
 
-	$messageList[] = $lang_YourRequestToBePromoteCourseCreatorIsSent;
+	$messageList[] = $langYourRequestToBeCourseManagerIsSent;
 }
 elseif (CAN_REQUEST_REVOQUATION && $_REQUEST['exRevoquation'])
 {
 	$mailToUidList = claro_get_uid_of_platform_admin();
 	$requestMessage_Title = '['.$siteName.'][Rq]'
-	                   .sprintf($lang_p_u_ReqRevoquation,$_user['lastName'],$_user['firstName']);
+	                   .sprintf($langRevoquationOfUser,$_user['lastName'],$_user['firstName']);
 	$requestMessage_Content = '
      '.claro_disp_localised_date( $dateFormatLong).'
-	 '.sprintf($lang_p_u_ReqRevoquation,$_user['lastName'],$_user['firstName']).'
+	 '.sprintf($langRevoquationOfUser,$_user['lastName'],$_user['firstName']).'
 User:'.$_uid.'
      '.$_user['firstName'].'
      '.$_user['lastName'].'
@@ -102,14 +93,14 @@ User:'.$_uid.'
 	{
 		claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator['email'], 'profile');
 	}
-	$messageList[] = $lang_YourRequestToRemoveYourAccountIsSent;
+	$messageList[] = $langYourRequestToRemoveYourAccountIsSent;
 
 }
 elseif (CAN_REQUEST_COURSE_CREATOR_STATUS && $_REQUEST['reqCCstatus'])
 {
 	$noQueryString=TRUE;
 	$display = DISP_COURSE_CREATOR_STATUS_REQ;
-	$nameTools = $lang_ReqCourseCreatorStatus;
+	$nameTools = $langRequestCourseManagerStatus;
 }
 elseif (CAN_REQUEST_REVOQUATION && $_REQUEST['reqRevoquation'])
 {
@@ -479,7 +470,7 @@ switch($display)
 	{
 ?>
 	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-		<label for="explanation"><?php echo $lang_explanation ?></label><br>
+		<label for="explanation"><?php echo $langComment ?></label><br>
 		<textarea cols="60" rows="6" name="explanation" id="explanation"></textarea><br>
 		<fieldset>
 		<legend ><?php echo $langConfirmation ?></legend>
@@ -489,7 +480,7 @@ switch($display)
 		<input type="password" name="passwordToDelete" ><br>
 		</fieldset><br>
 		<input type="hidden" name="exRevoquation" value="1">
-		<input type="submit" value="<?php  echo $lang_IWantBeRemovedFromBase ?>">
+		<input type="submit" value="<?php  echo $langDeleteMyAccount ?>">
 	</form>
 <?php 
 	}
@@ -499,10 +490,10 @@ switch($display)
 		{
 		?>
 	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-		<label for="explanation"><?php echo $lang_explanation ?></label><br>
+		<label for="explanation"><?php echo $langComment ?></label><br>
 		<textarea cols="60" rows="6" name="explanation" id="explanation"></textarea><br>
 		<input type="hidden" name="exCCstatus" value="1">
-		<input type="submit" value="<?php echo $lang_IWantCreateCourse ?>">
+		<input type="submit" value="<?php echo $langINeedToCreateCourse ?>">
 	</form>
 <?php 
 	}
@@ -679,7 +670,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 	if (CAN_REQUEST_COURSE_CREATOR_STATUS)
 	{
 ?>
-    | <SPAN> <a href="<?php echo $_SERVER['PHP_SELF'] ?>?reqCCstatus=1"><?php echo $lang_IWantCreateCourse ?></a> </SPAN>
+    | <SPAN> <a href="<?php echo $_SERVER['PHP_SELF'] ?>?reqCCstatus=1"><?php echo $langINeedToCreateCourse ?></a> </SPAN>
 <?php 
 	}
 ?>
@@ -687,7 +678,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 	if (CAN_REQUEST_REVOQUATION)
 	{
 ?>
-    | <SPAN> <a href="<?php echo $_SERVER['PHP_SELF'] ?>?reqRevoquation=1"><?php printf($lang_p_IWantBeRemovedFromBase,$siteName) ?></a> </SPAN>
+    | <SPAN> <a href="<?php echo $_SERVER['PHP_SELF'] ?>?reqRevoquation=1"><?php echo $langDeleteMyAccount ?></a> </SPAN>
 <?php 
 	}
 	
