@@ -389,25 +389,30 @@ if ($is_allowedToEdit)
 
     if (! empty($msg)) claro_disp_message_box($msg);
 
-    echo '<p>';
-    /*
-     * Add event button
-     */
 
-    claro_disp_button($PHP_SEF.'?cmd=rqAdd', 
-                   '<img src="../img/agenda.gif" width="20" alt="">'
-                  .'Add event');
+    if ($cmd != 'rqEdit' && $cmd != 'rqAdd')
+    {
+        echo '<p>';
 
-    /*
-     * remove all event button
-     */
+        /*
+         * Add event button
+         */
 
-    claro_disp_button($PHP_SEF.'?cmd=exDelete&id=ALL', 
-                      '<img src="../img/delete.gif" width="20" alt="">'
-                      .'Clear up event list');
+        claro_disp_button($PHP_SEF.'?cmd=rqAdd', 
+                       '<img src="../img/agenda.gif" width="20" alt="">'
+                      .'Add event');
 
-    echo '</p>';
+        /*
+         * remove all event button
+         */
 
+        claro_disp_button($PHP_SEF.'?cmd=exDelete&id=ALL', 
+                          '<img src="../img/delete.gif" width="20" alt="">'
+                          .'Clear up event list');
+
+        echo '</p>';
+    } // end if diplayMainCommands
+    
 } // end id is_allowed to edit
 
 
