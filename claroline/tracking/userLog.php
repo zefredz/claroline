@@ -59,7 +59,8 @@ $tbl_wrk_submission          = $tbl_cdb_names['wrk_submission'         ];
 $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
 $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 $tbl_track_e_uploads         = $tbl_cdb_names['track_e_uploads'        ];
-
+$tbl_bb_topics				 = $tbl_cdb_names['bb_topics'				];
+$tbl_bb_posts				 = $tbl_cdb_names['bb_posts'				];
 
 
 // for learning paths section 
@@ -223,7 +224,6 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             $res[2] == "" ? $res2 = $langNoEmail : $res2 = $res[2];
                 
             echo "<p>"
-                    .$informationsAbout." : <br>"
                     ."<ul>\n"
                     ."<li>".$langLastName." : ".$res[0]."</li>\n"
                     ."<li>".$langFirstName." : ".$res[1]."</li>\n"
@@ -661,6 +661,86 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '1';
                 echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">$langDocumentsAccess</a>";
+            }
+            echo "<br /></p>\n\n";
+            
+            /***************************************************************************
+             *
+             *		Forum posts
+             *
+             ***************************************************************************/
+            $tempView = $view;
+            $viewLevel++;
+            echo "<p>\n";
+            if($view[$viewLevel] == '1')
+            {
+                $tempView[$viewLevel] = '0';
+
+                echo "-&nbsp;&nbsp;<b>".$langTrackForumUsage."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
+                        ."<br />\n";
+				// total number of messages posted by user
+				$sql = "SELECT count(`post_id`)
+                            FROM `".$tbl_bb_posts."`
+                            WHERE `poster_id` = '$uInfo'
+							";
+				$totalPosts = claro_sql_query_get_single_value($sql);
+				
+				// total number of threads started by user
+				$sql = "SELECT count(`topic_title`)
+                            FROM `".$tbl_bb_topics."`
+                            WHERE `topic_poster` = '$uInfo'
+							";
+				$totalTopics = claro_sql_query_get_single_value($sql);
+
+				echo "<ul>\n"
+					."<li>".$langTrackTotalPosts." : ".$totalPosts."</li>"
+					."<li>".$langTrackTotalTopics." : ".$totalTopics."</li>"
+					."<li>".$langLastMsgs."\n";
+				// last 10 distinct messages posted
+                $sql = "SELECT `bb_t`.`topic_id`,
+								`bb_t`.`topic_title`, 
+								max(`bb_t`.`topic_time`) as `last_message`
+                            FROM `".$tbl_bb_posts."` as `bb_p`, `".$tbl_bb_topics."` as `bb_t`
+                            WHERE `bb_p`.`poster_id` = '$uInfo'
+							AND `bb_t`.`topic_id` = `bb_p`.`topic_id`
+                            GROUP BY `bb_t`.`topic_title`
+							ORDER BY `bb_p`.`post_time` DESC
+							LIMIT 10";
+
+                $results = getManyResults3Col($sql);
+
+                echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n"
+                		."<tr class=\"headerX\">\n"
+                        ."<th>".$l_topic."</th>\n"
+                        ."<th>".$langLastMsg."</th>\n"						
+                        ."</tr>\n";
+                if (is_array($results))
+                {
+                    echo "<tbody>\n";
+                    for($j = 0 ; $j < count($results) ; $j++)
+                    {
+                            echo "<tr>\n"
+                                    ."<td><a href=\"../phpbb/viewtopic.php?topic=".$results[$j][0]."\"\">".$results[$j][1]."</a></td>\n"
+                                    ."<td>".$results[$j][2]."</td>\n"									
+                                    ."</tr>\n";
+                    }
+                    echo "</tbody>\n";
+
+                }
+                else
+                {
+                    echo "<tfoot>\n<tr>\n"
+                            ."<td align=\"center\">".$langNoResult."</td>\n"
+                            ."</tr>\n</tfoot>\n";
+                }
+                echo "</table>\n"
+					."</li>\n</ul>";
+				
+            }
+            else
+            {
+                $tempView[$viewLevel] = '1';
+                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langTrackForumUsage."</a>";
             }
             echo "<br /></p>\n\n";
         }

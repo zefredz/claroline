@@ -25,6 +25,8 @@ $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
 $tbl_track_e_access          = $tbl_cdb_names['track_e_access'         ];
 $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 $tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
+$tbl_bb_topics				 = $tbl_cdb_names['bb_topics'				];
+$tbl_bb_posts				 = $tbl_cdb_names['bb_posts'				];
 
 // regroup table names for maintenance purpose
 
@@ -366,6 +368,154 @@ if($is_allowedToTrack && $is_trackingEnabled)
         echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langExercises.'</a>';
     }
     echo '</p>'."\n\n";
+	
+	/***************************************************************************
+	 *
+	 *		Forum posts
+	 *
+	 ***************************************************************************/
+	$tempView = $view;
+	$viewLevel++;
+	echo "<p>\n";
+	if($view[$viewLevel] == '1')
+	{
+	    $tempView[$viewLevel] = '0';
+	
+	    echo "-&nbsp;&nbsp;<b>".$langTrackForumUsage."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
+	            ."<br />\n";
+		// total number of posts
+		$sql = "SELECT count(`post_id`)
+		                FROM `".$tbl_bb_posts."`";
+		$totalPosts = claro_sql_query_get_single_value($sql);
+		
+		// total number of threads
+		$sql = "SELECT count(`topic_title`)
+		                FROM `".$tbl_bb_topics."`";
+		$totalTopics = claro_sql_query_get_single_value($sql);
+
+		// display total of posts and threads		
+		echo "<ul>\n"
+			."<li>".$langTrackTotalPosts." : ".$totalPosts."</li>"
+			."<li>".$langTrackTotalTopics." : ".$totalTopics."</li>";
+		// top 10 topics more active (more responses)
+		$sql = "SELECT `topic_id`, `topic_title`, `topic_replies`
+					FROM `".$tbl_bb_topics."`
+					ORDER BY `topic_replies` DESC
+					LIMIT 10
+					";
+		$results = getManyResults3Col($sql);
+        echo "<li>".$langMoreRepliedTopics."<br />"
+			."<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n"
+			."<tr class=\"headerX\">\n"
+			."<th>".$l_topic."</th>\n"
+			."<th>".$langTopicReplies."</th>\n"						
+			."</tr>\n";
+		if (is_array($results))
+		{
+		    echo "<tbody>\n";
+		    for($j = 0 ; $j < count($results) ; $j++)
+		    {
+		            echo "<tr>\n"
+		                    ."<td><a href=\"../phpbb/viewtopic.php?topic=".$results[$j][0]."\"\">".$results[$j][1]."</a></td>\n"
+		                    ."<td>".$results[$j][2]."</td>\n"									
+		                    ."</tr>\n";
+		    }
+		    echo "</tbody>\n";
+		
+		}
+		else
+		{
+		    echo "<tfoot>\n<tr>\n"
+		            ."<td align=\"center\">".$langNoResult."</td>\n"
+		            ."</tr>\n</tfoot>\n";
+		}
+		echo "</table>\n"
+			."</li>\n";
+		
+		
+		// top 10 topics more seen
+		$sql = "SELECT `topic_id`, `topic_title`, `topic_views`
+					FROM `".$tbl_bb_topics."`
+					ORDER BY `topic_views` DESC
+					LIMIT 10
+					";
+		$results = getManyResults3Col($sql);
+		echo "<li>".$langMoreSeenTopics."<br />"
+			."<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n"
+			."<tr class=\"headerX\">\n"
+			."<th>".$l_topic."</th>\n"
+			."<th>".$langSeen."</th>\n"						
+			."</tr>\n";
+		if (is_array($results))
+		{
+		    echo "<tbody>\n";
+		    for($j = 0 ; $j < count($results) ; $j++)
+		    {
+		            echo "<tr>\n"
+		                    ."<td><a href=\"../phpbb/viewtopic.php?topic=".$results[$j][0]."\"\">".$results[$j][1]."</a></td>\n"
+		                    ."<td>".$results[$j][2]."</td>\n"									
+		                    ."</tr>\n";
+		    }
+		    echo "</tbody>\n";
+		
+		}
+		else
+		{
+		    echo "<tfoot>\n<tr>\n"
+		            ."<td align=\"center\">".$langNoResult."</td>\n"
+		            ."</tr>\n</tfoot>\n";
+		}
+		echo "</table>\n"
+			."</li>\n";
+		
+		// last 10 distinct messages posted
+		$sql = "SELECT `bb_t`.`topic_id`,
+					`bb_t`.`topic_title`, 
+					max(`bb_t`.`topic_time`) as `last_message`
+	            FROM `".$tbl_bb_posts."` as `bb_p`, `".$tbl_bb_topics."` as `bb_t`
+	            WHERE `bb_t`.`topic_id` = `bb_p`.`topic_id`
+				GROUP BY `bb_t`.`topic_title`
+				ORDER BY `bb_p`.`post_time` DESC
+				LIMIT 10";
+			
+		$results = getManyResults3Col($sql);
+		
+		echo "<li>".$langLastActiveTopics."<br />"
+			."<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n"
+				."<tr class=\"headerX\">\n"
+		        ."<th>".$l_topic."</th>\n"
+		        ."<th>".$langLastMsg."</th>\n"						
+		        ."</tr>\n";
+		if (is_array($results))
+		{
+		    echo "<tbody>\n";
+		    for($j = 0 ; $j < count($results) ; $j++)
+		    {
+		            echo "<tr>\n"
+		                    ."<td><a href=\"../phpbb/viewtopic.php?topic=".$results[$j][0]."\"\">".$results[$j][1]."</a></td>\n"
+		                    ."<td>".$results[$j][2]."</td>\n"									
+		                    ."</tr>\n";
+		    }
+		    echo "</tbody>\n";
+		
+		}
+		else
+		{
+		    echo "<tfoot>\n<tr>\n"
+		            ."<td align=\"center\">".$langNoResult."</td>\n"
+		            ."</tr>\n</tfoot>\n";
+		}
+		echo "</table>\n"
+			."</li>";
+			
+		echo "</ul>";
+	}
+	else
+	{
+	    $tempView[$viewLevel] = '1';
+	    echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langTrackForumUsage."</a>";
+	}
+	echo "<br /></p>\n\n";
 }
 // not allowed
 else
