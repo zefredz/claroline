@@ -1,4 +1,5 @@
-<?php #	$Id$
+<?php # $Id$
+
 
 //----------------------------------------------------------------------
 // CLAROLINE
@@ -33,9 +34,8 @@ function claro_sql_get_main_tbl()
     {
         $mainTblList['admin'            ] = $mainDb.'`.`admin';
         $mainTblList['cours'            ] = $mainDb.'`.`cours';
-        $mainTblList['rel_course_user'  ]           = $mainDb.'`.`cours_user';
+        $mainTblList['rel_course_user'  ] = $mainDb.'`.`cours_user';
         $mainTblList['category'         ] = $mainDb.'`.`faculte';
-        $mainTblList['todo'             ] = $mainDb.'`.`todo';
         $mainTblList['user'             ] = $mainDb.'`.`user';
     }
 
@@ -910,7 +910,7 @@ function claro_disp_button($url, $text, $confirmMessage = '')
         }
         else
         {
-            $onClickCommand = "document.location='".$url."';";
+            $onClickCommand = "document.location='".$url."';return false";
         }
         
         echo "<button class=\"claroButton\" onclick=\"".$onClickCommand."\">"
