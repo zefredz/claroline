@@ -83,7 +83,7 @@ include("../inc/lib/fileDisplay.lib.php");
                      FILEMANAGER BASIC VARIABLES DEFINITION
   =============================================================================*/
 
-$baseServDir = $rootSys;
+$baseServDir = $coursesRepositorySys;
 $baseServUrl = $urlAppend.'/';
 
 /*
@@ -99,6 +99,7 @@ if ($_gid && $is_groupAllowed)
 
     $maxFilledSpace    = 1000000;
     $courseDir         = $_course['path'].'/group/'.$_group['directory'];
+    $groupDir          = 'group/'.$_group['directory']; 
 
     $interbredcrump[]  = array ('url'=>'group.php', 'name'=> $langGroupManagement);
 
@@ -1156,7 +1157,7 @@ unset($attribute);
                     if ($fileList['type'][$fileKey] == A_FILE)
                     {
                         echo	"<a href=\"../work/work.php?",
-                                "submitGroupWorkUrl=".rawurlencode('../../'.$courseDir).$cmdFileName."\">",
+                                "submitGroupWorkUrl=".$groupDir.$cmdFileName."\">",
                                 "<small>",$langPublish,"</small>",
                                 "</a>";
                     }
