@@ -204,7 +204,7 @@ $l_statsblock   = '$statsblock = "Nos membres ont posté un total de -$total_post
 Nous avons -$total_users- membres enregistrés.<br>
 Le membre enregistré le plus récent est -<a href=\"$profile_url\">$newest_user</a>-.<br>
 -$users_online- ". ($users_online==1?"membre est":"membres sont") ." <a href=\"$online_url\">actuellement</a> sur ces forums.<br>";'; // JCC 
-$l_privnotify   = '$privnotify = "<br>Vous avez $new_message <a href=\"$privmsg_url\">new private ".($new_message>1?"messages":"message")."</a>.";';
+$l_privnotify   = '<br>Vous avez %s1 <a href=\"%s2\">nouveau(x) message(s) privée(s)</a>.';
 
 // Page_tail
 $l_adminpanel	= "Panneau d'administration";
@@ -309,23 +309,22 @@ $l_cancelpost	= "Annuler ce message"; // JCC
 $l_nopostlock	= "Vous ne pouvez répondre sur ce sujet, il a été fermé.";
 $l_topicreview  = "Revue du sujet"; // JCC 
 $l_notifysubj	= "Une réponse à votre sujet a été posté.";
-$l_notifybody	= 'Cher $m[username]\r\nVous recevez cet e-mail parce qu\'un message
-que vous avez posté sur les forums $sitename a reçu une réponse, et que
+$l_dear         = "Chèr(e),";
+$l_notifybody	= 'Vous recevez cet e-mail parce qu\'un message
+que vous avez posté sur nos forums a reçu une réponse, et que
 vous avez choisi d\'en être informé.
 
 Vous pouvez voir le sujet à:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum&cidReq=$_course[sysCode]
+%s1
 
 Ou voir l\'index du forum $sitename à
 
-http://$SERVER_NAME$url_phpbb?cidReq=$_course[sysCode]
+%s2
 
 Merci d\'utiliser les forums $sitename.
 
-Bonne journée.
-
-';
+Bonne journée.';
 
 
 $l_quotemsg	= '[quote]\nLe $m[post_time], $m[username] a écrit:\n$text\n[/quote]';

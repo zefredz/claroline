@@ -956,6 +956,8 @@ function is_topic_notification_requested($userId, $topicId)
 function trig_topic_notification($topicId)
 {
     global $tbl_user_notify, $tbl_users, $sys_lang;
+    global $l_dear, $l_notifybody, $l_notifysub;
+    global $url_phpbb, $_course;
 
     $sql = "SELECT u.user_id, u.prenom firstname, u.nom lastname
             FROM `".$tbl_user_notify."` AS notif, 
@@ -964,15 +966,18 @@ function trig_topic_notification($topicId)
             AND   notif.user_id  = u.user_id";
 
     $notifyResult = claro_sql_query($sql);
-    $subject      = get_syslang_string($sys_lang, 'l_notifysubj');
+    $subject      = $l_notifysubj;
+
+    $url_topic = "http://" . $_SERVER['SERVER_NAME'] . $url_phpbb . "/viewtopic.php?topic=". $topicId . "&cidReq=" . $_course['sysCode'];
+    $url_forum = "http://" . $_SERVER['SERVER_NAME'] . $url_phpbb . "/index.php?cidReq=" . $_course['sysCode'];
 
     // send mail to registered user for notification
 
     while ($list = mysql_fetch_array($notifyResult))
     {
-       $message = get_syslang_string($sys_lang, 'l_dear')." ".$list['firstname']." ".$list['lastname'].",\n";
-       $message.= get_syslang_string($sys_lang, 'l_notifybody');
-       eval("\$message =\"$message\";");
+       $message = $l_dear . " " . $list['firstname']." ".$list['lastname'].",\n\n";
+       $message.= sprintf($l_notifybody,$url_topic,$url_forum);
+
        claro_mail_user($list['user_id'], $message, $subject);
     }
 }
