@@ -81,6 +81,8 @@ Résultat c'est le <form> dans lequel est htmlArea qui est envoyé et pas la
 commande claroButton.
 
 Repéré par : HUGUES
+Assigné à  : HUGUES
+Etat       : RESOLU
 
 ------------------------------------------------------------------
 12 . /claroline/admin/adminusers.php Sur une recherche  sans résultat le texte 
@@ -137,6 +139,9 @@ Etat : RESOLU (en utilisant le meme principe que pour document et import learnin
 
 -------------
 $Log$
+Revision 1.27  2004/06/15 11:10:22  peeters
+no message
+
 Revision 1.26  2004/06/15 07:47:14  seb
 bug 17 résolu
 
