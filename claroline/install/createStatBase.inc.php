@@ -15,7 +15,6 @@
 //         claro_sql_query("DROP TABLE IF EXISTS track_e_default");
 //         claro_sql_query("DROP TABLE IF EXISTS track_e_login");
 //         claro_sql_query("DROP TABLE IF EXISTS track_e_open");
-//         claro_sql_query("DROP TABLE IF EXISTS track_e_subscriptions");
 
         $sql = "CREATE TABLE `track_e_default` (
                   `default_id` int(11) NOT NULL auto_increment,
@@ -46,15 +45,4 @@
                   PRIMARY KEY  (`open_id`)
                 ) TYPE=MyISAM COMMENT='Record informations about software used by users'";
         claro_sql_query($sql);
-        /*
-        $sql = "CREATE TABLE `track_e_subscriptions` (
-                  `sub_id` int(11) NOT NULL auto_increment,
-                  `sub_user_id` int(11)  NOT NULL default '0',
-                  `sub_date` datetime NOT NULL default '0000-00-00 00:00:00',
-                  `sub_cours_id` int(11) NOT NULL default '0',
-                  `sub_action` enum('sub','unsub') NOT NULL default 'sub',
-                  PRIMARY KEY  (`sub_id`)
-                ) TYPE=MyISAM COMMENT='Record informations about subscriptions to courses'";
-        claro_sql_query($sql);
-        */
 ?>
