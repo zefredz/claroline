@@ -19,9 +19,7 @@ VALUES
 ( 'MBA',    NULL, NULL, 1, 0, 'TRUE', 'TRUE', 'Business Administration'),
 ( 'ECO',    NULL, NULL, 2, 0, 'TRUE', 'TRUE', 'Economics'),
 ( 'PSYCHO', NULL, NULL, 3, 0, 'TRUE', 'TRUE', 'Psychology'),
-( 'MD',     NULL, NULL, 4, 0, 'TRUE', 'TRUE', 'Medicine'),
-( 'EDITMOI',     NULL, NULL, 5, 0, 'FALSE', 'FALSE', 'Vous pouvez éditer ces catégories dans l\'admin'),
-( 'EDITME',    NULL, NULL, 6, 0, 'FALSE', 'FALSE', 'You Can Edit these Categories in Admin')
+( 'MD',     NULL, NULL, 4, 0, 'TRUE', 'TRUE', 'Medicine')
 ";
 
 mysql_query($sql_insert_sample_cats);
