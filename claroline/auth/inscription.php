@@ -12,25 +12,33 @@
 //----------------------------------------------------------------------
 
 $langFile = "registration";
+
+// Include claro_init_global
 require '../inc/claro_init_global.inc.php';
+
+// Redirect before first output
+if(!$allowSelfReg and isset($allowSelfReg))
+{
+	header("Location: ".$rootWeb);
+    exit;
+}
+
+// Display banner
 $interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);
 include($includePath."/claro_init_header.inc.php");
+
 include($includePath."/conf/profile.conf.inc.php");
 
 $display_status_selector = (bool) ($is_platformAdmin OR $allowSelfRegProf);
+
 // NAMING STATUS VALUES FOR THE PROFILES SCRIPTS
 define ("STUDENT",      5);
 define ("COURSEMANAGER",1);
 
 $nameTools = "1";
 
-if(!$allowSelfReg and isset($allowSelfReg))
-{
-	header("location:".$rootWeb);
-}
-else
-{
-	claro_disp_tool_title($langRegistration);
+claro_disp_tool_title($langRegistration);
+
 ?>
 <form action="inscription_second.php" method="post">
 <table cellpadding="3" cellspacing="0" border="0">
@@ -177,7 +185,7 @@ if ($display_status_selector)
 			</select>
 		</td></tr>
 <?php
-	}
+}
 ?>
 <tr>
 	<td>
@@ -193,6 +201,6 @@ if ($display_status_selector)
 </form>
 
 <?php
-}	// END else == $allowSelfReg
+
 include ("../inc/claro_init_footer.inc.php");
 ?>
