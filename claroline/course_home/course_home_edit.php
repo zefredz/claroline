@@ -14,6 +14,7 @@
 */
 
 $langFile = "course_info";
+$course_homepage = TRUE;
 
 $gidReset = true; // If user is here. It means he isn't in any group space now.
                   // So it's careful to to reset the group setting
