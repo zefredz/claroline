@@ -26,7 +26,7 @@ if ( ! $_cid) claro_disp_select_course();
 @include($includePath."/lib/debug.lib.inc.php");
 //@include($includePath."/conf/postpone.conf.php");
 
-$nameTools = $langPostpone;
+$nameTools = "Postpone";
 //$TBL_AGENDA 		= $_course['dbNameGlu']."agenda";
 
 /*
