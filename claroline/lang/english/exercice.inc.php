@@ -171,7 +171,7 @@ $langQuestionNotFound="Question not found";
 
 $langExerciseNotFound="Exercice not found";
 $langAlreadyAnswered="You already answered the question";
-$langActualTime = "Actual time";
+$langCurrentTime = "Current time";
 $langMaxAllowedTime = "Maximum allowed time";
 $langNoTimeLimit = "No time limitation";
 $langAttempt = "Attempt";
