@@ -743,31 +743,38 @@ function claro_disp_message_box($message)
 
 function claro_disp_button($url, $text, $confirmMessage = '')
 {
-    global $HTTP_USER_AGENT;
-
-    if ( preg_match('~^Mozilla/4\.[1234567]~', $HTTP_USER_AGENT) )
+    if (claro_is_javascript_enabled())
     {
-    	$style = '';
+        global $HTTP_USER_AGENT;
+
+        if ( preg_match('~^Mozilla/4\.[1234567]~', 
+             $HTTP_USER_AGENT) )
+        {
+            $style = '';
+        }
+        else
+        {
+            $style = 'class="claroButton"';
+        }
+
+        if ($confirmMessage != '')
+        {
+            $onClickCommand =" if(confirm('".$confirmMessage."')){document.location='".$url."';}";
+        }
+        else
+        {
+            $onClickCommand = "document.location='".$url."';";
+        }
+        
+        echo "<button ".$style." onclick=\"".$onClickCommand."\">"
+            .$text
+            ."</button>&nbsp;\n";
+    	
     }
     else
     {
-    	$style = 'class="claroButton"';
+        echo '<nobr>[ <a  href="'.$url.'" '.$additionnalParam.'>'.$text.'</a> ] </nobr>';
     }
-
-    if ($confirmMessage != '')
-    {
-    	$onClickCommand =" if(confirm('".$confirmMessage."')){document.location='".$url."';}";
-    }
-    else
-    {
-    	$onClickCommand = "document.location='".$url."';";
-    }
-    
-    echo "<button ".$style." onclick=\"".$onClickCommand."\">"
-        .$text
-        ."</button>&nbsp;\n";
-
-    // echo '<nobr>[ <a  href="'.$url.'" '.$additionnalParam.'>'.$text.'</a> ] </nobr>';
 }
 
 
@@ -952,15 +959,15 @@ function claro_addslashes($text)
 
 function claro_is_javascript_enabled()
 {
-	global $_COOKIE;
+    global $_COOKIE;
 
     if ($_COOKIE['javascriptEnabled'] == true)
     {
-    	return true;
+        return true;
     }
     else
     {
-    	return false;
+        return false;
     }
 }
 
