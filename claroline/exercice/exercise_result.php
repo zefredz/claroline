@@ -523,6 +523,9 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
 
     if($_uid)
     {
+				// exercices can have a negative score, we don't accept that in LP
+				// so if totalScore is negative use 0 as result
+				$totalScore = max($totalScore, 0);
         if ( $totalWeighting != 0 )
         {
                 $newRaw = @round($totalScore/$totalWeighting*100);
@@ -540,7 +543,7 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
                    AND LPM.`module_id` = '".$_SESSION['module_id']."'
 				   AND LPM.`learnPath_module_id` = UMP.`learnPath_module_id`
 				   AND UMP.`user_id`";
-
+					 
         $query = claro_sql_query($sql);
         $row = mysql_fetch_array($query);
 
