@@ -43,7 +43,7 @@ $langComment="Commentaire";
 // exercice.php
 
 $langNoEx="Il n'y a aucun Quizz actuellement";
-$langNoResult="Il n'y a pas encore de résultats";
+$langNoResultYet="Il n'y a pas encore de résultats";
 
 // question_pool.php
 

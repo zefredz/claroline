@@ -100,7 +100,7 @@ $langDefault     = "Valores por defecto *";
 $langDefComment  = "* Haciendo click en el bot&oacute;n \"Valores por defecto\", sus valores antiguos ser&aacute;n definitivamente borrados";
 $langScoreGet    = "Las cifras en negro = el n&uacute;mero de puntos obtenido";
 
-$langNoResult="Todav&iacute;a no hay resultados";
+$langNoResultYet="Todav&iacute;a no hay resultados";
 
 $langQuestionPool="Grupo de preguntas";
 $langOrphanQuestions="Preguntas hu&eacute;rfanas";

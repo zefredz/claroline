@@ -118,7 +118,7 @@ $langComment="Commentaar";
 // exercice.php
 
 $langNoEx="Er is momenteel geen oefening.";
-$langNoResult="Er is nog geen resultaat";
+$langNoResultYet="Er is nog geen resultaat";
 $langNewEx="Nieuwe oefening";
 
 // exercise_admin.inc.php

@@ -46,7 +46,7 @@ $langSecondShort = "sec.";
 // exercice.php
 
 $langNoEx="Il n'y a aucun exercice actuellement";
-$langNoResult="Il n'y a pas encore de résultats";
+$langNoResultYet="Il n'y a pas encore de résultats";
 $langNewEx="Nouvel exercice";
 $langUsedInSeveralPath = "Cet exercice est utilisé dans un ou plusieurs parcours pédagogiques.  Si vous le supprimez il ne sera plus disponible au sein de ce ou ces parcours.";
 $langConfirmDeleteExercise = "Etes-vous sûr de vouloir supprimer cet exercice ?"; // JCC 

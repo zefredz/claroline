@@ -90,7 +90,7 @@ $langDefault     = "Valores por omiss&atilde;o *";
 $langDefComment  = "* Se carregar no bot&atilde;o \"Valores por omiss&atilde;o\", os seus valores antigos ser&atilde;o apagados definitivamente";
 $langScoreGet    = "Os d&iacute;gitos em negrito = o n&uacute;mero de pontos obtido";
 
-$langNoResult="Ainda n&atilde;o h&aacute; resultados";
+$langNoResultYet="Ainda n&atilde;o h&aacute; resultados";
 
 $langQuestionPool="Armaz&eacute;m de perguntas";
 $langOrphanQuestions="Perguntas &oacute;rf&atilde;s";

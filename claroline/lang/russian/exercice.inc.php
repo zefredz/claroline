@@ -44,7 +44,7 @@ $langComment="Комментарий";
 // exercice.php
 
 $langNoEx="В данный момент тестов нет";
-$langNoResult="Результатов пока нет";
+$langNoResultYet="Результатов пока нет";
 $langNewEx="Новый тест";
 
 

@@ -500,7 +500,7 @@ if( !is_array($results) || sizeof($results) == 0 )
 ?>
 
 <tr>
-  <td colspan="4"><?php echo $langNoResult; ?></td>
+  <td colspan="4"><?php echo $langNoResultYet; ?></td>
 </tr>
 
 <?php

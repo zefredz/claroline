@@ -17,7 +17,7 @@ $langComment="Ghi chú";
 // exercice.php
 
 $langNoEx="Chưa có bài tập";
-$langNoResult="Chưa có kết quả";
+$langNoResultYet="Chưa có kết quả";
 $langNewEx="Bài tập mới";
 
 

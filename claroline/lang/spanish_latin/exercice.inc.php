@@ -55,7 +55,7 @@ $langComment="Comentario";
 // exercice.php
 
 $langNoEx="Por el momento, no hay ejercicios";
-$langNoResult="Todavía ho hay resultados";
+$langNoResultYet="Todavía ho hay resultados";
 
 // question_pool.php
 

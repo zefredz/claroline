@@ -48,7 +48,7 @@ $langComment="Kommentar";
 // exercice.php
 
 $langNoEx="Der er ingen øvelser lige nu";
-$langNoResult="Der er endnu intet resultat";
+$langNoResultYet="Der er endnu intet resultat";
 $langNewEx="Ny øvelse";
 
 

@@ -50,7 +50,7 @@ $langComment="Komentar";
 // exercice.php
 
 $langNoEx="Trenutno ni nobene vaje";
-$langNoResult="Ni se nobenega rezultata";
+$langNoResultYet="Ni se nobenega rezultata";
 $langNewEx="Nova vaja";
 
 

@@ -49,7 +49,7 @@ $langComment="Komen";
 // exercice.php
 
 $langNoEx="Tiada Latihan buat masa ini";
-$langNoResult="Tiada keputusan carian";
+$langNoResultYet="Tiada keputusan carian";
 $langNewEx="Latihan baru";
 
 

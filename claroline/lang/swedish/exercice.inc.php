@@ -29,7 +29,7 @@ $langComment="Kommentar";
 
 // exercice.php
 $langNoEx="Det finns inga övningar för tillfället";
-$langNoResult="Det finns inga resultat ännu";
+$langNoResultYet="Det finns inga resultat ännu";
 $langNewEx="Ny övning";
 
 

@@ -46,7 +46,7 @@ $langComment="Komentarze";
 // exercice.php
 
 $langNoEx="Jeszcze nie ma ¿adnych æwiczeñ";
-$langNoResult="Nie ma ¿adnych wyników";
+$langNoResultYet="Nie ma ¿adnych wyników";
 $langNewEx="Nowe æwiczenie";
 
 

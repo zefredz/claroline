@@ -38,7 +38,7 @@ $langComment="Comentar";
 // exercice.php
 
 $langNoEx="Não há exercícios para o momento";
-$langNoResult="Não há resultado ainda";
+$langNoResultYet="Não há resultado ainda";
 $langNewEx="Novo exercício";
 $langUsedInSeveralPath = "Esse exercício está sendo usado em ou mais rotas de aprendizagem. Se você deletá-lo isso irá fazer com que ele não fique mais disponível na rota de aprendizagem.";  
 $langConfirmDeleteExercise = "Você tem certeza que quer deletar esse exercício ?";

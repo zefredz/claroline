@@ -47,7 +47,7 @@ $langSecondShort = "sec.";
 // exercice.php
 
 $langNoEx="There is no exercise for the moment";
-$langNoResult="There is no result yet";
+$langNoResultYet="There is no result yet";
 $langNewEx="New exercise";
 $langUsedInSeveralPath = "This exercise is used in one or more learning path. If you delete it it will be no more available in the learning path.";  
 $langConfirmDeleteExercise = "Are you sure to delete this exercise ?";
