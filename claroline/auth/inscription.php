@@ -38,13 +38,13 @@ else
 </h3>
 
 <form action="inscription_second.php" method="post">
-<table width="100%" cellpadding="3" cellspacing="0" border="0">
+<table cellpadding="3" cellspacing="0" border="0">
 
     <tr>
-        <td >
-            <LABEL for="surname">
+        <td align="right">
+            <label for="surname">
                 <?php echo $langLastname;?>
-            </LABEL>
+            </label>
             &nbsp; :
         </td>
         <td>
@@ -53,10 +53,10 @@ else
     </tr>
 
     <tr>
-		<td >
-			<LABEL for="name">
+		<td align="right">
+			<label for="name">
 				<?php echo $langName ?>
-			</LABEL>
+			</label>
 			&nbsp; :
 		</td>
 		<td>
@@ -68,10 +68,10 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 {
 ?>
     <tr>
-        <td >
-            <LABEL for="name">
+        <td align="right">
+            <label for="name">
                 <?php echo $langOfficialCode ?>
-            </LABEL>
+            </label>
             &nbsp; :
         </td>
         <td>
@@ -90,10 +90,10 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
     </tr>
 
 	<tr>
-		<td>
-			<LABEL for="username">
+		<td align="right">
+			<label for="username">
 				<?php echo $langUsername ?>
-			</LABEL>
+			</label>
 			&nbsp;:
 		</td>
 		<td>
@@ -102,10 +102,10 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 	</tr>
 
 	<tr>
-		<td>
-			<LABEL for="pass1">
+		<td align="right">
+			<label for="pass1">
 				<?php echo $langPass ?>
-			</LABEL>
+			</label>
 			&nbsp;:
 		</td>
 		<td>
@@ -114,16 +114,16 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 	</tr>
 
 	<tr>
-		<td>
-			<LABEL for="pass2">
+		<td align="right">
+			<label for="pass2">
 				<?php echo $langPass ?>
-			</LABEL> :
+			</label> :
 			<br>
 			<small>
 				(<?php echo $langConfirmation ?>)
 			</small>
 		</td>
-		<td>
+		<td align="right">
 			<input type="password" size="40" name="password" id="pass2">
 		</td>
 	</tr>
@@ -137,10 +137,10 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
     </tr>
 
 	<tr>
-		<td>
-			<LABEL for="email">
+		<td align="right">
+			<label for="email">
 				<?php echo $langEmail;?>
-			</LABEL> :
+			</label> :
 		</td>
 		<td>
 			<input type="text" size="40" name="email" id="email" value="<?=$email?>">
@@ -148,10 +148,10 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 	</tr>
 
     <tr>
-        <td>
-            <LABEL for="email">
+        <td align="right">
+            <label for="email">
                 <?php echo $langPhone;?>
-            </LABEL> :
+            </label> :
         </td>
         <td>
             <input type="text" size="40" name="phone" id="phone" value="<?=$phone?>">
@@ -159,10 +159,10 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
     </tr>
 
 	<tr>
-		<td>
-			<LABEL for="language">
+		<td align="right">
+			<label for="language">
 				<?php echo $langStatus ?>
-			</LABEL>
+			</label>
 			:
 		</td>
 		<td>
