@@ -226,7 +226,7 @@ $tbl_tool            = $tbl_mdb_names['tool'           ];
 
 // check authentification
 
-if ( !empty($_SESSION['_uid']) && ! ($login || $logout))
+if ( ! empty($_SESSION['_uid']) && ! ($login || $logout))
 {
     // uid is in session => login already done, continue with this value
     $_uid                   = $_SESSION['_uid'                  ];
@@ -235,8 +235,7 @@ if ( !empty($_SESSION['_uid']) && ! ($login || $logout))
 }
 else
 {
-    unset($_uid); // uid not in session ? prevent any hacking
-    $_uid = NULL;
+    $_uid = null; // uid not in session ? prevent any hacking
 
     if ($login && $password) // $login && $password are given to log in
     {
@@ -274,8 +273,7 @@ else
                 else // abnormal login -> login failed
                 {
                     $loginFailed = true;
-                    unset($_uid);
-                    $_uid = NULL;
+                    $_uid        = null;
                     session_unregister('_uid');
                 }
 
@@ -284,11 +282,11 @@ else
                     //first login for a not self registred
                     //e.g. registered by a teacher
                     //do nothing (code may be added later)
-		            $sql = "UPDATE `".$tbl_user."`
-							SET creatorId=user_id
-							WHERE user_id='".$_uid."'";
+                    $sql = "UPDATE `".$tbl_user."`
+                            SET creatorId=user_id
+                            WHERE user_id='".$_uid."'";
 
-					claro_sql_query($sql);
+                    claro_sql_query($sql);
                 }
             }
             else // no standard claroline login - try external authentification
@@ -312,7 +310,7 @@ else
                 }
                 else
                 {
-                    unset($_uid);
+                    $_uid        = null;
                     $uidReset    = false;
                     $loginFailed = true;
                 }              
@@ -351,11 +349,11 @@ else
                         session_register('_uid');
                         $uidReset     = true;
                         $loginFailed  = false;
-                    	break;
+                        break;
                     }
                     else
                     {
-                        unset($_uid);
+                        $_uid = null;
                     }
                 }
             } //end if is_array($extAuthSource)
@@ -372,8 +370,7 @@ else
 
 // if the requested course is different from the course in session
 
-if ( !isset($cidReq) )
-    $cidReq = NULL;
+if ( ! isset($cidReq) )     $cidReq = null;
 
 if ($cidReq && $cidReq != $_SESSION['_cid'])
 {
@@ -383,8 +380,7 @@ if ($cidReq && $cidReq != $_SESSION['_cid'])
 
 // if the requested group is different from the group in session
 
-if ( !isset($gidReq) )
-    $gidReq = NULL;
+if ( !isset($gidReq) )     $gidReq = null;
 
 if ($gidReq && $gidReq != $_SESSION['_gid'])
 {
@@ -394,9 +390,9 @@ if ($gidReq && $gidReq != $_SESSION['_gid'])
 // if the requested tool is different from the current tool in session
 // (special request can come from the tool id, or the tool label)
 
-if ( !isset($tidReq) )    $tidReq = NULL;
+if ( !isset($tidReq) )    $tidReq = null;
 
-if ( !isset($tlabelReq) ) $tlabelReq = NULL;
+if ( !isset($tlabelReq) ) $tlabelReq = null;
 
 if (   ( $tidReq    && $tidReq    != $_SESSION['_tid']                 ) 
     || ( $tlabelReq && $tlabelReq != $_SESSION['_courseTool']['label'] )
@@ -412,7 +408,7 @@ if (   ( $tidReq    && $tidReq    != $_SESSION['_tid']                 )
 
 if ($uidReset) // session data refresh requested
 {
-    if (!empty($_uid)) // a uid is given (log in succeeded)
+    if ( ! empty($_uid)) // a uid is given (log in succeeded)
     {
 
         if ($is_trackingEnabled)
@@ -464,21 +460,52 @@ if ($uidReset) // session data refresh requested
             $is_allowedCreateCourse  = (bool) ($uData ['statut'] == 1);
 
             session_register('_user');
+
+// TEMPORARY DEACTIVATED BECAUSE WHILE THE SSO TABLE WILL BE ISN'T INSERTED 
+// INTO THE PLATFORM INSTALLER
+//
+//            // RECORD SSO COOKIE
+//
+//                $tbl_sso             = 'claroline.sso';
+//                $ssoCookieName       = 'clarolineSsoCookie';
+//                $ssoCookieValue      = md5(mktime());
+//                $ssoCookieExpireTime = time()+3600;
+//                $ssoCookieDomain     = 'localhost';
+//                $ssoCookiePath       = '/dev/claroline/';
+//
+//                $sql = "UPDATE ".$tbl_sso." 
+//                        SET cookie    = '".$ssoCookieValue."',
+//                            rec_time  = NOW()
+//                        WHERE user_id = ". (int) $_uid;
+//
+//                $affectedRowCount = claro_sql_query_affected_rows($sql);
+//
+//                if ($affectedRowCount < 1)
+//                {
+//                    $sql = "INSERT INTO ".$tbl_sso." 
+//                            SET cookie    = '".$ssoCookieValue."',
+//                                rec_time  = NOW(),
+//                                user_id   = ". (int) $_uid;
+//
+//                    claro_sql_query($sql);
+//                }
+//
+//               $boolCookie = setcookie($ssoCookieName,       $ssoCookieValue, 
+//                                       $ssoCookieExpireTime, $ssoCookiePath, 
+//                                       $ssoCookieDomain);
         }
         else
         {
-            exit("WARNING UNDEFINED UID !! ");
+            exit('WARNING UNDEFINED UID !! ');
         }
     }
     else // no uid => logout or Anonymous
     {
-        unset($_user);
         session_unregister('_user');
-        $_user = NULL;
+        $_user = null;
 
-        unset($_uid);
         session_unregister('_uid');
-        $_uid = NULL;
+        $_uid = null;
 
         $is_platformAdmin        = false;
         $is_allowedCreateCourse  = false;
@@ -562,10 +589,8 @@ if ($cidReset) // course session data refresh requested
     }
     else
     {
-        unset($_cid);
-        $_cid = NULL;
-        unset($_course);
-        $_course = NULL;
+        $_cid    = null;
+        $_course = null;
         session_unregister('_cid');
         session_unregister('_course');
         //// all groups of these course
@@ -588,17 +613,17 @@ else // continue with the previous values
     if ( !empty($_SESSION['_cid']) )
         $_cid = $_SESSION['_cid'];
     else 
-        $_cid = NULL;
+        $_cid = null;
 
     if ( !empty($_SESSION['_course']) )
         $_course = $_SESSION['_course'];
     else
-        $_course = NULL; 
+        $_course = null; 
 
     if ( !empty($_SESSION['_groupProperties']) ) 
         $_groupProperties = $_SESSION['_groupProperties'];
     else
-        $_groupProperties = NULL; 
+        $_groupProperties = null; 
         
 }
 
@@ -611,8 +636,8 @@ if ($uidReset || $cidReset) // session data refresh requested
     if ($_uid && $_cid) // have keys to search data
     {
         $sql = "SELECT * FROM `".$tbl_rel_course_user."` `cours_user`
-               WHERE `user_id`  = '$_uid'
-               AND `code_cours` = '$cidReq'";
+                WHERE `user_id`  = '".$_uid."'
+                AND `code_cours` = '".$cidReq."'";
 
         $result = claro_sql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
 
@@ -644,8 +669,7 @@ if ($uidReset || $cidReset) // session data refresh requested
         $is_courseAdmin  = false;
         $is_courseTutor  = false;
 
-        unset($_courseUser);
-        $_courseUser = NULL;
+        $_courseUser = null;
         session_unregister('_courseUser');
     }
 
@@ -724,10 +748,8 @@ if ($tidReset || $cidReset) // session data refresh requested
     else // keys missing => not anymore in the course - tool relation
     {
         //// course
-        unset($_tid);
-        $_tid = NULL;
-        unset($_courseTool);
-        $_courseTool = NULL;
+        $_tid        = null;
+        $_courseTool = null;
         session_unregister('_tid');
         session_unregister('_courseTool');
     }
@@ -736,10 +758,10 @@ if ($tidReset || $cidReset) // session data refresh requested
 else // continue with the previous values
 {
     if ( !empty($_SESSION['_tid']) ) $_tid = $_SESSION['_tid'] ;
-    else                             $_tid = NULL;
+    else                             $_tid = null;
 
     if ( !empty( $_SESSION['_courseTool']) ) $_courseTool = $_SESSION['_courseTool'];
-    else                                     $_courseTool = NULL;
+    else                                     $_courseTool = null;
 }
 
 
@@ -778,10 +800,8 @@ if ($gidReset || $cidReset) // session data refresh requested
     }
     else  // Keys missing => not anymore in the group - course relation
     {
-            unset($_gid);
-            $_gid = NULL;
-            unset($_group);
-            $_group = NULL;
+            $_gid   = null;
+            $_group = null;
             session_unregister('_gid');
             session_unregister('_group');
     }
@@ -789,10 +809,10 @@ if ($gidReset || $cidReset) // session data refresh requested
 else // continue with the previous values
 {
     if ( !empty($_SESSION ['_gid']) )   $_gid = $_SESSION ['_gid'];
-    else                                $_gid = NULL;
+    else                                $_gid = null;
 
     if ( !empty($_SESSION ['_group']) ) $_group = $_SESSION ['_group'];
-    else                                $_group = NULL;
+    else                                $_group = null;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -821,8 +841,7 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
         else
         {
             $is_groupMember = false;
-            unset($_groupUser);
-            $_groupUser = NULL;
+            $_groupUser     = null;
             session_unregister('_groupUser');
         }
 
@@ -835,8 +854,7 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
         $is_groupMember = false;
         $is_groupTutor  = false;
 
-        unset($_groupUser);
-        $_groupUser = NULL;
+        $_groupUser = null;
         session_unregister('_groupUser');
     }
 
@@ -848,16 +866,16 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
 else // continue with the previous values
 {
     if ( !empty($_SESSION['_groupUser']) )      $_groupUser      = $_SESSION['_groupUser'     ];
-    else                                        $_groupUser      = NULL;
+    else                                        $_groupUser      = null;
 
     if ( !empty($_SESSION['is_groupMember']) )  $is_groupMember  = $_SESSION['is_groupMember' ];
-    else                                        $is_groupMember  = NULL;
+    else                                        $is_groupMember  = null;
 
     if ( !empty($_SESSION['is_groupTutor']) )   $is_groupTutor   = $_SESSION['is_groupTutor'  ];
-    else                                        $is_groupTutor   = NULL;
+    else                                        $is_groupTutor   = null;
 
     if ( !empty($_SESSION['is_groupAllowed']) ) $is_groupAllowed = $_SESSION['is_groupAllowed'];
-    else                                        $is_groupAllowed = NULL;
+    else                                        $is_groupAllowed = null;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -947,8 +965,7 @@ if ($uidReset || $cidReset)
     }
     else
     {
-        unset($_courseToolList);
-        $_courseToolList = NULL;
+        $_courseToolList = null;
         session_unregister('_courseToolList');
     }
 }
