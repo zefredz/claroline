@@ -534,9 +534,7 @@ function claro_enable_tool_view_option()
 function claro_disp_tool_view_option($viewModeRequested = false)
 {
     global $REQUEST_URI, $clarolineRepositoryWeb;
-
-    $langcoursemanagerview = 'course manager';
-    $langstudentview       = 'student';
+    global $langCourseManagerView, $langStudentView;
 
     claro_set_display_mode_available(true);
 
@@ -573,17 +571,17 @@ function claro_disp_tool_view_option($viewModeRequested = false)
         case 'COURSE_ADMIN' :
 
             $studentButton     = '<a href="'.$url.'&viewMode=STUDENT">'
-                                 .$langstudentview
+                                 .$langStudentView
                                  .'</a>';
-            $courseAdminButton = '<b>'.$langcoursemanagerview.'</b>';
+            $courseAdminButton = '<b>'.$langCourseManagerView.'</b>';
 
             break;
 
         case 'STUDENT' :
 
-            $studentButton     = '<b>'.$langstudentview.'</b>';
+            $studentButton     = '<b>'.$langStudentView.'</b>';
             $courseAdminButton = '<a href="'.$url.'&viewMode=COURSE_ADMIN">'
-                                 .$langcoursemanagerview
+                                 .$langCourseManagerView
                                  .'</a>';
             break;
     }
