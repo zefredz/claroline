@@ -512,7 +512,7 @@ function claro_search_file($searchPattern       , $baseDirPath,
                     continue;
                 }
 
-                if ( preg_match('|'.$searchPattern.'|', $fileName) )
+                if ( preg_match($searchPattern, $fileName) )
                 {
                     $searchResultList[] = $filePath;
                 }
