@@ -240,7 +240,7 @@ if($exerciseType == 2)
 
 if($exerciseMaxTime != 0)
 {
-  $statusMsg .= " ".$langMaxAllowedTime." : ".$exerciseMaxTime;
+  $statusMsg .= " ".$langMaxAllowedTime." : ".disp_minutes_seconds($exerciseMaxTime);
 }
 else
 {
@@ -260,7 +260,7 @@ if($_uid)
     if( $userTryQty > $exerciseMaxAttempt )
     {
         $showExerciseForm = false;
-        $errMsg .=  "Tu peux plus :|";
+        $errMsg .=  $langNoMoreAttemptsAvailable;
     }
   }
 }
@@ -288,7 +288,6 @@ else
                       .strftime($dateTimeFormatLong,$timeEndDate);
 }
   
-
 claro_disp_tool_title($exerciseTitle);
 
 if($showExerciseForm)
