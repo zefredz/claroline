@@ -198,6 +198,7 @@ $htmlHeadXtra[] = '<style>
 	}
 	.propBuffer
 	{
+	    visibility : hidden;
 		color:red;
 	}
  	
@@ -251,17 +252,25 @@ if(!$is_allowedToAdmin)
 // Default display
 $panel = DISP_LIST_CONF;
 
+    
+///////////////////////////////////////////////////
 // Command on a specified config.
 if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
 {
+
     $config_code = trim($_REQUEST['config_code']);
+    // Get info def and conf file (existing or not) for this config code.
     $confDef  = claro_get_def_file($config_code);
     $confFile = claro_get_conf_file($config_code); 
 
+    
+    
+    ///////////////////////////////////////////////////
+    // Command : display Config editor
     if ( $_REQUEST['cmd'] == 'dispEditConf' )
     {
         // Edit Configuration
-
+        // Definition file  would be existing
         if ( file_exists($confDef) )
         {
             $panel = DISP_EDIT_CONF;
@@ -272,6 +281,9 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             $panel = DISP_LIST_CONF;
         }
     }
+    
+    ///////////////////////////////////////////////////
+    // Command : display formated content of config file
     elseif ( $_REQUEST['cmd'] == 'showConf' )
     {
         // Show Configuration
@@ -290,6 +302,9 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             $panel = DISP_LIST_CONF;
         }
     }
+    
+    ///////////////////////////////////////////////////
+    // Command : display real content of Defintion file
     elseif ( $_REQUEST['cmd'] == 'showDefFile' )
     {
         // Show Definition File
@@ -306,6 +321,9 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             $panel = DISP_LIST_CONF;
         }
     }
+    
+    ///////////////////////////////////////////////////
+    // Command : display real content of config file
     elseif ( $_REQUEST['cmd'] == 'showConfFile' )
     {
         // Show Configuration source file
@@ -322,6 +340,9 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             $panel = DISP_LIST_CONF;
         }
     }
+    
+    ///////////////////////////////////////////////////
+    // Command : receipt data from config editor, and would be recored in buffer
     elseif ( isset($_REQUEST['cmdSaveProperties']) || isset($_REQUEST['cmdSaveAndApply']) )
     {
         unset($conf_def,$conf_def_property_list);
@@ -374,6 +395,11 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             $okToSave = FALSE;
         }            
     }
+
+    /////////////////////////////////////////////////////
+    // Command : write config file  with data from buffer
+    // There  2 commande following the value of CONF_AUTO_APPLY_CHANGE
+    // 
 
     if ( $_REQUEST['cmd'] == 'generateConf' || ( $okToSave && isset($_REQUEST['cmdSaveAndApply']) ) )
     {
@@ -480,6 +506,11 @@ if ( $panel == DISP_LIST_CONF )
         }
         asort($tool_list);
     }
+//    $debugMsg[][]= 'conflist<pre>'.var_export($conf_list,1);
+//    $debugMsg[][]= '$def_list<pre>'.var_export($def_list,1);
+//    $debugMsg[][]= '$key_list<pre>'.var_export($key_list,1);
+//    $debugMsg[][]= '$tool_list<pre>'.var_export($tool_list,1);
+
 
 }
 elseif ($panel == DISP_EDIT_CONF)
