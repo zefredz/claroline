@@ -46,7 +46,6 @@ $TABLEUSERCOURSE 	= $tbl_mdb_names['rel_course_user'  ];
 $TABLEFORUM 		= $tbl_cdb_names['bb_forums'        ];
 $TABLEAGENDA 		= $tbl_cdb_names['calendar_event'   ];
 $TABLEDOCUMENT 		= $tbl_cdb_names['document'         ];
-$TABLELINKS 		= $tbl_cdb_names['link'             ];
 $TABLEEXERCICE 		= $tbl_cdb_names['quiz_test'        ];
 
 $currentCourseID	= $_course['sysCode'];

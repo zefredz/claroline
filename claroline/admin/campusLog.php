@@ -28,7 +28,6 @@ $tbl_track_e_login      = $tbl_mdb_names['track_e_login'];
 $tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
 
 $tbl_document 	        = $tbl_cdb_names['document'         ];
-$tbl_link 		        = $tbl_cdb_names['link'             ];
 
 $toolNameList = array('CLANN___' => $langAnnouncement,
                       'CLFRM___' => $langForums,

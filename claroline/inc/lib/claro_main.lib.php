@@ -96,7 +96,6 @@ function claro_sql_get_course_tbl($dbNameGlued = NULL)
               'group_property'         => $courseDb.'group_property',
               'group_rel_team_user'    => $courseDb.'group_rel_team_user',
               'group_team'             => $courseDb.'group_team',
-              'link'                   => $courseDb.'link',
               'lp_learnPath'           => $courseDb.'lp_learnPath',
               'lp_rel_learnPath_module'=> $courseDb.'lp_rel_learnPath_module',
               'lp_user_module_progress'=> $courseDb.'lp_user_module_progress',
