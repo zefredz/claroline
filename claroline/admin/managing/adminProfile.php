@@ -208,7 +208,7 @@ elseif ($display == USER_DATA_FORM)
 		<td colspan="2">
 			<input type="text" size="40" name="prenom_form" value="<?php echo $prenom_form ?>">
 		</td>
-<?php echo
+<?php echo 
 			"</tr>\n",
 			"<tr>\n",
 			"<td valign=\"top\">\n",

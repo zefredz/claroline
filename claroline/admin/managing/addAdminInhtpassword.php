@@ -298,7 +298,7 @@ elseif ($display == LIST_ADMINS)
 		echo "
 	<LI>
 		",$user["user_id"],"<TT> 
-		[<a href=\"adminProfile.php?uidToEdit=",$user["user_id"],"\" >",$langEdit,"</a>]";
+		[<a href=\"adminprofile.php?uidToEdit=",$user["user_id"],"\" >",$langEdit,"</a>]";
 		if (isset($_uid))
 		{
 			if ($user["user_id"]!=$_uid)

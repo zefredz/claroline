@@ -1,6 +1,6 @@
 <?php # $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.5.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -37,11 +37,11 @@ $tbl_courses        = $mainDbName."`.`cours";
 
 
 //DISPLAY
-$INFOFAC=TRUE;
-$CREATE=TRUE;
-$BOM=TRUE;
-$EDIT=FALSE;
-$MOVE=FALSE;
+$INFOFAC	= TRUE;
+$CREATE		= TRUE;
+$BOM		= TRUE;
+$EDIT		= FALSE;
+$MOVE		= FALSE;
 
 
 // WORKS

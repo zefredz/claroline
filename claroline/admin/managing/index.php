@@ -61,7 +61,7 @@ claro_disp_msg_arr($controlMsg);
 </H3>
 	<UL>
 		<LI>
-			<a href="adminProfile.php" ><?php echo $langAdminProfileUser; ?></a>
+			<a href="adminprofile.php" ><?php echo $langAdminProfileUser; ?></a>
 		</LI>
 		<LI>
 			<a href="<?php echo $clarolineRepositoryWeb; ?>admin/managing/add_users.php"><?php echo $langAddAUser ?></a>

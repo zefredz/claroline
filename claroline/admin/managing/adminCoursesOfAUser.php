@@ -237,7 +237,7 @@ if ($displayResultOfChange)
 
 	<br>
 	<hr>
-	<a href=\"adminProfile.php?uidToEdit=",$uidToEdit,"\">",$langAdminThisUser,"</a>
+	<a href=\"adminprofile.php?uidToEdit=",$uidToEdit,"\">",$langAdminThisUser,"</a>
 	<a href=\"",$SELF,"?uidToEdit=",$uidToEdit,"\">",$langBackToListOfThisUser,"</a>
 	<a href=\"userManagement.php\">Liste des utilisateurs</a>
 
@@ -399,7 +399,7 @@ elseif ($displayListOfCourse)
 	</table>
 </form>
 <hr>
-<a href=\"adminProfile.php?uidToEdit=",$uidToEdit,"\">",$langAdminThisUser,"</a>
+<a href=\"adminprofile.php?uidToEdit=",$uidToEdit,"\">",$langAdminThisUser,"</a>
 <a href=\"userManagement.php\">Liste des utilisateurs</a>";
 }
 

@@ -642,7 +642,7 @@ elseif ($displayListNode)
 	Pos : <?php echo $nodeToDetail["treePos"]?>
 
 </DIV>
-<?php echo
+<?php echo 
 	($category?"
 		<a href=\"".$PHP_SELF."?showTree=".$category."\"><img src=\"".$clarolineRepositoryWeb."/img/tree.gif\" border=\"0\" alt=\"".$langViewChildren."\" ></a>
 		<a href=\"".$PHP_SELF."?nodeToEdit=".$category."\"><img src=\"".$clarolineRepositoryWeb."/img/edit.gif\" border=\"0\" alt=\"".$langEditNode."\" ></a>":"
