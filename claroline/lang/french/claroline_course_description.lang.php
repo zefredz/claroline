@@ -5,9 +5,10 @@ $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
 $langAreYouSureToDelete = "Etes-vous sûr de vouloir supprimer ";
 $langBackAndForget = "Abandonner";
+$langCancel = "Annuler";
 $langChat = "Discussion";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
-$langContenuPlan = "";
+$langContent = "Contenu";
 $langCourseContent = "Contenu du cours";
 $langCourseContentComment1 = "Quelle est l'importance des différents contenus à traiter dans le cadre du cours&nbsp;?
 Quel est le niveau de difficulté de ces contenus&nbsp;? 
@@ -72,14 +73,14 @@ $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des cours";
 $langPassword = "mot de passe";
-$langPlatformAdministration = "Administration de la plate-forme";
+$langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";
 $langQualificationsAndGoals = "Compétences et Objectifs";
 $langQualificationsAndGoalsComment1 = "Présentation des objectifs généraux et spécifiques du cours, des compétences auxquelles la maîtrise de tels objectifs pourrait conduire.";
 $langQualificationsAndGoalsComment2 = "Quels sont les apprentissages visés par l'enseignement&nbsp;?
 <br>
 Au terme du cours, quelles sont les compétences, les capacités et les connaissances que les étudiants seront en mesure de maîtriser, de mobiliser&nbsp;?";
-$langQuestionPlan = "Question de planification <BR>pour le gestionnaire de cours";
+$langQuestionPlan = "<BR>Question de planification pour le gestionnaire de cours";
 $langReg = "Inscription";
 $langStudent = "Etudiant";
 $langSupports = "Supports";
@@ -88,6 +89,7 @@ Ouvert ? Fermé ?";
 $langSupportsComment2 = "Présentation du ou des supports de 
 cours. Présentation de la bibliographie, du portefeuille de documents ou 
 d'une bibliographie complémentaire.";
+$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
 $langTeachingTrainingActivities = "Activités d'enseignement-apprentissage";
 $langTeachingTrainingActivitiesComment1 = "Quelles méthodes et quelles activités vont-elles favoriser l'atteinte des 
 objectifs définis pour le cours&nbsp;?

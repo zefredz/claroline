@@ -9,7 +9,6 @@ $langCfgSetting = "Paramètres de configuration";
 $langDBConnectionParameters = "Paramètres de connexion à la base MySQL";
 $langDBHost = "Base de données : Hôte";
 $langDBLogin = "Base de données : Utilisateur";
-$langDBNamesRules = "Noms de la base de données";
 $langDBPassword = "Base de données : Mot de passe";
 $langDBSetting = "Paramètres de la base de données MySQL";
 $langDBSettingNamesIntro = "Le script d'installation va créer les bases de données principales de la plateforme. Vous pouvez créer différentes bases de données pour les statistiques et PhpMyAdmin ou mettre toutes ces données dans une base de données. Ensuite, Claroline va créer une nouvelle base de données pour chaque cours créé. Vous pouvez spécifier un préfixe pour les noms de ces bases de données.

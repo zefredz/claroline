@@ -42,7 +42,6 @@ $l_quotemsg = "[quote]
 Le %1\$s, %2\$s a écrit:
 %3\$s
 [/quote]";
-$l_replies = "Réponses";
 $l_returnindex = "pour retourner à l'index du forum";
 $l_returntopic = "pour retourner à la liste des sujets du forum.";
 $l_selectforum = "Sélectionnez un Forum";
@@ -100,13 +99,14 @@ $langOk = "Valider";
 $langOneMyGroups = "sous ma supervision";
 $langOtherCourses = "Liste des cours";
 $langPassword = "mot de passe";
-$langPlatformAdministration = "Administration de la plate-forme";
+$langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";
 $langReg = "Inscription";
 $langReply = "Répondre";
 $langSeen = "Vu";
 $langStudent = "Etudiant";
 $langSubmit = "Envoyer";
+$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
 $langTextEditorDisable = "Désactiver l'éditeur de texte";
 $langTextEditorEnable = "Activer l'éditeur de texte";
 $langUserName = "Nom d'utilisateur";
