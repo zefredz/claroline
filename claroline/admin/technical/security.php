@@ -14,6 +14,9 @@
 
 require '../../inc/claro_init_global.inc.php';
 
+$is_allowedToAdmin 	= $is_platformAdmin;
+if ( ! $is_allowedToAdmin ) claro_disp_auth_form();
+
 $nameTools = "Security";
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langTechAdmin);

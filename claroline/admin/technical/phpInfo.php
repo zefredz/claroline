@@ -13,8 +13,11 @@
 
 require '../../inc/claro_init_global.inc.php';
 
+if ( ! $is_platformAdmin ) claro_disp_auth_form();
+
 $langNoFunctionInThisSection = 'No functions in this extention';
 $langFunctions = 'Functions list';
+
 $nameTools = $lang_php_info;
 $interbredcrump[]= array ("url"=>"..", "name"=> $langAdmin);
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langTechnical);

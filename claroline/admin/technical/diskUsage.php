@@ -10,9 +10,8 @@
 
 require '../../inc/claro_init_global.inc.php';
 
-$nameTools = $langDiskUsage;
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-$interbredcrump[]= array ("url"=>"index.php", "name"=> $langTechAdmin);
+$is_allowedToAdmin 	= $is_platformAdmin;
+if ( ! $is_allowedToAdmin ) claro_disp_auth_form();
 
 @include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
@@ -20,10 +19,15 @@ include($includePath."/lib/fileManage.lib.php");
 $tbl_cdb_names = claro_sql_get_main_tbl();
 $tbl_course = $tbl_cdb_names['course'];
 
-$dateNow 			= claro_disp_localised_date($dateTimeFormatLong);
-$is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
+$nameTools = $langDiskUsage;
+
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[]= array ("url"=>"index.php", "name"=> $langTechAdmin);
+
+$dateNow = claro_disp_localised_date($dateTimeFormatLong);
 
 include($includePath."/claro_init_header.inc.php");
+
 claro_disp_tool_title(
 	array(
 	'mainTitle'=>$nameTools,
@@ -31,30 +35,30 @@ claro_disp_tool_title(
 	)
 );
 
-echo $langCourse_Repository." : ".$coursesRepositorySys."<BR>".$langMysql_Repository." : ".($mysqlRepositorySys?$mysqlRepositorySys:"!!! ".$langMissing)."<BR>";
+echo $langCourse_Repository." : ".$coursesRepositorySys."<br>".$langMysql_Repository." : ".($mysqlRepositorySys?$mysqlRepositorySys:"!!! ".$langMissing)."<br>";
 
 ?>
-<UL>
+<ul>
 <?php
 if ($display_all_size_of_clarolineRepositorySys )
 	echo "
-	<LI>
+	<li>
 		Claroline : ",sprintf("%01.2f", diskUsage($clarolineRepositorySys,"","m"))." ".$byteUnits[2]."
-	</LI>";
+	</li>";
 
 if ($display_all_size_of_Total_Courses)
 	echo "
-	<LI>
+	<li>
 		".$langCourses." : ",sprintf("%01.2f", diskUsage($coursesRepositorySys, $mysqlRepositorySys, "m"))." ".$byteUnits[2]."
 		(".$langPerhaps_with_others_directory.")
-	</LI>";
+	</li>";
 if ($display_all_size_of_garbageRepositorySys )
 	echo "
-	<LI>
+	<li>
 		".$langGarbage." :  ",sprintf("%01.2f", diskUsage($garbageRepositorySys,"","m"))." ".$byteUnits[2]."
-	</LI>";
+	</li>";
 ?>
-<LI>
+<li>
 <hr>
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 <input type="checkbox" name="display_all_size_of_clarolineRepositorySys" value="true" > <?php echo $langSize_of_claroline_scripts ?>
@@ -83,13 +87,13 @@ if ($display_all_size_of_garbageRepositorySys )
 <input type="submit">
 </form>
 <hr>
-</LI>
+</li>
 <?php
 if ($display_all_size_of_selected_courses && $coursesToCheck)
 {
 	echo "
-	<LI>
-		<OL>";
+	<li>
+		<ol>";
 	$sqlListCourses = "SELECT fake_code code, directory dir, dbName db, diskQuota FROM `".$tbl_course."` ";
 	if($coursesToCheck[0]==" all ")
 	{
@@ -116,7 +120,7 @@ if ($display_all_size_of_selected_courses && $coursesToCheck)
 			$duTotal = diskUsage($coursesRepositorySys.$course["dir"]."/",$mysqlRepositorySys.$course["db"]."/","m");
 			$quota   = $course["diskQuota"]*1; 
 			echo "
-			<LI>
+			<li>
 				".$course["code"]." : ".
 				(is_null($course["diskQuota"])?" ".$langNoQuota." ":"Quota : ".$course["diskQuota"])." ".$byteUnits[2]." | ".
 				  sprintf("%01.2f", $duFiles )." ".$byteUnits[1]."
@@ -125,17 +129,17 @@ if ($display_all_size_of_selected_courses && $coursesToCheck)
 				=
 				<strong>".sprintf("%01.2f", $duTotal)." ".$byteUnits[2]."</strong>
 				".(is_null($course["diskQuota"]) || ($quota > (int) $duTotal)?" ok ":" <font color=\"#FF0000\">!!!!!!!! OVER QUOTA !!!!!!</font>")."
-			</LI>";
+			</li>";
 		}
 	}
 
 ?>
-		</OL>
-	</LI>
+		</ol>
+	</li>
 <?php
 }
 ?>
-</UL>
+</ul>
 
 <?php
 
