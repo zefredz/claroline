@@ -1103,14 +1103,14 @@ function claro_disp_html_area($name, $content =    '',
         {
             $switchState = 'off';
             $message     = $langTextEditorDisable;
-			$areaContent = ' editor.getHTML() ';
+			$areaContent = 'editor.getHTML()';
             $confirmCommand = "if(!confirm('".$langSwitchEditorToTextConfirm."'))return(false);";
         }
         else
         {
             $switchState = 'on';
             $message     = $langTextEditorEnable;
-            $areaContent = 'escape(document.getElementById(\''.$name.'\').value)';
+            $areaContent = 'document.getElementById(\''.$name.'\').value';
             $confirmCommand = '';
         }
 
@@ -1120,8 +1120,8 @@ function claro_disp_html_area($name, $content =    '',
                    .'&sourceUrl='.urlencode($_SERVER['REQUEST_URI'])
                    .'&areaContent='
                    .'\''
-                  .'+'.$areaContent;
-
+                  .'+escape('.$areaContent.')';
+        
         echo '<div align="right">'
             .'<small>'
             .'<b>'
