@@ -15,13 +15,6 @@ $interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
 
 $nameTools = $langStatsOfCampus;
 
-$htmlHeadXtra[] = "
-<style media='print' type='text/css'>
-<!--
-TD {border-bottom: thin dashed Gray;}
--->
-</style>";
-
 // regroup table names for maintenance purpose
 /*
  * DB tables definition

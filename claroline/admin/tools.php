@@ -25,8 +25,7 @@ $pathHtPassword = "./.htpasswd4admin";
 $nameTools = $langNomPageAddHtPass;
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
 @include("./checkIfHtAccessIsPresent.php");
-/*$htmlHeadXtra[] = "<style type=\"text/css\"><!--  --></style>
-<STYLE media=\"print\" type=\"text/css\"><!--  --></STYLE>";*/
+
 @include($includePath."/claro_init_header.inc.php");
 
 /*

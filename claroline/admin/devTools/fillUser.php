@@ -46,20 +46,6 @@ include($includePath."/conf/course_info.conf.php");
 $nameTools = $langAdd_users;
 $interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langDevTools);
-$htmlHeadXtra[] =
-"<style type=\"text/css\">
-		label
-		{
-			display: block;
-			width: 25%;
-			float: left;
-			text-align: right;
-			background-color: ".$color2.";
-		}
-		input, textarea { margin-left: 1em;	background-color: ".$color1.";}
-		fieldset, form {  margin: 10; padding: 4;  }
--->
-</STYLE>";
 
 $TABLECOURSE 		= "$mainDbName`.`cours";
 $TABLECOURSDOMAIN	= "$mainDbName`.`faculte";

@@ -13,24 +13,7 @@
 
 $langFile = "admin.technical";
 require '../../inc/claro_init_global.inc.php';
-$htmlHeadXtra[] = "<style type=\"text/css\">
-<!--
-div.elementServeur
-{
-	background-color: #EEEEEE;
-	padding-bottom: 2px; padding-left: 5px; padding-right: 5px; padding-top: 1px;
-	margin: 2px;
-	border-width: 1px; border: thin dashed Gray;	}
 
-span.elementServeur
-	{
-		padding-bottom: 2px; padding-left: 5px; padding-right: 5px; padding-top: 1px;
-		color: blue;
-		background-color: #FFFFAA;
-		border-width: 1px; border: thin ridge Gray;
-	}
--->
-</STYLE>";
 
 $nameTools = $lang_php_info;
 $interbredcrump[]= array ("url"=>"..", "name"=> $langAdmin);

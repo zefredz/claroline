@@ -42,15 +42,6 @@ $tbl_mdb_names       = claro_sql_get_main_tbl();
 $tbl_course          = $tbl_mdb_names['course'];
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
-
-$htmlHeadXtra[] =
-"<style type=text/css>
-<!--
-.workingWeek {}
-.weekEnd {background-color: #E3E3E3;}
--->
-</style>";
-
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
 

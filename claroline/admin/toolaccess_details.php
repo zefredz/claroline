@@ -36,21 +36,6 @@ $interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
 $interbredcrump[]= array ("url"=>"campusLog.php", "name"=> $langStatsOfCampus);
 $interbredcrump[]= array ("url"=>basename($_SERVER['PHP_SELF']), "name"=> $langDetails);
 
-$htmlHeadXtra[] = "<style type='text/css'>
-<!--
-.mainLine {font-weight : bold;color : #FFFFFF;background-color : $colorDark;padding-left : 15px;padding-right : 15px;}
-.secLine {color : #000000;background-color : $colorMedium;padding-left : 15px;padding-right : 15px;}
-.content {padding-left : 25px;}
-.specialLink{color : #0000FF;}
--->
-</style>
-<STYLE media='print' type='text/css'>
-<!--
-TD {border-bottom: thin dashed Gray;}
--->
-</STYLE>";
-
-
 @include($includePath."/claro_init_header.inc.php");
 
 ?>

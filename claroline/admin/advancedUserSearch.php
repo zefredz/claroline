@@ -19,12 +19,6 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 @include ($includePath."/installedVersion.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
 
-$htmlHeadXtra[] = "<style type=\"text/css\">
-<!--
-    ul { font-size : small }
--->
-</STYLE>";
-
 //------------------------------------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
 //------------------------------------------------------------------------------------------------------------------------

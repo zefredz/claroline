@@ -42,26 +42,12 @@ require('../inc/claro_init_global.inc.php');
 require($includePath."/lib/text.lib.php"); 
 
 $nameTools = $langCourseProgram;
-$htmlHeadXtra[] = "<style type=\"text/css\">
-<!--
-	.QuestionDePlanification {  background-color: #ccffff; background-position: left center; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px}
-	.InfoACommuniquer { background-color: #ffffcc; background-position: left center; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px ; }
--->
-</style>";
 
 $nameTools = $langEditCourseProgram ;
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langCourseProgram);
 $TABLECOURSEDESCRIPTION = $_course['dbNameGlu']."course_description";
 
 $is_allowedToEdit = $is_courseAdmin;
-
-/*
- Include pedaSuggest.inc.php - non conventional lang file with these arrays
- $titreBloc[] = "Title of Bloc";
- $titreBlocNotEditable[] = FALSE; 
- $questionPlan[] = "";
- $info2Say[] = "";
-*/
 
 @include($includePath."/../lang/english/pedaSuggest.inc.php");
 @include($includePath."/../lang/".$_course['language']."/pedaSuggest.inc.php");

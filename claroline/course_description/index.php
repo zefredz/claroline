@@ -26,14 +26,9 @@ $tlabelReq = "CLDSC___";
 $langFile = "course_description";
 require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/text.lib.php");
-//@include("../lang/english/pedaSuggest.inc.php");
+
 $nameTools = $langCourseProgram;
-// $interbredcrump[]= array ("url"=>"index.php", "name"=> $langCourseProgram);
-$htmlHeadXtra[] = "<style type=\"text/css\"><!--
-.QuestionDePlanification {  background-color: ".$color2."; background-position: left center; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px}
-.InfoACommuniquer { background-color: ".$color1."; background-position: left center; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px ; }
--->
-</style>";
+
 /*
  * DB tables definition
  */

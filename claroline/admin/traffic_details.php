@@ -38,19 +38,6 @@ $interbredcrump[]= array ("url"=>"campusLog.php", "name"=> $langStatsOfCampus);
 
 $nameTools = $langTrafficDetails;
 
-$htmlHeadXtra[] = "<style type='text/css'>
-<!--
-.secLine {background-color : #E6E6E6;}
-.content {padding-left : 15px;padding-right : 15px; }
-.specialLink{color : #0000FF;}
--->
-</style>
-<STYLE media='print' type='text/css'>
-<!--
-TD {border-bottom: thin dashed Gray;}
--->
-</STYLE>";
-
 $TABLETRACK_OPEN = $statsDbName."`.`track_e_open";
 
 @include($includePath."/claro_init_header.inc.php");
@@ -91,9 +78,9 @@ $is_allowedToTrack = $is_platformAdmin;
                 <td>
                 <small>
         ";
-        echo "  $langPeriodToDisplay : [<a href='".$_SERVER['PHP_SELF']."?period=year&reqdate=$reqdate' class='specialLink'>$langPeriodYear</a>]
-                [<a href='".$_SERVER['PHP_SELF']."?period=month&reqdate=$reqdate' class='specialLink'>$langPeriodMonth</a>]
-                [<a href='".$_SERVER['PHP_SELF']."?period=day&reqdate=$reqdate' class='specialLink'>$langPeriodDay</a>]
+        echo "  $langPeriodToDisplay : [<a href='".$_SERVER['PHP_SELF']."?period=year&reqdate=$reqdate' >$langPeriodYear</a>]
+                [<a href='".$_SERVER['PHP_SELF']."?period=month&reqdate=$reqdate' >$langPeriodMonth</a>]
+                [<a href='".$_SERVER['PHP_SELF']."?period=day&reqdate=$reqdate' >$langPeriodDay</a>]
                 &nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;
                 $langDetailView :
         ";
@@ -101,13 +88,13 @@ $is_allowedToTrack = $is_platformAdmin;
         {
             case "year" : 
                     //-- if period is "year" display can be by month, day or hour
-                    echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=month' class='specialLink'>$langPeriodMonth</a>]";
+                    echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=month' >$langPeriodMonth</a>]";
             case "month" : 
                     //-- if period is "month" display can be by day or hour
-                    echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=day' class='specialLink'>$langPeriodDay</a>]";
+                    echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=day' >$langPeriodDay</a>]";
             case "day" : 
                     //-- if period is "day" display can only be by hour
-                    echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=hour' class='specialLink'>$langPeriodHour</a>]";
+                    echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=hour' >$langPeriodHour</a>]";
                     break;
         }
         
@@ -121,8 +108,8 @@ $is_allowedToTrack = $is_platformAdmin;
                 $previousReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)-1);
                 $nextReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)+1);
                 echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType' class='specialLink'>$langPreviousYear</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType' class='specialLink'>$langNextYear</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType' >$langPreviousYear</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType' >$langNextYear</a>] 
                 ";
                 break;
             case "month" :
@@ -131,8 +118,8 @@ $is_allowedToTrack = $is_platformAdmin;
                 $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
                 $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
                 echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType' class='specialLink'>$langPreviousMonth</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType' class='specialLink'>$langNextMonth</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType' >$langPreviousMonth</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType' >$langNextMonth</a>] 
                 ";
                 break;
             case "day" :
@@ -140,8 +127,8 @@ $is_allowedToTrack = $is_platformAdmin;
                 $previousReqDate = $reqdate - 86400;
                 $nextReqDate = $reqdate + 86400;
                 echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType' class='specialLink'>$langPreviousDay</a>] 
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType' class='specialLink'>$langNextDay</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType' >$langPreviousDay</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType' >$langNextDay</a>] 
                 ";
                 break;
         }

@@ -29,19 +29,6 @@ if ( ! $_cid) claro_disp_select_course();
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 include($includePath."/conf/agenda.conf.inc.php");
-
-$htmlHeadXtra[] = 
-"<style type=\"text/css\">
-<!--
-.content {padding-left: 25px;}
--->
-</style>
-<style media=\"print\" type=\"text/css\">
-<!--
-th {border-bottom: thin dashed Gray;}
--->
-</style>";
-
 include($includePath."/lib/text.lib.php");
 
 $nameTools = $langAgenda;

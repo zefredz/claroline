@@ -68,23 +68,6 @@ include($includePath."/conf/course_info.conf.php");
 $nameTools = $langCreateSite;
 $interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdministration);
 
-$htmlHeadXtra[] =
-"<style type=\"text/css\">
-        TABLE.list TR TD.rem { background-color: ".$color1."; }
-        label
-        {
-            display: block;
-            width: 25%;
-            float: left;
-            text-align: right;
-            background-color: ".$color2.";
-        }
-        input, textarea { margin-left: 1em;    background-color: ".$color1.";}
-        fieldset, form {  margin: 10; padding: 4;  }
-
--->
-</STYLE>";
-
 /*
  * DB tables definition
  */
