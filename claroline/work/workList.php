@@ -326,7 +326,7 @@ if( isset($_REQUEST['submitWrk']) )
             }
             else
             {
-                  $submittedText = trim(claro_addslashes( $_REQUEST['wrkTxt'] ));
+                  $submittedText = trim(addslashes( $_REQUEST['wrkTxt'] ));
             }
       }
       elseif( $assignmentContent == "FILE" )
@@ -339,7 +339,7 @@ if( isset($_REQUEST['submitWrk']) )
             }
             else
             {
-                  $submittedText = trim(claro_addslashes( $_REQUEST['wrkTxt'] ));
+                  $submittedText = trim(addslashes( $_REQUEST['wrkTxt'] ));
             }
       }
       

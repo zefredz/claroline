@@ -93,7 +93,7 @@ if( isset($_REQUEST['submitAssignment']) )
         // and assignment can have the same title as itself
         $sql = "SELECT `title`
                  FROM `".$tbl_wrk_assignment."`
-                WHERE `title` = '".claro_addslashes($title)."'
+                WHERE `title` = '".addslashes($title)."'
                   AND `id` != ".$_REQUEST['assigId'];
       }
       else
@@ -101,7 +101,7 @@ if( isset($_REQUEST['submitAssignment']) )
         // creating an assignment
         $sql = "SELECT `title`
                  FROM `".$tbl_wrk_assignment."`
-                WHERE `title` = '".claro_addslashes($title)."'";
+                WHERE `title` = '".addslashes($title)."'";
       }
       
       $query = claro_sql_query($sql);
@@ -139,7 +139,7 @@ if( isset($_REQUEST['submitAssignment']) )
     }
     else
     {
-      $assigDesc = claro_addslashes( trim($_REQUEST['assigDesc']) );
+      $assigDesc = addslashes( trim($_REQUEST['assigDesc']) );
     }
     
     // dates : check if start date is lower than end date else we will have a paradox
@@ -185,7 +185,7 @@ if( isset($_REQUEST['submitFeedback']) )
     }
     else
     {
-      $prefillText = claro_addslashes( trim($_REQUEST['prefillText']) );
+      $prefillText = addslashes( trim($_REQUEST['prefillText']) );
     }
 
     if ( is_uploaded_file($_FILES['prefillDocPath']['tmp_name']) )
