@@ -24,6 +24,14 @@ require '../inc/claro_init_global.inc.php';
 
 if (! ($is_courseAdmin || $is_platformAdmin)) die ("not allowed");
 
+$nameTools        = $langAddAU;
+
+$interbredcrump[] = array ("url"=>"user.php", "name"=> $langUsers);
+include("../inc/claro_init_header.inc.php");
+
+claro_disp_tool_title(array('mainTitle' =>$nameTools, 'subTitle' => $langUsers),
+				'help_user.php');
+
 $currentCourseID   = $_course['sysCode'];
 $currentCourseName = $_course['officialCode'];
 $tbl_user          = "user";
@@ -260,14 +268,6 @@ if($register)
 
 } // end if register request
 
-$interbredcrump[] = array ("url"=>"user.php", "name"=> $langUsers);
-
-$nameTools        = $langAddAU;
-
-include("../inc/claro_init_header.inc.php");
-if ( ! $is_courseAllowed) claro_disp_auth_form();
-claro_disp_tool_title(array('mainTitle' =>$nameTools, 'subTitle' => $langUsers),
-				'help_user.php');
 /*==========================
          MESSAGE BOX
   ==========================*/
