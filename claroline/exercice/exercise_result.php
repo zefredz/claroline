@@ -30,10 +30,10 @@ include('question.class.php');
 include('answer.class.php');
 
 // answer types
-define(UNIQUE_ANSWER,	1);
-define(MULTIPLE_ANSWER,	2);
-define(FILL_IN_BLANKS,	3);
-define(MATCHING,		4);
+define('UNIQUE_ANSWER',	1);
+define('MULTIPLE_ANSWER',	2);
+define('FILL_IN_BLANKS',	3);
+define('MATCHING',		4);
 
 $langFile='exercice';
 
