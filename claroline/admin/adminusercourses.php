@@ -218,12 +218,12 @@ echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
  */
      //TOOL LINKS
 
-claro_disp_button("adminprofile.php?uidToEdit=".$uidToEdit, $langSeeUserSettings);
-claro_disp_button("../auth/courses.php?cmd=rqReg&amp;uidToEdit=".$uidToEdit."&amp;category=&amp;fromAdmin=usercourse", $langEnrollToNewCourse);
+echo "<a href=\"adminprofile.php?uidToEdit=$uidToEdit\">$langSeeUserSettings</a> |";
+echo "<a href=\"../auth/courses.php?cmd=rqReg&amp;uidToEdit=".$uidToEdit."&amp;category=&amp;fromAdmin=usercourse\">$langEnrollToNewCourse</a>";
 
 if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
 {
-    claro_disp_button("adminusers.php",$langBackToUserList);
+    echo " | <a href=\"adminusers.php\">$langBackToUserList</a>";
     $addToUrl = "&amp;cfrom=ulist";
 }
 
@@ -235,7 +235,7 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?uidToEdit=".$uidToEdit);
 
 // table
 
-echo  '<table class="claroTable" width="100%" border="0" cellspacing="2">'
+echo  '<table class="claroTable" width="100%" border="0" cellspacing="2" >'
      .'<thead>'
      .'<caption >'
      .'<img src="'.$clarolineRepositoryWeb.'/img/'.$iconForCuStatus['STUDENT'].'" alt="STUDENT" border="0" title="statut" > Student '
@@ -246,7 +246,7 @@ echo  '<table class="claroTable" width="100%" border="0" cellspacing="2">'
 echo  '<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=code&amp;dir='.$order['code'].'&amp;uidToEdit='.$uidToEdit.'">'.$langOfficialCode.'</a></th>'
      .'<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=label&amp;dir='.$order['label'].'&amp;uidToEdit='.$uidToEdit.'">'.$langCourseTitle.'</a></th>'
      .'<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=titular&amp;dir='.$order['titular'].'&amp;uidToEdit='.$uidToEdit.'">'.$langTitular.'</a></th>'
-     .'<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=cuStatus&amp;dir='.$order['cuStatus'].'&amp;uidToEdit='.$uidToEdit.'">'.$langStatus.'</a></th>'
+     .'<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=cuStatus&amp;dir='.$order['cuStatus'].'&amp;uidToEdit='.$uidToEdit.'">'.$langRole.'</a></th>'
      .'<th>'.$langUnsubscribe.'</th>'
     . '</tr>'
     . '</thead>'."\n";
