@@ -31,7 +31,7 @@ $nameTools = $langLostPassword;
  * DB tables definition
  */
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_user            = $tbl_mdb_names['user'];
+$tbl_user      = $tbl_mdb_names['user'];
 
 include($includePath.'/lib/auth.lib.inc.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
@@ -39,13 +39,21 @@ include($includePath.'/lib/claro_mail.lib.inc.php');
 if ($searchPassword)
 {
 	$Femail = strtolower(trim($Femail));
-
-	$result = claro_sql_query('SELECT `user_id` AS `uid`, `nom` AS `lastName`, `prenom` AS `firstName`, 
-	                    `username` AS `loginName`, `password`, `email`, `statut` AS `status`, 
-	                    `officialCode`, `phoneNumber`, `pictureUri`, `creatorId`
-	                    FROM `'.$tbl_user.'`
-	                    WHERE LOWER(email) LIKE "'.claro_addslashes($_REQUEST['Femail']).'"
-	                    AND   `email` != "" ');
+	$sql = 'SELECT  `user_id` AS `uid`, 
+					`nom` AS `lastName`, 
+					`prenom` AS `firstName`, 
+	                `username` AS `loginName`, 
+					`password`, 
+					`email`, 
+					`statut` AS `status`, 
+	                `officialCode`, 
+					`phoneNumber`, 
+					`pictureUri`, 
+					`creatorId`
+	         FROM `'.$tbl_user.'`
+	         WHERE LOWER(email) LIKE "'.claro_addslashes($_REQUEST['Femail']).'"
+	               AND   `email` != "" ';
+	$result = claro_sql_query($sql);
 
 	if ($result)
 	{
@@ -115,7 +123,7 @@ if ($searchPassword)
 			else
 			{
 				$msg = $langEmailNotSent
-                .	"<a href=\"mailto:".$administrator["email"]."\">"
+                .	'<a href="mailto:'.$administrator["email"].'?BODY='.$_REQUEST['Femail'].'">'
                 .	$langPlatformAdmin
                 .	"</a>";
 			}
@@ -143,15 +151,25 @@ if ( ! $passwordFound)
 <br />
 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 <input type="hidden" name="searchPassword" value="1">
+<fieldset>
 <table>
-<tr>
-<td><label for="Femail"><?php echo $langEmail ?> : </label></td>
-<td><input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="<?php echo $Femail ?>"></td>
-</tr>
-<td></td>
-<td><input type="submit" name="retrieve" value="Submit"></td>
-</tr>
+	<tr>
+		<td>
+			<label for="Femail"><?php echo $langEmail ?> : </label>
+		</td>
+		<td>
+			<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="<?php echo $Femail ?>">
+		</td>
+	</tr>
+	<tr>
+		<td>
+		</td>
+		<td>
+			<input type="submit" name="retrieve" value="Submit">
+		</td>
+	</tr>
 </table>
+</fieldset>
 </form>
 
 <?php

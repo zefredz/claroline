@@ -12,7 +12,8 @@
 //----------------------------------------------------------------------
 
 // Lang files needed :
-
+$langAccountInfo = "Account Info";
+$langSendAccountInfo = "Send account Info";
 $langFile = "admin";
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
@@ -348,6 +349,7 @@ echo     "<th>".$langEmail."</th>";
 echo     "<th>".$langUserStatus."</th>";
 echo     "<th>".$langAllUserOfThisCourse."</th>
           <th>".$langEditUserSettings."</th>
+          <th>".$langAccountInfo."</th>
           <th>".$langDelete."</th>";
 echo "</tr><tbody> ";
 
@@ -440,6 +442,16 @@ foreach($resultList as $list)
      echo     "<td align=\"center\">\n",
                         "<a href=\"adminprofile.php?uidToEdit=".$list['user_id']."&cfrom=ulist".$addToURL."\">\n
                          <img src=\"".$clarolineRepositoryWeb."img/usersetting.gif\" border=\"0\" alt=\"".$langEditUserSettings."\" />\n",
+                        "</a>\n",
+                        "</td>\n";
+
+     //  Delete link
+
+     // Modify link
+
+     echo     "<td align=\"center\">\n",
+                        "<a href=\"../auth/lostPassword.php?Femail=".$list['email']."&searchPassword=1&cfrom=ulist".$addToURL."\">\n
+                         <img src=\"".$clarolineRepositoryWeb."img/email.gif\" border=\"0\" alt=\"".$langSendAccountInfo."\" />\n",
                         "</a>\n",
                         "</td>\n";
 
