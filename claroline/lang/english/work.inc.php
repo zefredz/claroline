@@ -90,6 +90,7 @@ $langFileRequired = "A file is required";
 $langUploadedFile = "Uploaded file";
 $langAttachedFile = "Attached file";
 $langSubmissionDate = "First submission date";
+$langLastSubmissionDate = "Last submission date";
 $langLastEditDate = "Last edit date";
 $langSubmittedBy = "Submitted by";
 $langAnonymousUser = "anonymous user";
