@@ -19,7 +19,7 @@ installation and set them to be compatible with the new Claroline version. This 
 <li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.</li>\n
 <li>It will update one by one each course data (directories, database tables, ...)</li>\n
 </ol>\n
-<p>Befor proceeding to this upgrade:</p>\n
+<p>Before proceeding to this upgrade:</p>\n
 <table>
 <tbody>
 <tr valign=\"top\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>\n
@@ -51,7 +51,7 @@ $langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button><
 
 $langStep3 = "Step 3 of 3: courses upgrade";
 $langIntroStep3 = "<p>Now the Claroline upgrade tool is going update (directories and database tables) one by one.
-                   <p class=\"help\">Note: According to the speed of your server or the amount of data stroed on your platform,
+                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
                    this operation may take some time.</p>";
 $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
 
