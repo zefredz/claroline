@@ -251,12 +251,14 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 				             ."value=\"".$_REQUEST['cwd']."/".$HTTP_POST_FILES['userFile']['name']."\">\n"
 				             ."<table border=\"0\">\n";
 
-				foreach($imgFilePath as $thisImgFilePath )
+				foreach($imgFilePath as $thisImgKey => $thisImgFilePath )
 				{
 					$dialogBox .= "<tr>\n"
-					             ."<td>".basename($thisImgFilePath)." : </td>\n"
 					             ."<td>"
-					             ."<input type=\"file\"	name=\"imgFile[]\">"
+                                 ."<label for=\"".$thisImgKey."\">".basename($thisImgFilePath)." : </label>"
+                                 ."</td>\n"
+					             ."<td>"
+					             ."<input type=\"file\"	id=\"".$thisImgKey."\" name=\"imgFile[]\">"
 					             ."<input type=\"hidden\" name=\"imgFilePath[]\" "
 					             ."value=\"".$thisImgFilePath."\">"
 					             ."</td>\n"
@@ -298,23 +300,23 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         $dialogBox .= "<form action=\"".$PHP_SELF."\" method=\"post\" enctype=\"multipart/form-data\">"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exUpload\">"
                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
-                     .$langDownloadFile." : "
-                     ."<input type=\"file\" name=\"userFile\"> "
+                     ."<label for=\"userFile\">".$langDownloadFile." : </label>"
+                     ."<input type=\"file\" id=\"userFile\" name=\"userFile\"> "
                      ."<input style=\"font-weight: bold\" type=\"submit\" value=\"".$langDownload."\"><br>"
                      ."<small>Max. file size : ".format_file_size($maxFileSize)."</small><br>";
 
 
         if ($is_allowedToUnzip)
         {
-            $dialogBox .= "<input type=\"checkbox\" name=\"uncompress\" value=\"1\">"
-                          .$langUncompress;
+            $dialogBox .= "<input type=\"checkbox\" id=\"uncompress\" name=\"uncompress\" value=\"1\">"
+                          ."<label for=\"uncompress\">".$langUncompress."</label>";
         }
 
         if ($courseContext)
         {
             $dialogBox .= "<p>\n"
-                        ."Add Comment (optionnal) :"
-                        ."<br><textarea rows=2 cols=50 name=\"comment\">"
+                        ."<label for=\"comment\"> Add Comment (optionnal) :</label>"
+                        ."<br><textarea rows=2 cols=50 id=\"comment\" name=\"comment\">"
                         .$oldComment
                         ."</textarea>\n"
                         ."</p>\n";
@@ -462,10 +464,10 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
                      ."<form action=\"".$PHP_SELF."\" method=\"post\">\n"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exMkUrl\">\n"
                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
-                     .$langName." :<br />\n"
-                     ."<input type=\"text\" name=\"fileName\" value=\"".$fileName."\"><br />\n"
-                     .$langURL."<br />\n"
-                     ."<input type=\"text\" name=\"url\" value=\"".$url."\">\n"
+                     ."<label for=\"fileName\">".$langName." : </label><br />\n"
+                     ."<input type=\"text\" id=\"fileName\" name=\"fileName\" value=\"".$fileName."\"><br />\n"
+                     ."<label for=\"url\">".$langURL."</label><br />\n"
+                     ."<input type=\"text\" id=\"url\" name=\"url\" value=\"".$url."\">\n"
                      ."<input type=\"submit\" value=\"".$langOk."\">\n"
                      ."</form>\n";
 
@@ -622,16 +624,17 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 						."<input type=\"hidden\" name=\"cmd\" value=\"exEdit\">\n"
 						."<input type=\"hidden\" name=\"file\" value=\"".$_REQUEST['file']."\">\n"
                         ."<p>\n"
-						.$langRename." ".htmlspecialchars($fileName)." ".$langIn." :\n"
-						."<br><input type=\"text\" name=\"newName\" value=\"".$fileName."\">\n"
+						."<label for=\"newName\">".$langRename." ".htmlspecialchars($fileName)
+                        ." ".$langIn." : </Label>\n"
+						."<br><input type=\"text\" id=\"newName\" name=\"newName\" value=\"".$fileName."\">\n"
                         ."</p>\n";
 
         if ('url' == get_file_extension($baseWorkDir.$_REQUEST['file']) )
         {
             $url = get_link_file_url($baseWorkDir.$_REQUEST['file']);
 
-            $dialogBox .= "<p>\n".$langURL."<br />\n"
-                         ."<input type=\"text\" name=\"url\" value=\"".$url."\">\n"
+            $dialogBox .= "<p><label for=\"url\">".$langURL."</label><br />\n"
+                         ."<input type=\"text\" id=\"url\" name=\"url\" value=\"".$url."\">\n"
                          ."</p>\n";
         }
 
@@ -717,8 +720,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 		$dialogBox .=	 "<form>\n"
 						."<input type=\"hidden\" name=\"cmd\" value=\"exMkDir\">\n"					
 						."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">\n"
-						.$langNameDir." : \n"
-						."<input type=\"text\" name=\"newName\">\n"
+						."<label for=\"newName\">".$langNameDir." : </label>\n"
+						."<input type=\"text\" id=\"newName\" name=\"newName\">\n"
 						."<input type=\"submit\" value=\"".$langOk."\">\n"
 						."</form>\n";
 	}
