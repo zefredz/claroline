@@ -178,7 +178,7 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
 		
 	if(!eregi($regexp,$list['email']) or empty($list['email']) )
 	{
-		return claro_failure::set_failure("Wrong or empty email address for " . $list['nom'] . " " . $list['prenom'] . " !!!");
+		return claro_failure::set_failure( $list['nom'] . " " . $list['prenom'] ." : wrong or empty email address"."<br>");
 	}
 		
 	// create mailer and configure it.
@@ -216,7 +216,7 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
 		
 	if (!$mail->Send())
 	{
-		return claro_failure::set_failure("There has been a mail error sending to " . $list['email'] ."<br>");
+		return claro_failure::set_failure($list['nom'] . " " . $list['prenom'] . " : there has been a mail error sending to " . $list['email'] ."<br>");
 	}
 	// Clear all addresses and attachments for next use
 		
