@@ -1,25 +1,22 @@
-*********************************
-CLAROLINE 1.5.0 RELEASE CANDIDATE
-*********************************
+***********************************
+CLAROLINE 1.5.0 RELEASE CANDIDATE 2
+***********************************
 
-Thank you for downloading Claroline 1.5.0 Beta.
-This README will guide you through the basics 
-of installation and operation of Claroline 1.5.0. 
-Please ensure you read this fully BEFORE proceeding 
-with the installation.
+Thank you for downloading Claroline 1.5.0 Beta. This README will guide you 
+through the basics of installation and operation of Claroline 1.5.0. Please 
+ensure you read this fully BEFORE proceeding with the installation.
 
+    - REQUIREMENTS
 
-    - Requirements
+    - INSTALLATION PROCEDURE
 
-    - Installation Procedure
+        - NEW CLAROLINE INSTALLATION
 
-        - New Claroline installation
+        - UPGRADE FROM PREVIOUS CLAROLINE VERSION
 
-        - Upgrade from previous Claroline version
+    - TROUBLESHOOTING
 
-    - Troubleshooting
-
-    - Admin
+    - ADMIN
 
 
 
@@ -60,10 +57,11 @@ remotely, you need the following on the server:
    a 'single database host' you have to select this option on purpose at 
    install.
 
-       WARNING ! The 'single database host' option still needs to create a 
-       database for Claroline only. If you set Claroline to a database 
-       shared with other applications, Claroline will erase the other 
-       application tables.
+       WARNING ! If you use the 'single database' install option, it is 
+       recommended to use this database for Claroline use only. If you 
+       share this database with other applications, interferences could 
+       occurs between table names of both applications that could conducts 
+       to serious problems.
 
        Note : it seems the backticks charachters (`) inserted inside most of 
        the Claroline SQL queries since Claroline 1.3 doesn't work with MySQL 
@@ -89,14 +87,17 @@ INSTALLATION PROCEDURE
 NEW CLAROLINE INSTALLATION
 --------------------------
 
-1. Download 'claroline150beta.tar.gz' 
+1. Download 'claroline150RC2.tar.gz' 
 
-   Windows : download 'claroline150beta.zip'.
+   Windows : download 'claroline150RC2.zip'.
+
 
 2. Open a shell, go to download directory and type 
-   tar -zxvf claroline150beta.tar.gz
 
-   Windows : unzip 'claroline150beta.zip'.
+	tar -zxvf claroline150RC2.tar.gz
+
+   Windows : unzip 'claroline150RC2.zip'.
+
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
    to your website on webserver (whether webroot or subdirectory). 
@@ -106,49 +107,57 @@ NEW CLAROLINE INSTALLATION
    drag and drop 'index.php' file and 'claroline' directory into 
    C:\Program Files\easyphp\www\
 
-4. CHMOD 666 claroline/inc/conf/claro_main.conf.php if necessary
+4. Open Web Browser and go to 
 
-5. Open Web Browser and go to 
-   http://www.mydomain.org/mysite/mydir/claroline/install/
+	http://www.mydomain.org/mysite/mydir/claroline/install/
 
-   Windows with easyphp locally, open: 
-   http://localhost/claroline/install/ (don't forget the final /).
+   Windows : with easyphp locally, open: 
 
-6. Follow instructions.
+	http://localhost/claroline/install/ (don't forget the final /).
 
-   Windows: if you use easyphp out of the box, login and password 
+5. Follow instructions.
+
+   Windows: if you use easyPhp out of the box, login and password 
    for MySQL should remain empty.
 
 
 UPDGRADE FROM PREVIOUS CLAROLINE VERSION
 ----------------------------------------
 
-Before upgrading we heavily recommend you do a full backup of the previous
-Claroline directories and databases. If you are unsure how to achieve this
+Before upgrading we heavily recommend you do a full backup of the previous 
+Claroline directories and databases. If you are unsure how to achieve this 
 please ask your hosting provider for advice.
 
 
 1. Download 'claroline150RC2.tar.gz'
+
    Windows : download 'claroline150RC2.zip'.
 
+
 2. Open a shell, go to download directory and type
-   tar -zxvf claroline150RC2.tar.gz
+
+	tar -zxvf claroline150RC2.tar.gz
+
    Windows : unzip 'claroline150RC2.zip'.
+
 
 3. Replace your previous Claroline directory and index.php by the new one.
 
-       Warning : don't delete the previous directory before installing
-       the new one. You will loose your config.php file. Replace it with
-       a 'copy' command.
+       WARNING ! Don't delete the previous directory before installing the new 
+       one. You will loose your previous configuration files 
+       (eg 'config.inc.php'). Simply replace the old directory with a new one 
+       with a 'copy' command. That way, the new file versions will overwrite the 
+       old ones and leave the others intact.
 
-4. CHMOD 666 claroline/include/config.php if necessary
+4. Open Web Browser and go to
 
-5. Open Web Browser and go to
    http://www.mydomain.org/mysite/mydir/claroline/admin/maintenance/upgrade.php
-   Windows with easyphp locally, open:
+
+   Windows with easyPhp locally, open:
+
    http://localhost/mydir/claroline/admin/maintenance/upgrade.php
 
-6. Follow instructions.
+5. Follow instructions.
 
 
 TROUBLESHOOTING
