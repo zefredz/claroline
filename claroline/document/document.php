@@ -106,6 +106,11 @@ if ($_gid && $is_groupAllowed)
 
     $is_allowedToEdit  = $is_groupMember || $is_courseAdmin;
     $is_allowedToUnzip = false;
+    if (!$is_groupMember) 
+    {
+      echo "<center>You are not allowed to see this group's documents!!!</center>";
+      die;
+    }
 }
 else
 {
@@ -121,6 +126,12 @@ else
     $is_allowedToEdit  = $is_courseAdmin;
     $is_allowedToUnzip = $is_courseAdmin;
     $maxFilledSpace    = 100000000;
+}
+
+if ($_gid && !$is_groupAllowed)
+{
+   echo "ben quoi?";
+   exit();
 }
 
 $baseWorkDir = $baseServDir.$courseDir;
@@ -964,8 +975,17 @@ unset($attribute);
 	$cmdParentDir  = rawurlencode($parentDir);
 
 ?>
-<?php claro_disp_tool_title($langDoc) ?>
-<? if($is_allowedToEdit)
+
+<?php 
+
+//display toot title and subtitle
+
+$titleElement['mainTitle'] = $langDoc;
+if ( $_gid && $is_groupAllowed) $titleElement['subTitle'] = $_group['name'];
+claro_disp_tool_title($titleElement);
+
+
+if($is_allowedToEdit)
 { ?>
 <p align="right">
 <a href="#" onClick="MyWindow=window.open('../help/help_document.php','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;">
