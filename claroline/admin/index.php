@@ -43,6 +43,12 @@ session_unregister('admin_user_mail');
 session_unregister('admin_user_action');
 session_unregister('admin_order_crit');
 
+
+// clean session if we come from a course
+
+session_unregister('_cid');
+unset($_cid);
+
 //----------------------------------
 // DISPLAY
 //----------------------------------
