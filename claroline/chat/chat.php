@@ -1,13 +1,17 @@
-<?php
+<?php // $id$
 
 $langFile = "chat";
+$tlabelReq = "CLCHT___";
 
 require '../inc/claro_init_global.inc.php'; 
-// the following constant defines the default display of the learning path browser
-// 0 : display only table of content and content
-// 1 : display claroline header and footer and table of content, and content
 
-$nameTools  = $langChat;;
+$nameTools  = $langChat;
+
+// STATS & TRACKING
+include($includePath.'/lib/events.lib.inc.php');
+event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+
+
 if(!empty($nameTools))
 {
   $titlePage .= $nameTools.' - ';
@@ -18,6 +22,7 @@ if(!empty($_course['officialCode']))
   $titlePage .= $_course['officialCode'].' - ';
 }
 $titlePage .= $siteName;
+
 
 // Redirect previously sent paramaters in the correct subframe (messageList.php)
 $paramList = array();
@@ -47,7 +52,7 @@ if (is_array($paramList))
 
 	<frameset rows="215,*,120" marginwidth="0" frameborder="yes">
 		<frame src="chat_header.php" name="topBanner" scrolling="no">
-		<frame src="messageList.php#final<?php echo $paramLine ?>" name="messageList">
+		<frame src="messageList.php<?php echo $paramLine ?>#final" name="messageList">
 		<frame src="messageEditor.php" name="messageEditor" scrolling="no">
 	</frameset>
 

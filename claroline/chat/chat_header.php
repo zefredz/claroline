@@ -1,5 +1,6 @@
 <?php // $Id$
 
+
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -22,12 +23,6 @@ $noPHP_SELF = true;
 
 include($includePath."/claro_init_header.inc.php");
 
-
-/* STATS & TRACKING */
-
-include($includePath."/lib/events.lib.inc.php");
-
-event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
 $titleElement['mainTitle'] = $nameTools;
 if ( $_gid ) $titleElement['subTitle'] = $_group['name'];
