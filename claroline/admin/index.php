@@ -99,6 +99,9 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <li>
 <a href="adminaddnewuser.php"><?php echo $langCreateUser?></a>
 </li>
+<li>
+<a href="admin_class.php"><?php echo $langManageUserClasses?> Manage user classes</a>
+</li>
 </ul>
 
 <h4><?php echo $langCourses?></h4>

@@ -122,5 +122,23 @@ CREATE TABLE `course_tool` (
   UNIQUE KEY `claro_label` (`claro_label`)
 ) TYPE=MyISAM COMMENT='based definiton of the claroline tool used in each course'" ;
         mysql_query($sql);
+$sql ="
+CREATE TABLE `class` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(100) NOT NULL default '',
+  `class_parent_id` int(11) default NULL,
+  `class_level` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM COMMENT='classe_id, name, classe_parent_id, classe_level'";
+mysql_query($sql);
 
+$sql ="
+CREATE TABLE `rel_class_user` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` int(11) NOT NULL default '0',
+  `class_id` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM";
+mysql_query($sql);
+	
 ?>
