@@ -40,6 +40,7 @@ if (isset($platform_id))
 }
 else
 {
+    if(file_exists($includePath.'/conf/claro_main.conf.php'))
     die ('<strong>$platform_id</strong> missing in config. <br>
     Reinstall claroline<br>
     or <br>
