@@ -352,14 +352,23 @@ if ( !empty($message) )
 
 if ($displayButtonLine)
 {
-    echo "<p>\n";
-    claro_disp_button($_SERVER['PHP_SELF'].'?cmd=rqCreate',
-                      '<img src="'.$clarolineRepositoryWeb.'img/valves.gif">'.$langAddAnn);
-    claro_disp_button('messages.php',
-                      '<img src="'.$clarolineRepositoryWeb.'img/email.gif">'.$langMessageToSelectedUsers);
-    claro_disp_button($PHP_SELF.'?cmd=exDeleteAll',
-                      '<img src="'.$clarolineRepositoryWeb.'img/delete.gif">'.$langEmptyAnn, $langEmptyAnn.' ?');
-    echo "</p>\n";
+    echo '<p>'."\n"
+         .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqCreate">'
+         .'<img src="'.$clarolineRepositoryWeb.'img/valves.gif">'
+         .$langAddAnn
+         .'</a>'
+         .' | '
+         .'<a class="claroCmd" href="messages.php">'
+         .'<img src="'.$clarolineRepositoryWeb.'img/email.gif">'
+         .$langMessageToSelectedUsers
+         .'</a>'
+         .' | '
+         .'<a class="claroCmd" href="'.$PHP_SELF.'?cmd=exDeleteAll" '
+         .' onclick="if (confirm(\''.$langEmptyAnn.' ?\')){return true;}else{return false;}">'
+         .'<img src="'.$clarolineRepositoryWeb.'img/delete.gif">'
+         .$langEmptyAnn
+         .'</a>'
+         .'</p>'."\n";
 }
 
 
