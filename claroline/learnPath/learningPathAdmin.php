@@ -407,11 +407,12 @@
    //######################### LEARNING PATH COURSEADMIN LINKS ##########################\\
    //####################################################################################\\
    ?>
-           <a href="insertMyDoc.php"><?php echo $langDocumentAsModule; ?></a> |
-           <a href="insertMyExercise.php"><?php echo $langExerciseAsModule; ?></a> |
-           <a href="insertMyModule.php"><?php echo $langModuleOfMyCourse; ?></a> |
-           <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=createLabel"><?php echo $langCreateLabel; ?></a>
-
+	<p>
+	<a class="claroCmd" href="insertMyDoc.php"><?php echo $langDocumentAsModule; ?></a> |
+	<a class="claroCmd" href="insertMyExercise.php"><?php echo $langExerciseAsModule; ?></a> |
+	<a class="claroCmd" href="insertMyModule.php"><?php echo $langModuleOfMyCourse; ?></a> |
+	<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=createLabel"><?php echo $langCreateLabel; ?></a>
+	</p>
    <?php
    //####################################################################################\\
    //######################### LEARNING PATH LIST CONTENT ###############################\\

@@ -163,9 +163,10 @@
 
     //REDIRECT USER IF NEEDED
 
-    if ((!$is_AllowedToEdit) && (@mysql_num_rows($resultBrowsed)==0 ) && $noModuleComment && $noModuleSpecificComment && !$noStartAsset) {
+    if ((!$is_AllowedToEdit) && (@mysql_num_rows($resultBrowsed)==0 ) && $noModuleComment && $noModuleSpecificComment && !$noStartAsset) 
+	{
           header("Location:./navigation/viewer.php");
-          }
+    }
 
   //header
 
@@ -205,7 +206,6 @@
        }
        //#### ADDED COMMENT #### courseAdmin can always modify this ####\\
        // this is a comment for THIS module in THIS learning path
-       echo "<small>";
        if ( $cmd == "updatespecificComment" )
        {
             commentBox(LEARNINGPATHMODULE_, UPDATE_);
@@ -218,7 +218,6 @@
        {
             commentBox(LEARNINGPATHMODULE_, DISPLAY_);
        }
-       echo "</small>";
   } //  if($module['contentType'] != CTLABEL_ )
    //back button
 
@@ -231,7 +230,7 @@
      $pathBack = "./learningPath.php";
    }
 
-   echo "<small><a href=\"".$pathBack."\"><<< ".$langBackModule."</a></small><br><br>";
+   echo "<small><a href=\"".$pathBack."\"><< ".$langBackModule."</a></small><br><br>";
 
    //####################################################################################\\
    //############################ PROGRESS  AND  START LINK #############################\\
@@ -391,7 +390,7 @@
         }
         else
         {
-             echo "<p><center>$langNoStartAsset</center></p>";
+             echo "<p><center>".$langNoStartAsset."</center></p>";
         }
     }// end if($module['contentType'] != CTLABEL_) 
     // if module is a label, only allow to change its name.

@@ -171,9 +171,7 @@
                      if ( $is_AllowedToEdit )
                      {
                            echo        "<p>\n",
-                                       "<small>\n",
-                                       "<a href=\"".$_SERVER['PHP_SELF']."?cmd=update".$col_name."\">\n",$langAddComment,"</a>\n",
-                                       "</small>\n",
+                                       "<a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?cmd=update".$col_name."\">\n",$langAddComment,"</a>\n",
                                        "</p>\n";
                      }
                 }
@@ -732,7 +730,7 @@
           {
             echo 	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n",
                 "<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\"\">\n",
-                "<small>$langUp</small>\n",
+                "<small>".$langUp."</small>\n",
                 "</a>\n";
           }
           /* CURRENT DIRECTORY */

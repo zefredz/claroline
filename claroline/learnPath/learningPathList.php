@@ -391,9 +391,11 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
    {
         // Display links to create and import a learning path
    ?>
-          <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=create"><?php echo $langCreateNewLearningPath; ?></a> |
-          <a href="importLearningPath.php"><?php echo $langimportLearningPath; ?></a> |
-          <a href="modules_pool.php"><?php echo $langModulesPoolToolName ?></a>
+   		<p>
+		<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=create"><?php echo $langCreateNewLearningPath; ?></a> |
+		<a class="claroCmd" href="importLearningPath.php"><?php echo $langimportLearningPath; ?></a> |
+		<a class="claroCmd" href="modules_pool.php"><?php echo $langModulesPoolToolName ?></a>
+		</p>
    <?php
    }
 

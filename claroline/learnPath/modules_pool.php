@@ -267,7 +267,7 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
                     <td align='center'>
                      <a href=\"",$_SERVER['PHP_SELF'],"?cmd=eraseModule&cmdid=".$list['module_id']."\"
                         onClick=\"return confirmation('",htmlspecialchars(addslashes($list['name'])),$langUsedInLearningPaths,$list['timesUsed'],"');\">
-                        <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\" />
+                        <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\" />
                         </a>
                     </td>
                     <td align=\"center\">
