@@ -97,33 +97,46 @@ if (LANGMODE == 'DEVEL')
         include($includePath.'/../lang/'.$languageInterface.'/complete.lang.php');
     }
     
-    // include the locale settings language
-
-    include($includePath.'/../lang/english/locale_settings.php');
-    
-    if ($languageInterface  != 'english') // avoid inutile
-    {
-        include($includePath.'/../lang/'.$languageInterface.'/locale_settings.php');
-    }
     
 }
 else
 {
-    include($includePath.'/../lang/english/trad4all.inc.php');
-    include($includePath.'/../lang/english/'.$langFile.'.inc.php');
 
-    /*
-     * tool specific language translation
-     */
-
+    if (isset($course_homepage) && $course_homepage == TRUE)
+    {
+        $langFile = 'claroline_course_home_course_home.lang.php';
+    } 
+    else
+    {
+	    /*
+	     * tool specific language translation
+	     */
+	
+	    // build lang file of the tool    
+	    $langFile = str_replace ($urlAppend.'/','',$_SERVER['PHP_SELF']);
+	    $langFile = str_replace("/","_", $langFile);
+	    $langFile = str_replace('.php','.lang.php',$langFile);
+    }
+	    
+    include($includePath.'/../lang/english/'.$langFile);
+	
     // load previously english file to be sure every $lang variable
     // have at least some content
 
     if ($languageInterface  != 'english')
     {
-        include($includePath.'/../lang/'.$languageInterface.'/trad4all.inc.php');
-        @include($includePath.'/../lang/'.$languageInterface.'/'.$langFile.'.inc.php');
+        @include($includePath.'/../lang/'.$languageInterface.'/'.$langFile);
     }
+    
+}
+    
+// include the locale settings language
+
+include($includePath.'/../lang/english/locale_settings.php');
+    
+if ($languageInterface  != 'english') // avoid inutile
+{
+   include($includePath.'/../lang/'.$languageInterface.'/locale_settings.php');
 }
 
 ?>
