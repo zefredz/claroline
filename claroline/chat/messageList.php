@@ -97,7 +97,7 @@ define('MAX_LINE_TO_DISPLAY',  20);
 
 
 $dateNow = claro_format_locale_date($dateTimeFormatLong);
-$timeNow = claro_format_locale_date('%H:%M');
+$timeNow = claro_format_locale_date('%d/%m/%y [%H:%M]');
 
 if ( ! file_exists($activeChatFile))
 {
@@ -159,22 +159,22 @@ if ($store && $is_allowedToStore)
     // COMPLETE THE ON FLY BUFFER FILE WITH THE LAST LINES DISPLAYED 
     // BEFORE PROCEED TO COMPLETE FILE STORAGE
 
-    buffer( implode('', file($activeChatFile) )."</body>\n</html>\n",
+    buffer( implode('', file($activeChatFile) )."</body>\n\n</html>\n",
             $onflySaveFile);
 
 	if (copy($onflySaveFile, $exportFile.$saveIn) )
 	{
-		echo	"<blockquote>",
-				"<a href=\"../document/document.php\" target=\"top\">",
-				"<strong>".$saveIn."</strong>",
+		$cmdMsg =	"\n<blockquote>\n".
+				"<a href=\"../document/document.php\" target=\"top\">".
+				"<strong>".$saveIn."</strong>".
 				"</a> ".$langIsNowInYourDocDir.
-				"</blockquote>";
+				"\n</blockquote>\n\n";
 				
     	@unlink($onflySaveFile);
 	}
 	else
 	{
-		echo '<blockquote>'.$langCopyFailed.'</blockquote>';
+		$cmdMsg = "<blockquote>".$langCopyFailed."</blockquote>";
 	}
 }
 
@@ -235,21 +235,25 @@ $curDisplayLineList = $activeLineList;
 
 // CHAT MESSAGE LIST OWN'S HEADER
 
-echo '<html>'
+echo "<html>\n\n"
+    ."<head>\n"
+    ."<meta http-equiv=\"refresh\" content=\"".REFRESH_DISPLAY_RATE.";url=".$_SERVER['PHP_SELF']."#final\">\n"
+    ."<link rel=\"stylesheet\" type=\"text/css\" href=\"".$clarolineRepositoryWeb."css/".$claro_stylesheet."\" />\n"
+    ."</head>\n\n"
+    ."<body>\n";
 
-    .'<head>'
-    .'<meta http-equiv="refresh" content="'.REFRESH_DISPLAY_RATE.';url='.$_SERVER['PHP_SELF'].'#final">'
-    .'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/default.css" />'
-    .'</head>'
+if( isset($cmdMsg) )
+{
+	echo $cmdMsg;
+}
 
-    .'<body>'
-    . implode("\n", $curDisplayLineList) // LAST LINES
+echo implode("\n", $curDisplayLineList) // LAST LINES
     ."<p align=\"right\"><small>"
     .$dateLastWrite                 // LAST MESSAGE DATE TIME
     ."</small></p>\n"
     ."<a name=\"final\">\n"       // ANCHOR ALLOWING TO DIRECTLY POINT LAST LINE 
 
-    ."</body>\n"
+    ."</body>\n\n"
     ."</html>\n";
 
 
@@ -277,9 +281,14 @@ if ($activeLineCount > MAX_LINE_IN_FILE)
 
 function buffer($content, $tmpFile)
 {
+	global $langChat, $langArchive;
+	
 	if ( ! file_exists($tmpFile) )
 	{
-        $content = "<html>\n"
+        $content = "<html>\n\n"
+									."<head>\n"
+									."<title>".$langChat." - ".$langArchive."</title>\n"
+									."</head>\n\n"
                   ."<body>\n"
                   .$content;
     }
