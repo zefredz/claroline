@@ -119,7 +119,7 @@ $langLogout="Logout";
 
 
 //needed for student view
-$langCourseManagerview = "Course Manager View";
+$langCourseManagerView = "Course Manager View";
 $langStudentView = "Student View";
 
 

@@ -148,7 +148,7 @@ $langPlatform= $institution["name"] . " gebruikt het platform";
 $langPoweredBy= $institution["name"] . " gebruikt het platform";
 
 //needed for student view
-$langCourseManagerview = "Cursusbeheerder zicht";
+$langCourseManagerView = "Cursusbeheerder zicht";
 $langStudentView = "Studenten zicht";
 
 // tools names

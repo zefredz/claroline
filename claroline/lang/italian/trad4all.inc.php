@@ -116,7 +116,7 @@ $langPlatformAdministration="Amministra Claroline";
 $langLogout="Uscire";
 
 //needed for student view
-$langCourseManagerview = "Vista Manager";
+$langCourseManagerView = "Vista Manager";
 $langStudentView = "Vista Studente";
 $lang_this_course_is_protected = 'Questo corso è protetto';
 $lang_enter_your_user_name_and_password = 'Inserisci Nome e Password';

@@ -122,7 +122,7 @@ $langLogout="Salir";
 
 
 //needed for student view
-$langCourseManagerview = "Ver como Coordinador";
+$langCourseManagerView = "Ver como Coordinador";
 $langStudentView = "Ver como estudiante";
 
 

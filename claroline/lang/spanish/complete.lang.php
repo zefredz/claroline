@@ -35,33 +35,6 @@ $l_nopostlock = "No puede responder a este tema, este tema est&aacute; cerrado."
 $l_noposts = "No hay Enviar mensajes";
 $l_norecipient = "Debe escribir el nombre de usuario a quien desea enviar el Mensaje.";
 $l_notifybody = "Usted recibe este correo electr&oacute;nico como respuesta a un mensaje 
-
-que ha enviado al foro, ya que usted ha elegido ser informado.
-
-
-
-Usted puede ver el tema en:
-
-
-
-%s1
-
-
-
-O ver el &iacute;ndice del foro en
-
-
-
-%s2
-
-
-
-Gracias por utilizar los foros.
-
-
-
-Que tenga un buen d&iacute;a.";
-$l_notifybody = "Usted recibe este correo electr&oacute;nico como respuesta a un mensaje 
 que ha enviado al foro, ya que usted ha elegido ser informado.
 
 Usted puede ver el tema en:
@@ -144,14 +117,14 @@ $langAchieved = "Actualizar el proceso de archivado";
 $langAction = "Acción";
 $langAction = "Acci&oacute;n";
 $langActivate = "Activar";
+$langAdd = "Añadir";
 $langAdd = "a&ntilde;adir";
-$langAdd = "añadir";
 $langAddAU = "A&ntilde;adir un usuario";
 $langAddAnn = "A&ntilde;adir un anuncio";
 $langAddCat = "a&ntilde;adir categor&iacute;a";
 $langAddCategory = "A&ntilde;adir una categor&iacute;a";
-$langAddComment = "Agregar un comentario";
 $langAddComment = "Añadir/Modificar el comentario a";
+$langAddComment = "Agregar un comentario";
 $langAddCommentOptionnal = "Añadir un comentario (opcional) :";
 $langAddEvent = "Añadir un evento";
 $langAddEvent = "A&ntilde;adir un evento";
@@ -159,8 +132,8 @@ $langAddExternalTool = "Agregar un enlace externo";
 $langAddForCat = "A&ntilde;adir un foro a la categor&iacute;a";
 $langAddForums = "Para a&ntilde;adir foros, haz click en \"Foros\" en la categor&iacute;a escogida. Una categor&iacute;a que no tenga foros no podr&aacute; ser vista por los estudiantes";
 $langAddImage = "Incluir foto";
-$langAddIntro = "A&ntilde;adir un texto de introducci&oacute;n";
 $langAddIntro = "Añadir texto introductorio";
+$langAddIntro = "A&ntilde;adir un texto de introducci&oacute;n";
 $langAddIntro = "AGREGAR UN TEXTO DE INTRODUCCI&Oacute;N";
 $langAddLoginPass = "Agregar un  login/pass en .htpassword</a><br>";
 $langAddLoginPassForThisUser = "agregar  login  y pass  de la cuenta del campus de este ususario en .htpassword";
@@ -168,11 +141,11 @@ $langAddModifyComment = "Agregar/Modificar un comentario para";
 $langAddModule = "Agregar";
 $langAddModulesButton = "Agregar módulo(s)";
 $langAddNewCourse = "Crear un nuevo curso";
-$langAddNewHeading = "Agregar nuevo encabezado";
 $langAddNewHeading = "Agregar una nueva cabecera ";
+$langAddNewHeading = "Agregar nuevo encabezado";
 $langAddOneModuleButton = "Agregar módulo";
-$langAddPage = "A&ntilde;adir una p&aacute;gina";
 $langAddPage = "A&ntilde;adir p&aacute;gina";
+$langAddPage = "A&ntilde;adir una p&aacute;gina";
 $langAddTutors = "Lista de administraci&oacute;n de usuarios";
 $langAddUser = "Crear un nuevo usuario";
 $langAddUserOneByOne = "Los usuarios nuevos recibiran un e-mail con su nombre de usuario y su contraseña";
@@ -234,7 +207,7 @@ $langAltMoveDown = "Ordenar hacia abajo";
 $langAltMoveUp = "Ordenar hacia arriba";
 $langAltScorm = "Scorm";
 $langAlways = "Siempre";
-$langAmong = "entre";
+$langAmong = "Entre";
 $langAnd = "y";
 $langAnnAdd = "El anuncio ha sido a&ntilde;adido";
 $langAnnDel = "el anuncio ha sido borrado";
@@ -252,12 +225,12 @@ $langAnswers = "Respuestas";
 $langAntique = "Historia de la filosof&iacute;a cl&aacute;sica";
 $langAppliedChange = "Los cambios han sido aplicados a la configuración del usuario";
 $langArchive = "Archivar";
-$langArchiveCourse = "Backup del Curso";
 $langArchiveCourse = "Backup de Curso";
-$langArchiveLocation = "Localizaci&oacute;n del archivo";
+$langArchiveCourse = "Backup del Curso";
 $langArchiveLocation = "Direcci&oacute;n del archivo";
-$langArchiveName = "Nombre del Archivo";
+$langArchiveLocation = "Localizaci&oacute;n del archivo";
 $langArchiveName = "Nombre de archivo";
+$langArchiveName = "Nombre del Archivo";
 $langArchiveNotFound = "El archivo no ha sido encontrado";
 $langArchiveUncompressed = "El archivo ha sido descomprimido e instalado.";
 $langAreYouSureDeleteModule = "Está seguro de querer eliminar este modulo completamente??
@@ -268,9 +241,9 @@ Usted no será capaz de usarlo en ningun seguimiento de aprendizaje.
 Confirmación de la eliminación de : ";
 $langAreYouSureDeleteModule = "Está seguro de querer eliminar este modulo completamente??\n\nSerá eliminado definitivamente del servidor y de cualquier seguimiento de aprendizaje en el que esté.\nUsted no será capaz de usarlo en ningun seguimiento de aprendizaje.\n\nConfirmación de la eliminación de : ";
 $langAreYouSureToDelete = "¿Estas seguro que quieres borrar? ";
-$langAreYouSureToDelete = "¿Está seguro de querer eliminarlo? ";
-$langAreYouSureToDelete = "Está seguro que lo desea eliminar ";
 $langAreYouSureToDelete = "¿Estas seguro que deseas borrar?";
+$langAreYouSureToDelete = "Está seguro que lo desea eliminar ";
+$langAreYouSureToDelete = "¿Está seguro de querer eliminarlo? ";
 $langAreYouSureToDeleteScorm = "Este seguimiento de aprendizaje está basado en una importación de un paquete  SCORM . Si usted elimina este seguimiento, todos los módulos de conformación SCORM y archivos relacionados serán eliminados de la plataforma.  Está seguro que desea eliminar este nombre de learning path ";
 $langAreYouSureToDeleteScormModule = "Está seguro de que desea eliminar este módulo de conformación SCORM?.El módulo no estará disponible nunca más en la plataforma.";
 $langAreYouSureToRemove = "¿Está seguro de que quiere remover este módulo del seguimiento de aprendizaje : ";
@@ -287,49 +260,49 @@ $langAttemptsAllowed = "Tentativas permitidas";
 $langAuthInfo = "Autentificación";
 $langAvailableArchives = "Lista de archivos disponibles";
 $langAvailableFrom = "disponible de";
-$langBUAnnounceInMainBase = "Backup de los datos de los anuncios en la base de datos principal";
 $langBUAnnounceInMainBase = "Backup de los datos de anuncios en la base de datos principal para";
-$langBUCourseDataOfMainBase = "Backup de los datos del curso en la base de datos principal";
+$langBUAnnounceInMainBase = "Backup de los datos de los anuncios en la base de datos principal";
 $langBUCourseDataOfMainBase = "Backup de los datos del curso en la base de datos principal para";
-$langBUUsersInMainBase = "Backup de los datos de los usuarios en la base de datos principal";
+$langBUCourseDataOfMainBase = "Backup de los datos del curso en la base de datos principal";
 $langBUUsersInMainBase = "Backup de los datos de los usuarios en la base de datos principal para";
+$langBUUsersInMainBase = "Backup de los datos de los usuarios en la base de datos principal";
 $langBack = "Regresar";
-$langBack = "Volver a los par&aacute;metros del curso";
 $langBack = "Volver";
+$langBack = "Volver a los par&aacute;metros del curso";
 $langBackAndForget = "Volver y descartar";
 $langBackCat = "volver a las categor&iacute;as";
 $langBackHomeOf = "Volver a la p&aacute;gina principal de ";
-$langBackList = "Volver a la lista";
 $langBackList = "Regresar a la lista";
+$langBackList = "Volver a la lista";
 $langBackModule = "Regresar a la lista";
 $langBackTo = "Regresar a  :";
 $langBackToAdmin = "Regresar a la pagina de administración";
 $langBackToAdmin = "Volver a la página del administrador";
 $langBackToCourseList = "Regresar a la lista de cursos";
-$langBackToCourseList = "Volver a la lista de cursos del usuario";
 $langBackToCourseList = "Volver  a la lista de cursos";
+$langBackToCourseList = "Volver a la lista de cursos del usuario";
 $langBackToEditor = "Regresar al editor";
 $langBackToLPAdmin = "Regresar a la administración del seguimiento de aprendizaje";
 $langBackToList = "Regresar a la lista";
-$langBackToList = "Volver a la lista de usuarios";
 $langBackToList = "Volver a la lista";
+$langBackToList = "Volver a la lista de usuarios";
 $langBackToUserList = "Regresar a la lista de usuarios";
 $langBackToUserSettings = "Volver a la configuración del usuario";
-$langBackToUsersList = "Regresar a la lista de usuarios";
 $langBackToUsersList = "Volver a la lista de usuarios";
+$langBackToUsersList = "Regresar a la lista de usuarios";
 $langBackUser = "Regresar a la lista de usuarios";
 $langBackup = "Backup";
 $langBackupCourse = "Guarda este curso";
 $langBackupOfDataBase = "Backup de la Base de Datos";
-$langBackupSuccesfull = "Backup realizada";
 $langBackupSuccesfull = "Backup realizado con &eacute;xito";
+$langBackupSuccesfull = "Backup realizada";
 $langBackupThisCourse = "Exportar este curso";
 $langBlock = "Bloqueado";
 $langBredCrumpUser = "Usuarios";
 $langBredCrumpUsers = "Usuario";
 $langBrowserCannotSeeFrames = "Su browser no soporta frames.";
-$langBuildTheCompressedFile = "Creaci&oacute;n de backups de los archivos";
 $langBuildTheCompressedFile = "2° - Creaci&oacute;n de un archivo de backup";
+$langBuildTheCompressedFile = "Creaci&oacute;n de backups de los archivos";
 $langByDel = "Si suprime esta web, usted suprimir&aacute; todos los documentos que contiene y desinscribir&aacute; a todos los estudiantes que est&aacute;n inscritos al mismo. <p>Est&aacute; usted seguro de que quiere suprimir el curso";
 $langByUser = "Por el usuario";
 $langCancel = "Cancelar";
@@ -341,16 +314,16 @@ $langCatagoryGroup = "Foros de grupos";
 $langCatagoryMain = "Principal";
 $langCategories = "Crear categoría";
 $langCategories = "Categorias";
-$langCategories = "Categoría de cursos";
 $langCategories = "Categor&iacute;as";
+$langCategories = "Categoría de cursos";
 $langCategory = "Categoria";
 $langCfgSetting = "Par&aacute;metros de Configuraci&oacute;n";
 $langChangeCat = "Cambiar de categor&iacute;a";
 $langChangePwdexp = "Escribe la nueva contraseña dos veces para cambiarla, dejala en blanco para conservar la actual";
 $langChangeRaw = "Cambie los requisitos mínimos para pasar este módulo(en porcentaje) : ";
 $langChangedTool = "El acceso a la herramienta ha cambiado Tool accesses changed";
-$langChat = "Chat";
 $langChat = "Charla";
+$langChat = "Chat";
 $langChat = "Debate";
 $langChatResetBy = "Chat reseteado por";
 $langCheckDatabase = "Revisar la base de datos principal";
@@ -397,20 +370,13 @@ principal del campus (arriba, a la derecha).
 En sus pr&oacute;ximas visitas, escriba el nombre de usuario/clave y pulse
 ENTRAR para acceder a sus cursos. La URL del sitio es";
 $langClearList = "Borrar la lista de eventos";
-$langClose = "Cerrar";
 $langClose = "Cerrar vent&aacute;na";
+$langClose = "Cerrar";
 $langCode = "Código";
 $langCode = "C&oacute;digo del curso";
 $langCodeCanBeEmpty = "Debe llenar el campo codigo de curso";
 $langComMod = "Comentario modificado";
 $langComment = "Comentario";
-$langConfTip = "Por defecto, su curso solamente es accesible
-
-para usted, usted es el &uacute;nico usuario. Si usted desea un m&iacute;nimo de confidencialidad, lo m&aacute;s simple es abrir
-
-la inscripci&oacute;n durante una semana, pedir a los estudiantes que se inscriban ellos mismos,
-
-despu&eacute;s cerrar la inscripci&oacute;n y verificar en la lista de los usuarios lo eventuales intrusos.";
 $langConfTip = "Por defecto, su curso solamente es accesible
 para usted, usted es el &uacute;nico usuario. Si usted desea un m&iacute;nimo de confidencialidad, lo m&aacute;s simple es abrir
 la inscripci&oacute;n durante una semana, pedir a los estudiantes que se inscriban ellos mismos,
@@ -429,13 +395,13 @@ $langConfirmation = "confirmaci&oacute;n";
 $langContenuPlan = "";
 $langContradiction = "Utilizar el principio de no contradicci&oacute;n para llevar al interlocutor a un callej&oacute;n sin salida.";
 $langCopy = "Copiar";
-$langCopyDirectoryCourse = "Copiar los archivos del curso";
 $langCopyDirectoryCourse = "Copia de los archivos del curso";
+$langCopyDirectoryCourse = "Copiar los archivos del curso";
 $langCopyFailed = "Fall&oacute; la impresi&oacute;n";
 $langCopyOnServerBackupRepository = "poner una copia del archivo en el espacio Archivos de la plataforma";
 $langCorrespondsTo = "Corresponde con";
-$langCouldNot = "El archivo no ha podido ser enviado";
 $langCouldNot = "El archivo no puede enviarse";
+$langCouldNot = "El archivo no ha podido ser enviado";
 $langCountCours = "N&uacute;mero de cursos";
 $langCountCourseByFaculte = "N&uacute;mero de cursos por facultad";
 $langCountCourseByLanguage = "N&uacute;mero de cursos por idioma";
@@ -448,32 +414,33 @@ $langCountUsersByStatus = "N&uacute;mero de usuarios por estatus";
 $langCourse = "Curso";
 $langCourse = "El curso ";
 $langCourseAccess = "Acceso a cursos";
-$langCourseAccess = "Acceso a este curso";
 $langCourseAccess = "Acceso al curso";
-$langCourseAdministratorOnly = "S&oacute;lo administrador del curso";
+$langCourseAccess = "Acceso a este curso";
 $langCourseAdministratorOnly = "Solo curos del administrador";
+$langCourseAdministratorOnly = "S&oacute;lo administrador del curso";
 $langCourseContent = "Contenido del Curso";
-$langCourseCreate = "Crear el sitio de un curso";
 $langCourseCreate = "Crear un Curso";
+$langCourseCreate = "Crear el sitio de un curso";
 $langCourseCreator = "Creador de curso";
 $langCourseDelete = "El curso ha sido borrado con éxito";
-$langCourseDescription = "Escriba aqu&iacute; la descripci&oacute;n que aparecer&aacute; en la lista de los cursos";
 $langCourseDescription = "Descripci&oacute;n del Curso";
+$langCourseDescription = "Escriba aqu&iacute; la descripci&oacute;n que aparecer&aacute; en la lista de los cursos";
 $langCourseHome = "Descripción del curso";
 $langCourseHomePage = "P&aacute;gina Principal";
 $langCourseList = "Lista de cursos";
 $langCourseList = "Cursos";
 $langCourseManager = "Coordinador de curso";
-$langCourseManager = "Administrador de curso";
+$langCourseManager = "Responsable del curso";
 $langCourseManager = "Administrador del curso";
 $langCourseManager = "Administrador de cursos";
-$langCourseManager = "Responsable del curso";
+$langCourseManager = "Administrador de curso";
+$langCourseManagerView = "Ver como Coordinador";
 $langCourseProgram = "Descripci&oacute;n del Curso";
 $langCourseProperties = "Propiedades del curso";
 $langCourseSettings = "Configuración del curso";
 $langCourseTitle = "Titulo del curso";
-$langCourseTitle = "Titulado";
 $langCourseTitle = "T&iacute;tulo";
+$langCourseTitle = "Titulado";
 $langCourseWithoutAccess = "Cursos no usados";
 $langCourseWithoutProf = "Cursos sin profesor";
 $langCourseWithoutStudents = "Cursos sin estudiantes";
@@ -490,12 +457,12 @@ $langCreateDir = "Crear un directorio";
 $langCreateDocument = "Crear Documento";
 $langCreateHyperlink = "Crear Hipervínculo";
 $langCreateLabel = "Crear etiqueta";
-$langCreateMissingDirectories = "Creaci&oacute;n de los directorios que faltan";
 $langCreateMissingDirectories = "Creaci&oacute;n de los directorios perdidos";
+$langCreateMissingDirectories = "Creaci&oacute;n de los directorios que faltan";
 $langCreateModifyDocument = "Crear/editar documento";
 $langCreateNewLearningPath = "Crear un nuevo Seguimineto de aprendizaje";
-$langCreateSite = "Crear una web de curso";
 $langCreateSite = "crear una página web de un curso";
+$langCreateSite = "Crear una web de curso";
 $langCreateUser = "Crear usuario";
 $langCreatedIn = "creado en";
 $langCreationDate = "Creado";
@@ -509,29 +476,6 @@ $langDBLogin = "Username de Base de Datos";
 $langDBNamesRules = "Nombres de la base de datos";
 $langDBPassword = "Clave de Base de Datos";
 $langDBSetting = "Par&aacute;metros de BBDD MySQL";
-$langDBSettingNamesIntro = "
-
-				El script  de instalación creará la base de datos principal de Claroline. 
-
-				Usted puede crear una base de datos diferente 
-
-				para el seguimiento y la extención PhpMyAdmin si ustede quiere
-
-				o garantice que todas estas cosas esten en una sola base de datos, tal como lo quiere. 
-
-				Después, Claroline creará una nueva base de datos para cada nuevo curso creado.. 
-
-				También puede especificar el prefijo de estas bases de datos.
-
-				<p>
-
-				Si usted solo está autorizado para usar una sola base de datos, 
-
-				debe volver a la página anteriory seleccionar la opción\"una sola(Single)\"
-
-				</p>
-
-				";
 $langDBSettingNamesIntro = "
 				El script  de instalación creará la base de datos principal de Claroline. 
 				Usted puede crear una base de datos diferente 
@@ -560,8 +504,8 @@ $langDefaultModuleComment = "Este es el texto de introducción de este módulo, Es
 $langDefaultTextInBlanks = "[Los brit&aacute;nicos] viven en el [Reino Unido].";
 $langDefcon = "Vaya, se han detectado casos extra&ntilde;os !!";
 $langDefineBlanks = "Por favor, defina al menos un hueco entre corchetes [...]";
-$langDefineHeadings = "Definir Encabezados";
 $langDefineHeadings = "Definir cabeceras";
+$langDefineHeadings = "Definir Encabezados";
 $langDefineOptions = "Defina las opciones";
 $langDelAdmin = "Este foro se ha creado como ejemplo. Puede modificarlo o eliminarlo";
 $langDelCourse = "Suprimir la web de este curso";
@@ -572,16 +516,16 @@ $langDeleteAttachedFile = "Eliminar el archivo agregado";
 $langDeleteDone = "Estadísticas de cursos eliminada";
 $langDeleteGroups = "Borrar todos los grupos";
 $langDeleteUser = "Borrar usuario";
-$langDeleted = "Borrar";
 $langDeleted = "Eliminado";
+$langDeleted = "Borrar";
 $langDeletedExternalTool = "Herramienta externa eliminada";
 $langDenied = "Cerrada";
 $langDepartment = "Departamento";
-$langDepartmentUrl = "Url";
 $langDepartmentUrl = "URL del Departamento";
+$langDepartmentUrl = "Url";
 $langDepartmentUrlName = "Departamento";
-$langDescription = "Descripci&oacute;n eventual";
 $langDescription = "Descripci&oacute;n";
+$langDescription = "Descripci&oacute;n eventual";
 $langDescriptionCours = "Descripción del curso";
 $langDescriptionCours = "Descripci&oacute;n del Curso";
 $langDetail = "Detalles";
@@ -594,8 +538,8 @@ $langDirMv = "Elemento movido";
 $langDisable = "no permitido";
 $langDiskUsage = "Uso del disco";
 $langDisk_free_space = "espacio libre";
-$langDoc = "Documentaci&oacute;n";
 $langDoc = "Documentos";
+$langDoc = "Documentaci&oacute;n";
 $langDocContent = "<p>El m&oacute;dulo de gesti&oacute;n de documentos funciona de manera semejante a la gesti&oacute;n de sus documentos en un ordenador. </p><p>Usted puede introducir documentos de todo tipo (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Tenga en cuenta, sin embargo, que los estudiantes dispongan de las herramientas apropiadas para poder consultarlos. Tenga tambi&eacute;n cuidado de no enviar 
   documentos infectados con virus. Es conveniente comprobar primero con un programa antivirus que los documentos
 no est&eacute;n infectados antes de colocarlos en el curso.</p>
@@ -687,8 +631,8 @@ no est&eacute;n infectados antes de colocarlos en el curso.</p>
 	  <p>";
 $langDocDeleted = "Document borrado";
 $langDocInsertedAsModule = "ha sido agregado como módulo";
-$langDocument = "Documento";
 $langDocument = "Documentos";
+$langDocument = "Documento";
 $langDocumentAlreadyUsed = "Este documento está siendo utilizado como módulo en este seguimiento de aprendizaje";
 $langDocumentAsModule = "Use un documento";
 $langDocumentContent = "Contenido del documento: ";
@@ -706,8 +650,8 @@ $langDownload = "Descargar";
 $langDownloadAttachedFile = "Bajar el archivo agregado";
 $langEXERCISETypeDesc = "Ejercicios de Claroline";
 $langEdit = "Editar cuenta";
-$langEdit = "Modificar";
 $langEdit = "Editar";
+$langEdit = "Modificar";
 $langEditAnswers = "Editar respuestas";
 $langEditCourseProgram = "Crear y editar con formularios";
 $langEditDel = "editar/borrar";
@@ -720,8 +664,8 @@ $langEditToolList = "Editar lista herramientas";
 $langElRen = "Elemento re nombrado";
 $langElementList = "Lista de elementos";
 $langEmail = "E-mail";
-$langEmail = "Correo Electr&oacute;nico";
 $langEmail = "Correo electrónico";
+$langEmail = "Correo Electr&oacute;nico";
 $langEmailAddressNotFound = "No existe la cuenta de usuario con este e-mail.";
 $langEmailCanBeEmpty = "Email field need to be filled";
 $langEmailNotSent = "Si algo no funciona, envie un correo a";
@@ -729,15 +673,9 @@ $langEmailOption = "Envia este anuncio por email a los estudiantes registrados";
 $langEmailSent = "y enviado a los estudiantes registrados";
 $langEmailWrong = "La dirección de e-mail no es valida";
 $langEmailWrong = "La direcci&oacute;n de correo electr&oacute;nico que ha escrito est&aacute; incompleta o
-
 contiene caracteres inv&aacute;lidos";
 $langEmailWrong = "Email incorrecto";
-$langEmailWrong = "La direcci&oacute;n de correo electr&oacute;nico que ha escrito est&aacute; incompleta o
-contiene caracteres inv&aacute;lidos";
 $langEmptyAnn = "Borrar todos los anuncios";
-$langEmptyFields = "No ha llenado todos los campos.
-
-Use el bot&oacute;n de Regresar del navegador y vuelva a intentarlo.";
 $langEmptyFields = "No ha llenado todos los campos.
 Use el bot&oacute;n de Regresar del navegador y vuelva a intentarlo.";
 $langEmtpyGroups = "Vaciar todos los grupos";
@@ -748,8 +686,8 @@ $langEnrollAsStudent = "Inscribirse como estudiante";
 $langEnrollAsTeacher = "Inscribirse como Profesor";
 $langEnrollToNewCourse = "Inscribir a un curso";
 $langEnrollUser = "Inscribir un usuario";
-$langEnter = "Entrar en el curso";
 $langEnter = "Entrar";
+$langEnter = "Entrar en el curso";
 $langEnter2passToChange = "Ingrese su clave de acceso dos veces para que pueda ser cambiada o dejelo vacío si quiere conservar el actual";
 $langEnterMail = "Introduzca su e-mail para que se le envíe a ese correo su clave de acceso.";
 $langErrorAssetNotFound = "Asset not found : ";
@@ -777,8 +715,8 @@ $langExeTime = "Tiempo (s.)";
 $langExercice = "Ejercicio";
 $langExerciceEx = "Ejemplo de ejercicio";
 $langExercices = "Ejercicios";
-$langExercise = "Ejercicio";
 $langExercise = "Ejercicios";
+$langExercise = "Ejercicio";
 $langExerciseAsModule = "Use un ejercicio";
 $langExerciseCancelled = "Ejercicio cancelado,por favor elija un módulo en la lista para continuar.";
 $langExerciseClosing = "Ejercicio cerrado";
@@ -887,9 +825,9 @@ $langExistingGroups = "Grupos";
 $langExpectedChoice = "Elecci&oacute;n esperada";
 $langExpirationDate = "Finalizado";
 $langExpire = "Fecha de caducidad";
-$langExplanation = "Esta p&aacute;gina debe estar en formato HTML (por ejemplo \"mi_pagina.htm\"). Aparecer&aacute; el enlace en la p&aacute;gina principal de su curso. Si usted desea enviar un documento que no est&eacute; en formato HTML (PDF, Power Point, Word...) utilice la funci&oacute;n <a href=../document/document.php> Documentos</a>";
-$langExplanation = "Una vez que usted haya pulsado OK, ser&aacute; creada una web que incluir&aacute; Foro, Lista de enlaces, Ejercicios, Agenda, Lista de documentos... Por medio de su c&oacute;digo de identificaci&oacute;n, usted podr&aacute; modificar su contenido";
 $langExplanation = "La p&aacute;gina debe estar en formato HTML (e.g. \"my_page.htm\"). Se enlazar&aacute; a la p&aacute;gina inicial. Si quieres enviar documentos que no sean HTML (PDF, Word, Power Point, Video, etc.) utiliza la <a href=../document/document.php>herramienta Documentos</a>";
+$langExplanation = "Una vez que usted haya pulsado OK, ser&aacute; creada una web que incluir&aacute; Foro, Lista de enlaces, Ejercicios, Agenda, Lista de documentos... Por medio de su c&oacute;digo de identificaci&oacute;n, usted podr&aacute; modificar su contenido";
+$langExplanation = "Esta p&aacute;gina debe estar en formato HTML (por ejemplo \"mi_pagina.htm\"). Aparecer&aacute; el enlace en la p&aacute;gina principal de su curso. Si usted desea enviar un documento que no est&eacute; en formato HTML (PDF, Power Point, Word...) utilice la funci&oacute;n <a href=../document/document.php> Documentos</a>";
 $langExternalToolName = "Nombre del enlace";
 $langExternalToolUrl = "URL del enlace";
 $langFac = "facultad";
@@ -946,10 +884,10 @@ discusi&oacute;n en un espacio p&uacute;blico o semi-p&uacute;blico.
       en relaci&oacute;n al contenido o en relaci&oacute;n a la herramienta'.";
 $langForName = "Nombre del foro";
 $langForce = "Forzar  al interlocutor, por medio de una serie de cuestiones y subcuestiones, a que reconozca que no sabe lo que pretende saber.";
-$langFormula = "Cordialmente";
 $langFormula = "Cordialmente, vuestro profesor";
-$langForum = "Foros";
+$langFormula = "Cordialmente";
 $langForum = "Foro";
+$langForum = "Foros";
 $langForumContent = "Contenido del Foro";
 $langForumGroup = "Foro del grupo";
 $langForumModified = "El foro ha sido modificado";
@@ -973,8 +911,8 @@ $langGoBackToQuestionList = "Volver a la lista de preguntas";
 $langGoBackToQuestionPool = "Volver al grupo de preguntas";
 $langGoToMainUserSettings = "Ir al menu principal de configuración de usuario";
 $langGoToUserSettings = "Ir a la configuración de usuario";
-$langGroup = "Grupo";
 $langGroup = "Grupos";
+$langGroup = "Grupo";
 $langGroupAllowStudentRegistration = "Se permite a los estudiantes inscribirse en el grupo que quieran";
 $langGroupContent = "<p><b>Introducci&oacute;n</b></p>
 <p>Esta herramienta permite crear y gestionar grupos de trabajo.
@@ -1021,8 +959,8 @@ $langGroupDocument = "Documentos";
 $langGroupDocumentAlwaysPrivate = "(Siempre privado)";
 $langGroupDocumentsLink = "Documentos del grupo";
 $langGroupFilledGroups = "Se han rellenado (o completado) los grupos con los estudiantes que aparecen en la lista de 'Usuarios'.";
-$langGroupForum = "Foro";
 $langGroupForum = "Foros de Grupos";
+$langGroupForum = "Foro";
 $langGroupForumContent = "Contenido de los foros de los grupos";
 $langGroupForumStructure = "Nombre de los foros de los grupos y sus categor&iacute;as ";
 $langGroupLimit = "Límite";
@@ -1039,17 +977,14 @@ $langGroupPropertiesModified = "Se han modificado las Caracter&iacute;sticas del
 $langGroupSelfRegInf = "registrar";
 $langGroupSelfRegistration = "Registro";
 $langGroupSettingsModified = "Caracter&iacute;sticas del grupo modificadas";
-$langGroupSpace = "&Aacute;rea del Grupo";
 $langGroupSpace = "Area de Grupo";
-$langGroupSpaceLink = "&Aacute;rea del grupo";
+$langGroupSpace = "&Aacute;rea del Grupo";
 $langGroupSpaceLink = "Area de Grupo";
+$langGroupSpaceLink = "&Aacute;rea del grupo";
 $langGroupStructure = "Estructura de Grupos";
 $langGroupStudentsInGroup = "estudiantes registrados en grupos";
 $langGroupStudentsRegistered = "estudiantes registrados en este curso";
 $langGroupThisSpace = "&Aacute;rea para este grupo";
-$langGroupTooMuchMembers = "El n&uacute;mero propuesto excede el m&aacute;ximo que Vd. autoriza (puede modificarlo abajo). 
-
-				La composici&oacute;n del grupo no se ha modificado";
 $langGroupTooMuchMembers = "El n&uacute;mero propuesto excede el m&aacute;ximo que Vd. autoriza (puede modificarlo abajo). 
 				La composici&oacute;n del grupo no se ha modificado";
 $langGroupTools = "Herramientas";
@@ -1074,13 +1009,13 @@ $langHHome = "Ayuda p&aacute;gina principal";
 $langHUser = "Ayuda usuarios";
 $langHasDel = "ha sido suprimido";
 $langHeading = "T&iacute;tulo";
-$langHelp = "ayuda";
+$langHelp = "Ayuda";
 $langHelpGroups = "Ayuda de Grupos";
 $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Aquí usted puede modificar el contenido de la zona de texto que se muestra en la página principal de la plataforma.";
 $langHigh_resources = "high resources";
 $langHits = "Accesos";
-$langHome = "Regresar a la p&aacute;gina de inicio";
 $langHome = "Volver a la p&aacute;gina principal";
+$langHome = "Regresar a la p&aacute;gina de inicio";
 $langHomeContent = "La mayor&iacute;a de las rúbricas de iCampus est&aacute;n ya rellenadas con un corto texto o por un enlace dados por defecto, o por un ejemplo. A usted le corresponde el modificarlos.</p><p>As&iacute aparece un texto corto, bien a la vista, en la cabecera de vuestra web.  'Este es el texto de introducci&oacute;n de vuestra web...' Modif&iacute;quelo y aproveche para describir su curso, vuestros objectivos, vuestros dispositivos. Es importante para la correcta presentaci&oacute;n de vuestro trabajo.</p><p>En el momento de la creaci&oacute;n de vuestra web, numerosas herramientas (Agenda, documentos, ejercicios...) se activan para usted por defecto. Es aconsejable desactivar aquellas que usted no utilice con el fin de no hacer perder el tiempo a sus usuarios o a sus visitantes.</p><p>Usted puede tambi&eacute;n a&ntilde;adir p&aacute;ginas a la p&aacute;gina principal. Utilice la funci&oacute;n 'a&ntilde;adir p&aacute;gina' para a&ntilde;adir una p&aacute;gina y enviarla al servidor. Si por el contrario usted quiere enlazar con una p&aacute;gina o web ya existente, utilice la funci&oacute;n 'Enlace a la web'. Las p&aacute;ginas y enlaces que usted a&ntilde;ada a la p&aacute;gina principal pueden ser desactivadas y luego suprimidas, a diferencia de las herramientas existentes por defecto, las cuales pueden ser desactivadas, pero no suprimidas.</p><p>Tambi&eacute;n le corresponde a usted el decidir si su curso debe aparecer en la lista de los cursos. Es aconsejable que un curso en fase de pruebas o 'en obras' no aparezca en la lista (ver la funci&oacute;n 'Modificar informaci&oacute;n sobre el curso') y permanezca privado sin posibilidad de inscribirse en el durante &eacute;l tiempo de su creaci&oacute;n.</p>";
 $langHomePageTextZone = "Zonas de texto en la pagina de principal";
 $langHomePageTextZone = "Zona de texto de la página principal";
@@ -1104,43 +1039,18 @@ $langInstalled = "Se ha importado exitosamente el seguimiento de aprendizaje.";
 $langInstituteName = "URL de la Instituci&oacute;n";
 $langInstituteShortName = "Acrónimo de la Instituci&oacute;n";
 $langIntroCourse = "Usted está en la página principal de los cursos.<br><br>En esta página , Usted puede :
-
-<li class=HelpText>Activar o desactivar herramientas(Presionar en el 'Editar lista herramientas' botón del lado inferior izquierdo).
-
-<li class=HelpText>Cambiar la configuración o ver las estadisticas(Presionar el correspondiente enlace de la parte inferior).<BR><BR>
-
-Ahora, para agregar un texto introductorio para presentar su curso a sus estudiantes, presione este botón";
-$langIntroCourse = "Usted está en la página principal de los cursos.<br><br>En esta página , Usted puede :
 <li class=HelpText>Activar o desactivar herramientas(Presionar en el 'Editar lista herramientas' botón del lado inferior izquierdo).
 <li class=HelpText>Cambiar la configuración o ver las estadisticas(Presionar el correspondiente enlace de la parte inferior).<BR><BR>
 Ahora, para agregar un texto introductorio para presentar su curso a sus estudiantes, presione este botón";
-$langIntroEditToolList = "Seleccionar la herramienta que quiere que los usuarios puedan ver.
-
-La herramienta invisible será vista en forma difuminada en su interfaz personal";
 $langIntroEditToolList = "Seleccionar la herramienta que quiere que los usuarios puedan ver.
 La herramienta invisible será vista en forma difuminada en su interfaz personal";
 $langIntroLearningPath = "Use esta herramienta para proveera sus estudiantes un seguimiento secuencial entre documentos, ejercicios, paginas HTML, ligas,...<br><br>Si usted desea mostrar su seguimiento de aprendizaje a los estudiantes, Presione el boton de abajo.<br>";
 $langIntroStep1 = "<p>La <em>herramienta de actualización de Claroline</em> está a punto de actualizar la configuración principal. 
-
                 Esta configuración será guardada dentro de claroline/include/config.inc.php dentro de la versión anterior de su plataforma.</p>";
-$langIntroStep1 = "<p>La <em>herramienta de actualización de Claroline</em> está a punto de actualizar la configuración principal. 
-                Esta configuración será guardada dentro de claroline/include/config.inc.php dentro de la versión anterior de su plataforma.</p>";
-$langIntroStep2 = "<p>Ahora, la <em>herramienta de actualización de Claroline</em> está a punto de actualizar los datos guardados dentro de las tablas principales de Claroline  
-
-                    (usuarios, categorías de cursos, lista de herramienta, ...) y las hará compatibles con la nueva versión de Claroline.</p>
-
-                   <p class=\"help\">Nota: Dependiendo de la velocidad del servidor esta tarea podría tomar algún tiempo  
-
-                   en ser ejecutada.</p>";
 $langIntroStep2 = "<p>Ahora, la <em>herramienta de actualización de Claroline</em> está a punto de actualizar los datos guardados dentro de las tablas principales de Claroline  
                     (usuarios, categorías de cursos, lista de herramienta, ...) y las hará compatibles con la nueva versión de Claroline.</p>
                    <p class=\"help\">Nota: Dependiendo de la velocidad del servidor esta tarea podría tomar algún tiempo  
                    en ser ejecutada.</p>";
-$langIntroStep3 = "<p>Ahora, la <em>herramienta de actualización de Claroline </em> está a punto de actualización los datos de los cursos(directorios y tablas de la base de dato) uno por uno.
-
-                   <p class=\"help\">Nota: Dependiendo de la velocidad del servidor esta tarea podría tomar algún tiempo
-
-                    en ser ejecutada.</p>";
 $langIntroStep3 = "<p>Ahora, la <em>herramienta de actualización de Claroline </em> está a punto de actualización los datos de los cursos(directorios y tablas de la base de dato) uno por uno.
                    <p class=\"help\">Nota: Dependiendo de la velocidad del servidor esta tarea podría tomar algún tiempo
                     en ser ejecutada.</p>";
@@ -1151,9 +1061,6 @@ $langIntroText = "Para enviar un mensaje, Seleccione un grupo de ususs (marcado 
 
  o a un solo usuario de la lista de la izquierda.";
 $langIntroWork = "En esta pagina se permite a cualquier estudiante o grupo subir un documento al sitio web de los cursos <br>Solo se debe enviar un documento HTML siempre y cuando este no tenga imágenes.<br><br>Si usted desea presentar esta herramienta o dar algún tipo de indicaciones a los estudiantes, haga click en el botón que esta abajo.<br>";
-$langInvalidId = "Login no v&aacute;lido. Si no est&aacute; inscrito,
-
-rellene el <a href='claroline/auth/inscription.php'>formulario de inscripci&oacute;n</a></font color>";
 $langInvalidId = "Login no v&aacute;lido. Si no est&aacute; inscrito,
 rellene el <a href='claroline/auth/inscription.php'>formulario de inscripci&oacute;n</a></font color>";
 $langIs = "es";
@@ -1169,8 +1076,8 @@ $langLast7Days = "En los &uacute;ltimos 7 d&iacute;as";
 $langLastAccess = "Ultimo acceso";
 $langLastAttempt = "Último intento";
 $langLastCheck = "&Uacute;ltima comprobaci&oacute;n antes de instalar";
-$langLastEdit = "&Uacute;ltima contribuci&oacute;n";
 $langLastEdit = "&Uacute;ltima edici&oacute;n";
+$langLastEdit = "&Uacute;ltima contribuci&oacute;n";
 $langLastMsg = "&Uacute;ltimo mensaje";
 $langLastName = "Apellido";
 $langLastSessionTimeSpent = "Tiempo de la ultima sesión";
@@ -1184,27 +1091,27 @@ $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Actualizar lo
 $langLearnPathDetails = "Progreso en el seguimiento de aprendizaje";
 $langLearningPath = "Seguimiento de aprendizaje";
 $langLearningPathAdmin = "Administrador de seguimiento de aprendizaje";
-$langLearningPathList = "Lista de Seguimientos de aprendizajes";
 $langLearningPathList = "Lista seguimiento de aprendizaje ";
+$langLearningPathList = "Lista de Seguimientos de aprendizajes";
 $langLearningPathName = "Nuevo nombre del seguimiento de aprendizaje : ";
 $langLessAnswers = "-answ";
 $langLessElements = "-elem";
-$langLessonStatus = "Estado";
 $langLessonStatus = "Estado del módulo";
+$langLessonStatus = "Estado";
 $langLicence = "Licencia";
-$langLine = "l&iacute;nea";
 $langLine = "linea";
-$langLineNumber = "N&uacute;mero de l&iacute;neas";
+$langLine = "l&iacute;nea";
 $langLineNumber = "Número de línea";
-$langLineOrLines = "l&iacute;nea(s)";
+$langLineNumber = "N&uacute;mero de l&iacute;neas";
 $langLineOrLines = "linea(s)";
-$langLines = "l&iacute;neas";
+$langLineOrLines = "l&iacute;nea(s)";
 $langLines = "lineas";
+$langLines = "l&iacute;neas";
 $langLink = "Ligas";
-$langLink = "Enlaces";
 $langLink = "Enlace";
-$langLinkSite = "Enlace a una web";
+$langLink = "Enlaces";
 $langLinkSite = "A&ntilde;adir un enlace a  la web en la p&aacute;gina principal";
+$langLinkSite = "Enlace a una web";
 $langLinks = "Enlaces";
 $langListAdmin = "Lista de ususarios administradores";
 $langListAllUsers = "Lista de todos los usuarios";
@@ -1225,48 +1132,11 @@ $langLoginsDetails = "Pulsa en el mes para ver m&aacute;s detalles";
 $langLoginsTitleCountColumn = "N&uacute;mero de logins";
 $langLoginsTitleMonthColumn = "Mes";
 $langLogout = "Salir";
-$langLostPassword = "Clave de acceso olvidada";
 $langLostPassword = "Recordar Contrase&ntilde;a";
+$langLostPassword = "Clave de acceso olvidada";
 $langMailTo = "Mail to : ";
 $langMainDB = "BBDD Principal de Claroline";
 $langMaintenance = "Mantenimiento";
-$langMakeABackupBefore = "<p>La <em>Herramienta de Actualización de Claroline</em> respaldará los datos de la versión anterior de la instalación de Claroline
-
-y los hará compatibles con la nueva versión de Claroline. Esta actualización se realizará en 3 pasos:</p>
-
-
-<ol>
-
-
-<li>Obtendrá su configuración previa de Claroline y las pondrá en los nuevos archivos de configuración</li>
-
-
-<li>Hará que las tablas de claroline (usuario, cursos categorías, listas de cursos, ...) para hacerlos compatible con la nueva estructura de datos.</li>
-
-
-<li>Actualizará uno por uno cada datos del curso (directorios, tablas de la base de datos, ...)</li>
-
-
-</ol>
-
-
-<p>Antes de proceder con la actualización:</p>
-
-
-<table>
-
-<tbody>
-
-<tr valign=\"top\"><td>-</td><td>Respalde Todos sus datos de toda su plataforma (Archivos y bases de datos)</td><td>%s</td></tr>
-
-
-</tbody>
-
-</table>
-
-<p>A usted no se le permitirá comenzar con el proceso de actualización mientras no haya marcado este punto como 'Echo'.</p>
-
-";
 $langMakeABackupBefore = "<p>La <em>Herramienta de Actualización de Claroline</em> respaldará los datos de la versión anterior de la instalación de Claroline
 y los hará compatibles con la nueva versión de Claroline. Esta actualización se realizará en 3 pasos:</p>
 
@@ -1297,8 +1167,8 @@ $langMakeNewSearch = "Realizar una nueva busqueda: ";
 $langMakeSearch = "Realizar busqueda";
 $langMakeVisible = "Hacer visible";
 $langManage = "Administrar Campus";
-$langManage = "Administración de Campus";
 $langManage = "Administración del Campus";
+$langManage = "Administración de Campus";
 $langManageCourseCategories = "Administrar las categorias de los cursos";
 $langManager = "Coordinador";
 $langManager = "Responsable";
@@ -1306,9 +1176,9 @@ $langManyAnswers = "(varias respuestas correctas son posibles)";
 $langMatching = "Relacionar";
 $langMax = "max.";
 $langMaxAllowedTime = "Tiempo máximo permitido";
-$langMaxFileSize = "Tamaño Máximo de archivo : ";
-$langMaxFileSize = "El tamaño maximo es: ";
 $langMaxFileSize = "El tamaño máximo del archivo es";
+$langMaxFileSize = "El tamaño maximo es: ";
+$langMaxFileSize = "Tamaño Máximo de archivo : ";
 $langMaxSizeCourseCode = "max. 12 caracteres, p. ej.<i>ROM2121</i>";
 $langMaxStudentGroup = "Máximo de estudiantes por grupo";
 $langMaximum = "Máximo : ";
@@ -1332,8 +1202,8 @@ $langModifyInAllExercises = "en todos los ejercicios";
 $langModifyInThisExercise = "solamente en este ejercicio";
 $langModifyProfile = "Modificar mis datos";
 $langModifyProfile = "Modificar mi perfil";
-$langModule = "Módulo";
 $langModule = "Modulos";
+$langModule = "Módulo";
 $langModuleMoved = "modulo removido";
 $langModuleOfMyCourse = "Use  un módulo de este curso";
 $langModuleStillInPool = "los módulos de este seguimiento seguirán disponibles en el repositorio de módulos";
@@ -1345,11 +1215,11 @@ $langMoreAnswers = "+answ";
 $langMoreElements = "+elem";
 $langMove = "Mover";
 $langMove = "Cambiar el padre";
-$langMoveDown = "Descargar";
-$langMoveDown = "Mover hacia abajo";
 $langMoveDown = "Bajar";
-$langMoveUp = "Subir";
+$langMoveDown = "Mover hacia abajo";
+$langMoveDown = "Descargar";
 $langMoveUp = "Mover hacia arriba";
+$langMoveUp = "Subir";
 $langMultipleEmails = "Cuentas con el mismo <i>Correo-e</i>";
 $langMultipleLogins = "Cuentas con el mismo <i>Nombre de Usuario</i>";
 $langMultipleSelect = "Elecci&oacute;n m&uacute;ltiple (M&uacute;ltiples respuestas)";
@@ -1434,8 +1304,8 @@ $langNowGoCreateYourCourse = "ahora puedes ir a crear tu curso";
 $langNumGroup = "Cantidad de grupos por cursos";
 $langNumGroupStudent = "cantidad de equipos de estudiantes pueden inscribirse en este curso";
 $langOfficialCode = "Código Administrativo";
+$langOk = "Aceptar";
 $langOk = "validar";
-$langOk = "aceptar";
 $langOkChapterHeadAdded = "Titulo agregado : ";
 $langOkDefaultCommentUsed = "Advertencia : La instalación no puede encontrar la descripción del  learning path y se ha dejado un comentario por defecto. ¿quiere cambiarlo?.";
 $langOkDefaultTitleUsed = "Advertencia : La instalación no puede encontrar el nombre del learning path y se ha dejado un nombre por defecto. ¿quiere cambiarlo?.";
@@ -1462,9 +1332,6 @@ $langOtherProperties = "Otras propiedades del archivo";
 $langOtherWorks = "Otras funciones";
 $langPassTooEasy = "esta contrase&ntilde;a es demasiado simple. Use una como esta";
 $langPassTwice = "No ha escrito la misma clave de acceso dos veces.
-
-Use el bot&oacute;n de Regresar del navegador y vuelva a intentarlo.";
-$langPassTwice = "No ha escrito la misma clave de acceso dos veces.
 Use el bot&oacute;n de Regresar del navegador y vuelva a intentarlo.";
 $langPassTwo = "Usted no ha escrito la misma clave de acceso dos veces";
 $langPassword = "password";
@@ -1482,11 +1349,6 @@ $langPeriodWeek = "Semana";
 $langPeriodYear = "A&ntilde;o";
 $langPersoValue = "Valores";
 $langPersonalCourseList = "Lista de miembros del curso";
-$langPersonalSettings = "Sus datos personales han sido registrados y ha sido enviado un correo electr&oacute;nico a su buz&oacute;n
-
-para recordarle su nombre de usuario y su clave de acceso.</p>
-
-Seleccione de la lista los cursos a los que desea tener acceso.";
 $langPersonalSettings = "Sus datos personales han sido registrados y ha sido enviado un correo electr&oacute;nico a su buz&oacute;n
 para recordarle su nombre de usuario y su clave de acceso.</p>
 Seleccione de la lista los cursos a los que desea tener acceso.";
@@ -1520,8 +1382,8 @@ $langPrivateAccess = "Acceso privado, inscripci&oacute;n cerrada (web reservada 
 $langPrivateOnly = "Curso privado únicamente";
 $langProblem = "En caso de tener algún problema, no dude en contactarnos.";
 $langProfessor = "Profesor";
-$langProfessors = "Titular(es)";
 $langProfessors = "Titulares";
+$langProfessors = "Titular(es)";
 $langProfileReg = "Su nuevo perfil de usuario ha sido guardado";
 $langProgInModuleTitle = "Su progreso en este modulo";
 $langProgress = "Progreso";
@@ -1560,9 +1422,9 @@ $langRegisterTheNewUser = "Registrar este usuario al curso";
 $langRegisterUser = "Inscribir a curso";
 $langRegistered = "Registrado";
 $langRegistration = "Inscripci&oacute;n";
-$langRemove = "borrar";
-$langRemove = "Suprimir";
 $langRemove = "Eliminar";
+$langRemove = "Suprimir";
+$langRemove = "borrar";
 $langRemoveAdminLevel = "Ya no es Administrador";
 $langRemoveFromLPShort = "Remover";
 $langRename = "Renombrar";
@@ -1571,14 +1433,11 @@ $langReply = "Responder";
 $langRequired = "Requerido";
 $langRequirements = "Requisitos";
 $langResetChat = "Resetear";
-$langRestore = "Recuperar";
 $langRestore = "Restaurar";
+$langRestore = "Recuperar";
 $langRestoreACourse = "Lista de cursos";
 $langRestoreACourse = "Restablecer un curso";
 $langRestoreCourse = "Restore a course";
-$langRestoreDescription = "El curso está en archivo archivado el cual puede seleccionar abajo.<br><br>
-
-Cuando presione en &quot;Restore&quot;, El archivo será descomprimido y el curso recreado.";
 $langRestoreDescription = "El curso está en archivo archivado el cual puede seleccionar abajo.<br><br>
 Cuando presione en &quot;Restore&quot;, El archivo será descomprimido y el curso recreado.";
 $langRestoreNotice = "Este script no permite ahun recobrar automaticamente a los usuarios, pero los datos guardados en &quot;users.csv&quot; son sificientes como para que el administrador pueda hacer el trabajo manualmente.";
@@ -1587,8 +1446,8 @@ $langResult = "Resultado";
 $langReturnSearchUser = "Volver a usuarios";
 $langReuse = "Reutilizar";
 $langRidiculise = "Ridiculizar al interlocutor para hacerle admitir su error.";
-$langRole = "Papel (Rol)";
 $langRole = " Papel (Rol)";
+$langRole = "Papel (Rol)";
 $langRoot = "root";
 $langSCORMTypeDesc = "Contenido del SCORM 1.2 conformant ";
 $langSampleDocument = "documento_ejemplo";
@@ -1596,17 +1455,14 @@ $langSampleDocumentDesc = "Usted puede usar cualquier documento existente en la 
 $langSampleExerciseDesc = "Usted puede usar cualquier ejercicio que esté en la herramienta de ejerciciosde su curso.";
 $langSampleLearnPath = "Ejemplo de un seguimiento de aprendizaje";
 $langSampleLearnPathDesc = "Este es un ejemplo de un seguimiento de aprendizaje, este es usado en el ejercicio de muestra y el documento de muestra de la herramienta de ejercicios y la herramienta de documentos. presionar 
-
-                            <b>Modificar</b> Para cambiar este texto.";
-$langSampleLearnPathDesc = "Este es un ejemplo de un seguimiento de aprendizaje, este es usado en el ejercicio de muestra y el documento de muestra de la herramienta de ejercicios y la herramienta de documentos. presionar 
                             <b>Modificar</b> Para cambiar este texto.";
 $langSave = "Salvar";
 $langSave = "Archivar";
 $langSaveChanges = "Salvar cambios";
 $langSaveContentDoc = "Documentos";
 $langSaveSubscription = "Usuarios registrados en el curso y grupos ";
-$langScore = "Puntuación";
 $langScore = "Puntuaci&oacute;n";
+$langScore = "Puntuación";
 $langScoreAvg = "Promedio";
 $langScoreMax = "Máximo";
 $langScoreMin = "Mínimo";
@@ -1626,8 +1482,8 @@ $langSeebelowthefilesyoucaneditfromthistool = "Los arhcivos que están debajo son
 $langSeen = "Visto";
 $langSelectAUser = "Elejir usuario";
 $langSelectedUsers = "Usuario selecionado";
-$langSendPage = "Enviar P&aacute;gina";
 $langSendPage = "P&aacute;gina a enviar";
+$langSendPage = "Enviar P&aacute;gina";
 $langSequentialExercise = "Una pregunta por p&aacute;gina (secuencial)";
 $langSetAdmin = "Set Admin";
 $langSettings = "con los parámetros siguientes:
@@ -1639,16 +1495,16 @@ $langShowAnswers = "Mostrar respuesta";
 $langShowNone = "Mostrar ninguno";
 $langSimpleExercise = "En una &uacute;nica p&aacute;gina";
 $langSize = "Tamaño";
-$langSizeOf = "tamaño de";
 $langSizeOf = "Tama&ntilde;o de";
+$langSizeOf = "tamaño de";
 $langSize_of_claroline_scripts = " Tamaño del script de Claroline";
 $langSize_of_course_repository = "!!!! Tamaño del repositorio del curso(Incluye claroline y basura en el sistema anitguo)";
 $langSize_of_selected_courses = "Tamaño de los cursos seleccionados";
 $langSocraticIrony = "La iron&iacute;a socr&aacute;tica consiste en...";
 $langStartModule = "Comenzar módulo";
 $langStatDB = "BBDD de Seguimiento. &Uacute;si s&oacute;lo si hay varias BBDD";
-$langStatistics = "Estadisticas";
 $langStatistics = "Estad&iacute;sticas";
+$langStatistics = "Estadisticas";
 $langStatsOfCampus = "Estad&iacute;sticas del campus";
 $langStatsOfCourse = "Estad&iacute;sticas del curso";
 $langStatsOfExercise = "Estadística de ejercicios";
@@ -1660,6 +1516,7 @@ $langStoreChat = "Recuperar Chat";
 $langStrangeCases = "Casos extra&ntilde;os";
 $langStudent = "Estudiante";
 $langStudent = "Estudiantes";
+$langStudentView = "Ver como estudiante";
 $langStudents = "Students";
 $langStudentsNotInThisGroups = "Usuarios no están en este grupo.";
 $langSubTitle = "A&ntilde;adir al menu principal de su p&aacute;gina principal un enlace a una p&aacute;gina, en el interior o exterior de su web";
@@ -1692,29 +1549,24 @@ $langThisday = "Este d&iacute;a";
 $langTimeInLearnPath = "Tiempo en el Seguimiento de aprendizaje";
 $langTimeOver = "El tiempo ha acabado, los resultados no son enviados.";
 $langTipLang = "Este lenguaje ser&aacute; v&aacute;lido para todos los visitantes de la web de su curso.";
-$langTitle = "T&iacute;tulo";
 $langTitle = "Titulo";
-$langTitleUpgrade = "<h2>Herramienta de Actualización de Claroline<br />
-
-
-                     de 1.4.* a 1.5</h2>
-";
+$langTitle = "T&iacute;tulo";
 $langTitleUpgrade = "<h2>Herramienta de Actualización de Claroline<br />
 
                      de 1.4.* a 1.5</h2>
 ";
 $langTitular = "Titular";
 $langTitular = "Autor";
-$langTo = "para";
 $langTo = "a";
+$langTo = "para";
 $langToCourseSettings = "Volver a configuración de cursos";
 $langToDate = "a";
 $langToday = "Hoy";
-$langTodo = "Pasos por hacer (Steps todo)";
 $langTodo = "Sugerencias";
-$langTooBig = "No ha elegido el archivo a enviar o el archivo es demasiado grande.";
-$langTooBig = "No has seleccionado el archivo a enviar, o es demasiado grande";
+$langTodo = "Pasos por hacer (Steps todo)";
 $langTooBig = "Usted no ha seleccionado ning&uacute;n archivo para enviar o el archivo es demasiado grande";
+$langTooBig = "No has seleccionado el archivo a enviar, o es demasiado grande";
+$langTooBig = "No ha elegido el archivo a enviar o el archivo es demasiado grande.";
 $langTool = "Herramienta";
 $langToolList = "Lista de Todas las Herramientas";
 $langToolTitleCountColumn = "Clics Totales";
@@ -1769,9 +1621,6 @@ $langUploadAndZipEnd = "Archivo comprimido subido y descomprimido correctamente"
 $langUploadEnd = "La acción se completo con exito";
 $langUploadFile = "Subir un archivo";
 $langUseOfPool = "Esta página le permite ver todos los módulos disponibles en este curso. <br>
-
-                     Cualquier ejercicio o documento que ha sido añadido al seguimiento de aprendizaje también aparecerá en esta lista.";
-$langUseOfPool = "Esta página le permite ver todos los módulos disponibles en este curso. <br>
                      Cualquier ejercicio o documento que ha sido añadido al seguimiento de aprendizaje también aparecerá en esta lista.";
 $langUseTagForBlank = "Use los corchetes [...] para definir uno o más huecos";
 $langUsedInLearningPaths = "
@@ -1797,8 +1646,8 @@ $langUserDelete = "El borrado del usuario se ha completado con éxito";
 $langUserIsNowCourseManager = "El usuario es ahora coordinador de curso";
 $langUserIsNowStudent = "El usuario es ahora estudiante de este curso";
 $langUserIsPlaformAdmin = "Es administrador de la plataforma";
-$langUserName = "Nombre de usuario";
 $langUserName = "User name";
+$langUserName = "Nombre de usuario";
 $langUserNameTaken = "Este nombre de usuario ya ha sido existe, por favor elige uno diferente";
 $langUserNo = "El nombre de usuario que eligi&oacute;";
 $langUserNoCourseToDisplay = "No hay cursos que mostrar";
@@ -1831,9 +1680,9 @@ $langView = "Ver";
 $langViewCourse = "Ver curso";
 $langViewPlatFormStatistics = "Estadísticas de la Plataforma";
 $langViewToolList = "Ver la Lista Total de las Herramientas";
-$langVisibility = "Visible";
-$langVisibility = "Visibilidad";
 $langVisibility = "Visible/invisible";
+$langVisibility = "Visibilidad";
+$langVisibility = "Visible";
 $langVisits = "visitas";
 $langWeighting = "peso(Weighting)";
 $langWeightingForEachBlank = "Por favor, asigne un valor a cada hueco";
