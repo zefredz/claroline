@@ -38,7 +38,11 @@ define('FILL_IN_BLANKS', 3);
 define('MATCHING',		 4);
 
 require '../inc/claro_init_global.inc.php';
-
+/*
+ * paths definition
+ */
+$attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
+$attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';
 /*
  * DB tables definition
  */
@@ -58,7 +62,7 @@ $TBL_EXERCICES         = $tbl_quiz_test;              // No use in the script
 $TBL_QUESTIONS         = $tbl_quiz_question;          // No use in the script
 $TBL_REPONSES          = $tbl_quiz_answer;			  // No use in the script
 
-$TBL_TRACK_EXERCISES	= $_course['dbNameGlu'].'track_e_exercices';
+$TBL_TRACK_EXERCISES	= $tbl_cdb_names['track_e_exercices'];
 $TABLELEARNPATH         = $tbl_lp_learnPath;
 $TABLEMODULE            = $tbl_lp_module; // No use in the script
 $TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
@@ -162,9 +166,11 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 
 		$objQuestionTmp->read($questionId);
 
-		$questionName=$objQuestionTmp->selectTitle();
-		$questionWeighting=$objQuestionTmp->selectWeighting();
-		$answerType=$objQuestionTmp->selectType();
+		$questionTitle = $objQuestionTmp->selectTitle();
+		$questionStatement = $objQuestionTmp->selectDescription();
+		$attachedFile = $objQuestionTmp->selectAttachedFile();
+		$questionWeighting = $objQuestionTmp->selectWeighting();
+		$answerType = $objQuestionTmp->selectType();
 
 		// destruction of the Question object
 		unset($objQuestionTmp);
@@ -195,7 +201,17 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 <tfoot>
 <tr>
   <td colspan="<?php echo $colspan; ?>">
-	<?php echo $questionName; ?>
+	<?php echo $questionTitle; ?>	
+	<blockquote>
+	<?php 
+		echo $questionStatement; 
+		
+		if( !empty($attachedFile) )
+		{ 
+			echo "<br />".display_attached_file($attachedFile);
+		}
+	?>
+	</blockquote>
   </td>
 </tr>
 
