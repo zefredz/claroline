@@ -202,22 +202,12 @@ switch ($display)
 		echo "</ul>";
 		break;
 	case DISPVAL_upgrade_done :
-                echo "<h2>$langAchieved:</h2>";
-                echo "<p>The claroline upgrade tool has completly upgraded your platform.</p>";
+                echo "<h2>$langAchieved</h2>";
+                echo "<p>The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.</p>";
 		echo "<ul>";
 		echo "<li><a href=\"../../..\">Log on to your platform</a></li>";
 		echo "<li><a href=\"..\">Go to the administration section</a></li>";
 		echo "</ul>";
-                /*
-                echo "<hr noshade=\"noshade\" />";
-		echo "<h2>$langDone:</h2>";
-		echo "<ul>";
-                echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langStep0);
-		echo sprintf ("<li>%s (<a href=\"upgrade_conf.php\">start again</a>)</li>",$langStep1);
-                echo sprintf ("<li>%s (<a href=\"upgrade_main_db.php\">start again</a>)</li>",$langStep2);
-                echo sprintf("<li>%s - %s course(s) to upgrade(<a href=\"upgrade_courses.php\">start again</a>)</li>",$langStep3,$nbCourses['nb']);
-		echo "</ul>";
-                */
 		break;
 	default : 
 		echo "<p>Nothing to do</p>";

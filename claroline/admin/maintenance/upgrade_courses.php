@@ -112,14 +112,12 @@ switch ($display)
                 flush();
                 
 		echo "<div class=\"help\" id=\"refreshIfBlock\">";
-		echo "<form action=\"" . $PHP_SELF . "\">\n";
-		echo "<input type=\"hidden\" name=\"cmd\" value=\"run\" />";
-		echo "<h3>Notice: Updating courses databases (It may take some time).</h3>\n";
-		echo "<p>Due to possible PHP restrictions on your server, the script may interrupt before ending, so that install does'nt work properly.<br />\nDon't Panic. You can fix it simply by refreshing your browser page as many time as required.<br />\n";
-		echo "<input type=\"submit\" name=\"refresh\" value=\"Refresh\"></p>";
-		echo "</form>";
-		echo "</div>";
-                
+		echo "<p>Few seconds after the load of the page<sup>*</sup>, the <em>Claroline Upgrade tool</em> will automatically continue its job. If it doesn't, click yourself on the button below.</p>";
+		echo "<p style=\"text-align: center\">" ;
+		echo sprintf ("<button onclick=\"document.location='%s';\">Continue courses data upgrade</button>", $PHP_SELF."?cmd=run");
+		echo "</p>";
+		echo "<p><small>(*) see in the status bar of your browser.</small></p>";
+		echo "</div>"; 
                 flush();
 
 		$sqlListCourses = " SELECT *, " .
@@ -262,7 +260,6 @@ switch ($display)
                 
                 $mtime = microtime();	$mtime = explode(" ",$mtime);	$mtime = $mtime[1] + $mtime[0];	$endtime = $mtime;	$totaltime = ($endtime - $starttime);
 		
-		echo "<hr noshade=\"noshade\" />";
 		if ($totalNbError>0)
 		{
 			echo "<p class=\"error\">" . $totalNbError . " " . $langErrorsFound . "</p>";

@@ -113,10 +113,10 @@ switch ($display)
     
         echo sprintf("<h2>%s</h2>",$langStep2);
         
-        echo "<p>main Claroline database (<code>".$mainDbName."</code>) upgraded</p>\n";
+        echo "<h3>Upgrade main Claroline database <code>".$mainDbName."</code></h3>\n";
 
         if ($verbose) {
-        	echo "<p class=\"info\">Mode Verbose</p>\n";
+        	echo "<p class=\"info\">Mode Verbose:</p>\n";
         }
 
         echo "<ol>\n";
@@ -158,6 +158,7 @@ switch ($display)
         		}
         		if ($verbose) {
         			echo "</li>\n";
+				flush();
         		}
         	}
         }
@@ -167,11 +168,7 @@ switch ($display)
         if ($nbError>0 )
         {
         	echo "<p class=\"error\">$nbError errors found</p>\n";
-        	echo "<form action=\"".$PHP_SELF."\" >\n
-        	<input type=\"hidden\" name=\"verbose\" value=\"true\" />
-                <input type=\"hidden\" name=\"cmd\" value=\"run\" />
-        	<p>Retry with more detail. <input type=\"submit\" name=\"retry\" value=\"retry\" /></p>\n
-        	</form>\n";
+		echo sprintf("<p><button onclick=\"document.location='%s';\">Retry with more details</button></p>", $PHP_SELF."?cmd=run&verbose=true");
         }
         else
         {
