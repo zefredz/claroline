@@ -1154,7 +1154,7 @@ claro_disp_tool_title($titleElement,
         {
             $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
 			     . "?docView=files&cmd=exChDir&file=". $curDirPath . $searchCmdUrl ."\">"
-                 ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+                 //."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
 			     . $langFiles ."</a>\n | ";
         }
         if( $docView == 'thumbnails' )
@@ -1322,7 +1322,7 @@ claro_disp_tool_title($titleElement,
         {
             $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
 			     . "?docView=files&cmd=exChDir&file=". $curDirPath . $searchCmdUrl ."\">"
-                 ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+                 //."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
 			     . $langFiles ."</a>\n | ";
         }
         if( $docView == 'thumbnails' )
@@ -1501,7 +1501,7 @@ claro_disp_tool_title($titleElement,
         {
             $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
 			     . "?docView=files&cmd=exChDir&file=". $curDirPath . $searchCmdUrl ."\">"
-                 ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+                 //."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
 			     . $langFiles ."</a>\n | ";
         }
         if( $docView == 'thumbnails' )
