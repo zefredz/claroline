@@ -140,6 +140,7 @@ $languageCourse    = $thecourse['languageCourse'       ];
 $extLinkName	   = $thecourse['departmentUrlName'];
 $extLinkUrl        = $thecourse['departmentUrl' ];
 $email			   = $thecourse['email'];
+$directory         = $thecourse['directory'];
 
 $thecourse['visibility'  ]         = (bool) ($thecourse['visible'] == 2 || $thecourse['visible'] == 3);
 $thecourse['registrationAllowed']  = (bool) ($thecourse['visible'] == 1 || $thecourse['visible'] == 2);
@@ -151,6 +152,20 @@ $registrationAllowedChecked [$thecourse['registrationAllowed']] = "checked";
 <form method="post" action="<?php echo $PHP_SELF ?>">
 
 <table  cellpadding="3" border="0">
+
+<tr>
+<td></td>
+<td>
+<?
+if (isset($cidToEdit) && ($is_platformAdmin))
+        {
+           echo "<a  href=\"".$coursesRepositoryWeb.$directory."\"> ".$langViewCourse." </a>";
+        }
+?>
+</td>
+</tr>
+
+
 <tr>
 <td align="right"><?php echo $langCode ?>&nbsp;:</td>
 <td><input type="text" name="screenCode" value="<?php echo $currentCourseCode; ?>" size="20"></td>
@@ -235,6 +250,17 @@ closedir($handle);
 </td>
 </tr>
 
+<tr>
+<td></td>
+<td>
+<?
+if (isset($cidToEdit) && ($is_platformAdmin))
+        {
+           echo "<a  href=\"../admin/admincourseusers.php?cidToEdit=".$cidToEdit."\"> ".$langViewCourse." </a>";
+        }
+?>
+</td>
+</tr>
 
 <tr>
 <td valign="top" align="right" nowrap><?php echo $langCourseAccess; ?> : </td>
@@ -385,10 +411,7 @@ if (isset($cidToEdit))
 
 <?php
 
-if (isset($cidToEdit) && ($is_platformAdmin))
-        {
-           echo "<a class=\"claroButton\" href=\"../admin/admincourseusers.php?cidToEdit=".$cidToEdit."\"> ".$langSeeCourseUsers." </a>";
-        }
+
 
 if (isset($cfrom) && ($is_platformAdmin))
       {
