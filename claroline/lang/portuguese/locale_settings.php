@@ -11,7 +11,7 @@
       +----------------------------------------------------------------------|
 */
 
-$englishLangName = "portuguese";
+$englishLangName = "Portuguese";
 $localLangName = "portugu&ecirc;s";
 
 $iso639_1_code = "pt";
