@@ -138,7 +138,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
   }
   
   //### SOME USER DETAILS ###########################################
-  echo $informationsAbout." : <br>";
+  echo ucfirst(strtolower($langUser))." : <br>";
   echo "<ul>\n"
           ."<li>".$langFirstName." : ".$uDetails[0]['nom']."</li>\n"
           ."<li>".$langLastName." : ".$uDetails[0]['prenom']."</li>\n"
