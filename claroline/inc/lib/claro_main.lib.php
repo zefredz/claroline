@@ -65,49 +65,52 @@ function claro_sql_get_course_tbl($dbNameGlued = NULL)
     if ( count($courseTblList) == 0 )
     {
         $courseTblList = array(
-                              'announcement'           => $courseDb.'announcement',
-                              'assignment_doc'         => $courseDb.'assignment_doc',
-                              'bb_access'              => $courseDb.'bb_access',
-                              'bb_banlist'             => $courseDb.'bb_banlist',
-                              'bb_categories'          => $courseDb.'bb_categories',
-                              'bb_config'              => $courseDb.'bb_config',
-                              'bb_disallow'            => $courseDb.'bb_disallow',
-                              'bb_forum_access'        => $courseDb.'bb_forum_access',
-                              'bb_forum_mods'          => $courseDb.'bb_forum_mods',
-                              'bb_forums'              => $courseDb.'bb_forums',
-                              'bb_headermetafooter'    => $courseDb.'bb_headermetafooter',
-                              'bb_posts'               => $courseDb.'bb_posts',
-                              'bb_posts_text'          => $courseDb.'bb_posts_text',
-                              'bb_priv_msgs'           => $courseDb.'bb_priv_msgs',
-                              'bb_ranks'               => $courseDb.'bb_ranks',
-                              'bb_sessions'            => $courseDb.'bb_sessions',
-                              'bb_themes'              => $courseDb.'bb_themes',
-                              'bb_topics'              => $courseDb.'bb_topics',
-                              'bb_users'               => $courseDb.'bb_users',
-                              'bb_whosonline'          => $courseDb.'bb_whosonline',
-                              'bb_words'               => $courseDb.'bb_words',
-                              'calendar_event'         => $courseDb.'calendar_event',
-                              'course_description'     => $courseDb.'course_description',
-                              'document'               => $courseDb.'document',
-                              'group_property'         => $courseDb.'group_property',
-                              'group_rel_team_user'    => $courseDb.'group_rel_team_user',
-                              'group_team'             => $courseDb.'group_team',
-                              'link'                   => $courseDb.'link',
-                              'lp_learnPath'           => $courseDb.'lp_learnPath',
-                              'lp_rel_learnPath_module'=>$courseDb.'lp_rel_learnPath_module',
-                              'lp_user_module_progress'=>$courseDb.'lp_user_module_progress',
-                              'lp_module'              => $courseDb.'lp_module',
-                              'lp_asset'               => $courseDb.'lp_asset',
-                              'quiz_answer'            => $courseDb.'quiz_answer',
-                              'quiz_question'          => $courseDb.'quiz_question',
-                              'quiz_rel_test_question' => $courseDb.'quiz_rel_test_question',
-                              'quiz_test'              => $courseDb.'quiz_test' ,
-                              'tool_intro'             => $courseDb.'tool_intro',
-                              'tool_list'              => $courseDb.'tool_list',
-                              'userinfo_content'       => $courseDb.'userinfo_content',
-                              'userinfo_def'           => $courseDb.'userinfo_def',
-                              'work_student'           => $courseDb.'work_student'
-                );
+
+              'announcement'           => $courseDb.'announcement',
+              'assignment_doc'         => $courseDb.'assignment_doc',
+              'bb_access'              => $courseDb.'bb_access',
+              'bb_banlist'             => $courseDb.'bb_banlist',
+              'bb_categories'          => $courseDb.'bb_categories',
+              'bb_config'              => $courseDb.'bb_config',
+              'bb_disallow'            => $courseDb.'bb_disallow',
+              'bb_forum_access'        => $courseDb.'bb_forum_access',
+              'bb_forum_mods'          => $courseDb.'bb_forum_mods',
+              'bb_forums'              => $courseDb.'bb_forums',
+              'bb_headermetafooter'    => $courseDb.'bb_headermetafooter',
+              'bb_posts'               => $courseDb.'bb_posts',
+              'bb_posts_text'          => $courseDb.'bb_posts_text',
+              'bb_priv_msgs'           => $courseDb.'bb_priv_msgs',
+              'bb_ranks'               => $courseDb.'bb_ranks',
+              'bb_sessions'            => $courseDb.'bb_sessions',
+              'bb_themes'              => $courseDb.'bb_themes',
+              'bb_topics'              => $courseDb.'bb_topics',
+              'bb_users'               => $courseDb.'bb_users',
+              'bb_whosonline'          => $courseDb.'bb_whosonline',
+              'bb_words'               => $courseDb.'bb_words',
+              'calendar_event'         => $courseDb.'calendar_event',
+              'course_description'     => $courseDb.'course_description',
+              'document'               => $courseDb.'document',
+              'group_property'         => $courseDb.'group_property',
+              'group_rel_team_user'    => $courseDb.'group_rel_team_user',
+              'group_team'             => $courseDb.'group_team',
+              'link'                   => $courseDb.'link',
+              'lp_learnPath'           => $courseDb.'lp_learnPath',
+              'lp_rel_learnPath_module'=> $courseDb.'lp_rel_learnPath_module',
+              'lp_user_module_progress'=> $courseDb.'lp_user_module_progress',
+              'lp_module'              => $courseDb.'lp_module',
+              'lp_asset'               => $courseDb.'lp_asset',
+              'quiz_answer'            => $courseDb.'quiz_answer',
+              'quiz_question'          => $courseDb.'quiz_question',
+              'quiz_rel_test_question' => $courseDb.'quiz_rel_test_question',
+              'quiz_test'              => $courseDb.'quiz_test' ,
+              'tool_intro'             => $courseDb.'tool_intro',
+              'tool_list'              => $courseDb.'tool_list',
+              'userinfo_content'       => $courseDb.'userinfo_content',
+              'userinfo_def'           => $courseDb.'userinfo_def',
+              'work_student'           => $courseDb.'work_student'
+
+              ); // end array
+
     } // end if ( count($course_tbl) == 0 )
 
     return $courseTblList;
@@ -339,8 +342,15 @@ function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
 
-    if ($result) return mysql_insert_id();
-    else         return false;
+    if ($result)
+    {
+        if ($dbHandler == '#') return mysql_insert_id();
+        else                   return mysql_insert_id($dbHandler);
+    }
+    else
+    {
+    	return false;
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1258,6 +1268,8 @@ function claro_parse_user_text($userText)
                                $userText);
    }
 
+   $userText = make_clickable($userText);
+
    if ( strpos($usertext, '<!-- content: html -->') === false )
    {
         // only if the content isn't HTML change new line to <br>
@@ -1265,7 +1277,79 @@ function claro_parse_user_text($userText)
         $userTex = nl2br($userText); 
    }
 
-   return $userText;
+    return $userTex;
+}
+
+/**
+ * function make_clickable($text) 
+ *
+ * @desc   completes url contained in the text with "<a href ...".
+ *         However the function simply returns the submitted text without any 
+ *         transformation if it already contains some "<a href:" or "<img src=".
+ * @params string $text text to be converted
+ * @return string - text after conversion 
+ * @author Rewritten by Nathan Codding - Feb 6, 2001.
+ *         completed by Hugues Peeters - July 22, 2002
+ *
+ * Actually this function is taken from the PHP BB 1.4 script
+ * - Goes through the given string, and replaces xxxx://yyyy with an HTML <a> tag linking
+ * 	to that URL
+ * - Goes through the given string, and replaces www.xxxx.yyyy[zzzz] with an HTML <a> tag linking
+ * 	to http://www.xxxx.yyyy[/zzzz] 
+ * - Goes through the given string, and replaces xxxx@yyyy with an HTML mailto: tag linking
+ *		to that email address
+ * - Only matches these 2 patterns either after a space, or at the beginning of a line
+ *
+ * Notes: the email one might get annoying - it's easy to make it more restrictive, though.. maybe
+ * have it require something like xxxx@yyyy.zzzz or such. We'll see.
+ */
+
+function make_clickable($text)
+{
+
+	// If the user has decided to deeply use html and manage himself hyperlink
+	// cancel the make clickable() function and return the text untouched. HP
+
+	if (preg_match ( "<(a|img)[[:space:]]*(href|src)[[:space:]]*=(.*)>", $text) )
+	{
+		return $text;
+	}
+	
+	// pad it with a space so we can match things at the start of the 1st line.
+	$ret = " " . $text;
+
+
+	// matches an "xxxx://yyyy" URL at the start of a line, or after a space.
+	// xxxx can only be alpha characters.
+	// yyyy is anything up to the first space, newline, or comma.
+
+	$ret = preg_replace("#([\n ])([a-z]+?)://([^, \n\r]+)#i", 
+						"\\1<a href=\"\\2://\\3\" >\\2://\\3</a>", 
+						$ret);
+
+	// matches a "www.xxxx.yyyy[/zzzz]" kinda lazy URL thing
+	// Must contain at least 2 dots. xxxx contains either alphanum, or "-"
+	// yyyy contains either alphanum, "-", or "."
+	// zzzz is optional.. will contain everything up to the first space, newline, or comma.
+	// This is slightly restrictive - it's not going to match stuff like "forums.foo.com"
+	// This is to keep it from getting annoying and matching stuff that's not meant to be a link.
+
+	$ret = preg_replace("#([\n ])www\.([a-z0-9\-]+)\.([a-z0-9\-.\~]+)((?:/[^, \n\r]*)?)#i", 
+						"\\1<a href=\"http://www.\\2.\\3\\4\" >www.\\2.\\3\\4</a>", 
+						$ret);
+	
+	// matches an email@domain type address at the start of a line, or after a space.
+	// Note: before the @ sign, the only valid characters are the alphanums and "-", "_", or ".".
+	// After the @ sign, we accept anything up to the first space, linebreak, or comma.
+
+	$ret = preg_replace("#([\n ])([a-z0-9\-_.]+?)@([^, \n\r]+)#i", 
+						"\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>", 
+						$ret);
+	
+	// Remove our padding..
+	$ret = substr($ret, 1);
+	
+	return($ret);
 }
 
 ?>
