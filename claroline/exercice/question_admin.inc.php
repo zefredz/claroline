@@ -28,8 +28,7 @@ if(!defined('ALLOWED_TO_INCLUDE'))
 	exit();
 }
 
-$pictureName=$objQuestion->selectPictureName();
-
+$attachedFile = $objQuestion->selectAttachedFile();
 
 // if the question we are modifying is used in several exercises
 if($usedInSeveralExercises)
@@ -54,10 +53,10 @@ if($usedInSeveralExercises)
 
     <input type="hidden" name="questionName" value="<?php echo htmlentities($questionName); ?>">
     <input type="hidden" name="questionDescription" value="<?php echo htmlentities($questionDescription); ?>">
-    <input type="hidden" name="imageUpload_size" value="<?php echo $imageUpload_size; ?>">
-    <input type="hidden" name="deletePicture" value="<?php echo $deletePicture; ?>">
+    <input type="hidden" name="fileUpload_size" value="<?php echo $fileUpload_size; ?>">
+    <input type="hidden" name="deleteAttachedFile" value="<?php echo $deletePicture; ?>">
     
-    <input type="hidden" name="pictureName" value="<?php echo htmlentities($pictureName); ?>">
+    <input type="hidden" name="attachedFile" value="<?php echo htmlentities($attachedFile); ?>">
 
 <?php
 	}
@@ -111,10 +110,10 @@ if($usedInSeveralExercises)
       <td><?php echo $langUsedInSeveralExercises.' :'; ?></td>
     </tr>
     <tr>
-      <td><input type="radio" name="modifyIn" value="allExercises" checked="checked"><?php echo $langModifyInAllExercises; ?></td>
+      <td><input type="radio" name="modifyIn" id="modifyInAll" value="allExercises" checked="checked"><label for="modifyInAll"><?php echo $langModifyInAllExercises; ?></label></td>
     </tr>
     <tr>
-      <td><input type="radio" name="modifyIn" value="thisExercise"><?php echo $langModifyInThisExercise; ?></td>
+      <td><input type="radio" name="modifyIn" id="modifyIn1" value="thisExercise"><label for="modifyIn1"><?php echo $langModifyInThisExercise; ?></label></td>
     </tr>
     <tr>
       <td align="center"><input type="submit" name="buttonBack" value="<?php echo $langCancel; ?>">
@@ -134,8 +133,8 @@ else
 	$questionName=$objQuestion->selectTitle();
 	$questionDescription=$objQuestion->selectDescription();
 
-	// is picture set ?
-	$okPicture=empty($pictureName)?false:true;
+	// is attached file set ?
+	$okAttachedFile = empty($attachedFile)?false:true;
 ?>
 
 <h3>
@@ -143,14 +142,10 @@ else
 </h3>
 
 <?php
-	// show the picture of the question
-	if($okPicture)
+	// show the attached file of the question
+	if($okAttachedFile)
 	{
-?>
-
-<center><img src="<?php echo $picturePathWeb.'/'.$pictureName; ?>" border="0"></center>
-
-<?php
+      echo display_attached_file($attachedFile);
 	}
 ?>
 
