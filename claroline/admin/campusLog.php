@@ -210,21 +210,29 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         //--  last 31 days
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_OPEN`
-                    WHERE (open_date > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
+                    WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langLast31days." : ".$count."<br />\n";
         
         //--  last 7 days
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_OPEN`
-                    WHERE (open_date > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
+                    WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langLast7days." : ".$count."<br />\n";
+        
+        //--  yesterday
+        $sql = "SELECT count(*)
+                    FROM `$TABLETRACK_OPEN` 
+                    WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -1 DAY))
+                      AND (`open_date` < CURDATE() )";
+        $count = getOneResult($sql);
+        echo "&nbsp;&nbsp;&nbsp;".$langYesterday." : ".$count."<br />\n";
         
         //--  today
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_OPEN` 
-                    WHERE (open_date > CURDATE() )"; 
+                    WHERE (`open_date` > CURDATE() )"; 
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langThisday." : ".$count."<br />\n";
         
@@ -245,21 +253,29 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         //--  last 31 days
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_LOGIN`
-                    WHERE (login_date > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
+                    WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langLast31days." : ".$count."<br />\n";
         
         //--  last 7 days
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_LOGIN`
-                    WHERE (login_date > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
+                    WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langLast7days." : ".$count."<br />\n";
+        
+        //--  yesterday
+        $sql = "SELECT count(*)
+                    FROM `$TABLETRACK_LOGIN` 
+                    WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -1 DAY))
+                      AND (`login_date` < CURDATE() )";
+        $count = getOneResult($sql);
+        echo "&nbsp;&nbsp;&nbsp;".$langYesterday." : ".$count."<br />\n";
         
         //--  today
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_LOGIN`
-                    WHERE (login_date > CURDATE() )";
+                    WHERE (`login_date` > CURDATE() )";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langThisday." : ".$count."<br />\n";
 
