@@ -60,7 +60,7 @@ $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
 $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 $tbl_track_e_uploads         = $tbl_cdb_names['track_e_uploads'        ];
 $tbl_bb_topics               = $tbl_cdb_names['bb_topics'                ];
-$tbl_bb_posts                 = $tbl_cdb_names['bb_posts'                ];
+$tbl_bb_posts                = $tbl_cdb_names['bb_posts'                ];
 
 
 // for learning paths section 
@@ -98,7 +98,9 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
          *        Display list of user of this group
          *
          ***************************************************************************/
-        echo "<h4>$langListStudents</h4>";
+        echo '<h4>'
+            .$langListStudents
+            .'</h4>';
         if( $is_allowedToTrackEverybodyInCourse )
         {
             // if user can track everybody : list user of course
@@ -553,7 +555,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 // third pass to finally display
                 if (is_array($results))
                 { 
-                    echo "<tbody>\n";
+                    echo '<tbody>'."\n";
                     $prevATitle = "";
                     foreach($results as $work)
                     { 
@@ -588,29 +590,29 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         }
                         
                         echo "<tr>\n"
-                                ."<td>".$displayedATitle."</td>\n"
-                                ."<td>".$work['s_title']."</td>\n"
-                                ."<td>".$displayedAuthors."</td>\n"
-                                ."<td>".$displayedScore."</td>\n"
-                                ."<td><small>".$beautifulDate."</small></td>\n"
-                                ."</tr>\n";
+                            ."<td>".$displayedATitle."</td>\n"
+                            ."<td>".$work['s_title']."</td>\n"
+                            ."<td>".$displayedAuthors."</td>\n"
+                            ."<td>".$displayedScore."</td>\n"
+                            ."<td><small>".$beautifulDate."</small></td>\n"
+                            ."</tr>\n";
                     }
                     echo "</tbody>\n";
                 
                 }
                 else
                 {
-                    echo "<tfoot><tr>\n"
-                          ."<td colspan=\"3\" align=\"center\">".$langNoResult."</td>\n"
-                          ."</tr></tfoot>\n";
+                    echo '<tfoot><tr>'."\n"
+                        .'<td colspan="3" align="center">'.$langNoResult.'</td>'."\n"
+                        .'</tr></tfoot>'."\n";
                 }
-                echo "</table>\n"
-                          ."</td></tr>\n";
+                echo '</table>'."\n"
+                    .'</td></tr>'."\n";
             }
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">$langWorkUploads</a>";
+                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$uInfo."&amp;view=".$tempView."\">".$langWorkUploads."</a>";
             }
             echo "<br /></p>\n\n";
             /***************************************************************************
@@ -625,18 +627,18 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-                echo "-&nbsp;&nbsp;<b>".$langDocumentsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
-                        ."<br />\n&nbsp;&nbsp;&nbsp;".$langDocumentsDetails."<br />\n";       
+                echo "-&nbsp;&nbsp;<b>".$langDocumentsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$uInfo."&amp;view=".$tempView."\">".$langClose."</a>]</small>"
+                    ."<br />\n&nbsp;&nbsp;&nbsp;".$langDocumentsDetails."<br />\n";       
                         
                 $sql = "SELECT `down_doc_path`
-                            FROM `$tbl_track_e_downloads`
-                            WHERE `down_user_id` = '$uInfo'
+                            FROM `".$tbl_track_e_downloads."`
+                            WHERE `down_user_id` = '".$uInfo."'
                             GROUP BY `down_doc_path`";
 
                 $results = getManyResults1Col($sql);
                 echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n";
                 echo "<tr class=\"headerX\">\n"
-                        ."<th>$langDocumentsTitleDocumentColumn</th>\n"
+                        ."<th>".$langDocumentsTitleDocumentColumn."</th>\n"
                         ."</tr>\n";
                 if (is_array($results))
                 { 
@@ -656,13 +658,14 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                             ."<td align=\"center\">".$langNoResult."</td>\n"
                             ."</tr>\n</tfoot>\n";
                 }
-                echo "</table>\n"
-                      ."</td>\n</tr>";
+                echo '</table>'."\n"
+                    .'</td>'."\n"
+                    .'</tr>';
             }
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">$langDocumentsAccess</a>";
+                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$uInfo."&amp;view=".$tempView."\">".$langDocumentsAccess."</a>";
             }
             echo "<br /></p>\n\n";
             
@@ -683,14 +686,14 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 // total number of messages posted by user
                 $sql = "SELECT count(`post_id`)
                             FROM `".$tbl_bb_posts."`
-                            WHERE `poster_id` = '$uInfo'
+                            WHERE `poster_id` = '".$uInfo."'
                             ";
                 $totalPosts = claro_sql_query_get_single_value($sql);
                 
                 // total number of threads started by user
                 $sql = "SELECT count(`topic_title`)
                             FROM `".$tbl_bb_topics."`
-                            WHERE `topic_poster` = '$uInfo'
+                            WHERE `topic_poster` = '".$uInfo."'
                             ";
                 $totalTopics = claro_sql_query_get_single_value($sql);
 
@@ -703,7 +706,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                                 `bb_t`.`topic_title`, 
                                 max(`bb_t`.`topic_time`) as `last_message`
                             FROM `".$tbl_bb_posts."` as `bb_p`, `".$tbl_bb_topics."` as `bb_t`
-                            WHERE `bb_p`.`poster_id` = '$uInfo'
+                            WHERE `bb_p`.`poster_id` = '".$uInfo."'
                             AND `bb_t`.`topic_id` = `bb_p`.`topic_id`
                             GROUP BY `bb_t`.`topic_title`
                             ORDER BY `bb_p`.`post_time` DESC
@@ -742,7 +745,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langTrackForumUsage."</a>";
+                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$uInfo."&amp;view=".$tempView."\">".$langTrackForumUsage."</a>";
             }
             echo "<br /></p>\n\n";
         }
