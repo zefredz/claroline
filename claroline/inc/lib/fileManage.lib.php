@@ -32,13 +32,13 @@ function update_db_info($action, $filePath, $newParam = array())
     {
         $theQuery = "DELETE FROM `".$dbTable."`
                      WHERE path=\"".$filePath."\"
-                     OR    path LIKE \"".$filePath."/%\"";
+                     OR    path LIKE \"".addslashes($filePath)."/%\"";
     }
     elseif ($action == 'update')
     {
         $sql = "SELECT path, comment, visibility
                 FROM `".$dbTable."`
-                WHERE path=\"".$filePath."\"";
+                WHERE path=\"".addslashes($filePath)."\"";
 
         list($attribute) = claro_sql_query_fetch_all($sql);
 
@@ -50,9 +50,9 @@ function update_db_info($action, $filePath, $newParam = array())
                 $newParam['visibility'] != 'i' ? $newParam['visibility'] = 'v' : '';
 
                 $theQuery = "INSERT INTO `".$dbTable."`
-                             SET path       = \"".$filePath."\",
-                                 comment    = \"".$newParam['comment'   ]."\",
-                                 visibility = \"".$newParam['visibility']."\"";
+                             SET path       = \"".addslashes($filePath)."\",
+                                 comment    = \"".addslashes($newParam['comment'   ])."\",
+                                 visibility = \"".addslashes($newParam['visibility'])."\"";
             }
             // else noop
         }
@@ -77,9 +77,9 @@ function update_db_info($action, $filePath, $newParam = array())
             else
             {
                 $theQuery = "UPDATE `".$dbTable."`
-                             SET comment    = \"".$newParam['comment']."\",
-                                 visibility = \"".$newParam['visibility']."\"
-                             WHERE path=\"".$filePath."\"";
+                             SET comment    = \"".addslashes($newParam['comment'   ])."\",
+                                 visibility = \"".addslashes($newParam['visibility'])."\"
+                             WHERE path=\"".addslashes($filePath)."\"";
             }
         }
 
@@ -88,8 +88,8 @@ function update_db_info($action, $filePath, $newParam = array())
         if ( ! empty($newParam['path']) )
         {
             $theQuery = "UPDATE `".$dbTable."`
-            SET path = CONCAT(\"".$newParam['path']."\", SUBSTRING(path, LENGTH(\"".$filePath."\")+1) )
-            WHERE path = \"".$filePath."\" OR path LIKE \"".$filePath."/%\"";
+            SET path = CONCAT(\"".addslashes($newParam['path'])."\", SUBSTRING(path, LENGTH(\"".addslashes($filePath)."\")+1) )
+            WHERE path = \"".addslashes($filePath)."\" OR path LIKE \"".addslashes($filePath)."/%\"";
 
             claro_sql_query($theQuery);
         }
