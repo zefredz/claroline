@@ -80,7 +80,7 @@ if($dialogBox)
 
 
 claro_disp_button("index.php",$langBackToAdmin);
-claro_disp_button("admincourseusers.php?cidToEdit=".$cidToEdit,$langBackToCourseList);
+claro_disp_button("adminusercourses.php?uidToEdit=".$user_id,$langBackToCourseList);
 
 // display footer
 
