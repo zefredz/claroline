@@ -148,6 +148,7 @@ $langAlreadyAnswered="Vous avez déjà répondu à la question";
 
 $langElementList="Liste des éléments";
 $langResult="Résultat";
+$langExeTime = "Temps(s.)";
 $langScore="Points";
 $langCorrespondsTo="Correspond à";
 $langExpectedChoice="Choix attendu";

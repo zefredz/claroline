@@ -154,7 +154,8 @@ $langAlreadyAnswered="You already answered the question";
 // exercise_result.php
 
 $langElementList="Element list";
-$langResult="Result";
+$langResult= "Result";
+$langExeTime = "Time (s.)";
 $langScore="Score";
 $langCorrespondsTo="Corresponds to";
 $langExpectedChoice="Expected choice";
