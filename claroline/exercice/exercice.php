@@ -40,6 +40,15 @@ unset($_SESSION['objAnswer'		]);
 unset($_SESSION['questionList'	]);
 unset($_SESSION['exerciseResult']);
 unset($_SESSION['exeStartTime'	]);
+
+// for older php versions
+session_unregister('objExercise');
+session_unregister('objQuestion');
+session_unregister('objAnswer');
+session_unregister('questionList');
+session_unregister('exerciseResult');
+session_unregister('exeStartTime');
+
 // prevent inPathMode to be used when browsing an exercise in the exercise tool
 $_SESSION['inPathMode'] = false;
 
