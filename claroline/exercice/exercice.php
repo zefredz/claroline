@@ -174,7 +174,7 @@ if($is_allowedToEdit)
                                           ";
                                      while ($lpmList = mysql_fetch_array($lpmResult))
                                      {
-                                        $sql.="`learningpath_module_id`= '".$lpmList['learningPath_module_id']."' OR ";
+                                        $sql.="`learnPath_module_id`= '".$lpmList['learnPath_module_id']."' OR ";
                                      }
                                      $sql.=" 0=1 ";
                                      claro_sql_query($sql);
