@@ -1,7 +1,7 @@
 <?php // $Id$
 /*
     	+-------------------------------------------------------------------+
-    	| CLAROLINE version 1.5.*
+    	| CLAROLINE version 1.6.*
     	+-------------------------------------------------------------------+
     	| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)   |
     	+-------------------------------------------------------------------+
@@ -415,3 +415,58 @@ function changeResultOfVisibility($array_of_results)
 
 	return $array_of_results;
 }
+
+/**
+ * resetStatForCourse($course_id, $dateLimite )
+ * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
+ * @param $course_id  course_id where function would delete track hits
+ * @param $dateLimite timestamp which mark until wich date  the function would delete track hits
+ * @desc  delete track hits in a course before a date limit.
+ */
+function resetStatForCourse($course_id, $dateLimite )
+{
+	GLOBAL $dbGlu;
+	//access_date DATETIME
+	if (is_int($dateLimite))
+	{
+		$tbl_mdb_names = claro_sql_get_main_tbl();
+		$tbl_track_e_default   = $tbl_mdb_names['track_e_default'];
+		$tbl_course            = $tbl_mdb_names['course'];
+		$sql = 'SELECT dbName From `'.$tbl_course.'` WHERE code = "'.$course_id.'"';
+		$course_data = claro_sql_query_fetch_all($sql);
+		$tbl_crs_name = claro_sql_get_course_tbl($course_data['dbName'].$dbGlu);
+		$tbl_track_e_access    = $tbl_crs_name['track_e_access'   ];
+		$tbl_track_e_downloads = $tbl_crs_name['track_e_downloads'];
+		$tbl_track_e_exercices = $tbl_crs_name['track_e_exercices'];
+		$tbl_track_e_uploads   = $tbl_crs_name['track_e_uploads'  ];
+	
+		$sql = 'DELETE 
+					FROM  `'.$tbl_track_e_access.'` 
+					WHERE UNIX_TIMESTAMP(`access_date`) < "'.$dateLimite.'"';
+		claro_sql_query($sql);	
+		$sql = 'DELETE 
+					FROM  `'.$tbl_track_e_downloads.'` 
+					WHERE UNIX_TIMESTAMP(`down_date`) < "'.$dateLimite.'"';
+		claro_sql_query($sql);	
+		$sql = 'DELETE 
+					FROM  `'.$tbl_track_e_exercices.'` 
+					WHERE UNIX_TIMESTAMP(`exe_date`) < "'.$dateLimite.'"';
+		claro_sql_query($sql);	
+		$sql = 'DELETE 
+					FROM  `'.$tbl_track_e_uploads.'` 
+					WHERE UNIX_TIMESTAMP(`upload_date`) < "'.$dateLimite.'"';
+		claro_sql_query($sql);
+	  // central table
+		$sql = 'DELETE 
+					FROM  `'.$tbl_track_e_default.'` 
+					WHERE 
+						`default_cours_code` = "'.$course_id.'"
+						AND   
+						UNIX_TIMESTAMP(`default_date`) < "'.$dateLimite.'"';
+	
+		claro_sql_query($sql);
+	}
+	return TRUE;
+}
+
+?>
