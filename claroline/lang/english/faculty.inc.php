@@ -34,6 +34,7 @@ $lang_faculty_imgEdit					=	"Edit";
 $lang_faculty_imgDelete					=	"Delete";
 $lang_faculty_imgMove					=	"Move";
 $lang_faculty_CreateOk					=	"Category created";
+$lang_faculty_CreateNotOk				=	"This category already exists!";
 $lang_faculty_EditOk					=	"Changes have been saved";
 $lang_faculty_DeleteOk					=	"Category deleted";
 $lang_faculty_MoveOk					=	"Category moved";

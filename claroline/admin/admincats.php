@@ -89,51 +89,64 @@ else
         //if the new category have a name, a code and she can have child (categories or courses)
         if(!empty($_REQUEST["nameCat"]) && !empty($_REQUEST["codeCat"]))
         {
-            $nameCat=$_REQUEST["nameCat"];
-            $codeCat=$_REQUEST["codeCat"];
-            $fatherCat=$_REQUEST["fatherCat"];
-            $canHaveCoursesChild=($_REQUEST["canHaveCoursesChild"]==1?"TRUE":"FALSE");
-
-            //If the category don't have as parent NULL (root), all parent of this category have a child more
-            $fatherChangeChild=(!strcmp($fatherCat,"NULL")?NULL:$fatherCat);
-
-            addNbChildFather($fatherChangeChild,1);
-
-            //If the parent of the new category isn't root
-            if(strcmp($fatherCat,"NULL"))
-            {
-                $sql_SearchFather="select treePos,nb_childs from `$tbl_faculty` where code='".$fatherCat."'";
-                $array=claro_sql_query_fetch_all($sql_SearchFather);
-
-                //The treePos from the new category (treePos from this father + nb_childs from this father)
-                $treePosCat=$array[0]["treePos"]+$array[0]["nb_childs"];
-
-                //Add 1 to all category who have treePos >= of the treePos of the new category
-                $sql_ChangeTree="update `$tbl_faculty` set treePos=treePos+1 where treePos>='".$treePosCat."'";
-                claro_sql_query($sql_ChangeTree);
-            }
-            else    //The parent of the new category is root
-            {
-                //Search the maximum treePos
-                $treePosCat=SearchMaxTreePos()+1;
-            }
-
-            //insert the new category to the table
-            $sql_InsertCat="insert into `$tbl_faculty` (name,code,bc,nb_childs,canHaveCoursesChild,canHaveCatChild,treePos,code_P)
-                                        values ('".$nameCat."','".$codeCat."',NULL,'0','".$canHaveCoursesChild."','TRUE','".$treePosCat."'";
-                        if ($fatherCat == "NULL")
-                        {
-                         $sql_InsertCat .= ",NULL)";
-                        }
-                        else
-                        {
-                         $sql_InsertCat .= ",'".$fatherCat."')";
-                        }
-
-            claro_sql_query($sql_InsertCat);
-
-            //Confirm creating
-            $controlMsg['info'][]=$lang_faculty_CreateOk;
+            
+	    //if a category with the same code already exists we only display an error message
+	    
+	    $sql_SearchSameCode="select code from `$tbl_faculty` where code='".$_REQUEST["nameCat"]."'";
+            $array=claro_sql_query_fetch_all($sql_SearchSameCode);
+	    if (isset($array[0]["code"])) 
+	    {	
+		//error message for attempt to create a duplicate
+		$controlMsg['info'][]=$lang_faculty_CreateNotOk;
+	    }
+	    else
+	    {	    
+		$nameCat=$_REQUEST["nameCat"];
+		$codeCat=$_REQUEST["codeCat"];
+		$fatherCat=$_REQUEST["fatherCat"];
+		$canHaveCoursesChild=($_REQUEST["canHaveCoursesChild"]==1?"TRUE":"FALSE");
+	
+		//If the category don't have as parent NULL (root), all parent of this category have a child more
+		$fatherChangeChild=(!strcmp($fatherCat,"NULL")?NULL:$fatherCat);
+	
+		addNbChildFather($fatherChangeChild,1);
+	
+		//If the parent of the new category isn't root
+		if(strcmp($fatherCat,"NULL"))
+		{
+			$sql_SearchFather="select treePos,nb_childs from `$tbl_faculty` where code='".$fatherCat."'";
+			$array=claro_sql_query_fetch_all($sql_SearchFather);
+	
+			//The treePos from the new category (treePos from this father + nb_childs from this father)
+			$treePosCat=$array[0]["treePos"]+$array[0]["nb_childs"];
+	
+			//Add 1 to all category who have treePos >= of the treePos of the new category
+			$sql_ChangeTree="update `$tbl_faculty` set treePos=treePos+1 where treePos>='".$treePosCat."'";
+			claro_sql_query($sql_ChangeTree);
+		}
+		else    //The parent of the new category is root
+		{
+			//Search the maximum treePos
+			$treePosCat=SearchMaxTreePos()+1;
+		}
+	
+		//insert the new category to the table
+		$sql_InsertCat="insert into `$tbl_faculty` (name,code,bc,nb_childs,canHaveCoursesChild,canHaveCatChild,treePos,code_P)
+						values ('".$nameCat."','".$codeCat."',NULL,'0','".$canHaveCoursesChild."','TRUE','".$treePosCat."'";
+				if ($fatherCat == "NULL")
+				{
+				$sql_InsertCat .= ",NULL)";
+				}
+				else
+				{
+				$sql_InsertCat .= ",'".$fatherCat."')";
+				}
+	
+		claro_sql_query($sql_InsertCat);
+	
+		//Confirm creating
+		$controlMsg['info'][]=$lang_faculty_CreateOk;
+	   }
         }
         else //if the new category don't have a name or a code or she can't have child (categories or courses)
         {
