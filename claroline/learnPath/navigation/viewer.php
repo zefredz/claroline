@@ -38,12 +38,13 @@
   // set charset as claro_header should do but we cannot include it here
   header('Content-Type: text/html; charset='. $charset);
 ?>
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+   "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 
-  <head>
-    <title><?php echo $titlePage; ?></title>
-  </head>
+	<head>
+		<title><?php echo $titlePage; ?></title>
+	</head>
 <?PHP
 if ( !isset($_GET['frames']) )
 {
@@ -59,30 +60,30 @@ else
 if( $displayFrames )
 {
 ?>
-    <frameset border="0" rows="150,*,70" frameborder="no" />
-        <frame src="topModule.php" name="headerFrame" />
-        <frame src="startModule.php" name="mainFrame" />         
-        <frame src="bottomModule.php" name="bottomFrame" />
-    </frameset>
+	<frameset border="0" rows="150,*,70" frameborder="no">
+		<frame src="topModule.php" name="headerFrame" />
+		<frame src="startModule.php" name="mainFrame" />         
+		<frame src="bottomModule.php" name="bottomFrame" />
+	</frameset>
 <?PHP
 }
 else
 {
 ?>
-    <frameset cols="*" border="0">
-        <frame src="startModule.php" name="mainFrame" />    
-    </frameset>
+	<frameset cols="*" border="0">
+		<frame src="startModule.php" name="mainFrame" />    
+	</frameset>
 <?PHP
 }
 ?>
-  <noframes>
-  <body>
+	<noframes>
+	<body>
   
   	<?php
 		echo $langBrowserCannotSeeFrames."<br />"
 			."<a href=\"../module.php\">".$langBack."</a>";
 	?>
   
-   </body>
-</noframes>
+	</body>
+	</noframes>
 </html>
