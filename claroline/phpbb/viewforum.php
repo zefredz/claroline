@@ -87,11 +87,11 @@ if (     is_null($myrow['idGroup'])
 </tr>
 
 <tr class="headerX" align="left">
-<th colspan="2">&nbsp;<?php echo $l_topic?></td>
-<th width="9%" align="center"><?php echo $l_replies?></td>
-<th width="20%" align="center">&nbsp;<?php echo $l_poster?></td>
-<th width="8%" align="center"><?php echo $langSeen?></td>
-<th width="15%" align="center"><?php echo $langLastMsg?></td>
+<th colspan="2">&nbsp;<?php echo $l_topic?></th>
+<th width="9%" align="center"><?php echo $l_replies?></th>
+<th width="20%" align="center">&nbsp;<?php echo $l_poster?></th>
+<th width="8%" align="center"><?php echo $langSeen?></th>
+<th width="15%" align="center"><?php echo $langLastMsg?></th>
 </tr>
 
 	<?php
