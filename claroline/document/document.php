@@ -1256,9 +1256,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 	}					// end if ( $fileList)
 	
 	echo	"</tbody>",
-            "</table>\n",
-			"</div>\n",
-            "<br><br>\n";
+            "</table>\n";
 
 include($includePath."/claro_init_footer.inc.php"); 
 ?>
