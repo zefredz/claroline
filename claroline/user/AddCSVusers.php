@@ -125,13 +125,20 @@ switch ($cmd)
 	    $useFirstLine = false; 
 	}
 	
-	//check file content to see potentiel problems to add the users in this campus (errors are saved in session)
+	//check if a file was actually posted
 	
-	claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $fieldSeparator, $enclosedBy);
+	if (!is_uploaded_file($_FILES["CSVfile"]["tmp_name"]))
+	{
+	    $display   = "default";
+	    $dialogBox = $langMustSelectAFile;
+	}
+	else
+	{
+	   //check file content to see potentiel problems to add the users in this campus (errors are saved in session)
 	
-	// select display type
-	
-	$display = "stepone";
+	   claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $fieldSeparator, $enclosedBy);	
+	   $display = "stepone";
+	}
 	
         break;
 	
