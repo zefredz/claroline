@@ -14,36 +14,6 @@
  *
  */
 
-
-
-// COOKIE NAME. The name of the cookie the Claroline platform has set into the 
-// user browser. By default this name is 'clarolineSsoCookie'. But it can be 
-// changed by the Claroline platform administrator.
-
-$ssoCookieName       = 'clarolineSsoCookie';
-
-// SSO COOKIE PERIOD VALIDITY. Number of seconds before before the 
-// cookie to expire.
-
-$ssoCookiePeriodValidity = 3600;
-
-// SSO COOKIE DOMAIN.  The domain that the cookie is available.  To make 
-// the cookie available on all subdomains of example.com then you'd set 
-// it to '.example.com'. The . is not required but makes it compatible 
-// with more browsers. Setting it to www.example.com  will make the 
-// cookie only available in the www  subdomain.
-
-$ssoCookieDomain     = 'www.my.domain.com';
-
-// SSO COOKIE PATH. The path on the server in which the cookie will be 
-// available on.  If set to '/', the cookie will be available within the 
-// entire domain. If set to '/foo/', the cookie will only be available 
-// within the /foo/ directory and all sub-directories such as /foo/bar/ 
-// of domain. The default value is the current directory that the cookie 
-// is being set in.
-
-$ssoCookiePath       = '/';
-
 /******************************************************************************
                                 SOAP SERVER INIT
  ******************************************************************************/
@@ -52,6 +22,7 @@ $ssoCookiePath       = '/';
                            // but can be skipped in claroline 1.6
 
 require_once '../../inc/claro_init_global.inc.php';
+require_once $includePath.'/conf/auth.conf.php';
 require_once $includePath.'/lib/nusoap.php';
 
 $server = new soap_server();
