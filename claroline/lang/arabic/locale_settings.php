@@ -16,8 +16,8 @@
 $englishLangName = " �?رنسية ";
 $localLangName = " �?رنسية ";
 
-$iso639_2_code = " �?رنسية ";
-$iso639_1_code = " �?رنسية ";
+$iso639_1_code = "ar";
+$iso639_2_code = "ara";
 
 $langNameOfLang['arabic'		] = "arabian";
 $langNameOfLang['brazilian'		] = "brazilian";
