@@ -901,37 +901,41 @@
      *
      * @author Piraux Sébastien <pir@cerdecam.be>     
      */
-function build_element_list($list, $parentField, $idField, $id = 0)
-{
-    $tree = array();
+    function build_element_list($list, $parentField, $idField, $id = 0)
+    {
+        $tree = array();
 
-	if(is_array($list))
-	{
-        foreach ($list as $element)
+        if(is_array($list))
         {
-            if( $element[$idField] == $id )
+            foreach ($list as $element)
             {
-                $tree = $element; // keep all $list informations in the returned array
-                // explicitly add 'name' and 'value' for the claro_build_nested_select_menu function 
-                //$tree['name'] = $element['name']; // useless since 'name' is the same word in db and in the  claro_build_nested_select_menu function 
-                $tree['value'] = $element[$idField];
-                break;
+                if( $element[$idField] == $id )
+                {
+                    $tree = $element; // keep all $list informations in the returned array
+                    // explicitly add 'name' and 'value' for the claro_build_nested_select_menu function 
+                    //$tree['name'] = $element['name']; // useless since 'name' is the same word in db and in the  claro_build_nested_select_menu function 
+                    $tree['value'] = $element[$idField];
+                    break;
+                }
+            }
+
+            foreach ($list as $element)
+            {
+                if($element[$parentField] == $id && ( $element[$parentField] != $element[$idField] ))
+                {
+                    if($id == 0)
+					{
+                        $tree[] = build_element_list($list, $parentField, $idField, $element[$idField]);
+				    }
+                    else
+					{
+                        $tree['children'][] = build_element_list($list, $parentField, $idField, $element[$idField]);
+				    }
+                }
             }
         }
-      
-        foreach ($list as $element)
-        {
-            if($element[$parentField] == $id && ( $element[$parentField] != $element[$idField] ))
-            {
-                if($id == 0)
-                    $tree[] = build_element_list($list, $parentField, $idField, $element[$idField]);
-                else
-                    $tree['children'][] = build_element_list($list, $parentField, $idField, $element[$idField]);
-            }
-        }
-	}
-    return $tree;
-}
+	    return $tree;
+    }
 
     /**
      * return a flattened tree of the modules of a learnPath after having add
