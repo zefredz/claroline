@@ -58,77 +58,29 @@ if (   ! is_null($forumSettingList['idGroup'])
 
 include('page_header.'.$phpEx);
 
+if ( ! $start) $start = 0;
 
-/*----------------------------------------------------------------------------
-                                PAGER BUILDING
-  ----------------------------------------------------------------------------*/
-$total      = get_total_posts($topic, $db, 'topic');
+$sql = "SELECT p.`post_id`,   p.`topic_id`,  p.`forum_id`,
+               p.`poster_id`, p.`post_time`, p.`poster_ip`,
+               p.`nom` lastname, p.`prenom` firstname,
+               pt.`post_text` 
+        FROM `".$tbl_posts."`      p, 
+             `".$tbl_posts_text."` pt 
+        WHERE topic_id  = '".$topic."' 
+          AND p.post_id = pt.`post_id`
+        ORDER BY post_id";
 
-if($total > $posts_per_page)
-{
-    $times = 0;
-    for($x = 0; $x < $total; $x += $posts_per_page) $times++;
-    $pages = $times;
+require $includePath.'/lib/pager.lib.php';
 
-    $pager = "<table>\n";
+$postPager = new claro_sql_pager($sql, $start, $posts_per_page);
+$postPager->set_pager_call_param_name('start');
 
-    $times = 1;
-
-    $pager = "<tr align=\"left\">\n"
-            ."<td>\n"
-            .$l_gotopage." ( ";
-
-    $last_page = $start - $posts_per_page;
-
-    if($start > 0)
-    {
-        $pager = "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
-                                   ."&start=".$last_page."\">"
-                .$l_prevpage
-                ."</a> ";
-    }
-
-    for($x = 0; $x < $total; $x += $posts_per_page)
-    {
-        if($times != 1) echo " | ";
-
-        if    ($start && ($start == $x)) $pager = $times;
-        elseif($start == 0 && $x == 0)   $pager = '1';
-        else
-        {
-            $pager .= "<a href=\"".$PHP_SELF."?mode=viewtopic"
-                    ."&topic=".$topic."&forum=".$forum."&start=".$x."\">"
-                    .$times
-                    ."</a>\n";
-        }
-
-        $times++;
-    } // end for($x = 0; $x < $total; $x += $posts_per_page)
-
-    if(($start + $posts_per_page) < $total)
-    {
-        $next_page = $start + $posts_per_page;
-
-        $pager .= "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
-                                   ."&start=".$next_page."\">"
-                .$l_nextpage
-                ."</a>\n";
-    }
-
-    $pager .= " )\n"
-            ."</td>\n"
-            ."</tr>\n"
-            ."</table>\n";
-} // if($total > $posts_per_page)
-else
-{
-	$pager = '';
-}
-
-echo $pager;
+$postList  = $postPager->get_result_list();
 
 
 
+$pagerUrl = $PHP_SELF."?topic=".$topic."&forum=".$forum;
+$postPager->disp_pager_tool_bar($PHP_SELF."?topic=".$topic."&forum=".$forum);
 
 echo "<table class=\"claroTable\" width=\"100%\">"
     ."<tr align=\"left\">"
@@ -223,21 +175,6 @@ if ( isset($_uid) )  //anonymous user do not have this function
         ."</th>\n"
         ."</tr>\n";
 
-    if ( ! $start) $start = 0;
-
-    $sql = "SELECT p.`post_id`,   p.`topic_id`,  p.`forum_id`,
-                   p.`poster_id`, p.`post_time`, p.`poster_ip`,
-                   p.`nom` lastname, p.`prenom` firstname,
-                   pt.`post_text` 
-            FROM `".$tbl_posts."`      p, 
-                 `".$tbl_posts_text."` pt 
-            WHERE topic_id  = '".$topic."' 
-              AND p.post_id = pt.`post_id`
-            ORDER BY post_id 
-            LIMIT ".$start.", ".$posts_per_page;
-
-    $postList = claro_sql_query_fetch_all($sql, $db);
-
     foreach($postList as $thisPost )
     {
         // Check if the forum post is after the last login
@@ -303,7 +240,7 @@ if ( isset($_uid) )  //anonymous user do not have this function
 
     echo "</table>\n";
 
-echo $pager;
+$postPager->disp_pager_tool_bar($PHP_SELF."?topic=".$topic."&forum=".$forum);
 
 require 'page_tail.php';
 ?>

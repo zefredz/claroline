@@ -64,8 +64,6 @@ $forum_name = own_stripslashes($forumSettingList['forum_name']);
  * GET TOPIC LIST
  */
 
-if ( ! $start) $start = 0;
-
 $sql = "SELECT t.*, u.username, u2.username as last_poster, p.post_time
         FROM `".$tbl_topics."` t
         LEFT JOIN `".$tbl_users."` u 
@@ -75,13 +73,20 @@ $sql = "SELECT t.*, u.username, u2.username as last_poster, p.post_time
         LEFT JOIN `".$tbl_users."` u2 
                ON p.poster_id = u2.user_id
         WHERE t.forum_id = '".$forum."'
-        ORDER BY topic_time DESC 
-        LIMIT ".$start.", ".$topics_per_page;
+        ORDER BY topic_time DESC";
 
-$topicList = claro_sql_query_fetch_all($sql);
+if ( ! $start) $start = 0;
 
+require $includePath.'/lib/pager.lib.php';
+
+$topicPager = new claro_sql_pager($sql, $start, $topics_per_page);
+$topicPager->set_pager_call_param_name('start');
+$topicList  = $topicPager->get_result_list();
 
 require('page_header.php');
+
+$pagerUrl = 'viewforum.php?forum='.$forum.'&gidReq='.$_gid;
+$topicPager->disp_pager_tool_bar($pagerUrl);
 
 echo "<table class=\"claroTable\" border=\"0\""
     .      " cellpadding=\"1\" cellspacing=\"1\" width=\"100%\">"
@@ -138,7 +143,7 @@ else foreach($topicList as $thisTopic)
 
         if ( $replys+1 > $posts_per_page)
         {
-            $pagination .= "&nbsp;&nbsp;&nbsp;(<img src=\"".$posticon."\">".$l_gotopage." ";
+            $pagination .= "<small>&nbsp;&nbsp;&nbsp;(".$l_gotopage." ";
             $pagenr      = 1;
             $skippages   = 0;
 
@@ -171,7 +176,7 @@ else foreach($topicList as $thisTopic)
                 $pagenr++;
             }
 
-            $pagination .= ")";
+            $pagination .= ")</small>";
         }
 
         $topiclink .= "&".$replys;
@@ -191,54 +196,6 @@ else foreach($topicList as $thisTopic)
 
 echo "</table>";
 
-    /*------------------------------------------------------------------------
-        TOPICS PAGER (When there are to much topics  for a single page)
-      ------------------------------------------------------------------------*/
-
-    $sql = "SELECT COUNT(*) AS total 
-            FROM `".$tbl_topics."` 
-            WHERE forum_id = '".$forum."'";
-
-    $all_topics = claro_sql_query_get_single_value($sql);
-
-    $count = 1;
-
-    $next = $topics_start + $topics_per_page;
-
-    if($all_topics > $topics_per_page)
-    {
-        if($next < $all_topics)
-        {
-            echo "<p align=\"right\">"
-                ."<small>"
-                ."<a href=\"viewforum.php?forum=".$forum."&start=".$next."&gidReq=".$_gid.">"
-                .$l_nextpage
-                ."</a> | ";
-
-            for($x = 0; $x < $all_topics; $x++)
-            {
-                if( ! ($x % $topics_per_page) )
-                {
-                    if($x == $topics_start)
-                    {
-                        echo $count."\n";
-                    }
-                    else
-                    {
-                        echo    "<a href=\"viewforum.php?forum=",$forum,"&start=",$x,"&gidReq=",$_gid,">",
-                                $count,
-                                "</a>\n";
-                    }
-
-                    $count++;
-
-                    if( ! ($count % 10) ) echo "</small></p>\n";
-                }
-            } // end if ! $x % $topics_per_page
-             
-        } // end if $next < all_topics
-        
-    } // end if $all_topics > $topics_per_page
-    
+$topicPager->disp_pager_tool_bar($pagerUrl);
 require 'page_tail.php';
 ?>
