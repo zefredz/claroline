@@ -43,24 +43,26 @@ $toolTitle['mainTitle'] = $nameTools;
 switch ($cmd)
 {
 	case 'tool' : 
+	    	// set the subtitle for the claro_disp_tool_title function
 		$toolTitle['subTitle'] = $langTool.$data;
-		$sql = "SELECT nom, prenom, MAX(UNIX_TIMESTAMP(`access_date`)) AS data
-			FROM `".$TABLETRACK_ACCESS."`, 
-			     `".$TABLEUSER."`
-			WHERE `access_user_id` = `user_id`
-			AND `access_tool` = '".$data."'
-			AND `access_user_id` IS NOT NULL
+		// prepare SQL query
+		$sql = "SELECT nom, prenom, MAX(UNIX_TIMESTAMP(`access_date`)) AS data, COUNT(`access_date`) AS nbr
+			FROM `".$TABLETRACK_ACCESS."`
+			LEFT JOIN `".$TABLEUSER."`
+			ON `access_user_id` = `user_id`
+			WHERE `access_tool` = '".$data."'
 			GROUP BY nom, prenom
 			ORDER BY nom, prenom	";
 		break;
 	case 'doc'  :	
-		$toolTitle['subTitle'] = $langDocument.$data;
-		$sql = "SELECT nom, prenom, MAX(UNIX_TIMESTAMP(`down_date`)) AS data
-			FROM `".$TABLETRACK_DOWNLOADS."`,
-			     `".$TABLEUSER."`
-			WHERE `down_user_id` = `user_id`
-			AND `down_doc_path` = '".$data."'
-			AND `down_user_id` IS NOT NULL
+	    	// set the subtitle for the claro_disp_tool_title function
+		$toolTitle['subTitle'] = $langDocument.$data;	
+		// prepare SQL query
+		$sql = "SELECT nom, prenom, MAX(UNIX_TIMESTAMP(`down_date`)) AS data, COUNT(`down_date`) AS nbr
+			FROM `".$TABLETRACK_DOWNLOADS."`
+			LEFT JOIN `".$TABLEUSER."`
+			ON `down_user_id` = `user_id`
+			WHERE `down_doc_path` = '".$data."'
 			GROUP BY nom, prenom
 			ORDER BY nom, prenom	";
 		break;
@@ -78,6 +80,7 @@ if(  $is_allowedToTrack && $is_trackingEnabled )
                   <th><?echo $langFirstName;?></th>
                   <th><?echo $langLastName;?></th>
                   <th><?echo $langLastAccess;?></th>                  
+                  <th><?echo $langNbrAccess;?></th>                  
               	</tr>
 		<tbody>	
             
@@ -85,21 +88,32 @@ if(  $is_allowedToTrack && $is_trackingEnabled )
 
     $result = mysql_query($sql);  
     $i = 0;
+    // display the list
     while ($userAccess = mysql_fetch_array ($result))
     {
-    	$i++;
-    	echo "<tr>";
-    	
-    	
-    	echo "<td> ".$userAccess['nom']." </td> <td> ".$userAccess['prenom']." </td> <td> ".dateLocalizer($dateTimeFormatLong, $userAccess['data'])." </td>";
+	if($userAccess['nom'] == "" )
+	{
+	 	$anonymousCount = $userAccess['nbr'];
+		continue;
+	}
+	$i++;    	
+	echo "<tr>";
+    	   	
+    	echo "<td> ".$userAccess['nom']." </td> <td> "
+		.$userAccess['prenom']." </td> <td> "
+		.dateLocalizer($dateTimeFormatLong, $userAccess['data'])." </td> <td> "
+		.$userAccess['nbr']." </td>";
     	
     	echo "</tr>";
     }	
     // in case of error or no results to display
     if($i == 0 ) 
-	echo "<td colspan=\"3\">".$langNoResult."</td>";
+	echo "<td colspan=\"3\"><center>".$langNoResult."</center></td>";
  
- echo "</tbody>\n</table>";         
+    echo "</tbody>\n</table>";         
+	
+    if( $anonymousCount && $anonymousCount != "" )
+	echo "<p>".$langAnonymousUserAccessCount.$anonymousCount."</p>";
  
 }
 // not allowed
