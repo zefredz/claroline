@@ -187,7 +187,7 @@ for($i = 0; $i < $total_categories; $i++)
 
                    if ( in_array($forumId, $tutorGroupList['forumId']) )
                    {
-                        echo "&nbps;<small>(".$langOneMyGroups.")</small>";
+                        echo "&nbsp;<small>(".$langOneMyGroups.")</small>";
                    }
 
                    if ( in_array($forumId, $curUserGroupList) )
