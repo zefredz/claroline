@@ -1,7 +1,7 @@
 <?php # $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.5.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -345,11 +345,16 @@ $newIncludePath."conf/group.document.conf.php",
 $newIncludePath."conf/index.conf.inc.php",
 $newIncludePath."conf/profile.conf.inc.php",
 $newIncludePath."conf/user.conf.php",
-$newIncludePath."conf/work.conf.inc.php"
+$newIncludePath."conf/work.conf.inc.php",
+$newIncludePath."../../textzone_top.inc.html",
+$newIncludePath."../../textzone_right.inc.html"
 );
 
 foreach ($arr_file_to_undist As $undist_this)
-claro_undist_file($undist_this);
+	claro_undist_file($undist_this);
+
+
+
 
 //$output_undist_job ="<h3>Others conf files</h3><ul>";
 //foreach ($arr_file_to_undist As $undist_this)

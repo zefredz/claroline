@@ -35,7 +35,7 @@ $is_allowedToAdmin 	= $is_platformAdmin;
 $interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $lang_EditFile_AdministrationTools);
 
 //The name of the files
-$NameFile=array("textzone_top.inc.html","textzone_left.inc.html");
+$NameFile=array("textzone_top.inc.html","textzone_right.inc.html");
 //The path of the files
 $EditFile=array($rootSys.$NameFile[0],$rootSys.$NameFile[1]);
 
