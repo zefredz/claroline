@@ -40,7 +40,7 @@ $langLogIdentLogoutComplete = "Login list (extended)";
 $langStatistiques = "Statistics";
 
 
-$langNbProf = "Number of professors";
+$langNbProf = "Number of teachers";
 $langNbStudents = "Number of students";
 $langNbLogin = "Number of login";
 $langToday   ="Today";
