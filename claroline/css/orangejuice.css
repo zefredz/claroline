@@ -46,7 +46,7 @@ a | img {
  */
  
 .claroTopBanner a {
-	text-decoration:none
+  text-decoration:none
   color: #33333;
 }
 .claroTopBanner a:hover {
@@ -60,10 +60,10 @@ a | img {
  * if you aim to change the page background color
  */
 
-.claroTopBanner .platformBanner td, 
+.claroTopBanner .platformBanner td,
 .claroTopBanner .userBanner td  ,
 .claroTopBanner .courseBanner td { 
-	border-top:1px solid #FFF;
+	border-top: 1px solid #FFFFFF;
 }
 
 
@@ -265,8 +265,8 @@ claroBody  {
 
 
 .claroTable .superHeader th, .claroTable th.superHeader {
-	color: white;
-	background-color: #cccccc;
+	color: #333333;
+	background-color: #FDD088;
 	font-weight: bold;
 	text-align: left;
 }
@@ -354,6 +354,7 @@ a:visited.invisible{
 /* 'highlight' */
 .highlight {
 	color: #FFB848;
+    font-weight: bold;
 }
 
 /*
