@@ -504,8 +504,8 @@ if($is_allowedToEdit)
       <tr>
         <td valign="top"><?php echo $langSubmissionType; ?>&nbsp;:</td>
         <td>
-          <input type="radio" name="authorizedContent" id="authorizeFile" value="FILE" <?php if( $form['authorizedContent'] == "FILE" ) echo 'checked="checked"'; ?>><label for="authorizeFile">&nbsp;<?php echo $langFile; ?></label><br />
-          <input type="radio" name="authorizedContent" id="authorizeText" value="TEXT" <?php if( $form['authorizedContent'] == "TEXT" ) echo 'checked="checked"'; ?>><label for="authorizeText">&nbsp;<?php echo $langText; ?></label><br />
+          <input type="radio" name="authorizedContent" id="authorizeFile" value="FILE" <?php if( $form['authorizedContent'] == "FILE" ) echo 'checked="checked"'; ?>><label for="authorizeFile">&nbsp;<?php echo $langFileOnly; ?></label><br />
+          <input type="radio" name="authorizedContent" id="authorizeText" value="TEXT" <?php if( $form['authorizedContent'] == "TEXT" ) echo 'checked="checked"'; ?>><label for="authorizeText">&nbsp;<?php echo $langTextOnly; ?></label><br />
           <input type="radio" name="authorizedContent" id="authorizeTextFile" value="TEXTFILE" <?php if( $form['authorizedContent'] == "TEXTFILE" ) echo 'checked="checked"'; ?>><label for="authorizeTextFile">&nbsp;<?php echo $langTextFile; ?></label><br />
         </td>
       </tr>
