@@ -888,9 +888,10 @@ if( $is_allowedToSubmit )
 	{
 		claro_disp_message_box($dialogBox);
 	}
-	echo "<br />\n";
+	
 	if( $dispWrkForm )
 	{
+			echo "<br />\n";
 			// description of assignment
 			if( !empty($assignment['description']) )
 			{
@@ -1178,7 +1179,7 @@ if( $dispWrkLst )
 		}
 	}
 
-	if( isset($userGroupList[$_REQUEST['authId']]) || $_REQUEST['authId'] == $_uid || $is_allowedToEditAll )
+	if( isset($userGroupList[$_REQUEST['authId']]) || ($_REQUEST['authId'] == $_uid && $is_allowedToSubmit) || $is_allowedToEditAll )
     {
 		// link to create a new assignment
 		echo "<p><a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqSubWrk\">".$langSubmitWork."</a></p>\n";
@@ -1332,7 +1333,7 @@ if( $dispWrkLst )
 	}
 	else
 	{
-		echo "\n<p>\n<blockquote>".$langNoVisibleSubmission."</blockquote></p>\n";
+		echo "\n<p>\n<blockquote>".$langNoVisibleSubmission."</blockquote>\n</p>\n";
 	}
 }
 // FOOTER
