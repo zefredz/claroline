@@ -12,6 +12,7 @@
 */
 // WORKS
 $langDownloadFile="Upload document";
+$langMaxFileSize = "Max file size : ";
 $langTooBig="You didn't choose any file or the file is too big.";
 $langListDeleted="The whole list has been deleted.";
 $langDocModif="paper title modified";
@@ -24,8 +25,6 @@ $langDelList="Delete whole list";
 $langWorks="Assignments";
 $langDocument = "Document";
 
-$langWorkDelete="Delete";
-$langWorkModify="Modify";
 $langWorkConfirmDelete="Do you really want to delete this paper";
 $langAllFiles="All files";
 

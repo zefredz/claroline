@@ -19,8 +19,6 @@ Translate the interface in chosen language
 
 // GENERIC
 
-$langModify="modifier";
-$langDelete="effacer";
 $langTitle="Titre";
 $langHelp="aide";
 $langAddIntro="Ajouter un texte d'introduction";
@@ -32,6 +30,7 @@ $langIntroWork="Cette page est un espace de publication. Elle permet à chaque ét
 
 // WORKS
 $langDownloadFile="Envoyer le document";
+$langMaxFileSize = "Taille maximale autoris&eacute;e : ";
 $langTooBig="Vous n'avez pas choisi de fichier à envoyer ou bien le fichier est trop gros.";
 $langListDeleted="La liste a été complètement effacée";
 $langDocModif="Le document a été modifié";
