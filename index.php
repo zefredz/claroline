@@ -30,8 +30,6 @@ require './claroline/inc/claro_init_global.inc.php'; // main init
 
 require $includePath.'/lib/events.lib.inc.php'; // stats
 
-require $includePath.'/conf/index.conf.inc.php'; // config file
-
 // logout request : delete session data
 
 if (isset($_REQUEST['logout'])) session_destroy();
