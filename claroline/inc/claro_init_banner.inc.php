@@ -3,22 +3,22 @@
 
 <!----------------------  Claroline Banner  ---------------------->
 
-<div class="topBanner">
+<div class="claroTopBanner">
 
 <table width="100%" cellpadding="4" cellspacing="0" border="0">
 
-<tr>
+<tr class="campusLine">
 
-<td bgcolor="#000066">
+<td>
 <a href="<?php echo $rootWeb?>index.php" target="_top">
-<big><b><font color="white"><?php echo $siteName ?></font></b></big>
+<big><b><span class="anchor"><?php echo $siteName ?></span></b></big>
 </a>
 </td>
 
-<td align="right" bgcolor="#000066">
+<td align="right">
 <font color="white">
 <a href="<?php echo $institution['url'] ?>" target="_top">
-<big><b><font color="white"><?php echo $institution['name'] ?></font></b></big>
+<big><b><?php echo $institution['name'] ?></b></big>
 </a>
 <?php
 
@@ -315,7 +315,6 @@ if( isset($db) )
 
 
 <!----------------------  End of Claroline Banner  ---------------------->
-
 
 
 
