@@ -1082,16 +1082,59 @@ function claro_disp_html_area($name, $content =    '',
                               $rows=20,    $cols=80, $optAttrib='')
 {
     global $urlAppend, $iso639_1_code;
-
     $incPath = $urlAppend.'/claroline/inc/htmlarea';
-?>
 
+    if ($_REQUEST['areaContent']) $content = $_REQUEST['areaContent'];
+
+    if (claro_is_javascript_enabled())
+    {
+        if ($_SESSION['htmlArea'] != 'disabled')
+        {
+            $switchState = 'off';
+            $message     = 'Disable text editor';
+            $areaContent = 'editor.getHTML()';
+        }
+        else
+        {
+            $switchState = 'on';
+            $message     = 'Enable text editor';
+            $areaContent = $name.'.value';
+        }
+        
+
+        $location = '\''
+                   .$incPath.'/editorswitcher.php?'
+                   .'switch='.$switchState
+                   .'&sourceUrl='.urlencode($_SERVER['REQUEST_URI'])
+                   .'&areaContent='
+                   .'\''
+                  .'+'.'document.getElementById(\''.$name.'\').value';
+
+        echo '<div align="right">'
+            .'<small>'
+            .'<b>'
+            .'<a href="" onClick ="window.location='.$location.';return(false);">'
+            .$message
+           .'</a>'
+            .'</b>'
+            .'</small>'
+            .'</div>';
+
+    } // end if claro_is_javascript_enabled()
+
+?>
 <textarea id    = "<?php echo $name; ?>" 
           name  = "<?php echo $name; ?>" 
           style = "width:100%" 
           rows  = "<?php echo $rows; ?>" 
-          cols  = "<?php echo $cols ?>"
+          cols  = "<?php echo $cols; ?>"
           <?php echo $optAttrib; ?> ><?php echo $content; ?></textarea>
+<?php
+
+    if ( $_SESSION['htmlArea'] != 'disabled' )
+    {
+
+?>
 
 <script>_editor_url    = "<?php echo  $incPath?>";</script>
 <script    type="text/javascript" src="<?php echo $incPath; ?>/htmlarea.js"></script>
@@ -1121,6 +1164,11 @@ function highlight() {
 initEditor();
 </script>
 <?php
+    } // end if  $_SESSION['htmlArea'] != 'disabled'
+    else
+    {
+    	// noop
+    }
 }
 
 /**
