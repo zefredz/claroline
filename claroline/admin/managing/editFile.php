@@ -11,20 +11,12 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-
-$langEdit = "Edit";
-$langPreview = "Preview";
-$langFile = "editFile";
-$langHomePageTextZone = "Home page text zones";
-
 $cidReset=TRUE;
-
+$langFile = "editFile";
 require '../../inc/claro_init_global.inc.php';
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");
 include("../../inc/lib/file.lib.inc.php");
-
-
 
 define("DISP_FILE_LIST",__LINE__);
 define("DISP_EDIT_FILE",__LINE__);
@@ -78,7 +70,7 @@ else
 		else
 		{
 			if (trim(strip_tags($TextFile))=="")
-				$TextFile = '<blockquote><font color="#808080">- <em>No Content</em> -</font><br></blockquote>
+				$TextFile = '<blockquote><font color="#808080">- <em>'.$langNoContent.'</em> -</font><br></blockquote>
 				';
 			$subtitle = 'Preview : '.basename($NameFile[$_REQUEST["file"]]);
 			$display = DISP_VIEW_FILE;
@@ -100,8 +92,6 @@ claro_disp_tool_title(
 	);
 claro_disp_msg_arr($controlMsg);
 
-
-
 //OUTPUT
 
 if($display==DISP_FILE_LIST
@@ -110,13 +100,14 @@ if($display==DISP_FILE_LIST
 {
 	?>
 		<p>
-		Here you can modify the content of the text zones displayed on the platform home page.
-		<br>See below the files you can edit from this tool.
+		<?php echo $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage ?>
+		<br>
+		<?php echo $langSeebelowthefilesyoucaneditfromthistool ?>
 		</p>
 
 		<table cellspacing="2" cellpadding="2" border="0" class="claroTable">
 <tr class="headerX">
-    <th>File</th>
+    <th ><?php echo $langFilename ?></th>
     <th ><?php echo $langEdit ?></th>
     <th ><?php echo $langPreview ?></th>
 </tr>
@@ -146,11 +137,8 @@ if($display==DISP_EDIT_FILE)
 
 		<form action="<?php echo $PHP_SELF; ?>">
 <?php
-		//	<textarea name="textFile" cols="90" rows="20"> <?php echo $TextFile; > </textarea>
 			claro_disp_html_area('textFile', $TextFile);
 ?>
-  
-			
 			<br><br> &nbsp;&nbsp;
 			<input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>">
 			<input type="submit" class=\"claroButton\" name="modify" value=" <?php echo $langOk; ?>">
