@@ -21,16 +21,7 @@
 	*/
     // allowed image extensions
     $allowedImageTypes = 'jpg|png|gif|jpeg|bmp';
-    
-    /**
-    * Lang variables
-    *
-    * TODO move to lang files
-	*/
-    $backToDir = "Back to Directory";
-	$thumbnailsView = "View Thumbnails";
-	$imageView = "Image Viewer";
-    
+
     /**
     * cut string allowing word integrity preservation
     *
