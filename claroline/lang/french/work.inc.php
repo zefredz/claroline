@@ -7,11 +7,11 @@
 //+----------------------------------------------------------------------+
 */
 // WORKS
-$langWorks = "Travaux";
+$langAssignments = "Travaux";
 
 $langIntroWork="Cet outil est un espace de publication. 
-<br />Il permet au professeur de créer des zones(session) dans lesquelles chaque étudiant peut envoyer un document (Word, Excel, HTML... ) vers le site du cours, ou composer un texte, afin de le rendre accessible aux autres étudiants ainsi qu'au professeur.
-<br />Vous pourrez ensuite ajouter un commentaire ou une correction, à chaque travail remis par l'étudiant.
+<br />Il permet au professeur de créer différents travaux dans lesquels chaque étudiant peut envoyer un document (Word, Excel, HTML... ) vers le site du cours, ou composer un texte, afin de le rendre accessible aux autres étudiants ainsi qu'au professeur.
+<br />Vous pourrez ensuite ajouter un commentaire ou une correction à chaque soumission de l'étudiant.
 <br /><br />Si vous désirez donner des consignes aux étudiants, cliquez sur ce bouton";
 
 // generic
@@ -19,27 +19,27 @@ $langMakeVisible = "Rendre Visible";
 $langMakeInvisible = "Rendre Invisible";
 
 // -- Session list
-$langCreateSession = "Créer une nouvelle session de travail";
+$langCreateAssignment = "Créer un nouveau travail";
 $langVisibility = "Visibilité";
 
 // -- Work list
-$langWrkSession = "Session";
-$langSubmitWork = "Soumettre un travail";
-$langEditWork = "Modifier un travail";
-$langWorkDetails = "Détails du travail";
+$langAssignment = "Travail";
+$langSubmitWork = "Nouvelle soumission";
+$langEditWork = "Modifier une soummission";
+$langWorkDetails = "Détails de la soumission";
 $langGradeWork = "Corriger";
 $langShowGrade = "Voir correction";
 
 // -- Forms
 
-// session
-$langSessionTitle = "Titre de la session";
-$langSessionDescription = "Description";
+// Assignment
+$langAssignmentTitle = "Titre du travail";
+$langAssignmentDescription = "Description";
 
 $langSubmissionType = "Type de soumission";
-$langTextOnly = "Texte seul";
-$langFileOnly = "Fichier seul";
-$langTextFile = "Texte avec un fichier attaché (le texte est requis, pas le fichier)";
+$langTextOnly = "Texte seul (texte requis, pas de fichier)";
+$langFileOnly = "Fichier (fichier requis, description du fichier optionnelle)";
+$langTextFile = "Texte avec un fichier attaché (texte requis, fichier optionnel)";
 
 $langStartDate = "Date de début";
 $langEndDate = "Date de fin";
@@ -48,7 +48,7 @@ $langDefSubVisibility = "Visibilité par défaut";
 $langVisible = "Visible";
 $langInvisible = "Invisible";
 
-$langSessionType = "Type de session";
+$langAssignmentType = "Type de travail";
 $langIndividual = "Individuelle";
 $langGroup = "Groupe";
 
@@ -60,15 +60,15 @@ $langAllowLateUploadShort = "Soumissions tardives";
 $langAllowLateUpload = "Oui, autoriser les utilisateurs à soumettre leur travail après la date de fin";
 $langPreventLateUpload = "Non, ne pas autoriser les utilisateurs à soumettre leur travail après la date de fin";
 
-$langStandardGradingHelp = "La correction standard est optionnelle, si elle est complétée elle sera affichée aux étudiants à partir de la date de soumission choisie.";
-$langStandardGrading = "Correction standard";
-$langStandardGradingText = "Texte correctif";
-$langStandardGradingFile = "Fichier correctif";
-$langCurrentStandardGradingFile = "Fichier correctif actuel";
-$langStandardGradingDate = "Date de soumission de la correction";
+$langStandardFeedbackHelp = "La correction standard est optionnelle, si elle est complétée elle sera affichée aux étudiants à partir de la date de soumission choisie.";
+$langStandardFeedback = "Correction standard";
+$langStandardFeedbackText = "Texte correctif";
+$langStandardFeedbackFile = "Fichier correctif";
+$langCurrentStandardFeedbackFile = "Fichier correctif actuel";
+$langStandardFeedbackDate = "Date de soumission de la correction";
 
 // work
-$langWrkTitle = "Titre du travail";
+$langWrkTitle = "Titre de la soumission";
 $langWrkAuthors = "Auteur(s)";
 $langUploadDoc = "Envoyer un fichier";
 $langAttachDoc = "Attacher un fichier";
@@ -81,22 +81,22 @@ $langNoFile = "- pas de fichier -";
 
 // -- Form errors and confirmations
 //confirmations
-$langSessionAdded = "Session ajoutée";
+$langAssignmentAdded = "Nouveau travail créé";
 $langAreYouSureToDelete = "Etes vous certain de vouloir effacer";
 $langDeleteCaution = "! Cela effacera aussi tous les travaux soumis dans cette session !";
-$langSessionDeleted = "Session effacée";
-$langSessionEdited = "Session modifiée";
-$langWrkAdded = "Travail ajouté";
-$langWrkEdited = "Travail modifié";
+$langAssignmentDeleted = "Travail effacé";
+$langAssignmentEdited = "Travail modifié";
+$langWrkAdded = "Soumission ajoutée";
+$langWrkEdited = "Soumission modifiée";
 $langGradeAdded = "Correction ajoutée";
 
 // errors
 $langTooBig = "Fichier trop grand";
-$langSessionTitleRequired = "Titre de la session requis";
-$langSesTitleAlreadyExists = "Le titre de la session existe déjà";
+$langAssignmentTitleRequired = "Titre du travail requis";
+$langAssignmentTitleAlreadyExists = "Un travail utilisant ce titre existe déjà";
 $langCannotCopyFile = "Impossible de copier le fichier";
-$langWrkTitleAlreadyExists = "Le titre du travail existe déjà";
-$langWrkTitleRequired = "Titre du travail requis";
+$langWrkTitleAlreadyExists = "Une soumission utilisant ce titre existe déjà";
+$langWrkTitleRequired = "Le titre de la soumission est requis";
 $langAnswerRequired = "Réponse requise";
 $langWrkAuthorsRequired = "Auteur(s) requis";
 $langFileRequired = "Fichier requis";
@@ -105,8 +105,7 @@ $langIncorrectDate = "La date de début doit être antérieure à la date de fin";
 // work details
 $langUploadedFile = "Fichier envoyé";
 $langAttachedFile = "Fichier attaché";
-$langSubmissionDate = "Date de soumission";
-$langLastSubmissionDate = "Date dernière soumission";
+$langSubmissionDate = "Date d'envoi";
 $langLastEditDate = "Date dernière édition";
 $langSubmittedBy = "Soumis par";
 $langAnonymousUser = "Utilisateur anonyme";
