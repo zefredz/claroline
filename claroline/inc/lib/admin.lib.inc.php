@@ -156,18 +156,20 @@ function claro_CSV_format_ok($format)
  
 function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", $fieldSep=";", $fieldEnclose="")
 {
-    //check if temporary directory for uploaded file exists, if not we create it
+        //check if temporary directory for uploaded file exists, if not we create it
 	
 	if (!file_exists($uploadTempDir))
 	{
 	    mkdir($uploadTempDir,0777);
 	}
 
+	//check if the uploaded fie path exists, otherwise 
+	
 	//store the uploaded file in a temporary dir
 
 	move_uploaded_file($_FILES["CSVfile"]["tmp_name"], $uploadTempDir.$_FILES["CSVfile"]["name"]);
 
-	$openfile = @fopen($uploadTempDir.$_FILES['CSVfile']['name'],"r") or die ("Impossible to open file ".$_FILES['CSVfile']['name']);
+	$openfile = fopen($uploadTempDir.$_FILES['CSVfile']['name'],"r") or die ("Impossible to open file ".$_FILES['CSVfile']['name']);
 
 	//Read each ligne : we put one user in an array, and build an array of arrays for the list of user.
 
@@ -181,12 +183,13 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", 
 	}
 	else
 	{
+	    $usedFormat = $format; 
 	    $fieldSeparator  = $fieldSep;	    
 	    $enclosedBy      = $fieldEnclose;
 	    if ($fieldEnclose=="dbquote") 
 	    {
 	        $enclosedBy = "\"";
-	    }    
+	    }   
 	}
 
 	$CSVParser = new CSV($uploadTempDir.$_FILES["CSVfile"]["name"],$fieldSeparator,$usedFormat,$enclosedBy);
@@ -453,10 +456,10 @@ function check_officialcode_used_userlist($userlist)
 function check_password_userlist($userlist)
 {
     $errors = array();
-    
+        
     for ($i=0, $size=sizeof($userlist['password']); $i<$size; $i++) 
     {
-    	if ($userlist['password'][$i]==$userlist['username'][$i])
+    	if ($userlist['password'][$i]==$userlist['username'][$i]) // do not allow to put username equals to password
 		{
 	    	$errors[$i] = TRUE; 
 		}
@@ -514,7 +517,7 @@ function check_mail_used_userlist($userlist)
  * Check DUPLICATE EMAIL OF ADDABLE USERS : take the 2D array in param and check if  email 
  * are all different.
  *
- * @author Guillaume Lederer <lederer@cerdecam.be>
+
  *
  * @param  $userlist must be a 2D array with the list of potential new users :
  *         $userlist['email'][$i] for the email  
@@ -613,21 +616,23 @@ function check_duplicate_officialcode_userlist($userlist)
        
     return $errors;
 }
+
 /**
  * Class needed for parsing CSV files
  *
  *
  */
+ 
 class CSV
 {
-	var $raw_data;
+    var $raw_data;
     var $new_data;
     var $mapping;
     var $results = array();
     var $errors = array();
 
-	function CRLFclean()
-	{
+    function CRLFclean()
+    {
     	$replace = array(
                "\n",
                "\r",
@@ -654,6 +659,20 @@ class CSV
         	return;
 	}
 
+/**
+ * 
+ *
+ * @param
+ * @param    
+ * @param  $linedef FIRSTLINE means we take the first line of the file as the definition of the fields
+ * @param    
+ *
+ * @return $errors : an array of boolean where $errors[$i] is TRUE if there is an error with entry $i in the given 2D array.
+ *
+ * 
+ */
+	
+	
     function CSV($filename,$delim,$linedef,$enclosed_by="\"",$eol="\n")
     {
     	//open the file
@@ -669,16 +688,20 @@ class CSV
 		{
 			$this->new_data = @explode($eol,$this->raw_data);
 			if(count($this->new_data)==0)
-            {
-				$this->error("Couldn't split data via given \$eol.<li>\$eol='".$eol."'");
+                        {
+                           $this->error("Couldn't split data via given \$eol.<li>\$eol='".$eol."'");
 			}
 		}
 		// create data keys with the line definition given in params, 
-	    // if linedef is not define, take first line of file to define it
-		if (($linedef=="FIRSTLINE") || ($linedef==NULL)) 
-	    {
-	    	$linedef = $this->new_data[0];
+	        // if linedef is not define, take first line of file to define it
+		if ($linedef=="FIRSTLINE") 
+	        {
+	    	    $linedef = $this->new_data[0];		
 		    $skipFirstLine = TRUE; 
+		}
+		else
+		{
+		    $skipFirstLine = FALSE; 
 		}
 
 	    $temp = @explode($delim,$linedef);
