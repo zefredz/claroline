@@ -1,6 +1,6 @@
 body,h1,h2,h3,h4,h5,h6,p,blockquote,td,ol,ul {font-family: arial, helvetica, sans-serif;}
 .topBanner a { text-decoration:none }
-.topBanner a:hover { text-decoration:underline }
+.topBanner a:hover { text-decoration:underline;color:white}
 .topBanner td { border-top:  solid White 1px }
 .alternativeBgLight { background-color: #F5F5F5; }
 .alternativeBgDark 	{ background-color: #E6E6E6; }
