@@ -3,11 +3,9 @@
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |      	 Christophe Gesché  <gesche@ipm.ucl.ac.be>                   |
+
       +----------------------------------------------------------------------+
 	  |   English Translation                                                |
       +----------------------------------------------------------------------+
@@ -72,12 +70,13 @@ $langDBSettingNameIntro		= "
 				If you are allowed to create many DB, back to previous page and select option \"Several\".
 				It's really more convivial for use";
 $langStep1 			= "Step 1 of 7 ";
-$langStep2 			= "Step 2 of 7 ";
-$langStep3 			= "Step 3 of 7 ";
-$langStep4 			= "Step 4 of 7 ";
-$langStep5 			= "Step 5 of 7 ";
-$langStep6 			= "Step 6 of 7 ";
-$langStep7 			= "Step 7 of 7 ";
+$langStep2 			= "Step 2 of 8";
+$langStep3 			= "Step 3 of 8";
+$langStep4 			= "Step 4 of 8";
+$langStep5 			= "Step 5 of 8";
+$langStep6 			= "Step 6 of 8";
+$langStep7 			= "Step 7 of 8";
+$langStep8 			= "Step 8 of 8";
 $langCfgSetting		= "Platform settings";
 $langDBSetting 		= "MySQL database settings";
 $langMainLang 		= "Main language";
