@@ -1,9 +1,8 @@
-<?php
-// $Id$
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -19,16 +18,18 @@ $langFile='admin';
 $langClassRegistered              = "Class registered";
 $langClassRegisterWholeClassAgain = "Register whole class to another course";
 $langBackToClassMembers           = "Back to class members";
+$lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> has been sucessfully registered to the course";
+$lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> has not been sucessfully registered to the course";
 
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
- 
+
 
 require '../inc/claro_init_global.inc.php';
 include $includePath.'/lib/text.lib.php';
 include $includePath."/lib/admin.lib.inc.php";
 include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
 
-
+define('DISP_RESULT',__LINE__);
 //SECURITY CHECK
 
 if (!$is_platformAdmin) treatNotAuthorized();
@@ -45,6 +46,7 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user                  = $tbl_mdb_names['user'];
 $tbl_course                = $tbl_mdb_names['course'];
 $tbl_course_user           = $tbl_mdb_names['rel_course_user'];
+
 $tbl_class                 = $tbl_mdb_names['user_category'];
 $tbl_class_user            = $tbl_mdb_names['user_rel_profile_category'];
 
@@ -64,6 +66,13 @@ if (isset($cmd) && $is_platformAdmin)
     if ($cmd=="exReg")
     {
         $resultLog = register_class_to_course($_REQUEST['class'], $_REQUEST['course']);
+        $display=DISP_RESULT;
+        if (is_array($resultLog['OK']))
+            foreach($resultLog['OK'] as $userSubscribed)
+                $outputResultLog .= '[<font color="green">OK</font>] '.sprintf($lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname,$userSubscribed['prenom'],$userSubscribed['nom']).'<br>';
+        if (is_array($resultLog['KO']))
+            foreach($resultLog['KO'] as $userSubscribedKo)
+                $outputResultLog .= '[<font color="green">OK</font>] '.sprintf($lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname,$userSubscribedKo['prenom'],$userSubscribedKo['nom']).'<br>';
     }
 }
 
@@ -79,13 +88,15 @@ claro_disp_tool_title($langClassRegistered." : ".$classinfo['name']);
 //Display Forms or dialog box(if needed)
 
 if($dialogBox)
-  {
+{
     claro_disp_message_box($dialogBox);
-  }
+}
 
-// display log
-
-echo $resultLog."<br>";
+if($display==DISP_RESULT)
+{
+    // display log
+    echo $outputResultLog."<br>";
+}
 
 // display TOOL links :
 
@@ -100,13 +111,15 @@ include($includePath."/claro_init_footer.inc.php");
 
 function register_class_to_course($class_id, $course_code) 
 {
-    global $tbl_class_user;     
-    global $tbl_user; 
+    global $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname;
+    $tbl_mdb_names  = claro_sql_get_main_tbl();
+    $tbl_user       = $tbl_mdb_names['user'];
+    $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
     //get the list of users in this class 
     
     $sql = "SELECT * FROM `".$tbl_class_user."` `rel_c_u`, `".$tbl_user."` `u` 
                     WHERE `class_id`='".$class_id."' 
-		      AND `rel_c_u`.`user_id` = `u`.`user_id`";
+               AND `rel_c_u`.`user_id` = `u`.`user_id`";
     $result = claro_sql_query_fetch_all($sql);
     
     //subscribe the users each by each
@@ -116,19 +129,15 @@ function register_class_to_course($class_id, $course_code)
     foreach ($result as $user)
     {
         $done = add_user_to_course($user['user_id'], $course_code); 
-	if ($done)
-	{
-	    $resultLog .= "[<font color=\"green\">OK</font>] ".$user['prenom']." ".$user['nom']." has been sucessfully registered to the course.<br>";
-	}
-	else
-	{
-	    $resultLog .= "[<font color=\"red\">KO</font>] ".$user['prenom']." ".$user['nom']." was NOT registered to the course.<br>";
-	}   
+        if ($done)
+        {
+            $resultLog['OK'][] = $user;
+        }
+        else
+        {
+            $resultLog['KO'][] = $user;
+        } 
     }
-    
-    $users = "";
-    
-    return $resultLog."<br> END OF REGISTRATION <br>";
+    return $resultLog;
 }
-
 ?>
