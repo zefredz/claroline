@@ -12,6 +12,8 @@ $firstExpirationDelay   = 31536000; // <- 86400*365    // 60*60*24 = 1 jour = 86
 $localArchivesRepository = $rootSys."archive/";
 
 $defaultVisibilityForANewCourse = 2;
-$prefixAntiNumber ="x";
+$prefixAntiNumber = "No";
+$prefixAntiEmpty  = "Course";
+
 
 ?>

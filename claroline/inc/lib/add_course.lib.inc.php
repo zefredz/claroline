@@ -18,7 +18,7 @@ function define_course_keys ($wantedCode,          $prefix4all="",
 {
 	// What do better :
 	// actually if suffix is not unique   the next append and not  replace
-	GLOBAL $TABLECOURSE, $coursesRepositories,$prefixAntiNumber,$DEBUG;
+	GLOBAL $TABLECOURSE, $coursesRepositories,$prefixAntiNumber,$prefixAntiEmpty,$DEBUG;
 
 	$nbCharFinalSuffix = 4 ; // Number of car to add on end of key
 
@@ -45,7 +45,7 @@ function define_course_keys ($wantedCode,          $prefix4all="",
 
 	$wantedCode = ereg_replace("[^A-Z0-9]","",strtoupper($wantedCode));
 
-	if ($wantedCode=="") $wantedCode = "CL";
+	if ($wantedCode=="") $wantedCode = $prefixAntiEmpty;
 
 	$keysCourseCode	= $wantedCode;
 
@@ -1292,8 +1292,15 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 	}
 	if ($intitule== "")
 	{
-		$error_msg[] = "intitule is missing";
-		$okForRegisterCourse = FALSE;
+		if ($courseScreenCode== "")
+		{
+			$error_msg[] = "intitule is missing";
+			$okForRegisterCourse = FALSE;
+		}
+		else 
+		{
+			$intitule =$courseScreenCode;
+		}
 	}
 	if ($languageCourse == "")
 	{
