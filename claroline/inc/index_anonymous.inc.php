@@ -105,7 +105,7 @@ claro_disp_tool_title($pageTitle);
 
 
 
-if ( ( count($categoryList) - 1 )  > 0 )
+if ( ( count($categoryList) - 1 )  >= 0 )
 {
     echo "<h4>".$langCategories."</h4>\n";
     echo "<ul>\n";
