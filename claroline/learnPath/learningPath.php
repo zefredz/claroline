@@ -74,7 +74,7 @@
   
    // main page
 
-   if (! $is_courseAllowed) die ("<center>Not allowed !</center>");
+   if (! $is_courseAllowed) claro_disp_auth_form();;
 
    if ($is_courseAdmin )
    {

@@ -75,7 +75,7 @@
    // main page
 
    $is_AllowedToEdit = $is_courseAdmin;
-   if (! $is_AllowedToEdit or ! $is_courseAllowed ) die ("<center>Not allowed !</center>");
+   if (! $is_AllowedToEdit or ! $is_courseAllowed ) claro_disp_auth_form();
 
 
 
