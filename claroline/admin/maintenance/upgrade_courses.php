@@ -434,11 +434,16 @@ function upgrade_tool_list ($dbNameGlu)
 
  global $mainDbName;
 
- $TABLECOURSETOOL = $mainDbName.'`.`course_tool';
+/*
+ * DB tables definition
+ */
+
+ $tbl_mdb_names = claro_sql_get_main_tbl();
+ $tbl_tool      = $tbl_mdb_names['tool'];
  $nb_tool = 0;
  
  // Fill tool_list with default value from course_tool of main db
- $sql = "SELECT id, def_access, def_rank, claro_label FROM   `". $TABLECOURSETOOL . "` where add_in_course = 'AUTOMATIC'";
+ $sql = "SELECT id, def_access, def_rank, claro_label FROM   `". $tbl_tool . "` where add_in_course = 'AUTOMATIC'";
  $result = claro_sql_query($sql);
 		
  if (mysql_num_rows($result) > 0)
@@ -456,7 +461,7 @@ function upgrade_tool_list ($dbNameGlu)
  
  // Set access of internal tool_list
  $sql =  " SELECT C.id, A.rubrique, A.lien, A.visible "
-       . " FROM `".$dbNameGlu."accueil` A, `". $TABLECOURSETOOL . "` C  " 
+       . " FROM `".$dbNameGlu."accueil` A, `". $tbl_tool . "` C  " 
        . " WHERE A.addedTool = 'NO' and A.lien = C.script_url";
        
  $result = claro_sql_query($sql);

@@ -46,8 +46,10 @@ function create_new_user($firstName, $lastName, $status,
 						 $email, $loginName, $password,
 						 $officialCode=NULL, $phone=NULL, $pictureUri='', $authSource='claroline')
 {
-	global $tbl_user, $_uid, $mainDbName, $userPasswordCrypted, $PLACEHOLDER;
-	$TABLEUSER = $mainDbName."`.`user";
+	global $_uid, $mainDbName, $userPasswordCrypted, $PLACEHOLDER;
+	
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_user      = $tbl_mdb_names['user'             ];
 
 	//$tbl_user doesn't seems to exist yet
 
@@ -57,9 +59,10 @@ function create_new_user($firstName, $lastName, $status,
      /*
       * First check wether the login/password combination already exists
       */
-	$result = mysql_query("SELECT * FROM `".$mainDbName."`.`user`
-                                WHERE userName =\"$loginName\"
-                                AND password =\"$password\"");
+	$sql = 'SELECT * FROM `'.$tbl_user.'`
+           	WHERE 	userName ="'.$loginName.'"
+				AND password ="'.$password.'"';  
+	$result = claro_sql_query($sql);
 
 	if (mysql_num_rows($result) > 0)    return claro_failure::set_failure('login-pass already taken');
 
@@ -79,18 +82,19 @@ function create_new_user($firstName, $lastName, $status,
 	$authSource		=($authSource==NULL		?"NULL":"\"".$authSource."\""	);
 	$phone			=($phone==NULL			?"NULL":"\"".$phone."\""		);
 
-	$queryString = "INSERT INTO `".$mainDbName."`.`user`
-	                SET nom = ".$lastName.",
-	                prenom = ".$firstName.",
-	                username = ".$loginName.",
-	                statut = ".$status.",
-	                password = ".$password.",
-	                email = ".$email.",
-	                officialCode = ".$officialCode.",
-	                pictureUri 	= ".$pictureUri.",
-	                creatorId  	= ".$creatorId.",
-	                authSource = ".$authSource.",
-					phoneNumber = ".$phone;
+	$queryString = "INSERT INTO `".$tbl_user."`
+	                SET 
+						nom          = ".$lastName.",
+	                	prenom       = ".$firstName.",
+	                	username     = ".$loginName.",
+	                	statut       = ".$status.",
+	                	password     = ".$password.",
+	                	email        = ".$email.",
+	                	officialCode = ".$officialCode.",
+	                	pictureUri   = ".$pictureUri.",
+	                	creatorId    = ".$creatorId.",
+	                	authSource   = ".$authSource.",
+						phoneNumber  = ".$phone;
 
 	$result = mysql_query($queryString);
 
