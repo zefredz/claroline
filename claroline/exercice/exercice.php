@@ -464,8 +464,8 @@ while($row=mysql_fetch_array($result))
 if($is_trackingEnabled && $_uid):
 ?>
 
-<br><br>
-
+<br /><br />
+<h3><?php echo $langMyResults; ?></h3>
 <table class="claroTable" cellpadding="2" cellspacing="2" border="0" width="80%">
 <thead>
 <tr class="headerX">
