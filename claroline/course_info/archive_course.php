@@ -83,16 +83,6 @@ include($includePath."/claro_init_header.inc.php");
 
 claro_disp_tool_title(array('mainTitle'=>$langArchiveCourse,'subTitle'=>'&quot;'.$currentCourseName.'&quot;'));
 
-// Display header
-
-$interbredcrump[]=array("url" => "infocours.php","name" => $langCourseSettings);
-include($includePath."/claro_init_header.inc.php");
-
-// Display tool title
-
-claro_disp_tool_title(array('mainTitle'=>$langArchiveCourse,'subTitle'=>'&quot;'.$currentCourseName.'&quot;'));
-
-
 if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if confirmed
 {
 	// does the course exist ?
@@ -112,7 +102,36 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 
     // Display file name, location, course size
     
-    $courseDirSize=DirSize($coursePath);
+
+/**
+ * to compute the size of the directory 
+ *
+ * @returns integer size
+ * @param 	string	$path path to size
+ * @param 	boolean $recursive if true , include subdir in total
+ */
+
+function DirSize($path , $recursive=TRUE)
+{ 
+	$result = 0; 
+	if(!is_dir($path) || !is_readable($path)) 
+   		return 0; 
+	$fd = dir($path); 
+	while($file = $fd->read())
+	{ 
+	   	if(($file != ".") && ($file != ".."))
+   		{ 
+    	if (@is_dir("$path$file/")) 
+ 			$result += $recursive?DirSize("$path$file/"):0; 
+    	else  
+			$result += filesize("$path$file"); 
+		} 
+	}
+	$fd->close(); 
+	return $result; 
+} 
+
+    $courseDirSize= DirSize($coursePath);
     $courseDirSize=($courseDirSize >= 1048576) ? round($courseDirSize/(1024*1024),2)." Mb" : round($courseDirSize/1024,2)." Kb";
 
     $output = '<hr noshade="noshade" size="1">'."\n" 
@@ -159,7 +178,7 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
     ");
 
 	// Begin list of works
-    $output.= '<h3>' . $langCreateDirectory . '</h3>';
+    $output.= '<h3>' . $langCreateDirectory . '</h3>'
 	       .  '<ol>'
            ;
 
@@ -168,8 +187,8 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 	if(!is_dir($dirCourseBase))
 	{
 		$output.='<li>' . $langCreateMissingDirectories . ': ' . $dirCourseBase;
-        claro_mkdir($dirCourseBase, 0777, true);
-
+        claro_mkdir($dirCourseBase, 0777, TRUE);
+       	if(!is_dir($dirCourseBase)) $output.='<strong>ERROR</strong>'."\n";
 		$output.='</li>'."\n";
 	}
 
@@ -178,10 +197,10 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 	if(!is_dir($dirMainBase))
 	{
 		$output.='<li>' . $langCreateMissingDirectories . ': ' . $dirMainBase;
-
         claro_mkdir($dirMainBase, 0777, true);
-
+       	if(!is_dir($dirMainBase)) $output.='<strong>ERROR</strong>'."\n";
 		$output.='</li>'."\n";
+        
 	}
 
     // Create folder for Html 
@@ -189,7 +208,7 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 	if(!is_dir($dirHtml))
 	{
 		$output.='<li>' . $langCreateMissingDirectories . ': ' . $dirHtml;
-		claro_mkpath($dirHtml,0777, true);
+		claro_mkdir($dirHtml,0777, true);
 		$output.='</li>'."\n";
 	}
 
