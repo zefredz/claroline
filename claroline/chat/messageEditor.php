@@ -19,7 +19,7 @@ function prepare_message()
 <body>
 <form name     = "chatForm" 
 	  action   = "messageList.php#final"
-	  method   = "get"
+	  method   = "post"
 	  target   = "messageList"
 	  onSubmit = "return prepare_message();">
 
