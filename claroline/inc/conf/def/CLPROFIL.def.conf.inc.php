@@ -248,4 +248,4 @@ array ( 'label'         => 'Keep the replaced image when user update pic'
       );
 */
 
-?
+?>
