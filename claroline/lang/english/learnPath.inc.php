@@ -77,9 +77,6 @@
 
    $langPathsInCourseProg = "Course progression ";
 
-   // $interbredcrump
-   $langAdmin = "admin";
-
    // confirm
    $langAreYouSureToDelete = "Are you sure you want to delete ";
    $langModuleStillInPool = "Modules of this path will still be available in the pool of modules";

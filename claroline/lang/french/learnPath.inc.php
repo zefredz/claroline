@@ -77,9 +77,6 @@
 
    $langPathsInCourseProg = "Progression dans le cours";
 
-   // $interbredcrump
-   $langAdmin = "administrateur"; // JCC
-
    // confirm
    $langAreYouSureToDelete = "Etes-vous sûr de vouloir effacer "; // JCC 
    $langModuleStillInPool = "Les modules de ce parcours seront toujours accessibles dans la banque de modules";
