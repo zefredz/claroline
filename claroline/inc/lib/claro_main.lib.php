@@ -3,7 +3,7 @@
 +----------------------------------------------------------------------+
 | CLAROLINE 1.6
 +----------------------------------------------------------------------+
-| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+| Copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)      |
 +----------------------------------------------------------------------+
 // This    program    is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published    by the FREE    SOFTWARE FOUNDATION. The GPL is    available
@@ -29,7 +29,8 @@ function claro_sql_get_main_tbl()
     if ( count($mainTblList) == 0 )
     {
         $mainTblList= array (
-        'config'                    => $mainDbName.'`.`'.$mainTblPrefix.'config',
+        'config'                    => $mainDbName.'`.`'.$mainTblPrefix.'config_property',
+        'rel_tool_config'           => $mainDbName.'`.`'.$mainTblPrefix.'config_rel_tool_config',
         'admin'                     => $mainDbName.'`.`'.$mainTblPrefix.'admin',
         'course'                    => $mainDbName.'`.`'.$mainTblPrefix.'cours',
         'rel_course_user'           => $mainDbName.'`.`'.$mainTblPrefix.'cours_user',
