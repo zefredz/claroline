@@ -1334,19 +1334,6 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 				    	<td colspan="3"><br>
 					    </td>
     				</tr>
-					<tr>
-						<td>
-							<label for="contactNameForm">Name</label>
-						</td>
-						<td colspan="2">
-							<input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.$contactNameForm.'">
-						</td>
-					</tr>
-					<tr>
-						<td colspan="3">
-							&nbsp;
-						</td>
-					</tr>
 				</table>
 				<table width="100%">
 						<tr>
