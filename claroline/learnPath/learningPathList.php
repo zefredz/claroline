@@ -390,15 +390,9 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
    {
         // Display links to create and import a learning path
    ?>
-        <table border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
-         <tr>
-           <td>
-                 <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=create"><?php echo $langCreateNewLearningPath; ?></a> |
-                 <a href="importLearningPath.php"><?php echo $langimportLearningPath; ?></a> |
-                 <a href="modules_pool.php"><?php echo $langModulesPoolToolName ?></a>
-           </td>
-         </tr>
-         </table>
+          <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=create"><?php echo $langCreateNewLearningPath; ?></a> |
+          <a href="importLearningPath.php"><?php echo $langimportLearningPath; ?></a> |
+          <a href="modules_pool.php"><?php echo $langModulesPoolToolName ?></a>
    <?php
    }
 
