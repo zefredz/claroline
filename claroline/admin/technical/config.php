@@ -399,7 +399,7 @@ claro_disp_msg_arr($controlMsg);
 		</td>
 		<tr>
 			<td align="right">  
-				<label for="CSSchange"><?php echo $lang_CSS_change; ?>Change style sheet used :</label>
+				<label for="CSSchange"><?php echo $langChangeCSS; ?> :</label>
 			</td>
 			<td>
 				<select name="CSSUsed">
