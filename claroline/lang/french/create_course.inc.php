@@ -29,7 +29,7 @@ $langFormula="Cordialement, votre professeur";
 $langForumLanguage="french";	// other possibilities are english, spanish (this uses phpbb language functions)
 $langTestForum="Forum d\'essais";
 $langDelAdmin="A supprimer via l\'administration des forums";
-$langMessage="Lorsque vous supprimerez le forum \"Forum d\'essai\", cela supprimera également le présent sujet qui ne contient que ce seul message";
+$langMessage="Lorsque vous supprimerez le forum &quot;Forum d&rsquo;essai&quot;, cela supprimera également le présent sujet qui ne contient que ce seul message";
 $langExMessage="Message exemple";
 $langAnonymous="Anonyme";
 $langExerciceEx="Exemple d\'exercice";
@@ -41,7 +41,7 @@ $langNoPsychology="Non. L\'ironie socratique ne se joue pas sur le terrain de la
 $langAdmitError="Reconnaître ses erreurs pour inviter son interlocuteur à faire de même.";
 $langNoSeduction="Non. Il ne s\'agit pas d\'une stratégie de séduction ou d\'une méthode par l\'exemple.";
 $langForce="Contraindre son interlocuteur, par une série de questions et de sous-questions, à reconnaître qu\'il ne connaît pas ce qu\'il prétend connaître.";
-$langIndeed="En effet. L\'ironie socratique est une méthode interrogative. Le grec \"eirotao\" signifie d\'ailleurs \"interroger\".";
+$langIndeed="En effet. L\'ironie socratique est une méthode interrogative. Le grec &quot;eirotao&quot; signifie d\'ailleurs &quot;interroger&quot;.";
 $langContradiction="Utiliser le principe de non-contradiction pour amener son interlocuteur dans l\'impasse.";
 $langNotFalse="Cette réponse n\'est pas fausse. Il est exact que la mise en évidence de l\'ignorance de l\'interlocuteur se fait en mettant en évidence les contradictions auxquelles aboutissent ses thèses."; // JCC 
 

@@ -1,23 +1,11 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.0 $Revision$                             |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$     |
-      +----------------------------------------------------------------------+
-
-      +----------------------------------------------------------------------+
  */
-
-/***************************************************************
-*                   Language translation
-****************************************************************
-GOAL
-****
-Translate the interface in chosen language
-*****************************************************************/
 // chat.php
 
  $langChat = "Discussion  en ligne";
@@ -31,8 +19,8 @@ Translate the interface in chosen language
  $langStoreChat = "Sauvegarder la discussion";
  $langDateLastWrite = "Dernier message : ";
  $langNewChat = "Nouvelle discussion";
- $langNotCourseAllowed = "Vous n'êtes pas autorisé ici.";
- $langNotGroupMember = "Vous n'êtes pas autorisé à participer à cette discussion de groupe."; // JCC
+ $langNotCourseAllowed = "Vous n'êtes pas autorisé dans ce cours.";
+ $langNotGroupMember = "Vous n'êtes pas autorisé à participer à cette discussion de groupe."; // JCC 
  $langArchive = "Archive";
- $langCannotInitChat = "Erreur : Impossible d'initialiser le chat.";
+ $langCannotInitChat = "Erreur : Impossible d'initialiser le fichier de chat.";
 ?>

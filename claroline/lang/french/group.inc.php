@@ -1,24 +1,11 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                             |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$         |
-      +----------------------------------------------------------------------+
-
-      +----------------------------------------------------------------------+
  */
-
-/***************************************************************
-*                   Language translation
-****************************************************************
-GOAL
-****
-Translate the interface in chosen language
-
-*****************************************************************/
 
 $langGroupManagement="Groupes";
 $langHelp="Aide"; // JCC
@@ -40,7 +27,7 @@ $langConfirmEmpty = "Êtes vous sûr de vouloir vider tous les groupes ?";
 $langGroupsEmptied="Tous les groupes sont maintenant vides";
 $langEmtpyGroups="Vider tous les groupes";
 $langGroupsFilled="Tous les groupes ont été remplis";
-$langFillGroups="Remplir le(s) groupe(s)";
+$langFillGroups="Remplir le(s) groupe(s) (automatique)";
 $langGroupsProperties="Propriétés des groupes";
 $langStudentRegAllowed="Les étudiants <b>sont autorisés</b> 
 			à s'inscrire eux-mêmes dans les groupes";
@@ -127,6 +114,5 @@ $langQtyOfUserCanSubscribe_PartAfterNumber = "groupe(s)";
 $langNoLimitForQtyOfUserCanSubscribe ="L'utilisateur peut être inscrit à tous les groupes"; // JCC 
 $langGroupDocumentAlwaysPrivate = "(toujours privé)";
 $langGroupLimit				= "Limite";
-
 
 ?>

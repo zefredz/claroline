@@ -1,9 +1,8 @@
 <?php # $Id$
-
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -251,5 +250,4 @@ $langNoUserSelected = "Aucun utilisateur n'a été selectionné!";
 
 $langUserUnsubscribedFromCourse = "L'utilisateur a bien été radié du cours"; // JCC 
 $langUserNotUnsubscribedFromCourse = "Erreur!! vous ne pouvez pas radier un professeur du cours";
-
 ?>
