@@ -123,37 +123,108 @@ et j'ai pas trouvé où il le crée
 Repéré par : MOOSH
 
 
-------------------------------------------------------------------
-16. erreur de langue.
-claroline/admin/adminaddnewuser.php?register=yes
-"Les nouveaux utilisateurs recevrons un email avec leur nom d'utilisateur et mot de passe"
+Etat : New ------------------------------------------------------
+M.16. claroline/admin/adminaddnewuser.php?register=yes
+type : erreur de langue. 
+quoi : "Les nouveaux utilisateurs recevrons un email avec leur nom d'utilisateur et mot de passe"
 
 claroline/admin/adminusercourses.php?uidToEdit=3&cfrom=ulist
 "bouton retour à l'utilisateur en français" :  faute
+Repéré par :  M
+Assigné à : 
 
 ------------------------------------------------------------------
-17. outils de travaux.  
+M.17. outils de travaux.  
 à l'envoi d'un Ficher .exe  trop gros, le système ne fait pas l'envoi mais ne retourne pas de message d'erreur.
 
 seb : Ne s'agit-il pas du même problème que l'on avait dans document lorsque post_max_size est plus petit que upload_max_filesize
 $_POST est unset et donc on ne sait afficher aucun message d'erreur ?
 
-Repéré par : MOOSH
+Repéré par : M.
 Assigné à : SEB
 Etat : RESOLU (en utilisant le meme principe que pour document et import learning path, à savoir affichage de la taille max autorisée sur form d'upload
 
 ------------------------------------------------------------------
-18.Travaux d'étudiants
+M.18.Travaux d'étudiants
 retour à la ligne entre le texte d'intro et le bouton "ajouter un texte"
 Repéré par : MOOSH
 Assigné à : 
 Etat : 
 
+Etat : New ------------------------------------------------------
+M.19.Importer un parcours
+type : ortho
+quoi : "Les packages importés doivent consisté être des fichiers zip et répondre à la norme SCORM 1.2"
+phrase pas franchaise
+Repéré par : M
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+M.20. /claroline/learnPath/learningPathList.php?cmd=create
+type : html
+quoi : la liste des parcours semble être un form... sans submit ?
+Repéré par : M
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+M.21 http://127.0.0.1/c/cvs.claroline.net/c150rc1.trakbugs/claroline/learnPath/insertMyModule.php?check_1=on&cmdglobal=add
+type : logik navigation
+quoi :Je me suis retrouvé avec le message 
+"Tous les modules de ce cours sont déjà utilisés dans ce parcours."
+
+et pas de lien pour "continuer"
+
+Repéré par : M
+Assigné à : 
+
+Etat : New -----------------------
+M.22 /auth/courses.php Li :571
+type : lang hardcoded
+quoi : echo	"<small><font color=\"gray\">course manager</font></small>\n";
+Repéré par : M
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+M.23 où : admincats.php
+type : logik
+quoi : si j'édite une cat et que je la rend interdite au 
+ratachement direct de cours mais qu'elle contient déjà des cours.
+l'utilisateur ne recoit aucun message.
+Repéré par : M.
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+M.24 où : admincats.php
+type : logik
+quoi : si je supprime une cat qui contient des catégories avec déjà des cours.
+- l'utilisateur ne recoit aucun message.
+- les cours disparessent de l'arbre !!!
+Repéré par : M.
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+M.25 où : admincats.php
+type : structure et affichage
+quoi : le code des faculté est utilisé à l'affichage. 
+Il ne peut donc plus être l'identifiant système unique.
+Repéré par : M.
+Assigné à : M.
+
+template à copier coller
+Etat : New ------------------------------------------------------
+.99 où :
+type :
+quoi :
+Repéré par : 
+Assigné à : 
+
+
+
 
 -------------
 $Log$
-Revision 1.29  2004/06/15 11:51:20  moosh
-bug 18
+Revision 1.30  2004/06/16 06:29:08  moosh
+bugs 19 à 25
 
 Revision 1.28  2004/06/15 11:28:45  peeters
 no message
