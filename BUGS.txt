@@ -193,7 +193,7 @@ B18 Etat : New ------------------------------------------------------
 
 Voir B16 : problème des " ' et autres caractères spéciaux dans l'install
 
-B19 Etat : New ------------------------------------------------------
+B19 RESOLU POUR COURSE DESCRIPTION SEULEMENT ------------------------------------------------------
 .90 où : forum et course description
 Etat : à résoudre pour 1.6
 type : homogénéité
