@@ -17,7 +17,7 @@ include('../inc/claro_init_global.inc.php');
 $nameTools 			= $lang_categories;
 $interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 
-
+include($includePath."/claro_init_header.inc.php");
 include($includePath."/lib/text.lib.php");
 //include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
@@ -305,7 +305,7 @@ else
 		$BOM=FALSE;
 		$MOVE=FALSE;
 
-		$nameTools 			= $lang_faculty_EditCat;
+		//$nameTools 			= $lang_faculty_EditCat;
 		$interbredcrump[]	= array ("url"=>$PHP_SELF, "name"=> $lang_categories);
 
 		//Search information of the category edit
@@ -682,21 +682,6 @@ else
 
 // END OF WORKS
 
-
-
-
-include($includePath."/claro_init_header.inc.php");
-
-claro_disp_tool_title(
-	array(
-	'mainTitle'=>$nameTools
-	//,'subTitle'=> $PHP_AUTH_USER." - ".$siteName." - ".$clarolineVersion." - ".$dateNow
-	)
-	);
-claro_disp_msg_arr($controlMsg);
-
-
-
 /*-----------------------------------------------------------------------------------
  OUTPUT
 -----------------------------------------------------------------------------------*/
@@ -706,10 +691,17 @@ claro_disp_msg_arr($controlMsg);
 Information edit for create or edit a category
 -----------------------------------------------------------------------------------*/
 
-if($INFOFAC)
+if($CREATE)
 {
+claro_disp_tool_title(
+    array(
+    'mainTitle'=>$nameTools,
+    'subTitle'=>$langSubTitleCreate
+    )
+    );
+claro_disp_msg_arr($controlMsg);
+
 ?>
-	<br>
 	<form action="<?php echo $PHP_SELF?>" method="POST">
 	<table border="0">
 	<tr>
@@ -778,6 +770,20 @@ if($CREATE)
 		</select>
 		</td>
 	</tr>
+        <tr>
+        <td><br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+
+        <td>
+        <input type="submit" name="create" value="Ok">
+        </td>
+    </tr>
+    </table>
+    </form>
 <?php
 }
 
@@ -788,20 +794,7 @@ Display the bom of categories and the button to create a new category
 if($BOM)
 {
 ?>
-	<tr>
-		<td><br>
-		</td>
-	</tr>
-	<tr>
-		<td>
-		</td>
 
-		<td>
-		<input type="submit" name="create" value="<? echo $lang_faculty_Create ?> ">
-		</td>
-	</tr>
-	</table>
-	</form>
 	<hr>
 
 <?    echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
@@ -810,11 +803,11 @@ if($BOM)
 
      //add titles for the table
 
-echo "<th>".$lang_faculty_CodeCat."</td>"
+echo       "<th>".$lang_faculty_CodeCat."</td>"
           ."<th style='text-align:center'>".$langEdit."</th>"
           ."<th style='text-align:center'>".$langMove."</th>"
           ."<th style='text-align:center'>".$langDelete."</th>"
-          ."<th style='text-align:center'>".$langOrder."</th>";
+          ."<th style='text-align:center' colspan=2>".$langOrder."</th>";
 
 echo "</tr>"
 ?>
@@ -831,7 +824,57 @@ Display information to edit a category and the bom of categories
 /*-----------------------------------------------------------------------------------*/
 if($EDIT)
 {
+claro_disp_tool_title(
+    array(
+    'mainTitle'=>$nameTools,
+    'subTitle'=>$langSubTitleEdit
+    )
+    );
+claro_disp_msg_arr($controlMsg);
 ?>
+    <form action="<?php echo $PHP_SELF?>" method="POST">
+    <table border="0">
+    <tr>
+        <td width="400">
+        <label for="nameCat"> <?php echo $lang_faculty_NameCat; ?> </label >
+        </td>
+
+        <td>
+        <input type="texte" name="nameCat" value="<?php echo $EditName; ?>" size="20" maxlength="100">
+        </td>
+    </tr>
+    <tr>
+        <td width="200">
+        <label for="codeCat"> <?php echo $lang_faculty_CodeCat; ?> </label >
+        </td>
+
+        <td>
+        <input type="texte" name="codeCat" value="<?php echo $EditCode; ?>" size="20" maxlength="40">
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <label for="canHaveCoursesChild"> <?php echo $lang_faculty_CanHaveCatCourse; ?> </label>
+        </td>
+
+        <td>
+        <input type="radio" name="canHaveCoursesChild"
+            <?php    if(isset($EditCanHaveCoursesChild))
+                        echo (!strcmp($EditCanHaveCoursesChild,"TRUE")?"checked":"");
+                    else
+                        echo "checked";
+            ?>
+         value="1"> <?php echo $lang_faculty_Yes; ?>
+
+        <input type="radio" name="canHaveCoursesChild"
+            <?php    if(isset($EditCanHaveCoursesChild))
+                        echo (!strcmp($EditCanHaveCoursesChild,"FALSE")?"checked":"");
+            ?>
+        value="0"> <?php echo $lang_faculty_No; ?>
+
+        </td>
+    </tr>
+
 	<tr>
 		<td><br>
 		</td>
@@ -842,12 +885,12 @@ if($EDIT)
 		</td>
 
 		<td>
-		<input type="submit" name="change" value="<?php echo $lang_faculty_Change?>">
+		<input type="submit" name="change" value="Ok">
 		</td>
 	</tr>
 	</table>
 	</form>
-	<br><br>
+	<br>
 
 <?php
 
@@ -860,13 +903,19 @@ Display information to change root of the category
 /*-----------------------------------------------------------------------------------*/
 if($MOVE)
 {
+claro_disp_tool_title(
+    array(
+    'mainTitle'=>$nameTools,
+    'subTitle'=>$langSubTitleChangeParent.$EditCode
+    )
+    );
+claro_disp_msg_arr($controlMsg);
 ?>
-	<br>
 	<form action=" <?php echo $PHP_SELF?> " method="POST">
 	<table border="0">
 	<tr>
 		<td>
-		<label for="fatherCat"> <?php echo $lang_faculty_Father;  echo $EditCode ?> </label >
+		<label for="fatherCat"> <?php echo $lang_faculty_Father; ?> </label >
 		</td>
 
 		<td align="RIGHT">
@@ -889,13 +938,13 @@ if($MOVE)
 		</td>
 
 		<td>
-        <input type="submit" name="change" value="<?php echo $lang_faculty_Change?>">
+        <input type="submit" name="change" value="Ok">
 
 		</td>
 	</tr>
 	</table>
 	</form>
-	<br><hr><br>
+	<br>
 
 
     <?    echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
@@ -908,7 +957,7 @@ echo "<th>".$lang_faculty_CodeCat."</th>"
           ."<th style='text-align:center'>".$langEdit."</th>"
           ."<th style='text-align:center'>".$langMove."</th>"
           ."<th style='text-align:center'>".$langDelete."</th>"
-          ."<th style='text-align:center'>".$langOrder."</th>";
+          ."<th style='text-align:center' colspan=2>".$langOrder."</th>";
 
 echo "</tr>"
 ?>
@@ -1039,7 +1088,7 @@ include($includePath."/claro_init_footer.inc.php");
 					if($nb>1)
 					{
 						?>
-						<td align="center">
+                        <td align="center">
 						<?php
 						//If isn't the first child, you can up
 						if($num>1)
@@ -1050,23 +1099,22 @@ include($includePath."/claro_init_footer.inc.php");
 							<img src="../img/up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"></a>
 						<?php
 						}
-
 						?>
-
+                         </td><td align="center">
 						<?php
 
 						//If isn't the last child, you can down
 						if($num<$nbChild)
 						{
 						?>
-						<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=d&date='".$date."'#ud".$one_faculty["id"];
-						?>" name="<?php echo "ud".$one_faculty["id"]; ?>">
-						<img src="../img/down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
-
+    						<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=d&date='".$date."'#ud".$one_faculty["id"];
+    						?>" name="<?php echo "ud".$one_faculty["id"]; ?>">
+    						<img src="../img/down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
 					<?php
 						}
 						?>
-						</td>
+                        </td>
+                        </td>
 
 						<?php
 					}

@@ -34,4 +34,7 @@ $lang_faculty_EditOk					=	"Les changements ont bien été effectués";
 $lang_faculty_DeleteOk					=	"La suppression a été effectuée avec succès";
 $lang_faculty_MoveOk					=	"Le déplacement de la catégorie a été effectué avec succès";
 $lang_faculty_NoAdmin					=	"Vous n'êtes pas logué en tant qu'administrateur";
+$langSubTitleCreate                     =   "Créer une categorie";
+$langSubTitleEdit                       =   "Modifier categorie";
+$langSubTitleChangeParent               =   "Changer le père de la catégorie ";
 ?>
