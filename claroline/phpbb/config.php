@@ -34,7 +34,7 @@ include('../inc/lib/debug.lib.inc.php');
 // Change this to:
 // $url_phpbb = "/forums";
 // Once this is set you should not need to modify anything else in this file.
-$url_phpbb       =$urlAppend."/claroline/phpbb";
+$url_phpbb       = $rootWeb."claroline/phpbb";
 
 // -- Edit the following ONLY if you cannot login and $url_phpbb is set correclty --
 // You shouldn't have to change any of these 5.
