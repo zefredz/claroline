@@ -90,9 +90,13 @@ $langConfig          = 'Configuration';
 $lang_p_defFileOf_S = 'Fichier de définition pour la configuration %s.';
 $lang_the_active_config_has_manually_change='Version de production modifiée';
 $langFirstDefOfThisValue = '!!! Nouvelle valeur !!!';
+$lang_p_config_file_creation = 'création du fichier de configuration  :<BR> %s';
 $lang_p_DefNameAndContentDisruptedOnConfigCode = 'Le fichier de définition est probablement un copier-coller  de %s. Et n\'a pas été achevé.';
-$lang_p_nothing_to_edit_in_S = 'nothing to edit in %s';
 
+
+
+
+$lang_p_nothing_to_edit_in_S = 'nothing to edit in %s';
 $lang_p_DefNameAndContentDisruptedOnConfigCode = 'The definition file for configuration is probably copypaste from %s';
 $langFirstDefOfThisValue = '!!!First definition of this value!!!';
 $langNoPropertiesSet = 'No properties set';
@@ -110,6 +114,10 @@ $lang_p_Properties_of_S_saved_in_buffer = 'Properties of %s saved in buffer.';
 $lang_the_active_config_has_manually_change='The config in production has manually changed';
 $lang_p_config_missing_S = 'Configuration is missing %s';                    
 $lang_p_ErrorOnBuild_S_for_S= 'Error in building of <em>%s</em> for <B>%s</B>';    
+$lang_p_config_file_creation = 'Configuration  file creation:<BR> %s';
+$lang_noSectionFoundInDefinitionFile = 'no section found in definition file';             
+$lang_p_PropForConfigCommited = 'Properties for %s (%s) are now effective on server.';                   
+
 
 define('DISP_LIST_CONF',        __LINE__);
 define('DISP_EDIT_CONF_CLASS',  __LINE__);
@@ -380,7 +388,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         if (!$confFile)
         {
             $confFile = claro_create_conf_filename($config_code);
-            $controlMsg['info'][] = sprintf('création du fichier de configuration :<BR> %s'
+            $controlMsg['info'][] = sprintf($lang_p_config_file_creation
                                            ,$confFile);
             $confFile = claro_get_conf_file($config_code);
         }
@@ -400,7 +408,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             if (write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile, realpath(__FILE__)))
             {
                 set_hash_confFile($confFile,$config_code);
-                $controlMsg['info'][] = 'Properties for '.$nameTools.' ('.$config_code.') are now effective on server.';
+                $controlMsg['info'][] =  sprintf($lang_p_PropForConfigCommited,$nameTools,$config_code);
                 $controlMsg['debug'][] = 'file generated for <B>'.$config_code.'</B> is <em>'.$confFile.'</em>'.'<br>Signature : <TT>'.$hashConf.'</tt>';        
                 $panel = DISP_LIST_CONF;
             }
@@ -411,8 +419,8 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         }
         else 
         {
-            $controlMsg['info'][] = 'No Properties for '.$nameTools.' ('.$config_code.'). <BR>
- <em>'.$confFile.'</em> is not generated';        
+            $controlMsg['info'][] = 'No Properties for '.$nameTools
+                                   .' ('.$config_code.').<BR><em>'.$confFile.'</em> is not generated';        
             $panel = DISP_LIST_CONF;
        
         }
@@ -718,7 +726,7 @@ switch ($panel)
             }
             else
             {
-                echo 'no section found in definition file';                                
+                echo $lang_noSectionFoundInDefinitionFile ;
             }
     }
         break;
