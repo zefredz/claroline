@@ -74,7 +74,7 @@ Write config file if all value needed are set
 // and replace Var_Dump::display by Var_Dump
 
 define('CLARO_DEBUG_MODE',TRUE);
-$langFile = "config";
+
 $lang_config_config = 'Édition des fichiers de configuration';
 $lang_nothingToConfigHere='Il n\'y a pas de paramétrage pour <B>%s</B>';
 $langBackToMenu = 'Retour au Menu';
@@ -82,6 +82,10 @@ $langShowConf        = 'Show Conf';
 $langShowDef         = 'Show Def';
 $langNoPropertiesSet = 'No properties set';
 $langShowContentFile = 'Voir le contenu du fichier';
+$langSagasu          = 'fichier';
+$langApply           = 'Appliquer';
+$langApplied         = 'Appliqué';
+$langConfig          = 'Configuration';
 
 define('DISP_LIST_CONF',        __LINE__);
 define('DISP_EDIT_CONF_CLASS',  __LINE__);
@@ -89,6 +93,13 @@ define('DISP_GENERATE_CONF',    __LINE__);
 define('DISP_SHOW_CONF',        __LINE__);
 define('DISP_SHOW_DEF_FILE',    __LINE__);
 define('DISP_SHOW_CONF_FILE',   __LINE__);
+
+
+define('CONF_AUTO_APPLY_CHANGE',FALSE);
+// if false, editing properties mean to change value in database.
+// and wait an "apply" to commit these change in files use in production.
+// False make interface more "souple" but less easy to understand
+
 
 // include init and library files
 
@@ -255,7 +266,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             $panel = DISP_LIST_CONF;
         }
     }
-    elseif(isset($_REQUEST['cmdSaveProperties']))
+    elseif(isset($_REQUEST['cmdSaveProperties']) || isset($_REQUEST['cmdSaveAndApply']))
     {
         if(file_exists($confDef))
         {
@@ -385,7 +396,10 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         }            
         $controlMsg['info'][] = 'Properties saved in DB. Generate file to apply on your platform';        
     }
-    elseif($_REQUEST['cmd']=='generateConf')
+
+    if(   $_REQUEST['cmd']=='generateConf' 
+       || ( $okToSave 
+            && isset($_REQUEST['cmdSaveAndApply'])))
     {
         if(file_exists($confDef))
         {
@@ -513,13 +527,16 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
 if ($panel == DISP_LIST_CONF)
 {
     $helpSection = 'help_config_menu.php';
+
     $config_list  = get_def_list();
     $conf_list = get_conf_list();
+    if (is_array($conf_list))
     foreach($conf_list as $key => $config)
     {
-        $config_list[$key]['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config['config_code']))&&$config['config_hash'] != md5_file(claro_get_conf_file($config['config_code'])));
+        $config_list[$key]['manual_edit']                  = (bool) (file_exists(claro_get_conf_file($config['config_code']))&&$config['config_hash'] != md5_file(claro_get_conf_file($config['config_code'])));
+        $config_list[$key]['tool']                         = get_tool_name($config['claro_label']);
+        $tool_list[$config['claro_label']][]= $config_list[$key];
     }
-    
 }
 elseif ($panel == DISP_EDIT_CONF_CLASS)
 {
@@ -561,17 +578,17 @@ if (!empty($controlMsg))
 switch ($panel)
 {
     case DISP_LIST_CONF : 
-    ?>
-    
-<table class="claroTable" cellspacing="4" >
-    <thead>
-    <tr class="headerX" >
-        <th>Fichier</th>
-        <th>Éditer</th>
-        <th>Appliquer</th>
-    </tr>
-    </thead>
-<?php
+        echo '<table class="claroTable" cellspacing="4" >'
+            .'<thead>'
+            .'<tr class="headerX" >'
+            .'<th>'.$langConfig.'</th>'
+            .(CONF_AUTO_APPLY_CHANGE?'<th colspan="2">'.$langEdit.'</th>'
+                                    :'<th>'.$langEdit.'</th>'
+                                    .'<th>'.$langApply.'</th>')
+            .'</tr>'
+            .'</thead>'
+            ;
+
         foreach($config_list as $config_code => $tool)
         {
             echo '<tr>'
@@ -586,38 +603,42 @@ switch ($panel)
             if (!$tool['def'])
             {
                 echo '<td colspan="2" >'
-                    .'<strike>éditer</strike>'
+                    .'<strike>'.$langEdit.'</strike>'
                     .'</td>'
                     ;
             }
             else 
             {
+                
                 echo '<td>'
                     .'<a href="'.$_SERVER['PHP_SELF']
                     .'?cmd=dispEditConfClass&amp;config_code='.$config_code.'" >'
                     .'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="'.$langEdit.'">'
                     .'</a>'
-                    .($tool['manual_edit']?'!!!!version de production modifiée':'')
-                    .'</td>'
-                    .'<td>'
+                    .($tool['manual_edit']?'<BR>!!!! version de production modifiée':'')
+                    .'</td>';
+                if (!CONF_AUTO_APPLY_CHANGE)
+                echo '<td>'
                     . ( $tool['propQtyInDb']['qty_values']>0
-                      ? '<a href="'.$_SERVER['PHP_SELF']
-                      .'?cmd=generateConf&amp;config_code='.$config_code.'" >'
-                      .'<img src="'.$clarolineRepositoryWeb.'img/download.gif" border="0" alt="'.$langSave.'">'
-                     . ($tool['propQtyInDb']['qty_new_values']>0
-                       ? '<br>(<small>'.$tool['propQtyInDb']['qty_new_values'].' new values</small>)'
-                       : 'Up to date'
-                       )
-                       .'</a>'
-                     : '<small>'
+                      ? ( $tool['propQtyInDb']['qty_new_values']>0
+                         ? '<a href="'.$_SERVER['PHP_SELF']
+                          .'?cmd=generateConf&amp;config_code='.$config_code.'" >'
+                          .'<img src="'.$clarolineRepositoryWeb.'img/download.gif" border="0" alt="'.$langSave.'">'
+                          .'<br>(<small>'.$tool['propQtyInDb']['qty_new_values'].' new values</small>)'
+                          .'</a>'
+                         : $langApplied
+                         )
+                      : '<small>'
                        .$langNoPropertiesSet
                        .'</small>'
-                     )
+                      )
                    .'</td>';
             }
             echo '</tr>';
         }
         echo '</table>';
+//        asort($tool_list);
+//        Var_Dump::display($tool_list);
         break;
     case DISP_EDIT_CONF_CLASS : 
 
@@ -645,22 +666,41 @@ switch ($panel)
                     if (is_array($section['properties']))
                     foreach($section['properties'] as $property )
                     {
-//                      var_dump::display($property);
-                        $htmlPropLabel = htmlentities($conf_def_property_list[$property]['label']);
                         $htmlPropDesc = ($conf_def_property_list[$property]['description']?'<div class="propDesc">'.nl2br(htmlentities($conf_def_property_list[$property]['description'])).'</div><br />':'');
                         $htmlPropName = 'prop['.($property).']';
+                        $htmlPropLabel = (isset($conf_def_property_list[$property]['label'])?htmlentities($conf_def_property_list[$property]['label']):$htmlPropName);
                         $htmlPropValue = isset($conf_def_property_list[$property]['actualValue'])?$conf_def_property_list[$property]['actualValue']:$conf_def_property_list[$property]['default'];
                         $size = (int) strlen($htmlPropValue);
                         $size = 2+(($size > 90)?90:(($size < 8)?8:$size));
                         $htmlPropDefault = isset($conf_def_property_list[$property]['actualValue'])?'<span class="default"> Default : '.$conf_def_property_list[$property]['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
-                        if ($conf_def_property_list[$property]['readonly']) 
+            
+                        if (isset($conf_def_property_list[$property]['display']) 
+                               &&!$conf_def_property_list[$property]['display']) 
+                        {
+                            echo '<input type="hidden" value="'.$htmlPropValue.'" name="'.$htmlPropName.'">'."\n";
+                        } 
+                        elseif ($conf_def_property_list[$property]['readonly']) 
                         {
                             echo '<H2>'
                                 .$htmlPropLabel
                                 .'</H2>'."\n"
                                 .$htmlPropDesc."\n"
-                                .$htmlPropValue.'<br>'."\n"
+                                .'<span>'
                                 ;
+                            switch($conf_def_property_list[$property]['type'])
+                            {
+                           	    case 'boolean' : 
+                       	        case 'enum' : 
+                                    echo (isset($conf_def_property_list[$property]['acceptedValue'][$htmlPropValue])?$conf_def_property_list[$property]['acceptedValue'][$htmlPropValue]:$htmlPropValue);
+                            		break;
+                           	    case 'integer' : 
+                       	        case 'string' : 
+                             	default:
+                                	// probably a string or integer
+                                    echo $conf_def_property_list[$property]['default'];
+                        } // switch
+                        echo '</span>'."\n"
+                            .'<input type="hidden" value="'.$htmlPropValue.'" name="'.$htmlPropName.'">'."\n";
                         } 
                         else
                         // Prupose a form following the type 
@@ -744,8 +784,9 @@ switch ($panel)
                     } 
                 echo '</fieldset>';
                 }
-                echo '<input type="hidden" name="cmd" value="cmdSaveProperties" >';
-                echo '<input type="submit" name="cmdSaveProperties" value="Save" >'
+                echo '<input type="hidden" name="cmd" value="cmdSaveProperties" >'
+                    .'<input type="submit" name="cmdSaveAndApply" value="Save and Apply" >'
+                    .'<input type="submit" name="cmdSaveProperties" value="Save without apply" >'
                     .'</form>'."\n"
                     ;
                    
@@ -837,7 +878,7 @@ switch ($panel)
 
 }
 
-//var_dump::display($_REQUEST);
+//var_dump::display($config_list);
 //var_dump::display($conf_def);
 //var_dump::display($conf_def_property_list);
 include($includePath."/claro_init_footer.inc.php");
