@@ -107,8 +107,8 @@ if ($cmd == 'exSetToolAccess')
 
     foreach($currentToolStateList as $thisCurrentToolState)
     {
-    
-        if (in_array($thisCurrentToolState['id'],$_REQUEST['toolAccessList'])) 
+
+        if (in_array($thisCurrentToolState['id'],$_REQUEST['toolAccessList']))
         {
              $enablableToolList[] = $thisCurrentToolState['id'];
         }
@@ -117,42 +117,42 @@ if ($cmd == 'exSetToolAccess')
             $disablableToolList[] = $thisCurrentToolState['id'];
         }
     }
-    
+
     $enableToolQuerySucceed = enable_course_tool($enablableToolList);
     $disableToolQuerySucceed = disable_course_tool($disablableToolList);
-    
+
     if ($enableToolQuerySucceed !== FALSE && $disableToolQuerySucceed !== FALSE)
     {
-        $msg .= "Tool accesses changed"; 
+        $msg .= $langChangedTool;
     }
-    else 
+    else
     {
-        $msg .= "Unable to change tool accesses"; 
+        $msg .= $langUnableChangedTool;
     }
 
-} 
+}
 
 /*----------------------------------------------------------------------------
                               ADD AN EXTERNAL TOOL
   ----------------------------------------------------------------------------*/
 
 
-if ($cmd == 'exAdd') 
+if ($cmd == 'exAdd')
 {
     if ( ! empty ($_REQUEST['toolName']) && ! empty ($_REQUEST['toolUrl']))
     {
         if (insert_local_course_tool($_REQUEST['toolName'],$_REQUEST['toolUrl']) !== false )
         {
-         $msg .= "External Tool added.";
+         $msg .= $langAddedExternalTool;
         }
-        else 
+        else
         {
-         $msg .= "Unable to add external tool";
+         $msg .= $langUnableAddExternalTool;
         }
     }
     else
     {
-        $msg .= "Missing value";
+        $msg .= $langMissingValue;
         $cmd = 'rqAdd';
     }
 }
@@ -162,22 +162,22 @@ if ($cmd == 'exAdd')
   ----------------------------------------------------------------------------*/
 
 
-if ($cmd == 'exEdit') 
+if ($cmd == 'exEdit')
 {
     if ( ! empty ($_REQUEST['toolName']) && ! empty ($_REQUEST['toolUrl']))
     {
         if (set_local_course_tool($_REQUEST['externalToolId'],$_REQUEST['toolName'],$_REQUEST['toolUrl']) !== false )
         {
-            $msg .= "External tool updated";
+            $msg .= $langUpdatedExternalTool;
         }
-        else 
+        else
         {
-            $msg .= "Unable to update external tool";
+            $msg .= $langUnableUpdateExternalTool;
         }
     }
     else
     {
-        $msg .= "Missing value";
+        $msg .= $langMissingValue;
         $cmd = 'rqEdit';
     }
 
@@ -186,24 +186,24 @@ if ($cmd == 'exEdit')
 /*----------------------------------------------------------------------------
                     DELETE EXTERNAL TOOL
   ----------------------------------------------------------------------------*/
-  
-if ($cmd == 'exDelete') 
+
+if ($cmd == 'exDelete')
 {
     if ($_REQUEST['externalToolId'])
     {
         if (delete_course_tool($_REQUEST['externalToolId']) !== false)
         {
-            $msg .= 'External tool deleted';
+            $msg .= $langDeletedExternalTool;
         }
         else
         {
-            $msg .= 'Unable to delete external tool';
+            $msg .= $langUnableDeleteExternalTool;
         }
     }
-    else 
+    else
     {
-        $msg .= 'Unable to delete external tool';
-    
+        $msg .= $langUnableDeleteExternalTool;
+
     }
 
 
@@ -213,9 +213,9 @@ if ($cmd == 'exDelete')
                      REQUEST AN EXTERNAL TOOL CHANGE OR ADD
   ----------------------------------------------------------------------------*/
 
-if ($cmd == 'rqAdd' || $cmd == 'rqEdit') 
+if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
 {
-    if ($_REQUEST['externalToolId']) 
+    if ($_REQUEST['externalToolId'])
     {
         $externalToolId = $_REQUEST['externalToolId'];
 
@@ -223,8 +223,8 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
         {
             $toolName = stripslashes($_REQUEST['toolName']);
             $toolUrl  = stripslashes($_REQUEST['toolUrl']);
-        } 
-        else 
+        }
+        else
         {
             $toolSettingList = get_course_tool_settings($externalToolId);
             $toolName = $toolSettingList['name'];
@@ -234,22 +234,22 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     else
     {
         $externalToolId = null;
-        
+
         $toolName = '';
         $toolUrl  = '';
     }
-    
+
     $msg .= "<form action=\"".$PHP_SELF."\">"
             ."<input type=\"hidden\" name=\"cmd\" value=\"".($externalToolId ? 'exEdit' : 'exAdd')."\">";
-    
+
     if ($externalToolId)
     {
         $msg .= "<input type=\"hidden\" name=\"externalToolId\" value=\"".$externalToolId."\">";
     }
-    
-    $msg .= "<label for=\"toolName\">Tool Name :</label><br>"
+
+    $msg .= "<label for=\"toolName\">".$langToolName."</label><br>"
             ."<input type=\"text\" name=\"toolName\" value=\"".$toolName."\"><br>"
-            ."<label for=\"toolUrl\">Tool Url :</label><br>"
+            ."<label for=\"toolUrl\">".$langToolUrl."</label><br>"
             ."<input type=\"text\" name=\"toolUrl\" value=\"".$toolUrl."\"><br>"
             ."<input class=\"claroButton\" type=\"submit\" value=\"OK\">&nbsp;"
             ."<a class=\"claroButton\" href=\"" . $PHP_SELF ."\">Cancel</a>"
@@ -264,7 +264,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
   ============================================================================*/
 
 $backLink = "<p>"
-            . "<small>" 
+            . "<small>"
             . "<a href=\"".$coursesRepositoryWeb.$currentCourseRepository."/index.php?cidReset=true&cidReq=".$_cid."\">"
             . "&lt;&lt;&nbsp;" . $langHome. "</a>"
             . "</small>"
@@ -272,14 +272,11 @@ $backLink = "<p>"
 
 echo $backLink;
 
-claro_disp_tool_title('Edit Course Tool List');
+claro_disp_tool_title($langEditToolList);
 
 if ($msg) claro_disp_message_box($msg);
 
-echo "<p>"
-    ."Select the tools you want to make visible for your user. "
-    ."Univisible tool will be grayed out on your personnal interface"
-    ."</p>";
+echo "<p>".$langIntroEditToolList."</p>";
 
 echo "<blockquote>\n"
     ."<form action=\"".$PHP_SELF."\">\n";
@@ -290,8 +287,8 @@ $toolList = get_course_tool_list($reqAccessLevel);
 
 echo "<table class=\"claroTable\" >"
     . " <tr class=\"headerX\">"
-    . " <th>Tools</th>"
-    . " <th>Activate</th>"
+    . " <th>".$langTools."</th>"
+    . " <th>".$langActivate."</th>"
     . " </tr>";
 
 foreach($toolList as $thisTool)
@@ -301,25 +298,27 @@ foreach($toolList as $thisTool)
     if ( ! empty($thisTool['label'])) // standart claroline tool
     {
         $toolName      = $toolNameList[ $thisTool['label'] ];
+        $url           = trim($toolRepository.$thisTool['url']);
         $removableTool = false;
     }
     else                            // external tool added by course manager
-    { 
-        if ( ! is_null($thisTool['name']) ||  ! is_null($thisTool['url']) ) 
+    {
+        if ( ! is_null($thisTool['name']) ||  ! is_null($thisTool['url']) )
         {
             $removableTool = true;
-            
+
             if ( ! empty($thisTool['name'])) $toolName = $thisTool['name'];
             else                             $toolName = '<i>no name</i>';
-            
+
+            $url = trim($thisTool['url']);
         }
     }
-    
+
     if (! empty($thisTool['icon']))
     {
         $icon = $imgRepository.$thisTool['icon'];
     }
-    else 
+    else
     {
     	$icon = $imgRepository.'external.gif'; // default icon if none defined
     }
@@ -334,12 +333,20 @@ foreach($toolList as $thisTool)
     }
 
     echo "<tr>";
-    
-    echo "<td ".$style.">"
-        ."<img src=\"".$icon."\" alt=\" \"> "
-        .$toolName . "</td>"
-        ."<td><input type=\"checkbox\" name=\"toolAccessList[]\" value=\"".$thisTool['id']."\"".$checkState.">";
 
+    if ( ! empty($url) )
+    {
+        echo "<td><a href=\"".$url."\"><img src=\"".$icon."\"></a> "
+            ."<a href=\"".$url."\">".$toolName."</a></td>"
+            ."<td><input type=\"checkbox\" name=\"toolAccessList[]\" value=\"".$thisTool['id']."\"".$checkState.">";
+    }
+    else
+    {
+        echo "<td ".$style.">"
+            ."<img src=\"".$icon."\">"
+            .$toolName . "</td>"
+            ."<td><input type=\"checkbox\" name=\"toolAccessList[]\" value=\"".$thisTool['id']."\"".$checkState.">";
+    }
 
     if ($removableTool)
     {
@@ -349,8 +356,8 @@ foreach($toolList as $thisTool)
              . "<a href=\"". $PHP_SELF ."?cmd=exDelete&externalToolId=". $thisTool['id'] . "\""
              . " onClick=\"return confirmation('" . addslashes($toolName) . "');\">"
              ."<img src=\"" . $imgRepository. "delete.gif\" alt=\"delete\" />"
-             ."</a>\n"; 
-    
+             ."</a>\n";
+
     }
 
     echo "</td></tr>\n";
@@ -361,10 +368,10 @@ echo "</table>";
 echo "<input class=\"claroButton\" type=\"submit\" value=\"OK\" />\n"
     ."</form>\n"
     ."</blockquote>\n";
-    
+
 echo "<hr size=\"1\" noshade=\"noshade\"  />";
 
-claro_disp_button($PHP_SELF.'?cmd=rqAdd', 'Add external link');
+claro_disp_button($PHP_SELF.'?cmd=rqAdd', $langAddExternalTool);
 
 echo $backLink;
 

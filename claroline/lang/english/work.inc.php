@@ -33,6 +33,6 @@ $lang_make_invisible = "make invisible";
 $lang_make_visible = "make visible";
 $langNotPossible = "Impossible";
 
-$langHelpAddIntroText="This page allows any student or group to upload a document on the course's website. Send HTML file only if it contains no image.<br><br>If you want to add an introduction, click on this button.";
+$langIntroWork="This page allows any student or group to upload a document on the course's website. <br>Send HTML file only if it contains no image.<br><br>If you want to present this tool or give some recommandations at students, click on the button below.<br>";
 
 ?>

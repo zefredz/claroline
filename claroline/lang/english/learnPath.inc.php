@@ -15,7 +15,7 @@
    $langVisible="Visibility";
    $langBlock = "Block";
    $langProgress = "Progress";
-   $langHelpAddIntroText="This is the introduction text of the learning paths of your course.  Use this tool to provide your students with a sequential path between documents, exercises, HTML pages,...<br><br>If you want to add your own introduction text, click on the button below.<br>";
+   $langIntroLearningPath="Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br><br>If you want to present your learning path at students, click on the button below.<br>";
 
    $langStartModule = "Start Module";
    $langModuleAdmin = "Module Admin";

@@ -38,15 +38,17 @@ $langPrivOpen="Private access, registration open";
 $langPrivate="Private access (site accessible only to people on the <a href=../user/user.php>User list</a>)";
 $langForbidden="Not allowed";
 $langLanguage="Language";
-$langConfTip="By default, you course is accessible to everybody. If you want some confidentiality,
+$langConfTip="By default, you course is only accessible to you as its only registered user. If you want some confidentiality,
 the simplest way is to open registration during
 one week, ask the students to register themselves, then close registration and check for possible intruders in the user list.";
 $langTipLang="This language will be valid for every visitor of your course's website.";
-$langHelpAddIntroText="You are on the course home page.<br><br>On this page, you can
-<li class=HelpText>activate or desactiviate tools list on the left
-<li class=HelpText>chage settings or view statistics on the bottom.
-<BR><BR>If you want to add an introduction text click on this button ";
+$langIntroCourse="You are on the course home page.<br><br>On this page, you can :
+<li class=HelpText>activate or desactivate tools (click on the '".$langEditToolList."' button at bottom left).
+<li class=HelpText>change settings or view statistics (click on corresponding links at bottom).<BR><BR>
+Now, to add an introduction text presenting your course to students, click on this button ";
+
 // Change Home Page
+$langEditToolList="Edit Tool list";
 $langAgenda="Agenda";
 $langLink="Links";
 $langDocument="Documents and Links";
@@ -133,4 +135,23 @@ $langToCourseSettings = "Back to course settings";
 $langSeeCourseUsers = "See course users";
 $langBackToCourseList = "Back to courses list";
 $langBackToList = "Back to list";
+
+// course_home_edit.php
+
+$langIntroEditToolList="Select the tools you want to make visible for your user.
+Univisible tool will be grayed out on your personnal interface";
+$langTools="Tools";
+$langActivate="Activate";
+$langAddExternalTool="Add external link";
+$langAddedExternalTool="External Tool added.";
+$langUnableAddExternalTool="Unable to add external tool";
+$langMissingValue="Missing value";
+$langToolName="Name link";
+$langToolUrl="URL link";
+$langChangedTool="Tool accesses changed";
+$langUnableChangedTool="Unable to change tool accesses";
+$langUpdatedExternalTool="External tool updated";
+$langUnableUpdateExternalTool="Unable to update external tool";
+$langDeletedExternalTool='External tool deleted';
+$langUnableDeleteExternalTool='Unable to delete external tool';
 ?>

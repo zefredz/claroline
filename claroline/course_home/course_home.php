@@ -57,7 +57,7 @@ if ( ! isset($coursesAlreadyVisited[$_cid]))
 ?>
 <table border="0" cellspacing="10">
 <tr>
-<td nowrap valign="top" style="line-height:150%;">
+<td nowrap valign="top">
 <?php
 
 /*
@@ -141,14 +141,14 @@ foreach($toolList as $thisTool)
     {
         echo "<span".$style.">"
             ."<a href=\"".$url."\">"
-            ."<img src=\"".$icon."\" hspace=\"5\" alt=\" \">".$toolName
+            ."<img src=\"".$icon."\" hspace=\"5\">".$toolName
             ."</a>"
             ."</span><br>\n";
     }
     else
     {
         echo "<span".$style.">"
-            ."<img src=\"".$icon."\" alt=\" \">"
+            ."<img src=\"".$icon."\">"
             .$toolName
             ."</span><br>\n";
     }
@@ -158,9 +158,9 @@ if ($is_allowedToEdit)
 {
     echo '<p>';
     claro_disp_button($clarolineRepositoryWeb."course_home/course_home_edit.php",
-                      "<img align=\"absbottom\" src=\"".$imgRepository."edit.gif\" alt=\" \">"
-                      ."Edit Tool list");
-    echo '</p><p></p>'; // the empty <p></p> is necessary otherwise the button 
+                      "<img align=\"absbottom\" src=\"".$imgRepository."edit.gif\">"
+                      .$langEditToolList);
+    echo '</p><p></p>'; // the empty <p></p> is necessary otherwise the button
                         // bottom is bitten in IE
 
 }
@@ -182,6 +182,7 @@ if ($is_allowedToEdit)
 
 // the module id for course_home equal -1 (course_home is not a tool in tool_list)
 $moduleId = -1;
+$langHelpAddIntroText=$langIntroCourse;
 include($includePath."/introductionSection.inc.php");
 ?>
 </td>
@@ -199,12 +200,12 @@ if ($is_allowedToEdit)
     echo "<hr noshade size=\"1\">";
 
     echo "Course Administration :&nbsp;&nbsp;&nbsp;&nbsp;";
-    echo "<img src=\"".$imgRepository."referencement.gif\" alt=\" \">";
-    echo "<a href=\"".$toolRepository."course_info/infocours.php\">".$langModifInfo."</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+    echo "<img src=\"".$imgRepository."/referencement.gif\">";
+    echo "<a href=\"".$toolRepository."/course_info/infocours.php\">".$langModifInfo."</a>&nbsp;&nbsp;&nbsp;&nbsp;";
     // langModifInfo stands for 'course setting' ...
-    echo "<img src=\"".$imgRepository."statistiques.gif\" alt=\" \">";
+    echo "<img src=\"".$imgRepository."/statistiques.gif\">";
 
-    echo "<a href=\"".$toolRepository."tracking/courseLog.php\">".$langStats."</a>";
+    echo "<a href=\"".$toolRepository."/tracking/courseLog.php\">".$langStats."</a>";
     // $langStats stands for Statistics
 
 }
