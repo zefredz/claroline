@@ -1,7 +1,7 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
@@ -142,9 +142,7 @@ $langEnrollAsStudent = "Inscrire comme étudiant";
 $langEnrollAsManager = "Inscrire comme responsable du cours";
 $langAlreadyEnrolled = "Déjà inscrit";
 
-
 $langCourseBackup = "Sauvegarde";
-
 //popup
 
 $langAreYouSureToDelete = "Etes-vous sûr de vouloir supprimer ";
@@ -186,4 +184,15 @@ $langPasswordWrong = "Les mots de passe entrés doivent être identiques";
 $langStatusChangeNotMade = "Aucun changement appliqué";
 $langNotUnregYourself ="Vous ne pouvez pas changer vos propres paramètres !"; // JCC
 $langHomePageTextZone = "Zones de texte de la page de garde";
+
+// _p_ = utilisé dans des printf
+$lang_p_d_courses = '%2d cours'; // plural
+$lang_p_d_course  = '%2d cours'; // nul or singular
+$lang_p_d_course_members = '%2d membres'; // plural
+$lang_p_d_course_member  = '%2d membre'; // nul or singular
+$lang_p_d_students = '%2d étudiants'; // plural
+$lang_p_d_student  = '%2d étudiant'; // nul or singular
+$lang_p_d_course_managers = '%2d prof. '; // plural
+$lang_p_d_course_manager = '%2d prof. '; // nul or singular
+
 ?>
