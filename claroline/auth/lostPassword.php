@@ -26,22 +26,26 @@
 $langFile = "registration";
 require '../inc/claro_init_global.inc.php';
 $nameTools = $lang_lost_password;
+
+/*
+ * DB tables definition
+ */
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user            = $tbl_mdb_names['user'];
+
 include('../inc/claro_init_header.inc.php');
-
-echo "<h3>",$nameTools,"</h3>";
-
-$tbl_user      = $mainDbName."`.`user";
+claro_disp_tool_title($nameTools);
 
 if ($searchPassword)
 {
 	$Femail = strtolower(trim($Femail));
 
-	$result = sql_query("SELECT user_id AS uid, nom AS lastName, prenom AS firstName, 
-	                    username AS loginName, password, email, statut AS status, 
-	                    officialCode, phoneNumber, pictureUri, creatorId
-	                    FROM `".$tbl_user."`
-	                    WHERE LOWER(email) LIKE \"".$Femail."\"
-	                    AND   email != \"\" ");
+	$result = claro_sql_query('SELECT `user_id` AS `uid`, `nom` AS `lastName`, `prenom` AS `firstName`, 
+	                    `username` AS `loginName`, `password`, `email`, `statut` AS `status`, 
+	                    `officialCode`, `phoneNumber`, `pictureUri`, `creatorId`
+	                    FROM `'.$tbl_user.'`
+	                    WHERE LOWER(email) LIKE "'.$_REQUEST['Femail'].'"
+	                    AND   `email` != "" ');
 
 	if ($result)
 	{
@@ -61,13 +65,13 @@ if ($searchPassword)
 			{
 				for ($i = 0, $j = count($user); $i < $j; $i++)
 				{
-					$user[$i][password] = generate_passwd();
+					$user[$i]['password'] = generate_passwd();
 
 					// UPDATE THE DB WITH THE NEW GENERATED PASSWORD
 
-					$result = sql_query("UPDATE `".$tbl_user."`
-					                     SET password = \"".md5($user[$i][password])."\"
-					                     WHERE user_id = \"".$user[$i][uid]."\"");
+					$result = claro_sql_query('UPDATE `'.$tbl_user.'`
+					                     SET `password` = "'.md5($user[$i]['password']).'"
+					                     WHERE `user_id` = "'.$user[$i]['uid'].'"');
 				}
 			}
 
@@ -101,9 +105,9 @@ if ($searchPassword)
 
 			foreach($user as $thisUser)
 			{
-				$userAccountList [] = $thisUser[firstName]." ".$thisUser[lastName]."\r\n\r\n"
-									 ."\t".$langUsername." : ".$thisUser[loginName]."\r\n"
-									 ."\t".$langPass." : ".$thisUser[password]." \r\n";
+				$userAccountList [] = $thisUser['firstName']." ".$thisUser['lastName']."\r\n\r\n"
+									 ."\t".$langUsername." : ".$thisUser['loginName']."\r\n"
+									 ."\t".$langPass." : ".$thisUser['password']." \r\n";
 			}
 
 			if ($userAccountList)
@@ -126,13 +130,13 @@ if ($searchPassword)
 			}
 			else
 			{
-				echo	"<p>",
-						"The system is unable to send you an e-mail.<br>",
-						"Please contact the ",
-						"<a href=\"mailto:",$administrator["email"],"\">",
-						"Platform administrator",
-						"</a>",
-						".<p>";
+				echo	"<p>".
+					.	"The system is unable to send you an e-mail.<br>"
+					.	"Please contact the "
+					.	"<a href=\"mailto:".$administrator["email"]."\">"
+					.	"Platform administrator"
+					.	"</a>"
+					.	".<p>";
 			}
 			
 
@@ -154,12 +158,12 @@ if ($msg) echo "<p>",$msg,"</p>";
 if ( ! $passwordFound)
 { ?>
 
-<form action="<?= $PHP_SELF?>" method="post">
+<form action="<?php echo $PHP_SELF?>" method="post">
 <input type="hidden" name="searchPassword" value="1">
 <table>
 <tr>
-<td align = "right"><label for="Femail"><?= $langEmail ?> : </label></td>
-<td><input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="<?= $Femail ?>"></td>
+<td align = "right"><label for="Femail"><?php echo $langEmail ?> : </label></td>
+<td><input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="<?php echo $Femail ?>"></td>
 </tr>
 <td></td>
 <td><input type="submit" name="retrieve" value="Submit"></td>
@@ -170,7 +174,7 @@ if ( ! $passwordFound)
 <?php
 }
 
-@include($includePath."/claro_init_footer.inc.php");
+include($includePath."/claro_init_footer.inc.php");
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -231,15 +235,5 @@ function generate_passwd()
 	}
 	return $retour;
 }
-
-
-function sql_query($query)
-{
-	$handle = mysql_query($query);
-	if (mysql_errno())
-	    echo "<pre style='color:navy'>".mysql_errno().": ".mysql_error()."\n".$query."</pre><hr>";
-	return $handle;
-}
-
 
 ?>
