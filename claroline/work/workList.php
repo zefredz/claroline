@@ -1008,7 +1008,7 @@ if( $dispWrkDet && $is_allowedToView )
             // a work
             echo "<h4>".$langWorkDetails."</h4>\n\n";
       }
-      
+      echo "<p><a href=\"".$_SERVER['SCRIPT_NAME']."?assigId=".$_REQUEST['assigId']."\">".$langBack."</a></p>\n";
       if( empty($wrk['user_id']) )
       {
             $userToDisplay = $langAnonymousUser;
@@ -1040,7 +1040,7 @@ if( $dispWrkDet && $is_allowedToView )
             {
                   // admin has the right to edit it
                   echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">"
-                        ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a>";
+                        ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>";
             }
 
             // anybody that can see the correction is probably authorised to see the work, so display the link to anybody
@@ -1198,6 +1198,7 @@ if( $is_allowedToSubmit )
       if( $dispWrkForm )
       {
             echo "<h4>".$txtForFormTitle."</h4>\n"
+				  ."<p><a href=\"".$_SERVER['SCRIPT_NAME']."?assigId=".$_REQUEST['assigId']."\">".$langBack."</a></p>\n"
                   ."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\" enctype=\"multipart/form-data\">\n"
                   ."<input type=\"hidden\" name=\"assigId\" value=\"".$_REQUEST['assigId']."\">\n"
                   ."<input type=\"hidden\" name=\"cmd\" value=\"".$cmdToSend."\">\n";
