@@ -191,12 +191,12 @@ if ($is_allowedToEdit)
 
 <tr>
 <td>&nbsp;</td>
-<td><?php echo $langDay;    ?></td>
-<td><?php echo $langMonth;  ?></td>
-<td><?php echo $langYear;   ?></td>
-<td><?php echo $langHour;   ?></td>
-<td><?php echo $langMinute; ?></td>
-<td><?php echo $langLasting ?></td>
+<td><label for="fday"><?php echo $langDay;    ?></label></td>
+<td><label for="fmonth"><?php echo $langMonth;  ?></label></td>
+<td><label for="fyear"><?php echo $langYear;   ?></label></td>
+<td><label for="fhour"><?php echo $langHour;   ?></label></td>
+<td><label for="fminute"><?php echo $langMinute; ?></label></td>
+<td><label for="lasting"><?php echo $langLasting ?></label></td>
 </tr>
 
 <?php 
@@ -225,7 +225,7 @@ if ($is_allowedToEdit)
 <td>&nbsp;</td>
 
 <td>
-<select name="fday">
+<select name="fday" id="fday">
 <option value="<?php echo $day ?>" selected>[<?php echo $day ?>]</option>
 <option value="01">1</option>
 <option value="02">2</option>
@@ -263,7 +263,7 @@ if ($is_allowedToEdit)
 
 <td>
 
-<select name="fmonth">
+<select name="fmonth" id="fmonth">
 <option value="<?php echo $month ?>" selected>
 [<?php echo $langMonthNames['long'][ $month - 1 ] ?>]
 </option>
@@ -283,7 +283,7 @@ if ($is_allowedToEdit)
 </td>
 
 <td>
-<select name="fyear">
+<select name="fyear" id="fyear">
 <option value="<?php echo $year -1 ?>"><?php echo $year -1 ?></option>
 <option value="<?php echo $year ?>"  selected>[<?php echo $year ?>]</option>
 <option value="<?php echo $year +1 ?>"><?php echo $year +1 ?></option>
@@ -296,7 +296,7 @@ if ($is_allowedToEdit)
 
 <td>
 
-<select name="fhour">
+<select name="fhour" id="fhour">
 <option value="<?php echo $hours ?>">
 [<?php echo $hours ?>]
 </option>
@@ -330,7 +330,7 @@ if ($is_allowedToEdit)
 </td>
 <td>
 
-<select name="fminute">
+<select name="fminute" id="fminute">
 <option value="<?php echo $minutes ?>">[<?php echo $minutes ?>]</option>
 <option value="--">--</option>
 <option value="00">00</option>
@@ -350,24 +350,24 @@ if ($is_allowedToEdit)
 </td>
 
 <td>
-	<input type="text" name="lasting" size="2" value="<?php echo $lastingAncient ?>">
+	<input type="text" name="lasting" id="lasting" size="2" value="<?php echo $lastingAncient ?>">
 </td>
 
 </tr>
 
 
 <tr>
-<td valign="top"><?php echo $langTitle ?> : </td>
+<td valign="top"><label for="titre"><?php echo $langTitle ?> : </label></td>
 
 <td colspan="6"> 
-<input size="80" type="text" name="titre" value="<?php  echo isset($titre) ? $titre : '' ?>">   
+<input size="80" type="text" name="titre" id="titre" value="<?php  echo isset($titre) ? $titre : '' ?>">   
 </td>
 </tr>
 
 <tr> 
 
 <td valign="top">
-<?php echo $langDetail ?>&nbsp;:
+<label for="contenu"><?php echo $langDetail ?> : </label>
 </td>
 
 <td colspan="6"> 
