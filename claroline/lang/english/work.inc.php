@@ -22,7 +22,7 @@ $langWrkSession = "Session";
 $langSubmitWork = "Submit a work";
 $langEditWork = "Modify a work";
 $langWorkDetails = "Work details";
-$langGradeWork = "Grade work";
+$langGradeWork = "Grade";
 
 // -- Forms
 
@@ -76,6 +76,7 @@ $langSessionEdited = "Session modified";
 $langWrkAdded = "Work added";
 $langWrkEdited = "Work modified";
 $langGradeAdded = "Grade added";
+
 // errors
 $langTooBig = "File is too big";
 $langSessionTitleRequired = "Session title required";
