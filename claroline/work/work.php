@@ -313,12 +313,12 @@ if($is_allowedToEdit)
     if( $formCorrectlySent )
     {
           $sql = "INSERT INTO `".$tbl_wrk_assignment."`
-                  ( `title`,`description`, 
+                  ( `title`,`description`, `assignment_type`,
                     `authorized_content`, `authorize_anonymous`,
                     `start_date`, `end_date`, 
                     `def_submission_visibility`, `allow_late_upload`)
                   VALUES
-                  ( \"".$title."\", \"".$assigDesc."\",
+                  ( \"".$title."\", \"".$assigDesc."\", \"".$_REQUEST['assignmentType']."\",
                     \"".$authorizedContent."\", \"".$_REQUEST['allowAnonymous']."\",
                     \"".$composedStartDate."\", \"".$composedEndDate."\",
                     \"".$_REQUEST['defSubVis']."\", \"".$_REQUEST['allowLateUpload']."\")";
@@ -418,6 +418,12 @@ function confirmation (name)
 }
 </script>";
 
+if(isset($_gid))
+{
+	$interbredcrump[]= array ("url"=>"../group/group.php", "name"=> $langGroup);
+	$interbredcrump[]= array ("url"=>"../group/group_space.php", "name"=> $langGroupSpace);
+}
+
 if( ( isset($displayAssigForm) && $displayAssigForm ) )
 {
       // bredcrump to return to the list when in a form
@@ -428,7 +434,7 @@ else
 {
   $nameTools = $langWork;
   // to prevent parameters to be added in the breadcrumb
-  $QUERY_STRING='';
+  //$QUERY_STRING='';
 }
 
 include($includePath.'/claro_init_header.inc.php');
@@ -649,9 +655,16 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
 		}
 			
 		echo "<tr>\n"
-	  		."<th class=\"headerX\">\n"
-			."<a href=\"workList.php?assigId=".$anAssignment['id']."\">".$anAssignment['title']."</a>\n"
-			."</th>"
+	  		."<th class=\"headerX\">\n";
+		if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
+		{
+			echo "<a href=\"workList.php?cmd=rqSubWrk&assigId=".$anAssignment['id']."&submitGroupWorkUrl=".$_REQUEST['submitGroupWorkUrl']."\">".$anAssignment['title']."</a>\n";
+		}
+		else
+		{
+			echo "<a href=\"workList.php?assigId=".$anAssignment['id']."\">".$anAssignment['title']."</a>\n";
+		}
+		echo "</th>"
 			;
 			
 		echo "<tr".$style.">\n"
@@ -670,7 +683,7 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
 		elseif( $anAssignment['authorized_content'] == 'FILE' ) 
 			echo $langFileOnly;
 		elseif( $anAssignment['authorized_content'] == 'TEXTFILE' ) 
-			echo $langTextOnly;
+			echo $langTextFile;
 		echo "<br />";
 		// assignment type
 		if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) 
