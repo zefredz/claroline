@@ -1090,16 +1090,17 @@ claro_disp_tool_title($titleElement,
 		// get requested image name
 		if( isset( $_REQUEST['file'] ) && ! isset( $_REQUEST['viewMode'] ) )
 		{
-			$file = basename( $_REQUEST['file'] );
+			$file = $_REQUEST['file'];
+			$fileName = basename( $_REQUEST['file'] );
 		}
 		else
 		{
-			$fileName = $fileList['name'][$imageList[0]];
-			$file = basename( $fileName );
+			$file = $fileList['name'][$imageList[0]];
+			$fileName = basename( $file );
 		}
 		
 		// compute relative url for requested image
-		$fileUrl = $curDirPath . '/' . $file;
+		//$fileUrl = $fileName;
 		
 		// get requested image key in fileList
 		$imgKey = image_search( $file, $fileList );
@@ -1110,7 +1111,7 @@ claro_disp_tool_title($titleElement,
 		
 		// compute absolute path to requested image
 		$doc_url = $coursesRepositoryWeb . $courseDir
-			.implode ("/", array_map("rawurlencode", explode("/",$fileUrl)));
+			.implode ("/", array_map("rawurlencode", explode("/",$file)));
 		
 		// Image description table
 		echo "<table class=\"claroTable\" width=\"100%\">\n";
@@ -1157,7 +1158,7 @@ claro_disp_tool_title($titleElement,
 		
 		// --------------------- tool bar --------------------------------------
 		// create image title
-		$imgTitle = htmlentities($file);
+		$imgTitle = htmlentities($fileName);
 		
 		// create image style
 		$titleStyle ='title';
@@ -1208,7 +1209,7 @@ claro_disp_tool_title($titleElement,
 		
 		
 		$imgPath = $coursesRepositorySys . $courseDir
-			. $curDirPath . '/' . basename( $file )
+			. $file
 			;
 			
 		// get image info
@@ -1219,7 +1220,7 @@ claro_disp_tool_title($titleElement,
 		
 		// display image
 		echo "<p><center><img src=\"" . $doc_url . "\" " . $attr . " alt=\"" 
-			. $file . "\" /></center></p>\n"
+			. $fileName . "\" /></center></p>\n"
 			;
 			
 		// display image info
