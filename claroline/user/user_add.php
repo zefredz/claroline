@@ -54,6 +54,9 @@ if($register)
 	$username_form = trim($username_form);
 	$email_form    = trim($email_form);
 
+        $emailRegex = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
+
+	$dataChecked = true; // initially set to true, will change to false if there is a problem
 	// empty field checking
 
 	if(empty($nom_form) || empty($prenom_form) || empty($password_form) || empty($username_form) || empty($email_form))
@@ -64,16 +67,12 @@ if($register)
 
 	// valid mail address checking
 
-	elseif(!eregi('^[0-9a-z_.-]+@([0-9a-z-]+\.)+([0-9a-z]){2,4}$',$email_form))
+	elseif(!eregi( $emailRegex, $email_form))
 	{
 		$dataChecked = false;
 		$message     = $langEmailWrong;
 	}
-	else
-	{
-		$dataChecked = true;
-	}
-
+    
     // CHECK BOTH PASSWORD TOKEN ARE THE SAME
 
     if ($password_form !== $confirm_form)
@@ -85,7 +84,6 @@ if($register)
     }
     else
     {
-        $dataChecked = true;
         $form_password = $form_password2 ;
     }
 
