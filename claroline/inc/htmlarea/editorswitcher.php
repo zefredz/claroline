@@ -24,7 +24,7 @@ $sourceUrl = preg_replace('|&areaContent=.*|', '', $_REQUEST['sourceUrl'] );
 if($_REQUEST['switch'] == 'off')
 {
     $_SESSION['htmlArea'] = 'disabled';
-    $areaContent = urlencode( strip_tags($_REQUEST['areaContent']) );
+    $areaContent = urlencode( html2txt($_REQUEST['areaContent']) );
 }
 elseif ($_REQUEST['switch'] == 'on' )
 {
@@ -32,9 +32,41 @@ elseif ($_REQUEST['switch'] == 'on' )
     $areaContent = urlencode( nl2br($_REQUEST['areaContent']) );
 }
 
+/* <DEBUG> */
+echo "<pre style='color:red;font-weight:bold'>areaContent : $areaContent</pre>";
+/* </DEBUG> */
+
+
 header('Cache-Control: no-store, no-cache, must-revalidate');   // HTTP/1.1
 header('Cache-Control: post-check=0, pre-check=0', false);
 header('Pragma: no-cache');                                     // HTTP/1.0
 header('Location: '.$sourceUrl.'&areaContent='.$areaContent);
+
+
+function html2txt($content)
+{
+    static $ruleList = array(
+                             '<br[^>]*>'          => "\n"  ,
+                             '<p[^>]*>'           => "\n\n",
+                             '<blockquote[^>]*>'  => "\n\n",
+                             '</blockquote[^>]*>' => "\n\n",
+                             '<table[^>]*>'       => "\n\n",
+                             '</table[^>]*>'      => "\n\n",
+                             '<tr[^>]*>'          => "\n"  ,
+                             '<td[^>]*>'          => "\t"  ,
+                             '<hr[^>]*>'          => "--------------------------------------------------\n"
+                            );
+
+    foreach($ruleList as $pattern => $replace)
+    {
+    	$content = preg_replace('|'.$pattern.'|i', $replace , $content);
+    }
+
+    return strip_tags($content);
+}
+
+
+
+
 
 ?>
