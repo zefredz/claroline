@@ -282,7 +282,7 @@ Esta modificaci&oacute;n da cabeceira do curso non inscribe automaticamente a es
    contendo o seu nome de usuario e contrasinal, excepto no caso de que vostede non introducira o seu correo electr&oacute;nico.</p>";
 
 
-$langGroupManagement="Axuda de Grupos";
+$langHelpGroups="Axuda de Grupos";
 $langGroupContent="<p><b>Introducci&oacute;n</b></p>
 <p>Esta ferramenta permite crear e xestionar grupos de traballo.
 Cando se crea o curso (Crear Grupos), os grupos est&aacute;n vac&iacute;os.

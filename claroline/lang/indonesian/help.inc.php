@@ -200,7 +200,7 @@ $langUserContent="<b>Peran</b><p>Peran tidak ada hubungannya dengan komputer.
 
 // Help Group
 
-$langGroupManagement="Perolongan group";
+$langHelpGroups="Perolongan group";
 $langGroupContent="<p><b>Pengantar</b></p>
 <p>Tool ini digunakan untuk membuat dan mengelola group kerja/work groups.
 Pada saat pembutan (Buat group), group kosong. Ada beberapa cara untuk mengiisinya:

@@ -180,7 +180,7 @@ $langUserContent="<b>Peranan</b><p>Ahli tidak mempunyai sebarang peranan yang di
 
 // Help Group
 
-$langGroupManagement="Bantuan Pengguna - Kumpulan";
+$langHelpGroups="Bantuan Pengguna - Kumpulan";
 $langGroupContent="<p><b>Pengenalan</b></p>
 <p>Alat bantu ini membenarkan anda membina dan mengurus kumpulan kerja pelajar.
 Pada permulaan (Bina kumpulan), tiada senarai ahli kumpulan. Terdapat pelbagai cara untuk mengisi keahlian kumpulan iaitu:

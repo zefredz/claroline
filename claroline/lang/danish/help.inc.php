@@ -247,7 +247,7 @@ ham/hende eller minder ham/hende om sit login og sin adgangskode.</p>";
 
 // Help Group
 
-$langGroupManagement="Gruppehælp";
+$langHelpGroups="Gruppehælp";
 $langGroupContent="<p><b>Introduktion</b></p>
 <p>Dette værktøj giver dig mulighed for at oprette og styre grupper. 
 Ved oprettelsen ('Opret gruppe'), er grupperne tomme. Der er flere måde at udfylde dem på: 

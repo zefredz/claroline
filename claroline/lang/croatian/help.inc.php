@@ -198,7 +198,7 @@ $langUserContent="<b>Uloge</b><p>Uloge nemaju raèunalno povezanu funkciju.
 
 // Help Group
 
-$langGroupManagement="Pomoæ grupama";
+$langHelpGroups="Pomoæ grupama";
 $langGroupContent="<p><b>Uvod</b></p>
 <p>Ovaj alat omoguæava stvaranje i upravljanje radnim grupama. Prilikom stvranja (kreiranja) grupe, grupe su prazne. Postoji mnogo naèina za njihovo popunjavanje:
 <ul><li>automatsko ('Popuni grupe'),</li>

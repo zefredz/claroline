@@ -215,7 +215,7 @@ him/her or reminding him/her his/her login and  password.</p>";
 
 // Help Group
 
-$langGroupManagement="Help groups";
+$langHelpGroups="Help groups";
 $langGroupContent="<p><b>Introduction</b></p>
 <p>This tool allows to create and manage work groups. 
 At creation (Create groups), groups are emtpy. There are 

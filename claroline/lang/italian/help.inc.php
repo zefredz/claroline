@@ -137,7 +137,7 @@ $langUserContent="<b>Ruoli</b><p>I ruoli non hanno alcuna funzione sul piano inf
 
 // Help Group
 
-$langGroupManagement="Aiuto gruppi";
+$langHelpGroups="Aiuto gruppi";
 $langGroupContent="<p><b>Introduzione</b></p>
 <p>Questo strumento vi permette di creare e gestire gruppi di lavoro.
 Nel momento in cui sono creati i gruppi sono vuoti di partecipanti. Vi sono diversi modi per riempirli:

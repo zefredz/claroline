@@ -122,7 +122,7 @@ $langUserContent="<b>Roller</b><p>Roller har ingen datorrelaterad funktion. De g
 <p>För att lägga till en användare på din kurs, kontrollera först att personen inte är registrerad globalt på webbsajten. Om det är så markera i rutan på sidan om hans namn och klicka 'Ok'. Om personen inte är registrerad, lägg till personen manuellt. I båda fallen kommer personen att få ett mejl som talar om att du har registrerat personen och lösenord samt användarnamn skickas till personen som påminnelse.</p>";
 
 
-$langGroupManagement="Hjälp grupper";
+$langHelpGroups="Hjälp grupper";
 $langGroupContent="<p><b>Introduktion</b></p>
 <p>Detta verktyg hjälper dig att skapa och hantera arbetsgrupper.
 Vid skapande (Skapa grupper), är grupperna tomma. Det finns flera sätt att fylla dem:

@@ -239,7 +239,7 @@ da je bila registrirana s podanim uporabniskim imenom in geslom.</p>";
 
 // Help Group
 
-$langGroupManagement="Pomoc skupine";
+$langHelpGroups="Pomoc skupine";
 $langGroupContent="<p><b>Uvod</b></p>
 <p>To orodje omogoca tvorbo in upravljanje delovnih skupin.
 Ob tvorbi (Tvorba skupin), so skupine prazne. Napolnimo jih lahko na vec nacinov:

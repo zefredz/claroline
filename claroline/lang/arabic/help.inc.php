@@ -197,7 +197,7 @@ vous n'avez pas introduit son email.</p>";
 
 // Help Group
 
-$langGroupManagement="Gestion des groupes";
+$langHelpGroups="Gestion des groupes";
 $langGroupContent="<p><b>Introduction</b></p>
 	<p>Cet outil permet de créer et de gérer des groupes de travail. 
 	A la création, les groupes sont vides. Le professeur dispose de 

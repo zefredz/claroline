@@ -238,7 +238,7 @@ $langUserContent  = "<b>Papeles (roles)</b><p>Los papeles (roles) no tienen ning
 <p>Para a&ntilde;adir un usuario a su curso, compruebe primero si ya est&aacute; inscrito en iCampus utilizando el motor de b&uacute;squeda. Si ya est&aacute; inscrito, marque la casilla que aparece al lado de su nombre y valide. Si todav&iacute;a no est&aacute; inscrito a&ntilde;adale a mano. En los dos casos, la persona recibir&aacute; un email de confirmaci&oacute;n de su inscripci&oacute;n conteniendo su nombre de usuario y su password, excepto en el caso de que ustede no haya introducido su email.</p>";
 
 
-$langGroupManagement="Ayuda de Grupos";
+$langHelpGroups="Ayuda de Grupos";
 $langGroupContent="<p><b>Introducci&oacute;n</b></p>
 <p>Esta herramienta permite crear y gestionar grupos de trabajo.
 Cuando se crea el curso (Crear Grupos), los grupos est&aacute;n vacios. Hay muchas formas de rellenarlos:

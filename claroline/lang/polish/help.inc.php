@@ -131,7 +131,7 @@ $langUserContent="<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie maj± nic 
 
 // Help Group
 
-$langGroupManagement="Pomoc - grupy studentów";
+$langHelpGroups="Pomoc - grupy studentów";
 $langGroupContent="<p><b>Wprowadzenie</b></p>
 	<p>To narzêdzie pozwala na tworzenie i zarz±dzanie grupami roboczymi. 
 	Po utworzeniu (Tworzenie grup), grupy s± puste. Jest kilka sposobów na ich wype³nienie:

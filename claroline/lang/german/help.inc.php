@@ -132,7 +132,7 @@ $langUserContent="<b>Rollen</b><p>Rollen haben keine computerbezogenen Funktione
 
 // Help Group
 
-$langGroupManagement="Hilfe für Gruppenverwaltung";
+$langHelpGroups="Hilfe für Gruppenverwaltung";
 $langGroupContent="<p><b>Einführung</b></p>
 <p>Dieses Tool erlaubt das Erstellen und Bearbeiten von Gruppen.
 Beim Erstellen (Gruppen einrichten) sind diese leer. Es gibt verschiedene Möglichlichkeiten, diese aufzubauen:

@@ -147,7 +147,7 @@ $langUserContent="<b>Beheersrechten</b>
 // Help Group
 
 
-$langGroupManagement="Groepenbeheer";
+$langHelpGroups="Groepenbeheer";
 $langGroupContent="<p><b>Inleiding</b></p>
 <p>Deze functie maakt het u mogelijk werk- of studiegroepen aan te maken en te beheren. Deze groepen zijn leeg bij de aanmaak. De lesgever kan de groepen op verschillende manieren invullen:
 <ul>
