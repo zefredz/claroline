@@ -1,7 +1,7 @@
 <?php # $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -27,20 +27,38 @@ $nameTools = $langModifInfo;
 
 include($includePath."/lib/text.lib.php");
 @include($includePath."/lib/debug.lib.inc.php");
-$TABLECOURSE     = $mainDbName."`.`cours";
-$TABLEFACULTY    = $mainDbName."`.`faculte";
-$TABLECOURSDOMAIN= $mainDbName."`.`faculte";//needed for compatibility with libs
-$TABLEPHPBBCONFIG = $_course['dbNameGlu']."bb_config";
-$TABLECOURSEHOME = $_course['dbNameGlu']."tool_list";
 
-$currentCourseID = $_course['sysCode'];
+/*
+ * DB tables definition
+ */
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
+$tbl_bb_config        = $tbl_cdb_names['bb_config'      ];
+$tbl_course_groupconf = $tbl_cdb_names['group_property' ];
+$tbl_course           = $tbl_mdb_names['course'         ];
+$tbl_rel_tool_course  = $tbl_cdb_names['tool_list'      ];
+$tbl_category         = $tbl_mdb_names['category'       ];
+
+//4 old name, 
+// no more used in the script 
+// but can be removed before check .
+// in GLOBAL in used function
+$TABLECOURSE          = $tbl_course;
+$TABLECOURSEHOME      = $tbl_rel_tool_course;
+$TABLEFACULTY         = $tbl_category;
+$TABLECOURSDOMAIN     = $TABLEFACULTY;//needed for compatibility with libs
+
+$currentCourseID         = $_course['sysCode'];
 $currentCourseRepository = $_course["path"];
 
 $is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
 
-// in case of admin access (from admin tool) to the script, we must determine which course we are working with
+// in case of admin access (from admin tool) to the script, 
+// we must determine which course we are working with
 
-if (isset($cidToEdit) && ($is_platformAdmin))
+if (isset($_REQUEST['cidToEdit']) && ($is_platformAdmin))
 {
     $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools); // bred crump different in admin access
     unset($_cid);
@@ -60,42 +78,42 @@ claro_disp_tool_title($nameTools);
 if($is_allowedToEdit)
 {
 	// check if form submitted
-	if (isset($HTTP_POST_VARS["changeProperties"]))
+	if (isset($_REQUEST["changeProperties"]))
 	{
-		if ($int!="" || $canBeEmpty["int"])
-			$fieldsToUpdate[]= "intitule='".$int."'";
-		if ($faculte!="" || $canBeEmpty["facu"])
-			$fieldsToUpdate[]= "faculte='".$faculte."'";
-/*		if ($description!="" || $canBeEmpty["description"])
-			$fieldsToUpdate[]= "description='".$description."'";*/
-		if ($visible=="false" && $allowedToSubscribe=="false")
+		if ($_REQUEST['int']!=""            || $canBeEmpty["int"])
+			$fieldsToUpdate[]= "intitule='".         $_REQUEST['int']."'";
+		if ($_REQUEST['faculte']!=""        || $canBeEmpty["facu"])
+			$fieldsToUpdate[]= "faculte='".          $_REQUEST['faculte']."'";
+		if ( $_REQUEST["titulary"] !=""     || $canBeEmpty["titulary"])
+			$fieldsToUpdate[]= "titulaires='".       $_REQUEST['titulary']."'";
+		if ($_REQUEST['screenCode']!=""     || $canBeEmpty["screenCode"])
+			$fieldsToUpdate[]= "fake_code='".        $_REQUEST['screenCode']."'";
+		if ($_REQUEST['lanCourseForm'] !="" || $canBeEmpty["lanCourseForm"])
+			$fieldsToUpdate[]= "languageCourse='".   $_REQUEST['lanCourseForm']."'";
+		if ($_REQUEST['extLinkName']!=""    || $canBeEmpty["extLinkName"])
+			$fieldsToUpdate[]= "departmentUrlName='".$_REQUEST['extLinkName']."'";
+		if ($_REQUEST['extLinkUrl'] !=""    || $canBeEmpty["extLinkUrl"])
+			$fieldsToUpdate[]= "departmentUrl='".    $_REQUEST['extLinkUrl']."'";
+		if($_REQUEST['email']!=""           || $canBeEmpty["email"])
+			$fieldsToUpdate[]= "email='".            $_REQUEST['email']."'";
+/*		if ($_REQUEST['description']!=""    || $canBeEmpty["description"])
+			$fieldsToUpdate[]= "description='".      $_REQUEST['description']."'";*/
+		if ($_REQUEST['visible']=="false"     && $allowedToSubscribe=="false")
 			$fieldsToUpdate[]= "visible='0'";
-		elseif ($visible=="false" && $allowedToSubscribe=="true")
+		elseif ($_REQUEST['visible']=="false" && $allowedToSubscribe=="true")
 			$fieldsToUpdate[]= "visible='1'";
-		elseif ($visible=="true" && $allowedToSubscribe=="false")
+		elseif ($_REQUEST['visible']=="true"  && $allowedToSubscribe=="false")
 			$fieldsToUpdate[]= "visible='3'";
-		elseif ($visible=="true" && $allowedToSubscribe=="true")
+		elseif ($_REQUEST['visible']=="true"  && $allowedToSubscribe=="true")
 			$fieldsToUpdate[]= "visible='2'";
-		if ( $HTTP_POST_VARS["titulary"] !="" || $canBeEmpty["titulary"])
-			$fieldsToUpdate[]= "titulaires='".$titulary."'";
-		if ($screenCode!="" || $canBeEmpty["screenCode"])
-			$fieldsToUpdate[]= "fake_code='".$screenCode."'";
-		if ($lanCourseForm !="" || $canBeEmpty["lanCourseForm"])
-			$fieldsToUpdate[]= "languageCourse='".$lanCourseForm."'";
-		if ($extLinkName!=""  || $canBeEmpty["extLinkName"])
-			$fieldsToUpdate[]= "departmentUrlName='".$extLinkName."'";
-		if ($extLinkUrl !="" || $canBeEmpty["extLinkUrl"])
-			$fieldsToUpdate[]= "departmentUrl='".$extLinkUrl."'";
-		if($email!="" || $canBeEmpty["email"])
-			$fieldsToUpdate[]= "email='".$email."'";
 				
-		mysql_query("UPDATE `".$TABLECOURSE."`
-					 SET ".implode(",",$fieldsToUpdate)."
-					 WHERE code=\"".$current_cid."\"");
+		claro_sql_query('UPDATE `'.$tbl_course.'`
+					 SET '.implode(",",$fieldsToUpdate).'
+					 WHERE code="'.$current_cid.'"');
 		// we also need to modify the default langage of the phpbb forums
-		mysql_query("UPDATE `".$TABLEPHPBBCONFIG."`
-				SET `default_lang` = '".$lanCourseForm."'
-				WHERE `config_id` = 1");
+		claro_sql_query('UPDATE `'.$tbl_bb_config.'`
+				SET `default_lang` = "'.$lanCourseForm.'"
+				WHERE `config_id` = 1');
 		$cidReset = true;
 		$cidReq = $current_cid;
 		include($includePath."/claro_init_local.inc.php");
@@ -108,12 +126,12 @@ claro_disp_msg_arr($controlMsg);
 ///
 echo "
 		<br>
-		<a href=\"".$PHP_SELF."?".$toAddtoURL."\">".$langToCourseSettings."</a>
+		<a href=\"".$_SERVER['PHP_SELF']."?".$toAddtoURL."\">".$langToCourseSettings."</a>
 		|
 		<a href=\"".$coursesRepositoryWeb.$currentCourseRepository."/index.php?\">".$langHome."</a>";
 
 
-		if($is_platformAdmin && isset($cidToEdit))
+		if($is_platformAdmin && isset($_REQUEST['cidToEdit']))
 		{
 		echo " |
 		<a href=\"../admin/index.php\">".$langBackToAdminPage."</a>";
@@ -129,12 +147,10 @@ echo "<br>";
 	else
 	{
 
-$sqlCourseExtention = "SELECT * FROM `".$TABLECOURSE."` WHERE code = '".$current_cid."'";
+$sqlCourseExtention = "SELECT * FROM `".$tbl_course."` WHERE code = '".$current_cid."'";
 
 $resultCourseExtention 			= mysql_query($sqlCourseExtention);
 $thecourse 	= mysql_fetch_array($resultCourseExtention);
-
-
 
 $currentCourseDiskQuota 		= $currentCourseExtentionData["diskQuota"     ];
 $currentCourseLastVisit 		= $currentCourseExtentionData["lastVisit"     ];
@@ -159,7 +175,7 @@ $visibleChecked             [$thecourse['visibility'         ]] = "checked";
 $registrationAllowedChecked [$thecourse['registrationAllowed']] = "checked";
 
 ?>
-<form method="post" action="<?php echo $PHP_SELF ?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 
 <table  cellpadding="3" border="0">
 

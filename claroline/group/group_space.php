@@ -44,14 +44,18 @@ $htmlHeadXtra[]= "
 $is_courseMember     = $is_courseMember;
 $is_groupMember      = $is_groupMember;
 $is_allowedToManage  = $is_courseAdmin;
+/*
+ * DB tables definition
+ */
 
-$TABLEUSER            = $mainDbName."`.`user";
-$TABLECOURSUSER       = $mainDbName."`.`cours_user";
-
-$TABLEGROUP           = $_course['dbNameGlu'].'group_team';
-$TABLEGROUPPROPERTIES = $_course['dbNameGlu'].'group_property';
-$TABLEUSERGROUP       = $_course['dbNameGlu'].'group_rel_team_user';
-$TABLEFORUM           = $_course['dbNameGlu'].'bb_forums';
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_rel_course_user         = $tbl_mdb_names['rel_course_user'  ];
+$tbl_user                    = $tbl_mdb_names['user'             ];
+$tbl_bb_forum                = $tbl_cdb_names['bb_forums'             ];
+$tbl_course_group_property   = $tbl_cdb_names['group_property'         ];
+$tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'    ];
+$tbl_group_team              = $tbl_cdb_names['group_team'             ];
 /*========================================================================*/
 
 
@@ -59,7 +63,7 @@ $TABLEFORUM           = $_course['dbNameGlu'].'bb_forums';
 // (needed to give or refuse selfreg right)
 
 $sql = "SELECT COUNT(team) userGroupRegCount
-        FROM `".$TABLEUSERGROUP."`
+        FROM `".$tbl_group_rel_team_user."`
         WHERE `user` = '".$_uid."'";
 
 list($result) = claro_sql_query_fetch_all($sql);
@@ -93,13 +97,13 @@ $is_allowedToChatAccess     = (bool) ( 	$is_courseAdmin
 /*============================================================================
                            SELF-REGISTRATION PROCESS
 ============================================================================*/
-if($_POST['registration'])
+if($_REQUEST['registration'])
 {
     if( $is_courseMember &&  ! $is_groupMember)
     {
-        $sql = "INSERT INTO `".$TABLEUSERGROUP."`
-                SET user = \"".$_uid."\",
-                    team = \"".$_gid."\"";
+        $sql = 'INSERT INTO `'.$tbl_group_rel_team_user.'`
+                SET `user` = "'.$_uid.'",
+                    `team` = "'.$_gid.'"';
         
 	if (claro_sql_query($sql))
         {
@@ -110,7 +114,7 @@ if($_POST['registration'])
     }
 }
 
-if ($_GET['regDone'])
+if ($_REQUEST['regDone'])
 {
     $message = $langGroupNowMember;
 }
@@ -125,10 +129,10 @@ if ($_GET['regDone'])
                              GET GROUP MEMBER LIST
   ----------------------------------------------------------------------------*/
 
-$sql = "SELECT user_id id, nom lastName, prenom firstName, email
-		FROM `".$TABLEUSER."` user, `".$TABLEUSERGROUP."` user_group
-		WHERE user_group.team='$_gid'
-		AND   user_group.user= user.user_id";
+$sql = "SELECT `user_id` `id`, `nom` `lastName`, `prenom` `firstName`, `email`
+		FROM `".$tbl_user."` `user`, `".$tbl_group_rel_team_user."` `user_group`
+		WHERE `user_group`.`team`= '".$_gid."'
+		AND   `user_group`.`user`= `user`.`user_id`";
 
 $groupMemberList = claro_sql_query_fetch_all($sql);
 
@@ -138,19 +142,16 @@ $groupMemberList = claro_sql_query_fetch_all($sql);
   ----------------------------------------------------------------------------*/
 
 $sql = "SELECT user_id id, nom lastName, prenom firstName, email
-        FROM `".$TABLEUSER."` user
-        WHERE user.user_id=\"".$_group['tutorId']."\"";
+        FROM `".$tbl_user."` user
+        WHERE user.user_id='".$_group['tutorId']."'";
 
 $tutorDataList = claro_sql_query_fetch_all($sql);
-
 
 /*----------------------------------------------------------------------------
                                GET FORUM POINTER
   ----------------------------------------------------------------------------*/
 
 $forumId = $_group['forumId'];
-
-
 
 /*============================================================================
                                 DISPLAY SECTION
@@ -212,21 +213,15 @@ else // Show 'none' if no description
                         DISPLAY GROUP TUTOR INFORMATION
   ----------------------------------------------------------------------------*/
 
-$sql = "SELECT user_id id, nom lastName, prenom firstName, email
-        FROM `".$TABLEUSER."` user
-        WHERE user.user_id=\"".$_group['tutorId']."\"";
-
-$tutorDataList = claro_sql_query_fetch_all($sql);
-
 if (count($tutorDataList) > 0)
 {
     foreach($tutorDataList as $thisTutor)
     {
-        echo $thisTutor['lastName']." ".$thisTutor['firstName']
-            ." <a href=\"mailto:".$thisTutor['email']."\">"
+        echo $thisTutor['lastName'].' '.$thisTutor['firstName']
+            .' <a class="email" href="mailto:'.$thisTutor['email'].'">'
             .$thisTutor['email']
-            ."</a>"
-            ."<br>";
+            .'</a>'
+            .'<br>';
 	}
 }
 else
@@ -322,20 +317,20 @@ else
 
 if ($is_allowedToManage)
 { 
-    echo "<tr valign=\"top\">"
-        ."<td>&nbsp;</td>"
-        ."<td>"
-        ."<form method=\"get\" action=\"group_edit.php\">"
-        ."<input type=\"submit\" value=\"".$langEditGroup."\">"
-        ."</form>"
-        ."</td>"
-        ."</tr>";
+    echo '<tr valign="top">'
+        .'<td>&nbsp;</td>'
+        .'<td>'
+        .'<form method="get" action="group_edit.php">'
+        .'<input type="submit" value="'.$langEditGroup.'">'
+        .'</form>'
+        .'</td>'
+        .'</tr>';
 }
 
 if($is_allowedToSelfRegInGroup)
 {
     echo "<form method=\"post\" action=\"".$PHP_SELF."?\">"
-	."<input type=\"hidden\" name=\"registration\" value=\"1\">"
+        ."<input type=\"hidden\" name=\"registration\" value=\"1\">"
         ."<input type=\"submit\" value=\"".$langRegIntoGroup."\">"
         ."</form>";
 }

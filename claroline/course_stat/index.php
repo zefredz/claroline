@@ -1,9 +1,9 @@
-<?php // | $Id$ |
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.2 $Revision$                            |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
@@ -34,28 +34,32 @@
 
 $langUserOfCurse = "Les utilisateurs du cours";
 $langStatOfCourse = "statistiques du cours";
-$langFile = "stat";
+$langFile = "tracking";
 require '../inc/claro_init_global.inc.php'; 
 $nameTools = $langStatOfCourse;
 @include($includePath."/claro_init_header.inc.php");
 
-$TABLEUSERCOURSE 	= $mainDbName."`.`cours_user";
-$TABLEAGENDA 		= $_course['dbNameGlu']."agenda";
-$TABLELINKS 		= $_course['dbNameGlu']."liens";
-$TABLEDOCUMENT	 	= $_course['dbNameGlu']."document";
-$TABLEFORUM 		= $_course['dbNameGlu']."forums";
-$TABLEEXERCICE	 	= $_course['dbNameGlu']."exercices";
+/*
+ * DB tables definition
+ */
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$TABLEUSERCOURSE 	= $tbl_mdb_names['rel_course_user'  ];
+$TABLEFORUM 		= $tbl_cdb_names['bb_forums'        ];
+$TABLEAGENDA 		= $tbl_cdb_names['calendar_event'   ];
+$TABLEDOCUMENT 		= $tbl_cdb_names['document'         ];
+$TABLELINKS 		= $tbl_cdb_names['link'             ];
+$TABLEEXERCICE 		= $tbl_cdb_names['quiz_test'        ];
+
 $currentCourseID	= $_course['sysCode'];
+claro_disp_tool_title(array("mainTitle"=>$nameTools,"subTitle"=>$langSubTitle));
 ?>
-<h3>
-<?php echo $nameTools ?>
-</h3>
-<?php echo $langSubTitle ?>.
 <H3>
 <?php echo $langUserOfCurse ?>
 </H3>
 <OL>
-<?
+<?php
 $sqlNbUserOfCourse = "SELECT count(user_id) nbUser
 					FROM `".$TABLEUSERCOURSE."`
 					WHERE code_cours='".$currentCourseID."' ";
@@ -79,20 +83,6 @@ $count = $myrow["nb"] ;
 		il y a <?php echo $count ?> entrées dans l'agenda
 				</li>
 </OL>
-<H3>
-	les liens
-</H3>
-<OL>
-<?
-$sqlNb = "SELECT count(id) nb FROM `".$TABLELINKS."`";
-$result = mysql_query($sqlNb);
-$myrow = mysql_fetch_array($result);
-$count = $myrow["nb"] ;
-?>
-				<LI>
-					il y a <?php echo $count ?> liens
-				</li>
-			</OL>
 			<H3>
 				les documents
 			</H3>
@@ -201,5 +191,5 @@ while ($myrow = mysql_fetch_array($result))
 ?>		
 				</TABLE>
 <?php
-	@include($includePath."/claro_init_footer.inc.php");
+include($includePath."/claro_init_footer.inc.php");
 ?>

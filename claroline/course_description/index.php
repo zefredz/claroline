@@ -1,9 +1,9 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.2 $Revision$                            |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
@@ -34,30 +34,50 @@ $htmlHeadXtra[] = "<style type=\"text/css\"><!--
 .InfoACommuniquer { background-color: ".$color1."; background-position: left center; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px ; }
 -->
 </style>";
+/*
+ * DB tables definition
+ */
 
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_course_description  = $tbl_cdb_names['course_description'];
+
+$is_allowedToEdit = $is_courseAdmin;
+//stats
+include($includePath."/lib/events.lib.inc.php");
+event_access_tool($nameTools);
+$sql = "SELECT `id`,`title`,`content` FROM `".$tbl_course_description."` order by id";
+$desc_bloc = claro_sql_query_fetch_all($sql);
+
+if (count($desc_bloc))
+{
+	
+}
+else
+{
+	$subtitle =	$langThisCourseDescriptionIsEmpty;
+}
+
+//////////////////////////////
+////////////OUTPUT////////////
+//////////////////////////////
 
 include($includePath."/claro_init_header.inc.php");
-
-if ( ! $is_courseAllowed) die ("<center>Not allowed</center>");
-
-//stats
-@include($includePath."/lib/events.lib.inc.php");
-event_access_tool($nameTools);
-
-$TABLECOURSEDESCRIPTION = $_course['dbNameGlu']."course_description";
-$is_allowedToEdit = $is_courseAdmin;
-
-claro_disp_tool_title($nameTools);
+if ( ! $is_courseAllowed) claro_disp_auth_form();
+claro_disp_tool_title(array("mainTitle"=>$nameTools,"subTitle"=>$subtitle));
 
 if ($is_allowedToEdit)
 {
-	echo	"<form method=\"get\" action=\"edit.php\">",
-			"<input type=\"submit\" value=\"",$langEditCourseProgram,"\">",
-			"</form>";
+?>
+
+<form method="get" action="edit.php">
+<input type="submit" value="<?php echo $langEditCourseProgram ?>">
+</form>
+
+<?php
 }
 
-$sql = "SELECT `id`,`title`,`content` FROM `".$TABLECOURSEDESCRIPTION."` order by id";
-$res = mysql_query($sql);
+$sql = "SELECT `id`,`title`,`content` FROM `".$tbl_course_description."` order by id";
+$res = claro_sql_query($sql);
 if ( mysql_num_rows($res) >0 )
 {
 	echo "

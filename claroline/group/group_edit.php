@@ -100,29 +100,28 @@ function reverseAll(cbList) {
 </script>
 ';
 
-$tbl_user            = $mainDbName."`.`user";
-$tbl_rel_user_course = $mainDbName."`.`cours_user";
 
-$tbl_rel_user_group  = $_course['dbNameGlu']."group_rel_team_user";
-$tbl_group           = $_course['dbNameGlu']."group_team";
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_rel_user_course         = $tbl_mdb_names['rel_course_user'  ];
+$tbl_user                    = $tbl_mdb_names['user'             ];
+
+$tbl_bb_forum                = $tbl_cdb_names['bb_forums'             ];
+$tbl_course_group_property   = $tbl_cdb_names['group_property'         ];
+$tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'    ];
+$tbl_group_team              = $tbl_cdb_names['group_team'             ];
 
 $currentCourseId     = $_course["sysCode"];
 $is_allowedToManage  = $is_courseAdmin;
 $myStudentGroup      = $_group;
 $nbMaxGroupPerUser   = $_groupProperties ['nbGroupPerUser'];
 
-$tbl_forum           = $_course['dbNameGlu'].'bb_forums';
-
-include($includePath."/claro_init_header.inc.php");
-claro_disp_tool_title($nameTools);
-
-
 ################### IF MODIFY #######################################
 
 // Once modifications have been done, the user validates and arrives here
 if($modify && $is_allowedToManage)
 {
-    $sql = "UPDATE`".$tbl_group."`
+    $sql = "UPDATE`".$tbl_group_team."`
             SET name='".trim($name)."',
                 description = \"".trim($description)."\",
                 maxStudent  = \"".trim($maxMember)."\",
@@ -134,9 +133,9 @@ if($modify && $is_allowedToManage)
 
 
     // UPDATE FORUM NAME
-    $sql = "UPDATE `".$tbl_forum."`
-            SET forum_name=\"".trim($name)."\"
-            WHERE forum_id=\"".$forumId."\"";
+    $sql = 'UPDATE `'.$tbl_bb_forum.'`
+            SET forum_name="'.trim($name).'"
+            WHERE forum_id="'.$forumId.'"';
 
 	claro_sql_query($sql);
 
@@ -155,16 +154,16 @@ if($modify && $is_allowedToManage)
 	else
 	{
         // Delete all members of this group
-        $sql = "DELETE FROM `".$tbl_rel_user_group."` WHERE team=\"".$_gid."\"";
+        $sql = 'DELETE FROM `'.$tbl_group_rel_team_user.'` WHERE team="'.$_gid.'"';
 
         $delGroupUsers = claro_sql_query($sql);
         $numberMembers--;
 
         for ($i = 0; $i <= $numberMembers; $i++)
         {
-            $sql = "INSERT INTO `".$tbl_rel_user_group."`
-                    SET user = \"".$ingroup[$i]."\",
-                        team = \"".$_gid."\"";
+            $sql = 'INSERT INTO `'.$tbl_group_rel_team_user.'`
+                    SET user = "'.$ingroup[$i].'",
+                        team = "'.$_gid.'"';
 
             $registerUserGroup = claro_sql_query($sql);
         }
@@ -179,13 +178,13 @@ if($modify && $is_allowedToManage)
 
 	$myStudentGroup = $_group;
 
-    claro_disp_message_box($langGroupEdited);
-    echo '<br>';
-
 }	// end if $modify
 
+include($includePath."/claro_init_header.inc.php");
+claro_disp_tool_title($nameTools);
+if (isset($langGroupEdited))
+claro_disp_message_box($langGroupEdited);
 ?>
-
 <form name="groupedit" method="POST" action="<?php echo $PHP_SELF?>?edit=yes&gidReq=<?php echo $_gid?>">
 
 <table border="0" cellspacing="3" cellpadding="5">
@@ -218,14 +217,14 @@ if($modify && $is_allowedToManage)
 <?php
 	// SELECT TUTORS
 
-    $sql = "SELECT user.user_id,
+    $sql = 'SELECT user.user_id,
                    user.nom,
                    user.prenom
-            FROM `".$tbl_user."`     `user`,
-                `".$tbl_rel_user_course."` `cours_user`
+            FROM `'.$tbl_user.'`     `user`,
+                `'.$tbl_rel_user_course.'` `cours_user`
             WHERE cours_user.user_id    = user.user_id
             AND   cours_user.tutor      = 1
-            AND   cours_user.code_cours = \"".$currentCourseId."\"";
+            AND   cours_user.code_cours = "'.$currentCourseId.'"';
 
 	$resultTutor = claro_sql_query($sql);
 
@@ -261,9 +260,9 @@ if($modify && $is_allowedToManage)
     	$selectedState =  'SELECTED';
     }
 
-    echo  "<option value = \"0\" ".$selectedState.">"
+    echo  '<option value = "0" '.$selectedState.'>'
          .$langGroupNoTutor
-         ."</option>\n";
+         .'</option>';
 ?>
 </select>
 &nbsp;&nbsp;
@@ -276,11 +275,11 @@ if($modify && $is_allowedToManage)
 
 	if($myStudentGroup[maxMember]==0)
 	{
-		echo "<input type=text name=\"maxMember\" id=\"maxMember\" size=2 value = \"-\">\n";
+		echo "<input type=\"text\" name=\"maxMember\" id=\"maxMember\" size=\"2\" value = \"-\">\n";
 	}
 	else
 	{
-		echo  "<input type=text name=\"maxMember\" id=\"maxMember\" size=2 "
+		echo  "<input type=\"text\" name=\"maxMember\" id=\"maxMember\" size=\"2\" "
              ."value=\"".$myStudentGroup['maxMember']."\">\n";
 	}
 
@@ -301,15 +300,15 @@ if($modify && $is_allowedToManage)
 <select id="inGroup" name="ingroup[]" size="8" multiple>
 <?php
 
-$sql = "SELECT `ug`.`id`,
+$sql = 'SELECT `ug`.`id`,
                `u`.`user_id`,
                `u`.`nom`,
                `u`.`prenom`,
                `u`.`email`
-        FROM `".$tbl_user."` u, `".$tbl_rel_user_group."` ug
-        WHERE `ug`.`team` = \"".$_gid."\"
+        FROM `'.$tbl_user.'` u, `'.$tbl_group_rel_team_user.'` ug
+        WHERE `ug`.`team` = "'.$_gid.'"
         AND   `ug`.`user` = `u`.`user_id`
-        ORDER BY UPPER(`u`.`nom`), UPPER(`u`.`prenom`)";
+        ORDER BY UPPER(`u`.`nom`), UPPER(`u`.`prenom`)';
 
 $resultMember = claro_sql_query($sql);
 
@@ -317,12 +316,11 @@ $a=0;
 
 while ($myMember = mysql_fetch_array($resultMember))
 {
-	$userIngroupId = $myMember[user_id];
+	$userIngroupId = $myMember['user_id'];
 
- 	echo  "<option value=\"".$userIngroupId."\">"
-		 .$myMember['prenom']." ",$myMember['nom']
+ 	echo  '<option value="'.$userIngroupId.'">'
+		 .$myMember['prenom'].' '.$myMember['nom']
 		 ."</option>\n";
-
 	$a++;
 }
 
@@ -369,10 +367,10 @@ $sql = "SELECT `u`.`user_id` ,
 
         FROM `".$tbl_user."` u, `".$tbl_rel_user_course."` cu
 
-        LEFT JOIN `".$tbl_rel_user_group."` ug
+        LEFT JOIN `".$tbl_group_rel_team_user."` ug
         ON `u`.`user_id`=`ug`.`user`
 
-        LEFT JOIN `".$tbl_rel_user_group."` `ugbloc`
+        LEFT JOIN `".$tbl_group_rel_team_user."` `ugbloc`
         ON  `u`.`user_id`=`ugbloc`.`user` AND `ugbloc`.`team` = '".$_gid."'
 
         WHERE `cu`.`code_cours` = \"".$currentCourseId."\"

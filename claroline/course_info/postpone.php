@@ -1,9 +1,9 @@
 <?php  // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.2  $Revision$                           |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
@@ -41,13 +41,19 @@ include($includePath."/claro_init_header.inc.php");
 $nameTools = $langPostpone;
 //$TBL_AGENDA 		= $_course['dbNameGlu']."agenda";
 
-$TABLECOURSE	= $mainDbName."`.`cours";
+/*
+ * DB tables definition
+ */
+
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_course = $tbl_mdb_names['course'];
+
 $is_allowedToEdit 			= $is_courseAdmin;
 $currentCourseID 			= $_course['sysCode'];
 $currentCourseRepository 	= $_course["path"];
 
 
-$sqlCourseExtention 			= "SELECT lastVisit, lastEdit, creationDate, expirationDate FROM `".$TABLECOURSE."` WHERE code = '".$_cid."'";
+$sqlCourseExtention 			= "SELECT lastVisit, lastEdit, creationDate, expirationDate FROM `".$tbl_course."` WHERE code = '".$_cid."'";
 $resultCourseExtention 			= mysql_query($sqlCourseExtention);
 $currentCourseExtentionData 	= mysql_fetch_array($resultCourseExtention);
 $currentCourseLastVisit 		= $currentCourseExtentionData["lastVisit"];
@@ -58,14 +64,8 @@ $currentCourseExpirationDate	= $currentCourseExtentionData["expirationDate"];
 
 // $newCourseExpirationDate	= now() + $extendDelay
 
-
-
+claro_disp_tool_title("mainTitle"=>$nameTools,"subTitle"=>$langSubTitle);
 ?>
-<h3>
-	<?php echo $nameTools ?>
-</h3>
-<?php echo $langSubTitle ?>
-
 
 this script  would be  called  by  
 	professor, 

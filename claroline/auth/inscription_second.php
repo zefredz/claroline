@@ -25,8 +25,12 @@ include($includePath."/claro_init_header.inc.php");
 include($includePath."/lib/auth.lib.inc.php");
 $nameTools = "2";
 
-// $TABLELOGINOUT  = $mainDbName."`.`loginout";
-$TABLEUSER      = $mainDbName."`.`user";
+/*
+ * DB tables definition
+ */
+
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$TABLEUSER  = $tbl_mdb_names['user'];
 
 define ('STUDENT'       ,5 );
 define ('COURSEMANAGER' ,1 );

@@ -56,12 +56,15 @@ event_access_tool($nameTools);
  * DB TABLE NAMES INIT
  */
 
-$tbl_Users                  = $mainDbName.'`.`user';
-$tbl_CoursUsers             = $mainDbName.'`.`cours_user';
-$tbl_Groups                 = $_course['dbNameGlu'].'group_team';
-$tbl_GroupsProperties       = $_course['dbNameGlu'].'group_property';
-$tbl_GroupsUsers            = $_course['dbNameGlu'].'group_rel_team_user';
-$tbl_Forums                 = $_course['dbNameGlu'].'bb_forums';
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+
+$tbl_Users                  = $tbl_mdb_names['user'             ];
+$tbl_CoursUsers             = $tbl_mdb_names['rel_course_user'  ];
+$tbl_Groups                 = $tbl_cdb_names['group_team'             ];
+$tbl_GroupsProperties       = $tbl_cdb_names['group_property'         ];
+$tbl_GroupsUsers            = $tbl_cdb_names['group_rel_team_user'    ];
+$tbl_Forums                 = $tbl_cdb_names['bb_forums'             ];
 
 /*
  * MAIN SETTINGS INIT
@@ -94,7 +97,7 @@ if ( !$nbGroupPerUser )
 $tools['forum'   ]          = $_groupProperties ['tools'] ['forum'    ];
 $tools['document']          = $_groupProperties ['tools'] ['document' ];
 $tools['wiki'    ]          = $_groupProperties ['tools'] ['wiki'     ];
-$tools['chat'  ]          = $_groupProperties ['tools'] ['chat'   ];
+$tools['chat'  ]            = $_groupProperties ['tools'] ['chat'   ];
 
 //  THIS 2 SQL query  upgrade course db on fly.  
 $sql = "ALTER IGNORE TABLE `".$tbl_GroupsProperties."`
@@ -852,7 +855,6 @@ if ($is_allowedToManage)
 	<?php
 	} 		// end if ! $multiGroupAllowed
 } 			// end if $is_allowedToManage
-
 
 include($includePath."/claro_init_footer.inc.php");
 

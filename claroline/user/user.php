@@ -29,10 +29,17 @@ $can_add_user     = ($is_courseAdmin && CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER)
 				    || $is_platformAdmin;
 $currentCourse    = $currentCourseID  = $_course['sysCode'];
 
-$tbl_users 				= $mainDbName."`.`user";
-$tbl_courses_users		= $mainDbName."`.`cours_user";
-$tbl_rel_users_groups	= $_course['dbNameGlu']."group_rel_team_user";
-$tbl_groups 			= $_course['dbNameGlu']."group_team";
+/*
+ * DB tables definition
+ */
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
+$tbl_users           = $tbl_mdb_names['user'             ];
+$tbl_courses_users   = $tbl_rel_course_user;
+$tbl_rel_users_groups= $tbl_cdb_names['group_rel_team_user'    ];
+$tbl_groups          = $tbl_cdb_names['group_team'             ];
 
 ////////// WORKS /////////////
 
@@ -57,11 +64,11 @@ if ($is_allowedToEdit)
    }
 }	// end if allowed to edit
 
-$sqlNbUser = "SELECT count(user.user_id) nb_users
-              FROM `".$tbl_courses_users."` `cours_user`,
-                   `".$tbl_users."` `user`
-              WHERE code_cours = \"".$currentCourseID."\"
-              AND cours_user.user_id = `user`.user_id";
+$sqlNbUser = 'SELECT count(user.user_id) `nb_users`
+              FROM `'.$tbl_rel_course_user.'` `cours_user`,
+                   `'.$tbl_users.'` `user`
+              WHERE `cours_user`.`code_cours` = "'.$currentCourseID.'"
+              AND cours_user.user_id = `user`.user_id';
 
 $result      = claro_sql_query($sqlNbUser);
 $userTotalNb = mysql_fetch_array($result, MYSQL_ASSOC);
@@ -73,8 +80,7 @@ $nameTools = $langUsers;
 
 include($includePath."/claro_init_header.inc.php");
 
-if ( ! $is_courseAllowed)
-	claro_disp_auth_form();
+if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 //stats
 include($includePath."/lib/events.lib.inc.php");
@@ -85,9 +91,9 @@ claro_disp_tool_title($nameTools." (".$langUserNumber." : ".$userTotalNb.")",
 // Display Forms or dialog box(if needed)
 
 if($dialogBox)
-  {
+{
     claro_disp_message_box($dialogBox);
-  }
+}
 
 
 if ($is_allowedToEdit)
@@ -124,7 +130,7 @@ if ($userTotalNb > $step)
 
 	$navLink = "<table summary=\"".$langSummaryNavBar."\" width=\"100%\" border=\"0\">\n"
 	          ."<tr >\n"
-			  ."<td align=\"left\">";
+			  .'<td align="left">';
 
 	if ($previous >= 0)
 	{
@@ -136,7 +142,7 @@ if ($userTotalNb > $step)
 
 	if ($next < $userTotalNb)
 	{
-		$navLink .= "<small><a href=\"$PHP_SELF?offset=$next\">&gt;&gt;</a></small>";
+		$navLink .= '<small><a href="'.$_SERVER['PHP_SELF'].'?offset='.$next.'">&gt;&gt;</a></small>';
 	}
 
 	$navLink .= "</td>\n"
@@ -199,7 +205,7 @@ $resultUsers = claro_sql_query("SELECT `user`.`user_id`, `user`.`nom`, `user`.`p
                                `ug`.`team` ,
                                `sg`.`name` nameTeam
 
-                        FROM `$tbl_users` `user`, `$tbl_courses_users` `cours_user`
+                        FROM `".$tbl_users."` `user`, `".$tbl_rel_course_user."` `cours_user`
                         LEFT JOIN `".$tbl_rel_users_groups."` `ug`
                         ON `user`.`user_id`=`ug`.`user`
                         LEFT JOIN `".$tbl_groups."` `sg`
@@ -216,15 +222,15 @@ $resultUsers = claro_sql_query("SELECT `user`.`user_id`, `user`.`nom`, `user`.`p
 
                         LIMIT $offset, $step"); // ORDER BY cours_user.statut, tutor DESC, nom, prenom
 
-$sqlGetUsers ="SELECT `user`.`user_id`, `user`.`nom`, `user`.`prenom`, 
+$sqlGetUsers ='SELECT `user`.`user_id`, `user`.`nom`, `user`.`prenom`, 
                       `user`.`email`, `cours_user`.`statut`, 
                       `cours_user`.`tutor`, `cours_user`.`role`
-               FROM `".$tbl_users."` `user`, `".$tbl_courses_users."` `cours_user`
+               FROM `'.$tbl_users.'` `user`, `'.$tbl_rel_course_user.'` `cours_user`
                WHERE `user`.`user_id`=`cours_user`.`user_id`
-               AND `cours_user`.`code_cours`='".$currentCourseID."'
+               AND `cours_user`.`code_cours`="'.$currentCourseID.'"
                ORDER BY `cours_user`.`statut` ASC, `cours_user`.`tutor` DESC,
                         UPPER(`user`.`nom`), UPPER(`user`.`prenom`)
-			   LIMIT $offset, $step";
+			   LIMIT '.$offset.', '.$step;
 
 $resultUsers = claro_sql_query($sqlGetUsers);
 
@@ -303,7 +309,7 @@ while (list(,$thisUser) = each($users))
 
 	if ($previousUser == $thisUser['user_id'])
 	{
-		echo 	"<td headers=\"team u".$i."\" >\n</td>\n";
+		echo 	'<td headers="team u'.$i.'" >&nbsp;</td>'."\n";
 	}
 	elseif($is_allowedToEdit)
 	{
@@ -311,41 +317,42 @@ while (list(,$thisUser) = each($users))
 
 		if($thisUser['tutor'] == '0')
 		{
-			echo	"<td headers=\"tut u".$i."\"> - </td>\n";
+			echo	'<td headers="tut u'.$i.'"> - </td>';
 		}
 		else
 		{
-			echo	"<td headers=\"tut u".$i."\">",$langTutor,"</td>\n";
+			echo	'<td headers="tut u'.$i.'">'.$langTutor.'</td>';
 		}
-
+		echo "\n";
 		// course manager column
 
 		if($thisUser['statut'] == '1')
 		{
-			echo 	"<td headers=\"CM u".$i."\">",$langCourseManager,"</td>\n";
+			echo 	'<td headers="CM u'.$i.'">'.$langCourseManager.'</td>';
 		}
 		else
 		{
-			echo 	"<td headers=\"CM u".$i."\"> - </td>\n";
+			echo 	'<td headers="CM u'.$i.'"> - </td>';
 		}
+		echo "\n";
 
 		// Edit user column
 
-		echo	"<td headers=\"edit u".$i."\">",
-				"<a href=\"userInfo.php?editMainUserInfo=".$thisUser[user_id]."\">",
-				"<img border=\"0\" alt=\"".$langEdit."\" src=\"".$clarolineRepositoryWeb."img/edit.gif\">",
-				"</a>",
-				"</td>\n";
+		echo	'<td headers="edit u'.$i.'">'
+				.'<a href="userInfo.php?editMainUserInfo='.$thisUser['user_id'].'">'
+				.'<img border="0" alt="'.$langEdit.'" src="'.$clarolineRepositoryWeb.'img/edit.gif">'
+				.'</a></td>'
+				."\n";
 
 		// Unregister user column
-		echo "<td headers=\"del u".$i."\" >";
+		echo '<td headers="del u'.$i.'" >';
 
 		if ($thisUser["user_id"] != $_uid)
 		{
-			echo	"<a href=\"$PHP_SELF?unregister=yes&user_id=".$thisUser[user_id]."\" ",
-					"onClick=\"return confirmation('".$langUnreg ." ".$thisUser["nom"]."".$thisUser["prenom"]."');\">",
-					"<img border=\"0\" alt=\"".$langUnreg."\" src=\"".$clarolineRepositoryWeb."img/unenroll.gif\">",
-					"</a>";
+			echo   '<a href="'.$_SERVER['PHP_SELF'].'?unregister=yes&user_id='.$thisUser['user_id'].'" '
+				  .'onClick="return confirmation(\''.$langUnreg .' '.$thisUser['nom'].' '.$thisUser['prenom'].'\');">'
+				  .'<img border="0" alt="'.$langUnreg.'" src="'.$clarolineRepositoryWeb.'img/unenroll.gif">'
+				  .'</a>';
 		}
 
 		echo	"</td>\n";
@@ -356,8 +363,8 @@ while (list(,$thisUser) = each($users))
 	$previousUser = $thisUser['user_id'];
 } 							// END - while fetch_array
 
-echo	"</tbody>",
-		"</table>\n";
+echo	'</tbody>'
+		.'</table>';
 
 echo $navLink;
 

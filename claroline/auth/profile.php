@@ -1,7 +1,7 @@
 <?php # $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -29,7 +29,11 @@ include $includePath.'/lib/auth.lib.inc.php';
 
 $nameTools = $langModifProfile;
 
-$tbl_user   = $mainDbName."`.`user";
+/*
+ * DB tables definition
+ */
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user      = $tbl_mdb_names['user'];
 
 if (isset($userImageRepositorySys))
     $userImageRepositorySys = $clarolineRepositorySys.'img/users/';

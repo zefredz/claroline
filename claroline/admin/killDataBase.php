@@ -50,7 +50,7 @@ $nameTools = $langCheckDatabase;
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
 @include("./checkIfHtAccessIsPresent.php");
 @include($includePath."/claro_init_header.inc.php");
-//$TABLEAGENDA 		= $_course["dbName"]."`.`agenda";
+
 $is_allowedToEdit 	= $is_platformAdmin || $PHP_AUTH_USER;
 if ($is_allowedToEdit)
 {
@@ -144,5 +144,5 @@ else
 	echo $lang_no_access_here;
 }
 
-@include($includePath."/claro_init_footer.inc.php");
+include($includePath."/claro_init_footer.inc.php");
 ?>

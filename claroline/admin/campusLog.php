@@ -29,19 +29,23 @@ TD {border-bottom: thin dashed Gray;}
 </STYLE>";
 
 // regroup table names for maintenance purpose
-$TABLECOURSUSER	= $mainDbName."`.`cours_user";
-$TABLECOURS	= $mainDbName."`.`cours";
-$TABLEUSER	= $mainDbName."`.`user";
+/*
+ * DB tables definition
+ */
 
-$TABLECOURSE_LINKS = $_course['dbName']."`.`liens";
-$TABLECOURSE_DOCUMENTS = $_course['dbName']."`.`document";
+$tbl_mdb_names 			= claro_sql_get_main_tbl();
+$tbl_cdb_names 			= claro_sql_get_course_tbl();
+$TABLECOURS 			= $tbl_mdb_names['course'           ];
+$TABLECOURSUSER	 		= $tbl_mdb_names['rel_course_user'  ];
+$TABLEUSER 				= $tbl_mdb_names['user'             ];
+$TABLECOURSE_DOCUMENTS 	= $tbl_cdb_names['document'         ];
+$TABLECOURSE_LINKS 		= $tbl_cdb_names['link'             ];
 
 $TABLETRACK_ACCESS = $statsDbName."`.`track_e_access";
 $TABLETRACK_LOGIN = $statsDbName."`.`track_e_login";
 $TABLETRACK_OPEN = $statsDbName."`.`track_e_open";
 $TABLETRACK_LINKS = $statsDbName."`.`track_e_links";
 $TABLETRACK_DOWNLOADS = $statsDbName."`.`track_e_downloads";
-
 /*
 $TABLESTATS_PROVIDERS = $statsDbName."`.`track_c_providers";
 $TABLESTATS_COUNTRIES = $statsDbName."`.`track_c_countries";

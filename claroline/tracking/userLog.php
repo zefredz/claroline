@@ -1,9 +1,9 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.1 $Revision$                            |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
@@ -30,12 +30,7 @@
  
 $langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
-/*
-$interbredcrump[]= array ("url"=>"../group/group.php", "name"=> $langBredCrumpGroups);
-$interbredcrump[]= array ("url"=>"../group/group_space.php?gidReq=$_gid", "name"=> $langBredCrumpGroupSpace);
-*/
 $interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$_GET['uInfo'], "name"=> $langBredCrumpUsers);
-
 $nameTools = $langToolName;
 
 $htmlHeadXtra[] = "<style type='text/css'>
@@ -51,9 +46,27 @@ TD {border-bottom: thin dashed Gray;}
 -->
 </STYLE>";
 
-// regroup table names for maintenance purpose
-$TABLECOURSUSER	        = $mainDbName."`.`cours_user";
-$TABLEUSER	        = $mainDbName."`.`user";
+/*
+ * DB tables definition
+ */
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_rel_course_user         = $tbl_mdb_names['rel_course_user'  ];
+$tbl_user                    = $tbl_mdb_names['user'             ];
+$tbl_announcement            = $tbl_cdb_names['announcement'           ];
+$tbl_assignment_doc          = $tbl_cdb_names['assignment_doc'         ];
+$tbl_document                = $tbl_cdb_names['document'               ];
+$tbl_course_group_property   = $tbl_cdb_names['group_property'         ];
+$tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'    ];
+$tbl_group_team              = $tbl_cdb_names['group_team'             ];
+$tbl_link                    = $tbl_cdb_names['link'                   ];
+$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
+$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
+$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
+$tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
 
 $TABLETRACK_LOGIN       = $statsDbName."`.`track_e_login";
 
@@ -63,33 +76,39 @@ $TABLETRACK_DOWNLOADS   = $_course['dbNameGlu']."track_e_downloads";
 $TABLETRACK_UPLOADS     = $_course['dbNameGlu']."track_e_uploads";
 $TABLETRACK_EXERCISES   = $_course['dbNameGlu']."track_e_exercices";
 
-$TABLECOURSE_LINKS      = $_course['dbNameGlu']."link";
-$TABLECOURSE_WORK       = $_course['dbNameGlu']."assignment_doc";
-$TABLECOURSE_DOCUMENTS  = $_course['dbNameGlu']."document";
-$TABLECOURSE_GROUPS     = $_course['dbNameGlu']."group_team";
-$TABLECOURSE_GROUPSPROP = $_course['dbNameGlu']."group_property";
-$TABLECOURSE_GROUPSUSER = $_course['dbNameGlu']."group_rel_team_user";
-$TABLECOURSE_EXERCICES = $_course['dbNameGlu']."quiz_test";
+$TABLECOURSUSER	        = $tbl_rel_course_user;
+$TABLEUSER	            = $tbl_user;
+
+$TABLECOURSE_LINKS      = $tbl_link;
+$TABLECOURSE_WORK       = $tbl_assignment_doc;
+$TABLECOURSE_DOCUMENTS  = $tbl_document;
+$TABLECOURSE_GROUPS     = $tbl_group_team;
+$TABLECOURSE_GROUPSPROP = $tbl_course_group_property;
+$TABLECOURSE_GROUPSUSER = $tbl_group_rel_team_user;
+$TABLECOURSE_EXERCICES  = $tbl_quiz_test;
 
 // for learning paths section
-$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
-$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
-$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
-$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
-$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
+$TABLELEARNPATH         = $tbl_lp_learnPath;
+$TABLEMODULE            = $tbl_lp_module;
+$TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
+$TABLEASSET             = $tbl_lp_asset;
+$TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 
-@include($includePath."/claro_init_header.inc.php");
-@include($includePath."/lib/statsUtils.lib.inc.php");
+include($includePath."/lib/statsUtils.lib.inc.php");
 
 
 $is_allowedToTrack = $is_groupTutor; // allowed to track only user of one group
 if (isset($uInfo) && isset($_uid)) $is_allowedToTrack = $is_allowedToTrack || ($uInfo == $_uid); //added by RH to allow user to see its own course stats 
 $is_allowedToTrackEverybodyInCourse = $is_courseAdmin; // allowed to track all student in course
+
+/////////////////////////////////
+/////////// OUTPUT //////////////
+/////////////////////////////////
+include($includePath."/claro_init_header.inc.php");
+
+claro_disp_tool_title($nameTools);
 ?>
-<h3>
-    <?php echo $nameTools ?>
-</h3>
 <h4>
     <?php echo $langStatsOfUser ?>
 </h4>

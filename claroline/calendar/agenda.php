@@ -55,7 +55,9 @@ if ( ! $is_courseAllowed) claro_disp_auth_form();
 include('../inc/lib/events.lib.inc.php');
 event_access_tool($nameTools);
 
-$tbl_calendar_event = $_course['dbNameGlu'].'calendar_event';
+$tblNames = claro_sql_get_course_tbl();
+$tbl_calendar_event = $tblNames['calendar_event'];
+
 $is_allowedToEdit   = $is_courseAdmin;
 
 $cmd = $_REQUEST['cmd'];

@@ -16,47 +16,54 @@ include('../inc/conf/group.conf.php');
 @include('../inc/lib/debug.lib.inc.php');
 $nameTools = $langGroupProperties;
 $interbredcrump[]= array ("url"=>"group.php", "name"=> $langGroupManagement);
-$TABLEGROUPPROPERTIES 	= $_course['dbNameGlu']."group_property";
 
-	$sql = "SELECT * FROM `".$TABLEGROUPPROPERTIES."`";
-	$result = mysql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! $sql ".__LINE__." ".mysql_errno());
-	$gpData = mysql_fetch_array($result);
-	$_groupProperties ['registrationAllowed'] =   $gpData['self_registration'] == 1;
-	$_groupProperties ['private'            ] = !($gpData['private']           == 1);
-	$_groupProperties ['nbGroupPerUser'     ] =   $gpData['nbGroupPerUser'];
-	$_groupProperties ['tools'] ['forum'    ] =   $gpData['forum']             == 1;
-	$_groupProperties ['tools'] ['document' ] =   $gpData['document']          == 1;
-	$_groupProperties ['tools'] ['wiki'     ] =   $gpData['wiki']              == 1;
-	$_groupProperties ['tools'] ['chat'   ] =   $gpData['chat']            == 1;
-	session_register("_groupProperties");
-	$registrationAllowedInGroup = $_groupProperties ['registrationAllowed'];
-	$groupPrivate 				= $_groupProperties ['private'            ];
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_course_group_property   = $tbl_cdb_names['group_property'         ];
+$sql = "
+SELECT `self_registration`,`private`,`nbGroupPerUser`,`forum`,`document`,`wiki`,`chat`
+	FROM `".$tbl_course_group_property."`";
 
+/* 
+This awful code  make usage of a table with only one record.
+	$_groupProperties ['registrationAllowed']
+	$_groupProperties ['private'            ]
+	$_groupProperties ['nbGroupPerUser'     ]
+	arent in fact properties of the courses about groups link to it.
+	$_groupProperties ['tools'] is a course_tool properties to se if 
+	groups can use or not these tools in the groups of this course
+*/
+$res = claro_sql_query($sql);
+list($gpData) = claro_sql_fetch_all($res);
+$_groupProperties ['registrationAllowed'] =   $gpData['self_registration'] == 1;
+$_groupProperties ['private'            ] = !($gpData['private']           == 1);
+$_groupProperties ['nbGroupPerUser'     ] =   $gpData['nbGroupPerUser'];
+$_groupProperties ['tools'] ['forum'    ] =   $gpData['forum']             == 1;
+$_groupProperties ['tools'] ['document' ] =   $gpData['document']          == 1;
+$_groupProperties ['tools'] ['wiki'     ] =   $gpData['wiki']              == 1;
+$_groupProperties ['tools'] ['chat'   ]   =   $gpData['chat']              == 1;
+session_register("_groupProperties");
+$registrationAllowedInGroup = $_groupProperties ['registrationAllowed'];
+$groupPrivate 				= $_groupProperties ['private'            ];
 
-	if ($multiGroupAllowed)
-	{
-		if ($_groupProperties ['nbGroupPerUser'     ]==1)
-		{
-			$checkedNbGroupPerUser["ONE"] = "checked=\"checked\"";
-		}
-		elseif ($_groupProperties ['nbGroupPerUser'     ]>1)
-		{
-			$checkedNbGroupPerUser["MANY"] = "checked=\"checked\"";
-		}
-		else//if (is_null($_groupProperties ['nbGroupPerUser'     ]))
-		{
-			$checkedNbGroupPerUser["ALL"] = "checked=\"checked\"";
+if ($multiGroupAllowed)
+{
+    if ($_groupProperties ['nbGroupPerUser'     ]==1)
+    {
+        $checkedNbGroupPerUser["ONE"] = "checked=\"checked\"";
+    }
+    elseif ($_groupProperties ['nbGroupPerUser'     ]>1)
+    {
+        $checkedNbGroupPerUser["MANY"] = "checked=\"checked\"";
+    }
+    else//if (is_null($_groupProperties ['nbGroupPerUser'     ]))
+    {
+    $checkedNbGroupPerUser["ALL"] = "checked=\"checked\"";
 		}
 	}
-
-
-
 
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title( array('mainTitle' => $nameTools,
                              'subTitle' => $nameTools));
-
-
 
 ?>
 

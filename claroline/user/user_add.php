@@ -267,9 +267,8 @@ $interbredcrump[] = array ("url"=>"user.php", "name"=> $langUsers);
 $nameTools        = $langAddAU;
 
 include("../inc/claro_init_header.inc.php");
-if ( ! $is_courseAllowed)
-	claro_disp_auth_form();
-	claro_disp_tool_title(array('mainTitle' =>$nameTools, 'subTitle' => $langUsers),
+if ( ! $is_courseAllowed) claro_disp_auth_form();
+claro_disp_tool_title(array('mainTitle' =>$nameTools, 'subTitle' => $langUsers),
 				'help_user.php');
 /*==========================
          MESSAGE BOX

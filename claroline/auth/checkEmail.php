@@ -1,55 +1,32 @@
-<?php  session_start();
+<?php // $Id$
  /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.2 $Revision$                             |
+      | CLAROLINE version 1.5.* 
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   $Id$          |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
 	  |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
       +----------------------------------------------------------------------+
  */
+ 
+$langCheckemail = "Vérification de l'email";
+$langFile = "registration";
+//$tlabelReq = ""; // actually tools out cours don't have label
 
-include("../lang/english/registration.inc.php");
-$nameTools = "Check email";
+include('../inc/claro_init_global.inc.php');
+//include($includePath."/conf/.conf.inc.php"); // this  tool don't need conf datas.
+
+$nameTools = $langCheckemail;
+$tbl_user = $mainDbName."`.`user";
+
+//stats
 $interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);
 if (!isset($userMailCanBeEmpty))
 {
 	$userMailCanBeEmpty = true;
 }
-
-?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-
-<html>
-<head>
-<link rel="stylesheet" href="../css/default.css" type="text/css">
-
-<title>
-	<?php echo "$nameTools - $langRegistration - $siteName - $clarolineVersion"; ?>
-</title>
-</head>
-<body bgcolor="white" dir="<?php echo $text_dir ?>">
-<table border="0" align="center" cellpadding="0" cellspacing="0" width="<?php echo $mainInterfaceWidth?>">
-	<tr>
-		<td>
-			<?php include('../include/claroline_header.php'); ?>
-			
-		</td>
-	</TR>
-	<tr valign="top">
-		<td >
-			<h4>
-				<?php echo $nameTools ?>
-				
-			</h4>
-			<br>
-		</td>
-	</tr>
-<?
-
 /*
 		\n".$rootWeb."/claroline/auth/checkEmail.php?hash=".$hash"&email=".$email;
 		}
@@ -66,67 +43,48 @@ INSERT
 		@mysql_query($sqlIncriptUserHash);
 */
 
-?>
-	<tr>
-		<td>
-			<?php
-			
-			echo "
-			<br>
-			hash : <font size=\"-3\">".$hash."</font>
-			<br>
-			email : ".$emailHash."
-			<br>
-			<br>";
-			$sqlCheck = "
+
+$sqlCheck = "
 Select
 	`user`.*, `hash`.* , `hash`.`user_id` `uid` 
 From  
 	`$mainDbName`.`userHash` `hash`, 
-	`$mainDbName`.`user`  
+	`".$tbl_user."`  
 WHERE
 	`hash`.`user_id` = `user`.`user_id` and `email` = '".$emailHash."' and `hash` = '".$hash."';";
-			$resHashFound  = @mysql_query($sqlCheck);
-			if (mysql_errno())
-			{
-				echo "<br>
-				-- ".mysql_errno()." : ".mysql_error()."<br>
-				";
-			}
-			else 
-			{
-				$hashFound = mysql_fetch_array($resHashFound);
-				if (	$hashFound["email"] == $emailHash 
-					&& 	$hashFound["hash"] == $hash ) 
-				{
-					if ($hashFound["state"] != "VALID" )
-					{
- 						$sqlUpdateState = "
+
+$resHashFound  = claro_sql_query($sqlCheck);
+$hashFound = mysql_fetch_array($resHashFound);
+if (	$hashFound["email"] == $emailHash 
+	&& 	$hashFound["hash"] == $hash ) 
+{
+	if ($hashFound["state"] != "VALID" )
+	{
+		$sqlUpdateState = "
 UPDATE
 	userHash
 SET  
 	STATE =  'VALID'
 WHERE
 	user_id	= '".$hashFound["uid"]."' and hash = '".$hash."';";
-						@mysql_query($sqlUpdateState);
-						if (mysql_errno())
-						{
-							echo "<br>
-							-- ".mysql_errno()." : ".mysql_error()."<br>
-							";
-						}
-						echo "<br>",$emailHash," is now valid.";
-					}
-					else 
-					{
-						echo "<br>",$emailHash," is already valdided.";
-					}
-				}
-			}
-			?>
-		</td>
-	</tr>
-</table>
+		claro_sql_query($sqlUpdateState);
+		$resultOutput = "<br>".$emailHash." is now valid.";
+	}
+	else 
+	{
+		$resultOutput = "<br>".$emailHash." is already valdided.";
+	}
+}
+
+// OUTPUT
+include($includePath."/claro_init_header.inc.php");
+?>
+Hash : <?php echo $hash ?>
+<br>
+Email : <?php echo $emailHash ?>
+<BR>
 <?php
-	include($includePath."/claro_init_footer.inc.php");
+echo $resultOutput;
+
+include($includePath."/claro_init_footer.inc.php");
 ?>

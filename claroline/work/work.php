@@ -1,7 +1,7 @@
 <?php // $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -41,7 +41,6 @@ $langFile = "work";
 $tlabelReq = "CLWRK___";
 require '../inc/claro_init_global.inc.php';
 
-
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/conf/work.conf.inc.php');
 @include($includePath.'/lib/debug.lib.inc.php'    );
@@ -49,8 +48,8 @@ include($includePath.'/conf/work.conf.inc.php');
 /*
  * Connection Bloc
  */
-
-$tbl_work                   = $_course['dbNameGlu'].'assignment_doc';
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_work                   = $tbl_cdb_names['assignment_doc'         ];
 $is_allowedToEdit           = $is_courseAdmin;
 
 $currentCourseRepositorySys = $coursesRepositorySys.$_course["path"]."/";
@@ -64,8 +63,7 @@ $currentUserLastName        = $_user['lastName'];
 $nameTools = $langWorks;
 include($includePath.'/claro_init_header.inc.php');
 //if (!$_cid) 	claro_disp_select_course();
-if ( ! $is_courseAllowed)
-	claro_disp_auth_form();
+if ( ! $is_courseAllowed) claro_disp_auth_form();
 event_access_tool($nameTools);
 
 claro_disp_tool_title($nameTools);
@@ -253,11 +251,23 @@ if ( isset($_POST['submitWork']) )
 		}
 		else
 		{
-			if( ! $titre || $titre == "" )
+			if( ! $_REQUEST['titre'] || $_REQUEST['titre'] == "" )
+			{
 				$titre = $file_name;
+			}
+			else
+			{
+				$titre = $_REQUEST['titre'];
+			}
 			
-			if ( ! $auteurs || $auteurs == "")
+			if ( ! $_REQUEST['auteurs'] || $_REQUEST['auteurs'] == "")
+			{
 				$auteurs = $currentUserFirstName." ".$currentUserLastName;
+			}
+			else
+			{
+				$auteurs = $_REQUEST['auteurs'];
+			}
 						
 			// compose a unique file name to avoid any conflict
 
@@ -633,7 +643,8 @@ include($includePath."/claro_init_footer.inc.php");
  */
 function claro_get_work_data($work_id)
 {
-		GLOBAL $tbl_work;
+		$tbl_cdb_names = claro_sql_get_course_tbl();
+		$tbl_work      = $tbl_cdb_names['assignment_doc'         ];
 		$sql    = "SELECT * FROM `".$tbl_work."` WHERE id='".$work_id."'";
 		$resWork = claro_sql_query($sql);
 		$work = mysql_fetch_array($resWork);

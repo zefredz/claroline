@@ -1,7 +1,7 @@
 <?php # $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -33,7 +33,7 @@ include($includePath.'/claro_init_header.inc.php');
 
 include 'course_home.lib.php';
 
-if ( ! $is_courseAllowed) die("<br><center>not allowed ...</center>");
+if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 
 /*

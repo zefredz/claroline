@@ -17,7 +17,6 @@ $nameTools = $langCheckDatabase;
 $interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
 
 
-//$TABLEAGENDA 		= $_course["dbName"]."`.`agenda";
 $is_allowedToEdit 	= $is_platformAdmin || $PHP_AUTH_USER;
 if (!$is_allowedToEdit)
 {
