@@ -59,11 +59,14 @@ Etat      : RESOLU
 utilisés.  Ils sont signalé comme étant utilisés dans le banner mais ne le sont 
 pas.
 
+Repéré par : MOOSH
+
 ------------------------------------------------------------------
 9. CLARO_INIT_BANNER. Il reste plusieurs tag <font> dans le code qu'il serait 
 intéressant de remplacer par une meilleure utilisation des css. Il reste 
 également des codes couleurs hardcodés pour les différents <td>
 
+Repéré par : MOOSH
 Assigné à : HUGUES
 
 ------------------------------------------------------------------
@@ -114,6 +117,9 @@ Repéré par : MOOSH
 
 -------------
 $Log$
+Revision 1.20  2004/06/14 13:21:22  peeters
+no message
+
 Revision 1.19  2004/06/14 13:10:31  seb
 bug 6 resolu
 
