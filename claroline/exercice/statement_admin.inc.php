@@ -28,12 +28,14 @@ if(!defined('ALLOWED_TO_INCLUDE'))
 	exit();
 }
 
+include ($includePath.'/lib/fileUpload.lib.php');
+
 // the question form has been submitted
 if($submitQuestion)
 {
 	$questionName=trim($questionName);
 	$questionDescription=trim($questionDescription);
-        $imageUpload_name=strtolower($imageUpload_name);
+  $fileUpload_name=strtolower($fileUpload_name);
 
 	// no name given
 	if(empty($questionName))
@@ -45,12 +47,12 @@ if($submitQuestion)
 	{
 		$usedInSeveralExercises=1;
 
-        // if a picture has been set
-        if($imageUpload_size)
-        {
-            // saves the picture into a temporary file
-            $objQuestion->setTmpPicture($imageUpload,$imageUpload_name);
-        }
+    // if a file has been set
+    if($fileUpload_size)
+    {
+        // saves the file into a temporary file
+        $objQuestion->setTmpAttachedFile($fileUpload,get_secure_file_name($fileUpload_name));
+    }
 	}
 	else
 	{
@@ -59,7 +61,9 @@ if($submitQuestion)
         {
         	// duplicates the question
         	$questionId=$objQuestion->duplicate();
-
+          // tempAttachedFile object var isnot handled by duplicate because not stored in db
+          $tmpFile = $objQuestion->selectTempAttachedFile();
+          
             // deletes the old question
             $objQuestion->delete($exerciseId);
 
@@ -72,7 +76,8 @@ if($submitQuestion)
             $objQuestion=new Question();
 
             $objQuestion->read($questionId);
-
+            $objQuestion->updateTempAttachedFile($tmpFile);
+            
 			// adds the exercise ID into the exercise list of the Question object
             $objQuestion->addToList($exerciseId);
 
@@ -89,27 +94,26 @@ if($submitQuestion)
 		$objQuestion->updateTitle($questionName);
 		$objQuestion->updateDescription($questionDescription);
 		$objQuestion->updateType($answerType);
-                $objQuestion->save($exerciseId);
+    $objQuestion->save($exerciseId);
 
-
-		// if a picture has been set or checkbox "delete" has been checked
-		if($imageUpload_size || $deletePicture)
+		// if a file has been set or checkbox "delete" has been checked
+		if($fileUpload_size || $deleteAttachedFile)
 		{
-			// we remove the picture
-			$objQuestion->removePicture();
+			// we remove the attached file
+			$objQuestion->removeAttachedFile();
 
-			// if we add a new picture
-			if($imageUpload_size)
+			// if we add a new attached file
+			if($fileUpload_size)
 			{
                 // image is already saved in a temporary file
                 if($modifyIn)
                 {
-                    $objQuestion->getTmpPicture();
+                    $objQuestion->getTmpAttachedFile();
                 }
-                // saves the picture coming from POST FILE
+                // saves the file coming from POST FILE
                 else
                 {
-                    $objQuestion->uploadPicture($imageUpload,$imageUpload_name);
+                    $objQuestion->uploadAttachedFile($fileUpload,get_secure_file_name($fileUpload_name));
                 }
 			}
                 
@@ -152,10 +156,10 @@ else
 		$questionName=$objQuestion->selectTitle();
 		$questionDescription=$objQuestion->selectDescription();
 		$answerType=$objQuestion->selectType();
-                $pictureName=$objQuestion->selectPictureName();
+    $attachedFile=$objQuestion->selectAttachedFile();
 	}
         
-        $okPicture=empty($pictureName)?false:true;
+        $okAttachedFile=empty($attachedFile)?false:true;
 }
 
 if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
@@ -170,12 +174,12 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
 <table border="0" cellpadding="5">
 
 <?php
-	if($okPicture)
+	if($okAttachedFile)
 	{
 ?>
 
 <tr>
-  <td colspan="2" align="center"><img src="<?php echo $picturePathWeb.'/'.$pictureName; ?>" border="0"></td>
+  <td colspan="2"><?php echo display_attached_file($attachedFile); ?></td>
 </tr>
 
 <?php
@@ -209,15 +213,15 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
   <td><textarea wrap="virtual" name="questionDescription" id="questionDescription" cols="50" rows="4" style="width:400px;"><?php echo htmlentities($questionDescription); ?></textarea></td>
 </tr>
 <tr>
-  <td><label for="imageUpload"><?php echo $okPicture?$langReplacePicture:$langAddPicture; ?> :</label></td>
-  <td><input type="file" name="imageUpload" id="imageUpload" size="30" style="width:390px;">
+  <td><label for="fileUpload"><?php echo $okAttachedFile?$langReplaceAttachedFile:$langAttachFile; ?> :</label></td>
+  <td><input type="file" name="fileUpload" id="fileUpload" size="30" style="width:390px;">
 
 <?php
-	if($okPicture)
+	if($okAttachedFile)
 	{
 ?>
 
-	<br><input type="checkbox" name="deletePicture" id="deletePicture" value="1" <?php if($deletePicture) echo 'checked="checked"'; ?>> <label for="deletePicture"><?php echo $langDeletePicture; ?></label>
+	<br><input type="checkbox" name="deleteAttachedFile" id="deleteAttachedFile" value="1" <?php if($deleteAttachedFile) echo 'checked="checked"'; ?>> <label for="deleteAttachedFile"><?php echo $langDeleteAttachedFile; ?></label>
 
 <?php
 	}
