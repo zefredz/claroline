@@ -232,27 +232,27 @@ si j'ai bien capté la nouvelle logique ca devrait être un claro_button
 Repéré par : M.
 Assigné à : 
 
-Etat : New ------------------------------------------------------
+Etat : SEB ------------------------------------------------------
 M.28 : /claroline/exercice/question_pool.php
 type : interface - uniformisation
 quoi : Le formulaire englobe 2 <table> alors  qu'il ne propose des input que dans 1 <td>
 Et ce uniquement pour du look
 Repéré par : M.
-Assigné à : 
+Assigné à : SEB
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.29 : /claroline/exercice/question_pool.php
 type : interface - uniformisation
 quoi : javascript de suppression d'un question peu explicite
 Repéré par : M.
-Assigné à : 
+Assigné à : SEB
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.30 : /claroline/exercice/exercice.php
 type : interface - uniformisation
 quoi : javascript de suppression d'un exercice peu explicite
 Repéré par : M.
-Assigné à : 
+Assigné à : SEB
 
 template à copier coller
 Etat : New ------------------------------------------------------
@@ -267,6 +267,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.41  2004/06/16 13:33:12  seb
+28 29 30 done
+
 Revision 1.40  2004/06/16 12:36:20  guillaume
 cats containing courses can not become cat that can not accept courses...debug
 
