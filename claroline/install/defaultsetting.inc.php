@@ -64,10 +64,10 @@
     /**
      * admin & contact
      */
-    $loginForm          = 'admin';
+    $loginForm          = '';
     $passForm           = '';
-    $adminNameForm      = 'Doe';
-    $adminSurnameForm   = 'John';
+    $adminNameForm      = '';
+    $adminSurnameForm   = '';
     $adminPhoneForm    = $conf_def_property_list['administrator_phone']['default'];
     $adminEmailForm    = $conf_def_property_list['administrator_email']['default'];
 
