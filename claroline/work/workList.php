@@ -38,7 +38,7 @@ $currentUserLastName        = $_user['lastName'];
 $usersPerPage = 50;
 
 if ( !$_cid ) 	claro_disp_select_course();
-if ( ! $is_courseAllowed)	claro_disp_auth_form();
+if ( ! $is_courseAllowed )	claro_disp_auth_form();
 
 event_access_tool($_tid, $_courseTool['label']);
 
@@ -381,8 +381,11 @@ foreach( $workList as $thisWrk )
 {
 	echo "<tr align=\"center\">\n"
 		."<td align=\"left\">"
-		."<a href=\"userWork.php?authId=".$thisWrk['authId']."&assigId=".$_REQUEST['assigId']."\">"
-		.$thisWrk['name']."</a></td>\n"
+		."<a href=\"userWork.php?authId=".$thisWrk['authId']."&assigId=".$_REQUEST['assigId']."\">";
+	
+	echo ( $thisWrk['authId'] == $_uid )? "<b>".$thisWrk['name']."</b>" : $thisWrk['name'];
+	
+	echo "</a></td>\n"
 		."<td>".$thisWrk['title']."</td>\n"
 		."<td>".$thisWrk['submissionCount']."</td>\n"
 		."<td>";
