@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -220,25 +220,25 @@ if($display_form)
 <form method="post" action="<?= $PHP_SELF ?>?register=yes">
 	<table cellpadding="3" cellspacing="0" border="0">
 	<tr>
-		<td align="right"><?php echo $langLastName; ?> :
+		<td align="right"><label for="nom"><?php echo $langLastName; ?></label> :
 		</td>
 		<td>
-		<input type="text" size="40" name="nom" value="<?php echo htmlentities(stripslashes($nom)); ?>">
+		<input type="text" size="40" name="nom" id="nom" value="<?php echo htmlentities(stripslashes($nom)); ?>">
 		</td>
 	</tr>
 	<tr>
-		<td align="right"><?php echo $langFirstName; ?> :
+		<td align="right"><label for="prenom"><?php echo $langFirstName; ?></label> :
 		</td>
 		<td>
-		<input type="text" size="40" name="prenom" value="<?php echo htmlentities(stripslashes($prenom)); ?>">
+		<input type="text" size="40" name="prenom" id="prenom" value="<?php echo htmlentities(stripslashes($prenom)); ?>">
 		</td>
 	</tr>
 
     <tr>
-        <td align="right"><?php echo $langOfficialCode; ?> :
+        <td align="right"><label for="official_code"><?php echo $langOfficialCode; ?></label> :
         </td>
         <td>
-        <input type="text" size="40" name="official_code" value="<?php echo htmlentities(stripslashes($official_code)); ?>">
+        <input type="text" size="40" name="official_code" id="official_code" value="<?php echo htmlentities(stripslashes($official_code)); ?>">
         </td>
     </tr>
 
@@ -249,9 +249,9 @@ if($display_form)
       <td></td>
     </tr>
 	<tr>
-		<td align="right"><?= $langUsername ?> :
+		<td align="right"><label for="uname"><?php echo $langUsername ?></label> :
 		</td>
-		<td><input type="text" size="40" name="uname" value="<?php echo htmlentities(stripslashes($uname)); ?>">
+		<td><input type="text" size="40" name="uname" id="uname" value="<?php echo htmlentities(stripslashes($uname)); ?>">
 		</td>
 	</tr>
     <tr>
@@ -262,10 +262,10 @@ if($display_form)
         </td>
     </tr>
     <tr>
-        <td align="right"><?php echo $langConfirm ?> :
+        <td align="right"><label for="password1"><?php echo $langConfirm ?></label> :
         </td>
         <td>
-        <input type="password" size="40" name="password1" value="">
+        <input type="password" size="40" name="password1" id="password1" value="">
         </td>
     </tr>
     <tr>
@@ -275,24 +275,26 @@ if($display_form)
       <td></td>
     </tr>
 	<tr>
-		<td align="right"><?php echo $langEmail; ?> :
+		<td align="right"><label for="email"><?php echo $langEmail; ?></label> :
 		</td>
 		<td>
-		<input type="text" size="40" name="email" value="<?php echo $email; ?>">
+		<input type="text" size="40" name="email" id="email" value="<?php echo $email; ?>">
 		</td>
 	</tr>
     <tr>
-        <td align="right"><?php echo $langPhone; ?> :
+        <td align="right"><label for="phone"><?php echo $langPhone; ?></label> :
         </td>
         <td>
-        <input type="text" size="40" name="phone" value="<?php echo $phone; ?>">
+        <input type="text" size="40" name="phone" id="phone" value="<?php echo $phone; ?>">
         </td>
     </tr>
 	<tr>
-		<td align="right"><?php echo $langAction; ?> :
+		<td align="right">
+		 <label for="statut_form"><?php echo $langAction; ?></label>
+		  :
 		</td>
 		<td>
-        <select name="statut_form">
+        <select name="statut_form" id="statut_form">
          <option value="5"><?php echo $langFollowCourse; ?></option>
          <option value="1"><?php echo $langCreateCourse; ?></option>
         </select>
