@@ -15,7 +15,7 @@
 $langFile = "admin";
 
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
-$langAddUserList = "add user list";
+
 
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
 
@@ -29,7 +29,7 @@ include($includePath."/lib/admin.lib.inc.php");
  * DB tables definition
  */
 
-$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_mdb_names             = claro_sql_get_main_tbl();
 $tbl_user                  = $tbl_mdb_names['user'];
 $tbl_class                 = $tbl_mdb_names['user_category'];
 $tbl_class_user            = $tbl_mdb_names['user_rel_profile_category'];
@@ -51,7 +51,6 @@ include($includePath."/claro_init_header.inc.php");
 
 claro_disp_tool_title($nameTools);
 
-
 //deal with session variables
 
 if ((($cmd=="exImpSec"  || $cmd=="exImp") && $_SESSION['claro_CSV_done']) || empty($cmd)) // this is to avoid a redo because of a page reload in browser
@@ -61,7 +60,7 @@ if ((($cmd=="exImpSec"  || $cmd=="exImp") && $_SESSION['claro_CSV_done']) || emp
     $_SESSION['claro_CSV_done'] = FALSE;
 }
 
-//Set format used for CSV file s
+//Set format used for CSV files
 
 $defaultFormat = "surname;name;email;phone;username;password;officialCode";
 
