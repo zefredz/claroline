@@ -912,9 +912,10 @@ function utf8_decode_if_is_utf8($str) {
 
                        // set description as comment or default comment
                        // look fo description in item description or in sco (resource) description
+                       // don't remember why I checked for parameters string ... so comment it 
                        if (       ( !isset( $item['description'] ) || $item['description'] == '' )
                             &&
-                                   ( !isset($manifestData['scos'][$item['identifierref']]['description']) || $manifestData['scos'][$item['identifierref']]['parameters'] == '' )
+                                   ( !isset($manifestData['scos'][$item['identifierref']]['description']) /*|| $manifestData['scos'][$item['identifierref']]['parameters'] == ''*/ )
                            )
                        {
                            $description = $langDefaultModuleComment;
