@@ -24,7 +24,7 @@ $langUserAlreadyInClass        = "User already in class";
 $langUserNotInClass            = "User not in the class";
 $langUserRegisteredClass       = "User has been sucessfully registered to the class";
 $langUserUnregisteredClass     = "User has been sucessfully unregistered from the class";
-$langClassMembers              = "Class members";
+$langClassMembers              = "See class members";
 $langClass                     = "Classes";
 
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
@@ -145,6 +145,7 @@ define ("USER_DATA_FORM", 2);_reg_user_order_crit']=="user_id")
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 $interbredcrump[]= array ("url"=>$rootAdminWeb."/admin_class.php", "name"=> $langClass);
+$interbredcrump[]    = array ("url"=>$rootAdminWeb."admin_class_user.php", "name"=> $langListClassUser);
 $nameTools = $langRegisterUserToClass;
 
 //Header
