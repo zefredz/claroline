@@ -39,7 +39,7 @@ $langFile = "phpbb";
 
 
 $is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
-$is_forumAdmin = $is_courseAdmin || $is_platformAdmin;
+$is_forumAdmin    = $is_courseAdmin || $is_platformAdmin;
 
 
 
@@ -49,20 +49,16 @@ $noPHP_SELF = true; //because  phpBB need always param IN URL
 
 include('../inc/claro_init_header.inc.php');
 
-if ( ! $is_courseAllowed)
-	claro_disp_auth_form();
+if ( ! $is_courseAllowed) claro_disp_auth_form();
+	
 
 
 /*
 echo "<a href=\"./search.php?addterms=any&forum=all&sortby=p.post_time%20desc&searchboth=both&submit=Rechercher\">$langLastMsgs</a>";
 */
 
-if($is_forumAdmin)
-{
-
 claro_disp_tool_title($l_forums, 
                       $is_allowedToEdit ? 'help_forum.php' : false);
-}	// end if prof or assistant
 
 
 /*================================================
@@ -71,30 +67,30 @@ claro_disp_tool_title($l_forums,
 
 // Determine if Forums are private. O=public, 1=private
 
-$forumPriv = mysql_query("SELECT private FROM `$tbl_group_properties`") or die('Error in file '.__FILE__.' at line '.__LINE__);
+$sql = "SELECT private 
+        FROM `".$tbl_group_properties."`";
 
-while ($myForumPriv = mysql_fetch_array($forumPriv))
-{
-	$privProp = $myForumPriv['private'];
-}
-
+$privProp = claro_sql_query_get_single_value($sql);
 
 // Determine if uid is tutor for this course
 
-$sqlTutor = mysql_query("SELECT tutor FROM cours_user
-                         WHERE user_id=\"".$_uid."\"
-                         AND code_cours=\"".$_cid."\"") or die('Error in file '.__FILE__.' at line '.__LINE__);
+$sql = "SELECT tutor 
+        FROM   cours_user
+        WHERE  user_id    ='".$_uid."'
+        AND    code_cours ='".$_cid."'";
+
+$sqlTutor = claro_sql_query($sql);
 
 while ($myTutor = mysql_fetch_array($sqlTutor))
 {
-	$tutorCheck = $myTutor['tutor'];
+    $tutorCheck = $myTutor['tutor'];
 }
 
 
 // Determine if forum category is Groups
 
-$forumCatId = mysql_query("SELECT cat_id FROM `$tbl_forums`
-                           WHERE forum_id=\"".$forum."\"") or die('Error in file '.__FILE__.' at line '.__LINE__);
+$forumCatId = mysql_query("SELECT cat_id FROM `".$tbl_forums."`
+                           WHERE forum_id = '".$forum."'") or die('Error in file '.__FILE__.' at line '.__LINE__);
 
 while ($myForumCat = mysql_fetch_array($forumCatId))
 {
@@ -105,16 +101,16 @@ while ($myForumCat = mysql_fetch_array($forumCatId))
 // Check which group and which forum user is a member of
 
 $findTeamUser = mysql_query("SELECT team, forumId, tutor, secretDirectory
-                             FROM  `$tbl_student_group` s, `$tbl_user_group` u
+                             FROM  `".$tbl_student_group."` s, `".$tbl_user_group."` u
                              WHERE u.user=\"".$_uid."\"
                              AND   s.id = u.team") or die('Error in file '.__FILE__.' at line '.__LINE__);
 
 while ($myTeamUser = mysql_fetch_array($findTeamUser))
 {
-	$myTeam            = $myTeamUser['team'           ];
-	$myGroupForum      = $myTeamUser['forumId'        ];
-	$myTutor           = $myTeamUser['tutor'          ];
-	$secretDirectory   = $myTeamUser['secretDirectory'];
+	$myTeam          = $myTeamUser['team'           ];
+	$myGroupForum    = $myTeamUser['forumId'        ];
+	$myTutor         = $myTeamUser['tutor'          ];
+	$secretDirectory = $myTeamUser['secretDirectory'];
 }
 
 
@@ -146,21 +142,18 @@ if ($user_logged_in)
 	// do PM notification.
 	$last_visit_date = date("Y-m-d h:i", $last_visit);
 
-	$username = addslashes($userdata[username]);
+	$username = addslashes($userdata['username']);
 
-	$sql = "SELECT count(*) AS count
-			FROM `$tbl_priv_msgs` p, `$tbl_users` u
-			WHERE p.to_userid = u.user_id and p.msg_status = '0' and u.username = '$username'";
+	$sql = "SELECT COUNT(*) AS count
+			FROM `".$tbl_priv_msgs."` p, 
+                 `".$tbl_users."` u
+			WHERE p.to_userid = u.user_id 
+              AND p.msg_status = '0' 
+              AND u.username = '".$username."'";
 
-	if(!$result = mysql_query($sql, $db))
-	{
-		error_die("phpBB was unable to check private messages because " .mysql_error($db));
-	}
-
-	$row = @mysql_fetch_array($result);
-	$new_message = $row[count];
-	$word = ($new_message > 1) ? "messages" : "message";
-	$privmsg_url = "$url_phpbb/viewpmsg.$phpEx";
+    $newMsgCount = claro_sql_query_get_single_value($sql);
+	$word = ($newMsgCount > 1) ? 'messages' : 'message';
+	$privmsg_url = "viewpmsg.php";
 
 	if ($new_message != 0)
 	{
