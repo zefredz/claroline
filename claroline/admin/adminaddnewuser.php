@@ -218,16 +218,16 @@ if($display_form)
 {
 	echo $langAddUserOneByOne; ?>
 <form method="post" action="<?= $PHP_SELF ?>?register=yes">
-	<table cellpadding="3" cellspacing="0" border="0" width="100%">
+	<table cellpadding="3" cellspacing="0" border="0">
 	<tr>
-		<td><?php echo $langLastName; ?> :
+		<td align="right"><?php echo $langLastName; ?> :
 		</td>
 		<td>
 		<input type="text" size="40" name="nom" value="<?php echo htmlentities(stripslashes($nom)); ?>">
 		</td>
 	</tr>
 	<tr>
-		<td ><?php echo $langFirstName; ?> :
+		<td align="right"><?php echo $langFirstName; ?> :
 		</td>
 		<td>
 		<input type="text" size="40" name="prenom" value="<?php echo htmlentities(stripslashes($prenom)); ?>">
@@ -235,7 +235,7 @@ if($display_form)
 	</tr>
 
     <tr>
-        <td ><?php echo $langOfficialCode; ?> :
+        <td align="right"><?php echo $langOfficialCode; ?> :
         </td>
         <td>
         <input type="text" size="40" name="official_code" value="<?php echo htmlentities(stripslashes($official_code)); ?>">
@@ -249,20 +249,20 @@ if($display_form)
       <td></td>
     </tr>
 	<tr>
-		<td ><?= $langUsername ?> :
+		<td align="right"><?= $langUsername ?> :
 		</td>
 		<td><input type="text" size="40" name="uname" value="<?php echo htmlentities(stripslashes($uname)); ?>">
 		</td>
 	</tr>
     <tr>
-        <td ><?php echo $langPassword ?> :
+        <td align="right"><?php echo $langPassword ?> :
         </td>
         <td>
         <input type="password" size="40" name="password" value="">
         </td>
     </tr>
     <tr>
-        <td ><?php echo $langConfirm ?> :
+        <td align="right"><?php echo $langConfirm ?> :
         </td>
         <td>
         <input type="password" size="40" name="password1" value="">
@@ -275,21 +275,21 @@ if($display_form)
       <td></td>
     </tr>
 	<tr>
-		<td ><?php echo $langEmail; ?> :
+		<td align="right"><?php echo $langEmail; ?> :
 		</td>
 		<td>
 		<input type="text" size="40" name="email" value="<?php echo $email; ?>">
 		</td>
 	</tr>
     <tr>
-        <td ><?php echo $langPhone; ?> :
+        <td align="right"><?php echo $langPhone; ?> :
         </td>
         <td>
         <input type="text" size="40" name="phone" value="<?php echo $phone; ?>">
         </td>
     </tr>
 	<tr>
-		<td><?php echo $langAction; ?> :
+		<td align="right"><?php echo $langAction; ?> :
 		</td>
 		<td>
         <select name="statut_form">

@@ -34,12 +34,6 @@ $nameTools=$langModifOneProfile;
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 //$interbredcrump[]= array ("url"=>$rootAdminWeb."/adminusers.php"=> $langManage);
 
-$htmlHeadXtra[] = "<style type=\"text/css\">
-<!--
-	body,h1,h2,h3,h4,h5,h6,p,blockquote,td,ol,ul {font-family: Arial, Helvetica, sans-serif; }
--->
-</STYLE>";
-
 $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
@@ -317,10 +311,10 @@ if ($display == USER_DATA_FORM)
 
 <form method="POST" action="<?php echo $PHP_SELF ?>">
 <input type="hidden" name="applyChange" value="yes">
-<table width="100%" >
+<table border="0">
 
      <tr>
-        <td valign="top">
+        <td align="right" valign="top">
             <?php echo $langUserid ?> :
         </td>
         <td colspan="2">
@@ -328,8 +322,8 @@ if ($display == USER_DATA_FORM)
         </td>
     </tr>
 
-	<tr>
-		<td valign="top">
+	<tr valign="top">
+		<td align="right">
 			<?php echo $langName ?> :
 		</td>
 		<td colspan="2">
@@ -337,8 +331,8 @@ if ($display == USER_DATA_FORM)
 		</td>
 	</tr>
 
-    <tr>
-        <td valign="top">
+    <tr valign="top">
+        <td align="right">
             <?php echo $langFirstName ?> :
         </td>
         <td colspan="2">
@@ -346,8 +340,8 @@ if ($display == USER_DATA_FORM)
         </td>
     </tr>
 
-    <tr>
-        <td valign="top">
+    <tr valign="top">
+        <td align="right">
             <?php echo $langOfficialCode ?> :
         </td>
         <td colspan="2">
@@ -368,8 +362,8 @@ if ($display == USER_DATA_FORM)
       </td>
     </tr>
 
-	<tr>
-	  <td valign="top">
+	<tr valign="top">
+	  <td align="right">
 	    <?=$langUsername?> :
 	  </td>
 	  <td colspan="2">
@@ -377,8 +371,8 @@ if ($display == USER_DATA_FORM)
 	  </td>
 	</tr>
 
-    <tr>
-      <td valign="top">
+    <tr valign="top">
+      <td align="right">
         <?=$langPassword?> :
       </td>
       <td colspan="2">
@@ -386,8 +380,8 @@ if ($display == USER_DATA_FORM)
       </td>
     </tr>
 
-    <tr>
-      <td valign="top">
+    <tr valign="top">
+      <td align="right">
         <?=$langConfirm?> :
       </td>
       <td colspan="2">
@@ -402,8 +396,8 @@ if ($display == USER_DATA_FORM)
       <td></td>
     </tr>
 
-	<tr>
-	  <td valign="top">
+	<tr valign="top">
+	  <td align="right">
 	    <?=$langEmail?> :
 	  </td>
 	  <td colspan="2">
@@ -412,23 +406,23 @@ if ($display == USER_DATA_FORM)
       </td>
    </tr>
 
-   <tr>
-       <td><?=$langPhone?> : </td>
+   <tr valign="top">
+       <td align="right"><?=$langPhone?> : </td>
        <td>
          <input type="text" size="40" name="userphone_form" value="<?=$userphone_form?>">
        </td>
     </tr>
 
-        <tr>
-       <td><?=$langUserCanCreateCourse?> : </td>
+        <tr valign="top">
+       <td align="right"><?=$langUserCanCreateCourse?> : </td>
        <td>
          <input type="radio" name="create_course_form" value="yes" <? if ($canCreateCourse) { echo "checked"; }?> ><?=$langYes?></input>
          <input type="radio" name="create_course_form" value="no"  <? if (!$canCreateCourse){ echo "checked"; }?> ><?=$langNo?></input>
        </td>
     </tr>
 
-    <tr>
-       <td><?=$langUserIsPlaformAdmin ?> : </td>
+    <tr valign="top">
+       <td align="right"><?=$langUserIsPlaformAdmin ?> : </td>
        <td>
          <input type="radio" name="admin_form" value="yes" <? if ($isAdmin) { echo "checked"; }?> ><?=$langYes?></input>
          <input type="radio" name="admin_form" value="no" <? if (!$isAdmin) { echo "checked"; }?> ><?=$langNo?></input>

@@ -71,7 +71,7 @@ claro_disp_tool_title($nameTools);
 <table border="0">
 
 <tr>
-  <td>
+  <td align="right">
    <?=$langLastName?> : <br>
   </td>
   <td>
@@ -80,7 +80,7 @@ claro_disp_tool_title($nameTools);
 </tr>
 
 <tr>
-  <td>
+  <td align="right">
    <?=$langFirstName?> : <br>
   </td>
   <td>
@@ -89,7 +89,7 @@ claro_disp_tool_title($nameTools);
 </tr>
 
 <tr>
-  <td>
+  <td align="right">
    <?=$langUsername?> :  <br>
   </td>
   <td>
@@ -98,7 +98,7 @@ claro_disp_tool_title($nameTools);
 </tr>
 
 <tr>
-  <td>
+  <td align="right">
    <?=$langEmail?> : <br>
   </td>
   <td>
@@ -107,7 +107,7 @@ claro_disp_tool_title($nameTools);
 </tr>
 
 <tr>
-  <td>
+  <td align="right">
    <?=$langAction?> : <br>
   </td>
   <td>
