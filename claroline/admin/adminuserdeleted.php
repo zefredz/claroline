@@ -31,7 +31,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 include $includePath.'/lib/admin.lib.inc.php';
 include $includePath.'/conf/user_profile.conf.php'; // find this file to modify values.
 
-$nameTools=$langModifOneProfile;
+$nameTools=$langUserSettings;
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 

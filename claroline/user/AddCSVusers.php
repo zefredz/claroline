@@ -224,7 +224,7 @@ switch ($AddType)
 {
     case "adminTool":
         $noQUERY_STRING   = true;
-        $nameTools        = $langAddCSVUsersInCampus;
+        $nameTools        = $langAddCSVUsers;
         $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
     break;
         
@@ -410,7 +410,7 @@ case "steptwo" :
       break;
       
       case "userTool":
-          echo "<br><a href=\"user.php\">&gt;&gt; $langCSVBackToUserList</a>";
+          echo "<br><a href=\"user.php\">&gt;&gt; $langBackToUserList</a>";
       break;
   }
     break;

@@ -7,12 +7,12 @@ if ($_gid && $is_groupAllowed)
 {
     $courseDir         = $_course['path'] .'/group/'.$_group['directory'];
     $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
-	$interbredcrump[] = array ('url'=>'document.php', 'name'=> $langDoc);
+	$interbredcrump[] = array ('url'=>'document.php', 'name'=> $langDocument);
 }
 else
 {
     $courseDir   = $_course['path'] .'/document';
-    $interbredcrump[] = array ('url'=>'document.php', 'name'=> $langDoc);
+    $interbredcrump[] = array ('url'=>'document.php', 'name'=> $langDocument);
 }
 
 $baseWorkDir = $coursesRepositorySys . $courseDir;
@@ -20,7 +20,7 @@ $baseWorkDir = $coursesRepositorySys . $courseDir;
 $nameTools = $langCreateModifyDocument;
 include('../inc/claro_init_header.inc.php');
 
-claro_disp_tool_title(array('mainTitle' => $langDoc, 'subTitle' => $langCreateModifyDocument));
+claro_disp_tool_title(array('mainTitle' => $langDocument, 'subTitle' => $langCreateModifyDocument));
 
 /*========================================================================
                              CREATE DOCUMENT

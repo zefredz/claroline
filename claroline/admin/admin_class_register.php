@@ -61,7 +61,7 @@ switch ($cmd)
 	         AND `class_id` = '".$classinfo['id']."'
 	       ";
 	claro_sql_query($sql);
-	$dialogBox = $langUserUnregisteredClass; 
+	$dialogBox = $langUserUnregisteredFromClass; 
 	break;
 	
 }

@@ -112,7 +112,7 @@ if ($disp_tool_link)
 	<?php 
 	   //add a class link
 	?>
-	<a class="claroCmd" href="class_add.php"><?php echo $langAddAClass; ?></a> |
+	<a class="claroCmd" href="class_add.php"><?php echo $langAddClass; ?></a> |
 	<?php
 	
 	   //add a user link
@@ -201,7 +201,7 @@ echo	"<table class=\"claroTable emphaseLine\" ",
 
 	if($is_allowedToEdit) // EDIT COMMANDS
 	{
-		echo	"\n<th scope=\"col\" id=\"tut\"  >",$langTutor,"</th>",
+		echo	"\n<th scope=\"col\" id=\"tut\"  >",$langGroupTutor,"</th>",
 				"\n<th scope=\"col\" id=\"CM\"   >",$langCourseManager,"</th>",
 				"\n<th scope=\"col\" id=\"edit\" >",$langEdit,"</th>",
 				"\n<th scope=\"col\" id=\"del\"  >",$langUnreg,"</th>\n";
@@ -334,7 +334,7 @@ while (list(,$thisUser) = each($users))
 		}
 		else
 		{
-			echo	'<td headers="tut u'.$i.'">'.$langTutor.'</td>';
+			echo	'<td headers="tut u'.$i.'">'.$langGroupTutor.'</td>';
 		}
 		echo "\n";
 		// course manager column

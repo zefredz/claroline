@@ -114,7 +114,7 @@ claro_disp_tool_title($nameTools." : ");
   </td>
   <td>
     <select name="action" id="action">
-        <option value="followcourse" <?php if ($_REQUEST['action']=="followcourse") echo "selected";?>><?php echo $langFollowCourse?></option>
+        <option value="followcourse" <?php if ($_REQUEST['action']=="followcourse") echo "selected";?>><?php echo $langRegStudent?></option>
         <option value="createcourse" <?php if ($_REQUEST['action']=="createcourse") echo "selected";?>><?php echo $langCreateCourse?></option>
         <option value="plateformadmin" <?php if ($_REQUEST['action']=="plateformadmin") echo "selected";?>><?php echo $langPlatformAdministrator?></option>
     </select>

@@ -212,7 +212,7 @@ echo '</td>';
         ?>
 
         <p>
-        <a href="claroline/auth/inscription.php"><?php echo $langReg ?></a>
+        <a href="claroline/auth/inscription.php"><?php echo $langRegistration ?></a>
         </p>
 
         <?php

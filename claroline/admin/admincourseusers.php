@@ -89,7 +89,7 @@ switch ($cmd)
 {
   case "delete" :
         delete_user($user_id);
-        $dialogBox = $langDeleteOfUserWasDoneSucessfully;
+        $dialogBox = $langUserDelete;
         break;
 
   case "unsub" :

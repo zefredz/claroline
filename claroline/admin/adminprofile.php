@@ -23,7 +23,7 @@ include $includePath.'/lib/auth.lib.inc.php';
 include $includePath.'/conf/user_profile.conf.php';
 
 
-$nameTools=$langModifOneProfile;
+$nameTools=$langUserSettings;
 
 $interbredcrump[]= array ("url" => $rootAdminWeb, "name" => $langAdministration);
 if( isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == "ulist")

@@ -297,7 +297,7 @@ foreach($userList as $user)
         // already enrolled as student
         echo '<td align="center" >'."\n"
             .'<small>'
-            .$langAlreadyEnrolled
+            .$lang_already_enrolled
             .'</small>'
             .'</td>'."\n"
             ;
@@ -321,7 +321,7 @@ foreach($userList as $user)
         // already enrolled as teacher
         echo '<td align="center" >'."\n"
             .'<small>'
-            .$langAlreadyEnrolled
+            .$lang_already_enrolled
             .'</small>'
             .'</td>'."\n"
             ;

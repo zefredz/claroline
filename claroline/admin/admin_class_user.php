@@ -161,7 +161,7 @@ echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."admin/admin_class_
 
 echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&fromAdmin=class&uidToEdit=-1&category=\">".$langClassRegisterWholeClass."</a> | ";
 
-echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."user/AddCSVusers.php?AddType=adminClassTool\">".$langClassAddCSV."</a><br><br>";
+echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."user/AddCSVusers.php?AddType=adminClassTool\">".$langAddCSVUsersInClass."</a><br><br>";
 
    //Pager
 

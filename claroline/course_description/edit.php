@@ -287,7 +287,7 @@ if (count($listExistingBloc)>0)
     <tr>
         <td valign="top">
             <p>
-                <label for="edContentBloc"><?php echo $langContenuPlan ?></label>
+                <label for="edContentBloc"><?php echo $langContent ?></label>
 <?php
             claro_disp_html_area('edContentBloc', $contentBloc, 20, 80, $optAttrib=' wrap="virtual"');
 ?>

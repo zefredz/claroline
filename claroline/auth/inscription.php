@@ -163,7 +163,7 @@ if ($display_status_selector)
 ?>
 	<tr>
 		<td align="right">
-			<label for="status"><?php echo $langStatus ?>&nbsp;:</label>
+			<label for="status"><?php echo $langAction ?>&nbsp;:</label>
 		</td>
 		<td>
 			<select id="status" name="status">

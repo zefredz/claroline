@@ -765,7 +765,7 @@ if($CREATE)
                     else
                         echo "checked";
             ?>
-         value="1"> <label for="canHaveCoursesChild_1"><?php echo $lang_faculty_Yes; ?></label>
+         value="1"> <label for="canHaveCoursesChild_1"><?php echo $langYes; ?></label>
 
         <input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_0"
             <?php    if(isset($EditCanHaveCoursesChild))
@@ -860,7 +860,7 @@ elseif($EDIT)
                     else
                         echo "checked";
             ?>
-         value="1"> <label for="canHaveCoursesChild_1"><?php echo $lang_faculty_Yes; ?></label>
+         value="1"> <label for="canHaveCoursesChild_1"><?php echo $langYes; ?></label>
 
         <input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_0"
             <?php    if(isset($EditCanHaveCoursesChild))
@@ -1105,7 +1105,7 @@ include($includePath."/claro_init_footer.inc.php");
                         ?>
                             <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=exUp&date=".$date."#ud".$one_faculty["id"];
                             ?>" name ="<?php echo "ud".$one_faculty["id"]; ?>">
-                            <img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"></a>
+                            <img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" alt="<?php echo $langUp ?>"></a>
                         <?php
                         }
                         ?>

@@ -280,7 +280,7 @@ if($register)
 if($message)
 {
     claro_disp_message_box($message);
-    if ($platformRegSucceed) echo "<p><a href=\"user.php\"><< $langBackUser</a></p>\n";
+    if ($platformRegSucceed) echo "<p><a href=\"user.php\"><< $langBackToUsersList</a></p>\n";
 }
 
 if ($platformRegSucceed == false)
@@ -379,7 +379,7 @@ if ($_cid) // if we're inside a course, then it's a course registration
 {
 
 ?>
-<td align="right"><?php echo  $langTutor; ?> :</td>
+<td align="right"><?php echo  $langGroupTutor; ?> :</td>
 <td>
  <input type="radio" name="tutor_form" value="0" <?php 
  	if(!isset($tutor_form) || !$tutor_form) echo 'checked="checked"'; 
@@ -404,7 +404,7 @@ else
 
 ?>
 <tr>
-<td align="right"><label for="platformStatus"><?php echo $langStatus ?></label> : </td>
+<td align="right"><label for="platformStatus"><?php echo $langAction ?></label> : </td>
 <td>
 <select name="platformStatus" id="platformStatus">
 <option value="<?php echo STUDENT       ?>"><?php echo  $langRegStudent ?></option>

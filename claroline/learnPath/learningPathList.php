@@ -722,7 +722,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             if ( $list['lock'] == 'OPEN')
             {
                 echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&cmdid=".$list['learnPath_id']."\">\n",
-                        "<img src=\"".$clarolineRepositoryWeb."img/unblock.gif\" alt=\"$langAltMakeBlocking\" border=\"0\">\n",
+                        "<img src=\"".$clarolineRepositoryWeb."img/unblock.gif\" alt=\"$langBlock\" border=\"0\">\n",
                         "</a>\n";
             }
             else
@@ -755,7 +755,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                 }
 
                 echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&visibility_path_id=".$list['learnPath_id']."\" ",$onclick, " >\n",
-                        "<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" alt=\"$langAltMakeInvisible\" border=\"0\" />\n",
+                        "<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" alt=\"$langMakeInvisible\" border=\"0\" />\n",
                         "</a>\n";
             }
             echo    "</td>\n";
@@ -794,7 +794,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             {
                 echo    "<td>\n",
                         "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&move_path_id=".$list['learnPath_id']."\">\n",
-                        "<img src=\"".$clarolineRepositoryWeb."img/down.gif\" alt=\"$langAltMoveDown\" border=\"0\" />\n",
+                        "<img src=\"".$clarolineRepositoryWeb."img/down.gif\" alt=\"$langMoveDown\" border=\"0\" />\n",
                         "</a>\n",
                          "</td>\n";
             }

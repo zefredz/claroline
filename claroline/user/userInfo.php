@@ -379,7 +379,7 @@ elseif ($displayMode =="viewMainInfoEdit")
             .'<tr class="headerX">'."\n"
             .'<th align="left">'.$langName.'</th>'."\n"
             .'<th align="left"><label for="role">'.$langRole.' ('. $langOptional .')</label></th>'."\n"
-            .'<th><label for="promoteTutor">'.$langTutor.'</label></th>'."\n"
+            .'<th><label for="promoteTutor">'.$langGroupTutor.'</label></th>'."\n"
             .'<th><label for="promoteCourseAdmin">'.$langCourseManager.'</label></th>'."\n"
             .'<th>&nbsp;</th>'."\n"
             .'</tr>'."\n"
@@ -444,7 +444,7 @@ elseif ($displayMode == "viewContentList") // default display
            . '<tr class="headerX">'."\n"
            . '<th align="left">'.$langName.'</th>'."\n"
            . '<th align="left">'.$langRole.'</th>'."\n"
-           . '<th>'.$langTutor.'</th>'."\n"
+           . '<th>'.$langGroupTutor.'</th>'."\n"
            . '<th>'.$langCourseManager.'</th>'."\n"
            . ($allowedToEditDef?'<th>'.$langEdit.'</th>'."\n":'')
            . ($is_allowedToTrack?"<th>".$langTracking.'</th>'."\n":'')
@@ -460,7 +460,7 @@ elseif ($displayMode == "viewContentList") // default display
 
         if ($mainUserInfo['tutor'] == 1)
         {
-            echo '<td>'.$langTutor.'</td>'."\n";
+            echo '<td>'.$langGroupTutor.'</td>'."\n";
         }
         else
         {

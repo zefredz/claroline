@@ -1061,7 +1061,7 @@ function confirmation (name)
 }
 </script>";
 
-$nameTools = $langDoc;
+$nameTools = $langDocument;
 
 $QUERY_STRING=''; // used for the breadcrumb 
                   // when one need to add a parameter after the filename
@@ -1074,7 +1074,7 @@ $cmdParentDir  = rawurlencode($parentDir);
 
 //display toot title and subtitle
 
-$titleElement['mainTitle'] = $langDoc;
+$titleElement['mainTitle'] = $langDocument;
 if ( $_gid && $is_groupAllowed) $titleElement['subTitle'] = $_group['name'];
 
 claro_disp_tool_title($titleElement, 
@@ -1172,7 +1172,7 @@ claro_disp_tool_title($titleElement,
 				. "<tr>\n"
 				. "<th class=\"superHeader\" colspan=\"". $colspan . "\" align=\"left\">\n"
 				. "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
-				. $langDoc 
+				. $langDocument 
 				. "<small>&nbsp;&nbsp;[&nbsp;<a href=\""
 				. $_SERVER['PHP_SELF']."\">" . $langBackToDir . "</a>&nbsp;]\n"
                 . "&nbsp;&nbsp;[&nbsp;<a href=\"" .  $_SERVER['PHP_SELF']
@@ -1323,7 +1323,7 @@ claro_disp_tool_title($titleElement,
 				. "\" align=\"left\">\n"
 				. "<img src=\"".$clarolineRepositoryWeb
 				. "img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
-            	. $langDoc."<small>&nbsp;&nbsp;[&nbsp;<a href=\"". $_SERVER['PHP_SELF']
+            	. $langDocument."<small>&nbsp;&nbsp;[&nbsp;<a href=\"". $_SERVER['PHP_SELF']
 				. "\">" . $langBackToDir . "</a>&nbsp;]</small>\n"
 				. "</th>\n"
 				. "</tr>\n"

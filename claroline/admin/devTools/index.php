@@ -29,9 +29,8 @@ if ($is_allowedToAdmin)
 	}
 }
 
-$nameTools = $langNomPageDevIndex;
+$nameTools = $langDevTools;
 $interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
-//$interbredcrump[]= array ("url"=>"../index.php", "name"=> $langNomPageDevIndex);
 @include("../checkIfHtAccessIsPresent.php");
 include($includePath.'/claro_init_header.inc.php');
 claro_disp_tool_title(

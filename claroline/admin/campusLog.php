@@ -322,7 +322,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     if($view[3] == '1')
     {
         $tempView[3] = '0';
-         echo "-&nbsp;&nbsp;<b>".$langPlatformToolAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";   
+         echo "-&nbsp;&nbsp;<b>".$langToolAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";   
       // display list of course of the student with links to the corresponding userLog
       $resCourseList = claro_sql_query("SELECT code, dbName
 	                                   FROM    `".$tbl_course."`
@@ -390,7 +390,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[3] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langPlatformToolAccess.'</a>';
+        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langToolAccess.'</a>';
     }
     echo '</p>'."\n\n";
 }

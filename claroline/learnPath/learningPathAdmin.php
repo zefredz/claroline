@@ -450,7 +450,7 @@
             <tr class="headerX" align="center" valign="top">
               <th colspan="<?php echo $maxDeep+1 ?>"><?php echo $langModule; ?></th>
               <th><?php echo $langModify; ?></th>
-              <th><?php echo $langRemoveFromLPShort; ?></th>
+              <th><?php echo $langRemove; ?></th>
               <th><?php echo $langBlock; ?></th>
               <th><?php echo $langVisibility; ?></th>
               <th><?php echo $langMove; ?></th>
@@ -527,7 +527,7 @@
             else
               echo $langAreYouSureToRemoveStd ;
             echo   "');\"
-			><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=0 alt=\"".$langRemoveFromLPShort."\"></a>
+			><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=0 alt=\"".$langRemove."\"></a>
    			</td>";
 
             // LOCK
@@ -539,7 +539,7 @@
             elseif ( $module['lock'] == 'OPEN')
             {
                 echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&cmdid=".$module['learnPath_module_id']."\">".
-                        "<img src=\"".$clarolineRepositoryWeb."img/unblock.gif\" alt=\"$langAltMakeBlocking\" border=0>".
+                        "<img src=\"".$clarolineRepositoryWeb."img/unblock.gif\" alt=\"$langBlock\" border=0>".
                         "</a>";
             }
             elseif( $module['lock'] == 'CLOSE')
@@ -570,7 +570,7 @@
                         $onclick = "";
                 }
                 echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ",$onclick, " >".
-                        "<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" alt=\"$langAltMakeInvisible\" border=0>".
+                        "<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" alt=\"$langMakeInvisible\" border=0>".
                         "</a>";
             }
 
@@ -602,7 +602,7 @@
             {
                 echo    "<td>".
                         "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
-                        "<img src=\"".$clarolineRepositoryWeb."img/down.gif\" alt=\"$langAltMoveDown\" border=0>".
+                        "<img src=\"".$clarolineRepositoryWeb."img/down.gif\" alt=\"$langMoveDown\" border=0>".
                         "</a>".
                          "</td>";
             }

@@ -609,7 +609,7 @@ switch ($displayMode)
 				."<input type=\"hidden\" name=\"cmd\" value=\"rqReg\" />\n"
 				."<input type=\"text\" name=\"keyword\" id=\"keyword\" />\n"
                 ."<input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\" />\n"
-				."&nbsp;<input type=\"submit\" value=\"".$lang_search."\" />\n"
+				."&nbsp;<input type=\"submit\" value=\"".$langSearch."\" />\n"
 				."</form>\n"
 				."</blockquote>\n";
 	break;

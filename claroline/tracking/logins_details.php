@@ -28,7 +28,7 @@ $is_allowedToTrackEverybodyInCourse = $is_courseAdmin; // allowed to track all s
 
 // check if uid is tutor of this group
 
-$interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$uInfo, "name"=> $langBredCrumpUsers);
+$interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$uInfo, "name"=> $langUsers);
 $interbredcrump[]= array ("url"=>"../tracking/userLog.php?uInfo=".$uInfo, "name"=> $langStatsOfUser);
 
 $nameTools = $langStatistics." : ".$langLoginsAndAccessTools;

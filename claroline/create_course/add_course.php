@@ -362,7 +362,7 @@ else
 		    .' '.$langCourseTitle	.' : '.$newcourse_label."\n"
 		    .' '.$langProfessors	.' : '.$newcourse_titulars."\n"
 		    .' '.$langEmail			.' : '.$newcourse_email."\n\n"
-		    .' '.$langFac.' : '.$newcourse_category."\n"
+		    .' '.$langCategory.' : '.$newcourse_category."\n"
 		    .' '.$langLanguage.' : '.$newcourse_language."\n"
 		    ."\n ".$coursesRepositoryWeb.$currentCourseRepository."/\n\n";
 		    if (    
@@ -577,7 +577,7 @@ elseif($displayCoursePropertiesForm)
 
 <tr valign="top">
 <td align="right">
-<label for="faculte"><?php echo $langFac ?></label> : 
+<label for="faculte"><?php echo $langCategory ?></label> : 
 </td>
 <td>
 <?php

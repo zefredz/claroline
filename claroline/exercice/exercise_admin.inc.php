@@ -287,7 +287,7 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
 </tr>
 
 <tr>
-  <td><label for="exerciseMaxAttempt"><?php echo $langAllowedAttempts; ?>&nbsp;:</label></td>
+  <td><label for="exerciseMaxAttempt"><?php echo $langAttemptsAllowed; ?>&nbsp;:</label></td>
   <td>
 	<select name="exerciseMaxAttempt" id="exerciseMaxAttempt">
         <option value="0" <?php echo ($maxAttempt == 0)? 'selected="selected"' : ''?>><?php echo $langUnlimitedAttempts; ?></option>

@@ -299,7 +299,7 @@ if($display_form)
         </td>
         <td>
             <select name="statut" id="statut">
-                <option value="5"><?php echo $langFollowCourse; ?></option>
+                <option value="5"><?php echo $langRegStudent; ?></option>
                 <option value="1"><?php echo $langCreateCourse; ?></option>
             </select>
         </td>
