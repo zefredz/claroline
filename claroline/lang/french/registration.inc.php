@@ -237,4 +237,9 @@ $lang_SearchUser_ModifOk            = "Les modifications ont été effectuées corr
 
 $langNoUserSelected = "Aucun utilisateur n'a été selectionné!";
 
+// dialogbox messages
+
+$langUserUnsubscribed = "L'utilisateur a bien été désinscrit du cours";
+$langUserNotUnsubscribed = "Erreur!! vous ne pouvez pas désinscrire un porfesseur du cours";
+
 ?>

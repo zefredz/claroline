@@ -198,4 +198,10 @@ $langConfirm = "Confirm";
 $lang_SearchUser_ModifOk            = "Update down";
 
 $langNoUserSelected = "No user selected!";
+
+// dialogbox messages
+
+$langUserUnsubscribed = "User has been sucessfully unregistered from course";
+$langUserNotUnsubscribed = "Error!! you can not unregister a course manager";
+
 ?>
