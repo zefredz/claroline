@@ -37,6 +37,10 @@ $langLocation = "Location";
 $langCannotBeBlank = "You can not give a blank name to a class";
 $langNewClassCreated = "The new class has been created";
 $langCreateNewClass = "Create a new class";
+$langClassMoved = "The class has been moved";
+$langErrorMove = "You can not move a class in itself!";
+$langTopLevel = "top level";
+$langMove = "Move";
 
 //---------------------- END LANG TO ADD ----------------------------------------------------------------------------
 
@@ -44,11 +48,11 @@ $langCreateNewClass = "Create a new class";
 
 $nameTools = $langAdministrationClassTools;
 $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
-$is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
+$is_allowedToAdmin   = $is_platformAdmin || $PHP_AUTH_USER;
 
 // USED TABLES
 
-$tbl_user             = $mainDbName."`.`user";
+$tbl_user            = $mainDbName."`.`user";
 $tbl_class           = $mainDbName."`.`class";
 
 // USED SESSION VARIABLES 
@@ -75,6 +79,10 @@ if (!isset($_SESSION['admin_visible_class']))
 
 include($includePath."/claro_init_header.inc.php");
 
+//display bredcrump and title
+
+claro_disp_tool_title($nameTools);
+
 /*-----------------------------------*/
 /*	EXECUTE COMMAND	             */
 /*-----------------------------------*/
@@ -84,10 +92,10 @@ switch ($cmd)
   case "del" :
   
         //check if class contains some children
-	
+
 	$sql = "SELECT * FROM `".$tbl_class."`";
 	$class_list = claro_sql_query_fetch_all($sql);
-	$has_children = FALSE;	
+	$has_children = FALSE;
 	foreach ($class_list as $search_parent)
 	{
 	    if ($_REQUEST['class'] == $search_parent['class_parent_id'])
@@ -96,9 +104,8 @@ switch ($cmd)
 	        break;
 	    }
 	}
-	
-	
-	// delete the class it self	
+
+	// delete the class itself	
 	if (!$has_children) 
 	{  
 	    $sql = "DELETE FROM `".$tbl_class."` WHERE id='".$_REQUEST['class']."'";      
@@ -108,12 +115,12 @@ switch ($cmd)
 	{
 	    $dialogBox = $langErrorClassNotEmpty;
 	}
-	
+
         break;
   
   //Display form to create a new class
   case "formNew" :
-  	$dialogBox= "<form action=\"$PHP_SELF\" >\n"
+  	$dialogBox ="<form action=\"$PHP_SELF\" >\n"
 		   ."<table>\n"
 		   ."   <tr>\n"
 		   ."     <td>\n"
@@ -129,14 +136,12 @@ switch ($cmd)
 		   ."       $langLocation :\n"
 		   ."     </td>\n"
 		   ."     <td>\n"
-		   ."       <select>\n"
-		   ."       </select>\n"
-		   ."       <input type=\"submit\" value=\" Ok \">\n"
+                   .        displaySelectBox()   
+	           ."       <input type=\"submit\" value=\" Ok \">\n"
 		   ."     </td>\n"
 		   ."   </tr>\n"
 		   ." </table>\n"
-		   ."</form>\n ";
-        
+		   ."</form>\n ";      
         break;
 
   //Create a new class
@@ -148,7 +153,11 @@ switch ($cmd)
 	else
 	{
 	    $dialogBox = $langNewClassCreated;
-	    $sql = "INSERT INTO `".$tbl_class."` SET name='".$_REQUEST['classname']."'";      
+	    $sql = "INSERT INTO `".$tbl_class."` SET `name`='".$_REQUEST['classname']."'";
+	    if ($_REQUEST['theclass'])
+	    {
+	        $sql.=", `class_parent_id`='".$_REQUEST['theclass']."'"; 
+            }       
             claro_sql_query($sql);
 	}
         break;
@@ -208,21 +217,45 @@ switch ($cmd)
   
   //Move a class in the tree (do it from posted info)
   case "exMove" : 
-      echo "we must still save the change in tree";
+      
+      if ($_REQUEST['theclass'] ==$_REQUEST['movedClassId']) 
+      {
+          $dialogBox = $langErrorMove;
+      }
+      else
+      {
+          if ($_REQUEST['theclass']=="root")
+	  {
+	     $parent="null"; 
+	  }
+	  else
+	  {
+	     $parent = $_REQUEST['theclass'];
+	  }
+	  $sql_update="UPDATE `$tbl_class` set class_parent_id=".$parent." WHERE id='".$_REQUEST['movedClassId']."'";
+          claro_sql_query($sql_update);
+          $dialogBox = $langClassMoved;
+      }
       break;
       
   //Move a class in the tree (display form)
-  case "move" :     
-      $dialogBox =  "   <tr>\n"
+  case "move" : 
+      
+      $dialogBox =  " <table>"  
+                   ."   <tr>\n"
 		   ."     <td >\n"
-		   ."       $langMove ".$_REQUEST['classname']." : \n"
+		   ."       $langMove ".$_REQUEST['classname']." : "
 		   ."     </td>\n"
 		   ."     <td>\n"
-		   ."       <select>\n"
-		   ."       </select>\n"
-		   ."       <input type=\"submit\" value=\" Ok \">\n"
+		   ."       <form action=\"$PHP_SELF\">"
+		   ."         <input type=\"hidden\" name=\"cmd\" value=\"exMove\">\n"
+		   ."         <input type=\"hidden\" name=\"movedClassId\" value=\"".$_REQUEST['class']."\">\n"
+                   .          displaySelectBox() 
+                   ."         <input type=\"submit\" value=\" Ok \">\n"
+                   ."       </form>"
 		   ."     </td>\n"
-		   ."   </tr>\n";
+		   ."   </tr>\n"
+		   ." </table>";
       break;
 	
 }
@@ -234,14 +267,9 @@ switch ($cmd)
 $sql = "SELECT * FROM `".$tbl_class."`";
 $class_list = claro_sql_query_fetch_all($sql);
 
- 
 /*-----------------------------------*/
 /*	Display                      */
 /*-----------------------------------*/
-
-//display bredcrump
-
-claro_disp_tool_title($nameTools);
 
 //display dialog Box (or any forms)
 
@@ -258,9 +286,6 @@ claro_disp_button("$PHP_SELF?cmd=formNew", $langCreateNewClass);
 
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
     ."  <tr class=\"headerX\">\n"
-    ."	  <th>\n"
-    ."	    $langId\n"    
-    ."    </th>\n"
     ."    <th>\n"
     ."      $langClassName\n"
     ."    </th>\n"
@@ -297,7 +322,7 @@ include($includePath."/claro_init_footer.inc.php");
 /**
  * Display the tree of classes
  *
- * @author 
+ * @author Guillaume Lederer
  * @param  list of all the classes informations of the platform
  * @param  list of the classes that must be visible
  * @return 
@@ -321,10 +346,10 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
             
 	    //Set space characters to add in name display
 	    
-	    $blankspace = "";	
+	    $blankspace = "&nbsp;&nbsp;&nbsp;";	
 	    for ($i = 0; $i < $deep; $i++) 
 	    {
-                $blankspace .= "--";
+                $blankspace .= "&nbsp;&nbsp;&nbsp;";
             } 
     
 	    //see if current class to display has children
@@ -363,17 +388,10 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	    
 	    //DISPLAY CURRENT ELEMENT (CLASS)
 
-	      //ID
-	    	    
-	    echo "<tr>\n";
-            echo "  <td align=\"center\">\n"
-                ."    ".$open_close_link
-                ."  </td>\n";
-
 	      //Name
 		
 	    echo "  <td>\n"
-                ."    ".$blankspace.$cur_class['name']
+                ."    ".$blankspace.$open_close_link." ".$cur_class['name']
                 ."  </td>\n";
 
 	      //Users
@@ -419,5 +437,65 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	}
     }    
 }
+
+/**
+     *This function create the select box to choose the parent class
+     *
+     * @author  Guillaume Lederer
+     * @param  the pre-selected class'id in the select box  
+     * @param  space to display for children to show deepness  
+     * @return  - void
+     *
+     * @desc : create the select box 
+*/
+    function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;") 
+    {       
+	global $tbl_class;
+	global $langTopLevel;
+	
+	$sql ="SELECT * FROM `".$tbl_class."`";
+	$classes = claro_sql_query_fetch_all($sql);
+	
+	$result .= "<select name=\"theclass\">\n"
+	    ."<option value=\"root\"> ".$langTopLevel." </option>"; 
+	$result .= buildSelectClass($classes,$selected,null,$space);
+	$result .= "</select>\n";
+	return $result;
+    }
+    
+/**
+     *This function create the list for the select box to choose the parent class
+     *
+     * @author Guillaume Lederer
+     * @param  tab containing at least all the classes with their id, parent_id and name
+     * @param  parent_id of the class we want to display the children of 
+     * @param  the pre-selected class'id in the select box  
+     * @param  space to display for children to show deepness  
+     * @return  - void
+     *
+     * @desc : create the select box 
+*/    
+    function buildSelectClass($classes,$selected,$father=null,$space="&nbsp;&nbsp;&nbsp;")
+    {
+	if($classes)
+        {            
+	    foreach($classes as $one_class)
+            {
+                //echo $one_class["class_parent_id"]." versus ".$father."<br>";
+		
+		if($one_class['class_parent_id']==$father)
+                {
+                    $result .= "<option value=\"".$one_class['id']."\" ";
+		    if ($one_class['id'] == $selected)
+		    {
+                        $result .= "selected ";
+		    }
+                    $result .= "> ".$space.$one_class['name']." </option>\n";
+                    $result .=  buildSelectClass($classes,$selected,$one_class["id"],$space."&nbsp;&nbsp;&nbsp;");
+                }
+            }
+        }
+	return $result;
+    }
 
 ?>
