@@ -1,4 +1,4 @@
-$Id$
+
 > > > > > > > > > > > CLAROLINE 1.5 RC1 - BUG LIST < < < < < < < < < < <
 
 
@@ -35,6 +35,8 @@ Etat : à résoudre pour : 1.5.1
 
 9. CLARO_INIT_BANNER. Il reste plusieurs tag <font> dans le code qu'il serait intéressant de remplacer par une meilleure utilisation des css. Il reste également des codes couleurs hardcodés pour les différents <td>
 
+Assigné à : HUGUES
+
 10. claroline/admin/adminUserCourseSettings.php -> on ne sais pas changer le champ role
 
 11. claro_disp_button()- Bug Avec Mozilla - Quand il y a htmlArea dans la même page, le 'onclick' 
@@ -45,6 +47,9 @@ Repéré par : HUGUES
 
 -------------
 $Log$
+Revision 1.11  2004/06/11 12:13:38  peeters
+no message
+
 Revision 1.10  2004/06/11 12:11:41  peeters
 no message
 
