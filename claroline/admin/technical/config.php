@@ -225,7 +225,7 @@ claro_disp_msg_arr($controlMsg);
 	<table border="0" >
 	<tbody>
 		<tr>
-			<td align="RIGHT" width="35%"> <?php echo $lang_config_siteName ?> </td>
+			<td align="right" width="35%"> <?php echo $lang_config_siteName ?> </td>
 			<td> <input type="text" name="siteName" size="30" value="<?php echo $siteName ?>"  ></td>
 		</tr>
 		<tr>
@@ -235,7 +235,7 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td> <b><u><font color="darkblue"> <?php echo $lang_config_TitleAdministrator ?> </font></u></b>
+			<td><strong><?php echo $lang_config_TitleAdministrator ?></strong></b>
 			</td>
 		</tr>
 		<tr>
@@ -245,19 +245,19 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT">  <?php echo  $lang_config_name ?>
+			<td align="right">  <?php echo  $lang_config_name ?>
 			</td>
 			<td> <input type="text" name="nameAdministrator" size="30" value="<?php echo $administrator["name"]?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT">  <?php echo $lang_config_phone ?>
+			<td align="right">  <?php echo $lang_config_phone ?>
 			</td>
 			<td> <input type="text" name="phoneAdministrator" size="30" value="<?php echo $administrator["phone"] ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT"> <?php echo $lang_config_email ?>
+			<td align="right"> <?php echo $lang_config_email ?>
 			</td>
 			<td> <input type="text" name="emailAdministrator" size="30" value="<?php echo $administrator["email"] ?>"  >
 			</td>
@@ -269,8 +269,7 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td> <b><u><font color="darkblue"><?php echo $lang_config_TitleEducationManager ?></font></u></b>
-			</td>
+			<td><strong><?php echo $lang_config_TitleEducationManager ?></strong></td>
 		</tr>
 		<tr>
 			<td><br>
@@ -279,19 +278,19 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT"> <?php echo $lang_config_name ?>
+			<td align="right"> <?php echo $lang_config_name ?>
 			</td>
 			<td> <input type="text" name="nameEducationManager" size="30" value="<?php echo $educationManager["name"] ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT">  <?php echo $lang_config_phone ?>
+			<td align="right">  <?php echo $lang_config_phone ?>
 			</td>
 			<td> <input type="text" name="phoneEducationManager" size="30" value="<?php echo $educationManager["phone"] ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT">  <?php echo $lang_config_email ?>
+			<td align="right">  <?php echo $lang_config_email ?>
 			</td>
 			<td> <input type="text" name="emailEducationManager" size="30" value="<?php echo $educationManager["email"] ?>"  >
 			</td>
@@ -303,8 +302,7 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td> <b><u><font color="darkblue"><?php echo $lang_config_TitleInstitution ?></font></u></b>
-			</td>
+			<td><strong><?php echo $lang_config_TitleInstitution ?></strong></td>
 		</tr>
 		<tr>
 			<td><br>
@@ -313,13 +311,13 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT"> <?php echo  $lang_config_name ?>
+			<td align="right"> <?php echo  $lang_config_name ?>
 			</td>
 			<td> <input type="text" name="nameInstitution" size="30" value="<?php echo $institution["name"] ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT"> <?php echo $lang_config_urlInstitution ?>
+			<td align="right"> <?php echo $lang_config_urlInstitution ?>
 			</td>
 			<td> <input type="text" name="urlInstitution" size="50" value="<?php echo $institution["url"] ?>"  >
 			</td>
@@ -330,8 +328,7 @@ claro_disp_msg_arr($controlMsg);
 			<td>
 			</td>
 		</tr>
-			<td> <b><u><font color="darkblue"><?php echo $lang_config_TitleProperty ?></font></u></b>
-			</td>
+			<td><strong><?php echo $lang_config_TitleProperty ?></strong></td>
 		<tr>
 			<td><br>
 			</td>
@@ -339,7 +336,7 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT"> <?php echo $lang_config_langage ?>
+			<td align="right"> <?php echo $lang_config_langage ?>
 			</td>
 			<td> <select name="platformLanguage">
 				<?php
@@ -349,13 +346,13 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT">  <?php echo $lang_config_rootWeb;?> <font color="gray">(*)</font> :
+			<td align="right">  <?php echo $lang_config_rootWeb;?> <font color="gray">(*)</font> :
 			</td>
 			<td> <input type="text" name="rootWeb" size="50" value="<?php echo $rootWeb ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT">  <?php echo $lang_config_urlAppend;?> :
+			<td align="right">  <?php echo $lang_config_urlAppend;?> :
 			</td>
 			<td> <input type="text" name="urlAppend" size="50" value="<?php echo $urlAppend ?>"  >
 			</td>
@@ -366,7 +363,7 @@ claro_disp_msg_arr($controlMsg);
 			<td>
 			</td>
 		</tr>
-			<td> <b><u><font color="darkblue"><?php echo $lang_config_TitleBD; ?></font></u></b>
+			<td><strong><?php echo $lang_config_TitleBD; ?></strong></b>
 			</td>
 		<tr>
 			<td><br>
@@ -375,25 +372,25 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT">  <?php echo $lang_config_dbHost; ?> <font color="gray">(*)</font> :
+			<td align="right">  <?php echo $lang_config_dbHost; ?> <font color="gray">(*)</font> :
 			</td>
 			<td> <input type="text" name="dbHost" size="30" value="<?php echo $dbHost ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT">  <?php echo $lang_config_dbLogin; ?> <font color="gray">(*)</font> :
+			<td align="right">  <?php echo $lang_config_dbLogin; ?> <font color="gray">(*)</font> :
 			</td>
 			<td> <input type="text" name="dbLogin" size="30" value="<?php echo $dbLogin ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT">  <?php echo $lang_config_dbPass; ?>
+			<td align="right">  <?php echo $lang_config_dbPass; ?>
 			</td>
 			<td> <input type="text" name="dbPass" size="30" value="<?php echo $dbPass ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="RIGHT">  <?php echo $lang_config_dbNamePrefix; ?>
+			<td align="right">  <?php echo $lang_config_dbNamePrefix; ?>
 			</td>
 			<td> <input type="text" name="dbNamePrefix" size="30" value="<?php echo $dbNamePrefix ?>"  >
 			</td>
