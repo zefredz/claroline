@@ -9,6 +9,11 @@
 // WORKS
 $langWorks = "Travaux";
 
+$langIntroWork="Cet outil est un espace de publication. 
+<br />Il permet au professeur de créer des zones(session) dans lesquelles chaque étudiant peut envoyer un document (Word, Excel, HTML... ) vers le site du cours, ou composer un texte, afin de le rendre accessible aux autres étudiants ainsi qu'au professeur.
+<br />Vous pourrez ensuite ajouter un commentaire ou une correction, à chaque travail remis par l'étudiant.
+<br /><br />Si vous désirez donner des consignes aux étudiants, cliquez sur ce bouton";
+
 // generic
 $langMakeVisible = "Rendre Visible";
 $langMakeInvisible = "Rendre Invisible";

@@ -9,6 +9,10 @@
 // WORKS
 $langWorks = "Assignments";
 
+$langIntroWork="This tool allows the teacher to create work sessions in which any student (according to the session settings) will be able to upload a document, or write a text, on the course's website. 
+<br />You will be able to add a comment or a grade to each work.
+<br /><br />If you want to present this tool or give some recommandations at students, click on the button below.<br>";
+
 // generic
 $langMakeVisible = "Make Visible";
 $langMakeInvisible = "Make Invisible";
