@@ -452,24 +452,6 @@ claro_undist_file($undist_this);
 		fwrite($fileAccess, $stringAccess);
 	}
 
-
-	$htAccessPath = "../sources/";
-	$fileAccess=@fopen($htAccessPath.$htAccessName, "w");
-	if (!$fileAccess)
-	{
-		$fileAccessCreationError = true;
-		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
-	}
-	else
-	{
-		$stringAccess='AuthName "Administration Claroline"
-		AuthType Basic
-		Require valid-user
-		AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
-
-		fwrite($fileAccess, $stringAccess);
-	}
-
 ############ PROTECTING FILES AGAINST WEB WRITING ###################
 }
 
