@@ -240,7 +240,7 @@ if($is_allowedToUse)	// check teacher status
                             $senderFirstName . " " . $senderLastName . "\n" .
                             $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" .
 					        $siteName . "\n".
-                            '('. $professorMessage . ')';
+                            '('. $langProfessorMessage . ')';
 
 			/*
 			 * Send	email one by one to	avoid antispam
@@ -290,7 +290,7 @@ if($is_allowedToUse)	// check teacher status
 	{
         claro_disp_message_box($message);
         echo "<br>"
-            .'<a href="'.$_SERVER['PHP_SELF'].'">'.$langBackList.'&nbsp;&gt;</a>'
+            .'<a href="'.$_SERVER['PHP_SELF'].'">&lt;&lt;&nbsp;'.$langBackList.'</a>'
             .'<br>';
 
 		$displayForm = false;
