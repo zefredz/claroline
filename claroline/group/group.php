@@ -2,7 +2,6 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -73,11 +72,18 @@ $groupRegAllowed            = $_groupProperties ['registrationAllowed']
 									);
 $groupPrivate               = $_groupProperties ['private'            ];
 $nbGroupPerUser             = $_groupProperties ['nbGroupPerUser'     ];
+if ( !$nbGroupPerUser )
+{
+	$sql = "SELECT COUNT(*)
+		 FROM `".$tbl_Groups."`";
+	$result = claro_sql_query($sql);
+	$tmp = mysql_fetch_array($result);
+	$nbGroupPerUser = $tmp[0];
+}
 $tools['forum'   ]          = $_groupProperties ['tools'] ['forum'    ];
 $tools['document']          = $_groupProperties ['tools'] ['document' ];
 $tools['wiki'    ]          = $_groupProperties ['tools'] ['wiki'     ];
 $tools['chat'  ]          = $_groupProperties ['tools'] ['chat'   ];
-
 
 //  THIS 2 SQL query  upgrade course db on fly.  
 $sql = "ALTER IGNORE TABLE `".$tbl_GroupsProperties."`
@@ -244,7 +250,7 @@ if ($is_allowedToManage)
         $groupHaveForum  = $_groupProperties ['tools'] ['forum'    ];
         $groupHaveDocs   = $_groupProperties ['tools'] ['document' ];
         $groupHaveWiki   = $_groupProperties ['tools'] ['wiki'     ];
-        $groupHaveChat = $_groupProperties ['tools'] ['chat'   ];
+        $groupHaveChat 	 = $_groupProperties ['tools'] ['chat'   ];
 
     }	// end if $submit
 
