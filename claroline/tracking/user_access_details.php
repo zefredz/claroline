@@ -77,10 +77,10 @@ if(  $is_allowedToTrack && $is_trackingEnabled )
    
        <table class="claroTable" border="0" cellpadding="5" cellspacing="1">
               	<tr class="headerX">
-                  <th><?echo $langFirstName;?></th>
-                  <th><?echo $langLastName;?></th>
-                  <th><?echo $langLastAccess;?></th>                  
-                  <th><?echo $langNbrAccess;?></th>                  
+                  <th><?php echo $langFirstName;?></th>
+                  <th><?php echo $langLastName;?></th>
+                  <th><?php echo $langLastAccess;?></th>                  
+                  <th><?php echo $langNbrAccess;?></th>                  
               	</tr>
 		<tbody>	
             

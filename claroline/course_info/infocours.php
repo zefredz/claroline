@@ -196,7 +196,7 @@ echo "<br>";
 </tr>
 
 <tr>
-<td align="right"><label for="email"><?echo $langEmail ?></label>&nbsp;:</td>
+<td align="right"><label for="email"><?php echo $langEmail ?></label>&nbsp;:</td>
 <td><input type="text"  id="email" name="email" value="<?php echo htmlentities($email); ?>" size="30" maxlength="255"></td>
 </tr>
 

@@ -126,7 +126,7 @@ $ranking = $start;
           <tr nowrap> 
             <td>
 
-<?PHP
+<?php
 
 $row = mysql_fetch_array($result);
 

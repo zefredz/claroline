@@ -137,7 +137,7 @@ include('../include/claroline_header.php');
 	</LI>
 
 </UL>
-<?	include "barre.inc.php";?>
+<?php	include "barre.inc.php";?>
 <font size="+2" color="#FF0000">Erreurs :</font>
 <UL>
   <LI><strong>LOGIN multiples </strong> : <br>
@@ -207,7 +207,7 @@ else
       <tr>
 		<td colspan=2>
 			<br>
-			<?	include "barre.inc.php";
+			<?php	include "barre.inc.php";
 				?>
 			
 			</td>
@@ -280,103 +280,4 @@ function list_ManyResult($sql)
 	return $resu;
 }
 
-
-/*
-* $Log$
-* Revision 1.5  2005/02/04 14:01:45  mathieu
-* replace <? by <?php and <?= by <? echo
-*
-* Revision 1.4  2004/12/08 13:54:17  mathieu
-* deprecated script
-*
-* Revision 1.3  2004/12/07 15:52:24  mathieu
-* rename variable
-*
-* Revision 1.2  2004/09/27 21:06:34  moosh
-* use claro_sql_query
-*
-* Revision 1.1.1.1  2004/06/02 07:49:03  moosh
-* startnew 
-*
-* Revision 1.25  2003/03/12 13:59:48  moosh
-* phpMyAdminWeb in place of phpMyAdminUrl
-*
-* Revision 1.24  2003/01/08 11:59:48  peeters
-* Modified image path to 'claroline/img'
-*
-* Revision 1.23  2002/12/20 09:43:44  moosh
-* show  number of  user by faculty
-*
-* Revision 1.22  2002/10/29 00:34:06  moosh
-* there was 2 bug  in sql  for "n last days".
-*
-* Revision 1.21  2002/10/18 22:06:38  moosh
-* - added dir  param in  body for  specify the writing direction
-*
-* Revision 1.20  2002/08/27 10:10:23  moosh
-* FONT arial
-*
-* Revision 1.19  2002/07/31 15:03:26  moosh
-* $mainInterfaceWith -> $mainInterfaceWidth
-*
-* Revision 1.18  2002/07/30 07:47:15  moosh
-* - use claroline_header
-* - use  $nameTools
-* - standardize begin  of pages
-*
-* Revision 1.17  2002/07/11 12:28:01  moosh
-* comment  function
-*
-* Revision 1.16  2002/07/04 06:53:41  moosh
-* - 1.0 -> 1.3.0
-*
-* Revision 1.15  2002/04/23 08:32:08  moosh
-* Using var in config (for  phpSysInfo and  phpMyAdmin)
-* Adding  some  translations vars
-*
-* Revision 1.14  2002/04/22 07:29:53  moosh
-* name  of  site  in title
-*
-* Revision 1.13  2002/04/22 07:10:44  moosh
-* add some  request from loginout
-*
-* Revision 1.12  2002/04/11 13:56:05  moosh
-* <? became <?php
-*
-* Revision 1.11  2002/03/25 17:00:37  moosh
-* link  to stat database
-*
-* Revision 1.10  2002/03/13 19:47:09  moosh
-* ajout nombre d'inscrit par cours
-*
-* Revision 1.9  2002/03/12 15:00:01  moosh
-* ajout contrôle  email doubles
-*
-* Revision 1.8  2002/03/05 23:10:30  moosh
-* mise en page à la moosh
-*
-* Revision 1.7  2002/03/05 17:20:01  moosh
-* ajout de barre.inc.php
-* ajout du test de double login
-*
-* Revision 1.6  2002/03/04 20:58:24  moosh
-* 1° il y avait  inversion  entre  le  1 et 5  pour  prof étudiant
-* 2° le test  de "paire" est sur  login pass et pas login seul
-*
-* Revision 1.5  2002/02/27 17:38:46  cvsuser
-* ajout de detection doublon username
-*
-* Revision 1.4  2002/02/27 14:03:16  cvsuser
-* ajout  couleur de fond
-*
-* Revision 1.3  2002/02/27 03:20:45  cvsuser
-* ajouts de chiffres
-*
-* Revision 1.2  2002/02/27 02:13:39  cvsuser
-* ajout de calculs
-*
-* Revision 1.1  2002/02/26 22:03:32  cvsuser
-* Statistiques d'utilisation
-*
-*/
 ?>

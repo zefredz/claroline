@@ -308,8 +308,8 @@ if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'
 else
   $returl = "../learningPath.php";
 ?>
-<form action="<?= $returl; ?>" method="post" target="_top">
-       <input type="submit" value="<? echo $langQuitViewer; ?>">
+<form action="<?php echo $returl; ?>" method="post" target="_top">
+       <input type="submit" value="<?php echo $langQuitViewer; ?>">
      </form> 
 
   </small></center>

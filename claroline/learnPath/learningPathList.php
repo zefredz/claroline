@@ -399,7 +399,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
            </td>
          </tr>
          </table>
-   <?PHP
+   <?php
    }
 
 

@@ -331,7 +331,7 @@ if($mode) {
 		</TD>
 	</TR>
 	</TABLE></TD></TR></TABLE></FORM>
-<?PHP
+<?php
 
 			}
 		} else {

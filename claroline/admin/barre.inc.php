@@ -12,7 +12,7 @@ echo $langAdminBy." ".$PHP_AUTH_USER. " - [".date("\H\I\S \:B   d/m/Y  \a H:i:s"
 if (isset($up_link)) 
 { ?> -  
 [<a href="<?php echo $up_link ?>">UP</a>]
-<?} ?>
+<?php } ?>
 <!-- - [<a href="/">Site</a>]-->
 <!-- - [<a href="?igger=<?php echo date("Bs")?>">Refresh</a>] -->
 -  <?php 

@@ -196,7 +196,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
    }
 ?>    
     <frame src="tableOfContent.php" name="tocFrame" />
-    <frame src="<?= $moduleStartAssetPage; ?>" name="scoFrame">
+    <frame src="<?php echo $moduleStartAssetPage; ?>" name="scoFrame">
 
     </frameset>
   <noframes>

@@ -44,7 +44,7 @@
 	<head>
 		<title><?php echo $titlePage; ?></title>
 	</head>
-<?PHP
+<?php
 if ( !isset($_GET['frames']) )
 {
     // choose default display
@@ -64,7 +64,7 @@ if( $displayFrames )
 		<frame src="startModule.php" name="mainFrame" />         
 		<frame src="bottomModule.php" name="bottomFrame" />
 	</frameset>
-<?PHP
+<?php
 }
 else
 {
@@ -72,7 +72,7 @@ else
 	<frameset cols="*" border="0">
 		<frame src="startModule.php" name="mainFrame" />    
 	</frameset>
-<?PHP
+<?php
 }
 ?>
 	<noframes>

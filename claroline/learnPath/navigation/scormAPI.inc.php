@@ -116,7 +116,7 @@ $TABLEUSERS              = $tbl_user;
 
 <script type="text/javascript">
 
-        var init_total_time = "<?= $sco['total_time']; ?>";
+        var init_total_time = "<?php echo $sco['total_time']; ?>";
         // ====================================================
         // API Class Constructor
         var debug_ = false;
@@ -622,24 +622,24 @@ $TABLEUSERS              = $tbl_user;
         elements[17] = "cmi.success_status";
 
         var values = new Array();
-        values[0]  = "<?= $sco['_children']; ?>";
-        values[1]  = "<?= $sco['student_id']; ?>";
-        values[2]  = "<?= $sco['student_name']; ?>";
-        values[3]  = "<?= $sco['lesson_location']; ?>";
-        values[4]  = "<?= $sco['lesson_status'];?>";
-        values[5]  = "<?= $sco['credit']; ?>";
-        values[6]  = "<?= $sco['entry'];?>";
-        values[7]  = "<?= $sco['score_children']; ?>";
-        values[8]  = "<?= $sco['raw'];?>";
-        values[9]  = "<?= $sco['total_time'] ?>";
-        values[10] = "<?= $sco['exit']; ?>";
-        values[11] = "<?= $sco['session_time']; ?>";
-        values[12] = "<?= $sco['suspend_data'];?>";
-        values[13] = "<?= $sco['launch_data'];?>";
-        values[14] = "<?= $sco['scoreMin'];?>";
-        values[15] = "<?= $sco['scoreMax'];?>";
-        values[16] = "<?= $sco['lesson_status']?>"; //we do deal the completion_status element with the old lesson_status element, this will change in further versions...
-        values[17] = "<?= $sco['lesson_status']?>"; //we do deal the sucess_status element with the old lesson_status element, this will change in further versions...
+        values[0]  = "<?php echo $sco['_children']; ?>";
+        values[1]  = "<?php echo $sco['student_id']; ?>";
+        values[2]  = "<?php echo $sco['student_name']; ?>";
+        values[3]  = "<?php echo $sco['lesson_location']; ?>";
+        values[4]  = "<?php echo $sco['lesson_status'];?>";
+        values[5]  = "<?php echo $sco['credit']; ?>";
+        values[6]  = "<?php echo $sco['entry'];?>";
+        values[7]  = "<?php echo $sco['score_children']; ?>";
+        values[8]  = "<?php echo $sco['raw'];?>";
+        values[9]  = "<?php echo $sco['total_time'] ?>";
+        values[10] = "<?php echo $sco['exit']; ?>";
+        values[11] = "<?php echo $sco['session_time']; ?>";
+        values[12] = "<?php echo $sco['suspend_data'];?>";
+        values[13] = "<?php echo $sco['launch_data'];?>";
+        values[14] = "<?php echo $sco['scoreMin'];?>";
+        values[15] = "<?php echo $sco['scoreMax'];?>";
+        values[16] = "<?php echo $sco['lesson_status']?>"; //we do deal the completion_status element with the old lesson_status element, this will change in further versions...
+        values[17] = "<?php echo $sco['lesson_status']?>"; //we do deal the sucess_status element with the old lesson_status element, this will change in further versions...
 
 
         // ====================================================
@@ -650,7 +650,7 @@ $TABLEUSERS              = $tbl_user;
               // target form is in a hidden frame
               cmiform = upFrame.document.forms[0];
               // user module progress id
-              cmiform.ump_id.value = "<?= $userProgressionDetails['user_module_progress_id'] ?>";
+              cmiform.ump_id.value = "<?php echo $userProgressionDetails['user_module_progress_id'] ?>";
               // values to set in DB
               cmiform.lesson_location.value = values[3];
               cmiform.lesson_status.value = values[4];

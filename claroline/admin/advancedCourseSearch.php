@@ -141,15 +141,15 @@ claro_disp_tool_title($nameTools." : ");
     :
   </td>
   <td>
-      <input type="radio" name="subscription" value="allowed" id="subscription_allowed" <?if ($_REQUEST['subscription']=="allowed") echo "checked";?>>
+      <input type="radio" name="subscription" value="allowed" id="subscription_allowed" <?php if ($_REQUEST['subscription']=="allowed") echo "checked";?>>
     <label for="subscription_allowed"><?php echo $langAllowed ?></label>
   </td>
   <td>
-      <input type="radio" name="subscription" value="denied"  id="subscription_denied" <?if ($_REQUEST['subscription']=="denied") echo "checked";?>>
+      <input type="radio" name="subscription" value="denied"  id="subscription_denied" <?php if ($_REQUEST['subscription']=="denied") echo "checked";?>>
     <label for="subscription_denied"><?php echo $langDenied ?></label>
   </td>
   <td>
-      <input type="radio" name="subscription" value=""  id="subscription_all" <?if ($_REQUEST['subscription']=="") echo "checked";?>>
+      <input type="radio" name="subscription" value=""  id="subscription_all" <?php if ($_REQUEST['subscription']=="") echo "checked";?>>
     <label for="subscription_all"><?php echo $langAll ?></label>
   </td>
 </tr>
