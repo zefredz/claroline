@@ -1,17 +1,18 @@
 <?php # $Id$
-/*
-+----------------------------------------------------------------------+
-| CLAROLINE 1.6
-+----------------------------------------------------------------------+
-| Copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)      |
-+----------------------------------------------------------------------+
-// This    program    is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published    by the FREE    SOFTWARE FOUNDATION. The GPL is    available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors:    see    'credits' file
-//----------------------------------------------------------------------
-*/
+/**
+ * ---------------------------------------------------------------------
+ * @version CLAROLINE 1.6
+ * ---------------------------------------------------------------------
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)     
+ * ---------------------------------------------------------------------
+ * @license GPL
+ * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * ---------------------------------------------------------------------
+ * @author see 'credits' file
+ * ---------------------------------------------------------------------
+ */
 //////////////////////////////////////////////////////////////////////////////
 //                   CLAROLINE DB    QUERY WRAPPRER MODULE
 //////////////////////////////////////////////////////////////////////////////
@@ -146,7 +147,7 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
         $resultHandler =  @mysql_query($sqlQuery, $dbHandler);
     }
 
-    if ( mysql_errno() )
+    if ( defined('CLARO_DEBUG_MODE') && mysql_errno() )
     {
                 echo '<hr size="1" noshade>'
                      .mysql_errno(), " : ", mysql_error(), '<br>'
