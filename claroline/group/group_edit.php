@@ -117,11 +117,11 @@ $nbMaxGroupPerUser   = $_groupProperties ['nbGroupPerUser'];
 if($modify && $is_allowedToManage)
 {
     $sql = "UPDATE`".$tbl_group_team."`
-            SET name='".trim($name)."',
-                description = \"".trim($description)."\",
-                maxStudent  = \"".trim($maxMember)."\",
-                tutor       = \"".$tutor."\"
-            WHERE id        = \"".$_gid."\"";
+            SET `name`        ='".trim($name)."',
+                `description` = \"".trim($description)."\",
+                `maxStudent`  = \"".trim($maxMember)."\",
+                `tutor`       = \"".$tutor."\"
+            WHERE `id`        = \"".$_gid."\"";
 
     // Update main group settings
 	$updateStudentGroup = claro_sql_query($sql);
@@ -129,8 +129,8 @@ if($modify && $is_allowedToManage)
 
     // UPDATE FORUM NAME
     $sql = 'UPDATE `'.$tbl_bb_forum.'`
-            SET forum_name="'.trim($name).'"
-            WHERE forum_id="'.$forumId.'"';
+            SET `forum_name` ="'.trim($name).'"
+            WHERE `forum_id` ="'.$forumId.'"';
 
 	claro_sql_query($sql);
 
@@ -149,7 +149,7 @@ if($modify && $is_allowedToManage)
 	else
 	{
         // Delete all members of this group
-        $sql = 'DELETE FROM `'.$tbl_group_rel_team_user.'` WHERE team="'.$_gid.'"';
+        $sql = 'DELETE FROM `'.$tbl_group_rel_team_user.'` WHERE `team` = "'.$_gid.'"';
 
         $delGroupUsers = claro_sql_query($sql);
         $numberMembers--;
@@ -212,20 +212,20 @@ claro_disp_message_box($messageGroupEdited);
 <?php
 	// SELECT TUTORS
 
-    $sql = 'SELECT user.user_id,
-                   user.nom,
-                   user.prenom
-            FROM `'.$tbl_user.'`     `user`,
+    $sql = 'SELECT `user`.`user_id` `user_id` ,
+                   `user`.`nom`     `nom`,
+                   `user`.`prenom`  `prenom`
+            FROM `'.$tbl_user.'`    `user`,
                 `'.$tbl_rel_user_course.'` `cours_user`
-            WHERE cours_user.user_id    = user.user_id
-            AND   cours_user.tutor      = 1
-            AND   cours_user.code_cours = "'.$currentCourseId.'"';
+            WHERE `cours_user`.`user_id`    = `user`.`user_id`
+            AND   `cours_user`.`tutor`      = 1
+            AND   `cours_user`.`code_cours` = "'.$currentCourseId.'"';
 
 	$resultTutor = claro_sql_query($sql);
 
     // AND student_group.id='$_gid'	// This statement is DEACTIVATED
 
-	$tutorExists = false;
+	$tutorExists = FALSE;
 
 	while ($myTutor = mysql_fetch_array($resultTutor))
 	{
@@ -233,7 +233,7 @@ claro_disp_message_box($messageGroupEdited);
 
 		if( $myStudentGroup['tutorId'] == $myTutor['user_id'] )
 		{
-			$tutorExists   = true;
+			$tutorExists   = TRUE;
             $selectedState = 'SELECTED';
         }
         else
@@ -241,23 +241,25 @@ claro_disp_message_box($messageGroupEdited);
         	$selectedState = '';
         }
 
-        echo "<option value = \"".$myTutor['user_id']."\" ".$selectedState.">"
-            .$myTutor['nom'].' '.$myTutor['prenom']
-            ."</option>\n";
-	}
+        echo '<option value = "'.$myTutor['user_id'].'" '.$selectedState.'>'
+           . $myTutor['nom'].' '.$myTutor['prenom']
+           . '</option>'."\n"
+           ;
+    }
 
     if ($tutorExists)
     {
-    	$selectedState = '';
+        $selectedState = '';
     }
     else
     {
-    	$selectedState =  'SELECTED';
+        $selectedState = 'SELECTED';
     }
 
-    echo  '<option value = "0" '.$selectedState.'>'
-         .$langGroupNoTutor
-         .'</option>';
+    echo '<option value="0" '.$selectedState.'>'
+       . $langGroupNoTutor
+       . '</option>'
+       ;
 ?>
 </select>
 &nbsp;&nbsp;
@@ -266,19 +268,20 @@ claro_disp_message_box($messageGroupEdited);
 <label for="maxMember">
 <?php
 
-    echo $langMax."</label>";
+    echo $langMax.'</label>';
 
-	if($myStudentGroup['maxMember']==0)
-	{
-		echo "<input type=\"text\" name=\"maxMember\" id=\"maxMember\" size=\"2\" value = \"-\">\n";
-	}
-	else
-	{
-		echo  "<input type=\"text\" name=\"maxMember\" id=\"maxMember\" size=\"2\" "
-             ."value=\"".$myStudentGroup['maxMember']."\">\n";
-	}
+    if($myStudentGroup['maxMember']==0)
+    {
+        echo '<input type="text" name="maxMember" id="maxMember" size="2" value = "-">'."\n";
+    }
+    else
+    {
+        echo '<input type="text" name="maxMember" id="maxMember" size="2" '
+           . ' value="'.$myStudentGroup['maxMember'].'">'."\n"
+           ;
+    }
 
-    echo $langGroupPlacesThis
+    echo $langGroupPlacesThis;
 ?>
 </td>
 
@@ -309,11 +312,12 @@ $resultMember = claro_sql_query($sql);
 
 while ($myMember = mysql_fetch_array($resultMember))
 {
-	$userIngroupId = $myMember['user_id'];
+    $userIngroupId = $myMember['user_id'];
 
- 	echo  '<option value="'.$userIngroupId.'">'
-		 .$myMember['firstname'].' '.$myMember['name']
-		 ."</option>\n";
+    echo '<option value="'.$userIngroupId.'">'
+       . $myMember['name'].' '.$myMember['firstname']
+       . '</option>'."\n"
+       ;
 }
 
 ?>
@@ -374,21 +378,24 @@ $sql = "SELECT `u`.`user_id` ,
         GROUP BY `u`.`user_id`
         HAVING `BLOCK` = 0
         ".$limitNumOfGroups."
-        ORDER BY `nbg`, UPPER(`u`.`nom`), UPPER(`u`.`prenom`)";
+        ORDER BY 
+        #`nbg`, #dislabed because different of  right box
+        UPPER(`u`.`nom`), UPPER(`u`.`prenom`)";
 
 $resultNotMember = claro_sql_query($sql);
 
 while ($myNotMember = mysql_fetch_array($resultNotMember))
 {
-	echo  "<option value= \"".$myNotMember['user_id']."\">"
-		 .$myNotMember['prenom'].' '.$myNotMember['nom'];
+    echo '<option value="'.$myNotMember['user_id'].'">'
+       . $myNotMember['nom'].' '.$myNotMember['prenom']
+       ;
 
-	if ($nbMaxGroupPerUser > 1)
+    if ($nbMaxGroupPerUser > 1)
     {
-		echo " (".$myNotMember['nbg'].")";
+        echo ' ('.$myNotMember['nbg'].')';
     }
 
-	echo "</option>";
+    echo '</option>'."\n";
 }	// while loop
 
 ?>
