@@ -291,11 +291,11 @@ elseif ($displayMode == "viewDefList")
 	} // end if ($catList)
 
 
-	echo	 '<center>' ."\n"
+	echo	 '<div align="center">' ."\n"
 			.'<form method="post" action="'.$_SERVER['PHP_SELF'].'">'
 			.'<input type="submit" name="addDef" value="'.$langAddNewHeading.'">'
 			.'</form>'  ."\n"
-			.'<center>' ."\n";
+			.'</div>' ."\n";
 
 }
 elseif ($displayMode == "viewContentEdit")
