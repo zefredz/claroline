@@ -300,8 +300,11 @@ a | img {
 	color: white;
 }
 
+.claroTable .superHeader a:hover {
+	color: #c7d0d7;
+}
 
-.claroTable th.headerY, .claroTable .headerY th, 
+.claroTable th.headerY, .claroTable .headerY th,
 .claroTable th.headerX, .claroTable .headerX th {
     background-image: url('corporate/soft.gif');
 	font-weight: normal;
@@ -315,6 +318,7 @@ a | img {
 .claroTable tbody tr:hover {
 	background-color: #EEEEEE;
 }
+
 .noHover {
 	background-color: white;
 }
@@ -331,13 +335,16 @@ a | img {
  */ 
  
 .claroMessageBox {
-	background-color: #FF9900;
-  color: #000000;
-  border:1px solid #666;
+  background-color: #E5ECF9;
+  color: #336699;
+  border-top: 1px solid #6699bb;
+  border-left: 1px solid #6699bb;
+  border-right: 1px solid #336699;
+  border-bottom: 1px solid #336699;
 }
 
 .claroIntroSection { 
-	background-color: #F5F5F5;
+ /*  unused ? */
 }
 
 /*
@@ -403,7 +410,7 @@ a:visited.invisible{
 }
 	
 .claroRightMenu a:hover {
-		color:#369;
+		color:#336699;
 }
 
 
