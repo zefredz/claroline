@@ -1,8 +1,8 @@
 <?php // $Id$
 /**
- * CLAROLINE version 1.3.2  $Revision$
+ * CLAROLINE version 1.6
  *
- * Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)
+ * Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)
  *
  * @Author Thomas Depraetere <depraetere@ipm.ucl.ac.be>
  * @Author Hugues Peeters    <peeters@ipm.ucl.ac.be>
@@ -96,51 +96,59 @@ function checkFather(me,father)
 </SCRIPT>";
 
 $default_language = $platformLanguage; 
+/*
+ * DB tables definition
+ */
 
-$TABLEUSER 		= $mainDbName."`.`user";
-$TABLECOURS 	= $mainDbName."`.`cours";
-$TABLECOURSUSER = $mainDbName."`.`cours_user";
+$tbl_mdb_names       = claro_sql_get_main_tbl();
+$tbl_course          = $tbl_mdb_names['course'           ];
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
+$tbl_user            = $tbl_mdb_names['user'             ];
+
+$TABLEUSER 		= $tbl_user;
+$TABLECOURS 	= $tbl_course;
+$TABLECOURSUSER = $tbl_rel_course_user;
 
 $currentCourseID = $_course["sysCode"];
 
 $displayFormWhatSaveMain = TRUE;
 
-if (isset($HTTP_POST_VARS["goToStep2"]))
+if (isset($_REQUEST["goToStep2"]))
 {
 	// go to the Form "What Do Now" From the Form "What Save" Main 
 	// save info from Form "What Save" Main 
-	$saveProperties 					= $HTTP_POST_VARS["saveProperties"];
-	$saveContent 						= $HTTP_POST_VARS["saveContent"];
-	$saveSubscription					= $HTTP_POST_VARS["saveSubscription"];
-	$backupUser 						= $HTTP_POST_VARS["backupUser"];
-	$makeListingUserSubscriptionHTML	= $HTTP_POST_VARS["makeListingUserSubscriptionHTML"];
-	$makeListingUserSubscriptionCSV 	= $HTTP_POST_VARS["makeListingUserSubscriptionCSV"];
-	$backupUserSubscription 			= $HTTP_POST_VARS["backupUserSubscription"];
-	$backupUserInfo 					= $HTTP_POST_VARS["backupUserInfo"];
-	$saveGroupsSubscriptions 			= $HTTP_POST_VARS["saveGroupsSubscriptions"];
-	$makeListingGroupComposition		= $HTTP_POST_VARS["makeListingGroupComposition"];
-	$backupGroupComposition 			= $HTTP_POST_VARS["backupGroupComposition"];
-	$saveContentDoc 					= $HTTP_POST_VARS["saveContentDoc"];
-	$saveContentLink 					= $HTTP_POST_VARS["saveContentLink"];
-	$saveContentCalandar 				= $HTTP_POST_VARS["saveContentCalandar"];
-	$saveContentAnnouncement 			= $HTTP_POST_VARS["saveContentAnnouncement"];
-	$saveContentCourseHomePage 			= $HTTP_POST_VARS["saveContentCourseHomePage"];
-	$saveContentCourseDescription 		= $HTTP_POST_VARS["saveContentCourseDescription"];
-	$saveContentWorks 					= $HTTP_POST_VARS["saveContentWorks"];
-	$saveContentWorksStructure 			= $HTTP_POST_VARS["saveContentWorksStructure"];
-	$saveContentWorksContent 			= $HTTP_POST_VARS["saveContentWorksContent"];
-	$saveContentForum 					= $HTTP_POST_VARS["saveContentForum"];
-	$saveContentForumStructure 			= $HTTP_POST_VARS["saveContentForumStructure"];
-	$saveContentForumContent 			= $HTTP_POST_VARS["saveContentForumContent"];
-	$saveContentWiki 					= $HTTP_POST_VARS["saveContentWiki"];
-	$saveContentGroup 					= $HTTP_POST_VARS["saveContentGroup"];
-	$saveContentGroupStructure			= $HTTP_POST_VARS["saveContentGroupStructure"];
-	$saveContentGroupForum 				= $HTTP_POST_VARS["saveContentGroupForum"];
-	$saveContentGroupForumStructure 	= $HTTP_POST_VARS["saveContentGroupForumStructure"];
-	$saveContentGroupForumContent 		= $HTTP_POST_VARS["saveContentGroupForumContent"];
-	$saveContentGroupWorks 				= $HTTP_POST_VARS["saveContentGroupWorks"];
-	$saveContentGroupWorksStructure 	= $HTTP_POST_VARS["saveContentGroupWorksStructure"];
-	$saveContentGroupWorksContent 		= $HTTP_POST_VARS["saveContentGroupWorksContent"];
+	$saveProperties 					= $_REQUEST["saveProperties"];
+	$saveContent 						= $_REQUEST["saveContent"];
+	$saveSubscription					= $_REQUEST["saveSubscription"];
+	$backupUser 						= $_REQUEST["backupUser"];
+	$makeListingUserSubscriptionHTML	= $_REQUEST["makeListingUserSubscriptionHTML"];
+	$makeListingUserSubscriptionCSV 	= $_REQUEST["makeListingUserSubscriptionCSV"];
+	$backupUserSubscription 			= $_REQUEST["backupUserSubscription"];
+	$backupUserInfo 					= $_REQUEST["backupUserInfo"];
+	$saveGroupsSubscriptions 			= $_REQUEST["saveGroupsSubscriptions"];
+	$makeListingGroupComposition		= $_REQUEST["makeListingGroupComposition"];
+	$backupGroupComposition 			= $_REQUEST["backupGroupComposition"];
+	$saveContentDoc 					= $_REQUEST["saveContentDoc"];
+	$saveContentLink 					= $_REQUEST["saveContentLink"];
+	$saveContentCalandar 				= $_REQUEST["saveContentCalandar"];
+	$saveContentAnnouncement 			= $_REQUEST["saveContentAnnouncement"];
+	$saveContentCourseHomePage 			= $_REQUEST["saveContentCourseHomePage"];
+	$saveContentCourseDescription 		= $_REQUEST["saveContentCourseDescription"];
+	$saveContentWorks 					= $_REQUEST["saveContentWorks"];
+	$saveContentWorksStructure 			= $_REQUEST["saveContentWorksStructure"];
+	$saveContentWorksContent 			= $_REQUEST["saveContentWorksContent"];
+	$saveContentForum 					= $_REQUEST["saveContentForum"];
+	$saveContentForumStructure 			= $_REQUEST["saveContentForumStructure"];
+	$saveContentForumContent 			= $_REQUEST["saveContentForumContent"];
+	$saveContentWiki 					= $_REQUEST["saveContentWiki"];
+	$saveContentGroup 					= $_REQUEST["saveContentGroup"];
+	$saveContentGroupStructure			= $_REQUEST["saveContentGroupStructure"];
+	$saveContentGroupForum 				= $_REQUEST["saveContentGroupForum"];
+	$saveContentGroupForumStructure 	= $_REQUEST["saveContentGroupForumStructure"];
+	$saveContentGroupForumContent 		= $_REQUEST["saveContentGroupForumContent"];
+	$saveContentGroupWorks 				= $_REQUEST["saveContentGroupWorks"];
+	$saveContentGroupWorksStructure 	= $_REQUEST["saveContentGroupWorksStructure"];
+	$saveContentGroupWorksContent 		= $_REQUEST["saveContentGroupWorksContent"];
 	session_register (
 		"saveContentDoc",
 		"saveContentLink",
@@ -177,28 +185,28 @@ if (isset($HTTP_POST_VARS["goToStep2"]))
 	$displayFormWhatDoNow = TRUE;
 	$displayFormWhatSaveMain = FALSE;
 }
-elseif (isset($HTTP_POST_VARS["BackToStep1"]))
+elseif (isset($_REQUEST["BackToStep1"]))
 {
 	// go to the Form "What Save" Main From the Form "What Do Now"
 	// save info from Form "What Do Now"
-	$saveOnUser 		= $HTTP_POST_VARS["saveOnUser"];
-	$saveOnServer 		= $HTTP_POST_VARS["saveOnServer"];
-	$saveOnFtp 			= $HTTP_POST_VARS["saveOnFtp"];
-	$verboseBackup 		= $HTTP_POST_VARS["verboseBackup"];
-	$newCourse 			= $HTTP_POST_VARS["newCourse"];
+	$saveOnUser 		= $_REQUEST["saveOnUser"];
+	$saveOnServer 		= $_REQUEST["saveOnServer"];
+	$saveOnFtp 			= $_REQUEST["saveOnFtp"];
+	$verboseBackup 		= $_REQUEST["verboseBackup"];
+	$newCourse 			= $_REQUEST["newCourse"];
 	session_register ("saveOnUser","saveOnServer","saveOnFtp","newCourse","verboseBackup");
 }
-elseif ( isset($HTTP_POST_VARS["doTheWork"]) and ($saveOnUser=="checked"))
+elseif ( isset($_REQUEST["doTheWork"]) and ($saveOnUser=="checked"))
 {
 	$displayFormWhatSaveMain 	= FALSE;
 	$displayShowWork 			= TRUE;
 	$nameTools 					= $langArchiveCourse;
 
-	$verboseBackup 				= $HTTP_POST_VARS["verboseBackup"];
-	$showLinkToZip 				= $HTTP_POST_VARS["saveOnUser"];
-	$backupDataFromMainDB 		= $HTTP_POST_VARS["saveProperties"];
-	$backupDataFromCourseDB		= $HTTP_POST_VARS["saveContent"];
-	$backupUser					= $HTTP_POST_VARS["saveSubscription"];
+	$verboseBackup 				= $_REQUEST["verboseBackup"];
+	$showLinkToZip 				= $_REQUEST["saveOnUser"];
+	$backupDataFromMainDB 		= $_REQUEST["saveProperties"];
+	$backupDataFromCourseDB		= $_REQUEST["saveContent"];
+	$backupUser					= $_REQUEST["saveSubscription"];
 }
 else // default values
 {
@@ -240,17 +248,14 @@ else // default values
 	setValueIfNotInSession("newCourse","checked");
 	setValueIfNotInSession("verboseBackup",($verboseBackupDefault?"checked":""));
 }
-												@include($includePath."/claro_init_header.inc.php");
-?>
-<h3>
-	<?php echo $nameTools ?>
-	<?php echo $langBackupThisCourse; ?>
-</H3>
-<?
+
+include($includePath."/claro_init_header.inc.php");
+claro_disp_tool_title(array("mainTitle"=>$nameTools, "subTitle"=>$langBackupThisCourse));
+
 if ($displayFormWhatSaveMain)
 {
 ?>
-<form action="<?php echo $PHP_SELF ?>" method="post" name="WhatSaveMain">
+<form action="<?php echo $_server['PHP_SELF'] ?>" method="post" name="WhatSaveMain">
 <table class="forms" width="100%" >
 	<tr>
 		<TD colspan="2">
@@ -552,7 +557,7 @@ elseif ($displayFormWhatDoNow)
 <H3>
 	<?php echo $langWhatDoAfterBackup; ?>
 </H3>
-<form action="<?php echo $PHP_SELF ?>" method="post" name="STEP3" id="STEP2">
+<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" name="STEP3" id="STEP2">
 <table  class="forms" width="100%" >
 <?
 if ($downloadArchiveAivailable)

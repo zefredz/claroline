@@ -1,7 +1,7 @@
 <?php # $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
@@ -59,15 +59,27 @@ include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
 include($includePath."/conf/course_info.conf.php");
 
-
 $nameTools = $langCreateSite;
 
-$TABLECOURSE 		= $mainDbName.'`.`cours';
-$TABLECOURSE 		= $mainDbName.'`.`cours';
-$TABLECOURSDOMAIN	= $mainDbName.'`.`faculte';
-$TABLEUSER			= $mainDbName.'`.`user';
-$TABLECOURSUSER 	= $mainDbName.'`.`cours_user';
-$TABLEANNOUNCEMENTS	= 'announcement';
+
+/*
+ * DB tables definition
+ */
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_course          = $tbl_mdb_names['course'           ];
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
+$tbl_category        = $tbl_mdb_names['category'         ];
+$tbl_user            = $tbl_mdb_names['user'             ];
+$tbl_announcement    = $tbl_cdb_names['announcement'     ];
+
+$TABLECOURSE        = $tbl_course;
+$TABLECOURSUSER     = $tbl_rel_course_user;
+$TABLECOURSDOMAIN   = $tbl_category;
+$TABLEUSER          = $tbl_user;
+$TABLEANNOUNCEMENTS = $tbl_announcement;
+
 $can_create_courses = (bool) ($is_allowedCreateCourse);
 $coursesRepositories = $rootSys;
 
@@ -96,17 +108,17 @@ else
 		$valueLanguage 					= $platformLanguage;
 	}
 
-	if (isset($HTTP_POST_VARS["fromWhatAdd"]))
+	if (isset($_REQUEST["fromWhatAdd"]))
 	{
 		$displayWhatAdd = FALSE;
 
-		if ($HTTP_POST_VARS["whatAdd"] == "newCourse")
+		if ($_REQUEST["whatAdd"] == "newCourse")
 		{
 			$displayCoursePropertiesForm 	= TRUE;
 			$valueTitular					= $_user['firstName']." ".$_user['lastName'];
 			$valueLanguage 					= $platformLanguage;
 		}
-		elseif ($HTTP_POST_VARS["whatAdd"] == "archive")
+		elseif ($_REQUEST["whatAdd"] == "archive")
 		{
 			$displayCourseRestore 			= TRUE;
 		}
@@ -115,7 +127,7 @@ else
 			$displayWhatAdd 				= TRUE;
 		}
 	} // if (isset($HTTP_POST_VARS["fromWhatAdd"]))
-	elseif (isset($HTTP_POST_VARS["selectArchive"]))
+	elseif (isset($_REQUEST["selectArchive"]))
 	{
 		$displayWhatAdd = FALSE;
 
@@ -126,7 +138,7 @@ else
 		$pathToStorgeArchiveBeforeUnzip = $rootSys."claroline/tmp/".md5(uniqid(mt_rand().$_uid, true));
 		mkpath($pathToStorgeArchiveBeforeUnzip);
 		//debugIO($pathToStorgeArchiveBeforeUnzip);
-		switch($HTTP_POST_VARS["typeStorage"])
+		switch($_REQUEST["typeStorage"])
 		{
 			case "upload" :
 				$displayCoursePropertiesForm = TRUE;
@@ -195,7 +207,7 @@ else
 				$displayWhatAdd = TRUE;
 				$okToUnzip = FALSE;
 				// gloups
-		} // elseif (isset($HTTP_POST_VARS["selectArchive"]))
+		} // elseif (isset($_REQUEST["selectArchive"]))
 
 		//2° unzip archive in $pathToStorgeArchiveBeforeUnzip
 		if ($okToUnzip)
@@ -398,7 +410,7 @@ elseif($displayCourseRestore)
 {
 ?>
 <br>
-<form  class="forms" action="<?php echo $PHP_SELF; ?>" method="post" enctype="multipart/form-data">
+<form  class="forms" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
 <table width="100%">
 	<tr valign="top">
 		<td colspan="2" valign="top">
@@ -761,7 +773,7 @@ elseif($displayCourseAddResult)
 
                  echo $langJustCreated." <strong>".$currentCourseCode."</strong><br>"; ?>
                  <?
-                 if ($_POST['fromAdmin']!="yes")
+                 if ($_REQUEST['fromAdmin']!="yes")
                  {
                     claro_disp_button("../../index.php",$langEnter);
                  }
