@@ -7,6 +7,7 @@ de nom pour le fichier il y a une erreur et donc fichier pas enregistré,
 mais si on fait back le formulaire ne se rerempli pas donc on pert tout 
 ce qu'on a fait.
 
+Repéré par : SEB
 Assigné à : HUGUES
 Etat      : RESOLU
 
@@ -19,7 +20,7 @@ Assigné à : HUGUES
 
 3.  INSTALL instal repetées = plusieurs admins -> utilisation des function d'ajout utilisateurs
 Assigné à : 
-à résoudre pour : 1.5.1
+Etat : à résoudre pour : 1.5.1
 
 4. HTMLAREA. Bug signalé par PRFB sur le forum.  Insertions de <br /> aux retours à la ligne dans le code html des pages créées
 
@@ -37,6 +38,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.8  2004/06/11 11:57:33  peeters
+no message
+
 Revision 1.7  2004/06/11 11:54:24  peeters
 no message
 
