@@ -19,7 +19,6 @@ Repéré par : SEB
 Assigné à : HUGUES
 Etat      : RESOLU
 
-
 3.  INSTALL instal repetées = plusieurs admins -> utilisation des function d'ajout utilisateurs
 Assigné à : 
 Etat : à résoudre pour : 1.5.1
@@ -45,26 +44,32 @@ sur le <button> du claroButton est cpaturé par htmlArea. Résultat c'est le <form
 
 Repéré par : HUGUES
 
+12 . /claroline/admin/adminusers.php
+Sur une recherche  sans résultat le texte propose une "nouvelle recherche" alors qu'en haut a droite on a aussi une nouvelle recherche possible"
+Le message  ne devrait-il pas être "nouvelle recherche avancées" ?
+Repéré par : moosh.
+
+13. /claroline/admin/adminusercourses.php
+Quand on liste les cours, on sait sauter vers la liste de ses users.
+Quand on liste les cours, on sait sauter vers la fiche cours.
+Quand on liste les users, on sait sauter vers la liste de ses cours.
+Quand on liste les users, on sait sauter vers la fiche user.
+
+Quand on liste les users d'un cours ou quand on liste les cours d'un user,
+on peut voir les propriétés d'intersection. mais on ne sait pas "continuer" 
+je suis dans le cours foo, j'y trouve pol, je ne sais pas voir les cours de pol en cliquant sur ...
+
+dans PMA j'avais ca. et C'est bien pratique pour gerer les lustucrus (inscription multiples, cours multiples)
+Repéré par : moosh
+
+14
+
 
 -------------
 $Log$
-Revision 1.12  2004/06/11 12:27:57  peeters
-no message
+Revision 1.13  2004/06/11 13:45:00  moosh
+- bug 13
 
-Revision 1.11  2004/06/11 12:13:38  peeters
-no message
-
-Revision 1.10  2004/06/11 12:11:41  peeters
-no message
-
-Revision 1.9  2004/06/11 11:57:50  peeters
-no message
-
-Revision 1.8  2004/06/11 11:57:33  peeters
-no message
-
-Revision 1.7  2004/06/11 11:54:24  peeters
-no message
 
 Revision 1.6  2004/06/11 10:34:06  moosh
 - bug 10
