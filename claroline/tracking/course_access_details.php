@@ -15,7 +15,8 @@ $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> "$langStatistics");
 
 $nameTools = $langTrafficDetails;
 
-$TABLETRACK_ACCESS = $_course['dbNameGlu']."track_e_access";
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
 
 @include($includePath."/claro_init_header.inc.php");
 @include($includePath."/lib/statsUtils.lib.inc.php");

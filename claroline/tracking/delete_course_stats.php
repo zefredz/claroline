@@ -31,10 +31,11 @@
 require '../inc/claro_init_global.inc.php';
 
 // regroup table names for maintenance purpose
-$TABLETRACK_ACCESS      = $_course['dbNameGlu']."track_e_access";
-$TABLETRACK_DOWNLOADS   = $_course['dbNameGlu']."track_e_downloads";
-$TABLETRACK_UPLOADS     = $_course['dbNameGlu']."track_e_uploads";
-$TABLETRACK_EXERCISES   = $_course['dbNameGlu']."track_e_exercices";
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$TABLETRACK_ACCESS      = $tbl_cdb_names['track_e_access'];
+$TABLETRACK_DOWNLOADS   = $tbl_cdb_names['track_e_downloads'];
+$TABLETRACK_UPLOADS     = $tbl_cdb_names['track_e_uploads'];
+$TABLETRACK_EXERCISES   = $tbl_cdb_names['track_e_exercices'];
 
 
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);

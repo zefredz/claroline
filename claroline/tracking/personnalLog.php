@@ -15,9 +15,9 @@ require '../inc/claro_init_global.inc.php';
 $interbredcrump[]= array ("url"=>"../auth/profile.php", "name"=> $langModifyProfile);
 $nameTools = $langStatistics;
 
-// regroup table names for maintenance purpose
-$tbl_courses			= $mainDbName."`.`cours";
-$tbl_link_user_courses	= $mainDbName."`.`cours_user";
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_courses			= $tbl_mdb_names['course'];
+$tbl_link_user_courses	= $tbl_mdb_names['rel_course_user'];
 
 
 

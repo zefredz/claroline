@@ -35,8 +35,8 @@ include($includePath."/lib/statsUtils.lib.inc.php");
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
 <?php 
     
-    
-    $TABLETRACK_ACCESS = $_course['dbNameGlu']."track_e_access";
+	$tbl_cdb_names = claro_sql_get_course_tbl();
+    $TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
     
     if(isset($_cid)) //stats for the current course
     {
