@@ -516,7 +516,7 @@ if (isset($_uid))
   ==========================*/
 ?>
 
-<td width="200" bgcolor="#DDDEBC">
+<td width="200" class="claroRightMenu">
 
 <?php
 
@@ -980,7 +980,7 @@ echo	"<p>",
   =================================*/
 ?>
 
-<td width="200" valign="top" bgcolor="#DDDEBC">
+<td width="200" valign="top" class="claroRightMenu">
 
 <form action ="<?php echo $rootWeb,basename($PHP_SELF); ?>?mon_icampus=yes" method="post">
 <p>
