@@ -2,14 +2,16 @@
 
 // Redirect previously sent paramaters in the correct subframe (messageList.php)
 
-if ($HTTP_GET_VARS['gidReset'])
+$paramList = array();
+
+if ( isset($_REQUEST['gidReset']) && $_REQUEST['gidReset'] == true )
 {
 	$paramList[] = 'gidReset=1';
 }
 
-if ($HTTP_GET_VARS['gidReq'])
+if ( isset($_REQUEST['gidReq']) )
 {
-	$paramList[] = 'gidReq='.$gidReq;
+	$paramList[] = 'gidReq='.$_REQUEST['gidReq'];
 }
 
 if (is_array($paramList))

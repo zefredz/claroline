@@ -10,11 +10,10 @@
 // CLAROLINE INIT
 
 $langFile = 'chat';
-(@include ('../inc/claro_init_global.inc.php')) 
-    or die('<center>unable to init claroline</center>');
 
-(@include($includePath.'/lib/text.lib.php'))
-    or die ('<center>unable to start script</center>');
+require '../inc/claro_init_global.inc.php';
+
+require $includePath.'/lib/text.lib.php';
 
 
 if (! $is_courseAllowed) die ("<center>-not allowed----</center>");
