@@ -1,21 +1,17 @@
 <?php // $Id$
 /*
     	+-------------------------------------------------------------------+
-    	| CLAROLINE version 1.4.* $Revision$                          |
+    	| CLAROLINE version 1.5.*
     	+-------------------------------------------------------------------+
-    	| Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)   |
+    	| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)   |
     	+-------------------------------------------------------------------+
-    	| Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>             |
-    	|          Hugues Peeters    <peeters@ipm.ucl.ac.be>                |
-    	|          Christophe Gesché <gesche@ipm.ucl.ac.be>                 |
-    	|          Sebastien Piraux  <piraux_seb@hotmail.com>               |
+
     	+-------------------------------------------------------------------+
     	|   Functions of this library are used to record informations when  |
     	|   some kind of event occur.                                       |
     	|   Each event has his own types of informations then each event    |
     	|   use its own function.                                           |
     	+-------------------------------------------------------------------+
-
 */
 /**
 
@@ -242,7 +238,8 @@ function monthTab($sql)
 function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
 {
     global $langHits;
-    global $langTotal;
+    global $langTotal,
+	$clarolineRepositoryWeb;
 
     echo "<table class=\"claroTable\" width='100%' cellpadding='0' cellspacing='1' border='0' align=center class='minitext'>";
     // titles
@@ -284,24 +281,24 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
             echo   "</td>
                     <td width='60%' style='padding-top : 3px;' align='center'>"
                         // display hitbar
-                        ."<img src='../img/bar_1.gif' width='1' height='12' alt=' '>";
+                        .'<img src="'.$clarolineRepositoryWeb.'img/bar_1.gif" width="1" height="12" alt=" ">';
             if($pourcent != 0)            
-                echo "<img src='../img/bar_1u.gif' width='$barwidth' height='12'>";
+                echo '<img src="'.$clarolineRepositoryWeb.'img/bar_1u.gif" width="'.$barwidth.'" height="12">';
                         // display 100% bar
             if($pourcent != 100 && $pourcent != 0)
-                echo "<img src='../img/bar_1m.gif' width='1' height='12'>";
+                echo '<img src="'.$clarolineRepositoryWeb.'img/bar_1m.gif" width="1" height="12">';
             if($pourcent != 100)    
-                echo "<img src='../img/bar_1r.gif' width='".($maxSize-$barwidth)."' height='12'>";
-            echo "<img src='../img/bar_1.gif' width='1' height='12'>
+                echo '<img src="'.$clarolineRepositoryWeb.'img/bar_1r.gif" width="'.($maxSize-$barwidth).'" height="12">';
+            echo '<img src="'.$clarolineRepositoryWeb.'img/bar_1.gif" width="1" height="12">
                     </td>
-                    <td align='center' width='10%'>
-                        $cpt
+                    <td align="center" width="10%">
+                        '.$cpt.'
                     </td>
-                    <td align='center' width='15%'>
-                        $pourcent %
+                    <td align="center" width="15%">
+                        '.$pourcent.' %
                     </td>
                 </tr>
-            ";
+            ';
         }
     }
     
