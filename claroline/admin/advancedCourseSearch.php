@@ -205,8 +205,8 @@ function buildSelectFaculty($elem,$father,$EditFather,$space)
 
 function createSelectBoxLanguage($selected=NULL)
 {
-    $arrayLangage=langageExist();
-    foreach($arrayLangage as $entries)
+    $arrayLanguage=languageExist();
+    foreach($arrayLanguage as $entries)
     {
         $selectBox.="<option value=\"$entries\" ";
 
@@ -225,7 +225,7 @@ function createSelectBoxLanguage($selected=NULL)
     return $selectBox;
 }
 
-function langageExist()
+function languageExist()
 {
     global $clarolineRepositorySys;
     $dirname = $clarolineRepositorySys."lang/";
@@ -243,15 +243,15 @@ function langageExist()
         if ($entries=='.' || $entries=='..' || $entries=='CVS')
             continue;
 
-        //else it is a repertory of a langage
+        //else it is a repertory of a language
         if (is_dir($dirname.$entries))
         {
-            $arrayLangage[]=$entries;
+            $arrayLanguage[]=$entries;
         }
     }
     closedir($handle);
 
-    return $arrayLangage;
+    return $arrayLanguage;
 }
 
 ?>

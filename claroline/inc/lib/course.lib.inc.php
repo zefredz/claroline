@@ -438,19 +438,19 @@ function CommandCreateTableTemporary($tbl,$name)
 }
 
 /**
-  * Create a command to create a selectBox with the langage
+  * Create a command to create a selectBox with the language
   * @author Muret Benoît <muret_ben@hotmail.com>
   *
-  * @param string $selected the langage selected
+  * @param string $selected the language selected
   *
   * @return the command to create the selectBox
   *
-  * @desc The function create the command to create a selectBox with the langage
+  * @desc The function create the command to create a selectBox with the language
   */
-function createSelectBoxLangage($selected=NULL)
+function createSelectBoxLanguage($selected=NULL)
 {
-	$arrayLangage=langageExist();
-	foreach($arrayLangage as $entries)
+	$arrayLanguage=languageExist();
+	foreach($arrayLanguage as $entries)
 	{
 		$selectBox.="<option value=\"$entries\" ";
 
@@ -470,16 +470,16 @@ function createSelectBoxLangage($selected=NULL)
 }
 
 /**
-  * Return an array with the langage
+  * Return an array with the language
   * @author Muret Benoît <muret_ben@hotmail.com>
   *
   * @param nothing
   *
-  * @return an array with the langage
+  * @return an array with the language
   *
-  * @desc The function return an array with the langage
+  * @desc The function return an array with the language
   */
-function langageExist()
+function languageExist()
 {
 	global $clarolineRepositorySys;
 	$dirname = $clarolineRepositorySys."lang/";
@@ -497,15 +497,15 @@ function langageExist()
 		if ($entries=='.' || $entries=='..' || $entries=='CVS')
 			continue;
 
-		//else it is a repertory of a langage
+		//else it is a repertory of a language
 		if (is_dir($dirname.$entries))
 		{
-			$arrayLangage[]=$entries;
+			$arrayLanguage[]=$entries;
 		}
 	}
 	closedir($handle);
 
-	return $arrayLangage;
+	return $arrayLanguage;
 }
 
 

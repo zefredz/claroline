@@ -333,12 +333,12 @@ claro_disp_msg_arr($controlMsg);
 		</tr>
 		<tr>
 			<td align="right"> 
-				<label for="platformLanguage"><?php echo $lang_config_langage ?></label>
+				<label for="platformLanguage"><?php echo $lang_config_language ?></label>
 			</td>
 			<td> 
 				<select name="platformLanguage" id="platformLanguage">
 				<?php
-					echo createSelectBoxLangage($platformLanguage);
+					echo createSelectBoxLanguage($platformLanguage);
 				?>
 				</select>
 			</td>
