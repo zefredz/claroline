@@ -88,7 +88,7 @@ else
 
 
 define('MESSAGE_LINE_NB',  20); // no more used // seb
-define('MAX_LINE_IN_FILE', 200);
+define('MAX_LINE_IN_FILE', 200); // better for performance but what about chat history ? :/
 
 $dateNow = claro_format_locale_date($dateTimeFormatLong);
 $timeNow = claro_format_locale_date("%H:%M");
@@ -103,7 +103,7 @@ if ( ! file_exists($fileChatName))
 }
 else
 {
-  $dateLastWrite = $langDateLastWrite.date("F d Y H:i:s.", fileatime($fileChatName));
+  $dateLastWrite = $langDateLastWrite.date("F d Y H:i:s.", filemtime($fileChatName));
 }
 
 
