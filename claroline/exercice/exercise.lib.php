@@ -28,7 +28,7 @@
  */
 function showQuestion($questionId, $onlyAnswers=false)
 {
-	global $picturePathWeb;
+	global $attachedFilePathWeb;
 
 	// construction of the Question object
 	$objQuestionTmp=new Question();
@@ -40,8 +40,8 @@ function showQuestion($questionId, $onlyAnswers=false)
 		return false;
 	}
 
-	$answerType=$objQuestionTmp->selectType();
-        $pictureName=$objQuestionTmp->selectPictureName();
+	$answerType = $objQuestionTmp->selectType();
+  $attachedFile = $objQuestionTmp->selectAttachedFile();
 
 	if(!$onlyAnswers)
 	{
@@ -61,12 +61,12 @@ function showQuestion($questionId, $onlyAnswers=false)
 	</tr>
 
 <?php
-		if(!empty($pictureName))
+		if(!empty($attachedFile))
 		{
 ?>
 
 	<tr>
-	  <td align="center" colspan="2"><img src="<?php echo $picturePathWeb.'/'.$pictureName; ?>" border="0"></td>
+	  <td colspan="2"><?php echo display_attached_file($attachedFile); ?></td>
 	</tr>
 
 <?php
@@ -233,5 +233,51 @@ function showQuestion($questionId, $onlyAnswers=false)
 	unset($objQuestionTmp);
 
 	return $nbrAnswers;
+}
+
+/**
+ *
+ *
+ *
+ */
+function display_attached_file($attachedFile)
+{
+  global $attachedFilePathWeb;
+  global $langAttachedFile;
+  
+  // get extension
+  $extension=substr(strrchr($attachedFile, '.'), 1);
+  
+  switch($extension)
+  {
+    case 'jpg' :
+    case 'jpeg' :
+    case 'gif' :
+    case 'png' :
+    case 'bmp' :
+        $returnedString = "<img src=\"".$attachedFilePathWeb."/".$attachedFile."\" border=\"0\" alt=\"$attachedFile\" />";
+        break;
+    case '' :
+        break;
+    case '' :
+        break;
+    /*
+    case 'mp3' :
+        $returnedString = "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" 
+                        codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0\"  
+                        width=\"35\" height=\"18\" id=\"mp3player\" align=\"\"> 
+                      <param name=\"movie\" value=\"/filter/mediaplugin/mp3player.swf?src=\2.mp3\">
+                      <param name=\"quality\" value=\"high\"> <param name=\"bgcolor\" value=\"#333333\"> 
+                      <embed src=\"mp3player.swf?src=".$attachedFilePathWeb."/".$attachedFile."\"   quality=\"high\" bgcolor=\"#333333\" width=\"35\" height=\"18\" name=\"mp3player\"  type=\"application/x-shockwave-flash\"  pluginspage=\"http://www.macromedia.com/go/getflashplayer\">
+                      </embed>
+                      </object>";
+        break;
+    */
+    default :
+        $returnedString = "<a href=\"".$attachedFilePathWeb."/".$attachedFile."\">$langAttachedFile</a>";
+        break;        
+  
+  }
+  return $returnedString;
 }
 ?>
