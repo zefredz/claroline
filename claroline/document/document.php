@@ -1117,7 +1117,7 @@ claro_disp_tool_title($titleElement,
 		$colspan = 3;
 		
 		// get requested image name
-		if( isset( $_REQUEST['file'] ) )
+		if( isset( $_REQUEST['file'] ) && ! isset( $_REQUEST['viewMode'] ) )
 		{
 			$file = basename( $_REQUEST['file'] );
 		}
