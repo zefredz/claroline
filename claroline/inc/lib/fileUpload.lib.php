@@ -518,6 +518,7 @@ function create_link_file($filePath, $url)
                   .'<meta http-equiv="refresh" content="1;url='.$url.'">'
                   .'</head>'
                   .'<body>'
+		  .'<center><a href="'.$url.'">'.$url.'</a></center>'
                   .'</body>'
                   .'</html>';
 
