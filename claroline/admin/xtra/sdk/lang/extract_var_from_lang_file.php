@@ -53,7 +53,8 @@ claro_disp_tool_title($nameTools);
 // drop table if exists
 
 $sql = "DROP TABLE IF EXISTS ". $tbl_translation ." ";
-mysql_query ($sql) or die($problemMessage);
+
+claro_sql_query ($sql);
 
 // create table 
 
@@ -66,9 +67,10 @@ $sql = "CREATE TABLE ". $tbl_translation ." (
  sourceFile VARCHAR(250) NOT NULL,
  used tinyint(4) default 0,
  INDEX index_language (language,varName),
+ INDEX index_content  (language,varContent),
  PRIMARY KEY(id))";
 
-mysql_query ($sql) or die($problemMessage . __LINE__);
+claro_sql_query($sql);
 
 // go to & browse lang path
 
