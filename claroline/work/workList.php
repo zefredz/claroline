@@ -350,7 +350,11 @@ if( isset($_REQUEST['submitWrk']) )
       }
       else
       {
-        // check if the name is already in use
+        // comment or uncomment block according to your will
+        // first block check if the title already exist
+        // second block allow different submissions to have the same title
+        /*
+        // -- check if the title is already in use
         $sql = "SELECT `title` 
                   FROM `".$tbl_wrk_submission."`
                   WHERE `title` = \"".trim(claro_addslashes($_REQUEST['wrkTitle']))."\"
@@ -369,6 +373,14 @@ if( isset($_REQUEST['submitWrk']) )
             $wrkForm['title'] = $_REQUEST['wrkTitle'];
             // $formCorrectlySent stay true;
         }
+        // -- end of 'check if the title is already in use
+		*/
+
+
+		// -- do not check if the title is in use
+        $wrkForm['title'] = $_REQUEST['wrkTitle'];
+        // -- end of 'do not check if the title is in use
+
       }
       
       // check if a author name has been given
