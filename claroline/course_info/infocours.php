@@ -260,7 +260,7 @@ closedir($handle);
 <tr>
 <td></td>
 <td>
-<?
+<?php
 if (isset($cidToEdit) && ($is_platformAdmin))
 {
     echo "<a  href=\"../admin/admincourseusers.php?cidToEdit=".$cidToEdit."\"> ".$langAllUsersOfThisCourse." </a>";
