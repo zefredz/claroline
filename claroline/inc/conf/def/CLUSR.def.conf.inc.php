@@ -10,7 +10,7 @@ $conf_def['section']['main']['label']='Main settings';
 //$conf_def['section']['main']['description']='Settings of the tool';
 $conf_def['section']['main']['properties'] = 
 array ( 'linkToUserInfo'
-      , 'is_courseadmin_allowed_to_add_user'
+      , 'is_coursemanager_allowed_to_add_user'
       , 'nbUsersPerPage'
       );
 
@@ -34,7 +34,7 @@ array ( 'label'   => 'Number of user per page'
       ,'acceptedValue' => array ('Min'=>'5')
       );
 
-$conf_def_property_list['is_courseadmin_allowed_to_add_user'] =
+$conf_def_property_list['is_coursemanager_allowed_to_add_user'] =
 array('label'         => 'Teacher can add user in his course'
      ,'default'       => 'TRUE'
      ,'type'          => 'boolean'
