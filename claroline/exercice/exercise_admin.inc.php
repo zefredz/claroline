@@ -116,7 +116,7 @@ if($_REQUEST['submitExercise'])
 
 
 // shows the form to modify the exercise
-if($_REQUEST['modifyExercise'] || $newExercise == 'yes')
+if($modifyExercise)
 {
 ?>
 
