@@ -489,11 +489,11 @@ function utf8_decode_if_is_utf8($str) {
     
   $maxFilledSpace = 100000000;
 
+  $courseDir   = $_course['path']."/scormPackages/";
+  $baseWorkDir = $coursesRepositorySys.$courseDir; // path_id
    // handle upload
    if ($REQUEST_METHOD == 'POST')
    {
-         $courseDir   = $_course['path']."/scormPackages/";
-         $baseWorkDir = $coursesRepositorySys.$courseDir."path_"; // path_id
 
          // arrays used to store inserted ids in case
          // will be used to build delete queries for mysql < 4.0.0
@@ -517,7 +517,7 @@ function utf8_decode_if_is_utf8($str) {
          claro_sql_query($sql);
          
          $tempPathId = mysql_insert_id();
-         $baseWorkDir .= $tempPathId;
+         $baseWorkDir .= "path_".$tempPathId;
 
          if (!is_dir($baseWorkDir)) mkdir($baseWorkDir, 0777);
 
@@ -1156,7 +1156,7 @@ function utf8_decode_if_is_utf8($str) {
            <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                  <input type="file" name="uploadedPackage">
                  <input type="submit" value="<?php echo $langImport ?>"><br />
-                 <small><?php echo $langMaxFileSize; ?> : <?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
+                 <small><?php echo $langMaxFileSize; ?> <?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
            </form>
         <?php
    } // else if method == 'post'
