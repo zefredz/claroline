@@ -1088,8 +1088,10 @@ $langInsertMyModulesTitle = "Insérer un module du cours";
 $langInsertNewModuleName = "Insérer le nouveau nom";
 $langInstalled = "L'importation du parcours pédagogique a réussi.";
 $langIntroCourse = "Bienvenue sur la page d'accueil du cours.<br /><br />Vous pouvez sur cette page :
-<li class=HelpText>activer ou désactiver des outils (cliquer sur le bouton 'Modifier la liste d'outils' dans le bas à gauche).
-<li class=HelpText>changer les propriétés ou voir les statistiques (Cliquer sur les liens correspondants).<br /><br />
+<ul>
+<li>activer ou désactiver des outils (cliquer sur le bouton 'Modifier la liste d'outils' dans le bas à gauche).
+<li>changer les propriétés ou voir les statistiques (Cliquer sur les liens correspondants).
+</ul>
 Pour présenter votre cours aux étudiants, cliquer sur ce bouton.<br />";
 $langIntroEditToolList = "Sélectionner les outils que vous voulez activer.
 Les outils invisibles seront grisés dans votre page d'accueil du cours.";

@@ -978,7 +978,7 @@ $langInsertMyModuleToolName = "Modul einfügen";
 $langInsertMyModulesTitle = "Dem Kurs ein Modul hinzufügen";
 $langInsertNewModuleName = "Neuen Namen einfügen";
 $langInstalled = "Der Lernpfad wurde erfolgreich importiert.";
-$langIntroCourse = "Sie sind auf der Kurs-Startseite. <br><br> Auf dieser Seite können Sie <li class=HelpText>Tools sperren oder freischalten (Auf den ' Tool Liste bearbeiten'-Button unten links klicken).</li> <li class=HelpText>Einstellungen ändern oder Statistiken abrufen (unten auf den entsprechenden Link klicken).</li> <BR><BR>Um einen Einführungstext zur Vorstellung Ihres Kurses für Ihre Teilnehmer zu erstellen, klicken Sie auf diesen Button  ";
+$langIntroCourse = "Sie sind auf der Kurs-Startseite. <br /><br /> Auf dieser Seite können Sie <ul><li>Tools sperren oder freischalten (Auf den ' Tool Liste bearbeiten'-Button unten links klicken).</li> <li>Einstellungen ändern oder Statistiken abrufen (unten auf den entsprechenden Link klicken).</li></ul>Um einen Einführungstext zur Vorstellung Ihres Kurses für Ihre Teilnehmer zu erstellen, klicken Sie auf diesen Button  ";
 $langIntroEditToolList = "Wählen Sie die Tools die für Ihre Teilnehmer sichtbar sein sollen. Unsichtbar Tools werden zu Ihrer Information in Ihrem Bereich eingegraut.";
 $langIntroLearningPath = "Verwenden Sie dieses Tool, um den Benutzern einen geplanten Ablauf zwischen Dokumenten, Tests, HTML-Seiten, Links usw. vorzugeben.<br><br>
    Wenn Sie Ihren Teilnehmern einen Lernpafd anbieten möchten, klicken Sie auf den Button unten.<br>";
