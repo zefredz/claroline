@@ -205,4 +205,6 @@ $langAllRight = "There is no strange case here";
 $langDefcon = "Ooops, odkriti so cudni primeri !!";
 $langNULLValue = "Prazno (oziroma NULL)";
 $langTrafficDetails = "Podrobnosti o prometu";
+// $langNbLines = "Nombre de lignes"; //quantity of lines
+
 ?>

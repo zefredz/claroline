@@ -227,4 +227,5 @@ $langDefcon = "Aie , cas particuliers d&eacute;tect&eacute;s !";
 $langNULLValue = "Vide (ou <i>NULL</i>)";
 $langNeverUsed = "Jamais utilis&eacute;";
 $langTrafficDetails = "D&eacute;tails du trafic";
+$langNbLines = "Nombre de lignes";
 ?>

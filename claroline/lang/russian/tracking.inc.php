@@ -209,4 +209,5 @@ $langAllRight = "Все хорошо.";
 $langDefcon = "Ой, обнаружены особы случаи !";
 $langNULLValue = "Пустой (или <i>NULL</i>)";
 $langTrafficDetails = "Детали трафика";
+// $langNbLines = "Nombre de lignes"; //quantity of lines
 ?>

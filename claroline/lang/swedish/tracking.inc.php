@@ -201,4 +201,5 @@ $langAllRight="Det är ett mystiskt fall här";
 $langDefcon="Ooops, konstiga fall har detekterats !!";
 $langNULLValue="Tom (eller NULL)";
 $langTrafficDetails="Trafikdetaljer";
+// $langNbLines = "Nombre de lignes"; //quantity of lines
 ?>

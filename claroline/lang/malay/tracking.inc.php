@@ -200,4 +200,5 @@ $langAllRight = "Tiada sesuatu yang luar biasa disini";
 $langDefcon = "Amaran, perkara luar biasa ditemui !!";
 $langNULLValue = "Kosong (atau Tiada Nilai)";
 $langTrafficDetails = "Keterangan Kesesakan";
+// $langNbLines = "Nombre de lignes"; //quantity of lines
 ?>

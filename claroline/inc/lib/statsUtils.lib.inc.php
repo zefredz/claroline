@@ -335,7 +335,7 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
 function buildTab2col($array_of_results,$title1,$title2)
 { 
     global $langNoResult;
-    
+    global $langNbLines;
     echo "<table class=\"claroTable\" cellpadding='2' cellspacing='1' border='1' align='center'>";
     echo "<tr class=\"headerX\">
             <th>
@@ -345,6 +345,9 @@ function buildTab2col($array_of_results,$title1,$title2)
             $title2
             </th>
         </tr>
+    	<tr class=\"headerX\">"; 
+        echo '<th colspan="2">'.$langNbLines.' : '.count($array_of_results).' </th>';
+        echo "</tr>
         <tbody>";
     if (is_array($tableau))
     { 
@@ -376,7 +379,11 @@ function buildTab2col($array_of_results,$title1,$title2)
 function buildTab2ColNoTitle($array_of_results)
 {
     global $langNoResult;
+    global $langNbLines;
     echo "<table class=\"claroTable\" cellpadding='3' cellspacing='1' border='0' align='center'>";
+    echo "<tr class=\"headerX\">"; 
+    echo '<th colspan="2">'.$langNbLines.' : '.count($array_of_results).' </th>';
+    echo "</tr>";
     if (is_array($array_of_results))
     {
         for($j = 0 ; $j < count($array_of_results) ; $j++)
@@ -412,6 +419,7 @@ function buildTabDefcon($array_of_results)
     global $langDefcon;
     global $langAllRight;
     global $langNULLValue;
+    global $langNbLines;
     echo "<table class=\"claroTable\" width='60%' cellpadding='2' cellspacing='1' border='0' align=center class='minitext'>";
     if (is_array($array_of_results))
     { 
@@ -419,6 +427,9 @@ function buildTabDefcon($array_of_results)
         echo "<tr class=\"headerX\">"; 
         echo "<th colspan='2'><font color='#ff0000'><center>".$langDefcon."</center></font></th>";
         echo"</tr>";
+        echo "<tr class=\"headerX\">"; 
+        echo '<th colspan="2">'.$langNbLines.' : '.count($array_of_results).' </th>';
+        echo "</tr>";
         for($j = 0 ; $j < count($array_of_results) ; $j++)
         { 
             if($array_of_results[$j][0] == "")

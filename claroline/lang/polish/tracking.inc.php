@@ -125,7 +125,7 @@ $langListStudents = "Lista studentów w grupie";
 
 /* details page */
 $langPeriodHour = "Godzina";
-$langPeriodDay = "Dzieñ;
+$langPeriodDay = "Dzieñ";
 $langPeriodWeek = "Tydzieñ";
 $langPeriodMonth = "Miesi±c";
 $langPeriodYear = "Rok";
@@ -200,4 +200,5 @@ $langAllRight = "There is no strange case here";
 $langDefcon = "Ooops, stranges cases detected !!";
 $langNULLValue = "Empty (or NULL)";
 $langTrafficDetails = "Traffic Details";
+// $langNbLines = "Nombre de lignes"; //quantity of lines
 ?>

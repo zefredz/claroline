@@ -216,4 +216,5 @@ $langAllRight = "There is no strange case here";
 $langDefcon = "Ooops, stranges cases detected !!";
 $langNULLValue = "Empty (or NULL)";
 $langTrafficDetails = "Traffic Details";
+// $langNbLines = "Nombre de lignes"; //quantity of lines
 ?>

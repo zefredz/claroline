@@ -206,4 +206,5 @@ $langAllRight = "Der er ingen mærkelige sager her";
 $langDefcon = "Ups, opdaget mærkelige sager !!";
 $langNULLValue = "Tom (eller nul)";
 $langTrafficDetails = "Traffik detaljer";
+// $langNbLines = "Nombre de lignes"; //quantity of lines
 ?>

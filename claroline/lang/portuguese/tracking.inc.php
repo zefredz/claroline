@@ -200,4 +200,5 @@ $langAllRight = "Aqui n&atilde;o h&aacute; casos esquisitos";
 $langDefcon = "Foram detectados casos esquisitos!!";
 $langNULLValue = "Vazio (ou NULL)";
 $langTrafficDetails = "Detalhes de Tr&aacute;fego";
+// $langNbLines = "Nombre de lignes"; //quantity of lines
 ?>
