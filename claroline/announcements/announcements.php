@@ -60,7 +60,6 @@ require '../inc/claro_init_global.inc.php';
 
 if ( !$_cid ) claro_disp_select_course();
 
-include($includePath.'/conf/announcement.conf.inc.php');
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
 

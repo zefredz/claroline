@@ -16,7 +16,6 @@
 ////**************** INITIALISATION************************
 
 $tlabelReq = 'CLGRP___';
-include('../inc/conf/group.conf.php');
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();
 $nameTools 	= $langGroups;
