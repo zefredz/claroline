@@ -40,7 +40,7 @@ Dialog._arguments = null;
 Dialog._geckoOpenModal = function(url, action, init) {
 	var dlg = window.open(url, "hadialog",
 			      "toolbar=no,menubar=no,personalbar=no,width=10,height=10," +
-			      "scrollbars=no,resizable=yes");
+			      "scrollbars=no,resizable=yes,dependent=yes");
 	Dialog._modal = dlg;
 	Dialog._arguments = init;
 
@@ -48,13 +48,15 @@ Dialog._geckoOpenModal = function(url, action, init) {
 	function capwin(w) {
 		HTMLArea._addEvent(w, "click", Dialog._parentEvent);
 		HTMLArea._addEvent(w, "mousedown", Dialog._parentEvent);
-		HTMLArea._addEvent(w, "focus", Dialog._parentEvent);
+		// comment next line for a bug fix : focus was not possible in popup windows under mozilla
+    //HTMLArea._addEvent(w, "focus", Dialog._parentEvent);
 	};
 	// release the captured events
 	function relwin(w) {
 		HTMLArea._removeEvent(w, "click", Dialog._parentEvent);
 		HTMLArea._removeEvent(w, "mousedown", Dialog._parentEvent);
-		HTMLArea._removeEvent(w, "focus", Dialog._parentEvent);
+		// comment next line for a bug fix : focus was not possible in popup windows under mozilla
+    //HTMLArea._removeEvent(w, "focus", Dialog._parentEvent);
 	};
 	capwin(window);
 	// capture other frames
