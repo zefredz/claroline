@@ -36,9 +36,8 @@ class Exercise
 	var $endDate;
 	var $maxTime;
 	var $maxAttempt;
-	var $showAnon;
 	var $showAnswer;
-  var $recordUidInScore;
+  var $anonymousAttempts;
 
 	var $questionList;  // array with the list of this exercise's questions
 
@@ -61,9 +60,8 @@ class Exercise
 		$this->endDate		= date("Y-m-d H:i:00", mktime( date("H"),date("i"),0,date("m"), date("d")+7, date("Y") ) );
 		$this->maxTime		= 0;
 		$this->maxAttempt	= 0;
-		$this->showAnon		= 'HIDE';
 		$this->showAnswer	= 'ALWAYS';
-    $this->recordUidInScore = 'YES';
+    $this->anonymousAttempts = 'YES';
 
 		$this->questionList	= array();
 	}
@@ -81,7 +79,7 @@ class Exercise
 
 		$sql="	SELECT 	`titre`,`description`,
 				`type`,`random`,`active`,
-				`max_time`,`max_attempt`,`show_anon`,`show_answer`,`record_uid_in_score`,
+				`max_time`,`max_attempt`,`show_answer`,`anonymous_attempts`,
 				`start_date` , `end_date` 
 			FROM `$TBL_EXERCICES` 
 			WHERE `id` = '$id'";
@@ -101,9 +99,8 @@ class Exercise
 			$this->endDate		= $object->end_date;
 			$this->maxTime 		= $object->max_time;			
 			$this->maxAttempt	= $object->max_attempt;
-			$this->showAnon		= $object->show_anon;
 			$this->showAnswer	= $object->show_answer;
-      $this->recordUidInScore = $object->record_uid_in_score;
+      $this->anonymousAttempts = $object->anonymous_attempts;
 			
 			$sql = "	SELECT 	`question_id`,`q_position` 
 				FROM `$TBL_EXERCICE_QUESTION`,`$TBL_QUESTIONS`
@@ -268,24 +265,6 @@ class Exercise
 	}
 
 	/**
-	 * tells if the exercise is accessible to non course registered users
-	 * 
-	 * @author Piraux Sebastien <pir@cerdecam.be>
-	 * @return boolean - 0 if hidden to anonymous users, 1 if show
-	 */
-	function get_show_anon()
-	{
-		if($this->showAnon == 'SHOW')
-		{
-			return true;
-		}
-		else
-		{
-			 return false;
-		}
-	}
-
-	/**
 	 * returns when the answers have to be shown
 	 * 
 	 * @author Piraux Sebastien <pir@cerdecam.be>
@@ -302,9 +281,9 @@ class Exercise
    *  @author Piraux Sebastien <pir@cerdecam.be>
    *
    */
-  function record_uid_in_score()
+  function anonymous_attempts()
   {
-    if ( $this->recordUidInScore == 'YES' )
+    if ( $this->anonymousAttempts == 'YES' )
     {
       return true;
     }
@@ -502,33 +481,21 @@ class Exercise
 		return true;
 	}
 
-	function set_show_anon()
-	{
-		$this->showAnon = 'SHOW';
-		return true;
-	}
-	
-	function set_hide_anon()
-	{
-		$this->showAnon = 'HIDE';
-		return true;
-	}
-
 	function set_show_answer($showType)
 	{
 		$this->showAnswer = $showType;
 		return true;
 	}
 	
-  function set_record_uid_in_score($recordUid)
+  function set_anonymous_attempts($recordUid)
   {
     if ( $recordUid )
     {
-      $this->recordUidInScore = 'YES';
+      $this->anonymousAttempts = 'YES';
     }
     else
     {
-      $this->recordUidInScore = 'NO';
+      $this->anonymousAttempts = 'NO';
     }
     
   }
@@ -552,9 +519,8 @@ class Exercise
 		$endDate		= $this->endDate;
 		$maxTime 		= $this->maxTime;
 		$maxAttempt		= $this->maxAttempt;
-		$showAnon		= $this->showAnon;
 		$showAnswer		= $this->showAnswer;
-    $recordUidInScore   = $this->recordUidInScore;
+    $anonymousAttempts   = $this->anonymousAttempts;
 
 		// exercise already exists
 		if($id)
@@ -569,9 +535,8 @@ class Exercise
 						`end_date` ='$endDate',
 						`max_time` = $maxTime, 
 						`max_attempt` = $maxAttempt,
-						`show_anon` = '$showAnon',
 						`show_answer` = '$showAnswer',
-        `record_uid_in_score` = '$recordUidInScore'            
+        `anonymous_attempts` = '$anonymousAttempts'            
 					WHERE `id` = '$id'";
 			mysql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
 		}
@@ -581,10 +546,10 @@ class Exercise
 			$sql=	"INSERT INTO `$TBL_EXERCICES`
 					(`titre`,`description`,`type`,`random`,`active`,
 					 `start_date`, `end_date`,
-					 `max_time`, `max_attempt`, `show_anon`, `show_answer`,`record_uid_in_score`) 
+					 `max_time`, `max_attempt`, `show_answer`,`anonymous_attempts`) 
 					VALUES('$exercise','$description','$type','$random','$active',
 							'$startDate', '$endDate',
-							$maxTime,$maxAttempt,'$showAnon','$showAnswer','$recordUidInScore')";
+							$maxTime,$maxAttempt,'$showAnswer','$anonymousAttempts')";
 			mysql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 
 			$this->id=mysql_insert_id();
