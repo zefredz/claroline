@@ -26,7 +26,7 @@ include($includePath.'/conf/profile.conf.inc.php'); // find this file to modify 
 
 $nameTools=$langModifUserCourseSettings;
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
   // javascript confirm pop up declaration
 

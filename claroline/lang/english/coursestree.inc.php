@@ -2,7 +2,7 @@
 
 $langEditNode = "Editer";
 $langOpenNode = "Ouvrir";
-$langAdministrationTools = "Outils d'administration";
+$langAdministration = "Outils d'administration";
 $langAddChildNode ="Ajouter une sous-catégorie";
 $langManage ="Gestion du Campus";
 $langViewChildren = "VisuArbre";

@@ -28,7 +28,7 @@ include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify v
 
 $nameTools=$langModifOneProfile;
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
 $htmlHeadXtra[] = "<style type=\"text/css\">
 <!--

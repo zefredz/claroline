@@ -33,7 +33,7 @@ $htmlHeadXtra[] = "<style type=\"text/css\">
 
 // Deal with interbredcrumps
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $nameTools = $langMaintenance;
 
 $dateNow 			= claro_format_locale_date($dateTimeFormatLong);

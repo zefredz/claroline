@@ -54,7 +54,7 @@ $tbl_course_nodes      = $tbl_course_nodes;
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $nameTools = $langSearchUserAdvanced;
 
 // Search needed info in db to creat the right formulaire

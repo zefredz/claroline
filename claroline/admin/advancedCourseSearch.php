@@ -29,7 +29,7 @@ $tbl_course_nodes     = $tbl_mdb_names['category'         ];
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $nameTools = $langSearchCourseAdvanced;
 
 //------------------------------------------------------------------------------------------------------------------------

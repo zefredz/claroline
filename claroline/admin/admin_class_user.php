@@ -69,7 +69,7 @@ $langClassMembers              = "Class members";
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
     
 // Deal with interbredcrumps
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $interbredcrump[]= array ("url"=>$rootAdminWeb."admin_class.php", "name"=> $langClass);
 $nameTools = $langClassMembers;
 

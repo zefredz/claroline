@@ -16,7 +16,7 @@ $cidReset=TRUE;
 require '../../inc/claro_init_global.inc.php';
 
 $nameTools 			= $lang_SearchUser_SearchUser;
-$interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $noQUERY_STRING 	= TRUE;
 
 //****************************

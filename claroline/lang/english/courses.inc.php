@@ -34,7 +34,7 @@ $langAdminThisUser	= "Back to user";
 $langBackToListOfThisUser = "Back to course list";
 
 
-$langAdministrationTools = "Administration Tools";
+$langAdministration = "Administration Tools";
 $langAdministration = "Administration";
 $langManage				 = "Campus management";
 

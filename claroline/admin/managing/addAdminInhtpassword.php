@@ -20,7 +20,7 @@ $cidReset = true;
 require '../../inc/claro_init_global.inc.php';
 $nameTools = $langNomPageAddHtPass;
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $interbredcrump[]= array ("url"=>$rootAdminWeb."managing/", "name"=> $langManage);
 
 @include("./checkIfHtAccessIsPresent.php");

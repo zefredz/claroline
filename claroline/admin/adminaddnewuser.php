@@ -31,7 +31,7 @@ include($includePath."/../lang/".$languageInterface."/registration.inc.php");
 
 $nameTools             = $langAddUser;
 
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $noQUERY_STRING   = TRUE;
 
 //TABLES USED

@@ -28,7 +28,7 @@ include $includePath.'/conf/profile.conf.inc.php';
 
 $nameTools=$langModifOneProfile;
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 //$interbredcrump[]= array ("url"=>$rootAdminWeb."/adminusers.php"=> $langManage);
 
 $htmlHeadXtra[] =

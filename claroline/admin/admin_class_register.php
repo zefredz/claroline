@@ -143,7 +143,7 @@ define ("USER_DATA_FORM", 2);_reg_user_order_crit']=="user_id")
 
 // Deal with interbredcrumps
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $interbredcrump[]= array ("url"=>$rootAdminWeb."/admin_class.php", "name"=> $langClass);
 $interbredcrump[]    = array ("url"=>$rootAdminWeb."admin_class_user.php", "name"=> $langListClassUser);
 $nameTools = $langRegisterUserToClass;

@@ -29,7 +29,7 @@ include($includePath."/lib/debug.lib.inc.php");
 
 $nameTools = $langMaintenance;
 $dateNow 			= claro_format_locale_date($dateTimeFormatLong);
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 // $htmlHeadXtra[] = '';
 $is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
 // make here some  test

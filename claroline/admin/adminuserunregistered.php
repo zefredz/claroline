@@ -28,7 +28,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 
 $nameTools=$langModifOneProfile;
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
 $htmlHeadXtra[] = "<style type=\"text/css\">
 <!--

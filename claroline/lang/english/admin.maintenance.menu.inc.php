@@ -21,7 +21,7 @@ $langSearchACourse  = "Search for a course";
 $langSearchAUser  ="Search for a user";
 
 $langAdminBy = "Admin by ";
-$langAdministrationTools = "Administration Tools";
+$langAdministration = "Administration Tools";
 $langTools = "Tools";
 $langState = "State";
 $langDevAdmin ="Development Administration";
@@ -100,7 +100,7 @@ $langCourseOfListUser 	= "Courses of users";
 $langCourses			= "Courses";
 $langUsers				= "Users";
 $langManage				= "Managing the campus";
-$langAdministrationTools = "Administration Tools";
+$langAdministration = "Administration Tools";
 
 $langNoteAboutViaPMA = " &laquo;Via pma&raquo; = Direct link to a PhpMyAdmin window.";
 $langAddACourse = "Create a course";

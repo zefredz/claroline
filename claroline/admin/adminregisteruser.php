@@ -37,7 +37,7 @@ if ($cidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
 
 // Deal with interbredcrumps
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $nameTools = $langEnrollUser;
 
 //Header

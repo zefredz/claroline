@@ -15,7 +15,7 @@ $cidReset=TRUE;
 require '../../inc/claro_init_global.inc.php';
 
 $nameTools 			= $lang_faculty_faculty;
-$interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $interbredcrump[]	= array ("url"=>"../managing/index.php", "name"=>$langManage);
 
 include($includePath."/lib/text.lib.php");

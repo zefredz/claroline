@@ -51,7 +51,7 @@ $tbl_admin     = $tbl_mdb_names['admin' ];
 
 // Deal with interbredcrumps
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $nameTools = $langCourseList;
 
 

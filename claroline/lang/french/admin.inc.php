@@ -114,7 +114,7 @@ $langEnrollToNewCourse = "Inscrire à un nouveau cours";
 
 // Page titles
 
-$langAdministrationTools = "Administration";  //for bredcrumps too
+$langAdministration = "Administration";  //for bredcrumps too
 $langListUsers = "Liste des utilisateurs"; //for bredcrumps too
 $langCourseList = "Liste des cours"; //for bredcrumps too
 

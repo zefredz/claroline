@@ -64,7 +64,7 @@ if (!isset($_SESSION['admin_visible_class']))
 
 // Deal with interbredcrumps  and title variable
 $nameTools = $langAdministrationClassTools;
-$interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
 // javascript confirm pop up declaration for header
 

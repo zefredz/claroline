@@ -62,7 +62,7 @@ unset($_cid);
 // Deal with interbredcrumps  and title variable
 
 
-$nameTools = $langAdministrationTools;
+$nameTools = $langAdministration;
 
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");

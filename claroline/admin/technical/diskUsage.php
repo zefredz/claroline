@@ -5,7 +5,7 @@ $langFile = "admin.disk.usage";
 require '../../inc/claro_init_global.inc.php';
 
 $nameTools = $langDiskUsage;
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langTechAdmin);
 include($includePath."/lib/text.lib.php");
 @include($includePath."/lib/debug.lib.inc.php");

@@ -12,7 +12,7 @@
 // INDEX
 
 $langAdminBy = "Administration  par";
-$langAdministrationTools = "Outils d'administration";
+$langAdministration = "Outils d'administration";
 $langTools = "Outils";
 $langState = "Etat";
 $langDevAdmin ="Administration du développement";

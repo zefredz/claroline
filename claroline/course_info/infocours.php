@@ -72,7 +72,7 @@ $is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
 
 if (isset($_REQUEST['cidToEdit']) && ($is_platformAdmin))
 {
-    $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools); // bred crump different in admin access
+    $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration); // bred crump different in admin access
     unset($_cid);
     $current_cid = $cidToEdit;
     $toAddtoURL = "&cidToEdit=".$cidToEdit;

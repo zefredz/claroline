@@ -89,7 +89,7 @@ $nameTools = $langAdmin;
 <uL>
     <LI>
 		<B>
-            <?php echo  $langAdministrationTools ?>
+            <?php echo  $langAdministration ?>
 		</B>
 	</LI>
 <? 

@@ -25,7 +25,7 @@ include($includePath."/lib/admin.lib.inc.php");
 
 $dateNow          = claro_format_locale_date($dateTimeFormatLong);
 $nameTools        = $lang_categories;
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 include($includePath."/claro_init_header.inc.php");
 
 //TABLES

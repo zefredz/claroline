@@ -142,6 +142,6 @@ $langUpdatedExternalTool="Lien externe modifié";
 $langUnableUpdateExternalTool="Impossible de changer le lien externe";
 $langDeletedExternalTool='Lien externe effacé';
 $langUnableDeleteExternalTool='Impossible d\'effacer le lien externe';
-$langAdministrationTools="Outils d'administration";
+$langAdministration="Outils d'administration";
 
 ?>

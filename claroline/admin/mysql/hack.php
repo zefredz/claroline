@@ -15,7 +15,7 @@ $langFile = "trad4all";
 require '../../inc/claro_init_global.inc.php';
 
 $nameTools = $langMysql;
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");

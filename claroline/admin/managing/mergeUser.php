@@ -11,7 +11,7 @@ $lang_merge_proceed		= "Effectuer la fusion";
 
 
 $lang_no_back			= "Irréversible !!!";
-$langAdministrationTools = "Outils d'administration";
+$langAdministration = "Outils d'administration";
 $langManage ="Gestion du Campus";
 
 #### SETTINGS ####
@@ -25,7 +25,7 @@ $_tool["langFile"] 		= "admin.merge.users";
 
 $langFile = $_tool["langFile"];
 require '../../inc/claro_init_global.inc.php';
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $interbredcrump[]= array ("url"=>$rootAdminWeb."managing/", "name"=> $langManage);
 $nameTools = $$_tool["nameVarName"];
 

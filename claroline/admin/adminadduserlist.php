@@ -11,7 +11,7 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-$langAdministrationTools ="Outils d'administration";
+$langAdministration ="Outils d'administration";
 $langManage = "Gestion du campus";
 
 $langFile = "admin.add.users";
@@ -19,7 +19,7 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 $nameTools             = $lang_addUser_addUser;
-$interbredcrump[]    = array ("url" => $rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]    = array ("url" => $rootAdminWeb, "name"=> $langAdministration);
 $interbredcrump[]    = array ("url" => "index.php", "name"=> $langManage);
 $noQUERY_STRING     = TRUE;
 
