@@ -278,7 +278,7 @@ echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
             echo "<a href=\"",$PHP_SELF,"?letter=Y&".$toAdd."\">Y</a> | ";
             echo "<a href=\"",$PHP_SELF,"?letter=Z&".$toAdd."\">Z</a>";
             echo "
-            <input type=\"text\" name=\"search\"></input>
+            <input type=\"text\" name=\"search\">
             <input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\">
             <input type=\"submit\" value=\"".$langSearch."\">
 
