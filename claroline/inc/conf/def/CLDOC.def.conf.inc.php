@@ -1,17 +1,17 @@
 <?php //$Id$
 // TOOL
-$toolConf['config_code']='CLDOC';
-$toolConf['config_file']='CLDOC.conf.inc.php';
-// $toolConf['config_repository']=''; dislabed = includePath.'/conf'
-$toolConf['description'] = 'Document tool. This is a course tool';
-$toolConf['section']['quota']['label']='quota';
-$toolConf['section']['quota']['properties'] = 
+$conf_def['config_code']='CLDOC';
+$conf_def['config_file']='CLDOC.conf.inc.php';
+// $conf_def['config_repository']=''; dislabed = includePath.'/conf'
+$conf_def['description'] = 'Document tool. This is a course tool';
+$conf_def['section']['quota']['label']='quota';
+$conf_def['section']['quota']['properties'] = 
 array ( 'maxFilledSpace_for_course'
       , 'maxFilledSpace_for_groups'
       );
       
 //PROPERTIES
-$toolConfProperties['maxFilledSpace_for_course']
+$conf_def_property_list['maxFilledSpace_for_course']
 = array ('label'     => 'size (in bytes) allowed to each courses for documents'
         ,'default'   => '100000000'
         ,'unit'      => 'bytes'
@@ -19,7 +19,7 @@ $toolConfProperties['maxFilledSpace_for_course']
         ,'container' => 'VAR'
         );
 
-$toolConfProperties['maxFilledSpace_for_groups']
+$conf_def_property_list['maxFilledSpace_for_groups']
 = array ('label'     => 'size (in bytes) allowed to each group'
         ,'default'   => '1000000'
         ,'unit'      => 'bytes'

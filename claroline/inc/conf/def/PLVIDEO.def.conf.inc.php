@@ -1,9 +1,9 @@
 <?php // $Id$
-$toolConf['config_code']='PLVIDEO';
-$toolConf['config_file']='PLVIDEO.conf.inc.php';
-// $toolConf['config_repository']=''; dislabed = includePath.'/conf'
-$toolConf['section']['image']['label']='Images settings';
-$toolConf['section']['image']['properties'] = 
+$conf_def['config_code']='PLVIDEO';
+$conf_def['config_file']='PLVIDEO.conf.inc.php';
+// $conf_def['config_repository']=''; dislabed = includePath.'/conf'
+$conf_def['section']['image']['label']='Images settings';
+$conf_def['section']['image']['properties'] = 
 array ( 'image_fond'
       , 'image_swap'
       , 'video_x'
@@ -11,7 +11,7 @@ array ( 'image_fond'
       , 'ext_video'
       );
 
-$toolConfProperties['image_fond'] = 
+$conf_def_property_list['image_fond'] = 
 array ('label'       => 'Background picture'
       ,'default'     => 'images/video_show.jpg'
       ,'type'        => 'string'
@@ -19,7 +19,7 @@ array ('label'       => 'Background picture'
       ,'readonly'    => FALSE
       ,'technicalInfo' => 'enter here an image to the picture video show'
       );
-$toolConfProperties['image_swap'] = 
+$conf_def_property_list['image_swap'] = 
 array ('label'       => 'Swap picture'
       ,'default'     => 'images/rido.gif'
       ,'type'        => 'string'
@@ -27,21 +27,21 @@ array ('label'       => 'Swap picture'
       ,'readonly'    => FALSE
       ,'technicalInfo' => 'enter here an image to the picture video show'
       );
-$toolConfProperties['video_x'] = 
+$conf_def_property_list['video_x'] = 
 array ('label'       => 'horizontal size of the video output'
       ,'default'     => '360'
       ,'type'        => 'integer'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
-$toolConfProperties['video_y'] = 
+$conf_def_property_list['video_y'] = 
 array ('label'       => 'vertical size of the video output'
       ,'default'     => '270'
       ,'type'        => 'integer'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
-$toolConfProperties['ext_video'] = 
+$conf_def_property_list['ext_video'] = 
 array ('label'       => 'undefined properties'
       ,'default'     => ''
       ,'type'        => 'string'

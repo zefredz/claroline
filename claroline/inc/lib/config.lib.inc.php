@@ -311,9 +311,9 @@ function claro_get_conf_file($config_code)
    $confDef = claro_get_def_file(config_code);
    if(file_exists($confDef)) include $confDef;
    
-   if (isset($toolConf['config_file']))
+   if (isset($conf_def['config_file']))
    {
-       $confFile = realpath($includePath.'/conf/').'/'.$toolConf['config_file'];
+       $confFile = realpath($includePath.'/conf/').'/'.$conf_def['config_file'];
    }
    else
    
@@ -397,7 +397,7 @@ function get_conf_list()
    
     return  $conf_list;
 }
-function write_conf_file($toolConf,$toolConfProperties,$storedPropertyList,$confFile,$generatorFile=__FILE__)
+function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile,$generatorFile=__FILE__)
 {
     global $_uid,$_user,$dateTimeFormatLong;
         if (strlen($generatorFile)>50) 
@@ -415,10 +415,10 @@ function write_conf_file($toolConf,$toolConfProperties,$storedPropertyList,$conf
                     . '-------------------------------------------------'."\n"      
                     . 'DONT EDIT THIS FILE - NE MODIFIEZ PAS CE FICHIER '."\n"      
                     . ' */'."\n\n"
-                    . '$'.$toolConf['config_code'].'GenDate = "'.time().'";'."\n\n"
-                    . (isset($toolConf['technicalInfo'])
+                    . '$'.$conf_def['config_code'].'GenDate = "'.time().'";'."\n\n"
+                    . (isset($conf_def['technicalInfo'])
                     ? '/*'
-                    . str_replace('*/', '* /', $toolConf['technicalInfo'])
+                    . str_replace('*/', '* /', $conf_def['technicalInfo'])
                     . '*/'
                     : '')
                     ;
@@ -429,9 +429,9 @@ function write_conf_file($toolConf,$toolConfProperties,$storedPropertyList,$conf
         foreach($storedPropertyList as $storedProperty)
         {
             $valueToWrite  = $storedProperty['propValue']; 
-            $container     = $toolConfProperties[$storedProperty['propName']]['container'];
-            $description   = $toolConfProperties[$storedProperty['propName']]['$description'];
-            if ($toolConfProperties[$storedProperty['propName']]['type']!='boolean') 
+            $container     = $conf_def_property_list[$storedProperty['propName']]['container'];
+            $description   = $conf_def_property_list[$storedProperty['propName']]['$description'];
+            if ($conf_def_property_list[$storedProperty['propName']]['type']!='boolean') 
             {
                 $valueToWrite = "'".$valueToWrite."'";   
             }
@@ -440,10 +440,10 @@ function write_conf_file($toolConf,$toolConfProperties,$storedPropertyList,$conf
             else
                 $propertyLine = '$'.$storedProperty['propName'].' = '.$valueToWrite.';'."\n";
             $propertyDesc = (isset($description)?'/* '.$storedProperty['propName'].' : '.str_replace("\n","",$description).' */'."\n":
-            (isset($toolConfProperties[$storedProperty['propName']]['label'])?'/* '.$storedProperty['propName'].' : '.str_replace("\n","",$toolConfProperties[$storedProperty['propName']]['label']).' */'."\n":''));
-            $propertyDesc .= ( isset($toolConfProperties[$storedProperty['propName']]['technicalInfo'])
+            (isset($conf_def_property_list[$storedProperty['propName']]['label'])?'/* '.$storedProperty['propName'].' : '.str_replace("\n","",$conf_def_property_list[$storedProperty['propName']]['label']).' */'."\n":''));
+            $propertyDesc .= ( isset($conf_def_property_list[$storedProperty['propName']]['technicalInfo'])
                     ? '/*'."\n"
-                    . str_replace('*/', '* /', $toolConfProperties[$storedProperty['propName']]['technicalInfo'])
+                    . str_replace('*/', '* /', $conf_def_property_list[$storedProperty['propName']]['technicalInfo'])
                     . '*/'."\n"
                     : '' )
                     ;

@@ -1,11 +1,11 @@
 <?php // $Id$
 // TOOL
-$toolConf['config_code']='CLUSR';
-$toolConf['config_file']='user.conf.inc.php';
-// $toolConf['config_repository']=''; dislabed = includePath.'/conf'
-$toolConf['section']['list']['label']='Listing properties';
-$toolConf['section']['list']['description']='common properties for listing of users';
-$toolConf['section']['list']['properties'] = 
+$conf_def['config_code']='CLUSR';
+$conf_def['config_file']='user.conf.inc.php';
+// $conf_def['config_repository']=''; dislabed = includePath.'/conf'
+$conf_def['section']['list']['label']='Listing properties';
+$conf_def['section']['list']['description']='common properties for listing of users';
+$conf_def['section']['list']['properties'] = 
 array ( 'linkToUserInfo'
       , 'nbUsersPerPage'
       , 'CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER'
@@ -13,7 +13,7 @@ array ( 'linkToUserInfo'
 
 //PROPERTIES
 
-$toolConfProperties['linkToUserInfo'] =
+$conf_def_property_list['linkToUserInfo'] =
 array ('label'         => 'Afficher le lien vers les infos supplémentaires de l\'utilisateur'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
@@ -22,12 +22,12 @@ array ('label'         => 'Afficher le lien vers les infos supplémentaires de l\
                                 )
       );
 
-$toolConfProperties['nbUsersPerPage'] = 
+$conf_def_property_list['nbUsersPerPage'] = 
 array ( 'label'   => 'Nombre d\'utilisateurs par page',
         'default' => '25',
         'type'    => 'integer');
 
-$toolConfProperties['CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER'] =
+$conf_def_property_list['CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER'] =
 array('label'         => 'Le professeur peut-il ajouter des utilisateurs à son cours'
      ,'default'       => 'TRUE'
      ,'type'          => 'boolean'
@@ -39,9 +39,9 @@ array('label'         => 'Le professeur peut-il ajouter des utilisateurs à son c
                               )
      );
 
-$toolConf['section']['fakeuser']['label']='Add fake user properties';
-$toolConf['section']['fakeuser']['description']='this  tool allow to  fix some option for the dev tools user account generator';
-$toolConf['section']['fakeuser']['properties'] = 
+$conf_def['section']['fakeuser']['label']='Add fake user properties';
+$conf_def['section']['fakeuser']['description']='this  tool allow to  fix some option for the dev tools user account generator';
+$conf_def['section']['fakeuser']['properties'] = 
 array ( 'DEFAULT_SUFFIX_MAIL'
       , 'DEFAULT_NUMBER_CREATED_USERS'
       , 'DEFAULT_QTY_TEACHER'
@@ -53,7 +53,7 @@ array ( 'DEFAULT_SUFFIX_MAIL'
       , 'CONFVAL_LIST_USER_ADDED'
       );
 
-$toolConfProperties['DEFAULT_SUFFIX_MAIL'] =
+$conf_def_property_list['DEFAULT_SUFFIX_MAIL'] =
 array ( 'label'         => 'extention des emails générés'
       , 'description'   => 'la partie avant sera générée aléatoirement'
       , 'default'       => '@fake.zz'
@@ -62,28 +62,28 @@ array ( 'label'         => 'extention des emails générés'
       , 'container'     => 'CONST'
       );
 
-$toolConfProperties['DEFAULT_NUMBER_CREATED_USERS'] =
+$conf_def_property_list['DEFAULT_NUMBER_CREATED_USERS'] =
 array('label'       => 'le nombre de comptes générés'
      ,'default'     => '100'
      ,'type'        => 'integer'
      ,'container'   => 'CONST'
      );
 
-$toolConfProperties['DEFAULT_QTY_STUDENT'] =
+$conf_def_property_list['DEFAULT_QTY_STUDENT'] =
 array ( 'label'     => 'le nombre de comptes user générés'
       , 'default'   => '5'
       , 'type'      => 'integer'
       , 'container' => 'CONST'
       );
 
-$toolConfProperties['DEFAULT_QTY_TEACHER'] =
+$conf_def_property_list['DEFAULT_QTY_TEACHER'] =
 array ( 'label'     => 'le nombre de comptes créateur de cours générés'
       , 'default'   => '0'
       , 'type'      => 'integer'
       , 'container' => 'CONST'
       );
 
-$toolConfProperties['ADD_FIRSTNAMES_FROM_BASE'] =
+$conf_def_property_list['ADD_FIRSTNAMES_FROM_BASE'] =
 array ( 'label'         => 'créer les prénoms à partir de ceux qui existent dans la base'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
@@ -93,7 +93,7 @@ array ( 'label'         => 'créer les prénoms à partir de ceux qui existent dans
                                  )
       );
 
-$toolConfProperties['ADD_NAMES_FROM_BASE'] =
+$conf_def_property_list['ADD_NAMES_FROM_BASE'] =
 array ( 'label'         => 'créer les noms à partir de ceux qui existent dans la base'
       , 'default'       => 'FALSE'
       , 'type'          => 'boolean'
@@ -103,7 +103,7 @@ array ( 'label'         => 'créer les noms à partir de ceux qui existent dans la
                                  )
       );
 
-$toolConfProperties['ADD_USERNAMES_FROM_BASE'] = 
+$conf_def_property_list['ADD_USERNAMES_FROM_BASE'] = 
 array ( 'label'         => 'créer les noms de compte à partir de ceux '
                           .'qui existent dans la base'
       , 'default'       => 'TRUE'
@@ -114,7 +114,7 @@ array ( 'label'         => 'créer les noms de compte à partir de ceux '
                                  )
       );
 
-$toolConfProperties['USE_FIRSTNAMES_AS_LASTNAMES'] =
+$conf_def_property_list['USE_FIRSTNAMES_AS_LASTNAMES'] =
 array ( 'label'         => 'Créer des noms à partir les prénoms'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
@@ -124,7 +124,7 @@ array ( 'label'         => 'Créer des noms à partir les prénoms'
                                  )
       );
 
-$toolConfProperties['CONFVAL_LIST_USER_ADDED'] = 
+$conf_def_property_list['CONFVAL_LIST_USER_ADDED'] = 
 array ( 'label'         => 'Show list of new users'
       , 'default'       => 'TRUE'
       , 'type'          => 'boolean'

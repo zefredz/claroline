@@ -1,17 +1,17 @@
 <?php // $Id$
-$toolConf['config_file']='agenda.conf.inc.php';
-$toolConf['config_code']='CLCAL';
+$conf_def['config_file']='agenda.conf.inc.php';
+$conf_def['config_code']='CLCAL';
 
-$toolConf['section']['log']['label']='Track activity';
-// $toolConf['config_repository']=''; dislabed = includePath.'/conf'
+$conf_def['section']['log']['label']='Track activity';
+// $conf_def['config_repository']=''; dislabed = includePath.'/conf'
 
-$toolConf['section']['log']['properties'] = 
+$conf_def['section']['log']['properties'] = 
 array ( 'CONFVAL_LOG_CALENDAR_INSERT'
       , 'CONFVAL_LOG_CALENDAR_DELETE'
       , 'CONFVAL_LOG_CALENDAR_UPDATE'
       );
 
-$toolConfProperties['CONFVAL_LOG_CALENDAR_INSERT'] = 
+$conf_def_property_list['CONFVAL_LOG_CALENDAR_INSERT'] = 
 array ('label'       => 'Logguer les ajouts d\'agenda'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
@@ -23,7 +23,7 @@ array ('label'       => 'Logguer les ajouts d\'agenda'
                               ,'FALSE'=>'dislabed'
                               )
       );
-$toolConfProperties['CONFVAL_LOG_CALENDAR_DELETE'] = 
+$conf_def_property_list['CONFVAL_LOG_CALENDAR_DELETE'] = 
 array ('label'       => 'Logguer les suppressions dans l\'agenda'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
@@ -35,7 +35,7 @@ array ('label'       => 'Logguer les suppressions dans l\'agenda'
                               )
       );
       
-$toolConfProperties['CONFVAL_LOG_CALENDAR_UPDATE'] = 
+$conf_def_property_list['CONFVAL_LOG_CALENDAR_UPDATE'] = 
 array ('label'       => 'Logguer les éditions dans l\'agenda'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'

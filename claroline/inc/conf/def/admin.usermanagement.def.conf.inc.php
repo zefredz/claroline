@@ -1,9 +1,9 @@
 <?php # $Id$
 //// config  this tools
-$toolConf['config_code']='CLADMUSR';
-$toolConf['config_file']='admin.usermanagement.conf.inc.php';
-$toolConf['section']['create']['label']='Creation properties';
-$toolConf['section']['create']['properties'] = 
+$conf_def['config_code']='CLADMUSR';
+$conf_def['config_file']='admin.usermanagement.conf.inc.php';
+$conf_def['section']['create']['label']='Creation properties';
+$conf_def['section']['create']['properties'] = 
 array ( 'defaultVisibilityForANewCourse'
       , 'HUMAN_CODE_NEEDED'
       , 'HUMAN_LABEL_NEEDED'

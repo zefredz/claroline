@@ -1,10 +1,10 @@
 <?php // $Id$
-$toolConf['config_code']='CLADDCRS';
-$toolConf['config_file']='add_course.conf.inc.php';
-// $toolConf['config_repository']=''; dislabed = includePath.'/conf'
+$conf_def['config_code']='CLADDCRS';
+$conf_def['config_file']='add_course.conf.inc.php';
+// $conf_def['config_repository']=''; dislabed = includePath.'/conf'
 
-$toolConf['section']['create']['label']='Creation properties';
-$toolConf['section']['create']['properties'] = 
+$conf_def['section']['create']['label']='Creation properties';
+$conf_def['section']['create']['properties'] = 
 array ( 'defaultVisibilityForANewCourse'
       , 'HUMAN_CODE_NEEDED'
       , 'HUMAN_LABEL_NEEDED'
@@ -12,7 +12,7 @@ array ( 'defaultVisibilityForANewCourse'
       , 'prefixAntiNumber'
       , 'prefixAntiEmpty');
 
-$toolConfProperties['defaultVisibilityForANewCourse'] = 
+$conf_def_property_list['defaultVisibilityForANewCourse'] = 
 array ('label'       => 'Visibilité par défaut pour un utilisateur'
       ,'default'     => '2'
       ,'type'        => 'enum'
@@ -25,7 +25,7 @@ array ('label'       => 'Visibilité par défaut pour un utilisateur'
                                 )
       );
 
-$toolConfProperties['is_allowedToRestore'] = 
+$conf_def_property_list['is_allowedToRestore'] = 
 array ('label'       => 'Autoriser le créateur de cours de restaurer une archive de cours'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
@@ -36,7 +36,7 @@ array ('label'       => 'Autoriser le créateur de cours de restaurer une archive
                                 )
       );
 
-$toolConfProperties['HUMAN_CODE_NEEDED'] = 
+$conf_def_property_list['HUMAN_CODE_NEEDED'] = 
 array ('label'       => 'whether user can leave course code (officialCode) field empty'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
@@ -46,7 +46,7 @@ array ('label'       => 'whether user can leave course code (officialCode) field
                                 )
       );
 
-$toolConfProperties['HUMAN_LABEL_NEEDED'] = 
+$conf_def_property_list['HUMAN_LABEL_NEEDED'] = 
 array ('label'       => 'whether user can leave course label (name) field empty'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
@@ -56,7 +56,7 @@ array ('label'       => 'whether user can leave course label (name) field empty'
                               )
       );
 
-$toolConfProperties['COURSE_EMAIL_NEEDED'] = 
+$conf_def_property_list['COURSE_EMAIL_NEEDED'] = 
 array ('label'       => 'whether user can leave email field empty'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
@@ -68,13 +68,13 @@ array ('label'       => 'whether user can leave email field empty'
                               )
       );
 
-$toolConfProperties['prefixAntiNumber'] = 
+$conf_def_property_list['prefixAntiNumber'] = 
 array ('label'       => 'Ce préfixe est utilisé si le code commence par un chiffre'
       ,'default'     => 'No'
       ,'type'        => 'string'
       );
 
-$toolConfProperties['prefixAntiEmpty'] = 
+$conf_def_property_list['prefixAntiEmpty'] = 
 array ('label'       => 'Ce préfixe sera utilisé si le code cours est vide'
       ,'default'     => 'Course'
       ,'type'        => 'string'
@@ -82,8 +82,8 @@ array ('label'       => 'Ce préfixe sera utilisé si le code cours est vide'
 
 
 // Course properties rules
-$toolConf['section']['restore']['label']='Restore // Create a course from an archive';
-$toolConf['section']['restore']['properties'] = 
+$conf_def['section']['restore']['label']='Restore // Create a course from an archive';
+$conf_def['section']['restore']['properties'] = 
 array ( 'is_allowedToRestore'
       , 'sendByUploadAivailable'
       , 'sendByLocaleAivailable'
@@ -92,7 +92,7 @@ array ( 'is_allowedToRestore'
       , 'localArchivesRepository'
       );
 
-$toolConfProperties['is_allowedToRestore'] = 
+$conf_def_property_list['is_allowedToRestore'] = 
 array ('label'       => 'Autoriser le créateur de cours de restaurer une archive de cours'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
@@ -102,7 +102,7 @@ array ('label'       => 'Autoriser le créateur de cours de restaurer une archive
                               )
       );
 
-$toolConfProperties['sendByUploadAivailable'] = 
+$conf_def_property_list['sendByUploadAivailable'] = 
 array ('label'       => 'restaurer une archive de cours uploadée'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
@@ -112,7 +112,7 @@ array ('label'       => 'restaurer une archive de cours uploadée'
                               )
       );
 
-$toolConfProperties['sendByLocaleAivailable'] = 
+$conf_def_property_list['sendByLocaleAivailable'] = 
 array ('label'       => 'restaurer une archive de cours stockées sur le serveur'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
@@ -122,7 +122,7 @@ array ('label'       => 'restaurer une archive de cours stockées sur le serveur'
                               )
       );
 
-$toolConfProperties['sendByHTTPAivailable'] = 
+$conf_def_property_list['sendByHTTPAivailable'] = 
 array ('label'       => 'restaurer une archive de cours présente sur un autre serveur web'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
@@ -134,7 +134,7 @@ array ('label'       => 'restaurer une archive de cours présente sur un autre se
                               )
       );
 
-$toolConfProperties['sendByFTPAivailable'] = 
+$conf_def_property_list['sendByFTPAivailable'] = 
 array ('label'       => 'Restaurer une archive de cours présente sur un serveur FTP'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
@@ -146,7 +146,7 @@ array ('label'       => 'Restaurer une archive de cours présente sur un serveur 
                               )
       );
 
-$toolConfProperties['localArchivesRepository'] = 
+$conf_def_property_list['localArchivesRepository'] = 
 array ('label'       => 'Repository where stored archives on server'
       ,'default'     => realpath($rootSys."archive/")
       ,'type'        => 'filepath'
@@ -154,12 +154,12 @@ array ('label'       => 'Repository where stored archives on server'
 
 
 // Course properties rules
-$toolConf['section']['expiration']['label']='Fix a delay for consider a course as expired';
-$toolConf['section']['expiration']['properties'] = 
+$conf_def['section']['expiration']['label']='Fix a delay for consider a course as expired';
+$conf_def['section']['expiration']['properties'] = 
 array ( 'firstExpirationDelay'
       );
 
-$toolConfProperties['firstExpirationDelay'] = 
+$conf_def_property_list['firstExpirationDelay'] = 
 array ('label'       => 'Time to expire the created course (in second)'
       ,'default'     => '31536000' // <- 86400*365    // 60*60*24 = 1 jour = 86400
       ,'unit'        => 'second'

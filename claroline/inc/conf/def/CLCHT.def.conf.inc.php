@@ -1,17 +1,17 @@
 <?php // $Id$
-$toolConf['config_file']='chat.conf.inc.php';
-$toolConf['config_code']='CLCHT';
-$toolConf['description']='Note : these value would be COPY in the script to win an include.';
+$conf_def['config_file']='chat.conf.inc.php';
+$conf_def['config_code']='CLCHT';
+$conf_def['description']='Note : these value would be COPY in the script to win an include.';
 
-$toolConf['section']['buffer']['label']='buffer';
-$toolConf['section']['buffer']['properties'] = 
+$conf_def['section']['buffer']['label']='buffer';
+$conf_def['section']['buffer']['properties'] = 
 array ( 'MAX_LINE_IN_FILE'
       , 'MAX_LINE_TO_DISPLAY'
       , 'REFRESH_DISPLAY_RATE'
       );
 
       
-$toolConfProperties['MAX_LINE_IN_FILE'] = 
+$conf_def_property_list['MAX_LINE_IN_FILE'] = 
 array ( 'description' => 'Max line in the active chat file. '
                         .'For performance reason it is interesting '
                         .'to work with not too big file'
@@ -21,7 +21,7 @@ array ( 'description' => 'Max line in the active chat file. '
       , 'type'        => 'integer'
       );
 
-$toolConfProperties['MAX_LINE_TO_DISPLAY'] =
+$conf_def_property_list['MAX_LINE_TO_DISPLAY'] =
 array ( 'description'   => 'Maximum line diplayed to the user screen. ' 
                           .'As the active chat file is regularly shrinked '
                           .'(see max_line_in_file), '
@@ -36,7 +36,7 @@ array ( 'description'   => 'Maximum line diplayed to the user screen. '
       , 'type'          => 'integer'
       );
       
-$toolConfProperties['REFRESH_DISPLAY_RATE'] =
+$conf_def_property_list['REFRESH_DISPLAY_RATE'] =
 array ( 'description' => 'Time to automaticly refresh  user screen'
       , 'label'       => 'delay in second'
       , 'default'     => '10'

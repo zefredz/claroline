@@ -266,10 +266,10 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
 
         //  var_dump::display($_REQUEST['prop']);
         $okToSave = TRUE;
-        if ($config_code != $toolConf['config_code'])
+        if ($config_code != $conf_def['config_code'])
         {
             $okToSave = TRUE;
-            $controlMsg['error'][] = $toolConf['config_code'].' != '.$config_code.' <br>
+            $controlMsg['error'][] = $conf_def['config_code'].' != '.$config_code.' <br>
             The definition file for configuration is probably copypaste from '.basename($confDef);
     
         }
@@ -277,10 +277,10 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         {
             foreach($_REQUEST['prop'] as $propName => $propValue )
             {
-                $validator     = $toolConfProperties[$propName]['type'];
-                $acceptedValue = $toolConfProperties[$propName]['acceptedValue'];
-                $container     = $toolConfProperties[$propName]['container'];
-                //      config_checkToolProperty($propValue, $toolConfProperties[$propName]);
+                $validator     = $conf_def_property_list[$propName]['type'];
+                $acceptedValue = $conf_def_property_list[$propName]['acceptedValue'];
+                $container     = $conf_def_property_list[$propName]['container'];
+                //      config_checkToolProperty($propValue, $conf_def_property_list[$propName]);
                 //      $controlMsg['log'][] = $propName.' '.$validator.' '.var_export($acceptedValue,1);
                 switch($validator)
                 {
@@ -435,9 +435,9 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
                     . 'DONT EDIT THIS FILE - NE MODIFIEZ PAS CE FICHIER '."\n"      
                     . ' */'."\n\n"
                     . '$'.$config_code.'GenDate = "'.time().'";'."\n\n"
-                    . (isset($toolConf['technicalInfo'])
+                    . (isset($conf_def['technicalInfo'])
                     ? '/*'
-                    . str_replace('*/', '* /', $toolConf['technicalInfo'])
+                    . str_replace('*/', '* /', $conf_def['technicalInfo'])
                     . '*/'
                     : '')
                     ;
@@ -449,9 +449,9 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         foreach($storedPropertyList as $storedProperty)
         {
             $valueToWrite  = $storedProperty['propValue']; 
-            $container     = $toolConfProperties[$storedProperty['propName']]['container'];
-            $description   = $toolConfProperties[$storedProperty['propName']]['$description'];
-            if ($toolConfProperties[$storedProperty['propName']]['type']!='boolean') 
+            $container     = $conf_def_property_list[$storedProperty['propName']]['container'];
+            $description   = $conf_def_property_list[$storedProperty['propName']]['$description'];
+            if ($conf_def_property_list[$storedProperty['propName']]['type']!='boolean') 
             {
                 $valueToWrite = "'".$valueToWrite."'";   
             }
@@ -466,14 +466,14 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             
             $propertyDesc = (isset($description)
                             ?'/* '.$storedProperty['propName'].' : '.str_replace("\n","",$description).' */'."\n"
-                            : (isset($toolConfProperties[$storedProperty['propName']]['label'])
-                              ?'/* '.$storedProperty['propName'].' : '.str_replace("\n","",$toolConfProperties[$storedProperty['propName']]['label']).' */'."\n"
+                            : (isset($conf_def_property_list[$storedProperty['propName']]['label'])
+                              ?'/* '.$storedProperty['propName'].' : '.str_replace("\n","",$conf_def_property_list[$storedProperty['propName']]['label']).' */'."\n"
                               :''
                               )
                             );
-            $propertyDesc .= ( isset($toolConfProperties[$storedProperty['propName']]['technicalInfo'])
+            $propertyDesc .= ( isset($conf_def_property_list[$storedProperty['propName']]['technicalInfo'])
                     ? '/*'."\n"
-                    . str_replace('*/', '* /', $toolConfProperties[$storedProperty['propName']]['technicalInfo'])
+                    . str_replace('*/', '* /', $conf_def_property_list[$storedProperty['propName']]['technicalInfo'])
                     . '*/'."\n"
                     : '' )
                     ;
@@ -532,7 +532,7 @@ elseif ($panel == DISP_EDIT_CONF_CLASS)
     {
         foreach($storedPropertyList as $storedProperty)
         {
-            $toolConfProperties[$storedProperty['propName']]['actualValue'] = $storedProperty['propValue']; 
+            $conf_def_property_list[$storedProperty['propName']]['actualValue'] = $storedProperty['propValue']; 
         }
     }
 }
@@ -621,17 +621,17 @@ switch ($panel)
         break;
     case DISP_EDIT_CONF_CLASS : 
 
-        if (is_array($toolConf))
+        if (is_array($conf_def))
         {
-            echo (isset($toolConf['description'])?'<div class="toolDesc">'.$toolConf['description'].'</div><br />':'')                
+            echo (isset($conf_def['description'])?'<div class="toolDesc">'.$conf_def['description'].'</div><br />':'')                
                 .'<em><small><small>'.$confDef.'</small></small></em>'
                 .'<form method="POST" action="'.$_SERVER['PHP_SELF'].'" name="editConfClass">'."\n"
                 //.'<input type="hidden" value="dispEditConfClass" name="cmd">'."\n"
                 .'<input type="hidden" value="'.$config_code.'" name="config_code">'."\n"
                 ;
-            if (is_array($toolConf['section']) ) 
+            if (is_array($conf_def['section']) ) 
             {
-                foreach($toolConf['section'] as $section)
+                foreach($conf_def['section'] as $section)
                 {
                     echo '<fieldset>'."\n"
                         .'<legend>'.$section['label'].'</legend>'."\n"
@@ -646,14 +646,14 @@ switch ($panel)
                     foreach($section['properties'] as $property )
                     {
 //                      var_dump::display($property);
-                        $htmlPropLabel = htmlentities($toolConfProperties[$property]['label']);
-                        $htmlPropDesc = ($toolConfProperties[$property]['description']?'<div class="propDesc">'.nl2br(htmlentities($toolConfProperties[$property]['description'])).'</div><br />':'');
+                        $htmlPropLabel = htmlentities($conf_def_property_list[$property]['label']);
+                        $htmlPropDesc = ($conf_def_property_list[$property]['description']?'<div class="propDesc">'.nl2br(htmlentities($conf_def_property_list[$property]['description'])).'</div><br />':'');
                         $htmlPropName = 'prop['.($property).']';
-                        $htmlPropValue = isset($toolConfProperties[$property]['actualValue'])?$toolConfProperties[$property]['actualValue']:$toolConfProperties[$property]['default'];
+                        $htmlPropValue = isset($conf_def_property_list[$property]['actualValue'])?$conf_def_property_list[$property]['actualValue']:$conf_def_property_list[$property]['default'];
                         $size = (int) strlen($htmlPropValue);
                         $size = 2+(($size > 90)?90:(($size < 8)?8:$size));
-                        $htmlPropDefault = isset($toolConfProperties[$property]['actualValue'])?'<span class="default"> Default : '.$toolConfProperties[$property]['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
-                        if ($toolConfProperties[$property]['readonly']) 
+                        $htmlPropDefault = isset($conf_def_property_list[$property]['actualValue'])?'<span class="default"> Default : '.$conf_def_property_list[$property]['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
+                        if ($conf_def_property_list[$property]['readonly']) 
                         {
                             echo '<H2>'
                                 .$htmlPropLabel
@@ -664,12 +664,12 @@ switch ($panel)
                         } 
                         else
                         // Prupose a form following the type 
-                        switch($toolConfProperties[$property]['type'])
+                        switch($conf_def_property_list[$property]['type'])
                         {
                        	    case 'boolean' : 
-                                $htmlPropDefault = isset($toolConfProperties[$property]['actualValue'])
+                                $htmlPropDefault = isset($conf_def_property_list[$property]['actualValue'])
                                                    ?'<span class="default"> Default : '
-                                                   .($toolConfProperties[$property]['acceptedValue'][$toolConfProperties[$property]['default']]?$toolConfProperties[$property]['acceptedValue'][$toolConfProperties[$property]['default']]:$toolConfProperties[$property]['default'] )
+                                                   .($conf_def_property_list[$property]['acceptedValue'][$conf_def_property_list[$property]['default']]?$conf_def_property_list[$property]['acceptedValue'][$conf_def_property_list[$property]['default']]:$conf_def_property_list[$property]['default'] )
                                                    .'</span><br />'
                                                    :'<span class="firstDefine">!!!First definition of this value!!!</span><br />'
                                                    ;
@@ -681,17 +681,17 @@ switch ($panel)
                                     .'<span>'
                                     .'<input id="'.$property.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '.($htmlPropValue=='TRUE'?' checked="checked" ':' ').' >'
                                     .'<label for="'.$property.'_TRUE"  >'
-                                    .($toolConfProperties[$property]['acceptedValue']['TRUE' ]?$toolConfProperties[$property]['acceptedValue']['TRUE' ]:'TRUE' )
+                                    .($conf_def_property_list[$property]['acceptedValue']['TRUE' ]?$conf_def_property_list[$property]['acceptedValue']['TRUE' ]:'TRUE' )
                                     .'</label>'
                                     .'</span>'."\n"
                                     .'<span>'
-                                    .'<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '.($htmlPropValue=='TRUE'?' ':' checked="checked" ').' ><label for="'.$property.'_FALSE" >'.($toolConfProperties[$property]['acceptedValue']['FALSE']?$toolConfProperties[$property]['acceptedValue']['FALSE']:'FALSE').'</label></span>'."\n"
+                                    .'<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '.($htmlPropValue=='TRUE'?' ':' checked="checked" ').' ><label for="'.$property.'_FALSE" >'.($conf_def_property_list[$property]['acceptedValue']['FALSE']?$conf_def_property_list[$property]['acceptedValue']['FALSE']:'FALSE').'</label></span>'."\n"
                                     ;
                         		break;
                        	    case 'enum' : 
-                                $htmlPropDefault = isset($toolConfProperties[$property]['actualValue'])
+                                $htmlPropDefault = isset($conf_def_property_list[$property]['actualValue'])
                                                    ?'<span class="default"> Default : '
-                                                   .($toolConfProperties[$property]['acceptedValue'][$toolConfProperties[$property]['default']]?$toolConfProperties[$property]['acceptedValue'][$toolConfProperties[$property]['default']]:$toolConfProperties[$property]['default'] )
+                                                   .($conf_def_property_list[$property]['acceptedValue'][$conf_def_property_list[$property]['default']]?$conf_def_property_list[$property]['acceptedValue'][$conf_def_property_list[$property]['default']]:$conf_def_property_list[$property]['default'] )
                                                    .'</span><br />'
                                                    :'<span class="firstDefine">!!!First definition of this value!!!</span><br />'
                                                    ;
@@ -700,7 +700,7 @@ switch ($panel)
                                     .'</H2>'."\n"
                                     .$htmlPropDesc."\n"
                                     .$htmlPropDefault."\n";
-                                foreach($toolConfProperties[$property]['acceptedValue'] as  $keyVal => $labelVal)
+                                foreach($conf_def_property_list[$property]['acceptedValue'] as  $keyVal => $labelVal)
                                 {
                                     echo '<span>'
                                         .'<input id="'.$property.'_'.$keyVal.'"  type="radio" name="'.$htmlPropName.'" value="'.$keyVal.'"  '.($htmlPropValue==$keyVal?' checked="checked" ':' ').' >'
@@ -712,31 +712,31 @@ switch ($panel)
                         		
 //TYPE : integer, an integer is attempt
                         	case 'integer' : 
-                                $htmlPropDefault = isset($toolConfProperties[$property]['actualValue'])?'<span class="default"> Default : '.$toolConfProperties[$property]['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
+                                $htmlPropDefault = isset($conf_def_property_list[$property]['actualValue'])?'<span class="default"> Default : '.$conf_def_property_list[$property]['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
                                 echo '<H2>'
                                     .'<label for="'.$property.'">'
-                                    .$toolConfProperties[$property]['label']
+                                    .$conf_def_property_list[$property]['label']
                                     .'</label>'
                                     .'</H2>'."\n"
                                     .'<br>'."\n"
                                     .$htmlPropDesc."\n"
                                     .$htmlPropDefault."\n"
-                                    .'<input size="'.$size.'"  align="right" id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '.$toolConfProperties[$property]['type']."\n"
+                                    .'<input size="'.$size.'"  align="right" id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '.$conf_def_property_list[$property]['type']."\n"
                                     .'<br>'
                                     ;
                         		;
                         		break;
                         	default:
                         	// probably a string
-                                $htmlPropDefault = isset($toolConfProperties[$property]['actualValue'])?'<span class="default"> Default : '.$toolConfProperties[$property]['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
+                                $htmlPropDefault = isset($conf_def_property_list[$property]['actualValue'])?'<span class="default"> Default : '.$conf_def_property_list[$property]['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
                                 echo '<h2>'."\n"
                                     .'<label for="'.$property.'">'
-                                    .$toolConfProperties[$property]['label']
+                                    .$conf_def_property_list[$property]['label']
                                     .'</label>'."\n"
                                     .'</h2>'."\n"
                                     .$htmlPropDesc."\n"
                                     .$htmlPropDefault."\n"
-                                    .'<input size="'.$size.'"  id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '.$toolConfProperties[$property]['type']."\n"
+                                    .'<input size="'.$size.'"  id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '.$conf_def_property_list[$property]['type']."\n"
                                     .'<br>'."\n"
                                     ;
                         		;
@@ -769,14 +769,14 @@ switch ($panel)
             .$langBackToMenu
             .'</a>]</div>'
             ;
-        if (is_array($toolConf))
+        if (is_array($conf_def))
         {
-            echo (isset($toolConf['description'])?'<div class="toolDesc">'.$toolConf['description'].'</div><br />':'')                
+            echo (isset($conf_def['description'])?'<div class="toolDesc">'.$conf_def['description'].'</div><br />':'')                
                 .'<em><small><small>'.$confDef.'</small></small></em>'
                 ;
-            if (is_array($toolConf['section']) ) 
+            if (is_array($conf_def['section']) ) 
             {
-                foreach($toolConf['section'] as $section)
+                foreach($conf_def['section'] as $section)
                 {
                     echo '<FIELDSET>'
                         .'<LEGEND>'.$section['label'].'</LEGEND>'."\n"
@@ -785,15 +785,15 @@ switch ($panel)
                     if (is_array($section['properties']))
                     foreach($section['properties'] as $property )
                     {
-                        $htmlPropLabel = htmlentities($toolConfProperties[$property]['label']);
-                        $htmlPropDesc = ($toolConfProperties[$property]['description']?'<div class="propDesc">'.nl2br(htmlentities($toolConfProperties[$property]['description'])).'</div><br />':'');
-                        if ($toolConfProperties[$property]['container']=='CONST')
+                        $htmlPropLabel = htmlentities($conf_def_property_list[$property]['label']);
+                        $htmlPropDesc = ($conf_def_property_list[$property]['description']?'<div class="propDesc">'.nl2br(htmlentities($conf_def_property_list[$property]['description'])).'</div><br />':'');
+                        if ($conf_def_property_list[$property]['container']=='CONST')
                              eval('$htmlPropValue = '.$property.';');
                         else eval('$htmlPropValue = $'.$property.';');
-                        $htmlUnit = ($toolConfProperties[$property]['unit']?''.htmlentities($toolConfProperties[$property]['unit']):'');
+                        $htmlUnit = ($conf_def_property_list[$property]['unit']?''.htmlentities($conf_def_property_list[$property]['unit']):'');
                         echo '<H2>'
                             .$htmlPropLabel 
-                            .'('.$toolConfProperties[$property]['type'].')'
+                            .'('.$conf_def_property_list[$property]['type'].')'
                             .'</H2>'."\n"
                             .$htmlPropDesc."\n"
                             .'<em>'.$property.'</em>: '
@@ -801,7 +801,7 @@ switch ($panel)
                             ;
                     } // foreach($section['properties'] as $property )
                     echo '</FIELDSET><br>'."\n";
-                } //foreach($toolConf['section'] as $section)
+                } //foreach($conf_def['section'] as $section)
             }
             else
             {
@@ -838,7 +838,7 @@ switch ($panel)
 }
 
 //var_dump::display($_REQUEST);
-//var_dump::display($toolConf);
-//var_dump::display($toolConfProperties);
+//var_dump::display($conf_def);
+//var_dump::display($conf_def_property_list);
 include($includePath."/claro_init_footer.inc.php");
 ?>
