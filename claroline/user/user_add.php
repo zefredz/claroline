@@ -203,50 +203,48 @@ if($register)
 
 	if ($platformRegSucceed)
 	{
-
+	
 		$emailto       = "$nom_form $prenom_form <$email_form>";
-		$emailfromaddr = $administrator["email"];
-		$emailfromname = $siteName;
-		$emailsubject  = "$langYourReg $siteName";
-
-		$emailheaders  = "From: ".$administratorSurname." ".$administrator["name"]." <".$administrator["email"].">\n";
-		$emailheaders .= "Reply-To: ".$administrator["email"]."\n";
-		$emailheaders .= "X-Mailer: PHP/" . phpversion() . "\n";
-		$emailheaders .= "X-Sender-IP: $REMOTE_ADDR"; // (small security precaution...)
+		$emailSubject  = "$langYourReg $siteName";
+		$serverAddress = $rootWeb."index.php";
 
 		if ($courseRegSucceed)
 		{
-			$emailbody = "$langDear $prenom_form $nom_form,\n
+			$emailBody = "$langDear $prenom_form $nom_form,\n
       $langOneResp $currentCourseName $langRegYou $siteName $langSettings $username_form\n
       $langPass: $password_form\n
       $langAddress $siteName $langIs: $serverAddress\n
-      $langProblem\n
+      $langProblem\n\n
       $langFormula,\n
-      $administratorSurname ".$administrator["name"]."\n
-      $langManager $siteName\n
-      T. $telephone\n
-      $langEmail: $emailAdministrator\n";
+      $langAdministratorSurname ".$administrator["name"]."\n
+      $langManager $siteName\n";
+      if(! empty($administrator["phone"]) ) $emailBody .= "T. ".$administrator["phone"]."\n";
+      $emailBody .= $langEmail.": ".$administrator["email"]."\n";
 
 			$message = "$langTheU $prenom_form $nom_form $langAddedToCourse. "
 					  ."<a href=\"user.php\">$langBackUser</a>\n";
 		}
 		else
 		{
-			$emailbody = "$langDear  $prenom_form $nom_form,\n
+			$emailBody = "$langDear  $prenom_form $nom_form,\n
       $langYouAreReg $siteName $langSettings $username_form\n
       $langPass: $password_form\n
       $langAddress $siteName $langIs: $serverAddress\n
-      $langProblem\n
+      $langProblem\n\n
       $langFormula,\n
-      $administratorSurname ".$administrator["name"]."\n
-      $langManager $siteName\n
-      T. $telephone\n
-      $langEmail: $emailAdministrator\n";
+      $administratorSurname ".$administrator["name"]."\n\n
+      $langManager $siteName\n";
+      if(! empty($administrator["phone"]) ) $emailBody .= "T. ".$administrator["phone"]."\n";
+      $emailBody .= $langEmail.": ".$administrator["email"]."\n";
 
 			$message = "$prenom_form $nom_form Added to platform.";
 		}
 
-		@mail($emailto, $emailsubject, $emailbody, $emailheaders);
+		// include mail library only if we are sure to need it
+		include($includePath.'/lib/claro_mail.lib.inc.php');
+		
+		claro_mail_user($userId, $emailBody, $emailSubject);
+		
 
 		/*
 		 * remove <form> variables to prevent any pre-filled fields
