@@ -12,8 +12,8 @@
  *
  *
  * To  proposal here not actual in the script
- * 	- a bloc  is linked with agenda tool. To prupose big step in the course.
- *  	- a bloc  is linked with link tool.   To prupose important ressources in the course.
+ *     - a bloc  is linked with agenda tool. To prupose big step in the course.
+ *      - a bloc  is linked with link tool.   To prupose important ressources in the course.
  *
  */
 
@@ -21,7 +21,9 @@ $tlabelReq = "CLDSC___";
 
 $langFile = "course_description";
 require '../inc/claro_init_global.inc.php';
-
+if ( ! $_cid) claro_disp_select_course();
+$is_allowedToEdit = $is_courseAdmin;
+if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 $nameTools = $langCourseProgram;
 
@@ -32,57 +34,58 @@ $nameTools = $langCourseProgram;
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_course_description  = $tbl_cdb_names['course_description'];
 
-$is_allowedToEdit = $is_courseAdmin;
 //stats
 include($includePath."/lib/events.lib.inc.php");
 event_access_tool($_tid, $_SESSION['_courseTool']['label']);
-$sql = "SELECT `id`,`title`,`content` FROM `".$tbl_course_description."` order by id";
-$desc_bloc = claro_sql_query_fetch_all($sql);
 
-if (count($desc_bloc))
-{
-	
-}
-else
-{
-	$subtitle =	$langThisCourseDescriptionIsEmpty;
-}
-
-//////////////////////////////
-////////////OUTPUT////////////
-//////////////////////////////
-
-include($includePath."/claro_init_header.inc.php");
-if ( ! $is_courseAllowed) claro_disp_auth_form();
-claro_disp_tool_title(array("mainTitle"=>$nameTools,"subTitle"=>$subtitle));
-
-if ($is_allowedToEdit)
-{
-?>
-
-<form method="get" action="edit.php">
-<input type="submit" value="<?php echo $langEditCourseProgram ?>">
-</form>
-
-<?php
-}
-
-$sql     =  "SELECT `id`,`title`,`content` 
-             FROM `".$tbl_course_description."` order by id";
-
+$sql = "SELECT `id`, `title`, `content` 
+        FROM `".$tbl_course_description."` 
+        ORDER BY `id`";
 $blocList = claro_sql_query_fetch_all($sql);
 
 if (count($blocList))
 {
     foreach($blocList as $thisBloc)
     {
-        echo "<h4>".$thisBloc['title']."</h4>\n"
-            . claro_parse_user_text($thisBloc['content']);
+        $thisBloc['content'] = claro_parse_user_text($thisBloc['content']);
     }
 }
 else
 {
-    echo '<h4>'.$langThisCourseDescriptionIsEmpty.'</h4>';
+    $msg[][] = $langThisCourseDescriptionIsEmpty;
 }
+
+
+//////////////////////////////
+////////////OUTPUT////////////
+//////////////////////////////
+
+
+include($includePath."/claro_init_header.inc.php");
+
+claro_disp_tool_title(array("mainTitle"=>$nameTools));
+claro_disp_msg_arr($msg);
+if ($is_allowedToEdit)
+{
+?>
+<br>
+<form method="get" action="edit.php">
+<input type="submit" value="<?php echo $langEditCourseProgram ?>">
+</form>
+<?php
+}
+
+if (count($blocList))
+{
+    foreach($blocList as $thisBloc)
+    {
+        echo '<div >'
+            .(!empty($thisBloc['title'])?'<h4>'.$thisBloc['title'].'</h4>':'<!-- no title --><br>')."\n"
+            . $thisBloc['content']
+            .'</div>'."\n"
+            ;
+    }
+}
+
 include($includePath."/claro_init_footer.inc.php");
 ?>
