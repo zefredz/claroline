@@ -225,10 +225,10 @@ function get_def_file_list()
         // group of def list
 
         $defConfFileList['platform']['name'] = 'Platform';
-        $defConfFileList['course']['name'] = 'Course';
-        $defConfFileList['user']['name'] = 'User';
-        $defConfFileList['tool']['name'] = 'Tool';
-        $defConfFileList['others']['name'] = 'Others';
+        $defConfFileList['course']['name']   = 'Course';
+        $defConfFileList['user']['name']     = 'User';
+        $defConfFileList['tool']['name']     = 'Tool';
+        $defConfFileList['others']['name']   = 'Others';
 
         // Browse folder of definition file
 
@@ -243,7 +243,7 @@ function get_def_file_list()
                 {
                     $defConfFileList['platform']['conf'][$config_code] = get_conf_name($config_code);
                 }
-                elseif ( $config_code == 'CLADDCRS' || $config_code == 'CLCRSCONF' )
+                elseif ( $config_code == 'CLCRS')
                 {
                     $defConfFileList['course']['conf'][$config_code] = get_conf_name($config_code);
                 }
@@ -251,7 +251,7 @@ function get_def_file_list()
                 {
                     $defConfFileList['user']['conf'][$config_code] = get_conf_name($config_code);
                 }
-                elseif ( array_key_exists(str_pad($config_code,8,'_'),$toolNameList) )
+                elseif ( is_array($toolNameList) && array_key_exists(str_pad($config_code,8,'_'),$toolNameList) )
                 {
                     $defConfFileList['tool']['conf'][$config_code] = $toolNameList[str_pad($config_code,8,'_')];
                 }
