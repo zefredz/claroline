@@ -1016,20 +1016,35 @@ function claro_is_javascript_enabled()
 
 function claro_parse_user_text($userText)
 {
+   global $claro_texRenderePath;
+
+   if ($claro_texRendererPath)
+   {
+       $userText = str_replace('[tex]',
+                          '<img src="'.$claro_texRendererPath.'?',
+                          $userText);
+
+       $userText = str_replace('[/tex]',
+                           '">',
+                           $userText);   	
+   }
+   else
+   {
+       $userText = str_replace('[tex]',
+                              '<embed TYPE="application/x-techexplorer" texdata="',
+                              $userText);
+
+       $userText = str_replace('[/tex]',
+                               '" width="100%" pluginspace="http://www.integretechpub.com/">',
+                               $userText);
+   }
+
    if ( strpos($usertext, '<!-- content: html -->') === false )
    {
         // only if the content isn't HTML change new line to <br>
         // Note the '<!-- content: html -->' is introduced by HTML Area
         $userTex = nl2br($userText); 
    }
-
-   $userText = str_replace('[tex]',
-                          '<embed TYPE="application/x-techexplorer" texdata="',
-                          $userText);
-
-   $userText = str_replace('[/tex]',
-                           '" width="100%" pluginspace="http://www.integretechpub.com/">',
-                           $userText);
 
    return $userText;
 }
