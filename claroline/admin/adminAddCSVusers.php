@@ -161,7 +161,7 @@ switch ($cmd)
             }
         }
 	
-	// perform subscription of new users  
+	// perform subscription of "no error" new users  
 
         add_userlist($usersToAdd);
         
@@ -196,8 +196,12 @@ switch ($display)
 case "default" :
 
     $_SESSION['claro_CSV_done'] = FALSE;
+    
+    
 ?>
 <form enctype="multipart/form-data"  method="POST" action="<?php echo $PHP_SELF ?>"  >
+    <p></p>The expected format fro each of your CSV file is :<p>
+    <b>surname;name;email;phone;username;password;officialCode</b><br><br>
     <input type="file" name="CSVfile">
         <br><br>
     <input type="submit" name="submitCSV" value="<?php echo $langAddUserList; ?>">
