@@ -558,7 +558,19 @@ function get_conf_info($config_code)
                            WHERE `cfg`.config_code = "'.$config_code.'"';    
     
     $conf_info = claro_sql_query_fetch_all($sql_get_conf_info);
-    $conf_info[0]['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config_code))&&$conf_info[0]['config_hash'] != md5_file(claro_get_conf_file($config_code)));
+
+    $def_file = claro_get_conf_file($config_code);
+
+    if ( file_exists($def_file) && $conf_info[0]['config_hash'] != md5_file($def_file) )
+    {
+        $conf_info[0]['manual_edit'] = TRUE;
+
+    }
+    else
+    {
+        $conf_info[0]['manual_edit'] = FALSE;
+    }
+
     return $conf_info[0];
 }
 
