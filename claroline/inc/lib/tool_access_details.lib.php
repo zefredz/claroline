@@ -55,14 +55,14 @@ include($includePath."/lib/statsUtils.lib.inc.php");
         if (!isset($tool))
         {
             $sql = "SELECT `access_tid`, count( access_tid ) 
-                        FROM `$TABLETRACK_ACCESS`
+                        FROM `".$TABLETRACK_ACCESS."`
                         WHERE `access_tid` IS NOT NULL
                             ".$courseCodeEqualcidIfNeeded."
                         GROUP BY `access_tid`";
             echo "<tr><td>";  
             echo "<tr>
                     <td>
-                    <b>$langToolList</b>";
+                    <b>".$langToolList."</b>";
             if(isset($_cid)) echo " for <b>$_cid</b>";
             echo "       </td>
                 </tr>
@@ -107,8 +107,8 @@ include($includePath."/lib/statsUtils.lib.inc.php");
                 $reqdate = time();
             echo "<tr>
                     <td>
-                    <b>$tool</b>";
-            if(isset($_cid)) echo " for <b>$_cid</b>";
+                    <b>".$tool."</b>";
+            if(isset($_cid)) echo " for <b>".$_cid."</b>";
             echo " </td>
                 </tr>
             ";
