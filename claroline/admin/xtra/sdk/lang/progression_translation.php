@@ -1,4 +1,21 @@
-<?php
+<?php // $Id$
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+
+require '../../../../inc/claro_init_global.inc.php';
+
+// SECURITY CHECK
+
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 /*
  * This script display progression of all language.
@@ -17,13 +34,17 @@ $tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATI
 $starttime = get_time();
 
 // start content
-echo "<html>
-<head>
- <title>Display Progression of Translations</title>
-</head>
-<body>";
+$nameTools = 'Display Progression of Translations';
 
-echo "<h1>Display Progression of Translations</h1>\n";
+$urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
+$urlTranslation = $urlSDK . 'translation_index.php';
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[] = array ("url"=>$urlSDK, "name"=> $langSDK);
+$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> $langTranslationTools);
+
+include($includePath."/claro_init_header.inc.php");
+
+claro_disp_tool_title($nameTools);
 
 // count different variables in script
 $sql = " SELECT count(DISTINCT varName) 
@@ -47,7 +68,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
         $language = DEFAULT_LANGUAGE ;
     }
 
-    printf("<h2>Missing variables in %s</h2>",$language);
+    printf("<h4>Missing variables in %s</h4>",$language);
     printf("<p><a href=\"%s\">Back</a></p>",$_SERVER['PHP_SELF']);
     
     // count missing lang var in devel complete file for this language
@@ -63,11 +84,11 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     $result_missing_var = mysql_query($sql);
 	
     // display table header
-    echo "<table border=\"1\">\n";
+    echo "<table class=\"claroTable\" >\n";
     echo "<thead>"
-	     . "<tr style=\"background-color: #a1e1ff;\">"
-         . "<td>VarName</td>"
-	     . "<td>SourceFile</td>"
+	     . "<tr class=\"headerX\">"
+         . "<th>VarName</th>"
+	     . "<th>SourceFile</th>"
 	     . "</tr>"
          . "</thead>"
 	     . "<tbody>\n";
@@ -120,13 +141,13 @@ else
 	
 
     // display table header
-	echo "<table border=\"1\">\n";
+	echo "<table class=\"claroTable\">\n";
 	echo "<thead>
-	      <tr style=\"background-color: #a1e1ff\">
-	       <td>Language</td>
-	       <td>Translated</td>
-	       <td>To translate</td>
-	       <td>Complete %</td>
+	      <tr class=\"headerX\">
+	       <th>Language</th>
+	       <th>Translated</th>
+	       <th>To translate</th>
+	       <th>Complete %</th>
 	      </tr>
 	      </thead>
 	      <tbody>\n";
@@ -180,6 +201,7 @@ $totaltime = ($endtime - $starttime);
 echo "<p><em>Execution time: $totaltime</em></p>";
 
 // display footer 
-echo "</body></html>";
+
+include($includePath."/claro_init_footer.inc.php");
 
 ?>

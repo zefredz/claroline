@@ -1,4 +1,22 @@
-<?php
+<?php // $Id$
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+
+require '../../../../inc/claro_init_global.inc.php';
+
+// SECURITY CHECK
+
+if (!$is_platformAdmin) claro_disp_auth_form();
+
 set_time_limit (0);
 
 /*
@@ -21,13 +39,18 @@ $tbl_used_lang = '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_USED_LANG_VA
 $starttime = get_time();
 
 // Start content
-echo "<html>
-<head>
- <title>Extract variables from scripts</title>
-</head>
-<body>";
 
-echo "<h1>Extract variables from scripts</h1>\n";
+$nameTools = 'Extract variables from scripts';
+
+$urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
+$urlTranslation = $urlSDK . 'translation_index.php';
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[] = array ("url"=>$urlSDK, "name"=> $langSDK);
+$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> $langTranslationTools);
+
+include($includePath."/claro_init_header.inc.php");
+
+claro_disp_tool_title($nameTools);
 
 // drop table if exists 
 
@@ -63,7 +86,7 @@ $total_var_count = 0;
 foreach ($files as $file)
 {
 
-	echo "<h3>" . $file . "</h3>\n";
+	echo "<h4>" . $file . "</h4>\n";
    
 	// extract variables
     
@@ -92,6 +115,8 @@ $totaltime = ($endtime - $starttime);
 
 echo "<p><em>Execution time: $totaltime</em></p>\n";
 
-echo "</body>\n</html>\n";
+// display footer
+
+include($includePath."/claro_init_footer.inc.php");
 
 ?>

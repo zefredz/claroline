@@ -16,14 +16,13 @@ $gidReset=true;
 
 require '../../../inc/claro_init_global.inc.php';
 include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/admin.lib.inc.php");
 
 $nameTools = $langTranslationTools;
 $urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
 
 // SECURITY CHECK
 
-if (!$is_platformAdmin) treatNotAuthorized();
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 // DISPLAY
 

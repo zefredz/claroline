@@ -1,4 +1,21 @@
-<?php
+<?php // $Id$
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+
+require '../../../../inc/claro_init_global.inc.php';
+
+// SECURITY CHECK
+
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 /*
  * This script displays all the variables 
@@ -19,13 +36,17 @@ $tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATI
 $starttime = get_time();
 
 // start content
-echo "<html>
-<head>
- <title>Display different variables with the same content</title>
-</head>
-<body>";
+$nameTools = 'Display different variables with the same content';
 
-echo "<h1>Display different variables with the same content</h1>\n";
+$urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
+$urlTranslation = $urlSDK . 'translation_index.php';
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[] = array ("url"=>$urlSDK, "name"=> $langSDK);
+$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> $langTranslationTools);
+
+include($includePath."/claro_init_header.inc.php");
+
+claro_disp_tool_title($nameTools);
 
 // start form
 
@@ -85,14 +106,17 @@ $results = mysql_query($sql) or die($problemMessage);
 
 // display table header 
 
-echo "<table border=\"1\">
-<tr>
-<td>N°</td>
-<td>language</td>
-<td>varName</td>
-<td>varContent</td>
-<td>sourceFile</td>
-</tr>";
+echo "<table class=\"claroTable\">
+<thead>
+<tr class=\"headerX\">
+<th>N°</th>
+<th>language</th>
+<th>varName</th>
+<th>varContent</th>
+<th>sourceFile</th>
+</tr>
+</thead>
+<tbody>";
 
 $varContent="";
 $i = 0;
@@ -121,7 +145,7 @@ while($result=mysql_fetch_array($results))
      echo "</tr>";
 }
 
-echo "</table>";
+echo "</tbody>\n</table>\n";
 
 // get end time
 $endtime = get_time();
@@ -131,6 +155,6 @@ echo "<p><em>Execution time: $totaltime</em></p>";
 
 // display footer 
 
-echo "</body></html>";
+include($includePath."/claro_init_footer.inc.php");
 
 ?>

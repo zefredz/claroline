@@ -1,4 +1,21 @@
-<?php
+<?php // $Id$
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+
+require '../../../../inc/claro_init_global.inc.php';
+
+// SECURITY CHECK
+
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 /*
  * This script build production lang files for all languages.
@@ -17,13 +34,17 @@ $tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATI
 $starttime = get_time();
 
 // start html content
-echo "<html>
-<head>
- <title>Build production language files</title>
-</head>
-<body>";
+$nameTools = 'Build production language files';
 
-echo "<h1>Build production language files</h1>\n";
+$urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
+$urlTranslation = $urlSDK . 'translation_index.php';
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[] = array ("url"=>$urlSDK, "name"=> $langSDK);
+$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> $langTranslationTools);
+
+include($includePath."/claro_init_header.inc.php");
+
+claro_disp_tool_title($nameTools);
 
 // go to lang folder 
 $path_lang = $rootSys . "claroline/lang";
@@ -83,8 +104,7 @@ if (isset($_REQUEST['language']))
     $language = $_REQUEST['language'];
     $path = $languagePath[$language];
 
-    echo "<h3>in " . $language . "</h3>\n";
-    echo "<p>\n";
+    echo "<h4>in " . $language . "</h4>\n";
     
     // move in the language folder
     chdir ($path);	
@@ -124,14 +144,16 @@ if (isset($_REQUEST['language']))
 
 	if (count($languageVarList) > 0)
 	{
+
+        echo "<ol>\n";
 	
         foreach ($languageVarList as $thisLanguageFilename => $thisLangVarList)
         {
-
+            echo "<li>";
             // add extension to file
             $languageFile =  $thisLanguageFilename . '.lang.php';
 
-            echo "Create file: " . $path . "/" . $languageFile . "<br />\n";
+            echo "Create file: " . $path . "/" . $languageFile;
 
             // open in write access language file
 	        $fileHandle = fopen($languageFile, 'w') or die("FILE OPEN FAILED: ". __LINE__);	
@@ -154,12 +176,12 @@ if (isset($_REQUEST['language']))
 		        fwrite($fileHandle, "?>");
             }
     		fclose($fileHandle) or die ("FILE CLOSE FAILED: ". __LINE__);
+            echo "</li>\n";
         }
+        echo "</ol>\n";
 	}
 
-	echo "</p>";
-}    
-
+}
 
 // get end time
 $endtime = get_time();
@@ -167,6 +189,8 @@ $totaltime = ($endtime - $starttime);
 
 echo "<p><em>Execution time: $totaltime</em></p>\n";
 
-echo "</body>\n</html>\n";
+// display footer
+
+include($includePath."/claro_init_footer.inc.php");
 
 ?>

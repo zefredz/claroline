@@ -1,4 +1,21 @@
-<?php
+<?php // $Id$
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+
+require '../../../../inc/claro_init_global.inc.php';
+
+// SECURITY CHECK
+
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 /*
  * This script retrieves all the existing translation of an existing Claroline
@@ -21,13 +38,17 @@ $starttime = get_time();
 
 // Start content
 
-echo "<html>
-<head>
- <title>Extract variables from language files</title>
-</head>
-<body>";
+$nameTools = 'Extract variables from language files';
 
-echo "<h1>Extract variables from language files</h1>\n";
+$urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
+$urlTranslation = $urlSDK . 'translation_index.php';
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[] = array ("url"=>$urlSDK, "name"=> $langSDK);
+$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> $langTranslationTools);
+
+include($includePath."/claro_init_header.inc.php");
+
+claro_disp_tool_title($nameTools);
 
 // drop table if exists
 
@@ -77,7 +98,7 @@ if ( sizeof($languageList) > 0)
 {
 	foreach($languageList as $thisLangList)
 	{
-        echo "<h3>" . $thisLangList['name'] . "</h3>\n";
+        echo "<h4>" . $thisLangList['name'] . "</h4>\n";
         glance_through_dir_lang($thisLangList['path'], $thisLangList['name']);
         echo "<hr />\n";
 	}
@@ -90,6 +111,8 @@ $totaltime = ($endtime - $starttime);
 
 echo "<p><em>Execution time: $totaltime</em></p>\n";
 
-echo "</body>\n</html>\n";
+// display footer
+
+include($includePath."/claro_init_footer.inc.php");
 
 ?>
