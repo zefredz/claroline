@@ -234,8 +234,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             echo "<tr><td>";
             echo $informationsAbout." : <br>";
             echo "<ul>\n"
-                    ."<li>".$langFirstName." : ".$res[0]."</li>\n"
                     ."<li>".$langLastName." : ".$res[1]."</li>\n"
+                    ."<li>".$langFirstName." : ".$res[0]."</li>\n"
                     ."<li>".$langEmail." : ".$res2."</li>\n"
                     ."</ul>";
             echo "</td></tr>";
