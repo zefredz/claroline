@@ -1,8 +1,24 @@
 <?php // $Id$
+/**
+ * @version CLAROLINE 1.6.*
+ * ----------------------------------------------------------------------
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * ----------------------------------------------------------------------
+ * @license GENERAL PUBLIC LICENSE (GPL)
+ * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * ----------------------------------------------------------------------
+ * @author Sébastien Piraux <pir@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * ----------------------------------------------------------------------
+ * This tool run some check to detect abnormal situation
+ */
+
 require '../inc/claro_init_global.inc.php';
 $interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
 
-$nameTools = $langStatsOfCampus;
+$nameTools = $langViewPlatFormError;
 
 $htmlHeadXtra[] = "
 <style media='print' type='text/css'>
