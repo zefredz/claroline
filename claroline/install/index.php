@@ -851,7 +851,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
                     <tr>
                         <td>
 
-                            <input type="submit" name="cmdDB_CONNECT_SETTING" value="&lt; Back">
+                            <input type="submit" name="cmdLicence" value="&lt; Back">
                             <!-- input type="submit" name="cmdFILE_SYSTEM_SETTING" value="&lt; Back" -->
                         </td>
                         <td >
