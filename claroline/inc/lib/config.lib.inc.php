@@ -391,7 +391,7 @@ function get_tool_name($claro_label)
 function get_config_name($config_code)
 {
     unset($conf_def);
-    $include_def_file = claro_get_def_file($config_code));
+    $include_def_file = claro_get_def_file($config_code);
     @include($include_def_file);
     return (isset($conf_def['config_name'])
             ? $conf_def['config_name']
