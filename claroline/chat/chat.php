@@ -27,7 +27,7 @@ if (is_array($paramList))
 
 	<frameset rows="*,*,*" marginwidth="0" frameborder="NO" border="0">
 		<frame src="chat_header.php" name="topBanner">
-		<frame src="messageList.php<?php echo $paramLine ?>" name="messageList">
+		<frame src="messageList.php#final<?php echo $paramLine ?>" name="messageList">
 		<frame src="messageEditor.php" name="messageEditor">
 	</frameset>
 
