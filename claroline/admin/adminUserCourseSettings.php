@@ -64,9 +64,8 @@ $user_id = $_REQUEST['uidToEdit'];
 switch (isset($cmd))
 {
    case "changeStatus" :
-
-
-        if ($status_form == "teacher")
+	
+	if ($status_form == "teacher")
         {
             $properties['status'] = 1;
             $properties['role']   = "Professor";
@@ -80,7 +79,6 @@ switch (isset($cmd))
             {
                $dialogBox = $langStatusChangeNotMade;
             }
-
         }
         if ($status_form == "student")
         {
@@ -159,7 +157,7 @@ if(isset($user_id))
 
 claro_disp_tool_title($nameTools." : ".$courseList['intitule']);
 
-  //subttitle
+  //subtitle
 ?>
 <h4><?php echo $langUser." : ".$prenom_form." ".$nom_form; ?></h4>
 <?php
