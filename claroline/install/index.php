@@ -15,7 +15,7 @@
 /*
 GOAL : install claroline 1.5.* on server
 */
-
+$langAdminSetting ="Admin Setting";
 /* LET DEFINE ON SEPARATE LINES !!!*/
 // __LINE__ use to have arbitrary number
 define ("DISP_WELCOME",__LINE__);
@@ -52,6 +52,22 @@ include ("../lang/english/install.inc.php");
 
 include ($newIncludePath."lib/auth.lib.inc.php"); // to generate pass and to cryto it if needed
 include ($newIncludePath."lib/config.lib.inc.php");
+
+
+/* DISPLAY ORDER */
+
+$display_order = array
+(	DISP_WELCOME, 
+	DISP_LICENCE,
+	DISP_DB_CONNECT_SETTING,
+	DISP_DB_NAMES_SETTING,
+	DISP_ADMIN_SETTING,
+	DISP_CONFIG_SETTING,
+	DISP_LAST_CHECK_BEFORE_INSTALL,
+	DISP_RUN_INSTALL_NOT_COMPLETE,
+	DISP_RUN_INSTALL_COMPLETE);
+
+
 
 ##### STEP 0 INITIALISE FORM VARIABLES IF FIRST VISIT ##################
 //$rootSys="'.realpath($pathForm).'";
@@ -353,7 +369,7 @@ elseif($_REQUEST['doInstall'])
 	$fd=@fopen($configFilePath, "w");
 	if (!$fd)
 	{
-		$fileSystemRightMissing = true;
+		$fileConfigCreationError = true;
 		$display=DISP_RUN_INSTALL_NOT_COMPLETE;
 	}
 	else
@@ -897,7 +913,7 @@ if ($display==DISP_WELCOME)
 {
 	echo "
 <h2>
-	".$langStep1." : ".$langRequirements."
+	".$langRequirements."
 </h2>";
 	// check if an claroline configuration file doesn't already exists.
 	if (
@@ -1056,7 +1072,7 @@ elseif($display==DISP_LICENCE)
 {
 	echo "
 				<h2>
-					".$langStep2." : ".$langLicence."
+					 ".$langLicence."
 				</h2>
 				<P>
 				Claroline is free software, distributed under GNU General Public licence (GPL).
@@ -1093,7 +1109,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 
 	echo "
 				<h2>
-					".$langStep3." : ".$langDBSetting." 1/2
+					".$langDBSetting." 
 				</h2>
 				
 			</td>
@@ -1187,7 +1203,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 
 	echo "
 				<h2>
-					".$langStep4." : ".$langDBSetting." 2/2
+					MySQL Names
 				</h2>
 				".($singleDbForm?"":$langDBSettingNamesIntro)."
 			</td>
@@ -1289,7 +1305,7 @@ elseif($display==DISP_ADMIN_SETTING)
 {
 	echo "
 				<h2>
-					".$langStep5." : ".$langAdminSetting."
+					".$langAdminSetting."
 				</h2>
 				The following values will be written in '<em>".$configFilePath."</em>'
 			</td>
@@ -1363,7 +1379,7 @@ elseif($display==DISP_CONFIG_SETTING)
 {
 	echo "
 				<h2>
-					".$langStep5." : ".$langCfgSetting."
+					".$langCfgSetting."
 				</h2>
 				The following values will be written in '<em>".$configFilePath."</em>'
 			</td>
@@ -1579,7 +1595,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 		<table width="100%">
 			<tr>
 				<td>
-					<input type="submit" name="back4" value="< Back">
+					<input type="submit" name="CONFIG_SETTING" value="< Back">
 				</td>
 				<td align="right">
 					<input type="submit" name="doInstall" value="Install Claroline >">
@@ -1653,14 +1669,18 @@ elseif($display==DISP_RUN_INSTALL_NOT_COMPLETE)
 		echo "<BR>Error on creation : file <EM>".$htAccessName."</EM> in <U>".realpath($htAccessPath)."</U><br>";
 	if($filePasswordCreationError)
 		echo "<BR>Error on creation : file <EM>".$htPasswordName."</EM> in <U>".realpath($htPasswordPath)."</U><br>";
-
-
-	if ($fileSystemRightMissing)
+	if ($fileConfigCreationError)
 	echo "
 	<b>
-	<font color=\"red\">
-	Your script doesn't have write access to the config directory</font><br>
-	<SMALL><EM>(".realpath("../inc/").")</EM></SMALL></b><br><br>
+		<font color=\"red\">
+			Probably, your script doesn't have write access to the config directory
+		</font>
+		<br>
+		<SMALL>
+			<EM>(".realpath("../inc/conf/").")</EM>
+		</SMALL>
+	</b>
+	<br><br>
 	You probably do not have write access on claroline root directory,
 	i.e. you should <EM>CHMOD 777</EM> or <EM>755</EM> or <EM>775</EM><br><br>
 
@@ -1705,12 +1725,12 @@ Your problems can be related on two possible causes :<br>
 				</p>";
 
 }
-###### STEP 6 DO INSTALL !##############################################
+###### STEP RUN_INSTALL_COMPLETE !##############################################
 elseif($display==DISP_RUN_INSTALL_COMPLETE)
 {
-	echo "
+?>
 			<h2>
-				".$langStep6." : ".$langCfgSetting."
+				<?php echo $langCfgSetting ?>
 			</h2>
 			<br>
 			<br>
@@ -1718,14 +1738,14 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 			is to register with the option 'Create course websites' and then follow the way.
 			<br>
 			<br><b>
-			Security advice: To protect your site, make '".$configFileName."'
+			Security advice: To protect your site, make '<?php echo $configFileName ?>'
 			and 'claroline/install/index.php' read-only (CHMOD 444).</b>
 </form>
-<form action=\"../../\">
-		<input type=\"submit\" value=\"Go to your newly created campus\">
+<form action="../../">
+		<input type="submit" value="Go to your newly created campus">
 </form>
-";
-}	// STEP 6 of 6 END
+<?php
+}	// STEP RUN_INSTALL_COMPLETE
 
 else
 {
