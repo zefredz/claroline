@@ -193,6 +193,7 @@ function get_last_post($id, $type)
 /**
  * Returns an array of all the moderators of a forum
  */
+
 function get_moderators($forum_id, $db)
 {
 	global $tbl_users, $tbl_forum_mods;

@@ -58,7 +58,7 @@ if($myrow = mysql_fetch_array($result)) {
 			echo "<TD><FONT FACE=\"$FontFace\" SIZE=\"$FontSize2\" COLOR=\"$textcolor\"><a href=\"$url_phpbb/index.$phpEx\">Forum Index</a></FONT></TD>\n";
 		}
 		else {
-			$forum = get_forum_name($myrow[forum], $db);
+			$forum = get_forum_name($myrow[forum]);
 			echo "<TD><FONT FACE=\"$FontFace\" SIZE=\"$FontSize2\" COLOR=\"$textcolor\"><a href=\"$url_phpbb/viewforum.$phpEx?forum=$myrow[forum]\">$forum</a></FONT>";
 		}
 		echo "</TR>\n";
