@@ -15,6 +15,7 @@
 
 define ('LANG_COMPLETE_FILENAME','complete.lang.php'); 
 define ('LANG_MISSING_FILENAME','missing.lang.php'); 
+define ('LANG_EMPTY_FILENAME','new.lang.txt'); 
 
 // Default values 
 
