@@ -61,7 +61,7 @@ $is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
 // ----- is install visible ----- begin
 if ( file_exists("../install/index.php") && ! file_exists("../install/.htaccess"))
 {
-     $controlMsg = '<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server.';
+     $controlMsg = '<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server';
 }
 // ----- is install visible ----- end
 
@@ -78,7 +78,7 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <li>
 <form name="searchUser" action="adminusers.php" method="GET" >
 <?php echo$langSearchUser?> : <input name="search"></input> <input type="submit" value=" Ok ">
-&nbsp;&nbsp;<a href="advancedUserSearch.php">[<?php echo$langAdvanced?>]</a>
+&nbsp;&nbsp;[<a href="advancedUserSearch.php"><?php echo$langAdvanced?></a>]
 </form>
 </li>
 <li>
@@ -91,7 +91,7 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <li>
 <form name="searchCourse" action="admincourses.php" method="GET" >
 <?php echo$langSearchCourse?> : <input name="search"></input> <input type="submit" value=" Ok ">
-&nbsp; &nbsp;<a href="advancedCourseSearch.php">[<?php echo$langAdvanced?>]</a>
+&nbsp; &nbsp;[<a href="advancedCourseSearch.php"><?php echo$langAdvanced?></a>]
 </form>
 </li>
 <li>
