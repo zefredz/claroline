@@ -156,7 +156,6 @@ $l_itemsreq	= "Items marked with a * are required";
 // Viewforum
 $l_viewforum	= "Visualitza Fòrum";
 $l_notopics	= "No hi ha tòpics per a aquest fòrum. Pots publicar-ne un.";
-$l_hotthres	= "Més de $hot_threshold $l_posts";
 $l_islocked	= "$l_topic es troba bloquejat (No es pot fer cap $l_post nova en ell)";
 $l_moderatedby	= "Moderat per";
 
@@ -196,10 +195,6 @@ $l_memberslist	= "Llistat de Membres";
 $l_faq		= "FAQ";
 $l_privmsgs	= "Private $l_messages";
 $l_sendpmsg	= "Send a Private Message";
-$l_statsblock   = '$statsblock = "Our users have posted a total of -$total_posts- $l_messages.<br>
-We have -$total_users- Registered Users.<br>
-The newest Registered User is -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"user is":"users are") ." <a href=\"$online_url\">currently browsing</a> the forums.<br>";';
 
 // Page_tail
 $l_adminpanel	= "Panell d'administració";

@@ -156,7 +156,6 @@ $l_itemsreq	= "Item yang ditandai   * wajib diisi";
 // Viewforum
 $l_viewforum	= "Lihat Forum";
 $l_notopics	= "Tidak ada topik untuk forum ini.  Anda dapat membuat-nya .";
-$l_hotthres	= "Lebih dari  $hot_threshold $l_posts";
 $l_islocked	= "$l_topic dikunci ( $l_posts baru tidak diperkenankan)";
 $l_moderatedby	= "Moderator oleh";
 
@@ -196,10 +195,6 @@ $l_memberslist	= "Daftar Anggota";
 $l_faq		= "FAQ";
 $l_privmsgs	= "$l_messages Privat";
 $l_sendpmsg	= "Kirim Pesan Privat";
-$l_statsblock   = '$statsblock = "User kami telah memposkan sejumlah  -$total_posts- $l_messages.<br>
-Kami memiliki -$total_users- User yang terdaftar.<br>
-User terbaru yang terdaftar adalah -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"user adalah":"user-user adalah ") ." <a href=\"$online_url\">kini sedang browsing</a> forum ini.<br>";';
 
 // Page_tail
 $l_adminpanel	= "Panel Administrasi";

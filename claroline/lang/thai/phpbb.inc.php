@@ -162,7 +162,6 @@ $l_itemsreq	= "ช่องที่มีเครื่องหมาย * ต้องใส่ข้อมูลให้ครบ";
 // Viewforum
 $l_viewforum	= "ดูกระดานข่าว";
 $l_notopics	= "ไม่มีกระทู้สำหรับกระดานข่าวนี้ คุณสามารถตั้งกระทู้ใหม่ได้";
-$l_hotthres	= "หัวข้อ$hot_threshold $l_posts";
 $l_islocked	= "$l_topic ล็อค (ไม่มี $l_posts )";
 $l_moderatedby	= "ดูแลโดย";
 
@@ -202,10 +201,6 @@ $l_memberslist	= "รายชื่อสมาชิก";
 $l_faq		= "FAQ";
 $l_privmsgs	= "$l_messages ส่วนตัว";
 $l_sendpmsg	= "ส่งข้อความส่วนตัว";
-$l_statsblock   = '$statsblock = "สมาชิกของเราโพสข้อความไว้ทั้งหมด -$total_posts- $l_messages.<br>
-เรามี -$total_users- สมาชิกที่ลงทะเบียน<br>
-สมาชิกผู้ลงทะเบียนใหม่ล่าสุดคือ -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"user is":"users are") ." <a href=\"$online_url\">currently browsing</a> the forums.<br>";';
 
 // Page_tail
 $l_adminpanel	= "Administration Panel";

@@ -158,7 +158,6 @@ $l_itemsreq	= "Поля, отмеченные * обязательны";
 // Viewforum
 $l_viewforum	= "Зайти в форум";
 $l_notopics	= "В этом форуме нет тем. Вы можете начать новую тему.";
-$l_hotthres	= "Больше нет $hot_threshold $l_posts";
 $l_islocked	= "$l_topic закрыт. (нельзя расместить новые $l_posts)";
 $l_moderatedby	= "Модератор:";
 
@@ -199,11 +198,6 @@ $l_memberslist	= "Список участников";
 $l_faq		= "FAQ";
 $l_privmsgs	= "частные $l_messages";
 $l_sendpmsg	= "Отправить частное сообщение";
-$l_statsblock   = '$statsblock = "Наши участники отправили -$total_posts- $l_messages.<br>
-У нас -$total_users- зарегистрированных участников.<br>
-Последний зарегистрированный участник -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"участник":"участники") ." 
-<a href=\"$online_url\">сейчас</a> в этих форумах.<br>";';
 
 // Page_tail
 $l_adminpanel	= "Администрирование";

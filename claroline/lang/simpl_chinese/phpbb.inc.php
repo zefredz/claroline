@@ -161,7 +161,6 @@ $l_itemsreq	= "有 * 标记的是必填项.";
 // Viewforum
 $l_viewforum	= "阅读论坛.";
 $l_notopics	= "这个论坛没有话题,您可以张贴一个新话题.";
-$l_hotthres	= "More then $hot_threshold $l_posts";
 $l_islocked	= "$l_topic 被锁定, (禁止新 $l_posts 张贴于此)";
 $l_moderatedby	= "协调者";
 
@@ -201,10 +200,6 @@ $l_memberslist	= "成员列表";
 $l_faq		= "常见问题及解答";
 $l_privmsgs	= "内部 $l_messages";
 $l_sendpmsg	= "发送内部消息";
-$l_statsblock   = '$statsblock = "用户总计张贴 -$total_posts- $l_messages.<br>
-注册用户 -$total_users- 人.<br>
-最近注册用户: -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"user is":"users are") ." <a href=\"$online_url\">浏览</a> 论坛.<br>";';
 
 // Page_tail
 $l_adminpanel	= "管理面板";

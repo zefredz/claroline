@@ -156,7 +156,6 @@ $l_itemsreq	= "Poster markeret med en * er obligatoriske";
 // Viewforum
 $l_viewforum	= "Se Forum";
 $l_notopics	= "Der er ingen emner til dette forum. Du kan indsende et.";
-$l_hotthres	= "More then $hot_threshold $l_posts";
 $l_islocked	= "Emnet er lukket (Ingen nye indlæg må lægges ind)";
 $l_moderatedby	= "Modereret af";
 
@@ -196,10 +195,6 @@ $l_memberslist	= "Medlemsliste";
 $l_faq		= "FAQ";
 $l_privmsgs	= "Private $l_messages";
 $l_sendpmsg	= "Send en Privat besked";
-$l_statsblock   = '$statsblock = "Vores deltagere har indsendt i alt -$total_posts- $l_messages.<br>
-Vi har -$total_users- Registrerede deltagere.<br>
-Sidste nye registrerede deltager er -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"deltager er":"deltagerne er") ." <a href=\"$online_url\">browser lige nu</a> diskussionsforum.<br>";';
 
 // Page_tail
 $l_adminpanel	= "Administrationspanel";

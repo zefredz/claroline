@@ -159,7 +159,6 @@ $l_itemsreq	= "*-merkityt kohdat on täyettävä.";
 
 $l_viewforum	= "Katso foorumit";
 $l_notopics	= "Tässä fooumissa ei ole aiheita. Voit lähettää jonkin.";
-$l_hotthres	= "Enemmän kuin $hot_threshold $l_posts";
 $l_islocked	= "$l_topic on lukittu (Ei uusia $l_posts ole lähetetty siihen)";
 $l_moderatedby	= "Muokannut: ";
 
@@ -202,12 +201,6 @@ $l_memberslist	= "Jäsenlista";
 $l_faq		= "FAQ";
 $l_privmsgs	= "Yksityinen $l_messages";
 $l_sendpmsg	= "Lähetä yksityinen viesti";
-$l_statsblock   = '$statsblock = "Käyttäjät ovat lähettäneet kaikkiaan viestejä: -$total_posts- $l_messages.<br>
-                   Käyttäjiä on -$total_users- rekisteröityneitä käyttäjiä.<br>
-                   Uusin rekisteröitynyt käyttäjä on -<a href=\"$profile_url\">$newest_user</a>-.<br> -$users_online- ".
-                   ($users_online==1?"Käyttäjä on":"Käyttäjät ovat") ."
-                   <a href=\"$online_url\">parhaillaan selaavat</a> foorumeita.<br>";';
-
 
 // Page_tail
 

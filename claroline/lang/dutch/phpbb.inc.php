@@ -158,7 +158,6 @@ $l_itemsreq	= "De velden met een * moeten ingevuld worden";
 // Viewforum
 $l_viewforum	= "Bekijk Forum";
 $l_notopics	= "Er zijn geen onderwerpen in dit forum.";
-$l_hotthres	= "Geen $hot_threshold $l_posts";
 $l_islocked	= "$l_topic is afgesloten (Er kunnen geen nieuwe $l_posts opgestuurd worden)";
 $l_moderatedby	= "Gemodereerd door";
 
@@ -198,10 +197,7 @@ $l_memberslist	= "Gebruikerslijst";
 $l_faq		= "FAQ";
 $l_privmsgs	= "Privé $l_messages";
 $l_sendpmsg	= "Privé-bericht indienen";
-$l_statsblock   = '$statsblock = "Onze gebruikers hebben een totaal van -$total_posts- $l_messages.<br>
-We hebben -$total_users- geregistreerde gebruikers.<br>
-De meeste recente geregistreede gebruiker is -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"gebruiker is":"gebruikers zijn") ." <a href=\"$online_url\">nu</a> op dit forum.<br>";';
+
 
 // Page_tail
 $l_adminpanel	= "Administratiepaneel";

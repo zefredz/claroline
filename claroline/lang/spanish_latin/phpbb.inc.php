@@ -175,7 +175,6 @@ $l_itemsreq	= "Los campos marcados con * son obligatorios";
 // Viewforum
 $l_viewforum	= "Ver Foro";
 $l_notopics	= "No hay temas para este foro. Usted puede proponer uno.";
-$l_hotthres	= "M&aacute;s de $hot_threshold $l_posts";
 $l_islocked	= "$l_topic esta Cerrado (No pueden enviarse nuevos $l_posts )";
 $l_moderatedby	= "Moderado por";
 
@@ -215,10 +214,6 @@ $l_memberslist	= "Lista de usuarios";
 $l_faq		= "FAQ (respuestas a preguntas frecuentes)";
 $l_privmsgs	= "$l_messages Privados";
 $l_sendpmsg	= "Enviar un mensaje privado";
-$l_statsblock   = '$statsblock = "Nuestros usuarios han enviado un total de -$total_posts- $l_messages.<br>
-Hay -$total_users- Usuarios Registrados.<br>
-El usuario registrado m&aacute;s recientemente es -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"usuario es":"usuarios son") ." <a href=\"$online_url\">actualmente</a> en los foros.<br>";';
 
 // Page_tail
 $l_adminpanel	= "Panel de administraci&oacute;n";

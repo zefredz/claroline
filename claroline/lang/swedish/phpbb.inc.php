@@ -162,7 +162,6 @@ $l_itemsreq	= "Fält markerade med * måste fyllas i";
 // Viewforum
 $l_viewforum	= "Visa forum";
 $l_notopics	= "Det finns inte några inlägg i detta forum, men du kan göra ett.";
-$l_hotthres	= "Fler än $hot_threshold $l_posts";
 $l_islocked	= "Ämnet är låst (Inga nya $l_posts kan göras här)";
 $l_moderatedby	= "Modererad av";
 
@@ -202,10 +201,6 @@ $l_memberslist	= "Medlemslista";
 $l_faq		= "FAQ";
 $l_privmsgs	= "Privata meddelanden";
 $l_sendpmsg	= "Skicka ett privat meddelande";
-$l_statsblock   = '$statsblock = "Våra användare har totalt postat -$total_posts- $l_messages.<br>
-Vi har -$total_users- registrerade medlemmar.<br>
-Den senast registrerade medlemmen är -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"användare":"användare") ." <a href=\"$online_url\">läser förnärvarande</a> i forumen.<br>";';
 
 // Page_tail
 $l_adminpanel	= "Administration";

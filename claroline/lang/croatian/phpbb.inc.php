@@ -155,7 +155,6 @@ $l_itemsreq	= "Stavke oznaèene sa * su pretpostavljene";
 // Viewforum
 $l_viewforum	= "Vidi Forum";
 $l_notopics	= "Nema tema za ovaj forum. Možete poslati jednu.";
-$l_hotthres	= "Više od $hot_threshold $l_posts";
 $l_islocked	= "$l_topic je zakljuèana (Nema novih poruka $l_posts stvorenih u njoj)";
 $l_moderatedby	= "Moderirano od";
 
@@ -197,10 +196,6 @@ $l_sendpmsg	= "Pošalji Privatnu poruku";
 
 
 
-$l_statsblock   = '$statsblock = "Naši korisnici poslali su  -$total_posts- $l_messages.<br>
-Imamo  -$total_users- registriranih korisnika.<br>
-Zadnji prijavljeni korisnik je  -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?" korisnik je ":" korisnici su") ." <a href=\"$online_url\">trenutno ukljuèeni u</a> forum<br>";';
 // Page_tail
 $l_adminpanel	= "Administracijska Ploèa";
 $l_poweredby	= "Pokrenuto do";

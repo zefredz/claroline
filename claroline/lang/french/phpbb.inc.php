@@ -160,7 +160,6 @@ $l_itemsreq	= "Les champs marqués par un * sont obligatoires";
 // Viewforum
 $l_viewforum	= "Voir le forum";
 $l_notopics	= "Il n'y a pas de sujet sur ce forum. Vous pouvez en poster un.";
-$l_hotthres	= "Plus de $hot_threshold $l_posts";
 $l_islocked	= "$l_topic est fermé (aucun nouveau $l_posts ne peut être posté)"; // JCC 
 $l_moderatedby	= "Modéré par";
 
@@ -200,10 +199,6 @@ $l_memberslist	= "Liste des membres"; // JCC
 $l_faq		= "FAQ";
 $l_privmsgs	= "$l_messages privés"; // JCC 
 $l_sendpmsg	= "Envoyer un message privé"; // JCC 
-$l_statsblock   = '$statsblock = "Nos membres ont posté un total de -$total_posts- $l_messages.<br>
-Nous avons -$total_users- membres enregistrés.<br>
-Le membre enregistré le plus récent est -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"membre est":"membres sont") ." <a href=\"$online_url\">actuellement</a> sur ces forums.<br>";'; // JCC 
 $l_privnotify   = '<br>Vous avez %s1 <a href=\"%s2\">nouveau(x) message(s) privée(s)</a>.';
 
 // Page_tail

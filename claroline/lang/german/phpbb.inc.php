@@ -164,7 +164,6 @@ $l_itemsreq	= "Mit * versehene Felder m&uuml;ssen ausgef&uuml;llt werden.";
 // Viewforum
 $l_viewforum	= "Forum ansehen";
 $l_notopics	= "In diesem Forum gibt es keine Themen. Sie k&ouml;nnen jedoch eines er&ouml;ffnen.";
-$l_hotthres	= "Mehr als $hot_threshold $l_posts";
 $l_islocked	= "$l_topic ist geschlossen (Keine neuen $l_posts m&ouml;glich)";
 $l_moderatedby	= "Moderiert von";
 
@@ -204,10 +203,6 @@ $l_memberslist	= "Mitgliedsliste";
 $l_faq		= "FAQ";
 $l_privmsgs	= "Private $l_messages";
 $l_sendpmsg	= "Private Nachricht senden";
-$l_statsblock   = '$statsblock = "In den Foren wurden insgesamt -$total_posts- $l_messages gepostet.<br>
-Wir haben -$total_users- registrierte Benutzer.<br>
-Wir begr&uuml;ssen unser neuestes Mitglied, -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"Benutzer ist":"Benutzer sind") ." <a href=\"$online_url\">zur Zeit online</a>.<br>";';
 
 // Page_tail
 $l_adminpanel	= "Administrationsbereich";

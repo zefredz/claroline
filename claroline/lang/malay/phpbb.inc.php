@@ -158,7 +158,6 @@ $l_itemsreq	= "Item yang ditandakan * mesti diisi";
 $l_viewforum	= "Paparkan Forum";
 $l_notopics	= "Tiada sebarang topik untuk forum ini, anda boleh menghantar topik ke forum ini.";
 $l_hotthres	= "Lebih daripada $hot_threshold $l_posts";
-$l_islocked	= "$l_topic dikunci (Tiada sebarang $l_posts baru boleh dicipta.)";
 $l_moderatedby	= "Pengendali ialah";
 
 // Private forums
@@ -197,10 +196,6 @@ $l_memberslist	= "Senarai Ahli";
 $l_faq		= "FAQ";
 $l_privmsgs	= "$l_messages Peribadi";
 $l_sendpmsg	= "Hantar Mesej Peribadi";
-$l_statsblock   = '$statsblock = "Pengguna kami telah menghantar sejumlah -$total_posts- $l_messages.<br>
-Forum ini mempunyai -$total_users- pengguna berdaftar.<br>
-Pengguna baru yang mendaftar adalah -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"user is":"users are") ." <a href=\"$online_url\">sedang melayari</a> forum.<br>";';
 
 // Page_tail
 $l_adminpanel	= "Panel Pentadbir";
