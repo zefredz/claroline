@@ -1254,8 +1254,8 @@ function claro_parse_user_text($userText)
                           $userText);
 
        $userText = str_replace('[/tex]',
-                           '">',
-                           $userText);       
+                           '" border="0" align="absmiddle">',
+                           $userText);
    }
    else
    {
