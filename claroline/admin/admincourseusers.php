@@ -264,8 +264,6 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
        <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes&cidToEdit=".$cidToEdit."\">".$langUserid."</a></th>
        <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
        <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes".$dir."&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
-
-//echo  "<th><a href=\"",$PHP_SELF,"?order_crit=username&dir=".$dir."&cidToEdit=".$cidToEdit."\">".$langUsername."</a></th>";
 echo "<th>".$langCourseManager."</th>";
 echo "<th>".$langEditUserCourseSetting."</th>
       <th>".$langUnsubscribe."</th>";
@@ -307,7 +305,7 @@ foreach($resultList as $list)
 
      echo     "<td align=\"center\">\n",
                         "<a href=\"adminUserCourseSettings.php?cidToEdit=".$cidToEdit."&uidToEdit=".$list['user_id']."&ccfrom=culist\">\n
-                         <img src=\"../img/edit.gif\" border=\"0\" alt=\"$langModify\" />\n",
+                         <img src=\"../img/usersetting.gif\" border=\"0\" alt=\"$langEditUserCourseSetting\" />\n",
                         "</a>\n",
                         "</td>\n";
 
