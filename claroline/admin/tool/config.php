@@ -108,7 +108,9 @@ $lang_p_edit_S      = 'Editing %s config.';
 $lang_p_edit_S      = 'Edition de %s.';
 $lang_p_Properties_of_S_saved_in_buffer = 'Properties of %s saved in buffer.';
 $lang_the_active_config_has_manually_change='The config in production has manually changed';
-                    
+$lang_p_config_missing_S = 'Configuration is missing %s';                    
+$lang_p_ErrorOnBuild_S_for_S= 'Error in building of <em>%s</em> for <B>%s</B>';    
+
 define('DISP_LIST_CONF',        __LINE__);
 define('DISP_EDIT_CONF_CLASS',  __LINE__);
 define('DISP_SHOW_CONF',        __LINE__);
@@ -183,7 +185,11 @@ fieldset    {
 	margin-left: 5px;
     font-variant: small-caps;  
     font-size: x-small;   }
-
+.commandBar {
+	padding-bottom: 4px;
+ }
+.command {padding: 1px 1px 1px 1px;}
+.command:hover { background-color: #F4F4F4; }
 fieldset .default
 {
     color:blue;
@@ -313,7 +319,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         if ($conf_def['config_code']=='')
         {
             $okToSave = FALSE;
-            $controlMsg['error'][] = 'Configuration is missing '.basename($confDef);
+            $controlMsg['error'][] = sprintf($lang_p_config_missing_S ,basename($confDef));
         }
         if ($config_code != $conf_def['config_code'])
         {
@@ -400,7 +406,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             }
             else 
             {
-                $controlMsg['error'][] = 'Error in building of <em>'.$confFile.'</em> for <B>'.$config_code.'</B>';    
+                $controlMsg['error'][] = sprintf($lang_p_ErrorOnBuild_S_for_S,$confFile,$config_code);
             }
         }
         else 
@@ -644,7 +650,7 @@ switch ($panel)
         break;
 
     case DISP_SHOW_CONF : 
-        echo '<div>'
+        echo '<div class="commandBar">'
             .'<span class="command">'
             .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConfFile&amp;config_code='.$config_code.'" >'.$langShowContentFile.'</a>'
             .'</span>'
@@ -656,7 +662,7 @@ switch ($panel)
             .'</span>'
             .'&nbsp;|&nbsp;'
             .'<span class="command">'
-            .' <a href="'.$_SERVER['PHP_SELF'].'?cmd=dispEditConfClass&amp;config_code='.$config_code.'" >'.$langEdit.'</a>'
+            .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=dispEditConfClass&amp;config_code='.$config_code.'" >'.$langEdit.'</a>'
             .'</span>'
             .'</div>'
             ;
