@@ -19,6 +19,8 @@
 $langFile = "course_info";
 
 require '../inc/claro_init_global.inc.php';
+if ( ! $_cid) claro_disp_select_course();
+
 include($includePath."/lib/course.lib.inc.php");
 include($includePath."/conf/course_info.conf.php");
 
@@ -57,19 +59,6 @@ $is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
 // in case of admin access (from admin tool) to the script, 
 // we must determine which course we are working with
 
-//Possibles $_REQUEST FOR THIS SCRIPT
-// cidToEdit
-// 
-// $int
-// $faculte
-// $visible
-// $titulary
-// $screenCode
-// $lanCourseForm
-// $extLinkName
-// $extLinkUrl
-// $email
-
 if (isset($_REQUEST['cidToEdit']) && ($is_platformAdmin))
 {
     $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration); // bred crump different in admin access
@@ -83,6 +72,8 @@ else
 }
 
 ####################### SUBMIT #################################
+if ( ! $is_courseAllowed) claro_disp_auth_form();
+$nameTools = $langModifInfo;
 
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
@@ -108,8 +99,6 @@ if($is_allowedToEdit)
 			$fieldsToUpdate[]= "`departmentUrl`='".    $_REQUEST['extLinkUrl']."'";
 		if($_REQUEST['email']!=""           || $canBeEmpty["email"])
 			$fieldsToUpdate[]= "`email`='".            $_REQUEST['email']."'";
-/*		if ($_REQUEST['description']!=""    || $canBeEmpty["description"])
-			$fieldsToUpdate[]= "description='".      $_REQUEST['description']."'";*/
 		if ($_REQUEST['visible']=="false"     && $allowedToSubscribe=="false")
 			$fieldsToUpdate[]= "visible='0'";
 		elseif ($_REQUEST['visible']=="false" && $allowedToSubscribe=="true")
@@ -135,7 +124,6 @@ $controlMsg["success"][]= $langModifDone;
 
 claro_disp_msg_arr($controlMsg);
 
-///
 echo "
 		<br>
 		<a href=\"".$_SERVER['PHP_SELF']."?".$toAddtoURL."\">".$langToCourseSettings."</a>

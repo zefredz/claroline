@@ -12,6 +12,9 @@
 
 $langFile = "group";
 require '../inc/claro_init_global.inc.php';
+if ( ! $_cid) claro_disp_select_course();
+
+$langGroupAlwaysPrivate=$langGroupDocumentAlwaysPrivate;
 include('../inc/conf/group.conf.php');
 @include('../inc/lib/debug.lib.inc.php');
 $nameTools = $langGroupProperties;
@@ -84,24 +87,6 @@ claro_disp_tool_title( array('mainTitle' => $nameTools,
 	<tr>
 		<td valign="top">
         <b><?php echo $langGroupLimit ?></b><br>
-<!--
-			<?php echo $langQtyOfUserCanSubscribe_PartBeforeNumber ?>
-			<ul>
-				<LI>
-					<input type="radio" name="maxGroupByUser" value="ONE" <?php echo $checkedNbGroupPerUser["ONE"] ?>>
-					<?php echo $langOneGroupPerUser ?>
-				</LI>
-				<LI>
-					<input type="radio" name="maxGroupByUser" value="ALL" <?php echo $checkedNbGroupPerUser["ALL"] ?>>
-					<?php echo $langAllGroups ?>
-				</LI>
-				<LI>
-					<input type="radio" name="maxGroupByUser" value="MANY" <?php echo $checkedNbGroupPerUser["MANY"] ?>>
-					<?php echo $langLimitNbGroupPerUser ?>
-					<input type="text" name="limitNbGroupPerUser" value="<?php echo $_groupProperties ['nbGroupPerUser'     ]?>" size="4" align="right" >
-				</LI>
-			</ul>
--->
 			<?php echo $langQtyOfUserCanSubscribe_PartBeforeNumber;
 
 			if (is_null($_groupProperties ['nbGroupPerUser']))
@@ -113,36 +98,21 @@ claro_disp_tool_title( array('mainTitle' => $nameTools,
 				$nbGroupsPerUserShow = $_groupProperties ['nbGroupPerUser'     ];
 			}
 			 ?>
-			<input type="hidden" name="maxGroupByUser" value="MANY" >
 			<select name="limitNbGroupPerUser" >
 			<?php
 				for( $i = 1; $i <= 10; $i++ )
 				{
-					echo "<option value=\"".$i."\"";
-					if( $nbGroupsPerUserShow == $i )
-					{
-						echo " selected=\"selected\"";
-					}
-					echo ">".$i."</option>";
+					echo '<option value="'.$i.'"'
+					    .( $nbGroupsPerUserShow == $i?' selected="selected" ':'')
+					    .'>'.$i.'</option>';
 				}
-				
-				if( $nbGroupsPerUserShow == "ALL" )
-				{
-					echo "<option value=\"ALL\" selected=\"selected\">ALL</option>";
-				}
-				else
-				{
-					echo "<option value=\"ALL\">ALL</option>";
-				}
+				echo '<option value="ALL" '
+				    .($nbGroupsPerUserShow == "ALL"?' selected="selected" ':'')
+				    .'>ALL</option>';
 			?>
 			</select>
 			<?php echo $langQtyOfUserCanSubscribe_PartAfterNumber ?>
-
-
 			</fieldset>
-
-
-
 		</td>
 	</tr>
 
@@ -160,16 +130,7 @@ claro_disp_tool_title( array('mainTitle' => $nameTools,
 	</tr>
 	<tr>
 		<td valign="top">
-			<input type="hidden" name="forum" value="1">
-			
-			<!-- Patch : deactivated Group Forum option for Claroline 1.4.0. 
-			     because cannot be changed after group creation
-			<?php
-				if($_groupProperties['tools'] ["forum"])
-					echo "checked"?>--> 
-
 				<?php echo $langGroupForum; ?>
-		
 			<input type="radio" name="private" id="private_1" value="1" <?
 				if(!$groupPrivate)
 					echo "checked"?> >
@@ -182,16 +143,29 @@ claro_disp_tool_title( array('mainTitle' => $nameTools,
 	</tr>
 	<tr>
 		<td>
-			<input type="hidden" name="document" value="1">
-			
-			<!-- Patch : deactivated Group Forum option for Claroline 1.4.0. 
-			     because cannot be changed after group creation
-			<?
-				if($_groupProperties['tools'] ["document"])
-					echo "checked"?> -->
-
-
-				<?php echo "$langGroupDocument $langGroupDocumentAlwaysPrivate"; ?>
+				<?php echo $langGroupDocument.' '.$langGroupDocumentAlwaysPrivate; ?>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<input type="checkbox" name="chat" id="chat" value="1"
+			<?php
+				if($_groupProperties['tools'] ['chat'])
+					echo "checked" ?> >
+				<label for="chat">
+				<?php echo $langChat; ?>
+				<?php echo $langGroupAlwaysPrivate; ?></label>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<input type="checkbox" name="chat" id="chat" value="1"
+			<?php
+				if($_groupProperties['tools'] ['wiki'])
+					echo "checked" ?> >
+				<label for="chat">
+				<?php echo $langWiki; ?>
+				<?php echo $langGroupAlwaysPrivate; ?></label>
 		</td>
 	</tr>
 	<tr>

@@ -32,6 +32,7 @@
 //$interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
 $langFile = "course_info";
 require '../inc/claro_init_global.inc.php';
+if ( ! $_cid) claro_disp_select_course();
 $nameTools = $langBackup;
 include($includePath."/conf/export.conf.php");
 include($includePath."/lib/export.lib.inc.php");

@@ -15,6 +15,7 @@
 $langFile = 'group';
 require '../inc/claro_init_global.inc.php';
 include('../inc/conf/group.conf.php');
+if ( ! $_cid) claro_disp_select_course();
 
 // block if !$_gid
 // accept  if $is_groupAllowed
@@ -60,6 +61,14 @@ $tbl_group_team              = $tbl_cdb_names['group_team'             ];
 // COUNT IN HOW MANY GROUPS CURRENT USER ARE IN
 // (needed to give or refuse selfreg right)
 
+$sql = "SELECT COUNT(id) qtyMember
+        FROM `".$tbl_group_team."`
+        WHERE `team` = '".$_gid."'";
+
+list($result) = claro_sql_query_fetch_all($sql);
+
+$groupMemberQuotaExceeded = (bool) (   $_group ['maxMember'] <= $result['qtyMember'])
+                                  || is_null($_group['maxMember']); // no limit assign to group per user;
 $sql = "SELECT COUNT(team) userGroupRegCount
         FROM `".$tbl_group_rel_team_user."`
         WHERE `user` = '".$_uid."'";
@@ -68,10 +77,12 @@ list($result) = claro_sql_query_fetch_all($sql);
 
 // The previous request compute the quantity of subscription for the current user.
 // the following request compare with the quota of subscription allowed to each student
-$userGroupQuotaExceeded = (bool) ( $_groupProperties ['nbGroupPerUser'] <= $result['userGroupRegCount'])
-                                  || is_null($_groupProperties['nbGroupPerUser']); // no limit assign to group per user;
+$userGroupQuotaExceeded = (bool) (   $_groupProperties ['nbGroupPerUser'] <= $result['userGroupRegCount'])
+                                  && ! is_null($_groupProperties['nbGroupPerUser']); // no limit assign to group per user;
+
 
 $is_allowedToSelfRegInGroup = (bool) (     $_groupProperties ['registrationAllowed']
+                                      && ( ! $groupMemberQuotaExceeded )
                                       && ( ! $userGroupQuotaExceeded )
                                       && ( ! $is_courseTutor
                                            || ($is_courseTutor
@@ -95,17 +106,17 @@ $is_allowedToChatAccess     = (bool) ( 	$is_courseAdmin
 ============================================================================*/
 if($_REQUEST['registration'])
 {
-    if( $is_courseMember &&  ! $is_groupMember)
+    if( $is_courseMember &&  ! $is_groupMember && $is_allowedToSelfRegInGroup)
     {
+		//RECHECK if subscribe is aivailable
         $sql = 'INSERT INTO `'.$tbl_group_rel_team_user.'`
                 SET `user` = "'.$_uid.'",
                     `team` = "'.$_gid.'"';
-        
+
         if (claro_sql_query($sql))
         {
             // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
-
-            header("Location:".$_SERVER['PHP_SELF']."?gidReset=1&gidReq=".$_gid."&regDone=1");
+            header("Location:".$_SERVER['PHP_SELF']."?gidReset=1&amp;gidReq=".$_gid."&amp;regDone=1");
         }
     }
 }

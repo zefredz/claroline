@@ -5,17 +5,12 @@
 +----------------------------------------------------------------------+
 | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
 +----------------------------------------------------------------------+
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
 */
 $_tid="deletecourse";
 $langFile = 'course_info';
 
 require '../inc/claro_init_global.inc.php';
+if ( ! $_cid) claro_disp_select_course();
 
 // in case of admin access (from admin tool) to the script, we must determine which course we are wroking with
 
