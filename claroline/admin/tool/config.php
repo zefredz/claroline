@@ -166,17 +166,21 @@ fieldset    {
 	padding-left: 2%;
 	padding-right: 2%;
 }
-.propDesc    {
+.propDescription    {
 	border: 1px solid Gray;
 	background-color: #AFEEEE;
 	margin-left: 5%;
 	padding-left: 2%;
 	padding-right: 2%;
+	padding-bottom: 2px;
+	marging-bottom: 2px;
 }
-.configValueUnit { font-weight: bold; }
-.configValueType { 
+
+.propName { color : #1144AA; }
+.propValue { 	padding-left: 3px;}
+.propUnit { font-weight: bold; }
+.propType { 
 	margin-left: 5px;
-  //  font-style: italic;  
     font-variant: small-caps;  
     font-size: x-small;   }
 
@@ -663,18 +667,30 @@ switch ($panel)
                     foreach($section['properties'] as $property )
                     {
                         $htmlPropLabel = htmlentities($conf_def_property_list[$property]['label']);
-                        $htmlPropDesc = ($conf_def_property_list[$property]['description']?'<div class="propDesc">'.nl2br(htmlentities($conf_def_property_list[$property]['description'])).'</div><br />':'');
+                        $htmlPropDesc = ($conf_def_property_list[$property]['description']?nl2br(htmlentities($conf_def_property_list[$property]['description'])).'<br />':'');
                         if ($conf_def_property_list[$property]['container']=='CONST')
                              eval('$htmlPropValue = '.$property.';');
                         else eval('$htmlPropValue = $'.$property.';');
                         $htmlUnit = ($conf_def_property_list[$property]['unit']?''.htmlentities($conf_def_property_list[$property]['unit']):'');
-                        echo '<H2>'
+                        echo '<H2 class="propLabel">'
                             .$htmlPropLabel 
+                            .' <span class="propType">'
                             .'('.$conf_def_property_list[$property]['type'].')'
+                            .'</span>'
                             .'</H2>'."\n"
-                            .$htmlPropDesc."\n"
-                            .'<em>'.$property.'</em>: '
-                            .'<strong>'.var_export($htmlPropValue,1).'</strong> '.$htmlUnit.'<br>'."\n"
+                            .'<div class="propDescription">'
+                            .$htmlPropDesc
+                            .'</div>'."\n"
+                            .'<em class="propName">'
+                            .$property
+                            .'</em>: '
+                            .'<strong class="propValue" >'
+                            .var_export($htmlPropValue,1)
+                            .'</strong> '
+                            .'<span class="propUnit">'
+                            .$htmlUnit
+                            .'</span>'
+                            .'<br>'."\n"
                             ;
                     } // foreach($section['properties'] as $property )
                     echo '</FIELDSET><br>'."\n";

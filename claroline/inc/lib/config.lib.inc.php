@@ -192,6 +192,13 @@ function read_param_value_in_buffer($config_code)
     return $valueFromTblConf;
 };
 
+/**
+ * function getToolList()
+ * 
+ * @author moosh moosh@claroline.net
+ * @param none
+ * @return an array containing name and value of properties.
+ **/
 function getToolList()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -206,13 +213,20 @@ function getToolList()
                      ,'name'  => get_tool_name($claro_label)
                     );
     }
-    return $toolList;
+    return $t;
 }
 
+/**
+ * function countPropertyInDb()
+ * 
+ * @author moosh moosh@claroline.net
+ * @param $config_code string id of config to count properties
+ * @return interger qty of property stored in db for this config
+ **/
 function countPropertyInDb($config_code)
 {
-    $tbl_mdb_names   = claro_sql_get_main_tbl();
-    $tbl_config_property      = $tbl_mdb_names['config_property'];
+    $tbl_mdb_names        = claro_sql_get_main_tbl();
+    $tbl_config_property  = $tbl_mdb_names['config_property'];
     $confFile = claro_get_conf_file($config_code);
     if(file_exists($confFile))
     {
@@ -385,6 +399,7 @@ function get_config_name($config_code)
               : $config_code));
 }
 
+
 function get_conf_info($config_code)
 {
     $tbl_mdb_names       = claro_sql_get_main_tbl();
@@ -406,7 +421,6 @@ function get_conf_info($config_code)
                            ON `t`.`claro_label`  = `r_t_cfg`.`claro_label`
                            
                            WHERE `cfg`.config_code = "'.$config_code.'"';    
-
     
     $conf_info = claro_sql_query_fetch_all($sql_get_conf_info);
     $conf_info[0]['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config_code))&&$conf_info[0]['config_hash'] != md5_file(claro_get_conf_file($config_code)));
@@ -709,7 +723,7 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 echo '<span>'
                     .'<input id="'.$property.'_'.$keyVal.'"  type="radio" name="'.$htmlPropName.'" value="'.$keyVal.'"  '.($htmlPropValue==$keyVal?' checked="checked" ':' ').' >'
                     .'<label for="'.$property.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
-                    .'<span class="configValueUnit">'.$htmlUnit.'</span>'
+                    .'<span class="propUnit">'.$htmlUnit.'</span>'
                     .'</span>'
                     .'<br>'."\n";
             }   
@@ -726,8 +740,8 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 .$htmlPropDesc."\n"
                 .$htmlPropDefault."\n"
                 .'<input size="'.$size.'"  align="right" id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '."\n"
-                .'<span class="configValueUnit">'.$htmlUnit.'</span>'
-                .'<span class="configValueType">('.$conf_def_property_list['type'].')</span>'."\n"
+                .'<span class="propUnit">'.$htmlUnit.'</span>'
+                .'<span class="propType">('.$conf_def_property_list['type'].')</span>'."\n"
                 .'<br>'
                 ;
     		;
@@ -742,8 +756,8 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 .$htmlPropDesc."\n"
                 .$htmlPropDefault."\n"
                 .'<input size="'.$size.'"  id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '
-                .'<span class="configValueUnit">'.$htmlUnit.'</span>'
-                .'<span class="configValueType">('.$conf_def_property_list['type'].')</span>'."\n"
+                .'<span class="propUnit">'.$htmlUnit.'</span>'
+                .'<span class="propType">('.$conf_def_property_list['type'].')</span>'."\n"
                 .'<br>'."\n"
                 ;
     		;
@@ -777,4 +791,14 @@ function save_param_value_in_buffer($propName,$propValue,$config_code)
     else 
         return true;
 }
+
+/***
+ * function 
+ * @desc
+ * @author Christophe Gesché moosh@claroline.net
+ * @param 
+ * @return 
+ * 
+ */
+
 ?>
