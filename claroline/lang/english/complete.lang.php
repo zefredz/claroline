@@ -1875,6 +1875,7 @@ $langSupportForum = "Support forum";
 $langSupports = " Support ";
 $langSupportsComment1 = "Does course support exist?  What type of support do I give?  Opened?  Closed?";
 $langSupportsComment2 = "Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langSysId = "System ID";
 $langSysInfo = "Info about System";
 $langTableStructureDontKnow = "Structure of this table is unknown";

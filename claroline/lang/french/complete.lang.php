@@ -1539,6 +1539,7 @@ Ouvert ? Fermé ?";
 $langSupportsComment2 = "Présentation du ou des supports de 
 cours. Présentation de la bibliographie, du portefeuille de documents ou 
 d'une bibliographie complémentaire.";
+$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
 $langSysId = "Identifiant système";
 $langSysInfo = "Info Système";
 $langTableStructureDontKnow = "Structure de cette table inconnue";
