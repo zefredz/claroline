@@ -30,13 +30,6 @@ $nameTools=$langModifOneProfile;
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
-$htmlHeadXtra[] = "<style type=\"text/css\">
-<!--
-	body,h1,h2,h3,h4,h5,h6,p,blockquote,td,ol,ul {font-family: Arial, Helvetica, sans-serif; }
--->
-</STYLE>";
-
-
 //declare needed tables
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_admin           = $tbl_mdb_names['admin'           ];

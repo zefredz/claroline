@@ -25,12 +25,6 @@ include($includePath."/lib/admin.lib.inc.php");
 
 @include ($includePath."/installedVersion.inc.php");
 
-$htmlHeadXtra[] = "<style type=\"text/css\">
-<!--
-	ul { font-size : small }
--->
-</STYLE>";
-
 // Deal with interbredcrumps
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);

@@ -923,10 +923,10 @@ if($BOM)
      //add titles for the table
 
 echo       "<th>".$lang_faculty_CodeCat."</td>"
-          ."<th style='text-align:center'>".$langEdit."</th>"
-          ."<th style='text-align:center'>".$langMove."</th>"
-          ."<th style='text-align:center'>".$langDelete."</th>"
-          ."<th style='text-align:center' colspan=2>".$langOrder."</th>";
+          ."<th>".$langEdit."</th>"
+          ."<th>".$langMove."</th>"
+          ."<th>".$langDelete."</th>"
+          ."<th colspan=2>".$langOrder."</th>";
 
 echo "</tr></thead>";
 
@@ -994,10 +994,10 @@ claro_disp_msg_arr($controlMsg);
      //add titles for the table
 
 echo "<th>".$lang_faculty_CodeCat."</th>"
-          ."<th style='text-align:center'>".$langEdit."</th>"
-          ."<th style='text-align:center'>".$langMove."</th>"
-          ."<th style='text-align:center'>".$langDelete."</th>"
-          ."<th style='text-align:center' colspan=2>".$langOrder."</th>";
+          ."<th>".$langEdit."</th>"
+          ."<th>".$langMove."</th>"
+          ."<th>".$langDelete."</th>"
+          ."<th colspan=2>".$langOrder."</th>";
 
 echo "</tr></thead>";
 
@@ -1080,7 +1080,7 @@ include($includePath."/claro_init_footer.inc.php");
                             $PM='<img src="'.$clarolineRepositoryWeb.'img/plus.jpg" border="0" alt="" >';
                     ?>
 
-                    <a style="text-decoration:none;font-weight:bold" href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&date=".$date."#pm".$one_faculty["id"] ?>"
+                    <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&date=".$date."#pm".$one_faculty["id"] ?>"
                     name="<?php echo "pm".$one_faculty["id"]; ?>">  <?php echo $PM ?></a> &nbsp;
                     <?php
                     }
