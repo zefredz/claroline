@@ -47,9 +47,7 @@ $sql = "SELECT 	`f`.`forum_name`   `forum_name`,
 $forumSettingList = claro_sql_query_fetch_all($sql);
 
 if ( count($forumSettingList) == 1) $forumSettingList = $forumSettingList[0];
-else    error_die('Unexisting forum.');
-
-
+else                                error_die('Unexisting forum.');
 
 
 /* 
@@ -84,8 +82,13 @@ $sql = "SELECT topic_title, topic_status
         WHERE topic_id = '".$topic."'";
 
 $topicSettingList = claro_sql_query_fetch_all($sql);
-$topic_subject    = own_stripslashes($myrow['topic_title']);
-$lock_state       = $myrow['topic_status'];
+if ( count($topicSettingList) == 1) $topicSettingList = $topicSettingList[0];
+else                                error_die('Unexisting topic.');
+
+
+$topic_subject    = own_stripslashes($topicSettingList['topic_title']);
+
+$lock_state       = $topicSettingList['topic_status'];
 
 include('page_header.'.$phpEx);
 

@@ -41,18 +41,19 @@ $pagetype =  'newtopic';
 $userFirstName = $_user['firstName'];
 $userLastName  = $_user['lastName' ];
 
-$sql = "SELECT  `f`.`forum_name`   `forum_name`,
-                `f`.`forum_access` `forum_access`,
-                `f`.`forum_type`   `forum_type`,
-                `g`.`id`           `idGroup`,
-                `g`.`name`         `nameGroup`
-	FROM `".$tbl_forums."` `f`
+$sql = "SELECT `f`.`forum_name`   `forum_name`,
+               `f`.`forum_access` `forum_access`,
+               `f`.`forum_type`   `forum_type`,
+               `g`.`id`           `idGroup`,
+               `g`.`name`         `nameGroup`
 
-    # Check possible attached group ..
-	LEFT JOIN `".$tbl_student_group."` `g`
-		   ON `f`.`forum_id` = `g`.`forumId`
+        FROM      `".$tbl_forums."`        `f`
 
-	WHERE `f`.`forum_id` = '".$forum."'";
+        # Check possible attached group ..
+        LEFT JOIN `".$tbl_student_group."` `g`
+               ON `f`.`forum_id` = `g`.`forumId`
+        WHERE     `f`.`forum_id` = '".$forum."'";
+
 
 $forumSettingList = claro_sql_query_fetch_all($sql);
 
@@ -90,6 +91,11 @@ if (   ! is_null($forumSettingList['idGroup'])
 
 if($submit)
 {
+
+    /*------------------------------------------------------------------------
+                                PREPARE THE DATA
+      ------------------------------------------------------------------------*/
+    
     $subject = strip_tags($subject);
     
     if(trim( strip_tags($message)) == '' || trim($subject) == '')
@@ -112,8 +118,6 @@ if($submit)
     //		if (!check_priv_forum_auth($userdata[user_id], $forum, TRUE, $db))
     // 		{
     //			error_die("$l_privateforum $l_nopost");
-    //		}
-    // }
 
     $is_html_disabled = false;
 
@@ -137,28 +141,26 @@ if($submit)
     $message   = str_replace("\n", "<BR>", $message);
 
     $message   = censor_string($message, $db);
-    $message   = addslashes($message);
-    $subject   = strip_tags($subject);
     $subject   = censor_string($subject, $db);
+
+    $subject   = strip_tags($subject);
+
+    $message   = addslashes($message);
     $subject   = addslashes($subject);
+
     $poster_ip = $REMOTE_ADDR;
     $time      = date('Y-m-d H:i');
 
-
-    // ADDED BY Thomas 20.2.2002
-
+    // ADDED FOR CLAROLINE
     $userLastName    = addslashes($userLastName);
     $userFirstName   = addslashes($userFirstName);
+    // END ADDED FOR CLAROLINE
 
-    // END ADDED BY THOMAS
+    /*------------------------------------------------------------------------
+                            RECORD THE DATA
+      ------------------------------------------------------------------------*/
 
-    // to prevent [addsig] from getting in the way, 
-    // let's put the sig insert down here.
-    
-    if($sig && $userdata['user_id'] != -1)
-    {
-        $message .= "\n[addsig]";
-    }
+    // CREATE THE TOPIC
 
     $sql = "INSERT INTO `".$tbl_topics."` 
             SET topic_title  = '".$subject."', 
@@ -169,20 +171,25 @@ if($submit)
                 nom          = '".$userLastName."', 
                 prenom       = '".$userFirstName."'";
 
-    $result = claro_sql_query($sql);
+    $topic_id = claro_sql_query_insert_id($sql);
 
-    $topic_id = mysql_insert_id();
+    // CREATE THE POST
 
-    $sql = "INSERT INTO `".$tbl_posts."`
-            SET topic_id  = '".$topic_id."', 
-                forum_id  = '".$forum."', 
-                poster_id = '".$userdata['user_id']."', 
-                post_time = '".$time."', 
-                poster_ip = '".$poster_ip."', 
-                nom       = '".$userLastName."', 
-                prenom    = '".$userFirstName."'";
+    if ($topic_id)
+    {
+        $sql = "INSERT INTO `".$tbl_posts."`
+                SET topic_id  = '".$topic_id."', 
+                    forum_id  = '".$forum."', 
+                    poster_id = '".$userdata['user_id']."', 
+                    post_time = '".$time."', 
+                    poster_ip = '".$poster_ip."', 
+                    nom       = '".$userLastName."', 
+                    prenom    = '".$userFirstName."'";
 
-    $post_id = claro_sql_query_insert_id($sql);
+        $post_id = claro_sql_query_insert_id($sql);
+    }
+
+    // RECORD THE POST CONTENT
 
     if($post_id)
     {
@@ -199,71 +206,74 @@ if($submit)
         $result = claro_sql_query($sql);
     }
 
+    // UPDATE THE POST NUMBER STATUS FOR THE CURRENT USER
 
-if($userdata['user_id'] != -1)
-{
-    $sql = "UPDATE `".$tbl_users."` 
-            SET user_posts=user_posts+1 
-            WHERE user_id = '".$userdata['user_id']."'";
-    
+    if($userdata['user_id'] != -1)
+    {
+        $sql = "UPDATE `".$tbl_users."` 
+                SET   user_posts = user_posts+1 
+                WHERE user_id = '".$userdata['user_id']."'";
+        
+        $result = claro_sql_query($sql);
+    }
+
+    // UPDATE THE POST AND TOPIC STATUS FDR THE CURRENT FORUM
+
+    $sql = "UPDATE `".$tbl_forums."` 
+            SET   forum_posts        = forum_posts+1, 
+                  forum_topics       = forum_topics+1, 
+                  forum_last_post_id = '".$post_id."' 
+            WHERE forum_id           = '".$forum."'";
+
     $result = claro_sql_query($sql);
-}
 
-$sql = "UPDATE `".$tbl_forums."` 
-        SET   forum_posts        = forum_posts+1, 
-              forum_topics       = forum_topics+1, 
-              forum_last_post_id = '".$post_id."' 
-        WHERE forum_id           = '".$forum."'";
+    /*------------------------------------------------------------------------
+                            DISPLAY SUCCES MESSAGE
+      ------------------------------------------------------------------------*/
 
-$result = claro_sql_query($sql);
-          
-$topic       = $topic_id;
-$total_topic = get_total_posts($topic, $db, 'topic')-1;
-
-// Subtract 1 because we want the nr of replies, not the nr of posts.
-$forward = 1;
-
-include('page_header.php');
+    include('page_header.php');
 
     echo "<br>"
 
-        ."<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" "
-        ."align=\"center\" valign=\"top\" width=\"".$tablewidth."\">"
+        ."<table border=\"0\" align=\"center\" width=\"".$tablewidth."\">"
         
-        ."<tr align=\"left\">"
-        ."<td>"
-        ."<center>"
-        .$l_stored
+        ."<tr>\n"
+        ."<td>\n"
+        ."<center>\n"
+        ."<p>".$l_stored."</p>\n"
         ."<p>"
         .$l_click
-        ." <a href=\"viewtopic.$phpEx?topic=".$topic_id."&forum=".$forum."\">"
+        ." <a href=\"viewtopic.".$phpEx."?topic=".$topic_id."&forum=".$forum."\">"
         .$l_here
         ."</a> "
         .$l_viewmsg
+        ."</p>"
         ."<p>"
         .$l_click
-        ." <a href=\"viewforum.$phpEx?forum=$forum_id\">"
+        ." <a href=\"viewforum.".$phpEx."?forum=".$forum_id."\">"
         .$l_here
         ."</a> " 
         .$l_returntopic
-        ."</center>"
-        ."</td>"
-        ."</tr>"
+        ."</p>\n"
+        ."</center>\n"
+        ."</td>\n"
+        ."</tr>\n"
         
-        ."</table>";
-
+        ."</table>\n";
 } // end if submit
 else
 {
     include('page_header.php');
 
-    // ADDED BY CLAROLINE: exclude non identified visitors
-    if (!$_uid && ! $fakeUid)
+    if ( ! $_uid)    // ADDED BY CLAROLINE: exclude non identified visitors
     {
-        die("<center><br><br><font face=\"arial, helvetica\" size=2>$langLoginBeforePost1<br>
-            $langLoginBeforePost2<a href=../../index.php>".$langLoginBeforePost3.".</a></center>");
-    }
-    // END ADDED BY CLAROLINE exclude visitors unidentified
+        die("<center>"
+            .$langLoginBeforePost1."<br>"
+            .$langLoginBeforePost2." "
+            ."<a href=../../index.php>".$langLoginBeforePost3.".</a>"
+            ."</center>");
+    }               // END ADDED BY CLAROLINE exclude visitors unidentified
+    
 ?>
 
 <form action="<?php echo $php_self?>" method="post">
