@@ -29,7 +29,7 @@ ENGLISH
 
 /* general */
 $langTrackingDisabled = "Udtrækning af statistik er slået fra af systemadministrator.";
-$langToolName="Statistikker";
+$langTracking="Statistikker";
 $langShowAll = "Vis alle";
 $langShowNone = "Vis ingen";
 

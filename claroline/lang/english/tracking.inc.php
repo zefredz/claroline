@@ -11,7 +11,7 @@
 
 /* general */
 $langTrackingDisabled = "Tracking has been disabled by system administrator.";
-$langToolName="Statistics";
+$langTracking="Statistics";
 $langShowAll = "Show all";
 $langShowNone = "Show none";
 

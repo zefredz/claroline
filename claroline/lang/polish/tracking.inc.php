@@ -23,7 +23,7 @@ POLISH
 
 /* general */
 $langTrackingDisabled = "Raportowanie zosta³o wy³±czone przez administratora systemu.";
-$langToolName="Statystyki";
+$langTracking="Statystyki";
 $langShowAll = "Poka¿ wszystkie";
 $langShowNone = "Ukryj";
 

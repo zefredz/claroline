@@ -28,7 +28,7 @@ ENGLISH
 
 /* general */
 $langTrackingDisabled = "Spårning har avaktiverats av systemadministratören.";
-$langToolName="Statistik";
+$langTracking="Statistik";
 $langShowAll="Visa alla";
 $langShowNone="Visa ingen";
 

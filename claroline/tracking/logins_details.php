@@ -32,7 +32,7 @@ $is_allowedToTrackEverybodyInCourse = $is_courseAdmin; // allowed to track all s
 $interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$uInfo, "name"=> $langBredCrumpUsers);
 $interbredcrump[]= array ("url"=>"../tracking/userLog.php?uInfo=".$uInfo, "name"=> $langStatsOfUser);
 
-$nameTools = $langToolName." : ".$langLoginsAndAccessTools;
+$nameTools = $langTracking." : ".$langLoginsAndAccessTools;
 include($includePath."/claro_init_header.inc.php");
 
 claro_disp_tool_title($nameTools);

@@ -236,9 +236,9 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
         $msg .= "<input type=\"hidden\" name=\"externalToolId\" value=\"".$externalToolId."\">";
     }
 
-    $msg .= "<label for=\"toolName\">".$langToolName."</label><br>"
+    $msg .= "<label for=\"toolName\">".$langExternalToolName."</label><br>"
             ."<input type=\"text\" name=\"toolName\" name=\"toolName\" value=\"".$toolName."\"><br>"
-            ."<label for=\"toolUrl\">".$langToolUrl."</label><br>"
+            ."<label for=\"toolUrl\">".$langExternalToolUrl."</label><br>"
             ."<input type=\"text\" name=\"toolUrl\" name=\"toolUrl\" value=\"".$toolUrl."\"><br>"
             ."<input class=\"claroButton\" type=\"submit\" value=\"".$langOk."\">&nbsp;"
             ."<a class=\"claroButton\" href=\"" . $_SERVER['PHP_SELF'] ."\">".$langCancel."</a>"

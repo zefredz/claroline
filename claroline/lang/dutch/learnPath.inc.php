@@ -1,7 +1,6 @@
 <?php // $Id$
 
    
-   $langToolName="Leerpad";
    $langCreateNewLearningPath="Maak een nieuw leerpad";
    $langNoLearningPath = "Geen leerpad";
    $langimportLearningPath="Importeer een leerpad";

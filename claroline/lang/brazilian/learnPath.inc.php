@@ -1,7 +1,6 @@
 <?php // $Id$
 
    
-   $langToolName="Rotas de Aprendizagem";
    $langCreateNewLearningPath="Criar uma nova rota de aprendizagem";
    $langNoLearningPath = "Nenhum rota de aprendizagem";
    $langimportLearningPath="Importar uma rota de aprendizagem";

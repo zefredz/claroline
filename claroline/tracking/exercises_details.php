@@ -70,7 +70,7 @@ $exo_details = @mysql_fetch_array($result);
 
 
 
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langToolName);
+$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langTracking);
 $nameTools = $langStatsOfExercise;
 
 include($includePath."/claro_init_header.inc.php");

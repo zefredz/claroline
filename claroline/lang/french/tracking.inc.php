@@ -11,7 +11,7 @@
 
 /* general */
 $langTrackingDisabled = "Le système de statistiques et de suivi a été désactivé par l'administrateur système."; // JCC 
-$langToolName="Statistiques";
+$langTracking="Statistiques";
 $langShowAll = "Montrer tout";
 $langShowNone = "Cacher tout";
 

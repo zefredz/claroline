@@ -1,7 +1,6 @@
 <?php // $Id$
 
    
-   $langToolName="Parcours pédagogique";
    $langCreateNewLearningPath="Créer un nouveau parcours pédagogique";
    $langNoLearningPath = "Aucun parcours";
    $langimportLearningPath="Importer un parcours";

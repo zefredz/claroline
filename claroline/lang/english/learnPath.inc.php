@@ -1,7 +1,6 @@
 <?php // $Id$
 
    
-   $langToolName="Learning Path";
    $langCreateNewLearningPath="Create a new learning path";
    $langNoLearningPath = "No learning path";
    $langimportLearningPath="Import a learning path";

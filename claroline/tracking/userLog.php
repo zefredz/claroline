@@ -34,7 +34,7 @@ require '../inc/claro_init_global.inc.php';
 $interbredcrump[]= array ("url"=>"../user/user.php", "name"=> $langBredCrumpUsers);
 $interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$_GET['uInfo'], "name"=> $langBredCrumpUser);
 
-$nameTools = $langToolName;
+$nameTools = $langTracking;
 
 /*
  * DB tables definition

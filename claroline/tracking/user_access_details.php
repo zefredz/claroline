@@ -16,7 +16,7 @@ require '../inc/claro_init_global.inc.php';
 
 $nameTools = $langUserAccessDetails;
 
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langToolName);
+$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langTracking);
 
 $htmlHeadXtra[] = "<style type='text/css'>
 <!--

@@ -13,7 +13,6 @@
       +----------------------------------------------------------------------+
 */
    
-   $langToolName="Lernpfad";
    $langCreateNewLearningPath="Einen neuen Lernpfad anlegen";
    $langNoLearningPath = "Kein Lernpfad vorhanden";
    $langimportLearningPath="Einen Lernpfad importieren";

@@ -16,7 +16,6 @@
 
 */
    
-   $langToolName="Seguimiento del Aprendizaje";
    $langCreateNewLearningPath="Crear un nuevo Seguimineto de aprendizaje";
    $langNoLearningPath = "No hay ningun seguimiento de aprendizaje";
    $langimportLearningPath="Importar un seguimiento de aprendizaje";
