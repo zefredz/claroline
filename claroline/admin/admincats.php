@@ -1037,7 +1037,7 @@ include($includePath."/claro_init_footer.inc.php");
 							$PM='<img src="../img/plus.jpg" border="0" alt="" >';
 					?>
 
-					<a style="text-decoration:none;font-weight:bold" href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&date='".$date."'#pm".$one_faculty["id"] ?>"
+					<a style="text-decoration:none;font-weight:bold" href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&date=".$date."#pm".$one_faculty["id"] ?>"
 					name="<?php echo "pm".$one_faculty["id"]; ?>">  <?php echo $PM ?></a> &nbsp;
 					<?php
 					}
@@ -1094,7 +1094,7 @@ include($includePath."/claro_init_footer.inc.php");
 						if($num>1)
 						{
 						?>
-							<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=u&date='".$date."'#ud".$one_faculty["id"];
+							<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=u&date=".$date."#ud".$one_faculty["id"];
 							?>" name ="<?php echo "ud".$one_faculty["id"]; ?>">
 							<img src="../img/up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"></a>
 						<?php
@@ -1107,7 +1107,7 @@ include($includePath."/claro_init_footer.inc.php");
 						if($num<$nbChild)
 						{
 						?>
-    						<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=d&date='".$date."'#ud".$one_faculty["id"];
+    						<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=d&date=".$date."#ud".$one_faculty["id"];
     						?>" name="<?php echo "ud".$one_faculty["id"]; ?>">
     						<img src="../img/down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
 					<?php
