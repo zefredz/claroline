@@ -354,14 +354,14 @@ echo	"<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">",
         "<td>",
 		"<ul>",
 		"<li><b><a href=\"group_creation.php\">",$langNewGroupCreate,"</a></b></li>",
-		"<li><a href=\"",$PHP_SELF,"?delete=yes\">",$langDeleteGroups,"</a></li>",
+		"<li><a href=\"",$_SERVER['PHP_SELF'],"?delete=yes\">",$langDeleteGroups,"</a></li>",
         "</ul>",
 		"</td>",
 
 		"<td>",
         "<ul>",
-		"<li><a href=\"",$PHP_SELF,"?fill=yes\">",$langFillGroups,"</a></li>",
-		"<li><a href=\"",$PHP_SELF,"?empty=yes\">",$langEmtpyGroups,"</a></li>",
+		"<li><a href=\"",$_SERVER['PHP_SELF'],"?fill=yes\">",$langFillGroups,"</a></li>",
+		"<li><a href=\"",$_SERVER['PHP_SELF'],"?empty=yes\">",$langEmtpyGroups,"</a></li>",
         "</ul>",
 		"</td>",
 
@@ -514,7 +514,7 @@ if (is_integer($nbGroupPerUser))
 	                     FROM `".$tbl_GroupsUsers."` WHERE user='".$_uid."'";
 
 	$countTeamUser    = mysql_fetch_array( mysql_query($sql) );
-	$countTeamUser    = $countTeamUser[nbGroups];
+	$countTeamUser    = $countTeamUser['nbGroups'];
 
 	if($countTeamUser >= $nbGroupPerUser) $groupRegAllowed = false;
 }
@@ -612,19 +612,19 @@ while ($thisGroup = mysql_fetch_array($groupList))
 
 		if(       $is_allowedToManage
 		     ||   $tutorCheck
-		     ||   $thisGroup[is_member]
-		     || ! $_groupProperties[private])
+		     ||   $thisGroup['is_member']
+		     || ! $_groupProperties['private'])
 		{
-			echo	"<a href=\"group_space.php?gidReq=",$thisGroup[id],"\">",
+			echo	"<a href=\"group_space.php?gidReq=",$thisGroup['id'],"\">",
 					$thisGroup[name],
 					"</a>";
 
 			if     ($_uid && $_uid == $thisGroup[id_tutor]) echo " (",$langOneMyGroups,")";
-			elseif ($thisGroup[is_member])                  echo " (",$langMyGroup,")";
+			elseif ($thisGroup['is_member'])                  echo " (",$langMyGroup,")";
 		}
 		else
 		{
-			echo $thisGroup[name];
+			echo $thisGroup['name'];
 		}
 
 	echo	"</td>";
@@ -641,17 +641,17 @@ while ($thisGroup = mysql_fetch_array($groupList))
 			echo "<td align=\"left\">";
 
 			if( (! $_uid)
-				OR ( $thisGroup[is_member])
-				OR ( $_uid == $thisGroup[id_tutor])
-				OR (($thisGroup[nbMember  ] >= $thisGroup[maxStudent])
-					AND ($thisGroup[maxStudent] != 0))) // causes to prevent registration
+				OR ( $thisGroup['is_member'])
+				OR ( $_uid == $thisGroup['id_tutor'])
+				OR (($thisGroup['nbMember'] >= $thisGroup['maxStudent'])
+					AND ($thisGroup['maxStudent'] != 0))) // causes to prevent registration
 			{
 				echo "&nbsp;-";
 			}
 			else
 			{
 				echo	"&nbsp;",
-						"<a href=\"group_space.php?selfReg=1&gidReq=".$thisGroup[id]."\">",
+						"<a href=\"group_space.php?selfReg=1&gidReq=".$thisGroup['id']."\">",
 						$langGroupSelfRegInf,
 						"</a>";
 			}
@@ -664,33 +664,33 @@ while ($thisGroup = mysql_fetch_array($groupList))
 	    MEMBER NUMBER
 	  ------------------*/
 
-	echo	"<td>",$thisGroup[nbMember],"</td>";
+	echo	"<td>",$thisGroup['nbMember'],"</td>";
 
 	/*------------------
 	  MAX MEMBER NUMBER
 	  ------------------*/
 
-	if ($thisGroup[maxStudent] == 0)   echo "<td> - </td>";
-	else                               echo "<td>",$thisGroup[maxStudent],"</td>";
+	if ($thisGroup['maxStudent'] == 0)   echo "<td> - </td>";
+	else                               echo "<td>",$thisGroup['maxStudent'],"</td>";
 
 	if ($is_allowedToManage)
 	{
-		echo	"<td>",
-				"<a href=\"group_edit.php?gidReq=".$thisGroup[id]."\">",
-				"<img src=\"../img/edit.gif\" border=\"0\" alt=\"".$langEdit."\">",
-				"</a>",
-				"</td>",
-				"<td>",
-				"<a href=\"".$PHP_SELF."?delete_one=yes&id=".$thisGroup[id]."\">",
-				"<img src=\"../img/delete.gif\" border=\"0\" alt=\"".$langDelete."\">",
-				"</a>",
-				"</td>",
-				"</tr>";
+		echo	'<td>'.
+				'<a href="group_edit.php?gidReq='.$thisGroup['id'].'">'.
+				'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="'.$langEdit.'">'.
+				'</a>'.
+				'</td>'.
+				'<td>'.
+				'<a href="'.$_SERVER['PHP_SELF'].'?delete_one=yes&id='.$thisGroup['id'].'">'.
+				'<img src="'.$clarolineRepositoryWeb.'img/delete.gif" border="0" alt="'.$langDelete.'">'.
+				'</a>'.
+				'</td>'.
+				'</tr>';
 	}
 
 	echo "</tr>";
 
-	$totalRegistered = $totalRegistered + $thisGroup[nbMember];
+	$totalRegistered = $totalRegistered + $thisGroup['nbMember'];
 
 }	// while loop
 
