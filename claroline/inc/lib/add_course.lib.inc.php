@@ -584,6 +584,7 @@ claro_sql_query ("
 	PRIMARY KEY (id))");
 
 ############################# WORKS ###########################################
+// original_id is used to store the author id of the original work if this is a feedback
 claro_sql_query("
 
 	CREATE TABLE `".$TABLETOOLWRKSUBMISSION."` (
@@ -599,7 +600,7 @@ claro_sql_query("
 		`authors` varchar(200) NOT NULL default '',
 		`submitted_text` text NOT NULL,
 		`submitted_doc_path` varchar(200) NOT NULL default '',
-		`is_feedback` enum('TRUE','FALSE') default 'FALSE',
+		`original_id` int(11) default NULL,
 		`score` smallint(3) NULL default NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;");
@@ -614,7 +615,6 @@ claro_sql_query("
 		`def_submission_visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
 		`assignment_type` enum('INDIVIDUAL','GROUP') NOT NULL default 'INDIVIDUAL',
 		`authorized_content`  enum('TEXT','FILE','TEXTFILE') NOT NULL default 'FILE',
-		`authorize_anonymous` enum('YES','NO') NOT NULL default 'YES',
 		`allow_late_upload` enum('YES','NO') NOT NULL default 'YES',
 		`start_date` datetime NOT NULL default '0000-00-00 00:00:00',
 		`end_date` datetime NOT NULL default '0000-00-00 00:00:00',
