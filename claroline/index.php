@@ -15,7 +15,7 @@
 */
 session_start();
 
-if ($HTTP_SESSION_VARS['$is_admin'])
+if ($_SESSION['is_platformAdmin'])
 {
 	//
 }
