@@ -20,7 +20,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 
 include $includePath.'/lib/admin.lib.inc.php';
 include $includePath.'/lib/auth.lib.inc.php';
-include $includePath.'/conf/profile.conf.inc.php';
+include $includePath.'/conf/user_profile.conf.php';
 
 
 $nameTools=$langModifOneProfile;
