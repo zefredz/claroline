@@ -12,7 +12,9 @@ http://www.cerdecam.be          Mathieu Laurent (laurent@cerdecam.be)
                                 Guillaume Lederer (lederer@cerdecam.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
                                 Aurelien Van Hamme (vanhamme@cerdecam.be)
+				Nicolas Leblanc     (leblanc@cerdecam.be)
 				Amand Tihon        (amand@alrj.org)
+				
 
 Administration section :        Benoit Muret (muret_ben@hotmail.com)
                                 Guillaume Lederer (lederer@cerdecam.be)
