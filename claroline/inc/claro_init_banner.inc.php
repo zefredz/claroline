@@ -106,7 +106,8 @@ if (is_array($_courseToolList))
 
 ?>
 <form action="<?php echo $clarolineRepositoryWeb ?>redirector.php" name="redirector" >
-<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" ><?php 
+<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >
+<?php 
 	if (is_array($_courseToolList))
 	foreach($_courseToolList as $_courseToolKey => $_courseToolData)
 	{
@@ -129,66 +130,69 @@ if (is_array($_courseToolList))
 ?>
 </table>
 </div>
-<small>
 <?php
-if(isset($_cid))
+
+// BREADCRUMB TRAIL BUILDING
+
+
+ // end if if( isset($_cid) || isset($nameTools) || is_array($interbredcrump))
+
+if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
 {
-?>
- <a href="<?= $rootWeb ?>index.php" target="_top"><?= $siteName ?></a>
- &gt <a href="<?= $coursesRepositoryWeb.$_course['path']?>/index.php" target="_top"><?php echo ($langFile == 'course_home')?'<b>'.$_course['officialCode'].'</b>':$_course['officialCode']; ?></a>
-<?php
-}
-// if name tools or interbredcrump defined, we don't set the Site name bold
-elseif(isset($nameTools) || is_array($interbredcrump))
-{
-?>
- <a href="<?= $rootWeb ?>index.php" target="_top"><?= $siteName ?></a>
-<?php
-}
-// else we set the Site name bold
-else
-{
-?>
- <a href="<?= $rootWeb ?>index.php" target="_top"><b><?= $siteName ?></b></a>
-<?php
+    echo "<small>\n";
+
+    echo "<a href=\"".$rootWeb."index.php\" target=\"_top\">".$siteName."</a>";
+
+    if ( isset($_cid) )
+    {
+        echo " &gt; "
+            ."<a href=\"".$coursesRepositoryWeb.$_course['path']."/index.php\" target=\"_top\">"
+            .(($langFile == 'course_home') ? '<b>'.$_course['officialCode'].'</b>' : $_course['officialCode'])
+            ."</a>\n";
+    }
+
+    if (is_array($interbredcrump) )
+    {
+        while ( list(,$bredcrumpStep) = each($interbredcrump) )
+        {
+            echo	" &gt; "
+                    ."<a href=\"",$bredcrumpStep['url']
+                    ."\" target=\"_top\">",$bredcrumpStep['name']
+                    ."</a>\n";
+        }
+    }
+
+    if (isset($nameTools) && $langFile != 'course_home')
+    {
+        if ($noPHP_SELF)
+        {
+            echo	" &gt; <b>",$nameTools,"</b>\n";
+        }
+        elseif ($noQUERY_STRING)
+        {
+            echo	" &gt ; "
+                    ."<b>"
+                    ."<a href=",$PHP_SELF," target=\"_top\">"
+                    .$nameTools
+                    ."</a>"
+                    ."</b>\n";
+        }
+        else
+        {
+            echo	" &gt; " 
+                    ."<b>"
+                    ."<a href=",$PHP_SELF,'?',$QUERY_STRING," target=\"_top\">"
+                    .$nameTools
+                    ."</a>"
+                    ."</b>\n";
+        }
+    }
+
+    echo "</small><br>\n";
+
 }
 
-if (is_array($interbredcrump) )
-{
-	while ( list(,$bredcrumpStep) = each($interbredcrump) )
-	{
-		echo	" &gt <a href=\"",$bredcrumpStep['url'],"\" target=\"_top\">",$bredcrumpStep['name'],"</a>\n";
-	}
-}
 
-if (isset($nameTools) && $langFile != 'course_home')
-{
-	if ($noPHP_SELF)
-	{
-		echo	" &gt <b>",$nameTools,"</b>\n";
-	}
-	elseif ($noQUERY_STRING)
-	{
-		echo	" &gt <b>",
-				"<a href=",$PHP_SELF," target=\"_top\">",
-					$nameTools,
-				"</a>",
-				"</b>\n";
-	}
-	else
-	{
-		echo	" &gt <b>",
-				"<a href=",$PHP_SELF,'?',$QUERY_STRING," target=\"_top\">",
-					$nameTools,
-				"</a>",
-				"</b>\n";
-	}
-}
-
-?>
-</small>
-<br>
-<?php
 if( isset($db) )
 {
 	// connect to the main database.
