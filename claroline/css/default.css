@@ -58,6 +58,7 @@ div#platformBanner
 #platformBanner a:hover
 {
 	color: #FFF;
+	text-decoration: underline;
 }
 
 div#siteName
