@@ -117,7 +117,7 @@ else
 }
 
 // shows the form to modify the exercise
-if($_REQUEST['modifyExercise'])
+if($_REQUEST['modifyExercise'] || $newExercise == 'yes')
 {
 ?>
 
@@ -145,27 +145,27 @@ if($_REQUEST['modifyExercise'])
 
 <tr>
   <td>
-  <label for="exerciseTitle"><?php echo $langExerciseName; ?> :</label>
+  <label for="exerciseTitle"><?php echo $langExerciseName; ?>&nbsp;:</label>
   </td>
   <td><input type="text" name="exerciseTitle" id="exerciseTitle" size="50" maxlength="200" value="<?php echo htmlentities($exerciseTitle); ?>" style="width:400px;"></td>
 </tr>
 <tr>
   <td valign="top">
-  <label for="exerciseDescription"><?php echo $langExerciseDescription; ?> :</label>
+  <label for="exerciseDescription"><?php echo $langExerciseDescription; ?>&nbsp;:</label>
   </td>
   <td>
   <!--<textarea wrap="virtual" name="exerciseDescription" cols="50" rows="4" style="width:400px;"><?php //echo htmlentities($exerciseDescription); ?></textarea></td>-->
   <?php claro_disp_html_area('exerciseDescription', $exerciseDescription) ?>
 </tr>
 <tr>
-  <td valign="top"><?php echo $langExerciseType; ?> :</td>
+  <td valign="top"><?php echo $langExerciseType; ?>&nbsp;:</td>
   <td><input type="radio" name="exerciseType" id="exerciseType1" value="1" <?php if($exerciseType <= 1) echo 'checked="checked"'; ?>> <label for="exerciseType1"><?php echo $langSimpleExercise; ?></label><br>
       <input type="radio" name="exerciseType" id="exerciseType2" value="2" <?php if($exerciseType >= 2) echo 'checked="checked"'; ?>> <label for="exerciseType2"><?php echo $langSequentialExercise; ?></td></label>
 </tr>
 <!-- start date form -->
 <tr>
 
-<td>Exercise opening :</td>
+<td><?php echo $langExerciseOpening; ?>&nbsp;:</td>
 
 <td>
 <?php
@@ -177,7 +177,7 @@ if($_REQUEST['modifyExercise'])
 <!-- end date form -->
 <tr>
 
-<td>Exercise closing :</td>
+<td><?php echo $langExerciseClosing; ?>&nbsp;:</td>
 
 <td>
 <?php
@@ -188,7 +188,7 @@ if($_REQUEST['modifyExercise'])
   </td>
 </tr>
 <tr>
-  <td><label for="exerciseMaxTime"><?php echo $langAllowedTime; ?> :</label></td>
+  <td><label for="exerciseMaxTime"><?php echo $langAllowedTime; ?>&nbsp;:</label></td>
   <td>
   <input type="checkbox" name="exerciseMaxTime" id="exerciseMaxTime" value="1" <?php if($maxTime != 0) echo 'checked="checked"';?>>
   <label for="exerciseMaxTime"><?php echo $langYes; ?>, </label>
@@ -198,7 +198,7 @@ if($_REQUEST['modifyExercise'])
 </tr>
 
 <tr>
-  <td><label for="exerciseMaxAttempt"><?php echo $langAllowedAttempts; ?> :</label></td>
+  <td><label for="exerciseMaxAttempt"><?php echo $langAllowedAttempts; ?>&nbsp;:</label></td>
   <td>
 	<select name="exerciseMaxAttempt" id="exerciseMaxAttempt">
         <option value="0" <?php echo ($maxAttempt == 0)? 'selected="selected"' : ''?>><?php echo $langUnlimitedAttempts; ?></option>
@@ -212,7 +212,7 @@ if($_REQUEST['modifyExercise'])
 </tr>
 
 <tr>
-  <td valign="top"><?php echo $langAllowAnonymousAttempts; ?> : </td>
+  <td valign="top"><?php echo $langAllowAnonymousAttempts; ?>&nbsp;: </td>
   <td>
     <input type="radio" name="anonymousAttempts" id="anonymousAttemptsYes" value="YES" <?php if( $anonymousAttempts ) echo 'checked="checked"'; ?>>
     <label for="anonymousAttemptsYes"><?php echo $langAnonymousAttemptsAllowed; ?></label><br />
@@ -222,7 +222,7 @@ if($_REQUEST['modifyExercise'])
 </tr>
 
 <tr>
-  <td valign="top"><?php echo $langShowAnswers; ?> : </td>
+  <td valign="top"><?php echo $langShowAnswers; ?>&nbsp;: </td>
   <td>
     <input type="radio" name="exerciseShowAnswer" id="alwaysShowAnswer" value="ALWAYS" <?php if($showAnswer == 'ALWAYS') echo 'checked="checked"';?>>
     <label for="alwaysShowAnswer"><?php echo $langAlways; ?></label><br />
@@ -240,7 +240,7 @@ if($_REQUEST['modifyExercise'])
 ?>
 
 <tr>
-  <td valign="top"><label for="randomQuestions"><?php echo $langRandomQuestions; ?> :</label></td>
+  <td valign="top"><label for="randomQuestions"><?php echo $langRandomQuestions; ?>&nbsp;:</label></td>
   <td><input type="checkbox" name="randomQuestions" id="randomQuestions" value="1" <?php if($randomQuestions) echo 'checked="checked"'; ?>> <label for="randomQuestions"><?php echo $langYes; ?></label>, <label for="questionDrawn"><?php echo $langTake; ?></label>
     <select name="questionDrawn" id="questionDrawn">
 
