@@ -654,7 +654,7 @@ BuildEditableCatTable(""," &gt; ");
 
 	<tr>
 		<td>
-			<?php echo $langFaculty ?>
+			<?php echo $langCategory ?>
 		</td
 		<td>
 			[<?php echo $valueFacultyCode ?>]<?php echo $valueFacultyName ?>

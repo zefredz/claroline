@@ -206,7 +206,7 @@ echo "<br>";
 </tr>
 
 <tr>
-<td align="right"><label for="faculte"><?php echo $langFaculty ?></label> :</td>
+<td align="right"><label for="faculte"><?php echo $langCategory ?></label> :</td>
 <td>
 
 <?php
