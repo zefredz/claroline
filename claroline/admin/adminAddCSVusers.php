@@ -155,7 +155,7 @@ switch ($cmd)
 	
 	//delete the temp file
 	
-	unlink($uploadTempDir.$_FILES["CSVfile"]["name"]);
+	@unlink($uploadTempDir.$_FILES["CSVfile"]["name"]);
 	
 	// select display type
 	
