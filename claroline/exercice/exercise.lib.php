@@ -1,7 +1,7 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.0 $Revision$                            |
+      | CLAROLINE version 1.5.*                                    |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
@@ -269,7 +269,8 @@ function display_attached_file($attachedFile)
                       <param name=\"type\" value=\"video/quicktime\">
                       <embed align=\"middle\" src=\"".$attachedFilePathWeb."/".$attachedFile."\" volume=\"50%\" loop=\"false\" controller=\"true\" autoplay=\"false\" type=\"video/quicktime\">
                       </embed> 
-                      </object>";
+                      </object>
+                      <br /><small><a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">".$langAttachedFile." (.mov)</a></small>";
         break;
     */
     /*
@@ -287,19 +288,20 @@ function display_attached_file($attachedFile)
                       </embed>
                       </object>";
         break;
-    /*
+    
     case 'mp3' :
-        $returnedString .= "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" 
+            $returnedString .= "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" 
                         codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0\"  
-                        width=\"35\" height=\"18\" id=\"mp3player\"> 
-                      <param name=\"movie\" value=\"mp3player.swf?src=\2.mp3\">
+                        width=\"80\" height=\"45\" id=\"mp3player\"> 
+                      <param name=\"movie\" value=\"claroPlayer.swf?claroSnd=".$attachedFilePathWeb."/".$attachedFile."\">
                       <param name=\"quality\" value=\"high\"> 
                       <param name=\"bgcolor\" value=\"#FFFFFF\"> 
-                      <embed src=\"mp3player.swf?src=".$attachedFilePathWeb."/".$attachedFile."\" quality=\"high\" bgcolor=\"#FFFFFF\" width=\"35\" height=\"18\" name=\"mp3player\"  type=\"application/x-shockwave-flash\"  pluginspage=\"http://www.macromedia.com/go/getflashplayer\">
+                      <embed src=\"claroPlayer.swf?claroSnd=".$attachedFilePathWeb."/".$attachedFile."\" quality=\"high\" bgcolor=\"#FFFFFF\" width=\"80\" height=\"45\" name=\"mp3player\"  type=\"application/x-shockwave-flash\"  pluginspage=\"http://www.macromedia.com/go/getflashplayer\">
                       </embed>
-                      </object>";
+                      </object>
+                      <br /><small><a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">".$langAttachedFile." (.mp3)</a></small>";
         break;
-    */
+    
     default :
         $returnedString .= "<a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">$langAttachedFile</a>";
         break;        
