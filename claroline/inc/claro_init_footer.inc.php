@@ -38,8 +38,8 @@ if(isset($_cid))
 ?>
 
 <div id="platformManager">
-<?php printf($lang_p_platformManager,$siteName); ?> : <a href="mailto:<?php echo $administrator["email"]."?body=".$_course['officialCode']."&amp;subject=[".rawurlencode($siteName)."]" ?>">
-<?php echo $administrator["name"] ?></a>
+<?php printf($lang_p_platformManager,$siteName); ?> : <a href="mailto:<?php echo $administrator_email."?body=".$_course['officialCode']."&amp;subject=[".rawurlencode($siteName)."]" ?>">
+<?php echo $administrator_name ?></a>
 </div>
 
 <div id="poweredBy">

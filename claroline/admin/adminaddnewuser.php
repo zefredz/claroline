@@ -163,7 +163,7 @@ if ($regDataOk)
     // Lets predefine some variables. Be sure to change the from address!
 
     $emailto       = "\"$prenom $nom\" <$email>";
-    $emailfromaddr = $administrator['email'];
+    $emailfromaddr = $administrator_email;
     $emailfromname = $siteName;
     $emailsubject  = '['.$siteName.'] '.$langYourReg;
 
@@ -171,12 +171,12 @@ if ($regDataOk)
 
     $emailbody    = "$langDear $prenom $nom,\n
     $langYouAreReg $siteName $langSettings $uname\n$langPassword : $password\n$langAddress $siteName $langIs : $rootWeb\n$langProblem\n$langFormula,\n" .
-    $administrator["name"] . "\n $langManager $siteName\nT. " . $administrator["phone"] . "\n$langEmail : " . $administrator["email"] . "\n";
+    $administrator_name . "\n $langManager $siteName\nT. " . $administrator_phone . "\n$langEmail : " . $administrator_email . "\n";
 
     // Here we are forming one large header line
     // Every header must be followed by a \n except the last
-    $emailheaders = "From: " . $administrator["name"] . " <".$administrator["email"].">\n";
-    $emailheaders .= "Reply-To: " . $administrator["email"] . "";
+    $emailheaders = "From: " . $administrator_name . " <".$administrator_email.">\n";
+    $emailheaders .= "Reply-To: " . $administrator_email . "";
 
     // Because I predefined all of my variables, this mail() function looks nice and clean hmm?
     @mail( $emailto, $emailsubject, $emailbody, $emailheaders);

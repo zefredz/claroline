@@ -340,12 +340,12 @@ $CourseProgram="http://www.ucl.ac.be/etudes/cours";
 
 // Strings
 $siteName				=	"'.cleanwritevalue($campusForm).'";
-$administrator["name"]	=	"'.cleanwritevalue($contactNameForm).'";
-$administrator["phone"]	=	"'.cleanwritevalue($contactPhoneForm).'";
-$administrator["email"]	=	"'.cleanwritevalue((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'";
+$administrator_name	=	"'.cleanwritevalue($contactNameForm).'";
+$administrator_phone	=	"'.cleanwritevalue($contactPhoneForm).'";
+$administrator_email	=	"'.cleanwritevalue((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'";
 
-$institution["name"]		=	"'.cleanwritevalue($institutionForm).'";
-$institution["url"]			=	"'.$institutionUrlForm.'";
+$institution_name		=	"'.cleanwritevalue($institutionForm).'";
+$institution_url			=	"'.$institutionUrlForm.'";
 
 // param for new and future features
 $checkEmailByHashSent 			= 	'.trueFalse($checkEmailByHashSent).';

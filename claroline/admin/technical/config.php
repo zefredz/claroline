@@ -39,39 +39,29 @@ else
 
 	if(isset($_REQUEST["change"]))
 	{
-		$siteName                       =trim($_REQUEST["siteName"]);
-		$administrator["name"]          =trim($_REQUEST["nameAdministrator"]);
-		$administrator["phone"]         =trim($_REQUEST["phoneAdministrator"]);
-		$administrator["email"]         =trim($_REQUEST["emailAdministrator"]);
-		$educationManager["name"]       =trim($_REQUEST["nameEducationManager"]);
-		$educationManager["phone"]      =trim($_REQUEST["phoneEducationManager"]);
-		$educationManager["email"]      =trim($_REQUEST["emailEducationManager"]);
-		$institution["name"]            =trim($_REQUEST["nameInstitution"]);
-		$institution["url"]             =trim($_REQUEST["urlInstitution"]);
-		$platformLanguage               =trim($_REQUEST["platformLanguage"]);
-		$rootWeb                        =trim($_REQUEST["rootWeb"]);
-		$urlAppend                      =trim($_REQUEST["urlAppend"]);
-		$dbHost                         =trim($_REQUEST["dbHost"]);
-		$dbLogin                        =trim($_REQUEST["dbLogin"]);
-		$dbPass                         =trim($_REQUEST["dbPass"]);
-		$dbNamePrefix                   =trim($_REQUEST["dbNamePrefix"]);
+		$siteName                       = trim($_REQUEST["siteName"]);
+		$administrator_name             = trim($_REQUEST["nameAdministrator"]);
+		$administrator_phone            = trim($_REQUEST["phoneAdministrator"]);
+		$administrator_email            = trim($_REQUEST["emailAdministrator"]);
+		$institution_name               = trim($_REQUEST["nameInstitution"]);
+		$institution_url                = trim($_REQUEST["urlInstitution"]);
+		$platformLanguage               = trim($_REQUEST["platformLanguage"]);
+		$rootWeb                        = trim($_REQUEST["rootWeb"]);
+		$urlAppend                      = trim($_REQUEST["urlAppend"]);
+		$dbHost                         = trim($_REQUEST["dbHost"]);
+		$dbLogin                        = trim($_REQUEST["dbLogin"]);
+		$dbPass                         = trim($_REQUEST["dbPass"]);
+		$dbNamePrefix                   = trim($_REQUEST["dbNamePrefix"]);
 
 		//CHECK EMAIL SYNTAX
 		$emailRegex = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 		$syntaxOk=true;
 
-		if(!empty($administrator["email"]) && !eregi( $emailRegex, $administrator["email"]) )
+		if(!empty($administrator_email) && !eregi( $emailRegex, $administrator_email) )
 		{
 			$syntaxOk = false;
 			$controlMsg['error'][]=$lang_config_ErrorEmailAdmin;
 		}
-
-		if(!empty($educationManager["email"]) && !eregi( $emailRegex, $educationManager["email"]) )
-		{
-			$syntaxOk = false;
-			$controlMsg['error'][]=$lang_config_ErrorEmailManager;
-		}
-
 	}
 
 	if(isset($_REQUEST["change"]) && !empty($rootWeb) && !empty($dbHost) && !empty($dbLogin)  && $syntaxOk && $link=@mysql_connect($dbHost,$dbLogin,$dbPass))
@@ -84,20 +74,16 @@ else
 			if($fp = @fopen("../../inc/conf/claro_main.conf.php","r"))
 			{
 				//Create 2 tables, one with the variable name and one with de new value of this variable
-				$replace=array("\$siteName","\$administrator[\"name\"]","\$administrator[\"phone\"]","\$administrator[\"email\"]",
-								"\$educationManager[\"name\"]","\$educationManager[\"phone\"]","\$educationManager[\"email\"]",
-								"\$institution[\"name\"]","\$institution[\"url\"]","\$platformLanguage","\$rootWeb","\$urlAppend",
+				$replace=array("\$siteName","\$administrator_name","\$administrator_phone","\$administrator_email",
+								"\$institution_name","\$institution_url","\$platformLanguage","\$rootWeb","\$urlAppend",
 								"\$dbLogin","\$dbPass","\$dbNamePrefix");
 
 				$newVal = array ( cleanwritevalue($siteName)
-                                , cleanwritevalue($administrator["name"])
-                                , cleanwritevalue($administrator["phone"])
-                                , cleanwritevalue($administrator["email"])
-                                , cleanwritevalue($educationManager["name"])
-                                , cleanwritevalue($educationManager["phone"])
-                                , cleanwritevalue($educationManager["email"])
-                                , cleanwritevalue($institution["name"])
-                                , $institution['url']
+                                , cleanwritevalue($administrator_name)
+                                , cleanwritevalue($administrator_phone)
+                                , cleanwritevalue($administrator_email)
+                                , cleanwritevalue($institution_name)
+                                , $institution_url
                                 , $platformLanguage
                                 , $rootWeb
                                 , $urlAppend
@@ -266,7 +252,7 @@ claro_disp_msg_arr($controlMsg);
 				<label for="nameAdministrator"><?php echo  $lang_config_name ?></label>
 			</td>
 			<td> 
-				<input type="text" name="nameAdministrator" id="nameAdministrator" size="30" value="<?php echo cleanoutputvalue($administrator["name"])?>" />
+				<input type="text" name="nameAdministrator" id="nameAdministrator" size="30" value="<?php echo cleanoutputvalue($administrator_name)?>" />
 			</td>
 		</tr>
 		<tr>
@@ -274,7 +260,7 @@ claro_disp_msg_arr($controlMsg);
 				<label for="phoneAdministrator"><?php echo $lang_config_phone ?></label>
 			</td>
 			<td> 
-				<input type="text" name="phoneAdministrator" id="phoneAdministrator" size="30" value="<?php echo cleanoutputvalue($administrator["phone"]) ?>" />
+				<input type="text" name="phoneAdministrator" id="phoneAdministrator" size="30" value="<?php echo cleanoutputvalue($administrator_phone) ?>" />
 			</td>
 		</tr>
 		<tr>
@@ -282,33 +268,7 @@ claro_disp_msg_arr($controlMsg);
 				<label for="emailAdministrator"><?php echo $lang_config_email ?></label>
 			</td>
 			<td> 
-				<input type="text" name="emailAdministrator" id="emailAdministrator" size="30" value="<?php echo cleanoutputvalue($administrator["email"]) ?>" />
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2"><h4><?php echo $lang_config_TitleEducationManager ?></h4></td>
-		</tr>
-		<tr>
-			<td align="right"> 
-				<label for="nameEducationManager"><?php echo $lang_config_name ?></label>
-			</td>
-			<td> <input type="text" name="nameEducationManager" id="nameEducationManager" size="30" value="<?php echo cleanoutputvalue($educationManager["name"]) ?>" />
-			</td>
-		</tr>
-		<tr>
-			<td align="right">  
-				<label for="phoneEducationManager"><?php echo $lang_config_phone ?></label>
-			</td>
-			<td> 
-				<input type="text" id="phoneEducationManager"  name="phoneEducationManager" size="30" value="<?php echo cleanoutputvalue($educationManager["phone"]) ?>" />
-			</td>
-		</tr>
-		<tr>
-			<td align="right">  
-				<label for="emailEducationManager"><?php echo $lang_config_email ?></label>
-			</td>
-			<td> 
-				<input type="text" name="emailEducationManager"  id="emailEducationManager" size="30" value="<?php echo cleanoutputvalue($educationManager["email"]) ?>" />
+				<input type="text" name="emailAdministrator" id="emailAdministrator" size="30" value="<?php echo cleanoutputvalue($administrator_email) ?>" />
 			</td>
 		</tr>
 		<tr>
@@ -319,7 +279,7 @@ claro_disp_msg_arr($controlMsg);
 				<label for="nameInstitution"><?php echo  $lang_config_name ?></label>
 			</td>
 			<td> 
-				<input type="text" name="nameInstitution" id="nameInstitution" size="30" value="<?php echo cleanoutputvalue($institution["name"]) ?>" />
+				<input type="text" name="nameInstitution" id="nameInstitution" size="30" value="<?php echo cleanoutputvalue($institution_name) ?>" />
 			</td>
 		</tr>
 		<tr>
@@ -327,7 +287,7 @@ claro_disp_msg_arr($controlMsg);
 				<label for="urlInstitution"><?php echo $lang_config_urlInstitution ?></label>
 			</td>
 			<td> 
-				<input type="text" name="urlInstitution"  id="urlInstitution" size="50" value="<?php echo $institution["url"] ?>"  >
+				<input type="text" name="urlInstitution"  id="urlInstitution" size="50" value="<?php echo $institution_url ?>"  >
 			</td>
 		</tr>
 		<tr>

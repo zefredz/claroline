@@ -211,13 +211,13 @@ function prepare_course_repository($courseRepository, $courseId)
 		<br>
 		<br>
 		Please contact file system admin :
-		<big><U>".$administrator['name']."</U></big>
+		<big><U>".$administrator_name."</U></big>
 		<ul>
 			<li>
-				to phone : ".$administrator['phone']."
+				to phone : ".$administrator_phone."
 			</li>
 			<li>
-				or <a href=\"mailto:".$administrator['email']."\" >".$administrator['email']."</A>
+				or <a href=\"mailto:".$administrator_email."\" >".$administrator_email."</A>
 			</LI>
 		</ul>
 		and

@@ -30,7 +30,7 @@ function claro_mail_spool($mails)
 
 	foreach ($mails as $mailToSend)
 	{
-		$specificFrom = trim( $mailToSend['from']==""?$administrator['email']:$mailToSend['from']);
+		$specificFrom = trim( $mailToSend['from']==""?$administrator_email:$mailToSend['from']);
      //find user email in claro db
 	   $sql = '	SELECT * 
 	   				FROM `'.$tbl_user.'` as `claro_user`
@@ -71,7 +71,7 @@ function claro_mail_spool($mails)
 	   }
 	   else
 	   {
-	        $mail->From = $administrator['email'];
+	        $mail->From = $administrator_email;
 	   }
 
 	   if ($specificFromName!="") //takes from name if given in parameters
@@ -80,7 +80,7 @@ function claro_mail_spool($mails)
 	   }
 	   else
 	   {
-	        $mail->FromName = $administrator["name"];
+	        $mail->FromName = $administrator_name;
 	   }
 	
 	   $mail->IsMail();
@@ -192,7 +192,7 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
 	else
 	{
 		// by default the mail is sent by the administrator
-		$mail->From = $administrator["email"];
+		$mail->From = $administrator_email;
 	}
 		
 	if ($specificFromName!="") //takes from name if given in parameters
@@ -201,7 +201,7 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
 	}
 	else
 	{
-		$mail->FromName = $administrator["name"];
+		$mail->FromName = $administrator_name;
 	}
 		
 	$mail->IsMail();

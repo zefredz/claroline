@@ -2,7 +2,7 @@
 //require '../inc/claro_init_global.inc.php';
 //define('FPDF_font_path',"../admin/mysql/libraries/fpdf/font/");
 
-GLOBAL $siteName,$administrator,$administrator["email"], $currentCourseCode, $HTTP_POST_VARS;
+GLOBAL $siteName,$administrator,$administrator_email, $currentCourseCode, $HTTP_POST_VARS;
 
 
 $screenCodeCourse 	= $currentCourseCode;
@@ -31,7 +31,7 @@ $pdf->Cell(40,10,'Titulaire : 	'.$titu,0,1);
 $pdf->Cell(40,10,'Faculté : 	'.$fac,0,1);
 $pdf->Cell(40,10,'Langue : 	'.$courseLang,0,1);
 $pdf->SetFont('times','',10);
-$pdf->Cell(180,8,$administrator["name"]." ".$administrator["email"],'T');
+$pdf->Cell(180,8,$administrator_name." ".$administrator_email,'T');
 $fichierTemp =  tempnam ( ".", "samplePDF");
 $pdf->Output($fichierTemp);
 

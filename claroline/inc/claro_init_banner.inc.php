@@ -12,7 +12,7 @@ ob_start();
 
 <span id="siteName"><a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $siteName ?></a></span>
 <span id="institution">
-<a href="<?php echo $institution['url'] ?>" target="_top"><?php echo $institution['name'] ?></a>
+<a href="<?php echo $institution_url ?>" target="_top"><?php echo $institution_name ?></a>
 <?php
 
 if ($_course['extLink']['name'] != '')    /* --- External Link Section --- */

@@ -64,7 +64,7 @@ User:'.$_uid.'
 *user profile : '.$rootAdminWeb.'adminprofile.php?uidToEdit='.$_uid.' ';
 	foreach ($mailToUidList as $mailToUid)
 	{
-		claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator['email'], 'profile');
+		claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator_email, 'profile');
 	}
 
 	$messageList[] = $langYourRequestToBeCourseManagerIsSent;
@@ -90,7 +90,7 @@ User:'.$_uid.'
 *user profile : '.$rootAdminWeb.'adminprofile.php?uidToEdit='.$_uid.' ';
 	foreach ($mailToUidList as $mailToUid)
 	{
-		claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator['email'], 'profile');
+		claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator_email, 'profile');
 	}
 	$messageList[] = $langYourRequestToRemoveYourAccountIsSent;
 

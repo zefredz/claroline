@@ -342,7 +342,7 @@ else
 		    .' '.$langLanguage.' : '.$newcourse_language."\n"
 		    ."\n ".$coursesRepositoryWeb.$currentCourseRepository."/\n\n";
 		    if (    
-					!@mail(	$administrator["email"], 
+					!@mail(	$administrator_email, 
 							$strCreationMailNotificationSubject ,
 							$strCreationMailNotificationBody ))
 			{

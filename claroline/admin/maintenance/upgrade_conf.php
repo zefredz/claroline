@@ -103,13 +103,13 @@ if ($_REQUEST['cmd'] == 'run')
 	
 	$siteName		=	"My campus";
 	
-	$administrator["name"]	=	"John Doe";
-	$administrator["phone"]	=	"(000) 001 02 03";
-	$administrator["email"]	=	$_SERVER['ADMIN'];
+	$administrator_name	=	"John Doe";
+	$administrator_phone	=	"(000) 001 02 03";
+	$administrator_email	=	$_SERVER['ADMIN'];
 	
 	
-	$institution["name"]	= "My Univ";
-	$institution["url"]	= "http://www.google.com/";
+	$institution_name	= "My Univ";
+	$institution_url	= "http://www.google.com/";
 	
 	// param for new and future features
 	$checkEmailByHashSent 		= false;
@@ -138,11 +138,10 @@ if ($_REQUEST['cmd'] == 'run')
 	
 	if ($statsDbName=="") $statsDbName = $mainDbName_stats;
 	
-	$administrator["name"]		= $administratorSurname." ".$administratorName;
-	$administrator["phone"]		= $telephone;
-	$educationManager["name"]	= $educationManager;
-	$institution["name"]		= $Institution;
-	$institution["url"]		= $InstitutionUrl;
+	$administrator_name		= $administratorSurname." ".$administratorName;
+	$administrator_phone		= $telephone;
+	$institution_name		= $Institution;
+	$institution_url		= $InstitutionUrl;
 	
 	$pmaDbName			= $mainDbName;
 	$mysqlRepositorySys 		= str_replace("\\","/",realpath($mysqlRepositorySys)."/");
@@ -251,15 +250,12 @@ if ($_REQUEST['cmd'] == 'run')
 	// Strings
 	$siteName		= "'.$siteName.'";
 	
-	$administrator["name"]	= "'.$administrator["name"].'";
-	$administrator["phone"]	= "'.$administrator["phone"].'";
-	$administrator["email"]	= "'.$administrator["email"].'";
+	$administrator_name	= "'.$administrator_name.'";
+	$administrator_phone	= "'.$administrator_phone.'";
+	$administrator_email	= "'.$administrator_email.'";
 	
-	$educationManager["name"]  = "'.$educationManager["name"].'";
-	$educationManager["phone"] = "'.$educationManager["phone"].'";
-	$educationManager["email"] = "'.$educationManager["email"].'";
-	$institution["name"]	   = "'.$institution["name"].'";
-	$institution["url"]	   = "'.$institution["url"].'";
+	$institution_name	   = "'.$institution_name.'";
+	$institution_url	   = "'.$institution_url.'";
 	
 	// param for new and future features
 	$checkEmailByHashSent 		= '.trueFalse($checkEmailByHashSent).';
@@ -470,16 +466,16 @@ switch ($display)
                 <br />
                 <fieldset>
                     <legend>Administrator</legend>
-                    Name: ".$administrator["name"]."<br />
-                    Mail: ".$administrator["email"]."<br />
+                    Name: ".$administrator_name."<br />
+                    Mail: ".$administrator_email."<br />
 		</fieldset>
                 <br />
 		<fieldset>
                  <legend>Campus</legend>
                  <p>
                     Language: $platformLanguage<br />
-                    Your organisation: ".$institution["name"]."<br />
-                    URL of this organisation: ".$institution["url"]."
+                    Your organisation: ".$institution_name."<br />
+                    URL of this organisation: ".$institution_url."
                 </p>
 		</fieldset>
                 <br />

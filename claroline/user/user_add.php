@@ -236,10 +236,10 @@ if($register)
             $langAddress $siteName $langIs: $serverAddress\n
             $langProblem\n\n
             $langFormula,\n
-            $langAdministrator ".$administrator["name"]."\n
+            $langAdministrator ".$administrator_name."\n
             $langManager $siteName\n";
-            if(! empty($administrator["phone"]) ) $emailBody .= "T. ".$administrator["phone"]."\n";
-            $emailBody .= $langEmail.": ".$administrator["email"]."\n";
+            if(! empty($administrator_phone) ) $emailBody .= "T. ".$administrator_phone."\n";
+            $emailBody .= $langEmail.": ".$administrator_email."\n";
 			$message = "$langTheU $prenom_form $nom_form $langAddedToCourse. ";
         }
 		else
@@ -250,10 +250,10 @@ if($register)
             $langAddress $siteName $langIs: $serverAddress\n
             $langProblem\n\n
             $langFormula,\n
-            $administratorSurname ".$administrator["name"]."\n\n
+            $administratorSurname ".$administrator_name."\n\n
             $langManager $siteName\n";
-            if(! empty($administrator["phone"]) ) $emailBody .= "T. ".$administrator["phone"]."\n";
-            $emailBody .= $langEmail.": ".$administrator["email"]."\n";
+            if(! empty($administrator_phone) ) $emailBody .= "T. ".$administrator_phone."\n";
+            $emailBody .= $langEmail.": ".$administrator_email."\n";
 			$message = "$prenom_form $nom_form Added to platform.";
 		}
 

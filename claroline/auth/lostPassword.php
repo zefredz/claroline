@@ -129,7 +129,7 @@ if (isset($_REQUEST['searchPassword']) && !empty($Femail) )
 			else
 			{
 				$msg = $langEmailNotSent
-                .	'<a href="mailto:'.$administrator["email"].'?BODY='.$Femail.'">'
+                .	'<a href="mailto:'.$administrator_email.'?BODY='.$Femail.'">'
                 .	$langPlatformAdministrator
                 .	"</a>";
 			}	
