@@ -90,19 +90,23 @@ if($modifyExercise)
 ?>
 
 <tr>
-  <td><?php echo $langExerciseName; ?> :</td>
-  <td><input type="text" name="exerciseTitle" size="50" maxlength="200" value="<?php echo htmlentities($exerciseTitle); ?>" style="width:400px;"></td>
+  <td>
+  <label for="exerciseTitle"><?php echo $langExerciseName; ?> :</label>
+  </td>
+  <td><input type="text" name="exerciseTitle" id="exerciseTitle" size="50" maxlength="200" value="<?php echo htmlentities($exerciseTitle); ?>" style="width:400px;"></td>
 </tr>
 <tr>
-  <td valign="top"><?php echo $langExerciseDescription; ?> :</td>
+  <td valign="top">
+  <label for="exerciseDescription"><?php echo $langExerciseDescription; ?> :</label>
+  </td>
   <td>
   <!--<textarea wrap="virtual" name="exerciseDescription" cols="50" rows="4" style="width:400px;"><?php //echo htmlentities($exerciseDescription); ?></textarea></td>-->
   <?php claro_disp_html_area('exerciseDescription', $exerciseDescription) ?>
 </tr>
 <tr>
   <td valign="top"><?php echo $langExerciseType; ?> :</td>
-  <td><input type="radio" name="exerciseType" value="1" <?php if($exerciseType <= 1) echo 'checked="checked"'; ?>> <?php echo $langSimpleExercise; ?><br>
-      <input type="radio" name="exerciseType" value="2" <?php if($exerciseType >= 2) echo 'checked="checked"'; ?>> <?php echo $langSequentialExercise; ?></td>
+  <td><input type="radio" name="exerciseType" id="exerciseType1" value="1" <?php if($exerciseType <= 1) echo 'checked="checked"'; ?>> <label for="exerciseType1"><?php echo $langSimpleExercise; ?></label><br>
+      <input type="radio" name="exerciseType" id="exerciseType2" value="2" <?php if($exerciseType >= 2) echo 'checked="checked"'; ?>> <label for="exerciseType2"><?php echo $langSequentialExercise; ?></td></label>
 </tr>
 
 <?php
@@ -111,9 +115,9 @@ if($modifyExercise)
 ?>
 
 <tr>
-  <td valign="top"><?php echo $langRandomQuestions; ?> :</td>
-  <td><input type="checkbox" name="randomQuestions" value="1" <?php if($randomQuestions) echo 'checked="checked"'; ?>> <?php echo $langYes; ?>, <?php echo $langTake; ?>
-    <select name="questionDrawn">
+  <td valign="top"><label for="randomQuestions"><?php echo $langRandomQuestions; ?> :</label></td>
+  <td><input type="checkbox" name="randomQuestions" id="randomQuestions" value="1" <?php if($randomQuestions) echo 'checked="checked"'; ?>> <label for="randomQuestions"><?php echo $langYes; ?></label>, <label for="questionDrawn"><?php echo $langTake; ?></label>
+    <select name="questionDrawn" id="questionDrawn">
 
 <?php
 		for($i=1;$i <= $nbrQuestions;$i++)
@@ -126,7 +130,7 @@ if($modifyExercise)
 		}
 ?>
 
-	</select> <?php echo strtolower($langQuestions).' '.$langAmong.' '.$nbrQuestions; ?>
+	</select> <label for="questionDrawn"><?php echo strtolower($langQuestions).' '.$langAmong.' '.$nbrQuestions; ?></label>
   </td>
 </tr>
 
