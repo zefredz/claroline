@@ -380,7 +380,7 @@ $versionDb 			= 	"'.$versionDb.'";
 // available for both Windows, Macintosh and Linux at 
 // http://www.integretechpub.com/.
 
-$claro_texRendererUrl = '';
+$claro_texRendererUrl = \'\';
 
 ?>');
 
@@ -398,18 +398,6 @@ $claro_texRendererUrl = '';
 
 $arr_file_to_undist = 
 array (
-$newIncludePath."conf/add_course.conf.php",
-$newIncludePath."conf/admin.usermanagement.conf.php",
-$newIncludePath."conf/agenda.conf.inc.php",
-$newIncludePath."conf/announcement.conf.inc.php",
-$newIncludePath."conf/course_info.conf.php",
-$newIncludePath."conf/export.conf.php",
-$newIncludePath."conf/group.conf.php",
-$newIncludePath."conf/group.document.conf.php",
-$newIncludePath."conf/index.conf.inc.php",
-$newIncludePath."conf/profile.conf.inc.php",
-$newIncludePath."conf/user.conf.php",
-$newIncludePath."conf/work.conf.inc.php",
 $newIncludePath."../../textzone_top.inc.html",
 $newIncludePath."../../textzone_right.inc.html"
 );
@@ -428,6 +416,9 @@ foreach ( $def_file_list as $def_file_bloc)
     if (is_array($def_file_bloc['conf']))
     foreach ( $def_file_bloc['conf'] as $config_code => $def_file)
     {
+
+        // tmp: skip the main conf
+        if ( $config_code == 'CLMAIN' ) continue;
 
         $okToSave = TRUE;
         
