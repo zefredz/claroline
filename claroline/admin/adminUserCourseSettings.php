@@ -122,8 +122,8 @@ if(isset($user_id))
     $sqlGetInfoUser ="
     SELECT *
         FROM  `".$tbl_user."`
-        WHERE user_id='$user_id'";
-    $result=mysql_query($sqlGetInfoUser) or die("Erreur SELECT FROM user");
+        WHERE user_id='".$user_id."'";
+    $result=claro_sql_query($sqlGetInfoUser);
     //echo $sqlGetInfoUser;
 
     $myrow          = mysql_fetch_array($result);
@@ -138,8 +138,7 @@ if(isset($user_id))
     // find global course info
 
     $sql = "SELECT * FROM `".$tbl_course."`
-            WHERE code='".$cidToEdit."'
-            ";
+            WHERE code='".$cidToEdit."'";
     $resultCourse = claro_sql_query($sql);
     $courseList = mysql_fetch_array($resultCourse);
 

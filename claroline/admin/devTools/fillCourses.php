@@ -180,14 +180,14 @@ if (isset($HTTP_POST_VARS["nc"]))
         closedir($handle);
     }
     $sqlCat = "Select `code` `code` from `".$TABLECOURSDOMAIN."` WHERE canHaveCoursesChild  = 'TRUE'";
-    $resCat = mysql_query($sqlCat);
+    $resCat = claro_sql_query($sqlCat);
     while ($fac = mysql_fetch_array($resCat,MYSQL_ASSOC))
     {
         $aivailableFaculty[] = $fac["code"];
     }
 
     $sqlTeachers = "Select `user_id` `uid` from `".$TABLEUSER."` WHERE statut = 1";
-    $resTeachers = mysql_query($sqlTeachers);
+    $resTeachers = claro_sql_query($sqlTeachers);
     while ($teacher = mysql_fetch_array($resTeachers,MYSQL_ASSOC))
     {
         $teachersUid[] = $teacher["uid"];
@@ -196,7 +196,7 @@ if (isset($HTTP_POST_VARS["nc"]))
     $sqlUsers = "Select `user_id` `uid` from `".$TABLEUSER."`";
     if (!CONF_COURSE_ADMIN_CAN_BE_STUDENT)
         $sqlUsers .= " WHERE statut = '".CONF_VAL_STUDENT_STATUS."'";
-    $resUsers = mysql_query($sqlUsers);
+    $resUsers = claro_sql_query($sqlUsers);
     while ($users = mysql_fetch_array($resUsers,MYSQL_ASSOC))
     {
         $usersUid[] = $users["uid"];
@@ -280,7 +280,7 @@ if (isset($HTTP_POST_VARS["nc"]))
         (`code_cours`, `user_id`, `statut`)
         VALUES
             ".implode(", ",$userSqlSegment);
-            $resAddUsers = mysql_query($sqlAddUserToCourse);
+            $resAddUsers = claro_sql_query($sqlAddUserToCourse);
             $addedUsers = mysql_affected_rows();
         }
 
@@ -308,7 +308,7 @@ if (isset($HTTP_POST_VARS["nc"]))
 			$sql = "INSERT INTO `".$tbl_Groups."`
 					(maxStudent) VALUES ('".$group_max."')";
 
-			mysql_query($sql);
+			claro_sql_query($sql);
 			$lastId = mysql_insert_id();
 
 			/*
@@ -322,7 +322,7 @@ if (isset($HTTP_POST_VARS["nc"]))
 					VALUES ('','$langForumGroup $lastId','', 2, 1, 0, 0,
 							1, 1, 0,'".md5(time())."')";
 
-			mysql_query($sql);
+			claro_sql_query($sql);
 			$forumInsertId = mysql_insert_id();
 
 			/*
@@ -348,7 +348,7 @@ if (isset($HTTP_POST_VARS["nc"]))
 						secretDirectory = '".$secretDirectory."'
 					WHERE id ='".$lastId."'";
 
-			mysql_query($sql);
+			claro_sql_query($sql);
 
 		}	// end for ($i = 1; $i <= $group_quantity; $i++)
 

@@ -176,7 +176,7 @@ function resfreshTreePosNode($codeCat,$treePos)
             ORDER by treePos
         ";
 	}
-	$resGetNodes = mysql_query($sqlGetNodes);
+	$resGetNodes = claro_sql_query($sqlGetNodes);
 	while ($node = mysql_fetch_array($resGetNodes,MYSQL_ASSOC))
 	{
 		$treePos++;

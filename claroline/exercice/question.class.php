@@ -1,19 +1,16 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.2 $Revision$                            |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
       |   as published by the Free Software Foundation; either version 2     |
       |   of the License, or (at your option) any later version.             |
       +----------------------------------------------------------------------+
-      | Authors: Olivier Brouckaert <oli.brouckaert@skynet.be>               |
-      +----------------------------------------------------------------------+
 */
-
 if(!class_exists('Question')):
 
 		/*>>>>>>>>>>>>>>>>>>>> CLASS QUESTION <<<<<<<<<<<<<<<<<<<<*/
@@ -66,8 +63,8 @@ class Question
 	{
 		global $TBL_QUESTIONS, $TBL_EXERCICE_QUESTION;
 
-		$sql="SELECT question,description,ponderation,q_position,type,attached_file FROM `$TBL_QUESTIONS` WHERE id='$id'";
-		$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
+		$sql="SELECT question,description,ponderation,q_position,type,attached_file FROM `".$TBL_QUESTIONS."` WHERE id='".$id."'";
+		$result=claro_sql_query($sql);
 
 		// if the question has been found
 		if($object=mysql_fetch_object($result))
@@ -80,8 +77,8 @@ class Question
 			$this->type=$object->type;
       $this->attachedFile=$object->attached_file;
 
-			$sql="SELECT exercice_id FROM `$TBL_EXERCICE_QUESTION` WHERE question_id='$id'";
-			$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
+			$sql="SELECT exercice_id FROM `".$TBL_EXERCICE_QUESTION."` WHERE question_id='".$id."'";
+			$result=claro_sql_query($sql);
 
 			// fills the array with the exercises which this question is in
 			while($object=mysql_fetch_object($result))
@@ -264,8 +261,8 @@ class Question
 			if(!in_array($this->type,array(UNIQUE_ANSWER,MULTIPLE_ANSWER)) || !in_array($type,array(UNIQUE_ANSWER,MULTIPLE_ANSWER)))
 			{
 				// removes old answers
-				$sql="DELETE FROM `$TBL_REPONSES` WHERE question_id='".$this->id."'";
-				mysql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
+				$sql="DELETE FROM `".$TBL_REPONSES."` WHERE question_id='".$this->id."'";
+				claro_sql_query($sql);
 			}
 
 			$this->type=$type;
@@ -347,8 +344,8 @@ class Question
         $extension=substr(strrchr($this->attachedFile, '.'), 1);
         $attachedFile='quiz-'.$questionId.'.'.$extension;
         
-        $sql="UPDATE `$TBL_QUESTIONS` SET attached_file = '$attachedFile' WHERE id='$questionId'";
-        mysql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
+        $sql="UPDATE `".$TBL_QUESTIONS."` SET attached_file = '".$attachedFile."' WHERE id='".$questionId."'";
+        claro_sql_query($sql);
         
         return @copy($attachedFilePathSys.'/'.$this->attachedFile,$attachedFilePathSys.'/'.$attachedFile)?true:false;
 		}
@@ -421,14 +418,14 @@ class Question
 		// question already exists
 		if($id)
 		{
-			$sql="UPDATE `$TBL_QUESTIONS` SET question='$question',description='$description',ponderation='$weighting',q_position='$position',type='$type',attached_file='$attachedFile' WHERE id='$id'";
-			mysql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
+			$sql="UPDATE `".$TBL_QUESTIONS."` SET question='".$question."',description='".$description."',ponderation='".$weighting."',q_position='".$position."',type='".$type."',attached_file='".$attachedFile."' WHERE id='".$id."'";
+			claro_sql_query($sql);
 		}
 		// creates a new question
 		else
 		{
-			$sql="INSERT INTO `$TBL_QUESTIONS`(question,description,ponderation,q_position,type,attached_file) VALUES('$question','$description','$weighting','$position','$type','$attachedFile')";
-			mysql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
+			$sql="INSERT INTO `".$TBL_QUESTIONS."`(question,description,ponderation,q_position,type,attached_file) VALUES('".$question."','".$description."','".$weighting."','".$position."','".$type."','".$attachedFile."')";
+			claro_sql_query($sql);
 
 			$this->id=mysql_insert_id();
 		}
@@ -459,7 +456,7 @@ class Question
 			$this->exerciseList[]=$exerciseId;
 
 			$sql="INSERT INTO `$TBL_EXERCICE_QUESTION`(question_id,exercice_id) VALUES('$id','$exerciseId')";
-			mysql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
+			claro_sql_query($sql);
 		}
 	}
 
@@ -490,7 +487,7 @@ class Question
 			unset($this->exerciseList[$pos]);
 
 			$sql="DELETE FROM `$TBL_EXERCICE_QUESTION` WHERE question_id='$id' AND exercice_id='$exerciseId'";
-			mysql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
+			claro_sql_query($sql);
 
 			return true;
 		}
@@ -514,13 +511,13 @@ class Question
 		if(!$deleteFromEx)
 		{
 			$sql="DELETE FROM `$TBL_EXERCICE_QUESTION` WHERE question_id='$id'";
-			mysql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
+			claro_sql_query($sql);
 
 			$sql="DELETE FROM `$TBL_QUESTIONS` WHERE id='$id'";
-			mysql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
+			claro_sql_query($sql);
 
 			$sql="DELETE FROM `$TBL_REPONSES` WHERE question_id='$id'";
-			mysql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
+			claro_sql_query($sql);
 
 			$this->removeAttachedFile();
 
@@ -551,7 +548,7 @@ class Question
 		$type=$this->type;
 
 		$sql="INSERT INTO `$TBL_QUESTIONS`(question,description,ponderation,q_position,type) VALUES('$question','$description','$weighting','$position','$type')";
-		mysql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
+		claro_sql_query($sql);
 
 		$id=mysql_insert_id();
 

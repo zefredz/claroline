@@ -85,7 +85,7 @@ class Exercise
 				`start_date` , `end_date` 
 			FROM `$TBL_EXERCICES` 
 			WHERE `id` = '$id'";
-		$result = mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
+		$result = claro_sql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
 		// if the exercise has been found
 		if($object=mysql_fetch_object($result))
@@ -108,7 +108,7 @@ class Exercise
 				FROM `$TBL_EXERCICE_QUESTION`,`$TBL_QUESTIONS`
 				WHERE `question_id` = `id` AND `exercice_id` = '$id' 
 				ORDER BY `q_position`";
-			$result = mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
+			$result = claro_sql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
 			// fills the array with the question ID for this exercise
 			// the key of the array is the question position
@@ -540,7 +540,7 @@ class Exercise
 						`show_answer` = '$showAnswer',
         `anonymous_attempts` = '$anonymousAttempts'            
 					WHERE `id` = '$id'";
-			mysql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
+			claro_sql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
 		}
 		// creates a new exercise
 		else
@@ -552,7 +552,7 @@ class Exercise
 					VALUES('$exercise','$description','$type','$random','$active',
 							'$startDate', '$endDate',
 							$maxTime,$maxAttempt,'$showAnswer','$anonymousAttempts')";
-			mysql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
+			claro_sql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 
 			$this->id=mysql_insert_id();
 		}
@@ -561,7 +561,7 @@ class Exercise
 		foreach($this->questionList as $position=>$questionId)
 		{
 			$sql="UPDATE `$TBL_QUESTIONS` SET `q_position` = '$position' WHERE `id` = '$questionId'";
-			mysql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
+			claro_sql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
 		}
 	}
 
@@ -720,10 +720,10 @@ class Exercise
 		$id=$this->id;
 
 		$sql="DELETE FROM `$TBL_EXERCICE_QUESTION` WHERE exercice_id='$id'";
-		mysql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
+		claro_sql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
 
 		$sql="DELETE FROM `$TBL_EXERCICES` WHERE id='$id'";
-		mysql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
+		claro_sql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
 	}
 }
 

@@ -16,7 +16,7 @@ header('Content-Type: text/html; charset='. $charset);
 $db = mysql_connect("$mysqlServer", "$mysqlUser", "$mysqlPassword");
 
 $slqListOfCourses = "SELECT * FROM `$mainDbName`.`cours` ";
-$resCourses = mysql_query($slqListOfCourses);
+$resCourses = claro_sql_query($slqListOfCourses);
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
 <html>

@@ -640,7 +640,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath) {
                                 SET `path` = CONCAT(\"".$newPath."\", SUBSTRING(`path`, LENGTH(\"".$oldPath."\")+1) )
                                 WHERE `path` LIKE \"".$oldPath."%\"";
 
-                  mysql_query($sql);
+                  claro_sql_query($sql);
 
                   break;
 
@@ -656,7 +656,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath) {
                          `path` LIKE \"".$oldPath."%\"
                          ";
 
-                  $result = mysql_query($sql);
+                  $result = claro_sql_query($sql);
 
                   $num = mysql_numrows($result);
                   if ($num != 0)
@@ -673,7 +673,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath) {
                            $sqllpm.= " OR `module_id` = '".$list['module_id']."' ";
                         }
                         
-                        $result2 = mysql_query($sqllpm);
+                        $result2 = claro_sql_query($sqllpm);
 
                         //delete the learning path module(s)
 
@@ -682,14 +682,14 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath) {
                                WHERE 0=1
                                ";
 
-                        $result = mysql_query($sqllpm);//:to reset result resused
+                        $result = claro_sql_query($sqllpm);//:to reset result resused
 
                         while ($list=mysql_fetch_array($result))
                         {
                            $sql.= " OR `module_id` = '".$list['module_id']."' ";
                         }
 
-                        mysql_query($sql);
+                        claro_sql_query($sql);
 
                         // delete the module(s) concerned
 
@@ -705,7 +705,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath) {
                            $sql.= " OR `module_id` = '".$list['module_id']."' ";
                         }
 
-                        mysql_query($sql);
+                        claro_sql_query($sql);
 
                         //delete the user module progress concerned
 
@@ -718,7 +718,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath) {
                            $sql.= " OR `learnPath_module_id` = '".$list['learnPath_module_id']."' ";
                         }
 
-                        mysql_query($sql);
+                        claro_sql_query($sql);
 
                         // delete the assets
 
@@ -728,7 +728,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath) {
                                `path` LIKE \"".$oldPath."%\"
                                ";
 
-                        mysql_query($sql);
+                        claro_sql_query($sql);
                   } //end if($num !=0)
                   break;
          }

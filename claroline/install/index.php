@@ -356,7 +356,7 @@ if ($display==DISP_DB_NAMES_SETTING)
 	// this is  to prevent duplicate before submit
 	$db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
 	$sql = "show databases";
-	$res = mysql_query($sql,$db);
+	$res = claro_sql_query($sql,$db);
 	while ($__dbName = mysql_fetch_array($res, MYSQL_NUM))
 	{
 		$existingDbs[]=$__dbName[0];
@@ -1770,11 +1770,11 @@ function check_if_db_exist($db_name,$db=null)
 	
 	if ($db)
 	{
-		$res = mysql_query($sql,$db);
+		$res = claro_sql_query($sql,$db);
 	}
 	else 
 	{
-		$res = mysql_query($sql);
+		$res = claro_sql_query($sql);
 	}
 	$foundDbName = mysql_fetch_array($res, MYSQL_NUM);
 	return $foundDbName;

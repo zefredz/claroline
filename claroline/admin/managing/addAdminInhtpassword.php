@@ -82,7 +82,7 @@ FROM  `".$tbl_user."`
 LEFT JOIN `".$tbl_admin."` `admin` ON `user`.`user_id` = `admin`.`idUser`
 WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(nom), UPPER(prenom) ";
 		}
-		$resListOfUsers = mysql_query($sqlGetListUser) or die("Erreur SELECT FROM user ".$sqlGetListUser);
+		$resListOfUsers = claro_sql_query($sqlGetListUser);
 		if (mysql_num_rows($resListOfUsers)==0)
 		{
 			if (isset($HTTP_GET_VARS["listAllUsers"]))
@@ -107,7 +107,7 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 	{
 		$display = LIST_ADMINS;
 		$sqlGetListUser = "SELECT user_id, nom, prenom, username, email FROM `".$tbl_user."` u, `".$tbl_admin."` a WHERE u.user_id = a.idUSer ";
-		$resListOfUsers= mysql_query($sqlGetListUser) or die("Erreur SELECT FROM user admins ".$sqlGetListUser);
+		$resListOfUsers= claro_sql_query($sqlGetListUser) or die("Erreur SELECT FROM user admins ".$sqlGetListUser);
 		$interbredcrump[]= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langNomPageAddHtPass);
 		$nameTools = $langListAdmin;
 	}
@@ -120,9 +120,9 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 	elseif (isset($HTTP_POST_VARS["uidToSetAdmin"]))
 	{
 		$sqlSetAdminUser = "Insert IGNORE INTO  `".$tbl_admin."` SET `idUser` = '".$HTTP_POST_VARS["uidToSetAdmin"]."'";
-  		mysql_query($sqlSetAdminUser) or die("Erreur sqlSetAdminUser ".$sqlSetAdminUser);
+  		claro_sql_query($sqlSetAdminUser) or die("Erreur sqlSetAdminUser ".$sqlSetAdminUser);
 		$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."` WHERE `user_id` = '".$HTTP_POST_VARS["uidToSetAdmin"]."';";
-  		$resGetUser = mysql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
+  		$resGetUser = claro_sql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
 		$user = mysql_fetch_array($resGetUser,  MYSQL_ASSOC);
 	    $controlMsg["success"][]= "ok : Now, add a login-pass for <strong>".$user["prenom"]." ".$user["nom"]."</strong> in .htaccess and  give it to the user by secure way";
 		$display         = AFTER_ADD_ADMIN;
@@ -138,9 +138,9 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 		else
 		{
 			$sqlDelAdminUser = "Delete From `".$tbl_admin."` Where NOT (`idUser` = '".$_uid."') AND `idUser` = '".$HTTP_GET_VARS["uidToSetNotAdmin"]."'";
-	  		mysql_query($sqlDelAdminUser) or die("Erreur sqlDelAdminUser ".$sqlDelAdminUser);
+	  		claro_sql_query($sqlDelAdminUser) or die("Erreur sqlDelAdminUser ".$sqlDelAdminUser);
 			$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."` WHERE `user_id` = '".$HTTP_GET_VARS["uidToSetNotAdmin"]."';";
-	  		$resGetUser = mysql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
+	  		$resGetUser = claro_sql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
 			$user = mysql_fetch_array($resGetUser,  MYSQL_ASSOC);
 			$controlMsg["warning"][]= "ok : Now, <strong>".$user["prenom"]." ".$user["nom"]."</strong> is no more admin for ".$siteName." but you must remove your self login-pass in .htaccess ";
 		}
@@ -149,7 +149,7 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 	{
 		$display = FINAL_MESSAGE;
 		$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."` WHERE `user_id` = '".$HTTP_GET_VARS["addLoginPassFromClaroUser"]."';";
-  		$resGetUser = mysql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
+  		$resGetUser = claro_sql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
 		$user = mysql_fetch_array($resGetUser,  MYSQL_ASSOC);
 		if ($user["username"]!="" || $user["password"]!="")
 		{

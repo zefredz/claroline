@@ -31,7 +31,7 @@ $display=DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
 // PATCH TO ACCEPT Prefixed DBs
 $mainDbName 	= $dbNameForm;
 $statsDbName 	= $dbStatsForm;
-$resBdbHome = @mysql_query("SHOW VARIABLES LIKE 'datadir'");
+$resBdbHome = @claro_sql_query("SHOW VARIABLES LIKE 'datadir'");
 $mysqlRepositorySys = mysql_fetch_array($resBdbHome,MYSQL_ASSOC);
 $mysqlRepositorySys = $mysqlRepositorySys ["Value"];
 
@@ -39,7 +39,7 @@ $mysqlRepositorySys = $mysqlRepositorySys ["Value"];
 // MAIN DB                             //
 // DB with central info  of  Claroline //
 
-mysql_query("CREATE DATABASE `".$mainDbName."`");
+claro_sql_query("CREATE DATABASE `".$mainDbName."`");
 if (mysql_errno() >0)
 {
 	if (mysql_errno() == 1007)
@@ -86,7 +86,7 @@ if($statsDbName != $mainDbName)
 	if(!$singleDbForm)
 	{
 		// multi DB mode AND tracking has its own DB so create it
-		mysql_query("CREATE DATABASE `$statsDbName`");
+		claro_sql_query("CREATE DATABASE `$statsDbName`");
 		if (mysql_errno() >0)
 		{
 			if (mysql_errno() == 1007)

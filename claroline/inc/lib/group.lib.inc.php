@@ -68,7 +68,7 @@ function delete_groups($groupIdList = 'ALL')
 						FROM `".$tbl_Groups."`".
 						$sql_condition;
 
-	$res_searchGroup = mysql_query($sql_searchGroup);
+	$res_searchGroup = claro_sql_query($sql_searchGroup);
 
 	if ($res_searchGroup)
 	{
@@ -97,14 +97,14 @@ function delete_groups($groupIdList = 'ALL')
 								   AND forum_id IN (".implode(" , ", $groupList[forumId]).")";
 
 		// Deleting group record in table
-		$res_deleteGroup    = mysql_query($sql_deleteGroup);
+		$res_deleteGroup    = claro_sql_query($sql_deleteGroup);
 		$deletedGroupNumber = mysql_affected_rows();
 
 		// Delete all members of deleted group(s)
-		$res_cleanOutGroupUsers = mysql_query($sql_cleanOutGroupUsers);
+		$res_cleanOutGroupUsers = claro_sql_query($sql_cleanOutGroupUsers);
 
 		// Delete all Forum of deleted group(s)
-		$res_deleteGroupForums = mysql_query($sql_deleteGroupForums);
+		$res_deleteGroupForums = claro_sql_query($sql_deleteGroupForums);
 
 
 		/*
@@ -217,7 +217,7 @@ function fill_in_groups()
 	        GROUP BY (`g`.`id`)
 	        HAVING nbPlaces > 0
 	        ORDER BY nbPlaces DESC";
-	$result = mysql_query($sql);
+	$result = claro_sql_query($sql);
 
 	while( $group = mysql_fetch_array($result, MYSQL_ASSOC) )
 	{
@@ -239,7 +239,7 @@ function fill_in_groups()
 	        GROUP BY (cu.user_id)
 	        HAVING nbTicket > 0
 	        ORDER BY nbTicket DESC";
-	$result = mysql_query($sql);
+	$result = claro_sql_query($sql);
 
 	while($user = mysql_fetch_array($result, MYSQL_ASSOC))
 	{
@@ -252,7 +252,7 @@ function fill_in_groups()
 
 	$sql   ="SELECT user uid, team gid FROM `".$tbl_GroupsUsers."`";
 
-	$result = mysql_query($sql);
+	$result = claro_sql_query($sql);
 
 	while ($member = mysql_fetch_array($result,MYSQL_ASSOC))
 	{

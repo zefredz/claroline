@@ -478,7 +478,7 @@ function isAdminUser($user_id)
     global $tbl_admin;
 
     $sql = "SELECT * FROM `".$tbl_admin."` WHERE `idUser`=".$user_id."";
-    $result = mysql_query($sql);
+    $result = claro_sql_query($sql);
     if (mysql_num_rows($result)>0)
     {
       return true;

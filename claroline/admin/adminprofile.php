@@ -80,7 +80,7 @@ if (isset($applyChange))  //for formular modification
     $prenom_form        = trim ($prenom_form);
     $email_form         = trim ($email_form);
 
-    $username_check = mysql_query(
+    $username_check = claro_sql_query(
     "SELECT    username
     FROM `".$tbl_user."`
     WHERE username='$username_form'") or die("Erreur SELECT FROM user");
@@ -126,15 +126,15 @@ if (isset($applyChange))  //for formular modification
     else  //apply changes as no mistake in the form was found
     {
 
-        mysql_query(
+        claro_sql_query(
         "UPDATE  `".$tbl_user."`
          SET
-         nom='$nom_form',
-         prenom='$prenom_form',
-         username='$username_form', email='$email_form',
-         officialCode='$official_code_form',
-         phoneNumber='$userphone_form'
-         WHERE user_id='$user_id'");
+         nom='".$nom_form."',
+         prenom='".$prenom_form."',
+         username='".$username_form."', email='".$email_form."',
+         officialCode='".$official_code_form."',
+         phoneNumber='".$userphone_form."'
+         WHERE user_id='".$user_id."'");
 
         if ($user_id==$_uid)
         {
@@ -148,7 +148,7 @@ if (isset($applyChange))  //for formular modification
 
         if (($admin_form=="no"))  //do not set as admin
         {
-           mysql_query(
+           claro_sql_query(
            "DELETE FROM `".$tbl_admin."`
            WHERE idUser='$user_id'");
         }
@@ -156,8 +156,7 @@ if (isset($applyChange))  //for formular modification
         elseif ($admin_form=="yes")  // if admin, we must check if the user was already admin
         {
            $sql = "SELECT * FROM `".$tbl_admin."`
-                   WHERE idUser='$user_id'
-                   ";
+                   WHERE idUser='".$user_id."'";
            $resultAdmin =  claro_sql_query($sql);
            $numadmin = mysql_numrows($resultAdmin);
 
@@ -175,7 +174,7 @@ if (isset($applyChange))  //for formular modification
          $sql = "UPDATE  `".$tbl_user."`
                  SET
                  statut='1'
-                 WHERE user_id='$user_id'";
+                 WHERE user_id='".$user_id."'";
          claro_sql_query($sql);
        }
        elseif ($create_course_form=="no")
@@ -183,7 +182,7 @@ if (isset($applyChange))  //for formular modification
          $sql = "UPDATE  `".$tbl_user."`
                  SET
                  statut='5'
-                 WHERE user_id='$user_id'";
+                 WHERE user_id='".$user_id."'";
          claro_sql_query($sql);
        }
 
@@ -194,8 +193,8 @@ if (isset($applyChange))  //for formular modification
             if ($userPasswordCrypted) $password = md5(trim($password));
             $sql = "UPDATE  `".$tbl_user."`
                  SET
-                 password='$password'
-                 WHERE user_id='$user_id'";
+                 password='".$password."'
+                 WHERE user_id='".$user_id."'";
             claro_sql_query($sql);
             
        }
@@ -214,8 +213,8 @@ if(isset($user_id))
     $sqlGetInfoUser ="
     SELECT *
         FROM  `".$tbl_user."`
-        WHERE user_id='$user_id'";
-    $result=mysql_query($sqlGetInfoUser) or die("Erreur SELECT FROM user");
+        WHERE user_id='".$user_id."'";
+    $result=claro_sql_query($sqlGetInfoUser);
     //echo $sqlGetInfoUser;
 
     $myrow = mysql_fetch_array($result);

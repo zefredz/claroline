@@ -185,7 +185,7 @@ if( (isset($_REQUEST["register"]) || isset($_REQUEST["searchUsers"])) && count($
         // prevent conflict with existing user account
         if(count($error)==0)
         {
-            $result=mysql_query("SELECT user_id,
+            $result=claro_sql_query("SELECT user_id,
                                 (username='$username') AS loginExists,
                                 (nom='$lastname' AND prenom='$firstname' AND email='$email') AS userExists
                                 FROM `$tbl_user`

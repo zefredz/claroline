@@ -116,7 +116,7 @@ if($register=="yes")
 
     else
     {
-        $result = mysql_query("SELECT user_id FROM `".$tbl_user."`
+        $result = claro_sql_query("SELECT `user_id` FROM `".$tbl_user."`
                                WHERE username=\"".$uname."\"");
 
 
@@ -147,7 +147,7 @@ if ($regDataOk)
       STORE THE NEW USER DATA INSIDE THE CLAROLINE DATABASE
       -----------------------------------------------------*/
 
-    mysql_query("INSERT INTO `".$tbl_user."`
+    claro_sql_query("INSERT INTO `".$tbl_user."`
                  SET `nom`          = \"".$nom."\",
                      `prenom`       = \"".$prenom."\",
                      `username`     = \"".$uname."\",

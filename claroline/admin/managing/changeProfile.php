@@ -79,7 +79,7 @@ else
 				FROM `".$tbl_user."`
 				WHERE username = \"".$form_userName."\" AND `user_id` != '".$_uid."'";
 
-		$username_check = mysql_query($sql);
+		$username_check = claro_sql_query($sql);
 
 		while ( $myusername = mysql_fetch_array($username_check, MYSQL_ASSOC) )
 		{
@@ -106,7 +106,7 @@ else
 	`pictureUri` `actual_ImageFile`
 				FROM `".$tbl_user."`
 				WHERE `user_id` = '".$_uid."'";
-		$res_ActualUserInfo = @mysql_query($sql_ActualUserInfo) or die(mysql_error());
+		$res_ActualUserInfo = @claro_sql_query($sql_ActualUserInfo) or die(mysql_error());
 		$data_ActualUserInfo = mysql_fetch_array($res_ActualUserInfo,MYSQL_ASSOC);
 
 		/*
@@ -363,7 +363,7 @@ else
 
 			$sql .= " WHERE user_id  = \"".$_uid."\"";
 
-			mysql_query($sql) or die ('<center>can not UPDATE user data</center>');
+			claro_sql_query($sql);
 
 			/*
 			* re-init the system to take new settings in account
@@ -380,7 +380,7 @@ else
 			FROM  `".$tbl_user."`
 			WHERE user_id = \"".$_uid."\"";
 
-	$result = mysql_query($sql) or die("Erreur SELECT FROM user");
+	$result = claro_sql_query($sql);
 
 	if ($result)
 	{

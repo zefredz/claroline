@@ -168,7 +168,7 @@ function getdbsize($tdb)
 	mysql_select_db($tdb, $db);
 
 	$sql_result = "SHOW TABLE STATUS FROM " .$tdb;
-	$result = mysql_query($sql_result);
+	$result = claro_sql_query($sql_result);
 	mysql_close($db);
 
 	if($result)

@@ -58,7 +58,7 @@ if($is_allowedToEdit)
 
 			@copy($file, $updir.$file_name) or die($langCouldNot);
 
-			mysql_query("INSERT INTO `$tbl_courseHome`
+			claro_sql_query("INSERT INTO `$tbl_courseHome`
 			             SET rubrique = \"$nom_fichier\",
 			               lien     = \"../claroline/external_module/frameset_link.php?link=".$url.$file_name."\",
 			               image    = \"../claroline/img/".$iconForImportedTools."\",
@@ -75,7 +75,7 @@ if($is_allowedToEdit)
 	}
 	elseif ($formSubmitted == 'link')
 	{
-		mysql_query("INSERT INTO `$tbl_courseHome`
+		claro_sql_query("INSERT INTO `$tbl_courseHome`
 		             SET rubrique = '$name_link',
 		                 lien =\"$link\",
 		                 image = \"../claroline/img/".$iconForImportedTools."\",

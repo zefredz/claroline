@@ -14,12 +14,12 @@
 
 
 $langFile = 'registration';
-$cidReset = true;
-$gidReset = true;
+$cidReset = TRUE;
+$gidReset = TRUE;
 
 #default - don't edit default !!! change in config files
-$userOfficialCodeCanBeEmpty    = true;
-$userMailCanBeEmpty            = true;
+$userOfficialCodeCanBeEmpty    = TRUE;
+$userMailCanBeEmpty            = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
@@ -340,7 +340,7 @@ if ($_REQUEST['applyChange'])
 
         $sql .= ' WHERE `user_id`  = "'.$_uid.'"';
 
-        mysql_query($sql) or die ('<center>can not UPDATE user data</center>');
+        claro_sql_query($sql);
 
         /*
          * re-init the system to take new settings in account

@@ -546,7 +546,7 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
 				   AND LPM.`learnPath_module_id` = UMP.`learnPath_module_id`
 				   AND UMP.`user_id`";
 
-        $query = mysql_query($sql);
+        $query = claro_sql_query($sql);
         $row = mysql_fetch_array($query);
 
 		$scormSessionTime = seconds_to_scorm_time($timeToCompleteExe);
@@ -578,7 +578,7 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
 					`session_time`	= '".$scormSessionTime."'
                  WHERE `learnPath_module_id` = ".$row['learnPath_module_id']."
                    AND `user_id` = $_uid";
-	    mysql_query($sql);
+	    claro_sql_query($sql);
     }
 
 }

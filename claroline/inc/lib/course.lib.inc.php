@@ -136,7 +136,7 @@ function backupDatabase($link,$sysCode,&$dir)
                                     cu.code_cours='".$sysCode."'
                                 AND `cu`.user_id = `u`.`user_id`";
 
-    $resData = mysql_query($sql_searchUserCourse);
+    $resData = claro_sql_query($sql_searchUserCourse);
 
     while($res= mysql_fetch_array($resData))
     {

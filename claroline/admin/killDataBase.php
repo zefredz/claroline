@@ -96,9 +96,9 @@ if ($is_allowedToEdit)
 	        echo "\n\t<br>\n\t"."---- NON FONCTIONNEL ----"."\n\t<br>\n\t";
 	
 			mysql_drop_db ("$contenu");
-			mysql_query("DELETE FROM cours WHERE code='$contenu'");
-			mysql_query("DELETE FROM cours_user WHERE code_cours='$contenu'");
-	//		mysql_query("DELETE FROM cours_faculte WHERE code='$contenu'");
+			claro_sql_query("DELETE FROM cours WHERE code='$contenu'");
+			claro_sql_query("DELETE FROM cours_user WHERE code_cours='$contenu'");
+	//		claro_sql_query("DELETE FROM cours_faculte WHERE code='$contenu'");
 			mkPath($garbageRepositorySys);
 			rename("../../$contenu", $garbageRepositorySys.$contenu);
 	
@@ -124,7 +124,7 @@ if ($is_allowedToEdit)
 	
 	echo "<form name=\"bulkDeleteCourses\" action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">";
 	
-	$listOfCourses = mysql_query($sql);	
+	$listOfCourses = claro_sql_query($sql);	
 	
 	while ($course = mysql_fetch_array($listOfCourses))
 	{ 

@@ -96,7 +96,7 @@ function create_new_user($firstName, $lastName, $status,
 	                	authSource   = ".$authSource.",
 						phoneNumber  = ".$phone;
 
-	$result = mysql_query($queryString);
+	$result = claro_sql_query($queryString);
 
 	if ($result)
 	{

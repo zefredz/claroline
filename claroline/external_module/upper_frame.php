@@ -18,7 +18,7 @@ $db = mysql_connect($mysqlServer, $mysqlUser, $mysqlPassword);
 // Header settings
 $db = mysql_connect($mysqlServer, $mysqlUser, $mysqlPassword);
 mysql_select_db($mysqlMainDb,$db);
-$result = mysql_query("SELECT intitule FROM cours WHERE code='$currentCourseID'",$db);
+$result = claro_sql_query("SELECT intitule FROM cours WHERE code='$currentCourseID'",$db);
 $myrow = mysql_fetch_array($result);
 $intitule=$myrow[0];
 

@@ -285,24 +285,23 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $tempView[2] = '0';
         echo "-&nbsp;&nbsp;<b>".$langPlatformCoursesAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";  
         // display list of course of the student with links to the corresponding userLog
-      $resCourseList = mysql_query("SELECT code, dbName
-	                                   FROM    `".$tbl_course."`
-                                     ORDER BY code ASC");
-      $i=0;                               
-      while ( $course = mysql_fetch_array($resCourseList) )
-      {
-          $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
-          $sql = "SELECT count( `access_id` ) AS nb
-                      FROM `$TABLEACCESSCOURSE`
+        $sql = "SELECT code, dbName FROM    `".$tbl_course."` ORDER BY code ASC";
+        $resCourseList = claro_sql_query($sql);
+        $i=0;                               
+        while ( $course = mysql_fetch_array($resCourseList) )
+        {
+            $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
+            $sql = "SELECT count( `access_id` ) AS nb
+                      FROM `".$TABLEACCESSCOURSE."`
                       WHERE `access_tid` IS NULL
                       ORDER BY nb DESC";
-          $result = mysql_query($sql);
-          $count = mysql_fetch_array($result);
-          
-          $resultsArray[$i][0] = $course['code'];
-          $resultsArray[$i][1] = $count['nb'];
-          $i++;
-      }
+            $result = claro_sql_query($sql);
+            $count = mysql_fetch_array($result);
+
+            $resultsArray[$i][0] = $course['code'];
+            $resultsArray[$i][1] = $count['nb'];
+            $i++;
+        }
 
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langAccess."</b><br />\n";
         buildTab2Col($resultsArray);
@@ -328,7 +327,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $tempView[3] = '0';
          echo "-&nbsp;&nbsp;<b>".$langPlatformToolAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";   
       // display list of course of the student with links to the corresponding userLog
-      $resCourseList = mysql_query("SELECT code, dbName
+      $resCourseList = claro_sql_query("SELECT code, dbName
 	                                   FROM    `".$tbl_course."`
                                      ORDER BY code ASC");
     
@@ -336,11 +335,11 @@ if( $is_allowedToTrack && $is_trackingEnabled)
       {
           $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
           $sql = "SELECT count( `access_id` ) AS nb, `access_tlabel`
-                      FROM `$TABLEACCESSCOURSE`
+                      FROM `".$TABLEACCESSCOURSE."`
                       WHERE `access_tid` IS NOT NULL
                       GROUP BY `access_tid`";
 
-          $result = mysql_query($sql);
+          $result = claro_sql_query($sql);
 
           // look for each tool of the course in re
           while( $count = mysql_fetch_array($result) )
@@ -466,17 +465,17 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         
         //-- courses without access, not used for $limitBeforeUnused
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourseWithoutAccess."</b><br />\n";
-
-      $resCourseList = mysql_query("SELECT code, dbName
+        $sql ="SELECT code, dbName
 	                                   FROM    `".$tbl_course."`
-                                     ORDER BY code ASC");
+                                     ORDER BY code ASC";
+        $resCourseList = claro_sql_query($sql);
         $i = 0;
         while ( $course = mysql_fetch_array($resCourseList) )
         {
             $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
             $sql = "SELECT IF( MAX(`access_date`)  < (NOW() - ".$limitBeforeUnused." ), MAX(`access_date`) , 'recentlyUsedOrNull' )  as lastDate, count(`access_date`) as nbrAccess
-                        FROM `$TABLEACCESSCOURSE`";
-            $coursesNotUsedResult = mysql_query($sql);
+                        FROM `".$TABLEACCESSCOURSE."`";
+            $coursesNotUsedResult = claro_sql_query($sql);
             
             if( $courseAccess = mysql_fetch_array($coursesNotUsedResult) )
             {

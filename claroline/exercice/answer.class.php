@@ -98,7 +98,7 @@ class Answer
 		$questionId=$this->questionId;
 
 		$sql="SELECT reponse,correct,comment,ponderation,r_position FROM `$TBL_REPONSES` WHERE question_id='$questionId' ORDER BY r_position";
-		$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
+		$result=claro_sql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
 		$i=1;
 
@@ -234,11 +234,11 @@ class Answer
 		$questionId=$this->questionId;
 
 		// removes old answers before inserting of new ones
-		$sql="DELETE FROM `$TBL_REPONSES` WHERE question_id='$questionId'";
-		mysql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
+		$sql="DELETE FROM `".$TBL_REPONSES."` WHERE question_id='".$questionId."'";
+		claro_sql_query($sql);
 
 		// inserts new answers into data base
-		$sql="INSERT INTO `$TBL_REPONSES`(id,question_id,reponse,correct,comment,ponderation,r_position) VALUES";
+		$sql="INSERT INTO `".$TBL_REPONSES."`(id,question_id,reponse,correct,comment,ponderation,r_position) VALUES";
 
 		for($i=1;$i <= $this->new_nbrAnswers;$i++)
 		{
@@ -248,11 +248,11 @@ class Answer
 			$weighting=$this->new_weighting[$i];
 			$position=$this->new_position[$i];
 
-			$sql.="('$i','$questionId','$answer','$correct','$comment','$weighting','$position'),";
+			$sql.="('".$i."','".$questionId."','".$answer."','".$correct."','".$comment."','".$weighting."','".$position."'),";
 		}
 
 		$sql=substr($sql,0,-1);
-		mysql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
+		claro_sql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 
 		// moves $new_* arrays
 		$this->answer=$this->new_answer;
@@ -281,7 +281,7 @@ class Answer
 		if($this->nbrAnswers)
 		{
 			// inserts new answers into data base
-			$sql="INSERT INTO `$TBL_REPONSES`(id,question_id,reponse,correct,comment,ponderation,r_position) VALUES";
+			$sql="INSERT INTO `".$TBL_REPONSES."`(id,question_id,reponse,correct,comment,ponderation,r_position) VALUES";
 
 			for($i=1;$i <= $this->nbrAnswers;$i++)
 			{
@@ -295,7 +295,7 @@ class Answer
 			}
 
 			$sql=substr($sql,0,-1);
-			mysql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
+			claro_sql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 		}
 	}
 }

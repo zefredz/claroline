@@ -68,7 +68,7 @@ $sql = "CREATE TABLE IF NOT EXISTS `".$tbl_user_bak."` (
   deletionComment varchar(255) default NULL,
   PRIMARY KEY  (idGarbage)
 ) TYPE=MyISAM;";
-@mysql_query($sql);
+@claro_sql_query($sql);
 
 
 #### COMMANDS ####

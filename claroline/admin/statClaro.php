@@ -266,7 +266,7 @@ function echoDefcon($levelOfDefcon="7")
 function list_1Result($sql)
 {
 	GLOBAL $db;
-	$res = mysql_query($sql ,$db);
+	$res = claro_sql_query($sql ,$db);
 	$res    = mysql_fetch_array($res);
 	return $res[0];
 }
@@ -274,7 +274,7 @@ function list_1Result($sql)
 function list_ManyResult($sql)
 { 
 	GLOBAL $db;
-	$res = mysql_query($sql ,$db);
+	$res = claro_sql_query($sql ,$db);
 	while ($resA = mysql_fetch_array($res))
 	{ 
 		$resu[$resA[0]]=$resA[1];
@@ -285,8 +285,11 @@ function list_ManyResult($sql)
 
 /*
 * $Log$
-* Revision 1.1  2004/06/02 07:49:03  moosh
-* Initial revision
+* Revision 1.2  2004/09/27 21:06:34  moosh
+* use claro_sql_query
+*
+* Revision 1.1.1.1  2004/06/02 07:49:03  moosh
+* startnew 
 *
 * Revision 1.25  2003/03/12 13:59:48  moosh
 * phpMyAdminWeb in place of phpMyAdminUrl

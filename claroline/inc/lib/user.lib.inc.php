@@ -646,7 +646,7 @@ function replace_dangerous_char($string)
 function sql_query($query)
 {
 	// echo "<pre style='color:navy'>",$query,"</pre>\n";
-	$handle = mysql_query($query);
+	$handle = claro_sql_query($query);
 	if (mysql_errno())
 	    echo "<pre style='color:green'>".mysql_errno().": ".mysql_error()."\n".$query."</pre><hr>";
 	return $handle;

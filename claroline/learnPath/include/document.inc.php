@@ -19,7 +19,7 @@
    $sql = "SELECT *
              FROM `".$TABLEASSET."`
             WHERE `module_id` = ".$_SESSION['module_id'];
-  $query = mysql_query($sql);
+  $query = claro_sql_query($sql);
   $asset = mysql_fetch_array($query);
      */
   //
