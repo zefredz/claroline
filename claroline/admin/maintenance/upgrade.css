@@ -2,15 +2,16 @@ body {
  margin: 0px;
  padding: 0px;
  color: #000;
- background-color: #fff;
+ background-color: #e7e7e7;
+ font-family: arial, helvetica, sans-serif;
 }
 
 #header h1 {
- background-color: #006;
+ background-color: #000084;
  color: #fff;
  margin: 0px;
  padding: 5px 10px 5px 10px;
- font-size: 150%;
+ font-size: 120%;
 }
 
 #menu p {
@@ -28,6 +29,7 @@ body {
 }
 
 #content {
+ width: 700px;
  padding: 0 10px 0 10px;
 }
 

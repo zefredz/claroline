@@ -8,26 +8,43 @@
 */
 
 DEFINE ("DISPLAY_WELCOME_PANEL",1);
-DEFINE ("DISPLAY_RESULT_PANEL",2);
+DEFINE ("DISPLAY_RESULT_ERROR_PANEL",2);
+DEFINE ("DISPLAY_RESULT_SUCCESS_PANEL",3);
 
 $display = DISPLAY_WELCOME_PANEL;
+
+/* 
+ * include file
+*/
+
+$newIncludePath = "../../inc/";
+$oldIncludePath = "../../include/";
+	
+include ($newIncludePath."installedVersion.inc.php");
+include ($newIncludePath."/lib/config.lib.inc.php");
+	
+$thisClarolineVersion = $version_file_cvs;
+
+/*
+ * lang var
+*/
+
+$langYes="yes";
+$langNO="no";
+$langSucceed="succeed";
+$langFailed="<span style=\"color: red\">Failed</span>";
+$langStep1 = "Step 1 of 3: platform main settings";
+$langIntroStep1 = "<p>The Claroline upgrader is going to proceed the main setting upgrade. 
+                These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
+$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";
+$langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
+
+/* */
 
 $error = 0;
 
 if ($_REQUEST['cmd'] == 'run')
 {
-	$display = DISPLAY_RESULT_PANEL;
-
-	// start process 
-
-	$newIncludePath = "../../inc/";
-	$oldIncludePath = "../../include/";
-	
-	include ($newIncludePath."installedVersion.inc.php");
-	include ($newIncludePath."/lib/config.lib.inc.php");
-	
-	$thisClarolineVersion = $version_file_cvs;
-	
 	/**
 	 Find config file.
 	*/
@@ -259,7 +276,7 @@ if ($_REQUEST['cmd'] == 'run')
 	$checkEmailByHashSent 		= '.trueFalse($checkEmailByHashSent).';
 	$ShowEmailnotcheckedToStudent 	= '.trueFalse($ShowEmailnotcheckedToStudent).';
 	$userMailCanBeEmpty 		= '.trueFalse($userMailCanBeEmpty).';
-	$userPasswordCrypted		= '.trueFalse($encryptPassForm).';
+	$userPasswordCrypted		= '.trueFalse($userPasswordCrypted).';
 	$allowSelfReg			= '.trueFalse($allowSelfReg).';
 	$allowSelfRegProf		= '.trueFalse($allowSelfRegProf).';
 	
@@ -282,14 +299,12 @@ if ($_REQUEST['cmd'] == 'run')
 	// Backup file if target file is the source file
 	if ( $fileTarget == $fileSource ) {
 
-		$output .= "<li>Back-up old configuration file in: <code>".$fileBackup."</code>" ;
-
+		$output .= "<li>" . sprintf ("Back-up old configuration file in: <code>%s</code>",$fileBackup) ;
 		if (!@copy($fileTarget, $fileBackup) )
 		{
 			$output .= "<br />\n";
-			$output .= "<span class=\"warning\"><code>".$fileTarget."</code> copy failed !</span>";
+			$output .= sprintf ("<span class=\"warning\"><code>%s</code> copy failed !</span>",$fileTarget);
 		}
-
 		$output .= "</li>\n";
 		// change permission
 		@chmod( $fileBackup, 600 );
@@ -297,12 +312,12 @@ if ($_REQUEST['cmd'] == 'run')
 	}
 	
 	// Temporary file
-	$output .=  "<li>Temporary file: <code>".$fileTemp."</code>" ;
+	$output .=  sprintf ("<li>Temporary file: <code>%s</code>",$fileTemp) ;
 	
 	if (!($fd=fopen($fileTemp, "w")))
 	{
 		$output .= "<br />\n";
-		$output .= "<span class=\"warning\"><code>".$fileTemp."</code> write failed !</span>";
+		$output .= sprintf ("<span class=\"warning\"><code>%s</code> write failed !</span>",$fileTemp);
 		$error = 1;
 	}
 	else
@@ -374,12 +389,11 @@ if ($_REQUEST['cmd'] == 'run')
 	
 	if (!$error)
 	{
-		$output .= "<p class=\"success\">Ok</p>\n";
-		$output .= "<p><a href=\"upgrade.php\">Next</a></p>\n";
+		$display = DISPLAY_RESULT_SUCCESS_PANEL;
 	}
 	else
 	{
-		$output .= "<p class=\"error\">Failed</p>\n";
+		$display = DISPLAY_RESULT_ERROR_PANEL;
 	}
 	
 } // end if run 
@@ -397,39 +411,88 @@ if ($_REQUEST['cmd'] == 'run')
     .notethis {	border: thin double Black;	margin-left: 15px;	margin-right: 15px;}
   </style>
 </head>
-<body bgcolor="white" dir="<?php echo $text_dir ?>">
 
 <body bgcolor="white" dir="<?php echo $text_dir ?>">
 
 <div id="header">
 <?php
- echo "<h1>"; 
- if (!$stable) {
-	echo "<span class=\"warning\">!!!" . $clarolinePhase . "!!!</span> ";
- }
- echo "Claroline upgrade -- version " . $clarolineVersion . "</h1>";
+ echo sprintf ("<h1>Claroline (%s) - upgrade</h1>",$thisClarolineVersion);
 ?>
 </div>
 
 <div id="menu">
-<p><a href="upgrade.php">Upgrade</a> - Configuration files</p>
+<?php
+ echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>", "upgrade", $langStep1);
+?>
 </div>
 
 <div id="content">	
-	
-<h2>Upgrade configuration files</h2>
-			
+
 <?php
 
 switch ($display)
 {
 	case DISPLAY_WELCOME_PANEL: 
-		echo "<p><a href=\"" . $PHP_SELF . "?cmd=run\">Launch configuration files upgrade</a></p>";
-		echo "<p><small><a href=\"upgrade.php\"><< Back</a></small></p>";
+                echo sprintf ("<h2>%s</h2>",$langStep1);
+                echo $langIntroStep1;
+		echo sprintf ($langLaunchStep1, $PHP_SELF."?cmd=run");
 		break;
-	
-	case DISPLAY_RESULT_PANEL:
-		echo $output;
+        case DISPLAY_RESULT_ERROR_PANEL:
+                echo sprintf ("<h2>%s</h2>",$langStep1 . " - " . $langFailed);
+                echo $output;
+                break;
+                
+	case DISPLAY_RESULT_SUCCESS_PANEL:
+
+                echo sprintf ("<h2>%s</h2>",$langStep1 . " - " . $langSucceed);
+
+                echo "<p>Here are the main settings that has been recorded in claroline/inc/conf/claro_main.conf.php</p>";
+                
+                // display the main setting of the new configuration file.
+                
+                echo "<fieldset>
+		<legend>Database authentification</legend>
+                <p>Host: $dbHost<br />
+		Username: $dbLogin<br />
+		Password: ".(empty($dbPass)?"--empty--":$dbPass)."</p>
+		</fieldset>
+                <br />
+                <fieldset>
+		<legend>Claroline databases</legend>
+                <p>Course database Prefix: ".($dbNamePrefix?$dbNamePrefix:$langNo)."<br />
+                Main database Name: $mainDbName <br />
+		Statistics and Tracking database Name: $statsDbName <br />
+		PhpMyAdmin Extention database Name : $pmaDbName <br />
+		Enable Single database : ".($singleDbEnabled?$langYes:$langNo)."</p>
+		</fieldset>
+                <br />
+                <fieldset>
+                    <legend>Administrator</legend>
+                    Name : ".$administrator["name"]."<br />
+                    Mail : ".$administrator["email"]."<br />
+		</fieldset>
+                <br />
+		<fieldset>
+                 <legend>Campus</legend>
+                 <p>
+                    Language : $platformLanguage<br />
+                    Your organisation : ".$institution["name"]."<br />
+                    URL of this organisation : ".$institution["url"]."
+                </p>
+		</fieldset>
+                <br />
+		<fieldset>
+                    <legend>Config</legend>
+                    <p>
+                    Enable Tracking : ".($is_trackingEnabled?$langYes:$langNo)."<br />
+                    Self registration allowed : ".($allowSelfReg?$langYes:$langNo)."<br />
+                    Self course creator allowed : ".($allowSelfRegProf?$langYes:$langNo)."<br />
+                    Encrypt user passwords in database :" .($userPasswordCrypted?$langYes:$langNo)."
+                    </p>
+                </fieldset>";
+                
+                echo sprintf($langNextStep,"upgrade_main_db.php");
+                
 		break;
 }
  

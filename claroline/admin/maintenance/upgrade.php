@@ -18,9 +18,33 @@
 
 // lang variable
 
-$langMakeABackupBefore = "<p>In case of trouble, we strongly recommend you to backup your previous courses data before commiting the Claroline upgrade.<br />
-You must confirm the backup procedure has been done before the upgrade</p>";
-$langConfirm = "Confirm";
+$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />\n
+                     from 1.4.* to 1.5</h2>\n";
+
+$langMakeABackupBefore = "<p>The Claroline Upgrade Tool will retrieve the data of your previous Claroline
+installation and set them to be compatible with the new Claroline version. This upgrade proceeds in three steps:</p>\n
+<ol>\n
+<li>It will get your previous platform main settings and put them in new configuration files</li>\n
+<li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.</li>\n
+<li>It will update one by one each course data (directories, database tables, ...)</li>\n
+</ol>\n
+<p>Befor proceeding to this upgrade:</p>\n
+<table>
+<tbody>
+<tr valign=\"top\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>\n
+<tr valign=\"top\"><td>-</td><td>Get a copy of the previous Claroline configuration files (claroline/include/config.inc.php) whithin easy reach.</td><td>%s</td></tr>\n
+</tbody>
+</table>
+<p>You won't be allowed to start the upgrade process before this point is marked as 'done'.</p>
+";
+$langConfirm = "done";
+$langStep0 = "Backup confirm";
+$langStep1 = "Step 1 of 3: platform main setting";
+$langStep2 = "Step 2 of 3: main platform tables upgrade";
+$langStep3 = "Step 3 of 3: course upgrade";
+$langDone = "Steps done";
+$langTodo = "Steps todo";
+$langAchieved = "Upgrade Process Achieved";
 
 // inclue lib files
 
@@ -75,14 +99,15 @@ define("DISPVAL_upgrade_done",4);
 
 session_start();
 
-if ($_GET['reset_confirm_backup'] == 1) {
-	session_unregister('confirm_backup');
-	$confirm_backup = 0;
+if ($_GET['reset_confirm_backup'] == 1 || $_SESSION['confirm_backup'] == 0) {
+        session_unregister('confirm_backup');
+        $confirm_backup = 0;
 }
 
 if (!isset($_SESSION['confirm_backup'])) 
 {
-    if ($_POST['confirm_backup'] == 1 ) 
+
+    if ($_GET['confirm_backup'] == 1 && $_GET['confirm_copy_conf'] == 1 ) 
     {
     	$_SESSION['confirm_backup'] = 1;
 	$confirm_backup = 1;
@@ -97,12 +122,10 @@ else
     $confirm_backup  = $_SESSION['confirm_backup'];
 }
 
-
 if (!$confirm_backup) 
 {
 	// ask to confirm backup
 	$display = DISPVAL_backup_needed;	
-	
 }
 elseif ($thisClarolineVersion!=$clarolineVersion)
 {
@@ -118,9 +141,8 @@ else
 {
 	// check course table to view wich course aren't upgraded
 	mysql_connect($dbServer,$dbLogin,$dbPass);
-	$sqlNbCourses = "
-	SELECT count(*) as nb FROM ".$mainDbName.".cours 
-	where not ( versionDb = '".$thisVersionDb."' )";
+	$sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours 
+                         where not ( versionDb = '".$thisVersionDb."' )";
 	$res_NbCourses = mysql_query($sqlNbCourses);
 	$nbCourses = mysql_fetch_array($res_NbCourses);
 	
@@ -153,75 +175,78 @@ else
 
 <div id="header">
 <?php
- echo "<h1>Claroline upgrade -- version " . $clarolineVersion . "</h1>";
+ echo sprintf("<h1>Claroline (%s) - upgrade</h1>",$clarolineVersion);
 ?>
 </div>
-<div id="menu">
-<p>Upgrade</p>
-</div>
 
-<div id="content">
+<div id="content" style="width: 700px">
 
 <?php
+
+echo $langTitleUpgrade;
 
 switch ($display)
 {
 	case DISPVAL_backup_needed :
-		echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"post\">";
-		echo "<p>" . $langMakeABackupBefore . "<br />";
-		echo "<label for=\"confirm_backup\">" . $langConfirm . "</label><input type=\"checkbox\" id=\"confirm_backup\" name=\"confirm_backup\" value=\"1\" />";
-		echo "<input type=\"submit\" value=\"OK\" />";
+		echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
+                $str1 = "<input type=\"checkbox\" id=\"confirm_backup\" name=\"confirm_backup\" value=\"1\" /><label for=\"confirm_backup\">" . $langConfirm . "</label>";
+                $str2 = "<input type=\"checkbox\" id=\"confirm_copy_conf\" name=\"confirm_copy_conf\" value=\"1\" /><label for=\"confirm_copy_conf\">" . $langConfirm . "</label>";
+		echo sprintf($langMakeABackupBefore,$str1,$str2);
+		echo "<input type=\"submit\" value=\"Next >\" />";
 		echo "</p>";
 		echo "</form>";
 		break;
 	case DISPVAL_upgrade_main_conf_needed :
-		echo "<h2>Done:</h2>";
+		echo "<h2>$langDone:</h2>";
 		echo "<ul>";	
-		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>";
+		echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langStep0);
 		echo "</ul>";
-		echo "<h2>To do:</h2>";
+		echo "<h2>$langTodo:</h2>";
 		echo "<ul>";
-		echo "<li><a href=\"upgrade_conf.php\">Upgrade configuration files</a></li>";
-		echo "<li>Upgrade main database</li>";
-		echo "<li>Upgrade each courses</li>";
+		echo sprintf("<li><a href=\"upgrade_conf.php\">%s</a></li>",$langStep1);
+		echo "<li>$langStep2</li>";
+		echo "<li>$langStep3</li>";
 		echo "</ul>";
 		break;
 	case DISPVAL_upgrade_main_db_needed :
-		echo "<h2>Done:</h2>";
+		echo "<h2>$langDone:</h2>";
 		echo "<ul>";	
-		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>";
-		echo "<li>Upgrade configuration files (<a href=\"upgrade_conf.php\">start again</a>)</li>";
+                echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langStep0);
+		echo sprintf ("<li>%s (<a href=\"upgrade_conf.php\">start again</a>)</li>",$langStep1);
 		echo "</ul>";
-		echo "<h2>To do:</h2>";
+		echo "<h2>$langTodo:</h2>";
 		echo "<ul>";
-		echo "<li><a href=\"upgrade_main_db.php\">Upgrade main database</a></li>";
-		echo "<li>Upgrade each courses</li>";
+		echo sprintf("<li><a href=\"upgrade_main_db.php\">%s</a></li>",$langStep2);
+		echo "<li>$langStep3</li>";
 		echo "</ul>";
 		break;
 	case DISPVAL_upgrade_courses_needed :
-		echo "<h2>Done:</h2>";
+		echo "<h2>$langDone:</h2>";
 		echo "<ul>";
-		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>";
-		echo "<li>Upgrade configuration files (<a href=\"upgrade_conf.php\">start again</a>)</li>";
-		echo "<li>Upgrade main database (<a href=\"upgrade_main_db.php\">start again</a>)</li>";
+                echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langStep0);
+		echo sprintf ("<li>%s (<a href=\"upgrade_conf.php\">start again</a>)</li>",$langStep1);
+                echo sprintf ("<li>%s (<a href=\"upgrade_main_db.php\">start again</a>)</li>",$langStep2);
 		echo "</ul>";
-		echo "<h2>To do:</h2>";
+		echo "<h2>$langTodo:</h2>";
 		echo "<ul>";
-		echo "<li><a href=\"upgrade_courses.php\">Upgrade courses</a> - ".$nbCourses['nb']." course(s) to upgrade</li>";
+		echo sprintf("<li><a href=\"upgrade_courses.php\">%s</a> - %s course(s) to upgrade</li>",$langStep3,$nbCourses['nb']);
 		echo "</ul>";
 		break;
 	case DISPVAL_upgrade_done :
-		echo "<h2>Done:</h2>";
+        
+                echo "<h2>$langAchieved:</h2>";
+                echo "<p>The claroline upgrade tool has completly upgraded your platform.</p>";
 		echo "<ul>";
-		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>";
-		echo "<li>Upgrade configuration files (<a href=\"upgrade_conf.php\">start again</a>)</li>";
-		echo "<li>Upgrade main database (<a href=\"upgrade_main_db.php\">start again</a>)</li>";
-		echo "<li>Upgrade courses - ".$nbCourses['nb']." course(s) to upgrade (<a href=\"upgrade_courses.php\">start again</a>)</li>";
+		echo "<li><a href=\"../../..\">Log on to your platform</a></li>";
+		echo "<li><a href=\"..\">Go to the administration section</a></li>";
 		echo "</ul>";
-		echo "<h2>Go To:</h2>";
+                echo "<hr noshade=\"noshade\" />";
+		echo "<h2>$langDone:</h2>";
 		echo "<ul>";
-		echo "<li><a href=\"../../..\">Your upgraded campus</a></li>";
-		echo "<li><a href=\"..\">Your admin</a></li>";
+                echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langStep0);
+		echo sprintf ("<li>%s (<a href=\"upgrade_conf.php\">start again</a>)</li>",$langStep1);
+                echo sprintf ("<li>%s (<a href=\"upgrade_main_db.php\">start again</a>)</li>",$langStep2);
+                echo sprintf("<li>%s - %s course(s) to upgrade(<a href=\"upgrade_courses.php\">start again</a>)</li>",$langStep3,$nbCourses['nb']);
 		echo "</ul>";
 		break;
 	default : 

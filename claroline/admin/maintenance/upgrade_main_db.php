@@ -4,12 +4,25 @@
  * try to create main database of claroline without remove existing content
  */
 
+/**
+ * 
+ * lang var
+ *
+*/
+
+$langStep2 = "Step 2 of 3: main platform tables upgrade";
+$langIntroStep2 = "<p>Now, the claroline Upgrade Tool is going upgrade of the date stored into the main Claroline tables 
+                    (users, course categories, tools list, ...) and set it compatible with the new Claroline version.</p>
+                   <p class=\"help\">Note: According to the speed of your server ot the amount of data stored on your platform, this 
+                   operation may take some time.</p>";
+$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Launch main platform tables upgrade</button></p>";
+$langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
+
 DEFINE("DISPLAY_WELCOME_PANEL", 1);
 DEFINE("DISPLAY_RESULT_PANEL",  2);
 
-$langFile = "admin";
+$langFile = "trad4all";
 include('../../inc/claro_init_global.inc.php');
-$nameTools = $langAdministrationTools;
 
 // Include lib for config files
 
@@ -72,28 +85,33 @@ if ($_REQUEST['cmd']=="run")
 
 <div id="header">
 <?php
- echo "<h1>Claroline upgrade -- version " . $clarolineVersion . "</h1>";
+ echo sprintf("<h1>Claroline (%s) - upgrade</h1>",$clarolineVersion);
 ?>
 </div>
 
 <div id="menu">
-<p><a href="upgrade.php">Upgrade</a> - Main Database</p>
+<?php
+ echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>","upgrade",$langStep2);
+?>
 </div>
-
 
 <div id="content">
 
-<h2>Upgrade Claroline main database</h2>
-
 <?php
+
 switch ($display)
 {
-    case DISPLAY_WELCOME_PANEL :
-	echo "<p><a href=\"" . $PHP_SELF . "?cmd=run\" >Launch main Claroline database (<code>" . $mainDbName . "</code>) upgrading</a></p>";
-    	echo "<p class=\"help\">Notice: Updating main database (It may take some time).</p>";
-    	echo "<p><small><a href=\"upgrade.php\"><< Back</a></small></p>";
+    case DISPLAY_WELCOME_PANEL:
+
+        echo sprintf("<h2>%s</h2>",$langStep2);
+        echo $langIntroStep2;
+        echo sprintf($langLaunchStep2, $PHP_SELF."?cmd=run");  
         break;
+        
     case DISPLAY_RESULT_PANEL :
+    
+        echo sprintf("<h2>%s</h2>",$langStep2);
+        
         echo "<p>main Claroline database (<code>".$mainDbName."</code>) upgraded</p>\n";
 
         if ($verbose) {
@@ -149,7 +167,8 @@ switch ($display)
         {
         	echo "<p class=\"error\">$nbError errors found</p>\n";
         	echo "<form action=\"".$PHP_SELF."\" >\n
-        	<input type=\"hidden\" name=\"verbose\" id=\"verbose\" value=\"true\" />
+        	<input type=\"hidden\" name=\"verbose\" value=\"true\" />
+                <input type=\"hidden\" name=\"cmd\" value=\"run\" />
         	<p>Retry with more detail. <input type=\"submit\" name=\"retry\" value=\"retry\" /></p>\n
         	</form>\n";
         }
@@ -158,11 +177,11 @@ switch ($display)
            // update config file
            // set version db
 
-           echo "<p class=\"success\">Main database upgraded</p>\n";
+           echo "<p class=\"success\">The claroline main tables have been successfully upgraded</p>\n";
 
            if (replace_var_value_in_conf_file ("versionDb",$version_db_cvs,$includePath ."/conf/claro_main.conf.php"))
            {
-        		echo "<p><a href=\"upgrade.php\">Next</a></p>\n";
+                echo sprintf($langNextStep,"upgrade_courses.php");
            }
            else
            {
@@ -170,7 +189,9 @@ switch ($display)
            }
         }
         break;
-    default : die("display unknow")         ;
+        
+    default : 
+        die("display unknow");
 }
 ?>
 </div>

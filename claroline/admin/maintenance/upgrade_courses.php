@@ -26,7 +26,22 @@ $mtime = microtime();$mtime = explode(" ",$mtime);$mtime = $mtime[1] + $mtime[0]
 $langFile = "admin";
 include('../../inc/claro_init_global.inc.php');
 
-$nameTools = $langCheckDatabase;
+/**
+ * lang var
+*/
+
+$langYes="yes";
+$langNO="no";
+$langSucceed="succeed";
+$langFailed="<span style=\"color: red\">Failed</span>";
+$langStep3 = "Step 3 of 3: courses upgrade";
+$langIntroStep3 = "<p>Now the Claroline upgrade tool is going update (directories and database tables) one by one.
+                   <p class=\"help\">Note: According to the speed of your server or the amount of data stroed on your platform,
+                   this operation may take some time.</p>";
+$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
+$langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
+
+/* */
 
 // force upgrade for debug
 if ($HTTP_GET_VARS["forceUpgrade"])
@@ -66,28 +81,31 @@ $nameTools = $langUpgradeDataBase;
 
 <div id="header">
 <?php
- echo "<h1>Claroline upgrade -- version " . $clarolineVersion . "</h1>";
+ echo sprintf("<h1>Claroline (%s) - upgrade</h1>",$clarolineVersion);
 ?>
 </div>
 <div id="menu">
-<p><a href="upgrade.php">Upgrade</a> - Courses</p>
+<?php
+ echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>", "upgrade", $langStep3);
+?>
 </div>
 
 <div id="content">
-
-<h2>Upgrading courses database</h2>
 
 <?php 
 
 switch ($display)
 {
 	case DISPLAY_WELCOME_PANEL :
-		echo "<p><a href=\"". $PHP_SELF . "?cmd=run\">Launch Claroline courses upgrade</a></p>\n";
-		echo "<p class=\"help\">Notice: Updating courses databases (It may take some time).</p>\n";
-		echo "<p><small><a href=\"upgrade.php\"><< Back</a></small></p>";
+        
+                echo sprintf ("<h2>%s</h2>",$langStep3);
+                echo $langIntroStep3;
+		echo sprintf ($langLaunchStep3, $PHP_SELF."?cmd=run");
 		break;
+                
 	case DISPLAY_RESULT_PANEL : 
 
+                echo sprintf ("<h2>%s</h2>",$langStep3);
 		echo "<div class=\"help\" id=\"refreshIfBlock\">";
 		echo "<form action=\"" . $PHP_SELF . "\">\n";
 		echo "<input type=\"hidden\" name=\"cmd\" value=\"run\" />";
@@ -237,8 +255,8 @@ switch ($display)
 		}
 		else
 		{
-			echo "<p class=\"success\">Ok</p>\n";
-			echo "<p><a href=\"upgrade.php\">Next</a></p>\n";
+			echo "<p class=\"success\">The claroline upgrade tool has successfullly upgrade all your platform courses</p>\n";
+                        echo sprintf($langNextStep,"upgrade.php");
 		}
 			
 		mysql_close();
