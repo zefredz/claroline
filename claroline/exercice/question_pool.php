@@ -274,7 +274,7 @@ if($is_allowedToEdit)
 			{
 ?>
 
-	<a href="admin.php?editQuestion=<?php echo $row[id]; ?>"><img src="../img/edit.gif" border="0" alt="<?php echo $langModify; ?>"></a>
+	<a href="admin.php?editQuestion=<?php echo $row[id]; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langModify; ?>"></a>
 
 <?php
 			}
@@ -282,7 +282,7 @@ if($is_allowedToEdit)
 			{
 ?>
 
-	<a href="<?php echo $phpSelf; ?>?recup=<?php echo $row[id]; ?>&fromExercise=<?php echo $fromExercise; ?>"><img src="../img/enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
+	<a href="<?php echo $phpSelf; ?>?recup=<?php echo $row[id]; ?>&fromExercise=<?php echo $fromExercise; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
 
 <?php
 			}
@@ -296,7 +296,7 @@ if($is_allowedToEdit)
 ?>
 
   <td align="center">
-    <a href="<?php echo $PHP_SELF; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $row[id]; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmYourChoice)); ?>')) return false;"><img src="../img/delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
+    <a href="<?php echo $PHP_SELF; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $row[id]; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmYourChoice)); ?>')) return false;"><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
   </td>
 
 <?php

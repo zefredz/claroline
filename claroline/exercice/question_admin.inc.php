@@ -164,7 +164,7 @@ else
 	{
 ?>
 
-<a href="<?php echo $PHP_SELF; ?>?modifyQuestion=<?php echo $questionId; ?>"><img src="../img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langModify; ?>"></a>
+<a href="<?php echo $PHP_SELF; ?>?modifyQuestion=<?php echo $questionId; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langModify; ?>"></a>
 
 <?php
 	}
@@ -227,7 +227,7 @@ else
 	{
 ?>
 
-<a href="<?php echo $PHP_SELF; ?>?modifyAnswers=<?php echo $questionId; ?>"><img src="../img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langModify; ?>"></a>
+<a href="<?php echo $PHP_SELF; ?>?modifyAnswers=<?php echo $questionId; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langModify; ?>"></a>
 
 <?php
 	}

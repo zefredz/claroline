@@ -94,15 +94,15 @@ if($nbrQuestions)
 </tr>
 <tr>
   <td>
-	<a href="<?php echo $PHP_SELF; ?>?editQuestion=<?php echo $id; ?>"><img src="../img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langModify; ?>"></a>
-	<a href="<?php echo $PHP_SELF; ?>?deleteQuestion=<?php echo $id; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmYourChoice)); ?>')) return false;"><img src="../img/delete.gif" border="0" align="absmiddle" alt="<?php echo $langDelete; ?>"></a>
+	<a href="<?php echo $PHP_SELF; ?>?editQuestion=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langModify; ?>"></a>
+	<a href="<?php echo $PHP_SELF; ?>?deleteQuestion=<?php echo $id; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmYourChoice)); ?>')) return false;"><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" align="absmiddle" alt="<?php echo $langDelete; ?>"></a>
 
 <?php
 		if($i != 1)
 		{
 ?>
 
-	<a href="<?php echo $PHP_SELF; ?>?moveUp=<?php echo $id; ?>"><img src="../img/up.gif" border="0" align="absmiddle" alt="<?php echo $langMoveUp; ?>"></a>
+	<a href="<?php echo $PHP_SELF; ?>?moveUp=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" align="absmiddle" alt="<?php echo $langMoveUp; ?>"></a>
 
 <?php
 		}
@@ -111,7 +111,7 @@ if($nbrQuestions)
 		{
 ?>
 
-	<a href="<?php echo $PHP_SELF; ?>?moveDown=<?php echo $id; ?>"><img src="../img/down.gif" border="0" align="absmiddle" alt="<?php echo $langMoveDown; ?>"></a>
+	<a href="<?php echo $PHP_SELF; ?>?moveDown=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/down.gif" border="0" align="absmiddle" alt="<?php echo $langMoveDown; ?>"></a>
 
 <?php
 		}
