@@ -968,7 +968,7 @@ function trig_topic_notification($topicId)
     $notifyResult = claro_sql_query($sql);
     $subject      = $l_notifysubj;
 
-    $url_topic = "http://" . $_SERVER['SERVER_NAME'] . $url_phpbb . "/viewtopic.php?topic=". $topicId . "&cidReq=" . $_course['sysCode'];
+    $url_topic = "http://" . $_SERVER['SERVER_NAME'] . $url_phpbb . "/viewtopic.php?topic=". $topicId . "&amp;cidReq=" . $_course['sysCode'];
     $url_forum = "http://" . $_SERVER['SERVER_NAME'] . $url_phpbb . "/index.php?cidReq=" . $_course['sysCode'];
 
     // send mail to registered user for notification
@@ -1009,7 +1009,7 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
         {
             echo "<p>"
                 .$l_click
-                ." <a href=\"viewtopic.php?topic=".$topicId."&forum=".$forumId."\">"
+                ." <a href=\"viewtopic.php?topic=".$topicId."&amp;forum=".$forumId."\">"
                 .$l_here
                 ."</a> "
                 .$l_viewmsg
@@ -1065,7 +1065,7 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
 
     if ( $total < $step      ) return; // no need to go further
     if ( ! strpos($url, '?') ) $glue = '?';
-    else                       $glue = '&';
+    else                       $glue = '&amp;';
 
     for($offset = 0; $offset < $total; $offset += $step)
     {
