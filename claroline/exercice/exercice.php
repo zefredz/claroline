@@ -1,9 +1,9 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.0 $Revision$                            |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
@@ -44,19 +44,34 @@ $_SESSION['inPathMode'] = false;
 $is_allowedToEdit = $is_courseAdmin;
 $is_allowedToTrack = $is_courseAdmin && $is_trackingEnabled;
 
-$TBL_EXERCICE_QUESTION = $_course['dbNameGlu'].'quiz_rel_test_question';
-$TBL_EXERCICES         = $_course['dbNameGlu'].'quiz_test';
-$TBL_QUESTIONS         = $_course['dbNameGlu'].'quiz_question';
+/*
+ * DB tables definition
+ */
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
+$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
+$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
+$tbl_quiz_answer             = $tbl_cdb_names['quiz_answer'            ];
+$tbl_quiz_question           = $tbl_cdb_names['quiz_question'          ];
+$tbl_quiz_rel_test_question  = $tbl_cdb_names['quiz_rel_test_question' ];
+$tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
+
+///// keep these  for compatibiliy 
+$TBL_EXERCICE_QUESTION  = $tbl_quiz_rel_test_question;  // no more used in this script
+$TBL_EXERCICES          = $tbl_quiz_test;               // no more used in this script
+$TBL_QUESTIONS          = $tbl_quiz_question;           // no more used in this script
+$TABLEEXERCISES         = $tbl_quiz_test;               // no more used in this script
+$TABLELEARNPATH         = $tbl_lp_learnPath;            // no more used in this script
+$TABLEMODULE            = $tbl_lp_module;               // no more used in this script
+$TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module; // no more used in this script
+$TABLEASSET             = $tbl_lp_asset;                // no more used in this script
+$TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress; // no more used in this script
+
 $TBL_TRACK_EXERCICES   = $_course['dbNameGlu']."track_e_exercices";
 
-// learning path mode table
-$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
-$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
-$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
-$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
-$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
-
-$TABLEEXERCISES               = $_course['dbNameGlu']."exercices";
 
 // maximum number of exercises on a same page
 $limitExPage=50;
@@ -78,18 +93,23 @@ if ( ! $is_courseAllowed)
 	claro_disp_auth_form();
 
 // used for stats
-@include($includePath.'/lib/events.lib.inc.php');
+include($includePath.'/lib/events.lib.inc.php');
 
 event_access_tool($nameTools);
 
 // need functions of statsutils lib to display previous exercices scores
-@include($includePath.'/lib/statsUtils.lib.inc.php');
+include($includePath.'/lib/statsUtils.lib.inc.php');
 
 claro_disp_tool_title($nameTools, $is_allowedToEdit ? 'help_exercise.php' : false);
 
 // defines answer type for previous versions of Claroline, may be removed in Claroline 1.5
-$sql="UPDATE `$TBL_QUESTIONS` SET q_position='1',type='2' WHERE q_position IS NULL OR q_position<'1' OR type='0'";
-mysql_query($sql) or die("Error : UPDATE at line ".__LINE__);
+$sql="
+UPDATE `".$tbl_quiz_question."` 
+SET q_position='1', type='2' 
+WHERE 	q_position IS NULL 
+	 OR q_position<'1' 
+	 OR type='0'";
+claro_sql_query($sql) or die("Error : UPDATE at line ".__LINE__);
 
 // selects $limitExPage exercises at the same time
 $from=$page*$limitExPage;
@@ -114,40 +134,39 @@ if($is_allowedToEdit)
                                 {
                                     //get module_id concerned (by the asset)...
                                     $sql="SELECT `module_id`
-                                          FROM `".$TABLEASSET."`
+                                          FROM `".$tbl_lp_asset."`
                                           WHERE `path`='".$exerciseId."'
                                           ";
-                                    $aResult = mysql_query($sql);
+                                    $aResult = claro_sql_query($sql);
                                     $aList = mysql_fetch_array($aResult);
                                     $idOfModule = $aList['module_id'];
 
                                     // delete the asset
                                     $sql="DELETE
-                                          FROM `".$TABLEASSET."`
+                                          FROM `".$tbl_lp_asset."`
                                           WHERE `path`='".$exerciseId."'
 
                                           ";
-                                    mysql_query($sql);
-                                    mysql_query($sql);
+                                    claro_sql_query($sql);
 
                                     // delete the module
                                     $sql="DELETE
-                                          FROM `".$TABLEMODULE."`
+                                          FROM `".$tbl_lp_module."`
                                           WHERE `module_id`=".$idOfModule."
                                           ";
-                                    mysql_query($sql);
+                                    claro_sql_query($sql);
 
                                     // find the learning path module(s) concerned
                                     $sql="SELECT *
-                                          FROM `".$TABLELEARNPATHMODULE."`
+                                          FROM `".$tbl_lp_rel_learnPath_module."`
                                           WHERE `module_id`=".$idOfModule."
                                           ";
 
-                                    $lpmResult = mysql_query($sql);
+                                    $lpmResult = claro_sql_query($sql);
 
                                     // delete any user progression info for this/those learning path module(s)
                                     $sql="DELETE
-                                          FROM `".$TABLEUSERMODULEPROGRESS."`
+                                          FROM `".$tbl_lp_user_module_progress."`
                                           WHERE
                                           ";
                                      while ($lpmList = mysql_fetch_array($lpmResult))
@@ -155,14 +174,14 @@ if($is_allowedToEdit)
                                         $sql.="`learningpath_module_id`= '".$lpmList['learningPath_module_id']."' OR ";
                                      }
                                      $sql.=" 0=1 ";
-                                     mysql_query($sql);
+                                     claro_sql_query($sql);
 
                                      // delete the learning path module(s)
                                     $sql="DELETE
-                                          FROM `".$TABLELEARNPATHMODULE."`
+                                          FROM `".$tbl_lp_rel_learnPath_module."`
                                           WHERE `module_id`=".$idOfModule."
                                           ";
-                                    mysql_query($sql);
+                                    claro_sql_query($sql);
 
                                 } //end if at least in one learning path
 								break;
@@ -183,21 +202,33 @@ if($is_allowedToEdit)
 		unset($objExerciseTmp);
 	}
 
-	$sql="SELECT id,titre,type,active FROM `$TBL_EXERCICES` ORDER BY id LIMIT $from,".($limitExPage+1);
-	$result=mysql_query($sql) or die("Error : SELECT at line ".__LINE__);
+	$sql = 'SELECT `id`, `titre`, `type`, `active` 
+	          FROM `'.$tbl_quiz_test.'` 
+			  ORDER BY `id` 
+			  LIMIT '.$from.', '.($limitExPage+1);
+	$result=claro_sql_query($sql) or die("Error : SELECT at line ".__LINE__);
 }
 // only for students
 else
 {
   if ($_uid)
   {
-      $sql="SELECT `id`,`titre`,`type` FROM `$TBL_EXERCICES` WHERE `active`='1' ORDER BY `id` LIMIT $from,".($limitExPage+1);
+	$sql = 'SELECT `id`, `titre`, `type` 
+	          FROM `'.$tbl_quiz_test.'` 
+			  WHERE `active`="1" 
+			  ORDER BY `id` 
+			  LIMIT '.$from.', '.($limitExPage+1);
   }
   else // anonymous user
   {
-      $sql="SELECT `id`,`titre`,`type` FROM `$TBL_EXERCICES` WHERE `active`='1' AND `anonymous_attempts`='YES' ORDER BY `id` LIMIT $from,".($limitExPage+1);
+	$sql = 'SELECT `id`, `titre`, `type` 
+	          FROM `'.$tbl_quiz_test.'` 
+			  WHERE     `active`="1"
+				 	AND `anonymous_attempts`="YES" 
+			  ORDER BY `id` 
+			  LIMIT '.$from.', '.($limitExPage+1);
   }
-	$result=mysql_query($sql) or die("Error : SELECT at line ".__LINE__);
+	$result= claro_sql_query($sql) or die("Error : SELECT at line ".__LINE__);
 }
 
 $nbrExercises=mysql_num_rows($result);
@@ -232,7 +263,8 @@ if($page)
 {
 ?>
 
-	<small><a href="<?php echo $PHP_SELF; ?>?page=<?php echo ($page-1); ?>">&lt;&lt; <?php echo $langPreviousPage; ?></a></small> |
+	<small>
+		<a href="<?php echo $_SERVER['PHP_SELF']; ?>?page=<?php echo ($page-1); ?>">&lt;&lt; <?php echo $langPreviousPage; ?></a></small> |
 
 <?php
 }
@@ -249,7 +281,7 @@ if($nbrExercises > $limitExPage)
 {
 ?>
 
-	<small><a href="<?php echo $PHP_SELF; ?>?page=<?php echo ($page+1); ?>"><?php echo $langNextPage; ?> &gt;&gt;</a></small>
+	<small><a href="<?php echo $_SERVER['PHP_SELF']; ?>?page=<?php echo ($page+1); ?>"><?php echo $langNextPage; ?> &gt;&gt;</a></small>
 
 <?php
 }
@@ -319,13 +351,13 @@ $i=1;
 // see if exercises are used in learning path and must be protected by a confirm alert
 
 $sql = "SELECT *,A.`path` AS thePath
-          FROM `".$TABLELEARNPATHMODULE."` AS LPM, `".$TABLEASSET."` AS A, `".$TABLEMODULE."` AS M
+          FROM `".$tbl_lp_rel_learnPath_module."` AS LPM, `".$tbl_lp_asset."` AS A, `".$tbl_lp_module."` AS M
           WHERE M.`contentType` = 'EXERCISE'
                 AND A.`module_id` = M.`module_id`
                 AND LPM.`module_id` = M.`module_id`
           ";
 
-$res=mysql_query($sql);
+$res=claro_sql_query($sql);
 
 // build an array of action to add to link of deletion for each exercise included in a learning path.
 
@@ -356,17 +388,17 @@ while($row=mysql_fetch_array($result))
   <td>
     <?php echo ($i+($page*$limitExPage)).'.'; ?>
     &nbsp;
-    <a href="exercice_submit.php?exerciseId=<?php echo $row[id]; ?>" <?php if(!$row[active]) echo 'class="invisible"'; ?>><?php echo $row[titre]; ?></a>
+    <a href="exercice_submit.php?exerciseId=<?php echo $row['id']; ?>" <?php if(!$row['active']) echo 'class="invisible"'; ?>><?php echo $row['titre']; ?></a>
   </td>
-  <td align="center"><a href="admin.php?exerciseId=<?php echo $row[id]; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo htmlentities($langModify); ?>"></a></td>
-  <td align="center"><a href="<?php echo $PHP_SELF; ?>?choice=delete&exerciseId=<?php echo $row[id]; if (isset($actionsForDelete[$row[id]])) { echo "&lpmDel=true";}?>" <?php if (isset($actionsForDelete[$row[id]])) { echo $actionsForDelete[$row[id]];} else {echo $defaultConfirm;} ?>><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo htmlentities($langDelete); ?>"></a></td>
+  <td align="center"><a href="admin.php?exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo htmlentities($langModify); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=delete&exerciseId=<?php echo $row['id']; if (isset($actionsForDelete[$row[id]])) { echo "&lpmDel=true";}?>" <?php if (isset($actionsForDelete[$row['id']])) { echo $actionsForDelete[$row['id']];} else {echo $defaultConfirm;} ?>><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo htmlentities($langDelete); ?>"></a></td>
 <?php
 		// if active
-		if($row[active])
+		if($row['active'])
 		{
 ?>
 
-  <td align="center"><a href="<?php echo $PHP_SELF; ?>?choice=disable&page=<?php echo $page; ?>&exerciseId=<?php echo $row[id]; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/visible.gif" border="0" alt="<?php echo htmlentities($langDeactivate); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&page=<?php echo $page; ?>&exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/visible.gif" border="0" alt="<?php echo htmlentities($langDeactivate); ?>"></a></td>
 
 <?php
 		}
@@ -375,14 +407,14 @@ while($row=mysql_fetch_array($result))
 		{
 ?>
 
-  <td align="center"><a href="<?php echo $PHP_SELF; ?>?choice=enable&page=<?php echo $page; ?>&exerciseId=<?php echo $row[id]; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/invisible.gif" border="0" alt="<?php echo htmlentities($langActivate); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&page=<?php echo $page; ?>&exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/invisible.gif" border="0" alt="<?php echo htmlentities($langActivate); ?>"></a></td>
 
 <?php
 		}
     if($is_allowedToTrack)
     {
   ?>
-          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $row[id]; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistiques.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
+          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistiques.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
      
    <?php
     }
@@ -398,7 +430,7 @@ while($row=mysql_fetch_array($result))
 	<tr>
 	  <td width="20" align="right"><?php echo ($i+($page*$limitExPage)).'.'; ?></td>
 	  <td width="1">&nbsp;</td>
-	  <td><a href="exercice_submit.php?exerciseId=<?php echo $row[id]; ?>"><?php echo $row[titre]; ?></a></td>
+	  <td><a href="exercice_submit.php?exerciseId=<?php echo $row['id']; ?>"><?php echo $row['titre']; ?></a></td>
 	</tr>
 	</table>
   </td>
@@ -442,10 +474,10 @@ if($is_trackingEnabled && $_uid):
 $sql="SELECT `ce`.`titre`, `te`.`exe_result` ,
 			 `te`.`exe_weighting`, UNIX_TIMESTAMP(`te`.`exe_date`) AS `exeDate`,
 			 `te`.`exe_time`
-      FROM `$TBL_EXERCICES` AS ce , `$TBL_TRACK_EXERCICES` AS te
-      WHERE `te`.`exe_user_id` = '$_uid'
+      FROM `".$tbl_quiz_test."` AS ce , `".$TBL_TRACK_EXERCICES."` AS te
+      WHERE `te`.`exe_user_id` = '".$_uid."'
       AND `te`.`exe_exo_id` = `ce`.`id`
-      ORDER BY `ce`.`titre` ASC, `te`.`exe_date`ASC";
+      ORDER BY `ce`.`titre` ASC, `te`.`exe_date` ASC";
 
 $results = claro_sql_query_fetch_all($sql);
 
@@ -463,6 +495,7 @@ foreach($results as $row)
 <?php
 
 }
+
 if( !is_array($results) || sizeof($results) == 0 )
 {
 ?>
@@ -480,5 +513,5 @@ if( !is_array($results) || sizeof($results) == 0 )
 <?php
 endif; // end if tracking is enabled
 
-@include($includePath.'/claro_init_footer.inc.php');
+include($includePath.'/claro_init_footer.inc.php');
 ?>

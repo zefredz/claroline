@@ -1,9 +1,9 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.2 $Revision$                            |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
@@ -32,28 +32,41 @@ include('answer.class.php');
 include('exercise.lib.php');
 
 // answer types
-define('UNIQUE_ANSWER',	1);
-define('MULTIPLE_ANSWER',	2);
-define('FILL_IN_BLANKS',	3);
-define('MATCHING',		4);
+define('UNIQUE_ANSWER',	 1);
+define('MULTIPLE_ANSWER',2);
+define('FILL_IN_BLANKS', 3);
+define('MATCHING',		 4);
 
 $langFile='exercice';
 
 require '../inc/claro_init_global.inc.php';
 
-@include($includePath.'/lib/text.lib.php');
+include($includePath.'/lib/text.lib.php');
+/*
+ * DB tables definition
+ */
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
+$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
+$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
+$tbl_quiz_answer             = $tbl_cdb_names['quiz_answer'            ];
+$tbl_quiz_question           = $tbl_cdb_names['quiz_question'          ];
+$tbl_quiz_rel_test_question  = $tbl_cdb_names['quiz_rel_test_question' ];
+$tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
 
-$TBL_EXERCICE_QUESTION = $_course['dbNameGlu'].'quiz_rel_test_question';
-$TBL_EXERCICES         = $_course['dbNameGlu'].'quiz_test';
-$TBL_QUESTIONS         = $_course['dbNameGlu'].'quiz_question';
-$TBL_REPONSES          = $_course['dbNameGlu'].'quiz_answer';
+$TBL_EXERCICE_QUESTION = $tbl_quiz_rel_test_question; // No use in the script
+$TBL_EXERCICES         = $tbl_quiz_test;              // No use in the script
+$TBL_QUESTIONS         = $tbl_quiz_question;          // No use in the script
+$TBL_REPONSES          = $tbl_quiz_answer;			  // No use in the script
 
 $TBL_TRACK_EXERCISES	= $_course['dbNameGlu'].'track_e_exercices';
-$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
-$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
-$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
-$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
-$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
+$TABLELEARNPATH         = $tbl_lp_learnPath;
+$TABLEMODULE            = $tbl_lp_module; // No use in the script
+$TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
+$TABLEASSET             = $tbl_lp_asset;
+$TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 // if the above variables are empty or incorrect, stops the script
 if(!is_array($exerciseResult) || !is_array($questionList) || !is_object($objExercise))
@@ -530,7 +543,7 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
         $scoreMax = $totalWeighting;
         // need learningPath_module_id and raw_to_pass value
         $sql = "SELECT LPM.`raw_to_pass`, LPM.`learnPath_module_id`, UMP.`total_time`, UMP.`raw`
-                  FROM `".$TABLELEARNPATHMODULE."` AS LPM, `".$TABLEUSERMODULEPROGRESS."` AS UMP
+                  FROM `".$tbl_lp_rel_learnPath_module."` AS LPM, `".$TABLEUSERMODULEPROGRESS."` AS UMP
                  WHERE LPM.`learnPath_id` = '".$_SESSION['path_id']."'
                    AND LPM.`module_id` = '".$_SESSION['module_id']."'
 				   AND LPM.`learnPath_module_id` = UMP.`learnPath_module_id`
