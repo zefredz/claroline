@@ -19,7 +19,6 @@
  * 	- compress the directory and content in an archive file.
  */
 
-
 // Debug 
 
 $verboseBackup = 0;
@@ -110,12 +109,18 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 		exit();
 	}
 
-    // Display file name
+    // Display file name, location, course size
+    
+    $courseDirSize=DirSize($coursePath);
+    $courseDirSize=($courseDirSize >= 1048576) ? round($courseDirSize/(1024*1024),2)." Mb" : round($courseDirSize/1024,2)." Kb";
 
-    echo "<hr noshade=\"noshade\" size=\"1\">\n";
-    echo "<p><u>" . $langArchiveName . "</u>: " . $archiveName .  "</p>\n";
-    echo "<p><u>" . $langArchiveLocation . "</u>: " .  $archiveLocation . "</p>\n";
-    echo "<hr noshade=\"noshade\" size=\"1\">\n";
+    echo "<hr noshade=\"noshade\" size=\"1\">\n" .
+         "<p>" .
+         "<u>" . $langArchiveName . "</u>: " . $archiveName .  "<br >\n" .
+         "<u>" . $langArchiveLocation . "</u>: " .  $archiveLocation . "<br >\n" . 
+         "<u>" . $langSizeOf . " " . $currentCourseName . "</u>: " . $courseDirSize . "<br >\n" .
+         "</p>\n" .
+         "<hr noshade=\"noshade\" size=\"1\">\n";
 
     // ********************************************************************
     // build config file
@@ -146,9 +151,7 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 	echo "<ol>";
 
     // Create folder for Course Database in archive folder
-
-    
-    
+ 
 	if(!is_dir($dirCourseBase))
 	{
 		echo "<li>" . $langCreateMissingDirectories . ": " . $dirCourseBase;
@@ -321,7 +324,7 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 
 	echo "<li>" . $langBackupOfDataBase . " " . $currentCourseDbName . " (SQL)";
 
-   // backupDatabase($db, $currentCourseDbName, true, true, 'SQL', $archivePath.'courseBase/', true, $verboseBackup);
+    backupDatabase($currentCourseDbName, true, true, 'SQL', $dirCourseBase, true, $verboseBackup);
 
 // ********************************************************************
 //  compress the archive
@@ -367,8 +370,6 @@ if ($message)
 
 @include($includePath."/claro_init_footer.inc.php");
 
-/*
-
 // *******************************
 // * FUNCTIONS					
 // *******************************
@@ -376,18 +377,17 @@ if ($message)
 // **
 // * Backup a db to a file
 // *
-// * @param ressource	$link			lien vers la base de donnees
-// * @param string	$db_name		nom de la base de donnees
+// * @param string	$db_name		nom de la base de data
 // * @param boolean	$structure		true => sauvegarde de la structure des tables
-// * @param boolean	$donnees		true => sauvegarde des donnes des tables
-// * @param boolean	$format			format des donnees
+// * @param boolean	$data		true => sauvegarde des donnes des tables
+// * @param boolean	$format			format des data
 // 									'INSERT' => des clauses SQL INSERT
-//									'CSV' => donnees separees par des virgules
+//									'CSV' => data separees par des virgules
 // * @param boolean	$insertComplet	true => clause INSERT avec nom des champs
 // * @param boolean	$verbose 		true => comment are printed
 // *
 
-function backupDatabase($link, $db_name, $structure, $donnees, $format="SQL", $whereSave=".", $insertComplet="", $verbose=false)
+function backupDatabase($db_name, $structure, $data, $format="SQL", $whereSave=".", $insertComplet="", $verbose=false)
 {
 	global $singleDbEnabled, $currentCourseDbNameGlu;
 
@@ -399,7 +399,7 @@ function backupDatabase($link, $db_name, $structure, $donnees, $format="SQL", $w
 		}
 	}
 
-	$filename=$whereSave.'/courseDbContent.'.strtolower($format);
+	$filename = $whereSave.'/courseDbContent.'.strtolower($format);
 
 	if(!$fp=@fopen($filename, "w"))
 	{
@@ -456,7 +456,7 @@ function backupDatabase($link, $db_name, $structure, $donnees, $format="SQL", $w
 			}
 		}
 
-		if($donnees == true)
+		if($data == true)
 		{
 			$query="SELECT * FROM `$tableName`";
 			$resData=mysql_query($query);
@@ -507,7 +507,5 @@ function backupDatabase($link, $db_name, $structure, $donnees, $format="SQL", $w
 
 	fclose($fp);
 }
-
-*/
 
 ?>
