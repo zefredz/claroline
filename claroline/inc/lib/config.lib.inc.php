@@ -971,7 +971,7 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
 		if ( isset($conf_def_property_list['actualValue']) )
 		{
 			$htmlPropValue = $conf_def_property_list['actualValue'];
-			$htmlPropDefault = 'Default : ' . (empty($conf_def_property_list['default'])?$langEmpty:$actual_value);
+			$htmlPropDefault = 'Default : ' . (empty($conf_def_property_list['default'])?$langEmpty:$default_value);
 		}
 		else
 		{
@@ -1017,11 +1017,18 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
             case 'string' : 
             default:
                 // probably a string or integer
-                echo $conf_def_property_list['default'];
+                if ( empty($conf_def_property_list['default']) )
+                {
+                    echo '<em>' . $langEmpty . '</em>';
+                }
+                else
+                {
+                    echo $conf_def_property_list['default'];
+                }
         } // switch
 
 		echo '</td>';
-        echo '<td>' . $htmlPropDesc . '</td>' . "\n";
+        echo '<td><em>' . $htmlPropDesc . '</em></td>' . "\n";
 		echo '</tr>';
     } 
     else
@@ -1126,8 +1133,7 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
 
     				foreach($conf_def_property_list['acceptedValue'] as  $keyVal => $labelVal)
                 	{
-                    	echo '&nbsp;'
-                        .'<input id="'.$property.'_'.$keyVal.'"  type="radio" name="'.$htmlPropName.'" value="'.$keyVal.'"  '
+                    	echo '<input id="'.$property.'_'.$keyVal.'"  type="radio" name="'.$htmlPropName.'" value="'.$keyVal.'"  '
     					.($htmlPropValue==$keyVal?' checked="checked" ':' ')
     					.' >'
                         .'<label for="'.$property.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
