@@ -12,12 +12,12 @@
  */
 
 $conf_def['config_code']='CLADDCRS';
-$conf_def['config_name']='General setting for course creation';
+$conf_def['config_name']='Course options';
 $conf_def['config_file']='core.add_course.conf.php';
 $conf_def['old_config_file'][]='add_course.conf.php';
-// $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 
-$conf_def['section']['create']['label']='Creation properties';
+$conf_def['section']['create']['label']='Course creation';
+$conf_def['section']['create']['description']='These settings will be use whenever a user creates a new course';
 $conf_def['section']['create']['properties'] = 
 array ( 'defaultVisibilityForANewCourse'
       , 'HUMAN_CODE_NEEDED'
@@ -42,64 +42,104 @@ array ('label'       => 'Default visibility for new course'
                                 )
       );
 
-$conf_def_property_list['is_allowedToRestore'] = 
-array ('label'       => 'All courses manager can create a course from an archive'
-      ,'default'     => 'FALSE'
-      ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      ,'acceptedValue' => array ('TRUE'  =>'Enabled'
-                                ,'FALSE' =>'Disabled'
-                                )
-      );
-
 $conf_def_property_list['HUMAN_CODE_NEEDED'] = 
-array ('label'       => 'Whether user can leave course code (officialCode) field empty'
+array ('label'       => 'Course code is'
+      ,'description' => 'User can leave course code (officialCode) field empty or not'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE' => 'Enabled'
-                                ,'FALSE'=> 'Disabled'
+      ,'acceptedValue' => array ('TRUE' => 'Required'
+                                ,'FALSE'=> 'Optional'
                                 )
       );
 
 $conf_def_property_list['HUMAN_LABEL_NEEDED'] = 
-array ('label'       => 'Whether user can leave course label (name) field empty'
+array ('label'       => 'Course label (name) is'
+      ,'description' => 'User can leave course label (name) field empty or not'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'Enabled'
-                              ,'FALSE'=>'Disabled'
+      ,'acceptedValue' => array ('TRUE'=>'Required'
+                              ,'FALSE'=>'Optional'
                               )
       );
 
 $conf_def_property_list['COURSE_EMAIL_NEEDED'] = 
-array ('label'       => 'whether user can leave email field empty'
+array ('label'       => 'Email is'
+      ,'description' => 'User can leave email field empty or not'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'Enabled'
-                              ,'FALSE'=>'Disabled'
+      ,'acceptedValue' => array ('TRUE'=>'Required'
+                              ,'FALSE'=>'Optional'
                               )
       );
 
 $conf_def_property_list['prefixAntiNumber'] = 
-array ('label'       => 'This string is prepend to code if begin with a number'
+array ('label'       => 'Prefix course code beginning with number'
+      ,'description' => 'This string is prepend to course database name if it begins with a number'
       ,'default'     => 'No'
+      ,'display'     => FALSE
+      ,'readonly'    => TRUE
       ,'type'        => 'string'
       );
 
 $conf_def_property_list['prefixAntiEmpty'] = 
 array ('label'       => 'Prefix for empty code course'
       ,'default'     => 'Course'
+      ,'display'     => FALSE
+      ,'readonly'    => TRUE
       ,'type'        => 'string'
       );
 
+// Course Setting Section
+
+$conf_def['section']['links']['label']='Course settings';
+$conf_def['section']['links']['description']='These settings will be use whenever a user modify course settings';
+$conf_def['section']['links']['properties'] =
+array ( 'showLinkToDeleteThisCourse'
+      , 'showLinkToExportThisCourse'
+      , 'showLinkToRestoreCourse'
+      );
+
+$conf_def_property_list['showLinkToDeleteThisCourse']
+= array ('label'     => 'Allow course manager to delete course'
+        ,'default'   => 'TRUE'
+        ,'type'      => 'boolean'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
+        );
+$conf_def_property_list['showLinkToExportThisCourse']
+= array ('label'     => 'Show link to make an archive of the cours'
+        ,'default'   => 'FALSE'
+        ,'display'   => FALSE
+        ,'type'      => 'boolean'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
+        );
+
+$conf_def_property_list['showLinkToRestoreCourse']
+= array ('label'     => 'Show link to call the restore of a course'
+        ,'display'   => FALSE
+        ,'default'   => 'FALSE'
+        ,'type'      => 'boolean'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
+        );
 
 // Course properties rules
+// Not displayed
+
 $conf_def['section']['restore']['label']='Restore // Create a course from an archive';
+$conf_def['section']['restore']['display']=FALSE;
 $conf_def['section']['restore']['properties'] = 
 array ( 'is_allowedToRestore'
       , 'sendByUploadAivailable'
@@ -179,6 +219,7 @@ array ('label'       => 'Repository where stored archives on server'
 
 // Course properties rules
 $conf_def['section']['expiration']['label']='Fix a delay for consider a course as expired';
+$conf_def['section']['expiration']['display']=FALSE;
 $conf_def['section']['expiration']['properties'] = 
 array ( 'firstExpirationDelay'
       );
@@ -189,5 +230,139 @@ array ('label'       => 'Time to expire the created course (in second)'
       ,'unit'        => 'second'
       ,'type'        => 'integer'
       );
+
+$conf_def_property_list['is_allowedToRestore'] = 
+array ('label'       => 'All courses manager can create a course from an archive'
+      ,'default'     => 'FALSE'
+      ,'type'        => 'boolean'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'acceptedValue' => array ('TRUE'  =>'Enabled'
+                                ,'FALSE' =>'Disabled'
+                                )
+      );
+
+// Course optionnal config
+
+$conf_def['section']['flags']['label']       = 'options';
+$conf_def['section']['flags']['display']     = FALSE;
+$conf_def['section']['flags']['description'] = 'switch option for courses';
+$conf_def['section']['flags']['properties']  =
+array ( 'showDiskQuota'
+      , 'showDiskUse'
+      , 'showLinkToChangeDiskQuota'
+      , 'showExpirationDate'
+      , 'showCreationDate'
+      , 'showLastEdit'
+      , 'showLastVisit'
+      , 'canReportExpirationDate'
+      , 'linkToChangeDiskQuota'
+      , 'urlScriptToReportExpirationDate'
+      );
+
+$conf_def_property_list['showDiskQuota']
+= array ('label'     => 'Show in course setting the quota of course'
+        ,'default'   => 'FALSE'
+        ,'display'   => FALSE
+        ,'type'      => 'boolean'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
+        );
+
+$conf_def_property_list['showDiskUse']
+= array ('label'     => 'Show in course setting the space disk used by course'
+        ,'display'   => FALSE
+        ,'default'   => 'FALSE'
+        ,'type'      => 'boolean'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
+        );
+
+$conf_def_property_list['showLinkToChangeDiskQuota']
+= array ('label'     => 'Show in course link to script to request a change of the quota'
+        ,'display'   => FALSE
+        ,'default'   => 'FALSE'
+        ,'type'      => 'boolean'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
+        );
+
+$conf_def_property_list['showExpirationDate']
+= array ('label'     => 'Show in course setting the date of expiration of the course'
+        ,'display'   => FALSE
+        ,'default'   => 'FALSE'
+        ,'type'      => 'boolean'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
+        );
+
+$conf_def_property_list['showCreationDate']
+= array ('label'     => 'Show in course setting the date creation of the course'
+        ,'display'   => FALSE
+        ,'default'   => 'TRUE'
+        ,'type'      => 'boolean'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
+        );
+
+$conf_def_property_list['showLastEdit']
+= array ('label'     => 'Show in course setting the date of last edtion detected in course'
+        ,'display'   => FALSE
+        ,'default'   => 'TRUE'
+        ,'type'      => 'boolean'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
+        );
+
+$conf_def_property_list['showLastVisit']
+= array ('label'     => 'Show in course setting the date of last visit in course'
+        ,'display'   => FALSE
+        ,'default'   => 'TRUE'
+        ,'type'      => 'boolean'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
+        );
+
+$conf_def_property_list['canReportExpirationDate']
+= array ( 'label'        => 'Is course admin eable to request an time credit for his courses'
+        , 'display'   => FALSE
+        , 'description'  => 'Need to be TRUE if ScriptToReportExpirationDate is not automaticly called'
+        , 'default'      => 'FALSE'
+        , 'type'         => 'boolean'
+        , 'container'    => 'VAR'
+        ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                  ,'FALSE' => 'No'
+                                  )
+        );
+
+$conf_def_property_list['linkToChangeDiskQuota']
+= array ('label'     => 'External script to change quota allowed to course.'
+        ,'display'   => FALSE
+        ,'default'   => 'changeQuota.php'
+        ,'type'      => 'string'
+        ,'container' => 'VAR'
+        );
+
+$conf_def_property_list['urlScriptToReportExpirationDate']
+= array ('label'     => 'External script to postpone the expiration of course.'
+        ,'display'   => FALSE
+        ,'default'   => 'postpone.php'
+        ,'type'      => 'string'
+        ,'container' => 'VAR'
+        );
 
 ?>

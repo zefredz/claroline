@@ -16,7 +16,7 @@
 // CONFIG HEADER
 $conf_def['config_code']='CLCRSCONF';
 $conf_def['config_file']='course_info.conf.php';
-$conf_def['config_name']='General setting for course setting tool';
+$conf_def['config_name']='Manage course settings';
 $conf_def['description']='How can be edit a course profile, and managment action';
 
 // CONFIG SECTIONS

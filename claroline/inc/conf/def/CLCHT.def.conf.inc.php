@@ -25,7 +25,7 @@ array ( 'REFRESH_DISPLAY_RATE'
       );
 
 $conf_def_property_list['REFRESH_DISPLAY_RATE'] =
-array ( 'label'       => 'Time in seconds'
+array ( 'label'       => 'Refresh time'
       , 'description' => 'Time to automatically refresh the user screen'
       , 'default'     => '10'
       , 'unit'        => 'seconds'
@@ -33,8 +33,8 @@ array ( 'label'       => 'Time in seconds'
       );
       
 $conf_def_property_list['MAX_LINE_TO_DISPLAY'] =
-array ( 'label'         => 'Maximum lines displayed'
-      , 'description'   => 'Maximum lines displayed to the user. ' 
+array ( 'label'         => 'Maximum conversation lines'
+      , 'description'   => 'Maximum conversation lines displayed to the user. ' 
       , 'default'       => '20'
       , 'acceptedValue' => array( 'min' => 5, 'max' => 120)
       , 'unit'          => 'lines'
@@ -42,7 +42,7 @@ array ( 'label'         => 'Maximum lines displayed'
       );
 
 $conf_def_property_list['MAX_LINE_IN_FILE'] = 
-array ( 'label'       => 'Maximum lines in buffer'
+array ( 'label'       => 'Maximum conversation lines in buffer'
       , 'description' => 'Maximum lines in the active chat file. '
                         .'For performance, it\'s interresting '
                         .'to not work with too big file'      

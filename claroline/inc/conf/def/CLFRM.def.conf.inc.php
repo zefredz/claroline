@@ -16,7 +16,7 @@ array ( 'allow_html'
 // Setup forum Options.
 $conf_def_property_list['allow_html']
 = array ('label'     => 'HTML in posts'
-	,'description' => 'Allow user to use html tag in message'
+	,'description' => 'Allow user to use html tag in messages'
         ,'default'   => '1'
         ,'type'      => 'enum'
         ,'container' => 'VAR'

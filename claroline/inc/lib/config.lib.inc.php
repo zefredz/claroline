@@ -241,19 +241,15 @@ function get_def_file_list()
 
                 if ( $config_code == 'CLMAIN')
                 {
-                    $defConfFileList['platform']['conf'][$config_code] = 'Platform settings';
+                    $defConfFileList['platform']['conf'][$config_code] = get_conf_name($config_code);
                 }
-                if ( $config_code == 'claro_extauth')
+                elseif ( $config_code == 'CLADDCRS' || $config_code == 'CLCRSCONF' )
                 {
-                    $defConfFileList['platform']['conf'][$config_code] = 'External authentification';
+                    $defConfFileList['course']['conf'][$config_code] = get_conf_name($config_code);
                 }
-                elseif ( $config_code == 'claro_course')
+                elseif ( $config_code == 'CLPROFIL')
                 {
-                    $defConfFileList['course']['conf'][$config_code] = 'Course options';
-                }
-                elseif ( $config_code == 'claro_user')
-                {
-                    $defConfFileList['user']['conf'][$config_code] = 'User options';
+                    $defConfFileList['user']['conf'][$config_code] = get_conf_name($config_code);
                 }
                 elseif ( array_key_exists(str_pad($config_code,8,'_'),$toolNameList) )
                 {
@@ -807,7 +803,7 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
     // type
     if ( is_string($conf_def_property_list['type']) )
     {
-        $htmlPropType = htmlentities($conf_def_property_list['type']);
+        $htmlPropType = ' <small>(' . htmlentities($conf_def_property_list['type']) . ')</small>';
     }
     else
     {

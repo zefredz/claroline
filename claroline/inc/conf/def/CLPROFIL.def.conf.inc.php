@@ -15,24 +15,119 @@
 // CONFIG HEADER
 
 $conf_def['config_code'] = 'CLPROFIL';
-$conf_def['config_name'] = 'Setting for profile edition';
+$conf_def['config_name'] = 'User profile options';
+$conf_def['description'] = ''; 
 $conf_def['config_file'] = 'user.profile.conf.php';
 $conf_def['old_config_file'][] ='profile.conf.php';
-// $conf_def['description'] = 'How ca be edit an user profile';
-// $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 
-// CONFIG SECTIONS
+// Section required fields
 
-$conf_def['section']['checkdata']['label']= 'Check given data';
-$conf_def['section']['checkdata']['description']='Flags check to do, and fixe read/write access';
-
-$conf_def['section']['checkdata']['properties'] = 
-array ( 'SECURE_PASSWORD_REQUIRED'
-      , 'CONFVAL_ASK_FOR_OFFICIAL_CODE'
-      , 'CONFVAL_CHECK_OFFICIAL_CODE'
+$conf_def['section']['required']['label'] = 'Required fields';
+$conf_def['section']['required']['description'] = '';
+$conf_def['section']['required']['properties'] = 
+array ( 'userOfficialCodeCanBeEmpty'
+       ,'userMailCanBeEmpty'
       );
 
-// STATUS //
+$conf_def_property_list['userOfficialCodeCanBeEmpty'] =
+array ( 'label'         => 'Official Code is'
+      , 'default'       => 'TRUE'
+      , 'type'          => 'boolean'
+      , 'acceptedValue' => array ('TRUE'  => 'Optional'
+                                 ,'FALSE' => 'Required'
+                                 )
+      );
+$conf_def_property_list['userMailCanBeEmpty'] =
+array ( 'label'         => 'Email is'
+      , 'description'   => 'Accept email as valid (best choice)'
+      , 'default'       => 'TRUE'
+      , 'type'          => 'boolean'
+      , 'acceptedValue' => array ('TRUE'  => 'Optional'
+                                 ,'FALSE' => 'Required'
+                                 )
+      );
+
+// Section read only fields
+
+$conf_def['section']['readonly']['label'] = 'Allow to modify field';
+$conf_def['section']['readonly']['description'] = '';
+$conf_def['section']['readonly']['display'] = FALSE;
+$conf_def['section']['readonly']['properties'] = 
+array (
+      );
+
+// Section check data
+
+$conf_def['section']['checkdata']['label'] = 'Validate field';
+$conf_def['section']['checkdata']['description'] = '';
+$conf_def['section']['checkdata']['properties'] = 
+array ( 'SECURE_PASSWORD_REQUIRED'
+      );
+
+$conf_def_property_list['SECURE_PASSWORD_REQUIRED'] =
+array ('label'         => 'Check the fiability of password'
+      ,'description'   => 'Check if the password is not too much easy to find'
+      ,'default'       => 'TRUE'
+      ,'type'          => 'boolean'
+      ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                ,'FALSE' => 'No'
+                                )
+      , 'container'     => 'CONST'
+      );
+
+// Section view
+
+$conf_def['section']['view']['label'] = 'Display data';
+$conf_def['section']['view']['display'] = FALSE;
+$conf_def['section']['view']['description'] = '';
+$conf_def['section']['view']['properties'] = 
+array (
+      );
+
+// Section 
+
+$conf_def['section']['request']['label'] = 'User request';
+$conf_def['section']['request']['description'] = '';
+$conf_def['section']['request']['properties'] = 
+array ( 'CAN_REQUEST_COURSE_CREATOR_STATUS'
+       ,'CAN_REQUEST_REVOQUATION' 
+      );
+
+$conf_def_property_list['CAN_REQUEST_COURSE_CREATOR_STATUS'] =
+array ( 'label'         => 'Is user allowed to request a course creator status ?'
+      , 'description'   => 'If yes, the user have access to a request system. '."\n"
+                         .'This option allow only to request it, '
+                         .'and don\'t prework the answer'
+      , 'default'       => 'FALSE'
+      , 'type'          => 'boolean'
+      , 'acceptedValue' => array ('TRUE'  => 'Yes'
+                                ,'FALSE' => 'No'
+                                )
+      , 'container'     => 'CONST'
+      );
+
+$conf_def_property_list['CAN_REQUEST_REVOQUATION'] =
+array ( 'label'         => 'Is user allowed to request to be deleted from platform ?'
+      , 'description'   => 'If yes, the user have access to a request system. '."\n"
+                         .'This option allow only to request it, '."\n"
+                         .'and don\'t prework the answer'."\n"
+      , 'default'       => 'FALSE'
+      , 'type'          => 'boolean'
+      , 'acceptedValue' => array ('TRUE'  => 'Yes'
+                                ,'FALSE' => 'No'
+                                )
+      , 'container'     => 'CONST'
+      );
+
+// DEFINE COURSE_MANAGER AND STUDENT CONSTANTS VALUE
+
+$conf_def['section']['const']['label'] = 'Const';
+$conf_def['section']['const']['display'] = FALSE;
+$conf_def['section']['const']['description'] = '';
+$conf_def['section']['const']['properties'] = 
+array ( 'COURSEMANAGER'
+       ,'STUDENT' 
+      );
 
 $conf_def_property_list['COURSEMANAGER'] =
 array ('label'         => 'Database value for course manager status'
@@ -56,105 +151,11 @@ array ('label'         => 'Database value for student status'
                                 )
       , 'container'     => 'CONST'
       );
-// AUTHENTICATION //
-//// PASSWORD //////
-$conf_def_property_list['SECURE_PASSWORD_REQUIRED'] =
-array ('label'         => 'Check the fiability of password'
-      ,'description'   => 'Check if the password is not too much easy to find'
-      ,'default'       => 'TRUE'
-      ,'type'          => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'check it'
-                                ,'FALSE' => 'lets do'
-                                )
-      , 'container'     => 'CONST'
-      );
-
-$conf_def_property_list['userOfficialCodeCanBeEmpty'] =
-array ( 'label'         => 'Allow user to let Official Code Empty ?'
-      , 'default'       => 'TRUE'
-      , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Check it'
-                                 ,'FALSE' => 'Lets do'
-                                 )
-      );
-$conf_def_property_list['userMailCanBeEmpty'] =
-array ( 'label'         => 'Allow user to let Email Code Empty ?'
-      , 'description'   => 'Accept email as valid (best choice)'
-      , 'default'       => 'TRUE'
-      , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Optionnal'
-                                 ,'FALSE' => 'Require it'
-                                 )
-      );
-///// OFFICIAL CODE // BEGIN
-// don't forget to change name of offical code in your institute
-// $langOfficialCode in lang File  'registration'
-$conf_def_property_list['CONFVAL_ASK_FOR_OFFICIAL_CODE'] =
-array ('label'         => 'CONFVAL_ASK_FOR_OFFICIAL_CODE'
-      ,'display'       => FALSE
-      ,'description'   => 'Not used but name fixed'
-      ,'default'       => 'TRUE'
-      ,'type'          => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'Check it'
-                                ,'FALSE' => 'Lets do'
-                                )
-      , 'container'     => 'CONST'
-      );
-
-$conf_def_property_list['CONFVAL_CHECK_OFFICIAL_CODE'] =
-array ('label'         => 'Check the official Code ?'
-      ,'display'       => FALSE
-      ,'description'   => 'If true, build here the
-      function personal_check_official_code($code,$valueToReturnIfOk,$valueToReturnIfBad)
-      {
-	      return $stateOfficialCode 
-      }'
-      ,'default'       => 'FALSE'
-      ,'type'          => 'php'
-      ,'acceptedValue' => array ('TRUE'  => 'Check it'
-                                ,'FALSE' => 'Lets do'
-                                )
-      , 'container'     => 'CONST'
-      );
-
-///// OFFICIAL CODE // END
-
-      
-$conf_def['section']['extracommand']['label']='Switch some extra tools';
-$conf_def['section']['extracommand']['properties'] = 
-array ( 'CAN_REQUEST_COURSE_CREATOR_STATUS'
-      , 'CAN_REQUEST_REVOQUATION'
-      );
-      
-$conf_def_property_list['CAN_REQUEST_COURSE_CREATOR_STATUS'] =
-array ( 'label'         => 'Is user allowed to request a course creator status ?'
-      , 'description'   => 'If yes, the user have access to a request system. '."\n"
-                         .'This option allow only to request it, '
-                         .'and don\'t prework the answer'
-      , 'default'       => 'FALSE'
-      , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'check it'
-                                ,'FALSE' => 'lets do'
-                                )
-      , 'container'     => 'CONST'
-      );
-
-$conf_def_property_list['CAN_REQUEST_REVOQUATION'] =
-array ( 'label'         => 'Is user allowed to request to be deleted from platform ?'
-      , 'description'   => 'If yes, the user have access to a request system. '."\n"
-                         .'This option allow only to request it, '."\n"
-                         .'and don\'t prework the answer'."\n"
-      , 'default'       => 'FALSE'
-      , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'prupose'
-                                ,'FALSE' => 'hide'
-                                )
-      , 'container'     => 'CONST'
-      );
 
 /* Inactive feature. 
 
 ///// PICTURE OF USERS /////
+
 $conf_def['section']['userpicture']['label']='Properties about attached image of a profile';
 $conf_def['section']['userpicture']['properties'] = 
 array ( 'PREFIX_IMAGE_FILENAME_WITH_UID'
@@ -223,4 +224,5 @@ array ( 'label'         => 'Keep the replaced image when user update pic'
       ,'display'       => FALSE
       );
 */
+
 ?>
