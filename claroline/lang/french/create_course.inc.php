@@ -16,7 +16,6 @@ $langCode="Code cours";
 $langTargetFac="Il s'agit de la faculté, du département, de l'école... dans lesquels se donne le cours";
 $langMaxSizeCourseCode = "max. 12 caractères, p. ex.<i>ROM2121</i>"; // to change the ma
 $langDoubt="En cas de doute sur l'intitulé exact ou le code de votre cours, consultez le";
-$langProgram="Programme des cours</a>. Si le site que vous voulez créer ne correspond pas à un code cours existant, vous pouvez en inventer un. Par exemple <i>INNOVATION</i> s'il s'agit d'un programme de formation en gestion de l'innovation";
 $langProfessors="Titulaire(s)";
 $langExplanation="Une fois que vous aurez cliqué sur OK, un site contenant Forum, Liste de liens, Exercices, Agenda, Liste de documents... sera créé. Grâce à votre identifiant, vous pourrez en modifier le contenu";
 $langEmpty="Vous n'avez pas rempli tous les champs.\n<br>\nUtilisez le bouton de retour en arrière de votre navigateur et recommencez.<br>Si vous ne connaissez pas le code de votre cours, consultez le programme des cours";

@@ -96,7 +96,7 @@ $langLogIdentLogout ="Browse Login actions";
 $langLogIdentLogoutComplete ="Browse Login actions (with max info)";
 
 $langCourseOfAUser 		= "Courses of one user";
-$langCourseOfListUser 	= "Courses of users";
+$langCourseOfListUser 	= "Courses of all users";
 $langCourses			= "Courses";
 $langUsers				= "Users";
 $langManage				= "Managing the campus";

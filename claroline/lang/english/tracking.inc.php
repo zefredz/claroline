@@ -28,7 +28,7 @@ $langDocumentsDetails = "Documents downloaded by the student";
 $langExercicesDetails = "Scores of exercises done";
 $langLearnPathDetails = "Progress in learning paths";
 
-$langBackToList = "Back to users list";
+$langBackToList = "Back to list";
 $langDetails = "Details";
 $langClose = "Close";
 

@@ -27,7 +27,7 @@ installation and set them to be compatible with the new Claroline version. This 
 </table>
 <p>You won't be allowed to start the upgrade process before this point is marked as 'done'.</p>
 ";
-$langConfirm = "done";
+$langConfirm = "Confirm";
 
 /* Step 1 */
 

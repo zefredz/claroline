@@ -97,7 +97,6 @@ $langLinks="Links";
 $langDoc="Documents and links";
 $langVideo="Video";
 $langWorks="Assignments";
-$langCourseProgram="Course program";
 $langAnnouncements="Announcements";
 $langUsers="Users";
 $langForums="Forums";
