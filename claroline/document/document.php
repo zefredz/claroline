@@ -1016,42 +1016,6 @@ $htmlHeadXtra[] =
 -->
 </style>";
 
-if ( $cmd == 'viewImage' || $cmd == 'viewThumbs' )
-{
-// declare style for thumbnail/image viewer
-$htmlHeadXtra[] =
-"<style type=text/css>
-<!--
-/* extension of claroTable class defined in central css file */
-.claroTable tr th.toolbar {
-	background: white;
-	font-weight: normal;
-}
-.claroTable tr.toolbar th.prev{
-	text-align:left;
-	font-weight: normal;
-}
-.claroTable tr.toolbar th.title{
-	font-weight:bold;
-	text-align:center;
-}
-.claroTable tr.toolbar .invisible{
-	color: silver;
-}
-.claroTable tr.toolbar .invisible a:link,
-.claroTable tr.toolbar .invisible a:active,
-.claroTable tr.toolbar .invisible a:visited,
-{
-	color: silver;
-}
-.claroTable tr.toolbar th.next{
-	text-align:right;
-	font-weight: normal;
-}
- -->
- </style>";
-}
-
 $htmlHeadXtra[] =
 "<script>
 function confirmation (name)
@@ -1063,7 +1027,7 @@ function confirmation (name)
 }
 </script>";
 
-$nameTools = $langDocument;
+$nameTools = $langDoc;
 
 $QUERY_STRING=''; // used for the breadcrumb 
                   // when one need to add a parameter after the filename
@@ -1076,7 +1040,7 @@ $cmdParentDir  = rawurlencode($parentDir);
 
 //display toot title and subtitle
 
-$titleElement['mainTitle'] = $langDocument;
+$titleElement['mainTitle'] = $langDoc;
 if ( $_gid && $is_groupAllowed) $titleElement['subTitle'] = $_group['name'];
 
 claro_disp_tool_title($titleElement, 
@@ -1174,7 +1138,7 @@ claro_disp_tool_title($titleElement,
 				. "<tr>\n"
 				. "<th class=\"superHeader\" colspan=\"". $colspan . "\" align=\"left\">\n"
 				. "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
-				. $langDocument 
+				. $langDoc 
 				. "<small>&nbsp;&nbsp;[&nbsp;<a href=\""
 				. $_SERVER['PHP_SELF']."\">" . $langBackToDir . "</a>&nbsp;]\n"
                 . "&nbsp;&nbsp;[&nbsp;<a href=\"" .  $_SERVER['PHP_SELF']
@@ -1325,7 +1289,7 @@ claro_disp_tool_title($titleElement,
 				. "\" align=\"left\">\n"
 				. "<img src=\"".$clarolineRepositoryWeb
 				. "img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
-            	. $langDocument."<small>&nbsp;&nbsp;[&nbsp;<a href=\"". $_SERVER['PHP_SELF']
+            	. $langDoc."<small>&nbsp;&nbsp;[&nbsp;<a href=\"". $_SERVER['PHP_SELF']
 				. "\">" . $langBackToDir . "</a>&nbsp;]</small>\n"
 				. "</th>\n"
 				. "</tr>\n"
