@@ -86,8 +86,6 @@ $sql = " INSERT INTO `course_tool`
 VALUES 
 ('CLANN___', 'announcements/announcements.php', 'valves.gif', 'ALL', 3, 'AUTOMATIC', 'COURSE_ADMIN')";
 claro_sql_query($sql);
-$sql = "INSERT INTO `config_rel_tool_config` (claro_label, config_code) VALUES ('CLANN___','CLANN')";
-claro_sql_query($sql);
 
 
 // AGENDA
@@ -96,16 +94,12 @@ $sql = " INSERT INTO `course_tool`
 VALUES 
 ('CLCAL___', 'calendar/agenda.php', 'agenda.gif', 'ALL', 2, 'AUTOMATIC', 'COURSE_ADMIN')";
 claro_sql_query($sql);
-$sql = "INSERT INTO `config_rel_tool_config` (claro_label, config_code) VALUES ('CLCAL___','CLCAL')";
-claro_sql_query($sql);
 
 // CHAT
 $sql = " INSERT INTO `course_tool` 
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES 
 ('CLCHT___', 'chat/chat.php', 'forum.gif', 'ALL', 11, 'AUTOMATIC', 'COURSE_ADMIN')";
-claro_sql_query($sql);
-$sql = "INSERT INTO `config_rel_tool_config` (claro_label, config_code) VALUES ('CLCHT___','CLCHT')";
 claro_sql_query($sql);
 
 
@@ -114,8 +108,6 @@ $sql = " INSERT INTO `course_tool`
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES 
 ('CLDOC___', 'document/document.php', 'documents.gif', 'ALL', 4, 'AUTOMATIC', 'COURSE_ADMIN')";
-claro_sql_query($sql);
-$sql = "INSERT INTO `config_rel_tool_config` (claro_label, config_code) VALUES ('CLDOC___','CLDOC')";
 claro_sql_query($sql);
 
 
@@ -126,8 +118,6 @@ VALUES
 ('CLFRM___', 'phpbb/index.php', 'forum.gif', 'ALL', 8, 'AUTOMATIC', 'COURSE_ADMIN')
 ";
 claro_sql_query($sql);
-$sql = "INSERT INTO `config_rel_tool_config` (claro_label, config_code) VALUES ('CLFRM___','CLFRM')";
-claro_sql_query($sql);
 
 
 // GROUPS 
@@ -136,8 +126,6 @@ $sql = " INSERT INTO `course_tool`
 VALUES 
 ('CLGRP___', 'group/group.php', 'group.gif', 'ALL', 9, 'AUTOMATIC', 'COURSE_ADMIN')
 ";
-claro_sql_query($sql);
-$sql = "INSERT INTO `config_rel_tool_config` (claro_label, config_code) VALUES ('CLGRP___','CLGRP')";
 claro_sql_query($sql);
 
 
@@ -149,17 +137,12 @@ VALUES
 ('CLUSR___', 'user/user.php', 'membres.gif', 'ALL', 10, 'AUTOMATIC', 'COURSE_ADMIN')
 ";
 claro_sql_query($sql);
-$sql = "INSERT INTO `config_rel_tool_config` (claro_label, config_code) VALUES ('CLUSR___','CLUSR')";
 
-
-claro_sql_query($sql);
 $sql = " INSERT INTO `course_tool` 
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES 
 ('CLWRK___', 'work/work.php', 'works.gif', 'ALL', 7, 'AUTOMATIC', 'COURSE_ADMIN')
 ";
-claro_sql_query($sql);
-$sql = "INSERT INTO `config_rel_tool_config` (claro_label, config_code) VALUES ('CLWRK___','CLWRK')";
 claro_sql_query($sql);
 
 ?>
