@@ -3,7 +3,7 @@
   +----------------------------------------------------------------------+
   | CLAROLINE version 1.6
   +----------------------------------------------------------------------+
-  | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+  | Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
   | This source file is subject to the GENERAL PUBLIC LICENSE,           |
   | available through the world-wide-web at                              |
@@ -64,7 +64,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
   // statistics
   include($includePath."/lib/events.lib.inc.php");
-  event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+  event_access_tool($_tid, $_courseTool['label']);
 
   $htmlHeadXtra[] =
             "<script>

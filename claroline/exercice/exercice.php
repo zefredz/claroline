@@ -3,7 +3,7 @@
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
@@ -90,7 +90,7 @@ if ( ! $is_courseAllowed)
 // used for stats
 include($includePath.'/lib/events.lib.inc.php');
 
-event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+event_access_tool($_tid, $_courseTool['label']);
 
 // need functions of statsutils lib to display previous exercices scores
 include($includePath.'/lib/statsUtils.lib.inc.php');

@@ -35,7 +35,7 @@ include($includePath."/claro_init_header.inc.php");
 
 //stats
 include('../inc/lib/events.lib.inc.php');
-event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+event_access_tool($_tid, $_courseTool['label']);
 
 $tbl_c_names = claro_sql_get_course_tbl();
 $tbl_calendar_event = $tbl_c_names['calendar_event'];

@@ -105,7 +105,7 @@ else
 $baseWorkDir = $baseServDir.$courseDir;
 
 include($includePath.'/lib/events.lib.inc.php');
-event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+event_access_tool($_tid, $_courseTool['label']);
 
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 

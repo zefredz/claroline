@@ -366,7 +366,7 @@ if ($myTutor['tutor'] == 1)	$tutorCheck = true ;
 
 include($includePath."/claro_init_header.inc.php");
 //stats
-event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+event_access_tool($_tid, $_courseTool['label']);
 
 claro_disp_tool_title($nameTools);
  	/*-------------

@@ -3,8 +3,6 @@ $tlabelReq = "CLUSR___";
 require '../inc/claro_init_global.inc.php';
 if (!($_cid)) 	claro_disp_select_course();
 
-
-
 $htmlHeadXtra[] =
 "
 <script type=\"text/javascript\" language=\"JavaScript\" >
@@ -89,10 +87,10 @@ include($includePath."/claro_init_header.inc.php");
 
 //stats
 include($includePath."/lib/events.lib.inc.php");
-event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+event_access_tool($_tid, $_courseTool['label']);
 
 claro_disp_tool_title($nameTools." (".$langUserNumber." : ".$userTotalNb.")",
-			$is_allowedToEdit ? 'help_user.php' : false);
+			$is_allowedToEdit ? 'help_user.php' : FALSE);
 
 // Display Forms or dialog box(if needed)
 
@@ -105,15 +103,12 @@ if($dialogBox)
 
 if ($disp_tool_link)
 {
-?>
-
-	<?php if ($can_add_user)
+    if ($can_add_user)
 	{ 
 	   //add CSV file of user link
 	?>
 	<a href="AddCSVusers.php?AddType=userTool"><?php echo $langAddListUser; ?></a> |
 	<?php 
-	   
 	   //add a class link
 	?>
 	<a href="class_add.php"><?php echo $langAddAClass; ?></a> |
@@ -140,32 +135,34 @@ if ($userTotalNb > $step)
 {
 	if(!isset($offset))
 	{
-		$offset=0;
+		$offset = 0;
 	}
 
 	$next     = $offset + $step;
 	$previous = $offset - $step;
 
-	$navLink = "<table summary=\"".$langSummaryNavBar."\" width=\"100%\" border=\"0\">\n"
-	          ."<tr >\n"
-			  .'<td align="left">';
+	$navLink = '<table summary="'.$langSummaryNavBar.'" width="100%" border="0">'."\n"
+	          .'<tr>'."\n"
+			  .'<td align="left">'
+			  ;
 
 	if ($previous >= 0)
 	{
-		$navLink .= "<small><a href=\"".$_SERVER['PHP_SELF']."?offset=$previous\">&lt;&lt; </a></small>";
+		$navLink .= '<small><a href="'.$_SERVER['PHP_SELF'].'?offset='.$previous.'" rel="next" >&lt;&lt; </a></small>';
 	}
 
-	$navLink .= "</td>\n"
-	           ."<td align=\"right\">";
+	$navLink .= '</td>'."\n"
+	         .  '<td align="right">';
 
 	if ($next < $userTotalNb)
 	{
 		$navLink .= '<small><a href="'.$_SERVER['PHP_SELF'].'?offset='.$next.'">&gt;&gt;</a></small>';
 	}
 
-	$navLink .= "</td>\n"
-	           ."</tr>\n"
-	           ."</table>\n";
+	$navLink .= '</td>'."\n"
+	           .'</tr>'."\n"
+	           .'</table>'."\n"
+	           ;
 }
 else
 {

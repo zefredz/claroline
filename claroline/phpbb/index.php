@@ -27,7 +27,7 @@ $is_forumAdmin = $is_courseAdmin;
 
 //stats
 include $includePath.'/lib/events.lib.inc.php';
-event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+event_access_tool($_tid, $_courseTool['label']);
 
 // GET FORUM CATEGORIES
 

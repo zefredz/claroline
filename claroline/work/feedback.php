@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE 1.6
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
@@ -30,7 +30,7 @@ $currentUserLastName        = $_user['lastName'];
 if ( ! $_cid ) claro_disp_select_course();
 if ( ! $is_courseAllowed )	claro_disp_auth_form();
 
-event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+event_access_tool($_tid, $_courseTool['label']);
 
 
 

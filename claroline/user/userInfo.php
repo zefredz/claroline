@@ -3,7 +3,7 @@
   +----------------------------------------------------------------------+
   | CLAROLINE version 1.6$
   +----------------------------------------------------------------------+
-  | Copyright (c) 2001 - 2004 Universite catholique de Louvain (UCL)     |
+  | Copyright (c) 2001 - 2005 Universite catholique de Louvain (UCL)     |
   +----------------------------------------------------------------------+
  */
 
@@ -163,7 +163,7 @@ if ($allowedToEditContent)
 //////////////////////////////
 if( $displayMode != "viewContentList" ) claro_set_display_mode_available(false);
 
-event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+event_access_tool($_tid, $_courseTool['label']);
 
 include($includePath."/claro_init_header.inc.php");
 
