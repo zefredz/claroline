@@ -376,21 +376,21 @@ if ( $display_form )
         if (is_array($conf_def['section']) )
         {
     
-            echo '<table border="0" cellpadding="5">' . "\n";
+            echo '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n";
     
             foreach($conf_def['section'] as $section)
             {
     
                 // display fieldset with the label of the section
-                echo '<tr>'."\n"
-                    .'<td colspan="3">' . '<h4>' . $section['label'].'&nbsp;:</h4>'. "\n";
+                echo '<tr>'
+                    .'<th class="superHeader" colspan="3">' . $section['label'].'</th>'
+                    .'</tr>' . "\n";
     
                 // display description of the section
                 if ( !empty($section['description']) )
                 {
-                    echo '<p><em>' . $section['description'] . '</em></p>';
+                    echo '<tr><th class="headerX" colspan="3">' . $section['description'] . '</th></tr>' . "\n";
                 }
-                echo '</tr>' . "\n";
     
                 // The default value is show in input or preselected value if there is no value set.
                 // If a value is already set the default value is show as sample.
