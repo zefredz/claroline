@@ -45,7 +45,7 @@ $nomPage   = "Admin";
 
 $lang_no_access_here ="Pas d'accès ";
 $langFile = "admin";
-@include('../inc/claro_init_global.inc.php'); 
+require '../inc/claro_init_global.inc.php'; 
 $nameTools = $langCheckDatabase;
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
 @include("./checkIfHtAccessIsPresent.php");

@@ -13,7 +13,7 @@
 
 $langFile='admin';
 $cidReset = true;
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 $tbl_log    = $mainDbName."`.`loginout";
 $tbl_user   = $mainDbName."`.`user";

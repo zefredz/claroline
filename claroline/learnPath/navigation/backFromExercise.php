@@ -17,7 +17,7 @@
 
   $langFile = "learnPath";
 
-  include ('../../inc/claro_init_global.inc.php');
+  require '../../inc/claro_init_global.inc.php';
 
   
 ?>

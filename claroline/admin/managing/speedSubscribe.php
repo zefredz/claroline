@@ -20,7 +20,7 @@ J'ai  fais ce script  pour permettre de s'incrire très rapidement à un cour en c
 $lang_speed_subscribe = "fast subscribe";
 $lang_no_access_here ="Pas d'accès ";
 $langFile = "speedSubscribe";
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 $nameTools = $lang_speed_subscribe;
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
 @include("./checkIfHtAccessIsPresent.php");

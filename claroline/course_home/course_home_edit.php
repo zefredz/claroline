@@ -18,7 +18,7 @@ $langFile = "course_info";
 $gidReset = true; // If user is here. It means he isn't in any group space now.
                   // So it's careful to to reset the group setting
 
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 $htmlHeadXtra[] =
 "<style type=text/css>

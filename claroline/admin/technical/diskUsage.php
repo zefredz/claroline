@@ -2,7 +2,7 @@
 // diskUsage
 
 $langFile = "admin.disk.usage";
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 
 $nameTools = $langDiskUsage;
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);

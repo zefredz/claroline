@@ -56,7 +56,7 @@
 
 $langFile = "announcements";
 $tlabelReq = "CLANN___";
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 include($includePath.'/conf/announcement.conf.inc.php');
 include($includePath.'/lib/text.lib.php');
 include($includePath.'/lib/events.lib.inc.php');

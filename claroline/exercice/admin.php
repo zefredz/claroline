@@ -69,7 +69,7 @@ include('exercise.lib.php');
 
 $langFile='exercice';
 
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 // answer types
 define(UNIQUE_ANSWER,	1);

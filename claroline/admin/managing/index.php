@@ -15,7 +15,7 @@
 
 
 $langFile = "admin.managing.menu";
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 
 $nameTools = $langManage;
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);

@@ -47,7 +47,7 @@ List  of  views
 		New course is added.  Show  success message.
 */
 $langFile = "create_course";
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 //// Config tool
 include($includePath."/conf/add_course.conf.php");

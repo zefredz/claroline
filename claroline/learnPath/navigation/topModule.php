@@ -30,7 +30,7 @@
 
   $langFile = "learnPath";
 
-  include ('../../inc/claro_init_global.inc.php');
+  require '../../inc/claro_init_global.inc.php';
 
   $interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> $langLearningPathList);
   if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )

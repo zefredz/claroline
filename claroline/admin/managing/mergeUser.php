@@ -24,7 +24,7 @@ $_tool["langFile"] 		= "admin.merge.users";
 
 
 $langFile = $_tool["langFile"];
-include("../../inc/claro_init_global.inc.php");
+require '../../inc/claro_init_global.inc.php';
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 $interbredcrump[]= array ("url"=>$rootAdminWeb."managing/", "name"=> $langManage);
 $nameTools = $$_tool["nameVarName"];

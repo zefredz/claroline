@@ -2,7 +2,7 @@
 
 $langFile = 'registration';
 $tlabelReq = "CLUSR___";
-include("../inc/claro_init_global.inc.php");
+require '../inc/claro_init_global.inc.php';
 if (!($_cid)) 	claro_disp_select_course();
 
 $htmlHeadXtra[] =

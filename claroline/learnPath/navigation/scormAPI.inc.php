@@ -28,9 +28,6 @@
   * @filesource
   */
 
-//  include ('../../include/claro_init_global.inc.php');
-
-
   $TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
   $TABLEMODULE            = $_course['dbNameGlu']."lp_module";
   $TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";

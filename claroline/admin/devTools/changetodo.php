@@ -18,7 +18,7 @@ They kill, change, hide,... todo entry (after confirmation)
 
 $lang_no_access_here ="No access ";
 $langFile = "todo";
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 $nameTools = $langTodo;
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
 

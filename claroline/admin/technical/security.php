@@ -15,7 +15,7 @@ $lang_htAccessIncPath_added ="Répertoire <em>inc</em> protégé";
 $langOptionnal ="facultatif";
 
 $langFile = "admin.security";
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 
 $nameTools = $langSecurity;
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);

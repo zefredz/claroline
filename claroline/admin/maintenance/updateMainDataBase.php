@@ -39,7 +39,7 @@ $starttime = $mtime;
  */
 
 $langFile = "admin";
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 $nameTools = $langAdministrationTools;
 //@include($includePath."/config.inc.php");
 

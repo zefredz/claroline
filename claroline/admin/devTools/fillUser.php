@@ -31,7 +31,7 @@ DEFINE("DISP_FORM_SET_OPTION"	,2);
 DEFINE("DISP_INSERT_COMPLETE"	,3);
 unset($includePath);
 $langFile = "dev.adduser";
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 
 if (!isset($includePath)) die("init not run");
 if (!isset($_uid)) die("you need to be logged");

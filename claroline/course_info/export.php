@@ -8,8 +8,6 @@
  * @Author Hugues Peeters    <peeters@ipm.ucl.ac.be>
  * @Author Christophe Gesché <gesche@ipm.ucl.ac.be>
 
-  //following var before include('../include/config.php'); can  be  moved in  config.php
-
  * Backuping  of  a course.
  *
  * this  script  must be  adminCourse only.
@@ -33,7 +31,7 @@
 
 //$interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
 $langFile = "course_info";
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 $nameTools = $langBackup;
 include($includePath."/conf/export.conf.php");
 include($includePath."/lib/export.lib.inc.php");

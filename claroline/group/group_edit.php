@@ -17,7 +17,7 @@
 ***************************************/
 
 $langFile = "group";
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 @include($includePath."/lib/debug.lib.inc.php");
 include('../inc/conf/group.conf.php');
 

@@ -14,7 +14,7 @@ $langCoursesByUser ="Panel Course-User";
 
 
 $langFile = "courses";
-include("../../inc/claro_init_global.inc.php");
+require '../../inc/claro_init_global.inc.php';
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 $interbredcrump[]= array ("url"=>$rootAdminWeb."managing/", "name"=> $langManage);

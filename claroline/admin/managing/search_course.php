@@ -13,7 +13,7 @@
 
 $langFile = "searchCourse";
 $cidReset=TRUE;
-include("../../inc/claro_init_global.inc.php");
+require '../../inc/claro_init_global.inc.php';
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");
 include("../../inc/conf/add_course.conf.php");

@@ -11,7 +11,7 @@
  */
 
 $langFile = "group";
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 include('../inc/conf/group.conf.php');
 @include('../inc/lib/debug.lib.inc.php');
 $nameTools = $langGroupProperties;

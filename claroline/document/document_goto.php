@@ -27,7 +27,7 @@
     in document.php, must be replaced 2 times by 
         echo "<a href=\"document_goto.php?doc_url=".urlencode($urlFileName)."\"".$style.">";
 */
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 include($includePath."/lib/events.lib.inc.php");
 

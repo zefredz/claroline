@@ -12,7 +12,7 @@
 //----------------------------------------------------------------------
 $lang_no_access_here ="Pas d'accès ";
 $langFile = "trad4all";
-//include('../../inc/claro_init_global.inc.php');
+//require '../../inc/claro_init_global.inc.php';
 $nameTools = $langCheckDatabase;
 $interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
 

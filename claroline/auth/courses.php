@@ -13,7 +13,7 @@
 
 $langFile = "courses";
 
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 $nameTools  = $lang_course_enrollment;
 $noPHP_SELF = true;

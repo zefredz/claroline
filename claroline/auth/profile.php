@@ -19,7 +19,7 @@ $cidReset = true;
 $userOfficialCodeCanBeEmpty = true;
 $userMailCanBeEmpty			= true;
 
-include '../inc/claro_init_global.inc.php';
+require '../inc/claro_init_global.inc.php';
 include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
 include $includePath.'/lib/text.lib.php';
 include $includePath.'/lib/fileManage.lib.php';

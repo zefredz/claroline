@@ -13,9 +13,7 @@
 //----------------------------------------------------------------------
 
 $langFile = 'group';
-(@include('../inc/claro_init_global.inc.php'))
-    or die ('<center>unable to init claroline</center>');
-
+require '../../inc/claro_init_global.inc.php';
 include('../inc/conf/group.conf.php');
 
 // block if !$_gid

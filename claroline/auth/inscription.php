@@ -13,7 +13,7 @@
 //----------------------------------------------------------------------
 
 $langFile = "registration";
-include("../inc/claro_init_global.inc.php");
+require '../inc/claro_init_global.inc.php';
 $interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);
 include($includePath."/claro_init_header.inc.php");
 include($includePath."/conf/profile.conf.inc.php");

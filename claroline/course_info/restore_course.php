@@ -14,7 +14,7 @@
 
 $langFile='course_info';
 
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 if(extension_loaded('zlib'))
 {

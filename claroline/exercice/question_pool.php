@@ -30,7 +30,7 @@ include('answer.class.php');
 
 $langFile='exercice';
 
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 $is_allowedToEdit=$is_courseAdmin;
 

@@ -16,7 +16,7 @@ $langFile = "external_module";
 
 $iconForImportedTools = "external.gif";
 $iconForInactiveImportedTools = "external_inactive.gif";
-include("../inc/claro_init_global.inc.php");
+require '../inc/claro_init_global.inc.php';
 
 $tbl_courseHome=$_course['dbNameGlu']."tool_list";
 

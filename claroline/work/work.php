@@ -39,7 +39,7 @@
 $langFile = "work";
 
 $tlabelReq = "CLWRK___";
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 
 include($includePath.'/lib/events.lib.inc.php');

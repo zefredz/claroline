@@ -51,7 +51,7 @@ DEFINE("CONF_VAL_TEACHER_STATUS"    ,1); //
 
 $langFile = "create_course";
 unset($includePath);
-@include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 if (!isset($includePath)) die("init not run");
 if (!isset($_uid)) die("you need to be logged");
 

@@ -1,7 +1,7 @@
 <?php // $Id$
 
 $langFile = "forum_admin";
-include("../inc/claro_init_global.inc.php");
+require '../inc/claro_init_global.inc.php';
 
 $nameTools = $langOrganisation;
 $interbredcrump[] = array ("url"=>"../phpbb/index.php", "name"=> $langForums);

@@ -17,7 +17,7 @@
   ==========================*/
 
 $langFile = 'registration';
-include '../inc/claro_init_global.inc.php';
+require '../inc/claro_init_global.inc.php';
 include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
 
 $interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);

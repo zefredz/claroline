@@ -11,7 +11,7 @@ $langPostOnClaroForum = "Forward this to the Claroline Development team forum";
 $langForward = "Forward";
 
 $langFile = "todo";
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 $nameTools = $langAdministrationTools;
 $nameTools = $langTodo;
 include($includePath."/lib/text.lib.php");

@@ -1,6 +1,6 @@
 <?php
 //$langFile = "document";
-//include('../inc/claro_init_global.inc.php');
+//require '../inc/claro_init_global.inc.php';
 //define('FPDF_font_path',"../admin/mysql/libraries/fpdf/font/");
 
 GLOBAL $siteName,$administrator,$administrator["email"], $currentCourseCode, $HTTP_POST_VARS;

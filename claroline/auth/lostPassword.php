@@ -24,7 +24,7 @@
  */
 
 $langFile = "registration";
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 $nameTools = $lang_lost_password;
 include('../inc/claro_init_header.inc.php');
 

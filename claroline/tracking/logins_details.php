@@ -31,7 +31,7 @@
  */
  
 $langFile = "tracking";
-@include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 $interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$uInfo, "name"=> $langBredCrumpUsers);
 $interbredcrump[]= array ("url"=>"../tracking/userLog.php?uInfo=".$uInfo, "name"=> $langStatsOfUser);

@@ -27,7 +27,7 @@ $langFile = 'agenda';
 
 $tlabelReq = "CLCAL___";
 
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 include($includePath."/conf/agenda.conf.inc.php");
 

@@ -13,7 +13,7 @@
 
 $langFile='admin';
 $cidReset = true;
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/admin.lib.inc.php");
 
 //SECURITY CHECK

@@ -24,7 +24,7 @@ $mtime = microtime();$mtime = explode(" ",$mtime);$mtime = $mtime[1] + $mtime[0]
 
 // init language
 $langFile = "upgrade";
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 
 // force upgrade for debug
 if ($HTTP_GET_VARS["forceUpgrade"])

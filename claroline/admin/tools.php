@@ -20,7 +20,7 @@ $langModules ="Le modules";
 $lang_no_access_here ="Pas d'accès ";
 
 $langFile = "admin";
-@include('../inc/claro_init_global.inc.php'); 
+require '../inc/claro_init_global.inc.php'; 
 $pathHtPassword = "./.htpasswd4admin";
 $nameTools = $langNomPageAddHtPass;
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);

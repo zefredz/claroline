@@ -12,7 +12,7 @@
 //----------------------------------------------------------------------
 
 $langFile = "config";
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 
 $nameTools 			= $lang_config_config;
 $interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $lang_config_AdministrationTools);

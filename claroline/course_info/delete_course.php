@@ -15,7 +15,7 @@
 $_tid="deletecourse";
 $langFile = 'course_info';
 
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 // in case of admin access (from admin tool) to the script, we must determine which course we are wroking with
 

@@ -35,7 +35,7 @@
 
 $langFile =	'announcements'; 
 
-include('../inc/claro_init_global.inc.php'); //	settings initialisation	
+require '../inc/claro_init_global.inc.php'; //	settings initialisation	
 include('../inc/lib/text.lib.php');
 
 $htmlHeadXtra[]="<script type=\"text/javascript\" language=\"JavaScript\">

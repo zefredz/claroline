@@ -24,7 +24,7 @@
 $tlabelReq = "CLDSC___";
 
 $langFile = "course_description";
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/text.lib.php");
 //@include("../lang/english/pedaSuggest.inc.php");
 $nameTools = $langCourseProgram;

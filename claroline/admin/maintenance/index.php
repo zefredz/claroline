@@ -23,7 +23,7 @@ $langFile = "admin.maintenance.menu";
 $thisClarolineVersion 	= $clarolineVersion;
 $thisVersionDb 			= $versionDb;
 
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");
 

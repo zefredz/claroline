@@ -9,7 +9,7 @@
  */
 
 $langFile = "tracking";
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 //include($includePath.'/lib/stats.lib.inc.php');
 $interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
 

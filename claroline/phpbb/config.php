@@ -3,7 +3,7 @@
 session_start();
 $langFile = 'phpbb';
 $tlabelReq = 'CLFRM___';
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 include('../inc/lib/debug.lib.inc.php');
 
 /***************************************************************************

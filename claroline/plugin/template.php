@@ -20,7 +20,9 @@
 //$langFile = "langFile"; // name of the lang file which needs to be included 
 					  //'inc.php' is automatically appended to the file name 
 
-include('../include/claro_init_global.inc.php'); // settings initialisation 
+// settings initialisation 
+require '../inc/claro_init_global.inc.php'; 
+
 
 // Optional : If you need to add some HTTP/HTML headers code 
 // $httpHeadXtra[] = ""; 
@@ -36,7 +38,7 @@ $nameTools = ""; // title of the page (comes from the language file)
 $QUERY_STRING=''; // used for the breadcrumb 
 				  // when one needs to add a parameter after the filename 
 
-include('../include/claro_init_header.inc.php'); 
+include($includePath.'claro_init_header.inc.php'); 
 
 /*======================================*/ 
 

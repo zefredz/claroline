@@ -31,7 +31,7 @@ $htmlHeadXtra[] = "
 <STYLE media=\"print\" type=\"text/css\">
 TD {border-bottom: thin dashed Gray;}
 </STYLE>";
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 include($includePath."/lib/text.lib.php");
 @include($includePath."/lib/debug.lib.inc.php");

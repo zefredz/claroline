@@ -13,7 +13,7 @@
 
 $langFile = "registration";
 $cidReset=TRUE;
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 
 $nameTools 			= $lang_SearchUser_SearchUser;
 $interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);

@@ -17,7 +17,7 @@ unset($controlMsg);
 $langFile = "admin.access";
 $cidReset = true;
 
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 $nameTools = $langNomPageAddHtPass;
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);

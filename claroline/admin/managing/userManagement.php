@@ -21,7 +21,7 @@ define ("STATUS_MEMBER_OF_COURSE", 5);
 $langLocked = "locked";
 $langExplainLock ="This user still exists but cannot log in";
 $langFile = 'registration';
-include("../../inc/claro_init_global.inc.php");
+require '../../inc/claro_init_global.inc.php';
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 $interbredcrump[]= array ("url"=>$rootAdminWeb."managing/", "name"=> $langManage);

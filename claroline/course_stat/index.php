@@ -35,7 +35,7 @@
 $langUserOfCurse = "Les utilisateurs du cours";
 $langStatOfCourse = "statistiques du cours";
 $langFile = "stat";
-@include('../inc/claro_init_global.inc.php'); 
+require '../inc/claro_init_global.inc.php'; 
 $nameTools = $langStatOfCourse;
 @include($includePath."/claro_init_header.inc.php");
 

@@ -2,7 +2,7 @@
 
 $langFile = "document";
 
-include '../inc/claro_init_global.inc.php';
+require '../inc/claro_init_global.inc.php';
 
 if ($_gid && $is_groupAllowed)
 {

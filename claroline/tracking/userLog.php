@@ -29,7 +29,7 @@
  */
  
 $langFile = "tracking";
-@include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 /*
 $interbredcrump[]= array ("url"=>"../group/group.php", "name"=> $langBredCrumpGroups);
 $interbredcrump[]= array ("url"=>"../group/group_space.php?gidReq=$_gid", "name"=> $langBredCrumpGroupSpace);

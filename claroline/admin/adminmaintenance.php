@@ -11,7 +11,7 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 $langFile = "admin";
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 @include ($includePath."/installedVersion.inc.php");
 

@@ -26,7 +26,7 @@
   $langFile = "learnPath";
 
   $tlabelReq = 'CLLNP___';
-  include ('../inc/claro_init_global.inc.php');
+  require '../inc/claro_init_global.inc.php';
 
   $langAddModuleComment = $langAddComment; // include of document.inc.php will overwrite this var, so save it ...
   // also include the document languague file

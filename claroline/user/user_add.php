@@ -19,7 +19,7 @@
 $langFile="registration";
 $tlabelReq = "CLUSR___";
 
-include("../inc/claro_init_global.inc.php");
+require '../inc/claro_init_global.inc.php';
 @include($includePath."/lib/debug.lib.inc.php");
 
 if (! ($is_courseAdmin || $is_platformAdmin)) die ("not allowed");

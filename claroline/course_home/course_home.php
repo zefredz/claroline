@@ -24,7 +24,7 @@ if ((bool) stristr($_SERVER['PHP_SELF'],"course_home"))
 die("---");
 
 if ( !isset($claroGlobalPath) ) $claroGlobalPath = '../claroline/inc';
-include $claroGlobalPath.'/claro_init_global.inc.php';
+require $claroGlobalPath.'/claro_init_global.inc.php';
 
 $toolRepository = $clarolineRepositoryWeb;
 $imgRepository  = $clarolineRepositoryWeb."/img/";

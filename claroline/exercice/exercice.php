@@ -26,7 +26,7 @@ include('answer.class.php');
 $tlabelReq='CLQWZ___';
 $langFile='exercice';
 
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 /*******************************/
 /* Clears the exercise session */

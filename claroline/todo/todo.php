@@ -15,7 +15,7 @@
  */
 
 $langFile = "todo";
-include("../inc/claro_init_global.inc.php"); 
+require '../inc/claro_init_global.inc.php'; 
 include($includePath."/lib/text.lib.php"); 
 $tbl_todo 			= $mainDbName."`.`todo";
 $tbl_user 			= $mainDbName."`.`user";

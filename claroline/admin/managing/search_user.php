@@ -13,7 +13,7 @@
 
 $langFile = "searchUser";
 $cidReset=TRUE;
-include("../../inc/claro_init_global.inc.php");
+require '../../inc/claro_init_global.inc.php';
 include($includePath."/lib/user.lib.inc.php");
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");

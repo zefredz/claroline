@@ -28,7 +28,7 @@
 
  */
  $langFile = "tracking";
-@include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 $interbredcrump[]= array ("url"=>"learnPath_details.php?path_id=".$_GET['path_id'], "name"=> $langStatsOfLearnPath);

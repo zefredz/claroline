@@ -20,7 +20,7 @@ define ("USER_DATA_FORM", 2);
 
 $langFile='registration';
 $cidReset = true;
-include('../../inc/claro_init_global.inc.php');
+require '../../inc/claro_init_global.inc.php';
 include($includePath.'/lib/text.lib.php');
 
 $nameTools=$langModifProfile;

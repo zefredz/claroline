@@ -15,7 +15,7 @@ $descSizeToPrupose = array(3,5,10,15,20); // size in lines for desc - don't add 
 
 $langFile = "registration";
 
-include("../inc/claro_init_global.inc.php");
+require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/events.lib.inc.php");
 include($includePath."/lib/user.lib.inc.php");

@@ -1,7 +1,7 @@
 <?php
 $langFile='help';
 
-include('../inc/claro_init_global.inc.php');
+require '../inc/claro_init_global.inc.php';
 
 echo "<html><head>";
 echo "<title>$langHClar</title>";

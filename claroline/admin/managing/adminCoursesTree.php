@@ -51,7 +51,7 @@ DEFINE("DEFAULT_ROOT_CAN_HAVE_CAT_CHILD",true); // false is very very strange
 
 
 $langFile = "coursestree";
-include("../../inc/claro_init_global.inc.php");
+require '../../inc/claro_init_global.inc.php';
 include($includePath."/lib/debug.lib.inc.php");
 
 

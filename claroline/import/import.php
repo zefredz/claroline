@@ -82,7 +82,7 @@ $nameTools = $langAddPage;
 
 <body bgcolor="white" dir="<?php echo $text_dir ?>">
 
-<?php include('../include/claroline_header.php'); ?>
+<?php include('../inc/claroline_header.php'); ?>
 
 <h3><?= $nameTools ?></h3>
 
