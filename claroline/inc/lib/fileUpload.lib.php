@@ -375,11 +375,17 @@ function unzip_uploaded_file($uploadedFile, $uploadPath, $baseWorkDir, $maxFille
 		return claro_failure::set_failure('not_enough_space');
 	}
 
+
 	/*
 	 * Uncompressing phase
+     * TODO: a lot of hosting service disable the use of exec function
+     *       we must put a config variable to use unzip on linux
+     * In next release put $exec_unzip_cmd as a constant in config file
 	 */
 
-	if (PHP_OS == 'Linux' && ! get_cfg_var('safe_mode'))
+    $exec_unzip_cmd = false;
+
+	if (PHP_OS == 'Linux' && $exec_unzip_cmd)
 	{
 		// Shell Method - if this is possible, it gains some speed
 		exec("unzip -d \"".$baseWorkDir.$uploadPath."/\" "
