@@ -667,7 +667,7 @@ if($modifyAnswers)
 ?>
 <table border="0" cellpadding="5" width="500">
 <tr>
-  <td><?php echo $langTypeTextBelow.', '.$langAnd.' '.$langUseTagForBlank; ?> :</td>
+  <td><?php echo $langTypeTextBelow.', '.$langAnd.' '.$langUseTagForBlank; ?>&nbsp;:</td>
 </tr>
 <tr>
   <td><textarea wrap="virtual" name="reponse" cols="65" rows="6"><?php if(!$submitAnswers && empty($reponse)) echo $langDefaultTextInBlanks; else echo htmlentities($reponse); ?></textarea></td>
