@@ -15,10 +15,7 @@
 /*
 GOAL : install claroline 1.6.* on server
 */
-$langStepN = "Step %d of %d";
-$langAdminSetting ="Admin Setting";
-$langFileSystemSetting = 'File System Setting';
-$langMysqlNames='MySQL Names';
+
 /* LET DEFINE ON SEPARATE LINES !!!*/
 // __LINE__ use to have arbitrary number but order of panels
 
@@ -520,7 +517,7 @@ if ($display==DISP_WELCOME)
 	echo '
 				<input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-				'.sprintf($langStepN,(array_search(DISP_WELCOME, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_WELCOME].'
+				'.sprintf($langStepNOfN,(array_search(DISP_WELCOME, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_WELCOME].'
 				</h2>';
 	// check if an claroline configuration file doesn't already exists.
 	if (
@@ -695,7 +692,7 @@ elseif($display==DISP_LICENCE)
 	echo '
 				<input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-				'.sprintf($langStepN,(array_search(DISP_LICENCE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LICENCE].'
+				'.sprintf($langStepNOfN,(array_search(DISP_LICENCE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LICENCE].'
 				</h2>
 				<P>
 				Claroline is free software, distributed under GNU General Public licence (GPL).
@@ -738,7 +735,7 @@ elseif($display==DISP_FILE_SYSTEM_SETTING)
 	echo '
 				<input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-                    '.sprintf($langStepN,(array_search(DISP_FILE_SYSTEM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_FILE_SYSTEM_SETTING].'
+                    '.sprintf($langStepNOfN,(array_search(DISP_FILE_SYSTEM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_FILE_SYSTEM_SETTING].'
 				</h2>
 			</td>
 		</tr>
@@ -790,7 +787,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 	echo '
 				<input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-                    '.sprintf($langStepN,(array_search(DISP_DB_CONNECT_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_CONNECT_SETTING].'
+                    '.sprintf($langStepNOfN,(array_search(DISP_DB_CONNECT_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_CONNECT_SETTING].'
 				</h2>
 			</td>
 		</tr>
@@ -910,7 +907,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 	echo '
 			<input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-                    '.sprintf($langStepN,(array_search(DISP_DB_NAMES_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_NAMES_SETTING].'
+                    '.sprintf($langStepNOfN,(array_search(DISP_DB_NAMES_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_NAMES_SETTING].'
 				</h2>
 				'.($singleDbForm?'':$langDBSettingNamesIntro).'
 			</td>
@@ -1051,7 +1048,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
 	echo '
 	            <input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-                    '.sprintf($langStepN,(array_search(DISP_ADMINISTRATOR_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATOR_SETTING].'
+                    '.sprintf($langStepNOfN,(array_search(DISP_ADMINISTRATOR_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATOR_SETTING].'
 				</h2>
 				The following values will be written in table <em>`'.$dbNameForm.'`.`user`</em>
 			</td>
@@ -1157,7 +1154,7 @@ elseif($display==DISP_PLATFORM_SETTING)
 	echo '
 	             <input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-                    '.sprintf($langStepN,(array_search(DISP_PLATFORM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_PLATFORM_SETTING].'
+                    '.sprintf($langStepNOfN,(array_search(DISP_PLATFORM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_PLATFORM_SETTING].'
 				</h2>';
 	echo '
 				The following values will be written in `<em>'.$configFilePath.'</em>`
@@ -1303,7 +1300,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 	echo '
 	             <input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
-                    '.sprintf($langStepN,(array_search(DISP_ADMINISTRATIVE_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATIVE_SETTING].'
+                    '.sprintf($langStepNOfN,(array_search(DISP_ADMINISTRATIVE_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATIVE_SETTING].'
 				</h2>'
 				.$msg_missing_administrative_data ;
 	echo '
@@ -1407,7 +1404,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 
 	echo '
 				<h2>
-                    '.sprintf($langStepN,(array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL].'
+                    '.sprintf($langStepNOfN,(array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL].'
 				</h2>
 		Here are the values you entered <br>
 		<Font color="red">
@@ -1660,7 +1657,7 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 ?>
 			<h2>
 <?php
-                    echo sprintf($langStepN,(array_search(DISP_RUN_INSTALL_COMPLETE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_RUN_INSTALL_COMPLETE];
+                    echo sprintf($langStepNOfN,(array_search(DISP_RUN_INSTALL_COMPLETE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_RUN_INSTALL_COMPLETE];
 
  ?>
 				
