@@ -20,7 +20,6 @@ $langFile = 'course_info';
 
 $gidReset = true; 
 $tidReset = true;
-echo stristr($_SERVER['PHP_SELF'],"course_home");
 if ((bool) stristr($_SERVER['PHP_SELF'],"course_home"))
 die("---");
 
