@@ -203,7 +203,7 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
     {
         echo "<li>"
             ."<a href=\"".$coursesRepositoryWeb.$_course['path']."/index.php\" target=\"_top\">"
-            .(($langFile == 'course_home') ? '<em>'.$_course['officialCode'].'</em>' : $_course['officialCode'])
+            .((isset($course_homepage) && $course_homepage == TRUE) ? '<em>'.$_course['officialCode'].'</em>' : $_course['officialCode'])
             ."</a></li>\n";
     }
 
@@ -218,7 +218,7 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
         }
     }
 
-    if (isset($nameTools) && $langFile != 'course_home')
+    if (isset($nameTools) && !(isset($course_homepage) && $course_homepage == TRUE))
     {
         if (isset($noPHP_SELF) && $noPHP_SELF)
         {
