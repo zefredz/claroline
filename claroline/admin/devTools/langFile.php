@@ -11,11 +11,12 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 $lang_no_access_here ="Pas d'accès ";
-$langFile = "admin";
-include('../../inc/claro_init_global.inc.php');
+$langFile = "trad4all";
+//include('../../inc/claro_init_global.inc.php');
 $nameTools = $langCheckDatabase;
 $interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
-@include("../checkIfHtAccessIsPresent.php");
+
+
 //$TABLEAGENDA 		= $_course["dbName"]."`.`agenda";
 $is_allowedToEdit 	= $is_platformAdmin || $PHP_AUTH_USER;
 if (!$is_allowedToEdit)
@@ -27,15 +28,15 @@ if (!$is_allowedToEdit)
 
 if ($is_allowedToEdit)
 {
-	include($includePath.'/claro_init_header.inc.php');
-	claro_disp_tool_title(
+	//include($includePath.'/claro_init_header.inc.php');
+/*	claro_disp_tool_title(
 	array(
 	'mainTitle'=>$nameTools,
 	'subTitle'=>$PHP_AUTH_USER." - ".$siteName." - ".$clarolineVersion
 	)
 	);
 	claro_disp_msg_arr($controlMsg);
-
+*/
 	$nomOutil  = $siteName;
 	$nomPage = $langNomPageCheckLAng;
 	$llangDir = "../../lang/";
@@ -60,10 +61,10 @@ if ($file=="" || !isset($file))
 	{ 
 		echo "
 			<br>
-			<input type=\"checkbox\" name=\"llanguesAtester[]\" value=\"$contenu\" checked> $contenu";
+			<input type=\"checkbox\" name=\"llanguesAtester[]\" value=\"$contenu\" id=\"$contenu\" > <label for=\"$contenu\">$contenu</label>";
 	}
 		echo "<hr>
-		
+
 <input type=\"radio\" name=\"show\" value=\"complete\"> complete
 |
 <input type=\"radio\" name=\"show\" value=\"digest\"> résumé
@@ -78,6 +79,7 @@ if ($file=="" || !isset($file))
 exit();
 }
 $llanguesAtester = $HTTP_GET_VARS["llanguesAtester"];
+var_export($llanguesAtester);
 $nbLangues = sizeof($llanguesAtester);
 
 for ($pntrLang = 0 ;  $pntrLang< $nbLangues; $pntrLang++)
@@ -95,10 +97,12 @@ for ($pntrLang = 0 ;  $pntrLang< $nbLangues; $pntrLang++)
     echo $llangModify;
     $auurr = get_defined_vars();
 	while (list($key2,$contenu)= each($auurr))
-	{   if ("lang" == substr($key2,0,4))
+	{ 
+		if ("lang" == substr($key2,0,4))
 		{
 			$llangContent[$key2][$llangueDir] = $contenu;
 			$$key2 ="";
+			unset($$key2);
 		}
 	}
 }
@@ -130,8 +134,8 @@ variable
 	--empty--
 </font>";
 			$empty[$key][$llanguesAtester[$pntrLang]] = $contenu[$llanguesAtester[$pntrLang]];
-			$empty[$key][french] = $contenu[french];
-			$empty[$key][english] = $contenu[english];
+			$empty[$key]['english'] = $contenu['english'];
+			$empty[$key]['french']  = $contenu['french'];
 		}
 if ($show == "complete" || $show =="both")
 		echo "
@@ -204,7 +208,7 @@ else
 	echo $lang_no_access_here;
 }
 
-@include($includePath."/claro_init_footer.inc.php");
+include($includePath."/claro_init_footer.inc.php");
 
 
 
