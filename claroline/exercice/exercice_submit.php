@@ -52,7 +52,10 @@ include('../inc/claro_init_global.inc.php');
 
 @include($includePath.'/lib/text.lib.php');
 
-$picturePath='../../'.$_course['path'].'/image';
+$picturePathWeb = $coursesRepositoryWeb.$_course['path'].'/image';
+$picturePathSys = $coursesRepositorySys.$_course['path'].'/image';
+
+
 
 $is_allowedToEdit=$is_courseAdmin;
 

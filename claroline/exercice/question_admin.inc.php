@@ -148,7 +148,7 @@ else
 	{
 ?>
 
-<center><img src="<?php echo $picturePath.'/'.$pictureName; ?>" border="0"></center>
+<center><img src="<?php echo $picturePathWeb.'/'.$pictureName; ?>" border="0"></center>
 
 <?php
 	}

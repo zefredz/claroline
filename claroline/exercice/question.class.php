@@ -271,7 +271,7 @@ class Question
 	 */
 	function uploadPicture($Picture,$PictureName)
 	{
-		global $picturePath;
+		global $picturePathSys;
 
 		// if the question has got an ID
 		if($this->id)
@@ -280,7 +280,7 @@ class Question
                         
                         $this->pictureName='quiz-'.$this->id.'.'.$extension;
                         
-	  		return @move_uploaded_file($Picture,$picturePath.'/'.$this->pictureName)?true:false;
+	  		return @move_uploaded_file($Picture,$picturePathSys.'/'.$this->pictureName)?true:false;
 		}
 
 		return false;
@@ -294,7 +294,7 @@ class Question
 	 */
 	function removePicture()
 	{
-		global $picturePath;
+		global $picturePathSys;
 
 		// if the question has got an ID and if the picture exists
 		if($this->id && !empty($this->pictureName))
@@ -302,7 +302,7 @@ class Question
                         $pictureName=$this->pictureName;
                         $this->pictureName='';
                         
-			return @unlink($picturePath.'/'.$pictureName)?true:false;
+			return @unlink($picturePathSys.'/'.$pictureName)?true:false;
 		}
 
 		return false;
@@ -317,7 +317,7 @@ class Question
 	 */
 	function exportPicture($questionId)
 	{
-		global $TBL_QUESTIONS,$picturePath;
+		global $TBL_QUESTIONS,$picturePathSys;
 
 		// if the question has got an ID and if the picture exists
 		if($this->id &&  !empty($this->pictureName))
@@ -328,7 +328,7 @@ class Question
                     $sql="UPDATE `$TBL_QUESTIONS` SET picture_name='$pictureName' WHERE id='$questionId'";
                     mysql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
                     
-                     return @copy($picturePath.'/'.$this->pictureName,$picturePath.'/'.$pictureName)?true:false;
+                     return @copy($picturePathSys.'/'.$this->pictureName,$picturePathSys.'/'.$pictureName)?true:false;
 		}
 
 		return false;
@@ -344,12 +344,12 @@ class Question
 	 */
 	function setTmpPicture($Picture,$PictureName)
 	{
-		global $picturePath;
+		global $picturePathSys;
                 
                 $extension=substr(strrchr($PictureName, '.'), 1);
 
 		// saves the picture into a temporary file
-		@move_uploaded_file($Picture,$picturePath.'/tmp.'.$extension);
+		@move_uploaded_file($Picture,$picturePathSys.'/tmp.'.$extension);
 	}
 
 	/**
@@ -362,29 +362,29 @@ class Question
 	 */
 	function getTmpPicture()
 	{
-		global $picturePath;
+		global $picturePathSys;
 
 		// if the question has got an ID and if the picture exists
 		if($this->id)
 		{
-                    if(file_exists($picturePath.'/tmp.jpg'))
+                    if(file_exists($picturePathSys.'/tmp.jpg'))
                     {
                         $extension='jpg';
                     }
-                    elseif(file_exists($picturePath.'/tmp.png'))
+                    elseif(file_exists($picturePathSys.'/tmp.png'))
                     {
                         $extension='png';
                     }
-                    elseif(file_exists($picturePath.'/tmp.gif'))
+                    elseif(file_exists($picturePathSys.'/tmp.gif'))
                     {
                         $extension='gif';
                     }
-                    elseif(file_exists($picturePath.'/tmp.bmp'))
+                    elseif(file_exists($picturePathSys.'/tmp.bmp'))
                     {
                         $extension='bmp';
                     }
                 
-                    return @rename($picturePath.'/tmp.'.$extension,$picturePath.'/'.$this->pictureName)?true:false;
+                    return @rename($picturePathSys.'/tmp.'.$extension,$picturePathSys.'/'.$this->pictureName)?true:false;
 		}
 
 		return false;
@@ -533,7 +533,7 @@ class Question
 	 */
 	function duplicate()
 	{
-		global $TBL_QUESTIONS, $picturePath;
+		global $TBL_QUESTIONS;
 
 		$question=addslashes($this->question);
 		$description=addslashes($this->description);

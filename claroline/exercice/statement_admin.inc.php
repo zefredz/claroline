@@ -175,7 +175,7 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
 ?>
 
 <tr>
-  <td colspan="2" align="center"><img src="<?php echo $picturePath.'/'.$pictureName; ?>" border="0"></td>
+  <td colspan="2" align="center"><img src="<?php echo $picturePathWeb.'/'.$pictureName; ?>" border="0"></td>
 </tr>
 
 <?php

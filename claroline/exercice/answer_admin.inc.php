@@ -556,7 +556,7 @@ if($modifyAnswers)
 ?>
 
 <tr>
-  <td colspan="5" align="center"><img src="<?php echo $picturePath.'/'.$pictureName; ?>" border="0"></td>
+  <td colspan="5" align="center"><img src="<?php echo $picturePathWeb.'/'.$pictureName; ?>" border="0"></td>
 </tr>
 
 <?php
@@ -668,7 +668,7 @@ if($modifyAnswers)
 ?>
 
 <tr>
-  <td align="center"><img src="<?php echo $picturePath.'/quiz-'.$questionId; ?>" border="0"></td>
+  <td align="center"><img src="<?php echo $picturePathWeb.'/quiz-'.$questionId; ?>" border="0"></td>
 </tr>
 
 <?php
@@ -799,7 +799,7 @@ if($modifyAnswers)
 ?>
 
 <tr>
-  <td colspan="4" align="center"><img src="<?php echo $picturePath.'/'.$pictureName; ?>" border="0"></td>
+  <td colspan="4" align="center"><img src="<?php echo $picturePathWeb.'/'.$pictureName; ?>" border="0"></td>
 </tr>
 
 <?php

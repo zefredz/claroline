@@ -83,7 +83,8 @@ define(ALLOWED_TO_INCLUDE,1);
 $is_allowedToEdit=$is_courseAdmin;
 
 // picture path
-$picturePath='../../'.$_course['path'].'/image';
+$picturePathWeb = $coursesRepositoryWeb.$_course['path'].'/image';
+$picturePathSys = $coursesRepositorySys.$_course['path'].'/image';
 
 // the 4 types of answers
 $aType=array($langUniqueSelect,$langMultipleSelect,$langFillBlanks,$langMatching);

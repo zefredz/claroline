@@ -28,7 +28,7 @@
  */
 function showQuestion($questionId, $onlyAnswers=false)
 {
-	global $picturePath;
+	global $picturePathWeb;
 
 	// construction of the Question object
 	$objQuestionTmp=new Question();
@@ -66,7 +66,7 @@ function showQuestion($questionId, $onlyAnswers=false)
 ?>
 
 	<tr>
-	  <td align="center" colspan="2"><img src="<?php echo $picturePath.'/'.$pictureName; ?>" border="0"></td>
+	  <td align="center" colspan="2"><img src="<?php echo $picturePathWeb.'/'.$pictureName; ?>" border="0"></td>
 	</tr>
 
 <?php
