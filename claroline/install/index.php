@@ -229,7 +229,15 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
 		if ($valMain)	$mainDbNameExist  = true;
 		if ($valStat)	$statsDbNameExist = true;
 		$canRunCmd = false;
-		$display = DISP_DB_NAMES_SETTING;
+	    if ($cmd > DISP_DB_NAMES_SETTING)
+	    {
+	    	$display = DISP_DB_NAMES_SETTING;
+	    }
+	    else
+	    {
+	    	$display= $cmd;
+	    }
+	    	
 	}
 	else
 	{
@@ -607,7 +615,7 @@ elseif($display==DISP_LICENCE)
 				<P>
 				Claroline is free software, distributed under GNU General Public licence (GPL).
 				Please read the licence and click &quot;I accept&quot;.
-				<a href="../license/gpl_print.txt">'.$langPrintVers.'</a>
+				<a href="../../LICENCE.txt">'.$langPrintVers.'</a>
 				</P>
 				<textarea wrap="virtual" cols="65" rows="15">';
 	include ('../license/gpl.txt');
