@@ -34,7 +34,6 @@ $professorMessage	="Message from your professor";
 $langEmailSent		=" and emailed to registered students";
 $langSelUser		= "selected users of the site";
 $langMsgSent		= "The message has been sent to the selected students";
-$langMsg       		= "Messages";
 
 $langEmailOption="Send this announcement by email to registered students";
 $langEmailTitle = 'Subject for this mail'; 
