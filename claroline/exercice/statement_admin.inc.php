@@ -177,16 +177,6 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
 <table border="0" cellpadding="5">
 
 <?php
-	if($aFileIsAttached)
-	{
-?>
-
-<tr>
-  <td colspan="2"><?php echo display_attached_file($attachedFile); ?></td>
-</tr>
-
-<?php
-	}
 
 	// if there is an error message
 	if(!empty($msgErr))
