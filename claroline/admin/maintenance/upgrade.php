@@ -15,6 +15,15 @@
                 - update course repository content
 */
 
+
+// lang variable
+
+$langMakeABackupBefore = "<p>In case of trouble, we strongly recommend you to backup your previous courses data before commiting the Claroline upgrade.<br />
+You must confirm the backup procedure has been done before the upgrade</p>";
+$langConfirm = "Confirm";
+
+// inclue lib files
+
 $newIncludePath = "../../inc/";
 $oldIncludePath = "../../include/";
 
@@ -56,12 +65,45 @@ if ($fileTarget=="")
 	
 @include ($fileSource); // read Values in sources
 
+define("DISPVAL_upgrade_backup_needed",0);
 define("DISPVAL_upgrade_main_conf_needed",1);
 define("DISPVAL_upgrade_main_db_needed",2);
 define("DISPVAL_upgrade_courses_needed",3);
 define("DISPVAL_upgrade_done",4);
 
-if ($thisClarolineVersion!=$clarolineVersion)
+// save confirm backup in session
+
+session_start();
+
+if ($_GET['confirm_backup'] == 0) {
+	session_unregister('confirm_backup');
+	$confirm_backup = 0;
+}
+
+if (!isset($_SESSION['confirm_backup'])) 
+{
+    if ($_POST['confirm_backup'] == 1 ) 
+    {
+    	$_SESSION['confirm_backup'] = 1;
+	$confirm_backup = 1;
+    }
+    else
+    {
+	$confirm_backup = 0;
+    }
+} else 
+{
+    $confirm_backup  = $_SESSION['confirm_backup'];
+}
+
+
+if (!$confirm_backup) 
+{
+	// ask to confirm backup
+	$display = DISPVAL_backup_needed;	
+	
+}
+elseif ($thisClarolineVersion!=$clarolineVersion)
 {
 	// upgrade of main conf needed.upgrade_main_conf_needed
 	$display = DISPVAL_upgrade_main_conf_needed;
@@ -122,11 +164,24 @@ else
 </div>
 
 <div id="content">
+
 <?php
 
 switch ($display)
 {
+	case DISPVAL_backup_needed :
+		echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"post\">";
+		echo "<p>" . $langMakeABackupBefore . "<br />";
+		echo "<label for=\"confirm_backup\">" . $langConfirm . "</label><input type=\"checkbox\" id=\"confirm_backup\" name=\"confirm_backup\" value=\"1\" />";
+		echo "<input type=\"submit\" value=\"OK\" />";
+		echo "</p>";
+		echo "</form>";
+		break;
 	case DISPVAL_upgrade_main_conf_needed :
+		echo "<h2>Done:</h2>";
+		echo "<ul>";	
+		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?confirm_backup=0\">cancel</a>)</li>";
+		echo "</ul>";
 		echo "<h2>To do:</h2>";
 		echo "<ul>";
 		echo "<li><a href=\"upgrade_conf.php\">Upgrade configuration files</a></li>";
@@ -137,6 +192,7 @@ switch ($display)
 	case DISPVAL_upgrade_main_db_needed :
 		echo "<h2>Done:</h2>";
 		echo "<ul>";	
+		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?confirm_backup=0\">cancel</a>)</li>";
 		echo "<li>Upgrade configuration files (<a href=\"upgrade_conf.php\">start again</a>)</li>";
 		echo "</ul>";
 		echo "<h2>To do:</h2>";
@@ -148,6 +204,7 @@ switch ($display)
 	case DISPVAL_upgrade_courses_needed :
 		echo "<h2>Done:</h2>";
 		echo "<ul>";
+		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?confirm_backup=0\">cancel</a>)</li>";
 		echo "<li>Upgrade configuration files (<a href=\"upgrade_conf.php\">start again</a>)</li>";
 		echo "<li>Upgrade main database (<a href=\"upgrade_main_db.php\">start again</a>)</li>";
 		echo "</ul>";
@@ -159,6 +216,7 @@ switch ($display)
 	case DISPVAL_upgrade_done :
 		echo "<h2>Done:</h2>";
 		echo "<ul>";
+		echo "<li>Backup confirmed (<a href=\"" . $_SERVER['PHP_SELF'] . "?confirm_backup=0\">cancel</a>)</li>";
 		echo "<li>Upgrade configuration files (<a href=\"upgrade_conf.php\">start again</a>)</li>";
 		echo "<li>Upgrade main database (<a href=\"upgrade_main_db.php\">start again</a>)</li>";
 		echo "<li>Upgrade courses - ".$nbCourses['nb']." course(s) to upgrade (<a href=\"upgrade_courses.php\">start again</a>)</li>";
