@@ -1123,6 +1123,7 @@ $langLastVisit = "Last visit";
 $langLasting = "Lasting";
 $langLastname = "Last name";
 $langLateUpload = "Late upload";
+$langLaunchRestoreCourseRepository = "Launch restore of the course repository";
 $langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";
 $langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Launch main platform tables upgrade</button></p>";
 $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
@@ -1475,6 +1476,7 @@ $langResetChat = "Reset";
 $langRestore = "Restore";
 $langRestoreACourse = "Restore a course";
 $langRestoreCourse = "Restore a course";
+$langRestoreCourseRepository = "Restore course repository";
 $langRestoreDescription = "The course is in an archive file which you can select below.<br><br>
 When you have clicked on &quot;Restore&quot;, the archive will be uncompessed and the course recreated.";
 $langRestoreNotice = "This script doesn't yet allow for automatic restoration of users, but data saved in &quot;users.csv&quot; is sufficient for the administrator to be able to make that work manually.";
