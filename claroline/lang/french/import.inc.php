@@ -44,7 +44,7 @@ $langAddPage="Ajouter une page";
 $langSendPage="Page à envoyer";
 $langCouldNotSendPage="Ce fichier n'est pas au format HTML et n'a pu être envoyé. Si vous voulez envoyer vers le serveur des documents non HTML (PDF, Word, Power Point, Vidéo, etc.) utilisez <a href=../document/document.php>Documents</a>";
 $langAddPageToSite="Ajouter une page au site";
-$langNotAllowed="Vous n'êtes pas identifié en tant que responsable de ce cours";
+$langNotAllowed="Vous n'êtes pas autorisé à accéder à cette section";
 $langExercices="Exercices";
 $langCouldNot="Le fichier n'a pu être envoyé";
 $langOkSent="Votre page a été envoyée.<p>Elle est accessible depuis la <a href=../../$currentCourseID/index.php>page d'accueil</a> de votre cours";
