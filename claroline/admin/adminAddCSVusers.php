@@ -61,6 +61,22 @@ if ((($cmd=="exImpSec"  || $cmd=="exImp") && $_SESSION['claro_CSV_done']) || emp
     $_SESSION['claro_CSV_done'] = FALSE;
 }
 
+//Set format used for CSV file s
+
+$defaultFormat = "surname;name;email;phone;username;password;officialCode";
+
+if (empty($_SESSION['claro_usedFormat'])) 
+{
+    $_SESSION['claro_usedFormat'] = $defaultFormat;
+}
+
+if ($_REQUEST['usedFormat'])
+{
+    $_SESSION['claro_usedFormat'] = $_REQUEST['usedFormat'];
+}
+
+$usedFormat = $_SESSION['claro_usedFormat'];
+
 /*-----------------------------------*/
 /*	Execute command section      */
 /*-----------------------------------*/
@@ -80,7 +96,7 @@ switch ($cmd)
 	
 	//Read each ligne : we put one user in an array, and build an array of arrays for the list of user.
 	
-	$CSVParser = new CSV($uploadTempDir.$_FILES["CSVfile"]["name"],";","surname;name;email;phone;username;password;officialCode");
+	$CSVParser = new CSV($uploadTempDir.$_FILES["CSVfile"]["name"],";",$usedFormat);
 	$userlist = $CSVParser->results;
 	
 	//save this 2D array userlist in session
@@ -199,78 +215,125 @@ case "default" :
     
     
 ?>
-<form enctype="multipart/form-data"  method="POST" action="<?php echo $PHP_SELF ?>"  >
-    <p></p>The expected format fro each of your CSV file is :<p>
-    <b>surname;name;email;phone;username;password;officialCode</b><br><br>
+
+The expected format for each line of your CSV file is :<p>
+<b>
+<?php
+if ($_REQUEST['chformat']=="yes")
+{
+    echo "<form metod=\"POST\" action=\"$PHP_SELF\">"
+        ."  <input type=\"text\" name=\"usedFormat\" value=\"$usedFormat\" size=\"55\">"
+	."  <input type=\"submit\" value=\"$langOk\""
+	."</form>";
+}
+else
+{ 
+    echo $usedFormat;
+}	 
+?>
+</b>
+
+<form enctype="multipart/form-data"  method="POST" action="<?php echo $PHP_SELF ?>"> 
+     <a href="<?php echo $_PHP_SELF."?display=default&usedFormat=".$defaultFormat.""; ?>"><small>Use default</small></a> 
+     | <a href="<?php echo $_PHP_SELF."?display=default&chformat=yes"; ?>"><small>Change it</small></a>
+    <br><br>
     <input type="file" name="CSVfile">
-        <br><br>
-    <input type="submit" name="submitCSV" value="<?php echo $langAddUserList; ?>">
+    <br><br>
+    <input type="submit" name="submitCSV" value="Add user list">
     <input type="hidden" name="cmd" value="exImp">
 </form>
 
-<?
+<?php
     break;
 
+case "chFormat" :
+
+    echo "okokok";
+    
+    break;    
+    
 // STEP ONE DISPLAY : display the possible error with uploaded file and ask for continue or cancel
         
 case "stepone" :
     
-    echo "<b>The following errors were found :</b><br><br>\n";
     
-    /*
-    var_dump($mail_synthax_error);
-    var_dump($mail_used_error);
-    var_dump($username_used_error);
-    var_dump($officialcode_used_error);
-    var_dump($password_error);
-    */
-    
-    for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<=$size; $i++)
+    if (!(empty($mail_synthax_error)) ||
+        !(empty($mail_used_error)) ||
+	!(empty($username_used_error)) ||
+	!(empty($officialcode_used_error)) ||
+	!(empty($password_error)) ||
+	!(empty($mail_duplicate_error)) ||
+	!(empty($username_duplicate_error)) ||
+	!(empty($officialcode_duplicate_error)))
     {
-        $line=$i+1;
+        echo "<b>The following errors were found :</b><br><br>\n";
+    
+        /*
+        var_dump($mail_synthax_error);
+        var_dump($mail_used_error);
+        var_dump($username_used_error);
+        var_dump($officialcode_used_error);
+        var_dump($password_error);
+        */
+    
+        for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<=$size; $i++)
+        {
+            $line=$i+1;
 	
-	if ($mail_synthax_error[$i]) 
-	{
-	    echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> Mail synthax error. <br>";
-	}
+	    if ($mail_synthax_error[$i]) 
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> Mail synthax error. <br>";
+	    }
 	      
-	if ($mail_used_error[$i])
-	{
-	    echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> Mail is already used by another user. <br>\n";         
-	}
-	if ($username_used_error[$i])
-	{
-	    echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> This username is already used by another user. <br>\n";     
-	}
-	if ($officialcode_used_error[$i])
-	{
-	    echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> This official code is already used by another user. <br>\n"; 
-	}
-	if ($password_error[$i])
-	{
-	    echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['password']."\" <b>:</b> Password given to simple or to close to username. <br>\n";
-	}
-	if ($mail_duplicate_error[$i])
-	{
-	    echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> This mail appears already in a previous line of the CSV file. <br>\n";
-	}
-	if ($username_duplicate_error[$i])
-	{
-	    echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> This username appears already in a previous line of the CSV file. <br>\n";
-	}
-	if ($officialcode_duplicate_error[$i])
-	{
-	    echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> This official code appears already in a previous line of the CSV file. <br>\n";
-	}
+	    if ($mail_used_error[$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> Mail is already used by another user. <br>\n";         
+	    }
+	    if ($username_used_error[$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> This username is already used by another user. <br>\n";     
+	    }
+	    if ($officialcode_used_error[$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> This official code is already used by another user. <br>\n"; 
+	    }
+	    if ($password_error[$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['password']."\" <b>:</b> Password given to simple or to close to username. <br>\n";
+	    }
+	    if ($mail_duplicate_error[$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> This mail appears already in a previous line of the CSV file. <br>\n";
+	    }
+	    if ($username_duplicate_error[$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> This username appears already in a previous line of the CSV file. <br>\n";
+	    }
+	    if ($officialcode_duplicate_error[$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> This official code appears already in a previous line of the CSV file. <br>\n";
+	    }
+        }
+	$no_error = FALSE;
     }
-    echo "<br>"
-        ."Do you want to continue? <br>"
-	."(if you choose to continue, lines with errors will be simply ignored)<br><br>"        
-	."<form method=\"POST\" action=\"".$PHP_SELF."?cmd=exImpSec\">\n"
-        ."<input type=\"button\" value=\"Cancel\">\n "
-        ."<input type=\"submit\" value=\"Continue\">\n "
-        .""
-        ."</form>\n";
+    else 
+    {
+        echo "No error in file found.<br>";
+	$noerror = TRUE;
+    }
+        echo "<br>"
+            ."Do you want to continue? <br>";
+	if (!$noerror) 
+	{
+	    echo "(if you choose to continue, lines with errors will be simply ignored)<br>";        
+	}
+	echo "<br><form method=\"POST\" action=\"".$PHP_SELF."?cmd=exImpSec\">\n";
+	
+        claro_disp_button("index.php", $langCancel); 
+      
+        echo "<input type=\"submit\" value=\"Continue\">\n "
+            .""
+            ."</form>\n";
     break;
 
 // STEP TWO DISPLAY : display what happened, confirm users added      
@@ -284,7 +347,7 @@ case "steptwo" :
        echo $user['surname']." ".$user['name']." has been added to the campus<br>";
     }
     
-    echo "<br><a href=\"adminusers.php\">See user list</a>";
+    echo "<br><a href=\"adminusers.php\">&gt;&gt; See user list</a>";
     
     break;
 }
