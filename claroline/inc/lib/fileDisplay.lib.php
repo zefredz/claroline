@@ -104,7 +104,7 @@ function choose_image($fileName)
 		$image['code'      ] = "js.gif";
 		$image['acrobat'   ] = "pdf.gif";
 		$image['powerpoint'] = "ppt.gif";
-        $image['link'      ] = "liens.gif";
+        $image['link'      ] = "link.gif";
 
 	}
 

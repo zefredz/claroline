@@ -1462,7 +1462,7 @@ claro_disp_tool_title($titleElement,
 	            ."</a>\n"
 	            ."| "
 	            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">"
-	            ."<img src=\"".$clarolineRepositoryWeb."img/liens.gif\" alt=\"\">"
+	            ."<img src=\"".$clarolineRepositoryWeb."img/link.gif\" alt=\"\">"
 	            .$langCreateHyperlink
 	            ."</a>\n"
 	            ." | "
