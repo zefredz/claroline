@@ -226,7 +226,7 @@ $tbl_tool            = $tbl_mdb_names['tool'           ];
 
 // check authentification
 
-if ( ! empty($_SESSION['_uid']) && ! ($login || $logout))
+if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 {
     // uid is in session => login already done, continue with this value
     $_uid                   = $_SESSION['_uid'                  ];
@@ -274,7 +274,6 @@ else
                 {
                     $loginFailed = true;
                     $_uid        = null;
-                    session_unregister('_uid');
                 }
 
                 if ($_uid != $uData['creatorId'])
@@ -501,11 +500,8 @@ if ($uidReset) // session data refresh requested
     }
     else // no uid => logout or Anonymous
     {
-        session_unregister('_user');
         $_user = null;
-
-        session_unregister('_uid');
-        $_uid = null;
+        $_uid  = null;
 
         $is_platformAdmin        = false;
         $is_allowedCreateCourse  = false;
@@ -591,8 +587,6 @@ if ($cidReset) // course session data refresh requested
     {
         $_cid    = null;
         $_course = null;
-        session_unregister('_cid');
-        session_unregister('_course');
         //// all groups of these course
         ///  ( theses properies  are from the link  between  course and  group,
         //// but a group  can be only in one course)
@@ -670,7 +664,6 @@ if ($uidReset || $cidReset) // session data refresh requested
         $is_courseTutor  = false;
 
         $_courseUser = null;
-        session_unregister('_courseUser');
     }
 
     $is_courseAllowed = (bool) ($_course['visibility'] || $is_courseMember || $is_platformAdmin); // here because it's a right and not a state
@@ -750,8 +743,6 @@ if ($tidReset || $cidReset) // session data refresh requested
         //// course
         $_tid        = null;
         $_courseTool = null;
-        session_unregister('_tid');
-        session_unregister('_courseTool');
     }
 
 }
@@ -802,8 +793,6 @@ if ($gidReset || $cidReset) // session data refresh requested
     {
             $_gid   = null;
             $_group = null;
-            session_unregister('_gid');
-            session_unregister('_group');
     }
 }
 else // continue with the previous values
@@ -842,12 +831,10 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
         {
             $is_groupMember = false;
             $_groupUser     = null;
-            session_unregister('_groupUser');
         }
 
         $is_groupTutor = ($_group['tutorId'] == $_uid);
 
-        session_register('_groupUser');
     }
     else  // Keys missing => not anymore in the user - group (of this course) relation
     {
@@ -855,7 +842,6 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
         $is_groupTutor  = false;
 
         $_groupUser = null;
-        session_unregister('_groupUser');
     }
 
     // user group access is allowed or user is group member or user is admin
@@ -966,7 +952,6 @@ if ($uidReset || $cidReset)
     else
     {
         $_courseToolList = null;
-        session_unregister('_courseToolList');
     }
 }
 else // continue with the previous values
