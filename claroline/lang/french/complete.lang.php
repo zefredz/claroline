@@ -1861,4 +1861,6 @@ $langErrorCategoryEmpty = "Le champs \"catégorie\" ne peut pas être vide";
 $langErrorDepartmentEmpty = "Le champs \"département\" ne peut pas être vide";
 $langErrorDepartmentURLEmpty = "Le champs \"URL du département\" ne peut pas être vide";
 $langErrorLanguageEmpty = "Le champs \"langue\" can not be empty";
+$langErrorDepartmentURLWrong = "L'URL du département est invalide";
+$langErrorEmailInvalid = "L'adresse email est incorrecte";
 ?>

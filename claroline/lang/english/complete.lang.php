@@ -2208,5 +2208,6 @@ $langErrorCategoryEmpty = "Category can not be empty";
 $langErrorDepartmentEmpty = "Department can not be empty";
 $langErrorDepartmentURLEmpty = "Department URL can not be empty";
 $langErrorLanguageEmpty = "Language can not be empty";
-
+$langErrorDepartmentURLWrong = "Department URL is invalid";
+$langErrorEmailInvalid = "Email is invalid";
 ?>
