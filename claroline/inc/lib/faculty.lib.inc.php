@@ -1,28 +1,24 @@
 <?php // $Id$
-/*
-+----------------------------------------------------------------------+
-| CLAROLINE 1.6
-+----------------------------------------------------------------------+
-| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-+----------------------------------------------------------------------+
-*/
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: Muret Benoît <muret_ben@hotmail.com>
-//----------------------------------------------------------------------
-
-
+/**
+ * This lib provide function to manage and use faculties.
+ *
+ * @version CLAROLINE 1.6
+ * @copyright 2001, 2005 Universite catholique de Louvain (UCL)
+ * @package faculty
+ *
+ * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * @author Muret Benoît <muret_ben@hotmail.com>
+ *
+ */
 
 /**
  * This function return the treePos maximum of the table faculty
  *
  * @author - Benoît Muret <>
- *
  * @return  - int
- *
- *@desc - return the treePos maximum of the table faculty
+
  */
 
 function SearchMaxTreePos()
@@ -39,13 +35,11 @@ function SearchMaxTreePos()
 /**
  * This function display the bom with option to edit or delete the categories
  *
- * @author - < Benoît Muret >
- * @param   - elem 			array 	: the array of each category
- * @param   - father		string 	: the father of the category
+ * @param   elem 			array 	: the array of each category
+ * @param   father		string 	: the father of the category
 
- * @return  - void
- *
- * @desc - display the bom whith option to edit or delete the categories
+ * @return  void
+
  */
 
 function displayBom($elem,$father,$space)
@@ -176,14 +170,10 @@ function displayBom($elem,$father,$space)
 /**
  *This function display the bom of category
  *
- * @author 	- < Benoît Muret >
- * @param   - elem 			array 	: the categories
- * @param   - father		string 	: the father of a category
- * @param   - facultyEdit	key 	: the category edit
-
+ * @param  elem 		array  : the categories
+ * @param  father		string : the father of a category
+ * @param  facultyEdit	key    : the category edit
  * @return  - void
- *
- * @desc : display the bom of category and display in red the category edit and his childeren in blue
  */
 
 function displaySimpleBom($elem,$father,$facultyEdit)
@@ -246,13 +236,11 @@ function deleteNbChildFather($fatherChangeChild,$newNbChild)
 /**
  *This function add a number of child of all father from a category
  *
- * @author  - < Benoît Muret >
  * @param   - fatherChangeChild		string 	: the father
  * @param   - newNbChild			int		: the number of child adding
 
- * @return  - void
  *
- * @desc : add a number of child of all father from a category
+ * @return  - void
  */
 
 function addNbChildFather($fatherChangeChild,$newNbChild)
@@ -276,15 +264,11 @@ function addNbChildFather($fatherChangeChild,$newNbChild)
 /**
  *This function create de select box facolties
  *
- * @author  - < Benoît Muret >
- * @param   - elem			array 	: 	the faculties
- * @param   - father		string	:	the father of the faculty
- * @param	- $EditFather	string	:	the faculty editing
- * @param	- $space		string	:	space to the bom of the faculty
-
+ * @param  $elem		array 	: 	the faculties
+ * @param  $father		string	:	the father of the faculty
+ * @param  $EditFather	string	:	the faculty editing
+ * @param  $space		string	:	space to the bom of the faculty
  * @return  - void
- *
- * @desc : create de select box facolties
  */
 
 function buildSelectFaculty($elem,$father,$EditFather,$space)
