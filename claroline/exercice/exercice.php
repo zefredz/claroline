@@ -79,15 +79,6 @@ $TBL_TRACK_EXERCICES   = $_course['dbNameGlu']."track_e_exercices";
 // maximum number of exercises on a same page
 $limitExPage=50;
 
-$htmlHeadXtra[]='<style type="text/css">
-<!--
-a.invisible
-{
-	color: #999999;
-}
--->
-</style>';
-
 $nameTools=$langExercices;
 
 include($includePath.'/claro_init_header.inc.php');
