@@ -42,7 +42,7 @@ $langAddVarUser="Enroll a list of users";
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Registration";
 $langName="First Name";
-$langSurname="Surname";
+$langSurname="Last Name";
 $langUsername="Username";
 $langPass="Password";
 $langConfirmation="Confirmation";
@@ -194,7 +194,7 @@ $langOfficialCode = "Administrative Code";
 
 $langAuthInfo = "Authentication";
 $langEnter2passToChange = "Enter new pass twice to change, and empty to keep";
-
+$langConfirm = "Confirm";
 $lang_SearchUser_ModifOk            = "Update down";
 
 $langNoUserSelected = "No user selected!";
