@@ -790,22 +790,21 @@ class CSV
 function add_user($name,$surname,$email,$phone,$admincode,$username,$password,$teacher)
 {
     // see if password must be stored crypted or not
-	$tbl_mdb_names = claro_sql_get_main_tbl();
-	$tbl_user      = $tbl_mdb_names['user'             ];
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user      = $tbl_mdb_names['user'];
     global $userPasswordCrypted;
     if (!isset($userPasswordCrypted))  $userPasswordCrypted	 = false;
-    
     // set the status DB code with the value of $teacher
-    
+
     if ($teacher==TRUE) 
-    { 
+    {
         $status = 1;
     }
     else
     {
         $status = 5;
     }
-    
+
     $sql = "INSERT INTO `".$tbl_user."`
             SET `nom`          = \"".$name."\",
                 `prenom`       = \"".$surname."\",
@@ -819,6 +818,26 @@ function add_user($name,$surname,$email,$phone,$admincode,$username,$password,$t
     $_uid = claro_sql_query_insert_id($sql);
     return $_uid;
 }
+
+/**
+ * Set a user as admin
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @version 1.6
+ * @param $idAdmin Id of user to set as admin
+ *
+ * @return void
+ */
+function set_user_admin($idAdmin)
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_admin     = $tbl_mdb_names['admin'];
+    $tbl_user      = $tbl_mdb_names['user'];
+	
+    $sql = "INSERT INTO `".$tbl_admin."` (idUser) VALUES (".$idAdmin.")";
+    claro_sql_query($sql);
+    //adduser in .htaccess
+}
+
 
 /**
  * subscribe a specific user to a specific course
