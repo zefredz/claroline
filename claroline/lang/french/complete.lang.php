@@ -1217,6 +1217,7 @@ $langMultipleUsernameAndPassword = "Comptes avec le même <i>nom d'utilisateur</i
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes cours";
 $langMyGroup = "mon groupe";
+$langMyResults = "Mes résultats";
 $langMyStats = "Voir mes statistiques";
 $langMysqlNames = "Noms MySQL";
 $langMysql_Repository = "Dossier MySQL";
