@@ -17,15 +17,11 @@
 //         claro_sql_query("DROP TABLE IF EXISTS track_c_os");
 //         claro_sql_query("DROP TABLE IF EXISTS track_c_providers");
 //         claro_sql_query("DROP TABLE IF EXISTS track_c_referers");
-// 
-//         claro_sql_query("DROP TABLE IF EXISTS track_e_access");
+ 
 //         claro_sql_query("DROP TABLE IF EXISTS track_e_default");
-//         claro_sql_query("DROP TABLE IF EXISTS track_e_downloads");
-//         claro_sql_query("DROP TABLE IF EXISTS track_e_exercices");
-//         claro_sql_query("DROP TABLE IF EXISTS track_e_links");
 //         claro_sql_query("DROP TABLE IF EXISTS track_e_login");
 //         claro_sql_query("DROP TABLE IF EXISTS track_e_open");
-        //claro_sql_query("DROP TABLE IF EXISTS track_e_subscriptions");
+//         claro_sql_query("DROP TABLE IF EXISTS track_e_subscriptions");
 
         $sql = "CREATE TABLE `track_c_browsers` (
                   `id` int(11) NOT NULL auto_increment,
@@ -63,6 +59,7 @@
                   PRIMARY KEY  (`id`)
                 ) TYPE=MyISAM COMMENT='record refering url occurences'";
         claro_sql_query($sql);
+
         $sql = "CREATE TABLE `track_e_default` (
                   `default_id` int(11) NOT NULL auto_increment,
                   `default_user_id` int(11)  NOT NULL default '0',
