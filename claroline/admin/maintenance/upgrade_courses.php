@@ -296,10 +296,12 @@ switch ($display)
 			$endtime = $mtime;
 			$totaltime = ($endtime - $starttime);
 			$stepDuration = ($endtime - $steptime);
-			$steptime = $endtime;
-                                
-			$str_execution_time = sprintf("execution time for this course [%01.2f s] - total [%01.2f s].",$stepDuration,$totaltime);
-			                        
+			$steptime 			= $endtime;
+			$stepDurationAvg 	= $totaltime / ($nbCourseUpgraded-$nbCoursesUpgraded['nb']);
+            $leftCourses 		= (int) ($nbCourses['nb']-$nbCourseUpgraded);
+			$leftTime 			= strftime('%T',$leftCourses *$avgDuration);
+			$str_execution_time = sprintf("execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. <b>left Time [%s]</b>.",$stepDuration,$stepDurationAvg,strftime('%T',$totaltime),$leftCourses,$leftTime);
+
                         if ($nbError==0)
                         {
                             echo "<p class=\"success\">Upgrade Ok - $str_execution_time</p>";
@@ -560,7 +562,7 @@ function upgrade_course_repository($courseID,$courseRepository)
 
 function upgrade_question_picture($courseRepository, $dbNameGlu) {
 
-    $quizRepository = $courseRepository . "/image/";
+    $quizRepository = $courseRepository . "image/";
 
     $handle = opendir($quizRepository);
     
