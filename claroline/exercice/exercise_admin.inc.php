@@ -402,9 +402,6 @@ else
   // display exercise settings
 ?>
 
-<h3>
-  <?php echo $exerciseTitle; ?>
-</h3>
 <blockquote>
   <?php echo claro_parse_user_text($exerciseDescription); ?>
 </blockquote>
