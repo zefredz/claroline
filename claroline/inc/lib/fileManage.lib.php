@@ -386,10 +386,16 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
 
         foreach($dirList as $thisDir)
         {
-            if ( ! is_dir($thisDir) )
+            $dirTrail .= empty($dirTrail) ? $thisDir : '/'.$thisDir;
+
+            if ( file_exists($dirTrail) ) 
             {
-                $dirTrail .= empty($dirTrail) ? $pathName : '/'.$pathName;
-                if ( ! mkdir($dirTrail , $mode) ) return false;
+                if ( is_dir($dirTrail) ) continue;
+                else                     return false;
+            }
+            else
+            {
+                 if ( ! mkdir($dirTrail , $mode) ) return false;
             }
 
             return true;
