@@ -7,7 +7,7 @@ $conf_def['old_config_file'][]='user.conf.inc.php';
 
 //SECTION
 $conf_def['section']['main']['label']='Main settings';
-$conf_def['section']['main']['description']='Settings of the tool';
+//$conf_def['section']['main']['description']='Settings of the tool';
 $conf_def['section']['main']['properties'] = 
 array ( 'linkToUserInfo'
       , 'CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER'
