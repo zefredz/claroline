@@ -134,7 +134,7 @@ claroline/admin/adminusercourses.php?uidToEdit=3&cfrom=ulist
 Repéré par :  M
 Assigné à : 
 
-------------------------------------------------------------------
+RESOLU------------------------------------------------------------------
 M.17. outils de travaux.  
 à l'envoi d'un Ficher .exe  trop gros, le système ne fait pas l'envoi mais ne retourne pas de message d'erreur.
 
@@ -186,7 +186,7 @@ Repéré par : M
 Assigné à : 
 
 Etat : New ------------------------------------------------------
-M.23 où : admincats.php
+M.23  : admincats.php
 type : logik
 quoi : si j'édite une cat et que je la rend interdite au 
 ratachement direct de cours mais qu'elle contient déjà des cours.
@@ -195,7 +195,7 @@ Repéré par : M.
 Assigné à : 
 
 Etat : New ------------------------------------------------------
-M.24 où : admincats.php
+M.24  : admincats.php
 type : logik
 quoi : si je supprime une cat qui contient des catégories avec déjà des cours.
 - l'utilisateur ne recoit aucun message.
@@ -204,12 +204,27 @@ Repéré par : M.
 Assigné à : 
 
 Etat : New ------------------------------------------------------
-M.25 où : admincats.php
+M.25  : admincats.php
 type : structure et affichage
 quoi : le code des faculté est utilisé à l'affichage. 
 Il ne peut donc plus être l'identifiant système unique.
 Repéré par : M.
 Assigné à : M.
+
+Etat : New ------------------------------------------------------
+M.26  : claroline/exercice/admin.php?modifyQuestion=&newQuestion=yes
+type : interface
+quoi : à l'ajout de ma question "assertion" mes champs sont préremplis d'exemples
+Repéré par : M.
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+M.27 : /claroline/exercice/question_pool.php
+type : interface - uniformisation
+quoi : dans la banque de question on a un lien "Nouvelle question" 
+si j'ai bien capté la nouvelle logique ca devrait être un claro_button
+Repéré par : M.
+Assigné à : 
 
 template à copier coller
 Etat : New ------------------------------------------------------
@@ -224,6 +239,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.34  2004/06/16 09:32:55  moosh
+bugs 26 et 27
+
 Revision 1.33  2004/06/16 08:14:53  seb
 bugs 19 20 21 résolus
 
@@ -233,24 +251,9 @@ Revision 1.32  2004/06/16 08:08:29  guillaume
 Revision 1.30  2004/06/16 06:29:08  moosh
 bugs 19 à 25
 
-Revision 1.28  2004/06/15 11:28:45  peeters
-no message
-
-Revision 1.27  2004/06/15 11:10:22  peeters
-no message
-
 Revision 1.26  2004/06/15 07:47:14  seb
 bug 17 résolu
 
 Revision 1.25  2004/06/15 05:56:21  seb
 bug 17 - ajout de commentaire
-
-Revision 1.24  2004/06/14 15:32:01  moosh
-faute langue
-
-Revision 1.23  2004/06/14 15:28:11  moosh
-bug 17
-
-Revision 1.22  2004/06/14 15:21:55  moosh
-bug 16
 
