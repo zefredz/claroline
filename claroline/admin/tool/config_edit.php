@@ -219,7 +219,10 @@ else
         {
             foreach ( $storedPropertyList as $storedProperty )
             {
-                $conf_def_property_list[$storedProperty['propName']]['actualValue'] = $storedProperty['propValue'];
+                if ( isset($cond_def[$storedProperty['propName']]) ) 
+                {
+                    $conf_def_property_list[$storedProperty['propName']]['actualValue'] = $storedProperty['propValue'];
+                }
             }
         }
 
