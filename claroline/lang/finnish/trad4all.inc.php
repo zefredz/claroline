@@ -1,8 +1,15 @@
-<?php
-/* $Id$ */
-/*                 Finnish                */
+<?php // $Id$
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.*
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
 
-
+      +----------------------------------------------------------------------+
+      |                 Finnish               
+      +----------------------------------------------------------------------+
+*/
 
 $iso639_2_code = "fi";
 $iso639_1_code = "fin";
@@ -67,4 +74,16 @@ $langBackList="Takaisin listaan";
 $langMyCourses="Kurssini";
 $langModifyProfile="Muokkaa profiiliani";
 $langLogout="Logout";
+
+// tools names
+$langAgenda="Esityslista";
+$langDocument="Dokumentit";
+$langWork="Opiskelijoiden tehtävät";
+$langAnnouncement="Ilmoitukset";
+$langUser="Käyttäjät";
+$langModifInfo="Muuta kurssin tietoja";
+$langForum="Foorumit";
+$langExercise="Harjoitukset";
+$langStats="Tilastot";
+
 ?>

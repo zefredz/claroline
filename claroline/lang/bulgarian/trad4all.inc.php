@@ -1,4 +1,17 @@
 <?php // $Id$
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.*
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   Bulgarian Translation 
+      +----------------------------------------------------------------------+
+
+      +----------------------------------------------------------------------+
+      | Translator :                                                         |
+      +----------------------------------------------------------------------+
+ */
 
 $iso639_2_code = "bg";
 $iso639_1_code = "bg";
@@ -8,7 +21,7 @@ $localLangName = "български";
 
 //$langNameOfLang[arabic]="arabian";
 //$langNameOfLang[brazilian]="brazilian";
-$langNameOfLang[bulgarian]="български";
+$langNameOfLang['bulgarian'			] = "български";
 //$langNameOfLang[croatian]="croatian";
 //$langNameOfLang[dutch]="dutch";
 //$langNameOfLang[english]="english";
@@ -59,4 +72,15 @@ $langHelp="Помощ";
 $langOk="ОК";
 $langAddIntro="Добави увод";
 $langBackList="Обратно към списъка";
+
+
+// tools names
+$langAgenda="График";
+$langDocument="Документи";
+$langWork="Студентски материали";
+$langAnnouncement="Обяви";
+$langUser="Потребители";
+$langForum="Форуми";
+$langExercise="Упражнения";
+
 ?>

@@ -15,19 +15,19 @@
 $iso639_2_code = "ct";
 $iso639_1_code = "cat";
 
-$langNameOfLang[brazilian]="brasileny";
-$langNameOfLang[english]="anglès";
-$langNameOfLang[finnish]="finlandès";
-$langNameOfLang[french]="francès";
-$langNameOfLang[german]="alemany";
-$langNameOfLang[italian]="italià";
-$langNameOfLang[japanese]="japonès";
-$langNameOfLang[polish]="polonès";
-$langNameOfLang[simpl_chinese]="xinès simplificat";
-$langNameOfLang[spanish]="castellà";
-$langNameOfLang[swedish]="suec";
-$langNameOfLang[thai]="tailandès";
-$langNameOfLang[catalan]="català";
+$langNameOfLang['brazilian'			]="brasileny";
+$langNameOfLang['english'			]="anglès";
+$langNameOfLang['finnish'			]="finlandès";
+$langNameOfLang['french'			]="francès";
+$langNameOfLang['german'			]="alemany";
+$langNameOfLang['italian'			]="italià";
+$langNameOfLang['japanese'			]="japonès";
+$langNameOfLang['polish'			]="polonès";
+$langNameOfLang['simpl_chinese'		]="xinès simplificat";
+$langNameOfLang['spanish'			]="castellà";
+$langNameOfLang['swedish'			]="suec";
+$langNameOfLang['thai'				]="tailandès";
+$langNameOfLang['catalan'			]="català";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)

@@ -1,25 +1,18 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.0 $Revision$                            |
+      | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   Danish Translation                                                |
+      |   Danish  Translation
       +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+
       +----------------------------------------------------------------------+
       | Translator :                                                         |
-      |          Helle Meldgaard   <helle@iktlab.au.dk> 
+      |          Helle Meldgaard <helle@iktlab.au.dk>                        |
       +----------------------------------------------------------------------+
- */
+*/
 
 $langModifInfo="Ændre kursusinformation";
 $langModifDone="Informationen er blevet ændret";
@@ -44,22 +37,11 @@ Kurset er nu kun tilgængeligt via login.";
 $langTipLang="Kursushjemmesidens sprog";
 
 // Change Home Page
-$langAgenda="Kalenderen";
-$langLink="Links";
-$langDocument="Dokumenter";
-$langVid="Multimedia";
-$langWork="Studerendes Opgaver";
-$langProgramMenu="Kursusprogram";
-$langAnnouncement="Meddelelser";
-$langUser="Deltagerlisten";
-$langForum="Diskussionsforum";
-$langExercise="Øvelser";
-$langStats="Statistikker";
-$langGroups ="Grupper";
-$langChat ="Chat";
 $langUplPage="Læg et html dokument ud på kursushjemmesiden";
 $langLinkSite="Tilføj link til kursushjemmesiden";
-$langModifGroups="Groups";
+$langLink="Links";
+$langVid="Multimedia";
+$langProgramMenu="Kursusprogram";
 
 
 // delete_course.php

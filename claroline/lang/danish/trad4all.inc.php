@@ -1,21 +1,13 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.* $Revision$                            |
+      | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   Danish  Translation                                                |
+      |   Danish  Translation
       +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
+
       +----------------------------------------------------------------------+
       | Translator :                                                         |
       |          Helle Meldgaard <helle@iktlab.au.dk>                        |
@@ -25,24 +17,24 @@
 $iso639_2_code = "en";
 $iso639_1_code = "eng";
 
-$langNameOfLang[arabic]="arabian";
-$langNameOfLang[brazilian]="brazilian";
-$langNameOfLang[bulgarian]="bulgarian";
-$langNameOfLang[croatian]="croatian";
-$langNameOfLang[dutch]="dutch";
-$langNameOfLang[english]="english";
-$langNameOfLang[finnish]="finnish";
-$langNameOfLang[french]="french";
-$langNameOfLang[german]="german";
-$langNameOfLang[greek]="greek";
-$langNameOfLang[italian]="italian";
-$langNameOfLang[japanese]="japanese";
-$langNameOfLang[polish]="polish";
-$langNameOfLang[simpl_chinese]="simplified chinese";
-$langNameOfLang[spanish]="spanish";
-$langNameOfLang[swedish]="swedish";
-$langNameOfLang[thai]="thai";
-$langNameOfLang[turkish]="turkish";
+$langNameOfLang['arabic'		] = "arabian";
+$langNameOfLang['brazilian'		] = "brazilian";
+$langNameOfLang['bulgarian'		] = "bulgarian";
+$langNameOfLang['croatian'		] = "croatian";
+$langNameOfLang['dutch'			] = "duits";
+$langNameOfLang['english'		] = "engelse";
+$langNameOfLang['finnish'		] = "finnish";
+$langNameOfLang['french'		] = "frans";
+$langNameOfLang['german'		] = "german";
+$langNameOfLang['greek'			] = "greeks";
+$langNameOfLang['italian'		] = "italianse";
+$langNameOfLang['japanese'		] = "japanese";
+$langNameOfLang['polish'		] = "polish";
+$langNameOfLang['simpl_chinese'	] = "simplified chinese";
+$langNameOfLang['spanish'		] = "spanish";
+$langNameOfLang['swedish'		] = "swedish";
+$langNameOfLang['thai'			] = "thai";
+$langNameOfLang['turkish'		] = "turkish";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
@@ -112,11 +104,22 @@ $langAmong="mellem";
 
 // banner
 
-
-
 $langMyCourses="Min kursusliste";
 $langModifyProfile="Ændre min profil";
 $langMyStats = "Se mine statistikker";
 $langLogout="Logud";
 $langMyStats = "Se mine statistikker";
+
+// tools names
+$langAgenda="Kalenderen";
+$langDocument="Dokumenter";
+$langWork="Studerendes Opgaver";
+$langAnnouncement="Meddelelser";
+$langUser="Deltagerlisten";
+$langForum="Diskussionsforum";
+$langExercise="Øvelser";
+$langGroups ="Grupper";
+$langChat ="Chat";
+$langStats="Statistikker";
+
 ?>

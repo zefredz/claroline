@@ -1,34 +1,19 @@
-<?php
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.2 $Revision$                            |
+      | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$     |
-	  |   English Translation                                                |
+      |   Dutch  Translation
       +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
+
       +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
-      +----------------------------------------------------------------------+
-      | Translators :                                                        |
+      | Translator :                                                         |
       |          Roan Embrechts, Stefan De Wannemacker, Isabel Deprez        |
       +----------------------------------------------------------------------+
 */
-// header
-$langMyCourses="Mijn cursussen";
-$langModifyProfile="Mijn profiel";
-$langLogout="Logout";
-$langManager="Platformbeheerder";
-$langPlatform= $institution["name"] . " gebruikt het platform";
-// end header
+
 
 //echo "<p>dutch/trad4all.inc.php included.</p>"; //for debugging
 
@@ -154,8 +139,32 @@ $dateFormatLong  = '%A %d %B %Y';
 $dateTimeFormatLong  = '%A %d %B %Y om %H:%M';
 $timeNoSecFormat = '%H:%M';
 
+
+// BANNER
+$langMyCourses="Mijn cursussen";
+$langModifyProfile="Mijn profiel";
+$langLogout="Logout";
+$langManager="Platformbeheerder";
+$langPlatform= $institution["name"] . " gebruikt het platform";
+
 //needed for student view
 $langCourseManagerview = "Cursusbeheerder zicht";
 $langStudentView = "Studenten zicht";
+
+// tools names
+
+$langAgenda="Agenda";
+$langDocument="Documenten";
+$langWork="Studenten Box";
+$langAnnouncement="Ad Valvas";
+$langUser="Gebruikers";
+$langForum="Forums";
+$langExercise="Oefeningen";
+$langStats="Statistieken";
+$langModifInfo="Cursuseigenschappen";
+
+
+// end BANNER
+
 
 ?>
