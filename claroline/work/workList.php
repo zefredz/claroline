@@ -94,7 +94,9 @@ $cmd = $_REQUEST['cmd'];
 if( isset($_REQUEST['sesId']) && !empty($_REQUEST['sesId']) )
 {
       // we need to know the session settings
-      $sql = "SELECT *
+      $sql = "SELECT *,
+                UNIX_TIMESTAMP(`start_date`) AS `unix_start_date`,
+                UNIX_TIMESTAMP(`end_date`) AS `unix_end_date`
                 FROM `".$tbl_wrk_session."`
                 WHERE `id` = ".$_REQUEST['sesId'];
       
@@ -119,8 +121,9 @@ if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
       list($wrk) = claro_sql_query_fetch_all($sql);
 }
 
+
   /*--------------------------------------------------------------------
-                        WORK INFORMATIONS
+                        SESSION CONTENT
   --------------------------------------------------------------------*/
 if( $wrkSession['authorized_content'] == "TEXTFILE" 
       || ( $is_courseAdmin && !empty($wrk['parent_id']) ) 
@@ -130,20 +133,77 @@ if( $wrkSession['authorized_content'] == "TEXTFILE"
       // IF text file is the default session type
       // OR this is a teacher modifying a grade
       // OR this is a teacher grading a work
-      $sessionType = "TEXTFILE";
+      $sessionContent = "TEXTFILE";
 }
 elseif( $wrkSession['authorized_content'] == "FILE" )
 {
-      $sessionType = "FILE";
+      $sessionContent = "FILE";
 }
 else //if( $wrkSession['authorized_content'] == "TEXT" )
 {
-      $sessionType = "TEXT";
+      $sessionContent = "TEXT";
 }
 
-  /*--------------------------------------------------------------------
-                        WORK FORM DATA
-  --------------------------------------------------------------------*/
+
+/*============================================================================
+                          PERMISSIONS
+  =============================================================================*/
+ 
+// session start_date is in the future
+if( $wrkSession['unix_start_date'] <= time() )
+{
+      $afterStartDate = true;
+}
+else
+{
+      $afterStartDate = false;
+}
+// session is invisible 
+if( $wrkSession['sess_visibility'] == "VISIBLE" )
+{
+      $isVisible = true;
+}
+else
+{
+      $isVisible = false;
+}
+
+// /!\ submit en anonyme si c'est interdit !
+
+// 3 rights levels 
+
+// can make everything : submit, edit, delete
+$is_allowedToEditAll  = (bool) $is_courseAdmin;
+
+
+// can add a work and modify it (std authed user) // can only modify its works !
+$is_allowedToEdit = (bool) (
+                              $isVisible && $afterStartDate
+                              && 
+                                    (
+                                    $is_allowedToEditAll // courseAdmin can do everything
+                                    || ( isset($wrk) && isset($_uid) && $wrk['user_id'] == $_uid )
+                                    )
+                              );
+
+
+// allowed to submit a new work , CANNOT edit any work
+$is_allowedToSubmit   = (bool) (
+                              $isVisible && $afterStartDate
+                              && 
+                                    (
+                                    $is_allowedToEdit 
+                                    || ( !isset($_uid) && $wrkSession['authorize_anonymous'] == "YES" && $is_courseAllowed ) 
+                                    || ( isset($_uid) && $is_courseAllowed ) 
+                                    )
+                              );
+                     
+// allowed to display work list and work details                     
+$is_allowedToView = (bool) ($isVisible && $afterStartDate) || $is_allowedToEditAll;
+
+/*============================================================================
+                          HANDLING FORM DATA
+  =============================================================================*/
 // execute this after a form has been send
 // this instruction bloc will set some vars that will be used in the corresponding queries
 // $wrkForm['fileName'] , $wrkForm['title'] , $wrkForm['authors']
@@ -152,7 +212,7 @@ if( isset($_REQUEST['submitWrk']) )
 
       $formCorrectlySent = true;
       
-      if ( is_uploaded_file($_FILES['wrkFile']['tmp_name']) && $sessionType != "TEXT" )
+      if ( is_uploaded_file($_FILES['wrkFile']['tmp_name']) && $sessionContent != "TEXT" )
       {        
             if ($_FILES['wrkFile']['size'] > $fileAllowedSize)
             {
@@ -192,11 +252,11 @@ if( isset($_REQUEST['submitWrk']) )
                   }
             }
       }
-      elseif( $sessionType == "FILE" )
+      elseif( $sessionContent == "FILE" )
       {
             if( isset($_REQUEST['currentWrkUrl']) )
             {
-                  // if there was already a file and nothing was provided to replace it, reuse it off course
+                  // if there was already a file and nothing was provided to replace it, reuse it of course
                   $wrkForm['fileName'] = $_REQUEST['currentWrkUrl'];
             }
             else
@@ -206,14 +266,14 @@ if( isset($_REQUEST['submitWrk']) )
                   $formCorrectlySent = false;
             }
       }
-      elseif( $sessionType == "TEXTFILE" )
+      elseif( $sessionContent == "TEXTFILE" )
       {
             // attached file is optionnal if work type is TEXT and FILE
             // $formCorrectlySent stay true;
       }
 
       // if authorized_content is TEXT or TEXTFILE, a text is required !
-      if( $sessionType == "TEXT" || $sessionType == "TEXTFILE" )
+      if( $sessionContent == "TEXT" || $sessionContent == "TEXTFILE" )
       {
             if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'] ) ) == "" )
             {
@@ -270,24 +330,14 @@ if( isset($_REQUEST['submitWrk']) )
         // $formCorrectlySent stay true;
       }
 } //end if($_REQUEST['submitWrk'])
-/*============================================================================
-                          PERMISSIONS
-  =============================================================================*/
 
-// 3 rights levels 
-// can make everything : submit, edit, delete
-$is_allowedToEditAll  = $is_courseAdmin;
-// can add a work and modify it (std authed user) // can only modify its works !
-$is_allowedToEdit = $is_allowedToEditAll; // courseAdmin can do everything
-if( isset($wrk) && isset($_uid) && $wrk['user_id'] == $_uid )
-{
-      $is_allowedToEdit = true;
-}
-// allowed to submit a new work , CANNOT edit any work
-$is_allowedToSubmit   = (bool) ($is_allowedToEdit 
-                                    || ( !isset($_uid) && $wrkSession['authorize_anonymous'] == "YES" && $is_courseAllowed ) 
-                                    || ( isset($_uid) && $is_courseAllowed ) 
-                              );
+
+
+
+
+
+
+
 
 
 /*============================================================================
@@ -612,7 +662,7 @@ echo "<p>"
 /*--------------------------------------------------------------------
                           FORMS
   --------------------------------------------------------------------*/
-if( $is_allowedToSubmit)
+if( $is_allowedToSubmit )
 {
       if ($dialogBox)
       {
@@ -646,7 +696,7 @@ if( $is_allowedToSubmit)
       </tr>
 <?php
       // display file box
-      if( $sessionType == "FILE" || $sessionType == "TEXTFILE" )
+      if( $sessionContent == "FILE" || $sessionContent == "TEXTFILE" )
       {
             // if we are in edit mode and that a file can be edited : display the url of the current file and the file box to change it
             if( isset($form['wrkUrl']) )
@@ -689,7 +739,7 @@ if( $is_allowedToSubmit)
             echo "<tr>\n"
                   ."<td valign=\"top\"><label for=\"wrkFile\">";
             // display a different text according to the context
-            if( $sessionType == "TEXTFILE" )
+            if( $sessionContent == "TEXTFILE" )
             {
                   // if text is required, file is considered as a an attached document
                   echo $langAttachDoc;
@@ -704,7 +754,7 @@ if( $is_allowedToSubmit)
                   ."</tr>\n\n";
       }
       
-      if( $sessionType == "FILE" )
+      if( $sessionContent == "FILE" )
       {
             // display standard html textarea
             // used for description of an uploaded file
@@ -718,7 +768,7 @@ if( $is_allowedToSubmit)
                   ."</td>\n"
                   ."</tr>";
       }
-      elseif( $sessionType == "TEXT" || $sessionType == "TEXTFILE" )
+      elseif( $sessionContent == "TEXT" || $sessionContent == "TEXTFILE" )
       {
             // display enhanced textarea using claro_disp_html_area
             echo "<tr>\n"
@@ -750,7 +800,7 @@ if( $is_allowedToSubmit)
 /*--------------------------------------------------------------------
                           WORK DETAILS
   --------------------------------------------------------------------*/
-if( $dispWrkDet )
+if( $dispWrkDet && $is_allowedToView )
 {
       echo "<h4>".$langWorkDetails."</h4>\n\n";
       
@@ -782,16 +832,16 @@ if( $dispWrkDet )
       }
       
       
-      if( $sessionType == "TEXTFILE" )
+      if( $sessionContent == "TEXTFILE" )
       {
             $txtForFile = $langAttachedFile;
             $txtForText = $langAnswer;
       }
-      elseif( $sessionType == "TEXT" )
+      elseif( $sessionContent == "TEXT" )
       {
             $txtForText = $langAnswer;
       }
-      elseif( $sessionType == "FILE" )
+      elseif( $sessionContent == "FILE" )
       {
             $txtForFile = $langUploadedFile;
             $txtForText = $langFileDesc;
@@ -806,7 +856,7 @@ if( $dispWrkDet )
             ."<td>".$wrk['authors']." ( ".$langSubmittedBy." ".$userToDisplay." )</td>\n"
             ."</tr>\n\n";
             
-      if( $sessionType != "TEXT" )
+      if( $sessionContent != "TEXT" )
       {
             if( !empty($wrk['submitted_doc_path']) )
             {
@@ -849,7 +899,7 @@ if( $dispWrkDet )
                           WORK LIST
   --------------------------------------------------------------------*/
 // display the list when there is no form to show
-if( $dispWrkLst )
+if( $dispWrkLst && $is_allowedToView )
 {
     /*--------------------------------------------------------------------
                         PREPARE WORK LIST
@@ -954,7 +1004,6 @@ if( $dispWrkLst )
 				}
 				else
 				{
-          echo "pek";
 					continue; // skip the display of this file
 				}
 			}
