@@ -122,7 +122,7 @@ $lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à 
 
 
 // TOOLS NAMES
-$langCourseHome = "Acceuil";
+$langCourseHome = "Accueil";
 
 $langAgenda="Agenda";
 $langLink="Liens";
