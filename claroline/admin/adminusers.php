@@ -14,6 +14,7 @@
 // Lang files needed :
 $langFile = "admin";
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+$userPerPage = 20; // numbers of user to display on the same page
 
 // initialisation of global variables and used libraries
 
@@ -27,7 +28,6 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 
 if ($cidToEdit=="") {unset($cidToEdit);}
 
-$userPerPage = 20; // numbers of user to display on the same page
 
 //------------------------------------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
@@ -35,7 +35,7 @@ $userPerPage = 20; // numbers of user to display on the same page
 
 // clean session if needed
 
-if ($_GET['newsearch']=="yes")
+if ($_REQUEST['newsearch']=="yes")
 {
     session_unregister('admin_user_letter');
     session_unregister('admin_user_search');
@@ -51,15 +51,15 @@ if ($_GET['newsearch']=="yes")
 // 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
 // 2 ) we must be able to arrive with new critera for a new search.
 
-if (isset($_REQUEST['letter']))    {$_SESSION['admin_user_letter'] 		= trim($_REQUEST['letter']);}
-if (isset($_REQUEST['search']))    {$_SESSION['admin_user_search'] 		= trim($_REQUEST['search']);}
-if (isset($_REQUEST['firstName'])) {$_SESSION['admin_user_firstName'] 	= trim($_REQUEST['firstName']);}
-if (isset($_REQUEST['lastName']))  {$_SESSION['admin_user_lastName'] 	= trim($_REQUEST['lastName']);}
-if (isset($_REQUEST['userName']))  {$_SESSION['admin_user_userName'] 	= trim($_REQUEST['userName']);}
-if (isset($_REQUEST['mail']))      {$_SESSION['admin_user_mail'] 		= trim($_REQUEST['mail']);}
-if (isset($_REQUEST['action']))    {$_SESSION['admin_user_action'] 		= trim($_REQUEST['action']);}
-if (isset($_REQUEST['order_crit'])){$_SESSION['admin_user_order_crit'] 	= trim($_REQUEST['order_crit']);}
-if (isset($_REQUEST['dir']))       {$_SESSION['admin_user_dir'] 		= trim($_REQUEST['dir']);}
+if (isset($_REQUEST['letter']))    {$_SESSION['admin_user_letter']     = trim($_REQUEST['letter'])     ;}
+if (isset($_REQUEST['search']))    {$_SESSION['admin_user_search']     = trim($_REQUEST['search'])     ;}
+if (isset($_REQUEST['firstName'])) {$_SESSION['admin_user_firstName']  = trim($_REQUEST['firstName'])  ;}
+if (isset($_REQUEST['lastName']))  {$_SESSION['admin_user_lastName']   = trim($_REQUEST['lastName'])   ;}
+if (isset($_REQUEST['userName']))  {$_SESSION['admin_user_userName']   = trim($_REQUEST['userName'])   ;}
+if (isset($_REQUEST['mail']))      {$_SESSION['admin_user_mail']       = trim($_REQUEST['mail'])       ;}
+if (isset($_REQUEST['action']))    {$_SESSION['admin_user_action']     = trim($_REQUEST['action'])     ;}
+if (isset($_REQUEST['order_crit'])){$_SESSION['admin_user_order_crit'] = trim($_REQUEST['order_crit']) ;}
+if (isset($_REQUEST['dir']))       {$_SESSION['admin_user_dir'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
 
 // clean session if we come from a course
 
@@ -76,8 +76,7 @@ $tbl_admin            = $tbl_mdb_names['admin'           ];
 $tbl_course           = $tbl_mdb_names['course'           ];
 //$tbl_course_nodes     = $tbl_mdb_names['category'         ];
 $tbl_user             = $tbl_mdb_names['user'];
-$tbl_rel_class_user            = $tbl_mdb_names['rel_class_user'];
-
+$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'];
 
 $tbl_track_default  = $statsDbName."`.`track_e_default";// default_user_id
 $tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
@@ -107,7 +106,7 @@ $tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 $nameTools = $langListUsers;
-
+//TABLES
 
 //------------------------------------
 // Execute COMMAND section
@@ -194,23 +193,21 @@ if (isset($_SESSION['admin_user_action']))
 
 }
 
-
-  //first see is direction must be changed
-
-if (isset($chdir) && ($chdir=="yes"))
-{
-  if ($_SESSION['admin_user_dir'] == "ASC") {$_SESSION['admin_user_dir']="DESC";}
-  elseif ($_SESSION['admin_user_dir'] == "DESC") {$_SESSION['admin_user_dir']="ASC";}
-  else $_SESSION['admin_user_dir'] = "DESC";
-}
-
 // deal with REORDER
-
 if (isset($_SESSION['admin_user_order_crit']))
 {
-    $toAdd = " ORDER BY `".$_SESSION['admin_user_order_crit']."` ".$_SESSION['admin_user_dir'];
+	switch ($_SESSION['admin_user_order_crit'])
+	{
+		case 'uid'          : $fieldSort = 'user_id';      break;
+		case 'name'         : $fieldSort = 'nom';          break;
+		case 'firstname'    : $fieldSort = 'prenom';       break;
+		case 'officialCode' : $fieldSort = 'officialCode'; break;
+		case 'email'        : $fieldSort = 'email';        break;
+		case 'status'       : $fieldSort = 'statut';
+	}
+    $toAdd = " ORDER BY `".$fieldSort."` ".$_SESSION['admin_user_dir'];
+	$order[$_SESSION['admin_user_order_crit']] = ($_SESSION['admin_user_dir']=='ASC'?'DESC':'ASC');
     $sql.=$toAdd;
-
 }
 
 //echo $sql."<br>";
@@ -230,9 +227,9 @@ claro_disp_tool_title($nameTools);
 //Display Forms or dialog box(if needed)
 
 if($dialogBox)
-  {
+{
     claro_disp_message_box($dialogBox);
-  }
+}
 
 //Display selectbox, alphabetic choice, and advanced search link search
 
@@ -286,13 +283,13 @@ echo "<form name=\"indexform\" action=\"",$_SERVER['PHP_SELF'],"\" method=\"GET\
 
       //see passed search parameters :
 
-if ($_SESSION['admin_user_search']!="")    {$isSearched .= $_SESSION['admin_user_search']."* ";}
-if ($_SESSION['admin_user_firstName']!="") {$isSearched .= $langFirstName."=".$_SESSION['admin_user_firstName']."* ";}
-if ($_SESSION['admin_user_lastName']!="")  {$isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']."* ";}
-if ($_SESSION['admin_user_userName']!="")  {$isSearched .= $langUsername."=".$_SESSION['admin_user_userName']."* ";}
-if ($_SESSION['admin_user_mail']!="")      {$isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";}
-if ($_SESSION['admin_user_action']=="createcourse")    {$isSearched .=  "<b> <br>".$langCourseCreator."  </b> ";}
-if ($_SESSION['admin_user_action']=="plateformadmin")    {$isSearched .= "<b> <br>".$langPlatformAdmin."  </b> ";}
+if ($_SESSION['admin_user_search']!="")               { $isSearched .= $_SESSION['admin_user_search']."* ";}
+if ($_SESSION['admin_user_firstName']!="")            { $isSearched .= $langFirstName."=".$_SESSION['admin_user_firstName']."* ";}
+if ($_SESSION['admin_user_lastName']!="")             { $isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']."* ";}
+if ($_SESSION['admin_user_userName']!="")             { $isSearched .= $langUsername."=".$_SESSION['admin_user_userName']."* ";}
+if ($_SESSION['admin_user_mail']!="")                 { $isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";}
+if ($_SESSION['admin_user_action']=="createcourse")   { $isSearched .= "<b> <br>".$langCourseCreator."  </b> ";}
+if ($_SESSION['admin_user_action']=="plateformadmin") { $isSearched .= "<b> <br>".$langPlatformAdmin."  </b> ";}
 
      //see what must be kept for advanced links
 
@@ -317,7 +314,7 @@ echo "<table width=\"100%\">
           <td align=\"right\">
             <form action=\"",$_SERVER['PHP_SELF'],"\">
             <label for=\"search\">".$langMakeNewSearch."</label>
-            <input type=\"text\" value=\"".$_GET['search']."\" name=\"search\" id=\"search\" >
+            <input type=\"text\" value=\"".$_REQUEST['search']."\" name=\"search\" id=\"search\" >
             <input type=\"submit\" value=\" ".$langOk." \">
             <input type=\"hidden\" name=\"newsearch\" value=\"yes\">
             [<a href=\"advancedUserSearch.php".$addtoAdvanced."\"><small>".$langAdvanced."</small></a>]
@@ -339,18 +336,16 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
      <thead>
      <tr class=\"headerX\" align=\"center\" valign=\"top\">
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=nom&chdir=yes\">".$langName."</a></th>
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=officialCode&chdir=yes\">".$langOfficialCode."</a></th>
-    <th>".$langEmail."</th>
-    <th>".$langUserStatus."</th>
-    <th>".$langAllUserOfThisCourse."</th>
-    <th>".$langEditUserSettings."</th>
-    <th>".$langDelete."</th>
-    </tr>
-    </thead>
-    <tbody> ";
+          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=uid&dir=".$order['uid']."\">".$langUserid."</a></th>
+          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=name&dir=".$order['name']."\">".$langName."</a></th>
+          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=firstname&dir=".$order['firstname']."\">".$langFirstName."</a></th>
+          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=officialCode&dir=".$order['officialCode']."\">".$langOfficialCode."</a></th>
+          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=email&dir=".$order['email']."\">".$langEmail."</a></th>
+          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=status&dir=".$order['status']."\">".$langUserStatus."</a></th>";
+echo     "<th>".$langAllUserOfThisCourse."</th>
+          <th>".$langEditUserSettings."</th>
+          <th>".$langDelete."</th>";
+echo "</tr><tbody> ";
 
    // Start the list of users...
 foreach($resultList as $list)
