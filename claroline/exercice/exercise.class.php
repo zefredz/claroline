@@ -61,7 +61,7 @@ class Exercise
 		$this->maxTime		= 0;
 		$this->maxAttempt	= 0;
 		$this->showAnswer	= 'ALWAYS';
-    $this->anonymousAttempts = 'YES';
+    $this->anonymousAttempts = 'NO';
 
 		$this->questionList	= array();
 	}
