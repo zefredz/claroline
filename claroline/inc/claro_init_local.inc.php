@@ -220,7 +220,8 @@ else
             {
                 //the authentification of this user is managed by claroline itself
 
-                $password = trim($password);
+                $password = stripslashes( trim($password) );
+                $login    = stripslashes( trim($login)    );
 
                 // determine if the password needs to be crypted before checkin
                 // $userPasswordCrypted is set in an external configuration file
