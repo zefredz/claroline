@@ -47,7 +47,7 @@ $titlePage .= $siteName;
 
 ?>
 
-<title><? echo $titlePage ?></title>
+<title><?php echo $titlePage; ?></title>
 
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -85,7 +85,7 @@ if (!isset($hide_banner) || $hide_banner == false)
 if (!isset($hide_body) || $hide_body == false)
 {
 	// need body div
-	echo "\n\n\n<!----------------------      Claroline Body       ---------------------->\n"
-			."<div id=\"claroBody\">\n\n";
+	echo "\n\n\n<!-- --------------------      Claroline Body       --------------------- ->\n"
+        ."<div id=\"claroBody\">\n\n";
 }
 ?>
