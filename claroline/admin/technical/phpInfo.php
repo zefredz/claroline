@@ -79,9 +79,9 @@ if ($is_allowedToAdmin)
 <DIV class="elementServeur">
 <span class="elementServeur" >WebServer</span> <?php echo $SERVER_SOFTWARE ;?></strong><br>
 
-<? if (isset($phpSysInfoURL)&&PHP_OS!="WIN32"&&PHP_OS!="WINNT") { ?>
+<?php if (isset($phpSysInfoURL)&&PHP_OS!="WIN32"&&PHP_OS!="WINNT") { ?>
 [<a href="<?php echo $phpSysInfoWeb ?>"><?php echo $langSysInfo ?></a>]
-<? } ?>
+<?php } ?>
 
 [<?php echo $langMailTo ?><a href="mailto:<?php echo $SERVER_ADMIN ?>">Admin apache (<?php echo $SERVER_ADMIN ?>)</A>]
 <!--[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?to=mdp">Parametres</a>]&nbsp;--><BR>
