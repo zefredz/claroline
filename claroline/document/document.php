@@ -35,7 +35,7 @@
   * 4th section display all of that on a HTML page
 */
 
-/*======================================
+/*==================================
        CLAROLINE MAIN
   ======================================*/
 $tlabelReq = 'CLDOC___';
@@ -1170,7 +1170,7 @@ claro_disp_tool_title($titleElement,
 		}
 		elseif ($curDirName)
         {
-       	    $curDirLine = "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" "
+       	    $curDirLine = "<img src=\"".$imgRepositoryWeb."opendir.gif\" "
                 ."align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
                 .$dspCurDirName."\n";
         }
@@ -1187,7 +1187,7 @@ claro_disp_tool_title($titleElement,
         {
             $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
 			     . "?docView=files&cmd=exChDir&file=". $curDirPath . $searchCmdUrl ."\">"
-                 //."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+                 //."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
 			     . $langFiles ."</a>\n | ";
         }
         if( $docView == 'thumbnails' )
@@ -1198,7 +1198,7 @@ claro_disp_tool_title($titleElement,
         {
             $docViewToolbar .= "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
 			     . "?docView=thumbnails&cwd=". $curDirPath . $offset . $searchCmdUrl ."\">"
-                 ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+                 ."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
 			     . $langThumbnails."</a>\n";
         }
 
@@ -1338,7 +1338,7 @@ claro_disp_tool_title($titleElement,
 		}
 		elseif ($curDirName)
         {
-       	    $curDirLine = "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" "
+       	    $curDirLine = "<img src=\"".$imgRepositoryWeb."opendir.gif\" "
                 ."align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
                 .$dspCurDirName."\n";
         }
@@ -1355,7 +1355,7 @@ claro_disp_tool_title($titleElement,
         {
             $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
 			     . "?docView=files&cmd=exChDir&file=". $curDirPath . $searchCmdUrl ."\">"
-                 //."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+                 //."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
 			     . $langFiles ."</a>\n | ";
         }
         if( $docView == 'thumbnails' )
@@ -1366,7 +1366,7 @@ claro_disp_tool_title($titleElement,
         {
             $docViewToolbar .= "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
 			     . "?docView=thumbnails&cwd=". $curDirPath . $searchCmdUrl ."\">"
-                 ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+                 ."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
 			     . $langThumbnails."</a>\n";
         }
         
@@ -1472,23 +1472,23 @@ claro_disp_tool_title($titleElement,
 		                                          and we can't go to a parent dir */
 		{
 	
-			echo "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n"
-				."<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" alt=\"\">\n"
+			echo "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&amp;file=".$cmdParentDir."\">\n"
+				."<img src=\"".$imgRepositoryWeb."parent.gif\" border=\"0\" alt=\"\">\n"
 				.$langUp
 				."</a>\n";
 		}
 	    else
 	    {
 	        echo "<span class='claroCmdDisabled'>"
-	            ."<img src=\"".$clarolineRepositoryWeb."img/parentdisabled.gif\" border=\"0\" alt=\"\">\n"
+	            ."<img src=\"".$imgRepositoryWeb."parentdisabled.gif\" border=\"0\" alt=\"\">\n"
 	            .$langUp
 	            ."</span>\n";
 	    }
 	
 	
 	    echo " | "
-	        ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch&cwd=".$cmdCurDirPath."\">\n"
-	        ."<img src=\"".$clarolineRepositoryWeb."img/search.gif\" border=\"0\" alt=\"\">\n"
+	        ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch&amp;cwd=".$cmdCurDirPath."\">\n"
+	        ."<img src=\"".$imgRepositoryWeb."search.gif\" border=\"0\" alt=\"\">\n"
 	        .$langSearch
 	        ."</a>\n";
 	
@@ -1498,22 +1498,22 @@ claro_disp_tool_title($titleElement,
 			
 	        echo " | "
 	            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">"
-	            ."<img src=\"".$clarolineRepositoryWeb."img/download.gif\" alt=\"\">"
+	            ."<img src=\"".$imgRepositoryWeb."download.gif\" alt=\"\">"
 	            .$langUploadFile
 	            ."</a>\n"
 	            ." | "
 	            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">"
-	            ."<img src=\"".$clarolineRepositoryWeb."img/folder.gif\" alt=\"\">"
+	            ."<img src=\"".$imgRepositoryWeb."folder.gif\" alt=\"\">"
 	            .$langCreateDir
 	            ."</a>\n"
 	            ."| "
 	            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">"
-	            ."<img src=\"".$clarolineRepositoryWeb."img/link.gif\" alt=\"\">"
+	            ."<img src=\"".$imgRepositoryWeb."link.gif\" alt=\"\">"
 	            .$langCreateHyperlink
 	            ."</a>\n"
 	            ." | "
 	            ."<a class='claroCmd' href=\"rqmkhtml.php?cmd=rqMkHtml&cwd=".$cmdCurDirPath."\">"
-	            ."<img src=\"".$clarolineRepositoryWeb."img/html.gif\" alt=\"\">"
+	            ."<img src=\"".$imgRepositoryWeb."html.gif\" alt=\"\">"
 	            .$langCreateDocument
 	            ."</a>\n";
 		}
@@ -1530,7 +1530,7 @@ claro_disp_tool_title($titleElement,
 		}
 		elseif ($curDirName)
         {
-       	    $curDirLine = "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" "
+       	    $curDirLine = "<img src=\"".$imgRepositoryWeb."opendir.gif\" "
                 ."align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
                 .$dspCurDirName."\n";
         }
@@ -1547,7 +1547,7 @@ claro_disp_tool_title($titleElement,
         {
             $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
 			     . "?docView=files&cmd=exChDir&file=". $curDirPath . $searchCmdUrl ."\">"
-                 //."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+                 //."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
 			     . $langFiles ."</a>\n | ";
         }
         if( $docView == 'thumbnails' )
@@ -1558,7 +1558,7 @@ claro_disp_tool_title($titleElement,
         {
             $docViewToolbar .= "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
 			     . "?docView=thumbnails&cwd=". $curDirPath . $searchCmdUrl ."\">"
-                 ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+                 ."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
 			     . $langThumbnails."</a>\n";
         }
 		
@@ -1661,7 +1661,7 @@ claro_disp_tool_title($titleElement,
 						echo "<a href=\"".$urlFileName."\"".$style.">";
 				} // end if is_image
 				
-				echo "<img src=\"".$clarolineRepositoryWeb."img/",
+				echo "<img src=\"".$imgRepositoryWeb."",
 						$image,"\" border=\"0\" hspace=\"5\" alt=\"\">",$dspFileName,"</a>";
 				
 				echo		"</td>\n",
@@ -1680,7 +1680,7 @@ claro_disp_tool_title($titleElement,
 					echo 	"<td>",
 							"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exRm&file=",$cmdFileName,"\" ",
 							"onClick=\"return confirmation('",addslashes($dspFileName),"');\">",
-							"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\">",
+							"<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"$langDelete\">",
 							"</a>",
 							"</td>\n";
 					
@@ -1688,7 +1688,7 @@ claro_disp_tool_title($titleElement,
 	
 					echo	"<td>",
 							"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqMv&file=",$cmdFileName,"\">",
-							"<img src=\"".$clarolineRepositoryWeb."img/move.gif\" border=\"0\" alt=\"$langMove\">",
+							"<img src=\"".$imgRepositoryWeb."move.gif\" border=\"0\" alt=\"$langMove\">",
 							"</a>",
 							"</td>\n";
 							
@@ -1696,7 +1696,7 @@ claro_disp_tool_title($titleElement,
 	
 					echo "<td>"
 						."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEdit&file=".$cmdFileName."\">"
-						."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langModify."\">"
+						."<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langModify."\">"
 						."</a>"
 						."</td>\n";
 	
@@ -1722,13 +1722,13 @@ claro_disp_tool_title($titleElement,
 	                    if ($fileList['visibility'][$fileKey] == "i")
 	                    {
 	                        echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&file=",$cmdFileName,"&vis=v\">"
-	                            ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
+	                            ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
 	                            ."</a>";
 	                    }
 	                    else
 	                    {
 	                        echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&file=",$cmdFileName,"&vis=i\">"
-	                            ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">"
+	                            ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">"
 	                            ."</a>";
 	                    }
 	                }
