@@ -137,7 +137,7 @@ claro_disp_tool_title($nameTools);
                 $sql = "SELECT UNIX_TIMESTAMP( `access_date` )
                             FROM `$TABLETRACK_ACCESS`
                             WHERE YEAR( `access_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) )
-                            AND `access_tool` IS NULL ";
+                            AND `access_tid` IS NULL ";
                 if($displayType == "month")
                 {
                     $sql .= "ORDER BY UNIX_TIMESTAMP( `access_date`)";
@@ -163,7 +163,7 @@ claro_disp_tool_title($nameTools);
                             FROM `$TABLETRACK_ACCESS`
                             WHERE MONTH(`access_date`) = MONTH (FROM_UNIXTIME( $reqdate ) )
                             AND YEAR( `access_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) )
-                            AND `access_tool` IS NULL ";
+                            AND `access_tid` IS NULL ";
                 if($displayType == "day")
                 {
                     $sql .= "ORDER BY DAYOFYEAR( `access_date`)";
@@ -184,7 +184,7 @@ claro_disp_tool_title($nameTools);
                             WHERE DAYOFMONTH(`access_date`) = DAYOFMONTH(FROM_UNIXTIME( $reqdate ) )
                             AND MONTH(`access_date`) = MONTH (FROM_UNIXTIME( $reqdate ) )
                             AND YEAR( `access_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) )
-                            AND `access_tool` IS NULL
+                            AND `access_tid` IS NULL
                             ORDER BY HOUR( `access_date` )";
                 $hours_array = hoursTab($sql,$reqdate);
                 makeHitsTable($hours_array,$langPeriodHour);

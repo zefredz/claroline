@@ -46,13 +46,20 @@ $TABLETRACK_LOGIN = $statsDbName."`.`track_e_login";
 $TABLETRACK_OPEN = $statsDbName."`.`track_e_open";
 $TABLETRACK_LINKS = $statsDbName."`.`track_e_links";
 $TABLETRACK_DOWNLOADS = $statsDbName."`.`track_e_downloads";
-/*
-$TABLESTATS_PROVIDERS = $statsDbName."`.`track_c_providers";
-$TABLESTATS_COUNTRIES = $statsDbName."`.`track_c_countries";
-$TABLESTATS_BROWSERS = $statsDbName."`.`track_c_browsers";
-$TABLESTATS_OS = $statsDbName."`.`track_c_os";
-$TABLESTATS_REFERERS = $statsDbName."`.`track_c_referers";
-*/
+
+
+$toolNameList = array('CLANN___' => $langAnnouncement,
+                      'CLFRM___' => $langForum,
+                      'CLCAL___' => $langAgenda,
+                      'CLCHT___' => $langChat,
+                      'CLDOC___' => $langDocument,
+                      'CLDSC___' => $langDescriptionCours,
+                      'CLGRP___' => $langGroups,
+                      'CLLNP___' => $langLearnPath,
+                      'CLQWZ___' => $langExercise,
+                      'CLWRK___' => $langWork,
+                      'CLUSR___' => $langUser);
+
 include($includePath."/lib/statsUtils.lib.inc.php");
 
 // used in strange cases, a course is unused if not used since $limitBeforeUnused
@@ -428,7 +435,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
           $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
           $sql = "SELECT count( `access_id` ) AS nb
                       FROM `$TABLEACCESSCOURSE`
-                      WHERE `access_tool` IS NULL
+                      WHERE `access_tid` IS NULL
                       ORDER BY nb DESC";
           $result = mysql_query($sql);
           $count = mysql_fetch_array($result);
@@ -490,10 +497,10 @@ if( $is_allowedToTrack && $is_trackingEnabled)
       while ( $course = mysql_fetch_array($resCourseList) )
       {
           $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
-          $sql = "SELECT `access_tool`, count( `access_id` ) AS nb
+          $sql = "SELECT count( `access_id` ) AS nb, `access_tlabel`
                       FROM `$TABLEACCESSCOURSE`
-                      WHERE `access_tool` IS NOT NULL
-                      GROUP BY `access_tool`";
+                      WHERE `access_tid` IS NOT NULL
+                      GROUP BY `access_tid`";
           
           $result = mysql_query($sql);
           $count = mysql_fetch_array($result);
@@ -501,13 +508,13 @@ if( $is_allowedToTrack && $is_trackingEnabled)
           // look for each tool of the course in re
           while( $count = mysql_fetch_array($result) )
           {
-               if (!$resultsTools[$count['access_tool']])
+               if (!$resultsTools[$count['access_tlabel']])
                {
-                  $resultsTools[$count['access_tool']] = $count['nb'];
+                  $resultsTools[$count['access_tlabel']] = $count['nb'];
                }
                else
                {
-                  $resultsTools[$count['access_tool']] += $count['nb'];
+                  $resultsTools[$count['access_tlabel']] += $count['nb'];
                }
                
           }
@@ -523,7 +530,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                 echo "
             <tr>
               <td bgcolor='#eeeeee'>
-                ".$tool."
+                ".$toolNameList[$tool]."
               </td>
               <td align='right'>
                 ".$nbr."

@@ -198,15 +198,14 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                 else
                     $limit = $results[$j+1];
                 // select all access to tool between displayed date and next displayed date or now() if 
-                // displayed date is the last login date
-                $sql = "SELECT `access_tool`, count(`access_tool`), `access_date`
+                $sql = "SELECT count(`access_tid`), `access_tlabel`
                             FROM `$TABLETRACK_ACCESS`
                             WHERE `access_user_id` = '$uInfo'
-                                AND `access_tool` IS NOT NULL
+                                AND `access_tid` IS NOT NULL
                                 AND `access_date` > '".$results[$j]."'
                                 AND `access_date` < '".$limit."'
-                            GROUP BY `access_tool`
-                            ORDER BY `access_tool` ASC";
+                            GROUP BY `access_tid`
+                            ORDER BY `access_tid` ASC";
                 $results2 = getManyResults2Col($sql);
                 
                 if (is_array($results2))
@@ -216,8 +215,8 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                     for($k = 0 ; $k < count($results2) ; $k++)
                     {                     
                             echo "<tr>\n";
-                            echo "<td width='70%' style='padding-left : 60px;'><small>".$results2[$k][0]."</small></td>\n";
-                            echo "<td width='30%' align='right' style='padding-right : 40px'><small>".$results2[$k][1]." ".$langVisits."</small></td>\n";
+                            echo "<td width='70%' style='padding-left : 60px;'><small>".$toolNameList[$results2[$k][1]]."</small></td>\n";
+                            echo "<td width='30%' align='right' style='padding-right : 40px'><small>".$results2[$k][0]." ".$langVisits."</small></td>\n";
                             echo "</tr>";
     
                     }

@@ -206,7 +206,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
         ";
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_ACCESS`
-                    WHERE access_tool IS NULL";
+                    WHERE access_tid IS NULL";
         $count = getOneResult($sql);
         echo "
             <tr>
@@ -219,7 +219,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
         $sql = "SELECT count(*) 
                     FROM `$TABLETRACK_ACCESS` 
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -31 DAY))
-                        AND access_tool IS NULL";
+                        AND access_tid IS NULL";
         $count = getOneResult($sql);
         echo "
             <tr>
@@ -232,7 +232,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
         $sql = "SELECT count(*) 
                     FROM `$TABLETRACK_ACCESS` 
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -7 DAY))
-                        AND access_tool IS NULL";
+                        AND access_tid IS NULL";
         $count = getOneResult($sql);
         echo "
             <tr>
@@ -245,7 +245,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
         $sql = "SELECT count(*) 
                     FROM `$TABLETRACK_ACCESS` 
                     WHERE ( access_date > CURDATE() )
-                        AND access_tool IS NULL";
+                        AND access_tid IS NULL";
         $count = getOneResult($sql);
         echo "
             <tr>
@@ -295,14 +295,14 @@ if($is_allowedToTrack && $is_trackingEnabled)
         ";
         
         
-        $sql = "SELECT `access_tool`, COUNT(DISTINCT `access_user_id`),count( `access_tool` )
+        $sql = "SELECT `access_tid`, COUNT(DISTINCT `access_user_id`),count( `access_tid` ), `access_tlabel`
                     FROM `$TABLETRACK_ACCESS`
-                    WHERE `access_tool` IS NOT NULL
-                      AND `access_tool` <> ''
-                    GROUP BY `access_tool`";
+                    WHERE `access_tid` IS NOT NULL
+                      AND `access_tid` <> ''
+                    GROUP BY `access_tid`";
         
         echo "<tr><td style=\"padding-left : 40px;padding-right : 40px;\">";  
-        $results = getManyResults3Col($sql);
+        $results = getManyResultsXCol($sql,4);
         echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">";
         echo "<tr class=\"headerX\">
                 <th>
@@ -319,24 +319,22 @@ if($is_allowedToTrack && $is_trackingEnabled)
         { 
             for($j = 0 ; $j < count($results) ; $j++)
             {                 
-                $encodedTool = urlencode($results[$j][0]);
-		echo "<tr>"; 
-                echo "<td><a href=\"toolaccess_details.php?tool=".$encodedTool."\">".$results[$j][0]."</a></td>";
-                //echo "<td align=\"right\">".$results[$j][1]."</td>";
-		echo "<td align=\"right\"><a href=\"user_access_details.php?cmd=tool&data=".$encodedTool."\">".$results[$j][1]."</a></td>";
-                echo "<td align=\"right\">".$results[$j][2]."</td>";
-                echo"</tr>";
+                echo "<tr>"
+                    ."<td><a href=\"toolaccess_details.php?tool=".$results[$j][0]."&label=".$results[$j][3]."\">".$toolNameList[$results[$j][3]]."</a></td>"
+                    ."<td align=\"right\"><a href=\"user_access_details.php?cmd=tool&data=".$results[$j][0]."&label=".$results[$j][3]."\">".$results[$j][1]."</a></td>"
+                    ."<td align=\"right\">".$results[$j][2]."</td>"
+                    ."</tr>";
             }
         
         }
         else
         {
-            echo "<tr>"; 
-            echo "<td colspan=\"3\"><center>".$langNoResult."</center></td>";
-            echo"</tr>";
+            echo "<tr>"
+              ."<td colspan=\"3\"><center>".$langNoResult."</center></td>"
+              ."</tr>";
         }
-        echo "</tbody></table>";
-        echo "</td></tr>";
+        echo "</tbody></table>"
+            ."</td></tr>";
     }
     else
     {
