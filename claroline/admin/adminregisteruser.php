@@ -61,9 +61,30 @@ $tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
 
 switch ($cmd)
 {
-  case "delete" :
-        delete_user($user_id);
-        $dialogBox = "Delete of the user was done sucessfully";
+  case "sub" : //execute subscription command...
+        if ($subas=="teach")   //  ... as teacher
+        {
+           echo "userid : ".$user_id." course".$cidToEdit;
+           $done = add_user_to_course($user_id, $cidToEdit);
+           $properties['status'] = 1;
+           $properties['role'] = "Professor";
+           update_user_course_properties($user_id, $cidToEdit, $properties);
+        }
+        elseif ($subas=="stud")  // ... as student
+        {
+          $done = add_user_to_course($user_id, $cidToEdit);
+        }
+
+        //set dialogbox message
+
+        if ($done)
+        {
+           $dialogBox =$langUserSubscribed;
+        }
+        else
+        {
+           $dialogBox =$langUserNotSubscribed;
+        }
         break;
 
   case "unsubscribe" :
@@ -95,12 +116,11 @@ $resultCourse = mysql_fetch_array($queryCourse);
 //----------------------------------
 
 
-$sql = "SELECT *, CU.statut AS stat
+$sql = "SELECT  U.nom, U.prenom, U.`user_id` AS ID, CU.*,CU.`user_id` AS Register
         FROM  `".$tbl_user."` AS U
         ";
 
-$toAdd = ", `".$tbl_course_user."` AS CU WHERE
-          CU.`code_cours` = '".$cidToEdit."'
+$toAdd = "LEFT JOIN `".$tbl_course_user."` AS CU ON CU.`user_id`=U.`user_id` AND CU.`code_cours` = '".$cidToEdit."'
         ";
 
 $sql.=$toAdd;
@@ -128,20 +148,33 @@ if (isset($_GET['search']))
 
 // deal with REORDER
 
+   //see if direction must be changed
+
+if ($_GET['dir']=="ASC")
+{
+    $dir = 'DESC';
+    $_SESSION['admin_dir']=$dir;
+}
+elseif ($_GET['dir']=="DESC")
+{
+    $dir = 'ASC';
+    $_SESSION['admin_dir']=$dir;
+}
+
 if (isset($_GET['order_crit']))
 {
     if ($_GET['order_crit']=="user_id")
     {
-        $toAdd = " ORDER BY CU.`user_id` ".$_GET['dir'];
+        $toAdd = " ORDER BY CU.`user_id` ".$_SESSION['admin_dir'];
     }
     else
     {
-        $toAdd = " ORDER BY `".$_GET['order_crit']."` ".$_GET['dir'];
+        $toAdd = " ORDER BY `".$_GET['order_crit']."` ".$_SESSION['admin_dir'];
     }
     $sql.=$toAdd;
 }
 
-echo $sql."<br>";
+//echo $sql."<br>";
 
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $resultList = $myPager->get_result_list();
@@ -211,6 +244,8 @@ echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
 */
      //TOOL LINKS
 
+echo "<a class=\"claroButton\" href=\"admincourseusers.php?cidToEdit=".$cidToEdit."\"> ".$langListCourseUsers." </a>";
+
 //Pager
 
 if (isset($_GET['order_crit']))
@@ -227,10 +262,12 @@ $myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit.$addToURL);
 if ($_GET['dir']=="ASC")
 {
     $dir = 'DESC';
+    $_SESSION['admin_dir']=$dir;
 }
-else
+if ($_GET['dir']=="DESC")
 {
     $dir = 'ASC';
+    $_SESSION['admin_dir']=$dir;
 }
 
    //columsn titles...
@@ -255,7 +292,7 @@ foreach($resultList as $list)
 
      //  Id
 
-     echo "<td align=\"center\">".$list['user_id']."
+     echo "<td align=\"center\">".$list['ID']."
            </td>";
 
      // lastname
@@ -266,24 +303,36 @@ foreach($resultList as $list)
 
      echo "<td align=\"left\">".$list['prenom']."</td>";
 
-     // Register as user
+     if ($list['Register'] == null)
+     {
+         // Register as user
 
-     echo  "<td align=\"center\">\n",
-                "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=subscribe&user_id=".$list['user_id']."\" ",
-                ">\n",
-                "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
-                "</a>\n",
-            "</td>\n";
+         echo  "<td align=\"center\">\n",
+                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&user_id=".$list['ID']."&subas=stud&offset=".$offset."&order_crit=".$order_crit."&dir=".$dir."\" ",
+                    ">\n",
+                    "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
+                    "</a>\n",
+                "</td>\n";
 
-     // Register as course manager
+         // Register as course manager
 
 
-     echo  "<td align=\"center\">\n",
-                "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=subscribe&user_id=".$list['user_id']."\" ",
-                ">\n",
-                "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
-                "</a>\n",
-            "</td>\n";
+         echo  "<td align=\"center\">\n",
+                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&user_id=".$list['ID']."&subas=teach&offset=".$offset."&order_crit=".$order_crit."&dir=".$dir."\" ",
+                    ">\n",
+                    "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
+                    "</a>\n",
+                "</td>\n";
+     }
+     else // user is already enrolled
+     {
+        echo  "<td align=\"center\" colspan=\"2\">\n
+                 <small>",
+                 $langAlreadyEnrolled,
+                "</small>
+               </td>\n";
+
+     }
 
      echo "</tr>";
 }
