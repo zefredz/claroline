@@ -64,7 +64,7 @@ function delete_groups($groupIdList = 'ALL')
 	 * Search the groups data necessary to delete them
 	 */
 
-	$sql_searchGroup = "SELECT id, secretDirectory, forumId
+	$sql_searchGroup = "SELECT `id` `gid`, `secretDirectory` `groupRepository`, `forumId`
 						FROM `".$tbl_Groups."`".
 						$sql_condition;
 
@@ -74,9 +74,9 @@ function delete_groups($groupIdList = 'ALL')
 	{
 		while ($gpData =mysql_fetch_array($res_searchGroup))
 		{
-			$groupList[id       ][] = $gpData[id             ];
-			$groupList[directory][] = $gpData[secretDirectory];
-			$groupList[forumId  ][] = $gpData[forumId        ];
+			$groupList['id'       ][] = $gpData['gid'            ];
+			$groupList['directory'][] = $gpData['groupRepository'];
+			$groupList['forumId'  ][] = $gpData['forumId'        ];
 		}
 	}
 
@@ -87,14 +87,14 @@ function delete_groups($groupIdList = 'ALL')
 		 */
 
 		$sql_deleteGroup        = "DELETE FROM `".$tbl_Groups."`
-								   WHERE id IN (".implode(" , ", $groupList[id]).")";
+								   WHERE id IN (".implode(" , ", $groupList['id']).")";
 
 		$sql_cleanOutGroupUsers = "DELETE FROM `".$tbl_GroupsUsers."`
-								   WHERE team IN (".implode(" , ", $groupList[id]).")";
+								   WHERE team IN (".implode(" , ", $groupList['id']).")";
 
 		$sql_deleteGroupForums  = "DELETE FROM `".$tbl_Forums."`
 								   WHERE cat_id='1'
-								   AND forum_id IN (".implode(" , ", $groupList[forumId]).")";
+								   AND forum_id IN (".implode(" , ", $groupList['forumId']).")";
 
 		// Deleting group record in table
 		$res_deleteGroup    = claro_sql_query($sql_deleteGroup);
@@ -243,7 +243,7 @@ function fill_in_groups()
 
 	while($user = mysql_fetch_array($result, MYSQL_ASSOC))
 	{
-		$userToken[$user[uid]] = $user[nbTicket];
+		$userToken[$user['uid']] = $user['nbTicket'];
 	}
 
 	/*
@@ -256,7 +256,7 @@ function fill_in_groups()
 
 	while ($member = mysql_fetch_array($result,MYSQL_ASSOC))
 	{
-		$groupUser[$member[gid]] [] = $member[uid];
+		$groupUser[$member['gid']] [] = $member['uid'];
 	}
 
 	/*
