@@ -353,7 +353,23 @@ Solution 3 : comme annonce, afficher le début du contenu. ignorer si les 2 sont 
 Repéré par : M
 Assigné à : M
 	
-	
+Etat : New ----------------------------------------------------
+.40 où : user
+type : parse error
+quoi : si le cours ne contient aucun utilisateurs
+Repéré par : moosh
+Assigné à : 
+
+Etat : New ----------------------------------------------------
+.41 où : admin-deletecourse
+type : erreur intégrité db
+quoi : si je supprime un utilisateur dans l'admin et qu'il est "seul (prof ) inscrit d'un cours"  
+l'effacement est accepté et le cours est abandonné.
+Repéré par : Moosh
+Assigné à : 
+
+
+
 	
 Repéré par : M.
 Assigné à : 
@@ -371,47 +387,11 @@ Assigné à :
 
 -------------
 $Log$
-Revision 1.64  2004/08/19 14:34:49  mathieu
-test de commit
-
-Revision 1.63  2004/08/09 10:58:23  mathieu
-test commit - delete test modification in BUGS.txt
-
-Revision 1.62  2004/08/09 10:56:45  mathieu
-test commit - duplicate bug 1
-
-Revision 1.61  2004/08/09 10:54:45  mathieu
-test commit
-
-Revision 1.60  2004/08/09 10:51:46  mathieu
-test commit
-
-Revision 1.59  2004/08/09 10:46:25  mathieu
-test commit
-
-Revision 1.58  2004/08/09 10:41:27  mathieu
-test commit
-
-Revision 1.57  2004/08/09 10:38:56  mathieu
-test commit
-
-Revision 1.56  2004/08/09 09:55:35  mathieu
-test commit
-
-Revision 1.55  2004/07/23 08:05:43  guillaume
-commit test ,  just changing 1.5 to 1.6 title
-
-Revision 1.54  2004/07/09 13:27:45  seb
-Test join
-
-Revision 1.53  2004/07/09 13:22:18  seb
-Test join
-
-Revision 1.52.2.1  2004/07/09 13:05:48  seb
-Test join
+Revision 1.65  2004/09/15 06:11:45  moosh
+2 bugs user/delete user
 
 Revision 1.52  2004/07/07 07:25:33  moosh
-buges 37,38 résolus
+bugs 37,38 résolus
 
 Revision 1.51  2004/07/06 12:51:43  seb
 Bugs 35 done
@@ -434,9 +414,6 @@ bugs 34. 35.
 
 Revision 1.45  2004/06/23 10:28:05  seb
 More bugs resolved
-
-Revision 1.44  2004/06/17 12:57:54  moosh
-résolus
 
 Revision 1.43  2004/06/17 12:56:11  moosh
 bug 33
@@ -464,9 +441,6 @@ bugs 26 et 27
 
 Revision 1.33  2004/06/16 08:14:53  seb
 bugs 19 20 21 résolus
-
-Revision 1.32  2004/06/16 08:08:29  guillaume
-*** empty log message ***
 
 Revision 1.30  2004/06/16 06:29:08  moosh
 bugs 19 à 25
