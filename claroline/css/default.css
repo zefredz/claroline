@@ -281,10 +281,11 @@ h3{	font-size: 110%; }
 }
 
 
-#poweredBy 
+#poweredBy
 {
-	clear: both;
-	text-align: center;
+    clear: both;
+    text-align: center;
+    font-style: italic;
 }
 
 
