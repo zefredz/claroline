@@ -25,20 +25,17 @@ include($includePath."/conf/course_main.conf.php");
 
 $nameTools = $langCourseSettings;
 
-
-@include($includePath."/lib/debug.lib.inc.php");
-
 /*
  * Configuration array , define here which field can be left empty or not
  */
- $canBeEmpty["intitule"]      = false;
- $canBeEmpty["category"]      = false;
- $canBeEmpty["lecturer"]      = true;
- $canBeEmpty["screenCode"]    = false;
- $canBeEmpty["lanCourseForm"] = false;
- $canBeEmpty["extLinkName"]   = true;
- $canBeEmpty["extLinkUrl"]    = true;
- $canBeEmpty["email"]         = true;
+ $canBeEmpty['intitule']      = !HUMAN_LABEL_NEEDED;
+ $canBeEmpty['category']      = false;
+ $canBeEmpty['lecturer']      = true;
+ $canBeEmpty['screenCode']    = !HUMAN_CODE_NEEDED;
+ $canBeEmpty['lanCourseForm'] = false;
+ $canBeEmpty['extLinkName']   = !$extLinkNameNeeded;
+ $canBeEmpty['extLinkUrl']    = !$extLinkUrlNeeded;
+ $canBeEmpty['email']         = !COURSE_EMAIL_NEEDED;
 
 /*
  * Perfield value for the form :
@@ -61,8 +58,18 @@ $directory         = $thecourse['directory'];
 $thecourse['visibility'  ]         = (bool) ($thecourse['visible'] == 2 || $thecourse['visible'] == 3);
 $thecourse['registrationAllowed']  = (bool) ($thecourse['visible'] == 1 || $thecourse['visible'] == 2);
 
-$visibleChecked             [$thecourse['visibility'         ]] = "checked";
-$registrationAllowedChecked [$thecourse['registrationAllowed']] = "checked";
+$visibleChecked             [$thecourse['visibility'         ]] = 'checked';
+$registrationAllowedChecked [$thecourse['registrationAllowed']] = 'checked';
+
+$currentCourseDiskQuota 		= $thecourse['diskQuota'     ];
+$currentCourseLastVisit 		= $thecourse['lastVisit'     ];
+$currentCourseLastEdit			= $thecourse['lastEdit'      ];
+$currentCourseCreationDate 		= $thecourse['creationDate'  ];
+$currentCourseExpirationDate	= $thecourse['expirationDate'];
+
+
+
+
 
 //if values were posted, we overwrite DB info with values previously set by user
 
@@ -170,9 +177,6 @@ else
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 $nameTools = $langCourseSettings;
 
-include($includePath."/claro_init_header.inc.php");
-claro_disp_tool_title($nameTools);
-
 if($is_allowedToEdit)
 {
 	// check if form submitted
@@ -257,22 +261,22 @@ if($is_allowedToEdit)
 	$cidReset = true;
 	$cidReq = $current_cid;
 	include($includePath."/claro_init_local.inc.php");
-				
-	//display dialogbox with error and/or action(s) done to user
-			
-	claro_disp_message_box($dialogBox);
+
+	
+
 
 /****************************
            FORM
   ***************************/
 
 	}
-$currentCourseDiskQuota 		= $currentCourseExtentionData["diskQuota"     ];
-$currentCourseLastVisit 		= $currentCourseExtentionData["lastVisit"     ];
-$currentCourseLastEdit			= $currentCourseExtentionData["lastEdit"      ];
-$currentCourseCreationDate 		= $currentCourseExtentionData["creationDate"  ];
-$currentCourseExpirationDate	= $currentCourseExtentionData["expirationDate"];
 
+include($includePath."/claro_init_header.inc.php");
+claro_disp_tool_title($nameTools);
+//display dialogbox with error and/or action(s) done to user
+			
+if (!empty ($dialogBox))
+claro_disp_message_box($dialogBox);
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 
@@ -390,7 +394,7 @@ if (isset($cidToEdit) && ($is_platformAdmin))
 <?php 
 if (isset($cidToEdit))
 {
-    echo "<input type=\"hidden\" name=\"cidToEdit\" value=\"".$cidToEdit."\">";
+    echo '<input type="hidden" name="cidToEdit" value="'.$cidToEdit.'">';
 }
 ?>
 </td>

@@ -16,13 +16,15 @@ $conf_def['config_name']='Course options';
 $conf_def['config_file']='course_main.conf.php';
 $conf_def['old_config_file'][]='add_course.conf.php';
 
-$conf_def['section']['create']['label']='Course creation';
+$conf_def['section']['create']['label']='Course parameters';
 $conf_def['section']['create']['description']='These settings will be use whenever a user creates a new course';
 $conf_def['section']['create']['properties'] = 
 array ( 'defaultVisibilityForANewCourse'
       , 'HUMAN_CODE_NEEDED'
       , 'HUMAN_LABEL_NEEDED'
       , 'COURSE_EMAIL_NEEDED'
+      , 'extLinkNameNeeded'
+      , 'extLinkUrlNeeded'
       , 'prefixAntiNumber'
       , 'prefixAntiEmpty');
 
@@ -65,13 +67,36 @@ array ('label'       => 'Course label (name) is'
       );
 
 $conf_def_property_list['COURSE_EMAIL_NEEDED'] = 
-array ('label'       => 'Email is'
+array ('label'       => 'Course email email is'
       ,'description' => 'User can leave email field empty or not'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       ,'container'   => 'CONST'
+      ,'acceptedValue' => array ('TRUE'=>'Required'
+                              ,'FALSE'=>'Optional'
+                              )
+      );
+
+$conf_def_property_list['extLinkNameNeeded'] = 
+array ('label'       => 'Label of external Link is'
+      ,'description' => 'This name is show in top right of course banner'
+      ,'default'     => 'FALSE'
+      ,'type'        => 'boolean'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'acceptedValue' => array ('TRUE'=>'Required (choose this is Url of external Link is set)'
+                              ,'FALSE'=>'Optional'
+                              )
+      );
+$conf_def_property_list['extLinkUrlNeeded'] = 
+array ('label'       => 'Url of external Link is Label of external Link'
+      ,'description' => 'This url is under the '
+      ,'default'     => 'FALSE'
+      ,'type'        => 'boolean'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       ,'acceptedValue' => array ('TRUE'=>'Required'
                               ,'FALSE'=>'Optional'
                               )
@@ -114,11 +139,12 @@ $conf_def_property_list['showLinkToDeleteThisCourse']
                                   )
         );
 $conf_def_property_list['showLinkToExportThisCourse']
-= array ('label'     => 'Show link to make an archive of the cours'
-        ,'default'   => 'FALSE'
-        ,'display'   => FALSE
-        ,'type'      => 'boolean'
-        ,'container' => 'VAR'
+= array ('label'         => 'Show link to make an archive of the cours'
+        ,'description'   => 'this tool is broken in claroline 1.6 Activate it only if you want work on it'
+        ,'default'       => 'FALSE'
+        ,'display'       => FALSE
+        ,'type'          => 'boolean'
+        ,'container'     => 'VAR'
         ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                   ,'FALSE' => 'No'
                                   )
@@ -126,6 +152,7 @@ $conf_def_property_list['showLinkToExportThisCourse']
 
 $conf_def_property_list['showLinkToRestoreCourse']
 = array ('label'     => 'Show link to call the restore of a course'
+        ,'description'   => 'this tool is broken in claroline 1.6 Activate it only if you want work on it'
         ,'display'   => FALSE
         ,'default'   => 'FALSE'
         ,'type'      => 'boolean'
@@ -139,6 +166,7 @@ $conf_def_property_list['showLinkToRestoreCourse']
 // Not displayed
 
 $conf_def['section']['restore']['label']='Restore // Create a course from an archive';
+$conf_def['section']['restore']['description']='this tool is broken in claroline 1.6 Activate it only if you want work on it';
 $conf_def['section']['restore']['display']=FALSE;
 $conf_def['section']['restore']['properties'] = 
 array ( 'is_allowedToRestore'
@@ -307,7 +335,7 @@ $conf_def_property_list['showExpirationDate']
 $conf_def_property_list['showCreationDate']
 = array ('label'     => 'Show in course setting the date creation of the course'
         ,'display'   => FALSE
-        ,'default'   => 'TRUE'
+        ,'default'   => 'FALSE'
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
         ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -318,7 +346,7 @@ $conf_def_property_list['showCreationDate']
 $conf_def_property_list['showLastEdit']
 = array ('label'     => 'Show in course setting the date of last edtion detected in course'
         ,'display'   => FALSE
-        ,'default'   => 'TRUE'
+        ,'default'   => 'FALSE'
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
         ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -329,7 +357,7 @@ $conf_def_property_list['showLastEdit']
 $conf_def_property_list['showLastVisit']
 = array ('label'     => 'Show in course setting the date of last visit in course'
         ,'display'   => FALSE
-        ,'default'   => 'TRUE'
+        ,'default'   => 'FALSE'
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
         ,'acceptedValue' => array ('TRUE'  => 'Yes'
