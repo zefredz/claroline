@@ -12,22 +12,25 @@ http://www.cerdecam.be          Mathieu Laurent (laurent@cerdecam.be)
                                 Guillaume Lederer (lederer@cerdecam.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
                                 Aurelien Van Hamme (vanhamme@cerdecam.be)
+				Amand Tihon        (amand@alrj.org)
 
 Administration section :        Benoit Muret (muret_ben@hotmail.com)
-                                Guillaume Lederer (lederer@cerdecam.be) from CERDECAM
+                                Guillaume Lederer (lederer@cerdecam.be)
 
 Announcement tool improvement:  Pablo Rey (prey@cesga.es)
 
 LDAP :                          Roan Embrechts (roan.embrechts@ugent.be)
+                                and Hugues Peeters(peeters@ipm.ucl.ac.be)
 
 Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
 
-Learning Path Manager:          Guillaume Lederer and Sebastien Piraux (Cerdecam)
+Learning Path Tool :            Guillaume Lederer and Sebastien Piraux (Cerdecam)
 
 Personnal Agenda :              Eric Remy (eremy@rmwc.edu),
                                 Toon Van Hoecke (Toon.VanHoecke@UGent.be)
 
 Quizz Tool :                    Olivier Brouckaert (oli.brouckaert@skynet.be)
+                                Sebastien Piraux (piraux@cerdecam.be)
 
 Password Encryption :           Fabio Spelta (fabio.spelta@tiscali.it)
 
@@ -38,7 +41,8 @@ Single DB customisation :       Roger Hedlund (rhedlund@passagen.se)
 User Image :                    Miguel (miguel@cesga.es)
                                 Patrick Cool (patrick.cool@ugent.be)
 
-Upgrade tool :                  Mathieu Laurent (laurent@cerdecam.be) from CERDECAM
+Upgrade tool :                  Mathieu Laurent (laurent@cerdecam.be)
+                                Christophe Gesché (gesche@ipm.ucl.ac.be)
 
 Forum tool :                    adpated from PHPBB 1.4 (http://www.phpbb.com)
 
