@@ -49,6 +49,25 @@ array ('rootWeb'
       , 'urlAppend'
       , 'rootSys'
       , 'garbageRepositorySys'
+      , 'clarolineRepositoryAppend'
+      , 'coursesRepositoryAppend'
+      , 'rootAdminAppend'
+      , 'phpMyAdminAppend'
+      , 'phpSysInfoAppend'
+      , 'userImageRepositoryAppend'
+      , 'clarolineRepositorySys'
+      , 'clarolineRepositoryWeb'
+      , 'userImageRepositorySys'
+      , 'userImageRepositoryWeb'
+      , 'coursesRepositorySys'
+      , 'coursesRepositoryWeb'
+      , 'rootAdminSys'
+      , 'rootAdminWeb'
+      , 'phpMyAdminWeb'
+      , 'phpMyAdminSys'
+      , 'phpSysInfoWeb'
+      , 'phpSysInfoSys'
+      , 'PEAR_LIB_PATH'
       );
 
 $conf_def['section']['DB_CONNECT_SETTING']['label']= 'MySQL database settings';
@@ -80,6 +99,9 @@ array ( 'claro_texRendererUrl'
       , 'allowSelfReg'
       , 'userImageRepositorySys'
       , 'userImageRepositoryWeb'
+      , 'clarolineVersion'
+      , 'versionDb'
+      , 'platform_id'
       );
 
 
@@ -420,13 +442,13 @@ array ('type'        => 'relpath'
 
 $conf_def_property_list['clarolineRepositorySys'] = 
 array ('type'        => 'syspath'
-      ,'default'     => '$rootSys.$clarolineRepositoryAppend'
+      ,'default'     => str_replace('\\','/',$rootSys.$clarolineRepositoryAppend)
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['clarolineRepositoryWeb'] = 
 array ('type'        => 'syspath'
-      ,'default'     => '$rootWeb.$clarolineRepositoryAppend'
+      ,'default'     => str_replace('\\','/',$rootWeb.$clarolineRepositoryAppend)
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
@@ -444,19 +466,19 @@ array ('type'        => 'syspath'
       );
 $conf_def_property_list['coursesRepositorySys'] = 
 array ('type'        => 'syspath'
-      ,'default'     => '$rootSys.$coursesRepositoryAppend'
+      ,'default'     => str_replace('\\','/',$rootSys.$coursesRepositoryAppend)
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['coursesRepositoryWeb'] = 
 array ('type'        => 'syspath'
-      ,'default'     => '$rootWeb.$coursesRepositoryAppend'
+      ,'default'     => str_replace('\\','/',$rootWeb.$coursesRepositoryAppend)
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['rootAdminSys'] = 
 array ('type'        => 'syspath'
-      ,'default'     => '$clarolineRepositorySys.$rootAdminAppend'
+      ,'default'     => str_replace('\\','/',$clarolineRepositorySys.$rootAdminAppend)
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
@@ -468,7 +490,7 @@ array ('type'        => 'syspath'
       );
 $conf_def_property_list['phpMyAdminWeb'] = 
 array ('type'        => 'syspath'
-      ,'default'     => '$rootAdminWeb.$phpMyAdminAppend'
+      ,'default'     => str_replace('\\','/',$rootAdminWeb.$phpMyAdminAppend)
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
@@ -486,7 +508,7 @@ array ('type'        => 'syspath'
       );
 $conf_def_property_list['phpSysInfoSys'] = 
 array ('type'        => 'syspath'
-      ,'default'     => '$rootAdminSys.$phpSysInfoAppend'
+      ,'default'     => str_replace('\\','/',$rootAdminSys.$phpSysInfoAppend)
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
@@ -504,13 +526,13 @@ array ('type'        => 'syspath'
 //
 $conf_def_property_list['clarolineVersion'] = 
 array ('type'        => 'string'
-      ,'default'     => '1.5.alpha'
+      ,'default'     => '1.6.beta2'
       ,'display'     => FALSE
       ,'readonly'    => TRUE
       );
 $conf_def_property_list['versionDb'] = 
 array ('type'        => 'string'
-      ,'default'     => '1.5.alpha'
+      ,'default'     => '1.6.beta2'
       ,'display'     => FALSE
       ,'readonly'    => TRUE
       );
