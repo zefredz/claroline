@@ -290,7 +290,8 @@ $sqlForUpdate[] = " ALTER IGNORE TABLE `faculte`  COMMENT='department of the ins
 
 $sqlForUpdate[] = " UPDATE faculte set `treePos`=`id` where `treePos` is NULL;";
 $sqlForUpdate[] = " UPDATE faculte set `nb_childs`='0' where `nb_childs` is NULL;";
-
+$sqlForUpdate[] = " ALTER IGNORE TABLE `faculte` DROP INDEX `number`;"; // remove key on number field 
+$sqlForUpdate[] = " ALTER IGNORE TABLE `faculte` DROP `number`;"; // drop column number
 }
 
 /** 
