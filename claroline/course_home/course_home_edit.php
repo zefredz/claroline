@@ -335,9 +335,11 @@ foreach($toolList as $thisTool)
     echo "<tr>";
 
     echo "<td ".$style.">"
+    	."<label for=\"toolAccessList".$thisTool['id']."\">"
         ."<img src=\"".$icon."\">"
-        .$toolName . "</td>"
-       ."<td><input type=\"checkbox\" name=\"toolAccessList[]\" value=\"".$thisTool['id']."\"".$checkState.">";
+        .$toolName . "</label></td>"
+       ."<td><input type=\"checkbox\" name=\"toolAccessList[]\"
+               id=\"toolAccessList".$thisTool['id']."\" value=\"".$thisTool['id']."\"".$checkState.">";
 
     if ($removableTool)
     {
