@@ -45,7 +45,7 @@ system.
 	The driver treating this case is called by the Claroline Kernel by line like 
 	this below into the Claroline configuration file.
 
-	$extAuthSource['authSourceName']['login'  ] = = "path/file";
+	$extAuthSource['authSourceName']['login'  ] = "path/file";
 
 
                                 DRIVER SETTINGS
