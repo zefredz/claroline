@@ -400,7 +400,7 @@ if ($cidReset) // course session data refresh requested
             $_course['extLink'     ]['name'] = $cData['departmentUrlName'];
             $_course['categoryCode']         = $cData['faCode'           ];
             $_course['categoryName']         = $cData['faName'           ];
-			$course['email'        ]         = $cData['email'            ];
+			$_course['email'        ]        = $cData['email'            ];
 
             $_course['visibility'  ]         = (bool) ($cData['visible'] == 2 || $cData['visible'] == 3);
             $_course['registrationAllowed']  = (bool) ($cData['visible'] == 1 || $cData['visible'] == 2);
