@@ -1350,7 +1350,7 @@ $sqlForUpdate[] = " ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_answer` 
 // Fill picture_name with id, previously implicit
 
 $sqlForUpdate[] = "# fill picture_name with id, previously implicit ";
-$sqlForUpdate[] = " UPDATE `".$currentCourseDbNameGlu."quiz_question` SET  `picture_name` = concat('quiz-',`id`) WHERE `picture_name` is null;";
+$sqlForUpdate[] = " UPDATE `".$currentCourseDbNameGlu."quiz_question` SET  `picture_name` = concat('quiz-',`id`) WHERE `picture_name` = '';";
 
 }
 
@@ -1749,6 +1749,9 @@ $sqlForUpdate[] = " ALTER TABLE `".$currentCourseDbNameGlu."bb_words` COMMENT='d
 
 /**
  * $Log$
+ * Revision 1.3  2004/06/04 12:45:11  mathieu
+ * default value of picture name is '' not null.
+ *
  * Revision 1.2  2004/06/03 13:44:43  moosh
  * Implement the the tool <select> box in the claroline banner
  *
