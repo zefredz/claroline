@@ -15,20 +15,9 @@ $langFile = "courses";
 
 include('../inc/claro_init_global.inc.php');
 
-if($addNewCourse || $selectCategory || isset($courseCode))
-{
-	$interbredcrump[]=array("url" => $_SERVER['PHP_SELF'],"name" => $lang_my_personnal_course_list);
-
-	if($selectCategory || isset($courseCode))
-	{
-		$interbredcrump[]=array("url" => $_SERVER['PHP_SELF'].'?addNewCourse=1',"name" => $lang_main_categories_list);
-	}
-}
-
 $nameTools  = $lang_course_enrollment;
 $noPHP_SELF = true;
 
-include($includePath."/claro_init_header.inc.php");
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
 if (! $_uid) exit("<center>You're not logged in !!</center></body>");
@@ -59,7 +48,8 @@ else
 {
   if (isset($fromAdmin) && ($fromAdmin == "settings" || $fromAdmin == "usercourse"))
   {
-    $userSettingMode = $uidToEdit;    
+    $userSettingMode = $uidToEdit;
+    
   }
   $inURL = "&uidToEdit=".$uidToEdit."&fromAdmin=".$fromAdmin;
   
@@ -77,6 +67,32 @@ else
 
 
 /*
+ * Define bredcrumps
+ */
+
+
+if($addNewCourse || $selectCategory || isset($courseCode))
+{
+	$interbredcrump[]=array("url" => $_SERVER['PHP_SELF'],"name" => $lang_my_personnal_course_list);
+
+	if($selectCategory || isset($courseCode))
+	{
+		$interbredcrump[]=array("url" => $_SERVER['PHP_SELF'].'?addNewCourse=1',"name" => $lang_main_categories_list);
+	}
+}
+
+//bred different if we come from admin tool  
+  	
+if (isset($fromAdmin) && ($fromAdmin == "settings" || $fromAdmin == "usercourse"))
+{
+	$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+}
+
+//include header
+
+include($includePath."/claro_init_header.inc.php");
+
+/*
  * DB tables initialisation
  */
 
@@ -84,7 +100,7 @@ $tbl_category           = $mainDbName.'`.`faculte';
 $tbl_course             = $mainDbName.'`.`cours';
 $tbl_courseUser         = $mainDbName.'`.`cours_user';
 $tbl_user               = $mainDbName.'`.`user';
-$tbl_courses_nodes		= $mainDbName.'`.`faculte';
+$tbl_courses_nodes	= $mainDbName.'`.`faculte';
 $tbl_courses            = $mainDbName.'`.`cours';
 
 // Find info about user we are working with
@@ -154,7 +170,7 @@ if ($cmd == 'exReg')
                            SEARCH A COURSE TO REGISTER
   ----------------------------------------------------------------------------*/
 
-if ( $cmd == 'rqReg' ) // show course of a specific catagory
+if ( $cmd == 'rqReg' ) // show course of a specific category
 {
     /*
      * 'SEARCH BY KEYWORD' MODE
@@ -179,7 +195,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific catagory
 
         $displayMode = DISPLAY_COURSE_TREE;
 
-    } // end if isset keuword
+    } // end if isset keyword
 
 
     /*
@@ -332,7 +348,7 @@ else
     }
     else
     {
-        $backUrl   = "../../index.php";
+        $backUrl   = "../../index.php?";
 	    $backLabel = $lang_back_to_my_personnal_course_list;
     }
 } // ($cmd == 'rqReg' && ($category || ! is_null($parentCategoryCode) ) )
