@@ -129,7 +129,7 @@ foreach($toolList as $thisTool)
 
     if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])
     {
-        $style = $htmlHeadXtra[] = ' class ="invisible" ';
+        $style = ' class ="invisible" ';
     }
     else
     {
