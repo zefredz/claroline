@@ -294,19 +294,19 @@ if ($is_allowedToEdit)
 		{ 
 			if (isset($blocState[$numBloc])&&$blocState[$numBloc]=="used")
 			{
-				echo "
+				echo '
 	<TR>
-		<TD  bgcolor=\"$color1\" class=\"alternativeBgLight\">
-			<H4>".$titreBloc[$numBloc]."</H4>
+		<TD  bgcolor="'.$color1.'" class="alternativeBgLight">
+			<H4>'.$titreBloc[$numBloc].'</H4>
 		</TD>
-		<TD align=\"left\">
-			<a href=\"".$PHP_SELF."?numBloc=".$numBloc."\"><img src=\"../img/edit.gif\" alt=\"$langModify\" border=\"0\"></a>
-			<a href=\"".$PHP_SELF."?delete=ask&numBloc=".$numBloc."\"><img src=\"../img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\"></a>
+		<TD align="left">
+			<a href="'.$PHP_SELF.'?numBloc='.$numBloc.'"><img src="'.$clarolineRepositoryWeb.'img/edit.gif" alt="'.$langModify.'" border="0"></a>
+			<a href="'.$PHP_SELF.'?delete=ask&numBloc='.$numBloc.'"><img src="'.$clarolineRepositoryWeb.'img/delete.gif" alt="'.$langDelete.'" border="0"></a>
 		</TD>
 	</TR>
 	<TR>
-		<TD colspan=\"2\">
-			".make_clickable(nl2br($contentBloc[$numBloc]))."
+		<TD colspan="2">
+			'.make_clickable(nl2br($contentBloc[$numBloc]))."
 		</TD>
 	</TR>";
 			}
