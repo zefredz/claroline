@@ -220,7 +220,7 @@ function countPropertyInDb($config_code)
     $confFile = claro_get_conf_file($config_code);
     if(file_exists($confFile))
     {
-        include($confFile); 
+        include($confFile);
         $genDateVarName = $config_code.'GenDate';
         $sqlGetPropertyValues = 'SELECT count(if((unix_timestamp(`lastChange`) > "'.$$genDateVarName.'"),1,null)) qty_new_values, 
                                         count(id_property) qty_values
@@ -332,7 +332,7 @@ function claro_get_conf_file($config_code)
 
 function claro_create_conf_filename($config_code)
 {
-   return $config_code.'.conf.inc.php';
+   return touch(claro_get_conf_file($config_code));
 }
 
 function get_tool_name($claro_label)
@@ -370,6 +370,7 @@ function get_def_list()
                 $defConfFileList[$config_code] = 
                  array( 'def'         => file_exists(claro_get_def_file($config_code))
                       , 'conf'        => file_exists(claro_get_conf_file($config_code))
+                      , 'config_code' => $config_code
                       , 'name'        => get_config_name($config_code)
                       , 'propQtyInDb' => countPropertyInDb($config_code)
                       );                       
@@ -390,7 +391,9 @@ function get_conf_list()
     $sql_get_conf_list = 'SELECT `cfg`.`config_code` `config_code`, 
                                  `cfg`.`config_hash` `config_hash`,  
                                  `r_t_cfg`.*, 
-                                 `t`.*
+                                 `r_t_cfg`.`claro_label` `claro_label`, 
+                                 `t`.`icon` `icon`
+                                 
                           FROM `'.$tbl_config_file.'` `cfg`
                           LEFT JOIN `'.$tbl_rel_tool_config.'` `r_t_cfg`
 
@@ -398,6 +401,7 @@ function get_conf_list()
                           LEFT JOIN `'.$tbl_tool.'` `t`
                            ON `t`.`claro_label`  = `r_t_cfg`.`claro_label`';    
 
+    
     $result_conf_list = claro_sql_query_fetch_all($sql_get_conf_list);
     if (is_array($result_conf_list))
     foreach ($result_conf_list as $config)
@@ -476,7 +480,7 @@ function parse_config_file($confFileName)
     GLOBAL $includePath;
     $code = file_get_contents($includePath."/conf/".$confFileName);
     $tokens = token_get_all($code);
-    include($includePath."/conf/".$confFileName);
+    @include($includePath."/conf/".$confFileName);
     $vars = array();
     for($i=0; $i < count($tokens); $i++)
     {
@@ -490,7 +494,7 @@ function parse_config_file($confFileName)
                 $i += 2;
                 if ($tokens[$i+1][0] == T_WHITESPACE) $i++;
                 $vars[$possibleVar] = '';
-                while ($i++)
+                while ($i++)    
                 {
                     if ($tokens[$i] == ';') break;
                     if (is_array($tokens[$i]))

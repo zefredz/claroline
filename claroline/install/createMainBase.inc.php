@@ -162,4 +162,13 @@ CREATE TABLE `config_rel_tool_config` (
 ";
 claro_sql_query($sql);
 	
+$sql ="
+CREATE TABLE `config_file` (
+  `config_code` varchar(30) NOT NULL default '',
+  `config_hash` varchar(40) NOT NULL default ''
+  PRIMARY KEY  (`config_code` )
+) TYPE=MyISAM  AVG_ROW_LENGTH=48;
+";
+claro_sql_query($sql);
+
 ?>
