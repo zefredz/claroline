@@ -15,7 +15,8 @@
 $langFile = "registration";
 include("../inc/claro_init_global.inc.php");
 $interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);
-include("../inc/claro_init_header.inc.php");
+include($includePath."/claro_init_header.inc.php");
+include($includePath."/conf/profile.conf.inc.php");
 $nameTools = "1";
 
 define ("STUDENT",5);
@@ -37,58 +38,83 @@ else
 </h3>
 
 <form action="inscription_second.php" method="post">
-<table cellpadding="3" cellspacing="0" border="0">
+<table width="100%" cellpadding="3" cellspacing="0" border="0">
 
-	<tr>
-		<td align="right">
+    <tr>
+        <td >
+            <LABEL for="surname">
+                <?php echo $langLastname;?>
+            </LABEL>
+            &nbsp; :
+        </td>
+        <td>
+            <input type="text" size="40" name="prenom" id="surname" value="<?=$prenom?>">
+        </td>
+    </tr>
+
+    <tr>
+		<td >
 			<LABEL for="name">
 				<?php echo $langName ?>
 			</LABEL>
 			&nbsp; :
 		</td>
 		<td>
-			<input type="text" id="name" name="nom">
+			<input type="text" size="40" id="name" name="nom" value="<?=$nom?>">
 		</td>
 	</tr>
+<?
+if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
+{
+?>
+    <tr>
+        <td >
+            <LABEL for="name">
+                <?php echo $langOfficialCode ?>
+            </LABEL>
+            &nbsp; :
+        </td>
+        <td>
+            <input type="text" size="40" id="name" name="officialCode" value="<?=$officialCode?>">
+        </td>
+    </tr>
+<?
+}
+?>
+    <tr>
+        <td >
+        </td>
+        <td>
+          <br>
+        </td>
+    </tr>
 
 	<tr>
-		<td align="right">
-			<LABEL for="surname">
-				<?php echo $langSurname;?>
-			</LABEL>
-			&nbsp; :
-		</td>
 		<td>
-			<input type="text" name="prenom" id="surname">
-		</td>
-	</tr>
-
-	<tr>
-		<td align="right">
 			<LABEL for="username">
 				<?php echo $langUsername ?>
 			</LABEL>
 			&nbsp;:
 		</td>
 		<td>
-			<input type="text" name="uname" id="username" >
+			<input type="text" size="40" name="uname" id="username" value="<?=$uname?>">
 		</td>
 	</tr>
 
 	<tr>
-		<td  align="right">
+		<td>
 			<LABEL for="pass1">
 				<?php echo $langPass ?>
 			</LABEL>
 			&nbsp;:
 		</td>
 		<td>
-			<input type="password" name="password1" id="pass1" >
+			<input type="password" size="40" name="password1" id="pass1" >
 		</td>
 	</tr>
 
 	<tr>
-		<td align="right">
+		<td>
 			<LABEL for="pass2">
 				<?php echo $langPass ?>
 			</LABEL> :
@@ -98,23 +124,42 @@ else
 			</small>
 		</td>
 		<td>
-			<input type="password" name="password" id="pass2">
+			<input type="password" size="40" name="password" id="pass2">
 		</td>
 	</tr>
 
+    <tr>
+        <td >
+        </td>
+        <td>
+          <br>
+        </td>
+    </tr>
+
 	<tr>
-		<td align="right">
+		<td>
 			<LABEL for="email">
 				<?php echo $langEmail;?>
 			</LABEL> :
 		</td>
 		<td>
-			<input type="text" name="email" id="email">
+			<input type="text" size="40" name="email" id="email" value="<?=$email?>">
 		</td>
 	</tr>
 
+    <tr>
+        <td>
+            <LABEL for="email">
+                <?php echo $langPhone;?>
+            </LABEL> :
+        </td>
+        <td>
+            <input type="text" size="40" name="phone" id="phone" value="<?=$phone?>">
+        </td>
+    </tr>
+
 	<tr>
-		<td align="right">
+		<td>
 			<LABEL for="language">
 				<?php echo $langStatus ?>
 			</LABEL>
@@ -145,7 +190,7 @@ else
 <td>
 	<input type="hidden" name="submitRegistration" value="true">
 </td>
-<td><input type="submit" value="<?php echo $langOk;?>" ></td>
+<td><input type="submit" value="<?php echo $langRegister;?>" ></td>
 </tr>
 
 </table>

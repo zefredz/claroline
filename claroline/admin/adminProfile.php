@@ -22,6 +22,7 @@ $cidReset = true;
 include('../inc/claro_init_global.inc.php');
 include($includePath.'/lib/text.lib.php');
 include($includePath."/lib/admin.lib.inc.php");
+include($includePath."/conf/profile.conf.inc.php");
 
 //SECURITY CHECK
 
@@ -354,6 +355,19 @@ if ($display == USER_DATA_FORM)
         </td>
     </tr>
 
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <small>(<?=$langChangePwdexp?>)</small>
+      </td>
+    </tr>
+
 	<tr>
 	  <td valign="top">
 	    <?=$langUsername?> :
@@ -362,12 +376,6 @@ if ($display == USER_DATA_FORM)
 	    <input type="text" size="40" name="username_form" value="<?=$username_form?>">
 	  </td>
 	</tr>
-
-    <tr>
-      <td colspan="2">
-        <small>(<?=$langChangePwdexp?>)</small>
-      </td>
-    </tr>
 
     <tr>
       <td valign="top">
@@ -385,6 +393,13 @@ if ($display == USER_DATA_FORM)
       <td colspan="2">
         <input type="password" name="confirm" id="confirm" size="40" value="<?php echo $confirm ?>">
       </td>
+    </tr>
+
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td></td>
     </tr>
 
 	<tr>

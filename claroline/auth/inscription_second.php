@@ -115,7 +115,7 @@ if($submitRegistration)
 if ( ! $regDataOk)
 {
 	echo	"<p>",
-			"<a href=\"inscription.php?nom=",$nom,"&prenom=",$prenom,"&uname=",$uname,"&email=",$email,"\">",
+			"<a href=\"inscription.php?nom=",$nom,"&prenom=",$prenom,"&uname=",$uname,"&email=",$email,"&officialCode=",$officialCode,"&phone=",$phone,"\">",
 			$langAgain,
 			"</a>",
 			"</p>\n";
@@ -137,9 +137,10 @@ if ($regDataOk)
 	                 `password` 	= \"".($userPasswordCrypted?md5($password):$password)."\",
 	                 `email`    	= \"".$email."\",
 	                 `statut`   	= \"".$statut."\",
-	                 `officialCode`	= \"".$officialCode."\"
+	                 `officialCode`	= \"".$officialCode."\",
+                     `phoneNumber`    = \"".$phone."\"
 					 ");
-
+                
 	$_uid = mysql_insert_id();
 
 				/*

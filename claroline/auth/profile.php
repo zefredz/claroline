@@ -320,6 +320,7 @@ SELECT
 		        SET nom        = \"".$form_lastName."\",
 		            prenom     = \"".$form_firstName."\",
 		            username   = \"".$form_userName."\",
+                    phoneNumber   = \"".$form_phone."\",
 		            email      = \"".$form_email."\" ";
 
 		if ($form_officialCode) $sql .= ", officialCode   = \"".$form_officialCode."\" ";
@@ -366,7 +367,7 @@ SELECT
 //////////////////////////////////////////////////////////////////////////////
 
 
-$sql = "SELECT nom, prenom, username, email , pictureUri, officialCode
+$sql = "SELECT nom, prenom, username, email , pictureUri, officialCode, phoneNumber
         FROM  `".$tbl_user."`
         WHERE user_id = \"".$_uid."\"";
 
@@ -381,6 +382,7 @@ if ($result)
 	$form_userName     = $myrow['username'    ];
 	$form_officialCode = $myrow['officialCode'];
 	$form_email        = $myrow['email'       ];
+    $form_phone        = $myrow['phoneNumber' ];
 
 	$disp_picture      = $myrow['pictureUri'  ];
 }
@@ -419,32 +421,30 @@ else
 
 
 
-echo	"<table>\n",
+echo	"<table width=\"100%\">
+		   <tr>
+              <td ><label for=\"form_lastName\" >",$langLastname,"</label> : </td>\n",
 
-		"<tr>\n",
+		     "<td valign=\"middle\">\n",
+			   "<input type=\"text\" size=\"40\" id=\"form_lastName\" name=\"form_lastName\" value=\"".$form_lastName."\">\n",
+		     "</td>\n",
 
-		"<td align=\"right\"><label for=\"form_lastName\" >",$langLastname,"</label> : </td>\n",
+    	  "</tr>\n",
 
-		"<td valign=\"middle\">\n",
-			"<input type=\"text\" size=\"40\" id=\"form_lastName\" name=\"form_lastName\" value=\"".$form_lastName."\">\n",
-		"</td>\n",
-
-    	"</tr>\n",
-
-        "<tr>\n",
-        "<td  align=\"right\">\n<label for=\"form_firstName\">",
-        $langFirstname,"</label> : \n",
-        "</td>\n",
-        "<td >\n",
-        "<input type=\"text\" size=\"40\" name=\"form_firstName\" id=\"form_firstName\" value=\"",$form_firstName,"\">\n",
-        "</td>\n",
-        "</tr>\n";
+          "<tr>\n",
+            "<td >\n<label for=\"form_firstName\">",
+              $langFirstname,"</label> : \n",
+            "</td>\n",
+            "<td >\n",
+              "<input type=\"text\" size=\"40\" name=\"form_firstName\" id=\"form_firstName\" value=\"",$form_firstName,"\">\n",
+            "</td>\n",
+          "</tr>\n";
 
 if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 {
 	echo
 		"<tr>\n",
-		"<td  align=\"right\">\n<label for=\"form_officialCode\">",
+		"<td >\n<label for=\"form_officialCode\">",
 		$langOfficialCode,"</label> : \n",
 		"</td>\n",
 		"<td>\n",
@@ -452,16 +452,16 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 		"</td>\n",
 		"</tr>\n";
 }
-echo
-		"<tr>\n",
-		"<td align=\"right\">\n<label for=\"form_email\">",
-		$langEmail,"</label> : \n",
-		"</td>\n",
-		"<td >\n",
-		"<input type=\"text\" size=\"40\" name=\"form_email\" id=\"form_email\" value=\"",$form_email,"\">\n",
-		"</td>",
-		"</tr>";
-
+?>
+<tr>
+    <td >
+    </td>
+    <td >
+       <br>
+    </td>
+</tr>
+<?
+/*    //PICTURE
 echo
 
 		 "<tr>\n"
@@ -482,28 +482,25 @@ echo
 		 )
 		."</td>\n"
 		."<tr>\n";
+*/
 
 echo
+        "<tr>\n",
+        "<td colspan=\"2\" >\n<small>",
+        $langEnter2passToChange,
+        "</small></td>\n",
+        "</tr>\n",
 		"<tr>\n",
-		"<td colspan=\"2\" >\n<small>",
-		$langAuthInfo,
-		"</small></td>\n",
-		"</tr>\n",
-		"<tr>\n",
-		"<td  align=\"right\">\n<label for=\"form_userName\">",
+		"<td >\n<label for=\"form_userName\">",
 		$langUsername,"</label> : \n",
 		"</td>\n",
 		"<td>\n",
 		"<input type=\"text\" size=\"40\" name=\"form_userName\" id=\"form_userName\" value=\"",$form_userName,"\">\n",
 		"</td>\n",
 		"</tr>\n",
+
 		"<tr>\n",
-		"<td colspan=\"2\" >\n<small>",
-		$langEnter2passToChange,
-		"</small></td>\n",
-		"</tr>\n",
-		"<tr>\n",
-		"<td align=\"right\">\n<label for=\"form_password1\">",
+		"<td >\n<label for=\"form_password1\">",
 		$langPass,"</label> : \n",
 		"</td>\n",
 		"<td>\n",
@@ -512,7 +509,7 @@ echo
 		"</tr>\n",
 
 		"<tr>\n",
-		"<td align=\"right\">\n<label for=\"form_password2\">",
+		"<td >\n<label for=\"form_password2\">",
 		"",$langConfirmation,"</label> : \n",
 		"</td>\n",
 		"<td>\n",
@@ -520,11 +517,42 @@ echo
 		"</td>\n",
 		"</tr>\n";
 
+?>
+<tr>
+    <td >
+    </td>
+    <td >
+       <br>
+    </td>
+</tr>
+<?
+
+echo
+        "<tr>\n",
+        "<td >\n<label for=\"form_email\">",
+        $langEmail,"</label> : \n",
+        "</td>\n",
+        "<td >\n",
+        "<input type=\"text\" size=\"40\" name=\"form_email\" id=\"form_email\" value=\"",$form_email,"\">\n",
+        "</td>",
+        "</tr>";
+
+echo
+        "<tr>\n",
+        "<td >\n<label for=\"form_email\">",
+        $langPhone,"</label> : \n",
+        "</td>\n",
+        "<td >\n",
+        "<input type=\"text\" size=\"40\" name=\"form_phone\" id=\"form_phone\" value=\"",$form_phone,"\">\n",
+        "</td>",
+        "</tr>";
+
+
 echo 	"<tr>\n"
 		."<td></td>\n",
 
 		"<td>\n",
-		"<input type=\"submit\" name=\"applyChange\" value=\"",$langOk,"\">\n",
+		"<input type=\"submit\" name=\"applyChange\" value=\" ",$langSaveChange," \">\n",
 		"</td>\n",
 		"</tr>\n",
 
