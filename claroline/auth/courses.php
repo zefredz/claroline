@@ -59,9 +59,10 @@ else
 {
   if (isset($fromAdmin) && ($fromAdmin == "settings" || $fromAdmin == "usercourse"))
   {
-    $userSettingMode = $uidToEdit;
-    $inURL = "&uidToEdit=".$uidToEdit."&fromAdmin=".$fromAdmin;
+    $userSettingMode = $uidToEdit;    
   }
+  $inURL = "&uidToEdit=".$uidToEdit."&fromAdmin=".$fromAdmin;
+  
   
   if (isset($uidToEdit) && (!($uidToEdit == ""))) // in admin mode, there 2 possibilities : we might want to enroll ourself or either be here from admin tool
   {
@@ -568,7 +569,7 @@ switch ($displayMode)
 				}
                 else
                 {
-					echo	"<small><font color=\"gray\">course manager</font></small>\n";
+					echo	"<small><font color=\"gray\">".$langCourseManager."</font></small>\n";
                 }
 
 				echo	"</td>\n",
