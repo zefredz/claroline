@@ -128,18 +128,6 @@ else                                        // normal exercise mode
 		{
 			$displayAnswers = true;
 		}
-		elseif( $showAnswers == 'LASTTRY' )
-		{
-			// count user attempts 
-			$sql="SELECT count(`exe_result`) AS `tryQty`
-	     			FROM `$TBL_TRACK_EXERCISES`
-   	   				WHERE `exe_user_id` = '$_uid'
-				  	AND `exe_exo_id` = ".$objExercise->selectId()."
-					GROUP BY `exe_user_id`";
-			$result = claro_sql_query_fetch_all($sql);
-			$userTryQty = $result[0]['tryQty']+1;
-			$displayAnswers = $objExercise->get_max_attempt() <= $userTryQty;
-		}
 		elseif( $showAnswers == 'ENDDATE' )
 		{
 			// check if current date is after enddate property of the exercise
@@ -509,8 +497,14 @@ else                                        // normal exercise mode
 if($is_trackingEnabled && $displayScore)
 {
     @include($includePath.'/lib/events.lib.inc.php');
-
-    event_exercice($objExercise->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe );
+    if ( $objExercise->record_uid_in_score()  || !$_uid )
+    {
+        event_exercice($objExercise->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe );
+    }
+    else
+    {
+      event_exercice($objExercise->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe, $_uid );  
+    }
 
 }
 
