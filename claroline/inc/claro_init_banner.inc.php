@@ -316,3 +316,6 @@ if( isset($db) )
 
 
 
+
+<!----------------------      Claroline Body       ---------------------->
+<div class="claroBody">

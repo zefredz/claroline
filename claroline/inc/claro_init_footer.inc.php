@@ -1,9 +1,18 @@
+</div>
+<!----------------------   End of Claroline Body   ---------------------->
+
+
 <?php # $Id$
 //echo "<pre>".var_export($_courseToolList,1)."</pre>";
 
 if ($claro_banner) echo $claro_banner;
 
 ?>
+
+
+<!-----------------------  Claroline Footer  ------------------------>
+
+<div class="claroFooter">
 <hr noshade size="1">
 
 <table width="100%" border="0">
@@ -44,5 +53,6 @@ else
 <?php 
 	if ($_user['is_devel'] && function_exists( 'printInit')) printInit() ;
 ?>
+</div>
 </body>
 </html>
