@@ -131,6 +131,9 @@ stripSubmitValue($HTTP_POST_VARS);
 stripSubmitValue($HTTP_GET_VARS);
 stripSubmitValue($_REQUEST);
 
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+
+
 // table names for learning path (needed to check integrity)
 
 /*
