@@ -35,6 +35,8 @@ $langConfiguration = "Configuration";
 $langTraduction = "Outil de traduction";
 $langPlatform = "Plateforme";
 $langYouCanUsefields = "Vous pouvez utiliser (*) dans les champs";
+$langManageCourseCategories = "Editer des catégories de cours";
+$langViewPlatFormStatistics = "Voir les statistiques de la plateforme";
 
 //user and course advanced search pages
 
