@@ -365,10 +365,12 @@ foreach($resultList as $list)
      }
      else // user is already enrolled
      {
-        echo  "<td align=\"center\" colspan=\"2\">\n
+        echo  "<td align=\"center\" >\n
                  <small>",
                  $langAlreadyEnrolled,
                 "</small>
+               </td>
+               <td>
                </td>\n";
 
      }
