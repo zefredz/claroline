@@ -12,6 +12,7 @@
 //	or die ("WARNING : it remains some characters before &lt;?php bracket or after ?&gt end");
 
 header('Content-Type: text/html; charset='. $charset);
+
 if ($httpHeadXtra)
 {
 	foreach($httpHeadXtra as $thisHttpHead)
@@ -54,7 +55,7 @@ $titlePage .= $siteName;
 <link href="http://www.claroline.net/documentation.htm" rel="Help" />
 <link href="http://www.claroline.net/credits.htm" rel="Author" />
 <link href="http://www.claroline.net" rel="Copyright" />
-
+<script language="javascript">document.cookie="javascriptEnabled=true";</script>
 <?php
 if ($htmlHeadXtra)
 {
