@@ -19,226 +19,231 @@ session_start();
  *   (at your option) any later version.
  *
  ***************************************************************************/
-include('extention.inc');
-include('functions.'.$phpEx);
-include('config.'.$phpEx);
-require('auth.'.$phpEx);
+
+include 'extention.inc';
+include 'functions.'.$phpEx;
+include 'config.'.$phpEx;
+require 'auth.'.$phpEx;
+
 $pagetitle = $l_topictitle;
-$pagetype = "viewtopic";
+$pagetype  = 'viewtopic';
 
-$sql = "
-SELECT 	`f`.`forum_name` forum_name,
-		`f`.`forum_access` forum_access,
-		`f`.`forum_type` forum_type,
-		`g`.`id`	`idGroup`
+$sql = "SELECT 	`f`.`forum_name`   `forum_name`,
+                `f`.`forum_access` `forum_access`,
+                `f`.`forum_type`   `forum_type`,
+                `g`.`id`           `idGroup`
 
-FROM `".$tbl_forums."` `f`,
-     `".$tbl_topics."` t 
+        FROM `".$tbl_forums."` `f`,
+             `".$tbl_topics."` t 
 
-# Check possible attached group ...
+        # Check possible attached group ...
 
-LEFT JOIN `".$tbl_student_group."` `g`
-ON `f`.`forum_id` = `g`.`forumId`
+        LEFT JOIN `".$tbl_student_group."` `g`
+               ON `f`.`forum_id` = `g`.`forumId`
 
-WHERE `f`.`forum_id` = '".$forum."'
-AND   t.topic_id = '".$topic."'
-AND   t.forum_id = f.forum_id    ";
+        WHERE `f`.`forum_id` = '".$forum."'
+         AND  `t`.`topic_id` = '".$topic."'
+         AND  `t`.`forum_id` = f.forum_id    ";
 
-$result = mysql_query($sql) 
-          or error_die("An Error Occured<hr>Could not connect to the forums database.");
+list($myrow) = claro_sql_query_fetch_all($sql);
 
-$myrow = mysql_fetch_array($result)
-         or error_die("Error - The forum/topic you selected does not exist. Please go back and try again.");
+/* 
+ * Check if the topic isn't attached to a group,  or -- if it is attached --, 
+ * check the user is allowed to see the current group forum.
+ */
 
-if (     is_null($myrow['idGroup']) // there is no group attached to this forum
-    || ( $myrow['idGroup'] == $_gid && $is_groupAllowed) )
+if (   ! is_null($forumSettingList['idGroup']) 
+    && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
 {
-    $forum_name = own_stripslashes($myrow[forum_name]);
+    // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking 
+    // attempt like rewriting the request without $cidReq. If we are in group 
+    // forum and the group of the concerned forum isn't the same as the session 
+    // one, something weird is happening, indeed ...
 
-    // Note: page_header is included later on, because this page might need to send a cookie.
+    die ('<center>not allowed</center>');
+}
 
-    //	if(($myrow['forum_type'] == 1) && !$user_logged_in && !$logging_in)
-    //	{
-    //								....
-    //
-    //		   There were previously an	authentication form	propriatary	to phpBB ...
-    //	}
-    //	else
+$forum_name = own_stripslashes($myrow['forum_name']);
+
+$sql = "SELECT topic_title, topic_status 
+        FROM `".$tbl_topics."` 
+        WHERE topic_id = '".$topic."'";
+
+$total = get_total_posts($topic, $db, 'topic');
+
+if($total > $posts_per_page)
+{
+    $times = 0;
+    for($x = 0; $x < $total; $x += $posts_per_page) $times++;
+    $pages = $times;
+}
+
+$result        = claro_sql_query($sql);
+
+$myrow         = mysql_fetch_array($result);
+$topic_subject = own_stripslashes($myrow['topic_title']);
+$lock_state    = $myrow['topic_status'];
+
+include('page_header.'.$phpEx);
+
+
+if($total > $posts_per_page)
+{
+    echo "<table>\n";
+    $times = 1;
+
+    echo "<tr align=\"left\">\n"
+        ."<td>\n"
+        .$l_gotopage." ( ";
+
+    $last_page = $start - $posts_per_page;
+
+    if($start > 0)
     {
-
-        $sql = "SELECT topic_title, topic_status FROM `$tbl_topics` 
-        		WHERE topic_id = '$topic'";
-
-        $total = get_total_posts($topic, $db, "topic");
-
-        if($total > $posts_per_page)
-        {
-            $times = 0;
-            for($x = 0; $x < $total; $x += $posts_per_page)
-            $times++;
-            $pages = $times;
-        }
-
-        $result = mysql_query($sql, $db) 
-                  or error_die("<big>An Error Occured<big><hr>Could not connect to the forums database.");
-
-        $myrow = mysql_fetch_array($result);
-        $topic_subject = own_stripslashes($myrow[topic_title]);
-        $lock_state = $myrow[topic_status];
-
-        include('page_header.'.$phpEx);
-
-
-        if($total > $posts_per_page)
-        {
-            echo "<table>";
-            $times = 1;
-            echo "<tr align=\"left\"><td>",$l_gotopage," ( ";
-            $last_page = $start - $posts_per_page;
-
-            if($start > 0)
-            {
-                echo "<a href=\"$PHP_SELF?topic=$topic&forum=$forum&start=$last_page\">",$l_prevpage,"</a> ";
-            }
-
-            for($x = 0; $x < $total; $x += $posts_per_page)
-            {
-                if($times != 1)
-                echo " | ";
-
-                if($start && ($start == $x))
-                {
-                    echo $times;
-                }
-
-                elseif($start == 0 && $x == 0)
-                {
-                    echo "1";
-                }
-                else
-                {
-                    echo "<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&start=$x\">",$times,"</a>\n";
-                }
-
-                $times++;
-            }
-
-            if(($start + $posts_per_page) < $total)
-            {
-                $next_page = $start + $posts_per_page;
-                echo "<a href=\"$PHP_SELF?topic=$topic&forum=$forum&start=$next_page\">",$l_nextpage,"</a>\n";
-            }
-
-            echo	" )\n",
-                    "</td>\n",
-                    "</tr>\n",
-                    "</table>\n";
-        }
-    ?>
-
-    <table class="claroTable" width="100%">
-    <tr align="left">
-    <th class="superHeader">
-    <?php 
-	
-    /*
-     * EMAIL NOTIFICATION COMMANDS
-     */
-
-    // For (Added for claro 1.5) execute notification preference change if the command was called
-
-    switch ($cmd)
-    {
-            case "exNotify" :
-                  $sql = "INSERT INTO `$tbl_user_notify`
-                                 (`user_id`, `topic_id`)
-                                 VALUES ('$_uid', '$topic')
-                          ";
-                  mysql_query($sql);
-                  $notifyChange = true;
-                  break;
-
-            case "exdoNotNotify" :
-                  $sql = "DELETE FROM `$tbl_user_notify`
-                                            WHERE topic_id = '$topic'
-                                            AND user_id='$_uid'
-                                            ";
-                  mysql_query($sql);
-                  $notifyChange = true;
-                  break;
+        echo "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
+                                   ."&start=".$last_page."\">"
+            .$l_prevpage
+            ."</a> ";
     }
 
-    // For (Added for claro 1.5) allow user to be have notification for this topic or disable it
-     
-   	if (isset($_uid))  //anonymous user do not have this function
+    for($x = 0; $x < $total; $x += $posts_per_page)
     {
-      //see in DB if user is notified or not
+        if($times != 1) echo " | ";
 
-      $sql = "SELECT *
-                      FROM `$tbl_user_notify`
-                      WHERE topic_id = '$topic'
-                      AND user_id='$_uid'
-              ";
-      $result = mysql_query($sql);
-
-      //echo $sql."<br>";
-      if ( mysql_num_rows($result) ) {$userInNotifyMode = true;}
-
-      // add appropriate link
-
-      echo "<div style=\"float: right;\">"
-          ."<small>";
-
-      if ($userInNotifyMode)   // display link NOT to be notified
-      {
-        echo "<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
-        	.get_syslang_string($sys_lang, "l_notify")
-            ." [<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&cmd=exdoNotNotify\">"
-            .$l_disable
-            ."</a>]";
-       }
-       else   //display link to be notified for this topic
-       {
-       echo  "<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&cmd=exNotify\">"
-            ."<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
-            ."</a>"
-            ."<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&cmd=exNotify\">"
-            .get_syslang_string($sys_lang, "l_notify")
-            ."</a>";
-       }
-
-       echo  "</small>"
-            ."</div>";
-
-     }//end not anonymous user
-
-   	echo $topic_subject;
-
-
-    ?>
-    </th>
-
-    </tr>
-
-    <?php
-
-        if(isset($start))
-        {
-            $sql = "SELECT p.*, pt.post_text FROM `".$tbl_posts."` p, `".$tbl_posts_text."` pt 
-                    WHERE topic_id = '".$topic."' 
-                    AND p.post_id = pt.post_id
-                    ORDER BY post_id LIMIT ".$start.", ".$posts_per_page;
-        }
+        if    ($start && ($start == $x)) echo $times;
+        elseif($start == 0 && $x == 0)   echo "1";
         else
         {
-            $sql = "SELECT p.*, pt.post_text 
-                    FROM `".$tbl_posts."` p, `".$tbl_posts_text."` pt
-                    WHERE topic_id = '".$topic."'
-                    AND p.post_id = pt.post_id
-                    ORDER BY post_id LIMIT ".$posts_per_page;
+            echo "<a href=\"".$PHP_SELF."?mode=viewtopic"
+                ."&topic=".$topic."&forum=".$forum."&start=".$x."\">"
+                .$times
+                ."</a>\n";
         }
 
-        $result = mysql_query($sql, $db) or error_die("<big>An Error Occured</big><hr>Could not connect to the Posts database. $sql");
+        $times++;
+    } // end for($x = 0; $x < $total; $x += $posts_per_page)
+
+    if(($start + $posts_per_page) < $total)
+    {
+        $next_page = $start + $posts_per_page;
+
+        echo "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
+                                   ."&start=$next_page\">"
+            .$l_nextpage
+            ."</a>\n";
+    }
+
+    echo " )\n"
+        ."</td>\n"
+        ."</tr>\n"
+        ."</table>\n";
+}
+
+echo "<table class=\"claroTable\" width=\"100%\">"
+    ."<tr align=\"left\">"
+    ."<th class=\"superHeader\">";
+
+/*
+ * EMAIL NOTIFICATION COMMANDS
+ */
+
+// For (Added for claro 1.5) execute notification preference change 
+// if the command was called
+
+switch ($cmd)
+{
+        case 'exNotify' :
+
+              $sql = "INSERT INTO `$tbl_user_notify`
+                      SET `user_id`  = '".$_uid."',
+                          `topic_id` = '".$topic."'";
+
+              claro_sql_query($sql);
+              $notifyChange = true;
+              break;
+
+        case 'exdoNotNotify' :
+              $sql = "DELETE FROM `$tbl_user_notify`
+                      WHERE topic_id = '".$topic."'
+                      AND user_id='".$_uid."'";
+
+              claro_sql_query($sql);
+              $notifyChange = true;
+              break;
+}
+
+// For (Added for claro 1.5) allow user to be have notification for this 
+// topic or disable it
+ 
+if (isset($_uid))  //anonymous user do not have this function
+{
+    //see in DB if user is notified or not
+
+    $sql = "SELECT *
+          FROM `".$tbl_user_notify."`
+          WHERE topic_id = '".$topic."'
+            AND user_id='".$_uid."'";
+
+    $result = claro_sql_query($sql);
+
+    if ( mysql_num_rows($result) ) { $userInNotifyMode = true; }
+
+    // add appropriate link
+
+    echo "<div style=\"float: right;\">\n"
+        ."<small>";
+
+    if ($userInNotifyMode)   // display link NOT to be notified
+    {
+        echo "<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
+            .get_syslang_string($sys_lang, 'l_notify')
+            ." [<a href=\"".$PHP_SELF."?mode=viewtopic"
+            ."&topic=".$topic."&forum=".$forum."&cmd=exdoNotNotify\">"
+            .$l_disable
+            ."</a>]";
+    }
+    else   //display link to be notified for this topic
+    {
+        echo  "<a href=\"".$PHP_SELF."?mode=viewtopic"
+            ."&topic=".$topic."&forum=".$forum."&cmd=exNotify\">"
+            ."<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
+            ."</a>"
+
+            ."<a href=\"".$PHP_SELF."?mode=viewtopic"
+            ."&topic=".$topic."&forum=".$forum."&cmd=exNotify\">"
+            .get_syslang_string($sys_lang, 'l_notify')
+            ."</a>";
+    }
+
+    echo  "</small>\n"
+        ."</div>\n";
+
+    } //end not anonymous user
+
+   	echo $topic_subject
+
+        ."</th>\n"
+        ."</tr>\n";
+
+    if( isset($start) )
+    {
+        $sql = "SELECT p.*, pt.post_text FROM `".$tbl_posts."` p, `".$tbl_posts_text."` pt 
+                WHERE topic_id = '".$topic."' 
+                  AND p.post_id = pt.post_id
+                ORDER BY post_id 
+                LIMIT ".$start.", ".$posts_per_page;
+    }
+    else
+    {
+        $sql = "SELECT p.*, pt.post_text 
+                FROM `".$tbl_posts."` p, `".$tbl_posts_text."` pt
+                WHERE topic_id = '".$topic."'
+                  AND p.post_id = pt.post_id
+                ORDER BY post_id 
+                LIMIT ".$posts_per_page;
+    }
+
+        $result = claro_sql_query($sql, $db);
 
         $myrow = mysql_fetch_array($result);
 
@@ -280,26 +285,33 @@ if (     is_null($myrow['idGroup']) // there is no group attached to this forum
 
         $message = eregi_replace("\[addsig]$", "<BR>_________________<BR>" . own_stripslashes(bbencode($sig, $allow_html)), $message);
 
-        echo	"<tr>\n",
-                "<td>\n",
-                $message,"\n";
+        echo "<tr>\n"
+            ."<td>\n"
+            .$message."\n";
 
-    // Added by Thomas 30-11-2001
-    // echo "<a href=\"$url_phpbb/reply.$phpEx?topic=$topic&forum=$forum&post=$myrow[post_id]&quote=1\">$langQuote</a>&nbsp;&nbsp;";
+        // Added by Thomas 30-11-2001
+        //  echo "<a href=\"".$url_phpbb."/reply.".$phpEx."?topic=".$topic
+        //      ."&forum=".$forum."&post=".$myrow['post_id']."&quote=1\">"
+        //      .$langQuote
+        //      ."</a>&nbsp;&nbsp;";
 
         if($is_allowedToEdit)
         {
-            echo	"<p>\n",
-	    
-                    "<a href=\"$url_phpbb/editpost.$phpEx?post_id=$myrow[post_id]&topic=$topic&forum=$forum\">",
-                    "<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"",$langEditDel,"\">",
-		    "</a>\n",
-		    
-		    "<a href=\"$url_phpbb/editpost.$phpEx?post_id=$myrow[post_id]&topic=$topic&forum=$forum&delete=delete&submit=submit\">",
-                    "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt\"",$langEditDel,"\">",
-                    "</a>\n",
-		    
-                    "</p>\n";
+            echo "<p>\n"
+
+                ."<a href=\"".$url_phpbb."/editpost.".$phpEx
+                ."?post_id=".$myrow['post_id']."&topic=".$topic."&forum=".$forum."\">"
+                ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langEditDel."\">"
+		        ."</a>\n"
+
+		        ."<a href=\"".$url_phpbb."/editpost.".$phpEx
+                ."?post_id=".$myrow['post_id']."&topic=".$topic."&forum=".$forum
+                ."&delete=delete&submit=submit\">"
+                ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" "
+                     ."border=\"0\" alt\"".$langEditDel."\">"
+                ."</a>\n"
+
+                ."</p>\n";
         }
 
         echo	"</td>\n",
@@ -309,83 +321,70 @@ if (     is_null($myrow['idGroup']) // there is no group attached to this forum
 
     } while($myrow = mysql_fetch_array($result)); // do while
 
-        if ($notifyChange != true)
-        {
-             $sql = "UPDATE `$tbl_topics`
-                    SET topic_views = topic_views + 1
-                    WHERE topic_id = '$topic'";
+    if ($notifyChange != true)
+    {
+         $sql = "UPDATE `".$tbl_topics."`
+                 SET topic_views = topic_views + 1
+                 WHERE topic_id = '".$topic."'";
 
-            @mysql_query($sql, $db);
-        }
-    ?>
-
-    </table>
-
-    </td>
-
-    </tr>
-
-    <?php
-
-        if($total > $posts_per_page)
-        {
-            $times = 1;
-
-            echo	"<tr align=\"right\">",
-                    "<td colspan=2>\n",
-                    $l_gotopage," ( ";
-
-            $last_page = $start - $posts_per_page;
-
-            if($start > 0)
-            {
-                echo "<a href=\"",$PHP_SELF,"?topic=",$topic,"&forum=",$forum,"&start=",$last_page,"\">",$l_prevpage,"</a> ";
-            }
-
-            for($x = 0; $x < $total; $x += $posts_per_page)
-            {
-                if($times != 1)
-                {
-                    echo " | ";
-                }
-
-                if($start && ($start == $x))
-                {
-                     echo $times;
-                }
-                elseif($start == 0 && $x == 0)
-                {
-                    echo "1";
-                }
-                else
-                {
-                    echo "<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&start=$x\">",$times,"</a>";
-                }
-
-                $times++;
-            }
-
-            if(($start + $posts_per_page) < $total)
-            {
-                $next_page = $start + $posts_per_page;
-
-                echo "<a href=\"",$PHP_SELF,"?topic=",$topic,"&forum=",$forum,"&start=",$next_page,"\">",$l_nextpage,"</a>";
-            }
-
-            echo	"</td>\n",
-                    "</tr>\n";
-        }
-
-    ?>
-
-
-    </td>
-    <?
+        claro_sql_query($sql);
     }
-} // end if $is_groupAllowed
-else
+
+    echo "</table>\n"
+        ."</td>\n"
+        ."</tr>\n";
+
+if($total > $posts_per_page)
 {
-	echo "This is not available for you";
-}
-require('page_tail.php');
+    $times = 1;
+
+    echo	"<tr align=\"right\">\n",
+            "<td colspan=2>\n",
+            $l_gotopage," ( ";
+
+    $last_page = $start - $posts_per_page;
+
+    if($start > 0)
+    {
+        echo "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
+                                   ."&start=".$last_page."\">"
+            .$l_prevpage
+            ."</a>\n";
+    }
+
+    for($x = 0; $x < $total; $x += $posts_per_page)
+    {
+        if($times != 1) echo " | ";
+
+        if    ($start && ($start == $x)) echo $times;
+        elseif($start == 0 && $x == 0)   echo '1';
+        else
+        {
+            echo "<a href=\"".$PHP_SELF."?mode=viewtopic"
+                ."&topic=".$topic."&forum=".$forum."&start=".$x."\">"
+                .$times
+                ."</a>\n";
+        }
+
+        $times++;
+    }
+
+    if(($start + $posts_per_page) < $total)
+    {
+        $next_page = $start + $posts_per_page;
+
+        echo "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
+                                   ."&start=".$next_page."\">"
+            .$l_nextpage
+            ."</a>\n";
+    }
+
+    echo	"</td>\n",
+            "</tr>\n";
+
+} // end if($total > $posts_per_page)
+
+    echo "</td>\n";
+
+require 'page_tail.php';
 ?>
