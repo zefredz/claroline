@@ -75,7 +75,7 @@ function define_course_keys ($wantedCode,          $prefix4all="",
 		                        FROM `".$TABLECOURSE."`
 								WHERE code = '".$keysCourseId."'";
 
-		$resCheckCourseId    = mysql_query ($sqlCheckCourseId);
+		$resCheckCourseId    = claro_sql_query ($sqlCheckCourseId);
 		$isCheckCourseIdUsed = mysql_fetch_array($resCheckCourseId);
 
 		if ($isCheckCourseIdUsed[0]['existAllready'] > 0)
@@ -88,7 +88,7 @@ function define_course_keys ($wantedCode,          $prefix4all="",
 
 		$sqlCheckCourseDb = "SHOW DATABASES LIKE '".$keysCourseDbName."'";
 
-		$resCheckCourseDb = mysql_query ($sqlCheckCourseDb);
+		$resCheckCourseDb = claro_sql_query ($sqlCheckCourseDb);
 
 		$isCheckCourseDbUsed = mysql_num_rows($resCheckCourseDb);
 
@@ -247,7 +247,7 @@ function update_Db_course($courseDbName)
 
 	if(!$singleDbEnabled)
 	{
-		mysql_query("CREATE DATABASE $courseDbName");
+		claro_sql_query('CREATE DATABASE `'.$courseDbName.'`');
 		if (mysql_errno()>0)
 			return CLARO_ERROR_CANT_CREATE_DB;
 	}
@@ -328,7 +328,7 @@ CREATE TABLE `".$TABLETOOLANNOUNCEMENTS."` (
   `ordre` mediumint(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='announcements table'";
-mysql_query($sql);
+claro_sql_query($sql);
 
 		$sql ="
 CREATE TABLE `".$TABLETOOLUSERINFOCONTENT."` (
@@ -343,7 +343,7 @@ CREATE TABLE `".$TABLETOOLUSERINFOCONTENT."` (
 ) TYPE=MyISAM COMMENT='content of users information - organisation based on
 userinf'";
 
-mysql_query($sql);
+claro_sql_query($sql);
 
 		$sql ="
 CREATE TABLE `".$TABLETOOLUSERINFODEF."` (
@@ -354,7 +354,7 @@ CREATE TABLE `".$TABLETOOLUSERINFODEF."` (
    `rank` tinyint(3) unsigned NOT NULL default '0',
    PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='categories definition for user information of a course'";
-mysql_query($sql);
+claro_sql_query($sql);
 
 		$sql ="
 	CREATE
@@ -364,9 +364,9 @@ mysql_query($sql);
 		access_title varchar(20),
 	PRIMARY KEY (access_id)
 	)";
-mysql_query($sql);
+claro_sql_query($sql);
 
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBBANLIST."` (
 		ban_id int(10) NOT NULL auto_increment,
 		ban_userid int(10),
@@ -377,7 +377,7 @@ mysql_query("
 	PRIMARY KEY (ban_id),
 		KEY ban_id (ban_id)
 	)");
-mysql_query("
+claro_sql_query("
 
 	CREATE TABLE `".$TABLEPHPBBCATEGORIES."` (
 		cat_id int(10) NOT NULL auto_increment,
@@ -385,7 +385,7 @@ mysql_query("
 		cat_order varchar(10),
 	PRIMARY KEY (cat_id)
 	)");
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBCONFIG."`
 	(
 		config_id int(10) NOT NULL auto_increment,
@@ -407,25 +407,25 @@ mysql_query("
 	PRIMARY KEY (config_id),
 		UNIQUE selected (selected)
 	)");
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBDISALLOW."`(
 		disallow_id int(10) NOT NULL auto_increment,
 		disallow_username varchar(50),
 	PRIMARY KEY (disallow_id)
 	)");
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBFORUMACCESS."`(
 		forum_id int(10) DEFAULT '0' NOT NULL,
 		user_id int(10) DEFAULT '0' NOT NULL,
 		can_post tinyint(1) DEFAULT '0' NOT NULL,
 	PRIMARY KEY (forum_id, user_id)
 	)");
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBFORUMMODS."`(
 		forum_id int(10) DEFAULT '0' NOT NULL,
 		user_id int(10) DEFAULT '0' NOT NULL
 	)");
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBFORUMS."`(
 		forum_id int(10) NOT NULL auto_increment,
 		forum_name varchar(150),
@@ -442,13 +442,13 @@ mysql_query("
 		KEY forum_last_post_id (forum_last_post_id),
         forum_order int(10) DEFAULT '0'
 	)");
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBHEADFOOT."`(
 		header text,
 		meta text,
 		footer text
 	)");
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBPOSTS."`(
 		post_id int(10) NOT NULL auto_increment,
 		topic_id int(10) DEFAULT '0' NOT NULL,
@@ -466,7 +466,7 @@ mysql_query("
 	)");
 
 //  Structure de la table 'priv_msgs'
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBPRIVMSG."` (
 		msg_id int(10) NOT NULL auto_increment,
 		from_userid int(10) DEFAULT '0' NOT NULL,
@@ -481,7 +481,7 @@ mysql_query("
 	)");
 
 //  Structure de la table 'ranks'
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBRANK."` (
 
 		rank_id int(10) NOT NULL auto_increment,
@@ -496,7 +496,7 @@ mysql_query("
 	)");
 
 //  structure de la table 'session'
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBSESSIONS."` (
 		sess_id int(10) unsigned DEFAULT '0' NOT NULL,
 		user_id int(10) DEFAULT '0' NOT NULL,
@@ -508,34 +508,8 @@ mysql_query("
 		KEY remote_ip (remote_ip)
 	)");
 
-//  Structure de la table 'themes'
-mysql_query("
-	CREATE TABLE `".$TABLEPHPBBTHEMES."` (
-		theme_id int(10) NOT NULL auto_increment,
-		theme_name varchar(35),
-		bgcolor varchar(10),
-		textcolor varchar(10),
-		color1 varchar(10),
-		color2 varchar(10),
-		table_bgcolor varchar(10),
-		header_image varchar(50),
-		newtopic_image varchar(50),
-		reply_image varchar(50),
-		linkcolor varchar(15),
-		vlinkcolor varchar(15),
-		theme_default int(2) DEFAULT '0',
-		fontface varchar(100),
-		fontsize1 varchar(5),
-		fontsize2 varchar(5),
-		fontsize3 varchar(5),
-		fontsize4 varchar(5),
-		tablewidth varchar(10),
-		replylocked_image varchar(255),
-	PRIMARY KEY (theme_id)
-	)");
-
 //  Structure de la table 'topics'
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBTOPICS."` (
 		topic_id int(10) NOT NULL auto_increment,
 		topic_title varchar(100),
@@ -556,7 +530,7 @@ mysql_query("
 	)");
 
 //  Structure de la table 'users'
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBUSERS."` (
 		user_id int(10) NOT NULL auto_increment,
 		username varchar(40) NOT NULL,
@@ -588,7 +562,7 @@ mysql_query("
 	)");
 
 //  Structure de la table 'whosonline'
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBWHOSONLINE."` (
 		id int(3) NOT NULL auto_increment,
 		ip varchar(255),
@@ -599,16 +573,15 @@ mysql_query("
 		forum int(10),
 	PRIMARY KEY (id)
 	)");
-
 //  Structure de la table 'words'
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBWORDS."` (
 		word_id int(10) NOT NULL auto_increment,
 		word varchar(100),
 		replacement varchar(100),
 	PRIMARY KEY (word_id)
 	)");
-mysql_query("CREATE TABLE `".$TABLEPHPBBNOTIFY."` (
+claro_sql_query("CREATE TABLE `".$TABLEPHPBBNOTIFY."` (
   `notify_id` int(10) NOT NULL auto_increment,
   `user_id` int(10) NOT NULL default '0',
   `topic_id` int(10) NOT NULL default '0',
@@ -616,10 +589,8 @@ mysql_query("CREATE TABLE `".$TABLEPHPBBNOTIFY."` (
   KEY `SECONDARY` (`user_id`,`topic_id`)
   ) ");
 
-
-
 //  EXERCICES
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEQUIZ."` (
 		`id` mediumint(8) unsigned NOT NULL auto_increment,
 		`titre` varchar(200) NOT NULL,
@@ -637,7 +608,7 @@ mysql_query("
 	)");
 
 //  QUESTIONS
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEQUIZQUESTIONLIST."` (
 		id mediumint(8) unsigned NOT NULL auto_increment,
 		question varchar(200) NOT NULL,
@@ -650,7 +621,7 @@ mysql_query("
 	)");
 
 //  REPONSES
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEQUIZANSWERSLIST."` (
 		id mediumint(8) unsigned NOT NULL default '0',
 		question_id mediumint(8) unsigned NOT NULL default '0',
@@ -663,7 +634,7 @@ mysql_query("
 	)");
 
 //  EXERCICE_QUESTION
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEQUIZQUESTION."` (
 		question_id mediumint(8) unsigned NOT NULL default '0',
 		exercice_id mediumint(8) unsigned NOT NULL default '0',
@@ -671,7 +642,7 @@ mysql_query("
 	)");
 
 #######################COURSE_DESCRIPTION ################################
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLETOOLCOURSEDESC."` (
 		`id` TINYINT UNSIGNED DEFAULT '0' NOT NULL,
 		`title` VARCHAR(255),
@@ -682,7 +653,7 @@ mysql_query("
 	COMMENT = 'for course description tool';");
 
 ####################### TOOL_LIST ###########################################
-mysql_query("
+claro_sql_query("
     CREATE TABLE `".$TABLECOURSEHOMEPAGE."` (
       `id` int(11) NOT NULL auto_increment,
       `tool_id` int(10) unsigned default NULL,
@@ -692,10 +663,10 @@ mysql_query("
       `script_name` varchar(255) default NULL,
       PRIMARY KEY  (`id`)) ");
 
-mysql_query("ALTER TABLE `".$TABLECOURSEHOMEPAGE."` ADD `addedTool` ENUM('YES','NO') DEFAULT 'YES';");
+claro_sql_query("ALTER TABLE `".$TABLECOURSEHOMEPAGE."` ADD `addedTool` ENUM('YES','NO') DEFAULT 'YES';");
 
 #################################### AGENDA ################################
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLETOOLAGENDA."` (
 		id int(11) NOT NULL auto_increment,
 		titre varchar(200),
@@ -706,7 +677,7 @@ mysql_query("
 	PRIMARY KEY (id))");
 
 ############################# PAGES ###########################################
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEPHPBBPAGES."` (
 		id int(11) NOT NULL auto_increment,
 		url varchar(200),
@@ -715,7 +686,7 @@ mysql_query("
 	PRIMARY KEY (id))");
 
 ############################# DOCUMENTS ###########################################
-mysql_query ("
+claro_sql_query ("
 	CREATE TABLE `".$TABLETOOLDOCUMENT."` (
 		id int(4) NOT NULL auto_increment,
 		path varchar(255) NOT NULL,
@@ -724,7 +695,7 @@ mysql_query ("
 	PRIMARY KEY (id))");
 
 ############################# WORKS ###########################################
-mysql_query("
+claro_sql_query("
 
 	CREATE TABLE `".$TABLETOOLWORKS."` (
 	id int(11) NOT NULL auto_increment,
@@ -735,7 +706,7 @@ mysql_query("
 		active tinyint(1),
 		accepted tinyint(1),
 	PRIMARY KEY (id))");
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLETOOLWORKSUSER."` (
 	work_id int(11) NOT NULL,
 		uname varchar(30),
@@ -743,7 +714,7 @@ mysql_query("
 
 ############################## LIENS #############################################
 /*
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLETOOLLINK."` (
 		id int(11) NOT NULL auto_increment,
 		url varchar(150),
@@ -751,7 +722,7 @@ mysql_query("
 		description text,
 	PRIMARY KEY (id))");
 */
-mysql_query("
+claro_sql_query("
 
 	CREATE TABLE `".$TABLEGROUPS."` (
 	id int(11) NOT NULL auto_increment,
@@ -763,7 +734,7 @@ mysql_query("
 		secretDirectory varchar(30) NOT NULL default '0',
 	PRIMARY KEY  (id)
 	)");
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEGROUPUSER."` (
 		id int(11) NOT NULL auto_increment,
 		user int(11) NOT NULL default '0',
@@ -772,7 +743,7 @@ mysql_query("
 		role varchar(50) NOT NULL default '',
 	PRIMARY KEY  (id)
 	)");
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEGROUPPROPERTIES."` (
 	id tinyint(4) NOT NULL auto_increment,
 		self_registration tinyint(4) default '1',
@@ -786,14 +757,14 @@ mysql_query("
 	)");
 
 ############################## INTRODUCTION #######################################
-mysql_query("
+claro_sql_query("
 	CREATE TABLE `".$TABLEINTROS."` (
 	id int(11) NOT NULL default '1',
 		texte_intro text,
 	PRIMARY KEY (id))");
 
 ############################# LEARNING PATHS ######################################
-mysql_query     ("
+claro_sql_query     ("
          CREATE TABLE `".$TABLEMODULE."` (
               `module_id` int(11) NOT NULL auto_increment,
               `name` varchar(255) NOT NULL default '',
@@ -805,7 +776,7 @@ mysql_query     ("
               PRIMARY KEY  (`module_id`)
             ) TYPE=MyISAM COMMENT='List of available modules used in learning paths';");
 
-mysql_query  ("
+claro_sql_query  ("
           CREATE TABLE `".$TABLELEARNPATH."` (
               `learnPath_id` int(11) NOT NULL auto_increment,
               `name` varchar(255) NOT NULL default '',
@@ -816,7 +787,7 @@ mysql_query  ("
               PRIMARY KEY  (`learnPath_id`),
               UNIQUE KEY rank (`rank`)
             ) TYPE=MyISAM COMMENT='List of learning Paths';");
-mysql_query ("
+claro_sql_query ("
           CREATE TABLE `".$TABLELEARNPATHMODULE."` (
                 `learnPath_module_id` int(11) NOT NULL auto_increment,
                 `learnPath_id` int(11) NOT NULL default '0',
@@ -829,7 +800,7 @@ mysql_query ("
                 `raw_to_pass` tinyint(4) NOT NULL default '50',
                 PRIMARY KEY  (`learnPath_module_id`)
               ) TYPE=MyISAM COMMENT='This table links module to the learning path using them';");
-mysql_query ("
+claro_sql_query ("
           CREATE TABLE `".$TABLEASSET."` (
               `asset_id` int(11) NOT NULL auto_increment,
               `module_id` int(11) NOT NULL default '0',
@@ -837,7 +808,7 @@ mysql_query ("
               `comment` varchar(255) default NULL,
               PRIMARY KEY  (`asset_id`)
             ) TYPE=MyISAM COMMENT='List of resources of module of learning paths';");
-mysql_query ("
+claro_sql_query ("
           CREATE TABLE `".$TABLEUSERMODULEPROGRESS."` (
               `user_module_progress_id` int(22) NOT NULL auto_increment,
               `user_id` mediumint(9) NOT NULL default '0',
@@ -866,7 +837,7 @@ mysql_query ("
                   `access_tlabel` varchar(8) default NULL,
                   PRIMARY KEY  (`access_id`)
                 ) TYPE=MyISAM COMMENT='Record informations about access to course or tools'";
-        mysql_query($sql);
+        claro_sql_query($sql);
 
         $sql = "CREATE TABLE `".$TABLETRACKDOWNLOADS."` (
                   `down_id` int(11) NOT NULL auto_increment,
@@ -875,7 +846,7 @@ mysql_query ("
                   `down_doc_path` varchar(255) NOT NULL default '0',
                   PRIMARY KEY  (`down_id`)
                 ) TYPE=MyISAM COMMENT='Record informations about downloads'";
-        mysql_query($sql);
+        claro_sql_query($sql);
         
         $sql = "CREATE TABLE `".$TABLETRACKEXERCICES."` (
                   `exe_id` int(11) NOT NULL auto_increment,
@@ -887,7 +858,7 @@ mysql_query ("
                   `exe_weighting` mediumint(8) NOT NULL default '0',
                   PRIMARY KEY  (`exe_id`)
                 ) TYPE=MyISAM COMMENT='Record informations about exercices'";
-        mysql_query($sql);
+        claro_sql_query($sql);
         
 /*        $sql = "CREATE TABLE `".$TABLETRACKLINKS."` (
                   `links_id` int(11) NOT NULL auto_increment,
@@ -896,7 +867,7 @@ mysql_query ("
                   `links_link_id` int(11) NOT NULL default '0',
                   PRIMARY KEY  (`links_id`)
                 ) TYPE=MyISAM COMMENT='Record informations about clicks on links'";
-        mysql_query($sql);
+        claro_sql_query($sql);
 */
         $sql = "CREATE TABLE `".$TABLETRACKUPLOADS."` (
                   `upload_id` int(11) NOT NULL auto_increment,
@@ -905,7 +876,7 @@ mysql_query ("
                   `upload_work_id` int(11) NOT NULL default '0',
                   PRIMARY KEY  (`upload_id`)
                 ) TYPE=MyISAM COMMENT='Record some more informations about uploaded works'";
-        mysql_query($sql);
+        claro_sql_query($sql);
 
 	return 0;
 };
@@ -963,7 +934,7 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 
 	if(!$singleDbEnabled)
 	{
-		mysql_query("CREATE DATABASE $courseDbName");
+		claro_sql_query("CREATE DATABASE $courseDbName");
 	}
 
 	$courseDbName=$courseTablePrefix.$courseDbName.$dbGlu;
@@ -1036,20 +1007,20 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 	@include($clarolineRepositorySys."lang/".$language."/create_course.inc.php");
 
 	mysql_select_db("$courseDbName");
-	mysql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'-1',	'Deleted')");
-	mysql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'1',	'User')");
-	mysql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'2',	'Moderator')");
-	mysql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'3',	'Super Moderator')");
-	mysql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'4',	'Administrator')");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'-1',	'Deleted')");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'1',	'User')");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'2',	'Moderator')");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'3',	'Super Moderator')");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'4',	'Administrator')");
 // Create a hidden catagory for group forums
-	mysql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (1,'$langCatagoryGroup',1)");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (1,'$langCatagoryGroup',1)");
 // Create an example catagory
-	mysql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (2,'$langCatagoryMain',2)");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (2,'$langCatagoryMain',2)");
 ############################## GROUPS ###########################################
-	mysql_query("INSERT INTO `".$TABLEGROUPPROPERTIES."`
+	claro_sql_query("INSERT INTO `".$TABLEGROUPPROPERTIES."`
 (id, self_registration, private, forum, document, wiki, chat)
 VALUES (NULL, '1', '0', '1', '1', '0', '1')");
-	mysql_query("INSERT INTO `".$TABLEPHPBBCONFIG."` VALUES (
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBCONFIG."` VALUES (
          '1',
          '$intitule',
          '1',
@@ -1067,92 +1038,25 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
          '$email',
          '$language'
          )");
-	mysql_query("INSERT INTO `".$TABLEPHPBBFORUMMODS."` VALUES (
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBFORUMMODS."` VALUES (
          '1',
          '1'
          )");
-	mysql_query("INSERT INTO `".$TABLEPHPBBFORUMS."` VALUES (1,'$langTestForum','$langDelAdmin',2,1,1,1,1,2,0,'c4ca4238a0b923820dcc509a6f75849b',1)");
-	mysql_query("INSERT INTO `".$TABLEPHPBBHEADFOOT."` VALUES (
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBFORUMS."` VALUES (1,'$langTestForum','$langDelAdmin',2,1,1,1,1,2,0,'c4ca4238a0b923820dcc509a6f75849b',1)");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBHEADFOOT."` VALUES (
          '<center><a href=\"../".$courseRepository."\"><img border=0 src=../claroline/img/logo.gif></a></center>',
          '',
          ''
          )");
-	mysql_query("INSERT INTO `".$TABLEPHPBBPOSTS."` VALUES (1,1,1,1,NOW(),'127.0.0.1',\"$nom\",\"$prenom\")");
-	mysql_query("CREATE TABLE `".$TABLEPHPBBPOSTSTEXT."` (
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTS."` VALUES (1,1,1,1,NOW(),'127.0.0.1',\"$nom\",\"$prenom\")");
+	claro_sql_query("CREATE TABLE `".$TABLEPHPBBPOSTSTEXT."` (
         post_id int(10) DEFAULT '0' NOT NULL,
         post_text text,
         PRIMARY KEY (post_id)
         )");
-	mysql_query("INSERT INTO `".$TABLEPHPBBPOSTSTEXT."` VALUES ('1', \"$langMessage\")");
-// Contenu de la table 'themes'
-	mysql_query("INSERT INTO `".$TABLEPHPBBTHEMES."` VALUES (
-       '1',
-       'Default',
-       '#000000',
-       '#FFFFFF',
-       '#6C706D',
-       '#2E4460',
-       '#001100',
-       'images/header-dark.jpg',
-       'images/new_topic-dark.jpg',
-       'images/reply-dark.jpg',
-       '#0000FF',
-       '#800080',
-       '0',
-       'sans-serif',
-       '1',
-       '2',
-       '-2',
-       '+1',
-       '95%',
-       'images/reply_locked-dark.jpg'
-       )");
-	mysql_query("INSERT INTO `".$TABLEPHPBBTHEMES."` VALUES (
-       '2',
-       'Ocean',
-       '#FFFFFF',
-       '#000000',
-       '#CCCCCC',
-       '#9BB6DA',
-       '#000000',
-       'images/header.jpg',
-       'images/new_topic.jpg',
-       'images/reply.jpg',
-        '#0000FF',
-       '#800080',
-       '0',
-       'sans-serif',
-       '1',
-       '2',
-       '-2',
-       '+1',
-       '95%',
-       'images/reply_locked-dark.jpg'
-       )");
-	mysql_query("INSERT INTO `".$TABLEPHPBBTHEMES."` VALUES (
-        '3',
-        'OCPrices.com',
-        '#FFFFFF',
-        '#000000',
-        '#F5F5F5',
-        '#E6E6E6',
-        '#FFFFFF',
-        'images/forum.jpg',
-        'images/nouveausujet.jpg',
-        'images/repondre.jpg',
-       '#0000FF',
-       '#800080',
-        '1',
-        'Arial,Helvetica, Sans-serif',
-        '1',
-        '2',
-        '-2',
-        '+1',
-        '600',
-        'images/reply_locked-dark.jpg'
-        )");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTSTEXT."` VALUES ('1', \"$langMessage\")");
 // Contenu de la table 'users'
-	mysql_query("INSERT INTO `".$TABLEPHPBBUSERS."` VALUES (
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBUSERS."` VALUES (
        '1',
        '$nom $prenom',
        NOW(),
@@ -1180,7 +1084,7 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
        NULL,
        NULL
        )");
-	mysql_query("INSERT INTO `".$TABLEPHPBBUSERS."` VALUES (
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBUSERS."` VALUES (
        '-1',       '$langAnonymous',       NOW(),       'password',       '',
        NULL,       NULL,       NULL,       NULL,       NULL,       NULL,       NULL,
        NULL,       NULL,       NULL,       NULL,       '0',       '0',       '0',       '0',       '0',
@@ -1208,29 +1112,29 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
     }
 
 ############################## EXERCICES #######################################
-	mysql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '1', '1', '$langRidiculise', '0', '$langNoPsychology', '-5', '1')");
-	mysql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '2', '1', '$langAdmitError', '0', '$langNoSeduction', '-5', '2')");
-	mysql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '3', '1', '$langForce', '1', '$langIndeed', '5', '3')");
-	mysql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '4', '1', '$langContradiction', '1', '$langNotFalse', '5', '4')");
-	mysql_query("INSERT INTO `".$TABLEQUIZ."` VALUES ( '1', '$langExerciceEx', '$langAntique', '1', '0', '0', '0', '0' , 'ALWAYS', 'NO', NOW(), '2006-08-19 11:55')");
-	mysql_query("INSERT INTO `".$TABLEQUIZQUESTIONLIST."` VALUES ( '1', '$langSocraticIrony', '$langManyAnswers', '10', '1', '2','')");
-	mysql_query("INSERT INTO `".$TABLEQUIZQUESTION."` VALUES ( '1', '1')");
+	claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '1', '1', '$langRidiculise', '0', '$langNoPsychology', '-5', '1')");
+	claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '2', '1', '$langAdmitError', '0', '$langNoSeduction', '-5', '2')");
+	claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '3', '1', '$langForce', '1', '$langIndeed', '5', '3')");
+	claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '4', '1', '$langContradiction', '1', '$langNotFalse', '5', '4')");
+	claro_sql_query("INSERT INTO `".$TABLEQUIZ."` VALUES ( '1', '$langExerciceEx', '$langAntique', '1', '0', '0', '0', '0' , 'ALWAYS', 'NO', NOW(), '2006-08-19 11:55')");
+	claro_sql_query("INSERT INTO `".$TABLEQUIZQUESTIONLIST."` VALUES ( '1', '$langSocraticIrony', '$langManyAnswers', '10', '1', '2','')");
+	claro_sql_query("INSERT INTO `".$TABLEQUIZQUESTION."` VALUES ( '1', '1')");
 
 ############################### LEARNING PATH  ####################################
   // HANDMADE module type are not used for first version of claroline 1.5 beta so we don't show any exemple!
-  mysql_query("INSERT INTO `".$TABLELEARNPATH."` VALUES ('1', '$langSampleLearnPath', '$langSampleLearnPathDesc', 'OPEN', 'SHOW', '1')");
+  claro_sql_query("INSERT INTO `".$TABLELEARNPATH."` VALUES ('1', '$langSampleLearnPath', '$langSampleLearnPathDesc', 'OPEN', 'SHOW', '1')");
   
-  mysql_query("INSERT INTO `".$TABLELEARNPATHMODULE."` VALUES ('1', '1', '1', 'OPEN', 'SHOW', '', '1', '0', '50')");
-  mysql_query("INSERT INTO `".$TABLELEARNPATHMODULE."` VALUES ('2', '1', '2', 'OPEN', 'SHOW', '', '2', '0', '50')");
+  claro_sql_query("INSERT INTO `".$TABLELEARNPATHMODULE."` VALUES ('1', '1', '1', 'OPEN', 'SHOW', '', '1', '0', '50')");
+  claro_sql_query("INSERT INTO `".$TABLELEARNPATHMODULE."` VALUES ('2', '1', '2', 'OPEN', 'SHOW', '', '2', '0', '50')");
 
-  mysql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('1', '$langSampleDocument', '$langSampleDocumentDesc', 'PRIVATE', '1', 'DOCUMENT', '')");
-  mysql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('2', '$langExerciceEx', '$langSampleExerciseDesc', 'PRIVATE', '2', 'EXERCISE', '')");
+  claro_sql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('1', '$langSampleDocument', '$langSampleDocumentDesc', 'PRIVATE', '1', 'DOCUMENT', '')");
+  claro_sql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('2', '$langExerciceEx', '$langSampleExerciseDesc', 'PRIVATE', '2', 'EXERCISE', '')");
 
-  mysql_query("INSERT INTO `".$TABLEASSET."` VALUES ('1', '1', '/Example_document.pdf', '')");
-  mysql_query("INSERT INTO `".$TABLEASSET."` VALUES ('2', '2', '1', '')");
+  claro_sql_query("INSERT INTO `".$TABLEASSET."` VALUES ('1', '1', '/Example_document.pdf', '')");
+  claro_sql_query("INSERT INTO `".$TABLEASSET."` VALUES ('2', '2', '1', '')");
 
 ############################## FORUMS  #######################################
-	mysql_query("INSERT INTO `".$TABLEPHPBBTOPICS."` VALUES (1,'$langExMessage',-1,'2001-09-18 20:25',1,'',1,1,'0','1', '$nom', '$prenom')");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBTOPICS."` VALUES (1,'$langExMessage',-1,'2001-09-18 20:25',1,'',1,1,'0','1', '$nom', '$prenom')");
 
 	return 0;
 };
