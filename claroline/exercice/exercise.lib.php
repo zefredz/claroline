@@ -248,6 +248,7 @@ function display_attached_file($attachedFile)
   // get extension
   $extension=substr(strrchr($attachedFile, '.'), 1);
   
+  $returnedString = "<p>";
   switch($extension)
   {
     case 'jpg' :
@@ -255,29 +256,76 @@ function display_attached_file($attachedFile)
     case 'gif' :
     case 'png' :
     case 'bmp' :
-        $returnedString = "<img src=\"".$attachedFilePathWeb."/".$attachedFile."\" border=\"0\" alt=\"$attachedFile\" />";
+        $returnedString .= "<img src=\"".$attachedFilePathWeb."/".$attachedFile."\" border=\"0\" alt=\"$attachedFile\" />";
         break;
-    case '' :
+    /*    
+    case 'mov' :
+        $returnedString .= "<object>  
+                      <param name=\"src\" value=\"".$attachedFilePathWeb."/".$attachedFile."\"> 
+                      <param name=\"volume\" value=\"50%\">
+                      <param name=\"loop\" value=\"false\">
+                      <param name=\"controller\" value=\"true\">
+                      <param name=\"autoplay\" value=\"false\">
+                      <param name=\"type\" value=\"video/quicktime\">
+                      <embed align=\"middle\" src=\"".$attachedFilePathWeb."/".$attachedFile."\" volume=\"50%\" loop=\"false\" controller=\"true\" autoplay=\"false\" type=\"video/quicktime\">
+                      </embed> 
+                      </object>";
         break;
-    case '' :
+    */
+    /*
+    case 'wmv' :
+        break;
+    */
+    case 'swf' :
+        $returnedString .= "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" 
+                        codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0\"  
+                        id=\"".$attachedFile."\"> 
+                      <param name=\"movie\" value=\"".$attachedFilePathWeb."/".$attachedFile."\">
+                      <param name=\"quality\" value=\"high\"> 
+                      <param name=\"bgcolor\" value=\"#FFFFFF\"> 
+                      <embed src=\"".$attachedFilePathWeb."/".$attachedFile."\"   quality=\"high\" bgcolor=\"#FFFFFF\" name=\"".$attachedFile."\" type=\"application/x-shockwave-flash\"  pluginspage=\"http://www.macromedia.com/go/getflashplayer\">
+                      </embed>
+                      </object>";
         break;
     /*
     case 'mp3' :
-        $returnedString = "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" 
+        $returnedString .= "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" 
                         codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0\"  
-                        width=\"35\" height=\"18\" id=\"mp3player\" align=\"\"> 
-                      <param name=\"movie\" value=\"/filter/mediaplugin/mp3player.swf?src=\2.mp3\">
-                      <param name=\"quality\" value=\"high\"> <param name=\"bgcolor\" value=\"#333333\"> 
-                      <embed src=\"mp3player.swf?src=".$attachedFilePathWeb."/".$attachedFile."\"   quality=\"high\" bgcolor=\"#333333\" width=\"35\" height=\"18\" name=\"mp3player\"  type=\"application/x-shockwave-flash\"  pluginspage=\"http://www.macromedia.com/go/getflashplayer\">
+                        width=\"35\" height=\"18\" id=\"mp3player\"> 
+                      <param name=\"movie\" value=\"mp3player.swf?src=\2.mp3\">
+                      <param name=\"quality\" value=\"high\"> 
+                      <param name=\"bgcolor\" value=\"#FFFFFF\"> 
+                      <embed src=\"mp3player.swf?src=".$attachedFilePathWeb."/".$attachedFile."\" quality=\"high\" bgcolor=\"#FFFFFF\" width=\"35\" height=\"18\" name=\"mp3player\"  type=\"application/x-shockwave-flash\"  pluginspage=\"http://www.macromedia.com/go/getflashplayer\">
                       </embed>
                       </object>";
         break;
     */
     default :
-        $returnedString = "<a href=\"".$attachedFilePathWeb."/".$attachedFile."\">$langAttachedFile</a>";
+        $returnedString .= "<a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">$langAttachedFile</a>";
         break;        
   
   }
+  $returnedString .= "</p>";
   return $returnedString;
+}
+
+function disp_minutes_seconds($timeInSec)
+{
+  global $langMinuteShort,$langSecondShort;
+  
+  $sec = $timeInSec%60 ;
+  $min = ($timeInSec - $sec)/ 60;
+  
+  $returnedString = "";
+  
+  if ( $min != 0 )
+  {
+    $returnedString .= $min." ".$langMinuteShort."&nbsp;";
+  }
+  
+  $returnedString .= $sec." ".$langSecondShort;
+  
+  return $returnedString;  
+  
 }
 ?>
