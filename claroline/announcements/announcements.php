@@ -64,7 +64,6 @@ include($includePath.'/lib/text.lib.php');
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
-
 //set flag following init settings
 $is_allowedToEdit = $is_courseAdmin;
 $courseId         = $_course['sysCode'];
@@ -486,7 +485,9 @@ if ($displayList)
 
                 if($iterator != 1)
                 {
-                    echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+//                  echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+// the anchor dont refreshpage.
+                    echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&id=",$thisAnnouncement['id'],"\">",
                             "<img src=\"".$clarolineRepositoryWeb."/img/up.gif\" alt=\"".$langUp."\">".
                             "</a>\n";
                 }
@@ -495,7 +496,9 @@ if ($displayList)
 
                 if($iterator < $bottomAnnouncement)
                 {
-                    echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+//                  echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+// the anchor dont refreshpage.
+                    echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&id=",$thisAnnouncement['id'],"\">",
                             "<img src=\"".$clarolineRepositoryWeb."/img/down.gif\" alt=\"".$langDown."\">",
                             "</a>\n";
                 }
