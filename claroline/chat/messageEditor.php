@@ -27,15 +27,17 @@ function prepare_message()
 <input type="text"    name="msg"      size="80">
 <input type="hidden"  name="chatLine">
 <input type="submit" value=" >> ">
-</form>
-
+<br />
 <?php if ($is_allowedToManage) { ?>
 <a href="messageList.php?reset=true" target="messageList"><?= $langResetChat ?></a> | 
 <a href="messageList.php?store=true" target="messageList"><?= $langStoreChat ?></a>
 <?php }
-
+?>
+</form>
+<?php
 /*==========================
            FOOTER
   ==========================*/
 
 @include($includePath."/claro_init_footer.inc.php");
+?>
