@@ -121,7 +121,13 @@ if ( sizeof($languageList) > 0)
 		    foreach($languageVarList as $thisLangVar)
 		    {
                 $varContent = $thisLangVar['content'];
+
+                // addslashes not back slashes double quote                
 		        $varContent = preg_replace('/([^\\\\])"/', '\\1\\"', $varContent);
+
+                // addslashes before $
+                $varContent = preg_replace('/\$/','\\\$', $varContent);
+
 		        $string = '$'.$thisLangVar['name'].' = "'.$varContent."\";\n";
 	
 		        fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
