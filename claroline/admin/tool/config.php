@@ -123,7 +123,6 @@ define('DISP_SHOW_CONF',        __LINE__);
 define('DISP_SHOW_DEF_FILE',    __LINE__);
 define('DISP_SHOW_CONF_FILE',   __LINE__);
 
-
 define('CONF_AUTO_APPLY_CHANGE',TRUE);
 // if false, editing properties mean to change value in database.
 // and wait an "apply" to commit these change in files use in production.
@@ -489,27 +488,13 @@ elseif ($panel == DISP_EDIT_CONF)
     $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $lang_config_config);
     $nameTools = get_config_name($config_code);
     $conf_info = get_conf_info($config_code);    
-    
-    // DEBUG
-    $debug =  '<small>' . $conf_info['config_hash'] . '<br>' 
-             . claro_get_conf_file($config_code).' : ' ;
-    if ( file_exists(claro_get_conf_file($config_code)) ) 
-    {
-        $debug .= md5_file(claro_get_conf_file($config_code));
-    }
-    else
-    {
-        $debug .= 'no ';
-    }
-    $debug .= '</small>'; 
-    $controlMsg['debug'][] = $debug;
-    // END DEBUG
 
     if ( $conf_info['manual_edit'] )
     {
         $controlMsg['info'][] = 'The config file has manually change.<br>'
                                .'<br>'
-                               .'Actually the script prefill with values found in the current conf, and overwrite values set in the database'
+                               .'Actually the script prefill with values found in the current conf, '
+                               .'and overwrite values set in the database'
                                ;        
         $currentConfContent = parse_config_file(basename(claro_get_conf_file($config_code)));
     }
@@ -522,6 +507,40 @@ elseif ($panel == DISP_EDIT_CONF)
         {
             $conf_def_property_list[$storedProperty['propName']]['actualValue'] = $storedProperty['propValue']; 
         }
+    }
+
+    /* Search for value  existing  in conf file  but not in def file, or inverse */
+    $currentConfContentKeyList = is_array($currentConfContent)?array_keys($currentConfContent):array();
+    $conf_def_property_listKeyList = is_array($conf_def_property_list)?array_keys($conf_def_property_list):array();
+    $unknowValueInConfigFile = array_diff($currentConfContentKeyList,$conf_def_property_listKeyList);
+    $newValueInDefFile = array_diff($conf_def_property_listKeyList,$currentConfContentKeyList);
+
+    if (is_array($conf_def['section']) ) 
+    {
+        foreach($conf_def['section'] as $sectionKey => $section)
+        {
+            if (is_array($section['properties']))
+            {
+                foreach($section['properties'] as $propertyName )
+                {
+                    $conf_def_property_list[$propertyName]['section']=$sectionKey;
+                }
+            }
+        }
+    }
+    foreach ($conf_def_property_list as $_propName => $_propDescriptorList)
+    {
+        if (!isset($_propDescriptorList['section']))
+        {
+            $conf_def_property_list['section']='missingSection';
+            $conf_def['section']['sectionmissing']['properties'][]=$_propName;
+        }
+    }    
+    if (isset($conf_def['section']['sectionmissing']))
+    {
+        $conf_def['section']['sectionmissing']['label'] = 'Properties not include in sections';
+        $conf_def['section']['sectionmissing']['description'] = 'This is an error in definition file. Request to the coder of this config to add theses proporties in a section of the definition file.';
+        
     }
 
 }

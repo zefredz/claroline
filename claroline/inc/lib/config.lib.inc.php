@@ -287,13 +287,20 @@ function lastConfUpdate($config_code)
 }
 
 /** 
+ * Check the validity of a config value.
+ * 
+ * $propertyDef provide descriptor of the value to check in an array.
+ * attempt descriptor are : type and  acceptedValue
+ * following the type, acceptedValue contain different filter.
+ * type list : 
+ * * basic : booleean, integer, string 
+ * * advanced : regexp, lang, enum, relpath, syspath, wwwpath, php
  * @param    $propValue mixed value to check with condition of definition bloc
- * @param    $propertyDef array containing rules to validate a propertyValue.
+ * @param    propertyDef array containing rules to validate a propertyValue.
  * @return   boolean State of validity 
  * @author   Christophe Gesché moosh@claroline.net
  * @internal $is_validValue boolean flag to record stat of validity
  * @version  claroline 1.6
- * @desc     check the validity of a config value.
  */
 function config_checkToolProperty($propValue, $propertyDef)
 {
@@ -334,12 +341,20 @@ function config_checkToolProperty($propValue, $propertyDef)
                 break;
             case 'lang' : 
             case 'enum' : 
-                if (!in_array($propValue,array_keys($acceptedValue))) 
+                if (is_array($acceptedValue))
                 {
-                    $controlMsg['error'][] = $propName.' would be in enum list';
-                    $is_validValue = FALSE;
-                }   
+                    if (!in_array($propValue, array_keys($acceptedValue))) 
+                    {
+                        $controlMsg['error'][] = $propName.' would be in enum list';
+                        $is_validValue = FALSE;
+                    }   
+                }
+                else 
+                {
+                    trigger_error('propertyDef is not an array, coding error',E_USER_WARNING);
+                }
                 break;
+                
             case 'relpath' :
             case 'syspath' :
             case 'wwwpath' :
@@ -356,13 +371,20 @@ function config_checkToolProperty($propValue, $propertyDef)
                     $is_validValue = FALSE;
                 }   
                 break;
+            case 'php' :
+                if (eval($propValue )) 
+                {
+                    $controlMsg['error'][] = $propName.' would be php valid code returnin 1 value';
+                    $is_validValue = FALSE;
+                }   
+                break;
             case 'string' :
             default :
         }
     }
     else
     {
-        trigger_error('propertyDef is not an array, coding error',E_USER_ERROR);
+        trigger_error('propertyDef is not an array, coding error',E_USER_WARNING);
         return false;
     }
     //$controlMsg['debug'][] = 'check : '.$propName.' : '.$propValue.' is '.$validator.' : '.var_export($is_validValue,1);
@@ -370,7 +392,7 @@ function config_checkToolProperty($propValue, $propertyDef)
 }
 
 /**
- * @desc    return the complete path and name of the config file of a given $config_code
+ * Return the complete path and name of the config file of a given $config_code
  *
  * @param   $config_code string the config code to process
  * @return  the name of the config file (with complete path)
@@ -602,12 +624,21 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
             // the comment  of lastChange
             
             $valueToWrite  = $storedProperty['propValue']; 
+
+
+            switch ($conf_def_property_list[$storedProperty['propName']]['type'])
+            {
+            	case 'boolean':
+            	case 'php':
+            	case 'integer':
+          	
+          		break;
+            	default:
+            	    $valueToWrite = "'".$valueToWrite."'";   
+            		break;
+            }
             $container     = $conf_def_property_list[$storedProperty['propName']]['container'];
             $description   = $conf_def_property_list[$storedProperty['propName']]['description'];
-            if (strtolower($conf_def_property_list[$storedProperty['propName']]['type'])!='boolean') 
-            {
-                $valueToWrite = "'".$valueToWrite."'";   
-            }
             if(strtoupper($container)=='CONST')
             {
                 $propertyLine = 'define("'.$storedProperty['propName'].'",'.$valueToWrite.');'."\n";
