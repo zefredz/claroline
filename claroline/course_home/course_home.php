@@ -37,17 +37,21 @@ if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 
 /*
- * Traking - Count only one time by course and by session
+ * Tracking - Count only one time by course and by session
  */
-
-if ( ! isset($coursesAlreadyVisited[$_cid]))
+// following instructions are used to prevent statistics to be recorded more than needed
+// for course access
+// check if the user as already visited this course during this session (
+if ( ! isset($_SESSION['tracking']['coursesAlreadyVisited'][$_cid]))
 {
     @include($includePath."/lib/events.lib.inc.php");
     event_access_course();
-    $coursesAlreadyVisited[$_cid] = 1;
-    session_register('coursesAlreadyVisited');
+    $_SESSION['tracking']['coursesAlreadyVisited'][$_cid] = 1;
 }
-
+// for tool access
+// unset the label of the last visited tool 
+unset($_SESSION['tracking']['lastUsedTool']);
+// end of tracking
 
 ?>
 <table border="0" cellspacing="10" cellpadding="10">
