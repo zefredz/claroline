@@ -30,7 +30,6 @@ $langDeactivate="Deactivate";
 $langActivate="Activate";
 $langRemove="Remove";
 
-$langCourseCreate = "Create a web Course";
 $langEnter ="Enter";
 $langNameOfTheLink ="Name of the link";
 
