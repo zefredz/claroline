@@ -396,22 +396,26 @@ if($is_allowedToEditAll)
   /*--------------------------------------------------------------------
                         DELETE A WORK
   --------------------------------------------------------------------*/
-  if( $cmd == "exRmWrk" )
+  if( $cmd == "exRmWrk" && isset($_REQUEST['wrkId']) )
   {
-      // get name of file to delete
-      $sql = "SELECT `submitted_doc_path`
+      // get name of file to delete AND name of file of the feedback of this work
+      $sql = "SELECT `id`, `submitted_doc_path`
                   FROM `".$tbl_wrk_submission."`
-                  WHERE `id` = ".$_REQUEST['wrkId'];
+                  WHERE `id` = ".$_REQUEST['wrkId']."
+                     OR `parent_id` = ".$_REQUEST['wrkId'];
       
-      $fileToDelete = claro_sql_query_get_single_value($sql);
+      $filesToDelete = claro_sql_query_fetch_all($sql);
       
-      // delete the file
-      @unlink($assigDirSys.$fileToDelete);
-      
-      // delete the database data of this work
-      $sqlDelete = "DELETE FROM `".$tbl_wrk_submission."`
-                        WHERE `id` = ".$_REQUEST['wrkId'];
-      claro_sql_query($sqlDelete);
+      foreach($filesToDelete as $fileToDelete)
+      {
+            // delete the file
+            @unlink($assigDirSys.$fileToDelete['submitted_doc_path']);
+            
+            // delete the database data of this work
+            $sqlDelete = "DELETE FROM `".$tbl_wrk_submission."`
+                              WHERE `id` = ".$fileToDelete['id'];
+            claro_sql_query($sqlDelete);      
+      }
   }
   /*--------------------------------------------------------------------
                         CORRECTION OF A WORK
@@ -419,7 +423,7 @@ if($is_allowedToEditAll)
   /*-----------------------------------
             STEP 2 : check & quey
   -------------------------------------*/
-  if( $cmd == "exGradeWrk" )
+  if( $cmd == "exGradeWrk" && isset($_REQUEST['wrkId']) )
   {
        if( isset($formCorrectlySent) && $formCorrectlySent )
       {      
@@ -462,7 +466,7 @@ if($is_allowedToEditAll)
   /*-----------------------------------
             STEP 1 : prepare form
   -------------------------------------*/
-  if( $cmd == "rqGradeWrk" )
+  if( $cmd == "rqGradeWrk" && isset($_REQUEST['wrkId']) )
   {
       // prepare fields
       if( !$_REQUEST['submitWrk'] )
@@ -499,7 +503,7 @@ if( $is_allowedToEdit )
   /*-----------------------------------
             STEP 2 : check & quey
   -------------------------------------*/
-  if( $cmd == "exEditWrk" )
+  if( $cmd == "exEditWrk" && isset($_REQUEST['wrkId']) )
   {
       // if there is no error update database
       if( isset($formCorrectlySent) && $formCorrectlySent )
@@ -530,7 +534,7 @@ if( $is_allowedToEdit )
   /*-----------------------------------
             STEP 1 : prepare form
   -------------------------------------*/
-  if( $cmd == "rqEditWrk" )
+  if( $cmd == "rqEditWrk" && isset($_REQUEST['wrkId']) )
   {
         // prepare fields
       if( !$_REQUEST['submitWrk'] )
@@ -953,9 +957,14 @@ if( $is_allowedToSubmit )
                               ."</td>\n"
                               ."<td>"
                               ."<a href=\"".$completeWrkUrl."\">".$form['wrkUrl']."</a>"
-                              ."<br /><input type=\"checkBox\" name=\"delAttacheDFile\" id=\"delAttachedFile\">"
-                              ."<label for=\"delAttachedFile\">".$langExplainModifyAttachedfile."</label> "
-                              ."</td>\n"
+                              ."<br />";
+                        if( $assignmentContent == "TEXTFILE" )
+                        {
+                              // we can remove the file only if we are in a TEXTFILE context, in file context the file is required !
+                              echo "<input type=\"checkBox\" name=\"delAttacheDFile\" id=\"delAttachedFile\">"
+                              ."<label for=\"delAttachedFile\">".$langExplainDeleteFile."</label> ";
+                        }
+                        echo $langExplainReplaceFile."</td>\n"
                               ."</tr>\n\n";
                   }
                   else
@@ -1143,11 +1152,11 @@ if( $dispWrkLst && $is_allowedToView )
       
       if ($thisWrk['visibility'] == "INVISIBLE")
 			{
-				if ($is_allowedToEditAll || $thisWrk['user_id'] == $_uid )
+				if ($is_allowedToEditAll || $thisWrk['user_id'] == $_uid)
 				{
 					$style=' class="invisible"';
 				}
-				else
+        else
 				{
 					continue; // skip the display of this file
 				}
