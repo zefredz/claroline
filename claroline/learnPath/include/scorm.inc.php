@@ -4,7 +4,7 @@
   +----------------------------------------------------------------------+
   | CLAROLINE version 1.3.2 $Revision$                            |
   +----------------------------------------------------------------------+
-  | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+  | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
   | This source file is subject to the GENERAL PUBLIC LICENSE,           |
   | available through the world-wide-web at                              |
