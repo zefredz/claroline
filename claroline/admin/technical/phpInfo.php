@@ -1,15 +1,15 @@
-<?php # $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+<?php // $Id$
+/**
+ * @version CLAROLINE 1.6
+ * ----------------------------------------------------------------------
+ * @Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * ----------------------------------------------------------------------
+ * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * 
+ * @Author : Christophe Gesché <moosh@claroline.net>
+ */
 
 require '../../inc/claro_init_global.inc.php';
 
@@ -88,7 +88,7 @@ if ($is_allowedToAdmin)
  </DIV>
 <HR size="1" noshade="noshade">
 
-<?
+<?php
 
 	if ($to=="ext")
 	{
@@ -235,7 +235,7 @@ Thomas  De Praetere <a href="mailto:depraetere@ipm.ucl.ac.be">depraetere@ipm.ucl
  - Christophe Gesch&eacute; <a href="mailto:gesche@ipm.ucl.ac.be">gesche@ipm.ucl.ac.be</a></font>
 </address>
 
-<?
+<?php
 
 	}
 	else

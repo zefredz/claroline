@@ -1,4 +1,4 @@
-<?
+<?php
 /*--protectAdminIndex--*/
 if (	("apache" ==  strtolower(substr($_SERVER['SERVER_SOFTWARE'],0,6))) 
 		&& ($PHP_AUTH_USER=="" ) 
