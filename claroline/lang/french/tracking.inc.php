@@ -168,6 +168,8 @@ $langTo = "au";
 $langUserAccessDetails = "Acc&egrave;s utilisateurs";
 $langTool = "Outil : ";
 $langDocument = "Document : ";
+$langAnonymousUserAccessCount = "Nombre d'acc&egrave;s d'utilisateurs anonymes : ";
+$langNbrAccess = "Nombre d'acc&egrave;s";
 
 /* traffic_details */
 $langPeriodToDisplay = "P&eacute;riode";

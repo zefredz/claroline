@@ -171,6 +171,8 @@ $langTo = "to";
 $langUserAccessDetails = "User access details";
 $langTool = "Tool : ";
 $langDocument = "Document : ";
+$langAnonymousUserAccessCount = "Anonymous users access count : ";
+$langNbrAccess = "Access count";
 /* traffic_details */
 $langPeriodToDisplay = "Period";
 $langDetailView = "View by";
