@@ -132,17 +132,20 @@ if ($intro_dispForm)
 if ($intro_dispDefault)
 {
 	$intro_content = claro_parse_user_text($intro_content);
-
-	echo	"<p>\n",
-			$intro_content,"\n",
-			"</p>\n";
+	
+	if( trim(strip_tags($intro_content)) != '' ) // no need to display a div for an empty string
+	{
+		echo	"<div class=\"introduction\">\n",
+				$intro_content,"\n",
+				"</div>\n";
+	}
 }
 
 if ($intro_dispCommand)
 {
-    if( '' == trim(strip_tags($intro_content)) ) // displays "Add intro" Commands
+    if( trim(strip_tags($intro_content)) == '' ) // displays "Add intro" Commands
 	{
-        echo '<p class="HelpText">'.$helpAddIntroText.'</p><p>';
+        echo "<div class=\"HelpText\">\n".$helpAddIntroText."\n</div>\n<p>";
 		claro_disp_button($_SERVER['PHP_SELF'].'?intro_cmdAdd=1', $langAddIntro);
         echo '</p>';
 	}
