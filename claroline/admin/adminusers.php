@@ -434,7 +434,7 @@ foreach($resultList as $list)
 
      echo     "<td align=\"center\">\n",
                         "<a href=\"adminprofile.php?uidToEdit=".$list['user_id']."&cfrom=ulist".$addToURL."\">\n
-                         <img src=\"../img/usersetting.gif\" border=\"0\" alt=\"$langEditUserSettings\" />\n",
+                         <img src=\"".$clarolineRepositoryWeb."img/usersetting.gif\" border=\"0\" alt=\"".$langEditUserSettings."\" />\n",
                         "</a>\n",
                         "</td>\n";
 
@@ -443,7 +443,7 @@ foreach($resultList as $list)
      echo   "<td align=\"center\">\n",
                 "<a href=\"",$PHP_SELF,"?cmd=delete&user_id=".$list['user_id']."&offset=".$offset."".$addToURL."\" ",
                 "onClick=\"return confirmation('",addslashes($list['username']),"');\">\n",
-                "<img src=\"../img/deluser.gif\" border=\"0\" alt=\"$langDelete\" />\n",
+                "<img src=\"".$clarolineRepositoryWeb."img/deluser.gif\" border=\"0\" alt=\"".$langDelete."\" />\n",
                 "</a>\n",
             "</td>\n";
      echo "</tr>";
