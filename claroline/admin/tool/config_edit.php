@@ -91,7 +91,7 @@ $lang_p_config_file_creation = 'Configuration  file creation:<BR> %s';
 $lang_noSectionFoundInDefinitionFile = 'no section found in definition file';
 $lang_p_PropForConfigCommited = 'Properties for %s (%s) are now effective on server.';
 $langPropertiesNotIncludeInSections = 'Properties not include in sections';
-
+$lang_unknowProperties = 'Properties not know in definition file';
 // include init and library files
 
 require '../../inc/claro_init_global.inc.php';
@@ -138,7 +138,7 @@ if(!$is_allowedToAdmin)
 $nameTools = $langConfiguration;
 
 $interbredcrump[] = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
-$interbredcrump[] = array ('url'=>$rootAdminWeb.'/tool/config_list.php', 'name'=> $langConfiguration);
+$interbredcrump[] = array ('url'=>$rootAdminWeb.'tool/config_list.php', 'name'=> $langConfiguration);
 
 /**
  * Process
@@ -179,7 +179,7 @@ else
                 unset($conf_def,$conf_def_property_list);
         
                 require($confDef);
-        
+
                 if ( is_array($_REQUEST['prop']) )
                 {
 
@@ -276,10 +276,12 @@ else
         }
 
         /* Search for value  existing  in conf file but not in def file, or inverse */
-
+        $currentConfContent = parse_config_file(basename(claro_get_conf_file($config_code)));
+        unset($currentConfContent[$config_code.'GenDate']);
+        
         $currentConfContentKeyList = is_array($currentConfContent)?array_keys($currentConfContent):array();
         $conf_def_property_listKeyList = is_array($conf_def_property_list)?array_keys($conf_def_property_list):array();
-        $unknowValueInConfigFile = array_diff($currentConfContentKeyList,$conf_def_property_listKeyList);
+        $unknowValueInConfigFileList = array_diff($currentConfContentKeyList,$conf_def_property_listKeyList);
         $newValueInDefFile = array_diff($conf_def_property_listKeyList,$currentConfContentKeyList);
 
         if (is_array($conf_def['section']) )
@@ -346,7 +348,7 @@ if ( $conf_info['manual_edit'] == TRUE )
            .'Actually the script prefill with values found in the current conf, '
            .'and overwrite values set in the database'
            ;
-    $currentConfContent = parse_config_file(basename(claro_get_conf_file($config_code)));
+    
 }
 
 // display message
@@ -384,7 +386,7 @@ if ( $display_form )
     
                 // display fieldset with the label of the section
                 echo '<tr>'
-                    .'<th class="superHeader" colspan="3">' . $section['label'].'</th>'
+                    .'<th class="superHeader" colspan="3">' . $section['label'] . '</th>'
                     .'</tr>' . "\n";
     
                 // display description of the section
@@ -431,6 +433,24 @@ if ( $display_form )
         else
         {
             echo 'no section found in definition file';
+        }
+
+        if (sizeof($unknowValueInConfigFileList)>0)
+        {
+            echo '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n"
+                .'<tr><th class="superHeader" colspan="3">'.$lang_unknowProperties.'</th></tr>'
+                ;
+            foreach ($unknowValueInConfigFileList as $key => $unknowValueInConfigFile)
+            {
+                $htmlPropLabel = $unknowValueInConfigFile;
+                echo '<tr style="vertical-align: top">' 
+		           . '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' . "\n"
+                   . '<td nowrap="nowrap" colspan="2">' . "\n"
+                   . var_export($currentConfContent[$unknowValueInConfigFile],1)
+                   .'</td></tr>' . "\n"
+                   ;
+            }
+            echo '</table>';
         }
         echo '</form>'."\n";
     }
