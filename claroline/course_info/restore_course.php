@@ -7,11 +7,13 @@
 +----------------------------------------------------------------------+
 */
 
+// Lang file
+
 $langFile='course_info';
 
+// Include global and libs
+
 require '../inc/claro_init_global.inc.php';
-$isAllowedToRestore=$is_allowedCreateCourse;
-if(!$isAllowedToRestore) claro_disp_auth_form();
 
 if(extension_loaded('zlib'))
 {
@@ -20,11 +22,23 @@ if(extension_loaded('zlib'))
 @include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
 
+// Courses variables
+
+// Tables variables
+
 $tbl_mdb_names   = claro_sql_get_main_tbl();
 $TBL_COURS       = $tbl_mdb_names['course'           ];
 $TBL_COURS_USER  = $tbl_mdb_names['rel_course_user'  ];
 
+// Path and files variables
+
 $archivePath=$rootSys.$archiveDirName.'/';
+
+
+$isAllowedToRestore=$is_allowedCreateCourse;
+if(!$isAllowedToRestore) claro_disp_auth_form();
+
+// execute 
 
 if($submitForm && $isAllowedToRestore) // if the form has been sent and if the user is allowed to restore a course
 {
@@ -227,222 +241,125 @@ $interbredcrump[]=array("url" => "../create_course/add_course.php","name" => $la
 include($includePath."/claro_init_footer.inc.php");
 
 /**
- * removes a directory recursively
- *
- * @returns true if OK, otherwise false
- *
- * @author Amary <MasterNES@aol.com> (from Nexen.net)
- * @author Olivier Brouckaert <oli.brouckaert@skynet.be>
- *
- * @param string	$dir		directory to remove
- */
-function removeDir($dir)
-{
-	if(!@$opendir = opendir($dir))
-	{
-		return false;
-	}
-
-	while($readdir = readdir($opendir))
-	{
-		if($readdir != '..' && $readdir != '.')
-		{
-			if(is_file($dir.'/'.$readdir))
-			{
-				if(!@unlink($dir.'/'.$readdir))
-				{
-					return false;
-				}
-			}
-			elseif(is_dir($dir.'/'.$readdir))
-			{
-				if(!removeDir($dir.'/'.$readdir))
-				{
-					return false;
-				}
-			}
-		}
-	}
-
-	closedir($opendir);
-
-	if(!@rmdir($dir))
-	{
-		return false;
-	}
-
-	return true;
-}
-
-/**
  * Removes comment lines and splits up large sql files into individual queries
  *
- * Last revision: September 23, 2001 - gandon (from phpMyAdmin)
+ * Last revision: September 23, 2001 - gandon
  *
  * @param   array    the splitted sql commands
  * @param   string   the sql commands
+ * @param   integer  the MySQL release number (because certains php3 versions
+ *                   can't get the value of a constant from within a function)
  *
  * @return  boolean  always true
  *
  * @access  public
  */
-function PMA_splitSqlFile(&$ret,$sql)
+function PMA_splitSqlFile(&$ret, $sql)
 {
-	$sql=trim($sql);
-	$sql_len=strlen($sql);
-	$char='';
-	$string_start='';
-	$in_string=false;
-	$time0=time();
+    // do not trim, see bug #1030644
+    //$sql          = trim($sql);
+    $sql          = rtrim($sql, "\n\r");
+    $sql_len      = strlen($sql);
+    $char         = '';
+    $string_start = '';
+    $in_string    = FALSE;     $nothing      = TRUE;
+    $time0        = time();
 
-	$result=claro_sql_query("SHOW VARIABLES LIKE 'version'");
+    for ($i = 0; $i < $sql_len; ++$i) {
+        $char = $sql[$i];
 
-	list(,$release)=mysql_fetch_row($result);
+        // We are in a string, check for not escaped end of strings except for
+        // backquotes that can't be escaped
+        if ($in_string) {
+            for (;;) {
+                $i         = strpos($sql, $string_start, $i);
+                // No end of string found -> add the current substring to the
+                // returned array
+                if (!$i) {
+                    $ret[] = $sql;
+                    return TRUE;
+                }
+                // Backquotes or no backslashes before quotes: it's indeed the
+                // end of the string -> exit the loop
+                else if ($string_start == '`' || $sql[$i-1] != '\\') {
+                    $string_start      = '';
+                    $in_string         = FALSE;
+                    break;
+                }
+                // one or more Backslashes before the presumed end of string...
+                else {
+                    // ... first checks for escaped backslashes
+                    $j                     = 2;
+                    $escaped_backslash     = FALSE;
+                    while ($i-$j > 0 && $sql[$i-$j] == '\\') {
+                        $escaped_backslash = !$escaped_backslash;
+                        $j++;
+                    }
+                    // ... if escaped backslashes: it's really the end of the
+                    // string -> exit the loop
+                    if ($escaped_backslash) {
+                        $string_start  = '';
+                        $in_string     = FALSE;
+                        break;
+                    }
+                    // ... else loop
+                    else {
+                        $i++;
+                    }
+                } // end if...elseif...else
+            } // end for
+        } // end if (in string)
 
-	$release=ereg_replace('[^0-9]','',$release);
+        // lets skip comments (/*, -- and #)
+        else if (($char == '-' && $sql_len > $i + 2 && $sql[$i + 1] == '-' && $sql[$i + 2] <= ' ') || $char == '#' || ($char == '/' && $sql_len > $i + 1 && $sql[$i + 1] == '*')) {
+            $i = strpos($sql, $char == '/' ? '*/' : "\n", $i);
+            // didn't we hit end of string?
+            if ($i === FALSE) {
+                break;
+            }
+            if ($char == '/') $i++;
+        }
 
-	for($i=0;$i < $sql_len;++$i)
-	{
-		$char=$sql[$i];
+        // We are not in a string, first check for delimiter...
+        else if ($char == ';') {
+            // if delimiter found, add the parsed part to the returned array
+            $ret[]      = array('query' => substr($sql, 0, $i), 'empty' => $nothing);
+            $nothing    = TRUE;
+            $sql        = ltrim(substr($sql, min($i + 1, $sql_len)));
+            $sql_len    = strlen($sql);
+            if ($sql_len) {
+                $i      = -1;
+            } else {
+                // The submited statement(s) end(s) here
+                return TRUE;
+            }
+        } // end else if (is delimiter)
 
-		// We are in a string, check for not escaped end of strings except for
-		// backquotes that can't be escaped
-		if($in_string)
-		{
-			while(1)
-			{
-				$i=strpos($sql,$string_start,$i);
+        // ... then check for start of a string,...
+        else if (($char == '"') || ($char == '\'') || ($char == '`')) {
+            $in_string    = TRUE;
+            $nothing      = FALSE;
+            $string_start = $char;
+        } // end else if (is start of string)
 
-				// No end of string found -> add the current substring to the
-				// returned array
-				if(!$i)
-				{
-					$ret[]=$sql;
-					return true;
-				}
+        elseif ($nothing) {
+            $nothing = FALSE;
+        }
 
-				// Backquotes or no backslashes before quotes: it's indeed the
-				// end of the string -> exit the loop
-				elseif($string_start == '`' || $sql[$i-1] != '\\')
-				{
-					$string_start='';
-					$in_string=false;
+        // loic1: send a fake header each 30 sec. to bypass browser timeout
+        $time1     = time();
+        if ($time1 >= $time0 + 30) {
+            $time0 = $time1;
+            header('X-pmaPing: Pong');
+        } // end if
+    } // end for
 
-					break;
-				}
+    // add any rest to the returned array
+    if (!empty($sql) && preg_match('@[^[:space:]]+@', $sql)) {
+        $ret[] = array('query' => $sql, 'empty' => $nothing);
+    }
 
-				// one or more Backslashes before the presumed end of string...
-				else
-				{
-					// ... first checks for escaped backslashes
-					$j=2;
-					$escaped_backslash=false;
+    return TRUE;
+} // end of the 'PMA_splitSqlFile()' function
 
-					while($i-$j > 0 && $sql[$i-$j] == '\\')
-					{
-						$escaped_backslash=!$escaped_backslash;
-						$j++;
-					}
-
-					// ... if escaped backslashes: it's really the end of the
-					// string -> exit the loop
-					if($escaped_backslash)
-					{
-						$string_start='';
-						$in_string=false;
-
-						break;
-					}
-
-					// ... else loop
-					else
-					{
-						$i++;
-					}
-				} // end if...elseif...else
-			} // end for
-		} // end if (in string)
-
-		// We are not in a string, first check for delimiter...
-		elseif($char == ';')
-		{
-			// if delimiter found, add the parsed part to the returned array
-			$ret[]=substr($sql,0,$i);
-			$sql=ltrim(substr($sql,min($i+1,$sql_len)));
-			$sql_len=strlen($sql);
-
-			if($sql_len)
-			{
-				$i=-1;
-			}
-			else
-			{
-				// The submited statement(s) end(s) here
-				return true;
-			}
-		} // end else if (is delimiter)
-
-		// ... then check for start of a string,...
-		elseif(($char == '"') || ($char == '\'') || ($char == '`'))
-		{
-			$in_string=true;
-			$string_start=$char;
-		} // end else if (is start of string)
-
-		// ... for start of a comment (and remove this comment if found)...
-		elseif($char == '#' || ($char == ' ' && $i > 1 && $sql[$i-2] . $sql[$i-1] == '--'))
-		{
-			// starting position of the comment depends on the comment type
-			$start_of_comment=(($sql[$i] == '#') ? $i : $i-2);
-
-			// if no "\n" exits in the remaining string, checks for "\r"
-			// (Mac eol style)
-			$end_of_comment=(strpos(' ' . $sql, "\012", $i+2))
-                             ? strpos(' ' . $sql, "\012", $i+2)
-                             : strpos(' ' . $sql, "\015", $i+2);
-
-			if(!$end_of_comment)
-			{
-				// no eol found after '#', add the parsed part to the returned
-				// array if required and exit
-				if($start_of_comment > 0)
-				{
-					$ret[]=trim(substr($sql, 0, $start_of_comment));
-				}
-
-				return true;
-			}
-			else
-			{
-				$sql=substr($sql,0,$start_of_comment)
-					.ltrim(substr($sql, $end_of_comment));
-				$sql_len=strlen($sql);
-				$i--;
-			} // end if...else
-		} // end else if (is comment)
-
-		// ... and finally disactivate the "/*!...*/" syntax if MySQL < 3.22.07
-		elseif($release < 32270 && ($char == '!' && $i > 1  && $sql[$i-2] . $sql[$i-1] == '/*'))
-		{
-			$sql[$i]=' ';
-		} // end else if
-
-		// loic1: send a fake header each 30 sec. to bypass browser timeout
-		$time1=time();
-
-		if($time1 >= $time0 + 30)
-		{
-			$time0 = $time1;
-			header('X-pmaPing: Pong');
-		} // end if
-	} // end for
-
-	// add any rest to the returned array
-	if(!empty($sql) && ereg('[^[:space:]]+', $sql))
-	{
-		$ret[]=$sql;
-	}
-
-	return true;
-}
 ?>
