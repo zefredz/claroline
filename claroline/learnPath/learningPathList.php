@@ -438,7 +438,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
    */
 
    echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
-
+    <thead>
     <tr class=\"headerX\" align=\"center\" valign=\"top\">
      <th>".$langLearningPath."</th>";
 
@@ -458,7 +458,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
       echo "<th colspan=\"2\">".$langProgress."</th>";
    }
    // close title line
-   echo "</tr>\n<tbody>";
+   echo "</tr>\n</thead>\n<tbody>";
 
   // display invisible learning paths only if user is courseAdmin
   if ($is_AllowedToEdit)

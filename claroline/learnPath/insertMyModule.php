@@ -179,6 +179,7 @@
      $result = claro_sql_query(buildRequestModules());
 
      echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
+            <thead>
             <tr class=\"headerX\" bgcolor=\"#E6E6E6\" align=\"center\" valign=\"top\">
               <th width=\"10%\">
                 ".$langAddModule."
@@ -186,7 +187,9 @@
               <th>
                 ".$langModule."
               </th>
-            </tr>\n<tbody>\n";
+            </tr>\n
+            </thead>
+            <tbody>\n";
 
      // Display available modules
      echo "<form name=\"addmodule\" action=\"",$_SERVER['PHP_SELF'],"?cmdglobal=add\">";

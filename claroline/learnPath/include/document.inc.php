@@ -53,11 +53,12 @@
 
    echo "<h4>".$langDocumentInModule."</h4>";
    echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">";
+   echo " <thead>\n";
    echo                "<tr class=\"headerX\">";
    echo                "<th>$langFileName</th>\n",
                        "<th>$langSize</th>\n",
                        "<th>$langDate</th>\n";
-   echo                "</tr><tbody>\n";
+   echo                "</tr></thead>\n<tbody>\n";
 
    echo "<tr align=\"center\">";
    echo " <td align=\"left\">".basename($file)."</td>",

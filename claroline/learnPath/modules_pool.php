@@ -220,7 +220,7 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
 
 
      echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
-
+        <thead>
             <tr class=\"headerX\" align=\"center\" valign=\"top\">
               <th>
                 ".$langModule."
@@ -235,6 +235,7 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
                 ".$langComment."
               </th>";
     echo      "</tr>\n",
+              "</thead>\n",
                   "<tbody>\n";
 
     $sql = "SELECT M.*, count(M.`module_id`) AS timesUsed

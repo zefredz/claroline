@@ -277,6 +277,7 @@ if ( ! $is_courseAllowed)
             echo "<b>".$langProgInModuleTitle."</b><br><br>";
     
             echo "<table align=\"center\" class=\"claroTable\" border=\"0\" cellspacing=\"2\">
+                  <thead>
                   <tr class=\"headerX\">
                     <th>
                       ".$langInfoProgNameTitle."
@@ -285,6 +286,7 @@ if ( ! $is_courseAllowed)
                       ".$langPersoValue."
                     </th>
                   </tr>
+                  </thead>
                   <tbody>";
     
             //display type of the module

@@ -459,6 +459,7 @@
 
    ?>
      <table class="claroTable" width="100%" border="0" cellspacing="2">
+          <thead>
             <tr class="headerX" align="center" valign="top">
               <th colspan="<?php echo $maxDeep+1 ?>"><?php echo $langModule; ?></th>
               <th><?php echo $langModify; ?></th>
@@ -467,7 +468,9 @@
               <th><?php echo $langVisible; ?></th>
               <th><?php echo $langMove; ?></th>
               <th colspan="2"><?php echo $langOrder; ?></th>
-             </tr><tbody>
+             </tr>
+        </thead>
+        <tbody>
    <?PHP
    
    //####################################################################################\\
