@@ -223,6 +223,33 @@ if (isset($_uid))
 			"<td>\n",
 			"<h3>",$langMyCourses,"</h3>\n";
 
+    echo	"<p>"
+           ."<small>\n"
+           ."<b>";
+
+	if ($display_addCourse_Link) /* 'Create Course Site' command.
+	                                 Only available for teacher. */
+	{
+		echo '<a href="claroline/create_course/add_course.php">'.$langCourseCreate.'</a>&nbsp;|&nbsp;';
+	}
+
+//	echo	"&nbsp;&nbsp;&nbsp;",
+//			"<a href=\"claroline/auth/courses.php\">",$lang_edit_my_course_list,"</a>",
+
+    echo '<a href="claroline/auth/courses.php?cmd=rqReg&category=">'.$lang_enroll_to_a_new_course.'</a>&nbsp;|&nbsp;';
+
+//    if ($userCourseCount > 0) 
+//    since i've bring up these commands the flag above
+//    can't temporarly be used anymore, as it is computed latter in the script. 
+//    While waiting a bit of refactoring I've commented it.
+//    {
+       echo '<a href="claroline/auth/courses.php?cmd=rqUnreg">'.$lang_remove_course_enrollment.'</a>';
+//    }
+
+    echo    "</b>"
+            ."</small>\n"
+            ."</p>\n";
+
 	// Display courses
 
     $userCourseCount = 0;
@@ -420,26 +447,6 @@ if (isset($_uid))
 		}
 
 	echo	"</ul>\n";
-
-//	echo	"<blockquote>\n";
-
-	if ($display_addCourse_Link) /* 'Create Course Site' command.
-	                                 Only available for teacher. */
-	{
-		claro_disp_button('claroline/create_course/add_course.php', $langCourseCreate);
-	}
-
-//	echo	"&nbsp;&nbsp;&nbsp;",
-//			"<a href=\"claroline/auth/courses.php\">",$lang_edit_my_course_list,"</a>",
-
-    claro_disp_button('claroline/auth/courses.php?cmd=rqReg&category=', $lang_enroll_to_a_new_course);
-
-    if ($userCourseCount > 0)
-    {
-        claro_disp_button('claroline/auth/courses.php?cmd=rqUnreg', $lang_remove_course_enrollment);
-    }
-
- //   echo    "</blockquote>\n";
 
 
 	echo	"</td>\n";
