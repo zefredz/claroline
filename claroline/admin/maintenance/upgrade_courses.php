@@ -125,7 +125,6 @@ switch ($display)
 			unset($sqlForUpdate);
 			include("createBaseOfACourse.sql.php");
 			@include("repairTables.sql.php");
-		 	include("upgradeContentBaseOfACourse.sql.php");
 			
 			@mysql_query ( "SET @currentCourseCode := '".$currentCourseIDsys."'");
 		
