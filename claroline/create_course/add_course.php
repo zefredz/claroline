@@ -1,12 +1,10 @@
 <?php // $Id$
-/*
-+----------------------------------------------------------------------+
-| CLAROLINE 1.6
-+----------------------------------------------------------------------+
-| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-+----------------------------------------------------------------------+
- */
 /**
+ *
+ * CLAROLINE 1.6
+ *
+ * @copyright 2001, 2005 Universite catholique de Louvain (UCL)      |
+ *
  * COURSE SITE CREATION TOOL
  * GOALS
  * *******
@@ -19,33 +17,20 @@
  *     5. Check whether the course code is not already taken.
  *     6. Associate the current user id with the course in order to let 
  *        him administer it.
- * 
- * One of the functions of this script is to merge the different 
- * Open Source Tools used in the courses (statistics by EzBoo,
- * forum by phpBB...) under one unique user session and one unique
- * course id.
- * ******************************************************************
- */
-/*
 
 List of Events
 	- can't create course
 		show displayNotForU and exit
-	-
 
 List  of  views
 	- displayNotForU
 		the  user  is not allowed to  use this script
-	- displayWhatAdd
-		here  user select  what take in the archive
-	- displayCourseRestore
-		User  can select source file to add course (that's must be a file  build with export)
 	- displayCoursePropertiesForm
 		User  can enter/edit  parameter  for the  new  course. If  they use an archive,
 		value are proposed but can be edited
 	- displayCourseAddResult
 		New course is added.  Show  success message.
-*/
+ */
 require '../inc/claro_init_global.inc.php';
 
 //// Config tool
@@ -54,13 +39,11 @@ include($includePath."/conf/course_main.conf.php");
 
 include($includePath."/lib/add_course.lib.inc.php");
 include($includePath."/lib/course.lib.inc.php");
-include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
 
 $nameTools = $langCreateSite;
 
-
-/*
+/**
  * DB tables definition
  */
 
@@ -81,7 +64,6 @@ $TABLEANNOUNCEMENTS = $tbl_announcement;
 
 $can_create_courses = (bool) ($is_allowedCreateCourse);
 $coursesRepositories = $coursesRepositorySys;
-
 
 //Prefield values for the form to create a course :
 
@@ -116,162 +98,9 @@ $displayNotForU = FALSE;
 if (!$can_create_courses) $displayNotForU = TRUE; // (!$can_create_courses)
 else
 {
-	if (   $sendByUploadAivailable
-		|| $sendByLocaleAivailable
-		|| $sendByHTTPAivailable
-		|| $sendByFTPAivailable    )
+    $displayCoursePropertiesForm 	= TRUE;
+    if ($submitFromCoursProperties)
 	{
-		$displayWhatAdd = TRUE;
-	}
-	else
-	{
-		$displayCoursePropertiesForm 	= TRUE;
-	}
-
-	if (isset($_REQUEST["fromWhatAdd"]))
-	{
-		$displayWhatAdd = FALSE;
-
-		if ($_REQUEST["whatAdd"] == "newCourse")
-		{
-			$displayCoursePropertiesForm 	= TRUE;
-			$valueTitular					= $_user['firstName']." ".$_user['lastName'];
-		}
-		elseif ($_REQUEST["whatAdd"] == "archive")
-		{
-			$displayCourseRestore 			= TRUE;
-		}
-		else
-		{
-			$displayWhatAdd 				= TRUE;
-		}
-	} // if (isset($HTTP_POST_VARS["fromWhatAdd"]))
-	elseif (isset($_REQUEST["selectArchive"]))
-	{
-		$displayWhatAdd = FALSE;
-
-// 1°   Keep the  zipFile and move it in $pathToStorgeArchiveBeforeUnzip
-//		printVar($postFile, "PostFile");
-//		printVar($HTTP_POST_FILES, "HTTP_POST_FILES");
-
-		$pathToStorgeArchiveBeforeUnzip = $rootSys."claroline/tmp/".md5(uniqid(mt_rand().$_uid, true));
-
-        claro_mkdir($pathToStorgeArchiveBeforeUnzip, 0777, true);
-
-		//debugIO($pathToStorgeArchiveBeforeUnzip);
-		switch($_REQUEST["typeStorage"])
-		{
-			case "upload" :
-				$displayCoursePropertiesForm = TRUE;
-				if (	$sendByUploadAivailable
-						&& is_uploaded_file($postFile)
-//						&& copy($HTTP_POST_FILES["postFile"]["tmp_name"], $pathToStorgeArchiveBeforeUnzip)
-					)
-				{
-					$pathToStorgeArchiveBeforeUnzip = dirname($HTTP_POST_FILES["postFile"]["tmp_name"]);
-					$nameOfZipFile = basename($HTTP_POST_FILES["postFile"]["tmp_name"]);
-					$okToUnzip = TRUE;
-				}
-				else
-				{
-					// error during send, back to 1st Panel
-					$displayWhatAdd = TRUE;
-					$displayCoursePropertiesForm = FALSE;
-					$okToUnzip = FALSE;
-					break;
-				}
-				$displayCoursePropertiesForm = TRUE;
-				break;
-			case "local":
-				// copy local file to $pathToStorgeArchiveBeforeUnzip
-				$displayCoursePropertiesForm = TRUE;
-				$okToUnzip = TRUE;
-				if (	!$sendByLocaleAivailable
-						&& file_exists($localArchivesRepository.trim($HTTP_POST_VARS["localFile"]))
-						&& !copy($localArchivesRepository.trim($HTTP_POST_VARS["localFile"]), $pathToStorgeArchiveBeforeUnzip)
-					)
-				{
-					$nameOfZipFile = basename(trim($HTTP_POST_VARS["localFile"]));
-					// error during send, back to 1st Panel
-					$displayWhatAdd = TRUE;
-					$displayCoursePropertiesForm = FALSE;
-					$okToUnzip = FALSE;
-					break;
-				}
-				break;
-			case "http":
-				// copy downloaded file to $pathToStorgeArchiveBeforeUnzip
-				$displayCoursePropertiesForm = TRUE;
-				$okToUnzip = TRUE;
-				if (!$sendByHTTPAivailable)
-				{
-					$displayWhatAdd = TRUE;
-					$displayCoursePropertiesForm = FALSE;
-					$okToUnzip = FALSE;
-					break;
-				}
-				break;
-			case "ftp":
-				// copy downloaded file to $pathToStorgeArchiveBeforeUnzip
-				$displayCoursePropertiesForm = TRUE;
-				$okToUnzip = TRUE;
-				if (!$sendByFTPAivailable)
-				{
-					$displayWhatAdd = TRUE;
-					$displayCoursePropertiesForm = FALSE;
-					$okToUnzip = FALSE;
-					break;
-				}
-
-				break;
-			default :
-				$displayWhatAdd = TRUE;
-				$okToUnzip = FALSE;
-				// gloups
-		} // elseif (isset($_REQUEST["selectArchive"]))
-
-		//2° unzip archive in $pathToStorgeArchiveBeforeUnzip
-		if ($okToUnzip)
-		{
-			checkArchive($pathToStorgeArchiveBeforeUnzip."/".$nameOfZipFile);
-
-			$displayWhatAdd = FALSE;
-			$displayCoursePropertiesForm = TRUE;
-			$courseProperties = readPropertiesInArchive($pathToStorgeArchiveBeforeUnzip."/".$nameOfZipFile);
-//			printVar($courseProperties," propriétés du cours");
-			$showPropertiesFromArchive = TRUE;
-
-			$valueSysId 		= $courseProperties['sysId'              ];
-
-            $valueCode          = $courseProperties['officialCode'       ];
-            $valueTitular       = $courseProperties['titular'            ];
-            $valueIntitule      = $courseProperties['name'               ];
-            $valueFacultyName   = $courseProperties['categoryName'       ];
-            $valueFacultyCode   = $courseProperties['categoryCode'       ];
-            $valueLanguage      = $courseProperties['language'           ];
-
-            $valueDescription   = $courseProperties['description'        ];
-            $valueDepartment    = $courseProperties['extLinkName'        ];
-            $valueDepartmentUrl = $courseProperties['extLinkUrl'         ];
-
-            $valueScoreShow     = $courseProperties['scoreShow'          ];
-            $valueVisibility    = $courseProperties['visibility'         ];
-
-            $valueAdminCode     = $courseProperties['adminCode'          ];
-            $valueDbName        = $courseProperties['dbName'             ];
-            $valuePath          = $courseProperties['path'               ];
-            $valueRegAllowed    = $courseProperties['registrationAllowed'];
-
-            $valueVersionDb     = $courseProperties['versionDb'          ];
-            $valueVersionClaro  = $courseProperties['versionClaro'       ];
-            $valueLastVisit     = $courseProperties['lastVisit'          ];
-            $valueLastEdit      = $courseProperties['lastEdit'           ];
-            $valueExpire        = $courseProperties['expirationDate'     ];
-		} //if ($okToUnzip)
-	}
-	elseif ($submitFromCoursProperties)
-	{
-		
 		$wantedCode 		= strip_tags($_REQUEST['wantedCode'    ]);
 		$newcourse_category	= strip_tags($_REQUEST['faculte'       ]);
 		$newcourse_label	= strip_tags($_REQUEST['intitule'      ]);
@@ -280,10 +109,7 @@ else
 		$newcourse_email 	= strip_tags($_REQUEST['email'         ]);
 		
 		$okToCreate = true;
-		
-		
 		/////CHECK DATA
-		
 		
 		// LABEL (Previously called intitule
 		if (HUMAN_LABEL_NEEDED && empty($newcourse_label)) 
@@ -303,7 +129,7 @@ else
 			$okToCreate = FALSE;
 			$controlMsg['error'][] = $langEmailCanBeEmpty;
 		}
-		
+
 		// if an email is given It would be correct
 		$regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 		if (!empty($newcourse_email)&&!eregi( $regexp, $newcourse_email)) 
@@ -311,8 +137,7 @@ else
 			$okToCreate = FALSE;
 			$controlMsg['error'][] = $langEmailWrong;
 		}
-		
-		
+
 	//  function define_course_keys ($wantedCode, $prefix4all="", $prefix4baseName="", 	$prefix4path="", $addUniquePrefix =false,	$useCodeInDepedentKeys = TRUE	)
 		$keys = define_course_keys ($wantedCode,"",$dbNamePrefix);
 		$currentCourseCode		 = $keys['currentCourseCode'      ];
@@ -323,19 +148,17 @@ else
 	
 		if ($okToCreate)
 		{
-			if ($DEBUG) echo "[Code:",	$currentCourseCode,"][Id:",$currentCourseId,"][Db:",$currentCourseDbName	 ,"][Path:",$currentCourseRepository ,"]";
-
 			//function prepare_course_repository($courseRepository, $courseId)
-	
+
 			prepare_course_repository($currentCourseRepository,$currentCourseId);
 			update_Db_course($currentCourseDbName);
 			fill_course_repository($currentCourseRepository);
-	
+
 			// function 	fill_Db_course($courseDbName,$courseRepository)
 			fill_Db_course(	$currentCourseDbName, 
 							$currentCourseRepository, 
 							$newcourse_language);
-							
+
 			register_course($currentCourseId, 
 							$currentCourseCode, 
 							$currentCourseRepository, 
@@ -347,11 +170,11 @@ else
 							$newcourse_language , 
 							$_uid, 
 							$expirationDate);
-							
+
 			$displayCourseAddResult       = TRUE;
 			$displayCoursePropertiesForm  = FALSE;
 			$displayWhatAdd               = FALSE;
-	
+
 		    // warn platform administrator of the course creation
 			$strCreationMailNotificationSubject = 		    '['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$newcourse_label;
 			$strCreationMailNotificationBody = 
@@ -388,141 +211,12 @@ claro_disp_msg_arr($controlMsg);
 
 // db connect
 // path for breadcrumb contextual menu in this page
-$chemin="<a href=../../index.php>$siteName</a>&nbsp;&gt;&nbsp;<b>$langCreateSite</b>";
-###################### FORM  #########################################
+$chemin='<a href="../../index.php>'.$siteName.'</a>&nbsp;&gt;&nbsp;<b>'.$langCreateSite.'</b>';
 
 if($displayNotForU)
 {
 	echo $langNotAllowed;
 } 
-elseif($displayWhatAdd)
-{
-?>
-<form lang="<?php echo $iso639_2_code ?>" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" accept-charset="<?php echo $charset ?>">
-<table  width="100%">
-	<tr valign="top">
-		<td colspan="2" valign="top">
-			<H5>
-			<?php echo $langAddNewCourse ?>
-			</H5>
-			<br>
-		</td>
-	</tr>
-	<tr valign="top">
-		<td width="40"></td>
-		<td >
-			<input type="radio" name="whatAdd" value="newCourse" checked id="whatAdd_newCourse">
-			<label for="whatAdd_newCourse"><?php echo $langNewCourse ?></label>
-		</td>
-	</tr>
-	<tr valign="top">
-		<td width="40"></td>
-		<td >
-			<input type="radio" name="whatAdd" value="archive"  id="whatAdd_archive">
-			<label for="whatAdd_archive"><?php echo $langRestoreACourse ?></label>
-		</td>
-	</tr>
-	<tr valign="top">
-		<td width="40"></td>
-		<td valign="top">
-			<br><br>
-			<input type="submit" name="fromWhatAdd" value="Next">
-		</td>
-	</tr>
-</table>
-</form>
-<?php
-}
-elseif($displayCourseRestore)
-{
-?>
-<br>
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
-<table width="100%">
-	<tr valign="top">
-		<td colspan="2" valign="top">
-			<H5>
-				<?php echo $langChooseFile ?>
-			</H5>
-			<br>
-		</td>
-	</tr>
-<?php
-	if ($sendByUploadAivailable)
-	{
-?>
-	<tr valign="top">
-		<TD >
-			<input type="radio" name="typeStorage" value="upload" checked  id="typeStorage_upload">&nbsp;
-			<label for="typeStorage_upload">Upload</label>
-		</TD>
-		<td >
-			<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="<?php echo MAX_FILE_SIZE_UPLOAD ?>">
-			<input type="file" name="postFile" accept="application/x-zip-compressed">
-			<?php echo $langPostFileTips; ?>
-		</td>
-	</tr>
-<?php
-	}
-	if ($sendByHTTPAivailable)
-	{
-?>
-	<tr valign="top">
-		<TD >
-			<input type="radio" name="typeStorage" value="http" id="typeStorage_http" >&nbsp;
-			<label for="typeStorage_http">Http</label>
-		</TD>
-		<td >
-			<input type="text" name="httpFile" >
-			<?php echo $langHttpFileTips; ?>
-
-		</td>
-	</tr>
-<?php
-	}
-	if ($sendByFTPAivailable )
-	{
-?>
-	<tr valign="top">
-		<TD >
-			<input type="radio" name="typeStorage" value="ftp" id="typeStorage_ftp" >&nbsp;
-			<label for="typeStorage_ftp">Ftp</label>
-		</TD>
-		<td >
-			<input type="text" name="ftpFile" >
-			<?php echo $langFtpFileTips; ?>
-		</td>
-	</tr>
-<?php
-	}
-	if ($sendByLocaleAivailable)
-	{
-?>
-	<tr valign="top">
-		<TD>
-			<input type="radio" name="typeStorage" value="local" id="typeStorage_local">&nbsp;
-			<label for="typeStorage_local">On server</label>
-		</TD>
-		<td >
-			<input type="text" name="localFile" >
-			<?php echo $langLocalFileTips; ?>
-		</td>
-	</tr>
-<?php
-	}
-?>
-	<tr valign="top">
-		<TD >
-		</TD>
-		<td valign="top">
-			<br><br>
-			<input type="submit" name="selectArchive" value="Next">
-		</td>
-	</tr>
-</table>
-</form>
-<?php
-}
 elseif($displayCoursePropertiesForm)
 {
 ?>
@@ -604,12 +298,14 @@ BuildEditableCatTable($facu," &gt; ");
 			continue;
 		if (is_dir($dirname.$entries))
 		{
-			echo "<option value=\"".$entries."\"";
-			if ($entries == $valueLanguage) echo " selected ";
+			echo '<option value="'.$entries.'"';
+			if ($entries == $valueLanguage) echo ' selected ';
 			echo ">"; 
 					if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries]!="" && $langNameOfLang[$entries]!=$entries)
-					echo $langNameOfLang[$entries]." - ";
-			echo $entries,"</option>\n";
+					echo $langNameOfLang[$entries].' - ';
+			echo $entries
+               . '</option>'."\n"
+               ;
 		}
 	}	
 	closedir($handle);
@@ -627,154 +323,6 @@ BuildEditableCatTable($facu," &gt; ");
 </table>
 </form>
 <p><?php echo $langExplanation ?>.</p>
-
-<?php
-		if($showLinkToRestoreCourse)
-		{
-			if($is_platformAdmin)
-			{
-?>
-
-<hr noshade size="1">
-<a class="claroCmd" href="../course_info/restore_course.php"><?php echo $langRestoreCourse; ?></a>
-
-<?php
-
-			}
-		}
-/*
-	$valueCode			= $courseProperties["officialCode"];
-	$valueIntitule		= $courseProperties["name"];
-	$valueFacultyName	= $courseProperties["categoryName"];
-	$valueFacultyCode	= $courseProperties["categoryCode"];
-	$valueLanguage 		= $courseProperties["language"];
-	$valueAdminCode		= $courseProperties["adminCode"];
-	$valueDbName		= $courseProperties["dbName"];
-	$valuePath			= $courseProperties["path"];
-	$valueRegAllowed 	= $courseProperties["registrationAllowed"];
-*/
-	if ($showPropertiesFromArchive)
-	{
-?>
-<table width="100%">
-	<tr valign="top">
-		<td colspan="2" valign="top">
-				<b>
-					<?php echo $langOtherProperties ?>
-				</b>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $langSysId ?>
-		</td
-		<td>
-			<?php echo $valueSysId ?><br>
-			<?php echo $valueAdminCode?><br>
-			<?php echo $valueDbName?><br>
-			<?php echo $valuePath?>
-		</td>
-	</tr>
-
-	<tr>
-		<td>
-			<?php echo $langCategory ?>
-		</td
-		<td>
-			[<?php echo $valueFacultyCode ?>]<?php echo $valueFacultyName ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $langDescription ?>
-		</td
-		<td>
-			<?php echo $valueDescription ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $langDepartment	 ?>
-		</td
-		<td>
-			<?php echo $valueDepartment ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $langDepartmentUrl	 ?>
-		</td
-		<td>
-			<?php echo $valueDepartmentUrl ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $langScoreShow ?>
-		</td
-		<td>
-			<?php echo $valueScoreShow ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $langVisibility ?>
-		</td
-		<td>
-			<?php echo $valueVisibility ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $langRegistration ?>
-		</td
-		<td>
-			<?php echo $valueRegAllowed ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $langVersionDb ?>
-		</td
-		<td>
-			<?php echo $valueVersionDb ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $langVersionClaro ?>
-		</td
-		<td>
-			<?php echo $valueVersionClaro ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $langLastVisit ?>
-		</td
-		<td>
-			<?php echo ucfirst(claro_disp_localised_date($dateTimeFormatLong,strtotime($valueLastVisit))) ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $langLastEdit ?>
-		</td
-		<td>
-			<?php echo ucfirst(claro_disp_localised_date($dateTimeFormatLong,strtotime($valueLastEdit))) ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $langExpire ?>
-		</td
-		<td>
-			<?php echo $valueExpire ?>
-		</td>
-	</tr>
-<?php
-	}
-?>
 </table>
 <?php
 }   // IF ! SUBMIT
@@ -787,22 +335,29 @@ elseif($displayCourseAddResult)
 // Replace HTML special chars by equivalent - cannot use html_specialchars
 // Special for french
 
-	echo "\n\n<p>\n".$langJustCreated." <strong>".$currentCourseCode."</strong><br /><br />\n\n";
+	echo '<p>'."\n"
+       . $langJustCreated
+       . ' : ' 
+       . '<strong>'
+       . $currentCourseCode
+       . '</strong>'
+       . '<br /><br />'."\n\n"
+       ;
 
 	if ($_REQUEST['fromAdmin']!="yes")
 	{
-		echo "<a class=\"claroCmd\" href=\"../../index.php\">".$langBackToMyCourseList."</a>"; 
+		echo '<a class="claroCmd" href="../../index.php">'.$langBackToMyCourseList.'</a>'; 
 	}
 	else
 	{
-		echo "<a class=\"claroCmd\" href=\"add_course.php?fromAdmin=yes\">".$langAnotherCreateSite."</a> | ";
-		echo "<a class=\"claroCmd\" href=\"../admin/index.php\">$langBackToAdmin</a>";
+		echo '<a class="claroCmd" href="add_course.php?fromAdmin=yes">'.$langAnotherCreateSite.'</a> | '
+		   . '<a class="claroCmd" href="../admin/index.php">'.$langBackToAdmin.'</a>';
 	}
 
-	echo "</p>\n\n";
+	echo '</p>'."\n\n"
+         ;
 
 } // if all fields fulfilled
-
 
 include($includePath."/claro_init_footer.inc.php");
 ?>
