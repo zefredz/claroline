@@ -6,7 +6,7 @@ body {
 	background-color:#E5E5E5;
 	color:#000;
 	font-family: Verdana, 'bitstream vera sans',Arial,Helvetica,sans-serif;
-	font-size: 14px;
+	font-size: 85%;
 	padding: 3px;
 }
 
@@ -16,7 +16,7 @@ a, a:link, a:active, a:visited {
 }
 
 a:hover {
-	text-decoration: none; 
+	text-decoration: underline; 
 	color: #069;
 }
 
