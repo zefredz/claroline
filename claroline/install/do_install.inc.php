@@ -297,12 +297,8 @@ $institution_name       =   "'.cleanwritevalue($institutionForm).'";
 $institution_url            =   "'.$institutionUrlForm.'";
 
 // param for new and future features
-$checkEmailByHashSent           =   '.trueFalse($checkEmailByHashSent).';
-$ShowEmailnotcheckedToStudent   =   '.trueFalse($ShowEmailnotcheckedToStudent).';
-$userMailCanBeEmpty             =   '.trueFalse($userMailCanBeEmpty).';
 $userPasswordCrypted            =   '.trueFalse($encryptPassForm).';
 $allowSelfReg                   = '.trueFalse($allowSelfReg).';
-$allowSelfRegProf               = '.trueFalse($allowSelfRegProf).';
 
 $platformLanguage   =   "'.$languageForm.'";
 $claro_stylesheet   =   "default.css";

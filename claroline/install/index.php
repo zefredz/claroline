@@ -266,36 +266,51 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
 // CHECK DATA OF DB NAMES Form
 if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall'])
 {
-    // re Check Connection //
+    // Now mysql connect param are ok, try  to use given DBNames
+    // 1° check given string
+    // 2° check if db exists
+
     $databaseParam_ok = TRUE;
     if ($singleDbForm) $dbStatsForm = $dbNameForm;
 
-    $db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
-    $valMain = check_if_db_exist($dbNameForm  ,$db);
-    if ($dbStatsForm == $dbNameForm) $confirmUseExistingStatsDb = $confirmUseExistingMainDb ;
-    if (!$singleDbForm) $valStat = check_if_db_exist($dbStatsForm ,$db);
-    if (
-            ($valMain && !$confirmUseExistingMainDb)
-            ||
-            ($valStat && !$confirmUseExistingStatsDb )
-        )
+    if (!ereg('[azAZ]*',$dbNameForm))
     {
-        $databaseAlreadyExist             = TRUE;
-        if ($valMain)    $mainDbNameExist  = TRUE;
-        if ($valStat)    $statsDbNameExist = TRUE;
-        $canRunCmd                        = FALSE;
-        if ($cmd > DISP_DB_NAMES_SETTING)
-        {
-            $display = DISP_DB_NAMES_SETTING;
-        }
-        else
-        {
-            $display= $cmd;
-        }
+        $databaseParam_ok = FALSE;
+        $canRunCmd        = FALSE;
+        $databaseNameInvalid = TRUE;
     }
     else
     {
-        $databaseAlreadyExist = false;
+        $db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
+        $valMain = check_if_db_exist($dbNameForm  ,$db);
+        if ($dbStatsForm == $dbNameForm) $confirmUseExistingStatsDb = $confirmUseExistingMainDb ;
+        if (!$singleDbForm) $valStat = check_if_db_exist($dbStatsForm ,$db);
+        if (
+                ($valMain && !$confirmUseExistingMainDb)
+                ||
+                ($valStat && !$confirmUseExistingStatsDb )
+            )
+        {
+            $databaseAlreadyExist             = TRUE;
+            if ($valMain)    $mainDbNameExist  = TRUE;
+            if ($valStat)    $statsDbNameExist = TRUE;
+            $canRunCmd                        = FALSE;
+        }
+        else
+        {
+            $databaseAlreadyExist = false;
+        }
+        if (!$canRunCmd)
+        {
+            if ($cmd > DISP_DB_NAMES_SETTING)
+            {
+                $display = DISP_DB_NAMES_SETTING;
+            }
+            else
+            {
+                $display= $cmd;
+            }
+        }
     }
 
     // Check to add
@@ -506,10 +521,6 @@ echo '<input type="hidden" name="alreadyVisited" value="1">'                    
     .'<!-- BOOLEAN -->'                                                                                      ."\n"
     .'<input type="hidden" name="enableTrackingForm"           value="'.$enableTrackingForm.'">'             ."\n"
     .'<input type="hidden" name="allowSelfReg"                 value="'.$allowSelfReg.'">'                   ."\n"
-    .'<input type="hidden" name="allowSelfRegProf"             value="'.$allowSelfRegProf.'">'               ."\n"
-    .'<input type="hidden" name="checkEmailByHashSent"         value="'.$checkEmailByHashSent.'">'           ."\n"
-    .'<input type="hidden" name="ShowEmailnotcheckedToStudent" value="'.$ShowEmailnotcheckedToStudent.'">'   ."\n"
-    .'<input type="hidden" name="userMailCanBeEmpty"           value="'.$userMailCanBeEmpty.'">'             ."\n"
     .'<input type="hidden" name="userPasswordCrypted"          value="'.$userPasswordCrypted.'">'            ."\n"
     .'<input type="hidden" name="encryptPassForm"              value="'.$encryptPassForm.'">'                ."\n"
     .'<input type="hidden" name="confirmUseExistingMainDb"     value="'.$confirmUseExistingMainDb.'">'       ."\n"
@@ -1290,12 +1301,12 @@ echo '
             <tr>
                 <td colspan=3><br>
 
-                    <h5>User self-registration</h5>
+                    <h5>User </h5>
                 </td>
             </tr>
             <tr>
                 <td>
-                    Simple user
+                    Self-registration
                 </td>
                 <td>
                     <input type="radio" id="allowSelfReg_1" name="allowSelfReg" value="1" '.($allowSelfReg?'checked':'').'>
@@ -1306,32 +1317,9 @@ echo '
                        <label for="allowSelfReg_0">Disabled</label>
                 </td>
             </tr>
-
                     <tr>
                         <td>
-
-                            Course creator
-                        </td>
-                        <td>
-                            <input type="radio" id="allowSelfRegProf_1" name="allowSelfRegProf" value="1" '.($allowSelfRegProf?'checked':'').'>
-                            <label for="allowSelfRegProf_1">Enabled</label>
-                        </td>
-                        <td>
-                            <input type="radio" id="allowSelfRegProf_0" name="allowSelfRegProf" value="0" '.($allowSelfRegProf?'':'checked').'>
-                            <label for="allowSelfRegProf_0">Disabled</label>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td colspan="3">
-                            &nbsp;
-                        </td>
-
-                    </tr>
-
-                    <tr>
-                        <td>
-                            User password
+                            Password in db
                         </td>
                         <td>
                             <input type="radio" name="encryptPassForm" id="encryptPassForm_0" value="0"  '.($encryptPassForm?'':'checked').'>
