@@ -45,7 +45,7 @@ claro_set_display_mode_available(true);
 $currentCourseRepositorySys = $coursesRepositorySys.$_course["path"]."/";
 $currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course["path"]."/";
 
-$fileAllowedSize = CONFVAL_MAX_FILE_SIZE_PER_WORKS ;    //file size in bytes
+$fileAllowedSize = $max_file_size_per_works ;    //file size in bytes
 $wrkDir           = $currentCourseRepositorySys.'work/'; //directory path to create assignment dirs
 
 // use with strip_tags function when strip_tags is used to check if a text is empty
