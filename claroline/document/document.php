@@ -607,9 +607,11 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         	$newPath = $_REQUEST['file'];
         }
 
+        $newPath = claro_rename_file($baseWorkDir.$_REQUEST['file'], $baseWorkDir.$newPath);
 
-        if ( claro_rename_file($baseWorkDir.$_REQUEST['file'], $baseWorkDir.$newPath) )
+        if ( $newPath )
         {
+            $newPath = substr($newPath, strlen($baseWorkDir) );
             $dialogBox = $langElRen.'<br>';
 
             if ($courseContext)
@@ -918,8 +920,18 @@ if ($courseContext && $fileList)
         $sql = "SELECT `path`, `visibility`, `comment` 
                 FROM `".$dbTable."` 
                 WHERE path IN ('".implode("', '", array_map('addslashes', $fileList['name']) )."')";
+/* <DEBUG> */
+echo "<pre style='color:red;font-weight:bold'>$sql</pre>";
+/* </DEBUG> */
 
     $attributeList = claro_sql_query_fetch_all_cols($sql);
+
+/* <DEBUG> */
+echo "<pre style='color:red;font-weight:bold'> attributeList : ";
+var_dump($attributeList);
+echo "</pre>";
+/* </DEBUG> */
+
 
     /*
      * Make the correspondance between info given by the file system 
@@ -975,6 +987,11 @@ if ($courseContext && $fileList)
 
 } // end if courseContext
 
+/* <DEBUG> */
+echo "<pre style='color:red;font-weight:bold'>";
+var_dump($fileList);
+echo "</pre>";
+/* </DEBUG> */
 
 
 
@@ -1383,6 +1400,7 @@ claro_disp_tool_title($titleElement,
 	    
 	    echo "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
 			. "?cmd=viewThumbs&curdir=". $curDirPath ."\">"
+            ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
 			. $langThumbnailsView."</a>\n";
 	
 	
