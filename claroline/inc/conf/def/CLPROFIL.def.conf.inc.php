@@ -64,7 +64,6 @@ $conf_def['section']['checkdata']['label'] = 'Validate field';
 //$conf_def['section']['checkdata']['description'] = '';
 $conf_def['section']['checkdata']['properties'] = 
 array ( 'SECURE_PASSWORD_REQUIRED'
-      , 'checkEmailByHashSent'
       );
       
 
@@ -77,17 +76,6 @@ array ('label'         => 'Check the fiability of password'
                                 ,'FALSE' => 'No'
                                 )
       , 'container'     => 'CONST'
-      );
-
-$conf_def_property_list['checkEmailByHashSent'] = 
-array ('label'       => 'If email is fill (or change), send an email to check it'
-      ,'default'     => 'FALSE'
-      ,'type'        => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'Yes'
-                                ,'FALSE' => 'No'
-                                )
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
       );
 
 // Section view
@@ -181,77 +169,5 @@ array ('label'         => 'Database value for student status'
       , 'container'     => 'CONST'
       );
 
-/* Inactive feature. 
-
-///// PICTURE OF USERS /////
-
-$conf_def['section']['userpicture']['label']='Properties about attached image of a profile';
-$conf_def['section']['userpicture']['properties'] = 
-array ( 'PREFIX_IMAGE_FILENAME_WITH_UID'
-      , 'RESIZE_IMAGE_TO_THIS_HEIGTH'
-      , 'KEEP_THE_NAME_WHEN_CHANGE_IMAGE'
-      , 'KEEP_THE_OLD_IMAGE_AFTER_CHANGE'
-      ,
-      );
-
-$conf_def_property_list['PREFIX_IMAGE_FILENAME_WITH_UID'] =
-array ( 'label'         => 'Prefix image file name with uid of owner'
-      , 'description'   => 'This is a good option to prevent the high probability '
-                         . 'of same filename for many user. '."\n"
-                         . 'This is also pratical of found back the owner of a picture'
-      , 'default'       => 'TRUE'
-      , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Prupose'
-                                ,'FALSE' => 'Hide'
-                                )
-      , 'container'     => 'CONST'
-      ,'display'       => FALSE
-      );
-
-$conf_def_property_list['RESIZE_IMAGE_TO_THIS_HEIGTH'] =
-array ( 'label'         => 'Force heigth of all image to this size '
-      , 'default'       => 180
-      , 'type'          => 'integer'
-      , 'unit'          => 'pixel'
-      , 'acceptedValue' => array ('min'  => 50
-                                ,'max' => 1200
-                                )
-      , 'container'     => 'CONST'
-      ,'display'       => FALSE
-      );
-
-$conf_def_property_list['KEEP_THE_NAME_WHEN_CHANGE_IMAGE'] =
-array ( 'label'         => 'Keep the name of file when the image is changed'
-      , 'description'   => 'TRUE -> the new image have the name of previous.'."\n"
-                         . 'FALSE -> a new name is build for each upladed image.'."\n"
-                         . 'The difference is about www.'."\n"
-                         . '* If your view that ressource is "picture of this profile" answer "keep"'."\n"
-                         . '* If your view that ressource is _this_ "picture" and _this_ "picture" is no longer "picture of this profile" answer "rename"'."\n"
-                         . 'Because, if you rename the file, the uri point to the new pic (cool uri don\'t change)'
-                         . ''
-      , 'default'       => 'TRUE'
-      , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Keep name'
-                                ,'FALSE' => 'Get new name'
-                                )
-      , 'container'     => 'CONST'
-      ,'display'       => FALSE
-      );
-
-$conf_def_property_list['KEEP_THE_OLD_IMAGE_AFTER_CHANGE'] =
-array ( 'label'         => 'Keep the replaced image when user update pic'
-      , 'description'   => '* TRUE'
-                         . ' -> if KEEP_THE_NAME_WHEN_CHANGE_IMAGE is true, the  previous image is rename before.'."\n"
-                         . '* FALSE'
-                         . ' -> only the last image still on server.'
-      , 'default'       => 'TRUE'
-      , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Save'
-                                ,'FALSE' => 'Trash'
-                                )
-      , 'container'     => 'CONST'
-      ,'display'       => FALSE
-      );
-*/
 
 ?>

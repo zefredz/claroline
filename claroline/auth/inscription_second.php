@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE 1.6
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
@@ -25,7 +25,6 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user  = $tbl_mdb_names['user'];
 
 if (!isset($userMailCanBeEmpty))   $userMailCanBeEmpty   = TRUE;
-if (!isset($checkEmailByHashSent)) $checkEmailByHashSent = FALSE;
 if (!isset($userPasswordCrypted))  $userPasswordCrypted	 = FALSE;
 
 // NAMING STATUS VALUES FOR THE PROFILES SCRIPTS
@@ -171,12 +170,6 @@ if ($regDataOk)
 
     $_uid = claro_sql_query_insert_id($sql);
 
-    /*
-            @claro_sql_query("INSERT INTO `".$tbl_user_hash."` `user_hash`
-                          (user_id, hash, state) 
-                          VALUES ('$last_id', '$hash', 'WAITCHECK')");
-    */
-
     if ($_uid)
     {
     	/*--------------------------------------
@@ -223,18 +216,6 @@ if ($regDataOk)
                         "$langManager $siteName\n" .
                         "T. " . $administrator_phone . "\n" .
                         "$langEmail : " . $administrator_email . "\n";
-    
-   		/*
-   		if ($checkEmailByHAshSent)
-   		{
-   			$hash = md5($email).md5($REMOTE_ADDR);
-   			$emailbody .= $rootWeb."claroline/auth/checkEmail.php?hash=".$hash."&emailHash=".$email;
-   		}
-   		else
-   		{
-   			$hash = "ok";
-    	}
-    	*/
     
     	// Here we are forming one large header line
     	// Every header must be followed by a \n except the last

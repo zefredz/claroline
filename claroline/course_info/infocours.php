@@ -1,21 +1,14 @@
-<?php # $Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-/****************************
-             INIT
-*****************************/
-
+<?php // $Id$
+/**
+ * @version CLAROLINE 1.6
+ *
+ * copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE (GPL)
+ * 
+ * @author claroline Team <info@claroline.net>
+ *
+ */
 
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();
@@ -257,9 +250,9 @@ if($is_allowedToEdit)
 	
 
 
-/****************************
-           FORM
-  ***************************/
+/**
+ * FORM
+ */
 
 	}
 
@@ -440,24 +433,17 @@ if($showLinkToDeleteThisCourse)
       {
         if ($cfrom=="clist")  //in case we come from the course list in admintool
         {
-           //claro_disp_button("../admin/admincourses".$toAdd, $langBackToList);
            ?>
            | <a class="claroCmd" href="../admin/admincourses.php<?php echo $toAdd ?>"><?php echo $langBackToList; ?></a>
            <?php
         }
       }
 }
-?>
-
-
-<?php
-
 }   // if uid==prof_id
 ####################STUDENT VIEW ##################################
 else
 {
 	echo $langNotAllowed;
 }   // else
-
 include($includePath."/claro_init_footer.inc.php");
 ?>
