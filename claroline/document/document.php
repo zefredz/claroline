@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
@@ -646,9 +646,9 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
             $result = mysql_query ($sql);
             while( $row = mysql_fetch_array($result, MYSQL_ASSOC) ) $oldComment = $row['comment'];
 
-            $dialogBox .= "<p>\n"
-                          .$langAddComment." ".htmlspecialchars($fileName)."\n"
-                          ."<br><textarea rows=2 cols=50 name=\"newComment\">"
+            $dialogBox .= "<p>\n<label for=\"newComment\">"
+                          .$langAddComment." ".htmlspecialchars($fileName)."</label>\n"
+                          ."<br><textarea rows=2 cols=50 name=\"newComment\" id=\"newComment\">"
                           .$oldComment
                           ."</textarea>\n"
                           ."</p>\n";
@@ -1003,7 +1003,7 @@ unset($attribute);
 	                    and we can't go to a parent dir */
 	{
 		echo 	"<a href=\"$PHP_SELF?cmd=exChDir&file=".$cmdParentDir."\">\n",
-				"<img src=\"../img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\" \">\n",
+				"<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\" \">\n",
 				"<small>$langUp</small>\n",
 				"</a>\n";
 	}
@@ -1014,21 +1014,21 @@ unset($attribute);
 		
         echo    "&nbsp;",
                 "<a href=\"".$PHP_SELF."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"../img/dossier.gif\" alt=\" \">",
+                "<img src=\"".$clarolineRepositoryWeb."img/dossier.gif\" alt=\" \">",
                 "<small>$langCreateDir</small>",
                 "</a>\n",
                 "&nbsp;",
                 "<a href=\"".$PHP_SELF."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"../img/download.gif\" alt=\" \">",
+                "<img src=\"".$clarolineRepositoryWeb."img/download.gif\" alt=\" \">",
                 "<small>$langUploadFile</small>",
                 "</a>\n",
                 "&nbsp;",
                 "<a href=\"".$PHP_SELF."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"../img/liens.gif\" alt=\" \">",
+                "<img src=\"".$clarolineRepositoryWeb."img/liens.gif\" alt=\" \">",
                 "<small>".$langCreateHyperlink."</small>",
                 "</a>\n",
                 "<a href=\"rqmkhtml.php?cmd=rqMkHtml&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"../img/html.gif\" alt=\" \">",
+                "<img src=\"".$clarolineRepositoryWeb."img/html.gif\" alt=\" \">",
                 "<small>".$langCreateDocument."</small>",
                 "</a>\n";
 	}
@@ -1046,7 +1046,7 @@ unset($attribute);
 		echo	"<!-- current dir name -->\n",
 				"<tr>\n",
 				"<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n",
-				"<img src=\"../img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\" \">\n",
+				"<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\" \">\n",
                 $dspCurDirName,"\n",
 				"</td>\n",
 				"</tr>\n";
@@ -1132,7 +1132,7 @@ unset($attribute);
 			echo	"<tr align=\"center\"",$style,">\n",
 					"<td align=\"left\">",
 					"<a href=\"".$urlFileName."\"".$style.">",
-					"<img src=\"./../img/",$image,"\" border=\"0\" hspace=\"5\" alt=\" \">",$dspFileName,"</a>",
+					"<img src=\"./".$clarolineRepositoryWeb."img/",$image,"\" border=\"0\" hspace=\"5\" alt=\" \">",$dspFileName,"</a>",
 					"</td>\n",
 					
 					"<td><small>",$size,"</small></td>\n",
@@ -1149,7 +1149,7 @@ unset($attribute);
 				echo 	"<td>",
 						"<a href=\"",$PHP_SELF,"?cmd=exRm&file=",$cmdFileName,"\" ",
 						"onClick=\"return confirmation('",addslashes($dspFileName),"');\">",
-						"<img src=\"../img/delete.gif\" border=\"0\" alt=\"$langDelete\">",
+						"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\">",
 						"</a>",
 						"</td>\n";
 				
@@ -1157,7 +1157,7 @@ unset($attribute);
 
 				echo	"<td>",
 						"<a href=\"",$PHP_SELF,"?cmd=rqMv&file=",$cmdFileName,"\">",
-						"<img src=\"../img/deplacer.gif\" border=\"0\" alt=\"$langMove\">",
+						"<img src=\"".$clarolineRepositoryWeb."img/deplacer.gif\" border=\"0\" alt=\"$langMove\">",
 						"</a>",
 						"</td>\n";
 						
@@ -1165,7 +1165,7 @@ unset($attribute);
 
 				echo	"<td>",
 						"<a href=\"",$PHP_SELF,"?cmd=rqEdit&file=",$cmdFileName,"\">",
-						"<img src=\"../img/edit.gif\" border=\"0\" alt=\"$langModify\">",
+						"<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\">",
 						"</a>",
 						"</td>\n";
                         
@@ -1191,13 +1191,13 @@ unset($attribute);
                     if ($fileList['visibility'][$fileKey] == "i")
                     {
                         echo	"<a href=\"",$PHP_SELF,"?cmd=exChVis&file=",$cmdFileName,"&vis=v\">",
-                                "<img src=\"../img/invisible.gif\" border=\"0\" alt=\"$langMakeVisible\">",
+                                "<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"$langMakeVisible\">",
                                 "</a>";
                     }
                     else
                     {
                         echo	"<a href=\"",$PHP_SELF,"?cmd=exChVis&file=",$cmdFileName,"&vis=i\">",
-                                "<img src=\"../img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">",
+                                "<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">",
                                 "</a>";
                     }
                 }
