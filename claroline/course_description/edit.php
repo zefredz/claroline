@@ -171,10 +171,10 @@ if ($is_allowedToEdit)
 
 		if (($numBloc == "add" ) || !$titreBlocNotEditable[$numBloc] )
 		{ 
-			echo "
-	".$langOuAutreTitre."
+			echo '
+	<label for="edTitleBloc">'.$langOuAutreTitre."</label>
 	<br>
-	<input type=\"text\" name=\"edTitleBloc\" size=\"50\" value=\"".$titreBloc[$numBloc]."\" >";
+	<input type=\"text\" name=\"edTitleBloc\" id=\"edTitleBloc\" size=\"50\" value=\"".$titreBloc[$numBloc]."\" >";
 		}
 		else
 		{
@@ -198,8 +198,8 @@ if ($is_allowedToEdit)
 	<tr>
 		<td valign=\"top\">		
 			<p>
-					".$langContenuPlan."
-				<textarea cols=\"40\" rows=\"10\" name=\"edContentBloc\" wrap=\"virtual\">"
+					<label for=\"edContentBloc\">".$langContenuPlan."</label>
+				<textarea cols=\"40\" rows=\"10\" name=\"edContentBloc\" id=\"edContentBloc\" wrap=\"virtual\">"
 				.$contentBloc
 				."</textarea>
 			</p>
