@@ -91,7 +91,7 @@ $lang_p_defFileOf_S = 'Fichier de définition pour la configuration %s.';
 $lang_the_active_config_has_manually_change='Version de production modifiée';
 $langFirstDefOfThisValue = '!!! Nouvelle valeur !!!';
 $lang_p_DefNameAndContentDisruptedOnConfigCode = 'Le fichier de définition est probablement un copier-coller  de %s. Et n\'a pas été achevé.';
-
+$lang_p_nothing_to_edit_in_S = 'nothing to edit in %s';
 
 $lang_p_DefNameAndContentDisruptedOnConfigCode = 'The definition file for configuration is probably copypaste from %s';
 $langFirstDefOfThisValue = '!!!First definition of this value!!!';
@@ -270,7 +270,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         }
         else
         {
-    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_config_code_name($config_code));
+    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_config_name($config_code));
             $panel = DISP_LIST_CONF;
         }
     }
@@ -636,18 +636,28 @@ switch ($panel)
     }
     else
     {
-        echo '<div >nothing to edit in '.$tool. '</div>';
+        echo '<div >'
+            .sprintf($lang_p_nothing_to_edit_in_S ,get_config_name($config_code))
+            .'</div>';
     }
 
         break;
 
     case DISP_SHOW_CONF : 
         echo '<div>'
-            .'[<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConfFile&amp;config_code='.$config_code.'" >'.$langShowContentFile.'</a>]'
-            .' [<a href="'.$_SERVER['PHP_SELF'].'" >'
+            .'<span class="command">'
+            .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConfFile&amp;config_code='.$config_code.'" >'.$langShowContentFile.'</a>'
+            .'</span>'
+            .'&nbsp;|&nbsp;'
+            .'<span class="command">'
+            .'<a href="'.$_SERVER['PHP_SELF'].'" >'
             .$langBackToMenu
-            .'</a>]'
-            .' [<a href="'.$_SERVER['PHP_SELF'].'?cmd=dispEditConfClass&amp;config_code='.$config_code.'" >'.$langEdit.'</a>]'
+            .'</a>'
+            .'</span>'
+            .'&nbsp;|&nbsp;'
+            .'<span class="command">'
+            .' <a href="'.$_SERVER['PHP_SELF'].'?cmd=dispEditConfClass&amp;config_code='.$config_code.'" >'.$langEdit.'</a>'
+            .'</span>'
             .'</div>'
             ;
         if (is_array($conf_def))
