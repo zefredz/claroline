@@ -323,7 +323,6 @@ function update_Db_course($courseDbName)
   $TABLETRACKACCESS        = $courseDbName."track_e_access";
   $TABLETRACKDOWNLOADS     = $courseDbName."track_e_downloads";
   $TABLETRACKUPLOADS       = $courseDbName."track_e_uploads";
-  $TABLETRACKLINKS         = $courseDbName."track_e_links";
   $TABLETRACKEXERCICES     = $courseDbName."track_e_exercices";
 
 		$sql ="
@@ -888,15 +887,6 @@ claro_sql_query ("
                 ) TYPE=MyISAM COMMENT='Record informations about exercices'";
         claro_sql_query($sql);
         
-/*        $sql = "CREATE TABLE `".$TABLETRACKLINKS."` (
-                  `links_id` int(11) NOT NULL auto_increment,
-                  `links_user_id` int(10) default NULL,
-                  `links_date` datetime NOT NULL default '0000-00-00 00:00:00',
-                  `links_link_id` int(11) NOT NULL default '0',
-                  PRIMARY KEY  (`links_id`)
-                ) TYPE=MyISAM COMMENT='Record informations about clicks on links'";
-        claro_sql_query($sql);
-*/
         $sql = "CREATE TABLE `".$TABLETRACKUPLOADS."` (
                   `upload_id` int(11) NOT NULL auto_increment,
                   `upload_user_id` int(10) default NULL,
@@ -1017,7 +1007,6 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
   $TABLETRACKACCESS        = $courseDbName."`.`track_e_access";
   $TABLETRACKDOWNLOADS     = $courseDbName."`.`track_e_downloads";
   $TABLETRACKUPLOADS       = $courseDbName."`.`track_e_uploads";
-  //$TABLETRACKLINKS         = $courseDbName."`.`track_e_links";
   $TABLETRACKEXERCICES     = $courseDbName."`.`track_e_exercices";
 
     
