@@ -42,22 +42,6 @@ $TABLETRACK_EXERCICES     = $_course['dbNameGlu']."track_e_exercices";
 
 define("CONFVAL_LOG_DIRECT_IN_TABLE",true); //unstable with false
 define("CONFVAL_INSERT_IS_DELAYED", true);
-/**
- * DEPRECATED : all references to this function must be replaced by claro_sql_query
- * @author Sebastien Piraux <pir@cerdecam.be>
- * @desc
- */
-function myMySqlQuery($sql)
-{
-    @mysql_query($sql);
-    if (mysql_errno())
-    {
-        // uncomment following line to debug
-        //echo "Mysql error :  ".mysql_errno().": ".mysql_error()." In : $sql ";
-    }
-    // else : nothing to do
-    return $val;
-}
 
 /**
  * Function found on php.net to replace the html_entity_decode (that only works in php 4.3.0 and upper)
@@ -493,11 +477,11 @@ function event_default($type_event,$values)
     {
         if($sqlValues == "")
         {
-            $sqlValues .= "('',$user_id,$cours_id,$reallyNow,'$type_event','$type_value','$event_value')";
+            $sqlValues .= "('',$user_id,$cours_id,$reallyNow,\"".addslashes($type_event)."\",\"".addslashes($type_value)."\",\"".addslashes($event_value)."\")";
         }
         else
         {
-            $sqlValues .= ",('',$user_id,$cours_id,$reallyNow,\"$type_event\",\"$type_value\",\"$event_value\")";
+            $sqlValues .= ",('',$user_id,$cours_id,$reallyNow,\"".addslashes($type_event)."\",\"".addslashes($type_value)."\",\"".addslashes($event_value)."\")";
         }
     }
     $sql = "INSERT INTO `".$TABLETRACK_DEFAULT."`
