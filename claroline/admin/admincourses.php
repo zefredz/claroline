@@ -169,9 +169,6 @@ if (isset($_SESSION['admin_course_search']))
 {
     $toAdd = " AND (      C.`intitule`  LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
                        OR C.`fake_code` LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
-	                   OR C.`code`      LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
-	                   OR C.`dbName`    LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
-	                   OR C.`directory` LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
                        OR C.`faculte`   LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
                )";
     $sql.=$toAdd;
