@@ -26,17 +26,13 @@ if ($_course['extLink']['name'] != '')    /* --- External Link Section --- */
 	echo ' / ';
 	if ($_course['extLink']['url'] != '')
 	{
-		?><a href="<?php echo $_course['extLink']['url']?>" target="_top">
-    <?php
+		echo "<a href=\"".$_course['extLink']['url']."\" target=\"_top\">";
 	}
-	?>
-    <font color="white"><?php echo $_course['extLink']['name'] ?></font>
-    <?php
+	echo $_course['extLink']['name'];
+	
 	if ($_course['extLink']['url'] != '')
 	{
-    ?>
-        </a>
-    <?php
+	        echo "</a>\n";
 	}
 }
 ?>
