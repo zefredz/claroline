@@ -1,4 +1,5 @@
-<?php # $Id$
+<?php // | $Id$ |
+
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,504 +12,546 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
+
 /*
 
  - For a Student -> View angeda Content
- - For a Prof 	 -> - View agenda Content
- 					- Update/delete existing entries
-					- Add entries
-					- generate an "announce" entries about an entries
+ - For a Prof    -> - View agenda Content
+          - Update/delete existing entries
+          - Add entries
+          - generate an "announce" entries about an entries
 
  */
 
-$langFile = "agenda";
-//$interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
-#$tlabelReq = "CLCAL___";
-include('../inc/claro_init_global.inc.php');
-include($includePath."/conf/agenda.conf.inc.php");
+$langFile = 'agenda';
 
-$htmlHeadXtra[] = "<style type=\"text/css\">
+DEFINE('CONFVAL_LOG_CALENDAR_INSERT',TRUE);
+DEFINE('CONFVAL_LOG_CALENDAR_DELETE',TRUE);
+
+$tlabeReq = "CLCAL___";
+
+include('../inc/claro_init_global.inc.php');
+
+if ( ! isset($_tid) )  $_tid = $tidReq; // remove this line when claro_local_init do this job
+
+
+$htmlHeadXtra[] = 
+"<style type=\"text/css\">
 <!--
-.month {font-weight : bold;color : #FFFFFF;background-color : #4171B5;padding-left : 15px;padding-right : 15px;}
 .content {position: relative; left: 25px;}
 -->
 </style>
-<STYLE media=\"print\" type=\"text/css\">
+<style media=\"print\" type=\"text/css\">
 <!--
-TD {border-bottom: thin dashed Gray;}
+th {border-bottom: thin dashed Gray;}
 -->
-</STYLE>";
+</style>";
 
 include($includePath."/lib/text.lib.php");
-@include($includePath."/lib/debug.lib.inc.php");
 
-$nameTools 			= $langAgenda;
+$nameTools = $langAgenda;
 
 include($includePath."/claro_init_header.inc.php");
 
-if ( ! ($is_courseAllowed ||  $is_toolAllowed))
-	claro_disp_auth_form();
+if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 //stats
 include('../inc/lib/events.lib.inc.php');
 event_access_tool($nameTools);
 
-$dateNow 			= claro_format_locale_date($dateTimeFormatLong);
-$TABLEAGENDA 		= $_course['dbNameGlu']."calendar_event";
-$is_allowedToEdit 	= $is_courseAdmin;
-
+$tbl_calendar_event = $_course['dbNameGlu'].'calendar_event';
+$is_allowedToEdit   = $is_courseAdmin;
 
 claro_disp_tool_title($nameTools);
-claro_disp_msg_arr($controlMsg);
 
-echo "<small>".$dateNow."</small><br>\n";
-
-
-################# FORM TO ADD AN ENTRY ######################
-# 1° WORK DATA IF SUBMIT
-# 2° SHOW FORM
-##########################
 if ($is_allowedToEdit)
 {
-	if (isset($submitEvent)&&$submitEvent)
-	{	
-		// $contenu=nl2br("$contenu");
-		$date_selection = $fyear."-".$fmonth."-".$fday;
-		$hour = $fhour.":".$fminute.":00";
-		// Si pas d'ID, AJOUTER, sinon MODIFIER
-		if(isset($tout)&&$tout)
-		{
-			$sql="DELETE FROM `".$TABLEAGENDA."`";
-		}
-		elseif(isset($id)&&$id) 	// IF TOUT
-		{
-			$sql = "UPDATE `".$TABLEAGENDA."`
-						SET titre='".trim($titre)."',
-							contenu='".trim($contenu)."',
-							day='".$date_selection."',
-							hour='".$hour."',
-							lasting='".$lasting."'
-						WHERE id='".$id."'";
-			unset($id);
-			unset($contenu);
-			unset($titre);
-		}
-			else// ELSEIF ID
-		{
-			$sql = "INSERT INTO `".$TABLEAGENDA."` 
-			        (id, titre,contenu, day, hour, lasting)
-			        VALUES
-			        (NULL, '".trim($titre)."','".trim($contenu)."', '".$date_selection."','".$hour."', '".$lasting."')";
+    if ($cmd == 'exAdd')
+    {
+        $date_selection = $_REQUEST['fyear']."-".$_REQUEST['fmonth'].'-'.$_REQUEST['fday'];
+        $hour           = $_REQUEST['fhour'].':'.$_REQUEST['fminute'].':00';
 
-			unset($id);
-			unset($contenu);
-			unset($titre);
-		}	// ELSE  INSERT
-		$result = mysql_query($sql);
-		if (mysql_error()==0)
-		{
-			$entryId = mysql_insert_id();
-			if (CONFVAL_LOG_CALENDAR_INSERT)
-			{
-				event_default("CALENDAR",array ("ADD_ENTRY"=>$entryId));
-			}
-		}
-		else
-		{
-			//error on insert
-		}
-	}
-	elseif (isset($delete)&&$delete) 	// IF SUBMIT
-	{
-		// DELETE
-		$sql = "DELETE FROM `".$TABLEAGENDA."` WHERE id=$id";
-		$result = mysql_query($sql);
-		if (mysql_error()==0)
-		{
-			if (CONFVAL_LOG_CALENDAR_DELETE)
-			{
-				event_default("CALENDAR",array ("DELETE_ENTRY"=>$id));
-			}
-		}
-		else
-		{
-			//error on delete
-		}
-	}       // ELSEIF DELETE
- /**************************************************************************************/
-	if (isset($id)&&$id)
-	{
-		// MODIFIER, DONC CHOISIR UN ENREGISTREMENT
-		$sql 			= "SELECT id, titre, contenu, day, hour, lasting FROM `".$TABLEAGENDA."` WHERE id=$id";
-		$result			= mysql_query($sql);
-		$entryToEdit 	= mysql_fetch_array($result);
-		$id 			= $entryToEdit["id"];
-		$titre 			= $entryToEdit["titre"];
-		$contenu		= $entryToEdit["contenu"];
-		$hourAncient	= $entryToEdit["hour"];
-		$dayAncient		= $entryToEdit["day"];
-		$lastingAncient	= $entryToEdit["lasting"];
-//		$daySynthetic	= $entryToEdit["day"];
-//		$hour			= $entryToEdit["hour"];
-		unset($entryToEdit);
-	}
+        $sql = "INSERT INTO `".$tbl_calendar_event."` 
+                SET   titre   = '".trim($_REQUEST['titre'])."',
+                      contenu = '".trim($_REQUEST['contenu'])."',
+                      day     = '".$date_selection."',
+                      hour    = '".$hour."',
+                      lasting = '".$_REQUEST['lasting']."'";
+
+        if ( claro_sql_query($sql) != false)
+        {
+            $msg .= '<p>Event added to the agenda.</p>';
+
+            if (CONFVAL_LOG_CALENDAR_INSERT)
+            {
+                event_default('CALENDAR',array ('ADD_ENTRY' => $entryId));
+            }
+        }
+        else
+        {
+            $msg .= '<p>Unable to add the event to the agenda.</p>';
+        }
+    }
+
+    if ($cmd == 'exEdit')
+    {
+        $date_selection = $fyear."-".$fmonth.'-'.$fday;
+        $hour           = $fhour.':'.$fminute.':00';
+
+        if ( $_REQUEST['id'] )
+        {
+            $sql = "UPDATE `".$tbl_calendar_event."`
+                    SET   titre   = '".trim($_REQUEST['titre'])."',
+                          contenu = '".trim($_REQUEST['contenu'])."',
+                          day     = '".$date_selection."',
+                          hour    = '".$hour."',
+                          lasting = '".$_REQUEST['lasting']."'
+                    WHERE id      ='".$_REQUEST['id']."'";
+
+            if ( claro_sql_query($sql) !== false)
+            {
+                $msg .= '<p>Event updated into the agenda.</p>';
+            }
+            else
+            {
+                $msg .= '<p>Unable to update the event intto the agenda.</p>';
+            }
+        }
+    }
+
+    if ($cmd == 'exDelete')
+    {
+        if ($_REQUEST['id'] == 'ALL')
+        {
+            $sql = "DELETE 
+                    FROM `".$tbl_calendar_event."`";
+        }
+        elseif ( (int) $_REQUEST['id'] != 0 )
+        {
+            $sql = "DELETE 
+                    FROM `".$tbl_calendar_event."`
+                    WHERE id ='".$id."'";
+        }
+
+        if ( claro_sql_query($sql) !== false)
+        {
+            $msg .= '<p>Event Deleted from the agenda</p>';
+
+            if (CONFVAL_LOG_CALENDAR_DELETE)
+            {
+                event_default('CALENDAR',array ('DELETE_ENTRY' => $id));
+            }
+        }
+        else
+        {
+            $msg = '<p>Unable to delete event form the agenda.</p>';
+        }
+    }
+
+    if ($cmd == 'rqEdit' || $cmd == 'rqAdd')
+    {
+        if ($cmd == 'rqEdit' && $_REQUEST['id'])
+        {
+            $sql = "SELECT id, titre, contenu, 
+                           day     dayAncient,
+                           hour    hourAncient, 
+                           lasting lastingAncient
+                    FROM `".$tbl_calendar_event."` 
+                    WHERE id='".$id."'";
+
+            list($editedEvent) = claro_sql_query_fetch_all($sql);
+
+// DEBUG END ------------------------------
+
+            $nextCommand = 'exEdit';
+    	}
+        else
+        {
+            $editedEvent['id'            ] = '';
+            $editedEvent['titre'         ] = '';
+            $editedEvent['contenu'       ] = '';
+            $editedEvent['dayAncient'    ] = false;
+            $editedEvent['hourAncient'   ] = false;
+            $editedEvent['lastingAncient'] = false;
+
+            $nextCommand = 'exAdd';
+
+        }
+
 ?>
 <form method="post" action="<?php echo $PHP_SELF ?>">
-<input type="hidden" name="id" value="<?php if (isset($id)) echo $id ?>">
+
+<input type="hidden" name="cmd" value="<?php echo $nextCommand       ?>"> 
+<input type="hidden" name="id"  value="<?php echo $editedEvent['id'] ?>">
+
 <table>
-	<tr>
-		<td colspan="7">
-				<h4><?php echo $langAddEvent?></h4>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			&nbsp;
-		</td>
-		<td>
-			<?php echo $langDay; ?>
-		</td>
-		<td>
-			<?php echo $langMonth; ?>
-		</td>
-		<td>
-			<?php echo $langYear; ?>
-		</td>
-		<td>
-			<?php echo $langHour; ?>
-		</td>
-		<td>
-			<?php echo $langMinute; ?>
-		</td>
-		<td>
-			<?php echo $langLasting ?>
-		</td>
-	</tr>
+
+<tr>
+<td colspan="7"><h4><?php echo $langAddEvent?></h4></td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td><?php echo $langDay;    ?></td>
+<td><?php echo $langMonth;  ?></td>
+<td><?php echo $langYear;   ?></td>
+<td><?php echo $langHour;   ?></td>
+<td><?php echo $langMinute; ?></td>
+<td><?php echo $langLasting ?></td>
+</tr>
+
 <?php 
-	$day	= date("d");
-	$month	= date("m");
-	$year	= date("Y");
-	$hours	= date("H");
-	$minutes= date("i");
 
-	if (isset($hourAncient) && $hourAncient)
-	{
-		$hourAncient = split(":", $hourAncient);
-		$hours=$hourAncient[0];
-		$minutes=$hourAncient[1];
-	}
-	if (isset($dayAncient) && $dayAncient)
-	{
-		$dayAncient	= split("-",  $dayAncient);
-		$year		= $dayAncient[0];
-		$month		= $dayAncient[1];
-		$day		= $dayAncient[2];
-	}
+      $day     = date('d');
+      $month   = date('m');
+      $year    = date('Y');
+      $hours   = date('H');
+      $minutes = date('i');
+
+      if ($editedEvent['hourAncient'])
+      {
+        list($hours, $minutes) = split(':', $editedEvent['hourAncient']);
+      }
+
+      if ($editedEvent['dayAncient'])
+      {
+        list($year, $month, $day) = split('-',  $editedEvent['dayAncient']);
+      }
+
+      $titre   = $editedEvent['titre'];
+      $contenu = $editedEvent['contenu'];
 ?>
-	<tr>
-		<td>
-			&nbsp;
-		</td>
-		<td>
-			<select name="fday">
-				<option value="<?php echo $day ?>">[<?php echo $day ?>]</option>
-				<option value="01">1</option>
-				<option value="02">2</option>
-				<option value="03">3</option>
-				<option value="04">4</option>
-				<option value="05">5</option>
-				<option value="06">6</option>
-				<option value="07">7</option>
-				<option value="08">8</option>
-				<option value="09">9</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-				<option value="13">13</option>
-				<option value="14">14</option>
-				<option value="15">15</option>
-				<option value="16">16</option>
-				<option value="17">17</option>
-				<option value="18">18</option>
-				<option value="19">19</option>
-				<option value="20">20</option>
-				<option value="21">21</option>
-				<option value="22">22</option>
-				<option value="23">23</option>
-				<option value="24">24</option>
-				<option value="25">25</option>
-				<option value="26">26</option>
-				<option value="27">27</option>
-				<option value="28">28</option>
-				<option value="29">29</option>
-				<option value="30">30</option>
-				<option value="31">31</option>
-			</select>
-		</td>
-		<td>
-			<select name="fmonth">
-				<option value="<?php echo $month ?>">[<?php echo $langMonthNames['long'][($month-1)] ?>]</option>
-				<option value="01"><?php echo $langMonthNames['long'][0] ?></option>
-				<option value="02"><?php echo $langMonthNames['long'][1] ?></option>
-				<option value="03"><?php echo $langMonthNames['long'][2] ?></option>
-				<option value="04"><?php echo $langMonthNames['long'][3] ?></option>
-				<option value="05"><?php echo $langMonthNames['long'][4] ?></option>
-				<option value="06"><?php echo $langMonthNames['long'][5] ?></option>
-				<option value="07"><?php echo $langMonthNames['long'][6] ?></option>
-				<option value="08"><?php echo $langMonthNames['long'][7] ?></option>
-				<option value="09"><?php echo $langMonthNames['long'][8] ?></option>
-				<option value="10"><?php echo $langMonthNames['long'][9] ?></option>
-				<option value="11"><?php echo $langMonthNames['long'][10] ?></option>
-				<option value="12"><?php echo $langMonthNames['long'][11] ?></option>
-			</select>
-		</td>
-		<td>
-			<select name="fyear">
-				<option value="<?php echo ($year-1) ?>">[<?php echo ($year-1) ?>]</option>
-				<option value="<?php echo $year ?>"  selected>[<?php echo $year ?>]</option>
-				<option value="<?php echo $year+1 ?>">[<?php echo $year+1 ?>]</option>
-				<option value="<?php echo $year+2 ?>">[<?php echo $year+2 ?>]</option>
-				<option value="<?php echo $year+3 ?>">[<?php echo $year+3 ?>]</option>
-				<option value="<?php echo $year+4 ?>">[<?php echo $year+4 ?>]</option>
-				<option value="<?php echo $year+5 ?>">[<?php echo $year+5 ?>]</option>
-			</select>
-		</td>
-		<td>
-			<select name="fhour">
-				<option value="<?php echo $hours ?>">[<?php echo $hours ?>]</option>
-				<option value="--">--</option>
-				<option value="00">00</option>
-				<option value="01">01</option>
-				<option value="02">02</option>
-				<option value="03">03</option>
-				<option value="04">04</option>
-				<option value="05">05</option>
-				<option value="06">06</option>
-				<option value="07">07</option>
-				<option value="08">08</option>
-				<option value="09">09</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-				<option value="13">13</option>
-				<option value="14">14</option>
-				<option value="15">15</option>
-				<option value="16">16</option>
-				<option value="17">17</option>
-				<option value="18">18</option>
-				<option value="19">19</option>
-				<option value="20">20</option>
-				<option value="21">21</option>
-				<option value="22">22</option>
-				<option value="23">23</option>
-			</select>
-		</td>
-		<td>
-			<select name="fminute">
-				<option value="<?php echo $minutes ?>">[<?php echo $minutes ?>]</option>
-				<option value="--">--</option>
-				<option value="00">00</option>
-				<option value="05">05</option>
-				<option value="10">10</option>
-				<option value="15">15</option>
-				<option value="20">20</option>
-				<option value="25">25</option>
-				<option value="30">30</option>
-				<option value="35">35</option>
-				<option value="40">40</option>
-				<option value="45">45</option>
-				<option value="50">50</option>
-				<option value="55">55</option>
-			</select>
-		</td>
-		<td>
-			<input type="text" name="lasting" size="2" value="<?php echo $lastingAncient ?>">
-		</td>
-	</tr>
-	<tr>
-		<td valign="top">
+<tr>
+
+<td>&nbsp;</td>
+
+<td>
+<select name="fday">
+<option value="<?php echo $day ?>" selected>[<?php echo $day ?>]</option>
+<option value="01">1</option>
+<option value="02">2</option>
+<option value="03">3</option>
+<option value="04">4</option>
+<option value="05">5</option>
+<option value="06">6</option>
+<option value="07">7</option>
+<option value="08">8</option>
+<option value="09">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+</select>
+</td>
+
+<td>
+
+<select name="fmonth">
+<option value="<?php echo $month ?>" selected>
+[<?php echo $langMonthNames['long'][ $month - 1 ] ?>]
+</option>
+<option value="01"><?php echo $langMonthNames['long'][0] ?></option>
+<option value="02"><?php echo $langMonthNames['long'][1] ?></option>
+<option value="03"><?php echo $langMonthNames['long'][2] ?></option>
+<option value="04"><?php echo $langMonthNames['long'][3] ?></option>
+<option value="05"><?php echo $langMonthNames['long'][4] ?></option>
+<option value="06"><?php echo $langMonthNames['long'][5] ?></option>
+<option value="07"><?php echo $langMonthNames['long'][6] ?></option>
+<option value="08"><?php echo $langMonthNames['long'][7] ?></option>
+<option value="09"><?php echo $langMonthNames['long'][8] ?></option>
+<option value="10"><?php echo $langMonthNames['long'][9] ?></option>
+<option value="11"><?php echo $langMonthNames['long'][10] ?></option>
+<option value="12"><?php echo $langMonthNames['long'][11] ?></option>
+</select>
+</td>
+
+<td>
+<select name="fyear">
+<option value="<?php echo $year -1 ?>"><?php echo $year -1 ?></option>
+<option value="<?php echo $year ?>"  selected>[<?php echo $year ?>]</option>
+<option value="<?php echo $year +1 ?>"><?php echo $year +1 ?></option>
+<option value="<?php echo $year +2 ?>"><?php echo $year +2 ?></option>
+<option value="<?php echo $year +3 ?>"><?php echo $year +3 ?></option>
+<option value="<?php echo $year +4 ?>"><?php echo $year +4 ?></option>
+<option value="<?php echo $year +5 ?>"><?php echo $year +5 ?></option>
+</select>
+</td>
+
+<td>
+
+<select name="fhour">
+<option value="<?php echo $hours ?>">
+[<?php echo $hours ?>]
+</option>
+<option value="--">--</option>
+<option value="00">00</option>
+<option value="01">01</option>
+<option value="02">02</option>
+<option value="03">03</option>
+<option value="04">04</option>
+<option value="05">05</option>
+<option value="06">06</option>
+<option value="07">07</option>
+<option value="08">08</option>
+<option value="09">09</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+</select>
+
+</td>
+<td>
+
+<select name="fminute">
+<option value="<?php echo $minutes ?>">[<?php echo $minutes ?>]</option>
+<option value="--">--</option>
+<option value="00">00</option>
+<option value="05">05</option>
+<option value="10">10</option>
+<option value="15">15</option>
+<option value="20">20</option>
+<option value="25">25</option>
+<option value="30">30</option>
+<option value="35">35</option>
+<option value="40">40</option>
+<option value="45">45</option>
+<option value="50">50</option>
+<option value="55">55</option>
+</select>
+
+</td>
+
+<td>
+<input type="text" name="lasting" size="2" value="<?php echo $lastingAncient ?>">
+</td>
+
+</tr>
 
 
-		<!-- Testing -->
+<tr>
+<td valign="top"><?php echo $langTitle ?> : </td>
 
-			<?php echo $langTitle ?> :
-		</td>
-		<td colspan="6"> 
-			<input size="80" type="text" name="titre" value="<?php  echo isset($titre) ? $titre : '' ?>">		
-		</td>
-	</tr>
-	<tr> 
-		<td valign="top">
-			<?php echo $langDetail ?>&nbsp;:
-		</td>
-		<td colspan="6"> 
-			<?php claro_disp_html_area('contenu', $contenu,	
-									   12, 67, $optAttrib=' wrap="virtual" '); ?>
-			<br>
-			<input type="Submit" name="submitEvent" value="<?php echo $langOk ?>">
-		</td>
-	</tr>
+<td colspan="6"> 
+<input size="80" type="text" name="titre" value="<?php  echo isset($titre) ? $titre : '' ?>">   
+</td>
+</tr>
+
+<tr> 
+
+<td valign="top">
+<?php echo $langDetail ?>&nbsp;:
+</td>
+
+<td colspan="6"> 
+<?php claro_disp_html_area('contenu', $contenu, 12, 67, $optAttrib=' wrap="virtual" '); ?>
+<br>
+<input class="claroButton" type="Submit" name="submitEvent" value="<?php echo $langOk ?>">
+<?php claro_disp_button($PHP_SELF, 'Cancel'); ?>
+</td>
+
+</tr>
+
 </table>
+
 </form>
-
-<?php 
-	/*---------------------------------------------
-	 *  End  of  adding Form
-	 *---------------------------------------------*/
-
-}
-
-/*---------------------------------------------
- *  End  of  prof only                         
- *-------------------------------------------*/
-
-################# LIST of ENTRIES ######################
-# 1° Request Value
-# 2° List value
-#    - 'Month add' bar and 'now bar'
-########################################################
-
-?>
-<table class="claroTable" width="100%">
-	<tr>
-		<td colspan="2" valign="top">
-			<div align="right">
-					<small>
 <?php
-$sens =" ASC";
-if (isset($HTTP_GET_VARS["sens"]) && $HTTP_GET_VARS["sens"]=="d") 
+
+    } // end if cmd == 'rqEdit' && cmd == 'rqAdd'
+
+    if (! empty($msg)) claro_disp_message_box($msg);
+
+    echo '<p>';
+    /*
+     * Add event button
+     */
+
+    claro_disp_button($PHP_SEF.'?cmd=rqAdd', 
+                   '<img src="../img/agenda.gif" width="20" alt="">'
+                  .'Add event');
+
+    /*
+     * remove all event button
+     */
+
+    claro_disp_button($PHP_SEF.'?cmd=exDelete&id=ALL', 
+                      '<img src="../img/delete.gif" width="20" alt="">'
+                      .'Clear up event list');
+
+    echo '</p>';
+
+} // end id is_allowed to edit
+
+
+
+
+
+echo "<table class=\"claroTable\" width=\"100%\">\n"
+    ."<tr>\n"
+    ."<td align=\"right\" valign=\"top\">\n"
+    ."<small>\n";
+
+$orderDirection = ' ASC';
+
+if (isset($_REQUEST['sens']) && $_REQUEST['sens']=="d") 
 {
-	echo "
-						<a href=\"".$PHP_SELF."?sens=\" >".$langOldToNew."</a>";
-	$sens=" DESC ";
+    echo "<a href=\"".$PHP_SELF."?sens=\" >".$langOldToNew."</a>\n";
+    $orderDirection = ' DESC ';
 }
 else
 {
-	echo "
-						<a href=\"".$PHP_SELF."?sens=d\" >".$langNewToOld."</a>";
+  echo "<a href=\"".$PHP_SELF."?sens=d\" >".$langNewToOld."</a>\n";
 }
-echo "
-					</small>
-			</div>
-		</td>
-	</tr>";
+
+echo "</small>\n"
+    ."</div>\n"
+    ."</td>\n"
+    ."</tr>\n";
+
  /******** end of Order *********/
 
-$numLine=0;
-$result = claro_sql_query("SELECT id, titre, contenu, day, hour, lasting
-                       FROM `".$TABLEAGENDA."`
-                       ORDER BY day ".$sens.", hour ".$sens,
-                       $db);
+$sql = "SELECT id, titre, contenu, day, hour, lasting
+        FROM `".$tbl_calendar_event."`
+        ORDER BY day ".$orderDirection.", hour ".$orderDirection;
 
-$barreMois ="";
-$nowBarShowed = FALSE;
+$eventList = claro_sql_query_fetch_all($sql);
 
-while ($myrow = mysql_fetch_array($result))
+$monthBar     = '';
+$nowBarShowed = false;
+
+if (count($eventList) < 1)
 {
-	$contenu = $myrow["contenu"];
-	$contenu = nl2br($contenu);
-	$contenu = make_clickable($contenu);
-	if (!$nowBarShowed)
-	{
-// Following order
-		if (( (strtotime($myrow["day"]." ".$myrow["hour"]) > time()) && ($sens==" ASC") )
-			  ||
-			( (strtotime($myrow["day"]." ".$myrow["hour"]) < time()) && ($sens==" DESC ") )
-			)
-//		echo "ok";
-		{
-			if ($barreMois!=date("m",time()))
-			{
-				$barreMois=date("m",time());
-				echo "
-	<tr>
-		<th class=\"superHeader\" colspan=\"2\" valign=\"top\">
-			".ucfirst(claro_format_locale_date("%B %Y",time()))."
-		</th>
-	</tr>";
-			}
-			$nowBarShowed = TRUE;
-			echo "
-<!-- Now -->
-	<tr> 
-		<td>
-			<font color=\"#CC3300\">
-				<b>
-					 ".$dateNow." &nbsp;
-				</b>
-			</font>
-		</td>
-		<td align=\"right\" nowrap bgcolor=\"#CC3300\">
-			<font color=\"#FFFFFF\">
-				<b>
-					&lt;&lt;&lt; ".$langNow." &nbsp;
-				</b>
-			</font>
-		</td>
-	</tr>";
-		}
-	}
-	if ($barreMois != date("m",strtotime($myrow["day"])))
-	{
-		$barreMois = date("m",strtotime($myrow["day"]));
-		echo "
-	<tr>
-		<th class=\"superHeader\" colspan=\"2\" valign=\"top\">
-			".ucfirst(claro_format_locale_date("%B %Y",strtotime($myrow["day"])))."
-		</th>
-	</tr>";
-	}
+	echo '<br><blockquote>No event in the agenda</blockquote>';
+}
 
 
-	echo "
-<!-- Date -->
-	";
-	echo "
-	<tr class=\"headerX\" valign=\"top\">
-		<th>
-				<a href=\"#form\" name=\"event".$myrow["id"]."\"></a>
-				".$langDay."&nbsp;:
-				".ucfirst(claro_format_locale_date($dateFormatLong,strtotime($myrow["day"])))."
-				&nbsp;
-				".$langHour."&nbsp;:
-				".ucfirst(strftime($timeNoSecFormat,strtotime($myrow["hour"])))."
-				&nbsp;";
+foreach($eventList as $thisEvent)
+{
+  if ( ! $nowBarShowed )
+  {
+    if (( ( strtotime($thisEvent['day'].' '.$thisEvent['hour'] ) > time()) && ( $orderDirection == ' ASC' ) )
+        ||
+      ( (  strtotime($thisEvent['day'].' '.$thisEvent['hour']  ) < time()) && ( $orderDirection ==' DESC ') )
+      )
+    {
+      if ($monthBar != date('m',time()))
+      {
+        $monthBar = date('m',time());
 
-	if ($myrow["lasting"] !="")
-	{
-		echo "
-				".$langLasting."&nbsp;:
-				".$myrow["lasting"]."";
-	}
+        echo "<tr>\n"
+            ."<th class=\"superHeader\" colspan=\"2\" valign=\"top\">\n"
+            .ucfirst(claro_format_locale_date('%B %Y',time()))
+            ."</th>\n"
+            ."</tr>\n";
+      }
 
-	echo "
-		</th>
-	</tr>";
+      $nowBarShowed = true;
 
-	echo "
-	<tr>
-		<td>
-			<div class=\"content\">
-				<b>
-					".$myrow["titre"]."
-				</b>
-				<br>
-				".$contenu."
-			</div>";
-	if ($is_allowedToEdit)
-	{
-?>
-			<a href="<?php echo $PHP_SELF; ?>?id=<?php echo $myrow["id"]; ?>"><img src="../img/edit.gif" border="O" alt="<?php echo $langModify; ?>"></a>
-			<a href="<?php echo $PHP_SELF; ?>?id=<?php echo $myrow["id"];  ?>&delete=yes" onclick="javascript:if(!confirm('<?php echo addslashes(htmlspecialchars($langConfirmYourChoice." (".$langDelete." ".$myrow['titre'].") ")); ?>')) return false;" ><img src="../img/delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
-<?php
-	}
-	echo "
-		</td>
-	</tr>";
-	$numLine++;
-} 	// WHILE
-?>
-</table>
-<?php
+      // 'NOW' Bar
+
+      echo "<tr>\n"
+          ."<td style=\"border-top: #CC3300 1px solid; border-bottom: #CC3300	1px	solid\">\n"
+          ."<img src=\"../img/pixel.gif\" width=\"20\" alt=\"\">"
+          ."<font color=\"#CC3300\">"
+          ."<i>"
+          .ucfirst(claro_format_locale_date( $dateFormatLong))." "
+          .ucfirst( strftime( $timeNoSecFormat))
+          ." -- ".$langNow
+          ."</i>"
+          ."</font>\n"
+          ."</td>\n"
+          ."</tr>\n";
+    }
+  }
+
+  /*
+   * Display the month bar when the current month 
+   * is different from the current month bar
+   */
+
+  if ( $monthBar != date( 'm', strtotime($thisEvent['day']) ) )
+  {
+    $monthBar = date('m', strtotime($thisEvent['day']));
+
+    echo "<tr>\n"
+        ."<th class=\"superHeader\" valign=\"top\">\n"
+        .ucfirst(claro_format_locale_date('%B %Y', strtotime( $thisEvent['day']) ))
+        ."</th>\n"
+        ."</tr>\n";
+  }
+
+  /*
+   * Display the event date
+   */
+
+  echo "<tr class=\"headerX\" valign=\"top\">\n"
+      ."<th>\n"
+      ."<a href=\"#form\" name=\"event".$thisEvent['id']."\"></a>\n"
+      ."<img src=\"../img/agenda.gif\" alt=\"\">"
+      .ucfirst(claro_format_locale_date( $dateFormatLong, strtotime($thisEvent['day'])))." "
+      .ucfirst( strftime( $timeNoSecFormat, strtotime($thisEvent['hour'])))." "
+      .( empty($thisEvent['lasting']) ? '' : $langLasting.' : '.$thisEvent['lasting'] );
+
+  /*
+   * Display the event content
+   */
+
+  echo "</th>\n"
+      ."</tr>\n"
+      ."<tr>\n"
+      ."<td>\n"
+      ."<div class=\"content\">\n"
+      .( empty($thisEvent['titre']  ) ? '' : "<p><strong>".$thisEvent['titre']."</strong></p>\n" )
+      .( empty($thisEvent['contenu']) ? '' :  nl2br( make_clickable($thisEvent['contenu']) ) )
+      ."</div>\n";
+
+  if ($is_allowedToEdit)
+  {
+    echo "<a href=\"".$PHP_SELF."?cmd=rqEdit&id=".$thisEvent['id']."\">"
+        ."<img src=\"../img/edit.gif\" border=\"O\" alt=\"".$langModify."\">"
+        ."</a>"
+         
+        ."<a href=\"".$PHP_SELF."?cmd=exDelete&id=".$thisEvent['id']."\" "
+        ."onclick=\"javascript:if( ! confirm('"
+        .addslashes (htmlspecialchars($langDelete.' '.$thisEvent['titre']." ?"))
+        ."')) return false;\" >"
+        ."<img src=\"../img/delete.gif\" border=\"0\" alt=\"".$langDelete."\">"
+        ."</a>";
+  }
+  echo "</td>\n"
+      ."</tr>\n";
+}   // end while
+
+echo "</table>";
+
 include($includePath."/claro_init_footer.inc.php");
+
 ?>
