@@ -1315,7 +1315,7 @@ claro_disp_tool_title($titleElement,
 
         if( $docView == 'files' )
         {
-            $docViewToolbar = "<b>$langList</b>\n | ";
+            $docViewToolbar = "<b>$langFiles</b>\n | ";
         }
         else
         {
