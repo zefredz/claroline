@@ -1148,76 +1148,85 @@ function delete_course($code)
 
     $this_course = claro_sql_query_fetch_all($sql);
     
+    
     $currentCourseId        = $this_course[0]['code'];
-    $currentCourseDbName    = $this_course[0]['dbName'];
-    $currentCourseDbNameGlu = $courseTablePrefix.$this_course[0]['dbName'].$dbGlu;
-    $currentCoursePath      = $this_course[0]['directory'];
-    $currentCourseCode      = $this_course[0]['officialCode'];
-    $currentCourseName      = $this_course[0]['name'];
-
-    if($singleDbEnabled) 
-    // IF THE PLATFORM IS IN MONO DATABASE MODE
+    
+    if ($currentCourseId == $code)
     {
-        // SEARCH ALL TABLES RELATED TO THE CURRENT COURSE
-        claro_sql_query("use ".$mainDbName);
-        $tbl_to_delete = claro_sql_get_course_tbl($currentCourseDbNameGlu);
-        foreach($tbl_to_delete as $tbl_name)
+        $currentCourseDbName    = $this_course[0]['dbName'];
+        $currentCourseDbNameGlu = $courseTablePrefix.$this_course[0]['dbName'].$dbGlu;
+        $currentCoursePath      = $this_course[0]['directory'];
+        $currentCourseCode      = $this_course[0]['officialCode'];
+        $currentCourseName      = $this_course[0]['name'];
+    
+        if($singleDbEnabled) 
+        // IF THE PLATFORM IS IN MONO DATABASE MODE
         {
-            $dbgoutput[]=$courseTable;
-            $sql = 'DROP TABLE `'.$tbl_name.'`';
+            // SEARCH ALL TABLES RELATED TO THE CURRENT COURSE
+            claro_sql_query("use ".$mainDbName);
+            $tbl_to_delete = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+            foreach($tbl_to_delete as $tbl_name)
+            {
+                $dbgoutput[]=$courseTable;
+                $sql = 'DROP TABLE `'.$tbl_name.'`';
+                claro_sql_query($sql);
+            }
+            // underscores must be replaced because they are used as wildcards in LIKE sql statement
+            $cleanCourseDbNameGlu = str_replace("_","\_", $currentCourseDbNameGlu);
+            $sql = 'SHOW TABLES LIKE "'.$cleanCourseDbNameGlu.'%"';
+    
+            $result = claro_sql_query($sql);
+            // DELETE ALL TABLES OF THE CURRENT COURSE
+    
+            $tblSurvivor = array();
+            while( $courseTable = mysql_fetch_array($result,MYSQL_NUM ) )
+            {
+                $tblSurvivor[]=$courseTable[0];
+                //$tblSurvivor[$courseTable]='not deleted';
+            }
+            if (sizeof($tblSurvivor)>0)
+            {
+                 event_default( "DELETE_COURSE"
+                             , array_merge(array ("DELETED_COURSE_CODE"=>$code
+                                                 ,"UNDELETED_TABLE_COUNTER"=>sizeof($tblSurvivor)
+                                                 )
+                                          , $tblSurvivor )
+                              );
+            }
+        }
+        else 
+        // IF THE PLATFORM IS IN MULTI DATABASE MODE
+        {
+            $sql = "DROP DATABASE `".$currentCourseDbName."`";
             claro_sql_query($sql);
         }
-        // underscores must be replaced because they are used as wildcards in LIKE sql statement
-        $cleanCourseDbNameGlu = str_replace("_","\_", $currentCourseDbNameGlu);
-        $sql = 'SHOW TABLES LIKE "'.$cleanCourseDbNameGlu.'%"';
-
-        $result = claro_sql_query($sql);
-        // DELETE ALL TABLES OF THE CURRENT COURSE
-
-        $tblSurvivor = array();
-        while( $courseTable = mysql_fetch_array($result,MYSQL_NUM ) )
-        {
-            $tblSurvivor[]=$courseTable[0];
-            //$tblSurvivor[$courseTable]='not deleted';
-        }
-        if (sizeof($tblSurvivor)>0)
-        {
-             event_default( "DELETE_COURSE"
-                         , array_merge(array ("DELETED_COURSE_CODE"=>$code
-                                             ,"UNDELETED_TABLE_COUNTER"=>sizeof($tblSurvivor)
-                                             )
-                                      , $tblSurvivor )
-                          );
-        }
-    }
-    else 
-    // IF THE PLATFORM IS IN MULTI DATABASE MODE
-    {
-        $sql = "DROP DATABASE `".$currentCourseDbName."`";
+        
+        // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
+        
+        $sql = 'DELETE FROM `'.$tbl_course.'`
+                WHERE code= "'.$currentCourseId.'"';
+        
         claro_sql_query($sql);
-    }
+        
+        // DELETE USER ENROLLMENT INTO THIS COURSE
+        
+        $sql = 'DELETE FROM `'.$tbl_rel_course_user.'`
+                WHERE code_cours="'.$currentCourseId.'"';
+        
+        claro_sql_query($sql);
     
-    // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
-    
-    $sql = 'DELETE FROM `'.$tbl_course.'`
-            WHERE code= "'.$currentCourseId.'"';
-    
-    claro_sql_query($sql);
-    
-    // DELETE USER ENROLLMENT INTO THIS COURSE
-    
-    $sql = 'DELETE FROM `'.$tbl_rel_course_user.'`
-            WHERE code_cours="'.$currentCourseId.'"';
-    
-    claro_sql_query($sql);
-
-    // MOVE THE COURSE DIRECTORY INTO THE COURSE GARBAGE COLLECTOR
-    
-    claro_mkdir($garbageRepositorySys, 0777, true);
-    
-    rename($coursesRepositorySys.$currentCoursePath."/",
-           $garbageRepositorySys."/".$currentCoursePath.'_'.date('YmdHis')
-          );
+        // MOVE THE COURSE DIRECTORY INTO THE COURSE GARBAGE COLLECTOR
+        
+        claro_mkdir($garbageRepositorySys, 0777, true);
+        
+        rename($coursesRepositorySys.$currentCoursePath."/",
+               $garbageRepositorySys."/".$currentCoursePath.'_'.date('YmdHis')
+              );
+     }
+     else
+     {
+        die('WRONG CID');
+     }
 }
 
 /**
