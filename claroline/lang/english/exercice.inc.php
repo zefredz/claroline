@@ -187,7 +187,7 @@ $langNoMoreAttemptsAvailable = "You have reached the maximum number of allowed a
 
 $langElementList="Element list";
 $langResult= "Result";
-$langExeTime = "Time";
+$langExeTime = "Time (s.)";
 $langScore="Score";
 $langCorrespondsTo="Corresponds to";
 $langExpectedChoice="Expected choice";

@@ -254,7 +254,7 @@ else
 if($_groupProperties['tools']['forum'])
 {
     echo "<a href=\"../phpbb/viewforum.php?forum=".$forumId."\">"
-        .$langForums
+        .$langForum
         ."</a>"
         ."<br>";
 }

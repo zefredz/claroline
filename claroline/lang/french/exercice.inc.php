@@ -185,7 +185,7 @@ $langNoMoreAttemptsAvailable = "Vous avez atteint le nombre maximum de tentative
 
 $langElementList="Liste des éléments";
 $langResult="Résultat";
-$langExeTime = "Temps";
+$langExeTime = "Temps (s.)";
 $langScore="Points";
 $langCorrespondsTo="Correspond à";
 $langExpectedChoice="Choix attendu";

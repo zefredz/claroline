@@ -33,6 +33,5 @@ $langCouldNot          = "File could not be sent";
 $langOkSentPage        = "Your page has been sent.<p>It is now linked from the <a href=\"../../".$_course['path']."/index.php\">course Homepage</a>";
 $langOkSentLink        = "Your link has been sent.<p>It is now accessible from the <a href=\"../../".$_course['path']."/index.php\">course Homepage</a>";
 $langTooBig            = "You didn't choose any file to send, or it is too big";
-$langExplanation       = "The page must be in HTML format (e.g. \"my_page.htm\"). It will be linked from Homepage. If you want to send non HTML documents (PDF, Word, Power Point, Video, etc.) use <a href=../document/document.php>Documents tool</a>";
 $langPgTitle           = "Title of the page";
 ?>

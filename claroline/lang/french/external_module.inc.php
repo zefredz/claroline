@@ -26,6 +26,5 @@ $langCouldNot          = "Le fichier ne peut être envoyé";
 $langOkSentPage        = "Votre page a été envoyée. <p>Elle est à présent accessible depuis le <a href=\"../../".$_course['path']."/index.php\">sommaire du cours</a>";
 $langOkSentLink        = "Votre lien a été ajouté. <p>Il est à présent accessible depuis le <a href=\"../../".$_course['path']."/index.php\">sommaire du cours</a>"; // JCC 
 $langTooBig            = "Vous n'avez choisi aucun fichier à envoyer, ou celui-ci est trop gros";
-$langExplanation       = "La page doit être au format HTML (ex. \"ma_page.htm\"). Elle devra pouvoir être accessible depuis le sommaire de votre site de cours. Si vous souhaitez envoyer un document non HTML (PDF, Word, Power Point, Vidéo, etc.) utilisez <a href=\"../document/document.php\">l'outil de documents</a>."; // JCC 
 $langPgTitle           = "Titre de la page";
 ?>

@@ -240,7 +240,7 @@ $langTo = "para";
 $langNoMoreAttemptsAvailable = "Usted a ingresado el número máximo de tentativas permitidas.";
 
 // exercise_result.php
-$langExeTime = "Tiempo";
+$langExeTime = "Tiempo (s.)";
 $langYourTotalScore="Su puntuación total es";
 $langYourTime = "Su tiempo es";
 $langTimeOver = "El tiempo ha acabado, los resultados no son enviados.";
