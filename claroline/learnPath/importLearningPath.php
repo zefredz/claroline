@@ -27,9 +27,6 @@
   $tlabelReq = 'CLLNP___';
   require '../inc/claro_init_global.inc.php';
 
-  include($includePath."/../lang/english/document.inc.php");
-  @include($includePath."/../lang/".$languageInterface."/document.inc.php");
-
   $htmlHeadXtra[] =
             "<script>
             function confirmation (name)

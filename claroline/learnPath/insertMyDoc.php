@@ -34,9 +34,6 @@
   // when leaving a course all the LP sessions infos are cleared so we use this trick to avoid other errors
   if ( ! $_cid) header("Location:./learningPathList.php");
   if ( ! $is_courseAllowed) header("Location:./learningPathList.php");
-  
-  @include($includePath."/../lang/english/document.inc.php");
-  @include($includePath."/../lang/".$languageInterface."/document.inc.php");
 
   $htmlHeadXtra[] =
             "<script>
