@@ -89,7 +89,7 @@ if($mode) {
 		<TD  BGCOLOR="<?php echo $color2?>"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><?php echo $userdata[user_icq]?>
 		<?php if ($userdata[user_icq]!=""){ ?>
 		</FONT>&nbsp;&nbsp;<font size=-2>(<a href="http://wwp.icq.com/scripts/search.dll?to=<?php echo $userdata[user_icq]?>"><?php echo $l_icqadd?></a>)</font>&nbsp;&nbsp;<font size=-2>(<a href="http://wwp.mirabilis.com/<?php echo $userdata[user_icq]?>" TARGET="_blank"><?php echo $l_icqpager?></a>)</font>
-		<? } 
+		<?php } 
 		else
 		{
 			echo "&nbsp";	

@@ -156,7 +156,7 @@
      <br>
      <table class="claroTable" width="100%" border="0" cellspacing="2">
             <tr class="headerX" align="center" valign="top">
-              <th colspan="<?= $maxDeep+1; ?>"><?= $langModule; ?></th>
+              <th colspan="<?php echo $maxDeep+1; ?>"><?php echo $langModule; ?></th>
 <?php
         if($_uid)
         {

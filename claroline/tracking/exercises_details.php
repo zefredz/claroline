@@ -98,7 +98,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 ?>
 
 <ul>
-  <? 
+  <?php 
         if (isset($exo_score_details['weighting']) || $exo_scores_details['weighting'] != '')
             echo "<li>".$langWeighting." : ".$exo_scores_details['weighting']."</li>";
 

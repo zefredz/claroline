@@ -61,7 +61,7 @@ $nameTools = $langAddPage;
 
 <html>
 <head>
-<title><?= $nameTools," - ",$currentCourseName," - ",$siteName ?></title>
+<title><?php echo $nameTools," - ",$currentCourseName," - ",$siteName ?></title>
 
 <link rel="stylesheet" href="../css/default.css" type="text/css">
 
@@ -71,7 +71,7 @@ $nameTools = $langAddPage;
 
 <?php include('../inc/claroline_header.php'); ?>
 
-<h3><?= $nameTools ?></h3>
+<h3><?php echo $nameTools ?></h3>
 
 <?php
 

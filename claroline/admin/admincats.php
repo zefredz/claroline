@@ -954,7 +954,7 @@ echo "<p><a href=\"" . $_SERVER['PHP_SELF'] . "?cmd=rqCreate\">" . $langSubTitle
     <thead>
        <tr class="headerX" align="center" valign="top">
 
-<?    
+<?php
 
 // Add titles for the table
 

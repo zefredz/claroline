@@ -384,10 +384,10 @@ if ($display == USER_DATA_FORM)
             <?php echo $langUserCanCreateCourse?> : 
         </td>
         <td>
-            <input type="radio" name="create_course_form" value="yes" id="create_course_form_yes" <? if ($canCreateCourse) { echo "checked"; }?> >
+            <input type="radio" name="create_course_form" value="yes" id="create_course_form_yes" <?php if ($canCreateCourse) { echo "checked"; }?> >
             <label for="create_course_form_yes"><?php echo $langYes?></label>
 
-            <input type="radio" name="create_course_form" value="no"  id="create_course_form_no"  <? if (!$canCreateCourse){ echo "checked"; }?> >
+            <input type="radio" name="create_course_form" value="no"  id="create_course_form_no"  <?php if (!$canCreateCourse){ echo "checked"; }?> >
             <label for="create_course_form_no"><?php echo $langNo?></label>
         </td>
     </tr>
@@ -395,10 +395,10 @@ if ($display == USER_DATA_FORM)
     <tr valign="top">
        <td align="right"><?php echo $langUserIsPlaformAdmin ?> : </td>
        <td>
-         <input type="radio" name="admin_form" value="yes" id="admin_form_yes" <? if ($isAdmin) { echo "checked"; }?> >
+         <input type="radio" name="admin_form" value="yes" id="admin_form_yes" <?php if ($isAdmin) { echo "checked"; }?> >
          <label for="admin_form_yes"><?php echo $langYes ?></label>
 
-         <input type="radio" name="admin_form" value="no"  id="admin_form_no"  <? if (!$isAdmin) { echo "checked"; }?> >
+         <input type="radio" name="admin_form" value="no"  id="admin_form_no"  <?php if (!$isAdmin) { echo "checked"; }?> >
          <label for="admin_form_no"><?php echo $langNo  ?></label>
        </td>
     </tr>

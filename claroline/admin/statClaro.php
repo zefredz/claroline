@@ -88,11 +88,11 @@ include('../include/claroline_header.php');
 	</UL>
 	<LI>
 		<?php echo $langNbProf ?> (1)
-		: <?= list_1Result("select count(*) from user where statut = 1;");?>
+		: <?php echo list_1Result("select count(*) from user where statut = 1;");?>
 	</LI>
 	<LI>
 		<?php echo $langNbStudents ?> (5)
-		: <?= list_1Result("select count(*) from user where statut = 5;");?>
+		: <?php echo list_1Result("select count(*) from user where statut = 5;");?>
 	</LI>
 	
 	<LI>
@@ -100,7 +100,7 @@ include('../include/claroline_header.php');
 		: <?php tablize(list_ManyResult("select DISTINCT statut, count(*) from user Group by statut ")); ?>
 	<LI>
 		Nombre de cours 
-		: <?= list_1Result("select count(*) from cours;");?>
+		: <?php echo list_1Result("select count(*) from cours;");?>
 	</LI>
 
 	<LI>
@@ -283,6 +283,9 @@ function list_ManyResult($sql)
 
 /*
 * $Log$
+* Revision 1.5  2005/02/04 14:01:45  mathieu
+* replace <? by <?php and <?= by <? echo
+*
 * Revision 1.4  2004/12/08 13:54:17  mathieu
 * deprecated script
 *

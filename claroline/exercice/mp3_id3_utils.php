@@ -1,4 +1,4 @@
-<? // $Id$
+<?php // $Id$
 
 /*
 	To use this function :

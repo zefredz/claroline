@@ -1,4 +1,4 @@
-<?  
+<?php  
 die("Deprecated");
 session_start(); ?>
 <?php

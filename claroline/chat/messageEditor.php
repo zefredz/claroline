@@ -32,8 +32,8 @@ include($includePath."/claro_init_header.inc.php");
 <input type="submit" value=" >> ">
 <br />
 <?php if ($is_allowedToManage) { ?>
-<a href="messageList.php?reset=true" target="messageList"><?= $langResetChat ?></a> | 
-<a href="messageList.php?store=true" target="messageList"><?= $langStoreChat ?></a>
+<a href="messageList.php?reset=true" target="messageList"><?php echo $langResetChat ?></a> | 
+<a href="messageList.php?store=true" target="messageList"><?php echo $langStoreChat ?></a>
 <?php }
 ?>
 </form>
