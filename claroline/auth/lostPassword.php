@@ -36,7 +36,11 @@ $tbl_user      = $tbl_mdb_names['user'];
 include($includePath.'/lib/auth.lib.inc.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
-if ($searchPassword)
+// initialise variables
+
+$passwordFound = FALSE;
+
+if (isset($_REQUEST['searchPassword']) )
 {
 	$Femail = strtolower(trim($Femail));
 	$sql = 'SELECT  `user_id` AS `uid`, 
