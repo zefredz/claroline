@@ -66,6 +66,7 @@ $langAllowedTime="Time limit";
 $langAllowedAttempts="Attempts allowed";
 $langAnonymousVisibility="Anonymous visibity";
 $langShowAnswers = "Show answers";
+$langShowAnswersAfterLastTry = "After last allowed attempt"
 $langAlways = "Always";
 $langNever = "Never";
 $langShow = "Show";
