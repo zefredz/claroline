@@ -1,21 +1,17 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                              |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   $Id$        |
-      |   Japanese translation                                               |
-      +----------------------------------------------------------------------+
-
-      +----------------------------------------------------------------------+
-      | Translator:                                                          |
-	  |          yoshii akira      <yoshii@cc.hokyodai.ac.jp>                |                                                      |
-      +----------------------------------------------------------------------+
- */
-$englishLangName = "japanese";
-$localLangName = "japanese";
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+$englishLangName = "Japanese";
+$localLangName = "Japanese";
 
 $iso639_2_code = "ja";
 $iso639_1_code = "jpn";
