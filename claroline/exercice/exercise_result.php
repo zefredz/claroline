@@ -367,7 +367,7 @@ else
 	<?php echo $answer; ?>
   </td>
   <td width="45%">
-	<?php if($studentChoice) echo nl2br(make_clickable($answerComment)); else echo '&nbsp;'; ?>
+	<?php if($studentChoice) echo claro_parse_user_text(make_clickable($answerComment)); else echo '&nbsp;'; ?>
   </td>
 </tr>
 
@@ -379,7 +379,7 @@ else
 
 <tr>
   <td>
-	<?php echo nl2br($answer); ?>
+	<?php echo claro_parse_user_text($answer); ?>
   </td>
 </tr>
 

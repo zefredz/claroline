@@ -133,7 +133,7 @@ else
 		* CHECK PASSWORD AREN'T TOO EASY
 		*/
 
-		if ($form_password1 && CHECK_PASS_EASY_TO_FIND)
+		if ($form_password1 && SECURE_PASSWORD_REQUIRED)
 		{
 			if ( ( strtoupper($form_password) == strtoupper($form_userName) )
 				|| ( strtoupper($form_password) == strtoupper($form_officalCode) )

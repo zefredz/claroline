@@ -155,7 +155,7 @@ else
 ?>
 
 <blockquote>
-  <?php echo nl2br($questionDescription); ?>
+  <?php echo claro_parse_user_text($questionDescription); ?>
 </blockquote>
 
 <?php

@@ -158,7 +158,7 @@ else
 </h3>
 
 <blockquote>
-  <?php echo nl2br($exerciseDescription); ?>
+  <?php echo claro_parse_user_text($exerciseDescription); ?>
 </blockquote>
 
 <a href="<?php echo $PHP_SELF; ?>?modifyExercise=yes"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langModify; ?>"></a>

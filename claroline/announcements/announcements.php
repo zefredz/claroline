@@ -436,7 +436,7 @@ if ($displayList)
     foreach ( $announcementList as $thisAnnouncement)
     {
         $title   = $thisAnnouncement['title'];
-        $content = make_clickable(nl2br($thisAnnouncement['content']));
+        $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
 
         $last_post_datetime = $thisAnnouncement['temps'];// post time format  datetime de mysql
 

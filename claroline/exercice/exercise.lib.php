@@ -56,7 +56,7 @@ function showQuestion($questionId, $onlyAnswers=false)
 	</tr>
 	<tr>
 	  <td valign="top" colspan="2">
-		<i><?php echo nl2br(make_clickable($questionDescription)); ?></i>
+		<i><?php echo claro_parse_user_text(make_clickable($questionDescription)); ?></i>
 	  </td>
 	</tr>
 
@@ -97,7 +97,7 @@ function showQuestion($questionId, $onlyAnswers=false)
 			list($answer)=explode('::',$answer);
 
 			// replaces [blank] by an input field
-			$answer=ereg_replace('\[[^]]+\]','<input type="text" name="choice['.$questionId.'][]" size="10">',nl2br($answer));
+			$answer=ereg_replace('\[[^]]+\]','<input type="text" name="choice['.$questionId.'][]" size="10">',claro_parse_user_text($answer));
 		}
 
 		// unique answer

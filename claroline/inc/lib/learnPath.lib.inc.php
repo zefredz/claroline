@@ -864,7 +864,7 @@
                           if ($fileList['comment'][$fileKey] != "" )
                           {
                                   $fileList['comment'][$fileKey] = htmlentities($fileList['comment'][$fileKey]);
-                                  $fileList['comment'][$fileKey] = nl2br($fileList['comment'][$fileKey]);
+                                  $fileList['comment'][$fileKey] = claro_parse_user_text($fileList['comment'][$fileKey]);
 
                                   echo        "<tr align=\"left\">\n",
                                                   "<td>&nbsp;</td>",

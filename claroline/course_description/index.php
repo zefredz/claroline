@@ -68,7 +68,7 @@ if ( mysql_num_rows($res) >0 )
 <H4>
 	".$bloc["title"]."
 </H4>
-".make_clickable(nl2br($bloc["content"]));
+".make_clickable(claro_parse_user_text($bloc["content"]));
 	}
 }
 else

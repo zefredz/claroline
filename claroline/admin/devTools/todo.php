@@ -235,7 +235,7 @@ if (!$id)
 		{
 		
 			$content = $leTodo[contenu];		
-			$content = nl2br($content);
+			$content = claro_parse_user_text($content);
 			$content = make_clickable($content);
 
 			if ($leTodo[auteur]=="")

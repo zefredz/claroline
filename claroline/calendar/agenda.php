@@ -534,7 +534,7 @@ foreach($eventList as $thisEvent)
       ."<td>\n"
       ."<div class=\"content\">\n"
       .( empty($thisEvent['titre']  ) ? '' : "<p><strong>".$thisEvent['titre']."</strong></p>\n" )
-      .( empty($thisEvent['contenu']) ? '' :  nl2br( make_clickable($thisEvent['contenu']) ) )
+      .( empty($thisEvent['contenu']) ? '' :  claro_parse_user_text( make_clickable($thisEvent['contenu']) ) )
       ."</div>\n";
 
   if ($is_allowedToEdit)

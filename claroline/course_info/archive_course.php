@@ -289,7 +289,7 @@ $courseDirSize=($courseDirSize >= 1048576) ? round($courseDirSize/(1024*1024),2)
 
 	if($verboseBackup)
 	{
-		echo nl2br($csvInsertUsers).'<br><br></li>';
+		echo claro_parse_user_text($csvInsertUsers).'<br><br></li>';
 	}
 
 	$stringConfig.="\n\n# CSV of Users\n#------------------------------------------\n$csvInsertUsers\n#------------------------------------------";

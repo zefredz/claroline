@@ -306,7 +306,7 @@ if ($is_allowedToEdit)
 	</TR>
 	<TR>
 		<TD colspan="2">
-			'.make_clickable(nl2br($contentBloc[$numBloc]))."
+			'.make_clickable(claro_parse_user_text($contentBloc[$numBloc]))."
 		</TD>
 	</TR>";
 			}

@@ -231,7 +231,7 @@ else
 
 <h3><?php echo $exerciseTitle; ?></h3>
 
-<p><?php echo nl2br(make_clickable($exerciseDescription)); ?></p>
+<p><?php echo claro_parse_user_text(make_clickable($exerciseDescription)); ?></p>
 
 <table width="100%" border="0" cellpadding="1" cellspacing="0">
 <form method="post" action="<?php echo $PHP_SELF; ?>?<?= SID ?>" autocomplete="off">

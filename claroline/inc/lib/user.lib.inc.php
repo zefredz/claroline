@@ -613,7 +613,7 @@ function claro_user_info_claro_user_info_get_cat_def_list()
 
 function htmlize($phrase)
 {
-	return nl2br(htmlspecialchars($phrase));
+	return claro_parse_user_text(htmlspecialchars($phrase));
 }
 
 

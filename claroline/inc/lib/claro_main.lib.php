@@ -988,8 +988,14 @@ function claro_parse_user_text($userText)
    {
         // only if the content isn't HTML change new line to <br>
         // Note the '<!-- content: html -->' is introduced by HTML Area
-        return nl2br($userText); 
+        $userTex = nl2br($userText); 
    }
+
+   $userText = str_replace('[tex]',
+                          '<embed TYPE="application/x-techexplorer" texdata="',
+                          $userText);
+
+   $userText = str_replace('[/tex]','" width="100%">',$userText);
 
    return $userText;
 }
