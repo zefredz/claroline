@@ -28,10 +28,6 @@ $message = "";
 
 $langFile='course_info';
 
-$langCreateDirectory = "Create Directory";
-$langBackupCourseInformation = "Backup course information";
-
-
 // Include global and libs
 
 require '../inc/claro_init_global.inc.php';
