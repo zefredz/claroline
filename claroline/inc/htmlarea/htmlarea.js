@@ -1498,9 +1498,9 @@ HTMLArea.prototype._insertImage = function(image) {
 		f_border : image.border,
 		f_align  : image.align,
 		f_vert   : image.vspace,
-		f_horiz  : image.hspace
+		f_horiz  : image.hspace,
 	};
-	this._popupDialog("insert_image.html", function(param) {
+	this._popupDialog("insert_image.php", function(param) {
 		if (!param) {	// user must have pressed Cancel
 			return false;
 		}
