@@ -201,7 +201,10 @@ function fill_in_groups()
 {
 	global $currentCourseId, $nbGroupPerUser,
 	       $tbl_CoursUsers, $tbl_Groups, $tbl_Users, $tbl_GroupsUsers;
-
+	
+	// check if nbGroupPerUser is a positive integer else return false
+	if( !settype($nbGroupPerUser, "integer") || $nbGroupPerUser < 0 )
+		return false;
 	/*
 	 * Retrieve all the groups where enrollment is still allowed
 	 * (reverse) ordered by the number of place available
@@ -214,35 +217,33 @@ function fill_in_groups()
 	        GROUP BY (`g`.`id`)
 	        HAVING nbPlaces > 0
 	        ORDER BY nbPlaces DESC";
-
 	$result = mysql_query($sql);
 
 	while( $group = mysql_fetch_array($result, MYSQL_ASSOC) )
 	{
 		$groupAvailPlace[$group['gid']] = $group['nbPlaces'];
 	}
-
+	
 	/*
 	 * Retrieve course users (reverse) ordered by the number
 	 * of group they are already enrolled
 	 */
-
-	$sql = "SELECT cu.user_id cid,  (".$nbGroupPerUser."-count(ug.team)) nbTicket
+	
+	$sql = "SELECT cu.user_id uid,  (".$nbGroupPerUser."-count(ug.team)) nbTicket
  	        FROM `".$tbl_CoursUsers."` cu
 	        LEFT JOIN  `".$tbl_GroupsUsers."` ug
 	        ON    `ug`.`user`      = `cu`.`user_id`
 	        WHERE `cu`.`code_cours`='".$currentCourseId."'
-	        AND   `cu`.`statut`    = 5
-	        AND   `cu`.`tutor`     = 0
+	        AND   `cu`.`statut`    = 5 #no teacher
+	        AND   `cu`.`tutor`     = 0 #no tutor
 	        GROUP BY (cu.user_id)
 	        HAVING nbTicket > 0
 	        ORDER BY nbTicket DESC";
-
 	$result = mysql_query($sql);
 
 	while($user = mysql_fetch_array($result, MYSQL_ASSOC))
 	{
-		$userToken[$user[cid]] = $user[nbTicket];
+		$userToken[$user[uid]] = $user[nbTicket];
 	}
 
 	/*
@@ -255,7 +256,7 @@ function fill_in_groups()
 
 	while ($member = mysql_fetch_array($result,MYSQL_ASSOC))
 	{
-		$groupUser[$member[gid]] [] = $member[cid];
+		$groupUser[$member[gid]] [] = $member[uid];
 	}
 
 	/*
@@ -272,7 +273,7 @@ function fill_in_groups()
 		 */
 
 		arsort($userToken);
-
+		reset($userToken);
 		$userPutSucceed = false; // default initialisation
 
 		while (   ( $userPutSucceed == false               )
@@ -284,7 +285,7 @@ function fill_in_groups()
 			 */
 
 			arsort($groupAvailPlace);
-
+			reset($groupAvailPlace);
 			while (   ( $userPutSucceed == false )
 				   && (list ($thisGroup, ) = each ($groupAvailPlace) ) )
 			{
@@ -304,7 +305,7 @@ function fill_in_groups()
 					$userPutSucceed = true;
 				}
 			}
-
+			// if the user cannot be put in any group delete him from the userToken
 			if ( $userPutSucceed == false) unset( $userToken[$thisUser] );
 		}
 	}
