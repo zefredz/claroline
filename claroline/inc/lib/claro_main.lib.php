@@ -111,7 +111,7 @@ function claro_sql_get_course_tbl($dbNameGlued = NULL)
               'tool_list'              => $courseDb.'tool_list',
               'userinfo_content'       => $courseDb.'userinfo_content',
               'userinfo_def'           => $courseDb.'userinfo_def',
-              'wrk_session'            => $courseDb.'wrk_session',
+              'wrk_assignment'          => $courseDb.'wrk_assignment',
               'wrk_submission'         => $courseDb.'wrk_submission'
               
 
