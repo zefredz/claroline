@@ -14,6 +14,8 @@
 $cidReset=true;
 $gidReset=true;
 
+$langBuildEmptyLangFile = "Empty language file";
+
 require '../../../inc/claro_init_global.inc.php';
 include($includePath."/lib/debug.lib.inc.php");
 
@@ -48,6 +50,7 @@ claro_disp_tool_title('<img src="lang/language.png" style="vertical-align: middl
 <li><a href="lang/build_devel_lang_file.php"><?php echo $langBuildCompleteLangFile?></a></li>
 <li><a href="lang/build_prod_lang_file.php"><?php echo $langBuildProductionLangFile?></a></li>
 <li><a href="lang/build_missing_lang_file.php"><?php echo $langBuildMissingLangFile?></a></li>
+<li><a href="lang/build_empty_lang_file.php"><?php echo $langBuildEmptyLangFile?></a></li>
 </ul>
 
 <h4><?php echo $langFindDoubledVariable?></h4>
