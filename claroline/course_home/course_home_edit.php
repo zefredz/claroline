@@ -53,7 +53,7 @@ elseif ($is_courseAdmin  )   $reqAccessLevel = 'COURSE_ADMIN';
  */
 
 $toolNameList = array('CLANN___' => $langAnnouncement,
-                      'CLFRM___' => $langForum,
+                      'CLFRM___' => $langForums,
                       'CLCAL___' => $langAgenda,
                       'CLCHT___' => $langChat,
                       'CLDOC___' => $langDocument,

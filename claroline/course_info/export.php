@@ -357,7 +357,7 @@ if ($displayFormWhatSaveMain)
 						name="saveContentForum" value="checked" "<?php echo $saveContentForum ?>" >  
 					</td>
 					<td colspan="3">
-						<?php echo $langForum; ?>
+						<?php echo $langForums; ?>
 					</td>
 				</tr>
 				<tr>

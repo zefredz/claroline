@@ -137,7 +137,7 @@ if (isset($_cid))
 if (is_array($_courseToolList))
 {
 	$toolNameList = array('CLANN___' => $langAnnouncement,
-	                      'CLFRM___' => $langForum,
+	                      'CLFRM___' => $langForums,
 	                      'CLCAL___' => $langAgenda,
 	                      'CLCHT___' => $langChat,
 	                      'CLDOC___' => $langDocument,

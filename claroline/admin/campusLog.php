@@ -33,7 +33,7 @@ $tbl_document 	        = $tbl_cdb_names['document'         ];
 $tbl_link 		        = $tbl_cdb_names['link'             ];
 
 $toolNameList = array('CLANN___' => $langAnnouncement,
-                      'CLFRM___' => $langForum,
+                      'CLFRM___' => $langForums,
                       'CLCAL___' => $langAgenda,
                       'CLCHT___' => $langChat,
                       'CLDOC___' => $langDocument,

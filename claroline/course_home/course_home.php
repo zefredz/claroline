@@ -63,7 +63,7 @@ unset($_SESSION['tracking']['lastUsedTool']);
  */
 
 $toolNameList = array('CLANN___' => $langAnnouncement,
-                      'CLFRM___' => $langForum,
+                      'CLFRM___' => $langForums,
                       'CLCAL___' => $langAgenda,
                       'CLCHT___' => $langChat,
                       'CLDOC___' => $langDocument,
