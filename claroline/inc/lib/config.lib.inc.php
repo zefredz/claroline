@@ -521,7 +521,7 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
         {
             $valueToWrite  = $storedProperty['propValue']; 
             $container     = $conf_def_property_list[$storedProperty['propName']]['container'];
-            $description   = $conf_def_property_list[$storedProperty['propName']]['$description'];
+            $description   = $conf_def_property_list[$storedProperty['propName']]['description'];
             if (strtolower($conf_def_property_list[$storedProperty['propName']]['type'])!='boolean') 
             {
                 $valueToWrite = "'".$valueToWrite."'";   
