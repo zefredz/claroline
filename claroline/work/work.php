@@ -157,18 +157,29 @@ if( isset($_REQUEST['submitSession']) )
       $sesDesc = claro_parse_user_text( claro_addslashes( trim($_REQUEST['sesDesc']) ) );
     }
     
-    // dates
-    $composedStartDate = $_REQUEST['startYear']."-"
-                      .$_REQUEST['startMonth']."-"
-                      .$_REQUEST['startDay']." "
-                      .$_REQUEST['startHour'].":"
-                      .$_REQUEST['startMinute'].":00";
-                      
-    $composedEndDate = $_REQUEST['endYear']."-"
-                      .$_REQUEST['endMonth']."-"
-                      .$_REQUEST['endDay']." "
-                      .$_REQUEST['endHour'].":"
-                      .$_REQUEST['endMinute'].":00";
+    // dates : check if start date is lower than end date else we will have a paradox
+    $unixStartDate = mktime( $_REQUEST['startHour'], $_REQUEST['startMinute'], 0, $_REQUEST['startMonth'],$_REQUEST['startDay'], $_REQUEST['startYear'] );
+    $unixEndDate = mktime( $_REQUEST['endHour'], $_REQUEST['endMinute'], 0, $_REQUEST['endMonth'],$_REQUEST['endDay'], $_REQUEST['endYear'] );
+    
+    if( $unixEndDate <= $unixStartDate )
+    {
+      $dialogBox .= $langIncorrectDate."<br />";
+      $formCorrectlySent = false;
+    }
+    else
+    {
+      $composedStartDate = $_REQUEST['startYear']."-"
+                        .$_REQUEST['startMonth']."-"
+                        .$_REQUEST['startDay']." "
+                        .$_REQUEST['startHour'].":"
+                        .$_REQUEST['startMinute'].":00";
+      
+      $composedEndDate = $_REQUEST['endYear']."-"
+                        .$_REQUEST['endMonth']."-"
+                        .$_REQUEST['endDay']." "
+                        .$_REQUEST['endHour'].":"
+                        .$_REQUEST['endMinute'].":00";
+    }
 
 } // if( isset($_REQUEST['submitSession']) ) // handling form data 
 
@@ -242,7 +253,7 @@ if($is_allowedToEdit)
                       `start_date` = \"".$composedStartDate."\", 
                       `end_date` = \"".$composedEndDate."\", 
                       `def_submission_visibility` = \"".$_REQUEST['defSubVis']."\", 
-                      `prevent_late_upload` = \"".$_REQUEST['preventLateUpload']."\"
+                      `allow_late_upload` = \"".$_REQUEST['allowLateUpload']."\"
                   WHERE `id` = ".$_REQUEST['sesId'];
           claro_sql_query($sql);
           $dialogBox .= $langSessionEdited;
@@ -319,13 +330,13 @@ if($is_allowedToEdit)
           $form['allowAnonymous'] = "NO";
         }
         
-        if( $modifiedSession['prevent_late_upload'] == "YES" )
+        if( $modifiedSession['allow_late_upload'] == "YES" )
         {
-          $form['preventLateUpload'] = "YES";
+          $form['allowLateUpload'] = "YES";
         }
         else
         {
-          $form['preventLateUpload'] = "NO";
+          $form['allowLateUpload'] = "NO";
         }
     }
     else
@@ -341,7 +352,7 @@ if($is_allowedToEdit)
       $form['defSubVis'         ] = $_REQUEST['defSubVis'];
       $form['sessionType'       ] = $_REQUEST['sessionType'];
       $form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
-      $form['preventLateUpload' ] = $_REQUEST['preventLateUpload'];
+      $form['allowLateUpload' ] = $_REQUEST['allowLateUpload'];
     }
     // modify the command 'cmd' sent by the form
     $cmdToSend = "exEditSes";
@@ -366,12 +377,12 @@ if($is_allowedToEdit)
                   ( `title`,`description`, `session_type`, 
                     `authorized_content`, `authorize_anonymous`,
                     `start_date`, `end_date`, 
-                    `def_submission_visibility`, `prevent_late_upload`)
+                    `def_submission_visibility`, `allow_late_upload`)
                   VALUES
                   ( \"".$title."\", \"".$description."\", \"".$_REQUEST['sessionType']."\",
                     \"".$authorizedContent."\", \"".$_REQUEST['allowAnonymous']."\",
                     \"".$composedStartDate."\", \"".$composedEndDate."\",
-                    \"".$_REQUEST['defSubVis']."\", \"".$_REQUEST['preventLateUpload']."\" )";
+                    \"".$_REQUEST['defSubVis']."\", \"".$_REQUEST['allowLateUpload']."\" )";
     
           // execute the creation query and return id of inserted session
           $lastSesId = claro_sql_query_insert_id($sql);
@@ -412,7 +423,7 @@ if($is_allowedToEdit)
       $form['defSubVis'         ] = "VISIBLE";
       $form['sessionType'       ] = "INDIVIDUAL";
       $form['allowAnonymous'    ] = "YES";
-      $form['preventLateUpload' ] = "NO";
+      $form['allowLateUpload' ] = "YES";
     }
     else
     {
@@ -427,7 +438,7 @@ if($is_allowedToEdit)
       $form['defSubVis'         ] = $_REQUEST['defSubVis'];
       $form['sessionType'       ] = $_REQUEST['sessionType'];
       $form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
-      $form['preventLateUpload' ] = $_REQUEST['preventLateUpload'];
+      $form['allowLateUpload' ] = $_REQUEST['allowLateUpload'];
     }
     
     // modify the command 'cmd' sent by the form
@@ -543,15 +554,15 @@ if($is_allowedToEdit)
         <input type="radio" name="allowAnonymous" id="anonNotAllowed" value="NO" <?php if($form['allowAnonymous'] == "NO") echo 'checked="checked"'; ?>><label for="anonNotAllowed">&nbsp;<?php echo $langAnonNotAllowed; ?></label><br />
         </td>
       </tr>
-      <!--
+
       <tr>
-        <td valign="top"><?php echo $langPreventLateUploadShort; ?>&nbsp;:</td>
+        <td valign="top"><?php echo $langAllowLateUploadShort; ?>&nbsp;:</td>
         <td>
-        <input type="radio" name="preventLateUpload" id="preventUpload" value="YES" <?php if($form['preventLateUpload'] == "YES") echo 'checked="checked"'; ?>><label for="preventUpload">&nbsp;<?php echo $langPreventLateUpload; ?></label><br />
-        <input type="radio" name="preventLateUpload" id="allowUpload" value="NO" <?php if($form['preventLateUpload'] == "NO") echo 'checked="checked"'; ?>><label for="allowUpload">&nbsp;<?php echo $langAllowLateUpload; ?></label><br />
+        <input type="radio" name="allowLateUpload" id="allowUpload" value="YES" <?php if($form['allowLateUpload'] == "YES") echo 'checked="checked"'; ?>><label for="allowUpload">&nbsp;<?php echo $langAllowLateUpload; ?></label><br />
+        <input type="radio" name="allowLateUpload" id="preventUpload" value="NO" <?php if($form['allowLateUpload'] == "NO") echo 'checked="checked"'; ?>><label for="preventUpload">&nbsp;<?php echo $langPreventLateUpload; ?></label><br />
         </td>
       </tr>
-      -->
+
     
       <tr>
         <td colspan="2" align="center">
