@@ -229,21 +229,21 @@ if($cancelAnswers)
 	unset($modifyAnswers);
 }
 
+$interbredcrump[]=array("url" => "exercice.php","name" => $langExercices);
+
 // modifies the query string that is used in the link of tool name
 if($editQuestion || $modifyQuestion || $newQuestion || $modifyAnswers)
 {
 	$nameTools=$langQuestionManagement;
-
+	$interbredcrump[]=array("url" => "question_pool.php?fromExercise=$fromExercise","name" => $objExercise->selectTitle());
 	$QUERY_STRING=$questionId?'editQuestion='.$questionId.'&fromExercise='.$fromExercise:'newQuestion=yes';
 }
 else
 {
-	$nameTools=$langExerciseManagement;
+	$nameTools = $objExercise->selectTitle();
 
 	$QUERY_STRING='';
 }
-
-$interbredcrump[]=array("url" => "exercice.php","name" => $langExercices);
 
 // shows a link to go back to the question pool
 if(!$exerciseId && $nameTools != $langExerciseManagement)
@@ -267,7 +267,6 @@ if($modifyIn == 'thisExercise')
 include($includePath.'/claro_init_header.inc.php');
 
 claro_disp_tool_title($nameTools);
-
 
 if($newQuestion || $modifyQuestion)
 {
