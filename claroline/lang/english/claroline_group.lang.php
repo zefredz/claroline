@@ -55,9 +55,9 @@ $langGroupSpace = "Group area";
 $langGroupStudentsInGroup = "students registered in groups";
 $langGroupStudentsRegistered = "students registered to this course";
 $langGroupThisSpace = "Area for this group";
-$langGroupTooMuchMembers = "Number proposed exceeds max. that you allowed (you can modify it below). 
+$langGroupTooMuchMembers = "Number proposed exceeds max. that you allowed (you can modify it below).
 
-				Group composition has not been modified";
+                Group composition has not been modified";
 $langGroupTools = "Tools";
 $langGroupTutor = "Tutor";
 $langGroupTutors = "Tutors";
@@ -99,6 +99,7 @@ $langRegistered = "Registered";
 $langStudent = "Student";
 $langStudentsNotInThisGroups = "Users not in this group";
 $langSubscribed = "people registered in this course";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "Disable text editor";
 $langTextEditorEnable = "Enable text editor";
 $langTo = "to";

@@ -55,7 +55,6 @@ On %1\$s, %2\$s wrote:
 %3\$s
 
 [/quote]";
-$l_replies = "Replies";
 $l_returnindex = "to return to the forum index";
 $l_returntopic = "to return to the forum topic list.";
 $l_selectforum = "Select a Forum";
@@ -120,6 +119,7 @@ $langReply = "Answer";
 $langSeen = "Seen";
 $langStudent = "Student";
 $langSubmit = "Submit";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "Disable text editor";
 $langTextEditorEnable = "Enable text editor";
 $langUserName = "User name";

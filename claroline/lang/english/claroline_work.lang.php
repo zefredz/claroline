@@ -82,7 +82,7 @@ $langGroups = "Groups";
 $langHelp = "Help";
 $langIncorrectDate = "Start date must be before end date ...";
 $langIndividual = "Individual";
-$langIntroWork = "This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course's website. 
+$langIntroWork = "This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course's website.
 
 <br />You will be able to add a comment or a grade to each work.
 
@@ -130,6 +130,7 @@ $langSubmitFeedbackAfterEndDate = "Automatically, after end date";
 $langSubmitFeedbackAfterPost = "Automatically, after each submission";
 $langSubmitWork = "Submit a work";
 $langSubmittedWork = "Work";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "Disable text editor";
 $langTextEditorEnable = "Enable text editor";
 $langTextFile = "Text with attached file (text required, file optional)";

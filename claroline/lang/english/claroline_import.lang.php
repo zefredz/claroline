@@ -43,6 +43,7 @@ $langReg = "Registration";
 $langSendPage = "Page to send";
 $langStudent = "Student";
 $langSubTitle = "Adds to your Course Homepage Main Menu a link to a site, a page or any URL. Tip: if you want to add a link to a page, go to that page, cut and paste its address in the URL bar on the top of your browser and insert it into the \"link\" field below.";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "Disable text editor";
 $langTextEditorEnable = "Enable text editor";
 $langTooBig = "You didn't choose any file to send, or it is too big";

@@ -83,207 +83,207 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 
  type=submit value=Browse name=submit2>
 
-	on the right of your screen.</li>
+    on the right of your screen.</li>
 
-		<li>
+        <li>
 
-			Launch the upload with the Upload Button <input type=submit value=Upload name=submit2>.
+            Launch the upload with the Upload Button <input type=submit value=Upload name=submit2>.
 
-		</li>
+        </li>
 
-	</ul>
+    </ul>
 
-	<h4>
+    <h4>
 
-		Rename a document (a directory)
+        Rename a document (a directory)
 
-	</h4>
+    </h4>
 
-	<ul>
+    <ul>
 
-		<li>
+        <li>
 
-			click on the <img src=img/edit.gif width=20 height=20 align=baseline>
+            click on the <img src=img/edit.gif width=20 height=20 align=baseline>
 
-			button in the Rename column
+            button in the Rename column
 
-		</li>
+        </li>
 
-		<li>
+        <li>
 
-			Type the new name in the field (top left)
+            Type the new name in the field (top left)
 
-		</li>
+        </li>
 
-		<li>
+        <li>
 
-			Validate by clicking <input type=submit value=Ok name=submit24>.
+            Validate by clicking <input type=submit value=Ok name=submit24>.
 
-		</li>
+        </li>
 
-	</ul>
+    </ul>
 
-		<h4>
+        <h4>
 
-			Delete a document (or a directory)
+            Delete a document (or a directory)
 
-		</h4>
+        </h4>
 
-		<ul>
+        <ul>
 
-			<li>
+            <li>
 
-				Click on <img src=img/delete.gif width=20 height=20>
+                Click on <img src=img/delete.gif width=20 height=20>
 
-				in column 'Delete'.
+                in column 'Delete'.
 
-			</li>
+            </li>
 
-		</ul>
+        </ul>
 
-		<h4>
+        <h4>
 
-			Make a document (or directory) invisible to students
+            Make a document (or directory) invisible to students
 
-		</h4>
+        </h4>
 
-		<ul>
+        <ul>
 
-			<li>
+            <li>
 
-				Click on <img src=img/visible.gif width=20 height=20>
+                Click on <img src=img/visible.gif width=20 height=20>
 
-				in column 'Visible/invisible'.
+                in column 'Visible/invisible'.
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				The document (or directory) still exists but it is not visible by students anymore.
+                The document (or directory) still exists but it is not visible by students anymore.
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				To make it invisible back again, click on
+                To make it invisible back again, click on
 
-				<img src=img/invisible.gif width=24 height=20>
+                <img src=img/invisible.gif width=24 height=20>
 
-				in column 'Visible/invisible'
+                in column 'Visible/invisible'
 
-			</li>
+            </li>
 
-		</ul>
+        </ul>
 
-		<h4>
+        <h4>
 
-			Add or modify a comment to a document (or a directory)
+            Add or modify a comment to a document (or a directory)
 
-		</h4>
+        </h4>
 
-		<ul>
+        <ul>
 
-			<li>
+            <li>
 
-				Click on <img src=img/comment.gif width=20 height=20> in column 'Comment'
+                Click on <img src=img/comment.gif width=20 height=20> in column 'Comment'
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				Type new comment in the corresponding field (top right).
+                Type new comment in the corresponding field (top right).
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				Validate by clicking <input type=submit value=OK name=submit2>
+                Validate by clicking <input type=submit value=OK name=submit2>
 
-			.</li>
+            .</li>
 
-		</ul>
+        </ul>
 
-		<p>
+        <p>
 
-		To delete a comment, click on <img src=img/comment.gif width=20 height=20>,
+        To delete a comment, click on <img src=img/comment.gif width=20 height=20>,
 
-		delete the old comment in the field and click
+        delete the old comment in the field and click
 
-		<input type=submit value=OK name=submit22>.
+        <input type=submit value=OK name=submit22>.
 
-		<hr>
+        <hr>
 
-		<p>
+        <p>
 
-			You can organise your content through filing. For this:
+            You can organise your content through filing. For this:
 
-		</p>
+        </p>
 
-		<h4>
+        <h4>
 
-			<b>
+            <b>
 
-				Create a directory
+                Create a directory
 
-			</b>
+            </b>
 
-		</h4>
+        </h4>
 
-		<ul>
+        <ul>
 
-			<li>
+            <li>
 
-				Click on
+                Click on
 
-				<img src=img/dossier.gif width=20 height=20>
+                <img src=img/dossier.gif width=20 height=20>
 
-				'Create a directory' (top left)
+                'Create a directory' (top left)
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				Type the name of your new directory in the corresponding field (top left)
+                Type the name of your new directory in the corresponding field (top left)
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				Validate by clicking <input type=submit value=OK name=submit23>.
+                Validate by clicking <input type=submit value=OK name=submit23>.
 
-			</li>
+            </li>
 
-		</ul>
+        </ul>
 
-		<h4>
+        <h4>
 
-			Move a document (or directory)
+            Move a document (or directory)
 
-		</h4>
+        </h4>
 
-		<ul>
+        <ul>
 
-			<li>
+            <li>
 
-				Click on button <img src=img/deplacer.gif width=34 height=16>
+                Click on button <img src=img/deplacer.gif width=34 height=16>
 
-				in column 'Move'
+                in column 'Move'
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				Choose the directory into which you want to move the document (or directory) in the corresponding scrolling menu (top left) (note: the word 'root' means you cannot go higher than that level in the document tree of the server).
+                Choose the directory into which you want to move the document (or directory) in the corresponding scrolling menu (top left) (note: the word 'root' means you cannot go higher than that level in the document tree of the server).
 
-			</li>
+            </li>
 
-			<li>
+            <li>
 
-				Validate by clicking on <input type=submit value=OK name=submit232>.
+                Validate by clicking on <input type=submit value=OK name=submit232>.
 
-			</li>
+            </li>
 
-		</ul>
+        </ul>
 
 <center>
 
@@ -609,6 +609,7 @@ $langPlatformAdministration = "Platform Administration";
 $langPoweredBy = "Powered by";
 $langReg = "Registration";
 $langStudent = "Student";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "Disable text editor";
 $langTextEditorEnable = "Enable text editor";
 $langUserContent = "<b>Roles</b><p>Roles have no computer related function.

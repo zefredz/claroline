@@ -59,6 +59,7 @@ $langPoweredBy = "Powered by";
 $langReg = "Registration";
 $langStatistics = "Statistics";
 $langStudent = "Student";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "Disable text editor";
 $langTextEditorEnable = "Enable text editor";
 $langTools = "Tools";

@@ -1,4 +1,5 @@
 <?php
+$langAction = "Action";
 $langAddImage = "Include picture";
 $langAddIntro = "Add introduction text";
 $langAddress = "The address of ";
@@ -94,11 +95,12 @@ $langRegistration = "Registration";
 $langRequestCourseManagerStatus = "Request a course manager status";
 $langRevoquationOfUser = "Revocation of %s %s";
 $langSaveChanges = "Save changes";
+$langSearch = "Search";
 $langSettings = "with the following settings:
 
 User name:";
-$langStatus = "Action";
 $langStudent = "Student";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "Disable text editor";
 $langTextEditorEnable = "Enable text editor";
 $langTo = "to";
@@ -132,7 +134,6 @@ $lang_no_course_available_fitting_this_keyword = "No course available fitting th
 $lang_or_search_from_keyword = "Search from keyword";
 $lang_p_platformManager = "Administrator for %s";
 $lang_remove_course_from_your_personnal_course_list = "Remove course from your personal course list";
-$lang_search = "Search";
 $lang_select_course_in = "Select course in ";
 $lang_select_course_in_search_results = "Select course in search results";
 $lang_this_course_is_protected = "This course is protected";

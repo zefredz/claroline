@@ -5,26 +5,23 @@ $langAddModule = "Add";
 $langAddModulesButton = "Add module(s)";
 $langAddOneModuleButton = "Add module";
 $langAgenda = "Agenda";
-$langAlertBlockingMakedInvisible = "This module is blocked. 
-Making it invisible will allow students to access 
- the next module without having to complete this one. 
+$langAlertBlockingMakedInvisible = "This module is blocked.
+Making it invisible will allow students to access
+ the next module without having to complete this one.
 
 Confirm ?";
-$langAlertBlockingPathMadeInvisible = "This path is blocking. 
-Making it invisible will allow students to access 
- the next path without having to complete this one. 
+$langAlertBlockingPathMadeInvisible = "This path is blocking.
+Making it invisible will allow students to access
+ the next path without having to complete this one.
 
 Confirm ?";
 $langAlreadyBrowsed = "Already browsed";
 $langAltClarodoc = "Clarodoc";
 $langAltDocument = "Document";
 $langAltExercise = "Exercise";
-$langAltMakeBlocking = "Block";
-$langAltMakeInvisible = "Make invisible";
 $langAltMakeNotBlocking = "Unblock";
 $langAltMakeVisible = "Make visible";
 $langAltMove = "Move";
-$langAltMoveDown = "Order down";
 $langAltMoveUp = "Order up";
 $langAltScorm = "Scorm";
 $langAnnouncement = "Announcements";
@@ -111,6 +108,7 @@ $langLearningPathName = "New learning path name : ";
 $langLessonStatus = "Module status";
 $langLogin = "Login";
 $langLogout = "Logout";
+$langMakeInvisible = "Make invisible";
 $langManager = "Manager";
 $langMaxFileSize = "Max file size : ";
 $langModify = "Modify";
@@ -122,6 +120,7 @@ $langModuleStillInPool = "Modules of this path will still be available in the po
 $langModulesPoolToolName = "Pool of modules";
 $langMonthNames = "Array";
 $langMove = "Move";
+$langMoveDown = "Move down";
 $langMyAgenda = "My calendar";
 $langMyCourses = "My course list";
 $langName = "Name";
@@ -155,7 +154,7 @@ $langProgInModuleTitle = "Your progression in this module";
 $langProgress = "Progress";
 $langRawHasBeenChanged = "Minimum raw to pass has been changed";
 $langReg = "Registration";
-$langRemoveFromLPShort = "Remove";
+$langRemove = "Remove";
 $langRename = "Rename";
 $langRoot = "root";
 $langSCORMTypeDesc = "SCORM 1.2 conformable content";
@@ -163,6 +162,7 @@ $langScormIntroTextForDummies = "Imported packages must consist of a zip file an
 $langSize = "Size";
 $langStartModule = "Start Module";
 $langStudent = "Student";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "Disable text editor";
 $langTextEditorEnable = "Enable text editor";
 $langTo = "to";

@@ -59,6 +59,7 @@ $langSelUser = "selected users of the site";
 $langSelectedUsers = "Selected Users";
 $langStudent = "Student";
 $langSubmit = "Submit";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "Disable text editor";
 $langTextEditorEnable = "Enable text editor";
 $langTitle = "Title";

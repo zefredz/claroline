@@ -3,50 +3,42 @@ $langAdminEmail = "Email";
 $langAdminLogin = "Login";
 $langAdminName = "Lastname";
 $langAdminPass = "Password";
-$langAdminSetting = "Admin Setting";
+$langAdminSetting = "Administrator Settings";
 $langAdminSurname = "Firstname";
 $langCfgSetting = "Platform settings";
 $langDBConnectionParameters = "Mysql connection parameters";
 $langDBHost = "Database Host";
 $langDBLogin = "Database User name";
-$langDBNamesRules = "Database Names";
 $langDBPassword = "Database Password";
 $langDBSetting = "MySQL database settings";
 $langDBSettingNamesIntro = "
-
-				Install script will create main claroline databases. 
-
-				You can create different database 
-
-				for tracking and PhpMyAdmin extension if you want 
-
-				or gathering all these stuff in one database, like you want. 
-
-				Afterwards, Claroline will create a new database for each new course created. 
-
-				You can specify a prefix for these database names.
-
 				<p>
-
-				If you are allowed to use only one database by your database system administrator, 
-
-				get back to the previous page and select option \"Single\"
-
+                Install script will create main claroline databases.
+                You can create different databases for the main tables and for the tracking tables 
+				or use the same database for the two.<br />
+				You can also set an optionnal prefix for the main tables.
 				</p>
-
-				";
+				<p>
+                Afterwards, Claroline will create a new database for each created course.
+                You can specify a prefix for these databanames.
+				</p>
+                <p>
+                If you are allowed to use only one database by your database system administrator,
+                get back to the previous page and select option 'Single' for 'Database mode'.
+                </p>
+                ";
 $langDBUse = "Database usage";
-$langDbName = "DB Name";
-$langDbPrefixForm = "Prefix Name for Course Db";
+$langDbName = "Database name";
+$langDbPrefixForm = "Prefix for names of course databases";
 $langEG = "e. g.";
 $langLastCheck = "Last check before install";
 $langLicence = "Licence";
-$langMainDB = "Main claroline DB";
-$langMysqlNames = "MySQL Names";
+$langMainDB = "Main database";
+$langMysqlNames = "MySQL Database and Table Names";
 $langNo = "No";
 $langPrintVers = "Printable version";
 $langRequirements = "Requirements";
-$langStatDB = "Tracking DB.";
+$langStatDB = "Tracking database";
 $langStepNOfN = "Step %d of %d";
 $langYes = "Yes";
 ?>

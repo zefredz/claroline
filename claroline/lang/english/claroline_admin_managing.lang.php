@@ -51,6 +51,7 @@ $langSeebelowthefilesyoucaneditfromthistool = "See below the files you can edit 
 $langSelectAUser = "Choose user";
 $langSetAdmin = "Set Admin";
 $langStudent = "Student";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "Disable text editor";
 $langTextEditorEnable = "Enable text editor";
 $langUpdated = "Updated";
