@@ -31,6 +31,7 @@ $langNotAllowed = "Not allowed";
 $langOk = "Ok";
 $langOtherCourses = "Course list";
 $langPassword = "Password";
+$langPlatformAdministration = "Platform Administration";
 $langPoweredBy = "Powered by";
 $langPropertiesNotIncludeInSections = "Properties not include in sections";
 $langReg = "Registration";

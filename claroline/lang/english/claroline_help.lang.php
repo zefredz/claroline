@@ -1,5 +1,8 @@
 <?php
 $langAddIntro = "Add introduction text";
+$langAgenda = "Agenda";
+$langAnnouncement = "Announcements";
+$langChat = "Chat";
 $langClarContent = "Here, lecturers and assistants create and administer
 
  courses websites. Students read (documents, agenda, information) and,
@@ -48,6 +51,7 @@ $langConfirmYourChoice = "Please confirm your choice";
 $langCourseManager = "Course manager";
 $langDay_of_weekNames = "Array";
 $langDelete = "Delete";
+$langDescriptionCours = "Course description";
 $langDocContent = "<p>The Documents tool is similar to the FileManager of
 
  your desktop computer.</p><p>You can upload files of any type (HTML, Word,
@@ -283,6 +287,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 <center>
 
 <p>";
+$langDocument = "Documents and Links";
 $langExerciseContent = "<p>The exercise tool allows you to create exercises that will contains as many questions as you like.<br><br>
 
 There are various types of answers available for the creation of your questions :<br><br>
@@ -422,6 +427,7 @@ The question pool also allows you to reuse the same questions in several exercis
 By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br><br>
 
 Orphan questions are questions that don't belong to any exercise.</p>";
+$langExercises = "Exercises";
 $langForContent = "The forum is a written and asynchronous discussion tool.
 
  Whereas email allows one-to-one dialogue, forums allow public or semi-public
@@ -453,6 +459,7 @@ $langForContent = "The forum is a written and asynchronous discussion tool.
  appear in the student view.</p><p>The description of a forum can be the
 
  list of its members, the definition of a goal, a task, a theme...";
+$langForums = "Forums";
 $langGroupContent = "<p><b>Introduction</b></p>
 
 <p>This tool allows to create and manage work groups.
@@ -526,6 +533,7 @@ members list.</li>
 <li><b>Delete</b> deletes a group.</li></ul>
 
 <hr noshade size=1>";
+$langGroups = "Groups";
 $langHClar = "Start Help";
 $langHDoc = "Help Documents";
 $langHExercise = "Help exercises";
@@ -583,6 +591,7 @@ $langHomeContent = "For convenience, claroline tools contain default entries.
  to 'Modify course info' and decide what level of confidentiality you want.
 
  By default, your course is hidden (because you work on it).</p>";
+$langLearningPath = "Learning Path";
 $langLogin = "Login";
 $langLogout = "Logout";
 $langManager = "Manager";
@@ -595,6 +604,7 @@ $langNotAllowed = "Not allowed";
 $langOk = "Ok";
 $langOtherCourses = "Course list";
 $langPassword = "Password";
+$langPlatformAdministration = "Platform Administration";
 $langPoweredBy = "Powered by";
 $langReg = "Registration";
 $langStudent = "Student";
@@ -646,7 +656,9 @@ will receive an email telling them they have been registered him/her and telling
 
 reminding them of their login and  password.</p>";
 $langUserName = "User name";
+$langUsers = "Users";
 $langViewMode = "View mode";
+$langWork = "Assignments";
 $lang_click_here = "click here";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";
 $lang_footer_p_CourseManager = "Manager(s) for %s";

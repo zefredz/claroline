@@ -181,6 +181,7 @@ $langPersonalCourseList = "Personal course list";
 $langPhone = "Phone";
 $langPlatform = "Platform";
 $langPlatformAccess = "Access to campus";
+$langPlatformAdministration = "Platform Administration";
 $langPlatformAdministrator = "Platform Administrator";
 $langPlatformCoursesAccess = "Access to courses";
 $langPlatformStats = "Platform Statistics";

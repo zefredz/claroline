@@ -47,6 +47,7 @@ $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des cours";
 $langPassword = "mot de passe";
+$langPlatformAdministration = "Administration de la plate-forme";
 $langPoweredBy = "Utilise la plate-forme";
 $langReg = "Inscription";
 $langStatistics = "Statistiques";

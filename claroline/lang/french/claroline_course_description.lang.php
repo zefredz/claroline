@@ -1,8 +1,11 @@
 <?php
 $langAdd = "Ajouter";
 $langAddIntro = "Ajouter un texte d'introduction";
+$langAgenda = "Agenda";
+$langAnnouncement = "Annonces";
 $langAreYouSureToDelete = "Etes-vous sûr de vouloir supprimer ";
 $langBackAndForget = "Abandonner";
+$langChat = "Discussion";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langContenuPlan = "";
 $langCourseContent = "Contenu du cours";
@@ -27,7 +30,12 @@ Information permettant d'identifier le cours
 et l'enseignant (nom, prénom, bureau, tél, e-mail, disponibilités éventuelles).
 <br>
 Présentation générale du cours dans le programme.";
+$langDescriptionCours = "Description du cours";
+$langDocument = "Documents et liens";
 $langEditCourseProgram = "Création et édition";
+$langExercises = "Exercices";
+$langForums = "Forums";
+$langGroups = "Groupes";
 $langHelp = "Aide";
 $langHumanAndPhysicalResourcesComment1 = "
 Quelles sont les ressources humaines et physiques disponibles&nbsp;?
@@ -39,6 +47,7 @@ enseignants qui vont encadrer le cours (assistants, chercheurs,
 équipements ou matériel informatique disponibles.";
 $langHumanAndPhysicalRessources = "Ressources humaines et physiques";
 $langInfo2Say = "Informations à communiquer <BR>à l'étudiant";
+$langLearningPath = "Parcours pédagogique";
 $langLogin = "login";
 $langLogout = "Quitter";
 $langManager = "Gestionnaire";
@@ -57,6 +66,7 @@ $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des cours";
 $langPassword = "mot de passe";
+$langPlatformAdministration = "Administration de la plate-forme";
 $langPoweredBy = "Utilise la plate-forme";
 $langQualificationsAndGoals = "Compétences et Objectifs";
 $langQualificationsAndGoalsComment1 = "Présentation des objectifs généraux et spécifiques du cours, des compétences auxquelles la maîtrise de tels objectifs pourrait conduire.";
@@ -85,8 +95,10 @@ $langTextEditorEnable = "Activer l'éditeur de texte";
 $langThisCourseDescriptionIsEmpty = "La description de ce cours est vide";
 $langTitle = "Titre";
 $langUserName = "Nom d'utilisateur";
+$langUsers = "Utilisateurs";
 $langValid = "Enregistrer";
 $langViewMode = "Mode de vue";
+$langWork = "Travaux";
 $lang_click_here = "cliquez ici";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
