@@ -3,10 +3,10 @@
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004, 2003 Universite catholique de Louvain (UCL)|
+      | Copyright (c) 2001, 2004, Universite catholique de Louvain (UCL)
       +----------------------------------------------------------------------+
-      |   Este programa es software libre; usted puede redistribuirlo y/o    | 
-      |   modificarlo bajo los términos de la Licencia Pública General (GNU) | 
+      |   Este programa es software libre; usted puede redistribuirlo y/o    |
+      |   modificarlo bajo los términos de la Licencia Pública General (GNU) |
       |   como fué publicada por la Fundación de Sofware Libre; desde la     |
       |   versión 2 de esta Licencia o (a su opción) cualquier versión       |
       |   posterior.                                                         |
@@ -21,13 +21,7 @@
       |   también está disponible a través de la world-wide-web en la        |
       |   dirección  http://www.gnu.org/copyleft/gpl.html                    |
       +----------------------------------------------------------------------+
-      | Autores: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      +----------------------------------------------------------------------+
-      | Traducción :                                                         |
-      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
+
       +----------------------------------------------------------------------+
       | Basado en la traducción al castellano de                             |
       |          Xavier Casassas Canals <xcc@ics.co.at>                      |
@@ -35,8 +29,6 @@
       |          Carlos Brys       <brys@fce.unam.edu.ar>                    |
       +----------------------------------------------------------------------+
  */
-
-
 $langNo         = "No";
 $langYes        = "Si";
 
@@ -52,11 +44,7 @@ $langActivate   = "Activar";
 $langHelp       = "Ayuda";
 $langEnter      = "Ingresar";
 
-
 $langCourseCreate = "Crear el sitio web de un curso";
 $langEnter ="Ingresar";
 $langNameOfTheLink ="Nombre del enlace";
-
 ?>
-
-
