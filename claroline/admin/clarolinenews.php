@@ -13,72 +13,65 @@
 $langFile = "admin";$cidReset=true;$gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
-
 @include ($includePath.'/installedVersion.inc.php');
 include($includePath.'/lib/admin.lib.inc.php');
-require($includePath.'/lib/rssread/rss_fetch.inc.php');
+// rss reader library
+require($includePath.'/lib/lastRSS/lastRSS.php');
 
 //SECURITY CHECK
 $is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
 if (!$is_allowedToAdmin) treatNotAuthorized();
 
+$nameTools = $langClarolineNetNews;
 
-$urlNewsClaroline = 'http://www.claroline.net/rss/';
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$noQUERY_STRING   = TRUE;
+
+
+//----------------------------------
+// prepare rss reader
+//----------------------------------
+// url where the reader will have to get the rss feed
+$urlNewsClaroline = 'http://www.claroline.net/rss.php';
+
+$rss = new lastRSS;
+
+// where the cached file will be written
+$rss->cache_dir = '.';
+// how long without refresh the cache
+$rss->cache_time = 1200; 
 
 //----------------------------------
 // DISPLAY
 //----------------------------------
-
-// Deal with interbredcrumps  and title variable
-
-$htmlHeadXtra[]="
-<style>
-.claroNews          {
-	border-top: thin groove Blue;
-	padding: 4px 2px 2px 6px;
-}
-.claroNewsTitle     {
-	font-family: serif;
-	font-size: larger;
-	font-variant: small-caps;
-	font-weight: bold;
-	letter-spacing: 3px;
-	text-decoration: none;
-}
-.claroNewsDate      {
-	font-size: x-small;
-	font-style: italic;
-}
-.claroNewsSummary   {
-	background-color: Silver;
-	color: Navy;
-	padding: 3px 7x 2px 17px;
-}
-</style>
-";
-
-$dateNow             = claro_disp_localised_date($dateTimeFormatLong);
-
-$rss = fetch_rss( $urlNewsClaroline );
-$nameTools = $rss->channel['title'];
-
-include($includePath."/claro_init_header.inc.php");
+// title variable
+include($includePath."/claro_init_header.inc.php");	
 claro_disp_tool_title($nameTools);
 
-foreach ($rss->items as $item) 
+if ($rs = $rss->get($urlNewsClaroline))
 {
-    $href = $item['link'];
-    $title = $item['title'];
-    echo '<div class="claroNews">'
-        .'<H3 class="claroNewsTitle">'
-        .'<a href="'.$href.'" lang="en">'.$title.'</a>'
-        .'</H3>'
-        .'<span class="claroNewsDate" >('.$item['pubdate'].')</span>'
-        .'<br>'
-        .'<span class="claroNewsSummary" '.$item['summary'].'</span>'
-        .'</div>';
-}
+	foreach ($rs['items'] as $item) 
+	{
+		$href = $item['link'];
+	    $title = $item['title'];
+		$summary = $rss->unhtmlentities($item['description']);
+		$date = $item['pubDate'];
 
+	    echo '<div class="claroNews">'."\n"
+	        .'<h4>'."\n"
+	        .'<a href="'.$href.'">'.$title.'</a>'."\n"
+	        .'</h4>'."\n"
+	        .'<span class="claroNewsDate">('.$date.')</span>'."\n"
+	        .'<br />'."\n"
+	        .'<span class="claroNewsSummary">'.$summary.'</span>'."\n"
+	        .'</div>'."\n"
+			.'<hr />'."\n\n";
+	}
+}
+else
+{	
+	claro_disp_message_box($langErrorCannotReadRSSFile);
+}
 
 include($includePath."/claro_init_footer.inc.php");
 ?>
