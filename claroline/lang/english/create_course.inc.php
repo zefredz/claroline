@@ -59,6 +59,7 @@ $langExplanation="Once you click OK, a site with Forum, Agenda, Document manager
 $langEmpty="You left some fields empty.<br>Use the <b>Back</b> button on your browser and try again.<br>If you ignore your course's code, see the Course Program";
 $langCodeTaken="This course code is already taken.  <br>Use the <b>Back</b> button on your browser and try again";
 $langBackToAdmin = "Back to admin page";
+$langAnotherCreateSite = "Create another course website";
 
 
 // tables MySQL
