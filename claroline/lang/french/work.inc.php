@@ -1,28 +1,13 @@
 <?php # $Id$
 /*
 //+----------------------------------------------------------------------+
-//| CLAROLINE version 1.5.0 $Revision$
+//| CLAROLINE version 1.5.*
 //+----------------------------------------------------------------------+
 //| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)
 //+----------------------------------------------------------------------+
 */
-
-/***************************************************************
-*                   Language translation
-****************************************************************
-GOAL
-****
-Translate the interface in chosen language
-*****************************************************************/
-
-
-
 // GENERIC
 
-$langTitle="Titre";
-$langHelp="aide";
-$langAddIntro="Ajouter un texte d'introduction";
-$langBackList="Retour à la liste";
 $langIntroWork="Cette page est un espace de publication. Elle permet à chaque étudiant ou groupe d'étudiants d'envoyer un document (Word, Excel, HTML... ) vers le site du cours afin de le rendre accessible aux autres étudiants ainsi qu'au professeur.
 <BR><BR>Si vous passez par votre espace de groupe pour publier le document (option publier), l'outil de travaux fera un simple lien vers le document là où il se trouve dans votre répertoire de groupe sans le déplacer.
 <BR><BR>Si vous désirez donner des consignes aux étudiants, cliquer sur ce bouton";
@@ -46,12 +31,10 @@ $langWorks="Travaux d'étudiants";
 
 $langDocument = "Document";
 
-$langWorkDelete="Effacer";
-$langWorkModify="Modifier";
 $langWorkConfirmDelete="Confirmez-vous cette suppression ?";
 $langAllFiles="Tous les fichiers";
 
-$lang_make_invisible = "rendre invisible";
-$lang_make_visible = "rendre visible";
+$lang_make_invisible = "Rendre invisible";
+$lang_make_visible = "Rendre visible";
 $langNotPossible = "Impossible";
 ?>
