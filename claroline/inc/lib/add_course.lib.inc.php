@@ -511,7 +511,7 @@ claro_sql_query("
 		id mediumint(8) unsigned NOT NULL auto_increment,
 		question varchar(200) NOT NULL,
 		description text NOT NULL,
-		ponderation smallint(5) unsigned default NULL,
+		ponderation float unsigned default NULL,
 		q_position mediumint(8) unsigned NOT NULL default '1',
 		type tinyint(3) unsigned NOT NULL default '2',
    attached_file varchar(50) default '',
@@ -526,7 +526,7 @@ claro_sql_query("
 		reponse text NOT NULL,
 		correct mediumint(8) unsigned default NULL,
 		comment text default NULL,
-		ponderation smallint(5) default NULL,
+		ponderation float default NULL,
 		r_position mediumint(8) unsigned NOT NULL default '1',
 	PRIMARY KEY  (id, question_id)
 	)");
@@ -766,9 +766,9 @@ claro_sql_query ("
                   `exe_user_id` int(10) default NULL,
                   `exe_date` datetime NOT NULL default '0000-00-00 00:00:00',
                   `exe_exo_id` tinyint(4) NOT NULL default '0',
-                  `exe_result` mediumint(8) NOT NULL default '0',
-		  `exe_time`	mediumint(8) NOT NULL default '0',
-                  `exe_weighting` mediumint(8) NOT NULL default '0',
+                  `exe_result` float NOT NULL default '0',
+				  `exe_time`	mediumint(8) NOT NULL default '0',
+                  `exe_weighting` float NOT NULL default '0',
                   PRIMARY KEY  (`exe_id`)
                 ) TYPE=MyISAM COMMENT='Record informations about exercices'";
         claro_sql_query($sql);
