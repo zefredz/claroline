@@ -70,37 +70,22 @@ $dbpasswd           = $dbPass;
 
 /* -- DB table names  -- */
 
-$tbl_access           = $_course['dbNameGlu'].'bb_access';
-$tbl_banlist          = $_course['dbNameGlu'].'bb_banlist';
-$tbl_catagories       = $_course['dbNameGlu'].'bb_categories';
-$tbl_config           = $_course['dbNameGlu'].'bb_config';
-$tbl_disallow         = $_course['dbNameGlu'].'bb_disallow';
-$tbl_access           = $_course['dbNameGlu'].'bb_access';
-$tbl_mods             = $_course['dbNameGlu'].'bb_mods';
+$tbl_categories       = $_course['dbNameGlu'].'bb_categories';
 $tbl_forums           = $_course['dbNameGlu'].'bb_forums';
-$tbl_headermetafooter = $_course['dbNameGlu'].'bb_headermetafooter';
 $tbl_posts            = $_course['dbNameGlu'].'bb_posts';
 $tbl_posts_text       = $_course['dbNameGlu'].'bb_posts_text';
 $tbl_priv_msgs        = $_course['dbNameGlu'].'bb_priv_msgs';
-$tbl_ranks            = $_course['dbNameGlu'].'bb_ranks';
-$tbl_sessions         = $_course['dbNameGlu'].'bb_sessions';
-$tbl_smiles           = $_course['dbNameGlu'].'bb_smiles';
-$tbl_themes           = $_course['dbNameGlu'].'bb_themes';
 $tbl_topics           = $_course['dbNameGlu'].'bb_topics';
-//$tbl_users            = $_course['dbNameGlu'].'bb_users';
+$tbl_user_notify      = $_course['dbNameGlu'].'bb_rel_topic_userstonotify';
 $tbl_whosonline       = $_course['dbNameGlu'].'bb_whosonline';
-$tbl_words            = $_course['dbNameGlu'].'bb_words';
+
 $tbl_group_properties = $_course['dbNameGlu'].'group_property';
 $tbl_student_group	  = $_course['dbNameGlu'].'group_team';
 $tbl_user_group       = $_course['dbNameGlu'].'group_rel_team_user';
-$tbl_user_notify      = $_course['dbNameGlu'].'bb_rel_topic_userstonotify';
 
 $tbl_users            = $mainDbName."`.`user";
 
-
 $is_groupPrivate      = $_groupProperties['private'];
-
-
 
 $userdata               = array();
 $userdata['first_name'] = $_user['firstName'];

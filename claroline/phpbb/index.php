@@ -32,7 +32,7 @@ event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 // GET FORUM CATEGORIES
 
 $sql = "SELECT `c`.`cat_id`, `c`.`cat_title`, `c`.`cat_order`
-        FROM   `".$tbl_catagories."` c, `".$tbl_forums."` f
+        FROM   `".$tbl_categories."` c, `".$tbl_forums."` f
         WHERE `f`.`cat_id` = `c`.`cat_id`
         GROUP BY `c`.`cat_id`, `c`.`cat_title`, `c`.`cat_order`
         ORDER BY `c`.`cat_order` ASC";

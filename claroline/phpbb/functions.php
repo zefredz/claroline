@@ -400,14 +400,14 @@ function error_die($msg)
 function make_jumpbox()
 {
     global $l_selectforum, $l_go;
-    global $tbl_catagories, $tbl_forums;
+    global $tbl_categories, $tbl_forums;
 
     echo "<form action=\"viewforum.php\" method=\"get\">\n"
         ."<select name=\"forum\">\n"
         ."<option value=\"-1\">".$l_selectforum."</option>\n";
 
         $sql = "SELECT cat_id, cat_title
-                FROM `".$tbl_catagories."`
+                FROM `".$tbl_categories."`
                 ORDER BY cat_order";
 
         $catList = claro_sql_query_fetch_array($sql);
