@@ -108,12 +108,15 @@ function claro_sql_get_course_tbl($dbNameGlued = NULL)
               'quiz_rel_test_question' => $courseDb.'quiz_rel_test_question',
               'quiz_test'              => $courseDb.'quiz_test' ,
               'tool_intro'             => $courseDb.'tool_intro',
-              'tool_list'              => $courseDb.'tool_list',
+              'track_e_access'         => $courseDb.'track_e_access',
+              'track_e_downloads'      => $courseDb.'track_e_downloads',
+              'track_e_exercices'      => $courseDb.'track_e_exercices',
+              'track_e_uploads'        => $courseDb.'track_e_uploads',
               'userinfo_content'       => $courseDb.'userinfo_content',
               'userinfo_def'           => $courseDb.'userinfo_def',
               'wrk_assignment'          => $courseDb.'wrk_assignment',
               'wrk_submission'         => $courseDb.'wrk_submission'
-              
+
 
               ); // end array
 
