@@ -281,8 +281,8 @@ function update_Db_course($courseDbName)
 	$TABLETOOLAGENDA		= $courseDbName."calendar_event";
 	$TABLETOOLANNOUNCEMENTS	= $courseDbName."announcement";
 	$TABLETOOLDOCUMENT		= $courseDbName."document";
+	$TABLETOOLWRKASSIGNMENT = $courseDbName."wrk_assignment";
 	$TABLETOOLWRKSUBMISSION = $courseDbName."wrk_submission";
-	$TABLETOOLWRKSESSION = $courseDbName."wrk_session";
 
 	//$TABLETOOLLINK			= $courseDbName."link";
 
@@ -706,7 +706,7 @@ claro_sql_query("
 
 	CREATE TABLE `".$TABLETOOLWRKSUBMISSION."` (
 		`id` int(11) NOT NULL auto_increment,
-		`session_id` int(11) default NULL,
+		`assignment_id` int(11) default NULL,
 		`parent_id` int(11) default NULL,
 		`user_id` int(11) default NULL,
 		`group_id` int(11) default NULL,
@@ -722,13 +722,13 @@ claro_sql_query("
 	
 claro_sql_query("
 
-	CREATE TABLE `".$TABLETOOLWRKSESSION."` (
+	CREATE TABLE `".$TABLETOOLWRKASSIGNMENT."` (
 		`id` int(11) NOT NULL auto_increment,
 		`title` varchar(200) NOT NULL default '',
 		`description` text NOT NULL,
-		`sess_visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
+		`visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
 		`def_submission_visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
-		`session_type` enum('INDIVIDUAL','GROUP') NOT NULL default 'INDIVIDUAL',
+		`assignment_type` enum('INDIVIDUAL','GROUP') NOT NULL default 'INDIVIDUAL',
 		`authorized_content`  enum('TEXT','FILE','TEXTFILE') NOT NULL default 'FILE',
 		`authorize_anonymous` enum('YES','NO') NOT NULL default 'YES',
 		`allow_late_upload` enum('YES','NO') NOT NULL default 'YES',
@@ -959,11 +959,6 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 {
     global $singleDbEnabled, $courseTablePrefix, $dbGlu, $clarolineRepositorySys, $_user, $mainDbName;
 
-	if(!$singleDbEnabled)
-	{
-		claro_sql_query("CREATE DATABASE $courseDbName");
-	}
-
 	$courseDbName=$courseTablePrefix.$courseDbName.$dbGlu;
 
 	$TABLECOURSEHOMEPAGE	= $courseDbName."tool_list";
@@ -977,7 +972,7 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 	$TABLETOOLAGENDA		= $courseDbName."calendar_event";
 	$TABLETOOLANNOUNCEMENTS	= $courseDbName."announcement";
 	$TABLETOOLWRKSUBMISSION = $courseDbName."wrk_submission";
-	$TABLETOOLWRKSESSION = $courseDbName."wrk_session";
+	$TABLETOOLWRKASSIGNMENT = $courseDbName."wrk_assignment";
 	$TABLETOOLDOCUMENT		= $courseDbName."document";
 
 	//$TABLETOOLLINK			= $courseDbName."link";
