@@ -88,7 +88,6 @@ $langListOfUser		="List users";
 $langBrowseCourse = "Browse courses";
 $langListOfCourse = "List courses";
 
-$langListOfCourseSubscriptionSimple = "List registration in courses (handly version)";
 $langLogIdentLogout ="Browse Login actions";
 $langLogIdentLogoutComplete ="Browse Login actions (with max info)";
 

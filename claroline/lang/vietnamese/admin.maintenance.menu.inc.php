@@ -76,7 +76,6 @@ $langSearchACourse ="Tìm khoá học";
 $langBrowseCourse = "Duyệt tìms";
 $langListOfCourse = "Liệt kê khoá học";
 
-$langListOfCourseSubscriptionSimple = "List registration in course (handly version)";
 $langLogIdentLogout ="Browse Login actions";
 $langLogIdentLogoutComplete ="Browse Login actions (with max info)";
 

@@ -90,7 +90,6 @@ $langSearchACourse ="Iskanje tecaja";
 $langBrowseCourse = "Pregledovanje tecajev";
 $langListOfCourse = "Seznam tecajev";
 
-$langListOfCourseSubscriptionSimple = "Seznam registracije na tecaje (prirocna verzija)";
 $langLogIdentLogout ="Pregled vstopov";
 $langLogIdentLogoutComplete ="Pregled vstopov (z najvec informacije)";
 

@@ -90,7 +90,6 @@ $langSearchACourse ="Cari pelajaran";
 $langBrowseCourse = "Browse pelajaran";
 $langListOfCourse = "Daftar pelajaran";
 
-$langListOfCourseSubscriptionSimple = "Daftar pendaftaran mengikuti pelajaran (versi sederhana)";
 $langLogIdentLogout ="Browse Aksi Login";
 $langLogIdentLogoutComplete ="Browse Aksi Login (dengan info max)";
 

@@ -90,7 +90,6 @@ $langSearchACourse ="Search for a course";
 $langBrowseCourse = "Browse courses";
 $langListOfCourse = "List courses";
 
-$langListOfCourseSubscriptionSimple = "List registration to courses (handly version)";
 $langLogIdentLogout ="Browse Login actions";
 $langLogIdentLogoutComplete ="Browse Login actions (with max info)";
 

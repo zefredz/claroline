@@ -89,7 +89,6 @@ $langSearchACourse ="Найти курс";
 $langBrowseCourse = "Просмотреть список курсов";
 $langListOfCourse = "Показать список курсов";
 $langAddFaculties  ="Добавить несколько курсов (факультет)";
-$langListOfCourseSubscriptionSimple = "Список записей на курс (краткая версия)";
 $langLogIdentLogout		= "Просмотреть подключения";
 $langLogIdentLogoutComplete ="Просмотреть подключения (более полная версия)";
 $langCourseOfAUser		= "Курс пользователя";

@@ -99,7 +99,6 @@ $langSearchACourse ="Cerca Corso";
 $langBrowseCourse = "Sfoglia Corsi";
 $langListOfCourse = "Visualizza Lista Corsi";
 
-$langListOfCourseSubscriptionSimple = "Lista registrati al Corso (semplice)";
 $langLogIdentLogout ="Sfoglia/Visualizza Azioni di Login";
 $langLogIdentLogoutComplete ="Sfoglia/Visualizza Azioni di Login (dettagliata)";
 
