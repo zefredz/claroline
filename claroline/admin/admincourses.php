@@ -377,15 +377,15 @@ foreach($resultList as $list)
      //  All users of this course
 
      echo     "<td align=\"center\">\n",
-                        "<a href=\"admincourseusers.php?cidToEdit=".$list['code'].$addToURL."&cfrom=clist\">\n
-                         ".$langViewList."\n",
+                        "<a href=\"admincourseusers.php?cidToEdit=".$list['code'].$addToURL."&cfrom=clist\"><img src=\"".$clarolineRepositoryWeb."/img/membres.gif\" border=\"0\" alt=\"$langAllUsersOfThisCourse\" />\n
+                         \n",
                         "</a>\n",
                         "</td>\n";
 
     // Modify course settings
 
     echo  "<td align=\"center\">\n
-           <a href=\"../course_info/infocours.php?cidToEdit=".$list['code'].$addToURL."&cfrom=clist\"><img src=\"../img/edit.gif\"></a>
+           <a href=\"../course_info/infocours.php?cidToEdit=".$list['code'].$addToURL."&cfrom=clist\"><img src=\"../img/referencement.gif\" alt=\"$langCourseSettings\"></a>
            </td>\n";
 
     //  Delete link
