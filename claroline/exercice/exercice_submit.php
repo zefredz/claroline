@@ -211,12 +211,12 @@ if($HTTP_POST_VARS['questionNum'])
 if ($_SESSION['inPathMode'] == true) 
 {
 	// echo minimal html page header so that the page is valid
-	echo '<html>
+	echo "<html>
 		<head>
-			<title>'.$exerciseTitle.'</title>
-			<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/default.css"  />
+			<title>".$exerciseTitle."</title>
+			<link rel=\"stylesheet\" type=\"text/css\" href=\"".$clarolineRepositoryWeb."css/".$claro_stylesheet."\"  />
 		</head>
-		<body>';
+		<body>";
 }
 else
 {
