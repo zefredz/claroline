@@ -89,6 +89,10 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             </script>";
 
   $nameTools = $langLearningPathList;
+  
+  // use viewMode
+  claro_set_display_mode_available(true);
+  
   //header
   include($includePath."/claro_init_header.inc.php");
 
@@ -98,7 +102,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   claro_disp_tool_title($nameTools);
 
   // main page
-  $is_AllowedToEdit = $is_courseAdmin;
+  $is_AllowedToEdit = claro_is_allowed_to_edit();
   $lpUid = $_uid;
 
   // display introduction
