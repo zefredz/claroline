@@ -225,7 +225,7 @@ $langBuildTheCompressedFile ;
 ////////////////////////////////////////////////////
 // ****** 1° Check if all data needed are aivailable
 
-// ****** 1° 1. $lang vars
+// ****** 1° 1. language vars
 
 if ($verboseBackup)
 {

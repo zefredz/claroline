@@ -64,7 +64,7 @@ readLink($cid) {}
 writeWorkSession($cid, $wsid, $tilte, $description, $deadline, $dateToShow, $onFilePerStudent) {}
 readWorkSession($cid, $wsid) {}
 
-writeCourseProperties($cid, $code, $intitule, $departmentid, $headerLabel, $headerUrl, $lang, $titular, $visible, ...) {}
+writeCourseProperties($cid, $code, $intitule, $departmentid, $headerLabel, $headerUrl, $language, $titular, $visible, ...) {}
 readCourseProperties($cid) {}
 
 //write($cid, $id, $content) {}
@@ -874,7 +874,10 @@ function   readWorkSession($cid, $wsid)
  * @desc Write info aboute this course in database.
  * @return	boolean
  */
-function   writeCourseProperties($cid, $code, $intitule, $departmentid, $headerLabel, $headerUrl, $lang, $titular, $visible, ...)
+
+/*
+
+function   writeCourseProperties($cid, $code, $intitule, $departmentid, $headerLabel, $headerUrl, $language, $titular, $visible, ...)
 {
 	// validée : non
 	// fonctionne : non
@@ -882,6 +885,8 @@ function   writeCourseProperties($cid, $code, $intitule, $departmentid, $headerL
 	return 0;
 
 }
+
+*/
 
 /**
 
