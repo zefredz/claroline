@@ -85,29 +85,16 @@ event_access_tool($nameTools);
 // need functions of statsutils lib to display previous exercices scores
 @include($includePath.'/lib/statsUtils.lib.inc.php');
 
+claro_disp_tool_title($nameTools);
 if($is_allowedToEdit)
 {
 ?>
-
-<br>
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
-<tr>
-  <td width="50%"><?php claro_disp_tool_title($nameTools); ?></td>
-  <td width="50%" align="right">
+<p align="right">
     <a href="#null" onclick="javascript:window.open('../help/help_exercise.php','help','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=400,height=450,left='+((screen.width-400)/2)+',top='+((screen.height-450)/2)); return false;"><?php echo $langHelp; ?></a>
-  </td>
-</tr>
-</table>
-
+</p>
 <?php
 }
-else
-{
-    claro_disp_tool_title($nameTools);
-}
-?>
 
-<?php
 // defines answer type for previous versions of Claroline, may be removed in Claroline 1.5
 $sql="UPDATE `$TBL_QUESTIONS` SET q_position='1',type='2' WHERE q_position IS NULL OR q_position<'1' OR type='0'";
 mysql_query($sql) or die("Error : UPDATE at line ".__LINE__);
@@ -368,13 +355,9 @@ while($row=mysql_fetch_array($result))
 ?>
 
   <td>
-	<table border="0" cellpadding="0" cellspacing="0" width="100%">
-	<tr>
-	  <td width="20" align="right"><?php echo ($i+($page*$limitExPage)).'.'; ?></td>
-	  <td width="1">&nbsp;</td>
-	  <td><a href="exercice_submit.php?exerciseId=<?php echo $row[id]; ?>" <?php if(!$row[active]) echo 'class="invisible"'; ?>><?php echo $row[titre]; ?></a></td>
-	</tr>
-	</table>
+    <?php echo ($i+($page*$limitExPage)).'.'; ?>
+    &nbsp;
+    <a href="exercice_submit.php?exerciseId=<?php echo $row[id]; ?>" <?php if(!$row[active]) echo 'class="invisible"'; ?>><?php echo $row[titre]; ?></a>
   </td>
   <td align="center"><a href="admin.php?exerciseId=<?php echo $row[id]; ?>"><img src="../img/edit.gif" border="0" alt="<?php echo htmlentities($langModify); ?>"></a></td>
   <td align="center"><a href="<?php echo $PHP_SELF; ?>?choice=delete&exerciseId=<?php echo $row[id]; if (isset($actionsForDelete[$row[id]])) { echo "&lpmDel=true";}?>" <?php if (isset($actionsForDelete[$row[id]])) { echo $actionsForDelete[$row[id]];} else {echo $defaultConfirm;} ?>><img src="../img/delete.gif" border="0" alt="<?php echo htmlentities($langDelete); ?>"></a></td>
