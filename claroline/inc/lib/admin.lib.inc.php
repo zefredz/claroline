@@ -24,20 +24,26 @@
  *     Add users with CSV files
  *     ...see details of pre/post for each function's proper use.
  */
-
-
-
 /*
  * DB tables initialisation
  */
 
-$tbl_category           = $mainDbName.'`.`faculte';
-$tbl_course             = $mainDbName.'`.`cours';
-$tbl_courses            = $mainDbName.'`.`cours';
-$tbl_courseUser         = $mainDbName.'`.`cours_user';
-$tbl_user               = $mainDbName.'`.`user';
-$tbl_courses_nodes      = $mainDbName.'`.`faculte';
-$tbl_admin              = $mainDbName.'`.`admin';
+
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_course           = $tbl_mdb_names['course'          ];
+$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user' ];
+$tbl_user             = $tbl_mdb_names['user'            ];
+$tbl_admin            = $tbl_mdb_names['admin'           ];
+$tbl_category         = $tbl_mdb_names['category'        ];
+$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'  ];
+$tbl_course_user = $tbl_rel_course_user;
+
+// List of alias  to track an set at original name
+$tbl_courses            = $tbl_course;
+$tbl_courseUser         = $tbl_rel_course_user ;
+$tbl_courses_nodes      = $tbl_category;
+// End of List of alias  to track an set at original name
+
 
 $tbl_track_default      = $statsDbName."`.`track_e_default";
 $tbl_track_login        = $statsDbName."`.`track_e_login";
@@ -1010,8 +1016,8 @@ function delete_user($su_user_id)
         $res_searchCourseData = claro_sql_query_fetch_all($sql_searchCourseData) ;
 
 	//delete the info in the class table
-	
-        $sql_DeleteUser="delete from `$tbl_rel_class_user` where user_id='".$su_user_id."'";       
+
+        $sql_DeleteUser="delete from `".$tbl_rel_class_user."` where user_id='".$su_user_id."'";       
         claro_sql_query($sql_DeleteUser);
         
 	//For each course of the user
