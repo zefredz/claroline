@@ -154,11 +154,11 @@ for($i = 0; $i < $total_categories; $i++)
             if(    $last_post != 'No Posts'
                 && datetime_to_timestamp($last_post) > $last_visit )
             {
-                $forumImg = 'folder_hot.gif';
+                $forumImg = 'forum_hot.gif';
             }
             else
             {
-                $forumImg = 'folder.gif';
+                $forumImg = 'forum.gif';
             }
 
             echo "<td align=\"center\" valign=\"top\" width=\"5%\">\n"
