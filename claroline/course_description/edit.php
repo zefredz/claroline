@@ -15,42 +15,47 @@
  *
  * This script is reserved for  user with write access on the course
  */
-/*
- 
-CREATE TABLE `course_description` 
-(
-	`id` TINYINT UNSIGNED DEFAULT '0' NOT NULL,
-	`title` VARCHAR(255),
-	`content` TEXT,
-	`upDate` DATETIME NOT NULL,
-	UNIQUE (`id`)
-)
-COMMENT = 'for course description tool';
 
+/*
+* todo : 
+* - change delete working. prefers a "javascript warning"
+* - merge edit.php with index.php
+* - find a better solution for pedaSuggest. Would be editable by pedagogical manager 
+* - use claro_sql_fetch
+* - CSS from main
+* - reduce code in display.
+* - table is really needed ?
+* - use getTableNames
+* - $showPedaSuggest = true; would be in a configuration file
+* - be compatible with register_global off
 */
+define("DISP_CMD_RESULT",__LINE__);
+define("DISP_EDIT_FORM", __LINE__);
+define("DISP_LIST_BLOC", __LINE__);
+
+
 $langFile = "course_description";
 
-@include('../inc/claro_init_global.inc.php'); 
-@include($includePath."/lib/text.lib.php"); 
+$showPedaSuggest = true; 
+
+require('../inc/claro_init_global.inc.php'); 
+require($includePath."/lib/text.lib.php"); 
 
 $nameTools = $langCourseProgram;
 $htmlHeadXtra[] = "<style type=\"text/css\">
 <!--
 	BODY {background-color: #FFFFFF;}
-	.QuestionDePlanification {  background-color: ". $color2."; background-position: left center; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px}
-	.InfoACommuniquer { background-color: ". $color1."; background-position: left center; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px ; }
+	.QuestionDePlanification {  background-color: #ccffff; background-position: left center; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px}
+	.InfoACommuniquer { background-color: #ffffcc; background-position: left center; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px ; }
 -->
 </style>";
-
-
-// $interbredcrump[]= array ("url"=>"index.php", "name"=> $langCourseProgram);
 
 $nameTools = $langEditCourseProgram ;
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langCourseProgram);
 $TABLECOURSEDESCRIPTION = $_course['dbNameGlu']."course_description";
 
 $is_allowedToEdit = $is_courseAdmin;
-$showPedaSuggest = true;
+
 @include($includePath."/../lang/english/pedaSuggest.inc.php");
 @include($includePath."/../lang/".$_course['language']."/pedaSuggest.inc.php");
 
@@ -58,28 +63,20 @@ if ( !$is_allowedToEdit )
 {
 	header("Location:./index.php");
 }
-@include($includePath."/claro_init_header.inc.php");
-?>
-<h3>
-	<?php echo $nameTools ?>
-</h3>
-
-<?
-####################################################
-
-if ($is_allowedToEdit)
+else
 // if user is not admin,  they can change content
 { 
+
 //// SAVE THE BLOC
 	if (isset($save))
 	{
 	// it's second  submit,  data  must be write in db
 	// if edIdBloc contain Id  was edited
 	// So  if  it's add,   line  must be created
-		if($HTTP_POST_VARS["edIdBloc"]=="add")
+		if($_REQUEST["edIdBloc"]=="add")
 		{
 		    $sql="SELECT MAX(id) as idMax From `".$TABLECOURSEDESCRIPTION."` ";
-			$res = mysql_query_dbg($sql);
+			$res = claro_sql_query($sql);
 			$idMax = mysql_fetch_array($res);
 			$idMax = max(sizeof($titreBloc),$idMax["idMax"]);
 			$sql ="
@@ -88,7 +85,7 @@ if ($is_allowedToEdit)
 		(`id`) 
 		VALUES
 		('".($idMax+1)."');";
-		$HTTP_POST_VARS["edIdBloc"]= $idMax+1;
+			$_REQUEST["edIdBloc"] = $idMax+1;
 		}
 		else
 		{
@@ -97,9 +94,9 @@ if ($is_allowedToEdit)
 		INTO `".$TABLECOURSEDESCRIPTION."` 
 		(`id`) 
 		VALUES 
-		('".$HTTP_POST_VARS["edIdBloc"]."');";
+		('".$_REQUEST["edIdBloc"]."');";
 		}
-		mysql_query_dbg($sql);
+		claro_sql_query($sql);
 		if ($edTitleBloc=="")
 		{
 			$edTitleBloc = $titreBloc[$edIdBloc];
@@ -111,33 +108,33 @@ if ($is_allowedToEdit)
 		`title`= '".trim($edTitleBloc)."',
 		`content` ='".trim($edContentBloc)."',
 		`upDate` = NOW() 
-		WHERE id = '".$HTTP_POST_VARS["edIdBloc"]."';";
-		mysql_query_dbg($sql);
+		WHERE id = '".$_REQUEST["edIdBloc"]."';";
+		claro_sql_query($sql);
 	}
-	
+
 //// Kill THE BLOC
 	if (isset($deleteOK))
 	{
-		$sql = "SELECT * FROM `".$TABLECOURSEDESCRIPTION."` where id = '".$HTTP_POST_VARS["edIdBloc"]."'";
-		$res = mysql_query_dbg($sql,$db);
+		$sql = "SELECT * FROM `".$TABLECOURSEDESCRIPTION."` where id = '".$_REQUEST["edIdBloc"]."'";
+		$res = claro_sql_query($sql,$db);
 		$blocs = mysql_fetch_array($res);
 		if (is_array($blocs))
 		{
-			echo "
-			<DIV class=\"deleted\">
+			$msg['success'][] = '
+			<DIV class="deleted">
 				<B>
-					".$blocs["title"]."
+					'.$blocs["title"].'
 				</B>
 				<BR>
-				".$blocs["content"]."
-			</Div>";
+				'.$blocs["content"].'
+				<br>
+				'.$langDeleted.'
+			</DIV>';
 		}
-		
-		$sql ="Delete From `".$TABLECOURSEDESCRIPTION."` where id = '".$HTTP_POST_VARS["edIdBloc"]."'";
-		$res = mysql_query_dbg($sql,$db);
-		echo "
-		<BR>
-		<a href=\"".$PHP_SELF."\">".$langBack."</a>";
+
+		$sql ="DELETE From `".$TABLECOURSEDESCRIPTION."` where id = '".$_REQUEST["edIdBloc"]."'";
+		$res = claro_sql_query($sql,$db);
+		$display = DISP_CMD_RESULT;
 	}
 //// Edit THE BLOC 
 	elseif(isset($numBloc))
@@ -145,7 +142,7 @@ if ($is_allowedToEdit)
 		if (is_numeric($numBloc))
 		{
 			$sql = "SELECT * FROM `".$TABLECOURSEDESCRIPTION."` where id = '".$numBloc."'";
-			$res = mysql_query_dbg($sql,$db);
+			$res = claro_sql_query($sql,$db);
 			$blocs = mysql_fetch_array($res);
 			if (is_array($blocs))
 			{
@@ -153,156 +150,91 @@ if ($is_allowedToEdit)
 				$contentBloc = $blocs["content"];
 			}
 		}
-		echo "
-<form  method=\"post\" action=\"$PHP_SELF\">
-						<p>
-							<b>
-									".$titreBloc[$numBloc]."
-							</b>
-							<br>";
-		if ($delete=="ask")
-		{
-			echo "
-	".ucfirst($langDelete)." :
-	<input type=\"submit\" name=\"deleteOK\" value=\"".$langDelete."\">
-	<BR>";
-		}
-
-		if (($numBloc == "add" ) || !$titreBlocNotEditable[$numBloc] )
-		{ 
-			echo '
-	<label for="edTitleBloc">'.$langOuAutreTitre."</label>
-	<br>
-	<input type=\"text\" name=\"edTitleBloc\" id=\"edTitleBloc\" size=\"50\" value=\"".$titreBloc[$numBloc]."\" >";
-		}
-		else
-		{
-			echo "
-	<input type=\"hidden\" name=\"edTitleBloc\" value=\"".$titreBloc[$numBloc]."\" >";
-		}
-
-		if ($numBloc =="add")
-		{ 
-			echo "
-	<input type=\"hidden\" name=\"edIdBloc\" value=\"add\">";
-		}
-		else
-		{
-			echo "
-	<input type=\"hidden\" name=\"edIdBloc\" value=\"".$numBloc."\">";
-		}
-		echo "
-</p>
-<table>
-	<tr>
-		<td valign=\"top\">		
-			<p>
-					<label for=\"edContentBloc\">".$langContenuPlan."</label>
-				<textarea cols=\"40\" rows=\"10\" name=\"edContentBloc\" id=\"edContentBloc\" wrap=\"virtual\">"
-				.$contentBloc
-				."</textarea>
-			</p>
-		</td>";
-		if ($showPedaSuggest)
-		{
-			if (isset($questionPlan[$numBloc]))
-			{
-				echo "
-								<td valign=\"top\">		
-			<table>
-				<tr>
-					<td valign=\"top\" class=\"QuestionDePlanification\">		
-						<b>
-								".$langQuestionPlan."
-						</b>
-						<br>
-							".$questionPlan[$numBloc]."
-					</td>		
-				</tr>
-			</table>";
-			}
-			if (isset($info2Say[$numBloc]))
-			{
-				echo "
-			<TABLE>
-				<TR>
-					<td valign=\"top\" class=\"InfoACommuniquer\">		
-						<b>
-							$langInfo2Say
-						</b>
-						<br>
-							".$info2Say[$numBloc]."
-					</td>
-				</TR>
-			</TABLE>
-		</td>";
-			}
-		}
-		echo "
-	</tr>
-</table>
-<input type=\"submit\" name=\"save\" value=\"".$langValid."\">
-<input type=\"submit\" name=\"ignore\" value=\"".$langBackAndForget ."\">
-</form>
-";
+		$display= DISP_EDIT_FORM;
 	}
 	else
 	{
-
 		$sql = " SELECT * FROM `".$TABLECOURSEDESCRIPTION."` order by id";
-		$res = mysql_query_dbg($sql,$db);
+		$res = claro_sql_query($sql,$db);
 		while($bloc = mysql_fetch_array($res))
 		{
-			$blocState[$bloc["id"]] 	= "used";
-			$titreBloc[$bloc["id"]]		= $bloc["title"];
+			$blocState  [$bloc["id"]] 	= "used";
+			$titreBloc  [$bloc["id"]]	= $bloc["title"];
 			$contentBloc[$bloc["id"]] 	= $bloc["content"];
 		}
-		echo"
-<table width=\"100%\" >
-	<TR>
-		<TD valign=\"middle\">
-			<b>
-					".$langAddCat."
-			</b>
-		</td>
-		<td align=\"right\" valign=\"middle\">
-<form method=\"post\" action=\"$PHP_SELF\">
-			<select name=\"numBloc\" size=\"1\">";
 		while (list($numBloc,) = each($titreBloc))
 		{ 
-			if (!isset($blocState[$numBloc])||$blocState[$numBloc]!="used")
-			echo "
-				<option value=\"".$numBloc."\">".$titreBloc[$numBloc]."</option>";
+			if (isset($blocState[$numBloc])&&$blocState[$numBloc]=="used")
+			{
+				$listExistingBloc[$numBloc]['titre']   = $titreBloc[$numBloc];
+				$listExistingBloc[$numBloc]['content'] = $contentBloc[$numBloc];
+			}
+			else
+			{
+				$listUnusedBloc[$numBloc]= $titreBloc[$numBloc];
+			}
 		}
-		echo "
-				<option value=\"add\">".$langNewBloc."</option>
+
+		$display = DISP_LIST_BLOC;
+	}
+
+	if (isset($display)) // this if would be remove when conrvertion to MVC is done
+	{
+		include($includePath."/claro_init_header.inc.php");
+		claro_disp_tool_title($nameTools);
+	}
+
+	switch ($display)
+	{
+		case DISP_LIST_BLOC :
+?>
+<table width="100%" >
+	<TR>
+		<TD valign="middle">
+			<b>
+				<?php echo $langAddCat ?>
+			</b>
+		</td>
+		<td align="right" valign="middle">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+			<select name="numBloc" size="1">
+<?php
+		while (list($numBloc,$titre) = each($listUnusedBloc))
+		{ 
+			echo '
+				<option value="'.$numBloc.'">'.$titre.'</option>';
+		}
+?>
+				<option value="add"><?php echo $langNewBloc ?></option>
 			</select>
-			<input type=\"submit\" name=\"add\" value=\"".$langAdd."\">
+			<input type="submit" name="add" value="<?php echo $langAdd ?>">
 </form>
 		</TD>
 	</TR>
 </TABLE>
-";
-		echo "
-<TABLE width=\"100%\">
-	<TR>
-		<TD colspan=\"2\" bgcolor=\"".$color2."\" class=\"alternativeBgDark\">
-		</TD>
-	</TR>";
+<?php
+
+if (count($listExistingBloc)>0)
+{ 
+
+?>
+<!-- LIST of existing blocs -->
+<TABLE width="100%" class="claroTable">
+<?php
 		reset($titreBloc);		
 		while (list($numBloc,) = each($titreBloc))
 		{ 
 			if (isset($blocState[$numBloc])&&$blocState[$numBloc]=="used")
 			{
 				echo '
-	<TR>
-		<TD  bgcolor="'.$color1.'" class="alternativeBgLight">
-			<H4>'.$titreBloc[$numBloc].'</H4>
-		</TD>
-		<TD align="left">
+	<TR class="headerX">
+		<TH >
+			'.$titreBloc[$numBloc].'
+		</TH>
+		<TH align="left">
 			<a href="'.$PHP_SELF.'?numBloc='.$numBloc.'"><img src="'.$clarolineRepositoryWeb.'img/edit.gif" alt="'.$langModify.'" border="0"></a>
 			<a href="'.$PHP_SELF.'?delete=ask&numBloc='.$numBloc.'"><img src="'.$clarolineRepositoryWeb.'img/delete.gif" alt="'.$langDelete.'" border="0"></a>
-		</TD>
+		</TH>
 	</TR>
 	<TR>
 		<TD colspan="2">
@@ -313,37 +245,110 @@ if ($is_allowedToEdit)
 		}
 		echo "
 </TABLE>";
-	}
 }
-else 
-{
-	exit();
+			break;
+		case DISP_CMD_RESULT :
+		claro_disp_msg_arr($msg);
+		?>
+		<BR>
+		<a href="<?php echo $_SERVER['PHP_SELF'] ?>"><?php echo $langBack ?></a>
+	<?php
+		break;
+		case DISP_EDIT_FORM :
+		?>
+<form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+						<p>
+							<b>
+									<?php echo $titreBloc[$numBloc] ?>
+							</b>
+							<br>
+<?php 
+		if ($delete=="ask")
+		{
+			echo ucfirst($langDelete).' :
+	<input type="submit" name="deleteOK" value="'.$langDelete.'">
+	<BR>';
+		}
+
+		echo '
+	<input type="hidden" name="edIdBloc" value="'.($numBloc =="add" ? 'add' : $numBloc).'">';
+
+		if (($numBloc == "add" ) || !$titreBlocNotEditable[$numBloc] )
+		{ 
+			echo '
+<table>
+	<tr>
+		<td colspan="2">
+			<label for="edTitleBloc">'.$langOuAutreTitre.'</label>
+			<br>
+			<input type="text" name="edTitleBloc" id="edTitleBloc" size="50" value="'.$titreBloc[$numBloc].'" >
+			</td>
+		</tr>';
+		}
+		else
+		{
+			echo '
+	<input type="hidden" name="edTitleBloc" value="'.$titreBloc[$numBloc].'" ></p>
+<table>
+';
+		}
+
+?>
+	<tr>
+		<td valign="top">		
+			<p>
+				<label for="edContentBloc"><?php echo $langContenuPlan ?></label>
+				<textarea cols="40" rows="10" name="edContentBloc" id="edContentBloc" wrap="virtual"><?php echo $contentBloc ?></textarea>
+			</p>
+		</td>
+<?php 
+		if ($showPedaSuggest)
+		{
+			if (isset($questionPlan[$numBloc]))
+			{
+?>
+		<td valign="top">		
+			<table>
+				<tr>
+					<td valign="top" class="QuestionDePlanification">		
+						<b>
+							<?php echo $langQuestionPlan ?>
+						</b>
+						<br>
+						<?php echo $questionPlan[$numBloc] ?>
+					</td>		
+				</tr>
+			</table>
+<?php
+			}
+			if (isset($info2Say[$numBloc]))
+			{
+?>
+			<table>
+				<tr>
+					<td valign="top" class="InfoACommuniquer">		
+						<b>
+							<?php echo $langInfo2Say ?>
+						</b>
+						<br>
+						<?php echo $info2Say[$numBloc]?>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<?php 
+			}
+		}
+		?>
+	</tr>
+</table>
+<input type="submit" name="save" value="<?php echo $langValid ?>">
+<input type="submit" name="ignore" value="<?php echo $langBackAndForget ?>">
+</form>
+		<?php
+	}
 }
 
 // End of page
-
-@include($includePath."/claro_init_footer.inc.php");
-
-function mysql_query_dbg($sql,$db="###")
-{
-    if ($db=="###")
-	{
-		$val =  @mysql_query($sql);
-	}
-	else
-	{
-		$val =  @mysql_query($sql,$db);
-	}
-	if (mysql_errno())
-	{
-		echo "<HR>".mysql_errno().": ".mysql_error()."<br><PRE>$sql</PRE><HR>";
-	}
-    else
-	{
-		echo "<!-- \n$sql\n-->";
-	}
-
-	return $val;
-}
-
+include($includePath."/claro_init_footer.inc.php");
 ?>
