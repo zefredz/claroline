@@ -542,9 +542,6 @@ if($is_allowedToEdit)
         <td>&nbsp;</td>
         <td>
           <input type="submit" name="submitAssignment" value="<?php echo $langOk; ?>">
-<?php
-	claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
-?>
         </td>
       </tr>
       </table>
