@@ -76,21 +76,22 @@ if ($is_allowedToEdit)
 <?php
 }
 
-$sql = "SELECT `id`,`title`,`content` FROM `".$tbl_course_description."` order by id";
-$res = claro_sql_query($sql);
-if ( mysql_num_rows($res) >0 )
-{
-	echo "
-<hr noshade size=\"1\">";
-	while ($bloc = mysql_fetch_array($res))
-	{ 
-		echo "
-<h4>
-	".$bloc["title"]."
-</h4>
-". claro_parse_user_text($bloc["content"]);
-	}
-}
+$sql     =  "SELECT `id`,`title`,`content` 
+             FROM `".$TABLECOURSEDESCRIPTION."` order by id";
 
+$blocList = claro_sql_query_fetch_all($sql);
+
+if (count($blocList))
+{
+    foreach($blocList as $thisBloc)
+    {
+        echo "<h4>".$thisBloc['title']."</h4>\n"
+            . claro_parse_user_text($thisBloc['content']);
+    }
+}
+else
+{
+    echo '<h4>'.$langThisCourseDescriptionIsEmpty.'</h4>';
+}
 include($includePath."/claro_init_footer.inc.php");
 ?>
