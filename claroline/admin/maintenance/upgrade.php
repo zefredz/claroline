@@ -207,7 +207,7 @@ switch ($display)
 		echo "</ul>";
 		break;
 	case DISPVAL_upgrade_done :
-                echo "<h2>$langAchieved</h2>";
+                echo "<h2>$langUpgradeAchieved</h2>";
                 echo "<p>The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.</p>";
 		echo "<ul>";
 		echo "<li><a href=\"../../..\">Log on to your platform</a></li>";

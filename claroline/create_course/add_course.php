@@ -419,7 +419,7 @@ elseif($displayCourseRestore)
 	<tr valign="top">
 		<td colspan="2" valign="top">
 			<H5>
-				<?php echo $langChoseFile ?>
+				<?php echo $langChooseFile ?>
 			</H5>
 			<br>
 		</td>
