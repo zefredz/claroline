@@ -1425,7 +1425,7 @@ $langLoginsDetails = "Click on the month name for more details";
 $langLoginsTitleCountColumn = "Number of logins";
 $langLoginsTitleMonthColumn = "Month";
 $langLogout = "Logout";
-$langLostPassword = "Lost Password";
+$langLostPassword = "Lost password";
 $langMailAppearAlready = "This mail appears already in a previous line of the CSV file.";
 $langMailSynthaxError = "Mail synthax error.";
 $langMailTo = "Mail to : ";
@@ -2188,4 +2188,6 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
+$langAuthentication = "Authentication";
+$langCreateUserAccount = "Create user account";
 ?>
