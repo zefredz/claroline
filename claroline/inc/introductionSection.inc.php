@@ -158,7 +158,7 @@ if ($intro_dispCommand)
     {
         echo "<div class=\"HelpText\">\n".$helpAddIntroText."\n</div>\n"
             ."<p>"
-            ."<a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?intro_cmdAdd=1\">".$langAddIntro."</a>"
+            ."<a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?intro_cmdAdd=1\"><img src=\"",$urlAppend,"/claroline/img/edit.gif\" alt=\"\" border=\"0\">".$langAddIntro."</a>"
             ."</p>\n";
     }
     else // displays "edit intro && delete intro" Commands
