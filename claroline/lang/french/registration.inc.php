@@ -72,6 +72,7 @@ $langRegAdmin="Créer des sites de cours";
 $langPhone = "Téléphone"; // JCC cette variable manquait
 $langSaveChange ="Enregistrer les changements"; // JCC cette variable manquait
 $langTitular = "Titulaire";
+$langRegister = "S'inscrire";
 // inscription_second.php
 
 
