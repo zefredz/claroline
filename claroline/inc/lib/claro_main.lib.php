@@ -402,9 +402,11 @@ class claro_failure
  * @return void
  */
 
-function claro_disp_tool_title($titleElement)
+function claro_disp_tool_title($titleElement, $helpUrl = false)
 {
-	if (is_string($titleElement))
+	// if titleElement is simply a string transform it into an array
+
+    if (is_string($titleElement)) 
 	{
 		$tit = $titleElement;
 		unset($titleElement);
@@ -413,7 +415,21 @@ function claro_disp_tool_title($titleElement)
 
 	echo '<h3>';
 
-	if ($titleElement['supraTitle'])
+    if ($helpUrl)
+    {
+    	global $clarolineRepositoryWeb, $langHelp;
+
+?><a href="#" onClick="MyWindow=window.open('<?php echo $clarolineRepositoryWeb ?>/help/<?php echo $helpUrl ?>','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;"><?php
+
+
+        echo '<img src="'.$clarolineRepositoryWeb.'/img/help.gif" '
+                .' alt ="'.$langHelp.'"'
+                .' align="right">'
+            .'</a>';
+    }
+
+
+    if ($titleElement['supraTitle'])
 	{
 		echo '<small>'.$titleElement['supraTitle'].'</small><br>';
 	}
