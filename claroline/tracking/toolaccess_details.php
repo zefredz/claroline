@@ -21,8 +21,6 @@
 $langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = $langDetails." : ".$tool;
-
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langToolName);
 
 $htmlHeadXtra[] = "<style type='text/css'>
@@ -42,15 +40,14 @@ TD {border-bottom: thin dashed Gray;}
 </STYLE>";
 
 
-@include($includePath."/claro_init_header.inc.php");
+include($includePath."/claro_init_header.inc.php");
 
-?>
-<h3>
-    <?php echo $nameTools; ?>
-</h3>
-<?php
+$nameTool = $langDetails;
+
+claro_disp_tool_title($nameTool);
+
 // main page
-@include($includePath."/lib/statsUtils.lib.inc.php");
+include($includePath."/lib/statsUtils.lib.inc.php");
 
 ?>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
@@ -72,12 +69,12 @@ TD {border-bottom: thin dashed Gray;}
     if( $is_allowedToTrack && $is_trackingEnabled)
     {
         // list of all tools
-        if (!isset($tool))
+        if (!isset($_REQUEST['tool']))
         {
-            $sql = "SELECT `access_tool`, count( access_tool ) 
+            $sql = "SELECT `access_tid`, count( access_tid ), `access_tlabel`
                         FROM `$TABLETRACK_ACCESS`
-                        WHERE `access_tool` IS NOT NULL
-                        GROUP BY `access_tool`";
+                        WHERE `access_tid` IS NOT NULL
+                        GROUP BY `access_tid`";
             
             echo "<tr><td>";  
             echo "<tr>
@@ -88,7 +85,7 @@ TD {border-bottom: thin dashed Gray;}
                 </tr>
             ";
     
-            $results = getManyResults2Col($sql);
+            $results = getManyResults3Col($sql);
             echo "<table class='claroTable' cellpadding='0' cellspacing='0' border='0' align=center>";
             echo "<tr class='headerX'>
                     <th width='70%'>
@@ -102,36 +99,30 @@ TD {border-bottom: thin dashed Gray;}
             { 
                 for($j = 0 ; $j < count($results) ; $j++)
                 { 
-                        echo "<tr>"; 
-                        echo "<td><a href='toolaccess_details.php?tool=".urlencode($results[$j][0])."'>".$results[$j][0]."</a></td>";
-                        echo "<td align='right'>".$results[$j][1]."</td>";
-                        echo"</tr>";
+                        echo "<tr>"
+                              ."<td><a href='toolaccess_details.php?tool=".$results[$j][0]."&label=".$results[$j][2]."'>".$toolNameList[$results[$j][2]]."</a></td>"
+                              ."<td align='right'>".$results[$j][1]."</td>"
+                              ."</tr>";
                 }
             
             }
             else
             {
-                echo "<tr>"; 
-                echo "<td colspan='2'><center>".$langNoResult."</center></td>";
-                echo"</tr>";
+                echo "<tr>"
+                      ."<td colspan='2'><center>".$langNoResult."</center></td>"
+                      ."</tr>";
             }
             echo "</tbody></table></td></tr>";
         }
         else
         {
-            // this can prevent bug if there is special chars in $tool
-            $encodedTool = urlencode($tool);
-            $tool = urldecode($tool);
-            
             if( !isset($reqdate) )
                 $reqdate = time();
             echo "<tr>
                     <td>
-                    <b>$tool</b>";
-            if(isset($_cid)) echo " for <b>$_cid</b>";
-            echo " </td>
-                </tr>
-            ";
+                    <b>".$toolNameList[$_REQUEST['label']]."</b>
+                    </td>
+            </tr>";
             
             /* ------ display ------ */
             // displayed period
@@ -159,9 +150,9 @@ TD {border-bottom: thin dashed Gray;}
             echo "<tr>
                     <td>
                     <small>
-                    [<a href='$PHP_SELF?tool=$encodedTool&period=day&reqdate=$reqdate' class='specialLink'>$langPeriodDay</a>] 
-                    [<a href='$PHP_SELF?tool=$encodedTool&period=week&reqdate=$reqdate' class='specialLink'>$langPeriodWeek</a>]
-                    [<a href='$PHP_SELF?tool=$encodedTool&period=month&reqdate=$reqdate' class='specialLink'>$langPeriodMonth</a>]
+                    [<a href='$PHP_SELF?tool=$tool&period=day&reqdate=$reqdate' class='specialLink'>$langPeriodDay</a>] 
+                    [<a href='$PHP_SELF?tool=$tool&period=week&reqdate=$reqdate' class='specialLink'>$langPeriodWeek</a>]
+                    [<a href='$PHP_SELF?tool=$tool&period=month&reqdate=$reqdate' class='specialLink'>$langPeriodMonth</a>]
                     &nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;
                     
                     ";
@@ -173,8 +164,8 @@ TD {border-bottom: thin dashed Gray;}
                     $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
                     $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
                     echo   "
-                        [<a href='$PHP_SELF?tool=$encodedTool&period=month&reqdate=$previousReqDate' class='specialLink'>$langPreviousMonth</a>] 
-                        [<a href='$PHP_SELF?tool=$encodedTool&period=month&reqdate=$nextReqDate' class='specialLink'>$langNextMonth</a>]
+                        [<a href='$PHP_SELF?tool=$tool&period=month&reqdate=$previousReqDate' class='specialLink'>$langPreviousMonth</a>] 
+                        [<a href='$PHP_SELF?tool=$tool&period=month&reqdate=$nextReqDate' class='specialLink'>$langNextMonth</a>]
                     ";
                     break;
                 case "week" :
@@ -182,8 +173,8 @@ TD {border-bottom: thin dashed Gray;}
                     $previousReqDate = $reqdate - 7*86400;
                     $nextReqDate = $reqdate + 7*86400;
                     echo   "
-                        [<a href='$PHP_SELF?tool=$encodedTool&period=week&reqdate=$previousReqDate' class='specialLink'>$langPreviousWeek</a>] 
-                        [<a href='$PHP_SELF?tool=$encodedTool&period=week&reqdate=$nextReqDate' class='specialLink'>$langNextWeek</a>]
+                        [<a href='$PHP_SELF?tool=$tool&period=week&reqdate=$previousReqDate' class='specialLink'>$langPreviousWeek</a>] 
+                        [<a href='$PHP_SELF?tool=$tool&period=week&reqdate=$nextReqDate' class='specialLink'>$langNextWeek</a>]
                     ";
                     break;
                 case "day" :
@@ -191,8 +182,8 @@ TD {border-bottom: thin dashed Gray;}
                     $previousReqDate = $reqdate - 86400;
                     $nextReqDate = $reqdate + 86400;
                     echo   "
-                        [<a href='$PHP_SELF?tool=$encodedTool&period=day&reqdate=$previousReqDate' class='specialLink'>$langPreviousDay</a>] 
-                        [<a href='$PHP_SELF?tool=$encodedTool&period=day&reqdate=$nextReqDate' class='specialLink'>$langNextDay</a>]
+                        [<a href='$PHP_SELF?tool=$tool&period=day&reqdate=$previousReqDate' class='specialLink'>$langPreviousDay</a>] 
+                        [<a href='$PHP_SELF?tool=$tool&period=day&reqdate=$nextReqDate' class='specialLink'>$langNextDay</a>]
                     ";
                     break;
             }
@@ -210,7 +201,7 @@ TD {border-bottom: thin dashed Gray;}
                 case "month" :
                     $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
                             FROM `$TABLETRACK_ACCESS`
-                            WHERE `access_tool` = '$tool' 
+                            WHERE `access_tid` = '$tool' 
                                 AND MONTH(`access_date`) = MONTH(FROM_UNIXTIME($reqdate))
                                 AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
                                 ORDER BY `access_date` ASC";
@@ -222,7 +213,7 @@ TD {border-bottom: thin dashed Gray;}
                 case "week" :
                     $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
                             FROM `$TABLETRACK_ACCESS`
-                            WHERE `access_tool` = '$tool' 
+                            WHERE `access_tid` = '$tool' 
                                 AND WEEK(`access_date`) = WEEK(FROM_UNIXTIME($reqdate))
                                 AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
                                 ORDER BY `access_date` ASC";
@@ -234,7 +225,7 @@ TD {border-bottom: thin dashed Gray;}
                 case "day"  :
                     $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
                                 FROM `$TABLETRACK_ACCESS`
-                                WHERE `access_tool` = '$tool' 
+                                WHERE `access_tid` = '$tool' 
                                     AND DAYOFYEAR(`access_date`) = DAYOFYEAR(FROM_UNIXTIME($reqdate))
                                     AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
                                 ORDER BY `access_date` ASC";
