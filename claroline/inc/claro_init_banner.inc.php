@@ -71,9 +71,6 @@ if($is_platformAdmin)
 <?php
 } // end if _uid
 
-
-
-
 /******************************************************************************
                               COURSE SECTION
  ******************************************************************************/
@@ -179,18 +176,16 @@ if (is_array($_courseToolList))
  * Note : Maybe you should change the color 
  * if you aim to change the page background color
  */
-/******************************************************************************/
-
-
 
 /******************************************************************************
                                 BREADCRUMB LINE
  ******************************************************************************/
 
-echo "<div id=\"breadcrumbLine\">\n\n<hr />\n";
 
 if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($interbredcrump)) )
 {
+    echo "<div id=\"breadcrumbLine\">\n\n<hr />\n";
+
 	echo "<div id=\"breadcrumb\">\n";
 	echo "<a href=\"".$rootWeb."index.php\" target=\"_top\">"
         ."<img src=\"".$clarolineRepositoryWeb."img/home.gif\" alt=\"\">"
@@ -242,26 +237,29 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
         }
     }
 	echo "</div>\n";
+
+    if ( claro_is_display_mode_available() )
+    {
+  	    echo "<div id=\"toolViewOption\">\n";
+    	if ( isset($_REQUEST['viewMode']) )
+	    {
+    		claro_disp_tool_view_option($_REQUEST['viewMode']);
+	    }
+    	else
+	    {
+    		claro_disp_tool_view_option();
+    	}
+	    echo "\n</div>\n";
+    }
+
+    echo '<div class="spacer"></div>' . "\n"
+         . '<hr />' . "\n"
+         . '</div>' . "\n";
+
 }
 
-if ( claro_is_display_mode_available() )
-{
-  	echo "<div id=\"toolViewOption\">\n";
-	if ( isset($_REQUEST['viewMode']) )
-	{
-		claro_disp_tool_view_option($_REQUEST['viewMode']);
-	}
-	else
-	{
-		claro_disp_tool_view_option();
-	}
-	echo "\n</div>\n";
-}
 ?>
 
-<div class="spacer"></div>
-<hr />
-</div>
 
 
 <?php
@@ -276,9 +274,6 @@ else
     ob_end_flush();
     $claro_banner = false;
 }
-
-
-
 
 if( isset($db) )
 {
