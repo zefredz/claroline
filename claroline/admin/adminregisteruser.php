@@ -265,8 +265,8 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
        <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
        <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
 
-echo "<th>".$langEnrollAsManager."</th>
-      <th>".$langEnrollAsStudent."</th>";
+echo "<th>".$langEnrollAsStudent."</th>
+      <th>".$langEnrollAsManager."</th>";
 
 echo "</tr><tbody> ";
 
@@ -312,7 +312,7 @@ foreach($resultList as $list)
 
 
          echo  "<td align=\"center\">\n",
-                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&user_id=".$list['ID']."&subas=teach&offset=".$addToURL."\" ",
+                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&user_id=".$list['ID']."&subas=teach".$addToURL."\" ",
                     ">\n",
                     "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
                     "</a>\n",
