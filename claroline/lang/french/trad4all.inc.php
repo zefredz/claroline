@@ -22,24 +22,24 @@ $localLangName = "français";
 $iso639_2_code = "fr";
 $iso639_1_code = "fre";
 
-$langNameOfLang[arabic]		= "arabe";
-$langNameOfLang[brazilian]	= "brésilien";
-$langNameOfLang[croatian]	= "croate";
-$langNameOfLang[catalan]	= "catalan";
-$langNameOfLang[dutch]		= "néerlandais";
-$langNameOfLang[english]	= "anglais";
-$langNameOfLang[finnish]	= "finlandais";
-$langNameOfLang[french]		= "français";
-$langNameOfLang[german]		= "allemand";
-$langNameOfLang[greek]		= "grec";
-$langNameOfLang[italian]	= "italien";
-$langNameOfLang[japanese]	= "japonnais";
-$langNameOfLang[polish]		= "polonais";
-$langNameOfLang[simpl_chinese]="chinois simple";
-$langNameOfLang[spanish]	= "espagnol";
-$langNameOfLang[swedish]	= "suédois";
-$langNameOfLang[thai]		= "thaïlandais";
-$langNameOfLang[turkish]	= "turc";
+$langNameOfLang['arabic'		] = "arabe";
+$langNameOfLang['brazilian'		] = "brésilien";
+$langNameOfLang['croatian'		] = "croate";
+$langNameOfLang['catalan'		] = "catalan";
+$langNameOfLang['dutch'			] = "néerlandais";
+$langNameOfLang['english'		] = "anglais";
+$langNameOfLang['finnish'		] = "finlandais";
+$langNameOfLang['french'		] = "français";
+$langNameOfLang['german'		] = "allemand";
+$langNameOfLang['greek'			] = "grec";
+$langNameOfLang['italian'		] = "italien";
+$langNameOfLang['japanese'		] = "japonnais";
+$langNameOfLang['polish'		] = "polonais";
+$langNameOfLang['simpl_chinese'	] ="chinois simple";
+$langNameOfLang['spanish'		] = "espagnol";
+$langNameOfLang['swedish'		] = "suédois";
+$langNameOfLang['thai'			] = "thaïlandais";
+$langNameOfLang['turkish'		] = "turc";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr';
@@ -135,6 +135,7 @@ $langGroups ="Groupes";
 $langChat ="Discussion";
 $langLearnPath="Parcours pédagogique";
 $langDescriptionCours  = "Description du cours";
-
+$langCourseManagerview = "Responsable du cours";
+$lang_footer_CourseManager = "Responsable(s) du cours";
 
 ?>
