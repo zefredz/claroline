@@ -3,20 +3,20 @@
  ******************************************************************************/
 
 body {
-background-color:#FFFFFF;
-color:#000000;
-font-family: tahoma,Verdana,Geneva,Arial,Helvetica,sans-serif;
-font-size: 12px/17px;
-padding:0;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-family: verdana, 'bitstream vera sans',Arial,Helvetica,sans-serif;
+	padding: 0;
+	margin: 0;
 }
 
 a:link, a:active, a:visited {
-  color: #333333;
-  text-decoration: none;
+	color: #333;
+	text-decoration: none;
 }
 
 a:hover {
-  color: #FDD088;
+	color: #FFB848;
 }
 
 a img {
@@ -24,6 +24,12 @@ a img {
 	text-decoration: none;
 }
 
+.spacer
+{
+	clear: both;
+}
+
+h3{	font-size: 110%; }
 /******************************************************************************
                               CLAROLINE TOP BANNER
  ******************************************************************************/
@@ -33,28 +39,38 @@ a img {
                               MAIN BANNER SETTINGS
  ----------------------------------------------------------------------------*/
 
-#topBanner{}
-
-
 #topBanner hr
 {
 	display: none;
 }
 
 
-.claroTopBanner {
+#topBanner 
+{
+	position: relative;
+	padding: 0;
 }
 
+#topBanner h1
+{
+	margin: 0;
+	font-size: 120%;
+}
 
+#topBanner h2
+{
+	margin: 0;
+}
  /*----------------------------------------------------------------------------
                                   CAMPUS LINE
  ----------------------------------------------------------------------------*/
-div#platformBanner
+#platformBanner
 {
 	background-color:#FFB848;
 	color: #333;
 	font-size: 120%;
 	padding: 4px;
+	border-bottom: 1px solid #000;
 }
 
 #platformBanner a,
@@ -68,65 +84,95 @@ div#platformBanner
 
 #platformBanner a:hover
 {
-	color: #FDD088;
+	color: #fff;
 }
 
-div#siteName
+#siteName
 {
+	position: relative;
 	float: left;
 	text-align: left;
 }
 
-div#institution
+#institution
 {
+	position: relative;
+	float: right;
 	text-align: right;
 }
 
  /*----------------------------------------------------------------------------
                                    USER LINE
  ----------------------------------------------------------------------------*/
-div#userBanner
+#userBanner
 {
 	background-color: #FDD088;
 	color: #333;
 	font-size: 80%;
 	padding: 4px;
-	border-top: 1px #FFF solid;
+	border-bottom: 1px solid #000;
 }
 
-#userBanner a,
-#userBanner a:active,
-#userBanner a:link,
-#userBanner a:visited
+#userBanner h2
 {
-	text-decoration: none;
-    color: #333;
+	 display: inline;
+	 font-size: 115%;
+	 margin: 0px;
 }
 
-#userBanner a:hover
-{
-    color: #FFECCE;
-	text-decoration: underline;
-}
-div#userLinks
+#userLinks
 {
 	text-align: left;
 }
 
+#userBanner ul
+{
+	display: inline;
+	padding: 0;
+	margin: 0;
+	margin-left: 10px;
+}
+
+#userBanner li 
+{
+	display: inline;
+	margin: 0;
+	list-style-type: none;
+	padding-left: 6px;
+	padding-right: 5px;
+	border-left: 1px solid #333;
+}
+
+#userBanner li a,
+#userBanner li a:active,
+#userBanner li a:link,
+#userBanner li a:visited
+{
+    color: #333;
+}
+
+#userBanner li a:hover
+{
+	text-decoration: underline;
+    color: #369;
+	
+}
  /*----------------------------------------------------------------------------
                                   COURSE LINE
  ----------------------------------------------------------------------------*/
 #courseBanner
 {
    	padding: 4px;
-	background-color: #ffecce;
+	background-color: #fec;
 	color: #036;
 	font-weight:bold;
-    border-top:1px solid #FFF;
+	border-bottom: 1px solid #000;
 }
 
 #course
 {
+	position: relative;
+	float: left;
 	text-align: left;
 }
 
@@ -137,6 +183,7 @@ div#userLinks
 
 #courseToolList
 {
+	position: relative;
 	float: right;
     text-align: right;
 }
@@ -175,7 +222,48 @@ div#userLinks
 #breadCrumbLine
 {
 	border: none;
-	font-size: 80%;
+	font-size: 90%;
+	padding-bottom: 5px;
+}
+
+#breadCrumbLine ul
+{
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+#breadCrumbLine ul li
+{
+	display: inline;
+	margin-left: 3px;
+	padding-left: 10px;
+	padding-right: 2px;
+	background-image: url(corporate/arrow.gif);
+	background-repeat: no-repeat;
+	background-position: 0 .5em;
+}
+
+#breadCrumbLine #home
+{
+	margin: 0;
+	border: none;
+	list-style-type: none;
+	padding-left: 0;
+	background: none;
+}
+
+#breadCrumbLine a,
+#breadCrumbLine a:active,
+#breadCrumbLine a:link,
+#breadCrumbLine a:visited
+{
+	color:#c60;
+}
+
+#breadCrumbLine a:hover
+{
+	color:#FFB848;
 }
 
 #breadCrumbLine hr
@@ -183,37 +271,20 @@ div#userLinks
 	display: none;
 }
 
-#breadCrumb{}
-
-#breadCrumb a,
-#breadCrumb a:active,
-#breadCrumb a:link,
-#breadCrumb a:visited,
-{
-    color:#c60;
-}
-
-#breadCrumb a:hover,
-{
-    color:#FFB848;
-}
-
-
 #toolViewOption
 {
 	float: right;
 	text-align: right;
 }
-
-
 /******************************************************************************
                              CLAROLINE BODY
  ******************************************************************************/
 
-#claroBody {}
-
-
-
+#claroBody
+{
+	padding-left: 10px;
+	padding-right: 10px;
+}
 
 
 /******************************************************************************
@@ -238,88 +309,22 @@ div#userLinks
 	float: left;
 }
 
-#poweredBy
-{
-	float: right;
-	text-align: right;
-}
-
 #courseManager
 {
-	margin: auto;
+	float: right;
 	text-align: center;
 }
 
-
+#poweredBy
+{
+	clear: both;
+	text-align: center;
+}
 
 
 /******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
-
-/* Uniformize claroline table format. The class provide 3 header type
- *
- *     - superHeader : allowing to define table title above the column header
- *     - headerX : define header in the X axis for each column
- *     - headerY : define header in the Y axis for each rank
- * 
- * Example of table using a super header and header in X axis
- *
- * <table class="claroTable">
- * <tr class="superHeader">
- * <th colspan="3">User Birthdate</th>
- * </tr>
- * <tr class="headerX">
- * <th>Firstname</th>
- * <th>Lastname</th>
- * <th>Birthdate</th>
- * </tr>
- * 
- * <tbody>
- * 
- * <tr>
- * <td>Hugues</td>
- * <td>Peeters</td>
- * <td>1969-09-27</td>
- * </tr>
- * <tr>
- * ...
- * </tr>
- * 
- * </tbody>
- * 
- * </table>
- * 
- * Example of table using header in Y axis
- * 
- * 
- * <table class="claroTable">
- *
- * <tr class="superHeader">
- * <th colspan="3">User Birthdate</th>
- * </tr>
- * 
- * <tr>
- * <th class="headerY">Firstname</th>
- * <td>Hugues</td>
- * <td> ...  </td>
- * </tr>
- * 
- * <tr>
- * <th class="headerY">Lastname</th>
- * <td>Peeters</td>
- * <td> ...  </td>
- * </tr>
- * 
- * <tr>
- * <th class="headerY">Birthdate</th>
- * <td>1969-09-27</td>
- * <td> ...  </td>
- * </tr>
- *
- * </table>
- */
-
 .claroTable td, th {
 	margin:  1px;
 	padding: 4px;
@@ -424,19 +429,19 @@ a:visited.invisible{
  */
 
 .claroRightMenu  {
-  color: #000000;
+	color: #000000;
 	background-color: #ffecce;	
-  border:1px solid #666;
+	border: 1px solid #666;
 }
 
 .claroRightMenu a,
 .claroRightMenu a:link,
 .claroRightMenu a:visited {
-		color:#c60;
+	color:#c60;
 }
 	
 .claroRightMenu a:hover {
-		color:#369;
+	color:#369;
 }
 
 
