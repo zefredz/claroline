@@ -799,7 +799,7 @@ if ($curDirPath == '/' || $curDirPath == '\\' || strstr($curDirPath, '..'))
 	$curDirPath = ''; // manage the root directory problem
 
 	/*
-	 * The strstr($curDirPath, "..") prevent malicious users to go to the root directory
+	 * The strstr($curDirPath, '..') prevent malicious users to go to the root directory
 	 */
 }
 
@@ -1034,9 +1034,9 @@ if($is_allowedToEdit)
 	if ($curDirName) /* if the $curDirName is empty, we're in the root point 
 	                    and we can't go to a parent dir */
 	{
-		echo 	"<a href=\"$PHP_SELF?cmd=exChDir&file=".$cmdParentDir."\">\n",
+		echo 	"<a href=\"".$PHP_SELF."?cmd=exChDir&file=".$cmdParentDir."\">\n",
 				"<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\"\">\n",
-				"<small>$langUp</small>\n",
+				"<small>".$langUp."</small>\n",
 				"</a>\n";
 	}
 
@@ -1047,12 +1047,7 @@ if($is_allowedToEdit)
         echo    "&nbsp;",
                 "<a href=\"".$PHP_SELF."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">",
                 "<img src=\"".$clarolineRepositoryWeb."img/dossier.gif\" alt=\"\">",
-                "<small>$langCreateDir</small>",
-                "</a>\n",
-                "&nbsp;",
-                "<a href=\"".$PHP_SELF."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"".$clarolineRepositoryWeb."img/download.gif\" alt=\"\">",
-                "<small>$langUploadFile</small>",
+                "<small>".$langCreateDir."</small>",
                 "</a>\n",
                 "&nbsp;",
                 "<a href=\"".$PHP_SELF."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">",
@@ -1062,6 +1057,11 @@ if($is_allowedToEdit)
                 "<a href=\"rqmkhtml.php?cmd=rqMkHtml&cwd=".$cmdCurDirPath."\">",
                 "<img src=\"".$clarolineRepositoryWeb."img/html.gif\" alt=\"\">",
                 "<small>".$langCreateDocument."</small>",
+                "</a>\n",
+                "&nbsp;",
+                "<a href=\"".$PHP_SELF."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">",
+                "<img src=\"".$clarolineRepositoryWeb."img/download.gif\" alt=\"\">",
+                "<small><b>".$langUploadFile."</b></small>",
                 "</a>\n";
 	}
 
