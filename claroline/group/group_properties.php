@@ -10,10 +10,10 @@
       +----------------------------------------------------------------------+
  */
 
+$tlabelReq = "CLGRP___";
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();
 
-include('../inc/conf/group.conf.php');
 @include('../inc/lib/debug.lib.inc.php');
 $nameTools = $langGroupProperties;
 $interbredcrump[]= array ("url"=>"group.php", "name"=> $langGroups);

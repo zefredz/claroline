@@ -1,9 +1,11 @@
 <?php // $Id$
+
+
+$tlabelReq = "CLUSR___";
 require '../inc/claro_init_global.inc.php';
 
 if (!($_cid)) 	claro_disp_select_course();
 
-include($includePath."/conf/user.conf.php");
 include($includePath."/lib/admin.lib.inc.php");
 
 // javascript confirm pop up declaration for header

@@ -10,10 +10,11 @@
        CLAROLINE MAIN SETTINGS
 ***************************************/
 
+$tlabelReq = "CLGRP___";
 require '../inc/claro_init_global.inc.php';
+
 if ( ! $_cid) claro_disp_select_course();
 @include($includePath."/lib/debug.lib.inc.php");
-include('../inc/conf/group.conf.php');
 
 $nameTools = $langEditGroup;
 $interbredcrump[]= array ("url"=>"group.php", "name"=> $langGroups);

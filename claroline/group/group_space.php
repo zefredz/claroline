@@ -12,8 +12,9 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
+$tlabelReq = "CLGRP___";
 require '../inc/claro_init_global.inc.php';
-include('../inc/conf/group.conf.php');
+
 if ( ! $_cid) claro_disp_select_course();
 
 // block if !$_gid
