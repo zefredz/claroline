@@ -90,9 +90,10 @@ if ( is_array($def_list) )
 {
     foreach( $def_list as $type_def_list)
     {
-		echo '<h4>' . $type_def_list['name'] . '</h4>' . "\n";
 		if ( is_array($type_def_list['conf']) )
 		{
+		    echo '<h4>' . $type_def_list['name'] . '</h4>' . "\n";
+
 			asort($type_def_list['conf']);
 
     		echo '<ul>' . "\n";
