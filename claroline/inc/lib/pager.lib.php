@@ -89,8 +89,9 @@ class claro_sql_pager
         $sqlFilterFrom = stristr($this->sql, 'FROM ');
 
         // remove the ORDER BY part. It poses problems on COUNT(*) query
-        $sqlFilterOrderBy = substr($sqlFilterFrom, 0, 
-                                   strpos($sqlFilterFrom, 'ORDER BY '));
+        $orderPos         = strpos($sqlFilterFrom, 'ORDER BY ');
+        $sqlFilterOrderBy = $orderPos ? substr($sqlFilterFrom, 0, $orderPos)
+                                      : $sqlFilterFrom;
 
         $sql = 'SELECT COUNT(*) AS totalResultCount '.$sqlFilterOrderBy;
    
