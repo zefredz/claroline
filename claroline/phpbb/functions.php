@@ -46,7 +46,7 @@ function get_userdata_from_id($userId)
     global $tbl_users;
 
     $sql = "SELECT prenom first_name, 
-                   nom last_name, 
+                   nom    last_name, 
                    email, 
                    user_id
             FROM `".$tbl_users."`
@@ -139,8 +139,9 @@ function get_total_posts($id, $type)
             break;
         case 'topic': $condition = "topic_id = '".$id."'";           
             break;
-        case 'all'  : $condition = '';
+        case 'all'  : $condition = '1'; // forces TRUE in all cases ...
             break;
+
         // Old, we should never get this.
         default     : $condition = false;
                       error_die('No type argument in get_total_post().');
