@@ -52,8 +52,8 @@ switch ($cmd)
       break;
       
   // subscribe a class to the course    
-  case "subscribe" :  
-      $dialogBox = "<b>Class with id ".$_REQUEST['class']." should be enrolled</b><br>";
+  case "subscribe" :           
+      $dialogBox = "<b>Class ".$_REQUEST['classname']." has been enrolled</b><br>";
       $sql = "SELECT * FROM `".$tbl_class_user."` AS CU,`".$tbl_users."` AS U WHERE CU.`user_id`=U.`user_id` AND CU.`class_id`='".$_REQUEST['class']."'  ORDER BY U.`nom`";
       $user_list = claro_sql_query_fetch_all($sql);
       
@@ -244,7 +244,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	      //add to course link	
 			
             echo "  <td align=\"center\">\n"
-	        ."    <a onClick=\"return confirmation('",addslashes($cur_class['name']),"');\" href=\"".$_SERVER['PHP_SELF']."?cmd=subscribe&class=".$cur_class['id']."\">\n"
+	        ."    <a onClick=\"return confirmation('",addslashes($cur_class['name']),"');\" href=\"".$_SERVER['PHP_SELF']."?cmd=subscribe&class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
                 ."      <img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" >\n"
 	        ."    </a>\n"
 		."  </td>\n";
