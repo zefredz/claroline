@@ -235,7 +235,7 @@ $showExerciseForm = true;
 
 if($exerciseType == 2) 
 { 
-	$statusMsg .= $langActualTime." : ".(time()-$_SESSION['exeStartTime']); 
+	$statusMsg .= $langCurrentTime." : ".(time()-$_SESSION['exeStartTime']); 
 }
 
 if($exerciseMaxTime != 0)
@@ -271,9 +271,9 @@ $timeStartDate  = $objExercise->get_start_date('timestamp');
 $timeEndDate    = $objExercise->get_end_date('timestamp');
 
 $statusMsg  .= "<br />".$langAvailableFrom." "
-                    .strftime($dateTimeFormatLong,$timeStartDate)
+                    .claro_disp_localised_date($dateTimeFormatLong,$timeStartDate)
                     ." ".$langTo." "
-                    .strftime($dateTimeFormatLong,$timeEndDate);
+                    .claro_disp_localised_date($dateTimeFormatLong,$timeEndDate);
                       
 if( $timeStartDate > $mktimeNow )
 {
