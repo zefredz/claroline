@@ -1,24 +1,17 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.* $Revision$
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   English Translation                                                |
-
-
-
       +----------------------------------------------------------------------+
       | Translator :                                                         |
       |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
       +----------------------------------------------------------------------+
  */
-
-
-
-
 // Stat
 $langStatistiques = "Statistics";
 
@@ -199,4 +192,15 @@ $langPasswordWrong = "Passwords must be identical to change it";
 $langStatusChangeNotMade = "No change applied";
 $langNotUnregYourself ="You can not change your own settings!";
 $langHomePageTextZone = "Home page text zones";
+
+
+// _p_ = use in a printf
+$lang_p_d_courses = '%2d courses'; // plural                // english of moosh
+$lang_p_d_course  = '%2d course'; // nul or singular        // english of moosh
+$lang_p_d_course_members = '%2d members'; // plural         // english of moosh
+$lang_p_d_course_member  = '%2d member'; // nul or singular // english of moosh
+$lang_p_d_students = '%2d students'; // plural              // english of moosh
+$lang_p_d_student  = '%2d student'; // nul or singular      // english of moosh
+$lang_p_d_course_managers = '%2d profs '; // plural         // english of moosh
+$lang_p_d_course_manager = '%2d prof '; // nul or singular  // english of moosh
 ?>
