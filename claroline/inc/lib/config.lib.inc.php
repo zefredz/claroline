@@ -174,4 +174,200 @@ function cleanwritevalue($string)
 }
 
 
+// - - - - - - - - - - - -- - 
+
+/**
+ * readValueFromTblConf()
+ * 
+ * @author moosh moosh@claroline.net
+ * @param $tool tlabel of tool to get proerties
+ * @return an array containning name and value of properties.
+ **/
+function readValueFromTblConf($tool)
+{
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_config      = $tbl_mdb_names['config'];
+    $sqlGetPropertyValues = 'SELECT `propName`, `propValue`, unix_timestamp(`lastChange`) `lastChange`
+                             FROM `'.$tbl_config.'` 
+                             WHERE claro_label = "'.$tool.'"';
+    $valueFromTblConf = claro_sql_query_fetch_all($sqlGetPropertyValues);
+    return $valueFromTblConf;
+};
+
+function getToolList()
+{
+    global $toolNameList;
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_tool      = $tbl_mdb_names['tool'];
+    $sqlGetToolList = 'select claro_label from `'.$tbl_tool.'`';
+    $toolList = claro_sql_query_fetch_all($sqlGetToolList);
+    $t=array();
+    foreach($toolList as $tool)
+    {
+        $claro_label = str_replace( '_', '',$tool['claro_label']);
+        $t[] = array( 'value' => $claro_label
+                     ,'name'  => get_tool_name($claro_label)
+                    );
+    }
+    return $toolList;
+}
+
+function countPropertyInDb($claro_label)
+{
+    global $includePath;
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_config      = $tbl_mdb_names['config'];
+    $tbl_tool        = $tbl_mdb_names['tool'];
+    
+    $claro_label_db = str_pad($claro_label,8,'_');
+    $sql = 'SELECT config_file
+                FROM  `'.$tbl_tool.'` 
+                WHERE claro_label = "'.$claro_label_db.'"';
+    $_tool = claro_sql_query_fetch_all($sql);
+    $confFile = realpath($includePath.'/conf/'.$_tool[0]['config_file']);
+            
+    if(file_exists($confFile))
+    {
+        @include($confFile); // J'ai du ajouter un @ que je n'aime pas et dont je ne comprend pas la nécéssité mais sans il rale parfois.
+        $genDateVarName = $claro_label.'GenDate';
+        $sqlGetPropertyValues = 'SELECT count(if(unix_timestamp(`lastChange`) > "'.$$genDateVarName.'",true,null)) qty_new_values, 
+                                        count(id) qty_values
+                                 FROM `'.$tbl_config.'` 
+                                 WHERE `claro_label` = "'.$claro_label.'" 
+                                 ';
+        $valueFromTblConf = claro_sql_query_fetch_all($sqlGetPropertyValues);
+    }
+    else
+    {
+        $sqlGetPropertyValues = 'SELECT 0 qty_new_values, 
+                                        count(id) qty_values
+                                 FROM `'.$tbl_config.'` 
+                                 WHERE `claro_label` = "'.$claro_label.'" 
+                                 ';
+    }
+    $valueFromTblConf = claro_sql_query_fetch_all($sqlGetPropertyValues);
+    return $valueFromTblConf[0];
+}
+
+function lastConfUpdate($claro_label)
+{
+    global $includePath;
+    $_isUpToDate = TRUE;
+    $confFile = realpath($includePath).claro_get_conf_file($claro_label);
+    if(file_exists($confFile))
+    {
+        include ($confFile);
+        $genDateVarName = $claro_label.'GenDate';
+        $tbl_mdb_names   = claro_sql_get_main_tbl();
+        $tbl_config      = $tbl_mdb_names['config'];
+        $sqlGetPropertyValues = 'SELECT unix_timestamp(`lastChange`) `lastChange`
+                                 FROM `'.$tbl_config.'` 
+                                 WHERE `claro_label` = "'.$claro_label.'" 
+                                   AND  unix_timestamp(`lastChange`) > "'.$$genDateVarName.'"';
+        $valueFromTblConf = claro_sql_query_fetch_all($sqlGetPropertyValues);
+    }
+
+    return $valueFromTblConf[0]['lastChange'];
+}
+
+function config_checkToolProperty($propValue, $propertyDef)
+{
+    $allVarOk = TRUE;
+    if(is_array($propertyDef))
+    {
+        switch($propertyDef['type'])
+        {
+            case 'boolean' : 
+                if (!($propValue=='TRUE'||$propValue=='FALSE') )
+                {
+                    $allVarOk = FALSE;
+                }   
+                break;
+            case 'integer' : 
+                if (!is_integer($propValue)) 
+                {
+                    $allVarOk = FALSE;
+                }   
+    
+                break;
+            case 'enum'    : 
+                if (!is_array($propValue,$acceptedValue)) 
+                {
+                    $allVarOk = FALSE;
+                }   
+                break;
+            case 'regexp' : 
+                if (!eregi( $acceptedValue, $propValue )) 
+                {
+                    $allVarOk = FALSE;
+                }   
+                break;
+        }
+    }
+    else
+    {
+        trigger_error('propertyDef is not an array, coding error',E_USER_ERROR);
+        return false;
+    }
+    return true;
+}
+
+function claro_get_conf_file($claro_label)
+{
+   global $includePath;
+   
+   $tbl_mdb_names   = claro_sql_get_main_tbl();
+   $tbl_tool        = $tbl_mdb_names['tool'];
+    
+   $claro_label_db = str_pad($claro_label,8,'_');
+   $sql = 'SELECT config_file
+                FROM  `'.$tbl_tool.'` 
+                WHERE claro_label = "'.$claro_label_db.'"';
+   $_tool = claro_sql_query_fetch_all($sql);
+    
+   if (isset($_tool[0]['config_file']))
+   {
+       $confFile = realpath($includePath.'/conf/').'/'.$_tool[0]['config_file'];
+   }
+   else
+   {
+       $confFile = realpath($includePath.'/conf/').'/'.$claro_label.'.conf.inc.php';
+   }
+   
+   return $confFile;
+   
+}
+
+function claro_create_conf_filename($claro_label)
+{
+   global $includePath;
+   
+   $tbl_mdb_names   = claro_sql_get_main_tbl();
+   $tbl_tool        = $tbl_mdb_names['tool'];
+    
+   $claro_label_db = str_pad($claro_label,8,'_');
+   $sql = 'UPDATE`'.$tbl_tool.'` 
+           SET  config_file = "'.$claro_label.'.conf.inc.php"
+           WHERE claro_label = "'.$claro_label_db.'"';
+   claro_sql_query($sql);
+   return $claro_label.'.conf.inc.php';
+   
+}
+
+function get_tool_name($claro_label)
+{
+    GLOBAL $toolNameList;
+    return (isset($toolNameList[$claro_label])?$toolNameList[$claro_label]:$claro_label);
+}
+
+function claro_get_def_file($name)
+{
+    global $includePath;
+
+    $confDef = realpath($includePath.'/conf/def/'.$name.'.def.conf.inc.php');
+
+    return $confDef;
+}
+
+
 ?>
