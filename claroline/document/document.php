@@ -1132,7 +1132,7 @@ unset($attribute);
 			echo	"<tr align=\"center\"",$style,">\n",
 					"<td align=\"left\">",
 					"<a href=\"".$urlFileName."\"".$style.">",
-					"<img src=\"./".$clarolineRepositoryWeb."img/",$image,"\" border=\"0\" hspace=\"5\" alt=\"\">",$dspFileName,"</a>",
+					"<img src=\"".$clarolineRepositoryWeb."img/",$image,"\" border=\"0\" hspace=\"5\" alt=\"\">",$dspFileName,"</a>",
 					"</td>\n",
 					
 					"<td><small>",$size,"</small></td>\n",
