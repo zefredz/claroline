@@ -4,7 +4,7 @@
 
 body {
 	font-family: arial, helvetica, sans-serif;
-	background-color: white;
+	background-color: #fff;
 }
 
 a:link, a:active, a:visited {
@@ -16,6 +16,12 @@ a img {
 	text-decoration: none;
 }
 
+.spacer
+{
+	clear: both;
+}
+
+h3{	font-size: 110%; }
 /******************************************************************************
                               CLAROLINE TOP BANNER
  ******************************************************************************/
@@ -25,25 +31,30 @@ a img {
                               MAIN BANNER SETTINGS
  ----------------------------------------------------------------------------*/
 
-#topBanner{}
-
-
-#topBanner hr
+#topBanner h1
 {
-	display: none;
+	margin: 0px;
+}
+
+#topBanner h2
+{
+	margin: 0px;
 }
 
  /*----------------------------------------------------------------------------
                                   CAMPUS LINE
  ----------------------------------------------------------------------------*/
 
-div#platformBanner
+#platformBanner
 {
-	font-size: 120%;
-	font-weight: bold;
 	color: #FFF;
-	background-color:#000066;
+	background-color:#006;
 	padding: 4px;
+}
+
+#platformBanner h1
+{
+	fon-t-size: 120%;
 }
 
 #platformBanner a,
@@ -61,14 +72,17 @@ div#platformBanner
 	text-decoration: underline;
 }
 
-div#siteName
+#siteName
 {
+	position: relative;
 	float: left;
 	text-align: left;
 }
 
-div#institution
+#institution
 {
+	position: relative;
+	float: right;
 	text-align: right;
 }
 
@@ -76,7 +90,7 @@ div#institution
                                    USER LINE
  ----------------------------------------------------------------------------*/
 
-div#userBanner
+#userBanner
 {
 	background-color: #666;
 	color:white;
@@ -84,6 +98,12 @@ div#userBanner
 	font-weight:bold;
 	border-top: 1px #FFF solid;
 	padding: 4px;
+}
+
+#userBanner h2
+{
+	 display: inline;
+	 font-size: 115%;
 }
 
 #userBanner a,
@@ -100,9 +120,24 @@ div#userBanner
     color: #FFF;
 	text-decoration: underline;
 }
-div#userLinks
+
+#userBanner ul
 {
-	text-align: left;
+	display: inline;
+	padding: 0;
+	margin: 0;
+	margin-left: 10px;
+}
+
+#userBanner li 
+{
+	display: inline;
+	margin: 0;
+	text-align: center;
+	list-style-type: none;
+	padding-left: 5px;
+	padding-right: 4px;
+	border-left: 1px solid #fff;
 }
 
 
@@ -120,6 +155,8 @@ div#userLinks
 
 #course
 {
+	position: relative;
+	float: left;
 	text-align: left;
 }
 
@@ -130,29 +167,30 @@ div#userLinks
 
 #courseToolList
 {
+	position: relative;
 	float: right;
     text-align: right;
 }
 
-#courseBanner .courseName {
+#courseName {
 	font-size: 120%;
 }
 
-#courseBanner .courseName a,
-#courseBanner .courseName a:active,
-#courseBanner .courseName a:link,
-#courseBanner .courseName a:visited
+#courseName a,
+#courseName a:active,
+#courseName a:link,
+#courseName a:visited
 {
 	color: #036;
 	text-decoration: none;
 }
 
-#courseBanner .courseName a:hover
+#courseName a:hover
 {
-text-decoration: underline;
+	text-decoration: underline;
 }
 
-#courseBanner .courseCode {
+#courseCode {
 	font-size: 80%;
 }
 
@@ -172,6 +210,33 @@ text-decoration: underline;
 {
 	border: none;
 	font-size: 80%;
+	padding-bottom: 5px;
+}
+
+#breadCrumbLine ul
+{
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+#breadCrumbLine ul li
+{
+	display: inline;
+	margin-left: 3px;
+	padding-left: 10px;
+	background-image: url(corporate/arrow.gif);
+	background-repeat: no-repeat;
+	background-position: 0 .5em;
+}
+
+#breadCrumbLine #home
+{
+	margin: 0;
+	border: none;
+	list-style-type: none;
+	padding-left: 0;
+	background: none;
 }
 
 #breadCrumbLine hr
@@ -179,15 +244,11 @@ text-decoration: underline;
 	display: none;
 }
 
-#breadCrumb{}
-
 #toolViewOption
 {
 	float: right;
 	text-align: right;
 }
-
-
 
 /******************************************************************************
                              CLAROLINE BODY
@@ -217,15 +278,16 @@ text-decoration: underline;
 	float: left;
 }
 
-#poweredBy
-{
-	float: right;
-	text-align: right;
-}
-
 #courseManager
 {
-	margin: auto;
+	float: right;
+	text-align: center;
+}
+
+
+#poweredBy 
+{
+	clear: both;
 	text-align: center;
 }
 
