@@ -259,41 +259,50 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", 
  
 function claro_disp_CSV_error_backlog()
 {
-	for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<=$size; $i++)
+    global $langMailSynthaxError;
+    global $langMailUsed;
+    global $langUsernameUsed;
+    global $langCodeUsed;
+    global $langPasswordSimple;
+    global $langMailAppearAlready;
+    global $langUsernameAppearAlready;
+    global $langCodeAppearAlready;
+    
+    for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<=$size; $i++)
     {
         $line=$i+1;
 
 	    if ($_SESSION['claro_mail_synthax_error'][$i]) 
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> Mail synthax error. <br>";
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> $langMailSynthaxError  <br>";
 	    }      
 	    if ($_SESSION['claro_mail_used_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> Mail is already used by another user. <br>\n";         
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> $langMailUsed  <br>\n";         
 	    }
 	    if ($_SESSION['claro_username_used_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> This username is already used by another user. <br>\n";     
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> $langUsernameUsed  <br>\n";     
 	    }
 	    if ($_SESSION['claro_officialcode_used_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> This official code is already used by another user. <br>\n"; 
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> $langCodeUsed  <br>\n"; 
 	    }
 	    if ($_SESSION['claro_password_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['password']."\" <b>:</b> Password given to simple or to close to username. <br>\n";
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['password']."\" <b>:</b> $langPasswordSimple  <br>\n";
 	    }
 	    if ($_SESSION['claro_mail_duplicate_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> This mail appears already in a previous line of the CSV file. <br>\n";
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b>$langMailAppearAlready  <br>\n";
 	    }
 	    if ($_SESSION['claro_username_duplicate_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> This username appears already in a previous line of the CSV file. <br>\n";
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> $langUsernameAppearAlready  <br>\n";
 	    }
 	    if ($_SESSION['claro_officialcode_duplicate_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> This official code appears already in a previous line of the CSV file. <br>\n";
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> $langCodeAppearAlready  <br>\n";
 	    }
     }
 }
