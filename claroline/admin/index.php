@@ -100,10 +100,10 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <a href="adminaddnewuser.php"><?php echo $langCreateUser?></a>
 </li>
 <li>
-<a href="admin_class.php"><?php echo $langManageUserClasses?> Manage user classes</a>
+<a href="admin_class.php"><?php echo $langManageUserClasses?> Manage classes</a>
 </li>
 <li>
-<a href="adminAddCSVusers.php"><?php echo $langManageUserClasses?> Add a complete user list</a>
+<a href="../user/AddCSVusers.php?AddType=adminTool"><?php echo $langManageUserClasses?> Add a complete user list</a>
 </li>
 </ul>
 
