@@ -210,7 +210,7 @@ else
                 FROM `".$mainDbName."`.`user`
                 WHERE username = \"".trim($login)."\"";
 
-        $result = mysql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
 
         if (mysql_num_rows($result) > 0)
         {
@@ -347,8 +347,13 @@ if ($uidReset) // session data refresh requested
 
         if ($is_trackingEnabled)
         {
-            $sql = "SELECT `user`.`*`, `a`.`idUser` `is_admin`,
-                            UNIX_TIMESTAMP(`login`.`login_date`) `login_date`
+            $sql = "SELECT 
+                        `user`.`prenom`     `firstname`, 
+                        `user`.`nom`        `lastname` , 
+                        `user`.`email`                 , 
+                        `user`.`statut`, 
+                        `a`.`idUser`        `is_admin`,
+                         UNIX_TIMESTAMP(`login`.`login_date`) `lastLogin`
                      FROM `".$mainDbName."`.`user`
                      LEFT JOIN `".$mainDbName."`.`admin` `a`
                      ON `user`.`user_id` = `a`.`idUser`
@@ -359,14 +364,20 @@ if ($uidReset) // session data refresh requested
         }
         else
         {
-            $sql = "SELECT `user`.`*`, `a`.`idUser` `is_admin`
+            $sql = "SELECT 
+                        `user`.`prenom`     `firstname`, 
+                        `user`.`nom`        `lastname` , 
+                        `user`.`email`                 , 
+                        `user`.`login_date` `lastLogin`, 
+                        `user`.`statut`, 
+                        `a`.`idUser`        `is_admin`
                     FROM `".$mainDbName."`.`user`
                     LEFT JOIN `".$mainDbName."`.`admin` `a`
                     ON `user`.`user_id` = `a`.`idUser`
                     WHERE `user`.`user_id` = '".$_uid."'";
         }
 
-        $result = mysql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql);
 
         if (mysql_num_rows($result) > 0)
         {
@@ -374,10 +385,10 @@ if ($uidReset) // session data refresh requested
 
             $uData = mysql_fetch_array($result);
 
-            $_user ['firstName'] = $uData ['prenom'    ];
-            $_user ['lastName' ] = $uData ['nom'       ];
+            $_user ['firstName'] = $uData ['firstname'    ];
+            $_user ['lastName' ] = $uData ['lastname'       ];
             $_user ['mail'     ] = $uData ['email'     ];
-            $_user ['lastLogin'] = $uData ['login_date'];
+            $_user ['lastLogin'] = $uData ['lastLogin'];
 
             $is_platformAdmin        = (bool) (! is_null( $uData['is_admin']));
             $is_allowedCreateCourse  = (bool) ($uData ['statut'] == 1);
@@ -416,13 +427,16 @@ if ($cidReset) // course session data refresh requested
 {
     if ($cidReq)
     {
-        $sql =    "SELECT `cours`.*, `faculte`.`code` `faCode`, `faculte`.`name` `faName`
+        $sql =    "SELECT 
+                   `cours`.*, 
+                   `faculte`.`code` `faCode`, 
+                   `faculte`.`name` `faName`
                  FROM `".$mainDbName."`.`cours`
                  LEFT JOIN `".$mainDbName."`.`faculte`
                  ON `cours`.`faculte` =  `faculte`.`code`
-                 WHERE `cours`.`code` = '$cidReq'";
+                 WHERE `cours`.`code` = '".$cidReq."'";
 
-        $result = mysql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
 
         if (mysql_num_rows($result)>0)
         {
@@ -455,7 +469,7 @@ if ($cidReset) // course session data refresh requested
 
             $sql = "SELECT * FROM `".$_course['dbNameGlu']."group_property`";
             
-            $result = mysql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! $sql ".__LINE__." ".mysql_errno());
+            $result = claro_sql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! $sql ".__LINE__." ".mysql_errno());
             
             $gpData = mysql_fetch_array($result);
             
@@ -513,7 +527,7 @@ if ($uidReset || $cidReset) // session data refresh requested
                WHERE `user_id`  = '$_uid'
                AND `code_cours` = '$cidReq'";
 
-        $result = mysql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
 
         if (mysql_num_rows($result) > 0) // this  user have a recorded state for this course
         {
@@ -593,7 +607,7 @@ if ($tidReset || $cidReset) // session data refresh requested
                )
 ";
         // Note : 'ctl' stands for  'course tool list' and  'pct' for 'platform course tool'
-        $result = mysql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
+        $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
         if (mysql_num_rows($result) == 1) // this tool have a recorded state for this course
         {
@@ -648,7 +662,7 @@ if ($gidReset || $cidReset) // session data refresh requested
         $sql = "SELECT * FROM `".$_course['dbNameGlu']."group_team`
                 WHERE `id` = '$gidReq'";
 
-        $result = mysql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
 
         if (mysql_num_rows($result) > 0) // This group has recorded status related to this course
         {
@@ -695,7 +709,7 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
                 WHERE `user` = '$_uid'
                 AND `team` = '$gidReq'";
 
-        $result = mysql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
 
         if (mysql_num_rows($result) > 0) // This user has a recorded status related to this course group
         {
@@ -812,7 +826,7 @@ if ($uidReset || $cidReset)
    
                WHERE ctl.access IN (\"".implode("\", \"", $reqAccessList)."\")";
     
-        $result = mysql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
+        $result = claro_sql_query($sql)  or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
         
         $_courseToolList = array();
         
