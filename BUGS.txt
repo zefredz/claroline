@@ -6,6 +6,10 @@ de nom pour le fichier il y a une erreur et donc fichier pas enregistré,
 mais si on fait back le formulaire ne se rerempli pas donc on pert tout 
 ce qu'on a fait.
 
+Assigné à : HUGUES
+
 2. DOCUMENT. Pour les liens créés dans document, on pensait qu'ajouter l'url en 
 <a href... sur la page .url ne serait pas une mauvaise chose pour prévenir 
 les cas ou la redirection ne se passe pas bien.
+
+Assigné à : HUGUES
