@@ -42,7 +42,14 @@ header("Cache-Control: no-store, no-cache, must-revalidate");   // HTTP/1.1
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");                                     // HTTP/1.0
 
-$doc_dl_url = $coursesRepositoryWeb.$_course['path']."/document".implode ( "/",   array_map("rawurlencode", explode("/",$doc_url)));
+if ($_gid && $is_groupAllowed)
+{
+  $doc_dl_url = $coursesRepositoryWeb.$_course['path']."/group/".$_group['directory'].implode ( "/",   array_map("rawurlencode", explode("/",$doc_url)));
+}
+else
+{
+  $doc_dl_url = $coursesRepositoryWeb.$_course['path']."/document".implode ( "/",   array_map("rawurlencode", explode("/",$doc_url)));
+}
 
 header("Location: $doc_dl_url");
 //header("Content-Location: $doc_dl_url");
