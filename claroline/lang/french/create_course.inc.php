@@ -54,7 +54,6 @@ $langSampleExerciseDesc = "Vous pouvez utiliser n\'importe quel exercice de l\'o
 
 // Home Page MySQL Table "accueil"
 $langAgenda="Agenda";
-$langLinks="Liens";
 $langDoc="Documents et liens";
 $langVideo="Vidéo"; // JCC 
 $langWorks="Travaux";

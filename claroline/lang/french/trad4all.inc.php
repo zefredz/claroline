@@ -126,7 +126,6 @@ $lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à 
 $langCourseHome = "Accueil"; // JCC 
 
 $langAgenda="Agenda";
-$langLink="Liens";
 $langDocument="Documents et liens";
 $langWork="Travaux";
 $langAnnouncement="Annonces";

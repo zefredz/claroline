@@ -85,7 +85,7 @@ $langTimeInLearnPath = "Time in learning path";
 $langGlobalProgress = "Learning path progression : ";
 $langLastSessionTimeSpent = "Last session time";
 $langTotalTimeSpent = "Total time";
-$langLessonStatus = "Status";
+$langLessonStatus = "Module status";
 
 
 /* documents */

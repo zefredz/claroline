@@ -26,7 +26,7 @@ $langVisibility  		= "Visibility";
 $langVersionDb  		= "Database version used at archive time";
 $langVersionClaro  		= "Claroline Version used at archive time";
 $langLastVisit  		= "Last visit";
-$langLastEdit  			= "Last contribution";
+$langLastEdit  			= "Last edit";
 $langExpire 			= "Expiration";
 $langChoseFile 			= "Select file";
 $langFtpFileTips 		= "File on a FTP server";
@@ -90,7 +90,6 @@ $langSampleExerciseDesc = "You can use any exercise of the exercises tool of you
 
 // Home Page MySQL Table "accueil"
 $langAgenda="Agenda";
-$langLinks="Links";
 $langDoc="Documents and links";
 $langVideo="Video";
 $langWorks="Assignments";
