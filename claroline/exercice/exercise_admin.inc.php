@@ -327,7 +327,8 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
 	} // "else" is after the table, put all values in hidden input
 ?>
 <tr>
-  <td colspan="2" align="center">
+  <td>&nbsp;</td>
+  <td>
 	<input type="submit" name="submitExercise" value="<?php echo $langOk; ?>">
 	&nbsp;&nbsp;<input type="submit" name="cancelExercise" value="<?php echo $langCancel; ?>">
   </td>

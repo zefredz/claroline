@@ -114,8 +114,10 @@ if($usedInSeveralExercises)
       <td><input type="radio" name="modifyIn" id="modifyIn1" value="thisExercise"><label for="modifyIn1"><?php echo $langModifyInThisExercise; ?></label></td>
     </tr>
     <tr>
-      <td align="center"><input type="submit" name="buttonBack" value="<?php echo $langCancel; ?>">
-      &nbsp;&nbsp;<input type="submit" name="<?php echo $submitQuestion?'submitQuestion':'submitAnswers'; ?>" value="<?php echo $langOk; ?>"></td>
+	  <td>
+      <input type="submit" name="<?php echo $submitQuestion?'submitQuestion':'submitAnswers'; ?>" value="<?php echo $langOk; ?>">&nbsp;&nbsp;
+      <input type="submit" name="buttonBack" value="<?php echo $langCancel; ?>">
+	  </td>
     </tr>
     </table>
   </td>

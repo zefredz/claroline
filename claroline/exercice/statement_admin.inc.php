@@ -236,9 +236,10 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
   </td>
 </tr>
 <tr>
-  <td colspan="2" align="center">
+  <td>&nbsp;</td>
+  <td colspan="2">
+    <input type="submit" name="submitQuestion" value="<?php echo $langOk; ?>">&nbsp;&nbsp;
 	<input type="submit" name="cancelQuestion" value="<?php echo $langCancel; ?>">
-	&nbsp;&nbsp;<input type="submit" name="submitQuestion" value="<?php echo $langOk; ?>">
   </td>
 </tr>
 </table>
