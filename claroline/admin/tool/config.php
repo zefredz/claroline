@@ -90,8 +90,10 @@ $langConfig          = 'Configuration';
 $lang_p_defFileOf_S = 'Fichier de définition pour la configuration %s.';
 $lang_the_active_config_has_manually_change='Version de production modifiée';
 $langFirstDefOfThisValue = '!!! Nouvelle valeur !!!';
+$lang_p_DefNameAndContentDisruptedOnConfigCode = 'Le fichier de définition est probablement un copier-coller  de %s. Et n\'a pas été achevé.';
 
 
+$lang_p_DefNameAndContentDisruptedOnConfigCode = 'The definition file for configuration is probably copypaste from %s';
 $langFirstDefOfThisValue = '!!!First definition of this value!!!';
 $langNoPropertiesSet = 'No properties set';
 $langShowConf        = 'Show Config file';
@@ -310,9 +312,10 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         if ($config_code != $conf_def['config_code'])
         {
             $okToSave = FALSE;
-            $controlMsg['error'][] = $conf_def['config_code'].' != '.$config_code.' <br>
-            The definition file for configuration is probably copypaste from '.basename($confDef);
+            $controlMsg['error'][] = $conf_def['config_code'].' != '.$config_code.' <br>'
+            .sprintf($lang_p_DefNameAndContentDisruptedOnConfigCode,basename($confDef));
         }
+        
         if (is_array($_REQUEST['prop']) )
         {
             foreach($_REQUEST['prop'] as $propName => $propValue )
@@ -387,19 +390,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         {
             if (write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile, realpath(__FILE__)))
             {
-                $hashConf = md5_file($confFile);
-                $sql =' UPDATE `'.$tbl_config_file.'`          '
-                     .' SET config_hash = "'.$hashConf.'"      '
-                     .' WHERE config_code = "'.$config_code.'" ';
-                $controlMsg['debug'][] = '<tt>'.$sql.'</tt>';        
-                
-                if (!claro_sql_query_affected_rows($sql))
-                {
-                    $sql =' INSERT  INTO `'.$tbl_config_file.'`          '
-                         .' SET config_hash = "'.$hashConf.'"      '
-                         .' , config_code = "'.$config_code.'" ';
-                    claro_sql_query($sql);
-                }
+                set_hash_confFile($confFile,$configCode);
                 $controlMsg['info'][] = 'Properties for '.$nameTools.' ('.$config_code.') are now effective on server.';
                 $controlMsg['debug'][] = 'file generated for <B>'.$config_code.'</B> is <em>'.$confFile.'</em>'.'<br>Signature : <TT>'.$hashConf.'</tt>';        
                 $panel = DISP_LIST_CONF;

@@ -543,6 +543,28 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
         return true;
 }
 
+function set_hash_confFile($confFile,$configCode)
+{
+    $mainTbl = claro_sql_get_main_tbl();
+    $hashConf = md5_file($confFile);
+    $sql =' UPDATE `'.$mainTbl['config_file'].'`          '
+         .' SET config_hash = "'.$hashConf.'"      '
+         .' WHERE config_code = "'.$config_code.'" ';
+    
+    if (!claro_sql_query_affected_rows($sql))
+    {
+        $sql =' INSERT  INTO `'.$mainTbl['config_file'].'`          '
+             .' SET config_hash = "'.$hashConf.'"      '
+             .' , config_code = "'.$config_code.'" ';
+        return claro_sql_query($sql);
+    }
+    else 
+    {
+        return true;
+    }
+    
+}
+
 function parse_config_file($confFileName)
 {
     GLOBAL $includePath;
