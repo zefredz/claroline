@@ -275,10 +275,15 @@ if (     is_null($myrow['idGroup']) // there is no group attached to this forum
         if($is_allowedToEdit)
         {
             echo	"<p>\n",
+	    
                     "<a href=\"$url_phpbb/editpost.$phpEx?post_id=$myrow[post_id]&topic=$topic&forum=$forum\">",
                     "<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"",$langEditDel,"\">",
+		    "</a>\n",
+		    
+		    "<a href=\"$url_phpbb/editpost.$phpEx?post_id=$myrow[post_id]&topic=$topic&forum=$forum&delete=delete&submit=submit\">",
                     "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt\"",$langEditDel,"\">",
                     "</a>\n",
+		    
                     "</p>\n";
         }
 
