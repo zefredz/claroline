@@ -270,41 +270,6 @@ function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
 //					CLAROLINE FAILURE MANGEMENT
 //////////////////////////////////////////////////////////////////////////////
 
-/*
- * The Failure Management module is here to compensate
- * the absence of 'exception' device in PHP 4.
- */
-
-
-/**
- * $claro_failureList -	array containing all the failure recorded
- * in order	of arrival.
- */
-
-$claro_failureList = array();
-
-/**
- * Fills a global array	called $claro_failureList
- * This	array collects all the failure occuring	during the script runs
- * The main	purpose	is allowing	to manage the display messages externaly
- * from	the	functions or objects. This strengthens encupsalation principle
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  string $failureType - the type of failure
- * @global array $claro_failureList
- * @return bolean false	to stay	consistent with	the	main script
- */
-
-function claro_set_failure($failureType)
-{
-	global $claro_failureList;
-
-	$claro_failureList[] = $failureType;
-
-	return false;
-}
-
-
 
 /**
  * get the last	failure	stored in $claro_failureList;
@@ -341,41 +306,41 @@ class claro_failure
      * change.
      */
 
-	var	$claro_failureList = array();
+    var $claro_failureList = array();
 
-	/**
-	 * Pile	the	last failure in	the	failure	list
-	 *
-	 * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
-	 * @param  string $failureType - the type of failure
-	 * @global array  $claro_failureList
-	 * @return bolean false	to stay	consistent with	the	main script
-	 */
+    /**
+     * Pile the last failure in the failure list
+     *
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+     * @param  string $failureType - the type of failure
+     * @global array  $claro_failureList
+     * @return boolean false to stay consistent with the main script
+     */
 
-	function set_failure($failureType)
-	{
-		global $claro_failureList;
+    function set_failure($failureType)
+    {
+        global $claro_failureList;
 
-		$claro_failureList[] = $failureType;
+        $claro_failureList[] = $failureType;
 
-		return false;
-	}
+        return false;
+    }
 
 
-	/**
-	 * get the last	failure	stored
-	 *
-	 * @author Hugues Peeters <hugues.peeters@claroline.net>
-	 * @param void
-	 * @return string -	the	last failure stored
-	 */
+    /**
+     * get the last failure stored
+     *
+     * @author Hugues Peeters <hugues.peeters@claroline.net>
+     * @param void
+     * @return string - the last failure stored
+     */
 
-	function get_last_failure()
-	{
-		global $claro_failureList;
+    function get_last_failure()
+    {
+        global $claro_failureList;
 
-		return $claro_failureList[ count($claro_failureList) - 1 ];
-	}
+        return $claro_failureList[ count($claro_failureList) - 1 ];
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////
