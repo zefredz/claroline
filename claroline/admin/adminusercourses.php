@@ -21,7 +21,7 @@ include($includePath."/lib/admin.lib.inc.php");
 if (!$is_platformAdmin) claro_disp_auth_form();
 
 $iconForCuStatus['STUDENT']        = "user.gif";
-$iconForCuStatus['COURSE_MANAGER'] = "teacher.gif";
+$iconForCuStatus['COURSE_MANAGER'] = "manager.gif";
 
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 $tbl_user            = $tbl_mdb_names['user'  ];
