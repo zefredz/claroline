@@ -79,7 +79,7 @@ $langDocument="Документи";
 $langWork="Студентски материали";
 $langAnnouncement="Обяви";
 $langUser="Потребители";
-$langForum="Форуми";
+$langForums = "Форуми";
 $langExercises ="Упражнения";
 
 ?>

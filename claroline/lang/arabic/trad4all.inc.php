@@ -88,7 +88,7 @@ $langDocument=" وثائق ";
 $langWork=" أشغال ";
 $langAnnouncement=" إعلانات ";
 $langUser=" مستعملو الموقع";
-$langForum=" منتديات    ";
+$langForums = " منتديات    ";
 $langExercises =" تمارين ";
 $langModifInfo=" خاصيات الدّرس ";
 

@@ -92,7 +92,7 @@ $langDocument="Belgeler";
 $langWork="Öðrenci Yazýlarý";
 $langAnnouncement="Duyurular";
 $langUser="Kullanýcýlar";
-$langForum="Forumlar";
+$langForums = "Forumlar";
 $langExercises ="Alýþtýrmalar";
 $langStats="Ýstatistikler";
 
