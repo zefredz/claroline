@@ -1,9 +1,8 @@
-<?php
-// $Id$
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -37,7 +36,14 @@ $tbl_admin            = $tbl_mdb_names['admin'            ];
 $tbl_course_user = $tbl_rel_course_user;
 
 // see which user we are working with ...
-$user_id = $_REQUEST['uidToEdit'];
+if (is_integer($_REQUEST['uidToEdit']) && $_REQUEST['uidToEdit']>0)
+{
+    $user_id = $_REQUEST['uidToEdit'];
+}
+else
+{
+    unset($cmd)
+}
 
 //------------------------------------
 // Execute COMMAND section
