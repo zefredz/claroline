@@ -1692,6 +1692,7 @@ $langNotInstalled = "An error occured.  Learning Path import failed.";
 $langNotRecentlyConnectedStudents = "Not recently connected students : ";
 $langNotUnregYourself = "You can not change your own settings!";
 $langNotice = "Notice";
+$langNoVisibleSubmission = "No visible submission";
 $langNow = "Now";
 $langNowGoChooseYourCourses = "You can now select, in the list, the courses you want to access.";
 $langNowGoCreateYourCourse = "You can now create  your  course";

@@ -1346,6 +1346,7 @@ $langNotInstalled = "Une erreur est survenue.  L'importation du parcours pédagog
 $langNotRecentlyConnectedStudents = "Etudiants qui ne se sont pas connecté récemment : ";
 $langNotUnregYourself = "Vous ne pouvez pas changer vos propres paramètres !";
 $langNotice = "Remarque";
+$langNoVisibleSubmission = "Pas de soumission visible";
 $langNow = "Maintenant";
 $langNowGoChooseYourCourses = "Vous  pouvez maintenant aller sélectionner les cours auxquels vous souhaitez avoir accès.";
 $langNowGoCreateYourCourse = "Vous  pouvez maintenant aller créer votre cours";
