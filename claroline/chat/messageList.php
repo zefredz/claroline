@@ -54,6 +54,12 @@ $nick              = $_user ['firstName']." ".$_user ['lastName'];
 
 // Determine if the chat system will work at the courseor the group level
 
+// chat need a temp file to record conversations, store it in the course 
+// in case of an upgrade the directory may not exist so check it and create it if needed
+$pathToTmpChatFiles = $coursePath.'/chat/';
+if ( !is_dir($pathToTmpChatFiles) )
+	mkdir($pathToTmpChatFiles, 0777);
+	
 if ($_gid)
 {
     if ($is_groupAllowed)
@@ -61,8 +67,8 @@ if ($_gid)
         $groupContext  = true;
         $courseContext = false;
 
-        $fileChatName   = $courseId.'.'.$groupId.'.chat.html';
-        $tmpArchiveFile = $courseId.'.'.$groupId.'.tmpChatArchive.html';
+        $fileChatName   = $pathToTmpChatFiles.$courseId.'.'.$groupId.'.chat.html';
+        $tmpArchiveFile = $pathToTmpChatFiles.$courseId.'.'.$groupId.'.tmpChatArchive.html';
         $pathToSaveChat = $coursePath.'/group/'.$_group['directory'].'/';
     }
     else
@@ -75,8 +81,8 @@ else
     $groupContext  = false;
     $courseContext = true;
 
-    $fileChatName   = $courseId.'.chat.html';
-    $tmpArchiveFile = $courseId.'.tmpChatArchive.html';
+    $fileChatName   = $pathToTmpChatFiles.$courseId.'.chat.html';
+    $tmpArchiveFile = $pathToTmpChatFiles.$courseId.'.tmpChatArchive.html';
     $pathToSaveChat = $coursePath.'/document/';
 }
 
