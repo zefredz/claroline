@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -13,6 +13,7 @@
 
 $langFile = "editFile";
 $cidReset=TRUE;
+
 include("../../inc/claro_init_global.inc.php");
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");
@@ -25,7 +26,7 @@ $interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $lang_EditFile_Adminis
 $interbredcrump[]	= array ("url"=>$PHP_SELF, "name"=> $lang_EditFile_EditFile);
 
 //The name of the files
-$NameFile=array("includeInHomePage.html","home_include.html.dist");
+$NameFile=array("textzone_top.inc.html","textzone_left.inc.html");
 //The path of the files
 $EditFile=array($rootSys.$NameFile[0],$rootSys.$NameFile[1]);
 
