@@ -25,9 +25,12 @@ $langEditFeedback = "Edit feedback";
 // -- Work list
 $langAssignment = "Assignment";
 $langSubmitWork = "Submit a work";
+$langSubmittedWork = "Work";
 $langEditWork = "Modify a work";
 $langWorkDetails = "Work details";
 $langShowFeedback = "Show feedback";
+$langShowWork = "Show work";
+$langAddFeedback = "Add feedback";
 
 // -- Forms
 
@@ -69,7 +72,7 @@ $langSubmitFeedbackAfterEndDate = "Automatically, after end date";
 $langSubmitFeedbackAfterPost = "Automatically, after each submission";
 
 // work
-$langWrkTitle = "Work title";
+$langWrkTitle = "Title";
 $langWrkAuthors = "Author(s)";
 $langUploadDoc = "Upload document";
 $langAttachDoc = "Attach a file";

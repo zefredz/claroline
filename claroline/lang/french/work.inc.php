@@ -27,8 +27,11 @@ $langEditFeedback = "Editer la correction";
 $langAssignment = "Travail";
 $langSubmitWork = "Nouvelle soumission";
 $langEditWork = "Modifier une soummission";
+$langSubmittedWork = "Soumission";
 $langWorkDetails = "Détails de la soumission";
 $langShowFeedback = "Voir correction";
+$langShowWork = "Voir la soumission";
+$langAddFeedback = "Corriger";
 
 // -- Forms
 
@@ -70,7 +73,7 @@ $langSubmitFeedbackAfterEndDate = "Automatique, après la date de fin";
 $langSubmitFeedbackAfterPost = "Automatique, après chaque soumission";
 
 // work
-$langWrkTitle = "Titre de la soumission";
+$langWrkTitle = "Titre";
 $langWrkAuthors = "Auteur(s)";
 $langUploadDoc = "Envoyer un fichier";
 $langAttachDoc = "Attacher un fichier";
