@@ -22,7 +22,7 @@ $langSendPage="Page to send";
 $langCouldNotSendPage="This file is not in HTML format and could not be sent. If you want to send non HTML documents (PDF, Word, Power Point, Video, etc.) use <a href=../document/document.php>Documents tool</a>";
 $langAddPageToSite="Add a page to site";
 $langNotAllowed="Not allowed";
-$langExercices="Exercices";
+$langExercices="Exercises";
 $langCouldNot="File could not be sent";
 $langOkSent="Your page has been sent.<p>It is now linked from course <a href=../../$dbname/index.php>Homepage</a>";
 $langTooBig="You didn't choose any file to send, or it is too big";
