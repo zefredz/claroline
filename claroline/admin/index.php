@@ -102,6 +102,9 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <li>
 <a href="admin_class.php"><?php echo $langManageUserClasses?> Manage user classes</a>
 </li>
+<li>
+<a href="adminAddCSVusers.php"><?php echo $langManageUserClasses?> Add a complete user list</a>
+</li>
 </ul>
 
 <h4><?php echo $langCourses?></h4>
