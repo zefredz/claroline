@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -55,20 +55,20 @@ claro_disp_msg_arr($controlMsg);
 <table align="center" border="0" width="80%">
   <tr valign="top" height="50">
     <td width="50%">
-      <a href="../claroline/calendar/admincourse.php">
-      <img src="../img/agenda.gif" alt="" border="0"></a>
-      <a href="technical/config.php"><?=$langConfiguration?> </a>
+      <a href="<?php echo $clarolineRepositoryWeb ?>calendar/admincourse.php">
+      <img src="<?php echo $clarolineRepositoryWeb ?>img/agenda.gif" alt="agenda" border="0"></a>
+      <a href="technical/config.php"><?php echo $langConfiguration?> </a>
     </td>
     <td width="50%">
-      <a href="maintenance/index.php"><img src="../img/statistiques.gif" alt="" border="0"></a>
-      <a href="maintenance/index.php"><?=$langUpgrade?></a><br>
+      <a href="maintenance/index.php"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistiques.gif" alt="" border="0"></a>
+      <a href="maintenance/index.php"><?php echo $langUpgrade?></a><br>
     </td>
   </tr>
  <tr valign="top" height="50">
     <td width="50%">
       <a href="adminusers.php">
-      <img src="../../claroline/img/group.gif" alt="" border="0"></a>
-      <a href="adminusers.php"><?=$langTraduction?> </a>
+      <img src="<?php echo $clarolineRepositoryWeb ?>img/group.gif" alt="group" border="0"></a>
+      <a href="adminusers.php"><?php echo $langTraduction?> </a>
     </td>
   </tr>
 </table>
