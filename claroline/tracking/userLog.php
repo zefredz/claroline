@@ -354,7 +354,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         AVG(`TEX`.`exe_result`) AS average,
                         MAX(`TEX`.`exe_weighting`) AS weighting,
                         COUNT(`TEX`.`exe_user_id`) AS attempts,
-                        MAX(`TEX`.`exe_date`) AS lastAttempt 
+                        MAX(`TEX`.`exe_date`) AS lastAttempt,
+			AVG(`TEX`.`exe_time`) AS avgTime
                     FROM `$TABLECOURSE_EXERCICES` AS E , `$TABLETRACK_EXERCISES` AS TEX
                     WHERE `TEX`.`exe_user_id` = '".$_GET['uInfo']."'
                         AND `TEX`.`exe_exo_id` = `E`.`id`
@@ -378,6 +379,9 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         <th>
                         $langScoreAvg
                         </th>
+			<th>
+			$langExeAvgTime
+			</th>
                         <th>
                         $langAttempts
                         </th>
@@ -388,7 +392,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 if( mysql_num_rows($result) == 0)
                 {
                     echo "<tfoot><tr>"; 
-                    echo "<td colspan='6'><center>".$langNoResult."</center></td>";
+                    echo "<td colspan='7'><center>".$langNoResult."</center></td>";
                     echo"</tr></tfoot>";
                 }
                 else
@@ -396,19 +400,20 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                       echo "<tbody>";
                       while( $exo_details = mysql_fetch_array($result) )
                       { 
-                              echo "<tr>"; 
-                              echo "<td><a href=\"$PHP_SELF?uInfo=".$_GET['uInfo']."&view=".$view."&exoDet=".$exo_details['id']."\">".$exo_details['titre']."</td>";
-                              echo "<td>".$exo_details['minimum']."</td>";
-                              echo "<td>".$exo_details['maximum']."</td>";
-                              echo "<td>".(round($exo_details['average']*10)/10)."</td>";
-                              echo "<td>".$exo_details['attempts']."</td>";
-                              echo "<td>".$exo_details['lastAttempt']."</td>";
-                              echo"</tr>";
+                      	echo "<tr>". 
+                             	"<td><a href=\"$PHP_SELF?uInfo=".$_GET['uInfo']."&view=".$view."&exoDet=".$exo_details['id']."\">".$exo_details['titre']."</td>".
+                        	"<td>".$exo_details['minimum']."</td>".
+                             	"<td>".$exo_details['maximum']."</td>".
+                             	"<td>".(round($exo_details['average']*10)/10)."</td>".
+                        	"<td>".(round($exo_details['avgTime']*10)/10)."</td>".
+                        	"<td>".$exo_details['attempts']."</td>".
+                        	"<td>".$exo_details['lastAttempt']."</td>";
+                        	"</tr>";
                               
                               // display details of the exercise, all attempts
                               if ($_GET['exoDet'] == $exo_details['id'])
                               {
-                                $sql = "SELECT `exe_date`, `exe_result`, `exe_weighting`
+                                $sql = "SELECT `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
                                 FROM `".$TABLETRACK_EXERCISES."`
                                 WHERE `exe_exo_id` = ".$exo_details['id']."
                                 AND `exe_user_id` = ".$_GET['uInfo']."
@@ -417,20 +422,22 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                                 
                                 echo "<tr>";
                                 echo "<td class=\"noHover\">&nbsp;</td>";
-                                echo "<td colspan=\"5\" class=\"noHover\">";
+                                echo "<td colspan=\"6\" class=\"noHover\">";
                                 echo "<table class=\"claroTable\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\" width=\"100%\">\n
                                 <tr class=\"headerX\">
-                                  <th><small>$langDate</small></th>\n
-                                  <th><small>$langScore</small></th>\n
+                                <th><small>$langDate</small></th>\n
+                                <th><small>$langScore</small></th>\n
+				<th><small>$langExeTime</small></th>\n
                                 </tr>
-                                <tbody>";
+                                <tbody>\n";
                                 
                                 while ( $exo_attempt = mysql_fetch_array($resListAttempts) )
                                 {
-                                    echo "<tr>";
-                                    echo "<td><small>".$exo_attempt['exe_date']."</small></td>";
-                                    echo "<td><small>".$exo_attempt['exe_result']."/".$exo_attempt['exe_weighting']."</small></td>";
-                                    echo "</tr>";
+                                    	echo "<tr>".
+                                    	"<td><small>".$exo_attempt['exe_date']."</small></td>".
+					"<td><small>".$exo_attempt['exe_result']."/".$exo_attempt['exe_weighting']."</small></td>".
+					"<td><small>".$exo_attempt['exe_time']."</small></td>".
+                                    	"</tr>\n";
                                 }
                                 echo  "</tbody></table>";
                                 echo "</td>";
