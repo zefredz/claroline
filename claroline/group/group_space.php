@@ -24,7 +24,6 @@ if (!$_gid || (!$is_groupAllowed & !($HTTP_GET_VARS['selfReg'] ) ))
    header('Location:group.php');
 }
 
-
 $nameTools        = $langGroupSpace;
 $interbredcrump[] = array ('url'=>'group.php', 'name'=> $langGroupManagement);
 
@@ -39,7 +38,6 @@ $htmlHeadXtra[]= "
 /*============================================================================
                                CONNECTION SECTION
   ============================================================================*/
-
 
 $is_courseMember     = $is_courseMember;
 $is_groupMember      = $is_groupMember;
@@ -68,9 +66,10 @@ $sql = "SELECT COUNT(team) userGroupRegCount
 
 list($result) = claro_sql_query_fetch_all($sql);
 
-
-$userGroupQuotaExceeded = (bool) (   $_groupProperties ['nbGroupPerUser'] < $result['userGroupRegCount'])
-                                  || is_null($_groupProperties['nbGroupPerUser']); // no limit assign to group         per user;
+// The previous request compute the quantity of subscription for the current user.
+// the following request compare with the quota of subscription allowed to each student
+$userGroupQuotaExceeded = (bool) ( $_groupProperties ['nbGroupPerUser'] <= $result['userGroupRegCount'])
+                                  || is_null($_groupProperties['nbGroupPerUser']); // no limit assign to group per user;
 
 $is_allowedToSelfRegInGroup = (bool) (     $_groupProperties ['registrationAllowed']
                                       && ( ! $userGroupQuotaExceeded )
@@ -83,7 +82,6 @@ $is_allowedToSelfRegInGroup  = (bool)    $is_allowedToSelfRegInGroup
                                       && ( ! $is_groupMember )
                                       && $is_courseMember;
 
-
 $is_allowedToDocAccess      = (bool) (   $is_courseAdmin
                                       || $is_groupMember
                                       || $is_groupTutor);
@@ -91,8 +89,6 @@ $is_allowedToDocAccess      = (bool) (   $is_courseAdmin
 $is_allowedToChatAccess     = (bool) ( 	$is_courseAdmin
 					|| $is_groupMember 
 					|| $is_groupTutor );
-
-
 
 /*============================================================================
                            SELF-REGISTRATION PROCESS
@@ -105,7 +101,7 @@ if($_REQUEST['registration'])
                 SET `user` = "'.$_uid.'",
                     `team` = "'.$_gid.'"';
         
-	if (claro_sql_query($sql))
+        if (claro_sql_query($sql))
         {
             // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
 
@@ -310,11 +306,8 @@ else
 
 ?>
 </td>
-
 </tr>
-
 <?php
-
 if ($is_allowedToManage)
 { 
     echo '<tr valign="top">'
