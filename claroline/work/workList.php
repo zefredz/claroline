@@ -402,7 +402,6 @@ if( isset($_REQUEST['submitWrk']) )
   $dispWrkFormScore = false;
 
 
-
 /*============================================================================
                           ADMIN ONLY COMMANDS
   =============================================================================*/
@@ -783,15 +782,39 @@ if( isset($dispWrkLst) && $dispWrkLst )
                   ."\n</p>\n\n";
       }
       
-      // feedback
-      // show it only if :
+      // SHOW FEEDBACK
+      // only if :
       //      - there is a text OR a file 
       //    AND 
-      //          feedback must be shown after deadline and deadline is past
-      //       OR feedback must be showned after a post
-      if( (     !empty($assignment['prefill_text']) || !empty($assignment['prefill_doc_path']) ) 
-            &&  ( $assignment['prefill_submit'] == "ENDDATE" && $assignment['unix_end_date'] < time() )
-        )
+      //          feedback must be shown after end date and end date is past
+      //      OR  feedback must be shown directly after a post (from the time a work was uploaded by the student)
+      
+      // there is a prefill_ file or text, so there is something to show
+      $textOrFilePresent = (boolean) !empty($assignment['prefill_text']) || !empty($assignment['prefill_doc_path']);
+      // feedback must be shown after end date and end date is past
+      $showAfterEndDate = (boolean) ($assignment['prefill_submit'] == "ENDDATE" && $assignment['unix_end_date'] < time());
+
+      // feedback must be shown directly after a post
+      // check if user has already posted a work
+      if( !isset($_uid) )
+      {
+            // do not show to anonymous users because we can't know if the user already uploaded a work
+            $showAfterPost = false;
+      }
+      else
+      {      
+            $sql = "SELECT count(`id`) 
+                       FROM `".$tbl_wrk_submission."`
+                      WHERE `user_id` = ".$_uid."
+                        AND `assignment_id` = ".$_REQUEST['assigId'];
+            $nbrWorksOfUser = claro_sql_query_get_single_value($sql);
+            
+            $showAfterPost = (boolean) ( $assignment['prefill_submit'] == "AFTERPOST" && $nbrWorksOfUser >= 1 );
+      }
+      
+      // show to authenticated and anonymous users
+      
+      if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
       {
             echo "<fieldset>\n"
                   ."<legend><b>".$langFeedback."</b></legend>";
@@ -885,7 +908,7 @@ if( $dispWrkDet && $is_allowedToView )
             }
       }
       
-      
+      // change some displayed text depending on the context
       if( $assignmentContent == "TEXTFILE" )
       {
             $txtForFile = $langAttachedFile;
