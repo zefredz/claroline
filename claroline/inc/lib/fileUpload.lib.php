@@ -63,13 +63,49 @@ function replace_dangerous_char($string, $strict = 'loose')
  *
  * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  - fileName (string) name of a file
- * @return - the filenam phps'ized
+ * @return - string the filename phps'ized
  */
 
 function php2phps ($fileName)
 {
 	$fileName = eregi_replace("\.(php.?|phtml)$", ".phps", $fileName);
 	return $fileName;
+}
+
+/**
+ * change the file named .htacess in htacess.txt
+ * Useful to secure a site working on Apache.
+ *
+ * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  - fileName (string) name of a file
+ * @return - string 'Apache safe' file name
+ */
+
+
+function htaccess2txt($fileName)
+{
+	$fileName = str_replace('.htaccess', 'htaccess.txt', $fileName);
+	$fileName = str_replace('.HTACCESS', 'HTACCESS.txt', $fileName);
+    return $fileName;
+}
+
+
+/**
+ * change the file named .htacess in htacess.txt
+ * Useful to secure a site working on Apache.
+ *
+ * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  - fileName (string) name of a file
+ * @return - string innocuous filename
+ * @see    - htaccess2txt and php2phps
+ */
+
+
+function get_secure_file_name($fileName)
+{
+    $fileName = php2phps ($fileName);
+    $fileName = htaccess2txt($fileName);
+    return $fileName;
 }
 
 //------------------------------------------------------------------------------
@@ -271,8 +307,8 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 		/* TRY TO ADD AN EXTENSION TO FILES WITOUT EXTENSION */
 		$fileName = add_ext_on_mime($fileName);
 
-		/* HANDLE PHP FILES */
-		$fileName = php2phps($fileName);
+		/* HANDLE DANGEROUS FILE NAME FOR SERVER SECURITY */
+		$fileName = get_secure_file_name($fileName);
 
 		/* COPY THE FILE TO THE DESIRED DESTINATION */
 		if (move_uploaded_file($uploadedFile['tmp_name'], 
