@@ -82,7 +82,7 @@ function claro_delete_file($filePath)
  * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  - $filePath (string) - complete path of the file or the directory
  * @param  - $newFileName (string) - new name for the file or the directory
- * @return - boolean - true if succeed
+ * @return - string  - new file path if it succeeds
  *         - boolean - false otherwise
  * @see    - rename() uses the check_name_exist() and php2phps() functions
  */
@@ -594,11 +594,17 @@ function update_db_info($action, $filePath, $newParam = array())
                 || ( isset($newParam['visibility']) && $newParam['visibility'] != 'v') )
             {
                 $newParam['visibility'] != 'i' ? $newParam['visibility'] = 'v' : '';
+                $insertedPath = ( trim($newParam['path']) != '' ? $newParam['path'] : $filePath);
 
                 $theQuery = "INSERT INTO `".$dbTable."`
-                             SET path       = \"".addslashes($filePath)."\",
+                             SET path       = \"".addslashes($insertedPath)."\",
                                  comment    = \"".addslashes($newParam['comment'   ])."\",
                                  visibility = \"".addslashes($newParam['visibility'])."\"";
+
+              /* <DEBUG> */
+              echo "<pre style='color:red;font-weight:bold'>$theQuery</pre>";
+              /* </DEBUG> */
+              
             }
             // else noop
         }
@@ -637,7 +643,6 @@ function update_db_info($action, $filePath, $newParam = array())
             $theQuery = "UPDATE `".$dbTable."`
             SET path = CONCAT(\"".addslashes($newParam['path'])."\", SUBSTRING(path, LENGTH(\"".addslashes($filePath)."\")+1) )
             WHERE path = \"".addslashes($filePath)."\" OR path LIKE \"".addslashes($filePath)."/%\"";
-
             $r = claro_sql_query($theQuery);
         }
     } // end else if action == update
