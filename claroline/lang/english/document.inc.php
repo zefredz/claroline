@@ -50,7 +50,8 @@ $langUp="Up";
 $langViMod="Visibility modified";
 $langElRen="Element renamed";
 $langFileError="The file to upload is not valide.";
-$langMaxFileSize="Max file size is";
+$langMaxFileSize="Max file size is : ";
+$langAddCommentOptionnal = "Add a comment (optionnal) :";
 
 // Special for group documents
 $langGroupManagement="Group management";
@@ -74,6 +75,7 @@ $langFileCreated = "File created";
 $langFileNameMissing = "File name is missing";
 $langFileContentModified  = "File content modified";
 $langFileNameOrURLMissing = "File Name or URL is missing.";
+$langBackToEditor = "Back to the editor";
 // rqmkhtml
 $langCreateModifyDocument = "Create/edit document";
 $langDocumentName = "Document name : ";
