@@ -467,7 +467,7 @@ switch ($displayMode)
 								"</a>",
 								" <small>(".$thisCategory['nbCourse'].")</small>";
 					}
-					elseif( CONFVAL_showNodeEmpty )
+					else
 					{
 						echo $thisCategory['name'];
 					}
