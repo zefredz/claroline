@@ -276,6 +276,21 @@ h3{	font-size: 110%; }
 		text-decoration: none;
 }
 
+/* Added for document view mode toolbar */
+
+th .claroCmd{
+        font-size: smaller;
+		font-weight: bold;
+		text-decoration: underline;
+}
+
+th .claroCmdDisabled{
+        color: white;
+        font-size: smaller;
+		font-weight: bold;
+		text-decoration: none;
+}
+
 
 /******************************************************************************
                              CLAROLINE TABLE

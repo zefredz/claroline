@@ -1181,7 +1181,7 @@ claro_disp_tool_title($titleElement,
 
         if( $docView == 'files' )
         {
-            $docViewToolbar = $langFiles."\n | ";
+            $docViewToolbar = "<span class=\"claroCmdDisabled\">".$langFiles."</span>\n | ";
         }
         else
         {
@@ -1192,7 +1192,9 @@ claro_disp_tool_title($titleElement,
         }
         if( $docView == 'thumbnails' )
         {
-            $docViewToolbar .= $langThumbnails."\n";
+            $docViewToolbar .= "<span class=\"claroCmdDisabled\">"
+                ."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
+                .$langThumbnails."</span>\n";
         }
         else
         {
@@ -1349,7 +1351,7 @@ claro_disp_tool_title($titleElement,
 
         if( $docView == 'files' )
         {
-            $docViewToolbar = $langFiles . "\n | ";
+            $docViewToolbar = "<span class=\"claroCmdDisabled\">". $langFiles . "</span>\n | ";
         }
         else
         {
@@ -1360,9 +1362,9 @@ claro_disp_tool_title($titleElement,
         }
         if( $docView == 'thumbnails' )
         {
-            $docViewToolbar .= "<img src=\"".$imgRepositoryWeb
+            $docViewToolbar .= "<span class=\"claroCmdDisabled\">"."<img src=\"".$imgRepositoryWeb
                 ."image.gif\" border=\"0\" alt=\"\">\n"
-                . $langThumbnails."\n";
+                . $langThumbnails."</span>\n";
         }
         else
         {
@@ -1543,7 +1545,7 @@ claro_disp_tool_title($titleElement,
         
         if( $docView == 'files' )
         {
-            $docViewToolbar = $langFiles."\n | ";
+            $docViewToolbar = "<span class=\"claroCmdDisabled\">".$langFiles."</span>\n | ";
         }
         else
         {
@@ -1554,9 +1556,9 @@ claro_disp_tool_title($titleElement,
         }
         if( $docView == 'thumbnails' )
         {
-            $docViewToolbar .= "<img src=\"".$imgRepositoryWeb
+            $docViewToolbar .= "<span class=\"claroCmdDisabled\">"."<img src=\"".$imgRepositoryWeb
                 ."image.gif\" border=\"0\" alt=\"\">\n"
-                .$langThumbnails."\n";
+                .$langThumbnails."</span>\n";
         }
         else
         {
