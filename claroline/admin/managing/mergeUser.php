@@ -1,8 +1,5 @@
 <?php # $Id$
 
-$lang_merge_proceed		= "Effectuer la fusion";
-$lang_no_back			= "Irréversible !!!";
-
 #### SETTINGS ####
 $_tid				= "MERGE_USER";
 

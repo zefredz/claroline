@@ -11,7 +11,6 @@
 		$DIPLAY_STATUS_OF_PROTECTION
 
 */
-$lang_htAccessIncPath_added ="Répertoire <em>inc</em> protégé";
 
 $langFile = "admin.security";
 require '../../inc/claro_init_global.inc.php';

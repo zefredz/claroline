@@ -39,12 +39,8 @@
  *  	
  *    
  */
-$langWeGoToDelete = "Nous allons supprimer le cours avec le code : ";
 $nomOutil  = "Kill Database";
 $nomPage   = "Admin";
-
-$lang_no_access_here ="Pas d'accès ";
-
 
 $langFile = "admin";
 require '../inc/claro_init_global.inc.php'; 

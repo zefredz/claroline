@@ -1161,8 +1161,6 @@ function mergeUsersAccount($uidToKeep,$uidToDelete)
 
 	// http://www.icampus.ucl.ac.be/CLARO01/phiki/phiki.php3?FusionUtilisateurs
 
-	$langUserWithManyAccountInYourCourse ="Problème sur : ";
-	$langUserWithManyAccountInACourse = "Problème d'inscription multiple dans un cas de fusion";
 	// actually  we go to begin  automation  working  only  if twe id  aren't  subscribed  in same  course
 	
 	// in mainDb
