@@ -160,7 +160,7 @@ $langUserCanCreateCourse = "Can create course";
 $langUserIsPlaformAdmin = "Is platform admin";
 $langAllUserOfThisCourse = "Personnal course list";
 $langAllUsersOfThisCourse = "Course members";
-$langCode = "Code";
+$langCode = "Course code";
 
 
 //Dialogbox  comment

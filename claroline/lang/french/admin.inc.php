@@ -155,7 +155,7 @@ $langUserCanCreateCourse = "Peut créer des cours";
 $langUserIsPlaformAdmin = "Peut administrer la plate-forme"; // JCC
 $langAllUserOfThisCourse = "Liste personnelle des cours";
 $langAllUsersOfThisCourse = "Membres du cours";
-$langCode = "Code";
+$langCode = "Code du cours";
 
 
 //Dialogbox  comment

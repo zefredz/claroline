@@ -163,7 +163,7 @@ $langUserCanCreateCourse = "Pode criar curso";
 $langUserIsPlaformAdmin = "É administrador da plataforma";
 $langAllUserOfThisCourse = "Lista de cursos pessoal";
 $langAllUsersOfThisCourse = "Membros do curso";
-$langCode = "Código";
+$langCode = "Código do curso";
 
 
 //Dialogbox  comment
