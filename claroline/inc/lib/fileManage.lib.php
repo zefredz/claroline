@@ -218,6 +218,22 @@ function claro_copy_file($sourcePath, $targetPath)
 //------------------------------------------------------------------------------
 
 
+/**
+ * returns the dir path of a specific file or directory
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param string $filePath
+ * @return string dir name
+ */ 
+
+function claro_dirname($filePath)
+{
+	 return str_replace('\\', '', dirname($filePath) );
+	 
+	 // str_replace is necessary because, when there is no
+     // dirname, PHP leaves a ' \ ' (at least on windows)
+}
+
 /* NOTE: These functions batch is used to automatically build HTML forms
  * with a list of the directories contained on the course Directory.
  *

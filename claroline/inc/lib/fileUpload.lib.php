@@ -584,22 +584,6 @@ function create_file($filePath, $fileContent)
 
 
 /**
- * returns the dir path of a specific file or directory
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param string $filePath
- * @return string dir name
- */ 
-
-function claro_dirname($filePath)
-{
-	 return str_replace('\\', '', dirname($filePath) );
-	 
-	 // str_replace is necessary because, when there is no
-     // dirname, PHP leaves a ' \ ' (at least on windows)
-}
-
-/**
  * Determine the maximum size allowed to upload. This size is based on
  * the tool $maxFilledSpace regarding the space already opccupied
  * by previous uploaded files, and the php.ini upload_max_filesize
