@@ -149,10 +149,11 @@ if(!isset($_SESSION['objExercise']))
     $_SESSION['objExercise'] = $objExercise;
 }
 
-$exerciseTitle=$objExercise->selectTitle();
-$exerciseDescription=$objExercise->selectDescription();
-$randomQuestions=$objExercise->isRandom();
-$exerciseType=$objExercise->selectType();
+$exerciseTitle		= $objExercise->selectTitle();
+$exerciseDescription= $objExercise->selectDescription();
+$randomQuestions	= $objExercise->isRandom();
+$exerciseType		= $objExercise->selectType();
+$exerciseMaxTime 	= $objExercise->get_max_time();
 
 if(!isset($_SESSION['questionList']))
 {
@@ -213,7 +214,21 @@ else
 
 <h3><?php echo $exerciseTitle; ?></h3>
 
-<p><?php echo claro_parse_user_text(make_clickable($exerciseDescription)); ?></p>
+<p>
+  <?php echo claro_parse_user_text(make_clickable($exerciseDescription)); ?>
+  <br />
+  <small>
+  	<?php 
+	// display actual time only if exercise is sequential, it will always be
+	// zero in non sequential mode 
+	if($exerciseType == 2) 
+	{ 
+		echo "Temps actuel : ".(time()-$_SESSION['exeStartTime']); 
+	}
+	echo " (maximum allowed : ".$exerciseMaxTime."s.)";
+	?>
+  </small>
+</p>
 
 <table width="100%" border="0" cellpadding="1" cellspacing="0">
 <form method="post" action="<?php echo $PHP_SELF; ?>?<?= SID ?>" autocomplete="off">
