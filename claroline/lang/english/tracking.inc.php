@@ -128,6 +128,7 @@ $langDay = "Day";
 $langLittleHour = "h.";
 $langLast31days = "In the last 31 days";
 $langLast7days = "In the last 7 days";
+$langYesterday = "Yesterday";
 $langThisday  = "This day";
 
 /* perso stats */
