@@ -217,13 +217,26 @@ $cidReset    = false;
 $tidReset    = false;
 $gidReset    = false;
 
+// Get table name
+
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user            = $tbl_mdb_names['user'];
+$tbl_admin           = $tbl_mdb_names['admin'];
+$tbl_track_e_login   = $tbl_mdb_names['track_e_login'];
+$tbl_course          = $tbl_mdb_names['course'];
+$tbl_category        = $tbl_mdb_names['category'];
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
+$tbl_tool            = $tbl_mdb_names['tool'];
+
+
 // check authentification
 
 if ( !empty($HTTP_SESSION_VARS['_uid']) && ! ($login || $logout))
 {
     // uid is in session => login already done, continue with this value
     $_uid = $HTTP_SESSION_VARS['_uid'];
-
+    $is_platformAdmin = $HTTP_SESSION_VARS['is_platformAdmin'];
+    $is_allowedCreateCourse = $HTTP_SESSION_VARS['is_allowedCreateCourse'];
 }
 else
 {
@@ -235,7 +248,7 @@ else
         //lookup the user in the Claroline database
 
         $sql = "SELECT user_id, username, password, authSource
-                FROM `".$mainDbName."`.`".$mainTblPrefix."user` `user`
+                FROM `".$tbl_user."` `user`
                 WHERE username = \"". $login ."\"";
 
         $result = claro_sql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
@@ -275,7 +288,7 @@ else
                     //first login for a not self registred
                     //e.g. registered by a teacher
                     //do nothing (code may be added later)
-		            $sql = "UPDATE `".$mainDbName."`.`".$mainTblPrefix."user`
+		            $sql = "UPDATE `".$tbl_user."`
 							SET creatorId=user_id
 							WHERE user_id='".$_uid."'";
 
@@ -395,10 +408,10 @@ if ($uidReset) // session data refresh requested
                         `user`.`statut`, 
                         `a`.`idUser`        `is_admin`,
                          UNIX_TIMESTAMP(`login`.`login_date`) `lastLogin`
-                     FROM `".$mainDbName."`.`".$mainTblPrefix."user` `user`
-                     LEFT JOIN `".$mainDbName."`.`".$mainTblPrefix."admin` `a`
+                     FROM `".$tbl_user."` `user`
+                     LEFT JOIN `". $tbl_admin  ."` `a`
                      ON `user`.`user_id` = `a`.`idUser`
-                     LEFT JOIN `".$statsDbName."`.`".$statsTblPrefix."track_e_login` `login`
+                     LEFT JOIN `". $tbl_track_e_login ."` `login`
                      ON `user`.`user_id`  = `login`.`login_user_id`
                      WHERE `user`.`user_id` = '".$_uid."'
                      ORDER BY `login`.`login_date` DESC LIMIT 1";
@@ -412,8 +425,8 @@ if ($uidReset) // session data refresh requested
                         `user`.`login_date` `lastLogin`, 
                         `user`.`statut`, 
                         `a`.`idUser`        `is_admin`
-                    FROM `".$mainDbName."`.`".$mainTblPrefix."user` `user`
-                    LEFT JOIN `".$mainDbName."`.`".$mainTblPrefix."admin` `a`
+                    FROM `". $tbl_user ."` `user`
+                    LEFT JOIN `". $tbl_admin  ."` `a`
                     ON `user`.`user_id` = `a`.`idUser`
                     WHERE `user`.`user_id` = '".$_uid."'";
         }
@@ -474,8 +487,8 @@ if ($cidReset) // course session data refresh requested
                    `cours`.*, 
                    `faculte`.`code` `faCode`, 
                    `faculte`.`name` `faName`
-                 FROM `".$mainDbName."`.`".$mainTblPrefix."cours` `cours`
-                 LEFT JOIN `".$mainDbName."`.`".$mainTblPrefix."faculte` `faculte`
+                 FROM `".$tbl_course."` `cours`
+                 LEFT JOIN `".$tbl_category."` `faculte`
                  ON `cours`.`faculte` =  `faculte`.`code`
                  WHERE `cours`.`code` = '".$cidReq."'";
 
@@ -507,6 +520,7 @@ if ($cidReset) // course session data refresh requested
 
             session_register('_cid', '_course');
 
+            // GET COURSE TABLE
 
             // read of group tools config related to this course
 
@@ -578,7 +592,7 @@ if ($uidReset || $cidReset) // session data refresh requested
 {
     if ($_uid && $_cid) // have keys to search data
     {
-        $sql = "SELECT * FROM `".$mainDbName."`.`".$mainTblPrefix."cours_user` `cours_user`
+        $sql = "SELECT * FROM `".$tbl_rel_course_user."` `cours_user`
                WHERE `user_id`  = '$_uid'
                AND `code_cours` = '$cidReq'";
 
@@ -652,7 +666,7 @@ if ($tidReset || $cidReset) // session data refresh requested
                       CONCAT('".$clarolineRepositoryWeb."', pct.script_url) url
 
                FROM `".$_course['dbNameGlu']."tool_list` ctl,
-                    `".$mainDbName."`.`".$mainTblPrefix."course_tool`  pct
+                    `".$tbl_tool."`  pct
 
                WHERE `ctl`.`tool_id` = `pct`.`id`
                         AND
@@ -905,7 +919,7 @@ if ($uidReset || $cidReset)
 
                FROM `".$_course['dbNameGlu']."tool_list` ctl
 
-               LEFT JOIN `".$mainDbName."`.`".$mainTblPrefix."course_tool` pct
+               LEFT JOIN `".$tbl_tool."` pct
                ON       pct.id = ctl.tool_id
    
                WHERE ctl.access IN (\"".implode("\", \"", $reqAccessList)."\")";
