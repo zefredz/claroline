@@ -77,8 +77,6 @@
 
   // error handling
   $errorFound = false;
-  $packageUploaded = $langPackageUploaded;
-
 
  /*--------------------------------------------------------
       Functions
@@ -239,7 +237,7 @@ function elementData($parser,$data)
       global $iterator;
       global $dialogBox;
       global $errorFound;
-      global $langErroringXMLFile, $langErrorReadingXMLFile;
+      global $langErrorReadingXMLFile;
       global $zipFile;
       global $errorMsgs,$okMsgs;
       global $pathToManifest;
