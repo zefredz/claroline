@@ -28,7 +28,16 @@ require 'auth.'.$phpEx;
 $pagetitle = $l_topictitle;
 $pagetype  = 'viewtopic';
 
+$topicSettingList = get_topic_settings($topic); 
+
+$forum            = $topicSettingList['forum_id'];
+$topic_subject    = own_stripslashes($topicSettingList['topic_title']);
+$lock_state       = $topicSettingList['topic_status'];
+
 $forumSettingList = get_forum_settings($forum, $topic);
+
+$forum_name       = own_stripslashes($forumSettingList['forum_name']);
+ 
 
 /* 
  * Check if the topic isn't attached to a group,  or -- if it is attached --, 
@@ -46,23 +55,6 @@ if (   ! is_null($forumSettingList['idGroup'])
     die ('<center>not allowed</center>');
 }
 
-$forum_name = own_stripslashes($forumSettingList['forum_name']);
-
-/*
- *  Get topic settings
- */
-
-$sql = "SELECT topic_title, topic_status 
-        FROM `".$tbl_topics."` 
-        WHERE topic_id = '".$topic."'";
-
-$topicSettingList = claro_sql_query_fetch_all($sql);
-if ( count($topicSettingList) == 1) $topicSettingList = $topicSettingList[0];
-else                                error_die('Unexisting topic.');
-
-$topic_subject    = own_stripslashes($topicSettingList['topic_title']);
-
-$lock_state       = $topicSettingList['topic_status'];
 
 include('page_header.'.$phpEx);
 
@@ -118,7 +110,7 @@ if($total > $posts_per_page)
         $next_page = $start + $posts_per_page;
 
         $pager .= "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
-                                   ."&start=$next_page\">"
+                                   ."&start=".$next_page."\">"
                 .$l_nextpage
                 ."</a>\n";
     }
@@ -271,7 +263,7 @@ if ( isset($_uid) )  //anonymous user do not have this function
             ."<td>\n"
             .own_stripslashes($thisPost['post_text'])."\n";
 
-                    // Added by Thomas 30-11-2001
+                    // commentedby Thomas 30-11-2001
                     //  echo "<a href=\"".$url_phpbb."/reply.".$phpEx."?topic=".$topic
                     //      ."&forum=".$forum."&post=".$thisPost['post_id']."&quote=1\">"
                     //      .$langQuote
