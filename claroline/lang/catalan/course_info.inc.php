@@ -22,9 +22,9 @@ $langTitle="Títol deel curs";
 $langFaculty="Facultat";
 $langDescription="Descripció";
 $langConfidentiality="Confidencialitat";
-$langPublic="Accés públic des de la plana principal del campus fins i tot sense iniciar sessió";
+$langPublicAccess="Accés públic des de la plana principal del campus fins i tot sense iniciar sessió";
 $langPrivOpen="Accés privat, enregistrament obert";
-$langPrivate="Accés privat, enregistrament tancat (lloc accessible només a gent a la <a href=../user/user.php>Llista d'usuaris</a>)";
+$langPrivateAccess="Accés privat, enregistrament tancat (lloc accessible només a gent a la <a href=../user/user.php>Llista d'usuaris</a>)";
 $langForbidden="No és permès";
 $langLanguage="Llenguatge";
 $langConfTip="Per dedfecte, el teu curs només és accessible per tu per que ets l'únic usuari enregistrat. Si vols una mica de confidencialitat, 

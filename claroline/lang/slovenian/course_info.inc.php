@@ -33,9 +33,9 @@ $langTitle="Naziv tecaja";
 $langFaculty="Fakulteta";
 $langDescription="Opis";
 $langConfidentiality="Zaupnost";
-$langPublic="Javni dostop z domace strani kampusa celo brez vstopa";
+$langPublicAccess="Javni dostop z domace strani kampusa celo brez vstopa";
 $langPrivOpen="Privatni dostop, odprta registracija";
-$langPrivate="Privatni dostop (dostop le ljudem iz <a href=../user/user.php>seznama uporabnikov</a>)";
+$langPrivateAccess="Privatni dostop (dostop le ljudem iz <a href=../user/user.php>seznama uporabnikov</a>)";
 $langForbidden="Ni dovoljeno";
 $langLanguage="Jezik";
 $langConfTip="Privzeto je tvoj tecaj dostopen le tebi kot edinemu registriranemu uporabniku. Ce zelis doloceno stopnjo zaupnosti,

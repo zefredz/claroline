@@ -26,9 +26,9 @@ $langTitle="Kurstitel";
 $langFaculty="Fakultet";
 $langDescription="Beskrivning";
 $langConfidentiality="Konfidentiellt";
-$langPublic="Publik åtkomst från campus hemsida även utan inloggning";
+$langPublicAccess="Publik åtkomst från campus hemsida även utan inloggning";
 $langPrivOpen="Privat åtkomst, registrering öppen";
-$langPrivate="Privat åtkomst, registrering stängd (sajt tillgänglig bara för personer på <a href=../user/user.php>Användarlistan</a>)";
+$langPrivateAccess="Privat åtkomst, registrering stängd (sajt tillgänglig bara för personer på <a href=../user/user.php>Användarlistan</a>)";
 $langForbidden="Inte tillåtet";
 $langLanguage="Språk";
 $langConfTip="Som standard kommer din kurs att kunna nås av alla så länge som det är registrerade användare. I händelse av att du har något konfidentiellt, 

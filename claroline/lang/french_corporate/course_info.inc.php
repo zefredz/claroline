@@ -31,9 +31,9 @@ $langTitle="Intitulé";
 $langFaculty="Catégorie";
 $langDescription="Description";
 $langConfidentiality="Confidentialité";
-$langPublic="Accès public (depuis la page d'accueil du site sans identifiant)";
+$langPublicAccess="Accès public (depuis la page d'accueil du site sans identifiant)";
 $langPrivOpen="Accès privé, inscription ouverte";
-$langPrivate="Accès privé, inscription fermée (site réservé aux personnes figurant dans la liste <a href=../user/user.php>utilisateurs</a>)";
+$langPrivateAccess="Accès privé, inscription fermée (site réservé aux personnes figurant dans la liste <a href=../user/user.php>utilisateurs</a>)";
 $langForbidden="Vous n'êtes pas enregistré dans ce cours en tant que responsable";
 $langLanguage="Langue";
 $langConfTip="Par défaut, votre site n'est accessible

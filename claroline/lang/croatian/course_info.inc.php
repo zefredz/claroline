@@ -22,9 +22,9 @@ $langTitle="Naziv kolegija";
 $langFaculty="Fakultet";
 $langDescription="Opis";
 $langConfidentiality="Tajnost";
-$langPublic="Javni pristup bez zaporke ";
+$langPublicAccess="Javni pristup bez zaporke ";
 $langPrivOpen="Ogranièen pristup, slobodna prijava";
-$langPrivate="Ogranièen pristup, prijava ogranièena na osobe iz   <a href=../user/user.php>Users list</a>)";
+$langPrivateAccess="Ogranièen pristup, prijava ogranièena na osobe iz   <a href=../user/user.php>Users list</a>)";
 $langForbidden="Zabranjeno";
 $langLanguage="Jeziène postavke";
 $langConfTip="U standardnoj postavi poèetni i jedini korisnik je onaj koji je otvorio web stranice kolegija.

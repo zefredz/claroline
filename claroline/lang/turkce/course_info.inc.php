@@ -23,9 +23,9 @@ $langTitle="Ders baþlýðý";
 $langFaculty="Öðretim üyesi";
 $langDescription="Açýklama";
 $langConfidentiality="Gizlilik";
-$langPublic="Kayýtlý olmadan da Ana Sayfadan giriþ yapýlabilir";
+$langPublicAccess="Kayýtlý olmadan da Ana Sayfadan giriþ yapýlabilir";
 $langPrivOpen="Özel giriþ, kayýtlar açýktýr";
-$langPrivate="Özel giriþ, kayýtlar kapalýdýr (bu dersin sitesine sadece <a href=../user/user.php>bu listedeki kullanýcýlar girebilir</a>)";
+$langPrivateAccess="Özel giriþ, kayýtlar kapalýdýr (bu dersin sitesine sadece <a href=../user/user.php>bu listedeki kullanýcýlar girebilir</a>)";
 $langForbidden="Ýzinli deðil";
 $langLanguage="Dil";
 $langConfTip="Varsayýlan olarak, dersinizin web sitesine sadece kayýtlý kullanýcýlar girebilir.

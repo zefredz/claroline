@@ -278,8 +278,8 @@ if (isset($cidToEdit) && ($is_platformAdmin))
 <tr>
 <td valign="top" align="right" nowrap><?php echo $langCourseAccess; ?> : </td>
 <td>
-<input type="radio" id="visible_true" name="visible" value="true" <?php echo $visibleChecked[TRUE] ?>> <label for="visible_true"><?php echo $langPublic; ?></label><br>
-<input type="radio" id="visible_false" name="visible" value="false" <?php echo $visibleChecked[FALSE]; ?>> <label for="visible_false"><?php echo $langPrivate; ?></label>
+<input type="radio" id="visible_true" name="visible" value="true" <?php echo $visibleChecked[TRUE] ?>> <label for="visible_true"><?php echo $langPublicAccess; ?></label><br>
+<input type="radio" id="visible_false" name="visible" value="false" <?php echo $visibleChecked[FALSE]; ?>> <label for="visible_false"><?php echo $langPrivateAccess; ?></label>
 </td>
 </tr>
 

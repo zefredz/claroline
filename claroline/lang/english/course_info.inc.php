@@ -33,9 +33,9 @@ $langTitle="Course title";
 $langFaculty="Faculty";
 $langDescription="Description";
 $langConfidentiality="Confidentiality";
-$langPublic="Public access from campus home page even without login";
+$langPublicAccess="Public access from campus home page even without login";
 $langPrivOpen="Private access, registration open";
-$langPrivate="Private access (site accessible only to people on the <a href=../user/user.php>User list</a>)";
+$langPrivateAccess="Private access (site accessible only to people on the <a href=../user/user.php>User list</a>)";
 $langForbidden="Not allowed";
 $langLanguage="Language";
 $langConfTip="By default, your course is accessible to everybody. If you want some confidentiality,

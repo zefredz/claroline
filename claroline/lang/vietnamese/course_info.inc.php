@@ -19,9 +19,9 @@ $langTitle="Tên khoá học";
 $langFaculty="Bộ môn";
 $langDescription="Mô tả tóm tắt";
 $langConfidentiality="Confidentiality";
-$langPublic="Truy cập không cần login";
+$langPublicAccess="Truy cập không cần login";
 $langPrivOpen="Truy cập có điều kiện hạn chế, đăng ký tự do";
-$langPrivate="Truy cập chỉ với <a href=../user/user.php>danh sách user</a>)";
+$langPrivateAccess="Truy cập chỉ với <a href=../user/user.php>danh sách user</a>)";
 $langForbidden="Không có quyền";
 $langLanguage="Ngôn ngữ";
 $langConfTip="By default, you course is only accessible to you as its only registered user. If you want some confidentiality,

@@ -30,9 +30,9 @@ $langTitle="Título do curso";
 $langFaculty="Faculdade";
 $langDescription="Descrição";
 $langConfidentiality="Sigilo";
-$langPublic="Acesso público na home page do campus sem login";
+$langPublicAccess="Acesso público na home page do campus sem login";
 $langPrivOpen="Acesso privado, inscrições abertas";
-$langPrivate="Acesso privado, inscrições fechadas (site acessível somente para pessoas na <a href=../user/user.php>Lista de usuários</a>)";
+$langPrivateAccess="Acesso privado, inscrições fechadas (site acessível somente para pessoas na <a href=../user/user.php>Lista de usuários</a>)";
 $langForbidden="Não permitido";
 $langLanguage="Lingua";
 $langConfTip="Por padrão seu curso está acessível apenas para você como seu único usuário inscrito. No caso de você necessitar de algum sigilo, 

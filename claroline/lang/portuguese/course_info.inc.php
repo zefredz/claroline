@@ -41,7 +41,7 @@ $langTitle            = "T&iacute;tulo";
 $langFaculty          = "Faculdade";
 $langDescription      = "Descri&ccedil;&atilde;o";
 $langConfidentiality  = "Confidencialidade";
-$langPublic           = "Acesso p&uacute;blico (a partir da p&aacute;gina principal do Campus) sem identifica&ccedil;&atilde;o";
+$langPublicAccess           = "Acesso p&uacute;blico (a partir da p&aacute;gina principal do Campus) sem identifica&ccedil;&atilde;o";
 $langPrivOpen         = "Acesso privado, inscri&ccedil;&atilde;o aberta";
 
 /*
@@ -52,7 +52,7 @@ $langPrivOpen         = "Acesso privado, inscri&ccedil;&atilde;o aberta";
 //Note-se que a variable anterior $langPrivOpen já não é utilizada.
 */
 
-$langPrivate          = "Acesso privado (web reservada &agrave;s pessoas que aparecem na lista de <a href=../user/user.php>utilizadores</a>)";
+$langPrivateAccess          = "Acesso privado (web reservada &agrave;s pessoas que aparecem na lista de <a href=../user/user.php>utilizadores</a>)";
 
 $langForbidden        = "N&atilde;o est&aacute; registado como respons&aacute;vel por este curso";
 $langLanguage         = "L&iacute;ngua";

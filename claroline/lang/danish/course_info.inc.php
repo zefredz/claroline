@@ -25,9 +25,9 @@ $langTitle="Kursusnavn";
 $langFaculty="Fakultet";
 $langDescription="Beskrivelse";
 $langConfidentiality="Fortrolighed omkring dit kursus";
-$langPublic="Offentlig adgang til kurset fra E-learning's forside selv uden login.";
+$langPublicAccess="Offentlig adgang til kurset fra E-learning's forside selv uden login.";
 $langPrivOpen="Fortrolig adgang, åben tilmelding";
-$langPrivate="Fortrolig adgang, tilmeldingen er lukket (kursushjemmesiden er dermed kun åben for deltagere på <a href=../user/user.php>Deltagerlisten</a>)";
+$langPrivateAccess="Fortrolig adgang, tilmeldingen er lukket (kursushjemmesiden er dermed kun åben for deltagere på <a href=../user/user.php>Deltagerlisten</a>)";
 $langForbidden="Ikke tilladt";
 $langLanguage="Sprog";
 $langConfTip="Som standard er dit kursus kun tilgængeligt for dig som dets eneste registrerede bruger. Ønsker du en vis fortrolighed omkring adgang til kurset, 

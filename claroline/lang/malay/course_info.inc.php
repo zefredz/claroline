@@ -32,9 +32,9 @@ $langTitle="Tajuk Subjek";
 $langFaculty="Pusat Pengajian";
 $langDescription="Penerangan";
 $langConfidentiality="Sulit";
-$langPublic="Capaian Umum (Subjek boleh dicapai tanpa proses <i>login</i>)";
+$langPublicAccess="Capaian Umum (Subjek boleh dicapai tanpa proses <i>login</i>)";
 $langPrivOpen="Capaian Peribadi, Pendaftaran Terbuka";
-$langPrivate="Capaian terhad (Subjek hanya boleh dicapai oleh pengguna berikut sahaja <a href=../user/user.php>Senarai Pengguna</a>)";
+$langPrivateAccess="Capaian terhad (Subjek hanya boleh dicapai oleh pengguna berikut sahaja <a href=../user/user.php>Senarai Pengguna</a>)";
 $langForbidden="Tidak dibenarkan";
 $langLanguage="Bahasa";
 $langConfTip="Secara lalai, subjek anda hanya boleh diakses jika anda pengguna berdaftar. Jika anda inginkan kerahsian,

@@ -36,9 +36,9 @@ $langTitle="Intitulé";
 $langFaculty="Faculté";
 $langDescription="Description";
 $langConfidentiality="Confidentialité";
-$langPublic="Accès public (depuis la page d'accueil de Claroline sans identifiant)";
+$langPublicAccess="Accès public (depuis la page d'accueil de Claroline sans identifiant)";
 $langPrivOpen="Accès privé, inscription ouverte";
-$langPrivate="Accès privé (site réservé aux personnes figurant dans la liste <a href=../user/user.php>utilisateurs</a>)";
+$langPrivateAccess="Accès privé (site réservé aux personnes figurant dans la liste <a href=../user/user.php>utilisateurs</a>)";
 $langForbidden="Accès non autorisé";
 $langLanguage="Langue";
 $langConfTip="Par défaut, votre cours est accessible à tout le monde. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir

@@ -48,9 +48,9 @@ $langTitle            = "Titulado";
 $langFaculty          = "Facultad";
 $langDescription      = "Descripci&oacute;n";
 $langConfidentiality  = "Confidencialidad";
-$langPublic           = "Acceso p&uacute;blico (a partir de la p&acute;gina principal del Campus) sin identificaci&oacute;n";
+$langPublicAccess           = "Acceso p&uacute;blico (a partir de la p&acute;gina principal del Campus) sin identificaci&oacute;n";
 $langPrivOpen         = "Acceso privado, inscripci&oacute;n abierta";
-$langPrivate          = "Acceso privado, inscripci&oacute;n cerrada (web reservada a las personas que aparecen en la lista <a href=../user/user.php>usuarios</a>)";
+$langPrivateAccess          = "Acceso privado, inscripci&oacute;n cerrada (web reservada a las personas que aparecen en la lista <a href=../user/user.php>usuarios</a>)";
 $langForbidden        = "Usted no est&aacute; registrado como responsable en este curso";
 $langLanguage         = "Idioma";
 $langConfTip          = "Por defecto, su curso solamente es accesible
