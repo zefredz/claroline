@@ -17,7 +17,7 @@
  *   (at your option) any later version. * 
  ***************************************************************************/
 
-echo "<p align=\"right\">",$toolBar,"</p>"; // $toolBar is coming from page_header.php
+//echo "<p>",$toolBar,"</p>"; // $toolBar is coming from page_header.php
 
   /* Please Note!
    * This is a notice to anyone who is using phpBB and altering this file.
@@ -29,7 +29,7 @@ echo "<p align=\"right\">",$toolBar,"</p>"; // $toolBar is coming from page_head
    * - The phpBB Group
    */
 ?>
-
+<br />
 <center>
 <small>
 Copyright &copy; 2000 - 2001 <a href="http://www.phpbb.com/" target="_blank">The phpBB Group</a>

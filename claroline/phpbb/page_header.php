@@ -214,7 +214,7 @@ switch($pagetype)
 
 if($is_forumAdmin)
 {
-	$toolBar [] =	"<a href=../forum_admin/forum_admin.php>".$langAdm."</a>";
+	$toolBar [] =	"<a class=\"claroCmd\" href=../forum_admin/forum_admin.php>".$langAdm."</a>";
 }
 
 
@@ -225,14 +225,14 @@ switch($pagetype)
 	case 'newtopic':
 
 		$toolBar [] =	$langBackTo.
-						"<a href=\"".$url_phpbb."/viewforum.".$phpEx."?forum=".$forum."&gidReq=".$_gid."\">".
+						"<a class=\"claroCmd\" href=\"".$url_phpbb."/viewforum.".$phpEx."?forum=".$forum."&gidReq=".$_gid."\">".
 						$forum_name.
 						"</a>\n";
 		break;
 
 	case 'viewforum':
 
-		$toolBar [] =	"<a href=\"newtopic.php?forum=".$forum."&gidReq=".$_gid."\">".$langNewTopic."</a>";
+		$toolBar [] =	"<a class=\"claroCmd\" href=\"newtopic.php?forum=".$forum."&gidReq=".$_gid."\">".$langNewTopic."</a>";
 
 		break;
 
@@ -240,7 +240,7 @@ switch($pagetype)
 
 		if($lock_state != 1)
 		{
-			$toolBar [] =	"<a href=\"$url_phpbb/reply.php?topic=".$topic."&forum=".$forum."&gidReq=".$_gid."\">".
+			$toolBar [] =	"<a class=\"claroCmd\" href=\"$url_phpbb/reply.php?topic=".$topic."&forum=".$forum."&gidReq=".$_gid."\">".
 							$langReply.
 							"</a>\n";
 		}
@@ -249,7 +249,7 @@ switch($pagetype)
 			$toolBar [] =	"<img src=\"".$reply_locked_image."\" border=\"0\">\n";
 		}
 
-		$toolBar [] =	"<a href=\"newtopic.php?forum=".$forum."&gidReq=".$_gid."\">".$langNewTopic."</a>";
+		$toolBar [] =	"<a class=\"claroCmd\" href=\"newtopic.php?forum=".$forum."&gidReq=".$_gid."\">".$langNewTopic."</a>";
 
 		break;
 
@@ -262,7 +262,7 @@ switch($pagetype)
 if (is_array($toolBar)) $toolBar = implode(" | ", $toolBar);
 
 
-echo "<p align=\"right\">".$toolBar."<p>\n";
+echo "<p>".$toolBar."<p>\n";
 
 
 ?>
