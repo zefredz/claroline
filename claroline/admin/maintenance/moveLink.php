@@ -24,7 +24,7 @@ if(mysql_errno()==0 && mysql_num_rows($res)>0)
 	
 	if (!$linkRepository) echo "** creation of $linkRepository error";
 	$sql_get_visibility_of_tool_link = "
-	SELECT visibility FROM `".$tbl_old_tool_list."` 
+	SELECT visible FROM `".$tbl_old_tool_list."` 
 	WHERE lien ='../claroline/link/link.php';";
 	$result_linkVisibility = mysql_query($sql_get_visibility_of_tool_link);
 	$linkVisibility = ((mysql_fetch_array($result_linkVisibility) == 1) ?'v':'i');
