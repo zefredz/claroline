@@ -427,37 +427,5 @@ else
 
 }
 
-/*==========================
-    IMPORT CSV USERS LIST
-  ==========================*/
-
-/*
-if($is_platformAdmin && (! $userPasswordCrypted))
-{
-
-	//  Note : This option is not already vailable forclaroline platfom using
-	//  encypted password. That's why this section isn't display in this case.
-
-
-	echo "<a href=\"bulk.php\">Import text file users list</a>";
-
-	?>
-
-	<font color="gray">
-	<p>File should be CSV format. Do not add spaces. Structure should be exactly&nbsp;:</p>
-
-	<blockquote>
-	<code>
-	;nom;prenom;username;password;email;5;officialCode;phoneNumber;pictureUri;<?php echo $_uid ?>
-	</blockquote>
-	</font>
-
-<?php
-} // if is_platformAdmin
-else
-{
-	echo "<p>".$langIfYouWantToAddManyUsers."</p>";
-}
- */
 include("../inc/claro_init_footer.inc.php");
 ?>
