@@ -21,7 +21,6 @@ $tlabelReq = 'CLFRM___';
 include 'extention.inc';
 include 'functions.php';
 include 'config.php';
-require 'auth.php';
 $pagetitle = $l_indextitle;
 $pagetype  = 'index';
 include 'page_header.php';

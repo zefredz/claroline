@@ -71,9 +71,9 @@ if($submit) {
 	if($sig) {
    	$message .= "<BR>__________________<BR>" . $fromuserdata[user_sig];
    }
-   if($allow_pmsg_bbcode == 1 && !isset($bbcode)) {
-		$message = bbencode($message, $is_html_disabled);
-	}
+//   if($allow_pmsg_bbcode == 1 && !isset($bbcode)) {
+//		$message = bbencode($message, $is_html_disabled);
+//	}
 
 
 	// MUST do make_clickable() and smile() before changing \n into <br>.

@@ -1,10 +1,14 @@
 <?php //    $Id$
 
+// Set error reporting to sane value.
+// It will NOT report uninitialized variables
+error_reporting  (E_ERROR | E_WARNING | E_PARSE);
+
 session_start();
 $langFile = 'phpbb';
 $tlabelReq = 'CLFRM___';
 require '../inc/claro_init_global.inc.php';
-include('../inc/lib/debug.lib.inc.php');
+
 
 /***************************************************************************
                           config.php  -  description
@@ -24,80 +28,42 @@ include('../inc/lib/debug.lib.inc.php');
  *   (at your option) any later version.
  *
  ***************************************************************************/
-// This is the only setting you should need to change in this file.
-// You should set this to the web path to your phpBB installation.
-// For example, if you have phpBB installed in:
-// http://www.mysite.com/phpBB
-// Leave this setting EXACTLY how it is, you're done.
-// If you have phpBB installed in:
-// http://www.mysite.com/forums
-// Change this to:
-// $url_phpbb = "/forums";
-// Once this is set you should not need to modify anything else in this file.
-$url_phpbb       = $rootWeb."claroline/phpbb";
 
-// -- Edit the following ONLY if you cannot login and $url_phpbb is set correclty --
-// You shouldn't have to change any of these 5.
-$url_admin           = $url_phpbb . '/admin';
-$url_images         = $clarolineRepositoryWeb.'img';
-$url_smiles         = $url_images . '/smiles';
-$url_phpbb_index    = $url_phpbb  . '/index.' . $phpEx;
-$url_admin_index    = $url_admin  . '/index.' . $phpEx;
+// Set this to the web path to your phpBB installation. For example, if you 
+// have phpBB installed in http://www.mysite.com/phpBB, leave this setting 
+// EXACTLY how it is, you're done. If you have phpBB installed in 
+// http://www.mysite.com/forums Change this to: $url_phpbb = "/forums";
 
-/* -- Cookie settings (lastvisit, userid) -- */
-
-// Most likely you can leave this be, however if you have problems
-// logging into the forum set this to your domain name, without
-// the http://
-// For example, if your forum is at http://www.mysite.com/phpBB then
-// set this value to
-// $cookiedomain = "www.mysite.com";
-$cookiedomain        = parse_url($rootWeb);
-$cookiedomain        = $cookiedomain["host"];
-// It should be safe to leave this alone as well. But if you do change it
-// make sure you don't set it to a variable already in use such as 'forum'.
-$cookiename          = "phpBB";
-
-// It should be safe to leave these alone as well.
-$cookiepath          = $url_phpbb;
-$cookiesecure        = false;
-
-/* -- Cookie settings (sessions) -- */
-
-// This is the cookie name for the sessions cookie, you shouldn't have to change it
-$sesscookiename = "phpBBsession";
-// This is the number of seconds that a session lasts for, 3600 == 1 hour.
-// The session will exprire if the user dosan't view a page on the forum within
-// this amount of time.
-$sesscookietime      = 3600;
-
-/**
- * This setting is only for people running Microsoft IIS.
- * If you're running IIS and your users cannot login using
- * the "login" link on the main page, but they CAN login
- * through other pages like preferences, then you should
- * change this setting to 1. Otherwise, leave at set
- * to 0, because this is an ugly hack around some IIS junk.
- */
-// Change to "define('USE_IIS_LOGIN_HACK', 1);" if you need to.
-define('USE_IIS_LOGIN_HACK', 0);
+$url_phpbb       = $rootWeb.'claroline/phpbb';
+$url_admin       = $url_phpbb . '/admin';
+$url_images      = $clarolineRepositoryWeb.'img';
+$url_smiles      = $url_images . '/smiles';
+$url_phpbb_index = $url_phpbb  . '/index.php';
+$url_admin_index = $url_admin  . '/index.php';
 
 /* Stuff for priv msgs - not in DB yet: */
 
 $allow_pmsg_bbcode   = 1; // Allow BBCode in private messages?
 $allow_pmsg_html     = 0; // Allow HTML in private message?
 
-/* -- You shouldn't have to change anything after this point */
+// Setup forum Options.
+$sitename             = stripslashes('');
+$allow_html           = 1;
+$allow_bbcode         = 1;
+$allow_sig            = 1;
+$allow_namechange     = 0;
+$posts_per_page       = 5;
+$hot_threshold        = 15;
+$topics_per_page      = 5;
+$override_user_themes = 0;
+$email_sig            = 'Yours sincerely, your professor';
+$email_from           = '';
+$default_lang         = 'english';
+$sys_lang             = $default_lang;
 
-/* -- Cosmetic Settings -- */
-
-$FontColor           = "#FFFFFF";
-$textcolorMessage    = "#FFFFFF";  // Message Font Text Color
-$FontSizeMessage     = "1";        // Message Font Text Size
-$FontFaceMessage     = "Arial";    // Message Font Text Face
 
 /* -- Other Settings -- */
-$phpbbversion       = "1.4.0";
+$phpbbversion       = '1.4.0';
 $dbhost             = $dbHost;
 $dbuser             = $dbLogin;
 $dbpasswd           = $dbPass;
@@ -131,7 +97,69 @@ $tbl_user_group       = $_course['dbNameGlu'].'group_rel_team_user';
 $tbl_user_notify      = $_course['dbNameGlu'].'bb_rel_topic_userstonotify';
 $is_groupPrivate      = $_groupProperties['private'];
 
-$nom    = $_user['lastName' ];
-$prenom = $_user['firstName'];
+$nom            = $_user['lastName' ]; // FROM CLAROLINE
+$prenom         = $_user['firstName']; // FROM CLAROLINE
+$last_visit     = $_user['lastLogin']; // FROM CLAROLINE
+$user_logged_in = 0; // We MUST do this up here, 
+$logged_in      = 0; // so it's set even if the cookie's not present.
+$userdata       = Array();
+$now_time       = time();
+
+if( is_banned($REMOTE_ADDR, 'ip', $db) ) error_die($l_banned);
+
+
+// Disable Magic Quotes
+function stripslashes_array(&$the_array_element, $the_array_element_key, $data)
+{
+   $the_array_element = stripslashes($the_array_element);
+}
+
+if( get_magic_quotes_gpc() == 1)
+{
+    switch($REQUEST_METHOD)
+    {
+        case 'POST':
+            $HttpReqVarList = & $HTTP_POST_VARS;
+            break;
+        case 'GET':
+            $HttpReqVarList = & $HTTP_GET_VARS;
+            break;
+        default: 
+            $HttpReqVarList = array();
+    }
+
+    while (list ($key, $val) = each ($HttpReqVarList))
+    {
+        if( is_array($val) )
+        {
+            array_walk($val, 'stripslashes_array', '');
+            $$key = $val;
+        }
+        else
+        {
+            $$key = stripslashes($val);
+        }
+    }
+}
+
+$config_file_name = 'config.php';
+
+if( strstr($PHP_SELF, 'admin') && ! strstr($PHP_SELF, 'topicadmin') )
+{
+    $config_file_name = '../config.php';
+}
+
+
+
+
+// Include the appropriate language file.
+if (strstr($PHP_SELF, 'admin') && ! strstr($PHP_SELF, 'topicadmin') )
+{
+    @include('../language/lang_'.$default_lang.'.php');
+}
+else
+{
+    @include('language/lang_'.$default_lang.'.php');
+}
 
 ?>

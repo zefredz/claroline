@@ -22,7 +22,6 @@ session_start();
 
 require 'functions.php';
 require 'config.php';
-require 'auth.php';
 
 $pagetitle = $l_topictitle;
 $pagetype  = 'viewtopic';

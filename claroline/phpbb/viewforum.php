@@ -22,7 +22,6 @@ session_start();
  ***************************************************************************/
 require 'functions.php';
 require 'config.php';
-require 'auth.php';
 
 $pagetitle = $l_viewforum;
 $pagetype = 'viewforum';
@@ -33,6 +32,7 @@ if($forum == -1) header('Location: '.$url_phpbb);
  * GET FORUM SETTINGS
  */
 $forumSettingList = get_forum_settings($forum);
+
 
 /* 
  * Check if the forum isn't attached to a group,  or -- if it is attached --, 
@@ -55,8 +55,6 @@ if (   ! is_null($forumSettingList['idGroup'])
 //  {
 //     if ( ! check_priv_forum_auth($userdata['user_id'], $forum, false, $db))
 
-
-
 $forum_name = own_stripslashes($forumSettingList['forum_name']);
 
 /*
@@ -76,15 +74,16 @@ $sql = "SELECT t.*, u.username, u2.username as last_poster, p.post_time
 
 if ( ! $start) $start = 0;
 
+require('page_header.php');
 require $includePath.'/lib/pager.lib.php';
 
 $topicPager = new claro_sql_pager($sql, $start, $topics_per_page);
 $topicPager->set_pager_call_param_name('start');
 $topicList  = $topicPager->get_result_list();
 
-require('page_header.php');
 
 $pagerUrl = 'viewforum.php?forum='.$forum.'&gidReq='.$_gid;
+
 $topicPager->disp_pager_tool_bar($pagerUrl);
 
 echo "<table class=\"claroTable\" border=\"0\""
@@ -106,7 +105,7 @@ $topics_start = $start;
 
 if ( count($topicList) == 0)
 {
-    echo "<tr>" 
+    echo "<tr>\n" 
         ."<td colspan =\"6\" align=\"center\">".$l_notopics."</td>\n"
         ."</tr>\n";
 }

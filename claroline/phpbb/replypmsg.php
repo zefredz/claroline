@@ -78,9 +78,9 @@ if($submit) {
 	if($sig) {
 		$message .= "<BR>_________________<BR>" . $fromuserdata[user_sig];
 	}
-	if($allow_pmsg_bbcode == 1 && !isset($bbcode)) {
-		$message = bbencode($message, $is_html_disabled);
-	}
+//	if($allow_pmsg_bbcode == 1 && !isset($bbcode)) {
+//		$message = bbencode($message, $is_html_disabled);
+//	}
 	
 	// MUST do make_clickable() and smile() before changing \n into <br>.
 	$message = make_clickable($message);
@@ -212,7 +212,7 @@ if($submit) {
 				$text 				= desmile($m["msg_text"]);
 				$text 				= str_replace("<BR>", "\n", $text);
 				$text 				= stripslashes($text);
-				$text 				= bbdecode($text);
+				//$text 				= bbdecode($text);
 				$text 				= undo_make_clickable($text);
 				$text 				= str_replace("["addsig"]", "", $text);
 				$syslang_quotemsg	= get_syslang_string($sys_lang, "l_quotemsg");

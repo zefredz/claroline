@@ -24,21 +24,15 @@ session_register("forumId");
 /* Who's Online Hack */
 $IP = $REMOTE_ADDR;
 
-if($pagetype == "index")
+if($pagetype == 'index')
 {
-	$users_online = get_whosonline($IP, $userdata[username], 0, $db);
+	$users_online = get_whosonline($IP, $userdata['username'], 0, $db);
 }
-if($pagetype == "viewforum" || $pagetype == "viewtopic")
+if($pagetype == 'viewforum' || $pagetype == "viewtopic")
 {
-	$users_online = get_whosonline($IP, $userdata[username], $forum, $db);
-}
-if($pagetype == "admin")
-{
-	$header_image = "../$header_image";
+	$users_online = get_whosonline($IP, $userdata['username'], $forum, $db);
 }
 
-
-$login_logout_link = make_login_logout_link($user_logged_in, $url_phpbb);
 
 $langFile = "phpbb";
 // suspect langfile call -- need to be checked in further release (The good one is supposed to be in config.php (Hugues june 3 2004).
@@ -201,7 +195,6 @@ switch($pagetype)
 
 		eval($l_statsblock);
 		// print $statsblock;
-		// print_login_status($user_logged_in, $userdata[username], $url_phpbb);   // deactivated by CLAROLINE
 
 		break;
 
@@ -290,7 +283,7 @@ switch($pagetype)
 if (is_array($toolBar)) $toolBar = implode(" | ", $toolBar);
 
 
-echo "<p align=\"right\">",$toolBar,"<p>";
+echo "<p align=\"right\">".$toolBar."<p>\n";
 
 
 ?>

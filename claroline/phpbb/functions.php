@@ -32,16 +32,7 @@ error_reporting(error_reporting() & ~ E_NOTICE);
 
 // DEPRECATED FUNCTIONS
 
-function check_user_pw($username, $password, $db)   { return 0;}
-function is_banned($ipuser, $type, $db)             { return false; }
-function setuptheme($theme, $db)                    { /* ... */ }
-function censor_string($string, $db)                { return $string; }
-function bbencode($message, $is_html_disabled)      { return $message;}
-function bbdecode($message)                         {return($message);}
-function bbencode_quote($message)                   { return $message; }
-function bbencode_code($message, $is_html_disabled) { return $message; }
-function bbencode_list($message)                    { return $message; }
-
+function is_banned($ipuser, $type, $db) { return false; }
 
 
 
@@ -153,45 +144,6 @@ function end_user_session($userid, $db)
 	$result = claro_sql_query($sql);
 	return 1;
 }				// end_session()
-
-/**
- * Prints either "logged in as [username]. Log out." or
- * "Not logged in. Log in.", depending on the value of
- * $user_logged_in.
- */
-function print_login_status($user_logged_in, $username, $url_phpbb)
-{
-	global $phpEx;
-	global $l_loggedinas, $l_notloggedin, $l_logout, $l_login;
-
-	if($user_logged_in)
-	{
-		echo	"<b>",$l_loggedinas," ",$username,". ",
-				"<a href=\"",$url_phpbb,"/logout.",$phpEx,"\">",$l_logout,".</a>",
-				"</b><br>\n";
-	}
-	else
-	{
-		echo	"<b>",$l_notloggedin,". ",
-				"<a href=\"",$url_phpbb,"/login.",$phpEx,"\">",$l_login,".</a>",
-				"</b><br>\n";
-	}
-}				// print_login_status()
-
-/**
- * Prints a link to either login.php or logout.php, depending
- * on whether the user's logged in or not.
- */
-
-function make_login_logout_link($user_logged_in, $url_phpbb)
-{
-	global $l_logout, $l_login;
-
-	if ($user_logged_in) $link = "<a href=\"logout.php\">".$l_logout."</a>";
-	else                 $link = "<a href=\"login.php\">".$l_login  ."</a>";
-
-	return $link;
-}
 
 
 /*---------------------- End session-management functions -------------------*/

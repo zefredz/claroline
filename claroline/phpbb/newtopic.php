@@ -21,8 +21,9 @@ include('../inc/conf/claro_main.conf.php');
  *   (at your option) any later version.
  *
  ***************************************************************************/
-// Set the error reporting to a sane value, 'cause we haven't included auth.php yet..
-error_reporting  (E_ERROR | E_WARNING | E_PARSE); // This will NOT report uninitialized variables
+// Set the error reporting to a sane value. 
+// It will NOT report uninitialized variables
+error_reporting  (E_ERROR | E_WARNING | E_PARSE); 
 
 if($cancel)
 {
@@ -32,7 +33,6 @@ if($cancel)
 
 require 'functions.php';
 require 'config.php';
-require 'auth.php';
 
 $pagetitle = 'New Topic';
 $pagetype =  'newtopic';

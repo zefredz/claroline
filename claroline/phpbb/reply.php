@@ -29,7 +29,6 @@ include ('../inc/lib/claro_mail.lib.inc.php');
 
 require 'functions.php';
 require 'config.php';
-require 'auth.php';
 
 
 if($cancel)
