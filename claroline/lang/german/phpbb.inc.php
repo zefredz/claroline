@@ -213,10 +213,7 @@ $l_version	= "Version";
 
 // Register
 $l_notfilledin	= "Fehler - Sie haben nicht alle ben&ouml;tigten Felder ausgef&uuml;llt.";
-$l_invalidname	= "Der von Ihnen gew&auml;hlte Benutzername, \"$username\", ist bereits vergeben.";
-$l_disallowname	= "Der von Ihnen gew&auml;hlte Benutzername, \"$username\", ist vom Administrator gesperrt worden.";
 
-$l_welcomesubj	= "Herzlich Willkommen zu den $sitename Foren!";
 $l_welcomemail	=
 "
 $l_welcomesubj,
@@ -245,7 +242,6 @@ $l_useruniq	= "Muss eindeutig sein. Jeder Benutzername kann im System nur einmal
 $l_storecookie	= "Benutzername f&uuml;r ein Jahr in einem Cookie speichern";
 
 // Prefs
-$l_prefupdated	= "$l_preferences aktualisiert. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "$l_preferences &auml;ndern";
 $l_themecookie	= "ACHTUNG: Um Designs nutzen zu k&ouml;nnen, M&Uuml;SSEN Sie Cookies aktiviert haben.";
 $l_alwayssig	= "Signatur immer anh&auml;ngen";
@@ -353,28 +349,7 @@ $l_wrongactiv	= "Der von Ihnen angegebene Aktivierungsschl&uuml;ssel ist nicht k
 $l_passchange	= "Ihr Passwort wurde erfolgreich ge&auml;ndert. In Ihrem <a href=\"bb_profile.php?mode=edit\">Profil</a> k&ouml;nnen Sie nun ein neues eigenes Passwort vergeben.";
 $l_wrongmail	= "Die von Ihnen angegebene Emailadresse stimmt nicht mit den Angaben in unserer Datenbank &uuml;berein.";
 
-$l_passsubj	= "$sitename Foren - Passwort&auml;nderung";
 
-$l_pwdmessage	= 'Liebe/r $checkinfo[username],
-
-Sie erhalten diese Email, da Sie (oder jemand, der vorgibt, Sie zu sein)
-eine Passwort&auml;nderung f&uuml;r die $sitename Foren angefordert hat. Wenn
-Sie dies nicht beauftragt haben oder Ihr Passwort nicht &auml;ndern m&ouml;chten,
-ignorieren Sie diese Email einfach.
-
-Von den Foren wurde folgendes neues Passwort f&uuml;r Sie vergeben: $newpw
-
-Damit diese &Auml;nderungen wirksam werden, m&uuml;ssen Sie folgende Seite besuchen:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Beim Aufruf dieser Seite wird Ihr neues Passwort aktiviert
-werden und Sie k&ouml;nnen sich einloggen, um dieses im Profil
-nach Ihren W&uuml;nschen zu &auml;ndern.
-
-Vielen Dank, dass Sie die $sitename Foren nutzen !
-
-$email_sig';
 
 $l_passsent	= "Ihr Passwort wurde in ein neues, zuf&auml;lliges Passwort ge&auml;ndert. Eine Email mit Informationen dar&uuml;ber, wie Sie dieses Passwort aktivieren k&ouml;nnen, wurde an Sie verschickt.";
 $l_emailpass	= "Neues Passwort generieren";

@@ -206,10 +206,7 @@ $l_version	= "Versi";
 
 // Register
 $l_notfilledin	= "Terdapat kesalahan - anda tidak mengisi ruang kosong yang diperlukan.";
-$l_invalidname	= "ID Pengguna yang anda pilih \"$username\" telah wujud.";
-$l_disallowname	= "ID Pengguna  \"$username\" yang anda pilih telah dihalang oleh pentadbir sistem.";
 
-$l_welcomesubj	= "Selamat Datang ke Forum $sitename ";
 $l_welcomemail	=
 "
 $l_welcomesubj,
@@ -236,7 +233,6 @@ $l_useruniq	= "mesti unik. ID Pengguna yang sama tidak dibenarkan.";
 $l_storecookie	= "Simpan ID Pengguna saya dalam <i>cookie</i> selama 1 tahun.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences telah dikemaskini. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Ubahsuai $l_preferences";
 $l_themecookie	= "Peringatan: Jika anda ingin menggunakan <i>themes</i> anda perlu membenarkan <i>cookies</i> terlebih dahulu.";
 $l_alwayssig	= "Sentiasa memaparkan tandatangan saya";
@@ -342,22 +338,7 @@ $l_wrongactiv	= "Kekunci pengaktifan anda tidak sah.Sila semak email $l_message 
 $l_passchange	= "Tahniah! Proses penukaran katalaluan anda telah berjaya.Anda kini boleh mencapai <a href=\"bb_profile.php?mode=edit\"> Butir peribadi</a> dan menukar katalaluan mengikut kesesuaian anda.";
 $l_wrongmail	= "Alamat email yang dimasukkan tidak sama dengan rekod yang tersimpan di dalam pangkalan data.";
 
-$l_passsubj	= "Tukar katalaluan Forum $sitename";
 
-$l_pwdmessage	= 'Kepada $checkinfo[username],
-Anda menerima email ini kerana anda (atau sesiapa yang mengaku diri anda) telah memohon pertukaran katalaluan pada forum $sitename. Jika anda percaya mesej ini merupakan satu ralat, sila padam dan kataluluan anda akan dikekalkan seperti sedia ada.
-
-Kataluluan baru anda ialah: $newpw
-
-Untuk mengesahkan pertukaran katalaluan ini, sila lawati laman ini:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Jika sekiranya anda melawat laman tersebut, katalaluan anda akan terus ditukar dalam pangkalan data dan anda boleh mendaftar masuk pada ruangan butiran diri dan tukarlah mengikut kemahuan anda.
-
-Terima Kasih kerana menggunakan Forum $sitename Forums
-
-$email_sig';
 
 $l_passsent	= "Katalaluan anda telah ditukar kepada yang katalaluan baru.Sila semak email untuk mengetahui cara menyelesaikan prosuder pertukaran katalaluan.";
 $l_emailpass	= "Email kehilangan katalaluan";

@@ -193,10 +193,7 @@ $l_version	= "Versione";
 
 // Register
 $l_notfilledin	= "Errore - non sono stati riempiti tutti i campi obbligatori.";
-$l_invalidname	= "Lo username scelto (\"$username\") &egrave; gi&agrave; stato assegnato.";
-$l_disallowname	= "Lo username scelto (\"$username\") &egrave; stato impedito dall'amministratore.";
 
-$l_welcomesubj	= "Benvenuto nei forum di $sitename";
 $l_welcomemail	=
 "
 $l_welcomesubj!
@@ -223,7 +220,6 @@ $l_useruniq	= "Deve essere unico. Due utenti non possono avere lo stesso usernam
 $l_storecookie	= "Memorizza il mio username in un cookie per 1 anno.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences aggiornate. $l_click <a href=\"index.php\">$l_here </a> $l_returnindex";
 $l_editprefs	= "Modifica $l_preferences";
 $l_themecookie	= "NOTA: Per utilizzare i temi &Egrave; NECESSARIO avere i cookie abilitati nel proprio browser.";
 $l_alwayssig	= "Allega sempre la mia firma";
@@ -330,27 +326,7 @@ $l_wrongactiv = "La parola di attivazione fornita non &egrave; corretta. Control
 $l_passchange = "La tua password &egrave; stata cambiata con successo. E' ora possibile visualizzare il proprio <a href=\"bb_profile.php?mode=edit\">profilo</a> per cambiare la password a piacimento.";
 $l_wrongmail  = "L'email fornita non coincide con quella memorizzata nel database.";
 
-$l_passsubj = "Cambio password per i forum di $sitename";
 
-$l_pwdmessage = 'Caro $checkinfo[username],
-hai ricevuta questa mail perche\' tu (o qualcuno che pretende di sostituirti)
-ha richiesto di cambiare la password sui forum di $sitename.
-Se pensi di aver ricevuto questo messaggio per errore semplicemente
-cancellalo e la tua password rimarra\' immutata.
-
-La tua nuova password generata dal forum e\': $newpw
-
-Per cambiarla definitivamente devi andare alla pagina seguente:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Una volta che avrai visitato la pagina la password verra\' cambiata nel
-database, e tu potrai entrare nei forum per accedere alla pagina del tuo
-profilo per modificarlo a piacimento.
-
-Grazie per aver utilizzato i forum di $sitename.
-
-$email_sig';
 
 $l_passsent	= "La tua password &egrave; stata cambiata con una nuova generata casualmente. Si prega di controllare la tua email per le istruzioni necessarie per completare la procedura di cambio password.";
 $l_emailpass	= "Email password persa";

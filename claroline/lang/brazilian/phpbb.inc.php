@@ -205,10 +205,7 @@ $l_version	= "Versão";
 
 // Register
 $l_notfilledin	= "Erro - você não preencheu todos os campos requeridos.";
-$l_invalidname	= "O nome de usuário que você escolheu, \"$username\" já está sendo utilizado.";
-$l_disallowname	= "O nome de usuário que você escolheu, \"$username\" foi desabilitado pelo administrador.";
 
-$l_welcomesubj	= "Bem vindo aos Fóruns do $sitename";
 $l_welcomemail	=
 "
 $l_welcomesubj,
@@ -236,7 +233,6 @@ $l_useruniq	= "Precisa ser único. Dois usuários não podem ter o mesmo nome de us
 $l_storecookie	= "Armazene meu nome de usuário em um cookie por 1 ano.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences atualizadas. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Edite Suas $l_preferences";
 $l_themecookie	= "NOTA: Para utilizar temas você precisa ter cookies habilitados.";
 $l_alwayssig	= "Sempre adicione minha assinatura";
@@ -344,26 +340,7 @@ $l_wrongactiv	= "A chave de ativação fornecida não está correta. Por favor verif
 $l_passchange	= "Sua senha foi alterada com sucesso. Você pode agora ir até seu <a href=\"bb_profile.php?mode=edit\">perfil</a> e mudar sua senha para uma mais conveniente.";
 $l_wrongmail	= "The email address you entered does not match the one stored in our database.";
 
-$l_passsubj	= "Senha dos Fóruns do $sitename Alterada";
 
-$l_pwdmessage	= 'Caro $checkinfo[username],
-Você está recebendo este e-mail porque você (ou alguém que se passou por você)
-requisitou a mudança da senha de acesso aos fóruns do $sitename. Se você acredita
-ter recebido essa mensagem por um erro simplesmente apague-a e o seu password continuará
-sendo o mesmo.
-
-Sua nova senha foi gerada para os fóruns e é: $newpw
-
-De forma a efetuar essas mudanças você precisa visitar esta página:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Uma vez que você tenha visitado a página o seu password será modificado no banco de dados,
-e você poderá fazer login no seu perfil e modificá-lo caso necessário.
-
-Obrigado por utilizar os fóruns do $sitename
-
-$email_sig';
 
 $l_passsent	= "Sua senha foi modificada para uma nova, gerada randomicamente. Por favor verifique seu e-mail e veja como completar a mudança de sua senha.";
 $l_emailpass	= "Enviar E-mail de Password Perdido";

@@ -220,10 +220,7 @@ $l_version	= "Vers&atilde;o";
 
 // Register
 $l_notfilledin	= "Erro - n&atilde;o preencheu todos os campos obrigat&oacute;rios.";
-$l_invalidname	= "O nome de utilizador escolhido \"$username\" j&aacute; est&aacute; a ser usado por outro utilizador.";
-$l_disallowname	= "O nome de utilizador escolhido \"$username\" n&atilde;o pode ser autorizado pelo administrador.";
 
-$l_welcomesubj	= "Bem-vindo aos Foros de $sitename";
 $l_welcomemail	=
 "
 $l_welcomesubj,
@@ -250,7 +247,6 @@ $l_useruniq	= "Deve ser &uacute;nico. Dois utilizadores n&atilde;o podem ter o m
 $l_storecookie	= "Guarde o meu nome de utilizador numa 'cookie' durante um ano.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences actualizadas. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Edite as suas $l_preferences";
 $l_themecookie	= "NOTA: Para utilizar os temas DEVE ter activadas as 'cookies'.";
 $l_alwayssig	= "Acrescentar sempre a minha assinatura";
@@ -357,22 +353,7 @@ $l_wrongactiv	= "A senha de activa&ccedil;&atilde;o &eacute; incorrecta. Verifiq
 $l_passchange	= "A sua senha foi alterada com sucesso. A qualquer momento pode ir ao seu <a href=\"bb_profile.php?modo=editar\">perfil</a> e alterar de novo a sua senha.";
 $l_wrongmail	= "A morada de correio electr&oacute;nico n&atilde;o &eacute; a que foi registada na nossa base de dados.";
 
-$l_passsubj	= "Foros $sitename - Altera&ccedil;&atilde;o da senha";
 
-$l_pwdmessage	= 'Caro $checkinfo[username],
-Vimos por este meio inform&aacute;-lo do pedido de altera&ccedil;&atilde;o da senha dos foros de $sitename realizado por si (ou por algu&eacute;m que est&aacute; a usar o seu nome de utilizador). Se pensa que n&atilde;o devia ter recebido esta mensagem, ignore-a e a sua senha permanecer&aacute; inalterada.
-
-A nova senha que foi gerada para si &eacute;: $newpw
-
-Para a mudan&ccedil;a ter efeito deve visitar a p&aacute;gina:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Depois de visitar esta p&aacute;gina, a sua senha ser&aacute; alterada na nossa base de dados e poder&aacute; alter&aacute;-la de novo no seu perfil a qualquer momento.
-
-Obrigado por utilizar os foros de $sitename
-
-$email_sig';
 
 $l_passsent	= "A sua senha foi mudada por uma nova, gerada aleatoriamente. Verifique o seu correio electr&oacute;nico para saber como finalizar o processo de mudan&ccedil;a da senha.";
 $l_emailpass	= "Senha esquecida";

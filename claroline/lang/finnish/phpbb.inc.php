@@ -213,10 +213,7 @@ $l_version	= "Versio";
 // Register
 
 $l_notfilledin	= "Virhe - et täyttänyt kaikkia vaadittuja kenttiä.";
-$l_invalidname	= "Tunnus, jonka valitsit - '$username' - on jo käytössä.";
-$l_disallowname	= "Tunnus, jonka valitsit - '$username' ei ole sallittu.";
 
-$l_welcomesubj	= "Tervetuloa $sitename foorumeihin";
 $l_welcomemail	= "$l_welcomesubj,
 
 Säästä tämä sähköpostiviesti.
@@ -243,7 +240,6 @@ $l_storecookie	= "Varastoi minun tunnukseni keksinä yhden vuoden.";
 
 // Prefs
 
-$l_prefupdated	= "$l_preferences on päivitetty. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Muokkaa ominaisuuksia: $l_preferences";
 $l_themecookie	= "Huomaa:: Jos haluat käyttää teemoja, selaimen täytyy tukea keksejä.";
 $l_alwayssig	= "Lisää aina minun allekirjoitukseni";
@@ -357,26 +353,7 @@ $l_wrongactiv	= "Aktivointiavain ei ollut oikea. Tarkista sähköposti $l_message 
 $l_passchange	= "Salasanasi on onnistuneesti vaihdettu. Voit nyt mennä <a href=\"bb_profile.php?mode=edit\">profiilisi</a> ja muuttaa salasana sopivammaksi.";
 $l_wrongmail	= "Sähköposti ei ole sama kuin mikä on tietokannassa.";
 
-$l_passsubj	= "$sitename foorumien salasana on vaihdettu";
 
-$l_pwdmessage	= 'Hyvä $checkinfo[username],
-
-Olet saanut tämän sähköpostiviestin, koska sinä (tai joku on tekeytynyt sinuksi)
-olet pyytänyt vaihtamaan salasanasi $sitename foorumeille. Jos uskot, että tämä
-viesti on virhe, niin tuhoa se ja salasanasi on sama.
-
-uusi salasanasi foorumeita varten on: $newpw
-
-Jotta muutos tulisi voiman, sinun täytyy vierailla sivulla:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Kun olet vieraillut sivulla salasanasi muutetaan tietokannassamme
-ja voit kirjautua muuttaaksesi profiiliasi ja samalla salasanasi sopivammaksi.
-
-Kiitos, että Thank you for using $sitename Forums
-
-$email_sig';
 
 $l_passsent	= "Salasanasi on muutettu uuteen, satunnaiseen salasanaan. katso sähköpostiviestistä, kuinka viet loppuun salasanan vaihtamisen.";
 $l_emailpass	= "Lähetä sähköpostissa uusi salasana.";

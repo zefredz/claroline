@@ -227,10 +227,7 @@ $l_version	= "Versi&oacute;n";
 
 // Register
 $l_notfilledin	= "Erro - non cubriu todos os campos requeridos.";
-$l_invalidname	= "O nome de usuario elixido \"$username\" xa existe.";
-$l_disallowname	= "O nome de usuario elixido \"$username\" non pode ser autorizado polo administrador.";
 
-$l_welcomesubj	= "Benvido &oacute;s Foros de $sitename";
 $l_welcomemail	=
 "
 $l_welcomesubj,
@@ -258,7 +255,6 @@ $l_useruniq	= "Debe ser &uacute;nica. Dous usuarios non poden ter a mesma clave.
 $l_storecookie	= "Garde o meu nome de usuario nun 'cookie' durante un ano.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences actualizadas. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Edite as s&uacute;as $l_preferences";
 $l_themecookie	= "NOTA: Para utilizar os temas DEBE ter activados os 'cookies'.";
 $l_alwayssig	= "Siempre a&ntilde;adir mi firma";
@@ -366,25 +362,7 @@ $l_wrongactiv	= "A clave de activaci&oacute;n &eacute;s incorrecta. Verifique a 
 $l_passchange	= "A s&uacute;a clave de acceso cambiouse. En calquera momento pode ir &oacute; seu <a href=\"bb_profile.php?modo=editar\">perfil</a> e cambiar a s&uacute;a clave de acceso.";
 $l_wrongmail	= "O enderezo de correo electr&oacute;nico non corresponde co rexistrado na nosa base de datos.";
 
-$l_passsubj	= "Foros $sitename - Cambio de clave de acceso";
 
-$l_pwdmessage	= 'Estimado $checkinfo[username],
-Vostede recibe este correo electr&oacute;nico porque (ou algu&eacute;n que pretende ser vostede) solicitou
-cambio de clave de acceso para os foros de $sitename. Se cre que recib&iacute;u esta
-mensaxe por erro, ign&oacute;reo e a s&uacute;a clave de acceso permanecer&aacute; igual.
-
-A s&uacute;a nueva clave de acceso xenerada &eacute;: $newpw
-
-Para que o cambio se leve a cabo debe visita-la p&aacute;gina:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Unha vez que visite esta p&aacute;xina, a s&uacute;a clave de acceso cambiar&aacute;se na nosa base de datos,
-e poder&aacute; modificala no seu perfil cando o desexe.
-
-Gracias por utilizar os foros de $sitename
-
-$email_sig';
 
 $l_passsent	= "A s&uacute;a clave de acceso cambiouse por unha nova, xenerada &oacute; azar. Verifique o seu correo electr&oacute;nico para saber como remata-lo proceso de cambio de clave de acceso.";
 $l_emailpass	= "Clave de acceso estraviada";

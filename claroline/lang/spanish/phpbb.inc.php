@@ -233,10 +233,7 @@ $l_version	= "Versi&oacute;n";
 
 // Register
 $l_notfilledin	= "Error - no ha llenado todos los campos requeridos.";
-$l_invalidname	= "El nombre de usuario elegido \"$username\" ya existe.";
-$l_disallowname	= "El nombre de usuario elegido \"$username\" no puede ser autorizado por el administrador.";
 
-$l_welcomesubj	= "Bienvenido a los Foro de $sitename";
 $l_welcomemail	=
 "
 $l_welcomesubj,
@@ -264,7 +261,6 @@ $l_useruniq	= "Debe ser &uacute;nica. Dos usuarios no pueden tener la misma clav
 $l_storecookie	= "Guarde mi nombre de usuario en un 'cookie' durante un a&ntilde;o.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences actualizadas. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Edite sus $l_preferences";
 $l_themecookie	= "NOTA: Para utilizar los temas DEBE tener activados los 'cookies'.";
 $l_alwayssig	= "Siempre a&ntilde;adir mi firma";
@@ -372,25 +368,7 @@ $l_wrongactiv	= "La clave de activaci&oacute;n es incorrecta. Verifique el $l_me
 $l_passchange	= "Su clave de acceso ha sido cambiada. En cualquier momento puede ir a su <a href=\"bb_profile.php?modo=editar\">perfil</a> y cambiar su clave de acceso.";
 $l_wrongmail	= "La direcci&oacute;n de correo electr&oacute;nico no corresponde con la registrada en nuestra base de datos.";
 
-$l_passsubj	= "Foros $sitename - Cambio de clave de acceso";
 
-$l_pwdmessage	= 'Estimado $checkinfo[username],
-Usted recibe este correo electr&oacute;nico porque usted (o alguien que pretende ser usted) ha solicitado
-cambio de clave de acceso para los foros de $sitename. Si cree que ha recibido este
-mensaje por error, ign&oacute;relo y su clave de acceso permanecer&aacute; igual.
-
-Su nueva clave de acceso generada es: $newpw
-
-Para que el cambio se lleva a cabo debe visitar la p&aacute;gina:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Una vez que visite esta p&aacute;gina, su clave de acceso ser&aacute; cambiada en nuestra base de datos,
-y podr&aacute; modificarla en su perfil cuando lo desee.
-
-Gracias por utilizar los foros de $sitename
-
-$email_sig';
 
 $l_passsent	= "Su clave de acceso ha sido cambiada por una nueva, generada al azar. Verifique su correo electr&oacute;nico para saber c&oacute;mo terminar el proceso de cambio de clave de acceso.";
 $l_emailpass	= "Clave de acceso perdida";

@@ -205,10 +205,7 @@ $l_version	= "Versi";
 
 // Register
 $l_notfilledin	= "Error - anda tidak mengisi semua field wajib.";
-$l_invalidname	= "Nama user yang anda  pilih  \"$username\" telah dipakai.";
-$l_disallowname	= "Nama user yang anda  pilih, \"$username\" dilarang dipakai oleh administrator.";
 
-$l_welcomesubj	= "Selamat datang di Forum-forum $sitename";
 $l_welcomemail	=
 "
 $l_welcomesubj,
@@ -236,7 +233,6 @@ $l_useruniq	= "Musti unik. Tidak boleh sama dengan user yang lain.";
 $l_storecookie	= "Simpan nama user saya selama 1 tahun dalam cookie.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences diupdate. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Edit $l_preferences Anda";
 $l_themecookie	= "CATATAN: untuk menggunakan theme anda musti mengaktifkan cookies.";
 $l_alwayssig	= "Selalu tambahkan tanda tangan saya";
@@ -340,24 +336,7 @@ $l_wrongactiv	= "Activation key yang anda berikan salah. Silahkan periksa $l_mes
 $l_passchange	= "Password anda telah diubah dengan sukses. Kini anda dapat pergi ke <a href=\"bb_profile.php?mode=edit\">profil</a> anda untuk mengubah password anda menjadi lebih baik.";
 $l_wrongmail	= "Email yang anda masukkan tidak cocok dengan yang disimpan dalam database kami.";
 
-$l_passsubj	= "Perubahan Password Forum $sitename";
 
-$l_pwdmessage	= 'Yth. $checkinfo[username],
-Anda menerima email ini karena anda (atau sesorang berpura-pura sebagai anda)
-telah mengajukan perubahan password pada forum $sitename . Jika anda yakin pesan ini merupakan kesalahan, silahkan hapus pesan ini dan password anda tetap tidak berubah.
-
-Password baru yang di-generate oleh forum ini adalah: $newpw
-
-Agar perubahan ini berlaku, anda musti membuka halaman berikut:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Begitu anda kunjungi halaman tsb, password anda di database dirubah, dan anda dapat login,ke bagian 
-profil untuk merubahnya jika anda inginkan.
-
-Terima kasih tekah menggunakan Forum $sitename
-
-$email_sig';
 
 $l_passsent	= "Password anda telah berubah secara acak menjadi password baru.  Silahkan periksa email anda untuk melengkapi prosedur  perubahan password.";
 $l_emailpass	= "Email Lupa Password";

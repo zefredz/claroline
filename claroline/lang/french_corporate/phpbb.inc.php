@@ -207,10 +207,7 @@ $l_version	= "Version";
 
 // Register
 $l_notfilledin	= "Erreur - vous n'avez pas rempli tous les champs requis.";
-$l_invalidname	= "Le nom de membre choisi \"$username\" a déjà été pris.";
-$l_disallowname	= "Le nom de membre choisi \"$username\" n'a pas été autorisé par l'administrateur.";
 
-$l_welcomesubj	= "Bienvenue sur les Forums $sitename";
 $l_welcomemail	=
 "
 $l_welcomesubj,
@@ -238,7 +235,6 @@ $l_useruniq	= "Doit être unique. Deux membres ne peuvent avoir le même Nom d'Uti
 $l_storecookie	= "Mettez mon nom d'utilisateur dans un cookie pendant 1 an.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences mises à jour. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Editez Vos $l_preferences";
 $l_themecookie	= "NOTE: Pour utiliser les thèmes vous DEVEZ activer les cookies.";
 $l_alwayssig	= "Toujours attacher ma signature";
@@ -346,26 +342,7 @@ $l_wrongactiv	= "La clé d'activation fournie n'est pas correcte. Vérifiez le $l_
 $l_passchange	= "Votre mot de passe a été changé avec succès. Vous pouvez maintenant aller sur votre <a href=\"bb_profile.php?mode=edit\">profil</a> et changer votre mot de passe.";
 $l_wrongmail	= "L'adresse email fournie ne correspond pas à celle entrée sur notre base de données.";
 
-$l_passsubj	= "Forums $sitename - Changement de Mot de Passe";
 
-$l_pwdmessage	= 'Cher $checkinfo[username],
-Vous recevez cet email parce que vous (ou quelqu\'un qui prétend l\'être) avez
-demandé un changement de mot de passe sur les forums $sitename. Si vous pensez
-recevoir ce message par erreur, effacez-le et votre mot de passe restera
-le même.
-
-Votre nouveau mot de passe généré est: $newpw
-
-Pour que ce changement prenne effet vous devez visiter cette page:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Une fois cette page visitée, votre mot de passe sera changé dans notre base de données,
-et vous pourrez le modifier sur votre profil comme vous le souhaitez.
-
-Merci d\'utiliser les Forums $sitename
-
-$email_sig';
 
 $l_passsent	= "Votre mot de passe est changé pour un nouveau, généré au hasard. Vérifiez vos emails pour savoir comment terminer la procédure de changement.";
 $l_emailpass	= "Email Mot de Passe Perdu";

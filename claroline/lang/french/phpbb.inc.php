@@ -210,10 +210,7 @@ $l_version	= "Version";
 
 // Register
 $l_notfilledin	= "Erreur - vous n'avez pas rempli tous les champs requis.";
-$l_invalidname	= "Le nom de membre choisi \"$username\" a déjà été pris.";
-$l_disallowname	= "Le nom de membre choisi \"$username\" n'a pas été autorisé par l'administrateur.";
 
-$l_welcomesubj	= "Bienvenue sur les forums $sitename";
 $l_welcomemail	=
 "
 $l_welcomesubj,
@@ -241,7 +238,6 @@ $l_useruniq	= "Doit être unique. Deux membres ne peuvent avoir le même nom d'uti
 $l_storecookie	= "Mettez mon nom d'utilisateur dans un cookie pendant 1 an.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences mises à jour. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Editez vos $l_preferences"; // JCC 
 $l_themecookie	= "NOTE: Pour utiliser les thèmes vous DEVEZ activer les cookies.";
 $l_alwayssig	= "Toujours attacher ma signature";
@@ -351,26 +347,7 @@ $l_wrongactiv	= "La clé d'activation fournie n'est pas correcte. Vérifiez le $l_
 $l_passchange	= "Votre mot de passe a été changé avec succès. Vous pouvez maintenant aller sur votre <a href=\"bb_profile.php?mode=edit\">profil</a> et changer votre mot de passe.";
 $l_wrongmail	= "L'adresse email fournie ne correspond pas à celle contenue dans notre base de données."; // JCC 
 
-$l_passsubj	= "Forums $sitename - Changement de mot de passe"; // JCC 
 
-$l_pwdmessage	= 'Cher $checkinfo[username],
-Vous recevez cet e-mail parce que vous (ou quelqu\'un qui prétend l\'être) avez
-demandé un changement de mot de passe sur les forums $sitename. Si vous pensez
-recevoir ce message par erreur, effacez-le et votre mot de passe restera
-le même.
-
-Votre nouveau mot de passe est: $newpw
-
-Pour que ce changement prenne effet vous devez visiter cette page:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Une fois cette page visitée, votre mot de passe sera changé dans notre base de données,
-et vous pourrez le modifier sur votre profil comme vous le souhaitez.
-
-Merci d\'utiliser les Forums $sitename
-
-$email_sig'; // JCC 
 
 $l_passsent	= "Votre mot de passe est changé pour un nouveau, généré au hasard. Vérifiez vos e-mails pour savoir comment terminer la procédure de changement."; // JCC 
 $l_emailpass	= "E-mail mot de passe perdu"; // JCC 

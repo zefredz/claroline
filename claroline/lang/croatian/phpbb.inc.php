@@ -205,10 +205,7 @@ $l_version	= "Verzija";
 
 // Register
 $l_notfilledin	= "Greška - niste popunili sva zatražena polja.";
-$l_invalidname	= "Korisnièko ime koje ste izabrali \"$username\" veæ postoji.";
-$l_disallowname	= "Korisnièko ime koje ste izabrali, \"$username\" nije dozvoljeno od strane administratora.";
 
-$l_welcomesubj	= "Dobrodošli na stranicu Forumi";
 $l_welcomemail	=
 "
 $l_welcomesubj,
@@ -236,7 +233,6 @@ $l_useruniq	= "Mora biti jedistvena. Nesmiju dva krisnika imati isto korinièko i
 $l_storecookie	= "Pohrani moje korisnièko ime na jednu godinu u cookie.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences su obnovljene. $l_click <a href=\"index.php\">$l_ovdje</a> $l_returnindex";
 $l_editprefs	= "Dodaj svoje $l_preferencese";
 $l_themecookie	= "Naomena: Ukoliko želite koristiti teme morate imati osposobljene cookies.";
 $l_alwayssig	= "Uvjek umetni moj potpis";
@@ -342,22 +338,7 @@ $l_wrongactiv	= " Aktivirajuæi kljuè koji imate nije toèan. Molimo Vas provjerit
 $l_passchange	= "Vaša zaporka je uspješno promjenjena. Sada možete iæi na vaš <a href=\"bb_profil.php?mode=edit\">profil</a> i zamjenite svoju zaporku sa više odgovarajuæom zaporkom.";
 $l_wrongmail	= "Email adresa koju ste unijeli ne odgovara onoj pohranjenoj u našoj bazi podataka.";
 
-$l_passsubj	= "$sitename  Foruma Promjena Zaporke";
 
-$l_pwdmessage	= 'Poštovani $checkinfo[username],
-Primili ste ovu elektronièku poštu jer ste zatražili (ili netko tko se pretvara da ste Vi) promjenu zaporke na $sitename foruma. Ukoliko vjerujete da rijeè o pogrešci, jednostavno izbrišite poruku i vaša zaporka æe ostati ista.
-
-Forum je promjenio VAšu novu zaporku koja sada glasi: $newpw
-
-Ukoliko želite da ova promjena ima efekta morate osjetiti stranicu:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Jednom, kada ste posjetili stranicu vaša zaporka je promjenjena u našoj bazi podataka i sada se možete prijaviti u sekciju profila i promjeniti profil o vlastitoj želji.  
-
-Hvala Vam što koristite $sitename Forum
-
-$email_sig';
 
 $l_passsent	= "Vaša zaporka promjenjena je novom. Provjerite svoj email kako bi dalje slijedili proceduru promjene zaporke..";
 $l_emailpass	= "Izgubljena je zaporka Emaila ";

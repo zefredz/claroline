@@ -211,10 +211,7 @@ $l_version	= "Version";
 
 // Register
 $l_notfilledin	= "Fel - du fyllde inte i alla de fält som krävdes.";
-$l_invalidname	= "Det användarnnamn du valde, \"$username\" är redan taget.";
-$l_disallowname	= "Det användarnnamn du valde, \"$username\" är ej tillåtet av systemadministratören.";
 
-$l_welcomesubj	= "Välkommen till $sitename forums";
 $l_welcomemail	= 
 "
 $l_welcomesubj,
@@ -242,7 +239,6 @@ $l_useruniq	= "Måste vara unik. Flera användare kan inte ha samma användarnamn."
 $l_storecookie	= "Spara mitt användarnamn i en cookie i 1 år";
 
 // Prefs
-$l_prefupdated	= "Dina inställningar har uppdaterats. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex.";
 $l_editprefs	= "$l_preferences";
 $l_themecookie	= "<STRONG>OBSERVERA att din webbläsare måste acceptera cookies för att teman ska fungera.</STRONG>";
 $l_alwayssig	= "Bifoga alltid signatur";
@@ -351,26 +347,7 @@ $l_wrongactiv	= "Aktiveringsnyckeln du angett är inte korrekt. Var vänlig och ko
 $l_passchange	= "Ditt lösenord har ändrats. Du kan nu gå till din <a href=\"bb_profile.php?mode=edit\">profil</a> och ändra ditt lösenord till ett mer passande.";
 $l_wrongmail	= "E-postadressen du angett stämmer inte med den i vår databas.";
 
-$l_passsubj	= "$sitename Forum lösenordsändring";
 
-$l_pwdmessage	= 'Hej $checkinfo[username],
-Du får detta brev eftersom du (eller någon som har sagt sig vara du) 
-har begärt en lösenordsändring på $sitename forum. Om du anser att du 
-felaktigt har fått detta brev så kan du bortse från detta brev och
-ditt lösenord kommer att vara oförändrat.
-
-Ditt nya lösenord som slumpartat har genererats är: $newpw
-
-För att aktivera detta måste du besöka följande sida: 
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-När du har besökt denna sida så kommer ditt nya lösenord aktiveras i vår databas, 
-och du kan då logga in och därefter ändra det i din profil till vad du vill.
-
-Tack för att du använder $sitename forums
-
-$email_sig';
 
 $l_passsent	= "Ditt lösenord har ändrats till ett nytt, slumpartat, lösenord. Läs ditt e-post meddelande om hur du avslutar lösenordsbytet.";
 $l_emailpass	= "Skicka glömt lösenord";

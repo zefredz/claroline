@@ -208,10 +208,7 @@ $l_version	= "Versie";
 
 // Register
 $l_notfilledin	= "Fout - U hebt niet alle gevraagde velden ingevuld.";
-$l_invalidname	= "De gekozen gebruikersnaam \"$username\" is al gebruikt.";
-$l_disallowname	= "De gekozen gebruikersnaam \"$username\" wordt niet door de beheerder aanvaard.";
 
-$l_welcomesubj	= "Welkom in de forums van $sitename";
 $l_welcomemail	=
 "
 $l_welcomesubj,
@@ -238,7 +235,6 @@ $l_useruniq	= "Een gebruiker moet uniek zijn. Twee gebruikers kunnen niet dezelf
 $l_storecookie	= "Bewaar mijn gebruikersnaam gedurende 1 jaar in een cookie.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences bijgewerkt. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "$l_preferences wijzigen";
 $l_themecookie	= "Nota: Om de thema's te kunnen gebruiken, moet u cookies activeren.";
 $l_alwayssig	= "Handtekening altijd toevoegen";
@@ -345,22 +341,7 @@ $l_wrongactiv	= "De gegeven activatiesleutel is niet correct. Controleer de $l_m
 $l_passchange	= "Uw wachtwoord is gewijzigd. U kan nu naar uw <a href=\"bb_profile.php?mode=edit\">profiel</a> surfen en uw wachtwoord wijzigen.";
 $l_wrongmail	= "Het e-mailadres dat u ingegeven heeft, komt niet overeen met dat van onze databank.";
 
-$l_passsubj	= "Forums $sitename - Wachtwoordwijziging";
 
-$l_pwdmessage	= 'Beste $checkinfo[username],
-U krijgt deze e-mail omdat U (of iemand die zich voor U uitgeeft) gevraagd heeft om van wachtwoord te veranderen op het forum van $sitename. Indien dit bericht een vergissing is, mag U dit bericht negeren, en Uw wachtwoord zal hetzelfde blijven.
-
-Uw nieuw wachtwoord is: $newpw
-
-Om dit wachtwoord geldig te maken gaat U naar de volgende pagina:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-Uw wachtwoord zal pas veranderd worden wanneer u deze pagina bezoekt. U kan daarna terug uw wachtwoord wijzigen door naar uw profiel te gaan.
-
-Bedankt voor het gebruiken van het forum van $sitename
-
-$email_sig';
 
 $l_passsent	= "Uw wachtwoord wordt veranderd door een nieuw, gegenereerd wachtwoord. Controleer Uw mailbox om te weten hoe deze procedure verder te zetten";
 $l_emailpass	= "Wachtwoord e-mail verloren";

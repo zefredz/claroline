@@ -210,10 +210,7 @@ $l_version	= "°æ±¾";
 
 // Register
 $l_notfilledin	= "´íÎó - ÄúÃ»ÓĞÌîĞ´ËùÓĞ±ØÌîÏî.";
-$l_invalidname	= "ÓÃ»§Ãû \"$username\" ÒÑ±»Õ¼ÓÃ.";
-$l_disallowname	= "ÄúÑ¡ÔñµÄÓÃ»§Ãû, \"$username\" ÒÑ±»¹ÜÀíÔ±½ûÖ¹.";
 
-$l_welcomesubj	= "»¶Ó­À´µ½ $sitename ÂÛÌ³";
 $l_welcomemail	=
 "
 $l_welcomesubj,
@@ -238,7 +235,6 @@ $l_useruniq	= "±ØĞèÊÇÎ¨Ò»µÄ.²»ÄÜÓĞÁ½¸öÓÃ»§ÓĞÏàÍ¬µÄÓÃ»§Ãû.";
 $l_storecookie	= "ÔÚcookieÖĞ±£´æÎÒµÄÓÃ»§Ãû1Äê.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences updated. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "±à¼­ $l_preferences";
 $l_themecookie	= "ÌáÊ¾: ÒªÊ¹ÓÃÖ÷Ìâ,ä¯ÀÀÆ÷±ØĞèÔÊĞícookies.";
 $l_alwayssig	= "×ÜÊÇÌí¼ÓÇ©Ãûµµ";
@@ -345,22 +341,7 @@ $l_wrongactiv	= "¼¤»îÕÊºÅµÄÃÜÂë´íÎó,Çë¼ì²éÊÕµ½µÄÓÊ¼şÖĞµÄ$l_message,È·±£¸´ÖÆµÄÃÜÂ
 $l_passchange	= "ÄúµÄÃÜÂëÒÑ³É¹¦ĞŞ¸Ä. ÏÖÔÚÄú¿ÉÒÔµ½<a href=\"bb_profile.php?mode=edit\">¸öÈË×ÊÁÏ</a> ĞŞ¸ÄÄúµÄÃÜÂë.";
 $l_wrongmail	= "ÓÊ¼şµØÖ·ºÍÎÒÃÇÊı¾İ¿âÖĞµÄ¼ÇÂ¼²»·û.";
 
-$l_passsubj	= "$sitename ÂÛÌ³ÃÜÂëĞŞ¸Ä";
 
-$l_pwdmessage	= '$checkinfo[username],ÄãºÃ!
-ÄúÊÕµ½Õâ·âÓÊ¼ş,ÊÇÒòÎªÄú(»òÕß¿ÉÄÜÊÇ±ğÈË¼Ù°çÄú)ÇëÇó¸Ä±äÔÚ$sitenameÂÛÌ³µÄÃÜÂë.Èç¹ûÄúÈ·ĞÅÕâ²»ÊÇÄúµÄÒâË¼,É¾³ıÕâ·âÓÊ¼ş¼´¿É,ÄúµÄÃÜÂë²»»á±»ĞŞ¸Ä.
-
-ĞÂÉú³ÉµÄÂÛÌ³ÃÜÂëÊÇ: $newpw
-
-Ê¹ĞŞ¸ÄÉúĞ§,Çë·ÃÎÊ:
-
-   http://$SERVER_NAME$PHP_SELF?actkey=$key
-
-È»ºó,ÔÚÎÒÃÇÊı¾İ¿âÖĞµÄÄúµÄÃÜÂëÒ²»áÏàÓ¦ĞŞ¸Ä,È»ºóÄú¿ÉÒÔµÇÂ¼,µ½ ¸öÈË×ÊÁÏ ÇøĞŞ¸Ä×¢²áĞÅÏ¢.
-
-¸ĞĞ»Ê¹ÓÃ$sitenameÂÛÌ³
-
-$email_sig';
 
 $l_passsent	= "ÄúµÄÃÜÂëÒÑĞŞ¸ÄÎªÒ»¸öĞÂËæ»úÃÜÂë,Çë¼ì²éÄúµÄĞÅÏäÒÔÊ¹ĞŞ¸ÄÉúĞ§.";
 $l_emailpass	= "ÓÊ¼ÄĞÂËæ»úÃÜÂë";
