@@ -180,9 +180,9 @@ if($is_allowedToEdit)
 			$_REQUEST['vis'] == "v" ? $visibility = 'VISIBLE' : $visibility = 'INVISIBLE';
 			
 			$sql = "UPDATE `".$tbl_wrk_assignment."`
-			           SET `visibility` = '$visibility'
+			           SET `visibility` = '".$visibility."'
 			         WHERE `id` = ".$_REQUEST['assigId']."
-			           AND `visibility` != '$visibility'";
+			           AND `visibility` != '".$visibility."'";
 			claro_sql_query ($sql);
 		}
 	}
@@ -227,7 +227,6 @@ if($is_allowedToEdit)
 		                  `description` = \"".$assigDesc."\", 
 		                  `assignment_type` = \"".$_REQUEST['assignmentType']."\", 
 		                  `authorized_content` = \"".$authorizedContent."\",  
-		                  `authorize_anonymous` = \"".$_REQUEST['allowAnonymous']."\",
 		                  `start_date` = \"".$composedStartDate."\", 
 		                  `end_date` = \"".$composedEndDate."\", 
 		                  `def_submission_visibility` = \"".$_REQUEST['defSubVis']."\", 
@@ -269,7 +268,6 @@ if($is_allowedToEdit)
 			$form['authorizedContent' ] = $modifiedAssignment['authorized_content'];
 			$form['defSubVis'         ] = $modifiedAssignment['def_submission_visibility'];
 			$form['assignmentType'    ] = $modifiedAssignment['assignment_type'];
-			$form['allowAnonymous'    ] = $modifiedAssignment['authorize_anonymous'];
 			$form['allowLateUpload'   ] = $modifiedAssignment['allow_late_upload'];
 		
 		}
@@ -285,7 +283,6 @@ if($is_allowedToEdit)
 			$form['endTime'           ] = $_REQUEST['endHour'].":".$_REQUEST['endMinute'].":00";
 			$form['defSubVis'         ] = $_REQUEST['defSubVis'];
 			$form['assignmentType'    ] = $_REQUEST['assignmentType'];
-			$form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
 			$form['allowLateUpload'   ] = $_REQUEST['allowLateUpload'];
 		}
 		// modify the command 'cmd' sent by the form
@@ -309,12 +306,12 @@ if($is_allowedToEdit)
 		{
 			$sql = "INSERT INTO `".$tbl_wrk_assignment."`
 					( `title`,`description`, `assignment_type`,
-					`authorized_content`, `authorize_anonymous`,
+					`authorized_content`,
 					`start_date`, `end_date`, 
 					`def_submission_visibility`, `allow_late_upload`)
 					VALUES
 					( \"".$title."\", \"".$assigDesc."\", \"".$_REQUEST['assignmentType']."\",
-					\"".$authorizedContent."\", \"".$_REQUEST['allowAnonymous']."\",
+					\"".$authorizedContent."\",
 					\"".$composedStartDate."\", \"".$composedEndDate."\",
 					\"".$_REQUEST['defSubVis']."\", \"".$_REQUEST['allowLateUpload']."\")";
 			
@@ -358,7 +355,6 @@ if($is_allowedToEdit)
 			$form['endTime'           ] = date("H:i:00", mktime( date("H"),date("i"),0) );
 			$form['defSubVis'         ] = "VISIBLE";
 			$form['assignmentType'    ] = "INDIVIDUAL";
-			$form['allowAnonymous'    ] = "YES";
 			$form['allowLateUpload'   ] = "NO";
 		}
 		else
@@ -373,7 +369,6 @@ if($is_allowedToEdit)
 			$form['endTime'           ] = $_REQUEST['endHour'].":".$_REQUEST['endMinute'].":00";
 			$form['defSubVis'         ] = $_REQUEST['defSubVis'];
 			$form['assignmentType'    ] = $_REQUEST['assignmentType'];
-			$form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
 			$form['allowLateUpload'   ] = $_REQUEST['allowLateUpload'];
 		}
 		
@@ -533,18 +528,6 @@ if($is_allowedToEdit)
       </tr> 
 
       <tr>
-        <td valign="top"><?php echo $langAllowAnonymous; ?>&nbsp;:</td>
-        <td>
-        <input type="radio" name="allowAnonymous" id="anonAllowed" value="YES" <?php if($form['allowAnonymous'] == "YES") echo 'checked="checked"'; ?>>
-          <label for="anonAllowed">&nbsp;<?php echo $langAnonAllowed; ?></label>
-          <br />
-        <input type="radio" name="allowAnonymous" id="anonNotAllowed" value="NO" <?php if($form['allowAnonymous'] == "NO") echo 'checked="checked"'; ?>>
-          <label for="anonNotAllowed">&nbsp;<?php echo $langAnonNotAllowed; ?></label>
-          <br />
-        </td>
-      </tr>
-
-      <tr>
         <td valign="top"><?php echo $langAllowLateUploadShort; ?>&nbsp;:</td>
         <td>
         <input type="radio" name="allowLateUpload" id="allowUpload" value="YES" <?php if($form['allowLateUpload'] == "YES") echo 'checked="checked"'; ?>>
@@ -663,18 +646,14 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
 			."<small>"
 			;
 		// content type	
-		if( $anAssignment['authorized_content'] == 'TEXT' )  
-			echo $langTextOnly;
-		elseif( $anAssignment['authorized_content'] == 'FILE' ) 
-			echo $langFileOnly;
-		elseif( $anAssignment['authorized_content'] == 'TEXTFILE' ) 
-			echo $langTextFile;
+		if( $anAssignment['authorized_content'] == 'TEXT' ) echo $langTextOnly;
+		elseif( $anAssignment['authorized_content'] == 'FILE' ) echo $langFileOnly;
+		elseif( $anAssignment['authorized_content'] == 'TEXTFILE' ) echo $langTextFile;
+		
 		echo "<br />";
 		// assignment type
-		if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) 
-			echo $langIndividual ;
-		elseif( $anAssignment['assignment_type'] == 'GROUP' ) 
-			echo $langGroupAssignment;
+		if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) echo $langIndividual ;
+		elseif( $anAssignment['assignment_type'] == 'GROUP' ) echo $langGroupAssignment;
 		
 		echo "</small>\n";
 		
