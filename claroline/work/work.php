@@ -29,10 +29,9 @@ $currentUserFirstName       = $_user['firstName'];
 $currentUserLastName        = $_user['lastName'];
 
 
-//if (!$_cid) 	claro_disp_select_course();
+if ( !$_cid ) claro_disp_select_course();
+if ( ! $is_courseAllowed)	claro_disp_auth_form();
 
-if ( ! $is_courseAllowed)
-	claro_disp_auth_form();
 event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
 
