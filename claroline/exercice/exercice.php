@@ -44,8 +44,10 @@ unset($_SESSION['exeStartTime'	]);
 // prevent inPathMode to be used when browsing an exercise in the exercise tool
 $_SESSION['inPathMode'] = false;
 
-$is_allowedToEdit = $is_courseAdmin;
-$is_allowedToTrack = $is_courseAdmin && $is_trackingEnabled;
+claro_set_display_mode_available(true);
+
+$is_allowedToEdit = claro_is_allowed_to_edit();
+$is_allowedToTrack = claro_is_allowed_to_edit() && $is_trackingEnabled;
 
 /*
  * DB tables definition
@@ -295,16 +297,15 @@ elseif($page)
 
 <table class="claroTable" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
 
-<?php
-// shows the title bar only for the administrator
-if($is_allowedToEdit)
-{
-?>
 <thead>
 <tr class="headerX">
   <th>
 	<?php echo $langExerciseName; ?>
   </th>
+<?php
+	if($is_allowedToEdit)
+	{
+?>
   <th>
 	<?php echo $langModify; ?>
   </th>
@@ -315,19 +316,20 @@ if($is_allowedToEdit)
 	<?php echo $langEnable.' / '.$langDisable; ?>
   </th>
 <?php
-  if($is_allowedToTrack)
-  {
+	}
+	
+  	if($is_allowedToTrack)
+  	{
 ?>
   <th>
 	<?php echo $langTracking; ?>
   </th>
 <?php
-  }
+  	}
 ?>
 </tr>
 </thead>
 <?php
-}
 
 if(!$nbrExercises)
 {
