@@ -76,7 +76,7 @@ $showAnswers 		= $objExercise->get_show_answer();
 $exerciseMaxTime 	= $objExercise->get_max_time();
 $exerciseMaxAttempt	= $objExercise->get_max_attempt();
 
-$nameTools=$langExercice;
+$nameTools=$objExercise->exercise;
 
 // calculate time needed to complete the exercise
 if (isset($_SESSION['exeStartTime']))

@@ -197,7 +197,8 @@ if(!$questionNum || $HTTP_POST_VARS['questionNum'])
 	}
 }
 
-$nameTools=$langExercice;
+
+$nameTools=$objExercise->exercise;
 
 
 if($HTTP_POST_VARS['questionNum'])
@@ -282,7 +283,7 @@ elseif( ($objExercise->get_end_date() != "9999-12-31 23:59:59") && ($timeEndDate
 
 // concat errmsg to status msg before displaying it
 $statusMsg .= "<br /><b>".$errMsg."</b>";
-claro_disp_tool_title($exerciseTitle);
+claro_disp_tool_title($langExercise." : ".$exerciseTitle);
 
 if( $showExerciseForm || $is_courseAdmin )
 {
