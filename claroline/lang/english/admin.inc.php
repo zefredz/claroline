@@ -111,7 +111,7 @@ $langYouCanUsefields = "You can use (*) in the fields";
 
 //user and course advanced search pages
 
-$langOfficialCode = "Official code";
+$langOfficialCode = "Administrative code";
 //$langCourseTitle;
 $langLanguage = "Language";
 $langCourseAccess ="Course access";
@@ -134,7 +134,7 @@ $langPlatformAdmin = "Platform admin";
 $langAction = "Action";
 
 $langCategory = "Category";
-$langName = "Name";
+$langName = "Last name";
 $langLastName = "Last name"; //same!
 $langFirstName = "First name";
 $langUsername  = "User name";
@@ -160,13 +160,13 @@ $langSearchOn = "Search on";
 $langAddaListOfUsers = "Add a list of users";
 $langModifOneProfile = "User settings";
 $langBackToAdmin = "Back to admin page";
-$langBackToCourseList = "Back to courses list";
+$langBackToCourseList = "Back to course list";
 $langEnrollUser = "Enroll a user";
 $langGoToMainUserSettings = "Go to main user settings";
 $langGoToUserSettings ="Go to user settings";
 
 $langEmail = "Email";
-$langUserStatus = "User type";
+$langUserStatus = "Status";
 $langSaveChanges = "Save changes";
 $langAdmin = "Admin";
 $langStudent ="Student";
@@ -190,14 +190,16 @@ $langPublicOnly = "Public course only";
 $langPrivateOnly = "Private course only";
 $langSubscriptionAllowedOnly = "Subscription allowed only ";
 $langSubscriptionDeniedOnly  = "Subscription denied only";
+$langUserNoCourseToDisplay = "No course to display";
+
 
 
 
 // Page titles
 
 $langAdministrationTools = "Administration";  //for bredcrumps too
-$langListUsers = "Users list"; //for bredcrumps too
-$langCourseList = "Courses list"; //for bredcrumps too
+$langListUsers = "User list"; //for bredcrumps too
+$langCourseList = "Course list"; //for bredcrumps too
 
 $langUserCourseList = "User's course list";
 $langPersonnalInfo = "Personnal information";
@@ -207,7 +209,7 @@ $langDeleteUser = "Delete user";
 $langModifUserCourseSettings = "User course settings";
 $langUserUnregistered = "User unregistered";
 $langListCourseUsers = "Course users list";
-$langAddUser = "Add a new user";
+$langAddUser = "Create a new user";
 
 // title of columns to display
 
@@ -216,10 +218,9 @@ $langUserGroup = "User group";
 $langAddCourse = "Create a new course";
 $langUnsubscribe = "Unregister user";
 $langSubscribeUser = "Register user";
-$langEditUserCourseSetting = "Edit user course settings";
+$langEditUserCourseSetting = "View user course settings";
 $langCourseSettings = "Course settings";
-$langOfficialCode = "Official code";
-$langEditUserSettings = "Edit user settings";
+$langEditUserSettings = "View user settings";
 $langCourseManager = "Course manager";
 $langEnrollAsStudent = "Enroll as student";
 $langEnrollAsManager = "Enroll as course manager";
@@ -236,8 +237,8 @@ $langAreYouSureToSubscribe = "are you sure you want to register ";
 $langViewList = "View list";
 $langUserCanCreateCourse = "Can create course";
 $langUserIsPlaformAdmin = "Is platform admin";
-$langAllUserOfThisCourse = "All courses of this user";
-$langAllUsersOfThisCourse = "All users of this course";
+$langAllUserOfThisCourse = "Personnal course list";
+$langAllUsersOfThisCourse = "Course members";
 $langCode = "Code";
 
 
