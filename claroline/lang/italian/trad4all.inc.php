@@ -125,7 +125,7 @@ $lang_if_you_dont_have_a_user_account_profile_on = 'If you don\'t have a user ac
 $lang_click_here = 'Premi Qui';
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
 $lang_if_you_wish_to_enroll_to_this_course = "Se vuoi iscriverti a questo corso";
-$lang_username = "User Name";
+$langUserName = "User name";
 $lang_password = "Password";
 
 // TOOLNAMES

@@ -97,7 +97,7 @@ claro_disp_tool_title($nameTools." : ");
 	
 	<tr>
 		<td align="right">
-			<label for="userName"><?php echo $langUsername ?></label> 
+			<label for="userName"><?php echo $langUserName ?></label> 
 			:  <br>
 		</td>
 		<td>

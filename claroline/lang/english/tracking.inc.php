@@ -104,7 +104,7 @@ $langDate = "Date";
 
 /* user list */
 $informationsAbout = "Tracking of";
-$langUserName = "Username";
+$langUserName = "User name";
 $langFirstName = "First name";
 $langLastName = "Last name";
 $langEmail = "Email";
@@ -200,8 +200,8 @@ $langAccessExplain = "(When an user open the index of the campus)";
 $langLogins = "Logins";
 $langTotalPlatformAccess = "Total";
 $langTotalPlatformLogin = "Total";
-$langMultipleLogins = "Accounts with same <i>Username</i>";
-$langMultipleUsernameAndPassword = "Accounts with same <i>Username</i> AND same <i>Password</i>";
+$langMultipleLogins = "Accounts with same <i>User name</i>";
+$langMultipleUsernameAndPassword = "Accounts with same <i>User name</i> AND same <i>Password</i>";
 $langMultipleEmails = "Accounts with same <i>Email</i>";
 $langCourseWithoutProf = "Courses without professor";
 $langCourseWithoutStudents = "Courses without student";

@@ -736,7 +736,7 @@ function claro_disp_auth_form()
             $siteName,
 
             $lang_thisCoursIsProtectedOrDontExist , $lang_password ,
-            $lang_username, $lang_doLogin, $lang_IfYouDontHaveAccountOn, 
+            $langUserName, $lang_doLogin, $lang_IfYouDontHaveAccountOn, 
             $lang_YouNeedToSubscribeThisCourse, $langReg;
 
             
@@ -772,7 +772,7 @@ function claro_disp_auth_form()
                 
                 ."<legend>".$lang_doLogin."</legend>\n"
                 
-                ."<label for=\"username\">".$lang_username." : </label><br>\n"
+                ."<label for=\"username\">".$langUserName." : </label><br>\n"
                 ."<input type=\"text\" name=\"login\" id=\"username\"><br>\n"
                 
                 ."<label for=\"password\">".$lang_password." : </labeL><br>\n"

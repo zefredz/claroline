@@ -132,7 +132,7 @@ $lang_if_you_dont_have_a_user_account_profile_on = 'Se você não tem uma conta de
 $lang_click_here = 'clique aqui';
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Seu perfil de usuário não parece estar inscrito para esse curso";
 $lang_if_you_wish_to_enroll_to_this_course = "Se você deseja se inscrever nesse curso";
-$lang_username = "Nome do Usuário";
+$langUserName = "Nome do Usuário";
 $lang_password = "Senha";
 
 

@@ -98,7 +98,7 @@ if ($searchPassword)
 			foreach($user as $thisUser)
 			{
 				$userAccountList [] = $thisUser['firstName']." ".$thisUser['lastName']."\r\n\r\n"
-									 ."\t".$langUsername." : ".$thisUser['loginName']."\r\n"
+									 ."\t".$langUserName." : ".$thisUser['loginName']."\r\n"
 									 ."\t".$langPass." : ".$thisUser['password']." \r\n";
 			}
 

@@ -18,7 +18,7 @@
 $langRegistration="Enregistrament";
 $langName="Nom";
 $langSurname="Cognom";
-$langUsername="Nom d'usuari";
+$langUserName="Nom d'usuari";
 $langPass="Paraula de pas";
 $langConfirmation="Confirmació";
 $langEmail="Correu-e";

@@ -17,7 +17,7 @@
 $langRegistration="Εγγραφή";
 $langName="Επίθετο";
 $langSurname="Όνομα";
-$langUsername="Όνομα χρήστη";
+$langUserName="Όνομα χρήστη";
 $langPass="Συνθηματικό";
 $langConfirmation="επιβεβαίωση";
 $langEmail="Email";

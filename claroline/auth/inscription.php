@@ -87,7 +87,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 	<tr>
 		<td align="right">
 			<label for="username">
-				<?php echo $langUsername ?>
+				<?php echo $langUserName ?>
 			</label>
 			&nbsp;:
 		</td>

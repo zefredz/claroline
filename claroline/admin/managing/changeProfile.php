@@ -513,7 +513,7 @@ if(!empty($_uid))
 			"</tr>\n",
 			"<tr>\n",
 			"<td  align=\"right\">\n<label for=\"form_userName\">",
-			$langUsername,"</label> : \n",
+			$langUserName,"</label> : \n",
 			"</td>\n",
 			"<td>\n",
 			"<input type=\"text\" size=\"40\" name=\"form_userName\" id=\"form_userName\" value=\"",$form_userName,"\">\n",

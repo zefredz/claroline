@@ -123,7 +123,7 @@ if($register=="yes")
         if (mysql_num_rows($result) > 0)
         {
             $regDataOk = false;
-            $dialogBox .= $langUsernameTaken;
+            $dialogBox .= $langUserNameTaken;
             unset($password1, $password, $uname);
         }
         else
@@ -255,7 +255,7 @@ if($display_form)
     </tr>
     <tr>
         <td align="right">
-            <label for="uname"><?php echo $langUsername ?></label> :
+            <label for="uname"><?php echo $langUserName ?></label> :
         </td>
         <td>
             <input type="text" size="40" name="uname" id="uname" value="<?php echo htmlentities(stripslashes($uname)); ?>">

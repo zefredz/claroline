@@ -5,7 +5,7 @@
 $langRegistration="Регистрация";
 $langName="Име";
 $langSurname="Фамилия";
-$langUsername="Потребителско име";
+$langUserName="Потребителско име";
 $langPass="Парола";
 $langConfirmation="Повтори паролата";
 $langEmail="Емейл";

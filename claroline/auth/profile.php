@@ -484,7 +484,7 @@ switch($display)
 		<textarea cols="60" rows="6" name="explanation" id="explanation"></textarea><br>
 		<fieldset>
 		<legend ><?php echo $langConfirmation ?></legend>
-		<?php echo $langUsername ?><br>
+		<?php echo $langUserName ?><br>
 		<input type="text" name="loginToDelete" ><br>
         <?php echo $langPass ?><br>
 		<input type="password" name="passwordToDelete" ><br>
@@ -609,7 +609,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
     <tr>
         <td  align="right">
             <label for="form_userName">
-                <?php echo $langUsername ?>
+                <?php echo $langUserName ?>
             </label> : 
         </td>
         <td>

@@ -357,7 +357,7 @@ if ($display == USER_DATA_FORM)
 
     <tr valign="top">
       <td align="right">
-        <label for="username_form"><?php echo $langUsername?></label> :
+        <label for="username_form"><?php echo $langUserName?></label> :
       </td>
       <td colspan="2">
         <input type="text" size="40" id="username_form" name="username_form" value="<?php echo $username_form?>">

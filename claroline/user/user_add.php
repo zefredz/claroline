@@ -329,7 +329,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 
 <tr>
 <td align="right">
-	<label for="username_form"><?php echo  $langUsername ?></label> 
+	<label for="username_form"><?php echo  $langUserName ?></label> 
 	:
 </td>
 <td>

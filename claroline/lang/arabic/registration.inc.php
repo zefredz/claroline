@@ -15,7 +15,7 @@
 $langRegistration="ترسيم";
 $langName=" الاسم ";
 $langSurname="Pr nom";
-$langUsername="Nom d'utilisateur";
+$langUserName="Nom d'utilisateur";
 $langPass="Mot de passe";
 $langConfirmation="confirmation";
 $langEmail="Email";

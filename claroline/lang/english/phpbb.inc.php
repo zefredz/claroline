@@ -64,7 +64,7 @@ $l_subject	= "Subject";
 $l_body		= "$l_message Body";
 $l_from		= "From";   // Message from
 $l_moderator 	= "Moderator";
-$l_username 	= "Username";
+$l_username 	= "User name";
 $l_password 	= "Password";
 $l_email 	= "Email";
 $l_emailaddress	= "Email Address";
@@ -110,7 +110,7 @@ $l_tryagain	= "Please go back and try again.";
 $l_mismatch 	= "Passwords do not match.";
 $l_userremoved 	= "This user has been removed from the User database";
 $l_wrongpass	= "You entered the wrong password.";
-$l_userpass	= "Please enter your username and password.";
+$l_userpass	= "Please enter your user name and password.";
 $l_banned 	= "You have been banned from this forum. Contact the system administrator if you have any questions.";
 $l_enterpassword= "You must enter your password.";
 
@@ -212,8 +212,8 @@ $l_version	= "Version";
 
 // Register
 $l_notfilledin	= "Error - you did not fill in all the required fields.";
-$l_invalidname	= "The username you chose \"$username\" has been taken.";
-$l_disallowname	= "The username you chose, \"$username\" has been disallowed by the administrator.";
+$l_invalidname	= "The user name you chose \"$username\" has been taken.";
+$l_disallowname	= "The user name you chose, \"$username\" has been disallowed by the administrator.";
 
 $l_welcomesubj	= "Welcome to $sitename Forums";
 $l_welcomemail	=
@@ -226,7 +226,7 @@ Please keep this email for your records.
 Your account information is as follows:
 
 ----------------------------
-Username: $username
+User name: $username
 Password: $password
 ----------------------------
 
@@ -239,8 +239,8 @@ $email_sig
 ";
 $l_beenadded	= "You have been added to the database.";
 $l_thankregister= "Thank you for registering!";
-$l_useruniq	= "Must be unique. No two users can have the same Username.";
-$l_storecookie	= "Store my username in a cookie for 1 year.";
+$l_useruniq	= "Must be unique. No two users can have the same User name.";
+$l_storecookie	= "Store my user name in a cookie for 1 year.";
 
 // Prefs
 $l_prefupdated	= "$l_preferences updated. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
@@ -297,7 +297,7 @@ $l_aboutpost	= "About Posting";
 $l_regusers	= "All <b>Registered</b> users";
 $l_anonusers	= "<b>Anonymous</b> users";
 $l_modusers	= "Only <B>Moderators and Administrators</b>";
-$l_anonhint	= "<br>(To post anonymously simply do not enter a username and password)";
+$l_anonhint	= "<br>(To post anonymously simply do not enter a user name and password)";
 $l_inthisforum	= "can post new topics and replies to this forum";
 $l_attachsig	= "Show signature <font size=-2>(This can be altered or added in your profile)</font>";
 $l_cancelpost	= "Cancel Post";
@@ -328,7 +328,7 @@ $email_sig';
 // $l_quotRRRRemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
 
 // Sendpmsg
-$l_norecipient	= "You must enter the username you want to send the $l_message to.";
+$l_norecipient	= "You must enter the user name you want to send the $l_message to.";
 $l_sendothermsg	= "Send another Private Message";
 $l_cansend	= "can send $l_privmsgs";  // All registered users can send PM's
 $l_yourname	= "Your $l_username";

@@ -19,7 +19,7 @@
 $langRegistration="Prijava";
 $langName="Ime";
 $langSurname="Prezime";
-$langUsername="Korisnièko ime";
+$langUserName="Korisnièko ime";
 $langPass="Zaporka";
 $langConfirmation="Potvrda";
 $langEmail="Email";

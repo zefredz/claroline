@@ -18,7 +18,7 @@
 $langRegistration="Kayýt";
 $langName="Adýnýz";
 $langSurname="Soyadýnýz";
-$langUsername="Kullanýcý adýnýz";
+$langUserName="Kullanýcý adýnýz";
 $langPass="Þifreniz";
 $langConfirmation="Þifrenizi tekrar yazýnýz";
 $langEmail="Epostanýz";
