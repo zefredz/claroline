@@ -428,7 +428,7 @@ if($is_allowedToUse)	// check teacher status
 				"<tr>",
 				"<td colspan=3>",
 
-				"<b>",$langMsgText,"</b><br>",
+				"<b>",$langAnnouncement,"</b><br>",
 				"<center>",
 				"<textarea wrap=\"physical\" rows=\"7\"	cols=\"60\"	name=\"emailContent\"></textarea>",
 				"</center>",
