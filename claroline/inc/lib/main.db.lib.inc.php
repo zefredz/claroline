@@ -254,19 +254,19 @@ function   removeUserFromGroup($uid,$gid,$cid)
 	if (isset($uid))
 	{
 		$msg_error = 1;
-		$msg_error[msg] = "User identification missing";
+		$msg_error['msg'] = "User identification missing";
 		return $msg_error;
 	}
 	if (isset($gid))
 	{
 		$msg_error = 1;
-		$msg_error[msg] = "Group identification missing";
+		$msg_error['msg'] = "Group identification missing";
 		return $msg_error;
 	}
 	if (isset($cid))
 	{
 		$msg_error = 1;
-		$msg_error[msg] = "Course identification missing";
+		$msg_error['msg'] = "Course identification missing";
 		return $msg_error;
 	}
 	
@@ -292,8 +292,8 @@ function   removeUserFromGroup($uid,$gid,$cid)
 	// fonctionne : non
 	if (isset($cid))
 	{
-		$msg_error[code] = 1;
-		$msg_error[msg] = "Course identification missing";
+		$msg_error['code'] = 1;
+		$msg_error['msg'] = "Course identification missing";
 		return $msg_error;
 	}
 	if (isset($gid))
@@ -410,8 +410,8 @@ function   checkCourseUserIntegrity($uid,$cid)
 	// fonctionne : non
 	if ($uid < 1 )
 	{
-		$msg_error[code] = 1;
-		$msg_error[msg] = "user identification error";
+		$msg_error['code'] = 1;
+		$msg_error['msg'] = "user identification error";
 		return $msg_error;
 	}
 	// is user exisiting ?
@@ -441,7 +441,7 @@ function   checkGroupUserIntegrity($cid,$gid="")
 	$sql = "select count(id) nb From `".$cid."`.`user_group` ug left join `".$mainDbName."`.`cours_user` cu on gu.`user` = cu.`user_id` where cu.`user_id` is Null";
 	$res = mysql_query($sql);
 	$nb = mysql_fetch_array($res);
-	return $nb[nb];
+	return $nb['nb'];
 
 	return 0;
 }
@@ -927,7 +927,7 @@ function   isUserInGroup($uid,$gid,$cid)
 	$res = mysql_query_dbg($sql);
 	//$res = mysql_query($sql);
 	$nb = mysql_fetch_array($res);
-	return $nb[nb];
+	return $nb['nb'];
 }
 
 
@@ -949,7 +949,7 @@ function   isUserInCourse($uid,$cid)
 	$sql = "select count(user_id) nb From `".$mainDbName."`.`cours_user` where `user_id` = '".$uid."' and `code_cours` = '".$cid."' ";
 	$res = mysql_query($sql);
 	$nb = mysql_fetch_array($res);
-	return $nb[nb];
+	return $nb['nb'];
 }
 
 
@@ -970,7 +970,7 @@ function   isAdmin($uid)
 	$sql = "select count(idUser) nb From `".$mainDbName."`.`admin` where `idUser` = '".$uid."' ";
 	$res = mysql_query($sql);
 	$nb = mysql_fetch_array($res);
-	return $nb[nb];
+	return $nb['nb'];
 }
 
 
@@ -992,21 +992,21 @@ function   isAdminOfCourse($uid,$cid)
 	if (!isset($uid))
 	{
 		$msg_error = 1;
-		$msg_error[msg] = "User identification missing";
+		$msg_error['msg'] = "User identification missing";
 		return $msg_error;
 
 	}
 	if (!isset($cid))
 	{
 		$msg_error = 1;
-		$msg_error[msg] = "Course identification missing";
+		$msg_error['msg'] = "Course identification missing";
 		return $msg_error;	
 	}
 	GLOBAL $mainDbName;
 	$sql = "select count(user_id) nb From `".$mainDbName."`.`cours_user` where `user_id` = '".$uid."' and code_cours = '".$cid."' and `statut` = '1'";
 	$res = mysql_query($sql);
 	$nb = mysql_fetch_array($res);
-	return $nb[nb];
+	return $nb['nb'];
 }
 
 
@@ -1030,27 +1030,27 @@ function   isTutorOfGroup($uid,$gid,$cid)
 	if (!isset($uid))
 	{
 		$msg_error = 1;
-		$msg_error[msg] = "User identification missing";
+		$msg_error['msg'] = "User identification missing";
 		return $msg_error;
 		
 	}
 	if (!isset($cid))
 	{
 		$msg_error = 1;
-		$msg_error[msg] = "Course identification missing";
+		$msg_error['msg'] = "Course identification missing";
 		return $msg_error;	
 	}
 	if (!isset($gid))
 	{
 		$msg_error = 1;
-		$msg_error[msg] = "Groupe identification missing";
+		$msg_error['msg'] = "Groupe identification missing";
 		return $msg_error;	
 	}
 	GLOBAL $mainDbName;
 	$sql = "select count(id) nb From `".$cid."`.`student_group` where `tutor` = '".$uid."' and `id` = '".$gid."'";
 	$res = mysql_query($sql);
 	$nb = mysql_fetch_array($res);
-	return $nb[nb];
+	return $nb['nb'];
 
 }
 
@@ -1114,20 +1114,20 @@ function  changeAdminStatus($uid,$cid,$state)
 	if  ($state==1||$state==5)
 	{
 		$msg_error = 1;
-		$msg_error[msg] = "param state using  old system";
+		$msg_error['msg'] = "param state using  old system";
 		return $msg_error;
 	}
 	elseif  ($state=="")
 	{
 		$msg_error = 1;
-		$msg_error[msg] = "param state missing";
+		$msg_error['msg'] = "param state missing";
 		return $msg_error;
 	}
 	// vérfier les paramètres
 	if  ($uid==""||$cid==""||$state=="")
 	{
 		$msg_error = 1;
-		$msg_error[msg] = "param missing";
+		$msg_error['msg'] = "param missing";
 		return $msg_error;
 	}
 
@@ -1139,7 +1139,7 @@ function  changeAdminStatus($uid,$cid,$state)
 /**
  * function   mergeUsersAccount($uidToKeep,$uidToDelete[,$uidToDelete]...) 
  * @return $msg_error = 1;
- * @return $msg_error[msg] = "Accounts are in the same course.";
+ * @return $msg_error['msg'] = "Accounts are in the same course.";
  * @param integer $uidToKeep
  * @param integer $uidToDelete 
  * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
@@ -1187,7 +1187,7 @@ function mergeUsersAccount($uidToKeep,$uidToDelete)
 	if ( mysql_errno()>0)
 	{
 		$msg_error = 1;
-		$msg_error[msg] = "can't find users";
+		$msg_error['msg'] = "can't find users";
 		return $msg_error;
 	}
 	while ($ligne = mysql_fetch_assoc($res)) // I can't use ($users = mysql_fetch_array($res))
@@ -1359,12 +1359,6 @@ Select
 	echo "<PRE>".$sql."</PRE>";
 	//$res = mysql_query_ShowError($sql);
 	$sql = "Update `".$mainDbName."`.`cours_user`	Set `user_id` ='".$uidToKeep."' 	Where `user_id`  IN '".implode($uidToDeletes,"','")."'";
-	echo "<PRE>".$sql."</PRE>";
-	//$res = mysql_query_ShowError($sql);
-	$sql = "Update `".$mainDbName."`.`loginout` 	Set `id_user` ='".$uidToKeep."'		Where `id_user`  IN '".implode($uidToDeletes,"','")."'";
-	echo "<PRE>".$sql."</PRE>";
-	//$res = mysql_query_ShowError($sql);
-	$sql = "Update `".$mainDbName."`.`todo` 		Set `assignTo` ='".$uidToKeep."'	Where `assignTo`  IN '".implode($uidToDeletes,"','")."'";
 	echo "<PRE>".$sql."</PRE>";
 	//$res = mysql_query_ShowError($sql);
 
