@@ -352,17 +352,14 @@ function claro_get_conf_file($config_code)
        $confFile = realpath($includePath.'/conf/').'/'.$conf_def['config_file'];
    }
    else
-   
    // ici il faut voir si cela a du sens
    // cela veut dire que le fichier de déf ne défini pas le fichier de config.
    // ca ne pose pas de problème à priori puisque 
    // 1 config_code = 1 def_file
    // 1 def_file    = 1 conf_file
-   
    {
        $confFile = realpath($includePath.'/conf/').'/'.$config_code.'.conf.inc.php';
    }
-   
    return $confFile;
 }
 
@@ -543,14 +540,14 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
         return true;
 }
 
-function set_hash_confFile($confFile,$configCode)
+function set_hash_confFile($confFile,$config_code)
 {
     $mainTbl = claro_sql_get_main_tbl();
     $hashConf = md5_file($confFile);
     $sql =' UPDATE `'.$mainTbl['config_file'].'`          '
          .' SET config_hash = "'.$hashConf.'"      '
          .' WHERE config_code = "'.$config_code.'" ';
-    
+
     if (!claro_sql_query_affected_rows($sql))
     {
         $sql =' INSERT  INTO `'.$mainTbl['config_file'].'`          '
@@ -562,7 +559,6 @@ function set_hash_confFile($confFile,$configCode)
     {
         return true;
     }
-    
 }
 
 function parse_config_file($confFileName)

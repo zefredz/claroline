@@ -389,7 +389,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         {
             if (write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile, realpath(__FILE__)))
             {
-                set_hash_confFile($confFile,$configCode);
+                set_hash_confFile($confFile,$config_code);
                 $controlMsg['info'][] = 'Properties for '.$nameTools.' ('.$config_code.') are now effective on server.';
                 $controlMsg['debug'][] = 'file generated for <B>'.$config_code.'</B> is <em>'.$confFile.'</em>'.'<br>Signature : <TT>'.$hashConf.'</tt>';        
                 $panel = DISP_LIST_CONF;
@@ -420,14 +420,11 @@ if ($panel == DISP_LIST_CONF)
     // * List of Tools wich are linked to less a config.
     // the two lists are merge and an array is build  with conf by tool.
     // 
-    
-    
-    
     $helpSection = 'help_config_menu.php';
 
     $def_list  = get_def_list();
     $conf_list = get_conf_list();
-    $key_list = array_merge_recursive($def_list,$conf_list);
+    $key_list  = array_merge_recursive($def_list,$conf_list);
     $config_list = array();
     if (is_array($key_list))
     foreach($key_list as $key => $config)
@@ -435,7 +432,7 @@ if ($panel == DISP_LIST_CONF)
         // The strange following line flat the array 
         // wich can be build by collision during array_merge_recursive 
         $config['config_code'] = (is_array($config['config_code'])?$config['config_code'][0]:$config['config_code']);
-        
+
         $config_item = array_merge($def_list[$key],$conf_list[$key]);
         $config_item['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config['config_code']))&&$config['config_hash'] != md5_file(claro_get_conf_file($config['config_code'])));
         $config_item['tool']        = get_tool_name($config['claro_label']);

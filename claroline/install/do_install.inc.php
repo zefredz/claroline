@@ -469,7 +469,7 @@ foreach ( $def_file_list as $config_code => $def_file)
                                ,$confFile
                                , realpath(__FILE__)))
             {
-                set_hash_confFile($confFile,$configCode);
+                set_hash_confFile($confFile,$config_code);
             }
         }
     }
