@@ -810,8 +810,8 @@ switch ($panel)
 
 }
 
-var_dump::display($_REQUEST);
-var_dump::display($toolConf);
-var_dump::display($toolConfProperties);
+//var_dump::display($_REQUEST);
+//var_dump::display($toolConf);
+//var_dump::display($toolConfProperties);
 include($includePath."/claro_init_footer.inc.php");
 ?>
