@@ -12,6 +12,10 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
+
+// 4 Commands, 3 displays
+// default Display : Form to edit own profile
+// 
 $lang_IWantCreateCourse      = "I need to create course";
 $lang_ReqCourseCreatorStatus      = "Request a Course Creator Status";
 $lang_explanation = "Commentaire";
@@ -19,6 +23,8 @@ $lang_IWantBeRemovedFromBase = "Destroy my account"; // %s = siteName
 $lang_p_IWantBeRemovedFromBase = "Destroy my &quot;<EM>%s</EM>&quot; account"; // %s = siteName
 $lang_p_u_ReqCourseCreatorStatus = "Course creator status to %s %s"; // %S%S name firstname
 $lang_p_u_ReqRevoquation = "Revocation of %s %s"; // %S%S name firstname
+$lang_YourRequestToRemoveYourAccountIsSent = "Votre demande de révoquation à été communiquée";
+$lang_YourRequestToBePromoteCourseCreatorIsSent = "Votre demande de d'accès à la création de cours à été communiquée";
 $langFile = 'registration';
 $cidReset = TRUE;
 $gidReset = TRUE;
@@ -26,6 +32,9 @@ $gidReset = TRUE;
 #default - don't edit default !!! change in config files
 $userOfficialCodeCanBeEmpty    = TRUE;
 $userMailCanBeEmpty            = TRUE;
+
+define('DISP_COURSE_CREATOR_STATUS_REQ',__LINE__);
+define('DISP_REVOQUATION',__LINE__);
 
 require '../inc/claro_init_global.inc.php';
 include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
@@ -50,9 +59,11 @@ if (isset($userImageRepositoryWeb))
 
 if (CAN_REQUEST_COURSE_CREATOR_STATUS && $_REQUEST['exCCstatus'])
 {
-	$requestMail_Subject = '['.$siteName.'][Rq]'
+	$mailToUidList = claro_get_uid_of_platform_admin();
+	
+	$requestMessage_Title = '['.$siteName.'][Rq]'
 	                   .sprintf($lang_p_u_ReqCourseCreatorStatus,$_user['lastName'],$_user['firstName']);
-	$requestMail_body = '
+	$requestMessage_Content = '
      '.claro_format_locale_date( $dateFormatLong).'
 	 '.sprintf($lang_p_u_ReqCourseCreatorStatus,$_user['lastName'],$_user['firstName']).'
 User:'.$_uid.'
@@ -62,13 +73,19 @@ User:'.$_uid.'
      '.$_user['lastLogin'].'
 *comment : '.$_REQUEST['explanation'].'
 *user profile : '.$rootAdminWeb.'adminprofile.php?uidToEdit='.$_uid.' ';
-	claro_mail_user(1, $requestMail_body, $requestMail_Subject, $administrator['email'], 'profile');
+	foreach ($mailToUidList as $mailToUid)
+	{
+		claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator['email'], 'profile');
+	}
+
+	$messageList[] = $lang_YourRequestToBePromoteCourseCreatorIsSent;
 }
 elseif (CAN_REQUEST_REVOQUATION && $_REQUEST['exRevoquation'])
 {
-	$requestMail_Subject = '['.$siteName.'][Rq]'
+	$mailToUidList = claro_get_uid_of_platform_admin();
+	$requestMessage_Title = '['.$siteName.'][Rq]'
 	                   .sprintf($lang_p_u_ReqRevoquation,$_user['lastName'],$_user['firstName']);
-	$requestMail_body = '
+	$requestMessage_Content = '
      '.claro_format_locale_date( $dateFormatLong).'
 	 '.sprintf($lang_p_u_ReqRevoquation,$_user['lastName'],$_user['firstName']).'
 User:'.$_uid.'
@@ -76,9 +93,18 @@ User:'.$_uid.'
      '.$_user['lastName'].'
      '.$_user['mail'].'
      '.$_user['lastLogin'].'
+
+     login de confirmation '.$_REQUEST['loginToDelete'].'
+     paswd de confirmation '.$_REQUEST['passwordToDelete'].'
+
 *comment : '.$_REQUEST['explanation'].'
 *user profile : '.$rootAdminWeb.'adminprofile.php?uidToEdit='.$_uid.' ';
-	claro_mail_user(1, $requestMail_body, $requestMail_Subject, $administrator['email'], 'profile');
+	foreach ($mailToUidList as $mailToUid)
+	{
+		claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator['email'], 'profile');
+	}
+	$messageList[] = $lang_YourRequestToRemoveYourAccountIsSent;
+
 }
 elseif (CAN_REQUEST_COURSE_CREATOR_STATUS && $_REQUEST['reqCCstatus'])
 {
@@ -453,9 +479,16 @@ switch($display)
 	if (CAN_REQUEST_REVOQUATION)
 	{
 ?>
-	<form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
 		<label for="explanation"><?php echo $lang_explanation ?></label><br>
-		<textarea cols="60" rows="6" name="explanation" id="explanation"></textarea>
+		<textarea cols="60" rows="6" name="explanation" id="explanation"></textarea><br>
+		<fieldset>
+		<legend ><?php echo $langConfirmation ?></legend>
+		<?php echo $langUsername ?><br>
+		<input type="text" name="loginToDelete" ><br>
+        <?php echo $langPass ?><br>
+		<input type="password" name="passwordToDelete" ><br>
+		</fieldset><br>
 		<input type="hidden" name="exRevoquation" value="1">
 		<input type="submit" value="<?php  echo $lang_IWantBeRemovedFromBase ?>">
 	</form>
@@ -466,9 +499,9 @@ switch($display)
 		if (CAN_REQUEST_COURSE_CREATOR_STATUS)
 		{
 		?>
-	<form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
 		<label for="explanation"><?php echo $lang_explanation ?></label><br>
-		<textarea cols="60" rows="6" name="explanation" id="explanation"></textarea>
+		<textarea cols="60" rows="6" name="explanation" id="explanation"></textarea><br>
 		<input type="hidden" name="exCCstatus" value="1">
 		<input type="submit" value="<?php echo $lang_IWantCreateCourse ?>">
 	</form>
@@ -506,7 +539,6 @@ if( $disp_picture != '')
         <td  align="right">
             <label for="form_firstName">
                 <?php echo $langFirstname ?>
-
             </label> : 
         </td>
         <td >
@@ -669,4 +701,15 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 </p>
 <?php
 include($includePath."/claro_init_footer.inc.php");
+
+////////////////////////////////////
+// 
+function claro_get_uid_of_platform_admin()
+{
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$sql = 'SELECT * from `'.$tbl_mdb_names['admin'].'`';
+	$adminUidList =	claro_sql_query_fetch_all($sql);
+	return $adminUidList;
+}
+
 ?>
