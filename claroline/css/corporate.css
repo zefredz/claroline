@@ -172,6 +172,9 @@ a | img {
  border: 1px #98AAB1 solid;
  padding: 5px;
  height: 100%;
+ background-image: url('corporate/caliope.png');
+ background-position: top right;
+ background-repeat: no-repeat;
 }
 
 
@@ -375,10 +378,11 @@ a:visited.invisible{
 	color: #009900;
 }
 
-/* 'incorrect' is attached to element that must be highlighted as correct 
+/* 'error' is attached to element that must be highlighted as correct
 	example : a wrong score in exercices
+	example : an error message
 */
-.incorrect {
+.error {
 	color: #990000;
 }
 
@@ -387,8 +391,8 @@ a:visited.invisible{
 */
 .highlight {
  color: #cc6600;
- font-weight: bold;
 }
+
 
 /*
  * 'rightMenu' is mainly use in the platform home page
@@ -397,8 +401,8 @@ a:visited.invisible{
 .claroRightMenu  {
   color: #000000;
   background-color: #E5ECF9;	
-  border-top: 1px solid #808080;
-  border-left: 1px solid #808080;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
   border-right: 1px solid #D4D0C8;
   border-bottom: 1px solid #D4D0C8;
 }
