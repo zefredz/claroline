@@ -229,7 +229,7 @@ claro_disp_msg_arr($controlMsg);
 			<td> <input type="text" name="siteName" size="30" value="<?php echo $siteName ?>"  ></td>
 		</tr>
 		<tr>
-			<td><h4><?php echo $lang_config_TitleAdministrator ?></h4></td>
+			<td colspan="2"><h4><?php echo $lang_config_TitleAdministrator ?></h4></td>
 		</tr>
 		<tr>
 			<td align="right">  <?php echo  $lang_config_name ?>
@@ -250,7 +250,7 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td><h4><?php echo $lang_config_TitleEducationManager ?></h4></td>
+			<td colspan="2"><h4><?php echo $lang_config_TitleEducationManager ?></h4></td>
 		</tr>
 		<tr>
 			<td align="right"> <?php echo $lang_config_name ?>
@@ -271,7 +271,7 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td><h4><?php echo $lang_config_TitleInstitution ?></h4></td>
+			<td colspan="2"><h4><?php echo $lang_config_TitleInstitution ?></h4></td>
 		</tr>
 		<tr>
 			<td align="right"> <?php echo  $lang_config_name ?>
@@ -285,7 +285,7 @@ claro_disp_msg_arr($controlMsg);
 			<td> <input type="text" name="urlInstitution" size="50" value="<?php echo $institution["url"] ?>"  >
 			</td>
 		</tr>
-			<td><h4><?php echo $lang_config_TitleProperty ?></h4></td>
+			<td colspan="2"><h4><?php echo $lang_config_TitleProperty ?></h4></td>
 		</tr>
 		<tr>
 			<td align="right"> <?php echo $lang_config_langage ?>
@@ -309,7 +309,7 @@ claro_disp_msg_arr($controlMsg);
 			<td> <input type="text" name="urlAppend" size="50" value="<?php echo $urlAppend ?>"  >
 			</td>
 		</tr>
-			<td><h4><?php echo $lang_config_TitleBD; ?></h4></b>
+			<td colspan="2"><h4><?php echo $lang_config_TitleBD; ?></h4></b>
 			</td>
 		<tr>
 			<td align="right">  <?php echo $lang_config_dbHost; ?> <font color="gray">(*)</font> :
@@ -336,15 +336,9 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td><br>
-			</td>
 			<td>
 			</td>
-		</tr>
-		<tr>
-			<td>
-			</td>
-			<td><input type="submit" value="<?php echo $lang_config_ButtonSend; ?>" name="change">
+			<td><br><input type="submit" value="<?php echo $lang_config_ButtonSend; ?>" name="change">
 			</td>
 		</tr>
 
