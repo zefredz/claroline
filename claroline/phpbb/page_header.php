@@ -248,7 +248,7 @@ switch($pagetype)
 
 	case 'newtopic':
 
-		$toolBar [] =	"Post New Topic in : ".
+		$toolBar [] =	$langBackTo.
 						"<a href=\"".$url_phpbb."/viewforum.".$phpEx."?forum=".$forum."&gidReq=".$_gid."\">".
 						$forum_name.
 						"</a>\n";
