@@ -1,7 +1,7 @@
 <?php # $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.5
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -16,10 +16,11 @@ $sql_insert_sample_cats = "
 INSERT INTO faculte
 (`code`, `code_P`, `bc`, `treePos`, `nb_childs`, `canHaveCoursesChild`, `canHaveCatChild`, `name`)
 VALUES
-( 'MBA',    NULL, NULL, 1, 0, 'TRUE', 'TRUE', 'Business Administration'),
+( 'SC',    NULL, NULL, 1, 0, 'TRUE', 'TRUE', 'Sciences'),
 ( 'ECO',    NULL, NULL, 2, 0, 'TRUE', 'TRUE', 'Economics'),
-( 'PSYCHO', NULL, NULL, 3, 0, 'TRUE', 'TRUE', 'Psychology'),
-( 'MD',     NULL, NULL, 4, 0, 'TRUE', 'TRUE', 'Medicine')
+( 'HUMA',    NULL, NULL, 3, 0, 'TRUE', 'TRUE', 'Humanities'),
+( 'PSYCHO', NULL, NULL, 4, 0, 'TRUE', 'TRUE', 'Psychology'),
+( 'MD',     NULL, NULL, 5, 0, 'TRUE', 'TRUE', 'Medicine')
 ";
 
 mysql_query($sql_insert_sample_cats);
