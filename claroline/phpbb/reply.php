@@ -21,7 +21,6 @@ include('../inc/conf/claro_main.conf.php');
  *   (at your option) any later version.
  *
  ***************************************************************************/
-include('extention.inc');
 
 //neede for notification in claro 1.5
 

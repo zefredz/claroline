@@ -20,7 +20,6 @@ session_start();
  *   (at your option) any later version.
  *
  ***************************************************************************/
-include 'extention.inc';
 include 'functions.php';
 include 'config.php';
 require 'auth.php';

@@ -21,7 +21,6 @@ session_start();
  *
  ***************************************************************************/
 
-include 'extention.inc';
 include 'functions.php';
 include 'config.php';
 require 'auth.php';

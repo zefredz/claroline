@@ -21,7 +21,6 @@ include('../inc/conf/claro_main.conf.php');
  *   (at your option) any later version.
  *
  ***************************************************************************/
-include('extention.inc');
 // Set the error reporting to a sane value, 'cause we haven't included auth.php yet..
 error_reporting  (E_ERROR | E_WARNING | E_PARSE); // This will NOT report uninitialized variables
 
