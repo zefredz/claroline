@@ -558,42 +558,29 @@ if($is_allowedToEditAll)
   -------------------------------------*/
   if( $cmd == "exGradeWrk" && isset($_REQUEST['wrkId']) )
   {
-       if( isset($formCorrectlySent) && $formCorrectlySent )
-      {      
-            // check if user id is set
-            if( isset($_uid) )
-            {
-                  $uidString = "`user_id`= ".$_uid.",";
-            }
-            else
-            {
-                  $uidString = "";
-            }
-            
-			$sql = "SELECT `user_id` FROM `".$tbl_wrk_submission."` WHERE `id` = ".$_REQUEST['wrkId'];
-			$originalId = claro_sql_query_get_single_value($sql);
+		if( isset($formCorrectlySent) && $formCorrectlySent )
+		{      
+			$sqlAddWork = "INSERT INTO `".$tbl_wrk_submission."`
+						SET `submitted_doc_path` = \"".$wrkForm['fileName']."\",
+							`assignment_id` = ".$_REQUEST['assigId'].",
+							`parent_id` = ".$_REQUEST['wrkId'].","
+							."`user_id`= ".$_uid.","
+							."`visibility` = \"".$assignment['def_submission_visibility']."\",
+							`title`       = \"".trim(claro_addslashes( $wrkForm['title'] ))."\",
+							`submitted_text` = \"".trim(claro_addslashes( $_REQUEST['wrkTxt'] ))."\",
+							`private_feedback` = \"".trim(claro_addslashes( $_REQUEST['wrkPrivFbk'] ))."\",
+							`authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\",
+							`original_id` = ".$_REQUEST['authId'].",
+							`score` = \"".$wrkForm['wrkScore']."\",
+							`creation_date` = NOW(),
+							`last_edit_date` = NOW()";
+			             
+			claro_sql_query($sqlAddWork);
+			       
+			$dialogBox .= $langFeedbackAdded;
 			
-            $sqlAddWork = "INSERT INTO `".$tbl_wrk_submission."`
-                           SET `submitted_doc_path` = \"".$wrkForm['fileName']."\",
-                              `assignment_id` = ".$_REQUEST['assigId'].",
-                              `parent_id` = ".$_REQUEST['wrkId'].","
-                              .$uidString
-                              ."`visibility` = \"".$assignment['def_submission_visibility']."\",
-                              `title`       = \"".trim(claro_addslashes( $wrkForm['title'] ))."\",
-                              `submitted_text` = \"".trim(claro_addslashes( $_REQUEST['wrkTxt'] ))."\",
-                              `private_feedback` = \"".trim(claro_addslashes( $_REQUEST['wrkPrivFbk'] ))."\",
-                              `authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\",
-							  `original_id` = ".$originalId.",
-                              `score` = \"".$wrkForm['wrkScore']."\",
-                              `creation_date` = NOW(),
-                              `last_edit_date` = NOW()";
-                              
-            claro_sql_query($sqlAddWork);
-                        
-            $dialogBox .= $langFeedbackAdded;
-            
-            // display flags
-            $dispWrkLst = true;
+			// display flags
+			$dispWrkLst = true;
       }
       else
       {
