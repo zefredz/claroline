@@ -274,7 +274,9 @@ elseif ($_REQUEST['applyChange'])
             {
                 trigger_error('<div align="center">No PHP Files allowed</div>',E_USER_ERROR);
             }
-            mkpath($userImageRepositorySys);
+
+            claro_mkdir($userImageRepositorySys, 0777, true);
+
             $user_have_pic = (bool) (trim($actualImage)!="");
             if ($user_have_pic)
             {

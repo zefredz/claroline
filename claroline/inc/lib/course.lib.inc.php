@@ -58,7 +58,7 @@ function backupDatabase($link,$sysCode,&$dir)
         mkdir($localArchivesRepository."backup_".$db_name."_".date("Y_m_d")."/doc/");
 
     if(file_exists($coursesRepositorySys.$arrayCourse[0]["directory"]."/"))
-        copyDirTo($coursesRepositorySys.$arrayCourse[0]["directory"]."/",
+        claro_move_file($coursesRepositorySys.$arrayCourse[0]["directory"]."/",
             $localArchivesRepository."backup_".$db_name."_".date("Y_m_d")."/doc/",false);
 
     $dir=$localArchivesRepository."backup_".$db_name."_".date("Y_m_d")."/cours/backup_".$db_name."_".date("Y_m_d").".sql";

@@ -57,7 +57,7 @@ if($submitForm && $isAllowedToRestore) // if the form has been sent and if the u
 		// if an archive for this course has already been extracted, remove the directory and its subdirectories
 		if(is_dir($archivePath.$courseId))
 		{
-			removeDir($archivePath.$courseId);
+			claro_delete_file($archivePath.$courseId);
 		}
 
 		// create the directory for extracting the archive
@@ -133,7 +133,7 @@ if($submitForm && $isAllowedToRestore) // if the form has been sent and if the u
 
 		if(is_dir($rootSys.$coursePath))
 		{
-			mkPath($garbageRepositorySys);
+			claro_mkdir($garbageRepositorySys, 0777, true);
 			@rename($rootSys.$coursePath,$garbageRepositorySys.$coursePath.'_'.time());
 		}
 
@@ -154,7 +154,7 @@ if($submitForm && $isAllowedToRestore) // if the form has been sent and if the u
 		@copy($archivePath.$courseId.'/mainBase/users.csv',$rootSys.$coursePath.'/document/'.$hiddenPath.'/users.csv');
 
 		// remove the extracted archives
-		removeDir($archivePath.$courseId);
+		claro_delete_file($archivePath.$courseId);
 
 		$msgErr=$langArchiveUncompressed.'<br><br>'.$langCsvPutIntoDocTool;
 	}

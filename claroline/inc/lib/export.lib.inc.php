@@ -128,7 +128,8 @@ function copydir($origine,$destination,$verbose=false)
 		return 0;
 	}
 	*/
-	mkpath($destination, 0770);
+    claro_mkdir($destination, 0770, true);
+
 	if ($verbose)
 		echo "
 		<strong>
@@ -350,21 +351,21 @@ if ($verboseBackup)
 			echo "<u>".$langDisk_free_space."</u> : <strong>".diskfreespace("/")."</strong> bytes";
 		echo "<hr>" ;
 	}
-	mkpath($archiveDirOriginalDocs.$appendMainDb	,$verboseBackup);
-	mkpath($archiveDirHtml.$appendMainDb			,$verboseBackup);
-	mkpath($archiveDirCsv.$appendMainDb				,$verboseBackup);
-	mkpath($archiveDirXml.$appendMainDb 			,$verboseBackup);
-	mkpath($archiveDirPhp.$appendMainDb 			,$verboseBackup);
-	mkpath($archiveDirLog.$appendMainDb 			,$verboseBackup);
-	mkpath($archiveDirSql.$appendMainDb 			,$verboseBackup);
+	claro_mkdir($archiveDirOriginalDocs.$appendMainDb	,0777, true);
+	claro_mkdir($archiveDirHtml.$appendMainDb			,0777, true);
+	claro_mkdir($archiveDirCsv.$appendMainDb		    ,0777, true);
+	claro_mkdir($archiveDirXml.$appendMainDb 			,0777, true);
+	claro_mkdir($archiveDirPhp.$appendMainDb 			,0777, true);
+	claro_mkdir($archiveDirLog.$appendMainDb 			,0777, true);
+	claro_mkdir($archiveDirSql.$appendMainDb 			,0777, true);
 
-	mkpath($archiveDirOriginalDocs.$appendCourse	,$verboseBackup);
-	mkpath($archiveDirHtml.$appendCourse			,$verboseBackup);
-	mkpath($archiveDirCsv.$appendCourse				,$verboseBackup);
-	mkpath($archiveDirXml.$appendCourse 			,$verboseBackup);
-	mkpath($archiveDirPhp.$appendCourse 			,$verboseBackup);
-	mkpath($archiveDirLog.$appendCourse 			,$verboseBackup);
-	mkpath($archiveDirSql.$appendCourse				,$verboseBackup);
+	claro_mkdir($archiveDirOriginalDocs.$appendCourse	,0777, true);
+	claro_mkdir($archiveDirHtml.$appendCourse			,0777, true);
+	claro_mkdir($archiveDirCsv.$appendCourse			,0777, true);
+	claro_mkdir($archiveDirXml.$appendCourse 			,0777, true);
+	claro_mkdir($archiveDirPhp.$appendCourse 			,0777, true);
+	claro_mkdir($archiveDirLog.$appendCourse 			,0777, true);
+	claro_mkdir($archiveDirSql.$appendCourse			,0777, true);
 
     $dirCourBase = $archiveDirSqlCourse;
     $dirMainBase = $archiveDirSqlMainDb;
@@ -760,8 +761,6 @@ INSERT INTO users SET ";
 		}
 		$pathToArchive = $archiveRepositoryWeb.$archiveFileName;
 		if ( $verboseBackup  )	echo "<hr>".$langBuildTheCompressedFile;
-//		removeDir($archivePath);
-
 	} 
 
 ?>

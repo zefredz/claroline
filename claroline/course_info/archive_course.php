@@ -168,7 +168,8 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 	if(!is_dir($dirCourseBase))
 	{
 		$output.='<li>' . $langCreateMissingDirectories . ': ' . $dirCourseBase;
-		mkpath($dirCourseBase,$verboseBackup);
+        claro_mkdir($dirCourseBase, 0777, true);
+
 		$output.='</li>'."\n";
 	}
 
@@ -177,7 +178,9 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 	if(!is_dir($dirMainBase))
 	{
 		$output.='<li>' . $langCreateMissingDirectories . ': ' . $dirMainBase;
-		mkpath($dirMainBase,$verboseBackup);
+
+        claro_mkdir($dirMainBase, 0777, true);
+
 		$output.='</li>'."\n";
 	}
 
@@ -186,7 +189,7 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 	if(!is_dir($dirHtml))
 	{
 		$output.='<li>' . $langCreateMissingDirectories . ': ' . $dirHtml;
-		mkpath($dirHtml,$verboseBackup);
+		claro_mkpath($dirHtml,0777, true);
 		$output.='</li>'."\n";
 	}
 
@@ -333,12 +336,12 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 
     // copy course's files
 
-    copyDirTo($coursePath, $dirHtml, false);
+    claro_move_file($coursePath, $dirHtml, false);
 
 	if($verboseBackup)
 	{
 		$output.= '<p style="color: green">'
-               .  copyDirTo($coursePath, $dirHtml)
+               .  claro_move_file($coursePath, $dirHtml)
                .  ' </p> ' ;
 	}
     else 
@@ -383,7 +386,7 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 	{
 		$zipCourse=new PclZip($archivePath . '/' . $archiveName);
 		$zipCourse->create($archiveCoursePath,PCLZIP_OPT_REMOVE_PATH,$archivePath);
-		removeDir($archiveCoursePath);
+		claro_delete_file($archiveCoursePath);
         $message .= $langBackupSuccesfull . " - <a href=\"$rootWeb".$archiveDirName."/$archiveName\">" . $langDownload . "</a>";
 	}
 

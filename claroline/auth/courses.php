@@ -133,7 +133,6 @@ if ($cmd == 'exUnreg')
     	$message = "Unable to remove your registration to the course";
     }
 
-
     $displayMode = DISPLAY_MESSAGE_SCREEN;
 } //if ($cmd == 'exUnreg')
 

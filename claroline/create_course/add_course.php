@@ -132,7 +132,9 @@ else
 //		printVar($HTTP_POST_FILES, "HTTP_POST_FILES");
 
 		$pathToStorgeArchiveBeforeUnzip = $rootSys."claroline/tmp/".md5(uniqid(mt_rand().$_uid, true));
-		mkpath($pathToStorgeArchiveBeforeUnzip);
+
+        claro_mkdir($pathToStorgeArchiveBeforeUnzip, 0777, true);
+
 		//debugIO($pathToStorgeArchiveBeforeUnzip);
 		switch($_REQUEST["typeStorage"])
 		{

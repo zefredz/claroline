@@ -473,7 +473,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
 	if ($cmd == 'exMv')
 	{
-		if ( move($baseWorkDir.$_REQUEST['file'],$baseWorkDir.$_REQUEST['destination']) )
+		if ( claro_move_file($baseWorkDir.$_REQUEST['file'],$baseWorkDir.$_REQUEST['destination']) )
 		{
 			if ($courseContext)
 			{
@@ -517,7 +517,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 	{
         $file = $_REQUEST['file'];
 
-        if ( my_delete($baseWorkDir.$file))
+        if ( claro_delete_file($baseWorkDir.$file))
 		{
             if ($courseContext)
             {
@@ -591,7 +591,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         }
 
 
-        if ( my_rename($baseWorkDir.$_REQUEST['file'], $baseWorkDir.$newPath) )
+        if ( claro_rename_file($baseWorkDir.$_REQUEST['file'], $baseWorkDir.$newPath) )
         {
             $dialogBox = $langElRen.'<br>';
 
@@ -712,7 +712,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 		}
 		else
 		{
-			mkdir($baseWorkDir.$_REQUEST['cwd']."/".$newDirName, 0700);
+			claro_mkdir($baseWorkDir.$_REQUEST['cwd'].'/'.$newDirName, 0700);
 			$dialogBox = $langDirCr;
 		}
 	}
@@ -1113,13 +1113,13 @@ claro_disp_tool_title($titleElement,
 
 	if ($fileList)
 	{
-        // while (list($fileKey, $fileName) = each ($fileList['name']))
-        // Each seems to pose problem on PHP 4.1 when the array contains 
-        // a single element
-
         foreach($fileList['name'] as $fileKey => $fileName )
 		{
-			$dspFileName = htmlentities($fileName);
+            // Note. We've switched from 'each' to 'foreach', as 'each' seems to 
+            // poses problems on PHP 4.1, when the array contains only 
+            // a single element
+
+            $dspFileName = htmlentities($fileName);
 			$cmdFileName = rawurlencode($curDirPath.'/'.$fileName);
 			
 			if ($fileList['visibility'][$fileKey] == 'i')
@@ -1143,9 +1143,11 @@ claro_disp_tool_title($titleElement,
 				$image       = choose_image($fileName);
 				$size        = format_file_size($fileList['size'][$fileKey]);
 				$date        = format_date($fileList['date'][$fileKey]);
-                                $urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
-                                //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
-                                //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
+                $urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
+                //$urlFileName = "goto/index.php".str_replace('%2F', '/', $cmdFileName);
+                
+                //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
+                //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
 			}
 			elseif ($fileList['type'][$fileKey] == A_DIRECTORY)
 			{

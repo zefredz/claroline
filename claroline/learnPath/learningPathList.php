@@ -194,7 +194,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
                     // DELETE the directory containing the package and all its content
                     $real = realpath("../../".$_course['path']."/scormPackages/path_".$_GET['del_path_id']);
-                    removeDir($real);
+                    claro_delete_file($real);
 
               }   // end of dealing with the case of a scorm learning path.
               else

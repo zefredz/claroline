@@ -472,7 +472,7 @@ if( isset($_REQUEST['submitWrk']) )
 						
                         if( !is_dir( $assigDirSys ) )
                         {
-                              mkpath( $assigDirSys , 0777 );
+                              claro_mkdir( $assigDirSys , 0777, true );
                         }
                         
                         if( ! @copy($_FILES['wrkFile']['tmp_name'], $assigDirSys.$wrkForm['fileName']) )

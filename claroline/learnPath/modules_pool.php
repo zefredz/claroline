@@ -135,7 +135,7 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
             */
 
             // delete directory and it content
-            @my_delete($moduleWorkDir."/module_".$_GET['cmdid']);
+            @claro_delete_file($moduleWorkDir."/module_".$_GET['cmdid']);
             break;
 
       // COMMAND RENAME :

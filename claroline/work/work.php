@@ -199,7 +199,7 @@ if($is_allowedToEdit)
   if( $cmd == 'exRmAssig' )
   {
     // delete all works in this assignment if the delete of the files worked
-    if( my_delete($wrkDir."assig_".$_REQUEST['assigId']) )
+    if( claro_delete_file($wrkDir."assig_".$_REQUEST['assigId']) )
     {
       $sql = "DELETE FROM `".$tbl_wrk_submission."`
               WHERE `assignment_id` = ".$_REQUEST['assigId'];

@@ -158,7 +158,7 @@ function prepare_course_repository($courseRepository, $courseId)
 	GLOBAL $coursesRepositorySys, $clarolineRepositorySys, $includePath;
 	if( !is_dir($coursesRepositorySys) )
 	{
-    	mkpath($coursesRepositorySys);
+    	claro_mkdir($coursesRepositorySys, 0777, true);
     }
 	if (is_writable($coursesRepositorySys))
 	{
@@ -1175,7 +1175,7 @@ function readPropertiesInArchive($archive,$isCompressed=TRUE)
 	*/
 	$zipFile = new pclZip($archive);
 	$tmpDirName = dirname($archive)."/tmp".$uid.uniqid($uid);
-	if (mkpath($tmpDirName))
+	if (claro_mkdir($tmpDirName, 0777, true))
 		$unzippingSate = $zipFile->extract($tmpDirName);
 	else
 		die ("mkpath va pas");

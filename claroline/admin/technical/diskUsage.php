@@ -148,8 +148,8 @@ function diskUsage($dirFiles="",$dirBase="",$precision="m")
 		//case "WIN32" : // no  optimazing found  for  WIN32, use  long version
 		//case "WINNT" : // no  optimazing found  for  WINNT, use  long version
 		default :
-			$usedspace	= DirSize($dirFiles);
-			$usedspace += DirSize($dirBase);
+			$usedspace	= claro_get_file_size($dirFiles);
+			$usedspace += claro_get_file_size($dirBase);
 			switch ($precision)
 			{
 				case "m" : $usedspace /= 1024;

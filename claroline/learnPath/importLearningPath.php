@@ -1063,7 +1063,7 @@ function utf8_decode_if_is_utf8($str) {
               claro_sql_query($sqlDelLP);
 
               // delete the directory (and files) of this learning path and all its content
-              my_delete($baseWorkDir);
+              claro_delete_file($baseWorkDir);
 
          }
          else
