@@ -294,6 +294,12 @@ if( $showExerciseForm || $is_courseAdmin )
   <?php echo $statusMsg;  ?>
   </small>
   </p>
+<?php
+	if( $is_courseAdmin )
+	{
+		echo '<a class="claroCmd" href="admin.php?exerciseId='.$objExercise->selectId().'">'.$langEditExercise.'</a>';
+	}	
+?>
   <table width="100%" border="0" cellpadding="1" cellspacing="0">
   <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?<?php echo SID ?>" autocomplete="off">
   <input type="hidden" name="formSent" value="1">
