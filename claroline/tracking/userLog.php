@@ -262,7 +262,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 $sql = "SELECT UNIX_TIMESTAMP(`login_date`), count(`login_date`)
                             FROM `".$tbl_track_e_login."`
                             WHERE `login_user_id` = '$uInfo'
-                            GROUP BY MONTH(`login_date`)
+                            GROUP BY MONTH(`login_date`), YEAR(`login_date`)
                             ORDER BY `login_date` ASC";
 
                 $results = getManyResults2Col($sql);
