@@ -1080,7 +1080,7 @@ claro_disp_tool_title($titleElement,
     }
 
 	$is_allowedToEdit ? $colspan = 7 : $colspan = 3;
-	
+
 	/*===========================================================================
 				IMAGE VIEWER
   	  ===========================================================================*/
@@ -1377,11 +1377,10 @@ claro_disp_tool_title($titleElement,
 	                                          and we can't go to a parent dir */
 	{
 
-		echo "&nbsp;"
-            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n"
+		echo "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n"
 			."<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" alt=\"\">\n"
 			.$langUp
-			."</a>\n";
+			."</a>\n | ";
 	}
     else
     {
@@ -1389,18 +1388,16 @@ claro_disp_tool_title($titleElement,
             ."<span class='claroCmdDisabled'>"
             ."<img src=\"".$clarolineRepositoryWeb."img/parentdisabled.gif\" border=\"0\" alt=\"\">\n"
             .$langUp
-            ."</span>\n";
+            ."</span>\n | ";
     }
     
     
-    echo "&nbsp;\n"
-		."<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+    echo "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
 		. "?cmd=viewThumbs&curdir=". $curDirPath ."\">"
-		. $thumbnailsView."</a>\n"
-		;
+		. $thumbnailsView."</a>\n";
 
 
-    echo "&nbsp;\n"
+    echo " | "
         ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch\">\n"
         ."<img src=\"".$clarolineRepositoryWeb."img/search.gif\" border=\"0\" alt=\"\">\n"
         ."Search"
@@ -1410,31 +1407,29 @@ claro_disp_tool_title($titleElement,
 	{
 		/* CREATE DIRECTORY - UPLOAD FILE - CREATE HYPERLINK */
 		
-        echo "&nbsp;&nbsp;&nbsp;&nbsp;"
+        echo " | "
             ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/download.gif\" alt=\"\">"
             .$langUploadFile
             ."</a>\n"
-            ."&nbsp;"
+            ." | "
             ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/dossier.gif\" alt=\"\">"
             .$langCreateDir
             ."</a>\n"
-            ."&nbsp;"
+            ."| "
             ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/liens.gif\" alt=\"\">"
             .$langCreateHyperlink
             ."</a>\n"
-            ."&nbsp;"
+            ." | "
             ."<a class='claroCmd' href=\"rqmkhtml.php?cmd=rqMkHtml&cwd=".$cmdCurDirPath."\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/html.gif\" alt=\"\">"
             .$langCreateDocument
             ."</a>\n";
 	}
 
-    echo "</b>\n"
-
-        ."</p>\n";
+    echo "</p>\n";
 
     echo "<table class=\"claroTable\" width=\"100%\">\n";
 
