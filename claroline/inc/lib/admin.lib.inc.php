@@ -439,4 +439,10 @@ function update_user_course_properties($user_id, $course_id, $properties)
     }
 }
 
+function treatNotAuthorized()
+{
+    exit("<center>You are not allowed here !!!</center>");
+    //header("location:../index.php");
+}
+
 ?>
