@@ -18,7 +18,6 @@
 // CREATE TABLE `cours`
 // CREATE TABLE `cours_user`
 // CREATE TABLE faculte
-// CREATE TABLE `todo`
 // CREATE TABLE `user`
 
 ############# claroline DB CREATE #############################
@@ -90,23 +89,6 @@ $sql ="CREATE TABLE faculte (
 
 ) TYPE=MyISAM;";
 mysql_query($sql);
-	$sql ="
-CREATE TABLE `todo` (
-  `id` mediumint(9) NOT NULL auto_increment,
-  `contenu` text,
-  `temps` datetime default '0000-00-00 00:00:00',
-  `auteur` varchar(80) default NULL,
-  `email` varchar(80) default NULL,
-  `priority` tinyint(4) default '0',
-  `type` varchar(8) default NULL,
-  `cible` varchar(30) default NULL,
-  `statut` varchar(8) default NULL,
-  `assignTo` mediumint(9) default NULL,
-  `showToUsers` enum('YES','NO') NOT NULL default 'YES',
-  PRIMARY KEY  (`id`),
-  KEY `temps` (`temps`)
-) TYPE=MyISAM";
-	mysql_query($sql);
 	$sql ="
 CREATE TABLE `user` (
   `user_id` mediumint(8) unsigned NOT NULL auto_increment,
