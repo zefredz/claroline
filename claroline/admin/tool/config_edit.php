@@ -197,12 +197,8 @@ else
                                                                , $config_name
                                                                , $config_code
                                                                );
-                                $controlMsg['debug'][] = 'file generated for '
-                                                       . '<B>'.$config_name.'</B>'
-                                                       .' is '
-                                                       .'<em>'.$conf_file.'</em>'
-                                                       .'<br>Signature : '
-                                                       .'<TT>'.$conf_hash.'</tt>';
+                                $controlMsg['debug'][] = 'File generated for <b>'.$config_name.'</b> is <em>'.$conf_file.'</em><br />' . "\n"
+                                                       . 'Signature : <tt>'.$conf_hash.'</tt>';
                             }
                         }
                         else
@@ -214,12 +210,8 @@ else
                     }
                     else
                     {
-                        $controlMsg['info'][] = 'No Properties for '.$config_name
-                                              . ' ('.$config_code.')
-                                              . <BR>'
-                                              . '<em>'.$confFile.'</em>'
-                                              . ' is not generated'
-                                              ;
+                        $controlMsg['info'][] = 'No Properties for '.$config_name . ' (' . $config_code . '). <br />' . "\n"
+                                              . '<em>'.$confFile.'</em>is not generated' ;
                     }
                 }
 
@@ -228,20 +220,17 @@ else
         }
 
         /*
-         *  Get values from database and the configuration file.
+         *  Get values from the configuration file.
          */
 
+        // unset $conf_def & $conf_def_property_list array
+        unset($conf_def,$conf_def_property_list);
         require($def_file);
 
         // Search for value  existing  in conf file but not in def file, or inverse
         $currentConfContent = parse_config_file($conf_file);
 
         unset($currentConfContent[$config_code.'GenDate']);
-
-        $currentConfContentKeyList = is_array($currentConfContent)?array_keys($currentConfContent):array();
-        $conf_def_property_listKeyList = is_array($conf_def_property_list)?array_keys($conf_def_property_list):array();
-        $unknowValueInConfigFileList = array_diff($currentConfContentKeyList,$conf_def_property_listKeyList);
-        $newValueInDefFile = array_diff($conf_def_property_listKeyList,$currentConfContentKeyList);
 
         if (is_array($conf_def['section']) )
         {
@@ -382,23 +371,24 @@ if ( $display_form )
                 if ( is_array($section['properties']) )
                 {
                     // display each property of the section
-                    foreach( $section['properties'] as $property )
+                    foreach ( $section['properties'] as $property_name )
                     {
-                        if (is_array($conf_def_property_list[$property]))
+                        if ( is_array($conf_def_property_list[$property_name]) )
                         {
-                            $debugMsg['val'][]=var_export($conf_def_property_list[$property],1);
+                            $debugMsg['val'][]=var_export($conf_def_property_list[$property_name],1);
+
                             if ( isset($_REQUEST['prop'])  )
                             {
-                                claroconf_disp_editbox_of_a_value($conf_def_property_list[$property], $property, $prop[$property]);
+                                claroconf_disp_editbox_of_a_value($conf_def_property_list[$property_name], $property_name, $prop[$property_name]);
                             }
                             else
                             {
-                                claroconf_disp_editbox_of_a_value($conf_def_property_list[$property], $property, $currentConfContent[$property]);
+                                claroconf_disp_editbox_of_a_value($conf_def_property_list[$property_name], $property_name, $currentConfContent[$property_name]);
                             }
                         }
                         else
                         {
-                            echo 'Def corrupted: property '.$property.' is not defined';
+                            echo 'Def corrupted: property ' . $property_name . ' is not defined';
                         }
                     }
                 }
