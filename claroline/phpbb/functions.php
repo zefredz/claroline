@@ -36,7 +36,8 @@ function new_session($userid, $remote_ip, $lifespan, $db)
 	$currtime = (string) (time());
 	$expirytime = (string) (time() - $lifespan);
 
-	$deleteSQL = "DELETE FROM `$tbl_sessions` WHERE (start_time < $expirytime)";
+	$deleteSQL = "DELETE FROM `".$tbl_sessions."` 
+                  WHERE (start_time < $expirytime)";
 	$delresult = mysql_query($deleteSQL, $db);
 
 	if (!$delresult) die("Delete failed in new_session()");
@@ -60,8 +61,10 @@ function new_session($userid, $remote_ip, $lifespan, $db)
  */
 function set_session_cookie($sessid, $cookietime, $cookiename, $cookiepath, $cookiedomain, $cookiesecure)
 {
-	// This sets a cookie that will persist until the user closes their browser window.
-	// since session expiry is handled on the server-side, cookie expiry time isn't a big deal.
+    // Sets a cookie that will persist until the user closes their browser 
+    // window. Since session expiry is handled on the server-side, cookie 
+    // expiry time isn't a big deal.
+
 	setcookie($cookiename,$sessid,'',$cookiepath,$cookiedomain,$cookiesecure);
 
 }				// set_session_cookie()
@@ -74,22 +77,20 @@ function set_session_cookie($sessid, $cookietime, $cookiename, $cookiepath, $coo
  */
 function get_userid_from_session($sessid, $cookietime, $remote_ip, $db)
 {
-	global $tbl_sessions;
+    global $tbl_sessions;
 
-	$mintime = time() - $cookietime;
+    $mintime = time() - $cookietime;
 
-	$result = mysql_query("SELECT user_id FROM `$tbl_sessions`
-	                       WHERE (sess_id = $sessid)
-	                       AND (start_time > $mintime)
-	                       AND (remote_ip = '$remote_ip')", $db)
-	          or die("Error doing DB query in get_userid_from_session()");
+    $sql = "SELECT user_id FROM `".$tbl_sessions."`
+            WHERE sess_id = '".$sessid."'
+              AND start_time > ".$mintime."
+              AND (remote_ip = '".$remote_ip."'";
 
-	$row = mysql_fetch_array($result);
+    $result = claro_sql_query_fetch_all($sql);
 
-	if (!$row)	return 0;
-	else		return $row[user_id];
-
-}				// get_userid_from_session()
+    if (count($result) > 0) return $result[0]['user_id'];
+    else                    return 0;
+}               // get_userid_from_session()
 
 /**
  * Refresh the start_time of the given session in the database.
@@ -101,10 +102,12 @@ function update_session_time($sessid, $db)
 
 	$newtime = (string) time();
 
-	$result = mysql_query("UPDATE `$tbl_sessions`
-	                       SET start_time=$newtime
-	                       WHERE (sess_id = $sessid)", $db)
-	          or die(mysql_error()."<br>Error doing DB update in update_session_time()");
+    $sql = "UPDATE `".$tbl_sessions."`
+	        SET   start_time='".$newtime."'
+	        WHERE sess_id = '".$sessid."'";
+
+    claro_sql_query($sql);
+
 	return 1;
 }												// update_session_time()
 
@@ -115,9 +118,10 @@ function end_user_session($userid, $db)
 {
 	global $tbl_sessions;
 
-	$result = mysql_query("DELETE FROM `$tbl_sessions`
-	                       WHERE (user_id = $userid)", $db)
-	          or die (mysql_error() . "<br>Delete failed in end_user_session()");
+    $sql = "DELETE FROM `".$tbl_sessions."`
+            WHERE (user_id = '".$userid."'";
+
+	$result = claro_sql_query($sql);
 	return 1;
 }				// end_session()
 
@@ -152,21 +156,13 @@ function print_login_status($user_logged_in, $username, $url_phpbb)
 
 function make_login_logout_link($user_logged_in, $url_phpbb)
 {
-	global $phpEx;
-
 	global $l_logout, $l_login;
 
-	if ($user_logged_in)
-	{
-		$link = "<a href=\"$url_phpbb/logout.$phpEx\">$l_logout</a>";
-	}
-	else
-	{
-		$link = "<a href=\"$url_phpbb/login.$phpEx\">$l_login</a>";
-	}
+	if ($user_logged_in) $link = "<a href=\"logout.php\">".$l_logout."</a>";
+	else                 $link = "<a href=\"login.php\">".$l_login  ."</a>";
 
 	return $link;
-}				// make_login_logout_link()
+}
 
 
 /*---------------------- End session-management functions -------------------*/
@@ -185,20 +181,6 @@ function get_total_topics($forum_id, $db)
     return claro_sql_query_get_single_value($sql);
 }
 
-/**
- * Shows the 'header' data from the header/meta/footer table
- */
-function showheader($db) { /* ... */ }
-
-/**
- * Shows the meta information from the header/meta/footer table
- */
-function showmeta($db)  { /* ... */ }
-
-/**
- * Show the footer from the header/meta/footer table
- */
-function showfooter($db)  { /* ... */ }
 
 /**
  * Used to keep track of all the people viewing the forum at this time
@@ -211,25 +193,41 @@ function get_whosonline($IP, $username, $forum, $db)
 
 	if($username == '') $username = get_syslang_string($sys_lang, "l_guest");
 
-	$time       = explode(  " ", microtime());
+	$time       = explode(' ', microtime());
 	$userusec   = (double)$time[0];
 	$usersec    = (double)$time[1];
 	$username   = addslashes($username);
 
-	$deleteuser = mysql_query( "DELETE FROM `$tbl_whosonline` WHERE date < $usersec - 300", $db);
-	$userlog    = mysql_fetch_row(MYSQL_QUERY( "SELECT * FROM `$tbl_whosonline` where IP = '$IP'", $db));
-	if($userlog == false)
+    $sql = "DELETE FROM `".$tbl_whosonline."` 
+            WHERE date < ".$usersec." - 300";
+
+	$deleteuser = claro_sql_query($sql);
+
+    $sql ="SELECT COUNT(*)
+           FROM `".$tbl_whosonline."` 
+           WHERE IP = '".$IP."'";
+
+	$userlog    = claro_sql_query_get_single_value($sql);
+
+	if($userlog == 0)
 	{
-		$ok= @mysql_query( "INSERT INTO `$tbl_whosonline`
-		                    (ID,IP,DATE,username,forum)
-		                    VALUES
-		                    ('$User_Id','$IP','$usersec', '$username', '$forum')", $db)
-		     or die( "Unable to query db!");
+		$sql = "INSERT INTO `".$tbl_whosonline."`
+                SET ID = '".$User_Id."',
+                    IP '".$IP."',
+                    DATE = '".$usersec."',
+                    username = '".$username."',
+                    forum = '".$forum."'";
+
+        claro_sql_query($sql);
+
 	}
 
-	$resultlogtab   = mysql_query("SELECT Count(*) as total FROM `$tbl_whosonline`", $db);
+    $sql = "SELECT COUNT(*) AS total 
+            FROM `".$tbl_whosonline."`";
+
+	$resultlogtab   = claro_sql_query($sql);
 	$numberlogtab   = mysql_fetch_array($resultlogtab);
-	return($numberlogtab[total]);
+	return($numberlogtab['total']);
 }
 
 /**
@@ -243,16 +241,24 @@ function get_total_posts($id, $db, $type)
 	switch($type)
 	{
 		case 'users':
-			$sql = "SELECT COUNT(*) AS total FROM `".$tbl_users."` WHERE (user_id != -1) AND (user_level != -1)";
+			$sql = "SELECT COUNT(*) AS total 
+                    FROM `".$tbl_users."` 
+                    WHERE user_id != -1 
+                      AND user_level != -1";
 		break;
 		case 'all':
-			$sql = "SELECT COUNT(*) AS total FROM `".$tbl_posts."`";
+			$sql = "SELECT COUNT(*) AS total 
+                    FROM `".$tbl_posts."`";
 		break;
 		case 'forum':
-			$sql = "SELECT COUNT(*) AS total FROM `".$tbl_posts."` WHERE forum_id = '".$id."'";
+			$sql = "SELECT COUNT(*) AS total 
+                    FROM `".$tbl_posts."` 
+                    WHERE forum_id = '".$id."'";
 		break;
 		case 'topic':
-			$sql = "SELECT COUNT(*) AS total FROM `".$tbl_posts."` WHERE topic_id = '".$id."'";
+			$sql = "SELECT COUNT(*) AS total 
+                    FROM `".$tbl_posts."` 
+                    WHERE topic_id = '".$id."'";
 		break;
 		// Old, we should never get this.
 		case 'user':
@@ -571,47 +577,6 @@ function desmile($message)
 
 function bbencode($message, $is_html_disabled) { return $message; }
 function bbdecode($message) {return($message);}
-
-/**
- * This function does exactly what the PHP4 function array_push() does
- * however, to keep phpBB compatable with PHP 3 we had to come up with out own
- * method of doing it.
- * @author James Atkinson - Feb 5, 2001
- */
-function bbcode_array_push(&$stack, $value)
-{
-   $stack[] = $value;
-   return(sizeof($stack));
-}
-
-/**
- * This function does exactly what the PHP4 function array_pop() does
- * however, to keep phpBB compatable with PHP 3 we had to come up with out own
- * method of doing it.
- * @author James Atkinson - Feb 5, 2001
- */
-
-function bbcode_array_pop(&$stack)
-{
-	$arrSize = count($stack);
-	$x = 1;
-
-	while(list($key, $val) = each($stack))
-	{
-		if($x < count($stack))
-		{
-			$tmpArr[] = $val;
-		}
-		else
-		{
-			$return_val = $val;
-		}
-		$x++;
-	}
-
-	$stack = $tmpArr;
-	return($return_val);
-}
 
 /**
  * Performs [quote][/quote] bbencoding on the given string, and returns the results.
@@ -1331,6 +1296,55 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
             ."</tr>\n"
         
             ."</table>\n";
+}
+
+/**
+ * 
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string $url - url to be used
+ * @param string $offsetParam - param to introduce to call the pager offset
+ * @param int    $total - total number of items
+ * @param int    $step  - step between each offset
+ * @parm  int    $pageMax (optionnal) - If the number of page exceeds this param
+ *               the remaining pages are replaced by a '...' except the last one.
+ * @return void 
+ */
+
+
+function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
+{
+    $pageList  = array();
+    $pageNum   = 1;
+    $skip      = false;
+
+    if ( $total < $step      ) return; // no need to go further
+    if ( ! strpos($url, '?') ) $glue = '?';
+    else                       $glue = '&';
+
+    for($offset = 0; $offset < $total; $offset += $step)
+    {
+        $isLastPage = (bool) ( ($x + $step) >= $total);
+
+        if ($pageNum < $pageMax || $isLastPage)
+        {
+        	$pageList[] = '<a href="'.$url.$glue.$offsetParam.'='.$offset.'">'
+                         .$pageNum
+                         .'</a>';
+        }
+        elseif (! $skip)
+        {
+        	$pageList[] = '...'; // actually first time one have to skip
+            $skip       = true;
+        }
+           
+        $pageNum++;
+    }
+
+    if (count($pageList) > 0)
+    {
+        echo "<small>(".implode(', ', $pageList).")</small>";	
+    }
 }
 
 ?>

@@ -137,54 +137,15 @@ else foreach($topicList as $thisTopic)
         echo "<td><img src=\"".$image."\" alt=\"".$alt."\"></td>\n";
 
         $topic_title = own_stripslashes($thisTopic['topic_title']);
-        $pagination  = '';
-        $start       = '';
-        $topiclink   = "viewtopic.".$phpEx."?topic=".$thisTopic['topic_id'];
-
-        if ( $replys+1 > $posts_per_page)
-        {
-            $pagination .= "<small>&nbsp;&nbsp;&nbsp;(".$l_gotopage." ";
-            $pagenr      = 1;
-            $skippages   = 0;
-
-            for($x = 0; $x < $replys + 1; $x += $posts_per_page)
-            {
-                $lastpage = ( ($x + $posts_per_page) >= $replys + 1 );
-
-                if($lastpage)
-                {
-                    $start = "&start=".$x."&".$replys;
-                }
-                else
-                {
-                    if ($x != 0) $start = "&start=".$x;
-                    $start .= "&" . ($x + $posts_per_page - 1);
-                }
-
-                if($pagenr > 3 && $skippages != 1)
-                {
-                    $pagination .= ", ... ";
-                    $skippages = 1;
-                }
-
-                if ($skippages != 1 || $lastpage)
-                {
-                    if ($x != 0) $pagination .= ', ';
-                    $pagination .= "<a href=\"".$topiclink.$start."\">".$pagenr."</a>";
-                }
-
-                $pagenr++;
-            }
-
-            $pagination .= ")</small>";
-        }
-
-        $topiclink .= "&".$replys;
+        $topic_link  = 'viewtopic.php?topic='.$thisTopic['topic_id'];
 
         echo "<td>\n"
             ."&nbsp;"
-            ."<a href=\"".$topiclink."\">".$topic_title."</a>".$pagination."\n"
-            ."</td>\n"
+            ."<a href=\"".$topic_link."\">".$topic_title."</a>&nbsp;&nbsp;";
+
+            disp_mini_pager($topic_link, 'start', $replys+1, $posts_per_page);
+
+        echo "</td>\n"
 
             ."<td align=\"center\"><small>".$replys."</small></td>\n"
             ."<td align=\"center\"><small>".$thisTopic['prenom']." ".$thisTopic['nom']."<small></td>\n"
@@ -198,4 +159,6 @@ echo "</table>";
 
 $topicPager->disp_pager_tool_bar($pagerUrl);
 require 'page_tail.php';
+
+
 ?>
