@@ -25,9 +25,9 @@ circumstances.
 1. When a user has never logged to the platform beforehand, ant try to log in to 
 Claroline for the first time. No record concerning this user are found into the 
 Claroline system, so it attempts to look for this user on the external 
-authentication systems specified by its configuration file. When it founds it, 
-Claroline duplicates the user profile into its own user table, stating that it 
-comes for this specific external authentication system.
+authentication systems list specified by its configuration file. When it founds 
+it, Claroline duplicates the user profile into its own user table, stating that 
+it comes for this specific external authentication system.
 
 	The driver treating this case is called by the Claroline Kernel by line like 
 	this below into the Claroline configuration file.
@@ -36,9 +36,9 @@ comes for this specific external authentication system.
 
 2. When a user log to the platform next time. A record concerning this user is 
 already stored into the Claroline system. From this record Claroline is able to 
-know from where does this user profiles comes. And it try to connect to the 
+know from where does this user profile comes. And it try to connect to the 
 concerned external authentication system to check if this user account is still 
-allowed to connect with this password. It also take the occasion to update from 
+allowed to connect with this password. It also takes the occasion to update from 
 the external authentication system the user data stored into the Claroline 
 system.
 
@@ -50,17 +50,18 @@ system.
 
                                 DRIVER SETTINGS
 
-Each Claroline driver are set 5 parameters.
+Each Claroline driver sets 5 parameters.
 
 - $authSourceName : set the identity of the external authentication source 
 
     example : $authSourceName = 'phpnuke';
 
-- $authSourceType : set the technical type of the of the external authentication source
+- $authSourceType : set the technical type of the of the external authentication 
+  source
 
     example : $authSourceName = 'DB';
 
-- $extAuthOptionList : set the parameter needed to connect to the external 
+- $extAuthOptionList : set the parameters needed to connect to the external 
   authentication source and the field to to retrieve in it.
 
     example : $extAuthOptionList = array(
@@ -74,8 +75,8 @@ Each Claroline driver are set 5 parameters.
 
                 );
 
-- $extAuthAttribNameList : set how the data retrieved form the external 
-  authentication source match the Claroline data structure. The keys are the 
+- $extAuthAttribNameList : set how the data retrieved from the external 
+  authentication source matches the Claroline data structure. The keys are the 
   Claroline attributes and the value are the authentication external attributes.    
 
     example : $extAuthAttribNameList = array (
@@ -88,11 +89,11 @@ Each Claroline driver are set 5 parameters.
 
                 );
 
-$extAuthAttribTreatmentList : set any optional preliminary treatment to the 
-data retrieved from the external authentication source before committing it into 
-Claroline. The keys are the concerned Claroline attribute, and the values are 
-the name of the function which make the treatment. You can use standard PHP 
-function or functions defined by your own.
+- $extAuthAttribTreatmentList : set any optional preliminary treatment to the 
+  data retrieved from the external authentication source before committing it into 
+  Claroline. The keys are the concerned Claroline attribute, and the values are 
+  the name of the function which make the treatment. You can use standard PHP 
+  function or functions defined by your own.
 
         $extAuthAttribTreatmentList = array (
 
