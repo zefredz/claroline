@@ -81,7 +81,7 @@ $TABLEUSER          = $tbl_user;
 $TABLEANNOUNCEMENTS = $tbl_announcement;
 
 $can_create_courses = (bool) ($is_allowedCreateCourse);
-$coursesRepositories = $rootSys;
+$coursesRepositories = $coursesRepositorySys;
 
 if (empty($valueEmail)) $valueEmail = $_user['mail'];
 
