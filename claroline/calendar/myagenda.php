@@ -37,6 +37,12 @@ if(!empty($_REQUEST['coursePath']))
                             'name' => $_REQUEST['courseCode']);
 }
 
+$tbl_mdb_names       = claro_sql_get_main_tbl();
+
+$tbl_course          = $tbl_mdb_names['course'];
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
+
+
 $htmlHeadXtra[] =
 "<style type=text/css>
 <!--
@@ -47,12 +53,6 @@ $htmlHeadXtra[] =
 </style>";
 
 include($includePath."/claro_init_header.inc.php");
-
-
-
-$TABLECOURS     = $mainDbName."`.`cours";
-$TABLECOURSUSER = $mainDbName."`.`cours_user";
-
 claro_disp_tool_title($nameTools);
 
 if (isset($_uid))
@@ -60,8 +60,8 @@ if (isset($_uid))
     $sql = "SELECT cours.code sysCode, cours.fake_code officialCode,
                    cours.intitule title, cours.titulaires t, 
                    cours.dbName db, cours.directory dir
-	        FROM    `".$TABLECOURS."`     cours,
-				    `".$TABLECOURSUSER."` cours_user
+	        FROM    `".$tbl_course."`     cours,
+				    `".$tbl_rel_course_user."` cours_user
 	        WHERE cours.code         = cours_user.code_cours
 	        AND   cours_user.user_id = '".$_uid."'";
 
@@ -100,10 +100,12 @@ function get_agenda_items($userCourseList, $month, $year)
 
     foreach( $userCourseList as $thisCourse)
     {
-	    $courseAgendaTable = "`".$courseTablePrefix. $thisCourse['db'].$dbGlu."calendar_event`";
+//	    $courseAgendaTable = $courseTablePrefix. $thisCourse['db'].$dbGlu."calendar_event";
+		$tbl_cdb_names = claro_sql_get_course_tbl($courseTablePrefix. $thisCourse['db'].$dbGlu);
+		$courseAgendaTable          = $tbl_cdb_names['calendar_event'];
 
         $sql = "SELECT id, titre title, day, hour, lasting 
-                FROM ".$courseAgendaTable." 
+                FROM `".$courseAgendaTable."`
                 WHERE month(day) = '".$month."' 
                 AND   year(day)  ='".$year."'" ;
 
