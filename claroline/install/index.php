@@ -1403,7 +1403,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 					</tr>
 					<tr>
 						<td>
-							<label for="contactEmailForm">URL</label>
+							<label for="contactEmailForm">Email</label>
 						</td>
 						<td colspan="2">
 							<input type="text" size="40" id="contactEmailForm" name="contactEmailForm" value="'.$contactEmailForm.'">
