@@ -171,55 +171,9 @@ if($submit)
         $message .= "\n[addsig]";
     }
 
-    // CREATE THE POST
-
-    $sql = "INSERT INTO `".$tbl_posts."` 
-            SET topic_id  = '".$topic."',
-                forum_id  = '".$forum."',
-                poster_id = '".$userdata['user_id']."',
-                post_time = '".$time."',
-                poster_ip = '".$poster_ip."',
-                nom       = '".$nom."',
-                prenom    = '".$prenom."'";
-
-    $this_post = claro_sql_query_insert_id($sql);
-
-    // RECORD THE POST CONTENT
-
-    if($this_post)
-    {
-        $sql = "INSERT INTO `".$tbl_posts_text."` 
-                SET post_id   = '".$this_post."', 
-                    post_text = '".$message."'";
-
-        $result = claro_sql_query($sql);
-    }
-
-    $sql = "UPDATE `".$tbl_topics."` 
-            SET   topic_replies      =  topic_replies+1, 
-                  topic_last_post_id = '".$this_post."',
-                  topic_time         = '".$time."' 
-            WHERE topic_id           = '".$topic."'";
-
-    $result = claro_sql_query($sql);
-
-    if( $userdata['user_id'] != -1 ) 
-    {
-        $sql = "UPDATE `".$tbl_users."` 
-                SET   user_posts = user_posts+1 
-                WHERE user_id = '".$userdata['user_id']."'";
-
-        $result = claro_sql_query($sql);
-    }
-
-    // UPDATE THE POST AND TOPIC STATUS FDR THE CURRENT FORUM
-
-    $sql = "UPDATE `".$tbl_forums."` 
-            SET   forum_posts        =  forum_posts+1, 
-                  forum_last_post_id = '".$this_post."' 
-            WHERE forum_id           = '".$forum."'";
-
-    $result = claro_sql_query($sql);
+    create_new_post($topic, $forum, $userdata['user_id'], 
+                    $time, $poster_ip, 
+                    $nom, $prenom, $message);
 
     // added for CLAROLINE 1.5 : send notification for user who subscribed for it
 
@@ -241,29 +195,6 @@ if($submit)
        eval("\$message =\"$message\";");
        claro_mail_user($list['user_id'], $message, $subject);
     }
-
-    //  this code is from phpbb 1.4, but not used anymore in claroline 1.5.
-    //
-    //    $sql = "SELECT t.topic_notify, u.user_email, u.username, u.user_id 
-    //            FROM `".$tbl_topics."` t, 
-    //                 `".$tbl_users."` u
-    //            WHERE t.topic_id     = '".$topic."' 
-    //              AND t.topic_poster = u.user_id";
-    //
-    //    $result = claro_sql_query($sql);
-    //
-    //    $m = mysql_fetch_array($result,MYSQL_ASSOC);
-    //
-    //    if($m["topic_notify"] == 1 && $m["user_id"] != $userdata["user_id"])
-    //    {
-    //        // We have to get the mail body and subject line 
-    //        // in the board default language!
-    //        $subject = get_syslang_string($sys_lang, "l_notifysubj");
-    //        $message = get_syslang_string($sys_lang, "l_notifybody");
-    //        eval("\$message =\"$message\";");
-    //        mail($m[user_email], $subject, $message, 
-    //             "From: $email_from\r\nX-Mailer: phpBB $phpbbversion");
-    //    }
 
 
 

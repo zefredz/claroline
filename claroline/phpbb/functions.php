@@ -16,6 +16,21 @@
  *
  ***************************************************************************/
 
+// DEPRECATED FUNCTIONS
+
+function check_user_pw($username, $password, $db)   { return 0;}
+function is_banned($ipuser, $type, $db)             { return false; }
+function setuptheme($theme, $db)                    { /* ... */ }
+function censor_string($string, $db)                { return $string; }
+function bbencode($message, $is_html_disabled)      { return $message;}
+function bbdecode($message)                         {return($message);}
+function bbencode_quote($message)                   { return $message; }
+function bbencode_code($message, $is_html_disabled) { return $message; }
+function bbencode_list($message)                    { return $message; }
+
+
+
+
 /**
  * Start session-management functions - Nathan Codding, July 21, 2000.
  */
@@ -213,7 +228,7 @@ function get_whosonline($IP, $username, $forum, $db)
 	{
 		$sql = "INSERT INTO `".$tbl_whosonline."`
                 SET ID = '".$User_Id."',
-                    IP '".$IP."',
+                    IP = '".$IP."',
                     DATE = '".$usersec."',
                     username = '".$username."',
                     forum = '".$forum."'";
@@ -308,12 +323,13 @@ function get_last_post($id, $db, $type)
 		break;
 	}
 
-	if(!$result = mysql_query($sql, $db))       return($l_error);
-	if(!$myrow = mysql_fetch_array($result))    return($l_noposts);
+    $result = claro_sql_query_fetch_all($sql);
 
+    if (count($result) == 0) return($l_noposts);
+    
 	if(($type != 'user') && ($type != 'time_fix'))
 	{
-		$val = sprintf("%s <br> %s %s", $myrow['post_time'], $l_by, $myrow['username']);
+		$val = sprintf("%s <br> %s %s", $myrow[0]['post_time'], $l_by, $myrow[0]['username']);
 	}
 	else
 	{
@@ -335,16 +351,7 @@ function get_moderators($forum_id, $db)
 	        WHERE f.forum_id = '".$forum_id."'
 	        AND f.user_id = u.user_id";
 
-	if(!$result = mysql_query($sql, $db))    return(array());
-	if(!$myrow = mysql_fetch_array($result)) return(array());
-
-	do
-	{
-		$array[] = array("$myrow[user_id]" => "$myrow[username]");
-
-	}	while($myrow = mysql_fetch_array($result));
-
-	return($array);
+	return claro_sql_query_fetch-all($sql);
 }
 
 /**
@@ -353,25 +360,24 @@ function get_moderators($forum_id, $db)
  */
 function is_moderator($forum_id, $user_id, $db)
 {
-	global $tbl_forum_mods;
+    global $tbl_forum_mods;
 
-	$sql = "SELECT user_id
-	        FROM `".$tbl_forum_mods."`
-	        WHERE forum_id = '".$forum_id."'
-	        AND user_id = '$user_id'";
+    $sql = "SELECT user_id
+            FROM `".$tbl_forum_mods."`
+            WHERE forum_id = '".$forum_id."'
+            AND user_id = '".$user_id."'";
 
-	if(!$result = mysql_query($sql, $db))    return("0");
-	if(!$myrow = mysql_fetch_array($result)) return("0");
-	if($myrow[user_id] != '')                return("1");
-	else                                     return("0");
+    $result = claro_sql_query_fetch_all($sql);
+
+    if (count($result) > 0 && $result[0]['user_id'] != '')
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
-
-/**
- * Checks the given password against the DB for the given username.
- * Returns true if good, false if not.
- * @author  Nathan Codding - July 19, 2000
- */
-function check_user_pw($username, $password, $db) { return 0;}
 
 
 /**
@@ -454,10 +460,6 @@ function get_userdata($username, $db)
 	return($myrow);
 }
 
-/**
- * Returns all the rows in the themes table
- */
-function setuptheme($theme, $db) { /* ... */ }
 
 
 /**
@@ -563,41 +565,6 @@ function desmile($message)
 	return($message);
 }
 
-/**
- * bbdecode/bbencode functions:
- * Rewritten - Nathan Codding - Aug 24, 2000
- * quote, code, and list rewritten again in Jan. 2001.
- * All BBCode tags now implemented. Nesting and multiple occurances should be
- * handled fine for all of them. Using str_replace() instead of regexps often
- * for efficiency. quote, list, and code are not regular, so they are
- * implemented as PDAs - probably not all that efficient, but that's the way it is.
- *
- * Note: all BBCode tags are case-insensitive.
- */
-
-function bbencode($message, $is_html_disabled) { return $message; }
-function bbdecode($message) {return($message);}
-
-/**
- * Performs [quote][/quote] bbencoding on the given string, and returns the results.
- */
-function bbencode_quote($message) { return $message; }
-
-
-/**
- * Performs [code][/code] bbencoding on the given string, and returns the results.
- */
-
-function bbencode_code($message, $is_html_disabled) { return $message; }
-
-
-
-/**
- * Performs [list][/list] and [list=?][/list] bbencoding on the given string, and returns the results.
- */
-function bbencode_list($message) { return $message; }
-
-
 
 /**
  * Escapes the "/" character with "\/". This is useful when you need
@@ -622,10 +589,9 @@ function get_forum_name($forum_id, $db)
 	        FROM `".$tbl_forums."`
 	        WHERE forum_id = '".$forum_id."'";
 
-	if(!$r = mysql_query($sql, $db)) return("ERROR");
-	if(!$m = mysql_fetch_array($r))  return("None");
-
-	return($m[forum_name]);
+	$forum_name = claro_sql_query_get_single_value($sql);
+	if ($forum_name) return $forum_name;
+	else             return 'None';
 }
 
 
@@ -740,88 +706,15 @@ function is_first_post($topic_id, $post_id, $db)
 	        WHERE topic_id = '".$topic_id."'
 	        ORDER BY post_id LIMIT 1";
 
-	if(!$r = mysql_query($sql, $db)) return(0);
-	if(!$m = mysql_fetch_array($r))  return(0);
-	if($m[post_id] == $post_id)      return(1);
-	else                             return(0);
+	$id_found = claro_sql_query_get_single_value($sql);
+    if ($id_found == $post_id) return 1;
+    else                       return 0;
 }
 
-/**
- * Replaces banned words in a string with their replacements
- */
 
-function censor_string($string, $db)
-{
-	global $tbl_words;
 
-	$r = mysql_query("SELECT word, replacement FROM `$tbl_words`", $db)
-	     or error_die("Error, could not contact the database!
-	             Please check your database settings in config.php");
 
-	while($w = mysql_fetch_array($r))
-	{
-		$word        = quotemeta(stripslashes($w[word]));
-		$replacement = stripslashes($w[replacement]);
-		$string      = eregi_replace(" $word", " $replacement", $string);
-		$string      = eregi_replace("^$word", "$replacement", $string);
-		$string      = eregi_replace("<BR>$word", "<BR>$replacement", $string);
-	}
 
-	return($string);
-}
-
-function is_banned($ipuser, $type, $db)
-{
-	global $tbl_banlist;
-
-	// Remove old bans
-	$sql = "DELETE FROM `$tbl_banlist`
-	        WHERE (ban_end < ". mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y")).")
-	        AND (ban_end > 0)";
-
-	@mysql_query($sql, $db);
-
-	switch($type)
-	{
-		case "ip":
-			$sql = "SELECT ban_ip FROM `$tbl_banlist`";
-
-			if($r = mysql_query($sql, $db))
-			{
-				while($iprow = mysql_fetch_array($r))
-				{
-					$ip = $iprow[ban_ip];
-					if($ip[strlen($ip) - 1] == ".")
-					{
-						$db_ip = explode(".", $ip);
-						$this_ip = explode(".", $ipuser);
-
-						for($x = 0; $x < count($db_ip) - 1; $x++) $my_ip .= $this_ip[$x] . ".";
-
-						if($my_ip == $ip) return(TRUE);
-					}
-					else
-					{
-						if($ipuser == $ip)
-						return(TRUE);
-					}
-				}
-			}
-			else return(FALSE);
-		break;
-
-		case "username":
-			$sql = "SELECT ban_userid FROM `$tbl_banlist`
-			        WHERE ban_userid = '$ipuser'";
-			if($r = mysql_query($sql, $db))
-			{
-				if(mysql_num_rows($r) > 0) return(TRUE);
-			}
-		break;
-	}
-
-	return(FALSE);
-}
 
 /**
  * Checks if the given userid is allowed to log into the given (private) forumid.
@@ -980,7 +873,7 @@ function sync($db, $id, $type)
 	switch($type)
 	{
 		case 'forum':
-			$sql = "SELECT max(post_id) AS last_post 
+			$sql = "SELECT MAX(post_id) AS last_post 
                     FROM `".$tbl_posts."` 
                     WHERE forum_id = '".$id."'";
 
@@ -992,7 +885,7 @@ function sync($db, $id, $type)
 
 			$total_posts = claro_sql_query_get_single_value($sql);
 
-			$sql = "SELECT count(topic_id) AS total 
+			$sql = "SELECT COUNT(topic_id) AS total 
                     FROM `".$tbl_topics."` 
                     WHERE forum_id = '".$id."'";
 
@@ -1000,21 +893,21 @@ function sync($db, $id, $type)
 
 			$sql = "UPDATE `".$tbl_forums."`
 			        SET forum_last_post_id = '$last_post',
-			        forum_posts = $total_posts,
-			        forum_topics = $total_topics
-			        WHERE forum_id = $id";
+			            forum_posts = '".$total_posts."',
+			            forum_topics = '".$total_topics."'
+			        WHERE forum_id = '".$id."'";
 
 			$result = claro_sql_query($sql);
 		break;
 
 	case 'topic':
-		$sql = "SELECT max(post_id) AS last_post 
+		$sql = "SELECT MAX(post_id) AS last_post 
                 FROM `".$tbl_posts."` 
                 WHERE topic_id = '".$id."'";
 
         $last_post = claro_sql_query_get_single_value($sql);
 
-		$sql = "SELECT count(post_id) AS total 
+		$sql = "SELECT COUNT(post_id) AS total 
                 FROM `".$tbl_posts."` 
                 WHERE topic_id = '".$id."'";
 
@@ -1172,6 +1065,212 @@ function get_topic_settings($topicId)
     else                           error_die('Unexisting topic.');
 
     return $settingList;
+}
+
+/**
+ * create a new topic
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string $subject
+ * @param string $time
+ * @param int $forumId
+ * @param int $userId
+ * @param string $userFirstname
+ * @param string $userLastname
+ * @return 
+ */
+
+function create_new_topic($subject, $time, $forumId, 
+                          $userId, $userFirstname, $userLastname)
+{
+    global $tbl_topics, $tbl_forums;
+
+    $sql = "INSERT INTO `".$tbl_topics."` 
+            SET topic_title  = '".$subject."', 
+                topic_poster = '".$userId."', 
+                forum_id     = '".$forumId."', 
+                topic_time   = '".$time."', 
+                topic_notify = 1,
+                nom          = '".$userLastname."', 
+                prenom       = '".$userFirstname."'";
+
+    $topicId = claro_sql_query_insert_id($sql);
+
+    // UPDATE THE TOPIC STATUS FOR THE CURRENT FORUM
+
+    $sql = "UPDATE `".$tbl_forums."` 
+            SET   forum_topics = forum_topics+1
+            WHERE forum_id     = '".$forum."'";
+
+    $result = claro_sql_query($sql);
+
+    return $topicId;
+}
+
+/**
+ * 
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param
+ * @return 
+ */
+
+
+function create_new_post($topicId, $forumId, $userId, $time, $posterIp, 
+                         $userLastname, $userFirstname, $message)
+{
+    global $tbl_posts, $tbl_posts_text, $tbl_topics, 
+           $tbl_users, $tbl_forums;
+
+    // CREATE THE POST SETTINGS
+
+    $sql = "INSERT INTO `".$tbl_posts."`
+            SET topic_id  = '".$topicId."', 
+                forum_id  = '".$forumId."', 
+                poster_id = '".$userId."', 
+                post_time = '".$time."', 
+                poster_ip = '".$posterIp."', 
+                nom       = '".$userLastname."', 
+                prenom    = '".$userFirstname."'";
+
+    $postId = claro_sql_query_insert_id($sql);
+
+    if ($postId)
+    {
+        // RECORD THE POST CONTENT
+
+        $sql = "INSERT INTO `".$tbl_posts_text."` 
+                SET post_id   = '".$postId."', 
+                    post_text = '".$message."'";
+
+        $result = claro_sql_query($sql);
+
+        // UPDATE THE TOPIC STATUS
+
+        $sql = "UPDATE `".$tbl_topics."` 
+                SET   topic_replies      =  topic_replies+1, # should be transformed into `topic_posts`
+                      topic_last_post_id = '".$postId."',
+                      topic_time         = '".$time."' 
+                WHERE topic_id = '".$topicId."'";
+
+        $result = claro_sql_query($sql);
+
+        // UPDATE THE POST NUMBER STATUS FOR THE CURRENT USER
+
+        if($userId != -1)
+        {
+            $sql = "UPDATE `".$tbl_users."` 
+                    SET   user_posts = user_posts+1 
+                    WHERE user_id = '".$userId."'";
+
+            $result = claro_sql_query($sql);
+        }
+
+        // UPDATE THE POST STATUS FOR THE CURRENT FORUM
+
+        $sql = "UPDATE `".$tbl_forums."` 
+                SET   forum_posts        = forum_posts+1, 
+                      forum_last_post_id = '".$postId."' 
+                WHERE forum_id           = '".$forumId."'";
+
+        $result = claro_sql_query($sql);
+
+        return $postId;
+    }
+    else
+    {
+    	return false;
+    }
+}
+
+
+/**
+ * 
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param
+ * @return 
+ */
+
+
+function update_post($postId, $message, $subject = '')
+{
+    global $tbl_posts_text, $tbl_topics;
+
+    $sql = "UPDATE `".$tbl_posts_text."` 
+            SET post_text = '".$message."' 
+            WHERE post_id = '".$postId."'";
+
+    $result = claro_sql_query($sql);
+
+    if ($subject != '')
+    {
+        $sql = "UPDATE `".$tbl_topics."` 
+                SET topic_title  = '".$subject."', 
+                    topic_notify = '".$notify."' 
+                WHERE topic_id = '".$postId."'";
+
+        $result = claro_sql_query($sql);
+    }
+}
+
+/**
+ * 
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param
+ * @return 
+ */
+
+function delete_post($postId, $topicId, $forumId, $userId)
+{
+    global $tbl_posts, $tbl_posts_text, 
+           $tbl_topics, $tbl_users;
+
+    $sql = "DELETE FROM `".$tbl_posts."` 
+            WHERE post_id = '".$postId."'";
+
+    $result = claro_sql_query($sql);
+
+    $sql = "DELETE FROM `".$tbl_posts_text."` 
+            WHERE post_id = '".$postId."'";
+
+    $result = claro_sql_query($sql);
+
+
+    if( get_total_posts($topicId, $db, 'topic') == 0 ) # warning $db poses 
+                                                       # problems, we have to 
+                                                       # remove it.
+    {
+        $sql = "DELETE FROM `".$tbl_topics."` 
+                WHERE topic_id = '".$topicId."'";
+
+        $result = claro_sql_query($sql);
+        $topic_removed = true;
+    }
+    else
+    {
+        $sql = "UPDATE `".$tbl_topics."` 
+                SET topic_time = '". get_last_post($topicId, 
+                                                   $db, 'time_fix')."' 
+                WHERE topic_id = '".$topicId."'";
+
+        $result = claro_sql_query($sql);
+    }
+
+    if($userId != -1)
+    {
+        $sql = "UPDATE `".$tbl_users."` 
+                SET user_posts = user_posts - 1 
+                WHERE user_id = '".$userId."'";
+
+        $result = claro_sql_query($sql);
+    }
+
+    // don't understand these two lines below    
+    sync($db, $forumId, 'forum');
+    if(!$topic_removed) sync($db, $topicId, 'topic');
+
 }
 
 

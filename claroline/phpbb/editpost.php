@@ -89,28 +89,7 @@ if($is_courseAdmin)
 			$topic   = $topic_id;
 			$forum   = $forum_id;
 
-            $sql = "UPDATE `".$tbl_posts_text."` 
-                    SET post_text = '".$message."' 
-                    WHERE post_id = '".$post_id."'";
-
-			$result = claro_sql_query($sql);
-
-			$subject = strip_tags($subject);
-
-			if(isset($subject) && (trim($subject) != ''))
-			{
-				if( !isset($notify) ) $notify = 0;
-				else                  $notify = 1;
-
-				$subject = addslashes($subject);
-
-                $sql = "UPDATE `".$tbl_topics."` 
-                        SET topic_title  = '".$subject."', 
-                            topic_notify = '".$notify."' 
-                        WHERE topic_id = '".$topic_id."'";
-
-				$result = claro_sql_query($sql);
-			}
+            update_post($post_id, $message, $subject);
 
             disp_confirmation_message ($l_stored, $forum_id, $topic_id);
 		}
@@ -124,49 +103,7 @@ if($is_courseAdmin)
 			$now_min          = date('i');
 			list($hour, $min) = split(':', $time);
 
-			$last_post_in_thread = get_last_post($topic_id, $db, 'time_fix');
-
-            $sql = "DELETE FROM `".$tbl_posts."` 
-                    WHERE post_id = '".$post_id."'";
-
-			$r = claro_sql_query($sql);
-
-            $sql = "DELETE FROM `".$tbl_posts_text."` 
-                    WHERE post_id = '".$post_id."'";
-		
-			$r = claro_sql_query($sql);
-
-			if($last_post_in_thread == $this_post_time)
-			{
-				$topic_time_fixed = get_last_post($topic_id, $db, 'time_fix');
-
-                $sql = "UPDATE `".$tbl_topics."` 
-                        SET topic_time = '".$topic_time_fixed."' 
-				        WHERE topic_id = '".$topic_id."'";
-
-				$r = claro_sql_query($sql);
-			}
-
-			if( get_total_posts($topic_id, $db, 'topic') == 0 ) 
-			{
-				$sql = "DELETE FROM `".$tbl_topics."` 
-                        WHERE topic_id = '".$topic_id."'";
-                $r = claro_sql_query($sql);
-				$topic_removed = true;
-			}
-
-            if($posterdata['user_id'] != -1)
-            {
-                $sql = "UPDATE `".$tbl_users."` 
-                        SET user_posts = user_posts - 1 
-                        WHERE user_id = '".$posterdata['user_id']."'";
-
-                $r = claro_sql_query($sql);
-            }
-
-			sync($db, $forum, 'forum');
-
-			if(!$topic_removed) sync($db, $topic_id, 'topic');
+            delete_post($post_id, $topic_id, $forum, $$posterdata['user_id']);
 
 			/* CONFIRMATION MESSAGE */
 
@@ -191,7 +128,7 @@ if($is_courseAdmin)
 		             `".$tbl_topics."` t, `".$tbl_posts_text."` pt,
 				     `".$tbl_forums."` f
 
-		        WHERE p.post_id  = '".$post_id."'
+		        WHERE p.post_id   = '".$post_id."'
                   AND p.topic_id  = '".$topic."'
                   AND f.forum_id  = '".$forum."'
                   AND pt.post_id  = p.post_id
@@ -202,7 +139,7 @@ if($is_courseAdmin)
 		$myrow = claro_sql_query_fetch_all($sql);
         
         if (count($myrow) == 1) $myrow = $myrow[0];
-        else error_die ('unexisting forum');   
+        else error_die ('unexisting forum');
 
 		$message = $myrow['post_text'];
 

@@ -110,11 +110,6 @@ if($submit)
         $is_html_disabled = true;
     }
 
-    if($allow_bbcode == 1 && !($HTTP_POST_VARS[bbcode]))
-    {
-        $message = bbencode($message, $is_html_disabled);
-    }
-
     // MUST do make_clickable() and smile() before changing \n into <br>.
     
     $message = make_clickable($message);
@@ -122,10 +117,6 @@ if($submit)
     if( ! $smile) $message = smile($message);
 
     $message   = str_replace("\n", "<BR>", $message);
-
-    $message   = censor_string($message, $db);
-    $subject   = censor_string($subject, $db);
-
     $subject   = strip_tags($subject);
 
     $message   = addslashes($message);
@@ -143,72 +134,15 @@ if($submit)
                             RECORD THE DATA
       ------------------------------------------------------------------------*/
 
-    // CREATE THE TOPIC
 
-    $sql = "INSERT INTO `".$tbl_topics."` 
-            SET topic_title  = '".$subject."', 
-                topic_poster = '".$userdata['user_id']."', 
-                forum_id     = '".$forum."', 
-                topic_time   = '".$time."', 
-                topic_notify = 1,
-                nom          = '".$userLastName."', 
-                prenom       = '".$userFirstName."'";
-
-    $topic_id = claro_sql_query_insert_id($sql);
-
-    // CREATE THE POST
-
+    $topic_id = create_new_topic($subject, $time, $forumId, 
+                          $userdata['user_id'], $userFirstname, $userLastname);
     if ($topic_id)
     {
-        $sql = "INSERT INTO `".$tbl_posts."`
-                SET topic_id  = '".$topic_id."', 
-                    forum_id  = '".$forum."', 
-                    poster_id = '".$userdata['user_id']."', 
-                    post_time = '".$time."', 
-                    poster_ip = '".$poster_ip."', 
-                    nom       = '".$userLastName."', 
-                    prenom    = '".$userFirstName."'";
-
-        $post_id = claro_sql_query_insert_id($sql);
+        create_new_post($topic_id, $forum, $userdata['user_id'], $time, $poster_ip, 
+                             $userLastName, $userFirstName, $message);
     }
 
-    // RECORD THE POST CONTENT
-
-    if($post_id)
-    {
-        $sql = "INSERT INTO `".$tbl_posts_text."` 
-                SET post_id   = '".$post_id."', 
-                    post_text = '".$message."'";
-        
-        $result = claro_sql_query($sql);
-
-        $sql = "UPDATE `".$tbl_topics."` 
-                SET   topic_last_post_id = '".$post_id."' 
-                WHERE topic_id = '".$topic_id."'";
-
-        $result = claro_sql_query($sql);
-    }
-
-    // UPDATE THE POST NUMBER STATUS FOR THE CURRENT USER
-
-    if($userdata['user_id'] != -1)
-    {
-        $sql = "UPDATE `".$tbl_users."` 
-                SET   user_posts = user_posts+1 
-                WHERE user_id = '".$userdata['user_id']."'";
-        
-        $result = claro_sql_query($sql);
-    }
-
-    // UPDATE THE POST AND TOPIC STATUS FDR THE CURRENT FORUM
-
-    $sql = "UPDATE `".$tbl_forums."` 
-            SET   forum_posts        = forum_posts+1, 
-                  forum_topics       = forum_topics+1, 
-                  forum_last_post_id = '".$post_id."' 
-            WHERE forum_id           = '".$forum."'";
-
-    $result = claro_sql_query($sql);
 
     /*------------------------------------------------------------------------
                             DISPLAY SUCCES MESSAGE
