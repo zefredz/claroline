@@ -105,8 +105,15 @@ $nameTools = $langListUsers;
 switch ($cmd)
 {
   case "delete" :
-        delete_user($user_id);
-        $dialogBox = $langUserDelete;
+        if ($_uid != $user_id)
+	{	    
+	    delete_user($user_id);
+	    $dialogBox = $langUserDelete;
+	}
+	else
+	{
+	    $dialogBox = $langNotUnregYourself;
+	}
         break;
 }
 
