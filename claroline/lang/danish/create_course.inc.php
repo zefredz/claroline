@@ -64,7 +64,6 @@ $langLinks="Links";
 $langDoc="Dokumenter";
 $langVideo="Multimedia";
 $langWorks="Studerendes Opgaver";
-$langCourseProgram="Kursusprogram";
 $langAnnouncements="Meddelelser";
 $langUsers="Deltagerliste";
 $langForums="Diskussionsforum";

@@ -10,7 +10,7 @@
 $langAssignments = "Travaux";
 
 $langIntroWork="Cet outil est un espace de publication. 
-<br />Il permet au professeur de créer différents travaux dans lesquels chaque étudiant peut envoyer un document (Word, Excel, HTML... ) vers le site du cours, ou composer un texte, afin de le rendre accessible aux autres étudiants ainsi qu'au professeur.
+<br />Il permet au gestionnaire de cours de créer différents travaux dans lesquels chaque étudiant peut envoyer un document (Word, Excel, HTML... ) vers le site du cours, ou composer un texte, afin de le rendre accessible aux autres étudiants ainsi qu'au gestionnaire.
 <br />Vous pourrez ensuite ajouter un commentaire ou une correction à chaque soumission de l'étudiant.
 <br /><br />Si vous désirez donner des consignes aux étudiants, cliquez sur ce bouton";
 
@@ -93,7 +93,7 @@ $langNoScore = "Pas de note";
 // -- Form errors and confirmations
 //confirmations
 $langAssignmentAdded = "Nouveau travail créé";
-$langAreYouSureToDelete = "Etes vous certain de vouloir effacer";
+$langAreYouSureToDelete = "Êtes-vous sûr de vouloir supprimer ";
 $langDeleteCaution = "! Cela effacera aussi tous les travaux soumis dans cette session !";
 $langAssignmentDeleted = "Travail effacé";
 $langAssignmentEdited = "Travail modifié";

@@ -88,7 +88,6 @@ $langLinks="相关链接";
 $langDoc="讲义材料";
 $langVideo="视频材料";
 $langWorks="作业论文";
-$langCourseProgram="课程大纲";
 $langAnnouncements="公告通知";
 $langUsers="用户列表";
 $langForums="学习论坛";

@@ -87,7 +87,6 @@ $langLinks="Pautan";
 $langDoc="Dokumen";
 $langVideo="Video";
 $langWorks="Tugasan";
-$langCourseProgram="Program Subjek";
 $langAnnouncements="Pengumuman";
 $langUsers="Ahli";
 $langForums="Forum";

@@ -32,7 +32,7 @@ $langHaveNoCourse = "Pas de cours"; // JCC
 
 $langFirstname = "Prénom"; // JCC 
 $langLastname = "Nom";
-$langEmail = "Adresse d'e-mail"; // JCC
+$langEmail = "E-mail"; // JCC
 $langAbbrEmail = "E-mail"; // JCC 
 $langRetrieve ="Retrouver  mes paramètres d'identification";
 $langMailSentToAdmin = "Un e-mail a été adressé à l'administrateur."; // JCC 
@@ -71,7 +71,7 @@ $langRegStudent="M'inscrire à des cours";
 $langRegAdmin="Créer des sites de cours";
 $langPhone = "Téléphone"; // JCC cette variable manquait
 $langSaveChange ="Enregistrer les changements"; // JCC cette variable manquait
-$langTitular = "Titulaire";
+$langTitular = "Gestionnaire de cours";
 $langRegister = "S'inscrire";
 // inscription_second.php
 
@@ -98,7 +98,7 @@ $langAddress                = "L'adresse de";
 $langIs                     = "est";
 $langProblem                = "En cas de problème, n'hésitez pas à prendre contact avec nous";
 $langFormula                = "Cordialement";
-$langManager                = "Responsable";
+$langManager                = "Gestionnaire";
 $langPersonalSettings       = "Vos coordonnées personnelles ont été enregistrées et un e-mail vous a été envoyé
 pour vous rappeler votre nom d'utilisateur et votre mot de passe.</p>";
 $langNowGoChooseYourCourses ="Vous  pouvez maintenant aller sélectionner les cours auxquels vous souhaitez avoir accès.";
@@ -117,7 +117,7 @@ $langUserTaken    = "Le nom d'utilisateur que vous avez choisi est déjà pris";
 $langEmailWrong   = "L'adresse d'e-mail que vous avez introduite n'est pas complète
 ou contient certains caractères non valides"; // JCC 
 $langProfileReg   = "Votre nouveau profil a été enregistré";
-$langHome         = "Retourner à l'accueil";
+$langHome         = "Retourner à la page d'accueil";
 $langMyStats      = "Voir mes statistiques";
 $langReturnSearchUser="Revenir à l'utilisateur"; // JCC 
 
@@ -138,7 +138,7 @@ $langInC                = "dans ce cours";
 $langFilled             = "Vous n'avez pas rempli tous les champs.";
 $langUserNo             = "Le nom d'utilisateur que vous avez choisi";
 $langTaken              = "est déjà pris. Choisissez-en un autre.";
-$langOneResp            = "L'un des responsables du cours";
+$langOneResp            = "L'un des gestionnaires du cours";
 $langRegYou             = "vous a inscrit sur";
 $langTheU               ="L'utilisateur";
 $langAddedU             ="a été ajouté. Si vous avez introduit son adresse, un message lui a été envoyé pour lui communiquer son nom d'utilisateur";
@@ -154,7 +154,7 @@ $langAdmR               = "Admin";
 $langUnreg              = "Radier"; // JCC 
 $langAddHereSomeCourses = "<font size=2 face='arial, helvetica'><big>Mes cours</big><br><br>
 			Cochez les cours que vous souhaitez suivre et décochez ceux que vous
-			ne voulez plus suivre (les cours dont vous êtes responsable
+			ne voulez plus suivre (les cours dont vous êtes gestionnaire
 			ne peuvent être décochés). Cliquez ensuite sur Ok en bas de la liste.";
 
 $langCanNotUnsubscribeYourSelf = "Vous ne pouvez pas vous radier
@@ -219,7 +219,7 @@ $langModify             = "Modifier";
 $langUserName           = "Nom d'utilisateur"; // JCC 
 $langEdit               = "Editer";
 
-$langCourseManager       = "Responsable de cours";
+$langCourseManager       = "Gestionnaire de cours";
 $langManage              = "Gestion du campus";
 $langAdministration = "Administration";
 $langModifProfile	     = "Modifier le profil";
@@ -247,5 +247,5 @@ $langNoUserSelected = "Aucun utilisateur n'a été selectionné!";
 // dialogbox messages
 
 $langUserUnsubscribedFromCourse = "L'utilisateur a bien été radié du cours"; // JCC 
-$langUserNotUnsubscribedFromCourse = "Erreur!! vous ne pouvez pas radier un professeur du cours";
+$langUserNotUnsubscribedFromCourse = "Erreur!! vous ne pouvez pas radier un gestionnaire du cours";
 ?>

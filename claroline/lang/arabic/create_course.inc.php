@@ -57,7 +57,6 @@ $langLinks=" روابط ";
 $langDoc=" وثائق ";
 $langVideo=" فيديو ";
 $langWorks=" أشغال ";
-$langCourseProgram=" كراس الشروط ";
 $langAnnouncements=" إعلانات ";
 $langUsers="مستعملو الموقع";
 $langForums="منتديات";

@@ -83,7 +83,6 @@ $langLinks="Linkit";
 $langDoc="Dokumentit";
 $langVideo="Video";
 $langWorks="Opiskelijoiden paperit";
-$langCourseProgram="Kurssin ohjelma";
 $langAnnouncements="Ilmoitukset";
 $langUsers="Käyttäjät";
 $langForums="Foorumit";

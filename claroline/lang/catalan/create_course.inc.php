@@ -63,7 +63,6 @@ $langLinks="Enllaços";
 $langDoc="Documents";
 $langVideo="Vídeo";
 $langWorks="Treballs dels estudiants";
-$langCourseProgram="Programa del curs";
 $langAnnouncements="Anuncis";
 $langUsers="Usuaris";
 $langForums="Fòrums";

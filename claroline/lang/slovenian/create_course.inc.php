@@ -88,7 +88,6 @@ $langLinks="Povezave";
 $langDoc="Dokumenti";
 $langVideo="Video";
 $langWorks="Naloge";
-$langCourseProgram="Program tecaja";
 $langAnnouncements="Obvestila";
 $langUsers="Uporabniki";
 $langForums="Forumi";

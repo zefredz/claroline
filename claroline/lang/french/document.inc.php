@@ -71,7 +71,7 @@ $langUncompress="Décompresser fichier zippé (.zip)"; // JCC
 
 $langUploadAndZipEnd=" Le fichier .zip a été envoyé et décompressé";
 
-$langAreYouSureToDelete = "Êtes vous sûr de vouloir supprimer";
+$langAreYouSureToDelete = "Êtes-vous sûr de vouloir supprimer ";
 
 $langPublish = "Publier";
 

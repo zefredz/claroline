@@ -46,8 +46,8 @@ $langCouldNotSendPage="Ce fichier n'est pas au format HTML et n'a pu être envoyé
 $langAddPageToSite="Ajouter une page au site";
 $langNotAllowed="Vous n'êtes pas autorisé à accéder à cette section";
 $langExercices="Exercices";
-$langCouldNot="Le fichier n'a pu être envoyé";
+$langCouldNot="Le fichier n'a pas pu être envoyé";
 $langOkSent="Votre page a été envoyée.<p>Elle est accessible depuis la <a href=../../$currentCourseID/index.php>page d'accueil</a> de votre cours";
-$langTooBig="Vous n'avez pas choisi de fichier à envoyer ou bien le fichier est trop gros";
+$langTooBig="Vous n'avez pas choisi de fichier à envoyer, ou celui-ci est trop gros";
 $langPgTitle="Titre de la page";
 ?>

@@ -95,7 +95,6 @@ $langLinks="Links";
 $langDoc="Documentos";
 $langVideo="Vídeo";
 $langWorks="Trabalhos";
-$langCourseProgram="Programa do curso";
 $langAnnouncements="Avisos";
 $langUsers="Usuários";
 $langForums="Fóruns";

@@ -89,7 +89,7 @@ Action: M'inscrire à des cours > Cochez les cours et validez.</p>
 <p>Un e-mail vous sera envoyé
 pour vous rappeler le nom d'utilisateur et le mot de passe à introduire lors de votre prochaine visite.</p>
 <hr noshade size=1>
-<p><b>Professeur</b></p>
+<p><b>Gestionnaire de cours</b></p>
 <p><b>Créer un site de cours</b></p>
 <p>Procédez comme suit. Inscription > Remplissez tous les champs et choisissez 'Créer des sites de cours' comme action > Validez > Tapez le nom du cours, sélectionnez une faculté ou une catégorie, tapez le code du cours (inventez-en un au besoin > Validez. Et vous voici dans la liste de vos cours. Cliquez sur l'intitulé du cours que vous venez de créer. Vous voici dans un site de cours vide à l'exception de quelques contenus factices destinés à vous éviter l'angoisse de la page blanche. A l'inscription, un e-mail vous a été envoyé pour vous rappeler le nom d'utilisateur et le mot de passe que vous devrez taper lors de votre prochaine visite.</p>
 <p>En cas de problème, contactez votre responsable réseau ou le responsable de ce campus virtuel. Vous pouvez aussi publier un message sur le forum de support de <a href=http://www.claroline.net>http://www.claroline.net</a>.
@@ -259,7 +259,7 @@ vous n'avez pas introduit son e-mail.</p>"; // JCC
 $langHelpGroups="Gestion des groupes";
 $langGroupContent="<p><b>Introduction</b></p>
 	<p>Cet outil permet de créer et de gérer des groupes de travail.
-	A la création, les groupes sont vides. Le professeur dispose de
+	A la création, les groupes sont vides. Le gestionnaire de cours dispose de
 	plusieurs façons de les remplir:
 	<ul><li>automatique ('Remplir les groupes'),</li>
 	<li>à la pièce ('Editer'),</li>
@@ -282,7 +282,7 @@ $langGroupContent="<p><b>Introduction</b></p>
 	vous créez des groupes vides et laissez les étudiants s'y ajouter eux-mêmes.
 	Si vous avez défini un nombre de places maximum
 	par groupe, les groupes complets n'acceptent plus de nouveaux membres.
-	Cette méthode convient particulièrement au professeur qui ne connaît pas la
+	Cette méthode convient particulièrement au gestionnaire de cours qui ne connaît pas la
 	liste des étudiants au moment de créer les groupes.</li>
 	<li><b>Accès aux groupes réservé uniquement à leurs membres</b>: les groupes n'accèdent
 	pas aux forums et documents partagés des autres groupes. Cette propriété n'exclut pas

@@ -10,7 +10,7 @@ $langDeleteNode = "Supprimer cette catégorie";
 
 $langShowTree = "Arborescence";
 $lang_course_tree_managment = "Gestion du classement";
-$langBackToList = "retour";
+$langBackToList = "Retour à la liste";
 $langLogDeleteCat  = "Catégorie supprimée";
 $langRecountChildren = "recompter les enfants";
 $langUpInSameLevel ="Monter d'un niveau"; // JCC

@@ -42,7 +42,6 @@ $langCodeTaken="Dieser Kurs ist bereits belegt.<br>Benutzen Sie den Zurück-Butto
 $langContradiction="Ein Widerspruchsprinzip, um sein Gegenüber in die Ecke zu drängen.";
 $langCourseDesc = "Kursbeschreibung";
 $langCourseDescription="Beschreiben Sie hier Ihren Kurs. Die Beschreibung ersvheint in der Kursübersicht.";
-$langCourseProgram="Kursprogramm";
 $langCreateCourse="Kurse erstellen";
 $langCreateCourseGroups="Gruppen";
 $langCreateSite="Kurs-Website erstellen";

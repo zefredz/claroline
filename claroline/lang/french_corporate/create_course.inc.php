@@ -56,7 +56,6 @@ $langLinks="Liens";
 $langDoc="Documents";
 $langVideo="Video";
 $langWorks="Contributions des uns et des autres";
-$langCourseProgram="Cahier des charges";
 $langAnnouncements="Annonces";
 $langUsers="Utilisateurs";
 $langForums="Forums";

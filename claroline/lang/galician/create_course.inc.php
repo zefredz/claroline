@@ -96,7 +96,6 @@ $langLinks         = "Ligaz&oacute;ns";
 $langDoc           = "Documentos";
 $langVideo         = "V&iacute;deo";
 $langWorks         = "Traballos";
-$langCourseProgram = "Caderno de actividades";
 $langAnnouncements = "Anuncios";
 $langUsers         = "Usuarios";
 $langForums        = "Foros";

@@ -2,7 +2,7 @@
 $langAdd_users = "Ajouter une série d'utilisateurs";
 $lang_you_had_request ="Vous aviez demandé" ;
 $langAdmin = "Administration du campus";
-$langTeachers="professeurs";
+$langTeachers="gestionnaires";
 $langStudents="étudiants";
 $langDevTools = "Outils de développement";
 
@@ -11,7 +11,7 @@ $langDevTools = "Outils de développement";
 
 $langUsers = "Utilisateurs";
 $langTitle = "Titre";
-$langComment = "Commentaires";
+$langComment = "Commentaire";
 $langLineNumber = "Nombre de lignes";
 $langLine = "ligne";
 $langLines = "lignes";
@@ -26,6 +26,6 @@ $langCourseAdministratorOnly = "Réservé à l'administrateur du cours";
 $langDefineHeadings = "Définir les intitulés";
 $langBackToUsersList = "Retourner à la liste des utilisateurs"; // JCC 
 $langTracking = "Suivi";
-$langCourseManager= "Responsable de cours";
+$langCourseManager= "Gestionnaire de cours";
 $langUserName= "Nom d'utilisateur";
 ?>

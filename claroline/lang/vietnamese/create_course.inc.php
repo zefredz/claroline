@@ -74,7 +74,6 @@ $langLinks="Liên kết";
 $langDoc="Tài liệu";
 $langVideo="Video";
 $langWorks="Bài làm";
-$langCourseProgram="Chương trình khoá học";
 $langAnnouncements="Thông báo";
 $langUsers="Người dùng";
 $langForums="Diễn đàn";

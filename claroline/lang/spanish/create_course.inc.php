@@ -104,7 +104,6 @@ $langLinks         = "Enlaces";
 $langDoc           = "Documentos";
 $langVideo         = "V&iacute;deo";
 $langWorks         = "Trabajos";
-$langCourseProgram = "Cuaderno de actividades";
 $langAnnouncements = "Anuncios";
 $langUsers         = "Usuarios";
 $langForums        = "Foros";

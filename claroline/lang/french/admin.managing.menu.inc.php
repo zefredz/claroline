@@ -30,7 +30,7 @@ $langLogIdentLogoutComplete = "Liste étendue des logins";
 // Stat
 $langStatistiques = "Statistiques";
 
-$langNbProf = "Nombre de professeurs";
+$langNbProf = "Nombre de gestionnaires de cours";
 $langNbStudents = "Nombre d'étudiants";
 $langNbLogin = "Nombre de logins"; // JCC
 $langToday   ="Aujourd'hui";

@@ -28,7 +28,7 @@ $langDocumentsDetails = "Documents téléchargés par l'étudiant";
 $langExercisesDetails = "Résultats des exercices effectués";
 $langLearnPathDetails = "Progression dans les parcours pédagogiques";
 
-$langBackToList = "Retourner à la liste des utilisateurs";
+$langBackToList = "Retour à la liste";
 $langDetails = "Détails";
 $langClose = "Fermer";
 
@@ -124,8 +124,8 @@ $langTotal = "Total";
 $langHour = "Heure";
 $langDay = "Jour";
 $langLittleHour = "h.";
-$langLast31days = "Ces derniers 31 jours";
-$langLast7Days = "Ces derniers 7 jours";
+$langLast31days = "Ces 31 derniers jours";
+$langLast7Days = "Ces 7 derniers jours";
 $langYesterday = "Hier";
 $langThisday  = "Aujourd'hui";
 
@@ -216,7 +216,7 @@ $langTotalPlatformLogin = "Total";
 $langMultipleLogins = "Comptes avec le même <i>nom d'utilisateur</i>";
 $langMultipleUsernameAndPassword = "Comptes avec le même <i>nom d'utilisateur</i> et <i>mot de passe</i>";
 $langMultipleEmails = "Comptes avec le même <i>e-mail</i>"; // JCC 
-$langCourseWithoutProf = "Cours sans professeur";
+$langCourseWithoutProf = "Cours sans gestionnaire";
 $langCourseWithoutStudents = "Cours sans étudiants";
 $langCourseWithoutAccess = "Cours inutilisés";
 $langLoginWithoutAccess  = "Comptes inutilisés";

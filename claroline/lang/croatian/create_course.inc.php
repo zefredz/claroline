@@ -64,7 +64,6 @@ $langLinks="Linkovi";
 $langDoc="Dokumenti";
 $langVideo="Video";
 $langWorks="Studentski radovi";
-$langCourseProgram="Nastavni plan i program";
 $langAnnouncements="Najave";
 $langUsers="Korisnici";
 $langForums="Forumi";

@@ -84,7 +84,6 @@ $langLinks="Odno¶niki";
 $langDoc="Dokumenty";
 $langVideo="Wideo";
 $langWorks="Prace studentów";
-$langCourseProgram="Program kursu";
 $langAnnouncements="Og³oszenia";
 $langUsers="U¿ytkownicy";
 $langForums="Forum";

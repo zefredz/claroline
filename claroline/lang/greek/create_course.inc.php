@@ -62,7 +62,6 @@ $langLinks="Σύνδεσμοι";
 $langDoc="Εγγραφα";
 $langVideo="Βίντεο";
 $langWorks="Εργασίες Μαθητών";
-$langCourseProgram="Πρόγραμμα Μαθήματος";
 $langAnnouncements="Ανακοινώσεις";
 $langUsers="Χρήστες";
 $langForums="Περιοχή συζητήσεων";

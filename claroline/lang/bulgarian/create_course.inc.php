@@ -48,7 +48,6 @@ $langLinks="Връзки";
 $langDoc="Документи";
 $langVideo="Видео";
 $langWorks="Студентски документи";
-$langCourseProgram="Програма на курса";
 $langAnnouncements="Обяви";
 $langUsers="Потребители";
 $langForums="Форуми";

@@ -27,11 +27,11 @@ Translate the interface in chosen language
 $langLabelCourseAdmin = "Administration du cours"; // JCC
 $langModifInfo="Propriétés du cours";
 $langModifDone="Les informations ont été modifiées";
-$langHome="Retour à la page d'accueil";
+$langHome="Retourner à la page d'accueil";
 $langCode="Code du cours";
 $langDelCourse="Supprimer ce cours";
-$langProfessor="Titulaire";
-$langProfessors="Titulaires";
+$langProfessor="Gestionnaire de cours";
+$langProfessors="Gestionnaire(s) de cours";
 $langCourseTitle="Titre du cours";
 $langFaculty="Faculté";
 $langDescription="Description";
@@ -118,7 +118,7 @@ $langCsvPutIntoDocTool="Le fichier 'users.csv' a été placé dans l'outil Document
 $langSearchCours	= "Revenir sur les informations du cours";
 $langManage			= "Gestion du campus";
 
-$langAreYouSureToDelete ="Êtes vous sûr de vouloir supprimer ";
+$langAreYouSureToDelete ="Êtes-vous sûr de vouloir supprimer ";
 $langBackToAdminPage = "Retour à la page d'administration";
 $langToCourseSettings = "Retour aux propriétés du cours";
 $langSeeCourseUsers = "Voir les utilisateurs du cours";

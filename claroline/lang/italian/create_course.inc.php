@@ -92,7 +92,6 @@ $langLinks="Collegamenti";
 $langDoc="Documenti";
 $langVideo="Video";
 $langWorks="Contributi";
-$langCourseProgram="Programma";
 $langAnnouncements="Annunci";
 $langUsers="Utenti";
 $langForums="Forum";

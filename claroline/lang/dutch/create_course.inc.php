@@ -81,7 +81,6 @@ $langLinks="Links";
 $langDoc="Documenten";
 $langVideo="Video";
 $langWorks="Studenten Box";
-$langCourseProgram="Takenprogramma";
 $langAnnouncements="Ad Valvas";
 $langUsers="Gebruikers";
 $langForums="Forums";

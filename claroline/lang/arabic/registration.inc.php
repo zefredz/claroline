@@ -47,7 +47,7 @@ $langAddress="L'adresse de";
 $langIs="est";
 $langProblem="En cas de problème, n'hésitez pas à prendre contact avec nous";
 $langFormula="Cordialement";
-$langManager="Responsable";
+$langManager="Gestionnaire";
 $langPersonalSettings="Vos coordonnées personnelles ont été enregistrées et un email vous a été envoyé
 pour vous rappeler votre nom d'utilisateur et votre mot de passe.</p>
 Sélectionnez maintenant dans la liste les cours auxquels vous souhaitez avoir accès.";

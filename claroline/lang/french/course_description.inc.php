@@ -9,7 +9,7 @@
 $langCourseProgram = "Description du cours";
 $langThisCourseDescriptionIsEmpty = "La description de ce cours est vide";
 $langEditCourseProgram = "Créer et éditer à l'aide des formulaires une description de cours";
-$langQuestionPlan = "Question de planification <BR>pour le professeur";
+$langQuestionPlan = "Question de planification <BR>pour le gestionnaire de cours";
 $langInfo2Say = "Informations à communiquer <BR>à l'étudiant";
 $langOuAutreTitre = "Titre";
 $langContenuPlan = "";

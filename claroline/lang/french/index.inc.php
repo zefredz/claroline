@@ -31,7 +31,7 @@ $langCourseCreate="Créer un site de cours";
 $langWelcome="sites sont en libre accès ci-dessous. Les autres cours existants
 nécessitent un nom d'utilisateur et un mot de passe que l'on peut
 obtenir en cliquant sur la mention 'inscription'. Il est possible aux
-professeurs et assistants de créer un nouveau cours en cliquant sur la
+gestionnaires et assistants de créer un nouveau cours en cliquant sur la
 mention 'inscription'.";
 $langUserName="Nom d'utilisateur";
 $langPass="Mot de passe";

@@ -77,7 +77,7 @@
    $langPathsInCourseProg = "Progression dans le cours";
 
    // confirm
-   $langAreYouSureToDelete = "Etes-vous sûr de vouloir effacer "; // JCC 
+   $langAreYouSureToDelete = "Êtes-vous sûr de vouloir supprimer "; // JCC 
    $langModuleStillInPool = "Les modules de ce parcours seront toujours accessibles dans la banque de modules";
    $langAreYouSureToRemove = "Etes-vous sûr de vouloir retirer ce module du parcours pédagogique : "; // JCC 
    $langAreYouSureToRemoveSCORM = "Les modules conformes à SCORM sont définitivement effacés du serveur lorsqu'ils sont effacés dans un parcours pédagogique."; // JCC

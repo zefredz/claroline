@@ -77,7 +77,6 @@ $langLinks="リンク";
 $langDoc="文書";
 $langVideo="ヴィデオ";
 $langWorks="学生作成文書";
-$langCourseProgram="コースプログラム";
 $langAnnouncements="お知らせ";
 $langUsers="ユーザ";
 $langForums="会議室";

@@ -93,7 +93,6 @@ $langLinks         = "Liga&ccedil;&otilde;es";
 $langDoc           = "Documentos";
 $langVideo         = "V&iacute;deo";
 $langWorks         = "Trabalhos";
-$langCourseProgram = "Caderno de actividades";
 $langAnnouncements = "An&uacute;ncios";
 $langUsers         = "Utilizadores";
 $langForums        = "Foros";
