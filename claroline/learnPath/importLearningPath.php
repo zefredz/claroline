@@ -2,7 +2,7 @@
 
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version 1.3.2 $Revision$                            |
+  | CLAROLINE version 1.5.*                          |
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
@@ -794,7 +794,10 @@ function utf8_decode_if_is_utf8($str) {
          {
               // PHP extraction of zip file using zlib
               chdir($baseWorkDir);
-              $unzippingSate = $zipFile->extract(PCLZIP_OPT_PATH, '',PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
+              // PCLZIP_OPT_PATH is the path where files will be extracted ( '' )
+              // PLZIP_OPT_REMOVE_PATH suppress a part of the path of the file ( $pathToManifest )
+              // the result is that the manifest is in th eroot of the path_# directory and all files will have a path related to the root
+              $unzippingState = $zipFile->extract(PCLZIP_OPT_PATH, '',PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
 
               // insert informations in DB :
               //        - 1 learning path ( already added because we needed its id to create the package directory )
@@ -1153,7 +1156,7 @@ function utf8_decode_if_is_utf8($str) {
         if (strstr($php_uploadMaxFile, 'M')) $php_uploadMaxFile = intval($php_uploadMaxFile) * 1048576;
         $php_postMaxFile  = ini_get('post_max_size');
         if (strstr($php_postMaxFile, 'M')) $php_postMaxFile     = intval($php_postMaxFile) * 1048576;
-        $docRepSpaceAvailable  = $maxFilledSpace - dir_total_space($baseWorkDir);
+        $docRepSpaceAvailable  = $maxFilledSpace - dir_total_space($coursesRepositorySys.$courseDir);
 
         $fileSizeLimitList = array( $php_uploadMaxFile, $php_postMaxFile , $docRepSpaceAvailable );
         sort($fileSizeLimitList);
