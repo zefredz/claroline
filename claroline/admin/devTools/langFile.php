@@ -37,7 +37,7 @@ if ($is_allowedToEdit)
 	claro_disp_msg_arr($controlMsg);
 */
 	$nomOutil  = $siteName;
-	$nomPage = $langNomPageCheckLAng;
+	$nomPage = "Check Lang";
 	$llangDir = "../../lang/";
 	$resOfScan = list_dir($llangDir);
 	$llanguuesDispo = $resOfScan["langues"];
