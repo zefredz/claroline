@@ -29,6 +29,7 @@ if(!defined('ALLOWED_TO_INCLUDE'))
 }
 
 include ($includePath.'/lib/fileUpload.lib.php');
+include ($includePath.'/lib/fileDisplay.lib.php');
 
 // the question form has been submitted
 if($submitQuestion)
@@ -213,15 +214,16 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
   <td><textarea wrap="virtual" name="questionDescription" id="questionDescription" cols="50" rows="4" style="width:400px;"><?php echo htmlentities($questionDescription); ?></textarea></td>
 </tr>
 <tr>
-  <td><label for="fileUpload"><?php echo $okAttachedFile?$langReplaceAttachedFile:$langAttachFile; ?> :</label></td>
-  <td><input type="file" name="fileUpload" id="fileUpload" size="30" style="width:390px;">
+  <td valign="top"><label for="fileUpload"><?php echo $okAttachedFile?$langReplaceAttachedFile:$langAttachFile; ?> :</label></td>
+  <td><input type="file" name="fileUpload" id="fileUpload" size="30" style="width:390px;"><br />
+  <small><?php echo $langMaxFileSize; ?> <?php echo format_file_size( get_max_upload_size(100000000,$attachedFilePathSys) ); ?></small>
 
 <?php
 	if($okAttachedFile)
 	{
 ?>
 
-	<br><input type="checkbox" name="deleteAttachedFile" id="deleteAttachedFile" value="1" <?php if($deleteAttachedFile) echo 'checked="checked"'; ?>> <label for="deleteAttachedFile"><?php echo $langDeleteAttachedFile; ?></label>
+	<br /><input type="checkbox" name="deleteAttachedFile" id="deleteAttachedFile" value="1" <?php if($deleteAttachedFile) echo 'checked="checked"'; ?>> <label for="deleteAttachedFile"><?php echo $langDeleteAttachedFile; ?></label>
 
 <?php
 	}
