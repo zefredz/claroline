@@ -170,17 +170,19 @@ if($_REQUEST['fromPanel'] == DISP_ADMIN_SETTING || $_REQUEST['cmdDoInstall'])
 		// here add some check  on email, password crackability, ...
 		
 		// check if table don't already exist witha a user table and this user in.
-		$db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
-		if ($db)
+		$dbcu = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
+		if ($dbcu)
 		{
 			$sql = 'select username, nom lastname, prenom firstname  from `'.$dbNameForm.'`.`user` where username = "'.$loginForm.'"';
-			$res = @mysql_query($sql,$db);
-			if(mysql_errno()>0)
+			$res = @mysql_query($sql,$dbcu);
+			if(mysql_errno($dbcu)>0)
 			{
 				// No problem
 			}
 			else
 			$controlUser = mysql_num_rows($res);
+			
+			
 			if ($controlUser>0)
 			{
 				$msg_admin_exist = '
@@ -207,6 +209,8 @@ if($_REQUEST['fromPanel'] == DISP_ADMIN_SETTING || $_REQUEST['cmdDoInstall'])
 				$canRunCmd = false;
 			}
 		}
+		mysql_close($dbcu);
+		
 	}
 }
 
