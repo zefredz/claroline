@@ -103,9 +103,9 @@ echo	"</td>".
   ===================================================*/
 
 // handle parameters
-$titre = claro_strip_tags( trim ($_POST['titre'] ) );
-$auteurs = claro_strip_tags( trim ($_POST['auteurs'] ) );
-$description = claro_strip_tags( trim ($_POST['description'] ) );
+$titre = strip_tags( trim ($_POST['titre'] ) );
+$auteurs = strip_tags( trim ($_POST['auteurs'] ) );
+$description = strip_tags( trim ($_POST['description'] ) );
 
 if ($is_allowedToEdit)
 {
