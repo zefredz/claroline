@@ -111,7 +111,17 @@ if($submit)
     $time      = date('Y-m-d H:i');
     
     // prevent to go further if the fields are actually empty
-    if( strip_tags($message) == '' || $subject == '' ) error_die($l_emptymsg);
+    if( strip_tags($message) == '' || $subject == '' ) 
+	{
+		error_die(
+				$l_emptymsg
+				."<br />\n<a href=\"newtopic.php?"
+				."forum=".$_REQUEST['forum']
+				."&amp;gidReq=".$_REQUEST['gidReq']
+				."&amp;subject=".urlencode($_REQUEST['subject'])
+				."&amp;message=".urlencode($_REQUEST['message'])
+				."\">".$langBack."</a>");
+	}
 
     /*------------------------------------------------------------------------
                             RECORD THE DATA
@@ -156,7 +166,7 @@ else
 <tr valign="top">
 
 <td align="right"><label for="subject"><?php echo $l_subject?></label> :</td>
-<td><input type="text" name="subject" id="subject" size="50" maxlength="100"></td>
+<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="<?php echo $_REQUEST['subject']; ?>"/></td>
 
 </tr>
 
@@ -168,7 +178,14 @@ else
 </td>
 
 <td>
-<?php claro_disp_html_area('message'); ?>
+<?php
+	if( isset($_REQUEST['message']) )
+	    $content = urldecode($_REQUEST['message']);
+	else
+	    $content= "";
+	    
+	claro_disp_html_area('message',$content);
+?>
 </td>
 
 </tr>
