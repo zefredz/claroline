@@ -121,6 +121,8 @@ Repéré par : MOOSH
 claroline/admin/adminaddnewuser.php?register=yes
 "Les nouveaux utilisateurs recevrons un email avec leur nom d'utilisateur et mot de passe"
 
+claroline/admin/adminusercourses.php?uidToEdit=3&cfrom=ulist
+"bouton retour à l'utilisateur en français" :  faute
 
 ------------------------------------------------------------------
 17. outils de travaux.  
@@ -128,6 +130,9 @@ claroline/admin/adminaddnewuser.php?register=yes
 
 -------------
 $Log$
+Revision 1.24  2004/06/14 15:32:01  moosh
+faute langue
+
 Revision 1.23  2004/06/14 15:28:11  moosh
 bug 17
 
