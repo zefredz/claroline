@@ -367,8 +367,9 @@ if( $showExerciseForm || $is_courseAdmin )
     </td>
   </tr>
   <tr>
-    <td align="center"><br><input type="submit" name="buttonCancel" value="<?php echo $langCancel; ?>">
-    &nbsp;&nbsp;<input type="submit" value="<?php echo ($exerciseType == 1 || $nbrQuestions == $questionNum)?$langOk:$langNext.' &gt;'; ?>"></td>
+    <td align="center"><br />
+    <input type="submit" value="<?php echo ($exerciseType == 1 || $nbrQuestions == $questionNum)?$langOk:$langNext.' &gt;'; ?>">
+	</td>
   </tr>
   </form>
   </table>
