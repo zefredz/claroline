@@ -20,7 +20,6 @@
  */
 
 // Debug 
-
 $verboseBackup = 0;
 $message = "";
 
@@ -41,7 +40,6 @@ if(extension_loaded('zlib'))
 include($includePath."/lib/fileManage.lib.php");
 
 // Courses variables
-
 $currentCourseId		= $_course["sysCode"];
 $currentCourseDbName 	= $_course["dbName"];
 $currentCourseDbNameGlu = $_course["dbNameGlu"];
@@ -74,6 +72,10 @@ $coursePath        = $coursesRepositorySys.$currentCoursePath.'/';
 $archiveName       = "archive." . $currentCourseId.'.'. date("Ymd-Hi") . ".zip";
 $archiveLocation   = str_replace($currentCoursePath.'/','',$archivePath);
 
+// User is allowed ?
+
+$isAllowedToBackUp = $is_courseAdmin;
+if (!$isAllowedToBackUp) claro_disp_auth_form();
 // Display header
 
 $interbredcrump[]=array("url" => "infocours.php","name" => $langCourseSettings);
@@ -83,10 +85,15 @@ include($includePath."/claro_init_header.inc.php");
 
 claro_disp_tool_title(array('mainTitle'=>$langArchiveCourse,'subTitle'=>'&quot;'.$currentCourseName.'&quot;'));
 
-// User is allowed ?
+// Display header
 
-$isAllowedToBackUp = $is_courseAdmin;
-if (!$isAllowedToBackUp) claro_disp_auth_form();
+$interbredcrump[]=array("url" => "infocours.php","name" => $langCourseSettings);
+include($includePath."/claro_init_header.inc.php");
+
+// Display tool title
+
+claro_disp_tool_title(array('mainTitle'=>$langArchiveCourse,'subTitle'=>'&quot;'.$currentCourseName.'&quot;'));
+
 
 if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if confirmed
 {
@@ -110,13 +117,25 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
     $courseDirSize=DirSize($coursePath);
     $courseDirSize=($courseDirSize >= 1048576) ? round($courseDirSize/(1024*1024),2)." Mb" : round($courseDirSize/1024,2)." Kb";
 
-    echo "<hr noshade=\"noshade\" size=\"1\">\n" .
-         "<p>" .
-         "<u>" . $langArchiveName . "</u>: " . $archiveName .  "<br >\n" .
-         "<u>" . $langArchiveLocation . "</u>: " .  $archiveLocation . "<br >\n" . 
-         "<u>" . $langSizeOf . " " . $currentCourseName . "</u>: " . $courseDirSize . "<br >\n" .
-         "</p>\n" .
-         "<hr noshade=\"noshade\" size=\"1\">\n";
+    $output = '<hr noshade="noshade" size="1">'."\n" 
+            . '<p>'
+            . '<u>' 
+            . $langArchiveName 
+            . '</u>: ' 
+            . $archiveName 
+            .  '<br >'."\n" 
+            . '<u>' 
+            . $langArchiveLocation 
+            . '</u>: ' 
+            .  $archiveLocation 
+            . '<br >'."\n" 
+            . '<u>' 
+            . $langSizeOf . ' ' 
+            . $currentCourseName . '</u> : ' 
+            . $courseDirSize . '<br >'."\n" 
+            . '</p>'."\n" 
+            . '<hr noshade="noshade" size="1">'."\n"
+            ;
 
     // ********************************************************************
     // build config file
@@ -142,48 +161,53 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
     ");
 
 	// Begin list of works
-
-	echo "<h3>" . $langCreateDirectory . "</h3>";
-	echo "<ol>";
+    $output.= '<h3>' . $langCreateDirectory . '</h3>';
+	       .  '<ol>'
+           ;
 
     // Create folder for Course Database in archive folder
  
 	if(!is_dir($dirCourseBase))
 	{
-		echo "<li>" . $langCreateMissingDirectories . ": " . $dirCourseBase;
+		$output.='<li>' . $langCreateMissingDirectories . ': ' . $dirCourseBase;
 		mkpath($dirCourseBase,$verboseBackup);
-		echo "</li>\n";
+		$output.='</li>'."\n";
 	}
 
     // Create folder for Main Database in archive folder
 
 	if(!is_dir($dirMainBase))
 	{
-		echo "<li>" . $langCreateMissingDirectories . ": " . $dirMainBase;
+		$output.='<li>' . $langCreateMissingDirectories . ': ' . $dirMainBase;
 		mkpath($dirMainBase,$verboseBackup);
-		echo "</li>\n";
+		$output.='</li>'."\n";
 	}
 
     // Create folder for Html 
 
 	if(!is_dir($dirHtml))
 	{
-		echo "<li>" . $langCreateMissingDirectories . ": " . $dirHtml;
+		$output.='<li>' . $langCreateMissingDirectories . ': ' . $dirHtml;
 		mkpath($dirHtml,$verboseBackup);
-		echo "</li>\n";
+		$output.='</li>'."\n";
 	}
 
-    echo "</ol>\n";
+    $output.='</ol>'."\n";
 
 // ********************************************************************
 //  copy datas of "cours" table from the main database
 // ********************************************************************
 
-	echo "<h3>" . $langBackupCourseInformation . "</h3>\n";
-
-	echo "<ol>\n";
-
-	echo "<li>" . $langBUCourseDataOfMainBase . "  " . $currentCourseCode . "</li>\n";
+	$output.= '<h3>' 
+           .  $langBackupCourseInformation 
+           .  '</h3>'."\n"
+           .  '<ol>'."\n"
+           .  '<li>' 
+           . $langBUCourseDataOfMainBase 
+           . '  ' 
+           . $currentCourseCode 
+           . '</li>'."\n"
+           ;
 
 	$sqlInsertCourse= "INSERT INTO `" . $TABLECOURS . "` SET ";
 
@@ -219,7 +243,10 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 
     if ($verboseBackup)
     {
-	    echo "<p style='color: green'>" . $sqlInsertCourse . "</p>\n";
+	    $output.='<p style="color: green">' 
+               . $sqlInsertCourse 
+               . '</p>'."\n"
+               ;
     }
 
     // save in courseFile
@@ -232,7 +259,12 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 //  copy info about users
 // ********************************************************************
 
-	echo "<li>" . $langBUUsersInMainBase . " " . $currentCourseCode . "</li>\n";
+	$output.='<li>' 
+           .  $langBUUsersInMainBase 
+           . ' ' 
+           . $currentCourseCode 
+           . '</li>'."\n"
+           ;
 
 	// Select user of the course
 
@@ -273,7 +305,10 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 
     if ($verboseBackup) 
     {
-    	echo "<p style='color: green'>" . claro_parse_user_text($csvInsertUsers). "<p>\n";
+    	$output.= '<p style="color: green">' 
+               .  claro_parse_user_text($csvInsertUsers)
+               . '<p>'."\n"
+               ;
     }
 
     // add to config
@@ -295,7 +330,8 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 //  copy course's files
 // ********************************************************************
 
-	echo "<li>" . $langCopyDirectoryCourse ;
+	$output.='<li>' 
+           . $langCopyDirectoryCourse ;
 
     // copy course's files
 
@@ -303,11 +339,13 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 
 	if($verboseBackup)
 	{
-		echo "<p style='color: green'>copyDirTo($coursePath, $dirHtml) </p> " ;
+		$output.= '<p style="color: green">'
+               .  copyDirTo($coursePath, $dirHtml)
+               .  ' </p> ' ;
 	}
     else 
     {
-        echo "</li>\n";
+        echo '</li>'."\n";
     }
 
 	$stringConfig .= "\n".
@@ -318,9 +356,14 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 //  copy course database
 // ********************************************************************
 
-	echo "<li>" . $langBackupOfDataBase . " " . $currentCourseDbName . " (SQL)";
+	$output.='<li>' 
+           . $langBackupOfDataBase 
+           . ' ' 
+           . $currentCourseDbName 
+           . ' (SQL)'
+           ;
 
-    backupDatabase($currentCourseDbName, true, true, 'SQL', $dirCourseBase, true, $verboseBackup);
+    backupDatabase($currentCourseDbName, TRUE, TRUE, 'SQL', $dirCourseBase, TRUE, $verboseBackup);
 
 // ********************************************************************
 //  compress the archive
@@ -330,9 +373,12 @@ if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if 
 	fwrite($fdesc,$stringConfig);
 	fclose($fdesc);
 
-	echo "</li>\n" . 
-         "<li>" . $langBuildTheCompressedFile . "</li>\n" . 
-         "</ol>\n";
+	$output.='</li>'."\n" 
+           . '<li>' 
+           . $langBuildTheCompressedFile 
+           . '</li>'."\n" 
+           . '</ol>'."\n"
+           ;
 
 
 	if(extension_loaded('zlib'))
@@ -363,8 +409,27 @@ if ($message)
 {
    claro_disp_message_box($message);
 }
+echo $output;
+include($includePath."/claro_init_footer.inc.php");
 
-@include($includePath."/claro_init_footer.inc.php");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // *******************************
 // * FUNCTIONS					
