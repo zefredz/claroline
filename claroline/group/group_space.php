@@ -28,13 +28,16 @@ if (!$_gid || (!$is_groupAllowed & !($HTTP_GET_VARS['selfReg'] ) ))
 $nameTools        = $langGroupSpace;
 $interbredcrump[] = array ('url'=>'group.php', 'name'=> $langGroups);
 
+// use viewMode
+claro_set_display_mode_available(true);
+
 /*============================================================================
                                CONNECTION SECTION
   ============================================================================*/
 
 $is_courseMember     = $is_courseMember;
 $is_groupMember      = $is_groupMember;
-$is_allowedToManage  = $is_courseAdmin;
+$is_allowedToManage  = claro_is_allowed_to_edit(); 
 /*
  * DB tables definition
  */

@@ -46,6 +46,9 @@ function confirmationDelete ()
 };
 </script>";
 
+// use viewMode
+claro_set_display_mode_available(true);
+
 /*
  * DB TABLE NAMES INIT
  */
@@ -66,7 +69,7 @@ $tbl_Forums                 = $tbl_cdb_names['bb_forums'          ];
 
 $currentCourseRepository    = $_course['path'     ];
 $currentCourseId            = $_course['sysCode'  ];
-$is_allowedToManage         = $is_courseAdmin;
+$is_allowedToManage         = claro_is_allowed_to_edit();
 //$garbageRepositorySys     = $clarolineRepositorySys."garbage/";
 $isGroupRegAllowed          = $_groupProperties ['registrationAllowed']
 							  && (
