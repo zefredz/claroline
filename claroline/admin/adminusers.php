@@ -512,7 +512,7 @@ foreach($userList as $list)
 if (!$atLeastOne)
 {
    echo '<tr>
-          <td colspan="9" align="center">
+          <td colspan="10" align="center">
             '.$langNoUserResult.'<br>
             <a href="advancedUserSearch.php'.$addtoAdvanced.'">'.$langSearchAgain.'</a>
           </td>
