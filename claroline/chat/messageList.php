@@ -1,6 +1,5 @@
 <?php // $Id$
 
-
 //  THIS SCRIPT  CHAT SIMPLY WORKS WITH A FLAT FILE WHERE LINES ARE APPENDED. 
 //  SIMPLE USER CAN  JUST  WRITE LINES. CHAT MANAGER CAN RESET AND STORE THE 
 //  CHAT IF $CHATFORGROUP IS TRUE,  THE FILE  IS RESERVED BECAUSE ALWAYS FORMED 
@@ -148,7 +147,7 @@ if ($reset && $is_allowedToReset)
 if ($store && $is_allowedToStore)
 {
     $chatDate = 'chat.'.date('Y-m-j').'_';
-
+ 
     // TRY DO DETERMINE A FILE NAME THAT DOESN'T ALREADY EXISTS 
     // IN THE DIRECTORY WHERE THE CHAT EXPORT WILL BE STORED
 
@@ -160,7 +159,7 @@ if ($store && $is_allowedToStore)
     // COMPLETE THE ON FLY BUFFER FILE WITH THE LAST LINES DISPLAYED 
     // BEFORE PROCEED TO COMPLETE FILE STORAGE
 
-    buffer( implode('', file($activeChatFile) )."<body>\n</html>\n",
+    buffer( implode('', file($activeChatFile) )."</body>\n</html>\n",
             $onflySaveFile);
 
 	if (copy($onflySaveFile, $exportFile.$saveIn) )
@@ -280,8 +279,8 @@ function buffer($content, $tmpFile)
 {
 	if ( ! file_exists($tmpFile) )
 	{
-        $content = "<body>\n"
-                  ."<html>\n"
+        $content = "<html>\n"
+                  ."<body>\n"
                   .$content;
     }
 
