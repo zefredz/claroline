@@ -288,7 +288,6 @@ if ($is_allowedToEdit)
 <option value="<?php echo $hours ?>">
 [<?php echo $hours ?>]
 </option>
-<option value="--">--</option>
 <option value="00">00</option>
 <option value="01">01</option>
 <option value="02">02</option>
@@ -320,7 +319,6 @@ if ($is_allowedToEdit)
 
 <select name="fminute" id="fminute">
 <option value="<?php echo $minutes ?>">[<?php echo $minutes ?>]</option>
-<option value="--">--</option>
 <option value="00">00</option>
 <option value="05">05</option>
 <option value="10">10</option>
