@@ -30,7 +30,8 @@ function replace_dangerous_char($string, $strict = 'loose')
 	$search[] = ' ';  $replace[] = '_';
 	$search[] = '/';  $replace[] = '-';
 	$search[] = '\\'; $replace[] = '-';
-	$search[] = '"';  $replace[] = '\'';
+	$search[] = '"';  $replace[] = '-';
+	$search[] = '\'';  $replace[] = '_';
 	$search[] = '?';  $replace[] = '-';
 	$search[] = '*';  $replace[] = '-';
 	$search[] = '>';  $replace[] = '';
