@@ -97,16 +97,20 @@ else
 		('".$_REQUEST["edIdBloc"]."');";
 		}
 		claro_sql_query($sql);
-		if ($edTitleBloc=="")
+		if (isset($_REQUEST['edTitleBloc']))
 		{
 			$edTitleBloc = $titreBloc[$edIdBloc];
-		};
+		}
+		else
+		{
+			$edTitleBloc = claro_addslashes($_REQUEST['edTitleBloc']);
+		}
 		$sql ="
 		Update 
 		`".$TABLECOURSEDESCRIPTION."` 
 		SET
 		`title`= '".trim($edTitleBloc)."',
-		`content` ='".trim($edContentBloc)."',
+		`content` ='".trim(claro_addslashes($_REQUEST['edContentBloc']))."',
 		`upDate` = NOW() 
 		WHERE id = '".$_REQUEST["edIdBloc"]."';";
 		claro_sql_query($sql);
