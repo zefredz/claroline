@@ -261,10 +261,11 @@ function elementData($parser,$data)
                   // get title of package if it was not find in the manifest metadata in the default organization
                   if ( $elementsPile[sizeof($elementsPile)-2]  == "ORGANIZATION" && $flagTag['type'] == "organization" && $flagTag['value'] == $manifestData['defaultOrganization'])
                   {
-                       if( !isset($manifestData['packageTitle']) || $manifestData['packageTitle'] == '' )
-                       {
-                            $manifestData['packageTitle'] = $data;
-                       }
+                      // if we do not find this title
+                      //  - the metadata title has been set as package title
+                      //  - if there was nor title for metadata nor for default organization set 'unamed path'
+                      // If we are here it means we have found the title in organization, this is the best to chose
+                      $manifestData['packageTitle'] = $data;
                   }
 
 
