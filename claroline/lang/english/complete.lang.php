@@ -2198,4 +2198,7 @@ $langCampusRegistered = "<strong>Approved</strong><p>Your campus registration ha
 $langCampusRemoved = "<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>";
 $langCampusDeleted = "<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>";
 $langCountry = "Country";
+$langSiteName = "Site name";
+$langInstitution = "Institution";
+$langInstitutionUrl = "Institution URL";
 ?>

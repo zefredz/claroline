@@ -1849,4 +1849,7 @@ $langCampusRegistered = "<strong>Approuvée</strong><p>L'enregistrement de votre 
 $langCampusRemoved = "<strong>Masqué</strong><p>Votre campus n'est plus visible sur la page 'Worldwide' de Claroline.net</p>";
 $langCampusDeleted = "<strong>Supprimé</strong><p>Votre campus a été supprimé de la page 'Worldwide' de Claroline.net, contactez nous si vous pensez que c'est une erreur.</p>";
 $langCountry = "Pays";
+$langSiteName = "Nom du site";
+$langInstitution = "Institution";
+$langInstitutionUrl = "Url de l'institution";
 ?>
