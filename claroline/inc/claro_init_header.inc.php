@@ -69,7 +69,12 @@ if ($htmlHeadXtra)
 </head>
 <body bgcolor="white" dir="<?php echo $text_dir ?>">
 <?php
+
 //  Banner
-include($includePath."/claro_init_banner.inc.php");
+
+if (!isset($hide_banner) || $hide_banner == false) 
+{
+    include($includePath."/claro_init_banner.inc.php");
+}
 
 ?>
