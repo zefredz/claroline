@@ -1,0 +1,22 @@
+body 
+{
+	background: white;
+	font-size: 12pt;
+	color: black;
+}
+  
+a:link, a:visited 
+{
+	background: white; 
+	color: black; 
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+h1, h2, h3 
+{
+	background: white; 
+	color: black; 
+	padding-bottom: 1px;
+	border-bottom: 1px solid gray;
+}
