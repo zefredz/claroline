@@ -413,7 +413,8 @@ foreach ( $def_file_list as $def_file_bloc)
                 if ( write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$conf_file,realpath(__FILE__)) )
                 {
                     // calculate hash of the config file 
-                    $conf_hash = md5_file($conf_file);
+                    //$conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
+                    $conf_hash = filemtime($conf_file); 
                     save_config_hash_in_db($conf_file,$config_code,$conf_hash);
                 }               
             }                            

@@ -378,7 +378,8 @@ function is_conf_file_modified($config_code)
     if ( file_exists($conf_file) )
     {
         $hash = get_conf_hash($config_code);
-        if ( !empty($hash) && $hash != md5_file($conf_file) )
+        //if ( !empty($hash) && $hash != md5_file($conf_file) )
+        if ( !empty($hash) && $hash != filemtime($conf_file) )
         {
             // file is modified
             return TRUE;

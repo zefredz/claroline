@@ -183,7 +183,8 @@ else
                         if ( write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$conf_file,realpath(__FILE__)) )
                         {
                             // calculate hash of the config file 
-                            $conf_hash = md5_file($conf_file);
+                            //$conf_hash = md5_file($conf_file); // not in php 4.1
+                            $conf_hash = filemtime($conf_file);
                             if (save_config_hash_in_db($conf_file,$config_code,$conf_hash) )
                             {
                                 $controlMsg['info'][] =  sprintf($lang_p_PropForConfigCommited,$config_name,$config_code);
