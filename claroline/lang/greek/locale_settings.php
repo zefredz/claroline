@@ -15,9 +15,8 @@
       +----------------------------------------------------------------------+
  */
 $englishLangName = "greek";
-//$localLangName = "français";
 
-$iso639_1_code = "gr"; // shouild probably be 'el'
+$iso639_1_code = "el";
 $iso639_2_code = "gre";
 
 $charset = 'iso-8859-7';

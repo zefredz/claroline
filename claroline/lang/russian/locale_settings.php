@@ -1,20 +1,20 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.0 $Revision$                            |
-      +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      +----------------------------------------------------------------------+
-*/
-
-$englishLangName = "russian";
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+$englishLangName = "Russian";
 $localLangName = "русский";
 
-$iso639_2_code = "ru";
-$iso639_1_code = "rus";
+$iso639_1_code = "ru";
+$iso639_2_code = "rus";
 
 $langNameOfLang[arabic]		= "арабский";
 $langNameOfLang[brazilian]	= "бразильский";
