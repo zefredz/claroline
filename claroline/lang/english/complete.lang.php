@@ -1370,6 +1370,7 @@ $langPrivateOnly = "Private course only";
 $langProblem = "In case of problems, contact us.";
 $langProfessor = "Professor";
 $langProfessors = "Professor(s)";
+$langProfessorMessage = "Message from your professor";
 $langProfileReg = "Your new profile has been saved";
 $langProgInModuleTitle = "Your progression in this module";
 $langProgress = "Progress";

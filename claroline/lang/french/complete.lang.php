@@ -1309,6 +1309,7 @@ $langPrivateOnly = "Les cours privés uniquement";
 $langProblem = "En cas de problème, n'hésitez pas à prendre contact avec nous";
 $langProfessor = "Gestionnaire de cours";
 $langProfessors = "Gestionnaire(s) de cours";
+$langProfessorMessage = "Message de votre gestionnaire de cours";
 $langProfileReg = "Votre nouveau profil a été enregistré";
 $langProgInModuleTitle = "Votre progression dans ce module";
 $langProgress = "Progression";
