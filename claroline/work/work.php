@@ -17,22 +17,11 @@ $langFile = "work";
 $tlabelReq = "CLWRK___";
 require '../inc/claro_init_global.inc.php';
 
-$htmlHeadXtra[] =
-"<script>
-function confirmation (name)
-{
-	if (confirm(\" $langAreYouSureToDelete \"+ name + \" ? $langDeleteCaution \" ))
-		{return true;}
-	else
-		{return false;}
-}
-</script>";
-
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/conf/work.conf.inc.php');
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_wrk_session      = $tbl_cdb_names['wrk_session'      ];
+$tbl_wrk_assignment    = $tbl_cdb_names['wrk_assignment'  ];
 $tbl_wrk_submission   = $tbl_cdb_names['wrk_submission'   ];    
 
 
@@ -40,11 +29,6 @@ $currentUserFirstName       = $_user['firstName'];
 $currentUserLastName        = $_user['lastName'];
 
 
-$nameTools = $langWorks;
-// to prevent parameters to be added in the breadcrumb
-$QUERY_STRING=''; 
-
-include($includePath.'/claro_init_header.inc.php');
 //if (!$_cid) 	claro_disp_select_course();
 
 if ( ! $is_courseAllowed)
@@ -66,7 +50,7 @@ $currentCourseRepositorySys = $coursesRepositorySys.$_course["path"]."/";
 $currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course["path"]."/";
 
 $fileAllowedSize = CONFVAL_MAX_FILE_SIZE_PER_WORKS ;    //file size in bytes
-$wrkDir           = $currentCourseRepositorySys.'work/'; //directory path to create session dirs
+$wrkDir           = $currentCourseRepositorySys.'work/'; //directory path to create assignment dirs
 
 // use with strip_tags function when strip_tags is used to check if a text is empty
 // but a 'text' with only an image don't have to be considered as empty 
@@ -89,36 +73,35 @@ $cmd = $_REQUEST['cmd'];
   =============================================================================*/
 // execute this after a form has been send
 // this instruction bloc will set some vars that will be used in the corresponding queries
-if( isset($_REQUEST['submitSession']) ) 
+if( isset($_REQUEST['submitAssignment']) ) 
 {
     $formCorrectlySent = true;
     
     // title is a mandatory element     
     $title = trim( strip_tags($_REQUEST['sesTitle']) );
-    // session id is another one
-        
+            
     if( empty($title) )
     {
-      $dialogBox .= $langSessionTitleRequired."<br />";
+      $dialogBox .= $langAssignmentTitleRequired."<br />";
       $formCorrectlySent = false;
     }
     else
     {
       // check if title already exists
-      if( isset($_REQUEST['sesId']) )
+      if( isset($_REQUEST['assigId']) )
       {
-        // if sesId isset it means we are modifying a session
-        // and a session can have the same title as itself
+        // if assigId isset it means we are modifying an assignment
+        // and assignment can have the same title as itself
         $sql = "SELECT `title`
-                 FROM `".$tbl_wrk_session."`
+                 FROM `".$tbl_wrk_assignment."`
                 WHERE `title` = '".claro_addslashes($title)."'
-                  AND `id` != ".$_REQUEST['sesId'];
+                  AND `id` != ".$_REQUEST['assigId'];
       }
       else
       {
-        // creating a session
+        // creating an assignment
         $sql = "SELECT `title`
-                 FROM `".$tbl_wrk_session."`
+                 FROM `".$tbl_wrk_assignment."`
                 WHERE `title` = '".claro_addslashes($title)."'";
       }
       
@@ -126,7 +109,7 @@ if( isset($_REQUEST['submitSession']) )
       
       if(mysql_num_rows($query) != 0 )
       {
-        $dialogBox .= $langSesTitleAlreadyExists."<br />";
+        $dialogBox .= $langAssignmentTitleAlreadyExists."<br />";
         $formCorrectlySent = false;
       }
       else
@@ -184,7 +167,7 @@ if( isset($_REQUEST['submitSession']) )
                         .$_REQUEST['endMinute'].":00";
     }
     
-    // standard grading 
+    // standard feedback 
     // check if there is text in it 
     if( trim( strip_tags($_REQUEST['prefillText']), $allowedTags ) == "" ) 
     {
@@ -217,10 +200,10 @@ if( isset($_REQUEST['submitSession']) )
                 $prefillDocPath = uniqid('')."_".$newFileName;
                 
                 // if edit mode ...
-                if( isset($_REQUEST['sesId']) )
+                if( isset($_REQUEST['assigId']) )
                 {
-                    // if edit of a session we know its sesId so we don't have to use a tmp directory
-                    $tmpWorkUrl = "ws".$_REQUEST['sesId']."/".$prefillDocPath;
+                    // if edit of an assignment we know its assigId so we don't have to use a tmp directory
+                    $tmpWorkUrl = "assig_".$_REQUEST['assigId']."/".$prefillDocPath;
                     
                     if( ! @copy($_FILES['prefillDocPath']['tmp_name'], $wrkDir.$tmpWorkUrl) )
                     {
@@ -231,13 +214,13 @@ if( isset($_REQUEST['submitSession']) )
                     // remove the previous file if there was one
                     if( isset($_REQUEST['currentPrefillDocPath']) )
                     {
-                          @unlink($wrkDir."ws".$_REQUEST['sesId']."/".$_REQUEST['currentPrefillDocPath']);
+                          @unlink($wrkDir."assig_".$_REQUEST['assigId']."/".$_REQUEST['currentPrefillDocPath']);
                     }
                 }
                 else
                 {
                     // put the file in a tmp location, remove it from there at the end of the script
-                    // we don't know the session id yet so we cannot already put it in the right folder
+                    // we don't know the assignment id yet so we cannot already put it in the right folder
                     $tmpWorkUrl = "tmp/".$prefillDocPath;
                     
                     if( !is_dir( $wrkDir."tmp" ) )
@@ -256,16 +239,16 @@ if( isset($_REQUEST['submitSession']) )
                 // $formCorrectlySent stay true;
           }
     }
-    elseif( isset($_REQUEST['currentPrefillDocPath']) && !isset($_REQUEST['delGradingFile']) )
+    elseif( isset($_REQUEST['currentPrefillDocPath']) && !isset($_REQUEST['delFeedbackFile']) )
     {
       // reuse the old file as none has been uploaded and no delete was asked
       $prefillDocPath = $_REQUEST['currentPrefillDocPath'];
     }
-    elseif( isset($_REQUEST['currentPrefillDocPath']) && isset($_REQUEST['delGradingFile']) )
+    elseif( isset($_REQUEST['currentPrefillDocPath']) && isset($_REQUEST['delFeedbackFile']) )
     {
       // delete hte file was requested
       $prefillDocPath = ""; // empty DB field
-      @unlink($wrkDir."ws".$_REQUEST['sesId']."/".$_REQUEST['currentPrefillDocPath']); // physically remove the file
+      @unlink($wrkDir."assig_".$_REQUEST['assigId']."/".$_REQUEST['currentPrefillDocPath']); // physically remove the file
     }
     else
     {
@@ -278,7 +261,7 @@ if( isset($_REQUEST['submitSession']) )
                         .$_REQUEST['prefillHour'].":"
                         .$_REQUEST['prefillMinute'].":00";
 
-} // if( isset($_REQUEST['submitSession']) ) // handling form data 
+} // if( isset($_REQUEST['submitAssignment']) ) // handling form data 
 
 
 
@@ -289,62 +272,62 @@ if($is_allowedToEdit)
                         CHANGE VISIBILITY
   --------------------------------------------------------------------*/
 
-  // change visibility of a work session
+  // change visibility of an assignment
   if( $cmd == 'exChVis' )
   {
     if( isset($_REQUEST['vis']) )
     {
       $_REQUEST['vis'] == "v" ? $visibility = 'VISIBLE' : $visibility = 'INVISIBLE';
       
-      $sql = "UPDATE `".$tbl_wrk_session."`
-                 SET `sess_visibility` = '$visibility'
-               WHERE `id` = ".$_REQUEST['sesId']."
-                 AND `sess_visibility` != '$visibility'";
+      $sql = "UPDATE `".$tbl_wrk_assignment."`
+                 SET `visibility` = '$visibility'
+               WHERE `id` = ".$_REQUEST['assigId']."
+                 AND `visibility` != '$visibility'";
       claro_sql_query ($sql);
       
     }
   }
 
   /*--------------------------------------------------------------------
-                        DELETE A SESSION
+                        DELETE AN ASSIGNMENT
   --------------------------------------------------------------------*/
 
-  // delete/remove a work session
+  // delete/remove an assignment
   if( $cmd == 'exRmSes' )
   {
-    // delete all works in this session if the delete of the files worked
-    if( my_delete($wrkDir."ws".$_REQUEST['sesId']) )
+    // delete all works in this assignment if the delete of the files worked
+    if( my_delete($wrkDir."assig_".$_REQUEST['assigId']) )
     {
       $sql = "DELETE FROM `".$tbl_wrk_submission."`
-              WHERE `session_id` = ".$_REQUEST['sesId'];
+              WHERE `assignment_id` = ".$_REQUEST['assigId'];
       claro_sql_query($sql);
     }    
     
-    $sql = "DELETE FROM `".$tbl_wrk_session."`
-            WHERE `id` = ".$_REQUEST['sesId'];
+    $sql = "DELETE FROM `".$tbl_wrk_assignment."`
+            WHERE `id` = ".$_REQUEST['assigId'];
 
     claro_sql_query($sql);
     
-    $dialogBox .= $langSessionDeleted;
+    $dialogBox .= $langAssignmentDeleted;
     
   }
   
   /*--------------------------------------------------------------------
-                        MODIFY A SESSION
+                        MODIFY An ASSIGNMENT
   --------------------------------------------------------------------*/
   /*-----------------------------------
       STEP 2 : check & query
   -------------------------------------*/
-  // edit a work session / form has been sent
+  // edit an assignment / form has been sent
   if( $cmd == 'exEditSes' )
   {
     // form data have been handled before this point if the form was sent
-    if( isset($_REQUEST['sesId']) && $formCorrectlySent )
+    if( isset($_REQUEST['assigId']) && $formCorrectlySent )
     {
-          $sql = "UPDATE `".$tbl_wrk_session."`
+          $sql = "UPDATE `".$tbl_wrk_assignment."`
                   SET `title` = \"".$title."\",
                       `description` = \"".$sesDesc."\", 
-                      `session_type` = \"".$_REQUEST['sessionType']."\", 
+                      `assignment_type` = \"".$_REQUEST['assignmentType']."\", 
                       `authorized_content` = \"".$authorizedContent."\",  
                       `authorize_anonymous` = \"".$_REQUEST['allowAnonymous']."\",
                       `start_date` = \"".$composedStartDate."\", 
@@ -354,9 +337,9 @@ if($is_allowedToEdit)
                       `prefill_text` = \"".$prefillText."\",
                       `prefill_doc_path` = \"".$prefillDocPath."\",
                       `prefill_date` = \"".$composedPrefillDate."\"
-                  WHERE `id` = ".$_REQUEST['sesId'];
+                  WHERE `id` = ".$_REQUEST['assigId'];
           claro_sql_query($sql);
-          $dialogBox .= $langSessionEdited;
+          $dialogBox .= $langAssignmentEdited;
     } 
     else
     {
@@ -366,44 +349,44 @@ if($is_allowedToEdit)
   /*-----------------------------------
       STEP 1 : display form
   -------------------------------------*/
-  // edit a work session / display the form
+  // edit aassignment / display the form
   if( $cmd == 'rqEditSes' )
   {
     include($includePath."/lib/form.lib.php");
     
     // check if it was already sent
-    if( !isset($_REQUEST['submitSession'] ) )
+    if( !isset($_REQUEST['submitAssignment'] ) )
     {
         // get current settings to fill in the form
         $sql = "SELECT * 
-                FROM `".$tbl_wrk_session."`
-                WHERE `id` = ".$_REQUEST['sesId'];
-        list($modifiedSession) = claro_sql_query_fetch_all($sql);
+                FROM `".$tbl_wrk_assignment."`
+                WHERE `id` = ".$_REQUEST['assigId'];
+        list($modifiedAssignment) = claro_sql_query_fetch_all($sql);
         
     
         // set values to pre-fill the form
-        $form['sesTitle'          ] = $modifiedSession['title'];
-        $form['sesDesc'       ] = $modifiedSession['description'];
+        $form['sesTitle'          ] = $modifiedAssignment['title'];
+        $form['sesDesc'       ] = $modifiedAssignment['description'];
         
-        list($form['startDate'], $form['startTime']) = split(' ', $modifiedSession['start_date']);
-        list($form['endDate'], $form['endTime']) = split(' ', $modifiedSession['end_date']);
+        list($form['startDate'], $form['startTime']) = split(' ', $modifiedAssignment['start_date']);
+        list($form['endDate'], $form['endTime']) = split(' ', $modifiedAssignment['end_date']);
         
         // following if statements could have been writted in a shorter way but this way they are 
         // ready for a db change, or 
-        if( $modifiedSession['authorized_content'] == "TEXTFILE" )
+        if( $modifiedAssignment['authorized_content'] == "TEXTFILE" )
         {
           $form['authorizedContent' ] = "TEXTFILE";
         }
-        elseif( $modifiedSession['authorized_content'] == "TEXT" )
+        elseif( $modifiedAssignment['authorized_content'] == "TEXT" )
         {
           $form['authorizedContent' ] = "TEXT";
         }
-        elseif( $modifiedSession['authorized_content'] == "FILE" )
+        elseif( $modifiedAssignment['authorized_content'] == "FILE" )
         {
           $form['authorizedContent' ] = "FILE";
         }
         
-        if( $modifiedSession['def_submission_visibility'] == "VISIBLE" )
+        if( $modifiedAssignment['def_submission_visibility'] == "VISIBLE" )
         {
           $form['defSubVis'] = "VISIBLE";
         }
@@ -412,16 +395,16 @@ if($is_allowedToEdit)
           $form['defSubVis'] = "INVISIBLE";
         }
         
-        if( $modifiedSession['session_type'] == "INDIVIDUAL" )
+        if( $modifiedAssignment['assignment_type'] == "INDIVIDUAL" )
         {
-          $form['sessionType'] = "INDIVIDUAL";
+          $form['assignmentType'] = "INDIVIDUAL";
         }
         else
         {
-          $form['sessionType'] = "GROUP";
+          $form['assignmentType'] = "GROUP";
         }
         
-        if( $modifiedSession['authorize_anonymous'] == "YES" )
+        if( $modifiedAssignment['authorize_anonymous'] == "YES" )
         {
           $form['allowAnonymous'] = "YES";
         }
@@ -430,7 +413,7 @@ if($is_allowedToEdit)
           $form['allowAnonymous'] = "NO";
         }
         
-        if( $modifiedSession['allow_late_upload'] == "YES" )
+        if( $modifiedAssignment['allow_late_upload'] == "YES" )
         {
           $form['allowLateUpload'] = "YES";
         }
@@ -439,10 +422,10 @@ if($is_allowedToEdit)
           $form['allowLateUpload'] = "NO";
         }
         
-        // standard grading
-        $form['prefillText'       ] = $modifiedSession['prefill_text'];
-        $form['currentPrefillDocPath'] = $modifiedSession['prefill_doc_path'];
-        list($form['prefillDate'], $form['prefillTime']) = split(' ', $modifiedSession['prefill_date']);
+        // standard feedback
+        $form['prefillText'       ] = $modifiedAssignment['prefill_text'];
+        $form['currentPrefillDocPath'] = $modifiedAssignment['prefill_doc_path'];
+        list($form['prefillDate'], $form['prefillTime']) = split(' ', $modifiedAssignment['prefill_date']);
     }
     else
     {
@@ -455,7 +438,7 @@ if($is_allowedToEdit)
       $form['endDate'           ] = $_REQUEST['endYear']."-".$_REQUEST['endMonth']."-".$_REQUEST['endDay'];
       $form['endTime'           ] = $_REQUEST['endHour'].":".$_REQUEST['endMinute'].":00";
       $form['defSubVis'         ] = $_REQUEST['defSubVis'];
-      $form['sessionType'       ] = $_REQUEST['sessionType'];
+      $form['assignmentType'    ] = $_REQUEST['assignmentType'];
       $form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
       $form['allowLateUpload'   ] = $_REQUEST['allowLateUpload'];
       $form['prefillText'       ] = $_REQUEST['prefillText'];
@@ -470,42 +453,42 @@ if($is_allowedToEdit)
   }
   
   /*--------------------------------------------------------------------
-                        CREATE NEW SESSION
+                        CREATE NEW ASSIGNMENT
   --------------------------------------------------------------------*/
   
   /*-----------------------------------
       STEP 2 : check & query
   -------------------------------------*/
-  //--- create a work session / form has been sent
+  //--- create an assignment / form has been sent
   if( $cmd == 'exMkSes' )
   {
     // form data have been handled before this point if the form was sent
     if( $formCorrectlySent )
     {
-          $sql = "INSERT INTO `".$tbl_wrk_session."`
-                  ( `title`,`description`, `session_type`, 
+          $sql = "INSERT INTO `".$tbl_wrk_assignment."`
+                  ( `title`,`description`, `assignment_type`, 
                     `authorized_content`, `authorize_anonymous`,
                     `start_date`, `end_date`, 
                     `def_submission_visibility`, `allow_late_upload`,
                     `prefill_text`,`prefill_doc_path`,`prefill_date`)
                   VALUES
-                  ( \"".$title."\", \"".$sesDesc."\", \"".$_REQUEST['sessionType']."\",
+                  ( \"".$title."\", \"".$sesDesc."\", \"".$_REQUEST['assignmentType']."\",
                     \"".$authorizedContent."\", \"".$_REQUEST['allowAnonymous']."\",
                     \"".$composedStartDate."\", \"".$composedEndDate."\",
                     \"".$_REQUEST['defSubVis']."\", \"".$_REQUEST['allowLateUpload']."\",
                     \"".$prefillText."\", \"".$prefillDocPath."\", \"".$composedPrefillDate."\")";
     
-          // execute the creation query and return id of inserted session
-          $lastSesId = claro_sql_query_insert_id($sql);
+          // execute the creation query and return id of inserted assignment
+          $lastassigId = claro_sql_query_insert_id($sql);
           
-          // create the session directory if query was successfull and dir not already exists
-          $wrkSessDir = $wrkDir."ws".$lastSesId;
-          if( $lastSesId && !is_dir( $wrkSessDir ) )
+          // create the assignment directory if query was successfull and dir not already exists
+          $wrkSessDir = $wrkDir."assig_".$lastassigId;
+          if( $lastassigId && !is_dir( $wrkSessDir ) )
           {
             mkdir( $wrkSessDir , 0777 );
           }
           
-          // move the uploaded file from temporary folder to the work session folder
+          // move the uploaded file from temporary folder to the work assignment folder
           if( isset($prefillDocPath) && $prefillDocPath != "" )
           {
             if( ! @rename($wrkDir.$tmpWorkUrl, $wrkSessDir."/".$prefillDocPath) )
@@ -518,7 +501,7 @@ if($is_allowedToEdit)
           }
           
           // confirmation message
-          $dialogBox .= $langSessionAdded;
+          $dialogBox .= $langAssignmentAdded;
     }
     else
     {
@@ -529,12 +512,12 @@ if($is_allowedToEdit)
   /*-----------------------------------
       STEP 1 : display form
   -------------------------------------*/
-  //--- create a work session / display form
+  //--- create an assignment / display form
   if( $cmd == 'rqMkSes' )
   {
     include($includePath."/lib/form.lib.php");
     
-    if( !isset($_REQUEST['submitSession']) )
+    if( !isset($_REQUEST['submitAssignment']) )
     {
       // set default values to prefill the form if nothing was posted
       $form['sesTitle'             ] = "";
@@ -545,7 +528,7 @@ if($is_allowedToEdit)
       $form['endDate'           ] = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
       $form['endTime'           ] = date("H:i:00", mktime( date("H"),date("i"),0) );
       $form['defSubVis'         ] = "VISIBLE";
-      $form['sessionType'       ] = "INDIVIDUAL";
+      $form['assignmentType'    ] = "INDIVIDUAL";
       $form['allowAnonymous'    ] = "YES";
       $form['allowLateUpload' ] = "NO";
       $form['prefillText'       ] = "";
@@ -563,7 +546,7 @@ if($is_allowedToEdit)
       $form['endDate'           ] = $_REQUEST['endYear']."-".$_REQUEST['endMonth']."-".$_REQUEST['endDay'];
       $form['endTime'           ] = $_REQUEST['endHour'].":".$_REQUEST['endMinute'].":00";
       $form['defSubVis'         ] = $_REQUEST['defSubVis'];
-      $form['sessionType'       ] = $_REQUEST['sessionType'];
+      $form['assignmentType'    ] = $_REQUEST['assignmentType'];
       $form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
       $form['allowLateUpload'   ] = $_REQUEST['allowLateUpload'];
       $form['prefillText'       ] = $_REQUEST['prefillText'];
@@ -581,6 +564,35 @@ if($is_allowedToEdit)
 /*================================================================
                       DISPLAY
   ================================================================*/
+
+/*--------------------------------------------------------------------
+                            HEADER
+  --------------------------------------------------------------------*/
+$htmlHeadXtra[] =
+"<script>
+function confirmation (name)
+{
+	if (confirm(\" $langAreYouSureToDelete \"+ name + \" ? $langDeleteCaution \" ))
+		{return true;}
+	else
+		{return false;}
+}
+</script>";
+
+if( isset($displaySesForm) && $displaySesForm )
+{
+      // bredcrump to return to the list when in a form
+      $interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langAssignments);
+      $nameTools = $langAssignment;
+}
+else
+{
+  $nameTools = $langAssignments;
+  // to prevent parameters to be added in the breadcrumb
+  $QUERY_STRING='';
+}
+
+include($includePath.'/claro_init_header.inc.php');
 
 /*--------------------------------------------------------------------
                     TOOL TITLE
@@ -610,21 +622,21 @@ if($is_allowedToEdit)
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
     <input type="hidden" name="cmd" value="<?php echo $cmdToSend; ?>">
 <?php
-  if( isset($_REQUEST['sesId']) )
+  if( isset($_REQUEST['assigId']) )
   {
 ?>
-    <input type="hidden" name="sesId" value="<?php echo $_REQUEST['sesId']; ?>">
+    <input type="hidden" name="assigId" value="<?php echo $_REQUEST['assigId']; ?>">
 <?php
   }
 ?>
     <table cellpadding="5">
       <tr>
-        <td valign="top"><label for="sesTitle"><?php echo $langSessionTitle; ?>&nbsp;:</label></td>
+        <td valign="top"><label for="sesTitle"><?php echo $langAssignmentTitle; ?>&nbsp;:</label></td>
         <td><input type="text" name="sesTitle" id="sesTitle" size="50" maxlength="200" value="<?php echo htmlentities($form['sesTitle']); ?>"></td>
       </tr>
 
       <tr>
-        <td valign="top"><label for="sesDesc"><?php echo $langSessionDescription; ?>&nbsp;:<br /></label></td>
+        <td valign="top"><label for="sesDesc"><?php echo $langAssignmentDescription; ?>&nbsp;:<br /></label></td>
         <td>
 <?php          
       claro_disp_html_area('sesDesc', $form['sesDesc']);
@@ -670,10 +682,10 @@ if($is_allowedToEdit)
       </tr>
       <!--
       <tr>
-        <td valign="top"><?php echo $langSessionType; ?>&nbsp;:</td>
+        <td valign="top"><?php echo $langAssignmentType; ?>&nbsp;:</td>
         <td>
-          <input type="radio" name="sessionType" id="individual" value="INDIVIDUAL" <?php if($form['sessionType'] == "INDIVIDUAL") echo 'checked="checked"'; ?>><label for="individual">&nbsp;<?php echo $langIndividual; ?></label><br />
-          <input type="radio" name="sessionType" id="group" value="GROUP" <?php if($form['sessionType'] == "GROUP") echo 'checked="checked"'; ?>><label for="group">&nbsp;<?php echo $langGroup; ?></label><br />
+          <input type="radio" name="assignmentType" id="individual" value="INDIVIDUAL" <?php if($form['assignmentType'] == "INDIVIDUAL") echo 'checked="checked"'; ?>><label for="individual">&nbsp;<?php echo $langIndividual; ?></label><br />
+          <input type="radio" name="assignmentType" id="group" value="GROUP" <?php if($form['assignmentType'] == "GROUP") echo 'checked="checked"'; ?>><label for="group">&nbsp;<?php echo $langGroup; ?></label><br />
         </td>
       </tr> 
       -->
@@ -695,10 +707,10 @@ if($is_allowedToEdit)
       
       
       <tr>
-        <td valign="top" colspan="2"><b><?php echo $langStandardGrading; ?></b><p><?php echo $langStandardGradingHelp; ?></p></td>
+        <td valign="top" colspan="2"><b><?php echo $langStandardFeedback; ?></b><p><?php echo $langStandardFeedbackHelp; ?></p></td>
       </tr>
       <tr>
-        <td valign="top"><label for="prefillText"><?php echo $langStandardGradingText; ?>&nbsp;:<br /></label></td>
+        <td valign="top"><label for="prefillText"><?php echo $langStandardFeedbackText; ?>&nbsp;:<br /></label></td>
         <td>
 <?php          
       claro_disp_html_area('prefillText', $form['prefillText']);
@@ -710,27 +722,27 @@ if($is_allowedToEdit)
   {
         echo "<tr>\n"
              ."<td valign=\"top\">"
-             .$langCurrentStandardGradingFile;
+             .$langCurrentStandardFeedbackFile;
         // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
-        $completeFileUrl = $currentCourseRepositoryWeb."work/ws".$_REQUEST['sesId']."/".$form['currentPrefillDocPath'];
+        $completeFileUrl = $currentCourseRepositoryWeb."work/assig_".$_REQUEST['assigId']."/".$form['currentPrefillDocPath'];
         echo "&nbsp;:<input type=\"hidden\" name=\"currentPrefillDocPath\" value=\"".$form['currentPrefillDocPath']."\">"
               ."</td>\n"
               ."<td>"
               ."<a href=\"".$completeFileUrl."\">".$form['currentPrefillDocPath']."</a>"
-              ."<br /><input type=\"checkBox\" name=\"delGradingFile\" id=\"delGradingFile\">"
-              ."<label for=\"delGradingFile\">".$langExplainModifyAttachedfile."</label> "
+              ."<br /><input type=\"checkBox\" name=\"delFeedbackFile\" id=\"delFeedbackFile\">"
+              ."<label for=\"delFeedbackFile\">".$langExplainModifyAttachedfile."</label> "
               ."</td>\n"
               ."</tr>\n\n";
   }
 ?>
       <tr>
-        <td valign="top"><label for="prefillDocPath"><?php echo $langStandardGradingFile; ?>&nbsp;:<br /></label></td>
+        <td valign="top"><label for="prefillDocPath"><?php echo $langStandardFeedbackFile; ?>&nbsp;:<br /></label></td>
         <td>
         <input type="file" name="prefillDocPath" id="prefillDocPath" size="30">
         </td>
       </tr>
       <tr>
-        <td valign="top"><?php echo $langStandardGradingDate; ?>&nbsp;:</td>
+        <td valign="top"><?php echo $langStandardFeedbackDate; ?>&nbsp;:</td>
         <td>
 <?php
          echo claro_disp_date_form("prefillDay", "prefillMonth", "prefillYear", $form['prefillDate'])." ".claro_disp_time_form("prefillHour", "prefillMinute", $form['prefillTime']);
@@ -741,9 +753,8 @@ if($is_allowedToEdit)
       
       
       <tr>
-        <td colspan="2" align="center">
-        <input type="submit" name="submitSession" value="<?php echo $langOk; ?>">
-        </td>
+        <td>&nbsp;</td>
+        <td><input type="submit" name="submitAssignment" value="<?php echo $langOk; ?>"></td>
       </tr>
       </table>
     </form>
@@ -752,7 +763,7 @@ if($is_allowedToEdit)
 }
 
 /*--------------------------------------------------------------------
-                            SESSION LIST
+                            ASSIGNMENT LIST
     --------------------------------------------------------------------*/
 if( !$displaySesForm )
 {
@@ -769,8 +780,8 @@ if( !$displaySesForm )
       --------------------------------------------------------------------*/
     if( $is_allowedToEdit )
     {
-      // link to create a new session
-      echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkSes\">".$langCreateSession."</a>\n";
+      // link to create a new assignment
+      echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkSes\">".$langCreateAssignment."</a>\n";
     }
 
     /*--------------------------------------------------------------------
@@ -779,22 +790,22 @@ if( !$displaySesForm )
     //if user come from a group
     if( isset($_gid) && isset($is_groupAllowed) && $is_groupAllowed ) 
     {
-      $sql = "SELECT `id`, `title`, `sess_visibility` 
-              FROM `".$tbl_wrk_session."`
-              WHERE `session_type` = 'GROUP'
+      $sql = "SELECT `id`, `title`, `visibility` 
+              FROM `".$tbl_wrk_assignment."`
+              WHERE `assignment_type` = 'GROUP'
               ORDER BY `title` ASC";    
     }
     else
     {
-      $sql = "SELECT `id`, `title`, `sess_visibility`
-              FROM `".$tbl_wrk_session."` 
+      $sql = "SELECT `id`, `title`, `visibility`
+              FROM `".$tbl_wrk_assignment."` 
               ORDER BY `title` ASC";
     }          
-    $sessionList = claro_sql_query_fetch_all($sql);
+    $assignmentList = claro_sql_query_fetch_all($sql);
 
     echo "<table class=\"claroTable\" width=\"100%\">\n"
           ."<tr class=\"headerX\">\n"
-          ."<th>".$langSessionTitle."</th>\n";
+          ."<th>".$langAssignmentTitle."</th>\n";
           
     if ( $is_allowedToEdit ) 
     {
@@ -804,10 +815,10 @@ if( !$displaySesForm )
     }
     echo "</tr>\n\n"
         ."<tbody>\n";
-    foreach($sessionList as $wrkSession)
+    foreach($assignmentList as $anAssignment)
     {
     
-      if ($wrkSession['sess_visibility'] == "INVISIBLE")
+      if ($anAssignment['visibility'] == "INVISIBLE")
 			{
 				if ($is_allowedToEdit)
 				{
@@ -824,21 +835,21 @@ if( !$displaySesForm )
 			}
       
       echo "<tr align=\"center\"".$style.">\n"
-          ."<td align=\"left\"><a href=\"workList.php?sesId=".$wrkSession['id']."\">".$wrkSession['title']."</a></td>\n";
+          ."<td align=\"left\"><a href=\"workList.php?assigId=".$anAssignment['id']."\">".$anAssignment['title']."</a></td>\n";
       if( $is_allowedToEdit )
       {
-        echo "<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditSes&sesId=".$wrkSession['id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a></td>\n"
-            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmSes&sesId=".$wrkSession['id']."\" onClick=\"return confirmation('",addslashes($wrkSession['title']),"');\"><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\"></a></td>\n"
+        echo "<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditSes&assigId=".$anAssignment['id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a></td>\n"
+            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmSes&assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",addslashes($anAssignment['title']),"');\"><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\"></a></td>\n"
             ."<td>";
-        if ($wrkSession['sess_visibility'] == "INVISIBLE")
+        if ($anAssignment['visibility'] == "INVISIBLE")
         {
-            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&sesId=".$wrkSession['id']."&vis=v\">"
+            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$anAssignment['id']."&vis=v\">"
                   ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"$langMakeVisible\">"
                   ."</a>";
         }
         else
         {
-            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&sesId=".$wrkSession['id']."&vis=i\">"
+            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$anAssignment['id']."&vis=i\">"
                   ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">"
                   ."</a>";
         }          
