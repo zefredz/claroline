@@ -1,5 +1,5 @@
 ******************************************
-CLAROLINE 1.6 BETA - README
+CLAROLINE 1.6 BETA 2 - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -78,64 +78,100 @@ at :
 NEW FEATURES IN CLAROLINE 1.6 SINCE CLAROLINE 1.5
 -------------------------------------------------
 
-* ASSIGNMENT TOOL
-New assignment tool deal with:
+* Assignment tool (new interface in beta 2)
+
+New assignment tool deal with :
     * planned work sessions.
-    * automatically close or open assignements uploads.
+    * automatically close or open assignments uploads.
     * time planning. (start date and end date)
-    * feedback. (manual or automatic)
+    * give a personalized (or automatic) feedback to any work session submission.
     * work content can be text, file or text and file.
 
-* EXERCISE TOOL
+* Document tool
+
+Functionnalities added in beta 2 are :
+    * new image gallery
+    * internal search fonctionnality
+
+* Exercise tool
+
 Improved exercise tool deal with :
-
     * time planning. (start date, end date and duration)
-    * optional attempts limit.
+    * optional attempts limit for each user.
     * multimedia files. (pictures,documents, flash animations, videos, sounds, ... )
-    * player mp3.
+    * flash mp3 player.
 
-* CAMPUS ADMINISTRATION TOOL
+
+* Campus administration tool
+
 Improved campus administration tool deal with classes and import csv files.
 
-* CLASSES
+* Classes
+
     * organise your users by groups (classes) and subgroups on your campus.
-    * create a whole class tree to fits to your organisation scheme.
+    * create a whole class tree that fits to your organisation scheme.
     * subscribe a whole class to a course at once.
 
-* MASSIVE IMPORT
+* Massive import
+
     * massive import with CSV files in the user list of the administration tool.
-    * create a new class right form your CSV file
+    * create a new class right form your CSV file.
     * import users in a specific course within the user tool.
 
+* Configuration files edition (added in beta 2)
 
-* CONFIGURATION FILES EDITION (not in 1.6 beta)
-Web edition of config files parameters in administration tool. 
-    
-* TRACKING
-Improved tracking and statistics :
+ New configuration files editor allowing easy customization of the campus and of the tool 
+ parameters.
+
+    * define which values are required for the creation of new courses.
+    * set the disk space limit of the documents and links tool.
+    * select which values are required in user profiles
+    * choose the number of posts displayed per forum page
+    * ...
+
+ Using a new architecture to deal with the configuration files, Claroline is now able to 
+ integrate new configuration parameters (or hide any) in this interface. According to the 
+ Community test, parameters could be added or deleted in this place for the forthcoming 
+ Claroline 1.6 stable version.
+
+* Tracking
+
+ Improved tracking and statistics :
+
     * exercises.
     * forum (records messages).
     * option to erase all statistics of a course.
 
-* TRANSLATION
-New translation files simplify the process to add or update language 
-interface of the claroline system.
+
+* Translation
+
+ New translation files simplify the process to add or update language interface of the claroline system.
+
     * In development version : use of a single file with all the translations.
     * In stable version : the development file is splitted in many files to increase performance.
 
-* LAYOUT PERSONALISATION (not in 1.6 beta)
-Claroline code has been adapted to a more intensive 
-use of a CSS stylesheet. This makes it easier, and without any code change, for anyone to modify the appearance (color, style, logo,..) of new Claroline campus installed.
+ See documentation on clarolinet.net: How to translate 1.6 ?
 
-* EXTERNAL AUTHENTICATION SYSTEM (not in 1.6 beta)
-New external authentication system provides methods to authenticate user from a significant number of systems (LDAP
-servers, 14 databases from Oracle to ODBC, POP3 servers, IMAP servers, vpopmail accounts, RADIUS, SAMBA password files and SOAP). This feature improves the integration of Claroline into your existing computer network environment.
+* Layout personalisation
 
-* SINGLE SIGN ON (SSO) SYSTEM (not in 1.6 beta) once logged into claroline,
-to connect to all other websites session without the need 
-of physically enter repetitive usernames and passwords. 
-This feature allows to smoothly associate Claroline 
-into your institution Portals.
+ Claroline code has been adapted to a more intensive use of a CSS stylesheet. This makes it easier, and
+ without any code change, for anyone to modify the appearance (color, style, logo,..) of new Claroline campus installed.
+
+ See documentation: Modify styles with CSS.   
+
+* External authentication system (added in beta 2)
+
+ New external authentication system provides methods to authenticate user from a significant number of systems
+ (LDAP servers, 14 databases from Oracle to ODBC, POP3 servers, IMAP servers, vpopmail accounts, RADIUS, 
+ SAMBA password files and SOAP). This feature improves the integration of Claroline into your existing computer
+ network environment.
+
+* Single Sign On (SSO) system (added in beta 2)
+
+ Single Sign On (SSO) system enabling users, once logged into claroline, to connect to all other websites session
+ without the need of physically enter repetitive usernames and passwords. This feature allows to smoothly associate
+ Claroline into your institution Portals.
+
 
 NEW FEATURES IN CLAROLINE 1.5 SINCE CLAROLINE 1.4
 -------------------------------------------------
