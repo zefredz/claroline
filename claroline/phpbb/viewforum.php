@@ -139,7 +139,7 @@ else foreach($topicList as $thisTopic)
         $topic_title = own_stripslashes($thisTopic['topic_title']);
         $pagination  = '';
         $start       = '';
-        $topiclink   = "viewtopic.".$phpEx."?topic=".$thisTopic['topic_id']."&forum=".$forum;
+        $topiclink   = "viewtopic.".$phpEx."?topic=".$thisTopic['topic_id'];
 
         if ( $replys+1 > $posts_per_page)
         {

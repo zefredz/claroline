@@ -79,7 +79,7 @@ $postList  = $postPager->get_result_list();
 
 
 
-$pagerUrl = $PHP_SELF."?topic=".$topic."&forum=".$forum;
+$pagerUrl = $PHP_SELF."?topic=".$topic;
 
 $postPager->disp_pager_tool_bar($pagerUrl);
 
