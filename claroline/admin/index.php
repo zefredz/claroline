@@ -144,7 +144,7 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <h4>Claroline.net</h4>
 <ul>
 <li>
-<a href="registerCampus.php"><?php echo $langRegisterCampus; ?><?php echo $langRegisterMyCampus; ?></a>
+<a href="registerCampus.php"><?php echo $langRegisterMyCampus; ?></a>
 </li>
 </ul>
 
