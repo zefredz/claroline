@@ -68,7 +68,6 @@ $langAnonymousVisibility="Anonymous visibity";
 $langShowAnswers = "Show answers";
 $langAlways = "Always";
 $langNever = "Never";
-$langAfterEndDate = "After end date";
 $langShow = "Show";
 $langHide = "Hide";
 $langEditExercise = "Edit exercise settings";

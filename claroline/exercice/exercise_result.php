@@ -143,11 +143,6 @@ else                                        // normal exercise mode
 		{
 			$displayAnswers = true;
 		}
-		elseif( $showAnswers == 'ENDDATE' )
-		{
-			// check if current date is after enddate property of the exercise
-			// TODO : enddate property must be coded :p
-		}
 		else
 		{
 			// $showAnswers == 'NEVER'
