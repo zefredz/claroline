@@ -89,18 +89,18 @@ if($result = mysql_query($sql, $db))
 {
 	if($myrow = mysql_fetch_array($result))
 	{
-		$sitename             = stripslashes($myrow["sitename"]);
-		$allow_html           = $myrow["allow_html"      ];
-		$allow_bbcode         = $myrow["allow_bbcode"    ];
-		$allow_sig            = $myrow["allow_sig"       ];
-		$allow_namechange     = $myrow["allow_namechange"];
-		$posts_per_page       = $myrow["posts_per_page"  ];
-		$hot_threshold        = $myrow["hot_threshold"   ];
-		$topics_per_page      = $myrow["topics_per_page" ];
-		$override_user_themes = $myrow["override_themes" ];
-		$email_sig            = stripslashes($myrow["email_sig"]);
-		$email_from           = $myrow["email_from"      ];
-		$default_lang         = $myrow["default_lang"    ];
+		$sitename             = stripslashes($myrow['sitename']);
+		$allow_html           = $myrow['allow_html'      ];
+		$allow_bbcode         = $myrow['allow_bbcode'    ];
+		$allow_sig            = $myrow['allow_sig'       ];
+		$allow_namechange     = $myrow['allow_namechange'];
+		$posts_per_page       = $myrow['posts_per_page'  ];
+		$hot_threshold        = $myrow['hot_threshold'   ];
+		$topics_per_page      = $myrow['topics_per_page' ];
+		$override_user_themes = $myrow['override_themes' ];
+		$email_sig            = stripslashes($myrow['email_sig']);
+		$email_from           = $myrow['email_from'      ];
+		$default_lang         = $myrow['default_lang'    ];
 		$sys_lang             = $default_lang;
 	}
 }
@@ -227,24 +227,24 @@ if($override_user_themes == 1 || !$theme)
 
 	if($theme = mysql_fetch_array($r))
 	{
-		$bgcolor            = $theme["bgcolor"          ];
-		$table_bgcolor      = $theme["table_bgcolor"    ];
-		$textcolor          = $theme["textcolor"        ];
-		$color1             = $theme["color1"           ];
-		$color2             = $theme["color2"           ];
-		$header_image       = $theme["header_image"     ];
-		$newtopic_image     = $theme["newtopic_image"   ];
-		$reply_image        = $theme["reply_image"      ];
-		$linkcolor          = $theme["linkcolor"        ];
-		$vlinkcolor         = $theme["vlinkcolor"       ];
-		$FontFace           = $theme["fontface"         ];
-		$FontSize1          = $theme["fontsize1"        ];
-		$FontSize2          = $theme["fontsize2"        ];
-		$FontSize3          = $theme["fontsize3"        ];
-		$FontSize4          = $theme["fontsize4"        ];
-		$tablewidth         = $theme["tablewidth"       ];
+		$bgcolor            = $theme['bgcolor'          ];
+		$table_bgcolor      = $theme['table_bgcolor'    ];
+		$textcolor          = $theme['textcolor'        ];
+		$color1             = $theme['color1'           ];
+		$color2             = $theme['color2'           ];
+		$header_image       = $theme['header_image'     ];
+		$newtopic_image     = $theme['newtopic_image'   ];
+		$reply_image        = $theme['reply_image'      ];
+		$linkcolor          = $theme['linkcolor'        ];
+		$vlinkcolor         = $theme['vlinkcolor'       ];
+		$FontFace           = $theme['fontface'         ];
+		$FontSize1          = $theme['fontsize1'        ];
+		$FontSize2          = $theme['fontsize2'        ];
+		$FontSize3          = $theme['fontsize3'        ];
+		$FontSize4          = $theme['fontsize4'        ];
+		$tablewidth         = $theme['tablewidth'       ];
 		$TableWidth         = $tablewidth;
-		$reply_locked_image = $theme["replylocked_image"];
+		$reply_locked_image = $theme['replylocked_image'];
 	}
 }
 
