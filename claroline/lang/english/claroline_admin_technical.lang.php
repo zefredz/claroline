@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php
 $langAddIntro = "Add introduction text";
 $langAdmin = "Admin";
 $langAdministration = "Administration";
@@ -76,9 +76,7 @@ $lang_config_ErrorEmailManager = "The education manager email is wrong !";
 $lang_config_ErrorHostEmpty = "The host name do not empty !";
 $lang_config_ErrorLoginBDEmpty = "The login from Data Base do not empty !";
 $lang_config_ErrorOpenFile = "Error to open file config.php";
-$lang_config_ErrorRootWeb = "The rootWeb is wrong !";
 $lang_config_ErrorRootWebEmpty = "The root Web do not empty !";
-$lang_config_ErrorURLInstitution = "The institution url is wrong !";
 $lang_config_Info = "(*) value required";
 $lang_config_NoAdmin = "You're not logged as platfrom administrator";
 $lang_config_TitleAdministrator = "Administrator : ";
@@ -99,11 +97,12 @@ $lang_config_siteName = "Site name : ";
 $lang_config_urlAppend = "URL append";
 $lang_config_urlInstitution = "URL : ";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";
-$lang_footer_CourseManager = "Course Manager(s)";
+$lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
 $lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
 $lang_no_access_here = "No way";
+$lang_p_platformManager = "Administrator for %s";
 $lang_php_info = "information sur le système php";
 $lang_this_course_is_protected = "This course is protected";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You’re user profile doesn’t seem to be enrolled to this course";
 ?>

@@ -174,7 +174,6 @@ $langCfgSetting = "Настройки";
 $langChangeCat = "Смени категорията";
 $langChat = "Дискусия";
 $langChat = "Чат";
-$langCheckDatabase = "Провери главната база данни";
 $langChoice = "Твоят избор";
 $langClarContent = "Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and, 
@@ -591,7 +590,6 @@ $langOtherCourses = "Списък на курсовете";
 $langPassTooEasy = "тази парола е прекалено проста. Използвай парола като тази ";
 $langPassTwice = "Написали сте две различни пароли. Използвайте Back бутона на вашия браузер и опитайте отново.";
 $langPassTwo = "Написали сте две различни пароли";
-$langPersonalSettings = "Вашите лични данни са записани, ще ви бъде изпратен email с вашите потребителско име и парола.</p>Изберете курс, които желаете да изучавате";
 $langPgTitle = "Заглавие на страницата";
 $langPlaces = "места в групата (не задължително)";
 $langPoweredBy = "Powered by";

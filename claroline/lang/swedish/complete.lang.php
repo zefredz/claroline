@@ -200,7 +200,6 @@ $langChangeCat = "Ändra kategori";
 $langChat = "Chatt";
 $langChat = "Chatta";
 $langChat = "Diskussion";
-$langCheckDatabase = "Kontrollera huvuddatabasen";
 $langChoice = "Ditt val";
 $langChooseFile = "Välj fil";
 $langChooseGoodAnswer = "Var snäll och välj ett rätt svar";
@@ -668,6 +667,11 @@ $langMax = "Max.";
 $langMaxFileSize = "Max filstorlek är";
 $langMaxSizeCourseCode = "max. 12 tecken, e.g. <i>SV1201</i>";
 $langMessage = "när du tar bort detta testforum kommer du också att ta bort det nuvarande meddelandet.";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Kära %s, %s. 
+Dina personliga inställningar har registrerats och emejlats 
+till dig för att hjälpa dig komma ihåg användarnamn och lösenord.<br>
+Välj i listan vilka kurser som du vill deltaga i.";
 $langMinute = "Minuter";
 $langMinute = "Minutes";
 $langMissing = "saknas";
@@ -745,8 +749,6 @@ $langNowGoCreateYourCourse = "Du kan nu skapa din kurs";
 $langOk = "Ok";
 $langOk = "validate";
 $langOkSent = "din sida har skickats.<p>Den är nu länkad till från kursens <a href=../..//index.php>hemsida</a>";
-$langOkSentLink = "Din länk är nu skickad.<p>Den är nu tillgänglig från <a href=\"../..//index.php\">Kurshemsidan</a>";
-$langOkSentPage = "Din sida är nu skickad.<p>Den är nu länkad från <a href=\"../..//index.php\">Kurshemsidan</a>";
 $langOldToNew = "Inverser";
 $langOldToNew = "Äldst först";
 $langOn = "På";
@@ -768,11 +770,6 @@ $langPeriodMonth = "Månad";
 $langPeriodToDisplay = "Period";
 $langPeriodWeek = "Vecka";
 $langPeriodYear = "År";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Kära %s, %s. 
-Dina personliga inställningar har registrerats och emejlats 
-till dig för att hjälpa dig komma ihåg användarnamn och lösenord.<br>
-Välj i listan vilka kurser som du vill deltaga i.';
 $langPgTitle = "Sidans titel";
 $langPlaces = "platser per grupp (frivillig)";
 $langPlatform = "Med kraft från";
@@ -859,7 +856,6 @@ $langStatsOfCampus = "Campusstatistik";
 $langStatsOfCourse = "Kursstatistik";
 $langStatsOfUser = "Användarstatistik";
 $langStatus = "Status";
-$langStrangeCases = "Mystiska fall";
 $langStudent = "elev";
 $langStudentsNotInThisGroups = "Användarna är ej i denna grupp";
 $langSubTitle = "Lägger sig till menyn på kursens hemsida som en länk till en sajt, en sida eller valfri URL. Tips: om du vill lägga till en länk till en sida, gå till den sidan, kopiera och klistra sedan in länkens address, som du hittar i URL-fältet högst upp i din webbläsare, i \"länk\"-fältet nedan.";

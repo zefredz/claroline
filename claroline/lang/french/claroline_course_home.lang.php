@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php
 $langActivate = "activer";
 $langAddExternalTool = "Ajouter un lien externe.";
 $langAddIntro = "Ajouter un texte d'introduction";
@@ -27,8 +27,10 @@ $langGroups = "Groupes";
 $langHelp = "Aide";
 $langHome = "Retourner à la page d'accueil";
 $langIntroCourse = "Bienvenue sur la page d'accueil du cours.<br /><br />Vous pouvez sur cette page :
-<li class=HelpText>activer ou désactiver des outils (cliquer sur le bouton 'Modifier la liste d'outils' dans le bas à gauche).
-<li class=HelpText>changer les propriétés ou voir les statistiques (Cliquer sur les liens correspondants).<br /><br />
+<ul>
+<li>activer ou désactiver des outils (cliquer sur le bouton 'Modifier la liste d'outils' dans le bas à gauche).
+<li>changer les propriétés ou voir les statistiques (Cliquer sur les liens correspondants).
+</ul>
 Pour présenter votre cours aux étudiants, cliquer sur ce bouton.<br />";
 $langIntroEditToolList = "Sélectionner les outils que vous voulez activer.
 Les outils invisibles seront grisés dans votre page d'accueil du cours.";
@@ -61,9 +63,10 @@ $langUsers = "Utilisateurs";
 $langWork = "Travaux";
 $lang_click_here = "cliquez ici";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
-$lang_footer_CourseManager = "Gestionnaire(s) du cours";
+$lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
 $lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
+$lang_p_platformManager = "Administrateur %s";
 $lang_this_course_is_protected = "Ce cours est protégé";
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";
 ?>

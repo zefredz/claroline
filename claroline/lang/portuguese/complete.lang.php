@@ -200,7 +200,6 @@ $langCfgSetting = "Par&aacute;metros de Configura&ccedil;&atilde;o";
 $langChangeCat = "Mudar de categoria";
 $langChat = "Chat";
 $langChat = "Debate";
-$langCheckDatabase = "Verificar a base de dados principal";
 $langChoice = "A sua escolha";
 $langChooseFile = "Escolher arquivo";
 $langChooseGoodAnswer = "Escolha a resposta correcta";
@@ -501,6 +500,12 @@ $langMax = "m&aacute;x.";
 $langMaxFileSize = "O tamanho m&aacute;ximo do ficheiro &eacute;";
 $langMaxSizeCourseCode = "max. 12 caracteres, p. e.<i>ROM2121</i>";
 $langMessage = "quando eliminar o foro \"Foro de teste\", ser&aacute; tamb&eacute;m eliminado este tema que cont&eacute;m apenas esta mensagem";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Caro(a) %s, %s. 
+Os seus dados pessoais foram registados e foi enviada 
+uma mensagem &agrave; sua caixa de correio electr&oacute;nico 
+para lhe lembrar o seu nome de utilizador e a sua senha.<br>
+Escolha na lista os cursos a que deseja aceder.";
 $langMinute = "Minutos";
 $langMissing = "falta";
 $langMissingImagesDetected = "Foram detectadas imagens perdidas";
@@ -532,7 +537,6 @@ $langMyStats = "Ver as minhas estat&iacute;sticas";
 $langNULLValue = "Vazio (ou NULL)";
 $langNameCat = "O nome da categoria foi modificado";
 $langNameDir = "Nome do novo direct&oacute;rio";
-$langNameOfLang = "Array";
 $langNameOfLang = "Nome da l&iacute;ngua";
 $langNbAnnoucement = "N&uacute;mero de an&uacute;ncios";
 $langNbLogin = "N&uacute;mero de acessos";
@@ -574,8 +578,6 @@ $langNowGoChooseYourCourses = "agora pode escolher na lista os cursos a que dese
 $langNowGoCreateYourCourse = "agora pode criar o seu curso";
 $langOk = "validar";
 $langOkSent = "A sua p&aacute;gina foi enviada ao servidor.<p>&Eacute; acess&iacute;vel desde a <a href=../..//index.php>p&aacute;gina principal</a> do seu curso";
-$langOkSentLink = "A liga&ccedil;&atilde;o foi enviada.<p>Agora &eacute; acess&iacute;vel atrav&eacute;s da <a href=\"../..//index.php\">P&aacute;gina inicial do curso</a>";
-$langOkSentPage = "A p&aacute;gina foi enviada.<p>Agora est&aacute; na <a href=\"../..//index.php\">P&aacute;gina inicial do curso</a>";
 $langOldToNew = "Inverter";
 $langOn = "H&aacute;";
 $langOneByOne = "Acrescentar um utilizador de forma manual";
@@ -598,12 +600,6 @@ $langPeriodMonth = "M&ecirc;s";
 $langPeriodToDisplay = "Per&iacute;odo";
 $langPeriodWeek = "Semana";
 $langPeriodYear = "Ano";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Caro(a) %s, %s. 
-Os seus dados pessoais foram registados e foi enviada 
-uma mensagem &agrave; sua caixa de correio electr&oacute;nico 
-para lhe lembrar o seu nome de utilizador e a sua senha.<br>
-Escolha na lista os cursos a que deseja aceder.';
 $langPgTitle = "T&iacute;tulo da p&aacute;gina";
 $langPlaces = "lugares por grupo (opcional)";
 $langPlatform = "Baseado em";
@@ -695,7 +691,6 @@ $langStatsOfCampus = "Estat&iacute;sticas do campus";
 $langStatsOfCourse = "Estat&iacute;sticas do curso";
 $langStatsOfUser = "Estat&iacute;sticas do utilizador";
 $langStatus = "Estatuto";
-$langStrangeCases = "Casos esquisitos";
 $langStudent = "estudante";
 $langStudentsNotInThisGroups = "Utilizadores que n&atilde;o fazem parte deste grupo";
 $langSubTitle = "Acrescentar ao menu principal da sua p&aacute;gina principal uma liga&ccedil;&atilde;o a outra p&aacute;gina, no interior ou no exterior da sua web";

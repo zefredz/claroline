@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php
 $langAdminEmail = "E-mail de l'administrateur";
 $langAdminLogin = "Identifiant de l'administrateur";
 $langAdminName = "Nom de l'administrateur";

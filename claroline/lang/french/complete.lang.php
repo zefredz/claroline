@@ -66,7 +66,6 @@ $l_posted = "Posté le";
 $l_poster = "Initiateur";
 $l_posts = "Messages";
 $l_privnotify = "<br>Vous avez %s1 <a href=\"%s2\">nouveau(x) message(s) privée(s)</a>.";
-$l_privnotify = "<br>Vous avez %s1 <a href=\"%s2\">nouveau(x) message(s) privée(s)</a>.";
 $l_profile = "Profil";
 $l_profileof = "Voir le profil de";
 $l_publicmail = "Autoriser les autres membres à voir votre Adresse e-mail";
@@ -180,13 +179,11 @@ le rendre invisible permettra aux apprenants d\'accéder
  aux modules suivants du parcours sans devoir réussir celui-ci. 
 
 Confirmer ?";
-$langAlertBlockingMakedInvisible = "Ce module est bloquant, \nle rendre invisible permettra aux apprenants d\'accéder \n aux modules suivants du parcours sans devoir réussir celui-ci. \n\nConfirmer ?";
 $langAlertBlockingPathMadeInvisible = "Ce parcours est bloquant. 
 le rendre invisible permettra aux apprenants d\'accéder 
  aux parcours suivants sans devoir réussir celui-ci. 
 
 Confirmer ?";
-$langAlertBlockingPathMadeInvisible = "Ce parcours est bloquant. \nle rendre invisible permettra aux apprenants d\'accéder \n aux parcours suivants sans devoir réussir celui-ci. \n\nConfirmer ?";
 $langAll = "Tout";
 $langAllExercises = "Tous les exercices";
 $langAllRight = "Tout va bien.";
@@ -247,7 +244,6 @@ Il sera définitivement effacé du serveur et du parcours pédagogique.
 Vous ne pourrez plus l'utiliser dans aucun parcours pédagogique.
 
 Confirmer la suppression de : ";
-$langAreYouSureDeleteModule = "Etes-vous sûr de vouloir totalement effacer ce module ?\n\nIl sera définitivement effacé du serveur et du parcours pédagogique.\nVous ne pourrez plus l'utiliser dans aucun parcours pédagogique.\n\nConfirmer la suppression de : ";
 $langAreYouSureToDelete = "Etes-vous sûr de vouloir supprimer ";
 $langAreYouSureToDeleteScorm = "Ce parcours est issu de l'importation d'un package SCORM. Si vous effacez ce parcours, tous les contenus SCORM de ses modules seront supprimés du serveur.  Etes-vous sûr de vouloir effacer le parcours pédagogique ";
 $langAreYouSureToDeleteScormModule = "Etes-vous sûr de vouloir effacer ce module SCORM ? Le module ne sera plus accessible sur le serveur.";
@@ -272,7 +268,6 @@ $langAttempt = "Essai";
 $langAttemptAllowed = "essai autorisé";
 $langAttempts = "Essais";
 $langAttemptsAllowed = "essais autorisés";
-$langAuthInfo = "Paramètres de connection";
 $langAvailableArchives = "Liste des archives disponibles";
 $langAvailableFrom = "Disponible à partir du";
 $langBUAnnounceInMainBase = "Archivage des données des annonces dans la base de données principale pour";
@@ -334,7 +329,6 @@ $langChangeRaw = "Changer le score minimum pour réussir ce module (en pour cent)
 $langChangedTool = "L'accès au lien a été changé";
 $langChat = "Discussion";
 $langChatResetBy = "La discussion a été réinitialisée par";
-$langCheckDatabase = "Analyse de la Base de données";
 $langCheckemail = "Vérification de l'adresse email";
 $langChoice = "Votre choix";
 $langChooseDateHelper = "(d/m/y hh:mm)";
@@ -1210,7 +1204,6 @@ $langManage = "Gestion du campus";
 $langManageClasses = "Gérer les classes";
 $langManageCourseCategories = "Editer des catégories de cours";
 $langManager = "Gestionnaire";
-$lang_p_platformManager = "Administrateur %s";
 $langManyAnswers = "(plusieurs bonnes réponses possibles)";
 $langMatching = "Correspondance";
 $langMax = "maximum";
@@ -1220,6 +1213,8 @@ $langMaxSizeCourseCode = "max. 12 caractères, p. ex.<i>ROM2121</i>";
 $langMaxStudentGroup = "Nombre maximum d'étudiants par groupe";
 $langMaximum = "Maximum : ";
 $langMessage = "Lorsque vous supprimerez le forum &quot;Forum d&rsquo;essai&quot;, cela supprimera également le présent sujet qui ne contient que ce seul message";
+$langMessageSubscribeDone_p_firstname_lastname = "Dear %s, %s. Vos coordonnées personnelles ont été enregistrées et un e-mail vous a été envoyé
+pour vous rappeler votre nom d’utilisateur et votre mot de passe.";
 $langMessageToSelectedUsers = "Message pour certains  utilisateurs.";
 $langMessages = "Messages";
 $langMethodsOfEvaluation = "Modalités d'évaluation";
@@ -1335,7 +1330,6 @@ $langNoSpace = "Le téléchargement a échoué. Il n'y a plus assez de place dans vo
 $langNoStartAsset = "Il n'y a pas de ressource de démarrage définie pour ce module.";
 $langNoTimeLimit = "Pas de limite de temps";
 $langNoUserResult = "Il n'y a pas d'utilisateur à afficher";
-$langNoUserSelected = "Aucun utilisateur n'a été selectionné!";
 $langNomPageAddHtPass = "Donner accès à l'administration";
 $langNomPageDevIndex = "Outils de développement";
 $langNone = "non";
@@ -1363,8 +1357,6 @@ $langOkManifestFound = "Manifest trouvé.";
 $langOkManifestRead = "Manifest lu.";
 $langOkModuleAdded = "Module ajouté : ";
 $langOkSent = "Votre page a été envoyée.<p>Elle est accessible depuis la <a href=../..//index.php>page d'accueil</a> de votre cours";
-$langOkSentLink = "Votre lien a été ajouté. <p>Il est à présent accessible depuis le <a href=\"../..//index.php\">sommaire du cours</a>";
-$langOkSentPage = "Votre page a été envoyée. <p>Elle est à présent accessible depuis le <a href=\"../..//index.php\">sommaire du cours</a>";
 $langOldToNew = "Inverser";
 $langOn = "Sur";
 $langOneByOne = "Ajouter manuellement un utilisateur";
@@ -1399,8 +1391,6 @@ $langPeriodWeek = "Semaine";
 $langPeriodYear = "Année";
 $langPersoValue = "Valeurs";
 $langPersonalCourseList = "Liste personnelle des cours";
-$langPersonalSettings = "Vos coordonnées personnelles ont été enregistrées et un e-mail vous a été envoyé
-pour vous rappeler votre nom d'utilisateur et votre mot de passe.</p>";
 $langPgTitle = "Titre de la page";
 $langPhone = "Téléphone";
 $langPlaces = "places par groupe (facultatif)";
@@ -1497,7 +1487,6 @@ Lorsque vous aurez cliqué sur 'Restaurer', l'archive sera décompressée et le cou
 $langRestoreNotice = "Ce script ne permet pas encore la restauration automatique des utilisateurs, mais les données sauvegardées dans le fichier 'users.csv' sont suffisantes pour que l'administrateur puisse effectuer cette opération manuellement.";
 $langRestoreNow = "Restorer maintenant";
 $langResult = "Résultat";
-$langReturnSearchUser = "Revenir à l'utilisateur";
 $langReuse = "Récupérer";
 $langRevoquationOfUser = "Retirer l'utilisateur %s %s";
 $langRidiculise = "Ridiculiser son interlocuteur pour lui faire admettre son erreur.";
@@ -1567,7 +1556,6 @@ $langStatus = "Action";
 $langStatusChangeNotMade = "Aucun changement appliqué";
 $langStepNOfN = "Etape %d de %d";
 $langStoreChat = "Sauvegarder la discussion";
-$langStrangeCases = "Cas particuliers";
 $langStudent = "Etudiant";
 $langStudentView = "Etudiant";
 $langStudents = "étudiants";
@@ -1706,7 +1694,6 @@ $langUseOfPool = "Cette page vous permet de voir tous les modules disponibles da
 $langUseTagForBlank = "utilisez des crochets [...] pour créer un ou des blancs";
 $langUsedInLearningPaths = "
 Nombre de parcours utilisant ce module : ";
-$langUsedInLearningPaths = "\nNombre de parcours utilisant ce module : ";
 $langUsedInSeveralExercises = "Attention ! Cette question et ses réponses sont utilisées dans plusieurs exercices. Souhaitez-vous les modifier";
 $langUsedInSeveralPath = "Cet exercice est utilisé dans un ou plusieurs parcours pédagogiques.  Si vous le supprimez il ne sera plus disponible au sein de ce ou ces parcours.";
 $langUser = "Utilisateur";
@@ -1772,12 +1759,12 @@ $langVersionDb = "Version de la base de donnée lors de l'archivage";
 $langViMod = "Visibilité modifiée";
 $langView = "Vue";
 $langViewCourse = "Voir le cours";
+$langViewPlatFormError = "Recherche d&#146;anomalies";
 $langViewPlatFormStatistics = "Statistiques de la plate-forme";
 $langViewToolList = "Voir la liste de tous les outils";
 $langVisibility = "Visibilité";
 $langVisible = "Visible";
 $langVisits = "visites";
-$langWeGoToDelete = "Nous allons supprimer le cours avec le code : ";
 $langWeighting = "Pondération";
 $langWeightingForEachBlank = "Veuillez donner une pondération à chacun des blancs";
 $langWhatDoAfterBackup = "Que faire après la sauvegarde";
@@ -1816,8 +1803,6 @@ $langZipNoPhp = "Le fichier ZIP ne peut pas contenir de fichiers en .php";
 $lang_EditFile_AdministrationTools = "Outil d'administration";
 $lang_EditFile_ModifyOk = "Les changements ont été effectués correctement";
 $lang_EditFile_NoAdmin = "Vous n'êtes pas identifié en tant qu'administrateur";
-$lang_SearchUser_ModifOk = "Les modifications ont été effectuées correctement";
-$lang_SearchUser_SearchUser = "Opération utilisateur";
 $lang_add_user_list = "Ajouter la liste d'utilisateurs";
 $lang_already_enrolled = "Déjà inscrit";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Etes-vous sûr de supprimer ce cours de votre liste ?";
@@ -1832,9 +1817,7 @@ $lang_config_ErrorEmailManager = "L'e-mail du conseiller pédagogique est incorre
 $lang_config_ErrorHostEmpty = "Le serveur de la base de données ne peut être vide !";
 $lang_config_ErrorLoginBDEmpty = "Le login pour la base de données ne peut être vide !";
 $lang_config_ErrorOpenFile = "Erreur d'ouverture du fichier config.php";
-$lang_config_ErrorRootWeb = "Le chemin web est incorrect !";
 $lang_config_ErrorRootWebEmpty = "Le chemin web ne peut être vide !";
-$lang_config_ErrorURLInstitution = "L'URL de l'institution est incorrecte !";
 $lang_config_Info = "(*) valeur requise";
 $lang_config_NoAdmin = "Vous n'êtes pas connecté en tant qu'administrateur";
 $lang_config_TitleAdministrator = "Administrateur : ";
@@ -1868,7 +1851,6 @@ $lang_faculty_ConfirmDelete = "Voulez vous vraiment supprimer ";
 $lang_faculty_CreateNotOk = "Cette catégorie existe déjà!";
 $lang_faculty_CreateOk = "La création a été effectuée avec succès";
 $lang_faculty_DeleteOk = "La suppression a été effectuée avec succès";
-$lang_faculty_EditCat = "Editer une catégorie";
 $lang_faculty_EditOk = "Les changements ont bien été effectués";
 $lang_faculty_Father = "Catégorie parente";
 $lang_faculty_HaveCourses = "La catégorie possède des cours, vous devez d'abord les supprimer avant d'interdire à cette
@@ -1876,18 +1858,15 @@ $lang_faculty_HaveCourses = "La catégorie possède des cours, vous devez d'abord 
 $lang_faculty_MoveOk = "Le déplacement de la catégorie a été effectué avec succès";
 $lang_faculty_NameCat = "Nom de la catégorie :";
 $lang_faculty_NameEmpty = "Vous n'avez pas entré de nom pour votre catégorie !";
-$lang_faculty_NoAdmin = "Vous n'êtes pas identifié en tant qu'administrateur";
 $lang_faculty_NoCat = "Aucune faculté n'est disponible !";
 $lang_faculty_NoChange = "Aucun changement n'a été effectué !";
 $lang_faculty_NoMove_1 = "Erreur, vous ne pouvez déplacer ";
 $lang_faculty_NoMove_2 = " dans une de ses sous catégorie !";
 $lang_faculty_Yes = "Oui";
-$lang_faculty_faculty = "Créer une catégorie";
 $lang_faculty_imgDown = "Descendre";
 $lang_faculty_imgUp = "Monter";
 $lang_fields_enclosed_by = "Champ entourés par";
-$lang_footer_CourseManager = "Gestionnaire(s) du cours";
-$lang_footer_p_CourseManager = 'Gestionnaire(s) du cours %s';
+$lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_htAccessIncPath_added = "Répertoire <em>inc</em> protégé";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "Si vous choisissez de continuer, les lignes avec des erreurs seront ignorées";
 $lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
@@ -1908,6 +1887,7 @@ $lang_p_d_course_members = "%2d membres";
 $lang_p_d_courses = "%2d cours";
 $lang_p_d_student = "%2d étudiant";
 $lang_p_d_students = "%2d étudiants";
+$lang_p_platformManager = "Administrateur %s";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> a été inscrit au cours";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> n'a pas été inscrit au cours";
 $lang_php_info = "Information sur le système PHP";
@@ -1934,7 +1914,4 @@ $langpday = "%d&nbsp;jour(s)";
 $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
-$langViewPlatFormError = 'Recherche d&#146;anomalies';
-$langMessageSubscribeDone_p_firstname_lastname = 'Dear %s, %s. Vos coordonnées personnelles ont été enregistrées et un e-mail vous a été envoyé
-pour vous rappeler votre nom d’utilisateur et votre mot de passe.';
 ?>

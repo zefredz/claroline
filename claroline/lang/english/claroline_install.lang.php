@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php
 $langAdminEmail = "Email";
 $langAdminLogin = "Login";
 $langAdminName = "Lastname";

@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php
 $langAddAClass = "Subscribe a class";
 $langAddAClassToCourse = "Subscribe a class to course";
 $langAddAU = "Add a user";
@@ -93,6 +93,7 @@ $langOfficialCode = "Administrative code";
 $langOk = "Ok";
 $langOneByOne = "Add user manually";
 $langOneResp = "One of the course administrators";
+$langOptional = "Optional";
 $langOtherCourses = "Course list";
 $langPassTwo = "You have typed two different passwords";
 $langPassword = "Password";
@@ -140,12 +141,13 @@ $lang_click_here = "click here";
 $lang_do_you_want_to_continue = "Do you want to continue?";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";
 $lang_fields_enclosed_by = "Fields enclosed by";
-$lang_footer_CourseManager = "Course Manager(s)";
+$lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "if you choose to continue, lines with errors will be simply ignored";
 $lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
 $lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
 $lang_no_error_in_file_found = "No error in file found.";
+$lang_p_platformManager = "Administrator for %s";
 $lang_the_following_errors_were_found = "The following errors were found ";
 $lang_this_course_is_protected = "This course is protected";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You’re user profile doesn’t seem to be enrolled to this course";
 ?>

@@ -328,7 +328,6 @@ $langOneResp = "One of the course administrators";
 $langOrganisation = "会議室管理";
 $langPassTwice = "1度目と2度目で違ったパスワードを入れました。ボタンで戻って、再度ためしてください";
 $langPassTwo = "You have typed two different passwords";
-$langPersonalSettings = "個人設定が登録されました。ユーザ名とパスワードの覚えを記載した mailが送付されました。さて、あなたがとりたいコースを選んでください。";
 $langPgTitle = "ページタイトル";
 $langPoweredBy = "iCampus utilise la plate-forme";
 $langPrivateAccess = "Private access, registration colsed (site accessible only to people on the <a href";

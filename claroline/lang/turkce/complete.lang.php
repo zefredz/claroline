@@ -167,7 +167,6 @@ $langChangeCat = "Kategori deðiþtir";
 $langChat = "Sohbet";
 $langChat = "Sohbet Odasý";
 $langChat = "Tartýþma";
-$langCheckDatabase = "Check main database";
 $langChoice = "Seçiminiz";
 $langClarContent = "Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and, 
@@ -576,6 +575,13 @@ $langManyAnswers = "(more than one answer can be true)";
 $langMax = "en çok.";
 $langMaxSizeCourseCode = "en çok 12 harf olmalýdýr, ara verilmez ve (þ,Þ,ð,Ð,Ý,ý,Ç,ç,Ö,ö,Ü,ü) Türkçe harfler kullanýlmaz. Örnek: <i>FIZIK601</i>";
 $langMessage = "When you remove the test forum, it will remove all messages in that forum too.";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Sayýn %s, %s. 
+Kiþisel ayarlarýnýz kaydedildi, 
+kullanýcý adýnýz ve þifreniz eposta adresinize gönderildi. 
+Ayrýca Ders eðitmenleri tarafýndan yapýlan duyurular da bu 
+adresinize gönderilecektir.<br>
+Þimdi girmek istediðiniz dersi listeden seçebilirsiniz.";
 $langMinute = "Dakika";
 $langMissing = "missing";
 $langModCatName = "Kategori adýný deðiþtir";
@@ -626,15 +632,8 @@ $langOtherCourses = "Ders listesi";
 $langPassTooEasy = "bu þifre çok basit. Böyle bir þey önerilir ";
 $langPassTwice = "Þifrenizi farklý yazdýnýz. Geri dönüp tekrar yazýnýz.";
 $langPassTwo = "Ýki farklý þifre yazdýnýz";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Sayýn %s, %s. 
-Kiþisel ayarlarýnýz kaydedildi, 
-kullanýcý adýnýz ve þifreniz eposta adresinize gönderildi. 
-Ayrýca Ders eðitmenleri tarafýndan yapýlan duyurular da bu 
-adresinize gönderilecektir.<br>
-Þimdi girmek istediðiniz dersi listeden seçebilirsiniz.';
-$langPgTitle = 'Sayfanýn baþlýðý';
-$langPlaces = 'grup baþýna kiþi sayýsý (seçimlik)';
+$langPgTitle = "Sayfanýn baþlýðý";
+$langPlaces = "grup baþýna kiþi sayýsý (seçimlik)";
 $langPoweredBy = "Powered by";
 $langPrintVers = "Printable version";
 $langPrivate = "özel";

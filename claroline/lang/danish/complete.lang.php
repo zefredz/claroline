@@ -212,8 +212,6 @@ $langCategories = "Kursuskategorier";
 $langCfgSetting = "Config opsætning";
 $langChangeCat = "Ændre kategori";
 $langChat = "Chat";
-$langCheckDatabase = "Kontroller hoveddatabase";
-$langCheckDatabase = "Tjek hoveddatabasen";
 $langChoice = "Dit valg";
 $langChooseGoodAnswer = "Venligst vælg et godt svar";
 $langChooseGoodAnswers = "Venligst vælg et eller flere gode svar";
@@ -804,6 +802,12 @@ $langMax = "max.";
 $langMaxFileSize = "Max fil størrelse er 10MB - ellers brug din lokale server";
 $langMaxSizeCourseCode = "max. 12 tegn, f.eks. <i>ROM2121</i>. Brug ikke <i>æ, ø, å</i>";
 $langMessage = "Når du sletter testforum, så sletter du samtidig også alle meddelelser i testforum.";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Kære %s, %s. 
+Dine personlige oplysninger er registreret og en email er afsendt til din emailadresse, 
+så du kan huske dit brugernavn og din adgangskode. 
+<i>Husk at der er forskel på store og små bogstaver (case sensitive)</i>, 
+når du skal logge dig på.";
 $langMinute = "Minutter";
 $langMissing = "mangler";
 $langMissingImagesDetected = "Billederne mangler";
@@ -879,8 +883,6 @@ $langNowGoChooseYourCourses = "Vælg nu de kurser på kursusoversigten som du ønsk
 $langNowGoCreateYourCourse = "Du kan nu oprette dine kurser";
 $langOk = "Ok";
 $langOkSent = "Din tekst er lagt ud.<p>Den er nu linket til fra kurset <a href=../..//index.php>Homepage</a>";
-$langOkSentLink = "Dit link er sendt.<p>Der er nu oprettet adgang fra <a href=\"../..//index.php\">Kursushjemmesiden</a>";
-$langOkSentPage = "Din side er sendt.<p>Der er nu oprettet et link fra <a href=\"../..//index.php\">Kursushjemmesiden</a>";
 $langOldToNew = "Ældste først";
 $langOn = "Til";
 $langOneByOne = "Tilføj deltagerne manuelt";
@@ -901,12 +903,6 @@ $langPeriodMonth = "Måned";
 $langPeriodToDisplay = "Periode";
 $langPeriodWeek = "Uge";
 $langPeriodYear = "År";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Kære %s, %s. 
-Dine personlige oplysninger er registreret og en email er afsendt til din emailadresse, 
-så du kan huske dit brugernavn og din adgangskode. 
-<i>Husk at der er forskel på store og små bogstaver (case sensitive)</i>, 
-når du skal logge dig på.';
 $langPgTitle = "Tekstens titel";
 $langPgTitle = "Titel på siden";
 $langPlaces = "pladser i gruppen (valgfri)";
@@ -998,7 +994,6 @@ $langStatsOfCampus = "E-learning statistik";
 $langStatsOfCourse = "Kursusstatistik";
 $langStatsOfUser = "Deltagerstatistik";
 $langStatus = "Handling";
-$langStrangeCases = "Mærkelig sager";
 $langStudent = "studerende";
 $langStudentsNotInThisGroups = "Deltagere som ikke er i denne gruppe";
 $langSubTitle = "Du kan tilføje et link (URL) i menuen på din kursushjemmeside.<br> Tip: hvis du ønsker at linke til et website, åben dette website, kopier dets URL adresse øverst i browservinduet og indsæt i \"link\" feltet nedenfor.";

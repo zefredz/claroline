@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php
 $langAddIntro = "Ajouter un texte d'introduction";
 $langAdmin = "Admin";
 $langAdministration = "Administration";
@@ -75,9 +75,7 @@ $lang_config_ErrorEmailManager = "L'e-mail du conseiller pédagogique est incorre
 $lang_config_ErrorHostEmpty = "Le serveur de la base de données ne peut être vide !";
 $lang_config_ErrorLoginBDEmpty = "Le login pour la base de données ne peut être vide !";
 $lang_config_ErrorOpenFile = "Erreur d'ouverture du fichier config.php";
-$lang_config_ErrorRootWeb = "Le chemin web est incorrect !";
 $lang_config_ErrorRootWebEmpty = "Le chemin web ne peut être vide !";
-$lang_config_ErrorURLInstitution = "L'URL de l'institution est incorrecte !";
 $lang_config_Info = "(*) valeur requise";
 $lang_config_NoAdmin = "Vous n'êtes pas connecté en tant qu'administrateur";
 $lang_config_TitleAdministrator = "Administrateur : ";
@@ -98,11 +96,12 @@ $lang_config_siteName = "Nom du site : ";
 $lang_config_urlAppend = "Adresse ajoutée";
 $lang_config_urlInstitution = "URL : ";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
-$lang_footer_CourseManager = "Gestionnaire(s) du cours";
+$lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_htAccessIncPath_added = "Répertoire <em>inc</em> protégé";
 $lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
 $lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
 $lang_no_access_here = "Pas d'accès ";
+$lang_p_platformManager = "Administrateur %s";
 $lang_php_info = "Information sur le système PHP";
 $lang_this_course_is_protected = "Ce cours est protégé";
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";

@@ -207,7 +207,6 @@ $langCfgSetting = "Par&aacute;metros de Configuraci&oacute;n";
 $langChangeCat = "Cambiar de categor&iacute;a";
 $langChat = "Chat";
 $langChat = "Debate";
-$langCheckDatabase = "Comprobar a base de datos principal";
 $langChoice = "A s&uacute;a elecci&oacute;n";
 $langChoice = "A t&uacute;a selecci&oacute;n";
 $langChooseFile = "Seleccionar arquivo";
@@ -815,6 +814,11 @@ $langMax = "max.";
 $langMaxFileSize = "O tama&ntilde;o m&aacute;ximo do ficheiro &eacute;";
 $langMaxSizeCourseCode = "max. 12 caracteres, p. ex.<i>ROM2121</i>";
 $langMessage = "no momento en que vostede suprima o foro \"Foro de probas\", igualmente suprimir&aacute;se o presente tema que non ten m&aacute;s que esta mensaxe";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Estimado(a) %s, %s. 
+Os seus datos personais xa foron rexistrados e xa se enviou un correo electr&oacute;nico &oacute; seu buz&oacute;n
+para recordarlle o seu nome de usuario e a s&uacute;a clave de acceso.<br>
+Seleccione da lista os cursos &oacute;s que desexa ter acceso.";
 $langMinute = "Minutos";
 $langMissing = "falta";
 $langMissingImagesDetected = "Detect&aacute;ronse im&aacute;xes perdidas";
@@ -846,7 +850,6 @@ $langMyStats = "Ver as mi&ntilde;as estad&iacute;sticas";
 $langNULLValue = "Valeiro(o NULL)";
 $langNameCat = "Cambiouse o nome da categor&iacute;a";
 $langNameDir = "Nome do novo directorio";
-$langNameOfLang = "Array";
 $langNameOfLang = "Nome do idioma";
 $langNbAnnoucement = "N&uacute;mero de anuncios";
 $langNbLogin = "N&uacute;mero de login";
@@ -888,8 +891,6 @@ $langOk = "aceptar";
 $langOk = "OK";
 $langOk = "validar";
 $langOkSent = "A s&uacute;a p&aacute;xina enviouse &oacute; servidor.<p>&Eacute;s accesible desde a <a href=../..//index.php>p&aacute;xina principal</a> do seu curso";
-$langOkSentLink = "Enviouse a ligaz&oacute;n.<p>Agora est&aacute; accesible desde <a href=\"../..//index.php\">P&aacute;xina inicial do curso</a>";
-$langOkSentPage = "Enviouse a p&aacute;xina.<p>Agora est&aacute; na<a href=\"../..//index.php\">P&aacute;xina inicial do curso</a>";
 $langOldToNew = "Inverter";
 $langOn = "Hai";
 $langOneByOne = "Engadir un usuario de forma manual";
@@ -910,11 +911,6 @@ $langPeriodMonth = "Mes";
 $langPeriodToDisplay = "Periodo";
 $langPeriodWeek = "Semana";
 $langPeriodYear = "Ano";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Estimado(a) %s, %s. 
-Os seus datos personais xa foron rexistrados e xa se enviou un correo electr&oacute;nico &oacute; seu buz&oacute;n
-para recordarlle o seu nome de usuario e a s&uacute;a clave de acceso.<br>
-Seleccione da lista os cursos &oacute;s que desexa ter acceso.';
 $langPgTitle = "T&iacute;tulo da p&aacute;xina";
 $langPlaces = "prazas por grupo (opcional)";
 $langPlatform = "Emprega en";
@@ -998,7 +994,6 @@ $langStatsOfCampus = "Estad&iacute;sticas do campus";
 $langStatsOfCourse = "Estad&iacute;sticas do curso";
 $langStatsOfUser = "Estad&iacute;sticas do usuario";
 $langStatus = "Estatus";
-$langStrangeCases = "Casos estra&ntilde;os";
 $langStudent = "estudiante";
 $langSubTitle = "Engadir &oacute; men&uacute; principal da s&uacute;a p&aacute;xina principal unha ligaz&oacute;n a unha p&aacute;xina, no interior ou exterior da s&uacute;a web";
 $langSubscribed = "Persoas rexistradas neste curso";

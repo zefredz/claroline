@@ -158,7 +158,6 @@ $langCatagoryGroup = "Fòrums dels grups";
 $langCatagoryMain = "Principal";
 $langCfgSetting = "Detalls de configuració";
 $langChat = "Xat";
-$langCheckDatabase = "Comprova base de dades principal";
 $langChoice = "La teva opció";
 $langClose = "Tanca";
 $langCode = "Codi del curs";
@@ -340,6 +339,12 @@ $langManyAnswers = "(pot ser correcta més d'una resposta)";
 $langMax = "màx.";
 $langMaxSizeCourseCode = "màx. 12 caracters, e.g. <i>ONA2121</i>";
 $langMessage = "Quan eliminis el fòrum de prova, s'esborraran també tots els missatges d'aquest fòrum.";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Estimat/da %s, %s. 
+Els teus detalls personals han estat enregistrats i 
+se t’ha enviat un correu-e per ajudar-te a recordar 
+el teu nom d’uauari i paraula de pas.
+Selecciona ara a la llista els cursos que vols atendre.";
 $langMinute = "Minuts";
 $langMissing = "manca";
 $langModifAnn = "Modifica aquest anunci";
@@ -389,12 +394,6 @@ $langOtherCourses = "Llista de cursos";
 $langPassTooEasy = "aquest password és massa simple. Utilitza un password com aquest ";
 $langPassTwice = "Has escrit dues paraules de pas diferents. Utilitza el botó enrere del teu navegador i prova un altre cop.";
 $langPassTwo = "Has entrat dues paraules de pas differents";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Estimat/da %s, %s. 
-Els teus detalls personals han estat enregistrats i 
-se t’ha enviat un correu-e per ajudar-te a recordar 
-el teu nom d’uauari i paraula de pas.
-Selecciona ara a la llista els cursos que vols atendre.';
 $langPgTitle = "Títol de la pàgina";
 $langPlaces = "llocs per grups (opcional)";
 $langPoweredBy = "Potenciat per ";
@@ -436,8 +435,8 @@ $langSendPage = "Plana a ser enviada";
 $langSettings = "amb els següents detalls:
 Nom d'usuari:";
 $langSize = "Mida";
-$langSizeOf = "Mida de";
 $langSizeOf = "Mida de ";
+$langSizeOf = "Mida de";
 $langSocraticIrony = "La ironia socràtica és...";
 $langStatistics = "Estadístiques";
 $langStatus = "Acció";

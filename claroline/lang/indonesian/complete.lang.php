@@ -195,7 +195,6 @@ $langCfgSetting = "Setting Configurasi";
 $langChangeCat = "Perubahan kategori";
 $langChat = "Chat";
 $langChat = "Diskusi";
-$langCheckDatabase = "Periksa database utama";
 $langChoice = "Pilihan Anda";
 $langChooseFile = "Pilih file";
 $langChooseGoodAnswer = "Silahkan pilih sebuah jawaban yang tepat";
@@ -738,6 +737,10 @@ $langMax = "max.";
 $langMaxFileSize = "Ukuran maximum file adalah";
 $langMaxSizeCourseCode = "max. 12 karakter, misal <i>TNH101</i>";
 $langMessage = "Jika anda menghapus forum test, semua pesan di dalam forum tersebut akan dihapus juga.";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Yth. %s, %s. 
+Setting personal anda telah terdaftar dan email telah 
+dikirim untuk membantu anda mengingat nama user dan password anda.";
 $langMinute = "Menit";
 $langMissing = "hilang";
 $langMissingImagesDetected = "Ada citra yang hilang terdeteksi";
@@ -813,8 +816,6 @@ $langNowGoChooseYourCourses = "Anda kini dapat memilih pelajaran dari daftar unt
 $langNowGoCreateYourCourse = "Anda kini dapat membuat situs pelajaran anda";
 $langOk = "Ok";
 $langOkSent = "Halaman anda telah dikirim.<p>Kini telah di-link-kan ke <a href=../..//index.php>Situs Pelajaran</a>";
-$langOkSentLink = "Link anda telah dikirim.<p>Sekarang dapat diakses dari<a href=\"../..//index.php\">Situs pelajaran</a>";
-$langOkSentPage = "Halaman anda telah dikirim.<p>Sekarang sudah terhubung ke   <a href=\"../..//index.php\">Situs pelajaran</a>";
 $langOldToNew = "Yang lama lebih dulu";
 $langOn = "Tampil";
 $langOneByOne = "Tambah user secara manual";
@@ -836,10 +837,6 @@ $langPeriodMonth = "Bulan";
 $langPeriodToDisplay = "Periode";
 $langPeriodWeek = "Minggu";
 $langPeriodYear = "Tahun";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Yth. %s, %s. 
-Setting personal anda telah terdaftar dan email telah 
-dikirim untuk membantu anda mengingat nama user dan password anda.';
 $langPgTitle = "Judul halaman";
 $langPlaces = "tempat menurut group (optional)";
 $langPlatformAccess = "Access to campus";
@@ -929,7 +926,6 @@ $langStatsOfCampus = "Statistik kampus";
 $langStatsOfCourse = "Statistik pelajaran";
 $langStatsOfUser = "Statistik user";
 $langStatus = "Aksi";
-$langStrangeCases = "Strange cases";
 $langStudent = "siswa";
 $langStudentsNotInThisGroups = "User tidak dalam group ini";
 $langSubTitle = "Tambahkan link ke menu utama situs pelajaran anda. Tip: jika anda ingin menambahkan link ke suatu halaman, kunjungi halaman tersebut, cut dan paste alamatnya dalam bar URL di bagian atas browser dan insert-kan kedalam field \"link\" di bawah ini.";

@@ -282,8 +282,8 @@ $langCreateMissingDirectories = "Creación de directorios perdidos";
 $langCreateModifyDocument = "Crear/editar documento";
 $langCreateSite = "Crear un sitio web de un curso";
 $langCreateUser = "Crear usuario";
-$langCreatedIn = "creado el";
 $langCreatedIn = "creado el ";
+$langCreatedIn = "creado el";
 $langCreationDate = "Creado";
 $langDBHost = "Host de la base de datos";
 $langDBLogin = "Usuario de la base de datos";
@@ -637,6 +637,12 @@ $langMax = "max.";
 $langMaxFileSize = "El tamaño maximo es: ";
 $langMaxSizeCourseCode = "Max. 12 caracteres, p. ej.<i>ROM2121</i>";
 $langMessage = "En el momento que usted suprima el foro \"Foro de pruebas\", igualmente se suprimirá el presente tema que no contiene más que este mensaje";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Estimado(a) %s, %s. 
+Sus datos personales han sido registrados y ha sido enviado 
+un correo electrónico a su casilla para recordarle su nombre 
+de usuario y su contraseña.<br>
+Ahora seleccione de la lista los cursos a los que desea tener acceso.";
 $langMinute = "Minutos";
 $langMissingImagesDetected = "Se ha detectado que existen imágenes faltantes";
 $langModCatName = "Modificar el nombre de la categoría";
@@ -708,8 +714,6 @@ $langOfficialCode = "Código Administrativo";
 $langOk = "Aaceptar";
 $langOk = "Aceptar";
 $langOkSent = "Su página ha sido enviada al servidor.<p>Es accesible desde la <a href=../..//index.php>página principal</a> de su curso";
-$langOkSentLink = "Su enlace ha sido enviado.<p>Ahora está accesoble desde la  <a href=\"../..//index.php\">Página principal del curso</a>";
-$langOkSentPage = "Su página ha sido enviada.<p>Ahora está enlazada desde la <a href=\"../..//index.php\">Página principal del curso</a>";
 $langOldToNew = "Viejos primero";
 $langOn = "Activos:";
 $langOneByOne = "Agregar usuarios manualmente";
@@ -732,12 +736,6 @@ $langPeriodToDisplay = "Período";
 $langPeriodWeek = "Semana";
 $langPeriodYear = "Año";
 $langPersonalCourseList = "Lista de miembros del curso";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Estimado(a) %s, %s. 
-Sus datos personales han sido registrados y ha sido enviado 
-un correo electrónico a su casilla para recordarle su nombre 
-de usuario y su contraseña.<br>
-Ahora seleccione de la lista los cursos a los que desea tener acceso.';
 $langPgTitle = "Título de la página";
 $langPhone = "Telefono";
 $langPlaces = "lugares por grupos (opcional)";
@@ -799,7 +797,6 @@ $langResult = "Puntaje";
 $langReuse = "Reusar";
 $langRidiculise = "Ridiculizar al interlocutor para hacerle admitir su error.";
 $langRole = "Papel";
-$langRole = "Papel";
 $langSave = "Archivar";
 $langSave = "Grabar";
 $langSaveChanges = "Salvar cambios";
@@ -822,8 +819,8 @@ $langShowAll = "Mostrar todo";
 $langShowNone = "No mostrar";
 $langSimpleExercise = "En una única página";
 $langSize = "Tamaño";
-$langSizeOf = "Tamaño de ";
 $langSizeOf = "Tamaño de";
+$langSizeOf = "Tamaño de ";
 $langSocraticIrony = "La ironía socrática consiste en...";
 $langStatistics = "Estadísticas";
 $langStatsOfCampus = "Estadísticas del campus";
@@ -831,7 +828,6 @@ $langStatsOfCourse = "Estadísticas del curso";
 $langStatsOfUser = "Estadísticas del usuario";
 $langStatus = "Acción";
 $langStatusChangeNotMade = "No se aplico ningún cambio";
-$langStrangeCases = "Strange cases";
 $langStudent = "Estudiante";
 $langStudentView = "Ver como estudiante";
 $langSubTitle = "Agregar al Menú Principal de la página de inicio de su curso un enlace a una página, o cualquier URL. Ej: si desea agregar un enlace a una página, vaya a esa página, copie y pegue su dirección en la barra dirección de su programa navegador e inserte el enlaace el el campo 'Enlace' que está abajo.";
@@ -957,7 +953,6 @@ $lang_click_here = "click here";
 $lang_course_enrollment = "Inscripción a cursos";
 $lang_enroll = "Inscripción";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";
-$lang_footer_CourseManager = "Coordinador(es)";
 $lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
 $lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
 $lang_main_categories_list = "Categoríia Principal";

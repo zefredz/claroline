@@ -323,8 +323,8 @@ $langAntique = "Geschichte der alten Philosophie";
 $langAppliedChange = "Die Änderungen der Benutzer-Einstellungen wurden durchgeführt";
 $langArchive = "Archiv";
 $langArchive = "archiviert";
-$langArchiveCourse = "Kurs Backup";
 $langArchiveCourse = "Kurs Backup ";
+$langArchiveCourse = "Kurs Backup";
 $langArchiveLocation = "Archiv Ablage";
 $langArchiveLocation = "Archivablage";
 $langArchiveName = "Archivname";
@@ -348,7 +348,6 @@ $langAreYouSureToRemoveLabel = "Wenn Sie einen Titel löschen, werden alle Module
 $langAreYouSureToRemoveSCORM = "SCORM - konforme Module SCORM werden vollständig vom Server entfernt wenn Sie sie aus dem Lernpfad löschen.";
 $langAreYouSureToRemoveStd = "Das Modul wird weiterhin im Modul-Pool verfügbar sein.";
 $langAreYouSureToUnsubscribe = "sind Sie sicher, das Sie das austragen wollen: ";
-$langAuthInfo = "Authtifizierung";
 $langAvailableArchives = "Übersicht verfügbarer Archive";
 $langBUAnnounceInMainBase = "Backup der Bekanntmachungen in Datenbank für";
 $langBUAnnounceInMainBase = "Backup der Bekanntmachungen in der Hauptdatenbank für";
@@ -406,9 +405,6 @@ $langChangeRaw = "Ändern der Mindestanforderung, um dieses Modul zu bestehen (in
 $langChangedTool = "Zugriff auf Tools geändert";
 $langChat = "Chat";
 $langChatResetBy = "Chat zurückgesetzt von";
-$langCheckDatabase = "Datenbank checken";
-$langCheckDatabase = "Datenbank prüfen";
-$langCheckDatabase = "Haupt-Datenbank überprüfen";
 $langChoice = "Wählen Sie aus";
 $langChooseFile = "Datei auswählen";
 $langChooseGoodAnswer = "Wählen Sie eine richtige Antwort";
@@ -979,6 +975,7 @@ $langInsertMyModulesTitle = "Dem Kurs ein Modul hinzufügen";
 $langInsertNewModuleName = "Neuen Namen einfügen";
 $langInstalled = "Der Lernpfad wurde erfolgreich importiert.";
 $langIntroCourse = "Sie sind auf der Kurs-Startseite. <br /><br /> Auf dieser Seite können Sie <ul><li>Tools sperren oder freischalten (Auf den ' Tool Liste bearbeiten'-Button unten links klicken).</li> <li>Einstellungen ändern oder Statistiken abrufen (unten auf den entsprechenden Link klicken).</li></ul>Um einen Einführungstext zur Vorstellung Ihres Kurses für Ihre Teilnehmer zu erstellen, klicken Sie auf diesen Button  ";
+$langIntroCourse = "Sie sind auf der Kurs-Startseite. <br><br> Auf dieser Seite können Sie <li class=HelpText>Tools sperren oder freischalten (Auf den ' Tool Liste bearbeiten'-Button unten links klicken).</li> <li class=HelpText>Einstellungen ändern oder Statistiken abrufen (unten auf den entsprechenden Link klicken).</li> <BR><BR>Um einen Einführungstext zur Vorstellung Ihres Kurses für Ihre Teilnehmer zu erstellen, klicken Sie auf diesen Button  ";
 $langIntroEditToolList = "Wählen Sie die Tools die für Ihre Teilnehmer sichtbar sein sollen. Unsichtbar Tools werden zu Ihrer Information in Ihrem Bereich eingegraut.";
 $langIntroLearningPath = "Verwenden Sie dieses Tool, um den Benutzern einen geplanten Ablauf zwischen Dokumenten, Tests, HTML-Seiten, Links usw. vorzugeben.<br><br>
    Wenn Sie Ihren Teilnehmern einen Lernpafd anbieten möchten, klicken Sie auf den Button unten.<br>";
@@ -1112,6 +1109,11 @@ $langMaxFileSize = "Max. Dateigröße ist";
 $langMaxStudentGroup = "Max. Anzahl von Teilnehmern p. Gruppe";
 $langMaximum = "Maximal : ";
 $langMessage = "Wenn Sie das Test Forum entfernen, wird die aktuelle Meldung auch entfernt.";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Guten Tag %s, %s. 
+Ihre persönlichen Einstellungen wurden gespeichert und eine E-Mail 
+mit Benutzernamen und Passwort wurde zur Erinnerung an Sie gesendet.<br>
+Wählen Sie nun in der Liste der Kurse die Kurse aus, die Sie belegen möchten.";
 $langMessageToSelectedUsers = "Nachrichten an ausgewählte Benutzer";
 $langMessages = "Nachrichten";
 $langMin = "Minimal : ";
@@ -1220,7 +1222,6 @@ $langNoSeduction = "Nein. Sokratische Ironie ist keine Verführungsstrategie, auc
 $langNoSpace = "Upload ist fehlgeschlagen. Sie haben nicht genug Platz im Verzeichnis";
 $langNoStartAsset = "Es ist kein Start asset für dieses Modul definiert.";
 $langNoUserResult = "Keinen Benutzer gefunden";
-$langNoUserSelected = "Es wurde kein Benutzer ausgewählt!";
 $langNomPageAddHtPass = "Benutzerverwaltung";
 $langNone = "keine";
 $langNotAllowed = "Nicht erlaubt";
@@ -1247,8 +1248,6 @@ $langOkManifestFound = "Datei imsmanifest im ZIP-Archiv gefunden : ";
 $langOkManifestRead = "Datei imsmanifest ausgelesen.";
 $langOkModuleAdded = "Modul hinzugefügt : ";
 $langOkSent = "Ihre Seite wurde gesendet.<p>Sie ist nun mit der <a href=../..//index.php>Kurshomepage</a> verknüpft";
-$langOkSentLink = "Der Link wurde eingefügt.<p>Er ist nun auf der <a href=\"../..//index.php\">Kursseite</a> verfügbar.";
-$langOkSentPage = "Seite wurde übertragen.<p>Sie ist nun eingefügt in die <a href=\"../..//index.php\">Kursseite</a>";
 $langOldToNew = "Letzte zuerst";
 $langOn = "An";
 $langOneByOne = "Teilnehmer manuell eintragen";
@@ -1280,11 +1279,6 @@ $langPeriodWeek = "Woche";
 $langPeriodYear = "Jahr";
 $langPersoValue = "Ergebnisse";
 $langPersonalCourseList = "Persönliche Kurs-Liste";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Guten Tag %s, %s. 
-Ihre persönlichen Einstellungen wurden gespeichert und eine E-Mail 
-mit Benutzernamen und Passwort wurde zur Erinnerung an Sie gesendet.<br>
-Wählen Sie nun in der Liste der Kurse die Kurse aus, die Sie belegen möchten.';
 $langPgTitle = "Name der Seite / des Links";
 $langPgTitle = "Seitentitel";
 $langPhone = "Tel.";
@@ -1374,7 +1368,6 @@ $langRestoreDescription = "Dies ist eine Archivdatei, die Sie unten auswählen kö
 $langRestoreNotice = "Dieses Script ermöglicht keine automatische Wiederherstellung der Nutzerdaten. Die Nutzerdaten werden aber in die Datei &quot users.csv&quot gesichert und können manuell vom Administrator bearbeitet werden.";
 $langRestoreNow = "Archiv einrichten";
 $langResult = "Ergebnis";
-$langReturnSearchUser = "zurück zum Benutzer";
 $langReuse = "Wiederholung";
 $langRidiculise = "Das Gegenüber lächerlich machen, um es dazu zu bringen, einzugestehen, Unrecht zu haben.";
 $langRole = "Rolle";
@@ -1439,7 +1432,6 @@ $langStatsOfUser = "Teilnehmer-Statistik";
 $langStatus = "Status";
 $langStatusChangeNotMade = "Keine Änerungen durchgeführt";
 $langStoreChat = "Chat-Sitzung speichern";
-$langStrangeCases = "Auffälligkeiten";
 $langStudent = "Lerner";
 $langStudent = "Teilnehmer";
 $langStudentView = "Lerner Ansicht";
@@ -1626,8 +1618,6 @@ $langZipNoPhp = "Die zip-Datei darf keine .PHP-Dateien enthalten";
 $lang_EditFile_AdministrationTools = "Administrations - Tools";
 $lang_EditFile_ModifyOk = "Änderung erfolgreich";
 $lang_EditFile_NoAdmin = "Sie sind nicht als Administrator eingeloggt";
-$lang_SearchUser_ModifOk = "Update down";
-$lang_SearchUser_SearchUser = "Search a user";
 $lang_already_enrolled = "immer eingeschrieben";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Sind Sie sicher, dass Sie diesen Kurs aus Ihrer Übersicht entfernen wollen ?";
 $lang_back_to_my_personnal_course_list = "Zurück zur persönlichen Kursübersicht";
@@ -1641,9 +1631,7 @@ $lang_config_ErrorEmailManager = "Die Email des Bildungsverantwortlichen ist fal
 $lang_config_ErrorHostEmpty = "Das Feld darf Datenbank-Host nicht leer sein !";
 $lang_config_ErrorLoginBDEmpty = "Das Feld Username/Login darf nicht leer sein !";
 $lang_config_ErrorOpenFile = "Fehler beim Öffnen der Datei Error config.php";
-$lang_config_ErrorRootWeb = "Die Angabe für das Root Web ist falsch !";
 $lang_config_ErrorRootWebEmpty = "Das Feld Root Web darf nicht leer sein !";
-$lang_config_ErrorURLInstitution = "Die URL der Institution ist falsch !";
 $lang_config_Info = "(*) Pflichteingabe";
 $lang_config_NoAdmin = "Sie sind nicht als System-Administrator eingeloggt";
 $lang_config_TitleAdministrator = "Administrator : ";
@@ -1676,14 +1664,12 @@ $lang_faculty_ConfirmDelete = "Wollen Sie diese Kategorie wirklich löschen ? ";
 $lang_faculty_CreateNotOk = "Dies Kategorie existiert bereits!";
 $lang_faculty_CreateOk = "Kategorie erfolgreich erstellt";
 $lang_faculty_DeleteOk = "Kategorie erfolgreich gelöscht";
-$lang_faculty_EditCat = "Eine Kategorie bearbeiten";
 $lang_faculty_EditOk = "Änderungen wurden erfolgreich gespeichert";
 $lang_faculty_Father = "Hauptkategorie";
 $lang_faculty_HaveCourses = "Diese Katgeorie beinhaltet noch Kurse; diese müssen Sie zuvor löschen.";
 $lang_faculty_MoveOk = "Kategorie erfolgreich verschoben";
 $lang_faculty_NameCat = "Name der Kategorie :";
 $lang_faculty_NameEmpty = "Sie haben keine ausreichenden Rechte den Namen der Kategorie zu ändern !";
-$lang_faculty_NoAdmin = "Sie müssen als Administrator eingeloggt sein";
 $lang_faculty_NoCat = "Es ist keine Kategorie verfügbar !";
 $lang_faculty_NoChange = "Keine Änderungen durchführen.";
 $lang_faculty_NoMove_1 = "Sie können  ";
@@ -1691,7 +1677,6 @@ $lang_faculty_NoMove_2 = " nicht in die gleiche Kategorie verschieben !";
 $lang_faculty_Yes = "Ja";
 $lang_faculty_imgDown = "nach unten";
 $lang_faculty_imgUp = "nach oben";
-$lang_footer_CourseManager = "Verantwortlich für diesen Kurs";
 $lang_if_you_dont_have_a_user_account_profile_on = "Wenn Sie keine Zugangsbrechtigung haben zu";
 $lang_if_you_wish_to_enroll_to_this_course = "Wenn Sie sich in diesen Kurs eintragen möchten";
 $lang_main_categories_list = "Kategoriene-Übersicht";

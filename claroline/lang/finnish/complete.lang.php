@@ -301,6 +301,11 @@ $langManager = "Ylläpitäjä";
 $langManyAnswers = "(Vastauksia voi olla useampi)";
 $langMaxSizeCourseCode = "Korkeintaan 12 merkkiä, esimerkiksi <i>Luokka2121</i>";
 $langMessage = "Kun poistat testifoorumin, poistat myös kaikki viestit.";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Hyvä %s, %s. 
+Henkilökohtaiset asetuksesi on rekisteröity ja sähköpostissa 
+on lähetetty käyttäjänimesi ja salasanasi, jotta muistaisit ne.<br>
+Valitse listasta kurssit, joihin haluat pääsyn.";
 $langMinute = "Minuutti";
 $langModCatName = "Muokkaa kategorian nimeä";
 $langModifDone = "Tietoja on muutettu";
@@ -335,11 +340,6 @@ $langOneResp = "Eräs kurssin ylläpitäjistä";
 $langOrganisation = "Foorumien ylläpito";
 $langPassTwice = "Kirjoitti kaksi erilaista salasanaa. Mene takaisin ja yritä uudestaan.";
 $langPassTwo = "Kaksi eri salasanaa!";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Hyvä %s, %s. 
-Henkilökohtaiset asetuksesi on rekisteröity ja sähköpostissa 
-on lähetetty käyttäjänimesi ja salasanasi, jotta muistaisit ne.<br>
-Valitse listasta kurssit, joihin haluat pääsyn.';
 $langPgTitle = "Sivun otsikko";
 $langPoweredBy = "Alusta";
 $langPrivateAccess = "Yksityinen pääsy, reisteröityminen suljettu (sisäänpääsy vain <a href=../user/user.php>käyttäjien listalta</a>)";

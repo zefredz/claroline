@@ -212,8 +212,6 @@ $langCfgSetting = "Nastavitve konfiguracije";
 $langChangeCat = "Spremeni kategorijo";
 $langChat = "Klepetalnica";
 $langChat = "Razprava";
-$langCheckDatabase = "Preveri glavno podatkovno bazo";
-$langCheckDatabase = "Preverjanje glavne podatkovne baze";
 $langChoice = "Tvoja izbira";
 $langChooseFile = "Izberi datoteko";
 $langChooseGoodAnswer = "Izberi dober odgovor";
@@ -814,6 +812,10 @@ $langMax = "maks.";
 $langMaxFileSize = "Maks velikost datoteke je";
 $langMaxSizeCourseCode = "maks. 12 znakov, na pr. <i>ROM2121</i>";
 $langMessage = "When you remove the test forum, it will remove all messages in that forum too.";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Dragi %s, %s. 
+Tvoje osebne nastavitve so zapisane in poslana je e-posta, 
+da bi si lahko zapomnil svoje uporabnisko ime in geslo.";
 $langMinute = "Minute";
 $langMissing = "manjka";
 $langMissingImagesDetected = "Odkril sem manjkajoce slike";
@@ -889,8 +891,6 @@ $langNowGoChooseYourCourses = "Sedaj lahko gres na izbiro zazelenih tecajev iz u
 $langNowGoCreateYourCourse = "Sedaj lahko tvoris svoj tecaj";
 $langOk = "Ok";
 $langOkSent = "Tvoja stran je bila poslana.<p>Sedaj je povezana s tecajem <a href=../..//index.php>Homepage</a>";
-$langOkSentLink = "Your link has been sent.<p>It is now accessible from the <a href=\"../..//index.php\">course Homepage</a>";
-$langOkSentPage = "Your page has been sent.<p>It is now linked from the <a href=\"../..//index.php\">course Homepage</a>";
 $langOldToNew = "Najprej najstarejse";
 $langOn = "o";
 $langOneByOne = "Uporabnika dodaj rocno";
@@ -912,10 +912,6 @@ $langPeriodMonth = "Mesec";
 $langPeriodToDisplay = "Obdobje";
 $langPeriodWeek = "Teden";
 $langPeriodYear = "Leto";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Dragi %s, %s. 
-Tvoje osebne nastavitve so zapisane in poslana je e-posta, 
-da bi si lahko zapomnil svoje uporabnisko ime in geslo.';
 $langPgTitle = "Naziv strani";
 $langPlaces = "sedezev na skupino (opcija)";
 $langPlatformAccess = "Dostop do kampusa";
@@ -1005,7 +1001,6 @@ $langStatsOfCampus = "Statistika kampusa";
 $langStatsOfCourse = "Statistika tecaja";
 $langStatsOfUser = "Statistika uporabnikov";
 $langStatus = "Akcija";
-$langStrangeCases = "Cudni primeri";
 $langStudent = "student";
 $langStudentsNotInThisGroups = "Uporabniki, ki niso v tej skupini";
 $langSubTitle = "Adds to your Course Homepage Main Menu a link to a site, a page or any URL. Tip: if you want to add a link to a page, go to that page, cut and paste its address in the URL bar on the top of your browser and insert it into the \"link\" field below.";

@@ -243,7 +243,6 @@ $langChangeCat = "Van categorie veranderen";
 $langChangeRaw = "Change minimum raw to pass this module (in pourcents) : ";
 $langChat = "Chat";
 $langChat = "Online chat";
-$langCheckDatabase = "Analyse van de databank";
 $langChoice = "Uw keuze";
 $langChooseGoodAnswer = "Kies een goed antwoord";
 $langChooseGoodAnswers = "Kies één of meerdere goede antwoorden.";
@@ -749,6 +748,10 @@ $langMax = "Maximum";
 $langMaxFileSize = "Maximum bestandsgrootte is";
 $langMaxSizeCourseCode = "max. 12 lettertekens, bijv.<i>ROM2121</i>";
 $langMessage = "Wanneer U het Testforum verwijdert, zal ook elk onderwerp hierin verwijderd worden.";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Beste %s, %s. 
+Uw persoonlijke gegevens werden opgeslagen en een e-mail werd naar 
+U opgestuurd ter herinnering van uw gebruikersnaam.";
 $langMessageToSelectedUsers = "Berichten naar specifieke gebruikers";
 $langMessages = "Berichten";
 $langMinute = "Minuten";
@@ -868,10 +871,6 @@ $langPeriodToDisplay = "Periode";
 $langPeriodWeek = "Week";
 $langPeriodYear = "Jaar";
 $langPersoValue = "Values";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Beste %s, %s. 
-Uw persoonlijke gegevens werden opgeslagen en een e-mail werd naar 
-U opgestuurd ter herinnering van uw gebruikersnaam.';
 $langPgTitle = "Titel Pagina";
 $langPlaces = "plaatsen per groep (facultatief)";
 $langPlatform = " gebruikt het platform";
@@ -963,7 +962,6 @@ $langStatsOfCampus = "Statistieken van campus";
 $langStatsOfCourse = "Statistieken van cursus";
 $langStatsOfUser = "Statistieken van gebruiker";
 $langStatus = "Actie";
-$langStrangeCases = "Strange cases";
 $langStudent = "student";
 $langStudentView = "Studenten zicht";
 $langStudentsNotInThisGroups = "Deelnemer(s) niet in deze groep";

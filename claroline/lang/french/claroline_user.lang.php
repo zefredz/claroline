@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php
 $langAddAClass = "Inscrire une classe";
 $langAddAClassToCourse = "Inscrire une classe au cours";
 $langAddAU = "Ajouter un utilisateur";
@@ -92,6 +92,7 @@ $langOfficialCode = "Code officiel";
 $langOk = "Valider";
 $langOneByOne = "Ajouter manuellement un utilisateur";
 $langOneResp = "L'un des gestionnaires du cours";
+$langOptional = "Facultatif";
 $langOtherCourses = "Liste des cours";
 $langPassTwo = "Vous n'avez pas tapé deux fois le même mot de passe";
 $langPassword = "mot de passe";
@@ -140,11 +141,12 @@ $lang_click_here = "cliquez ici";
 $lang_do_you_want_to_continue = "Voulez-vous continuer";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_fields_enclosed_by = "Champ entourés par";
-$lang_footer_CourseManager = "Gestionnaire(s) du cours";
+$lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "Si vous choisissez de continuer, les lignes avec des erreurs seront ignorées";
 $lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
 $lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
 $lang_no_error_in_file_found = "Aucune erreur trouvée dans le fichier.";
+$lang_p_platformManager = "Administrateur %s";
 $lang_the_following_errors_were_found = "Les erreurs suivantes ont été trouvées ";
 $lang_this_course_is_protected = "Ce cours est protégé";
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";

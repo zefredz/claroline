@@ -205,8 +205,6 @@ $langCfgSetting = "Config settings";
 $langChangeCat = "Pertukaran Kategori";
 $langChat = "Bincang(secara <i>online</i>)";
 $langChat = "Perbincangan";
-$langCheckDatabase = "Check main database";
-$langCheckDatabase = "Periksa Pangkalan Data Utama";
 $langChoice = "Pilihan anda";
 $langChooseFile = "Pilih Fail";
 $langChooseGoodAnswer = "Please choose a good answer";
@@ -747,6 +745,11 @@ $langMax = "Keahlian Maksimum ";
 $langMaxFileSize = "Saiz maksimum fail ialah ";
 $langMaxSizeCourseCode = "cth:. <i>EKT221</i>";
 $langMessage = "When you remove the test forum, it will remove all messages in that forum too.";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Terima kasih %s, %s. 
+Proses pendaftaran anda berjaya dilaksanakan. 
+Maklumat Login (ID Pengguna &amp; Katalaluan) 
+akan dihantar kepada anda melalui e-mail";
 $langMinute = "Minit";
 $langMissing = "missing";
 $langMissingImagesDetected = "Gambar hilang dikesan";
@@ -825,8 +828,6 @@ $langNowGoCreateYourCourse = "Sekarang anda boleh membina Laman Subjek";
 $langOk = "Ok";
 $langOk = "Proses";
 $langOkSent = "<i>Page<i/> telah dihantar.<p>ia telah dipautkan pada <a href=../..//index.php>laman subjek</a>";
-$langOkSentLink = "Pautan telah dimuatnaik.<p>Ia boleh dicapai pada <a href=\"../..//index.php\">Laman Subjek</a>";
-$langOkSentPage = "Page</i> telah dimuatnaik.<p>ia dipautkan pada <a href=\"../..//index.php\">Laman Subjek</a>";
 $langOldToNew = "Yang lama dahulu";
 $langOn = "Terdapat";
 $langOneByOne = "Tambah Pengguna secara manual";
@@ -849,11 +850,6 @@ $langPeriodMonth = "Bulan";
 $langPeriodToDisplay = "Jangkamasa";
 $langPeriodWeek = "Minggu";
 $langPeriodYear = "Tahun";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Terima kasih %s, %s. 
-Proses pendaftaran anda berjaya dilaksanakan. 
-Maklumat Login (ID Pengguna &amp; Katalaluan) 
-akan dihantar kepada anda melalui e-mail';
 $langPgTitle = "Tajuk <i>Page</i>";
 $langPlaces = "orang pelajar";
 $langPlatformAccess = "Capaian ke Kampus";
@@ -942,7 +938,6 @@ $langStatsOfCampus = "Statistik Kampus";
 $langStatsOfCourse = "Statistik Subjek";
 $langStatsOfUser = "Statistik Pengguna";
 $langStatus = "Mendaftar sebagai";
-$langStrangeCases = "Kes Berasingan";
 $langStudent = "Pelajar";
 $langStudentsNotInThisGroups = "Pelajar bukan dalam kumpulan ini";
 $langSubTitle = "Tambah Pautan pada Muka Utama Laman Subjek anda,sila nyatakan URL dan nama Pautan.";

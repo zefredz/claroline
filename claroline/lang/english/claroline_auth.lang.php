@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php
 $langAddImage = "Include picture";
 $langAddIntro = "Add introduction text";
 $langAddress = "The address of ";
@@ -61,6 +61,7 @@ $langMailAppearAlready = "This mail appears already in a previous line of the CS
 $langMailSynthaxError = "Mail synthax error.";
 $langMailUsed = "Mail is already used by another user.";
 $langManager = "Manager";
+$langMessageSubscribeDone_p_firstname_lastname = "Dear %s, %s. Your personal settings have been registered and an email has been sent to help you remember your user name and password.";
 $langModify = "Modify";
 $langModifyProfile = "Modify my profile";
 $langMonthNames = "Array";
@@ -79,7 +80,6 @@ $langPassTwo = "You have typed two different passwords";
 $langPassword = "Password";
 $langPasswordHasBeenEmailed = "Your password has been emailed to ";
 $langPasswordSimple = "Password given to simple or to close to username.";
-$langPersonalSettings = "Your personal settings have been registered and an email has been sent to help you remember your user name and password.</p>";
 $langPhone = "Phone";
 $langPlatformAdministration = "Platform Administration";
 $langPlatformAdministrator = "Platform Administrator";
@@ -120,13 +120,14 @@ $lang_click_here = "click here";
 $lang_course_enrollment = "User's course";
 $lang_enroll = "Enroll";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";
-$lang_footer_CourseManager = "Course Manager(s)";
+$lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
 $lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
 $lang_main_categories_list = "Main category list";
 $lang_my_personnal_course_list = "My personal course list";
 $lang_no_course_available_fitting_this_keyword = "No course available fitting this keyword";
 $lang_or_search_from_keyword = "Search from keyword";
+$lang_p_platformManager = "Administrator for %s";
 $lang_remove_course_from_your_personnal_course_list = "Remove course from your personal course list";
 $lang_search = "Search";
 $lang_select_course_in = "Select course in ";
@@ -136,5 +137,5 @@ $lang_unsubscribe = "Unsubscribe";
 $lang_user_has_been_enrolled_to_the_course = "The user has been enrolled to the course";
 $lang_you_have_been_enrolled_to_the_course = "You've been enrolled to the course";
 $lang_your_enrollment_to_the_course_has_been_removed = "Your enrollment to the course has been removed";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You’re user profile doesn’t seem to be enrolled to this course";
 ?>

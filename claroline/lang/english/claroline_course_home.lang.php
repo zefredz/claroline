@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php
 $langActivate = "Activate";
 $langAddExternalTool = "Add external link";
 $langAddIntro = "Add introduction text";
@@ -26,9 +26,11 @@ $langForums = "Forums";
 $langGroups = "Groups";
 $langHelp = "Help";
 $langHome = "Back to Home page";
-$langIntroCourse = "You are on the course home page.<br><br>On this page, you can :
-<li class=HelpText>activate or desactivate tools (click on the 'Edit Tool list' button at bottom left).
-<li class=HelpText>change settings or view statistics (click on corresponding links at bottom).<BR><BR>
+$langIntroCourse = "You are on the course home page.<br /><br />On this page, you can :
+<ul>
+<li>activate or desactivate tools (click on the 'Edit Tool list' button at bottom left).</li>
+<li>change settings or view statistics (click on corresponding links at bottom).</li>
+</ul>
 Now, to add an introduction text presenting your course to students, click on this button ";
 $langIntroEditToolList = "Select the tools you want to make visible for your user.
 Univisible tool will be grayed out on your personal interface";
@@ -61,9 +63,10 @@ $langUsers = "Users";
 $langWork = "Assignments";
 $lang_click_here = "click here";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";
-$lang_footer_CourseManager = "Course Manager(s)";
+$lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
 $lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
+$lang_p_platformManager = "Administrator for %s";
 $lang_this_course_is_protected = "This course is protected";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You’re user profile doesn’t seem to be enrolled to this course";
 ?>

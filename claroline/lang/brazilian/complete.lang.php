@@ -65,6 +65,21 @@ Obrigado por utilizar os fóruns.
 
 
 Tenha um bom dia.";
+$l_notifybody = "Você está recebendo este e-mail porque uma mensagem
+que você postou no fórum foi respondida e você selecionou a opção para que
+fosse notificado por esse evento.
+
+Você pode ver o tópico em:
+
+%s1
+
+Ou ver o índice de fóruns.
+
+%s2
+
+Obrigado por utilizar os fóruns.
+
+Tenha um bom dia.";
 $l_notifysubj = "Uma resposta para o seu tópico foi postada.";
 $l_notopics = "Não existem tópicos neste fórum. Você pode postar um.";
 $l_nouser = "Aquele Nome do usuário não existe.";
@@ -253,7 +268,6 @@ $langAreYouSureToRemoveSCORM = "Módulos em conformidade com o SCORM são definiti
 $langAreYouSureToRemoveStd = "O módulo continuará disponível na relação de módulos.";
 $langAreYouSureToUnsubscribe = "você tem certeza de que deseja cancelar o registro ";
 $langAttempts = "Tentativas";
-$langAuthInfo = "Autenticação";
 $langAvailableArchives = "Lista de arquivos disponíveis";
 $langBUAnnounceInMainBase = "Backup dos dados dos anúncios do banco de dados principal para";
 $langBUAnnounceInMainBase = "Backup dos dados dos anúncios para";
@@ -312,9 +326,6 @@ $langChangedTool = "Acesso às ferramentas modificado";
 $langChat = "Bate-papo";
 $langChat = "Chat";
 $langChatResetBy = "Bate-papo redefinido por";
-$langCheckDatabase = "Verificar Banco de dados";
-$langCheckDatabase = "Verificar banco de dados principal";
-$langCheckDatabase = "Verificar o banco de dados principal";
 $langChoice = "Sua escolha";
 $langChooseFile = "Selecionar arquivo";
 $langChooseGoodAnswer = "Por favor escolha uma boa resposta";
@@ -348,6 +359,21 @@ $langClarContent = "Aqui, professores e assitentes criam e administram websites
  Login</b><p>Nas suas próximas visitas, digite seu nome de usuário e senha
 
  e confirme para acessar seus cursos. O endereço do site é";
+$langClarContent = "Aqui, professores e assitentes criam e administram websites
+ de cursos. Estudantes leêm (documentos, agendas, informações diversas) e,
+ as vezes, fazem exercícios, publicam trabalhos, participam de fóruns de
+ discussão... </p><b>Inscrição</b><p>Se você é um Estudante, você deve apenas
+ registrar-se selecionando 'Seguir cursos (estudante), então escolher os
+ cursos que você gostaria de seguir.</p><p>Se você é um Professor ou um
+ Assistente, registre-se também, mas selecione 'Criar cursos (professor)'. 
+ Você irá ter que preencher um formulário com o Código do Curso, Faculdade
+ e Título do Curso. Uma vez confirmadom você poderá dirigir-se até osite que
+ acabou de criar e modificar o seu conteúdo e organização de acordo com as
+ suas necessidades. </p><p>Se este portal não ajustar-se ao que precisa, por
+ favor deixe-nos saber através da ferramenta 'Sugestões'.</p><p>O link para
+ sua Inscrição está na Home Page do Campus (canto superior direito).</p><b>
+ Login</b><p>Nas suas próximas visitas, digite seu nome de usuário e senha
+ e confirme para acessar seus cursos. O endereço do site é";
 $langClearList = "Limpar lista de eventos";
 $langClose = "Fechar";
 $langClose = "Fechar Janela";
@@ -361,6 +387,9 @@ $langConfTip = "Por padrão seu curso está acessível apenas para você como seu ún
 
 o modo mais simples é abrir as inscrições durante
 
+uma semana, pedir aos estudantes que se inscrevam, então fechar as inscrições e checar possíveis intrusos na lista de usuários.";
+$langConfTip = "Por padrão seu curso está acessível apenas para você como seu único usuário inscrito. No caso de você necessitar de algum sigilo, 
+o modo mais simples é abrir as inscrições durante
 uma semana, pedir aos estudantes que se inscrevam, então fechar as inscrições e checar possíveis intrusos na lista de usuários.";
 $langConfiguration = "Configuração";
 $langConfirm = "Confirmar";
@@ -679,6 +708,93 @@ $langDocContent = "<p>A ferramenta Documentos é similar ao gerenciador de arquiv
 	<center>
 
 	  <p>";
+$langDocContent = "<p>A ferramenta Documentos é similar ao gerenciador de arquivo
+ do seu computador.</p><p>Você pode enviar arquivos de qualquer tipo (HTML, 
+ Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Sua única 
+ preocupação é que os seus estudantes precisa ter o software correspondente
+ para lê-los.
+ Alguns tipos de arquivo podem conter vírus, é sua responsabilidade não enviar
+ arquivos contaminados por vírus. Seja cuidadoso ao verificar seus documentos
+ com um software anti-vírus antes de enviá-los.</p>
+<p>Os documentos são apresentados em ordem alfabética.<br><b>Tip : </b>Se
+ você quiser apresentá-los em uma ordem diferente, enumere-os: 01, 02,
+ 03...</p>
+<p>Você pode:</p>
+<h4>Enviar um documento</h4>
+<ul>
+  <li>Select the file on your computer using the Browse button <input
+ type=submit value=Browse name=submit2>
+	on the right of your screen.</li>
+  <li>Launch the upload with the Upload Button <input type=submit
+ value=Upload name=submit2>
+	.</li>
+</ul>
+<h4>Rename a document (a directory)</h4>
+<ul>
+  <li>click on the <img src=../document/img/renommer.gif width=20 height=20
+ align=baseline> button in
+  the Rename column</li>
+  <li>Type the new name in the field (top left)</li>
+  <li>Validate by clicking <input type=submit value=Ok name=submit24>
+	. 
+</ul>
+	<h4>Delete a document (or a directory)</h4>
+	<ul>
+	  
+  <li>Click on <img src=../document/img/supprimer.gif width=20 height=20> 
+	in column 'Delete'.</li>
+	</ul>
+	<h4>Make a document (or directory) invisible to students</h4>
+	<ul>
+	  
+  <li>Click on <img src=../document/img/visible.gif width=20 height=20>in
+ column 'Visible/invisible'.</li>
+	  <li>The document (or directory) still exists but it is not visible by
+ students anymore.</li>	  
+  <li>To make it invisible back again, click on <img
+ src=../document/../document/img/invisible.gif width=24 height=20> 
+	in column 'Visible/invisible'</li>
+	</ul>
+	<h4>Add or modify a comment to a document (or a directory)</h4>
+	<ul>	  
+  <li>Click on <img src=../document/../document/img/comment.gif width=20
+ height=20> 
+	in column 'Comment'</li>
+	  <li>Type new comment in the corresponding field (top right).</li>
+	  <li>Validate by clicking <input type=submit value=OK name=submit2>
+		.</li>
+	</ul>
+	<p>To delete a comment, click on <img
+ src=../document/../document/img/comment.gif width=20 height=20>, 
+	  delete the old comment in the field and click <input type=submit
+ value=OK name=submit22>
+	  . 
+	<hr>
+	<p>You can organise your content through filing. For this:</p>
+	<h4><b>Create a directory</b></h4>
+	<ul>
+	  <li>Click on <img src=../document/../document/img/dossier.gif width=20
+ height=20> 'Create a directory' (top left)</li>
+	  <li>Type the name of your new directory in the corresponding field (top
+ left)</li>
+	  <li>Validate by clicking <input type=submit value=OK
+ name=submit23>.</li>
+	</ul>
+	<h4>Move a document (or directory)</h4>
+	<ul>
+	  <li>Cllick on button <img src=../document/../document/img/deplacer.gif
+ width=34 height=16> 
+		in column 'Move'</li>
+	  <li>Choose the directory into which you want to move the document (or
+ directory) in the 
+	  corresponding scrolling menu (top left) (note: the word 'root' means you
+ cannot go 
+	  upper than that level in the document tree of the server).</li>
+	  <li>Validate by clicking on <input type=submit value=OK
+ name=submit232>.</li>
+	</ul>
+	<center>
+	  <p>";
 $langDocDeleted = "Documento apagado";
 $langDocInsertedAsModule = "foi inserido como módulo";
 $langDocument = "Documento";
@@ -838,6 +954,23 @@ $langForContent = "O fórum é uma ferramenta de comunicação escrita assincrona.
  fórum pode ser a lista dos seus membros, a definição do seu objetivo, uma tarefa,
 
  um tema...";
+$langForContent = "O fórum é uma ferramenta de comunicação escrita assincrona.
+ Onde o e-mail permite diálogos um-a-um, fóruns permitem diálogos públicos
+ ou semi-públicos.</p><p>Técnicamente falando, os estudantes precisam apenas
+ do seu browser para usar os fóruns do claroline.</P><p>Para organizar fóruns,
+ clique em 'Administração'. As discussões são organizadas em conjuntos e sub-
+ conjuntos como os seguintes:</p><p><b>Categoria > Fórum > Tópico > Respostas</b></p>
+ Para estruturar as discussões de seus estudantes, é necessário ter organizado
+ categorias e fóruns anteriormente, deixando a criação dos tópicos e respostas
+ para eles. Por padrão, o fórum do claroline possui apenas a categoria'Público',
+ um fórum de exemplo e um tópico de exemplo.</p><p>A primeira coisa que você
+ deve fazer é apagar o tópico de exemplo e modificar o nome do primeiro fórum.
+ Então você pode criar, na categoria 'Público', outros fóruns, por grupos
+ ou por temas, para preencher os requisitos do seu cenário de ensino</p><p>
+ Não misture Categorias e fóruns, e não esqueça que uma categoria vazia
+ (sem fóruns) não aparecem na visão dos estudantes.</p><p>A descrição de um
+ fórum pode ser a lista dos seus membros, a definição do seu objetivo, uma tarefa,
+ um tema...";
 $langForName = "Nome do Fórum";
 $langForce = "Levar seu interlocutor, por uma série de perguntas e sub-perguntas, a admitir que ele não sabe o que ele afirma saber.";
 $langFormula = "Sinceramente";
@@ -903,6 +1036,8 @@ $langGroupStudentsRegistered = "estudantes registrados nesse curso";
 $langGroupThisSpace = "Área desse grupo";
 $langGroupTooMuchMembers = "O número proposto excede o máx. que você permitiu (você pode modificar isso abaixo). 
 
+				A composição do grupo não foi modificada";
+$langGroupTooMuchMembers = "O número proposto excede o máx. que você permitiu (você pode modificar isso abaixo). 
 				A composição do grupo não foi modificada";
 $langGroupTools = "Ferramentas";
 $langGroupTutor = "Tutor";
@@ -980,6 +1115,32 @@ $langHomeContent = "Para maior conveniencia, as ferramentas do claroline não
  o nível de sigilo você precisa. Por padrão, seu curso estará escondido 
 
  (para que você possa trabalhar nele).</p>";
+$langHomeContent = "Para maior conveniencia, as ferramentas do claroline não
+ aparecem vazias. Existe um pequeno exemplo em toda ferramenta para ajuda-lo
+ a pegar rapidamente como ela funciona. Cabe a você modificar o exemplo ou
+ apaga-lo.</p><p>Por exemplo, na Home Page do website do seu curso, existe
+ um pequeno texto de introdução dizendo 'Este é o texto introdutório do seu
+ curso. Para alterá-lo para o seu próprio texto, clique abaixo em modificar.'
+ Clique em modificar, edite, e confirme. É assim simples. E toda ferramenta
+ segue a mesma lógica: adicionar, apagar, modificar, que é a lógica de web-
+ sites dinâmicos. Quando você criar o seu site pela primeira vez, a maioria
+ das ferramentas estará ativada, Aqui novamente, você poderá desativar aquelas
+ que não precisa. Você terá apenas que clicar em 'desativar'. Então ela
+ irá para a seção cinza da sua Home Page. Ela não estará visível mais para
+ os seus estudantes, mas você poderá reativá-la quando você quiser.</p><p>Você
+ pode adicionar suas próprias páginas à sua Home Page. Essas páginas precisarão 
+ estar em formato HTML (que pode ser criado por qualquer Editor de Texto
+ ou Compositor Web). Use 'Enviar página e link para a Home Page' para enviar
+ sua página para o servidor. O cabeçalho padrão de seu website será automáticamente
+ mesclado com o do seu novo documento, então você apenas precisa concentrar-se
+ no conteúdo. Se você quiser referenciar apartir da sua Home Page, websites
+ existentes ou páginas existentes em qualquer lugar da rede (mesmo dentro do
+ seu próprio site), use 'Adicionar link na Home Page' As páginas que você
+ adicionar à Home Page poderão ser desativadas ou apagadas, onde as ferramentas
+ padrão podem ser desativadas mas não apagadas.</p><p>Uma vez que seu site de
+ curso estiver pronto, vá até 'Modificar informações do curso' e decida qual
+ o nível de sigilo você precisa. Por padrão, seu curso estará escondido 
+ (para que você possa trabalhar nele).</p>";
 $langHomePageTextZone = "Áreas de texto da página principal";
 $langHour = "Hora";
 $langHttpFileTips = "Se o arquivo estiver em um terceiro computador e acessível por HTTP";
@@ -999,6 +1160,10 @@ $langInsertMyModulesTitle = "Inserir um módulo para o curso";
 $langInsertNewModuleName = "Inserir novo nome";
 $langInstalled = "A rota de aprendizagem foi importada com sucesso.";
 $langIntroCourse = "Você está na página inicial do seu curso.<br><br>Nessa página, você pode :
+<li class=HelpText>ativar ou desativar ferramentas (clique no botão '' no canto inferior esquerdo).
+<li class=HelpText>modificar configurações ou visualizar estatísticas (clique nos link correspondentes abaixo).<BR><BR>
+Agora, para adicionar um texto introdutório apresentando o seu curso para os estudantes, clique nesse botão ";
+$langIntroCourse = "Você está na página inicial do seu curso.<br><br>Nessa página, você pode :
 <ul>
 <li>ativar ou desativar ferramentas (clique no botão '' no canto inferior esquerdo).</li>
 <li>modificar configurações ou visualizar estatísticas (clique nos link correspondentes abaixo).</li>
@@ -1010,6 +1175,8 @@ $langIntroLearningPath = "Use essa ferramenta para fornecer aos seus estudantes 
 $langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade. 
 
                 These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
+$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade. 
+                These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
 $langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going upgrade the data stored into the main Claroline tables 
 
                     (users, course categories, tools list, ...) and set it compatible with the new Claroline version.</p>
@@ -1017,10 +1184,17 @@ $langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going upgrade 
                    <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this 
 
                    operation may take some time.</p>";
+$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going upgrade the data stored into the main Claroline tables 
+                    (users, course categories, tools list, ...) and set it compatible with the new Claroline version.</p>
+                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this 
+                   operation may take some time.</p>";
 $langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going update course data (directories and database tables) one by one.
 
                    <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
 
+                   this operation may take some time.</p>";
+$langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going update course data (directories and database tables) one by one.
+                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
                    this operation may take some time.</p>";
 $langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>";
 $langIntroText = "Para enviar uma mensagem, selecione grupos de usuários (marcados com um * na frente)
@@ -1135,6 +1309,29 @@ installation and set them to be compatible with the new Claroline version. This 
 <p>You won't be allowed to start the upgrade process before this point is marked as 'done'.</p>
 
 ";
+$langMakeABackupBefore = "<p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
+installation and set them to be compatible with the new Claroline version. This upgrade proceeds in three steps:</p>
+
+<ol>
+
+<li>It will get your previous platform main settings and put them in new configuration files</li>
+
+<li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.</li>
+
+<li>It will update one by one each course data (directories, database tables, ...)</li>
+
+</ol>
+
+<p>Before proceeding to this upgrade:</p>
+
+<table>
+<tbody>
+<tr valign=\"top\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>
+
+</tbody>
+</table>
+<p>You won't be allowed to start the upgrade process before this point is marked as 'done'.</p>
+";
 $langMakeBackupBefore = "Faça um backup antes !!!!!";
 $langMakeCorrespond = "Torne correspondente";
 $langMakeInvisible = "Tornar invisível";
@@ -1157,6 +1354,12 @@ $langMaxFileSize = "Tam. máx. do arquivo : ";
 $langMaxStudentGroup = "Máx. de estudantes por grupo";
 $langMaximum = "Máximo : ";
 $langMessage = "Quando você remover o fórum de teste, irá remover todas as suas mensagens também.";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Caro %s, %s. 
+Suas configurações pessoais foram registradas e um e-mail será enviado 
+para lembrá-lo de seu nome de usuário e senha.<br>
+Selecione agora na 
+lista os cursos que deseja participar.";
 $langMessageToSelectedUsers = "Mensagens para usuários selecionados";
 $langMessages = "Mensagens";
 $langMin = "Mínimo : ";
@@ -1255,7 +1458,6 @@ $langNoSeduction = "Não. Ironia socrática não é uma estratégia de sedução ou um 
 $langNoSpace = "O envio falhou. Não há espaço suficiente em seu diretório";
 $langNoStartAsset = "Não há nenhum recurso inicial definido para esse módulo.";
 $langNoUserResult = "Nenhum usuário para mostrar";
-$langNoUserSelected = "Nenhum usuário selecionado!";
 $langNomPageAddHtPass = "Gerenciamento de administradores";
 $langNone = "nenhum";
 $langNotAllowed = "Não permitido";
@@ -1283,8 +1485,6 @@ $langOkManifestFound = "Manifesto encontrado no arquivo zip : ";
 $langOkManifestRead = "Manifesto lido.";
 $langOkModuleAdded = "Módulo adicionado : ";
 $langOkSent = "Sua página foi enviada.<p>Ela está agora referenciada pelo curso na <a href=../..//index.php>Home Page</a>";
-$langOkSentLink = "Seu link foi enviado.<p>Ele agora está disponível apartir da <a href=\"../..//index.php\">Página Inicial do curso</a>";
-$langOkSentPage = "Sua página foi enviada.<p>Ela agora está disponível apartir da <a href=\"../..//index.php\">Página Inicial do curso</a>";
 $langOldToNew = "Antigos primeiro";
 $langOn = "Ativo";
 $langOneByOne = "Adicionar usuário manualmente";
@@ -1317,12 +1517,6 @@ $langPeriodWeek = "Semana";
 $langPeriodYear = "Ano";
 $langPersoValue = "Valores";
 $langPersonalCourseList = "Lista de cursos pessoal";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Caro %s, %s. 
-Suas configurações pessoais foram registradas e um e-mail será enviado 
-para lembrá-lo de seu nome de usuário e senha.<br>
-Selecione agora na 
-lista os cursos que deseja participar.';
 $langPgTitle = "Título da página";
 $langPhone = "Telefone";
 $langPlaces = "vagas por grupos (opcional)";
@@ -1403,6 +1597,8 @@ $langRestoreCourse = "Restaurar um curso";
 $langRestoreDescription = "O curso está em um arquivo que você pode selecionar abaixo.<br><br>
 
 Quando você clicar em &quot;Restaurar&quot;, o arquivo será descompactado e o curso recriado.";
+$langRestoreDescription = "O curso está em um arquivo que você pode selecionar abaixo.<br><br>
+Quando você clicar em &quot;Restaurar&quot;, o arquivo será descompactado e o curso recriado.";
 $langRestoreNotice = "Esse script não permite ainda restaurar automaticamente os usuários, mas os dados salvos no &quot;users.csv&quot; são suficientes para que are sufficient so as for the administrator to be able to make that work manually.";
 $langRestoreNow = "O arquivo permace armazenado em seu computador";
 $langResult = "Resultado";
@@ -1466,7 +1662,6 @@ $langStatsOfUser = "Estatísticas do usuário";
 $langStatus = "Ação";
 $langStatusChangeNotMade = "Nenhum alteração aplicada";
 $langStoreChat = "Gravar Bate-papo";
-$langStrangeCases = "Casos estranhos";
 $langStudent = "Estudante";
 $langStudent = "Estudantes";
 $langStudentView = "Visão de Estudante";
@@ -1507,6 +1702,10 @@ $langTitle = "Title";
 $langTitle = "Título";
 $langTitleUpgrade = "<h2>Ferramenta de atualização do Claroline<br />
 
+
+                     de 1.4.* para 1.5</h2>
+";
+$langTitleUpgrade = "<h2>Ferramenta de atualização do Claroline<br />
 
                      de 1.4.* para 1.5</h2>
 ";
@@ -1629,6 +1828,29 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
 will receive a mail telling him/her you have registered him/her and telling
 
 him/her or reminding him/her his/her login and  password.</p>";
+$langUserContent = "<b>Roles</b><p>Roles have no computer related function.
+ They do not give rights on operating the system. They just indicate to
+ Humans, who is who. You can modify them by clicking on 'modify' under
+ 'role', then typing whatever you want: professor, assistant, student,
+ visitor, expert...</P><hr>
+<b>Admin rights</b>
+<p>Admin rights, on the other hand, correspond to the technical
+ authorisation to modify the content and organisation of the course
+ website. For the moment, you can only choose between giving all the admin
+ rights and giving none of them.</P>
+<p>To allow an assistant, for instance, to co-admin the site, you need to
+ register him in the course or be sure he is already registerd, then click
+ on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr>
+<b>Co-chairmen</b>
+<p>To mention in the header of the course website the name of a
+ co-chairmen, use the tool 'Modify course info' (orange tools). This
+ modification does not register your co-chairmen as a user of the course.
+ The field 'Professors' is completely independant of the Users
+ list.</p><hr>
+<b>Add a user</b>
+<p>To add a user for your course, fill the fields and validate. The person
+will receive a mail telling him/her you have registered him/her and telling
+him/her or reminding him/her his/her login and  password.</p>";
 $langUserCourseList = "Lista de cursos do usuário";
 $langUserCreated = "O novo usuário foi criado com sucesso";
 $langUserDelete = "A remoção do usuário foi realizada com sucesso";
@@ -1695,8 +1917,6 @@ $langZipNoPhp = "O arquivo zip não pode conter arquivos .PHP";
 $lang_EditFile_AdministrationTools = "Ferramentas de Administração";
 $lang_EditFile_ModifyOk = "As alterações foram efetuadas com sucesso";
 $lang_EditFile_NoAdmin = "Você não está logado como administrador";
-$lang_SearchUser_ModifOk = "Atualizar abaixo";
-$lang_SearchUser_SearchUser = "Pesquisar um usuário";
 $lang_already_enrolled = "já inscrito";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Você tem certeza que quer remover esse curso da sua lista ?";
 $lang_back_to_my_personnal_course_list = "Voltar para minha lista de cursos pessoal";
@@ -1710,9 +1930,7 @@ $lang_config_ErrorEmailManager = "O e-mail do gerente educacional está errado !"
 $lang_config_ErrorHostEmpty = "O nome do servidor está vazio !";
 $lang_config_ErrorLoginBDEmpty = "O login para a Base de dados está vazio !";
 $lang_config_ErrorOpenFile = "Erro ao abrir o arquivo config.php";
-$lang_config_ErrorRootWeb = "A raiz do site está errada !";
 $lang_config_ErrorRootWebEmpty = "A raíz do site está vazia !";
-$lang_config_ErrorURLInstitution = "A URL da instituição está errada !";
 $lang_config_Info = "(*) valor requerido";
 $lang_config_NoAdmin = "Você não está logado como administrador da plataforma";
 $lang_config_TitleAdministrator = "Administrador : ";
@@ -1745,14 +1963,12 @@ $lang_faculty_ConfirmDelete = "Você realmente quer deletar a categoria ";
 $lang_faculty_CreateNotOk = "Essa categoria já existe!";
 $lang_faculty_CreateOk = "Categoria criada";
 $lang_faculty_DeleteOk = "Categoria deletada";
-$lang_faculty_EditCat = "Editar uma categoria";
 $lang_faculty_EditOk = "As alterações foram salvas";
 $lang_faculty_Father = "Categoria do pai ";
 $lang_faculty_HaveCourses = "Essa categoria inclue alguns cursos, você precisa deletá-los ou movê-los antes";
 $lang_faculty_MoveOk = "Categoria movida";
 $lang_faculty_NameCat = "Nome da categoria :";
 $lang_faculty_NameEmpty = "Você não tem direitos para alterar o nome da categoria !";
-$lang_faculty_NoAdmin = "Você precisa fazer login como administrador";
 $lang_faculty_NoCat = "Não há categorias disponíveis !";
 $lang_faculty_NoChange = "Nenhuma alteração foi aplicada.";
 $lang_faculty_NoMove_1 = "Você não pode mover ";
@@ -1760,7 +1976,6 @@ $lang_faculty_NoMove_2 = " para a mesma categoria !";
 $lang_faculty_Yes = "Sim";
 $lang_faculty_imgDown = "Abaixo";
 $lang_faculty_imgUp = "Acima";
-$lang_footer_CourseManager = "Gerente(s) do Curso";
 $lang_if_you_dont_have_a_user_account_profile_on = "Se você não tem uma conta de usuário no";
 $lang_if_you_wish_to_enroll_to_this_course = "Se você deseja se inscrever nesse curso";
 $lang_main_categories_list = "Lista das categorias principais";

@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php
 $langAddImage = "Ajoutez une photo";
 $langAddIntro = "Ajouter un texte d'introduction";
 $langAddress = "L'adresse de";
@@ -61,6 +61,8 @@ $langMailAppearAlready = "Cet e-mail apparait déjà dans une ligne précédente du 
 $langMailSynthaxError = "Erreur de synthaxe dans l'e-mail.";
 $langMailUsed = "L'e-mail est déjà utilisée par un autre utilisateur.";
 $langManager = "Gestionnaire";
+$langMessageSubscribeDone_p_firstname_lastname = "Dear %s, %s. Vos coordonnées personnelles ont été enregistrées et un e-mail vous a été envoyé
+pour vous rappeler votre nom d’utilisateur et votre mot de passe.";
 $langModify = "Modifier";
 $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
@@ -81,8 +83,6 @@ $langPassTwo = "Vous n'avez pas tapé deux fois le même mot de passe";
 $langPassword = "mot de passe";
 $langPasswordHasBeenEmailed = "Votre mot depasse a été envoyé à l'adresse ";
 $langPasswordSimple = "Le mot de passe donné est trop simple ou trop proche du nom d'utilisateur.";
-$langPersonalSettings = "Vos coordonnées personnelles ont été enregistrées et un e-mail vous a été envoyé
-pour vous rappeler votre nom d'utilisateur et votre mot de passe.</p>";
 $langPhone = "Téléphone";
 $langPlatformAdministration = "Administration de la plate-forme";
 $langPlatformAdministrator = "Administrateur de la plate-forme";
@@ -123,13 +123,14 @@ $lang_click_here = "cliquez ici";
 $lang_course_enrollment = "Inscription aux cours";
 $lang_enroll = "Inscription";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
-$lang_footer_CourseManager = "Gestionnaire(s) du cours";
+$lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
 $lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
 $lang_main_categories_list = "Liste des catégories";
 $lang_my_personnal_course_list = "Ma liste de cours personnelle";
 $lang_no_course_available_fitting_this_keyword = "Aucun cours disponible répondant à ce mot clé.";
 $lang_or_search_from_keyword = "Chercher à partir d'un mot clé";
+$lang_p_platformManager = "Administrateur %s";
 $lang_remove_course_from_your_personnal_course_list = "Supprimer le cours de votre liste de personnelle de cours";
 $lang_search = "Chercher";
 $lang_select_course_in = "Sélectionnez un cours dans ";

@@ -157,7 +157,6 @@ $langByDel = "рфЁЩ©нЁл,╫╚сю╬ци╬ЁЩуБце©нЁл╟Э╨╛╣дкЫспнд╣╣,и╬ЁЩкЫспя╖иЗв╒╡Апео╒(╡╩╩
 $langCancel = "х║оШ";
 $langCategories = "юЮ╠П";
 $langChangeCat = "╦д╠ДкЫйТюЮ╠П";
-$langCheckDatabase = "╪Л╡ИйЩ╬щ©Б";
 $langChoice = "я║оН";
 $langClose = "╧ь╠у";
 $langClose = "╧ь╠у╢╟©з";
@@ -363,7 +362,6 @@ $langOneResp = "©нЁл╧эюМт╠ж╝р╩";
 $langOrganisation = "бшлЁ╧эюМ";
 $langPassTwice = "цэбКа╫╢нйДхК╡╩р╩жб!╥╣╩ьжьйт.";
 $langPassTwo = "дЗ╪ЭхКака╫╦Ж╡╩м╛╣дцэбК.";
-$langPersonalSettings = "дЗ╣д╦Жхквйаоря╣г╪г,н╙╟ОжЗдЗ╪грДдЗ╣дсц╩╖цШ╨мцэбК,нрцгряоРдЗ╣дпеоД╥╒кмакр╩╥Бсй╪Ч.</p>ожтзгКя║тЯдЗ╣д©нЁл.";
 $langPgTitle = "мЬрЁ╠ЙлБ";
 $langPoweredBy = "╪╪йУж╖Ёж";
 $langPrivateAccess = "дз╡©╥цнй,в╒╡А╨Сх╥хо╥╫©и,╪╢ж╩╤т<a href=../user/user.php>сц╩╖ап╠М</a>жп╣дхк©и╪Ш";

@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php
 $langChangeRaw = "Change minimum raw to pass this module (in pourcents) : ";
 $langDate = "Date";
 $langDocumentInModule = "Document in module";

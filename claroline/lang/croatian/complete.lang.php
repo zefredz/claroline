@@ -175,7 +175,6 @@ $langChangeCat = "Promjena kategorije";
 $langChat = "Rasprava";
 $langChat = "Razgovor (Chat)";
 $langChat = "Razgovor - chat";
-$langCheckDatabase = "Provjeri bazu podataka";
 $langChoice = "Vaš izbor";
 $langClarContent = "Ovdje, profesori i asistenti mogu kreirati i nadzirati predmetnu web stranicu. Studenti èitaju (dokumente,   informacije) i, 
  ponekad, rade vježbe, publiciraju radove, sudjeluju u forumskim diskusijama...</p><b>Prijava</b><p>Sljedeæe upute odnose se samo ukoliko imate verziju claroline koja dozvoljava samostalnu prijavu (neke stranice registriraj korisnika automatski). <br>Ukoliko ste student za prijavu potrebno je odabrati 'Prati predmete (student)', i onda odaberite predmete koje \elite pratiti.</p><p> Ukoliko ste profesor ili asistent, za prijavu odaberite 
@@ -215,8 +214,8 @@ $langCreateClaroTables = "Napravi tablicu u bazi podataka";
 $langCreateDir = "Stvaranje foldera";
 $langCreateMissingDirectories = "Stvaranje nepostojeæih foldera";
 $langCreateSite = "Stvaranje stranica predmeta";
-$langCreatedIn = "stvoren u";
 $langCreatedIn = "stvoren u ";
+$langCreatedIn = "stvoren u";
 $langDBHost = "Naziv raèunala  baze podataka";
 $langDBLogin = "Korisnièko ime baze podataka";
 $langDBPassword = "Zaporka baze podataka";
@@ -521,6 +520,11 @@ $langManyAnswers = "(toèno je više odgovora)";
 $langMax = "maks.";
 $langMaxSizeCourseCode = "najviše 12 slova, npr. <i>ROM2121</i>";
 $langMessage = "Kod brisanja pokusnog foruma, izbrisati æe se i sve poruke u njemu";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Poštovani %s, %s. 
+Vaši osobni podaci su prijavljeni i poslan Vam je e-mail 
+s vašim korisnièkim imenom i zaporkom.<br>
+Izaberite sada sa popisa kojim predmetima želite pristup.";
 $langMinute = "Minuti";
 $langMissing = "nedostaje";
 $langModCatName = "Promjeni ime kategorije";
@@ -572,12 +576,6 @@ $langOtherCourses = "Popis kolegija";
 $langPassTooEasy = "ova zaporka je prejednostavna. Koristite neku kao na primjer";
 $langPassTwice = "Upisali ste dvije razlièite zaporke. Kliknite na opciju Povratak i pokušajte ponovno.";
 $langPassTwo = "Upisali ste dvije razlièite zaporke";
-$langPersonalSettings = "Vaši osobni podaci su prijavljeni i poslan Vam je e-mail s vašim korisnièkim imenom i zaporkom.</p>Izaberite sada sa popisa kojim predmetima želite pristup.";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Poštovani %s, %s. 
-Vaši osobni podaci su prijavljeni i poslan Vam je e-mail 
-s vašim korisnièkim imenom i zaporkom.<br>
-Izaberite sada sa popisa kojim predmetima želite pristup.';
 $langPgTitle = "Naslov stranice";
 $langPlaces = "broj sudionika u grupi (moguænost)";
 $langPoweredBy = "Upravljano s ";
@@ -667,8 +665,8 @@ $langUserContent = "<b>Uloge</b><p>Uloge nemaju raèunalno povezanu funkciju.
  Polje 'Nastavnici' je potpuno neovisan od Korisnièke liste.</p><hr>
 <b>Dodaj korisnika</b>
 <p>Kako bi dodali korisnika na vaš predmet, popunite polje i  potvrdite. Osoba 'e primiti obavijest putem emaila o prijavi i svom korisni;kom imenu i zaporki.</p>";
-$langUserName = "Korisnièko ime";
 $langUserName = "Korisnièko ime ";
+$langUserName = "Korisnièko ime";
 $langUserNo = "Korisnièko ime koje ste izabrali";
 $langUserNumber = "broj";
 $langUserOneByOneExplanation = "On (ona) æe primiti emailom potvrdu sa korisnièkim imenom i zaporkom";

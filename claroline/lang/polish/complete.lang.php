@@ -206,7 +206,6 @@ $langCfgSetting = "Ustawienia konfiguracyne";
 $langChangeCat = "Zmieñ kategoriê";
 $langChat = "Chat";
 $langChat = "Chat-room";
-$langCheckDatabase = "Sprawd¼ bazê danych";
 $langChoice = "Twój wybór";
 $langChooseFile = "Wybierz plik";
 $langChooseGoodAnswer = "Podaj poprawn± odpowied¼";
@@ -284,6 +283,7 @@ $langDay = "dni";
 $langDay = "Dzieñ";
 $langDay_of_weekNames = "Array";
 $langDbPrefixForm = "MySQL Prefix";
+$langDear = "";
 $langDefaultTextInBlanks = "[British people] live in [United Kingdom].";
 $langDefcon = "Ooops, stranges cases detected !!";
 $langDefineBlanks = "Please define at least one blank with brackets [...]";
@@ -689,6 +689,11 @@ $langMax = "max.";
 $langMaxFileSize = "Maksymalna wielko¶æ pliku";
 $langMaxSizeCourseCode = "max. 12 znaków, np. <i>ROM2121</i>";
 $langMessage = "Je¶li usuniesz Forum przyk³adowe, skasujesz tak¿e bie¿±c± wiadomo¶æ.";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Dear %s, %s. 
+Twoje osobiste ustawienia zosta³y zarejestrowane a 
+Nazwa u¿ytkownika i has³o wys³ane do Ciebie przez e-mail.<br>
+Wybierz z listy kursy, do których chcesz mieæ dostêp.";
 $langMinute = "Minuta";
 $langMissing = "wadliwy";
 $langMissingImagesDetected = "Wykryto brakuj±ce obrazki";
@@ -764,8 +769,6 @@ $langNowGoChooseYourCourses = "Teraz mo¿esz wybieraæ z listy, kursy do których c
 $langNowGoCreateYourCourse = "Teraz mo¿esz tworzyæ swoje kursy";
 $langOk = "Ok";
 $langOkSent = "Twoja strona zosta³a wys³ana.<p>Jest ona dostêpna ze <a href=../..//index.php>Strony g³ównej</a> kursu";
-$langOkSentLink = "Odno¶nik sosta³ dodany.<p>Jest on dostêpny ze <a href=\"../..//index.php\">strony g³ównej kursu</a>";
-$langOkSentPage = "Strona zosta³a wys³ana.<p>Jest ona po³±czona ze <a href=\"../..//index.php\">stron± g³ówn± kursu.</a>";
 $langOldToNew = "Zmieñ kolejno¶æ";
 $langOn = "W³±czone";
 $langOneByOne = "Rêczne dodawanie u¿ytkownika";
@@ -785,11 +788,6 @@ $langPeriodMonth = "Miesi±c";
 $langPeriodToDisplay = "Okres";
 $langPeriodWeek = "Tydzieñ";
 $langPeriodYear = "Rok";
-$langMessageSubscribeDone_p_firstname_lastname = '
-Dear %s, %s. 
-Twoje osobiste ustawienia zosta³y zarejestrowane a 
-Nazwa u¿ytkownika i has³o wys³ane do Ciebie przez e-mail.<br>
-Wybierz z listy kursy, do których chcesz mieæ dostêp.';
 $langPgTitle = "Tytu³ strony";
 $langPlaces = "miejsc(a) w grupie";
 $langPlatformAccess = "Access to campus";
@@ -877,7 +875,6 @@ $langStatsOfCampus = "Statystyki campusu";
 $langStatsOfCourse = "Statystyki kursu";
 $langStatsOfUser = "Statystyki u¿ytkowników";
 $langStatus = "Funkcja";
-$langStrangeCases = "Strange cases";
 $langStudent = "student";
 $langStudentsNotInThisGroups = "Users not in this group";
 $langSubTitle = "Dodanie odno¶nika do zewnêtrzego adresu URL na Stronie g³ównej kursu. Uwaga: Je¶li chcesz pod³±czyæ jak±¶ stronê z Internetu, wejd¼ na tê stronê, skopiuj jej adres z pola Adres okienka przegl±darki a nastêpnie wklej ten adres do pola \"Odno¶nik\" poni¿ej.";

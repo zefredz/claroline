@@ -155,7 +155,6 @@ $langCatagoryGroup = " منتديات المجموعات ";
 $langCatagoryMain = " عامّ ";
 $langCategories = " فئات ";
 $langChangeCat = " تغيير الفئة ";
-$langCheckDatabase = " خزينة المعلومات تحليل ";
 $langChoice = " إختياركم ";
 $langClarContent = "<br><p><b> طالب </b></p>
 <p>
@@ -484,8 +483,8 @@ $langHHome = " إعانة متعلّقة بصفحة الإستقبال ";
 $langHUser = "Aide utilisateurs";
 $langHasDel = " تمّت إزالة الدرس ";
 $langHelp = " ????? ";
-$langHelp = " إعانة ";
 $langHelp = " إعانة  ";
+$langHelp = " إعانة ";
 $langHelpGroups = "Gestion des groupes";
 $langHome = " رجوع إلى ص�?حة الإستقبال ";
 $langHome = " رجوع إلى صفحة الاستقبال";
@@ -573,9 +572,6 @@ $langPassTwice = "Vous n'avez pas tapé deux fois le même mot de passe.
 Utilisez le bouton de retour en arrière de votre navigateur
 et recommencez.";
 $langPassTwo = "Vous n'avez pas tapé deux fois le même mot de passe";
-$langPersonalSettings = "Vos coordonnées personnelles ont été enregistrées et un email vous a été envoyé
-pour vous rappeler votre nom d'utilisateur et votre mot de passe.</p>
-Sélectionnez maintenant dans la liste les cours auxquels vous souhaitez avoir accès.";
 $langPgTitle = " عنوان الصفحة";
 $langPlaces = "(  عدد الأماكن لكلّ مجموعة(غير إلزامي ";
 $langPoweredBy = "-كمبوس يستعمل هذه المسّطحة ";

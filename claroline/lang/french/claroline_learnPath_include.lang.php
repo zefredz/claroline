@@ -1,4 +1,4 @@
-<?php //$Id$
+<?php
 $langChangeRaw = "Changer le score minimum pour réussir ce module (en pour cent) : ";
 $langDate = "Date";
 $langDocumentInModule = "Document dans le module";
