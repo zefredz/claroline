@@ -15,7 +15,7 @@
 // CONFIG HEADER
 
 $conf_def['config_code'] = 'CLDOC';
-$conf_def['config_file'] = 'CLDOC___.conf.php';
+$conf_def['config_file'] = 'CLDOC.conf.php';
 $conf_def['config_name'] = 'Documents and Links tool';
 
 // CONFIG SECTIONS

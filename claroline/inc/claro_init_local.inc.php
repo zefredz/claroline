@@ -970,10 +970,11 @@ else // continue with the previous values
 
 if (isset($_cid) && $_courseTool['label'])
 {
-    if (file_exists($includePath.'/conf/'.$_courseTool['label'].'.conf.php'))
-        require $includePath.'/conf/'.$_courseTool['label'].'.conf.php';
-    if (isset($_cid) && file_exists($coursesRepositorySys.$_course['path'].'/conf/'.$_courseTool['label'].'.conf.php'))
-        require $coursesRepositorySys.$_course['path'].'/conf/'.$_courseTool['label'].'.conf.php';
+    $config_code = rtrim($_courseTool['label'],'_');
+    if (file_exists($includePath.'/conf/'.$config_code.'.conf.php'))
+        require $includePath.'/conf/'.$config_code.'.conf.php';
+    if (isset($_cid) && file_exists($coursesRepositorySys.$_course['path'].'/conf/'.$config_code.'.conf.php'))
+        require $coursesRepositorySys.$_course['path'].'/conf/'.$config_code.'.conf.php';
 }
 
 ?>

@@ -13,7 +13,7 @@
  * @package CLCHAT
  */
 
-$conf_def['config_file']='CLCHT___.conf.php';
+$conf_def['config_file']='CLCHT.conf.php';
 $conf_def['config_code']='CLCHT';
 $conf_def['config_name']='Chat tool';
 

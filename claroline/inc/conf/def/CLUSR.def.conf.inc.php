@@ -1,7 +1,7 @@
 <?php // $Id$
 // TOOL
 $conf_def['config_code']='CLUSR';
-$conf_def['config_file']='CLUSR___.conf.php';
+$conf_def['config_file']='CLUSR.conf.php';
 $conf_def['config_name']='Users tool';
 $conf_def['old_config_file'][]='user.conf.inc.php';
 

@@ -2,7 +2,7 @@
 // TOOL
 
 $conf_def['config_code']='CLGRP';
-$conf_def['config_file']='CLGRP___.conf.php';
+$conf_def['config_file']='CLGRP.conf.php';
 $conf_def['config_name']='Groups tool';
 
 $conf_def['section']['users']['label']='Users';

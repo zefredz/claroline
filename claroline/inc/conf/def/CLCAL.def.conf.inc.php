@@ -14,7 +14,7 @@
 
 $conf_def['config_code']='CLCAL';
 $conf_def['config_name']='Agenda tool';
-$conf_def['config_file']='CLCAL___.conf.php';
+$conf_def['config_file']='CLCAL.conf.php';
 $conf_def['old_config_file'][]='agenda.conf.inc.php';
 // $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 
