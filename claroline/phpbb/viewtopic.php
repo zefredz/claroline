@@ -80,7 +80,8 @@ $postList  = $postPager->get_result_list();
 
 
 $pagerUrl = $PHP_SELF."?topic=".$topic."&forum=".$forum;
-$postPager->disp_pager_tool_bar($PHP_SELF."?topic=".$topic."&forum=".$forum);
+
+$postPager->disp_pager_tool_bar($pagerUrl);
 
 echo "<table class=\"claroTable\" width=\"100%\">"
     ."<tr align=\"left\">"
