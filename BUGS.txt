@@ -20,7 +20,6 @@ Assigné à : HUGUES
 Assigné à : 
 à résoudre pour : 1.5.1
 
-
 4. HTMLAREA. Bug signalé par PRFB sur le forum.  Insertions de <br /> aux retours à la ligne dans le code html des pages créées
 
 5. COURSE_HOME. librairie à déplacer ? course_home.lib.php se trouve dans le répertoire même de course_home
@@ -33,8 +32,13 @@ Assigné à :
 
 9. CLARO_INIT_BANNER. Il reste plusieurs tag <font> dans le code qu'il serait intéressant de remplacer par une meilleure utilisation des css. Il reste également des codes couleurs hardcodés pour les différents <td>
 
+10. claroline/admin/adminUserCourseSettings.php -> on ne sais pas changer le champ role
+
 -------------
 $Log$
+Revision 1.6  2004/06/11 10:34:06  moosh
+- bug 10
+
 Revision 1.5  2004/06/11 10:09:25  seb
 new : bug 4 to 9
 
