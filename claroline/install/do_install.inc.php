@@ -229,9 +229,12 @@ and they doesn\'t actually have an ; in value of a variable
 // SERVER_NAME :		'.$SERVER_NAME.'
 // HTTP_COOKIE :		'.$HTTP_COOKIE.'
 
-$rootWeb 					= 	"'.$urlForm.'";
-$urlAppend					=	"'.$urlAppendPath.'";
-$rootSys					=	"'.$rootSys.'" ;
+
+$platform_id        = "'.md5(realpath(__FILE__)).'";
+
+$rootWeb 			= "'.$urlForm.'";
+$urlAppend			= "'.$urlAppendPath.'";
+$rootSys			= "'.$rootSys.'" ;
 
 // MYSQL
 $dbHost 			= "'.$dbHostForm.'";

@@ -4,10 +4,6 @@
 // The line below set the error reporting to the most fitting one for Claroline
 error_reporting(error_reporting() & ~ E_NOTICE);
 
-// Start session
-// session_name(md5(realpath(__FILE__))); UNCOMMENT THIS LINE IF YOU HAVE MANY CAMPUS ON SAME SERVER
-session_start();
-
 ///////////////////////////////////////////////////////////////////////
 //// theses lines are added to accept the low security of php < 4.2.3
 //// with a new php.
@@ -20,9 +16,6 @@ session_start();
 //if (!empty($_SESSION))  {extract($_SESSION, EXTR_OVERWRITE);}      //
 //ini_set("session.bug_compat_warn","off");                          //
 ///////////////////////////////////////////////////////////////////////
-
-
-
 
 
 // a shorter reference to $_SERVER['PHP_SELF']. Useful to lighten the HTML code.
@@ -38,6 +31,22 @@ $includePath = dirname(__FILE__);
 
 // YOU CAN REMOVE THE @ of the following line after install.
 @include($includePath."/conf/claro_main.conf.php");
+
+// Start session
+if (isset($platform_id))
+{
+    session_name($platform_id);
+    session_start();
+}
+else
+{
+    die ('<strong>$platform_id</strong> missing in config. <br>
+    Reinstall claroline<br>
+    or <br>
+    add the following line in <tt>'.realpath($includePath.'/conf/claro_main.conf.php').'</tt><br><br>
+    
+    &nbsp;&nbsp;<em>$platform_id="'.md5(realpath($includePath.'/../install/do_install.inc.php')).'";</em>');
+}
 
 if ($statsDbName == '')
 {
