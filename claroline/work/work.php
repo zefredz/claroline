@@ -692,7 +692,7 @@ if($is_allowedToEdit)
             <br />
         </td>
       </tr>
-      <!--
+      
       <tr>
         <td valign="top"><?php echo $langAssignmentType; ?>&nbsp;:</td>
         <td>
@@ -700,11 +700,11 @@ if($is_allowedToEdit)
             <label for="individual">&nbsp;<?php echo $langIndividual; ?></label>
             <br />
           <input type="radio" name="assignmentType" id="group" value="GROUP" <?php if($form['assignmentType'] == "GROUP") echo 'checked="checked"'; ?>>
-            <label for="group">&nbsp;<?php echo $langGroup; ?></label>
+            <label for="group">&nbsp;<?php echo $langGroupAssignment; ?></label>
             <br />
         </td>
       </tr> 
-      -->
+
       <tr>
         <td valign="top"><?php echo $langAllowAnonymous; ?>&nbsp;:</td>
         <td>
