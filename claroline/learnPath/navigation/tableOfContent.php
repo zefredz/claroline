@@ -276,30 +276,33 @@
     $returl = "../learningPath.php";
 
 echo '<br /><center>';
-
-$prevNextString = '<small>';
-
-if( $previousModule != "" )
+// display previous and next links only if there is more than one module
+if ( $moduleNb > 1 )
 {
-  $prevNextString .= '<a href="startModule.php?viewModule_id='.$previousModule.'" target="mainFrame">'.$langPrevious.'</a>';
+	$prevNextString = '<small>';
+	
+	if( $previousModule != "" )
+	{
+	  $prevNextString .= '<a href="startModule.php?viewModule_id='.$previousModule.'" target="mainFrame">'.$langPrevious.'</a>';
+	}
+	else
+	{
+	  $prevNextString .=  $langPrevious;
+	}
+	$prevNextString .=  ' | ';
+	
+	if( $nextModule != "" )
+	{
+	  $prevNextString .=  '<a href="startModule.php?viewModule_id='.$nextModule.'" target="mainFrame">'.$langNext.'</a>';
+	}
+	else
+	{
+	  $prevNextString .=  $langNext;
+	}  
+	$prevNextString .=  '<br /><br />';
+	
+	echo $prevNextString;
 }
-else
-{
-  $prevNextString .=  $langPrevious;
-}
-$prevNextString .=  ' | ';
-
-if( $nextModule != "" )
-{
-  $prevNextString .=  '<a href="startModule.php?viewModule_id='.$nextModule.'" target="mainFrame">'.$langNext.'</a>';
-}
-else
-{
-  $prevNextString .=  $langNext;
-}  
-$prevNextString .=  '<br /><br />';
-// display previous and next links line only if one is setted
-if ( $previousModule != '' || $nextModule != '' ) echo $prevNextString;
 //  set redirection link 
 if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
   $returl = "../learningPathAdmin.php";
