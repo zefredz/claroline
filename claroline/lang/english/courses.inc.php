@@ -35,6 +35,7 @@ $langBackToListOfThisUser = "Back to course list";
 
 
 $langAdministrationTools = "Administration Tools";
+$langAdministration = "Administration";
 $langManage				 = "Campus management";
 
 $lang_back_to_parent_category              = "Back to parent category";
