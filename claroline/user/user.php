@@ -96,13 +96,20 @@ if($dialogBox)
     claro_disp_message_box($dialogBox);
 }
 
+// display tool links
 
 if ($is_allowedToEdit)
 {
 ?>
 <p align="right">
 	<?php if ($can_add_user)
-	{ ?>
+	{ 
+	   //add a class link
+	?>
+	<a href="class_add.php"><?php echo "Add a class of users"; ?></a> |
+	<?php
+	   //add a user link
+	?>
 	<a href="user_add.php"><?php echo $langAddAU; ?></a> |
 	<?php
 	}
