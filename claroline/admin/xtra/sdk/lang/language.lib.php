@@ -550,57 +550,32 @@ function compose_language_production_filename ($file)
 }
 
 /**
- * store the lang variables in a centralized repository
  *
- * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - array $languageVarList - list of the language variable
- *           'key' is the variable name, 'content' is the variable content
- * @param  - string $sourceFileName - file name from where the variables 
- *           are coming
- * @param  - string $languageName - name of the language translation
  */
 
-/*
-
-function store_lang_used_in_script($languageVarList)
+function get_lang_path_list($path_lang)
 {
+    $languagePathList = array();
 
-	global $problemMessage, $tbl_translation ;
+    $handle = opendir($path_lang);
 
-	$language = DEFAULT_LANGUAGE ;
+    while ($element = readdir($handle) )
+    {
+	    if ( $element == "." || $element == ".." || $element == "CVS" 
+            || strstr($element,"~") || strstr($element,"#") 
+           )
+    	{
+	    	continue; // skip current and parent directories
+    	}
+	    if ( is_dir($element) )
+    	{
+	    	$path = $path_lang . '/' . $element;
+		    $name = reset( explode (".", $element) );
+    		$languagePathList[$name] = $path;
+        }
+    }
 
-	foreach($languageVarList as $varName )
-	{
-	
-		// find if variable exists in lang file table 
-	
-		$sql = " SELECT count(varName) as nb
-				 FROM " . $tbl_translation . "
-				 WHERE VarName =  \"" . $varName . "\"";
-		$results = mysql_query($sql) or die ($problemMessage);
-		$result=mysql_fetch_array($results);
-		
-		if ($result['nb']>0) 
-		{
-			$sql = " UPDATE " . $tbl_translation . " 
-					 SET used = 1
-					 WHERE VarName    = \"". $varName ."\"";
-			mysql_query($sql) or die ($problemMessage);
-		} 
-		else
-		{
-			$sql = " INSERT INTO " . $tbl_translation . "
-			 		 SET VarName    = \"". $varName ."\", 
-					 VarContent = \"". $varName ."\", 
-			         varFullContent  = \"". $varName ."\", 
-					 language   = \"". $language ."\",
-					 used = 1 " ;
-			mysql_query($sql) or die (mysql_error() . $problemMessage);
-		}				
-	}
-
+    return $languagePathList;
 }
-
-*/
 
 ?>
