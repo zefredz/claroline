@@ -21,7 +21,7 @@
  * include(moduleIntro.inc.php);
  */
 
-$TBL_INTRODUCTION = $_course['dbNameGlu']."tool_intro";
+$TBL_INTRODUCTION = $_course['dbNameGlu'].'tool_intro';
 
 
 /*
@@ -155,20 +155,21 @@ if ($intro_dispDefault)
 if ($intro_dispCommand)
 {
     if( trim(strip_tags($intro_content)) == '' ) // displays "Add intro" Commands
-	{
-        echo "<div class=\"HelpText\">\n".$helpAddIntroText."\n</div>\n<p>";
-		claro_disp_button($_SERVER['PHP_SELF'].'?intro_cmdAdd=1', $langAddIntro);
-        echo '</p>';
-	}
-	else // displays "edit intro && delete intro" Commands
-	{
-		echo	"<p>\n".
-				"<small>\n".
-				"<a href=\"".$_SERVER['PHP_SELF']."?intro_cmdEdit=1\"><img src=\"",$urlAppend,"/claroline/img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n".
-				"<a href=\"".$_SERVER['PHP_SELF']."?intro_cmdDel=1\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\"><img src=\"",$urlAppend,"/claroline/img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\"></a>\n".
-				"</small>\n".
-				"</p>\n";
-	}
+    {
+        echo "<div class=\"HelpText\">\n".$helpAddIntroText."\n</div>\n"
+            ."<p>"
+            ."<a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?intro_cmdAdd=1\">".$langAddIntro."</a>"
+            ."</p>\n";
+    }
+    else // displays "edit intro && delete intro" Commands
+    {
+        echo    "<p>\n".
+                "<small>\n".
+                "<a href=\"".$_SERVER['PHP_SELF']."?intro_cmdEdit=1\"><img src=\"",$urlAppend,"/claroline/img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n".
+                "<a href=\"".$_SERVER['PHP_SELF']."?intro_cmdDel=1\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\"><img src=\"",$urlAppend,"/claroline/img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\"></a>\n".
+                "</small>\n".
+                "</p>\n";
+    }
 }
 
 
