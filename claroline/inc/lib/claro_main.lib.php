@@ -128,17 +128,12 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
 
     if ( CLARO_DEBUG_MODE && mysql_errno() )
     {
-                echo    '<hr size="1" noshade>',
-
-                mysql_errno(), " : ", mysql_error(), '<br>',
-
-                '<pre style="color:red">',
-
-                $sqlQuery,
-
-                '</pre>',
-
-                '<hr size="1" noshade>';
+                echo '<hr size="1" noshade>'
+                     .mysql_errno(), " : ", mysql_error(), '<br>'
+                     .'<pre style="color:red">'
+                     .$sqlQuery
+                     .'</pre>'
+                     .'<hr size="1" noshade>';
     }
 
     return $resultHandler;
@@ -146,7 +141,7 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
 
 
 /**
- * Claroline mySQL fetch array returning all the result	rows
+ * Claroline SQL fetch array returning all the result rows
  * in an associative array.	Compared to	the	PHP	mysql_fetch_array(),
  * it proceeds in a	single pass.
  *
@@ -174,9 +169,8 @@ function claro_sql_fetch_all($sqlResultHandler, $resultType	= MYSQL_ASSOC)
 
 
 /**
- * Claroline mySQL query and fetch array wrapper. It returns all the result rows
- * in an associative array. It also provides debug display wich works when the
- * global debug flag is set to on (true)
+ * Claroline SQL query and fetch array wrapper. It returns all the result rows
+ * in an associative array.
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>,
  * @param  string  $sql - the sql query
@@ -189,21 +183,81 @@ function claro_sql_fetch_all($sqlResultHandler, $resultType	= MYSQL_ASSOC)
 
 function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
 {
-	$result = claro_sql_query($sqlQuery, $dbHandler);
+    $result = claro_sql_query($sqlQuery, $dbHandler);
 
-	if ($result)
-	{
-		return claro_sql_fetch_all($result);
-	}
-	else
-	{
-		return false;
-	}
+    if ($result) return claro_sql_fetch_all($result);
+    else         return false;
+}
+
+/**
+ * Claroline SQL query and fetch array wrapper. It returns all the result in 
+ * assiocative array ARRANGED BY COLUMNS.
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>,
+ * @param  string  $sqlQuery  - the sql query
+ * @param  handler $dbHandler - optional
+ * @return associative array containing all the result arranged by columns
+ *
+ * @see	claro_sql_query()
+ *
+ */
+
+function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
+{
+    $result = claro_sql_query($sqlQuery, $dbHandler = '#');
+
+    if ($result)
+    {
+        $colList = array();
+    	
+        while( $row = mysql_fetch_array($result, MYSQL_ASSOC) )
+        {
+            foreach($row as $key => $value ) $colList[$key][] = $value;
+        }
+
+        mysql_free_result($result);
+
+        return $colList;
+    }
+    else
+    {
+    	return false;
+    }
+}
+
+/**
+ * Claroline SQL query wrapper returning only a single result value.
+ * Useful in some cases because, it avoid nested arrays of results.
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>,
+ * @param  string  $sqlQuery - the sql query
+ * @param  handler $dbHandler  - optional
+ * @return associative array containing all the result rows
+ *
+ * @see	claro_sql_query()
+ *
+ */
+
+
+function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
+{
+    $result = claro_sql_query($sqlQuery, $dbHandler = '#');
+
+    if($result)
+    {
+        list($value) = mysql_fetch_row($result);
+        mysql_free_result($result);
+        return $value;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 
 /**
- * Claroline mySQL query wrapper returning the number of rows affected by the 
+ * Claroline SQL query wrapper returning the number of rows affected by the 
  * query
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>,
@@ -218,23 +272,17 @@ function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
 
 function claro_sql_query_affected_rows($sqlQuery, $dbHandler = '#')
 {
-	$result = claro_sql_query($sqlQuery, $dbHandler);
+    $result = claro_sql_query($sqlQuery, $dbHandler);
 
-	if ($result)
-	{
-		if ($dbHandler == '#')
-		{
-			return mysql_affected_rows();
-		}
-		else
-		{
-			return mysql_affected_rows($dbHandler);
-		}
-	}
-	else
-	{
-		return false;
-	}
+    if ($result)
+    {
+        if ($dbHandler == '#') return mysql_affected_rows();
+        else                   return mysql_affected_rows($dbHandler);
+    }
+    else
+    {
+        return false;
+    }
 }
 
 
@@ -253,18 +301,11 @@ function claro_sql_query_affected_rows($sqlQuery, $dbHandler = '#')
 
 function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
 {
-	$result = claro_sql_query($sqlQuery, $dbHandler);
+    $result = claro_sql_query($sqlQuery, $dbHandler);
 
-	if ($result)
-	{
-		return mysql_insert_id();
-	}
-	else
-	{
-		return false;
-	}
+    if ($result) return mysql_insert_id();
+    else         return false;
 }
-
 
 //////////////////////////////////////////////////////////////////////////////
 //					CLAROLINE FAILURE MANGEMENT
@@ -415,6 +456,13 @@ function claro_disp_tool_title($titleElement, $helpUrl = false)
 }
 
 
+function claro_enable_tool_view_option()
+{
+	global $claro_toolViewOptionEnabled;
+    $claro_toolViewOptionEnabled = true;
+}
+
+
 /**
  *  display options to switch between student view and course manager view
  *
@@ -441,8 +489,8 @@ function claro_disp_tool_view_option($viewModeRequested = false)
 {
     global $REQUEST_URI, $PHP_SELF, $clarolineRepositoryWeb;
 
-$langcoursemanagerview = 'course manager';
-$langstudentview = 'student';
+    $langcoursemanagerview = 'course manager';
+    $langstudentview       = 'student';
 
     claro_set_display_mode_available(true);
 
@@ -458,7 +506,7 @@ $langstudentview = 'student';
      * check if the REQUEST_URI contains already URL parameters 
      * (thus a questionmark)
      */
-     
+
     if ( strstr($REQUEST_URI, '?') ) $url = $REQUEST_URI;
     else                             $url = $PHP_SELF.'?';
 
@@ -472,6 +520,7 @@ $langstudentview = 'student';
     /*------------------------------------------------------------------------
                             INIT BUTTONS
       -------------------------------------------------------------------------*/
+      
 
     switch ($currentViewMode)
     {
@@ -497,17 +546,17 @@ $langstudentview = 'student';
                              DISPLAY COMMANDS MENU
       ------------------------------------------------------------------------*/
 
-    echo '<p align="right">'
-        .'<small> view mode <img src="'.$clarolineRepositoryWeb.'/img/preview.gif">: '
-        .$studentButton.' | '.$courseAdminButton.'</small>'
-        .'</p>';
+    echo //'<p align="right">'.
+        '<small> view mode : '
+        .$studentButton.' | '.$courseAdminButton.'</small>';
+        //.'</p>';
 }
 
 
 function claro_set_tool_view_mode($viewMode)
 {
     $viewMode = strtoupper($viewMode); // to be sure ...
-    
+
     if ( in_array($viewMode, array('STUDENT', 'COURSE_ADMIN') ) )
     {
         $_SESSION['claro_toolViewMode'] = $viewMode;
@@ -527,7 +576,7 @@ function claro_get_tool_view_mode()
     {
         $_SESSION['claro_toolViewMode'] = 'COURSE_ADMIN'; // default
     }
-    
+
     return $_SESSION['claro_toolViewMode'];
 }
 
