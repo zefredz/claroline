@@ -1536,6 +1536,7 @@ $langShowAnswersAfterLastTry = "Après le dernier essai autorisé";
 $langShowFeedback = "Voir la dernière correction";
 $langShowNone = "Cacher tout";
 $langShowWork = "Voir la soumission";
+$langSimple = "Simple";
 $langSimpleExercise = "Questions sur une seule page";
 $langSize = "Taille";
 $langSizeOf = "Taille de";
