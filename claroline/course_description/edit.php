@@ -44,7 +44,6 @@ require($includePath."/lib/text.lib.php");
 $nameTools = $langCourseProgram;
 $htmlHeadXtra[] = "<style type=\"text/css\">
 <!--
-	BODY {background-color: #FFFFFF;}
 	.QuestionDePlanification {  background-color: #ccffff; background-position: left center; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px}
 	.InfoACommuniquer { background-color: #ffffcc; background-position: left center; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px ; }
 -->
@@ -56,6 +55,14 @@ $TABLECOURSEDESCRIPTION = $_course['dbNameGlu']."course_description";
 
 $is_allowedToEdit = $is_courseAdmin;
 
+/*
+ Include pedaSuggest.inc.php - non conventional lang file with these arrays
+ $titreBloc[] = "Title of Bloc";
+ $titreBlocNotEditable[] = FALSE; 
+ $questionPlan[] = "";
+ $info2Say[] = "";
+*/
+
 @include($includePath."/../lang/english/pedaSuggest.inc.php");
 @include($includePath."/../lang/".$_course['language']."/pedaSuggest.inc.php");
 
@@ -63,63 +70,61 @@ if ( !$is_allowedToEdit )
 {
 	header("Location:./index.php");
 }
-else
-// if user is not admin,  they can change content
+else // if user is not admin,  they can change content
 { 
-
-//// SAVE THE BLOC
-	if (isset($save))
+	//// SAVE THE BLOC
+	if (isset($_REQUEST['save']))
 	{
-	// it's second  submit,  data  must be write in db
-	// if edIdBloc contain Id  was edited
-	// So  if  it's add,   line  must be created
-		if($_REQUEST["edIdBloc"]=="add")
+		// it's second  submit,  data  must be write in db
+		// if edIdBloc contain Id  was edited
+		// So  if  it's add,   line  must be created
+		if($_REQUEST['edIdBloc']=='add')
 		{
-		    $sql="SELECT MAX(id) as idMax From `".$TABLECOURSEDESCRIPTION."` ";
+			$sql="SELECT MAX(id) as idMax From `".$TABLECOURSEDESCRIPTION."` ";
 			$res = claro_sql_query($sql);
 			$idMax = mysql_fetch_array($res);
 			$idMax = max(sizeof($titreBloc),$idMax["idMax"]);
-			$sql ="
-	INSERT IGNORE
-		INTO `".$TABLECOURSEDESCRIPTION."` 
-		(`id`) 
-		VALUES
-		('".($idMax+1)."');";
-			$_REQUEST["edIdBloc"] = $idMax+1;
+			$sql ="	INSERT IGNORE
+				INTO `".$TABLECOURSEDESCRIPTION."` 
+				(`id`) 
+				VALUES ('".($idMax+1)."');";
+			$edIdBloc = $idMax+1;
 		}
 		else
 		{
-			$sql ="
-	INSERT IGNORE
-		INTO `".$TABLECOURSEDESCRIPTION."` 
-		(`id`) 
-		VALUES 
-		('".$_REQUEST["edIdBloc"]."');";
+			$sql ="	INSERT IGNORE
+				INTO `".$TABLECOURSEDESCRIPTION."` 
+				(`id`) 
+				VALUES 
+				('".$_REQUEST['edIdBloc']."');";
+			$edIdBloc = $_REQUEST['edIdBloc'];
 		}
+
 		claro_sql_query($sql);
+
 		if (isset($_REQUEST['edTitleBloc']))
-		{
-			$edTitleBloc = $titreBloc[$edIdBloc];
-		}
-		else
 		{
 			$edTitleBloc = claro_addslashes($_REQUEST['edTitleBloc']);
 		}
-		$sql ="
-		Update 
-		`".$TABLECOURSEDESCRIPTION."` 
-		SET
-		`title`= '".trim($edTitleBloc)."',
-		`content` ='".trim(claro_addslashes($_REQUEST['edContentBloc']))."',
-		`upDate` = NOW() 
-		WHERE id = '".$_REQUEST["edIdBloc"]."';";
+		else
+		{
+			$edTitleBloc = $titreBloc[$edIdBloc];
+		}
+
+		$sql ="	Update 	`".$TABLECOURSEDESCRIPTION."` 
+			SET
+				`title`= '".trim($edTitleBloc)."',
+				`content` ='".trim(claro_addslashes($_REQUEST['edContentBloc']))."',
+				`upDate` = NOW() 
+			WHERE 
+				id = '".$_REQUEST["edIdBloc"]."';";
 		claro_sql_query($sql);
 	}
 
 //// Kill THE BLOC
-	if (isset($deleteOK))
+	if (isset($_REQUEST['deleteOK']))
 	{
-		$sql = "SELECT * FROM `".$TABLECOURSEDESCRIPTION."` where id = '".$_REQUEST["edIdBloc"]."'";
+		$sql = "SELECT * FROM `".$TABLECOURSEDESCRIPTION."` where id = '".$_REQUEST['edIdBloc']."'";
 		$res = claro_sql_query($sql,$db);
 		$blocs = mysql_fetch_array($res);
 		if (is_array($blocs))
@@ -141,11 +146,11 @@ else
 		$display = DISP_CMD_RESULT;
 	}
 //// Edit THE BLOC 
-	elseif(isset($numBloc))
+	elseif(isset($_REQUEST['numBloc']))
 	{
-		if (is_numeric($numBloc))
+		if (is_numeric($_REQUEST['numBloc']))
 		{
-			$sql = "SELECT * FROM `".$TABLECOURSEDESCRIPTION."` where id = '".$numBloc."'";
+			$sql = "SELECT * FROM `".$TABLECOURSEDESCRIPTION."` where id = '".$_REQUEST['numBloc']."'";
 			$res = claro_sql_query($sql,$db);
 			$blocs = mysql_fetch_array($res);
 			if (is_array($blocs))
@@ -182,7 +187,7 @@ else
 		$display = DISP_LIST_BLOC;
 	}
 
-	if (isset($display)) // this if would be remove when conrvertion to MVC is done
+	if (isset($display)) // this if would be remove when convertion to MVC is done
 	{
 		include($includePath."/claro_init_header.inc.php");
 		claro_disp_tool_title($nameTools);
