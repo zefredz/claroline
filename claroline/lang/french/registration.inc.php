@@ -231,7 +231,7 @@ $langDelImage = "Retirez la photo";
 $langOfficialCode = "Matricule";
 
 $langAuthInfo = "Paramètres de connection";
-$langEnter2passToChange = "Laisser vide pour ne pas changer";
+$langEnter2passToChange = "Entrez deux fois le nouveau mot de passe pour le changer, laissez vide pour garder l'ancien.";
 
 $lang_SearchUser_ModifOk            = "Les modifications ont été effectuées correctement";
 
