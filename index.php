@@ -290,12 +290,15 @@ if (isset($_uid))
 
 			$tableAnn = $courseTablePrefix . $thisCourseDbName . $dbGlu . "announcement";
 
-			$sqlGetLastAnnouncements = "SELECT temps publicationDate, contenu content
-			                            FROM `".$tableAnn."`";
+			$sqlGetLastAnnouncements = "SELECT temps publicationDate, CONCAT(title,' ',contenu) content
+			                            FROM `".$tableAnn."`
+										WHERE 
+										CONCAT(title,' : ',contenu) != ''
+										";
 	switch(CONFVAL_limitPreviewTo)
 	{
 		case SCRIPTVAL_NewEntriesOfTheDay :
-			$sqlGetLastAnnouncements .= "WHERE DATE_FORMAT(temps,'%Y %m %d') >= '".date("Y m d")."'";
+			$sqlGetLastAnnouncements .= "AND DATE_FORMAT(temps,'%Y %m %d') >= '".date("Y m d")."'";
 			break;
 
 		case SCRIPTVAL_NoTimeLimit :
@@ -303,7 +306,7 @@ if (isset($_uid))
 
 		case SCRIPTVAL_NewEntriesOfTheDayOfLastLogin	:
 		// take care mysql -> DATE_FORMAT(time,format) php -> date(format,date)
-			$sqlGetLastAnnouncements .= "WHERE DATE_FORMAT(temps,'%Y %m %d') >= '".date("Y m d",$_user["lastLogin"])."'";
+			$sqlGetLastAnnouncements .= "AND DATE_FORMAT(temps,'%Y %m %d') >= '".date("Y m d",$_user["lastLogin"])."'";
 	}
 
 			$sqlGetLastAnnouncements .= "ORDER BY temps DESC
@@ -339,9 +342,10 @@ if (isset($_uid))
 
 			$tableCal = $courseTablePrefix . $thisCourseDbName . $dbGlu . "calendar_event";
 
-			$sqlGetNextAgendaEvent = "SELECT  `day` , titre content, hour
+			$sqlGetNextAgendaEvent = "SELECT  `day` , CONCAT(titre,' ',contenu) content, hour
 			                          FROM `".$tableCal."`
 			                          WHERE `day` >= CURDATE()
+									  AND CONCAT(titre,' : ',contenu) != ''
 			                          ORDER BY `day`, `hour`
 			                          LIMIT ".$maxAgenda."";
 
