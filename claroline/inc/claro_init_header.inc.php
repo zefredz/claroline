@@ -48,8 +48,8 @@ $titlePage .= $siteName;
 ?>
 
 <title><? echo $titlePage ?></title>
-<!-- <link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/default.css"  > -->
-<style type="text/css">@import url(<?php echo $clarolineRepositoryWeb ?>css/default.css);</style>
+<link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>">
+<style type="text/css">@import url(<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>);</style>
 <link rel="top" href="<?php echo $rootWeb ?>index.php" title="" >
 <link rel="courses" href="<?php echo $clarolineRepositoryWeb ?>auth/courses.php" title="<?php echo $langOtherCourses ?>" >
 <link rel="profil" href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" title="<?php echo $langModifyProfile ?>" >
