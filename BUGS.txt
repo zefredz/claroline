@@ -359,7 +359,7 @@ Repéré par : M.
 Assigné à : 
 
 template à copier coller
-Etat : New ---------------------------------------------------
+Etat : New ----------------------------------------------------
 .99 où :
 type :
 quoi :
@@ -371,6 +371,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.58  2004/08/09 10:41:27  mathieu
+test commit
+
 Revision 1.57  2004/08/09 10:38:56  mathieu
 test commit
 
