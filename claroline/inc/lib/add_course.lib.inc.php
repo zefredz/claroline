@@ -606,7 +606,7 @@ claro_sql_query("
 		`active` tinyint(4) unsigned NOT NULL default '0',
 		`max_time` smallint(5) unsigned NOT NULL default '0',
   `max_attempt` tinyint(3) unsigned NOT NULL default '0',
-  `show_answer` enum('ALWAYS','NEVER') NOT NULL default 'ALWAYS',
+  `show_answer` enum('ALWAYS','NEVER','LASTTRY') NOT NULL default 'ALWAYS',
   `anonymous_attempts` enum('YES','NO') NOT NULL default 'YES',
   `start_date` datetime NOT NULL default '0000-00-00 00:00:00',
   `end_date` datetime NOT NULL default '0000-00-00 00:00:00',
