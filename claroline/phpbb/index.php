@@ -18,48 +18,43 @@ session_start();
  ***************************************************************************/
 $tlabelReq ="CLFRM___";
 
-include('extention.inc');
-include('functions.php');
-include('config.php');
-require("auth.php");
+include 'extention.inc';
+include 'functions.php';
+include 'config.php';
+require 'auth.php';
 $pagetitle = $l_indextitle;
-$pagetype = "index";
-include('page_header.php');
+$pagetype = 'index';
+include 'page_header.php';
 
 $is_forumAdmin = $is_courseAdmin || $is_platformAdmin;
 
 
 
 //stats
-@include($includePath."/lib/events.lib.inc.php");
+@include $includePath.'/lib/events.lib.inc.php';
 event_access_tool($nameTools);
 
-$result = mysql_query("SELECT `c`.* FROM `$tbl_catagories` c, `$tbl_forums` f
-                       WHERE `f`.`cat_id` = `c`.`cat_id`
-                       GROUP BY `c`.`cat_id`, `c`.`cat_title`, `c`.`cat_order`
-                       ORDER BY `c`.`cat_order` ASC")
+$sql = "SELECT `c`.`cat_id`, `c`.`cat_title`, `c`.`cat_order`
+        FROM `".$tbl_catagories."` c, `".$tbl_forums."` f
+        WHERE `f`.`cat_id` = `c`.`cat_id`
+        GROUP BY `c`.`cat_id`, `c`.`cat_title`, `c`.`cat_order`
+        ORDER BY `c`.`cat_order` ASC";
 
-          OR error_die("Unable to get categories from database<br>$sql");
+$categories       = claro_sql_query_fetch_all($sql);
+$total_categories = count($categories);
 
-$total_categories = mysql_num_rows($result);
 
-$sqlGroupsOfCurrentUser ="
-SELECT `g`.`forumId`
-	FROM `".$tbl_student_group."` `g`,
-		 `".$tbl_user_group."` `gu`
-	WHERE
-		`g`.`id` = `gu`.`team`
-		AND
-		`gu`.`user` = '".$_uid."'";
+$sql ="SELECT `g`.`forumId`
+       FROM `".$tbl_student_group."` `g`,
+           `".$tbl_user_group."` `gu`
+       WHERE `g`.`id`    = `gu`.`team`
+         AND `gu`.`user` = '".$_uid."'";
 
-$resGroupsOfCurrentUser = mysql_query($sqlGroupsOfCurrentUser);
-
-//$DEBUG = true;
-//printVar($sqlGroupsOfCurrentUser,"GroupsOfCurrentUser");
+$resGroupsOfCurrentUser = claro_sql_query($sql);
 $arrGroupsOfCurrentUser = array();
-while ( $thisGroups = mysql_fetch_array($resGroupsOfCurrentUser,MYSQL_ASSOC))
+while ( $thisGroups = mysql_fetch_array( $resGroupsOfCurrentUser, MYSQL_ASSOC) )
 {
-	$arrGroupsOfCurrentUser[] = $thisGroups["forumId"];
+	$arrGroupsOfCurrentUser[] = $thisGroups['forumId'];
 };
 ?>
 
@@ -69,56 +64,42 @@ while ( $thisGroups = mysql_fetch_array($resGroupsOfCurrentUser,MYSQL_ASSOC))
 
 if($total_categories)
 {
-	if(!$viewcat)
-	{
-		$viewcat = -1;
-	}
+	if(!$viewcat) $viewcat = -1;
 
-	while($cat_row = mysql_fetch_array($result))
-	{
-		$categories[] = $cat_row;
-	}
-
-	$limit_forums = "";
-
-	if($viewcat != -1)
-	{
-		$limit_forums = "WHERE f.cat_id = $viewcat";
-	}
+	if( $viewcat != -1) $limit_forums = 'WHERE f.cat_id = '.$viewcat;
+    else                $limit_forums = '';
 
 	$sql_f = "SELECT f.*, u.username, u.user_id, p.post_time, g.id gid
-	                      FROM `$tbl_forums` f
-	                      LEFT JOIN `$tbl_posts` p ON p.post_id = f.forum_last_post_id
-	                      LEFT JOIN `$tbl_users` u ON u.user_id = p.poster_id
-	                      LEFT JOIN `".$tbl_student_group."` g ON g.forumId = f.forum_id
-	                      $limit_forums
-	                      ORDER BY f.forum_order, f.cat_id, f.forum_id ";
-	$f_res = mysql_query($sql_f)
+	          FROM `".$tbl_forums."` f
+	          LEFT JOIN `".$tbl_posts."` p 
+                     ON p.post_id = f.forum_last_post_id
+	          LEFT JOIN `".$tbl_users."` u 
+                     ON u.user_id = p.poster_id
+	          LEFT JOIN `".$tbl_student_group."` g 
+                     ON g.forumId = f.forum_id
+	          ".$limit_forums."
+	          ORDER BY f.forum_order, f.cat_id, f.forum_id ";
 
-	                      OR error_die("Error getting forum data<br>$sql_f");
-
-	while($forum_data = mysql_fetch_array($f_res))
-	{
-		$forum_row[] = $forum_data;
-	}
+	$forum_row = claro_sql_query_fetch_all($sql_f);
 
 	for($i = 0; $i < $total_categories; $i++)
 	{
         //get number of forums present in the current categorie we must display
 
         $iteratorInCat = 1; //used for displaying links to change order or not
+
         $sql = "SELECT f.`forum_id`
-                       FROM `$tbl_forums` f
-                       WHERE  f.`cat_id` = ".$categories[$i][cat_id]."
-                       ";
-        $result = mysql_query($sql);
+                FROM `".$tbl_forums."` f
+                WHERE  f.`cat_id` = ".$categories[$i]['cat_id'];
+
+        $result = claro_sql_query($sql);
         $nbForumsInCat = mysql_num_rows($result);
 
 		if($viewcat != -1)
 		{
 			if($categories[$i][cat_id] != $viewcat)
 			{
-				$title = stripslashes($categories[$i][cat_title]);
+				$title = stripslashes($categories[$i]['cat_title']);
 
 				echo	"<tr align=\"left\" valign=\"top\">\n\n",
 						"<td colspan=6 bgcolor=\"#4171B5\">\n",
@@ -172,28 +153,25 @@ if($total_categories)
 		{
 			unset($last_post);
 
-			if($forum_row[$x]["cat_id"] == $categories[$i]["cat_id"])
+			if( $forum_row[$x]['cat_id'] == $categories[$i]['cat_id'] )
 			{
-				if($forum_row[$x]["post_time"])
+				if($forum_row[$x]['post_time'])
 				{
-					$last_post = $forum_row[$x]["post_time"]; // post time format  datetime de mysql
+					$last_post = $forum_row[$x]['post_time']; // post time format  datetime de mysql
 				}
 
-				$last_post_datetime                    = $forum_row[$x]["post_time"];
-				list($last_post_date, $last_post_time) = split(" ", $last_post_datetime);
-				list($year, $month, $day)              = explode("-", $last_post_date);
-				list($hour, $min)                      = explode(":", $last_post_time);
+				$last_post_datetime                    = $forum_row[$x]['post_time'];
+				list($last_post_date, $last_post_time) = split(' ', $last_post_datetime);
+				list($year, $month, $day)              = explode('-', $last_post_date);
+				list($hour, $min)                      = explode(':', $last_post_time);
 				$last_post_time                        = mktime($hour, $min, 0, $month, $day, $year);
 
 				// $last_post_time  mktime du champs  post_time.
-				if(empty($last_post))
-				{
-					$last_post = $langNoPost;
-				}
+				if(empty($last_post)) $last_post = $langNoPost;
 
 				echo "<tr  align=\"left\" valign=\"top\">\n\n";
 
-				if($last_post_time > $last_visit && $last_post != "No Posts")
+				if($last_post_time > $last_visit && $last_post != 'No Posts')
 				{
 					echo	"<td align=\"center\" valign=\"top\" width=5%>\n",
 							"<img src=\"".$clarolineRepositoryWeb."img/red_folder.gif\">\n";
@@ -228,22 +206,27 @@ if($total_categories)
 
 				if($tutorCheck==1)
 				{
-					$sqlTutor=mysql_query("SELECT id FROM `$tbl_student_group`
-										   WHERE forumId='$forum'
-										   AND tutor='$_uid'") or die('Error in file '.__FILE__.' at line '.__LINE__);
+					$sql = "SELECT id FROM `".$tbl_student_group."`
+							WHERE forumId = '".$forum."'
+							  AND tutor   = '".$_uid."'";
+
+                    $sqlTutor= claro_sql_query($sql);
 
 					$countTutor = mysql_num_rows($sqlTutor);
-					// echo "<br>forum $forum count tutor $countTutor<br>";
 
 					if ($countTutor==0)
 					{
-						echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"],"&forum=",$forum_row[$x]["forum_id"],"&",$total_posts,"\">",
+						echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"]
+                                ,"&forum=",$forum_row[$x]["forum_id"]
+                                ,"&",$total_posts,"\">",
 								$name,
 								"</a>\n";
 					}
 					else
 					{
-						echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"],"&forum=",$forum_row[$x]["forum_id"],"&",$total_posts,"\">",
+						echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"]
+                                ,"&forum=",$forum_row[$x]["forum_id"]
+                                ,"&",$total_posts,"\">",
 								$name,
 								"</a>\n",
 								"&nbsp;(",$langOneMyGroups,")";
@@ -258,7 +241,9 @@ if($total_categories)
 
 				elseif($is_forumAdmin)
 				{
-					echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"],"&forum=",$forum_row[$x]['forum_id'],"&",$total_posts,"\">",
+					echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"]
+                            ,"&forum=",$forum_row[$x]['forum_id']
+                            ,"&",$total_posts,"\">",
 							$name,
 							"</a>\n";
 				}
@@ -273,7 +258,9 @@ if($total_categories)
 				{
 					if (in_array($forum, $arrGroupsOfCurrentUser)) // this  cond  must change.
 					{
-						echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"],"&forum=",$forum_row[$x]["forum_id"],"&$total_posts\">",
+						echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"]
+                                ,"&forum=",$forum_row[$x]["forum_id"]
+                                ,"&$total_posts\">",
 								$name,
 								"</a>\n",
 								"&nbsp;&nbsp;(",$langMyGroup,")\n";
@@ -286,7 +273,9 @@ if($total_categories)
 						}
 						else
 						{
-							echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"],"&forum=",$forum_row[$x]["forum_id"],"&$total_posts\">",
+							echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"]
+                                    ,"&forum=",$forum_row[$x]["forum_id"]
+                                    ,"&$total_posts\">",
 									$name,
 									"</a>\n";
 						}
@@ -296,7 +285,9 @@ if($total_categories)
 				/* OTHER FORUMS */
 				else
 				{
-					echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"],"&forum=",$forum_row[$x]["forum_id"],"&$total_posts\">",
+					echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"]
+                            ,"&forum=",$forum_row[$x]["forum_id"]
+                            ,"&$total_posts\">",
 							$name,
 							"</a> ";
 				}
