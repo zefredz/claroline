@@ -107,10 +107,15 @@ function showQuestion($questionId, $onlyAnswers=false)
 
 	<tr>
 	  <td width="5%" align="center">
-		<input type="radio" name="choice[<?php echo $questionId; ?>]" value="<?php echo $answerId; ?>">
+		<input type="radio" 
+		       name="choice[<?php echo $questionId; ?>]" 
+		       id="choice[<?php echo $questionId; ?>][<?php echo $answerId; ?>]"
+               value="<?php echo $answerId; ?>[<?php echo $answerId; ?>]">
 	  </td>
 	  <td width="95%">
-		<?php echo $answer; ?>
+		<label for="choice[<?php echo $questionId; ?>][<?php echo $answerId; ?>]">
+		<?php echo $answer; ?> 
+		</label>
 	  </td>
 	</tr>
 
@@ -123,10 +128,15 @@ function showQuestion($questionId, $onlyAnswers=false)
 
 	<tr>
 	  <td width="5%" align="center">
-		<input type="checkbox" name="choice[<?php echo $questionId; ?>][<?php echo $answerId; ?>]" value="1">
+		<input type="checkbox" 
+		       name="choice[<?php echo $questionId; ?>][<?php echo $answerId; ?>]"
+		       id="choice[<?php echo $questionId; ?>][<?php echo $answerId; ?>]"
+		       value="1">
 	  </td>
 	  <td width="95%">
-		<?php echo $answer; ?>
+		<label for="choice[<?php echo $questionId; ?>][<?php echo $answerId; ?>]">
+		<?php echo $answer; ?> 
+		</label>
 	  </td>
 	</tr>
 
