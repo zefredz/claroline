@@ -69,11 +69,11 @@ $langExerciseTotalAttempts = "Total attempts";
 $langLastAttempt = "Last attempt";
 // exercises details 
 $langStatsOfExercise = "Statistics of exercise";
-$langScoreMax = "Max";
-$langScoreMin = "Min";
-$langScoreAvg = "Avg";
-$langExeAvgTime = "Avg Time (sec.)";
-$langExeTime = "Time(sec.)";
+$langScoreMax = "Maximum";
+$langScoreMin = "Minimum";
+$langScoreAvg = "Average";
+$langExeAvgTime = "Average Time (s.)";
+$langExeTime = "Time (s.)";
 $langStudent = "Student";
 $langAttempts = "Attempts";
 $langWeighting = "Weighting";

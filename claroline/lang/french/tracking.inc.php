@@ -68,11 +68,11 @@ $langExerciseTotalAttempts = "Total des essais";
 $langLastAttempt = "Dernier essai";
 // exercises details 
 $langStatsOfExercise = "Statistiques de l'exercice";
-$langScoreMax = "Max";
-$langScoreMin = "Min";
-$langScoreAvg = "Moy";
-$langExeAvgTime = "Temps moyen(sec.)";
-$langExeTime = "Temps(sec.)";
+$langScoreMax = "Maximum";
+$langScoreMin = "Minimum";
+$langScoreAvg = "Moyenne";
+$langExeAvgTime = "Temps moyen (s.)";
+$langExeTime = "Temps (s.)";
 $langStudent = "Etudiant";
 $langAttempts = "Essais";
 $langWeighting = "Pondération";
