@@ -17,7 +17,7 @@
  */
 include_once (dirname(__FILE__)."/admin.inc.php");
 $langAddAdminInApache ="Add an admin user";
-$langSearchACourse  = "Search for a course";
+$langSearchACourse  = "Search a course";
 $langSearchAUser  ="Search for a user";
 
 $langAdminBy = "Admin by ";
@@ -85,7 +85,6 @@ $langSearchAUser 	="Search for users";
 $langBrowseUser		="Browse users";
 $langListOfUser		="List users";
 
-$langSearchACourse ="Search a course";
 $langBrowseCourse = "Browse courses";
 $langListOfCourse = "List courses";
 
