@@ -256,6 +256,7 @@ else
             }
         }
 
+/*
         foreach ($conf_def_property_list as $_propName => $_propDescriptorList)
         {
             if (!isset($_propDescriptorList['section']))
@@ -271,6 +272,8 @@ else
             $conf_def['section']['sectionmissing']['description'] = 'This is an error in definition file. Request to the coder of this config to add theses proporties in a section of the definition file.';
 
         }	
+*/
+
 	}
 	else 
 	{
@@ -403,7 +406,7 @@ if ( $display_form )
         {
             echo 'No section found in definition file';
         }
-
+/*
         // Display properties from the database and old config file not in the definition file
         if (sizeof($unknowValueInConfigFileList)>0)
         {
@@ -422,6 +425,7 @@ if ( $display_form )
             }
             echo '</table>';
         }
+*/
         echo '</form>'."\n";
     }
     else
