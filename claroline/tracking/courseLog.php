@@ -579,6 +579,12 @@ else
 ?>
 </table>
 
+<hr />
+<a class="claroButton" href="delete_course_stats.php">
+<img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" alt="">
+<?php echo $langDelCourseStats; ?>
+</a>
+
 <?
 @include($includePath."/claro_init_footer.inc.php");
 ?>
