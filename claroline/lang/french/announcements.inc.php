@@ -21,6 +21,17 @@ Translate the interface in chosen language
 
 *****************************************************************/
 
+// GENERIC
+
+$langModify   = "modifier";
+$langDelete   = "supprimer";
+$langTitle    = "Titre";
+$langHelp     = "aide";
+$langOk       = "valider";
+$langAddIntro = "Ajouter un texte d'introduction";
+$langBackList = "Retourner à la liste";
+$langSelMess  = "Alertes à certains utilisateurs";
+
 $langUp = "monter";
 $langDown = "descendre";
 

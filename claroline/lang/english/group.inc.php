@@ -94,8 +94,8 @@ $langGroupSelfRegistration="Registration";
 $langGroupSelfRegInf="register";
 $langRegIntoGroup="Add me to this group";
 $langGroupNowMember="You are now a member of this group.";
-$langYes="yes";
-$langNo="no";
+$langYes="Yes";
+$langNo="No";
 
 
 $langPrivate="private";

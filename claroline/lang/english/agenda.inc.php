@@ -19,13 +19,18 @@ $langSETLOCALE="ENGLISH";
 
 $langAgenda="Agenda";
 
-$langDay="Day";
-$langMonth="Month";
-$month_default="Month";
-$langYear="Year";
-$year_default="Year";
 $langHour="Hour";
 $hour_default="hour";
+
+$langDay="Day";
+
+$langMonth="Month";
+$month_default="Month";
+
+$langYear="Year";
+$year_default="Year";
+
+
 $langMinute ="Minutes";
 $langLasting="Lasting";
 
@@ -34,9 +39,13 @@ $langNewToOld = "Newest first";
 
 $langNow = "Now";
 
+$langEditEvent = "Edit Event";
 $langAddEvent="Add an event";
 $langDetail="Detail";
 
-$langEditEvent = "Edit Event";
+$hour51="not defined";
+
+// UNIX TIME SETTINGS, "15h00" instead of "3pm", for instance, "ENGLISH" is a possibility
+
 $langNoEventInTheAgenda = "No event in the agenda";
 ?>

@@ -18,83 +18,11 @@
 
 
 
-//$langMailTo = "Mail to : ";
-//$lang_no_access_here ="No access here ";
-//$lang_php_info = "information about system";
-
-//$langAddAdminInApache ="Add an admin user";
-//$langAddFaculties = "Add faculties";
-//$langSearchACourse  = "Search for a course";
-//$langSearchAUser  ="Search for a user";
-
-//$langAdminBy = "Admin by ";
-//$langAdministrationTools = "Administration";
-//$langTools = "Tools";
-//$langTechnicalTools = "Technical";
-//$langConfig = "System config";
-//$langState = "State of system";
-//$langDevAdmin ="Development Administration";
-//$langLinksToClaroProjectSite ="Link to the project website";
-//$langNomOutilTodo 		= "Manage Todo list"; // to do
-//$langNomPageAdmin 		= "Administration";
-//$langSysInfo  			= "Info about System";        // Show system status
-//$langCheckDatabase  	= "Check main database";        // Check Database
-//$langDiffTranslation 	= "Compare translations"; // diff of translation
-//$langStatOf 			= "Statistics of "; // Stats of...
-//$langSpeeSubscribe 		= "Quick subscribe as Course Checker";
-//$langLogIdentLogout 	= "Login list";
-//$langLogIdentLogoutComplete = "Login list (extended)";
 
 // Stat
 $langStatistiques = "Statistics";
 
-
-//$langNbProf = "Number of professors";
-//$langNbStudents = "Number of students";
-//$langNbLogin = "Number of logins";
-//$langToday   ="Today";
-//$langLast7Days ="Last 7 days";
-//$langLast30Days ="Last 30 days";
-
-//$langNbAnnoucement = "Number of announcements";
-
-// Check Data base
-
-//$langPleaseCheckConfigForMainDataBaseName = "Please check these values<br>Main database name in <br>";
-//$langBaseFound ="Found<br>Checking tables of this base";
-//$langNotNeeded = "not needed";
-//$langNeeded = "needed";
-//$langArchive   ="archive";
-//$langUsed      ="used";
-//$langPresent   ="Ok";
-//$langCreateMissingNow = "Do you want to create tables now&nbsp;?";
-//$langCheckingCourses ="Checking courses";
-//$langMissing   ="missing";
-//$langExist     ="exists";
-
-// Create Claro table
-//$langCreateClaroTables		= "Create Table for main Database";
-//$langTableStructureDontKnow	= "Structure of this table unknown";
-
-//$langServerStatus	= "Status of MySQL server&nbsp;: ";
-//$langDataBase		= "Database ";
-//$langRun			= "work";
-//$langClient			= "MySql Client ";
-//$langServer			= "MySql Server ";
-//$langtitulary		= "Owner";
-//$langLanguage 		= "Language";
-//$langUpgradeBase 	= "Upgrade database";
-//$langManage			= "Manage Campus";
-//$langErrorsFound 	= "errors found";
-
 $langMaintenance 	= "Maintenance";
-//$langUpgrade		= "Upgrade Claroline";
-//$langWebsite		= "Claroline website";
-//$langDocumentation	= "Documentation";
-//$langForum			= "Forum";
-//$langContribute		= "Contribute";
-//$langInfoServer		= "Server Information";
-//$langConfig			= "Configuration Platform";
 
 //menu links
 
@@ -195,9 +123,6 @@ $langSubscriptionDeniedOnly  = "Subscription denied only";
 $langUserNoCourseToDisplay = "No course to display";
 $langSeeUserSettings =  "See user settings";
 $langEnrollToNewCourse = "Enroll to a new course";
-
-
-
 
 // Page titles
 

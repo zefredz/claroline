@@ -12,24 +12,30 @@ $langSETLOCALE="FRENCH";
 
 $langAgenda="Agenda";
 
-$langDay="Jour";
-$hour_default="heure";
 $langHour="Heure";
-$langLasting="Durée";
+$hour_default="heure";
+
+$langDay="Jour";
+
 $langMonth="Mois";
-$month_default="mois";
+$month_default="Mois";
+
+
 $langYear="Année";
 $year_default="année";
+
 $langMinute ="Minutes";
 $langLasting="Durée";
-$langNow = "Maintenant";
-
-$langAddEvent="Ajouter un événement";
-$langDetail="Détail";
 
 $langOldToNew = "Inverser";
 $langNewToOld = "Inverser";
+
 $langNow = "Maintenant";
+
+$langEditEvent = "Editer l'évenement";
+$langAddEvent="Ajouter un événement";
+$langDetail="Détail";
+
 $hour51="non précisé";
 
 // UNIX TIME SETTINGS, "15h00" instead of "3pm", for instance, "ENGLISH" is a possibility

@@ -21,6 +21,8 @@ $langProfessors="Titulaire(s)";
 $langExplanation="Une fois que vous aurez cliqué sur OK, un site contenant Forum, Liste de liens, Exercices, Agenda, Liste de documents... sera créé. Grâce à votre identifiant, vous pourrez en modifier le contenu";
 $langEmpty="Vous n'avez pas rempli tous les champs.\n<br>\nUtilisez le bouton de retour en arrière de votre navigateur et recommencez.<br>Si vous ne connaissez pas le code de votre cours, consultez le programme des cours";
 $langCodeTaken="Ce code cours est déjà pris.<br>Utilisez le bouton de retour en arrière de votre navigateur et recommencez";
+$langBackToAdmin = "Retour à l'administration";
+$langAnotherCreateSite = "Créer un autre cours";
 
 // tables MySQL
 $langFormula="Cordialement, votre professeur";

@@ -3,7 +3,7 @@
 include (dirname(__FILE__)."/admin.managing.menu.inc.php");
 $langNomPageAddHtPass ="Donner accès à l'administration";
 $langLogin 			= "login";
-$langPassword 		= "password";
+$langPassword 		= "mot de passe";
 $lang_no_access_here ="Pas d'accès ";
 $langAddLoginPass   = "Ajoute un login-pass dans .htAccess";
 $langGiveAdminRight = "Donner les droits d'administrateur à un utilisateur existant";
