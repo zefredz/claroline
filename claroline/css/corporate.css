@@ -375,9 +375,12 @@ a:visited.invisible{
 	color: #990000;
 }
 
-/* 'highlight' */
+/* 
+'highlight' 
+*/
 .highlight {
-	color: #FFB848;
+ color: #cc6600;
+ font-weight: bold;
 }
 
 /*
