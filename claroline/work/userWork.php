@@ -17,7 +17,6 @@ require '../inc/claro_init_global.inc.php';
 
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/lib/fileManage.lib.php');
-include($includePath.'/conf/work.conf.inc.php');
 
 include($includePath.'/lib/class.tree.php');
 
@@ -1156,20 +1155,18 @@ if( $dispWrkLst )
 	
 	$feedbackLst = claro_sql_query_fetch_all($sql);
 
-
 	$wrkAndFeedbackLst = array();
 	// create an ordered list with all submission directly followed by the related correction(s)
 	foreach( $wrkLst as $thisWrk )
 	{
-		$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == $_uid;
+		$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']]);
 		if( $thisWrk['visibility'] == 'VISIBLE' || $is_allowedToViewThisWrk )
 		{
 			$wrkAndFeedbackLst[] = $thisWrk;
 			foreach( $feedbackLst as $feedback )
 			{
 				if( $feedback['parent_id'] == $thisWrk['id'] 
-					&& ( $thisWrk['visibility'] == 'VISIBLE' || $is_allowedToEditAll ) 
-					&& ( $feedback['visibility'] == 'VISIBLE' || $is_allowedToEditAll ) 
+					&& ( $feedback['visibility'] == 'VISIBLE' || $is_allowedToEditAll || $is_allowedToViewThisWrk ) 
 					)
 				{
 					$wrkAndFeedbackLst[] = $feedback;
@@ -1178,7 +1175,7 @@ if( $dispWrkLst )
 		}
 	}
 
-	if( $is_allowedToSubmit && ( $_REQUEST['authId'] == $_uid || $is_allowedToEditAll ) )
+	if( isset($userGroupList[$_REQUEST['authId']]) || $_REQUEST['authId'] == $_uid || $is_allowedToEditAll )
     {
 		// link to create a new assignment
 		echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqSubWrk\">".$langSubmitWork."</a>\n";
@@ -1188,8 +1185,8 @@ if( $dispWrkLst )
 	foreach ( $wrkAndFeedbackLst as $thisWrk )
 	{
 		$is_feedback = !is_null($thisWrk['original_id']) && !empty($thisWrk['original_id']);
-		$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == $_uid;
-		$is_allowedToEditThisWrk = (bool)$is_allowedToEditAll || ( $thisWrk['user_id'] == $_uid && $uploadDateIsOk );
+		$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']]);
+		$is_allowedToEditThisWrk = (bool)$is_allowedToEditAll || ( ( $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']])) && $uploadDateIsOk );
 		
 		// change some displayed text depending on the context
 		if( $assignmentContent == "TEXTFILE" || $is_feedback )
@@ -1242,11 +1239,11 @@ if( $dispWrkLst )
 			
 		// author
 		echo "<b>".$langWrkAuthors."</b>&nbsp;: ".$thisWrk['authors']."<br />";
-			
+
 		if( $assignment['assignment_type'] == 'GROUP' && !$is_feedback )
 		{ 
 			 // display group if this is a group assignment and if this is not a correction
-			 echo "<b>".$langGroup."</b>&nbsp;: ".$thisWrk['name']."<br />";
+			 echo "<b>".$langGroup."</b>&nbsp;: ".$userGroupList[$thisWrk['group_id']]['name']."<br />";
 		}
 
 		if( $assignmentContent != "TEXT" )
