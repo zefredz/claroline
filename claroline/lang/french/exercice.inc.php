@@ -191,5 +191,5 @@ $langCorrespondsTo="Correspond à";
 $langExpectedChoice="Choix attendu";
 $langYourTotalScore="Vous avez obtenu un total de";
 
-$langTracking = "Statistiques";
+$langTracking = "Suivi";
 ?>

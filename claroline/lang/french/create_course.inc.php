@@ -115,8 +115,6 @@ $langRandomLanguage = "Sélection aléatoire parmi toutes les langues"; // JCC
 // Dev tools : create many test courses
 $langTipLang="Cette langue vaudra pour tous les visiteurs de votre site de cours.";
 $langCourseAccess="Accès au cours";
-$langPublic="Accès public (depuis la page d'accueil de Claroline sans identifiant)";
-$langPrivate="Accès privé (site réservé aux personnes figurant dans la liste <a href=../user/user.php>utilisateurs</a>)";
 $langSubscription="Inscription";
 $langConfTip="Par défaut, votre cours est accessible à tout le monde. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir
 l'inscription pendant une semaine, de demander aux étudiants de s'inscrire eux-mêmes
