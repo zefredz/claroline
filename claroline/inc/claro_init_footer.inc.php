@@ -30,31 +30,26 @@ if (!isset($hide_footer) || $hide_footer == false)
 <?php echo $administrator["name"] ?></a>
 </div>
 
-<div id="poweredBy">
-<?php echo $langPoweredBy ?> <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2004
-</div>
-
 <?php
 	if ($_user['is_devel'] && function_exists( 'printInit')) printInit() ;
 ?>
 
-<div id="courseManager">
 <?php
 if(isset($_cid))
 {
 ?>
-
+<div id="courseManager">
 <?php echo $lang_footer_CourseManager ?> :
 <a href="<?php echo (empty($_course['email'])?$clarolineRepositoryWeb."user/user.php":"mailto:".$_course['email']."?body=".$_course['officialCode']."&amp;subject=[".rawurlencode($siteName)."]") ?>"><?php echo $_course['titular'] ?></a>
-
+</div>
 <?php
 }
-else
-{
-	echo "&nbsp;";
-}
 ?>
+
+<div id="poweredBy">
+<?php echo $langPoweredBy ?> <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2004
 </div>
+
 
 </div>
 
