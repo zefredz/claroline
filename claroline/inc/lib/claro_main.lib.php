@@ -744,7 +744,7 @@ function claro_disp_auth_form()
             $claro_stylesheet, $langOtherCourses, $langModifyProfile,
             $institution_url, $institution_name, $langMyCourses, $langMyAgenda,
             $langLogout, $claro_brailleViewMode,
-            $lang_footer_p_CourseManager,  $administrator_name, 
+            $lang_footer_p_CourseManager,  $lang_p_platformManager, $administrator_name, 
             $langPoweredBy, $claro_banner;
 
     include($includePath.'/claro_init_header.inc.php');
