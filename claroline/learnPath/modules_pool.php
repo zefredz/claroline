@@ -197,16 +197,11 @@
                  WHERE `module_id` = '".$_GET['mod_id']."'";
          $result = claro_sql_query($query);
          $list = mysql_fetch_array($result);
-
-         echo "
-         <form method=\"POST\" name='comment' action=\"",$PHP_SELF,"?cmd=mkcomment\">
-             <label for=\"newcomment\">".$langModifyCommentModuleName." ".$list['name']."</label> :<br>
-             <textarea name=\"newcomment\" id=\"newcomment\" rows=\"5\" cols=\"50\">".$list['comment']."</textarea><br>
-             <input type=\"submit\" value=\"$langOk\" name=\"submit\">
-             <input type=\"hidden\" name=\"cmd\" value=\"mkcomment\">
-             <input type=\"hidden\" name=\"mod_id\" value=\"".$_GET['mod_id']."\">
-         </form>
-         ";
+         if ( $cmd == "comment" )
+         {
+            commentBox(MODULE_, UPDATE_);
+	    echo "<br>";
+         }
          break;
 
       //make update to change the comment in the database for this module
