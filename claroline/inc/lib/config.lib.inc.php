@@ -343,8 +343,9 @@ function get_tool_name($claro_label)
 
 function get_config_name($config_code)
 {
-    GLOBAL $toolNameList;
-    return (isset($toolNameList[$config_code])?$toolNameList[$config_code]:$config_code);
+    @include(claro_get_def_file($config_code));
+    return (isset($conf_def['config_name'])?$conf_def['config_file']:   
+    isset($conf_def['config_file'])?$conf_def['config_file']:$config_code);
 }
 
 function claro_get_def_file($config_code)
@@ -354,9 +355,6 @@ function claro_get_def_file($config_code)
     $confDefFilename = realpath($includePath.'/conf/def/'.$config_code.'.def.conf.inc.php');
     return $confDefFilename;
 }
-
-
-
 
 function get_def_list()
 {
@@ -372,8 +370,8 @@ function get_def_list()
                 $defConfFileList[$config_code] = 
                  array( 'def'         => file_exists(claro_get_def_file($config_code))
                       , 'conf'        => file_exists(claro_get_conf_file($config_code))
+                      , 'name'        => get_config_name($config_code)
                       , 'propQtyInDb' => countPropertyInDb($config_code)
-                      , 'name'        => get_tool_name($config_code)
                       );                       
            }
        }
@@ -382,21 +380,31 @@ function get_def_list()
     return $defConfFileList;
 }
 
-
-
 function get_conf_list()
 {
-    $tbl_mdb_names   = claro_sql_get_main_tbl();
-    $tbl_config_file = $tbl_mdb_names['config_file'];
+    $tbl_mdb_names       = claro_sql_get_main_tbl();
+    $tbl_tool            = $tbl_mdb_names['tool'];
+    $tbl_config_file     = $tbl_mdb_names['config_file'];
+    $tbl_rel_tool_config = $tbl_mdb_names['rel_tool_config'];
 
-    $sql_get_conf_list = 'SELECT `config_code` `config_code`, `config_hash` `config_hash` FROM `'.$tbl_config_file.'`';    
+    $sql_get_conf_list = 'SELECT `cfg`.`config_code` `config_code`, 
+                                 `cfg`.`config_hash` `config_hash`,  
+                                 `r_t_cfg`.*, 
+                                 `t`.*
+                          FROM `'.$tbl_config_file.'` `cfg`
+                          LEFT JOIN `'.$tbl_rel_tool_config.'` `r_t_cfg`
+
+                           ON `cfg`.`config_code` = `r_t_cfg`.`config_code` 
+                          LEFT JOIN `'.$tbl_tool.'` `t`
+                           ON `t`.`claro_label`  = `r_t_cfg`.`claro_label`';    
+
     $result_conf_list = claro_sql_query_fetch_all($sql_get_conf_list);
     if (is_array($result_conf_list))
     foreach ($result_conf_list as $config)
         $conf_list[$config['config_code']] = $config;
-   
     return  $conf_list;
 }
+
 function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile,$generatorFile=__FILE__)
 {
     global $_uid,$_user,$dateTimeFormatLong;
@@ -463,4 +471,44 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
         return true;
 }
 
+function parse_config_file($confFileName)
+{
+    GLOBAL $includePath;
+    $code = file_get_contents($includePath."/conf/".$confFileName);
+    $tokens = token_get_all($code);
+    include($includePath."/conf/".$confFileName);
+    $vars = array();
+    for($i=0; $i < count($tokens); $i++)
+    {
+        if (($tokens[$i][0] == T_VARIABLE ))
+        {
+            $possibleVar = substr($tokens[$i][1], 1);
+            if (  $tokens[$i+1][0] == T_WHITESPACE
+                && $tokens[$i+2] == '='
+                )
+            {
+                $i += 2;
+                if ($tokens[$i+1][0] == T_WHITESPACE) $i++;
+                $vars[$possibleVar] = '';
+                while ($i++)
+                {
+                    if ($tokens[$i] == ';') break;
+                    if (is_array($tokens[$i]))
+                        $val = $tokens[$i][1];
+                    else
+                        $val = $tokens[$i];
+                    $vars[$possibleVar] .= $val;
+                }
+            }
+            $propList[$possibleVar] =  $$possibleVar;
+        }
+        elseif (($tokens[$i][0] == T_CONSTANT_ENCAPSED_STRING ))
+        {
+            $tokens[$i][1] = str_replace('"','',$tokens[$i][1]);
+            @eval('$value = '.$tokens[$i][1].';');
+            $propList[$tokens[$i][1]] =  $value;
+        }
+    }
+    return  $propList;
+}
 ?>

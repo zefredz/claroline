@@ -528,14 +528,18 @@ if ($panel == DISP_LIST_CONF)
 {
     $helpSection = 'help_config_menu.php';
 
-    $config_list  = get_def_list();
+    $def_list  = get_def_list();
     $conf_list = get_conf_list();
-    if (is_array($conf_list))
-    foreach($conf_list as $key => $config)
+    $key_list = array_merge_recursive($def_list,$conf_list);
+    $config_list = array();
+    if (is_array($def_list))
+    foreach($key_list as $key => $config)
     {
-        $config_list[$key]['manual_edit']                  = (bool) (file_exists(claro_get_conf_file($config['config_code']))&&$config['config_hash'] != md5_file(claro_get_conf_file($config['config_code'])));
-        $config_list[$key]['tool']                         = get_tool_name($config['claro_label']);
-        $tool_list[$config['claro_label']][]= $config_list[$key];
+        $config_item = array_merge($def_list[$key],$conf_list[$key]);
+        $config_item['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config['config_code']))&&$config['config_hash'] != md5_file(claro_get_conf_file($config['config_code'])));
+        $config_item['tool']        = get_tool_name($config['claro_label']);
+        if(!isset($config['claro_label'])) $config['claro_label'] = 'Not for a tool';
+        $tool_list[$config['claro_label']][]= $config_item;
     }
 }
 elseif ($panel == DISP_EDIT_CONF_CLASS)
@@ -580,65 +584,72 @@ switch ($panel)
     case DISP_LIST_CONF : 
         echo '<table class="claroTable" cellspacing="4" >'
             .'<thead>'
-            .'<tr class="headerX" >'
-            .'<th>'.$langConfig.'</th>'
+            .'<tr class="headerX"  >'
+            .'<th  colspan="2">'.$langConfig.'</th>'
             .(CONF_AUTO_APPLY_CHANGE?'<th colspan="2">'.$langEdit.'</th>'
                                     :'<th>'.$langEdit.'</th>'
                                     .'<th>'.$langApply.'</th>')
             .'</tr>'
             .'</thead>'
             ;
-
-        foreach($config_list as $config_code => $tool)
+        asort($tool_list);
+        foreach($tool_list as $claro_label => $tool_bloc)
         {
-            echo '<tr>'
-                .'<td>'
-                .($tool['conf']
-                    ?'<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConf&amp;config_code='.$config_code.'" >'.$tool['name'].'</a>'
-                    : $tool['name']
-                 )
-                .'</td>'
+            echo '<tr class="tool_bloc" >'
+                .'<td colspan="2"><b>'.get_tool_name(rtrim($claro_label,'_')).'</b></td>'
+                .'</tr>'
                 ;
-            
-            if (!$tool['def'])
+            foreach($tool_bloc as $config_code => $config)
             {
-                echo '<td colspan="2" >'
-                    .'<strike>'.$langEdit.'</strike>'
+                echo '<tr>'
+                    .'<td>'
+                    .'</td>'
+                    .'<td>'
+                    .($config['conf']
+                        ?'<a href="'.$_SERVER['PHP_SELF'].'?cmd=showConf&amp;config_code='.$config_code.'" >'.$config['name'].'</a>'
+                        : $config['name']
+                     )
                     .'</td>'
                     ;
-            }
-            else 
-            {
                 
-                echo '<td>'
-                    .'<a href="'.$_SERVER['PHP_SELF']
-                    .'?cmd=dispEditConfClass&amp;config_code='.$config_code.'" >'
-                    .'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="'.$langEdit.'">'
-                    .'</a>'
-                    .($tool['manual_edit']?'<BR>!!!! version de production modifiée':'')
-                    .'</td>';
-                if (!CONF_AUTO_APPLY_CHANGE)
-                echo '<td>'
-                    . ( $tool['propQtyInDb']['qty_values']>0
-                      ? ( $tool['propQtyInDb']['qty_new_values']>0
-                         ? '<a href="'.$_SERVER['PHP_SELF']
-                          .'?cmd=generateConf&amp;config_code='.$config_code.'" >'
-                          .'<img src="'.$clarolineRepositoryWeb.'img/download.gif" border="0" alt="'.$langSave.'">'
-                          .'<br>(<small>'.$tool['propQtyInDb']['qty_new_values'].' new values</small>)'
-                          .'</a>'
-                         : $langApplied
-                         )
-                      : '<small>'
-                       .$langNoPropertiesSet
-                       .'</small>'
-                      )
-                   .'</td>';
+                if (!$config['def'])
+                {
+                    echo '<td colspan="2" >'
+                        .'<strike>'.$langEdit.'</strike>'
+                        .'</td>'
+                        ;
+                }
+                else 
+                {
+                    
+                    echo '<td>'
+                        .'<a href="'.$_SERVER['PHP_SELF']
+                        .'?cmd=dispEditConfClass&amp;config_code='.$config_code.'" >'
+                        .'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="'.$langEdit.'">'
+                        .'</a>'
+                        .($config['manual_edit']?'<BR>!!!! version de production modifiée':'')
+                        .'</td>';
+                    if (!CONF_AUTO_APPLY_CHANGE)
+                    echo '<td>'
+                        . ( $config['propQtyInDb']['qty_values']>0
+                          ? ( $config['propQtyInDb']['qty_new_values']>0
+                             ? '<a href="'.$_SERVER['PHP_SELF']
+                              .'?cmd=generateConf&amp;config_code='.$config_code.'" >'
+                              .'<img src="'.$clarolineRepositoryWeb.'img/download.gif" border="0" alt="'.$langSave.'">'
+                              .'<br>(<small>'.$config['propQtyInDb']['qty_new_values'].' new values</small>)'
+                              .'</a>'
+                             : $langApplied
+                             )
+                          : '<small>'
+                           .$langNoPropertiesSet
+                           .'</small>'
+                          )
+                       .'</td>';
+                }
+                echo '</tr>';
             }
-            echo '</tr>';
         }
         echo '</table>';
-//        asort($tool_list);
-//        Var_Dump::display($tool_list);
         break;
     case DISP_EDIT_CONF_CLASS : 
 
