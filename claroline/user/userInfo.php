@@ -1,7 +1,7 @@
 <?php // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version 1.6
+  | CLAROLINE version 1.6$
   +----------------------------------------------------------------------+
   | Copyright (c) 2001 - 2004 Universite catholique de Louvain (UCL)     |
   +----------------------------------------------------------------------+
@@ -352,13 +352,14 @@ elseif ($displayMode =="viewMainInfoEdit")
             .'<th align="left"><label for="role">'.$langRole.'</label></th>'."\n"
             .'<th><label for="promoteTutor">'.$langTutor.'</label></th>'."\n"
             .'<th><label for="promoteCourseAdmin">'.$langCourseManager.'</label></th>'."\n"
+            .'<th>&nbsp;</th>'."\n"
             .'</tr>'."\n"
-            .'</thead>'
-            .'<tfoot><tr align="center">'
+            .'</thead>'."\n"
+            .'<tfoot><tr align="center">'."\n"
             .'<td align="left"><b>'
 			.htmlize(ucfirst(strtolower($mainUserInfo['firstName']))).' '
 			.htmlize(ucfirst(strtolower($mainUserInfo['lastName']))).'</b></td>'."\n"
-            .'<td align="left"><input type="text" name="role" id="role" value="'.$mainUserInfo['role'].'" maxlength="40"></td>'
+            .'<td align="left"><input type="text" name="role" id="role" value="'.$mainUserInfo['role'].'" maxlength="40"></td>'."\n"
             .'<td><input type="checkbox" name="promoteTutor" id="promoteTutor" value="1" '.$tutorChecked.'></td>';
 
 
@@ -471,13 +472,13 @@ elseif ($displayMode == "viewContentList") // default display
 
 	if ($allowedToEditDef) // only course administrators see this line
 	{
-		echo	'<div align="right">'
-				.'<form method="post" action="'.$_SERVER['PHP_SELF'].'">'
-				.$langCourseAdministratorOnly.' : '
-				.'<input type="submit" name="viewDefList" value="'.$langDefineHeadings.'">'
-				.'</form>'
-				.'<hr noshade size="1">'
-				.'</div>'."\n";
+		echo	"\n\n<div align=\"right\">\n"
+				."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">\n"
+				.$langCourseAdministratorOnly." : "
+				."<input type=\"submit\" name=\"viewDefList\" value=\"".$langDefineHeadings."\">\n"
+				."</form>\n"
+				."<hr noshade=\"noshade\" size=\"1\">\n"
+				."</div>";
 	}
 
 	$catList = claro_user_info_get_course_user_info($userIdViewed);
