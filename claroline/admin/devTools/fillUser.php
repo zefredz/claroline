@@ -25,27 +25,35 @@
  * ******************************************************************
  */
 
-$langFree = 'Libre';
-
 DEFINE("DISP_RESULT_INSERT"		,1);
 DEFINE("DISP_FORM_SET_OPTION"	,2);
 DEFINE("DISP_INSERT_COMPLETE"	,3);
+
+DEFINE("DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE",5);
+DEFINE("DEFAULT_SUFFIX_MAIL",'@exemple.com');
+DEFINE("DEFAULT_QTY_TEACHER",5);
+DEFINE("DEFAULT_QTY_STUDENT",20);
+DEFINE("ADD_FIRSTNAMES_FROM_BASE",TRUE);
+DEFINE("ADD_NAMES_FROM_BASE ",TRUE);
+DEFINE("ADD_USERNAMES_FROM_BASE",TRUE);
+DEFINE("USE_FIRSTNAMES_AS_LASTNAMES",FALSE);
+
 unset($includePath);
 
 require '../../inc/claro_init_global.inc.php';
 
-if (!isset($includePath)) trigger_error("init not run",E_USER_ERROR);
-if (!isset($_uid)) trigger_error("you need to be logged",E_USER_ERROR);
+// Security check
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 //// Config tool
 include($includePath."/conf/course_main.conf.php");
-include($includePath."/conf/CLUSR.conf.php");
-//// LIBS
 
+//// LIBS
 include($includePath."/lib/add_course.lib.inc.php");
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
 include($includePath."/conf/course_main.conf.php");
+
 $nameTools = $langAdd_users;
 $interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langDevTools);
@@ -61,7 +69,7 @@ $smax = is_numeric($_REQUEST["smax"])?$_REQUEST["smax"]:DEFAULT_MAX_QTY_STUDENT_
 $pmin = is_numeric($_REQUEST["pmin"])?$_REQUEST["pmin"]:DEFAULT_MIN_QTY_TEACHER_REGISTRED_IN_COURSE;
 $pmax = is_numeric($_REQUEST["pmax"])?$_REQUEST["pmax"]:DEFAULT_MAX_QTY_TEACHER_REGISTRED_IN_COURSE;
 
-$sfMail = strtoupper($_REQUEST["sfMail"]!=""?$_REQUEST["sfMail"]:DEFAUL_SUFFIX_MAIL);
+$sfMail = strtoupper($_REQUEST["sfMail"]!=""?$_REQUEST["sfMail"]:DEFAULT_SUFFIX_MAIL);
 $nbp = is_numeric($_REQUEST["nbp"])?$_REQUEST["nbp"]:DEFAULT_QTY_TEACHER;
 $nbs = is_numeric($_REQUEST["nbs"])?$_REQUEST["nbs"]:DEFAULT_QTY_STUDENT;
 $nbUsers = $nbp + $nbs;
@@ -270,6 +278,16 @@ switch ($display)
 						<input type="radio" name="selLogin" value="fix">
 						<input type="text" id="selLoginFix" align="right" name="selLoginFix" value="" size="10" maxlength="25">
 						<Label for="selLoginFix" ><?php echo $langFree ?></Label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th >
+					<?php echo $langEmail; ?>
+				</th>
+				<td>
+					<div>
+						<input type="text" id="sfMail" name="sfMail" value="<?php echo $sfMail ?>" size="30" maxlength="35"><br>
 					</div>
 				</td>
 			</tr>
