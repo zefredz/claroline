@@ -778,7 +778,6 @@ if ($cmd == 'rqSearch')
     $dialogBox .=	 "<form>\n"
                     ."<input type=\"hidden\" name=\"cmd\" value=\"exSearch\">\n"
                     ."<label for=\"searchPattern\">".$searchMsg."<br /></label>\n"
-                    //."<label for=\"searchPattern\">".$langSearch." : </label>\n"
                     ."<input type=\"text\" id=\"searchPattern\" name=\"searchPattern\">\n"
                     ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">\n"
                     ."<input type=\"submit\" value=\"".$langOk."\">\n"
@@ -1428,17 +1427,28 @@ claro_disp_tool_title($titleElement,
 	
 	    echo "<table class=\"claroTable emphaseLine\" width=\"100%\">\n";
 	
-		/* CURRENT DIRECTORY */
+		/* CURRENT DIRECTORY LINE */
 		
-		if ($curDirName) /* if the $curDirName is empty, we're in the root point 
+		if ($curDirName || $cmd == 'exSearch') /* if the $curDirName is empty, we're in the root point 
 		                    and there is'nt a dir name to display */
 		{
-			echo "<!-- current dir name -->\n"
+            if ($curDirName)
+            {
+            	$curDirLine = "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" "
+                             ."align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
+	                         .$dspCurDirName."\n";
+            }
+            else
+            {
+            	$curDirLine = 'Search result';
+            }
+            
+
+            echo "<!-- current dir name line -->\n"
 				."<tr>\n"
 				."<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n"
-				."<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
-	            .$dspCurDirName,"\n"
-				."</td>\n"
+                .$curDirLine
+				."</th>\n"
 				."</tr>\n";
 		}
 	
