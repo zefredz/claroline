@@ -359,7 +359,7 @@ if( isset($_REQUEST['submitWrk']) )
         // first block check if the title already exist
         // second block allow different submissions to have the same title
         /*
-        // -- check if the title is already in use
+        // 1st block -- check if the title is already in use
         $sql = "SELECT `title` 
                   FROM `".$tbl_wrk_submission."`
                   WHERE `title` = \"".trim(claro_addslashes($_REQUEST['wrkTitle']))."\"
@@ -382,7 +382,7 @@ if( isset($_REQUEST['submitWrk']) )
 		*/
 
 
-		// -- do not check if the title is in use
+		// 2nd block -- do not check if the title is in use
         $wrkForm['title'] = $_REQUEST['wrkTitle'];
         // -- end of 'do not check if the title is in use
 
@@ -461,10 +461,17 @@ if( isset($_REQUEST['submitWrk']) )
                         
                         // Transform any .php file in .phps fo security
                         $newFileName = php2phps($newFileName);
-                        // compose a unique file name to avoid any conflict
                         
-                        $wrkForm['fileName'] = uniqid('')."_".$newFileName;
-                        
+											
+						// -- create a unique file name to avoid any conflict
+						// split file ant its extension 
+						$extension = substr($newFileName, strrpos($newFileName, "."));
+						$filename = substr($newFileName, 0, strrpos($newFileName, "."));
+						$i = 0;
+						while( file_exists($assigDirSys.$filename."_".$i.$extension) ) $i++;
+						
+						$wrkForm['fileName'] = $filename."_".$i.$extension;
+						
                         if( !is_dir( $assigDirSys ) )
                         {
                               mkpath( $assigDirSys , 0777 );
@@ -1212,7 +1219,7 @@ if( $is_allowedToSubmit )
                   echo "<input type=\"hidden\" name=\"wrkId\" value=\"".$_REQUEST['wrkId']."\">";
             }
             
-            echo  "<table>\n"
+            echo  "<table width=\"100%\">\n"
                   ."<tr>\n"
                   ."<td valign=\"top\"><label for=\"wrkTitle\">".$langWrkTitle."&nbsp;*&nbsp;:</label></td>\n"
                   ."<td><input type=\"text\" name=\"wrkTitle\" id=\"wrkTitle\" size=\"50\" maxlength=\"200\" value=\"".htmlentities($form['wrkTitle'])."\"></td>\n"
