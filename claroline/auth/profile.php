@@ -46,7 +46,7 @@ if (isset($userImageRepositoryWeb))
     $userImageRepositoryWeb = $clarolineRepositoryWeb.'img/users/';
 ///// COMMAND ///
 
-if (CAN_REQUEST_COURSE_CREATOR_STATUS && $_REQUEST['exCCstatus'])
+if (isset($can_request_course_creator_status) && $can_request_course_creator_status && $_REQUEST['exCCstatus'])
 {
 	$mailToUidList = claro_get_uid_of_platform_admin();
 	
@@ -69,7 +69,7 @@ User:'.$_uid.'
 
 	$messageList[] = $langYourRequestToBeCourseManagerIsSent;
 }
-elseif (CAN_REQUEST_REVOQUATION && $_REQUEST['exRevoquation'])
+elseif (isset($can_request_revoquation) && $can_request_revoquation && $_REQUEST['exRevoquation'])
 {
 	$mailToUidList = claro_get_uid_of_platform_admin();
 	$requestMessage_Title = '['.$siteName.'][Rq]'
@@ -95,13 +95,13 @@ User:'.$_uid.'
 	$messageList[] = $langYourRequestToRemoveYourAccountIsSent;
 
 }
-elseif (CAN_REQUEST_COURSE_CREATOR_STATUS && $_REQUEST['reqCCstatus'])
+elseif (isset($can_request_course_creator_status) && $can_request_course_creator_status  && $_REQUEST['reqCCstatus'])
 {
 	$noQueryString=TRUE;
 	$display = DISP_COURSE_CREATOR_STATUS_REQ;
 	$nameTools = $langRequestCourseManagerStatus;
 }
-elseif (CAN_REQUEST_REVOQUATION && $_REQUEST['reqRevoquation'])
+elseif (isset($can_request_revoquation) && $can_request_revoquation && $_REQUEST['reqRevoquation'])
 {
 	$noQueryString=TRUE;
 	$display = DISP_REVOQUATION;
@@ -467,7 +467,7 @@ if ( count($messageList) > 0) claro_disp_message_box( implode('<br />', $message
 switch($display)
 {
 	case DISP_REVOQUATION : 
-	if (CAN_REQUEST_REVOQUATION)
+	if (isset($can_request_revoquation) && $can_request_revoquation)
 	{
 ?>
 	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
@@ -487,7 +487,7 @@ switch($display)
 	}
 	break;
 	case DISP_COURSE_CREATOR_STATUS_REQ : 
-		if (CAN_REQUEST_COURSE_CREATOR_STATUS)
+		if (isset($can_request_course_creator_status) && $can_request_course_creator_status )
 		{
 		?>
 	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
@@ -669,7 +669,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
     <hr noshade size="1">
     <SPAN><a href="../tracking/personnalLog.php"><?php echo $langMyStats ?></a></SPAN>
 <?php 
-	if (CAN_REQUEST_COURSE_CREATOR_STATUS)
+	if (isset($can_request_course_creator_status) && $can_request_course_creator_status )
 	{
 ?>
     | <SPAN> <a href="<?php echo $_SERVER['PHP_SELF'] ?>?reqCCstatus=1"><?php echo $langINeedToCreateCourse ?></a> </SPAN>
@@ -677,7 +677,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 	}
 ?>
 <?php 
-	if (CAN_REQUEST_REVOQUATION)
+	if (isset($can_request_revoquation) && $can_request_revoquation)
 	{
 ?>
     | <SPAN> <a href="<?php echo $_SERVER['PHP_SELF'] ?>?reqRevoquation=1"><?php echo $langDeleteMyAccount ?></a> </SPAN>

@@ -17,7 +17,6 @@ $conf_def_property_list['max_char_from_content']
         ,'default'   => '80'
         ,'unit'     => 'characters'
         ,'type'      => 'integer'
-        ,'container' => 'CONST'
         ,'display'       => TRUE
         ,'readonly'      => FALSE
         ,'acceptedValue' => array ( 'min'=> '0' )

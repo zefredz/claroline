@@ -1,13 +1,17 @@
 <?php // $Id$
 /**
  * This file describe the parameter for Course creation tool config file
- * @author Christophe Gesché <moosh@claroline.net>
+ *
  * @version CLAROLINE 1.6
- * @copyright &copy; 2001-2005 Universite catholique de Louvain (UCL)
- * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
- * as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
- * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE (GPL)
+ *
  * @see http://www.claroline.net/wiki/index.php/Config
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  * @package COURSES
  */
 
@@ -59,7 +63,6 @@ array ('label'       => 'Course label (name) is'
       ,'description' => 'User can leave course label (name) field empty or not'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
-      ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'Required'
                               ,'FALSE'=>'Optional'
                               )

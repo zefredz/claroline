@@ -2,11 +2,11 @@
 /**
  * @version CLAROLINE 1.6
  *
- * copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license GENERAL PUBLIC LICENSE (GPL)
  * 
- * @author claroline Team <info@claroline.net>
+ * @author claroline Team <cvs@claroline.net>
  *
  */
 
@@ -66,7 +66,7 @@ if (isset($_REQUEST['titulary']))
 {
     $titulary = $_REQUEST['titulary'];
 }
-if (isset($_REQUEST['email']))
+if (isset($_REQUEST['email']))  
 {
     $email = $_REQUEST['email'];
 }

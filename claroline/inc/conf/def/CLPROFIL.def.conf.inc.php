@@ -93,11 +93,11 @@ $conf_def['section']['request']['label'] = 'User request';
 $conf_def['section']['request']['description'] = '';
 $conf_def['section']['request']['properties'] = 
 array ( 'allowSelfRegProf'
-      , 'CAN_REQUEST_COURSE_CREATOR_STATUS'
-      , 'CAN_REQUEST_REVOQUATION' 
+      , 'can_request_course_creator_status'
+      , 'can_request_revoquation' 
       );
 
-$conf_def_property_list['CAN_REQUEST_COURSE_CREATOR_STATUS'] =
+$conf_def_property_list['can_request_course_creator_status'] =
 array ( 'label'         => 'Is user allowed to request a course creator status ?'
       , 'description'   => 'If yes, the user have access to a request system. '."\n"
                          .'This option allow only to request it, '
@@ -107,10 +107,9 @@ array ( 'label'         => 'Is user allowed to request a course creator status ?
       , 'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
                                 )
-      , 'container'     => 'CONST'
       );
 
-$conf_def_property_list['CAN_REQUEST_REVOQUATION'] =
+$conf_def_property_list['can_request_revoquation'] =
 array ( 'label'         => 'Is user allowed to request to be deleted from platform ?'
       , 'description'   => 'If yes, the user have access to a request system. '."\n"
                          .'This option allow only to request it, '."\n"
@@ -118,9 +117,8 @@ array ( 'label'         => 'Is user allowed to request to be deleted from platfo
       , 'default'       => 'FALSE'
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Yes'
-                                ,'FALSE' => 'No'
+                                 ,'FALSE' => 'No'
                                 )
-      , 'container'     => 'CONST'
       );
 
 
