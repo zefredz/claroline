@@ -247,7 +247,7 @@ else
     {
         //lookup the user in the Claroline database
 
-        $sql = "SELECT user_id, username, password, authSource
+        $sql = "SELECT user_id, username, password, authSource, creatorId
                 FROM `".$tbl_user."` `user`
                 WHERE username = \"". $login ."\"";
 
