@@ -207,7 +207,7 @@ else
         //lookup the user in the Claroline database
 
         $sql = "SELECT user_id, username, password, authSource
-                FROM `".$mainDbName."`.`user`
+                FROM `".$mainDbName."`.`".$mainTblPrefix."user` `user`
                 WHERE username = \"".trim($login)."\"";
 
         $result = claro_sql_query($sql) or die ("WARNING !! DB QUERY FAILED ! ".__LINE__);
@@ -246,7 +246,7 @@ else
                     //first login for a not self registred
                     //e.g. registered by a teacher
                     //do nothing (code may be added later)
-		            $sql = "UPDATE `".$mainDbName."`.`user`
+		            $sql = "UPDATE `".$mainDbName."`.`".$mainTblPrefix."user` `user`
 							SET creatorId=user_id
 							WHERE user_id='".$_uid."'";
 
@@ -354,10 +354,10 @@ if ($uidReset) // session data refresh requested
                         `user`.`statut`, 
                         `a`.`idUser`        `is_admin`,
                          UNIX_TIMESTAMP(`login`.`login_date`) `lastLogin`
-                     FROM `".$mainDbName."`.`user`
-                     LEFT JOIN `".$mainDbName."`.`admin` `a`
+                     FROM `".$mainDbName."`.`".$mainTblPrefix."user` `user`
+                     LEFT JOIN `".$mainDbName."`.`".$mainTblPrefix."admin` `a`
                      ON `user`.`user_id` = `a`.`idUser`
-                     LEFT JOIN `".$statsDbName."`.`track_e_login` `login`
+                     LEFT JOIN `".$statsDbName."`.`".$statsTblPrefix."track_e_login` `login`
                      ON `user`.`user_id`  = `login`.`login_user_id`
                      WHERE `user`.`user_id` = '".$_uid."'
                      ORDER BY `login`.`login_date` DESC LIMIT 1";
@@ -371,8 +371,8 @@ if ($uidReset) // session data refresh requested
                         `user`.`login_date` `lastLogin`, 
                         `user`.`statut`, 
                         `a`.`idUser`        `is_admin`
-                    FROM `".$mainDbName."`.`user`
-                    LEFT JOIN `".$mainDbName."`.`admin` `a`
+                    FROM `".$mainDbName."`.`".$mainTblPrefix."user` `user`
+                    LEFT JOIN `".$mainDbName."`.`".$mainTblPrefix."admin` `a`
                     ON `user`.`user_id` = `a`.`idUser`
                     WHERE `user`.`user_id` = '".$_uid."'";
         }
@@ -431,8 +431,8 @@ if ($cidReset) // course session data refresh requested
                    `cours`.*, 
                    `faculte`.`code` `faCode`, 
                    `faculte`.`name` `faName`
-                 FROM `".$mainDbName."`.`cours`
-                 LEFT JOIN `".$mainDbName."`.`faculte`
+                 FROM `".$mainDbName."`.`".$mainTblPrefix."cours` `cours`
+                 LEFT JOIN `".$mainDbName."`.`".$mainTblPrefix."faculte` `faculte`
                  ON `cours`.`faculte` =  `faculte`.`code`
                  WHERE `cours`.`code` = '".$cidReq."'";
 
@@ -523,7 +523,7 @@ if ($uidReset || $cidReset) // session data refresh requested
 {
     if ($_uid && $_cid) // have keys to search data
     {
-        $sql = "SELECT * FROM `".$mainDbName."`.`cours_user`
+        $sql = "SELECT * FROM `".$mainDbName."`.`".$mainTblPrefix."cours_user` `cours_user`
                WHERE `user_id`  = '$_uid'
                AND `code_cours` = '$cidReq'";
 
@@ -597,7 +597,7 @@ if ($tidReset || $cidReset) // session data refresh requested
                       CONCAT('".$clarolineRepositoryWeb."', pct.script_url) url
 
                FROM `".$_course['dbNameGlu']."tool_list` ctl,
-                    `".$mainDbName."`.`course_tool`  pct
+                    `".$mainDbName."`.`".$mainTblPrefix."course_tool`  pct
 
                WHERE `ctl`.`tool_id` = `pct`.`id`
                         AND
@@ -821,7 +821,7 @@ if ($uidReset || $cidReset)
 
                FROM `".$_course['dbNameGlu']."tool_list` ctl
 
-               LEFT JOIN `".$mainDbName."`.`course_tool` pct
+               LEFT JOIN `".$mainDbName."`.`".$mainTblPrefix."course_tool` pct
                ON       pct.id = ctl.tool_id
    
                WHERE ctl.access IN (\"".implode("\", \"", $reqAccessList)."\")";
