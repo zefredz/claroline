@@ -3,7 +3,7 @@
 if (!isset($hide_body) || $hide_body == false)
 {
 	echo "\n</div>\n"
-			."<!-- --------------------   End of Claroline Body   -------------------- -->\n\n\n";
+			."<!-- - - - - - - - - - -   End of Claroline Body   - - - - - - - - - - -->\n\n\n";
 }
 
 //echo "<pre>".var_export($_courseToolList,1)."</pre>";
@@ -26,7 +26,7 @@ if (!isset($hide_footer) || $hide_footer == false)
 <hr />
 
 <div id="platformManager">
-<?php echo $langManager." ".$siteName; ?> : <a href="mailto:<?php echo $administrator["email"]."?body=".$_course['officialCode']."&subject=[".rawurlencode($siteName)."]" ?>">
+<?php echo $langManager." ".$siteName; ?> : <a href="mailto:<?php echo $administrator["email"]."?body=".$_course['officialCode']."&amp;subject=[".rawurlencode($siteName)."]" ?>">
 <?php echo $administrator["name"] ?></a>
 </div>
 
@@ -45,7 +45,7 @@ if(isset($_cid))
 ?>
 
 <?php echo $lang_footer_CourseManager ?> :
-<a href="<?php echo (empty($_course['email'])?$clarolineRepositoryWeb."user/user.php":"mailto:".$_course['email']."?body=".$_course['officialCode']."&subject=[".rawurlencode($siteName)."]") ?>"><?php echo $_course['titular'] ?></a>
+<a href="<?php echo (empty($_course['email'])?$clarolineRepositoryWeb."user/user.php":"mailto:".$_course['email']."?body=".$_course['officialCode']."&amp;subject=[".rawurlencode($siteName)."]") ?>"><?php echo $_course['titular'] ?></a>
 
 <?php
 }

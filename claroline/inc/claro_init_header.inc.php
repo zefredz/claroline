@@ -85,7 +85,7 @@ if (!isset($hide_banner) || $hide_banner == false)
 if (!isset($hide_body) || $hide_body == false)
 {
 	// need body div
-	echo "\n\n\n<!-- --------------------      Claroline Body       --------------------- -->\n"
+	echo "\n\n\n<!-- - - - - - - - - - - Claroline Body - - - - - - - - - - - -->\n"
         ."<div id=\"claroBody\">\n\n";
 }
 ?>

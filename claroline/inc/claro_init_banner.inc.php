@@ -4,7 +4,7 @@ ob_start();
 
 ?>
 
-<!-- --------------------  Claroline Banner  -------------------- -->
+<!-- - - - - - - - - - -   Claroline Banner  - - - - - - - - - -  -->
 
 <div id="topBanner">
 
@@ -296,4 +296,4 @@ if( isset($db) )
 ?>
 
 
-<!-- --------------------  End of Claroline Banner  -------------------- -->
+<!-- - - - - - - - - - -  End of Claroline Banner  - - - - - - - - - - -->
