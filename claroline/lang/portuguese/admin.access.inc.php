@@ -6,7 +6,6 @@
 | 	(Escola Oficial de Idiomas de Vigo, Spain)                     |
 +----------------------------------------------------------------------|
 */
-include (dirname(__FILE__)."/admin.managing.menu.inc.php");
 
 $langNomPageAddHtPass ="Acesso do administrador";
 $langLogin 		= "Nome de utilizador";
