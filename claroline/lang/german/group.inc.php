@@ -4,120 +4,94 @@
 *                   Language translation
 ****************************************************************
 Translation by  Ralf Hilgenstock mailto:rh@dialoge.net
-
+	  +----------------------------------------------------------------------+
+      | revised and complemented: 2004/09/22 by								 |
+	  | Udo Scharf  <UScharf@netway-online.de>     							 |
+      +----------------------------------------------------------------------+
 *****************************************************************/
 
-$langGroupManagement="Gruppen";
-$langHelp="Hilfe";
-$langNewGroupCreate="Neue Gruppe(n) erstellen";
-$langGroupCreation="Neue Gruppen erstellen";
-$langCreate="Erstellen";
-$langNewGroups="Neue Gruppe(n)";
-$langMax="max.";
-$langPlaces="Plätze je Gruppe (optional)";
-$langGroupPlacesThis="Plätze (optional";
+$langAddTutors="Benutzerverwaltung";
+$langAdminsOfThisCours ="Kurs-Verwaltung";
+$langConfirmDelete = "Sind Sie sicher, dass Sie diese Gruppe(n) löschen wollen ?";
 $langCreate="erstellen";
-$langDeleteGroups="Alle Gruppen löschen";
-$langGroupsAdded="Gruppe(n) wurde(n) hinzugefügt";
-$langGroupsDeleted="Alle Gruppen wurden gelöscht";
-$langGroupDel="Gruppe gelöscht";
-
-
-
-$langGroupsEmptied="Die Gruppen sind nicht leer";
-$langEmtpyGroups="Alle Gruppen leeren";
-$langGroupsFilled="Alle Gruppen wurden gefüllt";
-$langFillGroups="Gruppen füllen";
-$langGroupsProperties="Gruppeneinstellungen";
-$langStudentRegAllowed="Teilnehmer/innen können sich selber in den Gruppen eintragen";
-$langStudentRegNotAllowed="Teilnehmer/innen können sich nicht selber in den Gruppen eintragen";
-$langPrivateAccess="Gruppenforen sind privat";
-$langNoPrivateAccess="Gruppenforen sind private";
-$langTools="Tools";
-$langForums="Forum";
-$langDocuments="Dokumente";
-$langModify="bearbeiten";
-$langGroup="Gruppe";
-$langExistingGroups="Gruppen";
-$langRegistered="Registriert";
-$langEdit="bearbeiten";
 $langDelete="löschen";
-
-
-// Group Properties
-$langGroupProperties="Gruppeneinstellungen";
-$langGroupAllowStudentRegistration="Teilnehmer/innen können sich selber in den Gruppen eintragen";
-$langGroupPrivatise="Gruppenforen sind privat";
-$langGroupTools="Tools";
-$langGroupForum="Forem";
-$langGroupDocument="Dokumente";
-$langGroupPropertiesModified="Gruppeneinstellungen wurden verändert";
-
-// Group space
-
-$langGroupSpace="Gruppenbereich";
-$langGroupThisSpace="Bereich für diese Gruppe";
-$langGroupName="Gruppenname";
-$langGroupDescription="Beschreibung";
-
-$langSubscribed ="registrierte Teilnehmer/innen in diesem Seminar";
-$langAdminsOfThisCours ="Verwaltung des Seminars";
-
-$langGroupMembers="Mitglieder";
+$langDeleteGroups="Alle Gruppen löschen";
+$langDocuments="Dokumente";
+$langEdit="bearbeiten";
 $langEditGroup="Diese Gruppe bearbeiten";
-$langUncompulsory="(optional)";
-$langNoGroupStudents="nicht aufgenommene Teilnehmer/innen";
-$langGroupMembers="Mitglieder der Gruppe";
-$langGroupCancel="streichen, löschen";
-$langGroupSettingsModified="Gruppeneinstellungen wurden verändert";
-
-$langGroupStudentsInGroup="in der Gruppe registrierte Teilnehmer/innen";
-$langGroupStudentsRegistered="registrierte Teilnehmer/innen für dieses Seminar";
-$langGroupNoGroup="nicht aufgenommene Teilnehmer/innen";
-$langGroupUsersList="Siehe <a href=../user/user.php>Teilnehmer/innen</a>";
-$langGroupTooMuchMembers="Die höchste Teilnehmerzahl wurde erreicht (Sie können die Zahl unten verändern). Gruppenzusammensetzung wurde nicht verändert";
-$langGroupTutor="Trainer/in";
-$langGroupNoTutor="(kein)";
+$langEmtpyGroups="Alle Gruppen leeren";
+$langExistingGroups="Gruppen";
+$langFillGroups="Gruppenmitglieder einfügen";
+$langForumGroup="Gruppenforum";
+$langForums="Forum";
+$langForumType="Typ des Forums";
+$langGroup="Gruppe";
+$langGroupAllowStudentRegistration="Benutzer können sich selber in die Gruppen eintragen";
+$langGroupCancel="löschen";
+$langGroupCreation="Neue Gruppe(n) erstellen";
+$langGroupDel="Gruppe erfolgreich gelöscht";
+$langGroupDescription="Beschreibung";
+$langGroupDocument="Dokumente";
+$langGroupDocumentAlwaysPrivate = "(immer geschlossen)";
+$langGroupFilledGroups="Benutzer wurden Gruppe(n) zugeordnet.";
+$langGroupForum="Forum";
+$langGroupLimit				= "Max. Anzahl";
+$langGroupManagement="Gruppenverwaltung";
+$langGroupMembers="Gruppenmitglieder";
+$langGroupName="Name der Gruppe";
+$langGroupNoGroup="nicht aufgenommene Benutzer";
 $langGroupNone="(keine)";
 $langGroupNoneMasc="(keine)";
-$langGroupUManagement="Teilnehmerverwaltung";
-$langAddTutors="Verwaltung Teilnehmerliste";
-
-
-
-
-
-$langForumGroup="Gruppenforum";
-$langMyGroup="meine Gruppe";
-$langOneMyGroups="meine supervision";
-$langGroupSelfRegistration="Registration";
-$langGroupSelfRegInf="registrieren";
-$langRegIntoGroup="Fügen Sie mich zu dieser Gruppe hinzu";
+$langGroupNoTutor="(kein)";
 $langGroupNowMember="Sie sind nun Mitglied dieser Gruppe";
-$langYes="Ja";
+$langGroupPlacesThis="Plätze (optional)";
+$langGroupPrivatise="geschlossene Gruppenforen";
+$langGroupProperties="Gruppeneinstellungen";
+$langGroupPropertiesModified="Gruppeneinstellungen wurden erfolgreich geändert";
+$langGroupsAdded="Gruppe(n) wurde(n) hinzugefügt";
+$langGroupsDeleted="Alle Gruppen wurden gelöscht";
+$langGroupSelfRegInf="registrieren";
+$langGroupSelfRegistration="Registration";
+$langGroupsEmptied="Die Gruppen sind nicht leer";
+$langGroupSettingsModified="Gruppeneinstellungen wurden erfolgreich geändert";
+$langGroupsFilled="Benutzer wurden erfolgreich in Gruppen eingetragen ";
+$langGroupSpace="Gruppenbereich";
+$langGroupsProperties="Gruppeneinstellungen";
+$langGroupStudentsInGroup="in der Gruppe eingetragene Benutzer";
+$langGroupStudentsRegistered="registrierte Benutzer/Teilnehmer für diesen Kurs";
+$langGroupThisSpace="Bereich für diese Gruppe";
+$langGroupTools="Tools";
+$langGroupTooMuchMembers="Die höchste Teilnehmerzahl wurde erreicht (Sie können die Zahl unten verändern). Die Gruppenzusammensetzung wurde nicht verändert.";
+$langGroupTutor=" Tutor / Dozent";
+$langGroupTutors="Tutoren / Dozenten";
+$langGroupUManagement="Teilnehmerverwaltung";
+$langGroupUsersList="Siehe <a href=../user/user.php>Teilnehmer</a>";
+$langHelp="Hilfe";
+$langMax="max.";
+$langModify="bearbeiten";
+$langMyGroup="meine Gruppe";
+$langNewGroupCreate="Neue Gruppe(n) erstellen";
+$langNewGroups="Neue Gruppe(n)";
 $langNo="Nein";
-
-
-
-
-
-$langPrivate="Privat";
-$langPublic="öffentlich";
-$langForumType="Typ des Forums";
+$langNoGroupStudents="nicht aufgenommene Benutzer";
+$langNoLimitForQtyOfUserCanSubscribe ="Ein Benutzer kann in beliebig vielen Gruppen Mitglied sein";
+$langNoPrivateAccess="geschlossene Gruppenforen";
+$langOneMyGroups="Gruppenleiter";
+$langPlaces="Plätze je Gruppe (optional)";
+$langPrivate="geschlossen";
+$langPrivateAccess="geschlossene Gruppenforen";
 $langPropModify="Einstellungen verändern";
-$langState="Status";
-
-$langGroupFilledGroups="Gruppen wurden von den Teilnehmer/innen belegt.";
-
-$langStudentsNotInThisGroups = "Teilnehmer ist nicht in dieser Gruppe";
-
-$langQtyOfUserCanSubscribe_PartBeforeNumber = "Ein/e Teilnehmer/in kann höchstens in ";
+$langPublic="öffentlich";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;Gruppen Mitglied sein";
-
-$langNoLimitForQtyOfUserCanSubscribe ="Ein/e Teilnehmer/in kann in beliebig vielen Gruppen Mitglied sein";
-$langGroupDocumentAlwaysPrivate = "(immer privat)";
-
-
-
-
+$langQtyOfUserCanSubscribe_PartBeforeNumber = "Ein Benutzer kann höchstens in ";
+$langRegIntoGroup="Fügen Sie mich zu dieser Gruppe hinzu";
+$langRegistered="Registriert";
+$langState="Status";
+$langStudentRegAllowed="Benutzer können sich selber in den Gruppen eintragen";
+$langStudentRegNotAllowed="Benutzer können sich nicht selber in den Gruppen eintragen";
+$langStudentsNotInThisGroups = "Benutzer ist nicht in dieser Gruppe";
+$langSubscribed ="registrierte Benutzer in diesem Kurs";
+$langTools="Tools";
+$langUncompulsory="(optional)";
+$langYes="Ja";
 ?>

@@ -13,109 +13,109 @@
       | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
       +----------------------------------------------------------------------+
+      | revised,complemented: 2004/09/22									 |
+	  | compared with the english lang-file: 2004/09/22 					 |
+	  | Udo Scharf  <UScharf@netway-online.de>     							 |
+      +----------------------------------------------------------------------+
+
  */
-
-
-
-// GENERIC
-
-$langModify="ändern";
-$langDelete="löschen";
-$langTitle="Titel";
-$langHelp="Hilfe";
-$langOk="Ok";
-$langBack="Zurück zur Kursinformation";
-$langBackH="Kurs Homepage";
-
-
-// infocours.php
-
-$langModifInfo="Kursinformation ändern";
-$langModifDone="Die Information wurde geändert";
-$langHome="Zurück zur Homepage";
-$langCode="Kurs Code";
-$langDelCourse="Diesen Kurs löschen";
-$langProfessor="Trainer/in";
-$langProfessors="Trainer/innen";
-$langTitle="Kurstitel";
-$langFaculty="Bereich";
-$langDescription="Beschreibung";
-$langConfidentiality="Vertraulichkeit";
-$langPublic="Öffentlicher Zugriff auf die Veranstaltungsseiten auch ohne Anmeldung";
-$langPrivOpen="Eingeschränkter Zugang, Registrierung offen";
-$langPrivate="Eingeschränkter Zugang, Registrierung geschlossen (Die Seiten sind nur für angemeldete <a href=../user/user.php>Teilnehmer/innen</a> zugänglich.)";
-$langForbidden="Nicht erlaubt";
-$langLanguage="Sprache";
-$langConfTip="Durch Grundeinstellung ist Ihr Kurs nur für Sie erreichbar, da Sie der einzige registrierte Benutzer sind. Wenn Sie den weiteren Zugriff einschränken möchten,
-öffnen Sie die Registrierung für eine Woche und bitten Sie die Teilnehmer/innen sich anzumelden. Im Anschluss sperren Sie die Anmeldung und überprüfen Sie die Teilnehmerliste auf 'Trittbrettfahrer'.";
-$langTipLang="Diese Sprache wird für alle Besucher Ihrer Webseite gültig sein.";
-
-
-// Change Home Page
-
-
-$langProgramMenu="Programm";
-$langVid="Video";
-$langStats="Statistiken";
-$langUplPage="Upload Seite und Link zur Homepage";
-$langLinkSite="Ein Link zu dieser Seite auf der Homepage einfügen";
-$langModifInfo="Seminarinformation ändern";
-
-
-// delete_course.php
-
-$langDelCourse="Die komplette Webseite zum Seminar löschen";
-$langCourse="Die Website ";
-$langHasDel="wurde gelöscht";
-$langBackHome="Zurück zur Homepage von ";
-$langByDel="Wenn die Website des Seminars gelöscht wird, werden auch alle enthaltenen Dokumente und gemeldeten Teilnehmer/innen gelöscht. (Teilnehmer/innen werden jedoch nicht aus anderen Kursen entfernt).<p>Wollen Sie wirklich das Seminar löschen?";
-$langY="JA";
-$langN="NEIN";
-
-$langDepartmentUrl = "Bereichs-URL";
-$langDepartmentUrlName = "Bereich";
-$langDescriptionCours  = "Seminarbeschreibung";
-
+$langActivate="Aktivieren";
+$langAddedExternalTool="Externes Tool hinzugefügt.";
+$langAddExternalTool="Exterenen Link hinzufügen";
+$langAdministrationTools="Administration";
+$langAllUsersOfThisCourse = "Kursteilnehmer";
 $langArchive="Archiv";
-$langArchiveCourse="Seminar Backup";
-$langRestoreCourse = "Seminar erstellen";
-$langRestore="Erstellen";
-$langCreatedIn = "erstellt in";
-$langCreateMissingDirectories ="Fehlendes Verzeichnis erstellen";
-$langCopyDirectoryCourse = "Kopie von Seminardateien";
-$langDisk_free_space = "freier Speicherplatz";
-$langBuildTheCompressedFile ="Backup-Datei erstellen";
-$langFileCopied = "Datei kopiert";
+$langArchiveCourse="Kurs Backup";
 $langArchiveLocation="Archiv Ablage";
-$langSizeOf ="Größe von";
 $langArchiveName ="Archivname";
-$langBackupSuccesfull = "Backup erfolgreich erstellt";
-$langBUCourseDataOfMainBase = "Backup der Seminardaten in Datenbank für";
-$langBUUsersInMainBase = "Backup der Nutzerdaten in Datenbank für";
-$langBUAnnounceInMainBase="Backup der Ankündigungen in Datenbank für";
-$langBackupOfDataBase="Backup der Datenbank";
-$langBackupCourse="Archivieren des Seminars";
-
-$langCreationDate = "Erstellt";
-$langExpirationDate  = "Abschluß/Ende";
-$langPostPone = "verlegt";
-$langLastEdit = "Letzte Bearbeitung";
-$langLastVisit = "Letzter Besuch";
-
-$langSubscription="Zustimmung";
-$langCourseAccess="Seminarzugang";
-
-$langDownload="Download";
-$langConfirmBackup="Wollen Sie wirklich dieses Seminar sichern?";
-
-$langCreateSite="Ein neues Seminar anlegen";
-
-$langRestoreDescription="Dies ist eine Archivdatei, die Sie unten auswählen können.<br><br>
-Wenn Sie auf &quot;Wiederherstellen&quot; klicken, wird das Archiv geöffnet und das Seminar wieder erstellt.";
-$langRestoreNotice="Dieses Script erlaubt nicht die automatische Wiederherstellung der Nutzerdaten, aber die Daten werden gesichert in der Datei &quot;users.csv&quot; sie können manuell vom Administrator bearbeitet werden.";
-$langAvailableArchives="Verfügbare Archiv Liste";
-$langNoArchive="Es wurde kein Archiv ausgewählt.";
 $langArchiveNotFound="Das Archiv wurde nicht gefunden";
 $langArchiveUncompressed="Das Archiv wurde entkomprimiert und installiert.";
-$langCsvPutIntoDocTool="Die Datei &quot;users.csv&quot; wurde in das Documents tool gelegt.";
+$langAreYouSureToDelete = "Sind Sie sicher, dass Sie das löschen wollen : ";
+$langAvailableArchives="Übersicht verfügbarer Archive";
+$langBackHome="Zurück zur Homepage von ";
+$langBackToAdminPage = "Zurück zur Admin-Seite";
+$langBackToCourseList = "Zurück zur Kurs-Übersicht";
+$langBackToList = "Zurück zur Übersicht";
+$langBackupCourse="Archivieren des Kurses";
+$langBackupOfDataBase="Backup der Datenbank";
+$langBackupSuccesfull = "Backup erfolgreich erstellt";
+$langBUAnnounceInMainBase="Backup der Bekanntmachungen in Datenbank für";
+$langBUCourseDataOfMainBase = "Backup der Kursdaten in Datenbank für";
+$langBuildTheCompressedFile ="Backup-Datei erstellen";
+$langBUUsersInMainBase = "Backup der Benutzerdaten in Datenbank für";
+$langByDel="Wenn die Website des Kurses gelöscht wird, werden auch alle enthaltenen Dokumente und Benutzer-Einschreibungen gelöscht. (Teilnehmer werden jedoch nicht aus anderen Kursen entfernt).<p>Wollen Sie den Kurs wirklich löschen?";
+$langChangedTool="Zugriff auf Tools geändert";
+$langCode="Kurs Code";
+$langConfidentiality="Vertraulichkeit";
+$langConfirmBackup="Wollen Sie diesen Kurs wirklich sichern?";
+$langConfTip="In der Basiseinstellung ist jeder Kurs für alle offen. Wenn Sie den Kurs geschlossen halten wollen, aktivieren Sie die Kursanmeldung für eine Woche und bitten Sie die Teilnehmer, sich anzumelden. Im Anschluss sperren Sie die Kursanmeldung und überprüfen Sie die Teilnehmerliste auf 'Trittbrettfahrer'.";
+$langCopyDirectoryCourse = "Kopie von Kursdateien";
+$langCourse="Die Website ";
+$langCourseAccess="Kurszugang";
+$langCourseManage="Kursverwaltung";
+$langCreatedIn = "erstellt in";
+$langCreateMissingDirectories ="Fehlendes Verzeichnis erstellen";
+$langCreateSite="Einen neuen Kurs anlegen";
+$langCreationDate = "Erstellt";
+$langCsvPutIntoDocTool="Die Datei &quot users.csv &quot wurde in den Dokumenet-Bereich gelegt.";
+$langDelCourse="Die komplette Webseite zum Kurs löschen";
+$langDelCourse="Diesen Kurs löschen";
+$langDelete="löschen";
+$langDepartmentUrl = "Bereichs-URL";
+$langDepartmentUrlName = "Bereich";
+$langDescription="Beschreibung";
+$langDisk_free_space = "freier Speicherplatz";
+$langDownload="Download";
+$langEditToolList=" Tool Liste bearbeiten";
+$langEmail="Email";
+$langExpirationDate  = "Abschluß/Ende";
+$langFaculty="Bereich";
+$langFileCopied = "Datei kopiert";
+$langForbidden="Nicht erlaubt";
+$langHasDel="wurde gelöscht";
+$langHome="zurück zur Startseite";
+$langIntroCourse="Sie sind auf der Kurs-Startseite. <br><br> Auf dieser Seite können Sie <li class=HelpText>Tools sperren oder freischalten (Auf den '".$langEditToolList."'-Button unten links klicken).</li> <li class=HelpText>Einstellungen ändern oder Statistiken abrufen (unten auf den entsprechenden Link klicken).</li> <BR><BR>Um einen Einführungstext zur Vorstellung Ihres Kurses für Ihre Teilnehmer zu erstellen, klicken Sie auf diesen Button  ";
+$langIntroEditToolList="Wählen Sie die Tools die für Ihre Teilnehmer sichtbar sein sollen. Unsichtbar Tools werden zu Ihrer Information in Ihrem Bereich eingegraut.";
+$langLanguage="Sprache";
+$langLastEdit = "Letzte Bearbeitung";
+$langLastVisit = "Letzter Besuch";
+$langLinkSite="Ein Link zu dieser Seite auf der Homepage einfügen";
+$langManage = "Systemverwaltung";
+$langMissingValue="Fehlender Wert";
+$langModifDone="Die Informatioen wurde geändert";
+$langModifInfo="Kurs Einstellungen";
+$langN="NEIN";
+$langNoArchive="Es wurde kein Archiv ausgewählt.";
+$langPostPone = "verlegt";
+$langPrivate="Eingeschränkter Zugang, Registrierungsphase abgeschlossen (Die Seiten sind nur für angemeldete <a href=../user/user.php>Teilnehmer</a> zugänglich.)";
+$langPrivOpen="Eingeschränkter Zugang, Registrierungphase aktiv";
+$langProfessor="Dozent/Tutor";
+$langProfessors="Dozenten/Tutoren";
+$langProgramMenu="Programm";
+$langPublic="Öffentlicher Zugriff auf die Kursseiten auch ohne Anmeldung";
+$langRestore="Erstellen";
+$langRestoreCourse = "Kurs erstellen";
+$langRestoreDescription="Dies ist eine Archivdatei, die Sie unten auswählen können.<br><br> Wenn Sie auf &quot Wiederherstellen&quot klicken, wird das Archiv geöffnet und der Kurs wieder erstellt.";
+$langRestoreNotice="Dieses Script ermöglicht keine automatische Wiederherstellung der Nutzerdaten. Die Nutzerdaten werden aber in die Datei &quot users.csv&quot gesichert und können manuell vom Administrator bearbeitet werden.";
+$langSearchCours = "Zurück zu den Kurs-Informationen";
+$langSeeCourseUsers = "Kursteilnehmer anzeigen";
+$langSizeOf ="Größe von";
+$langStats="Statistiken";
+$langSubscription="Zustimmung";
+$langTipLang="Diese Sprache wird für alle Besucher Ihrer Webseite gültig sein.";
+$langTitle="Titel des Kurs";
+$langToCourseSettings = "Zurück zu den Kurs-Einstellungen";
+$langToolName="Name des Link";
+$langTools="Tools";
+$langToolUrl="URL des Link";
+$langUnableAddExternalTool="Hinzufügen von externem Tool nicht möglich";
+$langUnableChangedTool="Änderung auf Tool-Zugriff nicht möglich";
+$langUnableDeleteExternalTool='Löschen von externem Tool nicht möglich';
+$langUnableUpdateExternalTool="Ändern  von externem Tool nicht möglich";
+$langUpdatedExternalTool="Externes Tool erfolgreich geändert";
+$langUplPage="Upload Seite und Link zur Homepage";
+$langVid="Video";
+$langViewCourse = "Kurs ansehen";
+$langY="JA";
+
 ?>

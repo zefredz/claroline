@@ -5,108 +5,100 @@
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   German Translation                                                 |
-
-
-
+	  |   English Translation                                                |
       +----------------------------------------------------------------------+
       | Translator :                                                         |
-      |          Ralf Hilgenstock   <rh@dialoge.net>                         |
+      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
       +----------------------------------------------------------------------+
- */
+      |   German Translation                                                 |
+      +----------------------------------------------------------------------+
+      | Translator :   Udo Scharf <UScharf@netway-online.de> 		         |
+	  | revised and complemented: 2004/09/22								 |
+      +----------------------------------------------------------------------+
+*/
 
-$langAddAdminInApache ="Administrator hinzufügen";
-$langSearchACourse  = "Seminar suchen";
-$langSearchAUser  ="Teilnehmer/in suchen";
+include (dirname(__FILE__)."/admin.inc.php");
+$langAddAdminInApache ="Einen Benutzer als Admin hinzufügen";
+$langSearchACourse  = "Kurs suchen";
+$langSearchAUser  ="Benutzer suchen";
 
-$langAdminBy = "Administration durch ";
-$langAdministrationTools = "Verwaltungstools";
+$langAdminBy = "Administration von ";
+$langAdministrationTools = "Administration";
 $langTools = "Tools";
-$langState = "Status";
-$langDevAdmin ="Development Administration";
-$langLinksToClaroProjectSite ="Links zur Projektwebseite";
-$langNomOutilTodo                 = "Todo-Liste verwalten"; // to do
-$langNomPageAdmin                 = "Verwaltung";
-$langSysInfo                          = "Systeminformationen";        // Show system status
-$langCheckDatabase          = "Hauptdatenbank prüfen";        // Check Database
-$langDiffTranslation         = "Übersetzungen vergleichen"; // diff of translation
-$langStatOf                         = "Statistik von "; // Stats of...
-$langSpeeSubscribe                 = "Schnelle Anmeldung von Seminarprüfern";
-$langLogIdentLogout         = "Loginliste";
-$langLogIdentLogoutComplete = "Loginliste (komplett)";
+$langState = "Land";
+$langDevAdmin ="Administration Entwicklung";
+$langLinksToClaroProjectSite ="Links zur Projekt-Website";
+$langNomOutilTodo 		= "ToDo-Liste bearbeiten"; // to do
+$langNomPageAdmin 		= "Administration";
+$langSysInfo  			= "System-Info";        // Show system status
+$langCheckDatabase  	= "Haupt-Datenbank überprüfen";        // Check Database
+$langDiffTranslation 	= "Übersetzungen vergleichen"; // diff of translation
+$langStatOf 			= "Statistik von "; // Stats of...
+$langSpeeSubscribe 		= "Schnelleintrag als Kurs-Checker";
+$langLogIdentLogout 	= "Login Liste";
+$langLogIdentLogoutComplete = "Login Liste (erweitert)";
 
 // Stat
-$langStatistiques = "Statistik";
+$langStatistiques = "Statistiken";
 
 
-$langNbProf = "Zahl der Trainer/innen";
-$langNbStudents = "Zahl der Teilnehmer/innen";
-$langNbLogin = "Zahl der Logins";
+$langNbProf = "Anzahl von Dozenten/Tutoren";
+$langNbStudents = "Anzahl von Lernern";
+$langNbLogin = "Anzahl der Anmeldungen (Logins)";
 $langToday   ="Heute";
-$langLast7Days ="Letzte 7 Tage";
-$langLast30Days ="Letzte 30 Tgae";
+$langLast7Days ="Die letzen 7 Tage";
+$langLast30Days ="Die letzen 30 Tage";
 
-$langNbAnnoucement = "Zhal der Ankündigungen";
+$langNbAnnoucement = "Anzahl der Bekanntmachungen";
 
 // Check Data base
 
-$langPleaseCheckConfigForMainDataBaseName = "Bitte diese Werte überprüfen
-<br>
-Name der Hauptdatenbank in
-<br>";
-$langBaseFound ="Gefunden
-<br>
-Tabelle in dieser Datenbank prüfen";
-$langNotNeeded = "nicht erforderlich";
-$langNeeded = "benötigt";
+$langPleaseCheckConfigForMainDataBaseName = "Bitte diese Werte überprüfen<br>Haupt-Datenbank in<br>";
+$langBaseFound ="Gefunden<br>Überprüfe Tabellen dieser Datenbank";
+$langNotNeeded = "nicht notwendig";
+$langNeeded = "notwendig";
 $langArchive   ="archiviert";
-$langUsed      ="gebraucht";
+$langUsed      ="in Gebrauch";
 $langPresent   ="Ok";
-$langCreateMissingNow = "Wollen Sie die Tabellen jetzt erstellen ?";
-$langCheckingCourses ="Seminare prüfen";
-$langMissing   ="fehlend";
-$langExist     ="vorhanden";
-
+$langCreateMissingNow = "Möchten Sie jetzt die Tabellen anlegen ?";
+$langCheckingCourses ="Kurse überpüfen";
+$langMissing   ="fehlt";
+$langExist     ="existiert";
 // Create Claro table
-$langCreateClaroTables ="Erstelle Tabellen für Hauptdatenbank";
-$langTableStructureDontKnow ="Struktur der Tabellen unbekannt;
-
-$langServerStatus ="mysql-Serverstatus : ";
+$langCreateClaroTables ="Tabelle für Haupt-Datenbank anlegen";
+$langTableStructureDontKnow ="Struktur dieser Tabelle unbekannt";
+$langServerStatus ="MySQL-Server Status : ";
 $langDataBase = "Datenbank ";
-$langRun = "Aufgaben";
-$langClient = "MySql Client ";
-$langServer = "MySql Server ";
-$langtitulary ="Titel";
+$langRun = "arbeitet";
+$langClient = "MySQL Client ";
+$langServer = "MySQL Server ";
+$langtitulary ="Eigentümer des Kurses";
 $langLanguage ="Sprache";
-$langUpgradeBase = "Upgrade der Datenbank";
-
-$langAddAUser                 ="Teilnehmer/in hinzufügen (oder Liste von Teilnehmer/innen)";
-$langSearchAUser         ="Teilnehmersuche";
-$langBrowseUser                ="Teilnehmer/innen durchsehen";
-$langListOfUser                ="Teilnehmerliste";
-
-$langSearchACourse ="Seminarsuche";
-$langBrowseCourse = "Seminare durchsehen";
-$langListOfCourse = "Seminarübersicht";
-
-$langListOfCourseSubscriptionSimple = "Teilnehmerliste alle Seminare (Übersicht)";
-$langListOfCourseSubscriptionComplete = "Teilnehmerliste alle Seminare (komplett)";
-$langLogIdentLogout ="Übersicht Login-Aktionen";
-$langLogIdentLogoutComplete ="Übersicht Login-Aktionen (alle Informationen)";
-
-$langCourseOfAUser                 = "Seminare einer/s Teilnehmer/in";
-$langCourseOfListUser         = "Seminare der Teilnehmer/innen";
-$langCourses                        = "Seminare";
-$langUsers                                = "Teilnehmer/innen";
-$langManage                                = "Verwaltung der Lernplattform";
-$langAdministrationTools = "Verwaltungstools";
-
-$langNoteAboutViaPMA = " &laquo;Via pma&raquo; = Direkter Link zum php My Admin panel. (in einem neuen Fensters.)";
-$langAddACourse = "Seminar anlegene";
-$langCategories = "Seminarbereiche";
-$langAdminProfileUser = "Teilnehmerprofile verwalten";
-$langListOfCourseOfUser ="Teilnehmerliste eines Seminars";
-$langAddAdminInApache = "Administrator hinzufügen";
-$langAddCategories = "Bereiche hinzufügen";
-
+$langUpgradeBase = "Datenbank aktualisieren";
+$langAddAUser 		="Einen Benutzer oder eine Benutzer-Liste hinzufügen";
+$langSearchAUser 	="Nach Benutzern suchen";
+$langBrowseUser		="Benutzer durchsehen";
+$langListOfUser		="Benutzer auflisten";
+$langSearchACourse ="Einen Kurs suchen";
+$langBrowseCourse = "Kurse durchsehen";
+$langRestoreACourse ="Kurs wieder herstellen";
+$langListOfCourseSubscriptionSimple = "Kurs-Registrierungs-Liste (kompakt)";
+$langListOfCourseSubscriptionComplete = "Kurs-Registrierungs-Liste (vollständig)";
+$langLogIdentLogout ="Logins durchsehen";
+$langLogIdentLogoutComplete ="Logins durchsehen(mit. max. Info)";
+$langCourseOfAUser 		= "Kurse eines Benutzers";
+$langCourseOfListUser 	= "Kurse aller Benutzer";
+$langCourses			= "Kurse";
+$langUsers				= "Benutzer";
+$langManage				= "Lernumgebung verwalten";
+$langAdministrationTools = "Admin";
+$langNoteAboutViaPMA = "PMA = Öffnet  PHPmyAdmin in einem neuen Fenster";
+$langAddACourse = "Kurs erstellen";
+$langCategories = "Kurs-Kategorien";
+$langAdminProfileUser = "Benutzer-Profil bearbeiten";
+$langListOfCourseOfUser ="Übersicht der registrierten Benutzer eines Kurses";
+$langAddAdminInApache = "Einen Administrator hinzufügen";
+$langAddCategories = "Kategeorien hinzufügen";
+$langAdminTree = "Kurs-Verzeichnisse bearbeiten";
 ?>

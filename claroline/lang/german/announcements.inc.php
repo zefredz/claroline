@@ -1,59 +1,51 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*                              |
+      | CLAROLINE version 1.5.*                              				 |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$              |
+      |   $Id$   |
       |   German translation                                                 |
       +----------------------------------------------------------------------+
-
+      |   German Translation                                                 |
       +----------------------------------------------------------------------+
-      | Translator:                                                          |
+      | Translator :   Udo Scharf <UScharf@netway-online.de> 		         |
+	  | revised and complemented: 2004/09/22								 |
       +----------------------------------------------------------------------+
  */
 
 // GENERIC
-
-$langModify="ändern";
-$langDelete="löschen";
-$langTitle="Titel";
-$langHelp="Hilfe";
-$langOk="Ok";
-$langAddIntro="Einführungstext hinzufügen";
-$langBackList="Zurück zur Liste";
-
-
-
-
-// ANNOUCEMENTS
-$langAn="Ankündigungen";
-$langOn="An";
-$langRegUser="Auf dieser Seite registrierte Benutzer";
-$langUnvalid="Sie haben eine ungültige oder keine E-Mail Adresse angegeben.";
-$langModifAnn="Diese Ankündigung verändern";
-// ANNOUNCEMENTS
-$langAnnEmpty="Die Liste der Ankündigungen wurde gelöscht";
-$langAnnModify="Ankündigung wurde verändert";
-$langAnnAdd="Ankündigung wurde hinzugefügt";
-$langAnnDel="Ankündigung wurde gelöscht";
-$langPubl="Veröffentlicht am";
-$langAddAnn="Ankündigung hinzufügen";
+$langAddAnn="Bekanntmachung hinzufügen";
+$langAn="Bekanntmachungen";
+$langAnnAdd="Bekanntmachung wurde hinzugefügt";
+$langAnnDel="Bekanntmachung wurde gelöscht";
+$langAnnEmpty="Die Liste der Bekanntmachungen wurde gelöscht";
+$langAnnModify="Bekanntmachung wurde verändert";
 $langContent="Inhalt";
-$langEmptyAnn="Liste der Ankündigungen löschen";
-
-$professorMessage="Mitteilung von Ihrem/Ihrer Trainer/in";
-$langEmailSent=" und an registriette Benutzer per E-Mail gesendet";
-
-$langNo="Nein";
-$langYes="Ja";
-$langEmailOption="Sendet diese Ankündigung per E-Mail an registrierte Teilnehmer/innen";
+$langDown = "Absteigend sortiert";
+$langEmailOption="Sendet diese Bekanntmachung per E-Mail an registrierte Benutzer";
+$langEmailSent=" und an registrierte Benutzer per E-Mail gesendet";
 $langEmailTitle = 'Betreff dieser E-Mail'; //remove this line when added to lang files
+$langEmptyAnn="Liste der Bekanntmachungen löschen";
+$langIntroText = "Um eine Nachricht zu senden, wählen Sie bitte eine Gruppe von Benutzern (markiert mit einem * am Anfang) oder einen einzelnen Benutzer aus der Liste links.";
+$langMessages = "Nachrichten";
+$langMessageToSelectedUsers = "Nachrichten an ausgewählte Benutzer";
+$langModifAnn="Diese Bekanntmachung verändern";
+$langMsgSent		= "Die Nachricht wurde an die gewählten Benutzer versendet";
+$langNoAnnouncement = "Keine Bekanntmachungen.";
 $langOn="An";
-$langRegUser="Registrierte Teilnehmer dieser Seite";
-$langUnvalid="ungültige oder keine E-Mail Adresse eingegeben";
-
-
-
+$langPleaseEnterMessage = "Sie müssen den Nachrichten-Text eingeben.";
+$langPleaseSelectUsers = "Sie müssen mindestens einen Benutzer eingeben.";
+$langPubl="Veröffentlicht am";
+$langRegUser="registrierte Benutzer";
+$langSelectedUsers = "ausgewählte Benutzer";
+$langSelMess  = "Hinweise an bestimmte Benutzer";
+$langSelUser		= "ausgewählte Benutzer der Website";
+$langSubmit = "absenden";
+$langUnvalid="Sie haben eine ungültige oder keine E-Mail Adresse angegeben.";
+$langUp = "Aufsteigend sortiert";
+$langUserlist = "Benutzer Liste";
+$langUsers = "Benutzer";
+$professorMessage="Mitteilung von Ihrem Tutor/Dozenten";
 ?>

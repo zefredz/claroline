@@ -6,19 +6,20 @@
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   German Translation                                                 |
-
-
-
       +----------------------------------------------------------------------+
       | Translator :                                                         |
       |          Ralf Hilgenstock  <rh@dialoge.net>                          |
       +----------------------------------------------------------------------+
- */
+      +----------------------------------------------------------------------+
+      | Translator :   Udo Scharf <UScharf@netway-online.de> 		         |
+	  | revised and complemented: 2004/09/22								 |
+      +----------------------------------------------------------------------+
+*/
+
 
 $langAddAdminInApache ="Administrator hinzufügen";
-$langSearchACourse  = "Seminar suchen";
-$langSearchAUser  ="Teilnehmer/in suchen";
-
+$langSearchACourse  = "Kurs suchen";
+$langSearchAUser  ="Benutzer suchen";
 $langAdminBy = "Admininstration durch";
 $langAdministrationTools = "Verwaltungstools";
 $langTools = "Tools";
@@ -31,7 +32,7 @@ $langSysInfo                          = "Systeminformation";        // Show syst
 $langCheckDatabase          = "Datenbank prüfen";        // Check Database
 $langDiffTranslation         = "Übersetzungen vergleichen"; // diff of translation
 $langStatOf                         = "Statistik für "; // Stats of...
-$langSpeeSubscribe                 = "Schnelle Anmeldung als Seminarprüfer";
+$langSpeeSubscribe                 = "Schnelle Anmeldung zum Überprüfen des Kurses";
 $langLogIdentLogout         = "Anmeldeliste";
 $langLogIdentLogoutComplete = "Anmeldeliste (vollständig)";
 
@@ -39,14 +40,14 @@ $langLogIdentLogoutComplete = "Anmeldeliste (vollständig)";
 $langStatistiques = "Statistik";
 
 
-$langNbProf = "Zahl der Trainer/innen";
-$langNbStudents = "Zahl der Teilnehmer/innen";
+$langNbProf = "Zahl der Tutoren/Dozenten";
+$langNbStudents = "Zahl der Benutzer";
 $langNbLogin = "Zahl der Logins";
 $langToday   ="Heute";
 $langLast7Days ="Letzte 7 Tage";
 $langLast30Days ="Letzte 30 Tage";
 
-$langNbAnnoucement = "Zahl der Ankündigungen";
+$langNbAnnoucement = "Zahl der Bekanntmachungen";
 
 // Check Data base
 
@@ -63,7 +64,7 @@ $langArchive   ="archiviert";
 $langUsed      ="gebraucht";
 $langPresent   ="Ok";
 $langCreateMissingNow = "Wollen Sie diese Tabellen jetzt erstellen ?";
-$langCheckingCourses ="Seminare prüfen";
+$langCheckingCourses ="Kurse prüfen";
 $langMissing   ="fehlend";
 $langExist     ="bestehend";
 
@@ -71,46 +72,45 @@ $langExist     ="bestehend";
 $langCreateClaroTables ="Tabelle für Hauptdatenbank erstellen";
 $langTableStructureDontKnow ="Struktur dieser Tabelle nicht bekannt";
 
-$langServerStatus ="mysql-Server Status : ";
+$langServerStatus ="MySQL-Server Status : ";
 $langDataBase = "Datenbank ";
 $langRun = "work";
-$langClient = "MySql Client ";
-$langServer = "MySql Server ";
+$langClient = "MySQL Client ";
+$langServer = "MySQL Server ";
 $langtitulary ="Eigentümer";
 $langLanguage ="Sprache";
-$langUpgradeBase = "Upgrade Datebbank";
+$langUpgradeBase = "Upgrade Datenbank";
 
-$langAddAUser                 ="Eine/n Teilnehmer/in (oder eine Liste von Teilnehmer/innen) hinzufügen";
-$langSearchAUser         ="Teilnehmer/in suchen";
-$langBrowseUser                ="Teilnehmer/innen durchsehen";
-$langListOfUser                ="Teilnehmerliste";
+$langAddAUser                 ="Einen Benutzer (oder eine Liste von Benutzern) hinzufügen";
+$langSearchAUser         ="Benutzer suchen";
+$langBrowseUser                ="Benutzer durchsehen";
+$langListOfUser                ="Benutzerliste";
 
-$langSearchACourse ="Seminarsuche";
-$langBrowseCourse = "Seminare durchsehen";
-$langListOfCourse = "Seminarliste";
+$langSearchACourse ="Kurssuche";
+$langBrowseCourse = "Kurse durchsehen";
+$langListOfCourse = "Kursiste";
 
-$langListOfCourseSubscriptionSimple = "Anmeldeübersicht für Seminare (Übersicht)";
-$langListOfCourseSubscriptionComplete = "Anmeldeübersicht für Seminare (komplett)";
+$langListOfCourseSubscriptionSimple = "Anmeldeübersicht für Kurse (Übersicht)";
+$langListOfCourseSubscriptionComplete = "Anmeldeübersicht für Kurse (komplett)";
 $langLogIdentLogout ="Übersicht Login-Vorgänge";
 $langLogIdentLogoutComplete ="Übersicht Login-Vorgänge (komplette Information)";
 
-$langCourseOfAUser                 = "Seminare einer Teilnehmer/in";
-$langCourseOfListUser         = "Seminare der Teilnehmer/innen";
-$langCourses                        = "Seminare";
-$langUsers                                = "Teilnehmer/innen";
-$langManage                                = "Verwaltung der Lernplattform";
+$langCourseOfAUser                 = "Kurse eines Benutzers";
+$langCourseOfListUser         = "Kurse der Benutzer";
+$langCourses                        = "Kurse";
+$langUsers                                = "Benutzer";
+$langManage                                = "Systemverwaltung";
 $langAdministrationTools = "Verwaltungstools";
 
-$langNoteAboutViaPMA = " &laquo;Via pma&raquo; = Direkt Link zum php My Admin panel. (in einem neuen Fenster.)";
-$langAddACourse = "Seminar anlegen";
-$langCategories = "Seminarbereiche";
-$langAdminProfileUser = "Verwaltung der Teilnehmerprofile";
-$langListOfCourseOfUser ="Teilnehmerliste";
+$langNoteAboutViaPMA = " &laquo;Via pma&raquo; = Direkt Link zu PHPmyAdmin. (In einem neuen Fenster.)";
+$langAddACourse = "Kurse anlegen";
+$langCategories = "Kursbereiche";
+$langAdminProfileUser = "Verwaltung der Benutzerprofile";
+$langListOfCourseOfUser ="Benutzerliste";
 $langAddAdminInApache = "Administrator hinzufügen";
-$langAddCategories = "Bereiche hinzufügen";
+$langAddCategories = "Katgeorien hinzufügen";
 $langMaintenance ="Wartung";
 $langUpgrade ="Upgrade Claroline";
-$langUpgradeAll = "Upgrade der gesamten Plattform.";
+$langUpgradeAll = "Upgrade des gesamten Systems.";
 $langMakeBackupBefore = "Erstellen Sie vor dem Upgrade ein Backup aller Daten !!!!!";
-
 ?>

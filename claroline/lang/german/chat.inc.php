@@ -9,20 +9,36 @@
       +----------------------------------------------------------------------+
 
       +----------------------------------------------------------------------+
- */
+
 
 /***************************************************************
 *                   Language translation
 ****************************************************************
 Translation by Ralf Hilgenstock mailto:rh@dialoge.net
 *****************************************************************/
-// chat.php
-
+/*
+   +----------------------------------------------------------------------+
+      |   German Translation                                                 |
+      +----------------------------------------------------------------------+
+      | Translator :   Udo Scharf <UScharf@netway-online.de> 		         |
+	  | revised and complemented: 2004/09/22								 |
+      +----------------------------------------------------------------------+
+ */
  $langChat = "Chat";
- $langWash = "löschen";
- $langSave = "speichen";
- $langRefresh = "aktualisieren";
+ $langChatResetBy = "Chat zurückgesetzt von";
+ $langCopyFailed = "Drucken fehlgeschlagen";
+ $langDateLastWrite = "Letzte Nachricht vom: ";
  $langIsNowInYourDocDir = "ist nun in Ihrem Dokumentenverzeichnis abgelegt. <br><B>Diese Datei ist sichtbar</B>";
- $langCopyFailed = "Druck fehlgeschlagen";
+ $langNewChat = "Neuer Chat";
+ $langNotCourseAllowed = "Ist in diesem Kurs nicht erlaubt.";
+ $langNotGroupMember = "Diese Gruppe hat keine Erlaubnis zu chatten.";
+ $langRefresh = "aktualisieren";
+ $langResetChat = "Zurücksetzen";
+ $langSave = "speichen";
+ $langStoreChat = "Chat-Sitzung speichern";
+ $langWash = "löschen";
 
+
+ 
+ 
 ?>

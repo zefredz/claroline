@@ -13,16 +13,20 @@
       | Translator :                                                         |
       |          Ralf Hilgenstock   <rh@dialoge.net>                         |
       +----------------------------------------------------------------------+
+      | revised and complemented: 2004/09/22 by								 |
+	  | Udo Scharf  <UScharf@netway-online.de>     							 |
+      +----------------------------------------------------------------------+
+
  */
-$langCourseProgram = "Seminarbeschreibung";
-$langThisCourseDescriptionIsEmpty = "Für dieses Seminar liegt noch keine Beschreibung vor.";
-$langEditCourseProgram = "Erstelle und bearbeite";
-$langQuestionPlan = "Fragen an die Seminarleitung";
-$langInfo2Say = "Informationen für Teilnehmer/innen";
+$langCourseProgram = "Kursbeschreibung";
+$langThisCourseDescriptionIsEmpty = "Für diesen Kurs liegt noch keine Beschreibung vor.";
+$langEditCourseProgram = "erstellen & bearbeiten";
+$langQuestionPlan = "Fragen an die Kursleitung";
+$langInfo2Say = "Informationen für Benutzer";
 $langOuAutreTitre = "Titel";
 $langContenuPlan = "";
 $langNewBloc = "Andere";
-$langAddCat = "Bereich hinzufügen";
+$langAddCat = "Kategorie hinzufügen";
 $langAdd ="hinzufügen";
 $langValid ="gültig";
 $langBackAndForget ="Zurück und vergessen";

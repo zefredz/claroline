@@ -304,7 +304,7 @@ $l_emptymsg	= "Sie m&uuml;ssen eine $l_message eingeben. Sie k&ouml;nnen keine l
 $l_aboutpost	= "Wer kann posten?";
 $l_regusers	= "Alle <b>registrierten</b> Benutzer";
 $l_anonusers	= "<b>Anonyme</b> Benutzer";
-$l_modusers	= "Nur <B>Moderatoren und Administratoren</b>";
+$l_modusers	= "Nur <B>Tutoren/Dozenten und Administratoren</b>";
 $l_anonhint	= "<br>(Um anonym zu posten geben Sie einfach keinen Benutzernamen und Passwort ein)";
 $l_inthisforum	= "k&ouml;nnen in diesem Forum neue Themen erstellen oder auf Nachrichten antworten.";
 $l_attachsig	= "Signatur anzeigen <font size=smaller>(kann im Profil ge&auml;ndert werden)</font>";

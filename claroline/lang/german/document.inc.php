@@ -8,69 +8,69 @@
       |   $Id$              |
       |   German translation                                                 |
       +----------------------------------------------------------------------+
-
       +----------------------------------------------------------------------+
       | Translator:                                                          |
       +----------------------------------------------------------------------+
+      | revised and complemented: 2004/09/22 by								 |
+	  | Udo Scharf  <UScharf@netway-online.de>     							 |
+      +----------------------------------------------------------------------+
  */
-
-// GENERIC
-
-$langModify="ändern";
-$langDelete="löschen";
-$langTitle="Titel";
-$langHelp="Hilfe";
-$langOk="Ok";
-$langAddIntro="Einführungstext hinzufügen";
-$langBackList="Zurück zur Liste";
-
-// DOCUMENT
-
-$langDoc="Dokumente";
-$langDownloadFile= "Dateien zum Server hochladen";
-$langDownload="hochladen";
-$langCreateDir="Verzeichnis erstellen";
-$langName="Name";
-$langNameDir="Name des neuen Verzeichnisses";
-$langSize="Größe";
-$langDate="Datum";
-$langMove="Verschieben";
-$langRename="Umbenennen";
+$langAddComment="Kommentar hinzufügen/ändern";
+$langAddCommentOptionnal = "Kommentar hinzufügen (optional) :";
+$langAreYouSureToDelete = "Wollen Sie wirklich löschen";
+$langBackToEditor = "Zurück zur Bearbeitung";
+$langClickHere = "hier klicken";
 $langComment="Kommentar";
-$langVisible="Sichtbar/Unsichtbar";
+$langComMod="Kommentar verändert";
 $langCopy="Kopieren";
-$langTo="nach";
-$langNoSpace="Der Upload ist fehlgeschlagen. Sie haben nicht genug Platz im Verzeichnis";
-$langDownloadEnd="Der Upload ist abgeschlossen";
-$langFileExists="Operation nicht möglich.<br>Eine Datei mit dem gleichen Namen exisitiert bereits";
-$langDocCopied="Dokument kopiert";
-$langDocDeleted="Dokument gelöscht";
-$langElRen="Element umbenannt";
+$langCreateDir="Verzeichnis erstellen";
+$langCreateDocument = "Dokument erstellen";
+$langCreateHyperlink = "Link erstellen";
+$langCreateModifyDocument = "Dokument erstellen/bearbeiten";
+$langDate="Datum";
 $langDirCr="Verzeichnis erstellt";
 $langDirMv="Verzeichnis verschoben";
-$langComMod="Kommentar verändert";
-$langIn="in";
-$langNewDir="Name des neuen Verzeichnisses";
-$langImpossible="Vorgang nicht möglich";
-$langAddComment="Kommentar hinzufügen/ändern";
-$langUp="Hoch";
-$langViMod="Sichtbarkeit geändert";
-
+$langDoc="Dokumente";
+$langDocCopied="Dokument kopiert";
+$langDocDeleted="Dokument gelöscht";
+$langDocumentContent = "Inhalt des Dokuments : ";
+$langDocumentName = "Name des Dokuments  : ";
+$langDownload="hochladen";
+$langDownloadAndZipEnd=" Zip-Dateien hochgeladen und ausgepackt";
+$langDownloadEnd="Upload ist abgeschlossen";
+$langDownloadFile= "Dateien auf den Server hochladen";
+$langEditFileContent = "Inhalt der Datei bearbeiten";
 $langElRen="Element umbenannt";
-$langFileError="Der Datei-Upload ist nicht möglich.";
-$langMaxFileSize="Max. Dateigröße ist";
-
-// Special for group documents
+$langFileContentModified  = "Inhalt der Datei geändert";
+$langFileCreated = "Datei erstellt";
+$langFileError="Datei-Upload ist nicht möglich.";
+$langFileExists="Operation nicht möglich.<br>Eine Datei mit dem gleichen Namen exisitiert bereits";
+$langFileNameMissing = "Kein Dateiname vorhanden";
+$langFileNameOrURLMissing = "Dateiname oder URL nicht vorhanden.";
+$langGroupForumLink="Gruppenforum";
 $langGroupManagement="Gruppenverwaltung";
 $langGroupSpace="Gruppenbereich";
 $langGroupSpaceLink="Gruppenbereich";
-$langGroupForumLink="Gruppenforum";
-$langZipNoPhp="Die zip-Datei darf keine .PHP-Dateien enthalten";
-$langUncompress="uncompress zipped (.zip) Dateien auf dem Rechner";
-$langDownloadAndZipEnd=" Zip-Dateien hochgeladen und ausgepackt";
-$langAreYouSureToDelete = "Wollen Sie wirklich löschen";
-
-$langPublish = "Veröffentlicht";
+$langHelp="Hilfe";
+$langImpossible="Vorgang nicht möglich";
+$langIn="in";
+$langMaxFileSize="Max. Dateigröße ist";
 $langMissingImagesDetected = "Fehlende Bilder entdeckt";
-
+$langModify="ändern";
+$langMove="verschieben";
+$langName="Name";
+$langNameDir="Name des neuen Verzeichnisses";
+$langNewDir="Name des neuen Verzeichnisses";
+$langNoSpace="Upload ist fehlgeschlagen. Sie haben nicht genug Platz im Verzeichnis";
+$langPublish = "Veröffentlicht";
+$langRename="Umbenennen";
+$langSize="Größe";
+$langTo="nach";
+$langUncompress="komprimierte (.zip -) Dateien auf dem Srver dekomprimieren";
+$langUp="Hoch";
+$langUploadFile = "Upload Datei";
+$langURL = "URL : ";
+$langViMod="Sichtbarkeit geändert";
+$langVisible="Sichtbar/Unsichtbar";
+$langZipNoPhp="Die zip-Datei darf keine .PHP-Dateien enthalten";
 ?>

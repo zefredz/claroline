@@ -2,191 +2,175 @@
 /*
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.5.0 $Revision$                            |
-
-
-
       |          Piraux Sébastien  <piraux_seb@hotmail.com>                  |
       +----------------------------------------------------------------------+
       | Translation: Ralf Hilgenstock  <rh@dialoge.net>                      |
       +----------------------------------------------------------------------+
+      | revised and complemented: 2004/09/22 by								 |
+	  | Udo Scharf  <UScharf@netway-online.de>     							 |
+      +----------------------------------------------------------------------+
+
+ */
 /* general */
-$langTrackingDisabled = "Tracking wurde vom Systemadministrator abgestellt.";
-$langToolName="Statistik";
-$langShowAll = "Zeige alle";
-$langShowNone = "Zeige keine(n)";
-
-$langCourseStats = "Seminarstatistik";
-$langToolsAccess = "Zugang zu den Tools";
-$langCourseAccess = "Zugang zu diesem Seminars";
-$langLinksAccess = "Links";
-$langDocumentsAccess = "Dokumente";
-
-$langLinksDetails = "Links für Teilnehmer/innen";
-$langWorksDetails = "Aufgaben der Studenten im Namen der 'Autoren'";
-$langLoginsDetails = "Klicken Sie auf den Monatsnamen für weiter Details";
-$langDocumentsDetails = "Documentendownloaded der Teilnehmer/innen";
-$langExercicesDetails = "Punktewertungen der abgeschlossenen Übungen";
-
-$langBackToList = "Zurück zu Teilnehmerliste";
-$langDetails = "Details";
-$langClose = "Geschlossen";
-
-/* subtitles */
-$langStatsOfCourse = "Seminarstatistik";
-$langStatsOfUser = "Teilnehmerstatistik";
-$langStatsOfCampus = "Statistik der Plattform";
-/* course */
-$langCountUsers = "Zhal der eingeschriebenen Teilnehmer/innen";
-
-/* course access */
-$langCountToolAccess = "Gesamtzahl der Aufrufe für dieses Seminar";
-
-
-/* logins */
-$langLoginsTitleMonthColumn = "Monat";
-$langLoginsTitleCountColumn = "Zahl der Logins";
-
-/* tools */
-$langToolTitleToolnameColumn = "Name des Tools";
-$langToolTitleUsersColumn = "Teilnehmer-Klicks";
-$langToolTitleCountColumn = "Gesamt-Klicks";
-
-/* links*/
-$langLinksTitleLinkColumn = "Link";
-$langLinksTitleUsersColumn = "Teilnehmer-Klicks";
-$langLinksTitleCountColumn = "Gesamt-Klicks";
-
-/* exercises */
-$langExercicesTitleExerciceColumn = "Übung";
-$langExercicesTitleScoreColumn = "Punkte";
-
-/* documents */
-$langDocumentsTitleDocumentColumn = "Dokument";
-$langDocumentsTitleUsersColumn = "Teilnehmer-Downloads";
-$langDocumentsTitleCountColumn = "Gesamt-Downloads";
-
-
-/* works */
-$langWorkTitle = "Titel";
-$langWorkAuthors = "Autor/innen";
-$langWorkDescription = "Beschreibung";
-
-$langDate = "Datum";
-
-/* user list */
 $informationsAbout = "Tracking von";
-$langUserName = "Teilnehmername";
-$langFirstName = "Vorname";
-$langLastName = "Nachname";
-$langEmail = "E-Mail";
-$langNoEmail = "Keine E-Mail Adresse eingetragen";
-/* others */
-$langNoResult = "Keine Ergebnisse";
-
-$langCourse = "Seminare";
-
-$langHits = "Hits";
-$langTotal = "Gesamt";
-$langHour = "Stunde";
-$langDay = "Tag";
-$langLittleHour = "h";
-$langLast31days = "In den letzten 30 Tagen";
-$langLast7days = "In den letzten 7 Tgaen";
-$langThisday  = "heute";
-
-/* perso stats */
-$langLogins = "Meine letzten Aktivitäten";
-$langLoginsExplaination = "Hier ist die Liste Ihrer letzten Aktivitäten und der zuletzt besuchten Tools.";
-
-$langExercicesResults = "Übungsergebnisse";
-
-$langVisits = "Besuche";
+$langAccess = "Zugang";
+$langAccessExplain = "(Wenn ein Benutzer den Index aufruft)";
+$langAdminToolName = "Administration Statistik";
+$langAllRight = "<b>Es gibt keine Auffälligkeiten</b>";
+$langAnonymousUserAccessCount = "Zugriff anonymer Benutzer : ";
 $langAt = "bei";
-$langLoginTitleDateColumn = "Datum";
-$langLoginTitleCountColumn = "Besuche";
-
-/* tutor view */
-$langLoginsAndAccessTools = "Logins und Zugriff zu den Tools";
-$langWorkUploads = "Aufgabenupload";
-$langErrorUserNotInGroup = "Dieser Teilnehmer ist nicht Mitglied in Ihrer Gruppe" ;
-$langListStudents = "Liste der Gruppenmitglieder";
-
-/* details page */
-$langPeriodHour = "Stunde";
-$langPeriodDay = "Tag";
-$langPeriodWeek = "Woche";
-$langPeriodMonth = "Monat";
-$langPeriodYear = "Jahr";
-
-$langNextDay = "Nächster Tag";
-$langPreviousDay = "Vorheriger Tag";
-$langNextWeek = "Nächste Woche";
-$langPreviousWeek = "Vorherige Woche";
-$langNextMonth = "Nächster Monat";
-$langPreviousMonth = "Vorheriger Monat";
-$langNextYear = "Nächstes Jahr";
-$langPreviousYear = "Vorheriges Jahr";
-
-
-$langViewToolList = "Zeige Liste aller Tools";
-$langToolList = "Liste aller Tools";
-
-$langFrom = "von";
-$langTo = "an";
-
-/* traffic_details */
-$langPeriodToDisplay = "Periode";
-$langDetailView = "Gesehen von";
-
-/* for interbredcrumps */
+$langBackToList = "Zurück zu Teilnehmerliste";
 $langBredCrumpGroups = "Gruppe";
 $langBredCrumpGroupSpace = "Gruppenbereich";
-$langBredCrumpUsers = "Teilnehmer/innen";
-
-$langBredCrumpUsers = "Teilnehmer/innen";
-
-
-
-
-/* admin stats */
-$langAdminToolName = "Administration Statistik";
-$langPlatformStats = "Plattformstatistik";
-$langStatsDatabase = "Statistik Datenbank";
-$langPlatformAccess = "Zugrif auf die Lernplattform";
-$langPlatformCoursesAccess = "Zugriff zu den Seminaren";
-$langPlatformToolAccess = "Zugriff zu de Tools";
-$langHardAndSoftUsed = "Länder, Provider, Betriebssysteme";
-$langStrangeCases = "Strange cases";
-$langStatsDatabaseLink = "Klick hier";
-$langCountCours = "Zahl der Seminare";
-$langCountUsers = "Zhal der Teilnehmer/innen";
-$langCountCourseByFaculte  = "Zahl der Seminare nach Bereichen";
-$langCountCourseByLanguage = "Zahl der Seminare nach Sprachen";
-$langCountCourseByVisibility = "Zahl der sichtbaren Seminaren";
-$langCountUsersByCourse = "Zahl der Teilnehmer/innen je Seminar";
-$langCountUsersByFaculte = "Zahl der Seminare / Bereich";
-$langCountUsersByStatus = "Zahl der Teilnehmer/innen nach Status";
-$langCourses = "Seminare";
-$langUsers = "Teilnehmer/innen";
-$langAccess = "Zugang";
-$langCountries = "Länder";
-$langProviders = "Provider";
-$langOS = "Betriebssystem";
+$langBredCrumpUsers = "Teilnehmer";
 $langBrowsers = "Browser";
-$langReferers = "Referers";
-$langAccessExplain = "(Wenn ein Teilnehmer den Index aufruft)";
+$langClose = "keine Details";
+$langCountCours = "Zahl der Kurse";
+$langCountCourseByFaculte  = "Zahl der Kurse nach Kategorien";
+$langCountCourseByLanguage = "Zahl der Kurse nach Sprachen";
+$langCountCourseByVisibility = "Zahl der sichtbaren Kurse";
+$langCountries = "Länder";
+$langCountToolAccess = "Gesamtzahl der Aufrufe für diesen Kurse";
+$langCountUsers = "Zahl der eingeschriebenen Teilnehmer";
+$langCountUsersByCourse = "Zahl der Teilnehmer pro Kurs";
+$langCountUsersByFaculte = "Zahl der Kurse in Kategorien";
+$langCountUsersByStatus = "Zahl der Teilnehmer nach Status";
+$langCourse = "Kurs";
+$langCourseAccess = "Zugang zu diesem Kurs";
+$langCourses = "Kurse";
+$langCourseStats = "Kursstatistik";
+$langCourseWithoutAccess = "nicht genutzte Kurse";
+$langCourseWithoutProf = "Kurse ohne Dozent/Tutor";
+$langCourseWithoutStudents = "Kurse ohne Lerner";
+$langDate = "Datum";
+$langDay = "Tag";
+$langDefcon = "<b>Auffällig:</b>";
+$langDetails = "Details";
+$langDetailView = "Aufgeliedert nach";
+$langDocument = "Dokument : ";
+$langDocumentsAccess = "Dokumente";
+$langDocumentsDetails = "Dokumenten-Download der Teilnehmer";
+$langDocumentsTitleCountColumn = "Gesamt-Downloads";
+$langDocumentsTitleDocumentColumn = "Dokument";
+$langDocumentsTitleUsersColumn = "Teilnehmer-Downloads";
+$langEmail = "E-Mail";
+$langErrorUserNotInGroup = "Dieser Teilnehmer ist nicht Mitglied in Ihrer Gruppe" ;
+$langExercicesDetails = "Punktewertungen der abgeschlossenen Tests";
+$langExercicesResults = "Testergebnisse";
+$langExercicesTitleExerciceColumn = "test";
+$langExercicesTitleScoreColumn = "Punkte";
+$langExerciseTotalAttempts = "Versuche gesamt";
+$langExerciseUsersAttempts = "Versuche pro Teilnehmer";
+$langFirstName = "Vorname";
+$langFrom = "von";
+$langGlobalProgress = "Fortschritt insgesamt";
+$langHardAndSoftUsed = "Länder, Provider, Betriebssysteme";
+$langHits = "Hits";
+$langHour = "Stunde";
+$langLast31days = "In den letzten 31 Tagen";
+$langLast7days = "In den letzten 7 Tagen";
+$langLastAccess = "Letzter Zugriff";
+$langLastAttempt = "Letzter Versuch";
+$langLastName = "Nachname";
+$langLastSessionTimeSpent = "Letzte Sitzungszeit";
+$langLearningPath = "Lernpfad";
+$langLearningPathList = "Lernpfad-Liste";
+$langLearningPaths = "Lernpfad";
+$langLearnPathDetails = "Fortschritte in den Lernpfaden";
+$langLessonStatus = "Status";
+$langLinksAccess = "Links";
+$langLinksDetails = "Links für Teilnehmer";
+$langLinksTitleCountColumn = "Gesamt-Klicks";
+$langLinksTitleLinkColumn = "Link";
+$langLinksTitleUsersColumn = "Teilnehmer-Klicks";
+$langListStudents = "Liste der Gruppenmitglieder";
+$langLittleHour = "h";
 $langLogins = "Logins";
+$langLogins = "Meine letzten Aktivitäten";
+$langLoginsAndAccessTools = "Logins und Zugriff zu den Tools";
+$langLoginsDetails = "Klicken Sie auf den Monatsnamen für weiter Details";
+$langLoginsExplaination = "Hier ist die Liste Ihrer letzten Aktivitäten und der zuletzt besuchten Tools.";
+$langLoginsTitleCountColumn = "Zahl der Logins";
+$langLoginsTitleMonthColumn = "Monat";
+$langLoginTitleCountColumn = "Besuche";
+$langLoginTitleDateColumn = "Datum";
+$langLoginWithoutAccess  = "Logins nicht genutzt";
+$langModule = "Modul";
+$langModules = "Module";
+$langMultipleEmails = "Anmeldungen mit der gleichen <i>E-Mail-Adresse</i>";
+$langMultipleLogins = "Anmeldungen mit dem gleichen <i>Benutzernamen</i>";
+$langMultipleUsernameAndPassword = "Anmeldungen mit dem gleichen <i>Benutzernamen</i> UND dem gleichen <i>Passwort</i>";
+$langNbLines = "Sparten"; //quantity of lines
+$langNbrAccess = "Zugriffszahl";
+$langNeverConnectedStudents = "Nie eingeloggte Lerner : ";
+$langNeverUsed = "Nie benutzt";
+$langNextDay = "Nächster Tag";
+$langNextMonth = "Nächster Monat";
+$langNextWeek = "Nächste Woche";
+$langNextYear = "Nächstes Jahr";
+$langNoEmail = "Keine E-Mail Adresse eingetragen";
+$langNoLearnPath = "Kein Lernpfad";
+$langNoResult = "Keine Ergebnisse";
+$langNotRecentlyConnectedStudents = "Lange nicht eingeloggte Lerner : ";
+$langNULLValue = "Leer (oder NULL)";
+$langOS = "Betriebssystem";
+$langPeriodDay = "Tag";
+$langPeriodHour = "Stunde";
+$langPeriodMonth = "Monat";
+$langPeriodToDisplay = "Zeitraum";
+$langPeriodWeek = "Woche";
+$langPeriodYear = "Jahr";
+$langPlatformAccess = "Zugrif auf das System";
+$langPlatformCoursesAccess = "Zugriff auf die Kurse";
+$langPlatformStats = "System-Statistik";
+$langPlatformToolAccess = "Zugriff auf die Tools";
+$langPreviousDay = "Vorheriger Tag";
+$langPreviousMonth = "Vorheriger Monat";
+$langPreviousWeek = "Vorherige Woche";
+$langPreviousYear = "Vorheriges Jahr";
+$langProgress = "Fortschritt";
+$langProviders = "Provider";
+$langReferers = "Referers";
+$langScore = "Ergbnis";
+$langScoreAvg = "&Oslash;";
+$langScoreMax = "max.";
+$langScoreMin = "min.";
+$langShowAll = "alle Details";
+$langShowNone = "keine Details";
+$langStatsDatabase = "Datenbank-Statistik";
+$langStatsDatabaseLink = "hier klicken";
+$langStatsOfCampus = "Statistik der Lernumgebung";
+$langStatsOfCourse = "Kurs-Statistik";
+$langStatsOfExercise = "Test-Statistik";
+$langStatsOfLearnPath = "Statistiken";
+$langStatsOfUser = "Teilnehmer-Statistik";
+$langStrangeCases = "Auffälligkeiten";
+$langStudent = "Lerner";
+$langThisday  = "heute";
+$langTimeInLearnPath = "Zeit im Lernpfad";
+$langTo = "an";
+$langTool = "Tool : ";
+$langToolList = "Liste aller Tools";
+$langToolName="Statistik";
+$langToolsAccess = "Zugang zu den Tools";
+$langToolTitleCountColumn = "Gesamt-Klicks";
+$langToolTitleToolnameColumn = "Name des Tools";
+$langToolTitleUsersColumn = "Teilnehmer-Klicks";
+$langTotal = "Gesamt";
 $langTotalPlatformAccess = "Gesamt";
 $langTotalPlatformLogin = "Gesamt";
-$langMultipleLogins = "Anmeldungen mit dem gleichen <i>Nutzernamen</i>";
-$langMultipleUsernameAndPassword = "Anmeldungen mit dem gleichen <i>Nutzernamen</i> UND dem gleichen <i>Passwort</i>";
-$langMultipleEmails = "Anmeldungen mit der gleichen <i>E-Mail-Adresse</i>";
-$langCourseWithoutProf = "Seminare ohne Trainer/innen";
-$langCourseWithoutAccess = "nicht genutzte Seminare";
-$langLoginWithoutAccess  = "Logins nicht genutzt";
-$langAllRight = "There is no strange case here";
-$langDefcon = "Ooops, stranges cases detected !!";
-$langNULLValue = "Leer (or NULL)";
-$langTrafficDetails = "Traffic Details";
-// $langNbLines = "Nombre de lignes"; //quantity of lines
+$langTotalTimeSpent = "Gesamtzeit";
+$langTrackingDisabled = "Tracking wurde vom Systemadministrator abgestellt.";
+$langTrafficDetails = "Details Traffic";
+$langUserAccessDetails = "Details Benutzer-Zugriff";
+$langUserName = "Teilnehmer-Name";
+$langUsers = "Teilnehmer";
+$langViewToolList = "Zeige Liste aller Tools";
+$langVisits = "Besuche";
+$langWeighting = "Gewichtung";
+$langWorkAuthors = "Tutor/Dozent";
+$langWorkDescription = "Beschreibung";
+$langWorksDetails = "Aufgaben der Lerner im Auftrag der Tutoren/Dozenten";
+$langWorkTitle = "Titel";
+$langWorkUploads = "Aufgaben-Upload";
 ?>

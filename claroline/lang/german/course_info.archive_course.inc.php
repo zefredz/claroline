@@ -13,64 +13,64 @@
       | Translator :                                                         |
       |          Ralf Hilgenstock  <rh@dialoge.net>                          |
       +----------------------------------------------------------------------+
+      | revised and complemented: 2004/09/22 by								 |
+	  | Udo Scharf  <UScharf@netway-online.de>     							 |
+      +----------------------------------------------------------------------+
+
  */
-$langArchiveCourse = "Seminar Backup ";
-$langCreatedIn = "erstellt an";
-$langCreateMissingDirectories ="Erstellen fehlender Verzeichnisse";
-$langCopyDirectoryCourse = "Kopie der Seminardateien";
-$langDisk_free_space = "freie Speicherplatz";
-$langBuildTheCompressedFile ="2° - Erstelle Backup-File";
-$langFileCopied = "File kopiert";
+$langAgenda 						= "Agenda";
+$langAnnouncement                                        = "Bekanntmachungen";
+$langArchiveCourse = "Kurs Backup ";
 $langArchiveLocation="Archivablage";
-$langSizeOf ="Größe von";
 $langArchiveName ="Archivname";
-$langBackupSuccesfull = "Backup erfolgreich abgeschlossen";
-$langBUCourseDataOfMainBase = "Backup der Seminardaten in der Hauptdatenbank für";
-$langBUUsersInMainBase = "Backup der Teilnehmerdaten in der Hauptdatenbabnk für";
-$langBUAnnounceInMainBase="Backup der Ankündigungen in der Hauptdatenbank für";
-$langBackupOfDataBase="Backup der Datenbank";
 $langBackup                                                        = "Backup";
-$langBackupThisCourse                                  = "Export dieses Seminars";
-$langRestore                                                = "Einrichtung";
-$langRestoreThisCourse                          = "Seminar einrichten";
-$langCourseProperties                                 = "Seminareinstellungen";
-$langCourseContent                                         = "Seminarinhalt";
-$langSaveSubscription                                 = "Teilnehmer/innen in Seminaren und Gruppen";
-$langRestoreSubscription                         = "eilnehmer/innen in Seminaren und Gruppen";
-$langSaveContentDoc                                 = "Dokumente";
-$langRestoreContentDoc                                 = "Dokumente";
-$langContentLinks                                         = "Links";
-$langAgenda                                                 = "Agenda";
-$langAnnouncement                                        = "Ankündigungen";
-$langCourseHomePage                                        = "Homepage";
-$langCourseDescription                                 = "Seminarbeschreibung";
-$langWork                                                          = "Aufgaben";
-$langWorkStructure                                  = "Aufgabenstruktur";
-$langWorkContent                                          = "Inhalt der Aufgaben";
-$langForum                                                        = "Forum";
-$langForumStructure                                        = "Name des Forums und der Kategorien";
-$langForumContent                                         = "Inhalt des Forums";
-$langWikiContent                                         = "Wiki Inhalt";
-$langGroup                                                         = "Gruppen";
-$langGroupStructure                                 = "Gruppenstruktur";
-$langGroupForum                                                = "Gruppenforen";
-$langGroupForumStructure                        = "Name der Foren und der Kategorien ";
-$langGroupForumContent                                 = "Inhalt der Foren und der Kategorien";
-$langGroupWork                                                 = "Aufgaben der Gruppen";
-$langGroupWorkStructure                         = "Ankündigung von Gruppenaufgaben";
-$langGroupWorkContent                                 = "Inhalt der Gruppenaufgaben";
-$langUserAndGroups                                         = "Teilnehmer/innen und Gruppen";
-$langUserList                                                 = "Teilnehmer/innen";
-$langIncludeUserPersonalInfo                = "inkl.Profile der Teilnehmer/innen";
-$langGroups                                                 = "anmelden der Gruppenmitglieder";
-$langWhatDoAfterBackup                                = "Nach dem Archivieren";
 $langBackupDone                                         = "Archivieren abgeschlossen";
-$langRestoreNow                                         = "Archiv einrichten";
+$langBackupOfDataBase="Backup der Datenbank";
+$langBackupSuccesfull = "Backup erfolgreich abgeschlossen";
+$langBackupThisCourse                                  = "Backup dieses Kurses";
+$langBUAnnounceInMainBase="Backup der Bekanntmachungen in der Hauptdatenbank für";
+$langBUCourseDataOfMainBase = "Backup der Kursdaten in der Hauptdatenbank für";
+$langBuildTheCompressedFile ="2° - Erstelle Backup-Datei";
+$langBUUsersInMainBase = "Backup der Benutzerdaten in der Hauptdatenbank für";
+$langContentLinks                                         = "Links";
+$langCopyDirectoryCourse = "Kopie der Kursdateien";
 $langCopyOnServerBackupRepository         = "Sichern Sie eine Kopie des Backups";
-$langCreateANewCourseNow                        = "erstellt ein neues Seminars mit Archivdaten";
+$langCourseContent                                         = "Kursinhalt";
+$langCourseDescription                                 = "Kursbeschreibung";
+$langCourseHomePage                                        = "Homepage";
+$langCourseProperties                                 = "Kurseinstellungen";
+$langCreateANewCourseNow                        = "erstellt ein neuen Kurs mit Archivdaten";
+$langCreatedIn = "erstellt am";
+$langCreateMissingDirectories ="Erstellen fehlender Verzeichnisse";
+$langDisk_free_space = "freie Speicherplatz";
+$langFileCopied = "Datei kopiert";
+$langForum                                                        = "Forum";
+$langForumContent                                         = "Inhalt des Forums";
+$langForumStructure                                        = "Name des Forums und der Kategorien";
+$langGroup                                                         = "Gruppen";
+$langGroupForum                                                = "Gruppenforen";
+$langGroupForumContent                                 = "Inhalt der Foren und der Kategorien";
+$langGroupForumStructure                        = "Name der Foren und der Kategorien ";
+$langGroups                                                 = "anmelden der Gruppenmitglieder";
+$langGroupStructure                                 = "Gruppenstruktur";
+$langGroupWork                                                 = "Aufgaben der Gruppen";
+$langGroupWorkContent                                 = "Inhalt der Gruppenaufgaben";
+$langGroupWorkStructure                         = "Bekanntmachungen von Gruppenaufgaben";
+$langIncludeUserPersonalInfo                = "inkl. Profile der Teilnehmer";
+$langRestore                                                = "Einrichtung";
+$langRestoreContentDoc                                 = "Dokumente";
+$langRestoreNow                                         = "Archiv einrichten";
+$langRestoreSubscription                         = "Benutzer in Kursen und Gruppen";
+$langRestoreThisCourse                          = "Kurs einrichten";
+$langSaveContentDoc                                 = "Dokumente";
+$langSaveSubscription                                 = "Benutzer in Kursen und Gruppen";
 $langShowAllProcessDuringTheWork        = "Sollen alle Vorgänge bei der Ausführung gezeigt werden ?";
-
-$langCourseProperties = "Seminareinstellungen";
-
-
+$langSizeOf ="Größe von";
+$langUserAndGroups                                         = "Teilnehmer und Gruppen";
+$langUserList                                                 = "Teilnehmer";
+$langWhatDoAfterBackup                                = "Nach dem Archivieren";
+$langWikiContent                                         = "Wiki Inhalt";
+$langWork                                                          = "Aufgaben";
+$langWorkContent                                          = "Inhalt der Aufgaben";
+$langWorkStructure                                  = "Aufgabenstruktur";
 ?>

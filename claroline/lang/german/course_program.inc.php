@@ -7,25 +7,23 @@
       +----------------------------------------------------------------------+
       |   $Id$  |
       |   German translation                                                 |
-
-
-
       +----------------------------------------------------------------------+
       | Translator:                                                          |
       +----------------------------------------------------------------------+
+      | revised and complemented: 2004/09/22 by								 |
+	  | Udo Scharf  <UScharf@netway-online.de>     							 |
+      +----------------------------------------------------------------------+
  */
+// AGENDA
 $langAgenda="Agenda";
-$langDay="Tag";
+$langDay="Tag"; 
 $langHour="Stunde";
-$langLasting="Dauer";
+$langLasting="Dauer"; 
 
 $langSETLOCALE="GERMAN";
 
-$langAddEvent="Termin hinzufügen";
-$langDetail="Detail";
+$langAddEvent="Termin / Ergeignis hinzufügen";
+$langDetail="Detail"; 
 $month_default="Monat";
-$year_default="Jahr";
 $hour_default="Stunde";
-$hour49="19h00";
-$hour51="nicht definiert";
 ?>
