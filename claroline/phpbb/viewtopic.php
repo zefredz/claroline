@@ -143,7 +143,7 @@ if ( isset($_uid) )  //anonymous user do not have this function
         $post_time = datetime_to_timestamp($thisPost['post_time']);
 
         if($post_time < $last_visit) $postImg = 'post.gif';
-        else                         $postImg = 'postred.gif';
+        else                         $postImg = 'post_hot.gif';
 
         echo "<tr>\n"
 

@@ -120,7 +120,7 @@ else foreach($topicList as $thisTopic)
         }
         else
         {
-            $image = $clarolineRepositoryWeb.'img/red_forum.gif';
+            $image = $clarolineRepositoryWeb.'img/forum_hot.gif';
             $alt   = 'new post';
         }
 

@@ -154,7 +154,7 @@ for($i = 0; $i < $total_categories; $i++)
             if(    $last_post != 'No Posts'
                 && datetime_to_timestamp($last_post) > $last_visit )
             {
-                $forumImg = 'red_folder.gif';
+                $forumImg = 'folder_hot.gif';
             }
             else
             {
