@@ -302,6 +302,8 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
     }
     elseif(isset($_REQUEST['cmdSaveProperties']) || isset($_REQUEST['cmdSaveAndApply']))
     {
+        unset($conf_def,$conf_def_property_list);
+        
         if(file_exists($confDef)) require($confDef);
         $okToSave = TRUE;
         if ($conf_def['config_code']=='')
@@ -320,17 +322,14 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         {
             foreach($_REQUEST['prop'] as $propName => $propValue )
             {
-                $validator     = $conf_def_property_list[$propName]['type'];
-                $acceptedValue = $conf_def_property_list[$propName]['acceptedValue'];
-                $container     = $conf_def_property_list[$propName]['container'];
                 if (!config_checkToolProperty($propValue, $conf_def_property_list[$propName]))
                 {
-                    $okToSave = false;
+                    $okToSave = FALSE;
                 }
             }
-            reset($_REQUEST['prop']);
             if ($okToSave) 
             {
+                reset($_REQUEST['prop']);
                 foreach($_REQUEST['prop'] as $propName => $propValue )
                 {
                     save_param_value_in_buffer($propName,$propValue, $config_code);
@@ -359,18 +358,18 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         {
             require($confDef);
             $panel = DISP_SHOW_CONF_FILE;
-            $interbredcrump[] = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $nameTools);
+            $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $nameTools);
             $nameTools = get_config_name($config_code);
         }
         else
         {
-    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_tool_name($tool));
+    		$controlMsg['error'][]=sprintf($lang_nothingToConfigHere,get_config_name($config_code));
             $panel = DISP_LIST_CONF;    
         }
         // 2° Perhaps it's the first creation
         if (!$confFile)
         {
-            $confFile = claro_create_conf_file($config_code);
+            $confFile = claro_create_conf_filename($config_code);
             $controlMsg['info'][] = sprintf('création du fichier de configuration :<BR> %s'
                                            ,$confFile);
             $confFile = claro_get_conf_file($config_code);
@@ -380,7 +379,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         {
             require($confDef);
             $panel = DISP_EDIT_CONF_CLASS;
-            $interbredcrump[] = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $nameTools);
+            $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $nameTools);
             $nameTools = get_config_name($config_code);
         }
         
@@ -447,7 +446,7 @@ if ($panel == DISP_LIST_CONF)
 elseif ($panel == DISP_EDIT_CONF_CLASS)
 {
     require($confDef);
-    $interbredcrump[] = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $lang_config_config);
+    $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $lang_config_config);
     $nameTools = get_config_name($config_code);
     $conf_info = get_conf_info($config_code);    
     
