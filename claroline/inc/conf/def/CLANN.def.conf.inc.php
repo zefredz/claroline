@@ -4,7 +4,7 @@
  *
  * @author  Christophe Gesché <moosh@claroline.net>
  * @version CLAROLINE 1.6
- * @copyright &copy; 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
  * as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
  * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
@@ -16,7 +16,7 @@
 
 $conf_def['config_code']='CLANN';
 $conf_def['config_file']='CLANN___.conf.php';
-$conf_def['config_name']='general setting for announcements';
+$conf_def['config_name']='General setting for announcements';
 $conf_def['description'] = 'Use by Announcement tool. This is a course tool';
 $conf_def['old_config_file']= array ('CLANN.conf.php'
                                     ,'announcement.conf.inc.php'
