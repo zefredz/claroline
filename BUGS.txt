@@ -1,3 +1,4 @@
+$Id$
 
 B1------------------------------------------------------------------
 3.  INSTALL
@@ -87,7 +88,6 @@ et l'ancien utilisateur est éjecté.
 Repéré par : Moosh
 Assigné à : Hugues
 
-
 B10 Etat : New ------------------------------------------------------
 .48 où : admin - ajout user	
 Etat : à résoudre pour 1.6
@@ -102,9 +102,9 @@ Assigné à : Hugues
 B11 Etat : New ------------------------------------------------------
 .49 où : claroline/user/user.php
 type : erreur séquence
-quoi : pour éditer les question de user info, il fauit passer par un utilisateur
+quoi : pour éditer les questions de user info, il faut passer par un utilisateur
 en cliquant sur son nom. 
-Editer l'utilisateur mène directement aux info de l'utilisateur.
+Editer l'utilisateur mène directement aux infos de l'utilisateur.
 lister n'indique en rien que l'édition est possible dans la fiche utilisateur
 Repéré par : Moosh
 Assigné à : 
@@ -114,10 +114,11 @@ B12 Etat : New ------------------------------------------------------
 .55 où : Documents
 Etat : à résoudre pour 1.6
 type : navigabilité (?)
-quoi : 	Je crée un docuùent(html) au moyen de l'éditeur, j'oublie de mettre un titre, 
+quoi : 	Je crée un document(html) au moyen de l'éditeur, j'oublie de mettre un titre, 
 	j'ai un message d'erreur qui me dit ke le titre est manquant et la liste des documents, 
 	si je fais pas gaffe je clique n'importe ou ailleurs que sur 'back to editor' et je perds le contenu du document.  
-	Il serait p-e préférable de réafficher directement le formulaire avec le message d'erreur le précédent plutot que de repasser par la liste.
+	Il serait p-e préférable de réafficher directement le formulaire avec 
+    le message d'erreur le précédent plutot que de repasser par la liste.
 	Méthode qu'il faudrait selon moi généraliser.
 Repéré par : SEB
 Assigné à : Hugues
@@ -127,7 +128,8 @@ B13 Etat : New ------------------------------------------------------
 .56 où : Documents
 Etat : à résoudre pour 1.6
 type : 
-quoi : On sait commenter un fichier à directement l'upload mais pas à la création ni à la création d'un lien
+quoi : On sait commenter un fichier à directement l'upload 
+       mais pas à la création ni à la création d'un lien
 Repéré par : SEB
 Assigné à : Hugues
 
@@ -154,7 +156,7 @@ quoi : 	Le message "operation impossible" est très flou car parfois accopagné d'
 Repéré par : SEB
 Assigné à : Hugues
 
-B16 RESOLU ------------------------------------------------------
+B16 Etat : Résolu ------------------------------------------------------
 .60 où : Install
 Etat : à résoudre pour 1.5.2
 type : Nom dans les champs
@@ -170,6 +172,7 @@ les " posent aussi problème (mais c'est pire) toute partie de la chaine se trouv
 remplacé par \\ donc ==> [John "Mr Nobody" Doe] donne ==> [John \\]
 Le problème apparait dans la totalité des champs de type texte
 
+>>>>>>> 1.74
 
 
 
@@ -227,7 +230,8 @@ B22 NOT A BUG ------------------------------------------------------
 	
 .97 où : Forum 
 type : sequence
-quoi : quand on est dans un forum , qu'on clique sur adminsitrer, on arrive pas dans l'administration du forum mais des catégorie.
+quoi : quand on est dans un forum , qu'on clique sur adminsitrer, 
+on arrive pas dans l'administration du forum mais des catégories.
 Repéré par : Moosh
 Assigné à : guim
 
@@ -283,7 +287,6 @@ B27------------------------------------------------
 Refaire les textes de tous les popups d'aide contextuelle
 en ajouter d'éventuels
 
-
 B28-----------------------------------------------
 DOCUMENTS
 
@@ -309,3 +312,23 @@ On my v1.5, this is okay now : the users can upload HTML document with spaces, a
 Regards,
 
 Loïc Bonavent 
+
+B29 Etat : new ------------------------------------------------------
+. où :	Document / upload de document
+type : navigabilité
+quoi :	réaction utilisateur après un upload, : aller voir ce qu'il vient d'uploader.
+Problème : pour revenir à la page précédente il va faire back et son navigateur va vouloir re-uploader.
+Repéré par : Moosh
+Assigné à : 
+
+----template----
+B Etat : new ------------------------------------------------------
+. où :	
+type :
+quoi :	
+Repéré par : 
+Assigné à : 
+
+
+
+
