@@ -19,9 +19,10 @@
       | Translator: S³awomir Gurda³a <guslaw@uni.lodz.pl>                    |
       +----------------------------------------------------------------------+
 */
+$englishLangName = "Polish";
 
-$iso639_2_code = "pol";
 $iso639_1_code = "pl";
+$iso639_2_code = "pol";
 
 $langNameOfLang[arabic]		="arabian";
 $langNameOfLang[brazilian]	="brazilian";
