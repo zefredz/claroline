@@ -112,19 +112,19 @@ else
 		/////CHECK DATA
 		
 		// LABEL (Previously called intitule
-		if (HUMAN_LABEL_NEEDED && empty($newcourse_label)) 
+		if ($human_label_needed && empty($newcourse_label)) 
 		{
 			$okToCreate = FALSE;
 			$controlMsg['error'][] = $langLabelCanBeEmpty;
 		}
 		
-		if (HUMAN_CODE_NEEDED && empty($wantedCode)) 
+		if ($human_code_needed && empty($wantedCode)) 
 		{
 			$okToCreate = FALSE;
 			$controlMsg['error'][] = $langCodeCanBeEmpty;
 		}
 		
-		if (COURSE_EMAIL_NEEDED && empty($newcourse_email)) 
+		if ($course_email_needed && empty($newcourse_email)) 
 		{
 			$okToCreate = FALSE;
 			$controlMsg['error'][] = $langEmailCanBeEmpty;

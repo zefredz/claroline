@@ -21,14 +21,14 @@ $nameTools = $langCourseSettings;
 /*
  * Configuration array , define here which field can be left empty or not
  */
- $canBeEmpty['intitule']      = !HUMAN_LABEL_NEEDED;
+ $canBeEmpty['intitule']      = !$human_label_needed;
  $canBeEmpty['category']      = false;
  $canBeEmpty['lecturer']      = true;
- $canBeEmpty['screenCode']    = !HUMAN_CODE_NEEDED;
+ $canBeEmpty['screenCode']    = !$human_code_needed;
  $canBeEmpty['lanCourseForm'] = false;
  $canBeEmpty['extLinkName']   = !$extLinkNameNeeded;
  $canBeEmpty['extLinkUrl']    = !$extLinkUrlNeeded;
- $canBeEmpty['email']         = !COURSE_EMAIL_NEEDED;
+ $canBeEmpty['email']         = !$course_email_needed;
 
 /*
  * Perfield value for the form :

@@ -20,9 +20,9 @@ $conf_def['section']['create']['label']='Course parameters';
 $conf_def['section']['create']['description']='These settings will be use whenever a user creates a new course';
 $conf_def['section']['create']['properties'] = 
 array ( 'defaultVisibilityForANewCourse'
-      , 'HUMAN_CODE_NEEDED'
-      , 'HUMAN_LABEL_NEEDED'
-      , 'COURSE_EMAIL_NEEDED'
+      , 'human_code_needed'
+      , 'human_label_needed'
+      , 'course_email_needed'
       , 'extLinkNameNeeded'
       , 'extLinkUrlNeeded'
       , 'prefixAntiNumber'
@@ -44,18 +44,17 @@ array ('label'       => 'Default visibility for new course'
                                 )
       );
 
-$conf_def_property_list['HUMAN_CODE_NEEDED'] = 
+$conf_def_property_list['human_code_needed'] = 
 array ('label'       => 'Course code is'
       ,'description' => 'User can leave course code (officialCode) field empty or not'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
-      ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE' => 'Required'
                                 ,'FALSE'=> 'Optional'
                                 )
       );
 
-$conf_def_property_list['HUMAN_LABEL_NEEDED'] = 
+$conf_def_property_list['human_label_needed'] = 
 array ('label'       => 'Course label (name) is'
       ,'description' => 'User can leave course label (name) field empty or not'
       ,'default'     => 'TRUE'
@@ -66,14 +65,13 @@ array ('label'       => 'Course label (name) is'
                               )
       );
 
-$conf_def_property_list['COURSE_EMAIL_NEEDED'] = 
+$conf_def_property_list['course_email_needed'] = 
 array ('label'       => 'Course email email is'
       ,'description' => 'User can leave email field empty or not'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      ,'container'   => 'CONST'
       ,'acceptedValue' => array ('TRUE'=>'Required'
                               ,'FALSE'=>'Optional'
                               )
