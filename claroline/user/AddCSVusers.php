@@ -361,7 +361,7 @@ case "stepone" :
 
 case "steptwo" :
     
-    echo "<b>".sizeof($usersToAdd).$langNewUsers; " $langNewUsersIn </b> <br><br>";
+    echo "<b>". sizeof($usersToAdd) . " $langNewUsersIn </b> <br><br>";
 
     foreach ($usersToAdd as $user)
     {
