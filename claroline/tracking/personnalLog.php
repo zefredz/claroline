@@ -57,18 +57,25 @@ if ( $is_trackingEnabled )
 	                                  
 	                                  WHERE cours.code = cours_user.code_cours
 	                                  AND   cours_user.user_id = '".$_uid."'");
-      echo "<ul>";
-      while ( $courseOfUser = mysql_fetch_array($resCourseListOfUser) )
+      if(mysql_num_rows($resCourseListOfUser) > 0)
       {
-          ?>
-            
-                <li><a href="userLog.php?uInfo=<?= $_uid; ?>&cidReset=true&cidReq=<?= $courseOfUser['code']; ?>"><?= $courseOfUser['name'];?></a><br>
-                  <small><?= $courseOfUser['code']; ?> - <?= $courseOfUser['prof']; ?></small> 
-                </li> 
-          <?
-              
+          echo "<ul>";
+          while ( $courseOfUser = mysql_fetch_array($resCourseListOfUser) )
+          {
+              ?>
+                
+                    <li><a href="userLog.php?uInfo=<?= $_uid; ?>&cidReset=true&cidReq=<?= $courseOfUser['code']; ?>"><?= $courseOfUser['name'];?></a><br>
+                      <small><?= $courseOfUser['code']; ?> - <?= $courseOfUser['prof']; ?></small> 
+                    </li> 
+              <?
+                  
+          }
+          echo "</ul>";
       }
-      echo "</ul>";
+      else
+      {
+          echo $langNoRegisteredCourses;
+      }
 }
 else
 {
