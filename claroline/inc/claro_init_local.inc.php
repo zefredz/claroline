@@ -87,7 +87,7 @@
  * 
  * boolean $_groupProperties ['registrationAllowed']
  * boolean $_groupProperties ['private'            ]
- * int     $_groupProperties ['nbCoursPerUser'     ]
+ * int     $_groupProperties ['nbGroupPerUser'     ]
  * boolean $_groupProperties ['tools'] ['forum'    ]
  * boolean $_groupProperties ['tools'] ['document' ]
  * boolean $_groupProperties ['tools'] ['wiki'     ]
@@ -418,7 +418,7 @@ if ($cidReset) // course session data refresh requested
             
             $_groupProperties ['registrationAllowed'] = (bool) ($gpData['self_registration'] == 1);
             $_groupProperties ['private'            ] = (bool) ($gpData['private']           == 1);
-            $_groupProperties ['nbGroupPerUser'     ] = $gpData['nbCoursPerUser'];
+            $_groupProperties ['nbGroupPerUser'     ] = $gpData['nbGroupPerUser'];
             $_groupProperties ['tools'] ['forum'    ] = (bool) ($gpData['forum']             == 1);
             $_groupProperties ['tools'] ['document' ] = (bool) ($gpData['document']          == 1);
             $_groupProperties ['tools'] ['wiki'     ] = (bool) ($gpData['wiki']              == 1);
