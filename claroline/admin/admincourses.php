@@ -109,7 +109,7 @@ if (isset($_SESSION['admin_course_letter']))
 
 if (isset($_SESSION['admin_course_search']))
 {
-    $toAdd = " AND (C.`intitule` LIKE '".$_SESSION['admin_course_search']."%' OR C.`code` LIKE '".$_GET['search']."%')";
+    $toAdd = " AND (C.`intitule` LIKE '".$_SESSION['admin_course_search']."%' OR C.`code` LIKE '".$_SESSION['admin_course_search']."%')";
     $sql.=$toAdd;
 
 }
@@ -146,11 +146,12 @@ if (isset($_SESSION['admin_course_language']))    // language filter is used
 
 if (isset($_SESSION['admin_course_access']))     // type of access to course filter is used
 {
+    $toAdd = "";
     if ($_SESSION['admin_course_access']=="private")
     {
        $toAdd = " AND (C.`visible`=1 OR C.`visible`=0) ";
     }
-    else
+    elseif ($_SESSION['admin_course_access']=="public")
     {
        $toAdd = " AND (C.`visible`=2 OR C.`visible`=3) ";
     }
@@ -161,11 +162,12 @@ if (isset($_SESSION['admin_course_access']))     // type of access to course fil
 
 if (isset($_SESSION['admin_course_subscription']))   // type of subscription allowed is used
 {
+    $toAdd = "";
     if ($_SESSION['admin_course_subscription']=="allowed")
     {
        $toAdd = " AND (C.`visible`=2 OR C.`visible`=0) ";
     }
-    else
+    elseif ($_SESSION['admin_course_subscription']=="denied")
     {
        $toAdd = " AND (C.`visible`=1 OR C.`visible`=3) ";
     }
@@ -212,8 +214,6 @@ $sql.=$toAdd;
 //echo $sql."<br>";
 
 //USE PAGER
-
-
 
 $myPager = new claro_sql_pager($sql, $offsetC, $coursePerPage);
 $myPager->set_pager_call_param_name('offsetC');
@@ -415,4 +415,5 @@ $myPager->disp_pager_tool_bar($PHP_SELF);
 // display footer
 
 include($includePath."/claro_init_footer.inc.php");
+
 ?>

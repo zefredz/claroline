@@ -54,6 +54,11 @@ if ($cidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
             }
             </script>";
 
+// See SESSION variables used for reorder criteria :
+
+if (isset($_GET['dir']))       {$_SESSION['admin_course_user_dir'] = $_GET['dir'];}
+if (isset($_GET['order_crit'])){$_SESSION['admin_course_user_order_crit'] = $_GET['order_crit'];}
+
 // Deal with interbredcrumps
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
@@ -86,7 +91,7 @@ switch ($cmd)
         $dialogBox = "Delete of the user was done sucessfully";
         break;
 
-  case "unsubscribe" :
+  case "unsub" :
         $done = remove_user_from_course($user_id, $cidToEdit);
         if ($done)
         {
@@ -148,15 +153,24 @@ if (isset($_GET['search']))
 
 // deal with REORDER
 
-if (isset($_GET['order_crit']))
+  //first see is direction must be changed
+
+if (isset($chdir) && ($chdir=="yes"))
 {
-    if ($_GET['order_crit']=="user_id")
+  if ($_SESSION['admin_course_user_dir'] == "ASC") {$_SESSION['admin_course_user_dir']="DESC";}
+  elseif ($_SESSION['admin_course_user_dir'] == "DESC") {$_SESSION['admin_course_user_dir']="ASC";}
+  else $_SESSION['admin_course_user_dir'] = "DESC";
+}
+
+if (isset($_SESSION['admin_course_user_order_crit']))
+{
+    if ($_SESSION['admin_course_user_order_crit']=="user_id")
     {
-        $toAdd = " ORDER BY CU.`user_id` ".$_GET['dir'];
+        $toAdd = " ORDER BY CU.`user_id` ".$_SESSION['admin_course_user_dir'];
     }
     else
     {
-        $toAdd = " ORDER BY `".$_GET['order_crit']."` ".$_GET['dir'];
+        $toAdd = " ORDER BY `".$_SESSION['admin_course_user_order_crit']."` ".$_SESSION['admin_course_user_dir'];
     }
     $sql.=$toAdd;
 }
@@ -240,7 +254,7 @@ if (isset($cfrom) && ($cfrom=="clist"))
 
 if (isset($_GET['order_crit']))
 {
-  $addToURL = "&order_crit=".$_GET['order_crit']."&dir=".$_GET['dir'];
+  $addToURL = "&order_crit=".$_GET['order_crit']."&dir=".$dir;
 }
 
 $myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit.$addToURL);
@@ -249,21 +263,12 @@ $myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit.$addToURL);
 
    // start table...
 
-if ($_GET['dir']=="ASC")
-{
-    $dir = 'DESC';
-}
-else
-{
-    $dir = 'ASC';
-}
-
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
 
     <tr class=\"headerX\" align=\"center\" valign=\"top\">
-       <th><a href=\"",$PHP_SELF,"?order_crit=user_id&dir=".$dir."&cidToEdit=".$cidToEdit."\">".$langUserid."</a></th>
-       <th><a href=\"",$PHP_SELF,"?order_crit=nom&dir=".$dir."&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
-       <th><a href=\"",$PHP_SELF,"?order_crit=prenom&dir=".$dir."&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
+       <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes&cidToEdit=".$cidToEdit."\">".$langUserid."</a></th>
+       <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
+       <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes".$dir."&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
 
 //echo  "<th><a href=\"",$PHP_SELF,"?order_crit=username&dir=".$dir."&cidToEdit=".$cidToEdit."\">".$langUsername."</a></th>";
 echo "<th>".$langCourseManager."</th>";
@@ -271,6 +276,7 @@ echo "<th>".$langEditUserCourseSetting."</th>
       <th>".$langUnsubscribe."</th>";
 
 echo "</tr><tbody> ";
+
    // Start the list of users...
 
 foreach($resultList as $list)
@@ -315,7 +321,7 @@ foreach($resultList as $list)
      if (isset($cidToEdit))
      {
         echo  "<td align=\"center\">\n",
-                "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=unsubscribe&user_id=".$list['user_id']."\" ",
+                "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=unsub&user_id=".$list['user_id']."&offset=".$offset."\" ",
                 "onClick=\"return confirmationReg('",addslashes($list['username']),"');\">\n",
                 "<img src=\"../img/unenroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
                 "</a>\n",
