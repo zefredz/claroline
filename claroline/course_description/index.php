@@ -79,11 +79,10 @@ if (count($blocList))
 {
     foreach($blocList as $thisBloc)
     {
-        echo '<div >'
-            .(!empty($thisBloc['title'])?'<h4>'.$thisBloc['title'].'</h4>':'<!-- no title --><br>')."\n"
-            . $thisBloc['content']
-            .'</div>'."\n"
-            ;
+        echo "<h4>".$thisBloc['title']."</h4>\n"
+            ."<blockquote>"
+            . claro_parse_user_text($thisBloc['content'])
+            ."</blockquote>";
     }
 }
 
