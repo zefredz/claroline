@@ -1,9 +1,9 @@
-<?php # $Id$
+<?php // $Id$
 
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -13,7 +13,7 @@
 //---------------------------------------------------------------------- 
 
 /**
- * Cheks a file or a directory actually exist at this location
+ * Checks a file or a directory actually exist at this location
  *
  * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  - filePath (string) - path of the presume existing file or dir
@@ -33,10 +33,9 @@ function check_name_exist($filePath)
  *
  * @author - Hugues Peeters
  * @param  - $filePath (String) - the path of file or directory to delete
- * @return - bolean - true if the delete succeed
- *           bolean - false otherwise.
+ * @return - boolean - true if the delete succeed
+ *           boolean - false otherwise.
  */
-
 
 function claro_delete_file($filePath)
 {
@@ -135,8 +134,8 @@ function claro_rename_file($oldFilePath, $newFilePath)
  * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  - $sourcePath (String) - the path of file or directory to move
  * @param  - $targetPath (String) - the path of the new area
- * @return - bolean - true if the move succeed
- *           bolean - false otherwise.
+ * @return - boolean - true if the move succeed
+ *           boolean - false otherwise.
  */
 
 
@@ -171,7 +170,7 @@ function claro_move_file($sourcePath, $targetPath)
  * @param  - $origDirPath (String) - the path of the directory to move
  * @param  - $destination (String) - the path of the new area
  * @param  - $delete (bool) - move or copy the file
- * @return - no return !!
+ * @return - void no return !!
  */
 
 function claro_copy_file($sourcePath, $targetPath)
@@ -295,8 +294,10 @@ function index_and_sort_dir($path)
 
 
 /**
- * build an html form listing all directories of a given directory
+ * build an html form listing all directories of a given directory and file to move
  *
+ * @param file        string: filename to o move
+ * @param baseWorkDir string: complete path to root directory to prupose as target for move
  */
 
 function form_dir_list($file, $baseWorkDir)
