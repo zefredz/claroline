@@ -45,9 +45,16 @@ if ($is_allowedToEdit)
 	{
         // delete user from course user list
 
-        remove_user_from_course($user_id, $_cid);
-
-	}
+        $done = remove_user_from_course($user_id, $_cid);
+	if ($done)
+        {
+           $dialogBox =$langUserUnsubscribed;
+        }
+        else
+        {
+           $dialogBox =$langUserNotUnsubscribed;
+        }
+   }
 }	// end if allowed to edit
 
 $sqlNbUser = "SELECT count(user.user_id) nb_users
@@ -73,6 +80,15 @@ if ( ! $is_courseAllowed)
 include($includePath."/lib/events.lib.inc.php");
 event_access_tool($nameTools);
 claro_disp_tool_title($nameTools." (".$langUserNumber." : ".$userTotalNb.")");
+
+// Display Forms or dialog box(if needed)
+
+if($dialogBox)
+  {
+    claro_disp_message_box($dialogBox);
+  }
+
+
 if ($is_allowedToEdit)
 {
 ?>
