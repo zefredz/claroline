@@ -22,10 +22,10 @@ $tlabelReq = "CLUSR___";
 require '../inc/claro_init_global.inc.php';
 @include($includePath."/lib/debug.lib.inc.php");
 
-if (! ($is_courseAdmin || $is_platformAdmin)) die ("not allowed");
+if (! ($is_courseAdmin || $is_platformAdmin)) claro_disp_auth_form();
+
 
 $nameTools        = $langAddAU;
-
 $interbredcrump[] = array ("url"=>"user.php", "name"=> $langUsers);
 include("../inc/claro_init_header.inc.php");
 

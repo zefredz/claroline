@@ -22,7 +22,9 @@
   $langFile = "learnPath";
   
   require '../../inc/claro_init_global.inc.php';
+  if (! $is_courseAllowed) claro_disp_auth_form();
 
+  
   // Tables names
 /*
  * DB tables definition
@@ -62,8 +64,6 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 <body>
 
 <?php
-
-  if (! $is_courseAllowed) die ("<center>Not allowed !</center>");
   
   if($lpUid)
    {

@@ -12,11 +12,10 @@ $langFile = 'chat';
 
 require '../inc/claro_init_global.inc.php';
 
+if (! $is_courseAllowed) claro_disp_auth_form();
+
 require $includePath.'/lib/text.lib.php';
 
-
-if (! $is_courseAllowed) die ("<center>-not allowed----</center>");
- 
 /*============================================================================
                                 CONNECTION BLOC
   ============================================================================*/

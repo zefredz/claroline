@@ -15,34 +15,19 @@
 $langFile='course_info';
 
 require '../inc/claro_init_global.inc.php';
+$isAllowedToRestore=$is_allowedCreateCourse;
+if(!$isAllowedToRestore) claro_disp_auth_form();
 
 if(extension_loaded('zlib'))
 {
 	include($includePath.'/lib/pclzip/pclzip.lib.php');
 }
-
 @include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
 $TBL_COURS='cours';
 $TBL_COURS_USER='cours_user';
 
-$isAllowedToRestore=$is_allowedCreateCourse;
-
 $archivePath=$rootSys.$archiveDirName.'/';
-
-
-
-// Testing !! ThDP
-if(!($is_platformAdmin))
-{
-	echo "You are not allowed here";
-}
-
-else {
-
-
-
-
 
 if($submitForm && $isAllowedToRestore) // if the form has been sent and if the user is allowed to restore a course
 {
@@ -182,12 +167,7 @@ $interbredcrump[]=array("url" => "../create_course/add_course.php","name" => $la
 <tr>
   <td>
 
-<?php
-if($isAllowedToRestore)  // if allowed to restore
-{
-?>
-
-	<?php echo $langRestoreDescription; ?><br><br>
+<?php echo $langRestoreDescription; ?><br><br>
 
 	<b><?php echo $langNotice; ?> :</b> <?php echo $langRestoreNotice; ?><br><br>
 
@@ -242,29 +222,12 @@ if($isAllowedToRestore)  // if allowed to restore
 
 	</form>
 
-<?php
-}
-else  // if not allowed to restore
-{
-	echo $langNotAllowed;
-}
-
-
-
-
-?>
-
   </td>
 </tr>
 </table>
 
 <?php
 include($includePath."/claro_init_footer.inc.php");
-
-
-
-}	// Not platformAdmin
-
 
 /**
  * removes a directory recursively

@@ -27,6 +27,8 @@
 $langFile='course_info';
 
 require '../inc/claro_init_global.inc.php';
+$isAllowedToBackUp=$is_courseAdmin;
+if (! $isAllowedToBackUp) claro_disp_auth_form();
 
 if(extension_loaded('zlib'))
 {
@@ -36,7 +38,6 @@ if(extension_loaded('zlib'))
 @include($includePath."/lib/debug.lib.inc.php");
 
 
-$isAllowedToBackUp=$is_courseAdmin;
 
 $currentCourseId		= $_course["sysCode"];
 $currentCourseDbName 	= $_course["dbName"];

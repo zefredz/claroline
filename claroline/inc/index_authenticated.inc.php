@@ -12,7 +12,7 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-if ( ! isset($_uid) ) die ('not allowed');
+if ( ! isset($_uid) ) claro_disp_auth_form();
 
 $sql = "SELECT course.code           `sysCode`, 
                course.directory      `directory`, 

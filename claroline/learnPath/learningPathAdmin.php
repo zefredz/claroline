@@ -82,6 +82,9 @@
   //header
   include($includePath."/claro_init_header.inc.php");
 
+  $is_AllowedToEdit = $is_courseAdmin;
+  if (!$is_AllowedToEdit) claro_disp_auth_form();
+  
   //lib of document tool
   include($includePath."/lib/fileDisplay.lib.php");
 
@@ -105,10 +108,6 @@
   claro_disp_tool_title($nameTools);
   
   // main page
-
-   if (!$is_courseAdmin) die ("<center>Not allowed !</center>");
-
-   $is_AllowedToEdit = $is_courseAdmin;
 
    //####################################################################################\\
    //################################# COMMANDES ########################################\\
