@@ -1307,7 +1307,7 @@ function claro_parse_user_text($userText)
 {
    global $claro_texRendererUrl; // see 'inc/conf/claro_main.conf.php'
 
-   if ($claro_texRendererUrl) 
+   if ( !$empty($claro_texRendererUrl) ) 
    {
        $userText = str_replace('[tex]',
                           '<img src="'.$claro_texRendererUrl.'?',
