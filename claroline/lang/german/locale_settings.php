@@ -22,7 +22,6 @@ $dateFormatLong  = "%A %d. %B %Y ";
 $dateFormatShort =  "%d. %b %y";
 $dateTimeFormatLong  = "%d. %B %Y um %H:%M";
 $englishLangName = "german";
-$iso639_2_code = "ge";
 $langDay_of_weekNames['init'] = array('S', 'M', 'D', 'M', 'D', 'F', 'S');
 $langDay_of_weekNames['long'] = array('Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag');
 $langDay_of_weekNames['short'] = array('So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa');
