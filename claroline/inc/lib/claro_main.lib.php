@@ -286,7 +286,7 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
 
 function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
 {
-    $result = claro_sql_query($sqlQuery, $dbHandler = '#');
+    $result = claro_sql_query($sqlQuery, $dbHandler);
 
     if($result)
     {
@@ -771,7 +771,7 @@ function claro_disp_auth_form()
                 .'<label for="username">'.$langUserName.' : </label><br>'."\n"
                 .'<input type="text" name="login" id="username"><br>'."\n"
                 
-                .'<label for="password">".$langPassword." : </labeL><br>'."\n"
+                .'<label for="password">'.$langPassword.' : </label><br>'."\n"
                 .'<input type="password" name="password" id="password"><br>'."\n"
                 .'<input type="submit" >'."\n"
                 
@@ -789,12 +789,13 @@ function claro_disp_auth_form()
              
             if ( $allowSelfReg || !isset($allowSelfReg) ) 
             {
-                echo "<p>\n"
-                    .$lang_if_you_dont_have_a_user_account_profile_on." ".$siteName
-                    ."<a href=\"".$clarolineRepositoryWeb."auth/inscription.php\">"
+                echo '<p>'."\n"
+                    .$lang_if_you_dont_have_a_user_account_profile_on.' '.$siteName
+                    .'<a href="'.$clarolineRepositoryWeb.'auth/inscription.php">'
                     .$lang_click_here
-                    ."</a>\n"
-                    ."</p>\n";
+                    .'</a>'."\n"
+                    .'</p>'."\n"
+                    ;
             }
         } // end if ! $uid && ! $course['visibility']
         
@@ -808,17 +809,18 @@ function claro_disp_auth_form()
         {
             // if  I'm logged but have no access
             // this course is close, right, but the subscribe to this course ?
-                echo "<p>\n"
+                echo '<p>'."\n"
                     .$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course.'<br>'
                     .$lang_if_you_wish_to_enroll_to_this_course
-                    ."<a href=\"".$clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&keyword=".$_course['officialCode']."\" >"
+                    .'<a href="'.$clarolineRepositoryWeb.'auth/courses.php?cmd=rqReg&amp;keyword='.$_course['officialCode'].'" >'
                     .$langReg
-                    ."</a>\n"
-                    ."</p>\n";
+                    .'</a>'."\n"
+                    .'</p>'."\n"
+                    ;
                     
         } // elseif$_uid && $_course['registrationAllowed']
         
-        include($includePath."/claro_init_footer.inc.php");
+        include($includePath.'/claro_init_footer.inc.php');
         
         die('');
     }
@@ -899,7 +901,7 @@ function claro_disp_select_course()
     !!!!! BETA !!!!! this  a test.    That's    work but is    that pertinent ????
 
     @param $idTools
-    @author    Christophe Gesché <moosh@phpFrance.com>
+    @author    Christophe Gesché <moosh@claroline.net>
     @version 0.1
 */
 
