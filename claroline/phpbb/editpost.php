@@ -127,7 +127,7 @@ if($is_courseAdmin)
 </tr>
 <?php
 
-		$first_post = is_first_post($topic, $post_id, $db);
+		$first_post = is_first_post($topic, $post_id);
 
 		if($first_post)
 		{

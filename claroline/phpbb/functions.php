@@ -343,7 +343,7 @@ function undo_htmlspecialchars($input)
  * Check if this is the first post in a topic. Used in editpost.php
  */
 
-function is_first_post($topic_id, $post_id, $db)
+function is_first_post($topic_id, $post_id)
 {
 	global $tbl_posts;
 
