@@ -280,62 +280,69 @@ else
 
     if($_REQUEST['cmd'] == 'exDelete')
     {
-        // Search information of the category
-        $sql_SearchDelete= " SELECT treePos,code,code_P,nb_childs 
-                             FROM `". $tbl_course_node . "` 
-                             WHERE id='".$_REQUEST["id"]."'";
 
-        $res_treePosDelete=claro_sql_query_fetch_all($sql_SearchDelete);
-        $treePosDelete=$res_treePosDelete[0];
+        // Search information about category
+        $sql_SearchDelete = " SELECT code, code_P, treePos, nb_childs
+                 FROM `". $tbl_course_node . "`
+                 WHERE id='".$_REQUEST['id']."'";
+        $res_SearchDelete = claro_sql_query_fetch_all($sql_SearchDelete);
 
-        if($res_treePosDelete==FALSE)
-            $treePosDelete=NULL;
-
-        if(!is_null($treePosDelete))
+        if ($res_SearchDelete != FALSE)
         {
-            
 	        // we delete if we do not encounter any problem...default is that there is no problem, then we check
 	        $delok = TRUE;
+
+            $code_parent  = $res_SearchDelete[0]['code_P'];
+            $code_cat     = $res_SearchDelete[0]['code'];
+            $nb_childs    = $res_SearchDelete[0]['nb_childs'];
+            $treePos      = $res_SearchDelete[0]['treePos'];
 	    
 	        // Look if there isn't any subcategory in this category first	    
-    	    $sql_SearchCats= " SELECT code FROM `" . $tbl_course_node . "` 
-                               WHERE code_P='".$treePosDelete["code"]."'";
-            $res_SearchCats=claro_sql_query_fetch_all($sql_SearchCats);
-	    
-	        if(isset($res_SearchCats[0]["code"])) 
+	        if($nb_childs > 0) 
 	        {
 	    	    $controlMsg['error'][]=$lang_faculty_CatHaveCat;
-        		$delok = false;
+        		$delok = FALSE;
 	        }
 	    
 	        // Look if they aren't courses in this category
             $sql_SearchCourses= "SELECT count(cours_id) num 
                                  FROM `" . $tbl_course . "` 
-                                 WHERE faculte='".$treePosDelete["code"]."'";
+                                 WHERE faculte='".$code_cat."'";
             $res_SearchCourses= claro_sql_query_fetch_all($sql_SearchCourses);
 
-            if($treePosDelete[0]["nb_childs"]>0 || $res_SearchCourses[0]["num"]>0)
+            if ($res_SearchCourses[0]["num"]>0) 
             {
-                if($treePosDelete["nb_childs"]>0)
-                    $controlMsg['error'][]=$lang_faculty_CatHaveCat;
-
-                if($res_SearchCourses[0]["num"]>0)
-                    $controlMsg['error'][]=$lang_faculty_CatHaveCourses;
-            	
-                $delok = false;
+                $controlMsg['error'][]=$lang_faculty_CatHaveCourses;
+        		$delok = FALSE;
             }
             
-            if ($delok==true) 
+            if ($delok==TRUE) 
             {
                 // Delete the category
                 $sql_Delete= " DELETE FROM `" . $tbl_course_node . "` 
                                WHERE id='".$_REQUEST["id"]."'";
                 claro_sql_query($sql_Delete);
+
+                // Update nb_child of the parent
+                if ($code_parent != NULL)
+                {
+                    $sql_update = " UPDATE `" . $tbl_course_node . "` 
+                                    SET nb_childs = nb_childs - 1
+                                    WHERE code ='". $code_parent ."'";
+                    claro_sql_query($sql_update);
+                }
+                
+                // Update treePos of next categories
+                $sql_update = " UPDATE `" . $tbl_course_node . "` 
+                                SET treePos = treePos - 1
+                                WHERE treePos > '". $treePos ."'";
+                claro_sql_query($sql_update);
                
                 //Confirm deleting
                 $controlMsg['info'][]=$lang_faculty_DeleteOk;
             }
         }
+
     }
     
     /**
