@@ -86,7 +86,9 @@ function searchCoursesGroup($user1,$user2)
 
 function claro_user_info_create_cat_def($title="", $comment="", $nbline="5")
 {
-	global $TBL_USERINFO_DEF;
+	
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $TBL_USERINFO_DEF     = $tbl_cdb_names['userinfo_def'    ];
 
 	if ( 0 == (int) $nbline || empty($title))
 	{
@@ -129,7 +131,8 @@ function claro_user_info_create_cat_def($title="", $comment="", $nbline="5")
 
 function claro_user_info_edit_cat_def($id, $title, $comment, $nbline)
 {
-	global $TBL_USERINFO_DEF;
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $TBL_USERINFO_DEF     = $tbl_cdb_names['userinfo_def'    ];
 
 	if ( 0 == (int) $nbline || 0 == (int) $id )
 	{
@@ -166,7 +169,9 @@ function claro_user_info_edit_cat_def($id, $title, $comment, $nbline)
 
 function claro_user_info_remove_cat_def($id, $force = false)
 {
-	global $TBL_USERINFO_CONTENT, $TBL_USERINFO_DEF;
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+	$TBL_USERINFO_CONTENT = $tbl_cdb_names['userinfo_content'];
+    $TBL_USERINFO_DEF     = $tbl_cdb_names['userinfo_def'    ];
 
 	if ( (0 == (int) $id || $id == "ALL") || ! is_bool($force))
 	{
@@ -209,9 +214,10 @@ function claro_user_info_remove_cat_def($id, $force = false)
 
 function claro_user_info_move_cat_rank($id, $direction) // up & down.
 {
-	global $TBL_USERINFO_DEF;
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $TBL_USERINFO_DEF     = $tbl_cdb_names['userinfo_def'];
 
-	if ( 0 == (int) $id || ! ($direction == "up" || $direction == "down") )
+    if ( 0 == (int) $id || ! ($direction == "up" || $direction == "down") )
 	{
 		return false;
 	}
@@ -245,7 +251,8 @@ function claro_user_info_move_cat_rank($id, $direction) // up & down.
 
 function claro_user_info_move_cat_rank_by_rank($rank, $direction) // up & down.
 {
-	global $TBL_USERINFO_DEF;
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $TBL_USERINFO_DEF     = $tbl_cdb_names['userinfo_def'    ];
 
 	if ( 0 == (int) $rank || ! ($direction == "up" || $direction == "down") )
 	{
@@ -445,7 +452,9 @@ function claro_user_info_cleanout_cat_content($user_id, $def_id)
 
 function claro_user_info_get_course_user_info($user_id)
 {
-	global $TBL_USERINFO_CONTENT, $TBL_USERINFO_DEF;
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+	$TBL_USERINFO_CONTENT = $tbl_cdb_names['userinfo_content'];
+    $TBL_USERINFO_DEF     = $tbl_cdb_names['userinfo_def'    ];
 
 	$sql = "SELECT	cat.id catId,	cat.title,
 					cat.comment ,	content.content
@@ -524,7 +533,9 @@ function claro_user_info_get_main_user_info($user_id, $courseCode)
 
 function claro_user_info_get_cat_content($userId, $catId)
 {
-	global $TBL_USERINFO_CONTENT, $TBL_USERINFO_DEF;
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+	$TBL_USERINFO_CONTENT = $tbl_cdb_names['userinfo_content'];
+    $TBL_USERINFO_DEF     = $tbl_cdb_names['userinfo_def'    ];
 
 	$sql = "SELECT	cat.id catId,	cat.title,
 					cat.comment ,	cat.nbline,
@@ -558,7 +569,8 @@ function claro_user_info_get_cat_content($userId, $catId)
 
 function claro_user_info_get_cat_def($catId)
 {
-	global $TBL_USERINFO_DEF;
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $TBL_USERINFO_DEF     = $tbl_cdb_names['userinfo_def'    ];
 
 	$sql = "SELECT id, title, comment, nbline, rank FROM `".$TBL_USERINFO_DEF."` WHERE id = '$catId'";
 
@@ -587,9 +599,10 @@ function claro_user_info_get_cat_def($catId)
 
 function claro_user_info_claro_user_info_get_cat_def_list()
 {
-	global $TBL_USERINFO_DEF;
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $TBL_USERINFO_DEF     = $tbl_cdb_names['userinfo_def'    ];
 
-	$sql = "SELECT	id catId,	title,	comment , nbline
+    $sql = "SELECT	id catId,	title,	comment , nbline
 			FROM  `".$TBL_USERINFO_DEF."`
 			ORDER BY rank";
 
