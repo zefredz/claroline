@@ -28,6 +28,7 @@ $tbl_wrk_assignment   = $tbl_cdb_names['wrk_assignment'   ];
 $tbl_wrk_submission   = $tbl_cdb_names['wrk_submission'   ];    
 
 $tbl_group_team       = $tbl_cdb_names['group_team'       ];
+$tbl_group_rel_team_user  = $tbl_cdb_names['group_rel_team_user'];
 
 
 $currentUserFirstName       = $_user['firstName'];
@@ -109,12 +110,25 @@ if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
       // we need to know the settings of the work asked to 
       //  - know if the user has the right to edit
       //  - prefill the form in edit mode
-      $sql = "SELECT *, 
+      if( $assignment['assignment_type'] == 'GROUP')
+      {
+            $sql = "SELECT `ws`.*, 
+                  UNIX_TIMESTAMP(`ws`.`creation_date`) AS `unix_creation_date`,
+                  UNIX_TIMESTAMP(`ws`.`last_edit_date`) AS `unix_last_edit_date`,
+                  `gt`.`name`
+                  FROM `".$tbl_wrk_submission."` AS ws
+                  LEFT JOIN `$tbl_group_team` AS gt
+                        ON `ws`.`group_id`  = `gt`.`id`
+                  WHERE `ws`.`id` = ".$_REQUEST['wrkId'];
+      }
+      else
+      {
+            $sql = "SELECT *, 
                   UNIX_TIMESTAMP(`creation_date`) AS `unix_creation_date`,
                   UNIX_TIMESTAMP(`last_edit_date`) AS `unix_last_edit_date`                  
                   FROM `".$tbl_wrk_submission."`
                   WHERE `id` = ".$_REQUEST['wrkId'];
-
+      }
       list($wrk) = claro_sql_query_fetch_all($sql);
 }
 
@@ -124,6 +138,27 @@ if( isset($cmd) && $cmd != 'rqSubWrk' && $cmd != 'exSubWrk' && is_null($wrk))
 {
       // unset cmd so that it will display the list of submissions
       unset($cmd);
+}
+
+  /*--------------------------------------------------------------------
+                        USER GROUP INFORMATIONS
+  --------------------------------------------------------------------*/
+// if this is a group assignement we will some group infos about the user
+if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
+{
+      // get the list of group the user is in
+      $sql = "SELECT `tu`.`team`, `t`.`name`
+                FROM `".$tbl_group_rel_team_user."` as `tu`, `$tbl_group_team` as `t`
+               WHERE `tu`.`user` = ".$_uid."
+                 AND `tu`.`team` = `t`.`id`";
+      $result = claro_sql_query($sql);
+      $i = 0;
+      while( $row = mysql_fetch_array($result) )
+      {
+            $userGroupList[$i]['id'] = $row['team'];
+            $userGroupList[$i]['name'] = $row['name'];
+            $i++;
+      }
 }
   /*--------------------------------------------------------------------
                         ASSIGNMENT CONTENT
@@ -190,21 +225,80 @@ $is_allowedToEditAll  = (bool) $is_courseAdmin;
 
 //-- is_allowedToEdit
 // upload or update is allowed between start and end date or after end date if late upload is allowed
-$uploadDateIsOk = (bool) $afterStartDate 
-                              && ( time() < $assignment['unix_end_date'] || $assignment['allow_late_upload'] == "YES" );
+$uploadDateIsOk = (bool) ( $afterStartDate 
+                              && ( time() < $assignment['unix_end_date'] || $assignment['allow_late_upload'] == "YES" ) );
                               
-// a work is set, user is authed and the work is his work
-$userCanEdit = (bool) ( isset($wrk) && isset($_uid) && $wrk['user_id'] == $_uid );
+if( isset($wrk) && isset($_uid) )
+{
+      if( $assignment['assignment_type'] == 'GROUP' && isset($_gid) )
+      {
+            // if user accessed the tool via the group tool this gid is set
+            if( empty($wrk['group_id']) )
+            {
+                  // if the work is not linked to a group only the 'user_id' user will 
+                  // be able to modify the work
+                  $userCanEdit = false;
+            }
+            else
+            {
+                  $userCanEdit = (bool) ($wrk['group_id'] == $_gid) ;
+            }
+      }
+      elseif( $assignment['assignment_type'] == 'GROUP' )
+      {
+            // if the user accessed
+            // check if user is in the group that owns the work
+            $groupFound = false;  
+            if( isset($userGroupList) )
+            {
+                  foreach( $userGroupList as $group )
+                  {
+                        if( $group['id'] == $wrk['group_id'] )
+                        {
+                              $groupFound = true;
+                              $wrkForm['wrkGroup'] = $_REQUEST['wrkGroup'];
+                        }
+                  }
+            }
+            $userCanEdit = ( isset($userGroupList) && $groupFound );
+      }
+      elseif( $assignment['assignment_type'] == 'INDIVIDUAL' )
+      {
+            // a work is set, assignment is individual, user is authed and the work is his wor
+            $userCanEdit = (bool) ($wrk['user_id'] == $_uid);
+      }
+}
+else
+{
+      // user not authed or not work to edit : cannot edit
+      $userCanEdit = false;
+}
 
-$is_allowedToEdit = (bool)    ( $assignmentIsVisible && $uploadDateIsOk && $userCanEdit )
-                              || $is_allowedToEditAll;
-
+$is_allowedToEdit = (bool)  (  ( $assignmentIsVisible && $uploadDateIsOk && $userCanEdit )
+                              || $is_allowedToEditAll );
 
 //-- is_allowedToSubmit
 
-// user is anonyme , anonymous users can post and user is course allowed or user is authed and allowed
-$userCanPost = (bool) ( !isset($_uid) && $anonCanPost && $is_courseAllowed ) 
-                  || ( isset($_uid) && $is_courseAllowed );
+
+if( $assignment['assignment_type'] == 'INDIVIDUAL' )
+{
+      // user is anonyme , anonymous users can post and user is course allowed or user is authed and allowed
+      $userCanPost = (bool) ( !isset($_uid) && $anonCanPost && $is_courseAllowed ) 
+                        || ( isset($_uid) && $is_courseAllowed );
+}
+else
+{
+      if( count($userGroupList) <= 0 )
+      {
+            // user is not member of any group
+            $userCanPost = false;
+      }
+      else
+      {
+            // user is member of
+            $userCanPost = true;
+      }
+}
 
 $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost )
                                     || $is_allowedToEdit
@@ -315,6 +409,26 @@ if( isset($_REQUEST['submitWrk']) )
                   $wrkForm['wrkScore'] = $_REQUEST['wrkScore'];
             }
             
+      }
+      // check if a group id has been set if this is a group work type
+      if( isset($_REQUEST['wrkGroup']) && $assignment['assignment_type'] == "GROUP" )
+      {
+            $groupFound = false;
+            // check that the group id is one of the student
+            foreach( $userGroupList as $group )
+            {
+                  if( $group['id'] == $_REQUEST['wrkGroup'] )
+                  {
+                        $groupFound = true;
+                        $wrkForm['wrkGroup'] = $_REQUEST['wrkGroup'];
+                  }
+            }
+            
+            if( !$groupFound ) 
+            {
+                  $dialogBox .= "lang You are not a member of requested group";
+                  $formCorrectlySent = false;
+            }
       }
       
       // no need to check and/or upload the file if there is already an error
@@ -567,12 +681,23 @@ if( $is_allowedToEdit )
             {
                   $sqlScore = "";
             }
+            // for groups works
+            if( $assignment['assignment_type'] == 'GROUP' && isset($wrkForm['wrkGroup']) )
+            {
+                  $groupString .= "`group_id` = ".$wrkForm['wrkGroup'].",";
+            }
+            else
+            {
+                  $groupString = "";
+            }
+            
             $sqlEditWork = "UPDATE `".$tbl_wrk_submission."`
                            SET `submitted_doc_path` = \"".$wrkForm['fileName']."\",
                               `title`       = \"".trim(claro_addslashes( $wrkForm['title'] ))."\",
                               `submitted_text` = \"".$submittedText."\",
                               `authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\","
                               .$sqlScore
+                              .$groupString
                               ."`last_edit_date` = NOW()
                               WHERE `id` = ".$_REQUEST['wrkId'];
 
@@ -601,6 +726,7 @@ if( $is_allowedToEdit )
             // prefill some fields of the form
             $form['wrkTitle'] = $wrk['title'];
             $form['wrkAuthors'] = $wrk['authors'];
+            $form['wrkGroup'] = $wrk['group_id'];
             $form['wrkTxt'] = $wrk['submitted_text'];
             $form['wrkUrl'] = $wrk['submitted_doc_path'];
             $form['wrkScore'] = $wrk['score'];
@@ -610,6 +736,7 @@ if( $is_allowedToEdit )
             // there was an error in the form so display it with already modified values
             $form['wrkTitle'] = $_REQUEST['wrkTitle'];
             $form['wrkAuthors'] = $_REQUEST['wrkAuthors'];
+            $form['wrkGroup'] = $_REQUEST['wrkGroup'];
             $form['wrkTxt'] = $_REQUEST['wrkTxt'];
             $form['wrkScore'] = $_REQUEST['wrkScore'];
       }
@@ -641,27 +768,34 @@ if( $is_allowedToSubmit )
   {
       if( isset($formCorrectlySent) && $formCorrectlySent )
       {      
+            $userString = "";
             // check if user id is set
             if( isset($_uid) )
             {
-                  $uidString = "`user_id`= ".$_uid.",";
+                  // add group attribute only if a uid is set, anonymous cannot post for groups
+                  if( $assignment['assignment_type'] == 'GROUP' && isset($wrkForm['wrkGroup']) )
+                  {
+                        $userString .= "`group_id` = ".$wrkForm['wrkGroup'].",";
+                  }
+                  $userString .= "`user_id` = ".$_uid.",";
             }
             else
             {
-                  $uidString = "";
+                  $userString .= "";
             }
+            
             
             $sqlAddWork = "INSERT INTO `".$tbl_wrk_submission."`
                            SET `submitted_doc_path` = \"".$wrkForm['fileName']."\",
                               `assignment_id` = ".$_REQUEST['assigId'].","
-                              .$uidString
+                              .$userString
                               ."`visibility` = \"".$assignment['def_submission_visibility']."\",
                               `title`       = \"".trim(claro_addslashes( $wrkForm['title'] ))."\",
                               `submitted_text` = \"".trim(claro_addslashes( $_REQUEST['wrkTxt'] ))."\",
                               `authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\",
                               `creation_date` = NOW(),
                               `last_edit_date` = NOW()";
-            
+
             claro_sql_query($sqlAddWork);
                         
             $dialogBox .= $langWrkAdded;
@@ -692,6 +826,7 @@ if( $is_allowedToSubmit )
             // there was an error in the form so display it with already modified values
             $form['wrkTitle'] = $_REQUEST['wrkTitle'];
             $form['wrkAuthors'] = $_REQUEST['wrkAuthors'];
+            $form['wrkGroup'] = $_REQUEST['wrkGroup'];
             $form['wrkTxt'] = $_REQUEST['wrkTxt'];
       }
     
@@ -806,9 +941,9 @@ if( isset($dispWrkLst) && $dispWrkLst )
       //      OR  feedback must be shown directly after a post (from the time a work was uploaded by the student)
       
       // there is a prefill_ file or text, so there is something to show
-      $textOrFilePresent = (boolean) !empty($assignment['prefill_text']) || !empty($assignment['prefill_doc_path']);
+      $textOrFilePresent = (bool) !empty($assignment['prefill_text']) || !empty($assignment['prefill_doc_path']);
       // feedback must be shown after end date and end date is past
-      $showAfterEndDate = (boolean) ($assignment['prefill_submit'] == "ENDDATE" && $assignment['unix_end_date'] < time());
+      $showAfterEndDate = (bool) ($assignment['prefill_submit'] == "ENDDATE" && $assignment['unix_end_date'] < time());
 
       // feedback must be shown directly after a post
       // check if user has already posted a work
@@ -825,7 +960,7 @@ if( isset($dispWrkLst) && $dispWrkLst )
                         AND `assignment_id` = ".$_REQUEST['assigId'];
             $nbrWorksOfUser = claro_sql_query_get_single_value($sql);
             
-            $showAfterPost = (boolean) ( $assignment['prefill_submit'] == "AFTERPOST" && $nbrWorksOfUser >= 1 );
+            $showAfterPost = (bool) ( $assignment['prefill_submit'] == "AFTERPOST" && $nbrWorksOfUser >= 1 );
       }
       
       // show to authenticated and anonymous users
@@ -913,17 +1048,17 @@ if( $dispWrkDet && $is_allowedToView )
                   // the work can be edited 
                   echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">"
                         ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a>";
-            }
-            
-            if( !empty($gradeId) )
-            {
-                  // if there is already a correction display the link to show it
-                  echo "&nbsp;<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowFeedback."</a>";
-            }
-            elseif( $is_allowedToEditAll )
-            {
-                  // if there is no correction yet show the link to add a correction if user is course admin
-                  echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">".$langAddFeedback."</a>";
+             
+                  if( !empty($gradeId) )
+                  {
+                        // if there is already a correction display the link to show it
+                        echo "&nbsp;<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowFeedback."</a>";
+                  }
+                  elseif( $is_allowedToEditAll )
+                  {
+                        // if there is no correction yet show the link to add a correction if user is course admin
+                        echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">".$langAddFeedback."</a>";
+                  }
             }
       }
       
@@ -951,7 +1086,16 @@ if( $dispWrkDet && $is_allowedToView )
             ."<td valign=\"top\">".$langWrkAuthors."&nbsp;:</td>\n"
             ."<td>".$wrk['authors']." ( ".$langSubmittedBy." ".$userToDisplay." )</td>\n"
             ."</tr>\n\n";
-            
+      
+      if( $assignment['assignment_type'] == 'GROUP' && empty($thisWrk['parent_id']) )
+      { 
+            // display group if this is a group assignment and if this is not a correction
+            echo "<tr>\n"
+                  ."<td valign=\"top\">".$langGroup."&nbsp;:</td>\n"
+                  ."<td>".$wrk['name']."</td>\n"
+                  ."</tr>\n\n";
+      }
+      
       if( $assignmentContent != "TEXT" )
       {
             if( !empty($wrk['submitted_doc_path']) )
@@ -1010,6 +1154,7 @@ if( $dispWrkDet && $is_allowedToView )
             ."&nbsp;".$lateUploadAlert
             ."</td>\n"
             ."</tr>\n\n";
+            
       if( $wrk['unix_creation_date'] != $wrk['unix_last_edit_date'] )
       {
             // display an alert if work was submitted after end date and work is not a correction !
@@ -1065,6 +1210,28 @@ if( $is_allowedToSubmit )
                   ."<td><input type=\"text\" name=\"wrkAuthors\" id=\"wrkAuthors\" size=\"50\" maxlength=\"200\" value=\"".htmlentities($form['wrkAuthors'])."\"></td>\n"
                   ."</tr>\n\n";
 
+            // display the list of groups of the user
+            if( $assignment['assignment_type'] == "GROUP" && count($userGroupList) > 0 )
+            {
+                  echo "<tr>\n"
+                        ."<td valign=\"top\"><label for=\"wrkGroup\">".$langGroup."&nbsp;*&nbsp;:</label></td>\n"
+                        ."<td>\n<select name=\"wrkGroup\" id=\"wrkGroup\">\n";
+                  
+                  foreach( $userGroupList as $group )
+                  {
+                        echo "<option value=\"".$group['id']."\"";
+                        if( isset($form['wrkGroup']) && $form['wrkGroup'] == $group['id'] )
+                        {
+                              echo "selected=\"selected\"";
+                        }
+                        echo ">".$group['name']."</option>\n";
+                        
+                  }
+                  echo "</select>\n"
+                        ."</td>\n"
+                        ."</tr>\n\n";
+            }
+            
             // display file box
             if( $assignmentContent == "FILE" || $assignmentContent == "TEXTFILE" )
             {
@@ -1216,40 +1383,102 @@ if( $dispWrkLst && $is_allowedToView )
       --------------------------------------------------------------------*/
     if( $is_allowedToEditAll ) // courseAdmin
     {    
-      $sql = "SELECT `id`, `title`, 
-                  `parent_id`, `user_id`,
-                  `visibility`, `authors`, 
-                  UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
-            FROM `".$tbl_wrk_submission."`
-            WHERE `assignment_id` = ".$assignment['id']."
-            ORDER BY `last_edit_date` ASC";
+      if( $assignment['assignment_type'] == 'GROUP')
+      {
+            $sql = "SELECT `ws`.`id`, `ws`.`title`, 
+                        `ws`.`parent_id`, `ws`.`user_id`, `ws`.`group_id`,
+                        `ws`.`visibility`, `ws`.`authors`, 
+                        UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`,
+                        `gt`.`name` AS `group_name`
+                  FROM `".$tbl_wrk_submission."` AS `ws`
+                  LEFT JOIN `".$tbl_group_team."` AS `gt` 
+                        ON `gt`.`id` = `ws`.`group_id`
+                  WHERE `assignment_id` = ".$assignment['id']."
+                  ORDER BY `last_edit_date` ASC";
+      }
+      else // INDIVIDUAL 
+      {
+            $sql = "SELECT `id`, `title`, 
+                        `parent_id`, `user_id`, `group_id`,
+                        `visibility`, `authors`, 
+                        UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
+                  FROM `".$tbl_wrk_submission."`
+                  WHERE `assignment_id` = ".$assignment['id']."
+                  ORDER BY `last_edit_date` ASC";
+      }
+      
     }
     elseif( isset($_uid) ) // course member
     {
-      // show all my works and all their visible corrections
-       $sql = "SELECT `id`, `title`, 
-                  `parent_id`, `user_id`,
-                  `visibility`, `authors`, 
-                  UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
-            FROM `".$tbl_wrk_submission."`
-            WHERE `assignment_id` = ".$assignment['id']."
-              AND (`visibility` = 'VISIBLE' OR `user_id` = ".$_uid.")
-            ORDER BY `last_edit_date` ASC";  
+      if( $assignment['assignment_type'] == 'GROUP')
+      {
+            // only select the group in which the user is
+            $selectUserGroups = "";
+            if( isset($userGroupList) )
+            {
+                  foreach( $userGroupList as $userGroup ) 
+                  {
+                        $selectUserGroups .= " OR `ws`.`group_id` = ".$userGroup['id'];
+                  }
+            }
+            $sql = "SELECT `ws`.`id`, `ws`.`title`, 
+                        `ws`.`parent_id`, `ws`.`user_id`, `ws`.`group_id`,
+                        `ws`.`visibility`, `ws`.`authors`, 
+                        UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`,
+                        `gt`.`name` AS `group_name`
+                  FROM `".$tbl_wrk_submission."` AS `ws` 
+                  LEFT JOIN `".$tbl_group_team."` AS `gt`
+                        ON `gt`.`id` = `ws`.`group_id`                 
+                  WHERE `assignment_id` = ".$assignment['id']."
+                    AND ( `visibility` = 'VISIBLE' "
+                    .$selectUserGroups
+                  .") ORDER BY `last_edit_date` ASC";  
+      }
+      else // INDIVIDUAL 
+      {
+            // show all my works and all their visible corrections
+            $sql = "SELECT `id`, `title`, 
+                        `parent_id`, `user_id`, `group_id`,
+                        `visibility`, `authors`, 
+                        UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
+                  FROM `".$tbl_wrk_submission."`
+                  WHERE `assignment_id` = ".$assignment['id']."
+                    AND (`visibility` = 'VISIBLE' OR `user_id` = ".$_uid.")
+                  ORDER BY `last_edit_date` ASC";  
+      }
+
     }
     else // anonymous user
     {
-      // show visible works that are not corrections 
-      $sql = "SELECT `id`, `title`, 
-                  `parent_id`, `user_id`,
-                  `visibility`, `authors`, 
-                  UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
-            FROM `".$tbl_wrk_submission."`
-            WHERE `assignment_id` = ".$assignment['id']."
-              AND `visibility` = 'VISIBLE'
-              AND `parent_id` IS NULL
-            ORDER BY `last_edit_date` ASC";
+      if( $assignment['assignment_type'] == 'GROUP')
+      {
+            $sql = "SELECT `ws`.`id`, `ws`.`title`, 
+                        `ws`.`parent_id`, `ws`.`user_id`, `ws`.`group_id`,
+                        `ws`.`visibility`, `ws`.`authors`, 
+                        UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`,
+                        `gt`.`name` AS `group_name`
+                  FROM `".$tbl_wrk_submission."` AS `ws`
+                  LEFT JOIN `".$tbl_group_team."` AS `gt`
+                        ON `gt`.`id` = `ws`.`group_id`
+                  WHERE `assignment_id` = ".$assignment['id']."
+                    AND `visibility` = 'VISIBLE'
+                    AND `parent_id` IS NULL
+                  ORDER BY `last_edit_date` ASC";
+      }
+      else // INDIVIDUAL 
+      {
+            // show visible works that are not corrections 
+            $sql = "SELECT `id`, `title`, 
+                        `parent_id`, `user_id`, `group_id`,
+                        `visibility`, `authors`, 
+                        UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
+                  FROM `".$tbl_wrk_submission."`
+                  WHERE `assignment_id` = ".$assignment['id']."
+                    AND `visibility` = 'VISIBLE'
+                    AND `parent_id` IS NULL
+                  ORDER BY `last_edit_date` ASC";
+      }
     }
-        
     $workList = claro_sql_query_fetch_all($sql);
     
     // tree of the works and their corrections
@@ -1264,7 +1493,7 @@ if( $dispWrkLst && $is_allowedToView )
     {
       for ($i=0 ; $i < sizeof($treeElementList) ; $i++)
       {
-      if( $treeElementList[$i]['user_id'] != $_uid ) unset($treeElementList[$i]['children']) ;
+            if( $treeElementList[$i]['user_id'] != $_uid ) unset($treeElementList[$i]['children']) ;
       }
     }
     
@@ -1295,7 +1524,7 @@ if( $dispWrkLst && $is_allowedToView )
           ."<th colspan=\"".($maxDeep+1)."\">".$langWrkTitle."</th>\n"
           ."<th>".$langWrkAuthors."</th>\n"
           ."<th>".$langLastEditDate."</th>\n";
-          
+      
     if ( $is_allowedToEditAll ) 
     {
         echo  "<th>".$langAddFeedback."</th>\n"
@@ -1319,15 +1548,8 @@ if( $dispWrkLst && $is_allowedToView )
       }
       
       if ($thisWrk['visibility'] == "INVISIBLE")
-			{
-				if ($is_allowedToEditAll || $thisWrk['user_id'] == $_uid)
-				{
+      {
 					$style=' class="invisible"';
-				}
-        else
-				{
-					continue; // skip the display of this file
-				}
 			}
 			else 
 			{
@@ -1339,13 +1561,21 @@ if( $dispWrkLst && $is_allowedToView )
         $spacingString .= "<td width=\"5\">&gt;</td>";
       $colspan = $maxDeep - $thisWrk['children']+1;
       
-      
+      // display group name only if this work is not a correction
+      if( $assignment['assignment_type'] == 'GROUP' && empty($thisWrk['parent_id'])  )
+      {
+            $authorString = $thisWrk['authors']." ( ".$thisWrk['group_name']." )";
+      }
+      else
+      {
+            $authorString = $thisWrk['authors'];
+      }
       echo "<tr align=\"center\"".$style." >\n"
           .$spacingString
           ."<td colspan=\"".$colspan."\" align=\"left\">"
           ."<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&cmd=exShwDet\">"
           .$thisWrk['title']."</a></td>\n"
-          ."<td>".$thisWrk['authors']."</td>\n"
+          ."<td>".$authorString."</td>\n"
           ."<td><small>"
           .claro_disp_localised_date($dateTimeFormatShort, $thisWrk['unix_last_edit_date'])
           .$lateUploadAlert
