@@ -832,8 +832,8 @@ function highlight() {
 initEditor();
 </script>
 
-<input type="button" name="ins"	value="	 insert	html  "	onclick="return	insertHTML();" />
-<input type="button" name="hil"	value="	 highlight text	 " onclick="return highlight();" />
+<!-- <input type="button" name="ins"	value="	 insert	html  "	onclick="return	insertHTML();" /> -->
+<!-- <input type="button" name="hil"	value="	 highlight text	 " onclick="return highlight();" /> -->
 <?php
 }
 
