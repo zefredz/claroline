@@ -398,29 +398,31 @@ function index_dir($path)
 	chdir($path);
 	$handle = opendir($path);
 
+    $dirList = array();
+
 	// reads directory content end record subdirectoies names in $dir_array
 	while ($element = readdir($handle) )
 	{
-		if ( $element == "." || $element == "..") continue;	// skip the current and parent directories
-		if ( is_dir($element) )	 $dirArray[] = $path."/".$element;
+		if ( $element == '.' || $element == '..') continue;	// skip the current and parent directories
+		if ( is_dir($element) )	 $dirList[] = $path.'/'.$element;
 	}
 
 	closedir($handle) ;
 
 	// recursive operation if subdirectories exist
-	$dirNumber = sizeof($dirArray);
+	$dirNumber = sizeof($dirList);
 	if ( $dirNumber > 0 )
 	{
 		for ($i = 0 ; $i < $dirNumber ; $i++ )
 		{
-			$subDirArray = index_dir( $dirArray[$i] ) ;			    // function recursivity
-			$dirArray  =  array_merge( $dirArray , $subDirArray ) ;	// data merge
+			$subDirList = index_dir( $dirList[$i] ) ;			    // function recursivity
+			$dirList  =  array_merge( $dirList , $subDirList ) ;	// data merge
 		}
 	}
 
 	chdir("..") ;
 
-	return $dirArray ;
+	return $dirList ;
 
 }
 
