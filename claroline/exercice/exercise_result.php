@@ -46,6 +46,7 @@ $TBL_EXERCICES         = $_course['dbNameGlu'].'quiz_test';
 $TBL_QUESTIONS         = $_course['dbNameGlu'].'quiz_question';
 $TBL_REPONSES          = $_course['dbNameGlu'].'quiz_answer';
 
+$TBL_TRACK_EXERCISES	= $_course['dbNameGlu'].'track_e_exercices';
 $TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
 $TABLEMODULE            = $_course['dbNameGlu']."lp_module";
 $TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
@@ -110,6 +111,36 @@ else                                        // normal exercise mode
     }
 
 	$i=$totalScore=$totalWeighting=0;
+	
+	// check if answers have to be shown
+	// get the property of show answers
+	$showAnswers = $objExercise->get_show_answer();
+	if ( $showAnswers == 'ALWAYS' )
+	{
+		$displayAnswers = true;
+	}
+	elseif( $showAnswers == 'LASTTRY' )
+	{
+		// count user tries 
+		$sql="SELECT count(`exe_result`) AS `triesQty`
+	     		FROM `$TBL_TRACK_EXERCISES`
+   	   			WHERE `exe_user_id` = '$_uid'
+				  AND `exe_exo_id` = ".$objExercise->selectId()."
+				GROUP BY `exe_user_id`";
+		$result = claro_sql_query_fetch_all($sql);
+		
+		$displayAnswers = $objExercise->get_max_tries() <= $result[0]['triesQty'] + 1;
+	}
+	elseif( $showAnswers == 'ENDDATE' )
+	{
+		// check if current date is after enddate property of th exercise
+		// TODO : must be coded -_-
+	}
+	else
+	{
+		// $showAnswers == 'NEVER'
+		$displayAnswers = false;
+	}
 
 	// for each question
 	foreach($questionList as $questionId)
@@ -141,6 +172,9 @@ else                                        // normal exercise mode
 		{
 			$colspan=1;
 		}
+		
+		if($displayAnswers)
+		{
 ?>
 
 <table width="100%" border="0" cellpadding="3" cellspacing="2">
@@ -156,8 +190,8 @@ else                                        // normal exercise mode
 </tr>
 
 <?php
-		if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
-		{
+			if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
+			{
 ?>
 
 <tr>
@@ -176,9 +210,9 @@ else                                        // normal exercise mode
 </tr>
 
 <?php
-		}
-		elseif($answerType == FILL_IN_BLANKS)
-		{
+			}
+			elseif($answerType == FILL_IN_BLANKS)
+			{
 ?>
 
 <tr>
@@ -188,9 +222,9 @@ else                                        // normal exercise mode
 </tr>
 
 <?php
-		}
-		else
-		{
+			}
+			else
+			{
 ?>
 
 <tr>
@@ -203,8 +237,8 @@ else                                        // normal exercise mode
 </tr>
 
 <?php
-		}
-
+			}
+		} // end if ($displayAnswers)
 		// construction of the Answer object
 		$objAnswerTmp=new Answer($questionId);
 
@@ -339,7 +373,7 @@ else                                        // normal exercise mode
 										break;
 			}	// end switch()
 
-			if($answerType != MATCHING || $answerCorrect)
+			if( ($answerType != MATCHING || $answerCorrect) && $displayAnswers)
 			{
 				if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
 				{
@@ -389,10 +423,12 @@ else                                        // normal exercise mode
 
 <?php
 				}
-			}
+			} // end of if( ($answerType != MATCHING || $answerCorrect) && $displayAnswers)
 		}	// end for()
-?>
 
+		if($displayAnswers)
+		{
+?>
 <tr>
   <td colspan="<?php echo $colspan; ?>" align="right">
 	<b><?php echo "$langScore : $questionScore/$questionWeighting"; ?></b>
@@ -401,6 +437,7 @@ else                                        // normal exercise mode
 </table>
 
 <?php
+		}
 		// destruction of Answer
 		unset($objAnswerTmp);
 
