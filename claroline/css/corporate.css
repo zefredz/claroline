@@ -10,14 +10,14 @@ body {
  padding: 3px;
 }
 
-a:link, a:active, a:visited {
-  color: #069;
+a, a:link, a:active, a:visited {
+  color: #333;
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: none; 
-  color : #DD6900;
+  color : #069;
 }
 
 a img {
@@ -276,21 +276,6 @@ h3{	font-size: 110%; }
  background-repeat: no-repeat;
 }
 
-
-#claroBody a,
-#claroBody a:active,
-#claroBody a:link,
-#claroBody a:visited
-{
- color: #333;
-}
-
-#claroBody a:hover
-{
- color: #069; 
-}
-
-
 /******************************************************************************
                               CLAROLINE FOOTER
  ******************************************************************************/
@@ -408,7 +393,9 @@ h3{	font-size: 110%; }
  * visible fo the other users
  */
 
-.invisible { color: #999; }
+.invisible  {
+	color: #999;
+}
 
 .invisible a, 
 .invisible a:link, 
