@@ -64,12 +64,10 @@ $nbCourses = mysql_fetch_array($res_NbCourses);
 
 <?php
 
-$max_exec_time = ini_get('max_execution_time');
-
-if ( $display==DISPLAY_RESULT_PANEL && $max_exec_time > 0 && $nbCoursesUpgraded['0'] < $nbCourses['0'])
+if ( $display==DISPLAY_RESULT_PANEL && $nbCoursesUpgraded['0'] < $nbCourses['0'])
 {
-	$max_exec_time += 5;
-	echo "<meta http-equiv=\"refresh\" content=\"". $max_exec_time  ."\" />\n";
+	$refresh_time = 2;
+	echo "<meta http-equiv=\"refresh\" content=\"". $refresh_time  ."\" />\n";
 }
 
 ?>
