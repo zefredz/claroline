@@ -145,7 +145,7 @@ if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
     echo "<small>\n";
 
     echo "<a href=\"".$rootWeb."index.php\" target=\"_top\">"
-        ."<img src=\"".$clarolineRepositoryWeb."img/home.gif\" hspace=\"5\" alt=\" \">"
+        ."<img src=\"".$clarolineRepositoryWeb."img/home.gif\" hspace=\"5\" alt=\"\">"
         .$siteName
         ."</a>";
 
