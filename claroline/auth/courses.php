@@ -485,19 +485,26 @@ switch ($displayMode)
                
 	      if ($_REQUEST['fromAdmin']!="class")
 	      { 	      
-                echo "<tr class=\"headerX\">\n"
+                echo "<thead>\n"
+                    ."<tr class=\"headerX\">\n"
                     ." <th></th>\n"
                     ." <th>".$langEnrollAsStudent."</th>\n"
                     ." <th>".$langEnrollAsTeacher."</th>\n"
-                    ."<tr>\n";
+                    ."<tr>"
+                    ."</thead>\n";
 	      }
 	      else
 	      {
-              echo "<tr class=\"headerX\">\n"
+              echo "<thead>\n"
+                  ."<tr class=\"headerX\">"
                   ." <th></th>\n"
-                  ." <th>".$langEnrollClass."</th>\n";
+                  ." <th>".$langEnrollClass."</th>"
+                  ."</tr>"
+                  ."</thead>";
 	      }
             }
+
+            echo "<tbody>\n";
 
 			foreach($courseList as $thisCourse)
 			{
@@ -569,6 +576,7 @@ switch ($displayMode)
 
 			} // end foreach courseList
 
+            echo    "</tbody>\n";
 			echo	"</table>",
 
 					"</blockquote>";

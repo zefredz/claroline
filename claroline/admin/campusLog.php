@@ -373,14 +373,18 @@ if( $is_allowedToTrack && $is_trackingEnabled)
       }
       
       echo "<table cellpadding=\"2\" cellspacing=\"1\" class=\"claroTable\" align=\"center\">"
-              ."<tr class=\"headerX\">\n"
+                ."<thead>"
+                ."<tr class=\"headerX\">\n"
                 ."<th>&nbsp;".$langToolTitleToolnameColumn."</th>\n"
                 ."<th>&nbsp;".$langToolTitleCountColumn."</th>\n"
-                ."</tr>\n";
+                ."</tr>"
+                ."</thead>\n";
                 
+      echo "<tbody>\n";
+
       if (is_array($resultsTools))
       {
-          arsort($resultsTools); // 
+          arsort($resultsTools);
           foreach( $resultsTools as $tool => $nbr)
           {
               echo "<tr>\n"
@@ -396,6 +400,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                   ."<td colspan=\"2\"><center>".$langNoResult."</center></td>\n"
                   ."</tr>\n";
       }
+
+      echo "</tbody>\n";
       echo "</table>\n\n";
       
     }
