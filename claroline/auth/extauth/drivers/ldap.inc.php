@@ -51,7 +51,9 @@ $extAuthAttribNameList = array (
 // Array setting optionnal preliminary treatment to the data retrieved from the 
 // exernal authentication source. The array keys are the concernend claroline 
 // user table fields, ans the values are the name of the function which make 
-// the treatment
+// the treatment You can use standart PHP functions or functions defined by 
+// your own. If no function named like the value are found, the authentication 
+// system will simply stored thisvalue into Claroline.
 
 $extAuthAttribTreatmentList = array (
     'lastname'     => 'utf8_decode',
