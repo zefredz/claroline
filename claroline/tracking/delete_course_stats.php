@@ -30,11 +30,8 @@
  
 $langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
-/*
-$interbredcrump[]= array ("url"=>"../group/group.php", "name"=> $langBredCrumpGroups);
-$interbredcrump[]= array ("url"=>"../group/group_space.php?gidReq=$_gid", "name"=> $langBredCrumpGroupSpace);
-*/
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langBredCrumpUsers);
+
+$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langToolName);
 
 $nameTools = $langDelCourseStats;
 
@@ -69,16 +66,16 @@ if( $isAllowedToDelete )
     if($delete)
     {
         // do delete
-        $sql = "TRUNCATE TABLE ".$TABLETRACK_ACCESS ;
+        $sql = "TRUNCATE TABLE `".$TABLETRACK_ACCESS."`" ;
         claro_sql_query($sql);
         
-        $sql = "TRUNCATE TABLE ".$TABLETRACK_DOWNLOADS ;
+        $sql = "TRUNCATE TABLE `".$TABLETRACK_DOWNLOADS."`" ;
         claro_sql_query($sql);
         
-        $sql = "TRUNCATE TABLE ".$TABLETRACK_UPLOADS ;
+        $sql = "TRUNCATE TABLE `".$TABLETRACK_UPLOADS."`" ;
         claro_sql_query($sql);
         
-        $sql = "TRUNCATE TABLE ".$TABLETRACK_EXERCISES ;
+        $sql = "TRUNCATE TABLE `".$TABLETRACK_EXERCISES."`" ;
         claro_sql_query($sql);
         
         // display confirm msg and back link
