@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -19,7 +19,7 @@
 
 $langFile = "group";
 $tlabelReq = 'CLGRP___';
-@include('../inc/conf/group.conf.php');
+include('../inc/conf/group.conf.php');
 include('../inc/claro_init_global.inc.php');
 
 $nameTools 	= $langGroupManagement;
@@ -734,9 +734,9 @@ if ($is_allowedToManage)
 	
 	while ($counts = mysql_fetch_array($coursUsersSelect))
 	{
-		$byStatus [$counts[statut]] += $counts[nbUser];
-		$tutors   [$counts[tutor] ] += $counts[nbUser];
-		$nbUser                     += $counts[nbUser];
+		$byStatus [$counts['statut']] += $counts['nbUser'];
+		$tutors   [$counts['tutor'] ] += $counts['nbUser'];
+		$nbUser                     += $counts['nbUser'];
 	}
 	
 	if (!$multiGroupAllowed) // All this have to be rewriten for $multiGroupAllowed all counts are wrong
