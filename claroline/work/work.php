@@ -576,7 +576,7 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
     if( $is_allowedToEdit )
     {
 		// link to create a new assignment
-		echo "<p><a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkAssig\"><img src=\"".$clarolineRepositoryWeb."img/works.gif\" alt=\"\" />".$langCreateAssignment."</a></p>\n";
+		echo "<p><a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkAssig\"><img src=\"".$clarolineRepositoryWeb."img/assignment.gif\" alt=\"\" />".$langCreateAssignment."</a></p>\n";
     }
 
     /*--------------------------------------------------------------------

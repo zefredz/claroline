@@ -99,7 +99,7 @@ claro_sql_query($sql);
 $sql = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
-('CLWRK___', 'work/work.php', 'works.gif', 'ALL', 7, 'AUTOMATIC', 'COURSE_ADMIN')
+('CLWRK___', 'work/work.php', 'assignment.gif', 'ALL', 7, 'AUTOMATIC', 'COURSE_ADMIN')
 ";
 claro_sql_query($sql);
 
