@@ -891,6 +891,7 @@
     /**
      * Build an tree of $list from $id using the 'parent' 
      * table. (recursive function)
+     * Rows with a father id not existing in the array will be ignored
      *
      * @param $list modules of the learning path list
      * @param $paramField name of the field containing the parent id
