@@ -386,7 +386,7 @@ function upgrade_tool_list ($dbNameGlu)
  
  // Add external tool
  $sql =  " SELECT rubrique, lien, visible FROM `".$dbNameGlu."accueil` " 
-       . " WHERE addedTool = 'YES' ";
+       . " WHERE addedTool = 'YES' and lien not like '%courseLog.ph%' ";
        
  $result = claro_sql_query($sql);
  if (mysql_num_rows($result) > 0)
