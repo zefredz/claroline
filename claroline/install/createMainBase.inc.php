@@ -148,7 +148,7 @@ CREATE TABLE `config_property` (
   `creationDate` timestamp(14) NOT NULL,
   `lastChange`   timestamp(14) NOT NULL,
   `config_code`  varchar(30) NOT NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id_property`)
 ) TYPE=MyISAM COMMENT='contain config value of platform'; 
 ";
 claro_sql_query($sql);
