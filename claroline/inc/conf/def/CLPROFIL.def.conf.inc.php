@@ -1,10 +1,12 @@
 <?php // $Id$
 /**
  * This file describe the parameter for user profile config file
- *
+ * ----------------------------------------------------------------------------
  * @author Christophe Gesché <moosh@claroline.net>
+ * ----------------------------------------------------------------------------
  * @version CLAROLINE 1.6
- * @copyright &copy; 2001-2005 Universite catholique de Louvain (UCL)
+ * ----------------------------------------------------------------------------
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
  * as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
  * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
@@ -50,7 +52,7 @@ array ( 'label'         => 'Email is'
 // Section read only fields
 
 $conf_def['section']['readonly']['label'] = 'Allow to modify field';
-$conf_def['section']['readonly']['description'] = '';
+//$conf_def['section']['readonly']['description'] = '';
 $conf_def['section']['readonly']['display'] = FALSE;
 $conf_def['section']['readonly']['properties'] = 
 array (
@@ -59,7 +61,7 @@ array (
 // Section check data
 
 $conf_def['section']['checkdata']['label'] = 'Validate field';
-$conf_def['section']['checkdata']['description'] = '';
+//$conf_def['section']['checkdata']['description'] = '';
 $conf_def['section']['checkdata']['properties'] = 
 array ( 'SECURE_PASSWORD_REQUIRED'
       , 'checkEmailByHashSent'
@@ -85,12 +87,11 @@ array ('label'       => 'If email is fill (or change), send an email to check it
       ,'readonly'    => FALSE
       );
 
-
 // Section view
 
 $conf_def['section']['view']['label'] = 'Display data';
 $conf_def['section']['view']['display'] = FALSE;
-$conf_def['section']['view']['description'] = '';
+//$conf_def['section']['view']['description'] = '';
 $conf_def['section']['view']['properties'] = 
 array (
       );
@@ -145,7 +146,7 @@ array ('label'       => 'Are teacher allowed to subscribe as teacher ?'
 
 $conf_def['section']['const']['label'] = 'Const';
 $conf_def['section']['const']['display'] = FALSE;
-$conf_def['section']['const']['description'] = '';
+//$conf_def['section']['const']['description'] = '';
 $conf_def['section']['const']['properties'] = 
 array ( 'COURSEMANAGER'
        ,'STUDENT' 
@@ -247,4 +248,4 @@ array ( 'label'         => 'Keep the replaced image when user update pic'
       );
 */
 
-?>
+?
