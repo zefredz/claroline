@@ -1003,5 +1003,18 @@ function claro_parse_user_text($userText)
 }
 
 
+/**
+ * strips the tags from str 
+ * Why such a function ? for the future, to allow some tags some times.
+ *
+ * @param string $str text to clean from html tags
+ * 
+ */
+
+function claro_strip_tags($str)
+{
+	return strip_tags($str);
+}
+
 
 ?>
