@@ -52,19 +52,21 @@ include_once($includePath."/lib/fileManage.lib.php");
  * 
  * this function allows to invert cols and rows of a 2D array 
  * needed to treat the potentialy new users to add form a CSV file
+ * @param origMartix array source array to be reverted
+ * @param $presumedColKeyList array contain the minimum list of colum in the builded array
  */
 
-function array_swap_cols_and_rows( $OrigMatrix, $presumedColKeyList)
+function array_swap_cols_and_rows( $origMatrix, $presumedColKeyList)
 {
-    $RevertedMatrix = array();
+    $revertedMatrix = array();
 
-    foreach($OrigMatrix as $thisRow)
+    foreach($origMatrix as $thisRow)
     {
-        $ActualColKeyList = array();
+        $actualColKeyList = array();
 
         foreach($thisRow as $thisColKey => $thisColValue)
         {
-            $RevertedMatrix[$thisColKey][] = $thisColValue;
+            $revertedMatrix[$thisColKey][] = $thisColValue;
 
             $actualColKeyList[] = $thisColKey;
         }
@@ -77,15 +79,16 @@ function array_swap_cols_and_rows( $OrigMatrix, $presumedColKeyList)
         {
             foreach($missingColKeyList as $thisColKey)
             {
-                $RevertedMatrix[$thisColKey][] = NULL;
+                $revertedMatrix[$thisColKey][] = NULL;
             }
            
         }
     }
-    return $RevertedMatrix;
+    return $revertedMatrix;
 }
 /**
- * test if the giben format is correct to be used in claroline to add user, if all the complusory fields are present.
+ * test if the given format is correct to be used in claroline to add user,
+ * if all the complusory fields are present.
  * @param format to test
  * @return boolean TRUE if format is acceptable
  *                 FALSE if format is not acceptable (missing a needed field) 
@@ -1128,12 +1131,9 @@ function delete_course($code)
 
 	//declare needed tables
 	$tbl_mdb_names = claro_sql_get_main_tbl();
-	$tbl_course    = $tbl_mdb_names['course'           ];
+	$tbl_course           = $tbl_mdb_names['course'           ];
 	$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
 	$tbl_course_nodes     = $tbl_mdb_names['category'         ];
-	//$tbl_user             = $tbl_mdb_names['user'             ];
-	//$tbl_class            = $tbl_mdb_names['class'            ];
-	//$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
 
     $sql = "SELECT *
                  FROM `".$tbl_course."`
@@ -1157,47 +1157,49 @@ function delete_course($code)
     if( !$singleDbEnabled) // IF THE PLATFORM IS IN MULTI DATABASE MODE
     {
 
-            $sql = "DROP DATABASE `".$currentCourseDbName."`";
+        $sql = "DROP DATABASE `".$currentCourseDbName."`";
 
-            claro_sql_query($sql);
-        }
-        else // IF THE PLATFORM IS IN MONO DATABASE MODE
+        claro_sql_query($sql);
+    }
+    else // IF THE PLATFORM IS IN MONO DATABASE MODE
+    {
+        // SEARCH ALL TABLES RELATED TO THE CURRENT COURSE
+        claro_sql_query("use ".$mainDbName);
+        // underscores must be replaced because they are used as wildcards in LIKE sql statement
+        $cleanCourseDbNameGlu = str_replace("_","\_", $currentCourseDbNameGlu);
+        
+        $sql = "SHOW TABLES LIKE \"".$cleanCourseDbNameGlu."%\"";
+
+        claro_sql_query($sql);
+        // DELETE ALL TABLES OF THE CURRENT COURSE
+        while( $courseTable = mysql_fetch_array($result,MYSQL_NUM ) )
         {
-            // SEARCH ALL TABLES RELATED TO THE CURRENT COURSE
-            claro_sql_query("use ".$mainDbName);
-      // underscores must be replaced because they are used as wildcards in LIKE sql statement
-            $cleanCourseDbNameGlu = str_replace("_","\_", $currentCourseDbNameGlu);
-            $sql = "SHOW TABLES LIKE \"".$cleanCourseDbNameGlu."%\"";
-
+            $sql = "DROP TABLE ".$courseTable[0]."";
             claro_sql_query($sql);
-            // DELETE ALL TABLES OF THE CURRENT COURSE
-            while( $courseTable = mysql_fetch_array($result,MYSQL_NUM ) )
-            {
-                $sql = "DROP TABLE ".$courseTable[0]."";
-                claro_sql_query($sql);
-            }
         }
+    }
+    
+    // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
+    
+    $sql = 'DELETE FROM `'.$tbl_course.'`
+            WHERE code= "'.$currentCourseId.'"';
+    
+    claro_sql_query($sql);
+    
+    // DELETE USER ENROLLMENT INTO THIS COURSE
+    
+    $sql = 'DELETE FROM `'.$tbl_rel_course_user.'`
+            WHERE code_cours="'.$currentCourseId.'"';
+    
+    claro_sql_query($sql);
 
-        // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
-
-        $sql = 'DELETE FROM `'.$tbl_course.'`
-                WHERE code= "'.$currentCourseId.'"';
-
-        claro_sql_query($sql);
-
-        // DELETE USER ENROLLMENT INTO THIS COURSE
-
-        $sql = 'DELETE FROM `'.$tbl_rel_course_user.'`
-                WHERE code_cours="'.$currentCourseId.'"';
-
-        claro_sql_query($sql);
-
-        // MOVE THE COURSE DIRECTORY INTO THE COURSE GARBAGE COLLECTOR
-
-        mkPath($garbageRepositorySys);
-
-        rename($coursesRepositorySys.$currentCoursePath."/",
-            $garbageRepositorySys."/".$currentCoursePath.'_'.date('YmdHis'));
+    // MOVE THE COURSE DIRECTORY INTO THE COURSE GARBAGE COLLECTOR
+    
+    mkPath($garbageRepositorySys);
+    
+    rename($coursesRepositorySys.$currentCoursePath."/",
+           $garbageRepositorySys."/".$currentCoursePath.'_'.date('YmdHis')
+          );
 }
 
 /**
