@@ -16,7 +16,9 @@ Repéré par : MOOSH
 Etat : 
 Quid: Un user ne peut pas changer son rôle. admin.lib.inc.php function update_user_course_properties.
 
-B4------------------------------------------------------------------
+B4 NOT A BUG------------------------------------------------------------------
+	|--> à discuter éventuellement pour la 1.7 
+
 13. ADMIN: /claroline/admin/adminusercourses.php
 Quand on liste les cours, on sait sauter vers la liste de ses users.
 Quand on liste les cours, on sait sauter vers la fiche cours.
@@ -30,8 +32,7 @@ cliquant sur ... Dans PMA j'avais ca. et C'est bien pratique pour gerer les
 lustucrus (inscription multiples, cours multiples)
 
 Repéré par : MOOSH
-Guim dit: voir avec Hugues ...
-Etat : à résoudre pour 1.6
+
 
 B5 Etat : New ------------------------------------------------------
 M.33 où : DOCUMENT
@@ -84,16 +85,8 @@ type : intégrité
 quoi : si j'ajoute  un utilisateur et que je rentre une  adresse mail existante, il n'y a pas fusion
 et l'ancien utilisateur est éjecté.
 Repéré par : Moosh
-Assigné à : 
+Assigné à : Hugues
 
-
-B9 Etat : New ------------------------------------------------------
-.47 où : inscription par tier via l'outil utilisateur
-type : intégrité 
-quoi : si j'ajoute  un utilisateur et que je rentre une  adresse mail existante, il n'y a pas fusion
-et l'ancien utilisateur est éjecté.
-Repéré par : Moosh
-Assigné à : 
 
 B10 Etat : New ------------------------------------------------------
 .48 où : admin - ajout user	
@@ -103,7 +96,8 @@ quoi : si j'ajoute un user avec un email déjà dans la base il l'accepte.
 Normal en considérant que l'admin peut tout faire. 
 Mais il n'est même pas prévenu qu'il a probablement créé un doubloun
 Repéré par : Moosh
-Assigné à : 
+Assigné à : Hugues
+
 
 B11 Etat : New ------------------------------------------------------
 .49 où : claroline/user/user.php
@@ -127,6 +121,7 @@ quoi : 	Je crée un docuùent(html) au moyen de l'éditeur, j'oublie de mettre un t
 	Méthode qu'il faudrait selon moi généraliser.
 Repéré par : SEB
 Assigné à : Hugues
+
 
 B13 Etat : New ------------------------------------------------------
 .56 où : Documents
@@ -159,7 +154,7 @@ quoi : 	Le message "operation impossible" est très flou car parfois accopagné d'
 Repéré par : SEB
 Assigné à : Hugues
 
-B16 Etat : New ------------------------------------------------------
+B16 RESOLU ------------------------------------------------------
 .60 où : Install
 Etat : à résoudre pour 1.5.2
 type : Nom dans les champs
@@ -189,9 +184,10 @@ Repéré par : SEB
 Assigné à : 
 
 
-B18 Etat : New ------------------------------------------------------
-
+B18 RESOLU ------------------------------------------------------
+duplicate
 Voir B16 : problème des " ' et autres caractères spéciaux dans l'install
+
 
 B19 RESOLU POUR COURSE DESCRIPTION SEULEMENT ------------------------------------------------------
 .90 où : forum et course description
@@ -226,8 +222,9 @@ travaux, chat
 Repéré par : 
 Assigné à : 
 
-B22 Etat : A MERGER 1.5 -> 1.6 ------------------------------------------------------
-
+B22 NOT A BUG ------------------------------------------------------
+	|--> en fait il vaut mieux conserver la méthode qui était qui était pareille que phpbb, le lien administrer amène toujours à l'administration générale des forums
+	
 .97 où : Forum 
 type : sequence
 quoi : quand on est dans un forum , qu'on clique sur adminsitrer, on arrive pas dans l'administration du forum mais des catégorie.
