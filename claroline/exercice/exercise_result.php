@@ -399,7 +399,7 @@ else                                        // normal exercise mode
 	<?php echo $answer; ?>
   </td>
   <td width="45%">
-	<?php if($studentChoice) echo claro_parse_user_text(make_clickable($answerComment)); else echo '&nbsp;'; ?>
+	<?php if($studentChoice) echo claro_parse_user_text($answerComment); else echo '&nbsp;'; ?>
   </td>
 </tr>
 

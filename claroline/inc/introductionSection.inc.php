@@ -131,8 +131,7 @@ if ($intro_dispForm)
 
 if ($intro_dispDefault)
 {
-	$intro_content = claro_parse_user_text(($intro_content));
-	$intro_content = make_clickable($intro_content); // make url in text clickable
+	$intro_content = claro_parse_user_text($intro_content);
 
 	echo	"<p>\n",
 			$intro_content,"\n",

@@ -298,7 +298,7 @@ if( $showExerciseForm || $is_courseAdmin )
 {
 ?>
   <p>
-  <?php echo claro_parse_user_text(make_clickable($exerciseDescription)) ; ?>
+  <?php echo claro_parse_user_text($exerciseDescription) ; ?>
   <small>
   <?php echo $statusMsg;  ?>
   </small>
