@@ -248,7 +248,7 @@ $nameTools        = $langAddAU;
 include("../inc/claro_init_header.inc.php");
 if ( ! $is_courseAllowed)
 	claro_disp_auth_form();
-	claro_disp_tool_title(array('mainTitle' =>$nameTools, 'subTitle' => $langUsers);
+	claro_disp_tool_title(array('mainTitle' =>$nameTools, 'subTitle' => $langUsers));
 ?>
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
   <td align="right"><a href="#" onClick="javascript:window.open('../help/help_user.php','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=450,height=550,left=10,top=10'); return false;"><?php echo $langHelp; ?></a></td>
