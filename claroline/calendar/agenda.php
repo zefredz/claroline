@@ -24,6 +24,8 @@
 $tlabelReq = "CLCAL___";
 
 require '../inc/claro_init_global.inc.php';
+
+
 define("CONFVAL_LOG_CALENDAR_INSERT",FALSE);
 define("CONFVAL_LOG_CALENDAR_DELETE",FALSE);
 define("CONFVAL_LOG_CALENDAR_UPDATE",FALSE);
@@ -383,17 +385,24 @@ if ($is_allowedToEdit)
          * Add event button
          */
 
-        claro_disp_button($_SERVER['PHP_SELF'].'?cmd=rqAdd', 
-                       '<img src="'.$clarolineRepositoryWeb.'img/agenda.gif" width="20" alt="">'
-                      .$langAddEvent);
+        echo '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqAdd">'
+            .'<img src="'.$clarolineRepositoryWeb.'img/agenda.gif" alt="">'
+            .$langAddEvent
+            .'</a>';
+
+        echo ' | ';
 
         /*
          * remove all event button
          */
 
-        claro_disp_button($_SERVER['PHP_SELF'].'?cmd=exDelete&id=ALL', 
-                          '<img src="'.$clarolineRepositoryWeb.'img/delete.gif" width="20" alt="">'
-                          .$langClearList, $langClearList.' ?');
+        echo '<a class= "claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&id=ALL" '
+            .' onclick="if (confirm(\''.$langClearList.' ? \')){return true;}else{return false;}">' 
+            .'<img src="'.$clarolineRepositoryWeb.'img/delete.gif" alt="">'
+            .$langClearList
+            .'</a>';
+                 
+             // $langClearList.' ?');
 
         echo '</p>';
     } // end if diplayMainCommands
