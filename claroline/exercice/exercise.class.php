@@ -32,10 +32,13 @@ class Exercise
 	var $random;
 	var $active;
 	
+	var $startDate;
+	var $endDate;
 	var $maxTime;
 	var $maxAttempt;
 	var $showAnon;
 	var $showAnswer;
+  var $recordUidInScore;
 
 	var $questionList;  // array with the list of this exercise's questions
 
@@ -53,12 +56,16 @@ class Exercise
 		$this->random		= 0;
 		$this->active		= 0;
 
+		$this->startDate	= date("Y-m-d H:i:00");
+		// end date is 'now' + 7 days
+		$this->endDate		= date("Y-m-d H:i:00", mktime( date("H"),date("i"),0,date("m"), date("d")+7, date("Y") ) );
 		$this->maxTime		= 0;
 		$this->maxAttempt	= 0;
-		$this->showAnon		= '';
-		$this->showAnswer	= '';
+		$this->showAnon		= 'HIDE';
+		$this->showAnswer	= 'ALWAYS';
+    $this->recordUidInScore = 'YES';
 
-		$this->questionList=array();
+		$this->questionList	= array();
 	}
 
 	/**
@@ -74,10 +81,11 @@ class Exercise
 
 		$sql="	SELECT 	`titre`,`description`,
 				`type`,`random`,`active`,
-				`max_time`,`max_attempt`,`show_anon`,`show_answer`
+				`max_time`,`max_attempt`,`show_anon`,`show_answer`,`record_uid_in_score`,
+				`start_date` , `end_date` 
 			FROM `$TBL_EXERCICES` 
 			WHERE `id` = '$id'";
-		$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
+		$result = mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
 		// if the exercise has been found
 		if($object=mysql_fetch_object($result))
@@ -89,20 +97,23 @@ class Exercise
 			$this->random 		= $object->random;
 			$this->active 		= $object->active;
 			
+			$this->startDate	= $object->start_date;
+			$this->endDate		= $object->end_date;
 			$this->maxTime 		= $object->max_time;			
 			$this->maxAttempt	= $object->max_attempt;
 			$this->showAnon		= $object->show_anon;
 			$this->showAnswer	= $object->show_answer;
+      $this->recordUidInScore = $object->record_uid_in_score;
 			
-			$sql="	SELECT 	`question_id`,`q_position` 
+			$sql = "	SELECT 	`question_id`,`q_position` 
 				FROM `$TBL_EXERCICE_QUESTION`,`$TBL_QUESTIONS`
 				WHERE `question_id` = `id` AND `exercice_id` = '$id' 
 				ORDER BY `q_position`";
-			$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
+			$result = mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
 			// fills the array with the question ID for this exercise
 			// the key of the array is the question position
-			while($object=mysql_fetch_object($result))
+			while($object = mysql_fetch_object($result))
 			{
 				// makes sure that the question position is unique
 				while(isset($this->questionList[$object->q_position]))
@@ -187,10 +198,58 @@ class Exercise
 	}
 
 	/**
+	 * returns the start date of exercise 
+	 * Date from when users will be able to make the exercise
+	 * 
+	 * @author Piraux Sebastien <pir@cerdecam.be>
+   * @param string format 'mysql' or 'timestamp' 
+	 * @return string mysql datetime format string
+	 */
+	function get_start_date($format='mysql')
+	{
+    if ($format == 'mysql')
+    {
+    		return $this->startDate;
+    }
+    elseif($format == 'timestamp')
+    {
+        list($date, $time)            = split(" ",$this->startDate);
+        list($year,$month,$day) = split("-",$date);
+        list($hour,$min,$sec)      = split(":",$time);
+        
+        return mktime($hour,$min,$sec,$month,$day,$year);
+    }
+	}
+	
+	/**
+	 * returns the end date of exercise
+	 * Date from when exercise will be no more available to students
+	 * 
+	 * @author Piraux Sebastien <pir@cerdecam.be>
+   * @param string format 'mysql' or 'timestamp' 
+	 * @return string mysql datetime format string
+	 */
+	function get_end_date($format='mysql')
+	{
+    if ($format == 'mysql')
+    {
+    		return $this->endDate;
+    }
+    elseif($format == 'timestamp')
+    {
+        list($date, $time)            = split(" ",$this->endDate);
+        list($year,$month,$day) = split("-",$date);
+        list($hour,$min,$sec)      = split(":",$time);
+        
+        return mktime($hour,$min,$sec,$month,$day,$year);
+    }
+	}
+	
+	/**
 	 * returns the max allowed time to complete the exercise
 	 * 
-	 * @author - Piraux Sebastien <pir@cerdecam.be>
-	 * @return - integer - max allowed time (in seconds)
+	 * @author Piraux Sebastien <pir@cerdecam.be>
+	 * @return integer - max allowed time (in seconds)
 	 */
 	function get_max_time()
 	{
@@ -200,8 +259,8 @@ class Exercise
 	/**
 	 * returns the max allowed attemps to complete the exercise
 	 * 
-	 * @author - Piraux Sebastien <pir@cerdecam.be>
-	 * @return - integer - max allowed attempts count
+	 * @author Piraux Sebastien <pir@cerdecam.be>
+	 * @return integer - max allowed attempts count
 	 */
 	function get_max_attempt()
 	{
@@ -211,8 +270,8 @@ class Exercise
 	/**
 	 * tells if the exercise is accessible to non course registered users
 	 * 
-	 * @author - Piraux Sebastien <pir@cerdecam.be>
-	 * @return - boolean - 0 if hidden to anonymous users, 1 if show
+	 * @author Piraux Sebastien <pir@cerdecam.be>
+	 * @return boolean - 0 if hidden to anonymous users, 1 if show
 	 */
 	function get_show_anon()
 	{
@@ -229,8 +288,8 @@ class Exercise
 	/**
 	 * returns when the answers have to be shown
 	 * 
-	 * @author - Piraux Sebastien <pir@cerdecam.be>
-	 * @return - string - string representation of the condition when 
+	 * @author Piraux Sebastien <pir@cerdecam.be>
+	 * @return string - string representation of the condition when 
 	 *					answers have to be showned. e.g. : ALWAYS, NEVER, LASTTRY
 	 */
 	function get_show_answer()
@@ -238,11 +297,27 @@ class Exercise
 		return $this->showAnswer;
 	}
 
+  /**
+   *
+   *  @author Piraux Sebastien <pir@cerdecam.be>
+   *
+   */
+  function record_uid_in_score()
+  {
+    if ( $this->recordUidInScore == 'YES' )
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
 	/**
 	 * returns the array with the question ID list
 	 *
-	 * @author - Olivier Brouckaert
-	 * @return - array - question ID list
+	 * @author Olivier Brouckaert
+	 * @return array - question ID list
 	 */
 	function selectQuestionList()
 	{
@@ -252,8 +327,8 @@ class Exercise
 	/**
 	 * returns the number of questions in this exercise
 	 *
-	 * @author - Olivier Brouckaert
-	 * @return - integer - number of questions
+	 * @author Olivier Brouckaert
+	 * @return integer - number of questions
 	 */
 	function selectNbrQuestions()
 	{
@@ -263,8 +338,8 @@ class Exercise
 	/**
      * selects questions randomly in the question list
 	 *
-	 * @author - Olivier Brouckaert
-	 * @return - array - if the exercise is not set to take questions randomly, returns the question list
+	 * @author Olivier Brouckaert
+	 * @return array - if the exercise is not set to take questions randomly, returns the question list
 	 *					 without randomizing, otherwise, returns the list with questions selected randomly
      */
 	function selectRandomList()
@@ -324,9 +399,9 @@ class Exercise
 	/**
 	 * returns 'true' if the question ID is in the question list
 	 *
-	 * @author - Olivier Brouckaert
-	 * @param - integer $questionId - question ID
-	 * @return - boolean - true if in the list, otherwise false
+	 * @author Olivier Brouckaert
+	 * @param integer $questionId - question ID
+	 * @return boolean - true if in the list, otherwise false
 	 */
 	function isInList($questionId)
 	{
@@ -336,8 +411,8 @@ class Exercise
 	/**
 	 * changes the exercise title
 	 *
-	 * @author - Olivier Brouckaert
-	 * @param - string $title - exercise title
+	 * @author Olivier Brouckaert
+	 * @param string $title - exercise title
 	 */
 	function updateTitle($title)
 	{
@@ -347,8 +422,8 @@ class Exercise
 	/**
 	 * changes the exercise description
 	 *
-	 * @author - Olivier Brouckaert
-	 * @param - string $description - exercise description
+	 * @author Olivier Brouckaert
+	 * @param string $description - exercise description
 	 */
 	function updateDescription($description)
 	{
@@ -358,8 +433,8 @@ class Exercise
 	/**
 	 * changes the exercise type
 	 *
-	 * @author - Olivier Brouckaert
-	 * @param - integer $type - exercise type
+	 * @author Olivier Brouckaert
+	 * @param integer $type - exercise type
 	 */
 	function updateType($type)
 	{
@@ -370,8 +445,8 @@ class Exercise
 	 * sets to 0 if questions are not selected randomly
 	 * if questions are selected randomly, sets the draws
 	 *
-	 * @author - Olivier Brouckaert
-	 * @param - integer $random - 0 if not random, otherwise the draws
+	 * @author Olivier Brouckaert
+	 * @param integer $random - 0 if not random, otherwise the draws
 	 */
 	function setRandom($random)
 	{
@@ -381,7 +456,7 @@ class Exercise
 	/**
 	 * enables the exercise
 	 *
-	 * @author - Olivier Brouckaert
+	 * @author Olivier Brouckaert
 	 */
 	function enable()
 	{
@@ -391,11 +466,21 @@ class Exercise
 	/**
 	 * disables the exercise
 	 *
-	 * @author - Olivier Brouckaert
+	 * @author Olivier Brouckaert
 	 */
 	function disable()
 	{
 		$this->active=0;
+	}
+
+	function set_start_date($sdate)
+	{
+		$this->startDate = $sdate;
+	}
+	
+	function set_end_date($edate)
+	{
+		$this->endDate = $edate;
 	}
 
 	/**
@@ -435,10 +520,22 @@ class Exercise
 		return true;
 	}
 	
+  function change_record_uid_in_score()
+  {
+    if ( $this->recordUidInScore == 'YES')
+    {
+      $this->recordUidInScore = 'NO';
+    }
+    else
+    {
+      $this->recordUidInScore = 'YES';
+    }
+    
+  }
 	/**
 	 * updates the exercise in the data base
 	 *
-	 * @author - Olivier Brouckaert
+	 * @author Olivier Brouckaert
 	 */
 	function save()
 	{
@@ -451,10 +548,13 @@ class Exercise
 		$random			= $this->random;
 		$active			= $this->active;
 
+		$startDate		= $this->startDate;
+		$endDate		= $this->endDate;
 		$maxTime 		= $this->maxTime;
 		$maxAttempt		= $this->maxAttempt;
 		$showAnon		= $this->showAnon;
 		$showAnswer		= $this->showAnswer;
+    $recordUidInScore   = $this->recordUidInScore;
 
 		// exercise already exists
 		if($id)
@@ -465,10 +565,13 @@ class Exercise
 						`type` = '$type',
  						`random` = '$random',
 						`active` = '$active',
+						`start_date` = '$startDate',
+						`end_date` ='$endDate',
 						`max_time` = $maxTime, 
 						`max_attempt` = $maxAttempt,
 						`show_anon` = '$showAnon',
-						`show_answer` = '$showAnswer'
+						`show_answer` = '$showAnswer',
+        `record_uid_in_score` = '$recordUidInScore'            
 					WHERE `id` = '$id'";
 			mysql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
 		}
@@ -477,9 +580,11 @@ class Exercise
 		{
 			$sql=	"INSERT INTO `$TBL_EXERCICES`
 					(`titre`,`description`,`type`,`random`,`active`,
-					 `max_time`, `max_attempt`, `show_anon`, `show_answer`) 
+					 `start_date`, `end_date`,
+					 `max_time`, `max_attempt`, `show_anon`, `show_answer`,`record_uid_in_score`) 
 					VALUES('$exercise','$description','$type','$random','$active',
-							$maxTime,$maxAttempt,'$showAnon','$showAnswer')";
+							'$startDate', '$endDate',
+							$maxTime,$maxAttempt,'$showAnon','$showAnswer','$recordUidInScore')";
 			mysql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 
 			$this->id=mysql_insert_id();
