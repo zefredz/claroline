@@ -20,7 +20,7 @@ $course_homepage = TRUE;
 
 $gidReset = true; 
 $tidReset = true;
-if ((bool) stristr($_SERVER['PHP_SELF'],"course_home"))
+if ((bool) stristr($_SERVER['PHP_SELF'],'course_home'))
 die("---");
 
 if ( !isset($claroGlobalPath) ) $claroGlobalPath = '../claroline/inc';
@@ -155,13 +155,67 @@ foreach($toolList as $thisTool)
 
 if ($is_allowedToEdit)
 {
-    echo '<p>';
-    claro_disp_button($clarolineRepositoryWeb."course_home/course_home_edit.php",
-                      "<img align=\"absbottom\" src=\"".$imgRepository."edit.gif\" alt=\"\">"
-                      .$langEditToolList);
-    echo '</p><p></p>'; // the empty <p></p> is necessary otherwise the button
+/*----------------------------------------------------------------------------
+                         COURSE ADMINISTRATION SECTION
+  ----------------------------------------------------------------------------*/
+
+    echo "<hr noshade=\"noshade\" size=\"1\">";
+
+//    echo '<p>';
+
+//    claro_disp_button($clarolineRepositoryWeb."course_home/course_home_edit.php",
+//                      "<img align=\"absbottom\" src=\"".$imgRepository."edit.gif\" alt=\"\">"
+//                      .$langEditToolList);
+
+
+
+//    echo '</p>'; // the empty <p></p> is necessary otherwise the button
                         // bottom is bitten in IE
 
+//    claro_disp_button($toolRepository."course_info/infocours.php",
+//        "<img src=\"".$imgRepository."/referencement.gif\" alt=\"\">"
+//        .$langCourseSettings);
+//
+//     echo "</p>\n"
+//         ."<p>\n";
+//
+//    claro_disp_button($toolRepository."tracking/courseLog.php",
+//        "<img src=\"".$imgRepository."/statistiques.gif\" alt=\"\">"
+//        .$langStatistics);
+//
+//    echo "</p>\n";
+
+
+    echo "<p>\n"
+        ."<small>"
+        ."<b>"
+        ."<a href=\"".$clarolineRepositoryWeb."course_home/course_home_edit.php\">"
+        ."<img src=\"".$imgRepository."edit.gif\" alt=\"\"> "
+        .$langEditToolList
+        ."</a>"
+        ."</b>"
+        ."</small>"
+        ."</p>\n"
+        ."<p>\n"
+        ."<small>"
+        ."<b>"
+        ."<a href=\"".$toolRepository."course_info/infocours.php\">"
+        ."<img src=\"".$imgRepository."/referencement.gif\" alt=\"\"> "
+        .$langCourseSettings
+        ."</a>\n"
+        ."<b>"
+        ."</small>"
+        ."</p>\n"
+        ."<p>\n"
+        ."<b>"
+        ."<small>"
+        ."<a href=\"".$toolRepository."tracking/courseLog.php\">"
+        ."<img src=\"".$imgRepository."/statistiques.gif\" alt=\"\"> "
+        .$langStatistics
+        ."<b>"
+        ."</a>\n"
+        ."</small>"
+        ."</p>";
 }
 
 ?>
@@ -190,22 +244,6 @@ include($includePath."/introductionSection.inc.php");
 
 
 <?php
-/*----------------------------------------------------------------------------
-                         COURSE ADMINISTRATION SECTION
-  ----------------------------------------------------------------------------*/
-
-if ($is_allowedToEdit)
-{
-    echo "<hr noshade=\"noshade\" size=\"1\">";
-
-    echo "Course Administration :&nbsp;&nbsp;&nbsp;&nbsp;";
-    echo "<img src=\"".$imgRepository."/referencement.gif\" alt=\"\">";
-    echo "<a href=\"".$toolRepository."course_info/infocours.php\">".$langCourseSettings."</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-    echo "<img src=\"".$imgRepository."/statistiques.gif\" alt=\"\">";
-
-    echo "<a href=\"".$toolRepository."tracking/courseLog.php\">".$langStatistics."</a>";
-
-}
 
 
 @include $includePath.'/claro_init_footer.inc.php';
