@@ -30,7 +30,7 @@ function update_db_info($action, $filePath, $newParam = array())
 
     if ($action == 'delete') // case for a delete
     {
-        $theQuery = "DELETE FROM `$dbTable`
+        $theQuery = "DELETE FROM `".$dbTable."`
                      WHERE path=\"".$filePath."\"
                      OR    path LIKE \"".$filePath."/%\"";
     }
