@@ -31,8 +31,9 @@ $langSessionTitle = "Session title";
 $langSessionDescription = "Description";
 
 $langSubmissionType = "Submission type";
-$langText = "Text";
-$langFile = "File";
+$langText = "Text only";
+$langFile = "File only";
+$langTextFile = "Text with attached file (text is required, not file)";
 
 $langStartDate = "Start date";
 $langEndDate = "Deadline";
