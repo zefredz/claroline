@@ -399,6 +399,141 @@ function check_duplicate_officialcode_userlist($userlist)
        
     return $errors;
 }
+/**
+ * Class needed for parsing CSv files
+ *
+ *
+ */
+   class CSV
+   {
+       var $raw_data;
+       var $new_data;
+       var $mapping;
+       var $results = array();
+       var $errors = array();
+      
+       function CRLFclean()
+       {
+           $replace = array(
+               "\n",
+               "\r",
+               "\r\n"
+           );
+           $this->raw_data = str_replace($replace,"\n",$this->raw_data);
+       }
+      
+       function validKEY($v)
+       {
+           return ereg_replace("[^a-zA-Z0-9_\s]","",$v);
+       }
+      
+       function stripENCLOSED(&$v,$eb)
+       {
+           if($eb!="" AND strpos($v,$eb)!==false)
+             {
+                   if($v[0]==$eb)
+                       $v = substr($v,1,strlen($v));
+                   if($v[strlen($v)-1]==$eb)
+                       $v = substr($v,0,-1);
+                   $v = stripslashes($v);
+               }
+               else
+                   return;
+       }
+
+       function CSV($filename,$delim,$linedef,$enclosed_by="",$eol="\n")
+           {
+               //open the file
+               $this->raw_data = implode("",file($filename));
+              
+               // make sure all CRLF's are consistent
+               $this->CRLFclean();
+              
+               // use custom $eol (if exists)
+               if($eol!="\n" AND trim($eol)=="")
+                   $this->error("Couldn't split data via empty \$eol, please specify a valid end of line character.");
+               else
+               {
+                   $this->new_data = @explode($eol,$this->raw_data);
+                   if(count($this->new_data)==0)
+                       $this->error("Couldn't split data via given \$eol.<li>\$eol='".$eol."'");
+               }
+               
+               // create data keys with the line definition given in params, 
+	       // if linedef is not define, take first line of file to define it
+               
+	       if (($linedef=="FIRSTLINE") || ($linedef==NULL)) 
+	       {
+	           $linedef = $this->new_data[0];
+		   $skipFirstLine = TRUE; 
+	       }
+
+	       $temp = @explode($delim,$linedef);
+	
+	       foreach($temp AS $field_index=>$field_value)
+	       {            
+		   $this->mapping[] = $this->validKEY($field_value); 
+	       }
+
+	       
+	       // fill the 2D array using the keys given
+	       
+	       foreach($this->new_data AS $index1=>$line)
+               {
+                   $temp = @explode($delim,$line);
+                  
+                   if(trim($line)=="")
+                       // skip empty lines
+                       continue;
+                   elseif(count($temp)==0)
+                       // line didn't split properly so record error
+                       $this->errors[] = "Couldn't split data line ".$c." via given \$delim.";
+                   elseif (!(($index1==0) && ($skipFirstLine)))
+                   {
+                       $data_set = array();
+                       foreach($temp AS $field_index=>$field_value)
+                       {
+                           // Remove enclose characters
+                           $this->stripENCLOSED($field_value,$enclosed_by);
+                           $data_set[$this->mapping[$field_index]] = $field_value;
+                   }
+                   if(count($data_set)>0)
+                           $this->results[] = $data_set;
+                   }       
+                   unset($data_set);
+               }
+
+               return $this->results;
+              
+       }
+      
+       function error($msg)
+       {
+           exit(
+           "<hr size=1 noshade>".
+           "<font color=red face=arial size=3>".
+           "<h2>CSV Class Exception</h2>".
+           $msg.
+           "<p><b>Script Halted</b>".
+           "</font>".
+           "<hr size=1 noshade>"
+           );
+       }
+      
+       function help()
+       {
+           print(
+           "<hr size=1 noshade>".
+           "<font face=arial size=3>".
+           "<h2>CSV Class Usage</h2>".
+           "\$myVar = new CSV(\"path_to_my_file\",\"field delimeter\",\"fields enclosed by\",\"EOL character (defaults to \\n)\");<p>".
+           "Output is a 2d result array (\$myVar->results)".
+           "</font>".
+           "<hr size=1 noshade>"
+           );
+       }
+  }
+
 
  /**
  * Create a new user in Claroline with the specified informations
@@ -475,7 +610,7 @@ function add_userlist($userlist)
     
     foreach ($userlist as $user)
     {
-       add_user($user['name'],$user['surname'],$user['email'],$user['phone'],$user['officialCode'],$user['username'], $user['password'],TRUE); 
+       add_user($user['name'],$user['surname'],$user['email'],$user['phone'],$user['officialCode'],$user['username'], $user['password'],FALSE); 
     }
 }
 

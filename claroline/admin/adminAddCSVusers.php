@@ -87,6 +87,13 @@ switch ($cmd)
     
     case "exImp" :
     
+	//check if temporary directory for uploaded file exists, if not we create it
+	
+	if (!file_exists($uploadTempDir))
+	{
+	   mkdir($uploadTempDir,0777);
+	}
+	
 	//store the uploaded file in a temporary dir
 	
 	move_uploaded_file($_FILES["CSVfile"]["tmp_name"], $uploadTempDir.$_FILES["CSVfile"]["name"]);
@@ -95,6 +102,11 @@ switch ($cmd)
 	
 	//Read each ligne : we put one user in an array, and build an array of arrays for the list of user.
 	
+	if ($_REQUEST['firstLineFormat']=="YES")
+	{
+	    $usedFormat = "FIRSTLINE";
+	}
+		
 	$CSVParser = new CSV($uploadTempDir.$_FILES["CSVfile"]["name"],";",$usedFormat);
 	$userlist = $CSVParser->results;
 	
@@ -233,9 +245,10 @@ else
 </b>
 
 <form enctype="multipart/form-data"  method="POST" action="<?php echo $PHP_SELF ?>"> 
-     <a href="<?php echo $_PHP_SELF."?display=default&usedFormat=".$defaultFormat.""; ?>"><small>Use default</small></a> 
-     | <a href="<?php echo $_PHP_SELF."?display=default&chformat=yes"; ?>"><small>Change it</small></a>
+     <a href="<?php echo $_PHP_SELF."?display=default&usedFormat=".$defaultFormat.""; ?>">Use default format</a> 
+     | <a href="<?php echo $_PHP_SELF."?display=default&chformat=yes"; ?>">Change format</a>
     <br><br>
+    <input type="checkbox" name="firstLineFormat" value="YES"> Use format defined in first line of file instead<br><br>
     <input type="file" name="CSVfile">
     <br><br>
     <input type="submit" name="submitCSV" value="Add user list">
@@ -327,7 +340,7 @@ case "stepone" :
 	    echo "(if you choose to continue, lines with errors will be simply ignored)<br>";        
 	}
 	echo "<br><form method=\"POST\" action=\"".$PHP_SELF."?cmd=exImpSec\">\n";
-	
+
         claro_disp_button("index.php", $langCancel); 
       
         echo "<input type=\"submit\" value=\"Continue\">\n "
@@ -354,130 +367,4 @@ case "steptwo" :
 //footer
 
 include($includePath."/claro_init_footer.inc.php");
-
-
-//used class from php.net
-
-
-   class CSV
-   {
-       var $raw_data;
-       var $new_data;
-       var $mapping;
-       var $results = array();
-       var $errors = array();
-      
-       function CRLFclean()
-       {
-           $replace = array(
-               "\n",
-               "\r",
-               "\r\n"
-           );
-           $this->raw_data = str_replace($replace,"\n",$this->raw_data);
-       }
-      
-       function validKEY($v)
-       {
-           return ereg_replace("[^a-zA-Z0-9_\s]","",$v);
-       }
-      
-       function stripENCLOSED(&$v,$eb)
-       {
-           if($eb!="" AND strpos($v,$eb)!==false)
-             {
-                   if($v[0]==$eb)
-                       $v = substr($v,1,strlen($v));
-                   if($v[strlen($v)-1]==$eb)
-                       $v = substr($v,0,-1);
-                   $v = stripslashes($v);
-               }
-               else
-                   return;
-       }
-
-       function CSV($filename,$delim,$linedef,$enclosed_by="",$eol="\n")
-           {
-               //open the file
-               $this->raw_data = implode("",file($filename));
-              
-               // make sure all CRLF's are consistent
-               $this->CRLFclean();
-              
-               // use custom $eol (if exists)
-               if($eol!="\n" AND trim($eol)=="")
-                   $this->error("Couldn't split data via empty \$eol, please specify a valid end of line character.");
-               else
-               {
-                   $this->new_data = @explode($eol,$this->raw_data);
-                   if(count($this->new_data)==0)
-                       $this->error("Couldn't split data via given \$eol.<li>\$eol='".$eol."'");
-               }
-              
-               // create data keys with the line definition given in params
-               
-	       $temp = @explode($delim,$linedef);
-	       
-	       foreach($temp AS $field_index=>$field_value)
-	       {            
-                   $this->mapping[] = $this->validKEY($field_value); 
-	       }
-	       
-	       // fill the 2D array using the keys given
-	           
-	       foreach($this->new_data AS $index1=>$line)
-               {
-                   $temp = @explode($delim,$line);
-                  
-                   if(trim($line)=="")
-                       // skip empty lines
-                       continue;
-                   elseif(count($temp)==0)
-                       // line didn't split properly so record error
-                       $this->errors[] = "Couldn't split data line ".$c." via given \$delim.";
-                   else
-                   {
-                       $data_set = array();
-                       foreach($temp AS $field_index=>$field_value)
-                       {
-                           // Remove enclose characters
-                           $this->stripENCLOSED($field_value,$enclosed_by);
-                           $data_set[$this->mapping[$field_index]] = $field_value;
-                   }
-                   if(count($data_set)>0)
-                           $this->results[] = $data_set;
-                   }       
-                   unset($data_set);
-               }
-
-               return $this->results;
-              
-       }
-      
-       function error($msg)
-       {
-           exit(
-           "<hr size=1 noshade>".
-           "<font color=red face=arial size=3>".
-           "<h2>CSV Class Exception</h2>".
-           $msg.
-           "<p><b>Script Halted</b>".
-           "</font>".
-           "<hr size=1 noshade>"
-           );
-       }
-      
-       function help()
-       {
-           print(
-           "<hr size=1 noshade>".
-           "<font face=arial size=3>".
-           "<h2>CSV Class Usage</h2>".
-           "\$myVar = new CSV(\"path_to_my_file\",\"field delimeter\",\"fields enclosed by\",\"EOL character (defaults to \\n)\");<p>".
-           "Output is a 2d result array (\$myVar->results)".
-           "</font>".
-           "<hr size=1 noshade>"
-           );
-       }
-  }
 ?>
