@@ -1,4 +1,4 @@
-<?php # $Id$
+<?php // $Id$
 /*
 +----------------------------------------------------------------------+
 | CLAROLINE 1.6
@@ -770,25 +770,21 @@ elseif($displayCourseAddResult)
 {
 // Replace HTML special chars by equivalent - cannot use html_specialchars
 // Special for french
-?>
-	<tr bgcolor="<?php echo $color2	?>">
-		<td colspan="3">
-				<?php
 
-                 echo $langJustCreated." <strong>".$currentCourseCode."</strong><br>"; ?>
-                 <?
-                 if ($_REQUEST['fromAdmin']!="yes")
-                 {
-                    claro_disp_button("../../index.php",$langBackToMyCourseList);
-                 }
-                 else
-                 {
-                    claro_disp_button("add_course.php?fromAdmin=yes",$langAnotherCreateSite);
-                    claro_disp_button("../admin/index.php",$langBackToAdmin);
-                 }?>
-		</td>
-	</tr>
-<?php
+	echo "\n\n<p>\n".$langJustCreated." <strong>".$currentCourseCode."</strong><br /><br />\n\n";
+
+	if ($_REQUEST['fromAdmin']!="yes")
+	{
+		claro_disp_button("../../index.php",$langBackToMyCourseList);
+	}
+	else
+	{
+		claro_disp_button("add_course.php?fromAdmin=yes",$langAnotherCreateSite);
+		claro_disp_button("../admin/index.php",$langBackToAdmin);
+	}
+
+	echo "</p>\n\n";
+
 } // if all fields fulfilled
 
 
