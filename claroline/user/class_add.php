@@ -124,7 +124,7 @@ switch ($display)
         echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
             ."  <tr class=\"headerX\">\n"
             ."    <th>\n"
-            ."      $langClassName\n"
+            ."      Class\n"
             ."    </th>\n"
             ."    <th>\n"
             ."      $langUsers\n"
