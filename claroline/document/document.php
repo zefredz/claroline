@@ -1029,6 +1029,7 @@ $htmlHeadXtra[] =
 }
 .claroTable tr.toolbar th.prev{
 	text-align:left;
+	font-weight: normal;
 }
 .claroTable tr.toolbar th.title{
 	font-weight:bold;
@@ -1045,6 +1046,7 @@ $htmlHeadXtra[] =
 }
 .claroTable tr.toolbar th.next{
 	text-align:right;
+	font-weight: normal;
 }
  -->
  </style>";
