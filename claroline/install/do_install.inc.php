@@ -389,9 +389,12 @@ $claro_texRendererUrl = false;
 	fwrite($fd, $stringConfig);
 
 
+	
 /**
 * Config file to undist
 */
+
+
 
 $arr_file_to_undist = 
 array (
@@ -414,24 +417,64 @@ $newIncludePath."../../textzone_right.inc.html"
 foreach ($arr_file_to_undist As $undist_this)
 	claro_undist_file($undist_this);
 
+/***
+ * Generate conf from definition files.
+ */
+$includePath = $newIncludePath;
+$def_file_list = get_def_list();
 
+var_export (get_included_files());
+if(is_array($def_file_list))
+foreach ( $def_file_list as $config_code => $def_file)
+{
+    if ($config_code == $def_file['config_code'])
+    {
+        $okToSave = TRUE;
+        unset($conf_def_property_list);
+        $confDef  = claro_get_def_file($config_code);
+        if(file_exists($confDef))
+            require($confDef);
+        if (is_array($conf_def_property_list))
+        {
+            foreach($conf_def_property_list as $propName => $propDef )
+            {
+                $propValue     = $propDef['default']; // USe default as effective value
+                if (!config_checkToolProperty($propValue, $propDef))
+                {
+                    $okToSave = FALSE;
+                }
+            }
+        }
+        else
+        {
+            $okToSave = FALSE;
+        }
 
-
-//$output_undist_job ="<h3>Others conf files</h3><ul>";
-//foreach ($arr_file_to_undist As $undist_this)
-//{
-//	$output_undist_job .="<li>Conf file : ".basename ($undist_this);
-//	if (claro_undist_file($undist_this))
-//	{
-//		$output_undist_job .=" added";
-//	}
-//	else
-//	{
-//		$output_undist_job .=" not change.";
-//	};
-//	$output_undist_job .="</li>";
-//}
-//$output_undist_job .="</ul>";						
+        if ($okToSave) 
+        {
+            reset($conf_def_property_list);
+            foreach($conf_def_property_list as $propName => $propValue )
+            {
+                save_param_value_in_buffer($propName,$propValue, $config_code);
+            }
+        }
+        
+        $confFile = claro_create_conf_file($config_code);
+        $confFile = claro_get_conf_file($config_code);            
+        $storedPropertyList = read_param_value_in_buffer($config_code);
+        if (is_array($storedPropertyList)&& count($storedPropertyList)>0)
+        {
+            if (write_conf_file($conf_def
+                               ,$conf_def_property_list
+                               ,$storedPropertyList
+                               ,$confFile
+                               , realpath(__FILE__)))
+            {
+                set_hash_confFile($confFile,$configCode);
+            }
+        }
+    }
+}
 	
 #### CREATE AND WRITE .HTACCESS AND .HTPASSWD4ADMIN HIDDEN FILES #####
 
