@@ -239,7 +239,7 @@ $curDisplayLineList = $activeLineList;
 echo '<html>'
 
     .'<head>'
-    .'<meta http-equiv="refresh" content="'.REFRESH_DISPLAY_RATE.';url="'.$_SERVER['PHP_SELF'].'#final">'
+    .'<meta http-equiv="refresh" content="'.REFRESH_DISPLAY_RATE.';url='.$_SERVER['PHP_SELF'].'#final">'
     .'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/default.css" />'
     .'</head>'
 
