@@ -43,6 +43,16 @@ include("createBaseOfACourse.sql.php");
 
 $db = mysql_connect($dbHost, $dbLogin, $dbPass);
 
+// count courses upgraded
+
+$sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours 
+         where versionDb = '".$versionDb."' ";
+$res_NbCourses = mysql_query($sqlNbCourses);
+$nbCoursesUpgraded = mysql_fetch_array($res_NbCourses);
+
+$sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours";
+$res_NbCourses = mysql_query($sqlNbCourses);
+$nbCourses = mysql_fetch_array($res_NbCourses);
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -51,6 +61,19 @@ $db = mysql_connect($dbHost, $dbLogin, $dbPass);
 
 <head>
   <title>-- Claroline upgrade -- version <?php echo $clarolineVersion ?></title>  
+
+<?php
+
+$max_exec_time = ini_get('max_execution_time');
+
+if ( $display==DISPLAY_RESULT_PANEL && $max_exec_time > 0 && $nbCoursesUpgraded['0'] < $nbCourses['0'])
+{
+	$max_exec_time += 5;
+	echo "<meta http-equiv=\"refresh\" content=\"". $max_exec_time  ."\" />\n";
+}
+
+?>
+
   <meta http-equiv="Content-Type" content="text/HTML; charset=iso-8859-1"  />
   <link rel="stylesheet" type="text/css" href="upgrade.css" media="screen" />
   <style media="print" >
@@ -90,21 +113,13 @@ switch ($display)
         
                 echo sprintf ("<h2>%s</h2>",$langStep3);
                 echo $langIntroStep3;
+                echo sprintf($langNbCoursesUpgraded, $nbCoursesUpgraded['nb'],$nbCourses['nb']);
 		echo "<center>" . sprintf ($langLaunchStep3, $PHP_SELF."?cmd=run") . "</center>";
 		break;
                 
 	case DISPLAY_RESULT_PANEL : 
 
                 echo sprintf ("<h2>%s</h2>",$langStep3);
-                
-                $sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours 
-                         where versionDb = '".$versionDb."' ";
-                $res_NbCourses = mysql_query($sqlNbCourses);
-                $nbCoursesUpgraded = mysql_fetch_array($res_NbCourses);
-
-                $sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours";
-                $res_NbCourses = mysql_query($sqlNbCourses);
-                $nbCourses = mysql_fetch_array($res_NbCourses);
                 
                 echo $langIntroStep3Run;
                 echo sprintf($langNbCoursesUpgraded, $nbCoursesUpgraded['nb'],$nbCourses['nb']);
