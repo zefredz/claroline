@@ -10,18 +10,13 @@
  * 
  * This is the index page of sdk tools
 */
-
+$langFillToolCourses = 'Fill tools of a course (lorem ipsum filler)';
 require '../../inc/claro_init_global.inc.php';
 
-$is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
-if ($is_allowedToAdmin)
+$is_allowedToUseSDK 	= $is_platformAdmin;
+if ($is_allowedToUseSDK)
 {
-	if ($PHP_AUTH_USER=="" && ($REMOTE_ADDR != $SERVER_ADDR))
-	{
-		session_unregister("is_platformAdmin");
-		header("Location:.");
-		die ();
-	}
+    claro_disp_auth()
 }
 
 $nameTools = $langDevTools;
@@ -35,7 +30,7 @@ claro_disp_tool_title(
 	)
 	);
 claro_disp_msg_arr($controlMsg);
-if ($is_allowedToAdmin)
+if ($is_allowedToUseSDK)
 {
 ?>
 <H4>
@@ -56,6 +51,9 @@ if ($is_allowedToAdmin)
 	</LI>
 	<LI>
 		<a href="./fillTree.php"><?php echo $langFillTree ?></a>
+	</LI>
+	<LI>
+		<a href="./fillToolCourses.php"><?php echo $langFillToolCourses ?></a>
 	</LI>
 </UL>
 <?php
