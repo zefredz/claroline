@@ -112,12 +112,13 @@ if($is_allowedToTrack && $is_trackingEnabled)
             echo "<small>".$langNoResult."</small><br />\n";
         }
         //-- student not connected for 1 month
-        $sql = "SELECT U.`user_id`, U.`nom`, U.`prenom`, MAX(A.`access_date`)
+        $sql = "SELECT U.`user_id`, U.`nom`, U.`prenom`, MAX(A.`access_date`) as max_access_date
             FROM `$TABLEUSER` AS U, `$TABLECOURSUSER` AS CU, `$TABLETRACK_ACCESS` AS A
             WHERE U.`user_id` = CU.`user_id`
             AND CU.`code_cours` = '".$_cid."'
-            AND A.`access_date` < ( NOW() - INTERVAL 15 DAY ) 
+            AND U.`user_id` = A.`access_user_id`
             GROUP BY A.`access_user_id`
+            HAVING `max_access_date` < ( NOW() - INTERVAL 15 DAY ) 
             ORDER BY A.`access_date` ASC
             ";
         echo "&nbsp;&nbsp;&nbsp;".$langNotRecentlyConnectedStudents;
