@@ -451,8 +451,9 @@ foreach ( $def_file_list as $config_code => $def_file)
         if ($okToSave) 
         {
             reset($conf_def_property_list);
-            foreach($conf_def_property_list as $propName => $propValue )
+            foreach($conf_def_property_list as $propName => $propDef )
             {
+                $propValue     = $propDef['default']; // USe default as effective value
                 save_param_value_in_buffer($propName,$propValue, $config_code);
             }
         }
