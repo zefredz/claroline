@@ -297,7 +297,7 @@ else
 
     if ( ! $_uid)    // ADDED BY CLAROLINE: exclude non identified visitors
     {
-        die("<center>"
+       error_die("<center>"
             .$langLoginBeforePost1."<br>"
             .$langLoginBeforePost2." "
             ."<a href=../../index.php>".$langLoginBeforePost3.".</a>"

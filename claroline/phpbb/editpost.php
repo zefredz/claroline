@@ -38,14 +38,14 @@ if($is_courseAdmin)
 		/*==========================
 		    FORM SUBMIT MANAGEMENT
 		  ==========================*/
+        $sql = "SELECT poster_id, forum_id, topic_id, post_time 
+                FROM `".$tbl_posts."` 
+                WHERE post_id = '".$post_id."'";
 
-		$result = mysql_query("SELECT * FROM `$tbl_posts` WHERE post_id = '$post_id'", $db)
-		          or die($err_db_retrieve_data);
+		$myrow = claro_sql_query_fetch_all($sql);
+        if (count($myrow) == 1) $myrow = $myrow[0];
+        else                    error_die($err_db_retrieve_data);
 		          
-		if (mysql_num_rows($result) <= 0)   die($err_db_retrieve_data);
-
-		$myrow = mysql_fetch_array($result);
-
 		$poster_id        = $myrow['poster_id'];
 		$forum_id         = $myrow['forum_id' ];
 		$topic_id         = $myrow['topic_id' ];
@@ -225,7 +225,7 @@ if($is_courseAdmin)
 <form action="<?php echo $PHP_SELF; ?>" method="post">
 <table border="0">
 <tr valign="top">
-<td align="center" colspan="2"><b><?php echo $pagetitle?></b></td>
+<td colspan="2"><b><?php echo $pagetitle?></b></td>
 </tr>
 <?php
 
@@ -273,7 +273,7 @@ if($is_courseAdmin)
 <br>
 <center>
 <?php
-	echo "<a href=\"viewtopic.php?topic=$topic&forum=$forum\" target=\"_blank\">"
+	echo "<a href=\"viewtopic.php?topic=".$topic."&forum=".$forum."\" target=\"_blank\">"
 		."<b>".$l_topicreview."</b>"
 		."</a>";
 ?>

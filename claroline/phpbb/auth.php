@@ -81,7 +81,7 @@ if(!$db = @mysql_connect("$dbhost", "$dbuser", "$dbpasswd"))
 if(!@mysql_select_db($mainDbName,$db))
 	die("An Error Occured<hr>phpBB was unable to find the database <b>$mainDbName</b> on your MySQL server. <br>TRY too login again Back to forum <form action = \"/index.php?mon_icampus=yes\" method='post'>	Username : 	<input type=\"text\" name=\"uname\" size=\"10\"><br>	Password :  <input type=\"password\" name=\"pass\" size=\"10\"><br>	<input type=\"submit\" value=\"Entrer\" name=\"submit\">	</form>");
 
-if(is_banned($REMOTE_ADDR, "ip", $db)) die($l_banned);
+if(is_banned($REMOTE_ADDR, "ip", $db)) error_die($l_banned);
 
 // Setup forum Options.
 $sql = "SELECT * FROM `$tbl_config` WHERE selected = 1";
@@ -132,7 +132,7 @@ if(isset($HTTP_COOKIE_VARS[$sesscookiename]))
 
 		$userdata = get_userdata_from_id($userid, $db);
 
-		if(is_banned($userdata[user_id], "username", $db)) die($l_banned);
+		if(is_banned($userdata[user_id], "username", $db)) error_die($l_banned);
 
 		$theme = setuptheme($userdata["user_theme"], $db);
 

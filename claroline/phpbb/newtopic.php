@@ -242,11 +242,9 @@ else
 
     if ( ! $_uid)    // ADDED BY CLAROLINE: exclude non identified visitors
     {
-        die("<center>"
-            .$langLoginBeforePost1."<br>"
-            .$langLoginBeforePost2." "
-            ."<a href=../../index.php>".$langLoginBeforePost3.".</a>"
-            ."</center>");
+        error_die($langLoginBeforePost1.'<br />'
+                  $langLoginBeforePost2.
+                 ."<a href=../../index.php>".$langLoginBeforePost3.".</a>");
     }               // END ADDED BY CLAROLINE exclude visitors unidentified
     
 ?>

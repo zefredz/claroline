@@ -1304,7 +1304,7 @@ function censor_string($string, $db)
 	global $tbl_words;
 
 	$r = mysql_query("SELECT word, replacement FROM `$tbl_words`", $db)
-	     or die("Error, could not contact the database!
+	     or error_die("Error, could not contact the database!
 	             Please check your database settings in config.php");
 
 	while($w = mysql_fetch_array($r))
@@ -1381,16 +1381,16 @@ function check_priv_forum_auth($userid, $forumid, $is_posting, $db)
 	global $tbl_forum_access;
 
 	$sql = "SELECT count(*) AS user_count
-	        FROM `$tbl_forum_access`
-	        WHERE (user_id = $userid) AND (forum_id = $forumid) ";
+	        FROM `".$tbl_forum_access."`
+	        WHERE user_id = '".$userid."' 
+              AND forum_id = '".$forumid."'";
 
-	if ($is_posting)                       $sql .= "AND (can_post = 1)";
+	if ($is_posting) $sql .= "AND (can_post = 1)";
 
-	if (!$result = mysql_query($sql, $db)) return FALSE; // no good ...
-	if(!$row = mysql_fetch_array($result)) return FALSE;
-	if ($row[user_count] <= 0)             return FALSE;
+    $user_count  = claro_sql_query_get_single_value($sql);
 
-	return TRUE;
+	if ($user_count) return false;
+    else             return true;
 }
 
 /**
@@ -1398,27 +1398,18 @@ function check_priv_forum_auth($userid, $forumid, $is_posting, $db)
  */
 function error_die($msg)
 {
-	global $tablewidth, $table_bgcolor, $color1;
-	global $phpEx;
-	global $db, $userdata, $user_logged_in;
-	global $FontFace, $FontSize3, $textcolor, $phpbbversion;
-	global $starttime;
+	global $tablewidth;
+	global $db, $userdata, $user_logged_in, $starttime, $phpbbversion;
 
-	print("<br>
-		<TABLE BORDER=\"0\" CELLPADDING=\"1\" CELLSPACING=\"0\" ALIGN=\"CENTER\" VALIGN=\"TOP\" WIDTH=\"$tablewidth\">
-		<TR><TD BGCOLOR=\"$table_bgcolor\">
-			<TABLE BORDER=\"0\" CALLPADDING=\"1\" CELLSPACEING=\"1\" WIDTH=\"100%\">
-			<TR BGCOLOR=\"$color1\" ALIGN=\"LEFT\">
-				<TD>
-					<p><font face=\"Verdana\" size=\"2\"><ul>$msg</ul></font></P>
-				</TD>
-			</TR>
-			</TABLE>
-		</TD></TR>
-	 	</TABLE>
-	 <br>");
+	echo "<table border=\"0\" align=\"center\" width=\"$tablewidth\">\n"
+		."<tr>\n"
+        ."<td>\n"
+		."<blockquote>\n".$msg."\n</blockquote>\n"
+		."</td>\n"
+        ."</tr>\n"
+	 	."</TABLE>\n";
 
-	 include('page_tail.'.$phpEx);
+	 include('page_tail.php');
 	 exit;
 }
 
