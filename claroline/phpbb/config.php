@@ -87,7 +87,7 @@ $tbl_sessions         = $_course['dbNameGlu'].'bb_sessions';
 $tbl_smiles           = $_course['dbNameGlu'].'bb_smiles';
 $tbl_themes           = $_course['dbNameGlu'].'bb_themes';
 $tbl_topics           = $_course['dbNameGlu'].'bb_topics';
-$tbl_users            = $_course['dbNameGlu'].'bb_users';
+//$tbl_users            = $_course['dbNameGlu'].'bb_users';
 $tbl_whosonline       = $_course['dbNameGlu'].'bb_whosonline';
 $tbl_words            = $_course['dbNameGlu'].'bb_words';
 $tbl_group_properties = $_course['dbNameGlu'].'group_property';
@@ -95,7 +95,7 @@ $tbl_student_group	  = $_course['dbNameGlu'].'group_team';
 $tbl_user_group       = $_course['dbNameGlu'].'group_rel_team_user';
 $tbl_user_notify      = $_course['dbNameGlu'].'bb_rel_topic_userstonotify';
 
-$TABLEUSER            = $mainDbName.".`user`";
+$tbl_users            = $mainDbName."`.`user";
 
 
 $is_groupPrivate      = $_groupProperties['private'];

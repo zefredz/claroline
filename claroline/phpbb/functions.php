@@ -37,14 +37,19 @@ function undo_make_clickable($text)     { return $text; }
 function smile($message) { return $message; }
 function desmile($message) {return $message;}
 function login_form() { error_die('should display the PHPBB login form ...'); }
-function get_userdata_from_id($userid, $db) { return array("error" => "1"); }
 function check_username($username, $db) {return false;}
 function get_userdata($username, $db) {return array("error" => "1");}
 function validate_username($username, $db) {return 0;}
 
 
 
-/*---------------------- End session-management functions -------------------*/
+
+function get_userdata_from_id($userid, $db ='') 
+{ 
+
+    return array("error" => "1"); 
+}
+
 
 /**
  * Gets the total number of topics in a form
@@ -969,11 +974,11 @@ function is_topic_notification_requested($userId, $topicId)
 
 function trig_topic_notification($topicId)
 {
-    global $tbl_user_notify, $TABLEUSER, $sys_lang;
+    global $tbl_user_notify, $tbl_users, $sys_lang;
 
     $sql = "SELECT u.user_id, u.prenom firstname, u.nom lastname
             FROM `".$tbl_user_notify."` AS notif, 
-                 ".$TABLEUSER." AS u
+                 ".$tbl_users." AS u
             WHERE notif.topic_id = '".$topicId."'
             AND   notif.user_id  = u.user_id";
 
