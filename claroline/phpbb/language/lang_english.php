@@ -159,7 +159,7 @@ $l_logout	= "Logout";
 $l_login	= "Login";
 
 // Page_header
-$l_separator	= "» »";  // Included here because some languages have
+$l_separator	= "»";  // Included here because some languages have
 		          // problems with high ASCII (Big-5 and the like).
 $l_editprofile	= "Edit Profile";
 $l_editprefs	= "Edit $l_preferences";

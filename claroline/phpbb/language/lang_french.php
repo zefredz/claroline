@@ -159,7 +159,7 @@ $l_logout	= "Déconnexion";
 $l_login	= "Connexion";
 
 // Page_header
-$l_separator	= "» »";  // Included here because some languages have
+$l_separator	= "»";  // Included here because some languages have
 		          // problems with high ASCII (Big-5 and the like).
 $l_editprofile	= "Editer le profil"; // JCC
 $l_editprefs	= "Editer les $l_preferences"; // JCC
