@@ -53,7 +53,7 @@ $currentCourseRepository 	= $_course["path"];
 
 
 $sqlCourseExtention 			= "SELECT lastVisit, lastEdit, creationDate, expirationDate FROM `".$tbl_course."` WHERE code = '".$_cid."'";
-$resultCourseExtention 			= mysql_query($sqlCourseExtention);
+$resultCourseExtention 			= claro_sql_query($sqlCourseExtention);
 $currentCourseExtentionData 	= mysql_fetch_array($resultCourseExtention);
 $currentCourseLastVisit 		= $currentCourseExtentionData["lastVisit"];
 $currentCourseLastEdit			= $currentCourseExtentionData["lastEdit"];

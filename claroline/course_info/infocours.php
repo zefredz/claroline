@@ -149,7 +149,7 @@ echo "<br>";
 
 $sqlCourseExtention = "SELECT * FROM `".$tbl_course."` WHERE code = '".$current_cid."'";
 
-$resultCourseExtention 			= mysql_query($sqlCourseExtention);
+$resultCourseExtention 			= claro_sql_query($sqlCourseExtention);
 $thecourse 	= mysql_fetch_array($resultCourseExtention);
 
 $currentCourseDiskQuota 		= $currentCourseExtentionData["diskQuota"     ];
