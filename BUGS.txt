@@ -7,12 +7,6 @@ Assigné à : Moosh
 Etat : à résoudre pour 1.5.2
 
 
-B2------------------------------------------------------------------
-4. HTMLAREA
-quoi: Bug signalé par PRFB sur le forum.  Insertions de <br /> aux 
-retours à la ligne dans le code html des pages créées
-
-
 B3------------------------------------------------------------------
 10. ADMIN: claroline/admin/adminUserCourseSettings.php 
 quoi -> 
@@ -174,7 +168,14 @@ quoi : Problème d'ajoute de slashes inutile dans les
 champs de l'installeur quand on utilise des apostrophe, 
 repéré dans le nom du campus et dans le nom de l'institution.
 Repéré par : Hugues
-Assigné à : 
+Assigné à : Moosh
+
+le problème apparait également dans les noms et prénoms de l'administrateur
+
+les " posent aussi problème (mais c'est pire) toute partie de la chaine se trouvant après un " est 
+remplacé par \\ donc ==> [John "Mr Nobody" Doe] donne ==> [John \\]
+Le problème apparait dans la totalité des champs de type texte
+
 
 
 
@@ -190,14 +191,8 @@ Assigné à :
 
 
 B18 Etat : New ------------------------------------------------------
-.80 où : Install
-Etat : à résoudre pour 1.5.2 ou 1.6
-type : 
-quoi : lors du choix du nom de la base de données on peut mettre n'importe quel caractère
-	Si on met " ou ' ce caractère est stripslashé et si on fait un back on se retrouve avec un nom de database
-	dans lequel tous les " et ' ont été remplacés par \\ .  Le meme problème arrive p-e aussi pour d'autres caractères ?
-Repéré par : SEB
-Assigné à : 
+
+Voir B16 : problème des " ' et autres caractères spéciaux dans l'install
 
 B19 Etat : New ------------------------------------------------------
 .90 où : forum et course description
@@ -255,11 +250,11 @@ Assigné à :
 
 
 
-B24 Etat : A MERGER 1.5 -> 1.6  ------------------------------------------------------
+B24 RESOLU  ------------------------------------------------------
 .120 où : groupe
 - "Empty all groups"  sans warning. 
 Repéré par : Guim
-Assigné à : Guim
+Assigné à : SEB
 
 B25 Etat : New ------------------------------------------------------
 .138 où : /claroline/user/userInfo.php?editMainUserInfo=5
