@@ -74,6 +74,20 @@ $is_allowedToAdmin = $is_platformAdmin;
 // 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
 // 2 ) we must be able to arrive with new critera for a new search.
 
+// clean session if needed from  previous search
+
+if ($_REQUEST['newsearch']=="yes")
+{
+    session_unregister('admin_course_code');
+    session_unregister('admin_course_letter');
+    session_unregister('admin_course_intitule');
+    session_unregister('admin_course_category');
+    session_unregister('admin_course_language');
+    session_unregister('admin_course_access');
+    session_unregister('admin_course_subscription');
+    session_unregister('admin_course_dir');
+    session_unregister('admin_course_order_crit');
+}
 
 if (isset($_REQUEST['code']))    {$_SESSION['admin_course_code']         = trim($_REQUEST['code']);}
 if (isset($_REQUEST['letter']))  {$_SESSION['admin_course_letter']       = trim($_REQUEST['letter']);}

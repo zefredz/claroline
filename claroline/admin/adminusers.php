@@ -143,9 +143,9 @@ if (isset($_SESSION['admin_user_letter']))
 
 if (isset($_SESSION['admin_user_search']))
 {
-    $toAdd = " AND (U.`nom` LIKE '%".$_SESSION['admin_user_search']."%'
-              OR U.`prenom` LIKE '%".$_SESSION['admin_user_search']."%' ";
-    $toAdd .= " OR U.`email` LIKE '%".$_SESSION['admin_user_search']."%')";
+    $toAdd = " AND (U.`nom` LIKE '%".pr_star_replace($_SESSION['admin_user_search'])."%'
+              OR U.`prenom` LIKE '%".pr_star_replace($_SESSION['admin_user_search'])."%' ";
+    $toAdd .= " OR U.`email` LIKE '%".pr_star_replace($_SESSION['admin_user_search'])."%')";
     $sql.=$toAdd;
 
 }
@@ -154,28 +154,28 @@ if (isset($_SESSION['admin_user_search']))
 
 if (isset($_SESSION['admin_user_firstName']))
 {
-    $toAdd = " AND (U.`prenom` LIKE '".$_SESSION['admin_user_firstName']."%') ";
+    $toAdd = " AND (U.`prenom` LIKE '".pr_star_replace($_SESSION['admin_user_firstName'])."%') ";
     $sql.=$toAdd;
 
 }
 
 if (isset($_SESSION['admin_user_lastName']))
 {
-    $toAdd = " AND (U.`nom` LIKE '".$_SESSION['admin_user_lastName']."%') ";
+    $toAdd = " AND (U.`nom` LIKE '".pr_star_replace($_SESSION['admin_user_lastName'])."%') ";
     $sql.=$toAdd;
 
 }
 
 if (isset($_SESSION['admin_user_userName']))
 {
-    $toAdd = " AND (U.`username` LIKE '".$_SESSION['admin_user_userName']."%') ";
+    $toAdd = " AND (U.`username` LIKE '".pr_star_replace($_SESSION['admin_user_userName'])."%') ";
     $sql.=$toAdd;
 
 }
 
 if (isset($_SESSION['admin_user_mail']))
 {
-    $toAdd = " AND (U.`email` LIKE '".$_SESSION['admin_user_mail']."%') ";
+    $toAdd = " AND (U.`email` LIKE '".pr_star_replace($_SESSION['admin_user_mail'])."%') ";
     $sql.=$toAdd;
 
 }
