@@ -73,18 +73,6 @@ else
 			$controlMsg['error'][]=$lang_config_ErrorEmailManager;
 		}
 
-		//CHECK URL SYNTAX
-		if(!empty($institution["url"]) && !@fopen($institution["url"],"r"))
-		{
-			//$syntax=true;
-			$controlMsg['warning'][]=$lang_config_ErrorURLInstitution;
-		}
-
-		if(!empty($rootWeb) && !@fopen($rootWeb,"r") )
-		{
-			$syntax=false;
-			$controlMsg['error'][]=$lang_config_ErrorRootWeb;
-		}
 	}
 
 	if(isset($_REQUEST["change"]) && !empty($rootWeb) && !empty($dbHost) && !empty($dbLogin)  && $syntaxOk && $link=@mysql_connect($dbHost,$dbLogin,$dbPass))
