@@ -88,7 +88,11 @@ Etat       : RESOLU
 12 . /claroline/admin/adminusers.php Sur une recherche  sans résultat le texte 
 propose une "nouvelle recherche" alors qu'en haut a droite on a aussi une 
 nouvelle recherche possible" Le message  ne devrait-il pas être "nouvelle 
-recherche avancées" ? Repéré par : moosh.
+recherche avancées" ?
+
+Repéré par : MOOSH.
+
+------------------------------------------------------------------
 
 13. /claroline/admin/adminusercourses.php
 Quand on liste les cours, on sait sauter vers la liste de ses users.
@@ -115,6 +119,7 @@ insert into `CL150RC1Main`.`faculte` (name,code,bc,nb_childs,canHaveCoursesChild
 ------------------------------------------------------------------
 15. le chat  crée à l'utilisation encore  un fichier dans le rep /claroline/chat/
 et j'ai pas trouvé où il le crée
+
 Repéré par : MOOSH
 
 
@@ -139,6 +144,9 @@ Etat : RESOLU (en utilisant le meme principe que pour document et import learnin
 
 -------------
 $Log$
+Revision 1.28  2004/06/15 11:28:45  peeters
+no message
+
 Revision 1.27  2004/06/15 11:10:22  peeters
 no message
 
