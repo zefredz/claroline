@@ -111,7 +111,7 @@ $langDocContent="<p> ระบบจัดการเอกสารประกอบการศึกษา มีลักษณะคล้าย FileManager
 </ul>
 <h4>เปลี่ยนชื่อเอกสาร (หรือชื่อ directory)</h4>
 <ul>
-  <li>คลิกที่รูป <img src=../document/img/renommer.gif width=20 height=20
+  <li>คลิกที่รูป <img src=../document/img/edit.gif width=20 height=20
  align=baseline> ในช่องคอลัมม์ เปลี่ยนชื่อ</li>
   <li>พิมพ์ชื่อใหม่ลงในช่อง (ด้านซ้ายบน)</li>
   <li>คลิกปุ่ม <input type=submit value=Ok name=submit24>

@@ -5,40 +5,27 @@
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$     |
-	  |   English Translation                                                |
-      +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      +----------------------------------------------------------------------+
-
-      +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
-      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
+	  |   Vienamese Translation                                              |
       +----------------------------------------------------------------------+
 */
 
-$iso639_2_code = "en";
-$iso639_1_code = "eng";
+$iso639_2_code = "vi";
+$iso639_1_code = "vie";
 
-$langNameOfLang[arabic]="arabian";
-$langNameOfLang[brazilian]="brazilian";
-$langNameOfLang[english]="english";
-$langNameOfLang[finnish]="finnish";
-$langNameOfLang[french]="french";
-$langNameOfLang[german]="german";
-$langNameOfLang[italian]="italian";
-$langNameOfLang[japanese]="japanese";
-$langNameOfLang[polish]="polish";
-$langNameOfLang[simpl_chinese]="simplified chinese";
-$langNameOfLang[spanish]="spanish";
-$langNameOfLang[swedish]="swedish";
-$langNameOfLang[thai]="thai";
-$langNameOfLang[turkish]="turkish";
+$langNameOfLang['arabic'		]="arabian";
+$langNameOfLang['brazilian'		]="brazilian";
+$langNameOfLang['english'		]="english";
+$langNameOfLang['finnish'		]="finnish";
+$langNameOfLang['french'		]="french";
+$langNameOfLang['german'		]="german";
+$langNameOfLang['italian'		]="italian";
+$langNameOfLang['japanese'		]="japanese";
+$langNameOfLang['polish'		]="polish";
+$langNameOfLang['simpl_chinese'	]="simplified chinese";
+$langNameOfLang['spanish'		]="spanish";
+$langNameOfLang['swedish'		]="swedish";
+$langNameOfLang['thai'			]="thai";
+$langNameOfLang['turkish'		]="turkish";
 
 //$charset = 'iso-8859-1';
 //$text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
@@ -113,4 +100,17 @@ $langModifyProfile="Sửa thông tin cá nhân";
 $langMyStats = "Xem thống kê";
 $langLogout="Logout";
 $langMyStats = "Xem thống kê";
+
+// tools names
+$langAgenda="Agenda (Lịch công tác)";
+$langDocument="Tài liệu";
+$langWork="Bài viết của học sinh";
+$langAnnouncement="Thông báo";
+$langUser="Người dùng";
+$langForum="Diễn đàn";
+$langExercise="Bài tập";
+$langStats="Thống kê";
+$langGroups ="Nhóm";
+$langChat ="Thảo luận";
+
 ?>

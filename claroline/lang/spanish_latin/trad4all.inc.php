@@ -1,7 +1,7 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4                                                |
+      | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004, 2003 Universite catholique de Louvain (UCL)|
       +----------------------------------------------------------------------+
@@ -44,24 +44,26 @@ $localLangName = "español";
 $iso639_2_code = "es";
 $iso639_1_code = "esp";
 
-$langNameOfLang[arabic]="árabe";
-$langNameOfLang[brazilian]="portugués";
-$langNameOfLang[english]="inglés";
-$langNameOfLang[finnish]="finlandés";
-$langNameOfLang[french]="francés";
-$langNameOfLang[german]="alemán";
-$langNameOfLang[italian]="italiano";
-$langNameOfLang[japanese]="japonés";
-$langNameOfLang[polish]="polaco";
-$langNameOfLang[simpl_chinese]="chino simplificado";
-$langNameOfLang[spanish]="español";
-$langNameOfLang[swedish]="sueco";
-$langNameOfLang[thai]="thailandés";
-$langNameOfLang[arabic]="árabe";
-$langNameOfLang[croatian]="croato";
-$langNameOfLang[dutch]="alemán";
-$langNameOfLang[greek]="griego";
-$langNameOfLang[turkce]="turco";
+$langNameOfLang['arabic'		]="árabe";
+$langNameOfLang['brazilian'		]="portugués";
+$langNameOfLang['bulgarian'		]="bulgarian";
+$langNameOfLang['croatian'		]="croato";
+$langNameOfLang['dutch'			]="dutch";
+$langNameOfLang['english'		]="inglés";
+$langNameOfLang['finnish'		]="finlandés";
+$langNameOfLang['french'		]="francés";
+$langNameOfLang['german'		]="alemán";
+$langNameOfLang['greek'			]="griego";
+$langNameOfLang['italian'		]="italiano";
+$langNameOfLang['japanese'		]="japonés";
+$langNameOfLang['polish'		]="polaco";
+$langNameOfLang['simpl_chinese'	]="chino";
+$langNameOfLang['spanish'		]="español";
+$langNameOfLang['spanish_latin'	]="español latin";
+$langNameOfLang['swedish'		]="sueco";
+$langNameOfLang['thai'			]="thailandés";
+$langNameOfLang['turkish'		]="turco";
+
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' para izq a der, 'rtl' para der a izq)
@@ -135,5 +137,19 @@ $langMyCourses="Lista de mis cursos";
 $langModifyProfile="Modificar mi perfil";
 $langMyStats = "Ver mis estadísticas";
 $langLogout="Salir";
+
+// Tools names 
+
+$langAgenda             = "Agenda";
+$langDocument           = "Documentos";
+$langWork               = "Trabajos de los Estudiantes";
+$langAnnouncement       = "Anuncios";
+$langUser               = "Usuarios";
+$langForum              = "Foros";
+$langExercise           = "Ejercicios";
+$langStats              = "Estadísticas";
+$langGroups             = "Grupos";
+$langChat               = "Charlar";
+$langDescriptionCours   = "Descripción del Curso";
 
 ?>

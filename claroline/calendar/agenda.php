@@ -25,13 +25,11 @@
 
 $langFile = 'agenda';
 
-DEFINE('CONFVAL_LOG_CALENDAR_INSERT',TRUE);
-DEFINE('CONFVAL_LOG_CALENDAR_DELETE',TRUE);
-
 $tlabelReq = "CLCAL___";
 
 include('../inc/claro_init_global.inc.php');
 
+include($includePath."/conf/agenda.conf.inc.php");
 
 $htmlHeadXtra[] = 
 "<style type=\"text/css\">
@@ -60,6 +58,8 @@ event_access_tool($nameTools);
 $tbl_calendar_event = $_course['dbNameGlu'].'calendar_event';
 $is_allowedToEdit   = $is_courseAdmin;
 
+$cmd = $_REQUEST['cmd'];
+unset($msg);
 
 if     ($cmd == 'rqAdd' ) $subTitle = $langAddEvent;
 elseif ($cmd == 'rqEdit') $subTitle = $langEditEvent;
@@ -350,7 +350,7 @@ if ($is_allowedToEdit)
 </td>
 
 <td>
-<input type="text" name="lasting" size="2" value="<?php echo $lastingAncient ?>">
+	<input type="text" name="lasting" size="2" value="<?php echo $lastingAncient ?>">
 </td>
 
 </tr>
@@ -429,7 +429,7 @@ $nowBarShowed = false;
 
 if (count($eventList) < 1)
 {
-	echo '<br><blockquote>No event in the agenda</blockquote>';
+	echo '<br><blockquote>".$langNoEventInTheAgenda."</blockquote>';
 }
 else
 {
@@ -457,7 +457,6 @@ else
      /******** end of Order *********/
 }
 
-
 foreach($eventList as $thisEvent)
 {
   if ( ! $nowBarShowed )
@@ -484,7 +483,7 @@ foreach($eventList as $thisEvent)
 
       echo "<tr>\n"
           ."<td style=\"border-top: #CC3300 1px solid; border-bottom: #CC3300	1px	solid\">\n"
-          ."<img src=\"../img/pixel.gif\" width=\"20\" alt=\"\">"
+          ."<img src=\"".$imgRepository."/pixel.gif\" width=\"20\" alt=\"\">"
           ."<font color=\"#CC3300\">"
           ."<i>"
           .ucfirst(claro_format_locale_date( $dateFormatLong))." "
@@ -520,7 +519,7 @@ foreach($eventList as $thisEvent)
   echo "<tr class=\"headerX\" valign=\"top\">\n"
       ."<th>\n"
       ."<a href=\"#form\" name=\"event".$thisEvent['id']."\"></a>\n"
-      ."<img src=\"../img/agenda.gif\" alt=\"\">"
+      ."<img src=\"".$imgRepository."/agenda.gif\" alt=\"\">"
       .ucfirst(claro_format_locale_date( $dateFormatLong, strtotime($thisEvent['day'])))." "
       .ucfirst( strftime( $timeNoSecFormat, strtotime($thisEvent['hour'])))." "
       .( empty($thisEvent['lasting']) ? '' : $langLasting.' : '.$thisEvent['lasting'] );
@@ -541,14 +540,14 @@ foreach($eventList as $thisEvent)
   if ($is_allowedToEdit)
   {
     echo "<a href=\"".$PHP_SELF."?cmd=rqEdit&id=".$thisEvent['id']."\">"
-        ."<img src=\"../img/edit.gif\" border=\"O\" alt=\"".$langModify."\">"
+        ."<img src=\"".$imgRepository."/edit.gif\" border=\"O\" alt=\"".$langModify."\">"
         ."</a>"
          
         ."<a href=\"".$PHP_SELF."?cmd=exDelete&id=".$thisEvent['id']."\" "
         ."onclick=\"javascript:if( ! confirm('"
         .addslashes (htmlspecialchars($langDelete.' '.$thisEvent['titre']." ?"))
         ."')) return false;\" >"
-        ."<img src=\"../img/delete.gif\" border=\"0\" alt=\"".$langDelete."\">"
+        ."<img src=\"".$imgRepository."/delete.gif\" border=\"0\" alt=\"".$langDelete."\">"
         ."</a>";
   }
   echo "</td>\n"

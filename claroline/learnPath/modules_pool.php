@@ -288,7 +288,7 @@
                         </a>
                     </td>
                     <td align=\"center\">
-                       <a href=\"",$PHP_SELF,"?cmd=rename&mod_id=".$list['module_id']."\"><img src=\"../img/renommer.gif\" border=0 alt=\"$langModify\" /></a>
+                       <a href=\"",$PHP_SELF,"?cmd=rename&mod_id=".$list['module_id']."\"><img src=\"../img/edit.gif\" border=0 alt=\"$langModify\" /></a>
                     </td>
                     <td align=\"center\">
                        <a href=\"",$PHP_SELF,"?cmd=comment&mod_id=".$list['module_id']."\"><img src=\"../img/comment.gif\" border=0 alt=\"$langModify\" /></a>

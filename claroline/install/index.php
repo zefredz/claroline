@@ -41,6 +41,8 @@ if (!empty($_GET))  	{extract($_GET, EXTR_OVERWRITE);}
 if (!empty($_POST)) 	{extract($_POST, EXTR_OVERWRITE);}
 if (!empty($_SERVER)) 	{extract($_SERVER, EXTR_OVERWRITE);}
 
+$confirmUseExistingPMADb = $_REQUEST['confirmUseExistingPMADb'];
+
 $newIncludePath ="../inc/";
 include ($newIncludePath."installedVersion.inc.php");
 
@@ -532,16 +534,30 @@ foreach ($arr_file_to_undist As $undist_this)
 			$passFormToStore=$passForm;
 		}
 
+		// ADD htPassword
+		
+		$htPasswordPath = "../admin/";
+		$htPasswordName = ".htpasswd4admin";
+		@rename ($htPasswordPath.$htPasswordName,		 	$htPasswordPath.$htPasswordName."_old");
+
+		$filePasswd=@fopen($htPasswordPath.$htPasswordName, "w");
+		if (!$filePasswd)
+		{
+			$filePasswordCreationError = true;
+			$display=DISP_RUN_INSTALL_NOT_COMPLETE;
+		}
+		else
+		{
+			$stringPasswd="$loginForm:$passFormToStore";
+			@fwrite($filePasswd, $stringPasswd);
+		}
+
+		
+		// htaccess files
 
 		$htAccessPath = "../admin/";
 		$htAccessName = ".htaccess";
-		$htPasswordPath = "../admin/";
-		$htPasswordName = ".htpasswd4admin";
-
 		@rename ($htAccessAdminPath.$htAccessName, 			$htAccessAdminPath.$htAccessName."_old");
-		@rename ($htPasswordPath.$htPasswordName,		 	$htPasswordPath.$htPasswordName."_old");
-
-
 		$fileAccess=@fopen($htAccessPath.$htAccessName, "w");
 		if (!$fileAccess)
 		{
@@ -558,16 +574,76 @@ foreach ($arr_file_to_undist As $undist_this)
 			fwrite($fileAccess, $stringAccess);
 		}
 
-		$filePasswd=@fopen($htPasswordPath.$htPasswordName, "w");
-		if (!$filePasswd)
+
+		
+		$htAccessPath = "../inc/";
+		$fileAccess=@fopen($htAccessPath.$htAccessName, "w");
+		if (!$fileAccess)
 		{
-			$filePasswordCreationError = true;
+			$fileAccessCreationError = true;
 			$display=DISP_RUN_INSTALL_NOT_COMPLETE;
 		}
 		else
 		{
-			$stringPasswd="$loginForm:$passFormToStore";
-			@fwrite($filePasswd, $stringPasswd);
+			$stringAccess='AuthName "Administration Claroline"
+			AuthType Basic
+			Require valid-user
+			AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
+
+			fwrite($fileAccess, $stringAccess);
+		}
+
+
+		$htAccessPath = "../lang/";
+		$fileAccess=@fopen($htAccessPath.$htAccessName, "w");
+		if (!$fileAccess)
+		{
+			$fileAccessCreationError = true;
+			$display=DISP_RUN_INSTALL_NOT_COMPLETE;
+		}
+		else
+		{
+			$stringAccess='AuthName "Administration Claroline"
+			AuthType Basic
+			Require valid-user
+			AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
+
+			fwrite($fileAccess, $stringAccess);
+		}
+
+		$htAccessPath = "../sql/";
+		$fileAccess=@fopen($htAccessPath.$htAccessName, "w");
+		if (!$fileAccess)
+		{
+			$fileAccessCreationError = true;
+			$display=DISP_RUN_INSTALL_NOT_COMPLETE;
+		}
+		else
+		{
+			$stringAccess='AuthName "Administration Claroline"
+			AuthType Basic
+			Require valid-user
+			AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
+
+			fwrite($fileAccess, $stringAccess);
+		}
+
+
+		$htAccessPath = "../sources/";
+		$fileAccess=@fopen($htAccessPath.$htAccessName, "w");
+		if (!$fileAccess)
+		{
+			$fileAccessCreationError = true;
+			$display=DISP_RUN_INSTALL_NOT_COMPLETE;
+		}
+		else
+		{
+			$stringAccess='AuthName "Administration Claroline"
+			AuthType Basic
+			Require valid-user
+			AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
+
+			fwrite($fileAccess, $stringAccess);
 		}
 
 ############ PROTECTING FILES AGAINST WEB WRITING ###################

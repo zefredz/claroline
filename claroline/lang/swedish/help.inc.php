@@ -55,7 +55,7 @@ $langDocContent="<p>Dokumentverktyget är liknande Filhanteraren på din dator.</p
 </ul>
 <h4>Byta namn på ett dokument (en mapp)</h4>
 <ul>
-  <li>Klicka på <img src=../document/img/renommer.gif width=20 height=20 align=baseline> knappen i
+  <li>Klicka på <img src=../document/img/edit.gif width=20 height=20 align=baseline> knappen i
   Byta namn-kolumnen</li>
   <li>Skriv in det nya namnet i fältet (uppe till vänster)</li>
   <li>Godkänn genom att klicka på <input type=submit value=Ok name=submit24>

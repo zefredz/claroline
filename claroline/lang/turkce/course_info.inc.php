@@ -5,7 +5,6 @@
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$    |
 	  |   Turkish Translation                                                |
       +----------------------------------------------------------------------+
 
@@ -35,17 +34,9 @@ açýk tutunuz, sonra kapatarak kullanýcý listesinden istemediklerinizi siliniz.";
 $langTipLang="Seçtiðiniz dil her ziyaretçi için geçerli olacaktýr.";
 
 // Change Home Page
-$langAgenda="Gündem";
 $langLink="Baðlantýlar";
-$langDocument="Belgeler";
 $langVid="Video";
-$langWork="Öðrenci Yazýlarý";
 $langProgramMenu="Ders Programý";
-$langAnnouncement="Duyurular";
-$langUser="Kullanýcýlar";
-$langForum="Forumlar";
-$langExercise="Alýþtýrmalar";
-$langStats="Ýstatistikler";
 $langUplPage="Sayfa yükle ve Ana Sayfaya baðla";
 $langLinkSite="Ana Sayfaya Baðlantý ekle";
 $langModifInfo="Ders bilgilerini deðiþtir";
@@ -61,10 +52,6 @@ $langN="HAYIR";
 
 $langDepartmentUrl = "Bölüm URL";
 $langDepartmentUrlName = "Bölüm";
-$langModifGroups="Gruplar";
-$langGroups ="Gruplar";
-$langChat ="Tartýþma";
-$langDescriptionCours  = "Ders açýklamasý";
 
 $langArchiveCourse = "Ders yedekleme ";
 $langCreatedIn = "hazýrlama";

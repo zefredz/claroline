@@ -1,7 +1,7 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4                                                |
+      | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004, 2003 Universite catholique de Louvain (UCL)|
       +----------------------------------------------------------------------+
@@ -98,7 +98,7 @@ no est&eacute;n infectados antes de colocarlos en iCampus.</p>
 </ul>
 <h4>Cambiar el nombre de un documento (o de un directorio)</h4>
 <ul>
-  <li>Haga click en el bot&oacute;n <img src=../document/img/renommer.gif width=20 height=20 align=baseline> 
+  <li>Haga click en el bot&oacute;n <img src=../document/img/edit.gif width=20 height=20 align=baseline> 
 	en la columna &quot;Cambiar el nombre.</li>
   <li>Introduzca el nuevo nombre en el lugar previsto para este efecto que aparece 
 	arriba a la izquierda</li>

@@ -5,7 +5,6 @@
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$        |
       |   Swedish translation                                                |
       +----------------------------------------------------------------------+
 
@@ -15,24 +14,27 @@
  */
  
 
-//$iso639_2_code = "zh";
-//$iso639_1_code = "zho";
+$iso639_2_code = "sv";
+$iso639_1_code = "swe";
 
-$langNameOfLang[brazilian]="brasilianska";
-$langNameOfLang[english]="engelska";
-$langNameOfLang[finnish]="finska";
-$langNameOfLang[french]="franska";
-$langNameOfLang[german]="tyska";
-$langNameOfLang[italian]="italienska";
-$langNameOfLang[japanese]="japanska";
-$langNameOfLang[polish]="polska";
-$langNameOfLang[simpl_chinese]="enkel kinesiska";
-$langNameOfLang[spanish]="spanska";
-$langNameOfLang[swedish]="svenska";
-$langNameOfLang[thai]="thailändska";
-$langNameOfLang[arabic]="arabiska";
-$langNameOfLang[turkish]="turkiska";
- 
+$langNameOfLang['arabic'		]="arabiska";
+$langNameOfLang['brazilian'		]="brasilianska";
+$langNameOfLang['bulgarian'		]="bulgarianska";
+$langNameOfLang['croatian'		]="croatianska";
+$langNameOfLang['dutch'			]="dutchska";
+$langNameOfLang['english'		]="engelska";
+$langNameOfLang['finnish'		]="finska";
+$langNameOfLang['french'		]="franska";
+$langNameOfLang['german'		]="tyska";
+$langNameOfLang['italian'		]="italienska";
+$langNameOfLang['japanese'		]="japanska";
+$langNameOfLang['polish'		]="polska";
+$langNameOfLang['simpl_chinese'	]="enkel kinesiska";
+$langNameOfLang['spanish'		]="spanska";
+$langNameOfLang['swedish'		]="svenska";
+$langNameOfLang['thai'			]="thailändska";
+$langNameOfLang['turkish'		]="turkiska";
+
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
 $left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
@@ -114,5 +116,20 @@ $langDate="Datum";
 $langEmpty="Tom";
 $langText="Text";
 $langYes="Yes"; 
+
+//tool names
+
+$langAgenda="Agenda";
+$langDocument="Dokument";
+$langWork="Elevarbeten";
+$langAnnouncement="Tillkännagivanden";
+$langUser="Användare";
+$langForum="Forum";
+$langExercise="Övningar";
+$langStats="Statistik";
+$langModifInfo="Modifiera kursinformation";
+$langChat="Diskussion";
+$langDescriptionCours="Kursbeskrivning";
+$langGroups="Grupper";
 
 ?>

@@ -85,7 +85,7 @@ $langDocContent="<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>An
 	</h4>
 	<ul>
 		<li>
-			klik pada <img src=../document/img/renommer.gif width=20 height=20 align=baseline>
+			klik pada <img src=../document/img/edit.gif width=20 height=20 align=baseline>
 			tombol di kolom ganti nama
 		</li>
 		<li>

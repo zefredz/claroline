@@ -131,7 +131,7 @@ $langDocContent="<p>The Documents tool is similar to the FileManager of
 </ul>
 <h4>Rename a document (a directory)</h4>
 <ul>
-  <li>click on the <img src=../document/img/renommer.gif width=20 height=20
+  <li>click on the <img src=../document/img/edit.gif width=20 height=20
  align=baseline> button in
   the Rename column</li>
   <li>Type the new name in the field (top left)</li>

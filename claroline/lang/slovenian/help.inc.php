@@ -118,7 +118,7 @@ Ce jih hoces predstaviti v drugacnem zaporedju, jih ostevilci: 01, 02,  03...</p
 	</h4>
 	<ul>
 		<li>
-			klikni na  gumb <img src=../document/img/renommer.gif width=20 height=20 align=baseline>
+			klikni na  gumb <img src=../document/img/edit.gif width=20 height=20 align=baseline>
 			v stolpcu Preimenuj (Rename)
 		</li>
 		<li>

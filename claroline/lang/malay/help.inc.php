@@ -73,7 +73,7 @@ $langDocContent="<p>Fungsi Alat Bantu Dokumen adalah sama seperti fungsi penguru
 	</h4>
 	<ul>
 		<li>
-			Klik pada ikon ini <img src=../document/img/renommer.gif width=20 height=20 align=baseline> yang terdapat pada lajur <i>Tukar Nama</i>.
+			Klik pada ikon ini <img src=../document/img/edit.gif width=20 height=20 align=baseline> yang terdapat pada lajur <i>Tukar Nama</i>.
 		</li>
 		<li>
 			Isikan nama baru dalam ruang penukaran nama tersebut. (dibahagian atas sebelah kiri)

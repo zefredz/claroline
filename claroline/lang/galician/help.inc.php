@@ -175,7 +175,7 @@ de maneira semellante &aacute; xesti&oacute;n dos seus documentos nun ordenador.
 </ul>
 <h4>Cambia-lo nome dun documento (ou dun directorio)</h4>
 <ul>
-  <li>Faga click no bot&oacute;n <img src=../document/img/renommer.gif width=20 height=20 align=baseline>
+  <li>Faga click no bot&oacute;n <img src=../document/img/edit.gif width=20 height=20 align=baseline>
 	na columna &quot;Cambia-lo nome.</li>
   <li>Introduza o novo nome no lugar previsto para este efecto que aparece
 	arriba &aacute; esquerda</li>

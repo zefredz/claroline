@@ -1,8 +1,13 @@
 <?php // $Id$
 /*
-    
- */
-
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.* 
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+	  |   Vienamese Translation                                              |
+      +----------------------------------------------------------------------+
+*/
 $langModifInfo="Các xác lập của khoá học";
 $langModifDone="Thông tin đã được hiệu chỉnh";
 $langHome="Trở về trang chủ";
@@ -25,19 +30,10 @@ one week, ask the students to register themselves, then close registration and c
 $langTipLang="This language will be valid for every visitor of your course's website.";
 
 // Change Home Page
-$langAgenda="Agenda (Lịch công tác)";
 $langLink="Liên kết";
-$langDocument="Tài liệu";
 $langVid="Video";
-$langWork="Bài viết của học sinh";
 $langProgramMenu="Chương trình khoá học";
-$langAnnouncement="Thông báo";
-$langUser="Người dùng";
-$langForum="Diễn đàn";
-$langExercise="Bài tập";
-$langStats="Thống kê";
-$langGroups ="Nhóm";
-$langChat ="Thảo luận";
+
 $langUplPage="Upload trang và tạo liên kết tới trang chủ";
 $langLinkSite="Thêm liên kết trang vào trang chủ";
 $langModifGroups="Nhóm";

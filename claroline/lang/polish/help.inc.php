@@ -60,7 +60,7 @@ $langDocContent="<p>Narzedzie Dokumenty jest podobne do Menad¿era Plików w kompu
 </ul>
 <h4>Zmieniæ nazwê dokumentu (katalogu)</h4>
 <ul>
-  <li>kliknij na przycisk <img src=../document/img/renommer.gif width=20 height=20
+  <li>kliknij na przycisk <img src=../document/img/edit.gif width=20 height=20
  align=baseline> w kolumnie Zmieñ nazwê</li>
   <li>Wpisz now± nazwê w polu (góra po lewej)</li>
   <li>Zatwierd¼ przez klikniêcie <input type=submit value=Ok name=submit24>. 

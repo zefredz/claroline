@@ -92,7 +92,7 @@ $langDocContent="<p>De module voor het beheer van documenten (cursusmaterialen) 
 	.</li></ul>
 <h4>Een nieuwe naam geven aan een document (of folder)</h4>
 <ul>
-  <li>klik op de toets <img src=../document/img/renommer.gif width=20
+  <li>klik op de toets <img src=../document/img/edit.gif width=20
  height=20 align=baseline> in de kolom 'nieuwe naam';.</li>
   <li>Breng in de nieuwe naam in de voorbehouden zone links boven</li>
   <li>Klik op 'OK'; <input type=submit value=OK name=submit24>. </li></ul>

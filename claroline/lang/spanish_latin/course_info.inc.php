@@ -1,7 +1,7 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4                                                |
+      | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004, 2003 Universite catholique de Louvain (UCL)|
       +----------------------------------------------------------------------+
@@ -56,22 +56,11 @@ $langTipLang          = "Este lenguaje será válido para todos los visitantes de 
 
 
 // Change Home Page
-$langAgenda             = "Agenda";
 $langLink               = "Enlaces";
-$langDocument           = "Documentos";
 $langVid                = "Video";
-$langWork               = "Trabajos de los Estudiantes";
-$langProgramMenu        = "Programa del Curso";
-$langAnnouncement       = "Anuncios";
-$langUser               = "Usuarios";
-$langForum              = "Foros";
-$langExercise           = "Ejercicios";
-$langStats              = "Estadísticas";
-$langGroups             = "Grupos";
-$langChat               = "Charlar";
+
 $langUplPage            = "Enviar una página y enlazarla a la principal";
 $langLinkSite           = "Agregar un enlace a la página principal";
-$langModifGroups        = "Grupos";
 
 // delete_course.php
 $langDelCourse   = "Eliminar el sitio web completo de este curso";
@@ -84,7 +73,6 @@ $langN           = "No";
 
 $langDepartmentUrl = "URL del Departmento ";
 $langDepartmentUrlName = "Departamento";
-$langDescriptionCours  = "Descripción del Curso";
 
 $langArchiveCourse = "Resguardo del Curso ";
 $langCreatedIn = "creado el";

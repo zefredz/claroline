@@ -70,7 +70,7 @@ $langDocContent="<p>Il modulo di gestione dei documenti funziona in modo simile 
 </ul>
 <h4>Rinominare un documento (o una Cartella)</h4>
 <ul>
-  <li>Cliccate sul pulsante <img src=../document/img/renommer.gif width=20 height=20 align=baseline>
+  <li>Cliccate sul pulsante <img src=../document/img/edit.gif width=20 height=20 align=baseline>
 	nella colonna &quot;Rinominare&quot;.</li>
   <li>Scrivete il nuovo nome nella zona che comparirà in alto a sinistra</li>
   <li>Confermate cliccando su &quot;Ok&quot;

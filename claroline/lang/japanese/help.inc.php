@@ -60,7 +60,7 @@ $langDocContent="<p>この文書ツールは、コンピュータのファイルマネージャに似ていま
 </ul>
 <h4>文書名の変更(a directory)</h4>
 <ul>
-  <li> <img src=../document/img/renommer.gif width=20 height=20 align=baseline> ボタンを押して、変更します。</li>
+  <li> <img src=../document/img/edit.gif width=20 height=20 align=baseline> ボタンを押して、変更します。</li>
   <li>新しい名前を入れます(左に欄が出ます)</li>
   <li>変更確認ボタン<input type=submit value=Ok name=submit24>
 	. 

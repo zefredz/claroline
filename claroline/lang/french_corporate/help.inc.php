@@ -138,7 +138,7 @@ $langDocContent="<p>Le module de gestion de document fonctionne de
 </ul>
 <h4>Renommer un document (ou un r&eacute;pertoire)</h4>
 <ul>
-  <li>cliquez sur le bouton <img src=../document/img/renommer.gif width=20
+  <li>cliquez sur le bouton <img src=../document/img/edit.gif width=20
  height=20 align=baseline>
 	dans la colonne &quot;Renommer&quot;.</li>
   <li>Tapez le nouveau nom dans la zone pr&eacute;vue &agrave; cet effet

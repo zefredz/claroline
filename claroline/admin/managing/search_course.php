@@ -1156,7 +1156,7 @@ if($display_group)
                                     echo $user["email"].",";
 
                         ?>">
-                        <img src="../../img/mail.gif" border="0" alt="<?php echo $lang_SearchCourse_imgMail; ?>"> </a>
+                        <img src="../../img/email.gif" border="0" alt="<?php echo $lang_SearchCourse_imgMail; ?>"> </a>
                     </td>
         <?php    } ?>
 
@@ -1206,7 +1206,7 @@ if($display_user)
 
     echo "<hr><br><u>".count($tab)." ".$lang_SearchCourse_UserTitle."</u>&nbsp;&nbsp;";
     ?> <a href="<?php echo $mailto; ?>" >
-        <img src="../../img/mail.gif" border="0" alt="<?php echo $lang_SearchCourse_imgMail; ?>">
+        <img src="../../img/email.gif" border="0" alt="<?php echo $lang_SearchCourse_imgMail; ?>">
         </a>
         <br><br>
 

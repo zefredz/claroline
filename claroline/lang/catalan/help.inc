@@ -133,7 +133,7 @@ $langDocContent="<p>L'eina de Documents és similar a l'Administrador d'arxius de
 	</h4>
 	<ul>
 		<li>
-			punxa sobre el <img src=../document/img/renommer.gif width=20 height=20 align=baseline> 
+			punxa sobre el <img src=../document/img/edit.gif width=20 height=20 align=baseline> 
 			botó sobre la columna Reanomena
 		</li>
 		<li>

@@ -63,7 +63,7 @@ $langDocContent="<p>Työkalu dokumentteja varten on samankaltainen kuin tietokone
 </ul>
 <h4>Nimeä uudelleen tiedosto(tai hakemisto)</h4>
 <ul>
-  <li>Klikkaa <img src=../document/img/renommer.gif width=20 height=20 align=baseline> nappia sarakkeessa.</li>
+  <li>Klikkaa <img src=../document/img/edit.gif width=20 height=20 align=baseline> nappia sarakkeessa.</li>
   <li>Kirjoita uusi nimi kenttään (ylhäällä vasemmalla). </li>
   <li>Hyväksy klikkaamalla nappia <input type=submit value=Ok name=submit24></li>.
 </ul>

@@ -5,7 +5,6 @@
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$     |
       |   Swedish translation                                                |
       +----------------------------------------------------------------------+
 
@@ -39,23 +38,12 @@ $langTipLang="Detta språk gäller för all besökare som besöker denna kurswebbsajt
 
 
 // Change Home Page
-$langAgenda="Agenda";
 $langLink="Länkar";
-$langDocument="Dokument";
 $langVid="Video";
-$langWork="Elevarbeten";
 $langProgramMenu="Kursprogram";
-$langAnnouncement="Tillkännagivanden";
-$langUser="Användare";
-$langForum="Forum";
-$langExercise="Övningar";
-$langStats="Statistik";
+
 $langUplPage="Ladda upp sida och länka till hemsida";
 $langLinkSite="Lägg till länk på hemsidan";
-$langModifInfo="Modifiera kursinformation";
-$langChat="Diskussion";
-$langDescriptionCours="Kursbeskrivning";
-$langGroups="Grupper";
 // delete_course.php
 
 

@@ -129,7 +129,7 @@ $langDocContent="<p>Раздел Учебные материалы работает подобно
 </ul>
 <h4>Переименовать документ (или папку)</h4>
 <ul>
-  <li>щелкните на кнопке <img src=../document/img/renommer.gif width=20
+  <li>щелкните на кнопке <img src=../document/img/edit.gif width=20
  height=20 align=baseline>
 	в столбце &quot;Переименовать&quot;.</li>
   <li>Наберите новое название в предложенном поле, которое появится слева вверху</li>

@@ -135,7 +135,7 @@ $langDocContent="<p>Το εργαλείο αρχείων είναι όμοιο σε λειτουργία με τον Διαχειρ
 </ul>
 <h4>Μετονομάστε ένα έγγραφο (ένα κατάλογο)</h4>
 <ul>
-  <li>κάντε κλίκ στο <img src=../document/img/renommer.gif width=20 height=20
+  <li>κάντε κλίκ στο <img src=../document/img/edit.gif width=20 height=20
  align=baseline> πλήκτρο στη 
   στήλη Μετονομασία</li>
   <li>Πληκτρολογήστε το καινούριο όνομα στο πεδίο (πάνω αριστερά)</li>

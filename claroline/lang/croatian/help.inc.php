@@ -79,7 +79,7 @@ $langDocContent="<p> Alati dokumenata su slièni FileManageru na vašoj radnoj pov
 	</h4>
 	<ul>
 		<li>
-			Klikom na <img src=../dokument/img/renommer.gif width=20 height=20 align=baseline> 
+			Klikom na <img src=../dokument/img/edit.gif width=20 height=20 align=baseline> 
 			opciju u Preimenuj koloni
 		</li>
 		<li>

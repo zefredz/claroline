@@ -17,42 +17,25 @@
 
 $iso639_2_code = "tr";
 $iso639_1_code = "tur";
-/*
-$iso639_2_code = "en";
-$iso639_1_code = "eng";
 
-$langNameOfLang[arabic]="arabian";
-$langNameOfLang[brazilian]="brazilian";
-$langNameOfLang[croatian]="croatian";
-$langNameOfLang[dutch]="dutch";
-$langNameOfLang[english]="english";
-$langNameOfLang[finnish]="finnish";
-$langNameOfLang[french]="french";
-$langNameOfLang[german]="german";
-$langNameOfLang[greek]="greek";
-$langNameOfLang[italian]="italian";
-$langNameOfLang[japanese]="japanese";
-$langNameOfLang[polish]="polish";
-$langNameOfLang[simpl_chinese]="simplified chinese";
-$langNameOfLang[spanish]="spanish";
-$langNameOfLang[swedish]="swedish";
-$langNameOfLang[thai]="thai";
-$langNameOfLang[turkish]="turkish";
-*/
-
-$langNameOfLang[brazilian]="brezilya dili";
-$langNameOfLang[english]="ingilizce";
-$langNameOfLang[finnish]="fince";
-$langNameOfLang[french]="frans&#305;zca";
-$langNameOfLang[german]="almanca";
-$langNameOfLang[italian]="italyanca";
-$langNameOfLang[japanese]="japonca";
-$langNameOfLang[polish]="polca";
-$langNameOfLang[simpl_chinese]="çince";
-$langNameOfLang[spanish]="ispanyolca";
-$langNameOfLang[swedish]="isveçce";
-$langNameOfLang[thai]="tayca";
-$langNameOfLang[turkish]="türkçe";
+$langNameOfLang['arabic'		]="arabian";
+$langNameOfLang['brazilian'		]="brezilya dili";
+$langNameOfLang['bulgarian'		]="bulgarian";
+$langNameOfLang['croatian'		]="croatian";
+$langNameOfLang['dutch'			]="dutch";
+$langNameOfLang['english'		]="ingilizce";
+$langNameOfLang['finnish'		]="fince";
+$langNameOfLang['french'		]="frans&#305;zca";
+$langNameOfLang['german'		]="almanca";
+$langNameOfLang['greek'			]="greek";
+$langNameOfLang['italian'		]="italyanca";
+$langNameOfLang['japanese'		]="japonca";
+$langNameOfLang['polish'		]="polca";
+$langNameOfLang['simpl_chinese'	]="çince";
+$langNameOfLang['spanish'		]="ispanyolca";
+$langNameOfLang['swedish'		]="isveçce";
+$langNameOfLang['thai'			]="tayca";
+$langNameOfLang['turkish'		]="türkçe";
 
 $charset = 'iso-8859-9';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
@@ -98,4 +81,21 @@ $langBackList="Listeye dön";
 $langMyCourses="Derslerim";
 $langModifyProfile="Profilimi deðiþtir";
 $langLogout="Çýkýþ";
+
+// Tool names
+
+$langModifGroups="Gruplar";
+$langGroups ="Gruplar";
+$langChat ="Tartýþma";
+$langDescriptionCours  = "Ders açýklamasý";
+$langAgenda="Gündem";
+$langDocument="Belgeler";
+$langWork="Öðrenci Yazýlarý";
+$langAnnouncement="Duyurular";
+$langUser="Kullanýcýlar";
+$langForum="Forumlar";
+$langExercise="Alýþtýrmalar";
+$langStats="Ýstatistikler";
+
+
 ?>

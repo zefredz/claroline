@@ -43,7 +43,7 @@ $langDocContent="<p>½²Òå²ÄÁÏ ¹ÜÀí¹¤¾ßÀàËÆ×ÀÃæµçÄÔÓ¦ÓÃÖÐµÄÎÄ¼þ¹ÜÀíÆ÷.</p><p>Äú¿ÉÒ
 </ul>
 <h4>ÎªÎÄ¼þ(»òÕßÄ¿Â¼)¸üÃû</h4>
 <ul>
-  <li>µã»÷<img src=../document/img/renommer.gif width=20 height=20 align=baseline> °´Å¥(Î»ÓÚ'¸üÃû'À¸)</li>
+  <li>µã»÷<img src=../document/img/edit.gif width=20 height=20 align=baseline> °´Å¥(Î»ÓÚ'¸üÃû'À¸)</li>
   <li>ÔÚ×óÉÏ½ÇÇøÓòÌîÐ´ÐÂµÄÎÄ¼þÃû</li>
   <li>È·ÈÏ,µã»÷<input type=submit value=Ok name=submit24>
 	. 

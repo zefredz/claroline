@@ -68,7 +68,7 @@ $langDocContent="<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanager
 </ul>
 <h4>Ein Dokument (oder Verzeichnis) umbenennen</h4>
 <ul>
-  <li>Klicken Sie auf <img src=../document/img/renommer.gif width=20 height=20 align=baseline> in der Spalte
+  <li>Klicken Sie auf <img src=../document/img/edit.gif width=20 height=20 align=baseline> in der Spalte
   Umbenennen.</li>
   <li>Schreiben Sie den neuen Namen in das Feld (oben links)</li>
   <li>Bestätigen Sie durch anklicken <input type=submit value=Ok name=submit24>.

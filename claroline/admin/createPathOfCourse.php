@@ -53,8 +53,7 @@ echo "création ../../$repertoire ou ".realpath("../../$repertoire");
 
 #############COPIER DOCUMENTS ####################################
 	copy("../document/Example_document.pdf", "../../$repertoire/document/Example_document.pdf");
-	copy("../video/millikan.rm", "../../$repertoire/video/millikan.rm");
-//	copy("../work/student.htm", "../../$repertoire/work/student.htm");
+
 ####################################################################
 ################CREER PAGE ACCUEIL #################################
 ####################################################################

@@ -16,18 +16,25 @@
  */
 
 
-$langNameOfLang[brazilian]="brazilian";
-$langNameOfLang[english]="english";
-$langNameOfLang[finnish]="finnish";
-$langNameOfLang[french]="french";
-$langNameOfLang[german]="german";
-$langNameOfLang[italian]="italian";
-$langNameOfLang[japanese]="japanese";
-$langNameOfLang[polish]="polish";
-$langNameOfLang[simpl_chinese]="simplified chinese";
-$langNameOfLang[spanish]="spanish";
-$langNameOfLang[swedish]="swedish";
-$langNameOfLang[thai]="thai";
+$langNameOfLang['arabic'		]="arabian";
+$langNameOfLang['brazilian'		]="brazilian";
+$langNameOfLang['bulgarian'		]="bulgarian";
+$langNameOfLang['croatian'		]="croatian";
+$langNameOfLang['dutch'			]="dutch";
+$langNameOfLang['english'		]="english";
+$langNameOfLang['finnish'		]="finnish";
+$langNameOfLang['french'		]="french";
+$langNameOfLang['german'		]="german";
+$langNameOfLang['greek'			]="greek";
+$langNameOfLang['italian'		]="italian";
+$langNameOfLang['japanese'		]="japanese";
+$langNameOfLang['polish'		]="polish";
+$langNameOfLang['simpl_chinese'	]="simplified chinese";
+$langNameOfLang['spanish'		]="spanish";
+$langNameOfLang['swedish'		]="swedish";
+$langNameOfLang['thai'			]="thai";
+$langNameOfLang['turkish'		]="turkish";
+
 
 $charset = 'Windows-874';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)

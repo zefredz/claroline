@@ -579,7 +579,7 @@ if ($fileList)
 		/* RENAME COMMAND */
 		echo	"<td>",
 				"<a href=\"",$PHP_SELF,"?rename=",$cmdFileName,"\">",
-				"<img src=\"../img/renommer.gif\" border=\"0\" alt=\"",$langRename,"\">",
+				"<img src=\"../img/edit.gif\" border=\"0\" alt=\"",$langRename,"\">",
 				"</a>",
 				"</td>\n";
 
