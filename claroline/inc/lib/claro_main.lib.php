@@ -763,11 +763,11 @@ function claro_disp_button($url, $text, $confirmMessage = '')
     	$onClickCommand = "document.location='".$url."';";
     }
     
-    echo "&nbsp;<button ".$style." onclick=\"".$onClickCommand."\">"
+    echo "<button ".$style." onclick=\"".$onClickCommand."\">"
         .$text
         ."</button>&nbsp;\n";
 
-    // echo '<nobr> [ <a  href="'.$url.'" '.$additionnalParam.'>'.$text.'</a> ] </nobr>';
+    // echo '<nobr>[ <a  href="'.$url.'" '.$additionnalParam.'>'.$text.'</a> ] </nobr>';
 }
 
 
