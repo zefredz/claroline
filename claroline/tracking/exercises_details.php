@@ -72,18 +72,7 @@ $exo_details = @mysql_fetch_array($result);
 
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langToolName);
 $nameTools = $langStatsOfExercise;
-$htmlHeadXtra[] = "<style type=\"text/css\">
-<!--
-.secLine {background-color : #E6E6E6;}
-.content {padding-left : 15px;padding-right : 15px; }
-.specialLink{color : #0000FF;}
--->
-</style>
-<STYLE media=\"print\" type=\"text/css\">
-<!--
-TD {border-bottom: thin dashed Gray;}
--->
-</STYLE>";
+
 include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;

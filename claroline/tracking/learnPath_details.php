@@ -35,20 +35,6 @@ $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $
 
 $nameTools = $langStatsOfLearnPath;
 
-$htmlHeadXtra[] = "<style type=\"text/css\">
-<!--
-.secLine {background-color : #E6E6E6;}
-.content {padding-left : 15px;padding-right : 15px; }
-.specialLink{color : #0000FF;}
--->
-</style>
-<STYLE media=\"print\" type=\"text/css\">
-<!--
-TD {border-bottom: thin dashed Gray;}
--->
-</STYLE>";
-
-
 // regroup table names for maintenance purpose
 /*
  * DB tables definition

@@ -36,13 +36,6 @@ $interbredcrump[]= array ("url"=>"../tracking/userLog.php?uInfo=".$uInfo, "name"
 
 $nameTools = $langToolName." : ".$langLoginsAndAccessTools;
 
-$htmlHeadXtra[] = "
-<style media='print' type='text/css'>
-<!--
-TD {border-bottom: thin dashed Gray;}
--->
-</style>";
-
 $TABLECOURSUSER	        = $mainDbName."`.`cours_user";
 $TABLECOURSE_GROUPSUSER = $_course['dbNameGlu']."user_group";
 $TABLEUSER	        = $mainDbName."`.`user";
