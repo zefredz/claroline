@@ -148,11 +148,14 @@ else
         // compute field
 		$count_var_translated = $row_missing_var_count[0];
 	    $count_var_to_translate = $count_total_diff_var - $count_var_translated;
-	    $pourcent_progession = round (100 * $count_var_translated / $count_total_diff_var);
+	    $pourcent_progession = (float) round (1000 * $count_var_translated / $count_total_diff_var) / 10;
 	
         // display row
-	    echo "<tr>\n"
-	         . "<td>" . $language . "</td>\n"
+
+        if ( $pourcent_progession > 60 ) echo "<tr style=\"font-weight: bold;\">\n";
+        else echo "<tr>\n";
+
+        echo "<td>" . $language . "</td>\n"
 	         . "<td style=\"text-align: right\">" . $count_var_translated . "</td>\n"
 	         . "<td style=\"text-align: right\">"
 	         . "<a href=\"" . $_SERVER['PHP_SELF'] . "?exCmd=ToTranslate&language=" . $language . "\">" . $count_var_to_translate . "</a>"
