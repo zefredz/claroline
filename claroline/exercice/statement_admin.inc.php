@@ -233,10 +233,10 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
 </tr>
 <tr>
   <td valign="top"><?php echo $langAnswerType; ?> :</td>
-  <td><input type="radio" name="answerType" id=="answerType1" value="1" <?php if($answerType <= 1) echo 'checked="checked"'; ?>> <label for=="answerType1"><?php echo $langUniqueSelect; ?></label><br>
-	  <input type="radio" name="answerType" id="answerType2" value="2" <?php if($answerType == 2) echo 'checked="checked"'; ?>> <label for=="answerType2"><?php echo $langMultipleSelect; ?></label><br>
-	  <input type="radio" name="answerType" id="answerType4" value="4" <?php if($answerType >= 4) echo 'checked="checked"'; ?>> <label for=="answerType4"><?php echo $langMatching; ?></label><br>
-	  <input type="radio" name="answerType" id="answerType3" value="3" <?php if($answerType == 3) echo 'checked="checked"'; ?>> <label for=="answerType3"><?php echo $langFillBlanks; ?></label>
+  <td><input type="radio" name="answerType" id="answerType1" value="1" <?php if($answerType <= 1) echo 'checked="checked"'; ?>> <label for="answerType1"><?php echo $langUniqueSelect; ?></label><br>
+	  <input type="radio" name="answerType" id="answerType2" value="2" <?php if($answerType == 2) echo 'checked="checked"'; ?>> <label for="answerType2"><?php echo $langMultipleSelect; ?></label><br>
+	  <input type="radio" name="answerType" id="answerType4" value="4" <?php if($answerType >= 4) echo 'checked="checked"'; ?>> <label for="answerType4"><?php echo $langMatching; ?></label><br>
+	  <input type="radio" name="answerType" id="answerType3" value="3" <?php if($answerType == 3) echo 'checked="checked"'; ?>> <label for="answerType3"><?php echo $langFillBlanks; ?></label>
   </td>
 </tr>
 <tr>
