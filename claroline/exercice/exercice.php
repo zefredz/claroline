@@ -85,15 +85,7 @@ event_access_tool($nameTools);
 // need functions of statsutils lib to display previous exercices scores
 @include($includePath.'/lib/statsUtils.lib.inc.php');
 
-claro_disp_tool_title($nameTools);
-if($is_allowedToEdit)
-{
-?>
-<p align="right">
-    <a href="#null" onclick="javascript:window.open('../help/help_exercise.php','help','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=400,height=450,left='+((screen.width-400)/2)+',top='+((screen.height-450)/2)); return false;"><?php echo $langHelp; ?></a>
-</p>
-<?php
-}
+claro_disp_tool_title($nameTools, $is_allowedToEdit ? 'help_exercise.php' : false);
 
 // defines answer type for previous versions of Claroline, may be removed in Claroline 1.5
 $sql="UPDATE `$TBL_QUESTIONS` SET q_position='1',type='2' WHERE q_position IS NULL OR q_position<'1' OR type='0'";

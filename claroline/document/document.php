@@ -994,19 +994,9 @@ unset($attribute);
 
 $titleElement['mainTitle'] = $langDoc;
 if ( $_gid && $is_groupAllowed) $titleElement['subTitle'] = $_group['name'];
-claro_disp_tool_title($titleElement);
 
-
-if($is_allowedToEdit)
-{ ?>
-<p align="right">
-<a href="#" onClick="MyWindow=window.open('../help/help_document.php','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;">
-<?php echo $langHelp ?>
-</a>
-</p>
-<? } ?>
-
-<?php
+claro_disp_tool_title($titleElement, 
+                      $is_allowedToEdit ? 'help_document.php' : false);
 
 
 	if($is_allowedToEdit)
