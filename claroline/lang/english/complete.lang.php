@@ -1364,7 +1364,7 @@ $langInvalidId = "Login failed.<BR>If you are not registered, use <a href=clarol
 $langInvisible = "Invisible";
 $langIs = "is";
 $langIsAlreadyRegistered = "is already registered to course";
-$langIsNowInYourDocDir = "is now  in  your document tool. <br><B>This  file  is  visible</B>";
+$langIsNowInYourDocDir = "is now in  your document tool. <br><B>This  file  is  visible</B>";
 $langIsNowRegistered = "is now registered to course";
 $langJustCreated = "You have just created the course website";
 $langLabelCanBeEmpty = "Course title needed";
