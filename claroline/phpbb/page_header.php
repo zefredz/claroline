@@ -170,7 +170,10 @@ if ($user_logged_in)
 if($is_forumAdmin)
 {
    if ( isset($catId) && $catId>0 ) $toAdd = '?forumgo=yes&cat_id=' . $catId;
-   $toolBar[] = '<a class="claroCmd" href="../forum_admin/forum_admin.php' . $toAdd . '">' . $langAdm . "</a>";
+   $toolBar[] = '<a class="claroCmd" href="../forum_admin/forum_admin.php' . $toAdd . '">'
+                ."<img src=\"".$clarolineRepositoryWeb."img/referencement.gif\"> " 
+                .$langAdm
+                ."</a>\n";
 }
 
 switch($pagetype)
@@ -187,24 +190,32 @@ switch($pagetype)
 
 	case 'viewforum':
 
-		$toolBar [] =	"<a class=\"claroCmd\" href=\"newtopic.php?forum=".$forum."&gidReq=".$_gid."\">".$langNewTopic."</a>";
+		$toolBar [] =	"<a class=\"claroCmd\" href=\"newtopic.php?forum=".$forum."&gidReq=".$_gid."\">"
+                       ."<img src=\"".$clarolineRepositoryWeb."img/forum.gif\"> "
+                       .$langNewTopic
+                       ."</a>";
 
 		break;
 
 	case 'viewtopic':
 
+		$toolBar [] =	"<a class=\"claroCmd\" href=\"newtopic.php?forum=".$forum."&gidReq=".$_gid."\">"
+                       ."<img src=\"".$clarolineRepositoryWeb."img/forum.gif\"> "
+                       .$langNewTopic
+                       ."</a>";
+
 		if($lock_state != 1)
 		{
-			$toolBar [] =	"<a class=\"claroCmd\" href=\"$url_phpbb/reply.php?topic=".$topic."&forum=".$forum."&gidReq=".$_gid."\">".
-							$langReply.
-							"</a>\n";
+			$toolBar [] =	"<a class=\"claroCmd\" href=\"$url_phpbb/reply.php?topic=".$topic."&forum=".$forum."&gidReq=".$_gid."\">"
+            ."<img src=\"".$clarolineRepositoryWeb."img/reply.gif\"> "
+							.$langReply
+							."</a>\n";
 		}
 		else
 		{
 			$toolBar [] =	"<img src=\"".$reply_locked_image."\" border=\"0\">\n";
 		}
 
-		$toolBar [] =	"<a class=\"claroCmd\" href=\"newtopic.php?forum=".$forum."&gidReq=".$_gid."\">".$langNewTopic."</a>";
 
 		break;
 
@@ -214,7 +225,7 @@ switch($pagetype)
 		break;
 }
 
-if (is_array($toolBar)) $toolBar = implode(" | ", $toolBar);
+if (is_array($toolBar)) $toolBar = implode(' | ', $toolBar);
 
 
 echo '<p>'.$toolBar.'<p>'."\n";
