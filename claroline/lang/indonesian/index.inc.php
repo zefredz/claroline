@@ -28,7 +28,7 @@ $langGettingStarted="Memulai";
 $langReg="Pendaftaran";
 $langMenu ="Menu";
 $langDoc="Dokumentasi";
-$langPlatformAdmin="Administrasi Platform";
+
 $langAdvises="Saran";
 
 $langOtherCourses="Daftar pelajaran";

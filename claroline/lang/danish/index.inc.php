@@ -31,7 +31,7 @@ $langGettingStarted="Kom i gang";
 $langReg="Registrering";
 $langMenu ="Menu";
 $langDoc="Manualer";
-$langPlatformAdmin="Administrationsplatform";
+
 $langAdvises="Informere";
 
 $langOtherCourses="Kursusoversigt";

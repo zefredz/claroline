@@ -25,7 +25,7 @@ $langGettingStarted="Pomoc";
 $langReg="Rejestracja";
 $langMenu ="Menu";
 $langDoc="Dokumentacja";
-$langPlatformAdmin="Administowanie Platform±";
+
 $langAdvises="Wskazówki";
 
 $langOtherCourses="Lista kursów";

@@ -110,7 +110,7 @@ $langAmong="parmi";
 // banner
 $langMyCourses="Liste de mes cours";
 $langModifyProfile="Modifier mon profil";
-$langPlatformAdmin="Administration";
+
 $langMyAgenda = "Mon agenda";
 $langLogout="Quitter";
 

@@ -27,7 +27,7 @@ $langEnter="Enter";
 $langGettingStarted="Getting started";
 $langReg="Registration";
 $langMenu ="Menu";
-$langPlatformAdmin="Platform Administration";
+
 $langAdvises="Advises";
 
 $langSeeAgenda = "See my agenda";

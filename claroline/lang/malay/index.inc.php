@@ -27,7 +27,7 @@ $langGettingStarted="Bantuan Pengguna";
 $langReg="Daftar";
 $langMenu =":: Menu ::";
 $langDoc="Dokumentasi";
-$langPlatformAdmin="Platform Pentadbir";
+
 $langAdvises="Nasihat";
 
 $langOtherCourses="Senarai Subjek";

@@ -31,7 +31,7 @@ $langGettingStarted="Hilfe";
 $langReg="Registrierung";
 $langMenu ="Menü";
 $langDoc="Dokumentation";
-$langPlatformAdmin="System-Administration-Bereich";
+
 $langAdvises="Hinweise";
 $langOtherCourses="Kurs Angebot";
 $langSupportForum="Unterstützungsforum";

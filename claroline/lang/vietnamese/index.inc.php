@@ -17,7 +17,7 @@ $langGettingStarted="Hướng dẫn nhanh";
 $langReg="Đăng ký";
 $langMenu ="";
 $langDoc="Tài liệu hướng dẫn sử dụng";
-$langPlatformAdmin="Quản trị";
+
 $langAdvises="Advises";
 
 $langOtherCourses="Danh mục khoá học";

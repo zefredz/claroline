@@ -40,7 +40,7 @@ $langYourAccountParam = "This  is  your account Login-Pass";// by moosh
 $langPasswordHasBeenEmailed = "Your password has been emailed to ";
 $langEmailAddressNotFound = "There is no user account with this email address.";
 $langEnterMail = "Enter your email so we can send you your password.";
-$langPlatformAdmin = "Platform administrator";
+
 
 $langTryWith ="Try with";// by moosh
 $langInPlaceOf ="and  not with ";// by moosh

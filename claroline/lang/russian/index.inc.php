@@ -57,7 +57,7 @@ $langGettingStarted="Как начать";
 $langReg="Регистрация";
 $langMenu ="Меню";
 $langDoc="Документация";
-$langPlatformAdmin="Администрирование";
+
 $langAdvises="Советы";
 
 $langOtherCourses="Список курсов";

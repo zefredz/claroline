@@ -29,7 +29,7 @@ $langGettingStarted="Ajuda";
 $langReg="Inscrição";
 $langMenu ="Menu";
 $langDoc="Documentação";
-$langPlatformAdmin="Administração da Plataforma";
+
 $langAdvises="Avisos";
 
 $langSeeAgenda = "Ver minha agenda";

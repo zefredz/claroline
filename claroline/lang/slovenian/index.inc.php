@@ -34,7 +34,7 @@ $langGettingStarted="Zacnimo";
 $langReg="Registracija";
 $langMenu ="Menu";
 $langDoc="Dokumentacija";
-$langPlatformAdmin="Administracija okolja";
+
 $langAdvises="Obvestila";
 
 $langOtherCourses="Seznam tecajev";

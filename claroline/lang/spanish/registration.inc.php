@@ -233,7 +233,7 @@ $langLostPassword = "Clave de acceso olvidada";
 $langPasswordHasBeenEmailed = "Su clave de acceso ha sido enviado al e-mail ";
 $langEmailAddressNotFound = "No existe la cuenta de usuario con este e-mail.";
 $langEnterMail = "Introduzca su e-mail para que se le envíe a ese correo su clave de acceso.";
-$langPlatformAdmin = "Administradór de laplataforma";
+
 $langPhone = "Teléfono";
 $langSaveChange ="Guardar cambios";
 $langRegister = "Registrar";

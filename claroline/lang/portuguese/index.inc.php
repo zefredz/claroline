@@ -45,7 +45,7 @@ $langMenu          = "Menu";
 $langOtherCourses="Lista de cursos";
 $langtodo="Sugest&otilde;es";
 $langDoc="Documenta&ccedil;&atilde;o";
-$langPlatformAdmin="Administrar a plataforma";
+
 $langGettingStarted="Ajuda";
 $langCategories="Categorias";
 $langLostPassword="Lembrar a senha";

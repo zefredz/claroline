@@ -46,7 +46,7 @@ $langAllowed = "Permise";   //for inscription settings
 $langDenied = "Bloquée";    //for inscription settings
 $langFollowCourse = "Suivre des cours";
 $langCreateCourse = "Créer des cours";
-$langPlatformAdmin = "Administration";
+
 
 $langAction = "Action";
 

@@ -57,7 +57,7 @@ $langYourAccountParam = "Voici vos paramètres de connexion";
 $langPasswordHasBeenEmailed = "Votre mot depasse a été envoyé à l'adresse ";
 $langEmailAddressNotFound = "Il n'existe aucun compte utilisateur lié à cette adresse.";
 $langEnterMail = "Saisissez votre adresse email et confirmez.";
-$langPlatformAdmin = "l'administrateur de la plateforme";
+
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Inscription";

@@ -55,7 +55,7 @@ $langAllowed = "Abierta";
 $langDenied = "Cerrada";
 $langFollowCourse = "Tomar curso";
 $langCreateCourse = "Crear curso";
-$langPlatformAdmin = "Administrador de la plataforma";
+
 
 $langAction = "Acción";
 

@@ -66,7 +66,7 @@ $langMenu          = "Men&uacute;";
 $langOtherCourses="Lista de cursos";
 $langtodo="Sugerencias";
 $langDoc="Documentaci&oacute;n";
-$langPlatformAdmin="Administrar plataforma";
+
 $langGettingStarted="Ayuda";
 $langCategories="Categor&iacute;as";
 $langLostPassword="Recordar Contrase&ntilde;a";

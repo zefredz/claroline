@@ -49,7 +49,7 @@ $langReg="Iscriviti";
 $langMenu ="Menu";
 $langLogout="Uscita";
 $langDoc="Documentazione su Web";
-$langPlatformAdmin="Amministra Claroline";
+
 $langAdvises="Avvisi";
 $langSeeAgenda="Vedi Agenda";
 

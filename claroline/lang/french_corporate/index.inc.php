@@ -55,7 +55,7 @@ $langGettingStarted="Comment démarrer?";
 $langReg="Inscription";
 $langMenu ="Menu";
 $langDoc="Documentation";
-$langPlatformAdmin="Administration";
+
 $langAdvises="Conseils";
 
 $langOtherCourses="Liste des sites";

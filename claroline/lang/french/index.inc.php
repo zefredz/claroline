@@ -39,7 +39,7 @@ $langEnter="Entrer";
 $langGettingStarted="Comment démarrer";
 $langReg="Inscription";
 $langMenu ="Menu";
-$langPlatformAdmin="Administration";
+
 $langAdvises="Conseils";
 
 $langSeeAgenda = "Voir mon agenda";

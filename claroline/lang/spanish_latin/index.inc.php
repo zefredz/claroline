@@ -47,7 +47,7 @@ $langGettingStarted          = "Ayuda";
 $langReg           = "Inscribirse";
 $langMenu          = "Menú";
 $langDoc           = "Documentación";
-$langPlatformAdmin = "Administración de la Plataforma";
+
 $langAdvises       = "Consejos";
 
 $langOtherCourses  ="Lista de cursos";

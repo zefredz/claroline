@@ -32,7 +32,7 @@ $langEnter="Stig in";
 $langGettingStarted="Hjälp";
 $langManager="Ansvarig";
 $langPlatform="Med kraft från";
-$langPlatformAdmin="Plattformsadministration";
+
 $langAdvises="Rådgivning";
 $langDoc="Dokumentation";
 

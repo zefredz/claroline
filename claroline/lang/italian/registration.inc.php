@@ -33,7 +33,7 @@ $langYourAccountParam = "Questi sono il vostro identificatico utente e la passwo
 $langPasswordHasBeenEmailed="La tua password è stata inviata a: ";
 $langEmailAddressNotFound="Non ci sono utenti registrati con questo indirizzo email";
 $langEnterMail="Inserisci il tuo indirizzo email dove ti verrà inviata la password";
-$langPlatformAdmin="Amministra Claroline";
+
 
 $langTryWith ="Cerca con "; 
 $langInPlaceOf ="e non con "; 

@@ -115,7 +115,7 @@ $langPassTwo="Sie haben zwei verschiedene Passwörter eingetragen.";
 $langPasswordHasBeenEmailed = "Das Passwort wurde per Email gesendet an ";
 $langPersonalSettings="Ihre persönlichen Einstellungen wurden gespeichert und eine E-Mail mit Benutzernamen und Passwort wurde zur Erinnerung an Sie gesendet.</p>Wählen Sie nun in der Liste der Kurse die Kurse aus, die Sie belegen möchten.";
 $langPhone = "Telefon";
-$langPlatformAdmin = "System-Administrator";
+
 $langPreced50="50 vorherige.";
 $langPreserved = "vorgemerkt";
 $langProblem="Falls Probleme auftreten sollten, treten Sie bitte mit uns in Kontakt.";

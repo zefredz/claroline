@@ -26,7 +26,7 @@ can create course websites clicking on registration too, but selecting then
 'Create course sites (professors)'.";
 $langUserName="Username";
 
-$langPlatformAdmin="Platform Administratie";
+
 $langAdvises="Advies";
 
 // GENERIC

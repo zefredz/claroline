@@ -60,7 +60,7 @@ $langMenu          = "Men&uacute;";
 $langOtherCourses="Lista de cursos";
 $langtodo="Suxerencias";
 $langDoc="Documentaci&oacute;n";
-$langPlatformAdmin="Administrar plataforma";
+
 $langCategories="Categor&iacute;as";
 $langLostPassword="Lembrar Contrasinal";
 $langSupportForum="Foro de Soporte";

@@ -45,7 +45,7 @@ $langAllowed = "erlaubt";
 $langDenied = "verboten";
 $langFollowCourse = "Kurs-Teilnehmer";
 $langCreateCourse = "Kurs-Erstellung";
-$langPlatformAdmin = "System-Administrator";
+
 $langAction = "Art";
 $langCategory = "Kategorie";
 
