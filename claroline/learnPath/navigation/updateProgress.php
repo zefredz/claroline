@@ -1,7 +1,7 @@
-<?php
+<?php // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version  $Revision$                            |
+  | CLAROLINE version 1.5.*
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
@@ -14,7 +14,6 @@
   +----------------------------------------------------------------------+
   
 */
-
 $langFile = "learnPath";
 include ('../../inc/claro_init_global.inc.php');
 
@@ -96,7 +95,7 @@ if($_POST['ump_id'])
 ?>
     <script language="javascript">
     <!--//
-      parent.tocFrame.location.href="<? echo $TOCurl; ?>";
+      parent.tocFrame.location.href="<?php echo $TOCurl; ?>";
     //--> 
     </script>
 <?php
@@ -104,14 +103,14 @@ if($_POST['ump_id'])
 ?>
 </head>
 <body>
-   <form name="cmiForm" method="POST" action="<?=$_SERVER["PHP_SELF"] ?>"> 
+   <form name="cmiForm" method="POST" action="<?php echo $_SERVER["PHP_SELF"] ?>"> 
 	<input type="hidden" name="ump_id" />
 	<input type="hidden" name="lesson_status" />
 	<input type="hidden" name="lesson_location" />
-  <input type="hidden" name="credit" />
+    <input type="hidden" name="credit" />
 	<input type="hidden" name="entry" />
 	<input type="hidden" name="raw" />
-  <input type="hidden" name="total_time" />
+    <input type="hidden" name="total_time" />
 	<input type="hidden" name="session_time" />
 	<input type="hidden" name="suspend_data" />
 	<input type="hidden" name="scoreMin" />
@@ -119,4 +118,3 @@ if($_POST['ump_id'])
    </form>
 </body>
 </html>
-

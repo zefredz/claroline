@@ -57,9 +57,9 @@
   if ($learningPath_module['lock'] == 'CLOSE') // this module blocks the user if he doesn't complete
   {
        //echo "<p>".$langModuleHelpExercise."</p>";
-       echo "<form method=\"POST\" action=\"$PHP_SELF\">";
+       echo "<form method=\"POST\" action=\"$PHP_SELF\"><label for=\"newRaw\">";
        echo $langChangeRaw;
-       echo "<input type=\"text\" value=\"".$learningPath_module['raw_to_pass']."\" name=\"newRaw\" size=\"3\" maxlength=\"3\" /> % ";
+       echo "</label><input type=\"text\" value=\"".$learningPath_module['raw_to_pass']."\" name=\"newRaw\" id=\"newRaw\" size=\"3\" maxlength=\"3\" /> % ";
        echo "<input type=\"hidden\" name=\"cmd\" value=\"raw\" />";
        echo "<input type=\"submit\" value=\"$langOk\" />";
        echo "</form>";

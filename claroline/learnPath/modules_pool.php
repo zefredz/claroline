@@ -147,8 +147,8 @@
          $list = mysql_fetch_array($result);
          echo "
          <form method=\"POST\" name=\"rename\" action=\"",$PHP_SELF,"?cmd=mkrename\">
-             ".$langInsertNewModuleName." :
-             <input type=\"text\" name=\"newName\" value=\"".htmlspecialchars($list['name'])."\"></input>
+             <label for=\"newName\">".$langInsertNewModuleName."</label> :
+             <input type=\"text\" name=\"newName\" id=\"newName\" value=\"".htmlspecialchars($list['name'])."\"></input>
              <input type=\"submit\" value=\" Ok \" name=\"submit\">
              <input type=\"hidden\" name=\"cmd\" value=\"mkrename\">
              <input type=\"hidden\" name=\"mod_id\" value=\"".$_GET['mod_id']."\">
@@ -201,8 +201,8 @@
 
          echo "
          <form method=\"POST\" name='comment' action=\"",$PHP_SELF,"?cmd=mkcomment\">
-             ".$langModifyCommentModuleName." ".$list['name']." :<br>
-             <textarea name=\"newcomment\" rows=\"5\" cols=\"50\">".$list['comment']."</textarea><br>
+             <label for=\"newcomment\">".$langModifyCommentModuleName." ".$list['name']."</label> :<br>
+             <textarea name=\"newcomment\" id=\"newcomment\" rows=\"5\" cols=\"50\">".$list['comment']."</textarea><br>
              <input type=\"submit\" value=\"$langOk\" name=\"submit\">
              <input type=\"hidden\" name=\"cmd\" value=\"mkcomment\">
              <input type=\"hidden\" name=\"mod_id\" value=\"".$_GET['mod_id']."\">
