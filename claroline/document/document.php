@@ -288,7 +288,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
                      ."<label for=\"userFile\">".$langDownloadFile." : </label>"
                      ."<input type=\"file\" id=\"userFile\" name=\"userFile\"> "
                      ."<input style=\"font-weight: bold\" type=\"submit\" value=\"".$langDownload."\"><br>"
-                     ."<small>Max. file size : ".format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) )."</small><br>";
+                     ."<small>".$langMaxFileSize.format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) )."</small><br>";
 
 
         if ($is_allowedToUnzip)
@@ -300,7 +300,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         if ($courseContext)
         {
             $dialogBox .= "<p>\n"
-                        ."<label for=\"comment\"> Add Comment (optionnal) :</label>"
+                        ."<label for=\"comment\">".$langAddCommentOptionnal."</label>"
                         ."<br><textarea rows=2 cols=50 id=\"comment\" name=\"comment\">"
                         .$oldComment
                         ."</textarea>\n"
@@ -380,7 +380,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
                              ."?cmd=rqMkHtml"
                              ."&cwd=".urlencode($_REQUEST['cwd'])
                              ."&htmlContent=".urlencode($_REQUEST['htmlContent'])."\">\n"
-                             ."Get Back to the editor\n"
+                             .$langBackToEditor."\n"
                              ."</p>\n";
             }
         }
