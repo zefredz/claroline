@@ -384,7 +384,7 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
         if ( file_exists($confDef) )
         {
             require($confDef);
-            $panel = DISP_SHOW_CONF_FILE;
+            $panel = DISP_EDIT_CONF;
             $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $nameTools);
             $nameTools = get_config_name($config_code);
         }
@@ -401,15 +401,6 @@ if ( isset($_REQUEST['config_code']) && isset($_REQUEST['cmd']) )
             $controlMsg['info'][] = sprintf($lang_p_config_file_creation
                                            ,$confFile);
             $confFile = claro_get_conf_file($config_code);
-        }
-
-        //3° use the extra infos
-        if ( file_exists($confDef) )
-        {
-            require($confDef);
-            $panel = DISP_EDIT_CONF;
-            $interbredcrump[] = array ('url'=>$_SERVER['PHP_SELF'], 'name'=> $nameTools);
-            $nameTools = get_config_name($config_code);
         }
         
         $storedPropertyList = read_param_value_in_buffer($config_code);
