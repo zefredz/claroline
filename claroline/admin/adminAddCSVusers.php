@@ -24,6 +24,9 @@ $lang_no_error_in_file_found = "No error in file found.";
 $lang_do_you_want_to_continue = "Do you want to continue?";
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
 
+/*--------------------------------------------------------------------------------------------------------------*/
+/*	Declaration section     */
+/*--------------------------------------------------------------------------------------------------------------*/
 
 //used libraries
 require '../inc/claro_init_global.inc.php';
@@ -43,7 +46,7 @@ $tbl_class_user            = $tbl_mdb_names['user_rel_profile_category'];
 
 $uploadTempDir = "tmp/";
 
-//deal with session variables
+//deal with session variables to know in which step we are really and avoid doing changes twice
 
 if ((($cmd=="exImpSec"  || $cmd=="exImp") && $_SESSION['claro_CSV_done']) || empty($cmd)) // this is to avoid a redo because of a page reload in browser
 {
@@ -65,39 +68,8 @@ if ($_REQUEST['usedFormat'])
 {
     //check if posted new format is OK
     
-    $field_correct = TRUE; 
-    
-    $fieldarray = explode(";",$_REQUEST['usedFormat']);
-    
-    $username_found = FALSE;
-    $password_found = FALSE;
-    $surname_found  = FALSE;
-    $name_found     = FALSE;
-    
-    foreach ($fieldarray as $field)
-    {
-        if (trim($field)=="surname")
-	{
-	    $surname_found = TRUE;
-	}
-	if (trim($field)=="name")
-	{
-	    $name_found = TRUE;
-	}
-	if (trim($field)=="username")
-	{
-	    $username_found = TRUE;
-	}
-	if (trim($field)=="password")
-	{
-	    $password_found = TRUE;
-	}
-    } 
-    
-    $field_correct = ($username_found && $password_found && $surname_found && $name_found);
-    
-    $regExp = "([surname;{1}][name;{1}][username;{1}][password;{1}])";
-      
+    $field_correct = claro_CSV_format_ok($_REQUEST['usedFormat']);
+          
     if (!$field_correct)
     {
         $dialogBox = "ERROR: The format you gave is not compatible with Claroline";
@@ -111,9 +83,9 @@ if ($_REQUEST['usedFormat'])
 
 $usedFormat = $_SESSION['claro_usedFormat'];
 
-/*-----------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------*/
 /*	Execute command section      */
-/*-----------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------*/
 
 switch ($cmd)
 {
@@ -121,89 +93,26 @@ switch ($cmd)
     //STEP ONE : FILE UPLOADED, CHECK FOR POTENTIAL ERRORS
     
     case "exImp" :
+        
+	//see if format is defined in session or in file
     
-	//check if temporary directory for uploaded file exists, if not we create it
-	
-	if (!file_exists($uploadTempDir))
-	{
-	   mkdir($uploadTempDir,0777);
-	}
-	
-	//store the uploaded file in a temporary dir
-	
-	move_uploaded_file($_FILES["CSVfile"]["tmp_name"], $uploadTempDir.$_FILES["CSVfile"]["name"]);
-	
-	$openfile = @fopen($uploadTempDir.$_FILES['CSVfile']['name'],"r") or die ("Impossible to open file ".$_FILES['CSVfile']['name']);
-	
-	//Read each ligne : we put one user in an array, and build an array of arrays for the list of user.
-	
-	   //see where the line format must be found and which seperator and enclosion must be used
-	
 	if ($_REQUEST['firstLineFormat']=="YES")
 	{
-	    $usedFormat      = "FIRSTLINE";
-	    $fieldSeparator = ";";
-	    $enclosedBy     = "";
+	    $useFirstLine = true;
 	}
 	else
 	{
-	    $fieldSeparator  = $_REQUEST['fieldSeparator'];	    
+	    $fieldSeparator  = $_REQUEST['fieldSeparator'];    
 	    $enclosedBy      = $_REQUEST['enclosedBy'];
 	    if ($_REQUEST['enclosedBy']=="dbquote") 
 	    {
 	        $enclosedBy = "\"";
-	    }	    
+	    } 
 	}
 	
-	$CSVParser = new CSV($uploadTempDir.$_FILES["CSVfile"]["name"],$fieldSeparator,$usedFormat,$enclosedBy);
-	$userlist = $CSVParser->results;
+	//check file content to see potentiel problems to add the users in this campus (errors are saved in session)
 	
-	//save this 2D array userlist in session
-	
-	$_SESSION['claro_csv_userlist'] = $userlist;
-	
-	// test for each user if it is addable, get possible errors messages in tables
-	
-	   //first, we inverse the 2D array containing the lines of CSV file just parsed 
-	   //because it is much easier and faster to have line numbers of the CSV file as second indice in the array
-	
-	$cols[] = "surname";
-	$cols[] = "name";
-	$cols[] = "email";
-	$cols[] = "phone";
-	$cols[] = "username";
-	$cols[] = "password";
-	$cols[] = "officialCode";   
-	
-	//var_dump($_SESSION['claro_csv_userlist']);
-	   
-	$working2Darray = array_swap_cols_and_rows($_SESSION['claro_csv_userlist'],$cols);
-	
-	//look for possible new errors
-	      
-	$mail_synthax_error           = check_email_synthax_userlist($working2Darray);
-	$mail_used_error              = check_mail_used_userlist($working2Darray);
-	$username_used_error          = check_username_used_userlist($working2Darray);
-	$officialcode_used_error      = check_officialcode_used_userlist($working2Darray);
-	$password_error               = check_password_userlist($working2Darray);
-	$mail_duplicate_error         = check_duplicate_mail_userlist($working2Darray);
-	$username_duplicate_error     = check_duplicate_username_userlist($working2Darray);
-	$officialcode_duplicate_error = check_duplicate_officialcode_userlist($working2Darray);
-	
-	//save error arrays in session (needed in second step)
-	
-	$_SESSION['claro_mail_synthax_error']               =  $mail_synthax_error;    
-	$_SESSION['claro_mail_used_error']                  =  $mail_used_error;      
-	$_SESSION['claro_username_used_error']              =  $username_used_error;   
-	$_SESSION['claro_officialcode_used_error']          =  $officialcode_used_error;
-	$_SESSION['claro_password_error']                   =  $password_error;
-	$_SESSION['claro_mail_duplicate_error']             =  $mail_duplicate_error;
-	$_SESSION['claro_username_duplicate_error']         =  $username_duplicate_error;
-	$_SESSION['claro_officialcode_duplicate_error']     =  $officialcode_duplicate_error;
-	
-	//delete the temp file
-	
-	@unlink($uploadTempDir.$_FILES["CSVfile"]["name"]);
+	claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $fieldSeparator, $enclosedBy);
 	
 	// select display type
 	
@@ -240,7 +149,7 @@ switch ($cmd)
 
         add_userlist($usersToAdd);
         
-	//notify in session that action was done
+	//notify in session that action was done (to prevent double action if user uses back button of browser
 	
 	$_SESSION['claro_CSV_done'] = TRUE;
 	
@@ -251,13 +160,14 @@ switch ($cmd)
 	break;    
     
 }
-/*-------------------------------*/
-/*	Display section              */
-/*-------------------------------*/
 
-// Deal with interbredcrumps  and title variable
+/*----------------------------------------------------------------------------------------------------------*/
+/*	Display section          */
+/*----------------------------------------------------------------------------------------------------------*/
 
-$noQUERY_STRING = true;
+// Deal with interbredcrumps and title variable
+
+$noQUERY_STRING   = true;
 $nameTools        = "Add a user list";
 $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> "Administration");
 
@@ -265,10 +175,9 @@ $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> "Administration");
 
 include($includePath."/claro_init_header.inc.php");
 
-//display bredcrump and title
+//display title
 
 claro_disp_tool_title($nameTools);
-
 
 //modify dialogbox if user asked form to change used format
 
@@ -298,7 +207,7 @@ switch ($display)
 
 case "default" :
 
-    $_SESSION['claro_CSV_done'] = FALSE; 
+    $_SESSION['claro_CSV_done'] = FALSE;
 ?>
 You must specify the CSV format used in your file :<br><br>
 <form enctype="multipart/form-data"  method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>"> 
@@ -343,75 +252,25 @@ You must specify the CSV format used in your file :<br><br>
 
 <?php
     break;
-
-case "chFormat" :
-
-    echo "okokok";
-    
-    break;    
     
 // STEP ONE DISPLAY : display the possible error with uploaded file and ask for continue or cancel
         
 case "stepone" :
-    
-    
-    if (!(empty($mail_synthax_error)) ||
-        !(empty($mail_used_error)) ||
-	!(empty($username_used_error)) ||
-	!(empty($officialcode_used_error)) ||
-	!(empty($password_error)) ||
-	!(empty($mail_duplicate_error)) ||
-	!(empty($username_duplicate_error)) ||
-	!(empty($officialcode_duplicate_error)))
+   
+    if (!(empty($_SESSION['claro_mail_synthax_error']))       ||
+        !(empty($_SESSION['claro_mail_used_error']))          ||
+	!(empty($_SESSION['claro_username_used_error']))      ||
+	!(empty($_SESSION['claro_officialcode_used_error']))  ||
+	!(empty($_SESSION['claro_password_error']))           ||
+	!(empty($_SESSION['claro_mail_duplicate_error']))     ||
+	!(empty($_SESSION['claro_username_duplicate_error'])) ||
+	!(empty($_SESSION['claro_officialcode_duplicate_error'])))
     {
         echo '<b>'.$lang_the_following_errors_were_found." :</b><br><br>\n";
-    
-        /*
-        var_dump($mail_synthax_error);
-        var_dump($mail_used_error);
-        var_dump($username_used_error);
-        var_dump($officialcode_used_error);
-        var_dump($password_error);
-        */
-    
-        for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<=$size; $i++)
-        {
-            $line=$i+1;
+ 
+	//display errors encountered while trying to add users
 	
-	    if ($mail_synthax_error[$i]) 
-	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> Mail synthax error. <br>";
-	    }
-	      
-	    if ($mail_used_error[$i])
-	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> Mail is already used by another user. <br>\n";         
-	    }
-	    if ($username_used_error[$i])
-	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> This username is already used by another user. <br>\n";     
-	    }
-	    if ($officialcode_used_error[$i])
-	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> This official code is already used by another user. <br>\n"; 
-	    }
-	    if ($password_error[$i])
-	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['password']."\" <b>:</b> Password given to simple or to close to username. <br>\n";
-	    }
-	    if ($mail_duplicate_error[$i])
-	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> This mail appears already in a previous line of the CSV file. <br>\n";
-	    }
-	    if ($username_duplicate_error[$i])
-	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> This username appears already in a previous line of the CSV file. <br>\n";
-	    }
-	    if ($officialcode_duplicate_error[$i])
-	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> This official code appears already in a previous line of the CSV file. <br>\n";
-	    }
-        }
+	claro_disp_CSV_error_backlog();
 	$no_error = FALSE;
     }
     else 

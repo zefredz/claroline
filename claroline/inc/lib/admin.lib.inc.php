@@ -21,7 +21,7 @@
  *     delete a course of the plateform,
  *     back up a hole course,
  *     change status of a user : admin, prof or student,
- *
+ *     Add users with CSV files
  *     ...see details of pre/post for each function's proper use.
  */
 
@@ -48,7 +48,8 @@ include_once($includePath."/lib/fileManage.lib.php");
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * INVERT A MATRIX function :
  * 
- * this function allows to invert cols and rows of a 2D array
+ * this function allows to invert cols and rows of a 2D array 
+ * needed to treat the potentialy new users to add form a CSV file
  */
 
 function array_swap_cols_and_rows( $OrigMatrix, $presumedColKeyList)
@@ -80,11 +81,224 @@ function array_swap_cols_and_rows( $OrigMatrix, $presumedColKeyList)
         }
     }
     return $RevertedMatrix;
-} 
+}
+/**
+ * test if the giben format is correct to be used in claroline to add user, if all the complusory fields are present.
+ * @param format to test
+ * @return boolean TRUE if format is acceptable
+ *                 FALSE if format is not acceptable (missing a needed field) 
+ *
+ */
+
+function claro_CSV_format_ok($format)
+{
+    $fieldarray = explode(";",$format);
+    
+    $username_found = FALSE;
+    $password_found = FALSE;
+    $surname_found  = FALSE;
+    $name_found     = FALSE;
+    
+    foreach ($fieldarray as $field)
+    {
+        if (trim($field)=="surname")
+	{
+	    $surname_found = TRUE;
+	}
+	if (trim($field)=="name")
+	{
+	    $name_found = TRUE;
+	}
+	if (trim($field)=="username")
+	{
+	    $username_found = TRUE;
+	}
+	if (trim($field)=="password")
+	{
+	    $password_found = TRUE;
+	}
+    } 
+    
+    return ($username_found && $password_found && $surname_found && $name_found);
+}
+ 
+/**
+ * Check ERRORS in a CSV file uploaded of potential new user to add in Claroline 
+ *
+ * format used for line of CSV file must be stored in SESSION to use this function properly: ...
+ *
+ * @author Guillaume Lederer <lederer@cerdecam.be>
+ *
+ * @param  $uploadTempDir : place where the folder is stored
+ * @param  $useFirstLine  : boolean true if parser should user the first line of file to know where the format is
+ *                                  false otherwise 
+ * @param $format : the used format, if empty, this means that we use first line format mode
+ * 
+ * @return a 2D array with the users found in the file is stored in session, 7 boolean errors arrays are created for each type of possible errors, they are stored in session too:
+ *      
+ *      $_SESSION['claro_csv_userlist'] for the users to add
+ *      
+ *      $_SESSION['claro_mail_synthax_error']               for mail synthax error   
+ *      $_SESSION['claro_mail_used_error']                  for mail used in campus error      
+ *      $_SESSION['claro_username_used_error']              for username used in campus error   
+ *      $_SESSION['claro_officialcode_used_error']          for official code used error
+ *      $_SESSION['claro_password_error']                   for password error
+ *      $_SESSION['claro_mail_duplicate_error']             for mail duplicate error
+ *      $_SESSION['claro_username_duplicate_error']         for username duplicate error
+ *      $_SESSION['claro_officialcode_duplicate_error']     for officialcode duplicate error
+ * 
+ */
+ 
+function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", $fieldSep=";", $fieldEnclose="")
+{
+        //check if temporary directory for uploaded file exists, if not we create it
+	
+	if (!file_exists($uploadTempDir))
+	{
+	   mkdir($uploadTempDir,0777);
+	}
+	
+	//store the uploaded file in a temporary dir
+	
+	move_uploaded_file($_FILES["CSVfile"]["tmp_name"], $uploadTempDir.$_FILES["CSVfile"]["name"]);
+	
+	$openfile = @fopen($uploadTempDir.$_FILES['CSVfile']['name'],"r") or die ("Impossible to open file ".$_FILES['CSVfile']['name']);
+	
+	//Read each ligne : we put one user in an array, and build an array of arrays for the list of user.
+	
+	   //see where the line format must be found and which seperator and enclosion must be used
+	
+	if ($useFirstLine)
+	{
+	    $usedFormat      = "FIRSTLINE";
+	    $fieldSeparator  = ";";
+	    $enclosedBy      = "";
+	}
+	else
+	{
+	    $fieldSeparator  = $fieldSep;	    
+	    $enclosedBy      = $fieldEnclose;
+	    if ($fieldEnclose=="dbquote") 
+	    {
+	        $enclosedBy = "\"";
+	    }    
+	}
+	
+	$CSVParser = new CSV($uploadTempDir.$_FILES["CSVfile"]["name"],$fieldSeparator,$usedFormat,$enclosedBy);
+	$userlist = $CSVParser->results;
+	
+	//save this 2D array userlist in session
+	
+	$_SESSION['claro_csv_userlist'] = $userlist;
+	
+	// test for each user if it is addable, get possible errors messages in tables
+	
+	   //first, we inverse the 2D array containing the lines of CSV file just parsed 
+	   //because it is much easier and faster to have line numbers of the CSV file as second indice in the array
+	
+	$cols[] = "surname";
+	$cols[] = "name";
+	$cols[] = "email";
+	$cols[] = "phone";
+	$cols[] = "username";
+	$cols[] = "password";
+	$cols[] = "officialCode";   
+	
+	//var_dump($_SESSION['claro_csv_userlist']);
+	   
+	$working2Darray = array_swap_cols_and_rows($_SESSION['claro_csv_userlist'],$cols);
+	
+	//look for possible new errors
+	      
+	$mail_synthax_error           = check_email_synthax_userlist($working2Darray);
+	$mail_used_error              = check_mail_used_userlist($working2Darray);
+	$username_used_error          = check_username_used_userlist($working2Darray);
+	$officialcode_used_error      = check_officialcode_used_userlist($working2Darray);
+	$password_error               = check_password_userlist($working2Darray);
+	$mail_duplicate_error         = check_duplicate_mail_userlist($working2Darray);
+	$username_duplicate_error     = check_duplicate_username_userlist($working2Darray);
+	$officialcode_duplicate_error = check_duplicate_officialcode_userlist($working2Darray);
+	
+	//save error arrays in session (needed in second step)
+	
+	$_SESSION['claro_mail_synthax_error']               =  $mail_synthax_error;    
+	$_SESSION['claro_mail_used_error']                  =  $mail_used_error;      
+	$_SESSION['claro_username_used_error']              =  $username_used_error;   
+	$_SESSION['claro_officialcode_used_error']          =  $officialcode_used_error;
+	$_SESSION['claro_password_error']                   =  $password_error;
+	$_SESSION['claro_mail_duplicate_error']             =  $mail_duplicate_error;
+	$_SESSION['claro_username_duplicate_error']         =  $username_duplicate_error;
+	$_SESSION['claro_officialcode_duplicate_error']     =  $officialcode_duplicate_error;
+	
+	//delete the temp file
+	
+	@unlink($uploadTempDir.$_FILES["CSVfile"]["name"]);	    
+}
+
+/**
+ * display the errors caused by a conflict with the platform after parsing the CSV file used to add new users found in the platform.
+ * ERRORS and USERS must be saved in the session at these places :
+ *
+ *      $_SESSION['claro_csv_userlist'] for the users to add
+ *      
+ *      $_SESSION['claro_mail_synthax_error']               for mail synthax error   
+ *      $_SESSION['claro_mail_used_error']                  for mail used in campus error      
+ *      $_SESSION['claro_username_used_error']              for username used in campus error   
+ *      $_SESSION['claro_officialcode_used_error']          for official code used error
+ *      $_SESSION['claro_password_error']                   for password error
+ *      $_SESSION['claro_mail_duplicate_error']             for mail duplicate error
+ *      $_SESSION['claro_username_duplicate_error']         for username duplicate error
+ *      $_SESSION['claro_officialcode_duplicate_error']     for officialcode duplicate error
+ * 
+ * @author Guillaume Lederer <lederer@cerdecam.be>
+ * 
+ * 
+ */
+ 
+function claro_disp_CSV_error_backlog()
+{
+  for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<=$size; $i++)
+        {
+            $line=$i+1;
+	
+	    if ($_SESSION['claro_mail_synthax_error'][$i]) 
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> Mail synthax error. <br>";
+	    }      
+	    if ($_SESSION['claro_mail_used_error'][$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> Mail is already used by another user. <br>\n";         
+	    }
+	    if ($_SESSION['claro_username_used_error'][$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> This username is already used by another user. <br>\n";     
+	    }
+	    if ($_SESSION['claro_officialcode_used_error'][$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> This official code is already used by another user. <br>\n"; 
+	    }
+	    if ($_SESSION['claro_password_error'][$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['password']."\" <b>:</b> Password given to simple or to close to username. <br>\n";
+	    }
+	    if ($_SESSION['claro_mail_duplicate_error'][$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> This mail appears already in a previous line of the CSV file. <br>\n";
+	    }
+	    if ($_SESSION['claro_username_duplicate_error'][$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> This username appears already in a previous line of the CSV file. <br>\n";
+	    }
+	    if ($_SESSION['claro_officialcode_duplicate_error'][$i])
+	    {
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> This official code appears already in a previous line of the CSV file. <br>\n";
+	    }
+        }  
+}
 
 
 /**
- * Check EMAIL SYNTHAX : if a new users in Claroline with the specified parameters contains synthax error
+ * Check EMAIL SYNTHAX : if new users in Claroline with the specified parameters contains synthax error
  * in mail given.
  *
  * @author Guillaume Lederer <lederer@cerdecam.be>
