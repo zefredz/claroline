@@ -40,7 +40,9 @@ if(mysql_errno()==0 && mysql_num_rows($result_links)>0)
 	$result_linkVisibility = mysql_query($sql_get_visibility_of_tool_link);
 	$linkVisibility = ((mysql_fetch_array($result_linkVisibility) == 1) ?'v':'i');
         
-	update_db_info('update', $linkRepository, array( 'visible' => $linkVisibility ) );
+        $doc_path_rep = str_replace($docRepository,"/",$linkRepository);
+        
+        update_db_info('update', $doc_path_rep, array( 'visible' => $linkVisibility ) );
                 
 	while ( $linkToMove = mysql_fetch_array($result_links, MYSQL_ASSOC))
 	{
@@ -58,10 +60,11 @@ if(mysql_errno()==0 && mysql_num_rows($result_links)>0)
 		if ( ! empty($fileName) && ! empty($url) )
 		{
 		    $linkFileExt = ".url";
-		    create_link_file( $linkRepository.'/'.$fileName.$linkFileExt, 
-		                      $url);
-                    $newComment = trim($linkToMove['description']); // remove spaces
-                    update_db_info('update', $file, array( 'comment' => $newComment ) );
+                    $url_file = $linkRepository.'/'.$fileName.$linkFileExt;
+		    create_link_file($url_file, $url);
+                    $newComment = addslashes(trim($linkToMove['description'])); // remove spaces
+                    $doc_path_file = str_replace($docRepository,"/",$url_file);
+                    update_db_info('update', $doc_path_file, array( 'comment' => $newComment ) );
                     $sql_get_links="DELETE 
                                     FROM `".$tbl_links."`
                                     WHERE id = ".$linkToMove['id']."";
@@ -71,7 +74,6 @@ if(mysql_errno()==0 && mysql_num_rows($result_links)>0)
 		{
                     $badUrl[]=$linkToMove;
 		}
-		
 	};
 	
 	if (is_array($badUrl))
