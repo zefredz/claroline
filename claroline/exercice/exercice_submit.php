@@ -311,7 +311,6 @@ if( $showExerciseForm || $is_courseAdmin )
   <input type="hidden" name="nbrQuestions" value="<?php echo $nbrQuestions; ?>">
   <tr>
     <td>
-    <table width="100%" cellpadding="4" cellspacing="2" border="0">
   
   <?php
   $i=0;
@@ -351,13 +350,13 @@ if( $showExerciseForm || $is_courseAdmin )
       }
     }
   ?>
-  
-    <tr bgcolor="#DDDEBC">
-      <td valign="top" colspan="2">
+  <table width="100%" cellpadding="4" cellspacing="2" border="0" class="claroTable">
+    <tr bgcolor="#DDDEBC" class="headerX">
+      <th valign="top" colspan="2">
       <?php echo $langQuestion; ?> <?php echo $i; if($exerciseType == 2) echo ' / '.$nbrQuestions; ?>
-      </td>
+      </th>
     </tr>
-  
+   <tfoot>
   <?php
     // shows the question and its answers
     showQuestion($questionId);
@@ -368,10 +367,13 @@ if( $showExerciseForm || $is_courseAdmin )
       // quits the loop
       break;
     }
+    ?>
+    </tfoot>
+    </table>
+    <?php
   }	// end foreach()
   ?>
   
-    </table>
     </td>
   </tr>
   <tr>

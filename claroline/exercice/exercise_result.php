@@ -185,12 +185,13 @@ else                                        // normal exercise mode
 		{
 ?>
 
-<table width="100%" border="0" cellpadding="3" cellspacing="2">
-<tr bgcolor="#DDDEBC">
-  <td colspan="<?php echo $colspan; ?>">
+  <table width="100%" cellpadding="4" cellspacing="2" border="0" class="claroTable">
+  <tr bgcolor="#DDDEBC" class="headerX">
+  <th colspan="<?php echo $colspan; ?>">
 	<?php echo $langQuestion.' '.($i+1); ?>
-  </td>
+  </th>
 </tr>
+<tfoot>
 <tr>
   <td colspan="<?php echo $colspan; ?>">
 	<?php echo $questionName; ?>
@@ -442,6 +443,7 @@ else                                        // normal exercise mode
 	<b><?php echo "$langScore : $questionScore/$questionWeighting"; ?></b>
   </td>
 </tr>
+</tfoot>
 </table>
 
 <?php
