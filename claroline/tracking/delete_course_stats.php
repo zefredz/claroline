@@ -78,7 +78,7 @@ if( $isAllowedToDelete )
       // ASK DELETE CONFIRMATION TO THE USER
     
       echo "\n<p>\n"
-		.$langConfirmDelete
+		.$langConfirmDeleteStats
 		."\n</p>\n"
         ."<p>\n"
 	  	."<a href=\"".$_SERVER['PHP_SELF']."?delete=yes\">"
