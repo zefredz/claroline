@@ -624,6 +624,16 @@ HTMLArea.prototype.generate = function () {
 		this._textArea = textarea = HTMLArea.getElementById("textarea", textarea);
 	}
 
+	// CLAROLINE HACK -- June 25 2004 Hugues Peeters (peeters@ipm.ucl.ac.be)
+	// Introduce a comment stating that, since the client uses HTML Area,
+	// the content will necessarly be in html format. A sort of metadata ...
+
+	if (textarea.value.indexOf('<!-- content: html -->') == -1)
+	{
+		textarea.value = '<!-- content: html -->' + textarea.value;
+	}
+
+
 	if (textarea.offsetWidth == 0) {// ugly hack to prevent problem 
 		this._ta_size = { 			// in IE6 when HTMLArea is inside a table
 			w: 665,					//
@@ -635,7 +645,7 @@ HTMLArea.prototype.generate = function () {
 			w: textarea.offsetWidth,
 			h: textarea.offsetHeight
 		}; 
-	}								// en of ugly hack
+	}								// end of ugly hack
 
 	textarea.style.display = "none";
 
