@@ -41,124 +41,6 @@ $sqlForUpdate[] = "# CREATE TABLES ";
 
 /**
  *
- * TRY TO CREATE track_c_browsers
- *
-*/
-
-$sqlForUpdate[] = "CREATE TABLE  IF NOT EXISTS `track_c_browsers` (
-  `id` int(11) NOT NULL auto_increment,
-  `browser` varchar(255) NOT NULL default '',
-  `counter` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='record browsers occurences';";
-
-$sqlForUpdate[] = "# `track_c_browsers`";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_browsers` ADD `id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_browsers` ADD `browser` varchar(255) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_browsers` ADD `counter` int(11) NOT NULL default '0';";
-
-$sqlForUpdate[] = "# `track_c_browsers`";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_browsers` CHANGE `id` `id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_browsers` CHANGE `browser` `browser` varchar(255) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_browsers` CHANGE `counter` `counter` int(11) NOT NULL default '0';";
-
-/**
- *
- * TRY TO CREATE track_c_countries
- *
-*/
-
-$sqlForUpdate[] = "CREATE TABLE  IF NOT EXISTS `track_c_countries` (
-  `id` int(11) NOT NULL auto_increment,
-  `code` varchar(10) NOT NULL default '',
-  `country` varchar(50) NOT NULL default '',
-  `counter` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM;";
-
-$sqlForUpdate[] = "# `track_c_countries` ;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_countries` ADD `id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_countries` ADD `code` varchar(10) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_countries` ADD `country` varchar(50) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_countries` ADD `counter` int(11) NOT NULL default '0';";
-
-$sqlForUpdate[] = "# `track_c_countries` ;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_countries` CHANGE `id` `id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_countries` CHANGE `code` `code` varchar(10) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_countries` CHANGE `country` `country` varchar(50) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_countries` CHANGE `counter` `counter` int(11) NOT NULL default '0';";
-
-/**
- *
- * TRY TO CREATE track_c_os
- *
-*/
-
-$sqlForUpdate[] = "CREATE TABLE  IF NOT EXISTS `track_c_os` (
-  `id` int(11) NOT NULL auto_increment,
-  `os` varchar(255) NOT NULL default '',
-  `counter` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='record OS occurences';";
-
-$sqlForUpdate[] = "# `track_c_os`;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_os` ADD `id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_os` ADD `os` varchar(255) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_os` ADD `counter` int(11) NOT NULL default '0';";
-
-$sqlForUpdate[] = "# `track_c_os`;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_os` CHANGE `id` `id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_os` CHANGE `os` `os` varchar(255) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_os` CHANGE `counter` `counter` int(11) NOT NULL default '0';";
-
-/**
- *
- * TRY TO CREATE track_c_providers
- *
-*/
-
-$sqlForUpdate[] = "CREATE TABLE  IF NOT EXISTS `track_c_providers` (
-  `id` int(11) NOT NULL auto_increment,
-  `provider` varchar(255) NOT NULL default '',
-  `counter` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='list of providers used by users and number of occurences';";
-
-$sqlForUpdate[] = "# `track_c_providers`;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_providers` ADD `id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_providers` ADD `provider` varchar(255) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_providers` ADD `counter` int(11) NOT NULL default '0';";
-
-$sqlForUpdate[] = "# `track_c_providers`;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_providers` CHANGE `id` `id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_providers` CHANGE `provider` `provider` varchar(255) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_providers` CHANGE `counter` `counter` int(11) NOT NULL default '0';";
-
-/**
- *
- * TRY TO CREATE track_c_referers
- *
-*/
-
-$sqlForUpdate[] = "CREATE TABLE  IF NOT EXISTS `track_c_referers` (
-  `id` int(11) NOT NULL auto_increment,
-  `referer` varchar(255) NOT NULL default '',
-  `counter` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='record refering url occurences';";
-
-$sqlForUpdate[] = "# `track_c_referers`;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_referers` ADD `id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_referers` ADD `referer` varchar(255) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_referers` ADD `counter` int(11) NOT NULL default '0';";
-
-$sqlForUpdate[] = "# `track_c_referers`;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_referers` CHANGE `id` `id` int(11) NOT NULL auto_increment;";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_referers` CHANGE `referer` `referer` varchar(255) NOT NULL default '';";
-$sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_referers` CHANGE `counter` `counter` int(11) NOT NULL default '0';";
-
-/**
- *
  * TRY TO CREATE track_e_default
  *
 */
@@ -174,7 +56,7 @@ $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `track_e_default` (
   PRIMARY KEY  (`default_id`)
 ) TYPE=MyISAM COMMENT='Use for other develloppers users';";
 
-$sqlForUpdate[] = "# `track_e_login`;";
+$sqlForUpdate[] = "# `track_e_default`;";
 
 $sqlForUpdate[] = " ALTER IGNORE TABLE `track_e_default` ADD `default_id` int(11) NOT NULL auto_increment ;";
 $sqlForUpdate[] = " ALTER IGNORE TABLE `track_e_default` ADD `default_user_id` int(10) NOT NULL default '0' ;";
