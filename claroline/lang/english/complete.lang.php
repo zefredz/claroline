@@ -1895,4 +1895,23 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
+
+$langTranslationTools = "Translation Tools";
+$langExtractLangVariable = "Extract language variables";
+$langBuildLangFile = "Build language files";
+$langFindDoubledVariable = "Find doubled variables";
+$langTranslationStatistics = "Translation Progression";
+
+$langExtractFromLangFile = "From language files";
+$langExtractFromScriptFile = "From script files";
+
+$langBuildCompleteLangFile = "Complete language files";
+$langBuildProductionLangFile = "Production language files";
+$langBuildMissingLangFile = "Missing language files";
+
+$langFindVarWithSameNameAndDifferentContent = "Variables with same name and different content";
+$langFindVarWithSameContentAndDifferentName = "Variables with same content and different name";
+
+$langSDK = "SDK";
+
 ?>
