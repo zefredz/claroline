@@ -37,9 +37,10 @@ the following on your machine :
 
 1. A web server (We recommend Apache, but others should work too),
 
-2. PHP 4.x configured with the following modules : mysql, zlib, preg.
-   Most of the PHP4 compiled distributions are provided with these modules.
-   Anyway, their presence is checked by the Claroline install script.
+2. PHP scripting language (version 4.1 or later), configured with the 
+   following modules : mysql, zlib, preg. Most of the PHP4 compiled 
+   distributions are provided with these modules. Anyway, their presence 
+   is checked by the Claroline install script.
 
    Some users could meet problems if their PHP setting doesn't fit 
    these ones:
@@ -76,9 +77,16 @@ the following on your machine :
        occurs between table names of both applications that could conducts 
        to serious problems.
 
-       NOTE. The backticks charachters (`) inserted inside most of the Claroline 
-       SQL queries since Claroline 1.3 doesn't work with MySQL versions previous 
-       to 3.23.6.
+       NOTE 1. The backticks charachters (`) inserted inside most of the 
+       Claroline SQL queries since Claroline 1.3 doesn't work with MySQL 
+       versions previous to 3.23.6.
+
+       NOTE 1. People using mySQL 4.1 (or later) could face connection 
+	   problem. To fix this problem, see on the mySQL web site :
+	   
+			"Client does not support authentication protocol"
+			http://dev.mysql.com/doc/mysql/en/Old_client.html
+
 
 4. Web Write access to web directory where claroline has been moved 
    or unzipped to. On a Windows machine locally, this
