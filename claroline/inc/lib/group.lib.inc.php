@@ -107,6 +107,16 @@ function delete_groups($groupIdList = 'ALL')
 		$res_deleteGroupForums = claro_sql_query($sql_deleteGroupForums);
 
 
+		// Reset auto_increment
+		$sql_getmaxId = 'SELECT MAX( id ) max From  `'.$tbl_Groups.'` ';
+		$maxGroupId = claro_sql_query_fetch_all($sql_getmaxId);
+		$sql_reset_autoincrement = "ALTER TABLE `".$tbl_Groups."` 
+		                            PACK_KEYS =0 
+									CHECKSUM =0 
+									DELAY_KEY_WRITE =0 
+									AUTO_INCREMENT = ".($maxGroupId[0]['max']+1)."";
+		claro_sql_query($sql_reset_autoincrement);
+		
 		/*
 		 * Archive and delete the group files
 		 */
@@ -125,6 +135,7 @@ function delete_groups($groupIdList = 'ALL')
 			}
 		}
 
+		
 		return $deletedGroupNumber;
 
 	}							// end if $groupList
