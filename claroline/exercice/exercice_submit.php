@@ -244,7 +244,7 @@ if($exerciseMaxTime != 0)
 }
 else
 {
-  $statusMsg .= $langNoTimeLimit;
+  $statusMsg .= " ".$langNoTimeLimit;
 }
 	
 // MAX ALLOWED ATTEMPTS
