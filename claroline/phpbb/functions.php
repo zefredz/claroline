@@ -512,7 +512,7 @@ function sync($id, $type)
 			$total_topics = claro_sql_query_get_single_value($sql);
 
 			$sql = "UPDATE `".$tbl_forums."`
-			        SET forum_last_post_id = '$last_post',
+			        SET forum_last_post_id = '".$last_post."',
 			            forum_posts = '".$total_posts."',
 			            forum_topics = '".$total_topics."'
 			        WHERE forum_id = '".$id."'";
@@ -532,10 +532,9 @@ function sync($id, $type)
                 WHERE topic_id = '".$id."'";
 
 	    $total_posts = claro_sql_query_get_single_value($sql);
-		$total_posts -= 1;
 
 		$sql = "UPDATE `".$tbl_topics."`
-				SET topic_replies = '".$total_posts."', 
+				SET topic_replies = '".$total_posts." #topic_replies should be renamed topic_posts', 
                 topic_last_post_id = '".$last_post."'
 				WHERE topic_id = '".$id."'";
 
@@ -716,7 +715,7 @@ function create_new_topic($subject, $time, $forumId,
 
     $sql = "UPDATE `".$tbl_forums."` 
             SET   forum_topics = forum_topics+1
-            WHERE forum_id     = '".$forum."'";
+            WHERE forum_id     = '".$forumId."'";
 
     $result = claro_sql_query($sql);
 
