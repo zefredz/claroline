@@ -250,8 +250,8 @@ $langEmailSent = " และส่งอีเมล์ไปยังนักศึกษาที่ลงทะเบียน";
 $langEmailWrong = "อีเมล์ไม่สมบูรณ์ หรือมีตัวอักษรต้องห้ามปะปน";
 $langEmptyAnn = "ล้างรายการประกาศ";
 $langEmptyFields = "คุณปล่อยบางช่องไว้ว่างเปล่า คลิกปุ่มย้อนหลัง และลองอีกครั้งหนึ่ง";
-$langEnter = "ตกลง";
 $langEnter = "ย้อนกลับ";
+$langEnter = "ตกลง";
 $langEx = "ตัวอย่าง <i>History of Litterature</i>";
 $langExMessage = "ตัวอย่างข้อความ";
 $langExercice = "แบบฝึกหัด";
@@ -282,8 +282,8 @@ claroline forum ได้สร้างกระดานข่าวหมวดหมู่ 'Public' เพื่อเป็นตัวอย่างสำหรับการถา
 เกิดความเข้าใจได้ง่าย ในการเข้าร่วมใช้งาน";
 $langForName = "ชื่อกระดานข่าว";
 $langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$langFormula = "ด้วยความปรารถนาดี, อาจารย์";
 $langFormula = "ด้วยความขอบคุณ";
+$langFormula = "ด้วยความปรารถนาดี, อาจารย์";
 $langForums = "กระดานข่าว";
 $langGettingStarted = "ช่วยเหลือ";
 $langGroupContent = "<p><b>คำนำ</b></p>
@@ -361,8 +361,8 @@ $langLast7Days = "7วันที่แล้ว";
 $langLastMsg = "โพสครั้งล่าสุด";
 $langLasting = "คาบ";
 $langLink = "Link";
-$langLinkSite = "เพิ่ม link ในรายวิชานี้";
 $langLinkSite = " Link ไปที่";
+$langLinkSite = "เพิ่ม link ในรายวิชานี้";
 $langLinks = "Link";
 $langLoginBeforePost1 = "ต้องการเขียนกระทู้บนกระดานข่าวนี้ ";
 $langLoginBeforePost2 = "คุณต้อง ";
@@ -451,14 +451,14 @@ $langTaken = "ถูกใช้แล้ว โปรดเลือกชื่ออื่น";
 $langTargetFac = "";
 $langTestForum = "กระดานข่าวทดสอบ";
 $langTheU = "นักศึกษา";
-$langTitle = "ชื่อวิชา";
 $langTitle = "ชื่อเรื่อง";
+$langTitle = "ชื่อวิชา";
 $langTitular = "นักศึกษา";
 $langTo = "ไปยัง";
 $langToday = "วันนี้";
 $langTodo = "สิ่งควรปรับปรุง";
-$langTooBig = "ท่านไม่ได้เลือกไฟล์ใดๆเพื่อส่ง หรือไฟล์มีขนาดใหญ่เกินไป";
 $langTooBig = "ท่านไม่ได้เลือกไฟล์ใดๆ หรือไฟล์มีขนาดใหญ่เกินไป";
+$langTooBig = "ท่านไม่ได้เลือกไฟล์ใดๆเพื่อส่ง หรือไฟล์มีขนาดใหญ่เกินไป";
 $langTools = "เครื่องมือ";
 $langTrue = "จริง";
 $langUncompress = "ขยายไฟล์บีบอัดบนเครื่องแม่ข่าย";
@@ -491,8 +491,8 @@ $langUserContent = "<b>สถานะภาพ</b><p>สถานะภาพ ใช้เพื่อแสดงบทบาทของผู้นั้นว่าเป็
 <p>การเพิ่ม user ในบทเรียนของท่าน  กรอกข้อมูลในช่องให้ครบ และคลิกปุ่มตกลง บุคคลนั้นจะได้รับอีเมล์ 
 แจ้งว่าท่านได้ทำการลงทะเบียนเข้าสู่บทเรียนแก่เขาแล้ว รวมทั้งแจ้งชื่อผู้ใช้และรหัสผ่านแก่เขาด้วย
 </p>";
-$langUserName = "ชื่อผู้ใช้";
 $langUserName = "Username";
+$langUserName = "ชื่อผู้ใช้";
 $langUserNo = "username ที่ท่านเลือก ";
 $langUserTaken = "ชื่อ username นี้ถูกใช้แล้ว";
 $langUsers = "Users";
