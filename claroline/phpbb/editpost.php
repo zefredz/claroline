@@ -1,5 +1,4 @@
 <?php  // $Id$
-session_start();
 
 /***************************************************************************
                             editpost.php  -  description
@@ -24,7 +23,6 @@ session_start();
 require 'functions.php';
 require 'config.php';
 require 'page_header.php';
-
 
 if($is_courseAdmin)
 {
