@@ -1283,24 +1283,25 @@ function update_user_course_properties($user_id, $course_id, $properties)
 {
     global $_uid;
     
-	//declare needed tables
-	$tbl_mdb_names = claro_sql_get_main_tbl();
-	$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+    //declare needed tables
+    
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
 
     $sqlChangeStatus = "";
-    if ($user_id != $_uid //do we allow user to change his own settings? what about course without teacher?
-		and ($properties['status']=="1" or $properties['status']=="5") 
-		)
-	{
+    if (($properties['status']=="1" or $properties['status']=="5"))
+    {
         $sqlChangeStatus = "`statut` = \"".$properties['status']."\",";
-	}
-    
-    $result = claro_sql_query("UPDATE `".$tbl_rel_course_user."`
-                            SET     `role`       = \"".$properties['role']."\",
-                                    ".$sqlChangeStatus."
-                                    `tutor`      = \"".$properties['tutor']."\"
-                            WHERE   `user_id`    = \"".$user_id."\"
-                            AND     `code_cours` = \"".$course_id."\"") or die ("CANNOT UPDATE DB !");
+    }
+
+    $sql = "UPDATE `".$tbl_rel_course_user."`
+            SET     `role`       = \"".$properties['role']."\",
+           ".$sqlChangeStatus."
+           `tutor`      = \"".$properties['tutor']."\"
+           WHERE   `user_id`    = \"".$user_id."\"
+           AND     `code_cours` = \"".$course_id."\"";
+	           
+    $result = claro_sql_query($sql) or die ("CANNOT UPDATE DB !");
 
     if (mysql_affected_rows() > 0)
     {
