@@ -25,7 +25,7 @@
 
 $langFile = "registration";
 require '../inc/claro_init_global.inc.php';
-$nameTools = $lang_lost_password;
+$nameTools = $langLostPassword;
 
 /*
  * DB tables definition
@@ -33,7 +33,9 @@ $nameTools = $lang_lost_password;
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user            = $tbl_mdb_names['user'];
 
-include('../inc/claro_init_header.inc.php');
+include($includePath.'/claro_init_header.inc.php');
+
+include($includePath.'/lib/claro_mail.lib.inc.php');
 claro_disp_tool_title($nameTools);
 
 if ($searchPassword)
@@ -60,7 +62,6 @@ if ($searchPassword)
 			 * If password are crypted, we can not send them as they are.
 			 * There are unusable for the end user. So, we have to generate new ones.
 			 */
-
 			if ($userPasswordCrypted) // $userPasswordCrypted comes claro_main.conf.php
 			{
 				for ($i = 0, $j = count($user); $i < $j; $i++)
@@ -81,22 +82,7 @@ if ($searchPassword)
 			 * Prepare the email message wich has to be send to the user
 			 */
 
-			// HEADER
-
-			$emailHeaders =  "From: \"".addslashes($administratorSurname." ".$administrator["name"])."\""
-							."<".$administrator["email"].">\r\n"
-							."Reply-To: \"".addslashes($administratorSurname." ".$administrator["name"])."\""
-							."<".$administrator["email"].">\r\n"
-							."Bcc: \"".addslashes($administratorSurname." ".$administrator["name"])."\""
-							."<".$administrator["email"].">\r\n"
-							."Return-path: ".$administrator["email"]."\n"
-							."Errors-To: ".$administrator["email"]."\n"
-							."MIME-Version: 1.0\r\n"
-							."Content-Type: text/plain; charset=".$charset."\r\n"
-							."X-Mailer: PHP / ".phpversion()."\r\n";
-
-
-			// SUBJECT
+      // SUBJECT
 
 			$emailSubject = $langLoginRequest." ".$siteName;
 
@@ -122,47 +108,44 @@ if ($searchPassword)
 
 			// SEND MESSAGE
 
-			$emailTo = $Femail;
-
-			if (@mail($emailTo, $emailSubject, $emailBody, $emailHeaders))
+      $emailTo = $user[0]['uid'];
+      
+      if( claro_mail_user($emailTo, $emailBody, $emailSubject) )
 			{
-				$msg = $lang_your_password_has_been_emailed_to_you;
+				$msg = $langPasswordHasBeenEmailed.$Femail;
 			}
 			else
 			{
-				echo	"<p>".
-					.	"The system is unable to send you an e-mail.<br>"
-					.	"Please contact the "
-					.	"<a href=\"mailto:".$administrator["email"]."\">"
-					.	"Platform administrator"
-					.	"</a>"
-					.	".<p>";
+				$msg = $langEmailNotSent
+                .	"<a href=\"mailto:".$administrator["email"]."\">"
+                .	$langPlatformAdmin
+                .	"</a>";
 			}
 			
 
 		}				// end if mysql_num_rows($result) > 0
 		else
 		{
-			$msg = $lang_no_user_account_with_this_email_address;
+			$msg = $langEmailAddressNotFound;
 		}
 	}
+  if ($msg) claro_disp_message_box($msg);
 }
 else
 {
-	$msg = $lang_enter_email_and_well_send_you_password;
+	echo "<p>".$langEnterMail."</p>";
 }
 
 
-if ($msg) echo "<p>",$msg,"</p>";
 
 if ( ! $passwordFound)
 { ?>
-
+<br />
 <form action="<?php echo $PHP_SELF?>" method="post">
 <input type="hidden" name="searchPassword" value="1">
 <table>
 <tr>
-<td align = "right"><label for="Femail"><?php echo $langEmail ?> : </label></td>
+<td><label for="Femail"><?php echo $langEmail ?> : </label></td>
 <td><input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="<?php echo $Femail ?>"></td>
 </tr>
 <td></td>
