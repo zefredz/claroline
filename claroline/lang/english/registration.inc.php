@@ -50,6 +50,9 @@ $langEmail="Email";
 $langStatus="Action";
 $langRegStudent="Follow courses";
 $langRegAdmin="Create course websites";
+$langPhone = "Phone";
+$langSaveChange ="Save changes";
+$langRegister = "Register";
 
 // inscription_second.php
 $langPassTwice="You typed two different passwords";

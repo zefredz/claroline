@@ -409,14 +409,16 @@ if (isset($cidToEdit))
 
 <a class="claroButton" href="delete_course.php<?php echo $toAdd ?>"><?php echo $langDelCourse; ?></a>
 
+
 <?php
 
-
+//claro_disp_button("delete_cose.php".$toAdd, $langDelCourse);
 
 if (isset($cfrom) && ($is_platformAdmin))
       {
         if ($cfrom=="clist")  //in case we come from the course list in admintool
         {
+           //claro_disp_button("../admin/admincourses".$toAdd, $langBackToList);
            ?>
            <a class="claroButton" href="../admin/admincourses.php<?php echo $toAdd ?>"><?php echo $langBackToList; ?></a>
            <?php
@@ -464,7 +466,6 @@ function buildSelect($elem,$father,$EditFather,$space)
 				echo "<option value=\"".$one_faculty['code']."\" ".
 						($one_faculty['code']==$EditFather?"selected ":"")
 				."> ".$space.$one_faculty['code']." </option>";
-
 				buildSelect($elem,$one_faculty["code"],$EditFather,$space);
 			}
 		}
