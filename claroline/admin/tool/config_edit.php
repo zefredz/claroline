@@ -256,7 +256,6 @@ else
             }
         }
 
-/*
         foreach ($conf_def_property_list as $_propName => $_propDescriptorList)
         {
             if (!isset($_propDescriptorList['section']))
@@ -272,7 +271,6 @@ else
             $conf_def['section']['sectionmissing']['description'] = 'This is an error in definition file. Request to the coder of this config to add theses proporties in a section of the definition file.';
 
         }	
-*/
 
 	}
 	else 
