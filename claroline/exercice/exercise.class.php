@@ -520,15 +520,15 @@ class Exercise
 		return true;
 	}
 	
-  function change_record_uid_in_score()
+  function set_record_uid_in_score($recordUid)
   {
-    if ( $this->recordUidInScore == 'YES')
+    if ( $recordUid )
     {
-      $this->recordUidInScore = 'NO';
+      $this->recordUidInScore = 'YES';
     }
     else
     {
-      $this->recordUidInScore = 'YES';
+      $this->recordUidInScore = 'NO';
     }
     
   }
