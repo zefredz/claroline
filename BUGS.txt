@@ -196,7 +196,7 @@ ratachement direct de cours mais qu'elle contient déjà des cours.
 l'utilisateur ne recoit aucun message.
 Repéré par : M.
 Assigné à : Guim 
-message d'erreur si on essaie de rendre non remplissable de cours une catégorie qui en contient déjà.
+Solution : message d'erreur si on essaie de rendre non remplissable de cours une catégorie qui en contient déjà.
 
 Etat : RESOLU ------------------------------------------------------
 M.24  : admincats.php
@@ -205,7 +205,9 @@ quoi : si je supprime une cat qui contient des catégories avec déjà des cours.
 - l'utilisateur ne recoit aucun message.
 - les cours disparessent de l'arbre !!!
 Repéré par : M.
-Assigné à : 
+Assigné à : Guim
+Solution : On ne peut pas supprimer une cat qui en contient d'autre ou qui contient au moins un cours, sinon on recoit un warning
+
 
 Etat : New ------------------------------------------------------
 M.25  : admincats.php
@@ -265,8 +267,8 @@ Assigné à :
 
 -------------
 $Log$
-Revision 1.39  2004/06/16 12:26:11  guillaume
-bug 24 resolu
+Revision 1.40  2004/06/16 12:36:20  guillaume
+cats containing courses can not become cat that can not accept courses...debug
 
 Revision 1.38  2004/06/16 11:42:37  guillaume
 bug 24 resolu
