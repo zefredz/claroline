@@ -29,6 +29,8 @@ include('exercise.class.php');
 include('question.class.php');
 include('answer.class.php');
 
+include('exercise.lib.php');
+
 // answer types
 define('UNIQUE_ANSWER',	1);
 define('MULTIPLE_ANSWER',	2);
@@ -449,10 +451,10 @@ else                                        // normal exercise mode
 <tr>
   <td align="center">
 	<?php 
-		echo $langYourTime." ".$timeToCompleteExe; 
+		echo $langYourTime." ".disp_minutes_seconds($timeToCompleteExe); 
 		if( $exerciseMaxTime > 0 )
 		{
-			echo "<br />".$langMaxAllowedTime." ".$exerciseMaxTime;
+			echo "<br />".$langMaxAllowedTime." ".disp_minutes_seconds($exerciseMaxTime);
 		}
 	?>
   </td>
@@ -497,11 +499,12 @@ else                                        // normal exercise mode
 if($is_trackingEnabled && $displayScore)
 {
     @include($includePath.'/lib/events.lib.inc.php');
-    if ( !$objExercise->record_uid_in_score()  || !$_uid )
+    // if anonymousAttemps is true : record anonymous user stats, record authentified user stats without uid
+    if ( $objExercise->anonymous_attempts()  )
     {
         event_exercice($objExercise->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe );
     }
-    else
+    elseif( $_uid ) // anonymous attempts not allowed, record stats with uid only if uid is set
     {
       event_exercice($objExercise->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe, $_uid );  
     }
