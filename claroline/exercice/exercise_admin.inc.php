@@ -250,9 +250,6 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
     
     <input type="radio" name="exerciseShowAnswer" id="neverShowAnswer" value="NEVER" <?php if($showAnswer == 'NEVER') echo 'checked="checked"';?>>
     <label for="neverShowAnswer"><?php echo $langNever; ?></label><br />
-    
-    <input type="radio" name="exerciseShowAnswer" id="endDateShowAnswer" value="ENDDATE" <?php if($showAnswer == 'ENDDATE') echo 'checked="checked"';?>>
-    <label for="endDateShowAnswer"><?php echo $langAfterEndDate; ?></label><br />
   </td>
 </tr>
 <?php
@@ -356,8 +353,6 @@ else
       case 'ALWAYS' : echo $langAlways; 
                                 break;
       case 'NEVER'  : echo $langNever;
-                              break;
-      case 'ENDDATE' : echo $langAfterEndDate;
                               break;
     }
 ?>  
