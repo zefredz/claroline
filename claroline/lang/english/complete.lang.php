@@ -1839,4 +1839,6 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
+$langAddListUser = "Add a list of users";
+$langAddAClass = "Subscribe a class";
 ?>

@@ -1744,4 +1744,6 @@ $langpday = "%d&nbsp;jour(s)";
 $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
+$langAddListUser = "Ajouter une liste d'utilisateurs";
+$langAddAClass = "Inscrire une classe";
 ?>
