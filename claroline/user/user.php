@@ -108,7 +108,7 @@ if ($disp_tool_link)
 	{ 
 	   //add a user link
 	?>
-	<a class="claroCmd" href="user_add.php"><img src="<?php echo $clarolineRepositoryWeb; ?>img/membres.gif"><?php echo $langAddAU; ?></a> |
+	<a class="claroCmd" href="user_add.php"><img src="<?php echo $clarolineRepositoryWeb; ?>img/user.gif"><?php echo $langAddAU; ?></a> |
 	<?php
 
        //add CSV file of user link
@@ -287,7 +287,7 @@ while (list(,$thisUser) = each($users))
 	echo	"\n<tr align=\"center\" valign=\"top\">",
 
 			"\n<td id=\"u".$i."\" headers=\"name\" align=\"left\">",
-            "<img src=\"".$clarolineRepositoryWeb."img/membres.gif\">",
+            "<img src=\"".$clarolineRepositoryWeb."img/user.gif\">",
 			"\n<small>\n",$i,"</small>\n&nbsp;",
 			"<a href=\"userInfo.php?uInfo=",$thisUser['user_id'],"\">",
 			ucfirst(strtolower($thisUser['prenom']))," ",ucfirst(strtolower($thisUser['nom'])),

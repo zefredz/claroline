@@ -20,7 +20,7 @@ include($includePath."/lib/admin.lib.inc.php");
 //SECURITY CHECK
 if (!$is_platformAdmin) claro_disp_auth_form();
 
-$iconForCuStatus['STUDENT']        = "membres.gif";
+$iconForCuStatus['STUDENT']        = "user.gif";
 $iconForCuStatus['COURSE_MANAGER'] = "teacher.gif";
 
 $tbl_mdb_names       = claro_sql_get_main_tbl();

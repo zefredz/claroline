@@ -390,7 +390,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	    
     	    echo "  <td align=\"center\">\n"
 	            ."    <a href=\"".$clarolineRepositoryWeb."admin/admin_class_user.php?class=".$cur_class['id']."\">\n"
-                ."      <img src=\"".$clarolineRepositoryWeb."img/membres.gif\" border=\"0\"> "
+                ."      <img src=\"".$clarolineRepositoryWeb."img/user.gif\" border=\"0\"> "
 		        ."        (".$qty_user."  ".$langUsersMin.") \n"
                 ."    </a>\n"
                 ."  </td>\n";

@@ -36,7 +36,7 @@ $userPerPage = 20; // numbers of user to display on the same page
 
 // initialisation of global variables and used libraries
 
-$iconForCuStatus['STUDENT']        = "membres.gif";
+$iconForCuStatus['STUDENT']        = "user.gif";
 $iconForCuStatus['COURSE_MANAGER'] = "teacher.gif";
 
 include($includePath."/lib/pager.lib.php");
