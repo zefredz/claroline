@@ -12,39 +12,47 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-$langFile = 'index';
 unset($includePath);
+
+/* 
+ * Flag forcing the 'current course' reset,
+ * as we're not anymore inside a course 
+ */
 
 $cidReset = TRUE;
 $tidReset = TRUE;
-					/* Flag forcing the 'current course' reset,
-                     as we're not anymore inside a course */
+
+/*
+ * Include Library and configuration file
+ */
 
 require './claroline/inc/claro_init_global.inc.php'; // main init
 
-require $includePath.'/lib/events.lib.inc.php'; //stats
+require $includePath.'/lib/events.lib.inc.php'; // stats
 
-require $includePath.'/conf/index.conf.inc.php';
+require $includePath.'/conf/index.conf.inc.php'; // config file
+
+// logout request : delete session data
 
 if (isset($_REQUEST['logout'])) session_destroy();
 
 /*
  * DB tables definition
  */
+
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_admin             = $tbl_mdb_names['admin'            ];
 $tbl_courses           = $tbl_mdb_names['course'           ];
 $tbl_link_user_courses = $tbl_mdb_names['rel_course_user'  ];
 $tbl_courses_nodes     = $tbl_mdb_names['category'         ];
 $tbl_user              = $tbl_mdb_names['user'             ];
-$tbl_trackLogin        = $tbl_mdb_names['track_e_login'             ];
+$tbl_trackLogin        = $tbl_mdb_names['track_e_login'    ];
 
 /*
  * CLAROLINE HEADER AND BANNER
  */
 
 require $includePath.'/claro_init_header.inc.php';
-
 
 if ( isset($_uid) )
 {
