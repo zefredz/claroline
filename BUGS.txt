@@ -91,9 +91,16 @@ Repéré par : MOOSH
 insert into `CL150RC1Main`.`faculte` (name,code,bc,nb_childs,canHaveCoursesChild,canHaveCatChild,treePos,code_P)
                                         values ('tzrthrth','rzthtr',NULL,'0','TRUE','TRUE','14','EDITME')
 
+15. le chat  crée à l'utilisatuib encore  un fichier dans le rep /claroline/chat/
+et j'ai pas trouvé où il le crée
+Repéré par : MOOSH
+
 
 -------------
 $Log$
+Revision 1.17  2004/06/14 13:01:24  moosh
+bug 15 chat
+
 Revision 1.16  2004/06/14 12:41:03  moosh
 bug 14
 
