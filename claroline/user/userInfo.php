@@ -359,7 +359,7 @@ elseif ($displayMode =="viewMainInfoEdit")
 				"<tfoot><tr align=\"center\">",
 				"<td align=\"left\"><b>",htmlize($mainUserInfo['firstName'])," ",htmlize($mainUserInfo['lastName']),"</b></td>\n",
 
-				"<td align=\"left\"><input type=\"text\" name=\"role\" id=\"role\" value=\"",$mainUserInfo['role'],"\" maxlenght=\"40\"></td>",
+				"<td align=\"left\"><input type=\"text\" name=\"role\" id=\"role\" value=\"",$mainUserInfo['role'],"\" maxlength=\"40\"></td>",
 
 				"<td><input type=\"checkbox\" name=\"promoteTutor\" id=\"promoteTutor\" value=\"1\" ",$tutorChecked,"></td>";
 
@@ -442,7 +442,7 @@ elseif ($displayMode == "viewContentList") // default display
 				{
 						echo	"<td>".
 							"<a href=\"../tracking/userLog.php?uInfo=".$userIdViewed."\">".
-							"<img border=\"0\" alt=\"".$langTracking." : ".$userIdViewed."\" src=\"".$clarolineRepositoryWeb."/img/statistiques.gif\">".
+							"<img border=\"0\" alt=\"".$langTracking."\" src=\"".$clarolineRepositoryWeb."/img/statistiques.gif\">".
 							"</a>",
 							"</td>";
 				}
