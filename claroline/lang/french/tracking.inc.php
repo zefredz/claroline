@@ -172,7 +172,6 @@ $langTo = "au";
 
 $langUserAccessDetails = "Accès utilisateurs";
 $langTool = "Outil";
-$langDocument = "Document";
 $langAnonymousUserAccessCount = "Nombre d'accès d'utilisateurs anonymes : ";
 $langNbrAccess = "Nombre d'accès";
 

@@ -202,7 +202,6 @@ $langGroupUserManagement     = "Gestion des groupes";
 
 $langIfYouWantToAddManyUsers = "Si vous voulez ajouter une liste d'utilisateurs à votre cours, contactez votre web administrateur.";
 
-$langCourses    = "cours.";
 $langLastVisits = "Mes dernières visites";
 $langSee        = "Voir";
 $langSubscribe  = "M'inscrire<br>coché&nbsp;=&nbsp;oui";

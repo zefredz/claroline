@@ -779,7 +779,7 @@ elseif($displayCourseAddResult)
                  <?
                  if ($_REQUEST['fromAdmin']!="yes")
                  {
-                    claro_disp_button("../../index.php",$langEnter);
+                    claro_disp_button("../../index.php",$langBackToMyCourseList);
                  }
                  else
                  {

@@ -27,7 +27,6 @@ $langEnter="Enter";
 $langHelp="Getting started";
 $langReg="Registration";
 $langMenu ="Menu";
-$langDoc="Documentation";
 $langPlatformAdmin="Platform Administration";
 $langAdvises="Advises";
 
@@ -44,10 +43,9 @@ $langAgendaNextEvents = "Agenda next events";
 $langValvas = "Last announcements" ;
 
 $langUp = "previous level";
-$langCatList = "Category";
+$langCatList = "Categories";
 $langCourseList = "Course list";
 
-$langCourses	= "courses";
 $langIn			= "in";
 $langSubCat		= "sub-categories";
 

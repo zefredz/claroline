@@ -39,7 +39,6 @@ $langEnter="Entrer";
 $langHelp="Comment démarrer";
 $langReg="Inscription";
 $langMenu ="Menu";
-$langDoc="Documentation";
 $langPlatformAdmin="Administration";
 $langAdvises="Conseils";
 
@@ -57,10 +56,9 @@ $langAgendaNextEvents = "Agenda : prochains événements";  // JCC
 $langValvas = "Dernières annonces" ;
 
 $langUp = "catégorie supérieure";
-$langCatList = "Liste des catégories";
+$langCatList = "Catégories";
 $langCourseList = "Liste des cours";
 
-$langCourses	= "cours";
 $langIn			= "dans";
 $langSubCat		= "sous-catégories";
 

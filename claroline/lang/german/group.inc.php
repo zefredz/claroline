@@ -12,7 +12,7 @@ Translation by  Ralf Hilgenstock mailto:rh@dialoge.net
 
 $langAddTutors="Benutzerverwaltung";
 $langAdminsOfThisCours ="Kurs-Verwaltung";
-$langConfirmDelete = "Sind Sie sicher, dass Sie diese Gruppe(n) löschen wollen ?";
+$langAreYouSureToDeleteAllGroups = "Sind Sie sicher, dass Sie diese Gruppe(n) löschen wollen ?";
 $langCreate="erstellen";
 $langDelete="löschen";
 $langDeleteGroups="Alle Gruppen löschen";

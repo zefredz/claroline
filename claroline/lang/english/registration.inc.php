@@ -91,7 +91,7 @@ $langPassTwo="You have typed two different passwords";
 $langAgain="Try again!";
 $langFields="You left some fields empty";
 $langUserTaken="This user name is already taken";
-$langEmailWrong="The email address is not complete or contains some unvalid characters";
+$langEmailWrong="The email address is not valid";
 $langProfileReg="Your new profile has been saved";
 $langHome="Back to Home page";
 $langMyStats = "View my statistics";
@@ -169,7 +169,6 @@ $langPassTooEasy ="this password  is too simple. Use a pass like this ";
 $langIfYouWantToAddManyUsers="If you want to add a list of users in 
 			your course, please contact your web administrator.";
 
-$langCourses="courses.";
 
 $langLastVisits="My last visits";
 $langSee		= "Go&nbsp;to";

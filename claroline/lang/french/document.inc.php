@@ -22,7 +22,7 @@ Translate the interface in chosen language
 
 // DOCUMENT
 
-$langDoc="Documents";
+$langDoc="Documents et liens";
 $langCreateDocument = "Créer un Document";
 $langCreateHyperlink = "Créer un lien hypertexte";
 $langUploadFile = "Ajouter un fichier"; // JCC

@@ -115,7 +115,6 @@
    $langFileName = "Filename";
 
    // insertPublicModule
-   $langCategories = "Course categories";
    $langClose ="Close";
    $langAvailable = "module(s) available(s)";
 

@@ -98,7 +98,6 @@ $langUsers				= "Users";
 $langManage				= "Manage Campus";
 $langNoteAboutViaPMA = "PMA = Opens PhpMyAdmin in a new window";
 $langAddACourse = "Create a course";
-$langCategories = "Course Categories";
 $langAdminProfileUser = "Edit User Profile";
 $langListOfCourseOfUser ="List of users registered in a course";
 $langAddAdminInApache = "Add an admin";

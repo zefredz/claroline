@@ -89,7 +89,7 @@ $langTools="Strumenti";
 $langUncompulsory="(facoltativo)";
 $langValidate="Conferma";
 $langYes="Sì";
-$langConfirmDelete="Sicuro di voler cancellare tutti i gruppi ?";
+$langAreYouSureToDeleteAllGroups="Sicuro di voler cancellare tutti i gruppi ?";
 $langGroupTutors="Titolari";
 $langStudentNotInThisGroups="Non ci sono utenti in questo gruppo";
 

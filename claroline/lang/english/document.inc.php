@@ -15,7 +15,7 @@
       |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
       +----------------------------------------------------------------------+
  */
-$langDoc="Documents";
+$langDoc="Documents and Links";
 $langCreateDocument = "Create Document";
 $langCreateHyperlink = "Create Hyperlink";
 $langUploadFile= "Upload file";
