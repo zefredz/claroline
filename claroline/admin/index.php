@@ -137,7 +137,7 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <a href="campusProblem.php"><?php echo $langViewPlatFormError ?></a>
 </li>
 <li>
-<a href="maintenance/index.php"><?php echo $langUpgrade?></a>
+<a href="upgrade/index.php"><?php echo $langUpgrade?></a>
 </li>
 </ul>
 

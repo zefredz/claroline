@@ -569,7 +569,7 @@ if ($display==DISP_WELCOME)
             echo '
         <li>
             For Claroline upgrade click
-            <a href="../admin/maintenance/upgrade.php">here</a>.
+            <a href="../admin/upgrade/upgrade.php">here</a>.
         </li>';
         }
         else
