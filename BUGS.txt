@@ -8,6 +8,7 @@ mais si on fait back le formulaire ne se rerempli pas donc on pert tout
 ce qu'on a fait.
 
 Assigné à : HUGUES
+Etat      : RESOLU
 
 2. DOCUMENT. Pour les liens créés dans document, on pensait qu'ajouter l'url en 
 <a href... sur la page .url ne serait pas une mauvaise chose pour prévenir 
@@ -36,6 +37,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.7  2004/06/11 11:54:24  peeters
+no message
+
 Revision 1.6  2004/06/11 10:34:06  moosh
 - bug 10
 
