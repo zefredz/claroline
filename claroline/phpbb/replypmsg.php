@@ -117,12 +117,6 @@ else
 
         $m = claro_sql_query_fetch_all($sql);
 
-        if (count($m) > 0)
-        {
-        	
-        }
-        
-        $m = claro_sql_query_fetch_all($sql);
         if ( count ($m) > 0 )
         {
             $text               = stripslashes($m['msg_text']);
