@@ -36,9 +36,12 @@ if (!$is_platformAdmin) treatNotAuthorized();
 $is_allowedToAdmin     = $is_platformAdmin;
 
 //TABLES USED
+/*
+ * DB tables definition
+ */
 
-$tbl_user             = $mainDbName."`.`user";
-$TABLEUSER          = $tbl_user;
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user = $tbl_mdb_names['user'];
 
 $display_form        = TRUE;
 $display_resultCSV    = FALSE;
@@ -114,7 +117,7 @@ if($register=="yes")
 
     else
     {
-        $result = mysql_query("SELECT user_id FROM `".$TABLEUSER."`
+        $result = mysql_query("SELECT user_id FROM `".$tbl_user."`
                                WHERE username=\"".$uname."\"");
 
 
@@ -145,7 +148,7 @@ if ($regDataOk)
       STORE THE NEW USER DATA INSIDE THE CLAROLINE DATABASE
       -----------------------------------------------------*/
 
-    mysql_query("INSERT INTO `".$TABLEUSER."`
+    mysql_query("INSERT INTO `".$tbl_user."`
                  SET `nom`          = \"".$nom."\",
                      `prenom`       = \"".$prenom."\",
                      `username`     = \"".$uname."\",

@@ -28,7 +28,16 @@ $interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
 /*$htmlHeadXtra[] = "<style type=\"text/css\"><!--  --></style>
 <STYLE media=\"print\" type=\"text/css\"><!--  --></STYLE>";*/
 @include($includePath."/claro_init_header.inc.php");
-//$TABLEAGENDA 		= $_course["dbName"]."`.`agenda";
+
+/*
+ * DB tables definition
+ */
+
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_tool = $tbl_mdb_names['tool'];
+
+
+
 $is_allowedToEdit 	= $is_platformAdmin;
 if ($is_allowedToEdit)
 {

@@ -21,12 +21,12 @@ require '../inc/claro_init_global.inc.php';
 
 if (isset($cidToEdit) && ($is_platformAdmin))
 {
-    $current_cid = $cidToEdit;
-    $currentCourseId = $cidToEdit;
-    $cidReq = $cidToEdit;
+    $current_cid       = $cidToEdit;
+    $currentCourseId   = $cidToEdit;
+    $cidReq            = $cidToEdit;
     $isAllowedToDelete = true;
-    $addToURL = "&cidToEdit=".$cidToEdit;
-    $addToURL .="&cfrom=".$cfrom;
+    $addToURL          = "&cidToEdit=".$cidToEdit;
+    $addToURL         .="&cfrom=".$cfrom;
 }
 else
 {
@@ -38,23 +38,25 @@ else
 $isAllowedToDelete = ($is_courseAdmin || $is_platformAdmin);
 
 //used tables
+/*
+ * DB tables definition
+ */
 
-$TABLECOURSE     = $mainDbName."`.`cours";
+//$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names     = claro_sql_get_main_tbl();
+$tbl_course        = $tbl_mdb_names['course'           ];
+$tbl_relCourseUser = $tbl_mdb_names['rel_course_user'  ];
 
 //find needed info in db
 
-$sql = "SELECT * FROM `".$TABLECOURSE."` WHERE code = '".$current_cid."'";
-$result = mysql_query($sql);
-$thecourse = mysql_fetch_array($result);
+$sql = "SELECT * FROM `".$tbl_course."` WHERE code = '".$current_cid."'";
+$course_to_delete = claro_sql_fetch_array($sql);
 
-$currentCourseDbName 	= $_course['dbName'];
-$currentCourseDbNameGlu = $_course['dbNameGlu'];
-$currentCoursePath 		= $thecourse['path'];
-$currentCourseCode 		= $thecourse['fake_code'];
-$currentCourseName 		= $thecourse['intitule'];
-
-$tbl_course        = $mainDbName.'`.`cours';
-$tbl_relCourseUser = $mainDbName.'`.`cours_user';
+$currentCourseDbName 	= $course_to_delete['dbName'];
+$currentCourseDbNameGlu = $course_to_delete['dbNameGlu'];
+$currentCoursePath 		= $course_to_delete['path'];
+$currentCourseCode 		= $course_to_delete['fake_code'];
+$currentCourseName 		= $course_to_delete['intitule'];
 
 $nameTools = $langDelCourse;
 
