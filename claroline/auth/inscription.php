@@ -42,25 +42,25 @@ else
 
     <tr>
         <td align="right">
-            <label for="surname">
+            <label for="name">
                 <?php echo $langLastname;?>
             </label>
             &nbsp; :
         </td>
         <td>
-            <input type="text" size="40" name="prenom" id="surname" value="<?=$prenom?>">
+            <input type="text" size="40" name="nom" id="name" value="<?=$nom?>">
         </td>
     </tr>
 
     <tr>
 		<td align="right">
-			<label for="name">
-				<?php echo $langName ?>
+			<label for="surname">
+				<?php echo $langFirstname ?>
 			</label>
 			&nbsp; :
 		</td>
 		<td>
-			<input type="text" size="40" id="name" name="nom" value="<?=$nom?>">
+			<input type="text" size="40" id="surname" name="prenom" value="<?=$prenom?>">
 		</td>
 	</tr>
 <?
