@@ -253,7 +253,7 @@ echo "</ul>\n"
 ?>
 
 <p>
-<a href="http://www.claroline.net/documentation.htm"><?php echo $langDoc ?></a>
+<a href="http://www.claroline.net/documentation.htm"><?php echo $langDocumentation ?></a>
 </p>
 
 <?php

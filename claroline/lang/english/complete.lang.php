@@ -2215,4 +2215,5 @@ $langErrorEmailInvalid = "Email is invalid";
 $langErrorMyOwnSettings = "You can not change your own status";
 $langMustSelectAFile = "You must select a file";
 $langMustSelectATxtFile = "You must select a text file";
+$langDocumentation = "Documentation";
 ?>
