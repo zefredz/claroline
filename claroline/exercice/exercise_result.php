@@ -76,6 +76,7 @@ if(!is_array($exerciseResult) || !is_array($questionList) || !is_object($objExer
 $exerciseTitle		= $objExercise->selectTitle();
 $showAnswers 		= $objExercise->get_show_answer();
 $exerciseMaxTime 	= $objExercise->get_max_time();
+$exerciseMaxAttempt	= $objExercise->get_max_attempt();
 
 $nameTools=$langExercice;
 
@@ -126,9 +127,22 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 	else
 	{
 		$displayScore = true;
-		// always display score except if the 
+		
 		// check if answers have to be shown
+		// count number of attempts of the user 
+		$sql="SELECT count(`exe_result`) AS `tryQty`
+		        FROM `$TBL_TRACK_EXERCISES`
+		       WHERE `exe_user_id` = '$_uid'
+		         AND `exe_exo_id` = ".$objExercise->selectId()."
+		       GROUP BY `exe_user_id`";
+		$result = claro_sql_query_fetch_all($sql);
+		$userTryQty = $result[0]['tryQty']+1;
+		
 		if ( $showAnswers == 'ALWAYS' )
+		{
+			$displayAnswers = true;
+		}
+		elseif ( $showAnswers == 'LASTTRY' && $exerciseMaxAttempt == $userTryQty )
 		{
 			$displayAnswers = true;
 		}
