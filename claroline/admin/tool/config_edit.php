@@ -288,11 +288,14 @@ else
         {
             foreach($conf_def['section'] as $sectionKey => $section)
             {
-                if (is_array($section['properties']))
+				$force_display_off = (isset($section['display']) && !$section['display'] );
+				 
+				if (is_array($section['properties']))
                 {
                     foreach($section['properties'] as $propertyName )
                     {
                         $conf_def_property_list[$propertyName]['section']=$sectionKey;
+						if ($force_display_off) $conf_def_property_list[$propertyName]['display'] = FALSE;
                     }
                 }
             }
@@ -383,22 +386,25 @@ if ( $display_form )
     
             foreach($conf_def['section'] as $section)
             {
-    
-                // display fieldset with the label of the section
-                echo '<tr>'
-                    .'<th class="superHeader" colspan="3">' . $section['label'] . '</th>'
-                    .'</tr>' . "\n";
-    
-                // display description of the section
-                if ( !empty($section['description']) )
-                {
-                    echo '<tr><th class="headerX" colspan="3">' . $section['description'] . '</th></tr>' . "\n";
-                }
-                else
-                {
-                    echo '<tr><th class="headerX" colspan="3">&nbsp;</th></tr>' . "\n";
-                }
-    
+				if (!(isset($section['display'])) || $section['display'] )
+				{
+					
+					// display fieldset with the label of the section
+					echo '<tr>'
+						.'<th class="superHeader" colspan="3">' . $section['label'] . '</th>'
+						.'</tr>' . "\n";
+		
+					// display description of the section
+					if ( !empty($section['description']) )
+					{
+						echo '<tr><th class="headerX" colspan="3">' . $section['description'] . '</th></tr>' . "\n";
+					}
+					else
+					{
+						echo '<tr><th class="headerX" colspan="3">&nbsp;</th></tr>' . "\n";
+					}
+				}
+				
                 // The default value is show in input or preselected value if there is no value set.
                 // If a value is already set the default value is show as sample.
                 if ( is_array($section['properties']) )
@@ -426,8 +432,8 @@ if ( $display_form )
                 }
     
             }
-            echo '</table>' . "\n";
-    
+
+			echo '</table>' . "\n";
             echo '<input type="submit" value="Save" >' . "\n";
         }
         else
