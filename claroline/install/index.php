@@ -50,8 +50,8 @@ if (!empty($_SERVER)) 	{extract($_SERVER, EXTR_OVERWRITE);}
 $newIncludePath ="../inc/";
 include ($newIncludePath."installedVersion.inc.php");
 
-include ("../lang/english/trad4all.inc.php");
-include ("../lang/english/install.inc.php");
+include ("../lang/english/complete.lang.php");
+//include ("../lang/english/claroline_install.php");
 
 include ($newIncludePath."lib/auth.lib.inc.php"); // to generate pass and to cryto it if needed
 include ("./install.lib.inc.php");
