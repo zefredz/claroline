@@ -1113,7 +1113,7 @@ claro_disp_tool_title($titleElement,
 			."</tr>\n";
 	}
 
-	echo		"<tr class=\"headerX\" align=\"center\" valign=\"top\">\n";
+	echo "<tr class=\"headerX\" align=\"center\" valign=\"top\">\n";
 
 	echo "<th>".$langName."</th>\n"
 		."<th>".$langSize."</th>\n"
