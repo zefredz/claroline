@@ -888,16 +888,6 @@ function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $
     if ( isset($currentValue) && $currentValue!=$conf_def_property_list['actualValue'] )
     {
         $htmlPropValue = $currentValue;
-
-        if ( isset($conf_def_property_list['actualValue']) )
-        {
-            $htmlPropDefault = 'In buffer : '  . $actual_value;
-            $htmlPropDefault .= 'Default : ' . $default_value;
-        }
-        else
-        {
-            $htmlPropDefault = $langFirstDefOfThisValue;
-        }
     }
     else
     {
@@ -909,7 +899,6 @@ function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $
         else
         {
             $htmlPropValue = $conf_def_property_list['default'];
-        //  $htmlPropDefault = $langFirstDefOfThisValue;
         }
     }
 
