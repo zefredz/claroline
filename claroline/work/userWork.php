@@ -267,7 +267,7 @@ else
       $userCanEdit = false;
 }
 
-$is_allowedToEdit = (bool)  (  ( $assignmentIsVisible && $uploadDateIsOk && $userCanEdit ) || $is_allowedToEditAll );
+$is_allowedToEdit = (bool)  (  ( $uploadDateIsOk && $userCanEdit ) || $is_allowedToEditAll );
 
 //-- is_allowedToSubmit
 
@@ -294,10 +294,6 @@ else
 $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost )
                                     || $is_allowedToEditAll;
                      
-//-- is_allowedToView                     
-// allowed to display work list and work details                     
-$is_allowedToView = (bool) ($assignmentIsVisible && $afterStartDate) || $is_allowedToEditAll;
-
 /*============================================================================
                           HANDLING FORM DATA
   =============================================================================*/
@@ -894,13 +890,22 @@ claro_disp_tool_title($pageTitle);
   --------------------------------------------------------------------*/
 if( $is_allowedToSubmit )
 {
-      if ($dialogBox)
-      {
-            claro_disp_message_box($dialogBox);
-      }
-      echo "<br />\n";
-      if( $dispWrkForm )
-      {
+	if ($dialogBox)
+	{
+		claro_disp_message_box($dialogBox);
+	}
+	echo "<br />\n";
+	if( $dispWrkForm )
+	{
+			// description of assignment
+			if( !empty($assignment['description']) )
+			{
+				echo "\n<div>\n"
+					."<b>".$langAssignmentDescription."</b><br />"
+					.claro_parse_user_text($assignment['description'])
+					."\n</div>\n<br />\n";
+			}
+			
             echo "<h4>".$txtForFormTitle."</h4>\n"
 				  ."<p><a href=\"".$_SERVER['SCRIPT_NAME']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."\">".$langBack."</a></p>\n"
                   ."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']."&authId=".$_REQUEST['authId']."\" enctype=\"multipart/form-data\">\n"
@@ -1156,7 +1161,8 @@ if( $dispWrkLst )
 	// create an ordered list with all submission directly followed by the related correction(s)
 	foreach( $wrkLst as $thisWrk )
 	{
-		if( $thisWrk['visibility'] == 'VISIBLE' || $is_allowedToEditAll )
+		$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == $_uid;
+		if( $thisWrk['visibility'] == 'VISIBLE' || $is_allowedToViewThisWrk )
 		{
 			$wrkAndFeedbackLst[] = $thisWrk;
 			foreach( $feedbackLst as $feedback )
@@ -1182,6 +1188,8 @@ if( $dispWrkLst )
 	foreach ( $wrkAndFeedbackLst as $thisWrk )
 	{
 		$is_feedback = !is_null($thisWrk['original_id']) && !empty($thisWrk['original_id']);
+		$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == $_uid;
+		$is_allowedToEditThisWrk = (bool)$is_allowedToEditAll || ( $thisWrk['user_id'] == $_uid && $uploadDateIsOk );
 		
 		// change some displayed text depending on the context
 		if( $assignmentContent == "TEXTFILE" || $is_feedback )
@@ -1201,7 +1209,7 @@ if( $dispWrkLst )
 		
 		if ($thisWrk['visibility'] == "INVISIBLE")
 		{
-			if ($is_allowedToEdit)
+			if ( $is_allowedToViewThisWrk )
 			{
 				$style=' class="invisible"';
 			}
@@ -1233,12 +1241,12 @@ if( $dispWrkLst )
 		}
 			
 		// author
-		echo $langWrkAuthors."&nbsp;: ".$thisWrk['authors']."<br />";
+		echo "<b>".$langWrkAuthors."</b>&nbsp;: ".$thisWrk['authors']."<br />";
 			
 		if( $assignment['assignment_type'] == 'GROUP' && !$is_feedback )
 		{ 
 			 // display group if this is a group assignment and if this is not a correction
-			 echo $langGroup."&nbsp;: ".$thisWrk['name']."<br />";
+			 echo "<b>".$langGroup."</b>&nbsp;: ".$thisWrk['name']."<br />";
 		}
 
 		if( $assignmentContent != "TEXT" )
@@ -1247,28 +1255,28 @@ if( $dispWrkLst )
 			{
 				$completeWrkUrl = $assigDirWeb.$thisWrk['submitted_doc_path'];
 				// show file if this is not a TEXT only work
-				echo $txtForFile."&nbsp;: "
+				echo "<b>".$txtForFile."</b>&nbsp;: "
 					."<a href=\"".$completeWrkUrl."\">".$thisWrk['submitted_doc_path']."</a>"
 					."<br />\n";
 			}
 			else
 			{
-			     echo $txtForFile."&nbsp;: ".$langNoFile."<br />\n";
+			     echo "<b>".$txtForFile."</b>&nbsp;: ".$langNoFile."<br />\n";
 			}
 		}
       
-		echo "<br /><div>".$txtForText."&nbsp;: <br />\n"
+		echo "<br /><div><b>".$txtForText."</b>&nbsp;: <br />\n"
 			.$thisWrk['submitted_text']."</div>\n";
 		
 		if( $is_feedback )
 		{
-			echo "<br /><div>".$langPrivateFeedback."&nbsp;: <br />\n"
+			echo "<br /><div><b>".$langPrivateFeedback."</b>&nbsp;: <br />\n"
 				.$thisWrk['private_feedback']."</div><br />";
-			echo $langScore."&nbsp;: ";
+			echo "<b>".$langScore."</b>&nbsp;: ";
 			echo ( $thisWrk['score'] == -1 ) ? $langNoScore : $thisWrk['score']." %" ;
 			echo "<br />\n";
 		}
-		echo "<p>".$langSubmissionDate."&nbsp;: "
+		echo "<p><b>".$langSubmissionDate."</b>&nbsp;: "
 			.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_creation_date']);
 		
 		// display an alert if work was submitted after end date and work is not a correction !
@@ -1280,7 +1288,7 @@ if( $dispWrkLst )
             
 		if( $thisWrk['unix_creation_date'] != $thisWrk['unix_last_edit_date'] )
 		{
-			echo $langLastEditDate."&nbsp;: "
+			echo "<b>".$langLastEditDate."</b>&nbsp;: "
 				.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_last_edit_date']);
 			// display an alert if work was submitted after end date and work is not a correction !
 			if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && !$is_feedback )
@@ -1290,7 +1298,7 @@ if( $dispWrkLst )
 		}
 		echo "</p>\n";
 		// if user is allowed to edit, display the link to edit it
-		if( $is_allowedToEdit )
+		if( $is_allowedToEditThisWrk )
 		{
 			// the work can be edited 
 			echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqEditWrk&wrkId=".$thisWrk['id']."\">"
