@@ -530,7 +530,7 @@ function validate_property ($propertyValue, $propertyDef)
     }
     else
     {
-        trigger_error('propertyDef is not an array, coding error',E_USER_WARNING);
+        //trigger_error('propertyDef is not an array, coding error',E_USER_WARNING);
         return false;
     }
     return $is_valid;

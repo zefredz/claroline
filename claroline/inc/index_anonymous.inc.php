@@ -202,7 +202,7 @@ echo '</td>';
 </form>
 
 <?php
-    if ($loginFailed)
+    if (isset($loginFailed) && $loginFailed)
     {
         claro_disp_message_box($langInvalidId);
     }
