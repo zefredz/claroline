@@ -29,6 +29,19 @@ $nameTools = $langCourseSettings;
 @include($includePath."/lib/debug.lib.inc.php");
 
 /*
+ * Configuration array , define here which field can be left empty or not
+ */
+ $canBeEmpty["intitule"]      = false;
+ $canBeEmpty["category"]      = false;
+ $canBeEmpty["lecturer"]      = true;
+ $canBeEmpty["screenCode"]    = false;
+ $canBeEmpty["lanCourseForm"] = false;
+ $canBeEmpty["extLinkName"]   = true;
+ $canBeEmpty["extLinkUrl"]    = true;
+ $canBeEmpty["email"]         = true;
+
+ 
+/*
  * DB tables definition
  */
 
@@ -83,11 +96,11 @@ if($is_allowedToEdit)
 	{
 		//create error message(s) if fields are not set properly
 		
-		if ((!$canBeEmpty["int"]) && $_REQUEST['int']=="")
+		if ((!$canBeEmpty["intitule"]) && $_REQUEST['int']=="")
 			$dialogBox .= $langErrorCourseTitleEmpty."<br>";
-		if ((!$canBeEmpty["facu"]) && $_REQUEST['faculte']=="")
+		if ((!$canBeEmpty["category"]) && $_REQUEST['faculte']=="")
 			$dialogBox .= $langErrorCategoryEmpty."<br>";
-		if ((!$canBeEmpty["titulary"]) && $_REQUEST['titulary']=="")
+		if ((!$canBeEmpty["lecturer"]) && $_REQUEST['titulary']=="")
 			$dialogBox .= $langErrorLecturerEmpty."<br>";
 		if ((!$canBeEmpty["screenCode"]) && $_REQUEST['screenCode']=="")
 			$dialogBox .= $langErrorCourseCodeEmpty."<br>";
@@ -99,6 +112,20 @@ if($is_allowedToEdit)
 			$dialogBox .= $langErrorDepartmentURLEmpty."<br>";
 		if ((!$canBeEmpty["email"]) && $_REQUEST['email']=="")
 			$dialogBox .= $langErrorEmailEmpty."<br>";
+			
+		// check if department url is set properly
+		
+		$regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
+		
+		if ((!empty($_REQUEST['extLinkUrl'])) && !eregi( $regexp, $_REQUEST['extLinkUrl']))			
+			$dialogBox .= $langErrorDepartmentURLWrong."<br>";
+		
+		//check e-mail validity
+		
+		$regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
+		
+		if ((!empty($_REQUEST['email'])) && !eregi( $regexp, $_REQUEST['email']))			
+			$dialogBox .= $langErrorEmailInvalid."<br>";
 		
 		//if at least one error is found, we cancel update
 		
