@@ -483,7 +483,7 @@ foreach($eventList as $thisEvent)
 
       echo "<tr>\n"
           ."<td style=\"border-top: #CC3300 1px solid; border-bottom: #CC3300	1px	solid\">\n"
-          ."<img src=\"".$imgRepository."/pixel.gif\" width=\"20\" alt=\"\">"
+          ."<img src=\"".$clarolineRepositorySys."img/pixel.gif\" width=\"20\" alt=\"\">"
           ."<font color=\"#CC3300\">"
           ."<i>"
           .ucfirst(claro_format_locale_date( $dateFormatLong))." "
