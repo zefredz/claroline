@@ -357,6 +357,8 @@ if ($display == USER_DATA_FORM)
     </tr>
 
     <tr>
+      <td>
+      </td>
       <td colspan="2">
         <small>(<?=$langChangePwdexp?>)</small>
       </td>
