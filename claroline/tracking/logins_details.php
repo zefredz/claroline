@@ -192,8 +192,8 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
         else
         {
             echo '<tr>'."\n"
-                .'<td colspan="2" bgcolor="#eeeeee">'
-				.'<div align="center">'.$langNoResult.'</div>'
+                .'<td colspan="2">'
+				.'<div align="center" class="highlight">'.$langNoResult.'</div>'
 				.'</td>'."\n"
                 .'</tr>'."\n"
 				;
