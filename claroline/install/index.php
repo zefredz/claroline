@@ -51,6 +51,7 @@ $newIncludePath ="../inc/";
 include ($newIncludePath."installedVersion.inc.php");
 
 include ("../lang/english/complete.lang.php");
+include ("../lang/english/locale_settings.php");
 //include ("../lang/english/claroline_install.php");
 
 include ($newIncludePath."lib/auth.lib.inc.php"); // to generate pass and to cryto it if needed
