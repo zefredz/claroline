@@ -14,7 +14,7 @@
 
 
 /**
- *This function return the treePos maximum of the table faculty
+ * This function return the treePos maximum of the table faculty
  *
  * @author - Benoît Muret <>
  *
@@ -35,7 +35,7 @@ function SearchMaxTreePos()
 
 
 /**
- *This function display the bom whith option to edit or delete the categories
+ * This function display the bom with option to edit or delete the categories
  *
  * @author - < Benoît Muret >
  * @param   - elem 			array 	: the array of each category
@@ -48,7 +48,7 @@ function SearchMaxTreePos()
 
 function displayBom($elem,$father,$space)
 {
-	GLOBAL $lang_faculty_ConfirmDelete;
+	GLOBAL $lang_faculty_ConfirmDelete, $clarolineRepositoryWeb;
 
 	if($elem)
 	{
@@ -100,17 +100,17 @@ function displayBom($elem,$father,$space)
 				<td>
 
 					<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&edit=1"; ?>" >
-					<img src="../../img/edit.gif" border="0" alt="<?php echo $lang_faculty_imgEdit ?>" > </a>
+					<img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $lang_faculty_imgEdit ?>" > </a>
 				</td>
 				<td>
 					<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&edit=1&move=1"; ?>" >
-					<img src="../../img/deplacer.gif" border="0" alt="<?php echo $lang_faculty_imgMove ?>" > </a>
+					<img src="<?php echo $clarolineRepositoryWeb ?>img/deplacer.gif" border="0" alt="<?php echo $lang_faculty_imgMove ?>" > </a>
 				</td>
 				<td>
 					<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&delete=1"; ?>"
 					onclick="javascript:if(!confirm('<?php echo
 					 addslashes(htmlentities($lang_faculty_ConfirmDelete.$one_faculty["code"])) ?>')) return false;" >
-					<img src="../../img/delete.gif" border="0" alt="<?php echo $lang_faculty_imgDelete ?>"> </a>
+					<img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $lang_faculty_imgDelete ?>"> </a>
 				</td>
 				<?php
 
@@ -134,7 +134,7 @@ function displayBom($elem,$father,$space)
 					?>
 						<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=u&date='".$date."'#ud".$one_faculty["id"];
 						?>" name ="<?php echo "ud".$one_faculty["id"]; ?>">
-						<img src="../../img/up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"> </a>
+						<img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"> </a>
 					<?php
 					}
 
@@ -149,7 +149,7 @@ function displayBom($elem,$father,$space)
 					?>
 						<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=d&date='".$date."'#ud".$one_faculty["id"];
 						?>" name="<?php echo "ud".$one_faculty["id"]; ?>">
-						<img src="../../img/down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
+						<img src="<?php echo $clarolineRepositoryWeb ?>img/down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
 					<?php
 					}
 					?>
