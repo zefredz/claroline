@@ -1705,4 +1705,25 @@ function own_stripslashes($string)
 	return preg_replace($find, $replace, $string);
 }
 
+/**
+ * convert a SQL date or datetime to a unix time stamp
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string SQL DATETIME or DATE
+ * @return int unix time stamp
+ */
+
+function datetime_to_timestamp($dateTime)
+{
+    $dateTimeList = explode(' ', $dateTime);
+    if ( count($dateTimeList) == 1 ) $dateTimeList[1] = '00:00:00'; // complete the missing time
+    list($date, $time) = $dateTimeList;
+
+    list($year, $month, $day) = explode('-', $date);
+    list($hour, $min, $sec)   = explode(':', $time);
+
+    return mktime($hour, $min, $sec, $month, $day, $year);
+}
+
+
 ?>
