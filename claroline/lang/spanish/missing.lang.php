@@ -9,6 +9,7 @@ $langAddListUser = "";
 $langAddedToCampus = "";
 $langAddedToCampusAndClass = "";
 $langAddedToCampusAndCourse = "";
+$langAddedToCreator = "";
 $langAdminSetting = "";
 $langAdministrationClassTools = "";
 $langAllowAnonymous = "";

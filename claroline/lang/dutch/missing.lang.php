@@ -20,6 +20,7 @@ $langAddedExternalTool = "";
 $langAddedToCampus = "";
 $langAddedToCampusAndClass = "";
 $langAddedToCampusAndCourse = "";
+$langAddedToCreator = "";
 $langAdminEmail = "";
 $langAdminLogin = "";
 $langAdminName = "";

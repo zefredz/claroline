@@ -11,6 +11,7 @@ $langAddModifyComment = "";
 $langAddedToCampus = "";
 $langAddedToCampusAndClass = "";
 $langAddedToCampusAndCourse = "";
+$langAddedToCreator = "";
 $langAdminSetting = "";
 $langAdministrationClassTools = "";
 $langAgendaNextEvents = "";

@@ -19,6 +19,7 @@ $langAddedExternalTool = "";
 $langAddedToCampus = "";
 $langAddedToCampusAndClass = "";
 $langAddedToCampusAndCourse = "";
+$langAddedToCreator = "";
 $langAdminBy = "";
 $langAdminSetting = "";
 $langAdministration = "";

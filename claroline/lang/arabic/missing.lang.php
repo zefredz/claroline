@@ -28,6 +28,7 @@ $langAddedExternalTool = "";
 $langAddedToCampus = "";
 $langAddedToCampusAndClass = "";
 $langAddedToCampusAndCourse = "";
+$langAddedToCreator = "";
 $langAdmin = "";
 $langAdminEmail = "";
 $langAdminLogin = "";

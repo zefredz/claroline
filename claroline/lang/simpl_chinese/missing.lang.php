@@ -30,6 +30,7 @@ $langAddedToCampus = "";
 $langAddedToCampusAndClass = "";
 $langAddedToCampusAndCourse = "";
 $langAddedToCourse = "";
+$langAddedToCreator = "";
 $langAdminEmail = "";
 $langAdminLogin = "";
 $langAdminName = "";
