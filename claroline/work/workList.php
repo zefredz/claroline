@@ -79,9 +79,9 @@ if( !isset($assignment) || is_null($assignment) )
                           GROUP 'publish' option
   =============================================================================*/
 // redirect to the submission form prefilled with a .url document targetting the published document
-if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
+if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) && isset($_gid))
 {
-	header("Location: userWork.php?authId=".$_uid."&cmd=rqSubWrk&assigId=".$_REQUEST['assigId']."&submitGroupWorkUrl=".$_REQUEST['submitGroupWorkUrl']);
+	header("Location: userWork.php?authId=".$_gid."&cmd=rqSubWrk&assigId=".$_REQUEST['assigId']."&submitGroupWorkUrl=".$_REQUEST['submitGroupWorkUrl']);
 }
 /*--------------------------------------------------------------------
                         USER GROUP INFORMATIONS
@@ -348,15 +348,17 @@ foreach( $feedbackCounter as $counter )
 /*--------------------------------------------------------------------
                       ADMIN LINKS
   --------------------------------------------------------------------*/
-if( $is_allowedToSubmit && $assignment['assignment_type'] != 'GROUP' )
+if( $is_allowedToSubmit && ($assignment['assignment_type'] != 'GROUP' ) )
 {
 	// link to create a new assignment
 	echo "<a href=\"userWork.php?authId=".$_uid."&cmd=rqSubWrk&assigId=".$_REQUEST['assigId']."\">".$langSubmitWork."</a>\n";
+	
+	if( $is_allowedToEditAll ) echo " | ";
 }
 
 if( $is_allowedToEditAll )
 {
-	echo " | <a href=\"feedback.php?cmd=rqEditFeedback&assigId=".$assignment['id']."\">".$langEditFeedback."</a>\n";
+	echo "<a href=\"feedback.php?cmd=rqEditFeedback&assigId=".$assignment['id']."\">".$langEditFeedback."</a>\n";
 }
 
 $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']);
