@@ -24,6 +24,6 @@ $langDetail="Dettagli";
 $month_default="mese";
 $year_default="anno";
 $hour_default="Ora";
-$langSETLOCALE="FRENCH";
+$langSETLOCALE="ITALIAN";
 // UNIX TIME SETTINGS, "15h00" instead of "3pm", for instance, "ENGLISH" is a possibility
 ?>

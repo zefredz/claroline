@@ -43,16 +43,43 @@ ottenere cliccando sulla opzione 'iscrizione'. I docenti e i collaboratori non i
 possono creare un nuovo corso cliccando sull'opzione 'iscrizione'.";
 $langUserName="Nome utente";
 $langPass="Password";
-$langEnter="Immettere";
+$langEnter="Entra";
 $langHelp="Aiuto";
 $langManager="Responsabile";
 $langPlatform="Piattaforma";
-$langReg="Iscrizione";
+$langReg="Iscriviti";
 $langMenu ="Menu";
 $langLogout="Uscire";
+$langDoc="Documentazione";
+$langPlatformAdmin="Amministra Claroline";
+$langAdvises="Avvisi";
+$langSeeAgenda="Vedi Agenda";
+
+$langOtherCourses="Lista Corsi";
+$langSupportForum="Forum";
+$langCategories = "Categorie";
+$langBackToHomePage = "Torna alla home page";
+$lang_No_course_publicly_available = "No course publicly available.";
+$langLostPassword = "Password Persa";
+
+$lang_edit_my_course_list = "Modifica la mia lista dei corsi";
+$langAgenda = "Agenda - Prossimo evento";
+$langValvas = "Ultimo annuncio" ;
+
+$langUp = "livello precedente";
+$langCatList = "Categoria";
+$langCourseList = "Corsi";
+
+$langCourses	= "corsi";
+$langIn			= "nel";
+$langSubCat		= "sottocategoria";
+
+$lang_enroll_to_a_new_course = 'Iscriviti ad un nuovo corso';
+$lang_remove_course_enrollment = 'Cancellati da un corso';
+
 
 
 $langOtherCourses="Elenco dei corsi";
-$langSupportForum="Forum della piattaforma";
+$langSupportForum="Claroline Forum";
 
 ?>

@@ -36,7 +36,7 @@ $langNewToOld = "Invertire";
 $langNow = "Adesso";
 $hour51="imprecisata";
 
-$langSETLOCALE="FRENCH";
+$langSETLOCALE="ENGLISH";
 // UNIX TIME SETTINGS, "15h00" instead of "3pm", for instance, "ENGLISH" is a possibility
 
 
