@@ -1,5 +1,4 @@
 
-
 > > > > > > > > > > > CLAROLINE 1.6 - BUG LIST < < < < < < < < < < <
 
 RESOLU-------------------------
@@ -372,6 +371,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.61  2004/08/09 10:54:45  mathieu
+test commit
+
 Revision 1.60  2004/08/09 10:51:46  mathieu
 test commit
 
