@@ -1,6 +1,6 @@
 <?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -38,6 +38,7 @@ $tbl_courseUser         = $mainDbName.'`.`cours_user';
 $tbl_user               = $mainDbName.'`.`user';
 $tbl_courses_nodes      = $mainDbName.'`.`faculte';
 $tbl_admin              = $mainDbName.'`.`admin';
+
 $tbl_track_default      = $statsDbName."`.`track_e_default";
 $tbl_track_login        = $statsDbName."`.`track_e_login";
 
@@ -986,9 +987,8 @@ function update_user_course_properties($user_id, $course_id, $properties)
     $sqlChangeStatus = "";
     
     if ($user_id != $_uid //do we allow user to change his own settings? what about course without teacher?
-            and ($properties['status']=="1" or $properties['status']=="5")
-            )
-
+		and ($properties['status']=="1" or $properties['status']=="5") 
+		)
     $sqlChangeStatus = "`statut` = \"".$properties['status']."\",";
     
     $result = claro_sql_query("UPDATE `$tbl_courseUser`
