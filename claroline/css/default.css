@@ -110,6 +110,19 @@ a:link, a:active, a:visited
 	color: #000066;
 }
 
+
+/*Claroline invisible links */
+
+.invisible 
+{
+	color: #999999;
+}
+
+a.invisible, a:link.invisible, a:visited.invisible
+{
+	color: #999999;
+}
+
 /*.claroButton
 {
 	color:Black;
