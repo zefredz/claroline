@@ -191,7 +191,7 @@ M.22 /auth/courses.php Li :571
 type : lang hardcoded
 quoi : echo	"<small><font color=\"gray\">course manager</font></small>\n";
 Repéré par : M
-Assigné à : 
+Assigné à : SEB
 
 Etat : RESOLU ------------------------------------------------------
 M.23  : admincats.php
@@ -371,6 +371,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.54  2004/07/09 13:27:45  seb
+Test join
+
 Revision 1.53  2004/07/09 13:22:18  seb
 Test join
 
