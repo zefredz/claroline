@@ -2,8 +2,8 @@
 /* CLARO LANG FILE*/
 include (dirname(__FILE__)."/admin.managing.menu.inc.php");
 $langNomPageAddHtPass ="Admin users management";
-$langLogin 						= "login";
-$langPassword 					= "password";
+$langLogin 						= "Login";
+$langPassword 					= "Password";
 $lang_no_access_here			= "No way";
 $langAddLoginPass 				= "Add a login/pass in .htpassword</a><br>";
 $langGiveAdminRight 			= "Set a user as admin";
