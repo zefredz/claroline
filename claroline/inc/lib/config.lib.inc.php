@@ -792,13 +792,4 @@ function save_param_value_in_buffer($propName,$propValue,$config_code)
         return true;
 }
 
-/***
- * function 
- * @desc
- * @author Christophe Gesché moosh@claroline.net
- * @param 
- * @return 
- * 
- */
-
 ?>
