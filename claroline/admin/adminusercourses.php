@@ -1,4 +1,16 @@
-<?php
+<?php //$Id$
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+
 $langFile='admin';
 $cidReset = true;
 include('../inc/claro_init_global.inc.php');
@@ -264,7 +276,7 @@ foreach($resultList as $list)
     // Edit user course settings
 
     echo  "<td align=\"center\">\n
-           <a href=\"adminUserCourseSettings.php?cidToEdit=".$list['code']."&uidToEdit=".$uidToEdit."&ccfrom=uclist\"><img src=\"../img/edit.gif\"></a>
+           <a href=\"adminUserCourseSettings.php?cidToEdit=".$list['code']."&uidToEdit=".$uidToEdit."&ccfrom=uclist\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"".$langModify."\"></a>
            </td>\n";
 
     //  Unsubscribe link
@@ -272,7 +284,7 @@ foreach($resultList as $list)
     echo   "<td align=\"center\">\n",
              "<a href=\"",$PHP_SELF,"?uidToEdit=".$uidToEdit."&cmd=unsubscribe".$addToUrl."&code=".$list['code']."&offset=".$offset."\" ",
                  "onClick=\"return confirmationUnReg('",addslashes($resultTitle['prenom']." ".$resultTitle['nom']),"');\">\n
-                 <img src=\"".$clarolineRepositoryWeb."/img/unenroll.gif\" border=\"0\" alt=\"$langDelete\" />\n
+                 <img src=\"".$clarolineRepositoryWeb."/img/unenroll.gif\" border=\"0\" alt=\"".$langDelete."\" />\n
               </a>\n";
             "</td>\n";
      echo "</tr>";
