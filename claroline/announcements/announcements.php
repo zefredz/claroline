@@ -63,8 +63,11 @@ include($includePath.'/conf/announcement.conf.inc.php');
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
+claro_set_display_mode_available(true);
+
 //set flag following init settings
-$is_allowedToEdit = $is_courseAdmin;
+$is_allowedToEdit = claro_is_allowed_to_edit();
+
 $courseId         = $_course['sysCode'];
 $userLastLogin    = $_user ['lastLogin'];
 
@@ -313,12 +316,11 @@ if($is_allowedToEdit) // check teacher status
                                 DISPLAY SECTION
   ============================================================================*/
 
+if ( ! $is_courseAllowed)
+	claro_disp_auth_form();
 
 $nameTools = $langAnnouncement;
 include($includePath.'/claro_init_header.inc.php');
-
-if ( ! $is_courseAllowed)
-	claro_disp_auth_form();
 
 //stats
 event_access_tool($_tid, $_SESSION['_courseTool']['label']);

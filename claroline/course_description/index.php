@@ -16,8 +16,9 @@ $tlabelReq = "CLDSC___";
 
 $langFile = "course_description";
 require '../inc/claro_init_global.inc.php';
+
 if ( ! $_cid) claro_disp_select_course();
-$is_allowedToEdit = $is_courseAdmin;
+
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 $nameTools = $langCourseProgram;
@@ -47,11 +48,14 @@ if (!count($blocList))
 ////////////OUTPUT////////////
 //////////////////////////////
 
+claro_set_display_mode_available(true);
 
 include($includePath."/claro_init_header.inc.php");
 
 claro_disp_tool_title(array("mainTitle"=>$nameTools));
 claro_disp_msg_arr($msg);
+
+$is_allowedToEdit = claro_is_allowed_to_edit();
 if ($is_allowedToEdit)
 {
 ?>

@@ -30,6 +30,8 @@ require $claroGlobalPath.'/claro_init_global.inc.php';
 $toolRepository = $clarolineRepositoryWeb;
 $imgRepository  = $clarolineRepositoryWeb."/img/";
 
+claro_set_display_mode_available(true);
+
 include($includePath.'/claro_init_header.inc.php');
 include($includePath.'/lib/course_home.lib.php');
 
@@ -92,8 +94,7 @@ $accessLevelList = array('ALL'            => 0,
                                    TOOL LIST
   ----------------------------------------------------------------------------*/
 
-if     ($is_courseAdmin  )   $is_allowedToEdit = true;
-else    $is_allowedToEdit = false;
+$is_allowedToEdit = claro_is_allowed_to_edit();
 
 if     ($is_platformAdmin)   $reqAccessLevel   = 'PLATFORM_ADMIN';
 elseif ($is_courseAdmin  )   $reqAccessLevel   = 'COURSE_ADMIN';
