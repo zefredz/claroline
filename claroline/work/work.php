@@ -406,7 +406,7 @@ else
 				"</tr>\n".
 			"<tr>
 				<td>&nbsp;</td>
-				<td><small>Max. file size : ".format_file_size( get_max_upload_size($fileAllowedSize,$updir) )."</small></td>
+				<td><small>".$langMaxFileSize.format_file_size( get_max_upload_size($fileAllowedSize,$updir) )."</small></td>
 			</tr>";
 	}
 	echo
@@ -588,24 +588,24 @@ echo	"<tr>\n".
 				echo	"<p>\n",
 
 						"<a href=\"".$PHP_SELF."?edit=",$work['id'],"\">",
-						"<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langEdit."\">",
+						"<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langModify."\">",
 						"</a>\n",
 
 						"<a href=\"".$PHP_SELF."?delete=",$work['id'],"\" ",
-						"onclick=\"javascript:if(!confirm('".addslashes(htmlspecialchars($langWorkDelete.": ".$work['titre']." ".$langConfirmYourChoice))."')) return false;\">",
-						"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langWorkDelete."\">",
+						"onclick=\"javascript:if(!confirm('".addslashes(htmlspecialchars($langDelete.": ".$work['titre']." ".$langConfirmYourChoice))."')) return false;\">",
+						"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\">",
 						"</a>\n";
 
 				if ($work["accepted"] == 1)
 				{
 					echo "<a href=\"".$PHP_SELF."?mkInvisbl=",$work['id'],"\">",
-					"<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$langWorkShow."\">",
+					"<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$lang_make_invisible."\">",
 					"</a>\n";
 				}
 				else
 				{
 					echo	"<a href=\"".$PHP_SELF."?mkVisbl=",$work['id'],"\">",
-							"<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$langWorkHide."\">",
+							"<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$lang_make_visible."\">",
 							"</a>\n";
 				}
 			} // End course administrator only
