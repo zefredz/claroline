@@ -509,15 +509,15 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 <body dir="<?php echo $text_dir ?>">
 <center>
 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-<table cellpadding="10" cellspacing="0" border="1" width="650" class="claroTable">
-        <tr>
+<table  bgcolor="#DDDDDD"  cellpadding="10" cellspacing="0" border="1" width="650" class="claroTable">
+        <tr  bgcolor="#000066" >
             <th valign="top">
-                <DIV id="platformBanner">
+               <FONT color="White">
                     Claroline 1.6 (<?php echo $clarolineVersion ?>) - installation
-                </DIV>
+                </font>
             </th>
         </TR>
-    <tr >
+    <tr>
         <td>
 <?php
 echo '<input type="hidden" name="alreadyVisited" value="1">'                                                 ."\n"
