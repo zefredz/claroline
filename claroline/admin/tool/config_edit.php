@@ -45,55 +45,6 @@
 
 // LANGUAGE
 
-$langConfiguration = "Configuration";
-$lang_config_config = 'Édition des fichiers de configuration';
-$lang_config_config_short = 'Configuration';
-$lang_nothingToConfigHere='Il n\'y a pas de paramétrage pour <B>%s</B>';
-$langBackToMenu = 'Retour au Menu';
-$langShowConf        = 'Show Conf';
-$langShowDef         = 'Show Def';
-
-$langShowConf        = 'Afficher la configuration';
-$langShowDef         = 'Afficher le fichier de définition';
-
-$langNoPropertiesSet = 'Il n\'y a pas de propriétés proposées';
-$langShowContentFile = 'Voir le contenu du fichier';
-$langFile            = 'fichier';
-$langApply           = 'Appliquer';
-$langApplied         = 'Appliqué';
-$langConfig          = 'Configuration';
-$lang_p_defFileOf_S = 'Fichier de définition pour la configuration %s.';
-$lang_the_active_config_has_manually_change='Version de production modifiée';
-$langFirstDefOfThisValue = '!!! Nouvelle valeur !!!';
-$lang_p_config_file_creation = 'création du fichier de configuration  :<BR> %s';
-$lang_p_DefNameAndContentDisruptedOnConfigCode = 'Le fichier de définition est probablement un copier-coller  de %s. Et n\'a pas été achevé.';
-
-$langEmpty =  'empty';
-$lang_p_nothing_to_edit_in_S = 'nothing to edit in %s';
-$lang_p_DefNameAndContentDisruptedOnConfigCode = 'The definition file for configuration is probably copypaste from %s';
-$langFirstDefOfThisValue = '!!!First definition of this value!!!';
-$langNoPropertiesSet = 'No properties set';
-$langShowConf        = 'Show Config file';
-$langShowDef         = 'Show Definition file';
-$langShowContentFile = 'Show content file';
-$langFile            = 'File';
-$langApply           = 'Apply';
-$langApplied         = 'Applied';
-$langConfig          = 'Configuration';
-$lang_p_defFileOf_S = 'Show defintion file of %s config.';
-$lang_p_edit_S      = 'Editing %s config.';
-$lang_p_edit_S      = 'Edition de %s.';
-$lang_p_Properties_of_S_saved_in_buffer = 'Properties of %s saved in buffer.';
-$lang_the_active_config_has_manually_change='The config in production has manually changed';
-$lang_p_config_missing_S = 'Configuration is missing %s';
-$lang_p_ErrorOnBuild_S_for_S= 'Error in building of <em>%s</em> for <B>%s</B>';
-$lang_p_config_file_creation = 'Configuration  file creation:<BR> %s';
-$lang_noSectionFoundInDefinitionFile = 'no section found in definition file';
-$lang_p_PropForConfigCommited = 'Properties for %s (%s) are now effective on server.';
-$langPropertiesNotIncludeInSections = 'Properties not include in sections';
-$lang_unknowProperties = 'Properties not know in definition file';
-
-
 $cidReset=true;
 $gidReset=true;
 
@@ -290,6 +241,7 @@ else
 
         /* Search for value  existing  in conf file but not in def file, or inverse */
         $currentConfContent = parse_config_file($conf_file);
+
         unset($currentConfContent[$config_code.'GenDate']);
         
         $currentConfContentKeyList = is_array($currentConfContent)?array_keys($currentConfContent):array();
