@@ -271,11 +271,13 @@ $isoCode['ZW'] = "Zimbabwe";
 require_once($includePath.'/lib/nusoap.php');
 
 //SECURITY CHECK
-$is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
-if (!$is_allowedToAdmin) treatNotAuthorized();
+$is_allowedToAdmin     = $is_platformAdmin;
+if (!$is_allowedToAdmin) claro_disp_auth_form();
 
 
-// error codes
+// status codes
+// keep in mind that these code must be the same than those in the 
+// soap server file that is on claroline.net
 define("CAMPUS_ADDED", 1);
 define("LOCAL_URL_ERROR", 2);
 define("CAMPUS_ALREADY_IN_LIST", 3);
