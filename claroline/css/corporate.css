@@ -375,9 +375,13 @@ h3{	font-size: 110%; }
 
 .claroTable .headerX th,  .claroTable th.headerX { background-color: #c7d0d7; }
 
-.claroTable tbody tr:hover { background-color: #EEE; }
+.emphaseLine tbody td {
+	border-bottom: solid #98AAB1 1px ;
+}
 
-.noHover { background-color: white; }
+.emphaseLine tbody tr:hover {
+	background-color: #EEEEEE;
+}
 
 
 /******************************************************************************

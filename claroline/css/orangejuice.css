@@ -348,11 +348,12 @@ h3{	font-size: 110%; }
 	background-color: #ffecce;
 }
 
-.claroTable tbody tr:hover {
-	background-color: #EEEEEE;
+.emphaseLine tbody td {
+	border-bottom: solid #ffecce 1px ;
 }
-.noHover {
-	background-color: white;
+
+.emphaseLine tbody tr:hover {
+	background-color: #EEEEEE;
 }
 
 
