@@ -71,4 +71,14 @@ $langBackToHomePage = "Volver a la p&aacute;gina inicial";
 $langAdvises="Anuncios";
 $lang_No_course_publicly_available = "No hay cursos p&uacute;blicos disponibles";
 $lang_edit_my_course_list = "Editar mi lista de cursos";
+
+$langUp = "Anterior";
+$langCatList = "Categoría";
+$langCourseList = "Cursos";
+
+$langCourses = "cursos";
+$langSubCat = "sub-categorias";
+
+$lang_enroll_to_a_new_course = 'Inscribirse en un curso nuevo';
+$lang_remove_course_enrollment = 'Desinscribirse de un curso '; 
 ?>
