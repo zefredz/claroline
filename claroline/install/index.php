@@ -1109,7 +1109,7 @@ elseif($display==DISP_PLATFORM_SETTING)
 					'.$langStep6.' : '.$langCfgSetting.'
 				</h2>';
 	echo '
-				The following values will be written in `<em>'.$configFilePath.'</em>´
+				The following values will be written in `<em>'.$configFilePath.'</em>`
 			</td>
 		</tr>
 		<tr>
@@ -1271,7 +1271,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 				</h2>'
 				.$msg_missing_administrative_data ;
 	echo '
-				The following values will be written in `<em>'.$configFilePath.'</em>´
+				The following values will be written in `<em>'.$configFilePath.'</em>`
 			</td>
 		</tr>
 		<tr>
