@@ -64,6 +64,8 @@ $TBL_EXERCICES         = $_course['dbNameGlu'].'quiz_test';
 $TBL_QUESTIONS         = $_course['dbNameGlu'].'quiz_question';
 $TBL_REPONSES          = $_course['dbNameGlu'].'quiz_answer';
 
+$TBL_TRACK_EXERCISES    = $_course['dbNameGlu'].'track_e_exercices';
+
 // deal with the learning path mode
 if ($_SESSION['inPathMode'] == true)
 {
@@ -148,12 +150,23 @@ if(!isset($_SESSION['objExercise']))
 	//session_register('objExercise');
     $_SESSION['objExercise'] = $objExercise;
 }
-
+// get infos about the current exercise
 $exerciseTitle		= $objExercise->selectTitle();
 $exerciseDescription= $objExercise->selectDescription();
 $randomQuestions	= $objExercise->isRandom();
 $exerciseType		= $objExercise->selectType();
 $exerciseMaxTime 	= $objExercise->get_max_time();
+$exerciseMaxAttempt	= $objExercise->get_max_attempt();
+
+// count number of attempts of the user 
+$sql="SELECT count(`exe_result`) AS `tryQty`
+        FROM `$TBL_TRACK_EXERCISES`
+       WHERE `exe_user_id` = '$_uid'
+         AND `exe_exo_id` = ".$objExercise->selectId()."
+       GROUP BY `exe_user_id`";
+$result = claro_sql_query_fetch_all($sql);
+$userTryQty = $result[0]['tryQty']+1; // +1 to count this attempt too
+// end of count of attempts of the user
 
 if(!isset($_SESSION['questionList']))
 {
@@ -166,6 +179,7 @@ if(!isset($_SESSION['questionList']))
 }
 // start time of the exercise (use session because in post it could be modified
 // to easily by user using a development bar in mozilla for an example)
+// need to check if it already exists in session for sequential exercises
 if(!isset($_SESSION['exeStartTime']) )
 {
 	$_SESSION['exeStartTime'] = time();
@@ -223,10 +237,29 @@ else
 	// zero in non sequential mode 
 	if($exerciseType == 2) 
 	{ 
-		echo "Temps actuel : ".(time()-$_SESSION['exeStartTime']); 
+		
+		echo $langActualTime." : ".(time()-$_SESSION['exeStartTime']); 
+
+		if($exerciseMaxTime != 0)
+		{
+			echo " (".$langMaxAllowedTime." : ".$exerciseMaxTime.")";
+		}
+		else
+		{
+			echo "(".$langNoTimeLimit.")";;
+		}
+		echo "<br />";
 	}
-	echo " (maximum allowed : ".$exerciseMaxTime."s.)";
 	?>
+  	<?php
+	// display maximum attempts number only if != 0 (0 means unlimited attempts)
+	// always display user attempts count
+	echo $langAttempt." ".$userTryQty;
+	if( $exerciseMaxAttempt )
+	{
+ 		echo $langOn." ".$exerciseMaxAttempt;
+	}
+	 ?>
   </small>
 </p>
 
