@@ -79,7 +79,8 @@ if ($_GET['reset_confirm_backup'] == 1 || $_SESSION['confirm_backup'] == 0) {
 if (!isset($_SESSION['confirm_backup'])) 
 {
 
-    if ($_GET['confirm_backup'] == 1 && $_GET['confirm_copy_conf'] == 1 ) 
+//    if ($_GET['confirm_backup'] == 1 && $_GET['confirm_copy_conf'] == 1 ) 
+    if ($_GET['confirm_backup'] == 1 ) 
     {
     	$_SESSION['confirm_backup'] = 1;
 	$confirm_backup = 1;
@@ -169,8 +170,8 @@ switch ($display)
                 echo $langTitleUpgrade;
 		echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
                 $str1 = "<input type=\"checkbox\" id=\"confirm_backup\" name=\"confirm_backup\" value=\"1\" /><label for=\"confirm_backup\">" . $langConfirm . "</label>";
-                $str2 = "<input type=\"checkbox\" id=\"confirm_copy_conf\" name=\"confirm_copy_conf\" value=\"1\" /><label for=\"confirm_copy_conf\">" . $langConfirm . "</label>";
-		echo sprintf($langMakeABackupBefore,$str1,$str2);
+                //$str2 = "<input type=\"checkbox\" id=\"confirm_copy_conf\" name=\"confirm_copy_conf\" value=\"1\" /><label for=\"confirm_copy_conf\">" . $langConfirm . "</label>";
+		echo sprintf($langMakeABackupBefore,$str1);
 		echo "<div align=\"right\"><input type=\"submit\" value=\"Next >\" /></div>";
 		echo "</p>";
 		echo "</form>";

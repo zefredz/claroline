@@ -23,10 +23,9 @@ installation and set them to be compatible with the new Claroline version. This 
 <table>
 <tbody>
 <tr valign=\"top\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>\n
-<tr valign=\"top\"><td>-</td><td>Get a copy of the previous Claroline configuration files (claroline/include/config.inc.php) whithin easy reach.</td><td>%s</td></tr>\n
 </tbody>
 </table>
-<p>You won't be allowed to start the upgrade process before these points are marked as 'done'.</p>
+<p>You won't be allowed to start the upgrade process before this point is marked as 'done'.</p>
 ";
 $langConfirm = "done";
 
