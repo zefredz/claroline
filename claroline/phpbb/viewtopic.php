@@ -98,26 +98,18 @@ if ($cmd && $_uid)
 {
     switch ($cmd)
     {
-            case 'exNotify' :
+        case 'exNotify' :
+            request_topic_notification($_uid, $topic);
+            break;
 
-                  $sql = "INSERT INTO `$tbl_user_notify`
-                          SET `user_id`  = '".$_uid."',
-                              `topic_id` = '".$topic."'";
-
-                  break;
-
-            case 'exdoNotNotify' :
-
-                  $sql = "DELETE FROM `$tbl_user_notify`
-                          WHERE topic_id = '".$topic."'
-                            AND user_id  = '".$_uid."'";
-                  break;
+        case 'exdoNotNotify' :
+            cancel_topic_notification($_uid, $topic);
+            break;
     }
 
-    claro_sql_query($sql);
     $increaseTopicView = false; // the notification chanage command doesn't 
-                                    // have to be considered as a new topic 
-                                    // consult
+                                // have to be considered as a new topic 
+                                // consult
 }
 else
 {
@@ -125,26 +117,17 @@ else
 }
 
 
+
+
 // For (Added for claro 1.5) allow user to be have notification for this 
 // topic or disable it
  
 if ( isset($_uid) )  //anonymous user do not have this function
 {
-    //see in DB if user is notified or not
-   
-    $sql = "SELECT COUNT(*) 
-            FROM `".$tbl_user_notify."`
-            WHERE `topic_id` = '".$topic."'
-              AND `user_id`  ='".$_uid."'";
-
-    $userInNotifyMode = claro_sql_query_get_single_value($sql);
-
-    // add appropriate link
-
     echo "<div style=\"float: right;\">\n"
         ."<small>";
 
-    if ($userInNotifyMode)   // display link NOT to be notified
+    if (is_topic_notification_requested($_uid, $topic))   // display link NOT to be notified
     {
         echo "<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
             .get_syslang_string($sys_lang, 'l_notify')

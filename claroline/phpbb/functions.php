@@ -1209,6 +1209,71 @@ function get_topic_settings($topicId)
     return $settingList;
 }
 
+
+/**
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param int $userId
+ * @param int $topicId
+ * @return void
+ */
+
+function request_topic_notification($userId, $topicId)
+{
+    global $tbl_user_notify;
+
+    // check first if user is not regisitered for topic notification yet
+    if (! is_topic_notification_requested($userId, $topicId) )
+    {   
+        $sql = "INSERT INTO `".$tbl_user_notify."`
+                SET `user_id`  = '".$userId."',
+                    `topic_id` = '".$topicId."'";
+
+        claro_sql_query($sql);
+    }
+}
+
+/**
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param int $userId
+ * @param int $topicId
+ * @return void
+ */
+
+function cancel_topic_notification($userId, $topicId)
+{
+    global $tbl_user_notify;
+
+    $sql = "DELETE FROM `".$tbl_user_notify."`
+            WHERE `user_id`  = '".$userId."'
+              AND `topic_id` = '".$topicId."'";
+
+    claro_sql_query($sql);
+}
+
+/**
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param int $userId
+ * @param int $topicId
+ * @return bool
+ */
+
+function is_topic_notification_requested($userId, $topicId)
+{
+    global $tbl_user_notify;
+
+    $sql = "SELECT COUNT(*) 
+            FROM `".$tbl_user_notify."`
+            WHERE `user_id`  = '".$userId."'
+              AND `topic_id` = '".$topicId."'";
+
+    if (claro_sql_query_get_single_value($sql) > 0) return true;
+    else                                            return false;
+}
+
+
 /**
  * Display formated message with several 'return to ...' possibility
  *
