@@ -23,6 +23,7 @@ include '../inc/claro_init_global.inc.php';
 include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
 include $includePath.'/lib/text.lib.php';
 include $includePath.'/lib/fileManage.lib.php';
+include $includePath.'/lib/auth.lib.inc.php';
 
 $nameTools = $langModifProfile;
 
@@ -112,7 +113,7 @@ if ($_REQUEST['applyChange'])
 	 * CHECK PASSWORD AREN'T TOO EASY
 	 */
 
-    if ( $form_password1 && SECURE_PASSWORD_REQUIRED )
+    if ( $form_password1 && SECURE_PASSWORD_REQUIRED && $passwordOK)
     {
         if (is_password_secure_enough($form_password,
                                       array($form_userName, $form_officalCode, 
@@ -126,10 +127,6 @@ if ($_REQUEST['applyChange'])
             $messageList[] =  $langPassTooEasy." :\n"
                             ."<code>".substr( md5( date('Bis').$HTTP_REFFERER ), 0, 8 )."</code>\n";
         }       
-    }
-    else
-    {
-    	$passwordOK = true;
     }
     
 
@@ -563,28 +560,4 @@ echo "
 </p>";
 
 include($includePath."/claro_init_footer.inc.php");
-
-
-//////////////////////////////////////////////////////////////////////////////
-
-function is_password_secure_enough($requestedPassword, $forbiddenValueList)
-{
-    // Temporarly deactivated ...
-    //
-    // if (strlen($requestedPassword) < 8)
-    // {
-    //    return false;
-    // }
-
-    foreach($forbiddenValueList as $thisValue)
-    {
-        if( strtoupper($requestedPassword) == strtoupper($thisValue) )
-        {
-            return false;
-        }
-    }
-
-    return true;
-}
-
 ?>
