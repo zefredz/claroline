@@ -4,6 +4,7 @@
 
 body {
 	font-family: arial, helvetica, sans-serif;
+	color:#333333;
 	background-color: #fff;
 }
 
@@ -408,7 +409,8 @@ h3{	font-size: 110%; }
  */ 
  
 .claroMessageBox {
-	background-color: #FFCC33;
+	background-color: #DDDEBC;
+	border: solid 1px #666666;
 	color: #000;
 }
 
