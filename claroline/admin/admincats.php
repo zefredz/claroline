@@ -12,56 +12,55 @@
 //----------------------------------------------------------------------
 
 $langFile = "faculty";
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
+$cidReset = TRUE;
+$gidReset = TRUE;
+$tidReset = TRUE;
+
+// include claro main global
 require '../inc/claro_init_global.inc.php';
-//SECURITY CHECK
-$is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
+
+// check if user is logged as administrator
+$is_allowedToAdmin = $is_platformAdmin;
 if (!$is_allowedToAdmin) claro_disp_auth_form();
 
+include($includePath."/lib/debug.lib.inc.php");
 
-//include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/admin.lib.inc.php");
-
-$dateNow          = claro_disp_localised_date($dateTimeFormatLong);
+// build bredcrump
 $nameTools        = $langCategories;
 $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+
+// display claroline header
 include($includePath."/claro_init_header.inc.php");
-//SECURITY CHECK
 
-if (!$is_platformAdmin) claro_disp_auth_form();
-
-$is_allowedToAdmin     = $is_platformAdmin;
-
-$dateNow             = claro_disp_localised_date($dateTimeFormatLong);
-$is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
-
-//TABLES
+// get table name
 $tbl_mdb_names   = claro_sql_get_main_tbl();
 $tbl_course      = $tbl_mdb_names['course'           ];
 $tbl_course_node = $tbl_mdb_names['category'         ];
 
-//DISPLAY
+// Display variables
 $INFOFAC	= TRUE;
 $CREATE		= TRUE;
 $BOM		= TRUE;
 $EDIT		= FALSE;
 $MOVE		= FALSE;
 
+/**
+ * Show or hide categories
+ */
 
-// WORKS
-
-/*-----------------------------------------------------------------------------------
-Show or hide categories
------------------------------------------------------------------------------------*/
-
-if(isset($_REQUEST["id"]) && !isset($_REQUEST["UpDown"]) && !isset($_REQUEST["delete"]) && !isset($_REQUEST["edit"]) &&
-    !isset($_REQUEST["change"]))
+if ( isset($_REQUEST["id"]) && 
+    !isset($_REQUEST["UpDown"]) && 
+    !isset($_REQUEST["delete"]) && 
+    !isset($_REQUEST["edit"]) &&
+    !isset($_REQUEST["change"])
+   )
 {
     $id=$_REQUEST["id"];
     $faculty=$_SESSION["savFaculty"];
 
-    //Change the parameter 'visible'
+    // Change the parameter 'visible'
+
     if(!is_null($faculty))
     {
         foreach($faculty as $key=>$one_faculty)
@@ -75,85 +74,96 @@ if(isset($_REQUEST["id"]) && !isset($_REQUEST["UpDown"]) && !isset($_REQUEST["de
             }
         }
     }
-    // SAVE IN THE SESSION
+
+    // Save in session
     $savFaculty=$faculty;
     session_register("savFaculty");
 }
 else
 {
-    // SAVE IN THE SESSION
+    // Get value from session variables
     $faculty=$_SESSION["savFaculty"];
 
+    /**
+     * Create a category
+     */
 
-
-    /*-----------------------------------------------------------------------------------
-     Create a category
-    -----------------------------------------------------------------------------------*/
     if(isset($_REQUEST["create"]))
     {
-        //if the new category have a name, a code and she can have child (categories or courses)
-        if(!empty($_REQUEST["nameCat"]) && !empty($_REQUEST["codeCat"]))
+        // If the new category have a name, a code and she can have child (categories or courses)
+        if( !empty($_REQUEST["nameCat"]) && !empty($_REQUEST["codeCat"]) )
         {
             
-	    //if a category with the same code already exists we only display an error message
-	    
-	    $sql_SearchSameCode="select code from `$tbl_course_node` where code='".$_REQUEST["nameCat"]."'";
+	        // If a category with the same code already exists we only display an error message
+	        $sql_SearchSameCode=" SELECT code 
+                                  FROM `" . $tbl_course_node . "` 
+                                  WHERE code='".$_REQUEST["nameCat"]."'";
             $array=claro_sql_query_fetch_all($sql_SearchSameCode);
-	    if (isset($array[0]["code"])) 
-	    {	
-		//error message for attempt to create a duplicate
-		$controlMsg['info'][]=$lang_faculty_CreateNotOk;
-	    }
-	    else
-	    {	    
-		$nameCat=$_REQUEST["nameCat"];
-		$codeCat=$_REQUEST["codeCat"];
-		$fatherCat=$_REQUEST["fatherCat"];
-		$canHaveCoursesChild=($_REQUEST["canHaveCoursesChild"]==1?"TRUE":"FALSE");
+
+	        if (isset($array[0]["code"])) 
+	        {	
+		        // Error message for attempt to create a duplicate
+		        $controlMsg['info'][]=$lang_faculty_CreateNotOk;
+	        }
+	        else
+	        {	    
+		        $nameCat=$_REQUEST["nameCat"];
+		        $codeCat=$_REQUEST["codeCat"];
+		        $fatherCat=$_REQUEST["fatherCat"];
+		        $canHaveCoursesChild=($_REQUEST["canHaveCoursesChild"]==1?"TRUE":"FALSE");
 	
-		//If the category don't have as parent NULL (root), all parent of this category have a child more
-		$fatherChangeChild=(!strcmp($fatherCat,"NULL")?NULL:$fatherCat);
+		        // If the category don't have as parent NULL (root), all parent of this category have a child more
+		        $fatherChangeChild=(!strcmp($fatherCat,"NULL")?NULL:$fatherCat);
 	
-		addNbChildFather($fatherChangeChild,1);
+		        addNbChildFather($fatherChangeChild,1);
 	
-		//If the parent of the new category isn't root
-		if(strcmp($fatherCat,"NULL"))
-		{
-			$sql_SearchFather="select treePos,nb_childs from `$tbl_course_node` where code='".$fatherCat."'";
-			$array=claro_sql_query_fetch_all($sql_SearchFather);
+		        // If the parent of the new category isn't root
+		        if(strcmp($fatherCat,"NULL"))
+		        {
+			        $sql_SearchFather=" SELECT treePos,nb_childs 
+                                        FROM `" . $tbl_course_node . "` 
+                                        WHERE code='".$fatherCat."'";
+			        $array=claro_sql_query_fetch_all($sql_SearchFather);
 	
-			//The treePos from the new category (treePos from this father + nb_childs from this father)
-			$treePosCat=$array[0]["treePos"]+$array[0]["nb_childs"];
+			        // The treePos from the new category (treePos from this father + nb_childs from this father)
+			        $treePosCat=$array[0]["treePos"]+$array[0]["nb_childs"];
 	
-			//Add 1 to all category who have treePos >= of the treePos of the new category
-			$sql_ChangeTree="update `$tbl_course_node` set treePos=treePos+1 where treePos>='".$treePosCat."'";
-			claro_sql_query($sql_ChangeTree);
-		}
-		else    //The parent of the new category is root
-		{
-			//Search the maximum treePos
-			$treePosCat=SearchMaxTreePos()+1;
-		}
+			        // Add 1 to all category who have treePos >= of the treePos of the new category
+			        $sql_ChangeTree=" UPDATE `" . $tbl_course_node . "` 
+                                      SET treePos=treePos+1 
+                                      WHERE treePos>='".$treePosCat."'";
+			        claro_sql_query($sql_ChangeTree);
+		        }
+		        else    // The parent of the new category is root
+		        {
+			        // Search the maximum treePos
+			        $treePosCat=SearchMaxTreePos()+1;
+		        }
 	
-		//insert the new category to the table
-		$sql_InsertCat="insert into `$tbl_course_node` (name,code,bc,nb_childs,canHaveCoursesChild,canHaveCatChild,treePos,code_P)
-						values ('".$nameCat."','".$codeCat."',NULL,'0','".$canHaveCoursesChild."','TRUE','".$treePosCat."'";
+		        // Insert the new category to the table
+		        
+                $sql_InsertCat=" INSERT INTO `". $tbl_course_node ."` 
+                                 (name, code, bc , nb_childs, canHaveCoursesChild, canHaveCatChild,
+                                  treePos ,code_P )
+						         VALUES ('".$nameCat."','".$codeCat."',NULL,'0','".$canHaveCoursesChild."','TRUE',
+                                  '".$treePosCat."'";
 				if ($fatherCat == "NULL")
 				{
-				$sql_InsertCat .= ",NULL)";
+				    $sql_InsertCat .= ",NULL)";
 				}
 				else
 				{
-				$sql_InsertCat .= ",'".$fatherCat."')";
+				    $sql_InsertCat .= ",'".$fatherCat."')";
 				}
 	
-		claro_sql_query($sql_InsertCat);
+		        claro_sql_query($sql_InsertCat);
 	
-		//Confirm creating
-		$controlMsg['info'][]=$lang_faculty_CreateOk;
-	   }
+		        // Confirm creating
+		        $controlMsg['info'][]=$lang_faculty_CreateOk;
+
+            }
         }
-        else //if the new category don't have a name or a code or she can't have child (categories or courses)
+        else // if the new category don't have a name or a code or she can't have child (categories or courses)
         {
             if(empty($_REQUEST["nameCat"]))
                 $controlMsg["error"][]=$lang_faculty_NameEmpty;
@@ -163,55 +173,103 @@ else
         }
     }
 
-
-
-    /*-----------------------------------------------------------------------------------
-    If you move the category in the same father of the bom
-    -----------------------------------------------------------------------------------*/
+    /**
+     * If you move the category in the same father of the bom
+     */
+    
     if(isset($_REQUEST["UpDown"] ))
     {
-        //Search the minimum and the maximum
-        $sql_InfoTree="select min(treePos) minimum, max(treePos) maximum from `$tbl_course_node`";
+        // Search the minimum and the maximum
+        $sql_InfoTree=" SELECT min(treePos) minimum, max(treePos) maximum 
+                        FROM `" . $tbl_course_node . "`";
         $array=claro_sql_query_fetch_all($sql_InfoTree);
 
         $TreeMin=$array[0]["minimum"];
         $TreeMax=$array[0]["maximum"];
 
-        //Search the category who move in the bom
+        // Search the category who move in the bom
         $i=0;
         while($i<count($faculty) && $faculty[$i]["id"]!=$_REQUEST["id"])
             $i++;
 
-        /*-----------------------------------------------------------------------------------
-        If Up the category and the treePos of this category isn't the first category
-        -----------------------------------------------------------------------------------*/
+        /**
+         * If Up the category and the treePos of this category isn't the first category
+         */
+
         if($_REQUEST["UpDown"]=="u" && $i>=$TreeMin )
         {
-            //Search the previous brother of this category
+            // Search the previous brother of this category
             $j=$i-1;
             while($j>0 && strcmp($faculty[$j]["code_P"],$faculty[$i]["code_P"]))
                 $j--;
 
-            //If they are a brother
+            // If they are a brother
             if(!strcmp($faculty[$j]["code_P"],$faculty[$i]["code_P"]) )
             {
-                //change the brother and his children
+                // change the brother and his children
                 for($k=0;$k<=$faculty[$j]["nb_childs"];$k++)
                 {
                     $searchId=$faculty[$j+$k]["id"];
                     $newTree=$faculty[$j]["treePos"]+$faculty[$i]["nb_childs"]+1+$k;
 
-                    $sql_Update = "update `$tbl_course_node` set treePos='".$newTree."' where id='".$searchId."'";
+                    $sql_Update = " UPDATE `" . $tbl_course_node . "` 
+                                    SET treePos='".$newTree."' 
+                                    WHERE id='".$searchId."'";
                     claro_sql_query($sql_Update) ;
                 }
 
-                //change the choose category and his childeren
+                // change the choose category and his childeren
                 for($k=0;$k<=$faculty[$i]["nb_childs"];$k++)
                 {
                     $searchId=$faculty[$i+$k]["id"];
                     $newTree=$faculty[$i]["treePos"]-$faculty[$j]["nb_childs"]-1+$k;
 
-                    $sql_Update = "update `$tbl_course_node` set treePos='".$newTree."' where id='".$searchId."'";
+                    $sql_Update = " UPDATE `" . $tbl_course_node . "` 
+                                    SET treePos='".$newTree."' 
+                                    WHERE id='".$searchId."'";
+                    claro_sql_query($sql_Update) ;
+                }
+
+                // Confirm move
+                $controlMsg['info'][]=$lang_faculty_MoveOk;
+            }
+        }
+
+        /**
+         * If Up the category and the treePos of this category isn't the last category
+         */
+
+        if ($_REQUEST["UpDown"]=="d" && $i<$TreeMax-1 )
+        {
+            // Search the next brother
+            $j=$i+1;
+            while($j<=count($faculty) && strcmp($faculty[$j]["code_P"],$faculty[$i]["code_P"]))
+                $j++;
+
+            // If they are a brother
+            if(!strcmp($faculty[$j]["code_P"],$faculty[$i]["code_P"]))
+            {
+                // change the brother and his children
+                for($k=0;$k<=$faculty[$j]["nb_childs"];$k++)
+                {
+                    $searchId=$faculty[$j+$k]["id"];
+                    $newTree=$faculty[$j]["treePos"]-$faculty[$i]["nb_childs"]-1+$k;
+
+                    $sql_Update = " UPDATE `". $tbl_course_node . "` 
+                                    SET treePos='".$newTree."' 
+                                    WHERE id='".$searchId."'";
+                    claro_sql_query($sql_Update);
+                }
+
+                // change the choose category and his childeren
+                for($k=0;$k<=$faculty[$i]["nb_childs"];$k++)
+                {
+                    $searchId=$faculty[$i+$k]["id"];
+                    $newTree=$faculty[$i]["treePos"]+$faculty[$j]["nb_childs"]+1+$k;
+
+                    $sql_Update = " UPDATE `" . $tbl_course_node . "` 
+                                    SET treePos='".$newTree."' 
+                                    WHERE id='".$searchId."'";
                     claro_sql_query($sql_Update) ;
                 }
 
@@ -220,55 +278,19 @@ else
             }
         }
 
-        /*-----------------------------------------------------------------------------------
-        //If Up the category and the treePos of this category isn't the last category
-        -----------------------------------------------------------------------------------*/
-        if($_REQUEST["UpDown"]=="d" && $i<$TreeMax-1 )
-        {
-            //Search the next brother
-            $j=$i+1;
-            while($j<=count($faculty) && strcmp($faculty[$j]["code_P"],$faculty[$i]["code_P"]))
-                $j++;
-
-            //If they are a brother
-            if(!strcmp($faculty[$j]["code_P"],$faculty[$i]["code_P"]))
-            {
-                //change the brother and his children
-                for($k=0;$k<=$faculty[$j]["nb_childs"];$k++)
-                {
-                    $searchId=$faculty[$j+$k]["id"];
-                    $newTree=$faculty[$j]["treePos"]-$faculty[$i]["nb_childs"]-1+$k;
-
-                    $sql_Update = "update `$tbl_course_node` set treePos='".$newTree."' where id='".$searchId."'";
-                    claro_sql_query($sql_Update);
-                }
-
-                //change the choose category and his childeren
-                for($k=0;$k<=$faculty[$i]["nb_childs"];$k++)
-                {
-                    $searchId=$faculty[$i+$k]["id"];
-                    $newTree=$faculty[$i]["treePos"]+$faculty[$j]["nb_childs"]+1+$k;
-
-                    $sql_Update = "update `$tbl_course_node` set treePos='".$newTree."' where id='".$searchId."'";
-                    claro_sql_query($sql_Update) ;
-                }
-
-                    //Confirm move
-                    $controlMsg['info'][]=$lang_faculty_MoveOk;
-            }
-        }
-
     }
 
+    /**
+     * If you delete a category
+     */
 
-
-    /*-----------------------------------------------------------------------------------
-    If you delete a category
-    -----------------------------------------------------------------------------------*/
     if(isset($_REQUEST["delete"]))
     {
-        //Search information of the category
-        $sql_SearchDelete="select treePos,code,code_P,nb_childs from `$tbl_course_node` where id='".$_REQUEST["id"]."'";
+        // Search information of the category
+        $sql_SearchDelete= " SELECT treePos,code,code_P,nb_childs 
+                             FROM `". $tbl_course_node . "` 
+                             WHERE id='".$_REQUEST["id"]."'";
+
         $res_treePosDelete=claro_sql_query_fetch_all($sql_SearchDelete);
         $treePosDelete=$res_treePosDelete[0];
 
@@ -278,23 +300,25 @@ else
         if(!is_null($treePosDelete))
         {
             
-	    $delok = TRUE; //we delete if we do not encounter any problem...default is that there is no problem, then we check
+	        // we delete if we do not encounter any problem...default is that there is no problem, then we check
+	        $delok = TRUE;
 	    
-	    //Look if there isn't any subcategory in this category first	    
-	    $sql_SearchCats="select code from `$tbl_course_node` where code_P='".$treePosDelete["code"]."'";
+	        // Look if there isn't any subcategory in this category first	    
+    	    $sql_SearchCats= " SELECT code FROM `" . $tbl_course_node . "` 
+                               WHERE code_P='".$treePosDelete["code"]."'";
             $res_SearchCats=claro_sql_query_fetch_all($sql_SearchCats);
 	    
-	    if(isset($res_SearchCats[0]["code"])) 
-	    {
-	    	$controlMsg['error'][]=$lang_faculty_CatHaveCat;
-		$delok = false;
-	    }
+	        if(isset($res_SearchCats[0]["code"])) 
+	        {
+	    	    $controlMsg['error'][]=$lang_faculty_CatHaveCat;
+        		$delok = false;
+	        }
 	    
-	    
-	    
-	    //Look if they aren't courses in this category
-            $sql_SearchCourses="select count(cours_id) num from `$tbl_course` where faculte='".$treePosDelete["code"]."'";
-            $res_SearchCourses=claro_sql_query_fetch_all($sql_SearchCourses);
+	        // Look if they aren't courses in this category
+            $sql_SearchCourses= "SELECT count(cours_id) num 
+                                 FROM `" . $tbl_course . "` 
+                                 WHERE faculte='".$treePosDelete["code"]."'";
+            $res_SearchCourses= claro_sql_query_fetch_all($sql_SearchCourses);
 
             if($treePosDelete[0]["nb_childs"]>0 || $res_SearchCourses[0]["num"]>0)
             {
@@ -303,12 +327,15 @@ else
 
                 if($res_SearchCourses[0]["num"]>0)
                     $controlMsg['error'][]=$lang_faculty_CatHaveCourses;
-		$delok = false;
+            	
+                $delok = false;
             }
+            
             if ($delok==true) 
             {
-                //delete the category
-                $sql_Delete="delete from `$tbl_course_node` where id='".$_REQUEST["id"]."'";
+                // Delete the category
+                $sql_Delete= " DELETE FROM `" . $tbl_course_node . "` 
+                               WHERE id='".$_REQUEST["id"]."'";
                 claro_sql_query($sql_Delete);
                
                 //Confirm deleting
@@ -316,12 +343,11 @@ else
             }
         }
     }
+    
+    /**
+     * Edit a category : display form
+     */
 
-
-
-    /*-----------------------------------------------------------------------------------
-    Edit a category : display form
-    -----------------------------------------------------------------------------------*/
     if(isset($_REQUEST["edit"]))
     {
         $INFOFAC=TRUE;
@@ -330,11 +356,9 @@ else
         $BOM=TRUE;
         $MOVE=FALSE;
 
-        //$nameTools             = $lang_faculty_EditCat;
-        $interbredcrump[]    = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langCategories);
-
-        //Search information of the category edit
-        $sql_SearchInfoTreeFaculty="select * from `$tbl_course_node` where id='".$_REQUEST["id"]."'";
+        // Search information of the category edit
+        $sql_SearchInfoTreeFaculty = " SELECT * FROM `" . $tbl_course_node . "` 
+                                       WHERE id='".$_REQUEST["id"]."'";
         $array=claro_sql_query_fetch_all($sql_SearchInfoTreeFaculty);
 
         $EditId=$array[0]["id"];
@@ -354,49 +378,54 @@ else
         }
     }
 
+    /**
+     * Change information of category : do change in db
+     */
 
-
-    /*-----------------------------------------------------------------------------------
-    Change information of category : do change in db
-    -----------------------------------------------------------------------------------*/
     if(isset($_REQUEST["change"]))
     {
-        //Search information
-        $sql_FacultyEdit="select * from `$tbl_course_node` where id='".$_REQUEST["id"]."'";
+        // Search information
+        $sql_FacultyEdit = " SELECT * FROM `" . $tbl_course_node . "` 
+                             WHERE id='".$_REQUEST["id"]."'";
         $arrayfacultyEdit=claro_sql_query_fetch_all($sql_FacultyEdit);
         $facultyEdit=$arrayfacultyEdit[0];
-	$doChange = TRUE;
+    	$doChange = TRUE;
 	
-	//see if we try to set the categorie as a cat that can niot have course and that the cat already contain courses
-	if ($_REQUEST["canHaveCoursesChild"]==0)
-	{
-		$sql_SearchCourses="select count(cours_id) num from `$tbl_course` where faculte='".$treePosDelete["code"]."'";
+    	// See if we try to set the categorie as a cat that can not have course 
+        // and that the cat already contain courses
+	    if ($_REQUEST["canHaveCoursesChild"]==0)
+    	{
+	    	$sql_SearchCourses= " SELECT count(cours_id) num 
+                                  FROM `" . $tbl_course . "` 
+                                  WHERE faculte='".$treePosDelete["code"]."'";
         	$res_SearchCourses=claro_sql_query_fetch_all($sql_SearchCourses);
 
-                if($res_SearchCourses[0]["num"]>0)
-		{
-			$controlMsg['warning'][]=$lang_faculty_HaveCourses;
-			$doChange = false;
-		}
-	}
+            if($res_SearchCourses[0]["num"]>0)
+		    {
+			    $controlMsg['warning'][]=$lang_faculty_HaveCourses;
+			    $doChange = false;
+		    }
+	    }
 	
-        //Edit a category (don't move the category)
+        // Edit a category (don't move the category)
         if(!isset($_REQUEST["fatherCat"]) && $doChange)
         {
             $canHaveCoursesChild=($_REQUEST["canHaveCoursesChild"]==1?"TRUE":"FALSE");
 
-            //If nothing is different
+            // If nothing is different
             if(!strcmp($facultyEdit["name"],$_REQUEST["nameCat"]) && !strcmp($facultyEdit["code"],$_REQUEST["codeCat"])
               && !strcmp($facultyEdit["canHaveCoursesChild"],$canHaveCoursesChild) )
             {
                 $controlMsg['warning'][]=$lang_faculty_NoChange;
             }
-                //If the category can't have course child, look if they haven't already
             else
             {
+                // If the category can't have course child, look if they haven't already
                 if(!strcmp($canHaveCoursesChild,"FALSE"))
                 {
-                    $sql_SearchCourses="select count(cours_id) num from `$tbl_course` where faculte='".$facultyEdit["code"]."'";
+                    $sql_SearchCourses = " SELECT count(cours_id) num 
+                                           FROM `" . $tbl_course . "` 
+                                           WHERE faculte='".$facultyEdit["code"]."'";
                     $array=claro_sql_query_fetch_all($sql_SearchCourses);
 
                     if($array[0]["num"]>0)
@@ -406,35 +435,43 @@ else
                     }
                     else
                     {
-                    $sql_ChangeInfoFaculty="update `$tbl_course_node` set name='".$_REQUEST["nameCat"]."',code='".$_REQUEST["codeCat"]."'
-                                ,canHaveCoursesChild='".$canHaveCoursesChild."' where id='".$_REQUEST["id"]."'";
-                    claro_sql_query($sql_ChangeInfoFaculty);
-		    $controlMsg['warning'][]=$lang_faculty_EditOk;
+                        $sql_ChangeInfoFaculty= " UPDATE `" . $tbl_course_node . "` 
+                                                  SET name='".$_REQUEST["nameCat"]."',
+                                                      code='".$_REQUEST["codeCat"]."',
+                                                      canHaveCoursesChild='".$canHaveCoursesChild."' 
+                                                  WHERE id='".$_REQUEST["id"]."'";
+                        claro_sql_query($sql_ChangeInfoFaculty);
+            		    $controlMsg['warning'][]=$lang_faculty_EditOk;
                     }
                 }
                 else
                 {
-                    $sql_ChangeInfoFaculty="update `$tbl_course_node` set name='".$_REQUEST["nameCat"]."',code='".$_REQUEST["codeCat"]."'
-                                ,canHaveCoursesChild='".$canHaveCoursesChild."' where id='".$_REQUEST["id"]."'";
+                    $sql_ChangeInfoFaculty= " UPDATE `" . $tbl_course_node . "` 
+                                              SET name='".$_REQUEST["nameCat"]."',
+                                                  code='".$_REQUEST["codeCat"]."',
+                                                  canHaveCoursesChild='".$canHaveCoursesChild."' 
+                                                  WHERE id='".$_REQUEST["id"]."'";
                     claro_sql_query($sql_ChangeInfoFaculty);
 
-                    //Change code_P for his childeren
+                    // Change code_P for his childeren
                     if(strcmp($_REQUEST["codeCat"],$facultyEdit["code"]))
                     {
-                        $sql_ChangeCodeParent="update `$tbl_course_node` set code_P='".$_REQUEST["codeCat"]."' where
-                                                code_P='".$facultyEdit["code"]."'";
+                        $sql_ChangeCodeParent= " UPDATE `" . $tbl_course_node . "` 
+                                                 SET code_P='".$_REQUEST["codeCat"]."' 
+                                                 WHERE code_P='".$facultyEdit["code"]."'";
                         claro_sql_query($sql_ChangeCodeParent);
                     }
 
-                    //Confirm edition
+                    // Confirm edition
                     $controlMsg['info'][]=$lang_faculty_EditOk;
                 }
 
                 //Change the code of the faculte in the table cours
                 if(strcmp($facultyEdit["code"],$_REQUEST["codeCat"]))
                 {
-                    $sql_ChangeInfoFaculty="update `$tbl_course` set faculte='".$_REQUEST["codeCat"]."'
-                                                where faculte='".$facultyEdit["code"]."'";
+                    $sql_ChangeInfoFaculty=" UPDATE `$tbl_course` 
+                                             SET faculte='".$_REQUEST["codeCat"]."'
+                                             WHERE faculte='".$facultyEdit["code"]."'";
 
                     claro_sql_query($sql_ChangeInfoFaculty);
                 }
@@ -445,8 +482,10 @@ else
         {
             $controlMsg['warning'][]=$lang_faculty_NoChange;
         }
-        else //Move the category //($_REQUEST["MoveChild"]==1)
+        else
         {
+            //Move the category 
+            //($_REQUEST["MoveChild"]==1)
             //For the table
             $fatherCat=(!strcmp($_REQUEST["fatherCat"],"NULL")?"":$_REQUEST["fatherCat"]);
 
@@ -458,7 +497,8 @@ else
             $error=0;
             for($i=$treeFirst;$i<=$treeLast;$i++)
             {
-                $sql_SearchChild="select code from `$tbl_course_node` where treePos=".$i;
+                $sql_SearchChild = " SELECT code FROM `" . $tbl_course_node . "` 
+                                     WHERE treePos=".$i;
                 $code=claro_sql_query_fetch_all($sql_SearchChild);
 
                 if(!strcmp($_REQUEST["fatherCat"],$code[0]["code"]))
@@ -471,56 +511,64 @@ else
             }
             else
             {
-                //The treePos afther his childeren
+                // The treePos afther his childeren
                 $treePosLastChild=$facultyEdit["treePos"]+$facultyEdit["nb_childs"];
 
-                //the treePos max
+                // The treePos max
                 $maxTree=SearchMaxTreePos();
 
-                //the treePos of her and his childeren = max(treePos)+i
+                // The treePos of her and his childeren = max(treePos)+i
                 $i=1;
                 while($i<=$facultyEdit["nb_childs"]+1)
                 {
-                    $sql_TempTree="update `$tbl_course_node` set treePos=".$maxTree."+".$i."
-                                    where treePos=".$facultyEdit["treePos"]."+".$i."-1";
+                    $sql_TempTree=" UPDATE `" . $tbl_course_node . "` 
+                                    SET treePos=".$maxTree."+".$i."
+                                    WHERE treePos=".$facultyEdit["treePos"]."+".$i."-1";
 
                     claro_sql_query($sql_TempTree);
                     $i++;
                 }
 
-                //Change treePos of the faculty they have a treePos > treePos of the last child
-                $sql_ChangeTree="update `$tbl_course_node` set treePos=treePos-".$facultyEdit["nb_childs"]."-1 where
-                            treePos>".$treePosLastChild." and    treePos<=".$maxTree;
+                // Change treePos of the faculty they have a treePos > treePos of the last child
+                $sql_ChangeTree= " UPDATE `" . $tbl_course_node . "` 
+                                   SET treePos=treePos-".$facultyEdit["nb_childs"]."-1 
+                                   WHERE treePos>".$treePosLastChild." AND treePos<=".$maxTree;
 
                 claro_sql_query($sql_ChangeTree);
 
-                //if the father isn't root
+                // if the father isn't root
                 if(strcmp($_REQUEST["fatherCat"],"NULL"))
                 {
-                    //Search treePos of the new father
-                    $sql_SearchNewTreePos="select treePos from `$tbl_course_node` where code='".$_REQUEST["fatherCat"]."'";
+                    // Search treePos of the new father
+                    $sql_SearchNewTreePos=" SELECT treePos FROM `" . $tbl_course_node . "` 
+                                            WHERE code='".$_REQUEST["fatherCat"]."'";
                     $res_SearchNewTreePos=claro_sql_query_fetch_all($sql_SearchNewTreePos);
 
                     $newFather=$res_SearchNewTreePos[0];
 
                     //Ajoute a tous les treePos apres le nouveau pere le nombre d enfant + 1 de celui qu on deplace
-                    $sql_ChangeTree="update `$tbl_course_node` set treePos=treePos+".$facultyEdit["nb_childs"]."+1 where
-                                treePos>".$newFather["treePos"]." and    treePos<=".$maxTree;
+                    $sql_ChangeTree=" UPDATE `". $tbl_course_node . "` 
+                                      SET treePos=treePos+".$facultyEdit["nb_childs"]."+1 
+                                      WHERE treePos>".$newFather["treePos"]." and treePos<=".$maxTree;
 
                     claro_sql_query($sql_ChangeTree);
 
-                    //the new treePos is the treePos of the new father+1
+                    // the new treePos is the treePos of the new father+1
                     $newTree=$newFather["treePos"]+1;
                 }
-                else //The new treePos is the last treePos exist
+                else
+                {
+                    // The new treePos is the last treePos exist
                     $newTree=$maxTree;
+                }
 
-                //Change the treePos of her and his childeren
+                // Change the treePos of her and his childeren
                 $i=0;
                 while($i<=$facultyEdit["nb_childs"])
                 {
-                    $sql_ChangeTree="update `$tbl_course_node` set treePos=".$newTree."+".$i." where
-                            treePos=".$maxTree."+".$i."+1";
+                    $sql_ChangeTree= " UPDATE `" . $tbl_course_node . "` 
+                                       SET treePos=".$newTree."+".$i." 
+                                       WHERE treePos=".$maxTree."+".$i."+1";
 
                     claro_sql_query($sql_ChangeTree);
                     $i++;
@@ -528,78 +576,83 @@ else
 
                 $father=(!strcmp($_REQUEST["fatherCat"],"NULL")?"NULL":("'".$_REQUEST["fatherCat"]."'"));
 
-                //Change the category edit
-                $sql_ChangeInfoFaculty="update `$tbl_course_node` set code_P=".$father." where id='".$_REQUEST["id"]."'";
+                // Change the category edit
+                $sql_ChangeInfoFaculty= " UPDATE `" . $tbl_course_node . "` 
+                                          SET code_P=".$father." 
+                                          WHERE id='".$_REQUEST["id"]."'";
 
                 claro_sql_query($sql_ChangeInfoFaculty);
 
                 $newNbChild=$facultyEdit["nb_childs"]+1;
 
-                //Change the number of childeren of the father category and his parent
+                // Change the number of childeren of the father category and his parent
                 $fatherChangeChild=$facultyEdit["code_P"];
                 deleteNbChildFather($fatherChangeChild,$newNbChild);
 
-                //Change the number of childeren of the new father and his parent
+                // Change the number of childeren of the new father and his parent
                 $fatherChangeChild=$_REQUEST["fatherCat"];
                 addNbChildFather($fatherChangeChild,$newNbChild);
 
-                //Search nb_childs of the new father
-                $sql_SearchNbChild="select nb_childs from `$tbl_course_node`where code=".$father;
+                // Search nb_childs of the new father
+                $sql_SearchNbChild=" SELECT nb_childs 
+                                     FROM `" . $tbl_course_node. "` 
+                                     WHERE code=".$father;
                 $array=claro_sql_query_fetch_all($sql_SearchNbChild);
 
                 $nbChildFather=$array[0];
 
-                //Si le nouveau pere avait des enfants replace celui que l on vient de deplacer comme dernier enfant
+                // Si le nouveau pere avait des enfants replace celui que l on vient de deplacer comme dernier enfant
                 if($nbChildFather["nb_childs"]>$facultyEdit["nb_childs"]+1)
                 {
-                    //Met des treePos temporaire pour celui qu on vient de deplacer et ses enfants
+                    // Met des treePos temporaire pour celui qu on vient de deplacer et ses enfants
                     $i=1;
                     while($i<=$facultyEdit["nb_childs"]+1)
                     {
-                        $sql_TempTree="update `$tbl_course_node` set treePos=".$maxTree."+".$i."
-                                        where treePos=".$newTree."+".$i."-1";
+                        $sql_TempTree = " UPDATE `" . $tbl_course_node . "` 
+                                          SET treePos=".$maxTree."+".$i."
+                                          WHERE treePos=".$newTree."+".$i."-1";
 
                         claro_sql_query($sql_TempTree);
                         $i++;
                     }
 
-                    //Deplace les enfants restant du pere
+                    // Deplace les enfants restant du pere
                     $i=1;
                     while($i<=($nbChildFather["nb_childs"]-$facultyEdit["nb_childs"]-1) )
                     {
-                        $sql_MoveTree="update `$tbl_course_node` set treePos=".$newTree."+".$i."-1
-                                        where treePos=".$newTree."+".$facultyEdit["nb_childs"]."+".$i;
+                        $sql_MoveTree= " UPDATE `" . $tbl_course_node . "` 
+                                         SET treePos=".$newTree."+".$i."-1
+                                         WHERE treePos=".$newTree."+".$facultyEdit["nb_childs"]."+".$i;
                         claro_sql_query($sql_MoveTree);
                         $i++;
                     }
 
-                    //Remet les treePos de celui qu on a deplacé et de ses enfants
+                    // Remet les treePos de celui qu on a deplacé et de ses enfants
                     $i=1;
                     while($i<=$facultyEdit["nb_childs"]+1)
                     {
-                        $sql_TempTree="update `$tbl_course_node` set
+                        $sql_TempTree= " UPDATE  `" . $tbl_course_node . "` 
+                                        SET
                             treePos=".$newTree."+".$nbChildFather["nb_childs"]."-".$facultyEdit["nb_childs"]."-2+".$i."
-                            where treePos=".$maxTree."+".$i;
+                            WHERE treePos=".$maxTree."+".$i;
 
                         claro_sql_query($sql_TempTree);
                         $i++;
                     }
 
-                    //Confirm move
+                    // Confirm move
                     $controlMsg['info'][]=$lang_faculty_MoveOk;
                 }
             }
         }
-
-
-
-        /*-----------------------------------------------------------------------------------------
-        If you move the category without his childeren
-        ------------------------------------------------------------------------------------------
-
-        //If the parent is different and they move the category alone (without his childeren)
+        
+        /**
+         * If you move the category without his childeren
+         */
+/*
         elseif($_REQUEST["MoveChild"]==0)
         {
+            //If the parent is different and they move the category alone (without his childeren)
             //Error if the new parent is self
             if(!strcmp($facultyEdit["code"],$_REQUEST["fatherCat"]))
             {
@@ -609,76 +662,86 @@ else
             {
                 $maxTree=SearchMaxTreePos();
 
-                //Met a temp le treePos de lui
-                $sql_TempTree="update `$tbl_course_node` set treePos=".$maxTree."+1
-                                    where id=".$facultyEdit["id"];
+                // Met a temp le treePos de lui
+                $sql_TempTree= " UPDATE `" . $tbl_course_node . "` 
+                                 SET treePos=".$maxTree."+1
+                                 WHERE id=".$facultyEdit["id"];
 
                 claro_sql_query($sql_TempTree);
 
-                //Change treePos of category who have treePos>treePos of the category edit
-                $sql_ChangeTree="update `$tbl_course_node` set treePos=treePos-1 where
-                        treePos>".$facultyEdit["treePos"]." and    treePos<=".$maxTree;
+                // Change treePos of category who have treePos>treePos of the category edit
+                $sql_ChangeTree= " UPDATE `" . $tbl_course_node . "` 
+                                   SET treePos=treePos-1 
+                                   WHERE treePos>".$facultyEdit["treePos"]." AND treePos<=".$maxTree;
 
                 claro_sql_query($sql_ChangeTree);
 
-                //Change the father of his childeren (=the father of the category edit)
+                // Change the father of his childeren (=the father of the category edit)
                 if($facultyEdit["nb_childs"]>0)
                 {
-                    $sql_ChangeFather="update `$tbl_course_node` set code_P='".$facultyEdit["code_P"]."' where
-                                         code_P='".$facultyEdit["code"]."'";
+                    $sql_ChangeFather= " UPDATE `" . $tbl_course_node . "` 
+                                         SET code_P='".$facultyEdit["code_P"]."' 
+                                         WHERE code_P='".$facultyEdit["code"]."'";
 
                     claro_sql_query($sql_ChangeFather);
                 }
 
-                //Search the treePos of the new father
-                $sql_SearchNewTreePos="select treePos from `$tbl_course_node` where code='".$_REQUEST["fatherCat"]."'";
+                // Search the treePos of the new father
+                $sql_SearchNewTreePos= " SELECT treePos 
+                                         FROM `" . $tbl_course_node . "` 
+                                         WHERE code='".$_REQUEST["fatherCat"]."'";
                 $array=claro_sql_query_fetch_all($sql_SearchNewTreePos);
 
                 $newFather=$array[0];
 
-                //The new treePos is the treePos of his new father+nb_childs of his new father+1
+                // The new treePos is the treePos of his new father+nb_childs of his new father+1
                 $newTree=$newFather["treePos"]+$newFather["nb_childs"]+1;
 
-                //Ajoute a tous les treePos apres le nouveau pere et ses enfants treePos+1
-                $sql_ChangeTree="update `$tbl_course_node` set treePos=treePos+1 where
-                        treePos>=".$newTree." and    treePos<=".$maxTree;
+                // Ajoute a tous les treePos apres le nouveau pere et ses enfants treePos+1
+                $sql_ChangeTree = " UPDATE `" . $tbl_course_node . "` 
+                                    SET treePos=treePos+1
+                                    WHERE treePos>=".$newTree." AND treePos<=".$maxTree;
 
                 claro_sql_query($sql_ChangeTree);
 
                 $father=(!strcmp($_REQUEST["fatherCat"],"NULL")?"NULL":("'".$_REQUEST["fatherCat"]."'"));
 
                 //Change information of the category
-                $sql_ChangeInfoFaculty="update `$tbl_course_node` set
-                        name='".$_REQUEST["nameCat"]."',code='".$_REQUEST["codeCat"]."',code_P=".$father.
-                        ",nb_childs=0,treePos='".$newTree."',canHaveCoursesChild='".$canHaveCoursesChild."'
-                         where id='".$_REQUEST["id"]."'";
+                $sql_ChangeInfoFaculty= " UPDATE `" . $tbl_course_node . "` 
+                                          SET name='".$_REQUEST["nameCat"]."',
+                                              code='".$_REQUEST["codeCat"]."',
+                                              code_P=".$father.",
+                                              nb_childs=0,treePos='".$newTree."',
+                                              canHaveCoursesChild='".$canHaveCoursesChild."'
+                                          WHERE id='".$_REQUEST["id"]."'";
 
                 claro_sql_query($sql_ChangeInfoFaculty);
 
-                //nb_childs of the old father (and his fathers) = nb_childs-1
+                // nb_childs of the old father (and his fathers) = nb_childs-1
                 $fatherChangeChild=$facultyEdit["code_P"];
                 deleteNbChildFather($fatherChangeChild,1);
 
-                //nb_childs of the new father (and his fathers) = nb_childs+1
+                // nb_childs of the new father (and his fathers) = nb_childs+1
                 $fatherChangeChild=$_REQUEST["fatherCat"];
                 addNbChildFather($fatherChangeChild,1);
             }
-        }*/
+        }
+*/
     }
 
+    /** 
+     * search informations from the table
+     */
 
-
-    /*-----------------------------------------------------------------------------------
-    search informations from the table
-    -----------------------------------------------------------------------------------*/
-    $sql_searchfaculty = "select * FROM `$tbl_course_node` order by treePos";
+    $sql_searchfaculty = " SELECT * 
+                           FROM `" . $tbl_course_node . "` 
+                           ORDER BY treePos";
     $array=claro_sql_query_fetch_all($sql_searchfaculty);
 
     $tempFaculty=$faculty;
     unset($faculty);
 
-
-    //Build the array of catégories
+    // Build the array of catégories
     if ($array)
     {
         $i=0;
@@ -688,7 +751,7 @@ else
             $faculty[]=$array[$i];
         }
 
-        //Pour remettre a visible ou non comme prédédement
+        // Pour remettre a visible ou non comme prédédement
         for($i=0;$i<count($faculty);$i++)
         {
             $searchId=$faculty[$i]["id"];
@@ -704,7 +767,7 @@ else
 
         $savFaculty=$faculty;
 
-        //SESSION
+        // Session
         session_unregister("savFaculty");
         session_register("savFaculty");
     }
@@ -714,33 +777,25 @@ else
 
         $faculty=NULL;
         $savFaculty=$faculty;
-        //SESSION
+
+        // Session
         session_unregister("savFaculty");
         session_register("savFaculty");
     }
 }
 
-// END OF WORKS
+/**
+ * Display
+ */
 
-/*-----------------------------------------------------------------------------------
- OUTPUT
------------------------------------------------------------------------------------*/
-
-
-/*-----------------------------------------------------------------------------------
-Information edit for create or edit a category
------------------------------------------------------------------------------------*/
+ /**
+  * Information edit for create or edit a category
+  */
 
 if($CREATE)
 {
-claro_disp_tool_title(
-    array(
-    'mainTitle'=>$nameTools,
-    'subTitle'=>$langSubTitleCreate
-    )
-    );
-claro_disp_msg_arr($controlMsg);
-
+    claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>$langSubTitleCreate));
+    claro_disp_msg_arr($controlMsg);
 ?>
     <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
     <table border="0">
@@ -789,9 +844,10 @@ claro_disp_msg_arr($controlMsg);
 }
 
 
-/*-----------------------------------------------------------------------------------
-Display the selectBox of faculties
------------------------------------------------------------------------------------*/
+/**
+ * Display the selectBox of faculties
+ */
+
 if($CREATE)
 {
 ?>
@@ -804,7 +860,7 @@ if($CREATE)
         <select name="fatherCat" id="fatherCat">
         <option value="NULL" > &nbsp;&nbsp;&nbsp;<?php echo $siteName;?> </option>
         <?php
-        //Display each category in the select
+        // Display each category in the select
         buildSelectFaculty($savFaculty,NULL,$EditFather,"");
         ?>
         </select>
@@ -827,18 +883,14 @@ if($CREATE)
 <?php
 }
 
-/*-----------------------------------------------------------------------------------
-Display information to edit a category and the bom of categories
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Display information to edit a category and the bom of categories
+ */
+
 if($EDIT)
 {
-claro_disp_tool_title(
-    array(
-    'mainTitle'=>$nameTools,
-    'subTitle'=>$langSubTitleEdit
-    )
-    );
-claro_disp_msg_arr($controlMsg);
+    claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleEdit));
+    claro_disp_msg_arr($controlMsg);
 ?>
     <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
     <table border="0">
@@ -901,14 +953,12 @@ claro_disp_msg_arr($controlMsg);
     <br>
 
 <?php
-
-    // displaySimpleBom($faculty,NULL,$EditCode);
-
 }
 
-/*-----------------------------------------------------------------------------------
-Display the bom of categories and the button to create a new category
------------------------------------------------------------------------------------*/
+/**
+ * Display the bom of categories and the button to create a new category
+ */
+
 if($BOM)
 {
 ?>
@@ -937,21 +987,16 @@ displayBom($faculty,NULL,"");
 <?php
 }
 
+/**
+ * Display information to change root of the category
+ */
 
-/*-----------------------------------------------------------------------------------
-Display information to change root of the category
-/*-----------------------------------------------------------------------------------*/
 if($MOVE)
 {
-claro_disp_tool_title(
-    array(
-    'mainTitle'=>$nameTools,
-    'subTitle'=>$langSubTitleChangeParent.$EditCode
-    )
-    );
-claro_disp_msg_arr($controlMsg);
+    claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleChangeParent.$EditCode));
+    claro_disp_msg_arr($controlMsg);
 ?>
-    <form action=" <?php echo $_SERVER['PHP_SELF']?> " method="POST">
+    <form action=" <?php echo $_SERVER['PHP_SELF'] ?> " method="POST">
     <table border="0">
     <tr>
         <td>
@@ -963,7 +1008,7 @@ claro_disp_msg_arr($controlMsg);
 				<option value="NULL" > &nbsp;&nbsp;&nbsp;<?php echo $siteName;?> </option>
         <?php
         //Display each category in the select
-         buildSelectFaculty($savFaculty,NULL,$EditFather,"");
+        buildSelectFaculty($savFaculty,NULL,$EditFather,"");
         ?>
 			</select>
         </td>
@@ -986,7 +1031,7 @@ claro_disp_msg_arr($controlMsg);
     <br>
 
 
-    <?    echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
+    <?php echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
        <thead>
        <tr class=\"headerX\" align=\"center\" valign=\"top\">
        ";
@@ -1002,8 +1047,6 @@ echo "<th>".$lang_faculty_CodeCat."</th>"
 echo "</tr></thead>";
 
 displayBom($faculty,NULL,"");
-
-// displaySimpleBom($faculty,NULL,$EditCode);
 
 }
 
@@ -1028,7 +1071,8 @@ include($includePath."/claro_init_footer.inc.php");
     {
         GLOBAL $tbl_course_node;
 
-        $sql_MaxTreePos="select max(treePos) maximum from `$tbl_course_node`";
+        $sql_MaxTreePos=" SELECT max(treePos) maximum 
+                          FROM `" . $tbl_course_node . "`";
         $array=claro_sql_query_fetch_all($sql_MaxTreePos);
 
         return $array[0]["maximum"];
@@ -1231,12 +1275,15 @@ include($includePath."/claro_init_footer.inc.php");
         GLOBAL $tbl_course_node;
         while(!is_null($fatherChangeChild))
         {
-            $sql_DeleteNbChildFather=
-                "update `$tbl_course_node` set nb_childs=nb_childs-".$newNbChild." where code='".$fatherChangeChild."'";
+            $sql_DeleteNbChildFather= " UPDATE `". $tbl_course_node . "` 
+                                        SET nb_childs=nb_childs-".$newNbChild." 
+                                        WHERE code='".$fatherChangeChild."'";
 
             claro_sql_query($sql_DeleteNbChildFather);
 
-            $sql_SelectCodeP="select code_P from `$tbl_course_node` where code='".$fatherChangeChild."'";
+            $sql_SelectCodeP= " SELECT code_P 
+                                FROM `" . $tbl_course_node . "` 
+                                WHERE code='".$fatherChangeChild."'";
             $array=claro_sql_query_fetch_all($sql_SelectCodeP);
 
             $fatherChangeChild=$array[0]["code_P"];
@@ -1261,12 +1308,15 @@ include($includePath."/claro_init_footer.inc.php");
         GLOBAL $tbl_course_node;
         while(!is_null($fatherChangeChild))
         {
-            $sql_DeleteNbChildFather=
-                "update `$tbl_course_node` set nb_childs=nb_childs+".$newNbChild." where code='".$fatherChangeChild."'";
+            $sql_DeleteNbChildFather= " UPDATE `" . $tbl_course_node . "` 
+                                        SET nb_childs=nb_childs+".$newNbChild." 
+                                        WHERE code='".$fatherChangeChild."'";
 
             claro_sql_query($sql_DeleteNbChildFather);
 
-            $sql_SelectCodeP="select code_P from `$tbl_course_node` where code='".$fatherChangeChild."'";
+            $sql_SelectCodeP= " SELECT code_P 
+                                FROM `" . $tbl_course_node . "`
+                                WHERE code='".$fatherChangeChild."'";
             $array=claro_sql_query_fetch_all($sql_SelectCodeP);
 
             $fatherChangeChild=$array[0]["code_P"];
