@@ -32,7 +32,6 @@ if ($HTTP_GET_VARS["forceUpgrade"])
 
 // Variables
 $totalNbError = 0;
-$nbCourseUpgraded = 0;
 
 $is_allowedToEdit 	= $is_platformAdmin || $PHP_AUTH_USER;
 if (!$is_allowedToEdit)
@@ -98,7 +97,19 @@ switch ($display)
 
                 echo sprintf ("<h2>%s</h2>",$langStep3);
                 
-                echo "";
+                $sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours 
+                         where versionDb = '".$versionDb."' ";
+                $res_NbCourses = mysql_query($sqlNbCourses);
+                $nbCoursesUpgraded = mysql_fetch_array($res_NbCourses);
+
+                $sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours";
+                $res_NbCourses = mysql_query($sqlNbCourses);
+                $nbCourses = mysql_fetch_array($res_NbCourses);
+                
+                echo $langIntroStep3Run;
+                echo sprintf($langNbCoursesUpgraded, $nbCoursesUpgraded['nb'],$nbCourses['nb']);
+                
+                flush();
                 
 		echo "<div class=\"help\" id=\"refreshIfBlock\">";
 		echo "<form action=\"" . $PHP_SELF . "\">\n";
@@ -108,9 +119,11 @@ switch ($display)
 		echo "<input type=\"submit\" name=\"refresh\" value=\"Refresh\"></p>";
 		echo "</form>";
 		echo "</div>";
+                
+                flush();
 
 		$sqlListCourses = " SELECT *, " .
-				  " cours.cours_id cours_id, cours.dbName dbName, cours.code sysCode, cours.fake_code officialCode, directory coursePath ".
+				  " cours.dbName dbName, cours.code sysCode, cours.fake_code officialCode, directory coursePath ".
 		                  " FROM ".$mainDbName.".cours ";
 				  
 		if (is_array($coursesToUpgrade))
@@ -123,9 +136,10 @@ switch ($display)
 		}
 		$res_listCourses = mysql_query($sqlListCourses);
 		
+                $nbCourseUpgraded = $nbCoursesUpgraded['nb'];
+                
 		while ($cours = mysql_fetch_array($res_listCourses))
 		{
-			$currentCourseID	= $cours["cours_id"];
 			$currentCourseDbName	= $cours["dbName"];
 			$currentcoursePathSys	= $coursesRepositorySys.$cours["coursePath"]."/";
 			$currentcoursePathWeb	= $coursesRepositoryWeb.$cours["coursePath"]."/";
@@ -140,10 +154,10 @@ switch ($display)
 			
 			@mysql_query ( "SET @currentCourseCode := '".$currentCourseIDsys."'");
 		
-			echo "<p>".++$nbCourseUpgraded .
-			        ". Upgrading database of course <strong>".$currentCourseCode."</strong> - 
-				DataBase Name : <em>".$currentCourseDbName."</em> - 
-				internal Code : <em>".$currentCourseIDsys."</em></p>\n";
+			echo "<p><strong>".++$nbCourseUpgraded . ".</strong> " .
+			        "Upgrading database of course <strong>".$currentCourseCode."</strong> - 
+				DB Name : <em>".$currentCourseDbName."</em> - 
+				course ID : <em>".$currentCourseIDsys."</em></p>\n";
 				
 			echo "<ol>\n";
 			
@@ -193,7 +207,7 @@ switch ($display)
                         }
                         
                         //upgrade index.php et course repository
-                        if (!upgrade_course_repository($currentCourseID,$currentcoursePathSys)) 
+                        if (!upgrade_course_repository($currentCourseIDsys,$currentcoursePathSys)) 
                         {
                             $nbError++;
                         }
@@ -232,12 +246,18 @@ switch ($display)
 			$stepDuration = ($endtime - $steptime);
 			$steptime = $endtime;
                                 
-			echo "<p class=\"microtime\">";
-			printf("execution time for this courses[%01.3f ms] - total [%01.2f s].",$stepDuration*1000,$totaltime);
-			echo "</p>";
-                                
-			echo "<p class=\"success\">Upgrade Ok</p>";
-			echo "<hr noshade=\"noshade\" />";                                
+			$str_execution_time = sprintf("execution time for this course [%01.2f s] - total [%01.2f s].",$stepDuration,$totaltime);
+			                        
+                        if ($nbError==0)
+                        {
+                            echo "<p class=\"success\">Upgrade Ok - $str_execution_time</p>";
+                        }
+                        else 
+                        {
+                            echo "<p class=\"error\">Upgrade Failed - $str_execution_time</p>";
+                        }
+			echo "<hr noshade=\"noshade\" />";           
+                        flush();
 		}
                 
                 $mtime = microtime();	$mtime = explode(" ",$mtime);	$mtime = $mtime[1] + $mtime[0];	$endtime = $mtime;	$totaltime = ($endtime - $starttime);
