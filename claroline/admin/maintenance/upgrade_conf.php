@@ -345,18 +345,18 @@ if ($_REQUEST['cmd'] == 'run')
 	
 	$arr_file_to_undist = 
 	array (
-	$newIncludePath."conf/add_course.conf.php",
-	$newIncludePath."conf/admin.usermanagement.conf.php",
-	$newIncludePath."conf/agenda.conf.inc.php",
-	$newIncludePath."conf/announcement.conf.inc.php",
-	$newIncludePath."conf/course_info.conf.php",
-	$newIncludePath."conf/export.conf.php",
-	$newIncludePath."conf/group.conf.php",
-	$newIncludePath."conf/group.document.conf.php",
-	$newIncludePath."conf/index.conf.inc.php",
-	$newIncludePath."conf/profile.conf.inc.php",
-	$newIncludePath."conf/user.conf.php",
-	$newIncludePath."conf/work.conf.inc.php"
+		$newIncludePath."conf/add_course.conf.php",
+		$newIncludePath."conf/admin.usermanagement.conf.php",
+		$newIncludePath."conf/agenda.conf.inc.php",
+		$newIncludePath."conf/announcement.conf.inc.php",
+		$newIncludePath."conf/course_info.conf.php",
+		$newIncludePath."conf/export.conf.php",
+		$newIncludePath."conf/group.conf.php",
+		$newIncludePath."conf/group.document.conf.php",
+		$newIncludePath."conf/index.conf.inc.php",
+		$newIncludePath."conf/profile.conf.inc.php",
+		$newIncludePath."conf/user.conf.php",
+		$newIncludePath."conf/work.conf.inc.php"
 	);
 	
 	$output .="<h3>Others conf files</h3>\n";
@@ -370,7 +370,7 @@ if ($_REQUEST['cmd'] == 'run')
 		}
 		else
 		{
-			$output .=" not change.";
+			$output .=" not changed.";
 		};
 		$output .="</li>\n";
 	}
