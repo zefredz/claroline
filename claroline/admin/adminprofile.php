@@ -41,12 +41,11 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-
-$tbl_log         = $mainDbName."`.`loginout";
-$tbl_user        = $mainDbName."`.`user";
-$tbl_admin       = $mainDbName."`.`admin";
-$tbl_course      = $mainDbName."`.`cours";
-$tbl_course_user = $mainDbName."`.`cours_user";
+$tbl_mdb_names   = claro_sql_get_main_tbl();
+$tbl_user        = $tbl_mdb_names['user'  ];
+$tbl_course      = $tbl_mdb_names['course'];
+$tbl_admin       = $tbl_mdb_names['admin' ];
+$tbl_course_user = $tbl_mdb_names['rel_course_user' ];
 
 include($includePath.'/claro_init_header.inc.php');
 

@@ -23,16 +23,11 @@ if (!$is_allowedToAdmin) claro_disp_auth_form();
 include($includePath."/lib/pager.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
 
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_user      = $tbl_mdb_names['user'  ];
-$tbl_course    = $tbl_mdb_names['course'];
-$tbl_admin     = $tbl_mdb_names['admin' ];
-
-$tbl_log             = $mainDbName."`.`loginout";
-$tbl_user            = $mainDbName."`.`user";
-$tbl_admin           = $mainDbName."`.`admin";
-$tbl_course          = $mainDbName."`.`cours";
-$tbl_rel_course_user = $mainDbName."`.`cours_user";
+$tbl_mdb_names       = claro_sql_get_main_tbl();
+$tbl_user            = $tbl_mdb_names['user'  ];
+$tbl_course          = $tbl_mdb_names['course'];
+$tbl_admin           = $tbl_mdb_names['admin' ];
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
 
 // javascript confirm pop up declaration
 
@@ -117,20 +112,20 @@ switch ($cmd)
 {
   case "delete" :
         $delCode = $_REQUEST['delCode'];
-	$sql = "SELECT *
-                 FROM `".$mainDbName."`.`cours`
+    	$sql = "SELECT  `cours`.*
+                 FROM `".$tbl_course."` `cours`
                  WHERE `code` = '".$delCode."'";
         
-	$result = claro_sql_query($sql);
+	    $result = claro_sql_query($sql);
         while ($the_course = mysql_fetch_array($result))
         {
             $course_exist=$the_course[0];
         }
 	
         if ($course_exist) 
-	{
-	    delete_course($delCode);
-	    $dialogBox = $langCourseDelete;
+    	{
+    	    delete_course($delCode);
+    	    $dialogBox = $langCourseDelete;
         }
         break;
 }

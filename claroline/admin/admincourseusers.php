@@ -75,12 +75,12 @@ $nameTools = $langAllUsersOfThisCourse;
 include($includePath."/claro_init_header.inc.php");
 
 //TABLES
-
-$tbl_user          = $mainDbName."`.`user";
-$tbl_courses       = $mainDbName."`.`cours";
-$tbl_course_user   = $mainDbName."`.`cours_user";
-$tbl_admin         = $mainDbName."`.`admin";
-$tbl_track_default = $statsDbName."`.`track_e_default";// default_user_id
+$tbl_mdb_names   = claro_sql_get_main_tbl();
+$tbl_user        = $tbl_mdb_names['user'  ];
+$tbl_courses     = $tbl_mdb_names['course'];
+$tbl_admin       = $tbl_mdb_names['admin' ];
+$tbl_course_user = $tbl_mdb_names['rel_course_user' ];
+$tbl_track_default = $tbl_mdb_names['track_e_default' ];
 
 //------------------------------------
 // Execute COMMAND section

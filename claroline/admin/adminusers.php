@@ -74,14 +74,14 @@ unset($_cid);
 //TABLES
 //declare needed tables
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_admin            = $tbl_mdb_names['admin'           ];
-$tbl_course           = $tbl_mdb_names['course'           ];
+$tbl_admin            = $tbl_mdb_names['admin'          ];
+$tbl_course           = $tbl_mdb_names['course'         ];
 $tbl_course_user      = $tbl_mdb_names['rel_course_user'];
 //$tbl_course_nodes     = $tbl_mdb_names['category'         ];
 $tbl_user             = $tbl_mdb_names['user'];
-$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'];
-$tbl_track_default  = $statsDbName."`.`track_e_default";// default_user_id
-$tbl_track_login   = $statsDbName."`.`track_e_login";    // login_user_id
+$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user' ];
+$tbl_track_default    = $tbl_mdb_names['track_e_default'];
+$tbl_track_login      = $tbl_mdb_names['track_e_login'  ];
 
 // javascript confirm pop up declaration
   $htmlHeadXtra[] =
@@ -146,7 +146,7 @@ $sql = "SELECT
        FROM  `".$tbl_user."` AS `U` 
        LEFT JOIN `".$tbl_course_user."` AS `CU` 
        ON `CU`.`user_id` = `U`.`user_id`
-       LEFT JOIN `".$statsDbName."`.`track_e_login` `login`
+       LEFT JOIN `".$tbl_track_login."` `login`
        ON `U`.`user_id`  = `login`.`login_user_id`
        LEFT JOIN `".$tbl_admin."` `a`
        ON `U`.`user_id` = `a`.`idUser`
