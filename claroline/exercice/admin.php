@@ -43,7 +43,7 @@
  *
  * - $aType : array with answer types
  * - $exerciseId : the exercise ID
- * - $picturePath : the path of question pictures
+ * - $attachedFilePath : the path of question attached files
  *
  * - $newQuestion : ask to create a new question
  * - $modifyQuestion : ID of the question to modify
@@ -70,7 +70,7 @@ include('exercise.lib.php');
 $langFile='exercice';
 
 require '../inc/claro_init_global.inc.php';
-
+  
 // answer types
 define(UNIQUE_ANSWER,	1);
 define(MULTIPLE_ANSWER,	2);
@@ -82,9 +82,9 @@ define(ALLOWED_TO_INCLUDE,1);
 
 $is_allowedToEdit=$is_courseAdmin;
 
-// picture path
-$picturePathWeb = $coursesRepositoryWeb.$_course['path'].'/image';
-$picturePathSys = $coursesRepositorySys.$_course['path'].'/image';
+// attached files path
+$attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
+$attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';
 
 // the 4 types of answers
 $aType=array($langUniqueSelect,$langMultipleSelect,$langFillBlanks,$langMatching);

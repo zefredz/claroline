@@ -30,9 +30,9 @@ if(!defined('ALLOWED_TO_INCLUDE'))
 
 $questionName=$objQuestion->selectTitle();
 $answerType=$objQuestion->selectType();
-$pictureName=$objQuestion->selectPictureName();
+$attachedFile=$objQuestion->selectAttachedFile();
 
-$okPicture=empty($pictureName)?false:true;
+$okAttachedFile=empty($attachedFile)?false:true;
 
 // if we come from the warning box "this question is used in serveral exercises"
 if($modifyIn)
@@ -551,12 +551,12 @@ if($modifyAnswers)
 <table width="650" border="0" cellpadding="5">
 
 <?php
-			if($okPicture)
+			if($okAttachedFile)
 			{
 ?>
 
 <tr>
-  <td colspan="5" align="center"><img src="<?php echo $picturePathWeb.'/'.$pictureName; ?>" border="0"></td>
+  <td colspan="5"><?php echo display_attached_file($attachedFile); ?></td>
 </tr>
 
 <?php
@@ -663,12 +663,12 @@ if($modifyAnswers)
 <table border="0" cellpadding="5" width="500">
 
 <?php
-				if($okPicture)
+				if($okAttachedFile)
 				{
 ?>
 
 <tr>
-  <td align="center"><img src="<?php echo $picturePathWeb.'/quiz-'.$questionId; ?>" border="0"></td>
+  <td><?php echo $display_attached_file($attachedFile); ?></td>
 </tr>
 
 <?php
@@ -794,12 +794,12 @@ if($modifyAnswers)
 <table border="0" cellpadding="5">
 
 <?php
-			if($okPicture)
+			if($okAttachedFile)
 			{
 ?>
 
 <tr>
-  <td colspan="4" align="center"><img src="<?php echo $picturePathWeb.'/'.$pictureName; ?>" border="0"></td>
+  <td colspan="4"><?php echo $display_attached_file($attachedFile); ?></td>
 </tr>
 
 <?php

@@ -52,8 +52,8 @@ require '../inc/claro_init_global.inc.php';
 
 @include($includePath.'/lib/text.lib.php');
 
-$picturePathWeb = $coursesRepositoryWeb.$_course['path'].'/image';
-$picturePathSys = $coursesRepositorySys.$_course['path'].'/image';
+$attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
+$attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';
 
 
 
