@@ -15,6 +15,8 @@
 $langEdit = "Edit";
 $langPreview = "Preview";
 $langFile = "editFile";
+$langHomePageTextZone = "Home page text zones";
+
 $cidReset=TRUE;
 
 require '../../inc/claro_init_global.inc.php';
@@ -28,7 +30,7 @@ define("DISP_FILE_LIST",__LINE__);
 define("DISP_EDIT_FILE",__LINE__);
 define("DISP_PREVIEW_FILE",__LINE__);
 
-$nameTools = $lang_EditFile_EditFile;
+$nameTools = $langHomePageTextZone;
 $dateNow 			= claro_format_locale_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin;
 
@@ -67,16 +69,18 @@ else
 	if(isset($_REQUEST["file"]))
 	{
 		$TextFile=contentFile($EditFile[$_REQUEST["file"]]);
-		$interbredcrump[]	= array ("url"=>$PHP_SELF, "name"=> $lang_EditFile_EditFile);
 
 		if ($_REQUEST['cmd']=="edit")
 		{
-			$nameTools = 'Edit : '.basename($NameFile[$_REQUEST["file"]]);
+			$subtitle = 'Edit : '.basename($NameFile[$_REQUEST["file"]]);
 			$display = DISP_EDIT_FILE;
 		}
 		else
 		{
-			$nameTools = 'Preview : '.basename($NameFile[$_REQUEST["file"]]);
+			if (trim(strip_tags($TextFile))=="")
+				$TextFile = '<blockquote><font color="#808080">- <em>No Content</em> -</font><br></blockquote>
+				';
+			$subtitle = 'Preview : '.basename($NameFile[$_REQUEST["file"]]);
 			$display = DISP_VIEW_FILE;
 		}
 	}
@@ -90,7 +94,8 @@ include($includePath."/claro_init_header.inc.php");
 
 claro_disp_tool_title(
 	array(
-	'mainTitle'=>$nameTools	
+	'mainTitle'=>$nameTools	,
+	'subTitle'=>$subtitle
 	)
 	);
 claro_disp_msg_arr($controlMsg);
@@ -103,9 +108,12 @@ if($display==DISP_FILE_LIST
 || $display==DISP_EDIT_FILE || $display==DISP_VIEW_FILE // remove this  whe  display edit  prupose a link to back to list
 )
 {
-		echo  $lang_EditFile_ListFileEdit." : ";
 	?>
-		<br>
+		<p>
+		Here you can modify the content of the text zones displayed on the platform home page.
+		<br>See below the files you can edit from this tool.
+		</p>
+
 		<table cellspacing="2" cellpadding="2" border="0" class="claroTable">
 <tr class="headerX">
     <th>File</th>
@@ -118,7 +126,7 @@ if($display==DISP_FILE_LIST
 		{
 	?>
 <tr>
-    <td align="right"><TT><?php echo basename($nameFile); ?></TT> </td>
+    <td ><TT><?php echo basename($nameFile); ?></TT> </td>
     <td align="center"><a href="<?php echo $PHP_SELF."?cmd=edit&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEdit ?>" ></a></td>
     <td align="center"><a href="<?php echo $PHP_SELF."?cmd=view&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/preview.gif" border="0" alt="<?php echo $langPreview ?>" ></a></td>
 </tr>
@@ -132,10 +140,9 @@ if($display==DISP_FILE_LIST
 
 if($display==DISP_EDIT_FILE)
 {
-		echo $lang_EditFile_ViewFile.' : <strong>'.basename($NameFile[$_REQUEST["file"]]).'</strong>';
+		echo '<h4>'.basename($NameFile[$_REQUEST["file"]]).'</h4>';
 		
 	?>
-		<br>
 
 		<form action="<?php echo $PHP_SELF; ?>">
 <?php
@@ -146,7 +153,7 @@ if($display==DISP_EDIT_FILE)
 			
 			<br><br> &nbsp;&nbsp;
 			<input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>">
-			<input type="submit" class=\"claroButton\" name="modify" value=" <?php echo $lang_EditFile_ButtonSubmit; ?>">
+			<input type="submit" class=\"claroButton\" name="modify" value=" <?php echo $langOk; ?>">
 			<?php   claro_disp_button($PHP_SELF, 'Cancel'); ?>
 		</form>
 	<?php
@@ -154,10 +161,8 @@ if($display==DISP_EDIT_FILE)
 elseif($display==DISP_VIEW_FILE)
 {
 		echo '<br>
-		<strong>'.basename($NameFile[$_REQUEST["file"]]).'</strong><br>
-		<hr><br>'
-		.$TextFile.'<br>
-		<hr>'; 
+		<h4>'.basename($NameFile[$_REQUEST["file"]]).'</h4>
+		'.$TextFile.'<br>'; 
 
 }
 
