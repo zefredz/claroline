@@ -50,21 +50,17 @@ if( isset($_REQUEST['submitExercise']) )
 		$showAnswer			= $_REQUEST['exerciseShowAnswer'];
 		$anonymousAttempts = ($_REQUEST['anonymousAttempts'] == "YES") ? true : false ;
 
-		if( isset($_REQUEST['adv']) && $_REQUEST['adv'] == 'yes' )
-		{
-			$startDate = date("Y-m-d", mktime( 0,0,0,$_REQUEST['startMonth'], $_REQUEST['startDay'], $_REQUEST['startYear'] ) );
-			$startTime = date("H:i:00", mktime( $_REQUEST['startHour'],$_REQUEST['startMinute'],0) );
-			
-			$endDate = date("Y-m-d", mktime( 0,0,0,$_REQUEST['endMonth'], $_REQUEST['endDay'], $_REQUEST['endYear'] ) );
-			$endTime = date("H:i:00", mktime( $_REQUEST['endHour'],$_REQUEST['endMinute'],0) );
-		}
-		else
-		{
-			$startDate = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y") ) );
-			$startTime = date("H:i:00", mktime( date("H"),date("i"),0) );
-			$endDate = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
-			$endTime = date("H:i:00", mktime( date("H"),date("i"),0) );
-		}
+		$startDate = date("Y-m-d", mktime( 0,0,0,$_REQUEST['startMonth'], $_REQUEST['startDay'], $_REQUEST['startYear'] ) );
+		$startTime = date("H:i:00", mktime( $_REQUEST['startHour'],$_REQUEST['startMinute'],0) );
+		
+		$endDate = date("Y-m-d", mktime( 0,0,0,$_REQUEST['endMonth'], $_REQUEST['endDay'], $_REQUEST['endYear'] ) );
+		$endTime = date("H:i:00", mktime( $_REQUEST['endHour'],$_REQUEST['endMinute'],0) );
+
+		$startDate = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y") ) );
+		$startTime = date("H:i:00", mktime( date("H"),date("i"),0) );
+		$endDate = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
+		$endTime = date("H:i:00", mktime( date("H"),date("i"),0) );
+
 	}
 	else
 	{
@@ -130,7 +126,8 @@ if( isset($_REQUEST['submitExercise']) )
 		unset($modifyExercise);
 	}
 }
-else
+
+if( ! isset($_REQUEST['submitExercise']) || ( isset($_REQUEST['exerciseTitle']) && !empty($_REQUEST['exerciseTitle']) ) )
 {
 	// get all properties of the exercise before display of form or of resume
 	$exerciseTitle		= $objExercise->selectTitle();
@@ -165,7 +162,7 @@ else
 }
 
 // shows the form to modify the exercise
-if($_REQUEST['modifyExercise'] || $modifyExercise )
+if( isset($modifyExercise) )
 {
     include($includePath."/lib/form.lib.php");
 ?>
@@ -238,13 +235,11 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
 <?php
 	}
 
-	if( isset($_REQUEST['adv']) && $_REQUEST['adv'] == 'yes' )
-	{
-		// show advanced settings
 ?>
 <tr>
   <td colspan="2">
-  <b><?php echo $langAdvanced; ?></b>
+  <hr />
+  <b><?php echo $langAdvanced; ?></b> (<small><?php echo $langOptional; ?></small>)
   </td>
 </tr>
 
@@ -322,10 +317,6 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
   </td>
 </tr>
 
-<?php
-		// end of show advanced settings
-	} // "else" is after the table, put all values in hidden input
-?>
 <tr>
   <td>&nbsp;</td>
   <td>
@@ -334,66 +325,7 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
   </td>
 </tr>
 </table>
-<?php
-	if( !isset($_REQUEST['adv']) || $_REQUEST['adv'] != 'yes' )
-	{
-		// if we do not show advanced settings form we have to put all the non asked values
-		// in hidden inputs
-	
-		// start date
-	    list($startYear, $startMonth, $startDay) = split("-", $startDate);
-		list($startHour, $startMinute) = split(":",$startTime);
-		// end date
-		list($endYear, $endMonth, $endDay) = split("-", $endDate);
-		list($endHour, $endMinute) = split(":",$endTime);
-		
-?>
-<!-- start date -->
-<input type="hidden" name="startYear" value="<?php echo $startYear; ?>" />
-<input type="hidden" name="startMonth" value="<?php echo $startMonth; ?>" />
-<input type="hidden" name="startDay" value="<?php echo $startDay; ?>" />
-<input type="hidden" name="startHour" value="<?php echo $startHour; ?>" />
-<input type="hidden" name="startMinute" value="<?php echo $startMinute; ?>" />
-<?php
-		if($useEndDate) 
-		{	
-?>
-<!-- end date -->
-<input type="hidden" name="useEndDate" value="1" />	
-<input type="hidden" name="endYear" value="<?php echo $endYear; ?>" />
-<input type="hidden" name="endMonth" value="<?php echo $endMonth; ?>" />
-<input type="hidden" name="endDay" value="<?php echo $endDay; ?>" />
-<input type="hidden" name="endHour" value="<?php echo $endHour; ?>" />
-<input type="hidden" name="endMinute" value="<?php echo $endMinute; ?>" />
-<?php	
-		} // end if $useEndDate
-		
-		if ( isset($maxTime) && $maxTime != 0 ) 
-		{
-?>
-<!-- max time -->
-<input type="hidden" name="exerciseMaxTime" value="true" />
-<input type="hidden" name="exerciseMaxTimeMin" value="<?php echo $maxTimeMin; ?>" />
-<input type="hidden" name="exerciseMaxTimeSec" value="<?php echo $maxTimeSec; ?>" />
-<?php
-		}
-?>
-<!-- max attempts -->
-<input type="hidden" name="exerciseMaxAttempt" value="<?php echo $maxAttempt; ?>" />
-<!-- anonymous attempts -->
-<input type="hidden" name="anonymousAttempts" value="<?php echo ($anonymousAttempts)?"YES":"NO";?>" />
-<!-- show answers -->
-<input type="hidden" name="exerciseShowAnswer" value="<?php echo $showAnswer; ?>" />
-<?php
-	} // end of if( !isset($_REQUEST['adv']) || $_REQUEST['adv'] != 'yes' )
-	else
-	{
-		// put 'adv' in hidden field so the cancel button will stay in advanced mode if needed
-?>
-<input type="hidden" name="adv" value="yes" />
-<?php
-	}
-?>
+
 </form>
 
 <?php
@@ -452,25 +384,20 @@ else
   <li>
 <?php 
     echo $langShowAnswers." : "; 
+
     switch($showAnswer)
     {
-      case 'ALWAYS' : echo $langAlways; 
-                                break;
-      case 'NEVER'  : echo $langNever;
-                              break;
+	  case 'ALWAYS' : echo $langAlways; break;
+	  case 'LASTTRY' : echo $langShowAnswersAfterLastTry; break;
+      case 'NEVER'  : echo $langNever; break;
     }
 ?>  
   </li>
 </ul>
 </small>
-<?php echo $langEditExercise; ?> :
 <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=yes">
 <img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="">
-<?php echo $langSimple; ?>
-</a>
-<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=yes&adv=yes">
-<img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="">
-<?php echo $langAll; ?>
+<?php echo $langEditExercise; ?>
 </a>
 <?php
 }
