@@ -31,6 +31,15 @@
 $langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
+
+// regroup table names for maintenance purpose
+$TABLETRACK_ACCESS      = $_course['dbNameGlu']."track_e_access";
+$TABLETRACK_DOWNLOADS   = $_course['dbNameGlu']."track_e_downloads";
+$TABLETRACK_UPLOADS     = $_course['dbNameGlu']."track_e_uploads";
+$TABLETRACK_EXERCISES   = $_course['dbNameGlu']."track_e_exercices";
+
+
+
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langToolName);
 
 $nameTools = $langDelCourseStats;
@@ -47,13 +56,6 @@ $htmlHeadXtra[] = "<style type='text/css'>
 TD {border-bottom: thin dashed Gray;}
 -->
 </STYLE>";
-
-// regroup table names for maintenance purpose
-$TABLETRACK_ACCESS      = $_course['dbNameGlu']."track_e_access";
-$TABLETRACK_DOWNLOADS   = $_course['dbNameGlu']."track_e_downloads";
-$TABLETRACK_UPLOADS     = $_course['dbNameGlu']."track_e_uploads";
-$TABLETRACK_EXERCISES   = $_course['dbNameGlu']."track_e_exercices";
-
 
 include($includePath."/claro_init_header.inc.php");
 
@@ -115,7 +117,6 @@ else
 {
   die ( $langNotAllowed );
 }
-
 
 include($includePath."/claro_init_footer.inc.php");
 ?>
