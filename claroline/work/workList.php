@@ -1457,6 +1457,10 @@ if( $dispWrkLst && $is_allowedToView )
     /*--------------------------------------------------------------------
                         PREPARE WORK LIST
       --------------------------------------------------------------------*/
+	if( isset($_REQUEST['order']) && $_REQUEST['order'] == 'title') $orderBy = " ORDER BY `title` ASC ";
+	elseif( isset($_REQUEST['order']) && $_REQUEST['order'] == 'author') $orderBy = " ORDER BY `authors` ASC ";
+	else $orderBy = " ORDER BY `unix_last_edit_date` ASC ";		
+	
     if( $is_allowedToEditAll ) // courseAdmin
     {    
       if( $assignment['assignment_type'] == 'GROUP')
@@ -1469,8 +1473,8 @@ if( $dispWrkLst && $is_allowedToView )
                   FROM `".$tbl_wrk_submission."` AS `ws`
                   LEFT JOIN `".$tbl_group_team."` AS `gt` 
                         ON `gt`.`id` = `ws`.`group_id`
-                  WHERE `assignment_id` = ".$assignment['id']."
-                  ORDER BY `last_edit_date` ASC";
+                  WHERE `assignment_id` = ".$assignment['id']
+                  .$orderBy;
       }
       else // INDIVIDUAL 
       {
@@ -1479,8 +1483,8 @@ if( $dispWrkLst && $is_allowedToView )
                         `visibility`, `authors`, 
                         UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
                   FROM `".$tbl_wrk_submission."`
-                  WHERE `assignment_id` = ".$assignment['id']."
-                  ORDER BY `last_edit_date` ASC";
+                  WHERE `assignment_id` = ".$assignment['id']
+				  .$orderBy;
       }
       
     }
@@ -1508,7 +1512,8 @@ if( $dispWrkLst && $is_allowedToView )
                   WHERE `assignment_id` = ".$assignment['id']."
                     AND ( `visibility` = 'VISIBLE' "
                     .$selectUserGroups
-                  .") ORDER BY `last_edit_date` ASC";  
+                  .")"
+				  .$orderBy;  
       }
       else // INDIVIDUAL 
       {
@@ -1519,8 +1524,8 @@ if( $dispWrkLst && $is_allowedToView )
                         UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
                   FROM `".$tbl_wrk_submission."`
                   WHERE `assignment_id` = ".$assignment['id']."
-                    AND (`visibility` = 'VISIBLE' OR `user_id` = ".$_uid.")
-                  ORDER BY `last_edit_date` ASC";  
+                    AND (`visibility` = 'VISIBLE' OR `user_id` = ".$_uid.")"
+                  .$orderBy;  
       }
 
     }
@@ -1533,13 +1538,13 @@ if( $dispWrkLst && $is_allowedToView )
                         `ws`.`visibility`, `ws`.`authors`, 
                         UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`,
                         `gt`.`name` AS `group_name`
-                  FROM `".$tbl_wrk_submission."` AS `ws`
-                  LEFT JOIN `".$tbl_group_team."` AS `gt`
+					FROM `".$tbl_wrk_submission."` AS `ws`
+					LEFT JOIN `".$tbl_group_team."` AS `gt`
                         ON `gt`.`id` = `ws`.`group_id`
-                  WHERE `assignment_id` = ".$assignment['id']."
-                    AND `visibility` = 'VISIBLE'
-                    AND `parent_id` IS NULL
-                  ORDER BY `last_edit_date` ASC";
+					WHERE `assignment_id` = ".$assignment['id']."
+	                    AND `visibility` = 'VISIBLE'
+	                    AND `parent_id` IS NULL"
+					.$orderBy;
 		}
 		else // INDIVIDUAL 
 		{
@@ -1548,11 +1553,11 @@ if( $dispWrkLst && $is_allowedToView )
                         `parent_id`, `user_id`, `group_id`,
                         `visibility`, `authors`, 
                         UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
-                  FROM `".$tbl_wrk_submission."`
-                  WHERE `assignment_id` = ".$assignment['id']."
-                    AND `visibility` = 'VISIBLE'
-                    AND `parent_id` IS NULL
-                  ORDER BY `last_edit_date` ASC";
+					FROM `".$tbl_wrk_submission."`
+					WHERE `assignment_id` = ".$assignment['id']."
+						AND `visibility` = 'VISIBLE'
+						AND `parent_id` IS NULL"
+					.$orderBy;
       	}
     }
     $workList = claro_sql_query_fetch_all($sql);
@@ -1595,6 +1600,10 @@ if( $dispWrkLst && $is_allowedToView )
 	{
 		echo " | <a href=\"feedback.php?cmd=rqEditFeedback&assigId=".$assignment['id']."\">".$langEditFeedback."</a>\n";
 	}
+	
+	echo "&nbsp;".$langOrder." : <a href=\"".$_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']."&order=author\">".$langWrkAuthors."</a> - \n"
+		."<a href=\"".$_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']."&order=date\">".$langDate."</a> - \n"
+		."<a href=\"".$_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']."&order=title\">".$langTitle."</a>";
     /*--------------------------------------------------------------------
                                   LIST
       --------------------------------------------------------------------*/
