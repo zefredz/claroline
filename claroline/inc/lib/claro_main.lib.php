@@ -1276,10 +1276,10 @@ function claro_parse_user_text($userText)
    {
         // only if the content isn't HTML change new line to <br>
         // Note the '<!-- content: html -->' is introduced by HTML Area
-        $userTex = nl2br($userText); 
+        $userText = nl2br($userText); 
    }
 
-    return $userTex;
+    return $userText;
 }
 
 /**
