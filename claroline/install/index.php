@@ -984,7 +984,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     <tr>
                         <td>
                             <label for="mainTblPrefixForm">
-                                Table prefix for central tables
+                                <small>Prefix for name of main tables</small>
                             </label>
                         </td>
                         <td>
@@ -993,7 +993,12 @@ elseif($display == DISP_DB_NAMES_SETTING )
                         <td>
                             &nbsp;
                         </td>
-                    </tr>';
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                        </td>
+                    </tr>
+                    ';
     if (!$singleDbForm)
     {
         if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
@@ -1011,19 +1016,6 @@ elseif($display == DISP_DB_NAMES_SETTING )
                                 </label>
                             </P>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="statsTblPrefixForm">
-                                Table prefix for central stats tables
-                            </label>
-                        </td>
-                        <td>
-                            <input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.cleanoutputvalue($statsTblPrefixForm).'">
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
                     </tr>';
         }
         echo '
@@ -1036,6 +1028,23 @@ elseif($display == DISP_DB_NAMES_SETTING )
                         </td>
                         <td>
                             &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="statsTblPrefixForm">
+                                <small>Prefix for names of tracking tables</small>
+                            </label>
+                        </td>
+                        <td>
+                            <input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.cleanoutputvalue($statsTblPrefixForm).'">
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
                         </td>
                     </tr>
         ';
@@ -1457,21 +1466,26 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 
         <FIELDSET>
         <LEGEND>Database</LEGEND>
-        <EM>Account</EM><br>
+        <EM>Account</EM>
+        <br>
         Database host : '.cleanoutputvalue($dbHostForm).'<br>
         Database username : '.cleanoutputvalue($dbUsernameForm).'<br>
         Database password : '.cleanoutputvalue((empty($dbPassForm)?"--empty--":$dbPassForm)).'<br>
-        <em>Names</em>
-        ';
-
-    if ($dbPrefixForm=="")
-        echo "";
-    else
-        echo 'DB Prefix : '.cleanoutputvalue($dbPrefixForm).'<br>';
-    echo '
+        <EM>Names</EM>
+        <br>
         Main DB name : '.cleanoutputvalue($dbNameForm).'<br>
         Statistics and tracking DB Name : '.cleanoutputvalue($dbStatsForm).'<br>
         Enable single DB : '.($singleDbForm?$langYes:$langNo).'<br>
+        ';
+    if ($mainTblPrefixForm!="" || $statsTblPrefixForm!="" || $dbPrefixForm!="")
+        echo '<em>Prefixes</em><br>';
+    if ($mainTblPrefixForm!="")
+        echo 'Main tables prefix : '.cleanoutputvalue($mainTblPrefixForm).'<br>';
+    if ($statsTblPrefixForm!="")
+        echo 'Tracking tables prefix : '.cleanoutputvalue($statsTblPrefixForm).'<br>';
+    if ($dbPrefixForm!="")
+        echo 'Courses DB prefix : '.cleanoutputvalue($dbPrefixForm).'<br>';
+    echo '
         </FIELDSET>
 
         <FIELDSET>
