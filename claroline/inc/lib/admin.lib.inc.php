@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -40,7 +40,6 @@ $tbl_courseUser         = $mainDbName.'`.`cours_user';
 $tbl_user               = $mainDbName.'`.`user';
 $tbl_courses_nodes      = $mainDbName.'`.`faculte';
 $tbl_admin              = $mainDbName.'`.`admin';
-$tbl_todo            = $mainDbName."`.`todo";
 $tbl_track_default    = $statsDbName."`.`track_e_default";
 $tbl_track_login    = $statsDbName."`.`track_e_login";
 
@@ -206,7 +205,6 @@ function delete_user($su_user_id)
    global $tbl_user;
    global $tbl_courses_nodes;
    global $tbl_admin;
-   global $tbl_todo;
    global $tbl_track_default;
    global $tbl_track_login;
    global $courseTablePrefix;
