@@ -459,7 +459,7 @@ if ($displayList)
 
         if ( $announceDate > $userLastLogin )
         {
-            $imageFile = 'valvesred.gif';
+            $imageFile = 'announcement_hot.gif';
             $altImg    = 'new';
         }
         else
