@@ -71,7 +71,50 @@ if (empty($_SESSION['claro_usedFormat']))
 
 if ($_REQUEST['usedFormat'])
 {
-    $_SESSION['claro_usedFormat'] = $_REQUEST['usedFormat'];
+    //check if posted new format is OK
+    
+    $field_correct = TRUE; 
+    
+    $fieldarray = explode(";",$_REQUEST['usedFormat']);
+    
+    $username_found = FALSE;
+    $password_found = FALSE;
+    $surname_found  = FALSE;
+    $name_found     = FALSE;
+    
+    foreach ($fieldarray as $field)
+    {
+        if (trim($field)=="surname")
+	{
+	    $surname_found = TRUE;
+	}
+	if (trim($field)=="name")
+	{
+	    $name_found = TRUE;
+	}
+	if (trim($field)=="username")
+	{
+	    $username_found = TRUE;
+	}
+	if (trim($field)=="password")
+	{
+	    $password_found = TRUE;
+	}
+    } 
+    
+    $field_correct = ($username_found && $password_found && $surname_found && $name_found);
+    
+    $regExp = "([surname;{1}][name;{1}][username;{1}][password;{1}])";
+      
+    if (!$field_correct)
+    {
+        $dialogBox = "ERROR: The format you gave is not compatible with Claroline";
+    }
+    else
+    {
+        $dialogBox ="Format changed";
+	$_SESSION['claro_usedFormat'] = $_REQUEST['usedFormat'];
+    }
 }
 
 $usedFormat = $_SESSION['claro_usedFormat'];
@@ -207,6 +250,19 @@ switch ($cmd)
 /*	Display section              */
 /*-----------------------------------*/
 
+//modify dialogbox if user asked form to change used format
+
+if ($_REQUEST['chformat']=="yes")
+{
+    $dialogBox = "Modify the format :<br><br>"
+        ."The fields \"<b>surname;</b>\", \"<b>name;</b>\", \"<b>username;</b>\" and \"<b>password;</b>\" are compulsory.<br><br>"
+        ."<form metod=\"POST\" action=\"$PHP_SELF\">"
+        ."  <input type=\"text\" name=\"usedFormat\" value=\"$usedFormat\" size=\"55\">"
+	."  <input type=\"submit\" value=\"$langOk\""
+	."</form>";
+}
+
+
 //display dialog Box (or any forms)
 
 if($dialogBox)
@@ -222,33 +278,20 @@ switch ($display)
 
 case "default" :
 
-    $_SESSION['claro_CSV_done'] = FALSE;
-    
-    
+    $_SESSION['claro_CSV_done'] = FALSE; 
 ?>
-
-The expected format for each line of your CSV file is :<p>
-<b>
-<?php
-if ($_REQUEST['chformat']=="yes")
-{
-    echo "<form metod=\"POST\" action=\"$PHP_SELF\">"
-        ."  <input type=\"text\" name=\"usedFormat\" value=\"$usedFormat\" size=\"55\">"
-	."  <input type=\"submit\" value=\"$langOk\""
-	."</form>";
-}
-else
-{ 
-    echo $usedFormat;
-}	 
-?>
-</b>
-
+You must specify the CSV format used in your file :<br><br>
 <form enctype="multipart/form-data"  method="POST" action="<?php echo $PHP_SELF ?>"> 
-     <a href="<?php echo $_PHP_SELF."?display=default&usedFormat=".$defaultFormat.""; ?>">Use default format</a> 
-     | <a href="<?php echo $_PHP_SELF."?display=default&chformat=yes"; ?>">Change format</a>
+  <input type="radio" name="firstLineFormat" value="YES"> Use format defined in first line of file<br><br>
+  <input type="radio" name="firstLineFormat" value="NO" checked > Use the following format :<br><br>
+    <b>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $usedFormat; ?><br><br>
+    </b>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    [<a href="<?php echo $_PHP_SELF."?display=default&usedFormat=".$defaultFormat.""; ?>">Load default format</a>] 
+     | [<a href="<?php echo $_PHP_SELF."?display=default&chformat=yes"; ?>">Edit format to use</a>]
     <br><br>
-    <input type="checkbox" name="firstLineFormat" value="YES"> Use format defined in first line of file instead<br><br>
+    
     <input type="file" name="CSVfile">
     <br><br>
     <input type="submit" name="submitCSV" value="Add user list">
