@@ -157,8 +157,7 @@ if ($user_logged_in)
 
 	if ($new_message != 0)
 	{
-		eval($l_privnotify);
-		print $privnotify;
+		printf($l_privnotify,$new_message,$privmsg_url);
 	}
 }
 
