@@ -7,18 +7,17 @@
 
 <table width="100%" cellpadding="4" cellspacing="0" border="0">
 
-<tr class="campusLine">
+<tr class="platformBanner">
 
 <td>
 <a href="<?php echo $rootWeb?>index.php" target="_top">
-<big><b><span class="anchor"><?php echo $siteName ?></span></b></big>
+<?php echo $siteName ?>
 </a>
 </td>
 
 <td align="right">
-<font color="white">
 <a href="<?php echo $institution['url'] ?>" target="_top">
-<big><b><?php echo $institution['name'] ?></b></big>
+<?php echo $institution['name'] ?>
 </a>
 <?php
 
@@ -41,7 +40,6 @@ if ($_course['extLink']['name'] != '')    /* --- External Link Section --- */
 	}
 }
 ?>
-</font>
 </td>
 
 </tr>
@@ -59,20 +57,16 @@ if($_uid)
 {
 ?>
 
-<tr bgcolor="#666666">
+<tr class="userBanner">
 
-<td colspan="2">
-<font color="white">
-<small>
-<b>
+<td colspan="2" >
 <?php echo $_user ['firstName'].' '.$_user ['lastName'] ?> : 
-
 <a href="<?php echo $rootWeb?>index.php" target="_top">
-<font color="white"><?php echo $langMyCourses; ?></font>
+<?php echo $langMyCourses; ?>
 </a>
  |
 <a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top">
-<font color="white"><?php echo $langMyAgenda; ?></font>
+<?php echo $langMyAgenda; ?>
 </a>
 <?php 
 
@@ -81,22 +75,19 @@ if($is_platformAdmin)
 ?>
  | 
 <a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top">
-<font color="white"><?php echo $langPlatformAdministration ?></font>
+<?php echo $langPlatformAdministration ?>
 </a>
 <?php 
 } 
 ?>
  |
 <a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top">
-<font color="white"><?php echo $langModifyProfile; ?></font>
+<?php echo $langModifyProfile; ?>
 </a>
  |
 <a href="<?php echo $rootWeb?>index.php?logout=true" target="_top">
-<font color="white"><?php echo $langLogout; ?></font>
+<?php echo $langLogout; ?>
 </a>
-</b>
-</small>
-</font>
 </td>
 
 </tr>
@@ -118,22 +109,22 @@ if (isset($_cid))
       ------------------------------------------------------------------------*/
 ?>
 
-<tr>
-<td bgcolor="#DDDEBC" >
-<b>
+<tr class="courseBanner">
+<td>
+<p>
+<span class="courseName">
 <a href="<?php echo $coursesRepositoryWeb.$_course['path'] ?>/index.php" target="_top">
-<big><font color="#003366"><?php echo $_course['name'] ?></font></big>
+<?php echo $_course['name'] ?>
 </a>
-<br>
-<small>
-<font color="#003366">
+</span>
+<br />
+<span class="courseCode">
 <?php echo $_course['officialCode']," - ", $_course['titular'] ?>
-</font>
-</small>
-</b>
+</span>
+</p>
 </td>
 
-<td bgcolor="#DDDEBC" align="right" >
+<td align="right" >
 <?php
 
     /*------------------------------------------------------------------------
@@ -213,6 +204,13 @@ if (is_array($_courseToolList))
 <td>
 <?php
 
+/*
+ * BORDER BEHAVIOR
+ *
+ * Note : Maybe you should change the color 
+ * if you aim to change the page background color
+ */
+/******************************************************************************/
 
 
 
@@ -223,7 +221,7 @@ if (is_array($_courseToolList))
 
 if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
 {
-    echo "<small>\n";
+    echo "<span class=\"claroBreadCrumbTrail\">\n";
 
     echo "<a href=\"".$rootWeb."index.php\" target=\"_top\">"
         ."<img src=\"".$clarolineRepositoryWeb."img/home.gif\" hspace=\"5\" alt=\"\">"
@@ -275,7 +273,7 @@ if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
         }
     }
 
-    echo "</small><br>\n";
+    echo "</span><br>\n";
 
 }
 ?>
