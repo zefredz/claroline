@@ -57,7 +57,6 @@ $timeNoSecFormat = '%I:%M %p';
 // GENERIC
 
 $langBack="Enrere";
-$langBackHome="Torna a l'inici";
 $langPropositions="Suggereix com millorar";
 $langMaj="Actualitza";
 $langModify="Modifica";

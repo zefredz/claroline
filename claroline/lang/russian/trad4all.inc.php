@@ -66,7 +66,6 @@ $langBack="Назад";
 $langNext="Дальше";
 $langAllowed="Разрешен";
 $langDenied="Запрещен";
-$langBackHome="Назад на главную страницу";
 $langPropositions="Предложения по улучшению";
 $langMaj="Обновление";
 $langModify="Изменить";

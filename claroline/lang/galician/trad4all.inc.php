@@ -78,7 +78,6 @@ $langAnd ="e";
 $langBack ="voltar";
 $langNext="Seguinte";
 $langPropositions="Propostas de melloras";
-$langBackHome ="voltar &oacute; inicio";
 $langBackList ="Voltar &aacute; lista";
 $langCancel ="Cancelar";
 $langCheckAll ="Marcar todos";

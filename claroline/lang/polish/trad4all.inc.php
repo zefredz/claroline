@@ -75,7 +75,6 @@ $langBack="Wstecz";
 $langNext="Dalej";
 $langAllowed="Dozwolone";
 $langDenied="Zabronione";
-$langBackHome="Powrót do strony g³ównej";
 $langPropositions="Sugestie poprawek";
 $langMaj="Uaktualnienie";
 $langModify="Modyfikuj";

@@ -60,7 +60,6 @@ $timeNoSecFormat = '%I:%M %p';
 // GENERIC
 
 $langBack="ย้อนกลับ";
-$langBackHome="กลับหน้าแรก";
 $langPropositions="Suggest better";
 $langMaj="ล่าสุด";
 $langModify="ปรับปรุง";

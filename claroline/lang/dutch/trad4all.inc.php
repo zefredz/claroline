@@ -52,7 +52,6 @@ $langBack="Terug";
 $langNext="Verder";
 $langAllowed="Toegelaten";
 $langDenied="Niet toegelaten";
-$langBackHome="Terug naar hoofdpagina";
 $langPropositions="Voorstellen tot verbetering van";
 $langMaj="Update";
 $langModify="Wijzigen";

@@ -74,7 +74,6 @@ $langBack="Voltar";
 $langNext="Próximo";
 $langAllowed="Permitido";
 $langDenied="Negado";
-$langBackHome="Voltar para o início";
 $langPropositions="Propostas para a melhoria do";
 $langMaj="Atualizar";
 $langModify="Modificar";

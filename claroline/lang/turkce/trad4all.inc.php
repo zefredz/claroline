@@ -64,7 +64,6 @@ $timeNoSecFormat = '%I:%M %p';
 // GENERIC
 
 $langBack="Geri";
-$langBackHome="Ana Sayfa";
 $langPropositions="Öner";
 $langMaj="Güncelle";
 $langModify="Deðiþtir";

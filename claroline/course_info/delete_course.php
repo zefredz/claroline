@@ -84,7 +84,7 @@ if($isAllowedToDelete)
 
         echo     '<p>'
                 .'<a href="../../index.php">'
-                .$langBackHome.' '. $siteName
+                .$langBackHomeOf.' '. $siteName
                 .'</a>'
                 ;
         if (isset($cidToEdit))    //we can suppose that script is accessed from admin tool in this case

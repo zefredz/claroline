@@ -37,7 +37,6 @@ $langAmong="zwischen";
 $langAnd="und";
 $langAnnouncement="Bekanntmachung";
 $langBack="Zurück";
-$langBackHome="Zurück (Home)";
 $langBackList="Zurück zur Liste";
 $langCancel="abbrechen";
 $langChat ="Chat";

@@ -74,7 +74,6 @@ $langBack="Kembali";
 $langNext="Seterusnya";
 $langAllowed="Dibenarkan";
 $langDenied="Tidak dibenarkan";
-$langBackHome="Kembali ke Homepej";
 $langPropositions="Cadangan untuk meningkatkan";
 $langMaj="Kemaskini";
 $langModify="Ubahsuai";

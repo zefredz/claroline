@@ -63,7 +63,7 @@ $langModifGroups="Groupes";
 $langDelCourse="Supprimer ce site";
 $langCourse="Le site ";
 $langHasDel="a été supprimé";
-$langBackHome="Retour à la page d'accueil de ";
+$langBackHomeOf="Retour à la page d'accueil de ";
 $langByDel="En supprimant ce site, vous supprimerez tous les documents
 qu'il contient et désinscrirez tous les cadres qui y sont inscrits. <p>Voulez-vous réellement supprimer le site";
 $langY="OUI";

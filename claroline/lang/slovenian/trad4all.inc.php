@@ -79,7 +79,6 @@ $langBack="Nazaj";
 $langNext="Naprej";
 $langAllowed="Dovoljeno";
 $langDenied="Prepovedano";
-$langBackHome="Povratek domov";
 $langPropositions="Predlogi za izboljsave";
 $langMaj="Azuriraj";
 $langModify="Spremeni";

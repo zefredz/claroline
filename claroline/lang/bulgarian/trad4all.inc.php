@@ -62,7 +62,6 @@ $timeNoSecFormat = '%I:%M %p';
 // GENERIC
 
 $langBack="Назад";
-$langBackHome="Обратно към началната страница";
 $langPropositions="Предложи по-добър";
 $langMaj="Обнови";
 $langModify="Промени";

@@ -79,7 +79,6 @@ $langBack="Regresar";
 $langNext="Siguiente";
 $langAllowed="Abierta";
 $langDenied="Cerrada";
-$langBackHome="Regresar al inicio";
 $langPropositions="Proposals for an improvement of";
 $langMaj="Actualizar";
 $langModify="Modificar";

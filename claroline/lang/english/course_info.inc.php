@@ -61,7 +61,7 @@ Now, to add an introduction text presenting your course to students, click on th
 $langDelCourse="Delete the whole course website";
 $langCourse="Course";
 $langHasDel="has been deleted";
-$langBackHome="Back to Home Page of ";
+$langBackHomeOf="Back to Home Page of ";
 $langByDel="Deleting this course website will permanently delete all the documents it contains and unregister all its students (not remove them from other courses).<p>Do you really want to delete the course";
 $langY="YES";
 $langN="NO";

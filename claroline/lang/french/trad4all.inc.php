@@ -73,7 +73,6 @@ $langBack="Retour";
 $langNext="Suivant";
 $langAllowed="Autorisé";
 $langDenied="Refusé";
-$langBackHome="Retour à la page principale";
 $langPropositions="Propositions d'amélioration de";
 $langMaj="Mise à jour";
 $langModify="Modifier";

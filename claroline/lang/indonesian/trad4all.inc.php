@@ -78,7 +78,6 @@ $langBack="Kembali";
 $langNext="Berikutnya";
 $langAllowed="Diijinkan";
 $langDenied="Terlarang";
-$langBackHome="Kembali ke home";
 $langPropositions="Usul untuk pengembangan";
 $langMaj="Update";
 $langModify="Ubah";

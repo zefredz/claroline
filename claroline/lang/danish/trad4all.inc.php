@@ -68,7 +68,6 @@ $langBack="Tilbage";
 $langNext="Næste";
 $langAllowed="Tilladt";
 $langDenied="Nægtet";
-$langBackHome="Tilbage til kursushjemmesiden";
 $langPropositions="Foreslå forbedringer til";
 $langMaj="Opdater";
 $langModify="Ændre";

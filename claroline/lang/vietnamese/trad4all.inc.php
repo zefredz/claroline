@@ -59,7 +59,6 @@ $langBack="Quay lại";
 $langNext="Tiếp";
 $langAllowed="Được phép";
 $langDenied="Bị cấm";
-$langBackHome="Về trang chủ";
 $langPropositions="Đề xuất cải tiến về";
 $langMaj="Cập nhật";
 $langModify="Modify";

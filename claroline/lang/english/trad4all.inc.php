@@ -76,7 +76,6 @@ $langBack="Back";
 $langNext="Next";
 $langAllowed="Allowed";
 $langDenied="Denied";
-$langBackHome="Back to home";
 $langPropositions="Proposals for an improvement of";
 $langMaj="Update";
 $langModify="Modify";
