@@ -83,9 +83,10 @@ to easily organize course resources for student in a framed learning path.
 * WYSIWYG EDITOR. User are now able to create and edit their content on the fly 
 and store it into documents, posts, announcements, messages, and quizzes.
 
-* SCORM. Claroline is now compatible with SCORM 1.2 and 2004. It is able to 
-import Content Package allowing exchange between various Learning Management 
-Systems.
+* SCORM & IMS. Claroline is now compatible with IMS 1.1.2, SCORM 1.2 (minimal 
+conformance level + optionnal Data Model Element) and SCORM 2004 (basic 
+conformance). It means the platform is now able to import Content Package 
+allowing exchange between various Learning Management Systems.
 
 * LDAP AND EXTERNAL AUTHENTICATION. Claroline is now able to connect itself 
 simultaneously to several external authentication systems, allowing to retrieve 
