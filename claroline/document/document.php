@@ -106,7 +106,7 @@ if ($_gid && $is_groupAllowed)
 
     $is_allowedToEdit  = $is_groupMember || $is_courseAdmin;
     $is_allowedToUnzip = false;
-    if (!$is_groupMember) 
+    if (!$is_groupMember && !$is_courseAdmin) 
     {
       echo "<center>You are not allowed to see this group's documents!!!</center>";
       die;
@@ -126,12 +126,6 @@ else
     $is_allowedToEdit  = $is_courseAdmin;
     $is_allowedToUnzip = $is_courseAdmin;
     $maxFilledSpace    = 100000000;
-}
-
-if ($_gid && !$is_groupAllowed)
-{
-   echo "ben quoi?";
-   exit();
 }
 
 $baseWorkDir = $baseServDir.$courseDir;
