@@ -736,7 +736,7 @@ claro_sql_query("
 		`end_date` datetime NOT NULL default '0000-00-00 00:00:00',
 		`prefill_text` text NOT NULL,
 		`prefill_doc_path` varchar(200) NOT NULL default '',
-		`prefill_date` datetime NOT NULL default '0000-00-00 00:00:00',
+		`prefill_submit` enum('ENDDATE','AFTERPOST') NOT NULL default 'ENDDATE',
 		PRIMARY KEY  (`id`)
 	) TYPE=MyISAM;");
 ############################## LIENS #############################################
