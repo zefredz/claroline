@@ -78,7 +78,7 @@ $langAgenda="График";
 $langDocument="Документи";
 $langWork="Студентски материали";
 $langAnnouncement="Обяви";
-$langUser="Потребители";
+$langUsers="Потребители";
 $langForums = "Форуми";
 $langExercises ="Упражнения";
 

@@ -142,7 +142,7 @@ if (is_array($_courseToolList))
 	                      'CLLNP___' => $langLearnPath,
 	                      'CLQWZ___' => $langExercises,
 	                      'CLWRK___' => $langWork,
-	                      'CLUSR___' => $langUser);
+	                      'CLUSR___' => $langUsers);
 	
 	foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
 	{

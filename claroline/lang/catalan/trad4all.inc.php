@@ -72,7 +72,7 @@ $langLink="Enllaços";
 $langDocument="Documents";
 $langWork="Treballs dels estudiants";
 $langAnnouncement="Anuncis";
-$langUser="Usuaris";
+$langUsers="Usuaris";
 $langForums = "Fòrums";
 $langExercises ="Exercicis";
 

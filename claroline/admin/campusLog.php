@@ -42,7 +42,7 @@ $toolNameList = array('CLANN___' => $langAnnouncement,
                       'CLLNP___' => $langLearnPath,
                       'CLQWZ___' => $langExercises,
                       'CLWRK___' => $langWork,
-                      'CLUSR___' => $langUser);
+                      'CLUSR___' => $langUsers);
 
 include($includePath."/lib/statsUtils.lib.inc.php");
 

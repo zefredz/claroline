@@ -72,7 +72,7 @@ $toolNameList = array('CLANN___' => $langAnnouncement,
                       'CLLNP___' => $langLearnPath,
                       'CLQWZ___' => $langExercises,
                       'CLWRK___' => $langWork,
-                      'CLUSR___' => $langUser);
+                      'CLUSR___' => $langUsers);
 
 /*
  * Initialisation for the access level types
