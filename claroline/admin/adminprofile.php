@@ -434,7 +434,7 @@ if ($display == USER_DATA_FORM)
 
     <tr>
      <td>
-         <a href="adminusercourses.php?uidToEdit=<?php echo $user_id?>"><?php echo $langAllUserOfThisCourse ?></a>
+         <a href="adminusercourses.php?uidToEdit=<?php echo $user_id?>"><?php echo $langPersonalCourseList ?></a>
      </td>
    </tr>
 
