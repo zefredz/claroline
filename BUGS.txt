@@ -116,13 +116,21 @@ et j'ai pas trouvé où il le crée
 Repéré par : MOOSH
 
 
+------------------------------------------------------------------
 16. erreur de langue.
---
-http://127.0.0.1/c/cvs.claroline.net/c150rc1.trakbugs/claroline/admin/adminaddnewuser.php?register=yes
+claroline/admin/adminaddnewuser.php?register=yes
 "Les nouveaux utilisateurs recevrons un email avec leur nom d'utilisateur et mot de passe"
+
+
+------------------------------------------------------------------
+17. outils de travaux.  
+à l'envoi d'un Ficher .exe  trop gros, le système ne fait pas l'envoi mais ne retourne pas de message d'erreur.
 
 -------------
 $Log$
+Revision 1.23  2004/06/14 15:28:11  moosh
+bug 17
+
 Revision 1.22  2004/06/14 15:21:55  moosh
 bug 16
 
