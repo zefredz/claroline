@@ -742,7 +742,8 @@ while ($thisGroup = mysql_fetch_array($groupList))
 
 	echo "</tr>\n";
 
-    if ( ! is_null($thisGroup['description']) )
+    if (   ! is_null($thisGroup['description']) 
+        && trim($thisGroup['description']) != '' )
     {
         echo "<tr><td colspan='5'><div class='comment'>".$thisGroup['description']."</div></td></tr>\n";
     }
