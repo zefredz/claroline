@@ -61,7 +61,7 @@ function create_new_user($firstName, $lastName, $status,
                                 WHERE userName =\"$loginName\"
                                 AND password =\"$password\"");
 
-	if (mysql_num_rows($result) > 0)    return claro_set_failure('login-pass already taken');
+	if (mysql_num_rows($result) > 0)    return claro_failure::set_failure('login-pass already taken');
 
 	$password = ($userPasswordCrypted?md5($password):$password);
 
