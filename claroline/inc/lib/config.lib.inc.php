@@ -18,7 +18,7 @@ function claro_undist_file ($file)
 			$perms = fileperms($file.".dist");
 			$group = filegroup($file.".dist");
 			// $perms|bindec(110000) <- preserve perms but force rw right on group
-			copy($file.".dist",$file) && chmod ($file,$perms|bindec(110000)) && chgrp($file,$group);
+			@copy($file.".dist",$file) && chmod ($file,$perms|bindec(110000)) && chgrp($file,$group);
 			if (file_exists($file))
 			{
 				return true;
