@@ -169,7 +169,7 @@ if ($is_allowedToEdit)
         .$langCourseSettings
         ."</a><br />\n"
         ."<a class='claroCmd' href=\"".$toolRepository."tracking/courseLog.php\">"
-        ."<img src=\"".$imgRepository."statistiques.gif\" alt=\"\"> "
+        ."<img src=\"".$imgRepository."statistics.gif\" alt=\"\"> "
         .$langStatistics
         ."</a>\n"
         ."</p>";

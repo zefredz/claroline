@@ -490,7 +490,7 @@ elseif ($displayMode == "viewContentList") // default display
         {
                 echo  '<td>'
                      .'<a href="../tracking/userLog.php?uInfo='.$userIdViewed.'">'
-                     .'<img border="0" alt="'.$langTracking.'" src="'.$clarolineRepositoryWeb.'/img/statistiques.gif">'
+                     .'<img border="0" alt="'.$langTracking.'" src="'.$clarolineRepositoryWeb.'/img/statistics.gif">'
                      .'</a>'
                      .'</td>'
                      ;

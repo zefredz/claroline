@@ -768,7 +768,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             /*
             echo     "<td>",
                         "<a href=\"",$_SERVER['PHP_SELF'],"?path_id=".$list['learningPath_id']."\">",
-                        "<img src=\"".$clarolineRepositoryWeb."img/statistiques.gif\" alt=\"$langStatistics\" border=\"0\" />",
+                        "<img src=\"".$clarolineRepositoryWeb."img/statistics.gif\" alt=\"$langStatistics\" border=\"0\" />",
                         "</a>",
                         "</td>\n";
             */
@@ -806,7 +806,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             // statistics links
             echo "<td>\n
               <a href=\"".$clarolineRepositoryWeb."tracking/learnPath_details.php?path_id=".$list['learnPath_id']."\">
-              <img src=\"".$clarolineRepositoryWeb."img/statistiques.gif\" border=\"0\" alt=\"$langTracking\">
+              <img src=\"".$clarolineRepositoryWeb."img/statistics.gif\" border=\"0\" alt=\"$langTracking\">
               </a>
               </td>\n";
 

@@ -418,7 +418,7 @@ while($row=mysql_fetch_array($result))
     if($is_allowedToTrack)
     {
   ?>
-          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistiques.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
+          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistics.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
      
    <?php
     }
