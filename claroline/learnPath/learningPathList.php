@@ -323,7 +323,7 @@
               }
               else  // create form requested
               {
-                 echo "<form method=\"POST\">
+                 echo "<form action=\"".$PHP_SELF."\" method=\"POST\">
                         <h4><label for=\"newPathName\">".$langCreateNewLearningPath."</label></h4>
                         ".$langLearningPathName."<input type=\"text\" name=\"newPathName\" id=\"newPathName\" maxlength=\"255\"></input>
                         <input type=\"hidden\" name=\"cmd\" value=\"create\">
@@ -383,9 +383,7 @@
    if($is_AllowedToEdit)
    {
         // Display links to create and import a learning path
-        // and display header of the 'change order' form
    ?>
-        <form action="<?= $PHP_SELF ?>" method="POST">
         <table border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
          <tr>
            <td>
@@ -855,7 +853,6 @@
    }
    echo "</tfoot>\n";
    echo "</table>\n";
-   echo "</form>\n"; // end of the change order form
 
    // footer
 
