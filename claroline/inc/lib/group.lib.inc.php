@@ -332,7 +332,7 @@ function fill_in_groups()
 			        (`user`, `team`)
 			        VALUES ".implode(" , ", $prepareQuery);
 
-			mysql_query_dbg($sql) or die ('-------');
+			claro_sql_query($sql);
 	}
 	// else : no student without groups
 }
