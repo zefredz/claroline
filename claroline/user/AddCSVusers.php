@@ -62,7 +62,7 @@ if ($_REQUEST['usedFormat'])
           
     if (!$field_correct)
     {
-        $dialogBox = "ERROR: The format you gave is not compatible with Claroline";
+        $dialogBox = $langErrorFormatCSV;
     }
     else
     {
@@ -248,7 +248,7 @@ claro_disp_tool_title($nameTools);
 if ($_REQUEST['chformat']=="yes")
 {
     $dialogBox = "Modify the format :<br><br>"
-        ."The fields \"<b>surname;</b>\", \"<b>name;</b>\", \"<b>username;</b>\" and \"<b>password;</b>\" are compulsory.<br><br>"
+        ."$langTheFields \"<b>surname;</b>\", \"<b>name;</b>\", \"<b>username;</b>\" and \"<b>password;</b>\" $langAreCompulsory.<br><br>"
         ."<form metod=\"POST\" action=\"".$_SERVER['PHP_SELF']."\">"
         ."  <input type=\"text\" name=\"usedFormat\" value=\"".$usedFormat."\" size=\"55\">"
 	."  <input type=\"submit\" value=\"".$langOk."\""
@@ -275,22 +275,22 @@ case "default" :
 ?>
 You must specify the CSV format used in your file :<br><br>
 <form enctype="multipart/form-data"  method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>"> 
-  <input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES"> <label for="firstLineFormat_YES">Use format defined in first line of file</label><br><br>
-  <input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO"> <label for="firstLineFormat_NO">Use the following format :</label><br><br>
+  <input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES"> <label for="firstLineFormat_YES"><?php echo $langUseFormatDefined; ?></label><br><br>
+  <input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO"> <label for="firstLineFormat_NO"><?php echo $langUseFollowingFormat; ?></label><br><br>
     <b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $usedFormat; ?><br><br>
     </b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    [<a href="<?php echo $_SERVER['PHP_SELF']."?display=default&usedFormat=".$defaultFormat.""; ?>">Load default format</a>] 
-    | [<a href="<?php echo $_SERVER['PHP_SELF']."?display=default&chformat=yes"; ?>">Edit format to use</a>]<br><br>
+    [<a href="<?php echo $_SERVER['PHP_SELF']."?display=default&usedFormat=".$defaultFormat.""; ?>"><?php echo $langLoadDefaultFormat; ?></a>] 
+    | [<a href="<?php echo $_SERVER['PHP_SELF']."?display=default&chformat=yes"; ?>"><?php echo $langEditFormat; ?></a>]<br><br>
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-    <label for="fieldSeparator">Fields separator used</label>: 
+    <label for="fieldSeparator"><?php echo $langFieldSeparatorUsed; ?></label>: 
     
     <select name="fieldSeparator" id="fieldSeparator">
       <option value=";">;</option>
-      <option value=" ">(Blank space)</option>       
+      <option value=" "><?php echo $langBlankSpace; ?></option>       
     </select> 
     
     
@@ -303,7 +303,7 @@ You must specify the CSV format used in your file :<br><br>
       <option value="dbquote">"</option>
       <option value=",">,</option>
       <option value=".">.</option>
-      <option value="">(None)</option>
+      <option value=""><?php echo $langNone; ?></option>
       
     </select>
     
@@ -361,43 +361,43 @@ case "stepone" :
 
 case "steptwo" :
     
-    echo "<b>".sizeof($usersToAdd)." new users in the platform : </b> <br><br>";
+    echo "<b>".sizeof($usersToAdd).$langNewUsers; " $langNewUsersIn </b> <br><br>";
 
     foreach ($usersToAdd as $user)
     {
        
-       //display messages conerning actions done to new users...
+       //display messages concerning actions done to new users...
     
        switch ($AddType)
        {
           case "adminTool":
-              echo $user['surname']." ".$user['name']." has been added to the campus<br>";
+              echo $user['surname']." ".$user['name']."$langAddedToCampus <br>";
           break;
         
           case "adminClassTool":
-              echo $user['surname']." ".$user['name']." has been added to the campus and to the class<br>";
+              echo $user['surname']." ".$user['name']."$langAddedToCampusAndClass <br>";
           break;
         
           case "userTool":
-              echo $user['surname']." ".$user['name']." has been added to the campus and to the course<br>";
+              echo $user['surname']." ".$user['name']."$langAddedToCampusAndCourse <br>";
           break;
        } 
     }
     
-      // display back link at the aend of the log 
+      // display back link at the end of the log 
     
    switch ($AddType)
    {
       case "adminTool":
-          echo "<br><a href=\"../admin/adminusers.php\">&gt;&gt; See user list</a>";
+          echo "<br><a href=\"../admin/adminusers.php\">&gt;&gt; $langCSVSeeUserList</a>";
       break;
         
       case "adminClassTool":
-          echo "<br><a href=\"../admin/admin_class.php\">&gt;&gt; Back to class list</a>";
+          echo "<br><a href=\"../admin/admin_class.php\">&gt;&gt; $langBackToClassList</a>";
       break;
       
       case "userTool":
-          echo "<br><a href=\"user.php\">&gt;&gt; Back to user list</a>";
+          echo "<br><a href=\"user.php\">&gt;&gt; $langCSVBackToUserList</a>";
       break;
   }
     break;

@@ -53,7 +53,7 @@ switch ($cmd)
       
   // subscribe a class to the course    
   case "subscribe" :           
-      $dialogBox = "<b>Class ".$_REQUEST['classname']." has been enrolled</b><br>";
+      $dialogBox = "<b>Class ".$_REQUEST['classname']." $langHasBeenEnrolled </b><br>";
       $sql = "SELECT * FROM `".$tbl_class_user."` AS CU,`".$tbl_users."` AS U WHERE CU.`user_id`=U.`user_id` AND CU.`class_id`='".$_REQUEST['class']."'  ORDER BY U.`nom`";
       $user_list = claro_sql_query_fetch_all($sql);
       
@@ -61,11 +61,11 @@ switch ($cmd)
       {        
           if (add_user_to_course($user['user_id'], $_cid))
 	  {     
-	      $dialogBox .= $user['prenom']." ".$user['nom']." is now registered to course<br>";
+	      $dialogBox .= $user['prenom']." ".$user['nom']." $langIsNowRegistered<br>";
 	  }
 	  else
 	  {
-	      $dialogBox .= $user['prenom']." ".$user['nom']." is already registered to course<br>";
+	      $dialogBox .= $user['prenom']." ".$user['nom']." $langIsAlreadyRegistered<br>";
 	  }
       }
       
@@ -91,8 +91,8 @@ $display = "tree";
 // set bredcrump
 
 
-$nameTools = "add class";
-$interbredcrump[]    = array ("url"=>"user.php", "name"=> "Users");
+$nameTools = $langAddClass;
+$interbredcrump[]    = array ("url"=>"user.php", "name"=> $langUsers);
 
 // display top banner
 
@@ -100,7 +100,7 @@ include($includePath."/claro_init_header.inc.php");
 
 // Display tool title
 
-claro_disp_tool_title("Add a class to course");
+claro_disp_tool_title($langAddAClassToCourse);
 
 // Display Forms or dialog box (if needed)
 
@@ -125,13 +125,13 @@ switch ($display)
             ." <thead>\n"
             ."  <tr class=\"headerX\">\n"
             ."    <th>\n"
-            ."      Class\n"
+            ."      $langClass\n"
             ."    </th>\n"
             ."    <th>\n"
             ."      $langUsers\n"
             ."    </th>\n"
             ."    <th>\n"
-            ."      Add to course\n"
+            ."      $langSubscribeToCourse\n"
             ."    </th>\n"
             ."  </tr>\n"
             ."</thead>\n";
@@ -143,7 +143,7 @@ switch ($display)
         break;
 
     case "class_added" :
-        echo "display the class added";
+        echo $langDispClassAdded;
         break;
 }
 
