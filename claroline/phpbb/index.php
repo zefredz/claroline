@@ -188,7 +188,7 @@ if($total_categories)
 				// $last_post_time  mktime du champs  post_time.
 				if(empty($last_post))
 				{
-					$last_post = "No Posts";
+					$last_post = $langNoPost;
 				}
 
 				echo "<tr  align=\"left\" valign=\"top\">\n\n";
