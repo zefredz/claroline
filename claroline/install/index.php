@@ -1642,6 +1642,9 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 			
 </form>
 <form action="../../" method="POST">
+        <input type="hidden" name="logout" value="TRUE">
+        <input type="hidden" name="uidReset" value="TRUE">
+
 		<input type="submit" value="Go to your newly created campus">
 </form>
 <?php
