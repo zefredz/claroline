@@ -32,12 +32,12 @@ require '../inc/claro_init_global.inc.php';
 /* Clears the exercise session */
 /*******************************/
 
-if(session_is_registered('objExercise'))	{ session_unregister('objExercise');	}
-if(session_is_registered('objQuestion'))	{ session_unregister('objQuestion');	}
-if(session_is_registered('objAnswer'))		{ session_unregister('objAnswer');		}
-if(session_is_registered('questionList'))	{ session_unregister('questionList');	}
-if(session_is_registered('exerciseResult'))	{ session_unregister('exerciseResult');	}
-if(session_is_registered('exeStartTime'))	{ session_unregister('exeStartTime'); }
+unset($_SESSION['objExercise'	]);
+unset($_SESSION['objQuestion'	]);
+unset($_SESSION['objAnswer'		]);		
+unset($_SESSION['questionList'	]);
+unset($_SESSION['exerciseResult']);
+unset($_SESSION['exeStartTime'	]);
 // prevent inPathMode to be used when browsing an exercise in the exercise tool
 $_SESSION['inPathMode'] = false;
 
