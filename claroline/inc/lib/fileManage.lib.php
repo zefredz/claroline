@@ -467,8 +467,16 @@ function form_dir_list($file, $baseWorkDir)
 	             ."<input type=\"hidden\" name=\"cmd\" value=\"exMv\">\n"
 	             ."<input type=\"hidden\" name=\"file\" value=\"".$file."\">\n"	
 	             .$langCopy.' <i>'.basename($file).'</i> '.$langTo." :\n"
-	             ."<select name=\"destination\">\n"
-	             ."<option value=\"\" style=\"color:#999999\">root\n";
+	             ."<select name=\"destination\">\n";
+
+    if ( dirname($file) == '/' )
+    {
+        $dialogBox .= "<option value=\"\" style=\"color:#999999\">root</option>\n";
+    }
+    else 
+    {
+        $dialogBox .= "<option value=\"\" >root</option>\n";
+    }
 
 	$bwdLen = strlen($baseWorkDir) ;	// base directories lenght, used under
 
@@ -491,7 +499,15 @@ function form_dir_list($file, $baseWorkDir)
 			{
 				$tab .= "&nbsp;&nbsp";
 			}
-			$dialogBox .= "<option value=\"$pathValue\">$tab>$dirname\n";
+
+            if ($file == $pathValue OR dirname($file) == $pathValue)
+            {
+                $dialogBox .= "<option style=\"color:#999999\" value=\"$pathValue\">$tab>$dirname</option>\n";
+            }
+            else
+            {
+                $dialogBox .= "<option value=\"$pathValue\">$tab>$dirname</option>\n";
+            }
 		}
 	}
 
