@@ -201,56 +201,54 @@ else foreach($topicList as $thisTopic)
 
 echo "</table>";
 
-	/*--------------------------------------
-					TOPICS PAGER
-			(When there are to much topics 
-				   for a single page)
-	  --------------------------------------*/
+    /*------------------------------------------------------------------------
+        TOPICS PAGER (When there are to much topics  for a single page)
+      ------------------------------------------------------------------------*/
 
-	$sql = "SELECT COUNT(*) AS total 
+    $sql = "SELECT COUNT(*) AS total 
             FROM `".$tbl_topics."` 
             WHERE forum_id = '".$forum."'";
 
-	$all_topics = claro_sql_query_get_single_value($sql);
+    $all_topics = claro_sql_query_get_single_value($sql);
 
     $count = 1;
 
-	$next = $topics_start + $topics_per_page;
+    $next = $topics_start + $topics_per_page;
 
-	if($all_topics > $topics_per_page)
-	{
-		if($next < $all_topics)
-		{
+    if($all_topics > $topics_per_page)
+    {
+        if($next < $all_topics)
+        {
             echo "<p align=\"right\">"
                 ."<small>"
                 ."<a href=\"viewforum.php?forum=".$forum."&start=".$next."&gidReq=".$_gid.">"
                 .$l_nextpage
                 ."</a> | ";
 
-			for($x = 0; $x < $all_topics; $x++)
-			{
-				if( ! ($x % $topics_per_page) )
-				{
-					if($x == $topics_start)
-					{
-						echo $count."\n";
-					}
-					else
-					{
-						echo	"<a href=\"viewforum.php?forum=",$forum,"&start=",$x,"&gidReq=",$_gid,">",
-								$count,
-								"</a>\n";
-					}
+            for($x = 0; $x < $all_topics; $x++)
+            {
+                if( ! ($x % $topics_per_page) )
+                {
+                    if($x == $topics_start)
+                    {
+                        echo $count."\n";
+                    }
+                    else
+                    {
+                        echo    "<a href=\"viewforum.php?forum=",$forum,"&start=",$x,"&gidReq=",$_gid,">",
+                                $count,
+                                "</a>\n";
+                    }
 
-					$count++;
+                    $count++;
 
-					if(!($count % 10)) echo "</small></p>\n";
-				}
-			} // end if ! $x % $topics_per_page
-			 
-		} // end if $next < all_topics
-		
-	} // end if $all_topics > $topics_per_page
-	
+                    if( ! ($count % 10) ) echo "</small></p>\n";
+                }
+            } // end if ! $x % $topics_per_page
+             
+        } // end if $next < all_topics
+        
+    } // end if $all_topics > $topics_per_page
+    
 require 'page_tail.php';
 ?>
