@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -422,8 +422,10 @@ function update_user_course_properties($user_id, $course_id, $properties)
     
     $sqlChangeStatus = "";
     
-    //if ($user_id != $_uid) //do we allow user to change his own settings? what about course without teacher?
-         
+    if ($user_id != $_uid //do we allow user to change his own settings? what about course without teacher?
+            and ($properties['status']=="1" or $properties['status']=="5")
+            )
+
     $sqlChangeStatus = "`statut` = \"".$properties['status']."\",";
     
     $result = claro_sql_query("UPDATE `$tbl_courseUser`
