@@ -388,7 +388,7 @@ class claro_failure
      * API won't change.
      */
 
-    var $claro_failureList = array();
+    // var $claro_failureList = array();
 
     /**
      * Pile the last failure in the failure list
