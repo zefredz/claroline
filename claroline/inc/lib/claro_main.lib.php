@@ -1035,8 +1035,9 @@ function claro_disp_progress_bar ($progress, $factor)
 
 function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspiration :)
 {
-    $langMonthNames            = $GLOBALS["langMonthNames"];
-    $langDay_of_weekNames    = $GLOBALS["langDay_of_weekNames"];
+    global $langMonthNames; 
+    global $langDay_of_weekNames;
+
     if ($timestamp == -1)
     {
         $timestamp = time();
@@ -1044,7 +1045,12 @@ function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
     // avec un ereg on fait nous même le replace des jours et des mois
     // with the ereg  we  replace %aAbB of date format
     //(they can be done by the system when  locale date aren't aivailable
-    $date = ereg_replace('%[A]', $langDay_of_weekNames["long"][(int)strftime('%w', $timestamp)], $formatOfDate);
+    
+    
+    $date = ereg_replace('%[A]', 
+    $langDay_of_weekNames["long"]
+    	[(int)strftime('%w', $timestamp)], 
+    $formatOfDate);
     $date = ereg_replace('%[a]', $langDay_of_weekNames["short"][(int)strftime('%w', $timestamp)], $date);
     $date = ereg_replace('%[B]', $langMonthNames["long"][(int)strftime('%m', $timestamp)-1], $date);
     $date = ereg_replace('%[b]', $langMonthNames["short"][(int)strftime('%m', $timestamp)-1], $date);
