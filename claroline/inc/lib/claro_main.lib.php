@@ -759,7 +759,7 @@ function claro_disp_button($url, $text, $confirmMessage = '')
 
         if ($confirmMessage != '')
         {
-            $onClickCommand =" if(confirm('".$confirmMessage."')){document.location='".$url."';}";
+            $onClickCommand =" if(confirm('".$confirmMessage."')){document.location='".$url."';return false}";
         }
         else
         {
