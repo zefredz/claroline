@@ -132,7 +132,7 @@ function dir_total_space($dirPath)
 		}
 		if ( is_dir($element) )
 		{
-			$dirList[] = $dirPath."/".$element;
+			$dirList[] = $dirPath.'/'.$element;
 		}
 	}
 
@@ -515,10 +515,12 @@ function create_link_file($filePath, $url)
     $fileContent = '<html>'
                   .'<head>'
                   .'<meta http-equiv="content-Type" content="text/html;charset=ISO-8859-5">'
-                  .'<meta http-equiv="refresh" content="1;url='.$url.'">'
+                  .'<meta http-equiv="refresh" content="0;url='.$url.'">'
                   .'</head>'
                   .'<body>'
-		  .'<center><a href="'.$url.'">'.$url.'</a></center>'
+		          .'<div align="center">'
+                  .'<a href="'.$url.'">'.$url.'</a>'
+                  .'</div>'
                   .'</body>'
                   .'</html>';
 
