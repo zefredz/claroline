@@ -897,8 +897,6 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
     $TABLETRACKUPLOADS       = $tbl_cdb_names['track_e_uploads'];//  "track_e_uploads";
     $TABLETRACKEXERCICES     = $tbl_cdb_names['track_e_exercices'];//  "track_e_exercices";
 
-   $cahier_charges="$CourseProgram/$repertoire.html";
-
 	$nom = $_user['lastName'];
 	$prenom =$_user['firstName'];
 
@@ -1116,7 +1114,6 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 			description = '".$langCourseDescription."',
 			faculte = '".$faculte."',
 			visible = '".$defaultVisibilityForANewCourse."',
-			cahier_charges = '$CourseProgram/".strtolower($courseScreenCode).".html',
 			scoreShow = '',
 			diskQuota = NULL,
 			creationDate = now(),

@@ -333,11 +333,6 @@ define(\'PEAR_LIB_PATH\', $includePath.\'/lib/pear\');
 // $extAuthSource[\'atutor\'][\'login\'  ] = "./claroline/auth/extauth/drivers/atutor.inc.php";
 // $extAuthSource[\'atutor\'][\'newUser\'] = "./claroline/auth/extauth/drivers/atutor.inc.php";
 
-// Some value which would be moved to appropriate conf.file of targeted tools
-
-
-$CourseProgram="http://www.ucl.ac.be/etudes/cours";
-
 // Strings
 $siteName				=	"'.cleanwritevalue($campusForm).'";
 $administrator_name	=	"'.cleanwritevalue($contactNameForm).'";
