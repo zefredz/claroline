@@ -72,11 +72,15 @@ if($_REQUEST['submitExercise'])
 			$objExercise->set_hide_anon();
 		}
     
-    if ( $objExercise->record_uid_in_score() != $_REQUEST['recordUidInScore'] )
+    if ( $_REQUEST['recordUidInScore'] )
     {
-      $objExercise->change_record_uid_in_score();
+        $objExercise->set_record_uid_in_score(false);
     }
-    
+    else
+    {
+        $objExercise->set_record_uid_in_score(true);
+    }
+
 		$objExercise->set_show_answer($_REQUEST['exerciseShowAnswer']);
 		$objExercise->setRandom($randomQuestions);
 		$objExercise->save();
@@ -210,7 +214,7 @@ if($_REQUEST['modifyExercise'])
 <tr>
   <td valign="top"><?php echo $langAllowAnonymousAttempts; ?> : </td>
   <td>
-    <input type="checkbox" name="recordUidInScore" id="recordUidInScore" value="1" <?php if( $recordUidInScore ) echo 'checked="checked"'; ?>>
+    <input type="checkbox" name="recordUidInScore" id="recordUidInScore" value="1" <?php if( !$recordUidInScore ) echo 'checked="checked"'; ?>>
     <label for="recordUidInScore"><?php echo $langDontRecordUid; ?></label>
   </td>
 </tr>
