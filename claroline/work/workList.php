@@ -173,30 +173,35 @@ else
 // 3 rights levels 
 
 // can make everything : submit, edit, delete
+// IF course admin or platform admin
 $is_allowedToEditAll  = (bool) $is_courseAdmin;
 
 
 // can add a work and modify it (std authed user) // can only modify its works !
-$is_allowedToEdit = (bool) (
-                              $isVisible && $afterStartDate
-                              && 
-                                    (
-                                    $is_allowedToEditAll // courseAdmin can do everything
-                                    || ( isset($wrk) && isset($_uid) && $wrk['user_id'] == $_uid )
-                                    )
-                              );
+// IF is_allowedToEditAll OR session is visible, we are after start date and "work is mine"
+$is_allowedToEdit = (bool)    (
+                                    $isVisible 
+                                    && $afterStartDate
+                                    && ( isset($wrk) && isset($_uid) && $wrk['user_id'] == $_uid )
+                              )
+                              || $is_allowedToEditAll;
 
 
 // allowed to submit a new work , CANNOT edit any work
+// IF   is_allowedToEditAll
+// OR   session is visible, we are after start date, anonymous can submit works 
+//      or I'm authenticated and allowed in the course
 $is_allowedToSubmit   = (bool) (
-                              $isVisible && $afterStartDate
+                              $isVisible 
+                              && $afterStartDate
                               && 
                                     (
                                     $is_allowedToEdit 
                                     || ( !isset($_uid) && $wrkSession['authorize_anonymous'] == "YES" && $is_courseAllowed ) 
                                     || ( isset($_uid) && $is_courseAllowed ) 
                                     )
-                              );
+                              )
+                              || $is_allowedToEditAll;
                      
 // allowed to display work list and work details                     
 $is_allowedToView = (bool) ($isVisible && $afterStartDate) || $is_allowedToEditAll;
@@ -298,7 +303,7 @@ if( isset($_REQUEST['submitWrk']) )
                     
         $result = claro_sql_query($sql);
         
-        if( mysql_num_rows($result) > 0 )
+        if( mysql_num_rows($result) != 0 )
         {
             $dialogBox .= $langWrkTitleAlreadyExists."<br />";
             $formCorrectlySent = false;
@@ -653,11 +658,20 @@ claro_disp_tool_title($pageTitle);
                           SESSION INFOS
   --------------------------------------------------------------------*/
 //
-
-echo "<p>"
+echo "\n<p>\n"
+      ."<small>"
+      .$langEndDate." : ".claro_disp_localised_date($dateTimeFormatLong, $wrkSession['unix_end_date'])
+      ."</small>"
+      ."\n</p>\n\n";
+      
+if( !empty($wrkSession['description']) )
+{
+echo "\n<p>\n"
+      ."<small>"
       .$wrkSession['description']
-      ."</p>";
-
+      ."</small>"
+      ."\n</p>\n\n";
+}
 
 /*--------------------------------------------------------------------
                           FORMS
@@ -996,6 +1010,24 @@ if( $dispWrkLst && $is_allowedToView )
         ."<tbody>\n\n";
     foreach($flatElementList as $thisWrk)
     {
+      /*
+      if( $wrkSession['unix_end_date'] < $thisWrk['unix_last_edit_date'] && !isset($wrksAfterLastDate) )
+      {
+            if( $is_allowedToEditAll )
+            {
+                  $colspan = 2;
+            }
+            // display a separation line
+            echo "<tr>\n"
+                  ."<td colspan=\"".(($is_allowedToEdit)?$maxDeep+6:$maxDeep+2)."\"><small>"
+                  .$langEndDate." : "
+                  .claro_disp_localised_date($dateTimeFormatLong, $wrkSession['unix_end_date'])
+                  ."</small></td>\n"
+                  ."</tr>\n\n";
+            $wrksAfterLastDate = true;
+      }
+      */
+      
       if ($thisWrk['visibility'] == "INVISIBLE")
 			{
 				if ($is_allowedToEditAll || $thisWrk['user_id'] == $_uid )
@@ -1021,8 +1053,10 @@ if( $dispWrkLst && $is_allowedToView )
           .$spacingString
           ."<td colspan=\"".$colspan."\" align=\"left\"><a href=\"workList.php?sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."&cmd=exShwDet\">".$thisWrk['title']."</a></td>\n"
           ."<td>".$thisWrk['authors']."</td>\n"
-          ."<td><small>".claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_last_edit_date'])."</small></td>\n";
-
+          ."<td><small>"
+          .claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_last_edit_date'])
+          ."</small></td>\n";
+      
       
       if( $is_allowedToEditAll )
       {
@@ -1045,7 +1079,7 @@ if( $dispWrkLst && $is_allowedToView )
       }
       echo "</tr>\n\n";
     }
-    
+
     echo "</tbody>\n</table>\n\n";
 
 }
