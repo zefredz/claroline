@@ -104,7 +104,7 @@ if($submitAnswers || $buttonBack)
 		{
 			$reponse[$i]=trim($reponse[$i]);
 			$comment[$i]=trim($comment[$i]);
-			$weighting[$i]=floatval($weighting[$i]);
+			$weighting[$i]= (float)$weighting[$i];
 
 			if($answerType == UNIQUE_ANSWER)
 			{
@@ -315,7 +315,7 @@ if($submitAnswers || $buttonBack)
 			for($j=1;$j <= $nbrMatches;$i++,$j++)
 			{
 				$match[$i]=trim($match[$i]);
-				$weighting[$i]=abs(floatval($weighting[$i]));
+				$weighting[$i]=abs( (float)$weighting[$i] );
 
 				$questionWeighting+=$weighting[$i];
 
@@ -709,7 +709,7 @@ if($modifyAnswers)
 
 <tr>
   <td width="50%"><?php echo $blank; ?> :</td>
-  <td width="50%"><input type="text" name="weighting[<?php echo $i; ?>]" size="5" value="<?php echo floatval($weighting[$i]); ?>"></td>
+  <td width="50%"><input type="text" name="weighting[<?php echo $i; ?>]" size="5" value="<?php echo (float)$weighting[$i]; ?>"></td>
 </tr>
 
 <?php
