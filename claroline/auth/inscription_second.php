@@ -1,7 +1,7 @@
 <?php // $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE 1.5.1
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -77,7 +77,7 @@ if($submitRegistration)
 
 	elseif($password1 != $password)
 	{
-		$regDataOk = false;
+		$regDataOk = FALSE;
 		unset($password1, $password);
 
 		echo '<p>'.$langPassTwice.'</p>'."\n";
@@ -195,7 +195,7 @@ if ($_uid)
     session_register("is_allowedCreateCourse");
 
         //stats
-        @include("../inc/lib/events.lib.inc.php");
+        include("../inc/lib/events.lib.inc.php");
         event_login();
         // last user login date is now
         $user_last_login_datetime = 0; // used as a unix timestamp it will correspond to : 1 1 1970
