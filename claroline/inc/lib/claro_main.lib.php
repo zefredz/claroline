@@ -526,7 +526,10 @@ function claro_disp_tool_view_option($viewModeRequested = false)
 {
     global $REQUEST_URI, $clarolineRepositoryWeb;
     global $langCourseManagerView, $langStudentView;
-
+	global $is_courseAdmin;
+	
+	if (!$is_courseAdmin) return false;
+	
     claro_set_display_mode_available(true);
 
     if ($viewModeRequested) claro_set_tool_view_mode($viewModeRequested);
