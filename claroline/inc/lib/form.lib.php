@@ -6,7 +6,7 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
     
     if( $selectedDate == 0)
     {
-		// par défaut prendre la date du jour
+		// if not date in parameters us 'today'
         $selectedDate = date("Y-m-d");
     }
     // split selectedDate
