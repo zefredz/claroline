@@ -1,6 +1,5 @@
 <?php // $Id$
 // TOOL
-$conf_def['label']='profil';
 $conf_def['description'] = 'Assignment tool. this is a course tool';
 $conf_def['config_code']='CLPROFIL';
 $conf_def['config_name']='Setting for profile edition';
