@@ -86,8 +86,22 @@ else                                        // normal exercise mode
     $is_allowedToEdit = true; // allow to be in admin mode
     $interbredcrump[] = array("url" => "exercice.php","name" => $langExercices);
 }
-if ($_SESSION['inPathMode'] != true) 
+if ($_SESSION['inPathMode'] == true) 
+{
+   	// echo minimal html page header so that the page is valid
+	// FIXME : find a better solution than duplicate the css link
+	echo '<html>
+		<head>
+			<title>'.$exerciseTitle.'</title>
+			<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/default.css" />
+		</head>
+		<body>';
+	
+}
+else
+{
   include($includePath.'/claro_init_header.inc.php');
+}
 
 ?>
 
@@ -490,7 +504,9 @@ if ($_SESSION['inPathMode'] != true)
 }
 else
 {
-  // don't display footer and 
+  // display minimal html footer
+  echo '	</body>
+	</html>';
   // clean exercise session vars only if in learning path mode
   // because I don't know why the original author of exercise tool did not unset these here
   session_unregister('exerciseResult');
