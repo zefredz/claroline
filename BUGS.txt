@@ -116,41 +116,13 @@ et j'ai pas trouvé où il le crée
 Repéré par : MOOSH
 
 
+16. erreur de langue.
+--
+http://127.0.0.1/c/cvs.claroline.net/c150rc1.trakbugs/claroline/admin/adminaddnewuser.php?register=yes
+"Les nouveaux utilisateurs recevrons un email avec leur nom d'utilisateur et mot de passe"
+
 -------------
 $Log$
-Revision 1.21  2004/06/14 13:43:24  moosh
-------------------------------------------------------------------
+Revision 1.22  2004/06/14 15:21:55  moosh
+bug 16
 
-Revision 1.20  2004/06/14 13:21:22  peeters
-no message
-
-Revision 1.19  2004/06/14 13:10:31  seb
-bug 6 resolu
-
-Revision 1.18  2004/06/14 13:06:13  moosh
-------------------------------------------------------------------
-
-Revision 1.17  2004/06/14 13:01:24  moosh
-bug 15 chat
-
-Revision 1.16  2004/06/14 12:41:03  moosh
-bug 14
-
-Revision 1.15  2004/06/14 09:39:54  peeters
-no message
-
-Revision 1.14  2004/06/14 08:18:51  peeters
-no message
-
-Revision 1.13  2004/06/11 13:45:00  moosh
-- bug 13
-
-
-Revision 1.6  2004/06/11 10:34:06  moosh
-- bug 10
-
-Revision 1.5  2004/06/11 10:09:25  seb
-new : bug 4 to 9
-
-Revision 1.4  2004/06/11 10:04:22  moosh
-- bug 3 : install
