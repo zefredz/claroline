@@ -155,6 +155,11 @@ if($is_allowedToEdit) // for teacher only
 stripSubmitValue($_REQUEST);
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = null;
+
+if ( isset($_REQUEST['docView']) ) $docView = $_REQUEST['docView'];
+else                               $docView = null;
+
 
                   /* > > > > > > MAIN SECTION  < < < < < < <*/
 
@@ -808,9 +813,9 @@ elseif ($cmd == 'exMv')
 {
 	$curDirPath = $_REQUEST['destination'];
 }
-elseif ($cmd == 'viewImage' || $cmd == 'viewThumbs' )
+elseif ($docView == 'image' || $docView == 'thumbnails' )
 {
-	$curDirPath = $_REQUEST['curdir'];
+	$curDirPath = $_REQUEST['cwd'];
 }
 else
 {
@@ -1058,7 +1063,7 @@ claro_disp_tool_title($titleElement,
  	 * get image list from file list
  	 */
 
-	if($cmd == 'viewImage' || $cmd == 'viewThumbs')
+	if($docView == 'image' || $docView == 'thumbnails')
 	{
 		$imageList = get_image_list($fileList, $is_allowedToEdit);
 		if(count($imageList) == 0)
@@ -1083,7 +1088,7 @@ claro_disp_tool_title($titleElement,
                              		VIEW IMAGE
 	  ------------------------------------------------------------------------*/
 	
-	if ($cmd == 'viewImage' && isset($imageList) && count($imageList) > 0)
+	if ($docView == 'image' && isset($imageList) && count($imageList) > 0)
 	{
 		$colspan = 3;
 		
@@ -1098,6 +1103,13 @@ claro_disp_tool_title($titleElement,
 			$file = $fileList['path'][$imageList[0]];
 			$fileName = basename( $file );
 		}
+		
+        $searchCmdUrl = "";
+        
+        if( isset( $_REQUEST['searchPattern'] ) )
+        {
+            $searchCmdUrl = "&cmd=exSearch&searchPattern=" . urlencode( $_REQUEST['searchPattern'] );
+        }
 		
 		// compute relative url for requested image
 		//$fileUrl = $fileName;
@@ -1131,8 +1143,8 @@ claro_disp_tool_title($titleElement,
 				. $_SERVER['PHP_SELF']."?cmd=exChDir&file="
 				. $curDirPath."\">" . $langBackToDir ."</a>&nbsp;]\n"
 				. "&nbsp;&nbsp;[&nbsp;<a href=\"" .  $_SERVER['PHP_SELF']
-				."?cmd=viewThumbs&curdir="
-				. $curDirPath. $offset ."\">".$langThumbnailsView."</a>&nbsp;]</small>\n"
+				."?docView=thumbnails&cwd="
+				. $curDirPath. $offset . $searchCmdUrl . "\">".$langThumbnailsView."</a>&nbsp;]</small>\n"
 				. "</th>\n"
 				. "</tr>\n"
 				;
@@ -1147,8 +1159,8 @@ claro_disp_tool_title($titleElement,
 				. "<small>&nbsp;&nbsp;[&nbsp;<a href=\""
 				. $_SERVER['PHP_SELF']."\">" . $langBackToDir . "</a>&nbsp;]\n"
                 . "&nbsp;&nbsp;[&nbsp;<a href=\"" .  $_SERVER['PHP_SELF']
-				."?cmd=viewThumbs&curdir="
-				. $curDirPath . $offset . "\">".$langThumbnailsView."</a>&nbsp;]</small>\n"
+				."?docView=thumbnails&cwd="
+				. $curDirPath . $offset . $searchCmdUrl . "\">".$langThumbnailsView."</a>&nbsp;]</small>\n"
 				. "</th>\n"
 				. "</tr>\n"
 				;
@@ -1247,7 +1259,7 @@ claro_disp_tool_title($titleElement,
 	                        VIEW THUMBNAILS
 	  -----------------------------------------------------------------------*/
 
-	else if ($cmd == 'viewThumbs' && isset($imageList) && count($imageList) > 0) // thumbnails mode
+	else if ($docView == 'thumbnails' && isset($imageList) && count($imageList) > 0) // thumbnails mode
 	{
 	    // intialize page number
  		$page = 1; // if not set, set to first page
@@ -1261,6 +1273,13 @@ claro_disp_tool_title($titleElement,
 		{
           	$page = get_page_number($offset);
 		}
+		
+		$searchCmdUrl = "";
+
+        if( isset( $_REQUEST['searchPattern'] ) )
+        {
+            $searchCmdUrl = "&cmd=exSearch&searchPattern=" . urlencode( $_REQUEST['searchPattern'] );
+        }
 
 		// compute column width
  		$colWidth = round(100 / $numberOfCols);
@@ -1310,8 +1329,8 @@ claro_disp_tool_title($titleElement,
 		{
 		    // link to previous page
           	echo "<a href=\"".$_SERVER['PHP_SELF'] 
-				. "?cmd=viewThumbs&curdir=" . $curDirPath 
-				. "&page=" . ($page - 1) . "\">&lt;&lt;&nbsp;&nbsp;page&nbsp;" 
+				. "?docView=thumbnails&cwd=" . $curDirPath
+				. "&page=" . ($page - 1) . $searchCmdUrl . "\">&lt;&lt;&nbsp;&nbsp;page&nbsp;"
 				. ($page - 1) . "</a>\n"
 				;
 		}
@@ -1335,8 +1354,8 @@ claro_disp_tool_title($titleElement,
 		{
 		    // link to next page
 		    echo "<a href=\"".$_SERVER['PHP_SELF'] 
-				. "?cmd=viewThumbs&curdir=" . $curDirPath 
-				. "&page=" . ($page + 1) . "\">page&nbsp;" 
+				. "?docView=thumbnails&cwd=" . $curDirPath
+				. "&page=" . ($page + 1) . $searchCmdUrl . "\">page&nbsp;"
 				. ($page + 1) . "&nbsp;&nbsp;&gt;&gt;</a>\n"
 				;
 		}
@@ -1362,8 +1381,16 @@ claro_disp_tool_title($titleElement,
 		/*------------------------------------------------------------------------
 	                             CURRENT DIRECTORY LINE
 		  ------------------------------------------------------------------------*/
+		  
+        $searchCmdUrl = "";
+
+        if( isset( $_REQUEST['searchPattern'] ) )
+        {
+            $searchCmdUrl = "&cmd=exSearch&searchPattern=" . urlencode( $_REQUEST['searchPattern'] );
+        }
 	
 		/* GO TO PARENT DIRECTORY */
+		
 	
 	    echo "<p>\n";
 	
@@ -1387,7 +1414,7 @@ claro_disp_tool_title($titleElement,
 	    
 	    
 	    echo "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
-			. "?cmd=viewThumbs&curdir=". $curDirPath ."\">"
+			. "?docView=thumbnails&cwd=". $curDirPath . $searchCmdUrl ."\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
 			. $langThumbnailsView."</a>\n";
 	
@@ -1536,7 +1563,8 @@ claro_disp_tool_title($titleElement,
 				if( is_image( $fileName ) )
 				{
 					echo "<a href=\"". $_SERVER['PHP_SELF'],
-						"?cmd=viewImage&file=" . urlencode($fileName) . "&curdir=". $curDirPath ."\"". $style . ">";
+						"?docView=image&file=" . urlencode($fileName) . "&cwd="
+                        . $curDirPath . $searchCmdUrl ."\"". $style . ">";
 				}
 				else
 				{

@@ -294,6 +294,7 @@
     {
         global $curDirPath;
         global $thumbnailWidth;
+        global $searchCmdUrl;
          
         // get previous image
         $prev;
@@ -314,17 +315,17 @@
 				. "\" width=\"30%\">\n"
 				;
              
-            echo "<a href=\"" . $_SERVER['PHP_SELF'] . "?cmd=viewImage&file=" 
-				. urlencode($prevName) . "&curdir=" . $curDirPath 
-				. "\">", "&lt;&lt;&nbsp;" . basename($prevName) . "</a>\n"
+            echo "<a href=\"" . $_SERVER['PHP_SELF'] . "?docView=image&file="
+				. urlencode($prevName) . "&cwd=" . $curDirPath
+				. $searchCmdUrl . "\">", "&lt;&lt;&nbsp;" . basename($prevName) . "</a>\n"
 				;
 				
 			echo "<br /><br />\n";
              
             // display thumbnail
             echo "<a href=\"" . $_SERVER['PHP_SELF'] 
-				. "?cmd=viewImage&file=" . urlencode($prevName)
-            	. "&curdir=" . $curDirPath . "\">" 
+				. "?docView=image&file=" . urlencode($prevName)
+            	. "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
 				. create_thumbnail($prevName, $thumbnailWidth)
             	."</a>\n"
 				;
@@ -354,6 +355,7 @@
     {
         global $curDirPath;
         global $thumbnailWidth;
+        global $searchCmdUrl;
          
         // get next image
         $next;
@@ -373,8 +375,8 @@
             echo "<th class=\"". $nextStyle . "\" width=\"30%\">\n";
              
             echo "<a href=\"" . $_SERVER['PHP_SELF'] 
-				. "?cmd=viewImage&file=" . urlencode($nextName)
-            	. "&curdir=" . $curDirPath ."\">". basename($nextName) 
+				. "?docView=image&file=" . urlencode($nextName)
+            	. "&cwd=" . $curDirPath . $searchCmdUrl ."\">". basename($nextName)
 				. "&nbsp;&gt;&gt;</a>\n"
 				;
 				
@@ -382,8 +384,8 @@
              
             // display thumbnail
             echo "<a href=\"" . $_SERVER['PHP_SELF'] 
-				. "?cmd=viewImage&file=" . urlencode($nextName)
-            	. "&curdir=" . $curDirPath . "\">" 
+				. "?docView=image&file=" . urlencode($nextName)
+            	. "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
 				. create_thumbnail($nextName, $thumbnailWidth)
             	. "</a>\n"
 				;
@@ -498,6 +500,7 @@
 		, $thumbnailWidth, $colWidth, $numberOfCols, $numberOfRows)
     {
         global $curDirPath;
+        global $searchCmdUrl;
          
         // get index of first thumbnail on the page
         $displayed = get_offset($page);
@@ -531,9 +534,9 @@
 					. $colWidth . "%;\">\n" 
 					;
                  
-                echo "<a href=\"". $_SERVER['PHP_SELF'] . "?cmd=viewImage&file=" 
+                echo "<a href=\"". $_SERVER['PHP_SELF'] . "?docView=image&file="
 					. urlencode($fileName)
-                	. "&curdir=". $curDirPath ."\">" 
+                	. "&cwd=". $curDirPath . $searchCmdUrl ."\">"
 					;
                  
                 // display image description using title attribute
