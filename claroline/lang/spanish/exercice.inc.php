@@ -15,6 +15,11 @@
       |          Xavier Casassas Canals <xcc@ics.co.at>                      |
       |          Manuel Gromaz <gromaz@cesga.es>                             |
       +----------------------------------------------------------------------+
+      +----------------------------------------------------------------------+
+      | Translation to Spanish v.1.5.1                                       |
+      | Rodrigo Alejandro Parra Soto , Ing. (e) En Computación eInformatica  |
+      | Concepción, Chile  <raparra@gmail.com>                               |
+      +----------------------------------------------------------------------|
  */
 
 
@@ -64,9 +69,6 @@ $langMorA        = "+resp";
 $langLesA        = "-resp";
 $langRecEx       = "Archivar.. ejercicio";
 $langRecQu       = "Archivar. pregunta";
-
-
-
 
 
 // exercice_submit.php
@@ -174,5 +176,76 @@ $langTotalWeightingMultipleChoice="La suma del peso de las respuestas contestada
 $langTotalWeightingFillInBlanks="La suma del peso de las respuestas en blanco deber&iacute;a ser igual al peso de la pregunta";
 $langTotalWeightingMatching="La suma de los pesos de las preguntas relacionadas deber&iacute;a ser igual al peso de la pregunta";
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//agregados por rodrigo parra
+$langEnable="Permitido";
+$langDisable="no permitido";
+$langAttachedFile = "Bajar el archivo agregado";
+$langMinuteShort = "min.";
+$langSecondShort = "seg.";
+$langUsedInSeveralPath = "Este ejercicio es usado en uno o mas seguimientos de aprendizajes.Si lo elimina no estará disponible en los seguimientos de aprendizajes.";  
+$langConfirmDeleteExercise = "¿Está seguro que desea eliminar este ejercicio?";
+$langAllowedTime="Límite de tiempo";
+$langAnonymousVisibility="Anónimos visibles";
+$langShowAnswers = "Mostrar respuesta";
+$langAlways = "Siempre";
+$langNever = "Nunca";
+$langShow = "Mostrar";
+$langHide = "Esconder";
+$langEditExercise = "Editar la configuración de los ejercicios";
+$langUnlimitedAttempts = "Tentativas ilimitadas";
+$langAttemptAllowed = "Tentativa permitida";
+$langAttemptsAllowed = "Tentativas permitidas";
+$langAllowAnonymousAttempts = "tentativas anónimas";
+$langAnonymousAttemptsAllowed = "Permitido : no grabe los usernames en seguimiento, usuarios anónimos pueden hacer los ejercicios.";
+$langAnonymousAttemptsNotAllowed = "No permitido : Grabar los usernames en seguimiento, usuarios anónimos no pueden hacer los ejercicios.";
+$langAllowedAttempts="Tentativas permitidas";
+$langExerciseOpening = "Ejercicio abierto";
+$langExerciseClosing = "Ejercicio cerrado";
+$langRequired = "Requerido";
+$langNoEndDate = "Ninguna fecha límite ";
+
+// question_admin.inc.php
+
+$langNoAnswer="No hay respuesta por el momento.";
+$langGoBackToQuestionPool="Volver al grupo de preguntas";
+$langGoBackToQuestionList="Volver a la lista de preguntas";
+$langQuestionAnswers="Responder a la pregunta";
+$langEditQuestion = "Editar pregunta";
+$langEditAnswers = "Editar respuestas";
+
+
+// statement_admin.inc.php
+$langAttachFile = "Agregar un archivo";
+$langReplaceAttachedFile = "Reemplazar el archivo agregado";
+$langDeleteAttachedFile = "Eliminar el archivo agregado";
+$langMaxFileSize = "El tamaño máximo del archivo es";
+$langGetExistingQuestion="Obtener una pregunta de otro ejercicio";
+$langConfirmDeleteQuestion="¿Esta seguro de querer eliminar completamente esta pregunta?";
+
+// admin.php
+
+$langExerciseManagement="Administración de ejercicios";
+$langQuestionManagement="Administración de Pregunta / Respuesta";
+// exercice_submit.php
+$langCurrentTime = "Tiempo actual";
+$langMaxAllowedTime = "Tiempo máximo permitido";
+$langNoTimeLimit = "Sin límite de tiempo";
+$langAttempt = "tentativa";
+$langOn = "en";
+$langAvailableFrom = "disponible de";
+$langExerciseNotAvailable = "Ejercicio no disponible";
+$langExerciseNoMoreAvailable = "El ejercicio no está disponible nunca más";
+$langTo = "para";
+$langNoMoreAttemptsAvailable = "Usted a ingresado el número máximo de tentativas permitidas.";
+
+// exercise_result.php
+$langExeTime = "Tiempo";
+$langYourTotalScore="Su puntuación total es";
+$langYourTime = "Su tiempo es";
+$langTimeOver = "El tiempo ha acabado, los resultados no son enviados.";
+$langTracking = "Seguimiento";
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
 ?>

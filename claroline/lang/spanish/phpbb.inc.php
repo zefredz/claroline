@@ -32,6 +32,10 @@
  | Translation to Spanish v.1.4                                         |
  | e-learning dept CESGA <teleensino@cesga.es >                         |
  +----------------------------------------------------------------------|
+ | Translation to Spanish v.1.5.1                                       |
+ | Rodrigo Alejandro Parra Soto , Ing. (e) En Computación eInformatica  |
+ | Concepción, Chile  <raparra@gmail.com>                               |
+ +----------------------------------------------------------------------|
 */
 
 
@@ -43,7 +47,6 @@ $langTitle="T&iacute;tulo";
 $langHelp="ayuda";
 $langOk="aceptar";
 $langBackList="Regresar a la lista";
-
 
 
 // page_header.php
@@ -335,11 +338,11 @@ que ha enviado al foro $sitename, ya que usted ha elegido ser informado.
 
 Usted puede ver el tema en:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
 
 O ver el &iacute;ndice del foro en $sitename en
 
-http://$SERVER_NAME$url_phpbb
+$url_phpbb
 
 Gracias por utilizar los foros de $sitename.
 
@@ -404,4 +407,12 @@ $l_sendpass	= "Enviar clave de acceso";
 
 $langHelp	="Ayuda";
 
+
+////////////////////////////////////////////////////////////////////////
+//agregado por Rodrigo Parra Soto
+$langNoForumToShow = "No hay foros que mostrar";
+$langNoPost = "No hay mensajes";
+$langBackTo="Regresar a  :";
+
+////////////////////////////////////////////////////////////////////////
 ?>

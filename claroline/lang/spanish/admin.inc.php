@@ -11,6 +11,10 @@
       |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
       +----------------------------------------------------------------------+
+      | Translation to Spanish v.1.5.1                                       |
+      | Rodrigo Alejandro Parra Soto , Ing. (e) En Computación eInformatica  |
+      | Concepción, Chile  <raparra@gmail.com>                               |
+      +----------------------------------------------------------------------|
  */
 
 
@@ -195,4 +199,16 @@ $langPasswordWrong = "La contraseña debe coincidir para poder cambiarla";
 $langStatusChangeNotMade = "No se aplico ningún cambio";
 $langNotUnregYourself ="¡No puedes cambiar tú propia configuración!";
 $langHomePageTextZone = "Zonas de texto en la pagina de principal";
+
+//////////////////////////////////////////////////////
+//agregados por Rodrigo Parra Soto (raparra)
+$lang_p_d_courses = '%2d cursos'; // plural                // español por raparra
+$lang_p_d_course  = '%2d curso'; // nul or singular        // español por raparra
+$lang_p_d_course_members = '%2d miembros'; // plural         // español por raparra
+$lang_p_d_course_member  = '%2d miembro'; // nul or singular // español por raparra
+$lang_p_d_students = '%2d estudiantes'; // plural              // español por raparra
+$lang_p_d_student  = '%2d estudiante'; // nul or singular      // español por raparra
+$lang_p_d_course_managers = '%2d profesores '; // plural         // español por raparra
+$lang_p_d_course_manager = '%2d profesor '; // nul or singular  // español por raparra
+
 ?>

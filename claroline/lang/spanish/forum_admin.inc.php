@@ -18,6 +18,10 @@
       | e-learning dept CESGA <teleensino@cesga.es >                         |
       |                                                                      |
       +----------------------------------------------------------------------|
+      | Translation to Spanish v.1.5.1                                       |
+      | Rodrigo Alejandro Parra Soto , Ing. (e) En Computación eInformatica  |
+      | Concepción, Chile  <raparra@gmail.com>                               |
+      +----------------------------------------------------------------------|
 
  */
 
@@ -58,5 +62,23 @@ $langCategories     = "Categor&iacute;as";
 $langNbFor          = "N&uacute;mero de foros";
 $langFunctions      = "Funciones";
 $langAddCategory    = "A&ntilde;adir una categor&iacute;a";
+
+
+/////////////////////////////////////////////////////////////
+//Agregados por Rodrigo Parra Soto
+
+$langOrder="Ordenar";
+$langCannotBeDeleted = "No puede ser borrado";
+$langCannotMoveGroupForum = "Los grupos de los foros no pueden ser movidos";
+$langCannotAddForumInGroups = "Los grupos de los foros serán agregados cuando se cree un grupo y se borrara cuando se borre el grupo correspondiente.";
+// action done message
+$langemptyforumname = "Debe proporcionar un nombre para el nuevo foro!";
+$langemptycatname = "Debe proporcionar un nombre a la nueva categoría!";
+$langforumcreated = "El nuevo foro ha sido creado.";
+$langForumModified = "El foro ha sido modificado";
+$langcatcreated = "La nueva categoría ha sido creada.";
+/////////////////////////////////////////////////////////////
+
+
 
 ?>

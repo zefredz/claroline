@@ -14,6 +14,10 @@
       |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
       +----------------------------------------------------------------------+
+      | Translation to Spanish v.1.5.1                                       |
+      | Rodrigo Alejandro Parra Soto , Ing. (e) En Computación eInformatica  |
+      | Concepción, Chile  <raparra@gmail.com>                               |
+      +----------------------------------------------------------------------|
  */
 $langDoc="Documentos";
 $langCreateDocument = "Crear Documento";
@@ -82,4 +86,9 @@ $langDocumentName = "Nombre del Documento: ";
 $langDocumentContent = "Contenido del documento: ";
 
 $langEditFileContent = "Editar el contenido del documento";
+
+//////////////////////////////////////////////////////////////
+//Agregado por Rodrigo Parra Soto
+$langAddModifyComment="Agregar/Modificar un comentario para";//agregado por rodrigo parra soto
+//////////////////////////////////////////////////////////////
 ?>

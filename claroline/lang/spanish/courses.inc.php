@@ -18,6 +18,10 @@
       | Translation to Spanish v.1.4                                         |
       | e-learning dept CESGA <teleensino@cesga.es >                         |
       +----------------------------------------------------------------------|
+      | Translation to Spanish v.1.5.1                                       |
+      | Rodrigo Alejandro Parra Soto , Ing. (e) En Computación eInformatica  |
+      | Concepción, Chile  <raparra@gmail.com>                               |
+      +----------------------------------------------------------------------|
  */
 $lang_already_enrolled                     = "ya ha sido matriculado";
 $lang_main_categories_list                 = "Lista de categor&iacute;s principales";
@@ -36,4 +40,56 @@ $lang_select_course_in_search_results      = "Seleccionar un curso entre los res
 $lang_unsubscribe                          = "Desuscribirse";
 $lang_back_to_my_home_page                 = "Volver a mi p&aacute;gina de inicio";
 $lang_back_to_my_personnal_course_list     = "Volver a mi lista personal de cursos";
+
+///////////////////////////////////////////////////////////////////////////////////////
+//agregado por Rodrigo parra Soto
+$lang_back_to_main_category_list	   = "Volver a la lista de categorías principal";
+$langAdded 	= "Agregado";
+$langDeleted 	= "Eliminado";
+$langKeeped 	= "Conservado";
+
+$langHideAndSubscribeClosed	="Oculto / Cerrado";
+$langHideAndSubscribeOpen	="Oculto / Abierto";
+$langShowAndSubscribeOpen	="Visible / Abierto";
+$langShowAndSubscribeClosed	="Visible / Cerrado";
+$langTitular = "Titular";
+$lang_course_enrollment = "Usuarios del curso";
+$langAdminThisUser	= "Volver a usuarios";
+$langBackToListOfThisUser = "Volver a la lista de curso";
+
+$langAdministrationTools = "Herramienta de administración";
+$langAdministration = "administración";
+$langManage				 = "Administración del Campus";
+
+$lang_back_to_parent_category              = "Volver a la categoría anterior";
+$lang_back_to_course_selection             = "Volver a la selección de cursos";
+
+$lang_up = $lang_back_to_parent_category; // christophe fixed this as soon as possible !
+
+$langCatList = "Categorías";
+$langCourseList = "Cursos";
+
+
+$langCourses	= "cursos";
+$langIn			= "En";
+$langSubCat		= "Sub categorías";
+
+$lang_remove_course_from_your_personnal_course_list = 'Remover el curso de la lista personal de cursos';
+$lang_your_enrollment_to_the_course_has_been_removed = "Ha sido removido del curso al que se a inscrito";
+$lang_you_have_been_enrolled_to_the_course = "Ha sido inscrito en el cruso";
+$lang_user_has_been_enrolled_to_the_course = "El usuario ha sido inscrito en el curso";
+$lang_no_course_available_fitting_this_keyword = "No hay un curso disponible con esas características";
+
+$lang_are_you_sure_to_remove_the_course_from_your_list = '¿Está seguro de querer eliminar este curso de su lista?';
+
+// back links
+
+$langBackToUserSettings = "Volver a la configuración del usuario";
+$langBackToCourseList = "Volver a la lista de cursos del usuario";
+
+$langEnrollAsStudent = "Inscribirse como estudiante";
+$langEnrollAsTeacher = "Inscribirse como Profesor";
+$langCourseManager = "Administrador del curso";
+///////////////////////////////////////////////////////////////////////////////////////
+
 ?>

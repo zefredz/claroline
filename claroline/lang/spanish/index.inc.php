@@ -26,6 +26,10 @@
       | Translation to Spanish v.1.4                                         |
       | e-learning dept CESGA <teleensino@cesga.es >                         |
       +----------------------------------------------------------------------|
+      | Translation to Spanish v.1.5.1                                       |
+      | Rodrigo Alejandro Parra Soto , Ing. (e) En Computación eInformatica  |
+      | Concepción, Chile  <raparra@gmail.com>                               |
+      +----------------------------------------------------------------------|
  */
 
 // GENERIC
@@ -72,6 +76,7 @@ $langAdvises="Anuncios";
 $lang_No_course_publicly_available = "No hay cursos p&uacute;blicos disponibles";
 $lang_edit_my_course_list = "Editar mi lista de cursos";
 
+
 $langUp = "Anterior";
 $langCatList = "Categoría";
 $langCourseList = "Cursos";
@@ -81,4 +86,14 @@ $langSubCat = "sub-categorias";
 
 $lang_enroll_to_a_new_course = 'Inscribirse en un curso nuevo';
 $lang_remove_course_enrollment = 'Desinscribirse de un curso '; 
+
+
+/////////////////////////////////////////////
+//agregados por Rodrigo Parra Soto
+$langSeeAgenda = "Ver mi agenda";
+$langAgendaNextEvents = "Próximos eventos de la Agenda";
+$langValvas = "Último comentario" ;
+$langIn			= "en";
+
+/////////////////////////////////////////////
 ?>

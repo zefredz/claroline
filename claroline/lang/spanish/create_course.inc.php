@@ -17,6 +17,10 @@
       | Translation to Spanish v.1.4                                         |
       | e-learning dept CESGA <teleensino@cesga.es >                         |
       +----------------------------------------------------------------------|
+      | Translation to Spanish v.1.5.1                                       |
+      | Rodrigo Alejandro Parra Soto , Ing. (e) En Computación eInformatica  |
+      | Concepción, Chile  <raparra@gmail.com>                               |
+      +----------------------------------------------------------------------|
  */
 
 
@@ -41,8 +45,7 @@ $langFtpFileTips 		= "Si el fichero est&aacute; en otro ordenador y es accessibl
 $langLocalFileTips		= "Si el fichero est&aacute; almacenado en alg&uacute;n curso del campus";
 $langHttpFileTips		= "Si el fichero est&aacute; en otro ordenador y es accesible por http";
 $langPostFileTips		= "Si el fichero est&aacute;  en su  ordenador";
-$langLn="Idioma";
-$langModifyInfo="Caracter&iacute;sticas del Curso";
+
 
 
 $langModify   = "modificar";
@@ -94,6 +97,7 @@ $langNotFalse      = "Esta respuesta no es falsa. Es exacto que la puesta en evi
 
 
 
+
 // Home Page MySQL Table "accueil"
 $langAgenda        = "Agenda";
 $langLinks         = "Enlaces";
@@ -120,9 +124,11 @@ $langIntroductionText  = "Este es el texto de introducci&oacute;n de su curso. P
 $langIntroductionTwo   = "Esta p&aacute;gina permite a cada estudiante o grupo de estudiantes colocar un documento en la web del curso. Envie documentos en formato HTML &uacute;nicamente si estos no contienen im&aacute;genes.";
 $langCourseDescription = "Escriba aqu&iacute; la descripci&oacute;n que aparecer&aacute; en la lista de los cursos";
 $langProfessor         = "Profesor";
-$langAnnouncementEx    = "Aqu&iacute; un ejemplo de anuncio.";
+
 $langJustCreated       = "Usted acaba de crear la web del curso";
 $langEnter             = "Entrar en el curso";
+
+
 
 $langMillikan="Experimento Millikan";
 $langCourseDesc = "Descripci&oacute;n del curso";
@@ -132,4 +138,50 @@ $langCreateCourseGroups="Grupos";
 $langCatagoryMain="Principal";
 $langCatagoryGroup="Foros de grupos";
 $langChat ="Chat";
+
+
+//////////////////////////////////////////////////////////////
+//Agregado por Rodrigo Parra
+$langEmail			    = "E-mail";			//Agregado por Rodrigo Parra
+$langAdministrationTools  = "Administración";		//Agregado por Rodrigo Parra
+$langVersionClaro  		= "Versión de Claroline usada en tiempo de archivo";  //Agregado por Rodrigo Parra
+$langLn="Idioma";
+$langModifyInfo="Configuración del curso";			//Agregado por Rodrigo Parra
+$langLearningPath="Seguimiento de aprendizaje";
+$langMax="max. 12 caracteres , p.e. <i>ROM2121</i>";  //Agregado por Rodrigo Parra
+$langBackToAdmin = "Volver a la página del administrador";
+$langAnotherCreateSite = "Crear otro sitio web de cursos";
+$langSampleLearnPath = "Ejemplo de un seguimiento de aprendizaje";
+$langSampleLearnPathDesc = "Este es un ejemplo de un seguimiento de aprendizaje, este es usado en el ejercicio de muestra y el documento de muestra de la herramienta de ejercicios y la herramienta de documentos. presionar 
+                            <b>Modificar</b> Para cambiar este texto.";
+$langSampleHandmade = "Ejemplo de un módulo hecho a mano(handmade)";
+$langSampleHandmadeDesc = "Usted puede hacer uno módulo \'echo a mano(handmade)\' usando paginas html, Animaciones Macromedia, videos, Archivos de sonidos(mp3, ogg,..)<br /><br /> Para permitir a sus alumnos ver el contenido de su nueva creación(su módulo) usted debe configurar la página para poder activar (asset) el módulo .";
+$langSampleDocument = "documento_ejemplo";
+$langSampleDocumentDesc = "Usted puede usar cualquier documento existente en la herramienta de documentos de este curso.";
+$langSampleExerciseDesc = "Usted puede usar cualquier ejercicio que esté en la herramienta de ejerciciosde su curso.";
+$langAnnouncementExTitle = "Ejemplo de anuncio";
+$langAnnouncementEx    = "Este es un ejemplo de anuncio. Solo los administradores de cursos están permitidos para publicar comentarios.";
+$langOnly = "Solamente";
+$langRandomLanguage = "Selección (Shuffle) en lenguajes disponibles";
+
+//Display
+$langCreateCourse="Crear cursos";
+$langQantity="Cantidad  : ";
+$langPrefix="Prefijo  : ";
+$langStudent="Estudiantes";
+$langMin="Mínimo : ";
+$langMax="Máximo : ";
+$langNumGroup="Cantidad de grupos por cursos";
+$langMaxStudentGroup="Máximo de estudiantes por grupo";
+$langAdmin ="Administración";
+$langNumGroupStudent="cantidad de equipos de estudiantes pueden inscribirse en este curso";
+$langLabelCanBeEmpty ="Se necesita el título del curso";
+$langTitularCanBeEmpty ="Debe llenar el campo titulo";
+$langEmailCanBeEmpty ="Email field need to be filled";
+$langCodeCanBeEmpty ="Debe llenar el campo codigo de curso";
+$langEmailWrong = "Email incorrecto";
+$langCreationMailNotificationSubject = 'Creación de curso';
+$langCreationMailNotificationBody = 'Creación de curso en'; 
+$langByUser = 'Por el usuario';
+//////////////////////////////////////////////////////////////
 ?>

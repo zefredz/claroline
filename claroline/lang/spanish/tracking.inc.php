@@ -12,6 +12,10 @@
       | Translation to Spanish v.1.4                                         |
       | e-learning dept CESGA <teleensino@cesga.es >                         |
       +----------------------------------------------------------------------|
+      | Translation to Spanish v.1.5.1                                       |
+      | Rodrigo Alejandro Parra Soto , Ing. (e) En Computación eInformatica  |
+      | Concepción, Chile  <raparra@gmail.com>                               |
+      +----------------------------------------------------------------------|
  */
 
 
@@ -203,4 +207,77 @@ $langDefcon = "Vaya, se han detectado casos extra&ntilde;os !!";
 $langNULLValue = "Vacio (o NULL)";
 $langTrafficDetails = "Detalles de Tr&aacute;fico";
 // $langNbLines = "Nombre de lignes"; //quantity of lines
+
+
+
+
+
+///////////////////////////////////////////////////
+//agregado por Rodrigo Parra Soto
+$langLearnPathDetails = "Progreso en el seguimiento de aprendizaje";
+$langNeverConnectedStudents = "Estudiantes nunca conectados : ";
+$langNotRecentlyConnectedStudents = "Estudiantes recientemente NO conectados: ";
+$langLastAccess = "Ultimo acceso";
+$langExercises = "Ejercicios";
+$langScore = "Puntuación";
+$langExerciseUsersAttempts = "Intentos de usuarios";
+$langExerciseTotalAttempts = "Total de intentos";
+$langLastAttempt = "Último intento";
+/* exercises */
+$langExercises = "Ejercicios";
+$langScore = "Puntuación";
+$langExerciseUsersAttempts = "Intentos de usuarios";
+$langExerciseTotalAttempts = "Total de intentos";
+$langLastAttempt = "Último intento";
+// exercises details 
+$langStatsOfExercise = "Estadística de ejercicios";
+$langScoreMax = "Máximo";
+$langScoreMin = "Mínimo";
+$langScoreAvg = "Promedio";
+$langExeAvgTime = "Tiempo promedio (s.)";
+$langExeTime = "Tiempo (s.)";
+$langStudent = "Estudiantes";
+$langAttempts = "Intentos";
+$langWeighting = "peso(Weighting)";
+
+/* learning path */
+$langLearningPaths = "Seguimientos de aprendizajes";
+$langLearningPath = "Seguimiento de aprendizaje";
+$langNoLearnPath = "No hay Seguimiento de aprendizaje";
+$langProgress = "Progreso";
+$langLearningPathList = "Lista de Seguimientos de aprendizajes";
+// learnPath details
+$langStatsOfLearnPath = "Estadística";
+// lp_modules_details
+$langModule = "Módulo";
+$langModules = "Módulos";
+$langTimeInLearnPath = "Tiempo en el Seguimiento de aprendizaje";
+$langGlobalProgress = "Progreso global";
+$langLastSessionTimeSpent = "Tiempo de la última sesión";
+$langTotalTimeSpent = "Tiempo total";
+$langLessonStatus = "Estado";
+
+/* works */
+$langAssignment = "Asignación";
+$langNoScore = "No hay puntaje";
+$langYesterday = "Ayer";
+$langExercisesResults = "Los resultados de los ejercicios están listos";
+$langNoRegisteredCourses = "No hay estadísticas que mostrar.Usted no está registrado en ningún curso.";
+$langUserAccessDetails = "Detalle de accesos de usuarios";
+$langTool = "Herramienta";
+$langDocument = "Documento";
+$langAnonymousUserAccessCount = "Cantidad de accesos de usuarios anónimos: ";
+$langNbrAccess = "Cantidad de accesos";
+$langBredCrumpUser = "Usuarios";
+$langCourseWithoutStudents = "Cursos sin estudiantes";
+$langNeverUsed = "Nunca usados";
+
+/* delete course stats */
+$langDelCourseStats = "Eliminar todas las estadísticas de los cursos";
+$langConfirmDelete  = "Si se eliminan las estadísticas de los cursos no habrá forma de volver atras!<br /><br />Está seguro de querer eliminar las estadísticas ?";
+$langDeleteDone = "Estadísticas de cursos eliminada";
+
+
+
+///////////////////////////////////////////////////
 ?>

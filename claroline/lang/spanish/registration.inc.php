@@ -18,6 +18,10 @@
 	| e-learning dept CESGA <teleensino@cesga.es >                         |
 	|vicm3 <vicm3@linux.ajusco.upn.mx>
 	+----------------------------------------------------------------------|
+    | Translation to Spanish v.1.5.1                                       |
+    | Rodrigo Alejandro Parra Soto , Ing. (e) En Computación eInformatica  |
+    | Concepción, Chile  <raparra@gmail.com>                               |
+    +----------------------------------------------------------------------|
 
 	"by moosh" in translation file = please check it. :-)
  */
@@ -220,4 +224,36 @@ $langEdit 		= "Editar";
 $langCourseManager 	= "Responsable del curso";
 $langAddImage= "Incluir foto";
 $langImageWrong="El archivo de imagen debe tener un tamaño menor de";
+
+
+
+///////////////////////////////////////////////////////
+//agregados por Rodrigo Parra Soto
+$langLostPassword = "Clave de acceso olvidada";
+$langPasswordHasBeenEmailed = "Su clave de acceso ha sido enviado al e-mail ";
+$langEmailAddressNotFound = "No existe la cuenta de usuario con este e-mail.";
+$langEnterMail = "Introduzca su e-mail para que se le envíe a ese correo su clave de acceso.";
+$langPlatformAdmin = "Administradór de laplataforma";
+$langPhone = "Teléfono";
+$langSaveChange ="Guardar cambios";
+$langRegister = "Registrar";
+$langReturnSearchUser="Volver a usuarios";
+$langManage              = "Administrar Campus";
+$langAdministrationTools = "Administración";
+$langUpdateImage = "Cambiar la imágen"; //by Moosh
+$langDelImage = "Eliminar la imágen"; 	//by Moosh
+$langOfficialCode = "Código administrativo";
+$langAuthInfo = "Autentificación";
+$langEnter2passToChange = "Ingrese su clave de acceso dos veces para que pueda ser cambiada o dejelo vacío si quiere conservar el actual";
+$langConfirm = "Confirmar";
+$lang_SearchUser_ModifOk            = "Actualización no disponible";
+
+$langNoUserSelected = "No se ha seleccionado a ningun usuario!";
+
+// dialogbox messages
+
+$langUserUnsubscribed = "El usuario a sido exitosamente desincribido del curso";
+$langUserNotUnsubscribed = "Error!! Usted no puede desincribir al administrador del curso";
+
+///////////////////////////////////////////////////////
 ?>

@@ -7,6 +7,10 @@
       | Translation to Spanish v.1.4                                         |
       | e-learning dept CESGA <teleensino@cesga.es >                         |
       +----------------------------------------------------------------------|
+      | Translation to Spanish v.1.5.1                                       |
+      | Rodrigo Alejandro Parra Soto , Ing. (e) En Computación eInformatica  |
+      | Concepción, Chile  <raparra@gmail.com>                               |
+      +----------------------------------------------------------------------|
 
 *****************************************************************/
 
@@ -24,7 +28,6 @@ $langDeleteGroups="Borrar todos los grupos";
 $langGroupsAdded="grupo(s) ha(n) sido añadido(s)";
 $langGroupsDeleted="Se han borrado todos los grupos";
 $langGroupDel="Grupo borrado";
-
 
 $langGroupsEmptied="Todos los grupos est&aacute;n ahora vac&iacute;os";
 $langEmtpyGroups="Vaciar todos los grupos";
@@ -106,5 +109,17 @@ $langState="Estado";
 
 $langGroupFilledGroups="Se han rellenado (o completado) los grupos con los estudiantes que aparecen en la lista de 'Usuarios'.";
 
+//////////////////////////////////////////
+//Agregado por Rodrigo Parra 
+$langConfirmEmpty = "¿Está seguro de vaciar todos los grupo ?";//agregado por Rodrigo Parra Soto
+$langGroupTutors="Tutores";
+$langStudentsNotInThisGroups = "Usuarios no están en este grupo.";
 
+$langQtyOfUserCanSubscribe_PartBeforeNumber = "El usuario puede ser miembro de un maximo de ";
+$langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;groups";
+
+$langNoLimitForQtyOfUserCanSubscribe ="El usuario puede ser miembro de todos los grupos.";
+$langGroupDocumentAlwaysPrivate = "(Siempre privado)";
+$langGroupLimit				= "Límite";
+//////////////////////////////////////////
 ?>
