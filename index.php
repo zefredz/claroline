@@ -1016,7 +1016,7 @@ echo "<p><a href=\"claroline/auth/inscription.php\">$langReg</a></p>";
 <p><a href="claroline/auth/lostPassword.php"><?php echo $langLostPassword ?></a></p>
 <p><a href="#" onClick="MyWindow=window.open('claroline/help/help_claroline.php','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=400,height=500,left=300,top=10'); return false;" ><?= $langHelp ?></a></p>
 <p><a href="http://www.claroline.net/forum/"><?php echo $langSupportForum ?></a></p>
-<p class="info"><?php @include("includeInHomePage.html"); ?></p>
+<?php @include 'includeInHomePage.html'; ?>
 
 </td>
 </tr>
