@@ -56,4 +56,12 @@ $sqlForUpdate[] = "CREATE TABLE `sso` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM";
 
+// Update course tool icon 
+$sqlForUpdate[] = "UPDATE table `course_tool` SET `icon` = 'announcement.gif' WHERE `claro_label` = 'CLANN___'";
+$sqlForUpdate[] = "UPDATE table `course_tool` SET `icon` = 'assignment.gif' WHERE `claro_label` = 'CLWRK___'";
+$sqlForUpdate[] = "UPDATE table `course_tool` SET `icon` = 'chat.gif' WHERE `claro_label` = 'CLCHT___'";
+$sqlForUpdate[] = "UPDATE table `course_tool` SET `icon` = 'document.gif' WHERE `claro_label` = 'CLDOC___'";
+$sqlForUpdate[] = "UPDATE table `course_tool` SET `icon` = 'learnpath.gif' WHERE `claro_label` = 'CLLNP___'";
+$sqlForUpdate[] = "UPDATE table `course_tool` SET `icon` = 'user.gif' WHERE `claro_label` = 'CLUSR___'";
+
 ?>
