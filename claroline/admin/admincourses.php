@@ -100,8 +100,22 @@ if (!isset($cfrom) || $cfrom!="clist") //offset not kept when come from another 
 switch ($cmd)
 {
   case "delete" :
-        delete_course($delCode);
-        $dialogBox = $langCourseDelete;
+        $delCode = $_REQUEST['delCode'];
+	$sql = "SELECT *
+                 FROM `".$mainDbName."`.`cours`
+                 WHERE `code` = '".$delCode."'";
+        
+	$result = claro_sql_query($sql);
+        while ($the_course = mysql_fetch_array($result))
+        {
+            $course_exist=$the_course[0];
+        }
+	
+        if ($course_exist) 
+	{
+	    delete_course($delCode);
+	    $dialogBox = $langCourseDelete;
+        }
         break;
 }
 
