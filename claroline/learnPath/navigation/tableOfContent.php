@@ -104,7 +104,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   // build the array of modules     
   // build_element_list return a multi-level array, where children is an array with all nested modules
   // build_display_element_list return an 1-level array where children is the deep of the module
-  $flatElementList = build_display_element_list(build_element_list($extendedList));
+  $flatElementList = build_display_element_list(build_element_list($extendedList, 'parent', 'learnPath_module_id'));
 
   $is_blocked = false;
   $atleastOne = false;

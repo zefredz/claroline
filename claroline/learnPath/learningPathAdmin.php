@@ -134,7 +134,7 @@
               
               //-- delete module cmdid and his children if it is a label
               // get the modules tree ( cmdid module and all its children)
-              $temp[0] = get_module_tree( build_element_list($extendedList), $_GET['cmdid'] , 'learnPath_module_id');
+              $temp[0] = get_module_tree( build_element_list($extendedList, 'parent', 'learnPath_module_id'), $_GET['cmdid'] , 'learnPath_module_id');
               // delete the tree
               delete_module_tree($temp);
 
@@ -161,7 +161,7 @@
 
               //-- set the visibility for module cmdid and his children if it is a label
               // get the modules tree ( cmdid module and all its children)
-              $temp[0] = get_module_tree( build_element_list($extendedList), $_GET['cmdid'] );
+              $temp[0] = get_module_tree( build_element_list($extendedList, 'parent', 'learnPath_module_id'), $_GET['cmdid'] );
               // change the visibility according to the new father visibility
               set_module_tree_visibility( $temp, $visibility);
               
@@ -234,7 +234,7 @@
                   
                   // build the array that will be used by the claro_build_nested_select_menu function
                   $elementList = array();
-                  $elementList = build_element_list($extendedList);
+                  $elementList = build_element_list($extendedList, 'parent', 'learnPath_module_id');
                  
                   $topElement['name'] = $langRoot;
                   $topElement['value'] = 0;	// value is required by claro_nested_build_select_menu
@@ -441,7 +441,7 @@
     // build the array of modules     
     // build_element_list return a multi-level array, where children is an array with all nested modules
     // build_display_element_list return an 1-level array where children is the deep of the module
-   $flatElementList = build_display_element_list(build_element_list($extendedList));
+   $flatElementList = build_display_element_list(build_element_list($extendedList, 'parent', 'learnPath_module_id'));
 
    
    $iterator = 1;
