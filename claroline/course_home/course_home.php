@@ -159,31 +159,6 @@ if ($is_allowedToEdit)
                          COURSE ADMINISTRATION SECTION
   ----------------------------------------------------------------------------*/
 
-//    echo '<p>';
-
-//    claro_disp_button($clarolineRepositoryWeb."course_home/course_home_edit.php",
-//                      "<img align=\"absbottom\" src=\"".$imgRepository."edit.gif\" alt=\"\">"
-//                      .$langEditToolList);
-
-
-
-//    echo '</p>'; // the empty <p></p> is necessary otherwise the button
-                        // bottom is bitten in IE
-
-//    claro_disp_button($toolRepository."course_info/infocours.php",
-//        "<img src=\"".$imgRepository."/referencement.gif\" alt=\"\">"
-//        .$langCourseSettings);
-//
-//     echo "</p>\n"
-//         ."<p>\n";
-//
-//    claro_disp_button($toolRepository."tracking/courseLog.php",
-//        "<img src=\"".$imgRepository."/statistiques.gif\" alt=\"\">"
-//        .$langStatistics);
-//
-//    echo "</p>\n";
-
-
     echo "<p>\n"
         ."<a class='claroCmd' href=\"".$clarolineRepositoryWeb."course_home/course_home_edit.php\">"
         ."<img src=\"".$imgRepository."edit.gif\" alt=\"\"> "
