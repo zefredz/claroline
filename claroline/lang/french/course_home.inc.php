@@ -20,18 +20,19 @@ Translate the interface in chosen language
 
 *****************************************************************/
 
-$langNo="Non";
-$langYes="Oui";
+$langNo		="Non";
+$langYes		="Oui";
 
 $langActivate="activer";
-$langDeactivate="désactiver";
+$langDeactivate="d&eacute;sactiver";
 $langRemove="supprimer";
-$langAdminOnly ="Réservé aux administrateurs";
+$langAdminOnly ="R&eacute;serv&eacute; aux administrateurs";
 $langCourseManagement = "Gestion du cours";
-$langInLnk ="Liens désactivés"; 
-$langDelLk="Voulez-vous réellement supprimer ce lien?";
+$langInLnk ="Liens d&eacute;sactiv&eacute;s"; 
+$langDelLk="Voulez-vous r&eacute;ellement supprimer ce lien?";
 $langEnter ="Entrer";
 
 
 $langNameOfTheLink ="Nom du lien";
+
 ?>
