@@ -9,7 +9,7 @@
 /**
  * function deleteAllGroups()
  * function fill_in_groups()
- * function mkdirs($path, $mode = '0777')
+ * function mkdirs($path, $mode = 0777)
  * function cidNeeded( $ifNot = "DIE" )
 
  * function delete_groups($groupIdList = 'ALL')
@@ -114,7 +114,7 @@ function delete_groups($groupIdList = 'ALL')
 		// define repository for deleted element
 
 		$groupGarbage =	$garbageRepositorySys."/".$currentCourseRepository."/group/";
-		if ( ! file_exists($groupGarbage) ) mkdirs($groupGarbage, '0777');
+		if ( ! file_exists($groupGarbage) ) mkdirs($groupGarbage, 0777);
 
 		foreach($groupList['directory'] as $thisDirectory)
 		{
@@ -173,7 +173,7 @@ function cidNeeded( $ifNot = "DIE" )
  * @return boolean TRUE if succeeds FALSE otherwise
  */
 
-function mkdirs($path, $mode = '0777')
+function mkdirs($path, $mode = 0777)
 {
 	if ( file_exists($path) )
 	{
