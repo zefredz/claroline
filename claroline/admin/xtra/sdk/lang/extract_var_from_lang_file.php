@@ -65,15 +65,15 @@ while ($element = readdir($handle) )
 	}
 	if ( is_dir($element) )
 	{
-		$langAttribute['path'] = $path_lang . '/' . $element;
-		$langAttribute['name'] = reset( explode (".", $element) );
-		$langList     []       = $langAttribute;
+		$languageAttribute['path'] = $path_lang . '/' . $element;
+		$languageAttribute['name'] = reset( explode (".", $element) );
+		$languageList     []       = $languageAttribute;
 	}
 }
 
-if ( sizeof($langList) > 0)
+if ( sizeof($languageList) > 0)
 {
-	foreach($langList as $thisLangList)
+	foreach($languageList as $thisLangList)
 	{
         echo "<h3>" . $thisLangList['name'] . "</h3>\n";
         glance_through_dir_lang($thisLangList['path'], $thisLangList['name']);

@@ -109,19 +109,19 @@ function retrieve_lang_var($fileName, $languageName)
  * store the lang variables in a centralized repository
  *
  * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - array $langVarList - list of the language variable
+ * @param  - array $languageVarList - list of the language variable
  *           'key' is the variable name, 'content' is the variable content
  * @param  - string $sourceFileName - file name from where the variables 
  *           are coming
  * @param  - string $languageName - name of the language translation
  */
 
-function store_lang_var($langVarList, $sourceFileName, $languageName)
+function store_lang_var($languageVarList, $sourceFileName, $languageName)
 {
 
 	global $problemMessage, $rootSys;
 
-	foreach($langVarList as $thisVarKey => $thisVarContent)
+	foreach($languageVarList as $thisVarKey => $thisVarContent)
 	{
 		$sql = "INSERT INTO " . TABLE_TRANSLATION . " SET 
 		 VarName    = \"".$thisVarKey."\", 
@@ -248,11 +248,11 @@ function is_scannable($filePath,
 /**
  * Store the name and sourceFile of the language variable in mysql table
  *
- * @param - array $langVarList
+ * @param - array $languageVarList
  * @param - string $sourcFileName
  */
 
-function store_lang_used_in_script($langVarList, $sourceFileName)
+function store_lang_used_in_script($languageVarList, $sourceFileName)
 {
 
 	global $problemMessage, $rootSys;
@@ -260,7 +260,7 @@ function store_lang_used_in_script($langVarList, $sourceFileName)
     $sourceFileName =  str_replace($rootSys,"",$sourceFileName);
     $languageFileName = compose_language_production_filename($sourceFileName);
 
-	foreach($langVarList as $thisVar)
+	foreach($languageVarList as $thisVar)
 	{
 		$sql = "INSERT INTO " . TABLE_USED_LANG_VAR . " SET 
 		 VarName    = \"".$thisVar."\", 
@@ -326,7 +326,7 @@ function detect_included_files(&$tokenList)
 /**
  * Get the list of language variables in a script and its included files
  *
- * @return - array $langVarList or boolean FALSE
+ * @return - array $languageVarList or boolean FALSE
  * @param - string $file
  */
 
@@ -344,14 +344,14 @@ function get_lang_vars_from_file($file)
 
     if (is_scannable($file) )
     {
-        $langVarList          = array();
+        $languageVarList          = array();
         $includeStatementList = array();
         $includedFileList     = array();
 
         $sourceFile = file_get_contents($file);
         $tokenList  = token_get_all($sourceFile);
 
-        $langVarList          = detect_lang_var($tokenList);
+        $languageVarList          = detect_lang_var($tokenList);
         $includeStatementList = detect_included_files($tokenList);
 
         foreach($includeStatementList as $thisIncludeStatement)
@@ -376,21 +376,21 @@ function get_lang_vars_from_file($file)
 
                 if (is_array($includedLangVarList) )
                 {
-                    $langVarList =  array_merge($langVarList, $includedLangVarList);
+                    $languageVarList =  array_merge($languageVarList, $includedLangVarList);
                 }
             }
         }
 
-        $langVarList = array_unique($langVarList);
+        $languageVarList = array_unique($languageVarList);
 
         // *** OPTIMISATION : start *** //
         if (basename($file) == 'claro_init_global.inc.php')
         {
-            $claro_init_global_vars = $langVarList;
+            $claro_init_global_vars = $languageVarList;
         }
         // *** OPTIMISATION : end *** //
 
-        return $langVarList;
+        return $languageVarList;
 
     } // end if scannable
     else
@@ -402,13 +402,13 @@ function get_lang_vars_from_file($file)
 /**
  * Extract language variables from a script
  * 
- * @return - array $langVarList
+ * @return - array $languageVarList
  * @param  - array $tokenList
  */
 
 function detect_lang_var($tokenList)
 {
-    $langVarList = array();
+    $languageVarList = array();
 
     foreach($tokenList as $thisToken)
     {
@@ -417,12 +417,12 @@ function detect_lang_var($tokenList)
             if ( is_a_lang_var($thisToken) )
             {
                 $varName = str_replace('$','',$thisToken[1]);
-                $langVarList[]=$varName;
+                $languageVarList[]=$varName;
             }
         }
     }
 
-    return $langVarList;
+    return $languageVarList;
 }
 
 /**
@@ -532,7 +532,7 @@ function compose_language_production_filename ($file)
  * store the lang variables in a centralized repository
  *
  * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - array $langVarList - list of the language variable
+ * @param  - array $languageVarList - list of the language variable
  *           'key' is the variable name, 'content' is the variable content
  * @param  - string $sourceFileName - file name from where the variables 
  *           are coming
@@ -541,14 +541,14 @@ function compose_language_production_filename ($file)
 
 /*
 
-function store_lang_used_in_script($langVarList)
+function store_lang_used_in_script($languageVarList)
 {
 
 	global $problemMessage ;
 
 	$language = DEFAULT_LANGUAGE ;
 
-	foreach($langVarList as $varName )
+	foreach($languageVarList as $varName )
 	{
 	
 		// find if variable exists in lang file table 

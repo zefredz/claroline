@@ -65,18 +65,18 @@ foreach ($files as $file)
     
     $scannedFileList = array(); // re init the scannedFileList for each new script
 	
-    $langVarList = get_lang_vars_from_file($file);
+    $languageVarList = get_lang_vars_from_file($file);
 
 	// display variables 
 
 	$var_count = 0;
 
-	foreach($langVarList as $varName) ++$var_count;
+	foreach($languageVarList as $varName) ++$var_count;
     $total_var_count += $var_count;
     echo "Variables: " . $var_count;
 	
     // update table
-	store_lang_used_in_script($langVarList,$file);
+	store_lang_used_in_script($languageVarList,$file);
 	
 } // end foreach 
 

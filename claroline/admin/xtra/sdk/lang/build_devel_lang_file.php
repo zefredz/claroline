@@ -42,15 +42,15 @@ while ($element = readdir($handle) )
 	}
 	if ( is_dir($element) )
 	{
-		$langAttribute['path'] = $path_lang . '/' . $element;
-		$langAttribute['name'] = reset( explode (".", $element) );
-		$langList     []       = $langAttribute;
+		$languageAttribute['path'] = $path_lang . '/' . $element;
+		$languageAttribute['name'] = reset( explode (".", $element) );
+		$languageList     []       = $languageAttribute;
 	}
 }
 
-if ( sizeof($langList) > 0)
+if ( sizeof($languageList) > 0)
 {
-	foreach($langList as $thisLangList)
+	foreach($languageList as $thisLangList)
 	{
 	
 	    $language = $thisLangList['name'];
@@ -68,14 +68,14 @@ if ( sizeof($langList) > 0)
 	         
 		if ($result) 
 		{
-		    $langVarList = array();
+		    $languageVarList = array();
 	
 		    while ($row=mysql_fetch_array($result))
 		    {
 		        $thisLangVar['name'   ] = $row['varName'       ];
 		        $thisLangVar['content'] = $row['varFullContent'];
 		
-		        $langVarList[] = $thisLangVar;
+		        $languageVarList[] = $thisLangVar;
 		    }
 		}
 	
@@ -87,11 +87,11 @@ if ( sizeof($langList) > 0)
 	
 		// build language files
 	
-		if ($fileHandle && count($langVarList) > 0)
+		if ($fileHandle && count($languageVarList) > 0)
 		{
 		    fwrite($fileHandle, "<?php \n");
 		
-		    foreach($langVarList as $thisLangVar)
+		    foreach($languageVarList as $thisLangVar)
 		    {
                 $varContent = $thisLangVar['content'];
 		        $varContent = preg_replace('/([^\\\\])"/', '\\1\\"', $varContent);
@@ -109,7 +109,7 @@ if ( sizeof($langList) > 0)
 	
 	}    
 
-} // end sizeof($langList) > 0
+} // end sizeof($languageList) > 0
 
 // get end time
 $endtime = get_time();

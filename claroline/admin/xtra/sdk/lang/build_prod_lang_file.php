@@ -39,17 +39,17 @@ while ($element = readdir($handle) )
 	{
 		$path = $path_lang . '/' . $element;
 		$name = reset( explode (".", $element) );
-		$langPath[$name] = $path;
+		$languagePath[$name] = $path;
 	}
 }
 
 // display select box
 
-if ( sizeof($langPath) > 0)
+if ( sizeof($languagePath) > 0)
 {
     echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
     echo "<select name=\"language\">";
-	foreach($langPath as $key => $thisLangPath)
+	foreach($languagePath as $key => $thisLangPath)
 	{
         if (isset($_REQUEST['language']) && $key == $_REQUEST['language'] )
         {
@@ -76,7 +76,7 @@ if (isset($_REQUEST['language']))
 	
     // get language name and display it
     $language = $_REQUEST['language'];
-    $path = $langPath[$language];
+    $path = $languagePath[$language];
 
     echo "<h3>in " . $language . "</h3>\n";
     echo "<p>\n";
@@ -99,7 +99,7 @@ if (isset($_REQUEST['language']))
          
 	if ($result) 
 	{
-	    $langVarList = array();
+	    $languageVarList = array();
 
 	    while ($row=mysql_fetch_array($result))
 	    {
@@ -111,16 +111,16 @@ if (isset($_REQUEST['language']))
 	        $thisLangVar['content'] = $row['varFullContent'];
 
             // put language variable 
-	        $langVarList[$languageFileName][] = $thisLangVar;
+	        $languageVarList[$languageFileName][] = $thisLangVar;
 	    }
 	}	
 
 	// build language files
 
-	if (count($langVarList) > 0)
+	if (count($languageVarList) > 0)
 	{
 	
-        foreach ($langVarList as $thisLanguageFilename => $thisLangVarList)
+        foreach ($languageVarList as $thisLanguageFilename => $thisLangVarList)
         {
 
             // add extension to file
