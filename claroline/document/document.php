@@ -96,9 +96,13 @@ else
 
     //$interbredcrump[] = array ();
 
-    $is_allowedToEdit  = $is_courseAdmin;
-    $is_allowedToUnzip = $is_courseAdmin;
+	// initialise view mode tool
+	claro_set_display_mode_available(true);
+	
+    $is_allowedToEdit  = claro_is_allowed_to_edit();
+    $is_allowedToUnzip = claro_is_allowed_to_edit();
     $maxFilledSpace    = 100000000;
+
 }
 
 $baseWorkDir = $baseServDir.$courseDir;
@@ -986,8 +990,6 @@ $nameTools = $langDoc;
 $QUERY_STRING=''; // used for the breadcrumb 
                   // when one need to add a parameter after the filename
 
-if (!$_gid) claro_set_display_mode_available(true);
-
 include($includePath.'/claro_init_header.inc.php');
 
 $dspCurDirName = htmlspecialchars($curDirName);
@@ -1002,7 +1004,6 @@ if ( $_gid && $is_groupAllowed) $titleElement['subTitle'] = $_group['name'];
 claro_disp_tool_title($titleElement, 
                       $is_allowedToEdit ? 'help_document.php' : false);
 
-$is_allowedToEdit = claro_is_allowed_to_edit();
 
 	if($is_allowedToEdit)
 	{
