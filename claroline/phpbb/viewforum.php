@@ -129,7 +129,7 @@ else foreach($topicList as $thisTopic)
         else
         {
             $image = $clarolineRepositoryWeb.'img/red_forum.gif';
-            $alt   = '';
+            $alt   = 'new post';
         }
 
         if($thisTopic['topic_status'] == 1) $image = $locked_image;
