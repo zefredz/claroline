@@ -160,24 +160,13 @@ else
 ?>
 
 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+<div>
+<label for="subject"><?php echo $l_subject?></label> :<br />
+<input type="text" name="subject" id="subject" size="50" maxlength="100" value="<?php echo $_REQUEST['subject']; ?>"/>
+</div>
+<div>
+<br /><?php echo $l_body?> :<br />
 
-<table border="0">
-
-<tr valign="top">
-
-<td align="right"><label for="subject"><?php echo $l_subject?></label> :</td>
-<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="<?php echo $_REQUEST['subject']; ?>"/></td>
-
-</tr>
-
-<tr valign="top">
-
-<td align="right">
-<?php echo $l_body?> :
-<br><br>
-</td>
-
-<td>
 <?php
 	if( isset($_REQUEST['message']) )
 	    $content = urldecode($_REQUEST['message']);
@@ -186,23 +175,10 @@ else
 	    
 	claro_disp_html_area('message',$content);
 ?>
-</td>
-
-</tr>
-
-<tr>
-
-<td></td>
-
-<td>
+</div>
 <input type="hidden" name="forum" value="<?php echo $forum?>">
 <input type="submit" name="submit" value="<?php echo $langSubmit?>">
 &nbsp;<input type="submit" name="cancel" value="<?php echo $l_cancelpost?>">
-</td>
-
-</tr>
-
-</table>
 
 </form>
 

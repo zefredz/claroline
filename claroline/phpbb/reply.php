@@ -128,10 +128,9 @@ else
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 <input type="hidden" name="md5" value="<?php echo $md5; ?>">
 
-<table border="0">
-
-<tr valign="top">
-<td align="right"><?php echo $l_body?> : 
+<div>
+<?php echo $l_body?> : 
+<br />
 <?php
 
     if($quote)
@@ -150,24 +149,16 @@ else
         $reply = sprintf($l_quotemsg,$m['post_time'],$m['username'],$text);
     }
 ?>
-</td>
-<td>
 <?php claro_disp_html_area('message', $reply) ?>
-</td>
-</tr>
-
-<tr>
-<td></td>
-<td>
+<br />
 <input type="hidden" name="forum" value="<?php echo $forum?>">
 <input type="hidden" name="topic" value="<?php echo $topic?>">
 <input type="hidden" name="quote" value="<?php echo $quote?>">
 <input type="submit" name="submit" value="<?php echo $langSubmit?>">
 &nbsp;<input type="submit" name="cancel" value="<?php echo $l_cancelpost?>">
-</td>
-</tr>
-</table>
+</div>
 </form>
+
 <p align="center">
 <a href="viewtopic.php?topic=<?php echo $topic ?>&forum=<?php echo $forum ?>" 
    target=\"_blank\">
