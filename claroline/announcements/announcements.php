@@ -60,7 +60,6 @@ include('../inc/claro_init_global.inc.php');
 include($includePath.'/conf/announcement.conf.inc.php');
 include($includePath.'/lib/text.lib.php');
 include($includePath.'/lib/events.lib.inc.php');
-@include($includePath.'/lib/debug.lib.inc.php');
 
 $tbl_announcement = $_course['dbNameGlu'].'announcement';
 $is_allowedToEdit = $is_courseAdmin;
@@ -71,7 +70,7 @@ $userLastLogin    = $_user ['lastLogin'];
 
 $displayForm           = false;
 $displayList           = true;
-$displayButtonLine     = $is_allowedToEdit;
+$displayButtonLine     = $is_allowedToEdit && $cmd != 'rqEdit' && $cmd != 'rqCreate';
 
 /*============================================================================
                      COMMANDS SECTION (COURSE MANAGER ONLY)
@@ -331,7 +330,11 @@ event_access_tool($nameTools);
                                    TOOL TITLE
   ----------------------------------------------------------------------------*/
 
-claro_disp_tool_title($nameTools);
+if     ($cmd == 'rqEdit'  ) $subTitle = $langModifAnn;
+elseif ($cmd == 'rqCreate') $subTitle = $langAddAnn;
+else                        $subTitle = '';
+    
+claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
 /*----------------------------------------------------------------------------
                                  ACTION MESSAGE
@@ -348,19 +351,14 @@ if ($message)
 
 if ($displayButtonLine)
 {
-    echo    "<p>",
-            "<a href=\"".$PHP_SELF."?cmd=rqCreate\">",
-            "<img src=\"".$clarolineRepositoryWeb."/img/valves.gif\">".$langAddAnn.
-            "</a>",
-            "&nbsp;",
-            "<a href=\"messages.php\">",
-            "<img src=\"".$clarolineRepositoryWeb."/img/email.gif\">".$langMessageToSelectedUsers.
-            "</a>",
-            "&nbsp;",
-            "<a href=\"".$PHP_SELF."?cmd=exDeleteAll\">",
-            "<img src=\"".$clarolineRepositoryWeb."/img/delete.gif\">".$langEmptyAnn.
-            "</a>\n",
-            "</p>";
+    echo    "<p>\n";
+    claro_disp_button($PHP_SELF.'?cmd=rqCreate',
+                      '<img src="'.$clarolineRepositoryWeb.'img/valves.gif">'.$langAddAnn);
+    claro_disp_button('messages.php',
+                      '<img src="'.$clarolineRepositoryWeb.'img/email.gif">'.$langMessageToSelectedUsers);
+    claro_disp_button($PHP_SELF.'?cmd=exDeleteAll\'>',
+                      '<img src="'.$clarolineRepositoryWeb.'img/delete.gif">'.$langEmptyAnn);
+    echo "</p>\n";
 }
 
 
@@ -374,38 +372,37 @@ if ($displayForm)
 
     // DISPLAY ADD ANNOUNCEMENT COMMAND
 
-    if ($cmd == 'rqEdit')
-    {
-        echo  '<h4>'.$langModifAnn."</h4>\n";
-    }
-    else
-    {
-        echo	'<h4>'.$langAddAnn."</h4>\n";
-    }
-
     echo    "<form method=\"post\" action=\"".$PHP_SELF."\">\n",
-            "<p>".$langTitle." : <br>",
+            "<input type=\"hidden\" name=\"cmd\" value=\"".$nextCommand."\">",
 
-            "<input type=\"hidden\" name=\"cmd\" value=\"".$nextCommand."\"><br>\n",
-
-            "<input type=\"text\" name=\"title\" value = \"",
+            $announcementToEdit ? "<input type=\"hidden\" name=\"id\" value=\"".$announcementToEdit['id']."\">\n"
+                                  : '',
+            "<table>",
+            "<tr>",
+            "<td valign=\"top\">".$langTitle." : </td>",
+            "<td><input type=\"text\" name=\"title\" value = \"",
                 $announcementToEdit ? $announcementToEdit['title'] : '',
-                "\"size=\"80\"><br>\n",
+                "\"size=\"80\"></td>",
+            "</tr>\n",
+            "<tr>",
+            "<td valign=\"top\">Content	: </td>",
+            "<td>",
 
-            $announcementToEdit ? 
-                "<input type=\"hidden\" name=\"id\" value=\"".$announcementToEdit['id']."\">\n"
-                : '',
+            claro_disp_html_area('newContent', $announcementToEdit ? $announcementToEdit['content'] : '', 12, 67, $optAttrib=' wrap="virtual" ');
 
-            "<p>Content	: <br>\n",
-            "<textarea rows=\"12\" cols=\"60\" name=\"newContent\">",
-
-            $announcementToEdit ? $announcementToEdit['content'] : '',
-
-            "</textarea>",
-            "<br>",
-            "<input	type=checkbox value=\"1\" name=\"emailOption\">",
+   echo    "</td>",
+           "</tr>\n",
+           "<tr>",
+           "<td></td>",
+           "<td><input	type=checkbox value=\"1\" name=\"emailOption\">",
             $langEmailOption,"<br>\n",
-            "<input	type=\"Submit\"	name=\"submitAnnouncement\"	value=\"".$langOk."\">\n",
+            "<input	type=\"Submit\"	class=\"claroButton\" name=\"submitAnnouncement\"	value=\"".$langOk."\">\n";
+
+   claro_disp_button ($PHP_SELF, 'Cancel');
+
+   echo     "</td>",
+            "<tr>\n",
+            "</table>",
             "</form>\n";
 }
 
@@ -422,20 +419,26 @@ if ($displayList)
             FROM `".$tbl_announcement."`
             ORDER BY ordre DESC";
 
-    $result = claro_sql_query($sql);
+    $announcementList = claro_sql_query_fetch_all($sql);
 
     $iterator = 1;
 
-    $bottomAnnouncement = $announcementNumber = mysql_num_rows($result);
+    $bottomAnnouncement = $announcementNumber = count($announcementList);
 
-    echo "<table class=\"claroTable\">";
-
-    while ( $announcement = mysql_fetch_array($result) )
+    if ($announcementNumber < 1)
     {
-        $title   = $announcement['title'];
-        $content = make_clickable(nl2br($announcement['content']));
+    	echo "<br><blockquote><p>No Announcement ...<p></blockquote>\n";
+    }
+    
 
-        $last_post_datetime = $announcement['temps'];// post time format  datetime de mysql
+    echo "<table class=\"claroTable\" width=\"100%\">";
+
+    foreach ( $announcementList as $thisAnnouncement)
+    {
+        $title   = $thisAnnouncement['title'];
+        $content = make_clickable(nl2br($thisAnnouncement['content']));
+
+        $last_post_datetime = $thisAnnouncement['temps'];// post time format  datetime de mysql
 
         list($last_post_date, $last_post_time) = split(' ', $last_post_datetime);
         list($year, $month, $day) = explode("-", $last_post_date);
@@ -465,7 +468,7 @@ if ($displayList)
                 "<tr>\n",
 
                 "<td>
-				<a href=\"#\" name=\"ann".$announcement["id"]."\"></a>
+				<a href=\"#\" name=\"ann".$thisAnnouncement["id"]."\"></a>
 				\n",
                 $title ? "<p><strong>".$title."</strong></p>\n" : '',
                 $content,"\n";
@@ -473,10 +476,10 @@ if ($displayList)
         if ($is_allowedToEdit)
         {
             echo "<p>",
-                 "<a href=\"".$PHP_SELF."?cmd=rqEdit&id=".$announcement['id']."\">",
+                 "<a href=\"".$PHP_SELF."?cmd=rqEdit&id=".$thisAnnouncement['id']."\">",
                  "<img src=\"".$clarolineRepositoryWeb."/img/edit.gif\" alt=\"".$langModify,"\">".
                  "</a>\n",
-                 "<a href=\"".$PHP_SELF."?cmd=exDelete&id=".$announcement['id']."\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\">",
+                 "<a href=\"".$PHP_SELF."?cmd=exDelete&id=".$thisAnnouncement['id']."\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\">",
                  "<img src=\"".$clarolineRepositoryWeb."/img/delete.gif\" alt=\"".$langDelete."\" border=\"0\">".
                  "</a>\n";
 
@@ -484,7 +487,7 @@ if ($displayList)
 
                 if($iterator != 1)
                 {
-                    echo	"<a href=\"".$PHP_SELF."?cmd=exMvUp&id=",$announcement['id'],"#ann",$announcement['id'],"\">",
+                    echo	"<a href=\"".$PHP_SELF."?cmd=exMvUp&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                             "<img src=\"".$clarolineRepositoryWeb."/img/up.gif\" alt=\"".$langUp."\">".
                             "</a>\n";
                 }
@@ -493,7 +496,7 @@ if ($displayList)
 
                 if($iterator < $bottomAnnouncement)
                 {
-                    echo	"<a href=\"".$PHP_SELF."?cmd=exMvDown&id=".$announcement['id'],"#ann",$announcement['id'],"\">",
+                    echo	"<a href=\"".$PHP_SELF."?cmd=exMvDown&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                             "<img src=\"".$clarolineRepositoryWeb."/img/down.gif\" alt=\"".$langDown."\">",
                             "</a>\n";
                 }
@@ -528,6 +531,7 @@ include($includePath."/claro_init_footer.inc.php");
 function moveEntry($entryId,$cmd)
 {
 	GLOBAL $tbl_announcement;
+
 	if ( $cmd == 'DOWN' )
 	{
 		$thisAnnouncementId = $entryId;
@@ -557,7 +561,7 @@ function moveEntry($entryId,$cmd)
 			if (isset ($thisAnnouncementRankFound) && $thisAnnouncementRankFound == true)
 			{
 				$nextAnnouncementId    = $announcementId;
-				$nextAnnouncementRank = $announcementRank;
+				$nextAnnouncementRank  = $announcementRank;
 
             $sql = "UPDATE `".$tbl_announcement."`
 				        SET ordre = \"".$nextAnnouncementRank."\"
