@@ -109,7 +109,7 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <a href="../create_course/add_course.php?fromAdmin=yes"><?php echo$langCreateCourse?></a><br>
 </li>
 <li>
-<a href="admincats.php">Manage course categories</a>
+<a href="admincats.php"><?php echo $langManageCourseCategories?></a>
 </li>
 </ul>
 
@@ -119,7 +119,7 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <a href="technical/config.php"><?php echo$langConfiguration?></a>
 </li>
 <li>
-<a href="campusLog.php">View plateform statistics</a>
+<a href="campusLog.php"><?php echo $langViewPlatFormStatistics?></a>
 </li>
 <li>
 <a href="maintenance/index.php"><?php echo$langUpgrade?></a>
