@@ -97,9 +97,15 @@ echo	"</td>".
 		"</tr>".
 		"</table><br><br>";
 
+
 /*====================================================
   COMMANDS SECTION (reserved to course administrator)
   ===================================================*/
+
+// handle parameters
+$titre = claro_strip_tags( trim ($_POST['titre'] ) );
+$auteurs = claro_strip_tags( trim ($_POST['auteurs'] ) );
+$description = claro_strip_tags( trim ($_POST['description'] ) );
 
 if ($is_allowedToEdit)
 {
@@ -223,7 +229,7 @@ if ($is_allowedToEdit)
           FORM SUBMIT PROCEDURE
   =====================================*/
 
-if ( isset($submitWork) )
+if ( isset($_POST['submitWork']) )
 {
 	if ( is_uploaded_file($file) )
 	{
@@ -247,17 +253,12 @@ if ( isset($submitWork) )
 		}
 		else
 		{
-			if( ! $titre )
-			{
+			if( ! $titre || $titre == "" )
 				$titre = $file_name;
-			}
-
-			if ( ! $auteurs)
-			{
+			
+			if ( ! $auteurs || $auteurs == "")
 				$auteurs = $currentUserFirstName." ".$currentUserLastName;
-			}
-
-
+						
 			// compose a unique file name to avoid any conflict
 
 			$new_file_name = uniqid('').$new_file_name;
@@ -311,18 +312,14 @@ if ( isset($submitWork) )
 	 * SPECIAL CASE ! For a work edited
 	 */
 
-	elseif ($id && $is_allowedToEdit)
+	elseif ($_POST['id'] && $is_allowedToEdit)
 	{
-		if( ! $titre )
-		{
-			$titre = basename($newWorkUrl);
-		}
 
 		$sql = "UPDATE  `".$tbl_work."`  
 		        SET	titre       = \"".$titre."\",
 		            description = \"".$description."\",
 		            auteurs     = \"".$auteurs."\"
-		        WHERE id        = \"".$id."\"";
+		        WHERE id        = \"".$_POST['id']."\"";
 
 		claro_sql_query($sql);
 
@@ -337,7 +334,7 @@ if ($submitWork && $succeed)
 
 		echo	$langDocAdd.
 				"<br>
-				<B>".$titre."</B><br>
+				<b>".$titre."</b><br>
 				<u>
 					".$langDescription."
 				</u> 
