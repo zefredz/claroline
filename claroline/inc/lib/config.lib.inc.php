@@ -618,6 +618,58 @@ function get_def_list()
     return $defConfFileList;
 }
 
+function get_group_of_def_list()
+{
+    global $includePath, $toolNameList;
+
+	$defConfFileList = array();
+
+	if ($handle = opendir($includePath.'/conf/def'))
+    {
+		
+		$defConfFileList['platform']['name'] = 'Platform';
+		$defConfFileList['course']['name'] = 'Course';
+		$defConfFileList['user']['name'] = 'User';
+		$defConfFileList['tool']['name'] = 'Tool';
+
+       while (FALSE !== ($file = readdir($handle)))
+       {
+
+	
+           if ($file != "." && $file != ".." && substr($file, -17)=='.def.conf.inc.php')
+           {
+                $config_code = str_replace('.def.conf.inc.php','',$file);
+
+
+				if ( $config_code == 'CLMAIN')
+				{
+					$defConfFileList['platform']['conf'][$config_code] = 'Main configuration';
+				}
+				elseif ( $config_code == 'claro_course')
+				{
+					$defConfFileList['course']['conf'][$config_code] = $toolNameList[$config_code];
+				}
+				elseif ( $config_code == 'claro_user')
+				{
+					$defConfFileList['user']['conf'][$config_code] = $toolNameList[$config_code];
+				}
+				elseif ( array_key_exists($config_code.'___',$toolNameList) )
+				{
+					$defConfFileList['tool']['conf'][$config_code] = $toolNameList[$config_code.'___'];
+				} 
+				else
+				{
+					// Don't display this file
+				}	
+           }
+       }
+       closedir($handle);
+    }
+
+    return $defConfFileList;
+
+}
+
 
 /**
  * Return a list of configuration set know in db with some info about them. 
