@@ -195,4 +195,6 @@ $lang_p_d_student  = '%2d étudiant'; // nul or singular
 $lang_p_d_course_managers = '%2d prof. '; // plural
 $lang_p_d_course_manager = '%2d prof. '; // nul or singular
 
+$langUserSettings="Paramètres de l'utilisateur";
+
 ?>

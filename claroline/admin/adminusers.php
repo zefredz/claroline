@@ -337,7 +337,7 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=firstname&dir=".$order['firstname']."\">".$langFirstName."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=officialCode&dir=".$order['officialCode']."\">".$langOfficialCode."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=email&dir=".$order['email']."\">".$langEmail."</a></th>
-          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=status&dir=".$order['status']."\">".$langStatus."</a></th>";
+          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=status&dir=".$order['status']."\">".$langUserStatus."</a></th>";
 echo     "<th>".$langPersonalCourseList."</th>
           <th>".$langUserSettings."</th>
           <th>".$langDelete."</th>";

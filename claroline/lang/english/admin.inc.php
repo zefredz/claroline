@@ -158,7 +158,7 @@ $langAreYouSureToSubscribe = "Are you sure you want to register ";
 $langViewList = "View list";
 $langUserCanCreateCourse = "Can create course";
 $langUserIsPlaformAdmin = "Is platform admin";
-$langPersonalCourseList = "Personnal course list";
+$langPersonalCourseList = "Personal course list";
 $langAllUsersOfThisCourse = "Course members";
 $langCode = "Course code";
 
@@ -202,4 +202,7 @@ $lang_p_d_students = '%2d students'; // plural              // english of moosh
 $lang_p_d_student  = '%2d student'; // nul or singular      // english of moosh
 $lang_p_d_course_managers = '%2d profs '; // plural         // english of moosh
 $lang_p_d_course_manager = '%2d prof '; // nul or singular  // english of moosh
+
+$langUserSettings="User settings";
+
 ?>
