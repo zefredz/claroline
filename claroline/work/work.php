@@ -367,8 +367,6 @@ else
 			"<table>\n";
 	if ($submitGroupWorkUrl) // For user comming from group space to publish his work
 	{
-		$realUrl = str_replace ($webDir, $rootWeb, str_replace("\\", "/", realpath($submitGroupWorkUrl) ) ) ;
-
 		echo	"<tr>\n",
 
 				"<td align=\"right\">".
@@ -376,8 +374,8 @@ else
 				$langDocument.
 				" : ".
 				"</td>\n".
-				"<td align=\"right\">".
-				"<a href=\"".format_url($submitGroupWorkUrl)."\">".$realUrl."</a>".
+				"<td align=\"left\">".
+				"<a href=\"".$coursesRepositoryWeb.$_course['path'].'/'.$submitGroupWorkUrl."\">".basename($submitGroupWorkUrl)."</a>".
 				"</td>\n".
 
 				"</tr>\n";
