@@ -54,6 +54,7 @@ $langInvisible = "Invisible";
 
 $langAssignmentType = "Type de travail";
 $langIndividual = "Individuelle";
+$langGroupAssignment = "De groupe (de l'outil de groupes, seuls les utilisateurs membres de groupes peuvent poster)";
 $langGroup = "Groupe";
 
 $langAllowAnonymous = "Autoriser les utilisateurs anonymes";

@@ -53,6 +53,7 @@ $langInvisible = "Invisible";
 
 $langAssignmentType = "Assignment type";
 $langIndividual = "Individual";
+$langGroupAssignment = "Groups (from groups tool, only group members can post)";
 $langGroup = "Group";
 
 $langAllowAnonymous = "Allow anonymous users";
