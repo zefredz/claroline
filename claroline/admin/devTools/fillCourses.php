@@ -43,7 +43,7 @@ DEFINE("DEFAULT_PREFIX","TEST");
 
 /////////////////////DON'T EDIT ///////////
 DEFINE("DISP_RESULT_INSERT"        ,1);     //
-DEFINE("DISP_FORM_SET_OPTION"    ,2);     //
+DEFINE("DISP_FORM_SET_OPTION"      ,2);     //
 DEFINE("CONF_VAL_STUDENT_STATUS"    ,5); //
 DEFINE("CONF_VAL_TEACHER_STATUS"    ,1); //
 /////////////////////DON'T EDIT ///////////
@@ -236,7 +236,8 @@ if (isset($HTTP_POST_VARS["nc"]))
                 $currentCourseRepository,
                 $currentCourseDbName,
                 "test team",
-                $faculte,
+                $_user['email'],
+				$faculte,
                 $wantedCode,
                 $langue_course,
                 $uidCourse,
