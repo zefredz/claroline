@@ -158,7 +158,7 @@ if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
 
 if ( isset($_REQUEST['docView']) ) $docView = $_REQUEST['docView'];
-else                               $docView = null;
+else                               $docView = "files";
 
 
                   /* > > > > > > MAIN SECTION  < < < < < < <*/
@@ -1128,44 +1128,53 @@ claro_disp_tool_title($titleElement,
 		// Image description table
 		echo "<table class=\"claroTable\" width=\"100%\">\n";
 		
-		// lang variables
-		// see images.lib.php
-		
-		// Display current directory if different from root
-		if($curDirName)
+		// View Mode Bar
+
+        if ($cmd == 'exSearch')
 		{
-			echo "<!-- link to current dir -->\n"
-				. "<tr>\n"
-				. "<th class=\"superHeader\" colspan=\"". $colspan . "\" align=\"left\">\n"
-				. "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
-				. $dspCurDirName
-				. "<small>&nbsp;&nbsp;[&nbsp;<a href=\""
-				. $_SERVER['PHP_SELF']."?cmd=exChDir&file="
-				. $curDirPath."\">" . $langBackToDir ."</a>&nbsp;]\n"
-				. "&nbsp;&nbsp;[&nbsp;<a href=\"" .  $_SERVER['PHP_SELF']
-				."?docView=thumbnails&cwd="
-				. $curDirPath. $offset . $searchCmdUrl . "\">".$langThumbnailsView."</a>&nbsp;]</small>\n"
-				. "</th>\n"
-				. "</tr>\n"
-				;
+            $curDirLine = 'Search result';
 		}
-		else
-		{
-			echo "<!-- link to current dir -->\n"
-				. "<tr>\n"
-				. "<th class=\"superHeader\" colspan=\"". $colspan . "\" align=\"left\">\n"
-				. "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
-				. $langDocument
-				. "<small>&nbsp;&nbsp;[&nbsp;<a href=\""
-				. $_SERVER['PHP_SELF']."\">" . $langBackToDir . "</a>&nbsp;]\n"
-                . "&nbsp;&nbsp;[&nbsp;<a href=\"" .  $_SERVER['PHP_SELF']
-				."?docView=thumbnails&cwd="
-				. $curDirPath . $offset . $searchCmdUrl . "\">".$langThumbnailsView."</a>&nbsp;]</small>\n"
-				. "</th>\n"
-				. "</tr>\n"
-				;
-				
-		}// end if curDirName
+		elseif ($curDirName)
+        {
+       	    $curDirLine = "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" "
+                ."align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
+                .$dspCurDirName."\n";
+        }
+        else
+        {
+            $curDirLine = '&nbsp;';
+        }
+
+        if( $docView == 'files' )
+        {
+            $docViewToolbar = "<b>".$langFiles."</b>\n | ";
+        }
+        else
+        {
+            $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+			     . "?docView=files&cmd=exChDir&file=". $curDirPath . $searchCmdUrl ."\">"
+                 ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+			     . $langFiles ."</a>\n | ";
+        }
+        if( $docView == 'thumbnails' )
+        {
+            $docViewToolbar .= "<b>".$langThumbnails."</b>\n";
+        }
+        else
+        {
+            $docViewToolbar .= "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+			     . "?docView=thumbnails&cwd=". $curDirPath . $offset . $searchCmdUrl ."\">"
+                 ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+			     . $langThumbnails."</a>\n";
+        }
+
+		echo "<!-- current dir name line -->\n"
+				."<tr>\n"
+				."<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n"
+				."<div style=\"float: right;\">".$docViewToolbar."</div>"
+                .$curDirLine
+				."</th>\n"
+				."</tr>\n";
 		
 		
 		// --------------------- tool bar --------------------------------------
@@ -1197,7 +1206,7 @@ claro_disp_tool_title($titleElement,
 		
 		display_link_to_next_image($imageList, $fileList, $current);
 
-  	echo "</tr>\n";		
+        echo "</tr>\n";
 		
 		echo "</table>\n";
 		
@@ -1287,38 +1296,53 @@ claro_disp_tool_title($titleElement,
 		// display table
 		echo "\n<table class=\"claroTable\" width=\"100%\">\n";
 	
+        // View Mode Bar
 
-		// display current directory if different from root
-		if($curDirName)
+        if ($cmd == 'exSearch')
 		{
-			echo "<!-- link to current dir -->\n"
-				. "<tr>\n"
-				. "<th class=\"superHeader\" colspan=\"". $numberOfCols 
-				. "\" align=\"left\">\n"
-				. "<img src=\"".$clarolineRepositoryWeb
-				."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
-				. $dspCurDirName
-				. "<small>&nbsp;&nbsp;[&nbsp;<a href=\""
-				. $_SERVER['PHP_SELF']."?cmd=exChDir&file="
-				. $curDirPath."\">" . $langBackToDir ,"</a>&nbsp;]</small>\n"
-				. "</th>\n"
-				. "</tr>\n"
-				;
+            $curDirLine = 'Search result';
 		}
-		else
-		{
-			echo "<!-- link to current dir -->\n"
-				. "<tr>\n"
-				. "<th class=\"superHeader\" colspan=\"". $numberOfCols 
-				. "\" align=\"left\">\n"
-				. "<img src=\"".$clarolineRepositoryWeb
-				. "img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
-            	. $langDocument."<small>&nbsp;&nbsp;[&nbsp;<a href=\"". $_SERVER['PHP_SELF']
-				. "\">" . $langBackToDir . "</a>&nbsp;]</small>\n"
-				. "</th>\n"
-				. "</tr>\n"
-				;
-		}
+		elseif ($curDirName)
+        {
+       	    $curDirLine = "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" "
+                ."align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
+                .$dspCurDirName."\n";
+        }
+        else
+        {
+            $curDirLine = '&nbsp;';
+        }
+
+        if( $docView == 'files' )
+        {
+            $docViewToolbar = "<b>$langList</b>\n | ";
+        }
+        else
+        {
+            $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+			     . "?docView=files&cmd=exChDir&file=". $curDirPath . $searchCmdUrl ."\">"
+                 ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+			     . $langFiles ."</a>\n | ";
+        }
+        if( $docView == 'thumbnails' )
+        {
+            $docViewToolbar .= "<b>".$langThumbnails."</b>\n";
+        }
+        else
+        {
+            $docViewToolbar .= "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+			     . "?docView=thumbnails&cwd=". $curDirPath . $searchCmdUrl ."\">"
+                 ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+			     . $langThumbnails."</a>\n";
+        }
+
+		echo "<!-- current dir name line -->\n"
+				."<tr>\n"
+				."<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n"
+				."<div style=\"float: right;\">".$docViewToolbar."</div>"
+                .$curDirLine
+				."</th>\n"
+				."</tr>\n";
 		
 		// toolbar
 		
@@ -1409,14 +1433,8 @@ claro_disp_tool_title($titleElement,
 	            ."<span class='claroCmdDisabled'>"
 	            ."<img src=\"".$clarolineRepositoryWeb."img/parentdisabled.gif\" border=\"0\" alt=\"\">\n"
 	            .$langUp
-	            ."</span>\n | ";
+	            ."</span>\n";
 	    }
-	    
-	    
-	    echo "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
-			. "?docView=thumbnails&cwd=". $curDirPath . $searchCmdUrl ."\">"
-            ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
-			. $langThumbnailsView."</a>\n";
 	
 	
 	    echo " | "
@@ -1457,28 +1475,51 @@ claro_disp_tool_title($titleElement,
 	
 		/* CURRENT DIRECTORY LINE */
 		
-		if ($curDirName || $cmd == 'exSearch') /* if the $curDirName is empty, we're in the root point 
-		                    and there is'nt a dir name to display */
+		if ($cmd == 'exSearch')
 		{
-            if ($curDirName)
-            {
-            	$curDirLine = "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" "
-                             ."align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
-	                         .$dspCurDirName."\n";
-            }
-            else
-            {
-            	$curDirLine = 'Search result';
-            }
-            
-
-            echo "<!-- current dir name line -->\n"
+            $curDirLine = 'Search result';
+		}
+		elseif ($curDirName)
+        {
+       	    $curDirLine = "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" "
+                ."align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
+                .$dspCurDirName."\n";
+        }
+        else
+        {
+            $curDirLine = '&nbsp;';
+        }
+        
+        if( $docView == 'files' )
+        {
+            $docViewToolbar = "<b>".$langFiles."</b>\n | ";
+        }
+        else
+        {
+            $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+			     . "?docView=files&cmd=exChDir&file=". $curDirPath . $searchCmdUrl ."\">"
+                 ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+			     . $langFiles ."</a>\n | ";
+        }
+        if( $docView == 'thumbnails' )
+        {
+            $docViewToolbar .= "<b>".$langThumbnails."</b>\n";
+        }
+        else
+        {
+            $docViewToolbar .= "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+			     . "?docView=thumbnails&cwd=". $curDirPath . $searchCmdUrl ."\">"
+                 ."<img src=\"".$clarolineRepositoryWeb."img/image.gif\" border=\"0\" alt=\"\">\n"
+			     . $langThumbnails."</a>\n";
+        }
+		
+		echo "<!-- current dir name line -->\n"
 				."<tr>\n"
 				."<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n"
+				."<div style=\"float: right;\">".$docViewToolbar."</div>"
                 .$curDirLine
 				."</th>\n"
 				."</tr>\n";
-		}
 	
 		echo "<tr class=\"headerX\" align=\"center\" valign=\"top\">\n";
 	
