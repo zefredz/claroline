@@ -110,8 +110,8 @@ $langDate = "Date";
 /* user list */
 $informationsAbout = "Suivi de"; // JCC 
 $langUserName = "Nom d'utilisateur";
-$langFirstName = "Nom";
-$langLastName = "Prénom";
+$langFirstName = "Prénom";
+$langLastName = "Nom";
 $langEmail = "E-mail"; // JCC 
 $langNoEmail = "Pas d'adresse d'e-mail"; // JCC 
 /* others */
