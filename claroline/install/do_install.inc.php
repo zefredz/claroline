@@ -424,21 +424,26 @@ $includePath = $newIncludePath;
 $def_file_list = get_def_file_list();
 if(is_array($def_file_list))
 foreach ( $def_file_list as $def_file_bloc)
-foreach ( $def_file_bloc['conf'] as $config_code => $def_file)
 {
-    if ($config_code == $def_file['config_code'])
+    if (is_array($def_file_bloc['conf']))
+    foreach ( $def_file_bloc['conf'] as $config_code => $def_file)
     {
+
         $okToSave = TRUE;
-        unset($conf_def_property_list);
-        $confDef  = claro_get_def_file($config_code);
-        if(file_exists($confDef))
-            require($confDef);
-        if (is_array($conf_def_property_list))
+        
+        unset($conf_def, $conf_def_property_list);
+        
+        $def_file  = get_def_file($config_code);
+        
+        if ( file_exists($def_file) )
+            require($def_file);
+            
+        if ( is_array($conf_def_property_list) )
         {
             foreach($conf_def_property_list as $propName => $propDef )
             {
-                $propValue     = $propDef['default']; // USe default as effective value
-                if (!config_checkToolProperty($propValue, $propDef))
+                $propValue = $propDef['default']; // USe default as effective value
+                if ( !validate_property($propValue, $propDef) )
                 {
                     $okToSave = FALSE;
                 }
@@ -448,34 +453,35 @@ foreach ( $def_file_bloc['conf'] as $config_code => $def_file)
         {
             $okToSave = FALSE;
         }
-
+    
         if ($okToSave) 
         {
             reset($conf_def_property_list);
             foreach($conf_def_property_list as $propName => $propDef )
             {
                 $propValue     = $propDef['default']; // USe default as effective value
-                save_param_value_in_buffer($propName,$propValue, $config_code);
+                save_property_in_db($propName,$propValue, $config_code);
             }
-        }
-
-        claro_create_conf_filename($config_code);
-        $confFile = claro_get_conf_file($config_code);            
-        $storedPropertyList = read_param_value_in_buffer($config_code);
-        if (is_array($storedPropertyList)&& count($storedPropertyList)>0)
-        {
-            if (write_conf_file($conf_def
-                               ,$conf_def_property_list
-                               ,$storedPropertyList
-                               ,$confFile
-                               , realpath(__FILE__)))
+            
+            $conf_file = get_conf_file($config_code);
+            
+            if ( !file_exists($conf_file) ) touch($conf_file);
+            
+            $storedPropertyList = read_properties_in_db($config_code);
+    
+            if ( is_array($storedPropertyList) && count($storedPropertyList)>0 )
             {
-                set_hash_confFile($confFile,$config_code);
-            }
+                
+                if ( write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$conf_file,realpath(__FILE__)) )
+                {
+                    // calculate hash of the config file 
+                    $conf_hash = md5_file($conf_file);
+                    save_config_hash_in_db($conf_file,$config_code,$conf_hash);
+                }               
+            }                            
         }
     }
-}
-	
+}	
 #### CREATE AND WRITE .HTACCESS AND .HTPASSWD4ADMIN HIDDEN FILES #####
 
 	if (PHP_OS!="WIN32" && PHP_OS!="WINNT")
