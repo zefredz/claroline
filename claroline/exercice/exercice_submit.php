@@ -360,17 +360,16 @@ if( $showExerciseForm || $is_courseAdmin )
   <?php
     // shows the question and its answers
     showQuestion($questionId);
-  
+  ?>
+    </tfoot>
+    </table>
+  <?php
     // for sequential exercises
     if($exerciseType == 2)
     {
       // quits the loop
       break;
     }
-    ?>
-    </tfoot>
-    </table>
-    <?php
   }	// end foreach()
   ?>
   
