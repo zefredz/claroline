@@ -103,7 +103,10 @@ function get_course_tool_list($reqAccessLevel = 'ALL')
 
             ON        ct.id = tl.tool_id
 
-            WHERE tl.access IN (\"".implode("\", \"", $reqAccessList)."\")";
+            WHERE tl.access IN (\"".implode("\", \"", $reqAccessList)."\")
+
+            ORDER BY tl.rank
+            ";
 
      return claro_sql_query_fetch_all($sql);
 }
