@@ -389,7 +389,6 @@ $l_sendpass	= "Envoyer mot de passe"; // JCC
 // Groups Management Claroline
 
 $langGroupSpaceLink="Espace du groupe";
-$langGroupForumLink="Forum du groupe";
 $langGroupDocumentsLink="Documents du groupe";
 $langMyGroup="mon groupe";
 $langOneMyGroups="sous ma supervision";

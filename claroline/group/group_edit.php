@@ -17,7 +17,7 @@ if ( ! $_cid) claro_disp_select_course();
 include('../inc/conf/group.conf.php');
 
 $nameTools = $langEditGroup;
-$interbredcrump[]= array ("url"=>"group.php", "name"=> $langGroupManagement);
+$interbredcrump[]= array ("url"=>"group.php", "name"=> $langGroups);
 
 $htmlHeadXtra[]='
 <script type="text/javascript" language="JavaScript">

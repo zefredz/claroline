@@ -17,7 +17,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();
 
 $nameTools = $langGroupCreation;
-$interbredcrump[]= array ("url"=>"group.php", "name"=> $langGroupManagement);
+$interbredcrump[]= array ("url"=>"group.php", "name"=> $langGroups);
 include($includePath."/claro_init_header.inc.php");
 
 claro_disp_tool_title(array('mainTitle' => $langGroup, 

@@ -7,7 +7,7 @@ require '../inc/claro_init_global.inc.php';
 if ($_gid && $is_groupAllowed)
 {
     $courseDir         = $_course['path'] .'/group/'.$_group['directory'];
-    $interbredcrump[]  = array ('url'=>'group.php', 'name'=> $langGroupManagement);
+    $interbredcrump[]  = array ('url'=>'group.php', 'name'=> $langGroups);
 }
 else
 {

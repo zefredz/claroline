@@ -4,7 +4,7 @@ $langFile='help';
 require '../inc/claro_init_global.inc.php';
 
 echo "<html><head>";
-echo "<title>$langGroupManagement</title>";
+echo "<title>$langHelpGroups</title>";
 ?>
 
 </head>
@@ -13,7 +13,7 @@ echo "<title>$langGroupManagement</title>";
 <tr>
   <td align="left" valign="top">
 
-    <?php echo "<h4>$langGroupManagement</h4>"; ?>
+    <?php echo "<h4>$langHelpGroups</h4>"; ?>
 
   </td>
   <td align="right" valign="top">

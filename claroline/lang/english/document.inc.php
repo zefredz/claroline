@@ -56,7 +56,6 @@ $langAddCommentOptionnal = "Add a comment (optionnal) :";
 $langGroupManagement="Group management";
 $langGroupSpace="Group area";
 $langGroupSpaceLink="Group area";
-$langGroupForumLink="Group forum";
 $langZipNoPhp="The zip file can not contain .PHP files";
 $langUncompress="uncompress zipped (.zip) file on the server";
 $langUploadAndZipEnd=" Zip file uploaded and uncompressed";

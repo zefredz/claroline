@@ -26,7 +26,7 @@ if (!$_gid || (!$is_groupAllowed & !($HTTP_GET_VARS['selfReg'] ) ))
 }
 
 $nameTools        = $langGroupSpace;
-$interbredcrump[] = array ('url'=>'group.php', 'name'=> $langGroupManagement);
+$interbredcrump[] = array ('url'=>'group.php', 'name'=> $langGroups);
 
 /*============================================================================
                                CONNECTION SECTION

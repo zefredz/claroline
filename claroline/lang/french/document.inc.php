@@ -65,7 +65,6 @@ $langGroupManagement="Gestion des groupes";
 $langGroupSpace="Espace de groupe";
 
 $langGroupSpaceLink="Espace du groupe";
-$langGroupForumLink="Forum du groupe";
 
 $langZipNoPhp="Le fichier ZIP ne peut pas contenir de fichiers en .php";
 

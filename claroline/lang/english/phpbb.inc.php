@@ -38,7 +38,6 @@ $langAnswer="Answer";
 
 // Groups Management Claroline
 $langGroupSpaceLink="Group area";
-$langGroupForumLink="Forum of group";
 $langGroupDocumentsLink="Documents of the group ";
 $langMyGroup="my group";
 $langOneMyGroups="my supervision";

@@ -18,7 +18,7 @@ $langGroupAlwaysPrivate=$langGroupDocumentAlwaysPrivate;
 include('../inc/conf/group.conf.php');
 @include('../inc/lib/debug.lib.inc.php');
 $nameTools = $langGroupProperties;
-$interbredcrump[]= array ("url"=>"group.php", "name"=> $langGroupManagement);
+$interbredcrump[]= array ("url"=>"group.php", "name"=> $langGroups);
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_course_group_property   = $tbl_cdb_names['group_property'         ];
