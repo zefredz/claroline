@@ -455,7 +455,7 @@ foreach($results as $row)
 ?>
 <tr>
   <td><?php echo $row['titre']; ?></td>
-  <td><small><?php echo strftime($dateTimeFormatLong,$row['exeDate']); ?></small></td>
+  <td><small><?php echo claro_disp_localised_date($dateTimeFormatLong,$row['exeDate']); ?></small></td>
   <td><?php echo $row['exe_result']; ?> / <?php echo $row['exe_weighting']; ?></td>
   <td><?php echo $row['exe_time']; ?></td>
 </tr>
