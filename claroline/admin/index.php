@@ -146,7 +146,8 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 </ul>
 
 <?php
-if ( defined(LANGMODE) && LANGMODE == 'TRANSLATION')
+
+if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION')
 {
 ?>
     <h4><?php echo $langSDK?></h4>
