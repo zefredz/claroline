@@ -2,7 +2,7 @@
     // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version 1.5.*                                              |
+  | CLAROLINE version 1.3.2 $Revision$                            |
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
@@ -94,17 +94,18 @@
 
   // title
   claro_disp_tool_title($nameTools);
-  
+
   // main page
 
 if ( ! $is_courseAllowed)
 	claro_disp_auth_form();
-  
+
   $is_AllowedToEdit = $is_courseAdmin;
   $lpUid = $_uid;
 
   // display introduction
   $moduleId = 6; // Id of the Learning Path introduction Area
+  $langHelpAddIntroText=$langIntroLearningPath;
   include($includePath."/introductionSection.inc.php");
 
 
@@ -132,7 +133,7 @@ if ( ! $is_courseAllowed)
               // in case of a learning path made by SCORM, we completely remove files and use in others path of the imported package
               // First we save the module_id of the SCORM modules in a table in case of a SCORM imported package
 
-              if (is_dir($coursesRepositorySys.$_course['path']."/scormPackages/path_".$_GET['del_path_id']))
+              if (is_dir("../../".$_course['path']."/scormPackages/path_".$_GET['del_path_id']))
               {
                    $findsql = "SELECT M.`module_id`
                                    FROM  `".$TABLELEARNPATHMODULE."` AS LPM,
@@ -190,7 +191,7 @@ if ( ! $is_courseAllowed)
                     claro_sql_query($delModuleSql);
 
                     // DELETE the directory containing the package and all its content
-                    $real = realpath($coursesRepositorySys.$_course['path']."/scormPackages/path_".$_GET['del_path_id']);
+                    $real = realpath("../../".$_course['path']."/scormPackages/path_".$_GET['del_path_id']);
                     removeDir($real);
 
               }   // end of dealing with the case of a scorm learning path.
@@ -689,7 +690,7 @@ if ( ! $is_courseAllowed)
 
             // DELETE link
 
-                $real = realpath($coursesRepositorySys.$_course['path']."/scormPackages/path_".$list['learnPath_id']);
+                $real = realpath("../../".$_course['path']."/scormPackages/path_".$list['learnPath_id']);
             //}
 
             // check if the learning path is of a Scorm import package and add right popup:

@@ -93,6 +93,7 @@ echo	"<table border=\"0\" width=\"80%\" bgcolor=\"".$color1."\">".
 		"<td>";
 
 $moduleId = $course_tool['id']; // Id of the Student Paper introduction Area
+$langHelpAddIntroText=$langIntroWork;
 include($includePath."/introductionSection.inc.php");
 
 echo	"</td>".
