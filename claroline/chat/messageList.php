@@ -57,7 +57,7 @@ if ( ! is_dir($curChatRep) ) mkdir($curChatRep, 0777);
 
 if ($_gid)
 {
-    if ($is_groupMember)
+    if ($is_groupMember || $is_groupTutor || $is_courseAdmin)
     {
         $groupContext  = true;
         $courseContext = false;
