@@ -1077,10 +1077,10 @@ claro_disp_tool_title($titleElement,
  	 * get image list from file list
  	 */
 
-	if($docView == 'image' )
+	if($docView == 'image' || $docView == 'thumbnails' )
 	{
 		$imageList = get_image_list($fileList, $is_allowedToEdit);
-		if(count($imageList) == 0)
+		if($docView == 'image' && count($imageList) == 0)
 		{
             // $docView = 'files';
 			$dialogBox .= $langNoImage;
