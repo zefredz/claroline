@@ -41,7 +41,7 @@ $langGroup="Groupe";
 $langExistingGroups="Groupes";
 $langRegistered="Inscrits";
 $langEdit="Editer";
-$langDelete="Supprimer";
+$langDelete="Effacer";
 
 
 

@@ -24,7 +24,7 @@ $langSummaryNavBar = "Barre de navigation";
 $langAddNewUser = "Ajouter un utilisateur au système";
 $langMember ="inscrit";
 
-$langDelete	="supprimer";
+$langDelete	="Effacer";
 $langLock	= "bloquer";
 $langUnlock	= "libérer"; // JCC 
 
@@ -144,7 +144,6 @@ $langAddedU             ="a été ajouté. Si vous avez introduit son adresse, un m
 $langAndP               = "et son mot de passe";
 $langDereg              = "a été radié de ce cours"; // JCC 
 $langAddAU              = "Ajouter un utilisateur";
-$langStudent            = "étudiant";
 $langBegin              = "début";
 $langPreced50           = "50 précédents";
 $langFollow50           = "50 suivants";

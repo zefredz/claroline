@@ -118,7 +118,6 @@ $langAddedU="has been added. An email has been sent to give him his user name ";
 $langAndP="and his password";
 $langDereg="has been unregistered from this course";
 $langAddAU="Add a user";
-$langStudent="Student";
 $langBegin="begin.";
 $langPreced50 = "Previous 50";
 $langFollow50 = "Next 50";

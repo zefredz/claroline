@@ -11,7 +11,7 @@
 // GENERIC
 
 $langModify="modifier";
-$langDelete="effacer";
+$langDelete="Effacer";
 $langTitle="Titre";
 $langGettingStarted="Comment démarrer ?"; // JCC
 $langOk="Valider";
