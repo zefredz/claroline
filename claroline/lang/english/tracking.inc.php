@@ -42,6 +42,17 @@ $langLastAccess = "Last access";
 /* course access */
 $langCountToolAccess = "Total number of connection to this course";
 
+/* forum access */
+$langTrackingOf = "Tracking of";
+$langTrackForumUsage = "Forum usage";
+$langTrackTotalPosts = "Messages posted";
+$langTrackTotalTopics = "Topics started";
+$langLastMsgs = "Last messages";
+
+$langTopicReplies = "Replies";
+$langMoreRepliedTopics = "More replied topics";
+$langMoreSeenTopics = "More seen topics";
+$langLastActiveTopics = "Last active topics";
 
 /* logins */
 $langLoginsTitleMonthColumn = "Month";
