@@ -48,6 +48,7 @@ $langSelectedUsers = "Utilisateurs sélectionnés";
 $langSubmit = "Envoyer";
 $langMsgSent = "Le message est envoyé aux utilisateurs sélectionnés.";
 $langSelUser = "utilisateurs";
+$langUsers = "utilisateurs";
 $langPleaseEnterMessage = "Entrez le message à envoyer.";
 $langPleaseSelectUsers = "Sélectionnez d'abord les utilisateurs auquel le message va être envoyé.";
 $langMessageToSelectedUsers = "Message pour certains  utilisateurs.";
