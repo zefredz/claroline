@@ -1,26 +1,28 @@
-<?php // $Id$ 
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.5.* $Revision$                             |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   Brazillian Translation (portugese)                                 |
-      +----------------------------------------------------------------------+
-
+      |   $Id$  |
+      |   Brazilian Portuguese Translation                                                |
+      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
+      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
       +----------------------------------------------------------------------+
       | Translator :                                                         |
-      |           Marcello R. Minholi, <minholi@unipar.be>                   |
-	  |									from Universidade Paranaense         |
+      |          Marcelo R. Minholi <minholi@unipar.br>                |
       +----------------------------------------------------------------------+
  */
 // AGENDA
 $langAgenda="Agenda";
 $langDay="Dia";
 $langHour="Hora";
-$langLasting="Restando";
+$langLasting="Faltando";
 $langSETLOCALE="BRAZILIAN";
 $langAddEvent="Adicionar um evento";
 $langDetail="Detalhe";
-$month_default="mês";
+$month_default="Mês";
+$hour_default="hora";
 ?>

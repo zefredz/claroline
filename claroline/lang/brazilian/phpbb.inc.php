@@ -1,4 +1,4 @@
-<?php // $Id$
+<?php
 /***************************************************************************
  *                           lang_english.php  -  description
  *                              -------------------
@@ -20,34 +20,29 @@
  ***************************************************************************/
 
 // ONLY IN CLAROLINE
-
-
-$langHelp="help";
-
-// GENERIC
-
-$langModify="modificar";
-$langDelete="apagar";
-$langTitle="Título";
-$langHelp="ajuda";
-$langOk="Ok";
-$langAddIntro="Adicionar texto introdutório";
-$langBackList="Voltar para a lista";
-
-$langAdm="Administrador";
-$langQuote="quota";
-$langEditDel="editar/apagar";
-$langSeen="Lido";
+$langAdm="Administração do fórum";
+$langQuote="Citar";
+$langEditDel="Editar/apagar";
+$langSeen="Visto";
 $langLastMsg="Última mensagem";
 
 $langLoginBeforePost1 = "Para postar mensagens no fórum, ";
-$langLoginBeforePost2 = "é necessário ter feito anteriormente";
-$langLoginBeforePost3 = "login no Campus";
+$langLoginBeforePost2 = "antes de mais nada, você precisa ";
+$langLoginBeforePost3 = "fazer login no Campus";
 
 // page_header.php
 
 $langNewTopic="Novo tópico";
 $langAnswer="Resposta";
+
+// Groups Management Claroline
+$langGroupSpaceLink="Área do grupo";
+$langGroupForumLink="Fórum do grupo";
+$langGroupDocumentsLink="Documentos do grupo ";
+$langMyGroup="meu grupo";
+$langOneMyGroups="minha supervisão";
+
+
 
 // END OF CLAROLINE ONLY
 
@@ -192,7 +187,7 @@ $l_logout	= "Logout";
 $l_login	= "Login";
 
 // Page_header
-$l_separator	= "» »";  // Included here because some languages have
+$l_separator	= " > ";  // Included here because some languages have
 		          // problems with high ASCII (Big-5 and the like).
 $l_editprofile	= "Editar Perfil";
 $l_editprefs	= "Editar $l_preferences";
@@ -329,7 +324,7 @@ Tenha um bom dia.
 $email_sig';
 
 
-$l_quotemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
+// $l_quotemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "Você precisa entrar com um nome de usuário e senha para emviar $l_message para.";
@@ -383,4 +378,8 @@ $l_passsent	= "Sua senha foi modificada para uma nova, gerada randomicamente. Po
 $l_emailpass	= "Enviar E-mail de Password Perdido";
 $l_passexplain	= "Por favor preencha o formulário, uma nova senha será enviada para o seu e-mail";
 $l_sendpass	= "Enviar Senha";
+
+$langHelp	="Ajuda";
+
+
 ?>

@@ -1,28 +1,23 @@
-<?php // $Id$ 
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.5.*                                |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   Brazillian Translation (portugese)                                 |
+      |   $Id$           |
       +----------------------------------------------------------------------+
+*/
+// forum_admin.inc
 
-      +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |           Marcello R. Minholi, <minholi@unipar.be>                   |
-	  |									from Universidade Paranaense         |
-      +----------------------------------------------------------------------+
- */
 $langForums="Fóruns";
 $langOrganisation="Administração dos Fóruns";
 $langForCat="Fóruns da categoria";
-$langBackCat="voltar para categorias";
+$langBackCat="voltar para as categorias";
 $langForName="Nome do Fórum";
 $langDescription="Descrição";
 $langFunctions="Funções";
 $langAddForCat="Adicionar fórum à categoria";
-$langAdd="adicionar";
 $langChangeCat="Mudança de categoria";
 $langSave="Salvar";
 $langModCatName="Modificar nome da categoria";
@@ -36,5 +31,15 @@ $langCategories="Categorias";
 $langNbFor="Número de fóruns";
 $langFunctions="Funções";
 $langAddCategory="Adicionar uma categoria";
+$langOrder="Order";
+$langCannotBeDeleted = "não pode ser deletado";
+$langCannotMoveGroupForum = "Fóruns de grupos não podem ser movidos";
+$langCannotAddForumInGroups = "Fóruns de grupos são adicionados quando são criados os grupos e deletados quando deletado o grupo correspondente.";
+// action done message
+$langemptyforumname = "Você precisa dar um nome para o seu novo fórum!";
+$langemptycatname = "Você precisa dar um nome para a sua nova categoria!";
+$langforumcreated = "O novo fórum foi criado.";
+$langForumModified = "O fórum foi modificado";
+$langcatcreated = "A nova categoria foi criada.";
 
 ?>

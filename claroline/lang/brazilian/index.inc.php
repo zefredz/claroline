@@ -1,20 +1,19 @@
-<?php // $Id$ 
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.5.* $Revision$                            |
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   Brazillian Translation (portugese)                                 |
+      |   Brazilian Portuguese Translation                                                |
       +----------------------------------------------------------------------+
+
 
       +----------------------------------------------------------------------+
       | Translator :                                                         |
-      |           Marcello R. Minholi, <minholi@unipar.be>                   |
-	  |									from Universidade Paranaense         |
+      |          Marcelo R. Minholi       <minholi@unipar.br>                |
       +----------------------------------------------------------------------+
  */
-// index.php CAMPUS HOME PAGE
 
 $langInvalidId="Login inválido. Se você não é registrado, preencha o <a href='claroline/auth/inscription.php'>Formulário de Inscrição</a></font color>";
 $langCourseCreate="Criar site de curso";
@@ -27,8 +26,33 @@ $langUserName="Nome do usuário";
 $langPass="Senha";
 $langEnter="Entre";
 $langHelp="Ajuda";
-$langManager="Gerente";
-$langPlatform="Movido por";
 $langReg="Inscrição";
 $langMenu ="Menu";
+$langDoc="Documentação";
+$langPlatformAdmin="Administração da Plataforma";
+$langAdvises="Avisos";
+
+$langSeeAgenda = "Ver minha agenda";
+$langOtherCourses="Lista de cursos";
+$langSupportForum="Fórum de suporte";
+$langCategories = "Categorias";
+$langBackToHomePage = "Voltar para a página principal";
+$lang_No_course_publicly_available = "Não há cursos disponíveis publicamente.";
+$langLostPassword = "Senha Perdida";
+
+$lang_edit_my_course_list = "Editar minha lista de cursos";
+$langAgenda = "Próximos eventos da agenda";
+$langValvas = "Últimos avisos" ;
+
+$langUp = "nível anterior";
+$langCatList = "Categoria";
+$langCourseList = "Cursos";
+
+$langCourses	= "cursos";
+$langIn			= "em";
+$langSubCat		= "sub-categorias";
+
+$lang_enroll_to_a_new_course = 'Inscrever-se em um curso';
+$lang_remove_course_enrollment = 'Cancelar inscrição em um curso';
+
 ?>

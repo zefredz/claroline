@@ -1,21 +1,20 @@
-<?php // $Id$ 
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.5.*                                |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   Brazillian Translation (portugese)                                 |
+      |   $Id$           |
+	  |   Brazilian Portuguese Translation                                                |
       +----------------------------------------------------------------------+
+
 
       +----------------------------------------------------------------------+
       | Translator :                                                         |
-      |           Marcello R. Minholi, <minholi@unipar.be>                   |          
-	  |									from Universidade Paranaense         |
+      |          Marcelo R. Minholi <minholi@unipar.br>                |
       +----------------------------------------------------------------------+
  */
-// import.php
-
 $langAddPage="Adicionar uma página";
 $langPageAdded="Página adicionada";
 $langPageTitleModified="O título da página foi modificado";

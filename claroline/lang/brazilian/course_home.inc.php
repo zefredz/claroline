@@ -1,34 +1,35 @@
-<?php // $Id$ 
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.5.*                                |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   Brazillian Translation (portugese)                                 |
+      |   $Id$           |
+	  |   Brazilian Portuguese Translation                                                |
       +----------------------------------------------------------------------+
 
       +----------------------------------------------------------------------+
       | Translator :                                                         |
-      |           Marcello R. Minholi, <minholi@unipar.be>                   |
-	  |									from Universidade Paranaense         |
+      |          Marcelo R. Minholi <minholi@unipar.br>                |
       +----------------------------------------------------------------------+
  */
 $langNo="Não";
 $langYes="Sim";
 
-$langHelp="Ajuda";
-$langActivate="ativar";
-$langAdminOnly="Apenas Administradores";
+$langActivate="Ativar";
+$langAdminOnly="Apenas administradores";
+$langCourseManagement = "Gerenciamento do curso";
 $langInLnk="Links desativados";
 
-$langDelLk="Você realmente quer apagar esse link?";
+$langDelLk="Você quer realmente apagar esse link?";
 
 $langRemove="Remover";
-$langDeactivate="desativar";
-$langActivate="ativar";
-$langRemove="remover";
+$langDeactivate="Desativar";
+$langActivate="Ativar";
+$langRemove="Remover";
 
-$langCourseCreate = "Criar Curso Interativo";
-$langEnter ="Entre";
+$langEnter ="Entrar";
+$langNameOfTheLink ="Nome do link";
+
 ?>

@@ -1,22 +1,20 @@
-<?php // $Id$ 
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.5.*                                |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   Brazillian Translation (portugese)                                 |
+      |   $Id$           |
+	  |   English Translation                                                |
       +----------------------------------------------------------------------+
 
       +----------------------------------------------------------------------+
       | Translator :                                                         |
-      |           Marcello R. Minholi, <minholi@unipar.be>                   |
-	  |									from Universidade Paranaense         |
+      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
       +----------------------------------------------------------------------+
  */
-
-// HELP
-
 // help_forums.php
 
 $langHFor="Ajuda dos Fóruns";
@@ -78,9 +76,7 @@ $langHomeContent="Para maior conveniencia, as ferramentas do claroline não
 
 $langHClar="Ajuda Inicial";
 
-$langClarContent1="é o campus virtual de";
-
-$langClarContent2="Aqui, professores e assitentes criam e administram websites
+$langClarContent="Aqui, professores e assitentes criam e administram websites
  de cursos. Estudantes leêm (documentos, agendas, informações diversas) e,
  as vezes, fazem exercícios, publicam trabalhos, participam de fóruns de
  discussão... </p><b>Inscrição</b><p>Se você é um Estudante, você deve apenas
@@ -107,20 +103,21 @@ $langClarContent4="está ao seu dispor para ajuda-lo no decorrer dos diferentes
 
 // help_document.php
 
-$langHDoc="Help Documents";
+$langHDoc="Ajuda dos Documentos";
 
-$langDocContent="<p>The Documents tool is similar to the FileManager of
- your desktop computer.</p><p>You can upload files of any type (HTML, Word,
- Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Your only concern
- must be that your students have the corresponding software to read them.
- Some file types can contain viruses, it is your responsibilty not to
- upload virus contaminated files. It is carefull to check documents with an
- antivirus software before upload.</p>
-<p>The documents are presented in alphabetical order.<br><b>Tip : </b>If
- you want to present them in a different order, numerate them: 01, 02,
+$langDocContent="<p>A ferramenta Documentos é similar ao gerenciador de arquivo
+ do seu computador.</p><p>Você pode enviar arquivos de qualquer tipo (HTML, 
+ Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Sua única 
+ preocupação é que os seus estudantes precisa ter o software correspondente
+ para lê-los.
+ Alguns tipos de arquivo podem conter vírus, é sua responsabilidade não enviar
+ arquivos contaminados por vírus. Seja cuidadoso ao verificar seus documentos
+ com um software anti-vírus antes de enviá-los.</p>
+<p>Os documentos são apresentados em ordem alfabética.<br><b>Tip : </b>Se
+ você quiser apresentá-los em uma ordem diferente, enumere-os: 01, 02,
  03...</p>
-<p>You can :</p>
-<h4>Upload a document</h4>
+<p>Você pode:</p>
+<h4>Enviar um documento</h4>
 <ul>
   <li>Select the file on your computer using the Browse button <input
  type=submit value=Browse name=submit2>
@@ -131,7 +128,7 @@ $langDocContent="<p>The Documents tool is similar to the FileManager of
 </ul>
 <h4>Rename a document (a directory)</h4>
 <ul>
-  <li>click on the <img src=../document/img/edit.gif width=20 height=20
+  <li>click on the <img src=../document/img/renommer.gif width=20 height=20
  align=baseline> button in
   the Rename column</li>
   <li>Type the new name in the field (top left)</li>
@@ -141,7 +138,7 @@ $langDocContent="<p>The Documents tool is similar to the FileManager of
 	<h4>Delete a document (or a directory)</h4>
 	<ul>
 	  
-  <li>Click on <img src=../document/img/delete.gif width=20 height=20> 
+  <li>Click on <img src=../document/img/supprimer.gif width=20 height=20> 
 	in column 'Delete'.</li>
 	</ul>
 	<h4>Make a document (or directory) invisible to students</h4>

@@ -1,38 +1,57 @@
-<?php // $Id$ 
+<?php //$Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.* $Revision$                        	 |
+      | CLAROLINE version 1.5.*
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   Brazillian Translation (portugese)                                 |
+      |   Brazilian Portuguese Translation                                                |
+      +----------------------------------------------------------------------+
+
       +----------------------------------------------------------------------+
       | Translator :                                                         |
-      |           Marcello R. Minholi, <minholi@unipar.be>                   |
-	  |									from Universidade Paranaense         |
+      |          Marcelo R. Minholi <minholi@unipar.br>                |
       +----------------------------------------------------------------------+
  */
 // AGENDA
-$langAgenda="Agenda";
-$langDay="Dia";
-$langMonth="Mês";
-$langYear="Ano";
-$langHour="Hora";
-$langMinute ="Minutos";
-$langLasting="Restando";
-
 $langSETLOCALE="BRAZILIAN";
 
-$langOldToNew = "Inversão";
-$langNewToOld = "Inversão";
-$langNow = "Agora";
+$langAgenda="Agenda";
 
-$langAddEvent="Adicionar um evento";
-$langDetail="Detalhe";
-$month_default="mês";
+$langHour="Hora";
+$hour_default="hora";
+
+$langDay="Dia";
+
+$langMonth="Mês";
+$month_default="Mês";
+
+$langYear="Ano";
 $year_default="Ano";
 
-$hour_default="hora";
-$hour51="Não especificado";
 
+$langMinute ="Minutos";
+$langLasting="Faltando";
+
+$langOldToNew = "Antigos primeiro";
+$langNewToOld = "Novos primeiro";
+
+$langNow = "Agora";
+
+$langEditEvent = "Editar Evento";
+$langAddEvent="Adicionar um evento";
+$langClearList = "Limpar lista de eventos";
+$langEventAdded = "Evento adicionado à agenda.";
+$langEventUpdated = "Evento da agenda atualizado.";
+$langEventDeleted = "Evento removido da agenda.";
+$langUnableToAdd = "Impossível adicionar o evento à agenda.";
+$langUnableToUpdate = "Impossível atualizar o evento da agenda.";
+$langUnableToDelete = "Impossível remover o evento da agenda.";
+$langDetail="Detalhe";
+
+$hour51="não definida";
+
+// UNIX TIME SETTINGS, "15h00" instead of "3pm", for instance, "ENGLISH" is a possibility
+
+$langNoEventInTheAgenda = "Nenhum evento na agenda";
 ?>
