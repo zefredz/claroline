@@ -29,7 +29,7 @@ $tbl_mdb_names 			   = claro_sql_get_main_tbl();
 $tbl_track_e_default       = $tbl_mdb_names['track_e_default'];
 $tbl_track_e_login         = $tbl_mdb_names['track_e_login'];
 $tbl_track_e_open          = $tbl_mdb_names['track_e_open'];
-$tbl_track_e_subscriptions = $tbl_mdb_names['track_e_subscriptions'];
+
 // course db
 $tbl_cdb_names 			  = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS        = $_course['dbNameGlu']."track_e_access";
@@ -70,10 +70,15 @@ function event_open()
 
     global $rootWeb ;
     global $tbl_track_e_open;
+
     // @getHostByAddr($REMOTE_ADDR) : will provide host and country information
     // $HTTP_USER_AGENT :  will provide browser and os information
     // $HTTP_REFERER : provide information about refering url
-    $referer = $_SERVER['HTTP_REFERER'];
+    if (isset($_SERVER['HTTP_REFERER'])) 
+        $referer = $_SERVER['HTTP_REFERER'];
+    else
+        $referer = NULL;
+
     // record informations only if user comes from another site
     //if(!eregi($rootWeb,$referer))
     $pos = strpos($referer,$rootWeb);
@@ -401,39 +406,6 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
     $res = claro_sql_query($sql);
     //$mysql_query($sql);
     //return 0;
-}
-
-/**
-
- * @param cours_code (cours.code in maindb))
-
- * @param action ( enum of strings : "sub" or "unsub" )
- * @author Sebastien Piraux <pir@cerdecam.be>
- * @desc Record information for subscription and unsubscription to courses
-*/
-function event_subscription($cours_id,$action)
-{
-    global $is_trackingEnabled ;
-    // if tracking is disabled record nothing
-    if( ! $is_trackingEnabled ) return 0;
-
-    global $_uid;
-    global $tbl_track_e_subscriptions;
-    
-    $sql="INSERT INTO `".$tbl_track_e_subscriptions."`
-          (`sub_user_id`,
-           `sub_cours_id`,
-           `sub_action`)
-          VALUES
-          ('".$_uid."', 
-           '".$cours_id."', 
-           '".$action."')";
-                
-    $res = claro_sql_query($sql);
-
-    //$mysql_query($sql);
-    return 1;
-
 }
 
 /**
