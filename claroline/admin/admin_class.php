@@ -154,7 +154,7 @@ switch ($cmd)
 	{
 	    $dialogBox = $langNewClassCreated;
 	    $sql = "INSERT INTO `".$tbl_class."` SET `name`='".$_REQUEST['classname']."'";
-	    if ($_REQUEST['theclass'])
+	    if ($_REQUEST['theclass'] && ($_REQUEST['theclass']!="") && ($_REQUEST['theclass']!="root"))
 	    {
 	        $sql.=", `class_parent_id`='".$_REQUEST['theclass']."'"; 
             }       
