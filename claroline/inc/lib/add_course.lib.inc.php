@@ -162,7 +162,7 @@ function prepare_course_repository($courseRepository, $courseId)
 			read in tools table witch directories to create
 		*/
 		mkdir($coursesRepositorySys.$courseRepository, 0777);
-		mkdir($coursesRepositorySys.$courseRepository."/image", 0777);
+		mkdir($coursesRepositorySys.$courseRepository."/exercise", 0777);
 		mkdir($coursesRepositorySys.$courseRepository."/document", 0777);
 		mkdir($coursesRepositorySys.$courseRepository."/page", 0777);
 		mkdir($coursesRepositorySys.$courseRepository."/work", 0777);
@@ -646,7 +646,7 @@ mysql_query("
 		ponderation smallint(5) unsigned default NULL,
 		q_position mediumint(8) unsigned NOT NULL default '1',
 		type tinyint(3) unsigned NOT NULL default '2',
-                picture_name varchar(50) default '',
+   attached_file varchar(50) default '',
 	PRIMARY KEY  (id)
 	)");
 
