@@ -172,7 +172,7 @@ if ($regDataOk)
     $_uid = claro_sql_query_insert_id($sql);
 
     /*
-            @claro_sql_query("INSERT INTO `$mainDbName`.`user_hash`
+            @claro_sql_query("INSERT INTO `".$tbl_user_hash."` `user_hash`
                           (user_id, hash, state) 
                           VALUES ('$last_id', '$hash', 'WAITCHECK')");
     */

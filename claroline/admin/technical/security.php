@@ -22,7 +22,6 @@ $interbredcrump[]= array ("url"=>"index.php", "name"=> $langTechAdmin);
 include($includePath."/lib/fileManage.lib.php");
 include ($includePath."/lib/auth.lib.inc.php");
 
-$tbl_courses = $mainDbName."`.cours";
 $dateNow 			= claro_disp_localised_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
 

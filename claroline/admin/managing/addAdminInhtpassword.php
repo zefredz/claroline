@@ -28,8 +28,11 @@ $interbredcrump[]= array ("url"=>$rootAdminWeb."managing/", "name"=> $langManage
 -->
 </STYLE>";*/
 
-$tbl_user 	= $mainDbName."`.`user";
-$tbl_admin 	= $mainDbName."`.`admin";
+$tbl_cdb_names = claro_sql_get_main_tbl();
+$tbl_admin       = $tbl_cdb_names['admin'];
+$tbl_user        = $tbl_cdb_names['user'];
+
+
 
 $is_allowedToEdit 	= $is_platformAdmin || isset($PHP_AUTH_USER);
 

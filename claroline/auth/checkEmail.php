@@ -13,6 +13,7 @@ $nameTools = $langCheckemail;
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
+$tbl_user_hash = $tbl_mdb_names['user_hash'];
 
 //stats
 $interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);
@@ -29,7 +30,7 @@ if (!isset($userMailCanBeEmpty))
 		}
 		$sqlIncriptUserHash = "
 INSERT 
-	INTO $mainDbName.userHash
+	INTO `".$tbl_user_hash."`
 		(user_id, hash) 
 	VALUES 
 		('$last_id', '$hash')";
@@ -41,7 +42,7 @@ $sqlCheck = "
 Select
 	`user`.*, `hash`.* , `hash`.`user_id` `uid` 
 From  
-	`$mainDbName`.`userHash` `hash`, 
+	`".$tbl_user_hash."` `hash`, 
 	`".$tbl_user."`  
 WHERE
 	`hash`.`user_id` = `user`.`user_id` and `email` = '".$emailHash."' and `hash` = '".$hash."';";
@@ -55,7 +56,7 @@ if (	$hashFound["email"] == $emailHash
 	{
 		$sqlUpdateState = "
 UPDATE
-	userHash
+	`".$tbl_user_hash."`
 SET  
 	STATE =  'VALID'
 WHERE

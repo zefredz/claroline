@@ -80,6 +80,9 @@ $userLastLogin    = $_user['lastLogin'];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_announcement = $tbl_cdb_names['announcement'];
+$tbl_cdb_names = claro_sql_get_main_tbl();
+$tbl_course_user = $tbl_cdb_names['rel_course_user'];
+$tbl_user        = $tbl_cdb_names['user'];
 
 // DEFAULT DISPLAY
 
@@ -286,10 +289,10 @@ if($is_allowedToEdit) // check teacher status
                          $siteName . "\n";
 
             // Select students email list
-            $sql = "SELECT user.user_id
-                    FROM ".$mainDbName.".cours_user, ".$mainDbName.".user
+            $sql = "SELECT u.user_id
+                    FROM `".$tbl_course_user."` cu , `".$tbl_user."` u
                     WHERE code_cours=\"".$courseId."\"
-                    AND cours_user.user_id = user.user_id";
+                    AND cu.user_id = u.user_id";
             $result = claro_sql_query($sql);
 
             // count

@@ -1,5 +1,12 @@
 <?php // $Id$
-// This  tool comput the disk Usage of each course.
+/** 
+ * @version Claroline 1.6
+ * @license GLP
+ * @author  Christophe Gesché <moosh@claroline.net>
+ * @package maintenance
+ * This  tool comput the disk Usage of each course.
+ *
+ */
 
 require '../../inc/claro_init_global.inc.php';
 
@@ -10,7 +17,9 @@ $interbredcrump[]= array ("url"=>"index.php", "name"=> $langTechAdmin);
 @include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
 
-$tbl_courses = $mainDbName."`.cours";
+$tbl_cdb_names = claro_sql_get_main_tbl();
+$tbl_course = $tbl_cdb_names['course'];
+
 $dateNow 			= claro_disp_localised_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
 
@@ -61,7 +70,7 @@ if ($display_all_size_of_garbageRepositorySys )
 <select name="coursesToCheck[]" size="" multiple>
 		<option value=" all " >** <?php echo $langAll ?> ** !!! <?php echo $langHigh_resources ?></option>
 		<?php
-			$sqlListCoursesSel = "SELECT fake_code officialCode, code sysCode FROM `".$tbl_courses."` order by trim(fake_code) ASC";
+			$sqlListCoursesSel = "SELECT fake_code officialCode, code sysCode FROM `".$tbl_course."` order by trim(fake_code) ASC";
 			$resCoursesSel= mysql_query_dbg($sqlListCoursesSel);
 			while ($courseSel = mysql_fetch_array($resCoursesSel,MYSQL_ASSOC))
 			{
@@ -81,7 +90,7 @@ if ($display_all_size_of_selected_courses && $coursesToCheck)
 	echo "
 	<LI>
 		<OL>";
-	$sqlListCourses = "SELECT fake_code code, directory dir, dbName db, diskQuota FROM `".$tbl_courses."` ";
+	$sqlListCourses = "SELECT fake_code code, directory dir, dbName db, diskQuota FROM `".$tbl_course."` ";
 	if($coursesToCheck[0]==" all ")
 	{
 		$sqlListCourses .= " order by dbName";
