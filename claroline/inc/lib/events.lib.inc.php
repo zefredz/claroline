@@ -385,7 +385,7 @@ function event_link($link_id)
  * @author Sebastien Piraux <pir@cerdecam.be>
  * @desc Record result of user when an exercice was done
 */
-function event_exercice($exo_id,$score,$weighting)
+function event_exercice($exo_id,$score,$weighting,$time)
 {
     global $is_trackingEnabled ;
     // if tracking is disabled record nothing
@@ -411,7 +411,8 @@ function event_exercice($exo_id,$score,$weighting)
            `exe_exo_id`,
            `exe_result`,
            `exe_weighting`,
-           `exe_date`
+           `exe_date`,
+	   `exe_time`
           )
           
           VALUES
@@ -420,7 +421,8 @@ function event_exercice($exo_id,$score,$weighting)
            '".$exo_id."',
            '".$score."',
            '".$weighting."',
-           FROM_UNIXTIME(".$reallyNow.")
+           FROM_UNIXTIME(".$reallyNow."),
+	   $time
           )";
 
     $res = claro_sql_query($sql);
