@@ -147,6 +147,11 @@ div#userLinks
 	text-decoration: none;
 }
 
+#courseBanner .courseName a:hover
+{
+text-decoration: underline;
+}
+
 #courseBanner .courseCode {
 	font-size: 80%;
 }
