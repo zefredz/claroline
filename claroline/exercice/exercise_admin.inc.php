@@ -45,6 +45,22 @@ if($_REQUEST['submitExercise'])
 		$objExercise->updateTitle($_REQUEST['exerciseTitle']);
 		$objExercise->updateDescription($_REQUEST['exerciseDescription']);
 		$objExercise->updateType($_REQUEST['exerciseType']);
+    // build start date
+    $composedStartDate = $_REQUEST['startYear']."-"
+                        .$_REQUEST['startMonth']."-"
+                        .$_REQUEST['startDay']." "
+                        .$_REQUEST['startHour'].":"
+                        .$_REQUEST['startMinute'].":00";
+    $objExercise->set_start_date($composedStartDate);
+    
+    //  build end date
+    $composedEndDate = $_REQUEST['endYear']."-"
+                        .$_REQUEST['endMonth']."-"
+                        .$_REQUEST['endDay']." "
+                        .$_REQUEST['endHour'].":"
+                        .$_REQUEST['endMinute'].":00";
+    $objExercise->set_end_date($composedEndDate);
+    
 		$objExercise->set_max_time($_REQUEST['exerciseMaxTime']);
 		$objExercise->set_max_attempt($_REQUEST['exerciseMaxAttempt']);
 		if($_REQUEST['exerciseShowAnon'] == "show") 
@@ -55,6 +71,12 @@ if($_REQUEST['submitExercise'])
 		{
 			$objExercise->set_hide_anon();
 		}
+    
+    if ( $objExercise->record_uid_in_score() != $_REQUEST['recordUidInScore'] )
+    {
+      $objExercise->change_record_uid_in_score();
+    }
+    
 		$objExercise->set_show_answer($_REQUEST['exerciseShowAnswer']);
 		$objExercise->setRandom($randomQuestions);
 		$objExercise->save();
@@ -75,6 +97,13 @@ else
 	$maxAttempt			= $objExercise->get_max_attempt();
 	$showAnon			= $objExercise->get_show_anon();
 	$showAnswer			= $objExercise->get_show_answer();
+  $recordUidInScore   = $objExercise->record_uid_in_score();
+    
+  // start date splitting
+  list($startDate, $startTime) = split(' ', $objExercise->get_start_date());
+    
+  // end date splitting
+  list($endDate, $endTime) = split(' ', $objExercise->get_end_date());
 }
 
 // shows the form to modify the exercise
@@ -123,20 +152,49 @@ if($_REQUEST['modifyExercise'])
   <td><input type="radio" name="exerciseType" id="exerciseType1" value="1" <?php if($exerciseType <= 1) echo 'checked="checked"'; ?>> <label for="exerciseType1"><?php echo $langSimpleExercise; ?></label><br>
       <input type="radio" name="exerciseType" id="exerciseType2" value="2" <?php if($exerciseType >= 2) echo 'checked="checked"'; ?>> <label for="exerciseType2"><?php echo $langSequentialExercise; ?></td></label>
 </tr>
+<!-- start date form -->
+<tr>
 
+<td>Exercise opening :</td>
+
+<td>
+<?php
+   echo claro_disp_date_form("startDay", "startMonth", "startYear", $startDate)." ".claro_disp_time_form("startHour", "startMinute", $startTime);
+?>
+  </td>
+</tr>
+
+<!-- end date form -->
+<tr>
+
+<td>Exercise closing :</td>
+
+<td>
+<?php
+   echo claro_disp_date_form("endDay", "endMonth", "endYear", $endDate)." ".claro_disp_time_form("endHour", "endMinute", $endTime);
+?>
+
+  
+  </td>
+</tr>
 <tr>
   <td><label for="exerciseMaxTime"><?php echo $langAllowedTime; ?> :</label></td>
   <td>
 	<input type="text" name="exerciseMaxTime" id="exerciseMaxTime" size="4" maxlength="4" value="<?php echo $maxTime; ?>">
-	( '0' pour 'aucune limite' )
   </td>
 </tr>
 
 <tr>
   <td><label for="exerciseMaxAttempt"><?php echo $langAllowedAttempts; ?> :</label></td>
   <td>
-	<input type="text" name="exerciseMaxAttempt" id="exerciseMaxAttempt" size="2" maxlength="2" value="<?php echo $maxAttempt; ?>">
-	( '0' pour 'nombre de tentatives illimité' )
+	<select name="exerciseMaxAttempt" id="exerciseMaxAttempt">
+        <option value="0" <?php echo ($maxAttempt == 0)? 'selected="selected"' : ''?>><?php echo $langUnlimitedAttempts; ?></option>
+        <option value="1" <?php echo ($maxAttempt == 1)? 'selected="selected"' : ''?>>1 <?php echo $langAttemptAllowed; ?></option>
+        <option value="2" <?php echo ($maxAttempt == 2)? 'selected="selected"' : ''?>>2 <?php echo $langAttemptsAllowed; ?></option>
+        <option value="3" <?php echo ($maxAttempt == 3)? 'selected="selected"' : ''?>>3 <?php echo $langAttemptsAllowed; ?></option>
+        <option value="4" <?php echo ($maxAttempt == 4)? 'selected="selected"' : ''?>>4 <?php echo $langAttemptsAllowed; ?></option>       
+        <option value="5" <?php echo ($maxAttempt == 5)? 'selected="selected"' : ''?>>5 <?php echo $langAttemptsAllowed; ?></option>       
+    </select>
   </td>
 </tr>
 
@@ -149,15 +207,25 @@ if($_REQUEST['modifyExercise'])
 		<label for="hideAnon"><?php echo $langHide; ?></label>
   </td>
 </tr>
+<tr>
+  <td valign="top"><?php echo $langAllowAnonymousAttempts; ?> : </td>
+  <td>
+    <input type="checkbox" name="recordUidInScore" id="recordUidInScore" value="1" <?php if( $recordUidInScore ) echo 'checked="checked"'; ?>>
+    <label for="recordUidInScore"><?php echo $langDontRecordUid; ?></label>
+  </td>
+</tr>
 
 <tr>
-  <td><label for="exerciseShowAnswer"><?php echo $langShowAnswers; ?> : </label></td>
-  <td><select name="exerciseShowAnswer" id="exerciseShowAnswer">
-		<option value="ALWAYS" <?php if($showAnswer == 'ALWAYS') echo 'selected="selected"';?>><?php echo $langAlways; ?></option>
-		<option value="NEVER" <?php if($showAnswer == 'NEVER') echo 'selected="selected"'; ?>><?php echo $langNever; ?></option>
-		<option value="LASTTRY" <?php if($showAnswer == 'LASTTRY') echo 'selected="selected"'; ?>><?php echo $langAfterLastTry; ?></option>
-		<option value="ENDDATE" <?php if($showAnswer == 'ENDDATE') echo 'selected="selected"'; ?>><?php echo $langAfterEndDate; ?></option>
-		</select>
+  <td valign="top"><?php echo $langShowAnswers; ?> : </td>
+  <td>
+    <input type="radio" name="exerciseShowAnswer" id="alwaysShowAnswer" value="ALWAYS" <?php if($showAnswer == 'ALWAYS') echo 'checked="checked"';?>>
+    <label for="alwaysShowAnswer"><?php echo $langAlways; ?></label><br />
+    
+    <input type="radio" name="exerciseShowAnswer" id="neverShowAnswer" value="NEVER" <?php if($showAnswer == 'NEVER') echo 'checked="checked"';?>>
+    <label for="neverShowAnswer"><?php echo $langNever; ?></label><br />
+    
+    <input type="radio" name="exerciseShowAnswer" id="endDateShowAnswer" value="ENDDATE" <?php if($showAnswer == 'ENDDATE') echo 'checked="checked"';?>>
+    <label for="endDateShowAnswer"><?php echo $langAfterEndDate; ?></label><br />
   </td>
 </tr>
 <?php
@@ -212,8 +280,101 @@ else
   <?php echo claro_parse_user_text($exerciseDescription); ?>
 </blockquote>
 
-<a href="<?php echo $PHP_SELF; ?>?modifyExercise=yes"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langModify; ?>"></a>
+<a href="<?php echo $PHP_SELF; ?>?modifyExercise=yes"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><small><?php echo $langEditExercise; ?></small></a>
 
 <?php
+}
+
+function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $selectedDate = 0 )
+{
+    global $langMonthNames;
+    
+    if(!$selectedDate)
+    {
+        $selectedDate = date("Y-m-d");
+    }
+    // split selectedDate
+    list($selYear, $selMonth, $selDay) = split("-", $selectedDate);
+    
+    // day field
+    $dayField = "<select name=\"".$dayFieldName."\" id=\"".$dayFieldName."\">\n";
+    for ($i=1;$i <=31; $i++)
+    {
+        $dayField .= "<option value=\"".$i."\"";
+        if($i == $selDay)
+        {
+            $dayField .= " selected=\"true\"";
+        }
+        $dayField .= ">".$i."</option>\n";
+    }
+    $dayField .="</select>\n";
+    
+    // month field
+    $monthField = "<select name=\"".$monthFieldName."\" id=\"".$monthFieldName."\">\n";
+    for ($i=1;$i <=12; $i++)
+    {
+        $monthField .= "<option value=\"".$i."\"";
+        if($i == $selMonth)
+        {
+            $monthField .= " selected=\"true\"";
+        }
+        $monthField .= ">".$langMonthNames['long'][$i-1]."</option>\n";
+    }
+    $monthField .="</select>\n";
+    
+    // year field
+    $yearField = "<select name=\"".$yearFieldName."\" id=\"".$yearFieldName."\">\n";
+    for ($i= $selYear-5;$i <=$selYear+5; $i++)
+    {
+        $yearField .= "<option value=\"".$i."\"";
+        if($i == $selYear)
+        {
+            $yearField .= " selected=\"true\"";
+        }
+        $yearField .= ">".$i."</option>\n";
+    }
+    $yearField .='</select>';
+    
+    return $dayField.'&nbsp;'.$monthField.'&nbsp;'.$yearField;
+}
+
+
+function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 0)
+{
+    if(!$selectedTime)
+    {
+        $selectedTime = date("H:i");
+    }
+    
+    //split selectedTime 
+    list($selHour, $selMinute) = split(":",$selectedTime);
+    
+    $hourField = "<select name=\"".$hourFieldName."\" id=\"".$hourFieldName."\">\n";
+    for($i=0;$i < 24; $i++)
+    {
+        $hourField .= "<option value=\"".$i."\"";
+        if($i == $selHour)
+        {
+            $hourField .= " selected=\"true\"";
+        }
+        $hourField .= ">".$i."</option>\n";
+    }
+    $hourField .= "</select>";
+    
+    $minuteField = "<select name=\"".$minuteFieldName."\" id=\"".$minuteFieldName."\">\n";
+    $i = 0;
+    while($i < 60)
+    {
+        $minuteField .= "<option value=\"".$i."\"";
+        if($i == $selMinute)
+        {
+            $minuteField .= " selected=\"true\"";
+        }
+        $minuteField .= ">".$i."</option>\n";
+        $i += 5;
+    }
+    $minuteField .= "</select>";
+    
+    return $hourField."&nbsp;".$minuteField;
 }
 ?>
