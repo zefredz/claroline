@@ -40,7 +40,6 @@ $langLogIdentLogoutComplete = "Seznam vstopov (razsirjen)";
 // Stat
 $langStatistiques = "Statistike";
 
-Stevilo uciteljev";
 $langNbStudents = "Stevilo studentov";
 $langNbLogin = "Stevilo vstopov";
 $langToday   ="Danes";

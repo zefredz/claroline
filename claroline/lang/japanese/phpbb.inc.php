@@ -202,11 +202,12 @@ $l_memberslist	= "Memberslist";
 $l_faq		= "FAQ";
 $l_privmsgs	= "Private $l_messages";
 $l_sendpmsg	= "Send a Private Message";
-$l_statsblock   = '$statsblock = "Our users have posted a total of -$total_posts- $l_messages.<br>
+$l_statsblock   = $statsblock = "Our users have posted a total of -$total_posts- $l_messages.<br>
 We have -$total_users- Registered Users.<br>
 The newest Registered User is -<a href=\"$profile_url\">$newest_user</a>-.<br>
--$users_online- ". ($users_online==1?"user is":"users are") ." <a href=\"$online_url\">currently browsing</a> the forums.<br>";';
-$l_privnotify   = '$privnotify = "<br>You have $new_message <a href=\"$privmsg_url\">new private ".($new_message>1?"messages":"message")."</a>.";';
+-$users_online- ". ($users_online==1?"user is":"users are") ." <a href=\"$online_url\">currently browsing</a> the forums.<br>";
+
+$l_privnotify   = $privnotify = "<br>You have $new_message <a href=\"$privmsg_url\">new private ".($new_message>1?"messages":"message")."</a>.";
 
 // Page_tail
 $l_adminpanel	= "Administration Panel";

@@ -15,7 +15,7 @@
       |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
       +----------------------------------------------------------------------+
  */
-$langDoc="Dokumen;
+$langDoc="Dokumen";
 $langUploadFile= "Upload file ke server";
 $langUpload="Upload";
 $langCreateDir="Buat direktori";
