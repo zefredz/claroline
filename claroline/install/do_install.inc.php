@@ -267,6 +267,9 @@ $phpMyAdminSys				= $rootAdminSys.$phpMyAdminAppend;
 $phpSysInfoWeb				= $rootAdminWeb.$phpSysInfoAppend;
 $phpSysInfoSys				= $rootAdminSys.$phpSysInfoAppend;
 $garbageRepositorySys		= "'.$garbageRepositorySys.'";
+$imgRepositorySys		    = $rootSys.$clarolineRepositoryAppend.'img/';
+$imgRepositoryWeb 	        = $rootWeb.$clarolineRepositoryAppend.'img/';
+
 //for new login module
 //uncomment these to activate ldap
 //$extAuthSource[\'ldap\'][\'login\'] = "./claroline/auth/ldap/login.php";
