@@ -565,10 +565,10 @@ function get_conf_list()
     $tbl_config_file     = $tbl_mdb_names['config_file'];
     $tbl_rel_tool_config = $tbl_mdb_names['rel_tool_config'];
 
-    $sql_get_conf_list = 'SELECT `cfg`.`config_code` `config_code`, 
+    $sql_get_conf_list = 'SELECT `cfg`.`config_code` `confcode`, 
                                  `cfg`.`config_hash` `config_hash`,  
-                                 `r_t_cfg`.*, 
                                  `r_t_cfg`.`claro_label` `claro_label`, 
+                                 `r_t_cfg`.*, 
                                  `t`.`icon` `icon`
                                  
                           FROM `'.$tbl_config_file.'` `cfg`
@@ -580,10 +580,15 @@ function get_conf_list()
 
     
     $result_conf_list = claro_sql_query_fetch_all($sql_get_conf_list);
+    $conf_list = array();
     if (is_array($result_conf_list))
     foreach ($result_conf_list as $config)
-        $conf_list[$config['config_code']] = $config;
+    {
+        $conf_list[$config['confcode']] = $config;
+    }   
+   
     return  $conf_list;
+    
 }
 
 
