@@ -200,7 +200,7 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
     if ( isset($_cid) )
     {
         echo "&gt;&nbsp;<a href=\"".$coursesRepositoryWeb.$_course['path']."/index.php\" target=\"_top\">"
-            .((isset($course_homepage) && $course_homepage == TRUE) ? '<em>'.$_course['officialCode'].'</em>' : $_course['officialCode'])
+            .((isset($course_homepage) && $course_homepage == TRUE) ? '<b>'.$_course['officialCode'].'</b>' : $_course['officialCode'])
             ."</a>\n";
     }
 
