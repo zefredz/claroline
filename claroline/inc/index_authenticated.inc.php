@@ -155,7 +155,8 @@ echo "<p>"
  * Course List
  */
 
-echo "<ul>\n";
+echo "<ul style=\"list-style-image:url(claroline/img/course.gif); 
+\">\n";
 
 foreach($personnalCourseList as $thisCourse)
 {

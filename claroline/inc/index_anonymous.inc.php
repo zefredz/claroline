@@ -103,9 +103,7 @@ echo $backCommandLine;
 
 claro_disp_tool_title($pageTitle);
 
-
-
-if ( ( count($categoryList) - 1 )  >= 0 )
+if ( ( count($categoryList) - 1 )  > 0 )
 {
     echo "<h4>".$langCategories."</h4>\n";
     echo "<ul>\n";
@@ -144,7 +142,8 @@ if ( count($courseList) > 0 )
    }
 
     echo "<h4>".$langCourseList."</h4>\n"
-        ."<ul>\n";
+        ."<ul style=\"list-style-image:url(claroline/img/course.gif); 
+\">\n";
 
     foreach($courseList as $thisCourse)
     {
