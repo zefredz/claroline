@@ -159,8 +159,6 @@ if ($is_allowedToEdit)
                          COURSE ADMINISTRATION SECTION
   ----------------------------------------------------------------------------*/
 
-    echo "<hr noshade=\"noshade\" size=\"1\">";
-
 //    echo '<p>';
 
 //    claro_disp_button($clarolineRepositoryWeb."course_home/course_home_edit.php",
@@ -187,34 +185,18 @@ if ($is_allowedToEdit)
 
 
     echo "<p>\n"
-        ."<small>"
-        ."<b>"
-        ."<a href=\"".$clarolineRepositoryWeb."course_home/course_home_edit.php\">"
+        ."<a class='claroCmd' href=\"".$clarolineRepositoryWeb."course_home/course_home_edit.php\">"
         ."<img src=\"".$imgRepository."edit.gif\" alt=\"\"> "
         .$langEditToolList
-        ."</a>"
-        ."</b>"
-        ."</small>"
-        ."</p>\n"
-        ."<p>\n"
-        ."<small>"
-        ."<b>"
-        ."<a href=\"".$toolRepository."course_info/infocours.php\">"
+        ."</a><br />\n"
+        ."<a class='claroCmd' href=\"".$toolRepository."course_info/infocours.php\">"
         ."<img src=\"".$imgRepository."/referencement.gif\" alt=\"\"> "
         .$langCourseSettings
-        ."</a>\n"
-        ."<b>"
-        ."</small>"
-        ."</p>\n"
-        ."<p>\n"
-        ."<b>"
-        ."<small>"
-        ."<a href=\"".$toolRepository."tracking/courseLog.php\">"
+        ."</a><br />\n"
+        ."<a class='claroCmd' href=\"".$toolRepository."tracking/courseLog.php\">"
         ."<img src=\"".$imgRepository."/statistiques.gif\" alt=\"\"> "
         .$langStatistics
-        ."<b>"
         ."</a>\n"
-        ."</small>"
         ."</p>";
 }
 
