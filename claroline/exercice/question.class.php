@@ -363,7 +363,6 @@ class Question
 	function getTmpPicture()
 	{
 		global $picturePathSys;
-
 		// if the question has got an ID and if the picture exists
 		if($this->id)
 		{
@@ -383,7 +382,7 @@ class Question
                     {
                         $extension='bmp';
                     }
-                
+                    $this->pictureName='quiz-'.$this->id.'.'.$extension;
                     return @rename($picturePathSys.'/tmp.'.$extension,$picturePathSys.'/'.$this->pictureName)?true:false;
 		}
 
