@@ -1,4 +1,4 @@
-<?
+<? // $Id$
 
 /*
 	To use this function :
@@ -10,7 +10,7 @@
 // This function parse ID3 tag from MP3 file. It's quite fast.
 // syntax mp3_id(filename)
 // function will return -1 if file not exists or no frame cynch found at the beginning of file. i realized that some songs downloaded thru gnutella have about four lines of text info at the beginning. it seepms players can handle. so i will implement it later.
-// variable bitrates are not yet implemented, as they are quite slow to check. you can find them to read lot of first frames and check their bitrates. If theyre not the same, its variable bitrate. and also you then cannot compute real song lenght, unless you will scan the whole file for frames and compute its lenght... (at least what i read)
+// variable bitrates are not yet implemented, as they are quite slow to check. you can find them to read lot of first frames and check their bitrates. If theyre not the same, its variable bitrate. and also you then cannot compute real song length, unless you will scan the whole file for frames and compute its length... (at least what i read)
 // there is second version of ID3 tag which is tagged at the beginning of the file and its quite large. you can learnt more about at http://www.id3.org/. i dont finding this so interesting. there are too good things on new version: you can write more than 30 chars at field and the tag is on the beginning of file. there are so many fields in v2 that i found really unusefull in many case. while it seems that id3v2 will still write tag v1 at the end, i can see no reason why to implement it, cos it is really 'slow' to parse all these informations.
 
 // You can use 'genres' to determine what means the 'genreid' number. if you think you will not need it, delete it to. And also we need to specify all variables for mp3 header.
@@ -41,6 +41,7 @@
 
  function mp3_id($file) {
 
+ 	// see http://www.mp3-tech.org/programmer/frame_header.html
 	$version=Array("00"=>2.5, "10"=>2, "11"=>1);
 	$layer  =Array("01"=>3, "10"=>2, "11"=>1);
 	$crc=Array("Yes", "No");
@@ -58,12 +59,16 @@
 	$bitrate["1100"]=Array(384,256,224,192,128,128);
 	$bitrate["1101"]=Array(416,320,256,224,144,144);
 	$bitrate["1110"]=Array(448,384,320,256,160,160);
-	$bitindex=Array("1111"=>"0","1110"=>"1","1101"=>"2","1011"=>"3","1010"=>"4","1001"=>"5","0011"=>"3","0010"=>4,"0001"=>"5");
+	$bitrate["1111"]=Array("bad","bad","bad","bad","bad","bad");
+	$bitindex=Array("1111"=>"0","1110"=>"1","1101"=>"2","1011"=>"3","1010"=>"4","1001"=>"5","0011"=>"3","0010"=>"4","0001"=>"5");
+	// second index represent the version 11 = mpeg1 , 10 = mpeg2, 00 = mpeg2.5
 	$freq["00"]=Array("11"=>44100,"10"=>22050,"00"=>11025);
 	$freq["01"]=Array("11"=>48000,"10"=>24000,"00"=>12000);
 	$freq["10"]=Array("11"=>32000,"10"=>16000,"00"=>8000);
+	$freq["11"]=Array("11"=>"reserved","10"=>"reserved","00"=>"reserved");
 	$mode=Array("00"=>"Stereo","01"=>"Joint stereo","10"=>"Dual channel","11"=>"Mono");
 	$copy=Array("No","Yes");
+	$padding = Array(0,1);
 	
 	
    if(!$f=@fopen($file, "r")) { return -1; break; } else {
@@ -118,27 +123,33 @@
 
 // now parse all the info from frame header
 
-     $len=filesize($file);
-     $idtag["version"]=$version[substr($bajt,11,2)];
-     $idtag["layer"]=$layer[substr($bajt,13,2)];
-     $idtag["crc"]=$crc[$bajt[15]];
-     $idtag["bitrate"]=$bitrate[substr($bajt,16,4)][$bitindex[substr($bajt,11,4)]];
-     $idtag["frequency"]=$freq[substr($bajt,20,2)][substr($bajt,11,2)];
-     $idtag["padding"]=$copy[$bajt[22]];
-     $idtag["mode"]=$mode[substr($bajt,24,2)];
-     $idtag["copyright"]=$copy[$bajt[28]];
-     $idtag["original"]=$copy[$bajt[29]];
-
-// lets count lenght of the song
-
-     if($idtag["layer"]==1) {
-       $fsize=(12*($idtag["bitrate"]*1000)/$idtag["frequency"]+$idtag["padding"])*4; }
-     else {
-       $fsize=144*(($idtag["bitrate"]*1000)/$idtag["frequency"]+$idtag["padding"]);}
-     // Modified by Luca (18/02/01): devel@lluca.com
-     $idtag["lenght_sec"]=round($len/Round($fsize)/38.37);
-     // end
-     $idtag["lenght"]=date("i:s",round($len/Round($fsize)/38.37));
+	$len=filesize($file);
+	$idtag["version"]=$version[substr($bajt,11,2)];
+	$idtag["layer"]=$layer[substr($bajt,13,2)];
+	$idtag["crc"]=$crc[$bajt[15]];
+	$idtag["bitrate"]=$bitrate[substr($bajt,16,4)][$bitindex[substr($bajt,11,4)]];
+	if( $idtag["bitrate"] == "bad" || $idtag["bitrate"] == 0 || is_null($idtag["bitrate"]) ) return 0;
+	$idtag["frequency"]=$freq[substr($bajt,20,2)][substr($bajt,11,2)];
+	if( $idtag["frequency"] == "reserved" || is_null($idtag["frequency"]) ) return 0;
+	$idtag["padding"]=$copy[$bajt[22]];
+	$idtag["mode"]=$mode[substr($bajt,24,2)];
+	$idtag["copyright"]=$copy[$bajt[28]];
+	$idtag["original"]=$copy[$bajt[29]];
+	
+	// lets count length of the song	
+	if($idtag["layer"]==1) 
+	{
+	  $fsize=(12*($idtag["bitrate"]*1000)/$idtag["frequency"]+$idtag["padding"])*4; 
+	}
+	else 
+	{
+	  $fsize=144*(($idtag["bitrate"]*1000)/$idtag["frequency"]+$idtag["padding"]);
+	}
+	
+	// Modified by Luca (18/02/01): devel@lluca.com
+	$idtag["length_sec"]=round($len/Round($fsize)/38.37);
+	// end
+	$idtag["length"]=date("i:s",round($len/Round($fsize)/38.37));
 
 // now lets see at the end of the file for id3 tag. if exists then  parse it. if file doesnt have an id 3 tag if will return -1 in field 'tag' and if title is empty it returns file name.
 
