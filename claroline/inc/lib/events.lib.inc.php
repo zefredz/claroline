@@ -25,12 +25,13 @@
 
 // REGROUP TABLE NAMES FOR MAINTENANCE PURPOSE
 
-// stats db
-$TABLETRACK_LOGIN         = $statsDbName."`.`track_e_login";
-$TABLETRACK_OPEN          = $statsDbName."`.`track_e_open";
-$TABLETRACK_SUBSCRIPTIONS = $statsDbName."`.`track_e_subscriptions";
-$TABLETRACK_DEFAULT       = $statsDbName."`.`track_e_default";
+$tbl_mdb_names 			= claro_sql_get_main_tbl();
+$tbl_track_e_default        = $tbl_mdb_names['track_e_default'];
+$tbl_track_e_login          = $tbl_mdb_names['track_e_login'];
+$tbl_track_e_open           = $tbl_mdb_names['track_e_open'];
+$tbl_track_e_subscriptions  = $tbl_mdb_names['track_e_subscriptions'];
 // course db
+$tbl_cdb_names 			  = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS        = $_course['dbNameGlu']."track_e_access";
 $TABLETRACK_DOWNLOADS     = $_course['dbNameGlu']."track_e_downloads";
 $TABLETRACK_UPLOADS       = $_course['dbNameGlu']."track_e_uploads";
@@ -68,7 +69,7 @@ function event_open()
     if( ! $is_trackingEnabled ) return 0;
 
     global $rootWeb ;
-    global $TABLETRACK_OPEN;
+    global $tbl_track_e_open;
     // @getHostByAddr($REMOTE_ADDR) : will provide host and country information
     // $HTTP_USER_AGENT :  will provide browser and os information
     // $HTTP_REFERER : provide information about refering url
@@ -83,7 +84,7 @@ function event_open()
         
         $reallyNow = time();
 
-        $sql = "INSERT INTO `".$TABLETRACK_OPEN."`
+        $sql = "INSERT INTO `".$tbl_track_e_open."`
                         (`open_date`)
                 VALUES
                         (FROM_UNIXTIME($reallyNow))";
@@ -109,10 +110,10 @@ function event_login()
     if( ! $is_trackingEnabled ) return 0;
 
     global $_uid;
-    global $TABLETRACK_LOGIN;
+    global $tbl_track_e_login;
 
     $reallyNow = time();
-    $sql = "INSERT INTO `".$TABLETRACK_LOGIN."`
+    $sql = "INSERT INTO `".$tbl_track_e_login."`
             (`login_user_id`, 
              `login_ip`, 
              `login_date`)
@@ -417,9 +418,9 @@ function event_subscription($cours_id,$action)
     if( ! $is_trackingEnabled ) return 0;
 
     global $_uid;
-    global $TABLETRACK_SUBSCRIPTIONS;
+    global $tbl_track_e_subscriptions;
     
-    $sql="INSERT INTO `$TABLETRACK_SUBSCRIPTIONS`
+    $sql="INSERT INTO `".$tbl_track_e_subscriptions."`
           (`sub_user_id`,
            `sub_cours_id`,
            `sub_action`)
@@ -451,7 +452,7 @@ function event_default($type_event,$values)
 
     global $_uid;
     global $_cid;
-    global $TABLETRACK_DEFAULT;
+    global $tbl_track_e_default;
 
     $reallyNow = time();
 
@@ -485,7 +486,7 @@ function event_default($type_event,$values)
             $sqlValues .= ",('',".$user_id.",".$cours_id.",FROM_UNIXTIME(".$reallyNow."),\"".addslashes($type_event)."\",\"".addslashes($type_value)."\",\"".addslashes($event_value)."\")";
         }
     }
-    $sql = "INSERT INTO `".$TABLETRACK_DEFAULT."`
+    $sql = "INSERT INTO `".$tbl_track_e_default."`
             VALUES ".$sqlValues;
 
 
