@@ -16,13 +16,17 @@ require '../inc/claro_init_global.inc.php';
 $interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);
 include($includePath."/claro_init_header.inc.php");
 include($includePath."/conf/profile.conf.inc.php");
-$nameTools = "1";
 
 $display_status_selector = (bool) ($is_platformAdmin OR $allowSelfRegProf);
+// NAMING STATUS VALUES FOR THE PROFILES SCRIPTS
+define ("STUDENT",      5);
+define ("COURSEMANAGER",1);
+
+$nameTools = "1";
 
 if(!$allowSelfReg and isset($allowSelfReg))
 {
-	echo "<BR><BR>You are not allowed here<BR><BR><BR><BR>";
+	header("location:".$rootWeb);
 }
 else
 {
@@ -190,7 +194,5 @@ if ($display_status_selector)
 
 <?php
 }	// END else == $allowSelfReg
-
-
 include ("../inc/claro_init_footer.inc.php");
 ?>
