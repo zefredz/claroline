@@ -1,50 +1,27 @@
-<?php 
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.0 $Revision$                            |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   $Id$         |
-      +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      |                                                                      |
-      |   This program is distributed in the hope that it will be useful,    |
-      |   but WITHOUT ANY WARRANTY; without even the implied warranty of     |
-      |   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      |
-      |   GNU General Public License for more details.                       |
-      |                                                                      |
-      |   You should have received a copy of the GNU General Public License  |
-      |   along with this program; if not, write to the Free Software        |
-      |   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA          |
-      |   02111-1307, USA. The GNU GPL license is also available through     |
-      |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Sebastien Piraux  <piraux_seb@hotmail.com>
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
  */
- 
+
 $langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
+
+include($includePath."/lib/statsUtils.lib.inc.php");
+$tbl_mdb_names 			= claro_sql_get_main_tbl();
+$tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
+
+$is_allowedToTrack = $is_platformAdmin;
 
 $interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
 $interbredcrump[]= array ("url"=>"campusLog.php", "name"=> $langStatsOfCampus);
 
 $nameTools = $langTrafficDetails;
 
-$TABLETRACK_OPEN = $statsDbName."`.`track_e_open";
-
-@include($includePath."/claro_init_header.inc.php");
-@include($includePath."/lib/statsUtils.lib.inc.php");
-
-$is_allowedToTrack = $is_platformAdmin;
-
+include($includePath."/claro_init_header.inc.php");
 ?>
 <h3>
     <?php echo $nameTools ?>
@@ -127,8 +104,8 @@ $is_allowedToTrack = $is_platformAdmin;
                 $previousReqDate = $reqdate - 86400;
                 $nextReqDate = $reqdate + 86400;
                 echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType' >$langPreviousDay</a>] 
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType' >$langNextDay</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=".$displayType."' >".$langPreviousDay."</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=".$displayType."' >".$langNextDay."</a>] 
                 ";
                 break;
         }
@@ -143,8 +120,8 @@ $is_allowedToTrack = $is_platformAdmin;
             // all days
             case "year" :
                 $sql = "SELECT UNIX_TIMESTAMP( `open_date` ) 
-                            FROM `$TABLETRACK_OPEN`
-                            WHERE YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) ) ";
+                            FROM `".$tbl_track_e_open."`
+                            WHERE YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( ".$reqdate." ) ) ";
                 if($displayType == "month")
                 {
                     $sql .= "ORDER BY UNIX_TIMESTAMP( `open_date`)";
@@ -167,7 +144,7 @@ $is_allowedToTrack = $is_platformAdmin;
             // all days
             case "month" :
                 $sql = "SELECT UNIX_TIMESTAMP( `open_date` ) 
-                            FROM `$TABLETRACK_OPEN`
+                            FROM `".$tbl_track_e_open."`
                             WHERE MONTH(`open_date`) = MONTH (FROM_UNIXTIME( $reqdate ) ) 
                                 AND YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) ) ";
                 if($displayType == "day")
@@ -186,7 +163,7 @@ $is_allowedToTrack = $is_platformAdmin;
             // all hours
             case "day"  :
                 $sql = "SELECT UNIX_TIMESTAMP( `open_date` ) 
-                            FROM `$TABLETRACK_OPEN`
+                            FROM `".$tbl_track_e_open."`
                             WHERE DAYOFMONTH(`open_date`) = DAYOFMONTH(FROM_UNIXTIME( $reqdate ) ) 
                                 AND MONTH(`open_date`) = MONTH (FROM_UNIXTIME( $reqdate ) ) 
                                 AND YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) ) 
