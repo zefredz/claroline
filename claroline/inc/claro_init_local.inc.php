@@ -307,7 +307,8 @@ else
                  $key = $uData['authSource'];
     
                 /* >>>>>>>>>>>>>>>>>>>>>>>>> LDAP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
-                include_once($extAuthSource[$key]['login']);
+                if ( isset($extAuthSource) && is_array ($extAuthSource))
+                    include_once($extAuthSource[$key]['login']);
                 /* >>>>>>>>>>>>>>>> end of LDAP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
                 
             }
@@ -334,7 +335,7 @@ else
              * to provide this $_uid.
              */
 
-            if (is_array($extAuthSource))
+            if (isset($extAuthSource) && is_array($extAuthSource))
             {
                 foreach($extAuthSource as $thisAuthSource)
                 {
