@@ -729,7 +729,7 @@ function parse_config_file($conf_file)
         $code = file_get_contents($conf_file);
         $tokens = token_get_all($code);
 
-//        @include($includePath."/conf/".$confFileName);
+        include($conf_file);
 
         $vars = array();
         for($i=0; $i < count($tokens); $i++)
@@ -754,7 +754,8 @@ function parse_config_file($conf_file)
                         $vars[$possibleVar] .= $val;
                     }
                 }
-                $propList[$possibleVar] =  $vars[$possibleVar];
+                //$propList[$possibleVar] =  $vars[$possibleVar];
+                $propList[$possibleVar] =  $$possibleVar;                
             }
             elseif (($tokens[$i][0] == T_CONSTANT_ENCAPSED_STRING ))
             {
@@ -777,7 +778,7 @@ function parse_config_file($conf_file)
     return  $propList;
 }
 
-function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $currentValue=NULL)
+function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $currentValue=NULL)
 {
     global $langFirstDefOfThisValue, $langEmpty;
 
