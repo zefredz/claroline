@@ -187,7 +187,7 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?uidToEdit=".$uidToEdit);
 
 // table
 
-echo  '<table class="claroTable" width="100%" border="0" cellspacing="2" >'
+echo  '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2" >'
      .'<thead>'
      .'<caption >'
      .'<img src="'.$clarolineRepositoryWeb.'/img/'.$iconForCuStatus['STUDENT'].'" alt="STUDENT" border="0" title="statut" > Student '

@@ -170,7 +170,7 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit);
 
    // start table...
 
-echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
+echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
     ."<thead>\n"
     ."<tr class=\"headerX\" align=\"center\" valign=\"top\">"
     ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>"

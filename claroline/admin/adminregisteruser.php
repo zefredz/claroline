@@ -10,7 +10,7 @@
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
-// This script list member of campus and  prupose to subscribe it to the given couser
+// This script list member of campus and  propose to subscribe it to the given course
 
 
 // Lang files needed :
@@ -191,16 +191,13 @@ if($dialogBox)
     claro_disp_message_box($dialogBox);
 }
 
-//TOOL LINKS
-
-echo '<a class="claroCmd" href="admincourseusers.php?cidToEdit='.$cidToEdit.'">'.$langAllUsersOfThisCourse.'</a>';
 
 // search form
        
 if ($_GET['search']!="")    {$isSearched .= $_GET['search']."* ";}
 if (($isSearched=="") || !isset($isSearched)) {$title = "";} else {$title = $langSearchOn." : ";}
 
-echo '<table width="100%">
+echo '<table width="100%" >
         <tr>
           <td align="left">
              <b>'.$title.'</b>
@@ -220,7 +217,10 @@ echo '<table width="100%">
         </tr>
       </table>';
 
+//TOOL LINKS
 
+echo '<a class="claroCmd" href="admincourseusers.php?cidToEdit='.$cidToEdit.'">'.$langAllUsersOfThisCourse.'</a><br><br>';
+      
 //Pager
 
 if (isset($_GET['order_crit']))
@@ -234,7 +234,7 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit.$add
 // start table...
 //columns titles...
 
-echo '<table class="claroTable" width="100%" border="0" cellspacing="2">
+echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
 <thead>
     <tr class="headerX" align="center" valign="top">
         <th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=user_id&amp;chdir=yes&amp;search='.$search.'&amp;cidToEdit='.$cidToEdit.'">'.$langUserid.'</a></th>

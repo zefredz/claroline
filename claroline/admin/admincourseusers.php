@@ -251,7 +251,7 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit);
 
    // start table...
 
-echo '<table class="claroTable" width="100%" border="0" cellspacing="2">
+echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
 <thead >
 <caption>
 			<small>

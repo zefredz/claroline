@@ -435,7 +435,7 @@ else
 
 // display TOOL links :
 
-echo "<a class=\"claroCmd\" href=\"adminuserdeleted.php?uidToEdit=".$user_id."&cmd=delete\" onClick=\"return confirmation('".$langAreYouSureToDelete." ".$username_form."');\" >".$langDeleteUser."</a> | ";
+echo "<a class=\"claroCmd\" href=\"adminuserdeleted.php?uidToEdit=".$user_id."&cmd=delete\" onClick=\"return confirmation('".$langAreYouSureToDelete." ".$username_form."');\" ><img src=\"".$clarolineRepositoryWeb."img/deluser.gif\" /> ".$langDeleteUser."</a> | ";
 
 echo "<a class=\"claroCmd\" href=\"../auth/courses.php?cmd=rqReg&amp;uidToEdit=".$user_id."&amp;fromAdmin=settings&amp;category=\" >".$langRegisterUser."</a> | ";
 

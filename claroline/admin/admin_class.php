@@ -266,7 +266,7 @@ echo "<br><br>";
 
 //display cols headers
 
-echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
+echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
     ."<thead>\n"
     ."  <tr class=\"headerX\">"
     ."    <th>"

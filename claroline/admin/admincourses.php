@@ -375,7 +375,7 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 // display list
 
-echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
+echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">
       <thead>
        <tr class=\"headerX\" align=\"center\" valign=\"top\">";
 

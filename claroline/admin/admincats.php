@@ -950,7 +950,7 @@ echo "<p><a class=\"claroCmd\" href=\"" . $_SERVER['PHP_SELF'] . "?cmd=rqCreate\
 
 ?>
 
-	<table class="claroTable" width="100%" border="0" cellspacing="2">
+	<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
     <thead>
        <tr class="headerX" align="center" valign="top">
 
