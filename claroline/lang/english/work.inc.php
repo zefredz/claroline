@@ -55,10 +55,10 @@ $langAllowLateUploadShort = "Allow late upload";
 $langAllowLateUpload = "Yes, allow users to submit works after deadline";
 $langPreventLateUpload = "No, prevent users to submit works after deadline";
 
-$langStandardGradingHelp = "";
+$langStandardGradingHelp = "Standard grading is optionnal.  If not empty it will be shown to users after the grading submission date.";
 $langStandardGrading = "Standard grading";
-$langStandardGradingText = "Standard grading text";
-$langStandardGradingFile = "Standard grading file";
+$langStandardGradingText = "Grading text";
+$langStandardGradingFile = "Grading file";
 $langCurrentStandardGradingFile = "Current grading file";
 $langStandardGradingDate = "Standard grading submission date";
 
@@ -88,7 +88,7 @@ $langGradeAdded = "Grade added";
 // errors
 $langTooBig = "File is too big";
 $langSessionTitleRequired = "Session title required";
-$langTitleAlreadyExists = "Session title already exists";
+$langSesTitleAlreadyExists = "Session title already exists";
 $langCannotCopyFile = "Cannot copy the file.";
 $langWrkTitleAlreadyExists = "Work title already exists";
 $langWrkTitleRequired = "Work title required";
