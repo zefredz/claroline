@@ -61,11 +61,12 @@ if(!$alreadyVisited || $resetConfig) // on first step prupose values
 	$dbHostForm		= "localhost";
 	$dbUsernameForm	= "root";
 
-	$dbPrefixForm	= "claro150b";
+	$dbPrefixForm	= "CL150RC1";
 	$dbNameForm		= $dbPrefixForm."Main";
-	$dbStatsForm    = $dbPrefixForm."Tracking";
-	$dbPMAForm		= $dbPrefixForm."PMA";
+	$dbStatsForm    = $dbPrefixForm."Main";
+	$dbPMAForm		= $dbPrefixForm."Main";
  	$dbPrefixForm	= $dbPrefixForm."_";
+ 	$singleDbForm	= $singleDbForm = true;
 
 
 	// extract the path to append to the url if Claroline is not installed on the web root directory
@@ -80,7 +81,7 @@ if(!$alreadyVisited || $resetConfig) // on first step prupose values
 	$adminNameForm		= "Doe";
 	$adminSurnameForm	= "John";
 	$loginForm		= "admin";
-	$passForm  		= generePass(8);
+	$passForm  		= "";
 
 	$campusForm		= "My campus";
 	$educationForm	= "Albert Einstein";
@@ -752,17 +753,11 @@ if ($doCheckDatabaseName)
 <body bgcolor="white" dir="<?php echo $text_dir ?>">
 <center>
 <form action="<?php echo $PHP_SELF?>?alreadyVisited=1" method="post">
-<table cellpadding="6" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
+<table cellpadding="10" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
 	<tr bgcolor="navy">
 		<td valign="top">
-			<?php
-				if(!$stable)
-				{
-					echo "<FONT color=\"#FF0000\" >!!!&nbsp;<BIG>".$clarolinePhase."</BIG> !!! </font>";
-				}
-			?>
 			<font color="white">
-				Claroline installation -- version <?php echo $clarolineVersion ?>
+				Claroline 1.5 Release Candidate (<?php echo $clarolineVersion ?>) - installation
 			</font>
 		</td>
 	</tr>
@@ -823,34 +818,6 @@ echo "
 
 ";
 
-switch (PHP_OS)
-{
-	case "WIN32" :
-	case "WINNT" :
-		$wizardImage = "windowsWizard.gif";
-		break;
-	case "Linux" :
-		$wizardImage = "linuxWizard.gif";
-		break;
-/*	case "SunOS" :
-		$wizardImage = "sunWizard.gif"; <- can be created sun have a limitative copyright
-		break;
-	case "Darwin" : // (MacOS)
-		$wizardImage = "macWizard.gif";
-		break;
-	case "AIX":
-		$wizardImage = "aixWizard.gif";
-		break;
-*/
-	default :
-		$wizardImage = "defaultWizard.gif";
-}
-
-echo "
-				<img src=\"".$wizardImage."\" align=\"right\" hspace=\"10\" vspace=\"10\" alt=\"".PHP_OS."\" >";
-
-
-
  ##### PANNELS  ######
  #
  # INSTALL IS a big form
@@ -862,101 +829,8 @@ if ($display==DISP_WELCOME)
 {
 	echo "
 <h2>
-	".$langStep1." ".$langRequirements."
+	".$langStep1." : ".$langRequirements."
 </h2>";
-
-	if(!$stable)
-	{
-		echo "
-		This is a version in phase :
-		<FONT color=\"#FF0000\" >!!!&nbsp;<BIG>".$clarolinePhase."</BIG> !!! </font><br>
-		<font color=\"#808080\">
-		If  something goes wrong,
-		<a href=\"http://www.claroline.net/forum/index.php?c=8\" target=\"_clarodev\">come talk here</a>
-		</font>";
-	}
-
-	if($SERVER_SOFTWARE=="") $SERVER_SOFTWARE = $_SERVER["SERVER_SOFTWARE"];
-	$WEBSERVER_SOFTWARE = explode(" ",$SERVER_SOFTWARE,2);
-	echo "
-	<p></p><b>Read Thouroughly</b></p>
-	For Claroline to work, you need the following on the server&nbsp;:
-<ul>
-	<li>
-		Webserver
-		<!--
-		(<small><small><small>you have <em>",$WEBSERVER_SOFTWARE[0],"</em><br><em>Ext info : ",$WEBSERVER_SOFTWARE[1]," </em></small></small></small>) <br>
-		-->
-		with PHP 4.x,
-		<!--
-		(<small><small><small>you have <em>PHP ".phpversion()."</em></small></small></small>)<br>
-		-->
-		<UL>";
-
-	warnIfExtNotLoaded("standard","<B>can't</B> work without");
-	warnIfExtNotLoaded("session","<B>can't</B> work without");
-	warnIfExtNotLoaded("mysql","<B>can't</B> work without");
-	warnIfExtNotLoaded("zlib","<B>can't</B> work without");
-	warnIfExtNotLoaded("pcre");
-//	warnIfExtNotLoaded("exif"); // exif  would be needed later for pic view properties.
-//	warnIfExtNotLoaded("nameOfExtention"); // list here http://www.php.net/manual/fr/resources.php
-
-	echo "
-		</UL>
-		Check PHP ini settings
-		<UL>
-			".(ini_get('register_globals')?
-			"
-			<!--LI>register_globals ON</LI-->":
-			"
-			<LI>
-				<font color=\"red\">!!! register_globals OFF!!</font> <- set <b>ON</b>
-			</LI>"
-			).(ini_get('magic_quotes_gpc')?
-			"
-			<!--LI>magic_quotes_gpc ON</LI-->":
-			"
-			<LI>
-				<font color=\"red\">!!! magic_quotes_gpc OFF!!</font> <- set <b>ON</b></font>
-			</LI>"
-			).(ini_get('display_errors')?
-			"
-			<LI>
-				<font color=\"red\">!!! display_errors ON !! <-</font> <- set <b>OFF</b>
-				in <u>production</u><br>
-				".((ini_get('error_reporting') & E_NOTICE )?"
-				<font color=\"red\">Show <b>E_NOTICE</b> is set ON.</font><br>
-				Change this in your <b>php.ini</b> to something like<br>
-				<font color=\"blue\">
-				<CODE>
-error_reporting  =  E_ALL & ~E_NOTICE
-				</CODE>
-				</font>":"") ."
-			</LI>":
-			"
-			<!--LI>
-				display_errors OFF
-			</LI-->"
-			)."
-</UL>
-	</li>
-	<li>
-		MySQL
-			with login/password allowing to access at least one DB,
-	</li>
-	<li>
-		Write access to web directory where claroline files have been put.<br>
-		Actually you can
-		<UL>
-			<li>write to ".$topRigthPath['topWritablePath']."
-			<li>read to ".$topRigthPath['topReadablePath']."
-		</UL>
-	</li>
-
-</ul>
-For more details, see
-<a href=\"../../INSTALL.txt\">INSTALL.txt</a>.
-<br>";
 	// check if an claroline configuration file doesn't already exists.
 	if (
 		file_exists("../inc/conf/claro_main.conf.inc.php")
@@ -966,39 +840,145 @@ For more details, see
 	|| file_exists("../include/config.php"))
 	{
 		echo "
- <div style=\"background-color:#FFFFFF\">
-	<p align=\"center\">
+ <div style=\"background-color:#FFFFFF;margin:20px;padding:5px\">
+	<p>
 		<b>
 			<font color=\"red\">
-				Warning !
-				<br>
-				The installer has detected an existing
+				Warning ! The installer has detected an existing
 				claroline platform on your system.
-				<br>";
+				<br>
+				<ul>";
 		if ($is_upgrade_available)
 		{
 			echo "
-				For claroline upgrade click
+				<li>For claroline upgrade click
 				<a href=\"../admin/maintenance/upgrade.php\">here.</a>
 				<br>";
 		}
 		else
 		{
 			echo "
-				For claroline upgrade please wait a stable release.
+				<li>For claroline upgrade please wait a stable release.
 				<br>";
 		}
 		echo 	"
-				For claroline overwrite click on  \"next\" button
+				<li>For claroline overwrite click on  \"next\" button
+				</ul>
 			</font>
 		</b>
 	</p>
 </div>";
 	}
 
-echo "
-<p align=\"right\">
-<input type=\"submit\" name=\"cmdShowLicence\" value=\"Next >\">";
+
+	if(!$stable)
+	{
+		echo "
+		<strong>Warning !</strong> 
+		This version is not considered as stable
+		and is not aimed for production.<br>
+		
+		If  something goes wrong,
+		come talk on our support forum at 
+		<a href=\"http://www.claroline.net/forum/index.php?c=8\" target=\"_clarodev\">http://www.claroline.net</a>.";
+	}
+
+	if($SERVER_SOFTWARE=="") $SERVER_SOFTWARE = $_SERVER["SERVER_SOFTWARE"];
+	$WEBSERVER_SOFTWARE = explode(" ",$SERVER_SOFTWARE,2);
+	echo "
+	<p>Read Thouroughly <a href=\"../../INSTALL.txt\">INSTALL.txt</a> 
+	before proceeding to install.</p>
+	<h4>Checking requirement</h4>
+<ul>
+
+	<li>
+		Checking PHP extentions.
+		<UL>";
+
+	warnIfExtNotLoaded("standard");
+	warnIfExtNotLoaded("session");
+	warnIfExtNotLoaded("mysql");
+	warnIfExtNotLoaded("zlib");
+	warnIfExtNotLoaded("pcre");
+//	warnIfExtNotLoaded("exif"); // exif  would be needed later for pic view properties.
+//	warnIfExtNotLoaded("nameOfExtention"); // list here http://www.php.net/manual/fr/resources.php
+
+	echo "
+		</UL>
+	</LI>
+	<LI>
+		Checking PHP settings
+		<UL>
+			".(ini_get('register_globals')?
+			"
+			<!--LI>register_globals ON</LI-->":
+			"
+			<LI>
+				<font color=\"red\">Warning !</font> register_globals is set to <strong>off</strong>.
+				<br>
+				Change the following parameter in your <i>php.ini</i> file to this value :<br>
+				<font color=\"blue\">
+				<code>register_globals = on</code>
+				</font>
+			</LI>"
+			).(ini_get('magic_quotes_gpc')?
+			"
+			<!--LI>magic_quotes_gpc ON</LI-->":
+			"
+			<LI>
+				<font color=\"red\">Warning !</font> magic_quotes_gpc is set to <strong>off</strong>.
+				<br>
+				Change the following parameter in your <i>php.ini</i> file to this value :<br>
+				<font color=\"blue\">
+				<code>magic_quotes_gpc = on</code>
+				</font>
+			</LI>"
+			).(ini_get('display_errors')?
+			"
+			<LI>
+				<font color=\"red\">Warning !</font> display_errors is set to <strong>on</strong>.
+				<br>
+				For production, change the following parameter in your <i>php.ini</i> file to this value :<br>
+				<font color=\"blue\">
+				<code>display_errors = off</code> 
+				</font>
+				<br>
+				".((ini_get('error_reporting') & E_NOTICE )?"
+				<font color=\"red\">Warning !</font> error_reporting include <strong>E_NOTICE</strong>.
+				<br>
+				Change the following parameter in your <i>php.ini</i> file to this value :<br>
+				<font color=\"blue\">
+				<code>error_reporting  =  E_ALL & ~E_NOTICE</code>
+				</font>":"") ."
+			</LI>":
+			"
+			<!--LI>
+				display_errors OFF
+			</LI-->"
+			)."
+</UL>
+	</li>
+	<li>Checking file access to web directory.
+	<ul>
+		".(is_writable("../..")?"":"</li>
+			<font color=\"red\">Warning !</font> Claroline is not able to write on : <br>
+			<nobr><code>".realpath("../..")."</code><nobr>
+				<br>
+				Change this file permission the server file system.</li>
+		")."
+		".(is_readable("../..")?"":"
+			<li><font color=\"red\">Warning !</font> claroline is not able to read on : <br>
+			<nobr><code>".realpath("../..")."</code><nobr>
+			<br>
+			Change this file permission the server file system.
+		</li>
+		")."
+		</ul>
+	</li>
+</ul>
+<p>
+If the checks above has passed without any problem, click on the <i>Next</i> button to continue.
+<p align=\"right\"><input type=\"submit\" name=\"cmdShowLicence\" value=\"Next >\"></p>";
 
 }
 
@@ -1008,7 +988,7 @@ elseif($display==DISP_LICENCE)
 {
 	echo "
 				<h2>
-					".$langStep2." ".$langLicence."
+					".$langStep2." : ".$langLicence."
 				</h2>
 				<P>
 				Claroline is free software, distributed under GNU General Public licence (GPL).
@@ -1045,15 +1025,17 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 
 	echo "
 				<h2>
-					".$langStep3." ".$langDBSetting." 1/2
+					".$langStep3." : ".$langDBSetting." 1/2
 				</h2>
-				".$langDBSettingAccountIntro."
+				
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<B>".$langDBConnectionParameters."</B>
-				".$lang_Note_this_account_would_be_existing."
+				<h4>".$langDBConnectionParameters."</h4>
+				<p>
+				Enter here the parameters given by your database server administrator.
+				</p>
 				".$msg_no_connection."
 				<table width=\"100%\">
 					<tr>
@@ -1090,31 +1072,38 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 						</td>
 					</tr>
 				</table>
-				<B>".$langDBUse."</B>
+				<h4>".$langDBUse."</h4>
 				<table width=\"100%\">
 					<tr>
 							<td>
-									<Label for=\"enableTrackingForm\">".$langEnableTracking."</label>
+									<Label for=\"enableTrackingForm\">Tracking</label>
 							</td>
 							<td>
-									<input type=\"radio\" id=\"enableTrackingForm\" name=\"enableTrackingForm\" value=\"1\" checked> ".$langYes."
-									<input type=\"radio\" id=\"enableTrackingForm\" name=\"enableTrackingForm\" value=\"0\"> ".$langNo."
+									<input type=\"radio\" id=\"enableTrackingForm\" name=\"enableTrackingForm\" value=\"1\" checked> Enabled
+							</td>
+							<td>
+									<input type=\"radio\" id=\"enableTrackingForm\" name=\"enableTrackingForm\" value=\"0\"> Disabled
 							</td>
 					</tr>
 					<tr>
 						<td>
-							<Label for=\"singleDbForm\">".$langSingleDb."</label>
+							<Label for=\"singleDbForm\">Database mode</label>
 						</td>
 						<td>
-							<input type=\"radio\" id=\"singleDbForm\" name=\"singleDbForm\" value=\"1\" ".($singleDbForm?"checked":"")." > ".$langOne."
-							<input type=\"radio\" id=\"singleDbForm\" name=\"singleDbForm\" value=\"0\" ".($singleDbForm?"":"checked")." > ".$langSeveral."
+							<input type=\"radio\" id=\"singleDbForm\" name=\"singleDbForm\" value=\"1\" ".($singleDbForm?"checked":"")." > Single
+							</td>
+							<td>
+							<input type=\"radio\" id=\"singleDbForm\" name=\"singleDbForm\" value=\"0\" ".($singleDbForm?"":"checked")." > Multi
+							<small>
+								(one new database created at each course creation)
+							</small>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<input type=\"submit\" name=\"cmdShowLicence\" value=\"< Back\">
 						</td>
-						<td>
+						<td >
 							&nbsp;
 						</td>
 						<td align=\"right\">
@@ -1130,15 +1119,15 @@ elseif($display == DISP_DB_NAMES_SETTING )
 
 	echo "
 				<h2>
-					".$langStep4." ".$langDBSetting." 2/2
+					".$langStep4." : ".$langDBSetting." 2/2
 				</h2>
-				".($singleDbForm?$langDBSettingNameIntro:$langDBSettingNamesIntro)."
+				".($singleDbForm?"":$langDBSettingNamesIntro)."
 			</td>
 		</tr>
 		<tr>
 			<td>
 				".$msg_no_connection."
-				<B>".$langDBNamesRules."</B>
+				<h4>".$langDBNamesRules."</h4>
 				<table width=\"100%\">
 					<tr>
 						<td>
@@ -1182,7 +1171,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 	echo "
 					<tr>
 						<td>
-							<Label for=\"dbPrefixForm\">".$langDbPrefixForm."</label>
+							<Label for=\"dbPrefixForm\">".($singleDbForm?"Prefix Name for Course Tables":$langDbPrefixForm)."</label>
 						</td>
 						<td>
 							<input type=\"text\"  size=\"25\" id=\"dbPrefixForm\" name=\"dbPrefixForm\" value=\"$dbPrefixForm\">
@@ -1232,14 +1221,14 @@ elseif($display==DISP_CONFIG_SETTING)
 {
 	echo "
 				<h2>
-					".$langStep5." ".$langCfgSetting."
+					".$langStep5." : ".$langCfgSetting."
 				</h2>
 				The following values will be written in '<em>".$configFilePath."</em>'
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<H3>Admin</H3>
+				<h4>Administrator</h4>
 				<table width=\"100%\">
 					<tr>
 						<tr>
@@ -1249,6 +1238,7 @@ elseif($display==DISP_CONFIG_SETTING)
 							<td>
 								<input type=\"text\" size=\"40\" id=\"loginForm\" name=\"loginForm\" value=\"$loginForm\">
 							</td>
+							<td></td>
 						</tr>
 						<tr>
 							<td>
@@ -1257,6 +1247,9 @@ elseif($display==DISP_CONFIG_SETTING)
 							<td>
 								<input type=\"text\" size=\"40\" id=\"passForm\" name=\"passForm\" value=\"$passForm\">
 							</td>
+							<td>
+								e.g. ".generePass(8)."
+							</td>
 						</tr>
 						<td>
 							<Label for=\"adminEmailForm\">".$langAdminEmail."</label>
@@ -1264,6 +1257,7 @@ elseif($display==DISP_CONFIG_SETTING)
 						<td>
 							<input type=\"text\" size=\"40\" id=\"adminEmailForm\" name=\"adminEmailForm\" value=\"$adminEmailForm\">
 						</td>
+							<td></td>
 						</tr>
 						<tr>
 							<td>
@@ -1272,6 +1266,7 @@ elseif($display==DISP_CONFIG_SETTING)
 							<td>
 								<input type=\"text\" size=\"40\" id=\"adminNameForm\" name=\"adminNameForm\" value=\"$adminNameForm\">
 							</td>
+							<td></td>
 						</tr>
 						<tr>
 							<td>
@@ -1280,16 +1275,32 @@ elseif($display==DISP_CONFIG_SETTING)
 							<td>
 								<input type=\"text\" size=\"40\" id=\"adminSurnameForm\" name=\"adminSurnameForm\" value=\"$adminSurnameForm\">
 							</td>
+							<td></td>
 						</tr>
 				</table>
-				<H3>Campus</H3>
-				PS: this panel will be to split in to panel (no time to do it for beta version)
-				<table width=\"100%\">
+				<h4>Campus</h4>
+				<table >
+					<tr>
+							<td>
+								<Label for=\"campusForm\">Name</label>
+							</td>
+							<td colspan=2>
+								<input type=\"text\" size=\"40\" id=\"campusForm\" name=\"campusForm\" value=\"$campusForm\">
+							</td>
+						</tr>
 					<tr>
 						<td>
-							<Label for=\"languageForm\">".$langMainLang."</label>
+							<Label for=\"urlForm\">Complete URL</label>
 						</td>
+						<td colspan=2>
+							<input type=\"text\" size=\"40\" id=\"urlForm\" name=\"urlForm\" value=\"$urlForm\">
+						</td>
+					</tr>
+					<tr>
 						<td>
+							<Label for=\"languageForm\">Main language</label>
+						</td>
+						<td colspan=2>
 							<select id=\"languageForm\" name=\"languageForm\">	";
 	$dirname = "../lang/";
 	if($dirname[strlen($dirname)-1]!='/')
@@ -1316,46 +1327,11 @@ echo "
 							</font>
 						</td>
 					</tr>
-					<tr>
-						<td>
-							<Label for=\"urlForm\">URL of claroline</label>
-							<font color=\"red\">
-								*
-							</font>
-						</td>
-						<td>
-							<input type=\"text\" size=\"40\" id=\"urlForm\" name=\"urlForm\" value=\"$urlForm\">
-						</td>
-					</tr>";
-/*
-								<tr>
-						<td>
-							<font size=\"2\" face=\"arial, helvetica\">
-								".$langLocalPath."
-								<font color=red>
-									*
-								</font>
-							</font>
-						</td>
-						<td>
-							<input type=text size=40 id=\"pathForm\" name=\"pathForm\" value=\"".realpath($pathForm)."/\">
-						</td>
-					</tr>
-*/
-	echo "
-						<tr>
-							<td>
-								<Label for=\"campusForm\">".$langCampusName."</label>
-							</td>
-							<td>
-								<input type=\"text\" size=\"40\" id=\"campusForm\" name=\"campusForm\" value=\"$campusForm\">
-							</td>
-						</tr>
 <!--					<tr>
 							<td>
 								<Label for=\"institutionForm\">".$langInstituteShortName."</label>
 							</td>
-							<td>
+							<td colspan=2>
 								<input type=text size=40 id=\"institutionForm\" name=\"institutionForm\" value=\"$institutionForm\">
 							</td>
 						</tr>
@@ -1363,49 +1339,69 @@ echo "
 							<td>
 								<Label for=\"institutionUrlForm\">".$langInstituteName."</label>
 							</td>
-							<td>
+							<td colspan=2>
 								<input type=\"text\" size=\"40\" id=\"institutionUrlForm\" name=\"institutionUrlForm\" value=\"$institutionUrlForm\">
 							</td>
 						</tr>
--->						<tr>
-							<td>
-								<Label for=\"encryptPassForm\">".$langEncryptUserPass."</label>
-							</td>
-							<td>
-								<input type=\"radio\" name=\"encryptPassForm\" id=\"encryptPassForm\" value=1> ".$langYes."
-								<input type=\"radio\" name=\"encryptPassForm\" id=\"encryptPassForm\" value=0 checked> ".$langNo."
-							</td>
-						</tr>
+-->
+			<tr>
+				<td colspan=3><br><br>
+				
+				
+					User self-registration
+				</td>
+			</tr>
 			<tr>
 				<td>
-               <label for=\"allowSelfReg\">".$langAllowSelfReg."</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<label for=\"allowSelfReg\">Simple user</label>
 				</td>
 				<td>
-					<input type=\"radio\" id=\"allowSelfReg\" name=\"allowSelfReg\" value=\"1\" checked> ".$langYes."&nbsp;".$langRecommended."
-					<input type=\"radio\" id=\"allowSelfReg\" name=\"allowSelfReg\" value=\"0\"> ".$langNo."
+					<input type=\"radio\" id=\"allowSelfReg\" name=\"allowSelfReg\" value=\"1\" checked> Enabled
+				</td>
+				<td>
+					<input type=\"radio\" id=\"allowSelfReg\" name=\"allowSelfReg\" value=\"0\"> Disabled
 				</td>
 			</tr>
 
-			<tr>
-				<td>
-               <label for=\"allowSelfRegProf\">".$langAllowSelfRegProf."</label>
-				</td>
-				<td>
-					<input type=\"radio\" id=\"allowSelfRegProf\" name=\"allowSelfRegProf\" value=\"1\" checked> ".$langYes."
-					<input type=\"radio\" id=\"allowSelfRegProf\" name=\"allowSelfRegProf\" value=\"0\"> ".$langNo."
-				</td>
-			</tr>
+					<tr>
+						<td>
+		               &nbsp;&nbsp;&nbsp;&nbsp;<label for=\"allowSelfRegProf\">Course creator</label>
+						</td>
+						<td>
+							<input type=\"radio\" id=\"allowSelfRegProf\" name=\"allowSelfRegProf\" value=\"1\" checked> Enabled
+						</td>
+						<td>
+							<input type=\"radio\" id=\"allowSelfRegProf\" name=\"allowSelfRegProf\" value=\"0\">  Disabled
+						</td>
+					</tr>
+		
+					<tr>
+						<td colspan=3>&nbsp;
+						</td>
+					
+					</tr>
+		
+					<tr>
+						<td>
 
-			<tr>
+							<Label for=\"encryptPassForm\">User password</label>
+						</td>
+						<td>
+							<input type=\"radio\" name=\"encryptPassForm\" id=\"encryptPassForm\" value=0 checked> Clear text
+						</td>
+						<td>
+							<input type=\"radio\" name=\"encryptPassForm\" id=\"encryptPassForm\" value=1> Crypted
+						</td>
+					</tr>
+
+					<tr>
 						<td>
 						</td>
 						<td>
-								<font color=\"red\">
-									*
-								</font>
-									 = required
-							</td>
+						</td>
 						</tr>
+				</table>
+				<table width=\"100%\">
 						<tr>
 							<td>
 								<input type=\"submit\" name=\"setDbAccountProperties\" value=\"< Back\">
@@ -1423,7 +1419,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 	//echo "pathForm $pathForm";
 	echo "
 				<h2>
-					".$langStep6." ".$langLastCheck."
+					".$langStep6." : ".$langLastCheck."
 				</h2>
 		Here are the values you entered <br>
 		<Font color=\"red\">
@@ -1616,7 +1612,7 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 {
 	echo "
 			<h2>
-				".$langStep6." ".$langCfgSetting."
+				".$langStep6." : ".$langCfgSetting."
 			</h2>
 			<br>
 			<br>
@@ -1631,8 +1627,6 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 <form action=\"../../\">
 		<input type=\"submit\" value=\"Go to your newly created campus\">
 </form>
-<form action=\"../admin/\">
-		<input type=\"submit\" value=\"Go to admin\">
 ";
 }	// STEP 6 of 6 END
 
@@ -1661,7 +1655,7 @@ else
  *
  */
 
-function warnIfExtNotLoaded($extentionName,$needability="can work without",$echoWhenOk=false)
+function warnIfExtNotLoaded($extentionName,$echoWhenOk=false)
 {
 	if (extension_loaded ($extentionName))
 	{
@@ -1673,11 +1667,11 @@ function warnIfExtNotLoaded($extentionName,$needability="can work without",$echo
 	{
 		echo '
 				<LI>
-					<strong>
-						'.$extentionName.'
-					</strong>
-					<font color="#FF0000">is missing (Claroline '.$needability.')</font>
-				(<a href="http://www.php.net/'.$extentionName.'">'.$extentionName.'</a>)
+					<font color="red">Warning !</font> 
+					'.$extentionName.' is missing.</font>
+				<br>
+				Configure php to use this extention
+				(see <a href="http://www.php.net/'.$extentionName.'">'.$extentionName.' manual</a>).
 				</LI>';
 	}
 }

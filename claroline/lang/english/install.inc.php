@@ -32,11 +32,11 @@ $langEnableTracking     = "Enable Tracking";
 $langAllFieldsRequired	= "all fields required";
 $langPrintVers			= "Printable version";
 $langLocalPath			= "Corresponding local path";
-$langAdminEmail			= "Administrator email";
-$langAdminName			= "Administrator name";
-$langAdminSurname		= "Administrator surname";
-$langAdminLogin			= "Administrator login";
-$langAdminPass			= "Administrator password";
+$langAdminEmail			= "Email";
+$langAdminName			= "Lastname";
+$langAdminSurname		= "Firstname";
+$langAdminLogin			= "Login";
+$langAdminPass			= "Password";
 $langEducationManager	= "Education manager";
 $langHelpDeskPhone		= "Helpdesk telephone";
 $langCampusName			= "Your campus' name";
@@ -54,11 +54,17 @@ $langDBSettingAccountIntro		= "
 				If you are allowed only one
 				DB for your website by your Hosting Services, You need select option \"One\" below.";
 $langDBSettingNamesIntro		= "
-				Install script will create central DB for
-				claroline main data, tracking data and PhpMyAdmin relation data.
-				Choose names for these Db and a prefix for future Courses DB.<BR>
-				<B>You can use the same base for many central DB</B><BR>
-				If you are allowed only one DB, back to previous page and select option \"One\"";
+				Install script will create main claroline databases. 
+				You can create different database 
+				for tracking and PhpMyAdmin extension if you want 
+				or gathering all these stuff in one database, like you want. 
+				Afterwards, Claroline will create a new database for each new course created. 
+				You can specify a prefix for these database names.
+				<p>
+				If you are allowed to use only one database by your database system administrator, 
+				get back to the previous page and select option \"Single\"
+				</p>
+				";
 $langDBSettingNameIntro		= "
 				Install script will create table of claroline main, tracking and PhpMyAdmin relation DB in your
 				single DB.
