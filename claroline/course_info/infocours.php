@@ -53,9 +53,9 @@ $facu              = $thecourse['faculte'];
 $currentCourseCode = $thecourse['fake_code'];
 $titulary          = $thecourse['titulaires'];
 $languageCourse    = $thecourse['languageCourse'];
-$extLinkName	   = $thecourse['departmentUrlName'];
+$extLinkName       = $thecourse['departmentUrlName'];
 $extLinkUrl        = $thecourse['departmentUrl'];
-$email		   = $thecourse['email'];
+$email             = $thecourse['email'];
 $directory         = $thecourse['directory'];
 
 $thecourse['visibility'  ]         = (bool) ($thecourse['visible'] == 2 || $thecourse['visible'] == 3);
@@ -90,8 +90,41 @@ if (!empty($_REQUEST['extLinkUrl']))
 {
     $extLinkUrl = $_REQUEST['extLinkUrl'];
 }
-
-
+if (!empty($_REQUEST['lanCourseForm']))
+{
+    $languageCourse = $_REQUEST['lanCourseForm'];
+}
+if (!empty($_REQUEST['faculte']))
+{
+    $facu = $_REQUEST['faculte'];
+}
+if (!empty($_REQUEST['visible']))
+{
+    if ($_REQUEST['visible']=="true")
+    {    
+        $visibleChecked[TRUE] = "checked";
+	$visibleChecked[FALSE] = "";
+    }
+    else
+    { 
+        $visibleChecked[TRUE] = "";
+	$visibleChecked[FALSE] = "checked";
+    } 
+}
+if (!empty($_REQUEST['allowedToSubscribe']))
+{
+    if ($_REQUEST['allowedToSubscribe']=="true")
+    { 
+        $registrationAllowedChecked[TRUE] = "checked";
+	$registrationAllowedChecked[FALSE] = "";
+    }
+    else
+    {
+        $registrationAllowedChecked[TRUE] = "";
+	$registrationAllowedChecked[FALSE] = "checked";
+    }    
+}
+ 
 /*
  * DB tables definition
  */

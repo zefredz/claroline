@@ -85,16 +85,12 @@ $coursesRepositories = $coursesRepositorySys;
 
 //Prefield values for the form to create a course :
 
-//code
+//1- first we take default value (or blank values)
 $wantedCode         = $_REQUEST['wantedCode'];
-
-//Course title
 $valueIntitule      = $_REQUEST['intitule'];
-
-//course language
 $valueLanguage      = $_REQUEST['languageCourse'];
 
-//lecturer(s)
+//2- then we overwrite with entered value if the form was already posted before
 if (empty($_REQUEST['titulaires'])) 
 {
     $valueTitular = $_user['firstName']." ".$_user['lastName'];
@@ -103,8 +99,6 @@ else
 {
     $valueTitular = $_REQUEST['titulaires'];
 }
-
-//email
 if (empty($_REQUEST['email']))      
 {
     $valueEmail = $_user['mail'];
@@ -113,7 +107,18 @@ else
 {
     $valueEmail = $_REQUEST['email'];
 }
-
+if (!empty($_REQUEST['languageCourse']))
+{
+    $valueLanguage = $_REQUEST['languageCourse'];
+}
+else
+{
+    $valueLanguage = $platformLanguage;
+}
+if (!empty($_REQUEST['faculte']))
+{
+    $facu = $_REQUEST['faculte'];
+}
 
 //// Starting script
 $displayNotForU = FALSE;
@@ -130,7 +135,6 @@ else
 	else
 	{
 		$displayCoursePropertiesForm 	= TRUE;
-		$valueLanguage 					= $platformLanguage;
 	}
 
 	if (isset($_REQUEST["fromWhatAdd"]))
@@ -141,7 +145,6 @@ else
 		{
 			$displayCoursePropertiesForm 	= TRUE;
 			$valueTitular					= $_user['firstName']." ".$_user['lastName'];
-			$valueLanguage 					= $platformLanguage;
 		}
 		elseif ($_REQUEST["whatAdd"] == "archive")
 		{
@@ -587,7 +590,7 @@ elseif($displayCoursePropertiesForm)
 </td>
 <td>
 <?php
-BuildEditableCatTable(""," &gt; ");      
+BuildEditableCatTable($facu," &gt; ");      
 ?>
 <br><small><?php echo $langTargetFac ?></small>
 </td>
