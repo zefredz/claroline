@@ -466,32 +466,32 @@ switch ($display)
                 <p>Course database Prefix: ".($dbNamePrefix?$dbNamePrefix:$langNo)."<br />
                 Main database Name: $mainDbName <br />
 		Statistics and Tracking database Name: $statsDbName <br />
-		PhpMyAdmin Extention database Name : $pmaDbName <br />
-		Enable Single database : ".($singleDbEnabled?$langYes:$langNo)."</p>
+		PhpMyAdmin Extention database Name: $pmaDbName <br />
+		Enable Single database: ".($singleDbEnabled?$langYes:$langNo)."</p>
 		</fieldset>
                 <br />
                 <fieldset>
                     <legend>Administrator</legend>
-                    Name : ".$administrator["name"]."<br />
-                    Mail : ".$administrator["email"]."<br />
+                    Name: ".$administrator["name"]."<br />
+                    Mail: ".$administrator["email"]."<br />
 		</fieldset>
                 <br />
 		<fieldset>
                  <legend>Campus</legend>
                  <p>
-                    Language : $platformLanguage<br />
-                    Your organisation : ".$institution["name"]."<br />
-                    URL of this organisation : ".$institution["url"]."
+                    Language: $platformLanguage<br />
+                    Your organisation: ".$institution["name"]."<br />
+                    URL of this organisation: ".$institution["url"]."
                 </p>
 		</fieldset>
                 <br />
 		<fieldset>
                     <legend>Config</legend>
                     <p>
-                    Enable Tracking : ".($is_trackingEnabled?$langYes:$langNo)."<br />
-                    Self registration allowed : ".($allowSelfReg?$langYes:$langNo)."<br />
+                    Enable Tracking: ".($is_trackingEnabled?$langYes:$langNo)."<br />
+                    Self registration allowed: ".($allowSelfReg?$langYes:$langNo)."<br />
                     Self course creator allowed : ".($allowSelfRegProf?$langYes:$langNo)."<br />
-                    Encrypt user passwords in database :" .($userPasswordCrypted?$langYes:$langNo)."
+                    Encrypt user passwords in database: " .($userPasswordCrypted?$langYes:$langNo)."
                     </p>
                 </fieldset>";
                 
