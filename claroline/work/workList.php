@@ -18,15 +18,6 @@ $tlabelReq = "CLWRK___";
 require '../inc/claro_init_global.inc.php';
 
 $htmlHeadXtra[] =
-"<style type=text/css>
-<!--
-.comment { margin-left: 30px}
-.invisible {color: #999999}
-.invisible a {color: #999999}
--->
-</style>";
-
-$htmlHeadXtra[] =
 "<script>
 function confirmation (name)
 {
@@ -41,7 +32,6 @@ $interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langWorks);
 
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/conf/work.conf.inc.php');
-@include($includePath.'/lib/debug.lib.inc.php'    );
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user            = $tbl_mdb_names['user'];
@@ -208,7 +198,7 @@ if( isset($_REQUEST['submitWrk']) )
             }
       }
       // check if a title has been given
-      if( ! isset($_REQUEST['wrkTitle']) || $_REQUEST['wrkTitle'] == "" )
+      if( ! isset($_REQUEST['wrkTitle']) || trim(claro_addslashes($_REQUEST['wrkTitle'])) == "" )
       {
         $dialogBox .= $langWrkTitleRequired."<br />";
         $formCorrectlySent = false;
@@ -218,9 +208,9 @@ if( isset($_REQUEST['submitWrk']) )
         // check if the name is already in use
         $sql = "SELECT `title` 
                   FROM `".$tbl_wrk_submission."`
-                  WHERE `title` = '".$_REQUEST['wrkTitle']."'
+                  WHERE `title` = \"".trim(claro_addslashes($_REQUEST['wrkTitle']))."\"
                     AND `session_id` = ".$_REQUEST['sesId']."
-                    AND `id` <> '".$_REQUEST['wrkId']."'";
+                    AND `id` <> \"".$_REQUEST['wrkId']."\"";
                     
         $result = claro_sql_query($sql);
         
@@ -344,9 +334,9 @@ if($is_allowedToEditAll)
                               `parent_id` = ".$_REQUEST['wrkId'].","
                               .$uidString
                               ."`visibility` = \"".$wrkSession['def_submission_visibility']."\",
-                              `title`       = \"".claro_addslashes( $wrkForm['title'] )."\",
-                              `submitted_text` = \"".claro_addslashes( $_REQUEST['wrkTxt'] )."\",
-                              `authors`     = \"".claro_addslashes( $wrkForm['authors'] )."\",
+                              `title`       = \"".trim(claro_addslashes( $wrkForm['title'] ))."\",
+                              `submitted_text` = \"".trim(claro_addslashes( $_REQUEST['wrkTxt'] ))."\",
+                              `authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\",
                               `creation_date` = NOW(),
                               `last_edit_date` = NOW()";
             
@@ -410,9 +400,9 @@ if( $is_allowedToEdit )
       {
             $sqlAddWork = "UPDATE `".$tbl_wrk_submission."`
                            SET `submitted_doc_path` = \"".$wrkForm['fileName']."\",
-                              `title`       = \"".claro_addslashes( $wrkForm['title'] )."\",
-                              `submitted_text` = \"".claro_addslashes( $_REQUEST['wrkTxt'] )."\",
-                              `authors`     = \"".claro_addslashes( $wrkForm['authors'] )."\",
+                              `title`       = \"".trim(claro_addslashes( $wrkForm['title'] ))."\",
+                              `submitted_text` = \"".trim(claro_addslashes( $_REQUEST['wrkTxt'] ))."\",
+                              `authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\",
                               `last_edit_date` = NOW()
                               WHERE `id` = ".$_REQUEST['wrkId'];
             
@@ -491,9 +481,9 @@ if( $is_allowedToSubmit )
                               `session_id` = ".$_REQUEST['sesId'].","
                               .$uidString
                               ."`visibility` = \"".$wrkSession['def_submission_visibility']."\",
-                              `title`       = \"".claro_addslashes( $wrkForm['title'] )."\",
-                              `submitted_text` = \"".claro_addslashes( $_REQUEST['wrkTxt'] )."\",
-                              `authors`     = \"".claro_addslashes( $wrkForm['authors'] )."\",
+                              `title`       = \"".trim(claro_addslashes( $wrkForm['title'] ))."\",
+                              `submitted_text` = \"".trim(claro_addslashes( $_REQUEST['wrkTxt'] ))."\",
+                              `authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\",
                               `creation_date` = NOW(),
                               `last_edit_date` = NOW()";
             
@@ -819,36 +809,65 @@ if( $dispWrkLst )
       --------------------------------------------------------------------*/
     if( $is_allowedToEditAll ) // courseAdmin
     {    
-      $sqlCondition = "";
-    }
-    elseif( isset($_uid) ) // course member
-    {
-      $sqlCondition = " AND (`visibility` = 'VISIBLE' OR `user_id` = ".$_uid.")";    
-    }
-    else // anonymous user
-    {
-      $sqlCondition = " AND `visibility` = 'VISIBLE'";
-    }
-    $sql = "SELECT `id`, `title`, 
+      $sql = "SELECT `id`, `title`, 
                   `parent_id`, `user_id`,
                   `visibility`, `authors`, 
                   UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
             FROM `".$tbl_wrk_submission."`
-            WHERE `session_id` = ".$wrkSession['id']
-            .$sqlCondition
-            ." ORDER BY `last_edit_date` ASC";
-            
+            WHERE `session_id` = ".$wrkSession['id']."
+            ORDER BY `last_edit_date` ASC";
+    }
+    elseif( isset($_uid) ) // course member
+    {
+      // show all my works and all their visible corrections
+       $sql = "SELECT `id`, `title`, 
+                  `parent_id`, `user_id`,
+                  `visibility`, `authors`, 
+                  UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
+            FROM `".$tbl_wrk_submission."`
+            WHERE `session_id` = ".$wrkSession['id']."
+              AND (`visibility` = 'VISIBLE' OR `user_id` = ".$_uid.")
+            ORDER BY `last_edit_date` ASC";  
+    }
+    else // anonymous user
+    {
+      // show visible works that are not corrections 
+      $sql = "SELECT `id`, `title`, 
+                  `parent_id`, `user_id`,
+                  `visibility`, `authors`, 
+                  UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
+            FROM `".$tbl_wrk_submission."`
+            WHERE `session_id` = ".$wrkSession['id']."
+              AND `visibility` = 'VISIBLE'
+              AND `parent_id` IS NULL
+            ORDER BY `last_edit_date` ASC";
+    }
+        
     $workList = claro_sql_query_fetch_all($sql);
     
-    $flatElementList = build_display_element_list( build_element_list($workList, 'parent_id', 'id') );
-    /*var_dump($workList);
-    var_dump(build_element_list($workList, 'parent_id', 'id'));
-    var_dump( $flatElementList);*/
+    // tree of the works and their corrections
+    $treeElementList = build_element_list($workList, 'parent_id', 'id');
+    
+    // We have to prevent the display of visible corrections of works of another students
+    // anonymous user never see it, corrections are never shown to theù
+    // admin user can always see it
+    // authenticated user ca see only the corrections of his works
+    // SO, in this last case, we remove the children of works when user_id is different from $_uid
+    if( isset($_uid) && !$is_allowedToEditAll )
+    {
+      for ($i=0 ; $i < sizeof($treeElementList) ; $i++)
+      {
+      if( $treeElementList[$i]['user_id'] != $_uid ) unset($treeElementList[$i]['children']) ;
+      }
+    }
+    
+    $flatElementList = build_display_element_list( $treeElementList );
+    
     // look for maxDeep
     $maxDeep = 1; // used to compute colspan of <td> cells
     for ($i=0 ; $i < sizeof($flatElementList) ; $i++)
     {
-      if ($flatElementList[$i]['children'] > $maxDeep) $maxDeep = $flatElementList[$i]['children'] ;
+      if( $flatElementList[$i]['children'] > $maxDeep ) $maxDeep = $flatElementList[$i]['children'] ;
     }
 
     /*--------------------------------------------------------------------
@@ -882,12 +901,13 @@ if( $dispWrkLst )
     {
       if ($thisWrk['visibility'] == "INVISIBLE")
 			{
-				if ($is_allowedToEdit)
+				if ($is_allowedToEditAll || $thisWrk['user_id'] == $_uid )
 				{
 					$style=' class="invisible"';
 				}
 				else
 				{
+          echo "pek";
 					continue; // skip the display of this file
 				}
 			}
@@ -895,6 +915,7 @@ if( $dispWrkLst )
 			{
 				$style='';
 			}
+      
       $spacingString = "";
       for($i = 0; $i < $thisWrk['children']; $i++)
         $spacingString .= "<td width=\"5\">&nbsp;</td>";
