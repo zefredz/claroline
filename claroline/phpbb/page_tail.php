@@ -32,7 +32,7 @@ echo "<p align=\"right\">",$toolBar,"</p>"; // $toolBar is coming from page_head
 
 <center>
 <small>
-Copyright &copy; 2000 - 2001 <a href="http://www.phpbb.com/credits.php" target="_blank">The phpBB Group</a>
+Copyright &copy; 2000 - 2001 <a href="http://www.phpbb.com/" target="_blank">The phpBB Group</a>
 </center>
 <?php
 @include($includePath."/claro_init_footer.inc.php");
