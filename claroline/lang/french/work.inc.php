@@ -71,7 +71,7 @@ $langFeedbackFile = "Fichier correctif";
 $langCurrentFeedbackFile = "Fichier correctif actuel";
 $langFeedbackSubmit = "Soumission du correctif";
 $langSubmitFeedbackAfterEndDate = "Automatique, après la date de fin";
-$langSubmitFeedbackAfterPost = "Automatique, après chaque soumission";
+$langSubmitFeedbackAfterPost = "Automatique, après soumission";
 
 // work
 $langWrkTitle = "Titre";
