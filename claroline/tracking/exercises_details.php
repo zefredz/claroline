@@ -88,12 +88,13 @@ if($is_allowedToTrack && $is_trackingEnabled)
 {
 
   // get global infos about scores in the exercise
-  $sql = "SELECT  MIN(TEX.`exe_result`) AS minimum, 
-                MAX(TEX.`exe_result`) AS maximum, 
-                AVG(TEX.`exe_result`) AS average,
-                MAX(TEX.`exe_weighting`) AS weighting ,
-                COUNT(DISTINCT TEX.`exe_user_id`) AS users,
-                COUNT(TEX.`exe_user_id`) AS tusers
+  $sql = "SELECT  MIN(TEX.`exe_result`) AS `minimum`, 
+                MAX(TEX.`exe_result`) AS `maximum`, 
+                AVG(TEX.`exe_result`) AS `average`,
+                MAX(TEX.`exe_weighting`) AS `weighting` ,
+                COUNT(DISTINCT TEX.`exe_user_id`) AS `users`,
+                COUNT(TEX.`exe_user_id`) AS `tusers`,
+				AVG(`TEX`.`exe_time`) AS `avgTime`
         FROM `".$TABLETRACK_EXERCISES."` AS TEX
         WHERE TEX.`exe_exo_id` = ".$exo_details['id']."
                 AND TEX.`exe_user_id` IS NOT NULL";
@@ -119,36 +120,38 @@ if($is_allowedToTrack && $is_trackingEnabled)
             $exo_scores_details['average'] = (round($exo_scores_details['average']*100)/100);
         }
   ?>
-  <li><?= $langScoreMin; ?> : <?= $exo_scores_details['minimum']; ?></li>
-  <li><?= $langScoreMax; ?> : <?= $exo_scores_details['maximum']; ?></li>
-  <li><?= $langScoreAvg; ?> : <?= $exo_scores_details['average']; ?></li>
+  <li><?php echo $langScoreMin; ?> : <?php echo $exo_scores_details['minimum']; ?></li>
+  <li><?php echo $langScoreMax; ?> : <?php echo $exo_scores_details['maximum']; ?></li>
+  <li><?php echo $langScoreAvg; ?> : <?php echo $exo_scores_details['average']; ?></li>
+  <li><?php echo $langExeAvgTime; ?> : <?php echo round($exo_scores_details['avgTime']*100)/100; ?></li>
 </ul>
 <ul>
-  <li><?= $langExerciseUsersAttempts; ?> : <?= $exo_scores_details['users']; ?></li>
-  <li><?= $langExerciseTotalAttempts; ?> : <?= $exo_scores_details['tusers']; ?></li>
+  <li><?php echo $langExerciseUsersAttempts; ?> : <?php echo $exo_scores_details['users']; ?></li>
+  <li><?php echo $langExerciseTotalAttempts; ?> : <?php echo $exo_scores_details['tusers']; ?></li>
 </ul>  
 
 
 <?
   // display details
-   $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`,
-            MIN(TEX.`exe_result`) AS minimum,
-            MAX(TEX.`exe_result`) AS maximum,
-            AVG(TEX.`exe_result`) AS average,
-            COUNT(TEX.`exe_result`) AS attempts            
-    FROM `".$TABLEUSER."` AS U, `".$TABLECOURSUSER."` AS CU, `".$TABLE_QUIZ_TEST."` AS QT
-    LEFT JOIN `".$TABLETRACK_EXERCISES."` AS TEX 
-          ON CU.`user_id` = TEX.`exe_user_id` 
-          AND QT.`id` = TEX.`exe_exo_id`
-    WHERE CU.`user_id` = U.`user_id`
-      AND CU.`code_cours` = '".$_cid."'
+   $sql = "SELECT `U`.`nom`, `U`.`prenom`, `U`.`user_id`,
+            MIN(TEX.`exe_result`) AS `minimum`,
+            MAX(TEX.`exe_result`) AS `maximum`,
+            AVG(TEX.`exe_result`) AS `average`,
+            COUNT(TEX.`exe_result`) AS `attempts`,
+			AVG(TEX.`exe_time`) AS `avgTime`
+    FROM `".$TABLEUSER."` AS `U`, `".$TABLECOURSUSER."` AS `CU`, `".$TABLE_QUIZ_TEST."` AS `QT`
+    LEFT JOIN `".$TABLETRACK_EXERCISES."` AS `TEX` 
+          ON `CU`.`user_id` = `TEX`.`exe_user_id` 
+          AND `QT`.`id` = `TEX`.`exe_exo_id`
+    WHERE `CU`.`user_id` = `U`.`user_id`
+      AND `CU`.`code_cours` = '".$_cid."'
       AND (
-            TEX.`exe_exo_id` = ".$exo_details['id']." 
+            `TEX`.`exe_exo_id` = ".$exo_details['id']." 
             OR 
-            TEX.`exe_exo_id` IS NULL 
+            `TEX`.`exe_exo_id` IS NULL 
           )
-    GROUP BY U.`user_id`
-    ORDER BY U.`nom` ASC, U.`prenom` ASC";
+    GROUP BY `U`.`user_id`
+    ORDER BY `U`.`nom` ASC, `U`.`prenom` ASC";
     
     
   $result = claro_sql_query($sql);
@@ -160,6 +163,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
         <th>$langScoreMax</th>\n
         <th>$langScoreAvg</th>\n
         <th>$langAttempts</th>\n
+        <th>$langExeAvgTime</th>\n
       </tr>\n
       <tbody>";
   // display tab content
@@ -170,13 +174,15 @@ if($is_allowedToTrack && $is_trackingEnabled)
       $exo_users_details['minimum'] = 0;
       $exo_users_details['maximum'] = 0;
     }
-    echo "<tr>";
-      echo "<td><a href=\"userLog.php?uInfo=".$exo_users_details['user_id']."&view=0100000&exoDet=".$exo_details['id']."\">".$exo_users_details['nom']." ".$exo_users_details['prenom']."</a></td>\n";
-      echo "<td>".$exo_users_details['minimum']."</td>\n";
-      echo "<td>".$exo_users_details['maximum']."</td>\n";
-      echo "<td>".(round($exo_users_details['average']*100)/100)."</td>\n";
-      echo "<td>".$exo_users_details['attempts']."</td>\n";
-    echo "</tr>";
+    echo 	 "<tr>\n"
+      		."<td><a href=\"userLog.php?uInfo=".$exo_users_details['user_id']."&view=0100000&exoDet=".$exo_details['id']."\">"
+			.$exo_users_details['nom']." ".$exo_users_details['prenom']."</a></td>\n"
+      		."<td>".$exo_users_details['minimum']."</td>\n"
+      		."<td>".$exo_users_details['maximum']."</td>\n"
+      		."<td>".(round($exo_users_details['average']*100)/100)."</td>\n"
+      		."<td>".$exo_users_details['attempts']."</td>\n"
+      		."<td>".(round($exo_users_details['avgTime']*100)/100)."</td>\n"
+    		."</tr>";
   }
   // foot of table
   echo "</tbody>\n</table>";
