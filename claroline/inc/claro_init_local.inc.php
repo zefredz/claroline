@@ -246,6 +246,8 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 }
 else
 {
+    require_once $includePath.'/conf/auth.conf.php'; // load the platform authentication settings
+
     $_uid = null; // uid not in session ? prevent any hacking
 
     if ($login && $password) // $login && $password are given to log in
@@ -458,37 +460,37 @@ if ($uidReset) // session data refresh requested
 
             session_register('_user');
 
-// TEMPORARY DEACTIVATED BECAUSE WHILE THE SSO TABLE WILL BE ISN'T INSERTED 
-// INTO THE PLATFORM INSTALLER
-//
-//            // RECORD SSO COOKIE
-//
-//                $ssoCookieName       = 'clarolineSsoCookie';
-//                $ssoCookieValue      = md5(mktime());
-//                $ssoCookieExpireTime = time()+3600;
-//                $ssoCookieDomain     = 'localhost';
-//                $ssoCookiePath       = '/dev/claroline/';
-//
-//                $sql = "UPDATE ".$tbl_sso." 
-//                        SET cookie    = '".$ssoCookieValue."',
-//                            rec_time  = NOW()
-//                        WHERE user_id = ". (int) $_uid;
-//
-//                $affectedRowCount = claro_sql_query_affected_rows($sql);
-//
-//                if ($affectedRowCount < 1)
-//                {
-//                    $sql = "INSERT INTO ".$tbl_sso." 
-//                            SET cookie    = '".$ssoCookieValue."',
-//                                rec_time  = NOW(),
-//                                user_id   = ". (int) $_uid;
-//
-//                    claro_sql_query($sql);
-//                }
-//
-//               $boolCookie = setcookie($ssoCookieName,       $ssoCookieValue, 
-//                                       $ssoCookieExpireTime, $ssoCookiePath, 
-//                                       $ssoCookieDomain);
+            // RECORD SSO COOKIE
+
+            if ($ssoEnabled)
+            {
+                $ssoCookieName       = 'clarolineSsoCookie';
+                $ssoCookieValue      = md5(mktime());
+                $ssoCookieExpireTime = time()+3600;
+                $ssoCookieDomain     = 'localhost';
+                $ssoCookiePath       = '/dev/claroline/';
+
+                $sql = "UPDATE `".$tbl_sso."` 
+                        SET cookie    = '".$ssoCookieValue."',
+                            rec_time  = NOW()
+                        WHERE user_id = ". (int) $_uid;
+
+                $affectedRowCount = claro_sql_query_affected_rows($sql);
+
+                if ($affectedRowCount < 1)
+                {
+                    $sql = "INSERT INTO `".$tbl_sso."` 
+                            SET cookie    = '".$ssoCookieValue."',
+                                rec_time  = NOW(),
+                                user_id   = ". (int) $_uid;
+
+                    claro_sql_query($sql);
+                }
+
+               $boolCookie = setcookie($ssoCookieName,       $ssoCookieValue, 
+                                       $ssoCookieExpireTime, $ssoCookiePath, 
+                                       $ssoCookieDomain);
+            } // end if ssoEnabled
         }
         else
         {
