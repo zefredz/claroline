@@ -126,7 +126,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
   // build the array of modules     
   // build_element_list return a multi-level array, where children is an array with all nested modules
   // build_display_element_list return an 1-level array where children is the deep of the module
-  $flatElementList = build_display_element_list(build_element_list($extendedList));
+  $flatElementList = build_display_element_list(build_element_list($extendedList, 'parent', 'learnPath_module_id'));
    
   $moduleNb = 0;
   $global_time = "0000:00:00";
