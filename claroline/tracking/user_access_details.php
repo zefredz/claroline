@@ -32,7 +32,7 @@ TD {border-bottom: thin dashed Gray;}
 </STYLE>";
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 $TABLEUSER           = $tbl_mdb_names['user'  ];
-$tbl_cdb_names       = claro_sql_get_course_tbl()
+$tbl_cdb_names       = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS        = $tbl_cdb_names['track_e_access'];
 $TABLETRACK_DOWNLOADS        = $tbl_cdb_names['track_e_downloads'];
 
