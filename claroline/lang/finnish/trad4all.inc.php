@@ -83,7 +83,7 @@ $langAnnouncement="Ilmoitukset";
 $langUser="Käyttäjät";
 $langModifInfo="Muuta kurssin tietoja";
 $langForum="Foorumit";
-$langExercise="Harjoitukset";
+$langExercises ="Harjoitukset";
 $langStats="Tilastot";
 
 ?>

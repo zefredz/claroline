@@ -93,7 +93,7 @@ $langWork="Öðrenci Yazýlarý";
 $langAnnouncement="Duyurular";
 $langUser="Kullanýcýlar";
 $langForum="Forumlar";
-$langExercise="Alýþtýrmalar";
+$langExercises ="Alýþtýrmalar";
 $langStats="Ýstatistikler";
 
 

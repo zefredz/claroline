@@ -74,7 +74,7 @@ $langWork="Treballs dels estudiants";
 $langAnnouncement="Anuncis";
 $langUser="Usuaris";
 $langForum="Fòrums";
-$langExercise="Exercicis";
+$langExercises ="Exercicis";
 
 
 ?>

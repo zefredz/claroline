@@ -80,6 +80,6 @@ $langWork="Студентски материали";
 $langAnnouncement="Обяви";
 $langUser="Потребители";
 $langForum="Форуми";
-$langExercise="Упражнения";
+$langExercises ="Упражнения";
 
 ?>

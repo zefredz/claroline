@@ -89,7 +89,7 @@ $langWork=" أشغال ";
 $langAnnouncement=" إعلانات ";
 $langUser=" مستعملو الموقع";
 $langForum=" منتديات    ";
-$langExercise=" تمارين ";
+$langExercises =" تمارين ";
 $langModifInfo=" خاصيات الدّرس ";
 
 ?>

@@ -159,7 +159,7 @@ $langWork="Studenten Box";
 $langAnnouncement="Ad Valvas";
 $langUser="Gebruikers";
 $langForum="Forums";
-$langExercise="Oefeningen";
+$langExercises ="Oefeningen";
 $langStats="Statistieken";
 $langModifInfo="Cursuseigenschappen";
 
