@@ -84,11 +84,19 @@ lustucrus (inscription multiples, cours multiples)
 
 Repéré par : MOOSH
 
-14
+14.  admincats.  refresh après insert -> erreur
+
+1062 : Duplicata du champ 'rzthtr' pour la clef 2
+
+insert into `CL150RC1Main`.`faculte` (name,code,bc,nb_childs,canHaveCoursesChild,canHaveCatChild,treePos,code_P)
+                                        values ('tzrthrth','rzthtr',NULL,'0','TRUE','TRUE','14','EDITME')
 
 
 -------------
 $Log$
+Revision 1.16  2004/06/14 12:41:03  moosh
+bug 14
+
 Revision 1.15  2004/06/14 09:39:54  peeters
 no message
 
