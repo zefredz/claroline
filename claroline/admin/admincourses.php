@@ -20,7 +20,6 @@ $tbl_user   = $mainDbName."`.`user";
 $tbl_admin  = $mainDbName."`.`admin";
 $tbl_course = $mainDbName."`.`cours";
 
-
 // javascript confirm pop up declaration
 
   $htmlHeadXtra[] =
@@ -251,38 +250,38 @@ if($dialogBox)
 
   // ALPHABETIC
 
-echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
+echo "<form name=\"indexform\" action=\"",$_SERVER['PHP_SELF'],"\" method=\"GET\">
              ";
             if (isset($uidToEdit)) {$toAdd = "uidToEdit=".$uidToEdit."&";} else {$toAdd = "";}
             if (isset($doRegister)) {$toAdd .= "doRegister=true&";}
 
-            echo "<a href=\"",$PHP_SELF,"?".$toAdd."\"><b> ".$langAll."</b></a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=A&".$toAdd."\">A</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=B&".$toAdd."\">B</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=C&".$toAdd."\">C</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=D&".$toAdd."\">D</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=E&".$toAdd."\">E</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=F&".$toAdd."\">F</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=G&".$toAdd."\">G</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=H&".$toAdd."\">H</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=I&".$toAdd."\">I</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=J&".$toAdd."\">J</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=K&".$toAdd."\">K</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=L&".$toAdd."\">L</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=M&".$toAdd."\">M</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=N&".$toAdd."\">N</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=O&".$toAdd."\">O</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=P&".$toAdd."\">P</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=Q&".$toAdd."\">Q</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=R&".$toAdd."\">R</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=S&".$toAdd."\">S</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=T&".$toAdd."\">T</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=U&".$toAdd."\">U</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=V&".$toAdd."\">V</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=W&".$toAdd."\">W</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=X&".$toAdd."\">X</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=Y&".$toAdd."\">Y</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=Z&".$toAdd."\">Z</a>";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?".$toAdd."\"><b> ".$langAll."</b></a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=A&".$toAdd."\">A</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=B&".$toAdd."\">B</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=C&".$toAdd."\">C</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=D&".$toAdd."\">D</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=E&".$toAdd."\">E</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=F&".$toAdd."\">F</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=G&".$toAdd."\">G</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=H&".$toAdd."\">H</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=I&".$toAdd."\">I</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=J&".$toAdd."\">J</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=K&".$toAdd."\">K</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=L&".$toAdd."\">L</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=M&".$toAdd."\">M</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=N&".$toAdd."\">N</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=O&".$toAdd."\">O</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=P&".$toAdd."\">P</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=Q&".$toAdd."\">Q</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=R&".$toAdd."\">R</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=S&".$toAdd."\">S</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=T&".$toAdd."\">T</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=U&".$toAdd."\">U</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=V&".$toAdd."\">V</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=W&".$toAdd."\">W</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=X&".$toAdd."\">X</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=Y&".$toAdd."\">Y</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=Z&".$toAdd."\">Z</a>";
             echo "
             <input type=\"text\" name=\"search\">
             <input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\">
@@ -330,7 +329,7 @@ echo "<table width=\"100%\">
              </small>
           </td>
           <td align=\"right\">
-            <form action=\"",$PHP_SELF,"\">
+            <form action=\"",$_SERVER['PHP_SELF'],"\">
             <label for=\"search\">".$langMakeNewSearch."</label>
             <input type=\"text\" value=\"".$_GET['search']."\" name=\"search\" id=\"search\"\">
             <input type=\"submit\" value=\" ".$langOk." \">
@@ -345,7 +344,7 @@ echo "<table width=\"100%\">
 
    //Pager
 
-$myPager->disp_pager_tool_bar($PHP_SELF);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 // display list
 
@@ -355,9 +354,9 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
 
      //add titles for the table
 
-echo "<th><a href=\"",$PHP_SELF,"?order_crit=fake_code&chdir=yes\">".$langCode."</a></th>"
-     ."<th><a href=\"",$PHP_SELF,"?order_crit=intitule&chdir=yes\">".$langCourseTitle."</a></th>"
-     ."<th><a href=\"",$PHP_SELF,"?order_crit=faculte&chdir=yes\">".$langCategory."</a></th>";
+echo "<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=fake_code&chdir=yes\">".$langCode."</a></th>"
+     ."<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=intitule&chdir=yes\">".$langCourseTitle."</a></th>"
+     ."<th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=faculte&chdir=yes\">".$langCategory."</a></th>";
 
 echo "<th>".$langAllUsersOfThisCourse."</th>";
 echo "<th>".$langCourseSettings."</th>"
@@ -422,7 +421,7 @@ foreach($resultList as $list)
 
 
     echo   "<td align=\"center\">\n",
-                "<a href=\"",$PHP_SELF,"?cmd=delete&delCode=".$list['code'].$addToURL."\" ",
+                "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&delCode=".$list['code'].$addToURL."\" ",
                 "onClick=\"return confirmation('",addslashes($list['intitule']),"');\">\n",
                 "<img src=\"".$clarolineRepositoryWeb."/img/delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
                 "</a>\n",
@@ -444,7 +443,7 @@ echo "<tbody></table>";
 
 //Pager
 
-$myPager->disp_pager_tool_bar($PHP_SELF);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 // display footer
 

@@ -296,7 +296,7 @@ if($display_form)
         echo $lang_addUser_addSeveralUser ?>
         <br><br>
 
-        <form enctype="multipart/form-data"  method="POST" action="<?php echo $PHP_SELF ?>"  >
+        <form enctype="multipart/form-data"  method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>"  >
             <input type="file" name="importCSV" >
             <br><br>
             <input type="submit" name="searchUsers" value="<?php echo $lang_buttonShearchUsers; ?>">
@@ -349,7 +349,7 @@ if($display_resultCSV)
             echo "&nbsp;&nbsp;-->&nbsp;<font color=\"red\">".$error["error"]."</font><br><br>";
         }
 ?>
-    <br><a href="<?php echo $PHP_SELF; ?>"> <?php echo $lang_addUser_ReturnPageAddUser; ?> </a>
+    <br><a href="<?php echo $_SERVER['PHP_SELF']; ?>"> <?php echo $lang_addUser_ReturnPageAddUser; ?> </a>
 <?php
 }
 
