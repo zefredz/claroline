@@ -1,6 +1,6 @@
 <?php # $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -85,11 +85,18 @@ $htmlHeadXtra[] =
 -->
 </STYLE>";
 
-$TABLECOURSE          = "$mainDbName`.`cours";
-$TABLECOURSDOMAIN     = "$mainDbName`.`faculte";
-$TABLEUSER            = "$mainDbName`.`user";
-$TABLECOURSUSER       = "$mainDbName`.`cours_user";
-$TABLEANNOUNCEMENTS   = "annonces";
+/*
+ * DB tables definition
+ */
+
+$tbl_cdb_names 		= claro_sql_get_course_tbl();
+$tbl_mdb_names 		= claro_sql_get_main_tbl();
+$TABLECOURSE 		= $tbl_mdb_names['course'           ];
+$TABLECOURSUSER 	= $tbl_mdb_names['rel_course_user'  ];
+$TABLECOURSDOMAIN 	= $tbl_mdb_names['category'         ];
+$TABLEUSER 			= $tbl_mdb_names['user'             ];
+$TABLEANNOUNCEMENTS = $tbl_cdb_names['announcement'          ];
+
 $can_create_courses   = (bool) ($is_allowedCreateCourse);
 $coursesRepositories  = $coursesRepositorySys;
 
