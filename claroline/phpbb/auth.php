@@ -34,16 +34,16 @@ if(get_magic_quotes_gpc() == 1)
 		case 'POST':
 			while (list ($key, $val) = each ($HTTP_POST_VARS))
 			{
-			if( is_array($val) )
-			{
-				array_walk($val, 'stripslashes_array', '');
-				$$key = $val;
-			}
-			else
-			{
-				$$key = stripslashes($val);
-			}
-		}
+                if( is_array($val) )
+                {
+                    array_walk($val, 'stripslashes_array', '');
+                    $$key = $val;
+                }
+                else
+                {
+                    $$key = stripslashes($val);
+                }
+            }
 		break;
 
 		case 'GET':
@@ -63,8 +63,7 @@ if(get_magic_quotes_gpc() == 1)
 	}												// end switch
 }													//end if get_magic_quote_gpc
 
-// Check if the config file is writable (shouldn't be!!)
-$config_file_name = "config.$phpEx";
+$config_file_name = "config.php";
 
 if(strstr($PHP_SELF, 'admin'))
 {
@@ -119,17 +118,20 @@ $last_visit = $_user ['lastLogin'];
 // called $user_last_login_datetime.
 
 // Include the appropriate language file.
-if(!strstr($PHP_SELF, "admin"))
+if(!strstr($PHP_SELF, 'admin'))
 {
    @include('language/lang_'.$default_lang.'.'.$phpEx);
 }
 else
 {
-   if(strstr($PHP_SELF, "topicadmin")) {
-     @include('language/lang_'.$default_lang.'.'.$phpEx);
-	} else {
-     @include('../language/lang_'.$default_lang.'.'.$phpEx);
-	}
+    if(strstr($PHP_SELF, 'topicadmin'))
+    {
+         @include('language/lang_'.$default_lang.'.'.$phpEx);
+    } 
+    else
+    {
+        @include('../language/lang_'.$default_lang.'.'.$phpEx);
+    }
 }
 
 ?>
