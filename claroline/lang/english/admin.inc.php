@@ -223,6 +223,7 @@ $langEditUserSettings = "Edit user settings";
 $langCourseManager = "Course manager";
 $langEnrollAsStudent = "Enroll as student";
 $langEnrollAsManager = "Enroll as course manager";
+$langAlreadyEnrolled = "Already enrolled";
 
 
 $langCourseBackup = "Backup";
@@ -233,7 +234,8 @@ $langAreYouSureToDelete = "are you sure you want to delete ";
 $langAreYouSureToUnsubscribe = "are you sure you want to unregister ";
 $langAreYouSureToSubscribe = "are you sure you want to register ";
 $langViewList = "View list";
-$langUserStatus = "User status";
+$langUserCanCreateCourse = "Can create course";
+$langUserIsPlaformAdmin = "Is platform admin";
 $langAllUserOfThisCourse = "All courses of this user";
 $langAllUsersOfThisCourse = "All users of this course";
 $langCode = "Code";
@@ -245,6 +247,8 @@ $langCourseDelete = "The course has been successfully deleted";
 $langUserUnsubscribed = "The user has been successfully unregistered";
 $langUserNotUnsubscribed = "Unregister failed!!! <br> This user can not be unregistered,<br>
                             you can not unregister a professor of the course";
+$langUserSubscribed = "The user has been successfully registered";
+$langUserNotSubscribed = "Register failed!!! <br> Subscription in this course is not allowed, make it available first";
 $langUserDelete = "Delete of the user was done sucessfully";
 $langNoCourseResult = "There is no course matching such criteria";
 $langNoUserResult = "There is no user matching such criteria";
@@ -261,4 +265,5 @@ $langStatusChangeFailed = "Status change failed";
 $langUsernameTaken = "This username is already taken, please choose another one";
 $langUserCreated ="The new user has been sucessfully created";
 $langCreateAnotherUser = "Create another new user";
+$langPasswordWrong = "Passwords must be identical to change it";
 ?>

@@ -43,9 +43,9 @@ the simplest way is to open registration during
 one week, ask the students to register themselves, then close registration and check for possible intruders in the user list.";
 $langTipLang="This language will be valid for every visitor of your course's website.";
 $langHelpAddIntroText="You are on the course home page.<br><br>On this page, you can
-<li class=HelpText>activate or desactiviate tools
-<li class=HelpText>chage settings or view statistics.
-<BR><BR>If you want to add an introduction text, click on this button ";
+<li class=HelpText>activate or desactiviate tools list on the left
+<li class=HelpText>chage settings or view statistics on the bottom.
+<BR><BR>If you want to add an introduction text click on this button ";
 // Change Home Page
 $langAgenda="Agenda";
 $langLink="Links";
