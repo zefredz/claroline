@@ -1,11 +1,14 @@
 <?php // $Id$
-/*
-  +----------------------------------------------------------------------+
-  | CLAROLINE version 1.6$
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2001 - 2005 Universite catholique de Louvain (UCL)     |
-  +----------------------------------------------------------------------+
+/**
+ * @version   CLAROLINE version 1.6
+ *
+ * @copyright  2001 - 2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GPL
+ *
+ * @author Claroline Team <info@claroline.net>
  */
+
 
 $tlabelReq = "CLUSR___";
 define("CLARO_COURSE_CREATOR_STATUS",1);
@@ -13,20 +16,17 @@ define("CLARO_STUDENT_STATUS",5);
 $descSizeToPrupose = array(3,5,10,15,20); // size in lines for desc - don't add 1
 
 require '../inc/claro_init_global.inc.php';
-include($includePath."/lib/admin.lib.inc.php");
-include($includePath."/lib/events.lib.inc.php");
-include($includePath."/lib/user.lib.inc.php");
-@include($includePath."/lib/debug.lib.inc.php");
+include($includePath.'/lib/admin.lib.inc.php');
+include($includePath.'/lib/events.lib.inc.php');
+include($includePath.'/lib/user.lib.inc.php');
+@include($includePath.'/lib/debug.lib.inc.php');
 
-$TBL_USERINFO_DEF=$_course['dbNameGlu']."userinfo_def";
-$TBL_USERINFO_CONTENT=$_course['dbNameGlu']."userinfo_content";
-$interbredcrump[]= array ("url"=>"user.php", "name"=> $langUsers);
-$currentCourse = $currentCourseID;
+$interbredcrump[]= array ('url'=>'user.php', 'name'=> $langUsers);
 
 $nameTools = $langUser;
 
 /** OUTPUT **/
-claro_set_display_mode_available(true);
+claro_set_display_mode_available(TRUE);
 
 if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
@@ -35,16 +35,16 @@ if ( ! $is_courseAllowed ) claro_disp_auth_form();
  *    $uid
  *    $isAdmin
  *    $isAdminOfCourse
- *    $currentCourseID
+ *    
  */
 
-$userIdViewed = $uInfo; // Id of the user we want to view coming from the user.php
+$userIdViewed = $_REQUEST['uInfo']; // Id of the user we want to view coming from the user.php
 
 /*--------------------------------------------------------
   Connection API between Claroline and the current script
   --------------------------------------------------------*/
 
-$courseCode = $currentCourseID = $_course['sysCode'];
+$courseCode = $_course['sysCode'];
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
 
@@ -53,8 +53,8 @@ $userIdViewer = $_uid; // id fo the user currently online
 
 $allowedToEditContent     = ($userIdViewer == $userIdViewed) || claro_is_allowed_to_edit();
 $allowedToEditDef         = claro_is_allowed_to_edit();
-$is_allowedToTrack         = claro_is_allowed_to_edit() && $is_trackingEnabled || ($userIdViewer == $userIdViewed );
-
+$is_allowedToTrack        =  claro_is_allowed_to_edit() && $is_trackingEnabled 
+                          || ($userIdViewer == $userIdViewed );
 
 // clean field submited by the user
 if ($_POST)
@@ -64,7 +64,6 @@ if ($_POST)
         $$key = replace_dangerous_char($value);
     }
 }
-
 
 /*======================================
            COMMANDS SECTION
@@ -167,7 +166,6 @@ if ($allowedToEditDef)
 }
 
 // COMMON COMMANDS
-
 
 if ($allowedToEditContent)
 {
@@ -545,7 +543,7 @@ elseif ($displayMode == "viewContentList") // default display
             {
                 echo  '<br><br>'."\n"
                      .'<a href="'.$_SERVER['PHP_SELF'].'?editContent='.$thisCat['catId'].'&amp;uInfo='.$userIdViewed.'">'
-                     .'<img src="'.$clarolineRepositoryWeb.'/img/edit.gif" border="0" alt="'.$langEdit.'">'
+                     .'<img src="'.$imgRepositoryWeb.'/edit.gif" border="0" alt="'.$langEdit.'">'
                      .'</a>'."\n";
             }
 
