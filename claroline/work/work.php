@@ -18,15 +18,6 @@ $tlabelReq = "CLWRK___";
 require '../inc/claro_init_global.inc.php';
 
 $htmlHeadXtra[] =
-"<style type=text/css>
-<!--
-.comment { margin-left: 30px}
-.invisible {color: #999999}
-.invisible a {color: #999999}
--->
-</style>";
-
-$htmlHeadXtra[] =
 "<script>
 function confirmation (name)
 {
