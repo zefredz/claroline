@@ -516,7 +516,7 @@ function claro_disp_tool_title($titleElement, $helpUrl = false)
 function claro_disp_tool_view_option($viewModeRequested = false)
 {
     global $clarolineRepositoryWeb, $is_courseAdmin,
-           $langCourseManagerView,  $langStudentView;
+           $langCourseManager,  $langStudent, $langViewMode;
 	
 	if ( ! $is_courseAdmin || ! claro_is_display_mode_available() ) return false;
 
@@ -553,17 +553,17 @@ function claro_disp_tool_view_option($viewModeRequested = false)
         case 'COURSE_ADMIN' :
 
             $studentButton     = '<a href="'.$url.'&viewMode=STUDENT">'
-                                 .$langStudentView
+                                 .$langStudent
                                  .'</a>';
-            $courseAdminButton = '<b>'.$langCourseManagerView.'</b>';
+            $courseAdminButton = '<b>'.$langCourseManager.'</b>';
 
             break;
 
         case 'STUDENT' :
 
-            $studentButton     = '<b>'.$langStudentView.'</b>';
+            $studentButton     = '<b>'.$langStudent.'</b>';
             $courseAdminButton = '<a href="'.$url.'&viewMode=COURSE_ADMIN">'
-                                 .$langCourseManagerView
+                                 .$langCourseManager
                                  .'</a>';
             break;
     }
@@ -572,7 +572,7 @@ function claro_disp_tool_view_option($viewModeRequested = false)
                              DISPLAY COMMANDS MENU
       ------------------------------------------------------------------------*/
 
-    echo "<small> view mode : "
+    echo "<small>".$langViewMode." : "
         .$studentButton
 		." | "
 		.$courseAdminButton
