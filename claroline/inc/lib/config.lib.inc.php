@@ -758,7 +758,6 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
         echo '<H2>'
             .$htmlPropLabel
             .'</H2>'."\n"
-            .$htmlPropDesc."\n"
             .'<span>'
             ;
         switch($conf_def_property_list['type'])
@@ -773,7 +772,8 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
             	// probably a string or integer
                 echo $conf_def_property_list['default'];
     } // switch
-    echo '</span>'."\n"
+    echo '</span><BR>'."\n"
+        .$htmlPropDesc."\n"
         .'<input type="hidden" value="'.$htmlPropValue.'" name="'.$htmlPropName.'">'."\n";
     } 
     else
@@ -784,8 +784,6 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
             echo '<H2>'
                 .$htmlPropLabel
                 .'</H2>'."\n"
-                .$htmlPropDesc."\n"
-                .$htmlPropDefault."\n"
                 .'<span>'
                 .'<input id="'.$property.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '.($htmlPropValue=='TRUE'?' checked="checked" ':' ').' >'
                 .'<label for="'.$property.'_TRUE"  >'
@@ -793,15 +791,20 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 .'</label>'
                 .'</span>'."\n"
                 .'<span>'
-                .'<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '.($htmlPropValue=='TRUE'?' ':' checked="checked" ').' ><label for="'.$property.'_FALSE" >'.($conf_def_property_list['acceptedValue']['FALSE']?$conf_def_property_list['acceptedValue']['FALSE']:'FALSE').'</label></span>'."\n"
+                .'<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '
+                .  ($htmlPropValue=='TRUE'?' ':' checked="checked" ')
+                .' ><label for="'.$property.'_FALSE" >'
+                .($conf_def_property_list['acceptedValue']['FALSE']?$conf_def_property_list['acceptedValue']['FALSE']:'FALSE')
+                .'</label></span><BR>'."\n"
+                .$htmlPropDesc."\n"
+                .$htmlPropDefault."\n"
                 ;
     		break;
    	    case 'enum' : 
             echo '<H2>'
                 .$htmlPropLabel
                 .'</H2>'."\n"
-                .$htmlPropDesc."\n"
-                .$htmlPropDefault."\n";
+                ;
             foreach($conf_def_property_list['acceptedValue'] as  $keyVal => $labelVal)
             {
                 echo '<span>'
@@ -811,6 +814,10 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                     .'</span>'
                     .'<br>'."\n";
             }   
+            echo '<BR>'
+                .$htmlPropDesc."\n"
+                .$htmlPropDefault."\n"
+                ;
     		break;
     		
 //TYPE : integer, an integer is attempt
@@ -821,11 +828,11 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 .'</label>'
                 .'</H2>'."\n"
                 .'<br>'."\n"
-                .$htmlPropDesc."\n"
-                .$htmlPropDefault."\n"
                 .'<input size="'.$size.'"  align="right" id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '."\n"
                 .'<span class="propUnit">'.$htmlUnit.'</span>'
-                .'<span class="propType">('.$conf_def_property_list['type'].')</span>'."\n"
+                .'<span class="propType">('.$conf_def_property_list['type'].')</span><BR>'."\n"
+                .$htmlPropDesc."\n"
+                .$htmlPropDefault."\n"
                 .'<br>'
                 ;
     		;
@@ -837,11 +844,11 @@ function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, 
                 .$conf_def_property_list['label']
                 .'</label>'."\n"
                 .'</h2>'."\n"
-                .$htmlPropDesc."\n"
-                .$htmlPropDefault."\n"
                 .'<input size="'.$size.'"  id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '
                 .'<span class="propUnit">'.$htmlUnit.'</span>'
-                .'<span class="propType">('.$conf_def_property_list['type'].')</span>'."\n"
+                .'<span class="propType">('.$conf_def_property_list['type'].')</span><BR>'."\n"
+                .$htmlPropDesc."\n"
+                .$htmlPropDefault."\n"
                 .'<br>'."\n"
                 ;
     		;
