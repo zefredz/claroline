@@ -178,23 +178,7 @@ switch($pagetype)
 {
 	case 'index':
 
-		$total_posts = get_total_posts("0", $db, "all");
-		$total_users = get_total_posts("0", $db, "users");
-
-		$sql = "SELECT username, user_id 
-                FROM `".$tbl_users."` 
-                WHERE user_level != -1 
-                ORDER BY user_id DESC 
-                LIMIT 1";
-
-		list($row) = claro_sql_query_fetch_all($sql);
-		$newest_user    = $row['username'];
-		$newest_user_id = $row['user_id'];
-		$profile_url    = $url_phpbb."/bb_profile.".$phpEx."?mode=view&user=".$newest_user_id;
-		$online_url     = $url_phpbb."/whosonline.".$phpEx;
-
-		eval($l_statsblock);
-		// print $statsblock;
+        // noop ...
 
 		break;
 
@@ -214,10 +198,7 @@ switch($pagetype)
 			.stripslashes($forum_name)
 			."</a>";
 
-		if($pagetype != "viewforum")
-		{
-			echo " ".$l_separator." ";
-		}
+		if($pagetype != "viewforum") echo ' '.$l_separator.' ';
 
 		echo $topic_subject;
 
