@@ -60,7 +60,7 @@ $langFormula="Cordialmente, il Vostro docente";
 $langForumLanguage="italian";	// other possibilities are english, spanish (this uses phpbb language functions)
 $langTestForum="Esempio di Forum";
 $langDelAdmin="Da rimuovere tramite l'opzione \"Amministrazione\" dei forum";
-$langMessage="Quando si elimina l\'\"esempio di Forum\", verrà eliminato anche l\'argomento corrente che contiene solo il presente messaggio.";
+$langMessage="Quando si elimina l\'esempio di Forum, verrà eliminato anche l\'argomento corrente che contiene solo il presente messaggio.";
 $langExMessage="Messaggio d\'esempio";
 $langAnonymous="Anonimo";
 $langExerciceEx="Esempio d'esercizio";
@@ -156,7 +156,7 @@ $langCodeCanBeEmpty ="Codice del corso richiesto";
 $langEmailWrong = "Email errata";
 $langCreationMailNotificationSubject = "Creazione del corso";
 $langCreationMailNotificationBody = "Corso creato in "; 
-$langByUser = "dall\'\"utente\"";
+$langByUser = "dall\'utente";
 
 
 ?>
