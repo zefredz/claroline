@@ -22,6 +22,7 @@ include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify v
 
 $interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);
 include($includePath."/claro_init_header.inc.php");
+include($includePath."/lib/auth.lib.inc.php");
 $nameTools = "2";
 
 // $TABLELOGINOUT  = $mainDbName."`.`loginout";
@@ -84,14 +85,14 @@ if($submitRegistration)
 
     // CHECK PASSWORD AREN'T TOO EASY
 
-    elseif (   $form_password1 
+    elseif (   $password1 
             && SECURE_PASSWORD_REQUIRED
-            && ! is_password_secure_enough( $form_password,
+            && ! is_password_secure_enough( $password1,
                                           array($uname, $officialCode, 
                                                 $nom, $prenom, $email) ) )
     {
         $regDataOk = false;
-        echo "<p>".$langPassTooEasy."</p>\n";
+        echo "<p>".$langPassTooEasy." : <code>".substr( md5( date('Bis').$HTTP_REFFERER ), 0, 8 )."</code></p>\n";
     }
     
 
