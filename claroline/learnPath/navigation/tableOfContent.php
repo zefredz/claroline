@@ -119,6 +119,9 @@
           ."<small>$langView : <a href='viewer.php?noFrames' target='_top'>$langFullScreen</a> | <a href='viewer.php' target='_top'>$langInFrames</a></small>\n"
           ."</p>\n<table width=\"100%\">\n";
   
+  $previousModule = "";
+  $nextModule = "";
+  
   foreach ($flatElementList as $module)
   {
           if($module['contentType'] == CTEXERCISE_ ) 
@@ -178,7 +181,19 @@
                       $displayedName = substr($module['name'],0,$moduleNameLength)."...";
                     else 
                       $displayedName = $module['name'];
-                    echo "<a href=\"startModule.php?viewModule_id=".$module['module_id']."\" target=\"mainFrame\" title=\"".htmlentities($module['name'])."\"><img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt." : ".$module['name']."\" border=\"0\">".$displayedName."</a>";
+                    // bold the title of the current displayed module  
+                    if( $_SESSION['module_id'] == $module['module_id'] )
+                    {
+                      $displayedName = "<b>".$displayedName."</b>";
+                      $previousModule = $previous;
+                    }
+                    // store next value if user has the right to access it
+                    if( $previous == $_SESSION['module_id'] )
+                    {
+                      $nextModule = $module['module_id'];
+                    }
+                    echo "<a href=\"startModule.php?viewModule_id=".$module['module_id']."\" target=\"mainFrame\" title=\"".htmlentities($module['name'])."\">
+                          <img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt." : ".$module['name']."\" border=\"0\">".$displayedName."</a>";
                 }
                 // a module ALLOW access to the following modules if
                 // document module : credit == CREDIT || lesson_status == 'completed'
@@ -243,6 +258,12 @@
           
           $atleastOne = true;
           echo "</td></tr>\n";
+          // used in the foreach the remember the id of the previous module_id
+          // don't remember if label...
+          if ($module['contentType'] != CTLABEL_ )
+            $previous = $module['module_id']; 
+          
+          
   }
   echo "</table>"; 
    
@@ -254,11 +275,40 @@
   else
     $returl = "../learningPath.php";
 
+$prevNextString = '<br /><center><small>';
+
+if( $previousModule != "" )
+{
+  $prevNextString .= '<a href="startModule.php?viewModule_id='.$previousModule.'" target="mainFrame">'.$langPrevious.'</a>';
+}
+else
+{
+  $prevNextString .=  $langPrevious;
+}
+$prevNextString .=  ' | ';
+
+if( $nextModule != "" )
+{
+  $prevNextString .=  '<a href="startModule.php?viewModule_id='.$nextModule.'" target="mainFrame">'.$langNext.'</a>';
+}
+else
+{
+  $prevNextString .=  $langNext;
+}  
+$prevNextString .=  '<br /><br />';
+
+echo $prevNextString;
+//  set redirection link 
+if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
+  $returl = "../learningPathAdmin.php";
+else
+  $returl = "../learningPath.php";
 ?>
-<center><br />
-     <form action="<?= $returl; ?>" method="post" target="_top">
+<form action="<?= $returl; ?>" method="post" target="_top">
        <input type="submit" value="<? echo $langQuitViewer; ?>">
-     </form>     
-</center>
-</body>
+     </form> 
+
+  </small></center>
+ </body>
 </html>
+
