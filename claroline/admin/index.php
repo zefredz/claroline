@@ -125,7 +125,7 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <h4><?php echo $langTools ?></h4>
 <ul>
 <li>
-<a href="tool/config.php"><?php echo $langConfiguration?></a>
+<a href="tool/config_list.php"><?php echo $langConfiguration?></a>
 </li>
 </ul>
 
