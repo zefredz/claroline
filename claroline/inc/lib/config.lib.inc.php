@@ -870,7 +870,7 @@ function claroconf_disp_editbox_of_a_value($conf_def_property_list, $property, $
     }
 
     $size = (int) strlen($htmlPropValue);
-    $size = 2+(($size > 90)?90:(($size < 15)?15:$size));
+    $size = 2+(($size > 50)?50:(($size < 15)?15:$size));
 
     $htmlUnit = (isset($conf_def_property_list['unit'])?''.htmlentities($conf_def_property_list['unit']).' ':'');
 
