@@ -285,7 +285,7 @@ if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
 </table>
 <?php
 
-if ($claro_brailleViewMode)
+if ( isset($claro_brailleViewMode) && $claro_brailleViewMode )
 {
     $claro_banner = ob_get_contents();
     ob_clean();
@@ -313,9 +313,3 @@ if( isset($db) )
 
 
 <!----------------------  End of Claroline Banner  ---------------------->
-
-
-
-
-<!----------------------      Claroline Body       ---------------------->
-<div class="claroBody">
