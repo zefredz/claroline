@@ -598,13 +598,13 @@ if($display == DISP_FORUM_GO)
 
 			"<table border=0>\n",
 			"<tr  valign=\"top\">\n",
-			"<td align=\"right\">",$langForName," : </td>\n",
-			"<td><input type=text name=forum_name size=40></td>\n",
+			"<td align=\"right\"><label for=\"forum_name\">",$langForName," : </label></td>\n",
+			"<td><input type=text name=\"forum_name\" id=\"forum_name\" size=\"40\"></td>\n",
 			"</tr>\n",
 
 			"<tr  valign=\"top\">\n",
-			"<td align=\"right\">",$langDescription," : </td>\n",
-			"<td><textarea name=forum_desc cols=40 rows=3></textarea></td>\n",
+			"<td align=\"right\"><label for=\"forum_desc\">",$langDescription," : </label></td>\n",
+			"<td><textarea name=\"forum_desc\" id=\"forum_desc\" cols=\"40\" rows=\"3\"></textarea></td>\n",
 			"</tr>\n",
 
 			"<tr>\n",
@@ -626,22 +626,22 @@ elseif($display == DISP_FORUM_GO_EDIT)
 			"<table	border=\"0\">\n",
 
 			"<tr>\n",
-			"<td align=\"right\">",$langForName," :	</td>\n",
-			"<td><input	type=text name=forum_name size=50 value=\"$forum_name\"></td>\n",
+			"<td align=\"right\"><label for=\"forum_name\">",$langForName," :	</label></td>\n",
+			"<td><input	type=text name=\"forum_name\" id=\"forum_name\" size=\"50\" value=\"$forum_name\"></td>\n",
 			"</tr>\n",
 
 			"<tr valign=\"top\">\n",
-			"<td align=\"right\">",$langDescription," :	</td>\n",
-			"<td><textarea name=forum_desc cols=50 rows=3>",$forum_desc,"</textarea></td>\n",
+			"<td align=\"right\"><label for=\"forum_desc\">",$langDescription," : </label></td>\n",
+			"<td><textarea name=\"forum_desc\" id=\"forum_desc\" cols=\"50\" rows=\"3\">",$forum_desc,"</textarea></td>\n",
 			"</tr>\n",
 
 			"<tr>\n",
-			"<td align=\"right\">",$langChangeCat,"	: </td>\n",
+			"<td align=\"right\"><label for=\"cat_id\">",$langChangeCat,"	: </label></td>\n",
 			"<td>";
 
 	if ($is_allowedToMoveForum)
 	{
-		echo "<select name=\"cat_id\">\n";
+		echo "<select name=\"cat_id\" id==\"cat_id\">\n";
 
 		foreach($targetCategoryList as $thisTargetCategory)
 		{
@@ -676,9 +676,9 @@ elseif($display == DISP_FORUM_CAT_EDIT)
 {
 		echo	"
 <form action=\"forum_admin.php?forumcatsave=yes\" method=post>
-				<input type=hidden name=cat_id value=".$cat_id.">
-				".$langCat," : ",
-				"<input type=text name=cat_title size=55 value=\"",$cat_title,"\">\n",
+				<input type=hidden name=cat_id value=".$cat_id.">",
+                "<label for=\"cat_title\">".$langCat." : </label>".
+				"<input type=\"text\" name=\"cat_title\" id=\"cat_title\" size=\"55\" value=\"",$cat_title,"\">\n",
 				"<input type=submit value=\"",$langSave,"\">\n",
 				"</form>";
 	//   <input type=hidden name=forumcatsave value=yes>
@@ -816,8 +816,8 @@ elseif($display == DISP_FORUM_ADMIN)
             "<h4>".$langAddCategory."</h4>".
             "<form action=\"forum_admin.php?forumcatadd=yes\" method=\"post\">\n".
 
-			$langCat." : ".
-			"<input type=\"text\" name=\"catagories\" size=\"50\">\n".
+			"<label for=\"catagories\">".$langCat." : </label>".
+			"<input type=\"text\" name=\"catagories\" id=\"catagories\" size=\"50\">\n".
 			"<input type=\"submit\" value=\"".$langAdd."\">\n".
 			"<input type=\"hidden\" name=\"forumcatadd\" value=\"yes\">\n".
 			"</form>\n";
