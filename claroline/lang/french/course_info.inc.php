@@ -40,8 +40,7 @@ $langPrivOpen="Accès privé, inscription ouverte";
 $langPrivate="Accès privé (site réservé aux personnes figurant dans la liste <a href=../user/user.php>utilisateurs</a>)";
 $langForbidden="Accès non autorisé";
 $langLanguage="Langue";
-$langConfTip="Par défaut, votre cours n'est accessible
-qu'à vous qui en êtes le seul utilisateur. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir
+$langConfTip="Par défaut, votre cours est accessible &agrave; tout le monde. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir
 l'inscription pendant une semaine, de demander aux étudiants de s'inscrire eux-mêmes
 puis de fermer l'inscription et de vérifier dans la liste des utilisateurs les intrus éventuels.";
 $langTipLang="Cette langue vaudra pour tous les visiteurs de votre site de cours.";
@@ -120,7 +119,7 @@ $langManage			= "Gestion du campus";
 
 $langAreYouSureToDelete ="Êtes vous sûr de vouloir supprimer ";
 $langBackToAdminPage = "Retour à la page d'administration";
-$langToCourseSettings = "Retour aus propriétés du cours";
+$langToCourseSettings = "Retour aux propriétés du cours";
 $langSeeCourseUsers = "Voir les utilisateurs du cours";
 $langBackToCourseList = "Retour à la liste de cours";
 $langBackToList = "Retour à la liste";
