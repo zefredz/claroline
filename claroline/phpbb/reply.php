@@ -27,15 +27,16 @@ include('../inc/conf/claro_main.conf.php');
 $TABLEUSER = $mainDbName.".`user`";
 include ('../inc/lib/claro_mail.lib.inc.php');
 
+require 'functions.php';
+require 'config.php';
+require 'auth.php';
+
 
 if($cancel)
 {
 	header("Location: viewtopic.php?topic=$topic&forum=$forum");
 }
 
-require 'functions.php';
-require 'config.php';
-require 'auth.php';
 
 $pagetitle = 'Post Reply';
 $pagetype  = 'reply';
