@@ -9,7 +9,6 @@ Translate the interface in chosen language
 
 *****************************************************************/
 
-$langGroupManagement="Groups";
 $langHelp="Help";
 $langNewGroupCreate="Create new group(s)";
 $langGroupCreation="New groups creation";

@@ -7,7 +7,6 @@
       +----------------------------------------------------------------------+
  */
 
-$langGroupManagement="Groupes";
 $langHelp="Aide"; // JCC
 $langNewGroupCreate="Créer nouveau(x) groupe(s)"; // JCC
 $langGroupCreation="Création de groupes";

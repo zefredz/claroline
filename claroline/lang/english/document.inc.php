@@ -53,7 +53,6 @@ $langMaxFileSize="Max file size is : ";
 $langAddCommentOptionnal = "Add a comment (optionnal) :";
 
 // Special for group documents
-$langGroupManagement="Group management";
 $langGroupSpace="Group area";
 $langGroupSpaceLink="Group area";
 $langZipNoPhp="The zip file can not contain .PHP files";

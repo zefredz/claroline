@@ -61,7 +61,6 @@ $langMaxFileSize="La taille maximum est de : ";
 $langAddCommentOptionnal = "Ajouter un commentaire (optionnel) : ";
 
 // Special for group documents
-$langGroupManagement="Gestion des groupes";
 $langGroupSpace="Espace de groupe";
 
 $langGroupSpaceLink="Espace du groupe";
