@@ -296,12 +296,12 @@ Repéré par : M
 Assigné à : SEB 
 Etat	   : RESOLU ( fichier réellement inutilisé -> retiré. )
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.35 où : /lang/*/course_home.inc.php
 type : déprécié ?
 quoi : $langCourseCreate <- défini dans les fichiers de langues course_home.inc.php et utilisé uniquement dans index général
 Repéré par : M
-Assigné à  : 
+Assigné à  : SEB
 
 Etat : RESOLU ------------------------------------------------------
 .36 où : fichiers langues
@@ -373,6 +373,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.51  2004/07/06 12:51:43  seb
+Bugs 35 done
+
 Revision 1.50  2004/07/06 11:54:21  seb
 Bug 37 resolved
 Bugs 3, 4, 8, 9, 10, 13, 25, 26, 27, 33, 35, 38 need to be corrected or checked.
