@@ -44,7 +44,7 @@ if ($intro_editAllowed)
 {
 	/* Replace command */
 
-	if( $intro_cmdUpdate )
+	if( isset($_REQUEST['intro_cmdUpdate']) )
 	{
 		$intro_content = trim($intro_content);
 
@@ -87,12 +87,21 @@ $sql = "SELECT texte_intro
         FROM `".$TBL_INTRODUCTION."` 
         WHERE id=\"".$moduleId."\"";
 
-list($intro_dbResult) = claro_sql_query_fetch_all($sql);
-$intro_content  = $intro_dbResult['texte_intro'];
+$text_intro_result = claro_sql_query_fetch_all($sql);
+
+if ( $text_intro_result == FALSE ) 
+{
+    $intro_content = "";
+}
+else
+{
+    list($first_intro_text) = $text_intro_result;
+    $intro_content  = $first_intro_text['texte_intro'];
+}
 
 /* Determines the correct display */
 
-if ($intro_cmdEdit || $intro_cmdAdd)
+if ( isset($_REQUEST['intro_cmdEdit']) || isset($_REQUEST['intro_cmdAdd']) )
 {
 	$intro_dispDefault = false;
 	$intro_dispForm    = true;
