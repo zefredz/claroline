@@ -85,9 +85,16 @@ class claro_sql_pager
 
     function get_total_result_count()
     {
-        $sql = 'SELECT COUNT(*) AS totalResultCount '.stristr ($this->sql, 'FROM ');
-        list($countRow) = claro_sql_query_fetch_all($sql);
-        return $countRow['totalResultCount'];
+        // keep only the FROM and WHERE part of the query
+        $sqlFilterFrom = stristr($this->sql, 'FROM ');
+
+        // remove the ORDER BY part. It poses problems on COUNT(*) query
+        $sqlFilterOrderBy = substr($sqlFilterFrom, 0, 
+                                   strpos($sqlFilterFrom, 'ORDER BY '));
+
+        $sql = 'SELECT COUNT(*) AS totalResultCount '.$sqlFilterOrderBy;
+   
+        return claro_sql_query_get_single_value($sql);
 
         // Other option, faster but only available for mySQL 4
         //
