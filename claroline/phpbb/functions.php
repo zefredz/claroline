@@ -118,94 +118,67 @@ function get_whosonline($IP, $username, $forum, $db)
  * Returns the total number of posts in the whole system, a forum, or a topic
  * Also can return the number of users on the system.
  */
+
 function get_total_posts($id, $db, $type)
 {
-	global $tbl_users, $tbl_posts;
+    global $tbl_users, $tbl_posts;
 
-	switch($type)
-	{
-		case 'users':
-			$sql = "SELECT COUNT(*) AS total 
-                    FROM `".$tbl_users."` 
-                    WHERE user_id != -1 
-                      AND user_level != -1";
-		break;
-		case 'all':
-			$sql = "SELECT COUNT(*) AS total 
-                    FROM `".$tbl_posts."`";
-		break;
-		case 'forum':
-			$sql = "SELECT COUNT(*) AS total 
-                    FROM `".$tbl_posts."` 
-                    WHERE forum_id = '".$id."'";
-		break;
-		case 'topic':
-			$sql = "SELECT COUNT(*) AS total 
-                    FROM `".$tbl_posts."` 
-                    WHERE topic_id = '".$id."'";
-		break;
-		// Old, we should never get this.
-		case 'user':
-			die("Should be using the users.user_posts column for this.");
-	}
+    switch($type)
+    {
+        case 'users': $condition = "poster_id = '".$id."'";
+            break;
+        case 'forum': $condition = "forum_id = '".$id."'";
+            break;
+        case 'topic': $condition = "topic_id = '".$id."'";           
+            break;
+        case 'all'  : $condition = '';
+            break;
+        // Old, we should never get this.
+        default     : $condition = false;
+                      error_die('No type argument in get_total_post().');
+    }
 
-	return claro_sql_query_get_single_value($sql);
+    if ($condition)
+    {
+        $sql = "SELECT COUNT(*) AS total 
+                        FROM `".$tbl_posts."` 
+                WHERE ".$condition;
+
+        return claro_sql_query_get_single_value($sql);
+    }
+    else
+    {
+    	return false;
+    }
 }
 
 /**
  * Returns the most recent post in a forum, or a topic
  */
-function get_last_post($id, $db, $type)
+function get_last_post($id, $type)
 {
-	global $l_error, $l_noposts, $l_by, $tbl_posts, $tbl_users ;
+    global $l_error, $l_noposts, $l_by, $tbl_posts, $tbl_users ;
 
-	switch($type)
-	{
-		case 'time_fix':
-			$sql = "SELECT p.post_time 
-                    FROM `".$tbl_posts."` p
-			        WHERE p.topic_id = '".$id."'
-			        ORDER BY post_time DESC LIMIT 1";
-		break;
+    switch($type)
+    {
+        case 'forum': $condition = "forum_id = '".$id."'";
+        break;
+        case 'topic': $condition = "topic_id = '".$id."'";
+        break;
+        case 'user' : $condition = "poster_id = '".$id."'";
+        break;
+        default : error_die("wrong type argument in get_last_post() function");
+    }
 
-		case 'forum':
-			$sql = "SELECT p.post_time, p.poster_id, u.username
-			        FROM `".$tbl_posts."` p, `".$tbl_users."` u
-		            WHERE p.forum_id = '".$id."'
-		              AND p.poster_id = u.user_id
-		            ORDER BY post_time DESC LIMIT 1";
-		break;
-
-		case 'topic':
-			$sql = "SELECT p.post_time, u.username
-			        FROM `".$tbl_posts."` p, `$tbl_users` u
-			        WHERE p.topic_id = '".$id."'
-			          AND p.poster_id = u.user_id
-			        ORDER BY post_time DESC LIMIT 1";
-		break;
-
-		case 'user':
-			$sql = "SELECT p.post_time
-			        FROM `".$tbl_posts."` p
-			        WHERE p.poster_id = '".$id."'
-			        LIMIT 1";
-		break;
-	}
+    $sql = "SELECT post_time
+            FROM `".$tbl_posts."`
+            WHERE ".$condition."
+            ORDER BY post_time DESC LIMIT 1";
 
     $result = claro_sql_query_fetch_all($sql);
 
     if (count($result) == 0) return($l_noposts);
-    
-	if(($type != 'user') && ($type != 'time_fix'))
-	{
-		$val = sprintf("%s <br> %s %s", $myrow[0]['post_time'], $l_by, $myrow[0]['username']);
-	}
-	else
-	{
-		$val = $myrow['post_time'];
-	}
-
-	return($val);
+    else                     return $result[0]['post_time'];
 }
 
 /**
@@ -220,7 +193,7 @@ function get_moderators($forum_id, $db)
 	        WHERE f.forum_id = '".$forum_id."'
 	        AND f.user_id = u.user_id";
 
-	return claro_sql_query_fetch-all($sql);
+	return claro_sql_query_fetch_all($sql);
 }
 
 /**
@@ -717,6 +690,7 @@ function get_topic_settings($topicId)
 function create_new_topic($subject, $time, $forumId, 
                           $userId, $userFirstname, $userLastname)
 {
+    
     global $tbl_topics, $tbl_forums;
 
     $sql = "INSERT INTO `".$tbl_topics."` 
@@ -789,16 +763,16 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp,
 
         $result = claro_sql_query($sql);
 
-        // UPDATE THE POST NUMBER STATUS FOR THE CURRENT USER
-
-        if($userId != -1)
-        {
-            $sql = "UPDATE `".$tbl_users."` 
-                    SET   user_posts = user_posts+1 
-                    WHERE user_id = '".$userId."'";
-
-            $result = claro_sql_query($sql);
-        }
+//        // UPDATE THE POST NUMBER STATUS FOR THE CURRENT USER
+//
+//        if($userId != -1)
+//        {
+//            $sql = "UPDATE `".$tbl_users."` 
+//                    SET   user_posts = user_posts+1 
+//                    WHERE user_id = '".$userId."'";
+//
+//            $result = claro_sql_query($sql);
+//        }
 
         // UPDATE THE POST STATUS FOR THE CURRENT FORUM
 
@@ -885,21 +859,20 @@ function delete_post($postId, $topicId, $forumId, $userId)
     else
     {
         $sql = "UPDATE `".$tbl_topics."` 
-                SET topic_time = '". get_last_post($topicId, 
-                                                   $db, 'time_fix')."' 
+                SET topic_time = '". get_last_post($topicId, 'topic')."' 
                 WHERE topic_id = '".$topicId."'";
 
         $result = claro_sql_query($sql);
     }
 
-    if($userId != -1)
-    {
-        $sql = "UPDATE `".$tbl_users."` 
-                SET user_posts = user_posts - 1 
-                WHERE user_id = '".$userId."'";
-
-        $result = claro_sql_query($sql);
-    }
+//    if($userId != -1)
+//    {
+//        $sql = "UPDATE `".$tbl_users."` 
+//                SET user_posts = user_posts - 1 
+//                WHERE user_id = '".$userId."'";
+//
+//        $result = claro_sql_query($sql);
+//    }
 
     // don't understand these two lines below    
     sync($db, $forumId, 'forum');
