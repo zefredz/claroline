@@ -949,6 +949,22 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 {
     global $singleDbEnabled, $courseTablePrefix, $dbGlu, $clarolineRepositorySys, $_user, $mainDbName;
 
+    // groups forums
+    global $langCatagoryGroup, $langCatagoryMain;
+    // forums
+    global $langFormula, $langTestForum, $langDelAdmin,
+           $langMessage, $langAnonymous;
+	// exercises
+	global $langRidiculise, $langNoPsychology, $langAdmitError$langNoSeduction$langForce,
+	       $langIndeed, $langContradiction, $langNotFalse, $langExerciceEx,
+	       $langAntique, $langSocraticIrony, $langManyAnswers;
+	// learning path
+	global $langSampleLearnPath, $langSampleLearnPathDesc, $langSampleDocument,
+	       $langSampleDocumentDesc, $langExerciceEx, $langSampleExerciseDesc ;
+	// forums
+	global $langExMessage;
+
+
 	$courseDbName=$courseTablePrefix.$courseDbName.$dbGlu;
 
 	$TABLECOURSEHOMEPAGE	= $courseDbName."tool_list";
@@ -1014,10 +1030,8 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
 	$nom = $_user['lastName'];
 	$prenom =$_user['firstName'];
 
-	@include($clarolineRepositorySys."lang/english/create_course.inc.php");
-	@include($clarolineRepositorySys."lang/".$language."/create_course.inc.php");
-
 	mysql_select_db("$courseDbName");
+
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'-1',	'Deleted')");
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'1',	'User')");
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBACCESS."` VALUES (	'2',	'Moderator')");
