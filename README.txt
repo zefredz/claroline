@@ -1,5 +1,5 @@
-CLAROLINE 1.5 RELEASE CANDIDATE README
-=====================================
+CLAROLINE 1.5 RELEASE CANDIDATE -- README
+=========================================
 
 Claroline is a GPL software working with PHP/MySQL. It is a course based 
 educational tool allowing the professor to create, admin and feed his courses 
@@ -20,8 +20,7 @@ Claroline is supposed to work on the following OS:
         Unix
         MacOs X.
 
-We tested it on Mandrake 8.2, Mandrake 9, Mandrake 8.2 for PPC, Windows 98, 2000 
-and MacOs X.Email functions remain silent on systems where there is no mail 
+We tested it on Linux Debian (Woody), Linux Mandrake (8, 9, 10), Windows (98, 2000, XP)and MacOs X.Email functions remain silent on systems where there is no mail 
 sending software (Sendmail, Postfix, Hamster...), which is the case by default 
 on a Windows machine.
 
@@ -71,17 +70,35 @@ NEW FEATURES IN CLAROLINE 1.5 SINCE CLAROLINE 1.4.2
 * LEARNING PATH. A completely new tool has been created allowing course manager 
 to easily organize course resources for student in a framed learning path.
 
-* WYSIWYG EDITOR. User are now able to edit their documents, posts, 
-announcements, messages, and quizzes on line with a "word like" editor 
-integrated to the platform.
+* WYSIWYG EDITOR. User are now able to create and edit their content on the fly 
+and store it into documents, posts, announcements, messages, and quizzes.
 
 * SCORM. Claroline is now compatible with SCORM 1.2 and 2004. It is able to 
-import Content Package allowing exchange with various Learning Management 
-Systeme.
+import Content Package allowing exchange between various Learning Management 
+Systems.
 
-* AGENDA. Additional cross course calendar window allowing user to consult every 
-event from the courses he's enrolled on - Display of the next event for each 
-user courses at the platform home page since user login.
+* LDAP AND EXTERNAL AUTHENTICATION. Claroline is now able to connect itself 
+simultaneously to several external authentication systems, allowing to retrieve 
+user settings from the outside. An LDAP example based on this technique is 
+provided.
+
+* LANGUAGES. New languages added. Claroline is now translated in 28 languages 
+(Arabic, Brazilian, Bulgarian, Catalan, Croatian, Danish, Dutch, English, 
+French, Galician, German, Greek, Indonesian, Italian, Japanese, Malay, Polish, 
+Portugese, Russian, Slovenian, Spanish, Swedish, Thai, Turkce, Vietnamese).
+
+* SECURITY IMPROVEMENT. In Claroline 1.4, the init kernel was checking 
+permission until the course level. The new claroline is more fine grained 
+checking permission one step further : at tool level.
+
+* COURSE HOME PAGE. New layout, leaving most of the display area to course 
+manager, allowing him to fill it with his own content.
+
+* COURSE BANNER. Navigation improvement allowing user to jump in a single click 
+from one tool to another.
+
+* AGENDA. Additional cross course calendar displaying synthetic monthly view of 
+all the events related to a user.
 
 * DOCUMENT. You can now create and edit HTML document on line. You can also 
 create hyperlinks among documents. It means the Claroline 'Links' tool is 
@@ -93,17 +110,16 @@ tool renamed 'document and links' for the occasion.
 * FORUMS. Email notification of new post in a thread - Forum category categories 
 are now movable.
 
-* ANNOUNCEMENT. Possibility to send Messages to selected course groups or 
-members.
+* ANNOUNCEMENT. Possibility to send Messages to selected course members and 
+groups. 
 
-* GROUP. Added a Chat room for each group
+* USER HOME PAGE. Once logged users are now directly informs about new course 
+events since last login.
 
-* EXTERNAL AUTHENTICATION FEATURE AND LDAP. Claroline is now able to connect 
-itself simultaneously to external several authentication systems, allowing to 
-retrieve user settings from from another platform. An LDAP based on this 
-technique is provided.
+* GROUP. Chat room for each group has been added.
 
-* COURSE CATEGORIES. You can create tree of subcategories to arrange courses.
+* COURSE CATEGORIES. The course categories are not limited anymore to a single 
+level. You can now create subcategory tree as deep as you want to arrange courses.
 
 * PLATFORM ADMINISTRATION. Completely revamped user interface of the 
 administration section. The phpMyadmin database manager isn't needed anymore. 
@@ -112,17 +128,7 @@ All the administration is handled through this interface.
 * COURSE ENROLLMENT. After long usability tests, the course enrollment device 
 has been completely changed to make it easier.
 
-* LANGUAGES. New languages added. Claroline is now translated in 28 languages 
-(Arabic, Brazilian, Bulgarian, Catalan, Croatian, Danish, Dutch, English, 
-French, Galician, German, Greek, Indonesian, Italian, Japanese, Malay, Polish, 
-Portugese, Russian, Slovenian, Spanish, Swedish, Thai, Turkce, Vietnamese).
 
-* SECURITY IMPROVEMENT. In Claroline 1.4, the init kernel was checking permission 
-until the course level. The new claroline is more fine grained checking 
-permission one step further : at tool level.
-
-* COURSE HOME PAGE. New layout, leaving most of the display area to course 
-manager, allowing him to fill it with his own content.
 
 NEW FEATURES IN CLAROLINE 1.4.2 SINCE CLAROLINE 1.4.1
 =====================================================
