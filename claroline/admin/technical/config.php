@@ -211,8 +211,7 @@ include($includePath."/claro_init_header.inc.php");
 
 claro_disp_tool_title(
 	array(
-	'mainTitle'=>$nameTools,
-	'subTitle'=> $PHP_AUTH_USER." - ".$siteName." - ".$clarolineVersion." - ".$dateNow
+	'mainTitle'=>$nameTools	
 	)
 	);
 claro_disp_msg_arr($controlMsg);
