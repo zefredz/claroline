@@ -101,37 +101,39 @@ if($_REQUEST['submitExercise'])
 		$exerciseId=$objExercise->selectId();
 
 		unset($_REQUEST['modifyExercise']);
-    unset($modifyExercise);
+		unset($modifyExercise);
 	}
 }
-// get all properties of the exercise before display of form or of resume
+	// get all properties of the exercise before display of form or of resume
 	$exerciseTitle		= $objExercise->selectTitle();
 	$exerciseDescription= $objExercise->selectDescription();
 	$exerciseType		= $objExercise->selectType();
 	$randomQuestions	= $objExercise->isRandom();
 	$maxTime			= $objExercise->get_max_time();
-  $maxTimeSec = $maxTime%60 ;
-  $maxTimeMin = ($maxTime-$maxTimeSec)/ 60;
-  
+	$maxTimeSec			= $maxTime%60 ;
+	$maxTimeMin 		= ($maxTime-$maxTimeSec)/ 60;
+	
 	$maxAttempt			= $objExercise->get_max_attempt();
 	$showAnswer			= $objExercise->get_show_answer();
-  $anonymousAttempts   = $objExercise->anonymous_attempts();
+	$anonymousAttempts  = $objExercise->anonymous_attempts();
     
-  // start date splitting
-  list($startDate, $startTime) = split(' ', $objExercise->get_start_date());
-    
-  // end date splitting
-  if($objExercise->get_end_date() == "9999-12-31 23:59:59")
-  {
-      $useEndDate = false;
-      $endDate = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
-      $endTime = date("H:i:00", mktime( date("H"),date("i"),0) );
-  }
-  else
-  {
-      $useEndDate = true;
-      list($endDate, $endTime) = split(' ', $objExercise->get_end_date());
-  }
+	// start date splitting
+	list($startDate, $startTime) = split(' ', $objExercise->get_start_date());
+	  
+	// end date splitting
+	if($objExercise->get_end_date() == "9999-12-31 23:59:59")
+	{
+		// if we don't have a date get the date of now + 1 year
+		$useEndDate = false;
+		$endDate = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
+		$endTime = date("H:i:00", mktime( date("H"),date("i"),0) );
+	}
+	else
+	{
+		// if we have a date separe date and time for the form functions
+		$useEndDate = true;
+		list($endDate, $endTime) = split(' ', $objExercise->get_end_date());
+	}
 
 
 // shows the form to modify the exercise
@@ -177,8 +179,47 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
 <tr>
   <td valign="top"><?php echo $langExerciseType; ?>&nbsp;:</td>
   <td><input type="radio" name="exerciseType" id="exerciseType1" value="1" <?php if($exerciseType <= 1) echo 'checked="checked"'; ?>> <label for="exerciseType1"><?php echo $langSimpleExercise; ?></label><br>
-      <input type="radio" name="exerciseType" id="exerciseType2" value="2" <?php if($exerciseType >= 2) echo 'checked="checked"'; ?>> <label for="exerciseType2"><?php echo $langSequentialExercise; ?></td></label>
+      <input type="radio" name="exerciseType" id="exerciseType2" value="2" <?php if($exerciseType >= 2) echo 'checked="checked"'; ?>> <label for="exerciseType2"><?php echo $langSequentialExercise; ?></label>
+  </td>
 </tr>
+<?php
+	if($exerciseId && $nbrQuestions)
+	{
+?>
+
+<tr>
+  <td valign="top"><label for="randomQuestions"><?php echo $langRandomQuestions; ?>&nbsp;:</label></td>
+  <td><input type="checkbox" name="randomQuestions" id="randomQuestions" value="1" <?php if($randomQuestions) echo 'checked="checked"'; ?>> <label for="randomQuestions"><?php echo $langYes; ?></label>, <label for="questionDrawn"><?php echo $langTake; ?></label>
+    <select name="questionDrawn" id="questionDrawn">
+
+<?php
+		for($i=1;$i <= $nbrQuestions;$i++)
+		{
+?>
+
+	<option value="<?php echo $i; ?>" <?php if(($formSent && $questionDrawn == $i) || (!$formSent && ($randomQuestions == $i || ($randomQuestions <= 0 && $i == $nbrQuestions)))) echo 'selected="selected"'; ?>><?php echo $i; ?></option>
+
+<?php
+		}
+?>
+
+	</select> <label for="questionDrawn"><?php echo strtolower($langQuestions).' '.$langAmong.' '.$nbrQuestions; ?></label>
+  </td>
+</tr>
+
+<?php
+	}
+
+	if( isset($_REQUEST['adv']) && $_REQUEST['adv'] == 'yes' )
+	{
+		// show advanced settings
+?>
+<tr>
+  <td colspan="2">
+  <b><?php echo $langAdvanced; ?></b>
+  </td>
+</tr>
+
 <!-- start date form -->
 <tr>
 
@@ -213,7 +254,7 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
   <input type="checkbox" name="exerciseMaxTime" id="exerciseMaxTime" value="1" <?php if($maxTime != 0) echo 'checked="checked"';?>>
   <label for="exerciseMaxTime"><?php echo $langYes; ?>, </label>
   <input type="text" name="exerciseMaxTimeMin" id="exerciseMaxTimeMin" size="3" maxlength="3" value="<?php echo $maxTimeMin; ?>">  <?php echo $langMinuteShort; ?>
-	<input type="text" name="exerciseMaxTimeSec" id="exerciseMaxTimeSec" size="2" maxlength="2" value="<?php echo $maxTimeSec; ?>"> <?php echo $langSecondShort; ?>
+  <input type="text" name="exerciseMaxTimeSec" id="exerciseMaxTimeSec" size="2" maxlength="2" value="<?php echo $maxTimeSec; ?>"> <?php echo $langSecondShort; ?>
   </td>
 </tr>
 
@@ -252,35 +293,11 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
     <label for="neverShowAnswer"><?php echo $langNo; ?></label><br />
   </td>
 </tr>
-<?php
-	if($exerciseId && $nbrQuestions)
-	{
-?>
-
-<tr>
-  <td valign="top"><label for="randomQuestions"><?php echo $langRandomQuestions; ?>&nbsp;:</label></td>
-  <td><input type="checkbox" name="randomQuestions" id="randomQuestions" value="1" <?php if($randomQuestions) echo 'checked="checked"'; ?>> <label for="randomQuestions"><?php echo $langYes; ?></label>, <label for="questionDrawn"><?php echo $langTake; ?></label>
-    <select name="questionDrawn" id="questionDrawn">
 
 <?php
-		for($i=1;$i <= $nbrQuestions;$i++)
-		{
+		// end of show advanced settings
+	} // "else" is after the table, put all values in hidden input
 ?>
-
-	<option value="<?php echo $i; ?>" <?php if(($formSent && $questionDrawn == $i) || (!$formSent && ($randomQuestions == $i || ($randomQuestions <= 0 && $i == $nbrQuestions)))) echo 'selected="selected"'; ?>><?php echo $i; ?></option>
-
-<?php
-		}
-?>
-
-	</select> <label for="questionDrawn"><?php echo strtolower($langQuestions).' '.$langAmong.' '.$nbrQuestions; ?></label>
-  </td>
-</tr>
-
-<?php
-	}
-?>
-
 <tr>
   <td colspan="2" align="center">
 	<input type="submit" name="submitExercise" value="<?php echo $langOk; ?>">
@@ -288,6 +305,66 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
   </td>
 </tr>
 </table>
+<?php
+	if( !isset($_REQUEST['adv']) || $_REQUEST['adv'] != 'yes' )
+	{
+		// if we do not show advanced settings form we have to put all the non asked values
+		// in hidden inputs
+	
+		// start date
+	    list($startYear, $startMonth, $startDay) = split("-", $startDate);
+		list($startHour, $startMinute) = split(":",$startTime);
+		// end date
+		list($endYear, $endMonth, $endDay) = split("-", $endDate);
+		list($endHour, $endMinute) = split(":",$endTime);
+		
+?>
+<!-- start date -->
+<input type="hidden" name="startYear" value="<?php echo $startYear; ?>" />
+<input type="hidden" name="startMonth" value="<?php echo $startMonth; ?>" />
+<input type="hidden" name="startDay" value="<?php echo $startDay; ?>" />
+<input type="hidden" name="startHour" value="<?php echo $startHour; ?>" />
+<input type="hidden" name="startMinute" value="<?php echo $startMinute; ?>" />
+<?php
+		if($useEndDate) 
+		{	
+?>
+<!-- end date -->
+<input type="hidden" name="useEndDate" value="1" />	
+<input type="hidden" name="endYear" value="<?php echo $endYear; ?>" />
+<input type="hidden" name="endMonth" value="<?php echo $endMonth; ?>" />
+<input type="hidden" name="endDay" value="<?php echo $endDay; ?>" />
+<input type="hidden" name="endHour" value="<?php echo $endHour; ?>" />
+<input type="hidden" name="endMinute" value="<?php echo $endMinute; ?>" />
+<?php	
+		} // end if $useEndDate
+		
+		if ( isset($maxTime) && $maxTime != 0 ) 
+		{
+?>
+<!-- max time -->
+<input type="hidden" name="exerciseMaxTime" value="true" />
+<input type="hidden" name="exerciseMaxTimeMin" value="<?php echo $maxTimeMin; ?>" />
+<input type="hidden" name="exerciseMaxTimeSec" value="<?php echo $maxTimeSec; ?>" />
+<?php
+		}
+?>
+<!-- max attempts -->
+<input type="hidden" name="exerciseMaxAttempt" value="<?php echo $maxAttempt; ?>" />
+<!-- anonymous attempts -->
+<input type="hidden" name="anonymousAttempts" value="<?php echo ($anonymousAttempts)?"YES":"NO";?>" />
+<!-- show answers -->
+<input type="hidden" name="exerciseShowAnswer" value="<?php echo $showAnswer; ?>" />
+<?php
+	} // end of if( !isset($_REQUEST['adv']) || $_REQUEST['adv'] != 'yes' )
+	else
+	{
+		// put 'adv' in hidden field so the cancel button will stay in advanced mode if needed
+?>
+<input type="hidden" name="adv" value="yes" />
+<?php
+	}
+?>
 </form>
 
 <?php
@@ -306,6 +383,7 @@ else
 <small>
 <ul>
   <li><?php echo $langExerciseType." : "; echo ($exerciseType >= 2)?$langSequentialExercise:$langSimpleExercise; ?></li>
+  <li><?php echo $langRandomQuestions." : "; echo ($randomQuestions)?$langYes:$langNo; ?></li>
   <li><?php echo $langExerciseOpening. " : ";  echo claro_disp_localised_date($dateTimeFormatLong,$objExercise->get_start_date('timestamp')); ?></li>
   <li><?php echo $langExerciseClosing." : "; 
                     if($useEndDate) 
@@ -357,11 +435,18 @@ else
     }
 ?>  
   </li>
-   <li><?php echo $langRandomQuestions." : "; echo ($randomQuestions)?$langYes:$langNo; ?></li>
 </ul>
 </small>
-<a href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=yes"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><small><?php echo $langEditExercise; ?></small></a>
-
+<small><?php echo $langEditExercise; ?> :
+<a href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=yes">
+<img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="">
+<?php echo $langSimple; ?>
+</a>
+<a href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=yes&adv=yes">
+<img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="">
+<?php echo $langAll; ?>
+</a>
+</small>
 <?php
 }
 ?>
