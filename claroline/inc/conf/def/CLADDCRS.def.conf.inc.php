@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * This file describe the parameter for CLDOC config file
+ * This file describe the parameter for Course creation tool config file
  * @author Christophe Gesché <moosh@claroline.net>
  * @version CLAROLINE 1.6
  * @copyright &copy; 2001-2005 Universite catholique de Louvain (UCL)
@@ -12,7 +12,7 @@
  */
 
 $conf_def['config_code']='CLADDCRS';
-$conf_def['config_name']='general setting for course creation';
+$conf_def['config_name']='General setting for course creation';
 $conf_def['config_file']='core.add_course.conf.php';
 $conf_def['old_config_file'][]='add_course.conf.php';
 // $conf_def['config_repository']=''; Disabled = includePath.'/conf'
@@ -43,7 +43,7 @@ array ('label'       => 'Default visibility for new course'
       );
 
 $conf_def_property_list['is_allowedToRestore'] = 
-array ('label'       => 'Autoriser le créateur de cours de restaurer une archive de cours'
+array ('label'       => 'All courses manager can create a course from an archive'
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
@@ -54,7 +54,7 @@ array ('label'       => 'Autoriser le créateur de cours de restaurer une archive
       );
 
 $conf_def_property_list['HUMAN_CODE_NEEDED'] = 
-array ('label'       => 'whether user can leave course code (officialCode) field empty'
+array ('label'       => 'Whether user can leave course code (officialCode) field empty'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
@@ -80,19 +80,19 @@ array ('label'       => 'whether user can leave email field empty'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'enabled'
+      ,'acceptedValue' => array ('TRUE'=>'Enabled'
                               ,'FALSE'=>'Disabled'
                               )
       );
 
 $conf_def_property_list['prefixAntiNumber'] = 
-array ('label'       => 'Ce préfixe est utilisé si le code commence par un chiffre'
+array ('label'       => 'This string is prepend to code if begin with a number'
       ,'default'     => 'No'
       ,'type'        => 'string'
       );
 
 $conf_def_property_list['prefixAntiEmpty'] = 
-array ('label'       => 'Ce préfixe sera utilisé si le code cours est vide'
+array ('label'       => 'Prefix for empty code course'
       ,'default'     => 'Course'
       ,'type'        => 'string'
       );
@@ -115,57 +115,57 @@ array ('label'       => 'Course creator can create a course from an archive'
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
       ,'display'     => FALSE
-      ,'acceptedValue' => array ('TRUE'=>'enabled'
+      ,'acceptedValue' => array ('TRUE'=>'Enabled'
                               ,'FALSE'=>'Disabled'
                               )
       );
 
 $conf_def_property_list['sendByUploadAivailable'] = 
 array ('label'       => 'Course creator can upload an archive to restore as new course'
-      ,'description' => 'is_allowedToRestore must be enabled' 
+      ,'description' => 'is_allowedToRestore must be Enabled' 
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
       ,'display'     => FALSE
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'enabled'
+      ,'acceptedValue' => array ('TRUE'=>'Enabled'
                                 ,'FALSE'=>'Disabled'
                               )
       );
 
 $conf_def_property_list['sendByLocaleAivailable'] = 
-array ('label'       => 'restaurer une archive de cours stockées sur le serveur'
-      ,'description' => 'is_allowedToRestore must be enabled' 
+array ('label'       => 'Course manager can restore a local archive'
+      ,'description' => 'is_allowedToRestore must be Enabled' 
       ,'default'     => 'FALSE'
       ,'display'     => FALSE
       ,'type'        => 'boolean'
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'enabled'
+      ,'acceptedValue' => array ('TRUE'=>'Enabled'
                               ,'FALSE'=>'Disabled'
                               )
       );
 
 $conf_def_property_list['sendByHTTPAivailable'] = 
-array ('label'       => 'restaurer une archive de cours présente sur un autre serveur web'
-      ,'description' => 'is_allowedToRestore must be enabled' 
+array ('label'       => 'Course manager can restore an archive from the web'
+      ,'description' => 'is_allowedToRestore must be Enabled' 
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
       ,'display'     => FALSE
       ,'readonly'    => TRUE
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'enabled'
+      ,'acceptedValue' => array ('TRUE'=>'Enabled'
                               ,'FALSE'=>'Disabled'
                               )
       );
 
 $conf_def_property_list['sendByFTPAivailable'] = 
 array ('label'       => 'Restaurer une archive de cours présente sur un serveur FTP'
-      ,'description' => 'is_allowedToRestore must be enabled' 
+      ,'description' => 'is_allowedToRestore must be Enabled' 
       ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
       ,'display'     => FALSE
       ,'readonly'    => TRUE
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('TRUE'=>'enabled'
+      ,'acceptedValue' => array ('TRUE'=>'Enabled'
                               ,'FALSE'=>'Disabled'
                               )
       );
