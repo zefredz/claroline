@@ -23,26 +23,35 @@
  * to generate a new one.
  */
 
-$langFile = "registration";
 require '../inc/claro_init_global.inc.php';
+
 $nameTools = $langLostPassword;
 
-/*
- * DB tables definition
- */
+// DB tables definition
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
 
+// library for authentification and mail
 include($includePath.'/lib/auth.lib.inc.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
-// initialise variables
+// Initialise variables
 
 $passwordFound = FALSE;
+$msg = "";
 
-if (isset($_REQUEST['searchPassword']) )
-{
-	$Femail = strtolower(trim($Femail));
+// Get the forgotten email from the form
+
+if ( isset ($_REQUEST['Femail']) ) $Femail = strtolower(trim($_REQUEST['Femail']));
+else $Femail = "";
+
+// Main section
+
+if (isset($_REQUEST['searchPassword']) && !empty($Femail) )
+{  
+
+    // search user with this email
+
 	$sql = 'SELECT  `user_id` AS `uid`, 
 					`nom` AS `lastName`, 
 					`prenom` AS `firstName`, 
@@ -51,7 +60,7 @@ if (isset($_REQUEST['searchPassword']) )
 					`email`, 
 					`creatorId`
 	         FROM `'.$tbl_user.'`
-	         WHERE LOWER(email) LIKE "'.claro_addslashes($_REQUEST['Femail']).'"
+	         WHERE LOWER(email) LIKE "'. claro_addslashes($Femail) .'"
 	               AND   `email` != "" ';
 	$result = claro_sql_query($sql);
 
@@ -88,13 +97,11 @@ if (isset($_REQUEST['searchPassword']) )
 			 * Prepare the email message wich has to be send to the user
 			 */
 
-      // SUBJECT
-
+            // mail subject
 			$emailSubject = $langLoginRequest." ".$siteName;
 
 
-			// BODY
-
+			// mail body
 			foreach($user as $thisUser)
 			{
 				$userAccountList [] = $thisUser['firstName']." ".$thisUser['lastName']."\r\n\r\n"
@@ -112,24 +119,22 @@ if (isset($_REQUEST['searchPassword']) )
 			            .$langYourAccountParam."\r\n\r\n"
 			            .$userAccountList;
 
-			// SEND MESSAGE
-
-      $emailTo = $user[0]['uid'];
+			// send message
+            $emailTo = $user[0]['uid'];
       
-      if( claro_mail_user($emailTo, $emailBody, $emailSubject) )
+            if( claro_mail_user($emailTo, $emailBody, $emailSubject) )
 			{
 				$msg = $langPasswordHasBeenEmailed.$Femail;
 			}
 			else
 			{
 				$msg = $langEmailNotSent
-                .	'<a href="mailto:'.$administrator["email"].'?BODY='.$_REQUEST['Femail'].'">'
+                .	'<a href="mailto:'.$administrator["email"].'?BODY='.$Femail.'">'
                 .	$langPlatformAdministrator
                 .	"</a>";
-			}
-			
+			}	
 
-		}				// end if mysql_num_rows($result) > 0
+		} 	// end if mysql_num_rows($result) > 0
 		else
 		{
 			$msg = $langEmailAddressNotFound;
@@ -140,14 +145,24 @@ else
 {
 	$msg = "<p>".$langEnterMail."</p>";
 }
+
+// display section
+
 include($includePath.'/claro_init_header.inc.php');
+
+// display title
+
 claro_disp_tool_title($nameTools);
- if ($msg) claro_disp_message_box($msg);
 
+// display message box
 
+if ( ! empty($msg)) claro_disp_message_box($msg);
+
+// display form
 
 if ( ! $passwordFound)
-{ ?>
+{ 
+?>
 <br />
 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 <input type="hidden" name="searchPassword" value="1">
@@ -171,7 +186,6 @@ if ( ! $passwordFound)
 </table>
 </fieldset>
 </form>
-
 <?php
 }
 
