@@ -29,8 +29,8 @@ $currentUserFirstName       = $_user['firstName'];
 $currentUserLastName        = $_user['lastName'];
 
 
-if ( !$_cid ) claro_disp_select_course();
-if ( ! $is_courseAllowed)	claro_disp_auth_form();
+if ( ! $_cid ) claro_disp_select_course();
+if ( ! $is_courseAllowed )	claro_disp_auth_form();
 
 event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
@@ -40,7 +40,8 @@ include($includePath."/lib/fileUpload.lib.php");
 include($includePath."/lib/fileDisplay.lib.php"); // need format_url function
 include($includePath."/lib/fileManage.lib.php"); // need my_delete
 
-
+// use viewMode
+claro_set_display_mode_available(true);
 
 /*============================================================================
                      BASIC VARIABLES DEFINITION
@@ -56,7 +57,7 @@ $wrkDir           = $currentCourseRepositorySys.'work/'; //directory path to cre
 $allowedTags = '<img>';
 
 // permission
-$is_allowedToEdit           = $is_courseAdmin;
+$is_allowedToEdit = claro_is_allowed_to_edit();
 
 /*============================================================================
                      CLEAN INFORMATIONS SEND BY USER

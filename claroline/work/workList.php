@@ -47,7 +47,8 @@ include($includePath."/lib/fileUpload.lib.php");
 include($includePath."/lib/fileDisplay.lib.php"); // need format_url function
 include($includePath."/lib/learnPath.lib.inc.php");
 
-
+// use viewMode
+claro_set_display_mode_available(true);
 
 /*============================================================================
                      BASIC VARIABLES DEFINITION
@@ -220,7 +221,7 @@ else
 
 // can make everything : submit, edit, delete
 // IF course admin or platform admin
-$is_allowedToEditAll  = (bool) $is_courseAdmin;
+$is_allowedToEditAll  = (bool) claro_is_allowed_to_edit();
 
 
 //-- is_allowedToEdit
