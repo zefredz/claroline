@@ -1,9 +1,8 @@
 <?php // $Id$
-
 //----------------------------------------------------------------------
 // CLAROLINE 1.6.*
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -140,6 +139,27 @@ CREATE TABLE `rel_class_user` (
   `class_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM";
+claro_sql_query($sql);
+$sql ="
+CREATE TABLE `config_property` (
+  `id_property`  int(11) unsigned NOT NULL auto_increment,
+  `propName`     varchar(100) NOT NULL,
+  `propValue`    varchar(255) NOT NULL,
+  `creationDate` timestamp(14) NOT NULL,
+  `lastChange`   timestamp(14) NOT NULL,
+  `config_code`  varchar(30) NOT NULL,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM COMMENT='contain config value of platform'; 
+";
+claro_sql_query($sql);
+$sql ="
+CREATE TABLE `config_rel_tool_config` (
+  `id_rel_tool_config` int(11) unsigned NOT NULL auto_increment,
+  `claro_label`        varchar(8) NOT NULL,
+  `config_code`        varchar(30) NOT NULL,
+  PRIMARY KEY  (`id_rel_tool_config` )
+) TYPE=MyISAM AVG_ROW_LENGTH=30; 
+";
 claro_sql_query($sql);
 	
 ?>
