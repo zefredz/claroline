@@ -254,32 +254,35 @@ if($is_allowedToEdit) // check teacher status
 
         /* SEND EMAIL (OPTIONAL) */
 
-		if($emailOption==1)
+	if($emailOption==1)
         {
-            $emailContent= stripslashes(strip_tags($newContent));
 
-            $emailSubject = "[".$siteName."-".$courseIdCode."] ".$emailTitle;
+	    // announcement variables
 
-            if (trim($_REQUEST['title'])) $emailSubject .= $_REQUEST['title'];
-            else                         $emailSubject = $professorMessage;
+	    $msgTitle   = trim($_REQUEST['title']);
+	    $msgContent = stripslashes(strip_tags($newContent));
 
-            $courseIdTitular =  addslashes($_user ['firstName'].' '.$_user ['lastName'])
-                               ." <".$_user ['mail'].">";
+	    // sender name and email
 
-            $errormanager = $administrator['email'];
+	    $courseSender =  $_user['firstName'] . ' ' . $_user['lastName'];
+	    $courseEmailSender =   addslashes($courseSender) . " <" .$_user['mail'] . ">";
+            $errorManager = $administrator['email'];
 
             // Here we are forming one large header line
             // Every header must be followed by a \n except the last
 
-            $emailHeaders  = 'From: '.$writer."\n";
-            $emailHeaders .= 'Reply-To: "['.$courseIdCode.']'.addslashes($courseIdTitular).'" <'.$HTTP_SESSION_VARS['email'].">\n";
-            $emailHeaders .= 'Return-path: '.$errormanager."\n";
-            $emailHeaders .= 'Errors-To: '.$errormanager."\n";
+            $emailHeaders  = 'From: ' . $courseEmailSender . "\n";
+            $emailHeaders .= 'Reply-To: '. $courseEmailSender ."\n";
+            $emailHeaders .= 'Return-path: '.$errorManager."\n";
+            $emailHeaders .= 'Errors-To: '.$errorManager."\n";
             $emailHeaders .= "MIME-Version: 1.0\n";
-            //$emailHeaders .= "Content-Type: text/html; charset=".$charset."\n";
             $emailHeaders .= "X-Priority: 2\n";
             $emailHeaders .= "X-Mailer: PHP / ".phpversion()."\n";
             $emailHeaders .= "Comments: Announcement email ";
+            
+	    // email subject
+
+	    $emailSubject = "[" . $siteName. " - " . $_course['officialCode'] . "] " . $messageTitle;
 
             // Select students email list
 
@@ -294,8 +297,8 @@ if($is_allowedToEdit) // check teacher status
 
             // Email syntax test
             $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
-
             $unvalid=0;
+
             // send email one by one to avoid antispam
             while ( $myrow = mysql_fetch_array($result) )
             {
@@ -307,7 +310,15 @@ if($is_allowedToEdit) // check teacher status
                     $unvalid++;
                 }
 
-                $emailBody = $myrow['prenom'].' '.$myrow['nom']."\n\n".$emailContent." \n\n-- \n".$writer."\n".$courseIdCode."\n".$siteName."\n(".$emailTitle.')';
+                $emailBody = $myrow['prenom'].' '.$myrow['nom'].",\n" .
+                             "\n" .
+                             $msgContent . "\n" .
+                             "\n" .
+                             '--' . "\n" . 
+                             $courseSender . "\n" . 
+                             $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" . 
+                             $siteName . "\n". 
+                             '('. $msgTitle . ')';
                 @mail($emailTo, $emailSubject, $emailBody, $emailHeaders);
             }
 
@@ -397,7 +408,7 @@ if ($displayForm)
             "<td valign=\"top\"><label for=\"newContent\">Content	: </label></td>",
             "<td>",
 
-            claro_disp_html_area('newContent', $announcementToEdit ? $announcementToEdit['content'] : '', 12, 67, $optAttrib=' wrap="virtual"');
+            claro_disp_html_area('newContent', $announcementToEdit ? $announcementToEdit['content'] : '',12,67, $optAttrib=' wrap="virtual"');
 
    echo    "</td>",
            "</tr>\n",

@@ -245,11 +245,14 @@ if($is_allowedToUse)	// check teacher status
 
 			if ($emailResult)
 			{
+				$i = 0;
 				while ($e = mysql_fetch_array($emailResult))
 				{
 					if(eregi('^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,3})$', $e['email'] ))
 					{
-						$emailList [] = $e['firstName'].' '.$e['lastName'].' <'.$e['email'].'>';
+						$userList[$i]['name'] = $e['firstName'].' '.$e['lastName'];
+						$userList[$i]['email'] = $e['firstName'].' '.$e['lastName'].' <'.$e['email'].'>';
+						$i++;
 					}
 					else
 					{
@@ -260,9 +263,9 @@ if($is_allowedToUse)	// check teacher status
 		} // end if userIdList
 		
 
-		//we´ll	send the differents mails
+		//well	send the differents mails
 		
-		 if( count($emailList) > 0)
+		 if( count($userList) > 0)
 		 {
 			/* 
 			 * Prepare	email
@@ -271,12 +274,18 @@ if($is_allowedToUse)	// check teacher status
 			 * Every header	must be	followed by	a \n except the	last
 			 */
 
-			$emailSubject = $courseCode." - ".$professorMessage;
+			$emailSubject = "[" . $siteName . " - " . $courseCode ."] " . $professorMessage;
 		
 			$emailHeaders = "From:	".$senderFirstName." ".$senderLastName." <".$senderMail.">\n"
 			               ."Reply-To:	".$senderMail;
 
-			$emailContent = stripslashes($emailContent);
+			$emailContent = stripslashes($_REQUEST['emailContent']) . "\n" .
+					"\n" . 
+                                        '--' . "\n" . 
+                                        $senderFirstName . " " . $senderLastName . "\n" .
+                                        $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" .
+					$siteName . "\n".
+                                        '('. $professorMessage . ')';
 
 			/*
 			 * Send	email one by one to	avoid antispam
@@ -284,15 +293,15 @@ if($is_allowedToUse)	// check teacher status
 
 			$students='';  //MIGUEL: STUDENTS LIST FOR TEACHER MESSAGE
 		
-			foreach($emailList as $emailTo)
+			foreach($userList as $user)
 			{
 				//AVOID ANTISPAM BY	VARYING STRING
 
-				$emailBody = $courseName." \n"
-							.$emailTo."\n\n"
-							.$emailContent; 
+				$emailBody = $user['name']. ",\n" . 
+                                             "\n" .
+					     $emailContent; 
 
-				@mail($emailTo,	$emailSubject, $emailBody, $emailHeaders);		
+				@mail($user['email'],$emailSubject, $emailBody, $emailHeaders);		
 			}
 		 }
 
@@ -302,7 +311,7 @@ if($is_allowedToUse)	// check teacher status
 		{
 			$messageUnvalid	= '<p>'
 			                 .$langOn.'	'
-			                 .count($emailList) + count($invalidMailUserList) .' '
+			                 .count($userList) + count($invalidMailUserList) .' '
 			                 .$langSelUser.',	'.$unvalid.' '.$langUnvalid
 			                 .'<br><small>('
 			                 .implode(', ', $invalidMailUserList)
