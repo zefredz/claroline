@@ -29,8 +29,7 @@ if(isset($_cid))
 {
 ?>
 <div id="courseManager">
-<?php printf($lang_footer_p_CourseManager, $_course['officialCode'])?> 
-:
+<?php printf($lang_footer_p_CourseManager, $_course['officialCode'])?> :
 <a href="<?php echo (empty($_course['email'])?$clarolineRepositoryWeb."user/user.php":"mailto:".$_course['email']."?body=".$_course['officialCode']."&amp;subject=[".rawurlencode($siteName)."]") ?>"><?php echo $_course['titular'] ?></a>
 </div>
 <?php
@@ -38,12 +37,12 @@ if(isset($_cid))
 ?>
 
 <div id="platformManager">
-<?php printf($lang_p_platformManager,$siteName); ?> : <a href="mailto:<?php echo $administrator_email."?body=".$_course['officialCode']."&amp;subject=[".rawurlencode($siteName)."]" ?>">
-<?php echo $administrator_name ?></a>
+<?php printf($lang_p_platformManager,$siteName); ?> : 
+<a href="mailto:<?php echo $administrator_email."?body=".$_course['officialCode']."&amp;subject=[".rawurlencode($siteName)."]" ?>"><?php echo $administrator_name ?></a>
 </div>
 
 <div id="poweredBy">
-<?php echo $langPoweredBy ?> <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2004
+<?php echo $langPoweredBy ?> <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2005
 </div>
 
 </div>
