@@ -128,10 +128,6 @@ switch ($display)
 			@include("repairTables.sql.php");
 		 	include("upgradeContentBaseOfACourse.sql.php");
 			
-			// move files
-			include("moveVideo.php");		
-			include("moveStat.php");	
-			
 			@mysql_query ( "SET @currentCourseCode := '".$currentCourseIDsys."'");
 		
 			echo "<p>".++$nbCourseUpgraded .
