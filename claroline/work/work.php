@@ -40,8 +40,6 @@ $langFile = "work";
 
 $tlabelReq = "CLWRK___";
 include('../inc/claro_init_global.inc.php');
-if (!isset($_tid)) $_tid= $tidReq; // remove this line when claro_local_init do this job
-if (!isset($course_tool)) $course_tool['id']= 7; // remove this line when claro_local_init do this job
 
 
 include($includePath.'/lib/events.lib.inc.php');
@@ -65,7 +63,7 @@ $currentUserLastName        = $_user['lastName'];
 
 $nameTools = $langWorks;
 include($includePath.'/claro_init_header.inc.php');
-if (!($_cid)) 	claro_disp_select_course();
+//if (!$_cid) 	claro_disp_select_course();
 if ( ! $is_courseAllowed)
 	claro_disp_auth_form();
 event_access_tool($nameTools);
