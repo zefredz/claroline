@@ -23,10 +23,10 @@ include 'functions.php';
 include 'config.php';
 require 'auth.php';
 $pagetitle = $l_indextitle;
-$pagetype = 'index';
+$pagetype  = 'index';
 include 'page_header.php';
 
-$is_forumAdmin = $is_courseAdmin || $is_platformAdmin;
+$is_forumAdmin = $is_courseAdmin;
 
 //stats
 include $includePath.'/lib/events.lib.inc.php';
@@ -45,31 +45,31 @@ $total_categories = count($categories);
 
 // GET FORUMS DATA
 
-if( ! $viewcat )    $viewcat = -1;
+if( ! $viewcat    ) $viewcat = -1;
 if( $viewcat != -1) $limit_forums = 'WHERE f.cat_id = '.$viewcat;
 else                $limit_forums = '';
 
 $sql = "SELECT f.*, u.username, u.user_id, p.post_time, g.id gid
-          FROM `".$tbl_forums."` f
-          LEFT JOIN `".$tbl_posts."` p 
-                 ON p.post_id = f.forum_last_post_id
-          LEFT JOIN `".$tbl_users."` u 
-                 ON u.user_id = p.poster_id
-          LEFT JOIN `".$tbl_student_group."` g 
+        FROM `".$tbl_forums."` f
+        LEFT JOIN `".$tbl_posts."` p 
+               ON p.post_id = f.forum_last_post_id
+        LEFT JOIN `".$tbl_users."` u 
+               ON u.user_id = p.poster_id
+        LEFT JOIN `".$tbl_student_group."` g 
                  ON g.forumId = f.forum_id
           ".$limit_forums."
-          ORDER BY f.forum_order, f.cat_id, f.forum_id ";
+        ORDER BY f.forum_order, f.cat_id, f.forum_id ";
 
 $forumList = claro_sql_query_fetch_all($sql);
 
 
 // GET FORUM IDS OF CURRENT USER 
 
-$sql ="SELECT `g`.`forumId`
-       FROM `".$tbl_student_group."` `g`,
+$sql = "SELECT `g`.`forumId`
+        FROM `".$tbl_student_group."` `g`,
            `".$tbl_user_group."` `gu`
-       WHERE `g`.`id`    = `gu`.`team`
-         AND `gu`.`user` = '".$_uid."'";
+        WHERE `g`.`id`    = `gu`.`team`
+          AND `gu`.`user` = '".$_uid."'";
 
 $curUserGroupList = claro_sql_query_fetch_all_cols($sql);
 $curUserGroupList = $curUserGroupList['forumId'];
@@ -104,8 +104,8 @@ for($i = 0; $i < $total_categories; $i++)
 
                 ."<tr class=\"headerX\" align=\"center\">"
                 ."<th colspan=\"2\" align=\"left\"><small>".$l_forum."</small></th>\n"
-                ."<th><small>".$l_topics."</small></th>\n"
-                ."<th><small>".$l_posts."</small></th>\n"
+                ."<th><small>".$l_topics  ."</small></th>\n"
+                ."<th><small>".$l_posts   ."</small></th>\n"
                 ."<th><small>".$l_lastpost."</small></th>\n"
                 ."</tr>\n\n";
 
@@ -115,14 +115,16 @@ for($i = 0; $i < $total_categories; $i++)
 
     $title = stripslashes( $categories[$i]['cat_title'] );
 
-    /*
-     * Added by Thomas for Claroline :
-     * distinguish group forums from others
+    /* ADDED FOR CLAROLINE :distinguish group forums category from others.
+     * For now, the group forums category id is '1'. But, this device should 
+     * change for something cleaner.
      */
 
-    $catNum = $categories[$i]['cat_id'];
+    $goupForumCategory = $categories[$i]['cat_id'] == 1 ? true : false;
 
-    /* category title */
+    /*
+     * CATEGORY BANNER
+     */
 
     echo "<tr align=\"left\" valign=\"top\">\n\n"
         ."<th colspan=\"7\" class=\"superHeader\">\n"
@@ -132,30 +134,28 @@ for($i = 0; $i < $total_categories; $i++)
 
         ."<tr class=\"headerX\" align=\"center\">"
         ."<th colspan=\"2\" align=\"left\">".$l_forum."</td>"
-        ."<th>".$l_topics."</th>"
-        ."<th>".$l_posts."</th>"
+        ."<th>".$l_topics  ."</th>"
+        ."<th>".$l_posts   ."</th>"
         ."<th>".$l_lastpost."</th>"
         ."</tr>\n\n";
 
-    reset($forumList);
-
-    for($x = 0; $x < count($forumList); $x++)
+    foreach($forumList as $thisForum)
     {
-        unset($last_post);
-
-        if( $forumList[$x]['cat_id'] == $categories[$i]['cat_id'] )
+        if( $thisForum['cat_id'] == $categories[$i]['cat_id'] )
         {
-            if($forumList[$x]['post_time'])
-            {
-                $last_post = $forumList[$x]['post_time'];
-            }
+            $name         = stripslashes($thisForum['forum_name']);
+            $desc         = stripslashes($thisForum['forum_desc']);
+            $forumId      = $thisForum['forum_id'    ];
+            $total_topics = $thisForum['forum_topics'];
+            $total_posts  = $thisForum['forum_posts' ];
+            $last_post    = $thisForum['post_time'   ];
 
             if ( empty($last_post) ) $last_post = $langNoPost;
 
             echo "<tr align=\"left\" valign=\"top\">\n\n";
 
-            if( datetime_to_timestamp($forumList[$x]['post_time']) > $last_visit 
-                && $last_post != 'No Posts' )
+            if(    $last_post != 'No Posts'
+                && datetime_to_timestamp($last_post) > $last_visit )
             {
                 $forumImg = 'red_folder.gif';
             }
@@ -168,19 +168,12 @@ for($i = 0; $i < $total_categories; $i++)
                 ."<img src=\"".$clarolineRepositoryWeb."img/".$forumImg."\">\n"
                 ."</td>\n";
 
-            $name         = stripslashes($forumList[$x]['forum_name']);
-            $total_posts  = $forumList[$x]['forum_posts'];
-            $total_topics = $forumList[$x]['forum_topics'];
-            $desc         = stripslashes($forumList[$x]['forum_desc']);
 
-            echo	"<td>\n";
+            echo "<td>\n";
 
-            $forum = $forumList[$x]['forum_id'];
 
-            /*
-             * Claroline feature added by Thomas July 2002
-             * Visit only my group forum if not admin or tutor
-             * If tutor, see all groups but indicate my groups
+            /* ADDED FOR CLAROLINE : Visit only my group forum if not admin or 
+             * tutor.If tutor, see all groups but indicate my groups.
              */
 
 
@@ -190,13 +183,12 @@ for($i = 0; $i < $total_categories; $i++)
 
             if($tutorCheck == 1)
             {
-                echo "<a href=\"viewforum.php?gidReq=".$forumList[$x]['gid']
-                    ."&forum=".$forumList[$x]['forum_id']
-                    ."&",$total_posts,"\">"
+                echo "<a href=\"viewforum.php?gidReq=".$thisForum['gid']
+                    ."&forum=".$forumId."\">"
                     .$name
                     ."</a>\n";
 
-                if ( in_array($forum, $tutorGroupList['forumId']) )
+                if ( in_array($forumId, $tutorGroupList['forumId']) )
                 {
                     echo "&nbsp;(".$langOneMyGroups.")";
                 }
@@ -209,9 +201,8 @@ for($i = 0; $i < $total_categories; $i++)
 
             elseif($is_forumAdmin)
             {
-                echo "<a href=\"viewforum.php?gidReq=",$forumList[$x]["gid"]
-                    ."&forum=",$forumList[$x]['forum_id']
-                    ."&",$total_posts,"\">"
+                echo "<a href=\"viewforum.php?gidReq=",$thisForum['gid']
+                    ."&forum=".$forumId."\">"
                     .$name
                     ."</a>\n";
             }
@@ -221,38 +212,29 @@ for($i = 0; $i < $total_categories; $i++)
                           STUDENT VIEW
               --------------------------------------*/
 
-            elseif($catNum == 1)
+            elseif($goupForumCategory)
             {
-                if (in_array($forum, $curUserGroupList)) // this  cond  must change.
+                if (in_array($forumId, $curUserGroupList)) // this  cond  must change.
                 {
-                    echo "<a href=\"viewforum.php?gidReq=",$forumList[$x]["gid"]
-                        ."&forum=",$forumList[$x]["forum_id"]
-                        ."&$total_posts\">"
+                    echo "<a href=\"viewforum.php?gidReq=".$thisForum['gid']
+                        ."&forum=".$forumId."\">"
                         .$name
                         ."</a>\n"
-                        ."&nbsp;&nbsp;(",$langMyGroup,")\n";
+                        ."&nbsp;&nbsp;(".$langMyGroup.")\n";
                 }
                 else
                 {
-                    if($privProp == 1)
-                    {
-                        echo $name;
-                    }
-                    else
-                    {
-                        echo "<a href=\"viewforum.php?gidReq=",$forumList[$x]['gid']
-                            ."&forum=",$forumList[$x]['forum_id']
-                            ."&$total_posts\">"
-                            .$name
-                            ."</a>\n";
-                    }
+                    if($privProp == 1) echo $name;
+
+                    else echo "<a href=\"viewforum.php?gidReq=".$thisForum['gid']
+                             ."&forum=".$forumId."\">"
+                             .$name
+                             ."</a>\n";
                 }
             }
             else // OTHER FORUMS ...
             {
-                echo "<a href=\"viewforum.php?gidReq=",$forumList[$x]['gid']
-                    ."&forum=",$forumList[$x]['forum_id']
-                    ."&$total_posts\">"
+                echo "<a href=\"viewforum.php?forum=".$forumId."\">"
                     .$name
                     ."</a> ";
             }
@@ -272,7 +254,7 @@ for($i = 0; $i < $total_categories; $i++)
                 ."<small>".$last_post."</small>"
                 . "</td>\n";
 
-            $forum_moderators = get_moderators($forumList[$x]['forum_id'], $db);
+            //$forum_moderators = get_moderators($forumId, $db);
 
             echo "</tr>\n";
         }
