@@ -89,7 +89,7 @@ SELECT
  `pictureUri` `actual_ImageFile`
 	        FROM `".$tbl_user."`
 	        WHERE `user_id` = '".$_uid."'";
-	$res_ActualUserInfo = @mysql_query($sql_ActualUserInfo) or die(mysql_error());
+	$res_ActualUserInfo  = @mysql_query($sql_ActualUserInfo) or die(mysql_error());
 	$data_ActualUserInfo = mysql_fetch_array($res_ActualUserInfo,MYSQL_ASSOC);
 
 	/*
@@ -423,22 +423,22 @@ echo	"<table>\n",
 
 		"<tr>\n",
 
-		"<td align=\"right\"><label for=\"form_lastName\" >",$langName,"</label> : </td>\n",
+		"<td align=\"right\"><label for=\"form_lastName\" >",$langLastname,"</label> : </td>\n",
 
 		"<td valign=\"middle\">\n",
 			"<input type=\"text\" size=\"40\" id=\"form_lastName\" name=\"form_lastName\" value=\"".$form_lastName."\">\n",
-		"</td>\n";
-
-echo	"</tr>\n",
-
-		"<tr>\n",
-		"<td  align=\"right\">\n<label for=\"form_firstName\">",
-		$langSurname,"</label> : \n",
 		"</td>\n",
-		"<td >\n",
-		"<input type=\"text\" size=\"40\" name=\"form_firstName\" id=\"form_firstName\" value=\"",$form_firstName,"\">\n",
-		"</td>\n",
-		"</tr>\n";
+
+    	"</tr>\n",
+
+        "<tr>\n",
+        "<td  align=\"right\">\n<label for=\"form_firstName\">",
+        $langFirstname,"</label> : \n",
+        "</td>\n",
+        "<td >\n",
+        "<input type=\"text\" size=\"40\" name=\"form_firstName\" id=\"form_firstName\" value=\"",$form_firstName,"\">\n",
+        "</td>\n",
+        "</tr>\n";
 
 if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 {
