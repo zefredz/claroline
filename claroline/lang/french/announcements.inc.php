@@ -7,33 +7,13 @@
       +----------------------------------------------------------------------+
       |   $Id$   |
       +----------------------------------------------------------------------+
-
-      +----------------------------------------------------------------------+
- */
+*/
 
 
-/***************************************************************
-*                   Language translation
-****************************************************************
-GOAL
-****
-Translate the interface in chosen language
-
-*****************************************************************/
-
-// GENERIC
-
-$langModify   = "modifier";
-$langDelete   = "supprimer";
-$langTitle    = "Titre";
-$langHelp     = "aide";
-$langOk       = "valider";
-$langAddIntro = "Ajouter un texte d'introduction";
-$langBackList = "Retourner à la liste";
 $langSelMess  = "Alertes à certains utilisateurs";
 
-$langUp = "monter";
-$langDown = "descendre";
+$langUp = "Monter";
+$langDown = "Descendre";
 
 // ANNOUCEMENTS
 $langAn ="Annonces";
@@ -51,10 +31,8 @@ $langContent="Contenu";
 $langEmptyAnn="Vider complètement les annonces";
 $professorMessage="Message de votre professeur";
 $langEmailSent=" et envoyée par courriel aux étudiants inscrits";
-$langNo="Non";
-$langYes="Oui";
 $langEmailOption="Envoyer cette annonce par courriel aux étudiants";
-
+$langNoAnnouncement = "Aucune annonce.";
 $langOn="Sur";
 $langRegUser="utilisateurs inscrits";
 $langUnvalid="ont une adresse courriel non valide ou n'ont pas d'adresse";
