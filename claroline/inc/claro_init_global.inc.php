@@ -104,7 +104,7 @@ else
 
     if (isset($course_homepage) && $course_homepage == TRUE)
     {
-        $langFile = 'claroline_course_home_course_home.lang.php';
+        $languageFilename = 'claroline_course_home';
     } 
     else
     {
@@ -113,19 +113,34 @@ else
 	     */
 	
 	    // build lang file of the tool    
-	    $langFile = str_replace ($urlAppend.'/','',$_SERVER['PHP_SELF']);
-	    $langFile = str_replace("/","_", $langFile);
-	    $langFile = str_replace('.php','.lang.php',$langFile);
+	    $languageFilename = str_replace ($urlAppend.'/','',$_SERVER['PHP_SELF']);
+
+        $pos = strpos($languageFilename,'claroline/');
+
+        if ($pos === FALSE || $pos != 0)
+        {
+            // if the script isn't in the claroline folder the language file base name is index
+            $languageFilename = 'index';
+        }
+        else
+        {
+            // else language file basename is like claroline_folder_subfolder_...
+            $languageFilename = dirname($languageFilename);
+            $languageFilename = str_replace('/','_',$languageFilename);
+        }
     }
+    
+    // add extension to file
+    $languageFile = $languageFilename.'.lang.php'; 
 	    
-    include($includePath.'/../lang/english/'.$langFile);
+    include($includePath.'/../lang/english/'.$languageFile);
 	
     // load previously english file to be sure every $lang variable
     // have at least some content
 
     if ($languageInterface  != 'english')
     {
-        @include($includePath.'/../lang/'.$languageInterface.'/'.$langFile);
+        @include($includePath.'/../lang/'.$languageInterface.'/'.$languageFile);
     }
     
 }
