@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -33,9 +33,9 @@ function backupDatabase($link,$sysCode,&$dir)
 
     global $courseTablePrefix,$dbGlu;
 
-    $db_name=$arrayCourse[0]["dbName"];
+    $db_name=$arrayCourse[0]['dbName'];
 
-    $tbl_rel_usergroup = $courseTablePrefix.$db_name.$dbGlu."group_rel_team_user";
+    $tbl_rel_usergroup = $courseTablePrefix.$db_name.$dbGlu.'group_rel_team_user';
 
     if (!is_resource($link))
         return false;
@@ -482,7 +482,7 @@ function createSelectBoxLanguage($selected=NULL)
 function languageExist()
 {
 	global $clarolineRepositorySys;
-	$dirname = $clarolineRepositorySys."lang/";
+	$dirname = $clarolineRepositorySys.'lang/';
 
 	if($dirname[strlen($dirname)-1]!='/')
 		$dirname.='/';
@@ -564,17 +564,17 @@ function BuildEditableCatTable($selectedCat = null, $separator = "&gt;")
 }
 
 /**
-  * Recursive function to get the full categories path of a specified categorie
-  *
-  * @param table of all the categories, 2 dimension tables, first dimension for cat codes, second for names, 
-  *  parent's cat code. 
-  * @param the categorie we want to have its full path from root categorie
-  * 
-  * 
+ * function getFullPath($categories, $catcode = NULL, $separator = ' &gt; ')
+ * Recursive function to get the full categories path of a specified categorie
+ *
+ * @param table of all the categories, 2 dimension tables, first dimension for cat codes, second for names, 
+ *  parent's cat code. 
+ * @param $catcode   string the categorie we want to have its full path from root categorie
+ * @param $separator string 
   */
 
  
-function getFullPath($categories, $catcode = null, $separator = " &gt; ")
+function getFullPath($categories, $catcode = NULL, $separator = ' &gt; ')
 {
 	//Find parent code
 	
