@@ -292,7 +292,7 @@ else
                     //e.g. registered by a teacher
                     //do nothing (code may be added later)
                     $sql = "UPDATE `".$tbl_user."`
-                            SET creatorId=user_id
+                            SET   creatorId = user_id
                             WHERE user_id='".$_uid."'";
 
                     claro_sql_query($sql);
@@ -414,13 +414,12 @@ if ($uidReset) // session data refresh requested
 
         if ($is_trackingEnabled)
         {
-            $sql = "SELECT 
-                        `user`.`prenom`     `firstname`, 
-                        `user`.`nom`        `lastname` , 
-                        `user`.`email`                 , 
-                        `user`.`statut`, 
-                        `a`.`idUser`        `is_admin`,
-                         UNIX_TIMESTAMP(`login`.`login_date`) `lastLogin`
+            $sql = "SELECT `user`.`prenom`                       `firstname`, 
+                           `user`.`nom`                          `lastname` , 
+                           `user`.`email`                        `email`    , 
+                           `user`.`statut`, 
+                           `a`.`idUser`                          `is_admin`,
+                            UNIX_TIMESTAMP(`login`.`login_date`) `lastLogin`
                      FROM `".$tbl_user."` `user`
                      LEFT JOIN `". $tbl_admin  ."` `a`
                      ON `user`.`user_id` = `a`.`idUser`
@@ -435,7 +434,7 @@ if ($uidReset) // session data refresh requested
                         `user`.`prenom`     `firstname`, 
                         `user`.`nom`        `lastname` , 
                         `user`.`email`                 , 
-                        date_sub(curdate(), INTERVAL 1 DAY) `lastLogin`, 
+                        DATE_SUB(CURDATE(), INTERVAL 1 DAY) `lastLogin`, 
                         `user`.`statut`, 
                         `a`.`idUser`        `is_admin`
                     FROM `". $tbl_user ."` `user`
@@ -524,10 +523,17 @@ if ($cidReset) // course session data refresh requested
 {
     if ($cidReq)
     {
-        $sql =  "SELECT `c`.`code`, `c`.`intitule`, `c`.`fake_code`, 
-                        `c`.`directory`, `c`.`dbName`, `c`.`titulaires`, 
-                        `c`.`email`, `c`.`languageCourse`, `c`.`departmentUrl`, 
-                        `c`.`departmentUrlName`, `c`.`visible`,
+        $sql =  "SELECT `c`.`code`, 
+                        `c`.`intitule`, 
+                        `c`.`fake_code`, 
+                        `c`.`directory`, 
+                        `c`.`dbName`, 
+                        `c`.`titulaires`, 
+                        `c`.`email`, 
+                        `c`.`languageCourse`, 
+                        `c`.`departmentUrl`, 
+                        `c`.`departmentUrlName`, 
+                        `c`.`visible`,
                         `cat`.`code` `faCode`, 
                         `cat`.`name` `faName`
                  FROM     `".$tbl_course."`    `c`
@@ -567,24 +573,30 @@ if ($cidReset) // course session data refresh requested
 
             // read of group tools config related to this course
 
-            $sql = "SELECT * FROM `".$_course['dbNameGlu']."group_property`";
+            $sql = "SELECT self_registration, 
+                           private, 
+                           nbGroupPerUser, 
+                           forum, document, 
+                           wiki, 
+                           chat
+                    FROM `".$_course['dbNameGlu']."group_property`";
             
             $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
             
             $gpData = mysql_fetch_array($result);
             
             $_groupProperties ['registrationAllowed'] = (bool) ($gpData['self_registration'] == 1);
-            $_groupProperties ['private'            ] = (bool) ($gpData['private']           == 1);
+            $_groupProperties ['private'            ] = (bool) ($gpData['private'          ] == 1);
             $_groupProperties ['nbGroupPerUser'     ] = $gpData['nbGroupPerUser'];
-            $_groupProperties ['tools'] ['forum'    ] = (bool) ($gpData['forum']             == 1);
-            $_groupProperties ['tools'] ['document' ] = (bool) ($gpData['document']          == 1);
-            $_groupProperties ['tools'] ['wiki'     ] = (bool) ($gpData['wiki']              == 1);
-            $_groupProperties ['tools'] ['chat'     ] = (bool) ($gpData['chat']              == 1);
+            $_groupProperties ['tools'] ['forum'    ] = (bool) ($gpData['forum'            ] == 1);
+            $_groupProperties ['tools'] ['document' ] = (bool) ($gpData['document'         ] == 1);
+            $_groupProperties ['tools'] ['wiki'     ] = (bool) ($gpData['wiki'             ] == 1);
+            $_groupProperties ['tools'] ['chat'     ] = (bool) ($gpData['chat'             ] == 1);
 
         }
         else
         {
-            exit("WARNING UNDEFINED CID !! ");
+            exit('WARNING UNDEFINED CID !! ');
         }
     }
     else
@@ -608,20 +620,14 @@ if ($cidReset) // course session data refresh requested
 }
 else // continue with the previous values
 {
-    if ( !empty($_SESSION['_cid']) )
-        $_cid = $_SESSION['_cid'];
-    else 
-        $_cid = null;
+    if ( !empty($_SESSION['_cid']) ) $_cid = $_SESSION['_cid'];
+    else                             $_cid = null;
 
-    if ( !empty($_SESSION['_course']) )
-        $_course = $_SESSION['_course'];
-    else
-        $_course = null; 
+    if ( !empty($_SESSION['_course']) ) $_course = $_SESSION['_course'];
+    else                                $_course = null; 
 
-    if ( !empty($_SESSION['_groupProperties']) ) 
-        $_groupProperties = $_SESSION['_groupProperties'];
-    else
-        $_groupProperties = null; 
+    if ( !empty($_SESSION['_groupProperties']) ) $_groupProperties = $_SESSION['_groupProperties'];
+    else                                         $_groupProperties = null; 
         
 }
 
@@ -633,7 +639,10 @@ if ($uidReset || $cidReset) // session data refresh requested
 {
     if ($_uid && $_cid) // have keys to search data
     {
-        $sql = "SELECT * FROM `".$tbl_rel_course_user."` `cours_user`
+        $sql = "SELECT statut, 
+                       tutor, 
+                       role 
+                FROM `".$tbl_rel_course_user."` `cours_user`
                 WHERE `user_id`  = '".$_uid."'
                 AND `code_cours` = '".$cidReq."'";
 
@@ -709,12 +718,10 @@ if ($tidReset || $cidReset) // session data refresh requested
                     `".$tbl_tool."`  pct
 
                WHERE `ctl`.`tool_id` = `pct`.`id`
-                        AND
-                    (
-                              `ctl`.`id`      = '".$tidReq."'
-               OR   (".(int) is_null($tidReq)." AND pct.claro_label = '".$tlabelReq."')
-               )
-";
+                 AND (`ctl`.`id`      = '".$tidReq."'
+                       OR   (".(int) is_null($tidReq)." AND pct.claro_label = '".$tlabelReq."')
+                     )";
+
         // Note : 'ctl' stands for  'course tool list' and  'pct' for 'platform course tool'
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
@@ -737,8 +744,6 @@ if ($tidReset || $cidReset) // session data refresh requested
         }
         else // this tool has no status related to this course
         {
-        echo "<pre>mr : ".mysql_num_rows($result)."</pre>";
-
             exit('WARNING UNDEFINED TID !!');
         }
     }
@@ -769,8 +774,15 @@ if ($gidReset || $cidReset) // session data refresh requested
 {
     if ($gidReq && $_cid ) // have keys to search data
     {
-        $sql = "SELECT * FROM `".$_course['dbNameGlu']."group_team`
-                WHERE `id` = '$gidReq'";
+        $sql = "SELECT id, 
+                       name, 
+                       description, 
+                       tutor, 
+                       forumId, 
+                       secretDirectory, 
+                       maxStudent
+                FROM `".$_course['dbNameGlu']."group_team`
+                WHERE `id` = '".$gidReq."'";
 
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
@@ -790,7 +802,7 @@ if ($gidReset || $cidReset) // session data refresh requested
         }
         else
         {
-            exit("WARNING UNDEFINED GID !! ");
+            exit('WARNING UNDEFINED GID !! ');
         }
     }
     else  // Keys missing => not anymore in the group - course relation
@@ -816,9 +828,11 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
 {
     if ($_uid && $_cid && $_gid) // have keys to search data
     {
-        $sql = "SELECT * FROM `".$_course['dbNameGlu']."group_rel_team_user`
-                WHERE `user` = '$_uid'
-                AND `team` = '$gidReq'";
+        $sql = "SELECT status, 
+                       role 
+                FROM `".$_course['dbNameGlu']."group_rel_team_user`
+                WHERE `user` = '".$_uid."'
+                AND `team`   = '".$gidReq."'";
 
         $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
@@ -887,10 +901,6 @@ if ($uidReset || $cidReset || $gidReset || $tidReset) // session data refresh re
             case "PLATFORM_MEMBER"  : $is_toolAllowed = (bool) $_uid;      break;
             case 'ALL'              : $is_toolAllowed = true;              break;
             default                 : $is_toolAllowed = false;
-
-           // Developper notes. And what about these following cases ?
-           // case "COURSE_TUTOR"     : $is_toolAllowed = $is_courseTutor; break;
-           // case "PLATFORM_MEMBER"  : $is_toolAllowed = (bool) $_uid;    break;
         }
     }
     else
