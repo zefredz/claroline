@@ -53,7 +53,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 		;
 
     if(!isset($view)) $view ="0000000";
-
+    $viewLevel = -1; //  position of the flag of the view in the $view array/string
     /***************************************************************************
      *              
      *		Main
@@ -61,10 +61,11 @@ if($is_allowedToTrack && $is_trackingEnabled)
      ***************************************************************************/
     
     $tempView = $view;
+	$viewLevel++;
     echo "<p>\n";
-    if($view[0] == '1')
+    if($view[$viewLevel] == '1')
     {
-        $tempView[0] = '0';
+        $tempView[$viewLevel] = '0';
         echo '-&nbsp;&nbsp;<b>'.$langUsers.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";   
         
         //-- total number of user in the course
@@ -132,7 +133,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     }
     else
     {
-        $tempView[0] = '1';
+        $tempView[$viewLevel] = '1';
         echo '+&nbsp;&nbsp;&nbsp;'
 		    .'<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'
 			.$langUsers
@@ -146,10 +147,11 @@ if($is_allowedToTrack && $is_trackingEnabled)
      *		Access to this course
      ***************************************************************************/
     $tempView = $view;
+	$viewLevel++;
     echo "<p>\n";
-    if($view[1] == '1')
+    if($view[$viewLevel] == '1')
     {
-        $tempView[1] = '0';
+        $tempView[$viewLevel] = '0';
         echo "-&nbsp;&nbsp;<b>".$langCourseAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>".$langClose."</a>]</small><br />\n";
         
         $sql = "SELECT count(*)
@@ -195,7 +197,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     }
     else
     {
-        $tempView[1] = '1';
+        $tempView[$viewLevel] = '1';
         echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langCourseAccess.'</a>';
         
     }
@@ -206,10 +208,11 @@ if($is_allowedToTrack && $is_trackingEnabled)
      *
      ***************************************************************************/
     $tempView = $view;
+	$viewLevel++;
     echo '<p>'."\n";
-    if($view[2] == '1')
+    if($view[$viewLevel] == '1')
     {
-        $tempView[2] = '0';
+        $tempView[$viewLevel] = '0';
         echo '-&nbsp;&nbsp;<b>'.$langToolsAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";   
         
         $sql = "SELECT `access_tid`, COUNT(DISTINCT `access_user_id`),count( `access_tid` ), `access_tlabel`
@@ -252,7 +255,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     }
     else
     {
-        $tempView[2] = '1';
+        $tempView[$viewLevel] = '1';
         echo "+&nbsp;&nbsp;&nbsp;<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>$langToolsAccess</a>";
     }
     echo "</p>\n\n";
@@ -263,10 +266,11 @@ if($is_allowedToTrack && $is_trackingEnabled)
      *
      ***************************************************************************/
     $tempView = $view;
+	$viewLevel++;
     echo "<p>\n";
-    if($view[4] == '1')
+    if($view[$viewLevel] == '1')
     {
-        $tempView[4] = '0';
+        $tempView[$viewLevel] = '0';
         echo '-&nbsp;&nbsp;<b>'.$langDocumentsAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";   
         
         $sql = "SELECT `down_doc_path`, COUNT(DISTINCT `down_user_id`), COUNT(`down_doc_path`)
@@ -308,7 +312,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     }
     else
     {
-        $tempView[4] = '1';
+        $tempView[$viewLevel] = '1';
         echo "+&nbsp;&nbsp;&nbsp;<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>$langDocumentsAccess</a>";
     }
     echo "</p>\n\n";
@@ -317,10 +321,11 @@ if($is_allowedToTrack && $is_trackingEnabled)
      *		Exercises
      ***************************************************************************/
     $tempView = $view;
+	$viewLevel++;
     echo "<p>\n";
-    if($view[5] == '1')
+    if($view[$viewLevel] == '1')
     {
-        $tempView[5] = '0';
+        $tempView[$viewLevel] = '0';
         echo '-&nbsp;&nbsp;<b>'.$langExercises.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'" >'.$langClose.'</a>]</small><br />'."\n";   
         
         $sql = "SELECT TEX.`exe_exo_id`, COUNT(DISTINCT TEX.`exe_user_id`), COUNT(TEX.`exe_exo_id`), EX.`titre`
@@ -363,7 +368,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     }
     else
     {
-        $tempView[5] = '1';
+        $tempView[$viewLevel] = '1';
         echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langExercises.'</a>';
     }
     echo '</p>'."\n\n";
