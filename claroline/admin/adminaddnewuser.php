@@ -42,6 +42,12 @@ $display_resultCSV	=FALSE;
 
 include($includePath."/claro_init_header.inc.php");
 
+//clean session with used variables for name,... used in other scripts
+
+$_SESSION['nom']="";
+$_SESSION['prenom']="";
+$_SESSION['uname']="";
+
  /*==========================
    EXECUTE COMMAND SECTION
   ==========================*/
@@ -275,13 +281,14 @@ if ($display_success)
    echo "<a class=\"claroButton\" href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$inserted_uid."&category=\"> ".$langRegister." </a>";
    echo "<a class=\"claroButton\" href=\"adminprofile.php?uidToEdit=".$inserted_uid."&category=\"> ".$langGoToUserSettings." </a>";
    echo "<a class=\"claroButton\" href=\"adminaddnewuser.php\"> ".$langCreateAnotherUser." </a>";
-   echo "<a class=\"claroButton\" href=\"adminadduserlist.php\"> ".$langAddaListOfUsers." </a>";
+   //echo "<a class=\"claroButton\" href=\"adminadduserlist.php\"> ".$langAddaListOfUsers." </a>";
    echo "<a class=\"claroButton\" href=\"index.php\"> ".$langBackToAdmin." </a>";
 }
+/*
 else
 {
    echo "<a class=\"claroButton\" href=\"adminadduserlist.php\"> ".$langAddaListOfUsers." </a>";
 }
-
+*/
 include($includePath."/claro_init_footer.inc.php");
 ?>
