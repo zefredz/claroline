@@ -20,7 +20,7 @@ $l_icq = "ICQ";
 $l_icqadd = "Add";
 $l_icqpager = "Pager";
 $l_indextitle = "Forum Index";
-$l_infoupdated = "Your Information has been updated";
+$l_infoupdated = "Your profile has been updated";
 $l_interests = "Interests";
 $l_itemsreq = "Items marked with a * are required";
 $l_joined = "Joined";
@@ -30,13 +30,13 @@ $l_messenger = "MSN Messenger";
 $l_mismatch = "Passwords do not match.";
 $l_msn = "MSN";
 $l_new = "New";
-$l_nomatches = "No records match that query. Please broaden your search.";
+$l_nomatches = "No records match that query. Please widen your search.";
 $l_nopmsgs = "You don't have any Private Messages.";
 $l_nopostlock = "You cannot post a reply to this topic, it has been locked.";
 $l_noposts = "No Posts";
 $l_norecipient = "You must enter the user name you want to send the Message to.";
 $l_notify = "Notify by email when replies are posted";
-$l_notifybody = "You are receiving this Email because a new message in one of your favorit topics
+$l_notifybody = "You are receiving this Email because a new message in one of your favourite topics
  on our forums has been added, and
 you selected to be notified on this event.
 
@@ -48,17 +48,15 @@ Or view the forum index at
 
 %s2
 
-Thank you for using our forums.
-
-Have a nice day.";
+Thank you for using our forums.";
 $l_notifysubj = "A reply to your topic has been posted.";
 $l_notopics = "There are no topics for this forum. You can post one.";
-$l_nouser = "That User name doesn't exist.";
-$l_nousers = "No Users are currently browsing the forums";
+$l_nouser = "That user name doesn't exist.";
+$l_nousers = "No users are currently browsing the forums";
 $l_number = "Number";
 $l_occupation = "Occupation";
 $l_oftotal = "of total";
-$l_onlyreq = "Only requried if being changed";
+$l_onlyreq = "Only required if being changed";
 $l_options = "Options";
 $l_perday = "Messages per day";
 $l_pmposted = "Reply Posted, you can click <a href=\"viewpmsg.php\">here</a> to view your Private Messages";
@@ -67,8 +65,8 @@ $l_poster = "Poster";
 $l_posts = "Posts";
 $l_privnotify = "<br>You have %s1 <a href=\"%s2\">new private message(s)</a>.";
 $l_profile = "Profile";
-$l_profileof = "View Profile of";
-$l_publicmail = "Allow other users to view my Email Address";
+$l_profileof = "View profile of";
+$l_publicmail = "Allow other users to view my email address";
 $l_quotemsg = "[quote]
 On %s1, %s2 wrote:
 %s3
@@ -80,7 +78,7 @@ $l_replyquote = "Reply with quote";
 $l_returnindex = "to return to the forum index";
 $l_returntopic = "to return to the forum topic list.";
 $l_searchall = "Search for ALL of the terms";
-$l_searchallfrm = "Search All Forums";
+$l_searchallfrm = "Search All forums";
 $l_searchany = "Search for ANY of the terms (Default)";
 $l_searchin = "Search in";
 $l_searchterms = "Keywords";
@@ -100,13 +98,13 @@ $l_topictitle = "View Topic";
 $l_toreturn = "to return";
 $l_tryagain = "Please go back and try again.";
 $l_url = "URL";
-$l_userdisallowed = "The User name you picked has been disallowed by the administrator. Please go back and try again.";
+$l_userdisallowed = "The user name you picked has been disallowed by the administrator. Please go back and try again.";
 $l_username = "User name";
 $l_userpass = "Please enter your user name and password.";
 $l_userremoved = "This user has been removed from the User database";
-$l_usertaken = "The User name you picked has been taken.";
+$l_usertaken = "The user name you picked has been taken.";
 $l_viewforum = "View Forum";
-$l_viewmsg = "to view your Message.";
+$l_viewmsg = "to view your message.";
 $l_viewpostuser = "View posts by this user";
 $l_website = "Web Site Address";
 $l_whosonline = "Who's online?";
@@ -153,7 +151,7 @@ $langManager = "Manager";
 $langModify = "Modify";
 $langModifyProfile = "Modify my profile";
 $langMonthNames = "Array";
-$langMyAgenda = "My agenda";
+$langMyAgenda = "My calendar";
 $langMyCourses = "My course list";
 $langMyGroup = "my group";
 $langNewTopic = "New topic";
@@ -178,8 +176,8 @@ $lang_click_here = "click here";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
-$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
+$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enrol on this course";
 $lang_p_platformManager = "Administrator for %s";
 $lang_this_course_is_protected = "This course is protected";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You’re user profile doesn’t seem to be enrolled to this course";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Your user profile doesn't seem to be enrolled on this course";
 ?>

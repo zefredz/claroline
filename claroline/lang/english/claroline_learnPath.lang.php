@@ -5,23 +5,23 @@ $langAddModule = "Add";
 $langAddModulesButton = "Add module(s)";
 $langAddOneModuleButton = "Add module";
 $langAgenda = "Agenda";
-$langAlertBlockingMakedInvisible = "This module is blocking. 
+$langAlertBlockingMakedInvisible = "This module is blocked. 
 Making it invisible will allow students to access 
- next modules without having to complete this one. 
+ the next module without having to complete this one. 
 
 Confirm ?";
 $langAlertBlockingPathMadeInvisible = "This path is blocking. 
 Making it invisible will allow students to access 
- next paths without having to complete this one. 
+ the next path without having to complete this one. 
 
 Confirm ?";
 $langAlreadyBrowsed = "Already browsed";
 $langAltClarodoc = "Clarodoc";
 $langAltDocument = "Document";
 $langAltExercise = "Exercise";
-$langAltMakeBlocking = "Make blocking";
+$langAltMakeBlocking = "Block";
 $langAltMakeInvisible = "Make invisible";
-$langAltMakeNotBlocking = "Make not blocking";
+$langAltMakeNotBlocking = "Unblock";
 $langAltMakeVisible = "Make visible";
 $langAltMove = "Move";
 $langAltMoveDown = "Order down";
@@ -30,12 +30,12 @@ $langAltScorm = "Scorm";
 $langAnnouncement = "Announcements";
 $langAreYouSureDeleteModule = "Are you sure to totally delete this module ?
 
-It will be definitively deleted from the server and from any learning path it is in.
-You won't be able to used it in any learning path.
+It will be completely deleted from the server and from any learning path it is in.
+You won't be able to use it in any learning path.
 
 Confirm delete of : ";
 $langAreYouSureToDelete = "Are you sure to delete";
-$langAreYouSureToDeleteScorm = "This learning path is issue of a SCORM importation package. If you delete this path, all its SCORM conformant modules and related files will be deleted from the platform.  Are you sure you want to delete the learning path named ";
+$langAreYouSureToDeleteScorm = "This learning path is part of a SCORM importation package. If you delete this path, all its SCORM conformant modules and related files will be deleted from the platform.  Are you sure you want to delete the learning path named ";
 $langAreYouSureToDeleteScormModule = "Are you sure you want to delete this SCORM conformant modules? The module won't be available on the platform any longer.";
 $langAreYouSureToRemove = "Are you sure you want to remove the following module from the learning path : ";
 $langAreYouSureToRemoveLabel = "By deleting a label you will delete all modules or label it contains.";
@@ -45,7 +45,7 @@ $langBack = "Back";
 $langBackModule = "Back to list";
 $langBackToLPAdmin = "Back to learning path administration";
 $langBlock = "Block";
-$langChangeRaw = "Change minimum raw to pass this module (in pourcents) : ";
+$langChangeRaw = "Change minimum raw mark to pass this module (percentage) : ";
 $langChat = "Chat";
 $langComment = "Comment";
 $langConfirmYourChoice = "Please confirm your choice";
@@ -77,7 +77,7 @@ $langErrorNameAlreadyExists = "Error : Name already exists";
 $langErrorNoModuleInPackage = "No module in package";
 $langErrorNoZlibExtension = "Zlib php extension is required to use this tool.  Please contact your platform administrator.";
 $langErrorOpeningManifest = "Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml";
-$langErrorOpeningXMLFile = "Cannot find secondary initilisation file in the package.<br /> File not found : ";
+$langErrorOpeningXMLFile = "Cannot find secondary initialisation file in the package.<br /> File not found : ";
 $langErrorReadingManifest = "Error reading <i>manifest</i> file";
 $langErrorReadingXMLFile = "Error reading a secondary initialisation file : ";
 $langErrorReadingZipFile = "Error reading zip file.";
@@ -90,7 +90,7 @@ $langExercise = "Exercise";
 $langExerciseAsModule = "Use an exercise";
 $langExerciseInModule = "Exercise in module";
 $langExercises = "Exercises";
-$langFileError = "The file to upload is not valide.";
+$langFileError = "The file to upload is not valid.";
 $langFileName = "Filename";
 $langForums = "Forums";
 $langGlobalProgress = "Learning path progression : ";
@@ -104,7 +104,7 @@ $langInsertMyModuleToolName = "Insert my module";
 $langInsertMyModulesTitle = "Insert a module of the course";
 $langInsertNewModuleName = "Insert new name";
 $langInstalled = "Learning path has been successfully imported.";
-$langIntroLearningPath = "Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br><br>If you want to present your learning path at students, click on the button below.<br>";
+$langIntroLearningPath = "Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br><br>If you want to present your learning path to students, click on the button below.<br>";
 $langLastSessionTimeSpent = "Last session time";
 $langLearningPath = "Learning Path";
 $langLearningPathAdmin = "Learning Path Admin";
@@ -124,7 +124,7 @@ $langModuleStillInPool = "Modules of this path will still be available in the po
 $langModulesPoolToolName = "Pool of modules";
 $langMonthNames = "Array";
 $langMove = "Move";
-$langMyAgenda = "My agenda";
+$langMyAgenda = "My calendar";
 $langMyCourses = "My course list";
 $langName = "Name";
 $langNeverBrowsed = "Never browsed";
@@ -159,8 +159,8 @@ $langReg = "Registration";
 $langRemoveFromLPShort = "Remove";
 $langRename = "Rename";
 $langRoot = "root";
-$langSCORMTypeDesc = "SCORM 1.2 conformant content";
-$langScormIntroTextForDummies = "Imported packages must consist of a  zip file and SCORM 1.2 conformant";
+$langSCORMTypeDesc = "SCORM 1.2 conformable content";
+$langScormIntroTextForDummies = "Imported packages must consist of a zip file and be SCORM 1.2 conformable";
 $langSize = "Size";
 $langStartModule = "Start Module";
 $langStudentView = "Student View";
@@ -171,7 +171,7 @@ $langTypeOfModule = "Module type";
 $langUnamedModule = "Unamed module";
 $langUnamedPath = "Unamed path";
 $langUp = "Up";
-$langUseOfPool = "This page allow you to view all the modules available in this course. <br>
+$langUseOfPool = "This page allows you to view all the modules available in this course. <br>
                      Any exercise or document that has been added in a learning path will also appear in this list.";
 $langUsedInLearningPaths = "
 Number of learning paths using this module : ";
@@ -186,9 +186,9 @@ $lang_click_here = "click here";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
-$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
+$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enrol on this course";
 $lang_p_platformManager = "Administrator for %s";
 $lang_this_course_is_protected = "This course is protected";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You’re user profile doesn’t seem to be enrolled to this course";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Your user profile doesn't seem to be enrolled on this course";
 $langimportLearningPath = "Import a learning path";
 ?>

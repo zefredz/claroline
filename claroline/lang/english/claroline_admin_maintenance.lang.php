@@ -4,7 +4,7 @@ $langAdministration = "Administration";
 $langAgenda = "Agenda";
 $langAnnouncement = "Announcements";
 $langChat = "Chat";
-$langCodeAppearAlready = "This official code appears already in a previous line of the CSV file.";
+$langCodeAppearAlready = "This official code already appears in a previous line of the CSV file.";
 $langCodeUsed = "This official code is already used by another user.";
 $langConfirm = "Confirm";
 $langConfirmYourChoice = "Please confirm your choice";
@@ -22,11 +22,11 @@ $langGroups = "Groups";
 $langHelp = "Help";
 $langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade. 
                 These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
-$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going upgrade the data stored into the main Claroline tables 
-                    (users, course categories, tools list, ...) and set it compatible with the new Claroline version.</p>
+$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to upgrade the data stored into the main Claroline tables 
+                    (users, course categories, tools list, ...) and set it to be compatible with the new Claroline version.</p>
                    <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this 
                    operation may take some time.</p>";
-$langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going update course data (directories and database tables) one by one.
+$langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going to update course data (directories and database tables) one by one.
                    <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
                    this operation may take some time.</p>";
 $langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>";
@@ -45,7 +45,7 @@ installation and set them to be compatible with the new Claroline version. This 
 
 <ol>
 
-<li>It will get your previous platform main settings and put them in new configuration files</li>
+<li>It will get your previous platform main settings and put them in a new configuration files</li>
 
 <li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.</li>
 
@@ -57,7 +57,7 @@ installation and set them to be compatible with the new Claroline version. This 
 
 <table>
 <tbody>
-<tr valign=\"top\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>
+<tr valign=\"top\"><td>-</td><td>Make a complete backup of all your platform data (files and databases)</td><td>%s</td></tr>
 
 </tbody>
 </table>
@@ -68,7 +68,7 @@ $langManager = "Manager";
 $langModify = "Modify";
 $langModifyProfile = "Modify my profile";
 $langMonthNames = "Array";
-$langMyAgenda = "My agenda";
+$langMyAgenda = "My calendar";
 $langMyCourses = "My course list";
 $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on %s already upgraded</strong><br /></p>";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
@@ -76,7 +76,7 @@ $langNo = "No";
 $langOk = "Ok";
 $langOtherCourses = "Course list";
 $langPassword = "Password";
-$langPasswordSimple = "Password given to simple or to close to username.";
+$langPasswordSimple = "Password given is too simple or too close to the username.";
 $langPlatformAdministration = "Platform Administration";
 $langPoweredBy = "Powered by";
 $langReg = "Registration";
@@ -105,8 +105,8 @@ $lang_click_here = "click here";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
-$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
+$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enrol on this course";
 $lang_p_platformManager = "Administrator for %s";
 $lang_this_course_is_protected = "This course is protected";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You’re user profile doesn’t seem to be enrolled to this course";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Your user profile doesn't seem to be enrolled on this course";
 ?>

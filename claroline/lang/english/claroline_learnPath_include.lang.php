@@ -1,5 +1,5 @@
 <?php
-$langChangeRaw = "Change minimum raw to pass this module (in pourcents) : ";
+$langChangeRaw = "Change minimum raw mark to pass this module (percentage) : ";
 $langDate = "Date";
 $langDocumentInModule = "Document in module";
 $langExerciseInModule = "Exercise in module";
