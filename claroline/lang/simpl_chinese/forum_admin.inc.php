@@ -53,14 +53,4 @@ $langChangeCat="改变所属类别";
 $langSave="保存";
 $langModCatName="更改类别名称";
 $langCat="类别";
-$langNameCat="类别名称已更新";
-$langBack="返回";
-$langCatAdded="新类别已增加";
-$langForCategories="论坛分类";
-$langAddForums="添加新论坛,请在论坛所属分类中点击\"论坛\". 对学生来说,空类别(不含有论坛)是不可见的.";
-$langCategories="类别";
-$langNbFor="论坛数目";
-$langFunctions="操作";
-$langAddCategory="增加一个新类别";
-
-?>
+ 

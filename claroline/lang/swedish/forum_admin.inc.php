@@ -29,14 +29,4 @@ $langChangeCat="Ändra kategori";
 $langSave="Spara";
 $langModCatName="Modifiera kategorinamn";
 $langCat="Kategori";
-$langNameCat="Kategorinamn har modifierats";
-$langBack="Tillbaka";
-$langCatAdded="Kategori har lagts till";
-$langForCategories="Forumkategorier";
-$langAddForums="För att lägga till forum, klicka på \"Forum\" i vald kategori. En tom kategori (utan forum) visas ej för eleverna";
-$langCategories="Kategorier";
-$langNbFor="Antal forum";
-$langFunctions="Funktioner";
-$langAddCategory="Lägg till en kategori";
-
-?>
+ 

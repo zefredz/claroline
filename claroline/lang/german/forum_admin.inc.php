@@ -43,14 +43,4 @@ $langForumModified = "Das Forum wurde erfolgreich geändert.";
 $langForums="Foren";
 $langFunctions="Funktionen";
 $langModCatName="Name der Kategorie ändern";
-$langNameCat="Name der Kategorie wurde erfolgreich geändert.";
-$langNbFor="Anzahl an Foren";
-$langOrder="Sortierung";
-$langOrganisation="Foren Administration";
-$langSave="Speichern";
-
-
-
-
-
-?>
+ 

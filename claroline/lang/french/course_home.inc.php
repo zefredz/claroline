@@ -33,6 +33,4 @@ $langDelLk="Voulez-vous réellement supprimer ce lien ?"; // JCC
 $langEnter ="Entrer";
 
 
-$langNameOfTheLink ="Nom du lien";
-
-?>
+ 

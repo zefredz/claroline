@@ -35,6 +35,4 @@ $langRemove="Odstrani";
 
 $langCourseCreate = "Tvori spletni tecaj";
 $langEnter ="Vstop";
-$langNameOfTheLink ="Ime povezave";
-
-?>
+ 

@@ -29,14 +29,4 @@ $langChangeCat="Pertukaran Kategori";
 $langSave="Simpan";
 $langModCatName="Ubahsuai nama Kategori";
 $langCat="Kategori";
-$langNameCat="Nama Kategori telah diubahsuai";
-$langBack="Kembali";
-$langCatAdded="Kategori ditambah";
-$langForCategories="Senarai Kategori";
-$langAddForums="Untuk tambah Forum,klik pada \"Forum\" dalam Kategori pilihan anda. Kategori yang kosong tidak akan dipaparkan kepada Pelajar ";
-$langCategories="Kategori";
-$langNbFor="Bilangan Forum";
-$langFunctions="Fungsi";
-$langAddCategory="Tambah Kategori";
-
-?>
+ 

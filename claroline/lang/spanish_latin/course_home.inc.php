@@ -46,5 +46,4 @@ $langEnter      = "Ingresar";
 
 $langCourseCreate = "Crear el sitio web de un curso";
 $langEnter ="Ingresar";
-$langNameOfTheLink ="Nombre del enlace";
-?>
+ 

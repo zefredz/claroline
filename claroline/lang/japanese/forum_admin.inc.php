@@ -44,14 +44,4 @@ $langChangeCat="カテゴリーの変更";
 $langSave="保存";
 $langModCatName="カテゴリー名の変更";
 $langCat="カテゴリ";
-$langNameCat="カテゴリー名が変更されました";
-$langBack="ここ";
-$langCatAdded="カテゴリー名の変更";
-$langForCategories="会議室カテゴリー";
-$langAddForums="カテゴリーに会議室を加えるときは、\"会議室\"  をクリック。 カテゴリーがないときには、学生からはその会議室は見えません。";
-$langCategories="カテゴリー";
-$langNbFor="会議室番号";
-$langFunctions="各機能";
-$langAddCategory="カテゴリーを作る";
-
-?>
+ 

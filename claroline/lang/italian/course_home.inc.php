@@ -23,8 +23,4 @@ $langAdminOnly="Riservato agli amministratori";
 $langInLnk="Collegamenti disattivati";
 $langDelLk="Volete veramente eliminare il collegamento?";
 $langEnter="Entrare";
-$langNameOfTheLink ="Nome del collegamento";
-$langCourseCreate = "Create un Corso su Web";
-
-
-?>
+ 

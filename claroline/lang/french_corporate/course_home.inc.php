@@ -32,5 +32,4 @@ $langDelLk="Voulez-vous réellement supprimer ce lien?";
 $langEnter ="Entrer";
 
 
-$langNameOfTheLink ="Nom du lien";
-?>
+ 

@@ -40,7 +40,4 @@ $langLinkSite="Link naar een site";
 $langSubTitle="Voegt een link toe in het menu van uw homepagina";
 $langAdded="De link werd toegevoegd";
 $langHome="Terug naar homepagina";
-$langName="Naam";
-$langLink="Link";
-
-?>
+ 

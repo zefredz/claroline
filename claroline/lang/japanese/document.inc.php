@@ -29,31 +29,4 @@ $langDoc="文書";
 $langUploadFile="文書のアップロード";
 $langUpload="アップロード";
 $langCreateDir="ディレクトリを作る";
-$langName="名称";
-$langNameDir="新ディレクトリの名前";
-$langSize="サイズ";
-$langDate="日付";
-$langMove="移動";
-$langRename="名前を変える";
-$langComment="コメント";
-$langVisible="見えるようにする/見えないようにする";
-$langCopy="コピー";
-$langTo="to";
-$langNoSpace="アップロードが失敗しました。ディスクスペースの不足です。";
-$langUploadEnd="アップロード終了";
-$langFileExists="不可能な操作です<br />同じ名前のファイルが存在しています。";
-$langDocCopied="文書をコピーしました";
-$langDocDeleted="文書を削除しました";
-$langElRen="element renamed";
-$langDirCr="ディレクトリ作成";
-$langDirMv="ディレクトリを移動";
-$langComMod="コメントを修正";
-$langIn="in";
-$langNewDir="ディレクトリ作成";
-$langImpossible="操作不能";
-$langAddComment="次のものにコメントに付加あるいはコメント修正する。";
-$langUp="Up";
-$langViMod="可読を修正";
-
-
-?>
+ 

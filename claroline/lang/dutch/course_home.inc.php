@@ -40,5 +40,4 @@ $langDelLk="Wilt u deze link verwijderen ?";
 
 $langCourseCreate = "Maak een web-cursus";
 $langEnter ="Enter";
-$langNameOfTheLink ="Naam van de link";
-?>
+ 

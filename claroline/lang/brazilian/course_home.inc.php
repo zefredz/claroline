@@ -30,6 +30,4 @@ $langActivate="Ativar";
 $langRemove="Remover";
 
 $langEnter ="Entrar";
-$langNameOfTheLink ="Nome do link";
-
-?>
+ 

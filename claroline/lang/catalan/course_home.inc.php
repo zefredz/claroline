@@ -31,6 +31,4 @@ $langRemove="Elimina";
 
 $langCourseCreate = "Crea un Curs web";
 $langEnter ="Entra";
-$langNameOfTheLink ="Nom de l'enllaç";
-
-?>
+ 

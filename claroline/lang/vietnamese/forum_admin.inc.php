@@ -33,14 +33,4 @@ $langChangeCat="Thay đổi chuyên mục";
 $langSave="Lưu";
 $langModCatName="Sửa tên chuyên mục";
 $langCat="Chuyên mục";
-$langNameCat="Tên chuyên mục đã sửa";
-$langBack="Quay lại";
-$langCatAdded="Chuyên mục đã được thêm";
-$langForCategories="Các chuyên mục diễn đàn";
-$langAddForums="Để thêm diễn đàn, bạn bấm chuột vào \"Diễn đàn\" trên dòng chuyên mục tương ứng. <br>Chú ý rằng với chuyên mục rỗng thì học sinh không thấy được";
-$langCategories="Các chuyên mục";
-$langNbFor="Số diễn đàn";
-$langFunctions="Chức năng";
-$langAddCategory="Thêm chuyên mục";
-
-?>
+ 

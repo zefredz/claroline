@@ -31,6 +31,4 @@ $langRemove="Hapus";
 
 $langCourseCreate = "Buat situs pelajaran";
 $langEnter ="Enter";
-$langNameOfTheLink ="Judul link";
-
-?>
+ 

@@ -33,6 +33,4 @@ $langRemove="Fjern";
 
 $langCourseCreate = "Opret kursushjemmeside";
 $langEnter ="Indtast";
-$langNameOfTheLink ="Navn på link";
-
-?>
+ 

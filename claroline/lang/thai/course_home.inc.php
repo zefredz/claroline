@@ -31,6 +31,4 @@ $langRemove="เอาออก";
 
 $langCourseCreate = "สร้างรายวิชา";
 $langEnter ="ตกลง";
-$langNameOfTheLink ="ชื่อของลิ้งค์";
-
-?>
+ 

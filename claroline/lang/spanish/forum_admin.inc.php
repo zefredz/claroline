@@ -53,32 +53,4 @@ $langChangeCat      = "Cambiar de categor&iacute;a";
 $langSave           = "Archivar";
 $langModCatName     = "Modificar el nombre de la categor&iacute;a";
 $langCat            = "Categor&iacute;a";
-$langNameCat        = "El nombre de la categor&iacute;a ha sido modificado";
-$langBack           = "Volver";
-$langCatAdded       = "Categor&iacute;a a&ntilde;adida";
-$langForCategories  = "Categor&iacute;a de los foros";
-$langAddForums      = "Para a&ntilde;adir foros, haz click en \"Foros\" en la categor&iacute;a escogida. Una categor&iacute;a que no tenga foros no podr&aacute; ser vista por los estudiantes";
-$langCategories     = "Categor&iacute;as";
-$langNbFor          = "N&uacute;mero de foros";
-$langFunctions      = "Funciones";
-$langAddCategory    = "A&ntilde;adir una categor&iacute;a";
-
-
-/////////////////////////////////////////////////////////////
-//Agregados por Rodrigo Parra Soto
-
-$langOrder="Ordenar";
-$langCannotBeDeleted = "No puede ser borrado";
-$langCannotMoveGroupForum = "Los grupos de los foros no pueden ser movidos";
-$langCannotAddForumInGroups = "Los grupos de los foros serán agregados cuando se cree un grupo y se borrara cuando se borre el grupo correspondiente.";
-// action done message
-$langemptyforumname = "Debe proporcionar un nombre para el nuevo foro!";
-$langemptycatname = "Debe proporcionar un nombre a la nueva categoría!";
-$langforumcreated = "El nuevo foro ha sido creado.";
-$langForumModified = "El foro ha sido modificado";
-$langcatcreated = "La nueva categoría ha sido creada.";
-/////////////////////////////////////////////////////////////
-
-
-
-?>
+ 

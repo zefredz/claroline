@@ -30,14 +30,4 @@ $langChangeCat="เปลี่ยนหมวดหมู่";
 $langSave="บันทึก";
 $langModCatName="ปรับปรุงชื่อหมวดหมู่";
 $langCat="หมวดหมู่";
-$langNameCat="ชื่อหมวดหมู่ถูกปรับปรุงแล้ว";
-$langBack="ย้อนกลับ";
-$langCatAdded="เพิ่มหมวดหมู่แล้ว";
-$langForCategories="หมวดหมู่กระดานข่าว";
-$langAddForums="เพิ่มกระดานข่าว คลิกที่ \"กระดานข่าว\" ในหมวดหมู่ที่ท่านเลือก หมวดหมู่ที่ว่าง (ไม่มีกระดานข่าว) นักศึกษาจะไม่สามารถมองเห็นได้";
-$langCategories="หมวดหมู่";
-$langNbFor="จำนวนกระดานข่าว";
-$langFunctions="Functions";
-$langAddCategory="เพิ่มหมวดหมู่";
-
-?>
+ 

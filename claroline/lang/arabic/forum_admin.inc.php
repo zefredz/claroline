@@ -26,15 +26,4 @@ $langChangeCat=" تغيير الفئة ";
 $langSave=" تسجيل ";
 $langModCatName=" تغيير إسم الفئة ";
 $langCat=" فئة ";
-$langNameCat=" تمّ تغيير إسم الفئة ";
-$langBack=" رجوع ";
-$langCatAdded=" فئة مضافة ";
-$langForCategories=" فئات المنتديات ";
-$langAddForums=" لإضافة منتدى، يرجي الضغط على منتديات في الصنف الذي تختارون. الأصناف الذي لا تحتوي على منتديات لا تكون مرئيّة لدى الطلبة";
-$langCategories=" فئات ";
-$langNbFor=" عدد المنتديات ";
-$langFunctions=" وظائف ";
-$langAddCategory=" إضافة فئة ";
-
-?>
-
+ 

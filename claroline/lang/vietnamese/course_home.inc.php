@@ -16,6 +16,4 @@ $langRemove="Xoá";
 
 $langCourseCreate = "Tạo một khoá học";
 $langEnter ="Enter";
-$langNameOfTheLink ="Tên của liên kết";
-
-?>
+ 

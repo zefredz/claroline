@@ -32,6 +32,4 @@ $langRemove="Izbriši";
 
 $langCourseCreate = "Napravi web stranice kolegija";
 $langEnter ="Unesi";
-$langNameOfTheLink ="Naziv linka";
-
-?>
+ 

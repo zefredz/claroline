@@ -34,13 +34,4 @@ $langChangeCat="Changer de catégorie";
 $langSave="Enregistrer";
 $langModCatName="Modifier le nom de la catégorie";
 $langCat="Catégorie";
-$langNameCat="Le nom de la catégorie a été modifié";
-$langBack="Retour";
-$langCatAdded="Catégorie ajoutée";
-$langForCategories="Catégories de forums";
-$langAddForums="Pour ajouter des forums, cliquez sur \"Forums\" dans la catégorie de votre choix. Une catégorie sans forums ne sera pas visible pour les étudiants";
-$langCategories="Catégories";
-$langNbFor="Nbre de forums";
-$langFunctions="Fonctions";
-$langAddCategory="Ajouter une catégorie";
-?>
+ 

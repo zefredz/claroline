@@ -29,14 +29,4 @@ $langChangeCat="Kategori deðiþtir";
 $langSave="Kaydet";
 $langModCatName="Kategori adýný deðiþtir";
 $langCat="Kategori";
-$langNameCat="Kategori adý deðiþti";
-$langBack="Geri";
-$langCatAdded="Kategori eklendi";
-$langForCategories="Forum kategorileri";
-$langAddForums="Forum eklemek için seçtiðiniz kategorideki \"Forumlar\" baðlantýsýný týklayýnýz. (Forumsuz) boþ kategoriler öðrenci arayüzünde görülmez";
-$langCategories="Kategoriler";
-$langNbFor="Forum sayýsý";
-$langFunctions="Ýþlevler";
-$langAddCategory="Kategori ekle";
-
-?>
+ 

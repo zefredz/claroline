@@ -45,6 +45,4 @@ $langActivate   = "Activar";
 $langRemove     = "Suprimir";
 $langCourseCreate = "Crear un Curso";
 $langEnter ="Entrar";
-$langNameOfTheLink ="Nome da ligaz&oacute;n";
-
-?>
+ 

@@ -29,5 +29,4 @@ $langActivate="aktivera";
 
 $langCourseCreate = "Skapa en webbkurs";
 $langEnter ="Stig in";
-$langNameOfTheLink="Namn på länken";
-?>
+ 
