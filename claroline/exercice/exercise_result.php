@@ -497,7 +497,7 @@ else                                        // normal exercise mode
 if($is_trackingEnabled && $displayScore)
 {
     @include($includePath.'/lib/events.lib.inc.php');
-    if ( $objExercise->record_uid_in_score()  || !$_uid )
+    if ( !$objExercise->record_uid_in_score()  || !$_uid )
     {
         event_exercice($objExercise->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe );
     }
