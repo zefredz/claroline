@@ -133,7 +133,7 @@
    $langModulesPoolToolName = "Banque de modules";
    $langNoModule = "Pas de module";
    $langUseOfPool = "Cette page vous permet de voir tous les modules disponibles dans votre cours. <br />
-                     Tous les exercices ou document qui ont &eacute;t&eacute; ajout&eacute; dans un parcours apparaîtront aussi dans cette liste.";
+                     Tous les exercices ou document qui ont &eacute;t&eacute; ajout&eacute;s dans un parcours apparaîtront aussi dans cette liste.";
 
    //assets
    $langNoStartAsset = "Il n'y a pas de ressource de d&eacute;marrage d&eacute;finie pour ce module.";
