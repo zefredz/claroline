@@ -15,7 +15,7 @@ ob_start();
 </div>
 
 <div id="institution">
-<a href="<?php echo $institution['url'] ?>" target="_top"><?php echo $institution['name'] ?></a>
+&nbsp;<a href="<?php echo $institution['url'] ?>" target="_top"><?php echo $institution['name'] ?></a>
 <?php
 
 if ($_course['extLink']['name'] != '')    /* --- External Link Section --- */
