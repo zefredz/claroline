@@ -1,15 +1,25 @@
-</div>
-<!----------------------   End of Claroline Body   ---------------------->
-
-
 <?php # $Id$
+
+if (!isset($hide_body) || $hide_body == false)
+{
+	echo "\n</div>\n"
+			."<!----------------------   End of Claroline Body   ---------------------->\n\n\n";
+}
+
 //echo "<pre>".var_export($_courseToolList,1)."</pre>";
 
-if ($claro_banner) {echo $claro_banner;}
+// depends on $claro_brailleViewMode
+if ( isset($claro_banner) ) 
+{
+	echo $claro_banner;
+}
+
+// don't display the footer text if requested, only display minimal html closing tags
+if (!isset($hide_footer) || $hide_footer == false)
+{
+
 
 ?>
-
-
 
 <div class="claroFooter">
 <hr noshade size="1">
@@ -52,5 +62,9 @@ else
 	if ($_user['is_devel'] && function_exists( 'printInit')) printInit() ;
 ?>
 </div>
+
+<?php
+} // if (!isset($hide_footer) || $hide_footer == false)
+?>
 </body>
 </html>
