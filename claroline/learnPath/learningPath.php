@@ -40,9 +40,6 @@
   $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 
   $nameTools = $langLearningPath;
-  //header
-  include($includePath."/claro_init_header.inc.php");
-
 
   // tables names
   $TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
@@ -68,26 +65,18 @@
     header("Location: ".$clarolineRepositoryWeb."learnPath/learningPathList.php");
   }
   
+   // use viewMode
+   claro_set_display_mode_available(true);
+   // permissions (only for the viewmode, there is nothing to edit here )
+   if ( claro_is_allowed_to_edit() )
+   {
+     // if the fct return true it means that user is a course manager and than view mode is set to COURSE_ADMIN
+   	 header("Location: ".$clarolineRepositoryWeb."learnPath/learningPathAdmin.php?path_id=".$_SESSION['path_id']);
+   }
 
-  // display title
-  claro_disp_tool_title($nameTools);
-  
    // main page
 
    if (! $is_courseAllowed) claro_disp_auth_form();;
-
-   if ($is_courseAdmin )
-   {
-        // the user is a teacher that access this in student mode, so
-        // set asStudent to true so he'll be consider like a student in the following steps
-        $_SESSION['asStudent'] = 1;
-   }
-   //####################################################################################\\
-   //##################################### TITLE ########################################\\
-   //####################################################################################\\
-   nameBox(LEARNINGPATH_, DISPLAY_);
-   // and comment !
-   commentBox(LEARNINGPATH_, DISPLAY_);
 
    //####################################################################################\\
    //############################## MODULE TABLE LIST PREPARATION ###############################\\
@@ -143,8 +132,24 @@
   {
     if ($flatElementList[$i]['children'] > $maxDeep) $maxDeep = $flatElementList[$i]['children'] ;
   }
+
+/*================================================================
+                      OUTPUT STARTS HERE
+  ================================================================*/  
   
-  
+    //header
+   include($includePath."/claro_init_header.inc.php");
+   
+   // display title
+   claro_disp_tool_title($nameTools);
+   
+   //####################################################################################\\
+   //##################################### TITLE ########################################\\
+   //####################################################################################\\
+   nameBox(LEARNINGPATH_, DISPLAY_);
+   // and comment !
+   commentBox(LEARNINGPATH_, DISPLAY_);
+   
    //####################################################################################\\
    //############################## MODULE TABLE HEADER ######################################\\
    //####################################################################################\\
@@ -222,7 +227,7 @@
                 $moduleImg = choose_image(basename($module['path']));
                 
               $contentType_alt = selectAlt($module['contentType']);
-              echo "<a href=\"module.php?module_id=".$module['module_id']."&asStudent=1\">
+              echo "<a href=\"module.php?module_id=".$module['module_id']."\">
             <img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
                            .$module['name']."</a>";
               // a module ALLOW access to the following modules if

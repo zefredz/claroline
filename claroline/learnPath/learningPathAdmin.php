@@ -67,15 +67,15 @@
 
   $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 
-  $nameTools = $langLearningPathAdmin;
+  $nameTools = $langLearningPath;
   $QUERY_STRING=''; // used forthe breadcrumb 
                   // when one need to add a parameter after the filename
-  //header
-  include($includePath."/claro_init_header.inc.php");
-
-  $is_AllowedToEdit = $is_courseAdmin;
-  if (!$is_AllowedToEdit) claro_disp_auth_form();
-  
+	
+  // use viewMode
+  claro_set_display_mode_available(true);
+  // permissions
+  $is_AllowedToEdit = claro_is_allowed_to_edit();
+    
   //lib of document tool
   include($includePath."/lib/fileDisplay.lib.php");
 
@@ -94,14 +94,14 @@
   {
         $_SESSION['path_id'] = $_GET['path_id'];
   }
-
-  // display title
-  claro_disp_tool_title($nameTools);
+  
+  // get user out of here if he is not allowed to edit
+  if( !$is_AllowedToEdit ) header("Location: ./learningPath.php?path_id=".$_SESSION['path_id']);
   
   // main page
 
    //####################################################################################\\
-   //################################# COMMANDES ########################################\\
+   //################################# COMMANDS #########################################\\
    //####################################################################################\\
 
    switch($cmd)
@@ -341,6 +341,14 @@
    $query = claro_sql_query($sql);
    $LPDetails = mysql_fetch_array($query);
 
+/*================================================================
+                      OUTPUT STARTS HERE
+  ================================================================*/
+  //header
+  include($includePath."/claro_init_header.inc.php");
+  // display title
+  claro_disp_tool_title($nameTools);
+  
    //####################################################################################\\
    //############################ LEARNING PATH NAME BOX ################################\\
    //####################################################################################\\
@@ -505,7 +513,7 @@
                   $moduleImg = choose_image(basename($module['path']));
                   
                 $contentType_alt = selectAlt($module['contentType']);
-                echo "<a href=\"module.php?module_id=".$module['module_id']."&asStudent=1\"><img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
+                echo "<a href=\"module.php?module_id=".$module['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
                              .$module['name'].
                              "</a>";
             }
@@ -513,7 +521,7 @@
             // Modify command / go to other page
             echo     "
 			<td>
-				<a href=\"module.php?asStudent=0&module_id=".$module['module_id']."\">".
+				<a href=\"module.php?module_id=".$module['module_id']."\">".
                "<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=0 alt=\"".$langModify."\" />".
                "</a>
 			</td>";
