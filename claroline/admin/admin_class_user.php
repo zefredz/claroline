@@ -59,9 +59,11 @@ if (isset($_GET['dir']))       {$_SESSION['admin_user_dir'] = $_GET['dir'];}
 $langListClassUser             = "Class users";
 $langClass                     = "Classes";
 $langClassRegisterUser         = "Register a user to this class";
-$langClassRegisterWholeClass   = "Register the whole class to a course";
+$langClassRegisterWholeClass   = "Register class to course";
 $langUserUnregisteredFromClass = "User has been sucessfully unregistered from the class";
 $langUnsubscribeClass          = "Unregister user from class";
+$langClassAddCSV               = "Add a user list in class";
+$langClassMembers              = "Class members";
 
 
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
@@ -69,7 +71,7 @@ $langUnsubscribeClass          = "Unregister user from class";
 // Deal with interbredcrumps
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 $interbredcrump[]= array ("url"=>$rootAdminWeb."admin_class.php", "name"=> $langClass);
-$nameTools = $langListClassUser;
+$nameTools = $langClassMembers;
 
 //Header
 
@@ -173,8 +175,11 @@ if($dialogBox)
 
 //TOOL LINKS
 
-claro_disp_button($clarolineRepositoryWeb."admin/admin_class_register.php?class=".$classinfo['id'], $langClassRegisterUser);
-claro_disp_button($clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&fromAdmin=class&uidToEdit=-1&category=", $langClassRegisterWholeClass);
+echo "<a href=\"".$clarolineRepositoryWeb."admin/admin_class_register.php?class=".$classinfo['id']."\">".$langClassRegisterUser."</a> | ";
+
+echo "<a href=\"".$clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&fromAdmin=class&uidToEdit=-1&category=\">".$langClassRegisterWholeClass."</a> | ";
+
+echo "<a href=\"".$clarolineRepositoryWeb."user/AddCSVusers.php?AddType=adminClassTool\">".$langClassAddCSV."</a><br><br>";
 
    //Pager
 
