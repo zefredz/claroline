@@ -176,17 +176,15 @@ function make_login_logout_link($user_logged_in, $url_phpbb)
  */
 function get_total_topics($forum_id, $db)
 {
-	global $l_error, $tbl_topics;
+	global $tbl_topics;
 
 	$sql = "SELECT COUNT(*) AS total
 	        FROM `".$tbl_topics."`
 	        WHERE forum_id = '".$forum_id."'";
 
-	if(!$result = mysql_query($sql, $db))		return($l_error);
-	if(!$myrow = mysql_fetch_array($result))	return($l_error);
-
-	return($myrow[total]);
+    return claro_sql_query_get_single_value($sql);
 }
+
 /**
  * Shows the 'header' data from the header/meta/footer table
  */
@@ -245,26 +243,23 @@ function get_total_posts($id, $db, $type)
 	switch($type)
 	{
 		case 'users':
-			$sql = "SELECT count(*) AS total FROM `$tbl_users` WHERE (user_id != -1) AND (user_level != -1)";
+			$sql = "SELECT COUNT(*) AS total FROM `".$tbl_users."` WHERE (user_id != -1) AND (user_level != -1)";
 		break;
 		case 'all':
-			$sql = "SELECT count(*) AS total FROM `$tbl_posts`";
+			$sql = "SELECT COUNT(*) AS total FROM `".$tbl_posts."`";
 		break;
 		case 'forum':
-			$sql = "SELECT count(*) AS total FROM `$tbl_posts` WHERE forum_id = '$id'";
+			$sql = "SELECT COUNT(*) AS total FROM `".$tbl_posts."` WHERE forum_id = '".$id."'";
 		break;
 		case 'topic':
-			$sql = "SELECT count(*) AS total FROM `$tbl_posts` WHERE topic_id = '$id'";
+			$sql = "SELECT COUNT(*) AS total FROM `".$tbl_posts."` WHERE topic_id = '".$id."'";
 		break;
 		// Old, we should never get this.
 		case 'user':
 			die("Should be using the users.user_posts column for this.");
 	}
 
-	if(!$result = mysql_query($sql, $db))       return("ERROR");
-	if(!$myrow = mysql_fetch_array($result))    return("0");
-
-	return($myrow[total]);
+	return claro_sql_query_get_single_value($sql);
 }
 
 /**
@@ -277,31 +272,32 @@ function get_last_post($id, $db, $type)
 	switch($type)
 	{
 		case 'time_fix':
-			$sql = "SELECT p.post_time FROM `$tbl_posts` p
-			        WHERE p.topic_id = '$id'
+			$sql = "SELECT p.post_time 
+                    FROM `".$tbl_posts."` p
+			        WHERE p.topic_id = '".$id."'
 			        ORDER BY post_time DESC LIMIT 1";
 		break;
 
 		case 'forum':
 			$sql = "SELECT p.post_time, p.poster_id, u.username
-			        FROM `$tbl_posts` p, `$tbl_users` u
-		            WHERE p.forum_id = '$id'
-		            AND p.poster_id = u.user_id
+			        FROM `".$tbl_posts."` p, `".$tbl_users."` u
+		            WHERE p.forum_id = '".$id."'
+		              AND p.poster_id = u.user_id
 		            ORDER BY post_time DESC LIMIT 1";
 		break;
 
 		case 'topic':
 			$sql = "SELECT p.post_time, u.username
-			        FROM `$tbl_posts` p, `$tbl_users` u
-			        WHERE p.topic_id = '$id'
-			        AND p.poster_id = u.user_id
+			        FROM `".$tbl_posts."` p, `$tbl_users` u
+			        WHERE p.topic_id = '".$id."'
+			          AND p.poster_id = u.user_id
 			        ORDER BY post_time DESC LIMIT 1";
 		break;
 
 		case 'user':
 			$sql = "SELECT p.post_time
-			        FROM `$tbl_posts` p
-			        WHERE p.poster_id = '$id'
+			        FROM `".$tbl_posts."` p
+			        WHERE p.poster_id = '".$id."'
 			        LIMIT 1";
 		break;
 	}
@@ -311,11 +307,11 @@ function get_last_post($id, $db, $type)
 
 	if(($type != 'user') && ($type != 'time_fix'))
 	{
-		$val = sprintf("%s <br> %s %s", $myrow[post_time], $l_by, $myrow[username]);
+		$val = sprintf("%s <br> %s %s", $myrow['post_time'], $l_by, $myrow['username']);
 	}
 	else
 	{
-		$val = $myrow[post_time];
+		$val = $myrow['post_time'];
 	}
 
 	return($val);
@@ -380,15 +376,12 @@ function get_pmsg_count($user_id, $db)
 {
 	global $tbl_priv_msgs;
 
-	$sql = "SELECT msg_id FROM `$tbl_priv_msgs`
-	         WHERE (to_userid = $user_id)";
+	$sql = "SELECT COUNT(msg_id)
+            FROM `".$tbl_priv_msgs."`
+	        WHERE to_userid = '".$user_id."'";
 
-	$resultID = mysql_query($sql)
-	            or die(mysql_error() . "<br>Error doing DB query in get_pmsg_count");
-
-	return mysql_num_rows($resultID);
-}				// get_pmsg_count()
-
+	return claro_sql_query_get_single_value($sql);
+}
 
 /**
  * Checks if a given username exists in the DB. Returns true if so, false if not.
@@ -458,18 +451,8 @@ function get_userdata($username, $db)
 /**
  * Returns all the rows in the themes table
  */
-function setuptheme($theme, $db)
-{
-	global $tbl_themes;
+function setuptheme($theme, $db) { /* ... */ }
 
-	$sql = "SELECT * FROM `$tbl_themes`
-	        WHERE theme_id = '$theme'";
-
-	if(!$result = mysql_query($sql, $db))    return(0);
-	if(!$myrow = mysql_fetch_array($result)) return(0);
-
-	return($myrow);
-}
 
 /**
  * Checks if a forum or a topic exists in the database. Used to prevent
@@ -482,17 +465,21 @@ function does_exists($id, $db, $type)
 	switch($type)
 	{
 		case 'forum':
-			$sql = "SELECT forum_id FROM `$tbl_forums` WHERE forum_id = '$id'";
+			$sql = "SELECT COUNT(forum_id)
+                    FROM `$tbl_forums` 
+                    WHERE forum_id = '".$id."'";
 		break;
 		case 'topic':
-			$sql = "SELECT topic_id FROM `$tbl_topics` WHERE topic_id = '$id'";
+			$sql = "SELECT COUNT(topic_id)
+                    FROM `".$tbl_topics."`
+                    WHERE topic_id = '".$id."'";
 		break;
 	}
 
-	if(!$result = mysql_query($sql, $db))    return(0);
-	if(!$myrow = mysql_fetch_array($result)) return(0);
+    $itemCount = claro_sql_query_get_single_value($sql);
 
-	return(1);
+    if ($itemCount > 0) return 1;
+    else                return 0;
 }
 
 /**
@@ -506,10 +493,10 @@ function is_locked($topic, $db)
             FROM `".$tbl_topics."` 
             WHERE topic_id = '".$topic."'";
 
-	if(!$r = mysql_query($sql, $db)) return(FALSE);
-	if(!$m = mysql_fetch_array($r))  return(FALSE);
-	if($m['topic_status'] == 1)        return(TRUE);
-	else                             return(FALSE);
+    $topicStatus = claro_sql_query_get_single_value($sql);
+
+    if ($topicSatus == 1) return true;
+    else                  return false;
 }
 
 /**
@@ -558,7 +545,7 @@ function desmile($message)
 	// Ick Ick Global variables...remind me to fix these! - theFinn
 	global $db, $url_smiles, $tbl_smiles;
 
-	if ($getsmiles = mysql_query("SELECT * FROM `$tbl_smiles`"))
+	if ($getsmiles = mysql_query("SELECT * FROM `".$tbl_smiles."`"))
 	{
 		while ($smiles = mysql_fetch_array($getsmiles))
 		{
@@ -627,111 +614,13 @@ function bbcode_array_pop(&$stack)
 }
 
 /**
- * Nathan Codding - Jan. 12, 2001.
  * Performs [quote][/quote] bbencoding on the given string, and returns the results.
- * Any unmatched "[quote]" or "[/quote]" token will just be left alone.
- * This works fine with both having more than one quote in a message, and with nested quotes.
- * Since that is not a regular language, this is actually a PDA and uses a stack. Great fun.
- *
- * Note: This function assumes the first character of $message is a space, which is added by
- * bbencode().
  */
-function bbencode_quote($message)
-{
-	// First things first: If there aren't any "[quote]" strings in the message, we don't
-	// need to process it at all.
-
-	if (!strpos(strtolower($message), "[quote]"))
-	{
-		return $message;
-	}
-
-	$stack = Array();
-	$curr_pos = 1;
-	while ($curr_pos && ($curr_pos < strlen($message)))
-	{
-		$curr_pos = strpos($message, "[", $curr_pos);
-
-		// If not found, $curr_pos will be 0, and the loop will end.
-		if ($curr_pos)
-		{
-			// We found a [. It starts at $curr_pos.
-			// check if it's a starting or ending quote tag.
-			$possible_start = substr($message, $curr_pos, 7);
-			$possible_end = substr($message, $curr_pos, 8);
-			if (strcasecmp("[quote]", $possible_start) == 0)
-			{
-				// We have a starting quote tag.
-				// Push its position on to the stack, and then keep going to the right.
-				bbcode_array_push($stack, $curr_pos);
-				++$curr_pos;
-			}
-			else if (strcasecmp("[/quote]", $possible_end) == 0)
-			{
-				// We have an ending quote tag.
-				// Check if we've already found a matching starting tag.
-				if (sizeof($stack) > 0)
-				{
-					// There exists a starting tag.
-					// We need to do 2 replacements now.
-					$start_index = bbcode_array_pop($stack);
-
-					// everything before the [quote] tag.
-					$before_start_tag = substr($message, 0, $start_index);
-
-					// everything after the [quote] tag, but before the [/quote] tag.
-					$between_tags = substr($message, $start_index + 7, $curr_pos - $start_index - 7);
-
-					// everything after the [/quote] tag.
-					$after_end_tag = substr($message, $curr_pos + 8);
-
-					$message = $before_start_tag . "<!-- BBCode Quote Start --><TABLE BORDER=0 ALIGN=CENTER WIDTH=85%><TR><TD><font size=-1>Quote:</font><HR></TD></TR><TR><TD><FONT SIZE=-1><BLOCKQUOTE>";
-					$message .= $between_tags . "</BLOCKQUOTE></FONT></TD></TR><TR><TD><HR></TD></TR></TABLE><!-- BBCode Quote End -->";
-					$message .= $after_end_tag;
-
-					// Now.. we've screwed up the indices by changing the length of the string.
-					// So, if there's anything in the stack, we want to resume searching just after it.
-					// otherwise, we go back to the start.
-					if (sizeof($stack) > 0)
-					{
-						$curr_pos = bbcode_array_pop($stack);
-						bbcode_array_push($stack, $curr_pos);
-						++$curr_pos;
-					}
-					else
-					{
-						$curr_pos = 1;
-					}
-				}
-				else
-				{
-					// No matching start tag found. Increment pos, keep going.
-					++$curr_pos;
-				}
-			}
-			else
-			{
-				// No starting tag or ending tag.. Increment pos, keep looping.,
-				++$curr_pos;
-			}
-		}
-	} // while
-
-	return $message;
-
-} // bbencode_quote()
+function bbencode_quote($message) { return $message; }
 
 
 /**
  * Performs [code][/code] bbencoding on the given string, and returns the results.
- * Any unmatched "[code]" or "[/code]" token will just be left alone.
- * This works fine with both having more than one code block in a message, and with nested code blocks.
- * Since that is not a regular language, this is actually a PDA and uses a stack. Great fun.
- *
- * Note: This function assumes the first character of $message is a space, which is added by
- * bbencode().
- *
- * @author Nathan Codding - Jan. 12, 2001.
  */
 
 function bbencode_code($message, $is_html_disabled) { return $message; }
@@ -740,13 +629,6 @@ function bbencode_code($message, $is_html_disabled) { return $message; }
 
 /**
  * Performs [list][/list] and [list=?][/list] bbencoding on the given string, and returns the results.
- * Any unmatched "[list]" or "[/list]" token will just be left alone.
- * This works fine with both having more than one list in a message, and with nested lists.
- * Since that is not a regular language, this is actually a PDA and uses a stack. Great fun.
- *
- * Note: This function assumes the first character of $message is a space, which is added by
- * bbencode().
- * @auhtor Nathan Codding - Jan. 12, 2001.
  */
 function bbencode_list($message) { return $message; }
 
@@ -772,8 +654,8 @@ function get_forum_name($forum_id, $db)
 	global $tbl_forums ;
 
 	$sql = "SELECT forum_name
-	        FROM `$tbl_forums`
-	        WHERE forum_id = '$forum_id'";
+	        FROM `".$tbl_forums."`
+	        WHERE forum_id = '".$forum_id."'";
 
 	if(!$r = mysql_query($sql, $db)) return("ERROR");
 	if(!$m = mysql_fetch_array($r))  return("None");
@@ -890,7 +772,7 @@ function is_first_post($topic_id, $post_id, $db)
 	global $tbl_posts;
 
 	$sql = "SELECT post_id FROM `".$tbl_posts."`
-	        WHERE topic_id = '$topic_id'
+	        WHERE topic_id = '".$topic_id."'
 	        ORDER BY post_id LIMIT 1";
 
 	if(!$r = mysql_query($sql, $db)) return(0);
@@ -1005,7 +887,7 @@ function error_die($msg)
 	global $tablewidth;
 	global $db, $userdata, $user_logged_in, $starttime, $phpbbversion;
 
-	echo "<table border=\"0\" align=\"center\" width=\"$tablewidth\">\n"
+	echo "<table border=\"0\" align=\"center\" width=\"".$tablewidth."\">\n"
 		."<tr>\n"
         ."<td>\n"
 		."<blockquote>\n".$msg."\n</blockquote>\n"
@@ -1133,79 +1015,83 @@ function sync($db, $id, $type)
 	switch($type)
 	{
 		case 'forum':
-			$sql = "SELECT max(post_id) AS last_post FROM `$tbl_posts` WHERE forum_id = $id";
-			if(!$result = mysql_query($sql, $db))
-			{
-				die("Could not get post ID");
-			}
-			if($row = mysql_fetch_array($result))
-			{
-				$last_post = $row["last_post"];
-			}
+			$sql = "SELECT max(post_id) AS last_post 
+                    FROM `".$tbl_posts."` 
+                    WHERE forum_id = '".$id."'";
 
-			$sql = "SELECT count(post_id) AS total FROM `$tbl_posts` WHERE forum_id = $id";
+			$last_post = claro_sql_query_get_single_value($sql);
 
-			if(!$result = mysql_query($sql, $db)) die("Could not get post count");
-			if($row = mysql_fetch_array($result)) $total_posts = $row["total"];
+			$sql = "SELECT COUNT(post_id) AS total 
+                    FROM `".$tbl_posts."` 
+                    WHERE forum_id = '".$id."'";
 
-			$sql = "SELECT count(topic_id) AS total FROM `$tbl_topics` WHERE forum_id = $id";
-			if(!$result = mysql_query($sql, $db)) die("Could not get topic count");
-			if($row = mysql_fetch_array($result)) $total_topics = $row["total"];
+			$total_posts = claro_sql_query_get_single_value($sql);
 
-			$sql = "UPDATE `$tbl_forums`
+			$sql = "SELECT count(topic_id) AS total 
+                    FROM `".$tbl_topics."` 
+                    WHERE forum_id = '".$id."'";
+
+			$total_topics = claro_sql_query_get_single_value($sql);
+
+			$sql = "UPDATE `".$tbl_forums."`
 			        SET forum_last_post_id = '$last_post',
 			        forum_posts = $total_posts,
 			        forum_topics = $total_topics
 			        WHERE forum_id = $id";
 
-			if(!$result = mysql_query($sql, $db))
-			{
-				die("Could not update forum $id");
-			}
+			$result = claro_sql_query($sql);
 		break;
 
 	case 'topic':
-		$sql = "SELECT max(post_id) AS last_post FROM `$tbl_posts` WHERE topic_id = $id";
+		$sql = "SELECT max(post_id) AS last_post 
+                FROM `".$tbl_posts."` 
+                WHERE topic_id = '".$id."'";
 
-		if(!$result = mysql_query($sql, $db)) die("Could not get post ID");
-		if($row = mysql_fetch_array($result)) $last_post = $row["last_post"];
+        $last_post = claro_sql_query_get_single_value($sql);
 
-		$sql = "SELECT count(post_id) AS total FROM `$tbl_posts` WHERE topic_id = $id";
-		if(!$result = mysql_query($sql, $db)) die("Could not get post count");
-		if($row = mysql_fetch_array($result)) $total_posts = $row["total"];
+		$sql = "SELECT count(post_id) AS total 
+                FROM `".$tbl_posts."` 
+                WHERE topic_id = '".$id."'";
+
+	    $total_posts = claro_sql_query_get_single_value($sql);
 		$total_posts -= 1;
 
-		$sql = "UPDATE `$tbl_topics`
-				SET topic_replies = $total_posts, topic_last_post_id = $last_post
-				WHERE topic_id = $id";
-		if(!$result = mysql_query($sql, $db)) die("Could not update topic $id");
+		$sql = "UPDATE `".$tbl_topics."`
+				SET topic_replies = '".$total_posts."', 
+                topic_last_post_id = '".$last_post."'
+				WHERE topic_id = '".$id."'";
+
+		$result = claro_sql_query($sql);
+
 	break;
 
 	case 'all forums':
-		$sql = "SELECT forum_id FROM `$tbl_forums`";
-		if(!$result = mysql_query($sql, $db)) die("Could not get forum IDs");
+		$sql = "SELECT forum_id FROM `".$tbl_forums."`";
+        $forumList = claro_sql_query_fetch_all($sql);
 
-		while($row = mysql_fetch_array($result))
-		{
-			$id = $row["forum_id"];
-			sync($db, $id, "forum");
-		}
+        foreach($forumList as $thisForum)
+        {
+        	$id = $thisForum['forum_id'];
+            sync($db, $id, 'forum');
+        }
+        
 	break;
 
 	case 'all topics':
-		$sql = "SELECT topic_id FROM `$tbl_topics`";
-		if(!$result = mysql_query($sql, $db)) die("Could not get topic ID's");
+		$sql = "SELECT topic_id FROM `".$tbl_topics."`";
+        $topicList = claro_sql_query_fetch_all($sql);
 
-		while($row = mysql_fetch_array($result))
-		{
-			$id = $row["topic_id"];
-			sync($db, $id, "topic");
-		}
+        foreach($topicList as $thisTopic)
+        {
+        	$id = $thisTopic['topic_id'];
+  			sync($db, $id, "topic");
+        }
+        
 	break;
 
 	}				// end switch
 
-	return(TRUE);
+	return(true);
 }
 
 function login_form()
@@ -1294,6 +1180,33 @@ function get_forum_settings($forumId, $topicId = -1)
 
     if ( count($result) == 1) return $result[0];
     else                      error_die('Unexisting forum.');
+}
+
+/**
+ * Get topic settings of a topic
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  int $topicId
+ * @return array topic settings
+ */
+
+function get_topic_settings($topicId)
+{
+    global $tbl_topics;
+
+    $sql = "SELECT topic_id, topic_title, topic_status, forum_id , 
+                   topic_poster, topic_time, topic_views, 
+                   topic_replies, topic_last_post_id, topic_notify, 
+                   nom, prenom
+            FROM `".$tbl_topics."` 
+            WHERE topic_id = '".$topicId."'";
+
+    $settingList = claro_sql_query_fetch_all($sql);
+
+    if ( count($settingList) == 1) $settingList = $settingList[0];
+    else                           error_die('Unexisting topic.');
+
+    return $settingList;
 }
 
 /**
