@@ -18,11 +18,11 @@
  */
 
 
-$englishLangName = "Galician";
+$englishLangName = "Galician"; // should be Gallegan I think 
 $localLangName = "galego";
 
-$iso639_2_code = "es";
-$iso639_1_code = "spa";
+$iso639_1_code = "gl";
+$iso639_2_code = "glg";
 
 
 $langNameOfLang[brazilian]="brazilian";

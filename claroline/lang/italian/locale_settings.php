@@ -19,8 +19,8 @@
 $englishLangName = "italian";
 $localLangName = "italiano";
 
-$iso639_2_code = "it";
-$iso639_1_code = "ita";
+$iso639_1_code = "it";
+$iso639_2_code = "ita";
 
 $langNameOfLang['arabic']="arabo";
 $langNameOfLang['brazilian']="brasiliano";

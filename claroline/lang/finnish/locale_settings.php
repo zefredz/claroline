@@ -11,8 +11,8 @@
       +----------------------------------------------------------------------+
 */
 
-$iso639_2_code = "fi";
-$iso639_1_code = "fin";
+$iso639_1_code = "fi";
+$iso639_2_code = "fin";
 
 $langNameOfLang[brazilian]="brazilian";
 $langNameOfLang[english]="english";

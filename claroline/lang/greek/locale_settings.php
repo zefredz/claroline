@@ -17,26 +17,8 @@
 $englishLangName = "greek";
 //$localLangName = "français";
 
-/*
-$iso639_2_code = "en";
-$iso639_1_code = "eng";
-
-$langNameOfLang[arabic]="arabian";
-$langNameOfLang[brazilian]="brazilian";
-$langNameOfLang[english]="english";
-$langNameOfLang[finnish]="finnish";
-$langNameOfLang[french]="french";
-$langNameOfLang[german]="german";
-$langNameOfLang[greek]="greek";
-$langNameOfLang[italian]="italian";
-$langNameOfLang[japanese]="japanese";
-$langNameOfLang[polish]="polish";
-$langNameOfLang[simpl_chinese]="simplified chinese";
-$langNameOfLang[spanish]="spanish";
-$langNameOfLang[swedish]="swedish";
-$langNameOfLang[thai]="thai";
-$langNameOfLang[turkish]="turkish";
-*/
+$iso639_1_code = "gr"; // shouild probably be 'el'
+$iso639_2_code = "gre";
 
 $charset = 'iso-8859-7';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)

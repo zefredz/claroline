@@ -15,6 +15,8 @@
       +----------------------------------------------------------------------+
  */
 
+$iso639_1_code = "th";
+$iso639_2_code = "tha";
 
 $langNameOfLang['arabic'		]="arabian";
 $langNameOfLang['brazilian'		]="brazilian";

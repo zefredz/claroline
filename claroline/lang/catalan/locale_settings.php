@@ -12,8 +12,8 @@
       +----------------------------------------------------------------------+
  */
 
-$iso639_2_code = "ct";
-$iso639_1_code = "cat";
+$iso639_1_code = "ca";
+$iso639_2_code = "cat";
 
 $langNameOfLang['brazilian'			]="brasileny";
 $langNameOfLang['english'			]="anglès";

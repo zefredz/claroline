@@ -13,6 +13,9 @@
 
  */
 
+$iso639_1_code = "de";
+$iso639_2_code = "ger";
+
 $byteUnits = array('Bytes', 'KB', 'MB', 'GB');
 $charset = 'iso-8859-1';
 $dateFormatLong  = "%A %d. %B %Y ";

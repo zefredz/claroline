@@ -14,8 +14,8 @@
       +----------------------------------------------------------------------+
 */
 
-$iso639_2_code = "en";
-$iso639_1_code = "eng";
+$iso639_1_code = "da";
+$iso639_2_code = "dan";
 
 $langNameOfLang['arabic'		] = "arabian";
 $langNameOfLang['brazilian'		] = "brazilian";

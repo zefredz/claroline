@@ -24,8 +24,8 @@
 $englishLangName = "spanish";
 $localLangName = "español";
 
-$iso639_2_code = "es";
-$iso639_1_code = "esp";
+$iso639_1_code = "es";
+$iso639_2_code = "spa";
 
 $langNameOfLang['arabic'		]="árabe";
 $langNameOfLang['brazilian'		]="portugués";

@@ -14,8 +14,8 @@
       +----------------------------------------------------------------------+
 */
 
-$iso639_2_code = "en";
-$iso639_1_code = "eng";
+$iso639_1_code = "nl";
+$iso639_2_code = "dut";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)

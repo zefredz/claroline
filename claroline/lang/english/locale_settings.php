@@ -21,8 +21,8 @@
       +----------------------------------------------------------------------+
 */
 
-$iso639_2_code = "en";
-$iso639_1_code = "eng";
+$iso639_1_code = "en";
+$iso639_2_code = "eng";
 
 unset($langNameOfLang);
 unset($langDay_of_weekNames);

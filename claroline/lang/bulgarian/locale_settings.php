@@ -13,8 +13,8 @@
       +----------------------------------------------------------------------+
  */
 
-$iso639_2_code = "bg";
 $iso639_1_code = "bg";
+$iso639_2_code = "bul";
 
 $englishLangName = "bulgarian";
 $localLangName = "български";
