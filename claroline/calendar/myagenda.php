@@ -1,8 +1,8 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.5.*
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -110,7 +110,8 @@ function get_agenda_items($userCourseList, $month, $year)
 	    $courseEventList = claro_sql_query_fetch_all($sql);
 
         foreach($courseEventList as $thisEvent )
-        {
+ 		if (!(trim(strip_tags($thisEvent["title"]))==""))
+		{
             $eventDate = explode('-', $thisEvent['day']);
             $day       = intval($eventDate[2]);
             $eventTime = explode(':', $thisEvent['hour']);
