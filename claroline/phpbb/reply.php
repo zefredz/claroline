@@ -41,25 +41,7 @@ $pagetitle = "Post Reply";
 $pagetype  = "reply";
 
 
-$sql = "SELECT `f`.`forum_type`, `f`.`forum_name`, `f`.`forum_access` ,
-               `g`.`id`	`idGroup`
-
-        FROM   `".$tbl_forums."`  f, 
-               `".$tbl_topics."` t 
-           
-        # Check possible attached group ...
-        LEFT JOIN `".$tbl_student_group."` `g`
-               ON `f`.`forum_id` = `g`.`forumId`
-
-        WHERE f.forum_id = '".$forum."' 
-          AND t.topic_id = '".$topic."' 
-          AND t.forum_id = f.forum_id";	
-
-
-$forumSettingList = claro_sql_query_fetch_all($sql);
-
-if ( count($forumSettingList) == 1) $forumSettingList = $forumSettingList[0];
-else                                error_die('Unexisting forum.');
+$forumSettingList = get_forum_settings($forum, $topic);
 
 /* 
  * Check if the topic isn't attached to a group,  or -- if it is attached --, 

@@ -28,27 +28,7 @@ require 'auth.'.$phpEx;
 $pagetitle = $l_topictitle;
 $pagetype  = 'viewtopic';
 
-$sql = "SELECT 	`f`.`forum_name`   `forum_name`,
-                `f`.`forum_access` `forum_access`,
-                `f`.`forum_type`   `forum_type`,
-                `g`.`id`           `idGroup`
-
-        FROM `".$tbl_forums."` `f`,
-             `".$tbl_topics."` t 
-
-        # Check possible attached group ...
-        LEFT JOIN `".$tbl_student_group."` `g`
-               ON `f`.`forum_id` = `g`.`forumId`
-
-        WHERE `f`.`forum_id` = '".$forum."'
-         AND  `t`.`topic_id` = '".$topic."'
-         AND  `t`.`forum_id` = f.forum_id    ";
-
-$forumSettingList = claro_sql_query_fetch_all($sql);
-
-if ( count($forumSettingList) == 1) $forumSettingList = $forumSettingList[0];
-else                                error_die('Unexisting forum.');
-
+$forumSettingList = get_forum_settings($forum, $topic);
 
 /* 
  * Check if the topic isn't attached to a group,  or -- if it is attached --, 
@@ -68,14 +48,9 @@ if (   ! is_null($forumSettingList['idGroup'])
 
 $forum_name = own_stripslashes($forumSettingList['forum_name']);
 
-$total      = get_total_posts($topic, $db, 'topic');
-
-if($total > $posts_per_page)
-{
-    $times = 0;
-    for($x = 0; $x < $total; $x += $posts_per_page) $times++;
-    $pages = $times;
-}
+/*
+ *  Get topic settings
+ */
 
 $sql = "SELECT topic_title, topic_status 
         FROM `".$tbl_topics."` 
@@ -85,7 +60,6 @@ $topicSettingList = claro_sql_query_fetch_all($sql);
 if ( count($topicSettingList) == 1) $topicSettingList = $topicSettingList[0];
 else                                error_die('Unexisting topic.');
 
-
 $topic_subject    = own_stripslashes($topicSettingList['topic_title']);
 
 $lock_state       = $topicSettingList['topic_status'];
@@ -93,38 +67,47 @@ $lock_state       = $topicSettingList['topic_status'];
 include('page_header.'.$phpEx);
 
 
+/*----------------------------------------------------------------------------
+                                PAGER BUILDING
+  ----------------------------------------------------------------------------*/
+$total      = get_total_posts($topic, $db, 'topic');
+
 if($total > $posts_per_page)
 {
-    echo "<table>\n";
+    $times = 0;
+    for($x = 0; $x < $total; $x += $posts_per_page) $times++;
+    $pages = $times;
+
+    $pager = "<table>\n";
 
     $times = 1;
 
-    echo "<tr align=\"left\">\n"
-        ."<td>\n"
-        .$l_gotopage." ( ";
+    $pager = "<tr align=\"left\">\n"
+            ."<td>\n"
+            .$l_gotopage." ( ";
 
     $last_page = $start - $posts_per_page;
 
     if($start > 0)
     {
-        echo "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
+        $pager = "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
                                    ."&start=".$last_page."\">"
-            .$l_prevpage
-            ."</a> ";
+                .$l_prevpage
+                ."</a> ";
     }
 
     for($x = 0; $x < $total; $x += $posts_per_page)
     {
         if($times != 1) echo " | ";
 
-        if    ($start && ($start == $x)) echo $times;
-        elseif($start == 0 && $x == 0)   echo "1";
+        if    ($start && ($start == $x)) $pager = $times;
+        elseif($start == 0 && $x == 0)   $pager = '1';
         else
         {
-            echo "<a href=\"".$PHP_SELF."?mode=viewtopic"
-                ."&topic=".$topic."&forum=".$forum."&start=".$x."\">"
-                .$times
-                ."</a>\n";
+            $pager .= "<a href=\"".$PHP_SELF."?mode=viewtopic"
+                    ."&topic=".$topic."&forum=".$forum."&start=".$x."\">"
+                    .$times
+                    ."</a>\n";
         }
 
         $times++;
@@ -134,17 +117,24 @@ if($total > $posts_per_page)
     {
         $next_page = $start + $posts_per_page;
 
-        echo "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
+        $pager .= "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
                                    ."&start=$next_page\">"
-            .$l_nextpage
-            ."</a>\n";
+                .$l_nextpage
+                ."</a>\n";
     }
 
-    echo " )\n"
-        ."</td>\n"
-        ."</tr>\n"
-        ."</table>\n";
+    $pager .= " )\n"
+            ."</td>\n"
+            ."</tr>\n"
+            ."</table>\n";
+} // if($total > $posts_per_page)
+else
+{
+	$pager = '';
 }
+
+echo $pager;
+
 
 
 
@@ -169,25 +159,31 @@ if ($cmd && $_uid)
                           SET `user_id`  = '".$_uid."',
                               `topic_id` = '".$topic."'";
 
-                  claro_sql_query($sql);
-                  $notifyChange = true;
                   break;
 
             case 'exdoNotNotify' :
+
                   $sql = "DELETE FROM `$tbl_user_notify`
                           WHERE topic_id = '".$topic."'
                             AND user_id  = '".$_uid."'";
-
-                  claro_sql_query($sql);
-                  $notifyChange = true;
                   break;
     }
+
+    claro_sql_query($sql);
+    $increaseTopicView = false; // the notification chanage command doesn't 
+                                    // have to be considered as a new topic 
+                                    // consult
 }
+else
+{
+	$increaseTopicView = true;
+}
+
 
 // For (Added for claro 1.5) allow user to be have notification for this 
 // topic or disable it
  
-if (isset($_uid))  //anonymous user do not have this function
+if ( isset($_uid) )  //anonymous user do not have this function
 {
     //see in DB if user is notified or not
    
@@ -250,8 +246,6 @@ if (isset($_uid))  //anonymous user do not have this function
 
     $postList = claro_sql_query_fetch_all($sql, $db);
 
-    $count = 0;
-
     foreach($postList as $thisPost )
     {
         // Check if the forum post is after the last login
@@ -287,12 +281,12 @@ if (isset($_uid))  //anonymous user do not have this function
         {
             echo "<p>\n"
 
-                ."<a href=\"".$url_phpbb."/editpost.".$phpEx
+                ."<a href=\"editpost.php"
                 ."?post_id=".$thisPost['post_id']."&topic=".$topic."&forum=".$forum."\">"
                 ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langEditDel."\">"
                 ."</a>\n"
 
-                ."<a href=\"".$url_phpbb."/editpost.".$phpEx
+                ."<a href=\"editpost.php"
                 ."?post_id=".$thisPost['post_id']."&topic=".$topic."&forum=".$forum
                 ."&delete=delete&submit=submit\">"
                 ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" "
@@ -304,12 +298,9 @@ if (isset($_uid))  //anonymous user do not have this function
 
         echo	"</td>\n",
                 "</tr>\n";
-
-       $count++;
-
     } // end for each
 
-    if ($notifyChange != true)
+    if ($increaseTopicView)
     {
          $sql = "UPDATE `".$tbl_topics."`
                  SET   topic_views = topic_views + 1
@@ -318,61 +309,9 @@ if (isset($_uid))  //anonymous user do not have this function
         claro_sql_query($sql);
     }
 
-    echo "</table>\n"
-        ."</td>\n"
-        ."</tr>\n";
+    echo "</table>\n";
 
-if($total > $posts_per_page)
-{
-    $times = 1;
-
-    echo	"<tr align=\"right\">\n",
-            "<td colspan=2>\n",
-            $l_gotopage," ( ";
-
-    $last_page = $start - $posts_per_page;
-
-    if($start > 0)
-    {
-        echo "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
-                                   ."&start=".$last_page."\">"
-            .$l_prevpage
-            ."</a>\n";
-    }
-
-    for($x = 0; $x < $total; $x += $posts_per_page)
-    {
-        if($times != 1) echo " | ";
-
-        if    ($start && ($start == $x)) echo $times;
-        elseif($start == 0 && $x == 0)   echo '1';
-        else
-        {
-            echo "<a href=\"".$PHP_SELF."?mode=viewtopic"
-                ."&topic=".$topic."&forum=".$forum."&start=".$x."\">"
-                .$times
-                ."</a>\n";
-        }
-
-        $times++;
-    }
-
-    if(($start + $posts_per_page) < $total)
-    {
-        $next_page = $start + $posts_per_page;
-
-        echo "<a href=\"".$PHP_SELF."?topic=".$topic."&forum=".$forum
-                                   ."&start=".$next_page."\">"
-            .$l_nextpage
-            ."</a>\n";
-    }
-
-    echo	"</td>\n",
-            "</tr>\n";
-
-} // end if($total > $posts_per_page)
-
-echo "</td>\n";
+echo $pager;
 
 require 'page_tail.php';
 ?>

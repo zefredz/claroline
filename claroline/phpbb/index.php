@@ -67,7 +67,7 @@ $forumList = claro_sql_query_fetch_all($sql);
 
 $sql = "SELECT `g`.`forumId`
         FROM `".$tbl_student_group."` `g`,
-           `".$tbl_user_group."` `gu`
+             `".$tbl_user_group."` `gu`
         WHERE `g`.`id`    = `gu`.`team`
           AND `gu`.`user` = '".$_uid."'";
 

@@ -33,23 +33,7 @@ if($forum == -1) header('Location: '.$url_phpbb);
 /* 
  * GET FORUM SETTINGS
  */
-
-$sql = "SELECT 	`f`.`forum_type`,
-                `f`.`forum_name`,
-                `g`.`id` `idGroup`,
-                `g`.`name` `nameGroup`
-
-        # Check possible attached group ..
-        FROM      `".$tbl_forums."` `f`
-        LEFT JOIN `".$tbl_student_group."` `g`
-
-               ON `f`.`forum_id` = `g`.`forumId`
-        WHERE     `f`.`forum_id` = '".$forum."'";
-
-$forumSettingList = claro_sql_query_fetch_all($sql);
-
-if ( count($forumSettingList) == 1) $forumSettingList = $forumSettingList[0];
-else    error_die('Unexisting forum.');
+$forumSettingList = get_forum_settings($forum);
 
 /* 
  * Check if the forum isn't attached to a group,  or -- if it is attached --, 

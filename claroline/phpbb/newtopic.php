@@ -41,30 +41,13 @@ $pagetype =  'newtopic';
 $userFirstName = $_user['firstName'];
 $userLastName  = $_user['lastName' ];
 
-$sql = "SELECT `f`.`forum_name`   `forum_name`,
-               `f`.`forum_access` `forum_access`,
-               `f`.`forum_type`   `forum_type`,
-               `g`.`id`           `idGroup`,
-               `g`.`name`         `nameGroup`
+$forumSettingList = get_forum_settings($forum);
 
-        FROM      `".$tbl_forums."`        `f`
-
-        # Check possible attached group ..
-        LEFT JOIN `".$tbl_student_group."` `g`
-               ON `f`.`forum_id` = `g`.`forumId`
-        WHERE     `f`.`forum_id` = '".$forum."'";
-
-
-$forumSettingList = claro_sql_query_fetch_all($sql);
-
-if ( count($forumSettingList) == 1) $forumSettingList = $forumSettingList[0];
-else    error_die('Unexisting forum.');
-
-$forum_name 		= $myrow['forum_name'  ];
-$forum_access 		= $myrow['forum_access'];
-$forum_type 		= $myrow['forum_type'  ];
-$forum_groupId 		= $myrow['idGroup'     ];
-$forum_groupname	= $myrow['nameGroup'   ];
+$forum_name 		= $forumSettingList['forum_name'  ];
+$forum_access 		= $forumSettingList['forum_access'];
+$forum_type 		= $forumSettingList['forum_type'  ];
+$forum_groupId 		= $forumSettingList['idGroup'     ];
+$forum_groupname	= $forumSettingList['nameGroup'   ];
 $forum_id 			= $forum;
 
 // Check if the forum isn't attached to a group, 
@@ -243,8 +226,8 @@ else
     if ( ! $_uid)    // ADDED BY CLAROLINE: exclude non identified visitors
     {
         error_die($langLoginBeforePost1.'<br />'
-                  $langLoginBeforePost2.
-                 ."<a href=../../index.php>".$langLoginBeforePost3.".</a>");
+                  .$langLoginBeforePost2
+                  ."<a href=../../index.php>".$langLoginBeforePost3.".</a>");
     }               // END ADDED BY CLAROLINE exclude visitors unidentified
     
 ?>
