@@ -628,10 +628,22 @@ HTMLArea.prototype.generate = function () {
 	// Introduce a comment stating that, since the client uses HTML Area,
 	// the content will necessarly be in html format. A sort of metadata ...
 
+	// For Mozilla ...
+	
 	if (textarea.value.indexOf('<!-- content: html -->') == -1)
 	{
 		textarea.value = '<!-- content: html -->' + textarea.value;
 	}
+
+	// and IE ...
+	
+	if (this._textArea.value.indexOf('<!-- content: html -->') == -1)
+	{
+		this._textArea.value = '<!-- content: html -->' + textarea.value;
+	}
+
+	// END OF CLAROLINE HACK
+
 
 
 	if (textarea.offsetWidth == 0) {// ugly hack to prevent problem 
