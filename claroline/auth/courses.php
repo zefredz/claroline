@@ -537,8 +537,8 @@ switch ($displayMode)
                             echo "<td valign=\"top\"  align=\"center\">"
                                 ." <a href=\"".$clarolineRepositoryWeb."admin/admin_class_course_registered.php?cmd=exReg&course=".$thisCourse['code']."&class=",$classinfo['id'].$inURL."\">\n"
                                 ." <img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"".$langEnrollClass."\">\n"
-                                ." </a>
-                                .</td>\n";
+                                ." </a>"
+                                ."</td>\n";
                         }
                     }
                 }
