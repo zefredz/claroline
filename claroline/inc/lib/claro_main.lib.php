@@ -506,8 +506,6 @@ $langstudentview = 'student';
 
 function claro_set_tool_view_mode($viewMode)
 {
-    global $_SESSION; // necessary for PHP versions before 4.1 ...
-
     $viewMode = strtoupper($viewMode); // to be sure ...
     
     if ( in_array($viewMode, array('STUDENT', 'COURSE_ADMIN') ) )
@@ -525,8 +523,6 @@ function claro_set_tool_view_mode($viewMode)
 
 function claro_get_tool_view_mode()
 {
-    global $_SESSION; // necessary for PHP versions before 4.1 ...
-
     if ( ! isset($_SESSION['claro_toolViewMode']) )
     {
         $_SESSION['claro_toolViewMode'] = 'COURSE_ADMIN'; // default
