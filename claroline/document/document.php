@@ -850,13 +850,14 @@ if ($cmd == 'exSearch')
     $searchPattern   = str_replace('.', '\\.', $searchPattern);
     $searchPattern   = str_replace('*', '.*',  $searchPattern);
     $searchPattern   = str_replace('?', '.?',  $searchPattern);
+    $searchPattern   = '|'.$searchPattern.'|i';
 
     $searchRecursive = true;
     $searchBasePath  = $baseWorkDir;
 }
 else
 {
-    $searchPattern   = '';
+    $searchPattern   = '||';
     $searchRecursive = false;
     $searchBasePath  = $baseWorkDir.$curDirPath;
 }
