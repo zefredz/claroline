@@ -18,8 +18,8 @@ $langFile = "admin.add.users";
 include("../inc/claro_init_global.inc.php");
 
 $nameTools             = $lang_addUser_addUser;
-$interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
-$interbredcrump[]    = array ("url"=>"index.php", "name"=> $langManage);
+$interbredcrump[]    = array ("url" => $rootAdminWeb, "name"=> $langAdministrationTools);
+$interbredcrump[]    = array ("url" => "index.php", "name"=> $langManage);
 $noQUERY_STRING     = TRUE;
 
 include($includePath."/lib/text.lib.php");
