@@ -40,10 +40,9 @@ $langPrivOpen="Accès privé, inscription ouverte";
 $langPrivate="Accès privé (site réservé aux personnes figurant dans la liste <a href=../user/user.php>utilisateurs</a>)";
 $langForbidden="Accès non autorisé";
 $langLanguage="Langue";
-$langConfTip="Par défaut, votre cours n'est accessible
-qu'à vous qui en êtes le seul utilisateur. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir
-l'inscription pendant une semaine, de demander aux étudiants de s'inscrire eux-mêmes
-puis de fermer l'inscription et de vérifier dans la liste des utilisateurs les intrus éventuels.";
+$langConfTip="Par d&eacute;faut, votre cours est accessible &agrave; tout le monde. Si vous souhaitez un minimum de confidentialit&eacute;, le plus simple est d'ouvrir
+l'inscription pendant une semaine, de demander aux &eacute;tudiants de s'inscrire eux-m&ecirc;mes
+puis de fermer l'inscription et de v&eacute;rifier dans la liste des utilisateurs les intrus &eacute;ventuels.";
 $langTipLang="Cette langue vaudra pour tous les visiteurs de votre site de cours.";
 
 // Change Home Page
