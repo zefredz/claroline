@@ -774,9 +774,11 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
 if ($cmd == 'rqSearch')
 {
+    $searchMsg = empty($_REQUEST['cwd']) ? $langSearch." :" : "Search in ".$_REQUEST['cwd']." :" ;
     $dialogBox .=	 "<form>\n"
-                    ."<input type=\"hidden\" name=\"cmd\" value=\"exSearch\">\n"					
-                    ."<label for=\"searchPattern\">".$langSearch." : </label>\n"
+                    ."<input type=\"hidden\" name=\"cmd\" value=\"exSearch\">\n"
+                    ."<label for=\"searchPattern\">".$searchMsg."<br /></label>\n"
+                    //."<label for=\"searchPattern\">".$langSearch." : </label>\n"
                     ."<input type=\"text\" id=\"searchPattern\" name=\"searchPattern\">\n"
                     ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">\n"
                     ."<input type=\"submit\" value=\"".$langOk."\">\n"
