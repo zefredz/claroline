@@ -143,4 +143,6 @@ $langUpdatedExternalTool="External tool updated";
 $langUnableUpdateExternalTool="Unable to update external tool";
 $langDeletedExternalTool='External tool deleted';
 $langUnableDeleteExternalTool='Unable to delete external tool';
+$langAdministrationTools="Administration";
+
 ?>
