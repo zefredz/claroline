@@ -41,13 +41,21 @@ function check_username($username, $db) {return false;}
 function get_userdata($username, $db) {return array("error" => "1");}
 function validate_username($username, $db) {return 0;}
 
+function get_userdata_from_id($userId)
+{
+    global $tbl_users;
 
+    $sql = "SELECT prenom first_name, 
+                   nom last_name, 
+                   email, 
+                   user_id
+            FROM `".$tbl_users."`
+            WHERE user_id ='".(int)$userId."'";
 
+    $result = claro_sql_query_fetch_all($sql);
 
-function get_userdata_from_id($userid, $db ='') 
-{ 
-
-    return array("error" => "1"); 
+    if ( count($result) == 1 ) return $result[0];
+    else                      return false;
 }
 
 

@@ -34,18 +34,20 @@ require 'page_header.php';
 
 if($submit) {
 
-    if ($message    == '') error_die($l_emptymsg);
-    if ($tousername == '') error_die($l_norecipient);
+    $message = trim($_REQUEST['message']);
 
-    $touserdata = get_userdata($tousername);
-    if( ! $touserdata['username']) error_die($l_nouser);
+    if ($message  == '')             error_die($l_emptymsg);
+    if ($_REQUEST['touserid'] == '') error_die($l_norecipient);
+
+    $touserdata         = get_userdata_from_id($_REQUEST['touserid']);
+    if (! $touserdata ) error_die($l_norecipient);
 
     $fromuserdata = $userdata; // fromuser = current user.
+    if ($userdata['user_id'] == -1) error_die('operation not allowed');
+   
 
-    /* correct password or logged-in user, continuing with message send. */
-
-	$message = addslashes($message);
-	$time = date('Y-m-d H:i');
+    $message = addslashes($message);
+    $time    = date('Y-m-d H:i');
 
     $sql = "INSERT INTO `".$tbl_priv_msgs."`
             SET from_userid = '".$fromuserdata['user_id']."',
@@ -53,52 +55,42 @@ if($submit) {
                 msg_time    = '".$time."', 
                 msg_text    = '".$message."'";
 
-	if(!mysql_query($sql, $db)) {
-		echo $sql . " : " . mysql_error() . "<br>";
-		error_die("Could not enter data into the database.");
-	}
+    if ( claroline_sql_query($sql) !== false)
+    {
+        disp_confirmation_message($l_stored."<br />\n"    
+                               ."<a href=\"sendpmsg.php\">"
+                               .$l_sendothermsg
+                               ."</a><br />\n");
+    }
+    else
+    {
+        error_die('Could not enter data into the database.');
+    }
 
-	echo "<table border=\"0\" cellpadding=\"1\" align=\"center\" valign=\"top\" width=\"".$tablewidth."\">"
-	    ."<tr bgcolor=\"".$color1."\">"
-        ."<td>"
-        ."<center>"
-	    .$l_stored."<br> \n"    
-	    ."<a href=\"sendpmsg.php\">".$l_sendothermsg."</a> <br> \n"
-	    ."</center>"
-	    ."</td>"
-        ."</tr>"
-        ."</table>";
-
-} else {
+}
+else
+{
+    $touserid = 1;
+    $touserdata = get_userdata_from_id($touserid);
 
 /* displaying the login form */
 
 ?>
 <form action="<?php echo $PHP_SELF ?>" method="post">
-<table border="0" cellpadding="1" cellspacing="0" align="center" valign="top">
+<input type="hidden" name="touserid" value="<?php echo $touserdata['user_id'] ?>">
+<table border="0" cellpadding="1">
 
-<tr>
-<td align="right"><b><?php echo $l_aboutpost?></b></td>
-<td><?php echo $l_regusers." ".$l_cansend ?></td>
+<tr valign="top">
+<td align="right"><?php echo $l_yourname ?> : </td>
+<td><?php echo $userdata['first_name'].' '.$userdata['last_name']; ?></td>
 </tr>
 
-<tr>
-<td align="right"><b><?php echo $l_yourname ?> : <b></td>
-<td><?php echo $userdata['username'] . " \n"; ?></td>
+<tr valign="top">
+<td align="right"><?php echo $l_recptname?> : </td>
+<td><?php echo $touserdata['first_name'].' '.$touserdata['last_name']; ?></td>
 </tr>
 
-<tr>
-<td><b><?php echo $l_recptname?> : <b></td>
-<td>
-<input type="text" 
-       name="tousername" 
-       size="25" 
-       maxlength="40" 
-       value="<?php echo $tousername?>">
-</td>
-</tr>
-
-<tr>
+<tr valign="top">
 <td>
 <label for="message"><b><?php echo $l_body?> :</b></label>
 </td>
@@ -107,8 +99,10 @@ if($submit) {
 </td>
 </tr>
 
-<tr>
-<td  colspan=2 align="center">
+<tr valign="top">
+<td>
+</td>
+<td>
 <input type="submit" name="submit" value="<?php echo $l_submit?>">
 </tr>
 </table>
@@ -116,5 +110,5 @@ if($submit) {
 
 <?php
 }
-require('page_tail.'.$phpEx);
+require 'page_tail.php';
 ?>
