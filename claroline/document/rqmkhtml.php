@@ -47,8 +47,11 @@ if ($cmd ==  'rqMkHtml')
     <p>
     <b><?php echo $langDocumentContent ?></b>
     <?php
-    claro_disp_html_area('htmlContent');
-    ?>
+    claro_disp_html_area('htmlContent',$_REQUEST['htmlContent']);
+    // the second argument _REQUEST['htmlContent'] for the case when we have to 
+    // get to the editor because of an error at creation 
+    // (eg forgot to give a file name)
+    ?> 
     <input type="submit" value="OK">
     </form>
     <?php

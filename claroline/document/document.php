@@ -385,6 +385,17 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         else
         {
             $dialogBox .= $langFileNameMissing;
+
+            if (!empty($_REQUEST['htmlContent']))
+            {
+                $dialogBox .= "<p>\n"
+                             ."<a href=\"rqmkhtml.php"
+                             ."?cmd=rqMkHtml"
+                             ."&cwd=".urlencode($_REQUEST['cwd'])
+                             ."&htmlContent=".urlencode($_REQUEST['htmlContent'])."\">\n"
+                             ."Get Back to the editor\n"
+                             ."</p>\n";
+            }
         }
     }
     
