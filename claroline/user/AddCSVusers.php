@@ -289,6 +289,7 @@ You must specify the CSV format used in your file :<br><br>
     <label for="fieldSeparator"><?php echo $langFieldSeparatorUsed; ?></label>: 
     
     <select name="fieldSeparator" id="fieldSeparator">
+      <option value=",">,</option>
       <option value=";">;</option>
       <option value=" "><?php echo $langBlankSpace; ?></option>       
     </select> 
