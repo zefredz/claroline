@@ -397,22 +397,22 @@ echo '<p>'."\n"
     .'<a class="claroCmd" href="group_creation.php">'
     ."<img src=\"".$clarolineRepositoryWeb."img/group.gif\">"
     .$langNewGroupCreate
-    .'</a>'."\n"
+    .'</a> |'."\n"
     .'&nbsp;'
     .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?delete=yes" onClick="return confirmationDelete();">'
     ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\">"
     .$langDeleteGroups
-    .'</a>'."\n"
+    .'</a> |'."\n"
     .'&nbsp;'
     .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?fill=yes"  >'
     ."<img src=\"".$clarolineRepositoryWeb."img/fill.gif\">"
     .$langFillGroups
-    .'</a>'."\n"
+    .'</a> |'."\n"
     .'&nbsp;'
     .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?empty=yes"  onClick="return confirmationEmpty();">'
     ."<img src=\"".$clarolineRepositoryWeb."img/sweep.gif\">"
     .$langEmtpyGroups
-    .'</a>'."\n"
+    .'</a> |'."\n"
     .'&nbsp;'
     .'<a class="claroCmd" href="group_properties.php">'
     ."<img src=\"".$clarolineRepositoryWeb."img/referencement.gif\">"
