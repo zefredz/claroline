@@ -52,7 +52,7 @@ if ( isset($_uid) )
      * AUTHENTICATED USER SECTION
      */
 
-    if($submitAuth) event_login();
+    if(isset($_REQUEST['submitAuth'])) event_login();
     require $includePath.'/index_authenticated.inc.php';
 }
 else
