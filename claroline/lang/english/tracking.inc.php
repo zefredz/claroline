@@ -11,16 +11,6 @@
       +----------------------------------------------------------------------+
  */
 
-
-/***************************************************************
-*                   Language translation
-****************************************************************
-GOAL
-****
-Translate the interface in chosen language
-ENGLISH
-*****************************************************************/
-
 /* general */
 $langTrackingDisabled = "Tracking has been disabled by system administrator.";
 $langToolName="Statistics";
@@ -180,6 +170,9 @@ $langToolList = "List of all tools";
 $langFrom = "From";
 $langTo = "to";
 
+$langUserAccessDetails = "User access details";
+$langTool = "Tool : ";
+$langDocument = "Document : ";
 /* traffic_details */
 $langPeriodToDisplay = "Period";
 $langDetailView = "View by";

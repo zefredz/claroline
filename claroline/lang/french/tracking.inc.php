@@ -1,23 +1,13 @@
 <?php # $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.0 $Revision$                            |
-
-
-
+      | CLAROLINE version 1.5.*			                             |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
       |          Piraux Sébastien  <piraux_seb@hotmail.com>                  |
       +----------------------------------------------------------------------+
  */
-
-/***************************************************************
-*                   Language translation
-****************************************************************
-GOAL
-****
-Translate the interface in chosen language
-
-FRENCH
-*****************************************************************/
 
 /* general */
 $langTrackingDisabled = "Le syst&egrave;me de statistiques et de tracking a &eacute;t&eacute; d&eacute;sactiv&eacute; par l'administrateur syst&egrave;me.";
@@ -175,6 +165,9 @@ $langToolList = "Liste de tous les outils";
 $langFrom = "Du";
 $langTo = "au";
 
+$langUserAccessDetails = "Acc&egrave;s utilisateurs";
+$langTool = "Outil : ";
+$langDocument = "Document : ";
 
 /* traffic_details */
 $langPeriodToDisplay = "P&eacute;riode";
