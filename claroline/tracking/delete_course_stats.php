@@ -31,7 +31,6 @@
 $langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
-
 // regroup table names for maintenance purpose
 $TABLETRACK_ACCESS      = $_course['dbNameGlu']."track_e_access";
 $TABLETRACK_DOWNLOADS   = $_course['dbNameGlu']."track_e_downloads";
@@ -39,23 +38,9 @@ $TABLETRACK_UPLOADS     = $_course['dbNameGlu']."track_e_uploads";
 $TABLETRACK_EXERCISES   = $_course['dbNameGlu']."track_e_exercices";
 
 
-
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langToolName);
 
 $nameTools = $langDelCourseStats;
-
-$htmlHeadXtra[] = "<style type='text/css'>
-<!--
-.secLine {background-color : #E6E6E6;}
-.content {padding-left : 15px;padding-right : 15px; }
-.specialLink{color : #0000FF;}
--->
-</style>
-<STYLE media='print' type='text/css'>
-<!--
-TD {border-bottom: thin dashed Gray;}
--->
-</STYLE>";
 
 include($includePath."/claro_init_header.inc.php");
 
@@ -92,24 +77,18 @@ if( $isAllowedToDelete )
     {
       // ASK DELETE CONFIRMATION TO THE USER
     
-      echo	 "<p>"
-          .$langConfirmDelete
-          ."</p>"
-    
-          ."<p>";
-    
-      echo "<a href=\"".$_SERVER['PHP_SELF']."?delete=yes\">"
-        .$langYes
-        ."</a>";
-    
-    
-      echo "&nbsp;|&nbsp;";
-    
-          echo "<a href=\"courseLog.php\">"
-          .$langNo
-          ."</a>";
-    
-      echo "</p>";
+      echo "\n<p>\n"
+		.$langConfirmDelete
+		."\n</p>\n"
+        ."<p>\n"
+	  	."<a href=\"".$_SERVER['PHP_SELF']."?delete=yes\">"
+		.$langYes
+        ."</a>"
+		."&nbsp;|&nbsp;"
+		."<a href=\"courseLog.php\">"
+		.$langNo
+		."</a>\n"
+    	."</p>\n";
     
     }		// end else if $delete
 } //end if isAllowedToDelete
