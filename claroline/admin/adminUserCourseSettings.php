@@ -1,9 +1,8 @@
-<?php
-// $Id$
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -18,15 +17,15 @@ define ("USER_DATA_FORM", 2);
 $langFile ='admin';
 $cidReset = true;
 
-include '../inc/claro_init_global.inc.php';
-include $includePath.'/lib/text.lib.php';
-include $includePath.'/lib/admin.lib.inc.php';
-include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
+include('../inc/claro_init_global.inc.php');
+include($includePath.'/lib/text.lib.php');
+include($includePath.'/lib/admin.lib.inc.php');
+include($includePath.'/conf/profile.conf.inc.php'); // find this file to modify values.
 
 
 //SECURITY CHECK
 
-if (!$is_platformAdmin) treatNotAuthorized();
+if (!$_SESSION['is_platformAdmin']) treatNotAuthorized();
 
 
 $nameTools=$langModifUserCourseSettings;
@@ -201,16 +200,18 @@ if($dialogBox)
 <table width="100%" >
 
             <tr>
-               <td><?=$langUserStatus?> : </td>
+               <td><?php echo $langUserStatus?> : </td>
                <td>
-                 <input type="radio" name="status_form" value="student" <? if ($isStudent) { echo "checked"; }?> ><?=$langStudent?></input>
-                 <input type="radio" name="status_form" value="teacher" <? if ($isCourseManager) { echo "checked"; }?> ><?=$langCourseManager?></input>
-                 <input type="hidden" name="uidToEdit" value="<?=$user_id?>">
-                 <input type="hidden" name="cidToEdit" value="<?=$cidToEdit?>">
-                 <input type="submit" name="applyChange" value="<?=$langSaveChanges?>">
+                 <input type="radio" name="status_form" value="student" id="status_form_student" <?php if ($isStudent) { echo "checked"; }?> >
+				 <label for="status_form_student"><?php echo $langStudent?></label>
+                 <input type="radio" name="status_form" value="teacher" id="status_form_teacher" <?php if ($isCourseManager) { echo "checked"; }?> >
+				 <label for="status_form_teacher"><?php echo $langCourseManager?></label>
+                 <input type="hidden" name="uidToEdit" value="<?php echo $user_id?>">
+                 <input type="hidden" name="cidToEdit" value="<?php echo $cidToEdit?>">
+                 <input type="submit" name="applyChange" value="<?php echo $langSaveChanges?>">
                  <input type="hidden" name="cmd" value="changeStatus">
-                 <input type="hidden" name="cfrom" value="<?=$cfrom?>">
-                 <input type="hidden" name="ccfrom" value="<?=$ccfrom?>">
+                 <input type="hidden" name="cfrom" value="<?php echo $cfrom?>">
+                 <input type="hidden" name="ccfrom" value="<?php echo $ccfrom?>">
                </td>
             </tr>
      </table>
