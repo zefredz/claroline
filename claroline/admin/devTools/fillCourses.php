@@ -190,7 +190,7 @@ if (isset($HTTP_POST_VARS["nc"]))
     {
             $wantedCode     = $pfCode." ".field_rand($nameOfCourses)." (".substr(md5(uniqid("")),0,3).")";
             $faculte           = field_rand($aivailableFaculty);
-            $langue_course     = field_rand($aivailableLang);
+            $language_course   = field_rand($aivailableLang);
             $uidCourse         = field_rand($teachersUid);
         //  function define_course_keys ($wantedCode, $prefix4all="", $prefix4baseName="",     $prefix4path="", $addUniquePrefix =false,    $useCodeInDepedentKeys = TRUE    )
             $keys             = define_course_keys ($wantedCode,"",$dbNamePrefix);
@@ -218,7 +218,7 @@ if (isset($HTTP_POST_VARS["nc"]))
             fill_Db_course(
                 $currentCourseDbName,
                 $currentCourseRepository,
-                $langue_course
+                $language_course
                 );
             register_course(
                 $currentCourseId,
@@ -229,7 +229,7 @@ if (isset($HTTP_POST_VARS["nc"]))
                 $_user['email'],
 				$faculte,
                 $wantedCode,
-                $langue_course,
+                $language_course,
                 $uidCourse,
                 $expirationDate
                 );
@@ -350,7 +350,7 @@ if (isset($HTTP_POST_VARS["nc"]))
                 [Id:".$currentCourseId."]
                 [Db:".$currentCourseDbName     ."]
                 [Path:".$currentCourseRepository ."]<br>
-                [langue_course:".$langue_course ."]
+                [language_course:".$language_course ."]
                 [faculte:".$faculte ."]
                 [uidCourse:".$uidCourse."]<br>
                 [nb users added:".$addedUsers."]
