@@ -39,25 +39,19 @@ $tbl_course      = $tbl_mdb_names['course'           ];
 $tbl_course_node = $tbl_mdb_names['category'         ];
 
 // Display variables
-$INFOFAC	= TRUE;
-$CREATE		= TRUE;
-$BOM		= TRUE;
+$CREATE		= FALSE;
 $EDIT		= FALSE;
 $MOVE		= FALSE;
 
 /**
- * Show or hide categories
+ * Show or hide sub categories
  */
 
-if ( isset($_REQUEST["id"]) && 
-    !isset($_REQUEST["UpDown"]) && 
-    !isset($_REQUEST["delete"]) && 
-    !isset($_REQUEST["edit"]) &&
-    !isset($_REQUEST["change"])
-   )
+if ( isset($_REQUEST['id']) && 
+    !isset($_REQUEST['cmd'])   )
 {
-    $id=$_REQUEST["id"];
-    $faculty=$_SESSION["savFaculty"];
+    $id=$_REQUEST['id'];
+    $faculty=$_SESSION['savFaculty'];
 
     // Change the parameter 'visible'
 
@@ -65,12 +59,12 @@ if ( isset($_REQUEST["id"]) &&
     {
         foreach($faculty as $key=>$one_faculty)
         {
-            if($one_faculty["id"]==$id)
+            if($one_faculty['id']==$id)
             {
-                if($faculty[$key]["visible"])
-                    $faculty[$key]["visible"]=FALSE;
+                if($faculty[$key]['visible'])
+                    $faculty[$key]['visible']=FALSE;
                 else
-                    $faculty[$key]["visible"]=TRUE;
+                    $faculty[$key]['visible']=TRUE;
             }
         }
     }
@@ -88,7 +82,7 @@ else
      * Create a category
      */
 
-    if(isset($_REQUEST["create"]))
+    if($_REQUEST['cmd'] == 'exCreate' )
     {
         // If the new category have a name, a code and she can have child (categories or courses)
         if( !empty($_REQUEST["nameCat"]) && !empty($_REQUEST["codeCat"]) )
@@ -177,7 +171,7 @@ else
      * If you move the category in the same father of the bom
      */
     
-    if(isset($_REQUEST["UpDown"] ))
+    if($_REQUEST['cmd']=='exUp' || $_REQUEST['cmd']=='exDown')
     {
         // Search the minimum and the maximum
         $sql_InfoTree=" SELECT min(treePos) minimum, max(treePos) maximum 
@@ -196,7 +190,7 @@ else
          * If Up the category and the treePos of this category isn't the first category
          */
 
-        if($_REQUEST["UpDown"]=="u" && $i>=$TreeMin )
+        if($_REQUEST['cmd']=='exUp' && $i>=$TreeMin )
         {
             // Search the previous brother of this category
             $j=$i-1;
@@ -239,7 +233,7 @@ else
          * If Up the category and the treePos of this category isn't the last category
          */
 
-        if ($_REQUEST["UpDown"]=="d" && $i<$TreeMax-1 )
+        if ($_REQUEST['cmd']=='exDown' && $i<$TreeMax-1 )
         {
             // Search the next brother
             $j=$i+1;
@@ -284,7 +278,7 @@ else
      * If you delete a category
      */
 
-    if(isset($_REQUEST["delete"]))
+    if($_REQUEST['cmd'] == 'exDelete')
     {
         // Search information of the category
         $sql_SearchDelete= " SELECT treePos,code,code_P,nb_childs 
@@ -345,16 +339,21 @@ else
     }
     
     /**
+     * Create a category : display form
+     */
+
+    if($_REQUEST['cmd'] == 'rqCreate')
+    {
+        $CREATE=TRUE;
+    }
+    
+    /**
      * Edit a category : display form
      */
 
-    if(isset($_REQUEST["edit"]))
+    if($_REQUEST['cmd'] == 'rqEdit')
     {
-        $INFOFAC=TRUE;
         $EDIT=TRUE;
-        $CREATE=FALSE;
-        $BOM=TRUE;
-        $MOVE=FALSE;
 
         // Search information of the category edit
         $sql_SearchInfoTreeFaculty = " SELECT * FROM `" . $tbl_course_node . "` 
@@ -368,21 +367,34 @@ else
         $EditCanHaveCatChild=$array[0]["canHaveCatChild"];
         $EditCanHaveCoursesChild=$array[0]["canHaveCoursesChild"];
 	
-        if(isset($_REQUEST["move"]))
-        {
-            $MOVE=TRUE;
-            $INFOFAC=FALSE;
-            $EDIT=FALSE;
-            $CREATE=FALSE;
-            $BOM=FALSE;
-        }
+    }
+    
+    /**
+     * Move a category : display form
+     */
+        
+    if($_REQUEST['cmd'] == 'rqMove')
+    {
+        // Search information of the category edit
+        $sql_SearchInfoTreeFaculty = " SELECT * FROM `" . $tbl_course_node . "` 
+                                       WHERE id='".$_REQUEST["id"]."'";
+        $array=claro_sql_query_fetch_all($sql_SearchInfoTreeFaculty);
+
+        $EditId=$array[0]["id"];
+        $EditName=$array[0]["name"];
+        $EditCode=$array[0]["code"];
+        $EditFather=$array[0]["code_P"];
+        $EditCanHaveCatChild=$array[0]["canHaveCatChild"];
+        $EditCanHaveCoursesChild=$array[0]["canHaveCoursesChild"];
+
+        $MOVE=TRUE;
     }
 
     /**
      * Change information of category : do change in db
      */
 
-    if(isset($_REQUEST["change"]))
+    if($_REQUEST['cmd'] == 'exChange' )
     {
         // Search information
         $sql_FacultyEdit = " SELECT * FROM `" . $tbl_course_node . "` 
@@ -798,6 +810,7 @@ if($CREATE)
     claro_disp_msg_arr($controlMsg);
 ?>
     <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+    <input type="hidden" name="cmd" value="exCreate" />
     <table border="0">
     <tr>
         <td >
@@ -875,7 +888,7 @@ if($CREATE)
         </td>
 
         <td>
-        <input type="submit" name="create" value="Ok">
+        <input type="submit" value="Ok">
         </td>
     </tr>
     </table>
@@ -893,6 +906,7 @@ if($EDIT)
     claro_disp_msg_arr($controlMsg);
 ?>
     <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+    <input type="hidden" name="cmd" value="exChange" />
     <table border="0">
     <tr>
         <td >
@@ -945,45 +959,13 @@ if($EDIT)
         </td>
 
         <td>
-        <input type="submit" name="change" value="Ok">
+        <input type="submit" value="Ok">
         </td>
     </tr>
     </table>
     </form>
     <br>
 
-<?php
-}
-
-/**
- * Display the bom of categories and the button to create a new category
- */
-
-if($BOM)
-{
-?>
-
-    <hr>
-
-	<table class="claroTable" width="100%" border="0" cellspacing="2">
-    <thead>
-       <tr class="headerX" align="center" valign="top">
-
-<?    
-     //add titles for the table
-
-echo       "<th>".$lang_faculty_CodeCat."</td>"
-          ."<th>".$langEdit."</th>"
-          ."<th>".$langMove."</th>"
-          ."<th>".$langDelete."</th>"
-          ."<th colspan=2>".$langOrder."</th>";
-
-echo "</tr></thead>";
-
-displayBom($faculty,NULL,"");
-
-?>
-</table>
 <?php
 }
 
@@ -997,6 +979,7 @@ if($MOVE)
     claro_disp_msg_arr($controlMsg);
 ?>
     <form action=" <?php echo $_SERVER['PHP_SELF'] ?> " method="POST">
+    <input type="hidden" name="cmd" value="exChange" />
     <table border="0">
     <tr>
         <td>
@@ -1023,34 +1006,47 @@ if($MOVE)
         </td>
         <td>
             <input type="hidden" name="id" value="<?php echo $EditId ?>">
-			<input type="submit" name="change" value="Ok">
+			<input type="submit" value="Ok">
         </td>
     </tr>
     </table>
     </form>
     <br>
 
+<?php
+}
 
-    <?php echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
-       <thead>
-       <tr class=\"headerX\" align=\"center\" valign=\"top\">
-       ";
+/**
+ * Display the bom of categories and the button to create a new category
+ */
 
-     //add titles for the table
+echo "<p><a href=\"" . $_SERVER['PHP_SELF'] . "?cmd=rqCreate\">" . $langSubTitleCreate . "</a></p>";    
 
-echo "<th>".$lang_faculty_CodeCat."</th>"
-          ."<th>".$langEdit."</th>"
-          ."<th>".$langMove."</th>"
-          ."<th>".$langDelete."</th>"
-          ."<th colspan=2>".$langOrder."</th>";
+?>
+
+	<table class="claroTable" width="100%" border="0" cellspacing="2">
+    <thead>
+       <tr class="headerX" align="center" valign="top">
+
+<?    
+
+// Add titles for the table
+
+echo "<th>".$lang_faculty_CodeCat."</td>"
+     ."<th>".$langEdit."</th>"
+     ."<th>".$langMove."</th>"
+     ."<th>".$langDelete."</th>"
+     ."<th colspan=2>".$langOrder."</th>";
 
 echo "</tr></thead>";
 
 displayBom($faculty,NULL,"");
 
-}
+echo "</table>";
 
 include($includePath."/claro_init_footer.inc.php");
+
+
 
 /***************************
 *  functions
@@ -1148,15 +1144,15 @@ include($includePath."/claro_init_footer.inc.php");
                     </td>
                     <td  align="center">
 
-                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1"; ?>" >
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=rqEdit"; ?>" >
                         <img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEdit ?>" > </a>
                     </td>
                     <td align="center">
-                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1&move=1"; ?>" >
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=rqMove"; ?>" >
                         <img src="<?php echo $clarolineRepositoryWeb ?>img/deplacer.gif" border="0" alt="<?php echo $langMove ?>" > </a>
                     </td>
                     <td align="center">
-                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&delete=1"; ?>"
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=exDelete"; ?>"
                         onclick="javascript:if(!confirm('<?php echo 
                          addslashes(htmlentities($lang_faculty_ConfirmDelete.$one_faculty["code"])) ?>')) return false;" >
                         <img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $langDelete ?>"> </a>
@@ -1181,7 +1177,7 @@ include($includePath."/claro_init_footer.inc.php");
                         if($num>1)
                         {
                         ?>
-                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&UpDown=u&date=".$date."#ud".$one_faculty["id"];
+                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=exUp&date=".$date."#ud".$one_faculty["id"];
                             ?>" name ="<?php echo "ud".$one_faculty["id"]; ?>">
                             <img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"></a>
                         <?php
@@ -1194,7 +1190,7 @@ include($includePath."/claro_init_footer.inc.php");
                         if($num<$nbChild)
                         {
                         ?>
-                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&UpDown=d&date=".$date."#ud".$one_faculty["id"];
+                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=exDown&date=".$date."#ud".$one_faculty["id"];
                             ?>" name="<?php echo "ud".$one_faculty["id"]; ?>">
                             <img src="<?php echo $clarolineRepositoryWeb ?>img/down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
                     <?php
