@@ -15,7 +15,7 @@
 // CONFIG HEADER
 
 $conf_def['config_code']='CLMAIN';
-$conf_def['config_file']='claroline.conf.php';
+$conf_def['config_file']='claro_main.conf.php';
 $conf_def['config_name']='Main settings';
     
 // SECTION 
@@ -31,16 +31,16 @@ array ( 'siteName'
 $conf_def['section']['ADMINISTRATOR_SETTING']['label']='Administrator';
 $conf_def['section']['ADMINISTRATOR_SETTING']['description']='Information about the technical administrator';
 $conf_def['section']['ADMINISTRATOR_SETTING']['properties'] = 
-array ( 'administratorName'
-      , 'administratorEmail'
-      , 'administratorPhone'
+array ( 'administrator_name'
+      , 'administrator_email'
+      , 'administrator_phone'
       );
       
 $conf_def['section']['ADMINISTRATIVE_SETTING']['label']='Institution';
 $conf_def['section']['ADMINISTRATIVE_SETTING']['description']='Information about your institution (optional)';
 $conf_def['section']['ADMINISTRATIVE_SETTING']['properties'] = 
-array ( 'institutionName'
-      , 'institutionUrl'
+array ( 'institution_name'
+      , 'institution_url'
       );
 
 $conf_def['section']['DISP_FILE_SYSTEM_SETTING']['label']='File system settings';
@@ -209,7 +209,7 @@ array ('label'       => 'URL append'
       );
 
 $conf_def_property_list['rootSys'] = 
-array ('label'       => 'Sytem Path to web base value'
+array ('label'       => 'System Path to web base value'
       ,'default'     => ''
       ,'type'        => 'syspath'
       ,'display'     => TRUE
@@ -270,7 +270,7 @@ array('label'         => 'Language Mode'
 
 // Administrator
 
-$conf_def_property_list['administratorName'] = 
+$conf_def_property_list['administrator_name'] = 
 array ('label'       => 'Name'
       ,'description' => 'Complete name'
       ,'default'     => 'John Doe'
@@ -279,14 +279,14 @@ array ('label'       => 'Name'
       ,'readonly'    => FALSE
       );
 
-$conf_def_property_list['administratorEmail'] = 
+$conf_def_property_list['administrator_email'] = 
 array ('label'       => 'Email'
       ,'description' => 'This email is the main contact address on the platform'
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
-$conf_def_property_list['administratorPhone'] = 
+$conf_def_property_list['administrator_phone'] = 
 array ('label'       => 'Phone'
       ,'type'        => 'string'
       ,'display'     => TRUE
@@ -294,7 +294,7 @@ array ('label'       => 'Phone'
       );
 
 // Institution
-$conf_def_property_list['institutionName'] = 
+$conf_def_property_list['institution_name'] = 
 array ('label'       => 'Name'
       ,'default'     => 'My institute'
       ,'description' => 'Name displayed in the top banner'
@@ -302,7 +302,7 @@ array ('label'       => 'Name'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
-$conf_def_property_list['institutionUrl'] = 
+$conf_def_property_list['institution_url'] = 
 array ('label'       => 'URL'
       ,'default'     => 'http://www.google.com/'
       ,'type'        => 'string'
@@ -411,15 +411,6 @@ array ('label'       => 'Are teacher allowed to subscribe as teacher ?'
 //$mysqlPrefix		=	$dbNamePrefix;
 //$mysqlMainDb		=	$mainDbName;
 //
-////general infos
-//$administratorSurname=	"";
-//$administratorName	=	$administrator["name"];
-//$telephone			=	$administrator["phone"];
-//
-//$educationManager	=	$educationManager["name"];
-//
-//$Institution		=	$institution["name"];
-//$InstitutionUrl		=	$institution["url"];
 $conf_def_property_list['clarolineRepositoryAppend'] = 
 array ('type'        => 'relpath'
       ,'default'     => 'claroline/'
@@ -460,89 +451,113 @@ array ('type'        => 'relpath'
       );
 
 $conf_def_property_list['clarolineRepositorySys'] = 
-array ('type'        => 'php'
+array ('type'        => 'syspath'
       ,'default'     => '$rootSys.$clarolineRepositoryAppend'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['clarolineRepositoryWeb'] = 
-array ('type'        => 'php'
+array ('type'        => 'syspath'
       ,'default'     => '$rootWeb.$clarolineRepositoryAppend'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['userImageRepositorySys'] = 
-array ('type'        => 'php'
+array ('type'        => 'syspath'
       ,'default'     => '$rootSys.$userImageRepositoryAppend'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['userImageRepositoryWeb'] = 
-array ('type'        => 'php'
+array ('type'        => 'syspath'
       ,'default'     => '$rootWeb.$userImageRepositoryAppend'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['coursesRepositorySys'] = 
-array ('type'        => 'php'
+array ('type'        => 'syspath'
       ,'default'     => '$rootSys.$coursesRepositoryAppend'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['coursesRepositoryWeb'] = 
-array ('type'        => 'php'
+array ('type'        => 'syspath'
       ,'default'     => '$rootWeb.$coursesRepositoryAppend'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
-$conf_def_property_list['rootAdminSysv'] = 
-array ('type'        => 'php'
+$conf_def_property_list['rootAdminSys'] = 
+array ('type'        => 'syspath'
       ,'default'     => '$clarolineRepositorySys.$rootAdminAppend'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['rootAdminWeb'] = 
-array ('type'        => 'php'
+array ('type'        => 'syspath'
       ,'default'     => '$clarolineRepositoryWeb.$rootAdminAppend'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['phpMyAdminWeb'] = 
-array ('type'        => 'php'
+array ('type'        => 'syspath'
       ,'default'     => '$rootAdminWeb.$phpMyAdminAppend'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['phpMyAdminSys'] = 
-array ('type'        => 'php'
-      ,'default'     => '$rootAdminSys.$phpMyAdminAppend'
+array ('type'        => 'syspath'
+      ,'default'     => $rootAdminSys.$phpMyAdminAppend
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['phpSysInfoWeb'] = 
-array ('type'        => 'php'
-      ,'default'     => '$rootAdminWeb.$phpSysInfoAppend'
+array ('type'        => 'syspath'
+      ,'default'     => $rootAdminWeb.$phpSysInfoAppend
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['phpSysInfoSys'] = 
-array ('type'        => 'php'
+array ('type'        => 'syspath'
       ,'default'     => '$rootAdminSys.$phpSysInfoAppend'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
+$conf_def_property_list['PEAR_LIB_PATH'] = 
+array ('type'        => 'syspath'
+      ,'label'       => 'Pear lib'
+      ,'default'     => str_replace('\\','/',$includePath.'/lib/pear')
+      ,'container'   => 'CONST'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+      
+   
+
 //
 $conf_def_property_list['clarolineVersion'] = 
 array ('type'        => 'string'
       ,'default'     => '1.5.alpha'
       ,'display'     => FALSE
-      ,'readonly'    => FALSE
+      ,'readonly'    => TRUE
       );
 $conf_def_property_list['versionDb'] = 
 array ('type'        => 'string'
       ,'default'     => '1.5.alpha'
       ,'display'     => FALSE
+      ,'readonly'    => TRUE
+      );
+$conf_def_property_list['platform_id'] = 
+array ('type'        => 'string'
+      ,'default'     => md5(realpath(__FILE__))
+      ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 
+      
+      //missing
+      /*
+      
+      */
+      
+      
 ?>
