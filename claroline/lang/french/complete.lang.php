@@ -1747,6 +1747,53 @@ $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
 $langAddListUser = "Ajouter une liste d'utilisateurs";
 $langAddAClass = "Inscrire une classe";
+
+
+$langUpgradeAchieved = "Mise à jour terminée";
+$langErrorInvalidParms = "Erreur : Paramètre invalide (utilisé des nombres uniquement)";
+$langErrorValuesInDouble = "Erreur : Une ou plusieurs valeurs sont identiques";
+$langExpire = "Expiration";
+$langStudentView = "Etudiant";
+$langTitleUpgrade = "<h2>Mettre à jour Claroline<br />
+                     de 1.4.* à 1.5</h2>";
+$langDone = "Etapes terminées";
+$langTodo = "Etapes à faire";
+$langUpgradeAchieved = "Mise à jour terminée";
+$langUpgradeStep0 = "Sauvegarde confirmée";
+$langMakeABackupBefore = "<p>L'outil de <em>mise à jour de Claroline</em> récupère les données de la précédente installation et les rend compatible avec la nouvelle version de Claroline. Cette mise à jour se déroule en trois étapes:</p>
+<ol>
+<li>Récupère les paramètres de la plateforme et génère les nouveaux fichiers de configuration.</li>
+<li>Met à jour les tables principales de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatible avec la nouvelle structure de données.</li>
+<li>Met à jour un par un chaque donnée de cours (dossiers, tables de la base de données, ...)</li>
+</ol>
+<p>Nous vous recommandons avant de lancer la mise à jour:</p>
+<table>
+<tbody>
+<tr valign=\"top\"><td>-</td><td>Faire une sauvegarde complète de toutes les données de la plateforme (fichiers et base de données)</td><td>%s</td></tr>\n
+</tbody>
+</table>
+<p>La mise à jour ne peut pas démarrer tant que cette étape n'est pas marquée comme 'faite'.</p>
+";
+$langConfirm = "Confirmer";
+$langUpgradeStep1 = "Etape 1 de 3: paramètres de la plateforme";
+$langIntroStep1 = "<p>L'<em>outil de mise à jour</em> va procéder à la mise à jour des parmaètre de la plateforme.
+Ces paramètres sont stockés dans claroline/include/config.inc.php de votre ancienne plateforme</p>";
+$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Lancer la mise à jour des paramètres de la plateforme</button></p>";
+$langUpgradeStep2 = "Etape 2 de 3: mise à jour des tables pricipales";
+$langIntroStep2 = "<p>Maintenant, l'<em>outil de mise à jour</em> met à jour les tables principales de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatible avec la nouvelle structure de données.
+</p>
+<p class=\"help\">Note: En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
+$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Lancer la mise à jour des tables principales</button></p>";
+$langNextStep = "<p><button onclick=\"document.location='%s';\">Suivant ></button></p>";
+$langUpgradeStep3 = "Etape 3 de 3: mise à jour des cours";
+$langIntroStep3 = "<p>L'<em>outil de mise à jour</em> met à jour les données de chaque cours (dossiers et tables de la base de données).
+<p class=\"help\">Note: En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
+$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Lancer les mise à jour des cours</button></p>";
+$langIntroStep3Run = "<p>L'<em>outil de mise à jour</em> met à jour les cours.</p>" ;
+$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s cours sur %s déjà mis à jour</strong><br /></p>";
+$langSucceed="succès";
+$langFailed="<span style=\"color: red\">Echec</span>";
+
 $langAddAClassToCourse = "Inscrire une classe au cours";
 $langSubscribeToCourse = "Inscrire au cours";
 $langDispClassAdded = "Montrer la classe ajoutée";
@@ -1791,4 +1838,5 @@ $langPasswordSimple = "Le mot de passe donné est trop simple ou trop proche du n
 $langMailAppearAlready = "Cet e-mail apparait déjà dans une ligne précédente du fichier CSV.";
 $langUsernameAppearAlready = "Ce nom d'utilisateur apparait déjà dans une ligne précédente du fichier CSV.";
 $langCodeAppearAlready = "Ce code officiel apparait déjà dans une ligne précédente du fichier CSV.";
+
 ?>
