@@ -16,19 +16,6 @@ require '../inc/claro_init_global.inc.php';
 $interbredcrump[]= array ("url"=>"../auth/profile.php", "name"=> $langModifyProfile);
 $nameTools = $langToolName;
 
-$htmlHeadXtra[] = "<style type=\"text/css\">
-<!--
-.secLine {background-color : #E6E6E6;}
-.content {padding-left : 15px; padding-right : 15px;}
-.specialLink{color : #0000FF;}
--->
-</style>
-<STYLE media='print' type='text/css'>
-<!--
-TD {border-bottom: thin dashed Gray;}
--->
-</STYLE>";
-
 // regroup table names for maintenance purpose
 $tbl_courses			= $mainDbName."`.`cours";
 $tbl_link_user_courses	= $mainDbName."`.`cours_user";
@@ -59,18 +46,15 @@ if ( $is_trackingEnabled )
 	                                  AND   cours_user.user_id = '".$_uid."'");
       if(mysql_num_rows($resCourseListOfUser) > 0)
       {
-          echo "<ul>";
+          echo "<ul>\n";
           while ( $courseOfUser = mysql_fetch_array($resCourseListOfUser) )
           {
-              ?>
-                
-                    <li><a href="userLog.php?uInfo=<?= $_uid; ?>&cidReset=true&cidReq=<?= $courseOfUser['code']; ?>"><?= $courseOfUser['name'];?></a><br>
-                      <small><?= $courseOfUser['code']; ?> - <?= $courseOfUser['prof']; ?></small> 
-                    </li> 
-              <?
-                  
+              echo "<li>\n"
+                        ."<a href=\"userLog.php?uInfo=".$_uid."&cidReset=true&cidReq=".$courseOfUser['code']."\">".$courseOfUser['name']."</a><br>\n"
+                        ."<small>".$courseOfUser['code']." - ".$courseOfUser['prof']."</small>\n"
+                        ."</li>\n\n";
           }
-          echo "</ul>";
+          echo "</ul>\n";
       }
       else
       {
