@@ -462,7 +462,7 @@ if( isset($_REQUEST['submitWrk']) )
                         
 											
 						// -- create a unique file name to avoid any conflict
-						// split file ant its extension 
+						// split file and its extension 
 						$extension = substr($newFileName, strrpos($newFileName, "."));
 						$filename = substr($newFileName, 0, strrpos($newFileName, "."));
 						$i = 0;
@@ -492,29 +492,55 @@ if( isset($_REQUEST['submitWrk']) )
             }
             elseif( $assignmentContent == "FILE" )
             {
-                  if( isset($_REQUEST['currentWrkUrl']) )
-                  {
-                        // if there was already a file and nothing was provided to replace it, reuse it of course
-                        $wrkForm['fileName'] = $_REQUEST['currentWrkUrl'];
-                  }
-                  else
-                  {
-                        // if the main thing to provide is a file and that no file was sent
-                        $dialogBox .= $langFileRequired."<br />";
-                        $formCorrectlySent = false;
-                  }
+				if( isset($_REQUEST['currentWrkUrl']) )
+				{
+					// if there was already a file and nothing was provided to replace it, reuse it of course
+					$wrkForm['fileName'] = $_REQUEST['currentWrkUrl'];
+				}
+				elseif( isset($_REQUEST['submitGroupWorkUrl']) )
+				{
+					// -- create a unique file name to avoid any conflict
+					// split file and its extension 
+					$publishedFileName = basename($_REQUEST['submitGroupWorkUrl']);
+					$extension = substr($publishedFileName, strrpos($publishedFileName, "."));
+					$filename = substr($publishedFileName, 0, strrpos($publishedFileName, "."));
+					$i = 0;
+					while( file_exists($assigDirSys.$filename."_".$i.$extension) ) $i++;
+					
+					$wrkForm['fileName'] = $filename."_".$i.$extension.".url";
+					create_link_file($assigDirSys.$wrkForm['fileName'], $coursesRepositoryWeb.$_course['path'].'/'.$submitGroupWorkUrl);
+				}
+				else
+				{
+					// if the main thing to provide is a file and that no file was sent
+					$dialogBox .= $langFileRequired."<br />";
+					$formCorrectlySent = false;
+				}
             }
             elseif( $assignmentContent == "TEXTFILE" )
             {
                   // attached file is optionnal if work type is TEXT AND FILE
                   // so the attached file can be deleted only in this mode
-                  
-                  // if delete of the file is required
-                  if(isset($_REQUEST['delAttacheDFile']) )
-                  {
-                        $wrkForm['fileName'] = ""; // empty DB field
-                        @unlink($assigDirSys.$_REQUEST['currentWrkUrl']); // physically remove the file
-                  }
+                if( isset($_REQUEST['submitGroupWorkUrl']) )
+				{
+					// -- create a unique file name to avoid any conflict
+					// split file and its extension 
+					$publishedFileName = basename($_REQUEST['submitGroupWorkUrl']);
+					$extension = substr($publishedFileName, strrpos($publishedFileName, "."));
+					$filename = substr($publishedFileName, 0, strrpos($publishedFileName, "."));
+					$i = 0;
+					while( file_exists($assigDirSys.$filename."_".$i.$extension) ) $i++;
+					
+					$wrkForm['fileName'] = $filename."_".$i.$extension.".url";
+					create_link_file($assigDirSys.$wrkForm['fileName'], $coursesRepositoryWeb.$_course['path'].'/'.$submitGroupWorkUrl);
+				}
+				
+				// if delete of the file is required
+				if(isset($_REQUEST['delAttacheDFile']) )
+				{
+				 $wrkForm['fileName'] = ""; // empty DB field
+				 @unlink($assigDirSys.$_REQUEST['currentWrkUrl']); // physically remove the file
+				}
             }
       }// if($formCorrectlySent)
             
@@ -898,6 +924,12 @@ function confirmation (name)
 }
 </script>";
 
+if(isset($_gid))
+{
+	$interbredcrump[]= array ("url"=>"../group/group.php", "name"=> $langGroup);
+	$interbredcrump[]= array ("url"=>"../group/group_space.php", "name"=> $langGroupSpace);
+}
+
 $interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langWork);
 
 if( $dispWrkDet || $dispWrkForm )
@@ -1228,7 +1260,9 @@ if( $is_allowedToSubmit )
                   ."</tr>\n\n";
 
             // display the list of groups of the user
-            if( $assignment['assignment_type'] == "GROUP" && isset($userGroupList) && count($userGroupList) > 0 )
+            if( $assignment['assignment_type'] == "GROUP" && 
+					(isset($userGroupList) && count($userGroupList) > 0) || ($is_courseAdmin && isset($_gid) )
+				)
             {
                   echo "<tr>\n"
                         ."<td valign=\"top\"><label for=\"wrkGroup\">".$langGroup."&nbsp;*&nbsp;:</label></td>\n";
@@ -1237,7 +1271,7 @@ if( $is_allowedToSubmit )
                   {
                         echo "<td>\n"
                               ."<input type=\"hidden\" name=\"wrkGroup\" value=\"".$_gid."\" />"
-                              .$userGroupList[$_gid]['name']
+                              .$_group['name']
                               ."</td>\n";
                   }
                   else
@@ -1307,26 +1341,37 @@ if( $is_allowedToSubmit )
                         }
                   }
                   
-                  echo "<tr>\n"
-                        ."<td valign=\"top\"><label for=\"wrkFile\">";
-                  // display a different text according to the context
-                  if( $assignmentContent == "TEXTFILE" )
-                  {
-                        // if text is required, file is considered as a an attached document
-                        echo $langAttachDoc;
-                  }
-                  else
-                  {
-                        // if the file is required and the text is only a description of the file
-                        echo $langUploadDoc."&nbsp;*";
-                  }
-                  
+    			echo "<tr>\n"
+					."<td valign=\"top\"><label for=\"wrkFile\">";
+					
+				// display a different text according to the context
+				if( $assignmentContent == "TEXTFILE" )
+				{
+					// if text is required, file is considered as a an attached document
+					echo $langAttachDoc;
+				}
+				else
+				{
+					// if the file is required and the text is only a description of the file
+					echo $langUploadDoc."&nbsp;*";
+				}
+				echo "&nbsp;:</label></td>\n";
+				if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
+				{
+					echo "<td>"
+						."<input type=\"hidden\" name=\"submitGroupWorkUrl\" value=\"".$submitGroupWorkUrl."\">"
+						."<a href=\"".$coursesRepositoryWeb.$_course['path'].'/'.$submitGroupWorkUrl."\">".basename($submitGroupWorkUrl)."</a>"
+						."</td>\n";
+				
+				}
+				else
+				{
                   $maxFileSize = min(get_max_upload_size($maxFilledSpace,$wrkDirSys), $fileAllowedSize);
 
-                  echo "&nbsp;:</label></td>\n"
-                        ."<td><input type=\"file\" name=\"wrkFile\" id=\"wrkFile\" size=\"30\"><br />"
+                  echo "<td><input type=\"file\" name=\"wrkFile\" id=\"wrkFile\" size=\"30\"><br />"
 						."<small>".$langMaxFileSize." ".format_file_size($maxFileSize)."</small></td>\n"
                         ."</tr>\n\n";
+				}
             }
             
             if( $assignmentContent == "FILE" )
@@ -1481,8 +1526,8 @@ if( $dispWrkLst && $is_allowedToView )
     }
     else // anonymous user
     {
-      if( $assignment['assignment_type'] == 'GROUP')
-      {
+		if( $assignment['assignment_type'] == 'GROUP')
+		{
             $sql = "SELECT `ws`.`id`, `ws`.`title`, 
                         `ws`.`parent_id`, `ws`.`user_id`, `ws`.`group_id`,
                         `ws`.`visibility`, `ws`.`authors`, 
@@ -1495,9 +1540,9 @@ if( $dispWrkLst && $is_allowedToView )
                     AND `visibility` = 'VISIBLE'
                     AND `parent_id` IS NULL
                   ORDER BY `last_edit_date` ASC";
-      }
-      else // INDIVIDUAL 
-      {
+		}
+		else // INDIVIDUAL 
+		{
             // show visible works that are not corrections 
             $sql = "SELECT `id`, `title`, 
                         `parent_id`, `user_id`, `group_id`,
@@ -1508,7 +1553,7 @@ if( $dispWrkLst && $is_allowedToView )
                     AND `visibility` = 'VISIBLE'
                     AND `parent_id` IS NULL
                   ORDER BY `last_edit_date` ASC";
-      }
+      	}
     }
     $workList = claro_sql_query_fetch_all($sql);
     
@@ -1522,10 +1567,10 @@ if( $dispWrkLst && $is_allowedToView )
     // SO, in this last case, we remove the children of works when user_id is different from $_uid
     if( isset($_uid) && !$is_allowedToEditAll )
     {
-      for ($i=0 ; $i < sizeof($treeElementList) ; $i++)
-      {
-            if( $treeElementList[$i]['user_id'] != $_uid ) unset($treeElementList[$i]['children']) ;
-      }
+		for ($i=0 ; $i < sizeof($treeElementList) ; $i++)
+		{
+			if( $treeElementList[$i]['user_id'] != $_uid ) unset($treeElementList[$i]['children']) ;
+		}
     }
     
     $flatElementList = build_display_element_list( $treeElementList );
@@ -1545,6 +1590,7 @@ if( $dispWrkLst && $is_allowedToView )
       // link to create a new assignment
       echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqSubWrk&assigId=".$_REQUEST['assigId']."\">".$langSubmitWork."</a>\n";
     }
+	
 	if( $is_allowedToEditAll )
 	{
 		echo " | <a href=\"feedback.php?cmd=rqEditFeedback&assigId=".$assignment['id']."\">".$langEditFeedback."</a>\n";
@@ -1571,84 +1617,84 @@ if( $dispWrkLst && $is_allowedToView )
         ."<tbody>\n";
     foreach($flatElementList as $thisWrk)
     {
-      // display an alert if work was submitted after end date and work is not a correction !
-      if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && empty($thisWrk['parent_id']) )
-      {
-            $lateUploadAlert = "&nbsp;<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
-      }
-      else
-      {
-            $lateUploadAlert = "";
-      }
-      
-      if ($thisWrk['visibility'] == "INVISIBLE")
-      {
-					$style=' class="invisible"';
-			}
-			else 
+	    // display an alert if work was submitted after end date and work is not a correction !
+	    if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && empty($thisWrk['parent_id']) )
+	    {
+			$lateUploadAlert = "&nbsp;<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
+	    }
+	    else
+	    {
+			$lateUploadAlert = "";
+	    }
+	    
+	    if ($thisWrk['visibility'] == "INVISIBLE")
+	    {
+			$style=' class="invisible"';
+		}
+		else 
+		{
+			$style='';
+		}
+	    
+	    $spacingString = "";
+	    for($i = 0; $i < $thisWrk['children']; $i++)
+	      $spacingString .= "<td width=\"5\">&gt;</td>";
+	    $colspan = $maxDeep - $thisWrk['children']+1;
+	    
+	    // display group name only if this work is not a correction
+	    if( $assignment['assignment_type'] == 'GROUP' && empty($thisWrk['parent_id'])  )
+	    {
+	          $authorString = $thisWrk['authors']." ( ".$thisWrk['group_name']." )";
+	    }
+	    else
+	    {
+	          $authorString = $thisWrk['authors'];
+	    }
+	    echo "<tr align=\"center\"".$style." >\n"
+	        .$spacingString
+	        ."<td colspan=\"".$colspan."\" align=\"left\">"
+	        ."<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&cmd=exShwDet\">"
+	        .$thisWrk['title']."</a></td>\n"
+	        ."<td>".$authorString."</td>\n"
+	        ."<td><small>"
+	        .claro_disp_localised_date($dateTimeFormatShort, $thisWrk['unix_last_edit_date'])
+	        .$lateUploadAlert
+	        ."</small></td>\n";
+	    
+	    
+	    if( $is_allowedToEditAll )
+	    { 
+			if( empty($thisWrk['parent_id']) )
 			{
-				$style='';
+			    $gradeString  = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\">".$langAddFeedback."</a>";
 			}
-      
-      $spacingString = "";
-      for($i = 0; $i < $thisWrk['children']; $i++)
-        $spacingString .= "<td width=\"5\">&gt;</td>";
-      $colspan = $maxDeep - $thisWrk['children']+1;
-      
-      // display group name only if this work is not a correction
-      if( $assignment['assignment_type'] == 'GROUP' && empty($thisWrk['parent_id'])  )
-      {
-            $authorString = $thisWrk['authors']." ( ".$thisWrk['group_name']." )";
-      }
-      else
-      {
-            $authorString = $thisWrk['authors'];
-      }
-      echo "<tr align=\"center\"".$style." >\n"
-          .$spacingString
-          ."<td colspan=\"".$colspan."\" align=\"left\">"
-          ."<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&cmd=exShwDet\">"
-          .$thisWrk['title']."</a></td>\n"
-          ."<td>".$authorString."</td>\n"
-          ."<td><small>"
-          .claro_disp_localised_date($dateTimeFormatShort, $thisWrk['unix_last_edit_date'])
-          .$lateUploadAlert
-          ."</small></td>\n";
-      
-      
-      if( $is_allowedToEditAll )
-      { 
-        if( empty($thisWrk['parent_id']) )
-        {
-            $gradeString  = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\">".$langAddFeedback."</a>";
-        }
-        else
-        {
-            $gradeString = "&nbsp;";
-        }
-        
-        echo "<td>".$gradeString."</td>" 
-            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\">"
-            ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a></td>\n"
-            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\">"
-            ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\"></a></td>\n"
-            ."<td>";
-            
-        if ($thisWrk['visibility'] == "INVISIBLE")
-        {
-            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&vis=v\">"
-                  ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"$langMakeVisible\">"
-                  ."</a>";
-        }
-        else
-        {
-            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&vis=i\">"
-                  ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">"
-                  ."</a>";
-        }          
-        echo "</td>\n";
-      }
-      echo "</tr>\n\n";
+			else
+			{
+			    $gradeString = "&nbsp;";
+			}
+			
+			echo "<td>".$gradeString."</td>" 
+			    ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\">"
+			    ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a></td>\n"
+			    ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\">"
+			    ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\"></a></td>\n"
+			    ."<td>";
+			    
+			if ($thisWrk['visibility'] == "INVISIBLE")
+			{
+			    echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&vis=v\">"
+			          ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"$langMakeVisible\">"
+			          ."</a>";
+			}
+			else
+			{
+			    echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&vis=i\">"
+			          ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">"
+			          ."</a>";
+			}          
+			echo "</td>\n";
+	    }
+	    echo "</tr>\n\n";
     }
 
     echo "</tbody>\n</table>\n\n";
