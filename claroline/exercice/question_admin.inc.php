@@ -141,19 +141,17 @@ else
   <?php echo $questionName; ?>
 </h3>
 
+<blockquote>
+  <?php echo claro_parse_user_text($questionDescription); ?>
+</blockquote>
+
 <?php
 	// show the attached file of the question
 	if($okAttachedFile)
 	{
       echo display_attached_file($attachedFile);
 	}
-?>
 
-<blockquote>
-  <?php echo claro_parse_user_text($questionDescription); ?>
-</blockquote>
-
-<?php
 	// doesn't show the edit link if we come from the question pool to pick a question for an exercise
 	if(!$fromExercise)
 	{
