@@ -12,9 +12,9 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-/*==========================
+/****************************
              INIT
-  ==========================*/
+*****************************/
 
 $langFile = "course_info";
 
@@ -139,9 +139,9 @@ echo "
 
 echo "<br>";
 
-/*==========================
+/****************************
            FORM
-  ==========================*/
+  ***************************/
 
 	}
 	else
@@ -461,34 +461,4 @@ else
 }   // else
 
 include($includePath."/claro_init_footer.inc.php");
-
-/**
- * function buildSelect($elem,$father,$EditFather,$space)
- * @desc RECURSIVE function to build option list from a hierachic list
- * @param $elem			array	of array of  2 string called cdde and code_P
- * @param $father
- * @param $EditFather	string	tag this entry as selected
- * @param $space		Char	Char to use as ident
- */
-
-function buildSelect($elem,$father,$EditFather,$space)
-{
-	if($elem)
-	{
-		$space.="&nbsp;&nbsp;&nbsp;";
-		$num=0;
-		foreach($elem as $one_faculty)
-		{
-			if(!strcmp($one_faculty["code_P"],$father))
-			{
-				echo "<option value=\"".$one_faculty['code']."\" ".
-						($one_faculty['code']==$EditFather?"selected ":"")
-				."> ".$space.$one_faculty['code']." </option>";
-				buildSelect($elem,$one_faculty["code"],$EditFather,$space);
-			}
-		}
-	}
-
-}
-
 ?>
