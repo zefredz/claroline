@@ -49,7 +49,7 @@ $langMsg       		= "Messages";
 $langNo="No";
 $langYes="Yes";
 $langEmailOption="Send this announcement by email to registered students";
-$langEmailTitle = 'Subject for this mail'; //remove this line when added to lang files
+$langEmailTitle = 'Subject for this mail'; 
 
 $langOn="On";
 $langRegUser="registered users of the site";
@@ -61,8 +61,6 @@ $langSelectedUsers = "Selected Users";
 $langSubmit = "Submit";
 $langPleaseEnterMessage = "You must introduce the message text.";
 $langPleaseSelectUsers = "You must select some users.";
-$Teachersubject="Message sent to your students from Aula Cesga ";
-$Teacherstudentlist="You have sent this message to:";
 $langMessages = "Messages";
 $langMessageToSelectedUsers = "Messages to selected users";
 $langUsers = "users";
