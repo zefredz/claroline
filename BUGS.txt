@@ -46,7 +46,7 @@ quoi :
 Repéré par : M
 Assigné à : H
 
-B6 Etat : New ------------------------------------------------------
+B6 RESOLU ------------------------------------------------------
 M.39 où : LIB: /inc/lib/claro_mail.lib.inc.php
 Etat : à résoudre pour 1.6
 type : bizarre / code
@@ -57,8 +57,7 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
 
 Guim ne se souvient pas, mais bon  cet include bien que pas propre ne peut pas être simplement retiré
 Repéré par : M
-Assigné à : M (pour 1.6)
-
+Assigné à : SEB
 
 B7 Etat : 1° RESOLU  2° NON RESOLU --------------------------------------
 La totalité de cet outil d'intitulés devrait être refaite
