@@ -256,7 +256,7 @@ if($is_allowedToEdit) // check teacher status
 
 		if($emailOption==1)
         {
-            $emailContent= stripslashes($newContent);
+            $emailContent= stripslashes(strip_tags($newContent));
 
             $emailSubject = "[".$siteName."-".$courseIdCode."] ".$emailTitle;
 
@@ -293,7 +293,7 @@ if($is_allowedToEdit) // check teacher status
             $countEmail = mysql_num_rows($result);
 
             // Email syntax test
-            $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,3})$";
+            $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 
             $unvalid=0;
             // send email one by one to avoid antispam
