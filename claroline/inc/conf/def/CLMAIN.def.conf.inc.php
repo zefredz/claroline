@@ -25,6 +25,7 @@ $conf_def['section']['PLATFORM_SETTING']['description']='Global settings';
 $conf_def['section']['PLATFORM_SETTING']['properties'] = 
 array ( 'siteName'
       , 'platformLanguage'
+      , 'CLAROLANG'
       , 'claro_stylesheet'
       );
 
@@ -76,6 +77,8 @@ $conf_def['section']['advanced']['properties'] =
 array ( 'claro_texRendererUrl'
       , 'mysqlRepositorySys'
       );
+
+//
 
 $conf_def_property_list['dbHost'] = 
 array ('label'       => 'Hostname'
@@ -234,7 +237,7 @@ array ('label'       => 'Campus name'
       );
       
 $conf_def_property_list['platformLanguage'] = 
-array ('label'         => 'Language'
+array ('label'         => 'Default Language'
       ,'description'   => 'Select the default language of the platform'
       ,'default'       => 'english'
       ,'type'          => 'lang'
@@ -249,6 +252,18 @@ array ('label'       => 'Layout'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
+
+$conf_def_property_list['CLAROLANG'] =
+array('label'         => 'Language Mode'
+     ,'default'       => 'PRODUCTION'
+     ,'type'          => 'enum'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'container'     => 'CONST'
+     ,'acceptedValue' => array ('TRANSLATION'=>'Translation'
+                              ,'PRODUCTION'=>'Production'
+                              )
+     );
 
 // Administrator
 
