@@ -1003,7 +1003,7 @@ unset($attribute);
 	                    and we can't go to a parent dir */
 	{
 		echo 	"<a href=\"$PHP_SELF?cmd=exChDir&file=".$cmdParentDir."\">\n",
-				"<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\" \">\n",
+				"<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\"\">\n",
 				"<small>$langUp</small>\n",
 				"</a>\n";
 	}
@@ -1014,21 +1014,21 @@ unset($attribute);
 		
         echo    "&nbsp;",
                 "<a href=\"".$PHP_SELF."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"".$clarolineRepositoryWeb."img/dossier.gif\" alt=\" \">",
+                "<img src=\"".$clarolineRepositoryWeb."img/dossier.gif\" alt=\"\">",
                 "<small>$langCreateDir</small>",
                 "</a>\n",
                 "&nbsp;",
                 "<a href=\"".$PHP_SELF."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"".$clarolineRepositoryWeb."img/download.gif\" alt=\" \">",
+                "<img src=\"".$clarolineRepositoryWeb."img/download.gif\" alt=\"\">",
                 "<small>$langUploadFile</small>",
                 "</a>\n",
                 "&nbsp;",
                 "<a href=\"".$PHP_SELF."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"".$clarolineRepositoryWeb."img/liens.gif\" alt=\" \">",
+                "<img src=\"".$clarolineRepositoryWeb."img/liens.gif\" alt=\"\">",
                 "<small>".$langCreateHyperlink."</small>",
                 "</a>\n",
                 "<a href=\"rqmkhtml.php?cmd=rqMkHtml&cwd=".$cmdCurDirPath."\">",
-                "<img src=\"".$clarolineRepositoryWeb."img/html.gif\" alt=\" \">",
+                "<img src=\"".$clarolineRepositoryWeb."img/html.gif\" alt=\"\">",
                 "<small>".$langCreateDocument."</small>",
                 "</a>\n";
 	}
@@ -1046,7 +1046,7 @@ unset($attribute);
 		echo	"<!-- current dir name -->\n",
 				"<tr>\n",
 				"<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n",
-				"<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\" \">\n",
+				"<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n",
                 $dspCurDirName,"\n",
 				"</td>\n",
 				"</tr>\n";
@@ -1132,7 +1132,7 @@ unset($attribute);
 			echo	"<tr align=\"center\"",$style,">\n",
 					"<td align=\"left\">",
 					"<a href=\"".$urlFileName."\"".$style.">",
-					"<img src=\"./".$clarolineRepositoryWeb."img/",$image,"\" border=\"0\" hspace=\"5\" alt=\" \">",$dspFileName,"</a>",
+					"<img src=\"./".$clarolineRepositoryWeb."img/",$image,"\" border=\"0\" hspace=\"5\" alt=\"\">",$dspFileName,"</a>",
 					"</td>\n",
 					
 					"<td><small>",$size,"</small></td>\n",
