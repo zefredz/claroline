@@ -245,15 +245,13 @@ $administrator['name'] . "\n $langManager $siteName\nT. " . $administrator['phon
 	if($is_allowedCreateCourse)
 	{
 		echo '<p>'.$langNowGoCreateYourCourse.'</p>'."\n";
-		$actionUrl = "../../index.php?cidReset=1";
 	}
 	else
 	{
 		echo '<p>'.$langNowGoChooseYourCourses.'</p>'."\n";
-		$actionUrl = "../../index.php?cidReset=1";
 	}
 
-	echo '<form action="'.$actionUrl.'" >'
+	echo '<form action="../../index.php?cidReset=1" >'
        . '<input type="submit" name="next" value="'.$langNext.'" validationmsg=" '.$langNext.' ">'."\n"
        . '</form>'."\n"
        ;
