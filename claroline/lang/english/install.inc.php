@@ -71,13 +71,14 @@ $langDBSettingNameIntro		= "
 				Choose name for these Db and a prefix for future Courses Tables.<BR>
 				If you are allowed to create many DB, back to previous page and select option \"Several\".
 				It's really more convivial for use";
-$langStep1 			= "Step 1 of 6 ";
-$langStep2 			= "Step 2 of 6 ";
-$langStep3 			= "Step 3 of 6 ";
-$langStep4 			= "Step 4 of 6 ";
-$langStep5 			= "Step 5 of 6 ";
-$langStep6 			= "Step 6 of 6 ";
-$langCfgSetting		= "Config settings";
+$langStep1 			= "Step 1 of 7 ";
+$langStep2 			= "Step 2 of 7 ";
+$langStep3 			= "Step 3 of 7 ";
+$langStep4 			= "Step 4 of 7 ";
+$langStep5 			= "Step 5 of 7 ";
+$langStep6 			= "Step 6 of 7 ";
+$langStep7 			= "Step 7 of 7 ";
+$langCfgSetting		= "Platform settings";
 $langDBSetting 		= "MySQL database settings";
 $langMainLang 		= "Main language";
 $langLicence		= "License";
