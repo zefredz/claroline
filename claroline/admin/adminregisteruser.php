@@ -70,15 +70,36 @@ switch ($cmd)
   case "sub" : //execute subscription command...
         if ($subas=="teach")   //  ... as teacher
         {
-           $done = add_user_to_course($user_id, $cidToEdit);
-           $properties['status'] = 1;
-           $properties['role']   = "Professor";
-           $properties['tutor']  = 1;
-           update_user_course_properties($user_id, $cidToEdit, $properties);
+           if (!isRegisteredTo($user_id, $cidToEdit))    //..add user and set as teacher
+           {
+               $done = add_user_to_course($user_id, $cidToEdit);
+               $properties['status'] = 1;
+               $properties['role']   = "Professor";
+               $properties['tutor']  = 1;
+               update_user_course_properties($user_id, $cidToEdit, $properties);
+           }
+           else                        //.. only set as teacher
+           {
+               $properties['status'] = 1;
+               $properties['role']   = "Professor";
+               $properties['tutor']  = 1;
+               update_user_course_properties($user_id, $cidToEdit, $properties);
+           }
         }
         elseif ($subas=="stud")  // ... as student
         {
-          $done = add_user_to_course($user_id, $cidToEdit);
+          if (!isRegisteredTo($user_id, $cidToEdit)) //add new user (student is default)
+          {
+                $done = add_user_to_course($user_id, $cidToEdit);
+
+          }
+          else                   // only set as student
+          {
+               $properties['status'] = 5;
+               $properties['role']   = "Student";
+               $properties['tutor']  = 0;
+               update_user_course_properties($user_id, $cidToEdit, $properties);
+          }
         }
 
         //set dialogbox message
@@ -342,38 +363,71 @@ foreach($resultList as $list)
          echo "<td align=\"left\">".$list['prenom']."</td>";
      }
 
-     if ($list['Register'] == null)
+     if ($list['statut'] == null)  // user is not enrolled
      {
          // Register as user
 
          echo  "<td align=\"center\">\n",
                     "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=stud".$addToURL."\" ",
                     ">\n",
-                    "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
+                    "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
                     "</a>\n",
                 "</td>\n";
 
-         // Register as course manager
-
+         //register as teacher
 
          echo  "<td align=\"center\">\n",
-                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=teach".$addToURL."\" ",
+                        "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=teach".$addToURL."\" ",
+                        ">\n",
+                        "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
+                        "</a>\n",
+                    "</td>\n";
+
+     }
+     elseif ($list['statut'] == "1") // user is already enrolled but as teacher
+     {
+        //Register as user
+
+        echo  "<td align=\"center\">\n",
+                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=stud".$addToURL."\" ",
                     ">\n",
-                    "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
+                    "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
                     "</a>\n",
                 "</td>\n";
+
+        // already enrolled as teacher
+
+         echo  "<td align=\"center\" >\n
+                 <small>",
+                 $langAlreadyEnrolled,
+                "</small>
+               </td>
+              \n";
+
      }
-     else // user is already enrolled
+
+     elseif ($list['statut'] == "5")  // user is already enrolled but as student
      {
+
+        // already enrolled as student
+
         echo  "<td align=\"center\" >\n
                  <small>",
                  $langAlreadyEnrolled,
                 "</small>
                </td>
-               <td>
-               </td>\n";
+              \n";
 
-     }
+        //register as teacher
+
+         echo  "<td align=\"center\">\n",
+                        "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=teach".$addToURL."\" ",
+                        ">\n",
+                        "<img src=\"../img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
+                        "</a>\n",
+                    "</td>\n";
+
+      }
 
      echo "</tr>";
 }
