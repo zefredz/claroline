@@ -163,7 +163,7 @@ $sqlForUpdate[] = " ALTER IGNORE TABLE `track_c_referers` CHANGE `counter` `coun
  *
 */
 
-$sqlForUpdate[] = "CREATE TABLE `track_e_default` (
+$sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `track_e_default` (
   `default_id` int(11) NOT NULL auto_increment,
   `default_user_id` int(10) NOT NULL default '0',
   `default_cours_code` varchar(40) NOT NULL default '',
