@@ -1,46 +1,16 @@
-<?php 
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.0 $Revision$                            |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   $Id$         |
-      +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      |                                                                      |
-      |   This program is distributed in the hope that it will be useful,    |
-      |   but WITHOUT ANY WARRANTY; without even the implied warranty of     |
-      |   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      |
-      |   GNU General Public License for more details.                       |
-      |                                                                      |
-      |   You should have received a copy of the GNU General Public License  |
-      |   along with this program; if not, write to the Free Software        |
-      |   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA          |
-      |   02111-1307, USA. The GNU GPL license is also available through     |
-      |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
-      +----------------------------------------------------------------------+
-      | Authors:                                                           |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Sebastien Piraux  <piraux_seb@hotmail.com>   |
-      |                                                                        |
-      |                    http://www.claroline.net/                |
-      +----------------------------------------------------------------------+
-      
-      
-      DESCRIPTION
-      -------------------
-      This page display global information about 
+<?php // $Id$
+/**
+ * @version CLAROLINE version 1.6
+ * ----------------------------------------------------------------------
+ * @copyright 2001, 2005 Universite catholique de Louvain (UCL)      |
+ * @license GPL
+ * @author claro team <info@claroline.net>
+ * 
+ * This page display global information about 
  */
- 
 require '../inc/claro_init_global.inc.php';
 
-
-/*
+/**
  * DB tables definition
  */
 
@@ -48,7 +18,7 @@ $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user            = $tbl_mdb_names['user'             ];
-$tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
+$tbl_quiz_test      = $tbl_cdb_names['quiz_test'              ];
 
 // regroup table names for maintenance purpose
 $TABLETRACK_EXERCISES  = $_course['dbNameGlu']."track_e_exercices";
@@ -125,7 +95,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 </ul>  
 
 
-<?
+<?php
   // display details
    $sql = "SELECT `U`.`nom`, `U`.`prenom`, `U`.`user_id`,
             MIN(TEX.`exe_result`) AS `minimum`,
@@ -199,6 +169,6 @@ else
 ?>
 </table>
 
-<?
-@include($includePath."/claro_init_footer.inc.php");
+<?php
+include($includePath."/claro_init_footer.inc.php");
 ?>
