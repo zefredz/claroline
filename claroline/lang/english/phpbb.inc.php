@@ -305,26 +305,27 @@ $l_cancelpost	= "Cancel Post";
 $l_nopostlock	= "You cannot post a reply to this topic, it has been locked.";
 $l_topicreview  = "Topic Review";
 $l_notifysubj	= "A reply to your topic has been posted.";
-$l_notifybody	= 'Dear $m[username]\r\nYou are receiving this Email because a message
-you posted on $sitename forums has been replied to, and
+
+$l_dear = "Dear";
+
+$l_notifybody	= 'You are receiving this Email because a new message in one of your favorit topics
+ on our forums has been added, and
 you selected to be notified on this event.
 
 You may view the topic at:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum&cidReq=$_course[sysCode]
 
-Or view the $sitename forum index at
+Or view the forum index at
 
-http://$SERVER_NAME$url_phpbb
+http://$SERVER_NAME$url_phpbb?cidReq=$_course[sysCode]
 
-Thank you for using $sitename forums.
+Thank you for using our forums.
 
-Have a nice day.
-
-$email_sig';
+Have a nice day.';
 
 
-// $l_quotRRRRemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
+// $l_quotemsg	= '[quote]\nOn $m[post_time], $m[username] wrote:\n$text\n[/quote]';
 
 // Sendpmsg
 $l_norecipient	= "You must enter the user name you want to send the $l_message to.";

@@ -67,10 +67,10 @@ $l_subject	= "Sujet";
 $l_body		= "$l_message";
 $l_from		= "De";   // Message from
 $l_moderator 	= "Modérateur";
-$l_username 	= "Nom d'Utilisateur";
-$l_password 	= "Mot de Passe";
+$l_username 	= "Nom d'utilisateur";
+$l_password 	= "Mot de passe";
 $l_email 	= "E-mail"; // JCC
-$l_emailaddress	= "Adresse d'e-mail"; // JCC
+$l_emailaddress	= "Adresse e-mail"; // JCC
 $l_preferences	= "Préférences";
 
 $l_anonymous	= "Anonyme";  // Post
@@ -78,8 +78,8 @@ $l_guest	= "Invité"; // Whosonline
 $l_noposts	= "Pas de $l_posts";
 $l_joined	= "Inscrit";
 $l_gotopage	= "Va vers page";
-$l_nextpage 	= "Page Suivante";
-$l_prevpage     = "Page Précédente";
+$l_nextpage 	= "Page suivante";
+$l_prevpage     = "Page précédente";
 $l_go		= "Aller à";
 $l_selectforum	= "Sélectionnez un $l_forum";
 
@@ -112,7 +112,7 @@ $l_error	= "Erreur";
 $l_tryagain	= "Revenez en arrière et réessayez.";
 $l_mismatch 	= "Les mots de passe ne correspondent pas.";
 $l_userremoved 	= "Ce membre a été retiré de la base de données.";
-$l_wrongpass	= "Vous avez entré un mauvais mot de passe.";
+$l_wrongpass	= "Vous avez tapé un mauvais mot de passe.";
 $l_userpass	= "Veuillez taper votre nom d'utilisateur et votre mot de passe."; // JCC
 $l_banned 	= "Vous avez été banni de ce forum. Contactez l'administrateur système si vous avez des questions.";
 $l_enterpassword= "Vous devez taper votre mot de passe."; // JCC
@@ -123,14 +123,14 @@ $l_noread	= "Vous n'avez pas la possibilité de lire ce forum.";
 $l_lastpost 	= "Dernier $l_post";
 $l_sincelast	= "depuis votre dernière visite";
 $l_newposts 	= "Nouveaux $l_posts $l_sincelast";
-$l_nonewposts 	= "Pas de Nouveaux $l_posts $l_sincelast";
+$l_nonewposts 	= "Pas de nouveaux $l_posts $l_sincelast";
 
 // Index page
-$l_indextitle	= "Index du Forum";
+$l_indextitle	= "Index du forum";
 
 // Members and profile
 $l_profile	= "Profil";
-$l_register	= "S'enregistrer"; // JCC 
+$l_register	= "S'enregistrer"; // JCC
 $l_onlyreq 	= "Demandé seulement si changé";
 $l_location 	= "De";
 $l_viewpostuser	= "Voir les messages de ce membre";
@@ -150,7 +150,7 @@ $l_website 	= "Adresse du Site Web";
 $l_occupation 	= "Emploi";
 $l_interests 	= "Loisirs";
 $l_signature 	= "Signature";
-$l_sigexplain 	= "C'est un texte qui peut être ajouté aux messages que vous postez.<BR>255 caractères max!";
+$l_sigexplain 	= "C'est un texte qui peut être ajouté aux messages que vous postez.<BR>255 caractères maximum !";
 $l_usertaken	= "Le $l_username que vous avez choisi existe déjà.";
 $l_userdisallowed= "Le $l_username choisi n'a pas été autorisé par l'administrateur. $l_tryagain";
 $l_infoupdated	= "Vos caractéristiques sont mises à jour"; // JCC 
@@ -158,27 +158,27 @@ $l_publicmail	= "Autoriser les autres membres à voir votre $l_emailaddress";
 $l_itemsreq	= "Les champs marqués par un * sont obligatoires";
 
 // Viewforum
-$l_viewforum	= "Voir Forum";
+$l_viewforum	= "Voir le forum";
 $l_notopics	= "Il n'y a pas de sujet sur ce forum. Vous pouvez en poster un.";
 $l_hotthres	= "Plus de $hot_threshold $l_posts";
-$l_islocked	= "$l_topic est fermé (on ne peut plus poster de nouveaux $l_posts)"; // JCC 
+$l_islocked	= "$l_topic est fermé (aucun nouveau $l_posts ne peut être posté)"; // JCC 
 $l_moderatedby	= "Modéré par";
 
 // Private forums
-$l_privateforum	= "C'est un <b>Forum Privé</b>.";
+$l_privateforum	= "C'est un <b>forum privé</b>.";
 $l_private 	= "$l_privateforum<br>Note: vous devez autoriser les cookies pour utiliser les forums privés.";
 $l_noprivatepost = "$l_privateforum Vous ne pouvez pas poster sur ce forum.";
 
 // Viewtopic
 $l_topictitle	= "Voir $l_topic";
-$l_unregistered	= "Membre non-enregistré"; // JCC 
+$l_unregistered	= "Membre non enregistré"; // JCC 
 $l_posted	= "Posté le";
 $l_profileof	= "Voir le profil de"; // JCC 
 $l_viewsite	= "Voir le site web de";
 $l_icqstatus	= "Etat $l_icq";  // Etat ICQ
 $l_editdelete	= "Editer/Supprimer ce $l_post"; // JCC 
 $l_replyquote	= "Répondre en citant";
-$l_viewip	= "Voir les IP (Modérateurs/Admins Seulement)";
+$l_viewip	= "Voir les IP (Modérateurs/Admins seulement)";
 $l_locktopic	= "Fermer ce $l_topic";
 $l_unlocktopic	= "Ouvrir ce $l_topic";
 $l_movetopic	= "Déplacer ce $l_topic";
@@ -194,7 +194,7 @@ $l_login	= "Connexion";
 $l_separator	= " > ";  // Included here because some languages have
 		          // problems with high ASCII (Big-5 and the like).
 $l_editprofile	= "Editer le profil"; // JCC 
-$l_editprefs	= "Editer $l_preferences";
+$l_editprefs	= "Editer les $l_preferences";
 $l_search	= "Rechercher";
 $l_memberslist	= "Liste des membres"; // JCC 
 $l_faq		= "FAQ";
@@ -207,8 +207,8 @@ Le membre enregistré le plus récent est -<a href=\"$profile_url\">$newest_user</
 $l_privnotify   = '$privnotify = "<br>Vous avez $new_message <a href=\"$privmsg_url\">new private ".($new_message>1?"messages":"message")."</a>.";';
 
 // Page_tail
-$l_adminpanel	= "Panneau d'Administration";
-$l_poweredby	= "Powered by"; // JCC "Réalisé avec" ?
+$l_adminpanel	= "Panneau d'administration";
+$l_poweredby	= "Réalisé grâce à"; 
 $l_version	= "Version";
 
 // Auth
@@ -218,12 +218,12 @@ $l_notfilledin	= "Erreur - vous n'avez pas rempli tous les champs requis.";
 $l_invalidname	= "Le nom de membre choisi \"$username\" a déjà été pris.";
 $l_disallowname	= "Le nom de membre choisi \"$username\" n'a pas été autorisé par l'administrateur.";
 
-$l_welcomesubj	= "Bienvenue sur les Forums $sitename";
+$l_welcomesubj	= "Bienvenue sur les forums $sitename";
 $l_welcomemail	=
 "
 $l_welcomesubj,
 
-Veuillez conserver cet e-mail dans vos archives.
+Veuillez conserver cet email dans vos archives.
 
 
 Les informations sur votre compte sont les suivantes:
@@ -266,7 +266,7 @@ $l_searchall	= "Rechercher TOUS les mots";
 $l_searchallfrm	= "Rechercher dans tous les forums"; // JCC 
 $l_sortby	= "Trier par";
 $l_searchin	= "Rechercher dans";
-$l_titletext	= "Titre & Texte";
+$l_titletext	= "Titre et texte";
 $l_search	= "Rechercher";
 $l_nomatches	= "Aucun enregistrement ne correspond à votre demande. Affinez votre recherche.";
 
@@ -296,13 +296,13 @@ $l_notify	= "Notifier par e-mail quand des réponses sont postées"; // JCC
 
 // Newtopic
 $l_emptymsg	= "Vous devez taper un $l_message à poster. Vous ne pouvez poster un $l_message vide.";
-$l_aboutpost	= "A propos de l'envoi"; // JCC 
+$l_aboutpost	= "Au sujet de l'envoi"; // JCC 
 $l_regusers	= "Tous les membres <b>enregistrés</b>"; // JCC 
 $l_anonusers	= "Membres <b>anonymes</b>"; // JCC 
-$l_modusers	= "<B>Modérateurs et Administrateurs</b> seulement";
-$l_anonhint	= "<br>(Pour poster anonymement ne tapez ni nom d'utilisateur ni mot de passe)"; // JCC
+$l_modusers	= "<B>Modérateurs et administrateurs</b> seulement";
+$l_anonhint	= "<br>(Pour poster anonymement ne donnez ni nom d'utilisateur ni mot de passe)"; // JCC
 $l_inthisforum	= "peuvent poster de nouveaux sujets et des réponses sur ce forum";
-$l_attachsig	= "Montrer la signature <font size=-2>(Ceci peut être modifié ou ajouté à votre profil)</font>";
+$l_attachsig	= "Montrer la signature <font size=-2>(ceci peut être modifié ou ajouté à votre profil)</font>";
 $l_cancelpost	= "Annuler ce message"; // JCC 
 
 // Reply
@@ -315,17 +315,17 @@ vous avez choisi d\'en être informé.
 
 Vous pouvez voir le sujet à:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum&cidReq=$_course[sysCode]
 
 Ou voir l\'index du forum $sitename à
 
-http://$SERVER_NAME$url_phpbb
+http://$SERVER_NAME$url_phpbb?cidReq=$_course[sysCode]
 
 Merci d\'utiliser les forums $sitename.
 
 Bonne journée.
 
-$email_sig'; // JCC 
+';
 
 
 $l_quotemsg	= '[quote]\nLe $m[post_time], $m[username] a écrit:\n$text\n[/quote]';
@@ -355,7 +355,7 @@ $l_smilepict	= "Image";
 // Sendpasswd
 $l_wrongactiv	= "La clé d'activation fournie n'est pas correcte. Vérifiez le $l_message e-mail que vous avez reçu et assurez-vous que vous avez copié la clé d'activation correctement."; // JCC 
 $l_passchange	= "Votre mot de passe a été changé avec succès. Vous pouvez maintenant aller sur votre <a href=\"bb_profile.$phpEx?mode=edit\">profil</a> et changer votre mot de passe.";
-$l_wrongmail	= "L'adresse d'e-mail fournie ne correspond pas à celle qui figure dans notre base de données."; // JCC 
+$l_wrongmail	= "L'adresse email fournie ne correspond pas à celle contenue dans notre base de données."; // JCC 
 
 $l_passsubj	= "Forums $sitename - Changement de mot de passe"; // JCC 
 
@@ -365,7 +365,7 @@ demandé un changement de mot de passe sur les forums $sitename. Si vous pensez
 recevoir ce message par erreur, effacez-le et votre mot de passe restera
 le même.
 
-Votre nouveau mot de passe généré est: $newpw
+Votre nouveau mot de passe est: $newpw
 
 Pour que ce changement prenne effet vous devez visiter cette page:
 
@@ -392,4 +392,5 @@ $langGroupSpaceLink="Espace du groupe";
 $langGroupDocumentsLink="Documents du groupe";
 $langMyGroup="mon groupe";
 $langOneMyGroups="sous ma supervision";
+
 ?>
