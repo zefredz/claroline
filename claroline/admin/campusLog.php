@@ -47,7 +47,7 @@ include($includePath."/lib/statsUtils.lib.inc.php");
 // INTERVAL SQL expr. see http://www.mysql.com/doc/en/Date_and_time_functions.html
 $limitBeforeUnused = "INTERVAL 6 MONTH";
 
-$is_allowedToTrack 	= $is_platformAdmin || $PHP_AUTH_USER;
+$is_allowedToTrack 	= $is_platformAdmin;
 
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title(

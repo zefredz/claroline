@@ -66,7 +66,7 @@ $nameTools = $langAdministration;
 
 include($includePath."/lib/debug.lib.inc.php");
 $dateNow             = claro_disp_localised_date($dateTimeFormatLong);
-$is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
+$is_allowedToAdmin     = $is_platformAdmin;
 
 
 // ----- is install visible ----- begin

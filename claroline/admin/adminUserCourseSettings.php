@@ -17,7 +17,7 @@ define ("USER_DATA_FORM", 2);
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 //SECURITY CHECK
-if (!$_SESSION['is_platformAdmin']) claro_disp_auth_form();
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 include($includePath.'/lib/admin.lib.inc.php');
 include($includePath.'/conf/user_profile.conf.php'); // find this file to modify values.

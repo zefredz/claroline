@@ -19,7 +19,7 @@ include($includePath.'/lib/admin.lib.inc.php');
 require($includePath.'/lib/lastRSS/lastRSS.php');
 
 //SECURITY CHECK
-$is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
+$is_allowedToAdmin     = $is_platformAdmin;
 if (!$is_allowedToAdmin) treatNotAuthorized();
 
 $nameTools = $langClarolineNetNews;
