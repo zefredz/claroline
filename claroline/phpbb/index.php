@@ -141,7 +141,6 @@ for($i = 0; $i < $total_categories; $i++)
 
     foreach($forumList as $thisForum)
     {
-unset($last_post);
         if( $thisForum['cat_id'] == $categories[$i]['cat_id'] )
         {
             $name         = stripslashes($thisForum['forum_name']);
