@@ -99,28 +99,27 @@ if(!$is_allowedToEdit)
 {
 	die($langNotAllowed);
 }
-
 /****************************/
 /*  stripslashes POST data  */
 /****************************/
 
 if($REQUEST_METHOD == 'POST')
 {
-	foreach($HTTP_POST_VARS as $key=>$val)
+	foreach($_REQUEST as $key=>$val)
 	{
 		if(is_string($val))
 		{
-			$HTTP_POST_VARS[$key]=stripslashes($val);
+			$_REQUEST[$key]=stripslashes($val);
 		}
 		elseif(is_array($val))
 		{
 			foreach($val as $key2=>$val2)
 			{
-				$HTTP_POST_VARS[$key][$key2]=stripslashes($val2);
+				$_REQUEST[$key][$key2]=stripslashes($val2);
 			}
 		}
 
-		$GLOBALS[$key]=$HTTP_POST_VARS[$key];
+		$GLOBALS[$key]=$_REQUEST[$key];
 	}
 }
 
