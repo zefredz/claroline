@@ -144,7 +144,7 @@ if($modify && $is_allowedToManage)
 	if($maxMember < $numberMembers AND $maxMember != '0')
 	{
 		// Too much members compared to max members allowed
-		$langGroupEdited = $langGroupTooMuchMembers;
+		$messageGroupEdited = $langGroupTooMuchMembers;
 	}
 	else
 	{
@@ -163,7 +163,7 @@ if($modify && $is_allowedToManage)
             $registerUserGroup = claro_sql_query($sql);
         }
 
-		$langGroupEdited = $langGroupSettingsModified;
+		$messageGroupEdited = $langGroupSettingsModified;
 	}	// else
 
 	$gidReset = true;
@@ -177,8 +177,8 @@ if($modify && $is_allowedToManage)
 
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
-if (isset($langGroupEdited))
-claro_disp_message_box($langGroupEdited);
+if (isset($messageGroupEdited))
+claro_disp_message_box($messageGroupEdited);
 ?>
 <form name="groupedit" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>?edit=yes&gidReq=<?php echo $_gid?>">
 
