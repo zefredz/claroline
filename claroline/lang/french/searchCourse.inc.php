@@ -1,6 +1,6 @@
 <?php // $Id$
 
-$langAdministration 			= "Outils d'administration";
+$langAdministration 			= "Administration";
 $langManage 						= "Gestion du campus";
 $lang_SearchCourse_SearchCourse		= "Chercher un cours";
 $lang_SearchCourse_RestoreCourse	= "Restaurer un cours";

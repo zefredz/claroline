@@ -2,7 +2,7 @@
 
 $langEditNode = "Editer";
 $langOpenNode = "Ouvrir";
-$langAdministration = "Outils d'administration";
+$langAdministration = "Administration";
 $langAddChildNode ="Ajouter une sous-catégorie";
 $langManage ="Gestion du Campus";
 $langViewChildren = "VisuArbre"; // JCC ???

@@ -2,7 +2,7 @@
 
 $langNoQuota = "Pas de Quota";
 $langTechAdmin = "Administration technique";
-$langAdministrationTools = "Outils Administration";
+$langAdministration = "Administration";
 $langCourses = "Courses";
 $langGarbage = "Garbage";
 $langSize_of_claroline_scripts = " size of claroline scripts";

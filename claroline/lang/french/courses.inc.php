@@ -36,7 +36,7 @@ $langBackToUserSettings = "Retour aux paramètres de l'utilisateur";
 $langBackToCourseList = "Retour à la liste de cours de l'utilisateur";
 
 $langBackToListOfThisUser                  = "Retour à sa liste de cours";
-$langAdministration                   = "Outils d'administration";
+$langAdministration                   = "Administration";
 $langManage                                = "Gestion du campus";
 $langCourses	                           = "cours";
 $langIn			                           = "dans";

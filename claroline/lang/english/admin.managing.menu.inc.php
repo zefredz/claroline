@@ -100,7 +100,6 @@ $langCourseOfListUser 	= "Courses of all users";
 $langCourses			= "Courses";
 $langUsers				= "Users";
 $langManage				= "Manage Campus";
-$langAdministration = "Admin";
 
 $langNoteAboutViaPMA = "PMA = Opens PhpMyAdmin in a new window";
 $langAddACourse = "Create a course";

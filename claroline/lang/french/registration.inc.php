@@ -222,7 +222,7 @@ $langEdit               = "Editer";
 
 $langCourseManager       = "Gestionnaire du cours";
 $langManage              = "Gestion du campus";
-$langAdministration = "Outils d'administration";
+$langAdministration = "Administration";
 $langModifProfile	     = "Modifier le profil";
 $langUserProfileReg	     = "La modification a été effectuée";
 $lang_lost_password      = "Mot de passe perdu";

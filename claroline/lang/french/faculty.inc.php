@@ -1,5 +1,5 @@
 <?php // $Id$
-$langAdministration				=	"Outil d'administration";
+$langAdministration				=	"Administration";
 $langManage 							= 	"Gestion du campus";
 $lang_faculty_faculty					=	"Créer une catégorie";
 $lang_faculty_EditCat					=	"Editer une catégorie";

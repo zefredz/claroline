@@ -3,7 +3,7 @@
 
 $lang_SearchUser_SearchUser 		= "Search a user";
 $langManage							= "Manage Campus";
-$langAdministration 			= "Administration Tools";
+$langAdministration 			    = "Administration";
 $lang_SearchUser_UserId				= "Id";
 $lang_SearchUser_LastName 			= "Name";
 $lang_SearchUser_FirstName			= "FirstName";

@@ -33,8 +33,6 @@ $lang_course_enrollment = "User's course";
 $langAdminThisUser	= "Back to user";
 $langBackToListOfThisUser = "Back to course list";
 
-
-$langAdministration = "Administration Tools";
 $langAdministration = "Administration";
 $langManage				 = "Campus management";
 

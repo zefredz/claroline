@@ -2,7 +2,7 @@
 
 
 $lang_SearchUser_SearchUser 		= "Opération utilisateur";
-$langAdministration 			= "Outil d'administration";
+$langAdministration 			= "Administration";
 $langManage							= "Gestion du campus";
 $lang_SearchUser_UserId				= "Id";
 $lang_SearchUser_LastName 			= "Nom";
