@@ -239,7 +239,7 @@ function get_def_file_list()
             {
                 $config_code = str_replace('.def.conf.inc.php','',$file);
 
-                if ( $config_code == 'CLMAIN')
+                if ( $config_code == 'CLMAIN' || $config_code == 'CLHOME')
                 {
                     $defConfFileList['platform']['conf'][$config_code] = get_conf_name($config_code);
                 }
