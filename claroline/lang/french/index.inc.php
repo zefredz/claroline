@@ -14,7 +14,7 @@ $langModify="modifier";
 $langDelete="effacer";
 $langTitle="Titre";
 $langGettingStarted="Comment démarrer ?"; // JCC
-$langOk="valider";
+$langOk="Valider";
 $langAddIntro="AJOUTER UN TEXTE D'INTRODUCTION";
 $langBackList="Retour à la liste";
 
@@ -51,7 +51,7 @@ $lang_No_course_publicly_available = "Pas de cours en accès libre";
 
 $lang_edit_my_course_list = "Modifier ma liste de cours";
 
-$langLostPassword = "Perdu mot de passe";
+$langLostPassword = "Mot de passe perdu";
 $langAgendaNextEvents = "Agenda : prochains événements";  // JCC
 $langValvas = "Dernières annonces" ;
 

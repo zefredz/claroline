@@ -11,7 +11,7 @@ $lang_EditFile_NoAdmin				= "Vous n'êtes pas identifié en tant qu'administrateur
 $langEdit = "Editer";
 $langPreview = "Apercu";
 
-$langHomePageTextZone = "Zones texte de la page d'accueil";
+$langHomePageTextZone = "Zones de texte de la page d'accueil";
 $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Ici vous pouvez modifier le contenu des zones de texte affichées sur la page d'accueil du campus.";
 $langSeebelowthefilesyoucaneditfromthistool ="Ci dessous la liste des fichiers éditables.";
 

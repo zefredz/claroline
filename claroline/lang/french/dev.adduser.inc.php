@@ -10,13 +10,13 @@ $langDevTools = "Outils de développement";
 
 
 $langUsers = "Utilisateurs";
-$langTitle = "Intitulé";
+$langTitle = "Titre";
 $langComment = "Commentaires";
 $langLineNumber = "Nombre de lignes";
 $langLine = "ligne";
 $langLines = "lignes";
 $langLineOrLines = "ligne(s)";
-$langOk = "Ok";
+$langOk = "Valider";
 $langRemove = "supprimer";
 $langEdit = "Editer";
 $langMoveUp = "Monter";
@@ -26,6 +26,6 @@ $langCourseAdministratorOnly = "Réservé à l'administrateur du cours";
 $langDefineHeadings = "Définir les intitulés";
 $langBackToUsersList = "Retourner à la liste des utilisateurs"; // JCC 
 $langTracking = "Suivi";
-$langCourseManager= "Gestionnaire du cours";
+$langCourseManager= "Responsable de cours";
 $langUserName= "Nom d'utilisateur";
 ?>

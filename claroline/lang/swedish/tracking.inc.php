@@ -108,7 +108,7 @@ $langHour="Timme";
 $langDay="Dag";
 $langLittleHour="h.";
 $langLast31days="Inom de senaste 31 dagarna";
-$langLast7days="Inom de sista 7 dagarna";
+$langLast7Days="Inom de sista 7 dagarna";
 $langThisday="Denna dag";
 
 /* perso stats */

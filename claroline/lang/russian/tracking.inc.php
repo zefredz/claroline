@@ -110,7 +110,7 @@ $langHour = "Час";
 $langDay = "День";
 $langLittleHour = "ч.";
 $langLast31days = "за последние 31 день";
-$langLast7days = "За последние 7 дней";
+$langLast7Days = "За последние 7 дней";
 $langThisday  = "Сегодня";
 
 /* perso stats */

@@ -119,7 +119,7 @@ $langTotal = "Total";
 $langHour = "Hour";
 $langDay = "Day";
 $langLast31days = "Last 31 days";
-$langLast7days = "Last 7 days";
+$langLast7Days = "Last 7 days";
 $langYesterday = "Yesterday";
 $langThisday  = "This day";
 

@@ -112,7 +112,7 @@ $langHour = "Uur";
 $langDay = "Dag";
 $langLittleHour = "u.";
 $langLast31days = "Laatste 31 dagen";
-$langLast7days = "Laatste 7 dagen";
+$langLast7Days = "Laatste 7 dagen";
 $langThisday  = "Vandaag";
 
 /* perso stats */

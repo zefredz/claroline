@@ -120,7 +120,7 @@ $langHour = "Hora";
 $langDay = "Día";
 $langLittleHour = "h.";
 $langLast31days = "En los últimos 31 días";
-$langLast7days = "En los últimos 7 días";
+$langLast7Days = "En los últimos 7 días";
 $langThisday  = "Hoy";
 
 /* perso stats */

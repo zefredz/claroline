@@ -129,7 +129,7 @@ $langHour = "Ore";
 $langDay = "Giorno";
 $langLittleHour = "h.";
 $langLast31days = "Negli ultimi 31 giorni";
-$langLast7days = "Negli ultimi 7 giorni";
+$langLast7Days = "Negli ultimi 7 giorni";
 $langThisday  = "Oggi";
 
 /* personal stats */

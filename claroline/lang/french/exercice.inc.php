@@ -141,8 +141,8 @@ $langChooseGoodAnswers="Veuillez choisir une ou plusieurs bonnes réponses";
 
 $langNewQu="Nouvelle question";
 $langQuestionList="Liste des questions de l'exercice";
-$langMoveUp="Déplacer vers le haut";
-$langMoveDown="Déplacer vers le bas";
+$langMoveUp="Monter";
+$langMoveDown="Descendre";
 $langGetExistingQuestion="Récupérer une question d'un autre exercice";
 
 

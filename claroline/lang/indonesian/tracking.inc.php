@@ -103,7 +103,7 @@ $langHour = "Jam";
 $langDay = "Hari";
 $langLittleHour = "Pkl.";
 $langLast31days = "Dalam 31 hari terakhir";
-$langLast7days = "Dalam 7 hari terakhir";
+$langLast7Days = "Dalam 7 hari terakhir";
 $langThisday  = "Hari tsb";
 
 /* perso stats */

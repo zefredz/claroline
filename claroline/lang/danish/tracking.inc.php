@@ -109,7 +109,7 @@ $langHour = "Time";
 $langDay = "Dag";
 $langLittleHour = "h.";
 $langLast31days = "I de sidste 31 dage";
-$langLast7days = "I de sidste 7 dage";
+$langLast7Days = "I de sidste 7 dage";
 $langThisday  = "I dag";
 
 /* perso stats */

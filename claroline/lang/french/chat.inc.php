@@ -8,7 +8,7 @@
  */
 // chat.php
 
- $langChat = "Discussion  en ligne";
+ $langChat = "Discussion";
  $langWash = "Nettoyer";
  $langSave = "Enregistrer";
  $langRefresh = "Actualiser";

@@ -203,7 +203,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     FROM `".$tbl_track_e_open."`
                     WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
         $count = getOneResult($sql);
-        echo "&nbsp;&nbsp;&nbsp;".$langLast7days." : ".$count."<br />\n";
+        echo "&nbsp;&nbsp;&nbsp;".$langLast7Days." : ".$count."<br />\n";
         
         //--  yesterday
         $sql = "SELECT count(*)
@@ -246,7 +246,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     FROM `".$tbl_track_e_login."`
                     WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
         $count = getOneResult($sql);
-        echo "&nbsp;&nbsp;&nbsp;".$langLast7days." : ".$count."<br />\n";
+        echo "&nbsp;&nbsp;&nbsp;".$langLast7Days." : ".$count."<br />\n";
         
         //--  yesterday
         $sql = "SELECT count(*)

@@ -7,7 +7,7 @@ $langLineNumber = "Nombre de lignes";
 $langLine = "ligne";
 $langLines = "lignes";
 $langLineOrLines = "ligne(s)";
-$langOk = "Ok";
+$langOk = "Valider";
 $langRemove = "supprimer";
 $langEdit = "Editer";
 $langMoveUp = "Monter";
@@ -15,9 +15,9 @@ $langMoveDown = "Descendre";
 $langAddNewHeading = "Ajouter un intitulé";
 $langCourseAdministratorOnly = "Réservé à l'administrateur du cours";
 $langDefineHeadings = "Définir les intitulés";
-$langBackToUsersList = "Retourner à liste des utilisateurs";
+$langBackToUsersList = "Retourner à la liste des utilisateurs";
 $langTracking = "Suivi";
-$langCourseManager= "Gestionnaire du cours";
+$langCourseManager= "Responsable de cours";
 $langUserName= "Nom d'utilisateur";
 
 ?>

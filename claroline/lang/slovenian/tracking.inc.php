@@ -108,7 +108,7 @@ $langHour = "Ura";
 $langDay = "Dan";
 $langLittleHour = "h.";
 $langLast31days = "V zadnjih 31 dneh";
-$langLast7days = "V zadnjih 7 dneh";
+$langLast7Days = "V zadnjih 7 dneh";
 $langThisday  = "Danes";
 
 /* perso stats */

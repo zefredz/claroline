@@ -219,7 +219,7 @@ $langModify             = "Modifier";
 $langUserName           = "Nom d'utilisateur"; // JCC 
 $langEdit               = "Editer";
 
-$langCourseManager       = "Gestionnaire du cours";
+$langCourseManager       = "Responsable de cours";
 $langManage              = "Gestion du campus";
 $langAdministration = "Administration";
 $langModifProfile	     = "Modifier le profil";
@@ -235,7 +235,7 @@ $langCoursesByUser = "Vue d'ensemble des cours par utilisateur";
 $langAddImage = "Ajoutez une photo";
 $langUpdateImage = "Changez de photo";
 $langDelImage = "Retirez la photo";
-$langOfficialCode = "Matricule";
+$langOfficialCode = "Code officiel";
 
 $langAuthInfo = "Paramètres de connection";
 $langEnter2passToChange = "Tapez deux fois le nouveau mot de passe pour le changer, laissez vide pour garder l'ancien."; // JCC

@@ -17,7 +17,7 @@ $langShowNone = "Cacher tout";
 
 $langCourseStats = "Statistiques du cours";
 $langToolsAccess = "Accès aux outils";
-$langCourseAccess = "Accès à ce cours";
+$langCourseAccess = "Accès au cours";
 $langLinksAccess = "Liens";
 $langDocumentsAccess = "Documents";
 
@@ -125,7 +125,7 @@ $langHour = "Heure";
 $langDay = "Jour";
 $langLittleHour = "h.";
 $langLast31days = "Ces derniers 31 jours";
-$langLast7days = "Ces derniers 7 jours";
+$langLast7Days = "Ces derniers 7 jours";
 $langYesterday = "Hier";
 $langThisday  = "Aujourd'hui";
 

@@ -95,7 +95,7 @@ $langHour = "Giờ";
 $langDay = "Ngày";
 $langLittleHour = "h.";
 $langLast31days = "Trong 31 ngày gần đây";
-$langLast7days = "Trong 7 ngày gần đây";
+$langLast7Days = "Trong 7 ngày gần đây";
 $langThisday  = "Hôm nay";
 
 /* perso stats */

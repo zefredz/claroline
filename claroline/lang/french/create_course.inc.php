@@ -9,10 +9,10 @@
 // create_course.php
 $langCreateSite="Créer un site de cours";
 $langFieldsRequ="Tous les champs sont obligatoires";
-$langCourseTitle="Intitulé";
+$langCourseTitle="Titre du cours";
 $langEx="p. ex. <i>Histoire de la littérature</i>";
 $langFac="Catégorie";
-$langCode="Code cours";
+$langCode="Code du cours";
 $langTargetFac="Il s'agit de la faculté, du département, de l'école... dans lesquels se donne le cours";
 $langMaxSizeCourseCode = "max. 12 caractères, p. ex.<i>ROM2121</i>"; // to change the ma
 $langDoubt="En cas de doute sur l'intitulé exact ou le code de votre cours, consultez le";
@@ -103,7 +103,7 @@ $langCreateCourseGroups="Groupes";
 $langCatagoryMain = "Général";
 $langCatagoryGroup = "Forums des Groupes";
 
-$langChat ="Discuter";
+$langChat ="Discussion";
 
 $langRestoreCourse = "Restauration d'un cours";
 $langAddedToCreator = "en plus de celui choisi  à la création";
@@ -119,8 +119,7 @@ $langCourseAccess="Accès au cours";
 $langPublic="Accès public (depuis la page d'accueil de Claroline sans identifiant)";
 $langPrivate="Accès privé (site réservé aux personnes figurant dans la liste <a href=../user/user.php>utilisateurs</a>)";
 $langSubscription="Inscription";
-$langConfTip="Par défaut, votre cours n'est accessible
-qu'à vous qui en êtes le seul utilisateur. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir
+$langConfTip="Par défaut, votre cours est accessible à tout le monde. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir
 l'inscription pendant une semaine, de demander aux étudiants de s'inscrire eux-mêmes
 puis de fermer l'inscription et de vérifier dans la liste des utilisateurs les intrus éventuels.";
 

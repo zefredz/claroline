@@ -48,7 +48,7 @@ $lang_back_to_course_selection             = "Retour à la sélection d'un nouveau
 $lang_up = $lang_back_to_parent_category; // christophe fixed this as soon as possible !
 
 $langCatList = "Catégories";
-$langCourseList = "Cours";
+$langCourseList = "Liste des cours";
 
 $lang_remove_course_from_your_personnal_course_list = 'Supprimer le cours de votre liste de personnelle de cours'; // JCC 
 $lang_your_enrollment_to_the_course_has_been_removed = "Votre inscription au cours a été supprimée";

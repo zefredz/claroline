@@ -110,7 +110,7 @@ $langHour = "Hora";
 $langDay = "D&iacute;a";
 $langLittleHour = "h.";
 $langLast31days = "En los &uacute;ltimos 31 d&iacute;as";
-$langLast7days = "En los &uacute;ltimos 7 d&iacute;as";
+$langLast7Days = "En los &uacute;ltimos 7 d&iacute;as";
 $langThisday  = "Este d&iacute;a";
 
 /* perso stats */

@@ -171,7 +171,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -7 DAY))
                         AND access_tid IS NULL";
         $count = getOneResult($sql);
-        echo "&nbsp;&nbsp;&nbsp;".$langLast7days." : ".$count."<br />\n";
+        echo "&nbsp;&nbsp;&nbsp;".$langLast7Days." : ".$count."<br />\n";
         
         // today
         $sql = "SELECT count(*) 

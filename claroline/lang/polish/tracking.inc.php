@@ -103,7 +103,7 @@ $langHour = "godzin";
 $langDay = "dni";
 $langLittleHour = "godz.";
 $langLast31days = "W ostatnich 31 dniach";
-$langLast7days = "W ostatnich 7 dniach";
+$langLast7Days = "W ostatnich 7 dniach";
 $langThisday  = "Dzisiaj";
 
 /* perso stats */
