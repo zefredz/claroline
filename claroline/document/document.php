@@ -151,7 +151,6 @@ stripSubmitValue($HTTP_POST_VARS);
 stripSubmitValue($HTTP_GET_VARS);
 stripSubmitValue($_REQUEST);
 
-
 // table names for learning path (needed to check integrity)
 
 $TABLELEARNPATH            = $_course['dbNameGlu']."lp_learnpath";
@@ -244,7 +243,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 			if ( sizeof($imgFilePath) > 0)
 			{
 				$dialogBox .= "<br><b>".$langMissingImagesDetected."</b><br>\n"
-				             ."<form method=\"post\" action=\"".$PHP_SELF."\""
+				             ."<form method=\"post\" action=\"".$PHP_SELF."\" "
 				             ."enctype=\"multipart/form-data\">\n"
 				             ."<input type=\"hidden\" name=\"cmd\" value=\"submitImage\">\n"
 				             ."<input type=\"hidden\" name=\"relatedFile\""
@@ -295,7 +294,11 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
         $fileSizeLimitList = array( $php_uploadMaxFile, $php_postMaxFile , $docRepSpaceAvailable );
         sort($fileSizeLimitList);
-        list($maxFileSize) = $fileSizeLimitList;        
+        list($maxFileSize) = $fileSizeLimitList;
+
+        /*
+         * Prepare dialog box display
+         */
 
         $dialogBox .= "<form action=\"".$PHP_SELF."\" method=\"post\" enctype=\"multipart/form-data\">"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exUpload\">"
@@ -332,6 +335,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
 	if ($cmd == 'submitImage')
 	{
+
 		$uploadImgFileNb = sizeof($HTTP_POST_FILES['imgFile']);
 
 		if ($uploadImgFileNb > 0)
@@ -346,9 +350,10 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
 			// move the uploaded image files into the corresponding image directory
 
-            $newImgPath = move_uploaded_file_collection_into_directory($HTTP_POST_FILES['imgFile'], $imgDirectory);
-
-            replace_img_path_in_html_file($HTTP_POST_VARS['imgFilePath'], 
+			// Try to create  a directory to store the image files
+            $newImgPath = move_uploaded_file_collection_into_directory($_FILES['imgFile'], $imgDirectory);
+            
+            replace_img_path_in_html_file($_POST['imgFilePath'], 
                                           $newImgPath, 
                                           $baseWorkDir.$_REQUEST['relatedFile']);
 
@@ -1101,7 +1106,7 @@ unset($attribute);
         $debug = each ($fileList['name']);
 
         // while (list($fileKey, $fileName) = each ($fileList['name']))
-        // each seems to pose porblem on PHP 4.1 when the array contains 
+        // Each seems to pose problem on PHP 4.1 when the array contains 
         // a single element
 
         foreach($fileList['name'] as $fileKey => $fileName )
