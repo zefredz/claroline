@@ -10,11 +10,6 @@
  *
  * If ist's the admin, he can access to the editing
  *
- *
- * To  proposal here not actual in the script
- *     - a bloc  is linked with agenda tool. To prupose big step in the course.
- *      - a bloc  is linked with link tool.   To prupose important ressources in the course.
- *
  */
 
 $tlabelReq = "CLDSC___";
@@ -43,18 +38,10 @@ $sql = "SELECT `id`, `title`, `content`
         ORDER BY `id`";
 $blocList = claro_sql_query_fetch_all($sql);
 
-if (count($blocList))
-{
-    foreach($blocList as $thisBloc)
-    {
-        $thisBloc['content'] = claro_parse_user_text($thisBloc['content']);
-    }
-}
-else
+if (!count($blocList))
 {
     $msg[][] = $langThisCourseDescriptionIsEmpty;
 }
-
 
 //////////////////////////////
 ////////////OUTPUT////////////
@@ -72,9 +59,11 @@ if ($is_allowedToEdit)
 <form method="get" action="edit.php">
 <input type="submit" value="<?php echo $langEditCourseProgram ?>">
 </form>
+
+
 <?php
 }
-
+echo "\n\n";
 if (count($blocList))
 {
     foreach($blocList as $thisBloc)
@@ -82,7 +71,7 @@ if (count($blocList))
         echo "<h4>".$thisBloc['title']."</h4>\n"
             ."<blockquote>"
             . claro_parse_user_text($thisBloc['content'])
-            ."</blockquote>";
+            ."</blockquote>"."\n";
     }
 }
 
