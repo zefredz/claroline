@@ -233,4 +233,3 @@ $langDelCourseStats = "Effacer les statistiques du cours";
 $langConfirmDelete  = "Attention : l'effacement des données statistiques est définitif !<br /><br />Etes vous sûr de vouloir les effacer ?";
 $langDeleteDone = "Les statistiques du cours ont été effacées.";
 ?>
-
