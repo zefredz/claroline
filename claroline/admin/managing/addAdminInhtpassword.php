@@ -1,15 +1,13 @@
-<?php # $Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+<?php // $Id$
+/**
+ * @version CLAROLINE 1.6
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE (GPL)
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ */
 
 unset($controlMsg);
 
@@ -66,7 +64,7 @@ if ($is_allowedToEdit)
 		$display = USER_SELECT_FORM;
 		if (isset($HTTP_GET_VARS["listAllUsers"]))
 		{
-//	$sqlGetListUser = "SELECT user_id, nom, prenom, username, email FROM  `".$tbl_user."` ORDER BY UPPER(nom), UPPER(prenom) ";
+//	$sqlGetListUser = "SELECT user_id, nom, prenom, username, email FROM  `".$tbl_user."` `user` ORDER BY UPPER(nom), UPPER(prenom) ";
 			$sqlGetListUser = "
 SELECT `user`.`user_id`, `user`.`nom`, `user`.`prenom`, `user`.`username`, `user`.`email`
 FROM `".$tbl_user."` `user`
@@ -79,11 +77,12 @@ ORDER BY UPPER( `user`.`nom` ) , UPPER( `user`.`prenom` )";
 		{
 			$sqlGetListUser = "
 SELECT user_id, nom, prenom, username, email
-FROM  `".$tbl_user."`
+FROM  `".$tbl_user."`  `user` 
 LEFT JOIN `".$tbl_admin."` `admin` ON `user`.`user_id` = `admin`.`idUser`
 WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(nom), UPPER(prenom) ";
 		}
 		$resListOfUsers = claro_sql_query($sqlGetListUser);
+		
 		if (mysql_num_rows($resListOfUsers)==0)
 		{
 			if (isset($HTTP_GET_VARS["listAllUsers"]))
@@ -122,7 +121,7 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 	{
 		$sqlSetAdminUser = "Insert IGNORE INTO  `".$tbl_admin."` SET `idUser` = '".$HTTP_POST_VARS["uidToSetAdmin"]."'";
   		claro_sql_query($sqlSetAdminUser) or die("Erreur sqlSetAdminUser ".$sqlSetAdminUser);
-		$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."` WHERE `user_id` = '".$HTTP_POST_VARS["uidToSetAdmin"]."';";
+		$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."`  `user` WHERE `user_id` = '".$HTTP_POST_VARS["uidToSetAdmin"]."';";
   		$resGetUser = claro_sql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
 		$user = mysql_fetch_array($resGetUser,  MYSQL_ASSOC);
 	    $controlMsg["success"][]= "ok : Now, add a login-pass for <strong>".$user["prenom"]." ".$user["nom"]."</strong> in .htaccess and  give it to the user by secure way";
@@ -138,9 +137,9 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 		}
 		else
 		{
-			$sqlDelAdminUser = "Delete From `".$tbl_admin."` Where NOT (`idUser` = '".$_uid."') AND `idUser` = '".$HTTP_GET_VARS["uidToSetNotAdmin"]."'";
+			$sqlDelAdminUser = "Delete From `".$tbl_admin."`  `user`  Where NOT (`idUser` = '".$_uid."') AND `idUser` = '".$HTTP_GET_VARS["uidToSetNotAdmin"]."'";
 	  		claro_sql_query($sqlDelAdminUser) or die("Erreur sqlDelAdminUser ".$sqlDelAdminUser);
-			$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."` WHERE `user_id` = '".$HTTP_GET_VARS["uidToSetNotAdmin"]."';";
+			$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."`  `user`  WHERE `user_id` = '".$HTTP_GET_VARS["uidToSetNotAdmin"]."';";
 	  		$resGetUser = claro_sql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
 			$user = mysql_fetch_array($resGetUser,  MYSQL_ASSOC);
 			$controlMsg["warning"][]= "ok : Now, <strong>".$user["prenom"]." ".$user["nom"]."</strong> is no more admin for ".$siteName." but you must remove your self login-pass in .htaccess ";
@@ -149,7 +148,7 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 	elseif (isset($HTTP_GET_VARS["addLoginPassFromClaroUser"]))
 	{
 		$display = FINAL_MESSAGE;
-		$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."` WHERE `user_id` = '".$HTTP_GET_VARS["addLoginPassFromClaroUser"]."';";
+		$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."`  `user`  WHERE `user_id` = '".$HTTP_GET_VARS["addLoginPassFromClaroUser"]."';";
   		$resGetUser = claro_sql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
 		$user = mysql_fetch_array($resGetUser,  MYSQL_ASSOC);
 		if ($user["username"]!="" || $user["password"]!="")
