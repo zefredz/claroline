@@ -241,24 +241,15 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
     global $langTotal,
 	$clarolineRepositoryWeb;
 
-    echo "<table class=\"claroTable\" width='100%' cellpadding='0' cellspacing='1' border='0' align=center class='minitext'>";
+    echo "<table class=\"claroTable\" width=\"100%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\">";
     // titles
-    echo "<tr class=\"headerX\">
-            <th width='15%' >
-                $periodTitle
-            </th>
-            <th width='60%' >
-                &nbsp;
-            </th>
-            <th width='10%'>
-               $langHits
-            </th>
-            <th width='15%'>
-                %
-            </th>
-        </tr>
-        <tbody>
-    ";
+    echo "<tr class=\"headerX\">\n"
+              ."<th width=\"15%\">".$periodTitle."</th>\n"
+              ."<th width=\"60%\">&nbsp;</th>\n"
+              ."<th width=\"10%\">".$langHits."</th>\n"
+              ."<th width=\"15%\"> % </th>\n"
+              ."</tr>\n\n"
+              ."<tbody>";
     $factor = 4;
     $maxSize = $factor * 100; //pixels
     while(list($periodPiece,$cpt) = each($period_array))
@@ -275,124 +266,73 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
             }
             
             $barwidth = $factor * $pourcent ;
-            echo "<tr>
-                    <td align='center' width='15%'>";
-            echo $periodPiece;
-            echo   '</td>
-                    <td width="60%" style="padding-top : 3px;" align="center">'.
-			claro_disp_progress_bar ( $pourcent, 4).			                       
-                    '</td>
-                    <td align="center" width="10%">
-                        '.$cpt.'
-                    </td>
-                    <td align="center" width="15%">
-                        '.$pourcent.' %
-                    </td>
-                </tr>
-            ';
+            echo "<tr>\n"
+                    ."<td align=\"center\" width=\"15%\">".$periodPiece."</td>\n"
+                    ."<td width=\"60%\" align=\"center\">".claro_disp_progress_bar ( $pourcent, 4)."</td>\n"
+                    ."<td align=\"center\" width=\"10%\">".$cpt."</td>\n"
+                    ."<td align=\"center\" width=\"15%\">".$pourcent." %</td>\n"
+                    ."</tr>\n\n";
         }
     }
     
     // footer 
-    echo "</tbody>
-      <tfoot><tr>
-            <td width='15%' align='center'>
-                $langTotal
-            </td>
-            <td align='right' width='60%'>
-                &nbsp;  
-            </td>
-            <td align='center' width='10%'>
-                ".$period_array["total"]." 
-            </td>
-            <td width='15%'>
-                &nbsp; 
-            </td>
-        </tr>
-        </tfoot>
-    ";
-    echo "</table>";
+    echo "</tbody>\n\n"
+              ."<tfoot>\n"
+              ."<tr>\n"
+              ."<td width=\"15%\" align=\"center\">".$langTotal."</td>\n"
+              ."<td align=\"right\" width=\"60%\">&nbsp;</td>\n"
+              ."<td align=\"center\" width=\"10%\">".$period_array["total"]."</td>\n"
+              ."<td width=\"15%\">&nbsp;</td>\n"
+              ."</tr>\n"
+              ."</tfoot>\n\n"
+              ."</table>\n\n";
 }
-
 /**
 
  * @author Sebastien Piraux <piraux_seb@hotmail.com>
  * @param tableau : a 2 columns array
- * @param title1 : string, title of the first column
- * @param title2 : string, title of the ... second column
- * @desc        display a 2 column tab from an array
-                titles of columns are title1 and title2
- */
-function buildTab2col($array_of_results,$title1,$title2)
-{ 
-    global $langNoResult;
-    global $langNbLines;
-    echo "<table class=\"claroTable\" cellpadding='2' cellspacing='1' border='1' align='center'>";
-    echo "<tr class=\"headerX\">
-            <th>
-            $title1
-            </th>
-            <th>
-            $title2
-            </th>
-        </tr>
-    	<tr class=\"headerX\">"; 
-        echo '<th colspan="2">'.$langNbLines.' : '.count($array_of_results).' </th>';
-        echo "</tr>
-        <tbody>";
-    if (is_array($tableau))
-    { 
-        for($j = 0 ; $j < count($array_of_results) ; $j++)
-        {
-                echo "<tr>"; 
-                echo "<td>".$array_of_results[$j][0]."</td>";
-                echo "<td align='right'>".$array_of_results[$j][1]."</td>";
-                echo"</tr>";
-        }
-    
-    }
-    else
-    {
-        echo "<tr>"; 
-        echo "<td colspan='2'><center>".$langNoResult."</center></td>";
-        echo"</tr>";
-    }
-    echo "</tbody></table>";
-}
-
-/**
-
- * @author Sebastien Piraux <piraux_seb@hotmail.com>
- * @param tableau : a 2 columns array
+ * @param leftTitle : string, title of the left column
+ * @param rightTitle : string, title of the ... right column
  * @desc        display a 2 column tab from an array
                 this tab has no title
  */
-function buildTab2ColNoTitle($array_of_results)
+function buildTab2Col($array_of_results, $leftTitle = "", $rightTitle = "")
 {
     global $langNoResult;
     global $langNbLines;
-    echo "<table class=\"claroTable\" cellpadding='3' cellspacing='1' border='0' align='center'>";
-    echo "<tr class=\"headerX\">"; 
-    echo '<th colspan="2">'.$langNbLines.' : '.count($array_of_results).' </th>';
-    echo "</tr>";
+    
+    echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" align=\"center\">";
+    
+    if($leftTitle != "" || $rightTitle != "")
+    {
+        echo "<tr class=\"headerX\">\n"
+                ."<th>&nbsp;".$leftTitle."</th>\n"
+                ."<th>&nbsp;".$rightTitle."</th>\n"
+                ."</tr>\n";
+    }
+    
+    echo "<tr class=\"headerX\">\n"
+            ."<th colspan=\"2\">".$langNbLines." : ".count($array_of_results)." </th>\n"
+            ."</tr>\n\n"
+            ."<tbody>";
     if (is_array($array_of_results))
     {
         for($j = 0 ; $j < count($array_of_results) ; $j++)
         {
-            echo "<tr>";
-            echo "<td>".$array_of_results[$j][0]."</td>";
-            echo "<td align='right'>&nbsp;&nbsp;".$array_of_results[$j][1]."</td>";
-            echo"</tr>";
+            echo "<tr>\n" 
+                      ."<td>".$array_of_results[$j][0]."</td>\n"
+                      ."<td align=\"right\">".$array_of_results[$j][1]."</td>\n"
+                      ."</tr>\n\n";
         }
 
     }
     else
     {
-        echo "<tr>";
-        echo "<td colspan='2'><center>".$langNoResult."</center></td>";
-        echo"</tr>";
+        echo "<tr>\n" 
+              ."<td colspan=\"2\"><center>".$langNoResult."</center></td>\n"
+              ."</tr>\n\n";
     }
-    echo "</table>";
+    echo "</tbody>\n</table>\n\n";
 
 }
 
@@ -411,16 +351,18 @@ function buildTabDefcon($array_of_results)
     global $langAllRight;
     global $langNULLValue;
     global $langNbLines;
-    echo "<table class=\"claroTable\" width='60%' cellpadding='2' cellspacing='1' border='0' align=center class='minitext'>";
+    
+    echo "<table class=\"claroTable\" width=\"60%\" cellpadding=\"2\" cellspacing=\"1\" align=\"center\">\n";
     if (is_array($array_of_results))
     { 
         // there is some strange cases ... 
-        echo "<tr class=\"headerX\">"; 
-        echo "<th colspan='2'><font color='#ff0000'><center>".$langDefcon."</center></font></th>";
-        echo"</tr>";
-        echo "<tr class=\"headerX\">"; 
-        echo '<th colspan="2">'.$langNbLines.' : '.count($array_of_results).' </th>';
-        echo "</tr>";
+        echo "<tr class=\"headerX\">\n"
+                ."<th colspan=\"2\" align=\"center\"><font color=\"#ff0000\">".$langDefcon."</font></th>\n"
+                ."</tr>\n"
+                ."<tr class=\"headerX\">\n" 
+                ."<th colspan=\"2\">".$langNbLines." : ".count($array_of_results)." </th>\n"
+                ."</tr>\n";
+                
         for($j = 0 ; $j < count($array_of_results) ; $j++)
         { 
             if($array_of_results[$j][0] == "")
@@ -431,21 +373,21 @@ function buildTabDefcon($array_of_results)
             {
                 $key = $array_of_results[$j][0];
             }
-            echo "<tr>"; 
-            echo "<td width='70%'>".$key."</td>";
-            echo "<td width='30%' align='right'>".$array_of_results[$j][1]."</td>";
-            echo"</tr>";
+            echo "<tr>\n"
+                    ."<td width=\"70%\">".$key."</td>\n"
+                    ."<td width=\"30%\" align=\"right\">".$array_of_results[$j][1]."</td>"
+                    ."</tr>\n\n";
         }
     
     }
     else
     {
         // all right
-        echo "<tr>"; 
-        echo "<td colspan='2'><font color='#00ff00'><center>".$langAllRight."</center></font></td>";
-        echo"</tr>";
+        echo "<tr>\n"
+                ."<td colspan=\"2\" align=\"center\"><font color=\"#00ff00\">".$langAllRight."</font></td>\n"
+                ."</tr>\n";
     }
-    echo "</table>";
+    echo "</table>\n\n";
 }
 
 /**
