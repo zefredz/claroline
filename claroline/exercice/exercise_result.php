@@ -330,7 +330,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 											elseif(!empty($choice[$j]))
 											{
 												// adds the word in red at the end of the string, and strikes it
-												$answer.= "<span class=\"incorrect\"><s>".$choice[$j]."</s></span>";
+												$answer.= "<span class=\"error\"><s>".$choice[$j]."</s></span>";
 											}
 											else
 											{
@@ -362,7 +362,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 											}
 											else
 											{
-												$choice[$answerId]="<span class=\"incorrect\"><s>".$matching[$choice[$answerId]]."</s></span>";
+												$choice[$answerId]="<span class=\"error\"><s>".$matching[$choice[$answerId]]."</s></span>";
 											}
 										}
 										else
