@@ -1,9 +1,9 @@
-<?php # -$Id$
+<?php // $Id$
 
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -16,10 +16,10 @@ echo "<table width=\"100%\" border=\"0\" cellpadding=\"4\" >\n\n"
     ."<tr>\n"
     ."<td valign=\"top\">\n";
 
-@include 'infoImportante.html'; // Previous text zone, kept for ascending 
+@include './infoImportante.html'; // Previous text zone, kept for ascending 
                                 // compatibility with claroline 1.4
 
-@include 'textzone_top.inc.html'; // Introduction message if needed
+@include './textzone_top.inc.html'; // Introduction message if needed
 
 
 /*==================================
@@ -31,13 +31,13 @@ echo "<table width=\"100%\" border=\"0\" cellpadding=\"4\" >\n\n"
  */
 
 
-$sql = "SELECT intitule   title,
-               titulaires titular,
-               code       sysCode,
-               fake_code officialCode,
-               directory 
-        FROM `".$tbl_courses."` cours
-        WHERE faculte = '".$category."'
+$sql = "SELECT `intitule`   `title`,
+               `titulaires` `titular`,
+               `code`       `sysCode`,
+               `fake_code`  `officialCode`,
+               `directory` 
+        FROM `".$tbl_courses."` 
+        WHERE `faculte` = '".$category."'
         ORDER BY UPPER(fake_code)";
 
 $courseList = claro_sql_query_fetch_all($sql);
@@ -226,7 +226,7 @@ echo '</td>';
 <p>
 <a href="http://www.claroline.net/forum/"><?php echo $langSupportForum ?></a>
 </p>
-<?php @include 'textzone_right.inc.html'; ?>
+<?php @include './textzone_right.inc.html'; ?>
 
 </td>
 </tr>

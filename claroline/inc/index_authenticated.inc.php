@@ -1,9 +1,9 @@
-<?php # -$Id$
+<?php // $Id$
 
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -53,8 +53,8 @@ foreach($personnalCourseList as $thisCourse)
     $sql = "SELECT '".$thisCourse['sysCode'     ]."'  `courseSysCode`,
                    '".$thisCourse['officialCode']."'  `courseOfficialCode`,
                    'CLANN___'                         `toolLabel`,
-                   CONCAT(`temps`, ' ', '00:00:00')        `date`, 
-                   CONCAT(`title`,' - ',`contenu`)      `content`
+                   CONCAT(`temps`, ' ', '00:00:00')   `date`, 
+                   CONCAT(`title`,' - ',`contenu`)    `content`
             FROM `".$tableAnn."`
             WHERE    CONCAT(`title`, `contenu`) != ''
               AND    DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', $_user['lastLogin'])."'
@@ -112,10 +112,10 @@ array_multisort( $courseDigestList['toolLabel'         ],
           /*> > > > > > > > > > > > DISPLAY < < < < < < < < < < < < */
 
 echo "<table width=\"100%\" border=\"0\" cellpadding=\"4\" >\n\n"
-
     ."<tr valign=\"top\">\n"
-
     ."<td><!-- LEFT COLUMN -->\n";
+
+@include './textzone_top.inc.html'; // Introduction message if needed
 
 claro_disp_tool_title($langMyCourses);
 
@@ -253,7 +253,7 @@ echo "</ul>\n"
 ?>
 
 <p>
-<a href="http://www.claroline.net/documentation.htm"><?= $langDoc ?></a>
+<a href="http://www.claroline.net/documentation.htm"><?php echo $langDoc ?></a>
 </p>
 
 <?php
@@ -264,12 +264,13 @@ echo "</ul>\n"
 <hr noshade size="1">
 
 
-<p><a href="claroline/admin/"><?= $langPlatformAdministration ?></a></p>
+<p><a href="claroline/admin/"><?php echo $langPlatformAdministration ?></a></p>
 
 <?php
 	} // end if is_platformAdmin
-?>
 
+?>
+<?php @include './textzone_right.inc.html'; ?>
 
 </td>
 
