@@ -34,4 +34,5 @@ Translate the interface in chosen language
  $langNotCourseAllowed = "Vous n'êtes pas autorisé ici.";
  $langNotGroupMember = "Vous n'êtes pas autorisé à participer à cette discussion de groupe."; // JCC
  $langArchive = "Archive";
+ $langCannotInitChat = "Erreur : Impossible d'initialiser le chat.";
 ?>
