@@ -74,6 +74,21 @@ if($register)
 		$dataChecked = true;
 	}
 
+    // CHECK BOTH PASSWORD TOKEN ARE THE SAME
+
+    if ($password_form !== $confirm_form)
+    {
+        $dataChecked    = false;
+        $message     = $langPassTwo;
+        $password_form = '';
+        $confirm_form = '';
+    }
+    else
+    {
+        $dataChecked = true;
+        $form_password = $form_password2 ;
+    }
+
 	// prevent conflict with existing user account
 
 	if($dataChecked)
@@ -134,17 +149,25 @@ if($register)
 		else                      $pw = $password_form;
 
 		$result = claro_sql_query("INSERT INTO $tbl_user
-		                       SET nom       = \"$nom_form\",
-		                           prenom    = \"$prenom_form\",
-		                           username  = \"$username_form\",
-		                           password  = \"$pw\",
-		                           email     = \"$email_form\",
-		                           statut    = \"$platformStatus\",
-		                           creatorId = \"$_uid\"");
+		                       SET nom         = \"$nom_form\",
+		                           prenom      = \"$prenom_form\",
+		                           username    = \"$username_form\",
+		                           password    = \"$pw\",
+		                           email       = \"$email_form\",
+                                   phoneNumber = \"$phone_form\",
+		                           statut      = \"$platformStatus\",
+		                           creatorId   = \"$_uid\"");
 
 		$userId = mysql_insert_id();
 
-		if ($userId) $platformRegSucceed = true;
+        if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
+        {
+            $sql = "UPDATE  `".$tbl_user."`
+                    SET officialCode = \"".$official_code."\"
+                    WHERE user_id  = \"".$userId."\"";
+            claro_sql_query($sql);
+        }
+        if ($userId) $platformRegSucceed = true;
 	}
 
 	if($userId && $_cid)
@@ -231,7 +254,7 @@ if($register)
 		 * remove <form> variables to prevent any pre-filled fields
 		 */
 
-		unset($nom_form, $prenom_form, $username_form, $password_form, $email_form, $admin_form, $tutor_form);
+		unset($nom_form, $prenom_form, $username_form, $password_form, $email_form, $admin_form, $tutor_form, $phone_form, $official_code);
 
 	} 	// end if ($platformRegSucceed)
 	//else
@@ -281,26 +304,72 @@ if($message)
 
 <form method="post" action="<?php echo  $PHP_SELF ?>?register=yes">
 <table cellpadding="3" cellspacing="0" border="0">
-<tr>
-<td align="right"><?php echo $langName; ?> :</td>
-<td><input type="text" size="15" name="nom_form" value="<?php echo htmlentities(stripslashes($nom_form)); ?>"></td>
-</tr>
+
 <tr>
 <td align="right"><?php echo $langSurname; ?> :</td>
-<td><input type="text" size="15" name="prenom_form" value="<?php echo htmlentities(stripslashes($prenom_form)); ?>"></td>
+<td><input type="text" size="40" name="prenom_form" value="<?php echo htmlentities(stripslashes($prenom_form)); ?>"></td>
 </tr>
+
+<tr>
+<td align="right"><?php echo $langName; ?> :</td>
+<td><input type="text" size="40" name="nom_form" value="<?php echo htmlentities(stripslashes($nom_form)); ?>"></td>
+</tr>
+<?
+if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
+{
+?>
+<tr>
+    <td align="right"><?php echo $langOfficialCode; ?> :
+    </td>
+    <td>
+    <input type="text" size="40" name="official_code" value="<?php echo htmlentities(stripslashes($official_code)); ?>">
+    </td>
+</tr>
+<?
+}
+?>
+<tr>
+<td><br></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+
 <tr>
 <td align="right"><?php echo  $langUsername ?> :</td>
-<td><input type="text" size="15" name="username_form" value="<?php echo htmlentities(stripslashes($username_form)); ?>"></td>
+<td><input type="text" size="40" name="username_form" value="<?php echo htmlentities(stripslashes($username_form)); ?>"></td>
 </tr>
+
 <tr>
 <td align="right"><?php echo  $langPass ?> :</td>
-<td><input type="password" size="15" name="password_form" value="<?php echo  htmlentities(stripslashes($password_form)) ?>"></td>
+<td><input type="password" size="40" name="password_form" value="<?php echo  htmlentities(stripslashes($password_form)) ?>"></td>
+</tr>
+
+<tr>
+    <td align="right"><?php echo $langConfirm ?> :
+    </td>
+    <td>
+    <input type="password" size="40" name="confirm_form" value="">
+    </td>
+</tr>
+
+<tr>
+<td><br></td>
 </tr>
 <tr>
-<td align="right"><?php echo  $langEmail; ?> :</td>
-<td><input type="text" size="15" name="email_form" value="<?php echo $email_form; ?>"></td>
+<td></td>
 </tr>
+
+<tr>
+<td align="right"><?php echo  $langEmail; ?> :</td>
+<td><input type="text" size="40" name="email_form" value="<?php echo $email_form; ?>"></td>
+</tr>
+
+<tr>
+<td align="right"><?php echo  $langPhone; ?> :</td>
+<td><input type="text" size="40" name="phone_form" value="<?php echo $phone_form; ?>"></td>
+</tr>
+
 <tr>
 <?
 
@@ -351,13 +420,13 @@ else
     IMPORT CSV USERS LIST
   ==========================*/
 
-
+/*
 if($is_platformAdmin && (! $userPasswordCrypted))
 {
-	/*
-	  Note : This option is not already vailable forclaroline platfom using 
-	  encypted password. That's why this section isn't display in this case.
-	*/
+
+	//  Note : This option is not already vailable forclaroline platfom using
+	//  encypted password. That's why this section isn't display in this case.
+
 
 	echo "<a href=\"bulk.php\">Import text file users list</a>";
 
@@ -378,6 +447,6 @@ else
 {
 	echo "<p>".$langIfYouWantToAddManyUsers."</p>";
 }
-
+ */
 include("../inc/claro_init_footer.inc.php");
 ?>
