@@ -229,6 +229,7 @@ $tbl_course          = $tbl_mdb_names['course'         ];
 $tbl_category        = $tbl_mdb_names['category'       ];
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 $tbl_tool            = $tbl_mdb_names['tool'           ];
+$tbl_sso             = $tbl_mdb_names['sso'];
 
 /*---------------------------------------------------------------------------*/
 
@@ -462,7 +463,6 @@ if ($uidReset) // session data refresh requested
 //
 //            // RECORD SSO COOKIE
 //
-//                $tbl_sso             = 'claroline.sso';
 //                $ssoCookieName       = 'clarolineSsoCookie';
 //                $ssoCookieValue      = md5(mktime());
 //                $ssoCookieExpireTime = time()+3600;
