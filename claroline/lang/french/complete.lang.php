@@ -1918,4 +1918,9 @@ $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
 $langQuestionTitle = "Titre";
+
+$langAddCSVUsersInClass = "Ajouter une liste d'utilisateurs à la classe";
+$langAddCSVUsersInCourse = "Ajouter une liste d'utilisateurs au cours";
+$langAddCSVUsersInCampus = "Ajouter une liste d'utilisateurs";
+$langSpecifyFormat= "Vous devez spécifier le format du fichier CSV de votre fichier";
 ?>

@@ -210,13 +210,13 @@ switch ($AddType)
 {
     case "adminTool":
         $noQUERY_STRING   = true;
-        $nameTools        = "Add a user list";
+        $nameTools        = $langAddCSVUsersInCampus;
         $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
     break;
         
     case "adminClassTool":
         $noQUERY_STRING      = true;
-        $nameTools           = "Add a user list in class";
+        $nameTools           = $langAddCSVUsersInClass;
         $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 	$interbredcrump[]    = array ("url"=>$rootAdminWeb."admin_class.php", "name"=> $langClass);
 	$interbredcrump[]    = array ("url"=>$rootAdminWeb."admin_class_user.php", "name"=> $langClassMembers);
@@ -224,7 +224,7 @@ switch ($AddType)
         
     case "userTool":
         $noQUERY_STRING   = true;
-        $nameTools        = "Add a user list in course";
+        $nameTools        = $langAddCSVUsersInCourse;
         $interbredcrump[] = array ("url"=>"user.php", "name"=> $langUsers);
     break;
 }
@@ -268,8 +268,11 @@ switch ($display)
 case "default" :
 
     $_SESSION['claro_CSV_done'] = FALSE;
-?>
-You must specify the CSV format used in your file :<br><br>
+    
+    echo $langSpecifyFormat;
+    ?> 
+    : 
+    <br><br>
 <form enctype="multipart/form-data"  method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>"> 
   <input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES"> <label for="firstLineFormat_YES"><?php echo $langUseFormatDefined; ?></label><br><br>
   <input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO"> <label for="firstLineFormat_NO"><?php echo $langUseFollowingFormat; ?></label><br><br>

@@ -2288,4 +2288,9 @@ $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
 $langQuestionTitle = "Question title";
+
+$langAddCSVUsersInClass = "Add a user list in class";
+$langAddCSVUsersInCourse = "Add a user list in course";
+$langAddCSVUsersInCampus = "Add a user list";
+$langSpecifyFormat = "You must specify the CSV format used in your file";
 ?>
