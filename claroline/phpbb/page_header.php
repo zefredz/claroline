@@ -161,44 +161,6 @@ if ($user_logged_in)
 }
 
 /*----------------------------------------
-             BREADCRUMB TRAIL
- --------------------------------------*/
-
-
-switch($pagetype)
-{
-	case 'index':
-
-        // noop ...
-
-		break;
-
-	case 'viewforum':
-
-		//echo "<h4>",$forum_name,"</h4>";
-
-	case 'viewtopic':
-
-		echo "<small>\n";
-
-		echo "<a href=\"",$url_phpbb,"/index.",$phpEx,"\">"
-			.$sitename," Forum Index"
-			."</a> "
-			.$l_separator
-			." <a href=\"".$url_phpbb."/viewforum.".$phpEx."?forum=".$forum."&gidReq=".$_gid."\">"
-			.stripslashes($forum_name)
-			."</a>";
-
-		if($pagetype != "viewforum") echo ' '.$l_separator.' ';
-
-		echo $topic_subject;
-
-	echo "</small>\n";
-
-		break;
-}
-
-/*----------------------------------------
                  TOOL BAR
  --------------------------------------*/
 
@@ -255,7 +217,44 @@ switch($pagetype)
 if (is_array($toolBar)) $toolBar = implode(" | ", $toolBar);
 
 
-echo "<p>".$toolBar."<p>\n";
+echo '<p>'.$toolBar.'<p>'."\n";
 
+/*----------------------------------------
+             BREADCRUMB TRAIL
+ --------------------------------------*/
+
+
+switch($pagetype)
+{
+	case 'index':
+
+        // noop ...
+
+		break;
+
+	case 'viewforum':
+
+		//echo "<h4>",$forum_name,"</h4>";
+
+	case 'viewtopic':
+
+		echo "<small>\n";
+
+		echo "<a href=\"",$url_phpbb,"/index.",$phpEx,"\">"
+			.$sitename," Forum Index"
+			."</a> "
+			.$l_separator
+			." <a href=\"".$url_phpbb."/viewforum.".$phpEx."?forum=".$forum."&gidReq=".$_gid."\">"
+			.stripslashes($forum_name)
+			."</a>";
+
+		if($pagetype != "viewforum") echo ' '.$l_separator.' ';
+
+		echo $topic_subject;
+
+	echo "</small>\n";
+
+		break;
+}
 
 ?>
