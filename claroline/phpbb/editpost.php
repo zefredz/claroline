@@ -88,7 +88,7 @@ if($is_courseAdmin)
 		if(!$delete)
 		{
 			/*--------------------------------------
-			               POST DELETE
+			               POST  UPDATE
 	  		  --------------------------------------*/
 
 			$forward = 1;
@@ -137,7 +137,7 @@ if($is_courseAdmin)
 		else
 		{
 			/*--------------------------------------
-			              POST UPDATE
+			              POST DELETE
 	  		 --------------------------------------*/
 
 			$now_hour         = date("H");
