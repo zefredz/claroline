@@ -143,7 +143,7 @@ function claro_move_file($sourcePath, $targetPath)
 {
     // check to not copy a directory inside itself
     if (   is_dir($sourcePath) 
-        && ereg('^'.$source.'/', $target.'/') ) return false;
+        && ereg('^'.$sourcePath.'/', $targetPath.'/') ) return false;
 
     $sourceFileName = basename($sourcePath);
     
