@@ -1,6 +1,6 @@
 <?php //$Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -105,7 +105,6 @@ $tbl_user             = $mainDbName."`.`user";
 $tbl_courses        = $mainDbName."`.`cours";
 $tbl_course_user    = $mainDbName."`.`cours_user";
 $tbl_admin            = $mainDbName."`.`admin";
-$tbl_todo            = $mainDbName."`.`todo";
 $tbl_track_default    = $statsDbName."`.`track_e_default";// default_user_id
 $tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
 
@@ -180,7 +179,7 @@ if (isset($_SESSION['admin_user_mail']))
     $sql.=$toAdd;
 
 }
-if (isset($_GET['admin_user_action']))
+if (isset($_SESSION['admin_user_action']))
 {
     if ($_SESSION['admin_user_action']=="createcourse")
     {
