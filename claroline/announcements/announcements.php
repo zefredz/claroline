@@ -427,7 +427,7 @@ if ($displayList)
 
     if ($announcementNumber < 1)
     {
-    	echo "<br><blockquote><p>No Announcement ...<p></blockquote>\n";
+    	echo "<br><blockquote><p>".$langNoAnnouncement."<p></blockquote>\n";
     }
     
 
