@@ -351,7 +351,7 @@ if( $showExerciseForm || $is_courseAdmin )
     }
   ?>
   <table width="100%" cellpadding="4" cellspacing="2" border="0" class="claroTable">
-    <tr bgcolor="#DDDEBC" class="headerX">
+    <tr class="headerX">
       <th valign="top" colspan="2">
       <?php echo $langQuestion; ?> <?php echo $i; if($exerciseType == 2) echo ' / '.$nbrQuestions; ?>
       </th>
