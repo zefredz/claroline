@@ -899,44 +899,12 @@
 
      }
      
-     
-  /**
-    * Function used to draw a progression bar
-    *
-    * @param $progress progression in pourcent
-    * @param $factor will be multiply by 100 to have the full size of the bar (i.e. 1 will give a 100 pixel wide bar)
-    */
-   function draw_progress ($progress, $factor)
-   {
-	global $clarolineRepositoryWeb;
-           $maxSize = $factor * 100; //pixels
-           $barwidth = $factor * $progress ;
-           
-            // display progress bar
-            // origin of the bar
-            $progressBar = "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
-            
-            if($progress != 0)            
-                $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1u.gif\" width=\"$barwidth\" height=\"12\" alt=\"\">";
-            // display 100% bar
-            
-            if($progress!= 100 && $progress != 0)
-                 $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1m.gif\" width=\"1\" height=\"12\" alt=\"\">";
-            
-            if($progress != 100)    
-                 $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1r.gif\" width=\"".($maxSize-$barwidth)."\" height=\"12\" alt=\"\">";
-            // end of the bar
-            $progressBar .=  "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
-            
-            echo $progressBar;
-    }
-    
     /** 
      * Recursive Function used to find the deep of a module in a learning path
      * DEPRECATED : no more since the display has been reorganised
      *
      * @param $id id_of_module that we are looking for deep
-     * @param $searchIn array of parents of modules in a learning path $searchIn[id_of_module] = parent_of_this_module
+     * @param $searchInarray of parents of modules in a learning path $searchIn[id_of_module] = parent_of_this_module
      *
      * @author Piraux Sébastien <pir@cerdecam.be>
      */
