@@ -66,7 +66,7 @@ include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
 
 ?>
-<small><?php echo $langYouCanUsefields?> : </small><br>
+
 <form action="adminusers.php" method="GET" >
 <table border="0">
 	<tr>
