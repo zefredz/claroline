@@ -125,7 +125,7 @@ else
 
 
 ?>
-<form action="<?php echo $PHP_SELF?>" method="POST">
+<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 <input type="hidden" name="md5" value="<?php echo $md5; ?>">
 
 <table border="0">

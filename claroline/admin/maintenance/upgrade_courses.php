@@ -115,7 +115,7 @@ switch ($display)
                 echo sprintf ("<h2>%s</h2>",$langStep3);
                 echo $langIntroStep3;
                 echo sprintf($langNbCoursesUpgraded, $nbCoursesUpgraded['nb'],$nbCourses['nb']);
-		echo "<center>" . sprintf ($langLaunchStep3, $PHP_SELF."?cmd=run") . "</center>";
+		echo "<center>" . sprintf ($langLaunchStep3, $_SERVER['PHP_SELF']."?cmd=run") . "</center>";
 		break;
                 
 	case DISPLAY_RESULT_PANEL : 
@@ -140,7 +140,7 @@ switch ($display)
 			{
 				echo $cours['code'] . " ";	
 			}
-			echo "- You can <a href=\"" . $PHP_SELF . "?cmd=run&upgradeCoursesError=1\">retry to upgrade</a> these courses</p>\n";
+			echo "- You can <a href=\"" . $_SERVER['PHP_SELF'] . "?cmd=run&upgradeCoursesError=1\">retry to upgrade</a> these courses</p>\n";
 			
 		}
                 flush();
@@ -150,7 +150,7 @@ switch ($display)
 		echo "<div class=\"help\" id=\"refreshIfBlock\">";
 		echo "<p>Few seconds after the load of the page<sup>*</sup>, the <em>Claroline Upgrade tool</em> will automatically continue its job. If it doesn't, click yourself on the button below.</p>";
 		echo "<p style=\"text-align: center\">" ;
-		echo sprintf ("<button onclick=\"document.location='%s';\">Continue courses data upgrade</button>", $PHP_SELF."?cmd=run");
+		echo sprintf ("<button onclick=\"document.location='%s';\">Continue courses data upgrade</button>", $_SERVER['PHP_SELF']."?cmd=run");
 		echo "</p>";
 		echo "<p><small>(*) see in the status bar of your browser.</small></p>";
 		echo "</div>"; 
@@ -324,7 +324,7 @@ switch ($display)
 		{
 			if ($totalNbError>0 ) echo "<p class=\"error\">" . $totalNbError . " errors</p>";
 			if ($nbCoursesError['0']>0 ) echo "<p class=\"error\">" . $nbCoursesError['0'] . " course(s) not upgraded.";
-			echo "<p><a href=\"".$PHP_SELF."?verbose=true\">Retry</a></p>";
+			echo "<p><a href=\"".$_SERVER['PHP_SELF']."?verbose=true\">Retry</a></p>";
 			$totalNbError += $nbError;
 			$nbError = 0;
 		}

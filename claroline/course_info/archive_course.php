@@ -1,10 +1,10 @@
 <?php // $Id$
 /*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.1  $Revision$                           |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
       | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
       |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
@@ -135,7 +135,7 @@ $courseDirSize=($courseDirSize >= 1048576) ? round($courseDirSize/(1024*1024),2)
         CLAROLINE version $clarolineVersion
       ----------------------------------------------------------------------
         This file was generate by script
-        $PHP_SELF
+        ".$_SERVER['PHP_SELF']."
         ".date('r')."
       ----------------------------------------------------------------------
         This program is free software; you can redistribute it and/or
@@ -366,7 +366,7 @@ else
 			"$langConfirmBackup &quot;$currentCourseName&quot; ($currentCourseCode) ?",
 			"</p>",
 			"<p>",
-			"<a href=\"$PHP_SELF?confirmBackup=yes\">$langY</a>",
+			"<a href=\"".$_SERVER['PHP_SELF']."?confirmBackup=yes\">$langY</a>",
 			"&nbsp;|&nbsp;",
 			"<a href=\"infocours.php\">$langN</a>",
 			"</p>";

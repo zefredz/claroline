@@ -1,16 +1,17 @@
 <?php # $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de    Louvain    (UCL)
-//----------------------------------------------------------------------
+/*
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
 // This    program    is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published    by the FREE    SOFTWARE FOUNDATION. The GPL is    available
 // through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
 //----------------------------------------------------------------------
 // Authors:    see    'credits' file
 //----------------------------------------------------------------------
-
+*/
 //////////////////////////////////////////////////////////////////////////////
 //                   CLAROLINE DB    QUERY WRAPPRER MODULE
 //////////////////////////////////////////////////////////////////////////////
@@ -533,7 +534,7 @@ function claro_enable_tool_view_option()
 
 function claro_disp_tool_view_option($viewModeRequested = false)
 {
-    global $REQUEST_URI, $PHP_SELF, $clarolineRepositoryWeb;
+    global $REQUEST_URI, $clarolineRepositoryWeb;
 
     $langcoursemanagerview = 'course manager';
     $langstudentview       = 'student';
@@ -554,7 +555,7 @@ function claro_disp_tool_view_option($viewModeRequested = false)
      */
 
     if ( strstr($REQUEST_URI, '?') ) $url = $REQUEST_URI;
-    else                             $url = $PHP_SELF.'?';
+    else                             $url = $_SERVER['PHP_SELF'].'?';
 
     /*
      * remove previous view mode request from the url
@@ -757,7 +758,7 @@ function claro_disp_auth_form()
             echo "<table align=\"center\">\n"
                 ."<tr>"
                 ."<td>"
-                ."<form action=\"".$PHP_SELF."\" method=\"POST\">\n"
+                ."<form action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\">\n"
                 
                 ."<fieldset>\n"
                 
@@ -867,7 +868,7 @@ function claro_disp_select_course()
 		{
 			claro_disp_tool_title("This tools need a course");
 		?>
-<form action="<?php echo $PHP_SELF ?>" method="post">
+<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
     <label for="selectCourse">Course</label> : 
         <select name="cidReq" id="selectCourse">
     <?php 

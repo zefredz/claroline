@@ -118,13 +118,13 @@ else
 
 if ($intro_dispForm)
 {
-    echo	"<form action=\"".$PHP_SELF."\" method=\"post\">\n";
+    echo	"<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n";
 
     claro_disp_html_area('intro_content', $intro_content);
 
     echo	"<br>\n",
 			"<input class=\"claroButton\" type=submit value=\"".$langOk."\" name=\"intro_cmdUpdate\">\n";
-    claro_disp_button($PHP_SELF, 'Cancel');
+    claro_disp_button($_SERVER['PHP_SELF'], 'Cancel');
 	echo	"<br>\n",
 			"</form>\n";
 }
@@ -144,15 +144,15 @@ if ($intro_dispCommand)
     if( '' == trim(strip_tags($intro_content)) ) // displays "Add intro" Commands
 	{
         echo '<p class="HelpText">'.$langHelpAddIntroText.'</p><p>';
-		claro_disp_button($PHP_SELF.'?intro_cmdAdd=1', $langAddIntro);
+		claro_disp_button($_SERVER['PHP_SELF'].'?intro_cmdAdd=1', $langAddIntro);
         echo '</p>';
 	}
 	else // displays "edit intro && delete intro" Commands
 	{
 		echo	"<p>\n".
 				"<small>\n".
-				"<a href=\"".$PHP_SELF."?intro_cmdEdit=1\"><img src=\"",$urlAppend,"/claroline/img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n".
-				"<a href=\"".$PHP_SELF."?intro_cmdDel=1\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\"><img src=\"",$urlAppend,"/claroline/img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\"></a>\n".
+				"<a href=\"".$_SERVER['PHP_SELF']."?intro_cmdEdit=1\"><img src=\"",$urlAppend,"/claroline/img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n".
+				"<a href=\"".$_SERVER['PHP_SELF']."?intro_cmdDel=1\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\"><img src=\"",$urlAppend,"/claroline/img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\"></a>\n".
 				"</small>\n".
 				"</p>\n";
 	}

@@ -120,7 +120,7 @@ if($is_courseAdmin)
 
 		list($day, $time) = split(' ', $myrow['post_time']);
 ?>
-<form action="<?php echo $PHP_SELF; ?>" method="post">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 <table border="0">
 <tr valign="top">
 <td colspan="2"><b><?php echo $pagetitle?></b></td>

@@ -98,7 +98,7 @@ if ($_REQUEST['cmd'] == 'run')
 	// extract the path to append to the url if Claroline is not installed on the web root directory
 	
 	$rootWeb 		= 	"http://".$SERVER_NAME.$urlAppendPath."/";
-	$urlAppend		=	ereg_replace ("/claroline/admin/maintenance/".basename($_SERVER['SCRIPT_NAME']), "", $PHP_SELF);
+	$urlAppend		=	ereg_replace ("/claroline/admin/maintenance/".basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['PHP_SELF']);
 	$rootSys		=	realpath("../..")."/";
 	
 	$siteName		=	"My campus";
@@ -442,7 +442,7 @@ switch ($display)
 	case DISPLAY_WELCOME_PANEL: 
                 echo sprintf ("<h2>%s</h2>",$langStep1);
                 echo $langIntroStep1;
-		echo "<center>" . sprintf ($langLaunchStep1, $PHP_SELF."?cmd=run") . "</center>";
+		echo "<center>" . sprintf ($langLaunchStep1, $_SERVER['PHP_SELF']."?cmd=run") . "</center>";
 		break;
         case DISPLAY_RESULT_ERROR_PANEL:
                 echo sprintf ("<h2>%s</h2>",$langStep1 . " - " . $langFailed);

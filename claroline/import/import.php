@@ -1,13 +1,11 @@
 <?php  session_start();
 
 /*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.2 $Revision$                             |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   $Id$            |
-      +----------------------------------------------------------------------+
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
       |   as published by the Free Software Foundation; either version 2     |
@@ -140,7 +138,7 @@ if($is_adminOfCourse)
 	{
 		echo	"<table border=\"0\">\n",
 
-				"<form method=\"POST\" action=\"$PHP_SELF\" enctype=\"multipart/form-data\">\n",
+				"<form method=\"POST\" action=\"".$_SERVER['PHP_SELF']."\" enctype=\"multipart/form-data\">\n",
 
 				"<tr>\n",
 				"<td colspan=\"2\"><p>",$langExplanation,"</p><br></td>\n",
@@ -162,7 +160,7 @@ if($is_adminOfCourse)
 
 				"</form>\n",
 
-				"<form method=\"post\" action=\"$PHP_SELF\">",
+				"<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">",
 
 				"<tr>\n",
 				"<td colspan=\"2\"><br><h3>",$langLinkSite,"</h3></td>\n",

@@ -236,39 +236,39 @@ if($dialogBox)
 
   // ALPHABETIC SEARCH
 /*
-echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
+echo "<form name=\"indexform\" action=\"",$_SERVER['PHP_SELF'],"\" method=\"GET\">
              ";
 
             if (isset($cidToEdit)) {$toAdd = "cidToEdit=".$cidToEdit;} else {$toAdd = "";}
 
-            echo "<a href=\"",$PHP_SELF,"?".$toAdd."\"><b> ".$langAll."</b></a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?".$toAdd."\"><b> ".$langAll."</b></a> | ";
 
-            echo "<a href=\"",$PHP_SELF,"?letter=A&".$toAdd."\">A</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=B&".$toAdd."\">B</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=C&".$toAdd."\">C</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=D&".$toAdd."\">D</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=E&".$toAdd."\">E</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=F&".$toAdd."\">F</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=G&".$toAdd."\">G</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=H&".$toAdd."\">H</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=I&".$toAdd."\">I</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=J&".$toAdd."\">J</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=K&".$toAdd."\">K</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=L&".$toAdd."\">L</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=M&".$toAdd."\">M</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=N&".$toAdd."\">N</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=O&".$toAdd."\">O</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=P&".$toAdd."\">P</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=Q&".$toAdd."\">Q</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=R&".$toAdd."\">R</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=S&".$toAdd."\">S</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=T&".$toAdd."\">T</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=U&".$toAdd."\">U</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=V&".$toAdd."\">V</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=W&".$toAdd."\">W</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=X&".$toAdd."\">X</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=Y&".$toAdd."\">Y</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=Z&".$toAdd."\">Z</a>";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=A&".$toAdd."\">A</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=B&".$toAdd."\">B</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=C&".$toAdd."\">C</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=D&".$toAdd."\">D</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=E&".$toAdd."\">E</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=F&".$toAdd."\">F</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=G&".$toAdd."\">G</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=H&".$toAdd."\">H</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=I&".$toAdd."\">I</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=J&".$toAdd."\">J</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=K&".$toAdd."\">K</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=L&".$toAdd."\">L</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=M&".$toAdd."\">M</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=N&".$toAdd."\">N</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=O&".$toAdd."\">O</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=P&".$toAdd."\">P</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=Q&".$toAdd."\">Q</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=R&".$toAdd."\">R</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=S&".$toAdd."\">S</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=T&".$toAdd."\">T</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=U&".$toAdd."\">U</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=V&".$toAdd."\">V</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=W&".$toAdd."\">W</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=X&".$toAdd."\">X</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=Y&".$toAdd."\">Y</a> | ";
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?letter=Z&".$toAdd."\">Z</a>";
             echo "
             <input type=\"text\" name=\"search\">
             <input type=\"hidden\" name=\"cidToEdit\" value=\"".$cidToEdit."\">
@@ -313,7 +313,7 @@ echo "<table width=\"100%\">
              </small>
           </td>
           <td align=\"right\">
-            <form action=\"",$PHP_SELF,"\">
+            <form action=\"",$_SERVER['PHP_SELF'],"\">
             <label for=\"search\">".$langMakeNewSearch."</label>
             <input type=\"text\" value=\"".$_GET['search']."\" name=\"search\" id=\"search\" >
             <input type=\"submit\" value=\" ".$langOk." \">
@@ -327,7 +327,7 @@ echo "<table width=\"100%\">
 
    //Pager
 
-$myPager->disp_pager_tool_bar($PHP_SELF);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 
 // Display list of users
@@ -337,10 +337,10 @@ $myPager->disp_pager_tool_bar($PHP_SELF);
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
 
      <tr class=\"headerX\" align=\"center\" valign=\"top\">
-          <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>
-          <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes\">".$langName."</a></th>
-          <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>
-          <th><a href=\"",$PHP_SELF,"?order_crit=officialCode&chdir=yes\">".$langOfficialCode."</a></th>";
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=nom&chdir=yes\">".$langName."</a></th>
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=officialCode&chdir=yes\">".$langOfficialCode."</a></th>";
 echo     "<th>".$langEmail."</th>";
 echo     "<th>".$langUserStatus."</th>";
 echo     "<th>".$langAllUserOfThisCourse."</th>
@@ -443,7 +443,7 @@ foreach($resultList as $list)
      //  Delete link
 
      echo   "<td align=\"center\">\n",
-                "<a href=\"",$PHP_SELF,"?cmd=delete&user_id=".$list['user_id']."&offset=".$offset."".$addToURL."\" ",
+                "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&user_id=".$list['user_id']."&offset=".$offset."".$addToURL."\" ",
                 "onClick=\"return confirmation('",addslashes($list['username']),"');\">\n",
                 "<img src=\"".$clarolineRepositoryWeb."img/deluser.gif\" border=\"0\" alt=\"".$langDelete."\" />\n",
                 "</a>\n",
@@ -465,7 +465,7 @@ echo "</tbody></table>";
 
 //Pager
 
-$myPager->disp_pager_tool_bar($PHP_SELF);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 ?>
 

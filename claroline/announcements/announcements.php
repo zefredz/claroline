@@ -1,7 +1,7 @@
 <?php // $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -361,11 +361,11 @@ if ($message)
 if ($displayButtonLine)
 {
     echo    "<p>\n";
-    claro_disp_button($PHP_SELF.'?cmd=rqCreate',
+    claro_disp_button($_SERVER['PHP_SELF'].'?cmd=rqCreate',
                       '<img src="'.$clarolineRepositoryWeb.'img/valves.gif">'.$langAddAnn);
     claro_disp_button('messages.php',
                       '<img src="'.$clarolineRepositoryWeb.'img/email.gif">'.$langMessageToSelectedUsers);
-    claro_disp_button($PHP_SELF.'?cmd=exDeleteAll',
+    claro_disp_button($_SERVER['PHP_SELF'].'?cmd=exDeleteAll',
                       '<img src="'.$clarolineRepositoryWeb.'img/delete.gif">'.$langEmptyAnn);
     echo "</p>\n";
 }
@@ -381,7 +381,7 @@ if ($displayForm)
 
     // DISPLAY ADD ANNOUNCEMENT COMMAND
 
-    echo    "<form method=\"post\" action=\"".$PHP_SELF."\">\n",
+    echo    "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">\n",
             "<input type=\"hidden\" name=\"cmd\" value=\"".$nextCommand."\">",
 
             $announcementToEdit ? "<input type=\"hidden\" name=\"id\" value=\"".$announcementToEdit['id']."\">\n"
@@ -407,7 +407,7 @@ if ($displayForm)
             "<label for=\"emailOption\">",$langEmailOption,"</label><br>\n",
             "<input	type=\"Submit\"	class=\"claroButton\" name=\"submitAnnouncement\"	value=\"".$langOk."\">\n";
 
-   claro_disp_button ($PHP_SELF, 'Cancel');
+   claro_disp_button ($_SERVER['PHP_SELF'], 'Cancel');
 
    echo     "</td>",
             "<tr>\n",
@@ -485,10 +485,10 @@ if ($displayList)
         if ($is_allowedToEdit)
         {
             echo "<p>",
-                 "<a href=\"".$PHP_SELF."?cmd=rqEdit&id=".$thisAnnouncement['id']."\">",
+                 "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEdit&id=".$thisAnnouncement['id']."\">",
                  "<img src=\"".$clarolineRepositoryWeb."/img/edit.gif\" alt=\"".$langModify,"\">".
                  "</a>\n",
-                 "<a href=\"".$PHP_SELF."?cmd=exDelete&id=".$thisAnnouncement['id']."\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\">",
+                 "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exDelete&id=".$thisAnnouncement['id']."\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\">",
                  "<img src=\"".$clarolineRepositoryWeb."/img/delete.gif\" alt=\"".$langDelete."\" border=\"0\">".
                  "</a>\n";
 
@@ -496,7 +496,7 @@ if ($displayList)
 
                 if($iterator != 1)
                 {
-                    echo	"<a href=\"".$PHP_SELF."?cmd=exMvUp&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+                    echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                             "<img src=\"".$clarolineRepositoryWeb."/img/up.gif\" alt=\"".$langUp."\">".
                             "</a>\n";
                 }
@@ -505,7 +505,7 @@ if ($displayList)
 
                 if($iterator < $bottomAnnouncement)
                 {
-                    echo	"<a href=\"".$PHP_SELF."?cmd=exMvDown&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+                    echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                             "<img src=\"".$clarolineRepositoryWeb."/img/down.gif\" alt=\"".$langDown."\">",
                             "</a>\n";
                 }

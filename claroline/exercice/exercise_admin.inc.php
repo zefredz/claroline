@@ -1,10 +1,10 @@
 <?php // $Id$
 /*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.0 $Revision$                            |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
       |   as published by the Free Software Foundation; either version 2     |
@@ -139,7 +139,7 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
 {
 ?>
 
-<form method="post" action="<?php echo $PHP_SELF; ?>?modifyExercise=<?php echo $modifyExercise; ?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=<?php echo $modifyExercise; ?>">
 <table border="0" cellpadding="5">
 
 <?php
@@ -360,7 +360,7 @@ else
    <li><?php echo $langRandomQuestions." : "; echo ($randomQuestions)?$langYes:$langNo; ?></li>
 </ul>
 </small>
-<a href="<?php echo $PHP_SELF; ?>?modifyExercise=yes"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><small><?php echo $langEditExercise; ?></small></a>
+<a href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=yes"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><small><?php echo $langEditExercise; ?></small></a>
 
 <?php
 }

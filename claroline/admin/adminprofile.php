@@ -1,7 +1,6 @@
-<?php
-// $Id$
+<?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -21,6 +20,7 @@ require '../inc/claro_init_global.inc.php';
 
 include $includePath.'/lib/text.lib.php';
 include $includePath.'/lib/admin.lib.inc.php';
+include $includePath.'/lib/auth.lib.inc.php';
 include $includePath.'/conf/profile.conf.inc.php';
 
 
@@ -307,7 +307,7 @@ if ($display == USER_DATA_FORM)
 
 ?>
 
-<form method="POST" action="<?php echo $PHP_SELF ?>">
+<form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 <input type="hidden" name="applyChange" value="yes">
 <table border="0">
 

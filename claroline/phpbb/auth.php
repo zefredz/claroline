@@ -57,7 +57,7 @@ if( get_magic_quotes_gpc() == 1)
 
 $config_file_name = 'config.php';
 
-if( strstr($PHP_SELF, 'admin') && ! strstr($PHP_SELF, 'topicadmin') )
+if( strstr($_SERVER['PHP_SELF'], 'admin') && ! strstr($_SERVER['PHP_SELF'], 'topicadmin') )
 {
     $config_file_name = '../config.php';
 }
@@ -79,7 +79,7 @@ $last_visit = $_user ['lastLogin'];
 // variable stored in session.
 
 // Include the appropriate language file.
-if (strstr($PHP_SELF, 'admin') && ! strstr($PHP_SELF, 'topicadmin') )
+if (strstr($_SERVER['PHP_SELF'], 'admin') && ! strstr($_SERVER['PHP_SELF'], 'topicadmin') )
 {
     @include('../language/lang_'.$default_lang.'.php');
 }

@@ -1,5 +1,11 @@
 <?php // $Id$
-
+/*
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
+*/
 $langFile = "forum_admin";
 require '../inc/claro_init_global.inc.php';
 
@@ -529,7 +535,7 @@ if ($is_allowedToEdit)
 if($display == DISP_FORUM_GO)
 {
 	echo    "<div align=\"right\">".
-			"<a href=\"$PHP_SELF?forumadmin=yes\">$langBackCat</a>".
+			"<a href=\"".$_SERVER['PHP_SELF']."?forumadmin=yes\">$langBackCat</a>".
 			"<form action=\"forum_admin.php?forumgoadd=yes&ctg=".urlencode($ctg)."&cat_id=$cat_id\" method=post>".
 			"</div>".
 
@@ -706,12 +712,12 @@ elseif($display == DISP_FORUM_CAT_SAVE)
     if ($display_error_mess)
     {
        echo "<center>".$langemptycatname."</center>".
-		"<a href=\"$PHP_SELF?forumcatedit=yes&cat_id=".$cat_id."\">$langBack</a>";
+		"<a href=\"".$_SERVER['PHP_SELF']."?forumcatedit=yes&cat_id=".$cat_id."\">$langBack</a>";
     }
     else
     {
 	echo "<center>".$langNameCat."</center>".
-		"<a href=\"$PHP_SELF?forumadmin=yes\">$langBack</a>";
+		"<a href=\"".$_SERVER['PHP_SELF']."?forumadmin=yes\">$langBack</a>";
     }
 }
 elseif($display == DISP_FORUM_GO_SAVE)
@@ -719,12 +725,12 @@ elseif($display == DISP_FORUM_GO_SAVE)
     if ($display_error_mess)
     {
        echo "<center>".$langemptyforumname."</center>".
-    	"<a href=\"$PHP_SELF?forumgoedit=yes&forum_id=$forum_id&cat_id=$cat_id&ctg=".urlencode($ctg)."\">".$langBack."</a>";
+    	"<a href=\"".$_SERVER['PHP_SELF']."?forumgoedit=yes&forum_id=$forum_id&cat_id=$cat_id&ctg=".urlencode($ctg)."\">".$langBack."</a>";
     }
     else
     {
       echo "<center>".$langForumModified."</center>".
-    	"<a href=\"$PHP_SELF?forumgo=yes&cat_id=$cat_id&ctg=".urlencode($ctg)."\">".$langBack."</a>";
+    	"<a href=\"".$_SERVER['PHP_SELF']."?forumgo=yes&cat_id=$cat_id&ctg=".urlencode($ctg)."\">".$langBack."</a>";
     }
 }
 elseif($display == DISP_FORUM_CAT_ADD)
@@ -737,7 +743,7 @@ elseif($display == DISP_FORUM_CAT_ADD)
     {
       echo "<center>".$langcatcreated."</center>";
     }
-    echo "<a href=\"$PHP_SELF?forumadmin=yes\">".$langBack."</a>";
+    echo "<a href=\"".$_SERVER['PHP_SELF']."?forumadmin=yes\">".$langBack."</a>";
 }
 elseif($display == DISP_FORUM_GO_ADD)
 {
@@ -749,16 +755,16 @@ elseif($display == DISP_FORUM_GO_ADD)
     {
       echo "<center>".$langforumcreated."</center>";
     }
-    echo	"<a href=\"$PHP_SELF?forumgo=yes&cat_id=$cat_id&ctg=".urlencode($ctg)."\">$langBack</a>\n";
+    echo	"<a href=\"".$_SERVER['PHP_SELF']."?forumgo=yes&cat_id=$cat_id&ctg=".urlencode($ctg)."\">$langBack</a>\n";
 }
 elseif($display == DISP_FORUM_CAT_DEL)
 {
 	echo	$msg_can_del_cat_1.
-		"<a href=\"$PHP_SELF?forumadmin=yes\">$langBack</a>";
+		"<a href=\"".$_SERVER['PHP_SELF']."?forumadmin=yes\">$langBack</a>";
 }
 elseif($display == DISP_FORUM_GO_DEL)
 {
-		echo	"<a href=\"$PHP_SELF?forumgo=yes&ctg=".urlencode($ctg)."&cat_id=$cat_id\">",$langBack,"</a>";
+		echo	"<a href=\"".$_SERVER['PHP_SELF']."?forumgo=yes&ctg=".urlencode($ctg)."&cat_id=$cat_id\">",$langBack,"</a>";
 
 }
 elseif($display == DISP_FORUM_ADMIN)

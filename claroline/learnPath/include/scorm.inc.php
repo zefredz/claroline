@@ -54,7 +54,7 @@
   {
        echo "<hr noshade=\"noshade\" size=\"1\" />";
        //echo "<p>".$langModuleHelpExercise."</p>";
-       echo "<form method=\"POST\" action=\"$PHP_SELF\"><label for=\"newRaw\">";
+       echo "<form method=\"POST\" action=\"".$_SERVER['PHP_SELF']."\"><label for=\"newRaw\">";
        echo $langChangeRaw;
        echo "</label><input type=\"text\" value=\"".$learningPath_module['raw_to_pass']."\" name=\"newRaw\" id=\"newRaw\" size=\"3\" maxlength=\"3\" /> % ";
        echo "<input type=\"hidden\" name=\"cmd\" value=\"raw\" />";

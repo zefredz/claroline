@@ -1,6 +1,6 @@
 <?php //$Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -298,7 +298,7 @@ if (isset($_GET['order_crit']))
   $addToURL = "&order_crit=".$_GET['order_crit']."&dir=".$_GET['dir'];
 }
 
-$myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit.$addToURL);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit.$addToURL);
 
 // Display list of users
    // start table...
@@ -431,7 +431,7 @@ echo "</tbody></table>";
 
 //Pager
 
-$myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit.$addToURL);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit.$addToURL);
 
 ?>
 

@@ -150,7 +150,7 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
          $result = claro_sql_query($query);
          $list = mysql_fetch_array($result);
          echo "
-         <form method=\"POST\" name=\"rename\" action=\"",$PHP_SELF,"?cmd=mkrename\">
+         <form method=\"POST\" name=\"rename\" action=\"",$_SERVER['PHP_SELF'],"?cmd=mkrename\">
              <label for=\"newName\">".$langInsertNewModuleName."</label> :
              <input type=\"text\" name=\"newName\" id=\"newName\" value=\"".htmlspecialchars($list['name'])."\"></input>
              <input type=\"submit\" value=\" Ok \" name=\"submit\">
@@ -263,16 +263,16 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
                     <img src=\"".$clarolineRepositoryWeb."img/".$contentType_img."\" alt=\"".$contentType_alt."\" />".$list['name']."
                     </td>
                     <td align='center'>
-                     <a href=\"",$PHP_SELF,"?cmd=eraseModule&cmdid=".$list['module_id']."\"
+                     <a href=\"",$_SERVER['PHP_SELF'],"?cmd=eraseModule&cmdid=".$list['module_id']."\"
                         onClick=\"return confirmation('",htmlspecialchars(addslashes($list['name'])),$langUsedInLearningPaths,$list['timesUsed'],"');\">
                         <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\" />
                         </a>
                     </td>
                     <td align=\"center\">
-                       <a href=\"",$PHP_SELF,"?cmd=rename&module_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=0 alt=\"$langRename\" /></a>
+                       <a href=\"",$_SERVER['PHP_SELF'],"?cmd=rename&module_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=0 alt=\"$langRename\" /></a>
                     </td>
                     <td align=\"center\">
-                       <a href=\"",$PHP_SELF,"?cmd=comment&module_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/comment.gif\" border=0 alt=\"$langComment\" /></a>
+                       <a href=\"",$_SERVER['PHP_SELF'],"?cmd=comment&module_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/comment.gif\" border=0 alt=\"$langComment\" /></a>
                     </td>";
             echo "</tr>";
             /*

@@ -118,7 +118,7 @@ if($submit || $user_logged_in) {
 	 $user_nocookie = "CHECKED";
       }
 ?>
-<FORM ACTION="<?php echo $PHP_SELF?>" METHOD="POST">
+<FORM ACTION="<?php echo $_SERVER['PHP_SELF']?>" METHOD="POST">
 <TABLE BORDER="0" CELLPADDING="1" CELLSPACEING="0" ALIGN="CENTER" VALIGN="TOP" WIDTH="<?php echo $tablewidth?>"><TR><TD  BGCOLOR="<?php echo $table_bgcolor?>">
 <TABLE BORDER="0" CALLPADDING="1" CELLSPACEING="1" WIDTH="100%">
 <TR BGCOLOR="<?php echo $color1?>" ALIGN="LEFT">

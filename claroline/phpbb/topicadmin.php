@@ -165,7 +165,7 @@ if($submit || ($user_logged_in==1 && $mode=='viewip')) {
 }
 else {  // No submit
 ?>
-<FORM ACTION="<?php echo $PHP_SELF?>" METHOD="POST">
+<FORM ACTION="<?php echo $_SERVER['PHP_SELF']?>" METHOD="POST">
 <TABLE BORDER="0" CELLPADDING="1" CELLSPACING="0" ALIGN="CENTER" VALIGN="TOP" WIDTH="95%"><TR><TD  BGCOLOR="<?php echo $table_bgcolor?>">
 <TABLE BORDER="0" CELLPADDING="1" CELLSPACING="1" WIDTH="100%">
 <TR BGCOLOR="<?php echo $color1?>" ALIGN="LEFT">

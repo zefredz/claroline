@@ -76,7 +76,7 @@ else
 /* displaying the login form */
 
 ?>
-<form action="<?php echo $PHP_SELF ?>" method="post">
+<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
 <input type="hidden" name="touserid" value="<?php echo $touserdata['user_id'] ?>">
 <table border="0" cellpadding="1">
 

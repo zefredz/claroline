@@ -147,7 +147,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
     
             if ($previous >= 0)
             {
-                    $navLink .= "<small><a href='$PHP_SELF?offset=$previous'>&lt;&lt; $langPreviousPage</a></small>";
+                    $navLink .= "<small><a href='".$_SERVER['PHP_SELF']."?offset=$previous'>&lt;&lt; $langPreviousPage</a></small>";
             }
     
             $navLink .= "</td>\n"
@@ -155,7 +155,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
     
             if ($next < $userGroupNb)
             {
-                    $navLink .= "<small><a href='$PHP_SELF?offset=$next'>$langNextPage &gt;&gt;</a></small>";
+                    $navLink .= "<small><a href='".$_SERVER['PHP_SELF']."?offset=$next'>$langNextPage &gt;&gt;</a></small>";
             }
     
             $navLink .= "</td>\n"
@@ -196,7 +196,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         {
             echo    "<tr valign=\"top\" align=\"center\">\n"
                     ."<td align=\"left\">"
-                    ."<a href=\"$PHP_SELF?uInfo=",$list_users[$i][0],"\">"
+                    ."<a href=\"".$_SERVER['PHP_SELF']."?uInfo=",$list_users[$i][0],"\">"
                     .$list_users[$i][1]," ",$list_users[$i][2]
                     ."</a>".
                     "</td>\n";
@@ -251,8 +251,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             // in $view, a 1 in X posof the $view string means that the 'category' number X
             // will be show, 0 means don't show
             echo "\n<small>"
-                    ."[<a href=\"$PHP_SELF?uInfo=$uInfo&view=1111111\">$langShowAll</a>]&nbsp;"
-                    ."[<a href=\"$PHP_SELF?uInfo=$uInfo&view=0000000\">$langShowNone</a>]"
+                    ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=1111111\">$langShowAll</a>]&nbsp;"
+                    ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=0000000\">$langShowNone</a>]"
                     ."</small>\n\n";        
             if(!isset($view)) $view ="0000000";
             $viewLevel = -1; //  position of the flag of the view in the $view array/string
@@ -270,7 +270,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-              echo "-&nbsp;&nbsp;<b>".$langLoginsAndAccessTools."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
+              echo "-&nbsp;&nbsp;<b>".$langLoginsAndAccessTools."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
                         ."<br />\n&nbsp;&nbsp;&nbsp;".$langLoginsDetails."<br />\n";
                 
                 $sql = "SELECT UNIX_TIMESTAMP(`login_date`), count(`login_date`)
@@ -315,7 +315,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?uInfo=$uInfo&view=".$tempView."\">$langLoginsAndAccessTools</a>";
+                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">$langLoginsAndAccessTools</a>";
             }
             echo "<br /></p>\n\n";
             /***************************************************************************
@@ -330,7 +330,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-                echo "-&nbsp;&nbsp;<b>".$langExercicesResults."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>\n"
+                echo "-&nbsp;&nbsp;<b>".$langExercicesResults."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>\n"
                         ."<br />&nbsp;&nbsp;&nbsp;".$langExercicesDetails."<br />\n";
                         
                 $sql = "SELECT `E`.`titre`, `E`.`id`,
@@ -371,7 +371,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                       while( $exo_details = mysql_fetch_array($result) )
                       { 
                       	echo "<tr>\n"
-                             	."<td><a href=\"$PHP_SELF?uInfo=".$_GET['uInfo']."&view=".$view."&exoDet=".$exo_details['id']."\">".$exo_details['titre']."</td>\n"
+                             	."<td><a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_GET['uInfo']."&view=".$view."&exoDet=".$exo_details['id']."\">".$exo_details['titre']."</td>\n"
                               ."<td>".$exo_details['minimum']."</td>\n"
                              	."<td>".$exo_details['maximum']."</td>\n"
                              	."<td>".(round($exo_details['average']*10)/10)."</td>\n"
@@ -425,7 +425,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?uInfo=$uInfo&view=".$tempView."\">$langExercicesResults</a>";
+                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">$langExercicesResults</a>";
             }
             echo "<br /></p>\n\n";
             /***************************************************************************
@@ -440,7 +440,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-                echo "-&nbsp;&nbsp;<b>".$langLearningPath."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
+                echo "-&nbsp;&nbsp;<b>".$langLearningPath."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
                         ."<br />\n&nbsp;&nbsp;&nbsp;".$langLearnPathDetails."<br />\n";
                 
                 // get list of learning paths of this course
@@ -490,7 +490,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?uInfo=$uInfo&view=".$tempView."\">$langLearningPath</a>";
+                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">$langLearningPath</a>";
             }
             echo "<br /></p>\n\n";
             /***************************************************************************
@@ -505,7 +505,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-                echo "-&nbsp;&nbsp;<b>".$langWorkUploads."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
+                echo "-&nbsp;&nbsp;<b>".$langWorkUploads."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
                         ."<br />\n&nbsp;&nbsp;&nbsp;".$langWorksDetails."<br />\n";
                         
                 $sql = "SELECT `u`.`upload_date`, `w`.`titre`, `w`.`auteurs`,`w`.`url`
@@ -552,7 +552,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?uInfo=$uInfo&view=".$tempView."\">$langWorkUploads</a>";
+                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">$langWorkUploads</a>";
             }
             echo "<br /></p>\n\n";
             /***************************************************************************
@@ -567,7 +567,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-                echo "-&nbsp;&nbsp;<b>".$langDocumentsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
+                echo "-&nbsp;&nbsp;<b>".$langDocumentsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
                         ."<br />\n&nbsp;&nbsp;&nbsp;".$langDocumentsDetails."<br />\n";       
                         
                 $sql = "SELECT `down_doc_path`
@@ -604,7 +604,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?uInfo=$uInfo&view=".$tempView."\">$langDocumentsAccess</a>";
+                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">$langDocumentsAccess</a>";
             }
             echo "<br /></p>\n\n";
         }

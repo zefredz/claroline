@@ -1,17 +1,17 @@
 <?php # $Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
+/*
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
 // through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
-
+*/
 /**************************************
        CLAROLINE MAIN SETTINGS
 ***************************************/
@@ -185,7 +185,7 @@ claro_disp_tool_title($nameTools);
 if (isset($langGroupEdited))
 claro_disp_message_box($langGroupEdited);
 ?>
-<form name="groupedit" method="POST" action="<?php echo $PHP_SELF?>?edit=yes&gidReq=<?php echo $_gid?>">
+<form name="groupedit" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>?edit=yes&gidReq=<?php echo $_gid?>">
 
 <table border="0" cellspacing="3" cellpadding="5">
 

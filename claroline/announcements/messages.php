@@ -329,7 +329,7 @@ if($is_allowedToUse)	// check teacher status
 		echo	$message,
 				"<br>",
 				"<br>",
-				"<a	href=\"",$PHP_SELF,"\">",$langBackList,"&nbsp;&gt;</a>",
+				"<a	href=\"",$_SERVER['PHP_SELF'],"\">",$langBackList,"&nbsp;&gt;</a>",
 				"<br>";
 
 		$displayForm = false;
@@ -390,7 +390,7 @@ if($is_allowedToUse)	// check teacher status
 		echo	$langIntroText;
 
 		echo	"<form method=\"post\" ",
-				"action=\"",$PHP_SELF,"\" ",
+				"action=\"",$_SERVER['PHP_SELF'],"\" ",
 				"name=\"datos\" ",
 				"onSubmit=\"return valida();\">\n",
 

@@ -1,10 +1,10 @@
 <?php // $Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
+/*
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
 // through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
@@ -229,7 +229,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 			if ( sizeof($imgFilePath) > 0)
 			{
 				$dialogBox .= "<br><b>".$langMissingImagesDetected."</b><br>\n"
-				             ."<form method=\"post\" action=\"".$PHP_SELF."\" "
+				             ."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\" "
 				             ."enctype=\"multipart/form-data\">\n"
 				             ."<input type=\"hidden\" name=\"cmd\" value=\"submitImage\">\n"
 				             ."<input type=\"hidden\" name=\"relatedFile\""
@@ -268,7 +268,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
          * Prepare dialog box display
          */
 
-        $dialogBox .= "<form action=\"".$PHP_SELF."\" method=\"post\" enctype=\"multipart/form-data\">"
+        $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\" enctype=\"multipart/form-data\">"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exUpload\">"
                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
                      ."<label for=\"userFile\">".$langDownloadFile." : </label>"
@@ -445,7 +445,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
     if ($cmd == 'rqMkUrl')
     {
         $dialogBox .= "<h4>".$langCreateHyperlink."</h4>\n"
-                     ."<form action=\"".$PHP_SELF."\" method=\"post\">\n"
+                     ."<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exMkUrl\">\n"
                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
                      ."<label for=\"fileName\">".$langName." : </label><br />\n"
@@ -623,7 +623,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 	{
 		$fileName = basename($_REQUEST['file']);
 
-		$dialogBox .= 	"<form action=\"".$PHP_SELF."\" method=\"post\">"
+		$dialogBox .= 	"<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">"
 						."<input type=\"hidden\" name=\"cmd\" value=\"exEdit\">\n"
 						."<input type=\"hidden\" name=\"file\" value=\"".$_REQUEST['file']."\">\n"
                         ."<p>\n"
@@ -1036,7 +1036,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 	if ($curDirName) /* if the $curDirName is empty, we're in the root point 
 	                    and we can't go to a parent dir */
 	{
-		echo 	"<a href=\"".$PHP_SELF."?cmd=exChDir&file=".$cmdParentDir."\">\n",
+		echo 	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n",
 				"<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\"\">\n",
 				"<small>".$langUp."</small>\n",
 				"</a>\n";
@@ -1047,12 +1047,12 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 		/* CREATE DIRECTORY - UPLOAD FILE - CREATE HYPERLINK */
 		
         echo    "&nbsp;",
-                "<a href=\"".$PHP_SELF."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">",
+                "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&cwd=".$cmdCurDirPath."\">",
                 "<img src=\"".$clarolineRepositoryWeb."img/dossier.gif\" alt=\"\">",
                 "<small>".$langCreateDir."</small>",
                 "</a>\n",
                 "&nbsp;",
-                "<a href=\"".$PHP_SELF."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">",
+                "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&cwd=".$cmdCurDirPath."\">",
                 "<img src=\"".$clarolineRepositoryWeb."img/liens.gif\" alt=\"\">",
                 "<small>".$langCreateHyperlink."</small>",
                 "</a>\n",
@@ -1061,7 +1061,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
                 "<small>".$langCreateDocument."</small>",
                 "</a>\n",
                 "&nbsp;",
-                "<a href=\"".$PHP_SELF."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">",
+                "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&cwd=".$cmdCurDirPath."\">",
                 "<img src=\"".$clarolineRepositoryWeb."img/download.gif\" alt=\"\">",
                 "<small><b>".$langUploadFile."</b></small>",
                 "</a>\n";
@@ -1158,7 +1158,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 				$image       = 'dossier.gif';
 				$size        = '';
 				$date        = '';
-				$urlFileName = $PHP_SELF.'?cmd=exChDir&file='.$cmdFileName;
+				$urlFileName = $_SERVER['PHP_SELF'].'?cmd=exChDir&file='.$cmdFileName;
 			}
 
 			echo	"<tr align=\"center\"",$style,">\n",
@@ -1179,7 +1179,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 				/* DELETE COMMAND */
 
 				echo 	"<td>",
-						"<a href=\"",$PHP_SELF,"?cmd=exRm&file=",$cmdFileName,"\" ",
+						"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exRm&file=",$cmdFileName,"\" ",
 						"onClick=\"return confirmation('",addslashes($dspFileName),"');\">",
 						"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\">",
 						"</a>",
@@ -1188,7 +1188,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 				/* COPY COMMAND */
 
 				echo	"<td>",
-						"<a href=\"",$PHP_SELF,"?cmd=rqMv&file=",$cmdFileName,"\">",
+						"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqMv&file=",$cmdFileName,"\">",
 						"<img src=\"".$clarolineRepositoryWeb."img/deplacer.gif\" border=\"0\" alt=\"$langMove\">",
 						"</a>",
 						"</td>\n";
@@ -1196,7 +1196,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 				/* EDIT COMMAND */
 
 				echo	"<td>",
-						"<a href=\"",$PHP_SELF,"?cmd=rqEdit&file=",$cmdFileName,"\">",
+						"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqEdit&file=",$cmdFileName,"\">",
 						"<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\">",
 						"</a>",
 						"</td>\n";
@@ -1222,13 +1222,13 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 
                     if ($fileList['visibility'][$fileKey] == "i")
                     {
-                        echo	"<a href=\"",$PHP_SELF,"?cmd=exChVis&file=",$cmdFileName,"&vis=v\">",
+                        echo	"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&file=",$cmdFileName,"&vis=v\">",
                                 "<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"$langMakeVisible\">",
                                 "</a>";
                     }
                     else
                     {
-                        echo	"<a href=\"",$PHP_SELF,"?cmd=exChVis&file=",$cmdFileName,"&vis=i\">",
+                        echo	"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&file=",$cmdFileName,"&vis=i\">",
                                 "<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">",
                                 "</a>";
                     }

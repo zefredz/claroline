@@ -37,7 +37,7 @@ $interbredcrump[]= array ("url"=>"..", "name"=> $langAdmin);
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langTechnical);
 if ($_REQUEST['to'])
 {
-	$interbredcrump[]= array ("url"=>basename($PHP_SELF), "name"=> $lang_php_info);
+	$interbredcrump[]= array ("url"=>basename($_SERVER['PHP_SELF']), "name"=> $lang_php_info);
 	$nameTools = $HTTP_GET_VARS["to"];
 }
 @include($rootAdminSys."/checkIfHtAccessIsPresent.php");
@@ -86,13 +86,13 @@ if ($is_allowedToAdmin)
 <br>
 <DIV class="elementServeur">
 <span class="elementServeur" >PHP</span>  <?php echo phpversion()?> :
-[<a href="<?php echo $PHP_SELF ?>?to=phpinfo">PHP info</a>]&nbsp;
-[<a href="<?php echo $PHP_SELF ?>?to=phpcredit">PHP credit</a>]&nbsp;
-[<a href="<?php echo $PHP_SELF ?>?to=ext">Extentions</a>]
+[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?to=phpinfo">PHP info</a>]&nbsp;
+[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?to=phpcredit">PHP credit</a>]&nbsp;
+[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?to=ext">Extentions</a>]
 </DIV>
 <DIV class="elementServeur">
-<span class="elementServeur" >Claroline</span> <?php echo $clarolineVersion ;?></strong> : [<a href="<?php echo $PHP_SELF ?>?to=clarconf">Config Claroline</a>]&nbsp;
-<!--[<a href="<?php echo $PHP_SELF ?>?to=clarcredit">Claroline credit</a>]&nbsp;-->
+<span class="elementServeur" >Claroline</span> <?php echo $clarolineVersion ;?></strong> : [<a href="<?php echo $_SERVER['PHP_SELF'] ?>?to=clarconf">Config Claroline</a>]&nbsp;
+<!--[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?to=clarcredit">Claroline credit</a>]&nbsp;-->
 </DIV>
 <DIV class="elementServeur">
 <span class="elementServeur" >WebServer</span> <?php echo $SERVER_SOFTWARE ;?></strong><br>
@@ -102,7 +102,7 @@ if ($is_allowedToAdmin)
 <? } ?>
 
 [<?php echo $langMailTo ?><a href="mailto:<?php echo $SERVER_ADMIN ?>">Admin apache (<?php echo $SERVER_ADMIN ?>)</A>]
-<!--[<a href="<?php echo $PHP_SELF ?>?to=mdp">Parametres</a>]&nbsp;--><BR>
+<!--[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?to=mdp">Parametres</a>]&nbsp;--><BR>
  </DIV>
 <HR size="1" noshade="noshade">
 
@@ -117,7 +117,7 @@ if ($is_allowedToAdmin)
 		@sort($extensions);
 		foreach($extensions as $extension)
 		{
-			echo "$extension &nbsp; <a href=\"".$PHP_SELF."?to=ext&ext=$extension\" >fonctions</a><br>\n";
+			echo "$extension &nbsp; <a href=\"".$_SERVER['PHP_SELF']."?to=ext&ext=$extension\" >fonctions</a><br>\n";
 			if ($extension==$ext)
 			{
 				echo "

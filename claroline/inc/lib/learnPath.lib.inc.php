@@ -129,7 +129,7 @@
                               WHERE ".$where_cond;
                      $query = claro_sql_query($sql);
                      $oldComment = @mysql_fetch_array($query);
-                     echo        "<form method=\"POST\" action=\"$PHP_SELF\">\n",
+                     echo        "<form method=\"POST\" action=\"".$_SERVER['PHP_SELF']."\">\n",
                                     //"<textarea name=\"insertCommentBox\" rows=\"8\" cols=\"55\" wrap=\"virtual\">",
                                     claro_disp_html_area('insertCommentBox', $oldComment[$col_name], 15, 55),
                                     //htmlentities($oldComment[$col_name])."</textarea>\n",
@@ -173,7 +173,7 @@
                      {
                            echo        "<p>\n",
                                        "<small>\n",
-                                       "<a href=\"$PHP_SELF?cmd=update".$col_name."\">\n",$langAddComment,"</a>\n",
+                                       "<a href=\"".$_SERVER['PHP_SELF']."?cmd=update".$col_name."\">\n",$langAddComment,"</a>\n",
                                        "</small>\n",
                                        "</p>\n";
                      }
@@ -188,10 +188,10 @@
                         echo
                           	 "<p>\n"
                             ."<small>\n"
-                            ."<a href=\"$PHP_SELF?cmd=update".$col_name."\">\n"
+                            ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=update".$col_name."\">\n"
 							."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"",$langModify,"\" border=\"0\">\n"
 							."</a>\n"
-                            ."<a href=\"$PHP_SELF?cmd=del".$col_name."\" 
+                            ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=del".$col_name."\" 
 								onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\">\n"
 							."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\">\n"
 							."</a>\n"
@@ -299,7 +299,7 @@
                 echo "<h4>".$currentName['name'];
 
                 if ( $is_AllowedToEdit )
-                         echo "<br><a href=\"$PHP_SELF?cmd=updateName\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n";
+                         echo "<br><a href=\"".$_SERVER['PHP_SELF']."?cmd=updateName\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n";
                 echo "</h4>";
            }
 
@@ -627,7 +627,7 @@
                       </tr><tbody>\n";
 
                // Display available modules
-               echo "<form name=\"addmodule\" action=\"",$PHP_SELF,"?cmdglobal='add'\">";
+               echo "<form name=\"addmodule\" action=\"",$_SERVER['PHP_SELF'],"?cmdglobal='add'\">";
                $atleastOne = false;
                $sql = "SELECT *
                          FROM `".$TABLEEXERCISES."`
@@ -713,7 +713,7 @@
 
           echo "
                  <br>
-                 <form action=\"".$PHP_SELF."\" method=\"GET\">";
+                 <form action=\"".$_SERVER['PHP_SELF']."\" method=\"GET\">";
 
           /*--------------------------------------
              DIALOG BOX SECTION
@@ -731,7 +731,7 @@
           if ($curDirName) /* if the $curDirName is empty, we're in the root point 
 	                    and we can't go to a parent dir */
           {
-            echo 	"<a href=\"$PHP_SELF?cmd=exChDir&file=".$cmdParentDir."\">\n",
+            echo 	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&file=".$cmdParentDir."\">\n",
                 "<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\" alt=\"\">\n",
                 "<small>$langUp</small>\n",
                 "</a>\n";
@@ -804,7 +804,7 @@
                                   $image       = 'dossier.gif';
                                   $size        = '&nbsp;';
                                   $date        = '&nbsp;';
-                                  $urlFileName = $PHP_SELF.'?openDir='.$cmdFileName;
+                                  $urlFileName = $_SERVER['PHP_SELF'].'?openDir='.$cmdFileName;
                           }
 
                           echo        "<tr align=\"center\"",$style,">\n";

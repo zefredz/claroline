@@ -1,10 +1,10 @@
 <?php # $Id$
 /*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.6
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
  */
 /**
  * COURSE SITE CREATION TOOL
@@ -371,7 +371,7 @@ if($displayNotForU)
 elseif($displayWhatAdd)
 {
 ?>
-<form lang="<?php echo $iso639_2_code ?>" class="forms" action="<?php echo $PHP_SELF; ?>" method="post" accept-charset="<?php echo $charset ?>">
+<form lang="<?php echo $iso639_2_code ?>" class="forms" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" accept-charset="<?php echo $charset ?>">
 <table  width="100%">
 	<tr valign="top">
 		<td colspan="2" valign="top">
@@ -507,7 +507,7 @@ elseif($displayCoursePropertiesForm)
 {
 ?>
 <b><?php echo $langFieldsRequ ?></b>
-<form lang="<?php echo $iso639_2_code ?>" action="<?php echo $PHP_SELF; ?>" method="post" accept-charset="<?php echo $charset ?>">
+<form lang="<?php echo $iso639_2_code ?>" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" accept-charset="<?php echo $charset ?>">
 <table>
 <tr valign="top">
 <td colspan="2">

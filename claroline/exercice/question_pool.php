@@ -1,10 +1,10 @@
 <?php // $Id$
 /*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)
-      +----------------------------------------------------------------------+
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or
       |   modify it under the terms of the GNU General Public License
       |   as published by the Free Software Foundation; either version 2
@@ -103,7 +103,7 @@ if($is_allowedToEdit)
   <?php echo $nameTools; ?>
 </h3>
 
-<form method="get" action="<?php echo $PHP_SELF; ?>">
+<form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <input type="hidden" name="fromExercise" value="<?php echo $fromExercise; ?>">
 <p align="right">
 	<label for="exerciseId"><?php echo $langFilter; ?></label> : 
@@ -188,7 +188,7 @@ if($is_allowedToEdit)
 	{
 ?>
 
-	<small><a href="<?php echo $PHP_SELF; ?>?exerciseId=<?php echo $exerciseId; ?>&fromExercise=<?php echo $fromExercise; ?>&page=<?php echo ($page-1); ?>">&lt;&lt; <?php echo $langPreviousPage; ?></a></small> |
+	<small><a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&fromExercise=<?php echo $fromExercise; ?>&page=<?php echo ($page-1); ?>">&lt;&lt; <?php echo $langPreviousPage; ?></a></small> |
 
 <?php
 	}
@@ -205,7 +205,7 @@ if($is_allowedToEdit)
 	{
 ?>
 
-	<small><a href="<?php echo $PHP_SELF; ?>?exerciseId=<?php echo $exerciseId; ?>&fromExercise=<?php echo $fromExercise; ?>&page=<?php echo ($page+1); ?>"><?php echo $langNextPage; ?> &gt;&gt;</a></small>
+	<small><a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&fromExercise=<?php echo $fromExercise; ?>&page=<?php echo ($page+1); ?>"><?php echo $langNextPage; ?> &gt;&gt;</a></small>
 
 <?php
 	}
@@ -291,7 +291,7 @@ if($is_allowedToEdit)
 ?>
 
   <td align="center">
-    <a href="<?php echo $PHP_SELF; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $row[id]; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmDeleteQuestion)); ?>')) return false;"><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
+    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $row[id]; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmDeleteQuestion)); ?>')) return false;"><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
   </td>
 
 <?php

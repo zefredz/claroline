@@ -382,7 +382,7 @@
    //####################################################################################\\
    if ($displayCreateLabelForm)
    {
-            $dialogBox .= "<form action=\"$PHP_SELF\" method=\"post\">
+            $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
                         <h4><label for=\"newLabel\">".$langNewLabel."</label></h4>
                         <input type=\"text\" name=\"newLabel\" id=\"newLabel\" maxlength=\"255\" />
                         <input type=\"hidden\" name=\"cmd\" value=\"createLabel\" />
@@ -391,7 +391,7 @@
    }
     if ($displayChangePosForm)
     { 
-            $dialogBox .= "<form action=\"$PHP_SELF\" method=\"post\">
+            $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
                         <h4>".$langMove." ' ".$moduleInfos['name']." ' ".$langTo."</h4>";
             // build select input - $elementList has been declared in the previous big cmd case
             $dialogBox .= claro_build_nested_select_menu("newPos",$elementList);
@@ -414,7 +414,7 @@
            <a href="insertMyDoc.php"><?php echo $langDocumentAsModule; ?></a> |
            <a href="insertMyExercise.php"><?php echo $langExerciseAsModule; ?></a> |
            <a href="insertMyModule.php"><?php echo $langModuleOfMyCourse; ?></a> |
-           <a href="<?php echo $PHP_SELF ?>?cmd=createLabel"><?php echo $langCreateLabel; ?></a>
+           <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=createLabel"><?php echo $langCreateLabel; ?></a>
 
    <?PHP
    //####################################################################################\\
@@ -529,7 +529,7 @@
               //in case of SCORM module, the pop-up window to confirm must be different as the action will be different on the server
             echo    "
 			<td>
-            	<a href=\"".$PHP_SELF."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
+            	<a href=\"".$_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
                         "onClick=\"return confirmation('".$langAreYouSureToRemove." ",addslashes($module['name'])," ? ";
             if ($module['contentType'] == CTSCORM_) 
               echo $langAreYouSureToRemoveSCORM ;
@@ -549,13 +549,13 @@
             }
             elseif ( $module['lock'] == 'OPEN')
             {
-                echo    "<a href=\"",$PHP_SELF,"?cmd=mkBlock&cmdid=".$module['learnPath_module_id']."\">".
+                echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&cmdid=".$module['learnPath_module_id']."\">".
                         "<img src=\"".$clarolineRepositoryWeb."img/unblock.gif\" alt=\"$langAltMakeBlocking\" border=0>".
                         "</a>";
             }
             elseif( $module['lock'] == 'CLOSE')
             {
-                echo    "<a href=\"",$PHP_SELF,"?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']."\">".
+                echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']."\">".
                         "<img src=\"".$clarolineRepositoryWeb."img/block.gif\" alt=\"$langAltMakeNotBlocking\" border=0>".
                         "</a>";
             }
@@ -566,7 +566,7 @@
 
             if ( $module['visibility'] == 'HIDE')
             {
-                echo    "<a href=\"",$PHP_SELF,"?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
+                echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
                         "<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" alt=\"$langAltMakeVisible\" border=\"0\">".
                         "</a>";
             }
@@ -580,7 +580,7 @@
                 {
                         $onclick = "";
                 }
-                echo    "<a href=\"",$PHP_SELF,"?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ",$onclick, " >".
+                echo    "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ",$onclick, " >".
                         "<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" alt=\"$langAltMakeInvisible\" border=0>".
                         "</a>";
             }
@@ -590,7 +590,7 @@
             // ORDER COMMANDS
             // DISPLAY CATEGORY MOVE COMMAND 
             echo     "<td>".
-                         "<a href=\"",$PHP_SELF,"?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
+                         "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
                          "<img src=\"".$clarolineRepositoryWeb."img/deplacer.gif\" alt=\"$langAltMove\" border=0>".
                          "</a>".
                          "</td>";
@@ -598,7 +598,7 @@
             if ($module['up'])
             {
                 echo     "<td>".
-                         "<a href=\"",$PHP_SELF,"?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
+                         "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
                          "<img src=\"".$clarolineRepositoryWeb."img/up.gif\" alt=\"$langAltMoveUp\" border=0>".
                          "</a>".
                          "</td>";
@@ -612,7 +612,7 @@
             if($module['down'])
             {
                 echo    "<td>".
-                        "<a href=\"",$PHP_SELF,"?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
+                        "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
                         "<img src=\"".$clarolineRepositoryWeb."img/down.gif\" alt=\"$langAltMoveDown\" border=0>".
                         "</a>".
                          "</td>";

@@ -103,7 +103,7 @@ switch ($display)
 
         echo sprintf("<h2>%s</h2>",$langStep2);
         echo $langIntroStep2;
-        echo "<center>" . sprintf($langLaunchStep2, $PHP_SELF."?cmd=run") . "</center>";  
+        echo "<center>" . sprintf($langLaunchStep2, $_SERVER['PHP_SELF']."?cmd=run") . "</center>";  
         break;
         
     case DISPLAY_RESULT_PANEL :
@@ -165,7 +165,7 @@ switch ($display)
         if ($nbError>0 )
         {
         	echo "<p class=\"error\">$nbError errors found</p>\n";
-		echo sprintf("<p><button onclick=\"document.location='%s';\">Retry with more details</button></p>", $PHP_SELF."?cmd=run&verbose=true");
+		echo sprintf("<p><button onclick=\"document.location='%s';\">Retry with more details</button></p>", $_SERVER['PHP_SELF']."?cmd=run&verbose=true");
         }
         else
         {

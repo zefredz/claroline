@@ -397,7 +397,7 @@ switch ($display)
         ?>
             <UL class="menu">
                 <LI>
-                    <a href="<?php echo $PHP_SELF ?>" >Again</a>
+                    <a href="<?php echo $_SERVER['PHP_SELF'] ?>" >Again</a>
                 </LI>
                 <LI>
                     <a href="<?php echo $rootAdminWeb ?>" >Admin</a>
@@ -408,7 +408,7 @@ switch ($display)
     case DISP_FORM_SET_OPTION :
         ?>
 
-<form action="<?php echo $PHP_SELF ?>" method="POST" enctype="multipart/form-data" target="_self">
+<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" target="_self">
     <fieldset>
     <legend > <?php echo $langCreateCourse ?> </legend>
     <label for="nc"> <?php echo $langQantity ?> </label>

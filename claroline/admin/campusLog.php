@@ -75,8 +75,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     // in $view, a 1 in X posof the $view string means that the 'category' number X
     // will be show, 0 means don't show
     echo "\n<small>"
-            ."[<a href=\"$PHP_SELF?view=1111111\">$langShowAll</a>]"
-            ."&nbsp;[<a href=\"$PHP_SELF?view=0000000\">$langShowNone</a>]"
+            ."[<a href=\"".$_SERVER['PHP_SELF']."?view=1111111\">$langShowAll</a>]"
+            ."&nbsp;[<a href=\"".$_SERVER['PHP_SELF']."?view=0000000\">$langShowNone</a>]"
             ."</small>\n\n";
 
     if(!isset($view)) $view ="0000000";
@@ -91,7 +91,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     if($view[0] == '1')
     {
         $tempView[0] = '0';
-        echo "-&nbsp;&nbsp;<b>".$langPlatformStats."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small><br />\n";   
+        echo "-&nbsp;&nbsp;<b>".$langPlatformStats."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";   
         //---- COURSES
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourses."</b><br />\n";
         //--  number of courses
@@ -176,7 +176,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[0] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\">$langPlatformStats</a>\n";
+        echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">$langPlatformStats</a>\n";
     }
     echo "</p>\n\n";
 
@@ -190,7 +190,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     if($view[1] == '1')
     {
         $tempView[1] = '0';
-        echo "-&nbsp;&nbsp;<b>".$langPlatformAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small><br />\n";
+        echo "-&nbsp;&nbsp;<b>".$langPlatformAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";
         
         //----------------------------  access
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langAccess."</b> ".$langAccessExplain."<br />\n";
@@ -261,7 +261,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[1] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\">$langPlatformAccess</a>";
+        echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">$langPlatformAccess</a>";
     }
     echo "</p>\n\n";
 
@@ -277,7 +277,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     if($view[2] == '1')
     {
         $tempView[2] = '0';
-        echo "-&nbsp;&nbsp;<b>".$langPlatformCoursesAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small><br />\n";  
+        echo "-&nbsp;&nbsp;<b>".$langPlatformCoursesAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";  
         // display list of course of the student with links to the corresponding userLog
       $resCourseList = mysql_query("SELECT code, dbName
 	                                   FROM    `".$TABLECOURS."`
@@ -304,7 +304,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[2] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\">$langPlatformCoursesAccess</a>";
+        echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">$langPlatformCoursesAccess</a>";
     }
     echo "</p>\n\n";
 
@@ -320,7 +320,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     if($view[3] == '1')
     {
         $tempView[3] = '0';
-         echo "-&nbsp;&nbsp;<b>".$langPlatformToolAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small><br />\n";   
+         echo "-&nbsp;&nbsp;<b>".$langPlatformToolAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";   
       // display list of course of the student with links to the corresponding userLog
       $resCourseList = mysql_query("SELECT code, dbName
 	                                   FROM    `".$TABLECOURS."`
@@ -381,7 +381,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[3] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\">$langPlatformToolAccess</a>";
+        echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">$langPlatformToolAccess</a>";
     }
     echo "</p>\n\n";
     /***************************************************************************
@@ -394,7 +394,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     if($view[4] == '1')
     {
         $tempView[4] = '0';
-        echo "-&nbsp;&nbsp;<b>".$langStrangeCases."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small><br />\n";
+        echo "-&nbsp;&nbsp;<b>".$langStrangeCases."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";
         //--  multiple logins | 
         //--     multiple logins are not possible in the new version but this page can be used with previous versions
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langMultipleLogins."</b><br />\n";
@@ -516,7 +516,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[4] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\">$langStrangeCases</a>";
+        echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">$langStrangeCases</a>";
     }
     echo "</p>\n\n";
 }

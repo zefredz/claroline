@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -46,7 +46,7 @@ if ($file=="" || !isset($file))
 {
     $files = $resOfScan["files"];
     echo "
-<form action=\"$PHP_SELF\">
+<form action=\"".$_SERVER['PHP_SELF']."\">
 		<select name=\"file\" size=\"1\">";
 	while (list($key,$contenu)= each($files))
 	{ 

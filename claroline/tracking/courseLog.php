@@ -58,8 +58,8 @@ if($is_allowedToTrack && $is_trackingEnabled)
     // in $view, a 1 in X posof the $view string means that the 'category' number X
     // will be show, 0 means don't show
     echo "\n<small>"
-            ."[<a href=\"$PHP_SELF?view=1111111\">$langShowAll</a>]"
-            ."&nbsp;[<a href=\"$PHP_SELF?view=0000000\">$langShowNone</a>]"
+            ."[<a href=\"".$_SERVER['PHP_SELF']."?view=1111111\">$langShowAll</a>]"
+            ."&nbsp;[<a href=\"".$_SERVER['PHP_SELF']."?view=0000000\">$langShowNone</a>]"
             ."</small>\n\n";
     
     if(!isset($view)) $view ="0000000";
@@ -75,7 +75,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     if($view[0] == '1')
     {
         $tempView[0] = '0';
-        echo "-&nbsp;&nbsp;<b>".$langUsers."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small><br />\n";   
+        echo "-&nbsp;&nbsp;<b>".$langUsers."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>".$langClose."</a>]</small><br />\n";   
         
         //-- total number of user in the course
         $sql = "SELECT count(*)
@@ -144,7 +144,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[0] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."'>$langUsers</a>";
+        echo "+&nbsp;&nbsp;&nbsp;<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>$langUsers</a>";
     }
     echo "</p>\n\n";
     /***************************************************************************
@@ -157,7 +157,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     if($view[1] == '1')
     {
         $tempView[1] = '0';
-        echo "-&nbsp;&nbsp;<b>".$langCourseAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small><br />\n";
+        echo "-&nbsp;&nbsp;<b>".$langCourseAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>".$langClose."</a>]</small><br />\n";
         
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_ACCESS`
@@ -196,7 +196,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[1] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."'>$langCourseAccess</a>";
+        echo "+&nbsp;&nbsp;&nbsp;<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>$langCourseAccess</a>";
         
     }
     echo "</p>\n\n";
@@ -210,7 +210,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     if($view[2] == '1')
     {
         $tempView[2] = '0';
-        echo "-&nbsp;&nbsp;<b>".$langToolsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small><br />\n";   
+        echo "-&nbsp;&nbsp;<b>".$langToolsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>".$langClose."</a>]</small><br />\n";   
         
         $sql = "SELECT `access_tid`, COUNT(DISTINCT `access_user_id`),count( `access_tid` ), `access_tlabel`
                     FROM `$TABLETRACK_ACCESS`
@@ -248,7 +248,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[2] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."'>$langToolsAccess</a>";
+        echo "+&nbsp;&nbsp;&nbsp;<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>$langToolsAccess</a>";
     }
     echo "</p>\n\n";
 
@@ -262,7 +262,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     if($view[4] == '1')
     {
         $tempView[4] = '0';
-        echo "-&nbsp;&nbsp;<b>".$langDocumentsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small><br />\n";   
+        echo "-&nbsp;&nbsp;<b>".$langDocumentsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>".$langClose."</a>]</small><br />\n";   
         
         $sql = "SELECT `down_doc_path`, COUNT(DISTINCT `down_user_id`), COUNT(`down_doc_path`)
                     FROM `$TABLETRACK_DOWNLOADS`
@@ -300,7 +300,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[4] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."'>$langDocumentsAccess</a>";
+        echo "+&nbsp;&nbsp;&nbsp;<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>$langDocumentsAccess</a>";
     }
     echo "</p>\n\n";
     
@@ -314,7 +314,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     if($view[5] == '1')
     {
         $tempView[5] = '0';
-        echo "-&nbsp;&nbsp;<b>".$langExercises."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small><br />\n";   
+        echo "-&nbsp;&nbsp;<b>".$langExercises."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>".$langClose."</a>]</small><br />\n";   
         
         $sql = "SELECT TEX.`exe_exo_id`, COUNT(DISTINCT TEX.`exe_user_id`), COUNT(TEX.`exe_exo_id`), EX.`titre`
                     FROM `$TABLETRACK_EXERCISES` AS TEX, `$TABLE_QUIZ_TEST` AS EX
@@ -353,7 +353,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[5] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."'>$langExercises</a>";
+        echo "+&nbsp;&nbsp;&nbsp;<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>$langExercises</a>";
     }
     echo "</p>\n\n";
 }

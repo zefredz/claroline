@@ -1,10 +1,10 @@
 <?php // $Id$
 /*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.0 $Revision$                            |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
       |   as published by the Free Software Foundation; either version 2     |
@@ -67,7 +67,7 @@ if($deleteQuestion)
 
 <hr size="1" noshade="noshade">
 
-<a href="<?php echo $PHP_SELF; ?>?newQuestion=yes"><?php echo $langNewQu; ?></a> | <a href="question_pool.php?fromExercise=<?php echo $exerciseId; ?>"><?php echo $langGetExistingQuestion; ?></a>
+<a href="<?php echo $_SERVER['PHP_SELF']; ?>?newQuestion=yes"><?php echo $langNewQu; ?></a> | <a href="question_pool.php?fromExercise=<?php echo $exerciseId; ?>"><?php echo $langGetExistingQuestion; ?></a>
 
 <br><br>
 
@@ -94,15 +94,15 @@ if($nbrQuestions)
 </tr>
 <tr>
   <td>
-	<a href="<?php echo $PHP_SELF; ?>?editQuestion=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langEditQuestion; ?>"></a>
-	<a href="<?php echo $PHP_SELF; ?>?deleteQuestion=<?php echo $id; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmYourChoice)); ?>')) return false;"><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" align="absmiddle" alt="<?php echo $langDelete; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?editQuestion=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt="<?php echo $langEditQuestion; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteQuestion=<?php echo $id; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmYourChoice)); ?>')) return false;"><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" align="absmiddle" alt="<?php echo $langDelete; ?>"></a>
 
 <?php
 		if($i != 1)
 		{
 ?>
 
-	<a href="<?php echo $PHP_SELF; ?>?moveUp=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" align="absmiddle" alt="<?php echo $langMoveUp; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?moveUp=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" align="absmiddle" alt="<?php echo $langMoveUp; ?>"></a>
 
 <?php
 		}
@@ -111,7 +111,7 @@ if($nbrQuestions)
 		{
 ?>
 
-	<a href="<?php echo $PHP_SELF; ?>?moveDown=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/down.gif" border="0" align="absmiddle" alt="<?php echo $langMoveDown; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?moveDown=<?php echo $id; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/down.gif" border="0" align="absmiddle" alt="<?php echo $langMoveDown; ?>"></a>
 
 <?php
 		}

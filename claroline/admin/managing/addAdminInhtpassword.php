@@ -1,8 +1,8 @@
 <?php # $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -56,7 +56,7 @@ if ($is_allowedToEdit)
 
 	if (isset($HTTP_GET_VARS["addLoginPass"]))
 	{
-		$interbredcrump[]= array ("url"=>$PHP_SELF, "name"=> $langNomPageAddHtPass);
+		$interbredcrump[]= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langNomPageAddHtPass);
 		$nameTools = $langAddLoginPass;
 		$display = ADD_LOGIN_PASS;
 	}
@@ -93,13 +93,13 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 			else
 			{
 			    $controlMsg["warning"][]= "There is no user with course creator level wich can be set as admin";
-				$interbredcrump[]= array ("url"=>$PHP_SELF, "name"=> $langNomPageAddHtPass);
+				$interbredcrump[]= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langNomPageAddHtPass);
 				$nameTools = $langGiveAdminRight;
 			}
 		}
 		else
 		{
-			$interbredcrump[]= array ("url"=>$PHP_SELF, "name"=> $langNomPageAddHtPass);
+			$interbredcrump[]= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langNomPageAddHtPass);
 			$nameTools = $langGiveAdminRight;
 		}
 	}
@@ -108,13 +108,13 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 		$display = LIST_ADMINS;
 		$sqlGetListUser = "SELECT user_id, nom, prenom, username, email FROM `".$tbl_user."` u, `".$tbl_admin."` a WHERE u.user_id = a.idUSer ";
 		$resListOfUsers= mysql_query($sqlGetListUser) or die("Erreur SELECT FROM user admins ".$sqlGetListUser);
-		$interbredcrump[]= array ("url"=>$PHP_SELF, "name"=> $langNomPageAddHtPass);
+		$interbredcrump[]= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langNomPageAddHtPass);
 		$nameTools = $langListAdmin;
 	}
 	elseif (isset($HTTP_GET_VARS["listHtLogins"]))
 	{
 		$display = LIST_HT_LOGIN;
-		$interbredcrump[]= array ("url"=>$PHP_SELF, "name"=> $langNomPageAddHtPass);
+		$interbredcrump[]= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langNomPageAddHtPass);
 		$nameTools = $langListHtUsers;
 	}
 	elseif (isset($HTTP_POST_VARS["uidToSetAdmin"]))
@@ -126,7 +126,7 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 		$user = mysql_fetch_array($resGetUser,  MYSQL_ASSOC);
 	    $controlMsg["success"][]= "ok : Now, add a login-pass for <strong>".$user["prenom"]." ".$user["nom"]."</strong> in .htaccess and  give it to the user by secure way";
 		$display         = AFTER_ADD_ADMIN;
-		$interbredcrump[]= array ("url"=>$PHP_SELF, "name"=> $langNomPageAddHtPass);
+		$interbredcrump[]= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langNomPageAddHtPass);
 		$nameTools = $langGiveAdminRight;
 	}
 	elseif (isset($HTTP_GET_VARS["uidToSetNotAdmin"]))
@@ -215,20 +215,20 @@ elseif ($display == WHAT_YOU_WANT_TO_DO)
 	<UL>
 		<LI>
 			<b>
-				<a href="<?php echo $PHP_SELF ?>?giveAdminRight=1"><?php echo $langGiveAdminRight; ?></a>
+				<a href="<?php echo $_SERVER['PHP_SELF'] ?>?giveAdminRight=1"><?php echo $langGiveAdminRight; ?></a>
 			</b>
 		</LI>
 	</UL>
 	<?php echo $langOtherWorks ; ?>
 	<UL>
 		<LI>
-			<a href="<?php echo $PHP_SELF ?>?addLoginPass=1"><?php echo $langAddLoginPass; ?></a>
+			<a href="<?php echo $_SERVER['PHP_SELF'] ?>?addLoginPass=1"><?php echo $langAddLoginPass; ?></a>
 		</LI>
 		<LI>
-			<a href="<?php echo $PHP_SELF ?>?listAdmins=1"><?php echo $langListAdmin; ?></a>
+			<a href="<?php echo $_SERVER['PHP_SELF'] ?>?listAdmins=1"><?php echo $langListAdmin; ?></a>
 		</LI>
 		<LI>
-			<a href="<?php echo $PHP_SELF ?>?listHtLogins=1"><?php echo $langListHtUsers; ?></a>
+			<a href="<?php echo $_SERVER['PHP_SELF'] ?>?listHtLogins=1"><?php echo $langListHtUsers; ?></a>
 		</LI>
 	</UL>
 	<?
@@ -239,19 +239,19 @@ elseif ($display == AFTER_ADD_ADMIN)
 	<UL>
 		<LI>
 			<strong>
-				<a href="<?php echo $PHP_SELF ?>?addLoginPassFromClaroUser=<?php echo $HTTP_POST_VARS["uidToSetAdmin"] ?>"><?php echo $langAddLoginPassForThisUser; ?></a> (<?php echo $user["prenom"]." ".$user["nom"]; ?>)
+				<a href="<?php echo $_SERVER['PHP_SELF'] ?>?addLoginPassFromClaroUser=<?php echo $HTTP_POST_VARS["uidToSetAdmin"] ?>"><?php echo $langAddLoginPassForThisUser; ?></a> (<?php echo $user["prenom"]." ".$user["nom"]; ?>)
 			</strong>
 		</LI>
 	</UL>
 	<UL>
 		<LI>
-			<a href="<?php echo $PHP_SELF ?>?addLoginPass=1"><?php echo $langAddLoginPass; ?></a>
+			<a href="<?php echo $_SERVER['PHP_SELF'] ?>?addLoginPass=1"><?php echo $langAddLoginPass; ?></a>
 		</LI>
 	</UL>
 	<?php echo $langOtherWorks ; ?>
 	<UL>
 		<LI>
-			<a href="<?php echo $PHP_SELF ?>?giveAdminRight=1"><?php echo $langGiveAdminRight; ?></a>
+			<a href="<?php echo $_SERVER['PHP_SELF'] ?>?giveAdminRight=1"><?php echo $langGiveAdminRight; ?></a>
 		</LI>
 	</UL>
 	<?
@@ -260,7 +260,7 @@ elseif ($display == AFTER_ADD_ADMIN)
 elseif ($display == USER_SELECT_FORM)
 {
 ?>
-<form action="<?php echo $PHP_SELF ?>" method="POST">
+<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 <LABEL for="userBeAdmin"><?php echo $langSelectAUser; ?></LABEL>
 <?php 
 	if (mysql_num_rows($resListOfUsers)>0)
@@ -284,7 +284,7 @@ elseif ($display == USER_SELECT_FORM)
 	}
 ?>
 <small>
-	<a href="<?php echo $PHP_SELF ?>?giveAdminRight=1&listAllUsers=1"><?php echo $langListAllUsers; ?></a>
+	<a href="<?php echo $_SERVER['PHP_SELF'] ?>?giveAdminRight=1&listAllUsers=1"><?php echo $langListAllUsers; ?></a>
 </small>
 </form>
 <?php
@@ -304,7 +304,7 @@ elseif ($display == LIST_ADMINS)
 			if ($user["user_id"]!=$_uid)
 			{
 				echo "
-			[<a href=\"".$PHP_SELF."?uidToSetNotAdmin=",$user["user_id"],"\" >",$langRemoveAdminLevel,"</a>]";
+			[<a href=\"".$_SERVER['PHP_SELF']."?uidToSetNotAdmin=",$user["user_id"],"\" >",$langRemoveAdminLevel,"</a>]";
 			}
 			else
 			{
@@ -336,7 +336,7 @@ elseif ($display == ADD_LOGIN_PASS)
 		echo "<DIV class=\"",$classMsg,"\">",$msgstr,"</DIV><br>";
 	}
 ?>
-<form  method="POST" name="crypte" action="<?= $PHP_SELF?>">
+<form  method="POST" name="crypte" action="<?php echo $_SERVER['PHP_SELF']?>">
 <TABLE>
 	<TR>
 		<TD>
@@ -373,14 +373,14 @@ elseif ($display == FINAL_MESSAGE)
 	<UL>
 		<LI>
 			<b>
-				<a href="<?php echo $PHP_SELF ?>?listHtLogins=1"><?php echo $langListHtUsers; ?></a>
+				<a href="<?php echo $_SERVER['PHP_SELF'] ?>?listHtLogins=1"><?php echo $langListHtUsers; ?></a>
 			</b>
 		</LI>
 	</UL>
 	<?php echo $langOtherWorks ; ?>
 	<UL>
 		<LI>
-			<a href="<?php echo $PHP_SELF ?>"><?php echo $langNomPageAddHtPass; ?></a>
+			<a href="<?php echo $_SERVER['PHP_SELF'] ?>"><?php echo $langNomPageAddHtPass; ?></a>
 		</LI>
 	</UL>
 	<?

@@ -420,7 +420,7 @@ if(!empty($_uid))
 	* Data Form
 	*/
 
-	echo	"<P><form method=\"post\" action=\"".$PHP_SELF."\" \n",
+	echo	"<P><form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\" \n",
 			" enctype=\"multipart/form-data\">\n";
 
 

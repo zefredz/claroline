@@ -1,5 +1,4 @@
-<?  session_start(); ?>
-<?php
+<?  session_start(); 
 /***************************************************************************
                             bb_memberlist.php  -  description
                              -------------------
@@ -135,10 +134,10 @@ if (!$row) {
 	<table width="100%" border="0" cellspacing="1" cellpadding="0">
 	<TR>
 		<td bgcolor="<?php echo $color2?>">&nbsp;</td>
-		<td bgcolor="<?php echo $color2?>" width="25%" height="25" nowrap><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">&nbsp;<B><a href="<?php echo $PHP_SELF?>?sortby=user&start=<?php echo $start?>"><?php echo $l_username?></a></B></font></TD>
-		<td bgcolor="<?php echo $color2?>" width="30%" height="25"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">&nbsp;<B><a href="<?php echo $PHP_SELF?>?sortby=from&start=<?php echo $start?>"><?php echo $l_location?></a></B></font></TD>
+		<td bgcolor="<?php echo $color2?>" width="25%" height="25" nowrap><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">&nbsp;<B><a href="<?php echo $_SERVER['PHP_SELF']?>?sortby=user&start=<?php echo $start?>"><?php echo $l_username?></a></B></font></TD>
+		<td bgcolor="<?php echo $color2?>" width="30%" height="25"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>">&nbsp;<B><a href="<?php echo $_SERVER['PHP_SELF']?>?sortby=from&start=<?php echo $start?>"><?php echo $l_location?></a></B></font></TD>
 		<td bgcolor="<?php echo $color2?>" width="8%" height="25" nowrap align="center"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><B><?php echo $l_joined?></B></font></TD>
-		<td bgcolor="<?php echo $color2?>" width="8%" height="25" nowrap align="center"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><b><a href="<?php echo $PHP_SELF?>?sortby=posts&start=<?php echo $start?>"><?php echo $l_posts?></a></b></font></td>
+		<td bgcolor="<?php echo $color2?>" width="8%" height="25" nowrap align="center"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><b><a href="<?php echo $_SERVER['PHP_SELF']?>?sortby=posts&start=<?php echo $start?>"><?php echo $l_posts?></a></b></font></td>
 		<td bgcolor="<?php echo $color2?>" width="8%" height="25" nowrap align="center"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><B><?php echo $l_email?></B></font></TD>
 		<td bgcolor="<?php echo $color2?>" width="6%" height="25" nowrap align="center"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><B><?php echo $l_url?></B></font></TD>
 		<td bgcolor="<?php echo $color2?>" width="6%" height="25" nowrap align="center"><FONT FACE="<?php echo $FontFace?>" SIZE="<?php echo $FontSize2?>" COLOR="<?php echo $textcolor?>"><B><?php echo $l_icq?></B></font></TD>

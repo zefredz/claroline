@@ -232,7 +232,7 @@ if($mode) {
 		 }
 		 include('page_header.'.$phpEx);
 ?>
-	<FORM ACTION="<?php echo $PHP_SELF?>" METHOD="POST">
+	<FORM ACTION="<?php echo $_SERVER['PHP_SELF']?>" METHOD="POST">
 	<TABLE BORDER="0" CELLPADDING="1" CELLSPACING="0" ALIGN="CENTER" VALIGN="TOP" WIDTH="<?php echo $TableWidth?>">
 	<TR><TD  BGCOLOR="<?php echo $table_bgcolor?>">
 	<TABLE BORDER="0" CELLPADDING="1" CELLSPACING="1" WIDTH="100%">

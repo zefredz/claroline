@@ -1,10 +1,10 @@
 <?php // $Id$
 /*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
       | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
       |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
@@ -236,8 +236,8 @@ if (count($listExistingBloc)>0)
 			'.$titreBloc[$numBloc].'
 		</TH>
 		<TH align="left">
-			<a href="'.$PHP_SELF.'?numBloc='.$numBloc.'"><img src="'.$clarolineRepositoryWeb.'img/edit.gif" alt="'.$langModify.'" border="0"></a>
-			<a href="'.$PHP_SELF.'?delete=ask&numBloc='.$numBloc.'"><img src="'.$clarolineRepositoryWeb.'img/delete.gif" alt="'.$langDelete.'" border="0"></a>
+			<a href="'.$_SERVER['PHP_SELF'].'?numBloc='.$numBloc.'"><img src="'.$clarolineRepositoryWeb.'img/edit.gif" alt="'.$langModify.'" border="0"></a>
+			<a href="'.$_SERVER['PHP_SELF'].'?delete=ask&numBloc='.$numBloc.'"><img src="'.$clarolineRepositoryWeb.'img/delete.gif" alt="'.$langDelete.'" border="0"></a>
 		</TH>
 	</TR>
 	<TR>

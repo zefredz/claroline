@@ -1,10 +1,10 @@
 <?php // $Id$
 /*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.2  $Revision$                           |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
       | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
       |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
@@ -22,7 +22,7 @@ if(extension_loaded('zlib'))
 }
 
 @include($includePath."/lib/debug.lib.inc.php");
-@include($includePath."/lib/fileManage.lib.php");
+include($includePath."/lib/fileManage.lib.php");
 $TBL_COURS='cours';
 $TBL_COURS_USER='cours_user';
 
@@ -207,7 +207,7 @@ if($isAllowedToRestore)  // if allowed to restore
 	}
 ?>
 
-	<form method="post" action="<?php echo $PHP_SELF; ?>">
+	<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<input type="hidden" name="submitForm" value="1">
 
 	<label for="archiveFile"><?php echo $langAvailableArchives; ?></label> :
@@ -259,7 +259,7 @@ else  // if not allowed to restore
 </table>
 
 <?php
-@include($includePath."/claro_init_footer.inc.php");
+include($includePath."/claro_init_footer.inc.php");
 
 
 

@@ -124,7 +124,7 @@ switch ($cmd)
   
   //Display form to create a new class
   case "formNew" :
-  	$dialogBox ="<form action=\"$PHP_SELF\" >\n"
+  	$dialogBox ="<form action=\"".$_SERVER['PHP_SELF']."\" >\n"
 		   ."<table>\n"
 		   ."   <tr>\n"
 		   ."     <td>\n"
@@ -192,7 +192,7 @@ switch ($cmd)
 	  $class_name = $resClass['name'];
 	}
 	
-        $dialogBox= "<form action=\"$PHP_SELF\" >\n"
+        $dialogBox= "<form action=\"".$_SERVER['PHP_SELF']."\" >\n"
 		   ."<table>\n"
 		   ."  <tr>\n"
 		   ."    <td>\n"
@@ -251,7 +251,7 @@ switch ($cmd)
 		   ."       $langMove ".$_REQUEST['classname']." : "
 		   ."     </td>\n"
 		   ."     <td>\n"
-		   ."       <form action=\"$PHP_SELF\">"
+		   ."       <form action=\"".$_SERVER['PHP_SELF']."\">"
 		   ."         <input type=\"hidden\" name=\"cmd\" value=\"exMove\">\n"
 		   ."         <input type=\"hidden\" name=\"movedClassId\" value=\"".$_REQUEST['class']."\">\n"
                    .          displaySelectBox() 
@@ -285,7 +285,7 @@ if($dialogBox)
 
 //display tool links
 
-claro_disp_button("$PHP_SELF?cmd=formNew", $langCreateNewClass);
+claro_disp_button($_SERVER['PHP_SELF']."?cmd=formNew", $langCreateNewClass);
 //display cols headers
 
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
@@ -376,13 +376,13 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	    {
 	        if ($_SESSION['admin_visible_class'][$cur_class['id']]=="open")
 		{
-		    $open_close_link = "<a href=\"$PHP_SELF?cmd=exClose&class=".$cur_class['id']."\">\n"
+		    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&class=".$cur_class['id']."\">\n"
 		                      ."   <img src=\"".$clarolineRepositoryWeb."img/minus.jpg\" border=\"0\" >\n"
 				      ."</a>\n";
 		}
 		else
 		{
-		    $open_close_link = "<a href=\"$PHP_SELF?cmd=exOpen&class=".$cur_class['id']."\">\n"
+		    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&class=".$cur_class['id']."\">\n"
 		                      ."  <img src=\"".$clarolineRepositoryWeb."img/plus.jpg\" border=\"0\" >\n"
 				      ."</a>\n";
 		}    
@@ -416,7 +416,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	      //edit settings	
 			
             echo "  <td align=\"center\">\n"
-	        ."    <a href=\"".$PHP_SELF."?cmd=edit&class=".$cur_class['id']."\">\n"
+	        ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=edit&class=".$cur_class['id']."\">\n"
                 ."      <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" >\n"
 	        ."    </a>\n"
 		."  </td>\n";
@@ -424,7 +424,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	      //Move	
 		
             echo "  <td align=\"center\">\n"
-	        ."    <a href=\"".$PHP_SELF."?cmd=move&class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
+	        ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=move&class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
                 ."      <img src=\"".$clarolineRepositoryWeb."img/deplacer.gif\" border=\"0\" >\n"
 		."    </a>\n"
 	        ."  </td>\n";
@@ -432,7 +432,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	      //delete	
 		
             echo "  <td align=\"center\">\n"
-	        ."    <a href=\"$PHP_SELF?cmd=del&class=".$cur_class['id']."\""
+	        ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=del&class=".$cur_class['id']."\""
 		."     onClick=\"return confirmation('",addslashes($cur_class['name']),"');\">\n"
                 ."      <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" >\n"
 		."    </a>\n"

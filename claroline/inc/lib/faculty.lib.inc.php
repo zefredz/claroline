@@ -1,9 +1,11 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
+/*
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
+*/
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
 // through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
@@ -77,7 +79,7 @@ function displayBom($elem,$father,$space)
 						$PM="+";
 				?>
 
-					<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&date='".$date."'#pm".$one_faculty["id"] ?>"
+					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&date='".$date."'#pm".$one_faculty["id"] ?>"
 					name="<?php echo "pm".$one_faculty["id"]; ?>">  <?php echo $PM ?></a> &nbsp;
 				<?php
 				}
@@ -99,15 +101,15 @@ function displayBom($elem,$father,$space)
 				</td>
 				<td>
 
-					<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&edit=1"; ?>" >
+					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1"; ?>" >
 					<img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $lang_faculty_imgEdit ?>" > </a>
 				</td>
 				<td>
-					<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&edit=1&move=1"; ?>" >
+					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1&move=1"; ?>" >
 					<img src="<?php echo $clarolineRepositoryWeb ?>img/deplacer.gif" border="0" alt="<?php echo $lang_faculty_imgMove ?>" > </a>
 				</td>
 				<td>
-					<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&delete=1"; ?>"
+					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&delete=1"; ?>"
 					onclick="javascript:if(!confirm('<?php echo
 					 addslashes(htmlentities($lang_faculty_ConfirmDelete.$one_faculty["code"])) ?>')) return false;" >
 					<img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $lang_faculty_imgDelete ?>"> </a>
@@ -132,7 +134,7 @@ function displayBom($elem,$father,$space)
 					if($num>1)
 					{
 					?>
-						<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=u&date='".$date."'#ud".$one_faculty["id"];
+						<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&UpDown=u&date='".$date."'#ud".$one_faculty["id"];
 						?>" name ="<?php echo "ud".$one_faculty["id"]; ?>">
 						<img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"> </a>
 					<?php
@@ -147,7 +149,7 @@ function displayBom($elem,$father,$space)
 					if($num<$nbChild)
 					{
 					?>
-						<a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=d&date='".$date."'#ud".$one_faculty["id"];
+						<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&UpDown=d&date='".$date."'#ud".$one_faculty["id"];
 						?>" name="<?php echo "ud".$one_faculty["id"]; ?>">
 						<img src="<?php echo $clarolineRepositoryWeb ?>img/down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
 					<?php

@@ -1,13 +1,11 @@
-<?php 
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*			                            |
+      | CLAROLINE version 1.6.*
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)
       +----------------------------------------------------------------------+
-      |   $Id$         |
-      +----------------------------------------------------------------------+
-      |   Authors : see CREDITS.txt					|
+      |   Authors : see CREDITS.txt	
       +----------------------------------------------------------------------+
  */
  
@@ -70,9 +68,9 @@ claro_disp_tool_title($nameTools);
                 <td>
                 <small>
         ";
-        echo "  $langPeriodToDisplay : [<a href='$PHP_SELF?period=year&reqdate=$reqdate&displayType=month' class='specialLink'>$langPeriodYear</a>]
-                [<a href='$PHP_SELF?period=month&reqdate=$reqdate&displayType=day' class='specialLink'>$langPeriodMonth</a>]
-                [<a href='$PHP_SELF?period=day&reqdate=$reqdate' class='specialLink'>$langPeriodDay</a>]
+        echo "  $langPeriodToDisplay : [<a href='".$_SERVER['PHP_SELF']."?period=year&reqdate=$reqdate&displayType=month' class='specialLink'>$langPeriodYear</a>]
+                [<a href='".$_SERVER['PHP_SELF']."?period=month&reqdate=$reqdate&displayType=day' class='specialLink'>$langPeriodMonth</a>]
+                [<a href='".$_SERVER['PHP_SELF']."?period=day&reqdate=$reqdate' class='specialLink'>$langPeriodDay</a>]
                 &nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;
                 $langDetailView :
         ";
@@ -80,13 +78,13 @@ claro_disp_tool_title($nameTools);
         {
             case "year" : 
                     //-- if period is "year" display can be by month, day or hour
-                    echo "  [<a href='$PHP_SELF?period=$period&reqdate=$reqdate&displayType=month' class='specialLink'>$langPeriodMonth</a>]";
+                    echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=month' class='specialLink'>$langPeriodMonth</a>]";
             case "month" : 
                     //-- if period is "month" display can be by day or hour
-                    echo "  [<a href='$PHP_SELF?period=$period&reqdate=$reqdate&displayType=day' class='specialLink'>$langPeriodDay</a>]";
+                    echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=day' class='specialLink'>$langPeriodDay</a>]";
             case "day" : 
                     //-- if period is "day" display can only be by hour
-                    echo "  [<a href='$PHP_SELF?period=$period&reqdate=$reqdate&displayType=hour' class='specialLink'>$langPeriodHour</a>]";
+                    echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=hour' class='specialLink'>$langPeriodHour</a>]";
                     break;
         }
         
@@ -100,8 +98,8 @@ claro_disp_tool_title($nameTools);
                 $previousReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)-1);
                 $nextReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)+1);
                 echo   "
-                    [<a href='$PHP_SELF?period=$period&reqdate=$previousReqDate&displayType=$displayType' class='specialLink'>$langPreviousYear</a>]
-                    [<a href='$PHP_SELF?period=$period&reqdate=$nextReqDate&displayType=$displayType' class='specialLink'>$langNextYear</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType' class='specialLink'>$langPreviousYear</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType' class='specialLink'>$langNextYear</a>] 
                 ";
                 break;
             case "month" :
@@ -110,8 +108,8 @@ claro_disp_tool_title($nameTools);
                 $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
                 $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
                 echo   "
-                    [<a href='$PHP_SELF?period=$period&reqdate=$previousReqDate&displayType=$displayType' class='specialLink'>$langPreviousMonth</a>]
-                    [<a href='$PHP_SELF?period=$period&reqdate=$nextReqDate&displayType=$displayType' class='specialLink'>$langNextMonth</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType' class='specialLink'>$langPreviousMonth</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType' class='specialLink'>$langNextMonth</a>] 
                 ";
                 break;
             case "day" :
@@ -119,8 +117,8 @@ claro_disp_tool_title($nameTools);
                 $previousReqDate = $reqdate - 86400;
                 $nextReqDate = $reqdate + 86400;
                 echo   "
-                    [<a href='$PHP_SELF?period=$period&reqdate=$previousReqDate&displayType=$displayType' class='specialLink'>$langPreviousDay</a>] 
-                    [<a href='$PHP_SELF?period=$period&reqdate=$nextReqDate&displayType=$displayType' class='specialLink'>$langNextDay</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType' class='specialLink'>$langPreviousDay</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType' class='specialLink'>$langNextDay</a>] 
                 ";
                 break;
         }

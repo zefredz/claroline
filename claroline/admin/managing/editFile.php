@@ -1,6 +1,6 @@
 <?php # $Id$
 //----------------------------------------------------------------------
-// CLAROLINE 1.5.* 
+// CLAROLINE 1.6.* 
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -118,8 +118,8 @@ if($display==DISP_FILE_LIST
 	?>
 <tr>
     <td ><TT><?php echo basename($nameFile); ?></TT> </td>
-    <td align="center"><a href="<?php echo $PHP_SELF."?cmd=edit&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEdit ?>" ></a></td>
-    <td align="center"><a href="<?php echo $PHP_SELF."?cmd=view&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/preview.gif" border="0" alt="<?php echo $langPreview ?>" ></a></td>
+    <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']."?cmd=edit&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $langEdit ?>" ></a></td>
+    <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']."?cmd=view&amp;file=".$idFile; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/preview.gif" border="0" alt="<?php echo $langPreview ?>" ></a></td>
 </tr>
 	<?php
 		}
@@ -135,14 +135,14 @@ if($display==DISP_EDIT_FILE)
 		
 	?>
 
-		<form action="<?php echo $PHP_SELF; ?>">
+		<form action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <?php
 			claro_disp_html_area('textFile', $TextFile);
 ?>
 			<br><br> &nbsp;&nbsp;
 			<input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>">
 			<input type="submit" class=\"claroButton\" name="modify" value=" <?php echo $langOk; ?>">
-			<?php   claro_disp_button($PHP_SELF, 'Cancel'); ?>
+			<?php   claro_disp_button($_SERVER['PHP_SELF'], 'Cancel'); ?>
 		</form>
 	<?php
 }

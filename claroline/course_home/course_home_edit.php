@@ -1,17 +1,17 @@
 <?php # $Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
+/*
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
 // through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
-
+*/
 
 $langFile = "course_info";
 
@@ -239,7 +239,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
         $toolUrl  = '';
     }
 
-    $msg .= "<form action=\"".$PHP_SELF."\">"
+    $msg .= "<form action=\"".$_SERVER['PHP_SELF']."\">"
             ."<input type=\"hidden\" name=\"cmd\" value=\"".($externalToolId ? 'exEdit' : 'exAdd')."\">";
 
     if ($externalToolId)
@@ -252,7 +252,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
             ."<label for=\"toolUrl\">".$langToolUrl."</label><br>"
             ."<input type=\"text\" name=\"toolUrl\" name=\"toolUrl\" value=\"".$toolUrl."\"><br>"
             ."<input class=\"claroButton\" type=\"submit\" value=\"".$langOk."\">&nbsp;"
-            ."<a class=\"claroButton\" href=\"" . $PHP_SELF ."\">".$langCancel."</a>"
+            ."<a class=\"claroButton\" href=\"" . $_SERVER['PHP_SELF'] ."\">".$langCancel."</a>"
             ."</form>";
 }
 
@@ -279,7 +279,7 @@ if ($msg) claro_disp_message_box($msg);
 echo "<p>".$langIntroEditToolList."</p>";
 
 echo "<blockquote>\n"
-    ."<form action=\"".$PHP_SELF."\">\n";
+    ."<form action=\"".$_SERVER['PHP_SELF']."\">\n";
 
 echo "<input type=\"hidden\" name=\"cmd\" value=\"exSetToolAccess\" />";
 
@@ -343,10 +343,10 @@ foreach($toolList as $thisTool)
 
     if ($removableTool)
     {
-        echo "<a href=\"". $PHP_SELF ."?cmd=rqEdit&externalToolId=".$thisTool['id']."\">"
+        echo "<a href=\"". $_SERVER['PHP_SELF'] ."?cmd=rqEdit&externalToolId=".$thisTool['id']."\">"
              ."<img src=\"" . $imgRepository. "edit.gif\" alt=\"".$langModify."\" />"
              ."</a>\n"
-             . "<a href=\"". $PHP_SELF ."?cmd=exDelete&externalToolId=". $thisTool['id'] . "\""
+             . "<a href=\"". $_SERVER['PHP_SELF'] ."?cmd=exDelete&externalToolId=". $thisTool['id'] . "\""
              . " onClick=\"return confirmation('" . addslashes($toolName) . "');\">"
              ."<img src=\"" . $imgRepository. "delete.gif\" alt=\"".$langDelete."\" />"
              ."</a>\n";
@@ -365,7 +365,7 @@ echo "</form>\n"
 
 echo "<hr size=\"1\" noshade=\"noshade\"  />";
 
-claro_disp_button($PHP_SELF.'?cmd=rqAdd', $langAddExternalTool);
+claro_disp_button($_SERVER['PHP_SELF'].'?cmd=rqAdd', $langAddExternalTool);
 
 echo $backLink;
 

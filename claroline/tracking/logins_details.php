@@ -1,11 +1,9 @@
-<?php 
+<?php  // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.0 $Revision$                            |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   $Id$         |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
@@ -102,8 +100,8 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
         echo "\n<small>\n"
                 ."[<a href=\"userLog.php?uInfo=$uInfo\">".$langBack."</a>]\n"
                 ."&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;\n"
-                ."[<a href=\"$PHP_SELF?uInfo=$uInfo&period=week&reqdate=$reqdate\">$langPeriodWeek</a>]\n"
-                ."[<a href=\"$PHP_SELF?uInfo=$uInfo&period=month&reqdate=$reqdate\">$langPeriodMonth</a>]\n"
+                ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&period=week&reqdate=$reqdate\">$langPeriodWeek</a>]\n"
+                ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&period=month&reqdate=$reqdate\">$langPeriodMonth</a>]\n"
                 ."&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;\n";
                 
         switch($period)
@@ -112,8 +110,8 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                 // previous and next date must be evaluated
                 $previousReqDate = $reqdate - 7*86400;
                 $nextReqDate = $reqdate + 7*86400;
-                echo   "[<a href=\"$PHP_SELF?uInfo=$uInfo&period=week&reqdate=$previousReqDate\">$langPreviousWeek</a>]\n" 
-                          ."[<a href=\"$PHP_SELF?uInfo=$uInfo&period=week&reqdate=$nextReqDate\">$langNextWeek</a>]\n";
+                echo   "[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&period=week&reqdate=$previousReqDate\">$langPreviousWeek</a>]\n" 
+                          ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&period=week&reqdate=$nextReqDate\">$langNextWeek</a>]\n";
                 break;
             default :
                 $period = "month";
@@ -122,8 +120,8 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                 // 30 days should be a good approximation
                 $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
                 $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
-                echo   "[<a href=\"$PHP_SELF?uInfo=$uInfo&period=month&reqdate=$previousReqDate\">$langPreviousMonth</a>]\n"
-                          ."[<a href=\"$PHP_SELF?uInfo=$uInfo&period=month&reqdate=$nextReqDate\">$langNextMonth</a>]\n";
+                echo   "[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&period=month&reqdate=$previousReqDate\">$langPreviousMonth</a>]\n"
+                          ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&period=month&reqdate=$nextReqDate\">$langNextMonth</a>]\n";
                 break;
     
         

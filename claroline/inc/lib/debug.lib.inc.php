@@ -1,10 +1,10 @@
 <? // $Id$
 /*
-   +----------------------------------------------------------------------+
-   | CLAROLINE version 1.5.* $Revision$                             |
-   +----------------------------------------------------------------------+
-   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-   +----------------------------------------------------------------------+
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
    | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
    |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
    |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
@@ -203,10 +203,10 @@ function mysql_query_dbg($sql,$db="###")
 
 function debugIO($file="")
 {
-	 GLOBAL $PHP_SELF, $SERVER_SOFTWARE;	
+	 GLOBAL $SERVER_SOFTWARE;	
 
 	$infoResult = "
-[Script :  ".$PHP_SELF."]
+[Script :  ".$_SERVER['PHP_SELF']."]
 [Server :  ".$SERVER_SOFTWARE."]
 [Php :  ".phpversion()."]
 [sys :  ".php_uname()."]

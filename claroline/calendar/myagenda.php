@@ -1,6 +1,6 @@
 <?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE 1.5.*
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -145,7 +145,7 @@ function get_agenda_items($userCourseList, $month, $year)
 
 function disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName, $langToday)
 {
-	global $PHP_SELF;
+	global $_SERVER;
 
 	//Handle leap year
 	$numberofdays = array(0,31,28,31,30,31,30,31,31,30,31,30,31);
@@ -161,12 +161,12 @@ function disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $m
   	//Start the week on monday
 	$startdayofweek = $dayone['wday']<>0 ? ($dayone['wday']-1) : 6;
 
-	$backwardsURL = $PHP_SELF."?coursePath=".$_REQUEST['coursePath']
+	$backwardsURL = $_SERVER['PHP_SELF']."?coursePath=".$_REQUEST['coursePath']
                    ."&courseCode=".$_REQUEST['courseCode']
                    ."&month=".($month==1 ? 12 : $month-1)
                    ."&year=".($month==1 ? $year-1 : $year);
 
-	$forewardsURL = $PHP_SELF."?coursePath=".$_REQUEST['coursePath']
+	$forewardsURL = $_SERVER['PHP_SELF']."?coursePath=".$_REQUEST['coursePath']
                    ."&courseCode=".$_REQUEST['courseCode']
                    ."&month=".($month==12 ? 1 : $month+1)
                    ."&year=".($month==12 ? $year+1 : $year);

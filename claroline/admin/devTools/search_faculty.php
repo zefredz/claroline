@@ -311,7 +311,7 @@ else
 			$MOVE=FALSE;
 
 			$nameTools 			= $lang_faculty_EditCat;
-			$interbredcrump[]	= array ("url"=>$PHP_SELF, "name"=> $lang_faculty_faculty);
+			$interbredcrump[]	= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $lang_faculty_faculty);
 
 			//Search information of the category edit
 			$sql_SearchInfoTreeFaculty="select * from `$tbl_faculty` where id='".$_REQUEST["id"]."'";
@@ -711,7 +711,7 @@ if($INFOFAC)
 {
 ?>
 	<br>
-	<form action="<?php echo $PHP_SELF?>" method="POST">
+	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 	<table border="0">
 	<tr>
 		<td width="400">
@@ -851,7 +851,7 @@ if($MOVE)
 {
 ?>
 	<br>
-	<form action="<?php echo $PHP_SELF?>" method="POST">
+	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 	<table border="0">
 	<tr>
 		<td>

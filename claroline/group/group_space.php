@@ -109,7 +109,7 @@ if($_REQUEST['registration'])
         {
             // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
 
-            header("Location:".$PHP_SELF."?gidReset=1&gidReq=".$_gid."&regDone=1");
+            header("Location:".$_SERVER['PHP_SELF']."?gidReset=1&gidReq=".$_gid."&regDone=1");
         }
     }
 }
@@ -329,7 +329,7 @@ if ($is_allowedToManage)
 
 if($is_allowedToSelfRegInGroup)
 {
-    echo "<form method=\"post\" action=\"".$PHP_SELF."?\">"
+    echo "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?\">"
         ."<input type=\"hidden\" name=\"registration\" value=\"1\">"
         ."<input type=\"submit\" value=\"".$langRegIntoGroup."\">"
         ."</form>";

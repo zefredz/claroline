@@ -178,7 +178,7 @@ claro_disp_button($clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&fromAdmin=
 
    //Pager
 
-$myPager->disp_pager_tool_bar($PHP_SELF);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 
 // Display list of users
@@ -188,10 +188,10 @@ $myPager->disp_pager_tool_bar($PHP_SELF);
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
 
      <tr class=\"headerX\" align=\"center\" valign=\"top\">
-          <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>
-          <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes\">".$langName."</a></th>
-          <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>
-          <th><a href=\"",$PHP_SELF,"?order_crit=officialCode&chdir=yes\">".$langOfficialCode."</a></th>";
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=nom&chdir=yes\">".$langName."</a></th>
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>
+          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=officialCode&chdir=yes\">".$langOfficialCode."</a></th>";
 echo     "<th>".$langEmail."</th>";
 echo     "<th>".$langUnsubscribeClass."</th>";
 echo "</tr><tbody> ";
@@ -234,7 +234,7 @@ foreach($resultList as $list)
      //  Unsubscribe link
 
      echo   "<td align=\"center\">\n"
-           ."  <a href=\"",$PHP_SELF,"?cmd=unsubscribe".$addToUrl."&offset=".$offset."&userid=".$list['user_id']."\" "
+           ."  <a href=\"",$_SERVER['PHP_SELF'],"?cmd=unsubscribe".$addToUrl."&offset=".$offset."&userid=".$list['user_id']."\" "
            ."      onClick=\"return confirmationUnReg('",addslashes($list['prenom']." ".$list['nom']),"');\">\n"
            ."      <img src=\"".$clarolineRepositoryWeb."/img/unenroll.gif\" border=\"0\" alt=\"\" />\n"
            ."  </a>\n"
@@ -256,7 +256,7 @@ echo "</tbody></table>";
 
 //Pager
 
-$myPager->disp_pager_tool_bar($PHP_SELF);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 include($includePath."/claro_init_footer.inc.php");
 

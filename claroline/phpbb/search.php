@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
   session_start();
 include('../inc/conf/claro_main.conf.php');
 
@@ -8,9 +8,6 @@ include('../inc/conf/claro_main.conf.php');
     begin                : Sat June 17 2000
     copyright            : (C) 2001 The phpBB Group
     email                : support@phpbb.com
-
-    $Id$
-
  ***************************************************************************/
 
 /***************************************************************************
@@ -32,7 +29,7 @@ include('page_header.'.$phpEx);
 if(!$submit)
 {
 ?>
-<FORM NAME="Search" ACTION="<?php echo $PHP_SELF; ?>" METHOD="POST">
+<FORM NAME="Search" ACTION="<?php echo $_SERVER['PHP_SELF']; ?>" METHOD="POST">
 <TABLE BORDER="0" CELLPADDING="1" CELLSPACING="0" ALIGN="CENTER" VALIGN="TOP" WIDTH="<?php echo $tablewidth?>">
 <TR>
 	<TD  BGCOLOR="<?php echo $table_bgcolor?>">

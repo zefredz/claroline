@@ -150,9 +150,9 @@ include($includePath."/lib/statsUtils.lib.inc.php");
             echo "<tr>
                     <td>
                     <small>
-                    [<a href='$PHP_SELF?tool=$tool&period=day&reqdate=$reqdate' class='specialLink'>$langPeriodDay</a>] 
-                    [<a href='$PHP_SELF?tool=$tool&period=week&reqdate=$reqdate' class='specialLink'>$langPeriodWeek</a>]
-                    [<a href='$PHP_SELF?tool=$tool&period=month&reqdate=$reqdate' class='specialLink'>$langPeriodMonth</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=day&reqdate=$reqdate' class='specialLink'>$langPeriodDay</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=week&reqdate=$reqdate' class='specialLink'>$langPeriodWeek</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=month&reqdate=$reqdate' class='specialLink'>$langPeriodMonth</a>]
                     &nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;
                     
                     ";
@@ -164,8 +164,8 @@ include($includePath."/lib/statsUtils.lib.inc.php");
                     $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
                     $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
                     echo   "
-                        [<a href='$PHP_SELF?tool=$tool&period=month&reqdate=$previousReqDate' class='specialLink'>$langPreviousMonth</a>] 
-                        [<a href='$PHP_SELF?tool=$tool&period=month&reqdate=$nextReqDate' class='specialLink'>$langNextMonth</a>]
+                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=month&reqdate=$previousReqDate' class='specialLink'>$langPreviousMonth</a>] 
+                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=month&reqdate=$nextReqDate' class='specialLink'>$langNextMonth</a>]
                     ";
                     break;
                 case "week" :
@@ -173,8 +173,8 @@ include($includePath."/lib/statsUtils.lib.inc.php");
                     $previousReqDate = $reqdate - 7*86400;
                     $nextReqDate = $reqdate + 7*86400;
                     echo   "
-                        [<a href='$PHP_SELF?tool=$tool&period=week&reqdate=$previousReqDate' class='specialLink'>$langPreviousWeek</a>] 
-                        [<a href='$PHP_SELF?tool=$tool&period=week&reqdate=$nextReqDate' class='specialLink'>$langNextWeek</a>]
+                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=week&reqdate=$previousReqDate' class='specialLink'>$langPreviousWeek</a>] 
+                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=week&reqdate=$nextReqDate' class='specialLink'>$langNextWeek</a>]
                     ";
                     break;
                 case "day" :
@@ -182,14 +182,14 @@ include($includePath."/lib/statsUtils.lib.inc.php");
                     $previousReqDate = $reqdate - 86400;
                     $nextReqDate = $reqdate + 86400;
                     echo   "
-                        [<a href='$PHP_SELF?tool=$tool&period=day&reqdate=$previousReqDate' class='specialLink'>$langPreviousDay</a>] 
-                        [<a href='$PHP_SELF?tool=$tool&period=day&reqdate=$nextReqDate' class='specialLink'>$langNextDay</a>]
+                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=day&reqdate=$previousReqDate' class='specialLink'>$langPreviousDay</a>] 
+                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=day&reqdate=$nextReqDate' class='specialLink'>$langNextDay</a>]
                     ";
                     break;
             }
             
             echo"   &nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;
-                    [<a href='$PHP_SELF' class='specialLink'>$langViewToolList</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."' class='specialLink'>$langViewToolList</a>]
                     </small>
                     </td>
                 </tr>

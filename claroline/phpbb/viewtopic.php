@@ -76,7 +76,7 @@ $postList  = $postPager->get_result_list();
 
 
 
-$pagerUrl = $PHP_SELF."?topic=".$topic;
+$pagerUrl = $_SERVER['PHP_SELF']."?topic=".$topic;
 
 $postPager->disp_pager_tool_bar($pagerUrl);
 
@@ -128,13 +128,13 @@ if ( isset($_uid) )  //anonymous user do not have this function
     {
         echo "<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
             .get_syslang_string($sys_lang, 'l_notify')
-            ." [<a href=\"".$PHP_SELF."?topic=".$topic."&cmd=exdoNotNotify\">"
+            ." [<a href=\"".$_SERVER['PHP_SELF']."?topic=".$topic."&cmd=exdoNotNotify\">"
             .$l_disable
             ."</a>]";
     }
     else   //display link to be notified for this topic
     {
-        echo  "<a href=\"".$PHP_SELF."?topic=".$topic."&cmd=exNotify\">"
+        echo  "<a href=\"".$_SERVER['PHP_SELF']."?topic=".$topic."&cmd=exNotify\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/email.gif\"> "
             .get_syslang_string($sys_lang, 'l_notify')
             ."</a>";
@@ -215,7 +215,7 @@ if ( isset($_uid) )  //anonymous user do not have this function
 
     echo "</table>\n";
 
-$postPager->disp_pager_tool_bar($PHP_SELF."?topic=".$topic."&forum=".$forum);
+$postPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?topic=".$topic."&forum=".$forum);
 
 require 'page_tail.php';
 ?>

@@ -350,7 +350,7 @@ if ($submitWork && $succeed)
 				</u> 
 				: ".$auteurs." 
 				<br>".
-				"<a href=\"".$PHP_SELF."\">".$langBackList."</a>".
+				"<a href=\"".$_SERVER['PHP_SELF']."\">".$langBackList."</a>".
 				"<br>\n";
 }
 else
@@ -359,7 +359,7 @@ else
 	/*=======================================
 		 PERMANENT FORM TO UPLOAD PAPER
 	  =======================================*/
-	echo	"<form method=\"post\" action=\"",$PHP_SELF,"\" enctype=\"multipart/form-data\" >\n",
+	echo	"<form method=\"post\" action=\"",$_SERVER['PHP_SELF'],"\" enctype=\"multipart/form-data\" >\n",
 			"<table>\n";
 	if ($submitGroupWorkUrl) // For user comming from group space to publish his work
 	{
@@ -481,7 +481,7 @@ echo	"<tr>\n".
 		"<tr>\n".
 		"<td>".
 		"<small>".$langAllFiles." : </small>".
-		"<a href=\"".$PHP_SELF."?delete=all\" ".
+		"<a href=\"".$_SERVER['PHP_SELF']."?delete=all\" ".
 		"onclick=\"javascript:if(!confirm('".addslashes(htmlspecialchars($langDelete." ".$langConfirmYourChoice))."')) return false;\">".
 		"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\" align=\"absmiddle\">".
 		"</a>".
@@ -495,13 +495,13 @@ echo	"<tr>\n".
 
 		if ($columnStatus['Default'] == 1)
 		{
-			echo	"<a href=\"".$PHP_SELF."?mkInvisbl=all\">",
+			echo	"<a href=\"".$_SERVER['PHP_SELF']."?mkInvisbl=all\">",
 					"<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$lang_make_invisible."\" align=\"absmiddle\">",
 					"</a>\n";
 		}
 		else
 		{
-			echo	"<a href=\"".$PHP_SELF."?mkVisbl=all\">",
+			echo	"<a href=\"".$_SERVER['PHP_SELF']."?mkVisbl=all\">",
 					"<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$lang_make_visible."\" align=\"absmiddle\">",
 					"</a>\n";
 		}

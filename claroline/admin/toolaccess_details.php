@@ -1,9 +1,9 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.* $Revision$                            |
+      | CLAROLINE version 1.6.* 
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
@@ -34,7 +34,7 @@ require '../inc/claro_init_global.inc.php';
 $nameTools = $HTTP_GET_VARS["tool"];
 $interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
 $interbredcrump[]= array ("url"=>"campusLog.php", "name"=> $langStatsOfCampus);
-$interbredcrump[]= array ("url"=>basename($PHP_SELF), "name"=> $langDetails);
+$interbredcrump[]= array ("url"=>basename($_SERVER['PHP_SELF']), "name"=> $langDetails);
 
 $htmlHeadXtra[] = "<style type='text/css'>
 <!--

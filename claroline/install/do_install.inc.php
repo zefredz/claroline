@@ -165,7 +165,7 @@ $garbageRepositorySys	= str_replace("\\","/",realpath($clarolineRepositorySys)."
 // extract the path to append to the url
 // if Claroline is not installed on the web root directory
 
-//$urlAppendPath = ereg_replace ("claroline/install/index.php", "", $PHP_SELF);
+//$urlAppendPath = ereg_replace ("claroline/install/index.php", "", $_SERVER['PHP_SELF']);
 
 // here I want find  something to get garbage out of documentRoot
 

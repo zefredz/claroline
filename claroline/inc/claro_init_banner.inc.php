@@ -257,7 +257,7 @@ if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
         {
             echo	" &gt;  "
                     ."<b>"
-                    ."<a href=",$PHP_SELF," target=\"_top\">"
+                    ."<a href=",$_SERVER['PHP_SELF']," target=\"_top\">"
                     .$nameTools
                     ."</a>"
                     ."</b>\n";
@@ -266,7 +266,7 @@ if( isset($_cid) || isset($nameTools) || is_array($interbredcrump) )
         {
             echo	" &gt; " 
                     ."<b>"
-                    ."<a href=",$PHP_SELF,'?',$QUERY_STRING," target=\"_top\">"
+                    ."<a href=",$_SERVER['PHP_SELF'],'?',$QUERY_STRING," target=\"_top\">"
                     .$nameTools
                     ."</a>"
                     ."</b>\n";

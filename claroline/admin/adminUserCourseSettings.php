@@ -196,7 +196,7 @@ if($dialogBox)
 
 ?>
 
-<form method="GET" action="<?php echo $PHP_SELF ?>">
+<form method="GET" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 <table width="100%" >
 
             <tr>

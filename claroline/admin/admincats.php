@@ -326,7 +326,7 @@ else
         $MOVE=FALSE;
 
         //$nameTools             = $lang_faculty_EditCat;
-        $interbredcrump[]    = array ("url"=>$PHP_SELF, "name"=> $lang_categories);
+        $interbredcrump[]    = array ("url"=>$_SERVER['PHP_SELF'], "name"=> $lang_categories);
 
         //Search information of the category edit
         $sql_SearchInfoTreeFaculty="select * from `$tbl_faculty` where id='".$_REQUEST["id"]."'";
@@ -737,7 +737,7 @@ claro_disp_tool_title(
 claro_disp_msg_arr($controlMsg);
 
 ?>
-    <form action="<?php echo $PHP_SELF?>" method="POST">
+    <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
     <table border="0">
     <tr>
         <td >
@@ -867,7 +867,7 @@ claro_disp_tool_title(
     );
 claro_disp_msg_arr($controlMsg);
 ?>
-    <form action="<?php echo $PHP_SELF?>" method="POST">
+    <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
     <table border="0">
     <tr>
         <td >
@@ -946,7 +946,7 @@ claro_disp_tool_title(
     );
 claro_disp_msg_arr($controlMsg);
 ?>
-    <form action=" <?php echo $PHP_SELF?> " method="POST">
+    <form action=" <?php echo $_SERVER['PHP_SELF']?> " method="POST">
     <table border="0">
     <tr>
         <td>
@@ -1071,7 +1071,7 @@ include($includePath."/claro_init_footer.inc.php");
                             $PM='<img src="'.$clarolineRepositoryWeb.'img/plus.jpg" border="0" alt="" >';
                     ?>
 
-                    <a style="text-decoration:none;font-weight:bold" href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&date=".$date."#pm".$one_faculty["id"] ?>"
+                    <a style="text-decoration:none;font-weight:bold" href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&date=".$date."#pm".$one_faculty["id"] ?>"
                     name="<?php echo "pm".$one_faculty["id"]; ?>">  <?php echo $PM ?></a> &nbsp;
                     <?php
                     }
@@ -1095,15 +1095,15 @@ include($includePath."/claro_init_footer.inc.php");
                     </td>
                     <td  align="center">
 
-                        <a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&edit=1"; ?>" >
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1"; ?>" >
                         <img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $lang_faculty_imgEdit ?>" > </a>
                     </td>
                     <td align="center">
-                        <a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&edit=1&move=1"; ?>" >
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1&move=1"; ?>" >
                         <img src="<?php echo $clarolineRepositoryWeb ?>img/deplacer.gif" border="0" alt="<?php echo $lang_faculty_imgMove ?>" > </a>
                     </td>
                     <td align="center">
-                        <a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&delete=1"; ?>"
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&delete=1"; ?>"
                         onclick="javascript:if(!confirm('<?php echo 
                          addslashes(htmlentities($lang_faculty_ConfirmDelete.$one_faculty["code"])) ?>')) return false;" >
                         <img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $lang_faculty_imgDelete ?>"> </a>
@@ -1128,7 +1128,7 @@ include($includePath."/claro_init_footer.inc.php");
                         if($num>1)
                         {
                         ?>
-                            <a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=u&date=".$date."#ud".$one_faculty["id"];
+                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&UpDown=u&date=".$date."#ud".$one_faculty["id"];
                             ?>" name ="<?php echo "ud".$one_faculty["id"]; ?>">
                             <img src="<?php echo $clarolineRepositoryWeb ?>img/up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"></a>
                         <?php
@@ -1141,7 +1141,7 @@ include($includePath."/claro_init_footer.inc.php");
                         if($num<$nbChild)
                         {
                         ?>
-                            <a href="<?php echo $PHP_SELF."?id=".$one_faculty["id"]."&UpDown=d&date=".$date."#ud".$one_faculty["id"];
+                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&UpDown=d&date=".$date."#ud".$one_faculty["id"];
                             ?>" name="<?php echo "ud".$one_faculty["id"]; ?>">
                             <img src="<?php echo $clarolineRepositoryWeb ?>img/down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
                     <?php

@@ -1,10 +1,10 @@
 <?php // $Id$
 /*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.0 $Revision$                            |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
++----------------------------------------------------------------------+
+| CLAROLINE 1.6
++----------------------------------------------------------------------+
+| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
++----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
       |   as published by the Free Software Foundation; either version 2     |
@@ -545,7 +545,7 @@ if($modifyAnswers)
   <?php echo $questionName; ?>
 </h3>
 
-<form method="post" action="<?php echo $PHP_SELF; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
 <input type="hidden" name="formSent" value="1">
 <input type="hidden" name="nbrAnswers" value="<?php echo $nbrAnswers; ?>">
 
@@ -640,7 +640,7 @@ if($modifyAnswers)
   <?php echo $questionName; ?>
 </h3>
 
-<form name="formulaire" method="post" action="<?php echo $PHP_SELF; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
+<form name="formulaire" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
 <input type="hidden" name="formSent" value="1">
 <input type="hidden" name="setWeighting" value="<?php echo $setWeighting; ?>">
 
@@ -778,7 +778,7 @@ if($modifyAnswers)
   <?php echo $questionName; ?>
 </h3>
 
-<form method="post" action="<?php echo $PHP_SELF; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
 <input type="hidden" name="formSent" value="1">
 <input type="hidden" name="nbrOptions" value="<?php echo $nbrOptions; ?>">
 <input type="hidden" name="nbrMatches" value="<?php echo $nbrMatches; ?>">

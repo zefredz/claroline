@@ -80,7 +80,7 @@ else
 	}
 
 ?>
-<form action="<?php echo $php_self?>" method="post">
+<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 <table border="0" cellpadding="1" align="center" width="95%">
 
 <tr>

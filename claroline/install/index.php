@@ -111,7 +111,7 @@ if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step pr
 	 */
 	 
 	 // remove possible double slashes
-	$urlAppendPath = str_replace( array('///', '//'), '/', $PHP_SELF);
+	$urlAppendPath = str_replace( array('///', '//'), '/', $_SERVER['PHP_SELF']);
 	// detect if url case sensitivity does matter
 	$caseSensitive = (PHP_OS == 'WIN32' || PHP_OS == 'WINNT') ? 'i' : '';
 	// build the regular expression pattern
@@ -422,7 +422,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 </head>
 <body bgcolor="white" dir="<?php echo $text_dir ?>">
 <center>
-<form action="<?php echo $PHP_SELF?>?alreadyVisited=1" method="post">
+<form action="<?php echo $_SERVER['PHP_SELF']?>?alreadyVisited=1" method="post">
 <table cellpadding="10" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
 	<tr bgcolor="navy">
 		<td valign="top">

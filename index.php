@@ -1,7 +1,7 @@
 <?php # $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE 1.5
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -811,7 +811,7 @@ if ( mysql_num_rows($resCats) > 0)
 
 			if ( $catLine[nbCourse] + $catLine[nb_childs] > 0 )
 			{
-				$htmlListCat .= "<a href=\"".$PHP_SELF."?category=".$catLine['code']."\">"
+				$htmlListCat .= "<a href=\"".$_SERVER['PHP_SELF']."?category=".$catLine['code']."\">"
 				               .$catLine['name']
 				               ."</a>";
 
@@ -836,7 +836,7 @@ if ( mysql_num_rows($resCats) > 0)
 			if (CONFVAL_ShowLinkBackToTopOfTree)
 			{
 				$htmlTitre .= "<small>"
-				             ."<a href=\"$PHP_SELF\">"
+				             ."<a href=\"".$_SERVER['PHP_SELF']."\">"
 							 ."&lt;&lt; ".$langBackToHomePage
 				             ."</a>"
 				             ."</small>";
@@ -847,7 +847,7 @@ if ( mysql_num_rows($resCats) > 0)
 			         && ! is_null($catLine['code'] )))
 			{
 				$htmlTitre .= "<small>"
-				             ."<a href=\"".$PHP_SELF."?category=".$catLine['code_P']."\">"
+				             ."<a href=\"".$_SERVER['PHP_SELF']."?category=".$catLine['code_P']."\">"
 				             ."&lt;&lt; ".$langUp
 				             ."</a>"
 				             ."</small>";
@@ -916,7 +916,7 @@ else
 if ($category!="")
 echo	"<p>",
 		"<small>",
-		"<a href=\"$PHP_SELF\"><b>&lt;&lt;</b> ",$langBackToHomePage,"</a>",
+		"<a href=\"".$_SERVER['PHP_SELF']."\"><b>&lt;&lt;</b> ",$langBackToHomePage,"</a>",
 		"</small>",
 		"</p>\n";
 
@@ -982,7 +982,7 @@ echo	"<p>",
 
 <td width="200" valign="top" class="claroRightMenu">
 
-<form action ="<?php echo $rootWeb,basename($PHP_SELF); ?>?mon_icampus=yes" method="post">
+<form action ="<?php echo $rootWeb,basename($_SERVER['PHP_SELF']); ?>?mon_icampus=yes" method="post">
 <p>
 <small>
 

@@ -1,7 +1,7 @@
 <?php // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version 1.5.*
+  | CLAROLINE version 1.6.*
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
@@ -189,7 +189,7 @@
             </tr>\n<tbody>\n";
 
      // Display available modules
-     echo "<form name=\"addmodule\" action=\"",$PHP_SELF,"?cmdglobal=add\">";
+     echo "<form name=\"addmodule\" action=\"",$_SERVER['PHP_SELF'],"?cmdglobal=add\">";
      $atleastOne="false";
      while ($list=mysql_fetch_array($result))
      {

@@ -48,7 +48,7 @@ if ($display_all_size_of_garbageRepositorySys )
 ?>
 <LI>
 <hr>
-<form  method="post" action="<?php echo $PHP_SELF ?>">
+<form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 <input type="checkbox" name="display_all_size_of_clarolineRepositorySys" value="true" > <?php echo $langSize_of_claroline_scripts ?>
 <br>
 <input type="checkbox" name="display_all_size_of_Total_Courses" value="true" >

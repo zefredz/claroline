@@ -7,7 +7,7 @@
  *
  *            echo '<table><tr><td>';
  *
- *            $myPager->disp_pager_tool_bar($PHP_SELF);
+ *            $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
  *
  *            echo '</td></tr>';
  *

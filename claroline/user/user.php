@@ -135,7 +135,7 @@ if ($userTotalNb > $step)
 
 	if ($previous >= 0)
 	{
-		$navLink .= "<small><a href=\"$PHP_SELF?offset=$previous\">&lt;&lt; </a></small>";
+		$navLink .= "<small><a href=\"".$_SERVER['PHP_SELF']."?offset=$previous\">&lt;&lt; </a></small>";
 	}
 
 	$navLink .= "</td>\n"
