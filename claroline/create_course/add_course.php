@@ -67,6 +67,7 @@ $nameTools = $langCreateSite;
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
+
 $tbl_course          = $tbl_mdb_names['course'           ];
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_category        = $tbl_mdb_names['category'         ];
@@ -86,17 +87,13 @@ if (empty($valueEmail)) $valueEmail = $_user['mail'];
 
 //// Starting script
 $displayNotForU = FALSE;
-if (!$can_create_courses)
-{
-	$displayNotForU = TRUE;
-} // (!$can_create_courses)
+if (!$can_create_courses) $displayNotForU = TRUE; // (!$can_create_courses)
 else
 {
-	if (	$sendByUploadAivailable
-			|| $sendByLocaleAivailable
-			|| $sendByHTTPAivailable
-			|| $sendByFTPAivailable
-		)
+	if (   $sendByUploadAivailable
+		|| $sendByLocaleAivailable
+		|| $sendByHTTPAivailable
+		|| $sendByFTPAivailable    )
 	{
 		$displayWhatAdd = TRUE;
 	}
@@ -219,43 +216,43 @@ else
 //			printVar($courseProperties," propriétés du cours");
 			$showPropertiesFromArchive = TRUE;
 
-			$valueSysId 		= $courseProperties["sysId"];
+			$valueSysId 		= $courseProperties['sysId'              ];
 
-			$valueCode			= $courseProperties["officialCode"];
-			$valueTitular		= $courseProperties["titular"];
-			$valueIntitule		= $courseProperties["name"];
-			$valueFacultyName	= $courseProperties["categoryName"];
-			$valueFacultyCode	= $courseProperties["categoryCode"];
-			$valueLanguage 		= $courseProperties["language"];
+            $valueCode          = $courseProperties['officialCode'       ];
+            $valueTitular       = $courseProperties['titular'            ];
+            $valueIntitule      = $courseProperties['name'               ];
+            $valueFacultyName   = $courseProperties['categoryName'       ];
+            $valueFacultyCode   = $courseProperties['categoryCode'       ];
+            $valueLanguage      = $courseProperties['language'           ];
 
-			$valueDescription 	= $courseProperties["description"];
-			$valueDepartment	= $courseProperties["extLinkName"];
-			$valueDepartmentUrl	= $courseProperties["extLinkUrl"];
+            $valueDescription   = $courseProperties['description'        ];
+            $valueDepartment    = $courseProperties['extLinkName'        ];
+            $valueDepartmentUrl = $courseProperties['extLinkUrl'         ];
 
-			$valueScoreShow		= $courseProperties["scoreShow"];
-			$valueVisibility	= $courseProperties["visibility"];
+            $valueScoreShow     = $courseProperties['scoreShow'          ];
+            $valueVisibility    = $courseProperties['visibility'         ];
 
-			$valueAdminCode		= $courseProperties["adminCode"];
-			$valueDbName		= $courseProperties["dbName"];
-			$valuePath			= $courseProperties["path"];
-			$valueRegAllowed 	= $courseProperties["registrationAllowed"];
+            $valueAdminCode     = $courseProperties['adminCode'          ];
+            $valueDbName        = $courseProperties['dbName'             ];
+            $valuePath          = $courseProperties['path'               ];
+            $valueRegAllowed    = $courseProperties['registrationAllowed'];
 
-			$valueVersionDb		= $courseProperties["versionDb"];
-			$valueVersionClaro	= $courseProperties["versionClaro"];
-			$valueLastVisit		= $courseProperties["lastVisit"];
-			$valueLastEdit 		= $courseProperties["lastEdit"];
-			$valueExpire 		= $courseProperties["expirationDate"];
+            $valueVersionDb     = $courseProperties['versionDb'          ];
+            $valueVersionClaro  = $courseProperties['versionClaro'       ];
+            $valueLastVisit     = $courseProperties['lastVisit'          ];
+            $valueLastEdit      = $courseProperties['lastEdit'           ];
+            $valueExpire        = $courseProperties['expirationDate'     ];
 		} //if ($okToUnzip)
 	}
 	elseif ($submitFromCoursProperties)
 	{
 		
-		$wantedCode 		= (string) $_REQUEST["wantedCode"];
-		$newcourse_category	= (string) $_REQUEST["faculte"];
-		$newcourse_label	= (string) $_REQUEST["intitule"];
-		$newcourse_language = (string) $_REQUEST["languageCourse"];
-		$newcourse_titulars	= (string) $_REQUEST["titulaires"];
-		$newcourse_email 	= (string) $_REQUEST["email"];
+		$wantedCode 		= strip_tags($_REQUEST['wantedCode'    ]);
+		$newcourse_category	= strip_tags($_REQUEST['faculte'       ]);
+		$newcourse_label	= strip_tags($_REQUEST['intitule'      ]);
+		$newcourse_language = strip_tags($_REQUEST['languageCourse']);
+		$newcourse_titulars	= strip_tags($_REQUEST['titulaires'    ]);
+		$newcourse_email 	= strip_tags($_REQUEST['email'         ]);
 		
 		$okToCreate = true;
 		
@@ -267,19 +264,19 @@ else
 		if (HUMAN_LABEL_NEEDED && empty($newcourse_label)) 
 		{
 			$okToCreate = FALSE;
-			$controlMsg["error"][] = $langLabelCanBeEmpty;
+			$controlMsg['error'][] = $langLabelCanBeEmpty;
 		}
 		
 		if (HUMAN_CODE_NEEDED && empty($wantedCode)) 
 		{
 			$okToCreate = FALSE;
-			$controlMsg["error"][] = $langCodeCanBeEmpty;
+			$controlMsg['error'][] = $langCodeCanBeEmpty;
 		}
 		
 		if (COURSE_EMAIL_NEEDED && empty($newcourse_email)) 
 		{
 			$okToCreate = FALSE;
-			$controlMsg["error"][] = $langEmailCanBeEmpty;
+			$controlMsg['error'][] = $langEmailCanBeEmpty;
 		}
 		
 		// if an email is given It would be correct
@@ -287,16 +284,16 @@ else
 		if (!empty($newcourse_email)&&!eregi( $regexp, $newcourse_email)) 
 		{
 			$okToCreate = FALSE;
-			$controlMsg["error"][] = $langEmailWrong;
+			$controlMsg['error'][] = $langEmailWrong;
 		}
 		
 		
 	//  function define_course_keys ($wantedCode, $prefix4all="", $prefix4baseName="", 	$prefix4path="", $addUniquePrefix =false,	$useCodeInDepedentKeys = TRUE	)
 		$keys = define_course_keys ($wantedCode,"",$dbNamePrefix);
-		$currentCourseCode		 = $keys["currentCourseCode"];
-		$currentCourseId		 = $keys["currentCourseId"];
-		$currentCourseDbName	 = $keys["currentCourseDbName"];
-		$currentCourseRepository = $keys["currentCourseRepository"];
+		$currentCourseCode		 = $keys['currentCourseCode'      ];
+		$currentCourseId		 = $keys['currentCourseId'        ];
+		$currentCourseDbName	 = $keys['currentCourseDbName'    ];
+		$currentCourseRepository = $keys['currentCourseRepository'];
 		$expirationDate 		= 	time() + $firstExpirationDelay;
 	
 		if ($okToCreate)
@@ -326,9 +323,9 @@ else
 							$_uid, 
 							$expirationDate);
 							
-			$displayCourseAddResult = TRUE;
-			$displayCoursePropertiesForm = FALSE;
-			$displayWhatAdd = FALSE;
+			$displayCourseAddResult       = TRUE;
+			$displayCoursePropertiesForm  = FALSE;
+			$displayWhatAdd               = FALSE;
 	
 		    // warn platform administrator of the course creation
 			$strCreationMailNotificationSubject = 		    '['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$newcourse_label;
@@ -358,8 +355,10 @@ if ($fromAdmin=="yes")
 {
     $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 }
-include($includePath."/claro_init_header.inc.php");
+include $includePath.'/claro_init_header.inc.php';
+
 claro_disp_tool_title($nameTools);
+
 claro_disp_msg_arr($controlMsg);
 
 // db connect
