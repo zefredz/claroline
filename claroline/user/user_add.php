@@ -237,7 +237,7 @@ if($register)
             $langAddress $siteName $langIs: $serverAddress\n
             $langProblem\n\n
             $langFormula,\n
-            $langAdministratorSurname ".$administrator["name"]."\n
+            $langAdministrator ".$administrator["name"]."\n
             $langManager $siteName\n";
             if(! empty($administrator["phone"]) ) $emailBody .= "T. ".$administrator["phone"]."\n";
             $emailBody .= $langEmail.": ".$administrator["email"]."\n";
