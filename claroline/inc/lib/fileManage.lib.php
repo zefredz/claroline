@@ -226,8 +226,8 @@ function my_rename($oldFilePath, $newFilePath)
 
 	/* CHECK IF THE NEW NAME HAS AN EXTENSION */
 
-	if (( ! ereg("[[:print:]]+\.[[:alnum:]]+$", $newFilePath))
-		&&  ereg("[[:print:]]+\.([[:alnum:]]+)$", $oldFilePath, $extension))
+	if (( ! ereg('[[:print:]]+\.[[:alnum:]]+$', $newFilePath))
+		&&  ereg('[[:print:]]+\.([[:alnum:]]+)$', $oldFilePath, $extension))
 	{
 		$newFilePath .= ".".$extension[1];
 	}
@@ -298,7 +298,7 @@ function move($source, $target)
 			elseif (is_dir($source))
 			{
 				// check to not copy the directory inside itself
-				if (ereg("^".$source."/", $target."/"))
+				if (ereg('^'.$source.'/', $target.'/'))
 				{
 					return false;
 				}
