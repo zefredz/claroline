@@ -1050,7 +1050,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     <tr>
                         <td>
                             <label for="mainTblPrefixForm">
-                                <small>Prefix for name of main tables</small>
+                                Prefix for name of main tables
                             </label>
                         </td>
                         <td>
