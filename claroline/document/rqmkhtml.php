@@ -6,16 +6,16 @@ require '../inc/claro_init_global.inc.php';
 
 if ($_gid && $is_groupAllowed)
 {
-    $courseDir         = $_course['path'].'/group/'.$_group['directory'];
+    $courseDir         = $_course['path'] .'/group/'.$_group['directory'];
     $interbredcrump[]  = array ('url'=>'group.php', 'name'=> $langGroupManagement);
 }
 else
 {
-    $courseDir   = $_course['path'].'/document';
+    $courseDir   = $_course['path'] .'/document';
     $interbredcrump[] = array ('url'=>'document.php', 'name'=> $langDoc);
 }
 
-$baseWorkDir = $rootSys.$courseDir;
+$baseWorkDir = $coursesRepositorySys . $courseDir;
 
 $nameTools = $langCreateModifyDocument;
 include('../inc/claro_init_header.inc.php');
