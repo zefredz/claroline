@@ -131,9 +131,15 @@ claroline/admin/adminusercourses.php?uidToEdit=3&cfrom=ulist
 seb : Ne s'agit-il pas du même problème que l'on avait dans document lorsque post_max_size est plus petit que upload_max_filesize
 $_POST est unset et donc on ne sait afficher aucun message d'erreur ?
 
+Repéré par : MOOSH
+Assigné à : SEB
+Etat : RESOLU (en utilisant le meme principe que pour document et import learning path, à savoir affichage de la taille max autorisée sur form d'upload
 
 -------------
 $Log$
+Revision 1.26  2004/06/15 07:47:14  seb
+bug 17 résolu
+
 Revision 1.25  2004/06/15 05:56:21  seb
 bug 17 - ajout de commentaire
 
