@@ -24,7 +24,7 @@ $langTraduction = "Outil de traduction";
 $langPlatform = "Plate-forme"; // JCC
 $langYouCanUsefields = "Vous pouvez utiliser (*) dans les champs";
 $langManageCourseCategories = "Editer des catégories de cours";
-$langViewPlatFormStatistics = "Voir les statistiques de la plate-forme"; // JCC
+$langViewPlatFormStatistics = "Statistiques de la plate-forme"; // JCC
 
 //user and course advanced search pages
 
