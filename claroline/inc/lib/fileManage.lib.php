@@ -90,9 +90,6 @@ function update_db_info($action, $filePath, $newParam = array())
             $theQuery = "UPDATE `".$dbTable."`
             SET path = CONCAT(\"".$newParam['path']."\", SUBSTRING(path, LENGTH(\"".$filePath."\")+1) )
             WHERE path = \"".$filePath."\" OR path LIKE \"".$filePath."/%\"";
-/* <DEBUG> */
-echo "<pre style='color:red;font-weight:bold'>$theQuery</pre>";
-/* </DEBUG> */
 
             claro_sql_query($theQuery);
         }
