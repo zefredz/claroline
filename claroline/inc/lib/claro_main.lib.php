@@ -995,7 +995,9 @@ function claro_parse_user_text($userText)
                           '<embed TYPE="application/x-techexplorer" texdata="',
                           $userText);
 
-   $userText = str_replace('[/tex]','" width="100%">',$userText);
+   $userText = str_replace('[/tex]',
+                           '" width="100%" pluginspace="http://www.integretechpub.com/">',
+                           $userText);
 
    return $userText;
 }
