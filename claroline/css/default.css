@@ -342,7 +342,6 @@ h3{	font-size: 110%; }
 	margin:  1px;
 	padding: 4px;
 	border: none;
-	border-bottom: solid #DDDEBC 1px ;
 }
 
 
@@ -368,9 +367,14 @@ h3{	font-size: 110%; }
 	background-color: #DDDEBC;
 }
 
-.claroTable tbody tr:hover {
+.emphaseLine tbody td {
+	border-bottom: solid #DDDEBC 1px ;
+}
+
+.emphaseLine tbody tr:hover {
 	background-color: #E3E3E3;
 }
+
 .noHover {
 	background-color: white;
 }
