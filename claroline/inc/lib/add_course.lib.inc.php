@@ -148,7 +148,11 @@ function define_course_keys ($wantedCode,          $prefix4all="",
  */
 function prepare_course_repository($courseRepository, $courseId)
 {
-	GLOBAL $coursesRepositorySys;
+	GLOBAL $coursesRepositorySys, $clarolineRepositorySys, $includePath;
+  if( !is_dir($coursesRepositorySys) )
+  {
+    mkpath($coursesRepositorySys);
+  }
 	if (is_writable($coursesRepositorySys))
 	{
 		umask(0);
@@ -178,7 +182,8 @@ function prepare_course_repository($courseRepository, $courseId)
 		$string=str_replace("\r","","<?"."php
 //		session_start();
 	\$cidReq = \"$courseId\";
-	include(\"../claroline/course_home/course_home.php\");
+  \$claroGlobalPath = \"$includePath\";
+	include(\"".$clarolineRepositorySys."course_home/course_home.php\");
 	?>");
 		fwrite($fd, "$string");
 		$fd=fopen($coursesRepositorySys.$courseRepository."/group/index.php", "w");
