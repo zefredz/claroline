@@ -4,7 +4,6 @@
 // It will NOT report uninitialized variables
 error_reporting  (E_ERROR | E_WARNING | E_PARSE);
 
-session_start();
 $langFile = 'phpbb';
 $tlabelReq = 'CLFRM___';
 require '../inc/claro_init_global.inc.php';
@@ -95,7 +94,13 @@ $tbl_group_properties = $_course['dbNameGlu'].'group_property';
 $tbl_student_group	  = $_course['dbNameGlu'].'group_team';
 $tbl_user_group       = $_course['dbNameGlu'].'group_rel_team_user';
 $tbl_user_notify      = $_course['dbNameGlu'].'bb_rel_topic_userstonotify';
+
+$TABLEUSER            = $mainDbName.".`user`";
+
+
 $is_groupPrivate      = $_groupProperties['private'];
+
+
 
 $userdata               = array();
 $userdata['first_name'] = $_user['firstName'];

@@ -1,5 +1,4 @@
 <?php //     $Id$
-session_start();
 /***************************************************************************
                           index.php  -  description
                              -------------------
@@ -18,7 +17,6 @@ session_start();
  ***************************************************************************/
 $tlabelReq = 'CLFRM___';
 
-include 'extention.inc';
 include 'functions.php';
 include 'config.php';
 $pagetitle = $l_indextitle;

@@ -1,6 +1,4 @@
 <?php
-session_start();
-include('../inc/conf/claro_main.conf.php');
 
 /***************************************************************************
                             reply.php  -  description
@@ -24,12 +22,11 @@ include('../inc/conf/claro_main.conf.php');
 
 //neede for notification in claro 1.5
 
-$TABLEUSER = $mainDbName.".`user`";
-include ('../inc/lib/claro_mail.lib.inc.php');
 
 require 'functions.php';
 require 'config.php';
 
+include ('../inc/lib/claro_mail.lib.inc.php');
 
 if($cancel)
 {

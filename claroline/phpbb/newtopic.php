@@ -1,6 +1,4 @@
 <?php  
-session_start();
-include('../inc/conf/claro_main.conf.php');
 
 /***************************************************************************
                             newtopic.php  -  description

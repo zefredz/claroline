@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 /***************************************************************************
                             viewforum.php  -  description
                              -------------------
@@ -95,9 +93,9 @@ echo "<table class=\"claroTable\" border=\"0\""
 
     ."<tr class=\"headerX\" align=\"left\">\n"
     ."<th colspan=\"2\">&nbsp;". $l_topic."</th>\n"
-    ."<th width=\"9%\" align=\"center\">".$l_replies."</th>\n"
+    ."<th width=\"9%\"  align=\"center\">".$l_replies."</th>\n"
     ."<th width=\"20%\" align=\"center\">&nbsp;".$l_poster."</th>\n"
-    ."<th width=\"8%\" align=\"center\">".$langSeen."</th>\n"
+    ."<th width=\"8%\"  align=\"center\">".$langSeen."</th>\n"
     ."<th width=\"15%\" align=\"center\">".$langLastMsg."</th>\n"
     ."</tr>\n";
 
