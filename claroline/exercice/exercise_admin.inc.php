@@ -95,8 +95,7 @@ if($_REQUEST['submitExercise'])
 		unset($_REQUEST['modifyExercise']);
 	}
 }
-else
-{
+// get all properties of the exercise before display of form or of resume
 	$exerciseTitle		= $objExercise->selectTitle();
 	$exerciseDescription= $objExercise->selectDescription();
 	$exerciseType		= $objExercise->selectType();
@@ -114,7 +113,7 @@ else
     
   // end date splitting
   list($endDate, $endTime) = split(' ', $objExercise->get_end_date());
-}
+
 
 // shows the form to modify the exercise
 if($_REQUEST['modifyExercise'] || $newExercise == 'yes')
@@ -276,16 +275,65 @@ if($_REQUEST['modifyExercise'] || $newExercise == 'yes')
 }
 else
 {
+  // display exercise settings
 ?>
 
 <h3>
   <?php echo $exerciseTitle; ?>
 </h3>
-
 <blockquote>
   <?php echo claro_parse_user_text($exerciseDescription); ?>
 </blockquote>
-
+<small>
+<ul>
+  <li><?php echo $langExerciseType." : "; echo ($exerciseType >= 2)?$langSequentialExercise:$langSimpleExercise; ?></li>
+  <li><?php echo $langExerciseOpening. " : ";  echo claro_disp_localised_date($dateTimeFormatLong,$objExercise->get_start_date('timestamp')); ?></li>
+  <li><?php echo $langExerciseClosing." : "; echo claro_disp_localised_date($dateTimeFormatLong,$objExercise->get_end_date('timestamp')); ?></li>
+  <li>
+<?php 
+  if ( $maxTime == 0 )
+  {
+    echo $langNoTimeLimit;
+  }
+  else
+  {
+    echo $langAllowedTime." : ".disp_minutes_seconds($maxTime);
+  }
+?>
+  <li>
+<?php 
+  if($maxAttempt == 0)
+  {
+    echo $langUnlimitedAttempts;
+  }
+  elseif($maxAttempt == 1)
+  {
+    echo $maxAttempt." ".$langAttemptAllowed;
+  }
+  else
+  {
+    echo $maxAttempt." ".$langAttemptsAllowed;
+  }
+?>
+  </li>
+  <li><?php echo $langAllowAnonymousAttempts." : "; echo($anonymousAttempts)?$langAnonymousAttemptsAllowed:$langAnonymousAttemptsNotAllowed; ?></li>
+  <li>
+<?php 
+    echo $langShowAnswers." : "; 
+    switch($showAnswer)
+    {
+      case 'ALWAYS' : echo $langAlways; 
+                                break;
+      case 'NEVER'  : echo $langNever;
+                              break;
+      case 'ENDDATE' : echo $langAfterEndDate;
+                              break;
+    }
+?>  
+  </li>
+   <li><?php echo $langRandomQuestions." : "; echo ($randomQuestions)?$langYes:$langNo; ?></li>
+</ul>
+</small>
 <a href="<?php echo $PHP_SELF; ?>?modifyExercise=yes"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><small><?php echo $langEditExercise; ?></small></a>
 
 <?php
