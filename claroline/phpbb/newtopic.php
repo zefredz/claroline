@@ -118,11 +118,11 @@ if($submit)
       ------------------------------------------------------------------------*/
 
 
-    $topic_id = create_new_topic($subject, $time, $forumId, 
+    $topic_id = create_new_topic($subject, $time, $forum_id, 
                           $userdata['user_id'], $userFirstname, $userLastname);
     if ($topic_id)
     {
-        create_new_post($topic_id, $forum, $userdata['user_id'], $time, $poster_ip, 
+        create_new_post($topic_id, $forum_id, $userdata['user_id'], $time, $poster_ip, 
                              $userLastname, $userFirstname, $message);
     }
 
