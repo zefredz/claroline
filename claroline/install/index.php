@@ -1421,7 +1421,7 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 			<b>
 				Last tip
 			</b> 
-			: we highly reccommend that you protect or remove intaller directory.
+			: we highly recommend that you protect or remove instaler directory.
 			
 			
 </form>
