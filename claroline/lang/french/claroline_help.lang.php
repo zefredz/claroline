@@ -9,7 +9,7 @@ Pour visiter les cours accessibles depuis la page d'accueil du campus,
 il suffit de cliquer sur le code du cours dans la liste, sans inscription préalable.</p>
 <p>Pour accéder aux cours non accessibles depuis la page d'accueil du campus, il
 est nécessaire de s'inscrire. Inscription > Tapez vos paramètres personnels >
-Action: M'inscrire à des cours > Cochez les cours et validez.</p>
+Action: S'inscrire à des cours > Cochez les cours et validez.</p>
 <p>Un e-mail vous sera envoyé
 pour vous rappeler le nom d'utilisateur et le mot de passe à introduire lors de votre prochaine visite.</p>
 <hr noshade size=1>
