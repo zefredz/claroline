@@ -965,16 +965,6 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 }     // cmdDB_CONNECT_SETTING
 
 
-
-
-
-
-
-
-
-
-
-
 ##########################################################################
 ###### STEP 4 MYSQL DATABASE SETTINGS ####################################
 ##########################################################################
@@ -1067,6 +1057,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
                         <td colspan="3">
                         </td>
                     </tr>
+
                     ';
     if (!$singleDbForm)
     {
@@ -1115,8 +1106,14 @@ elseif($display == DISP_DB_NAMES_SETTING )
                             &nbsp;
                         </td>
                     </tr>
+                    
                     <tr>
                         <td colspan="3">
+                        <blockquote><small>
+        Normally, Claroline creates a separate database for the tracking tables. 
+        But, you can share the same database for the main tables and the tracking ones
+        (you can specify a prefix for each of these tables).
+    </small></blockquote>
                         </td>
                     </tr>
         ';
@@ -1134,7 +1131,27 @@ elseif($display == DISP_DB_NAMES_SETTING )
                         <td>
                             e.g. \''.$dbPrefixForm.'\'
                         </td>
-                    </tr>
+                    </tr>';
+    if (!$singleDbForm)
+    {
+        echo '
+                    <tr>
+                        <td colspan="3">
+                        <blockquote>
+                        <small>
+                            <b>
+                            Afterwards, Claroline will create a new database for each newly 
+                            created course. 
+                            </b>
+                            <BR>
+                            You can specify a prefix for these database names.
+                        </small>
+                        </blockquote>
+                        </td>
+                    </tr>';
+
+    }              
+                    echo '
                 </table>
                 <table width="100%">
                     <tr>

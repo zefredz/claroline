@@ -160,6 +160,7 @@ array ('label'       => 'Prefix for central tables'
 $conf_def_property_list['statsDbName'] =
 array ( 'label'       => 'Database name where stored the tracking and stat tables'
       , 'description' => 'can be the same name as main database'
+      ,'default'     => 'claroline'
       , 'type'        => 'string'
       , 'display'     => TRUE
       , 'readonly'    => FALSE
