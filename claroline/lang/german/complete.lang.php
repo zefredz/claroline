@@ -1450,4 +1450,11 @@ $l_wrongpass = "You entered the wrong password.";
 $l_yahoo = "Yahoo Messenger";
 $l_yim = "YIM";
 $l_yourname = "Your Username";
+
+$langAltDocument = "Dokument";
+$langAltHandmade = "Selbstgemacht";
+$langAltExercise = "Test";
+$langAltClarodoc = "Systemdokument";
+$langAltScorm = "SCORM";
+
 ?>

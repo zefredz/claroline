@@ -1466,4 +1466,11 @@ $l_wrongpass = "&Egrave; stata inserita una password non corretta.";
 $l_yahoo = "Yahoo messenger";
 $l_yim = "YIM";
 $l_yourname = "Il tuo Username";
+
+$langAltDocument = "Document";
+$langAltHandmade = "Handmade";
+$langAltExercise = "Exercise";
+$langAltClarodoc = "Clarodoc";
+$langAltScorm = "Scorm";
+
 ?>

@@ -1640,4 +1640,11 @@ $l_wrongpass = "Clave de acceso equivocada.";
 $l_yahoo = "Yahoo Messenger";
 $l_yim = "YIM";
 $l_yourname = "Su Nombre de Usuario";
+
+$langAltDocument = "Documento";
+$langAltHandmade = "Hecho a mano";
+$langAltExercise = "Ejercicio";
+$langAltClarodoc = "Clarodoc";
+$langAltScorm = "Scorm";
+
 ?>

@@ -1447,4 +1447,11 @@ $l_wrongpass = "Você forneceu a senha incorreta.";
 $l_yahoo = "Yahoo Messenger";
 $l_yim = "YIM";
 $l_yourname = "Seu Nome do usuário";
+
+$langAltDocument = "Documento";
+$langAltHandmade = "Manualmente";
+$langAltExercise = "Exercício";
+$langAltClarodoc = "Clarodoc";
+$langAltScorm = "Scorm";
+
 ?>

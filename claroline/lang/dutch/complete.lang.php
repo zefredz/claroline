@@ -983,4 +983,11 @@ $l_wrongpass = "U hebt een verkeerd wachtwoord ingegeven.";
 $l_yahoo = "Yahoo Messenger";
 $l_yim = "YIM";
 $l_yourname = "Uw Gebruikersnaam";
+
+$langAltDocument = "Document";
+$langAltHandmade = "Handmade";
+$langAltExercise = "Exercise";
+$langAltClarodoc = "Clarodoc";
+$langAltScorm = "Scorm";
+
 ?>
