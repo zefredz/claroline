@@ -473,7 +473,7 @@ function upgrade_tool_list ($dbNameGlu)
 		
 		$sql_update = " UPDATE `".$dbNameGlu."tool_list` " 
 				. " set access = '" . $access ."' "
-				. " where tool_id = '" . $tool[id]  . "' ";
+				. " where tool_id = '" . $tool['id']  . "' ";
 		claro_sql_query($sql_update);
 	
 	}
@@ -542,11 +542,11 @@ function upgrade_course_repository($courseID,$courseRepository)
 	?>");
         
         fwrite($fd, "$string");
-        
+        fclose($fd);
         $fd=fopen($courseRepository."/group/index.php", "w");
         $string="<"."?"."php"." session_start"."()"."; ?>";
         fwrite($fd, "$string");
-        
+	fclose($fd);        
         return 1;
     
     } else {
