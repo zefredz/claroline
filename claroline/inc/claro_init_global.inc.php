@@ -84,14 +84,28 @@ else
 
 define ('LANGMODE','DEVEL'); // must be move in claro_main_conf.php
 
+
 if (LANGMODE == 'DEVEL')
 {
+ 
+    // include the language file with all language variables
+
     include ($includePath.'/../lang/english/complete.lang.php');
 
     if ($languageInterface  != 'english') // avoid inutile
     {
         include($includePath.'/../lang/'.$languageInterface.'/complete.lang.php');
     }
+    
+    // include the locale settings language
+
+    include($includePath.'/../lang/english/locale_settings.php');
+    
+    if ($languageInterface  != 'english') // avoid inutile
+    {
+        include($includePath.'/../lang/'.$languageInterface.'/locale_settings.php');
+    }
+    
 }
 else
 {
