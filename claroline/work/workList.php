@@ -64,6 +64,9 @@ $maxFilledSpace 	= 100000000;
 // use with strip_tags function when strip_tags is used to check if a text is empty
 // but a 'text' with only an image don't have to be considered as empty 
 $allowedTags = '<img>';
+
+// initialise dialog box to an empty string, all dialog will be concat to it
+$dialogBox = '';
 /*============================================================================
                      CLEAN INFORMATIONS SEND BY USER
   =============================================================================*/
@@ -71,7 +74,7 @@ stripSubmitValue($HTTP_POST_VARS);
 stripSubmitValue($HTTP_GET_VARS);
 stripSubmitValue($_REQUEST);
 
-$cmd = $_REQUEST['cmd'];
+$cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
 
 /*============================================================================
                           PREREQUISITES
@@ -96,7 +99,7 @@ if( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
 }
 
 // assignment not requested or not found
-if( is_null($assignment) )
+if( !isset($assignment) || is_null($assignment) )
 {
       // we NEED to know in which assignment we are, so if assigId is not set
       // relocate the user to the previous page
@@ -136,7 +139,7 @@ if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
 
 // if a command is requested, that work was not requested or requested and not found
 // and that this is not a creation command
-if( isset($cmd) && $cmd != 'rqSubWrk' && $cmd != 'exSubWrk' && is_null($wrk))
+if( isset($cmd) && $cmd != 'rqSubWrk' && $cmd != 'exSubWrk' && (isset($wrk) && is_null($wrk)) )
 {
       // unset cmd so that it will display the list of submissions
       unset($cmd);
@@ -635,12 +638,13 @@ if($is_allowedToEditAll)
   if( $cmd == "rqGradeWrk" && isset($_REQUEST['wrkId']) )
   {
       // prepare fields
-      if( !$_REQUEST['submitWrk'] )
+      if( !isset($_REQUEST['submitWrk']) || !$_REQUEST['submitWrk'] )
       {
             // prefill some fields of the form
             $form['wrkTitle'  ] = $wrk['title']." (".$langFeedback.")";
             $form['wrkAuthors'] = $currentUserFirstName." ".$currentUserLastName;
-            $form['wrkScore'  ] = -1; 
+			$form['wrkTxt'] = "";
+            $form['wrkScore'  ] = -1;
       }
       else
       {
@@ -728,7 +732,7 @@ if( $is_allowedToEdit )
   if( $cmd == "rqEditWrk" && isset($_REQUEST['wrkId']) )
   {
         // prepare fields
-      if( !$_REQUEST['submitWrk'] )
+      if( !isset($_REQUEST['submitWrk']) || !$_REQUEST['submitWrk'] )
       {
             // prefill some fields of the form
             $form['wrkTitle'] = $wrk['title'];
@@ -824,10 +828,13 @@ if( $is_allowedToSubmit )
   if( $cmd == "rqSubWrk" )
   {
       // prepare fields
-      if( !$_REQUEST['submitWrk'] )
+      if( !isset($_REQUEST['submitWrk']) || !$_REQUEST['submitWrk'] )
       {
             // prefill som fields of the form
+			$form['wrkTitle'] = "";
             $form['wrkAuthors'] = $currentUserFirstName." ".$currentUserLastName;
+			$form['wrkGroup'] = "";
+			$form['wrkTxt'] = "";
       }
       else
       {
@@ -861,12 +868,6 @@ if( $cmd == "exShwDet" )
       $dispWrkDet = true;
 } 
   
-  
-  
-  
-  
-  
-  
 /*============================================================================
                           DISPLAY
   =============================================================================*/
@@ -899,7 +900,9 @@ if( $dispWrkDet || $dispWrkForm )
       // bredcrump to return to the list when in a form
       $interbredcrump[]= array ("url"=>"../work/workList.php?assigId=".$_REQUEST['assigId'], "name"=> $langAssignment);
       // add parameters in query string to prevent the 'refresh' interbredcrump link to display the list of works instead of the form
-      $QUERY_STRING = "assigId=".$_REQUEST['assigId']."&wrkId=".$_REQUEST['wrkId']."&cmd=".$_REQUEST['cmd'];
+	  $QUERY_STRING = "assigId=".$_REQUEST['assigId'];
+	  $QUERY_STRING .= (isset($_REQUEST['wrkId']))?"&wrkId=".$_REQUEST['wrkId']:"";
+      $QUERY_STRING .= "&cmd=".$_REQUEST['cmd'];
       $nameTools = $langSubmittedWork;
 }
 else
@@ -1259,8 +1262,8 @@ if( $is_allowedToSubmit )
                   {
                         echo "<tr>\n"
                               ."<td valign=\"top\">";
-                              // display a different text according to the context
-                        if( $assignment['authorize_text'] == "YES" )
+                        // display a different text according to the context
+                        if( $assignment['authorized_content'] == "TEXT"  )
                         {
                               // if text is required, file is considered as a an attached document
                               echo $langCurrentAttachedDoc;

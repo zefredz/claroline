@@ -56,6 +56,9 @@ $wrkDir           = $currentCourseRepositorySys.'work/'; //directory path to cre
 // but a 'text' with only an image don't have to be considered as empty 
 $allowedTags = '<img>';
 
+// initialise dialog box to an empty string, all dialog will be concat to it
+$dialogBox = '';
+
 // permission
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
@@ -66,7 +69,7 @@ stripSubmitValue($HTTP_POST_VARS);
 stripSubmitValue($HTTP_GET_VARS);
 stripSubmitValue($_REQUEST);
 
-$cmd = $_REQUEST['cmd'];
+$cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
 
 /*============================================================================
                 HANDLING FORM DATA : CREATE/EDIT ASSIGNMENT
@@ -124,11 +127,11 @@ if( isset($_REQUEST['submitAssignment']) )
     {
       $authorizedContent = "TEXTFILE";
     }
-    elseif($_REQUEST['authorizeText'])
+    elseif( isset($_REQUEST['authorizeText']) && $_REQUEST['authorizeText'])
     {
       $authorizedContent = "TEXT";       
     }
-    elseif($_REQUEST['authorizeFile'])
+    elseif( isset($_REQUEST['authorizeFile']) && $_REQUEST['authorizeFile'])
     {
       $authorizedContent = "FILE";       
     }
@@ -610,7 +613,7 @@ if($is_allowedToEdit)
                           DIALOG BOX SECTION
     --------------------------------------------------------------------*/
 
-  if ($dialogBox)
+  if ( isset($dialogBox) && !empty($dialogBox) )
   {
           claro_disp_message_box($dialogBox);
   }
@@ -618,7 +621,7 @@ if($is_allowedToEdit)
   /*--------------------------------------------------------------------
                         CREATE AND EDIT FORM
     --------------------------------------------------------------------*/
-  if ( $displayAssigForm ) 
+  if ( isset($displayAssigForm) && $displayAssigForm ) 
   {
 ?>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
@@ -744,7 +747,7 @@ if($is_allowedToEdit)
     /*--------------------------------------------------------------------
                         FEEDBACK FORM
     --------------------------------------------------------------------*/
-  if( $displayFeedbackForm )
+  if( isset($displayFeedbackForm) && $displayFeedbackForm )
   {
 ?>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
@@ -824,14 +827,15 @@ if($is_allowedToEdit)
 /*--------------------------------------------------------------------
                             ASSIGNMENT LIST
     --------------------------------------------------------------------*/
-if( !$displayAssigForm && !$displayFeedbackForm )
+// if we display neither assignment form nor the feedback form	
+if( (!isset($displayAssigForm) || !$displayAssigForm) && (!isset($displayFeedbackForm) || !$displayFeedbackForm) )
 {
     /*--------------------------------------------------------------------
                         INTRODUCTION SECTION
       --------------------------------------------------------------------*/
     
-    $moduleId = $course_tool['id']; // Id of the Student Paper introduction Area
-    $helpAddIntroText=$langIntroWork;
+    $moduleId = $_tid; // Id of the Student Paper introduction Area
+    $helpAddIntroText = $langIntroWork;
     include($includePath."/introductionSection.inc.php");  
 
     /*--------------------------------------------------------------------
