@@ -36,17 +36,13 @@ $tbl_user             = $tbl_mdb_names['user'            ];
 $tbl_admin            = $tbl_mdb_names['admin'           ];
 $tbl_category         = $tbl_mdb_names['category'        ];
 $tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'  ];
-$tbl_course_user = $tbl_rel_course_user;
+$tbl_track_default    = $tbl_mdb_names['track_e_default'];
+$tbl_track_login      = $tbl_mdb_names['track_e_login'];
 
 // List of alias  to track an set at original name
-$tbl_courses            = $tbl_course;
 $tbl_courseUser         = $tbl_rel_course_user ;
 $tbl_courses_nodes      = $tbl_category;
 // End of List of alias  to track an set at original name
-
-
-$tbl_track_default      = $statsDbName."`.`track_e_default";
-$tbl_track_login        = $statsDbName."`.`track_e_login";
 
 include_once($includePath."/lib/fileManage.lib.php");
 
@@ -928,10 +924,10 @@ function remove_user_from_group($userId, $courseCode)
 {
 	global $dbGlu;
 	global $mainDbName;
-	global $courseTablePrefix;
-	$tbl_courses            = $mainDbName.'`.`cours';
+	global $courseTablePrefix, $tbl_course;
+	
 
-	$sql = "SELECT concat(dbName,\"".$dbGlu."\") dbNameGlued FROM `".$tbl_courses."` WHERE code=\"".$courseCode."\"";
+	$sql = "SELECT concat(dbName,\"".$dbGlu."\") dbNameGlued FROM `".$tbl_course."` WHERE code=\"".$courseCode."\"";
 	$res = claro_sql_query_fetch_all($sql);
 	$tbl_group = $courseTablePrefix.$res[0]['dbNameGlued']."group_rel_team_user";
 
@@ -1004,8 +1000,8 @@ function add_user_to_class($userId, $classId)
 
 function delete_user($su_user_id)
 {
-   global $tbl_courseUser;
-   global $tbl_courses;
+   global $tbl_rel_course_user;
+   global $tbl_course;
    global $tbl_admin;
    global $tbl_courseUser;
    global $tbl_user;
@@ -1020,7 +1016,7 @@ function delete_user($su_user_id)
    $sql_searchCourseData =
         "SELECT
             `c`.`dbName`
-        FROM `".$tbl_courseUser."` cu,`".$tbl_courses."` c
+        FROM `".$tbl_rel_course_user."` cu,`".$tbl_course."` c
         WHERE `cu`.`code_cours`=`c`.`code` AND `cu`.`user_id`='".$su_user_id."'";
 
         $res_searchCourseData = claro_sql_query_fetch_all($sql_searchCourseData) ;
@@ -1032,74 +1028,69 @@ function delete_user($su_user_id)
         
 	//For each course of the user
 	
-	if($res_searchCourseData)
+    if($res_searchCourseData)
+    {
+        foreach($res_searchCourseData as $one_course)
         {
-            foreach($res_searchCourseData as $one_course)
-            {
-                $_course["dbNameGlu"]    = $courseTablePrefix . $one_course["dbName"] . $dbGlu; // use in all queries
-                $tbl_rel_usergroup       = $_course["dbNameGlu"]."group_rel_team_user";
-                $tbl_group               = $_course["dbNameGlu"]."group_team";
-                $tbl_userInfo            = $_course["dbNameGlu"]."userinfo_content";
+            $_course["dbNameGlu"]    = $courseTablePrefix . $one_course["dbName"] . $dbGlu; // use in all queries
+            $tbl_rel_usergroup       = $_course["dbNameGlu"]."group_rel_team_user";
+            $tbl_group               = $_course["dbNameGlu"]."group_team";
+            $tbl_userInfo            = $_course["dbNameGlu"]."userinfo_content";
 
+            $tbl_track_access    = $_course["dbNameGlu"]."track_e_access";    // access_user_id
+            $tbl_track_downloads = $_course["dbNameGlu"]."track_e_downloads";
+            $tbl_track_exercices = $_course["dbNameGlu"]."track_e_exercices";
+            $tbl_track_upload    = $_course["dbNameGlu"]."track_e_uploads";// upload_user_id
 
-                $tbl_track_access    = $_course["dbNameGlu"]."track_e_access";    // access_user_id
-                $tbl_track_downloads = $_course["dbNameGlu"]."track_e_downloads";
-                $tbl_track_exercices = $_course["dbNameGlu"]."track_e_exercices";
-                //$tbl_track_link      = $_course["dbNameGlu"]."track_e_links";    //links_user_id
-                $tbl_track_upload    = $_course["dbNameGlu"]."track_e_uploads";// upload_user_id
+            //delete user information in the table group_rel_team_user
+            $sql_deleteUserFromGroup = "delete from `".$tbl_rel_usergroup."` where user='".$su_user_id."'";
+            claro_sql_query($sql_deleteUserFromGroup) ;
 
-                //delete user information in the table group_rel_team_user
-                $sql_deleteUserFromGroup = "delete from `$tbl_rel_usergroup` where user='".$su_user_id."'";
-                claro_sql_query($sql_deleteUserFromGroup) ;
+            //delete user information in the table userinfo_content
+            $sql_deleteUserFromGroup = "delete from `".$tbl_userInfo."` where user_id='".$su_user_id."'";
+            claro_sql_query($sql_deleteUserFromGroup) ;
 
-                //delete user information in the table userinfo_content
-                $sql_deleteUserFromGroup = "delete from `$tbl_userInfo` where user_id='".$su_user_id."'";
-                claro_sql_query($sql_deleteUserFromGroup) ;
+            //change tutor -> NULL for the course where the the tutor is the user deleting
+            $sql_update="update `".$tbl_group."` set tutor=NULL where tutor='".$su_user_id."'";
+            claro_sql_query($sql_update) ;
 
-                //change tutor -> NULL for the course where the the tutor is the user deleting
-                $sql_update="update `$tbl_group` set tutor=NULL where tutor='".$su_user_id."'";
-                claro_sql_query($sql_update) ;
+            $sql_DeleteUser="delete from `".$tbl_track_access."` where access_user_id='".$su_user_id."'";
+            claro_sql_query($sql_DeleteUser);
 
-                 $sql_DeleteUser="delete from `$tbl_track_access` where access_user_id='".$su_user_id."'";
-                 claro_sql_query($sql_DeleteUser);
+            $sql_DeleteUser="delete from `".$tbl_track_downloads."` where down_user_id='".$su_user_id."'";
+            claro_sql_query($sql_DeleteUser);
 
-                 $sql_DeleteUser="delete from `$tbl_track_downloads` where down_user_id='".$su_user_id."'";
-                 claro_sql_query($sql_DeleteUser);
+            $sql_DeleteUser="delete from `".$tbl_track_exercices."` where exe_user_id='".$su_user_id."'";
+            claro_sql_query($sql_DeleteUser);
 
-                 $sql_DeleteUser="delete from `$tbl_track_exercices` where exe_user_id='".$su_user_id."'";
-                 claro_sql_query($sql_DeleteUser);
-		 
-                 //$sql_DeleteUser="delete from `$tbl_track_link` where links_user_id='".$su_user_id."'";
-                 //claro_sql_query($sql_DeleteUser);
-
-                 $sql_DeleteUser="delete from `$tbl_track_upload` where upload_user_id='".$su_user_id."'";
-                 claro_sql_query($sql_DeleteUser);
-            }
+            $sql_DeleteUser="delete from `".$tbl_track_upload."` where upload_user_id='".$su_user_id."'";
+            claro_sql_query($sql_DeleteUser);
         }
+    }
 
     //delete the user in the table user
-    $sql_DeleteUser="delete from `$tbl_user` where user_id='".$su_user_id."'";
+    $sql_DeleteUser="delete from `".$tbl_user."` where user_id='".$su_user_id."'";
     claro_sql_query($sql_DeleteUser);
 
     //delete user information in the table course_user
-    $sql_DeleteUser="delete from `$tbl_courseUser` where user_id='".$su_user_id."'";
+    $sql_DeleteUser="delete from `".$tbl_rel_course_user."` where user_id='".$su_user_id."'";
     claro_sql_query($sql_DeleteUser);
 
     //delete user information in the table admin
-    $sql_DeleteUser="delete from `$tbl_admin` where idUser='".$su_user_id."'";
+    $sql_DeleteUser="delete from `".$tbl_admin."` where idUser='".$su_user_id."'";
     claro_sql_query($sql_DeleteUser);
 
     
     
     //Change creatorId -> NULL
-    $sql_update="update `$tbl_user` set creatorId=NULL where creatorId='".$su_user_id."'";
+    $sql_update="update `".$tbl_user."` set creatorId=NULL where creatorId='".$su_user_id."'";
     claro_sql_query($sql_update);
 
     //delete user information in the tables clarolineStat
-    $sql_DeleteUser="delete from `$tbl_track_default` where default_user_id='".$su_user_id."'";
+    $sql_DeleteUser="delete from `".$tbl_track_default."` where default_user_id='".$su_user_id."'";
     claro_sql_query($sql_DeleteUser);
 
-    $sql_DeleteUser="delete from `$tbl_track_login` where login_user_id='".$su_user_id."'";
+    $sql_DeleteUser="delete from `".$tbl_track_login."` where login_user_id='".$su_user_id."'";
     claro_sql_query($sql_DeleteUser);
 
     unset($su_user_id);
@@ -1121,8 +1112,6 @@ function delete_course($code)
 {
     global $mainDbName;
     global $singleDbEnabled;
-    global $tbl_courseUser;
-    global $tbl_course;
     global $courseTablePrefix;
     global $dbGlu;
     global $coursesRepositorySys;
