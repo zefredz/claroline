@@ -34,7 +34,7 @@ else
 	$intro_editAllowed = false; // "view only" Mode
 }
 */
-$intro_editAllowed = $is_courseAdmin; 
+$intro_editAllowed = claro_is_allowed_to_edit(); 
 
 $intro_exDel = false;
 
