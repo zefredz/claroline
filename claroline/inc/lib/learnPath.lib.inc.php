@@ -36,6 +36,8 @@
       * mode used by {@link commentBox($type, $mode)} and {@link nameBox($type, $mode)}
       */
       define ( "UPDATE_", 2 );
+      define ( "UPDATENOTSHOWN_", 4 );
+      
      /**
       * mode used by {@link commentBox($type, $mode)} and {@link nameBox($type, $mode)}
       */
@@ -51,9 +53,7 @@
       define ( "MODULE_", 2 );
       define ( "LEARNINGPATH_", 3 );
       define ( "LEARNINGPATHMODULE_", 4 );
-
-
-
+      
 
      /**
       * DEPRECATED : Cleaning of LP sessions vars
@@ -164,7 +164,41 @@
                  }
 
            }
+	   
+	   // update BUT NOT SHOWN mode
+           if ( $mode == UPDATENOTSHOWN_ && $is_AllowedToEdit )
+           {
 
+                 if ( isset($_POST['insertCommentBox']) && !empty($_POST['insertCommentBox']) )
+                 {
+                        $sql = "UPDATE `".$tbl_name."`
+                                   SET `".$col_name."` = \"".claro_addslashes($_POST['insertCommentBox'])."\"
+                                 WHERE ".$where_cond;
+                        //echo "<1 upd> ".$sql."<br>";
+                        claro_sql_query($sql);
+                        $dsp = false;
+                 }
+                 else // display form
+                 {
+                     // get info to fill the form in
+                     $sql = "SELECT *
+                               FROM `".$tbl_name."`
+                              WHERE ".$where_cond;
+                     $query = claro_sql_query($sql);
+                     $oldComment = @mysql_fetch_array($query);
+                     echo        "<form method=\"POST\" action=\"$PHP_SELF\">\n",
+                                    //"<textarea name=\"insertCommentBox\" rows=\"8\" cols=\"55\" wrap=\"virtual\">",
+                                    claro_disp_html_area('insertCommentBox', $oldComment[$col_name], 15, 55),
+                                    //htmlentities($oldComment[$col_name])."</textarea>\n",
+                                    "<br>\n",
+                                    "<input type=\"hidden\" name=\"cmd\" value=\"update".$col_name."\">",
+                                    "<input type=\"submit\" value=\"$langOk\">\n",
+                                    "<br>\n",
+                                  "</form>\n";
+                 }
+
+           }
+	   
            // delete mode
            if ( $mode == DELETE_ && $is_AllowedToEdit)
            {
