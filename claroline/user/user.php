@@ -22,8 +22,11 @@ include($includePath."/lib/admin.lib.inc.php");
 
 @include($includePath."/lib/debug.lib.inc.php");
 
+claro_set_display_mode_available(true);
+
 $step             = $nbUsersPerPage;
-$is_allowedToEdit = $is_courseAdmin;
+$is_allowedToEdit = claro_is_allowed_to_edit();
+
 $can_add_user     = ($is_courseAdmin && CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER)
 				    || $is_platformAdmin;
 $currentCourse    = $currentCourseID  = $_course['sysCode'];
@@ -77,9 +80,9 @@ $nameTools = $langUsers;
 
 ///////////// OUTPUTS ///////////
 
-include($includePath."/claro_init_header.inc.php");
-
 if ( ! $is_courseAllowed) claro_disp_auth_form();
+
+include($includePath."/claro_init_header.inc.php");
 
 //stats
 include($includePath."/lib/events.lib.inc.php");
@@ -100,7 +103,7 @@ if($dialogBox)
 if ($is_allowedToEdit)
 {
 ?>
-<p align="right">
+
 	<?php if ($can_add_user)
 	{ 
 	   //add CSV file of user link
@@ -120,7 +123,6 @@ if ($is_allowedToEdit)
 	}
 	?>
 	<a href="../group/group.php"><?php echo $langGroupUserManagement; ?></a>
-</p>
 
 <?
 }
