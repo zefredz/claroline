@@ -101,6 +101,7 @@ if( isset($_REQUEST['sesId']) && !empty($_REQUEST['sesId']) )
       list($wrkSession) = claro_sql_query_fetch_all($sql);
 }
 
+
   /*--------------------------------------------------------------------
                         WORK INFORMATIONS
   --------------------------------------------------------------------*/
@@ -119,8 +120,31 @@ if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
 }
 
   /*--------------------------------------------------------------------
+                        WORK INFORMATIONS
+  --------------------------------------------------------------------*/
+if( $wrkSession['authorized_content'] == "TEXTFILE" 
+      || ( $is_courseAdmin && !empty($wrk['parent_id']) ) 
+      || ( $is_courseAdmin && $cmd == 'rqGradeWrk' )
+  )
+{
+      // IF text file is the default session type
+      // OR this is a teacher modifying a grade
+      // OR this is a teacher grading a work
+      $sessionType = "TEXTFILE";
+}
+elseif( $wrkSession['authorized_content'] == "FILE" )
+{
+      $sessionType = "FILE";
+}
+else //if( $wrkSession['authorized_content'] == "TEXT" )
+{
+      $sessionType = "TEXT";
+}
+
+  /*--------------------------------------------------------------------
                         WORK FORM DATA
   --------------------------------------------------------------------*/
+// execute this after a form has been send
 // this instruction bloc will set some vars that will be used in the corresponding queries
 // $wrkForm['fileName'] , $wrkForm['title'] , $wrkForm['authors']
 if( isset($_REQUEST['submitWrk']) ) 
@@ -128,7 +152,7 @@ if( isset($_REQUEST['submitWrk']) )
 
       $formCorrectlySent = true;
       
-      if ( is_uploaded_file($_FILES['wrkFile']['tmp_name']) && $wrkSession['authorized_content'] != "TEXT" )
+      if ( is_uploaded_file($_FILES['wrkFile']['tmp_name']) && $sessionType != "TEXT" )
       {        
             if ($_FILES['wrkFile']['size'] > $fileAllowedSize)
             {
@@ -168,7 +192,7 @@ if( isset($_REQUEST['submitWrk']) )
                   }
             }
       }
-      elseif( $wrkSession['authorized_content'] == "FILE" )
+      elseif( $sessionType == "FILE" )
       {
             if( isset($_REQUEST['currentWrkUrl']) )
             {
@@ -182,14 +206,14 @@ if( isset($_REQUEST['submitWrk']) )
                   $formCorrectlySent = false;
             }
       }
-      elseif( $wrkSession['authorized_content'] == "TEXTFILE" )
+      elseif( $sessionType == "TEXTFILE" )
       {
             // attached file is optionnal if work type is TEXT and FILE
             // $formCorrectlySent stay true;
       }
 
       // if authorized_content is TEXT or TEXTFILE, a text is required !
-      if( $wrkSession['authorized_content'] == "TEXT" || $wrkSession['authorized_content'] == "TEXTFILE" )
+      if( $sessionType == "TEXT" || $sessionType == "TEXTFILE" )
       {
             if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'] ) ) == "" )
             {
@@ -377,9 +401,10 @@ if($is_allowedToEditAll)
       
       $txtForFormTitle = $langGradeWork;
       
-      $dispWrkForm = true;
-      $dispWrkDet = true;
-      $dispWrkLst = false;
+      // display flags
+      $dispWrkForm  = true;
+      $dispWrkDet   = true;
+      $dispWrkLst   = false;
   }  
 } // if($is_allowedToEdit)
 /*============================================================================
@@ -446,9 +471,9 @@ if( $is_allowedToEdit )
       // fill the title of the page
       $txtForFormTitle = $langEditWork;
       
-      $dispWrkForm = true;
-      $dispWrkDet = false;
-      $dispWrkLst = false;
+      $dispWrkForm  = true;
+      $dispWrkDet   = false;
+      $dispWrkLst   = false;
   }
 }
 /*============================================================================
@@ -527,9 +552,9 @@ if( $is_allowedToSubmit )
     // fill the title of the page
     $txtForFormTitle = $langSubmitWork;
     
-    $dispWrkForm = true;
-    $dispWrkDet = false;
-    $dispWrkLst = false;
+    $dispWrkForm  = true;
+    $dispWrkDet   = false;
+    $dispWrkLst   = false;
   }
 } // if is_allowedToSubmit
 /*============================================================================
@@ -621,12 +646,11 @@ if( $is_allowedToSubmit)
       </tr>
 <?php
       // display file box
-      if( $wrkSession['authorized_content'] == "FILE" || $wrkSession['authorized_content'] == "TEXTFILE" )
+      if( $sessionType == "FILE" || $sessionType == "TEXTFILE" )
       {
             // if we are in edit mode and that a file can be edited : display the url of the current file and the file box to change it
             if( isset($form['wrkUrl']) )
             {
-                  $completeWrkUrl = $currentCourseRepositoryWeb."work/ws".$_REQUEST['sesId']."/".$form['wrkUrl'];
                   echo "<tr>\n"
                         ."<td valign=\"top\">";
                         // display a different text according to the context
@@ -640,19 +664,32 @@ if( $is_allowedToSubmit)
                         // if the file is required and the text is only a description of the file
                         echo $langCurrentDoc;
                   }
-                  echo "&nbsp;:<input type=\"hidden\" name=\"currentWrkUrl\" value=\"".$form['wrkUrl']."\">"
-                        ."</td>\n"
-                        ."<td>"
-                        ."<a href=\"".$completeWrkUrl."\">".$form['wrkUrl']."</a>"
-                        ."<br /><small>".$langExplainReplaceFile."</small>"
-                        ."</td>\n"
-                        ."<tr>\n\n";
+                  if( !empty($form['wrkUrl']) )
+                  {
+                        $completeWrkUrl = $currentCourseRepositoryWeb."work/ws".$_REQUEST['sesId']."/".$form['wrkUrl'];
+                        echo "&nbsp;:<input type=\"hidden\" name=\"currentWrkUrl\" value=\"".$form['wrkUrl']."\">"
+                              ."</td>\n"
+                              ."<td>"
+                              ."<a href=\"".$completeWrkUrl."\">".$form['wrkUrl']."</a>"
+                              ."<br /><small>".$langExplainReplaceFile."</small>"
+                              ."</td>\n"
+                              ."</tr>\n\n";
+                  }
+                  else
+                  {
+                        echo "&nbsp;:"
+                              ."</td>\n"
+                              ."<td>"
+                              .$langNoFile
+                              ."</td>\n"
+                              ."</tr>\n\n";
+                  }
             }
             
             echo "<tr>\n"
                   ."<td valign=\"top\"><label for=\"wrkFile\">";
             // display a different text according to the context
-            if( $wrkSession['authorized_content'] == "TEXTFILE" )
+            if( $sessionType == "TEXTFILE" )
             {
                   // if text is required, file is considered as a an attached document
                   echo $langAttachDoc;
@@ -667,7 +704,7 @@ if( $is_allowedToSubmit)
                   ."</tr>\n\n";
       }
       
-      if( $wrkSession['authorized_content'] == "FILE" )
+      if( $sessionType == "FILE" )
       {
             // display standard html textarea
             // used for description of an uploaded file
@@ -681,7 +718,7 @@ if( $is_allowedToSubmit)
                   ."</td>\n"
                   ."</tr>";
       }
-      elseif( $wrkSession['authorized_content'] == "TEXT" || $wrkSession['authorized_content'] == "TEXTFILE" )
+      elseif( $sessionType == "TEXT" || $sessionType == "TEXTFILE" )
       {
             // display enhanced textarea using claro_disp_html_area
             echo "<tr>\n"
@@ -744,18 +781,17 @@ if( $dispWrkDet )
             echo "&nbsp;[&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">".$langGradeSubmission."grade</a>&nbsp;]";
       }
       
-      $completeWrkUrl = $currentCourseRepositoryWeb."work/ws".$_REQUEST['sesId']."/".$wrk['submitted_doc_path'];
       
-      if( $wrkSession['authorized_content'] == "TEXTFILE" )
+      if( $sessionType == "TEXTFILE" )
       {
             $txtForFile = $langAttachedFile;
             $txtForText = $langAnswer;
       }
-      elseif( $wrkSession['authorized_content'] == "TEXT" )
+      elseif( $sessionType == "TEXT" )
       {
             $txtForText = $langAnswer;
       }
-      elseif( $wrkSession['authorized_content'] == "FILE" )
+      elseif( $sessionType == "FILE" )
       {
             $txtForFile = $langUploadedFile;
             $txtForText = $langFileDesc;
@@ -770,13 +806,24 @@ if( $dispWrkDet )
             ."<td>".$wrk['authors']." ( ".$langSubmittedBy." ".$userToDisplay." )</td>\n"
             ."</tr>\n\n";
             
-      if( $wrkSession['authorized_content'] != "TEXT" )
+      if( $sessionType != "TEXT" )
       {
-            // show file if this is not a TEXT only work
-            echo "<tr>\n"
-                  ."<td valign=\"top\">".$txtForFile."&nbsp;:</td>\n"
-                  ."<td><a href=\"".$completeWrkUrl."\">".$wrk['submitted_doc_path']."</a></td>\n"
-                  ."</tr>\n\n";
+            if( !empty($wrk['submitted_doc_path']) )
+            {
+                  $completeWrkUrl = $currentCourseRepositoryWeb."work/ws".$_REQUEST['sesId']."/".$wrk['submitted_doc_path'];
+                  // show file if this is not a TEXT only work
+                  echo "<tr>\n"
+                        ."<td valign=\"top\">".$txtForFile."&nbsp;:</td>\n"
+                        ."<td><a href=\"".$completeWrkUrl."\">".$wrk['submitted_doc_path']."</a></td>\n"
+                        ."</tr>\n\n";
+            }
+            else
+            {
+                  echo "<tr>\n"
+                        ."<td valign=\"top\">".$txtForFile."&nbsp;:</td>\n"
+                        ."<td>".$langNoFile."</td>\n"
+                        ."</tr>\n\n";
+            }
       }
       
       echo "<tr>\n"
