@@ -1390,9 +1390,9 @@ Your problems can be related on two possible causes :<br>
 
 	echo '
 				<p align="right">
-					<input type="submit" name="alreadyVisited" value="Restart from beginning">
-					<input type="submit" name="cmdPlatformSetting" value="Previous">
-					<input type="submit" name="cmdDoInstall" value="Retry">
+					<input type="submit" name="alreadyVisited" 		value="Restart from beginning">
+					<input type="submit" name="cmdPlatformSetting" 	value="Previous">
+					<input type="submit" name="cmdDoInstall" 		value="Retry">
 				</p>';
 
 }
@@ -1421,11 +1421,11 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 			<b>
 				Last tip
 			</b> 
-			: we highly recommend that you protect or remove instaler directory.
+			: we highly recommend that you protect or remove installer directory.
 			
 			
 </form>
-<form action="../../">
+<form action="../../" method="POST">
 		<input type="submit" value="Go to your newly created campus">
 </form>
 <?php
