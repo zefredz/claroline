@@ -69,7 +69,7 @@ $langDBSettingNameIntro		= "
 				Choose name for these Db and a prefix for future Courses Tables.<BR>
 				If you are allowed to create many DB, back to previous page and select option \"Several\".
 				It's really more convivial for use";
-$langStep1 			= "Step 1 of 7 ";
+$langStep1 			= "Step 1 of 8";
 $langStep2 			= "Step 2 of 8";
 $langStep3 			= "Step 3 of 8";
 $langStep4 			= "Step 4 of 8";
@@ -86,15 +86,12 @@ $langRequirements	= "Requirements";
 
 $langDbPrefixForm	= "Prefix Name for Course Db";
 $langTbPrefixForm	= "Prefix Name for Course Table";
-$langDbPrefixCom	= "e.g. 'CL_'";
+$langDbPrefixCom	= "e.g. 'c_'";
 $langEncryptUserPass	= "Encrypt user passwords in database";
 $langSingleDb	= "Use one or several DB for Claroline";
-
 
 $langWarningResponsible = "Use this script only after backup. Claroline team is not responsible if you lost or corrupted data";
 $langAllowSelfReg	=	"Allow self-registration";
 $langAllowSelfRegProf =	"Allow self-registration as course creator";
 $langRecommended	=	"(recommended)";
-
-
 ?>
