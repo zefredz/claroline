@@ -179,7 +179,7 @@ if ($is_allowedToEdit)
 
 // the module id for course_home equal -1 (course_home is not a tool in tool_list)
 $moduleId = -1;
-$langHelpAddIntroText=$langIntroCourse;
+$helpAddIntroText=$langIntroCourse;
 include($includePath."/introductionSection.inc.php");
 ?>
 </td>

@@ -103,7 +103,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
   // display introduction
   $moduleId = 6; // Id of the Learning Path introduction Area
-  $langHelpAddIntroText=$langIntroLearningPath;
+  $helpAddIntroText=$langIntroLearningPath;
   include($includePath."/introductionSection.inc.php");
 
 

@@ -830,7 +830,7 @@ if( !$displayAssigForm && !$displayFeedbackForm )
       --------------------------------------------------------------------*/
     
     $moduleId = $course_tool['id']; // Id of the Student Paper introduction Area
-    $langHelpAddIntroText=$langIntroWork;
+    $helpAddIntroText=$langIntroWork;
     include($includePath."/introductionSection.inc.php");  
 
     /*--------------------------------------------------------------------

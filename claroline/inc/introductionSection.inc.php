@@ -142,7 +142,7 @@ if ($intro_dispCommand)
 {
     if( '' == trim(strip_tags($intro_content)) ) // displays "Add intro" Commands
 	{
-        echo '<p class="HelpText">'.$langHelpAddIntroText.'</p><p>';
+        echo '<p class="HelpText">'.$helpAddIntroText.'</p><p>';
 		claro_disp_button($_SERVER['PHP_SELF'].'?intro_cmdAdd=1', $langAddIntro);
         echo '</p>';
 	}
