@@ -125,7 +125,7 @@ elseif($_REQUEST['cmdDoInstall'])
 
 if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step prupose values
 {
-     include ("./defaultsetting.inc.php");
+     include ('./defaultsetting.inc.php');
 }
 else
 {
@@ -133,7 +133,7 @@ else
     $campusForm  = $_REQUEST['campusForm'];
 }
 
-if ($PHP_SELF == "") $PHP_SELF = $_SERVER["PHP_SELF"];
+if ($PHP_SELF == "") $PHP_SELF = $_SERVER['PHP_SELF'];
 
 
 // This script is a big form.
@@ -506,6 +506,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
     .notethis { font-weight : bold;  }
 </style>
 <style  type="text/css"  >
+    .notethis { color : red; }
     .setup_error { background:white; margin-left: 15px;    margin-right: 15px; }
 </style>
 
@@ -1558,16 +1559,10 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
         Administrator phone : '.cleanoutputvalue($adminPhoneForm).'<br>
         Administrator name : '.cleanoutputvalue($adminNameForm).'<br>
         Administrator surname : '.cleanoutputvalue($adminSurnameForm).'<br>
-        <table border=0 class="notethis">
-            <tr>
-                <td>
-                    <font size="2" color="red" face="arial, helvetica">
+        <div class="notethis">
                     Administrator login : '.cleanoutputvalue($loginForm).'<br>
                     Administrator password : '.cleanoutputvalue((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)).'<br>
-                    </font>
-                </td>
-            <tr>
-        </table>
+        </div>
         </FIELDSET>
         <FIELDSET>
         <LEGEND>Contact</LEGEND>
