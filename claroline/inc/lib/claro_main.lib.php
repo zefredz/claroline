@@ -573,11 +573,10 @@ function claro_disp_tool_view_option($viewModeRequested = false)
                              DISPLAY COMMANDS MENU
       ------------------------------------------------------------------------*/
 
-    echo "<small>".$langViewMode." : "
+    echo $langViewMode." : "
         .$studentButton
 		." | "
-		.$courseAdminButton
-		."</small>\n";
+		.$courseAdminButton;
 }
 
 
