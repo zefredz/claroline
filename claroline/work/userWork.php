@@ -927,32 +927,40 @@ if( $is_allowedToSubmit )
 					(isset($userGroupList) && count($userGroupList) > 0) || ($is_courseAdmin && isset($_gid) )
 				)
             {
-                  echo "<tr>\n"
-                        ."<td valign=\"top\"><label for=\"wrkGroup\">".$langGroup."&nbsp;*&nbsp;:</label></td>\n";
-                  
-                  if( isset($_gid) )
-                  {
-                        echo "<td>\n"
-                              ."<input type=\"hidden\" name=\"wrkGroup\" value=\"".$_gid."\" />"
-                              .$_group['name']
-                              ."</td>\n";
-                  }
-                  else
-                  {
-                        echo "<td>\n<select name=\"wrkGroup\" id=\"wrkGroup\">\n";
-                        foreach( $userGroupList as $group )
-                        {
-                              echo "<option value=\"".$group['id']."\"";
-                              if( isset($form['wrkGroup']) && $form['wrkGroup'] == $group['id'] || $_REQUEST['authId'] == $group['id'] )
-                              {
-                                    echo "selected=\"selected\"";
-                              }
-                              echo ">".$group['name']."</option>\n";
-                        }
-                        echo "</select>\n"
-                              ."</td>\n";
-                  }
-                  echo "</tr>\n\n";
+				echo "<tr>\n"
+				      ."<td valign=\"top\"><label for=\"wrkGroup\">".$langGroup."&nbsp;:</label></td>\n";
+				
+				if( isset($_gid) )
+				{
+					echo "<td>\n"
+					      ."<input type=\"hidden\" name=\"wrkGroup\" value=\"".$_gid."\" />"
+					      .$_group['name']
+					      ."</td>\n";
+				}
+				elseif(isset($_REQUEST['authId']) )
+				{
+					echo "<td>\n"
+					      ."<input type=\"hidden\" name=\"wrkGroup\" value=\"".$_REQUEST['authId']."\" />"
+					      .$userGroupList[$_REQUEST['authId']]['name']
+					      ."</td>\n";
+				}
+				else
+				{
+					// this part is mainly for courseadmin as he have a link in the workList to submit a work
+					echo "<td>\n<select name=\"wrkGroup\" id=\"wrkGroup\">\n";
+					foreach( $userGroupList as $group )
+					{
+					      echo "<option value=\"".$group['id']."\"";
+					      if( isset($form['wrkGroup']) && $form['wrkGroup'] == $group['id'] || $_REQUEST['authId'] == $group['id'] )
+					      {
+					            echo "selected=\"selected\"";
+					      }
+					      echo ">".$group['name']."</option>\n";
+					}
+					echo "</select>\n"
+					      ."</td>\n";
+				}
+				echo "</tr>\n\n";
             }
             
             // display file box
@@ -1177,150 +1185,157 @@ if( $dispWrkLst )
 		// link to create a new assignment
 		echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqSubWrk\">".$langSubmitWork."</a>\n";
     }
-	echo "<table class=\"claroTable\" width=\"100%\">\n";
-	
-	foreach ( $wrkAndFeedbackLst as $thisWrk )
+
+	if( is_array($wrkAndFeedbackLst) && count($wrkAndFeedbackLst) > 0  )
 	{
-		$is_feedback = !is_null($thisWrk['original_id']) && !empty($thisWrk['original_id']);
-		$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']]);
-		$is_allowedToEditThisWrk = (bool)$is_allowedToEditAll || ( ( $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']])) && $uploadDateIsOk );
-	
-		if ($thisWrk['visibility'] == "INVISIBLE")
+		echo "<table class=\"claroTable\" width=\"100%\">\n";
+		foreach ( $wrkAndFeedbackLst as $thisWrk )
 		{
-			$style=' class="invisible"';
-		}
-		else 
-		{
-			$style='';
-		}	
+			$is_feedback = !is_null($thisWrk['original_id']) && !empty($thisWrk['original_id']);
+			$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']]);
+			$is_allowedToEditThisWrk = (bool)$is_allowedToEditAll || ( ( $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']])) && $uploadDateIsOk );
 		
-		// change some displayed text depending on the context
-		if( $assignmentContent == "TEXTFILE" || $is_feedback )
-		{
-			$txtForFile = $langAttachedFile;
-			$txtForText = $langAnswer;
-		}
-		elseif( $assignmentContent == "TEXT" )
-		{
-			$txtForText = $langAnswer;
-		}
-		elseif( $assignmentContent == "FILE" )
-		{
-			$txtForFile = $langUploadedFile;
-			$txtForText = $langFileDesc;
-		}
-		
-		// title (and edit links)
-		echo "<tr>\n"
-	  		."<th class=\"headerX\">\n"
-			.$thisWrk['title']
-			."\n</th>\n"
-			."</tr>\n";
-			
-		if( $is_feedback )
-		{
-			echo "<tr".$style.">\n"
-				."<td style=\"padding-left: 35px;\">\n";
-		}
-		else
-		{
-			echo "<tr".$style.">\n"
-				."<td>\n";
-		}
-			
-		// author
-		echo "<b>".$langWrkAuthors."</b>&nbsp;: ".$thisWrk['authors']."<br />";
-
-		if( $assignment['assignment_type'] == 'GROUP' && !$is_feedback )
-		{ 
-			 // display group if this is a group assignment and if this is not a correction
-			 echo "<b>".$langGroup."</b>&nbsp;: ".$userGroupList[$thisWrk['group_id']]['name']."<br />";
-		}
-
-		if( $assignmentContent != "TEXT" )
-		{
-			if( !empty($thisWrk['submitted_doc_path']) )
-			{
-				$completeWrkUrl = $assigDirWeb.$thisWrk['submitted_doc_path'];
-				// show file if this is not a TEXT only work
-				echo "<b>".$txtForFile."</b>&nbsp;: "
-					."<a href=\"".$completeWrkUrl."\">".$thisWrk['submitted_doc_path']."</a>"
-					."<br />\n";
-			}
-			else
-			{
-			     echo "<b>".$txtForFile."</b>&nbsp;: ".$langNoFile."<br />\n";
-			}
-		}
-      
-		echo "<br /><div><b>".$txtForText."</b>&nbsp;: <br />\n"
-			.$thisWrk['submitted_text']."</div>\n";
-		
-		if( $is_feedback )
-		{
-			echo "<br /><div><b>".$langPrivateFeedback."</b>&nbsp;: <br />\n"
-				.$thisWrk['private_feedback']."</div><br />";
-			echo "<b>".$langScore."</b>&nbsp;: ";
-			echo ( $thisWrk['score'] == -1 ) ? $langNoScore : $thisWrk['score']." %" ;
-			echo "<br />\n";
-		}
-		echo "<p><b>".$langSubmissionDate."</b>&nbsp;: "
-			.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_creation_date']);
-		
-		// display an alert if work was submitted after end date and work is not a correction !
-		if( $assignment['unix_end_date'] < $thisWrk['unix_creation_date'] && !$is_feedback )
-		{
-		      echo " <img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
-		}
-		echo "<br />\n";
-            
-		if( $thisWrk['unix_creation_date'] != $thisWrk['unix_last_edit_date'] )
-		{
-			echo "<b>".$langLastEditDate."</b>&nbsp;: "
-				.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_last_edit_date']);
-			// display an alert if work was submitted after end date and work is not a correction !
-			if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && !$is_feedback )
-			{
-				echo " <img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
-			}			
-		}
-		echo "</p>\n";
-		// if user is allowed to edit, display the link to edit it
-		if( $is_allowedToEditThisWrk )
-		{
-			// the work can be edited 
-			echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqEditWrk&wrkId=".$thisWrk['id']."\">"
-				."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>";
-		}
-		
-		if( $is_allowedToEditAll )
-		{
-			echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&cmd=exRmWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\">"
-			    ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>";
-			
 			if ($thisWrk['visibility'] == "INVISIBLE")
 			{
-			    echo	"<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&cmd=exChVis&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&vis=v\">"
-			          ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
-			          ."</a>";
+				$style=' class="invisible"';
+			}
+			else 
+			{
+				$style='';
+			}	
+			
+			// change some displayed text depending on the context
+			if( $assignmentContent == "TEXTFILE" || $is_feedback )
+			{
+				$txtForFile = $langAttachedFile;
+				$txtForText = $langAnswer;
+			}
+			elseif( $assignmentContent == "TEXT" )
+			{
+				$txtForText = $langAnswer;
+			}
+			elseif( $assignmentContent == "FILE" )
+			{
+				$txtForFile = $langUploadedFile;
+				$txtForText = $langFileDesc;
+			}
+			
+			// title (and edit links)
+			echo "<tr>\n"
+		  		."<th class=\"headerX\">\n"
+				.$thisWrk['title']
+				."\n</th>\n"
+				."</tr>\n";
+				
+			if( $is_feedback )
+			{
+				echo "<tr".$style.">\n"
+					."<td style=\"padding-left: 35px;\">\n";
 			}
 			else
 			{
-			    echo	"<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&cmd=exChVis&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&vis=i\">"
-			          ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$langMakeInvisible."\">"
-			          ."</a>";
-			}  
-			if( !$is_feedback )
-			{
-				// if there is no correction yet show the link to add a correction if user is course admin
-				echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqGradeWrk&wrkId=".$thisWrk['id']."\">".$langAddFeedback."</a>";
+				echo "<tr".$style.">\n"
+					."<td>\n";
 			}
+				
+			// author
+			echo "<b>".$langWrkAuthors."</b>&nbsp;: ".$thisWrk['authors']."<br />";
+	
+			if( $assignment['assignment_type'] == 'GROUP' && !$is_feedback )
+			{ 
+				 // display group if this is a group assignment and if this is not a correction
+				 echo "<b>".$langGroup."</b>&nbsp;: ".$userGroupList[$thisWrk['group_id']]['name']."<br />";
+			}
+	
+			if( $assignmentContent != "TEXT" )
+			{
+				if( !empty($thisWrk['submitted_doc_path']) )
+				{
+					$completeWrkUrl = $assigDirWeb.$thisWrk['submitted_doc_path'];
+					// show file if this is not a TEXT only work
+					echo "<b>".$txtForFile."</b>&nbsp;: "
+						."<a href=\"".$completeWrkUrl."\">".$thisWrk['submitted_doc_path']."</a>"
+						."<br />\n";
+				}
+				else
+				{
+				     echo "<b>".$txtForFile."</b>&nbsp;: ".$langNoFile."<br />\n";
+				}
+			}
+	      
+			echo "<br /><div><b>".$txtForText."</b>&nbsp;: <br />\n"
+				.$thisWrk['submitted_text']."</div>\n";
+			
+			if( $is_feedback )
+			{
+				echo "<br /><div><b>".$langPrivateFeedback."</b>&nbsp;: <br />\n"
+					.$thisWrk['private_feedback']."</div><br />";
+				echo "<b>".$langScore."</b>&nbsp;: ";
+				echo ( $thisWrk['score'] == -1 ) ? $langNoScore : $thisWrk['score']." %" ;
+				echo "<br />\n";
+			}
+			echo "<p><b>".$langSubmissionDate."</b>&nbsp;: "
+				.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_creation_date']);
+			
+			// display an alert if work was submitted after end date and work is not a correction !
+			if( $assignment['unix_end_date'] < $thisWrk['unix_creation_date'] && !$is_feedback )
+			{
+			      echo " <img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
+			}
+			echo "<br />\n";
+	            
+			if( $thisWrk['unix_creation_date'] != $thisWrk['unix_last_edit_date'] )
+			{
+				echo "<b>".$langLastEditDate."</b>&nbsp;: "
+					.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_last_edit_date']);
+				// display an alert if work was submitted after end date and work is not a correction !
+				if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && !$is_feedback )
+				{
+					echo " <img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
+				}			
+			}
+			echo "</p>\n";
+			// if user is allowed to edit, display the link to edit it
+			if( $is_allowedToEditThisWrk )
+			{
+				// the work can be edited 
+				echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqEditWrk&wrkId=".$thisWrk['id']."\">"
+					."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>";
+			}
+			
+			if( $is_allowedToEditAll )
+			{
+				echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&cmd=exRmWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\">"
+				    ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>";
+				
+				if ($thisWrk['visibility'] == "INVISIBLE")
+				{
+				    echo	"<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&cmd=exChVis&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&vis=v\">"
+				          ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
+				          ."</a>";
+				}
+				else
+				{
+				    echo	"<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&cmd=exChVis&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&vis=i\">"
+				          ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$langMakeInvisible."\">"
+				          ."</a>";
+				}  
+				if( !$is_feedback )
+				{
+					// if there is no correction yet show the link to add a correction if user is course admin
+					echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqGradeWrk&wrkId=".$thisWrk['id']."\">".$langAddFeedback."</a>";
+				}
+			}
+			
+			echo "</td>\n"
+				."</tr>\n";
 		}
-		
-		echo "</td>\n"
-			."</tr>\n";
+		echo "</table>";
 	}
-	echo "</table>";
+	else
+	{
+		echo "\n<p>\n<blockquote>".$langNoVisibleSubmission."</blockquote></p>\n";
+	}
 }
 // FOOTER
 include($includePath."/claro_init_footer.inc.php"); 
