@@ -556,7 +556,6 @@ echo "
 <p>
 	<hr noshade size=\"1\">
 	<a href='../tracking/personnalLog.php'>".$langMyStats."</a>
-	<a href='../auth/courses.php'>".$langMyCourses."</a>
 </p>";
 
 include($includePath."/claro_init_footer.inc.php");
