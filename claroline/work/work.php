@@ -655,9 +655,9 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
 			."<td>\n";
 			
 		if( strlen($anAssignment['description']) > 500 ) 
-			echo "<div>".substr($anAssignment['description'],0,455)." ... "."</div>\n";
+			echo "<div>".substr($anAssignment['description'],0,455)." ... "."</div><br />\n";
 		else
-			echo "<div>".$anAssignment['description']."</div>\n";
+			echo "<div>".$anAssignment['description']."</div><br />\n";
 			 
 		echo "<small>".$langAvailableFrom." ".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix'])." ".$langUntil." <b>".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix'])."</b></small><br />"
 			."<small>"
