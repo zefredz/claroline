@@ -471,7 +471,7 @@ function form_dir_list($file, $baseWorkDir)
 
     if ( dirname($file) == '/' )
     {
-        $dialogBox .= "<option value=\"\" style=\"color:#999999\">root</option>\n";
+        $dialogBox .= "<option value=\"\" class=\"invisible\">root</option>\n";
     }
     else 
     {
@@ -503,7 +503,7 @@ function form_dir_list($file, $baseWorkDir)
 
             if ($file == $pathValue OR dirname($file) == $pathValue)
             {
-                $dialogBox .= "<option style=\"color:#999999\" value=\"$pathValue\">$tab>$dirname</option>\n";
+                $dialogBox .= "<option class=\"invisible\" value=\"$pathValue\">$tab>$dirname</option>\n";
             }
             else
             {
