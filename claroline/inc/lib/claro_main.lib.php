@@ -972,4 +972,28 @@ function claro_is_javascript_enabled()
     }
 }
 
+/**
+ * parse the user text (e.g. stored in database) 
+ * before displaying it to the screen
+ * For example it change new line charater to <br> tag etc.
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param string $userText original user tex
+ * @return string parsed user text
+ */
+
+claro_parse_user_text($userText)
+{
+   if (strpos($usertext, '<!-- content: html -->') === false)
+   {
+        // only if the content isn't HTML change new line to <br>
+        // Note the '<!-- content: html -->' is introduced by HTML Area
+        return nl2br($userText); 
+   }
+
+   return $userText;
+}
+
+
+
 ?>
