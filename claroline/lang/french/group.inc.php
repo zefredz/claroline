@@ -22,7 +22,7 @@ Translate the interface in chosen language
 
 $langGroupManagement="Groupes";
 $langHelp="aide";
-$langNewGroupCreate="Créer nouveau(x) groupe(x)";
+$langNewGroupCreate="Créer nouveau(x) groupe(s)";
 $langGroupCreation="Création de groupes";
 $langCreate="Créer";
 $langNewGroups="nouveau(x) groupe(s)";
@@ -121,7 +121,7 @@ $langGroupFilledGroups="Les groupes ont été remplis (ou complétés) par les étudi
 $langStudentsNotInThisGroups = "Utilisateurs non inscrits à ce groupe";
 
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "Un utilisateur peut être inscrit dans";
-$langQtyOfUserCanSubscribe_PartAfterNumber = "groupes";
+$langQtyOfUserCanSubscribe_PartAfterNumber = "groupe(s)";
 
 $langNoLimitForQtyOfUserCanSubscribe ="L'utilisateur peux être inscrit à tous les groupes";
 $langGroupDocumentAlwaysPrivate = "(toujours priv&eacute;)";
