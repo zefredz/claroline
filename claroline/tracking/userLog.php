@@ -233,7 +233,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                             AND `gu`.`team` = '$_gid'
                             AND `u`.`user_id` = '$uInfo'";
         }
-        $query = @mysql_query($sql);
+        $query = @claro_sql_query($sql);
         $res = @mysql_fetch_array($query);
         if(is_array($res))
         {

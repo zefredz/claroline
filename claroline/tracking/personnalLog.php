@@ -35,7 +35,7 @@ claro_disp_tool_title($nameTools);
 if ( $is_trackingEnabled )
 {
       // display list of course of the student with links to the corresponding userLog
-      $resCourseListOfUser = mysql_query("SELECT cours.code code, 
+      $resCourseListOfUser = claro_sql_query("SELECT cours.code code, 
                                               cours.intitule name, 
                                               cours.titulaires prof
                                               

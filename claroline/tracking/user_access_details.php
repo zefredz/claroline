@@ -86,7 +86,7 @@ if(  $is_allowedToTrack && $is_trackingEnabled )
             
 <?php
 
-    $result = mysql_query($sql);  
+    $result = claro_sql_query($sql);  
     $i = 0;
     // display the list
     while ($userAccess = mysql_fetch_array ($result))
