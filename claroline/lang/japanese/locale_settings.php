@@ -13,8 +13,8 @@
 $englishLangName = "Japanese";
 $localLangName = "Japanese";
 
-$iso639_2_code = "ja";
-$iso639_1_code = "jpn";
+$iso639_1_code = "ja";
+$iso639_2_code = "jpn";
 
 $langNameOfLang[brazilian]="brazilian";
 $langNameOfLang[english]="english";

@@ -13,8 +13,8 @@
 $englishLangName = "Chinese";
 $localLangName = "zho";
 
-$iso639_2_code = "zh";
-$iso639_1_code = "zho";
+$iso639_1_code = "zh";
+$iso639_2_code = "zho";
 
 $langNameOfLang[brazilian]="brazilian";
 $langNameOfLang[english]="english";

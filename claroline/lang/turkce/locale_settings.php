@@ -12,8 +12,8 @@
 //----------------------------------------------------------------------
 $englishLangName = "Turkish";
 
-$iso639_2_code = "tr";
-$iso639_1_code = "tur";
+$iso639_1_code = "tr";
+$iso639_2_code = "tur";
 
 $langNameOfLang['arabic'		]="arabian";
 $langNameOfLang['brazilian'		]="brezilya dili";

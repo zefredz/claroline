@@ -12,8 +12,8 @@
 //----------------------------------------------------------------------
 $englishLangName = "Swedish";
 
-$iso639_2_code = "sv";
-$iso639_1_code = "swe";
+$iso639_1_code = "sv";
+$iso639_2_code = "swe";
 
 $langNameOfLang['arabic'		]="arabiska";
 $langNameOfLang['brazilian'		]="brasilianska";

@@ -12,8 +12,8 @@
 //----------------------------------------------------------------------
 $englishLangName = "Malay";
 
-$iso639_2_code = "ms";
-$iso639_1_code = "may";
+$iso639_1_code = "ms";
+$iso639_2_code = "may";
 
 $langNameOfLang[arabic]="arabian";
 $langNameOfLang[brazilian]="brazilian";
