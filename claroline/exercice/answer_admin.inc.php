@@ -134,7 +134,7 @@ if($submitAnswers || $buttonBack)
 			}
 
 			// checks if field is empty
-			if(empty($reponse[$i]))
+			if( $reponse[$i] == "" )
 			{
 				$msgErr=$langGiveAnswers;
 
@@ -548,16 +548,13 @@ if($modifyAnswers)
 <form method="post" action="<?php echo $PHP_SELF; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
 <input type="hidden" name="formSent" value="1">
 <input type="hidden" name="nbrAnswers" value="<?php echo $nbrAnswers; ?>">
-<table width="650" border="0" cellpadding="5">
 
 <?php
 			if($okAttachedFile)
 			{
 ?>
 
-<tr>
-  <td colspan="5"><?php echo display_attached_file($attachedFile); ?></td>
-</tr>
+<p><?php echo display_attached_file($attachedFile); ?></p>
 
 <?php
 			}
@@ -567,31 +564,23 @@ if($modifyAnswers)
 			{
 ?>
 
-<tr>
-  <td colspan="5">
-	<table border="0" cellpadding="3" align="center" width="400" bgcolor="#FFCC00">
-	<tr>
-	  <td><?php echo $msgErr; ?></td>
-	</tr>
-	</table>
-  </td>
-</tr>
-
+<p><?php claro_disp_message_box($msgErr); ?></p>
+	
 <?php
 			}
 ?>
 
-<tr>
-  <td colspan="5"><?php echo $langAnswers; ?> :</td>
-</tr>
-<tr bgcolor="#E6E6E6">
-  <td>N°</td>
-  <td><?php echo $langTrue; ?></td>
-  <td><?php echo $langAnswer; ?></td>
-  <td><?php echo $langComment; ?></td>
-  <td><?php echo $langQuestionWeighting; ?></td>
-</tr>
+<p><?php echo $langAnswers; ?> :</p>
 
+<table class="claroTable">
+<tr class="headerX">
+  <th>N°</th>
+  <th><?php echo $langTrue; ?></th>
+  <th><?php echo $langAnswer; ?></th>
+  <th><?php echo $langComment; ?></th>
+  <th><?php echo $langQuestionWeighting; ?></th>
+</tr>
+<tbody>
 <?php
 			for($i=1;$i <= $nbrAnswers;$i++)
 			{
@@ -627,7 +616,8 @@ if($modifyAnswers)
 <?php
   			}
 ?>
-
+</tbody>
+<tfoot>
 <tr>
   <td colspan="5" align="center">
 	<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
@@ -636,6 +626,7 @@ if($modifyAnswers)
 	&nbsp;&nbsp;<input type="submit" name="submitAnswers" value="<?php echo $langOk; ?>">
   </td>
 </tr>
+</tfoot>
 </table>
 </form>
 
