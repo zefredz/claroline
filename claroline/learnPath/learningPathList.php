@@ -314,7 +314,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                         $sql = "INSERT
                                   INTO `".$TABLELEARNPATH."`
                                        (`name`, `comment`, `rank`)
-                                VALUES ('".claro_addslashes($_POST['newPathName'])."','".addslashes($langDefaultLearningPathComment)."',".$order.")";
+                                VALUES ('".claro_addslashes($_POST['newPathName'])."','".claro_addslashes(trim($_POST['newComment']))."',".$order.")";
                         //echo $sql;
                         $query = claro_sql_query($sql);
                         //echo $langOKNewPath;
@@ -331,8 +331,10 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
               {
                  $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\">\n"
                                 ."<h4>".$langCreateNewLearningPath."</h4>\n"
-                                ."<label for=\"newPathName\">".$langLearningPathName."</label>\n"
-                                ."<input type=\"text\" name=\"newPathName\" id=\"newPathName\" maxlength=\"255\"></input>\n"
+                                ."<label for=\"newPathName\">".$langLearningPathName."</label><br />\n"
+                                ."<input type=\"text\" name=\"newPathName\" id=\"newPathName\" maxlength=\"255\"></input><br /><br />\n"
+                                ."<label for=\"newComment\">".$langComment."</label><br />\n"
+								."<textarea id=\"newComment\" name=\"newComment\" rows=\"2\" cols=\"50\"></textarea><br />\n"
                                 ."<input type=\"hidden\" name=\"cmd\" value=\"create\">\n"
                                 ."<input type=\"submit\" value=\"".$langOk."\"></input>\n"
                                 ."</form>\n\n";
