@@ -14,7 +14,7 @@ $langEx="p. ex. <i>Histoire de la littérature</i>";
 $langFac="Catégorie";
 $langCode="Code cours";
 $langTargetFac="Il s'agit de la faculté, du département, de l'école... dans lesquels se donne le cours";
-$langMax="max. 12 caractères, p. ex.<i>ROM2121</i>";
+$langMaxSizeCourseCode = "max. 12 caractères, p. ex.<i>ROM2121</i>"; // to change the ma
 $langDoubt="En cas de doute sur l'intitulé exact ou le code de votre cours, consultez le";
 $langProgram="Programme des cours</a>. Si le site que vous voulez créer ne correspond pas à un code cours existant, vous pouvez en inventer un. Par exemple <i>INNOVATION</i> s'il s'agit d'un programme de formation en gestion de l'innovation";
 $langProfessors="Titulaire(s)";
@@ -112,9 +112,6 @@ $langRandomLanguage = "S&eacute;lection al&eacute;atoire parmis toutes les langu
 
 
 // Dev tools : create many test courses
-$langMinimum = "Minimum";
-$langMaximum = "Maximum";
-
 $langTipLang="Cette langue vaudra pour tous les visiteurs de votre site de cours.";
 $langCourseAccess="Accès au cours";
 $langPublic="Accès public (depuis la page d'accueil de iCampus sans identifiant)";
