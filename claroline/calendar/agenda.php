@@ -1,7 +1,7 @@
 <?php // $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE 1.5.*
+// CLAROLINE 1.6.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -11,8 +11,6 @@
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
-
-
 /*
 
  - For a Student -> View angeda Content
@@ -24,10 +22,10 @@
  */
 
 $langFile = 'agenda';
-
 $tlabelReq = "CLCAL___";
 
 require '../inc/claro_init_global.inc.php';
+if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 include($includePath."/conf/agenda.conf.inc.php");
 
@@ -49,14 +47,12 @@ $nameTools = $langAgenda;
 
 include($includePath."/claro_init_header.inc.php");
 
-if ( ! $is_courseAllowed) claro_disp_auth_form();
-
 //stats
 include('../inc/lib/events.lib.inc.php');
 event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
-$tblNames = claro_sql_get_course_tbl();
-$tbl_calendar_event = $tblNames['calendar_event'];
+$tbl_c_names = claro_sql_get_course_tbl();
+$tbl_calendar_event = $tbl_c_names['calendar_event'];
 
 $is_allowedToEdit   = $is_courseAdmin;
 
