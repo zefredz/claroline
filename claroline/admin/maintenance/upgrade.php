@@ -152,11 +152,7 @@ else
 
 <div id="header">
 <?php
- echo "<h1>"; 
- if (!$stable) {
-	echo "<span class=\"warning\">!!!" . $clarolinePhase . "!!!</span> ";
- }
- echo "Claroline upgrade -- version " . $clarolineVersion . "</h1>";
+ echo "<h1>Claroline upgrade -- version " . $clarolineVersion . "</h1>";
 ?>
 </div>
 <div id="menu">
