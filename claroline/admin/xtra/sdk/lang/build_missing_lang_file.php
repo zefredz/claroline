@@ -56,32 +56,64 @@ chdir ($path_lang);
 
 // browse lang folder 
 
-$handle = opendir($path_lang);
+$languagePathList = get_lang_path_list($path_lang);
 
-while ($element = readdir($handle) )
+// display select box
+
+if ( sizeof($languagePathList) > 0)
 {
-	if ( $element == "." || $element == ".." || $element == "CVS" 
-        || strstr($element,"~") || strstr($element,"#") 
-       )
+    echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
+    echo "<select name=\"language\">";
+    echo '<option value="all" selected="selected">' . $langAll . '</option>'. "\n";
+	foreach($languagePathList as $key => $languagePath)
 	{
-		continue; // skip current and parent directories
-	}
-	if ( is_dir($element) )
-	{
-		$languageAttribute['path'] = $path_lang . '/' . $element;
-		$languageAttribute['name'] = reset( explode (".", $element) );
-		$languageList     []       = $languageAttribute;
-	}
+
+        if (isset($_REQUEST['language']) && $key == $_REQUEST['language'] )
+        {
+            echo "<option value=\"" . $key . "\" selected=\"selected\">" . $key . "</option>";
+        }
+        else 
+        {
+            echo "<option value=\"" . $key ."\">" . $key . "</option>";
+        }
+    }
+    echo "</select>";
+    echo "<p><input type=\"submit\" value=\"OK\" /></p>";
+    echo "</form>";
+}
+else
+{
+    echo "No language folder";
 }
 
-if ( sizeof($languageList) > 0)
-{
+// if select language and laguage exists
+
+if (isset($_REQUEST['language']))
+{	
+
+    $languageToBuild = array();
+
+    if ($_REQUEST['language'] == 'all')
+    {
+        foreach ($languagePathList as $language => $languagePath)
+        {
+            $languageToBuild[] = $language;
+        }
+    }
+    else
+    {
+        $languageToBuild[] = $_REQUEST['language'];
+    }
+
     echo "<ol>\n";
 
-	foreach($languageList as $thisLangList)
+	foreach($languageToBuild as $language)
 	{
 	
-	    $language = $thisLangList['name'];
+        $languagePath = $languagePathList[$language];
+
+        // get language name and display it
+
 	    echo "<li><strong>" . $language . "</strong> ";
 	
 		// get the different variables 
@@ -109,9 +141,9 @@ if ( sizeof($languageList) > 0)
 		    }
 		}
 	
-		chdir ($thisLangList['path']);
+		chdir ($languagePath);
 	
-		echo "- Create file: " . $thisLangList['path'] . "/" . LANG_MISSING_FILENAME ;
+		echo "- Create file: " . $languagePath . "/" . LANG_MISSING_FILENAME ;
 	
 		$fileHandle = fopen(LANG_MISSING_FILENAME, 'w') or die("FILE OPEN FAILED: ". __LINE__);	
 	
@@ -123,10 +155,7 @@ if ( sizeof($languageList) > 0)
 		
 		    foreach($languageVarList as $thisLangVar)
 		    {
-                $varContent = "";
-		        $varContent = preg_replace('/([^\\\\])"/', '\\1\\"', $varContent);
-		        $string = '$'.$thisLangVar['name'].' = "'.$varContent."\";\n";
-	
+		        $string = '$' . $thisLangVar['name'] . ' = "";' . "\n";
 		        fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
 		    }
 	
@@ -140,7 +169,7 @@ if ( sizeof($languageList) > 0)
 	}    
     echo "</ol>\n";
 
-} // end sizeof($languageList) > 0
+} // end sizeof($languagePathList) > 0
 
 // get end time
 $endtime = get_time();
