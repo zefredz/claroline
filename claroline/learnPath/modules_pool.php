@@ -205,12 +205,11 @@
          break;
 
       //make update to change the comment in the database for this module
-      case "mkcomment":
-          $sql = "UPDATE `".$TABLEMODULE."`
-                    SET `comment` = '".claro_addslashes($_POST['newcomment'])."'
-                    WHERE `module_id` = '".$_POST['mod_id']."'";
-          //echo $sql."<br>";
-          claro_sql_query($sql);
+      case "updatecomment":
+      
+          commentBox(MODULE_, UPDATENOTSHOWN_);
+          echo $sql."<br>";
+          
           break;
    }
 
