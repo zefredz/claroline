@@ -1852,4 +1852,7 @@ $langCountry = "Pays";
 $langSiteName = "Nom du site";
 $langInstitution = "Institution";
 $langInstitutionUrl = "Url de l'institution";
+$langThumbnails = "Vignettes";
+$langFiles = "Liste des fichiers";
+$langDocumentation = "Documentation";
 ?>
