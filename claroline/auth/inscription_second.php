@@ -16,8 +16,10 @@
              INIT
   ==========================*/
 
-$langFile = "registration";
-include("../inc/claro_init_global.inc.php");
+$langFile = 'registration';
+include '../inc/claro_init_global.inc.php';
+include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
+
 $interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);
 include($includePath."/claro_init_header.inc.php");
 $nameTools = "2";
@@ -25,9 +27,8 @@ $nameTools = "2";
 // $TABLELOGINOUT  = $mainDbName."`.`loginout";
 $TABLEUSER      = $mainDbName."`.`user";
 
-define ("CHECK_PASS_EASY_TO_FIND", true);
-define ("STUDENT",5);
-define ("COURSEMANAGER",1);
+define ('STUDENT'       ,5 );
+define ('COURSEMANAGER' ,1 );
 
 if (!isset($userMailCanBeEmpty))   $userMailCanBeEmpty   = true;
 if (!isset($checkEmailByHashSent)) $checkEmailByHashSent = false;
@@ -42,27 +43,26 @@ $regDataOk = false; // default value...
 if($submitRegistration)
 {
 	$regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,3})$";
-	$uname      = trim ($HTTP_POST_VARS["uname"     ]);
-	$email      = trim ($HTTP_POST_VARS["email"     ]);
-	$nom        = trim ($HTTP_POST_VARS["nom"       ]);
-	$prenom     = trim ($HTTP_POST_VARS["prenom"    ]);
-	$password   = trim ($HTTP_POST_VARS["password"  ]);
-	$password1  = trim ($HTTP_POST_VARS["password1" ]);
-	$statut     = ($HTTP_POST_VARS["statut"    ]==COURSEMANAGER)?COURSEMANAGER:STUDENT;
+
+	$uname        = trim ($HTTP_POST_VARS['uname'       ]);
+	$email        = trim ($HTTP_POST_VARS['email'       ]);
+	$nom          = trim ($HTTP_POST_VARS['nom'         ]);
+	$prenom       = trim ($HTTP_POST_VARS['prenom'      ]);
+	$password     = trim ($HTTP_POST_VARS['password'    ]);
+	$password1    = trim ($HTTP_POST_VARS['password1'   ]);
+    $officialCode = trim ($HTTP_POST_VARS['officialCode']);
+    $statut     = ($HTTP_POST_VARS['statut'] == COURSEMANAGER) ? COURSEMANAGER : STUDENT;
+
+
 	/*==========================
 	   DATA SUBIMITED CHECKIN
 	  ==========================*/
 
 	// CHECK IF THERE IS NO EMPTY FIELD
 
-	if (
-		   empty($nom)
-		OR empty($prenom)
-		OR empty($password1)
-		OR empty($password)
-		OR empty($uname)
-		OR (empty($email) && !$userMailCanBeEmpty)
-			)
+	if (   empty($nom)       || empty($prenom) 
+        || empty($password1) || empty($password)
+		|| empty($uname)     || (empty($email) && !$userMailCanBeEmpty) )
 	{
 		$regDataOk = false;
 
@@ -81,6 +81,20 @@ if($submitRegistration)
 		echo	"<p>",$langPassTwice,"</p>\n";
 	}
 
+
+    // CHECK PASSWORD AREN'T TOO EASY
+
+    elseif (   $form_password1 
+            && SECURE_PASSWORD_REQUIRED
+            && ! is_password_secure_enough( $form_password,
+                                          array($uname, $officialCode, 
+                                                $nom, $prenom, $email) ) )
+    {
+        $regDataOk = false;
+        echo "<p>".$langPassTooEasy."</p>\n";
+    }
+    
+
 	// CHECK EMAIL ADDRESS VALIDITY
 
     elseif( !empty($email) && ! eregi( $regexp, $email ))
@@ -95,21 +109,25 @@ if($submitRegistration)
 
 	else
 	{
-		$result = mysql_query("SELECT user_id FROM `$TABLEUSER` 
-							   WHERE username=\"$uname\"");
+        $sql = "SELECT COUNT(*) loginCount
+                FROM `".$TABLEUSER."` 
+                WHERE username=\"".$uname."\"";
 
-		if (mysql_num_rows($result) > 0)
-		{
-			$regDataOk = false;
-			unset($password1, $password, $uname);
+        list($result) = claro_sql_query_fetch_all($sql);
 
-			echo	"<p>",$langUserFree,"</p>";
-		}
-		else
-		{
+        if ($result['loginCount'] > 0)
+        {
+            $regDataOk = false;
+
+            unset($password1, $password, $uname);
+
+            echo "<p>",$langUserFree,"</p>\n";
+        }
+        else
+        {
 			$regDataOk = true;
-		}
-	}
+        }
+    }
 }
 
 if ( ! $regDataOk)
@@ -130,24 +148,23 @@ if ($regDataOk)
 	  STORE THE NEW USER DATA INSIDE THE CLAROLINE DATABASE
 	  -----------------------------------------------------*/
 
-	mysql_query("INSERT INTO `".$TABLEUSER."`
-	             SET `nom`      	= \"".$nom."\",
-	                 `prenom`   	= \"".$prenom."\",
-	                 `username` 	= \"".$uname."\",
-	                 `password` 	= \"".($userPasswordCrypted?md5($password):$password)."\",
-	                 `email`    	= \"".$email."\",
-	                 `statut`   	= \"".$statut."\",
-	                 `officialCode`	= \"".$officialCode."\",
-                     `phoneNumber`    = \"".$phone."\"
-					 ");
-                
-	$_uid = mysql_insert_id();
+    $sql = "INSERT INTO `".$TABLEUSER."`
+            SET `nom`          = \"".$nom."\",
+                `prenom`       = \"".$prenom."\",
+                `username`     = \"".$uname."\",
+                `password`     = \"".($userPasswordCrypted?md5($password):$password)."\",
+                `email`        = \"".$email."\",
+                `statut`       = \"".$statut."\",
+                `officialCode` = \"".$officialCode."\",
+                `phoneNumber`  = \"".$phone."\"";
 
-				/*
-						@mysql_query("INSERT INTO `$mainDbName`.`user_hash`
-									  (user_id, hash, state) 
-									  VALUES ('$last_id', '$hash', 'WAITCHECK')");
-				*/
+    $_uid = claro_sql_query_insert_id($sql);
+
+    /*
+            @claro_sql_query("INSERT INTO `$mainDbName`.`user_hash`
+                          (user_id, hash, state) 
+                          VALUES ('$last_id', '$hash', 'WAITCHECK')");
+    */
 
 if ($_uid)
 {
@@ -160,9 +177,9 @@ if ($_uid)
 	$_user['mail'     ]     = $email;
 	$is_allowedCreateCourse = ($statut == 1) ? true : false ;
         
-    	session_register("_uid");
-	session_register("_user");
-	session_register("is_allowedCreateCourse");
+    session_register("_uid");
+    session_register("_user");
+    session_register("is_allowedCreateCourse");
 
         //stats
         @include("../inc/lib/events.lib.inc.php");
@@ -187,7 +204,7 @@ if ($_uid)
 
 	$emailbody    = "$langDear $prenom $nom,\n
 $langYouAreReg $siteName $langSettings $uname\n$langPass : $password\n$langAddress $siteName $langIs : $rootWeb\n$langProblem\n$langFormula,\n" .
-$administrator["name"] . "\n $langManager $siteName\nT. " . $administrator["phone"] . "\n$langEmail : " . $administrator["email"] . "\n";
+$administrator['name'] . "\n $langManager $siteName\nT. " . $administrator['phone'] . "\n$langEmail : " . $administrator['email'] . "\n";
 
 		/*
 			if ($checkEmailByHAshSent)
@@ -203,8 +220,8 @@ $administrator["name"] . "\n $langManager $siteName\nT. " . $administrator["phon
 
 	// Here we are forming one large header line
 	// Every header must be followed by a \n except the last
-	$emailheaders = "From: " . $administrator["name"] . " <".$administrator["email"].">\n";
-	$emailheaders .= "Reply-To: " . $administrator["email"] . ""; 
+	$emailheaders = "From: " . $administrator['name'] . " <".$administrator['email'].">\n";
+	$emailheaders .= "Reply-To: " . $administrator['email'] . ""; 
 
 	// Because I predefined all of my variables, this mail() function looks nice and clean hmm?
 	@mail( $emailto, $emailsubject, $emailbody, $emailheaders);

@@ -19,10 +19,10 @@ $cidReset = true;
 $userOfficialCodeCanBeEmpty = true;
 $userMailCanBeEmpty			= true;
 
-include('../inc/claro_init_global.inc.php');
-include('../inc/conf/profile.conf.inc.php'); // find this file to modify values.
-include('../inc/lib/text.lib.php');
-include('../inc/lib/fileManage.lib.php');
+include '../inc/claro_init_global.inc.php';
+include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
+include $includePath.'/lib/text.lib.php';
+include $includePath.'lib/fileManage.lib.php';
 
 $nameTools = $langModifProfile;
 
@@ -42,14 +42,14 @@ if ($_REQUEST['applyChange'])
 	 * DATA CHECKING
 	 *==========================
 	 */
-	$form_password1    = trim($_REQUEST['form_password1']   );
-	$form_password2    = trim($_REQUEST['form_password2']   );
-	$form_userName     = trim($_REQUEST['form_userName']    );
+	$form_password1    = trim($_REQUEST['form_password1'   ]);
+	$form_password2    = trim($_REQUEST['form_password2'   ]);
+	$form_userName     = trim($_REQUEST['form_userName'    ]);
 
 	$form_officialCode = trim($_REQUEST['form_officialCode']);
-	$form_lastName     = trim($_REQUEST['form_lastName']    );
-	$form_firstName    = trim($_REQUEST['form_firstName']   );
-	$form_email        = trim($_REQUEST['form_email']       );
+	$form_lastName     = trim($_REQUEST['form_lastName'    ]);
+	$form_firstName    = trim($_REQUEST['form_firstName'   ]);
+	$form_email        = trim($_REQUEST['form_email'       ]);
 
 	$form_del_picture  = trim($_REQUEST['form_del_picture'] );
 
@@ -58,39 +58,38 @@ if ($_REQUEST['applyChange'])
 	 * CHECK IF USERNAME IS ARLEADY TAKEN BY ANOTHER USER
 	 */
 
-	$sql = "SELECT user_id
-	        FROM `".$tbl_user."`
-	        WHERE username = \"".$form_userName."\" AND `user_id` != '".$_uid."'";
+    $sql = "SELECT COUNT(*) loginNameCount
+            FROM `".$tbl_user."`
+            WHERE username = \"".$form_userName."\"
+            AND `user_id` <> '".$_uid."'";
 
-	$username_check = mysql_query($sql);
+    list($result) = claro_sql_query_fetch_all($sql);
 
-	while ( $myusername = mysql_fetch_array($username_check, MYSQL_ASSOC) )
-	{
-		$userNameAlreadyExist = true;
-		$userNameOwner        = $myusername['user_id'];
-	}
-
-	if( $userNameAlreadyExist && ($userNameOwner != $_uid) )
-	{
+    if ($result['loginNameCount'] > 0)
+    {
 		$userNameOk = false;
-		$msgClass ="error"; // success | warning | error
-		$msgArrBody[$msgClass][] ="$langUserTaken";
-	}
-	else
+		$messageList[] = $langUserTaken;
+    }
+    else
 	{
 		$userNameOk = true;
 	}
 
-	$sql_ActualUserInfo = "
-SELECT
- `username` `userName`,
- `nom` `lastName`,
- `prenom` `firstName`,
- `pictureUri` `actual_ImageFile`
-	        FROM `".$tbl_user."`
-	        WHERE `user_id` = '".$_uid."'";
-	$res_ActualUserInfo  = @mysql_query($sql_ActualUserInfo) or die(mysql_error());
-	$data_ActualUserInfo = mysql_fetch_array($res_ActualUserInfo,MYSQL_ASSOC);
+    $sql_ActualUserInfo = "SELECT `username`  `userName`,
+                                  `nom`       `lastName`,
+                                  `prenom`     `firstName`,
+                                  `pictureUri` `actual_ImageFile`
+                          FROM `".$tbl_user."`
+                          WHERE `user_id` = '".$_uid."'";
+
+    list($data_ActualUserInfo) = claro_sql_query_fetch_all($sql_ActualUserInfo);
+
+    if (is_null($data_ActualUserInfo))
+    {
+        $data_ActualUserInfo = array('lastName' => '', 'firstName' => '', 
+                                     'userName' => '', 'actual_ImageFile' => '');
+    }
+    
 
 	/*
 	 * CHECK BOTH PASSWORD TOKEN ARE THE SAME
@@ -99,8 +98,7 @@ SELECT
 	if ($form_password2 !== $form_password1)
 	{
 		$passwordOK    = false;
-		$msgClass ="error"; // success | warning | error
-		$msgArrBody[$msgClass][] = $langPassTwo.'<br>';
+		$messageList[] = $langPassTwo.'<br>';
 		$form_password = '';
 	}
 	else
@@ -114,43 +112,41 @@ SELECT
 	 * CHECK PASSWORD AREN'T TOO EASY
 	 */
 
-	if ($form_password1 && CHECK_PASS_EASY_TO_FIND)
-	{
-		if ( ( strtoupper($form_password) == strtoupper($form_userName) )
-			|| ( strtoupper($form_password) == strtoupper($form_officalCode) )
-			|| ( strtoupper($form_password) == strtoupper($form_lastName) )
-			|| ( strtoupper($form_password) == strtoupper($form_firstName))
-			|| ( strtoupper($form_password) == strtoupper($data_ActualUserInfo['userName']) )
-			|| ( strtoupper($form_password) == strtoupper($data_ActualUserInfo['lastName']) )
-			|| ( strtoupper($form_password) == strtoupper($data_ActualUserInfo['firstName']))
-			|| ( strtoupper($form_password) == strtoupper($form_email)    ) )
-		{
-			$passwordOK = false;
-			$msgClass ="error"; // success | warning | error
-			$msgArrBody[$msgClass][] =  $langPassTooEasy." :\n"
-			              ."<code>".substr( md5( date('Bis').$HTTP_REFFERER ), 0, 8 )."</code><br>\n";
-		}
-		else
-		{
-			$passwordOK = true;
-		}
-	}
+    if ( $form_password1 && SECURE_PASSWORD_REQUIRED )
+    {
+        if (is_password_secure_enough($form_password,
+                                      array($form_userName, $form_officalCode, 
+                                            $form_lastName, $form_firstName, $form_email)))
+        {
+        	$passwordOK = true;
+        }
+        else
+        {
+            $passwordOK = false;
+            $messageList[] =  $langPassTooEasy." :\n"
+                            ."<code>".substr( md5( date('Bis').$HTTP_REFFERER ), 0, 8 )."</code>\n";
+        }       
+    }
+    else
+    {
+    	$passwordOK = true;
+    }
+    
+
 
 
 	/*
 	 * CHECK THERE IS NO EMPTY FIELD
 	 */
 
-	if (   empty($form_lastName)
-	    || empty($form_firstName)
-	    || empty($form_userName)
-	    || (empty($form_officialCode) && !$userOfficialCodeCanBeEmpty)
-	    || (empty($form_email) && !$userMailCanBeEmpty)
-	   )
+	if (     empty($form_lastName) 
+        ||   empty($form_firstName)
+	    ||   empty($form_userName)
+	    || ( empty($form_officialCode) && ! $userOfficialCodeCanBeEmpty )
+	    || ( empty($form_email)        && ! $userMailCanBeEmpty         ) )
 	{
-		$importantFieldFilled = false;
-		$msgClass ="error"; // success | warning | error
-		$msgArrBody[$msgClass][] =  $langFields;
+        $importantFieldFilled = false;
+		$messageList[] =  $langFields;
 	}
 	else
 	{
@@ -167,8 +163,7 @@ SELECT
 	if( ! empty($form_email) && ! eregi( $emailRegex, $form_email ))
 	{
 		$emailOk = false;
-		$msgClass ="error"; // success | warning | error
-		$msgArrBody[$msgClass][] = $langEmailWrong.'<br>';
+		$messageList[] = $langEmailWrong;
 	}
 	else
 	{
@@ -187,8 +182,7 @@ SELECT
 	else
 	{
 		$userSettingChangeAllowed = false;
-		$msgClass ="error"; // success | warning | error
-		$msgArrBody[$msgClass][] = '<b>'.$langAgain.'</b>';
+		$messageList[] = '<b>'.$langAgain.'</b>';
 	}
 
 	/*
@@ -207,7 +201,7 @@ SELECT
 		  * Code Refactoring Hugues Peeters (hugues.peeters@claroline.net) 24/11/2003
 		  */
 		$actualImage = $data_ActualUserInfo['actual_ImageFile'];
-		if ($form_del_picture=="yes")
+		if ($form_del_picture== 'yes')
 		{
 			$form_picture = NULL;
 		}
@@ -355,9 +349,8 @@ SELECT
 
 		$uidReset = true;
 		include('../inc/claro_init_local.inc.php');
-		$msgClass ="success"; // success | warning | error
-		$msgArrBody[$msgClass][] =  $langProfileReg."<br>\n"
-		       ."<a href=\"../../index.php\">".$langHome."</a>";
+		$messageList[] = $langProfileReg."<br>\n"
+		                ."<a href=\"../../index.php\">".$langHome."</a>";
 
 	} // end if $userSettingChangeAllowed
 
@@ -394,7 +387,8 @@ if ($result)
   ==========================*/
 include('../inc/claro_init_header.inc.php');
 claro_disp_tool_title($nameTools);
-claro_disp_msg_arr($msgArrBody);
+
+if ( count($messageList) > 0) claro_disp_message_box( implode('<br />', $messageList) );
 
 /*
  * Data Form
@@ -569,4 +563,28 @@ echo "
 </p>";
 
 include($includePath."/claro_init_footer.inc.php");
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+function is_password_secure_enough($requestedPassword, $forbiddenValueList)
+{
+    // Temporarly deactivated ...
+    //
+    // if (strlen($requestedPassword) < 8)
+    // {
+    //    return false;
+    // }
+
+    foreach($forbiddenValueList as $thisValue)
+    {
+        if( strtoupper($requestedPassword) == strtoupper($thisValue) )
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 ?>

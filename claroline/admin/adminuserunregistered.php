@@ -12,16 +12,16 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-define ("NB_LINE_OF_EVENTS", 15);
-define ("CHECK_PASS_EASY_TO_FIND", true);
 define ("USER_SELECT_FORM", 1);
 define ("USER_DATA_FORM", 2);
 
 $langFile='admin';
 $cidReset = true;
-include('../inc/claro_init_global.inc.php');
-include($includePath.'/lib/text.lib.php');
-include($includePath."/lib/admin.lib.inc.php");
+include '../inc/claro_init_global.inc.php';
+include $includePath.'/lib/text.lib.php';
+include $includePath."/lib/admin.lib.inc.php";
+include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
+
 
 //SECURITY CHECK
 
