@@ -292,15 +292,15 @@ elseif($displayWhatAdd)
 	<tr valign="top">
 		<td width="40"></td>
 		<td >
-			<input type="radio" name="whatAdd" value="newCourse" checked>
-			<?php echo $langNewCourse ?>
+			<input type="radio" name="whatAdd" value="newCourse" checked id="whatAdd_newCourse">
+			<label for="whatAdd_newCourse"><?php echo $langNewCourse ?></label>
 		</td>
 	</tr>
 	<tr valign="top">
 		<td width="40"></td>
 		<td >
-			<input type="radio" name="whatAdd" value="archive" >
-			<?php echo $langRestoreACourse ?>
+			<input type="radio" name="whatAdd" value="archive"  id="whatAdd_archive">
+			<label for="whatAdd_archive"><?php echo $langRestoreACourse ?></label>
 		</td>
 	</tr>
 	<tr valign="top">
@@ -334,7 +334,8 @@ elseif($displayCourseRestore)
 ?>
 	<tr valign="top">
 		<TD >
-			<input type="radio" name="typeStorage" value="upload" checked >&nbsp;Upload
+			<input type="radio" name="typeStorage" value="upload" checked  id="typeStorage_upload">&nbsp;
+			<label for="typeStorage_upload">Upload</label>
 		</TD>
 		<td >
 			<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="7000000">
@@ -351,7 +352,8 @@ elseif($displayCourseRestore)
 ?>
 	<tr valign="top">
 		<TD >
-			<input type="radio" name="typeStorage" value="http" >&nbsp;Http
+			<input type="radio" name="typeStorage" value="http" id="typeStorage_http" >&nbsp;
+			<label for="typeStorage_http">Http</label>
 		</TD>
 		<td >
 			<input type="text" name="httpFile" >
@@ -367,7 +369,8 @@ elseif($displayCourseRestore)
 ?>
 	<tr valign="top">
 		<TD >
-			<input type="radio" name="typeStorage" value="ftp" >&nbsp;Ftp
+			<input type="radio" name="typeStorage" value="ftp" id="typeStorage_ftp" >&nbsp;
+			<label for="typeStorage_ftp">Ftp</label>
 		</TD>
 		<td >
 			<input type="text" name="ftpFile" >
@@ -383,7 +386,8 @@ elseif($displayCourseRestore)
 ?>
 	<tr valign="top">
 		<TD>
-			<input type="radio" name="typeStorage" value="local" >&nbsp;On server
+			<input type="radio" name="typeStorage" value="local" id="typeStorage_local">&nbsp;
+			<label for="typeStorage_local">On server</label>
 		</TD>
 		<td >
 			<input type="text" name="localFile" >
@@ -421,20 +425,20 @@ elseif($displayCoursePropertiesForm)
 
 <tr valign="top">
 <td align="right">
-<?php echo $langTitle ?> :
+<label for="intitule"><?php echo $langTitle ?></label> :
 </td>
 <td valign="top">
-<input type="Text" name="intitule" size="60" value="<?php echo $valueIntitule ?>">
+<input type="Text" name="intitule" id="intitule" size="60" value="<?php echo $valueIntitule ?>">
 <br><small><?php echo $langEx ?></small>
 <input type="hidden" name="fromAdmin" size="60" value="<?php echo $fromAdmin ?>">
 </td>
 </tr>
 
 <tr valign="top">
-<td align="right"><?php echo $langFac ?> : </td>
+<td align="right"><label for="faculte"><?php echo $langFac ?></label> : </td>
 <td>
-<select name="faculte">
-<?
+<select name="faculte" id="faculte">
+<?php
 $resultFac = mysql_query_dbg("SELECT `code`, `name`
                               FROM `".$TABLECOURSDOMAIN."`
                               WHERE `canHaveCoursesChild` ='TRUE'
@@ -453,32 +457,34 @@ $resultFac = mysql_query_dbg("SELECT `code`, `name`
 </tr>
 
 <tr valign="top">
-<td align="right"><?php echo $langCode ?> : </td>
-<td ><input type="Text" name="wantedCode" maxlength="12" value="<?php echo $valuePublicCode ?>">
+<td align="right">
+<label for="wantedCode"><?php echo $langCode ?></label> : 
+</td>
+<td ><input type="Text" id="wantedCode" name="wantedCode" maxlength="12" value="<?php echo $valuePublicCode ?>">
 <br><small><?php echo $langMax ?></small>
 </td>
 </tr>
 
 <tr valign="top">
 <td align="right">
-<?php echo $langProfessors ?> :
+<label for="titulaires"><?php echo $langProfessors ?></label> :
 </td>
 <td>
-<input type="Text" name="titulaires" size="60" value="<?php echo $valueTitular ?>">
+<input type="Text" name="titulaires" id="titulaires" size="60" value="<?php echo $valueTitular ?>">
 </td>
 </tr>
 
 <tr>
-<td align="right"><?echo $langEmail ?>&nbsp;:</td>
-<td><input type="text" name="email" value="<?php echo $valueEmail; ?>" size="30" maxlength="255"></td>
+<td align="right"><label for="email"><?echo $langEmail ?></label>&nbsp;:</td>
+<td><input type="text" name="email" id="email" value="<?php echo $valueEmail; ?>" size="30" maxlength="255"></td>
 </tr>
 
 <tr valign="top">
 <td align="right">
-<?php echo $langLn ?> :
+<label for="languageCourse"><?php echo $langLn ?></label>:
 </td>
 <td>
-<select name="languageCourse">";
+<select name="languageCourse" id="languageCourse">";
 <?php
 	$dirname = "../lang/";
 	if($dirname[strlen($dirname)-1]!='/')
