@@ -13,82 +13,6 @@
 //----------------------------------------------------------------------
 
 $langFile = "work";
-////// lang vars DEV ONLY HAS TO BE MOVED :@
-
-// -- Session list
-$langCreateSession = "Create a new work session";
-$langVisibility = "Visibility";
-
-// -- Work list
-$langWrkSession = "Session";
-$langSubmitWork = "Submit a work";
-$langEditWork = "Modify a work";
-$langWorkDetails = "Work details";
-
-// -- Forms
-
-// session
-$langSessionTitle = "Session title";
-$langSessionDescription = "Description";
-
-$langSubmissionType = "Submission type";
-$langAuthorizeText = "Text";
-$langAuthorizeFile = "File";
-
-$langStartDate = "Start date";
-$langEndDate = "Deadline";
-
-$langDefSubVisibility = "Default visibility";
-$langVisible = "Visible";
-$langInvisible = "Invisible";
-
-$langSessionType = "Session type";
-$langIndividual = "Individual";
-$langGroup = "Group";
-
-$langAllowAnonymous = "Allow anonymous users";
-$langAnonAllowed = "Yes, anonymous users can submit works"; 
-$langAnonNotAllowed = "No, anonymous users can not submit works";
-
-$langPreventLateUploadShort = "Prevent late upload";
-$langPreventLateUpload = "Yes, prevent users to submit works after deadline";
-$langAllowLateUpload = "No, allow users to submit works after deadline";
-
-// work
-$langWrkTitle = "Work title";
-$langWrkAuthors = "Authors";
-$langUploadDoc = "Upload document";
-$langAttachDoc = "Attach a file";
-$langCurrentAttachedDoc = "Current attached file";
-$langCurrentDoc = "Current file";
-$langExplainReplaceFile = "Upload a new file to replace this one";
-$langFileDesc = "File description";
-$langAnswer = "Answer";
-
-// -- Form errors and confirmations
-$langSessionAdded = "New session created";
-$langTitleAlreadyExists = "Error : Name already exists";
-$langGiveTitle = "Please give the session title";
-$langAreYouSureToDelete = "Are you sure to delete";
-$langDeleteCaution = "! This will also delete all works submitted in this session !";
-$langSessionDeleted = "Session deleted";
-$langSessionEdited = "Session modified";
-$langTooBig = "File is too big";
-$langWrkAdded = "Work added";
-$langWrkEdited = "Work modified";
-
-// work details
-$langUploadedFile = "Uploaded file";
-$langAttachedFile = "Attached file";
-$langSubmissionDate = "First submission date";
-$langLastEditDate = "Last edit date";
-$langSubmittedBy = "Submitted by";
-$langAnonymousUser = "anonymous user";
-
-$langRequired = "Required";
-$langChooseDateHelper = "(d/m/y hh:mm)";
-
-///// END OF LANG VARS FFS
 
 $tlabelReq = "CLWRK___";
 require '../inc/claro_init_global.inc.php';
@@ -244,7 +168,7 @@ if( isset($_REQUEST['submitWrk']) )
                   
                   if( ! copy($_FILES['wrkFile']['tmp_name'], $wrkDir.$wrkUrl) )
                   {
-                        $dialogBox .= $langNotPossible;
+                        $dialogBox .= $langCannotCopyFile."<br />";
                         $formCorrectlySent = false;
                   }
                   else
@@ -264,7 +188,7 @@ if( isset($_REQUEST['submitWrk']) )
             else
             {
                   // if the main thing to provide is a file and that no file was sent
-                  $dialogBox .= "langYou need to provide a file"."<br />";
+                  $dialogBox .= $langFileRequired."<br />";
                   $formCorrectlySent = false;
             }
       }
@@ -279,14 +203,14 @@ if( isset($_REQUEST['submitWrk']) )
       {
             if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'] ) ) == "" )
             {
-                  $dialogBox .= $langAnswer." "."langIs required";
+                  $dialogBox .= $langAnswerRequired."<br />";
                   $formCorrectlySent = false;
             }
       }
       // check if a title has been given
       if( ! isset($_REQUEST['wrkTitle']) || $_REQUEST['wrkTitle'] == "" )
       {
-        $dialogBox .= "langName Required"."<br />";
+        $dialogBox .= $langWrkTitleRequired."<br />";
         $formCorrectlySent = false;
       }
       else
@@ -302,7 +226,7 @@ if( isset($_REQUEST['submitWrk']) )
         
         if( mysql_num_rows($result) > 0 )
         {
-            $dialogBox .= "langTitle already in use"."<br />";
+            $dialogBox .= $langWrkTitleAlreadyExists."<br />";
             $formCorrectlySent = false;
         }
         else
@@ -313,7 +237,7 @@ if( isset($_REQUEST['submitWrk']) )
       }
       
       // check if a author name has been given
-      if ( ! isset($_REQUEST['wrkAuthors']) || $_REQUEST['wrkAuthors'] == "")
+      if ( ! isset($_REQUEST['wrkAuthors']) || trim($_REQUEST['wrkAuthors']) == "")
       {
             if( isset($_uid) )
             {
@@ -322,7 +246,7 @@ if( isset($_REQUEST['submitWrk']) )
             }
             else
             {
-                  $dialogBox .= "langAuthors name is required."."<br />";
+                  $dialogBox .= $langWrkAuthorsRequired."<br />";
                   $formCorrectlySent = false;
             }
       }
@@ -357,7 +281,6 @@ $is_allowedToSubmit   = (bool) ($is_allowedToEdit
   =============================================================================*/
 if($is_allowedToEditAll)
 {
-      echo "editAll";
   /*--------------------------------------------------------------------
                         CHANGE VISIBILITY
   --------------------------------------------------------------------*/
@@ -429,7 +352,7 @@ if($is_allowedToEditAll)
             
             claro_sql_query($sqlAddWork);
                         
-            $dialogBox .= $langCorAdded."Correction posted (lang)";
+            $dialogBox .= $langGradeAdded;
             
             $dispWrkForm = false;
             $dispWrkDet = false;
@@ -462,7 +385,7 @@ if($is_allowedToEditAll)
       
       $cmdToSend = "exGradeWrk";
       
-      $txtForFormTitle = "Correct work";
+      $txtForFormTitle = $langGradeWork;
       
       $dispWrkForm = true;
       $dispWrkDet = true;
@@ -474,7 +397,6 @@ if($is_allowedToEditAll)
   =============================================================================*/  
 if( $is_allowedToEdit )
 {
-      echo "edit";
   /*--------------------------------------------------------------------
                         EDIT A WORK
   --------------------------------------------------------------------*/
@@ -544,8 +466,6 @@ if( $is_allowedToEdit )
   =============================================================================*/ 
 if( $is_allowedToSubmit )
 { 
-      echo "submit";
-
   /*--------------------------------------------------------------------
                         SUBMIT A WORK
   --------------------------------------------------------------------*/
@@ -831,7 +751,7 @@ if( $dispWrkDet )
       if( $is_allowedToEditAll )
       {
             // correction / grading
-            echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">".$langGradeSubmission."grade</a>";
+            echo "&nbsp;[&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">".$langGradeSubmission."grade</a>&nbsp;]";
       }
       
       $completeWrkUrl = $currentCourseRepositoryWeb."work/ws".$_REQUEST['sesId']."/".$wrk['submitted_doc_path'];
@@ -856,7 +776,7 @@ if( $dispWrkDet )
             ."<td>".$wrk['title']."</td>\n"
             ."</tr>\n\n"
             ."<tr>\n"
-            ."<td valign=\"top\">".$langAuthors."&nbsp;:</td>\n"
+            ."<td valign=\"top\">".$langWrkAuthors."&nbsp;:</td>\n"
             ."<td>".$wrk['authors']." ( ".$langSubmittedBy." ".$userToDisplay." )</td>\n"
             ."</tr>\n\n";
             
