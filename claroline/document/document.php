@@ -889,12 +889,18 @@ if ($cmd == 'exSearch')
       $searchExcludeList = array();
     }
 
-    $searchPattern   = $_REQUEST['searchPattern'];
+    $searchPattern    = $_REQUEST['searchPattern'];
+    $searchPatternSql = $_REQUEST['searchPattern'];
 
     $searchPattern   = str_replace('.', '\\.', $searchPattern);
-    $searchPattern   = str_replace('*', '.*',  $searchPattern);
-    $searchPattern   = str_replace('?', '.?',  $searchPattern);
+    $searchPattern   = str_replace('*', '.*' , $searchPattern);
+    $searchPattern   = str_replace('?', '.?' , $searchPattern);
     $searchPattern   = '|'.$searchPattern.'|i';
+
+    $searchPatternSql = str_replace('_', '\_', $searchPatternSql);
+    $searchPatternSql = str_replace('%', '\%', $searchPatternSql);
+    $searchPatternSql = str_replace('?', '_' , $searchPatternSql);
+    $searchPatternSql = str_replace('*', '%' , $searchPatternSql);
 
     $searchRecursive = true;
     $searchBasePath  = $baseWorkDir.$_REQUEST['cwd'];
@@ -920,10 +926,26 @@ for ($i =0; $i < count($filePathList); $i++ )
 
 if ($cmd == 'exSearch' && $courseContext)
 {
-	$sql = "SELECT path FROM `".$dbTable."` 
-            WHERE comment LIKE '%".addslashes($searchPattern)."%'";
+    $sql = "SELECT path FROM `".$dbTable."` 
+            WHERE comment LIKE '%".addslashes($searchPatternSql)."%'";
 
     $dbSearchResult = claro_sql_query_fetch_all_cols($sql);
+
+    if (! $is_allowedToEdit)
+    {
+        for ($i = 0; $i < count($searchExcludeList) ; $i++)
+        {
+            for ($j = 0; $j < count($dbSearchResult['path']) ; $j++)
+            {
+                if (preg_match('|^'.$searchExcludeList[$i].'|', $dbSearchResult['path'][$j]) )
+                {
+                    unset($dbSearchResult['path'][$j]);
+                }
+            }
+        }
+    }
+    
+
     $filePathList = array_unique( array_merge($filePathList, $dbSearchResult['path']) );
 }
 
