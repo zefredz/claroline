@@ -1,17 +1,18 @@
 <?php // $Id$
 /**
- * --------------------------------------------------------------------------
+ * 
  * @version CLAROLINE 1.6
- * --------------------------------------------------------------------------
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * 
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  * --------------------------------------------------------------------------
  * @license GPL
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
  * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
  * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
- * --------------------------------------------------------------------------
+ * 
  * @author claro team <info@claroline.net>
- * --------------------------------------------------------------------------
+ * 
+ * These code is run to fill central tables during install 
  */
 
 
@@ -27,54 +28,6 @@ VALUES
 ";
 
 claro_sql_query($sql_insert_sample_cats);
-
-    # add admin as user with statut prof (1)
-    if ($encryptPassForm)
-        $passToStore=md5($passForm);
-    else
-        $passToStore=($passForm);
-
-
-    $sql = 'select username, nom lastname, prenom firstname
-            from `'.$mainTblPrefixForm.'user`
-            where username = "'.cleanwritevalue($loginForm).'"';
-    $res = @claro_sql_query($sql);
-    if(mysql_errno()>0)
-    {
-    // No problem
-    }
-    else
-    $controlUser = mysql_num_rows($res);
-
-    $sql = "
-INSERT INTO `".$mainTblPrefixForm."user` (`nom`, `prenom`, `username`, `password`, `email`, `statut`, `phoneNumber` )
-VALUES
-(  \"".cleanwritevalue($adminNameForm)."\", \"".cleanwritevalue($adminSurnameForm)."\", \"".cleanwritevalue($loginForm)."\",\"".cleanwritevalue($passToStore)."\",\"".$adminEmailForm."\",'1',\"".cleanwritevalue($adminPhoneForm)."\" )
-";
-    if ($controlUser>0)
-    {
-        $sql = "
-        UPDATE `".$mainTblPrefixForm."user` SET (`nom`, `prenom`, `username`, `password`, `email`, `statut`, `phoneNumber` )
-            VALUES
-        (  \"".cleanwritevalue($adminNameForm)."\", \"".cleanwritevalue($adminSurnameForm)."\", \""
-        .cleanwritevalue($loginForm)."\",\""
-        .cleanwritevalue($passToStore)."\",\""
-        .$adminEmailForm."\",'1',\""
-        .cleanwritevalue($adminPhoneForm)."\" )
-                ";
-    }
-    else
-    {
-        claro_sql_query($sql);
-        ## get id of admin  to  write  it in admin table.
-        $idOfAdmin=mysql_insert_id();
-
-        #add admin in list of admin
-        $sql = "INSERT INTO `".$mainTblPrefixForm."admin` VALUES ('".$idOfAdmin."')";
-        claro_sql_query($sql);
-    }
-
-
 //TOOLS
 
 $sql = " INSERT INTO `".$mainTblPrefixForm."course_tool`
