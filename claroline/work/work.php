@@ -148,7 +148,7 @@ if( isset($_REQUEST['submitSession']) )
     }
       
     // description
-    if( strip_tags(trim($_REQUEST['sesDesc']) ) == "" ) 
+    if( trim( strip_tags($_REQUEST['sesDesc']) ) == "" ) 
     {
       $sesDesc = ""; // avoid multiple br tags to be added when editing an empty form
     }
