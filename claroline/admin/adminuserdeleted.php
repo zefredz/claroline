@@ -11,13 +11,21 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
+/* This script is used to delete a user from the platform in the admin 
+   tool from the page to visualize the user profile (adminprofile.php)
+   and display a confirmation message to the admin.
+*/
+
+
 define ('USER_SELECT_FORM'        , 1);
 define ('USER_DATA_FORM'          , 2);
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
+
 //SECURITY CHECK
+
 if (!$is_platformAdmin) claro_disp_auth_form();
 
 include $includePath.'/lib/admin.lib.inc.php';
@@ -28,22 +36,13 @@ $nameTools=$langModifOneProfile;
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
 //declare needed tables
+
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_course           = $tbl_mdb_names['course'           ];
 $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user             = $tbl_mdb_names['user'             ];
 $tbl_admin            = $tbl_mdb_names['admin'            ];
 $tbl_course_user = $tbl_rel_course_user;
-
-// see which user we are working with ...
-if (is_integer($_REQUEST['uidToEdit']) && $_REQUEST['uidToEdit']>0)
-{
-    $user_id = $_REQUEST['uidToEdit'];
-}
-else
-{
-    unset($cmd)
-}
 
 //------------------------------------
 // Execute COMMAND section
@@ -53,7 +52,8 @@ if (isset($cmd) && $is_platformAdmin)
 {
     if ($cmd=="delete")
     {
-        delete_user($user_id);
+        $user_id = $_REQUEST['uidToEdit'];
+	delete_user($user_id);
         $dialogBox = $langUserDelete;
     }
 
@@ -62,11 +62,15 @@ if (isset($cmd) && $is_platformAdmin)
 //------------------------------------
 // DISPLAY
 //------------------------------------
+
 include($includePath.'/claro_init_header.inc.php');
+
 // Display tool title
+
 claro_disp_tool_title($langDeleteUser);
 
 //Display Forms or dialog box(if needed)
+
 
 if($dialogBox)
   {
@@ -76,9 +80,9 @@ if($dialogBox)
 
 // display TOOL links :
 
+echo "<a class=\"claroCmd\" href=\"index.php\" >".$langBackToAdmin."</a> | ";
+echo "<a class=\"claroCmd\" href=\"adminusers.php\" >".$langBackToUserList."</a>";
 
-claro_disp_button("index.php",$langBackToAdmin);
-claro_disp_button("adminusers.php",$langBackToUserList);
 
 // display footer
 include($includePath."/claro_init_footer.inc.php");
