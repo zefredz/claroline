@@ -27,6 +27,7 @@ include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/userManage.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
+include($includePath."/conf/profile.conf.inc.php");
 
 //SECURITY CHECK
 
@@ -104,7 +105,7 @@ if($register=="yes")
     elseif( !empty($email) && ! eregi( $regexp, $email ))
     {
         $regDataOk = false;
-        unset($password1, $password, $email);
+        unset($password1, $password);
 
         $dialogBox .= $langEmailWrong;
     }
@@ -150,8 +151,9 @@ if ($regDataOk)
                      `username`     = \"".$uname."\",
                      `password`     = \"".($userPasswordCrypted?md5($password):$password)."\",
                      `email`        = \"".$email."\",
+                     `phoneNumber`  = \"".$phone."\",
                      `statut`       = \"".$statut."\",
-                     `officialCode`    = \"".$officialCode."\"
+                     `officialCode`    = \"".$official_code."\"
                      ");
 
     //$_uid = mysql_insert_id();
@@ -216,50 +218,78 @@ if($display_form)
 {
 	echo $langAddUserOneByOne; ?>
 <form method="post" action="<?= $PHP_SELF ?>?register=yes">
-	<table cellpadding="3" cellspacing="0" border="0">
+	<table cellpadding="3" cellspacing="0" border="0" width="100%">
 	<tr>
-		<td align="right"><?php echo $langLastName; ?> :
+		<td><?php echo $langLastName; ?> :
 		</td>
 		<td>
-		<input type="text" size="15" name="nom" value="<?php echo htmlentities(stripslashes($nom)); ?>">
+		<input type="text" size="40" name="nom" value="<?php echo htmlentities(stripslashes($nom)); ?>">
 		</td>
 	</tr>
 	<tr>
-		<td align="right"><?php echo $langFirstName; ?> :
+		<td ><?php echo $langFirstName; ?> :
 		</td>
 		<td>
-		<input type="text" size="15" name="prenom" value="<?php echo htmlentities(stripslashes($prenom)); ?>">
+		<input type="text" size="40" name="prenom" value="<?php echo htmlentities(stripslashes($prenom)); ?>">
 		</td>
 	</tr>
+
+    <tr>
+        <td ><?php echo $langOfficialCode; ?> :
+        </td>
+        <td>
+        <input type="text" size="40" name="official_code" value="<?php echo htmlentities(stripslashes($official_code)); ?>">
+        </td>
+    </tr>
+
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td></td>
+    </tr>
 	<tr>
-		<td align="right"><?= $langUsername ?> :
+		<td ><?= $langUsername ?> :
 		</td>
-		<td><input type="text" size="15" name="uname" value="<?php echo htmlentities(stripslashes($uname)); ?>">
+		<td><input type="text" size="40" name="uname" value="<?php echo htmlentities(stripslashes($uname)); ?>">
 		</td>
 	</tr>
     <tr>
-        <td align="right"><?php echo $langPassword ?> :
+        <td ><?php echo $langPassword ?> :
         </td>
         <td>
-        <input type="password" size="15" name="password" value="">
+        <input type="password" size="40" name="password" value="">
         </td>
     </tr>
     <tr>
-        <td align="right"><?php echo $langConfirm ?> :
+        <td ><?php echo $langConfirm ?> :
         </td>
         <td>
-        <input type="password" size="15" name="password1" value="">
+        <input type="password" size="40" name="password1" value="">
+        </td>
+    </tr>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td></td>
+    </tr>
+	<tr>
+		<td ><?php echo $langEmail; ?> :
+		</td>
+		<td>
+		<input type="text" size="40" name="email" value="<?php echo $email; ?>">
+		</td>
+	</tr>
+    <tr>
+        <td ><?php echo $langPhone; ?> :
+        </td>
+        <td>
+        <input type="text" size="40" name="phone" value="<?php echo $phone; ?>">
         </td>
     </tr>
 	<tr>
-		<td align="right"><?php echo $langEmail; ?> :
-		</td>
-		<td>
-		<input type="text" size="30" name="email" value="<?php echo $email; ?>">
-		</td>
-	</tr>
-	<tr>
-		<td align="right"><?php echo $langAction; ?> :
+		<td><?php echo $langAction; ?> :
 		</td>
 		<td>
         <select name="statut_form">
