@@ -2287,4 +2287,5 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
+$langQuestionTitle = "Question title";
 ?>

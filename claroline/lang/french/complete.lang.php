@@ -1445,7 +1445,7 @@ $langQualificationsAndGoalsComment2 = "Quels sont les apprentissages visés par l
 Au terme du cours, quelles sont les compétences, les capacités et les connaissances que les étudiants seront en mesure de maîtriser, de mobiliser&nbsp;?";
 $langQuestion = "Question";
 $langQuestionAnswers = "Réponses à la question";
-$langQuestionDescription = "Commentaire facultatif";
+$langQuestionDescription = "Enoncé";
 $langQuestionList = "Liste des questions de l'exercice";
 $langQuestionManagement = "Administration des questions / réponses";
 $langQuestionNotFound = "Question introuvable";
@@ -1917,4 +1917,5 @@ $langpday = "%d&nbsp;jour(s)";
 $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
+$langQuestionTitle = "Titre";
 ?>

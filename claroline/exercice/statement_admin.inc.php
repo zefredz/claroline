@@ -208,7 +208,7 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
 ?>
 
 <tr>
-  <td><label for="questionName"><?php echo $langQuestion; ?> :</label></td>
+  <td><label for="questionName"><?php echo $langQuestionTitle; ?> :</label></td>
   <td><input type="text" name="questionName" id="questionName" size="50" maxlength="200" value="<?php echo htmlentities($questionName); ?>" style="width:400px;"></td>
 </tr>
 <tr>
