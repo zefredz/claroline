@@ -1,22 +1,26 @@
-<?php $langFile = "chat"; require '../inc/claro_init_global.inc.php';
+<?php 
+$langFile = "chat"; 
+require '../inc/claro_init_global.inc.php';
 $is_allowedToManage = $is_courseAdmin;
-?>
 
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/default.css"  />
+// header
+
+$htmlHeadXtra[] = "
 <script>
 function prepare_message()
 {
 	document.chatForm.chatLine.value=document.chatForm.msg.value;
-	document.chatForm.msg.value = "";
+	document.chatForm.msg.value = \"\";
 	document.chatForm.msg.focus();
 	return true;
 }
-</script>
+</script>";
 
-</head>
-<body>
+$hide_banner=TRUE;
+include($includePath."/claro_init_header.inc.php");
+
+
+?>
 <form name     = "chatForm" 
 	  action   = "messageList.php#final"
 	  method   = "post"
