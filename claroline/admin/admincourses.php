@@ -1,4 +1,16 @@
-<?php
+<?php # $Id$
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+
 $langFile='admin';
 $cidReset = true;
 include('../inc/claro_init_global.inc.php');
@@ -313,8 +325,8 @@ echo "<table width=\"100%\">
           </td>
           <td align=\"right\">
             <form action=\"",$PHP_SELF,"\">
-            ".$langMakeNewSearch."
-            <input type=\"text\" value=\"".$_GET['search']."\" name=\"search\"\">
+            <label for=\"search\">".$langMakeNewSearch."</label>
+            <input type=\"text\" value=\"".$_GET['search']."\" name=\"search\" id=\"search\"\">
             <input type=\"submit\" value=\" ".$langOk." \">
             <input type=\"hidden\" name=\"newsearch\" value=\"yes\">
             [<a href=\"advancedCourseSearch.php".$addtoAdvanced."\"><small>".$langAdvanced."</small></a>]

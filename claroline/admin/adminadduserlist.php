@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -50,16 +50,16 @@ if(isset($_REQUEST["register"]))
     /*
     * Fields Checking
     */
-    $array_Users[0]["lastname"]         = trim($_REQUEST["nom_form"]);
-    $array_Users[0]["firstname"]           = trim($_REQUEST["prenom_form"]);
-    $array_Users[0]["username"]         = trim($_REQUEST["username_form"]);
-    $array_Users[0]["password"]         = trim($_REQUEST["password_form"]);
-    $array_Users[0]["email"]            = trim($_REQUEST["email_form"]);
-    $array_Users[0]["status"]            = $_REQUEST["status_form"];
-    $array_Users[0]["officialCode"]        = NULL;
-    $array_Users[0]["phone"]            = NULL;
-    $array_Users[0]["picture"]            = "";
-    $array_Users[0]["authSource"]        = "claroline";
+    $array_Users[0]['lastname'    ] = trim($_REQUEST["nom_form"]);
+    $array_Users[0]['firstname'   ] = trim($_REQUEST["prenom_form"]);
+    $array_Users[0]['username'    ] = trim($_REQUEST["username_form"]);
+    $array_Users[0]['password'    ] = trim($_REQUEST["password_form"]);
+    $array_Users[0]['email'       ] = trim($_REQUEST["email_form"]);
+    $array_Users[0]['status'      ] = $_REQUEST["status_form"];
+    $array_Users[0]['officialCode'] = NULL;
+    $array_Users[0]['phone'       ] = NULL;
+    $array_Users[0]['picture'     ] = "";
+    $array_Users[0]['authSource'  ] = "claroline";
 }
 
 
@@ -167,16 +167,16 @@ if( (isset($_REQUEST["register"]) || isset($_REQUEST["searchUsers"])) && count($
     //For each user
     foreach($array_Users as $user)
     {
-        $firstname        =$user["firstname"];
+        $firstname       =$user["firstname"];
         $lastname        =$user["lastname"];
-        $status            =$user["status"];
-        $email            =$user["email"];
+        $status          =$user["status"];
+        $email           =$user["email"];
         $username        =$user["username"];
         $password        =$user["password"];
         $officialCode    =$user["officialCode"];
-        $phone            =$user["phone"];
-        $picture        =$user["picture"];
-        $authSource        =$user["authSource"];
+        $phone           =$user["phone"];
+        $picture         =$user["picture"];
+        $authSource      =$user["authSource"];
 
         //Check if the parametres are correct
         $error=infoOk($firstname,$lastname,$status,$email,$username,$password,$officialCode,$phone,$picture,$authSource);
