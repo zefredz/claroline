@@ -19,6 +19,7 @@
 $langFile = "course_info";
 
 include('../inc/claro_init_global.inc.php');
+include($includePath."/lib/course.lib.inc.php");
 include($includePath."/conf/course_info.conf.php");
 
 
@@ -28,6 +29,7 @@ include($includePath."/lib/text.lib.php");
 @include($includePath."/lib/debug.lib.inc.php");
 $TABLECOURSE     = $mainDbName."`.`cours";
 $TABLEFACULTY    = $mainDbName."`.`faculte";
+$TABLECOURSDOMAIN= $mainDbName."`.`faculte";//needed for compatibility with libs
 $TABLECOURSEHOME = $_course['dbNameGlu']."tool_list";
 
 $currentCourseID = $_course['sysCode'];
@@ -189,23 +191,11 @@ if (isset($cidToEdit) && ($is_platformAdmin))
 <tr>
 <td align="right"><label for="facu"><?php echo $langFaculty ?></label> :</td>
 <td>
-<select name="facu" id="facu">
-<?php
-		$resultFac  = mysql_query("
-		SELECT `code`, `name`
-		FROM `".$TABLEFACULTY."`
-		WHERE `canHaveCoursesChild` ='TRUE'
-		ORDER BY `name`");
 
-		while ($myfac = mysql_fetch_array($resultFac))
-		{
-			echo "<option value=\"", $myfac["code"], "\"";
-			if($myfac["code"]==$facu) echo " selected ";
-			echo ">(", $myfac["code"], ") ", $myfac["name"];
-			echo "</option>\n";
-		}
+<?php
+BuildEditableCatTable($facu," &gt; ");      
 ?>
-</select>
+
 </td>
 </tr>
 

@@ -56,9 +56,12 @@ include($includePath."/conf/add_course.conf.php");
 //// LIBS
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/add_course.lib.inc.php");
+include($includePath."/lib/course.lib.inc.php");
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
 include($includePath."/conf/course_info.conf.php");
+
+
 $nameTools = $langCreateSite;
 
 $TABLECOURSE 		= "$mainDbName`.`cours";
@@ -437,21 +440,9 @@ elseif($displayCoursePropertiesForm)
 <tr valign="top">
 <td align="right"><label for="faculte"><?php echo $langFac ?></label> : </td>
 <td>
-<select name="faculte" id="faculte">
 <?php
-$resultFac = mysql_query_dbg("SELECT `code`, `name`
-                              FROM `".$TABLECOURSDOMAIN."`
-                              WHERE `canHaveCoursesChild` ='TRUE'
-                              ORDER BY `name`");
-
-	while ($myfac = mysql_fetch_array($resultFac))
-	{
-		echo "<option value=\"", $myfac["code"], "\"";
-		echo ">(", $myfac["code"], ") ", ($myfac["code"]==$myfac["name"]?"":$myfac["name"]);
-		echo "</option>\n";
-	}
+BuildEditableCatTable(""," &gt; ");      
 ?>
-</select>
 <br><small><?php echo $langTargetFac ?></small>
 </td>
 </tr>
@@ -698,5 +689,9 @@ elseif($displayCourseAddResult)
 	</tr>
 <?php
 } // if all fields fulfilled
+
+
 include($includePath."/claro_init_footer.inc.php");
+
+
 ?>
