@@ -77,6 +77,7 @@
    $langMove = "D&eacute;placer";
    $langTo = "vers";
    $langModuleMoved = "Module d&eacute;plac&eacute;";
+   $langBackToLPAdmin = "Retour au parcours pédagogique";
    
    //lang for learningpathList
 

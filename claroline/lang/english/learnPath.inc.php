@@ -77,6 +77,7 @@
    $langMove = "Move";
    $langTo = "to";
    $langModuleMoved = "Module moved";
+   $langBackToLPAdmin = "Back to learning path administration";
 
    //lang for learningpathList
 
