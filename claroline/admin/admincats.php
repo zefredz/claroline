@@ -27,6 +27,14 @@ $dateNow          = claro_format_locale_date($dateTimeFormatLong);
 $nameTools        = $lang_categories;
 $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 include($includePath."/claro_init_header.inc.php");
+//SECURITY CHECK
+
+if (!$is_platformAdmin) claro_disp_auth_form();
+
+$is_allowedToAdmin     = $is_platformAdmin;
+
+$dateNow             = claro_format_locale_date($dateTimeFormatLong);
+$is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
 
 //TABLES
 $tbl_mdb_names   = claro_sql_get_main_tbl();
@@ -1079,7 +1087,7 @@ include($includePath."/claro_init_footer.inc.php");
                     else
                         echo "&nbsp;° &nbsp;&nbsp;&nbsp;";
 
-                    echo $one_faculty["code"]."&nbsp;&nbsp;&nbsp;";
+                    echo $one_faculty["name"] . " (" . $one_faculty["code"] . ")" ."&nbsp;&nbsp;&nbsp;";
 
                     //Number of faculty in this parent
                     $nb=0;
