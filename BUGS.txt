@@ -286,6 +286,21 @@ quoi :
 Repéré par : M
 Assigné à : H
 
+Etat : New ------------------------------------------------------
+M.34 où : /lang/*/exerciceRC.inc.php
+type : déprécié
+quoi : ces fichiers ne servent  plus (A VERIFIER)
+Repéré par : M
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+M.35 où : /lang/*/course_home.inc.php
+type : déprécié ?
+quoi : $langCourseCreate <- défini dans les fichiers de langues course_home.inc.php et utilisé uniquement dans index général
+Repéré par : M
+Assigné à : 
+
+
 
 template à copier coller
 Etat : New ------------------------------------------------------
@@ -300,6 +315,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.46  2004/06/24 11:21:14  moosh
+bugs 34. 35.
+
 Revision 1.45  2004/06/23 10:28:05  seb
 More bugs resolved
 
