@@ -25,167 +25,222 @@ a img {
 	text-decoration: none;
 }
 
-a | img {
-	border: 0px;
-	text-decoration: none;
-}
-
 /******************************************************************************
                               CLAROLINE TOP BANNER
  ******************************************************************************/
 
- 
+
  /*----------------------------------------------------------------------------
                               MAIN BANNER SETTINGS
  ----------------------------------------------------------------------------*/
- 
-.claroTopBanner {
- background-color: #FFFFFF; 
- border: 1px #98AAB1 solid;
- padding: 0px;
+
+#topBanner
+{
+	background-color: #FFFFFF;
+	padding: 0px;
 }
 
-/*
- * ANCHORS BEHAVIOUR
- */
- 
-.claroTopBanner a {
-  text-decoration:none;
-  color: #33333;
-}
-.claroTopBanner a:hover {
-  color: #FFB848;
+#topBanner a,
+#topBanner a:active,
+#topBanner a:link,
+#topBanner a:visited
+{
+	text-decoration:none;
+	color: #333;
 }
 
-/*
- * BORDER BEHAVIOR
- *
- * Note : Maybe you should change the color parameter
- * if you aim to change the page background color
- */
-
-/*.claroTopBanner .platformBanner td,*/
-
-.claroTopBanner .userBanner td  ,
-.claroTopBanner .courseBanner td { 
-	border-top:1px solid #98AAB1;
+#topBanner a:hover
+{
+    color: #FFB848;
 }
 
+#topBanner hr
+{
+	display: none;
+}
 
  /*----------------------------------------------------------------------------
                                   CAMPUS LINE
  ----------------------------------------------------------------------------*/
 
-.claroTopBanner .platformBanner {
-	color: #333333;
+div#platformBanner
+{
+	padding: 5px;
 	font-size: 120%;
+    border: 1px solid #98AAB1;
 }
 
-.claroTopBanner .platformBanner  a {
-	color: #333333;
+#platformBanner a,
+#platformBanner a:active,
+#platformBanner a:link,
+#platformBanner a:visited
+{
+   	color: #333333;
     font-weight: bold;
 }
 
-.claroTopBanner .platformBanner  a:hover {
+#platformBanner a:hover
+{
 	color: #336699;
     font-weight: bold;
+}
+
+div#siteName
+{
+	float: left;
+	text-align: left;
+}
+
+div#institution
+{
+	text-align: right;
 }
 
  /*----------------------------------------------------------------------------
                                    USER LINE
  ----------------------------------------------------------------------------*/
 
-.claroTopBanner .userBanner {
-		
-		color: #333333;
-		margin-top: 2px solid #000000;
+div#userBanner
+{
+   	padding: 5px;
+    border: 1px solid #98AAB1;
+    border-top: none;
+    font-size: small;
 }
 
-.claroTopBanner .userBanner a,
-.claroTopBanner .userBanner a:link,
-.claroTopBanner .userBanner a:visited {
-		color: #333333;
+#userBanner a,
+#userBanner a:active,
+#userBanner a:link,
+#userBanner a:visited
+
+{
+    color: #333333;
 }
-.claroTopBanner .userBanner a:hover {
-		color: #336699;
+
+#userBanner a:hover
+{
+    color: #336699;
+}
+div#userLinks
+{
+	text-align: left;
 }
 
  /*----------------------------------------------------------------------------
                                   COURSE LINE
  ----------------------------------------------------------------------------*/
-
-.claroTopBanner .courseBanner {
-	/*background-color: #ffecce;*/
-	color: #336699;
-	font-weight:bold;
-    border-top:1px solid #FFF;
+ 
+div#courseBanner
+{
+   	padding: 5px;
+    border: 1px solid #98AAB1;
+    border-top: none;
 }
 
-.claroTopBanner .courseBanner p {
-	margin: 0px;
+div#course
+{
+	text-align: left;
 }
 
-.claroTopBanner .courseBanner p .courseName {
+div#course span
+{
+   	display: block;
+}
+
+div#courseToolList
+{
+	float: right;
+    text-align: right;
+}
+
+#courseBanner .courseName {
 	font-size: 120%;
 }
 
-.claroTopBanner .courseBanner p .courseCode {
+#courseBanner .courseCode {
 	font-size: 80%;
 }
 
+#courseBanner form
+{
+	padding: 5px;
+	margin: 0;
+}
 
-.claroTopBanner .courseBanner a,
-.claroTopBanner .courseBanner a:link,
-.claroTopBanner .courseBanner a:visited {
+#courseBanner a,
+#courseBanner a:active,
+#courseBanner a:link,
+#courseBanner a:visited {
 		color:#cc6600;
 }
-	
-.claroTopBanner .courseBanner a:hover {
-		color:#336699;		
+
+#courseBanner a:hover {
+		color:#336699;
 }
+
  /*----------------------------------------------------------------------------
-                                  BREAD CRUMB TRAIL
+                                  BREAD CRUMB LINE
  ----------------------------------------------------------------------------*/
 
-.claroBreadCrumbTrail {
- 
+#breadCrumbLine
+{
+	background-color: #E5E5E5;
+	border: none;
+	font-size: 90%;
+	padding-bottom: 5px;
 }
 
-.claroBreadCrumbTrail a,
-.claroBreadCrumbTrail a:link,
-.claroBreadCrumbTrail a:visited {
-		color:#333333;
-}
-	
-.claroBreadCrumbTrail a:hover {
-		color:#336699;		
+#breadCrumbLine a,
+#breadCrumbLine a:active,
+#breadCrumbLine a:link,
+#breadCrumbLine a:visited
+{
+	color:#333333;
 }
 
+#breadCrumbLine a:hover
+{
+	color:#336699;
+}
 
+#breadCrumbLine hr
+{
+	display: none;
+}
+
+#breadCrumb{}
+
+#toolViewOption
+{
+	float: right;
+	text-align: right;
+}
 
 /******************************************************************************
                              CLAROLINE BODY
  ******************************************************************************/
 
-.claroBody  {
- background-color: #FFFFFF; 
- border: 1px #98AAB1 solid;
+#claroBody
+{
  padding: 5px;
  height: 100%;
- background-image: url('corporate/caliope.png');
+ background-color: #FFFFFF;
+ border: 1px #98AAB1 solid;
+ background-image: url(./corporate/caliope.png);
  background-position: top right;
  background-repeat: no-repeat;
 }
 
 
-.claroBody a,
-.claroBody a:visited,
-.claroBody a:active
+#claroBody a,
+#claroBody a:active,
+#claroBody a:link,
+#claroBody a:visited
 {
  color: #333333;
 }
 
-.claroBody a:hover
+#claroBody a:hover
 {
  color: #006699; 
 }
@@ -195,22 +250,45 @@ a | img {
                               CLAROLINE FOOTER
  ******************************************************************************/
 
-.claroFooter  {
-	background-color: #FFFFF;
+#footer
+{
+	font-size: small;
 }
 
-.claroFooter a, 
-.claroFooter a:visited, 
-.claroFooter a:active {	
- color: #333333;
+#footer hr
+{
+	display: none;
+}
+
+#footer a,
+#footer a:active,
+#footer a:link,
+#footer a:visited
+{
+	color: #333333;
 }
 	
-.claroFooter a:hover {
- color: #333333;
- 
+#footer a:hover
+{
+	color: #333333;
 }
 
+#platformManager
+{
+	float: left;
+}
 
+#poweredBy
+{
+	float: right;
+	text-align: right;
+}
+
+#courseManager
+{
+	margin: auto;
+	text-align: center;
+}
 
 
 /******************************************************************************
@@ -409,30 +487,17 @@ a:visited.invisible{
 
 .claroRightMenu a,
 .claroRightMenu a:link,
-.claroRightMenu a:visited {
-		color: #333333;
+.claroRightMenu a:visited
+{
+	color: #333333;
 }
 	
-.claroRightMenu a:hover {
-		color:#336699;
+.claroRightMenu a:hover
+{
+	color:#336699;
 }
-
 
 
 .HelpText {
     color:gray
 }
-
-
-/*
- * MOOSH ATTIC -- could be nice if one can put some order here ...
- */
- 
-.alternativeBgLight { background-color: #F5F5F5; }
-.alternativeBgDark 	{ background-color: #E6E6E6; }
-.forms 		{ background-color : #E6E6E6; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px ; }
-.formsTips	{ text-align: justify; text-indent: 15pt; word-spacing: normal; }
-INPUT.forms	{ letter-spacing: normal; text-align: justify; text-indent: 3pt;	word-spacing: normal;	padding-top: 0px;	padding-right: 0px;	padding-bottom: 0px;	padding-left: 0px;}
-.warn {	border: thin double Silver;	margin-left: 15px;	margin-right: 15px;  font-family: serif;  color: Red;  padding-left: 25px;    }
-.typeElement { border: thin sol id #E6E6E6; margin-left: 15px;	margin-right: 25px;padding-left: 25px;color:#003399 }
-.claro_listInTable tr:hover {background-color: #CCCCCC;}
