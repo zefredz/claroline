@@ -182,6 +182,8 @@ echo '</td>';
 <td width="200" valign="top" class="claroRightMenu">
 
 <form action ="<?php echo $rootWeb,basename($_SERVER['PHP_SELF']); ?>" method="post">
+<fieldset style="border: 1px solid gray; padding: 7px;">
+<legend><?php echo $langAuthentication ?> : </legend>
 <p>
 <small>
 
@@ -198,6 +200,7 @@ echo '</td>';
 
 </small>
 </p>
+</fieldset>
 </form>
 
 <?php
@@ -205,30 +208,22 @@ echo '</td>';
     {
         claro_disp_message_box($langInvalidId);
     }
-
+?>
+<p>
+<a href="claroline/auth/lostPassword.php"><?php echo $langLostPassword ?></a>
+</p>
+<?php
     if( $allowSelfReg || ! isset($allowSelfReg) )
     {
         ?>
-
         <p>
-        <a href="claroline/auth/inscription.php"><?php echo $langRegistration ?></a>
+        <a href="claroline/auth/inscription.php"><?php echo $langCreateUserAccount ?></a>
         </p>
-
         <?php
     }
 
 ?>
 
-<p>
-<a href="claroline/auth/lostPassword.php"><?php echo $langLostPassword ?></a>
-</p>
-<p>
-<a href="#" 
-      onClick="MyWindow=window.open('claroline/help/help_claroline.php','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=400,height=500,left=300,top=10'); return false;" ><?php echo $langGettingStarted ?></a>
-</p>
-<p>
-<a href="http://www.claroline.net/forum/"><?php echo $langSupportForum ?></a>
-</p>
 <?php @include './textzone_right.inc.html'; ?>
 
 </td>
