@@ -1,4 +1,5 @@
 <?php # $Id$
+
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -144,7 +145,7 @@ $langTheU               ="L'utilisateur";
 $langAddedU             ="a été ajouté. Si vous avez introduit son adresse, un message lui a été envoyé pour lui communiquer son nom d'utilisateur";
 $langAndP               = "et son mot de passe";
 $langDereg              = "a été radié de ce cours"; // JCC 
-$langAddAU              = "Ajouter des utilisateurs";
+$langAddAU              = "Ajouter un utilisateur";
 $langStudent            = "étudiant";
 $langBegin              = "début";
 $langPreced50           = "50 précédents";
