@@ -20,7 +20,7 @@
 // user browser. By default this name is 'clarolineSsoCookie'. But it can be 
 // changed by the Claroline platform administrator.
 
-$ssoCookieName       = 'clarolinSsoCookie';
+$ssoCookieName       = 'clarolineSsoCookie';
 
 // SSO COOKIE PERIOD VALIDITY. Number of seconds before before the 
 // cookie to expire.
