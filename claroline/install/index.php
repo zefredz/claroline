@@ -1711,7 +1711,6 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 			<br><b>
 			Security advice: To protect your site, make '".$configFileName."'
 			and 'claroline/install/index.php' read-only (CHMOD 444).</b>
-			<H3>What to do now ?</H3>
 </form>
 <form action=\"../../\">
 		<input type=\"submit\" value=\"Go to your newly created campus\">
