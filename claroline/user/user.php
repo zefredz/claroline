@@ -26,8 +26,8 @@ $step             = (isset($nbUsersPerPage)?$nbUsersPerPage:50);
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
 $can_add_user     = (   $is_courseAdmin 
-                     && defined('CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER')
-                     && CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER
+                     && isset($is_courseadmin_allowed_to_add_user)
+                     && $is_courseadmin_allowed_to_add_user
                     )
 				    || $is_platformAdmin;
 $currentCourse    = $currentCourseID  = $_course['sysCode'];
