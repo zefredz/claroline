@@ -153,6 +153,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMIN_SETTING || $_REQUEST['cmdDoInstall'])
 		if (empty($adminSurnameForm)) 	$missing_admin_data[] = 'firstname';
 		if (empty($adminNameForm)) 		$missing_admin_data[] = 'lastname';
 		if (empty($adminEmailForm)) 	$missing_admin_data[] = 'email';
+		
 		$msg_missing_admin_data = '<font color="red" >Please fill '.implode(', ',$missing_admin_data).'</font>';
 		if ($cmd>DISP_ADMIN_SETTING)
 		{
@@ -163,6 +164,49 @@ if($_REQUEST['fromPanel'] == DISP_ADMIN_SETTING || $_REQUEST['cmdDoInstall'])
 			$display=$cmd;
 		}
 		$canRunCmd = false;
+	}
+	else 
+	{
+		// here add some check  on email, password crackability, ...
+		
+		// check if table don't already exist witha a user table and this user in.
+		$db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
+		if ($db)
+		{
+			$sql = 'select username, nom lastname, prenom firstname  from `'.$dbNameForm.'`.`user` where username = "'.$loginForm.'"';
+			$res = @mysql_query($sql,$db);
+			if(mysql_errno()>0)
+			{
+				echo mysql_error().' '.$sql;
+			}
+			else
+			$controlUser = mysql_num_rows($res);
+			if ($controlUser>0)
+			{
+				$msg_admin_exist = '
+				The table of user already exist, with a user with same info. <BR>
+				<ul>
+				';
+				while ($userFound = mysql_fetch_array($res,MYSQL_ASSOC)) 
+				{
+					$msg_admin_exist .= '<li>'.$userFound['username'].' : '.$userFound['firstname'].' '.strtoupper($userFound['lastname']).'</li>';
+				}
+				$msg_admin_exist .= '
+				</ul>
+				<font color="red" >Please choose another <B>'.$langAdminLogin.'</B>.</font>';
+				
+				
+				if ($cmd>DISP_ADMIN_SETTING)
+				{
+					$display=DISP_ADMIN_SETTING;
+				}
+				else 
+				{
+					$display=$cmd;
+				}
+				$canRunCmd = false;
+			}
+		}
 	}
 }
 
@@ -237,7 +281,6 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
 	    {
 	    	$display= $cmd;
 	    }
-	    	
 	}
 	else
 	{
@@ -916,6 +959,8 @@ elseif($display==DISP_ADMIN_SETTING)
 			<td>
 				<h4>Administrator</h4>
 	  			'.$msg_missing_admin_data.'
+	  			'.$msg_admin_exist.'
+	
 				<table width="100%">
 					<tr>
 						<tr>
