@@ -349,7 +349,8 @@ function copyDirTo($origDirPath, $destination, $delete)
 		elseif ( is_file($element) )
 		{
 			copy($element, $destinationTrail."/".$element);
-			unlink($element) ;
+            if ($delete)
+    			unlink($element) ;
 		}
 		elseif ( is_dir($element) )
 		{
