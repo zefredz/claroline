@@ -20,7 +20,7 @@ require '../inc/claro_init_global.inc.php';
 $is_allowedToAdmin     = $is_platformAdmin;
 if (!$is_allowedToAdmin) claro_disp_auth_form();
 
-include($includePath."/lib/text.lib.php");
+
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/userManage.lib.php");
 include($includePath."/lib/admin.lib.inc.php");

@@ -17,7 +17,7 @@ require '../inc/claro_init_global.inc.php';
 $is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
 if (!$is_allowedToAdmin) claro_disp_auth_form();
 
-include($includePath."/lib/text.lib.php");
+
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
 
@@ -30,7 +30,7 @@ include($includePath."/lib/admin.lib.inc.php");
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $nameTools = $langMaintenance;
 
-$dateNow 			= claro_format_locale_date($dateTimeFormatLong);
+$dateNow 			= claro_disp_localised_date($dateTimeFormatLong);
 /*
 // make here some  test
 // $checkMsgs[] = array("level" => 5, "target" => "test 1 ", "content" => "this is  just  a  warning test 1 ");

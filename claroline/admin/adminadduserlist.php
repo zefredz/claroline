@@ -23,7 +23,7 @@ $interbredcrump[]    = array ("url" => $rootAdminWeb, "name"=> $langAdministrati
 $interbredcrump[]    = array ("url" => "index.php", "name"=> $langManage);
 $noQUERY_STRING     = TRUE;
 
-include($includePath."/lib/text.lib.php");
+
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/userManage.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
@@ -33,7 +33,7 @@ include($includePath."/lib/admin.lib.inc.php");
 if (!$is_platformAdmin) claro_disp_auth_form();
 
 
-$dateNow             = claro_format_locale_date($dateTimeFormatLong);
+$dateNow             = claro_disp_localised_date($dateTimeFormatLong);
 $is_allowedToAdmin     = $is_platformAdmin;
 
 //TABLES

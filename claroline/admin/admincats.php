@@ -19,11 +19,11 @@ require '../inc/claro_init_global.inc.php';
 $is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
 if (!$is_allowedToAdmin) claro_disp_auth_form();
 
-include($includePath."/lib/text.lib.php");
+
 //include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
 
-$dateNow          = claro_format_locale_date($dateTimeFormatLong);
+$dateNow          = claro_disp_localised_date($dateTimeFormatLong);
 $nameTools        = $lang_categories;
 $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 include($includePath."/claro_init_header.inc.php");
@@ -33,7 +33,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 
 $is_allowedToAdmin     = $is_platformAdmin;
 
-$dateNow             = claro_format_locale_date($dateTimeFormatLong);
+$dateNow             = claro_disp_localised_date($dateTimeFormatLong);
 $is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
 
 //TABLES

@@ -18,7 +18,6 @@ define ("USER_DATA_FORM", 2);
 $langFile='admin';
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
-include $includePath.'/lib/text.lib.php';
 include $includePath."/lib/admin.lib.inc.php";
 include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
 

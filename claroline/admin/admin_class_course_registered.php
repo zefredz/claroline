@@ -25,7 +25,6 @@ $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname =
 
 
 require '../inc/claro_init_global.inc.php';
-include $includePath.'/lib/text.lib.php';
 include $includePath."/lib/admin.lib.inc.php";
 include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
 
