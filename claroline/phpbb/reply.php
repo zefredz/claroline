@@ -57,9 +57,9 @@ if (   ! is_null($forumSettingList['idGroup'])
 }
 
 
-$forum_name   = $forumSettingList['forum_name'];
+$forum_name   = $forumSettingList['forum_name'  ];
 $forum_access = $forumSettingList['forum_access'];
-$forum_type   = $forumSettingList['forum_type'];
+$forum_type   = $forumSettingList['forum_type'  ];
 $forum_id     = $forum;
 
 if( is_locked($topic, $db) ) error_die ($l_nopostlock);
@@ -92,7 +92,7 @@ if($submit)
 
     $message    = addslashes($message);
     $lastName   = addslashes($userdata['last_name']);  // ADDED FOR CLAROLINE
-    $firstName  = addslashes($usedata['first_name']); // ADDED FOR CLAROLINE
+    $firstName  = addslashes($userdata['first_name']); // ADDED FOR CLAROLINE
     $poster_ip  = $REMOTE_ADDR;
     $time       = date('Y-m-d H:i');
 
