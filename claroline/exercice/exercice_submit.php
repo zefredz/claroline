@@ -68,17 +68,17 @@ $TBL_REPONSES          = $_course['dbNameGlu'].'quiz_answer';
 if ($_SESSION['inPathMode'] == true)
 {
      $is_allowedToEdit = false; // do not allow to be in admin mode during a path progression
-     // need to include the learningPath langfile for the added interbredcrump
-     @include("../lang/english/learnPath.inc.php");
-     @include("../lang/".$languageInterface."/learnPath.inc.php");
 
-     if($buttonCancel)
+    if($buttonCancel)
     {
         // returns to the module presentation page
         $backUrl = $clarolineRepositoryWeb."learnPath/navigation/backFromExercise.php?op=cancel";
         header('Location: '.$backUrl);
         exit();
     }
+    // need to include the learningPath langfile for the added interbredcrump
+    @include("../lang/english/learnPath.inc.php");
+    @include("../lang/".$languageInterface."/learnPath.inc.php");
 }
 else
 {    // if the user has clicked on the "Cancel" button
@@ -90,14 +90,6 @@ else
     }
 }
 
-
-// if the user has clicked on the "Cancel" button
-if($buttonCancel)
-{
-	// returns to the exercise list
-	header('Location: exercice.php');
-	exit();
-}
 
 // if the user has submitted the form
 if($formSent)
@@ -221,8 +213,20 @@ if($HTTP_POST_VARS['questionNum'])
 	$QUERY_STRING="questionNum=$questionNum";
 }
 
-if ($_SESSION['inPathMode'] != true) 
+if ($_SESSION['inPathMode'] == true) 
+{
+	// echo minimal html page header so that the page is valid
+	echo '<html>
+		<head>
+			<title>'.$exerciseTitle.'</title>
+			<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/default.css"  />
+		</head>
+		<body>';
+}
+else
+{
   include($includePath.'/claro_init_header.inc.php');
+}
 ?>
 
 <h3><?php echo $exerciseTitle; ?></h3>
@@ -308,6 +312,14 @@ foreach($questionList as $questionId)
 </table>
 
 <?php
-if ($_SESSION['inPathMode'] != true) 
-    @include($includePath.'/claro_init_footer.inc.php');
+if ($_SESSION['inPathMode'] == true) 
+{	
+	// echo minimal html footer so that the page is valid
+	echo '		</body>
+		</html>';
+}
+else
+{
+ 	include($includePath.'/claro_init_footer.inc.php');
+}
 ?>
