@@ -255,7 +255,6 @@ $langCreateDir = "Criar um direct&oacute;rio";
 $langCreateMissingDirectories = "Cria&ccedil;&atilde;o das pastas perdidas";
 $langCreateMissingDirectories = "Cria&ccedil;&atilde;o dos direct&oacute;rios que faltam";
 $langCreateSite = "Criar uma web de curso";
-$langCreatedIn = "criada em";
 $langCreationDate = "Criado";
 $langDBHost = "Host da Base de Dados";
 $langDBLogin = "Nome de utilizador da Base de Dados";
@@ -317,6 +316,8 @@ $langEmailNotSent = "Se alguma coisa correr mal, envie uma mensagem para";
 $langEmailOption = "Envia este an&uacute;ncio por email aos estudantes registados";
 $langEmailSent = "e enviada aos estudantes registados";
 $langEmailWrong = "A morada de correio electr&oacute;nico que escreveu n&atilde;o est&aacute; completa ou cont&eacute;m caracteres n&atilde;o v&aacute;lidos";
+$langEmpty = "N&atilde;o preencheu todos os campos.<br>Volte atr&aacute;s, carregando no bot&atilde;o correspondente do seu navegador, e preencha todos os campos.<br>Se n&atilde;o conhece o c&oacute;digo do seu curso, consulte o programa do curso";
+$langEmpty = "vazio";
 $langEmptyAnn = "Apagar todos os an&uacute;ncios";
 $langEmptyFields = "N&atilde;o preencheu todos os campos.
 Utilize o bot&atilde;o de Regressar do seu navegador e tente de novo.";

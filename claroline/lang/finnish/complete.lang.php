@@ -230,6 +230,7 @@ $langEmail = "Sähköposti";
 $langEmailOption = "Send this announcement by email to registered students";
 $langEmailSent = " and emailed to registered students";
 $langEmailWrong = "Sähköpostiosoitteesi on puutteellinen tai virheellinen";
+$langEmpty = "Jätit joitain kenttiä tyhjäksi.<br>Mene takaisin ja yritä uudetaan.<br>Jos et huomannut kurssin koodia, katso kurssin ohjelmasta.";
 $langEmptyAnn = "Tyhjennä ilmoitusten lista";
 $langEmptyFields = "Jätit jotkut kentistä tyhjiksi. Mene takaisin ja yritä uudestaan.";
 $langEnter = "Sisään";

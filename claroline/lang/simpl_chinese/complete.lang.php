@@ -262,6 +262,7 @@ $langEditDel = "编辑/删除";
 $langElRen = "目录或文件已更名";
 $langEmail = "邮件";
 $langEmailWrong = "邮件地址不正确,存在非法字符";
+$langEmpty = "有些项目没有填写.<br>返回重试.<br>如果不清除课程代码,请参考课程大纲";
 $langEmptyAnn = "清除通知列表";
 $langEmptyFields = "有些项未填写!返回重试.";
 $langEnter = "进入";

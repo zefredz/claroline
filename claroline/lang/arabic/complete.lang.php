@@ -194,7 +194,6 @@ $langCreateClaroTables = " خلق جداول الخزينة الأساسيّة "
 $langCreateDir = " خلق ملف";
 $langCreateMissingDirectories = " خلق الملفات الناقصة   ";
 $langCreateSite = " خلق موقع درس ";
-$langCreatedIn = " خلق في ";
 $langDate = " تاريخ ";
 $langDay = " يوم ";
 $langDay_of_weekNames = "Array";
@@ -356,6 +355,8 @@ $langEmailOption = " أرسل هذا الإعلان للطلبة بالبريد 
 $langEmailSent = " أرسلت بالبريد الإلكتروني للطلبة المرسمون       ";
 $langEmailWrong = "L'adresse email que vous avez introduite n'est pas complète
 ou contient certains caractères non valides";
+$langEmpty = " لم تملئوا كلّ الحقول
+<br>\ استعملوا زرّ الرجوع إلى الوراء وأعيدوا الكرّة <br> إن كنتم لا تعرفون رمز درسكم عودوا إلى برنامج الدروس";
 $langEmptyAnn = " محو كلّ الإعلانات ";
 $langEmptyFields = "Vous n'avez pas rempli tous les champs.
 Utilisez le bouton de retour en arrière de votre navigateur et recommencez.";

@@ -239,6 +239,7 @@ $langEmail = "Email";
 $langEmailOption = "Send this announcement by email to registered students";
 $langEmailSent = " and emailed to registered students";
 $langEmailWrong = "この email address は不完全か、利用出来ない文字が含まれています";
+$langEmpty = "未記入欄があります。<br />もどるボタンでもどって、再度試してください。<br />もしもコースコードを知らないなら、コースプログラムを問い合わせてください";
 $langEmptyAnn = "お知らせをすべて、削除する";
 $langEmptyFields = "いくつかの欄が空白です。ボタンで戻って、再度ためしてください";
 $langEnter = "Entrer";

@@ -262,7 +262,6 @@ $langCreateClaroTables = "Creation des tables de la base principale";
 $langCreateDir = "Cr&eacute;er un r&eacute;pertoire";
 $langCreateMissingDirectories = "Création des répertoires manquants";
 $langCreateSite = "Créer un site pour les cadres";
-$langCreatedIn = "créé dans";
 $langDate = "Date";
 $langDay = "Jour";
 $langDay_of_weekNames = "Array";
@@ -441,6 +440,10 @@ $langEmailOption = "Envoyer cette annonce par courriel aux cadres";
 $langEmailSent = " et envoyée par courriel aux cadres du site";
 $langEmailWrong = "L'adresse email que vous avez introduite n'est pas complète
 ou contient certains caractères non valides";
+$langEmpty = "Vide";
+$langEmpty = "Vous n\'avez pas rempli tous les champs.
+<br>
+Utilisez le bouton de retour en arrière de votre navigateur et recommencez.<br>Si vous ne connaissez pas le code de votre site, consultez le staff fédéral";
 $langEmptyAnn = "Vider complètement les annonces";
 $langEmptyFields = "Vous n'avez pas rempli tous les champs.
 Utilisez le bouton de retour en arrière de votre navigateur et recommencez.";

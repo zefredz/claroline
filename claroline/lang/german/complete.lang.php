@@ -136,8 +136,8 @@ $l_quotemsg = "[quote]
 %3\$s
 [/quote]";
 $l_quotemsg = "[quote]
-On %1\$s, %2\$s wrote:
-%3\$s
+On %1\, %2\ wrote:
+%3\
 [/quote]";
 $l_quotemsg = "[quote]\nOn %1\\$s, %2\\$s wrote:\n%3\\$s\n[/quote]";
 $l_recptname = "Benutzername des Empf&auml;ngers";
@@ -292,7 +292,7 @@ $langAllExercises = "Alle Tests";
 $langAllRight = "<b>Es gibt keine Auffälligkeiten</b>";
 $langAllUsersOfThisCourse = "Kurs-Mitglieder";
 $langAllUsersOfThisCourse = "Kursteilnehmer";
-$langAllowed = "erlaubt";
+$langAllowed = "Erlaubt";
 $langAlreadyAnswered = "Sie haben diese Frage bereits beantwortet";
 $langAlreadyBrowsed = "Bereits durchgesehen";
 $langAlreadyEnrolled = "Bereits eingetragen";
@@ -505,8 +505,6 @@ $langCreateNewLearningPath = "Einen neuen Lernpfad anlegen";
 $langCreateSite = "Einen neuen Kurs anlegen";
 $langCreateSite = "Kurs-Website erstellen";
 $langCreateUser = "Benutzer anlegen";
-$langCreatedIn = "erstellt am";
-$langCreatedIn = "erstellt in";
 $langCreationDate = "Erstellt";
 $langCreationMailNotificationBody = "Kurs-Erstellung auf ";
 $langCreationMailNotificationSubject = "Kurs Erstellung";
@@ -551,11 +549,11 @@ $langDelAdmin = "Entfernen Sie diesen Eintrag über das Forum Admin Tool";
 $langDelCourse = "Diesen Kurs löschen";
 $langDelImage = "Bild entfernen";
 $langDelete = "delete";
-$langDelete = "Löschen";
+$langDelete = "löschen";
 $langDeleteGroups = "Alle Gruppen löschen";
 $langDeleteUser = "Benutzer löschen";
 $langDeleted = "gelöscht";
-$langDenied = "verboten";
+$langDenied = "Verboten";
 $langDepartment = "Bereich";
 $langDepartmentUrl = "Bereichs-URL";
 $langDepartmentUrl = "URL";
@@ -673,6 +671,8 @@ $langEmailSent = " und an registrierte Benutzer per E-Mail gesendet";
 $langEmailWrong = "Die E-Mail Adresse ist nicht komplett oder enthält ungültige Buchstaben";
 $langEmailWrong = "Die Email-Adresse ist ungültig";
 $langEmailWrong = "Falsche Email-Adresse";
+$langEmpty = "Leer";
+$langEmpty = "Sie haben einige Felder leer gelassen.<br>Benutzen Sie den Zurück-Button und versuchen Sie es erneut.<br>Wenn Sie den Kursnummer nicht kennen, schauen Sie sich bitte das Kursprogram an";
 $langEmptyAnn = "Liste der Bekanntmachungen löschen";
 $langEmptyFields = "Sie haben einige Felder leer gelassen. Gehen Sie zurück und versuchen Sie es noch einmal.";
 $langEmtpyGroups = "Alle Gruppen leeren";
@@ -1022,7 +1022,6 @@ $langLastname = "Nachname";
 $langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";
 $langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Launch main platform tables upgrade</button></p>";
 $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
-$langLearnPath = "Lernpfad";
 $langLearnPathDetails = "Fortschritte in den Lernpfaden";
 $langLearningPath = "Lernpfad";
 $langLearningPathAdmin = "Lernpfad Admin";
@@ -1200,7 +1199,7 @@ $langNextPage = "Nächste Seite";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
 $langNextWeek = "Nächste Woche";
 $langNextYear = "Nächstes Jahr";
-$langNo = "NEIN";
+$langNo = "Nein";
 $langNo = "no";
 $langNoAnnouncement = "Keine Bekanntmachungen.";
 $langNoAnswer = "Es gibt zur Zeit keine Antwort";
@@ -1609,7 +1608,7 @@ $langWorkUploads = "Aufgaben-Upload";
 $langWorksDetails = "Aufgaben der Lerner im Auftrag der Tutoren/Dozenten";
 $langWrongOperation = "Falsche Operation";
 $langYear = "Jahr";
-$langYes = "JA";
+$langYes = "Ja";
 $langYes = "yes";
 $langYouAreReg = "Sie wurden registriert am";
 $langYourAccountParam = "Dies ist Ihr Anmelde Passwort";
