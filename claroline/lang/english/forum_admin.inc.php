@@ -6,15 +6,8 @@
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
       |   $Id$           |
-	  |   English Translation                                                |
       +----------------------------------------------------------------------+
-
-      +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
-      +----------------------------------------------------------------------+
- */
+*/
 // forum_admin.inc
 
 $langForums="Forums";
@@ -40,8 +33,9 @@ $langFunctions="Functions";
 $langAddCategory="Add a category";
 $langOrder="Order";
 $langCannotBeDeleted = "can not be deleted";
+$langCannotMoveGroupForum = "Groups forum cannot be moved";
+$langCannotAddForumInGroups = "Groups forum are added when creating a group and  deleted when deleting corresponding group.";
 // action done message
-
 $langemptyforumname = "You must give a name to your new forum!";
 $langemptycatname = "You must give a name to your new category!";
 $langforumcreated = "The new forum has been created.";

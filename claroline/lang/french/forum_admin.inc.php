@@ -7,19 +7,7 @@
       +----------------------------------------------------------------------+
       |   $Id$         |
       +----------------------------------------------------------------------+
-
-      +----------------------------------------------------------------------+
- */
-
-/***************************************************************
-*                   Language translation
-****************************************************************
-GOAL
-****
-Translate the interface in chosen language
-
-*****************************************************************/
-
+*/
 // forum_admin.inc
 
 $langForums="Forums";
@@ -45,7 +33,8 @@ $langFunctions="Fonctions";
 $langAddCategory="Ajouter une catégorie";
 $langOrder = "Ordre";
 $langCannotBeDeleted = "Ne peut être effacé";
-
+$langCannotMoveGroupForum = "Les forums de groupe ne peuvent être déplacés."; 
+$langCannotAddForumInGroups = "Les forums des groupes sont cr&eacute;&eacute;s lors de la cr&eacute;ation du groupe, et sont effac&eacute,s lors de la suppression des groupes.";
 //action done message
 $langemptyforumname = "Vous devez choisir un nom pour votre forum!";
 $langemptycatname = "Vous devez choisir un nom pour votre nouvelle catégorie!";
