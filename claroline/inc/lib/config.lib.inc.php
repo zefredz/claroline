@@ -307,9 +307,9 @@ function config_checkToolProperty($propValue, $propertyDef)
 function claro_get_conf_file($config_code)
 {
    global $includePath;
-    
-   $confDef = claro_get_def_file(config_code);
-   if(file_exists($confDef)) include $confDef;
+   unset($conf_def);
+   $confDefFile = claro_get_def_file(config_code);
+   if(file_exists($confDefFile)) include $confDefFile;
    
    if (isset($conf_def['config_file']))
    {
@@ -343,6 +343,7 @@ function get_tool_name($claro_label)
 
 function get_config_name($config_code)
 {
+    unset($conf_def);
     @include(claro_get_def_file($config_code));
     return (isset($conf_def['config_name'])?$conf_def['config_file']:   
     isset($conf_def['config_file'])?$conf_def['config_file']:$config_code);
@@ -509,10 +510,139 @@ function parse_config_file($confFileName)
         elseif (($tokens[$i][0] == T_CONSTANT_ENCAPSED_STRING ))
         {
             $tokens[$i][1] = str_replace('"','',$tokens[$i][1]);
+            unset($value);
             @eval('$value = '.$tokens[$i][1].';');
             $propList[$tokens[$i][1]] =  $value;
         }
     }
     return  $propList;
 }
+
+
+
+function  claroconf_disp_editbox_of_a_value($conf_def_property_list, $property)
+{
+    $htmlPropDesc = ($conf_def_property_list['description']?'<div class="propDesc">'.nl2br(htmlentities($conf_def_property_list['description'])).'</div><br />':'');
+    $htmlPropName = 'prop['.($property).']';
+    $htmlPropLabel = (isset($conf_def_property_list['label'])?htmlentities($conf_def_property_list['label']):$htmlPropName);
+    $htmlPropValue = isset($conf_def_property_list['actualValue'])?$conf_def_property_list['actualValue']:$conf_def_property_list['default'];
+    $size = (int) strlen($htmlPropValue);
+    $size = 2+(($size > 90)?90:(($size < 15)?15:$size));
+    $htmlPropDefault = isset($conf_def_property_list['actualValue'])?'<span class="default"> Default : '.$conf_def_property_list['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
+    $htmlUnit = (isset($conf_def_property_list['unit'])?''.htmlentities($conf_def_property_list['unit']).' ':'');
+    
+    if (isset($conf_def_property_list['display']) 
+           &&!$conf_def_property_list['display']) 
+    {
+        echo '<input type="hidden" value="'.$htmlPropValue.'" name="'.$htmlPropName.'">'."\n";
+    } 
+    elseif ($conf_def_property_list['readonly']) 
+    {
+        echo '<H2>'
+            .$htmlPropLabel
+            .'</H2>'."\n"
+            .$htmlPropDesc."\n"
+            .'<span>'
+            ;
+        switch($conf_def_property_list['type'])
+        {
+       	    case 'boolean' : 
+   	        case 'enum' : 
+                echo (isset($conf_def_property_list['acceptedValue'][$htmlPropValue])?$conf_def_property_list['acceptedValue'][$htmlPropValue]:$htmlPropValue);
+        		break;
+       	    case 'integer' : 
+   	        case 'string' : 
+         	default:
+            	// probably a string or integer
+                echo $conf_def_property_list['default'];
+    } // switch
+    echo '</span>'."\n"
+        .'<input type="hidden" value="'.$htmlPropValue.'" name="'.$htmlPropName.'">'."\n";
+    } 
+    else
+    // Prupose a form following the type 
+    switch($conf_def_property_list['type'])
+    {
+   	    case 'boolean' : 
+            $htmlPropDefault = isset($conf_def_property_list['actualValue'])
+                               ?'<span class="default"> Default : '
+                               .($conf_def_property_list['acceptedValue'][$conf_def_property_list['default']]?$conf_def_property_list['acceptedValue'][$conf_def_property_list['default']]:$conf_def_property_list['default'] )
+                               .'</span><br />'
+                               :'<span class="firstDefine">!!!First definition of this value!!!</span><br />'
+                               ;
+            echo '<H2>'
+                .$htmlPropLabel
+                .'</H2>'."\n"
+                .$htmlPropDesc."\n"
+                .$htmlPropDefault."\n"
+                .'<span>'
+                .'<input id="'.$property.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '.($htmlPropValue=='TRUE'?' checked="checked" ':' ').' >'
+                .'<label for="'.$property.'_TRUE"  >'
+                .($conf_def_property_list['acceptedValue']['TRUE' ]?$conf_def_property_list['acceptedValue']['TRUE' ]:'TRUE' )
+                .'</label>'
+                .'</span>'."\n"
+                .'<span>'
+                .'<input id="'.$property.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '.($htmlPropValue=='TRUE'?' ':' checked="checked" ').' ><label for="'.$property.'_FALSE" >'.($conf_def_property_list['acceptedValue']['FALSE']?$conf_def_property_list['acceptedValue']['FALSE']:'FALSE').'</label></span>'."\n"
+                ;
+    		break;
+   	    case 'enum' : 
+            $htmlPropDefault = isset($conf_def_property_list['actualValue'])
+                               ?'<span class="default"> Default : '
+                               .($conf_def_property_list['acceptedValue'][$conf_def_property_list['default']]?$conf_def_property_list['acceptedValue'][$conf_def_property_list['default']]:$conf_def_property_list['default'] )
+                               .'</span><br />'
+                               :'<span class="firstDefine">!!!First definition of this value!!!</span><br />'
+                               ;
+            echo '<H2>'
+                .$htmlPropLabel
+                .'</H2>'."\n"
+                .$htmlPropDesc."\n"
+                .$htmlPropDefault."\n";
+            foreach($conf_def_property_list['acceptedValue'] as  $keyVal => $labelVal)
+            {
+                echo '<span>'
+                    .'<input id="'.$property.'_'.$keyVal.'"  type="radio" name="'.$htmlPropName.'" value="'.$keyVal.'"  '.($htmlPropValue==$keyVal?' checked="checked" ':' ').' >'
+                    .'<label for="'.$property.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
+                    .'<span class="configValueUnit">'.$htmlUnit.'</span>'
+                    .'</span>'
+                    .'<br>'."\n";
+            }   
+    		break;
+    		
+//TYPE : integer, an integer is attempt
+    	case 'integer' : 
+            $htmlPropDefault = isset($conf_def_property_list['actualValue'])?'<span class="default"> Default : '.$conf_def_property_list['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
+            echo '<H2>'
+                .'<label for="'.$property.'">'
+                .$conf_def_property_list['label']
+                .'</label>'
+                .'</H2>'."\n"
+                .'<br>'."\n"
+                .$htmlPropDesc."\n"
+                .$htmlPropDefault."\n"
+                .'<input size="'.$size.'"  align="right" id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '."\n"
+                .'<span class="configValueUnit">'.$htmlUnit.'</span>'
+                .'<span class="configValueType">('.$conf_def_property_list['type'].')</span>'."\n"
+                .'<br>'
+                ;
+    		;
+    		break;
+    	default:
+    	// probably a string
+            $htmlPropDefault = isset($conf_def_property_list['actualValue'])?'<span class="default"> Default : '.$conf_def_property_list['default'].'</span><br />':'<span class="firstDefine">!!!First definition of this value!!!</span><br />';
+            echo '<h2>'."\n"
+                .'<label for="'.$property.'">'
+                .$conf_def_property_list['label']
+                .'</label>'."\n"
+                .'</h2>'."\n"
+                .$htmlPropDesc."\n"
+                .$htmlPropDefault."\n"
+                .'<input size="'.$size.'"  id="'.$property.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '
+                .'<span class="configValueUnit">'.$htmlUnit.'</span>'
+                .'<span class="configValueType">('.$conf_def_property_list['type'].')</span>'."\n"
+                .'<br>'."\n"
+                ;
+    		;
+    } // switch
+}
+
 ?>
