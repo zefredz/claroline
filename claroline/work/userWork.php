@@ -192,11 +192,21 @@ else //if( $assignment['authorized_content'] == "TEXT" )
 // if this is a group assignement we will need some group infos about the user
 if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
 {
-	// get the list of group the user is in
-	$sql = "SELECT `tu`.`team`, `t`.`name`
-		FROM `".$tbl_group_rel_team_user."` as `tu`, `".$tbl_group_team."` as `t`
-		WHERE `tu`.`user` = ".$_uid."
-		AND `tu`.`team` = `t`.`id`";
+	if( $is_courseAdmin )
+	{
+		// courseAdmin is virtually a member of all groups
+		$sql = "SELECT `tu`.`team`, `t`.`name`
+			FROM `".$tbl_group_rel_team_user."` as `tu`, `".$tbl_group_team."` as `t`
+			WHERE `tu`.`team` = `t`.`id`";
+	}
+	else
+	{
+		// get the list of group the user is in
+		$sql = "SELECT `tu`.`team`, `t`.`name`
+			FROM `".$tbl_group_rel_team_user."` as `tu`, `".$tbl_group_team."` as `t`
+			WHERE `tu`.`user` = ".$_uid."
+			AND `tu`.`team` = `t`.`id`";
+	}
 
 	$result = claro_sql_query($sql);
 	while( $row = mysql_fetch_array($result) )
@@ -933,12 +943,11 @@ if( $is_allowedToSubmit )
                         foreach( $userGroupList as $group )
                         {
                               echo "<option value=\"".$group['id']."\"";
-                              if( isset($form['wrkGroup']) && $form['wrkGroup'] == $group['id'] )
+                              if( isset($form['wrkGroup']) && $form['wrkGroup'] == $group['id'] || $_REQUEST['authId'] == $group['id'] )
                               {
                                     echo "selected=\"selected\"";
                               }
                               echo ">".$group['name']."</option>\n";
-                              
                         }
                         echo "</select>\n"
                               ."</td>\n";
@@ -1073,7 +1082,7 @@ if( $is_allowedToSubmit )
                   // add selected attribute if needed
                   if( $form['wrkScore'] == -1 )
                   {
-                        $wrkScoreField .= " selected=\"true\"";
+                        $wrkScoreField .= " selected=\"selected\"";
                   }                  
                   $wrkScoreField .= ">".$langNoScore."</option>\n";
                   
@@ -1082,7 +1091,7 @@ if( $is_allowedToSubmit )
                         $wrkScoreField .= "<option value=\"".$i."\"";
                         if($i == $form['wrkScore'])
                         {
-                        	$wrkScoreField .= " selected=\"true\"";
+                        	$wrkScoreField .= " selected=\"selected\"";
                         }
                         $wrkScoreField .= ">".$i."</option>\n";
                   }
@@ -1147,6 +1156,7 @@ if( $dispWrkLst )
 	foreach( $wrkLst as $thisWrk )
 	{
 		$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']]);
+
 		if( $thisWrk['visibility'] == 'VISIBLE' || $is_allowedToViewThisWrk )
 		{
 			$wrkAndFeedbackLst[] = $thisWrk;
@@ -1174,6 +1184,15 @@ if( $dispWrkLst )
 		$is_feedback = !is_null($thisWrk['original_id']) && !empty($thisWrk['original_id']);
 		$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']]);
 		$is_allowedToEditThisWrk = (bool)$is_allowedToEditAll || ( ( $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']])) && $uploadDateIsOk );
+	
+		if ($thisWrk['visibility'] == "INVISIBLE")
+		{
+			$style=' class="invisible"';
+		}
+		else 
+		{
+			$style='';
+		}	
 		
 		// change some displayed text depending on the context
 		if( $assignmentContent == "TEXTFILE" || $is_feedback )
@@ -1191,21 +1210,6 @@ if( $dispWrkLst )
 			$txtForText = $langFileDesc;
 		}
 		
-		if ($thisWrk['visibility'] == "INVISIBLE")
-		{
-			if ( $is_allowedToViewThisWrk )
-			{
-				$style=' class="invisible"';
-			}
-			else
-			{
-				continue; // skip the display of this file
-			}
-		}
-		else 
-		{
-			$style='';
-		}
 		// title (and edit links)
 		echo "<tr>\n"
 	  		."<th class=\"headerX\">\n"
