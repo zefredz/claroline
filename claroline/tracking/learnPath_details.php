@@ -1,11 +1,9 @@
-<?php 
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.0 $Revision$                            |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   $Id$         |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
       |   modify it under the terms of the GNU General Public License        |
@@ -23,14 +21,11 @@
       |   02111-1307, USA. The GNU GPL license is also available through     |
       |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
       +----------------------------------------------------------------------+
-      | Authors:                                                           |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Sebastien Piraux  <piraux_seb@hotmail.com>   |
-      |                                                                        |
-      |                    http://www.claroline.net/                |
+      | Authors:
+      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>
+      |          Christophe Gesché <gesche@ipm.ucl.ac.be>
+      |          Sebastien Piraux  <piraux_seb@hotmail.com>
       +----------------------------------------------------------------------+
-
  */
  
 $langFile = "tracking";
@@ -55,19 +50,30 @@ TD {border-bottom: thin dashed Gray;}
 
 
 // regroup table names for maintenance purpose
-$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
-$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
-$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
-$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
-$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
+/*
+ * DB tables definition
+ */
 
-$TABLECOURSUSER	        = $mainDbName."`.`cours_user";
-$TABLEUSER = $mainDbName."`.`user";
+$tbl_cdb_names               = claro_sql_get_course_tbl();
+$tbl_mdb_names               = claro_sql_get_main_tbl();
+$tbl_rel_course_user         = $tbl_mdb_names['rel_course_user'  ];
+$tbl_user                    = $tbl_mdb_names['user'             ];
+$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
+$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
+$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
 
+$TABLELEARNPATH         = $tbl_lp_learnPath;
+$TABLEMODULE            = $tbl_lp_module;
+$TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
+$TABLEASSET             = $tbl_lp_asset;
+$TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
-include($includePath."/claro_init_header.inc.php");
+$TABLECOURSUSER	        = $tbl_rel_course_user;
+$TABLEUSER              = $tbl_user;
+
 include($includePath."/lib/statsUtils.lib.inc.php");
-
 
 include($includePath."/lib/learnPath.lib.inc.php");
 
@@ -80,6 +86,11 @@ $sql = "SELECT `name`
 
 $result = claro_sql_query($sql);
 $pDetails = @mysql_fetch_array($result);
+
+////////////////////
+////// OUTPUT //////
+////////////////////
+include($includePath."/claro_init_header.inc.php");
 
 // display title
 $titleTab['mainTitle'] = $nameTools;
@@ -130,8 +141,6 @@ else
         echo $langNotAllowed;
     }
 }
-
-
 
 include($includePath."/claro_init_footer.inc.php");
 ?>

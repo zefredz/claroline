@@ -18,7 +18,14 @@ function define_course_keys ($wantedCode,          $prefix4all="",
 {
 	// What do better :
 	// actually if suffix is not unique   the next append and not  replace
-	GLOBAL $TABLECOURSE, $coursesRepositories,$prefixAntiNumber,$prefixAntiEmpty,$DEBUG;
+	/*
+ * DB tables definition
+ */
+
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_course    = $tbl_mdb_names['course'           ];
+
+	GLOBAL $coursesRepositories,$prefixAntiNumber,$prefixAntiEmpty,$DEBUG;
 
 	$nbCharFinalSuffix = 4 ; // Number of car to add on end of key
 
@@ -72,7 +79,7 @@ function define_course_keys ($wantedCode,          $prefix4all="",
 		// Now we go to check if there are unique
 
 		$sqlCheckCourseId    = "SELECT COUNT(code) existAllready
-		                        FROM `".$TABLECOURSE."`
+		                        FROM `".$tbl_course."`
 								WHERE code = '".$keysCourseId."'";
 
 		$resCheckCourseId    = claro_sql_query ($sqlCheckCourseId);
@@ -149,10 +156,10 @@ function define_course_keys ($wantedCode,          $prefix4all="",
 function prepare_course_repository($courseRepository, $courseId)
 {
 	GLOBAL $coursesRepositorySys, $clarolineRepositorySys, $includePath;
-  if( !is_dir($coursesRepositorySys) )
-  {
-    mkpath($coursesRepositorySys);
-  }
+	if( !is_dir($coursesRepositorySys) )
+	{
+    	mkpath($coursesRepositorySys);
+    }
 	if (is_writable($coursesRepositorySys))
 	{
 		umask(0);
