@@ -98,8 +98,10 @@ Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
                                 Isabel Deprez (isabel.deprez@rug.ac.be)
                                 Philippe Danckaert
                                 Slawomir Gurdala
+                                Paul Muraille
                                 Dalton Piegas Simoni
                                 Maria Jose Rodriges Malmierca
+                                
 
 
 
