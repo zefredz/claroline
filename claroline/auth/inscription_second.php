@@ -45,13 +45,13 @@ if($submitRegistration)
 {
 	$regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 
-	$uname        = trim ($HTTP_POST_VARS['uname'       ]);
-	$email        = trim ($HTTP_POST_VARS['email'       ]);
-	$nom          = trim ($HTTP_POST_VARS['nom'         ]);
-	$prenom       = trim ($HTTP_POST_VARS['prenom'      ]);
+	$uname        = claro_strip_tags ( trim ($HTTP_POST_VARS['uname'       ]) );
+	$email        = claro_strip_tags ( trim ($HTTP_POST_VARS['email'       ]) );
+	$nom          = claro_strip_tags ( trim ($HTTP_POST_VARS['nom'         ]) );
+	$prenom       = claro_strip_tags ( trim ($HTTP_POST_VARS['prenom'      ]) );
 	$password     = trim ($HTTP_POST_VARS['password'    ]);
 	$password1    = trim ($HTTP_POST_VARS['password1'   ]);
-    $officialCode = trim ($HTTP_POST_VARS['officialCode']);
+    $officialCode = claro_strip_tags ( trim ($HTTP_POST_VARS['officialCode']) );
     $statut     = ($HTTP_POST_VARS['statut'] == COURSEMANAGER) ? COURSEMANAGER : STUDENT;
 
 
