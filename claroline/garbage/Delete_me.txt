@@ -1,7 +1,0 @@
-This  file can be deleted after export from CVS
-
-à supprimer - test de cvs@claroline.net
-
-Test de la nouvelle version de cvsspam 0.2.9
-Nouveau test
-
