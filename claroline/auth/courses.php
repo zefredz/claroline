@@ -481,12 +481,13 @@ switch ($displayMode)
 		}
 
 		echo	"<blockquote>\n",
-				"<p>",$lang_or_search_from_keyword," : </p>\n",
+				"<p>",
+                "<label for=\"keyword\">",$lang_or_search_from_keyword,"</label>",
+                " : </p>\n",
 				"<form method=\"post\" action=\"".$PHP_SELF."\">",
 				"<input type=\"hidden\" name=\"cmd\" value=\"rqReg\">",
-				"<input type=\"text\" name=\"keyword\">
-                <input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\">
-                ",
+				"<input type=\"text\" name=\"keyword\" id=\"keyword\">",
+                "<input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\">",
 				"&nbsp;<input type=\"submit\" value=\"",$lang_search,"\">",
 				"</form>",
 				"</blockquote>";

@@ -116,23 +116,23 @@ $nameTools = "login";
 		<td>
 <form action="login.php" method="post">
 			<table cellpadding="3" cellspacing="0" border="0" width="100%">
-				<tr bgcolor="<?php echo $color2;?>">
+				<tr>
 					<td>
-						<?php echo $langUsername;?>&nbsp;:
+						<label for="uname"><?php echo $langUsername;?> : </label>
 					</td>
 					<td>
 						<input type="text" name="uname">
 					</td>
 				</tr>
-				<tr bgcolor="<?php echo $color2;?>">
+				<tr>
 					<td>
-						<?php echo $langPass;?>&nbsp;:
+						<label for="password"><?php echo $langPass;?> :< </label>
 					</td>
 					<td>
-						<input type="password" name="password">
+						<input type="password" id="password" name="password">
 					</td>
 				</tr>
-				<tr bgcolor="<?php echo $color2;?>" >
+				<tr>
 					<td>
 					  	&nbsp;
 					</td>
@@ -140,7 +140,7 @@ $nameTools = "login";
 						<input type="submit" name="submit" value="<?php echo $langOk;?>" >
 					</td>
 				</tr>
-				<tr bgcolor="<?php echo $color2;?>" >
+				<tr>
 					<td colspan="2" >
 						<input type="hidden" name="backto" value="<?php echo $HTTP_REFERER;?>" >
 					</td>

@@ -248,9 +248,9 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     }
 
     $msg .= "<label for=\"toolName\">".$langToolName."</label><br>"
-            ."<input type=\"text\" name=\"toolName\" value=\"".$toolName."\"><br>"
+            ."<input type=\"text\" name=\"toolName\" name=\"toolName\" value=\"".$toolName."\"><br>"
             ."<label for=\"toolUrl\">".$langToolUrl."</label><br>"
-            ."<input type=\"text\" name=\"toolUrl\" value=\"".$toolUrl."\"><br>"
+            ."<input type=\"text\" name=\"toolUrl\" name=\"toolUrl\" value=\"".$toolUrl."\"><br>"
             ."<input class=\"claroButton\" type=\"submit\" value=\"OK\">&nbsp;"
             ."<a class=\"claroButton\" href=\"" . $PHP_SELF ."\">Cancel</a>"
             ."</form>";

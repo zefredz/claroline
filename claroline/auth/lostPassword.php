@@ -158,8 +158,8 @@ if ( ! $passwordFound)
 <input type="hidden" name="searchPassword" value="1">
 <table>
 <tr>
-<td align = "right"><?= $langEmail ?> : </td>
-<td><input type="text" name="Femail" size="50" maxlength="100" value="<?= $Femail ?>"></td>
+<td align = "right"><label for="Femail"><?= $langEmail ?> : </label></td>
+<td><input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="<?= $Femail ?>"></td>
 </tr>
 <td></td>
 <td><input type="submit" name="retrieve" value="Submit"></td>
