@@ -75,12 +75,6 @@ $scan=scan_dir ($rootSys,$recurse=TRUE);
 
 $files = $scan['files'];
 
-// *** OPTIMISATION *** //
-
-$claro_init_global_vars = array();
-
-// *** OPTIMISATION *** //
-
 $total_var_count = 0;
 
 foreach ($files as $file)

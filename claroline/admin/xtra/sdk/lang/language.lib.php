@@ -169,7 +169,7 @@ function scan_dir($dirname,$recurse=FALSE)
 
     while (false !== ($element = readdir($handle)))
     {
-        if( is_scannable($dirname.$element, array('inc') ) )
+        if( is_scannable($dirname.$element, array('claroline/inc') ) )
         {
             if(is_dir($dirname.$element))
             {
@@ -215,10 +215,14 @@ function is_scannable($filePath,
     $parentPath  = str_replace('\\', '/', dirname($filePath));
     $parentPath  = str_replace($rootSys, '', $parentPath);
 
-    $forbiddenDirNameList    = array_merge( array('CVS', 'lang', 'language','conf','courses'),
+    $forbiddenDirNameList    = array_merge( array('claroline/lang',
+                                                  'claroline/inc/conf',
+                                                  'claroline/courses',
+                                                  'claroline/claroline_garbage'),
                                             $additionnalForbiddenDirNameList);
+    $forbiddenParentNameList = array('CVS');
 
-    $forbiddenFileNameList   = array('.', '..',);
+    $forbiddenFileNameList   = array('.', '..','CVS');
 
     $forbiddenBaseNameList   = array_merge($forbiddenFileNameList, 
                                            $forbiddenDirNameList);
@@ -243,6 +247,16 @@ function is_scannable($filePath,
     {
         if (preg_match('|$'.$thisForbiddenPrefix.'|', $baseName) ) return false;
     }
+    
+    // DIRECTORY CHECK
+    foreach($forbiddenDirNameList as $thisDirName)
+    {
+        if ( strpos($filePath, $rootSys.$thisDirName) !== FALSE ) 
+        {
+            return false;
+        }
+    }
+
 
     // PARENT PATH CHECK
 
@@ -250,7 +264,7 @@ function is_scannable($filePath,
 
     foreach($pathComponentList as $thisPathComponent)
     {
-        if (in_array($thisPathComponent, $forbiddenDirNameList) ) return false;
+        if (in_array($thisPathComponent, $forbiddenParentNameList) ) return false;
     }
 
     return true;
@@ -346,23 +360,22 @@ function get_lang_vars_from_file($file)
     global $scannedFileList;
 
     // *** OPTIMISATION : start *** //
-    global $claro_init_global_vars;
-    if (basename($file) == 'claro_init_global.inc.php' and count($claro_init_global_vars)>0)
+    if ( isset($GLOBALS[$file]) )
     {
-        return $claro_init_global_vars;
+        return $GLOBALS[$file];
     }
     // *** OPTIMISATION : end *** //
 
-    if (is_scannable($file) )
+    if ( is_scannable( realpath($file) ) )
     {
-        $languageVarList          = array();
+        $languageVarList      = array();
         $includeStatementList = array();
         $includedFileList     = array();
 
         $sourceFile = file_get_contents($file);
         $tokenList  = token_get_all($sourceFile);
 
-        $languageVarList          = detect_lang_var($tokenList);
+        $languageVarList      = detect_lang_var($tokenList);
         $includeStatementList = detect_included_files($tokenList);
 
         foreach($includeStatementList as $thisIncludeStatement)
@@ -395,10 +408,7 @@ function get_lang_vars_from_file($file)
         $languageVarList = array_unique($languageVarList);
 
         // *** OPTIMISATION : start *** //
-        if (basename($file) == 'claro_init_global.inc.php')
-        {
-            $claro_init_global_vars = $languageVarList;
-        }
+        $GLOBALS[$file] = $languageVarList;
         // *** OPTIMISATION : end *** //
 
         return $languageVarList;
