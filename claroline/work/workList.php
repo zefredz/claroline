@@ -17,19 +17,6 @@ $langFile = "work";
 $tlabelReq = "CLWRK___";
 require '../inc/claro_init_global.inc.php';
 
-$htmlHeadXtra[] =
-"<script>
-function confirmation (name)
-{
-	if (confirm(\" $langAreYouSureToDelete \"+ name + \" ?  \" ))
-		{return true;}
-	else
-		{return false;}
-}
-</script>";
-
-$interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langWorks);
-
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/conf/work.conf.inc.php');
 
@@ -37,7 +24,7 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user            = $tbl_mdb_names['user'];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_wrk_session      = $tbl_cdb_names['wrk_session'      ];
+$tbl_wrk_assignment   = $tbl_cdb_names['wrk_assignment'   ];
 $tbl_wrk_submission   = $tbl_cdb_names['wrk_submission'   ];    
 
 $tbl_group_team       = $tbl_cdb_names['group_team'       ];
@@ -47,11 +34,6 @@ $currentUserFirstName       = $_user['firstName'];
 $currentUserLastName        = $_user['lastName'];
 
 
-$nameTools = $langWrkSession;
-// to prevent parameters to be added in the breadcrumb
-$QUERY_STRING='sesId='.$_REQUEST['sesId']; 
-
-include($includePath.'/claro_init_header.inc.php');
 //if (!$_cid) 	claro_disp_select_course();
 
 if ( ! $is_courseAllowed)
@@ -93,22 +75,22 @@ $cmd = $_REQUEST['cmd'];
   =============================================================================*/
 
   /*--------------------------------------------------------------------
-                  WORK SESSION INFORMATIONS
+                  ASSIGNMENT INFORMATIONS
   --------------------------------------------------------------------*/
-if( isset($_REQUEST['sesId']) && !empty($_REQUEST['sesId']) )
+if( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
 {
-      // we need to know the session settings
+      // we need to know the assignment settings
       $sql = "SELECT *,
                 UNIX_TIMESTAMP(`start_date`) AS `unix_start_date`,
                 UNIX_TIMESTAMP(`end_date`) AS `unix_end_date`,
                 UNIX_TIMESTAMP(`prefill_date`) AS `unix_prefill_date`
-                FROM `".$tbl_wrk_session."`
-                WHERE `id` = ".$_REQUEST['sesId'];
+                FROM `".$tbl_wrk_assignment."`
+                WHERE `id` = ".$_REQUEST['assigId'];
       
-      list($wrkSession) = claro_sql_query_fetch_all($sql);
+      list($assignment) = claro_sql_query_fetch_all($sql);
       
-      $wrkSesDirSys = $wrkDirSys."/ws".$_REQUEST['sesId']."/";
-      $wrkSesDirWeb = $wrkDirWeb."/ws".$_REQUEST['sesId']."/";
+      $assigDirSys = $wrkDirSys."assig_".$_REQUEST['assigId']."/";
+      $assigDirWeb = $wrkDirWeb."assig_".$_REQUEST['assigId']."/";
 }
 
 
@@ -131,25 +113,25 @@ if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
 
 
   /*--------------------------------------------------------------------
-                        SESSION CONTENT
+                        ASSIGNMENT CONTENT
   --------------------------------------------------------------------*/
-if( $wrkSession['authorized_content'] == "TEXTFILE" 
+if( $assignment['authorized_content'] == "TEXTFILE" 
       || ( $is_courseAdmin && !empty($wrk['parent_id']) ) 
       || ( $is_courseAdmin && ( $cmd == 'rqGradeWrk' || $cmd == 'exGradeWrk') )
   )
 {
-      // IF text file is the default session type
+      // IF text file is the default assignment type
       // OR this is a teacher modifying a grade
-      // OR this is a teacher grading a work
-      $sessionContent = "TEXTFILE";
+      // OR this is a teacher feedback a work
+      $assignmentContent = "TEXTFILE";
 }
-elseif( $wrkSession['authorized_content'] == "FILE" )
+elseif( $assignment['authorized_content'] == "FILE" )
 {
-      $sessionContent = "FILE";
+      $assignmentContent = "FILE";
 }
-else //if( $wrkSession['authorized_content'] == "TEXT" )
+else //if( $assignment['authorized_content'] == "TEXT" )
 {
-      $sessionContent = "TEXT";
+      $assignmentContent = "TEXT";
 }
 
 
@@ -158,7 +140,7 @@ else //if( $wrkSession['authorized_content'] == "TEXT" )
   =============================================================================*/
 
 // is between start and end date or after and date and late upload is allowed
-if( $wrkSession['unix_start_date'] <= time() )
+if( $assignment['unix_start_date'] <= time() )
 {
       $afterStartDate = true;
 }
@@ -166,18 +148,18 @@ else
 {
       $afterStartDate = false;
 }
-// session is invisible 
-if( $wrkSession['sess_visibility'] == "VISIBLE" )
+// assignment is invisible 
+if( $assignment['visibility'] == "VISIBLE" )
 {
-      $sessionIsVisible = true;
+      $assignmentIsVisible = true;
 }
 else
 {
-      $sessionIsVisible = false;
+      $assignmentIsVisible = false;
 }
 
 //  anonymous post are allowed
-if( $wrkSession['authorize_anonymous'] == "YES" )
+if( $assignment['authorize_anonymous'] == "YES" )
 {
       $anonCanPost = true;
 }
@@ -198,7 +180,7 @@ $is_allowedToEditAll  = (bool) $is_courseAdmin;
 // a work is set, user is authed and the work is his work
 $userCanEdit = (bool) ( isset($wrk) && isset($_uid) && $wrk['user_id'] == $_uid );
 
-$is_allowedToEdit = (bool)    ( $sessionIsVisible && $afterStartDate && $userCanEdit )
+$is_allowedToEdit = (bool)    ( $assignmentIsVisible && $afterStartDate && $userCanEdit )
                               || $is_allowedToEditAll;
 
 
@@ -206,18 +188,18 @@ $is_allowedToEdit = (bool)    ( $sessionIsVisible && $afterStartDate && $userCan
 
 // upload is between start and end date or after end date and late upload is allowed
 $uploadDateIsOk = (bool) $afterStartDate 
-                              && ( time() < $wrkSession['unix_end_date'] || $wrkSession['allow_late_upload'] == "YES" );
+                              && ( time() < $assignment['unix_end_date'] || $assignment['allow_late_upload'] == "YES" );
 // user is anonyme , anonymous users can post and user is course allowe or user is authed and allowed
 $userCanPost = (bool) ( !isset($_uid) && $anonCanPost && $is_courseAllowed ) 
                   || ( isset($_uid) && $is_courseAllowed );
 
-$is_allowedToSubmit   = (bool) ( $sessionIsVisible  && $uploadDateIsOk  && $userCanPost )
+$is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost )
                                     || $is_allowedToEdit
                                     || $is_allowedToEditAll;
                      
 //-- is_allowedToView                     
 // allowed to display work list and work details                     
-$is_allowedToView = (bool) ($sessionIsVisible && $afterStartDate) || $is_allowedToEditAll;
+$is_allowedToView = (bool) ($assignmentIsVisible && $afterStartDate) || $is_allowedToEditAll;
 
 /*============================================================================
                           HANDLING FORM DATA
@@ -231,7 +213,7 @@ if( isset($_REQUEST['submitWrk']) )
       $formCorrectlySent = true;
       
       // if authorized_content is TEXT or TEXTFILE, a text is required !
-      if( $sessionContent == "TEXT" || $sessionContent == "TEXTFILE" )
+      if( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" )
       {
             if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'] ), $allowedTags ) == "" )
             {
@@ -243,7 +225,7 @@ if( isset($_REQUEST['submitWrk']) )
                   $submittedText = trim(claro_addslashes( $_REQUEST['wrkTxt'] ));
             }
       }
-      elseif( $sessionContent == "FILE" )
+      elseif( $assignmentContent == "FILE" )
       {
             // if authorized_content is FILE we don't have to check if txt is empty (not required)
             // but we have to check that the text is not only useless html tags
@@ -269,7 +251,7 @@ if( isset($_REQUEST['submitWrk']) )
         $sql = "SELECT `title` 
                   FROM `".$tbl_wrk_submission."`
                   WHERE `title` = \"".trim(claro_addslashes($_REQUEST['wrkTitle']))."\"
-                    AND `session_id` = ".$_REQUEST['sesId']."
+                    AND `assignment_id` = ".$_REQUEST['assigId']."
                     AND `id` <> \"".$_REQUEST['wrkId']."\"";
                     
         $result = claro_sql_query($sql);
@@ -309,7 +291,7 @@ if( isset($_REQUEST['submitWrk']) )
       // no need to check and/or upload the file if there is already an error
       if($formCorrectlySent)
       {
-            if ( is_uploaded_file($_FILES['wrkFile']['tmp_name']) && $sessionContent != "TEXT" )
+            if ( is_uploaded_file($_FILES['wrkFile']['tmp_name']) && $assignmentContent != "TEXT" )
             {        
                   if ($_FILES['wrkFile']['size'] > $fileAllowedSize)
                   {
@@ -330,12 +312,12 @@ if( isset($_REQUEST['submitWrk']) )
                         
                         $wrkForm['fileName'] = uniqid('')."_".$newFileName;
                         
-                        if( !is_dir( $wrkSesDirSys ) )
+                        if( !is_dir( $assigDirSys ) )
                         {
-                              mkdir( $wrkSesDirSys , 0777 );
+                              mkdir( $assigDirSys , 0777 );
                         }
                         
-                        if( ! @copy($_FILES['wrkFile']['tmp_name'], $wrkSesDirSys.$wrkForm['fileName']) )
+                        if( ! @copy($_FILES['wrkFile']['tmp_name'], $assigDirSys.$wrkForm['fileName']) )
                         {
                               $dialogBox .= $langCannotCopyFile."<br />";
                               $formCorrectlySent = false;
@@ -344,13 +326,13 @@ if( isset($_REQUEST['submitWrk']) )
                         // remove the previous file if there was one
                         if( isset($_REQUEST['currentWrkUrl']) )
                         {
-                              @unlink($wrkSesDirSys.$_REQUEST['currentWrkUrl']);
+                              @unlink($assigDirSys.$_REQUEST['currentWrkUrl']);
                         }
                         // else : file sending shows no error
                         // $formCorrectlySent stay true;
                   }
             }
-            elseif( $sessionContent == "FILE" )
+            elseif( $assignmentContent == "FILE" )
             {
                   if( isset($_REQUEST['currentWrkUrl']) )
                   {
@@ -364,7 +346,7 @@ if( isset($_REQUEST['submitWrk']) )
                         $formCorrectlySent = false;
                   }
             }
-            elseif( $sessionContent == "TEXTFILE" )
+            elseif( $assignmentContent == "TEXTFILE" )
             {
                   // attached file is optionnal if work type is TEXT AND FILE
                   // so the attached file can be deleted only in this mode
@@ -373,7 +355,7 @@ if( isset($_REQUEST['submitWrk']) )
                   if(isset($_REQUEST['delAttacheDFile']) )
                   {
                         $wrkForm['fileName'] = ""; // empty DB field
-                        @unlink($wrkSesDirSys.$_REQUEST['currentWrkUrl']); // physically remove the file
+                        @unlink($assigDirSys.$_REQUEST['currentWrkUrl']); // physically remove the file
                   }
             }
       }// if($formCorrectlySent)
@@ -397,7 +379,7 @@ if($is_allowedToEditAll)
   /*--------------------------------------------------------------------
                         CHANGE VISIBILITY
   --------------------------------------------------------------------*/
-  // change visibility of a work session
+  // change visibility of a work
   if( $cmd == 'exChVis' )
   {
     if( isset($_REQUEST['vis']) )
@@ -424,7 +406,7 @@ if($is_allowedToEditAll)
       $fileToDelete = claro_sql_query_get_single_value($sql);
       
       // delete the file
-      @unlink($wrkSesDirSys.$fileToDelete);
+      @unlink($assigDirSys.$fileToDelete);
       
       // delete the database data of this work
       $sqlDelete = "DELETE FROM `".$tbl_wrk_submission."`
@@ -453,10 +435,10 @@ if($is_allowedToEditAll)
             
             $sqlAddWork = "INSERT INTO `".$tbl_wrk_submission."`
                            SET `submitted_doc_path` = \"".$wrkForm['fileName']."\",
-                              `session_id` = ".$_REQUEST['sesId'].",
+                              `assignment_id` = ".$_REQUEST['assigId'].",
                               `parent_id` = ".$_REQUEST['wrkId'].","
                               .$uidString
-                              ."`visibility` = \"".$wrkSession['def_submission_visibility']."\",
+                              ."`visibility` = \"".$assignment['def_submission_visibility']."\",
                               `title`       = \"".trim(claro_addslashes( $wrkForm['title'] ))."\",
                               `submitted_text` = \"".trim(claro_addslashes( $_REQUEST['wrkTxt'] ))."\",
                               `authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\",
@@ -576,7 +558,7 @@ if( $is_allowedToEdit )
   }
 }
 /*============================================================================
- COMMANDS FOR : ADMIN, AUTHED USERS, ANONYMOUS USERS (if session cfg allows them)
+ COMMANDS FOR : ADMIN, AUTHED USERS, ANONYMOUS USERS (if assignment cfg allows them)
   =============================================================================*/ 
 if( $is_allowedToSubmit )
 { 
@@ -602,9 +584,9 @@ if( $is_allowedToSubmit )
             
             $sqlAddWork = "INSERT INTO `".$tbl_wrk_submission."`
                            SET `submitted_doc_path` = \"".$wrkForm['fileName']."\",
-                              `session_id` = ".$_REQUEST['sesId'].","
+                              `assignment_id` = ".$_REQUEST['assigId'].","
                               .$uidString
-                              ."`visibility` = \"".$wrkSession['def_submission_visibility']."\",
+                              ."`visibility` = \"".$assignment['def_submission_visibility']."\",
                               `title`       = \"".trim(claro_addslashes( $wrkForm['title'] ))."\",
                               `submitted_text` = \"".trim(claro_addslashes( $_REQUEST['wrkTxt'] ))."\",
                               `authors`     = \"".trim(claro_addslashes( $wrkForm['authors'] ))."\",
@@ -687,6 +669,37 @@ if( !isset($dispWrkForm) && !isset($dispWrkDet) && !isset($dispWrkLst) )
       $dispWrkLst = true;
 }
 
+/*--------------------------------------------------------------------
+                    HEADER
+    --------------------------------------------------------------------*/
+
+$htmlHeadXtra[] =
+"<script>
+function confirmation (name)
+{
+	if (confirm(\" $langAreYouSureToDelete \"+ name + \" ?  \" ))
+		{return true;}
+	else
+		{return false;}
+}
+</script>";
+
+$interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langAssignments);
+
+if( $dispWrkDet || $dispWrkForm )
+{
+      // bredcrump to return to the list when in a form
+      $interbredcrump[]= array ("url"=>"../work/workList.php?assigId=".$_REQUEST['assigId'], "name"=> $langAssignment);
+      $nameTools = "Work";
+}
+else
+{
+      $nameTools = $langAssignment;
+      // to prevent parameters to be added in the breadcrumb
+      $QUERY_STRING='assigId='.$_REQUEST['assigId']; 
+}
+
+include($includePath.'/claro_init_header.inc.php');
 
   
 /*--------------------------------------------------------------------
@@ -694,44 +707,44 @@ if( !isset($dispWrkForm) && !isset($dispWrkDet) && !isset($dispWrkLst) )
     --------------------------------------------------------------------*/
 
 $pageTitle['mainTitle'  ] = $nameTools;
-$pageTitle['subTitle'   ] = $wrkSession['title'];
+$pageTitle['subTitle'   ] = $assignment['title'];
 claro_disp_tool_title($pageTitle);
 
 
 /*--------------------------------------------------------------------
-                          SESSION INFOS
+                          ASSIGNMENT INFOS
   --------------------------------------------------------------------*/
 //
 echo "\n<p>\n"
       ."<small>"
-      .$langEndDate." : ".claro_disp_localised_date($dateTimeFormatLong, $wrkSession['unix_end_date'])
+      .$langEndDate." : ".claro_disp_localised_date($dateTimeFormatLong, $assignment['unix_end_date'])
       ."</small>"
       ."\n</p>\n\n";
       
-if( !empty($wrkSession['description']) )
+if( !empty($assignment['description']) )
 {
 echo "\n<p>\n"
       ."<small>"
-      .claro_parse_user_text($wrkSession['description'])
+      .claro_parse_user_text($assignment['description'])
       ."</small>"
       ."\n</p>\n\n";
 }
 
-// grading
+// feedback
 // show it only if :
 //      - there is a text OR a file 
 //      - prefill_date is past
-if( ( !empty($wrkSession['prefill_text']) || !empty($wrkSession['prefill_doc_path']) ) && $wrkSession['unix_prefill_date'] < time() )
+if( ( !empty($assignment['prefill_text']) || !empty($assignment['prefill_doc_path']) ) && $assignment['unix_prefill_date'] < time() )
 {
-      echo "<b>".$langStandardGrading."</b>";
-      if( !empty($wrkSession['prefill_text']) )
+      echo "<b>".$langStandardfeedback."</b>";
+      if( !empty($assignment['prefill_text']) )
       {
-            echo "<p>".claro_parse_user_text($wrkSession['prefill_text'])."</p>";
+            echo "<p>".claro_parse_user_text($assignment['prefill_text'])."</p>";
       }
       
-      if( !empty($wrkSession['prefill_doc_path']) )
+      if( !empty($assignment['prefill_doc_path']) )
       {
-            echo  "<p><a href=\"".$wrkSesDirWeb.$wrkSession['prefill_doc_path']."\">".$wrkSession['prefill_doc_path']."</a></p>";
+            echo  "<p><a href=\"".$assigDirWeb.$assignment['prefill_doc_path']."\">".$assignment['prefill_doc_path']."</a></p>";
       }
 }
 
@@ -767,39 +780,39 @@ if( $dispWrkDet && $is_allowedToView )
       if( $is_allowedToEdit && empty($gradeId) || $is_allowedToEditAll )
       {
             // allow the user to modify it's own work
-            echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">"
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">"
                   ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a>";
       }
       elseif( $is_allowedToEdit )
       {
             // show a link to the correction
-            echo "<a href=\"workList.php?sesId=".$_REQUEST['sesId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowGrade."</a>";
+            echo "<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowGrade."</a>";
       }
       
       // show 'grade' link if user i course admin, the work has no correction and the work is not a correction
       if( $is_allowedToEditAll && empty($gradeId) && empty($wrk['parent_id']) )
       {
             // grade link
-            echo "&nbsp;[&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$wrk['id']."\">".$langGradeWork."</a>&nbsp;]";
+            echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$wrk['id']."\">".$langGradeWork."</a>";
       }
       // if the work has a correction already
       elseif( $is_allowedToEditAll && !empty($gradeId) )
       {
             // show grade
-            echo "<a href=\"workList.php?sesId=".$_REQUEST['sesId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowGrade."</a>";
+            echo "<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$gradeId."&cmd=exShwDet\">".$langShowGrade."</a>";
       }
       
       
-      if( $sessionContent == "TEXTFILE" )
+      if( $assignmentContent == "TEXTFILE" )
       {
             $txtForFile = $langAttachedFile;
             $txtForText = $langAnswer;
       }
-      elseif( $sessionContent == "TEXT" )
+      elseif( $assignmentContent == "TEXT" )
       {
             $txtForText = $langAnswer;
       }
-      elseif( $sessionContent == "FILE" )
+      elseif( $assignmentContent == "FILE" )
       {
             $txtForFile = $langUploadedFile;
             $txtForText = $langFileDesc;
@@ -814,11 +827,11 @@ if( $dispWrkDet && $is_allowedToView )
             ."<td>".$wrk['authors']." ( ".$langSubmittedBy." ".$userToDisplay." )</td>\n"
             ."</tr>\n\n";
             
-      if( $sessionContent != "TEXT" )
+      if( $assignmentContent != "TEXT" )
       {
             if( !empty($wrk['submitted_doc_path']) )
             {
-                  $completeWrkUrl = $wrkSesDirWeb.$wrk['submitted_doc_path'];
+                  $completeWrkUrl = $assigDirWeb.$wrk['submitted_doc_path'];
                   // show file if this is not a TEXT only work
                   echo "<tr>\n"
                         ."<td valign=\"top\">".$txtForFile."&nbsp;:</td>\n"
@@ -835,7 +848,7 @@ if( $dispWrkDet && $is_allowedToView )
       }
       
       // display an alert if work was submitted after end date and work is not a correction !
-      if( $wrkSession['unix_end_date'] < $wrk['unix_creation_date'] && empty($wrk['parent_id']) )
+      if( $assignment['unix_end_date'] < $wrk['unix_creation_date'] && empty($wrk['parent_id']) )
       {
             $lateUploadAlert = "<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langAfterEndDate."\">";
       }
@@ -857,7 +870,7 @@ if( $dispWrkDet && $is_allowedToView )
       if( $wrk['unix_creation_date'] != $wrk['unix_last_edit_date'] )
       {
             // display an alert if work was submitted after end date and work is not a correction !
-            if( $wrkSession['unix_end_date'] < $wrk['unix_last_edit_date'] && empty($wrk['parent_id']) )
+            if( $assignment['unix_end_date'] < $wrk['unix_last_edit_date'] && empty($wrk['parent_id']) )
             {
                   $lateEditAlert = "<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langAfterEndDate."\">";
             }
@@ -893,7 +906,7 @@ if( $is_allowedToSubmit )
 ?>
     <h4><?php echo $txtForFormTitle; ?></h4>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-    <input type="hidden" name="sesId" value="<?php echo $_REQUEST['sesId']; ?>">
+    <input type="hidden" name="assigId" value="<?php echo $_REQUEST['assigId']; ?>">
     <input type="hidden" name="cmd" value="<?php echo $cmdToSend; ?>">
 <?php
   if( isset($_REQUEST['wrkId']) )
@@ -914,7 +927,7 @@ if( $is_allowedToSubmit )
       </tr>
 <?php
       // display file box
-      if( $sessionContent == "FILE" || $sessionContent == "TEXTFILE" )
+      if( $assignmentContent == "FILE" || $assignmentContent == "TEXTFILE" )
       {
             // if we are in edit mode and that a file can be edited : display the url of the current file and the file box to change it
             if( isset($form['wrkUrl']) )
@@ -922,7 +935,7 @@ if( $is_allowedToSubmit )
                   echo "<tr>\n"
                         ."<td valign=\"top\">";
                         // display a different text according to the context
-                  if( $wrkSession['authorize_text'] == "YES" )
+                  if( $assignment['authorize_text'] == "YES" )
                   {
                         // if text is required, file is considered as a an attached document
                         echo $langCurrentAttachedDoc;
@@ -935,7 +948,7 @@ if( $is_allowedToSubmit )
                   if( !empty($form['wrkUrl']) )
                   {
                         // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
-                        $completeWrkUrl = $wrkSesDirWeb.$form['wrkUrl'];
+                        $completeWrkUrl = $assigDirWeb.$form['wrkUrl'];
                         echo "&nbsp;:<input type=\"hidden\" name=\"currentWrkUrl\" value=\"".$form['wrkUrl']."\">"
                               ."</td>\n"
                               ."<td>"
@@ -959,7 +972,7 @@ if( $is_allowedToSubmit )
             echo "<tr>\n"
                   ."<td valign=\"top\"><label for=\"wrkFile\">";
             // display a different text according to the context
-            if( $sessionContent == "TEXTFILE" )
+            if( $assignmentContent == "TEXTFILE" )
             {
                   // if text is required, file is considered as a an attached document
                   echo $langAttachDoc;
@@ -974,7 +987,7 @@ if( $is_allowedToSubmit )
                   ."</tr>\n\n";
       }
       
-      if( $sessionContent == "FILE" )
+      if( $assignmentContent == "FILE" )
       {
             // display standard html textarea
             // used for description of an uploaded file
@@ -988,7 +1001,7 @@ if( $is_allowedToSubmit )
                   ."</td>\n"
                   ."</tr>";
       }
-      elseif( $sessionContent == "TEXT" || $sessionContent == "TEXTFILE" )
+      elseif( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" )
       {
             // display enhanced textarea using claro_disp_html_area
             echo "<tr>\n"
@@ -1003,9 +1016,8 @@ if( $is_allowedToSubmit )
       }
 ?>     
       <tr>
-        <td colspan="2" align="center">
-        <input type="submit" name="submitWrk" value="<?php echo $langOk; ?>">
-        </td>
+        <td>&nbsp;</td>
+        <td><input type="submit" name="submitWrk" value="<?php echo $langOk; ?>"></td>
       </tr>
     </table>
     </form>
@@ -1033,7 +1045,7 @@ if( $dispWrkLst && $is_allowedToView )
                   `visibility`, `authors`, 
                   UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
             FROM `".$tbl_wrk_submission."`
-            WHERE `session_id` = ".$wrkSession['id']."
+            WHERE `assignment_id` = ".$assignment['id']."
             ORDER BY `last_edit_date` ASC";
     }
     elseif( isset($_uid) ) // course member
@@ -1044,7 +1056,7 @@ if( $dispWrkLst && $is_allowedToView )
                   `visibility`, `authors`, 
                   UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
             FROM `".$tbl_wrk_submission."`
-            WHERE `session_id` = ".$wrkSession['id']."
+            WHERE `assignment_id` = ".$assignment['id']."
               AND (`visibility` = 'VISIBLE' OR `user_id` = ".$_uid.")
             ORDER BY `last_edit_date` ASC";  
     }
@@ -1056,7 +1068,7 @@ if( $dispWrkLst && $is_allowedToView )
                   `visibility`, `authors`, 
                   UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
             FROM `".$tbl_wrk_submission."`
-            WHERE `session_id` = ".$wrkSession['id']."
+            WHERE `assignment_id` = ".$assignment['id']."
               AND `visibility` = 'VISIBLE'
               AND `parent_id` IS NULL
             ORDER BY `last_edit_date` ASC";
@@ -1094,8 +1106,8 @@ if( $dispWrkLst && $is_allowedToView )
       --------------------------------------------------------------------*/
     if( $is_allowedToSubmit )
     {
-      // link to create a new session
-      echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqSubWrk&sesId=".$_REQUEST['sesId']."\">".$langSubmitWork."</a>\n";
+      // link to create a new assignment
+      echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqSubWrk&assigId=".$_REQUEST['assigId']."\">".$langSubmitWork."</a>\n";
     }
 
     /*--------------------------------------------------------------------
@@ -1106,7 +1118,7 @@ if( $dispWrkLst && $is_allowedToView )
           ."<tr class=\"headerX\">\n"
           ."<th colspan=\"".($maxDeep+1)."\">".$langWrkTitle."</th>\n"
           ."<th>".$langWrkAuthors."</th>\n"
-          ."<th>".$langLastSubmissionDate."</th>\n";
+          ."<th>".$langLastEditDate."</th>\n";
           
     if ( $is_allowedToEditAll ) 
     {
@@ -1120,7 +1132,7 @@ if( $dispWrkLst && $is_allowedToView )
     foreach($flatElementList as $thisWrk)
     {
       // display an alert if work was submitted after end date and work is not a correction !
-      if( $wrkSession['unix_end_date'] < $thisWrk['unix_last_edit_date'] && empty($thisWrk['parent_id']) )
+      if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && empty($thisWrk['parent_id']) )
       {
             $lateUploadAlert = "&nbsp;<img src=\"".$clarolineRepositoryWeb."img/caution.gif\" border=\"0\" alt=\"".$langAfterEndDate."\">";
       }
@@ -1154,7 +1166,7 @@ if( $dispWrkLst && $is_allowedToView )
       echo "<tr align=\"center\"".$style." >\n"
           .$spacingString
           ."<td colspan=\"".$colspan."\" align=\"left\">"
-          ."<a href=\"workList.php?sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."&cmd=exShwDet\">"
+          ."<a href=\"workList.php?assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&cmd=exShwDet\">"
           .$thisWrk['title']."</a></td>\n"
           ."<td>".$thisWrk['authors']."</td>\n"
           ."<td><small>"
@@ -1167,7 +1179,7 @@ if( $dispWrkLst && $is_allowedToView )
       { 
         if( empty($thisWrk['parent_id']) )
         {
-            $gradeString  = "[&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\">".$langGradeWork."</a>&nbsp;]";
+            $gradeString  = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqGradeWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\">".$langGradeWork."</a>";
         }
         else
         {
@@ -1175,21 +1187,21 @@ if( $dispWrkLst && $is_allowedToView )
         }
         
         echo "<td>".$gradeString."</td>" 
-            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\">"
+            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a></td>\n"
-            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmWrk&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\">"
+            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmWrk&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\">"
             ."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\"></a></td>\n"
             ."<td>";
             
         if ($thisWrk['visibility'] == "INVISIBLE")
         {
-            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."&vis=v\">"
+            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&vis=v\">"
                   ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"$langMakeVisible\">"
                   ."</a>";
         }
         else
         {
-            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&sesId=".$_REQUEST['sesId']."&wrkId=".$thisWrk['id']."&vis=i\">"
+            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&assigId=".$_REQUEST['assigId']."&wrkId=".$thisWrk['id']."&vis=i\">"
                   ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">"
                   ."</a>";
         }          
