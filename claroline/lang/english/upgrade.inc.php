@@ -60,7 +60,7 @@ $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on 
 /* stuff for all */
 
 $langYes="yes";
-$langNO="no";
+$langNo="no";
 $langSucceed="succeed";
 $langFailed="<span style=\"color: red\">Failed</span>";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
