@@ -51,19 +51,10 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   include($includePath."/lib/fileDisplay.lib.php");
   
   $lpUid =  $_uid;
-?>
- 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
-<html>
-<head>
-  <link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/default.css"  >
-</head>
-
-
-<body>
-
-<?php
+  
+  // header
+  $hide_banner=TRUE;
+  include($includePath."/claro_init_header.inc.php");
   
   if($lpUid)
    {
