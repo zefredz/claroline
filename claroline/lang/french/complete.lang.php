@@ -241,10 +241,11 @@ $langConfiguration = "Configuration";
 $langConfirm = "Confirmer";
 $langConfirmation = "Confirmation";
 $langConfirmBackup = "Voulez-vous vraiment archiver le cours";
-$langConfirmDelete = "Attention : l'effacement des données statistiques est définitif !<br /><br />Etes vous sûr de vouloir les effacer ?";
+$langConfirmDeleteStats = "Attention : l'effacement des données statistiques est définitif !<br /><br />Etes vous sûr de vouloir les effacer ?";
+$langConfirmDeleteGroups = "Etes-vous sûr de vouloir supprimer tous les groupes ?";
 $langConfirmDeleteExercise = "Etes-vous sûr de vouloir supprimer cet exercice ?";
 $langConfirmDeleteQuestion = "Etes-vous sûr de vouloir totalement supprimer cette question ?";
-$langConfirmEmpty = "Êtes vous sûr de vouloir vider tous les groupes ?";
+$langConfirmEmptyGroups = "Êtes vous sûr de vouloir vider tous les groupes ?";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langConfTip = "Par défaut, votre cours est accessible à tout le monde. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir
 l'inscription pendant une semaine, de demander aux étudiants de s'inscrire eux-mêmes
