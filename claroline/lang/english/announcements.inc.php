@@ -8,24 +8,14 @@
       |   $Id$           |
       |   English Translation                                                |
       +----------------------------------------------------------------------+
-
-      +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
-      +----------------------------------------------------------------------+
- */
+*/
  
 // GENERIC
 
-$langModify   = "modify";
-$langDelete   = "delete";
-$langTitle    = "Title";
-$langHelp     = "help";
-$langOk       = "validate";
-$langAddIntro = "Add an introduction text ";
-$langBackList = "Return to the list";
 $langSelMess  = "Warnings to certain users";
+
+$langUp = "Order up";
+$langDown = "Order down";
 
 
 // ANNOUNCEMENTS
@@ -46,10 +36,10 @@ $langSelUser		= "selected users of the site";
 $langMsgSent		= "The message has been sent to the selected students";
 $langMsg       		= "Messages";
 
-$langNo="No";
-$langYes="Yes";
 $langEmailOption="Send this announcement by email to registered students";
 $langEmailTitle = 'Subject for this mail'; 
+
+$langNoAnnouncement = "No announcement.";
 
 $langOn="On";
 $langRegUser="registered users of the site";
