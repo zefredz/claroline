@@ -117,7 +117,7 @@ switch ($display)
     
     // display tool links
 
-    
+    echo "<a class=\"claroCmd\" href=\"user.php\">".$langBackToList."</a><br><br>";
 
     // display cols headers
 
