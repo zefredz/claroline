@@ -105,7 +105,7 @@ $langRegAdmin = "Créer des sites de cours";
 $langRegStudent = "M'inscrire à des cours";
 $langRegYou = "vous a inscrit sur";
 $langRemove = "supprimer";
-$langRole = "Rôle (facultatif)";
+$langRole = "Rôle";
 $langSettings = "avec les paramètre suivants:
 Nom d'utilisateur:";
 $langStatus = "Action";
