@@ -706,7 +706,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 
             <li>
 
-                Click on button <img src=img/deplacer.gif width=34 height=16>
+                Click on button <img src=\"img/move.gif\" width=34 height=16>
 
                 in column 'Move'
 

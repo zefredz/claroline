@@ -571,7 +571,7 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 	<h4>Déplacer un document (ou un répertoire)</h4>
 	<ul>
 	  <li>Cliquez sur le bouton <img
- src=../img/deplacer.gif width=34 height=16>
+ src=../img/move.gif width=34 height=16>
 		dans la colonne déplacer</li>
 	  <li>Choisissez le répertoire dans lequel vous souhaitez
  déplacer
@@ -1585,7 +1585,7 @@ $langTimeOver = "Le temps est écoulé, les résultats ne seront pas envoyés";
 $langTipLang = "Cette langue vaudra pour tous les visiteurs de votre site de cours.";
 $langTitle = "Titre";
 $langTitleUpgrade = "<h2>Mettre à jour Claroline<br />
-                     de 1.4.* à 1.5</h2>";
+                     de %s à %s</h2>";
 $langTitular = "Gestionnaire de cours";
 $langTo = "vers";
 $langToDate = "au";

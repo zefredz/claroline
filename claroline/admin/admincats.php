@@ -1075,7 +1075,7 @@ include($includePath."/claro_init_footer.inc.php");
                     </td>
                     <td align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=rqMove"; ?>" >
-                        <img src="<?php echo $clarolineRepositoryWeb ?>img/deplacer.gif" border="0" alt="<?php echo $langMove ?>" > </a>
+                        <img src="<?php echo $clarolineRepositoryWeb ?>img/move.gif" border="0" alt="<?php echo $langMove ?>" > </a>
                     </td>
                     <td align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&cmd=exDelete"; ?>"

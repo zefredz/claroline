@@ -651,7 +651,7 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
 	<h4>D&eacute;placer un document (ou un r&eacute;pertoire)</h4>
 	<ul>
 	  <li>Cliquez sur le bouton <img
- src=../img/deplacer.gif width=34 height=16>
+ src=../img/move.gif width=34 height=16>
 		dans la colonne d&eacute;placer</li>
 	  <li>Choisissez le r&eacute;pertoire dans lequel vous souhaitez
  d&eacute;placer

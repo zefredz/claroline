@@ -1642,7 +1642,7 @@ claro_disp_tool_title($titleElement,
 	
 					echo	"<td>",
 							"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqMv&file=",$cmdFileName,"\">",
-							"<img src=\"".$clarolineRepositoryWeb."img/deplacer.gif\" border=\"0\" alt=\"$langMove\">",
+							"<img src=\"".$clarolineRepositoryWeb."img/move.gif\" border=\"0\" alt=\"$langMove\">",
 							"</a>",
 							"</td>\n";
 							

@@ -81,7 +81,7 @@ $langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actu
 $langTextEditorDisable = "Désactiver l'éditeur de texte";
 $langTextEditorEnable = "Activer l'éditeur de texte";
 $langTitleUpgrade = "<h2>Mettre à jour Claroline<br />
-                     de 1.4.* à 1.5</h2>";
+                     de %s à %s</h2>";
 $langTodo = "Etapes à faire";
 $langUpgrade = "Mise à jour de Claroline";
 $langUpgradeStep0 = "Sauvegarde confirmée";

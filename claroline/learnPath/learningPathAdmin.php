@@ -580,7 +580,7 @@
             // DISPLAY CATEGORY MOVE COMMAND 
             echo     "<td>".
                          "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
-                         "<img src=\"".$clarolineRepositoryWeb."img/deplacer.gif\" alt=\"$langAltMove\" border=0>".
+                         "<img src=\"".$clarolineRepositoryWeb."img/move.gif\" alt=\"$langAltMove\" border=0>".
                          "</a>".
                          "</td>";
             // DISPLAY MOVE UP COMMAND only if it is not the top learning path

@@ -100,7 +100,7 @@ function displayBom($elem,$father,$space)
 				</td>
 				<td>
 					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1&move=1"; ?>" >
-					<img src="<?php echo $clarolineRepositoryWeb ?>img/deplacer.gif" border="0" alt="<?php echo $langMove ?>" > </a>
+					<img src="<?php echo $clarolineRepositoryWeb ?>img/move.gif" border="0" alt="<?php echo $langMove ?>" > </a>
 				</td>
 				<td>
 					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&delete=1"; ?>"

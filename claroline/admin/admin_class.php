@@ -407,7 +407,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 		
             echo "  <td align=\"center\">\n"
 	            ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=move&class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
-                ."      <img src=\"".$clarolineRepositoryWeb."img/deplacer.gif\" border=\"0\" >\n"
+                ."      <img src=\"".$clarolineRepositoryWeb."img/move.gif\" border=\"0\" >\n"
         		."    </a>\n"
 	            ."  </td>\n";
 	    
