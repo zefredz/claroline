@@ -187,7 +187,7 @@ $langAddImage= "Include picture";
 $langImageWrong="The file size should be smaller than";
 $langUpdateImage = "Change picture"; //by Moosh
 $langDelImage = "Remove picture"; 	//by Moosh
-$langOfficialCode = "Id";
+$langOfficialCode = "Administrative Code";
 
 $langAuthInfo = "Authentication";
 $langEnter2passToChange = "Enter new pass twice to change, and empty to keep";
