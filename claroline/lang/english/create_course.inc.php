@@ -147,7 +147,7 @@ $langMin="Minimum : ";
 $langMax="Maximum : ";
 $langNumGroup="Qty of groups per courses";
 $langMaxStudentGroup="Maximum student per group";
-$langAdmin ="administration";
+$langAdministration ="Administration";
 $langNumGroupStudent="Qty of team wich student can subscribe in the course";
 
 
