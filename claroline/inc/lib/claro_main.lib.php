@@ -777,6 +777,38 @@ function claro_disp_button($url, $text, $confirmMessage = '')
     }
 }
 
+/**
+ * Function used to draw a progression bar
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ *
+ * @param $progress progression in pourcent
+ * @param $factor will be multiply by 100 to have the full size of the bar (i.e. 1 will give a 100 pixel wide bar)
+ */
+function claro_disp_progress_bar ($progress, $factor)
+{
+	global $clarolineRepositoryWeb;
+        $maxSize = $factor * 100; //pixels
+        $barwidth = $factor * $progress ;
+
+	// display progress bar
+	// origin of the bar
+	$progressBar = "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
+
+	if($progress != 0)
+        	$progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1u.gif\" width=\"$barwidth\" height=\"12\" alt=\"\">";
+	// display 100% bar
+
+	if($progress!= 100 && $progress != 0)
+        	$progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1m.gif\" width=\"1\" height=\"12\" alt=\"\">";
+
+	if($progress != 100)
+        	$progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1r.gif\" width=\"".($maxSize-$barwidth)."\" height=\"12\" alt=\"\">";
+	// end of the bar
+	$progressBar .=  "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
+
+	return $progressBar;
+}
 
 
 /**
