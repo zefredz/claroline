@@ -48,7 +48,6 @@ $htmlHeadXtra[] =
 <!--
 .workingWeek {}
 .weekEnd {background-color: #E3E3E3;}
-.today {background-color: #FFCCCC;}
 -->
 </style>";
 
@@ -215,7 +214,7 @@ function disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $m
                     && ($year   == $today['year']) 
                     && ($month  == $today['mon' ]) )
 				{
-		  			$weekdayType = 'today';
+		  			$weekdayType = 'highlight'; // today
 				}
                 elseif ( $iterator < 5 )
                 {
