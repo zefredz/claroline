@@ -176,7 +176,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 ?>
 
   <table width="100%" cellpadding="4" cellspacing="2" border="0" class="claroTable">
-  <tr bgcolor="#DDDEBC" class="headerX">
+  <tr class="headerX">
   <th colspan="<?php echo $colspan; ?>">
 	<?php echo $langQuestion.' '.($i+1); ?>
   </th>
@@ -330,7 +330,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 											elseif(!empty($choice[$j]))
 											{
 												// adds the word in red at the end of the string, and strikes it
-												$answer.='<font color="red"><s>'.$choice[$j].'</s></font>';
+												$answer.= "<span class=\"incorrect\"><s>".$choice[$j]."</s></span>";
 											}
 											else
 											{
@@ -339,7 +339,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 											}
 
 											// adds the correct word, followed by ] to close the blank
-											$answer.=' / <font color="green"><b>'.substr($temp,0,$pos).'</b></font>]';
+											$answer.= " / <span class=\"correct\"><b>".substr($temp,0,$pos)."</b></span>]";
 
 											$j++;
 
@@ -362,7 +362,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 											}
 											else
 											{
-												$choice[$answerId]='<font color="red"><s>'.$matching[$choice[$answerId]].'</s></font>';
+												$choice[$answerId]="<span class=\"incorrect\"><s>".$matching[$choice[$answerId]]."</s></span>";
 											}
 										}
 										else
@@ -416,7 +416,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 	<?php echo $answer; ?>
   </td>
   <td width="50%">
-	<?php echo $choice[$answerId]; ?> / <font color="green"><b><?php echo $matching[$answerCorrect]; ?></b></font>
+	<?php echo $choice[$answerId]; ?> / <span class="correct"><b><?php echo $matching[$answerCorrect]; ?></b></span>
   </td>
 </tr>
 
