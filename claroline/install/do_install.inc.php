@@ -380,7 +380,7 @@ $versionDb 			= 	"'.$versionDb.'";
 // available for both Windows, Macintosh and Linux at 
 // http://www.integretechpub.com/.
 
-$claro_texRendererUrl = false;
+$claro_texRendererUrl = '';
 
 ?>');
 
