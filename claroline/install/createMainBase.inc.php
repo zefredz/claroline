@@ -171,4 +171,14 @@ CREATE TABLE `config_file` (
 ";
 claro_sql_query($sql);
 
+$sql = "CREATE TABLE `sso` (
+  `id` int(11) NOT NULL auto_increment,
+  `cookie` varchar(255) NOT NULL default '',
+  `rec_time` datetime NOT NULL default '0000-00-00 00:00:00',
+  `user_id` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM";
+
+claro_sql_query($sql);
+
 ?>
