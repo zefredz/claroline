@@ -92,7 +92,7 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 : 
 <input name="search" id="search_user"> 
 <input type="submit" value=" Ok ">
-&nbsp;&nbsp;[<a href="advancedUserSearch.php"><?php echo $langAdvanced?></a>]
+&nbsp;&nbsp;[<a class="claroCmd" href="advancedUserSearch.php"><?php echo $langAdvanced?></a>]
 </form>
 </li>
 <li>
@@ -111,7 +111,7 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <li>
 <form name="searchCourse" action="admincourses.php" method="GET" >
 <label for="search_course"><?php echo $langSearchCourse?></label> : <input name="search" id="search_course"> <input type="submit" value=" Ok ">
-&nbsp; &nbsp;[<a href="advancedCourseSearch.php"><?php echo $langAdvanced?></a>]
+&nbsp; &nbsp;[<a class="claroCmd" href="advancedCourseSearch.php"><?php echo $langAdvanced?></a>]
 </form>
 </li>
 <li>
