@@ -635,9 +635,11 @@ if (isset($_uid))
 <a href="http://www.claroline.net/forum/"><?php echo $langSupportForum ?></a>
 </p>
 
+<!-- 
 <p>
 <a href="claroline/todo/todo.php"><?php echo $langTodo ?></a>
 </p>
+-->
 
 <?php
 //---------------------------------------------------------------------------
