@@ -61,8 +61,6 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 /*============================================================================
                      CLEAN INFORMATIONS SEND BY USER
   =============================================================================*/
-stripSubmitValue($HTTP_POST_VARS);
-stripSubmitValue($HTTP_GET_VARS);
 stripSubmitValue($_REQUEST);
 
 $cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
@@ -130,7 +128,8 @@ if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']) && $is_all
                 // remove the previous file if there was one
                 if( isset($_REQUEST['currentPrefillDocPath']) )
                 {
-                      @unlink($assigDirSys.$_REQUEST['currentPrefillDocPath']);
+					if( file_exists($assigDirSys.$_REQUEST['currentPrefillDocPath']) )
+						claro_delete_file($assigDirSys.$_REQUEST['currentPrefillDocPath']);
                 }
 
                 
@@ -145,9 +144,11 @@ if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']) && $is_all
     }
     elseif( isset($_REQUEST['currentPrefillDocPath']) && isset($_REQUEST['delFeedbackFile']) )
     {
-      // delete hte file was requested
-      $prefillDocPath = ""; // empty DB field
-      @unlink($wrkDir."assig_".$_REQUEST['assigId']."/".$_REQUEST['currentPrefillDocPath']); // physically remove the file
+		// delete the file was requested
+		$prefillDocPath = ""; // empty DB field
+	
+		if( file_exists($wrkDir."assig_".$_REQUEST['assigId']."/".$_REQUEST['currentPrefillDocPath']) )
+			claro_delete_file($wrkDir."assig_".$_REQUEST['assigId']."/".$_REQUEST['currentPrefillDocPath']);
     }
     else
     {
@@ -161,68 +162,69 @@ if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']) && $is_all
 if($is_allowedToEdit)
 {
 
-  /*--------------------------------------------------------------------
-                    MODIFY An ASSIGNMENT FEEDBACK
-  --------------------------------------------------------------------*/
-  /*-----------------------------------
-      STEP 2 : check & query
-  -------------------------------------*/
-  // edit an assignment / form has been sent
-  if( $cmd == 'exEditFeedback' )
-  {
-    // form data have been handled before this point if the form was sent
-    if( isset($_REQUEST['assigId']) && $formCorrectlySent )
-    {
-          $sql = "UPDATE `".$tbl_wrk_assignment."`
-                  SET `prefill_text` = \"".$prefillText."\",
-                      `prefill_doc_path` = \"".$prefillDocPath."\",
-                      `prefill_submit` = \"".$prefillSubmit."\"
-                  WHERE `id` = ".$_REQUEST['assigId'];
-          claro_sql_query($sql);
-          $dialogBox .= $langFeedbackEdited."<br /><br /><a href=\"./workList.php?assigId=".$_REQUEST['assigId']."\">".$langBack."</a>";
-		  $displayFeedbackForm = false;
-    } 
-    else
-    {
-      $cmd = 'rqEditFeedback';
-    }
-  }
-  /*-----------------------------------
-      STEP 1 : display form
-  -------------------------------------*/
-  // edit assignment / display the form
-  if( $cmd == 'rqEditFeedback' )
-  {
-    include($includePath."/lib/form.lib.php");
-    
-    // check if it was already sent
-    if( !isset($_REQUEST['submitAssignment'] ) )
-    {
-        // get current settings to fill in the form
-        $sql = "SELECT `prefill_text` , `prefill_doc_path`, `prefill_submit`,
-                      UNIX_TIMESTAMP(`end_date`) as `unix_end_date`
-                FROM `".$tbl_wrk_assignment."`
-                WHERE `id` = ".$_REQUEST['assigId'];
-        list($modifiedAssignment) = claro_sql_query_fetch_all($sql);
-
-        // feedback
-        $form['prefillText'       ] = $modifiedAssignment['prefill_text'];
-        $form['currentPrefillDocPath'] = $modifiedAssignment['prefill_doc_path'];
-        $form['prefillSubmit'     ] = $modifiedAssignment['prefill_submit'];
-        
-        // end date (as a reminder for the "after end date" option
-        $form['unix_end_date'     ] = $modifiedAssignment['unix_end_date'];
-    }
-    else
-    {
-      // there was an error in the form 
-      $form['prefillText'       ] = $_REQUEST['prefillText'];
-      $form['currentPrefillDocPath'] = $_REQUEST['currentPrefillDocPath'];
-      $form['prefillSubmit'     ] = $_REQUEST['prefillSubmit'];
-    }
-    // ask the display of the form
-    $displayFeedbackForm = true;
-  }
+	/*--------------------------------------------------------------------
+	                  MODIFY An ASSIGNMENT FEEDBACK
+	--------------------------------------------------------------------*/
+	/*-----------------------------------
+	    STEP 2 : check & query
+	-------------------------------------*/
+	// edit an assignment / form has been sent
+	if( $cmd == 'exEditFeedback' )
+	{
+		// form data have been handled before this point if the form was sent
+		if( isset($_REQUEST['assigId']) && $formCorrectlySent )
+		{
+			$sql = "UPDATE `".$tbl_wrk_assignment."`
+				SET `prefill_text` = \"".$prefillText."\",
+					`prefill_doc_path` = \"".$prefillDocPath."\",
+					`prefill_submit` = \"".$prefillSubmit."\"
+				WHERE `id` = ".$_REQUEST['assigId'];
+			claro_sql_query($sql);
+			$dialogBox .= $langFeedbackEdited."<br /><br /><a href=\"./workList.php?assigId=".$_REQUEST['assigId']."\">".$langBack."</a>";
+			$displayFeedbackForm = false;
+		} 
+		else
+		{
+			$cmd = 'rqEditFeedback';
+		}
+	}
+	
+	/*-----------------------------------
+	    STEP 1 : display form
+	-------------------------------------*/
+	// edit assignment / display the form
+	if( $cmd == 'rqEditFeedback' )
+	{
+		include($includePath."/lib/form.lib.php");
+		
+		// check if it was already sent
+		if( !isset($_REQUEST['submitAssignment'] ) )
+		{
+		    // get current settings to fill in the form
+		    $sql = "SELECT `prefill_text` , `prefill_doc_path`, `prefill_submit`,
+		                  UNIX_TIMESTAMP(`end_date`) as `unix_end_date`
+		            FROM `".$tbl_wrk_assignment."`
+		            WHERE `id` = ".$_REQUEST['assigId'];
+		    list($modifiedAssignment) = claro_sql_query_fetch_all($sql);
+		
+		    // feedback
+		    $form['prefillText'       ] = $modifiedAssignment['prefill_text'];
+		    $form['currentPrefillDocPath'] = $modifiedAssignment['prefill_doc_path'];
+		    $form['prefillSubmit'     ] = $modifiedAssignment['prefill_submit'];
+		    
+		    // end date (as a reminder for the "after end date" option
+		    $form['unix_end_date'     ] = $modifiedAssignment['unix_end_date'];
+		}
+		else
+		{
+			// there was an error in the form 
+			$form['prefillText'       ] = $_REQUEST['prefillText'];
+			$form['currentPrefillDocPath'] = $_REQUEST['currentPrefillDocPath'];
+			$form['prefillSubmit'     ] = $_REQUEST['prefillSubmit'];
+		}
+		// ask the display of the form
+		$displayFeedbackForm = true;
+	}
 
 }
 
@@ -246,7 +248,7 @@ claro_disp_tool_title($nameTools);
 
 if ($dialogBox)
 {
-      claro_disp_message_box($dialogBox);
+	claro_disp_message_box($dialogBox);
 }
     /*--------------------------------------------------------------------
                         FEEDBACK FORM
@@ -318,7 +320,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
         <td>
           <input type="submit" name="submitFeedback" value="<?php echo $langOk; ?>">
 <?php
-          claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
+	claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
 ?>          
         </td>
       </tr>
