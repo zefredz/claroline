@@ -731,7 +731,7 @@ claro_sql_query("
 		`session_type` enum('INDIVIDUAL','GROUP') NOT NULL default 'INDIVIDUAL',
 		`authorized_content`  enum('TEXT','FILE','TEXTFILE') NOT NULL default 'FILE',
 		`authorize_anonymous` enum('YES','NO') NOT NULL default 'YES',
-		`prevent_late_upload` enum('YES','NO') NOT NULL default 'YES',
+		`allow_late_upload` enum('YES','NO') NOT NULL default 'YES',
 		`start_date` datetime NOT NULL default '0000-00-00 00:00:00',
 		`end_date` datetime NOT NULL default '0000-00-00 00:00:00',
 		`prefill_text` text NOT NULL,
