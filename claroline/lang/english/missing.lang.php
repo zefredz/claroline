@@ -1,4 +1,10 @@
 <?php 
 $langConfigMenuContent = "";
-$langContenuPlan = "";
+$langFillToolCourses = "";
+$langFunctions = "";
+$langGoAdmin = "";
+$langLogOnToYourPlatform = "";
+$langNoFunctionInThisSection = "";
+$langNothingToDo = "";
+$langStartAgain = "";
 ?>

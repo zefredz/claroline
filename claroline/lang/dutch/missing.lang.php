@@ -1,9 +1,7 @@
 <?php 
 $l_privnotify = "<br>You have %1\$s <a href=\"%2\$s\">new private message(s)</a>.";
-$langAddAClass = "Subscribe a class";
 $langAddAClassToCourse = "Subscribe a class to course";
 $langAddCSVUsers = "Add a user list";
-$langAddCSVUsersInCampus = "Add a user list";
 $langAddCSVUsersInClass = "Add a user list in class";
 $langAddCSVUsersInCourse = "Add a user list in course";
 $langAddClass = "Subscribe a class";
@@ -15,6 +13,7 @@ $langAddListUser = "Add a list of users";
 $langAddLoginPass = "Add a login/pass in .htpassword</a><br>";
 $langAddLoginPassForThisUser = "Add login pass from campus account of this user in .htpassword";
 $langAddModifyComment = "Add/modify a comment to";
+$langAddMyCampusOnClarolineNet = "Add my campus on Claroline.net website";
 $langAddNewCourse = "Add a new course";
 $langAddUser = "Create a new user";
 $langAddUserOneByOne = "New users will receive an e-mail with their user name and password";
@@ -23,11 +22,12 @@ $langAddedExternalTool = "External Tool added.";
 $langAddedToCampus = " has been added to the campus";
 $langAddedToCampusAndClass = " has been added to the campus and to the class";
 $langAddedToCampusAndCourse = " has been added to the campus and to the course";
+$langAddedToCreator = "Course Home";
 $langAdminEmail = "Email";
 $langAdminLogin = "Login";
 $langAdminName = "Lastname";
 $langAdminPass = "Password";
-$langAdminSetting = "Admin Setting";
+$langAdminSetting = "Administrator Settings";
 $langAdminSurname = "Firstname";
 $langAdministration = "Administration";
 $langAdministrationClassTools = "Classes";
@@ -38,9 +38,7 @@ $langAllUsersOfThisCourse = "Course members";
 $langAllowAnonymousAttempts = "Anonymous attempts";
 $langAllowLateUpload = "Yes, allow users to submit works after end date";
 $langAllowLateUploadShort = "Allow late upload";
-$langAllowedAttempts = "Attempts allowed";
 $langAllowedTime = "Time limit";
-$langAlreadyEnrolled = "Already enrolled";
 $langAlways = "Always";
 $langAnonymousAttemptsAllowed = "Allowed : don't record usernames in tracking, anonymous users can do the exercise.";
 $langAnonymousAttemptsNotAllowed = "Not allowed : record usernames in tracking, anonymous users cannot do the exercise.";
@@ -85,14 +83,19 @@ $langBackup = "Backup";
 $langBackupCourseInformation = "Backup course information";
 $langBackupThisCourse = "Backup this course";
 $langBlankSpace = "(Blank space)";
-$langBredCrumpUser = "User";
 $langBuildCompleteLangFile = "Complete language files";
+$langBuildEmptyLangFile = "Empty language file";
 $langBuildLangFile = "Build language files";
 $langBuildMissingLangFile = "Missing language files";
 $langBuildProductionLangFile = "Production language files";
 $langByUser = "by the user";
-$langCSVBackToUserList = "Back to user list";
 $langCSVSeeUserList = "See user list";
+$langCampusAlreadyRegistered = "It seems that you already have registered your campus.";
+$langCampusDeleted = "<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>";
+$langCampusRegistered = "<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.<br />A link to your campus is shown on the Worldwide page of Claroline.net.</p>";
+$langCampusRegistrationSubmitted = "Your campus has been submitted and is waiting to be validate by Claroline.net team";
+$langCampusRemoved = "<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>";
+$langCampusSubmitted = "<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>";
 $langCannotAddForumInGroups = "Group forums are added when creating a group and deleted when deleting corresponding group.";
 $langCannotBeBlank = "You cannot give a blank name to a class";
 $langCannotBeDeleted = "cannot be deleted";
@@ -109,7 +112,6 @@ $langChooseDateHelper = "(d/m/y hh:mm)";
 $langChooseFile = "Select file";
 $langClarolineNetNews = "Claroline.net news";
 $langClass = "Classes";
-$langClassAddCSV = "Add a user list in class";
 $langClassMembers = "Class members";
 $langClassMoved = "The class has been moved";
 $langClassName = "Class name";
@@ -131,7 +133,10 @@ $langConfirmDeleteQuestion = "Are you sure you want to completely delete this qu
 $langConfirmDeleteStats = "If you delete the courses statistics there is no way to get them back !<br /><br />Are you sure you want to completely delete the statistics ?";
 $langConfirmEmptyGroups = "Are you sure you want to empty all groups ?";
 $langConfirmEnrollClassToCourse = "Are you sure you want to enrol the whole class on the course ?";
+$langContent = "Content";
 $langCopyOnServerBackupRepository = "Copy to the server backup repository";
+$langCountry = "Country";
+$langCountryCodeError = "Country code seems to be incorrect.";
 $langCourseContent = "Course content";
 $langCourseContentComment1 = "What is the importance of the various content to be taught within the framework of the course?  What is the level of difficulty of this content?  How is the unit structured?  What will be the sequence of the content?  What does content lead to?";
 $langCourseContentComment2 = "Presentation of the content of the course, the structuring of the content, the progression and the calendar";
@@ -162,40 +167,34 @@ $langCsvPutIntoDocTool = "The file &quot;users.csv&quot; has been put into the D
 $langCurrentAttachedDoc = "Current attached file";
 $langCurrentDoc = "Current file";
 $langCurrentFeedbackFile = "Current feedback file";
+$langCurrentStatus = "Current registration status : <br /> <br />
+";
 $langCurrentTime = "Current time";
 $langDBConnectionParameters = "Mysql connection parameters";
 $langDBHost = "Database Host";
 $langDBLogin = "Database User name";
-$langDBNamesRules = "Database Names";
 $langDBPassword = "Database Password";
 $langDBSetting = "MySQL database settings";
 $langDBSettingNamesIntro = "
-
-				Install script will create main claroline databases. 
-
-				You can create different database 
-
-				for tracking and PhpMyAdmin extension if you want 
-
-				or gathering all these stuff in one database, like you want. 
-
-				Afterwards, Claroline will create a new database for each new course created. 
-
-				You can specify a prefix for these database names.
-
 				<p>
-
-				If you are allowed to use only one database by your database system administrator, 
-
-				get back to the previous page and select option \"Single\"
-
+                Install script will create main claroline databases.
+                You can create different databases for the main tables and for the tracking tables 
+				or use the same database for the two.<br />
+				You can also set an optionnal prefix for the main tables.
 				</p>
-
-				";
+				<p>
+                Afterwards, Claroline will create a new database for each created course.
+                You can specify a prefix for these databanames.
+				</p>
+                <p>
+                If you are allowed to use only one database by your database system administrator,
+                get back to the previous page and select option 'Single' for 'Database mode'.
+                </p>
+                ";
 $langDBUse = "Database usage";
 $langDateLastWrite = "Last message was on : ";
-$langDbName = "DB Name";
-$langDbPrefixForm = "Prefix Name for Course Db";
+$langDbName = "Database name";
+$langDbPrefixForm = "Prefix for names of course databases";
 $langDefSubVisibility = "Default works visibility";
 $langDelCourseStats = "Delete all course statistics";
 $langDelCourseStatsDone = "Course statistics deleted";
@@ -203,10 +202,14 @@ $langDelImage = "Remove picture";
 $langDeleteAttachedFile = "Delete attached file";
 $langDeleteCaution = "! This will also delete all works submitted in this assignment !";
 $langDeleteMyAccount = "Delete my account";
-$langDeleteOfUserWasDoneSucessfully = "Deletion of the user was done sucessfully";
 $langDeleteUser = "Delete user";
 $langDeletedExternalTool = "External tool deleted";
 $langDepartment = "Department";
+$langDescAdded = "Description added.";
+$langDescDeleted = "Description deleted.";
+$langDescUnableToDelete = "Unable to delete";
+$langDescUnableToUpdate = "Unable to update";
+$langDescUpdated = "Description updated.";
 $langDescriptionComment1 = "What is the place and the specificity of the course in the programme?  Do there exist pre-required courses?  What are the relationships to other courses?";
 $langDescriptionComment2 = "Information allowing the course to be identified (initials, title, a number of hours, hands-on...) and teaching it (surname, first name, office, Tel., e-mail, possible availabilities).  General presentation of the course in the program.";
 $langDescriptionCours = "Course description";
@@ -217,6 +220,7 @@ $langDiskUsage = "Disk Usage";
 $langDispClassAdded = "Display the class added";
 $langDocumentContent = "Document content : ";
 $langDocumentName = "Document name : ";
+$langDocumentation = "Documentation";
 $langDone = "Steps done";
 $langDownloadAttachedFile = "Download attached file";
 $langEG = "e. g.";
@@ -244,9 +248,20 @@ $langEnrollUser = "Enrol a user";
 $langEnter2passToChange = "Enter new password twice to change, or leave empty to keep";
 $langEnterMail = "Enter your email so we can send you your password.";
 $langErrorCannotReadRSSFile = "Error : cannot read RSS feed";
+$langErrorCategoryEmpty = "Category can not be empty";
 $langErrorClassNotEmpty = "This class still contains some sub classes, delete them first";
+$langErrorCourseCodeEmpty = "Course Code can not be empty";
+$langErrorCourseTitleEmpty = "Course title can not be empty";
+$langErrorDepartmentEmpty = "Department can not be empty";
+$langErrorDepartmentURLEmpty = "Department URL can not be empty";
+$langErrorDepartmentURLWrong = "Department URL is invalid";
+$langErrorEmailEmpty = "Email can not be empty";
+$langErrorEmailInvalid = "Email is invalid";
 $langErrorFormatCSV = "ERROR: The format you gave is not compatible with Claroline";
+$langErrorLanguageEmpty = "Language can not be empty";
+$langErrorLecturerEmpty = "Lecturer can not be empty";
 $langErrorMove = "You can not move a class in itself!";
+$langErrorMyOwnSettings = "You can not change your own status";
 $langEventAdded = "Event added to the agenda.";
 $langEventDeleted = "Event deleted from the agenda.";
 $langEventUpdated = "Event updated into the agenda.";
@@ -283,10 +298,12 @@ $langFieldSeparatorUsed = "Fields separator used";
 $langFileContentModified = "File content modified";
 $langFileCreated = "File created";
 $langFileDesc = "File description";
+$langFileForCSVUpload = "CSV file with the user list : ";
 $langFileNameMissing = "File name is missing";
 $langFileNameOrURLMissing = "File Name or URL is missing.";
 $langFileOnly = "File (file required, description text optional)";
 $langFileRequired = "A file is required";
+$langFiles = "File list";
 $langFillCourses = "Build test courses";
 $langFillTree = "Insert categories of course";
 $langFillUsers = "Insert users";
@@ -294,12 +311,15 @@ $langFilling = "Fill with test values";
 $langFindDoubledVariable = "Find doubled variables";
 $langFindVarWithSameContentAndDifferentName = "Variables with same content and different name";
 $langFindVarWithSameNameAndDifferentContent = "Variables with same name and different content";
+$langFirstDefOfThisValue = "!!! First Definition of this value !!!";
 $langFirstSubmission = "First submission";
 $langFirstname = "First name";
-$langFollowCourse = "Follow courses";
+$langForumCategoryDeleted = "Forum Category Deleted";
 $langForumContent = "Forum Content";
+$langForumDeleted = "Forum deleted";
 $langForumModified = "The forum has been modified";
 $langForumStructure = "Forum Structure";
+$langFree = "Free";
 $langFtpFileTips = "File on a FTP server";
 $langGarbage = "Garbage";
 $langGiveAdminRight = "Set a user as admin";
@@ -327,6 +347,8 @@ $langIfNotRedirect = "If not redirected ";
 $langIncludeUserPersonalInfo = "Include user personal information";
 $langIncorrectDate = "Start date must be before end date ...";
 $langIndividual = "Individual";
+$langInstitution = "Institution";
+$langInstitutionUrl = "Institution URL";
 $langIntroCourse = "You are on the course home page.<br /><br />On this page, you can :
 
 <ul>
@@ -341,14 +363,14 @@ Now, to add an introduction text presenting your course to students, click on th
 $langIntroEditToolList = "Select the tools you want to make visible for your user.
 
 An invisible tool will be greyed out on your personal interface";
-$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade. 
+$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade.
 
                 These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
-$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to upgrade the data stored into the main Claroline tables 
+$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to upgrade the data stored into the main Claroline tables
 
                     (users, course categories, tools list, ...) and set it to be compatible with the new Claroline version.</p>
 
-                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this 
+                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this
 
                    operation may take some time.</p>";
 $langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going to update course data (directories and database tables) one by one.
@@ -360,7 +382,7 @@ $langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the cou
 $langIntroText = "To send a message, select groups of users (marked with a * in the front)
 
  or single users from the list on the left.";
-$langIntroWork = "This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course's website. 
+$langIntroWork = "This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course's website.
 
 <br />You will be able to add a comment or a grade to each work.
 
@@ -400,8 +422,7 @@ $langMailAppearAlready = "This mail appears already in a previous line of the CS
 $langMailSynthaxError = "Mail synthax error.";
 $langMailTo = "Mail to : ";
 $langMailUsed = "Mail is already used by another user.";
-$langMainDB = "Main claroline DB";
-$langMaintenance = "Maintenance";
+$langMainDB = "Main database";
 $langMakeABackupBefore = "<p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
 
 installation and set them to be compatible with the new Claroline version. This upgrade proceeds in three steps:</p>
@@ -447,8 +468,6 @@ installation and set them to be compatible with the new Claroline version. This 
 <p>You won't be allowed to start the upgrade process before this point is marked as 'done'.</p>
 
 ";
-$langMakeBackupBefore = "Make a backup before !";
-$langMakeFileOfTranslation = "Build a translation file";
 $langMakeInvisible = "Make invisible";
 $langMakeNewSearch = "Make new search : ";
 $langMakeSearch = "Make search";
@@ -464,13 +483,15 @@ $langMethodsOfEvaluationComment1 = "Precise details as to the means of evaluatio
 $langMin = "Minimum : ";
 $langMinuteShort = "min.";
 $langMissingValue = "Missing value";
-$langModifOneProfile = "User settings";
 $langModifUserCourseSettings = "User course settings";
 $langModules = "Modules";
 $langMoreRepliedTopics = "More replied topics";
 $langMoreSeenTopics = "More seen topics";
+$langMustSelectAFile = "You must select a file";
+$langMustSelectATxtFile = "You must select a text file";
 $langMyAgenda = "My calendar";
-$langMysqlNames = "MySQL Names";
+$langMyResults = "My results";
+$langMysqlNames = "MySQL Database and Table Names";
 $langMysql_Repository = "Mysql Repository";
 $langName = "Name";
 $langNameChanged = "Name of the class has been changed";
@@ -493,6 +514,7 @@ $langNoCourseResult = "There is no course matching such criteria";
 $langNoEndDate = "No closing date";
 $langNoEventInTheAgenda = "No event in the agenda";
 $langNoFile = "- none -";
+$langNoImage = "No image to display";
 $langNoMoreAttemptsAvailable = "You have reached the maximum number of allowed attempts.";
 $langNoPost = "No Post";
 $langNoQuota = "No quota";
@@ -502,7 +524,6 @@ $langNoTimeLimit = "No time limitation";
 $langNoUserResult = "No user to display";
 $langNoVisibleSubmission = "No visible submission";
 $langNomPageAddHtPass = "Admin users management";
-$langNomPageDevIndex = "Devel Tools";
 $langNormalUser = "Normal";
 $langNotGroupMember = "You are not a member of this groups";
 $langNotRecentlyConnectedStudents = "Not recently connected students : ";
@@ -533,6 +554,7 @@ $langPrintVers = "Printable version";
 $langPrivateFeedback = "Private feedback";
 $langPrivateOnly = "Private course only";
 $langProfessorMessage = "Message from your lecturer";
+$langPropertiesNotIncludeInSections = "Properties not include in sections";
 $langPublicOnly = "Public course only";
 $langPutOnFtpServer = "Put on ftp server";
 $langQantity = "Quantity  : ";
@@ -543,12 +565,17 @@ $langQuestionTitle = "Question title";
 $langRandomLanguage = "Shuffle selection in available languages";
 $langRegister = "Register";
 $langRegisterClass = " Register a class";
+$langRegisterLocalUrl = "Your campus url seems to be a local url.
+A web accessible url is required to register your site on Claroline.net.<br /><br />
+Check the value of 'Web base' in your Claroline configuration.";
+$langRegisterMyCampus = "Register my campus";
 $langRegisterTheNewUser = "Register this user to a course";
 $langRegisterUser = "Enrol to a new course";
 $langRegisterUserToClass = "Register user to class";
 $langRemoveAdminLevel = "No longer Admin";
 $langReplaceAttachedFile = "Replace attached file";
 $langRequestCourseManagerStatus = "Request a course manager status";
+$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Request to the coder of this config to add theses proporties in a section of the definition file.";
 $langRequired = "Required";
 $langRequirements = "Requirements";
 $langResetChat = "Reset";
@@ -594,13 +621,13 @@ $langSetAdmin = "Set Admin";
 $langShowAllProcessDuringTheWork = "Show all process during the work";
 $langShowAnswers = "Show answers";
 $langShowAnswersAfterLastTry = "After last allowed attempt";
-$langSimple = "Simple";
+$langSiteName = "Site name";
 $langSize_of_claroline_scripts = " size of claroline scripts";
 $langSize_of_course_repository = "!!!! size of course repository (include claroline and garbage in old systems)";
 $langSize_of_selected_courses = "size of selected courses";
 $langSpecifyFormat = "You must specify the CSV format used in your file";
 $langStartDate = "Start date";
-$langStatDB = "Tracking DB.";
+$langStatDB = "Tracking database";
 $langStatsOfExercise = "Statistics of exercise";
 $langStatsOfLearnPath = "Statistics";
 $langStatusChangeNotMade = "No change applied";
@@ -628,6 +655,7 @@ $langSummaryNavBar = "Navigation bar";
 $langSupports = " Support ";
 $langSupportsComment1 = "Does course support exist?  What type of support do I give?  Opened?  Closed?";
 $langSupportsComment2 = "Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langSysId = "System ID";
 $langTeachers = "Teachers";
 $langTeachingTrainingActivities = "Teaching-training activities";
@@ -635,20 +663,22 @@ $langTeachingTrainingActivitiesComment1 = "What methods and which activities wil
 $langTeachingTrainingActivitiesComment2 = "Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).";
 $langTechAdmin = "Administration technique";
 $langTechnical = "Technical Tools";
+$langTextEditorDisable = "Disable text editor";
+$langTextEditorEnable = "Enable text editor";
 $langTextFile = "Text with attached file (text required, file optional)";
 $langTextOnly = "Text only (text required, no file)";
 $langTheFields = "The fields";
+$langThisIsAnErrorInDefinitionFile = "This is an error in definition file.";
+$langThumbnails = "Thumbnails";
 $langTimeInLearnPath = "Time in learning path";
 $langTimeOver = "Time is over, results not submitted.";
 $langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />from %s to %s </h2>";
-$langToCourseSettings = "Back to course settings";
 $langTool = "Tool";
 $langTopLevel = "top level";
 $langTopicReplies = "Replies";
 $langTrackForumUsage = "Forum usage";
 $langTrackTotalPosts = "Messages posted";
 $langTrackTotalTopics = "Topics started";
-$langTraduction = "Translation tool";
 $langTranslationStatistics = "Translation Progression";
 $langTranslationTools = "Translation Tools";
 $langTranslations = "Translations";
@@ -656,10 +686,12 @@ $langURL = "URL : ";
 $langUnableAddExternalTool = "Unable to add external tool";
 $langUnableChangedTool = "Unable to change tool access";
 $langUnableDeleteExternalTool = "Unable to delete external tool";
+$langUnableDescToAdd = "Unable to add description";
 $langUnableToAdd = "Unable to add the event to the agenda.";
 $langUnableToDelete = "Unable to delete event from the agenda.";
 $langUnableToUpdate = "Unable to update the event into the agenda.";
 $langUnableUpdateExternalTool = "Unable to update external tool";
+$langUnkownSOAPError = "An error occurred while contacting Claroline.net";
 $langUnlimitedAttempts = "Unlimited attempts";
 $langUnsubscribe = "Unregister user";
 $langUnsubscribeClass = "Unregister from class";
@@ -668,9 +700,6 @@ $langUpdateImage = "Change picture";
 $langUpdated = "Updated";
 $langUpdatedExternalTool = "External tool updated";
 $langUpgrade = "Upgrade";
-$langUpgradeAchieved = "Upgrade Process Achieved";
-$langUpgradeAll = "Upgrade the whole platform.";
-$langUpgradeDataBase = "Upgrading Main Database ";
 $langUpgradeStep0 = "Backup confirm";
 $langUpgradeStep1 = "Step 1 of 3: platform main settings";
 $langUpgradeStep2 = "Step 2 of 3: main platform tables upgrade";
@@ -702,7 +731,6 @@ $langUserSettings = "User settings";
 $langUserStatus = "Status";
 $langUserSubscribed = "The user has been successfully registered";
 $langUserUnregistered = "User unregistered";
-$langUserUnregisteredClass = "User has been sucessfully unregistered from the class";
 $langUserUnregisteredFromClass = "User has been sucessfully unregistered from the class";
 $langUserUnregisteredFromCourse = "User has been unregistered from the course";
 $langUserUnsubscribed = "The user has been successfully unregistered";
@@ -773,9 +801,7 @@ $lang_faculty_NoCat = "There is no category available !";
 $lang_faculty_NoChange = "No change applied.";
 $lang_faculty_NoMove_1 = "You can't move ";
 $lang_faculty_NoMove_2 = " in the same category !";
-$lang_faculty_Yes = "Yes";
 $lang_faculty_imgDown = "Down";
-$lang_faculty_imgUp = "Up";
 $lang_fields_enclosed_by = "Fields enclosed by";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_htAccessIncPath_added = "Folder <em>inc</em> protected";
@@ -788,6 +814,9 @@ $lang_no_access_here = "No way";
 $lang_no_course_available_fitting_this_keyword = "No course available fitting this keyword";
 $lang_no_error_in_file_found = "No error in file found.";
 $lang_or_search_from_keyword = "Search from keyword";
+$lang_p_ErrorOnBuild_S_for_S = "Error in building of <em>%s</em> for <B>%s</B>";
+$lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
+$lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
 $lang_p_d_course = "%2d course";
 $lang_p_d_course_manager = "%2d prof ";
 $lang_p_d_course_managers = "%2d profs ";
@@ -796,6 +825,7 @@ $lang_p_d_course_members = "%2d members";
 $lang_p_d_courses = "%2d courses";
 $lang_p_d_student = "%2d student";
 $lang_p_d_students = "%2d students";
+$lang_p_nothing_to_edit_in_S = "nothing to edit in %s";
 $lang_p_platformManager = "Administrator for %s";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> has been sucessfully registered to the course";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> has not been sucessfully registered to the course";
@@ -803,7 +833,6 @@ $lang_php_info = "PHP system information";
 $lang_recently = "recently";
 $lang_remove_course_enrollment = "Remove course enrolment";
 $lang_remove_course_from_your_personnal_course_list = "Remove course from your personal course list";
-$lang_search = "Search";
 $lang_select_course_in = "Select course in ";
 $lang_select_course_in_search_results = "Select course in search results";
 $lang_the_following_errors_were_found = "The following errors were found ";
