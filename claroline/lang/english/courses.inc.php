@@ -19,8 +19,8 @@ $lang_select_course_in_search_results      = "Select course in search results";
 $lang_unsubscribe                          = "Unsubscribe";
 $lang_back_to_my_home_page                 = "Back to my home page";
 $lang_back_to_my_personnal_course_list     = "Back to my personnal course list";
-$lang_back_to_main_category_list		   = "Back to the main category list";
-$langAdded 		= "Added";
+$lang_back_to_main_category_list	   = "Back to the main category list";
+$langAdded 	= "Added";
 $langDeleted 	= "Deleted";
 $langKeeped 	= "Keep";
 
@@ -65,4 +65,5 @@ $langBackToCourseList = "Back to user's course list";
 
 $langEnrollAsStudent = "Enroll as Student";
 $langEnrollAsTeacher = "Enroll as Teacher";
+$langCourseManager = "Course manager";
 ?>
