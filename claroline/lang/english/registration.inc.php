@@ -183,7 +183,6 @@ $langPreserved = "Preserved";
 
 $langDate = "Date";
 $langAction = "Action";
-$langLogin = "Log In";
 $langModify = "Modify";
 
 $langUserName = "User name";

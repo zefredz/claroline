@@ -86,7 +86,6 @@ $langLinkSite="Einen Link zu dieser Seite auf der Homepage einfügen";
 $langLn="Sprache";
 $langLocalFileTips = "Datei von Ihrem Rechner laden";
 $langManyAnswers="(es kann mehr als eine Antwort korrekt sein)";
-$langMax="max. 12 Zeichen, z.B. <i>LW2121</i>";
 $langMax="Maximal : ";
 $langMaxStudentGroup="Max. Anzahl von Teilnehmern p. Gruppe";
 $langMessage="Wenn Sie das Test Forum entfernen, wird die aktuelle Meldung auch entfernt.";

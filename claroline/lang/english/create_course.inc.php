@@ -48,7 +48,6 @@ $langEx="e.g. <i>History of Literature</i>";
 $langFac="Category";
 $langTargetFac="This is the faculty, department or school where the course is delivered";
 $langCode="Course code";
-$langMax="max. 12 characters, e.g. <i>ROM2121</i>";
 $langDoubt="If you doubt on your course's code, consult, ";
 $langProgram="Course Program</a>. If your course has no code, whatever the reason, invent one. For instance <i>INNOVATION</i> if the course is about Innovation Management";
 $langProfessors="Professor(s)";

@@ -214,7 +214,6 @@ $langDeleted            = "Supprimés";
 $langPreserved          = "Conservés";
 $langDate               = "Date";
 $langAction             = "Action";
-$langLogin              = "Entrer"; // JCC 
 //$langLogout             = "Quitter";
 $langModify             = "Modifier";
 $langUserName           = "Nom d'utilisateur"; // JCC 

@@ -49,7 +49,6 @@ $langEx="e.g. <i>Historia da Literatura</i>";
 $langFac="Categoria";
 $langTargetFac="Esta é a faculdade, departamento ou escola onde esse curso será disponibilizado"; 
 $langCode="Código do curso";
-$langMax="máx. de 12 caracteres, ex.: <i>ROM2121</i>";
 $langDoubt="Se você tem dúvidas sobre o código do curso, consulte, ";
 $langProgram="Programa do Curso</a>. Se seu curso não possui código, independente da razão, invente um. Por exemplo <i>INOVACAO</i> se seu curso for sobre Gerenciamento de Inovações";
 $langProfessors="Professor(es)";

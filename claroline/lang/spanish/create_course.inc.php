@@ -148,7 +148,6 @@ $langVersionClaro  		= "Versión de Claroline usada en tiempo de archivo";  //Agr
 $langLn="Idioma";
 $langModifyInfo="Configuración del curso";			//Agregado por Rodrigo Parra
 $langLearningPath="Seguimiento de aprendizaje";
-$langMax="max. 12 caracteres , p.e. <i>ROM2121</i>";  //Agregado por Rodrigo Parra
 $langBackToAdmin = "Volver a la página del administrador";
 $langAnotherCreateSite = "Crear otro sitio web de cursos";
 $langSampleLearnPath = "Ejemplo de un seguimiento de aprendizaje";
