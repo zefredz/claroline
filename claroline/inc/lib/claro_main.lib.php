@@ -26,17 +26,16 @@ function claro_sql_get_main_tbl()
 {
     global $mainDbName;
 
-    $mainDb = $mainDbName;
-
     static $mainTblList = array();
 
     if ( count($mainTblList) == 0 )
     {
-        $mainTblList['admin'            ] = $mainDb.'`.`admin';
-        $mainTblList['cours'            ] = $mainDb.'`.`cours';
-        $mainTblList['rel_course_user'  ] = $mainDb.'`.`cours_user';
-        $mainTblList['category'         ] = $mainDb.'`.`faculte';
-        $mainTblList['user'             ] = $mainDb.'`.`user';
+        $mainTblList['admin'            ] = $mainDbName.'`.`admin';
+        $mainTblList['course'           ] = $mainDbName.'`.`cours';
+        $mainTblList['rel_course_user'  ] = $mainDbName.'`.`cours_user';
+        $mainTblList['category'         ] = $mainDbName.'`.`faculte';
+        $mainTblList['user'             ] = $mainDbName.'`.`user';
+        $mainTblList['tool'             ] = $mainDbName.'`.`course_tool';
     }
 
     return $mainTblList;
@@ -52,51 +51,59 @@ function claro_sql_get_main_tbl()
 
 function claro_sql_get_course_tbl()
 {
+	GLOBAL $_course;
+	$courseDb = $_course['dbNameGlu'];
     static $courseTblList = array();
 
-    if ( count($course_tbl) == 0 )
+    if ( count($courseTblList) == 0 )
     {
-      $courseTblList['announcement'          ] = $courseDb.'announcement';
-      $courseTblList['assignment_doc'        ] = $courseDb.'assignment_doc';
-      $courseTblList['bb_access'             ] = $courseDb.'bb_access';
-      $courseTblList['bb_banlist'            ] = $courseDb.'bb_banlist';
-      $courseTblList['bb_categories'         ] = $courseDb.'bb_categories';
-      $courseTblList['bb_config'             ] = $courseDb.'bb_config';
-      $courseTblList['bb_disallow'           ] = $courseDb.'bb_disallow';
-      $courseTblList['bb_forum_access'       ] = $courseDb.'bb_forum_access';
-      $courseTblList['bb_forum_mods'         ] = $courseDb.'bb_forum_mods';
-      $courseTblList['bb_forums'             ] = $courseDb.'bb_forums';
-      $courseTblList['bb_headermetafooter'   ] = $courseDb.'bb_headermetafooter';
-      $courseTblList['bb_posts'              ] = $courseDb.'bb_posts';
-      $courseTblList['bb_posts_text'         ] = $courseDb.'bb_posts_text';
-      $courseTblList['bb_priv_msgs'          ] = $courseDb.'bb_priv_msgs';
-      $courseTblList['bb_ranks'              ] = $courseDb.'bb_ranks';
-      $courseTblList['bb_sessions'           ] = $courseDb.'bb_sessions';
-      $courseTblList['bb_themes'             ] = $courseDb.'bb_themes';
-      $courseTblList['bb_topics'             ] = $courseDb.'bb_topics';
-      $courseTblList['bb_users'              ] = $courseDb.'bb_users';
-      $courseTblList['bb_whosonline'         ] = $courseDb.'bb_whosonline';
-      $courseTblList['bb_words'              ] = $courseDb.'bb_words';
-      $courseTblList['calendar_event'        ] = $courseDb.'calendar_event';
-      $courseTblList['course_description'    ] = $courseDb.'course_description';
-      $courseTblList['document'              ] = $courseDb.'document';
-      $courseTblList['group_property'        ] = $courseDb.'group_property';
-      $courseTblList['group_rel_team_user'   ] = $courseDb.'group_rel_team_user';
-      $courseTblList['group_team'            ] = $courseDb.'group_team';
-      $courseTblList['link'                  ] = $courseDb.'link';
-      $courseTblList['quiz_answer'           ] = $courseDb.'quiz_answer';
-      $courseTblList['quiz_question'         ] = $courseDb.'quiz_question';
-      $courseTblList['quiz_rel_test_question'] = $courseDb.'quiz_rel_test_question';
-      $courseTblList['quiz_test'             ] = $courseDb.'quiz_test' ;
-      $courseTblList['tool_intro'            ] = $courseDb.'tool_intro';
-      $courseTblList['tool_list'             ] = $courseDb.'tool_list';
-      $courseTblList['userinfo_content'      ] = $courseDb.'userinfo_content';
-      $courseTblList['userinfo_def'          ] = $courseDb.'userinfo_def';
-      $courseTblList['work_student'          ] = $courseDb.'work_student';
+      $courseTblList['announcement'           ] = $courseDb.'announcement';
+      $courseTblList['assignment_doc'         ] = $courseDb.'assignment_doc';
+      $courseTblList['bb_access'              ] = $courseDb.'bb_access';
+      $courseTblList['bb_banlist'             ] = $courseDb.'bb_banlist';
+      $courseTblList['bb_categories'          ] = $courseDb.'bb_categories';
+      $courseTblList['bb_config'              ] = $courseDb.'bb_config';
+      $courseTblList['bb_disallow'            ] = $courseDb.'bb_disallow';
+      $courseTblList['bb_forum_access'        ] = $courseDb.'bb_forum_access';
+      $courseTblList['bb_forum_mods'          ] = $courseDb.'bb_forum_mods';
+      $courseTblList['bb_forums'              ] = $courseDb.'bb_forums';
+      $courseTblList['bb_headermetafooter'    ] = $courseDb.'bb_headermetafooter';
+      $courseTblList['bb_posts'               ] = $courseDb.'bb_posts';
+      $courseTblList['bb_posts_text'          ] = $courseDb.'bb_posts_text';
+      $courseTblList['bb_priv_msgs'           ] = $courseDb.'bb_priv_msgs';
+      $courseTblList['bb_ranks'               ] = $courseDb.'bb_ranks';
+      $courseTblList['bb_sessions'            ] = $courseDb.'bb_sessions';
+      $courseTblList['bb_themes'              ] = $courseDb.'bb_themes';
+      $courseTblList['bb_topics'              ] = $courseDb.'bb_topics';
+      $courseTblList['bb_users'               ] = $courseDb.'bb_users';
+      $courseTblList['bb_whosonline'          ] = $courseDb.'bb_whosonline';
+      $courseTblList['bb_words'               ] = $courseDb.'bb_words';
+      $courseTblList['calendar_event'         ] = $courseDb.'calendar_event';
+      $courseTblList['course_description'     ] = $courseDb.'course_description';
+      $courseTblList['document'               ] = $courseDb.'document';
+      $courseTblList['group_property'         ] = $courseDb.'group_property';
+      $courseTblList['group_rel_team_user'    ] = $courseDb.'group_rel_team_user';
+      $courseTblList['group_team'             ] = $courseDb.'group_team';
+      $courseTblList['link'                   ] = $courseDb.'link';
+      $courseTblList['lp_learnPath'           ] = $courseDb.'lp_learnPath';
+      $courseTblList['lp_rel_learnPath_module'] = $courseDb.'lp_rel_learnPath_module';
+      $courseTblList['lp_user_module_progress'] = $courseDb.'lp_user_module_progress';
+      $courseTblList['lp_module'              ] = $courseDb.'lp_module';
+      $courseTblList['lp_asset'               ] = $courseDb.'lp_asset';
+      $courseTblList['quiz_answer'            ] = $courseDb.'quiz_answer';
+      $courseTblList['quiz_question'          ] = $courseDb.'quiz_question';
+      $courseTblList['quiz_rel_test_question' ] = $courseDb.'quiz_rel_test_question';
+      $courseTblList['quiz_test'              ] = $courseDb.'quiz_test' ;
+      $courseTblList['tool_intro'             ] = $courseDb.'tool_intro';
+      $courseTblList['tool_list'              ] = $courseDb.'tool_list';
+      $courseTblList['userinfo_content'       ] = $courseDb.'userinfo_content';
+      $courseTblList['userinfo_def'           ] = $courseDb.'userinfo_def';
+      $courseTblList['work_student'           ] = $courseDb.'work_student';
+
 
     } // end if ( count($course_tbl) == 0 )
 
-    return $courseTbl;
+    return $courseTblList;
 }
 
 
