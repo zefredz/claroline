@@ -1,5 +1,5 @@
 ******************************************
-CLAROLINE 1.6 BETA 2 - README
+CLAROLINE 1.6 Release Candidate - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -118,7 +118,7 @@ Improved campus administration tool deal with classes and import csv files.
     * create a new class right form your CSV file.
     * import users in a specific course within the user tool.
 
-* Configuration files edition (added in beta 2)
+* Configuration files edition (added since beta 2)
 
  New configuration files editor allowing easy customization of the campus and of the tool 
  parameters.
