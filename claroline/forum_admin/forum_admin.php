@@ -56,10 +56,8 @@ define("CAT_FOR_GROUPS",1);
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_forum_categories = $tbl_cdb_names['bb_categories'         ];
-$tbl_forum_mods       = $tbl_cdb_names['bb_forum_mods'         ];
 $tbl_forum_forums     = $tbl_cdb_names['bb_forums'             ];
 $tbl_forum_topics     = $tbl_cdb_names['bb_topics'             ];
-$tbl_forum_users      = $tbl_cdb_names['bb_users'              ];
 
 $is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
 
@@ -298,18 +296,6 @@ if ($is_allowedToEdit)
         $display = DISP_FORUM_GO_SAVE;
         if($forum_name != "")
         {
-            $sql = 'SELECT user_id
-                    FROM `'.$tbl_forum_users.'`
-                    WHERE username = "'.$forum_moderator.'"';
-            $result  = claro_sql_query($sql);
-
-            list($forum_moderator) = mysql_fetch_row($result);
-
-            $sql = 'UPDATE `'.$tbl_forum_users.'`
-                    SET `user_level` = "2"
-                    WHERE `user_id` = "'.$forum_moderator.'"';
-            claro_sql_query($sql);
-
             $sql = 'UPDATE `'.$tbl_forum_forums.'`
                     SET `forum_name`     = "'.$forum_name.'",
                         `forum_desc`     = "'.$forum_desc.'",
@@ -379,17 +365,6 @@ if ($is_allowedToEdit)
     {
         $display=DISP_FORUM_GO_ADD;
 
-        $sql = 'SELECT user_id 
-                FROM `'.$tbl_forum_users.'` 
-                WHERE username = "'.$forum_moderator.'"';
-        $result = claro_sql_query($sql);
-
-        list($forum_moderator) = mysql_fetch_row($result);
-
-        $sql = 'UPDATE `'.$tbl_forum_users.'`
-                SET user_level = "2"
-                WHERE user_id = "'.$forum_moderator.'"';
-        claro_sql_query($sql);
         if ($forum_name !="") //do not add forum if empty name given
         {
             // find order in the category we must give to the newly created forum
@@ -408,21 +383,6 @@ if ($is_allowedToEdit)
                     (forum_id, forum_name, forum_desc, forum_access,forum_moderator, cat_id, forum_type, md5, forum_order)
                     VALUES
                     (NULL,"'.$forum_name.'", "'.$forum_desc.'", "2", "1", "'.$cat_id.'", "'.$forum_type.'", "'.md5(time()).'", "'.$order.'")';
-            claro_sql_query($sql);
-
-            $sql = 'SELECT forum_id
-                    FROM `'.$tbl_forum_forums.'`
-                    WHERE forum_name="'.$forum_name.'"';
-            $idforum = claro_sql_query($sql);
-
-            while ($my_forum_id = mysql_fetch_array($idforum))
-            {
-                $forid = $my_forum_id[0];
-            }
-            $sql = 'INSERT INTO `'.$tbl_forum_mods.'`
-                    (forum_id, user_id)
-                    VALUES 
-                    ("'.$forid.'", 1)';
             claro_sql_query($sql);
         }
         else
