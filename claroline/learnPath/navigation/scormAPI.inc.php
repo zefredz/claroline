@@ -114,7 +114,7 @@ $TABLEUSERS              = $tbl_user;
 
 ?>
 
-<script>
+<script type="text/javascript">
 
         var init_total_time = "<?= $sco['total_time']; ?>";
         // ====================================================
