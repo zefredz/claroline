@@ -331,7 +331,7 @@ if($is_allowedToUse)	// check teacher status
 		         AND cu.user_id = u.user_id
 		         ORDER BY u.nom, u.prenom";
 
-		$result	= mySqlQueryShowError($sql);
+		$result	= claro_sql_query($sql);
 
 		if ($result)
 		{
@@ -350,7 +350,7 @@ if($is_allowedToUse)	// check teacher status
 		        ON g.id = gu.team 
 		        GROUP BY g.id";
 
-		$groupSelect = mySqlQueryShowError($sql);
+		$groupSelect = claro_sql_query($sql);
 
 		while ($groupData = mysql_fetch_array($groupSelect))
 		{
@@ -470,40 +470,5 @@ echo	"</table>",
 } // end: teacher only
 
 include($includePath."/claro_init_footer.inc.php");	
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////
-
-/*> > > > > > > > > > > > FUNCTIONS DEFINITION < < < < < < < < < < < <*/
-
-
-// Function	developped by Christophe Gesché	at Claroline 
-// to detect errors	in Mysql Queries
-
-function mySqlQueryShowError($sql,$handledb="###")
-{
-	if ($handledb=="###")
-	{
-		$val =	@mysql_query($sql);
-	}
-	else
-	{
-		$val =	@mysql_query($sql,$handledb);
-	}
-	if (mysql_errno())
-	{
-		echo "<hr>".mysql_errno().": ".mysql_error()."<br><PRE>$sql</PRE><HR>";
-	}
-	else
-	{
-		echo "<!-- \n$sql\n-->";
-	}
-	return $val;
-}
 
 ?>
