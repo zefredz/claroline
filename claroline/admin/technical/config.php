@@ -221,76 +221,97 @@ claro_disp_msg_arr($controlMsg);
 
 // OUTPUT
 ?>
-<form action="<?php echo $PHP_SELF ?>" method="POST" target="_self">
+<form action="<?php echo $_SERVEUR['PHP_SELF'] ?>" method="POST" target="_self">
 	<table border="0" >
 	<tbody>
 		<tr>
-			<td align="right"> <?php echo $lang_config_siteName ?> </td>
-			<td> <input type="text" name="siteName" size="30" value="<?php echo $siteName ?>"  ></td>
+			<td align="right"> 
+				<label for="siteName"><?php echo $lang_config_siteName ?></label> 
+			</td>
+			<td> 
+				<input type="text" name="siteName" id="siteName" size="30" value="<?php echo $siteName ?>"  >
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2"><h4><?php echo $lang_config_TitleAdministrator ?></h4></td>
 		</tr>
 		<tr>
-			<td align="right">  <?php echo  $lang_config_name ?>
+			<td align="right">  
+				<label for="nameAdministrator"><?php echo  $lang_config_name ?></label>
 			</td>
-			<td> <input type="text" name="nameAdministrator" size="30" value="<?php echo $administrator["name"]?>"  >
-			</td>
-		</tr>
-		<tr>
-			<td align="right">  <?php echo $lang_config_phone ?>
-			</td>
-			<td> <input type="text" name="phoneAdministrator" size="30" value="<?php echo $administrator["phone"] ?>"  >
+			<td> 
+				<input type="text" name="nameAdministrator" id="nameAdministrator" size="30" value="<?php echo $administrator["name"]?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="right"> <?php echo $lang_config_email ?>
+			<td align="right">  
+				<label for="phoneAdministrator"><?php echo $lang_config_phone ?></label>
 			</td>
-			<td> <input type="text" name="emailAdministrator" size="30" value="<?php echo $administrator["email"] ?>"  >
+			<td> 
+				<input type="text" name="phoneAdministrator" id="phoneAdministrator" size="30" value="<?php echo $administrator["phone"] ?>"  >
+			</td>
+		</tr>
+		<tr>
+			<td align="right"> 
+				<label for="emailAdministrator"><?php echo $lang_config_email ?></label>
+			</td>
+			<td> 
+				<input type="text" name="emailAdministrator" id="emailAdministrator" size="30" value="<?php echo $administrator["email"] ?>"  >
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2"><h4><?php echo $lang_config_TitleEducationManager ?></h4></td>
 		</tr>
 		<tr>
-			<td align="right"> <?php echo $lang_config_name ?>
+			<td align="right"> 
+				<label for="nameEducationManager"><?php echo $lang_config_name ?></label>
 			</td>
-			<td> <input type="text" name="nameEducationManager" size="30" value="<?php echo $educationManager["name"] ?>"  >
-			</td>
-		</tr>
-		<tr>
-			<td align="right">  <?php echo $lang_config_phone ?>
-			</td>
-			<td> <input type="text" name="phoneEducationManager" size="30" value="<?php echo $educationManager["phone"] ?>"  >
+			<td> <input type="text" name="nameEducationManager" id="nameEducationManager" size="30" value="<?php echo $educationManager["name"] ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="right">  <?php echo $lang_config_email ?>
+			<td align="right">  
+				<label for="phoneEducationManager"><?php echo $lang_config_phone ?></label>
 			</td>
-			<td> <input type="text" name="emailEducationManager" size="30" value="<?php echo $educationManager["email"] ?>"  >
+			<td> 
+				<input type="text" id="phoneEducationManager"  name="phoneEducationManager" size="30" value="<?php echo $educationManager["phone"] ?>"  >
+			</td>
+		</tr>
+		<tr>
+			<td align="right">  
+				<label for="emailEducationManager"><?php echo $lang_config_email ?></label>
+			</td>
+			<td> 
+				<input type="text" name="emailEducationManager"  id="emailEducationManager" size="30" value="<?php echo $educationManager["email"] ?>"  >
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2"><h4><?php echo $lang_config_TitleInstitution ?></h4></td>
 		</tr>
 		<tr>
-			<td align="right"> <?php echo  $lang_config_name ?>
+			<td align="right"> 
+				<label for="nameInstitution"><?php echo  $lang_config_name ?></label>
 			</td>
-			<td> <input type="text" name="nameInstitution" size="30" value="<?php echo $institution["name"] ?>"  >
+			<td> 
+				<input type="text" name="nameInstitution" id="nameInstitution" size="30" value="<?php echo $institution["name"] ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="right"> <?php echo $lang_config_urlInstitution ?>
+			<td align="right"> 
+				<label for="urlInstitution"><?php echo $lang_config_urlInstitution ?></label>
 			</td>
-			<td> <input type="text" name="urlInstitution" size="50" value="<?php echo $institution["url"] ?>"  >
+			<td> 
+				<input type="text" name="urlInstitution"  id="urlInstitution" size="50" value="<?php echo $institution["url"] ?>"  >
 			</td>
 		</tr>
 			<td colspan="2"><h4><?php echo $lang_config_TitleProperty ?></h4></td>
 		</tr>
 		<tr>
-			<td align="right"> <?php echo $lang_config_langage ?>
+			<td align="right"> 
+				<label for="platformLanguage"><?php echo $lang_config_langage ?></label>
 			</td>
-			<td> <select name="platformLanguage">
+			<td> 
+				<select name="platformLanguage" id="platformLanguage">
 				<?php
 					echo createSelectBoxLangage($platformLanguage);
 				?>
@@ -298,47 +319,62 @@ claro_disp_msg_arr($controlMsg);
 			</td>
 		</tr>
 		<tr>
-			<td align="right">  <?php echo $lang_config_rootWeb;?> <font color="gray">(*)</font> :
+			<td align="right">  
+				<label for="rootWeb"><?php echo $lang_config_rootWeb;?></label> 
+				<font color="gray">(*)</font> :
 			</td>
-			<td> <input type="text" name="rootWeb" size="50" value="<?php echo $rootWeb ?>"  >
+			<td> 
+				<input type="text" name="rootWeb" id="rootWeb" size="50" value="<?php echo $rootWeb ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="right">  <?php echo $lang_config_urlAppend;?> :
+			<td align="right"> 
+				<label for="urlAppend"><?php echo $lang_config_urlAppend;?></label> :
 			</td>
-			<td> <input type="text" name="urlAppend" size="50" value="<?php echo $urlAppend ?>"  >
+			<td> 
+				<input type="text" name="urlAppend"  id="urlAppend" size="50" value="<?php echo $urlAppend ?>"  >
 			</td>
 		</tr>
 			<td colspan="2"><h4><?php echo $lang_config_TitleBD; ?></h4></b>
 			</td>
 		<tr>
-			<td align="right">  <?php echo $lang_config_dbHost; ?> <font color="gray">(*)</font> :
+			<td align="right">  
+				<label for="dbHost"><?php echo $lang_config_dbHost; ?></label> <font color="gray">(*)</font> :
 			</td>
-			<td> <input type="text" name="dbHost" size="30" value="<?php echo $dbHost ?>"  >
-			</td>
-		</tr>
-		<tr>
-			<td align="right">  <?php echo $lang_config_dbLogin; ?> <font color="gray">(*)</font> :
-			</td>
-			<td> <input type="text" name="dbLogin" size="30" value="<?php echo $dbLogin ?>"  >
+			<td> 
+				<input type="text" name="dbHost" id="dbHost" size="30" value="<?php echo $dbHost ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="right">  <?php echo $lang_config_dbPass; ?>
+			<td align="right">  
+				<label for="dbLogin"><?php echo $lang_config_dbLogin; ?></label> <font color="gray">(*)</font> :
 			</td>
-			<td> <input type="text" name="dbPass" size="30" value="<?php echo $dbPass ?>"  >
+			<td> 
+				<input type="text" name="dbLogin" id="dbLogin" size="30" value="<?php echo $dbLogin ?>"  >
 			</td>
 		</tr>
 		<tr>
-			<td align="right">  <?php echo $lang_config_dbNamePrefix; ?>
+			<td align="right">  
+				<label for="dbPass"><?php echo $lang_config_dbPass; ?></label>
 			</td>
-			<td><input type="text" name="dbNamePrefix" size="30" value="<?php echo $dbNamePrefix ?>"  >
+			<td> 
+				<input type="text" name="dbPass" id="dbPass" size="30" value="<?php echo $dbPass ?>"  >
+			</td>
+		</tr>
+		<tr>
+			<td align="right">  
+				<label for="dbNamePrefix"><?php echo $lang_config_dbNamePrefix; ?></label>
+			</td>
+			<td>
+				<input type="text" name="dbNamePrefix" id="dbNamePrefix" size="30" value="<?php echo $dbNamePrefix ?>"  >
 			</td>
 		</tr>
 		<tr>
 			<td>
 			</td>
-			<td><br><input type="submit" value="<?php echo $lang_config_ButtonSend; ?>" name="change">
+			<td>
+				<br>
+				<input type="submit" value="<?php echo $lang_config_ButtonSend; ?>" name="change">
 			</td>
 		</tr>
 
