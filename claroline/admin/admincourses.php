@@ -356,7 +356,7 @@ foreach($resultList as $list)
 
          // title
 
-         echo "<td align=\"left\">".eregi_replace("^(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $list['intitule'])."</td>";
+         echo "<td align=\"left\"><a href=\"".$coursesRepositoryWeb.$list['directory']."\">".eregi_replace("^(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $list['intitule'])."</a></td>";
      }
      else
      {
@@ -367,7 +367,7 @@ foreach($resultList as $list)
 
          // title
 
-         echo "<td align=\"left\">".$list['intitule']."</td>";
+         echo "<td align=\"left\"><a href=\"".$coursesRepositoryWeb.$list['directory']."\">".$list['intitule']."</a></td>";
     }
 
      //  Category

@@ -51,7 +51,7 @@ include($includePath."/lib/pager.lib.php");
 if (! $_uid) exit("<center>You're not logged in !!</center></body>");
 if ($uidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
 
-$coursePerPage= 5;
+$coursePerPage= 20;
 
 //----------------------------------
 // EXECUTE COMMAND
@@ -247,11 +247,11 @@ foreach($resultList as $list)
 
      //  Code
 
-     echo "<td align=\"center\">".$list['fake_code']."</td>";
+     echo "<td>".$list['fake_code']."</td>";
 
      // title
 
-     echo "<td align=\"left\">".$list['intitule']."</td>";
+     echo "<td align=\"left\"><a href=\"".$coursesRepositoryWeb.$list['directory']."\">".$list['intitule']."</a></td>";
 
      //  Titular
 
