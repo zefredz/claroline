@@ -84,7 +84,8 @@ if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 //stats
 include($includePath."/lib/events.lib.inc.php");
-event_access_tool($nameTools);
+event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+
 claro_disp_tool_title($nameTools." (".$langUserNumber." : ".$userTotalNb.")",
 			$is_allowedToEdit ? 'help_user.php' : false);
 

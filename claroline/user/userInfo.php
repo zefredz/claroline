@@ -176,7 +176,8 @@ if ($allowedToEditContent)
 // OUTPUT
 //////////////////////////////
 
-event_access_tool($nameTools);
+event_access_tool($_tid, $_SESSION['_courseTool']['label']);
+
 claro_disp_tool_title($nameTools);
 
 /*======================================

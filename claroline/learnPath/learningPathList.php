@@ -91,7 +91,7 @@
 
   // statistics
   include($includePath."/lib/events.lib.inc.php");
-  event_access_tool($langLearningPath);
+  event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
   // title
   claro_disp_tool_title($nameTools);

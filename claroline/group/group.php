@@ -50,7 +50,7 @@ function confirmation ()
 include($includePath."/claro_init_header.inc.php");
 //stats
 include($includePath."/lib/events.lib.inc.php");
-event_access_tool($nameTools);
+event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
 /*
  * DB TABLE NAMES INIT

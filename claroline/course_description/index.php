@@ -44,7 +44,7 @@ $tbl_course_description  = $tbl_cdb_names['course_description'];
 $is_allowedToEdit = $is_courseAdmin;
 //stats
 include($includePath."/lib/events.lib.inc.php");
-event_access_tool($nameTools);
+event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 $sql = "SELECT `id`,`title`,`content` FROM `".$tbl_course_description."` order by id";
 $desc_bloc = claro_sql_query_fetch_all($sql);
 

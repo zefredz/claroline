@@ -95,7 +95,7 @@ if ( ! $is_courseAllowed)
 // used for stats
 include($includePath.'/lib/events.lib.inc.php');
 
-event_access_tool($nameTools);
+event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
 // need functions of statsutils lib to display previous exercices scores
 include($includePath.'/lib/statsUtils.lib.inc.php');

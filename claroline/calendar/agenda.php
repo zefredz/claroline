@@ -53,7 +53,7 @@ if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 //stats
 include('../inc/lib/events.lib.inc.php');
-event_access_tool($nameTools);
+event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
 $tblNames = claro_sql_get_course_tbl();
 $tbl_calendar_event = $tblNames['calendar_event'];

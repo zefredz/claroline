@@ -333,7 +333,7 @@ if ( ! $is_courseAllowed)
 	claro_disp_auth_form();
 
 //stats
-event_access_tool($nameTools);
+event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
 /*----------------------------------------------------------------------------
                                    TOOL TITLE
