@@ -38,7 +38,7 @@ class claro_sql_pager
      * @param int $step current step paging
      */
 
-    function claro_sql_pager($sql, $offset = 0, $step = 0)
+    function claro_sql_pager($sql, $offset = 0, $step = 20)
     {
         $this->sql       = $sql;
         $this->offset    = (int) $offset;
@@ -243,7 +243,7 @@ class claro_sql_pager
 
         if ($previous !== false)
         {
-            echo '<b><a href="'.$url.$start.'">&lt;&lt;</a>&nbsp;&nbsp;</b>'
+            echo '<b><a href="'.$url.$start.'">|&lt;&lt;</a>&nbsp;&nbsp;</b>'
                 .'<b><a href="'.$url.$previous.'">&lt; </a></b>';
         }
 
@@ -272,7 +272,7 @@ class claro_sql_pager
         if ($next !== false)
         {
             echo '<b><a href="'.$url.$next.'"> &gt;</a>&nbsp;&nbsp;</b>'
-                .'<b><a href="'.$url.$end.'"> &gt;&gt; </a></b>';
+                .'<b><a href="'.$url.$end.'"> &gt;&gt;|</a></b>';
         }
 
         echo '</td>'
