@@ -85,17 +85,44 @@ class claro_sql_pager
 
     function get_total_result_count()
     {
-        // keep only the FROM and WHERE part of the query
-        $sqlFilterFrom = stristr($this->sql, 'FROM ');
+        // chek the occurence of a GROUP BY statement into the query
+        if ( eregi('[[:space:]]+(GROUP BY|HAVING|SELECT[[:space:]]+DISTINCT)[[:space:]]+',
+                   $this->sql) )
+        {
+            // Split the whole sql query in three part and store it into an array :
+            // [0]. the SELECT part
+            // [1]. the FROM part
+            // [2]. the ORDER BY part (ORDER statements pose problems 
+            //                         on COUNT queries)
+            //
+            // The code mainly uses the FROM part
 
-        // remove the ORDER BY part. It poses problems on COUNT(*) query
-        $orderPos         = strpos($sqlFilterFrom, 'ORDER BY ');
-        $sqlFilterOrderBy = $orderPos ? substr($sqlFilterFrom, 0, $orderPos)
-                                      : $sqlFilterFrom;
+            $sqlPartList = split('[[:space:]]+(FROM|ORDER BY)[[:space:]]+', 
+                                 $this->sql);
 
-        $sql = 'SELECT COUNT(*) AS totalResultCount '.$sqlFilterOrderBy;
-   
-        return claro_sql_query_get_single_value($sql);
+            // check the occurence of DISTINCT
+
+            if ( eregi('^SELECT DISTINCT(.*)', $sqlPartList[0], $distinctDetect) )
+            {
+                $countWhat = 'DISTINCT ' . $distinctDetect[1];
+            }
+            else
+            {
+                $countWhat = '*';
+            }
+
+            $sql = 'SELECT COUNT(' . $countWhat . ') AS totalResultCount 
+                    FROM ' . $sqlPartList[1];
+
+            return claro_sql_query_get_single_value($sql);
+        }
+        else
+        {
+            // heavier, but we have no choice 
+            // when there is COUNT and GROUP BY statements
+
+            return mysql_num_rows( claro_sql_query($this->sql) );
+        }
 
         // Other option, faster but only available for mySQL 4
         //
@@ -127,7 +154,7 @@ class claro_sql_pager
         $previousOffset = $this->offset - $this->step;
 
         if ($previousOffset >= 0) return $previousOffset;
-        else                     return false;
+        else                      return false;
     }
 
     /**
