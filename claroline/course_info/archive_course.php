@@ -358,7 +358,7 @@ elseif(!$isAllowedToBackUp) //  not allowed to backup
 else
 {
     $message .= "<p>" . $langConfirmBackup . " &quot;" . $currentCourseName . "&quot; (" . $currentCourseCode . ") ?" . "</p>\n" ;
-    $message .= "<p>" . "<a href=\"".$_SERVER['PHP_SELF']."?confirmBackup=yes\">$langY</a>" . "&nbsp;|&nbsp;" . "<a href=\"infocours.php\">$langN</a>" . "</p>";
+    $message .= "<p>" . "<a href=\"".$_SERVER['PHP_SELF']."?confirmBackup=yes\">$langYes</a>" . "&nbsp;|&nbsp;" . "<a href=\"infocours.php\">$langNo</a>" . "</p>";
 
 
 }
