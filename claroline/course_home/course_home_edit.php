@@ -275,11 +275,15 @@ echo "<input type=\"hidden\" name=\"cmd\" value=\"exSetToolAccess\" />";
 
 $toolList = get_course_tool_list($reqAccessLevel);
 
-echo "<table class=\"claroTable\" >"
+echo "<table class=\"claroTable\" >\n"
+    . " <thead>\n"
     . " <tr class=\"headerX\">"
     . " <th>".$langTools."</th>"
     . " <th>".$langActivate."</th>"
-    . " </tr>";
+    . " </tr>"
+    . "</thead>\n";
+
+echo "<tbody>\n";
 
 foreach($toolList as $thisTool)
 {
@@ -346,6 +350,7 @@ foreach($toolList as $thisTool)
     echo "</td></tr>\n";
 }
 
+echo "</tbody>\n";
 echo "</table>";
 
 echo "<input class=\"claroButton\" type=\"submit\" value=\"".$langOk."\" />\n";
