@@ -82,7 +82,38 @@ $TABLEANNOUNCEMENTS = $tbl_announcement;
 $can_create_courses = (bool) ($is_allowedCreateCourse);
 $coursesRepositories = $coursesRepositorySys;
 
-if (empty($valueEmail)) $valueEmail = $_user['mail'];
+
+//Prefield values for the form to create a course :
+
+//code
+$wantedCode         = $_REQUEST['wantedCode'];
+
+//Course title
+$valueIntitule      = $_REQUEST['intitule'];
+
+//course language
+$valueLanguage      = $_REQUEST['languageCourse'];
+
+//lecturer(s)
+if (empty($_REQUEST['titulaires'])) 
+{
+    $valueTitular = $_user['firstName']." ".$_user['lastName'];
+} 
+else 
+{
+    $valueTitular = $_REQUEST['titulaires'];
+}
+
+//email
+if (empty($_REQUEST['email']))      
+{
+    $valueEmail = $_user['mail'];
+} 
+else 
+{
+    $valueEmail = $_REQUEST['email'];
+}
+
 
 //// Starting script
 $displayNotForU = FALSE;
@@ -99,7 +130,6 @@ else
 	else
 	{
 		$displayCoursePropertiesForm 	= TRUE;
-		$valueTitular					= $_user['firstName']." ".$_user['lastName'];
 		$valueLanguage 					= $platformLanguage;
 	}
 
@@ -539,7 +569,7 @@ BuildEditableCatTable(""," &gt; ");
 	<label for="wantedCode"><?php echo $langCode ?></label> : 
 </td>
 <td >
-	<input type="Text" id="wantedCode" name="wantedCode" maxlength="12" value="<?php echo $valuePublicCode ?>">
+	<input type="Text" id="wantedCode" name="wantedCode" maxlength="12" value="<?php echo $wantedCode ?>">
 	<br>
 	<small><?php echo $langMaxSizeCourseCode ?></small>
 </td>
@@ -612,7 +642,7 @@ BuildEditableCatTable(""," &gt; ");
 ?>
 
 <hr noshade size="1">
-<a href="../course_info/restore_course.php"><?php echo $langRestoreCourse; ?></a>
+<a class="claroCmd" href="../course_info/restore_course.php"><?php echo $langRestoreCourse; ?></a>
 
 <?php
 
@@ -767,12 +797,12 @@ elseif($displayCourseAddResult)
 
 	if ($_REQUEST['fromAdmin']!="yes")
 	{
-		claro_disp_button("../../index.php",$langBackToMyCourseList);
+		echo "<a class=\"claroCmd\" href=\"../../index.php\">".$langBackToMyCourseList."</a>"; 
 	}
 	else
 	{
-		claro_disp_button("add_course.php?fromAdmin=yes",$langAnotherCreateSite);
-		claro_disp_button("../admin/index.php",$langBackToAdmin);
+		echo "<a class=\"claroCmd\" href=\"add_course.php?fromAdmin=yes\">".$langAnotherCreateSite."</a> | ";
+		echo "<a class=\"claroCmd\" href=\"../admin/index.php\">$langBackToAdmin</a>";
 	}
 
 	echo "</p>\n\n";
