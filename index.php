@@ -1,9 +1,9 @@
 <?php # $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.5
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -293,7 +293,7 @@ if (isset($_uid))
 			$sqlGetLastAnnouncements = "SELECT temps publicationDate, CONCAT(title,' ',contenu) content
 			                            FROM `".$tableAnn."`
 										WHERE 
-										CONCAT(title,' : ',contenu) != ''
+										CONCAT(title,contenu) != ''
 										";
 	switch(CONFVAL_limitPreviewTo)
 	{
@@ -311,18 +311,20 @@ if (isset($_uid))
 
 			$sqlGetLastAnnouncements .= "ORDER BY temps DESC
 			                             LIMIT ".$maxValvas."";
-
 			$resGetLastAnnouncements = claro_sql_query($sqlGetLastAnnouncements);
 
 			if ($resGetLastAnnouncements)
 			{
 				while ($annoncement = mysql_fetch_array($resGetLastAnnouncements))
 				{
-					$keyTools 	= "valvas";
-					$keyTime	= $annoncement['publicationDate'];
-					$keyCourse	= $thisCourseSysCode;
-					$digest[$$orderKey[0]][$$orderKey[1]][$$orderKey[2]][] = htmlspecialchars(substr(strip_tags($annoncement["content"]),0,CONFVAL_NB_CHAR_FROM_CONTENT));
-					$nbDigestEntries ++; // summary has same order as advalvas
+					if (!(trim(strip_tags($annoncement["content"]))==""))
+					{
+						$keyTools 	= "valvas";
+						$keyTime	= $annoncement['publicationDate'];
+						$keyCourse	= $thisCourseSysCode;
+						$digest[$$orderKey[0]][$$orderKey[1]][$$orderKey[2]][] = htmlspecialchars(substr(strip_tags($annoncement["content"]),0,CONFVAL_NB_CHAR_FROM_CONTENT));
+						$nbDigestEntries ++; // summary has same order as advalvas
+					}
 				}
 			}
 
@@ -345,7 +347,7 @@ if (isset($_uid))
 			$sqlGetNextAgendaEvent = "SELECT  `day` , CONCAT(titre,' ',contenu) content, hour
 			                          FROM `".$tableCal."`
 			                          WHERE `day` >= CURDATE()
-									  AND CONCAT(titre,' : ',contenu) != ''
+									  AND CONCAT(titre,contenu) != ''
 			                          ORDER BY `day`, `hour`
 			                          LIMIT ".$maxAgenda."";
 
@@ -355,11 +357,14 @@ if (isset($_uid))
 			{
 				while ($agendaEvent = mysql_fetch_array($resGetNextAgendaEvent))
 				{
-					$keyTools 	= "agenda";
-					$keyTime	= $agendaEvent['day'];
-					$keyCourse	= $thisCourseSysCode;
-					$digest[$$orderKey[0]][$$orderKey[1]][$$orderKey[2]][] = htmlspecialchars(substr(strip_tags($agendaEvent["content"]),0,CONFVAL_NB_CHAR_FROM_CONTENT));
-					$nbDigestEntries ++; // summary has same order as advalvas
+					if (!(trim(strip_tags($agendaEvent["content"]))==""))
+					{
+						$keyTools 	= "agenda";
+						$keyTime	= $agendaEvent['day'];
+						$keyCourse	= $thisCourseSysCode;
+						$digest[$$orderKey[0]][$$orderKey[1]][$$orderKey[2]][] = htmlspecialchars(substr(strip_tags($agendaEvent["content"]),0,CONFVAL_NB_CHAR_FROM_CONTENT));
+						$nbDigestEntries ++; // summary has same order as advalvas
+					}
 				}	
 			}
 			
