@@ -1,6 +1,6 @@
 <?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -16,7 +16,12 @@ $langFile = "admin";
 
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
 
-
+$lang_add_user_list      = 'Add user list';
+$lang_fields_enclosed_by = 'Fields enclosed by';
+$lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored= 'if you choose to continue, lines with errors will be simply ignored';
+$lang_the_following_errors_were_found ='The following errors were found ';
+$lang_no_error_in_file_found = "No error in file found.";
+$lang_do_you_want_to_continue = "Do you want to continue?";
 //----------------------LANG TO ADD -------------------------------------------------------------------------------
 
 
@@ -37,20 +42,6 @@ $tbl_class_user            = $tbl_mdb_names['user_rel_profile_category'];
 //temporary upload directory
 
 $uploadTempDir = "tmp/";
-
-// Deal with interbredcrumps  and title variable
-
-$noQUERY_STRING = true;
-$nameTools        = "Add a user list";
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> "Administration");
-
-//Header declaration
-
-include($includePath."/claro_init_header.inc.php");
-
-//display bredcrump and title
-
-claro_disp_tool_title($nameTools);
 
 //deal with session variables
 
@@ -260,9 +251,24 @@ switch ($cmd)
 	break;    
     
 }
-/*-----------------------------------*/
+/*-------------------------------*/
 /*	Display section              */
-/*-----------------------------------*/
+/*-------------------------------*/
+
+// Deal with interbredcrumps  and title variable
+
+$noQUERY_STRING = true;
+$nameTools        = "Add a user list";
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> "Administration");
+
+//Header declaration
+
+include($includePath."/claro_init_header.inc.php");
+
+//display bredcrump and title
+
+claro_disp_tool_title($nameTools);
+
 
 //modify dialogbox if user asked form to change used format
 
@@ -270,9 +276,9 @@ if ($_REQUEST['chformat']=="yes")
 {
     $dialogBox = "Modify the format :<br><br>"
         ."The fields \"<b>surname;</b>\", \"<b>name;</b>\", \"<b>username;</b>\" and \"<b>password;</b>\" are compulsory.<br><br>"
-        ."<form metod=\"POST\" action=\"$PHP_SELF\">"
-        ."  <input type=\"text\" name=\"usedFormat\" value=\"$usedFormat\" size=\"55\">"
-	."  <input type=\"submit\" value=\"$langOk\""
+        ."<form metod=\"POST\" action=\"".$_SERVER['PHP_SELF']."\">"
+        ."  <input type=\"text\" name=\"usedFormat\" value=\"".$usedFormat."\" size=\"55\">"
+	."  <input type=\"submit\" value=\"".$langOk."\""
 	."</form>";
 }
 
@@ -295,29 +301,32 @@ case "default" :
     $_SESSION['claro_CSV_done'] = FALSE; 
 ?>
 You must specify the CSV format used in your file :<br><br>
-<form enctype="multipart/form-data"  method="POST" action="<?php echo $PHP_SELF ?>"> 
-  <input type="radio" name="firstLineFormat" value="YES"> Use format defined in first line of file<br><br>
-  <input type="radio" name="firstLineFormat" value="NO" checked > Use the following format :<br><br>
+<form enctype="multipart/form-data"  method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>"> 
+  <input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES"> <label for="firstLineFormat_YES">Use format defined in first line of file</label><br><br>
+  <input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO"> <label for="firstLineFormat_NO">Use the following format :</label><br><br>
     <b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $usedFormat; ?><br><br>
     </b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    [<a href="<?php echo $_PHP_SELF."?display=default&usedFormat=".$defaultFormat.""; ?>">Load default format</a>] 
-    | [<a href="<?php echo $_PHP_SELF."?display=default&chformat=yes"; ?>">Edit format to use</a>]<br><br>
+    [<a href="<?php echo $_SERVER['PHP_SELF']."?display=default&usedFormat=".$defaultFormat.""; ?>">Load default format</a>] 
+    | [<a href="<?php echo $_SERVER['PHP_SELF']."?display=default&chformat=yes"; ?>">Edit format to use</a>]<br><br>
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    Fields separator used: 
+
+    <label for="fieldSeparator">Fields separator used</label>: 
     
-    <select name="fieldSeparator">
+    <select name="fieldSeparator" id="fieldSeparator">
       <option value=";">;</option>
       <option value=" ">(Blank space)</option>       
     </select> 
     
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    Fields enclosed by :
+    <label for="enclosedBy">
+	<?php echo $lang_fields_enclosed_by; ?> :
+	</label>
     
-    <select name="enclosedBy">
+    <select name="enclosedBy" id="enclosedBy">
       <option value="dbquote">"</option>
       <option value=",">,</option>
       <option value=".">.</option>
@@ -328,7 +337,7 @@ You must specify the CSV format used in your file :<br><br>
     <br><br>
     <input type="file" name="CSVfile">
     <br><br>
-    <input type="submit" name="submitCSV" value="Add user list">
+    <input type="submit" name="submitCSV" value="<?php echo $lang_add_user_list; ?>">
     <input type="hidden" name="cmd" value="exImp">
 </form>
 
@@ -355,7 +364,7 @@ case "stepone" :
 	!(empty($username_duplicate_error)) ||
 	!(empty($officialcode_duplicate_error)))
     {
-        echo "<b>The following errors were found :</b><br><br>\n";
+        echo '<b>'.$lang_the_following_errors_were_found." :</b><br><br>\n";
     
         /*
         var_dump($mail_synthax_error);
@@ -407,16 +416,17 @@ case "stepone" :
     }
     else 
     {
-        echo "No error in file found.<br>";
+        echo $lang_no_error_in_file_found."<br>";
 	$noerror = TRUE;
     }
         echo "<br>"
-            ."Do you want to continue? <br>";
+            .$lang_do_you_want_to_continue
+			."<br>";
 	if (!$noerror) 
 	{
-	    echo "(if you choose to continue, lines with errors will be simply ignored)<br>";        
+	    echo '('.$lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored.')<br>';        
 	}
-	echo "<br><form method=\"POST\" action=\"".$PHP_SELF."?cmd=exImpSec\">\n";
+	echo "<br><form method=\"POST\" action=\"".$_SERVER['PHP_SELF']."?cmd=exImpSec\">\n";
 
         claro_disp_button("index.php", $langCancel); 
       
