@@ -24,6 +24,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 // include configuration and library file
 include ('language.conf.php');
 include ('language.lib.php');
+include($includePath."/lib/pager.lib.php");
 
 // table
 
@@ -32,6 +33,19 @@ $tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATI
 
 // get start time
 $starttime = get_time();
+
+// pager params
+
+$resultPerPage = 50;
+
+if (isset($_REQUEST['offset'])) 
+{
+    $offset = $_REQUEST['offset'];
+}
+else
+{
+    $offset = 0;
+}
 
 // start content
 $nameTools = 'Display Progression of Translations';
@@ -50,7 +64,7 @@ claro_disp_tool_title($nameTools);
 $sql = " SELECT count(DISTINCT varName) 
         FROM " . $tbl_used_lang . "";
 
-$results = mysql_query($sql);
+$results = claro_sql_query($sql);
 $row = mysql_fetch_row($results);
 $count_total_diff_var = $row[0];
 
@@ -68,8 +82,8 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
         $language = DEFAULT_LANGUAGE ;
     }
 
-    printf("<h4>Missing variables in %s</h4>",$language);
     printf("<p><a href=\"%s\">Back</a></p>",$_SERVER['PHP_SELF']);
+    printf("<h4>Missing variables in %s</h4>",$language);
     
     // count missing lang var in devel complete file for this language
 	$sql = " SELECT DISTINCT u.varName, u.sourceFile 
@@ -79,12 +93,18 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
 	            u.varName = t.varName 
 	            AND t.language=\"" . $language . "\"
 	         ) 
-	         WHERE t.varContent is NULL " ;
-    $sql .= " ORDER BY u.varName, u.sourceFile ";
-    $result_missing_var = mysql_query($sql);
+	         WHERE t.varContent is NULL
+             ORDER BY u.varName, u.sourceFile ";
+    
+    // build pager
+    $myPager = new claro_sql_pager($sql, $offset, $resultPerPage);
+    $result_missing_var = $myPager->get_result_list();
+
+    // display pager
+    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?exCmd=ToTranslate&language='.$language);
 	
     // display table header
-    echo "<table class=\"claroTable\" >\n";
+    echo "<table class=\"claroTable\" width=\"100%\" >\n";
     echo "<thead>"
 	     . "<tr class=\"headerX\">"
          . "<th>VarName</th>"
@@ -98,7 +118,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     $color = true;
 	
     // browse missing variables
-	while ($row_missing_var = mysql_fetch_array($result_missing_var)) 
+	foreach ( $result_missing_var as $row_missing_var ) 
 	{
 	    // get values
 	    $sourceFile = $row_missing_var['sourceFile'];
@@ -126,6 +146,13 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     // display table footer
     echo "</tbody>";
     echo "</table>";
+    
+    // display pager
+    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?exCmd=ToTranslate&language='.$language);
+    
+    // display nb results
+    echo '<p>' . $langTotal . ': ' . $myPager->totalResultCount . '</p>' ;
+
 }
 else
 {
@@ -137,8 +164,7 @@ else
 	// get all languages
 	$sql = " SELECT DISTINCT language 
 	         FROM " . $tbl_translation . "";
-	$result_language = mysql_query($sql);
-	
+	$result_language = claro_sql_query($sql);
 
     // display table header
 	echo "<table class=\"claroTable\">\n";
@@ -168,7 +194,7 @@ else
 		         WHERE t.varContent is NOT NULL ";
 	    
         // execute query and get result
-		$result_missing_var_count = mysql_query($sql) or die("mysql_error " . __LINE__);
+		$result_missing_var_count = claro_sql_query($sql);
 		$row_missing_var_count  = mysql_fetch_row($result_missing_var_count);
 
         // compute field

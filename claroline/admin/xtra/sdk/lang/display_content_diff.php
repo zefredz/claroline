@@ -64,7 +64,7 @@ claro_disp_tool_title($nameTools);
 
 // start form
 
-echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
+$form = "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
 
 if (isset($_REQUEST['language'])) 
 {
@@ -75,32 +75,35 @@ else
     $language = DEFAULT_LANGUAGE ;
 }
 
-echo "<p>Language: $language</p>";
+$form .= "<p>Language: $language</p>";
 
 // display select box with language in the table
 
-echo "<p>Change Language: ";
-echo "<select name=\"language\">";
+$form .= "<p>Change Language: ";
+$form .= "<select name=\"language\">";
+
 $sql = "SELECT DISTINCT language 
         FROM ". $tbl_translation . "
         ORDER BY language ";
-$results = mysql_query($sql);
+$results = claro_sql_query($sql);
 
 while($result=mysql_fetch_row($results))
 {
     if ($result[0] == $language) 
     {
-        echo "<option value=$result[0] selected=\"selected\">" . $result[0] . "</option>";
+        $form .= "<option value=$result[0] selected=\"selected\">" . $result[0] . "</option>";
     }
     else
     {
-        echo "<option value=$result[0]>" . $result[0] . "</option>";
+        $form .= "<option value=$result[0]>" . $result[0] . "</option>";
     }
 }
-echo "</select></p>";
+$form .= "</select></p>";
 
-echo "<p><input type=\"submit\" value=\"OK\" /></p>";
-echo "</form>";
+$form .= "<p><input type=\"submit\" value=\"OK\" /></p>";
+$form .= "</form>";
+
+claro_disp_message_box($form);
 
 // select variables with same content
 
@@ -170,6 +173,14 @@ foreach ($results as $result)
 }
 
 echo "</tbody>\n</table>\n";
+
+// display pager
+
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
+
+// display nb results
+
+echo '<p>' . $langTotal . ': ' . $myPager->totalResultCount . '</p>' ;
 
 // get end time
 $endtime = get_time();

@@ -31,6 +31,7 @@ include($includePath."/lib/pager.lib.php");
 // table
 
 $tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATION . '`';
+$tbl_used_lang = '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_USED_LANG_VAR . '`';
 
 // get start time
 
@@ -65,7 +66,7 @@ claro_disp_tool_title($nameTools);
 
 // start form
 
-echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
+$form = "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
 
 if (isset($_REQUEST['language'])) 
 {
@@ -76,34 +77,36 @@ else
     $language = DEFAULT_LANGUAGE ;
 }
 
-echo "<p>Language: $language</p>";
+$form .= "<p>Language: $language</p>";
 
 // display select box with tables in the database
 
 // display select box with language in the table
 
-echo "<p>Change Language: ";
-echo "<select name=\"language\">";
+$form .= "<p>Change Language: ";
+$form .= "<select name=\"language\">";
 $sql = "SELECT DISTINCT language 
         FROM ". $tbl_translation . "
         ORDER BY language ";
-$results = mysql_query($sql);
+$results = claro_sql_query($sql);
 
 while($result=mysql_fetch_row($results))
 {
     if ($result[0] == $language) 
     {
-        echo "<option value=$result[0] selected=\"selected\">" . $result[0] . "</option>";
+        $form .= "<option value=$result[0] selected=\"selected\">" . $result[0] . "</option>";
     }
     else
     {
-        echo "<option value=$result[0]>" . $result[0] . "</option>";
+        $form .= "<option value=$result[0]>" . $result[0] . "</option>";
     }
 }
-echo "</select></p>";
+$form .= "</select></p>";
 
-echo "<p><input type=\"submit\" value=\"OK\" /></p>";
-echo "</form>";
+$form .= "<p><input type=\"submit\" value=\"OK\" /></p>";
+$form .= "</form>";
+
+claro_disp_message_box($form);
 
 // find all variables with same names and different content
 
@@ -111,11 +114,13 @@ echo "</form>";
 
 $sql = " SELECT DISTINCT L1.language , L1.varName, L1.varContent , L1.sourceFile
     FROM ". $tbl_translation . " L1,
-         ". $tbl_translation . " L2
+         ". $tbl_translation . " L2,
+         ". $tbl_used_lang . " U
     WHERE L1.language = \"". $language ."\" and
         L1.language = L2.language and
         L1.varName = L2.varName and
-        L1.varContent <> L2.varContent
+        L1.varContent <> L2.varContent and
+        L1.varName = U.varName
     ORDER BY L1.varName";
 
 // build pager
@@ -173,6 +178,14 @@ foreach ($results as $result)
 }
 
 echo "</tbody>\n</table>";
+
+// display pager
+
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
+
+// display nb results
+
+echo '<p>' . $langTotal . ': ' . $myPager->totalResultCount . '</p>' ;
 
 // get end time
 
