@@ -142,10 +142,9 @@ if (isset($_SESSION['admin_user_letter']))
 
 if (isset($_SESSION['admin_user_search']))
 {
-    $toAdd = " AND (U.`nom` LIKE '".$_SESSION['admin_user_search']."%'
-              OR U.`prenom` LIKE '".$_SESSION['admin_user_search']."%') ";
-    " OR U.`username` LIKE '".$_SESSION['admin_user_search']."%'";
-
+    $toAdd = " AND (U.`nom` LIKE '%".$_SESSION['admin_user_search']."%'
+              OR U.`prenom` LIKE '%".$_SESSION['admin_user_search']."%' ";
+    $toAdd .= " OR U.`email` LIKE '%".$_SESSION['admin_user_search']."%')";
     $sql.=$toAdd;
 
 }
@@ -341,6 +340,7 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
           <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes\">".$langName."</a></th>
           <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>
           <th><a href=\"",$PHP_SELF,"?order_crit=officialCode&chdir=yes\">".$langOfficialCode."</a></th>";
+echo     "<th>".$langEmail."</th>";
 echo     "<th>".$langUserStatus."</th>";
 echo     "<th>".$langAllUserOfThisCourse."</th>
           <th>".$langEditUserSettings."</th>
@@ -359,15 +359,15 @@ foreach($resultList as $list)
            </td>";
 
 
-     if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!="")) {
+     if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!="")) {  //trick to prevent "//1" display when no keyword used in search 
 
          // name
 
-         echo "<td align=\"left\">".eregi_replace("^(".$_SESSION['admin_user_search'].")",'<b>\\1</b>', $list['nom'])."</td>";
+         echo "<td align=\"left\">".eregi_replace("(".$_SESSION['admin_user_search'].")",'<b>\\1</b>', $list['nom'])."</td>";
 
          //  Firstname
 
-         echo "<td align=\"left\">".eregi_replace("^(".$_SESSION['admin_user_search'].")","<b>\\1</b>", $list['prenom'])."</td>";
+         echo "<td align=\"left\">".eregi_replace("(".$_SESSION['admin_user_search'].")","<b>\\1</b>", $list['prenom'])."</td>";
      }
      else
      {
@@ -384,6 +384,22 @@ foreach($resultList as $list)
 
      if (isset($list['officialCode'])) { $toAdd = $list['officialCode']; } else $toAdd = " - ";
      echo "<td align=\"center\">".$toAdd."</td>";
+
+
+     if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!="")) {
+
+         // mail
+
+         echo "<td align=\"left\">".eregi_replace("(".$_SESSION['admin_user_search'].")",'<b>\\1</b>', $list['email'])."</td>";
+
+     }
+     else
+     {
+         // mail
+
+         echo "<td align=\"left\">".$list['email']."</td>";
+
+     }
 
      // Status
 
