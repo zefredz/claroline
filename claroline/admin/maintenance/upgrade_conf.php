@@ -12,6 +12,8 @@ DEFINE ("DISPLAY_RESULT_PANEL",2);
 
 $display = DISPLAY_WELCOME_PANEL;
 
+$error = 0;
+
 if ($_REQUEST['cmd'] == 'run')
 {
 	$display = DISPLAY_RESULT_PANEL;
@@ -32,7 +34,7 @@ if ($_REQUEST['cmd'] == 'run')
 	
 	if ($fileSource=="") 
 	{
-		$fileSource 		= $newIncludePath."conf/"."claro_main.conf.php";
+		$fileSource 		= $newIncludePath."conf/claro_main.conf.php";
 	}
 	if (!file_exists($fileSource))
 	{
@@ -50,13 +52,18 @@ if ($_REQUEST['cmd'] == 'run')
 	{
 		$fileSource 		= $oldIncludePath.""."config.inc.php.dist";
 	}
+
+	/**
+	 Target, temp and backup file
+        */
+
 	if ($fileTarget=="")
 	{
-		$fileTarget 		= $newIncludePath ."conf/"."claro_main.conf.php";
+		$fileTarget 		= $newIncludePath ."conf/claro_main.conf.php";
 	}
 	
 	$fileTemp 	= tempnam ( ".", "config_work");
-	$fileBackup 	= $newIncludePath ."conf/config.inc.".date("Y-z-B").".bak.php";
+	$fileBackup 	= $newIncludePath ."conf/claro_main.conf.".date("Y-z-B").".bak.php";
 	
 	/**
 	 Initialise conf var
@@ -269,43 +276,64 @@ if ($_REQUEST['cmd'] == 'run')
 	
 	// Main conf file
 	
-	$output = "<h3>Main conf file</h3>";
+	$output = "<h3>Main configuration file</h3>";
 	$output .= "<ul>\n";
 	
-	// Backup filename
-	
-	$output .= "<li>Back-up old config in: <code>".$fileBackup."</code>" ;
-	
-	if (!@copy($fileTarget, $fileBackup) && $DEBUG )
-	{
-		$output .= "<span class=\"warn\"><code>".$fileTarget."</code> copy failed !</span>";
+	// Backup file if target file is the source file
+	if ( $fileTarget == $fileSource ) {
+
+		$output .= "<li>Back-up old configuration file in: <code>".$fileBackup."</code>" ;
+
+		if (!@copy($fileTarget, $fileBackup) )
+		{
+			$output .= "<br />\n";
+			$output .= "<span class=\"warning\"><code>".$fileTarget."</code> copy failed !</span>";
+		}
+
+		$output .= "</li>\n";
+		// change permission
+		@chmod( $fileBackup, 600 );
+		@chmod( $fileBackup, 0600 );
 	}
 	
-	$output .= "</li>\n";
+	// Temporary file
+	$output .=  "<li>Temporary file: <code>".$fileTemp."</code>" ;
 	
-	@chmod( $fileBackup, 600 );
-	@chmod( $fileBackup, 0600 );
-	
-	$output .=  "<li>Temp File: <code>".$fileTemp."</code></li>\n" ;
-	
-	$fd=fopen($fileTemp, "w");
-	fwrite($fd, $stringConfig);
-	fclose($fd);
-	@unlink($fileTarget);
-	
-	$output .=  "<li>Saved as: <code>".$fileTarget ."</code></li>\n";
-	
-	if ( !rename($fileTemp, $fileTarget) )
+	if (!($fd=fopen($fileTemp, "w")))
 	{
-		if ($DEBUG) $output .= $langErrorToBuildNewConfig;
+		$output .= "<br />\n";
+		$output .= "<span class=\"warning\"><code>".$fileTemp."</code> write failed !</span>";
+		$error = 1;
 	}
 	else
 	{
-		@chmod( $fileTarget, 766 );
-		@chmod( $fileTarget, 0766 );
+		fwrite($fd, $stringConfig);
+		fclose($fd);
+		@unlink($fileTarget);
+	}
+	$output .= "</li>\n";
+	
+	if (!$error)
+	{
+		// Save new configuration file
+		$output .=  "<li>Saved as: <code>".$fileTarget ."</code>";
+		
+		if ( !@rename($fileTemp, $fileTarget) )
+		{
+			$error = 1;
+			$output .= "<br />\n";
+			$output .= "<span class=\"warning\">Rename <code>" . $fileTemp ."</code>" ;
+			$output .= " to <code>" . $fileTarget ."</code> failed !</span>" ;
+		}
+		else
+		{
+			@chmod( $fileTarget, 766 );
+			@chmod( $fileTarget, 0766 );
+		}
+		$output .= "</li>\n";
 	}
 	
-	$output .= "</ul>";
+	$output .= "</ul>\n";
 	
 	/**
 	 * Config file to undist
@@ -344,8 +372,15 @@ if ($_REQUEST['cmd'] == 'run')
 	}
 	$output .= "</ul>\n";
 	
-	$output .= "<p class=\"success\">Ok</p>";
-	$output .= "<p><a href=\"upgrade.php\">Next</a></p>";
+	if (!$error)
+	{
+		$output .= "<p class=\"success\">Ok</p>\n";
+		$output .= "<p><a href=\"upgrade.php\">Next</a></p>\n";
+	}
+	else
+	{
+		$output .= "<p class=\"error\">Failed</p>\n";
+	}
 	
 } // end if run 
 
