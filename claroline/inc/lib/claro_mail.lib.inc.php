@@ -155,7 +155,6 @@ function claro_mail_spool($mails)
 
 function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specificFromName="" ) 
 {
-//	include('../inc/conf/claro_main.conf.php');
 
 	global $administrator, $regexp;
 
@@ -217,7 +216,7 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
 		
 	if (!$mail->Send())
 	{
-		return claro_failure::set_failure("There has been a mail error sending to " .$usermail."<br>");
+		return claro_failure::set_failure("There has been a mail error sending to " . $list['email'] ."<br>");
 	}
 	// Clear all addresses and attachments for next use
 		
