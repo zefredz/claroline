@@ -137,6 +137,7 @@ if($_REQUEST['submitExercise'])
 // shows the form to modify the exercise
 if($_REQUEST['modifyExercise'] || $modifyExercise )
 {
+    include($includePath."/lib/form.lib.php");
 ?>
 
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=<?php echo $modifyExercise; ?>">
@@ -149,11 +150,9 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
 
 <tr>
   <td colspan="2">
-	<table border="0" cellpadding="3" align="center" width="400" bgcolor="#FFCC00">
-	<tr>
-	  <td><?php echo $msgErr; ?></td>
-	</tr>
-	</table>
+<?php
+	claro_disp_message_box($msgErr);
+?>
   </td>
 </tr>
 
@@ -165,14 +164,14 @@ if($_REQUEST['modifyExercise'] || $modifyExercise )
   <td>
   <label for="exerciseTitle"><?php echo $langExerciseName; ?>&nbsp;:<br /><small>(<?php echo $langRequired; ?>)</small></label>
   </td>
-  <td><input type="text" name="exerciseTitle" id="exerciseTitle" size="50" maxlength="200" value="<?php echo htmlentities($exerciseTitle); ?>" style="width:400px;"></td>
+  <td><input type="text" name="exerciseTitle" id="exerciseTitle" size="50" maxlength="200" value="<?php echo htmlentities($exerciseTitle); ?>"></td>
 </tr>
 <tr>
   <td valign="top">
   <label for="exerciseDescription"><?php echo $langExerciseDescription; ?>&nbsp;:</label>
   </td>
   <td>
-  <!--<textarea wrap="virtual" name="exerciseDescription" cols="50" rows="4" style="width:400px;"><?php //echo htmlentities($exerciseDescription); ?></textarea></td>-->
+  <!--<textarea wrap="virtual" name="exerciseDescription" cols="50" rows="4"><?php //echo htmlentities($exerciseDescription); ?></textarea></td>-->
   <?php claro_disp_html_area('exerciseDescription', $exerciseDescription) ?>
 </tr>
 <tr>
@@ -363,104 +362,5 @@ else
 <a href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyExercise=yes"><img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" align="absmiddle" alt=""><small><?php echo $langEditExercise; ?></small></a>
 
 <?php
-}
-
-function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $selectedDate = 0 )
-{
-    global $langMonthNames;
-    
-    if(!$selectedDate)
-    {
-        $selectedDate = date("Y-m-d");
-    }
-    // split selectedDate
-    list($selYear, $selMonth, $selDay) = split("-", $selectedDate);
-    
-    // day field
-    $dayField = "<select name=\"".$dayFieldName."\" id=\"".$dayFieldName."\">\n";
-    for ($i=1;$i <=31; $i++)
-    {
-        $dayField .= "<option value=\"".$i."\"";
-        if($i == $selDay)
-        {
-            $dayField .= " selected=\"true\"";
-        }
-        $dayField .= ">".$i."</option>\n";
-    }
-    $dayField .="</select>\n";
-    
-    // month field
-    $monthField = "<select name=\"".$monthFieldName."\" id=\"".$monthFieldName."\">\n";
-    for ($i=1;$i <=12; $i++)
-    {
-        $monthField .= "<option value=\"".$i."\"";
-        if($i == $selMonth)
-        {
-            $monthField .= " selected=\"true\"";
-        }
-        $monthField .= ">".$langMonthNames['long'][$i-1]."</option>\n";
-    }
-    $monthField .="</select>\n";
-    
-    // year field
-    $yearField = "<select name=\"".$yearFieldName."\" id=\"".$yearFieldName."\">\n";
-    for ($i= $selYear-2;$i <=$selYear+5; $i++)
-    {
-        $yearField .= "<option value=\"".$i."\"";
-        if($i == $selYear)
-        {
-            $yearField .= " selected=\"true\"";
-        }
-        $yearField .= ">".$i."</option>\n";
-    }
-    $yearField .='</select>';
-    
-    return $dayField.'&nbsp;'.$monthField.'&nbsp;'.$yearField;
-}
-
-
-function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 0)
-{
-    if(!$selectedTime)
-    {
-        $selectedTime = date("H:i");
-    }
-    
-    //split selectedTime 
-    list($selHour, $selMinute) = split(":",$selectedTime);
-    
-    if ($hourFieldName != "")
-    {
-        $hourField = "<select name=\"".$hourFieldName."\" id=\"".$hourFieldName."\">\n";
-        for($i=0;$i < 24; $i++)
-        {
-            $hourField .= "<option value=\"".$i."\"";
-            if($i == $selHour)
-            {
-                $hourField .= " selected=\"true\"";
-            }
-            $hourField .= ">".$i."</option>\n";
-        }
-        $hourField .= "</select>";
-    }
-    
-    if($minuteFieldName != "")
-    {
-        $minuteField = "<select name=\"".$minuteFieldName."\" id=\"".$minuteFieldName."\">\n";
-        $i = 0;
-        while($i < 60)
-        {
-            $minuteField .= "<option value=\"".$i."\"";
-            if($i == $selMinute)
-            {
-                $minuteField .= " selected=\"true\"";
-            }
-            $minuteField .= ">".$i."</option>\n";
-            $i += 5;
-        }
-        $minuteField .= "</select>";
-    }
-    
-    return "&nbsp;".$hourField."&nbsp;".$minuteField;
 }
 ?>
