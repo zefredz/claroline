@@ -168,9 +168,9 @@ else
         $nameTools = get_config_name($config_code);
         $QUERY_STRING = 'config_code='.$config_code;
 
-        if ( isset($_REQUEST['cmd']) )
+        if ( isset($_REQUEST['cmd']) && isset($_REQUEST['prop']) )
         {
-            if ( $_REQUEST['cmd'] = 'save' )
+            if ( $_REQUEST['cmd'] = 'save')
 			{                
                 $okToSave = TRUE;
 
@@ -336,12 +336,11 @@ claro_disp_tool_title(array('mainTitle'=>$nameTools),(isset($helpSection)?$helpS
 // Verify integrity md5sum
 
 // read value from buffer (database)
-$storedPropertyList = read_param_value_in_buffer($_REQUEST['config_code']);
+$conf_info = get_conf_info($_REQUEST['config_code']);
 
-if ( file_exists(claro_get_conf_file($storedPropertyList['config_code']))
-  && $storedPropertyList['config_hash'] != md5_file(claro_get_conf_file($storedPropertyList['config_code'])) )
+if ( $conf_info['manual_edit'] == TRUE )
 {
-    $controMsg['info'][] = 'The config file has manually change.<br>'
+    $controlMsg['info'][] = 'The config file has manually change.<br>'
            .'<br>'
            .'Actually the script prefill with values found in the current conf, '
            .'and overwrite values set in the database'
@@ -350,6 +349,8 @@ if ( file_exists(claro_get_conf_file($storedPropertyList['config_code']))
 }
 
 // display message
+
+if ( is_array($controlMsg['debug']) ) unset($controlMsg['debug']);
 
 if ( !empty($controlMsg) ) 
 {
@@ -401,7 +402,14 @@ if ( $display_form )
                     {
                         if (is_array($conf_def_property_list[$property]))
                         {
-                           claroconf_disp_editbox_of_a_value($conf_def_property_list[$property], $property, $currentConfContent[$property]);
+                            if ( isset($_REQUEST['prop'])  )
+                            {
+                                claroconf_disp_editbox_of_a_value($conf_def_property_list[$property], $property, $prop[$property]);
+                            }
+                            else
+                            {
+                                claroconf_disp_editbox_of_a_value($conf_def_property_list[$property], $property, $currentConfContent[$property]);
+                            }
                         }
                         else
                         {
