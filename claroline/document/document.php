@@ -130,10 +130,11 @@ event_access_tool($_tid, $_courseTool['label']);
 
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 
+require $includePath.'/lib/fileManage.lib.php';
+
 
 if($is_allowedToEdit) // for teacher only
 {
-	require $includePath.'/lib/fileManage.lib.php';
 	require $includePath.'/lib/fileUpload.lib.php';
 
 	if ($uncompress == 1)
