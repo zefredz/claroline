@@ -29,6 +29,8 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 
 require ($includePath."/installedVersion.inc.php");
 
+$tbl_course = $mainDbName.'`.`' . $mainTblPrefix . 'cours';
+
 /*---------------------------------------------------------------------
   Mysql Handling
  ---------------------------------------------------------------------*/
@@ -49,8 +51,8 @@ $accepted_error_list = array(1017,1050,1060,1062,1065,1146);
   Steps of Display 
  ---------------------------------------------------------------------*/
 
-DEFINE ("DISPLAY_WELCOME_PANEL",1);
-DEFINE ("DISPLAY_RESULT_PANEL",2);
+DEFINE ("DISPLAY_WELCOME_PANEL", __LINE__ );
+DEFINE ("DISPLAY_RESULT_PANEL", __LINE__);
 
 /*=====================================================================
   Statements Section
@@ -80,7 +82,7 @@ $count_error_total = 0;
 $count_course = 0; $count_course_error = 0; $count_course_upgraded = 0;
 
 $sql = "SELECT versionDb, count(*) as count_course 
-        FROM `".$mainDbName."`.`cours`
+        FROM `" . $tbl_course . "`
         GROUP BY versionDb ";
 
 $result = claro_sql_query($sql);
@@ -180,7 +182,7 @@ switch ($display)
          */
 
 		$sql = "SELECT code 
-                FROM `".$mainDbName."`.`cours` 
+                FROM `" . $tbl_course . "` 
 		        WHERE versionDb = 'error' ";
 
 		$result = claro_sql_query($sql);
@@ -218,19 +220,25 @@ switch ($display)
          * Build query to select course to upgrade
          */
 
-		$sql_course_to_upgrade = " SELECT cours.dbName dbName, cours.code sysCode, cours.fake_code officialCode, directory coursePath ".
-		                         " FROM `" . $mainDbName . "`.`cours` ";
+		$sql_course_to_upgrade = " SELECT c.dbName dbName, 
+		                                  c.code sysCode, 
+		                                  c.fake_code officialCode, 
+		                                  directory coursePath ".
+		                         " FROM `" . $tbl_course . "` `c` ";
 
 		if ( $_REQUEST['upgradeCoursesError'] == 1)
 		{
             // retry to upgrade course where upgrade failed
-			$sql_course_to_upgrade .= "where versionDb != '".$versionDb."' order by dbName";
+			$sql_course_to_upgrade .= " where c.versionDb != '".$versionDb."' order by c.dbName";
 		}
 		else
 		{
             // not upgrade course where upgrade failed ( versionDb == error)
-			$sql_course_to_upgrade .= "where versionDb != '".$versionDb."' and versionDb !='error' order by dbName";
+			$sql_course_to_upgrade .= " where c.versionDb != '".$versionDb."' and c.versionDb !='error' order by c.dbName";
 		}
+		
+		echo "<p>$sql_course_to_upgrade</p>";
+		
 		$res_course_to_upgrade = mysql_query($sql_course_to_upgrade);
 		
         /*
@@ -304,7 +312,7 @@ switch ($display)
                 /*
 				 * Error: set versionDB of course to error
                  */
-				$sqlFlagUpgrade = " UPDATE `".$mainDbName."`.`cours`
+				$sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
 							        SET versionDb='error'
 							        WHERE code = '".$currentCourseIDsys."'";
 
@@ -320,7 +328,7 @@ switch ($display)
                 /*
 				 * Success: set versionDB of course to new version
                  */
-				$sqlFlagUpgrade = " UPDATE `".$mainDbName."`.`cours`
+				$sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
 							        SET versionDb='".$versionDb."'
 							        WHERE code = '".$currentCourseIDsys."'";				
 				$res = @mysql_query($sqlFlagUpgrade);
@@ -378,9 +386,7 @@ switch ($display)
                 
 		break;
 
-	default : 
-		echo "<p>nothing to do</p>\n";
-}
+} // end of switch display
 
 /*---------------------------------------------------------------------
   Display Footer
