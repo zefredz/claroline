@@ -15,18 +15,12 @@ $interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
 
 $nameTools = $langStatsOfCampus;
 
-$htmlHeadXtra[] = "<style type='text/css'>
-<!--
-.secLine {color : #000000;background-color : $colorMedium;padding-left : 15px;padding-right : 15px;}
-.content {padding-left : 25px; }
-.specialLink{color : #0000FF; font-size : 15px;}
--->
-</style>
-<STYLE media='print' type='text/css'>
+$htmlHeadXtra[] = "
+<style media='print' type='text/css'>
 <!--
 TD {border-bottom: thin dashed Gray;}
 -->
-</STYLE>";
+</style>";
 
 // regroup table names for maintenance purpose
 /*
@@ -75,22 +69,15 @@ claro_disp_tool_title(
 	'subTitle'=>$PHP_AUTH_USER." - ".$siteName." - ".$clarolineVersion
 	)
 	);
-?>
-<table width="100%" cellpadding="2" cellspacing="0" border="0">
-<?php
+
 if( $is_allowedToTrack && $is_trackingEnabled)
 {
-        // show all : number of 1 is equal to or bigger than number of categories
-        // show none : number of 0 is equal to or bigger than number of categories
-        echo "
-	<tr>
-		<td class='minilink'>
-			<small>
-				[<a href='$PHP_SELF?view=1111111'>$langShowAll</a>]
-				[<a href='$PHP_SELF?view=0000000'>$langShowNone</a>]
-			</small>
-		</td>
-	</tr>";
+    // in $view, a 1 in X posof the $view string means that the 'category' number X
+    // will be show, 0 means don't show
+    echo "\n<small>"
+            ."[<a href=\"$PHP_SELF?view=1111111\">$langShowAll</a>]"
+            ."&nbsp;[<a href=\"$PHP_SELF?view=0000000\">$langShowNone</a>]"
+            ."</small>\n\n";
 
     if(!isset($view)) $view ="0000000";
 
@@ -100,95 +87,58 @@ if( $is_allowedToTrack && $is_trackingEnabled)
      *
      ***************************************************************************/
     $tempView = $view;
+    echo "<p>\n";
     if($view[0] == '1')
     {
         $tempView[0] = '0';
-        echo "
-	<tr>
-		<td valign='top'>
-			-&nbsp;&nbsp;&nbsp;<b>".$langPlatformStats."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
-		</td>
-	</tr>";
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			<b>".$langCourses."</b>
-		</td>
-	</tr>
-        ";
+        echo "-&nbsp;&nbsp;<b>".$langPlatformStats."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small><br />\n";   
+        //---- COURSES
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourses."</b><br />\n";
         //--  number of courses
         $sql = "SELECT count(*)
                     FROM `$TABLECOURS`";
         $count = getOneResult($sql);
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langCountCours." : ".$count."
-		</td>
-	</tr>
-        ";
+        echo "&nbsp;&nbsp;&nbsp;".$langCountCours." : ".$count."<br />\n";
+        
         //--  number of courses by faculte
         $sql = "SELECT `faculte`, count( * )
                     FROM `$TABLECOURS`
                     WHERE `faculte` IS NOT NULL
                     GROUP BY `faculte`";
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langCountCourseByFaculte." : ";
         $results = getManyResults2Col($sql);
-        buildTab2ColNoTitle($results);
-        echo "
-		</td>
-	</tr>";
+        echo "&nbsp;&nbsp;&nbsp;".$langCountCourseByFaculte." : <br />\n";
+        buildTab2Col($results);
+        echo "<br />\n";
 
         //--  number of courses by language
         $sql = "SELECT `languageCourse`, count( * )
                     FROM `".$TABLECOURS."`
                     WHERE `languageCourse` IS NOT NULL
                     GROUP BY `languageCourse`";
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langCountCourseByLanguage." : ";
         $results = getManyResults2Col($sql);
-        buildTab2ColNoTitle($results);
-        echo "
-		</td>
-	</tr>";
-
+        echo "&nbsp;&nbsp;&nbsp;".$langCountCourseByLanguage." : <br />\n";
+        buildTab2Col($results);
+        echo "<br />\n";
         //--  number of courses by visibility
         $sql = "SELECT `visible`, count( * )
                     FROM `".$TABLECOURS."`
                     WHERE `visible` IS NOT NULL
                     GROUP BY `visible`";
-        echo "
-		<tr>
-			<td style='padding-left : 40px;' valign='top'>
-				".$langCountCourseByVisibility." : ";
+        
         $results = getManyResults2Col($sql);
-		$results = changeResultOfVisibility($results);
-		buildTab2ColNoTitle($results);
-        echo "
-			</td>
-		</tr>";
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			<b>".$langUsers."</b>
-		</td>
-	</tr>";
+        $results = changeResultOfVisibility($results);
+        echo "&nbsp;&nbsp;&nbsp;".$langCountCourseByVisibility." : <br />\n";
+        buildTab2Col($results);
+        echo "<br />\n";
+        
+        //-- USERS
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langUsers."</b><br />";
+
         //--  total number of users
         $sql = "SELECT count(*)
                     FROM `".$TABLEUSER."`";
         $count = getOneResult($sql);
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langCountUsers." : ".$count."
-		</td>
-	</tr>
-        ";
+        echo "&nbsp;&nbsp;&nbsp;".$langCountUsers." : ".$count."<br />\n";
 
         //--  number of users by course
         $sql = "SELECT C.`code`, count( CU.user_id ) as nb
@@ -197,15 +147,10 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                         AND `code` IS NOT NULL
                     GROUP BY C.`code`
                     ORDER BY nb DESC";
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langCountUsersByCourse." : ";
         $results = getManyResults2Col($sql);
-        buildTab2ColNoTitle($results);
-        echo "
-		</td>
-	</tr>";
+        echo "&nbsp;&nbsp;&nbsp;".$langCountUsersByCourse." : <br />\n";
+        buildTab2Col($results);
+        echo "<br />\n";
 
         //--  number of users by faculte
         $sql = "SELECT C.`faculte`, count( CU.user_id )
@@ -213,43 +158,27 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     WHERE CU.`code_cours` = C.`code`
                         AND C.`faculte` IS NOT NULL
                     GROUP BY C.`faculte`";
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langCountUsersByFaculte." : ";
         $results = getManyResults2Col($sql);
-        buildTab2ColNoTitle($results);
-        echo "
-		</td>
-	</tr>";
+        echo "&nbsp;&nbsp;&nbsp;".$langCountUsersByFaculte." : <br />\n";
+        buildTab2Col($results);
+        echo "<br />\n";
 
         //--  number of users by status
         $sql = "SELECT `statut`, count( `user_id` )
                     FROM `$TABLEUSER`
                     WHERE `statut` IS NOT NULL
                     GROUP BY `statut`";
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langCountUsersByStatus." : ";
         $results = getManyResults2Col($sql);
-        buildTab2ColNoTitle($results);
-        echo "
-		</td>
-	</tr>";
-
+        echo "&nbsp;&nbsp;&nbsp;".$langCountUsersByStatus." : <br />\n";
+        buildTab2Col($results);
+        echo "<br />\n";
     }
     else
     {
         $tempView[0] = '1';
-        echo "
-	<tr>
-		<td valign='top'>
-			+&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langPlatformStats</a>
-		</td>
-	</tr>
-        ";
+        echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\">$langPlatformStats</a>\n";
     }
+    echo "</p>\n\n";
 
     /***************************************************************************
      *
@@ -257,154 +186,84 @@ if( $is_allowedToTrack && $is_trackingEnabled)
      *
      ***************************************************************************/
     $tempView = $view;
+    echo "<p>\n";
     if($view[1] == '1')
     {
         $tempView[1] = '0';
-        echo "
-	<tr>
-		<td valign='top'>
-			-&nbsp;&nbsp;&nbsp;<b>".$langPlatformAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
-		</td>
-	</tr>
-            ";
-        // ** access
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			<b>".$langAccess."</b> ".$langAccessExplain."
-		</td>
-	</tr>
-        ";
+        echo "-&nbsp;&nbsp;<b>".$langPlatformAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small><br />\n";
+        
+        //----------------------------  access
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langAccess."</b> ".$langAccessExplain."<br />\n";
+        
         //--  all
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_OPEN`";
         $count = getOneResult($sql);
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>"
-			.$langTotalPlatformAccess." : ".$count."
-		</td>
-	</tr>
-        ";
+        echo "&nbsp;&nbsp;&nbsp;".$langTotalPlatformAccess." : ".$count."<br />\n";
+        
         //--  last 31 days
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_OPEN`
                     WHERE (open_date > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
         $count = getOneResult($sql);
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langLast31days." : ".$count."
-		</td>
-	</tr>
-        ";
+        echo "&nbsp;&nbsp;&nbsp;".$langLast31days." : ".$count."<br />\n";
+        
         //--  last 7 days
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_OPEN`
                     WHERE (open_date > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
         $count = getOneResult($sql);
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langLast7days." : ".$count."
-		</td>
-	</tr>
-        ";
+        echo "&nbsp;&nbsp;&nbsp;".$langLast7days." : ".$count."<br />\n";
+        
         //--  today
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_OPEN` 
                     WHERE (open_date > CURDATE() )"; 
         $count = getOneResult($sql);
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langThisday." : ".$count."
-		</td>
-	</tr>
-        ";
-        //-- view details of traffic
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			<b>".$langTrafficDetails."</b>
-		</td>
-	</tr>
-        ";
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			<a href='traffic_details.php'>".$langStatsDatabaseLink."</a>
-		</td>
-	</tr>
-        ";
-        // **  logins
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			<b>".$langLogins."</b>
-		</td>
-	</tr>
-        ";
+        echo "&nbsp;&nbsp;&nbsp;".$langThisday." : ".$count."<br />\n";
+        
+        //---------------------------- view details of traffic
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langTrafficDetails."</b><br />\n"
+                ."&nbsp;&nbsp;&nbsp;<a href='traffic_details.php'>".$langStatsDatabaseLink."</a><br />\n";
+                
+                
+        //----------------------------  logins
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langLogins."</b><br />\n";
+        
         //--  all
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_LOGIN`";
         $count = getOneResult($sql);
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>"
-			.$langTotalPlatformLogin." : ".$count."
-		</td>
-	</tr>
-        ";
+        echo "&nbsp;&nbsp;&nbsp;".$langTotalPlatformLogin." : ".$count."<br />\n";
+        
         //--  last 31 days
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_LOGIN`
                     WHERE (login_date > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
         $count = getOneResult($sql);
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langLast31days." : ".$count."
-		</td>
-	</tr>
-        ";
+        echo "&nbsp;&nbsp;&nbsp;".$langLast31days." : ".$count."<br />\n";
+        
         //--  last 7 days
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_LOGIN`
                     WHERE (login_date > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
         $count = getOneResult($sql);
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langLast7days." : ".$count."
-		</td>
-	</tr>
-        ";
+        echo "&nbsp;&nbsp;&nbsp;".$langLast7days." : ".$count."<br />\n";
+        
         //--  today
         $sql = "SELECT count(*)
                     FROM `$TABLETRACK_LOGIN`
                     WHERE (login_date > CURDATE() )";
         $count = getOneResult($sql);
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			".$langThisday." : ".$count."
-		</td>
-	</tr>
-        ";
+        echo "&nbsp;&nbsp;&nbsp;".$langThisday." : ".$count."<br />\n";
 
     }
     else
     {
         $tempView[1] = '1';
-        echo "
-	<tr>
-		<td valign='top'>
-			+&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langPlatformAccess</a>
-		</td>
-	</tr>
-        ";
+        echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\">$langPlatformAccess</a>";
     }
+    echo "</p>\n\n";
 
     /***************************************************************************
      *
@@ -414,17 +273,11 @@ if( $is_allowedToTrack && $is_trackingEnabled)
      *
      ***************************************************************************/
     $tempView = $view;
+    echo "<p>\n";
     if($view[2] == '1')
     {
         $tempView[2] = '0';
-        echo "
-	<tr>
-		<td valign='top'>
-			-&nbsp;&nbsp;&nbsp;<b>".$langPlatformCoursesAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
-		</td>
-	</tr>
-            ";
-            
+        echo "-&nbsp;&nbsp;<b>".$langPlatformCoursesAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small><br />\n";  
         // display list of course of the student with links to the corresponding userLog
       $resCourseList = mysql_query("SELECT code, dbName
 	                                   FROM    `".$TABLECOURS."`
@@ -445,30 +298,15 @@ if( $is_allowedToTrack && $is_trackingEnabled)
           $i++;
       }
 
-        echo "
-            <tr>
-                <td style='padding-left : 40px;' valign='top'>
-                <b>".$langAccess."</b>
-                </td>
-            </tr>
-        ";
-        echo "<tr><td style='padding-left : 40px;' valign='top'>";  
-        //$results = getManyResults2Col($sql);
-        buildTab2ColNoTitle($resultsArray);
-        echo "</td></tr>";
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langAccess."</b><br />\n";
+        buildTab2Col($resultsArray);
     }
     else
     {
         $tempView[2] = '1';
-        echo "
-	<tr>
-		<td valign='top'>
-			+&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langPlatformCoursesAccess</a>
-		</td>
-	</tr>
-        ";
+        echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\">$langPlatformCoursesAccess</a>";
     }
-
+    echo "</p>\n\n";
 
     /***************************************************************************
      *
@@ -478,17 +316,11 @@ if( $is_allowedToTrack && $is_trackingEnabled)
      *
      ***************************************************************************/
     $tempView = $view;
+    echo "<p>\n";
     if($view[3] == '1')
     {
         $tempView[3] = '0';
-        echo "
-	<tr>
-		<td valign='top'>
-			-&nbsp;&nbsp;&nbsp;<b>".$langPlatformToolAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
-		</td>
-	</tr>
-            ";
-            
+         echo "-&nbsp;&nbsp;<b>".$langPlatformToolAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small><br />\n";   
       // display list of course of the student with links to the corresponding userLog
       $resCourseList = mysql_query("SELECT code, dbName
 	                                   FROM    `".$TABLECOURS."`
@@ -518,251 +350,89 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                
           }
       }
-        echo "<tr><td style='padding-left : 40px;' valign='top'>";
-        
-        echo "<table cellpadding='2' cellspacing='1' border='0' align=center>";
-        if (is_array($resultsTools))
-        {
-            arsort($resultsTools); // 
-            foreach( $resultsTools as $tool => $nbr)
-            {
-                echo "
-            <tr>
-              <td bgcolor='#eeeeee'>
-                ".$toolNameList[$tool]."
-              </td>
-              <td align='right'>
-                ".$nbr."
-              </td>
-            </tr>";
-            }
+      
+      echo "<table cellpadding=\"2\" cellspacing=\"1\" class=\"claroTable\" align=\"center\">"
+              ."<tr class=\"headerX\">\n"
+                ."<th>&nbsp;".$langToolTitleToolnameColumn."</th>\n"
+                ."<th>&nbsp;".$langToolTitleCountColumn."</th>\n"
+                ."</tr>\n";
+                
+      if (is_array($resultsTools))
+      {
+          arsort($resultsTools); // 
+          foreach( $resultsTools as $tool => $nbr)
+          {
+              echo "<tr>\n"
+                      ."<td>".$toolNameList[$tool]."</td>\n"
+                      ."<td>".$nbr."</td>\n"
+                      ."</tr>\n\n";
+          }
 
-        }
-        else
-        {
-            echo "<tr>";
-            echo "<td colspan='2'><center>".$langNoResult."</center></td>";
-            echo"</tr>";
-        }
-        echo "</table>";
-        echo "</td></tr>";
+      }
+      else
+      {
+          echo "<tr>\n"
+                  ."<td colspan=\"2\"><center>".$langNoResult."</center></td>\n"
+                  ."</tr>\n";
+      }
+      echo "</table>\n\n";
+      
     }
     else
     {
         $tempView[3] = '1';
-        echo "
-            <tr>
-                    <td valign='top'>
-                    +&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langPlatformToolAccess</a>
-                    </td>
-            </tr>
-        ";
+        echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\">$langPlatformToolAccess</a>";
     }
-    /***************************************************************************
-     *
-     *		Statistics concerning browser, provider, country, OS and referer
-     *
-     ***************************************************************************/
-     /*
-    $tempView = $view;
-    if($view[4] == '1')
-    {
-        $tempView[4] = '0';
-        echo "
-	<tr>
-		<td valign='top'>
-			-&nbsp;&nbsp;&nbsp;<b>".$langHardAndSoftUsed."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
-		</td>
-	</tr>
-            ";
-        //** decoding of all open event not already decoded
-        //decodeOpenInfos();
-        //--  country
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			<b>".$langCountries."</b>
-		</td>
-	</tr>
-        ";
-        $sql = "SELECT country, counter
-                    FROM `$TABLESTATS_COUNTRIES`
-                    WHERE counter > '0'";
-
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>";
-        $results = getManyResults2Col($sql);
-        buildTab2ColNoTitle($results);
-        echo "
-		</td>
-	</tr>";
-
-        //--  Providers
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			<b>".$langProviders."</b>
-		</td>
-	</tr>";
-        $sql = "SELECT provider, counter
-                    FROM `$TABLESTATS_PROVIDERS`
-                    WHERE counter > '0'";
-
-        echo "<tr><td style='padding-left : 40px;' valign='top'>";
-        $results = getManyResults2Col($sql);
-        buildTab2ColNoTitle($results);
-        echo "</td></tr>";
-
-        //--  Browsers
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			<b>".$langBrowsers."</b>
-		</td>
-	</tr>
-        ";
-        $sql = "SELECT browser, counter
-                    FROM `$TABLESTATS_BROWSERS`
-                    WHERE counter > '0'";
-
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>";
-        $results = getManyResults2Col($sql);
-        buildTab2ColNoTitle($results);
-        echo "
-		</td>
-	</tr>";
-
-        //--  OS
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>
-			<b>".$langOS."</b>
-		</td>
-	</tr>";
-        $sql = "SELECT os, counter
-                    FROM `$TABLESTATS_OS`
-                    WHERE counter > '0'";
-
-        echo "
-	<tr>
-		<td style='padding-left : 40px;' valign='top'>";
-        $results = getManyResults2Col($sql);
-        buildTab2ColNoTitle($results);
-        echo "
-		</td>
-	</tr>";
-
-        //--  Referers
-        echo "
-            <tr>
-                <td style='padding-left : 40px;' valign='top'>
-                <b>".$langReferers."</b>
-                </td>
-            </tr>
-        ";
-        $sql = "SELECT referer, counter
-                    FROM `$TABLESTATS_REFERERS`
-                    WHERE counter > '0'";
-    
-        echo "<tr><td style='padding-left : 40px;' valign='top'>";  
-        $results = getManyResults2Col($sql);
-        buildTab2ColNoTitle($results);
-        echo "</td></tr>";
-    }
-    else
-    {
-        $tempView[4] = '1';
-        echo "
-            <tr>
-                    <td valign='top'>
-                    +&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langHardAndSoftUsed</a>
-                    </td>
-            </tr>
-        ";
-    }
-    */
+    echo "</p>\n\n";
     /***************************************************************************
      *              
      *		Strange cases 
      *
      ***************************************************************************/
     $tempView = $view;
-    if($view[5] == '1')
+    echo "<p>\n";
+    if($view[4] == '1')
     {
-        $tempView[5] = '0';
-        echo "
-                <tr>
-                        <td valign='top'>
-                        -&nbsp;&nbsp;&nbsp;<b>".$langStrangeCases."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?view=".$tempView."'>".$langClose."</a>]</small>
-                        </td>
-                </tr>
-            ";
+        $tempView[4] = '0';
+        echo "-&nbsp;&nbsp;<b>".$langStrangeCases."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small><br />\n";
         //--  multiple logins | 
         //--     multiple logins are not possible in the new version but this page can be used with previous versions
-        echo "
-            <tr>
-                <td style='padding-left : 40px;' valign='top'>
-                <b>".$langMultipleLogins."</b>
-                </td>
-            </tr>
-        ";
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langMultipleLogins."</b><br />\n";
+
         $sql = "SELECT DISTINCT username , count(*) as nb 
                     FROM `$TABLEUSER` 
                     GROUP BY username 
                     HAVING nb > 1
                     ORDER BY nb DESC";
     
-        echo "<tr><td style='padding-left : 40px;' valign='top'>";  
         buildTabDefcon(getManyResults2Col($sql));
-        echo "</td></tr>";
+    
 
         //--  multiple account with same email
-        echo "
-            <tr>
-                <td style='padding-left : 40px;' valign='top'>
-                <b>".$langMultipleEmails."</b>
-                </td>
-            </tr>
-        ";
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langMultipleEmails."</b><br />\n";
+        
         $sql = "SELECT DISTINCT email , count(*) as nb 
                     FROM `$TABLEUSER` 
                     GROUP BY email 
                     HAVING nb > 1  
                     ORDER BY nb DESC";
     
-        echo "<tr><td style='padding-left : 40px;' valign='top'>";  
         buildTabDefcon(getManyResults2Col($sql));
-        echo "</td></tr>";
         
         //--  multiple account with same username AND same password (for compatibility with previous versions) 
-        echo "
-      <tr>
-        <td style='padding-left : 40px;' valign='top'>
-          <b>".$langMultipleUsernameAndPassword."</b>
-        </td>
-      </tr>
-            ";
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langMultipleUsernameAndPassword."</b><br />\n";
+
         $sql = "SELECT DISTINCT CONCAT(username, \" -- \", password) as paire, count(*) as nb
                     FROM `$TABLEUSER`
                     GROUP BY paire
                     HAVING nb > 1
                     ORDER BY nb DESC";
 
-        echo "<tr><td style='padding-left : 40px;' valign='top'>";
         buildTabDefcon(getManyResults2Col($sql));
-        echo "</td></tr>";
 
         //--  courses without professor
-        echo "
-      <tr>
-        <td style='padding-left : 40px;' valign='top'>
-          <b>".$langCourseWithoutProf."</b>
-        </td>
-      </tr>
-            ";
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourseWithoutProf."</b><br />\n";
+
         $sql = "SELECT c.code, count( cu.user_id ) nbu
                     FROM `$TABLECOURS` c
                     LEFT JOIN `$TABLECOURSUSER` cu
@@ -771,18 +441,12 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     GROUP BY c.code, statut
                     HAVING nbu = 0
                     ORDER BY code_cours";
-        echo "<tr><td style='padding-left : 40px;' valign='top'>";  
+
         buildTabDefcon(getManyResults2Col($sql));
-        echo "</td></tr>";
         
         //-- courses without students
-        echo "
-      <tr>
-        <td style='padding-left : 40px;' valign='top'>
-          <b>".$langCourseWithoutStudents."</b>
-        </td>
-      </tr>
-        ";
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourseWithoutStudents."</b><br />\n";
+
         $sql = "SELECT c.code, count( cu.user_id ) nbu
                     FROM `$TABLECOURS` c
                     LEFT JOIN `$TABLECOURSUSER` cu
@@ -791,17 +455,12 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     GROUP BY c.code, statut
                     HAVING nbu = 0
                     ORDER BY code_cours";
-        echo "<tr><td style='padding-left : 40px;' valign='top'>";  
+
         buildTabDefcon(getManyResults2Col($sql));
-        echo "</td></tr>";
+        
         //-- courses without access, not used for $limitBeforeUnused
-        echo "
-            <tr>
-                <td style='padding-left : 40px;' valign='top'>
-                <b>".$langCourseWithoutAccess."</b>
-                </td>
-            </tr>
-        ";
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourseWithoutAccess."</b><br />\n";
+
       $resCourseList = mysql_query("SELECT code, dbName
 	                                   FROM    `".$TABLECOURS."`
                                      ORDER BY code ASC");
@@ -829,17 +488,12 @@ if( $is_allowedToTrack && $is_trackingEnabled)
             
         $i++;
         }
-        echo "<tr><td style='padding-left : 40px;' valign='top'>";
+
         buildTabDefcon($courseWithoutAccess);
-        echo "</td></tr>";
+        
         //-- logins not used for $limitBeforeUnused
-        echo "
-            <tr>
-                <td style='padding-left : 40px;' valign='top'>
-                <b>".$langLoginWithoutAccess."</b>
-                </td>
-            </tr>
-        ";
+        echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langLoginWithoutAccess."</b><br />\n";
+
         $sql = "SELECT `us`.`username`, MAX(`lo`.`login_date`)
                     FROM `$TABLEUSER` AS us 
                     LEFT JOIN `$TABLETRACK_LOGIN` AS lo
@@ -847,7 +501,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     GROUP BY `us`.`username`
                     HAVING ( MAX(`lo`.`login_date`) < (NOW() - ".$limitBeforeUnused." ) ) OR MAX(`lo`.`login_date`) IS NULL";
         
-        echo "<tr><td style='padding-left : 40px;' valign='top'>";
+
         $loginWithoutAccessResults = getManyResults2Col($sql);
         for($i = 0; $i < sizeof($loginWithoutAccessResults); $i++)
         {
@@ -857,20 +511,14 @@ if( $is_allowedToTrack && $is_trackingEnabled)
             }
         }
         buildTabDefcon($loginWithoutAccessResults);
-        echo "</td></tr>";
 
     }
     else
     {
-        $tempView[5] = '1';
-        echo "
-            <tr>
-                    <td valign='top'>
-                    +&nbsp;&nbsp;<a href='$PHP_SELF?view=".$tempView."' class='specialLink'>$langStrangeCases</a>
-                    </td>
-            </tr>
-        ";
+        $tempView[4] = '1';
+        echo "+&nbsp;&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\">$langStrangeCases</a>";
     }
+    echo "</p>\n\n";
 }
 else // not allowed to track
 {
@@ -884,12 +532,5 @@ else // not allowed to track
     }
 }
 
-
-
-?>
-
-</table>
-
-<?php
 include($includePath."/claro_init_footer.inc.php");
 ?>
