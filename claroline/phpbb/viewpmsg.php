@@ -19,123 +19,104 @@
  *
  ***************************************************************************/
 
-/**
- * viewpmsg.$phpEx - Nathan Codding
- * - Used for receiving private messages between users of the BB.
- */
-include('extention.inc');
-include('functions.'.$phpEx);
-include('config.'.$phpEx);
-require('auth.'.$phpEx);
-$pagetitle = "Private Messages";
-$pagetype = "privmsgs";
-include('page_header.'.$phpEx);
+require 'functions.php';
+require 'config.php';
+
+$pagetitle = 'Private Messages';
+$pagetype =  'privmsgs';
+require 'page_header.php';
 
 if (!$submit && !$user_logged_in) {
-	login_form();
 } else {
 
-	if (!$user_logged_in) {
-	   if ($user == '' || $passwd == '') {
-	      error_die("$l_userpass $l_tryagain");
-	   }
-	   if (!check_username($user, $db)) {
-	      error_die("$l_nouser $l_tryagain");
-	   }
-	   if (!check_user_pw($user, $passwd, $db)) {
-	      error_die("$l_wrongpass $l_tryagain");
-	   }
+    if (!$user_logged_in) error_die("You're not logged");
 
-	   /* throw away user data from the cookie, use username from the form to get new data */
-	   $userdata = get_userdata($user, $db);
-	   if(is_banned($userdata[user_id], "username", $db))
-	     error_die($l_banned);
-	}
+   if(is_banned($userdata['user_id'], 'username', $db)) error_die($l_banned);
+    }
 
-	$sql = "SELECT * FROM `$tbl_priv_msgs`
-	        WHERE (to_userid = $userdata[user_id])
-	        ORDER BY msg_time DESC";
-	$resultID = mysql_query($sql, $db);
-	if (!$resultID) {
-		error_die("Error getting messages from DB.");
-	}
+    $sql = "SELECT * FROM `".$tbl_priv_msgs."`
+            WHERE to_userid = ".$userdata['user_id'].")
+            ORDER BY msg_time DESC";
+
+    $msgList = claro_sql_query_fetch_all($sql);
+
 
 ?>
 
-<TABLE BORDER="0" CELLPADDING="1" CELLPADDING="0" ALIGN="CENTER" VALIGN="TOP" WIDTH="95%"><TR><TD  BGCOLOR="<?php echo $table_bgcolor?>">
-<TABLE BORDER="0" CELLPADDING="3" CELLPADDING="1" WIDTH="100%">
-<TR BGCOLOR="<?php echo $color1?>" ALIGN="LEFT">
-	<TD WIDTH=20% COLSPAN=2><?php echo $l_from?></TD>
-</TR>
+<table>
+
+<tr>
+<td colspan="2"><?php echo $l_from?></td>
+</tr>
 
 <?php
-	if (!mysql_num_rows($resultID)) {
-		echo "<TD BGCOLOR=\"$color1\" colspan = 2 ALIGN=CENTER>$l_nopmsgs</TD></TR>\n";
-	}
 
-	while ($myrow = mysql_fetch_array($resultID)) {
+    if ( count($msgList) == 0 )
+    {
+        echo "<td colspan = 2 align=center>".$l_nopmsgs."</td></tr>\n";
+    }
 
-		echo "<TR BGCOLOR=\"$color2\" ALIGN=\"LEFT\">\n";
-		$posterdata = get_userdata_from_id($myrow[from_userid], $db);
-		echo "<TD valign=top><b>$posterdata[username]</b><br>\n";
-		$posts = $posterdata[user_posts];
-		if($posts < 15)
-			echo "<font size=-2>$rank1<BR>\n";
-		else
-			echo "<font size=-2>$rank2<br>\n";
-		echo "<br><font size=-2>$l_posts: $posts<br>\n";
-		echo "$l_location: $posterdata[user_from]<br></FONT></TD>\n";
-		echo "<TD><img src=\"$posticon\"><font size=-1>$l_posted: $myrow[msg_time]&nbsp;&nbsp;&nbsp";
-		echo "<HR></font>\n";
-		$message = stripslashes($myrow[msg_text]);
-		echo $message . "<BR><BR>";
-		echo "<HR>\n";
-		echo "&nbsp;&nbsp<a href=\"bb_profile.$phpEx?mode=view&user=$posterdata[user_id]\"><img src=\"$profile_image\" border=0 alt=\"$l_profileof $myrow[poster_name]\"></a>\n";
-		if($posterdata["user_viewemail"] != 0)
-			echo "&nbsp;&nbsp;<a href=\"mailto:$posterdata[user_email]\"><IMG SRC=\"$email_image\" BORDER=0 ALT=\"$l_emial $posterdata[username]\"></a>\n";
-		if($posterdata["user_web"] != '') {
-			if(strstr("http://", $posterdata["user_web"]))
-				$posterdata["user_web"] = "http://" . $posterdata["user_web"];
-				echo "&nbsp;&nbsp;<a href=\"$posterdata[user_web]\" TARGET=\"_blank\"><IMG SRC=\"$www_image\" BORDER=0 ALT=\"$l_viewsite $posterdata[username]\"></a>\n";
-		}
-		if($posterdata["user_icq"] != '')
-			echo "&nbsp;&nbsp;<a href=\"http://wwp.mirabilis.com/$posterdata[user_icq]\" TARGET=\"_blank\"><IMG SRC=\"http://wwp.icq.com/scripts/online.dll?icq=$posterdata[user_icq]&img=5\" BORDER=0\"></a>";
+    foreach($msgList as $thisMsg )
+    {
+        $posterdata = get_userdata_from_id($thisMsg['from_userid'], $db);
+        $posts = $posterdata['user_posts'];
 
-		if($posterdata["user_aim"] != '')
-     		echo "&nbsp;&nbsp;<a href=\"aim:goim?screenname=$posterdata[user_aim]&message=Hi+$posterdata[user_aim].+Are+you+there?\"><img src=\"$images_aim\" border=\"0\"></a>";
+        echo "<tr align=\"left\">\n"
 
-		echo "&nbsp;&nbsp;<IMG SRC=\"images/div.gif\">\n";
-		echo "&nbsp;&nbsp;<a href=\"replypmsg.$phpEx?msgid=$myrow[msg_id]&quote=1\"><IMG SRC=\"$reply_wquote_image\" BORDER=\"0\" alt=\"$l_replyquote\"></a>\n";
-		echo "&nbsp;&nbsp;<IMG SRC=\"images/div.gif\">\n";
-		echo "&nbsp;&nbsp;<a href=\"replypmsg.$phpEx?msgid=$myrow[msg_id]\">$l_reply</a>\n";
-		echo "&nbsp;&nbsp;<IMG SRC=\"images/div.gif\">\n";
-		echo "&nbsp;&nbsp;<a href=\"$url_phpbb/delpmsg.$phpEx?msgid=$myrow[msg_id]\">$l_delete</a>\n";
+            ."<td valign=top>"
+            ."<b>".$posterdata['username']."</b><br>\n"
+            .$posts < 15 ? "<font size=-2>".$rank1."<br>\n" : $rank2."<br>\n"
+            ."<br>".$l_posts." : ".$posts."<br>\n"
+            .$l_location." : ".$posterdata['user_from']."<br>"
+            ."</td>\n"
 
-		echo "</TD></TR>";
-	} //while ($myrow = mysql_fetch_array($resultID));
+            ."<td>\n"
+            ."<img src=\"".$posticon."\">".$l_posted." : ".$thisMsg['msg_time'];
+            ."<hr>\n";
+            .stripslashes($thisMsg['msg_text']);
+            ."<hr>\n";
+            ."<a href=\"bb_profile.php?mode=view&user=".$posterdata['user_id']."\">"
+            .$l_profileof." ".$thisMsg['poster_name']
+            ."</a> \n";
 
-	$sql = "UPDATE `$tbl_priv_msgs` SET msg_status='1' WHERE (to_userid = $userdata[user_id])";
-	if (!mysql_query($sql, $db)) {
-		error_die("Error marking the messages as read in the DB.");
-	}
+		if($posterdata['user_viewemail'] != 0)
+        {
+			echo "<a href=\"mailto:".$posterdata['user_email']."\">"
+                 .$l_email." ".$posterdata['username']
+                 ."</a> \n";
+        }
 
-?>
+        echo "<img src=\"images/div.gif\">\n"
+            ."<a href=\"replypmsg.php?msgid=".$thisMsg['msg_id']."&quote=1\">"
+            ."<img src=\"".$reply_wquote_image."\" border=\"0\" alt=\"".$l_replyquote."\">"
+            ."</a>\n"
+            ."<img src=\"images/div.gif\">\n"
+            ."<a href=\"replypmsg.php?msgid=".$thisMsg['msg_id']."\">".$l_reply."</a>\n";
+            ."<IMG SRC=\"images/div.gif\">\n";
+            ."<a href=\"".$url_phpbb."/delpmsg.php?msgid=".$thisMsg['msg_id']."\">"
+            .$l_delete
+            ."</a>\n"
+            ."</td>\n"
+            ."</tr>";
 
-</TABLE></TD></TR></TABLE>
-<TABLE ALIGN="CENTER" BORDER="0" WIDTH="95%">
+	} // end foreach
 
-<TR>
-	<TD>
-		&nbsp;
-	</TD>
-	<TD ALIGN="RIGHT">
-		<?php make_jumpbox()?>
-	</TD>
-</TR></TABLE>
+	$sql = "UPDATE `".$tbl_priv_msgs."` 
+            SET msg_status='1' 
+            WHERE to_userid = '".$userdata['user_id']."'";
 
-<?php
+	$result = claro_sql_query($sql);
+
+    echo "</table>"
+        ."</td>";
+
+    echo "<div align=\"right\">\n";
+
+    make_jumpbox();
+
+	echo "</div>\n";
 
 } // if/else
 
-require('page_tail.'.$phpEx);
+require('page_tail.php');
 ?>

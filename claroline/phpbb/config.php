@@ -97,14 +97,16 @@ $tbl_user_group       = $_course['dbNameGlu'].'group_rel_team_user';
 $tbl_user_notify      = $_course['dbNameGlu'].'bb_rel_topic_userstonotify';
 $is_groupPrivate      = $_groupProperties['private'];
 
-$nom                 = $_user['lastName' ]; // FROM CLAROLINE
-$prenom              = $_user['firstName']; // FROM CLAROLINE
-$last_visit          = $_user['lastLogin']; // FROM CLAROLINE
-$user_logged_in      = 0; // We MUST do this up here, 
-$logged_in           = 0; // so it's set even if the cookie's not present.
-$userdata            = array();
-$userdata['user_id'] = ($_uid) ?  $_uid : -1;
-$now_time            = time();
+$userdata               = array();
+$userdata['first_name'] = $_user['firstName'];
+$userdata['last_name' ] = $_user['lastName' ];
+$userdata['user_id']    = ($_uid) ?  $_uid : -1;
+$nom                    = $_user['lastName' ]; // FROM CLAROLINE
+$prenom                 = $_user['firstName']; // FROM CLAROLINE
+$last_visit             = $_user['lastLogin']; // FROM CLAROLINE
+$user_logged_in         = $_uid ? 1 : 0;
+$logged_in              = 0; // so it's set even if the cookie's not present.
+$now_time               = time();
 
 if( is_banned($REMOTE_ADDR, 'ip', $db) ) error_die($l_banned);
 

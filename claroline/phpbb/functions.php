@@ -36,7 +36,13 @@ function is_banned($ipuser, $type, $db) { return false; }
 function undo_make_clickable($text)     { return $text; }
 function smile($message) { return $message; }
 function desmile($message) {return $message;}
-function login_form() { error_die("should display the PHPBB login form ... :-) "); }
+function login_form() { error_die('should display the PHPBB login form ...'); }
+function get_userdata_from_id($userid, $db) { return array("error" => "1"); }
+function check_username($username, $db) {return false;}
+function get_userdata($username, $db) {return array("error" => "1");}
+function validate_username($username, $db) {return 0;}
+
+
 
 /*---------------------- End session-management functions -------------------*/
 
@@ -253,72 +259,6 @@ function get_pmsg_count($user_id, $db)
 	return claro_sql_query_get_single_value($sql);
 }
 
-/**
- * Checks if a given username exists in the DB. Returns true if so, false if not.
- * @author Nathan Codding - July 19, 2000
- */
-function check_username($username, $db)
-{
-	$username = addslashes($username);
-
-	$sql = "SELECT user_id FROM `$tbl_users`
-	        WHERE (username = '$username')
-	        AND (user_level != '-1')";
-
-	$resultID = mysql_query($sql)
-	            or die(mysql_error() . "<br>Error doing DB query in check_username()");
-
-	return mysql_num_rows($resultID);
-}				// check_username()
-
-
-/**
- * Nathan Codding, July 19/2000
- * Get a user's data, given their user ID.
- */
-
-function get_userdata_from_id($userid, $db)
-{
-	global $tbl_users;
-
-	$sql = "SELECT * FROM `$tbl_users`
-	        WHERE user_id = $userid";
-
-	if(!$result = mysql_query($sql, $db))
-	{
-		$userdata = array("error" => "1");
-		return ($userdata);
-	}
-
-	if(!$myrow = mysql_fetch_array($result))
-	{
-		$userdata = array("error" => "1");
-		return ($userdata);
-	}
-
-	return($myrow);
-}
-
-/**
- * Gets user's data based on their username
- */
-function get_userdata($username, $db)
-{
-	global $tbl_users;
-
-	$username = addslashes($username);
-
-	$sql = "SELECT * FROM `$tbl_users`
-	        WHERE username = '$username'
-	        AND user_level != -1";
-
-	if(!$result = mysql_query($sql, $db))    $userdata = array("error" => "1");
-	if(!$myrow = mysql_fetch_array($result)) $userdata = array("error" => "1");
-
-	return($myrow);
-}
-
-
 
 /**
  * Checks if a forum or a topic exists in the database. Used to prevent
@@ -332,7 +272,7 @@ function does_exists($id, $db, $type)
 	{
 		case 'forum':
 			$sql = "SELECT COUNT(forum_id)
-                    FROM `$tbl_forums` 
+                    FROM `".$tbl_forums."` 
                     WHERE forum_id = '".$id."'";
 		break;
 		case 'topic':
@@ -410,28 +350,6 @@ function undo_htmlspecialchars($input)
 
 	return $input;
 }
-/**
- * Make sure a username isn't on the disallow list
- */
-
-function validate_username($username, $db)
-{
-	global $tbl_disallow;
-
-	$sql = "SELECT disallow_username
-	        FROM `".$tbl_disallow."`
-	        WHERE disallow_username = '" . addslashes($username) . "'";
-
-	if(!$r = mysql_query($sql, $db)) return(0);
-
-	if($m = mysql_fetch_array($r))
-	{
-		if($m['disallow_username'] == $username) return(1);
-		else                                     return(0);
-	}
-
-	return(0);
-}
 
 /**
  * Check if this is the first post in a topic. Used in editpost.php
@@ -449,11 +367,6 @@ function is_first_post($topic_id, $post_id, $db)
     if ($id_found == $post_id) return 1;
     else                       return 0;
 }
-
-
-
-
-
 
 /**
  * Checks if the given userid is allowed to log into the given (private) forumid.

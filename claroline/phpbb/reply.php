@@ -93,17 +93,16 @@ if($submit)
     if($allow_html == 0 || isset($html)) $message = htmlspecialchars($message);
 
 
-    $message = addslashes($message);
-    $time    = date('Y-m-d H:i');
-
-    $nom    = addslashes($nom);    // ADDED FOR CLAROLINE
-    $prenom = addslashes($prenom); // ADDED FOR CLAROLINE
-    $poster_ip = $REMOTE_ADDR;
+    $message    = addslashes($message);
+    $lastName   = addslashes($userdata['last_name']);  // ADDED FOR CLAROLINE
+    $firstName  = addslashes($usedata['first_name']); // ADDED FOR CLAROLINE
+    $poster_ip  = $REMOTE_ADDR;
+    $time       = date('Y-m-d H:i');
 
 
     create_new_post($topic, $forum, $userdata['user_id'], 
                     $time, $poster_ip, 
-                    $nom, $prenom, $message);
+                    $lastName, $firstName, $message);
 
 
     trig_topic_notification($topic);

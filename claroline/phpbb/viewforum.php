@@ -61,6 +61,8 @@ $forum_name = own_stripslashes($forumSettingList['forum_name']);
  * GET TOPIC LIST
  */
 
+require('page_header.php');
+
 $sql = "SELECT t.*, u.username, u2.username as last_poster, p.post_time
         FROM `".$tbl_topics."` t
         LEFT JOIN `".$tbl_users."` u 
@@ -74,13 +76,11 @@ $sql = "SELECT t.*, u.username, u2.username as last_poster, p.post_time
 
 if ( ! $start) $start = 0;
 
-require('page_header.php');
 require $includePath.'/lib/pager.lib.php';
 
 $topicPager = new claro_sql_pager($sql, $start, $topics_per_page);
 $topicPager->set_pager_call_param_name('start');
 $topicList  = $topicPager->get_result_list();
-
 
 $pagerUrl = 'viewforum.php?forum='.$forum.'&gidReq='.$_gid;
 

@@ -106,8 +106,8 @@ if($submit)
      * USER (ADDED FOR CLAROLINE)
      */
     
-    $userLastname  = addslashes($nom);
-    $userFirstname = addslashes($prenom);
+    $userLastname  = addslashes($userdata['last_name']);
+    $userFirstname = addslashes($userdata['first_name']);
     $poster_ip     = $REMOTE_ADDR;
 
     $time      = date('Y-m-d H:i');

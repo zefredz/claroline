@@ -76,7 +76,7 @@ if($is_courseAdmin)
 			              POST DELETE
 	  		 --------------------------------------*/
 
-            delete_post($post_id, $topic_id, $forum, $$posterdata['user_id']);
+            delete_post($post_id, $topic_id, $forum, $posterdata['user_id']);
 
 			/* CONFIRMATION MESSAGE */
 
