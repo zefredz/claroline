@@ -29,13 +29,8 @@ if($_REQUEST['switch'] == 'off')
 elseif ($_REQUEST['switch'] == 'on' )
 {
     $_SESSION['htmlArea'] = 'enabled';
-    $areaContent = urlencode( nl2br($_REQUEST['areaContent']) );
+    $areaContent = nl2br('<!-- content: html -->'.$_REQUEST['areaContent']);
 }
-
-/* <DEBUG> */
-echo "<pre style='color:red;font-weight:bold'>areaContent : $areaContent</pre>";
-/* </DEBUG> */
-
 
 header('Cache-Control: no-store, no-cache, must-revalidate');   // HTTP/1.1
 header('Cache-Control: post-check=0, pre-check=0', false);
