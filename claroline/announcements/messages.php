@@ -329,7 +329,7 @@ if($is_allowedToUse)	// check teacher status
 		         FROM `".$tbl_user."` u, `".$tbl_courseUser."` cu
 		         WHERE cu.code_cours = \"".$_cid."\" 
 		         AND cu.user_id = u.user_id
-		         ORDER BY u.prenom, u.nom";
+		         ORDER BY u.nom, u.prenom";
 
 		$result	= mySqlQueryShowError($sql);
 
