@@ -603,11 +603,11 @@ class PHPMailer
      * @access public
      * @return bool
      */
-    function SetLanguage($lang_type, $lang_path = "") {
-        if(file_exists($lang_path.'phpmailer.lang-'.$lang_type.'.php'))
-            include($lang_path.'phpmailer.lang-'.$lang_type.'.php');
-        else if(file_exists($lang_path.'phpmailer.lang-en.php'))
-            include($lang_path.'phpmailer.lang-en.php');
+    function SetLanguage($type_lang, $path_lang = "") {
+        if(file_exists($path_lang.'phpmailer.lang-'.$type_lang.'.php'))
+            include($path_lang.'phpmailer.lang-'.$type_lang.'.php');
+        else if(file_exists($path_lang.'phpmailer.lang-en.php'))
+            include($path_lang.'phpmailer.lang-en.php');
         else
         {
             $this->SetError("Could not load language file");
