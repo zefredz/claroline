@@ -82,15 +82,6 @@ $tbl_track_default  = $statsDbName."`.`track_e_default";// default_user_id
 $tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
 
 // javascript confirm pop up declaration
-
-  $htmlHeadXtra[] =
-         "<style type=text/css>
-         <!--
-         .comment { margin-left: 30px}
-         .invisible {color: #999999}
-         .invisible a {color: #999999}
-         -->
-         </style>";
   $htmlHeadXtra[] =
             "<script>
             function confirmation (name)

@@ -37,15 +37,6 @@ $tbl_rel_course_user = $mainDbName."`.`cours_user";
 // javascript confirm pop up declaration
 
   $htmlHeadXtra[] =
-         "<style type=text/css>
-         <!--
-         .comment { margin-left: 30px}
-         .invisible {color: #999999}
-         .invisible a {color: #999999}
-         -->
-         </style>";
-
-  $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
             {

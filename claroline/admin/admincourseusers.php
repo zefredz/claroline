@@ -41,15 +41,6 @@ if ($cidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
 
 // javascript confirm pop up declaration
 
-  $htmlHeadXtra[] =
-         "<style type=text/css>
-         <!--
-         .comment { margin-left: 30px}
-         .invisible {color: #999999}
-         .invisible a {color: #999999}
-         -->
-         </style>";
-
    $htmlHeadXtra[] =
             "<script>
             function confirmationReg (name)
