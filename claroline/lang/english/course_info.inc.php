@@ -37,7 +37,7 @@ $langPrivOpen="Private access, registration open";
 $langPrivate="Private access (site accessible only to people on the <a href=../user/user.php>User list</a>)";
 $langForbidden="Not allowed";
 $langLanguage="Language";
-$langConfTip="By default, you course is accessible to everybody. If you want some confidentiality,
+$langConfTip="By default, your course is accessible to everybody. If you want some confidentiality,
 the simplest way is to open registration during
 one week, ask the students to register themselves, then close registration and check for possible intruders in the user list.";
 $langTipLang="This language will be valid for every visitor of your course's website.";
@@ -115,7 +115,7 @@ $langCsvPutIntoDocTool="The file &quot;users.csv&quot; has been put into the Doc
 $langSearchCours	= "Return to the informations of the course";
 $langManage			= "Manage Campus";
 
-$langAreYouSureToDelete = "Are you sure to delete ";
+$langAreYouSureToDelete = "Are you sure you want to delete ";
 $langBackToAdminPage = "Back to admin page";
 $langToCourseSettings = "Back to course settings";
 $langSeeCourseUsers = "See course users";
