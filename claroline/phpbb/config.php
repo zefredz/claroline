@@ -157,17 +157,4 @@ if( strstr($_SERVER['PHP_SELF'], 'admin') && ! strstr($_SERVER['PHP_SELF'], 'top
     $config_file_name = '../config.php';
 }
 
-
-
-
-// Include the appropriate language file.
-if (strstr($_SERVER['PHP_SELF'], 'admin') && ! strstr($_SERVER['PHP_SELF'], 'topicadmin') )
-{
-    @include('../language/lang_'.$default_lang.'.php');
-}
-else
-{
-    @include('language/lang_'.$default_lang.'.php');
-}
-
 ?>
