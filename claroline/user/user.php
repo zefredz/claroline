@@ -1,5 +1,6 @@
 <?php // $Id$
 
+
 $langFile = 'registration';
 $tlabelReq = "CLUSR___";
 require '../inc/claro_init_global.inc.php';
@@ -290,7 +291,7 @@ while (list(,$thisUser) = each($users))
 
 			"\n<small>\n",$i,"</small>\n&nbsp;",
 			"<a href=\"userInfo.php?uInfo=",$thisUser['user_id'],"\">",
-			$thisUser['prenom']," ",$thisUser['nom'],
+			ucfirst(strtolower($thisUser['prenom']))," ",ucfirst(strtolower($thisUser['nom'])),
 			"</a>",
 
 			"</td>\n";
@@ -352,11 +353,13 @@ while (list(,$thisUser) = each($users))
 
 		// Edit user column
 
-		echo	'<td headers="edit u'.$i.'">'
-				.'<a href="userInfo.php?editMainUserInfo='.$thisUser['user_id'].'">'
-				.'<img border="0" alt="'.$langEdit.'" src="'.$clarolineRepositoryWeb.'img/edit.gif">'
-				.'</a></td>'
-				."\n";
+
+		echo	"<td headers=\"edit u".$i."\">",
+				"<a href=\"userInfo.php?editMainUserInfo=".$thisUser['user_id']."\">",
+				"<img border=\"0\" alt=\"".$langEdit."\" src=\"".$clarolineRepositoryWeb."img/edit.gif\">",
+				"</a>",
+				"</td>\n";
+
 
 		// Unregister user column
 		echo '<td headers="del u'.$i.'" >';
