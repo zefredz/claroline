@@ -180,7 +180,7 @@ $i= $offset;
 
 echo	"<table class=\"claroTable\" ",
 		"width=\"100%\" cellpadding=\"2\" cellspacing=\"1\" ",
-		"border=\"0\" summary=\"".$langSummaryTable."\">\n",
+		"border=\"0\" summary=\"".$langListCourseUsers."\">\n",
 
 		"<colgroup span=\"3\" align=\"left\"></colgroup>";
 

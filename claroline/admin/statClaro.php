@@ -17,7 +17,6 @@ session_start();
 include('../include/config.php');
 $db = mysql_connect("$mysqlServer", "$mysqlUser", "$mysqlPassword");
 
-$langStat4Claroline = "Statistiques de la plateforme";
 $langAdmin = "administration technique de la plateforme";
 
 @include("../lang/french/trad4all.inc.php");
@@ -28,7 +27,7 @@ header('Content-Type: text/html; charset='. $charset);
 @include("../lang/english/admin.inc.php");
 @include("../lang/$language/admin.inc.php");
 
-$nameTools = $langStat4Claroline;
+$nameTools = $langStatistics;
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
 
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -285,6 +284,9 @@ function list_ManyResult($sql)
 
 /*
 * $Log$
+* Revision 1.3  2004/12/07 15:52:24  mathieu
+* rename variable
+*
 * Revision 1.2  2004/09/27 21:06:34  moosh
 * use claro_sql_query
 *

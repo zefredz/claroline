@@ -14,8 +14,7 @@
 // Lang files needed :
 $userPerPage = 20; // numbers of user to display on the same page
 $langFile = "admin";
-$langStatus ='Statut';
-$lang_DeleteOfUserWasDoneSucessfully = "Delete of the user was done sucessfully";
+
 // initialisation of global variables and used libraries
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
@@ -90,7 +89,7 @@ switch ($cmd)
 {
   case "delete" :
         delete_user($user_id);
-        $dialogBox = $lang_DeleteOfUserWasDoneSucessfully;
+        $dialogBox = $langDeleteOfUserWasDoneSucessfully;
         break;
 
   case "unsub" :

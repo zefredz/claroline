@@ -6,10 +6,6 @@
 | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
 +----------------------------------------------------------------------+
 */
-$langYouCannotDelCatOfGroupsForums = "You can not delete the group forum category. 
-If you need to remove group forums, you rather have to delete the group";
-
-$lang_areYouSureToDelete = "Are you sure to delete";
 
 $langFile = "forum_admin";
 require '../inc/claro_init_global.inc.php';
@@ -581,7 +577,7 @@ if($display == DISP_FORUM_GO)
                     ($cat_id ==    CAT_FOR_GROUPS ?
                     "<small><i>".$langCannotBeDeleted."</i></small>"
                     :
-                    "<a    href=\"forum_admin.php?forumgodel=yes&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;ctg=".urlencode($ctg)."&amp;ok=0\"    onclick=\"return confirmation('".addslashes(htmlentities($lang_areYouSureToDelete .' \'' .$forum_name.'\'    ?'))."');\">".
+                    "<a    href=\"forum_admin.php?forumgodel=yes&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;ctg=".urlencode($ctg)."&amp;ok=0\"    onclick=\"return confirmation('".addslashes(htmlentities($langAreYouSureToDelete .' \'' .$forum_name.'\'    ?'))."');\">".
                     "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\"    alt=\"".$langDelete."\"    border=\"0\">".
                     "</a>").
 
@@ -820,7 +816,7 @@ elseif($display == DISP_FORUM_ADMIN)
             {
                 echo "<a href=\"forum_admin.php?"
                     ."forumcatdel=yes&amp;cat_id=".$thisCategory['id']."&amp;ok=0\" "
-                    ."onclick=\"return confirmation('".addslashes(htmlentities($lang_areYouSureToDelete .' \'' .$thisCategory['title'].'\' ?'))."');\">".
+                    ."onclick=\"return confirmation('".addslashes(htmlentities($langAreYouSureToDelete .' \'' .$thisCategory['title'].'\' ?'))."');\">".
                     "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" alt=\"".$langDelete."\" border=\"0\">".
                     "</a>";
             }

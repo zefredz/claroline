@@ -32,11 +32,9 @@
   * 
   */
 
-$langUserOfCurse = "Les utilisateurs du cours";
-$langStatOfCourse = "statistiques du cours";
 $langFile = "tracking";
 require '../inc/claro_init_global.inc.php'; 
-$nameTools = $langStatOfCourse;
+$nameTools = $langStatsOfCourse;
 @include($includePath."/claro_init_header.inc.php");
 
 /*
@@ -56,7 +54,7 @@ $currentCourseID	= $_course['sysCode'];
 claro_disp_tool_title(array("mainTitle"=>$nameTools,"subTitle"=>$langSubTitle));
 ?>
 <H3>
-<?php echo $langUserOfCurse ?>
+<?php echo $langUserCourseList ?>
 </H3>
 <OL>
 <?php

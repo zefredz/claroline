@@ -250,7 +250,7 @@ $userList = claro_sql_query_fetch_all($sql);
 if ($_SESSION['admin_user_search']!="")               { $isSearched .= $_SESSION['admin_user_search']."* ";}
 if ($_SESSION['admin_user_firstName']!="")            { $isSearched .= $langFirstName."=".$_SESSION['admin_user_firstName']."* ";}
 if ($_SESSION['admin_user_lastName']!="")             { $isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']."* ";}
-if ($_SESSION['admin_user_userName']!="")             { $isSearched .= $langUsername."=".$_SESSION['admin_user_userName']."* ";}
+if ($_SESSION['admin_user_userName']!="")             { $isSearched .= $langUserName."=".$_SESSION['admin_user_userName']."* ";}
 if ($_SESSION['admin_user_mail']!="")                 { $isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";}
 if ($_SESSION['admin_user_action']=="createcourse")   { $isSearched .= "<b> <br>".$langCourseCreator."  </b> ";}
 if ($_SESSION['admin_user_action']=="plateformadmin") { $isSearched .= "<b> <br>".$langPlatformAdministrator."  </b> ";}
