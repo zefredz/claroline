@@ -31,19 +31,39 @@ mysql_query($sql_insert_sample_cats);
 	else
 		$passToStore=($passForm);
 
-$sql = "
+
+	$sql = 'select username, nom lastname, prenom firstname  from `'.$dbNameForm.'`.`user` where username = "'.$loginForm.'"';
+	$res = @mysql_query($sql);
+	if(mysql_errno()>0)
+	{
+	// No problem
+	}
+	else
+	$controlUser = mysql_num_rows($res);
+	
+	$sql = "
 INSERT INTO `user` (`nom`, `prenom`, `username`, `password`, `email`, `statut`)
 VALUES
 (  '$adminNameForm', '$adminSurnameForm', '$loginForm','$passToStore','$adminEmailForm','1')
 ";
-mysql_query($sql);
-## get id of admin  to  write  it in admin table.
-$idOfAdmin=mysql_insert_id();
-
-#add admin in list of admin
-$sql = "INSERT INTO admin VALUES ('".$idOfAdmin."')";
-mysql_query($sql);
-
+	if ($controlUser>0)
+	{
+		$sql = "
+		UPDATE `user` SET (`nom`, `prenom`, `username`, `password`, `email`, `statut`)
+			VALUES
+		(  '$adminNameForm', '$adminSurnameForm', '$loginForm','$passToStore','$adminEmailForm','1')
+				";	
+	}
+	else
+	{
+		mysql_query($sql);
+		## get id of admin  to  write  it in admin table.
+		$idOfAdmin=mysql_insert_id();
+		
+		#add admin in list of admin
+		$sql = "INSERT INTO admin VALUES ('".$idOfAdmin."')";
+		mysql_query($sql);
+	}
 $sql = " INSERT INTO `course_tool` 
 (`id`,`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES 

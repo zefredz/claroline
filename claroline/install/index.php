@@ -167,50 +167,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMIN_SETTING || $_REQUEST['cmdDoInstall'])
 	}
 	else 
 	{
-		// here add some check  on email, password crackability, ...
-		
-		// check if table don't already exist witha a user table and this user in.
-		$dbcu = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
-		if ($dbcu)
-		{
-			$sql = 'select username, nom lastname, prenom firstname  from `'.$dbNameForm.'`.`user` where username = "'.$loginForm.'"';
-			$res = @mysql_query($sql,$dbcu);
-			if(mysql_errno($dbcu)>0)
-			{
-				// No problem
-			}
-			else
-			$controlUser = mysql_num_rows($res);
-			
-			
-			if ($controlUser>0)
-			{
-				$msg_admin_exist = '
-				The table of user already exist, with a user with same info. <BR>
-				<ul>
-				';
-				while ($userFound = mysql_fetch_array($res,MYSQL_ASSOC)) 
-				{
-					$msg_admin_exist .= '<li>'.$userFound['username'].' : '.$userFound['firstname'].' '.strtoupper($userFound['lastname']).'</li>';
-				}
-				$msg_admin_exist .= '
-				</ul>
-				<font color="red" >Please choose another <B>'.$langAdminLogin.'</B>.</font>';
-				
-				
-				if ($cmd>DISP_ADMIN_SETTING)
-				{
-					$display=DISP_ADMIN_SETTING;
-				}
-				else 
-				{
-					$display=$cmd;
-				}
-				$canRunCmd = false;
-			}
-		}
-		mysql_close($dbcu);
-		
+		// here add some check  on email, password crackability, ... of admin.
 	}
 }
 
