@@ -32,13 +32,14 @@ $htmlHeadXtra[] =
 "<script>
 function confirmationEmpty ()
 {
-        if (confirm(\" ".$langConfirmEmpty ." \"))
+        if (confirm(\" ".$langConfirmEmptyGroups ." \"))
                 {return true;}
         else
                 {return false;}
 };
 function confirmationDelete ()
-        if (confirm(\" ".$langConfirmDelete." \"))
+{
+        if (confirm(\" ".$langConfirmDeleteGroups." \"))
                 {return true;}
         else
                 {return false;}
