@@ -379,23 +379,23 @@ if ($displayForm)
                                   : '',
             "<table>",
             "<tr>",
-            "<td valign=\"top\">".$langTitle." : </td>",
-            "<td><input type=\"text\" name=\"title\" value = \"",
+            "<td valign=\"top\"><label for=\"title\">".$langTitle." : </label></td>",
+            "<td><input type=\"text\" id=\"title\" name=\"title\" value = \"",
                 $announcementToEdit ? $announcementToEdit['title'] : '',
                 "\"size=\"80\"></td>",
             "</tr>\n",
             "<tr>",
-            "<td valign=\"top\">Content	: </td>",
+            "<td valign=\"top\"><label for=\"newContent\">Content	: </label></td>",
             "<td>",
 
-            claro_disp_html_area('newContent', $announcementToEdit ? $announcementToEdit['content'] : '', 12, 67, $optAttrib=' wrap="virtual" ');
+            claro_disp_html_area('newContent', $announcementToEdit ? $announcementToEdit['content'] : '', 12, 67, $optAttrib=' wrap="virtual"');
 
    echo    "</td>",
            "</tr>\n",
            "<tr>",
            "<td></td>",
            "<td><input	type=checkbox value=\"1\" name=\"emailOption\">",
-            $langEmailOption,"<br>\n",
+            "<label for=\"emailOption\">",$langEmailOption,"</label><br>\n",
             "<input	type=\"Submit\"	class=\"claroButton\" name=\"submitAnnouncement\"	value=\"".$langOk."\">\n";
 
    claro_disp_button ($PHP_SELF, 'Cancel');
