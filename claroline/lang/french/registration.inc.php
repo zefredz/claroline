@@ -170,7 +170,6 @@ $langDeleteUserDefinition ="Radier (supprimer de la liste des utilisateurs de <b
 $langNoTutor              = "n'est pas tuteur pour ce cours";
 $langYesTutor             = "est tuteur pour ce cours";
 $langUserRights           = "Droits des utilisateurs";
-$langNow                  = "actuellement";
 $langOneByOne             = "Ajouter manuellement un utilisateur";
 $langUserMany             = "Importer une liste d'utilisateurs via un fichier texte";
 $langNo                   = "non";

@@ -174,7 +174,6 @@ $langDeleteUserDefinition="Non rexistrado (borrar da lista de usuarios do <b>est
 $langNoTutor = "non ser titor neste curso";
 $langYesTutor = "ser titor neste curso";
 $langUserRights="Dereitos de usuario";
-$langNow="agora";
 $langOneByOne="Engadir un usuario de forma manual";
 $langUserMany="Importar lista de usuarios a trav&eacute;s dun ficheiro .txt";
 $langNo="non";

@@ -154,7 +154,6 @@ $langDeleteUserDefinition="Registratie annuleren (gebruikerslijst van <b>deze</b
 $langNoTutor = "is geen docent van deze cursus";
 $langYesTutor = "is docent van deze cursus";
 $langUserRights="Rechten van de gebruikers";
-$langNow="nu";
 $langOneByOne="Gebruiker manueel toevoegen";
 $langUserMany="Gebruikerslijst importeren via een tekstbestand";
 $langNo="nee";

@@ -141,7 +141,6 @@ $langDeleteUserDefinition="Niezarejestrowany (usuñ z listy u¿ytkowników <b>tych<
 $langNoTutor="nie jest prowadz±cym w tym kursie";
 $langYesTutor="jest prowadz±cym w tym kursie";
 $langUserRights="Uprawnienia u¿ytkownika";
-$langNow="teraz";
 $langOneByOne="Rêczne dodawanie u¿ytkownika";
 $langUserMany="Importuj u¿ytkowników z pliku tekstowego";
 $langNo="Nie";

@@ -105,7 +105,6 @@ $langDeleteUserDefinition="Treu del registre (esborra de la llista d'usuaris d'<
 $langNoTutor = "no és tutor d'aquest curs";
 $langYesTutor = "és tutor d'aquest curs";
 $langUserRights="Drets d'usuari";
-$langNow="ara";
 $langOneByOne="Afegeix un usuari manualment";
 $langUserMany="Importa llista d'usuaris a través d'un fitxer de text";
 $langNo="no";

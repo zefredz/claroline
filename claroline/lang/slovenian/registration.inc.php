@@ -145,7 +145,6 @@ $langDeleteUserDefinition="Izpis (brisanje iz seznama uporabnikov <b>tega</b> te
 $langNoTutor = "ni ucitelj tega tecaja";
 $langYesTutor = "je ucitelj tega tecaja";
 $langUserRights="Pravice uporabnika";
-$langNow="sedaj";
 $langOneByOne="Uporabnika dodaj rocno";
 $langUserMany="Vnos seznama uporabnikov s pomocjo tekstovne datoteke";
 $langNo="ne";

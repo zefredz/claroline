@@ -131,7 +131,6 @@ $langDeleteUserDefinition="Descadastrar (apagar da lista de usuários <b>desse</b
 $langNoTutor = "não é tutor para esse curso";
 $langYesTutor = "é tutor para esse curso";
 $langUserRights="Direitos de usuários";
-$langNow="agora";
 $langOneByOne="Adicionar usuário manualmente";
 $langUserMany="Importar lista de usuários de um arquivo de texto";
 $langNo="não";

@@ -145,7 +145,6 @@ $langDeleteUserDefinition="Unregister (delete from users list of  <b>this</b> co
 $langNoTutor = "is not tutor for this course";
 $langYesTutor = "is tutor for this course";
 $langUserRights="Users rights";
-$langNow="now";
 $langOneByOne="Sau khi đăng ký";
 $langUserMany="Import users list through textfile";
 $langNo="no";

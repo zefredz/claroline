@@ -144,7 +144,6 @@ $langDeleteUserDefinition="Afmeld (slet fra deltagerlisten på <b>dette</b> kursu
 $langNoTutor = "er ikke tutor på dette kursus";
 $langYesTutor = "er tutor på dette kursus";
 $langUserRights="deltagernes retteigheder";
-$langNow="nu";
 $langOneByOne="Tilføj deltagerne manuelt";
 $langUserMany="Importere deltagerlisten ved hjælp af tekstfil";
 $langNo="nej";

@@ -145,7 +145,6 @@ $langDeleteUserDefinition="Tidak berdaftar (Padam senarai pengguna <b>bagi subje
 $langNoTutor = "bukan tutor untuk Subjek ini";
 $langYesTutor = "merupakan tutor untuk Subjek ini";
 $langUserRights="HaK Pengguna";
-$langNow="sekarang";
 $langOneByOne="Tambah Pengguna secara manual";
 $langUserMany="Import senarai Pengguna menggunakan fail teks";
 $langNo="tidak";

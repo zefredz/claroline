@@ -151,7 +151,6 @@ $langDeleteUserDefinition= "N&atilde;o registado (apagar da lista de utilizadore
 $langNoTutor 		= "n&atilde;o ter o estatuto de orientador neste curso";
 $langYesTutor 		= "ter o estatuto de orientador neste curso";
 $langUserRights		= "Direitos do utilizador";
-$langNow		= "agora";
 $langOneByOne		= "Acrescentar um utilizador de forma manual";
 $langUserMany		= "Importar uma lista de utilizadores contida num ficheiro .txt";
 $langNo			= "n&atilde;o";

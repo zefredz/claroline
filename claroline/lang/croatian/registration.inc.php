@@ -106,7 +106,6 @@ $langDeleteUserDefinition="Odjava (izbriši sa korinièkog popisa ovaj predmet)";
 $langNoTutor = "nije tutor za ovaj predmet";
 $langYesTutor = "je tutor za ovaj predmet";
 $langUserRights="Korisnièka prava";
-$langNow="sad";
 $langOneByOne="ruèno dodaj korisnika";
 $langUserMany="Unesi popis korisnika iz tekst datoteke";
 $langNo="ne";

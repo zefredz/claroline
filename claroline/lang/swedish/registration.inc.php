@@ -151,7 +151,6 @@ $langLastVisits="Mina senaste besök";
 $langNo="nej";
 $langYes="ja";
 $langNoTutor="är inte lärare för denna kurs";
-$langNow="nu";
 $langOneByOne="Lägg till användare manuellt";
 $langPassTooEasy="detta lösenord är för enkelt. Använd ett som liknar detta:";
 $langRemoveRight="Radera rättighet";

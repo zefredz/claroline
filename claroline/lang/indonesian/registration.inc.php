@@ -144,7 +144,6 @@ $langDeleteUserDefinition="Undur diri (hapus dari daftar user pelajaran <b>ini</
 $langNoTutor = "adalah bukan tutor pelajaran ini";
 $langYesTutor = "adalah tutor pelajaran ini";
 $langUserRights="Hak-hak User";
-$langNow="sekarang";
 $langOneByOne="Tambah user secara manual";
 $langUserMany="Import daftar user melalui file teks";
 $langNo="tidak";

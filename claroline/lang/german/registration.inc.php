@@ -100,7 +100,6 @@ $langNoAdmin="hat jetzt <b>keine Administrationsrechte mehr auf dieser Seite</b>
 $langNone="keine";
 $langNoTutor = "ist kein Tutor/Dozent mehr in diesem Kurs";
 $langNoUserSelected = "Es wurde kein Benutzer ausgewählt!";
-$langNow="jetzt";
 $langNowGoChooseYourCourses ="Sie können nun innerhalb der Liste den Kurs wählen, zu dem Sie Zugang haben möchten.";
 $langNowGoCreateYourCourse  ="Sie können jetzt Ihren Kurs erstellen";
 $langOfficialCode = "ZugriffsCode (optional)";

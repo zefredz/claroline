@@ -149,7 +149,6 @@ $langDeleteUserDefinition="Rimuovi (rimuovere dall'elenco degli utenti di <b>que
 $langNoTutor = "non è tutor del corso";
 $langYesTutor = "è tutor del corso";
 $langUserRights="Diritti dell'utente";
-$langNow="ora";
 $langOneByOne="Aggiungi manualmente un utente";
 $langUserMany="Importa gli utenti da ul elenco su un documento di testo";
 $langNo="no";

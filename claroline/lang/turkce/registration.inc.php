@@ -105,7 +105,6 @@ $langDeleteUserDefinition="Kayýt sil (<b>bu dersin</b> kullanýcý listesinden sil
 $langNoTutor = "bu dersin eðitmeni deðildir";
 $langYesTutor = "bu dersin eðitmenidir";
 $langUserRights="Kullanýcý yetkileri";
-$langNow="þimdi";
 $langOneByOne="Kullanýcý ekle";
 $langUserMany="metin dosyasýndan kullanýcý aktar";
 $langNo="hayýr";
