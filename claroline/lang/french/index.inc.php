@@ -65,8 +65,8 @@ $langCourses	= "cours";
 $langIn			= "dans";
 $langSubCat		= "sous-catégories";
 
-$lang_enroll_to_a_new_course   = 'Inscription à un nouveau cours';
-$lang_remove_course_enrollment = 'Suppression d\'une inscription à un cours';
+$lang_enroll_to_a_new_course   = 'S\'inscrire à un cours';
+$lang_remove_course_enrollment = 'Se désinscrire d\'un cours';
 
 
 
