@@ -184,12 +184,14 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
               }
               else
               {
-                   echo "<font color='red'>".$langErrorNameAlreadyExists."</font><br>";
+                   claro_disp_message_box($langErrorNameAlreadyExists);
+                   echo "<br />";
               }
          }
          else
          {
-              echo "<font color='red'>".$langErrorEmptyName."</font><br>";
+			claro_disp_message_box($langErrorEmptyName);
+            echo "<br />";
          }
          break;
 
