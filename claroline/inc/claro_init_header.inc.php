@@ -67,7 +67,7 @@ if ($htmlHeadXtra)
 }
 ?>
 </head>
-<body bgcolor="white" dir="<?php echo $text_dir ?>">
+<body dir="<?php echo $text_dir ?>">
 <?php
 
 //  Banner
@@ -77,4 +77,10 @@ if (!isset($hide_banner) || $hide_banner == false)
     include($includePath."/claro_init_banner.inc.php");
 }
 
+if (!isset($hide_body) || $hide_body == false)
+{
+	// need body div
+	echo "\n\n\n<!----------------------      Claroline Body       ---------------------->\n"
+			."<div class=\"claroBody\">\n\n";
+}
 ?>
