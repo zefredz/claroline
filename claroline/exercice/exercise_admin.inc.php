@@ -46,7 +46,7 @@ if($_REQUEST['submitExercise'])
 		$objExercise->updateDescription($_REQUEST['exerciseDescription']);
 		$objExercise->updateType($_REQUEST['exerciseType']);
 		$objExercise->set_max_time($_REQUEST['exerciseMaxTime']);
-		$objExercise->set_max_tries($_REQUEST['exerciseMaxTries']);
+		$objExercise->set_max_attempt($_REQUEST['exerciseMaxAttempt']);
 		if($_REQUEST['exerciseShowAnon'] == "show") 
 		{
 			$objExercise->set_show_anon();	
@@ -72,7 +72,7 @@ else
 	$exerciseType		= $objExercise->selectType();
 	$randomQuestions	= $objExercise->isRandom();
 	$maxTime			= $objExercise->get_max_time();
-	$maxTries			= $objExercise->get_max_tries();
+	$maxAttempt			= $objExercise->get_max_attempt();
 	$showAnon			= $objExercise->get_show_anon();
 	$showAnswer			= $objExercise->get_show_answer();
 }
@@ -133,9 +133,9 @@ if($_REQUEST['modifyExercise'])
 </tr>
 
 <tr>
-  <td><label for="exerciseMaxTries"><?php echo $langAllowedAttempts; ?> :</label></td>
+  <td><label for="exerciseMaxAttempt"><?php echo $langAllowedAttempts; ?> :</label></td>
   <td>
-	<input type="text" name="exerciseMaxTries" id="exerciseMaxTries" size="2" maxlength="2" value="<?php echo $maxTries; ?>">
+	<input type="text" name="exerciseMaxAttempt" id="exerciseMaxAttempt" size="2" maxlength="2" value="<?php echo $maxAttempt; ?>">
 	( '0' pour 'nombre de tentatives illimité' )
   </td>
 </tr>

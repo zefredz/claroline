@@ -33,7 +33,7 @@ class Exercise
 	var $active;
 	
 	var $maxTime;
-	var $maxTries;
+	var $maxAttempt;
 	var $showAnon;
 	var $showAnswer;
 
@@ -54,7 +54,7 @@ class Exercise
 		$this->active		= 0;
 
 		$this->maxTime		= 0;
-		$this->maxTries		= 0;
+		$this->maxAttempt	= 0;
 		$this->showAnon		= '';
 		$this->showAnswer	= '';
 
@@ -74,7 +74,7 @@ class Exercise
 
 		$sql="	SELECT 	`titre`,`description`,
 				`type`,`random`,`active`,
-				`max_time`,`max_tries`,`show_anon`,`show_answer`
+				`max_time`,`max_attempt`,`show_anon`,`show_answer`
 			FROM `$TBL_EXERCICES` 
 			WHERE `id` = '$id'";
 		$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
@@ -90,7 +90,7 @@ class Exercise
 			$this->active 		= $object->active;
 			
 			$this->maxTime 		= $object->max_time;			
-			$this->maxTries		= $object->max_tries;
+			$this->maxAttempt	= $object->max_attempt;
 			$this->showAnon		= $object->show_anon;
 			$this->showAnswer	= $object->show_answer;
 			
@@ -198,14 +198,14 @@ class Exercise
 	}
 	
 	/**
-	 * returns the max allowed tries(attemps) to complete the exercise
+	 * returns the max allowed attemps to complete the exercise
 	 * 
 	 * @author - Piraux Sebastien <pir@cerdecam.be>
-	 * @return - integer - max allowed tries count
+	 * @return - integer - max allowed attempts count
 	 */
-	function get_max_tries()
+	function get_max_attempt()
 	{
-		return $this->maxTries;
+		return $this->maxAttempt;
 	}
 
 	/**
@@ -411,9 +411,9 @@ class Exercise
 		return true;
 	}
 	
-	function set_max_tries($tries)
+	function set_max_attempt($attemptQty)
 	{
-		$this->maxTries = $tries;
+		$this->maxAttempt = $attemptQty;
 		return true;
 	}
 
@@ -452,7 +452,7 @@ class Exercise
 		$active			= $this->active;
 
 		$maxTime 		= $this->maxTime;
-		$maxTries		= $this->maxTries;
+		$maxAttempt		= $this->maxAttempt;
 		$showAnon		= $this->showAnon;
 		$showAnswer		= $this->showAnswer;
 
@@ -466,7 +466,7 @@ class Exercise
  						`random` = '$random',
 						`active` = '$active',
 						`max_time` = $maxTime, 
-						`max_tries` = $maxTries,
+						`max_attempt` = $maxAttempt,
 						`show_anon` = '$showAnon',
 						`show_answer` = '$showAnswer'
 					WHERE `id` = '$id'";
@@ -477,9 +477,9 @@ class Exercise
 		{
 			$sql=	"INSERT INTO `$TBL_EXERCICES`
 					(`titre`,`description`,`type`,`random`,`active`,
-					 `max_time`, `max_tries`, `show_anon`, `show_answer`) 
+					 `max_time`, `max_attempt`, `show_anon`, `show_answer`) 
 					VALUES('$exercise','$description','$type','$random','$active',
-							$maxTime,$maxTries,'$showAnon','$showAnswer')";
+							$maxTime,$maxAttempt,'$showAnon','$showAnswer')";
 			mysql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 
 			$this->id=mysql_insert_id();
