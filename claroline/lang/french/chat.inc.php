@@ -43,10 +43,11 @@ Translate the interface in chosen language
  $langSave = "Enregistrer";
  $langRefresh = "Actualiser";
  $langIsNowInYourDocDir = "est maintenant dans votre outil document. <br><B>Attention il est visible pour tous</B>";
- $langCopyFailed = "La copie du fichier courrant n'a pas réussi...";
- $langChat_reset_by = "La discussion à été rafraichie par ";
+ $langCopyFailed = "La copie du fichier courrant n'a pas r&eacute;ussi...";
  $langResetChat = "Vider";
- $langChatResetBy = "La discussion a été réinitialisée";
+ $langChatResetBy = "La discussion a &eacute;t&eacute; r&eacute;initialis&eacute;e par";
  $langStoreChat = "Sauvegarder la discussion";
+ $langDateLastWrite = "Dernier message : ";
+ $langNewChat = "Nouvelle discussion";
  
 ?>
