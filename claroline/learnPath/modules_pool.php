@@ -217,18 +217,6 @@
           //echo $sql."<br>";
           claro_sql_query($sql);
           break;
-
-      //COMMAND CHANGE ACCESSIBILITY
-      case "mkPublic" :
-      case "mkPrivate" :
-            $cmd == "mkPublic" ? $accessibility = 'PUBLIC' : $accessibility = 'PRIVATE';
-            $sql = "UPDATE `".$TABLEMODULE."`
-                            SET `accessibility` = '$accessibility'
-                            WHERE `module_id` = ".$_GET['mod_id']."
-                              AND `accessibility` != '$accessibility'";
-            $query = claro_sql_query ($sql);
-            break;
-
    }
 
 
@@ -247,11 +235,6 @@
               <th>
                 ".$langComment."
               </th>";
-    /*
-    echo      "<td>
-                ".$langAccess."
-              </td>";
-    */
     echo      "</tr>\n",
                   "<tbody>\n";
 
@@ -292,24 +275,6 @@
                     <td align=\"center\">
                        <a href=\"",$PHP_SELF,"?cmd=comment&mod_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/comment.gif\" border=0 alt=\"$langComment\" /></a>
                     </td>";
-            /*
-                    // ACCESSIBILITY
-
-                    echo    "<td align=\"center\">";
-                    if ( $list['accessibility'] == 'PRIVATE')
-                    {
-                        echo    "<a href=\"",$PHP_SELF,"?cmd=mkPublic&mod_id=".$list['module_id']."\">",
-                                "<img src=\"".$clarolineRepositoryWeb."img/private.gif\" border=0 alt='".$langShareWithOtherCourse."' />",
-                                "</a>";
-                    }
-                    else
-                    {
-                        echo    "<a href=\"",$PHP_SELF,"?cmd=mkPrivate&mod_id=".$list['module_id']."\">",
-                                "<img src=\"".$clarolineRepositoryWeb."img/public.gif\" border=0 alt='".$langStopShare."' />",
-                                "</a>";
-                    }
-                    echo    "</td>\n";
-            */
             echo "</tr>";
             /*
             // COMMENT
