@@ -1,7 +1,7 @@
 <?php # $Id$
 /*
 //+----------------------------------------------------------------------+
-//| CLAROLINE version 1.5.* 
+//| CLAROLINE version 1.6
 //+----------------------------------------------------------------------+
 //| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)
 //+----------------------------------------------------------------------+
@@ -126,4 +126,30 @@ $langLateUpload = "Envoyé en retard";
 $langRequired = "Requis";
 $langChooseDateHelper = "(d/m/y hh:mm)";
 
+// WORKS
+$langDownloadFile="Envoyer le document";
+$langMaxFileSize = "Taille maximale autorisée : ";
+$langTooBig="Vous n'avez pas choisi de fichier à envoyer ou bien le fichier est trop gros.";
+$langListDeleted="La liste a été complètement effacée";
+$langDocModif="Le document a été modifié";
+$langDocAdd="Le document a été ajouté";
+$langDocDel="Le travail a été effacé";
+$langTitleWork="Titre du travail en toutes lettres";
+$langAuthors="Auteurs";
+$langDescription="Description éventuelle";
+$langDelList="Effacer complètement la liste";
+
+
+$langWorks="Travaux d'étudiants";
+
+$langDocument = "Document";
+
+$langWorkConfirmDelete="Confirmez-vous cette suppression ?";
+$langAllFiles="Tous les fichiers";
+
+$lang_make_invisible = "Rendre invisible";
+$lang_make_visible = "Rendre visible";
+$langNotPossible = "Impossible";
+
+$langBackAssignement = "retour à l'outil de travaux";
 ?>

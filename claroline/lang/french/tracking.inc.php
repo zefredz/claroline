@@ -1,7 +1,7 @@
 <?php # $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*			                             |
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
@@ -233,3 +233,4 @@ $langDelCourseStats = "Effacer les statistiques du cours";
 $langConfirmDelete  = "Attention : l'effacement des données statistiques est définitif !<br /><br />Etes vous sûr de vouloir les effacer ?";
 $langDeleteDone = "Les statistiques du cours ont été effacées.";
 ?>
+
