@@ -46,12 +46,12 @@ if (mysql_errno() >0)
 	{
 		if ($confirmUseExistingMainDb)
 		{
-			$runfillMainDb = true;
-			$mainDbSuccesfullCreated = true;
+			$runfillMainDb = TRUE;
+			$mainDbSuccesfullCreated = TRUE;
 		}
 		else
 		{
-			$mainDbNameExist = true;
+			$mainDbNameExist = TRUE;
 			$display=DISP_DB_NAMES_SETTING;
 		}
 	}
@@ -93,12 +93,12 @@ if($statsDbName != $mainDbName)
 			{
 				if ($confirmUseExistingStatsDb)
 				{
-					$runfillStatsDb = true;
-					$statsDbSuccesfullCreated = true;
+					$runfillStatsDb = TRUE;
+					$statsDbSuccesfullCreated = TRUE;
 				}
 				else
 				{
-					$statsDbNameExist = true;
+					$statsDbNameExist = TRUE;
 					$display=DISP_DB_NAMES_SETTING;
 				}
 			}
@@ -120,7 +120,7 @@ if($statsDbName != $mainDbName)
 		}
 		else
 		{
-			$runfillStatsDb = true;
+			$runfillStatsDb = TRUE;
 		}
 	}
 	else
@@ -128,7 +128,7 @@ if($statsDbName != $mainDbName)
 		// single DB mode so $statsDbName MUST BE the SAME than $mainDbName
 		// because it's actually singleDB and not singleCourseDB
 		$statsDbName = $mainDbName;
-		$runfillStatsDb = true;
+		$runfillStatsDb = TRUE;
 	}
 }
 else
