@@ -247,19 +247,19 @@ if( $assignment['assignment_type'] == 'GROUP' )
 		$checkVisible = " AND `S`.`visibility` = 'VISIBLE' ";
 		
 	$sql = "SELECT `G`.`id` as `authId`,`G`.`name`,
-					count(`S`.`id`) as `submissionCount`, `S`.`title`
-			FROM `".$tbl_group_team."` as `G`
-			LEFT JOIN `".$tbl_wrk_submission."` as `S`
-				ON `S`.`group_id` = `G`.`id`
-					AND ( 
-						`S`.`assignment_id` = ".$_REQUEST['assigId']."
-						OR `S`.`assignment_id` IS NULL 
-						)
-					AND `S`.`original_id` IS NULL
-					".$checkVisible."
-			GROUP BY `G`.`id`
-			ORDER BY `G`.`name` ASC, `S`.`creation_date` ASC
-			";
+			count(`S`.`id`) as `submissionCount`, `S`.`title`
+		FROM `".$tbl_group_team."` as `G`
+		LEFT JOIN `".$tbl_wrk_submission."` as `S`
+			ON `S`.`group_id` = `G`.`id`
+				AND ( 
+					`S`.`assignment_id` = ".$_REQUEST['assigId']."
+					OR `S`.`assignment_id` IS NULL 
+					)
+				AND `S`.`original_id` IS NULL
+				".$checkVisible."
+		GROUP BY `G`.`id`
+		ORDER BY `G`.`name` ASC
+		";
 }
 else // INDIVIDUAL
 {
@@ -272,28 +272,28 @@ else // INDIVIDUAL
 		$checkVisible = " AND `S`.`visibility` = 'VISIBLE' ";
 		
 	$sql = "SELECT `U`.`user_id` as `authId`, concat(`U`.`nom`, ' ', `U`.`prenom`) as `name`, 
-					count(`S`.`id`) as `submissionCount`, `S`.`title`
-			FROM `".$tbl_user."` as `U`, `".$tbl_rel_course_user."` as `CU`
-			LEFT JOIN `".$tbl_wrk_submission."` as `S`
-				ON `S`.`user_id` = `U`.`user_id`
-					AND ( 
-						`S`.`assignment_id` = ".$_REQUEST['assigId']."
-						OR `S`.`assignment_id` IS NULL 
-						)
-					AND `S`.`original_id` IS NULL
-					".$checkVisible."
-			WHERE `U`.`user_id` = `CU`.`user_id`
-				AND `CU`.`code_cours` = '".$_cid."'
-			GROUP BY `U`.`user_id`
-			ORDER BY `U`.`nom` ASC, `U`.`prenom` ASC, `S`.`creation_date` ASC
-			";
+			count(`S`.`id`) as `submissionCount`, `S`.`title`, MIN(`S`.`creation_date`)
+		FROM `".$tbl_user."` as `U`, `".$tbl_rel_course_user."` as `CU`
+		LEFT JOIN `".$tbl_wrk_submission."` as `S`
+			ON `S`.`user_id` = `U`.`user_id`
+				AND ( 
+					`S`.`assignment_id` = ".$_REQUEST['assigId']."
+					OR `S`.`assignment_id` IS NULL 
+					)
+				AND `S`.`original_id` IS NULL
+				".$checkVisible."
+		WHERE `U`.`user_id` = `CU`.`user_id`
+			AND `CU`.`code_cours` = '".$_cid."'
+		GROUP BY `U`.`user_id`
+		ORDER BY `U`.`nom` ASC, `U`.`prenom` ASC
+		";
 }
 
 $workPager = new claro_sql_pager($sql,$_REQUEST['offset'], $usersPerPage);
  
 $workList = $workPager->get_result_list();
 
-// get the number of feedback for submissions of each displayed user
+// get the number of feedback for submissions of each displayed user/group
 $parentCondition = "";
 foreach( $workList as $wrk )
 {
@@ -327,7 +327,6 @@ else
 					AND `S2`.`visibility` = 'VISIBLE' ";
 }
 
-
 $sql = "SELECT `S`.`original_id`, count(`S`.`id`) as `nbrFeedback`
 		FROM `".$tbl_wrk_submission."` as `S`
 		LEFT JOIN `".$tbl_wrk_submission."` as `S2`
@@ -344,23 +343,24 @@ foreach( $feedbackCounter as $counter )
 {
 	$feedbackNbrList[$counter['original_id']] = $counter['nbrFeedback'];
 }
-
+// end of 'get the number of feedback for submissions of each displayed user/group'
 /*--------------------------------------------------------------------
                       ADMIN LINKS
   --------------------------------------------------------------------*/
+echo "<p>";
 if( $is_allowedToSubmit && ($assignment['assignment_type'] != 'GROUP' ) )
 {
 	// link to create a new assignment
-	echo "<a href=\"userWork.php?authId=".$_uid."&cmd=rqSubWrk&assigId=".$_REQUEST['assigId']."\">".$langSubmitWork."</a>\n";
+	echo "<a class=\"claroCmd\" href=\"userWork.php?authId=".$_uid."&cmd=rqSubWrk&assigId=".$_REQUEST['assigId']."\">".$langSubmitWork."</a>\n";
 	
 	if( $is_allowedToEditAll ) echo " | ";
 }
 
 if( $is_allowedToEditAll )
 {
-	echo "<a href=\"feedback.php?cmd=rqEditFeedback&assigId=".$assignment['id']."\">".$langEditFeedback."</a>\n";
+	echo "<a class=\"claroCmd\" href=\"feedback.php?cmd=rqEditFeedback&assigId=".$assignment['id']."\">".$langEditFeedback."</a>\n";
 }
-
+echo "</p>";
 $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']);
 /*--------------------------------------------------------------------
                                 LIST

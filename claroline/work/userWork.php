@@ -876,9 +876,9 @@ include($includePath.'/claro_init_header.inc.php');
                     TOOL TITLE
     --------------------------------------------------------------------*/
 
-$pageTitle['mainTitle'  ] = $langAssignment." : ".$authName;
+$pageTitle['mainTitle'  ] = $langAssignment." : ".$assignment['title'];
 
-$pageTitle['subTitle'   ] = $assignment['title'].", soumissions de : <a href=\"../user/userInfo.php?uInfo=".$_REQUEST['authId']."\">".$authName."</a>\n";
+$pageTitle['subTitle'   ] = $langUser." : <a href=\"../user/userInfo.php?uInfo=".$_REQUEST['authId']."\">".$authName."</a>\n";
 claro_disp_tool_title($pageTitle);
 
 /*--------------------------------------------------------------------
@@ -903,7 +903,7 @@ if( $is_allowedToSubmit )
 			}
 			
             echo "<h4>".$txtForFormTitle."</h4>\n"
-				  ."<p><a href=\"".$_SERVER['SCRIPT_NAME']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."\">".$langBack."</a></p>\n"
+				  ."<p><small><a href=\"".$_SERVER['SCRIPT_NAME']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."\">&lt;&lt;&nbsp;".$langBack."</a></small></p>\n"
                   ."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']."&authId=".$_REQUEST['authId']."\" enctype=\"multipart/form-data\">\n"
                   ."<input type=\"hidden\" name=\"cmd\" value=\"".$cmdToSend."\">\n";
 
@@ -1183,7 +1183,7 @@ if( $dispWrkLst )
 	if( isset($userGroupList[$_REQUEST['authId']]) || $_REQUEST['authId'] == $_uid || $is_allowedToEditAll )
     {
 		// link to create a new assignment
-		echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqSubWrk\">".$langSubmitWork."</a>\n";
+		echo "<p><a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&assigId=".$_REQUEST['assigId']."&cmd=rqSubWrk\">".$langSubmitWork."</a></p>\n";
     }
 
 	if( is_array($wrkAndFeedbackLst) && count($wrkAndFeedbackLst) > 0  )
