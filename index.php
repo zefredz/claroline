@@ -26,7 +26,7 @@ require $includePath.'/lib/events.lib.inc.php'; //stats
 
 require $includePath.'/conf/index.conf.inc.php';
 
-if ($_REQUEST['logout']) session_destroy();
+if (isset($_REQUEST['logout'])) session_destroy();
 
 /*
  * DB tables definition
