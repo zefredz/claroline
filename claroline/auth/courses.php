@@ -374,7 +374,7 @@ else
 
 $backUrl .= $inURL; //notify userid of the user we are working with in admin mode and that we come from admin
 
-$backLink = "<p><small><a href=\"".$backUrl."\" title=\"".$backLabel."\" >&lt;&lt; ".$backLabel."</a></small></p>";
+$backLink = "\n\n<p><small><a href=\"".$backUrl."\" title=\"".$backLabel."\" >&lt;&lt; ".$backLabel."</a></small></p>\n\n";
 
 
 
@@ -474,45 +474,43 @@ switch ($displayMode)
 
 		if ($courseList)
 		{
-			echo "<h4>",$langCourseList,"</h4>"
-			
-				."<blockquote>",
-
-				"<table class=\"claroTable\" >";
+			echo "<h4>".$langCourseList."</h4>\n"
+				."\n<blockquote>\n"
+				."<table class=\"claroTable\" >\n";
 
             if ($userSettingMode) //display links to enroll as student and also as teacher (but not for a class)
 	    {
                
 	      if ($_REQUEST['fromAdmin']!="class")
 	      { 	      
-                echo "<thead>\n"
+                echo "\n<thead>\n"
                     ."<tr class=\"headerX\">\n"
-                    ." <th></th>\n"
-                    ." <th>".$langEnrollAsStudent."</th>\n"
-                    ." <th>".$langEnrollAsTeacher."</th>\n"
-                    ."<tr>"
-                    ."</thead>\n";
+                    ."<th>&nbsp;</th>\n"
+                    ."<th>".$langEnrollAsStudent."</th>\n"
+                    ."<th>".$langEnrollAsTeacher."</th>\n"
+                    ."<tr>\n"
+                    ."\n</thead>\n";
 	      }
 	      else
 	      {
-              echo "<thead>\n"
-                  ."<tr class=\"headerX\">"
-                  ." <th></th>\n"
-                  ." <th>".$langEnrollClass."</th>"
-                  ."</tr>"
-                  ."</thead>";
+              echo "\n<thead>\n"
+                  ."<tr class=\"headerX\">\n"
+                  ."<th></th>\n"
+                  ."<th>".$langEnrollClass."</th>\n"
+                  ."</tr>\n"
+                  ."\n</thead>\n";
 	      }
             }
 
-            echo "<tbody>\n";
+            echo "\n<tbody>\n";
 
 			foreach($courseList as $thisCourse)
 			{
 				echo "<tr>\n"
-					." <td>\n".$thisCourse['officialCode']." - ".$thisCourse['intitule']
-					."  <br>\n"
-					."  <small>".$thisCourse['titulaires']."</small>"
-					." </td>";
+					."<td>\n".$thisCourse['officialCode']." - ".$thisCourse['intitule']
+					."\n<br />\n"
+					."<small>".$thisCourse['titulaires']."</small>\n"
+					."</td>\n";
 
                 //enroll link
 
@@ -521,30 +519,31 @@ switch ($displayMode)
                     if ($thisCourse['enrolled'])
                     {
                         echo "<td valign=\"top\" colspan=\"2\" align=\"center\">\n"
-                            ." <small><font color=\"gray\">".$lang_already_enrolled."</font></small>\n";
+                        	."<small>"
+                        	."<span class=\"highlight\">".$lang_already_enrolled."</span>"
+                        	."</small>\n";
                     }
                     else
                     {
                          if ( $_REQUEST['fromAdmin'] != 'class') // class may not be enrolled as teachers
                          { 
-                            echo "<td valign=\"top\" align=\"center\">"
-                                ." <a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&course=".$thisCourse['code'].$inURL."\">\n"
-                                ." <img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" alt=\"".$langEnrollAsStudent."\">\n"
+                            echo "<td valign=\"top\" align=\"center\">\n"
+                                ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&course=".$thisCourse['code'].$inURL."\">"
+                                ."<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" alt=\"".$langEnrollAsStudent."\">"
                                 ."</a>\n"
                                 ."</td>\n"
-                                
-                                ."<td valign=\"top\" align=\"center\">"
-                                ." <a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&asTeacher=true&course=".$thisCourse['code'].$inURL."\">\n"
-                                ." <img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\"  alt=\"".$langEnrollAsTeacher."\">\n"
-                               ."</a>\n"
+                                ."<td valign=\"top\" align=\"center\">\n"
+                                ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&asTeacher=true&course=".$thisCourse['code'].$inURL."\">"
+                                ."<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\"  alt=\"".$langEnrollAsTeacher."\">"
+                               ."</a>"
                                ."</td>\n";
                         }
                         else 
                         {
-                            echo "<td valign=\"top\"  align=\"center\">"
-                                ." <a href=\"".$clarolineRepositoryWeb."admin/admin_class_course_registered.php?cmd=exReg&course=".$thisCourse['code']."&class=",$classinfo['id'].$inURL."\">\n"
-                                ." <img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"".$langEnrollClass."\">\n"
-                                ." </a>"
+                            echo "<td valign=\"top\"  align=\"center\">\n"
+                                ."<a href=\"".$clarolineRepositoryWeb."admin/admin_class_course_registered.php?cmd=exReg&course=".$thisCourse['code']."&class=",$classinfo['id'].$inURL."\">"
+                                ."<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"".$langEnrollClass."\">"
+                                ."</a>\n"
                                 ."</td>\n";
                         }
                     }
@@ -555,46 +554,44 @@ switch ($displayMode)
 
     				if ($thisCourse['enrolled'])
     				{
-    					echo " <small>"
-                             ."<font color=\"gray\">"
-                             .$lang_already_enrolled
-                             ."</font>"
+    					echo "<small>"
+                             ."<span class=\"highlight\">".$lang_already_enrolled."</span>"
                              ."</small>\n";
     				}
     				else
     				{
-    					echo " <a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&course=".$thisCourse['code'].$inURL."\">\n"
-    						 ."<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"".$lang_enroll."\">\n"
-    						 ."</a>\n"
+    					echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exReg&course=".$thisCourse['code'].$inURL."\">"
+    						 ."<img src=\"".$clarolineRepositoryWeb."img/subscribe.gif\" border=\"0\" alt=\"".$lang_enroll."\">"
+    						 ."</a>"
                             ."</td>\n";
     				}
 
                }
 			   
 
-			"</tr>";
+			"</tr>\n";
 
 			} // end foreach courseList
 
-            echo    "</tbody>\n";
-			echo	"</table>",
+            echo    "\n</tbody>\n";
+			echo	"\n</table>\n",
 
-					"</blockquote>";
+					"</blockquote>\n";
 		}
 
-		echo	 "<blockquote>\n"
+		echo	 "\n<blockquote>\n"
 				."<p>"
                 ."<label for=\"keyword\">",$lang_or_search_from_keyword,"</label>"
                 ." : </p>\n"
-				."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">"
-				."<input type=\"hidden\" name=\"cmd\" value=\"rqReg\">"
-				."<input type=\"hidden\" name=\"fromAdmin\" value=\"".$fromAdmin."\">"
-				."<input type=\"hidden\" name=\"cmd\" value=\"rqReg\">"
-				."<input type=\"text\" name=\"keyword\" id=\"keyword\">"
-                ."<input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\">"
-				."&nbsp;<input type=\"submit\" value=\"".$lang_search."\">"
-				."</form>"
-				."</blockquote>";
+				."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">\n"
+				."<input type=\"hidden\" name=\"cmd\" value=\"rqReg\" />\n"
+				."<input type=\"hidden\" name=\"fromAdmin\" value=\"".$fromAdmin."\" />\n"
+				."<input type=\"hidden\" name=\"cmd\" value=\"rqReg\" />\n"
+				."<input type=\"text\" name=\"keyword\" id=\"keyword\" />\n"
+                ."<input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\" />\n"
+				."&nbsp;<input type=\"submit\" value=\"".$lang_search."\" />\n"
+				."</form>\n"
+				."</blockquote>\n";
 	break;
 
     case DISPLAY_MESSAGE_SCREEN :
@@ -650,7 +647,7 @@ switch ($displayMode)
 				}
                 else
                 {
-					echo	"<small><font color=\"gray\">".$langCourseManager."</font></small>\n";
+					echo	"<small><span class=\"highlight\">".$langCourseManager."</span></small>\n";
                 }
 
 				echo	 "</td>\n"
