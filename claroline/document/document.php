@@ -652,7 +652,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
             while( $row = mysql_fetch_array($result, MYSQL_ASSOC) ) $oldComment = $row['comment'];
 
             $dialogBox .= "<p>\n<label for=\"newComment\">"
-                          .$langAddComment." ".htmlspecialchars($fileName)."</label>\n"
+                          .$langAddModifyComment." ".htmlspecialchars($fileName)."</label>\n"
                           ."<br><textarea rows=2 cols=50 name=\"newComment\" id=\"newComment\">"
                           .$oldComment
                           ."</textarea>\n"
