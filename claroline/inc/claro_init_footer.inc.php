@@ -3,7 +3,7 @@
 if (!isset($hide_body) || $hide_body == false)
 {
 	echo "\n</div>\n"
-			."<!----------------------   End of Claroline Body   ---------------------->\n\n\n";
+			."<!-- --------------------   End of Claroline Body   -------------------- -->\n\n\n";
 }
 
 //echo "<pre>".var_export($_courseToolList,1)."</pre>";
