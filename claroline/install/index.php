@@ -86,7 +86,10 @@ $panelTitle[DISP_RUN_INSTALL_COMPLETE]='Claroline Installation succeeds';
 ##### STEP 0 INITIALISE FORM VARIABLES IF FIRST VISIT ##################
 //$rootSys="'.realpath($pathForm).'";
 
-$topRigthPath = topRigthPath(); // to known right (read and write)
+// TopRightPath() return value isn't use 
+// The function cause error with open_basedir used on php configuration
+//
+// $topRigthPath = topRigthPath(); // to known right (read and write)
 
 if($_REQUEST['cmdLicence'])
 {
