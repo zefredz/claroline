@@ -320,10 +320,10 @@ if ($is_allowedToManage)
     elseif ($empty)
     {
         $sql = "DELETE FROM `".$tbl_GroupsUsers."`";
-        $result  = mysql_query($sql);
+        $result  = claro_sql_query($sql);
 
-        $sql = "UPDATE `".$tbl_Groups."` SET tutor='0'";
-        $result2 = mysql_query($sql);
+        $sql = 'UPDATE `'.$tbl_Groups.'` SET tutor="0"';
+        $result2 = claro_sql_query($sql);
 
         $message = $langGroupsEmptied;
     }
@@ -344,16 +344,15 @@ if ($is_allowedToManage)
 
 // DETERMINE IF UID IS TUTOR FOR THIS COURSE
 
-$sql      = "SELECT tutor FROM `".$tbl_CoursUsers."`
-             WHERE `user_id`='".$_uid."'
-             AND `code_cours`='".$currentCourseId."'";
+$sql      = 'SELECT tutor FROM `'.$tbl_CoursUsers.'`
+             WHERE `user_id`="'.$_uid.'"
+             AND `code_cours`="'.$currentCourseId.'"';
 
-$myTutor = mysql_fetch_array( mysql_query($sql) );
+$myTutor = mysql_fetch_array( claro_sql_query($sql) );
 if ($myTutor['tutor'] == 1)	$tutorCheck = true ;
 
 
 ////**************** OUTPUT ************************
-
 /* OUTPUT PANEL IS Divide in  3 Parts
 	1° Message box
 	2° Admin panel
