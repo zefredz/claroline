@@ -1,32 +1,13 @@
 <?php 
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.0 $Revision$                            |
+      | CLAROLINE version 1.5.*			                             |
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   $Id$         |
+      |   $Id$             |
       +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      |                                                                      |
-      |   This program is distributed in the hope that it will be useful,    |
-      |   but WITHOUT ANY WARRANTY; without even the implied warranty of     |
-      |   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      |
-      |   GNU General Public License for more details.                       |
-      |                                                                      |
-      |   You should have received a copy of the GNU General Public License  |
-      |   along with this program; if not, write to the Free Software        |
-      |   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA          |
-      |   02111-1307, USA. The GNU GPL license is also available through     |
-      |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
-      +----------------------------------------------------------------------+
-      | Authors:                                                           |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Sebastien Piraux  <piraux_seb@hotmail.com>
+      |  Authors : see CREDITS.txt					     |
       +----------------------------------------------------------------------+
  */
  
@@ -340,7 +321,8 @@ if($is_allowedToTrack && $is_trackingEnabled)
             {                 
                 echo "<tr>"; 
                 echo "<td><a href=\"toolaccess_details.php?tool=".$results[$j][0]."\">".$results[$j][0]."</a></td>";
-                echo "<td align=\"right\">".$results[$j][1]."</td>";
+                //echo "<td align=\"right\">".$results[$j][1]."</td>";
+		echo "<td align=\"right\"><a href=\"user_access_details.php?cmd=tool&data=".$results[$j][0]."\">".$results[$j][1]."</a></td>";
                 echo "<td align=\"right\">".$results[$j][2]."</td>";
                 echo"</tr>";
             }
@@ -479,7 +461,8 @@ if($is_allowedToTrack && $is_trackingEnabled)
             { 
                     echo "<tr>"; 
                     echo "<td>".$results[$j][0]."</td>";
-                    echo "<td align=\"right\">".$results[$j][1]."</td>";
+                    //echo "<td align=\"right\">".$results[$j][1]."</td>";
+	            echo "<td align=\"right\"><a href=\"user_access_details.php?cmd=doc&data=".$results[$j][0]."\">".$results[$j][1]."</a></td>";
                     echo "<td align=\"right\">".$results[$j][2]."</td>";
                     echo"</tr>";
             }
