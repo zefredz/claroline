@@ -115,7 +115,7 @@ function backupDatabase($link , $db_name , $structure , $donnees , $format="SQL"
 }
 
 
-// function copyDirTo($origDirPath, $destination) is in fileManagerLib.inc.php
+// function claro_copy_file($origDirPath, $destination) is in fileManagerLib.inc.php
 
 function copydir($origine,$destination,$verbose=false)
 {
@@ -346,7 +346,7 @@ if ($verboseBackup)
 		echo "<hr><u>",$langArchiveName,"</u> : "
 			,"<strong>",basename($systemFileNameOfArchive),"</strong><br><u>",$langArchiveLocation,"</u> : "
 			,"<strong>",realpath($systemFileNameOfArchive),"</strong><br><u>",$langSizeOf," ",realpath("../../".$exportedCourseId."/"),"</u> : "
-			,"<strong>",DirSize("../../".$exportedCourseId."/"),"</strong> bytes <br>";
+			,"<strong>",claro_get_file_size("../../".$exportedCourseId."/"),"</strong> bytes <br>";
 		if (  function_exists(diskfreespace))
 			echo "<u>".$langDisk_free_space."</u> : <strong>".diskfreespace("/")."</strong> bytes";
 		echo "<hr>" ;
