@@ -181,9 +181,8 @@ $langPeriodToDisplay = "Période";
 $langDetailView = "Niveau de détail";
 
 /* for interbredcrumps */
-$langBredCrumpGroups = "Groupes";
-$langBredCrumpGroupSpace = "Espace de groupe";
 $langBredCrumpUsers = "Utilisateurs";
+$langBredCrumpUser = "Utilisateur";
 
 /* admin stats */
 $langAdminToolName = "Statistiques d'administration";
