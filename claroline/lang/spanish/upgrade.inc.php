@@ -31,7 +31,7 @@ $langAchieved = "Actualizar el proceso de archivado";
 
 /* Step 0 */
 
-$langStep0 = "Confirmar el Respaldo";
+$langUpgradeStep0 = "Confirmar el Respaldo";
 $langMakeABackupBefore = "<p>La <em>Herramienta de Actualización de Claroline</em> respaldará los datos de la versión anterior de la instalación de Claroline
 y los hará compatibles con la nueva versión de Claroline. Esta actualización se realizará en 3 pasos:</p>\n
 <ol>\n
@@ -51,14 +51,14 @@ $langConfirm = "Echo";
 
 /* Step 1 */
 
-$langStep1 = "Paso 1 de 3: Configuración de la plataforma principal";
+$langUpgradeStep1 = "Paso 1 de 3: Configuración de la plataforma principal";
 $langIntroStep1 = "<p>La <em>herramienta de actualización de Claroline</em> está a punto de actualizar la configuración principal. 
                 Esta configuración será guardada dentro de claroline/include/config.inc.php dentro de la versión anterior de su plataforma.</p>";
 $langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Actualizar la configuración de la plataforma principal</button></p>";
 
 /* Step 2 */
 
-$langStep2 = "Paso 2 de 3: Actualización de las tablas de la plataforma principal.";
+$langUpgradeStep2 = "Paso 2 de 3: Actualización de las tablas de la plataforma principal.";
 $langIntroStep2 = "<p>Ahora, la <em>herramienta de actualización de Claroline</em> está a punto de actualizar los datos guardados dentro de las tablas principales de Claroline  
                     (usuarios, categorías de cursos, lista de herramienta, ...) y las hará compatibles con la nueva versión de Claroline.</p>
                    <p class=\"help\">Nota: Dependiendo de la velocidad del servidor esta tarea podría tomar algún tiempo  
@@ -68,7 +68,7 @@ $langNextStep = "<p><button onclick=\"document.location='%s';\">Siguiente ></but
 
 /* Step 3 */
 
-$langStep3 = "Paso 3 de 3: Actualización de los cursos";
+$langUpgradeStep3 = "Paso 3 de 3: Actualización de los cursos";
 $langIntroStep3 = "<p>Ahora, la <em>herramienta de actualización de Claroline </em> está a punto de actualización los datos de los cursos(directorios y tablas de la base de dato) uno por uno.
                    <p class=\"help\">Nota: Dependiendo de la velocidad del servidor esta tarea podría tomar algún tiempo
                     en ser ejecutada.</p>";

@@ -85,7 +85,7 @@ if ($_REQUEST['cmd']=="run")
 <td valign="top"align="left">
 <div id="menu">
 <?php
- echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>","upgrade",$langStep2);
+ echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>","upgrade",$langUpgradeStep2);
 ?>
 </div>
 </td>
@@ -101,14 +101,14 @@ switch ($display)
 {
     case DISPLAY_WELCOME_PANEL:
 
-        echo sprintf("<h2>%s</h2>",$langStep2);
+        echo sprintf("<h2>%s</h2>",$langUpgradeStep2);
         echo $langIntroStep2;
         echo "<center>" . sprintf($langLaunchStep2, $_SERVER['PHP_SELF']."?cmd=run") . "</center>";  
         break;
         
     case DISPLAY_RESULT_PANEL :
     
-        echo sprintf("<h2>%s</h2>",$langStep2);
+        echo sprintf("<h2>%s</h2>",$langUpgradeStep2);
         
         echo "<h3>Upgrade main Claroline database <code>".$mainDbName."</code></h3>\n";
 

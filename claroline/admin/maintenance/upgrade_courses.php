@@ -99,7 +99,7 @@ if ( $display==DISPLAY_RESULT_PANEL && ($nbCoursesUpgraded['0'] + $nbCoursesErro
 <!--
 <div id="menu">
 <?php
- echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>", "upgrade", $langStep3);
+ echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>", "upgrade", $langUpgradeStep3);
 ?>
 </div>
 -->
@@ -112,7 +112,7 @@ switch ($display)
 {
 	case DISPLAY_WELCOME_PANEL :
         
-                echo sprintf ("<h2>%s</h2>",$langStep3);
+                echo sprintf ("<h2>%s</h2>",$langUpgradeStep3);
                 echo $langIntroStep3;
                 echo sprintf($langNbCoursesUpgraded, $nbCoursesUpgraded['nb'],$nbCourses['nb']);
 		echo "<center>" . sprintf ($langLaunchStep3, $_SERVER['PHP_SELF']."?cmd=run") . "</center>";
@@ -120,7 +120,7 @@ switch ($display)
                 
 	case DISPLAY_RESULT_PANEL : 
 
-                echo sprintf ("<h2>%s</h2>",$langStep3);
+                echo sprintf ("<h2>%s</h2>",$langUpgradeStep3);
                 
                 echo $langIntroStep3Run;
 

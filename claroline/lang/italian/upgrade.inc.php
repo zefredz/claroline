@@ -23,7 +23,7 @@ $langAchieved = "Processo d'aggiornamento terminato";
 
 /* Step 0 */
 
-$langStep0 = "Conferma il backup";
+$langUpgradeStep0 = "Conferma il backup";
 $langMakeABackupBefore = "<p>Lo <em>strumento per l'aggiornamento di Claroline</em> recupererà i dati dalla tua precedente installazione
 e li renderà compatibili con la nuova versione di Claroline. Questo aggiornamento viene fatto in tre passaggi:</p>\n
 <ol>\n
@@ -43,14 +43,14 @@ $langConfirm = "fatto";
 
 /* Step 1 */
 
-$langStep1 = "Passaggio 1 of 3: configurazioni principali";
+$langUpgradeStep1 = "Passaggio 1 of 3: configurazioni principali";
 $langIntroStep1 = "<p>Lo <em>strumento per l'aggiornamento di Claroline</em> è pronto per l'aggiornamento delle configurazioni principali.
                 Queste informazioni erano scritte all'interno del file claroline/include/config.inc.php nella tua precedente installazione.</p>";
 $langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Procedi con l'aggiornamento dei file di configurazione</button></p>";
 
 /* Step 2 */
 
-$langStep2 = "Passaggio 2 di 3: aggiornamento delle tabelle";
+$langUpgradeStep2 = "Passaggio 2 di 3: aggiornamento delle tabelle";
 $langIntroStep2 = "<p>Ora lo <em>strumento per l'aggiornamento di Claroline</em> aggiornerà i dati contenuti nelle tabelle principali di Claroline
                     (utenti, categorie dei corsi, lista degli strumenti, ...) e li renderà compatibili con la nuova versione.</p>
                    <p class=\"help\">Attenzione: a seconda della velocità del tuo server o della quantità di dati contenuti sulla piattaforma, questa
@@ -60,7 +60,7 @@ $langNextStep = "<p><button onclick=\"document.location='%s';\">Prossimo ></butt
 
 /* Step 3 */
 
-$langStep3 = "Passaggio 3 di 3: aggiornamento dei corsi";
+$langUpgradeStep3 = "Passaggio 3 di 3: aggiornamento dei corsi";
 $langIntroStep3 = "<p>Ora lo <em>strumento per l'aggiornamento di Claroline</em> aggiornerà i dati dei corsi (directory e tabelle del database) uno per uno.
                    <p class=\"help\">Attenzione: a seconda della velocità del tuo server o della quantità di dati contenuti sulla piattaforma, questa
                    operazione potrebbe durare un po' di tempo.</p>";

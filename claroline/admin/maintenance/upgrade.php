@@ -180,26 +180,26 @@ switch ($display)
                 echo $langTitleUpgrade;
 		echo "<h2>$langDone:</h2>";
 		echo "<ul>";	
-                echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langStep0);
-		echo sprintf ("<li>%s (<a href=\"upgrade_conf.php\">start again</a>)</li>",$langStep1);
+                echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langUpgradeStep0);
+		echo sprintf ("<li>%s (<a href=\"upgrade_conf.php\">start again</a>)</li>",$langUpgradeStep1);
 		echo "</ul>";
 		echo "<h2>$langTodo:</h2>";
 		echo "<ul>";
-		echo sprintf("<li><a href=\"upgrade_main_db.php\">%s</a></li>",$langStep2);
-		echo "<li>$langStep3</li>";
+		echo sprintf("<li><a href=\"upgrade_main_db.php\">%s</a></li>",$langUpgradeStep2);
+		echo "<li>$langUpgradeStep3</li>";
 		echo "</ul>";
 		break;
 	case DISPVAL_upgrade_courses_needed :
                 echo $langTitleUpgrade;
 		echo "<h2>$langDone:</h2>";
 		echo "<ul>";
-                echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langStep0);
-		echo sprintf ("<li>%s (<a href=\"upgrade_conf.php\">start again</a>)</li>",$langStep1);
-                echo sprintf ("<li>%s (<a href=\"upgrade_main_db.php\">start again</a>)</li>",$langStep2);
+                echo sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langUpgradeStep0);
+		echo sprintf ("<li>%s (<a href=\"upgrade_conf.php\">start again</a>)</li>",$langUpgradeStep1);
+                echo sprintf ("<li>%s (<a href=\"upgrade_main_db.php\">start again</a>)</li>",$langUpgradeStep2);
 		echo "</ul>";
 		echo "<h2>$langTodo:</h2>";
 		echo "<ul>";
-		echo sprintf("<li><a href=\"upgrade_courses.php\">%s</a> - %s course(s) to upgrade</li>",$langStep3,$nbCourses['nb']);
+		echo sprintf("<li><a href=\"upgrade_courses.php\">%s</a> - %s course(s) to upgrade</li>",$langUpgradeStep3,$nbCourses['nb']);
 		echo "</ul>";
 		break;
 	case DISPVAL_upgrade_done :
