@@ -107,6 +107,8 @@ $langConfiguration = "Configuration";
 $langTraduction = "Traduction tool";
 $langPlatform = "Platform";
 $langYouCanUsefields = "You can use (*) in the fields";
+$langManageCourseCategories = "Manage course categories";
+$langViewPlatFormStatistics = "View plateform statistics";
 
 //user and course advanced search pages
 
