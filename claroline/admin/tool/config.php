@@ -23,7 +23,7 @@
 // The system as more change than previous evolution
 // Tool are released with a conf definition file
 // This file define for each property a name, a place but also
-// some control for define accepted con?tent.
+// some control for define accepted content.
 // and finally some comment, explanation or info
 
 // this version do not include 
