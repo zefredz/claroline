@@ -168,65 +168,49 @@ if($is_allowedToEdit)
 						
 			$dialogBox = $langModifDone;
 		}
-		
-		
-		$cidReset = true;
-		$cidReq = $current_cid;
-		include($includePath."/claro_init_local.inc.php");
+	
+	
+	$cidReset = true;
+	$cidReq = $current_cid;
+	include($includePath."/claro_init_local.inc.php");
 				
-		//display dialogbox with error and/or action(s) done to user
-		          
-                claro_disp_message_box($dialogBox);
-
-echo "
-		<br>
-		<a href=\"".$_SERVER['PHP_SELF']."?".$toAddtoURL."\">".$langToCourseSettings."</a>
-		|
-		<a href=\"".$coursesRepositoryWeb.$currentCourseRepository."/index.php?\">".$langHome."</a>";
-
-
-		if($is_platformAdmin && isset($_REQUEST['cidToEdit']))
-		{
-		echo " |
-		<a href=\"../admin/index.php\">".$langBackToAdmin."</a>";
-		}
-
-echo "<br>";
+	//display dialogbox with error and/or action(s) done to user
+			
+	claro_disp_message_box($dialogBox);
 
 /****************************
            FORM
   ***************************/
 
 	}
-	else
-	{
 
-        $sqlCourseExtention = "SELECT * FROM `".$tbl_course."` WHERE code = '".$current_cid."'";
 
-        $resultCourseExtention 			= claro_sql_query($sqlCourseExtention);
-        $thecourse 	= mysql_fetch_array($resultCourseExtention);
+$sqlCourseExtention = "SELECT * FROM `".$tbl_course."` WHERE code = '".$current_cid."'";
 
-        $currentCourseDiskQuota 		= $currentCourseExtentionData["diskQuota"     ];
-        $currentCourseLastVisit 		= $currentCourseExtentionData["lastVisit"     ];
-        $currentCourseLastEdit			= $currentCourseExtentionData["lastEdit"      ];
-        $currentCourseCreationDate 		= $currentCourseExtentionData["creationDate"  ];
-        $currentCourseExpirationDate	= $currentCourseExtentionData["expirationDate"];
+$resultCourseExtention 			= claro_sql_query($sqlCourseExtention);
+$thecourse 	= mysql_fetch_array($resultCourseExtention);
 
-        $int               = $thecourse['intitule'           ];
-        $facu              = $thecourse['faculte'   ];
-        $currentCourseCode = $thecourse['fake_code'   ];
-        $titulary          = $thecourse['titulaires'        ];
-        $languageCourse    = $thecourse['languageCourse'       ];
-        $extLinkName	   = $thecourse['departmentUrlName'];
-        $extLinkUrl        = $thecourse['departmentUrl' ];
-        $email			   = $thecourse['email'];
-        $directory         = $thecourse['directory'];
+$currentCourseDiskQuota 		= $currentCourseExtentionData["diskQuota"     ];
+$currentCourseLastVisit 		= $currentCourseExtentionData["lastVisit"     ];
+$currentCourseLastEdit			= $currentCourseExtentionData["lastEdit"      ];
+$currentCourseCreationDate 		= $currentCourseExtentionData["creationDate"  ];
+$currentCourseExpirationDate	= $currentCourseExtentionData["expirationDate"];
 
-        $thecourse['visibility'  ]         = (bool) ($thecourse['visible'] == 2 || $thecourse['visible'] == 3);
-        $thecourse['registrationAllowed']  = (bool) ($thecourse['visible'] == 1 || $thecourse['visible'] == 2);
+$int               = $thecourse['intitule'           ];
+$facu              = $thecourse['faculte'   ];
+$currentCourseCode = $thecourse['fake_code'   ];
+$titulary          = $thecourse['titulaires'        ];
+$languageCourse    = $thecourse['languageCourse'       ];
+$extLinkName	   = $thecourse['departmentUrlName'];
+$extLinkUrl        = $thecourse['departmentUrl' ];
+$email			   = $thecourse['email'];
+$directory         = $thecourse['directory'];
 
-        $visibleChecked             [$thecourse['visibility'         ]] = "checked";
-        $registrationAllowedChecked [$thecourse['registrationAllowed']] = "checked";
+$thecourse['visibility'  ]         = (bool) ($thecourse['visible'] == 2 || $thecourse['visible'] == 3);
+$thecourse['registrationAllowed']  = (bool) ($thecourse['visible'] == 1 || $thecourse['visible'] == 2);
+
+$visibleChecked             [$thecourse['visibility'         ]] = "checked";
+$registrationAllowedChecked [$thecourse['registrationAllowed']] = "checked";
 
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
@@ -239,7 +223,7 @@ echo "<br>";
 <?php
 		if (isset($cidToEdit) && ($is_platformAdmin))
         {
-            echo "<a  href=\"".$coursesRepositoryWeb.$directory."\"> ".$langViewCourse." </a>";
+            echo "<a  class=\"claroCmd\" href=\"".$coursesRepositoryWeb.$directory."\"> ".$langViewCourse." </a>";
         }
 ?>
 </td>
@@ -476,15 +460,22 @@ if (isset($cidToEdit))
 }
 ?>
 
-<a class="claroButton" href="delete_course.php<?php echo $toAdd ?>">
+<a class="claroCmd" href="delete_course.php<?php echo $toAdd ?>">
 <img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif">
 <?php echo $langDelCourse; ?>
-</a>
-
-
+</a> | 
 <?php
 
-//claro_disp_button("delete_course.php".$toAdd, $langDelCourse);
+//Display tool links
+
+echo "<a class=\"claroCmd\" href=\"".$coursesRepositoryWeb.$currentCourseRepository."/index.php?\">".$langHome."</a>";
+
+
+if($is_platformAdmin && isset($_REQUEST['cidToEdit']))
+{
+echo " |
+<a class=\"claroCmd\" href=\"../admin/index.php\">".$langBackToAdmin."</a>";
+}
 
 if (isset($cfrom) && ($is_platformAdmin))
       {
@@ -492,11 +483,10 @@ if (isset($cfrom) && ($is_platformAdmin))
         {
            //claro_disp_button("../admin/admincourses".$toAdd, $langBackToList);
            ?>
-           <a class="claroButton" href="../admin/admincourses.php<?php echo $toAdd ?>"><?php echo $langBackToList; ?></a>
+           | <a class="claroCmd" href="../admin/admincourses.php<?php echo $toAdd ?>"><?php echo $langBackToList; ?></a>
            <?php
         }
       }
-
 }
 ?>
 
@@ -506,7 +496,7 @@ if (isset($cfrom) && ($is_platformAdmin))
 </form>
 
 <?php
-	}     // else
+
 }   // if uid==prof_id
 ####################STUDENT VIEW ##################################
 else
