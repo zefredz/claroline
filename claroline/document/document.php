@@ -158,11 +158,22 @@ stripSubmitValue($_REQUEST);
 
 // table names for learning path (needed to check integrity)
 
-$TABLELEARNPATH            = $_course['dbNameGlu']."lp_learnPath";
-$TABLELEARNPATHMODULE      = $_course['dbNameGlu']."lp_rel_learnPath_module";
-$TABLEUSERMODULEPROGRESS   = $_course['dbNameGlu']."lp_user_module_progress";
-$TABLEMODULE               = $_course['dbNameGlu']."lp_module";
-$TABLEASSET                = $_course['dbNameGlu']."lp_asset";
+/*
+ * DB tables definition
+ */
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
+$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
+$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
+
+$TABLELEARNPATH            = $tbl_lp_learnPath;
+$TABLELEARNPATHMODULE      = $tbl_lp_rel_learnPath_module;
+$TABLEUSERMODULEPROGRESS   = $tbl_lp_user_module_progress;
+$TABLEMODULE               = $tbl_lp_module;
+$TABLEASSET                = $tbl_lp_asset;
 
 
                   /* > > > > > > MAIN SECTION  < < < < < < <*/
