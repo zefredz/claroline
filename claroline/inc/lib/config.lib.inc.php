@@ -754,7 +754,7 @@ function parse_config_file($conf_file)
                         $vars[$possibleVar] .= $val;
                     }
                 }
-                $propList[$possibleVar] =  $$possibleVar;
+                $propList[$possibleVar] =  $vars[$possibleVar];
             }
             elseif (($tokens[$i][0] == T_CONSTANT_ENCAPSED_STRING ))
             {
