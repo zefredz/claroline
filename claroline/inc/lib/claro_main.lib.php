@@ -424,7 +424,8 @@ function claro_disp_tool_title($titleElement, $helpUrl = false)
 
         echo '<img src="'.$clarolineRepositoryWeb.'/img/help.gif" '
                 .' alt ="'.$langHelp.'"'
-                .' align="right">'
+                .' align="right"'
+                .' hspace="30">'
             .'</a>';
     }
 
