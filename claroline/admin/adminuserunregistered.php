@@ -78,9 +78,8 @@ if($dialogBox)
 
 // display TOOL links :
 
-
-claro_disp_button("index.php",$langBackToAdmin);
-claro_disp_button("adminusercourses.php?uidToEdit=".$user_id,$langBackToCourseList);
+echo "<a class=\"claroCmd\" href=\"index.php\">".$langBackToAdmin."</a> | ";
+echo "<a class=\"claroCmd\" href=\"adminusercourses.php?uidToEdit=".$user_id."\">".$langBackToCourseList."</a>";
 
 // display footer
 
