@@ -887,7 +887,7 @@ if( $dispWrkLst )
           ."<tr class=\"headerX\">\n"
           ."<th colspan=\"".($maxDeep+1)."\">".$langWrkTitle."</th>\n"
           ."<th>".$langWrkAuthors."</th>\n"
-          ."<th>".$langLastEditDate."</th>\n";
+          ."<th>".$langLastSubmissionDate."</th>\n";
           
     if ( $is_allowedToEditAll ) 
     {
