@@ -297,7 +297,7 @@ if($is_allowedToEdit) // check teacher status
 	        {
 				if (!claro_mail_user($myrow['user_id'], $emailBody, $emailSubject, $_user['mail'], $courseSender))
 				{
-					$messageFailed.= claro_get_last_failure() . "<br />";
+					$messageFailed.= claro_failure::get_last_failure() . "<br />";
 					$countUnvalid++;
 				}
 	        }
