@@ -434,7 +434,7 @@ if( isset($_REQUEST['submitWrk']) )
             
             if( !$groupFound ) 
             {
-                  $dialogBox .= "lang You are not a member of requested group";
+                  $dialogBox .= $langNotGroupMember;
                   $formCorrectlySent = false;
             }
       }
@@ -1545,7 +1545,10 @@ if( $dispWrkLst && $is_allowedToView )
       // link to create a new assignment
       echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqSubWrk&assigId=".$_REQUEST['assigId']."\">".$langSubmitWork."</a>\n";
     }
-
+	if( $is_allowedToEditAll )
+	{
+		echo " | <a href=\"feedback.php?cmd=rqEditFeedback&assigId=".$assignment['id']."\">".$langEditFeedback."</a>\n";
+	}
     /*--------------------------------------------------------------------
                                   LIST
       --------------------------------------------------------------------*/
