@@ -103,7 +103,7 @@ if($usedInSeveralExercises)
 
 	<input type="hidden" name="answerType" value="<?php echo $answerType; ?>">
 
-    <table border="0" cellpadding="3" align="center" width="400" bgcolor="#FFCC00">
+    <table border="0" cellpadding="3" align="center" width="400">
     <tr>
       <td><?php echo $langUsedInSeveralExercises.' :'; ?></td>
     </tr>
