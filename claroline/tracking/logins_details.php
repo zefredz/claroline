@@ -63,7 +63,7 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
         $res[2] == '' ? $res2 = $langNoEmail : $res2 = $res[2];
             
         
-        echo $informationsAbout.' : <br>'
+        echo $langUser.' : <br />'
             .'<ul>'."\n"
             .'<li>'.$langFirstName.' : '.$res[1].'</li>'."\n"
             .'<li>'.$langLastName.' : '.$res[0].'</li>'."\n"
