@@ -208,8 +208,8 @@ class claro_sql_pager
 
         if ($previous !== false)
         {
-            echo '<a href="'.$url.$start.'">&lt;&lt;start</a>&nbsp;&nbsp;'
-                .'<a href="'.$url.$previous.'">&lt; previous</a>';
+            echo '<b><a href="'.$url.$start.'">&lt;&lt;</a>&nbsp;&nbsp;</b>'
+                .'<b><a href="'.$url.$previous.'">&lt; </a></b>';
         }
 
         echo '</td>'
@@ -236,8 +236,8 @@ class claro_sql_pager
 
         if ($next !== false)
         {
-            echo '<a href="'.$url.$next.'">next &gt;</a>&nbsp;&nbsp;'
-                .'<a href="'.$url.$end.'">end &gt;&gt;</a>';
+            echo '<b><a href="'.$url.$next.'"> &gt;</a>&nbsp;&nbsp ;</b>'
+                .'<b><a href="'.$url.$end.'"> &gt;&gt;</a></b>';
         }
 
         echo '</td>'
