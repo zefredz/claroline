@@ -33,7 +33,6 @@
  * Script Structure:
  * ---
  *
- *
  *		commands
  *			move up and down announcement
  *			delete announcement
@@ -47,6 +46,7 @@
  *          form
  *			announcement list
  *			form to fill new or modified announcement
+ *
  */
 
 
@@ -54,10 +54,11 @@
    CLAROLINE MAIN SETTINGS
   ==========================*/
 
-$langFile = "announcements";
 $tlabelReq = "CLANN___";
+
 require '../inc/claro_init_global.inc.php';
-if ( ! $_cid) claro_disp_select_course();
+
+if ( !$_cid ) claro_disp_select_course();
 
 include($includePath.'/conf/announcement.conf.inc.php');
 include($includePath.'/lib/events.lib.inc.php');
@@ -69,15 +70,14 @@ claro_set_display_mode_available(true);
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
 $courseId         = $_course['sysCode'];
-$userLastLogin    = $_user ['lastLogin'];
-
+$userLastLogin    = $_user['lastLogin'];
 
 /*
  * DB tables definition
  */
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_announcement = $tbl_cdb_names['announcement'           ];
+$tbl_announcement = $tbl_cdb_names['announcement'];
 
 // DEFAULT DISPLAY
 
@@ -96,12 +96,12 @@ if($is_allowedToEdit) // check teacher status
                              MOVE UP AND MOVE DOWN COMMANDS
      -------------------------------------------------------------------------*/
 
-    if ( $cmd == 'exMvDown' )
+    if ( $_REQUEST['cmd'] == 'exMvDown' )
 	{
 		moveEntry($_REQUEST['id'],'DOWN');
 	}
 
-	if ( $cmd == 'exMvUp' )
+	if ( $_REQUEST['cmd'] == 'exMvUp' )
 	{
 		moveEntry($_REQUEST['id'],'UP');
 	}
@@ -110,7 +110,7 @@ if($is_allowedToEdit) // check teacher status
                           DELETE ANNOUNCEMENT COMMAND
     --------------------------------------------------------------------------*/
 
-    if ($cmd == 'exDelete')
+    if ($_REQUEST['cmd'] == 'exDelete')
     {
         $sql = "DELETE FROM  `".$tbl_announcement."`
                 WHERE id=\"".$_REQUEST['id']."\"";
@@ -135,7 +135,7 @@ if($is_allowedToEdit) // check teacher status
                         DELETE ALL ANNOUNCEMENTS COMMAND
   ----------------------------------------------------------------------------*/
 
-    if ($cmd == 'exDeleteAll')
+    if ($_REQUEST['cmd'] == 'exDeleteAll')
     {
         $sql = "DELETE FROM  `".$tbl_announcement."`";
 
@@ -162,7 +162,7 @@ if($is_allowedToEdit) // check teacher status
     --------------------------------------------------------------------------*/
 
 
-    if ( $cmd == 'rqEdit' )
+    if ( $_REQUEST['cmd'] == 'rqEdit' )
     {
         // RETRIEVE THE CONTENT OF THE ANNOUNCEMENT TO MODIFY
 
@@ -182,7 +182,7 @@ if($is_allowedToEdit) // check teacher status
       ------------------------------------------------------------------------*/
 
 
-    if ($cmd == 'rqCreate')
+    if ($_REQUEST['cmd'] == 'rqCreate')
     {
     	$displayForm = true;
         $nextCommand = 'exCreate';
@@ -193,11 +193,11 @@ if($is_allowedToEdit) // check teacher status
                           SUBMIT ANNOUNCEMENT COMMAND
 	 -------------------------------------------------------------------------*/
 
-	if ($cmd == 'exCreate' || $cmd == 'exEdit')
+	if ($_REQUEST['cmd'] == 'exCreate' || $_REQUEST['cmd'] == 'exEdit')
 	{
 		/* MODIFY ANNOUNCEMENT */
 
-		if($cmd == 'exEdit') // there is an Id => the announcement already exists => udpate mode
+		if($_REQUEST['cmd'] == 'exEdit') // there is an Id => the announcement already exists => udpate mode
 		{
             $sql = "UPDATE  `".$tbl_announcement."`
 				    SET contenu= \"".trim($_REQUEST['newContent'])."\",
@@ -221,7 +221,7 @@ if($is_allowedToEdit) // check teacher status
 
 		/* CREATE NEW ANNOUNCEMENT */
 
-		elseif ($cmd == 'exCreate')
+		elseif ($_REQUEST['cmd'] == 'exCreate')
 		{
 			// DETERMINE THE ORDER OF THE NEW ANNOUNCEMENT
 
@@ -242,6 +242,7 @@ if($is_allowedToEdit) // check teacher status
 			        ordre =\"".$order."\"";
 
 			$insert_id = claro_sql_query_insert_id($sql);
+
 			if ( $insert_id )
 			{
 				$message = $langAnnAdd;
@@ -329,8 +330,8 @@ event_access_tool($_tid, $_SESSION['_courseTool']['label']);
                                    TOOL TITLE
   ----------------------------------------------------------------------------*/
 
-if     ($cmd == 'rqEdit'  ) $subTitle = $langModifAnn;
-elseif ($cmd == 'rqCreate') $subTitle = $langAddAnn;
+if     ($_REQUEST['cmd'] == 'rqEdit'  ) $subTitle = $langModifAnn;
+elseif ($_REQUEST['cmd'] == 'rqCreate') $subTitle = $langAddAnn;
 else                        $subTitle = '';
     
 claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
@@ -339,7 +340,7 @@ claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle))
                                  ACTION MESSAGE
   ----------------------------------------------------------------------------*/
 
-if ($message)
+if ( !empty($message) )
 {
     claro_disp_message_box($message);
 }
@@ -350,7 +351,7 @@ if ($message)
 
 if ($displayButtonLine)
 {
-    echo    "<p>\n";
+    echo "<p>\n";
     claro_disp_button($_SERVER['PHP_SELF'].'?cmd=rqCreate',
                       '<img src="'.$clarolineRepositoryWeb.'img/valves.gif">'.$langAddAnn);
     claro_disp_button('messages.php',
@@ -404,7 +405,6 @@ if ($displayForm)
             "</table>",
             "</form>\n";
 }
-
 
 
 /*----------------------------------------------------------------------------

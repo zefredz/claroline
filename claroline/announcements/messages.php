@@ -1,4 +1,5 @@
 <?php // $Id$
+
 //----------------------------------------------------------------------
 // CLAROLINE 1.6
 //----------------------------------------------------------------------
@@ -11,7 +12,8 @@
 // Authors:	see	'credits' file
 //----------------------------------------------------------------------
 
-/*> > > > > > > > > > > > MESSAGES MODULE < < < < < < < < < < < <
+/*
+ * > > > > > > > > > > > > MESSAGES MODULE < < < < < < < < < < < <
  *
  * This modules allows to send messages to some chosen users groups from a course *
  *
@@ -21,11 +23,8 @@
  * partially rewritten by Hugues Peeters (peeters@ipm.ucl.ac.be)      - April 19 2002,
  * improved by Pablo Rey & Miguel Rubio (http://aula.cesga.es)        - February 2003
  * partially rewritten by Roan Embrechts (roan_embrechts@yahoo.com)	  - September 2003
- * changes by Miguel Rubio	(teleensino@cesga.es)                     - october 2003
- * Refactored by Hugues Peeters (peeters@ipm.ucl.ac.be)               -  october 30 2003
- *
- *
-
+ * changes by Miguel Rubio	(teleensino@cesga.es)                     - October 2003
+ * Refactored by Hugues Peeters (peeters@ipm.ucl.ac.be)               - October 30 2003
  *
  */
 
@@ -33,10 +32,10 @@
 	   CLAROLINE MAIN SETTINGS
 **************************************/
 
-$langFile =	'announcements'; 
-
 require '../inc/claro_init_global.inc.php'; //	settings initialisation	
-if ( ! $_cid) claro_disp_select_course();
+
+if ( ! $_cid ) claro_disp_select_course();
+
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
 $htmlHeadXtra[]="<script type=\"text/javascript\" language=\"JavaScript\">
@@ -132,7 +131,6 @@ $nameTools = $langMessages;
 
 include('../inc/claro_init_header.inc.php'); 
 
-
 /*
  * DB tables definition
  */
@@ -157,159 +155,150 @@ $senderFirstName = $_user  ['firstName'   ];
 $senderLastName  = $_user  ['lastName'    ];
 $senderMail      = $_user  ['mail'        ];
 
-
 if($is_allowedToUse)	// check teacher status
 {
-	echo	"<h3>",$langMessages,"</h3>";
+	echo "<h3>",$langMessages,"</h3>";
 
-	/*----------------------------------------
-		   DEFAULT DISPLAY SETTINGS
-	 --------------------------------------*/
+    /*
+     * DEFAULT DISPLAY SETTINGS
+     */
 
-	$displayForm = true;
+	$displayForm = TRUE;
 
-	// The commands	below will change these display settings if	they need it
+    /*
+     * SUBMIT ANNOUNCEMENT COMMAND
+     */
 
-
-
-
-
-	/*----------------------------------------
-			SUBMIT ANNOUNCEMENT	COMMAND
-	 --------------------------------------*/
-
-	if ($submitAnnouncement) 
+	if ( isset($_REQUEST['submitAnnouncement']) ) 
 	{
-		// SEND	EMAIL (OPTIONAL)
-		// THIS	FUNCTION ADDED BY THOMAS MAY 2002
-		// MODIFIED	CODE BY	MIGUEL ON 13/10/2003
 
-		/******************************************************
-		 * explode the values of	incorreo in	groups and users  *
-		 *******************************************************/
-
-		foreach($incorreo as $thisIncorreo)
-		{
-			list($type, $elmtId) = explode(':', $thisIncorreo);
-
-			switch($type)
-			{
-				case 'GROUP':
-					$groupIdList [] =$elmtId;
-					break;
-
-				case 'USER':
-					$userIdList  [] =$elmtId;
-					break;
-			}
-		}				// end while
+        if ( isset($_REQUEST['incorreo']) ) 
+        { 
 		
-		// SELECCIONAMOS	LOS	ALUMNOS	DE LOS DISTINTOS GRUPOS
+		    /*
+             * Explode the values of incorreo in groups and users 
+             */
+
+    		foreach($_REQUEST['incorreo'] as $thisIncorreo)
+    		{
+    			list($type, $elmtId) = explode(':', $thisIncorreo);
+    
+    			switch($type)
+    			{
+    				case 'GROUP':
+    					$groupIdList[] = $elmtId;
+    					break;
+    
+    				case 'USER':
+    					$userIdList[] = $elmtId;
+    					break;
+    			}
+
+    		} // end while
 		
-		if ($groupIdList)
-		{
-			$groupIdList = implode(', ',$groupIdList);
+    		/*
+             * Select the students of the different groups
+             */
+    		
+    		if ( isset($groupIdList) )
+    		{
+    			$groupIdList = implode(', ',$groupIdList);
+    
+    			$sql = "SELECT user
+    					FROM `".$tbl_groupUser."` user_group
+    					WHERE user_group.team IN (".$groupIdList.")";
+    
+    			$groupMemberResult = claro_sql_query($sql);
+    			
+    			if ($groupMemberResult)
+    			{
+    				while ($u = mysql_fetch_array($groupMemberResult))
+    				{
+    					$userIdList[] = $u['user']; // complete the user id list ...
+    				}
+    			}
+    		}
+    
+    		/*
+             * Send the differents mails
+             */
+    		
+            if( is_array($userIdList) )
+            {
+  			
+                /* 
+  			     * Prepare	email
+                 */
+  
+                // email subject
+  			    $emailSubject = "[" . $siteName . " - " . $courseCode ."] " . $professorMessage;
+  
+  			    // email content
+  			    $emailBody = stripslashes($_REQUEST['emailContent']) . "\n" .
+                             "\n" . 
+                             '--' . "\n" . 
+                             $senderFirstName . " " . $senderLastName . "\n" .
+                             $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" .
+  					         $siteName . "\n".
+                             '('. $langProfessorMessage . ')';
+  
+                /*
+                 * Send	email one by one to	avoid antispam
+                 */
+  
+                $countUnvalid = 0;
 
-			$sql = "SELECT user
-					FROM `".$tbl_groupUser."` user_group
-					WHERE user_group.team IN (".$groupIdList.")";
-
-			$groupMemberResult = claro_sql_query($sql);
-			
-			if ($groupMemberResult)
-			{
-				while ($u = mysql_fetch_array($groupMemberResult))
-				{
-					$userIdList [] = $u['user']; // complete the user id list ...
-				}
-			}
-		}
-
-		//well	send the differents mails
-		
-		 if(is_array($userIdList))
-		 {
-			/* 
-			 * Prepare	email
-			 */
-
-			// email subject
-			$emailSubject = "[" . $siteName . " - " . $courseCode ."] " . $professorMessage;
-
-			// email content
-			$emailBody = stripslashes($_REQUEST['emailContent']) . "\n" .
-							"\n" . 
-                            '--' . "\n" . 
-                            $senderFirstName . " " . $senderLastName . "\n" .
-                            $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" .
-					        $siteName . "\n".
-                            '('. $langProfessorMessage . ')';
-
-			/*
-			 * Send	email one by one to	avoid antispam
-			 */
-
-			$countUnvalid = 0;
-		
-			foreach($userIdList as $userId)
-			{
-				if (!claro_mail_user($userId, $emailBody, $emailSubject, $senderMail, $senderFirstName." ".$senderLastName))
+                foreach($userIdList as $userId)
                 {
-                    $messageFailed.= claro_failure::get_last_failure() . "<br />";
-                    $countUnvalid++;
+                    if (!claro_mail_user($userId, $emailBody, $emailSubject, $senderMail, $senderFirstName." ".$senderLastName))
+                    {
+                        $messageFailed.= claro_failure::get_last_failure() . "<br />";
+                        $countUnvalid++;
+                    }
                 }
-			}
-		 }
 
-		$message = '<p>'.$langMsgSent.'<p>';
+  		    } // end if - is_array($userIdList)
+    
+            $message = '<p>'.$langMsgSent.'<p>';
+    
+            if ($countUnvalid > 0)
+    	    {
+    	        $messageUnvalid	= '<p>'
+    		                     . $langOn.'	'
+    		                     . count($userIdList) .' '
+    		                     . $langSelUser.',	' .  $countUnvalid . ' ' .$langUnvalid
+    		                     . '<br><small>'
+        		                 . $messageFailed
+        		                 . '</small>'
+    	    	                 . '</p>';
+        		$message .= $messageUnvalid;
+    	    }
 
-		if ($countUnvalid > 0)
-		{
-			$messageUnvalid	= '<p>'
-			                 . $langOn.'	'
-			                 . count($userIdList) .' '
-			                 . $langSelUser.',	' .  $countUnvalid . ' ' .$langUnvalid
-			                 . '<br><small>'
-			                 . $messageFailed
-			                 . '</small>'
-			                 . '</p>';
+        } // end if - $_REQUEST['incorreo']
 
-			$message .= $messageUnvalid;
-		}
+    } // end if - $_REQUEST['submitAnnouncement']
 
-  }	// if $submit Announcement
+    /*
+     * DISPLAY ACTION MESSAGE
+     */
 
-//////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-	/*----------------------------------------
-				DISPLAY	ACTION MESSAGE
-	 --------------------------------------*/
-
-	if ($message)
+	if ( !empty($message) )
 	{
         claro_disp_message_box($message);
-        echo "<br>"
+
+        echo '<br>'
             .'<a href="'.$_SERVER['PHP_SELF'].'">&lt;&lt;&nbsp;'.$langBackList.'</a>'
             .'<br>';
 
-		$displayForm = false;
+		$displayForm = FALSE;
 	}
-
-//////////////////////////////////////////////////////////////////////////////
-
-
-
 
 	/*----------------------------------------
 	   DISPLAY FORM	TO FILL	AN ANNOUNCEMENT
 	       (USED FOR ADD AND MODIFY)
 	 --------------------------------------*/
 
-	if ($displayForm ==	 true)
+	if ($displayForm ==	 TRUE)
 	{
 		/*
 		 * Get user	list of	this course
@@ -392,9 +381,9 @@ if($is_allowedToUse)	// check teacher status
 					"</option>";
 		}
 
-			// WATCH OUT ! form elements are called by numbers "form.element[3]"... 
-			// because select name contains "[]" causing a javascript 
-			// element name problem List of selected users
+		// WATCH OUT ! form elements are called by numbers "form.element[3]"... 
+		// because select name contains "[]" causing a javascript 
+		// element name problem List of selected users
 		
 		echo	"</select>",
 
@@ -450,7 +439,8 @@ if($is_allowedToUse)	// check teacher status
 				"</td>",
 
 				"</tr>";
-	}
+
+    } // end if - $displayForm ==  TRUE
 
 echo	"</table>",
 		"</center>",

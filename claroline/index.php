@@ -1,18 +1,21 @@
 <?php // $Id$
-/**
-      +----------------------------------------------------------------------+
-      | CLAROLINE version $Revision$                                   |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      +----------------------------------------------------------------------+
- */
+
+//----------------------------------------------------------------------
+// CLAROLINE 1.6
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+
 /*
-	if not admin ,  nothing  to do  here.
-*/
+ *	if not admin ,  nothing  to do  here.
+ */
+
 session_start();
 
 if ($_SESSION['is_platformAdmin'])
@@ -22,4 +25,5 @@ if ($_SESSION['is_platformAdmin'])
 {
    header("Location:../");
 }
+
 ?>
