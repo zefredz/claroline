@@ -876,6 +876,7 @@ mysql_query ("
                   `exe_date` datetime NOT NULL default '0000-00-00 00:00:00',
                   `exe_exo_id` tinyint(4) NOT NULL default '0',
                   `exe_result` mediumint(8) NOT NULL default '0',
+		  `exe_time`	mediumint(8) NOT NULL default '0',
                   `exe_weighting` mediumint(8) NOT NULL default '0',
                   PRIMARY KEY  (`exe_id`)
                 ) TYPE=MyISAM COMMENT='Record informations about exercices'";
