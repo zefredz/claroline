@@ -1081,7 +1081,7 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
         post_text text,
         PRIMARY KEY (post_id)
         )");
-	claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTSTEXT."` VALUES ('1', \"$langMessage\")");
+	claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTSTEXT."` VALUES ('1', '$langMessage')");
 // Contenu de la table 'users'
 	claro_sql_query("INSERT INTO `".$TABLEPHPBBUSERS."` VALUES (
        '1',
