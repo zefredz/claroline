@@ -133,7 +133,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     {
         $tempView[0] = '1';
         echo '+&nbsp;&nbsp;&nbsp;'
-		    .'<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.
+		    .'<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'
 			.$langUsers
 			.'</a>'
 			;
