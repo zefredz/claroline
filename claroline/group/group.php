@@ -158,13 +158,21 @@ if ($is_allowedToManage)
 		$tmp = mysql_fetch_array($result);
 		$lastOrder = $tmp[0];
 	    }
-	    $lastOrder += 1;	
+	    $lastOrder += 1;
+        
             $sql = "INSERT INTO `".$tbl_Forums."`
-                    (forum_id, forum_name, forum_desc, forum_access, forum_moderator,
-                    forum_topics, forum_posts, forum_last_post_id, cat_id,
-                    forum_type, md5, forum_order)
-                    VALUES ('','$langForumGroup $lastId','', 2, 1, 0, 0,
-                            1, 1, 0,'".md5(time())."', ".$lastOrder.")";
+                    SET forum_id           = '',
+                        forum_name         = '".$langForumGroup." ".$lastId."',
+                        forum_desc         = '',
+                        forum_access       = 2,
+                        forum_moderator    = 1,
+                        forum_topics       = 0,
+                        forum_posts        = 0,
+                        forum_last_post_id = '0',
+                        cat_id             = '1',
+                        forum_type         = '0',
+                        md5                = '".md5(time())."',
+                        forum_order        = '".$lastOrder."'";
 
             mysql_query($sql);
 
