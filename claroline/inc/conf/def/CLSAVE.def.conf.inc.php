@@ -14,7 +14,7 @@
 // TOOL
 $conf_def['config_code']='CLSAVE';
 $conf_def['config_file']='export.conf.inc.php';
-$conf_def['config_name']='general setting for exporting data';
+$conf_def['config_name']='General setting for exporting data';
 // $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 $conf_def['description'] = 'Export tool. This is a course tool';
 $conf_def['section']['protocols']['label']='protocols';
@@ -27,7 +27,7 @@ array ( 'localStoreArchiveAivailable'
 
 $conf_def_property_list['localStoreArchiveAivailable']
 = array ( 'label'     => 'User can store  his archive on server'
-        , 'description' => 'It\'s a good soltuion because user can\'t edit  archive content'
+        , 'description' => 'It\'s a good solution because user can\'t edit  archive content'
         , 'default'   => 'TRUE'
         , 'type'      => 'boolean'
         , 'container' => 'VAR'

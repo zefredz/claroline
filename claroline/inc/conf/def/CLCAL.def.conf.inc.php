@@ -12,17 +12,36 @@
  * @package CLCAL
  */
 
-$conf_def['config_file']='CLCAL___.conf.php';
 $conf_def['config_code']='CLCAL';
 $conf_def['config_name']='General setting for calendar';
-
-$conf_def['section']['log']['label']='Track activity';
+$conf_def['config_file']='CLCAL___.conf.php';
+$conf_def['old_config_file'][]='agenda.conf.inc.php';
 // $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 
+
+$conf_def['section']['list']['label']='Calendar listing';
+$conf_def['section']['list']['properties'] = 
+array ( 'defaultOrder'
+      );
+
+$conf_def['section']['log']['label']='Track activity';
 $conf_def['section']['log']['properties'] = 
 array ( 'CONFVAL_LOG_CALENDAR_INSERT'
       , 'CONFVAL_LOG_CALENDAR_DELETE'
       , 'CONFVAL_LOG_CALENDAR_UPDATE'
+      );
+
+
+$conf_def_property_list['defaultOrder'] = 
+array ('label'       => 'Default order'
+      ,'default'     => 'asc'
+      ,'type'        => 'enum'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'container'   => 'CONST'
+      ,'acceptedValue' => array ('asc'=>'Ascendant'
+                              ,'desc'=>'Descendant'
+                              )
       );
 
 $conf_def_property_list['CONFVAL_LOG_CALENDAR_INSERT'] = 
