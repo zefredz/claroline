@@ -40,7 +40,7 @@ $langAnswers="Answers";
 $langActivate="Enable";
 $langDeactivate="Disable";
 $langComment="Comment";
-
+$langAttachedFile = "Open attached file";
 
 // exercice.php
 
@@ -102,6 +102,9 @@ $langReplacePicture="Replace the picture";
 $langDeletePicture="Delete the picture";
 $langQuestionDescription="Optional comment";
 $langGiveQuestion="Please give the question";
+$langAttachFile = "Attach a file";
+$langReplaceAttachedFile = "Replace attached file";
+$langDeleteAttachedFile = "Delete attached file";
 
 
 // answer_admin.inc.php

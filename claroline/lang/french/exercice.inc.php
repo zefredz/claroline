@@ -38,6 +38,7 @@ $langAnswers="Réponses";
 $langActivate="Activer";
 $langDeactivate="Désactiver";
 $langComment="Commentaire";
+$langAttachedFile = "Ouvrir le fichier attaché";
 
 
 // exercice.php
@@ -98,6 +99,9 @@ $langReplacePicture="Remplacer l'image";
 $langDeletePicture="Supprimer l'image";
 $langQuestionDescription="Commentaire facultatif";
 $langGiveQuestion="Veuillez introduire la question";
+$langAttachFile = "Attacher un fichier";
+$langReplaceAttachedFile = "Remplacer le fichier attaché";
+$langDeleteAttachedFile = "Effacer le fichier attaché";
 
 
 // answer_admin.inc.php
