@@ -50,14 +50,6 @@ $nameTools = $langForums;
 $noPHP_SELF = true; //because  phpBB need always param IN URL
 
 
-
-	
-
-
-/*
-echo "<a href=\"./search.php?addterms=any&forum=all&sortby=p.post_time%20desc&searchboth=both&submit=Rechercher\">$langLastMsgs</a>";
-*/
-
 claro_disp_tool_title($langForums, 
                       $is_allowedToEdit ? 'help_forum.php' : false);
 
@@ -76,7 +68,7 @@ $privProp = claro_sql_query_get_single_value($sql);
 // Determine if uid is tutor for this course
 
 $sql = "SELECT tutor 
-        FROM   cours_user
+        FROM `". $tbl_course_user . "`
         WHERE  user_id    ='".$_uid."'
         AND    code_cours ='".$_cid."'";
 
@@ -86,7 +78,6 @@ while ($myTutor = mysql_fetch_array($sqlTutor))
 {
     $tutorCheck = $myTutor['tutor'];
 }
-
 
 // Determine if forum category is Groups
 

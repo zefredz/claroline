@@ -86,7 +86,7 @@ $tbl_student_group	  = $tbl_cdb_names['group_team'];
 $tbl_user_group       = $tbl_cdb_names['group_rel_team_user'];
 
 $tbl_users            = $tbl_mdb_names['user'];
-
+$tbl_course_user      = $tbl_mdb_names['rel_course_user'];
 
 $is_groupPrivate      = $_groupProperties['private'];
 $userdata               = array();
