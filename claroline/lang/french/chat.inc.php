@@ -32,5 +32,6 @@ Translate the interface in chosen language
  $langDateLastWrite = "Dernier message : ";
  $langNewChat = "Nouvelle discussion";
  $langNotCourseAllowed = "Vous nêtes pas autorisé ici.";
- $langNotGroupMember = "Vous nêtes pas autorisé à participer à cette discussion de groupe."; // JCC 
+ $langNotGroupMember = "Vous nêtes pas autorisé à participer à cette discussion de groupe."; // JCC
+ $langArchive = "Archive";
 ?>

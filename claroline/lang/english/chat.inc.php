@@ -23,4 +23,5 @@ Translate the chat interface in chosen language
  $langNewChat = "New chat";
  $langNotCourseAllowed = "You are not allowed in this course.";
  $langNotGroupMember = "You are not allowed in this group chat.";
+ $langArchive = "Archive";
 ?>
