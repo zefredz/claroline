@@ -56,11 +56,11 @@
         // list of all tools
         if (!isset($tool))
         {
-            $sql = "SELECT `access_tool`, count( access_tool ) 
+            $sql = "SELECT `access_tid`, count( access_tid ) 
                         FROM `$TABLETRACK_ACCESS`
-                        WHERE `access_tool` IS NOT NULL
+                        WHERE `access_tid` IS NOT NULL
                             ".$courseCodeEqualcidIfNeeded."
-                        GROUP BY `access_tool`";
+                        GROUP BY `access_tid`";
             echo "<tr><td>";  
             echo "<tr>
                     <td>
@@ -192,7 +192,7 @@
                 case "month" :
                     $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
                             FROM `$TABLETRACK_ACCESS`
-                            WHERE `access_tool` = '$tool' 
+                            WHERE `access_tid` = '$tool' 
                                 ".$courseCodeEqualcidIfNeeded."
                                 AND MONTH(`access_date`) = MONTH(FROM_UNIXTIME($reqdate))
                                 AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
@@ -205,7 +205,7 @@
                 case "week" :
                     $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
                             FROM `$TABLETRACK_ACCESS`
-                            WHERE `access_tool` = '$tool' 
+                            WHERE `access_tid` = '$tool' 
                                 ".$courseCodeEqualcidIfNeeded."
                                 AND WEEK(`access_date`) = WEEK(FROM_UNIXTIME($reqdate))
                                 AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
@@ -218,7 +218,7 @@
                 case "day"  :
                     $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
                                 FROM `$TABLETRACK_ACCESS`
-                                WHERE `access_tool` = '$tool' 
+                                WHERE `access_tid` = '$tool' 
                                     ".$courseCodeEqualcidIfNeeded."
                                     AND DAYOFYEAR(`access_date`) = DAYOFYEAR(FROM_UNIXTIME($reqdate))
                                     AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
