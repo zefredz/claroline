@@ -61,6 +61,8 @@ $lang_are_you_sure_to_remove_the_course_from_your_list = 'Are you sure to remove
 // back links
 
 $langBackToUserSettings = "Back to user settings";
+$langBackToCourseList = "Back to user's course list";
+
 $langEnrollAsStudent = "Enroll as Student";
 $langEnrollAsTeacher = "Enroll as Teacher";
 ?>

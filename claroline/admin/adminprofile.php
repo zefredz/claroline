@@ -458,7 +458,7 @@ else
 // display TOOL links :
 
 claro_disp_button("adminuserdeleted.php?uidToEdit=".$user_id."&cmd=delete",$langDeleteUser,$langAreYouSureToDelete." ".$username_form);
-claro_disp_button("../auth/courses.php?cmd=rqReg&uidToEdit=".$user_id."&category=",$langRegisterUser);
+claro_disp_button("../auth/courses.php?cmd=rqReg&uidToEdit=".$user_id."&category=&fromAdmin=settings",$langRegisterUser);
 
 if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
 {

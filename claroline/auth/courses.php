@@ -60,12 +60,23 @@ if (!$is_platformAdmin)
 }
 else
 {
-  if (isset($uidToEdit))
+  if (isset($fromAdmin) && ($fromAdmin == "settings" || $fromAdmin == "usercourse"))
   {
-    $userSettingMode = true;
-    $inURL = "&uidToEdit=".$uidToEdit;
+    $userSettingMode = $uidToEdit;
+    $inURL = "&uidToEdit=".$uidToEdit."&fromAdmin=".$fromAdmin;
+  }
+  if (isset($uidToEdit) && (!($uidToEdit == ""))) // in admin mode, there 2 possibilities : we might want to enroll ourself or either be here from admin tool
+  {
+    $userId = $uidToEdit;
+  } 
+  else 
+  {
+    $userId = $_uid;
+    $uidToEdit = $_uid;
   }
 }
+
+echo "llala".$userId." okok";
 /*
  * DB tables initialisation
  */
@@ -308,8 +319,16 @@ else
 
     if ($userSettingMode == true) //enroll page accessed by admin tool to set user settings
     {
-        $backUrl   = "../admin/adminprofile.php?uidToEdit=".$userId;
-        $backLabel = $langBackToUserSettings;
+        if ($fromAdmin == "settings") 
+	{
+		$backUrl   = "../admin/adminprofile.php?uidToEdit=".$userId;
+        	$backLabel = $langBackToUserSettings;
+	}
+	if ($fromAdmin =="usercourse")
+	{
+		$backUrl   = "../admin/adminusercourses.php?uidToEdit=".$userId;
+        	$backLabel = $langBackToCourseList;
+	}
     }
     else
     {
@@ -318,7 +337,7 @@ else
     }
 }
 
-$backUrl .= $inURL; //notify userid of the user we are xorking with in admin mode
+$backUrl .= $inURL; //notify userid of the user we are working with in admin mode and that we come from admin
 
 $backLink = "<p><small><a href=\"".$backUrl."\">&lt;&lt; ".$backLabel."</a></small></p>";
 
@@ -485,6 +504,8 @@ switch ($displayMode)
                 "<label for=\"keyword\">",$lang_or_search_from_keyword,"</label>",
                 " : </p>\n",
 				"<form method=\"post\" action=\"".$PHP_SELF."\">",
+				"<input type=\"hidden\" name=\"cmd\" value=\"rqReg\">",
+				"<input type=\"hidden\" name=\"fromAdmin\" value=\"",$fromAdmin,"\">",
 				"<input type=\"hidden\" name=\"cmd\" value=\"rqReg\">",
 				"<input type=\"text\" name=\"keyword\" id=\"keyword\">",
                 "<input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\">",
