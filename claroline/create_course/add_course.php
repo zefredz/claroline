@@ -555,7 +555,7 @@ BuildEditableCatTable(""," &gt; ");
 
 <tr>
 <td align="right">
-<label for="email"><?echo $langEmail ?></label>&nbsp;:
+<label for="email"><?php echo $langEmail ?></label>&nbsp;:
 </td>
 <td>
 <input type="text" name="email" id="email" value="<?php echo $valueEmail; ?>" size="30" maxlength="255">
@@ -747,11 +747,11 @@ BuildEditableCatTable(""," &gt; ");
 			<?php echo $valueExpire ?>
 		</td>
 	</tr>
-<?
+<?php
 	}
 ?>
 </table>
-<?
+<?php
 }   // IF ! SUBMIT
 
 #################SORT THE FORM ####################
