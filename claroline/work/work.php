@@ -863,6 +863,7 @@ if( !$displayAssigForm && !$displayFeedbackForm )
     $assignmentList = claro_sql_query_fetch_all($sql);
 
     echo "<table class=\"claroTable\" width=\"100%\">\n"
+          ."<thead>\n"
           ."<tr class=\"headerX\">\n"
           ."<th>".$langAssignmentTitle."</th>\n";
           
@@ -873,7 +874,8 @@ if( !$displayAssigForm && !$displayFeedbackForm )
               ."<th>".$langDelete."</th>\n"
               ."<th>".$langVisibility."</th>\n";
     }
-    echo "</tr>\n\n"
+    echo "</tr>\n"
+        ."</thead>\n\n"
         ."<tbody>\n";
     foreach($assignmentList as $anAssignment)
     {

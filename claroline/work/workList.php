@@ -1145,6 +1145,7 @@ if( $dispWrkLst && $is_allowedToView )
                                   LIST
       --------------------------------------------------------------------*/
     echo "<table class=\"claroTable\" width=\"100%\">\n"
+          ."<thead>\n"
           ."<tr class=\"headerX\">\n"
           ."<th colspan=\"".($maxDeep+1)."\">".$langWrkTitle."</th>\n"
           ."<th>".$langWrkAuthors."</th>\n"
@@ -1157,8 +1158,9 @@ if( $dispWrkLst && $is_allowedToView )
             ."<th>".$langDelete."</th>\n"
             ."<th>".$langVisibility."</th>\n";
     }
-    echo "</tr>\n\n"
-        ."<tbody>\n\n";
+    echo "</tr>\n"
+        ."</thead>\n\n"
+        ."<tbody>\n";
     foreach($flatElementList as $thisWrk)
     {
       // display an alert if work was submitted after end date and work is not a correction !
