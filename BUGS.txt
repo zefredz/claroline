@@ -300,7 +300,45 @@ quoi : $langCourseCreate <- défini dans les fichiers de langues course_home.inc.
 Repéré par : M
 Assigné à : 
 
+Etat : New ------------------------------------------------------
+.36 où : fichiers langues
+type : variable manquantes
 
+***  group.inc.php
+$langGroupTutors  	
+	english; 	--empty--
+	french; 	Tuteurs
+
+*** announcements.inc.php
+ $langMsg  	
+	french; 	--empty--
+	english; 	Messages
+$langUsers 	
+	french; 	--empty--
+	english; 	users
+
+** course_info.inc.php
+$langAdministrationTools  	
+	french; 	--empty-- 
+	english; 	Administration
+$langAllUsersOfThisCourse 	
+	french; 	--empty--
+	english; 	Course members
+$langViewCourse 	
+	french; 	--empty--
+	english; 	View course
+
+Etat : New ------------------------------------------------------
+M.37 où : create_course
+type : illogique
+quoi : on peut demandé de créer un cours sans intitulé. Il accepte mais ne fait rien, il laisse croire que ca a marché
+Repéré par : M
+Assigné à : 
+	
+	
+	
+Repéré par : M.
+Assigné à : 
 
 template à copier coller
 Etat : New ------------------------------------------------------
@@ -315,6 +353,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.47  2004/06/24 11:28:41  moosh
+bugs 36. 37
+
 Revision 1.46  2004/06/24 11:21:14  moosh
 bugs 34. 35.
 
