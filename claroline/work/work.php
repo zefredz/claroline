@@ -597,7 +597,7 @@ echo	"<tr>\n".
 						"<img src=\"../img/delete.gif\" border=\"0\" alt=\"".$langWorkDelete."\">",
 						"</a>\n";
 
-				if ($myrow["accepted"] == 1)
+				if ($work["accepted"] == 1)
 				{
 					echo "<a href=\"".$PHP_SELF."?mkInvisbl=",$work['id'],"\">",
 					"<img src=\"../img/visible.gif\" border=\"0\" alt=\"".$langWorkShow."\">",
