@@ -85,13 +85,15 @@ Repéré par : HUGUES
 Assigné à  : HUGUES
 Etat       : RESOLU
 
-------------------------------------------------------------------
+RESOLU-------------------------------------------------------------
 12 . /claroline/admin/adminusers.php Sur une recherche  sans résultat le texte 
 propose une "nouvelle recherche" alors qu'en haut a droite on a aussi une 
 nouvelle recherche possible" Le message  ne devrait-il pas être "nouvelle 
 recherche avancées" ?
 
 Repéré par : MOOSH.
+Assigné à  : SEB
+Etat 	   : RESOLU
 
 ------------------------------------------------------------------
 
@@ -118,14 +120,15 @@ RESOLU------------------------------------------------------------------
 insert into `CL150RC1Main`.`faculte` (name,code,bc,nb_childs,canHaveCoursesChild,canHaveCatChild,treePos,code_P)
                                         values ('tzrthrth','rzthtr',NULL,'0','TRUE','TRUE','14','EDITME')
 Etat : RESOLU (recherche ds la db d'abord avant création et message d'erreur affiché à la place si la cat existe déjà)
-------------------------------------------------------------------
+
+
+RESOLU------------------------------------------------------------
 15. le chat  crée à l'utilisation encore  un fichier dans le rep /claroline/chat/
 et j'ai pas trouvé où il le crée
 
 Repéré par : MOOSH
-
-
-Etat : New 
+Assigné à  : SEB
+Etat 	   : RESOLU 
 
 RESOLU------------------------------------------------------
 16. claroline/admin/adminaddnewuser.php?register=yes
@@ -134,7 +137,7 @@ quoi : "Les nouveaux utilisateurs recevrons un email avec leur nom d'utilisateur
 
 claroline/admin/adminusercourses.php?uidToEdit=3&cfrom=ulist
 "bouton retour à l'utilisateur en français" :  faute
-Repéré par :  M
+Repéré par :  MOOSH
 Assigné à : 
 Etat : RESOLU
 
@@ -149,10 +152,12 @@ Repéré par : M.
 Assigné à : SEB
 Etat : RESOLU (en utilisant le meme principe que pour document et import learning path, à savoir affichage de la taille max autorisée sur form d'upload
 
-------------------------------------------------------------------
+RESOLU-------------------------------------------------------------
 M.18.Travaux d'étudiants
 retour à la ligne entre le texte d'intro et le bouton "ajouter un texte"
 Repéré par : MOOSH
+Assigné à  : SEB
+Etat	   : RESOLU
 
 
 Etat : RESOLU ------------------------------------------------------
@@ -232,7 +237,7 @@ si j'ai bien capté la nouvelle logique ca devrait être un claro_button
 Repéré par : M.
 Assigné à : 
 
-Etat : SEB ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.28 : /claroline/exercice/question_pool.php
 type : interface - uniformisation
 quoi : Le formulaire englobe 2 <table> alors  qu'il ne propose des input que dans 1 <td>
@@ -295,6 +300,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.45  2004/06/23 10:28:05  seb
+More bugs resolved
+
 Revision 1.44  2004/06/17 12:57:54  moosh
 résolus
 
