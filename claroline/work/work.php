@@ -653,12 +653,13 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
 			
 		echo "<tr".$style.">\n"
 			."<td>\n";
-		if( strlen($anAssignment['description']) > 500 ) 
-			echo substr($anAssignment['description'],0,455)." ... ";
-		else
-			echo $anAssignment['description'];
 			
-		echo "<br /><br /><small>".$langAvailableFrom." ".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix'])." ".$langUntil." <b>".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix'])."</b></small><br />"
+		if( strlen($anAssignment['description']) > 500 ) 
+			echo "<div>".substr($anAssignment['description'],0,455)." ... "."</div>\n";
+		else
+			echo "<div>".$anAssignment['description']."</div>\n";
+			 
+		echo "<small>".$langAvailableFrom." ".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix'])." ".$langUntil." <b>".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix'])."</b></small><br />"
 			."<small>"
 			;
 		// content type	
