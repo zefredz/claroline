@@ -54,38 +54,6 @@
       define ( "LEARNINGPATH_", 3 );
       define ( "LEARNINGPATHMODULE_", 4 );
       
-
-     /**
-      * DEPRECATED : Cleaning of LP sessions vars
-      *
-      * @param string $reset "path_id" clean all LP session vars. This string can also be "module_id", "publicModule" or "inPathMode"
-      *
-      * @author Piraux Sébastien <pir@cerdecam.be>
-      * @author Lederer Guillaume <led@cerdecam.be>
-      */
-     function LPcleanSession($reset)
-     {
-     
-        switch($reset)
-        {
-        
-                case "path_id" :
-                      session_unregister('path_id');            // id of the learning path the user is in
-                case "module_id" :
-                      session_unregister('module_id');          // id of the module the user is in
-                case "publicModule" :
-                      session_unregister('openCatTable');       // array used by insertPublicModule to display courses categories
-                      session_unregister('openCourseTable');    // array used by insertPublicModule to display modules of each course
-                case "asStudent" :
-                      session_unregister('asStudent');          // used for teachers to know if they are testing or administrating module_id
-                case "inPathMode" :
-                      session_unregister('inPathMode');         // used in exercises to know if the user come from learning path
-                      break;
-                      
-        }
-      
-     }
-
      /**
       * This function is used to display comments of module or learning path with admin links if needed.
       * Admin links are 'edit' and 'delete' links.
@@ -218,12 +186,17 @@
                      if ( $is_AllowedToEdit )
                      {
                         echo
-                               "<p>\n",
-                               "<small>\n",
-                               "<a href=\"$PHP_SELF?cmd=update".$col_name."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n",
-                               "<a href=\"$PHP_SELF?cmd=del".$col_name."\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\"><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\"></a>\n",
-                               "</small>\n",
-                               "</p>\n";
+                          	 "<p>\n"
+                            ."<small>\n"
+                            ."<a href=\"$PHP_SELF?cmd=update".$col_name."\">\n"
+							."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"",$langModify,"\" border=\"0\">\n"
+							."</a>\n"
+                            ."<a href=\"$PHP_SELF?cmd=del".$col_name."\" 
+								onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\">\n"
+							."<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\">\n"
+							."</a>\n"
+                            ."</small>\n"
+                            ."</p>\n";
                      }
                 }
            }
@@ -1086,8 +1059,8 @@
      *
      * @author Piraux Sébastien <pir@cerdecam.be>
      */
-      function get_module_tree( $lpModules , $id, $field = 'module_id')
-     {
+	function get_module_tree( $lpModules , $id, $field = 'module_id')
+    {
         foreach( $lpModules as $module)
         {
             if( $module[$field] == $id)
@@ -1100,11 +1073,38 @@
                 if( is_array($temp) ) 
                   return $temp;
                 // else check next node   
-            }
+        	}
 
-        }
-     }
-     
+    	}
+    }
+    
+	/**
+	 * Convert the time recorded in seconds to a scorm type 
+	 *
+	 * @author Piraux Sébastien <pir@cerdecam.be>
+	 * @param $time time in seconds to convert to a scorm type time
+	 * @return string compatible scorm type (smaller format)
+	 */
+	function seconds_to_scorm_time($time)
+	{
+		$hours 	= floor( $time / 3600 );
+		if( $hours < 10 )
+		{
+			$hours = "0".$hours;
+		}
+		$min 	= floor( ( $time -($hours * 3600) ) / 60 );
+		if( $min < 10)
+		{
+			$min = "0".$min;
+		}
+		$sec	= $time - ($hours * 3600) - ($min * 60);
+		if($sec < 10)
+		{
+			$sec = "0".$sec;
+		}
+
+		return 	$hours.":".$min.":".$sec;
+	} 
     /**
       * This function allow to see if a time string is the SCORM requested format : hhhh:mm:ss.cc
       *
@@ -1112,8 +1112,8 @@
       *
       * @author Lederer Guillaume <led@cerdecam.be>
       */
-     function isScormTime($time)
-     {
+	function isScormTime($time)
+    {
         $mask = "/^[0-9]{2,4}:[0-9]{2}:[0-9]{2}.?[0-9]?[0-9]?$/";
         if (preg_match($mask,$time))
          {
@@ -1121,7 +1121,7 @@
          }
     
         return false;
-     }
+    }
     
      /**
       * This function allow to add times saved in the SCORM requested format : hhhh:mm:ss.cc
@@ -1132,86 +1132,88 @@
       * @author Lederer Guillaume <led@cerdecam.be>
       *
       */
-     function addScormTime($time1, $time2)
-     {
-       if (isScormTime($time2))
-       {
-          //extract hours, minutes, secondes, ... from time1 and time2
+    function addScormTime($time1, $time2)
+	{
+       	if (isScormTime($time2))
+    	{
+          	//extract hours, minutes, secondes, ... from time1 and time2
     
-          $mask = "/^([0-9]{2,4}):([0-9]{2}):([0-9]{2}).?([0-9]?[0-9]?)$/";
+          	$mask = "/^([0-9]{2,4}):([0-9]{2}):([0-9]{2}).?([0-9]?[0-9]?)$/";
     
-          preg_match($mask,$time1, $matches);
-          $hours1 = $matches[1];
-          $minutes1 = $matches[2];
-          $secondes1 = $matches[3];
-          $primes1 = $matches[4];
+          	preg_match($mask,$time1, $matches);
+          	$hours1 = $matches[1];
+          	$minutes1 = $matches[2];
+          	$secondes1 = $matches[3];
+          	$primes1 = $matches[4];
     
-          preg_match($mask,$time2, $matches);
-          $hours2 = $matches[1];
-          $minutes2 = $matches[2];
-          $secondes2 = $matches[3];
-          $primes2 = $matches[4];
+          	preg_match($mask,$time2, $matches);
+          	$hours2 = $matches[1];
+          	$minutes2 = $matches[2];
+          	$secondes2 = $matches[3];
+          	$primes2 = $matches[4];
     
-          // calculate the resulting added hours, secondes, ... for result
+          	// calculate the resulting added hours, secondes, ... for result
     
-          $primesReport = false;
-          $secondesReport = false;
-          $minutesReport = false;
-          $hoursReport = false;
+          	$primesReport = false;
+          	$secondesReport = false;
+          	$minutesReport = false;
+          	$hoursReport = false;
     
-             //calculate primes
+            //calculate primes
     
-          if ($primes1 < 10) {$primes1 = $primes1*10;}
-          if ($primes2 < 10) {$primes2 = $primes2*10;}
-          $total_primes = $primes1 + $primes2;
-          if ($total_primes >= 100)
-          {
-            $total_primes -= 100;
-            $primesReport = true;
-          }
+          	if ($primes1 < 10) {$primes1 = $primes1*10;}
+          	if ($primes2 < 10) {$primes2 = $primes2*10;}
+          	$total_primes = $primes1 + $primes2;
+          	if ($total_primes >= 100)
+          	{
+            	$total_primes -= 100;
+            	$primesReport = true;
+          	}
     
-             //calculate secondes
+            //calculate secondes
     
-          $total_secondes = $secondes1 + $secondes2;
-          if ($primesReport) {$total_secondes ++;}
-          if ($total_secondes >= 60)
-          {
-            $total_secondes -= 60;
-            $secondesReport = true;
-          }
+          	$total_secondes = $secondes1 + $secondes2;
+          	if ($primesReport) {$total_secondes ++;}
+          	if ($total_secondes >= 60)
+          	{
+            	$total_secondes -= 60;
+            	$secondesReport = true;
+          	}
     
             //calculate minutes
     
-          $total_minutes = $minutes1 + $minutes2;
-          if ($secondesReport) {$total_minutes ++;}
-          if ($total_minutes >= 60)
-          {
-            $total_minutes -= 60;
-            $minutesReport = true;
-          }
+          	$total_minutes = $minutes1 + $minutes2;
+          	if ($secondesReport) {$total_minutes ++;}
+          	if ($total_minutes >= 60)
+          	{
+            	$total_minutes -= 60;
+            	$minutesReport = true;
+          	}
     
             //calculate hours
     
-          $total_hours = $hours1 + $hours2;
-          if ($minutesReport) {$total_hours ++;}
-          if ($total_hours >= 10000)
-          {
-            $total_hours -= 10000;
-            $hoursReport = true;
-          }
+          	$total_hours = $hours1 + $hours2;
+          	if ($minutesReport) {$total_hours ++;}
+          	if ($total_hours >= 10000)
+          	{
+            	$total_hours -= 10000;
+            	$hoursReport = true;
+          	}
     
-             // construct and return result string
+            // construct and return result string
     
-          if ($total_hours < 10) {$total_hours = "0".$total_hours;}
-          if ($total_minutes < 10) {$total_minutes = "0".$total_minutes;}
-          if ($total_secondes < 10) {$total_secondes = "0".$total_secondes;}
-    
-          $total_time = $total_hours.":".$total_minutes.":".$total_secondes.".".$total_primes;
-          return $total_time;
-       }
-       else
-       {
-          return $time1;
-       }
-     }
+          	if ($total_hours < 10) {$total_hours = "0".$total_hours;}
+          	if ($total_minutes < 10) {$total_minutes = "0".$total_minutes;}
+          	if ($total_secondes < 10) {$total_secondes = "0".$total_secondes;}
+          	
+			$total_time = $total_hours.":".$total_minutes.":".$total_secondes;
+			// add primes only if != 0
+			if ($total_primes != 0) {$total_time .= ".".$total_primes;}
+        	return $total_time;
+       	}
+       	else
+       	{
+        	return $time1;
+    	}
+	}
 ?>
