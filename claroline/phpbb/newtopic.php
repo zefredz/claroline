@@ -54,10 +54,10 @@ $sql = "SELECT  `f`.`forum_name`   `forum_name`,
 
 	WHERE `f`.`forum_id` = '".$forum."'";
 
-$result = claro_sql_query($sql);
+$forumSettingList = claro_sql_query_fetch_all($sql);
 
-if(!$myrow = mysql_fetch_array($result,MYSQL_ASSOC))
-	error_die("The forum you are attempting to post to does not exist. Please try again.");
+if ( count($forumSettingList) == 1) $forumSettingList = $forumSettingList[0];
+else    error_die('Unexisting forum.');
 
 $forum_name 		= $myrow['forum_name'  ];
 $forum_access 		= $myrow['forum_access'];

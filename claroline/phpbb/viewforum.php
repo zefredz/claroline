@@ -49,7 +49,7 @@ $sql = "SELECT 	`f`.`forum_type`,
 $forumSettingList = claro_sql_query_fetch_all($sql);
 
 if ( count($forumSettingList) == 1) $forumSettingList = $forumSettingList[0];
-else    error_die('The forum you are attempting to see to does not exist.');
+else    error_die('Unexisting forum.');
 
 /* 
  * Check if the forum isn't attached to a group,  or -- if it is attached --, 
