@@ -301,11 +301,11 @@ if($display_form)
     </tr>
     <tr>
         <td align="right">
-             <label for="statut_form"><?php echo $langAction; ?></label>
+             <label for="statut"><?php echo $langAction; ?></label>
               :
         </td>
         <td>
-            <select name="statut_form" id="statut_form">
+            <select name="statut" id="statut">
                 <option value="5"><?php echo $langFollowCourse; ?></option>
                 <option value="1"><?php echo $langCreateCourse; ?></option>
             </select>
