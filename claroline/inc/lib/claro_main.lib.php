@@ -52,9 +52,11 @@ function claro_sql_get_main_tbl()
 
 /**
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param forceToThisCourseDbGlu string default null force to use other courseDbGlu than current course
+ * @param  string $dbNameGlued (optionnal) course database with its platform 
+ *         glue already append. If no db name are set, the current course db 
+ *         will be taken.
  * @return array list of the current course database tables
-  */
+ */
 
 function claro_sql_get_course_tbl($dbNameGlued = NULL)
 {
@@ -217,7 +219,7 @@ function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
 
 /**
  * Claroline SQL query and fetch array wrapper. It returns all the result in 
- * assiocative array ARRANGED BY COLUMNS.
+ * associative array ARRANGED BY COLUMNS.
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>,
  * @param  string  $sqlQuery  - the sql query
@@ -371,22 +373,7 @@ function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
 //////////////////////////////////////////////////////////////////////////////
 
 
-/**
- * get the last    failure    stored in $claro_failureList;
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param void
- * @return string -    the    last failure stored
- */
-
-function claro_get_last_failure()
-{
-    global $claro_failureList;
-
-    return $claro_failureList[ count($claro_failureList) - 1 ];
-}
-
-
+$claro_failureList = array();
 
 /**
  * collects and manage failures occuring during script execution
@@ -401,9 +388,9 @@ class claro_failure
     /* 
      * IMPLEMENTATION NOTE : For now the $claro_failureList list is set to the 
      * global scope, as PHP 4 is unable to manage static variable in class. But 
-     * this feature is awaited in PHP 5. The class is already written to minize 
-     * the change when static class variable will be possible. And the API won't 
-     * change.
+     * this feature is awaited in PHP 5. The class is already written to 
+     * minimize the changes when static class variable will be possible. And the 
+     * API won't change.
      */
 
     var $claro_failureList = array();
@@ -999,13 +986,15 @@ function claro_disp_button($url, $text, $confirmMessage = '')
  * @author Piraux Sébastien <pir@cerdecam.be>
  *
  * @param $progress progression in pourcent
- * @param $factor will be multiply by 100 to have the full size of the bar (i.e. 1 will give a 100 pixel wide bar)
+ * @param $factor will be multiply by 100 to have the full size of the bar 
+ * (i.e. 1 will give a 100 pixel wide bar)
  */
+
 function claro_disp_progress_bar ($progress, $factor)
 {
     global $clarolineRepositoryWeb;
-        $maxSize = $factor * 100; //pixels
-        $barwidth = $factor * $progress ;
+           $maxSize  = $factor * 100; //pixels
+           $barwidth = $factor * $progress ;
 
     // display progress bar
     // origin of the bar
@@ -1034,8 +1023,9 @@ function claro_disp_progress_bar ($progress, $factor)
          for syntax to use for this string
          I suggest to use the format you can find in trad4all.inc.php files
  * @param timestamp timestamp of date to format
- * @desc        display a date at localized format
+ * @desc  display a date at localized format
  */
+
 function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspiration :)
 {
     $langMonthNames            = $GLOBALS["langMonthNames"];
