@@ -37,7 +37,9 @@ $configFileName = "claro_main.conf.php";
 $configFilePath = "../inc/conf/".$configFileName;
 
 
-
+session_start();
+$_SESSION = array();
+session_destroy();
 
 if (!empty($_GET))  	{extract($_GET, EXTR_OVERWRITE);}
 if (!empty($_POST)) 	{extract($_POST, EXTR_OVERWRITE);}
