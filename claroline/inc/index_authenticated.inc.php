@@ -204,10 +204,10 @@ echo "</ul>\n"
             $title = $name;
             echo "<h4>".$title."</h4>\n";
         }
-       
+
         $courseDigestList['content'][$i] = preg_replace('/<br( \/)?>/'," ",$courseDigestList['content'][$i]);
         $courseDigestList['content'][$i] = strip_tags($courseDigestList['content'][$i]);
-        $courseDigestList['content'][$i] = substr($courseDigestList['content'][$i],0,CONFVAL_NB_CHAR_FROM_CONTENT);
+        $courseDigestList['content'][$i] = substr($courseDigestList['content'][$i],0, NB_CHAR_FROM_CONTENT);
 
         echo "<p>\n"
             ."<small>"
