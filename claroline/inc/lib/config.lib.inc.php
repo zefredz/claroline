@@ -519,6 +519,11 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
                 
         foreach($storedPropertyList as $storedProperty)
         {
+            // Writeing of a properties include
+            // The  comment from technical info
+            // the creation (const or var)
+            // the comment  of lastChange
+            
             $valueToWrite  = $storedProperty['propValue']; 
             $container     = $conf_def_property_list[$storedProperty['propName']]['container'];
             $description   = $conf_def_property_list[$storedProperty['propName']]['description'];
@@ -527,9 +532,13 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
                 $valueToWrite = "'".$valueToWrite."'";   
             }
             if(strtoupper($container)=='CONST')
+            {
                 $propertyLine = 'define("'.$storedProperty['propName'].'",'.$valueToWrite.');'."\n";
+            }
             else
+            {
                 $propertyLine = '$'.$storedProperty['propName'].' = '.$valueToWrite.';'."\n";
+            }
             $propertyDesc = (isset($description)?'/* '.$storedProperty['propName'].' : '.str_replace("\n","",$description).' */'."\n":
             (isset($conf_def_property_list[$storedProperty['propName']]['label'])?'/* '.$storedProperty['propName'].' : '.str_replace("\n","",$conf_def_property_list[$storedProperty['propName']]['label']).' */'."\n":''));
             $propertyDesc .= ( isset($conf_def_property_list[$storedProperty['propName']]['technicalInfo'])
