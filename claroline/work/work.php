@@ -39,7 +39,6 @@ function confirmation (name)
 
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/conf/work.conf.inc.php');
-@include($includePath.'/lib/debug.lib.inc.php'    );
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_wrk_session      = $tbl_cdb_names['wrk_session'      ];
@@ -252,18 +251,15 @@ if($is_allowedToEdit)
         // ready for a db change, or 
         if( $modifiedSession['authorized_content'] == "TEXTFILE" )
         {
-          $form['authorizeText'] = true;
-          $form['authorizeFile'] = true;
+          $form['authorizedContent' ] = "TEXTFILE";
         }
         elseif( $modifiedSession['authorized_content'] == "TEXT" )
         {
-          $form['authorizeText'] = true;
-          $form['authorizeFile'] = false;
+          $form['authorizedContent' ] = "TEXT";
         }
         elseif( $modifiedSession['authorized_content'] == "FILE" )
         {
-          $form['authorizeText'] = false;
-          $form['authorizeFile'] = true;
+          $form['authorizedContent' ] = "FILE";
         }
         
         if( $modifiedSession['def_submission_visibility'] == "VISIBLE" )
@@ -306,9 +302,8 @@ if($is_allowedToEdit)
     {
       // there was an error in the form so display it with already modified values
       $form['sesTitle'          ] = $_REQUEST['sesTitle'];
-      $form['sesDesc'       ] = $_REQUEST['sesDesc'];
-      $form['authorizeText'    ] = $_REQUEST['authorizeText'];      
-      $form['authorizeFile'    ] = $_REQUEST['authorizeFile'];      
+      $form['sesDesc'           ] = $_REQUEST['sesDesc'];
+      $form['authorizedContent' ] = $_REQUEST['authorizedContent'];      
       $form['startDate'         ] = $_REQUEST['startYear']."-".$_REQUEST['startMonth']."-".$_REQUEST['startDay'];
       $form['startTime'         ] = $_REQUEST['startHour'].":".$_REQUEST['startMinute'].":00";
       $form['endDate'           ] = $_REQUEST['endYear']."-".$_REQUEST['endMonth']."-".$_REQUEST['endDay'];
@@ -352,17 +347,17 @@ if($is_allowedToEdit)
           // prepare some value to insert
           
           // authorized type
-          if( isset($_REQUEST['authorizeText']) && isset($_REQUEST['authorizeFile']) )
+          if( $_REQUEST['authorizedContent'] == "FILE" )
+          {
+            $authorizedContent = "FILE";
+          }
+          elseif( $_REQUEST['authorizedContent'] == "TEXT" )
+          {
+            $authorizedContent = "TEXT";
+          }
+          elseif( $_REQUEST['authorizedContent'] == "TEXTFILE" )
           {
             $authorizedContent = "TEXTFILE";
-          }
-          elseif($_REQUEST['authorizeText'])
-          {
-            $authorizedContent = "TEXT";       
-          }
-          elseif($_REQUEST['authorizeFile'])
-          {
-            $authorizedContent = "FILE";       
           }
           
           // description
@@ -431,8 +426,7 @@ if($is_allowedToEdit)
       // set default values to prefill the form if nothing was posted
       $form['sesTitle'             ] = "";
       $form['sesDesc'           ] = "";
-      $form['authorizeText' ] = false;
-      $form['authorizeFile' ] = true;
+      $form['authorizedContent' ] = "FILE";
       $form['startDate'         ] = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y") ) );
       $form['startTime'         ] = date("H:i:00", mktime( date("H"),date("i"),0) );
       $form['endDate'           ] = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
@@ -447,8 +441,7 @@ if($is_allowedToEdit)
       // there was an error in the form so display it with already modified values
       $form['sesTitle'          ] = $_REQUEST['sesTitle'];
       $form['sesDesc'           ] = $_REQUEST['sesDesc'];
-      $form['authorizeText'    ] = $_REQUEST['authorizeText'];      
-      $form['authorizeFile'    ] = $_REQUEST['authorizeFile'];  
+      $form['authorizedContent' ] = $_REQUEST['authorizedContent'];      
       $form['startDate'         ] = $_REQUEST['startYear']."-".$_REQUEST['startMonth']."-".$_REQUEST['startDay'];
       $form['startTime'         ] = $_REQUEST['startHour'].":".$_REQUEST['startMinute'].":00";
       $form['endDate'           ] = $_REQUEST['endYear']."-".$_REQUEST['endMonth']."-".$_REQUEST['endDay'];
@@ -523,12 +516,13 @@ if($is_allowedToEdit)
       <tr>
         <td valign="top"><?php echo $langSubmissionType; ?>&nbsp;:</td>
         <td>
-          <input type="checkbox" name="authorizeFile" id="authorizeFile" value="1" <?php if( $form['authorizeFile'] ) echo 'checked="checked"'; ?>><label for="authorizeFile">&nbsp;<?php echo $langFile; ?></label><br />
-          <input type="checkbox" name="authorizeText" id="authorizeText" value="1" <?php if( $form['authorizeText'] ) echo 'checked="checked"'; ?>><label for="authorizeText">&nbsp;<?php echo $langText; ?></label><br />
+          <input type="radio" name="authorizedContent" id="authorizeFile" value="FILE" <?php if( $form['authorizedContent'] == "FILE" ) echo 'checked="checked"'; ?>><label for="authorizeFile">&nbsp;<?php echo $langFile; ?></label><br />
+          <input type="radio" name="authorizedContent" id="authorizeText" value="TEXT" <?php if( $form['authorizedContent'] == "TEXT" ) echo 'checked="checked"'; ?>><label for="authorizeText">&nbsp;<?php echo $langText; ?></label><br />
+          <input type="radio" name="authorizedContent" id="authorizeTextFile" value="TEXTFILE" <?php if( $form['authorizedContent'] == "TEXTFILE" ) echo 'checked="checked"'; ?>><label for="authorizeTextFile">&nbsp;<?php echo $langTextFile; ?></label><br />
         </td>
       </tr>
       
-      <tr>
+      <!--<tr>
         <td><?php echo $langStartDate; ?>&nbsp;:</td>
         <td>
 <?php
@@ -547,7 +541,7 @@ if($is_allowedToEdit)
          echo "&nbsp;<small>".$langChooseDateHelper."</small>";
 ?>      
         </td>
-      </tr>
+      </tr>-->
       
       <tr>
         <td valign="top"><?php echo $langDefSubVisibility; ?>&nbsp;:</td>
@@ -556,7 +550,7 @@ if($is_allowedToEdit)
           <input type="radio" name="defSubVis" id="invisible" value="INVISIBLE" <?php if($form['defSubVis'] == "INVISIBLE") echo 'checked="checked"'; ?>><label for="invisible">&nbsp;<?php echo $langInvisible; ?></label><br />
         </td>
       </tr>
-      
+      <!--
       <tr>
         <td valign="top"><?php echo $langSessionType; ?>&nbsp;:</td>
         <td>
@@ -564,7 +558,7 @@ if($is_allowedToEdit)
           <input type="radio" name="sessionType" id="group" value="GROUP" <?php if($form['sessionType'] == "GROUP") echo 'checked="checked"'; ?>><label for="group">&nbsp;<?php echo $langGroup; ?></label><br />
         </td>
       </tr> 
-      
+      -->
       <tr>
         <td valign="top"><?php echo $langAllowAnonymous; ?>&nbsp;:</td>
         <td>
@@ -572,7 +566,7 @@ if($is_allowedToEdit)
         <input type="radio" name="allowAnonymous" id="anonNotAllowed" value="NO" <?php if($form['allowAnonymous'] == "NO") echo 'checked="checked"'; ?>><label for="anonNotAllowed">&nbsp;<?php echo $langAnonNotAllowed; ?></label><br />
         </td>
       </tr>
-      
+      <!--
       <tr>
         <td valign="top"><?php echo $langPreventLateUploadShort; ?>&nbsp;:</td>
         <td>
@@ -580,6 +574,8 @@ if($is_allowedToEdit)
         <input type="radio" name="preventLateUpload" id="allowUpload" value="NO" <?php if($form['preventLateUpload'] == "NO") echo 'checked="checked"'; ?>><label for="allowUpload">&nbsp;<?php echo $langAllowLateUpload; ?></label><br />
         </td>
       </tr>
+      -->
+    
       <tr>
         <td colspan="2" align="center">
         <input type="submit" name="submitSession" value="<?php echo $langOk; ?>">
