@@ -24,7 +24,7 @@ $langCheckDatabase  	= "Vérificateur d'état des bases";        // Check Database
 $langDiffTranslation 	= "Comparaison des traductions"; // diff of translation
 $langStatOf 			= "Statistiques de "; // Stats of...
 $langSpeeSubscribe 		= "Inscription Rapide comme Testeur d'un cours";
-$langLogIdentLogout 	= "Liste des logins";
+$langLogIdentLogout 	= "Liste des logins"; // JCC
 $langLogIdentLogoutComplete = "Liste étendue des logins";
 
 // Stat
@@ -32,7 +32,7 @@ $langStatistiques = "Statistiques";
 
 $langNbProf = "Nombre de professeurs";
 $langNbStudents = "Nombre d'étudiants";
-$langNbLogin = "Nombre de login";
+$langNbLogin = "Nombre de logins";  // JCC
 $langToday   ="Aujourd'hui";
 $langLast7Days ="Ces 7 derniers jours";
 $langLast30Days ="Ces 30 derniers jours";
@@ -45,13 +45,13 @@ $langNbAnnoucement = "Nombre d'annonces";
 $langCheckDatabase ="Analyse de la Base de données";
 
 // Check Data base
-$langPleaseCheckConfigForMainDataBaseName = "Verifiez les variables
+$langPleaseCheckConfigForMainDataBaseName = "Vérifiez les variables
 <br>
-Nom de base de donnée dans
+Nom de base de données dans
 <br>";
 $langBaseFound ="trouvée
 <br>
-Vérification des tables de cette base";
+Vérification des tables de cette base"; // JCC
 $langNeeded = "obligatoire";
 $langNotNeeded = "non exigé";
 $langArchive   ="archive";
@@ -64,31 +64,31 @@ $langExist     ="existe";
 
 // create  Claro table
 
-$langCreateClaroTables ="Creation des tables de la base principale";
-$langTableStructureDontKnow ="Structure of this table unknown";
+$langCreateClaroTables ="Création des tables de la base principale";  // JCC
+$langTableStructureDontKnow ="Structure de cette table inconnue"; // JCC
 
 $langSETLOCALE="FRENCH";
 // UNIX TIME SETTINGS, "15h00" instead of "3pm", for instance, "ENGLISH" is a possibility
 
 $langServerStatus ="Statut du serveur mysql : ";
-$langDataBase = "Database ";
-$langRun = "work";
+$langDataBase = "Base de données "; // JCC
+$langRun = "work"; // JCC "en fonction" ?
 $langClient = "MySql Client ";
-$langServer = "MySql Server ";
-$langtitulary ="Titulary";
-$langLanguage ="Language";
-$langUpgradeBase = "Upgrade database";
+$langServer = "MySql Serveur "; // JCC
+$langtitulary ="Titulary"; // JCC "Propriétaire" ?
+$langLanguage ="Langue"; // JCC
+$langUpgradeBase = "Mise à jour de la base de données"; // JCC
 
 $langAddAUser 		="Ajouter un utilisateur";
 $langSearchAUser 	="Chercher un utilisateur";
-$langBrowseUser		="Explorer la liste d'utilisateur";
+$langBrowseUser		="Explorer la liste d'utilisateurs";  // JCC
 $langListOfUser		="Lister les utilisateurs";
 
 $langSearchACourse ="Chercher un cours";
 $langBrowseCourse = "Explorer la liste des cours";
 $langListOfCourse = "Lister les cours";
 $langAddFaculties  ="Ajouter un ensemble de cours (faculté)";
-$langListOfCourseSubscriptionSimple = "Liste des inscriptions dans les cours (version utile)";
+$langListOfCourseSubscriptionSimple = "Liste des inscriptions dans les cours (version utile)";  // JCC "... version abrégée" ?
 $langListOfCourseSubscriptionComplete = "Liste des inscriptions dans les cours (version complète)";
 $langLogIdentLogout		= "Explorer les connections";
 $langLogIdentLogoutComplete ="Explorer les connections (plus complet)";
@@ -99,7 +99,7 @@ $langUsers				= "Utilisateurs";
 $langManage				= "Gestion du campus";
 $langAdminProfileUser   = "Compte utilisateur";
 $langMaintenance ="Maintenance";
-$langUpgrade ="Mise à jour de claroline";
+$langUpgrade ="Mise à jour de Claroline"; // JCC
 $langUpgradeAll = "Mise à jour de l'ensemble.";
 $langMakeBackupBefore = "Faites une sauvegarde !!!!!";
 ?>

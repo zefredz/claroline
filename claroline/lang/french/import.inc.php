@@ -24,10 +24,10 @@ Translate the interface in chosen language
 
 // GENERIC
 
-$langModify="modifier";
-$langDelete="effacer";
+$langModify="Modifier"; // JCC
+$langDelete="Effacer"; // JCC
 $langTitle="Titre";
-$langHelp="aide";
+$langHelp="Aide"; // JCC
 $langAddIntro="AJOUTER UN TEXTE D'INTRODUCTION";
 $langBackList="Retour à la liste";
 

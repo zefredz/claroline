@@ -22,9 +22,9 @@ Translate the interface in chosen language
 $langCourseProgram = "Description du cours";
 $langThisCourseDescriptionIsEmpty = "La description de ce cours est vide";
 
-$langEditCourseProgram = "Cr&eacute;er et &eacute;diter &agrave; l'aide des formulaires une description de cours";
+$langEditCourseProgram = "Créer et éditer à l'aide des formulaires une description de cours";
 $langQuestionPlan = "Question de planification <BR>pour le professeur";
-$langInfo2Say = "Informations &agrave; communiquer <BR>à l'étudiant";
+$langInfo2Say = "Informations à communiquer <BR>à l'étudiant";
 $langOuAutreTitre = "Titre";
 $langContenuPlan = "";
 $langNewBloc = "Autre";

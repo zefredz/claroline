@@ -21,8 +21,8 @@ Translate the interface in chosen language
 *****************************************************************/
 
 $langGroupManagement="Groupes";
-$langHelp="aide";
-$langNewGroupCreate="Créer nouveau(x) groupe(s)";
+$langHelp="Aide"; // JCC
+$langNewGroupCreate="Créer nouveau(x) groupe(s)"; // JCC
 $langGroupCreation="Création de groupes";
 $langCreate="Créer";
 $langNewGroups="nouveau(x) groupe(s)";
@@ -61,7 +61,7 @@ $langDelete="Supprimer";
 
 // Group Properties
 $langGroupProperties="Propriétés des groupes";
-$langGroupAllowStudentRegistration="Etudiants autorisés à s'inscrire eux-même dans les groupes";
+$langGroupAllowStudentRegistration="Etudiants autorisés à s'inscrire eux-mêmes dans les groupes"; // JCC
 $langGroupPrivatise="Forums de groupe privés (accès réservé aux membres du groupe).";
 $langGroupTools="Outils";
 $langGroupForum="Forum";
@@ -89,7 +89,7 @@ $langGroupStudentsRegistered="étudiants inscrits au cours";
 $langGroupNoGroup="étudiants sans groupe";
 $langGroupUsersList="Cf. liste des <a href=../user/user.php>utilisateurs</a>";
 $langGroupTooMuchMembers="Le nombre de membres proposé excède le nombre maximum que vous avez fixé. 
-	La composition du groupe n'a pas été modifiée. Vous pouvez modifer le nombre maximum ci-dessous.";
+	La composition du groupe n'a pas été modifiée. Vous pouvez modifier le nombre maximum ci-dessous."; // JCC 
 $langGroupTutor="Tuteur";
 $langGroupTutors="Tuteurs";
 $langGroupNoTutor="(aucun)";
@@ -121,10 +121,10 @@ $langGroupFilledGroups="Les groupes ont été remplis (ou complétés) par les étudi
 $langStudentsNotInThisGroups = "Utilisateurs non inscrits à ce groupe";
 
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "Un utilisateur peut être inscrit dans";
-$langQtyOfUserCanSubscribe_PartAfterNumber = "groupe(s)";
+$langQtyOfUserCanSubscribe_PartAfterNumber = "groupes";
 
-$langNoLimitForQtyOfUserCanSubscribe ="L'utilisateur peux être inscrit à tous les groupes";
-$langGroupDocumentAlwaysPrivate = "(toujours priv&eacute;)";
+$langNoLimitForQtyOfUserCanSubscribe ="L'utilisateur peut être inscrit à tous les groupes"; // JCC 
+$langGroupDocumentAlwaysPrivate = "(toujours privé)";
 $langGroupLimit				= "Limite";
 
 

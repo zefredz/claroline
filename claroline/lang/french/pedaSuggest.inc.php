@@ -7,55 +7,55 @@ unset($info2Say);
 
 $titreBloc[] ="Description";
 $titreBlocNotEditable[] = FALSE;
-$questionPlan[] = "Quelle est la place et la sp&eacute;cificit&eacute; du cours dans le programme&nbsp;?
-Existe-t-il des cours pr&eacute;-requis&nbsp;?
+$questionPlan[] = "Quelle est la place et la spécificité du cours dans le programme&nbsp;?
+Existe-t-il des cours pré-requis&nbsp;?
 Quels sont les liens avec les autres cours&nbsp;?";
 $info2Say[] = "
 Information permettant d'identifier le cours 
 (sigle, titre, nombre d'heure de cours, de TP, ...) 
-et l'enseignant (nom, pr&eacute;nom, bureau, t&eacute;l, e-mail, disponibilit&eacute;s &eacute;ventuelles).
+et l'enseignant (nom, prénom, bureau, tél, e-mail, disponibilités éventuelles).
 <br>
-Pr&eacute;sentation g&eacute;n&eacute;rale du cours dans le programme.";
+Présentation générale du cours dans le programme.";
 
 
-$titreBloc[] ="Comp&eacute;tences et Objectifs";
+$titreBloc[] ="Compétences et Objectifs";
 $titreBlocNotEditable[] = TRUE;
-$info2Say[] = "Pr&eacute;sentation des objectifs g&eacute;n&eacute;raux et sp&eacute;cifiques du cours des comp&eacute;tences auxquelles la ma&icirc;trise de tels objectifs pourrait conduire.";
-$questionPlan[] = "Quels sont les apprentissages vis&eacute;s par l'enseignement&nbsp;?
+$info2Say[] = "Présentation des objectifs généraux et spécifiques du cours, des compétences auxquelles la maîtrise de tels objectifs pourrait conduire."; // JCC 
+$questionPlan[] = "Quels sont les apprentissages visés par l'enseignement&nbsp;?
 <br>
-Au terme du cours, quelles sont les comp&eacute;tences, les capacit&eacute;s et les connaissances que les &eacute;tudiants seront en mesure de ma&icirc;triser, de mobiliser&nbsp;?";
+Au terme du cours, quelles sont les compétences, les capacités et les connaissances que les étudiants seront en mesure de maîtriser, de mobiliser&nbsp;?";
 
 
 
 $titreBloc[] ="Contenu du cours";
 $titreBlocNotEditable[] = TRUE;
-$questionPlan[] = "Quels est l'importance des diff&eacute;rents contenus &agrave; traiter dans le cadre du cours&nbsp;?
-Quel est le niveau de difficult&eacute; de ces contenus&nbsp;? 
-Comment structurer l'ensemble de la mati&egrave;re&nbsp;?  
-Quelle sera la s&eacute;quence des contenus&nbsp;? 
+$questionPlan[] = "Quelle est l'importance des différents contenus à traiter dans le cadre du cours&nbsp;?
+Quel est le niveau de difficulté de ces contenus&nbsp;? 
+Comment structurer l'ensemble de la matière&nbsp;?  
+Quelle sera la séquence des contenus&nbsp;? 
 Quelle sera la progression dans les contenus&nbsp;?";
-$info2Say[] = "Pr&eacute;sentation de la table des mati&egrave;res du cours, de la structuration du 
+$info2Say[] = "Présentation de la table des matières du cours, de la structuration du 
 contenu, de la progression et du calendrier";
 
 
 
-$titreBloc[] ="Activit&eacute;s d'enseignement-apprentissage";
+$titreBloc[] ="Activités d'enseignement-apprentissage";
 $titreBlocNotEditable[] = TRUE;
-$questionPlan[] = "Quelles m&eacute;thodes et quelles activit&eacute;s vont-elles favoriser l'atteinte des 
-objectifs d&eacute;finis pour le cours&nbsp;?
-Quel est le calendrier des activit&eacute;s&nbsp;?";
-$info2Say[] = "Pr&eacute;sentation des activit&eacute;s pr&eacute;vues 
-(expos&eacute;s magistraux, participation attendue des &eacute;tudiants, travaux pratiques, 
-s&eacute;ances de laboratoire, visites, recueil d'informations sur le terrain, 
+$questionPlan[] = "Quelles méthodes et quelles activités vont-elles favoriser l'atteinte des 
+objectifs définis pour le cours&nbsp;?
+Quel est le calendrier des activités&nbsp;?";
+$info2Say[] = "Présentation des activités prévues 
+(exposés magistraux, participation attendue des étudiants, travaux pratiques, 
+séances de laboratoire, visites, recueil d'informations sur le terrain, 
 ...).";
 
 $titreBloc[] ="Supports";
 $titreBlocNotEditable[] = TRUE;
-$questionPlan[] = "Existe-t-il un support de cours ? Quel type de support vais-je privilegier ? 
-Ouvert ? Ferm&eacute; ?";
-$info2Say[] = "Pr&eacute;sentation du ou des supports de 
-cours. Pr&eacute;sentation de la bibliographie, du portefeuille de documents ou 
-d'une bibliographie compl&eacute;mentaire.";
+$questionPlan[] = "Existe-t-il un support de cours ? Quel type de support vais-je privilégier ? 
+Ouvert ? Fermé ?"; // JCC 
+$info2Say[] = "Présentation du ou des supports de 
+cours. Présentation de la bibliographie, du portefeuille de documents ou 
+d'une bibliographie complémentaire.";
 
 
 $titreBloc[] ="Ressources humaines et physiques";
@@ -63,20 +63,20 @@ $titreBlocNotEditable[] = TRUE;
 $questionPlan[] = "
 Quelles sont les ressources humaines et physiques disponibles&nbsp;?
 Quelle sera la nature de l'encadrement&nbsp;? 
-Que peuvent attendre les &eacute;tudiants de l'&eacute;quipe d'encadrement ou de l'encadrement de l'enseignant&nbsp;?";
-$info2Say[] = "Pr&eacute;sentation des autres 
+Que peuvent attendre les étudiants de l'équipe d'encadrement ou de l'encadrement de l'enseignant&nbsp;?";
+$info2Say[] = "Présentation des autres 
 enseignants qui vont encadrer le cours (assistants, chercheurs, 
-&eacute;tudiants-moniteurs,...), des disponibilit&eacute;s des personnes, des locaux et des 
-&eacute;quipements ou mat&eacute;riel informatique disponibles.";
+étudiants-moniteurs,...), des disponibilités des personnes, des locaux et des 
+équipements ou matériel informatique disponibles.";
 
-$titreBloc[] ="Modalit&eacute;s d'&eacute;valuation";
+$titreBloc[] ="Modalités d'évaluation";
 $titreBlocNotEditable[] = TRUE;
-$questionPlan[] = "Quelles modalit&eacute;s d'&eacute;valuation choisir afin d'&eacute;valuer l'atteinte des objectifs d&eacute;finis au d&eacute;but du cours&nbsp;?  
-Quelles sont les strat&eacute;gies d'&eacute;valuation mises en place afin de permettre &agrave; l'&eacute;tudiant d'identifier d'&eacute;ventuelles lacunes avant la session d'examens&nbsp;?";
-$info2Say[] = "Pr&eacute;cisions quant aux moyens d'&eacute;valuation (examens &eacute;crits, oraux, projets, 
-travaux &agrave; remettre, ...), quant au(x) moment(s) d'&eacute;valuation formative pr&eacute;vu(s), 
-&eacute;ch&eacute;ances pour la remise des travaux, aux crit&egrave;res d'&eacute;valuation, &eacute;ventuellement 
-la pond&eacute;ration des crit&egrave;res ou des cat&eacute;gories de crit&egrave;res.";
+$questionPlan[] = "Quelles modalités d'évaluation choisir afin d'évaluer l'atteinte des objectifs définis au début du cours&nbsp;?  
+Quelles sont les stratégies d'évaluation mises en place afin de permettre à l'étudiant d'identifier d'éventuelles lacunes avant la session d'examens&nbsp;?";
+$info2Say[] = "Précisions quant aux moyens d'évaluation (examens écrits, oraux, projets, 
+travaux à remettre, ...), quant au(x) moment(s) d'évaluation formative prévu(s), 
+échéances pour la remise des travaux, aux critères d'évaluation, éventuellement 
+la pondération des critères ou des catégories de critères.";
 
 
 ?>

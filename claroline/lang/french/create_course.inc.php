@@ -43,12 +43,12 @@ $langNoSeduction="Non. Il ne s\'agit pas d\'une stratégie de séduction ou d\'une
 $langForce="Contraindre son interlocuteur, par une série de questions et de sous-questions, à reconnaître qu\'il ne connaît pas ce qu\'il prétend connaître.";
 $langIndeed="En effet. L\'ironie socratique est une méthode interrogative. Le grec \"eirotao\" signifie d\'ailleurs \"interroger\".";
 $langContradiction="Utiliser le principe de non-contradiction pour amener son interlocuteur dans l\'impasse.";
-$langNotFalse="Cette réponse n\'est pas fausse. Il est exact que la mise en évidence de l\'ignorance de l\'interlocuteur se fait en mettant en évidence les contradictions auxquelles abouttisent ses thèses.";
+$langNotFalse="Cette réponse n\'est pas fausse. Il est exact que la mise en évidence de l\'ignorance de l\'interlocuteur se fait en mettant en évidence les contradictions auxquelles aboutissent ses thèses."; // JCC 
 
-$langSampleLearnPath = "Exemple de parcours p&eacute;dagogique";
-$langSampleLearnPathDesc = "Ceci est un exemple de parcours p&eacute;dagogique, il utilise l\'exemple d\'exercice et l\'exemple de document de l\'outil d\'exercice et l\'outil de document. Cliquez sur <b>Modifier</b> pour changer ce texte.";
+$langSampleLearnPath = "Exemple de parcours pédagogique";
+$langSampleLearnPathDesc = "Ceci est un exemple de parcours pédagogique, il utilise l\'exemple d\'exercice et l\'exemple de document de l\'outil d\'exercices et l\'outil de documents. Cliquez sur <b>Modifier</b> pour changer ce texte."; // JCC 
 $langSampleHandmade = "Exemple de module \'fait main\'";
-$langSampleHandmadeDesc = "Vous pouvez fair un module \'fait main\' en utilisant des pages HTML, animations FLASH, vid&eacute;os...<br /><br /> Afin de permettre aux apprenants de voir le contenu de votre nouveau module, vous devrez d&eacute;finir une resource de démarrage du module.";
+$langSampleHandmadeDesc = "Vous pouvez faire un module \'fait main\' en utilisant des pages HTML, animations FLASH, vidéos...<br /><br /> Afin de permettre aux apprenants de voir le contenu de votre nouveau module, vous devrez définir une ressource de démarrage du module."; // JCC 
 $langSampleDocument = "document_exemple";
 $langSampleDocumentDesc = "Vous pouvez utiliser n\'importe quel document de l\'outil de documents de ce cours.";
 $langSampleExerciseDesc = "Vous pouvez utiliser n\'importe quel exercice de l\'outil d\'exercices de ce cours.";
@@ -57,7 +57,7 @@ $langSampleExerciseDesc = "Vous pouvez utiliser n\'importe quel exercice de l\'o
 $langAgenda="Agenda";
 $langLinks="Liens";
 $langDoc="Documents et liens";
-$langVideo="Video";
+$langVideo="Vidéo"; // JCC 
 $langWorks="Travaux";
 $langCourseProgram="Cahier des charges";
 $langAnnouncements="Annonces";
@@ -65,12 +65,16 @@ $langUsers="Utilisateurs";
 $langForums="Forums";
 $langExercices="Exercices";
 $langStatistics="Statistiques";
-$langAddPageHome="Déposer page et lier à page d\'accueil";
+$langAddPageHome="Déposer une page et la lier à page d\'accueil"; // JCC 
 $langLinkSite="Ajouter un lien sur la page d\'accueil";
 $langModifyInfo="Propriétés du cours";
 $langCourseDesc = "Description du cours";
-$langLearningPath="Parcours p&eacute;dagogique";
-$langEmail="Email";
+$langLearningPath="Parcours pédagogique";
+$langEmail="E-mail"; // JCC
+
+
+// create_course.php // JCC cette variable manquait
+$langLn="Langue";
 
 
 // Other SQL tables
@@ -83,14 +87,14 @@ $langGoogle="Moteur de recherche généraliste performant";
 
 //$langIntroductionTwo="Cette page est un espace de publication. Elle permet à chaque étudiant ou groupe d\'étudiants d\'envoyer un document (Word, Excel, HTML... ) vers le site du cours afin de le rendre accessible aux autres étudiants ainsi qu\'au professeur.
 //Si vous passez par votre espace de groupe pour publier le document (option publier), l\'outil de travaux fera un simple lien vers le document là où il se trouve dans votre répertoire de groupe sans le déplacer.";
-//$langIntroductionLearningPath="<p>Ceci est le texte d\'introduction des parcours p&eacute;dagogique de votre cours.  Utiliser cet outils pour fournir à vos apprenants un parcours s&eacute;quentiel d&eacute;fini par vos soins entre des documents, exercices, pages HTML,... ou importer des contenus SCORM existants</p><p>Remplacez ce texte par votre propre introduction.<br></p>";
+//$langIntroductionLearningPath="<p>Ceci est le texte d\'introduction des parcours pédagogiques de votre cours.  Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML,... ou importer des contenus SCORM existants</p><p>Remplacez ce texte par votre propre introduction.<br></p>"; // JCC 
 $langCourseDescription="Ecrivez ici la description qui apparaîtra dans la liste des cours (Le contenu de ce champ ne s\'affiche actuellement nulle part et ne se trouve ici qu\'en préparation à une version prochaine de Claroline).";
-$langProfessor="Responsables de cours";
+$langProfessor="Responsable de cours"; // JCC 
 $langAnnouncementExTitle = "Exemple d\'annonce";
 $langAnnouncementEx="Ceci est un exemple d\'annonce.";
 $langJustCreated="Vous venez de créer le site du cours";
 $langEnter="Retourner à votre liste de cours";
-$langMillikan="Exp&eacute;rience de Millikan";
+$langMillikan="Expérience de Millikan";
 
 
 
@@ -98,7 +102,7 @@ $langMillikan="Exp&eacute;rience de Millikan";
 $langGroups="Groupes";
 $langCreateCourseGroups="Groupes";
 
-$langCatagoryMain = "G&eacute;n&eacute;ral";
+$langCatagoryMain = "Général";
 $langCatagoryGroup = "Forums des Groupes";
 
 $langChat ="Discuter";
@@ -108,13 +112,13 @@ $langAddedToCreator = "en plus de celui choisi  à la création";
 
 
 $langOnly = "Seulement";
-$langRandomLanguage = "S&eacute;lection al&eacute;atoire parmis toutes les langues";
+$langRandomLanguage = "Sélection aléatoire parmi toutes les langues"; // JCC 
 
 
 // Dev tools : create many test courses
 $langTipLang="Cette langue vaudra pour tous les visiteurs de votre site de cours.";
 $langCourseAccess="Accès au cours";
-$langPublic="Accès public (depuis la page d'accueil de iCampus sans identifiant)";
+$langPublic="Accès public (depuis la page d'accueil de Claroline sans identifiant)";
 $langPrivate="Accès privé (site réservé aux personnes figurant dans la liste <a href=../user/user.php>utilisateurs</a>)";
 $langSubscription="Inscription";
 $langConfTip="Par défaut, votre cours n'est accessible
@@ -125,20 +129,20 @@ puis de fermer l'inscription et de vérifier dans la liste des utilisateurs les i
 //Display
 $langCreateCourse="Cours à créer";
 $langQantity="Quantité  : ";
-$langPrefix="Prefix  : ";
+$langPrefix="Préfixe  : "; // JCC 
 $langStudent="étudiants";
 $langMin="Minimum : ";
 $langMax="Maximum : ";
-$langNumGroup="Nombre de groupe par cours";
-$langMaxStudentGroup="Nombre maximum d'étudiant par groupe";
+$langNumGroup="Nombre de groupes par cours"; // JCC 
+$langMaxStudentGroup="Nombre maximum d'étudiants par groupe"; // JCC 
 $langAdmin ="administration";
-$langNumGroupStudent="Nombre de groupe dont peut faire partie un étudiant dans un cours";
+$langNumGroupStudent="Nombre de groupes dont peut faire partie un étudiant dans un cours"; // JCC 
 
 $langLabelCanBeEmpty ="L'intitulé est obligatoire";
 $langTitularCanBeEmpty ="Le champs titulaire doit être rempli";
-$langEmailCanBeEmpty ="Le champs email doit être rempli";
+$langEmailCanBeEmpty ="Le champs e-mail doit être rempli"; // JCC
 $langCodeCanBeEmpty ="Le code cours doit être rempli";
-$langEmailWrong = "L'email n'est pas correct (corrigez-le, ou effacez-le)";
+$langEmailWrong = "L'e-mail n'est pas correct (corrigez-le, ou effacez-le)"; // JCC
 $langCreationMailNotificationSubject = 'Création de cours';
 $langCreationMailNotificationBody = 'Cours ajouté sur'; 
 $langByUser = 'par l\'utilisateur';

@@ -26,26 +26,26 @@ $langMember ="inscrit";
 
 $langDelete	="supprimer";
 $langLock	= "bloquer";
-$langUnlock	= "liberer";
+$langUnlock	= "libérer"; // JCC 
 
-$langHaveNoCourse = "Pas de Cours";
+$langHaveNoCourse = "Pas de cours"; // JCC 
 
-$langFirstname = "Prenom";
+$langFirstname = "Prénom"; // JCC 
 $langLastname = "Nom";
-$langEmail = "Adresse de courrier électronique";
-$langAbbrEmail = "Email";
+$langEmail = "Adresse d'e-mail"; // JCC
+$langAbbrEmail = "E-mail"; // JCC 
 $langRetrieve ="Retrouver  mes paramètres d'identification";
-$langMailSentToAdmin = "Un email à été adressé à l'administrateur.";
+$langMailSentToAdmin = "Un e-mail a été adressé à l'administrateur."; // JCC 
 $langAccountNotExist = "Ce compte semble ne pas exister.<BR>".$langMailSentToAdmin." Il fera une recherche manuelle.<BR><BR>";
-$langAccountExist = "Ce compte semble exister.<BR> Un email à été adressé à l'administrateur. <BR><BR>";
+$langAccountExist = "Ce compte semble exister.<BR> Un e-mail a été adressé à l'administrateur. <BR><BR>"; // JCC 
 $langWaitAMailOn = "Attendez vous à une réponse sur ";
 $langCaseSensitiveCaution = "Le système fait la différence entre les minuscules et les majuscules.";
 $langDataFromUser = "Données envoyées par l'utilisateur";
-$langDataFromDb = "Données correspondantes dans la base de donnée";
+$langDataFromDb = "Données correspondantes dans la base de données"; // JCC 
 $langLoginRequest = "Demande de login";
-$langExplainFormLostPass = "Entrez ce que  vous pensez avoir  introduit comme données lors de votre inscription.";
-$langTotalEntryFound = " Nombre d'entrée trouvées";
-$langEmailNotSent = "Quelque chose n'as pas fonctionné, veuillez envoyer ceci à";
+$langExplainFormLostPass = "Tapez ce que vous pensez avoir introduit comme données lors de votre inscription."; // JCC
+$langTotalEntryFound = " Nombre d'entrées trouvées"; // JCC 
+$langEmailNotSent = "Quelque chose n'a pas fonctionné, veuillez envoyer ceci à"; // JCC 
 $langYourAccountParam = "Voici vos paramètres de connection";
 $langTryWith ="essayez avec ";
 $langInPlaceOf ="au lieu de";
@@ -59,10 +59,12 @@ $langName="Nom";
 $langSurname="Prénom";
 $langUsername="Nom d'utilisateur";
 $langPass="Mot de passe";
-$langConfirmation="confirmation";
+$langConfirmation="Confirmation";
 $langStatus="Action";
 $langRegStudent="M'inscrire à des cours";
 $langRegAdmin="Créer des sites de cours";
+$langPhone = "Téléphone"; // JCC cette variable manquait
+$langSaveChange ="Enregistrer les changements"; // JCC cette variable manquait
 $langTitular = "Titulaire";
 // inscription_second.php
 
@@ -75,7 +77,7 @@ et recommencez.";
 $langEmptyFields = "Vous n'avez pas rempli tous les champs.
 Utilisez le bouton de retour en arrière de votre navigateur et recommencez.";
 
-$langPassTooEasy ="Ce mot de passe est trop simple. Choisissez un autre password  comme par exemple : ";
+$langPassTooEasy ="Ce mot de passe est trop simple. Choisissez un autre mot de passe  comme par exemple : "; // JCC 
 
 $langUserFree    = "Le nom d'utilisateur que vous avez choisi est déjà pris.
 Utilisez le bouton de retour en arrière de votre navigateur
@@ -90,7 +92,7 @@ $langIs                     = "est";
 $langProblem                = "En cas de problème, n'hésitez pas à prendre contact avec nous";
 $langFormula                = "Cordialement";
 $langManager                = "Responsable";
-$langPersonalSettings       = "Vos coordonnées personnelles ont été enregistrées et un email vous a été envoyé
+$langPersonalSettings       = "Vos coordonnées personnelles ont été enregistrées et un e-mail vous a été envoyé
 pour vous rappeler votre nom d'utilisateur et votre mot de passe.</p>";
 $langNowGoChooseYourCourses ="Vous  pouvez maintenant aller sélectionner les cours auxquels vous souhaitez avoir accès.";
 $langNowGoCreateYourCourse  = "Vous  pouvez maintenant aller créer votre cours";
@@ -102,15 +104,15 @@ $langCanEnter               = "Vous pouvez maintenant <a href=../../index.php>en
 
 $langModifProfile = "Modifier mon profil";
 $langPassTwo      = "Vous n'avez pas tapé deux fois le même mot de passe";
-$langAgain        = "Recommencez!";
+$langAgain        = "Recommencez !"; // JCC 
 $langFields       = "Vous n'avez pas rempli tous les champs";
 $langUserTaken    = "Le nom d'utilisateur que vous avez choisi est déjà pris";
-$langEmailWrong   = "L'adresse email que vous avez introduite n'est pas complète
-ou contient certains caractères non valides";
+$langEmailWrong   = "L'adresse d'e-mail que vous avez introduite n'est pas complète
+ou contient certains caractères non valides"; // JCC 
 $langProfileReg   = "Votre nouveau profil a été enregistré";
 $langHome         = "Retourner à l'accueil";
 $langMyStats      = "Voir mes statistiques";
-$langReturnSearchUser="Revenir a l'utilisateur";
+$langReturnSearchUser="Revenir à l'utilisateur"; // JCC 
 
 
 // user.php
@@ -134,7 +136,7 @@ $langRegYou             = "vous a inscrit sur";
 $langTheU               ="L'utilisateur";
 $langAddedU             ="a été ajouté. Si vous avez introduit son adresse, un message lui a été envoyé pour lui communiquer son nom d'utilisateur";
 $langAndP               = "et son mot de passe";
-$langDereg              = "a été désinscrit de ce cours";
+$langDereg              = "a été radié de ce cours"; // JCC 
 $langAddAU              = "Ajouter des utilisateurs";
 $langStudent            = "étudiant";
 $langBegin              = "début";
@@ -142,15 +144,15 @@ $langPreced50           = "50 précédents";
 $langFollow50           = "50 suivants";
 $langEnd                = "fin";
 $langAdmR               = "Admin";
-$langUnreg              = "Désinscrire";
+$langUnreg              = "Radier"; // JCC 
 $langAddHereSomeCourses = "<font size=2 face='arial, helvetica'><big>Mes cours</big><br><br>
 			Cochez les cours que vous souhaitez suivre et décochez ceux que vous
 			ne voulez plus suivre (les cours dont vous êtes responsable
 			ne peuvent être décochés). Cliquez ensuite sur Ok en bas de la liste.";
 
-$langCanNotUnsubscribeYourSelf = "Vous ne pouvez pas vous désinscrire
+$langCanNotUnsubscribeYourSelf = "Vous ne pouvez pas vous radier
 				vous-même d'un cours dont vous êtes administrateur.
-				Seul un autre administrateur du cours peut le faire.";
+				Seul un autre administrateur du cours peut le faire."; // JCC 
 
 $langGroup="Groupe";
 $langUserNoneMasc="-";
@@ -158,7 +160,7 @@ $langUserNoneMasc="-";
 $langTutor                = "Tuteur";
 $langTutorDefinition      = "Tuteur (droit de superviser des groupes)";
 $langAdminDefinition      = "Administrateur (droit de modifier le contenu du site)";
-$langDeleteUserDefinition ="Désinscrire (supprimer de la liste des utilisateurs de <b>ce</b> cours)";
+$langDeleteUserDefinition ="Radier (supprimer de la liste des utilisateurs de <b>ce</b> cours)"; // JCC 
 $langNoTutor              = "n'est pas tuteur pour ce cours";
 $langYesTutor             = "est tuteur pour ce cours";
 $langUserRights           = "Droits des utilisateurs";
@@ -172,9 +174,9 @@ $langUserAddExplanation   = "Chaque ligne du fichier à envoyer
 		contiendra nécessairement et uniquement les
 		5 champs <b>Nom&nbsp;&nbsp;&nbsp;Prénom&nbsp;&nbsp;&nbsp;
 		Nom d'utilisateur&nbsp;&nbsp;&nbsp;Mot de passe&nbsp;
-		&nbsp;&nbsp;Courriel</b> séparés par des tabulations
+		&nbsp;&nbsp;E-mail</b> séparés par des tabulations
 		et présentés dans cet ordre. Les utilisateurs recevront
-		par courriel nom d'utilisateur et mot de passe.";
+		par e-mail leur nom d'utilisateur et leur mot de passe."; // JCC 
 
 $langSend             = "Envoyer";
 $langDownloadUserList = "Envoyer la liste";
@@ -183,7 +185,7 @@ $langGiveAdmin        = "Rendre admin";
 $langRemoveRight      = "Retirer ce droit";
 $langGiveTutor        = "Rendre tuteur";
 
-$langUserOneByOneExplanation = "Il recevra par courriel nom d'utilisateur et mot de passe";
+$langUserOneByOneExplanation = "Il recevra par e-mail son nom d'utilisateur et son mot de passe"; // JCC 
 $langBackUser                = "Retour à la liste des utilisateurs";
 $langUserAlreadyRegistered   = "Un utilisateur ayant mêmes nom et prénom est déjà inscrit dans le cours.";
 
@@ -200,16 +202,16 @@ $langSubscribe  = "M'inscrire<br>coché&nbsp;=&nbsp;oui";
 $langCourseName = "Nom du cours";
 $langLanguage   = "Langue";
 
-$langConfirmUnsubscribe = "Confirmez la désincription de cet utilisateur";
+$langConfirmUnsubscribe = "Confirmez la radiation de cet utilisateur"; // JCC 
 $langAdded              = "Ajoutés";
 $langDeleted            = "Supprimés";
 $langPreserved          = "Conservés";
 $langDate               = "Date";
 $langAction             = "Action";
-$langLogin              = "Log In";
+$langLogin              = "Entrer"; // JCC 
 //$langLogout             = "Quitter";
 $langModify             = "Modifier";
-$langUserName           = "Nom utilisateur";
+$langUserName           = "Nom d'utilisateur"; // JCC 
 $langEdit               = "Editer";
 
 $langCourseManager       = "Gestionnaire du cours";
@@ -219,9 +221,9 @@ $langModifProfile	     = "Modifier le profil";
 $langUserProfileReg	     = "La modification a été effectuée";
 $lang_lost_password      = "Mot de passe perdu";
 
-$lang_enter_email_and_well_send_you_password  = "Entrez l'adresse de courrier électronique que vous avez utilisée pour vous enregistrer et nous vous enverrons votre mot de passe.";
-$lang_your_password_has_been_emailed_to_you   = "Votre mot de passe vous a été envoyé par courrier électronique.";
-$lang_no_user_account_with_this_email_address = "Il n'y a pas de compte utilisateur avec cette adresse de courrier électronique.";
+$lang_enter_email_and_well_send_you_password  = "Tapez l'adresse d'e-mail que vous avez utilisée pour vous enregistrer et nous vous enverrons votre mot de passe."; // JCC
+$lang_your_password_has_been_emailed_to_you   = "Votre mot de passe vous a été envoyé par e-mail."; // JCC
+$lang_no_user_account_with_this_email_address = "Il n'y a pas de compte utilisateur avec cette adresse d'e-mail."; // JCC
 $langCourses4User  = "Cours pour cet utilisateur";
 $langCoursesByUser = "Vue d'ensemble des cours par utilisateur";
 
@@ -231,7 +233,7 @@ $langDelImage = "Retirez la photo";
 $langOfficialCode = "Matricule";
 
 $langAuthInfo = "Paramètres de connection";
-$langEnter2passToChange = "Entrez deux fois le nouveau mot de passe pour le changer, laissez vide pour garder l'ancien.";
+$langEnter2passToChange = "Tapez deux fois le nouveau mot de passe pour le changer, laissez vide pour garder l'ancien."; // JCC
 
 $lang_SearchUser_ModifOk            = "Les modifications ont été effectuées correctement";
 
@@ -239,7 +241,7 @@ $langNoUserSelected = "Aucun utilisateur n'a été selectionné!";
 
 // dialogbox messages
 
-$langUserUnsubscribed = "L'utilisateur a bien été désinscrit du cours";
-$langUserNotUnsubscribed = "Erreur!! vous ne pouvez pas désinscrire un porfesseur du cours";
+$langUserUnsubscribed = "L'utilisateur a bien été radié du cours"; // JCC 
+$langUserNotUnsubscribed = "Erreur!! vous ne pouvez pas radier un professeur du cours";
 
 ?>

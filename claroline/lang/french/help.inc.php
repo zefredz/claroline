@@ -23,10 +23,10 @@ $langClose="Fermer la fenêtre";
 // help_forum.php
 
 $langForContent="Le forum est un outil de discussion asynchrone par écrit.
- A la différence de l'email, le forum situe la discussion dans un espace
+ A la différence de l'e-mail, le forum situe la discussion dans un espace
  public ou semi-public (à plusieurs).</p><p>Pour utiliser l'outil de forum
- de iCampus, les étudiants n'ont besoin que d'un simple navigateur web
- (Netscape, Explorer...), pas besoin d'outil de courriel (Eudora,
+ de Claroline, les étudiants n'ont besoin que d'un simple navigateur web
+ (Netscape, Explorer...), pas besoin d'outil d'e-mail (Eudora,
  Outlook...).</P><p>Pour organiser les forums, cliquez sur 'administrer'.
  Les échanges sont organisés de façon hiérarchique selon l'arborescence
  suivante:</p><p><b>Catégorie > Forum > Sujet > Réponse</b></p>Pour
@@ -34,7 +34,7 @@ $langForContent="Le forum est un outil de discussion asynchrone par écrit.
  indispensable d'organiser les échanges préalablement en catégories et
  forums (à eux de créer sujets et réponses). Par défaut, le forum contient
  uniquement la catégorie Public, un sujet d'exemple et un message exemple.
- Vous pouvez ajouter des forums dans la catégorie public, ou bien modifier
+ Vous pouvez ajouter des forums dans la catégorie Public, ou bien modifier
  son intitulé ou encore créer d'autres catégories dans lesquelles il vous
  faudra alors créer de nouveaux forums. Une catégorie qui ne contient aucun
  forum ne s'affiche pas et est inutilisable. Si par exemple vous créez une
@@ -45,7 +45,7 @@ $langForContent="Le forum est un outil de discussion asynchrone par écrit.
  explication sur sa raison d'être. Si vous créez, pour quelque raison que
  ce soit, un forum 'Appels à l'aide', vous pouvez y ajouter comme
  description: 'Signaler des difficultés par rapport au contenu ou par
- rapport au dispositif'.";
+ rapport au dispositif'."; // JCC
 
 
 
@@ -53,7 +53,7 @@ $langForContent="Le forum est un outil de discussion asynchrone par écrit.
 
 $langHHome="Aide Page d'accueil";
 
-$langHomeContent="La plupart des rubriques d'iCampus sont déjà remplies
+$langHomeContent="La plupart des rubriques de Claroline sont déjà remplies
  d'un petit texte ou d'un lien donnés par défaut ou pour l'exemple. Il vous
  revient de les modifier.</p><p>Ainsi un petit texte est là, bien visible,
  en en-tête de votre site. Il commence par 'Ceci est le texte
@@ -84,16 +84,16 @@ $langClarContent="<br><p><b>Etudiant</b></p>
 Pour visiter les cours accessibles depuis la page d'accueil du campus,
 il suffit de cliquer sur le code du cours dans la liste, sans inscription préalable.</p>
 <p>Pour accéder aux cours non accessibles depuis la page d'accueil du campus, il
-est nécessaire de s'inscrire. Inscription > Entrez vos paramètres personnels >
+est nécessaire de s'inscrire. Inscription > Tapez vos paramètres personnels >
 Action: M'inscrire à des cours > Cochez les cours et validez.</p>
-<p>Un courriel vous sera envoyé
-pour vous rappeler nom d'utilisateur et mot de passe à introduire lors de votre prochaine visite.</p>
+<p>Un e-mail vous sera envoyé
+pour vous rappeler le nom d'utilisateur et le mot de passe à introduire lors de votre prochaine visite.</p>
 <hr noshade size=1>
 <p><b>Professeur</b></p>
 <p><b>Créer un site de cours</b></p>
-<p>Procédez come suit. Inscription > Remplissez tous les champs et choissez 'Créer des sites de cours' comme action > Validez > Entrer le nom du cours, sélectionnez une faculté ouune catégorie, entrez le code du cours (inventez-en un au besoin > Validez. Et vous voici dans la lsite de vos cours. Cliquez sur l'intitulé du cours que vous venez de créer. Vous voici dans un site de cours vide à l'exception de quelques contenus factices destinés à vous éviter l'angoisse de la page blanche. A l'inscription, un courriel vous a été envoyé pour vous rappeler le nom d'utilisateur et le mot de passe que vous devrez taper lors de votre prochaine visite.</p>
+<p>Procédez comme suit. Inscription > Remplissez tous les champs et choisissez 'Créer des sites de cours' comme action > Validez > Tapez le nom du cours, sélectionnez une faculté ou une catégorie, tapez le code du cours (inventez-en un au besoin > Validez. Et vous voici dans la liste de vos cours. Cliquez sur l'intitulé du cours que vous venez de créer. Vous voici dans un site de cours vide à l'exception de quelques contenus factices destinés à vous éviter l'angoisse de la page blanche. A l'inscription, un e-mail vous a été envoyé pour vous rappeler le nom d'utilisateur et le mot de passe que vous devrez taper lors de votre prochaine visite.</p>
 <p>En cas de problème, contactez votre responsable réseau ou le responsable de ce campus virtuel. Vous pouvez aussi publier un message sur le forum de support de <a href=http://www.claroline.net>http://www.claroline.net</a>.
-</p>";
+</p>"; // JCC
 
 
 
@@ -103,127 +103,126 @@ pour vous rappeler nom d'utilisateur et mot de passe à introduire lors de votre 
 $langHDoc="Aide documents";
 
 $langDocContent="<p>Le module de gestion de document fonctionne de
- mani&egrave;re semblable &agrave; la gestion de vos documents sur un
- ordinateur. </p><p>Vous pouvez y d&eacute;poser des documents de tout type
+ manière semblable à la gestion de vos documents sur un
+ ordinateur. </p><p>Vous pouvez y déposer des documents de tout type
  (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Soyez
- attentifs cependant &agrave; ce que vos &eacute;tudiants disposent des
- outils n&eacute;cessaires &agrave; leur consultation. Soyez
- &eacute;galement vigilants &agrave; ne pas envoyer
-  des documents infect&eacute;s par des virus. Il est prudent de soumettre
+ attentifs cependant à ce que vos étudiants disposent des
+ outils nécessaires à leur consultation. Soyez
+ également vigilants à ne pas envoyer
+  des documents infectés par des virus. Il est prudent de soumettre
  son
-  document &agrave; un logiciel antivirus &agrave; jour avant de le
- d&eacute;poser
-  sur iCampus.</p>
-<p>Les documents sont pr&eacute;sent&eacute;s par ordre
- alphab&eacute;tique.<br>
-  <b>Astuces:</b> si vous souhaitez que les documents soient class&eacute;s
+  document à un logiciel antivirus à jour avant de le
+ déposer
+  sur Claroline.</p>
+<p>Les documents sont présentés par ordre
+ alphabétique.<br>
+  <b>Astuces:</b> si vous souhaitez que les documents soient classés
  de
-  mani&egrave;re diff&eacute;rente, vous pouvez les faire
- pr&eacute;c&eacute;der
-  d'un num&eacute;ro, le classement se fera d&egrave;s lors sur cette base.
+  manière différente, vous pouvez les faire
+ précéder
+  d'un numéro, le classement se fera dès lors sur cette base.
  </p>
 <p>Vous pouvez :</p>
-<h4>T&eacute;l&eacute;charger un document dans ce module</h4>
+<h4>Télécharger un document dans ce module</h4>
 <ul>
-  <li>S&eacute;lectionnez le document sur votre ordinateur &agrave; l'aide
+  <li>Sélectionnez le document sur votre ordinateur à l'aide
  du
-	bouton &quot;Parcourir&quot;
+	bouton 'Parcourir'
 	<input type=submit value=Parcourir name=submit2>
-	&agrave; droite de votre &eacute;cran.</li>
-  <li>Ex&eacute;cutez le t&eacute;l&eacute;chargement &agrave; l'aide du
- bouton&quot;
-	t&eacute;lecharger&quot;
-	<input type=submit value=t&eacute;l&eacute;charger name=submit2>
+	à droite de votre écran.</li>
+  <li>Exécutez le téléchargement à l'aide du
+ bouton 'Télécharger'
+	<input type=submit value=Télécharger name=submit2>
 	.</li>
 </ul>
-<h4>Renommer un document (ou un r&eacute;pertoire)</h4>
+<h4>Renommer un document (ou un répertoire)</h4>
 <ul>
-  <li>cliquez sur le bouton <img src=".$clarolineRepositoryWeb."img/edit.gif width=20
+  <li>cliquez sur le bouton <img src=../document/img/edit.gif width=20
  height=20 align=baseline>
-	dans la colonne &quot;Renommer&quot;.</li>
-  <li>Tapez le nouveau nom dans la zone pr&eacute;vue &agrave; cet effet
- qui appara&icirc;t
-	en haut &agrave; gauche</li>
-  <li>Valider en cliquant sur &quot;OK&quot;
+	dans la colonne 'Renommer'.</li>
+  <li>Tapez le nouveau nom dans la zone prévue à cet effet
+ qui apparaît
+	en haut à gauche</li>
+  <li>Validez en cliquant sur 'OK'
 	<input type=submit value=OK name=submit24>
 	.
 </ul>
-	<h4>Supprimer un document (ou un r&eacute;pertoire)</h4>
+	<h4>Supprimer un document (ou un répertoire)</h4>
 	<ul>
 
-  <li>Cliquer sur le bouton <img src=".$clarolineRepositoryWeb."img/delete.gif width=20
+  <li>Cliquez sur le bouton <img src=../document/img/delete.gif width=20
  height=20>
-	dans la colonne &quot;Supprimer&quot;.</li>
+	dans la colonne 'Supprimer'.</li>
 	</ul>
-	<h4>Rendre invisibles aux &eacute;tudiants un document (ou un
- r&eacute;pertoire)</h4>
+	<h4>Rendre invisibles aux étudiants un document (ou un
+ répertoire)</h4>
 	<ul>
 
-  <li>Cliquez sur le bouton <img src=".$clarolineRepositoryWeb."img/visible.gif width=20
+  <li>Cliquez sur le bouton <img src=../document/img/visible.gif width=20
  height=20>dans
-	la colonne &quot;Visible/invisible&quot;.</li>
-	  <li>Le document (ou le r&eacute;pertoire) existe toujours, mais il n'est
+	la colonne 'Visible/invisible'.</li>
+	  <li>Le document (ou le répertoire) existe toujours, mais il n'est
 
-		plus visible pour les &eacute;tudiants.</li>
+		plus visible pour les étudiants.</li>
 	</ul>
 	<ul>
 
-  <li> Si vous souhaitez rendre cet &eacute;l&eacute;ment &agrave; nouveau
+  <li> Si vous souhaitez rendre cet élément à nouveau
  visible,
-	cliquez sur le bouton <img src=".$clarolineRepositoryWeb."img/invisible.gif
+	cliquez sur le bouton <img src=../document/../document/img/invisible.gif
  width=24 height=20>
 	dans la colonne Visible/invisible</li>
 	</ul>
 	<h4>Ajouter ou modifier un commentaire au document (ou au
- r&eacute;pertoire)</h4>
+ répertoire)</h4>
 	<ul>
 
   <li>Cliquez sur le bouton <img
- src=".$clarolineRepositoryWeb."img/comment.gif width=20 height=20>
-	dans la colonne &quot;Commentaire&quot;</li>
-	  <li>Tapez le nouveau commentaire dans la zone pr&eacute;vue &agrave; cet
+ src=../document/../document/img/comment.gif width=20 height=20>
+	dans la colonne 'Commentaire'</li>
+	  <li>Tapez le nouveau commentaire dans la zone prévue à cet
 
-		effet qui appara&icirc;tra en haut &agrave; gauche.</li>
-	  <li>Validez en cliquant sur &quot;OK&quot;
+		effet qui apparaîtra en haut à gauche.</li>
+	  <li>Validez en cliquant sur 'OK'
 		<input type=submit value=OK name=submit2>
 		.</li>
 	</ul>
 	<p>Si vous souhaitez supprimer un commentaire, cliquez sur le bouton <img
- src=".$clarolineRepositoryWeb."img/comment.gif width=20 height=20>,
-	  effacez l'ancien commentaire de la zonne et validez en cliquant
- &quot;OK&quot;
+ src=../document/../document/img/comment.gif width=20 height=20>,
+	  effacez l'ancien commentaire de la zone et validez en cliquant
+ 'OK'
 	  <input type=submit value=OK name=submit22>
 	  .
 	<hr>
 	<p>Vous pouvez aussi organiser le contenu du module de document en
  rangeant
-	  les documents dans de r&eacute;pertoires. Pour ce faire vous devez :</p>
-	<h4><b>Cr&eacute;er un r&eacute;pertoire</b></h4>
+	  les documents dans de répertoires. Pour ce faire vous devez :</p>
+	<h4><b>Créer un répertoire</b></h4>
 	<ul>
-	  <li>Cliquez sur la commande &quot;<img
- src=".$clarolineRepositoryWeb."img/dossier.gif width=20
- height=20>cr&eacute;er
-		un r&eacute;pertoire&quot; en haut &agrave; gauche de l'&eacute;cran</li>
-	  <li>Tapez le nom de votre nouveau r&eacute;pertoire dans la zone
- pr&eacute;vue
-		&agrave; cet effet en haut &agrave; gauche de l'&eacute;cran.</li>
-	  <li>Validez en cliquant &quot;OK&quot;
+	  <li>Cliquez sur la commande '<img
+ src=../document/../document/img/dossier.gif width=20
+ height=20>créer
+		un répertoire' en haut à gauche de l'écran</li>
+	  <li>Tapez le nom de votre nouveau répertoire dans la zone
+ prévue
+		à cet effet en haut à gauche de l'écran.</li>
+	  <li>Validez en cliquant 'OK'
 		<input type=submit value=OK name=submit23>
 		.</li>
 	</ul>
-	<h4>D&eacute;placer un document (ou un r&eacute;pertoire)</h4>
+	<h4>Déplacer un document (ou un répertoire)</h4>
 	<ul>
 	  <li>Cliquez sur le bouton <img
- src=".$clarolineRepositoryWeb."img/deplacer.gif width=34 height=16>
-		dans la colonne d&eacute;placer</li>
-	  <li>Choisissez le r&eacute;pertoire dans lequel vous souhaitez
- d&eacute;placer
-		le document ou le r&eacute;pertoire dans le menu d&eacute;roulant
- pr&eacute;vu
-		&agrave; cet effet qui appara&icirc;tra en haut &agrave; gauche.(note:
-		le mot &quot;racine&quot; dans ce menu repr&eacute;sente la racine de
+ src=../document/../document/img/deplacer.gif width=34 height=16>
+		dans la colonne déplacer</li>
+	  <li>Choisissez le répertoire dans lequel vous souhaitez
+ déplacer
+		le document ou le répertoire dans le menu déroulant
+ prévu
+		à cet effet qui apparaîtra en haut à gauche.(note:
+		le mot 'racine' dans ce menu représente la racine de
 		votre module document).</li>
-	  <li>Validez en cliquant &quot;OK&quot;
+	  <li>Validez en cliquant 'OK'
 		<input type=submit value=OK name=submit232>
 		.</li>
 	</ul>
@@ -249,9 +248,9 @@ $langUserContent="<b>Droits d'administration</b>
  du cours. Ce sont deux actions distinctes.</p><hr>
 <b>Ajouter un utilisateur</b>
 <p>Pour ajouter un utilisateur à votre cours, remplissez les champs
-et validez. La personne recevra un courriel de confirmation de son
+et validez. La personne recevra un e-mail de confirmation de son
 inscription contenant son nom d'utilisateur et son mot de passe, sauf si
-vous n'avez pas introduit son email.</p>";
+vous n'avez pas introduit son e-mail.</p>"; // JCC
 
 
 
@@ -292,7 +291,7 @@ $langGroupContent="<p><b>Introduction</b></p>
 	à un gestionnaire de documents, soit (cas le plus fréquent) les deux.</li></ul>
 	<hr noshade size=1>
 	<p><b>Edition manuelle</b></p>
-	<p>Une fois des groupes crées, vous voyez apparaître leur liste assortie d'une série d'informations
+	<p>Une fois des groupes créés, vous voyez apparaître leur liste assortie d'une série d'informations
 	et de fonctions. <ul><li><b>Editer</b> permet de modifier manuellement la composition du groupe.</li>
 	<li><b>Supprimer</b> détruit un groupe.</li></ul>
 	<hr noshade size=1>";
@@ -313,7 +312,7 @@ Il existe différents types de réponses disponibles pour la création de vos quest
 Un exercice rassemble un certain nombre de questions sous un thème commun.</p>
 <hr>
 <b>Création d'un exercice</b>
-<p>Pour créer un exercice, cliquez sur le lien &quot;Nouvel exercice&quot;.<br><br>
+<p>Pour créer un exercice, cliquez sur le lien 'Nouvel exercice'.<br><br>
 Introduisez l'intitulé de votre exercice, ainsi qu'une éventuelle description de celui-ci.<br><br>
 Vous pouvez également choisir entre 2 types d'exercices :<br><br>
 <ul>
@@ -370,6 +369,6 @@ Si vous avez un grand nombre de questions, vous pouvez aussi choisir de ne prend
 <b>Banque de questions</b>
 <p>Lorsque vous supprimez un exercice, les questions qu'il contenait ne le sont pas et peuvent être réutilisées dans un nouvel exercice, via la banque de questions.<br><br>
 La banque de questions permet également de réutiliser une même question dans plusieurs exercices.<br><br>
-Par défaut, toutes les questions de votre cours sont affichées. Vous pouvez afficher les questions relatives à un exercice en particulier, en choisissant celui-ci dans le menu déroulant &quot;Filtre&quot;.<br><br>
+Par défaut, toutes les questions de votre cours sont affichées. Vous pouvez afficher les questions relatives à un exercice en particulier, en choisissant celui-ci dans le menu déroulant 'Filtre'.<br><br>
 Des questions orphelines sont des questions n'appartenant à aucun exercice.</p>";
 ?>

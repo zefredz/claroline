@@ -10,26 +10,26 @@
  */
 
 /* general */
-$langTrackingDisabled = "Le syst&egrave;me de statistiques et de tracking a &eacute;t&eacute; d&eacute;sactiv&eacute; par l'administrateur syst&egrave;me.";
+$langTrackingDisabled = "Le système de statistiques et de suivi a été désactivé par l'administrateur système."; // JCC 
 $langToolName="Statistiques";
 $langShowAll = "Montrer tout";
 $langShowNone = "Cacher tout";
 
 $langCourseStats = "Statistiques du cours";
-$langToolsAccess = "Acc&egrave;s aux outils";
-$langCourseAccess = "Acc&egrave;s à ce cours";
+$langToolsAccess = "Accès aux outils";
+$langCourseAccess = "Accès à ce cours";
 $langLinksAccess = "Liens";
 $langDocumentsAccess = "Documents";
 
-$langLinksDetails = "Liens visit&eacute;s par l'&eacute;tudiant";
-$langWorksDetails = "Travaux post&eacute;s par l'&eacute;tudiant au nom de 'Auteurs'";
-$langLoginsDetails = "Cliquez sur le nom du mois pour plus de d&eacute;tails";
-$langDocumentsDetails = "Documents t&eacute;l&eacute;charg&eacute;s par l'&eacute;tudiant";
-$langExercicesDetails = "R&eacute;sultats des exercices effectu&eacute;s";
-$langLearnPathDetails = "Progression dans les parcours p&eacute;dagogiques";
+$langLinksDetails = "Liens visités par l'étudiant";
+$langWorksDetails = "Travaux postés par l'étudiant au nom de 'Auteurs'";
+$langLoginsDetails = "Cliquez sur le nom du mois pour plus de détails";
+$langDocumentsDetails = "Documents téléchargés par l'étudiant";
+$langExercicesDetails = "Résultats des exercices effectués";
+$langLearnPathDetails = "Progression dans les parcours pédagogiques";
 
 $langBackToList = "Retourner à la liste des utilisateurs";
-$langDetails = "D&eacute;tails";
+$langDetails = "Détails";
 $langClose = "Fermer";
 
 /* subtitles */
@@ -38,9 +38,9 @@ $langStatsOfUser = "Statistiques d'un utilisateur";
 $langStatsOfCampus = "Statistiques du campus";
 /* course */
 $langCountUsers = "Nombre d'utilisateurs inscrits";
-$langNeverConnectedStudents = "Etudiants qui ne se sont jamais connect&eacute;s : ";
-$langNotRecentlyConnectedStudents = "Etudiants qui ne se sont pas connect&eacute; r&eacute;cemment : ";
-$langLastAccess = "Dernier acc&egrave;s";
+$langNeverConnectedStudents = "Etudiants qui ne se sont jamais connectés : ";
+$langNotRecentlyConnectedStudents = "Etudiants qui ne se sont pas connecté récemment : ";
+$langLastAccess = "Dernier accès";
 
 /* course access */
 $langCountToolAccess = "Nombre total de connexions à ce cours";
@@ -62,7 +62,7 @@ $langLinksTitleCountColumn = "Total des clics";
 /* exercices */
 $langExercicesTitleExerciceColumn = "Exercice";
 $langExercises = "Exercices";
-$langScore = "R&eacute;sultat";
+$langScore = "Résultat";
 $langExerciseUsersAttempts = "Essais utilisateurs";
 $langExerciseTotalAttempts = "Total des essais";
 $langLastAttempt = "Dernier essai";
@@ -73,14 +73,14 @@ $langScoreMin = "Min";
 $langScoreAvg = "Moy";
 $langStudent = "Etudiant";
 $langAttempts = "Essais";
-$langWeighting = "Pond&eacute;ration";
+$langWeighting = "Pondération";
 
 /* learning path */
-$langLearningPaths = "Parcours p&eacute;dagogiques";
-$langLearningPath = "Parcours p&eacute;dagogique";
-$langNoLearnPath = "Pas de parcours p&eacute;dagogiques";
+$langLearningPaths = "Parcours pédagogiques";
+$langLearningPath = "Parcours pédagogique";
+$langNoLearnPath = "Pas de parcours pédagogiques";
 $langProgress = "Progression";
-$langLearningPathList = "Liste des parcours p&eacute;dagogiques";
+$langLearningPathList = "Liste des parcours pédagogiques";
 // learnPath details
 $langStatsOfLearnPath = "Statistiques";
 // lp_modules_details
@@ -88,14 +88,14 @@ $langModule = "Module";
 $langModules = "Modules";
 $langTimeInLearnPath = "Total du parcours";
 $langGlobalProgress = "Progression globale";
-$langLastSessionTimeSpent = "Dur&eacute;e dernier acc&egrave;s";
-$langTotalTimeSpent = "Total des acc&egrave;s";
+$langLastSessionTimeSpent = "Durée du dernier accès"; // JCC 
+$langTotalTimeSpent = "Total des accès";
 $langLessonStatus = "Statut";
 
 /* documents */
 $langDocumentsTitleDocumentColumn = "Document";
-$langDocumentsTitleUsersColumn = "T&eacute;l&eacute;chargements des inscrits";
-$langDocumentsTitleCountColumn = "Total des t&eacute;l&eacute;chargements";
+$langDocumentsTitleUsersColumn = "Téléchargements des inscrits";
+$langDocumentsTitleCountColumn = "Total des téléchargements";
 
 
 /* works */
@@ -106,18 +106,18 @@ $langWorkDescription = "Description";
 $langDate = "Date";
 
 /* user list */
-$informationsAbout = "Tracking de";
+$informationsAbout = "Suivi de"; // JCC 
 $langUserName = "Nom d'utilisateur";
 $langFirstName = "Nom";
-$langLastName = "Pr&eacute;nom";
-$langEmail = "Email";
-$langNoEmail = "Pas d'adresse email";
+$langLastName = "Prénom";
+$langEmail = "E-mail"; // JCC 
+$langNoEmail = "Pas d'adresse d'e-mail"; // JCC 
 /* others */
-$langNoResult = "Pas de r&eacute;sultat";
+$langNoResult = "Pas de résultat";
 
 $langCourse = "Cours";
 
-$langHits = "Hits";
+$langHits = "Accès"; // JCC 
 $langTotal = "Total";
 $langHour = "Heure";
 $langDay = "Jour";
@@ -127,10 +127,10 @@ $langLast7days = "Ces derniers 7 jours";
 $langThisday  = "Aujourd'hui";
 
 /* perso stats */
-$langLogins = "Derniers logins";
-$langLoginsExplaination = "Voici la liste de vos derniers logins ainsi que les outils utilis&eacute;s pendant ces sessions.";
+$langLogins = "Derniers accès"; // JCC 
+$langLoginsExplaination = "Voici la liste de vos derniers accès ainsi que les outils utilisés pendant ces sessions."; // JCC 
 
-$langExercicesResults = "R&eacute;sultats des exercices effectu&eacute;s";
+$langExercicesResults = "Résultats des exercices effectués";
 
 $langVisits = "visites";
 $langAt = "à";
@@ -138,8 +138,8 @@ $langLoginTitleDateColumn = "Date";
 $langLoginTitleCountColumn = "Visites";
 
 /* tutor view */
-$langLoginsAndAccessTools = "Logins et acc&egrave;s aux outils";
-$langWorkUploads = "Travaux envoy&eacute;s";
+$langLoginsAndAccessTools = "Accès et utilisation des outils"; // JCC 
+$langWorkUploads = "Travaux envoyés";
 $langErrorUserNotInGroup = "Cet utilisateur n'est pas dans votre groupe." ;
 $langListStudents = "Liste des utilisateurs de ce groupe";
 
@@ -148,16 +148,16 @@ $langPeriodHour = "Heure";
 $langPeriodDay = "Jour";
 $langPeriodWeek = "Semaine";
 $langPeriodMonth = "Mois";
-$langPeriodYear = "Ann&eacute;e";
+$langPeriodYear = "Année";
 
 $langNextDay = "Jour suivant";
-$langPreviousDay = "Jour pr&eacute;c&eacute;dent";
+$langPreviousDay = "Jour précédent";
 $langNextWeek = "Semaine suivante";
-$langPreviousWeek = "Semaine pr&eacute;c&eacute;dente";
+$langPreviousWeek = "Semaine précédente";
 $langNextMonth = "Mois suivant";
-$langPreviousMonth = "Mois pr&eacute;c&eacute;dent";
-$langNextYear = "Ann&eacute;e suivante";
-$langPreviousYear = "Ann&eacute;e pr&eacute;c&eacute;dente";
+$langPreviousMonth = "Mois précédent";
+$langNextYear = "Année suivante";
+$langPreviousYear = "Année précédente";
 
 $langViewToolList = "Voir la liste de tous les outils";
 $langToolList = "Liste de tous les outils";
@@ -165,15 +165,15 @@ $langToolList = "Liste de tous les outils";
 $langFrom = "Du";
 $langTo = "au";
 
-$langUserAccessDetails = "Acc&egrave;s utilisateurs";
+$langUserAccessDetails = "Accès utilisateurs";
 $langTool = "Outil : ";
 $langDocument = "Document : ";
-$langAnonymousUserAccessCount = "Nombre d'acc&egrave;s d'utilisateurs anonymes : ";
-$langNbrAccess = "Nombre d'acc&egrave;s";
+$langAnonymousUserAccessCount = "Nombre d'accès d'utilisateurs anonymes : ";
+$langNbrAccess = "Nombre d'accès";
 
 /* traffic_details */
-$langPeriodToDisplay = "P&eacute;riode";
-$langDetailView = "Niveau de d&eacute;tail";
+$langPeriodToDisplay = "Période";
+$langDetailView = "Niveau de détail";
 
 /* for interbredcrumps */
 $langBredCrumpGroups = "Groupes";
@@ -183,44 +183,44 @@ $langBredCrumpUsers = "Utilisateurs";
 /* admin stats */
 $langAdminToolName = "Statistiques d'administration";
 $langPlatformStats = "Statistiques du campus";
-$langStatsDatabase = "Statistiques de la base de donn&eacute;es";
-$langPlatformAccess = "Acc&egrave;s au campus";
-$langPlatformCoursesAccess = "Acc&egrave;s aux cours";
-$langPlatformToolAccess = "Acc&egrave;s aux outils";
-$langHardAndSoftUsed = "Pays Fournisseurs d'acc&egrave;s Navigateurs Os R&eacute;f&eacute;rants";
+$langStatsDatabase = "Statistiques de la base de données";
+$langPlatformAccess = "Accès au campus";
+$langPlatformCoursesAccess = "Accès aux cours";
+$langPlatformToolAccess = "Accès aux outils";
+$langHardAndSoftUsed = "Pays Fournisseurs d'accès Navigateurs Os Référents"; // JCC 
 $langStrangeCases = "Cas particuliers";
 $langStatsDatabaseLink = "Cliquez ici";
 $langCountCours = "Nombre de cours";
 $langCountUsers = "Nombre d'utilisateurs";
-$langCountCourseByFaculte  = "Nombre de cours par facult&eacute;";
+$langCountCourseByFaculte  = "Nombre de cours par faculté";
 $langCountCourseByLanguage = "Nombre de cours par langue";
-$langCountCourseByVisibility = "Nombre de cours par visibilit&eacute;";
+$langCountCourseByVisibility = "Nombre de cours par visibilité";
 $langCountUsersByCourse = "Nombre d'utilisateurs par cours";
-$langCountUsersByFaculte = "Nombre d'utilisateurs par facult&eacute;";
+$langCountUsersByFaculte = "Nombre d'utilisateurs par faculté";
 $langCountUsersByStatus = "Nombre d'utilisateurs par statut";
 $langCourses = "Cours";
 $langUsers = "Utilisateurs";
-$langAccess = "Acc&egrave;s";
+$langAccess = "Accès";
 $langCountries = "Pays";
-$langProviders = "Fournisseurs d'acc&egrave;s";
+$langProviders = "Fournisseurs d'accès";
 $langOS = "OS";
 $langBrowsers = "Navigateurs";
-$langReferers = "R&eacute;f&eacute;rants";
-$langAccessExplain = "(Lorsqu'un utilisateur acc&egrave;de au campus)";
-$langLogins = "Logins";
+$langReferers = "Référents"; // JCC 
+$langAccessExplain = "(Lorsqu'un utilisateur accède au campus)";
+$langLogins = "Accès"; // JCC 
 $langTotalPlatformAccess = "Total";
 $langTotalPlatformLogin = "Total";
-$langMultipleLogins = "Comptes avec le m&ecirc;me <i>nom d'utilisateur</i>";
-$langMultipleUsernameAndPassword = "Comptes avec le m&ecirc;me <i>nom d'utilisateur</i> et <i>mot de passe</i>";
-$langMultipleEmails = "Comptes avec le m&ecirc;me <i>Email</i>";
+$langMultipleLogins = "Comptes avec le même <i>nom d'utilisateur</i>";
+$langMultipleUsernameAndPassword = "Comptes avec le même <i>nom d'utilisateur</i> et <i>mot de passe</i>";
+$langMultipleEmails = "Comptes avec le même <i>e-mail</i>"; // JCC 
 $langCourseWithoutProf = "Cours sans professeur";
-$langCourseWithoutStudents = "Cours sans &eacute;tudiants";
-$langCourseWithoutAccess = "Cours inutilis&eacute;s";
-$langLoginWithoutAccess  = "Comptes inutilis&eacute;s";
+$langCourseWithoutStudents = "Cours sans étudiants";
+$langCourseWithoutAccess = "Cours inutilisés";
+$langLoginWithoutAccess  = "Comptes inutilisés";
 $langAllRight = "Tout va bien.";
-$langDefcon = "Aie , cas particuliers d&eacute;tect&eacute;s !";
+$langDefcon = "Aïe ! cas particuliers détectés !"; // JCC 
 $langNULLValue = "Vide (ou <i>NULL</i>)";
-$langNeverUsed = "Jamais utilis&eacute;";
-$langTrafficDetails = "D&eacute;tails du trafic";
+$langNeverUsed = "Jamais utilisé";
+$langTrafficDetails = "Détails du trafic";
 $langNbLines = "Nombre de lignes";
 ?>

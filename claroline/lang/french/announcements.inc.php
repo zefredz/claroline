@@ -15,30 +15,32 @@ $langSelMess  = "Alertes à certains utilisateurs";
 $langUp = "Monter";
 $langDown = "Descendre";
 
+$langButtonCancel = "Annuler";
+
 // ANNOUCEMENTS
 $langAn ="Annonces";
 $langOn="Activé";
-$langRegUser="utilisateurs renregistré du site";
-$langUnvalid="n'ont pas d'adresse électronique valide";
-$langModifAnn="Modifier cet annonces";
-$langAnnEmpty="Les annonces ont été vidées complètement";
+$langRegUser="utilisateurs enregistrés du site";  // JCC
+$langUnvalid="n'ont pas d'e-mail valide"; // JCC
+$langModifAnn="Modifier cette annonce";  // JCC
+$langAnnEmpty="Les annonces ont été complètement supprimées";  // JCC
 $langAnnModify="L'annonce a été modifiée";
 $langAnnAdd="L'annonce a été ajoutée";
 $langAnnDel="L'annonce a été effacée";
 $langPubl="Publiée le";
 $langAddAnn="Ajouter une annonce";
 $langContent="Contenu";
-$langEmptyAnn="Vider complètement les annonces";
+$langEmptyAnn="Supprimer toutes les annonces";  // JCC
 $professorMessage="Message de votre professeur";
-$langEmailSent=" et envoyée par courriel aux étudiants inscrits";
-$langEmailOption="Envoyer cette annonce par courriel aux étudiants";
+$langEmailSent=" et envoyée par e-mail aux étudiants inscrits"; // JCC
+$langEmailOption="Envoyer cette annonce par e-mail aux étudiants"; // JCC
 $langNoAnnouncement = "Aucune annonce.";
 $langOn="Sur";
 $langRegUser="utilisateurs inscrits";
-$langUnvalid="ont une adresse courriel non valide ou n'ont pas d'adresse";
+$langUnvalid="ont une adresse d'e-mail non valide ou n'ont pas d'adresse"; // JCC
 $langModifAnn="Modifier cette annonce";
 
-$langEmailTitle = 'Titre du mail';
+$langEmailTitle = "Titre de l'e-mail"; // JCC
 
 //MESSAGES TOOL
 
@@ -49,9 +51,9 @@ $langSubmit = "Envoyer";
 $langMsgSent = "Le message est envoyé aux utilisateurs sélectionnés.";
 $langSelUser = "utilisateurs";
 $langUsers = "utilisateurs";
-$langPleaseEnterMessage = "Entrez le message à envoyer.";
-$langPleaseSelectUsers = "Sélectionnez d'abord les utilisateurs auquel le message va être envoyé.";
+$langPleaseEnterMessage = "Tapez le message à envoyer."; // JCC
+$langPleaseSelectUsers = "Sélectionnez d'abord les utilisateurs auxquels le message va être envoyé."; // JCC 
 $langMessageToSelectedUsers = "Message pour certains  utilisateurs.";
-$langIntroText = "Pour envoyer un message, s&eacute;lectionnez des groupes d'utilisateurs (indiqu&eacute;s par *) et/ou des utilisateurs dans la liste de gauche";
+$langIntroText = "Pour envoyer un message, sélectionnez des groupes d'utilisateurs (indiqués par *) et/ou des utilisateurs dans la liste de gauche";
 
 ?>

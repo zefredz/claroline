@@ -21,16 +21,16 @@ $langCategories = "Categories";
 $langUpgrade = "Mise à jour";
 $langConfiguration = "Configuration";
 $langTraduction = "Outil de traduction";
-$langPlatform = "Plateforme";
+$langPlatform = "Plate-forme"; // JCC
 $langYouCanUsefields = "Vous pouvez utiliser (*) dans les champs";
 $langManageCourseCategories = "Editer des catégories de cours";
-$langViewPlatFormStatistics = "Voir les statistiques de la plateforme";
+$langViewPlatFormStatistics = "Voir les statistiques de la plate-forme"; // JCC
 
 //user and course advanced search pages
 
 $langOfficialCode = "Code officiel";
 //$langCourseTitle;
-$langLanguage = "Language";
+$langLanguage = "Langue"; // JCC
 $langCourseAccess ="Accès au cours";
 $langSubscription ="Inscription";
 $langSearchUser = "Rechercher un utilisateur";
@@ -50,13 +50,13 @@ $langPlatformAdmin = "Administration";
 
 $langAction = "Action";
 
-$langCategory = "Categorie";
+$langCategory = "Catégorie"; // JCC
 $langName = "Nom";
 $langLastName = "Nom"; //same!
-$langFirstName = "Prenom";
+$langFirstName = "Prénom"; // JCC
 $langUsername  = "Nom d'utilisateur";
 $langDelete = "Supprimer";
-$langDeleteCourse = "Supprimer le cour";
+$langDeleteCourse = "Supprimer le cours";  // JCC
 $langDeleteUser = "Supprimer l'utilisateur";
 $langRegisterUser = "Inscrire à un nouveau cours";
 $langModify = "Modifier";
@@ -83,7 +83,7 @@ $langEnrollUser = "Inscrire un utilisateur";
 $langGoToMainUserSettings = "Voir les paramètres principaux de l'utilisateur";
 $langGoToUserSettings ="Voir les paramètres de l'utilisateur";
 
-$langEmail = "Email";
+$langEmail = "E-mail"; // JCC
 $langUserStatus = "Statut";
 $langSaveChanges = "Sauvegarder les changements";
 $langAdmin = "Admin";
@@ -93,11 +93,11 @@ $langTitular = "Titulaire";
 $langPhone = "Téléphone";
 $langPassword = "Mot de passe";
 $langConfirm = "Confirmer";
-$langChangePwdexp = "Entrez deux fois le nouveau mot de passe pour le changer, laissez vide pour garder l'ancien";
-$langAddUserOneByOne = "Les nouveaux utilisateurs recevront un email avec leur nom d'utilisateur et mot de passe";
+$langChangePwdexp = "Tapez deux fois le nouveau mot de passe pour le changer, laissez vide pour garder l'ancien"; // JCC
+$langAddUserOneByOne = "Les nouveaux utilisateurs recevront un e-mail avec leur nom d'utilisateur et mot de passe"; // JCC
 
 $langAdministrator = "Administrateur";
-$langCourseCreator = "Createur de cours";
+$langCourseCreator = "Créateur de cours";  // JCC
 $langCourseManager = "Responsable de cours";
 $langUser = "Utilisateur";
 $langBackToList = "Retour à la liste";
@@ -124,7 +124,7 @@ $langCourseRestore = "Restaurer un cours";
 $langRegisterTheNewUser = "Inscrire cet utilisateur à un cours";
 $langDeleteUser = "Supprimer l'utilisateur";
 $langModifUserCourseSettings = "Paramètres de cours de cet utilisateur";
-$langUserUnregistered = "Utilisateur désinscrit";
+$langUserUnregistered = "Utilisateur radié"; // JCC 
 $langListCourseUsers = "Liste des utilisateurs du cours";
 $langAddUser = "Créer un nouvel utilisateur";
 
@@ -133,7 +133,7 @@ $langAddUser = "Créer un nouvel utilisateur";
 $langCourseTitle = "Titre du cours";
 $langUserGroup = "Groupe d'utilisateurs";
 $langAddCourse = "Créer un nouveau cours";
-$langUnsubscribe = "Désinscrire l'utilisateur";
+$langUnsubscribe = "Radier l'utilisateur"; // JCC 
 $langSubscribeUser = "Inscrire l'utilisateur";
 $langEditUserCourseSetting = "Paramètres de cours de cet utilisateur";
 $langCourseSettings = "Paramètres du cours";
@@ -149,11 +149,11 @@ $langCourseBackup = "Sauvegarde";
 //popup
 
 $langAreYouSureToDelete = "Etes-vous sûr de vouloir supprimer ";
-$langAreYouSureToUnsubscribe = "Etes-vous sûr de vouloir désinscrire ";
+$langAreYouSureToUnsubscribe = "Etes-vous sûr de vouloir radier "; // JCC 
 $langAreYouSureToSubscribe = "Etes-vous sûr de vouloir inscrire ";
 $langViewList = "Voir la liste";
 $langUserCanCreateCourse = "Peut créer des cours";
-$langUserIsPlaformAdmin = "Peut administrer la plateforme";
+$langUserIsPlaformAdmin = "Peut administrer la plate-forme"; // JCC
 $langAllUserOfThisCourse = "Liste personnelle des cours";
 $langAllUsersOfThisCourse = "Membres du cours";
 $langCode = "Code";
@@ -162,28 +162,28 @@ $langCode = "Code";
 //Dialogbox  comment
 
 $langCourseDelete = "Le cours a été supprimé";
-$langUserUnsubscribed = "L'utilisateur a été désinscrit";
-$langUserNotUnsubscribed = "Descinscription non effectuée!!! <br> Cet utilisateur ne peut pas être désinscrit,<br>
-                            vous ne pouvez pas désinscrire un responsable de cours, changer son statut d'abord";
+$langUserUnsubscribed = "L'utilisateur a été radié"; // JCC 
+$langUserNotUnsubscribed = "Radiation non effectuée !!! <br> Cet utilisateur ne peut pas être radié,<br>
+                            vous ne pouvez pas radier un responsable de cours, changez son statut d'abord";  // JCC
 $langUserSubscribed = "L'utilisateur a été inscrit au cours";
 $langUserNotSubscribed = "Inscription non effectuée !!!";
 $langUserDelete = "La suppression de l'utilisateur a bien été effectuée";
 $langNoCourseResult = "Il n'y a pas de cours à afficher";
 $langNoUserResult = "Il n'y a pas d'utilisateur à afficher";
-$langSearchAgain = "Nouvelle recherche (avanc&eacute;e)";
+$langSearchAgain = "Nouvelle recherche (avancée)";
 $langAppliedChange = "Changements sauvés pour les paramètres de l'utilisateur";
 $langUserTaken = "Ce nom d'utilisateur est déjà utilisé";
 $langFields = "Il y a au moins un champs obligatoire vide";
-$langEmailWrong = "L'adresse e-mail n'est pas valide";
+$langEmailWrong = "L'adresse d'e-mail n'est pas valide"; // JCC
 $langUserHasNoCourse = "L'utilisateur n'est inscrit à aucun cours";
-$langUserUnregisteredFromCourse = "L'utilisateur  a été désinscrit du cours";
+$langUserUnregisteredFromCourse = "L'utilisateur  a été radié du cours"; // JCC 
 $langUserIsNowCourseManager = "L'utilisateur est maintenant responsable du cours";
 $langUserIsNowStudent = "L'utilisateur est maintenant étudiant pour ce cours";
 $langStatusChangeFailed = "Changement de statut non effectué";
-$langUsernameTaken = "Ce nom d'utilisateur est déjà utilisé, choisissez en un autre ";
+$langUsernameTaken = "Ce nom d'utilisateur est déjà utilisé, choisissez-en un autre ";  // JCC
 $langUserCreated ="Le nouvel utilisateur a bien été créé";
 $langCreateAnotherUser = "Créer un autre utilisateur";
 $langPasswordWrong = "Les mots de passe entrés doivent être identiques";
 $langStatusChangeNotMade = "Aucun changement appliqué";
-$langNotUnregYourself ="Vous ne pouvez pas changer vos propres paramètres!";
+$langNotUnregYourself ="Vous ne pouvez pas changer vos propres paramètres !"; // JCC
 ?>

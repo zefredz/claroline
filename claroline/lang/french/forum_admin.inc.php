@@ -13,7 +13,7 @@
 $langForums="Forums";
 $langOrganisation="Organisation des forums";
 $langForCat="Forums de la catégorie";
-$langBackCat="retour catégories";
+$langBackCat="Retour aux catégories"; // JCC 
 $langForName="Nom du forum";
 $langDescription="Description";
 $langFunctions="Fonctions";
@@ -34,12 +34,12 @@ $langAddCategory="Ajouter une catégorie";
 $langOrder = "Ordre";
 $langCannotBeDeleted = "Ne peut être effacé";
 $langCannotMoveGroupForum = "Les forums de groupe ne peuvent être déplacés."; 
-$langCannotAddForumInGroups = "Les forums des groupes sont cr&eacute;&eacute;s lors de la cr&eacute;ation du groupe, et sont effac&eacute,s lors de la suppression des groupes.";
+$langCannotAddForumInGroups = "Les forums des groupes sont créés lors de la création du groupe, et sont effacés lors de la suppression des groupes.";
 //action done message
-$langemptyforumname = "Vous devez choisir un nom pour votre forum!";
-$langemptycatname = "Vous devez choisir un nom pour votre nouvelle catégorie!";
-$langforumcreated = "Nouveau forum cr&eacute;&eacute;";
-$langForumModified = "The forum has been modified";
-$langcatcreated = "Nouvelle catégorie cr&eacute;&eacute;e";
+$langemptyforumname = "Vous devez choisir un nom pour votre forum !"; // JCC 
+$langemptycatname = "Vous devez choisir un nom pour votre nouvelle catégorie !"; // JCC 
+$langforumcreated = "Nouveau forum créé"; // JCC 
+$langForumModified = "Le forum a été modifié"; // JCC 
+$langcatcreated = "Nouvelle catégorie créée";
 
 ?>

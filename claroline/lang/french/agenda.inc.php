@@ -12,6 +12,8 @@ $langSETLOCALE="FRENCH";
 
 $langAgenda="Agenda";
 
+$langButtonCancel = "Annuler";
+
 $langHour="Heure";
 $hour_default="heure";
 
@@ -32,20 +34,20 @@ $langNewToOld = "Inverser";
 
 $langNow = "Maintenant";
 
-$langEditEvent = "Editer l'évenement";
+$langEditEvent = "Editer l'événement";  // JCC
 $langAddEvent="Ajouter un événement";
 $langClearList = "Effacer la liste";
-$langEventAdded = "Ev&egrave;nement ajout&eacute; dans l'agenda.";
-$langEventUpdated = "Ev&egrave;nement mis &agrave; jour dans l'agenda.";
-$langEventDeleted = "Ev&egrave;nement supprim&eacute; de l'agenda.";
-$langUnableToAdd = "Impossible d'ajouter l'&eacute;v&egrave;nement dans l'agenda.";
-$langUnableToUpdate = "Impossible de mettre &agrave; jour l'&eacute;v&egrave;nement dans l'agenda.";
-$langUnableToDelete = "Impossible de supprimer l'&eacute;v&egrave;nement de l'agenda.";
+$langEventAdded = "Evénement ajouté dans l'agenda.";  // JCC
+$langEventUpdated = "Evénement mis à jour dans l'agenda.";  // JCC
+$langEventDeleted = "Evénement supprimé de l'agenda.";  // JCC
+$langUnableToAdd = "Impossible d'ajouter l'événement dans l'agenda.";  // JCC
+$langUnableToUpdate = "Impossible de mettre à jour l'événement dans l'agenda.";  // JCC
+$langUnableToDelete = "Impossible de supprimer l'événement de l'agenda.";  // JCC
 $langDetail="Détail";
 
 $hour51="non précisé";
 
 // UNIX TIME SETTINGS, "15h00" instead of "3pm", for instance, "ENGLISH" is a possibility
 
-$langNoEventInTheAgenda = "Il n'y a aucun évènement dans cet agenda";
+$langNoEventInTheAgenda = "Il n'y a aucun événement dans cet agenda";  // JCC
 ?>

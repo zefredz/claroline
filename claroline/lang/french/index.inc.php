@@ -13,7 +13,7 @@
 $langModify="modifier";
 $langDelete="effacer";
 $langTitle="Titre";
-$langHelp="Comment démarrer?";
+$langHelp="Comment démarrer ?"; // JCC
 $langOk="valider";
 $langAddIntro="AJOUTER UN TEXTE D'INTRODUCTION";
 $langBackList="Retour à la liste";
@@ -54,7 +54,7 @@ $lang_No_course_publicly_available = "Pas de cours en accès libre";
 $lang_edit_my_course_list = "Modifier ma liste de cours";
 
 $langLostPassword = "Perdu mot de passe";
-$langAgenda = "Agenda : prochains évènements";
+$langAgenda = "Agenda : prochains événements";  // JCC
 $langValvas = "Dernières annonces" ;
 
 $langUp = "catégorie supérieure";
@@ -66,7 +66,7 @@ $langIn			= "dans";
 $langSubCat		= "sous-catégories";
 
 $lang_enroll_to_a_new_course   = 'S\'inscrire à un cours';
-$lang_remove_course_enrollment = 'Se désinscrire d\'un cours';
+$lang_remove_course_enrollment = 'Se radier d\'un cours'; // JCC 
 
 
 

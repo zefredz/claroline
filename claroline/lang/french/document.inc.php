@@ -23,14 +23,14 @@ Translate the interface in chosen language
 // DOCUMENT
 
 $langDoc="Documents";
-$langCreateDocument = "Cr&eacute;er un Document";
-$langCreateHyperlink = "Cr&eacute;er un lien hypertexte";
-$langUploadFile = "T&eacute;l&eacute;charger un fichier";
-$langDownloadFile= "T&eacute;l&eacute;charger sur le serveur le fichier";
-$langDownload="T&eacute;l&eacute;charger";
-$langCreateDir="Cr&eacute;er un r&eacute;pertoire";
+$langCreateDocument = "Créer un Document";
+$langCreateHyperlink = "Créer un lien hypertexte";
+$langUploadFile = "Ajouter un fichier"; // JCC
+$langDownloadFile= "Ajouter le fichier"; // JCC
+$langDownload="Ajouter"; // JCC
+$langCreateDir="Créer un répertoire";
 $langName="Nom";
-$langNameDir="Nom du nouveau r&eacute;pertoire";
+$langNameDir="Nom du nouveau répertoire";
 $langSize="Taille";
 $langDate="Date";
 $langRename="Renommer";
@@ -40,23 +40,23 @@ $langMakeVisible = "Rendre visible";
 $langMakeInvisible = "Rendre invisible";
 $langCopy="Copier";
 $langTo="vers";
-$langNoSpace="Le t&eacute;l&eacute;chargement a &eacute;chou&eacute;. Il n'y a plus assez de place dans votre r&eacute;pertoire";
-$langDownloadEnd="Le t&eacute;l&eacute;chargement est termin&eacute;";
-$langFileExists="Impossible d'effectuer cette op&eacute;ration.
-<br>Un fichier portant ce nom existe déj&agrave;.";
+$langNoSpace="Le téléchargement a échoué. Il n'y a plus assez de place dans votre répertoire";
+$langDownloadEnd="Le téléchargement est terminé";
+$langFileExists="Impossible d'effectuer cette opération.
+<br>Un fichier portant ce nom existe déjà.";
 $langIn="en";
 $langNewDir="nom du nouveau répertoire";
 $langImpossible="Impossible d'effectuer cette opération";
 $langAddComment="ajouter/modifier un commentaire à";
 $langUp="Remonter";
-$langDocCopied="document copi&eacute;";
-$langDocDeleted="élément supprim&eacute;";
-$langElRen="&eacute;l&eacute;ment renom&eacute;";
-$langDirCr="r&eacute;pertoire cr&eacute;&eacute;";
-$langDirMv="&eacute;l&eacute;ment deplac&eacute;";
-$langComMod="commentaire modifi&eacute;";
-$langElRen="El&eacute;ment renomm&eacute;";
-$langViMod="Visibilit&eacute; modifi&eacute;e";
+$langDocCopied="document copié";
+$langDocDeleted="élément supprimé";
+$langElRen="élément renomé";
+$langDirCr="répertoire créé";
+$langDirMv="élément déplacé"; // JCC 
+$langComMod="commentaire modifié";
+$langElRen="Elément renommé";
+$langViMod="Visibilité modifiée";
 $langFileError="Le fichier à télécharger n'est pas valide.";
 $langMaxFileSize="La taille maximum est de : ";
 $langAddCommentOptionnal = "Ajouter un commentaire (optionnel) : ";
@@ -70,7 +70,7 @@ $langGroupForumLink="Forum du groupe";
 
 $langZipNoPhp="Le fichier ZIP ne peut pas contenir de fichiers en .php";
 
-$langUncompress="Décompresser fichier zipé (.zip)";
+$langUncompress="Décompresser fichier zippé (.zip)"; // JCC
 
 $langDownloadAndZipEnd=" Le fichier .zip a été envoyé et décompressé";
 
@@ -86,13 +86,13 @@ $langClickHere = "cliquez ici";
 
 $langURL = "URL : ";
 // rqmkhtml in document.php
-$langFileCreated = "Fichier cr&eacute;&eacute;";
+$langFileCreated = "Fichier créé";
 $langFileNameMissing = "Nom du fichier manquant";
-$langFileContentModified  = "Contenu du fichier modifi&eacute;";
-$langFileNameOrURLMissing = "Nom du fichier ou URL manquant";
-$langBackToEditor = "Retourner &agrave; l'&eacute;diteur";
+$langFileContentModified  = "Contenu du fichier modifié";
+$langFileNameOrURLMissing = "Nom du fichier ou URL manquant(s)"; // JCC
+$langBackToEditor = "Retourner à l'éditeur";
 // rqmkhtml
-$langCreateModifyDocument = "Cr&eacute;er/modifier document";
+$langCreateModifyDocument = "Créer/modifier document";
 $langDocumentName = "Nom du document : ";
 $langDocumentContent = "Contenu du document : ";
 

@@ -24,12 +24,12 @@ $langNo		="Non";
 $langYes		="Oui";
 
 $langActivate="activer";
-$langDeactivate="d&eacute;sactiver";
+$langDeactivate="désactiver";
 $langRemove="supprimer";
-$langAdminOnly ="R&eacute;serv&eacute; aux administrateurs";
+$langAdminOnly ="Réservé aux administrateurs";
 $langCourseManagement = "Gestion du cours";
-$langInLnk ="Liens d&eacute;sactiv&eacute;s"; 
-$langDelLk="Voulez-vous r&eacute;ellement supprimer ce lien?";
+$langInLnk ="Liens désactivés"; 
+$langDelLk="Voulez-vous réellement supprimer ce lien ?"; // JCC
 $langEnter ="Entrer";
 
 

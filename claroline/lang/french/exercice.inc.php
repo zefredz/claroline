@@ -46,7 +46,7 @@ $langNoEx="Il n'y a aucun exercice actuellement";
 $langNoResult="Il n'y a pas encore de résultats";
 $langNewEx="Nouvel exercice";
 $langUsedInSeveralPath = "Cet exercice est utilisé dans un ou plusieurs parcours pédagogiques.  Si vous le supprimez il ne sera plus disponible au sein de ce ou ces parcours.";
-$langConfirmDeleteExercise = "Etes vous sûr de vouloir supprimer cet exercice ?";
+$langConfirmDeleteExercise = "Etes-vous sûr de vouloir supprimer cet exercice ?"; // JCC 
 
 // exercise_admin.inc.php
 
@@ -128,7 +128,7 @@ $langAllExercises="Tous les exercices";
 $langFilter="Filtre";
 $langGoBackToEx="Retour à l'exercice";
 $langReuse="Récupérer";
-$langConfirmDeleteQuestion = "Etes vous sûr de vouloir totalement supprimer cette question ?"; 
+$langConfirmDeleteQuestion = "Etes-vous sûr de vouloir totalement supprimer cette question ?";  // JCC 
 
 
 // admin.php
