@@ -41,6 +41,7 @@ $is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
 
 if (isset($cidToEdit) && ($is_platformAdmin))
 {
+    $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools); // bred crump different in admin access
     unset($_cid);
     $current_cid = $cidToEdit;
     $toAddtoURL = "&cidToEdit=".$cidToEdit;
@@ -405,7 +406,7 @@ if (isset($cidToEdit))
 
 <?php
 
-//claro_disp_button("delete_cose.php".$toAdd, $langDelCourse);
+//claro_disp_button("delete_course.php".$toAdd, $langDelCourse);
 
 if (isset($cfrom) && ($is_platformAdmin))
       {

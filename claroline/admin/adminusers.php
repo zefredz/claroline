@@ -61,7 +61,10 @@ if (isset($_GET['action']))    {$_SESSION['admin_user_action'] = $_GET['action']
 if (isset($_GET['order_crit'])){$_SESSION['admin_user_order_crit'] = $_GET['order_crit'];}
 if (isset($_GET['dir']))       {$_SESSION['admin_user_dir'] = $_GET['dir'];}
 
+// clean session if we come from a course
 
+session_unregister('_cid');
+unset($_cid);
 
 
 @include ($includePath."/installedVersion.inc.php");
