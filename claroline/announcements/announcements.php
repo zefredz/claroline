@@ -415,7 +415,7 @@ if ($displayForm)
 
 if ($displayList)
 {
-    $sql = "SELECT id, title, contenu content
+    $sql = "SELECT id, title, contenu content, temps
             FROM `".$tbl_announcement."`
             ORDER BY ordre DESC";
 
