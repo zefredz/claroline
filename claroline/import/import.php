@@ -51,20 +51,9 @@ include('../include/settings.php');// include course settings
 
 $TBL_ACCUEIL=$_course['dbNameGlu']."accueil";
 
-@include("../lang/english/trad4all.inc.php");
-@include("../lang/$default_language/trad4all.inc.php");
-@include("../lang/$languageInterface/trad4all.inc.php");
+@include("../lang/english/complete.lang.php");
 
 @header('Content-Type: text/html; charset='. $charset);
-
-@include("../lang/english/import.inc.php");
-@include("../lang/$default_language/import.inc.php");
-@include("../lang/$languageInterface/import.inc.php");
-
-@include("../lang/english/external_module.inc.php");
-@include("../lang/$default_language/external_module.inc.php");
-@include("../lang/$languageInterface/external_module.inc.php");
-
 
 $nameTools = $langAddPage;
 
