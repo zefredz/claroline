@@ -11,8 +11,6 @@
 // Authors: Muret Benoît && claroline Team.
 //----------------------------------------------------------------------
 
-$langFile = "faculty";
-
 $cidReset = TRUE;
 $gidReset = TRUE;
 $tidReset = TRUE;

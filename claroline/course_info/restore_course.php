@@ -9,10 +9,7 @@
 
 // Lang file
 
-$langFile='course_info';
-
 // Include global and libs
-
 require '../inc/claro_init_global.inc.php';
 
 if(extension_loaded('zlib'))

@@ -67,8 +67,6 @@ include('answer.class.php');
 
 include('exercise.lib.php');
 
-$langFile='exercice';
-
 require '../inc/claro_init_global.inc.php';
   
 // answer types

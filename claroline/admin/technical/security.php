@@ -12,7 +12,6 @@
 
 */
 
-$langFile = "admin.security";
 require '../../inc/claro_init_global.inc.php';
 
 $nameTools = "Security";

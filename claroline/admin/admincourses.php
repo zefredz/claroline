@@ -11,7 +11,6 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-$langFile='admin';
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 $coursePerPage= 20;
 

@@ -15,7 +15,6 @@
 
 // Lang files needed :
 
-$langFile = 'admin';
 $lang_course_admin = 'Course manager';
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 

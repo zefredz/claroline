@@ -12,7 +12,6 @@
 //----------------------------------------------------------------------
 
 // Lang files needed :
-$langFile = "admin";
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 $userPerPage = 20; // numbers of user to display on the same page
 $delayToConsiderAsSleeper = 3600*24*50; //delay in second to be mark as sleeper and not active

@@ -13,7 +13,7 @@
 
 $langStatus = "Status";
 $coursePerPage= 20;
-$langFile='admin';
+
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/admin.lib.inc.php");

@@ -5,16 +5,15 @@
 +----------------------------------------------------------------------+
 | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
 +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or
-      |   modify it under the terms of the GNU General Public License
-      |   as published by the Free Software Foundation; either version 2
-      |   of the License, or (at your option) any later version.
-      +----------------------------------------------------------------------+
-      | Authors: Olivier Brouckaert
-      |          Claroline core team
-      +----------------------------------------------------------------------+
+|   This program is free software; you can redistribute it and/or
+|   modify it under the terms of the GNU General Public License
+|   as published by the Free Software Foundation; either version 2
+|   of the License, or (at your option) any later version.
++----------------------------------------------------------------------+
+| Authors: Olivier Brouckaert
+|          Claroline core team
++----------------------------------------------------------------------+
 */
-
 		/*>>>>>>>>>>>>>>>>>>>> QUESTION POOL <<<<<<<<<<<<<<<<<<<<*/
 
 /**
@@ -27,8 +26,6 @@
 include('exercise.class.php');
 include('question.class.php');
 include('answer.class.php');
-
-$langFile='exercice';
 
 require '../inc/claro_init_global.inc.php';
 
@@ -333,6 +330,5 @@ else
 {
 	echo $langNotAllowed;
 }
-
-@include($includePath.'/claro_init_footer.inc.php');
+include($includePath.'/claro_init_footer.inc.php');
 ?>

@@ -16,7 +16,6 @@
 // 4 Commands, 3 displays
 // default Display : Form to edit own profile
 
-$langFile = 'registration';
 $cidReset = TRUE;
 $gidReset = TRUE;
 

@@ -11,8 +11,6 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-$langFile='admin';
-
 require '../inc/claro_init_global.inc.php';
 include $includePath."/lib/admin.lib.inc.php";
 include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.

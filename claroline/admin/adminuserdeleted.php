@@ -15,7 +15,6 @@
 define ('USER_SELECT_FORM'        , 1);
 define ('USER_DATA_FORM'          , 2);
 
-$langFile='admin';
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';

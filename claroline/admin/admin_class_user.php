@@ -11,10 +11,6 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-// Lang files needed :
-
-$langFile = "admin";
-
 // initialisation of global variables and used libraries
 
 require '../inc/claro_init_global.inc.php';

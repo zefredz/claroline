@@ -1,6 +1,5 @@
 <?php # $Id$
 
-$langFile = "document";
 
 require '../inc/claro_init_global.inc.php';
 

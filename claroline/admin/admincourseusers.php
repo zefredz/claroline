@@ -13,8 +13,6 @@
 
 // Lang files needed :
 $userPerPage = 20; // numbers of user to display on the same page
-$langFile = "admin";
-
 // initialisation of global variables and used libraries
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 

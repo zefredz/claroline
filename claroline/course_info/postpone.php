@@ -15,7 +15,6 @@
 	  | changed either as it determines who is allowed to modify the course. |
       +----------------------------------------------------------------------+
  */
-$langFile = "postpone";
 //$interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
 
 require '../inc/claro_init_global.inc.php';

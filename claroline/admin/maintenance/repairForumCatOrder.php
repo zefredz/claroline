@@ -15,7 +15,6 @@
 
 // Lang files needed :
 $cidReq="";$gidReq="";
-$langFile = "admin";
 $hideCourseOk = TRUE;
 
 // initialisation of global variables and used libraries

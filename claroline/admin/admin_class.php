@@ -11,9 +11,6 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-//used langfile
-$langFile = "admin";
-
 //used libraries
 require '../inc/claro_init_global.inc.php';
 @include ($includePath."/installedVersion.inc.php");
