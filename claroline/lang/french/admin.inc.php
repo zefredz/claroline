@@ -151,7 +151,7 @@ $langAreYouSureToSubscribe = "Etes-vous sûr de vouloir inscrire ";
 $langViewList = "Voir la liste";
 $langUserCanCreateCourse = "Peut créer des cours";
 $langUserIsPlaformAdmin = "Peut administrer la plate-forme"; // JCC
-$langAllUserOfThisCourse = "Liste personnelle des cours";
+$langPersonalCourseList = "Liste personnelle des cours";
 $langAllUsersOfThisCourse = "Membres du cours";
 $langCode = "Code du cours";
 

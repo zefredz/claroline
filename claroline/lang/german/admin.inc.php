@@ -132,7 +132,7 @@ $langAreYouSureToSubscribe = "sind Sie sicher, das Sie das registrieren wollen: 
 $langViewList = "Übersicht anzeigen";
 $langUserCanCreateCourse = "Kann Kurs erstellen";
 $langUserIsPlaformAdmin = "Ist Administrator";
-$langAllUserOfThisCourse = "Persönliche Kurs-Liste";
+$langPersonalCourseList = "Persönliche Kurs-Liste";
 $langAllUsersOfThisCourse = "Kurs-Mitglieder";
 $langCode = "Code";
 //Dialogbox  comment

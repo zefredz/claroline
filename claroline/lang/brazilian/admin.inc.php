@@ -161,7 +161,7 @@ $langAreYouSureToSubscribe = "você tem certeza de que deseja se registrar ";
 $langViewList = "Ver lista";
 $langUserCanCreateCourse = "Pode criar curso";
 $langUserIsPlaformAdmin = "É administrador da plataforma";
-$langAllUserOfThisCourse = "Lista de cursos pessoal";
+$langPersonalCourseList = "Lista de cursos pessoal";
 $langAllUsersOfThisCourse = "Membros do curso";
 $langCode = "Código do curso";
 
