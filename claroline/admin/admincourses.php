@@ -242,9 +242,9 @@ claro_disp_tool_title($nameTools);
 // display forms and dialogBox, alphabetic choice,...
 
 if($dialogBox)
-  {
-    claro_disp_message_box($dialogBox);
-  }
+{
+   claro_disp_message_box($dialogBox);
+}
 
 /*
 //Display selectbox, alphabetic choice, and advanced search link search
