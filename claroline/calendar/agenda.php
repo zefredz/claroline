@@ -532,9 +532,9 @@ foreach($eventList as $thisEvent)
         .'<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="O" alt="'.$langModify.'">'
         .'</a> '
         .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;id='.$thisEvent['id'].'" '
-        .'onclick="javascript:if( ! confirm(\''
+        .'onclick="javascript:if(!confirm(\''
         .addslashes (htmlspecialchars($langDelete.' '.$thisEvent['titre'].' ?'))
-        .'\')) return FALSE;" >'
+        .'\')) {document.location=\''.$_SERVER['PHP_SELF'].'\'; return false}" >'
         .'<img src="'.$clarolineRepositoryWeb.'img/delete.gif" border="0" alt="'.$langDelete.'">'
         .'</a>'
         ;
