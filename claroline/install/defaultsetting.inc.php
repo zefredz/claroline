@@ -24,14 +24,14 @@
 
     $dbPrefixForm   = $conf_def_property_list['dbNamePrefix']['default'];// $dbPrefixForm."c_";
     
-    $mainTblPrefixForm  = $conf_def_property_list['mainTblPrefix']['default'];
+    $mainTblPrefixForm  = 'cl_';
     $dbNameForm         = $conf_def_property_list['mainDbName']['default'];// $dbPrefixForm."claroline";
-    $statsTblPrefixForm = $conf_def_property_list['statsTblPrefix']['default'];
+    $statsTblPrefixForm = 'cl_';
     $dbStatsForm        = $conf_def_property_list['statsDbName']['default'];
     
     $singleDbForm   = $conf_def_property_list['singleDbEnabled']['default'];
     $enableTrackingForm =  $conf_def_property_list['is_trackingEnabled']['default'];
-    /*
+    /**
      * extract the path to append to the url if Claroline is not installed on the web root directory
      */
 
