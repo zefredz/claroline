@@ -57,7 +57,6 @@
 	mysql_query("INSERT  INTO `pma_relation` VALUES ('".$mainDbName."', 'user', 'email', '".$mainDbName."', 'user', 'email')");
 	mysql_query("INSERT  INTO `pma_relation` VALUES ('".$mainDbName."', 'user', 'officialCode', '".$mainDbName."', 'user', 'officialCode')");
 	mysql_query("INSERT  INTO `pma_relation` VALUES ('".$mainDbName."', 'user', 'creatorId', '".$mainDbName."', 'user', 'user_id')");
-	mysql_query("INSERT  INTO `pma_relation` VALUES ('".$mainDbName."', 'todo', 'priority', '".$mainDbName."', 'todo', 'priority')");
 	mysql_query("INSERT  INTO `pma_relation` VALUES ('".$mainDbName."', 'cours_user', 'code_cours', '".$mainDbName."', 'cours', 'code')");
 	mysql_query("INSERT  INTO `pma_relation` VALUES ('".$mainDbName."', 'cours_user', 'user_id', '".$mainDbName."', 'user', 'user_id')");
 	mysql_query("INSERT  INTO `pma_relation` VALUES ('".$mainDbName."', 'faculte', 'code', '".$mainDbName."', 'cours', 'cours_id')");
