@@ -45,11 +45,15 @@ $tbl_course_description  = $tbl_cdb_names['course_description'];
 @include($includePath."/../lang/english/pedaSuggest.inc.php");
 @include($includePath."/../lang/".$_course['language']."/pedaSuggest.inc.php");
 
+include('tiplistinit.inc.php');
+
+require('tiplistinit.inc.php');
+
 if ( !$is_allowedToEdit )
 {
     header("Location:./index.php");
 }
-else // if user is not admin,  they can change content
+else // if user is not admin, they can change content
 { 
     //// SAVE THE BLOC
     if (isset($_REQUEST['save']))
