@@ -289,23 +289,25 @@ claro_disp_button($_SERVER['PHP_SELF']."?cmd=formNew", $langCreateNewClass);
 //display cols headers
 
 echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
-    ."  <tr class=\"headerX\">\n"
-    ."    <th>\n"
-    ."      $langClassName\n"
-    ."    </th>\n"
-    ."    <th>\n"
-    ."      $langUsers\n"
-    ."    </th>\n"
-    ."    <th>\n"
-    ."      $langEditSettings\n"
-    ."    </th>\n"
-    ."    <th>\n"
-    ."      $langMove\n"
-    ."    </th>\n"
-    ."    <th>\n"
-    ."      $langDelete\n"
-    ."    </th>\n"
-    ."  </tr>\n";
+    ."<thead>\n"
+    ."  <tr class=\"headerX\">"
+    ."    <th>"
+    ."      $langClassName"
+    ."    </th>"
+    ."    <th>"
+    ."      $langUsers"
+    ."    </th>"
+    ."    <th>"
+    ."      $langEditSettings"
+    ."    </th>"
+    ."    <th>"
+    ."      $langMove"
+    ."    </th>"
+    ."    <th>"
+    ."      $langDelete"
+    ."    </th>"
+    ."  </tr>\n"
+    ."</thead>\n";
 
 //display Class list
 
@@ -344,109 +346,113 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
     global $tbl_class_user; 
     global $langUsersMin;
      
+    echo "<tbody>\n";
+
     foreach ($class_list as $cur_class)
     {
         
-	if (($parent_class==$cur_class['class_parent_id']))
+	    if (($parent_class==$cur_class['class_parent_id']))
         {
             
-	    //Set space characters to add in name display
+	        //Set space characters to add in name display
 	    
-	    $blankspace = "&nbsp;&nbsp;&nbsp;";	
-	    for ($i = 0; $i < $deep; $i++) 
-	    {
+    	    $blankspace = "&nbsp;&nbsp;&nbsp;";	
+	        for ($i = 0; $i < $deep; $i++) 
+    	    {
                 $blankspace .= "&nbsp;&nbsp;&nbsp;";
             } 
     
-	    //see if current class to display has children
+    	    //see if current class to display has children
 	    
-	    $has_children = FALSE;
-	    foreach ($class_list as $search_parent)
+	        $has_children = FALSE;
+    	    foreach ($class_list as $search_parent)
             {
-	        if ($cur_class['id'] == $search_parent['class_parent_id'])
-		{    
-		    $has_children = TRUE;
-		    break;
-		}
-	    }
+    	        if ($cur_class['id'] == $search_parent['class_parent_id'])
+	    	    {    
+		            $has_children = TRUE;
+		            break;
+    		    }
+	        }
 	    
-	    //Set link to open or close current class
+	        //Set link to open or close current class
 	    
-	    if ($has_children)
-	    {
-	        if ($_SESSION['admin_visible_class'][$cur_class['id']]=="open")
-		{
-		    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&class=".$cur_class['id']."\">\n"
-		                      ."   <img src=\"".$clarolineRepositoryWeb."img/minus.jpg\" border=\"0\" >\n"
-				      ."</a>\n";
-		}
-		else
-		{
-		    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&class=".$cur_class['id']."\">\n"
-		                      ."  <img src=\"".$clarolineRepositoryWeb."img/plus.jpg\" border=\"0\" >\n"
-				      ."</a>\n";
-		}    
-	    }
-	    else
-	    {
-	        $open_close_link ="°"; 
-	    }
+    	    if ($has_children)
+	        {
+	            if ($_SESSION['admin_visible_class'][$cur_class['id']]=="open")
+    	    	{
+	    	        $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&class=".$cur_class['id']."\">\n"
+		                              ."   <img src=\"".$clarolineRepositoryWeb."img/minus.jpg\" border=\"0\" >\n"
+				                      ."</a>\n";
+		        }
+		        else
+		        {
+		            $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&class=".$cur_class['id']."\">\n"
+		                              ."  <img src=\"".$clarolineRepositoryWeb."img/plus.jpg\" border=\"0\" >\n"
+				                      ."</a>\n";
+		        }    
+	        }
+	        else
+	        {
+	            $open_close_link ="°"; 
+	        }
 	    
-	    //DISPLAY CURRENT ELEMENT (CLASS)
+    	    //DISPLAY CURRENT ELEMENT (CLASS)
 
-	      //Name
+	        //Name
 		
-	    echo "  <td>\n"
+            echo "<tr>\n"
+                ."  <td>\n"
                 ."    ".$blankspace.$open_close_link." ".$cur_class['name']
                 ."  </td>\n";
 
-	      //Users
+            //Users
 	    
-	    $sqlcount="SELECT COUNT(`user_id`) AS qty_user FROM `".$tbl_class_user ."` WHERE `class_id`='".$cur_class['id']."'";  
-	    $resultcount = claro_sql_query_fetch_all($sqlcount);	   
-	    $qty_user = $resultcount[0]['qty_user'];
+    	    $sqlcount="SELECT COUNT(`user_id`) AS qty_user FROM `".$tbl_class_user ."` WHERE `class_id`='".$cur_class['id']."'";  
+	        $resultcount = claro_sql_query_fetch_all($sqlcount);	   
+	        $qty_user = $resultcount[0]['qty_user'];
 	    
-	    echo "  <td align=\"center\">\n"
-	        ."    <a href=\"".$clarolineRepositoryWeb."admin/admin_class_user.php?class=".$cur_class['id']."\">\n"
+    	    echo "  <td align=\"center\">\n"
+	            ."    <a href=\"".$clarolineRepositoryWeb."admin/admin_class_user.php?class=".$cur_class['id']."\">\n"
                 ."      <img src=\"".$clarolineRepositoryWeb."img/membres.gif\" border=\"0\"> "
-		."        (".$qty_user."  ".$langUsersMin.") \n"
-	        ."    </a>\n"
-		."  </td>\n";
+		        ."        (".$qty_user."  ".$langUsersMin.") \n"
+                ."    </a>\n"
+                ."  </td>\n";
 		
-	      //edit settings	
+            //edit settings	
 			
             echo "  <td align=\"center\">\n"
-	        ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=edit&class=".$cur_class['id']."\">\n"
+	            ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=edit&class=".$cur_class['id']."\">\n"
                 ."      <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" >\n"
-	        ."    </a>\n"
-		."  </td>\n";
+	            ."    </a>\n"
+		        ."  </td>\n";
 	    
-	      //Move	
+            //Move	
 		
             echo "  <td align=\"center\">\n"
-	        ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=move&class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
+	            ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=move&class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
                 ."      <img src=\"".$clarolineRepositoryWeb."img/deplacer.gif\" border=\"0\" >\n"
-		."    </a>\n"
-	        ."  </td>\n";
+        		."    </a>\n"
+	            ."  </td>\n";
 	    
-	      //delete	
+            //delete	
 		
             echo "  <td align=\"center\">\n"
-	        ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=del&class=".$cur_class['id']."\""
-		."     onClick=\"return confirmation('",addslashes($cur_class['name']),"');\">\n"
+                ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=del&class=".$cur_class['id']."\""
+                ."     onClick=\"return confirmation('",addslashes($cur_class['name']),"');\">\n"
                 ."      <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" >\n"
-		."    </a>\n"
-	        ."  </td>\n";
+                ."    </a>\n"
+                ."  </td>\n";
             echo "</tr>\n";
 	    
-	    // RECURSIVE CALL TO DISPLAY CHILDREN
+            // RECURSIVE CALL TO DISPLAY CHILDREN
 	    
-	    if ($_SESSION['admin_visible_class'][$cur_class['id']]=="open")
-	    {
-	        display_tree($class_list, $cur_class['id'], $deep+1);
-	    }	    
-	}
+            if ($_SESSION['admin_visible_class'][$cur_class['id']]=="open")
+            {
+	            display_tree($class_list, $cur_class['id'], $deep+1);
+            }	    
+	    }
     }    
+    echo "</tbody>\n";
 }
 
 /**

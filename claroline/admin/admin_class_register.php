@@ -188,15 +188,17 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit);
 
    // start table...
 
-echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">"
+echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
+    ."<thead>\n"
     ."<tr class=\"headerX\" align=\"center\" valign=\"top\">"
     ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>"
     ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=nom&chdir=yes\">".$langName."</a></th>"
     ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=prenom&chdir=yes".$dir."\">".$langFirstName."</a></th>"
     ."  <th>".$langSubscribeClass."</th>"
     ."  <th>".$langUnsubscribeClass."</th>"
-    ."</tr>"
-    ."<tbody> ";
+    ."</tr>\n"
+    ."</thead>\n"
+    ."<tbody>\n";
 
    // Start the list of users...
 
@@ -251,12 +253,12 @@ foreach($resultList as $list)
              .'</td>'."\n";
      }
 
-     echo "</tr>";
+     echo "</tr>\n";
 }
 
    // end display users table
 
-echo "</tbody></table>";
+echo "</tbody>\n</table>\n";
 
 //Pager
 
