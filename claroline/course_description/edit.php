@@ -300,7 +300,7 @@ if (count($listExistingBloc)>0)
 
 
 			</p>
-		</td>
+		</td><tr></tr>
 <?php 
 		if ($showPedaSuggest)
 		{
