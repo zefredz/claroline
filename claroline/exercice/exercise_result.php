@@ -344,10 +344,10 @@ if ($_SESSION['inPathMode'] != true)
 
 <tr>
   <td width="5%" align="center">
-	<img src="../img/<?php echo ($answerType == UNIQUE_ANSWER)?'radio':'checkbox'; echo $studentChoice?'_on':'_off'; ?>.gif" border="0">
+	<img src="<?php echo $clarolineRepositoryWeb ?>img/<?php echo ($answerType == UNIQUE_ANSWER)?'radio':'checkbox'; echo $studentChoice?'_on':'_off'; ?>.gif" border="0">
   </td>
   <td width="5%" align="center">
-	<img src="../img/<?php echo ($answerType == UNIQUE_ANSWER)?'radio':'checkbox'; echo $answerCorrect?'_on':'_off'; ?>.gif" border="0">
+	<img src="<?php echo $clarolineRepositoryWeb ?>img/<?php echo ($answerType == UNIQUE_ANSWER)?'radio':'checkbox'; echo $answerCorrect?'_on':'_off'; ?>.gif" border="0">
   </td>
   <td width="45%">
 	<?php echo $answer; ?>
