@@ -90,16 +90,24 @@ if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step pr
 	$dbHostForm		= "localhost";
 	$dbUsernameForm	= "root";
 
-	$dbPrefixForm	= "claroline";
-	$dbNameForm		= $dbPrefixForm."Main";
-	$dbStatsForm    = $dbPrefixForm."Main";
-	$dbPrefixForm	= $dbPrefixForm."_";
+	$dbPrefixForm	= "";
+	$dbNameForm		= $dbPrefixForm."claroline";
+	$dbStatsForm    = $dbPrefixForm."claroline";
+	$dbPrefixForm	= $dbPrefixForm."c_";
  	$singleDbForm	= true;
 
 
-	// extract the path to append to the url if Claroline is not installed on the web root directory
-
-	$urlAppendPath 	= ereg_replace ("/claroline/install/".basename($_SERVER['SCRIPT_NAME']), "", $PHP_SELF);
+	/*
+	 * extract the path to append to the url if Claroline is not installed on the web root directory
+	 */
+	 
+	 // remove possible double slashes
+	$urlAppendPath = str_replace( array('///', '//'), '/', $PHP_SELF);
+	// detect if url case sensitivity does matter
+	$caseSensitive = (PHP_OS == 'WIN32' || PHP_OS == 'WINNT') ? 'i' : '';
+	// build the regular expression pattern
+	$ereg = "#/claroline/install/".basename($_SERVER['SCRIPT_NAME'])."$#$caseSensitive";
+    $urlAppendPath 	= preg_replace ($ereg, '', $urlAppendPath);
   	$urlForm 		= "http://".$_SERVER['SERVER_NAME'].$urlAppendPath."/";
 	$pathForm		= realpath("../..")."/";
 
@@ -860,7 +868,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 							<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.$dbPrefixForm.'">
 						</td>
 						<td>
-							'.$langDbPrefixCom.'
+							e.g. \''.$dbPrefixForm.'\'
 						</td>
 					</tr>
 				</table>
