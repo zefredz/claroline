@@ -17,7 +17,7 @@ echo "<title>$langHHome</title>";
 
   </td>
   <td align="right" valign="top">
-    <a href="javascript:window.close();"><?php echo $langClose; ?></a>
+    <a href="javascript:window.close();"><?php echo $langCloseWindow; ?></a>
   </td>
 </tr>
 <tr>
@@ -30,7 +30,7 @@ echo "<title>$langHHome</title>";
 <tr>
   <td colspan="2">
     <br>
-    <center><a href="javascript:window.close();"><?php echo $langClose; ?></a></center>
+    <center><a href="javascript:window.close();"><?php echo $langCloseWindow; ?></a></center>
   </td>
 </tr>
 </table>

@@ -16,7 +16,7 @@
 // help_forums.php
 
 $langHFor="Aide forums";
-$langClose="Fermer la fenêtre";
+$langCloseWindow="Fermer la fenêtre";
 
 
 

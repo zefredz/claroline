@@ -18,7 +18,7 @@
 // help_forums.php
 
 $langHFor="Help Forums";
-$langClose="Close window";
+$langCloseWindow="Close window";
 
 $langForContent="The forum is a written and asynchronous discussion tool.
  Where email allows one-to-one dialogue, forums allow public or semi-public
