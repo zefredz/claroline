@@ -43,7 +43,6 @@ if (!$is_allowedToEdit)
 }
 
 include("createBaseOfACourse.sql.php");
-include("upgradeContentBaseOfACourse.sql.php");
 $langUpgradeDataBase = "Upgrading Database ".$currentCourseID;
 
 $db = mysql_connect($dbHost, $dbLogin, $dbPass);
