@@ -261,9 +261,8 @@ if($is_allowedToEdit) // check teacher status
 	    	$courseSender =  $_user['firstName'] . ' ' . $_user['lastName'];
 	    
 			// email subject
-	    	$emailSubject = "[" . $siteName. " - " . $_course['officialCode'] . "] ";
-			if (trim($_REQUEST['title'])) $emailSubject .= stripslashes(trim($_REQUEST['title']));
-            else                          $emailSubject .= $professorMessage;
+			$mail['subject']= '[' . $siteName. ' - ' . $_course['officialCode'] . '] '.
+			(trim($_REQUEST['title'])?stripslashes(trim($_REQUEST['title'])):$professorMessage);
 
 			// email message
         	$msgContent = stripslashes($newContent);
@@ -273,12 +272,12 @@ if($is_allowedToEdit) // check teacher status
         	$msgContent = unhtmlentities($msgContent);
 	    	$msgContent = strip_tags($msgContent);
         
-        	$emailBody = $msgContent . "\n" .
+        	$mail['body'] = trim($msgContent . "\n" .
             	         "\n" .
                 	     '--' . "\n" . 
                     	 $courseSender . "\n" . 
 	                     $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" . 
-    	                 $siteName . "\n";
+    	                 $siteName . "\n");
 
 	        // Select students email list
     	    $sql = "SELECT user.user_id
@@ -292,15 +291,22 @@ if($is_allowedToEdit) // check teacher status
 			$countUnvalid = 0;
 			$messageFailed = "";
 
+			$mail['from']=  $_user['mail'];
 		    // send email one by one to avoid antispam
 	        while ( $myrow = mysql_fetch_array($result) )
 	        {
-				if (!claro_mail_user($myrow['user_id'], $emailBody, $emailSubject, $_user['mail'], $courseSender))
+				$mail['bcc'][]=$myrow['user_id'];
+
+/*			if (!claro_mail_user($myrow['user_id'], $emailBody, $emailSubject, $_user['mail'], $courseSender))
 				{
 					$messageFailed.= claro_get_last_failure() . "<br />";
 					$countUnvalid++;
 				}
+*/
 	        }
+			$mails[]=$mail;
+			claro_mail_spool($mails);
+
             $messageUnvalid= $langOn.' '.$countEmail.' '.$langRegUser.', '.$countUnvalid.' '.$langUnvalid;
             $message .= ' '.$langEmailSent.'<br><b>'.$messageUnvalid.'</b><br />';
 			$message .= $messageFailed;

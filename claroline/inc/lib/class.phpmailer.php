@@ -27,7 +27,7 @@ class PHPMailer
      * Email priority (1 = High, 3 = Normal, 5 = low).
      * @var int
      */
-    var $Priority          = 3;
+    var $Priority          = 4;
 
     /**
      * Sets the CharSet of the message.
@@ -106,7 +106,7 @@ class PHPMailer
      * Method to send mail: ("mail", "sendmail", or "smtp").
      * @var string
      */
-    var $Mailer            = "mail";
+    var $Mailer            = "debug";
 
     /**
      * Sets the path of the sendmail program.
@@ -360,7 +360,6 @@ class PHPMailer
         $body = $this->CreateBody();
 
         if($body == "") { return false; }
-
         // Choose the mailer
         if($this->Mailer == "sendmail")
         {
@@ -377,12 +376,19 @@ class PHPMailer
           if(!$this->SmtpSend($header, $body))
               return false;
         }
+        elseif($this->Mailer == "debug")
+        {
+			echo '<br>
+			<strong>Headers:</strong><PRE>'.$header.'</PRE><br>
+			<strong>body:</strong><PRE>'.$body.'</PRE>';
+              return false;
+        }
         else
         {
             $this->SetError($this->Mailer . $this->Lang("mailer_not_supported"));
             return false;
         }
-
+		echo __LINE__."_ ";
         return true;
     }
     
