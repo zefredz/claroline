@@ -242,7 +242,7 @@ $l_useruniq	= "Musti unik. Tidak boleh sama dengan user yang lain.";
 $l_storecookie	= "Simpan nama user saya selama 1 tahun dalam cookie.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences diupdate. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences diupdate. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Edit $l_preferences Anda";
 $l_themecookie	= "CATATAN: untuk menggunakan theme anda musti mengaktifkan cookies.";
 $l_alwayssig	= "Selalu tambahkan tanda tangan saya";
@@ -309,7 +309,7 @@ $l_notifybody	= 'Yth.  $m[username]\r\nAnda menerima Email ini karena pesan yang
 
 Anda dapat melihat topik tsb pada:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 Atau lihat index forum $sitename pada  
 
@@ -330,7 +330,7 @@ $l_yourname	= "$l_username anda";
 $l_recptname	= "$l_username Penerima";
 
 // Replypmsg
-$l_pmposted	= "Tanggapan Terkirim, anda dapat meng-klik <a href=\"viewpmsg.$phpEx\">disini</a> untuk melihat $l_privmsgs anda";
+$l_pmposted	= "Tanggapan Terkirim, anda dapat meng-klik <a href=\"viewpmsg.php\">disini</a> untuk melihat $l_privmsgs anda";
 
 // Viewpmsg
 $l_nopmsgs	= "Anda tidak memiliki $l_privmsgs.";
@@ -346,7 +346,7 @@ $l_smilepict	= "Gambar";
 
 // Sendpasswd
 $l_wrongactiv	= "Activation key yang anda berikan salah. Silahkan periksa $l_message email yang anda terima dan pastikan anda mengcopy activation key dengan benar.";
-$l_passchange	= "Password anda telah diubah dengan sukses. Kini anda dapat pergi ke <a href=\"bb_profile.$phpEx?mode=edit\">profil</a> anda untuk mengubah password anda menjadi lebih baik.";
+$l_passchange	= "Password anda telah diubah dengan sukses. Kini anda dapat pergi ke <a href=\"bb_profile.php?mode=edit\">profil</a> anda untuk mengubah password anda menjadi lebih baik.";
 $l_wrongmail	= "Email yang anda masukkan tidak cocok dengan yang disimpan dalam database kami.";
 
 $l_passsubj	= "Perubahan Password Forum $sitename";

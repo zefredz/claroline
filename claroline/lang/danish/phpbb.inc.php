@@ -242,7 +242,7 @@ $l_useruniq	= "Skal være unik. To deltagere kan ikke have samme brugernavn.";
 $l_storecookie	= "Gem mit brugernavn i en cookie i et år.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences opdateret. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences opdateret. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Rediger dine $l_preferences";
 $l_themecookie	= "Bemærk: For at kunne bruge temaer skal du have oprettet cookies.";
 $l_alwayssig	= "Tilføj altid min underskrift";
@@ -312,7 +312,7 @@ opmærksom på dette, når det skete.
 
 You may view the topic at:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 Or view the $sitename forum index at
 
@@ -335,7 +335,7 @@ $l_yourname	= "Dit $l_username";
 $l_recptname	= "Modtagerens $l_username";
 
 // Replypmsg
-$l_pmposted	= "Svar sendt, du kan klikke <a href=\"viewpmsg.$phpEx\">here</a> for at se dine $l_privmsgs";
+$l_pmposted	= "Svar sendt, du kan klikke <a href=\"viewpmsg.php\">here</a> for at se dine $l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= "Du har ingen $l_privmsgs.";
@@ -351,7 +351,7 @@ $l_smilepict	= "Billede";
 
 // Sendpasswd
 $l_wrongactiv	= "Aktiveringsnøglen er ikke koorekt udstyret. Venligst kontroller email $l_message du modtog og vær sikker på, at du har kopieret aktiveringsnøglen korrekt.";
-$l_passchange	= "Din adgangskode er ændret med succes. Du kan nu gå til din <a href=\"bb_profile.$phpEx?mode=edit\">profil</a> og ændre din adgangskode til en selvvalgt.";
+$l_passchange	= "Din adgangskode er ændret med succes. Du kan nu gå til din <a href=\"bb_profile.php?mode=edit\">profil</a> og ændre din adgangskode til en selvvalgt.";
 $l_wrongmail	= "Den anførte email matcher ikke en i databasen.";
 
 $l_passsubj	= "$sitename Forum Adgangskode Ændre";

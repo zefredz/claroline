@@ -260,7 +260,7 @@ $l_useruniq	= "Debe ser &uacute;nica. Dos usuarios no pueden tener la misma clav
 $l_storecookie	= "Guardar mi nombre de usuario en un 'cookie' durante un a&ntilde;o.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences actualizadas. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences actualizadas. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Edite sus $l_preferences";
 $l_themecookie	= "NOTA: Para utilizar los temas DEBE tener activados los 'cookies'.";
 $l_alwayssig	= "Siempre agregar mi firma";
@@ -328,7 +328,7 @@ que ha enviado al foro $sitename, ya que usted ha elegido ser informado.
 
 Usted puede ver el tema en:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 O ver el &iacute;ndice del foro en $sitename en
 
@@ -351,7 +351,7 @@ $l_yourname	= "Su $l_username";
 $l_recptname	= "$l_username del Destinatario";
 
 // Replypmsg
-$l_pmposted	= "Respuesta enviada, puede hacer click <a href=\"viewpmsg.$phpEx\">aqu&iacute;</a> para ver sus $l_privmsgs";
+$l_pmposted	= "Respuesta enviada, puede hacer click <a href=\"viewpmsg.php\">aqu&iacute;</a> para ver sus $l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= "No tiene $l_privmsgs.";
@@ -367,7 +367,7 @@ $l_smilepict	= "Imagen";
 
 // Sendpasswd
 $l_wrongactiv	= "La contraseña de activaci&oacute;n es incorrecta. Verifique el $l_message correo electr&oacute;nico que recibi&oacute; y aseg&uacute;rese de haber copiado la contraseña de activaci&oacute;n correctamente.";
-$l_passchange	= "Su contraseña ha sido cambiada. En cualquier momento puede ir a su <a href=\"bb_profile.$phpEx?modo=editar\">perfil</a> y cambiar su clave de acceso.";
+$l_passchange	= "Su contraseña ha sido cambiada. En cualquier momento puede ir a su <a href=\"bb_profile.php?modo=editar\">perfil</a> y cambiar su clave de acceso.";
 $l_wrongmail	= "La direcci&oacute;n de correo electr&oacute;nico no corresponde con la registrada en nuestra base de datos.";
 
 $l_passsubj	= "Foros $sitename - Cambio de clave de acceso";

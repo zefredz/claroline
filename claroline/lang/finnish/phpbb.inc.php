@@ -251,7 +251,7 @@ $l_storecookie	= "Varastoi minun tunnukseni keksinä yhden vuoden.";
 
 // Prefs
 
-$l_prefupdated	= "$l_preferences on päivitetty. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences on päivitetty. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Muokkaa ominaisuuksia: $l_preferences";
 $l_themecookie	= "Huomaa:: Jos haluat käyttää teemoja, selaimen täytyy tukea keksejä.";
 $l_alwayssig	= "Lisää aina minun allekirjoitukseni";
@@ -321,7 +321,7 @@ $l_notifybody	= 'Hyvä $m[username]\r\nSaat tämän viestin, koska olet pyytänyt sä
 
 Voit katsoa aihetta:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 tai katsoa $sitename foorumien listaa:
 
@@ -346,7 +346,7 @@ $l_recptname	= "Vastaanottajan $l_username";
 
 // Replypmsg
 
-$l_pmposted	= "Vastaus on lähetetty, voit klikata <a href=\"viewpmsg.$phpEx\">tästä</a> nähdäksesi $l_privmsgs";
+$l_pmposted	= "Vastaus on lähetetty, voit klikata <a href=\"viewpmsg.php\">tästä</a> nähdäksesi $l_privmsgs";
 
 // Viewpmsg
 
@@ -366,7 +366,7 @@ $l_smilepict	= "Kuva";
 // Sendpasswd
 
 $l_wrongactiv	= "Aktivointiavain ei ollut oikea. Tarkista sähköposti $l_message , jonka olet saanut ja tarkista, että olet kopioinut aktivointiavaimen oiken.";
-$l_passchange	= "Salasanasi on onnistuneesti vaihdettu. Voit nyt mennä <a href=\"bb_profile.$phpEx?mode=edit\">profiilisi</a> ja muuttaa salasana sopivammaksi.";
+$l_passchange	= "Salasanasi on onnistuneesti vaihdettu. Voit nyt mennä <a href=\"bb_profile.php?mode=edit\">profiilisi</a> ja muuttaa salasana sopivammaksi.";
 $l_wrongmail	= "Sähköposti ei ole sama kuin mikä on tietokannassa.";
 
 $l_passsubj	= "$sitename foorumien salasana on vaihdettu";

@@ -256,7 +256,7 @@ $l_useruniq	= "Deve ser &uacute;nico. Dois utilizadores n&atilde;o podem ter o m
 $l_storecookie	= "Guarde o meu nome de utilizador numa 'cookie' durante um ano.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences actualizadas. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences actualizadas. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Edite as suas $l_preferences";
 $l_themecookie	= "NOTA: Para utilizar os temas DEVE ter activadas as 'cookies'.";
 $l_alwayssig	= "Acrescentar sempre a minha assinatura";
@@ -323,7 +323,7 @@ $l_notifybody	= 'Caro $m[username]\r\n Esta mensagem de correio electr&oacute;ni
 
 Pode ver o tema em:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 Ou ver o &iacute;ndice do foro de $sitename em
 
@@ -346,7 +346,7 @@ $l_yourname	= "O seu $l_username";
 $l_recptname	= "$l_username do Destinat&aacute;rio";
 
 // Replypmsg
-$l_pmposted	= "Resposta enviada, pode carregar <a href=\"viewpmsg.$phpEx\">aqui</a> para ver as suas $l_privmsgs";
+$l_pmposted	= "Resposta enviada, pode carregar <a href=\"viewpmsg.php\">aqui</a> para ver as suas $l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= "N&atilde;o tem $l_privmsgs.";
@@ -362,7 +362,7 @@ $l_smilepict	= "Imagem";
 
 // Sendpasswd
 $l_wrongactiv	= "A senha de activa&ccedil;&atilde;o &eacute; incorrecta. Verifique a $l_message de correio electr&oacute;nico que recebeu e certifique-se de ter copiado a senha correctamente.";
-$l_passchange	= "A sua senha foi alterada com sucesso. A qualquer momento pode ir ao seu <a href=\"bb_profile.$phpEx?modo=editar\">perfil</a> e alterar de novo a sua senha.";
+$l_passchange	= "A sua senha foi alterada com sucesso. A qualquer momento pode ir ao seu <a href=\"bb_profile.php?modo=editar\">perfil</a> e alterar de novo a sua senha.";
 $l_wrongmail	= "A morada de correio electr&oacute;nico n&atilde;o &eacute; a que foi registada na nossa base de dados.";
 
 $l_passsubj	= "Foros $sitename - Altera&ccedil;&atilde;o da senha";

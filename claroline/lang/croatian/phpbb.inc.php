@@ -244,7 +244,7 @@ $l_useruniq	= "Mora biti jedistvena. Nesmiju dva krisnika imati isto korinièko i
 $l_storecookie	= "Pohrani moje korisnièko ime na jednu godinu u cookie.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences su obnovljene. $l_click <a href=\"index.$phpEx\">$l_ovdje</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences su obnovljene. $l_click <a href=\"index.php\">$l_ovdje</a> $l_returnindex";
 $l_editprefs	= "Dodaj svoje $l_preferencese";
 $l_themecookie	= "Naomena: Ukoliko želite koristiti teme morate imati osposobljene cookies.";
 $l_alwayssig	= "Uvjek umetni moj potpis";
@@ -311,7 +311,7 @@ $l_notifybody	= 'Poštovani $m[username]\r\n primili ste ovaj email jer na poruku
 
 Možete vidjeti teme na:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 ili vidite na $sitename forum indeks na
 
@@ -334,7 +334,7 @@ $l_yourname	= "Vaše $l_username";
 $l_recptname	= "Korisnièko ime primatelja $l_username";
 
 // Replypmsg
-$l_pmposted	= "Odgovor je oslan, možete kliknuti <a href=\"viewpmsg.$phpEx\">ovdje</a> da bi vidjeli  $l_privmsgs ";
+$l_pmposted	= "Odgovor je oslan, možete kliknuti <a href=\"viewpmsg.php\">ovdje</a> da bi vidjeli  $l_privmsgs ";
 
 // Viewpmsg
 $l_nopmsgs	= "Nemate novih $l_privmsgs poruka.";
@@ -350,7 +350,7 @@ $l_smilepict	= "Slika";
 
 // Sendpasswd
 $l_wrongactiv	= " Aktivirajuæi kljuè koji imate nije toèan. Molimo Vas provjerite email poruku koju ste primili i provjerite dali ste dobro kopirali aktivirajuæi kljuè.";
-$l_passchange	= "Vaša zaporka je uspješno promjenjena. Sada možete iæi na vaš <a href=\"bb_profil.$phpEx?mode=edit\">profil</a> i zamjenite svoju zaporku sa više odgovarajuæom zaporkom.";
+$l_passchange	= "Vaša zaporka je uspješno promjenjena. Sada možete iæi na vaš <a href=\"bb_profil.php?mode=edit\">profil</a> i zamjenite svoju zaporku sa više odgovarajuæom zaporkom.";
 $l_wrongmail	= "Email adresa koju ste unijeli ne odgovara onoj pohranjenoj u našoj bazi podataka.";
 
 $l_passsubj	= "$sitename  Foruma Promjena Zaporke";

@@ -244,7 +244,7 @@ $l_useruniq	= "±ØĞèÊÇÎ¨Ò»µÄ.²»ÄÜÓĞÁ½¸öÓÃ»§ÓĞÏàÍ¬µÄÓÃ»§Ãû.";
 $l_storecookie	= "ÔÚcookieÖĞ±£´æÎÒµÄÓÃ»§Ãû1Äê.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences updated. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences updated. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "±à¼­ $l_preferences";
 $l_themecookie	= "ÌáÊ¾: ÒªÊ¹ÓÃÖ÷Ìâ,ä¯ÀÀÆ÷±ØĞèÔÊĞícookies.";
 $l_alwayssig	= "×ÜÊÇÌí¼ÓÇ©Ãûµµ";
@@ -311,7 +311,7 @@ $l_notifybody	= ' $m[username],ÄãºÃ!\r\nÄúÊÕµ½Õâ·âÓÊ¼ş,ÊÇÒòÎªÔÚÂÛÌ³ÖĞÓĞÎÄÕÂ»Ø¸´Á
 
 ÔÄ¶ÁÕâ¸ö»°ÌâÇëµ½:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 ÔÄ¶Á$sitenameÂÛÌ³Ë÷ÒıÇëµ½:
 
@@ -334,7 +334,7 @@ $l_yourname	= "ÄúµÄ$l_username";
 $l_recptname	= "½ÓÊÕÕß$l_username";
 
 // Replypmsg
-$l_pmposted	= "»Ø¸´ÎÄÕÂÒÑÕÅÌù, Äú¿ÉÒÔµã»÷<a href=\"viewpmsg.$phpEx\">ÕâÀï</a> À´ÔÄ¶Á$l_privmsgs";
+$l_pmposted	= "»Ø¸´ÎÄÕÂÒÑÕÅÌù, Äú¿ÉÒÔµã»÷<a href=\"viewpmsg.php\">ÕâÀï</a> À´ÔÄ¶Á$l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= "²»´æÔÚÈÎºÎ$l_privmsgs.";
@@ -350,7 +350,7 @@ $l_smilepict	= "Í¼Æ¬";
 
 // Sendpasswd
 $l_wrongactiv	= "¼¤»îÕÊºÅµÄÃÜÂë´íÎó,Çë¼ì²éÊÕµ½µÄÓÊ¼şÖĞµÄ$l_message,È·±£¸´ÖÆµÄÃÜÂëÊÇÕıÈ·µÄ.";
-$l_passchange	= "ÄúµÄÃÜÂëÒÑ³É¹¦ĞŞ¸Ä. ÏÖÔÚÄú¿ÉÒÔµ½<a href=\"bb_profile.$phpEx?mode=edit\">¸öÈË×ÊÁÏ</a> ĞŞ¸ÄÄúµÄÃÜÂë.";
+$l_passchange	= "ÄúµÄÃÜÂëÒÑ³É¹¦ĞŞ¸Ä. ÏÖÔÚÄú¿ÉÒÔµ½<a href=\"bb_profile.php?mode=edit\">¸öÈË×ÊÁÏ</a> ĞŞ¸ÄÄúµÄÃÜÂë.";
 $l_wrongmail	= "ÓÊ¼şµØÖ·ºÍÎÒÃÇÊı¾İ¿âÖĞµÄ¼ÇÂ¼²»·û.";
 
 $l_passsubj	= "$sitename ÂÛÌ³ÃÜÂëĞŞ¸Ä";

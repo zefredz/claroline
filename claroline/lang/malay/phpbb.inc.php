@@ -242,7 +242,7 @@ $l_useruniq	= "mesti unik. ID Pengguna yang sama tidak dibenarkan.";
 $l_storecookie	= "Simpan ID Pengguna saya dalam <i>cookie</i> selama 1 tahun.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences telah dikemaskini. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences telah dikemaskini. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Ubahsuai $l_preferences";
 $l_themecookie	= "Peringatan: Jika anda ingin menggunakan <i>themes</i> anda perlu membenarkan <i>cookies</i> terlebih dahulu.";
 $l_alwayssig	= "Sentiasa memaparkan tandatangan saya";
@@ -309,7 +309,7 @@ $l_notifybody	= 'Kepada $m[username]\r\nAnda menerima Email ini kerana mesej yan
 
 Anda boleh melihat topik ini di:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 Atau lihat indeks forum  $sitename di
 
@@ -332,7 +332,7 @@ $l_yourname	= " $l_username anda";
 $l_recptname	= "$l_username penerima";
 
 // Replypmsg
-$l_pmposted	= "Mesej yang hendak dibalas, telah dihantar, anda boleh klik <a href=\"viewpmsg.$phpEx\">di sini</a> untuk melihat $l_privmsgs";
+$l_pmposted	= "Mesej yang hendak dibalas, telah dihantar, anda boleh klik <a href=\"viewpmsg.php\">di sini</a> untuk melihat $l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= "Anda tidak mempunyai $l_privmsgs.";
@@ -348,7 +348,7 @@ $l_smilepict	= "Gambar";
 
 // Sendpasswd
 $l_wrongactiv	= "Kekunci pengaktifan anda tidak sah.Sila semak email $l_message yang anda terima dan pastikan anda mempunyai rekod salinan kekunci pengaktifan anda.";
-$l_passchange	= "Tahniah! Proses penukaran katalaluan anda telah berjaya.Anda kini boleh mencapai <a href=\"bb_profile.$phpEx?mode=edit\"> Butir peribadi</a> dan menukar katalaluan mengikut kesesuaian anda.";
+$l_passchange	= "Tahniah! Proses penukaran katalaluan anda telah berjaya.Anda kini boleh mencapai <a href=\"bb_profile.php?mode=edit\"> Butir peribadi</a> dan menukar katalaluan mengikut kesesuaian anda.";
 $l_wrongmail	= "Alamat email yang dimasukkan tidak sama dengan rekod yang tersimpan di dalam pangkalan data.";
 
 $l_passsubj	= "Tukar katalaluan Forum $sitename";

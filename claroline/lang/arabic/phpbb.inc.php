@@ -240,7 +240,7 @@ $l_useruniq	= " يجب أن يكون وحيدا. لا يمكن لعضوين تم
 $l_storecookie	= ' ضعوا إسم مستخدم الموقع الذي استعملته في "كوكي" لمدّة سنة';
 
 // Prefs
-$l_prefupdated	= "$l_ تمّ تجديد خياراتكم $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_ تمّ تجديد خياراتكم $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= " إظهار $l_ أفضلياتي ";
 $l_themecookie	= ' "لاستعمال هذه    المباحث يجب تشغيل "الكوكيز
 .';
@@ -309,7 +309,7 @@ que vous avez posté sur les forums $sitename a reçu une réponse, et que
 vous avez choisi d\'en être informé.
 
 يمكنكم الإطلاع على الموضوع على الصفحة
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 أو يمكنكم الاطلاع على فهرسة المنتدى على
 
@@ -332,7 +332,7 @@ $l_yourname	= " اسم مستخدم الموقع ";
 $l_recptname	= " اسم مستخدم الموقع الذي يستعمله مراسلتكم ";
 
 // Replypmsg
-$l_pmposted	= "Réponse postée, vous pouvez cliquer <a href=\"viewpmsg.$phpEx\">ici</a> pour voir vos $l_privmsgs";
+$l_pmposted	= "Réponse postée, vous pouvez cliquer <a href=\"viewpmsg.php\">ici</a> pour voir vos $l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= " ليس لديكم رسائل خاصّة";

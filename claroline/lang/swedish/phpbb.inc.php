@@ -248,7 +248,7 @@ $l_useruniq	= "Måste vara unik. Flera användare kan inte ha samma användarnamn."
 $l_storecookie	= "Spara mitt användarnamn i en cookie i 1 år";
 
 // Prefs
-$l_prefupdated	= "Dina inställningar har uppdaterats. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex.";
+$l_prefupdated	= "Dina inställningar har uppdaterats. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex.";
 $l_editprefs	= "$l_preferences";
 $l_themecookie	= "<STRONG>OBSERVERA att din webbläsare måste acceptera cookies för att teman ska fungera.</STRONG>";
 $l_alwayssig	= "Bifoga alltid signatur";
@@ -317,7 +317,7 @@ du vill bli informerade när detta händer.
 
 Du kan läsa mer på:
 		                
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 Eller läs $sitename forum indexet på
 
@@ -340,7 +340,7 @@ $l_yourname	= "Ditt $l_username";
 $l_recptname	= "Mottagare $l_username";
 
 // Replypmsg
-$l_pmposted	= "Har besvarats, klicka <a href=\"viewpmsg.$phpEx\">här</a> för att läsa dina $l_privmsgs";
+$l_pmposted	= "Har besvarats, klicka <a href=\"viewpmsg.php\">här</a> för att läsa dina $l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= "Du har inga $l_privmsgs.";
@@ -356,7 +356,7 @@ $l_smilepict	= "Bild";
 
 // Sendpasswd
 $l_wrongactiv	= "Aktiveringsnyckeln du angett är inte korrekt. Var vänlig och kontrollera e-postmeddelandet $l_message du mottaget och försäkra dig om att du kopierat aktiveringsnyckel exakt.";
-$l_passchange	= "Ditt lösenord har ändrats. Du kan nu gå till din <a href=\"bb_profile.$phpEx?mode=edit\">profil</a> och ändra ditt lösenord till ett mer passande.";
+$l_passchange	= "Ditt lösenord har ändrats. Du kan nu gå till din <a href=\"bb_profile.php?mode=edit\">profil</a> och ändra ditt lösenord till ett mer passande.";
 $l_wrongmail	= "E-postadressen du angett stämmer inte med den i vår databas.";
 
 $l_passsubj	= "$sitename Forum lösenordsändring";

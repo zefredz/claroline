@@ -247,7 +247,7 @@ $l_useruniq	= "должно быть оригинальным. Два участника не могут иметь одно и то 
 $l_storecookie	= "Разместите ваше имя пользователя в cookie на срок 1 год.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences обновлены. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences обновлены. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Редактировать ваши $l_preferences";
 $l_themecookie	= "ПРИМЕЧАНИЕ: Чтобы использовать цветовые настройки вы ДОЛЖНЫ активировать cookies.";
 $l_alwayssig	= "Всегда прикреплять мою подпись";
@@ -315,7 +315,7 @@ $l_notifybody	= 'Уважаемый $m[username]\r\nВы получили это письмо, так как посту
 
 Вы можете увидеть тему по адресу:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 Или просмотреть оглавление форума $sitename по адресу
 
@@ -339,7 +339,7 @@ $l_recptname	= "$l_username адресата";
 
 // Replypmsg
 $l_pmposted	= "Ответ размещен, вы можете перейти по 
-<a href=\"viewpmsg.$phpEx\">ссылке</a>, чтобы увидеть ваши $l_privmsgs";
+<a href=\"viewpmsg.php\">ссылке</a>, чтобы увидеть ваши $l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= "У вас нет $l_privmsgs.";
@@ -357,7 +357,7 @@ $l_smilepict	= "Рисунок";
 $l_wrongactiv	= "Ключ активации неверен. Проверьте электронное $l_message, которое вы получили
 и удостоверьтесь, что ссылка скопирована верно.";
 $l_passchange	= "Ваш пароль успешно изменен. Теперь вы можете перейти к вашим 
-<a href=\"bb_profile.$phpEx?mode=edit\">настройкам</a> и изменить ваш пароль.";
+<a href=\"bb_profile.php?mode=edit\">настройкам</a> и изменить ваш пароль.";
 $l_wrongmail	= "Указанный электронный адрес не соответствует адресу, указанному в нашей базе данных.";
 
 $l_passsubj	= "Форумы $sitename - Изменение пароля";

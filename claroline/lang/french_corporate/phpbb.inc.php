@@ -244,7 +244,7 @@ $l_useruniq	= "Doit être unique. Deux membres ne peuvent avoir le même Nom d'Uti
 $l_storecookie	= "Mettez mon nom d'utilisateur dans un cookie pendant 1 an.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences mises à jour. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences mises à jour. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Editez Vos $l_preferences";
 $l_themecookie	= "NOTE: Pour utiliser les thèmes vous DEVEZ activer les cookies.";
 $l_alwayssig	= "Toujours attacher ma signature";
@@ -313,7 +313,7 @@ vous avez choisi d\'en être informé.
 
 Vous pouvez voir le sujet à:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 Ou voir l\'index du forum $sitename à
 
@@ -336,7 +336,7 @@ $l_yourname	= "Votre $l_username";
 $l_recptname	= "$l_username du Destinataire";
 
 // Replypmsg
-$l_pmposted	= "Réponse postée, vous pouvez cliquer <a href=\"viewpmsg.$phpEx\">ici</a> pour voir vos $l_privmsgs";
+$l_pmposted	= "Réponse postée, vous pouvez cliquer <a href=\"viewpmsg.php\">ici</a> pour voir vos $l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= "Vous n'avez pas de $l_privmsgs.";
@@ -352,7 +352,7 @@ $l_smilepict	= "Image";
 
 // Sendpasswd
 $l_wrongactiv	= "La clé d'activation fournie n'est pas correcte. Vérifiez le $l_message email que vous avez reçu et assurez-vous que vous avez copié la clé d'activation correctement.";
-$l_passchange	= "Votre mot de passe a été changé avec succès. Vous pouvez maintenant aller sur votre <a href=\"bb_profile.$phpEx?mode=edit\">profil</a> et changer votre mot de passe.";
+$l_passchange	= "Votre mot de passe a été changé avec succès. Vous pouvez maintenant aller sur votre <a href=\"bb_profile.php?mode=edit\">profil</a> et changer votre mot de passe.";
 $l_wrongmail	= "L'adresse email fournie ne correspond pas à celle entrée sur notre base de données.";
 
 $l_passsubj	= "Forums $sitename - Changement de Mot de Passe";

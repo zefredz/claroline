@@ -243,7 +243,7 @@ $l_useruniq	= "Een gebruiker moet uniek zijn. Twee gebruikers kunnen niet dezelf
 $l_storecookie	= "Bewaar mijn gebruikersnaam gedurende 1 jaar in een cookie.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences bijgewerkt. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences bijgewerkt. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "$l_preferences wijzigen";
 $l_themecookie	= "Nota: Om de thema's te kunnen gebruiken, moet u cookies activeren.";
 $l_alwayssig	= "Handtekening altijd toevoegen";
@@ -311,7 +311,7 @@ $l_notifybody	= 'Beste $m[username].\r\nU krijgt deze e-mail omdat een bericht d
 
 U kan het onderwerp zien op:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 Of de forumindex $sitename bekijken op
 
@@ -334,7 +334,7 @@ $l_yourname	= "Uw $l_username";
 $l_recptname	= "$l_username van de bestemmeling";
 
 // Replypmsg
-$l_pmposted	= "Antwoord opgestuurd. U mag hier <a href=\"viewpmsg.$phpEx\" klikken> </a> om uw $l_privmsgs te bekijken";
+$l_pmposted	= "Antwoord opgestuurd. U mag hier <a href=\"viewpmsg.php\" klikken> </a> om uw $l_privmsgs te bekijken";
 
 // Viewpmsg
 $l_nopmsgs	= "U hebt geen $l_privmsgs.";
@@ -350,7 +350,7 @@ $l_smilepict	= "Beeld";
 
 // Sendpasswd
 $l_wrongactiv	= "De gegeven activatiesleutel is niet correct. Controleer de $l_message email die u gekregen hebt en zie na of u de activatiesleutel correct gecopieerd heeft.";
-$l_passchange	= "Uw wachtwoord is gewijzigd. U kan nu naar uw <a href=\"bb_profile.$phpEx?mode=edit\">profiel</a> surfen en uw wachtwoord wijzigen.";
+$l_passchange	= "Uw wachtwoord is gewijzigd. U kan nu naar uw <a href=\"bb_profile.php?mode=edit\">profiel</a> surfen en uw wachtwoord wijzigen.";
 $l_wrongmail	= "Het e-mailadres dat u ingegeven heeft, komt niet overeen met dat van onze databank.";
 
 $l_passsubj	= "Forums $sitename - Wachtwoordwijziging";

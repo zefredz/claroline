@@ -229,7 +229,7 @@ $l_useruniq	= "Deve essere unico. Due utenti non possono avere lo stesso usernam
 $l_storecookie	= "Memorizza il mio username in un cookie per 1 anno.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences aggiornate. $l_click <a href=\"index.$phpEx\">$l_here </a> $l_returnindex";
+$l_prefupdated	= "$l_preferences aggiornate. $l_click <a href=\"index.php\">$l_here </a> $l_returnindex";
 $l_editprefs	= "Modifica $l_preferences";
 $l_themecookie	= "NOTA: Per utilizzare i temi &Egrave; NECESSARIO avere i cookie abilitati nel proprio browser.";
 $l_alwayssig	= "Allega sempre la mia firma";
@@ -297,7 +297,7 @@ tu avevi richiesto di essere avvertito in questa occasione.
 
 Puoi visionare la risposta all\'indirizzo:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 o visualizzare l\'indice dei forum di $sitename all\'indirizzo:
 
@@ -319,7 +319,7 @@ $l_yourname	= "Il tuo $l_username";
 $l_recptname	= "Destinatario $l_username";
 
 // Replypmsg
-$l_pmposted	= "risposta inviata, ora &egrave; possibile cliccare <a href=\"viewpmsg.$phpEx\">qui</a> per visualizzare i tuoi $l_privmsgs";
+$l_pmposted	= "risposta inviata, ora &egrave; possibile cliccare <a href=\"viewpmsg.php\">qui</a> per visualizzare i tuoi $l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= "Non ci sono $l_privmsgs.";
@@ -335,7 +335,7 @@ $l_smilepict	= "Immagine";
 
 // Sendpasswd
 $l_wrongactiv = "La parola di attivazione fornita non &egrave; corretta. Controlla il messaggio ricevuto e verifica di aver copiato correttamente il codice di attivazione.";
-$l_passchange = "La tua password &egrave; stata cambiata con successo. E' ora possibile visualizzare il proprio <a href=\"bb_profile.$phpEx?mode=edit\">profilo</a> per cambiare la password a piacimento.";
+$l_passchange = "La tua password &egrave; stata cambiata con successo. E' ora possibile visualizzare il proprio <a href=\"bb_profile.php?mode=edit\">profilo</a> per cambiare la password a piacimento.";
 $l_wrongmail  = "L'email fornita non coincide con quella memorizzata nel database.";
 
 $l_passsubj = "Cambio password per i forum di $sitename";

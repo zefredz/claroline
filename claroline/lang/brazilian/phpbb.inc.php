@@ -242,7 +242,7 @@ $l_useruniq	= "Precisa ser único. Dois usuários não podem ter o mesmo nome de us
 $l_storecookie	= "Armazene meu nome de usuário em um cookie por 1 ano.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences atualizadas. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences atualizadas. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Edite Suas $l_preferences";
 $l_themecookie	= "NOTA: Para utilizar temas você precisa ter cookies habilitados.";
 $l_alwayssig	= "Sempre adicione minha assinatura";
@@ -311,7 +311,7 @@ fosse notificado por esse evento.
 
 Você pode ver o tópico em:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 Ou ver o índice de fóruns em $sitename
 
@@ -334,7 +334,7 @@ $l_yourname	= "Seu $l_username";
 $l_recptname	= "Recipiente $l_username";
 
 // Replypmsg
-$l_pmposted	= "Resposta Postada, você pode clicar <a href=\"viewpmsg.$phpEx\">aqui</a> para ver suas $l_privmsgs";
+$l_pmposted	= "Resposta Postada, você pode clicar <a href=\"viewpmsg.php\">aqui</a> para ver suas $l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= "Você não tem $l_privmsgs.";
@@ -350,7 +350,7 @@ $l_smilepict	= "Figura";
 
 // Sendpasswd
 $l_wrongactiv	= "A chave de ativação fornecida não está correta. Por favor verifique o e-mail $l_message que você recebeu e tenha certeza de que você copiou a chave de ativação corretamente.";
-$l_passchange	= "Sua senha foi alterada com sucesso. Você pode agora ir até seu <a href=\"bb_profile.$phpEx?mode=edit\">perfil</a> e mudar sua senha para uma mais conveniente.";
+$l_passchange	= "Sua senha foi alterada com sucesso. Você pode agora ir até seu <a href=\"bb_profile.php?mode=edit\">perfil</a> e mudar sua senha para uma mais conveniente.";
 $l_wrongmail	= "The email address you entered does not match the one stored in our database.";
 
 $l_passsubj	= "Senha dos Fóruns do $sitename Alterada";

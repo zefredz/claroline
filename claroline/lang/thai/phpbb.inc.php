@@ -248,7 +248,7 @@ $l_useruniq	= "สมาชิกไม่สามารถใช้ Username ซ้ำกันได้";
 $l_storecookie	= "เก็บ username ของฉันไว้ในคุ๊กกี้ เป็นเวลา 1 ปี";
 
 // Prefs
-$l_prefupdated	= "$l_preferences updated. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences updated. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "แก้ไข $l_preferences ของท่าน";
 $l_themecookie	= "NOTE: เมื่อต้องการเลือกรูปแบบฉากหลัง คุณต้องเปิดคุ๊กกี้";
 $l_alwayssig	= "แนบ signature ของฉันด้วยเสมอ";
@@ -317,7 +317,7 @@ you selected to be notified on this event.
 
 You may view the topic at:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 Or view the $sitename forum index at
 
@@ -340,7 +340,7 @@ $l_yourname	= "Your $l_username";
 $l_recptname	= "Recipient $l_username";
 
 // Replypmsg
-$l_pmposted	= "Reply Posted, you can click <a href=\"viewpmsg.$phpEx\">here</a> to view your $l_privmsgs";
+$l_pmposted	= "Reply Posted, you can click <a href=\"viewpmsg.php\">here</a> to view your $l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= "คุณไม่มี $l_privmsgs.";
@@ -356,7 +356,7 @@ $l_smilepict	= "รูปภาพ";
 
 // Sendpasswd
 $l_wrongactiv	= "The activation key you provided is not correct. Please check email $l_message you recived and make sure you have copied the activation key exactly.";
-$l_passchange	= "Your password has been successfully changed. You may now goto your <a href=\"bb_profile.$phpEx?mode=edit\">profile</a> and change your password to a more suitable one.";
+$l_passchange	= "Your password has been successfully changed. You may now goto your <a href=\"bb_profile.php?mode=edit\">profile</a> and change your password to a more suitable one.";
 $l_wrongmail	= "The email address you entered does not match the one stored in our database.";
 
 $l_passsubj	= "$sitename Forums Password Change";

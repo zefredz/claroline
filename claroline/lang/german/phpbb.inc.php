@@ -251,7 +251,7 @@ $l_useruniq	= "Muss eindeutig sein. Jeder Benutzername kann im System nur einmal
 $l_storecookie	= "Benutzername f&uuml;r ein Jahr in einem Cookie speichern";
 
 // Prefs
-$l_prefupdated	= "$l_preferences aktualisiert. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences aktualisiert. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "$l_preferences &auml;ndern";
 $l_themecookie	= "ACHTUNG: Um Designs nutzen zu k&ouml;nnen, M&Uuml;SSEN Sie Cookies aktiviert haben.";
 $l_alwayssig	= "Signatur immer anh&auml;ngen";
@@ -320,7 +320,7 @@ Thema in den $sitename Foren geantwortet hat und Sie die Emailbenachrichtung akt
 
 Sie k&ouml;nnen Ihr Thema auf
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 einsehen. Oder besuchen Sie den Index der $sitename Foren auf
 
@@ -343,7 +343,7 @@ $l_yourname	= "Ihr $l_username";
 $l_recptname	= "$l_username des Empf&auml;ngers";
 
 // Replypmsg
-$l_pmposted	= "Ihre Antwort wurde abgeschickt. Sie k&ouml;nnen <a href=\"viewpmsg.$phpEx\">hier</a>  klicken, um Ihre $l_privmsgs einzusehen.";
+$l_pmposted	= "Ihre Antwort wurde abgeschickt. Sie k&ouml;nnen <a href=\"viewpmsg.php\">hier</a>  klicken, um Ihre $l_privmsgs einzusehen.";
 
 // Viewpmsg
 $l_nopmsgs	= "Sie haben keine $l_privmsgs.";
@@ -359,7 +359,7 @@ $l_smilepict	= "Bild";
 
 // Sendpasswd
 $l_wrongactiv	= "Der von Ihnen angegebene Aktivierungsschl&uuml;ssel ist nicht korrekt. Bitte &uuml;berpr&uuml;fen Sie die Email-$l_message und stellen Sie sicher, dass Sie den Schl&uuml;ssel korrekt kopiert haben.";
-$l_passchange	= "Ihr Passwort wurde erfolgreich ge&auml;ndert. In Ihrem <a href=\"bb_profile.$phpEx?mode=edit\">Profil</a> k&ouml;nnen Sie nun ein neues eigenes Passwort vergeben.";
+$l_passchange	= "Ihr Passwort wurde erfolgreich ge&auml;ndert. In Ihrem <a href=\"bb_profile.php?mode=edit\">Profil</a> k&ouml;nnen Sie nun ein neues eigenes Passwort vergeben.";
 $l_wrongmail	= "Die von Ihnen angegebene Emailadresse stimmt nicht mit den Angaben in unserer Datenbank &uuml;berein.";
 
 $l_passsubj	= "$sitename Foren - Passwort&auml;nderung";

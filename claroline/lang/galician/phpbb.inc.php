@@ -264,7 +264,7 @@ $l_useruniq	= "Debe ser &uacute;nica. Dous usuarios non poden ter a mesma clave.
 $l_storecookie	= "Garde o meu nome de usuario nun 'cookie' durante un ano.";
 
 // Prefs
-$l_prefupdated	= "$l_preferences actualizadas. $l_click <a href=\"index.$phpEx\">$l_here</a> $l_returnindex";
+$l_prefupdated	= "$l_preferences actualizadas. $l_click <a href=\"index.php\">$l_here</a> $l_returnindex";
 $l_editprefs	= "Edite as s&uacute;as $l_preferences";
 $l_themecookie	= "NOTA: Para utilizar os temas DEBE ter activados os 'cookies'.";
 $l_alwayssig	= "Siempre a&ntilde;adir mi firma";
@@ -332,7 +332,7 @@ que enviou &oacute; foro $sitename, posto que vostede elix&iacute;u que se infor
 
 Vostede pode ver o tema en:
 
-http://$SERVER_NAME$url_phpbb/viewtopic.$phpEx?topic=$topic&forum=$forum
+http://$SERVER_NAME$url_phpbb/viewtopic.php?topic=$topic&forum=$forum
 
 Ou ver o &iacute;ndice do foro en $sitename en
 
@@ -355,7 +355,7 @@ $l_yourname	= "O seu $l_username";
 $l_recptname	= "$l_username do Destinatario";
 
 // Replypmsg
-$l_pmposted	= "Resposta enviada, pode facer click <a href=\"viewpmsg.$phpEx\">aqu&iacute;</a> para ver as s&uacute;as $l_privmsgs";
+$l_pmposted	= "Resposta enviada, pode facer click <a href=\"viewpmsg.php\">aqu&iacute;</a> para ver as s&uacute;as $l_privmsgs";
 
 // Viewpmsg
 $l_nopmsgs	= "Non ten $l_privmsgs.";
@@ -371,7 +371,7 @@ $l_smilepict	= "Imaxe";
 
 // Sendpasswd
 $l_wrongactiv	= "A clave de activaci&oacute;n &eacute;s incorrecta. Verifique a $l_message correo electr&oacute;nico que recib&iacute;u e aseg&uacute;rese de que copiou a clave de activaci&oacute;n correctamente.";
-$l_passchange	= "A s&uacute;a clave de acceso cambiouse. En calquera momento pode ir &oacute; seu <a href=\"bb_profile.$phpEx?modo=editar\">perfil</a> e cambiar a s&uacute;a clave de acceso.";
+$l_passchange	= "A s&uacute;a clave de acceso cambiouse. En calquera momento pode ir &oacute; seu <a href=\"bb_profile.php?modo=editar\">perfil</a> e cambiar a s&uacute;a clave de acceso.";
 $l_wrongmail	= "O enderezo de correo electr&oacute;nico non corresponde co rexistrado na nosa base de datos.";
 
 $l_passsubj	= "Foros $sitename - Cambio de clave de acceso";
