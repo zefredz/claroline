@@ -28,23 +28,22 @@ include($includePath."/lib/group.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
 include($includePath."/lib/text.lib.php");
 
-$htmlHeadXtra[]= "
-<style type=\"text/css\">
-<!--
-.select {border-color:blue;border-width : 3px;}
-.box {  width: 200px}
--->
-</style>";
-
 $htmlHeadXtra[] =
 "<script>
-function confirmation ()
+function confirmationEmpty ()
 {
-        if (confirm(\" $langConfirmDelete \"))
+        if (confirm(\" ".$langConfirmEmpty ." \"))
                 {return true;}
         else
                 {return false;}
-}
+};
+function confirmationDelete ()
+{
+        if (confirm(\" ".$langConfirmDelete." \"))
+                {return true;}
+        else
+                {return false;}
+};
 </script>";
 
 include($includePath."/claro_init_header.inc.php");
@@ -394,14 +393,14 @@ echo	"<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">",
         "<td>",
 		"<ul>",
 		"<li><b><a href=\"group_creation.php\">",$langNewGroupCreate,"</a></b></li>",
-		"<li><a href=\"",$_SERVER['PHP_SELF'],"?delete=yes\" onClick=\"return confirmation();\">",$langDeleteGroups,"</a></li>",
+		"<li><a href=\"",$_SERVER['PHP_SELF'],"?delete=yes\" onClick=\"return confirmationDelete();\">",$langDeleteGroups,"</a></li>",
         "</ul>",
 		"</td>",
 
 		"<td>",
         "<ul>",
 		"<li><a href=\"",$_SERVER['PHP_SELF'],"?fill=yes\">",$langFillGroups,"</a></li>",
-		"<li><a href=\"",$_SERVER['PHP_SELF'],"?empty=yes\">",$langEmtpyGroups,"</a></li>",
+		"<li><a href=\"",$_SERVER['PHP_SELF'],"?empty=yes\" onClick=\"return confirmationEmpty();\">",$langEmtpyGroups,"</a></li>",
         "</ul>",
 		"</td>",
 
