@@ -20,7 +20,7 @@ $authSourceType = 'DB';
 $extAuthOptionList = array(
 
     // PUT HERE THE CORRECT DSN FOR YOUR DB SYSTEM
-    'dsn'         => 'mysql://dbuser:dbpassword@localhost/moodle',
+    'dsn'         => 'mysql://dbuser:dbpassword@yourdmain/moodle',
 
     'table'       => 'mdl_user', // warning ! table prefix can change from one system to another 
     'usernamecol' => 'username',
@@ -55,7 +55,7 @@ $extAuthAttribTreatmentList = array ('status' => 5);
 
 // PROCESS AUTHENTICATION
 
-require $clarolineRepositorySys.'/auth/extauth/extAuthProcess.inc.php';
+return require $clarolineRepositorySys.'/auth/extauth/extAuthProcess.inc.php';
 
 
 

@@ -53,40 +53,8 @@ $extAuthAttribNameList = array (
 $extAuthAttribTreatmentList = array ('status' => 5);
 
 
-//////////////////////////////////////////////////////////////////////////////
+// PROCESS AUTHENTICATION
 
-
-$extAuth = new ExternalAuthentication('DB', $extAuthOptionList);
-$extAuth->setAuthSourceName($authSourceName);
-
-if ( $extAuth->isAuth() )
-{
-    if ( isset($uData['user_id']) )
-    {
-       // update the user data in the claroline user table
-
-       $extAuth->recordUserData($extAuthAttribNameList, 
-                                $extAuthAttribTreatmentList, 
-                                $uData['user_id']);
-    }
-    else
-    {
-        // create a new rank in the claroline user table for this user
-	
-	$extAuth->recordUserData($extAuthAttribNameList, 
-                             $extAuthAttribTreatmentList);
-    }
-
-    $extAuthId = $extAuth->getUid();
-}
-else
-{
-	$extAuthId = false;
-}
-
-return $extAuthId;
-
-//////////////////////////////////////////////////////////////////////////////
-
+return require $clarolineRepositorySys.'/auth/extauth/extAuthProcess.inc.php';
 
 ?>
