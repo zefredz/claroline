@@ -188,7 +188,7 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                 $timestamp = strtotime($results[$j]);
                 //$beautifulDate = $langDay_of_weekNames['long'][date("w" , $timestamp)].date(" d " , $timestamp);
                 //$beautifulHour = date("H : i" , $timestamp);
-                $beautifulDateTime = dateLocalizer($dateTimeFormatLong,$timestamp);
+                $beautifulDateTime = claro_disp_localised_date($dateTimeFormatLong,$timestamp);
                 echo "<tr>"; 
                 echo "<td style='padding-left : 40px;' valign='top'><small>".$beautifulDateTime."</small></td>";
                 echo"</tr>";

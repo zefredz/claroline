@@ -101,7 +101,7 @@ if(  $is_allowedToTrack && $is_trackingEnabled )
     	   	
     	echo "<td> ".$userAccess['nom']." </td> <td> "
 		.$userAccess['prenom']." </td> <td> "
-		.dateLocalizer($dateTimeFormatLong, $userAccess['data'])." </td> <td> "
+		.claro_disp_localised_date($dateTimeFormatLong, $userAccess['data'])." </td> <td> "
 		.$userAccess['nbr']." </td>";
     	
     	echo "</tr>";

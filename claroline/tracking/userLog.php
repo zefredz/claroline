@@ -586,7 +586,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                     { 
                         $pathToFile = $coursesRepositoryWeb.$_course['path']."/".$results[$j][3];
                         $timestamp = strtotime($results[$j][0]);
-                        $beautifulDate = dateLocalizer($dateTimeFormatLong,$timestamp);
+                        $beautifulDate = claro_disp_localised_date($dateTimeFormatLong,$timestamp);
                         echo "<tr>";
                         echo "<td>"
                                 ."<a href ='".$pathToFile."'>".$results[$j][1]."</a>"
