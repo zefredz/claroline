@@ -493,8 +493,9 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 			if ($courseContext)
 			{
                 update_db_info( 'update', $_REQUEST['file'],
-                                $destination.'/'.basename($_REQUEST['file']) );
-                update_Doc_Path_in_Assets("update",$_REQUEST['file'], $_REQUEST['destination'].'/'.basename($_REQUEST['file']));
+                                array('path' => $destination.'/'.basename($_REQUEST['file'])) );
+                update_Doc_Path_in_Assets("update",$_REQUEST['file'],
+												   $_REQUEST['destination'].'/'.basename($_REQUEST['file']));
 			}
 
 			$dialogBox = $langDirMv.'<br>';
