@@ -1072,9 +1072,9 @@ $langInsertMyModuleToolName = "Insert my module";
 $langInsertMyModulesTitle = "Insert a module of the course";
 $langInsertNewModuleName = "Insert new name";
 $langInstalled = "Learning path has been successfully imported.";
-$langIntroCourse = "You are on the course home page.<br><br>On this page, you can :
-<li class=HelpText>activate or desactivate tools (click on the 'Edit Tool list' button at bottom left).
-<li class=HelpText>change settings or view statistics (click on corresponding links at bottom).<BR><BR>
+$langIntroCourse = "You are on the course home page.<br /><br />On this page, you can :
+<li class=\"HelpText\">activate or desactivate tools (click on the 'Edit Tool list' button at bottom left).
+<li class=\"HelpText\">change settings or view statistics (click on corresponding links at bottom).<br /><br />
 Now, to add an introduction text presenting your course to students, click on this button ";
 $langIntroEditToolList = "Select the tools you want to make visible for your user.
 Univisible tool will be grayed out on your personal interface";
