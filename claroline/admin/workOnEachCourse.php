@@ -1,17 +1,12 @@
 <?
+
+die ("deprecated");
  
 @include('../include/config.php');
 
-@include("../lang/english/trad4all.inc.php");
-@include("../lang/$language/trad4all.inc.php");
-header('Content-Type: text/html; charset='. $charset);
-@include("../lang/french/admin.inc.php");
-@include("../lang/english/admin.inc.php");
-@include("../lang/$language/admin.inc.php");
-@include("../lang/french/create_course.inc.php");
-@include("../lang/english/create_course.inc.php");
-@include("../lang/$language/create_course.inc.php");
+@include("../lang/english/complete.lang.php");
 
+header('Content-Type: text/html; charset='. $charset);
 
 $db = mysql_connect("$mysqlServer", "$mysqlUser", "$mysqlPassword");
 

@@ -1,3 +1,9 @@
+<?php
+
+die ("deprecated");
+
+?>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
 <html>
@@ -24,7 +30,7 @@ echo "création ../../$repertoire ou ".realpath("../../$repertoire");
 ####################################################################
 ################CREER PAGE ACCUEIL #################################
 ####################################################################
-	*/
+
 	$fd=fopen("../../$repertoire/index.php", "w");
 $string="<?php
 session_start();

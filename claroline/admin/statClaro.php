@@ -1,4 +1,7 @@
 <?php // $Id$
+
+die ("deprecated");
+
 /*
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.3.2 - $Revision$                          |
@@ -19,13 +22,9 @@ $db = mysql_connect("$mysqlServer", "$mysqlUser", "$mysqlPassword");
 
 $langAdmin = "administration technique de la plateforme";
 
-@include("../lang/french/trad4all.inc.php");
-@include("../lang/english/trad4all.inc.php");
-@include("../lang/$language/trad4all.inc.php");
+@include("../lang/english/complete.lang.php");
+
 header('Content-Type: text/html; charset='. $charset);
-@include("../lang/french/admin.inc.php");
-@include("../lang/english/admin.inc.php");
-@include("../lang/$language/admin.inc.php");
 
 $nameTools = $langStatistics;
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdmin);
@@ -284,6 +283,9 @@ function list_ManyResult($sql)
 
 /*
 * $Log$
+* Revision 1.4  2004/12/08 13:54:17  mathieu
+* deprecated script
+*
 * Revision 1.3  2004/12/07 15:52:24  mathieu
 * rename variable
 *

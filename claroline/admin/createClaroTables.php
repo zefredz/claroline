@@ -1,4 +1,8 @@
-<?php  session_start();
+<?php  
+
+die ("Deprecated");
+
+session_start();
 
 /*
       +----------------------------------------------------------------------+
@@ -32,10 +36,9 @@
 
 include('../include/config.php');
 include('../include/lang.php');
-include("../lang/french/admin.inc.php");
-@include("../lang/english/admin.inc.php");
-@include("../lang/$language/trad4all.inc.php");
-@include("../lang/$language/admin.inc.php");
+
+include("../lang/english/complete.lang.php");
+
 header('Content-Type: text/html; charset='. $charset);
 
 $nameTools = $langCreateClaroTables;
