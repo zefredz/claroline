@@ -738,20 +738,6 @@ function claro_disp_auth_form()
             
     if ( ! $is_courseAllowed)
     {
-        /*
-                Ce cours est protégé
-
-                1° Entrez votre nom d'utilisteur et votre mot de passe
-
-                   <small>(Si vous n'avez pas encore de compte sur 'site name'
-                
-                   cliquez ici)</small>.
-
-                2° Votre profil utilisateur n'est pas inscrit à ce cours
-
-                    Si vous souhaitez vous inscrire à ce cours cliquez ici.
-        */
-
         echo '<p align="center>">'
             .$lang_this_course_is_protected.'<br>'
             .$lang_enter_your_user_name_and_password
@@ -782,7 +768,7 @@ function claro_disp_auth_form()
                 .'</tr>'
                 .'</table>';
                 
-            /*
+            /**
              * If users are allowed to register themselves to the platform
              * redirect this user to the platform registration page
              */
