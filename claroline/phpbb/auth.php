@@ -31,7 +31,7 @@ if(get_magic_quotes_gpc() == 1)
 {
 	switch($REQUEST_METHOD)
 	{
-		case "POST":
+		case 'POST':
 			while (list ($key, $val) = each ($HTTP_POST_VARS))
 			{
 			if( is_array($val) )
@@ -46,7 +46,7 @@ if(get_magic_quotes_gpc() == 1)
 		}
 		break;
 
-		case "GET":
+		case 'GET':
 		while (list ($key, $val) = each ($HTTP_GET_VARS))
 		{
 			if( is_array($val) )
@@ -66,20 +66,13 @@ if(get_magic_quotes_gpc() == 1)
 // Check if the config file is writable (shouldn't be!!)
 $config_file_name = "config.$phpEx";
 
-if(strstr($PHP_SELF, "admin"))
+if(strstr($PHP_SELF, 'admin'))
 {
-	if(!strstr($PHP_SELF, "topicadmin"))
+	if( ! strstr($PHP_SELF, "topicadmin") )
 	{
 		$config_file_name = "../config.php";
 	}
 }
-
-//// Make a database connection.
-//if(!$db = @mysql_connect("$dbhost", "$dbuser", "$dbpasswd"))
-//	die('<big>An Error Occured</big><hr>phpBB was unable to connect to the database. <BR>Please check $dbhost, $dbuser, and $dbpasswd in config.php.');
-//
-//if(!@mysql_select_db($mainDbName,$db))
-//	die("An Error Occured<hr>phpBB was unable to find the database <b>$mainDbName</b> on your MySQL server. <br>TRY too login again Back to forum <form action = \"/index.php?mon_icampus=yes\" method='post'>	Username : 	<input type=\"text\" name=\"uname\" size=\"10\"><br>	Password :  <input type=\"password\" name=\"pass\" size=\"10\"><br>	<input type=\"submit\" value=\"Entrer\" name=\"submit\">	</form>");
 
 if(is_banned($REMOTE_ADDR, 'ip', $db)) error_die($l_banned);
 
