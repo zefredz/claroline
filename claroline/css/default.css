@@ -147,8 +147,7 @@ claroBody  {
 
 .claroFooter a, 
 .claroFooter a:visited, 
-.claroFooter a:active {
-	font-size: 80%;		
+.claroFooter a:active {	
 }
 	
 .claroFooter a:hover {
