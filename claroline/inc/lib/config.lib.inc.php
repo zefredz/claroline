@@ -281,22 +281,23 @@ function get_def_file_list()
 
 function get_conf_file($config_code)
 {
-   global $includePath;
+    global $includePath;
 
-   // include definition file and get $conf_def array
-   $def_file = get_def_file($config_code);
-   if (file_exists($def_file)) include $def_file;
+    // include definition file and get $conf_def array
+    unset($conf_def);
+    define('CONST_DEF_FILE', get_def_file($config_code));
+    if (file_exists(CONST_DEF_FILE)) include CONST_DEF_FILE; 
 
-   if ( isset($conf_def['config_file']) && !empty($conf_def['config_file']) )
-   {
+    if ( isset($conf_def['config_file']) && !empty($conf_def['config_file']) )
+    {
        // get the name of config file in definition file
        return realpath($includePath.'/conf/').'/'.$conf_def['config_file'];
-   }
-   else
-   {
+    }
+    else
+    {
        // build the filename with the config_code
        return realpath($includePath.'/conf/').'/'.$config_code.'.conf.php';
-   }
+    }
 }
 
 /**
@@ -320,11 +321,10 @@ function get_def_file($config_code)
 
 function get_conf_name($config_code)
 {
-    $def_file = get_def_file($config_code);
-
     // include definition file and get $conf_def array
-    if ( file_exists($def_file) )
-        include $def_file;
+    unset($conf_def);
+    define('CONST_DEF_FILE', get_def_file($config_code));
+    if (file_exists(CONST_DEF_FILE)) include CONST_DEF_FILE;
 
     if ( isset($conf_def['config_name']) )
     {
@@ -536,40 +536,7 @@ function validate_property ($propertyValue, $propertyDef)
     return $is_valid;
 }
 
-function save_property_in_db($propertyName,$propertyValue,$config_code)
-{
-    // get config property table name
-    $mainTblName = claro_sql_get_main_tbl();
-    $tbl_config_property = $mainTblName['config_property'];
-
-    // try to update existing property
-    $sql ='UPDATE
-            `'.$tbl_config_property.'`
-           SET propName    ="'.$propertyName.'",
-               propValue   ="'.$propertyValue.'",
-               lastChange  = now()
-           WHERE propName    ="'.$propertyName.'"
-             AND config_code ="'.$config_code.'"
-             ';
-
-    if ( !claro_sql_query_affected_rows($sql) )
-    {
-        // insert new property
-        $sql ='INSERT
-                   INTO `'.$tbl_config_property.'`
-                   SET propName    = "'.$propertyName.'",
-                       propValue   = "'.$propertyValue.'",
-                       lastChange  = now(),
-                       config_code = "'.$config_code.'"';
-        return claro_sql_query($sql);
-    }
-    else
-    {
-        return true;
-    }
-}
-
-function save_config_hash_in_db($conf_file,$config_code,$conf_hash)
+function save_config_hash_in_db($config_code,$conf_hash)
 {
     // get table name of config file
     $mainTbl = claro_sql_get_main_tbl();
@@ -593,26 +560,6 @@ function save_config_hash_in_db($conf_file,$config_code,$conf_hash)
         return true;
     }
 }
-
-/**
- * propName
- * propValue
- * lastChange
- */
-
-function read_properties_in_db($config_code)
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_config_property  = $tbl_mdb_names['config_property'];
-
-    // get value from
-    $sql = 'SELECT `propName`, `propValue`, unix_timestamp(`lastChange`) `lastChange`
-                             FROM `'.$tbl_config_property.'`
-                             WHERE config_code = "'.$config_code.'"';
-    $properties = claro_sql_query_fetch_all($sql);
-
-    return $properties;
-};
 
 function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile,$generatorFile=__FILE__)
 {

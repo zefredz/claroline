@@ -143,17 +143,6 @@ CREATE TABLE `".$mainTblPrefixForm."rel_class_user` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM";
 claro_sql_query($sql);
-$sql ="
-CREATE TABLE `".$mainTblPrefixForm."config_property` (
-  `id_property`  int(11) unsigned NOT NULL auto_increment,
-  `propName`     varchar(100) NOT NULL,
-  `propValue`    varchar(255) NOT NULL,
-  `creationDate` timestamp(14) NOT NULL,
-  `lastChange`   timestamp(14) NOT NULL,
-  `config_code`  varchar(30) NOT NULL,
-  PRIMARY KEY  (`id_property`)
-) TYPE=MyISAM COMMENT='contain config value of platform'";
-claro_sql_query($sql);
 
 $sql ="
 CREATE TABLE `".$mainTblPrefixForm."config_file` (

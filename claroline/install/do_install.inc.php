@@ -400,25 +400,23 @@ foreach ( $def_file_list as $def_file_bloc)
             reset($conf_def_property_list);
             foreach($conf_def_property_list as $propName => $propDef )
             {
-                $propValue     = $propDef['default']; // USe default as effective value
-                save_property_in_db($propName,$propValue, $config_code);
+                $propertyList[] = array('propName'=>$propName
+                                             ,'propValue'=>$propDef['default']);
             }
 
             $conf_file = get_conf_file($config_code);
 
             if ( !file_exists($conf_file) ) touch($conf_file);
 
-            $storedPropertyList = read_properties_in_db($config_code);
-
-            if ( is_array($storedPropertyList) && count($storedPropertyList)>0 )
+            if ( is_array($propertyList) && count($propertyList)>0 )
             {
 
-                if ( write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$conf_file,realpath(__FILE__)) )
+                if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
                 {
                     // calculate hash of the config file
                     $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
                     //$conf_hash = filemtime($conf_file);
-                    save_config_hash_in_db($conf_file,$config_code,$conf_hash);
+                    save_config_hash_in_db($config_code,$conf_hash);
                 }
             }
         }

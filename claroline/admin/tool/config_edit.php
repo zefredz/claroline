@@ -111,7 +111,7 @@ else
 
         if ( isset($_REQUEST['cmd']) && isset($_REQUEST['prop']) )
         {
-            if ( $_REQUEST['cmd'] = 'save')
+            if ( $_REQUEST['cmd'] == 'save')
             {
                 $okToSave = TRUE;
 
@@ -139,7 +139,10 @@ else
                         reset($_REQUEST['prop']);
                         foreach ( $_REQUEST['prop'] as $propertyName => $propertyValue )
                         {
-                            save_property_in_db($propertyName,$propertyValue, $config_code);
+                            $storedPropertyList[] = array('propName'=>$propertyName
+                                                         ,'propValue'=>$propertyValue);
+                                                         
+                            // here was writing to DB.... Perhaps refactoring is needed
                         }
                     }
                     else
@@ -175,8 +178,7 @@ else
                         }
                     }
 
-                    $storedPropertyList = read_properties_in_db($config_code);
-
+                    // here was reading from DB.... Perhaps refactoring is needed
                     if ( is_array($storedPropertyList) && count($storedPropertyList)>0 )
                     {
 
@@ -189,7 +191,7 @@ else
                             // calculate hash of the config file
                             $conf_hash = md5_file($conf_file); // not in php 4.1
                             //$conf_hash = filemtime($conf_file);
-                            if (save_config_hash_in_db($conf_file,$config_code,$conf_hash) )
+                            if (save_config_hash_in_db($config_code,$conf_hash) )
                             {
                                 $controlMsg['info'][] = sprintf( $lang_p_PropForConfigCommited
                                                                , $config_name
@@ -230,20 +232,6 @@ else
          */
 
         require($def_file);
-
-        // read value from buffer (database)
-        $storedPropertyList = read_properties_in_db($config_code);
-
-        if ( is_array($storedPropertyList) )
-        {
-            foreach ( $storedPropertyList as $storedProperty )
-            {
-                if ( isset($cond_def[$storedProperty['propName']]) )
-                {
-                    $conf_def_property_list[$storedProperty['propName']]['actualValue'] = $storedProperty['propValue'];
-                }
-            }
-        }
 
         // Search for value  existing  in conf file but not in def file, or inverse
         $currentConfContent = parse_config_file($conf_file);
@@ -393,12 +381,12 @@ if ( $display_form )
                 // If a value is already set the default value is show as sample.
                 if ( is_array($section['properties']) )
                 {
-
                     // display each property of the section
                     foreach( $section['properties'] as $property )
                     {
                         if (is_array($conf_def_property_list[$property]))
                         {
+                            $debugMsg['val'][]=var_export($conf_def_property_list[$property],1);
                             if ( isset($_REQUEST['prop'])  )
                             {
                                 claroconf_disp_editbox_of_a_value($conf_def_property_list[$property], $property, $prop[$property]);
@@ -424,26 +412,6 @@ if ( $display_form )
         {
             echo 'No section found in definition file';
         }
-/*
-        // Display properties from the database and old config file not in the definition file
-        if (sizeof($unknowValueInConfigFileList)>0)
-        {
-            echo '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n"
-                .'<tr><th class="superHeader" colspan="3">'.$lang_unknowProperties.'</th></tr>'
-                ;
-            foreach ($unknowValueInConfigFileList as $key => $unknowValueInConfigFile)
-            {
-                $htmlPropLabel = $unknowValueInConfigFile;
-                echo '<tr style="vertical-align: top">'
-                   . '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' . "\n"
-                   . '<td nowrap="nowrap" colspan="2">' . "\n"
-                   . var_export($currentConfContent[$unknowValueInConfigFile],1)
-                   .'</td></tr>' . "\n"
-                   ;
-            }
-            echo '</table>';
-        }
-*/
         echo '</form>'."\n";
     }
     else
