@@ -82,20 +82,34 @@ else
  * common language properties and generic expressions
  */
 
-// load previously english file to be sure every $lang variable 
-// have at least some content
+define ('LANGMODE','DEVEL'); // must be move in claro_main_conf.php
 
-include($includePath."/../lang/english/trad4all.inc.php");
-include($includePath."/../lang/".$languageInterface."/trad4all.inc.php");
+if (LANGMODE == 'DEVEL')
+{
+    include ($includePath.'/../lang/english/complete.lang.php');
 
-/*
- * tool specific language translation
- */
+    if ($languageInterface  != 'english') // avoid inutile
+    {
+        include($includePath.'/../lang/'.$languageInterface.'/complete.lang.php');
+    }
+}
+else
+{
+    include($includePath.'/../lang/english/trad4all.inc.php');
+    include($includePath.'/../lang/english/'.$langFile.'.inc.php');
 
-// load previously english file to be sure every $lang variable
-// have at least some content
+    /*
+     * tool specific language translation
+     */
 
-include($includePath."/../lang/english/".$langFile.".inc.php");
-@include($includePath."/../lang/".$languageInterface."/".$langFile.".inc.php");
+    // load previously english file to be sure every $lang variable
+    // have at least some content
+
+    if ($languageInterface  != 'english')
+    {
+        include($includePath.'/../lang/'.$languageInterface.'/trad4all.inc.php');
+        @include($includePath.'/../lang/'.$languageInterface.'/'.$langFile.'.inc.php');
+    }
+}
 
 ?>
