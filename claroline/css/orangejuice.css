@@ -294,6 +294,24 @@ h3{	font-size: 110%; }
 	text-align: center;
 }
 
+/******************************************************************************
+	CLAROLINE COMMAND LINKS
+ ******************************************************************************/
+ 
+.claroCmd
+{
+		font-size: smaller;
+		font-weight: bold;
+		text-decoration: underline;
+}
+
+.claroCmdDisabled 
+{
+		color: Gray;
+		font-size: smaller;
+		font-weight: bold;
+		text-decoration: none;
+}
 
 /******************************************************************************
                              CLAROLINE TABLE
