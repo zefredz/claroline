@@ -26,8 +26,8 @@ highly integrated package.
 
 Claroline is translated in 28 languages and used by hundreds of institutions 
 around world. The software was initially started by the University of Louvain 
-(Belgium) and released under Open Source licence (GPL). Since then, a comunity 
-of developpers around the world contributes to its development.
+(Belgium) and released under Open Source licence (GPL). Since then, a 
+community of developers around the world contributes to its development.
 
 2. LICENCE
    =======
@@ -54,7 +54,8 @@ See INSTALL.txt file
 5. DOCUMENTATION
    =============
 
-Complete manuals for trainer and student are avilable in diffrent languages at :
+Complete manuals for trainers and students are available in different languages 
+at :
 
   http://www.claroline.net/documentation.htm
 
@@ -166,7 +167,7 @@ choices / mutiple answers / fill inn / matching). The quizz tool  also allows :
 image attachment to questions, questions retrieval from another quizz, random 
 question list generation.
 
-* DOCUMENT. It automatically detects IMG tag inside HTML file offering   to 
+* DOCUMENT. It automatically detects IMG tag inside HTML file offering  to 
 upload the corresponding image.
 
 * WEB CHAT. simple chat with archive function,
