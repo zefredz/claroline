@@ -8,7 +8,6 @@
 */
 $langYouCannotDelCatOfGroupsForums = "You can not delete the group forum category. 
 If you need to remove group forums, you rather have to delete the group";
-$langGroupsForum = "Group Forum";
 
 $lang_areYouSureToDelete = "Are you sure to delete";
 
