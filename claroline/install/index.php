@@ -772,9 +772,9 @@ elseif($display==DISP_LICENCE)
 
 
 
-##########################################################################
-###### STEP 3 MYSQL DATABASE SETTINGS ####################################
-##########################################################################
+#########################################################################
+###### STEP DISP_FILE_SYSTEM_SETTING ####################################
+#########################################################################
 
 elseif($display==DISP_FILE_SYSTEM_SETTING)
 {
@@ -788,14 +788,15 @@ elseif($display==DISP_FILE_SYSTEM_SETTING)
 		</tr>
 		<tr>
 			<td>
-				<h4>Absolute path</h4>
+<!--			<h4>Absolute path</h4>
 				<label for="urlForm">Campus Path (absolute path to your campus)</label><br>
 				<input type="text" size="85" id="urlForm" name="urlForm" value="'.$urlForm.'"><br>
 				<h4>Relative path</h4>
 				<label for="urlAppend">Campus Path (relative path  from document root to your campus)</label><br>
 				<input type="text" size="85" id="urlAppend" name="urlAppendPath" value="'.$urlAppendPath.'"><br>
 				<br>
-				<label for="courseRepositoryForm"> Course Repository path (relative to index of your campus) </label><br>
+-->
+ 				<label for="courseRepositoryForm"> Course Repository path (relative to index of your campus) </label><br>
 				<input type="text"  size="85" id="courseRepositoryForm" name="courseRepositoryForm" value="'.$courseRepositoryForm.'">
 				<br>
 				<br>
