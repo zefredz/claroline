@@ -25,7 +25,6 @@ $conf_def['section']['PLATFORM_SETTING']['description']='Global settings';
 $conf_def['section']['PLATFORM_SETTING']['properties'] = 
 array ( 'siteName'
       , 'platformLanguage'
-      , 'CLAROLANG'
       , 'claro_stylesheet'
       );
 
@@ -76,6 +75,7 @@ $conf_def['section']['advanced']['label']='Advanced settings';
 $conf_def['section']['advanced']['properties'] = 
 array ( 'claro_texRendererUrl'
       , 'mysqlRepositorySys'
+      , 'CLAROLANG'
       );
 
 //
@@ -132,7 +132,7 @@ array ('label'       => 'Main database name'
 
 $conf_def_property_list['statsDbName'] = 
 array ('label'       => 'Database name where stored the tracking and stat tables'
-      ,'description' => 'can be same than Main'
+      ,'description' => 'can be the same name as main database'
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -140,11 +140,12 @@ array ('label'       => 'Database name where stored the tracking and stat tables
 
 $conf_def_property_list['is_trackingEnabled'] = 
 array ('label'       => 'Tracking'
+      ,'description' => 'Enable the log of activities (user and course access, course tool usage, ...) on the whole platform'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      ,'acceptedValue' => array ('TRUE'=>'enabled', 'FALSE' => 'disabled')
+      ,'acceptedValue' => array ('TRUE'=>'Enabled', 'FALSE' => 'Disabled')
       );
       
 $conf_def_property_list['singleDbEnabled'] = 
@@ -247,6 +248,7 @@ array ('label'         => 'Default Language'
 
 $conf_def_property_list['claro_stylesheet'] = 
 array ('label'       => 'Layout'
+      ,'description' => 'Set the stylesheet layout'
       ,'default'     => 'default.css'
       ,'type'        => 'css'
       ,'display'     => TRUE
@@ -255,6 +257,7 @@ array ('label'       => 'Layout'
 
 $conf_def_property_list['CLAROLANG'] =
 array('label'         => 'Language Mode'
+     ,'description'   => 'Translation: use a single language file, Production: each script use its own language file'
      ,'default'       => 'PRODUCTION'
      ,'type'          => 'enum'
      ,'display'       => TRUE
@@ -278,6 +281,7 @@ array ('label'       => 'Name'
 
 $conf_def_property_list['administratorEmail'] = 
 array ('label'       => 'Email'
+      ,'description' => 'This email is the main contact address on the platform'
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -290,10 +294,10 @@ array ('label'       => 'Phone'
       );
 
 // Institution
-      
 $conf_def_property_list['institutionName'] = 
 array ('label'       => 'Name'
       ,'default'     => 'My institute'
+      ,'description' => 'Name displayed in the top banner'
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -309,7 +313,7 @@ array ('label'       => 'URL'
 // Latex
 
 $conf_def_property_list['claro_texRendererUrl'] = 
-array ('label'       => 'the complete url of your TEX renderer'
+array ('label'       => 'The complete url of your TEX renderer'
        ,'technicalInfo' => 
 'Put above the complete url of your TEX renderer. This url doesn\'t have to be 
  specially on the same server than Claroline.
@@ -330,8 +334,8 @@ array ('label'       => 'the complete url of your TEX renderer'
  time. For this, user has to install the TECHEXPLORER plug-in, freely 
  available for both Windows, Macintosh and Linux at 
  http://www.integretechpub.com/.'
-      ,'default'     => 'FALSE'
-      ,'type'        => 'boolean'
+      ,'default'     => ''
+      ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
