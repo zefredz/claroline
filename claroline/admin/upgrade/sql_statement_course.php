@@ -1,7 +1,5 @@
 <?php // $Id$
 
-$sqlForUpdate[] = "### Try to upgrade course tables (rename, create, alter, update)";
-
 /**
  * Drop deprecated php_bb tables
  */
@@ -29,6 +27,7 @@ $sqlForUpdate[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."pages`";
  */
 
 $sqlForUpdate[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_question` CHANGE `picture_name` `attached_file` varchar(50) default ''";
+$sqlForUpdate[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_question` CHANGE `ponderation` `ponderation` float unsigned default NULL";
 $sqlForUpdate[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` ADD `max_time` smallint(5) unsigned NOT NULL default '0'";
 $sqlForUpdate[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` ADD `max_attempt` tinyint(3) unsigned NOT NULL default '0'";
 $sqlForUpdate[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` ADD `show_answer` enum('ALWAYS','NEVER','LASTTRY') NOT NULL default 'ALWAYS'";
@@ -96,6 +95,21 @@ SET `id` = 1,
     `prefill_submit` = 'ENDDATE' ";
 
 /**
+ * Upgrade assignments
+ */
+
+$sqlForUpdate[] = "INSERT IGNORE INTO `".$currentCourseDbNameGlu."wrk_submissions`
+ (assignment_id,title,visibility,authors,submitted_text,submitted_doc_path)
+ SELECT 1, titre, IF(accepted,'VISIBLE','INVISIBLE'), auteurs, description, url 
+    FROM `".$currentCourseDbNameGlu."`.`assignment_doc`";  
+
+/**
+ * Drop deprecated assignment_doc
+ */
+
+$sqlForUpdate[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."assignment_doc`"; 
+
+/**
  * Upgrade tracking
  */
 
@@ -109,21 +123,9 @@ $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `track_e_access` (
   `access_tlabel` varchar(8) default NULL,
   PRIMARY KEY  (`access_id`)
 ) TYPE=MyISAM COMMENT='Record informations about access to course or tools'";
-        
 
-/**
- * Upgrade course
- */
-
-$sqlForUpdate[] = "INSERT IGNORE INTO `".$currentCourseDbNameGlu."wrk_submissions`
- (assignment_id,title,visibility,authors,submitted_text,submitted_doc_path)
- SELECT 1, titre, IF(accepted,'VISIBLE','INVISIBLE'), auteurs, description, url 
-    FROM `".$currentCourseDbNameGlu."`.`assignment_doc`";  
-
-/**
- * Drop deprecated pages assignment_doc
- */
-
-$sqlForUpdate[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."assignment_doc`"; 
+$sqlForUpdate[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_answer` CHANGE `ponderation` `ponderation` float default NULL";
+$sqlForUpdate[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` CHANGE `exe_result` `exe_result` float NOT NULL default '0'";
+$sqlForUpdate[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` CHANGE `exe_weighting` `exe_weighting` float NOT NULL default '0'";
 
 ?>
