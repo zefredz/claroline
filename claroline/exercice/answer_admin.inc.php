@@ -562,11 +562,7 @@ if($modifyAnswers)
 			// if there is an error message
 			if(!empty($msgErr))
 			{
-?>
-
-<p><?php claro_disp_message_box($msgErr); ?></p>
-	
-<?php
+				claro_disp_message_box($msgErr);
 			}
 ?>
 
@@ -651,39 +647,19 @@ if($modifyAnswers)
 
 <input type="hidden" name="weighting" value="<?php echo $submitAnswers?htmlentities($weighting):htmlentities(serialize($weighting)); ?>">
 
-<table border="0" cellpadding="5" width="500">
-
 <?php
 				if($okAttachedFile)
 				{
-?>
-
-<tr>
-  <td><?php echo $display_attached_file($attachedFile); ?></td>
-</tr>
-
-<?php
+					echo "<p>\n".display_attached_file($attachedFile)."\n</p>\n\n";
 				}
 
 				// if there is an error message
 				if(!empty($msgErr))
 				{
-?>
-
-<tr>
-  <td>
-	<table border="0" cellpadding="3" align="center" width="400" bgcolor="#FFCC00">
-	<tr>
-	  <td><?php echo $msgErr; ?></td>
-	</tr>
-	</table>
-  </td>
-</tr>
-
-<?php
+					claro_disp_message_box($msgErr);
 				}
 ?>
-
+<table border="0" cellpadding="5" width="500">
 <tr>
   <td><?php echo $langTypeTextBelow.', '.$langAnd.' '.$langUseTagForBlank; ?> :</td>
 </tr>
@@ -707,28 +683,14 @@ if($modifyAnswers)
 <input type="hidden" name="blanks" value="<?php echo htmlentities(serialize($blanks)); ?>">
 <input type="hidden" name="reponse" value="<?php echo htmlentities($reponse); ?>">
 
-<table border="0" cellpadding="5" width="500">
-
 <?php
 				// if there is an error message
 				if(!empty($msgErr))
 				{
-?>
-
-<tr>
-  <td colspan="2">
-	<table border="0" cellpadding="3" align="center" width="400" bgcolor="#FFCC00">
-	<tr>
-	  <td><?php echo $msgErr; ?></td>
-	</tr>
-	</table>
-  </td>
-</tr>
-
-<?php
+					claro_disp_message_box($msgErr);
 				}
 ?>
-
+<table border="0" cellpadding="5" width="500">
 <tr>
   <td colspan="2"><?php echo $langWeightingForEachBlank; ?> :</td>
 </tr>
@@ -782,36 +744,18 @@ if($modifyAnswers)
 <input type="hidden" name="formSent" value="1">
 <input type="hidden" name="nbrOptions" value="<?php echo $nbrOptions; ?>">
 <input type="hidden" name="nbrMatches" value="<?php echo $nbrMatches; ?>">
-<table border="0" cellpadding="5">
+
 
 <?php
 			if($okAttachedFile)
 			{
-?>
-
-<tr>
-  <td colspan="4"><?php echo $display_attached_file($attachedFile); ?></td>
-</tr>
-
-<?php
+				echo "<p>\n".display_attached_file($attachedFile)."</p>\n\n";
 			}
 
 			// if there is an error message
 			if(!empty($msgErr))
 			{
-?>
-
-<tr>
-  <td colspan="4">
-	<table border="0" cellpadding="3" align="center" width="400" bgcolor="#FFCC00">
-	<tr>
-	  <td><?php echo $msgErr; ?></td>
-	</tr>
-	</table>
-  </td>
-</tr>
-
-<?php
+				claro_disp_message_box($msgErr);
 			}
 
 			$listeOptions=Array();
@@ -822,7 +766,7 @@ if($modifyAnswers)
 				$listeOptions[$i]=$j;
 			}
 ?>
-
+<table border="0" cellpadding="5">
 <tr>
   <td colspan="3"><?php echo $langMakeCorrespond; ?> :</td>
   <td><?php echo $langQuestionWeighting; ?> :</td>
