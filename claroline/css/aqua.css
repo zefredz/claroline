@@ -74,6 +74,7 @@ a | img {
 
 .claroTopBanner .platformBanner {
 	
+	background-color: #0000CD;
 	background-image: url('aqua/blueMotive.jpg');
 	background-repeat: repeat;	
 	color: #ffffff;
@@ -183,7 +184,7 @@ claroBody  {
  ******************************************************************************/
 
 .claroFooter  {
-	background-color: #FFFFF;
+	
 	font-size: 80%;
 }
 
