@@ -63,7 +63,9 @@ $langMonthNames['long'] = array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'J
 $dateFormatShort =  "%a %d %b %y";
 $dateFormatLong  = '%A %d %B %Y';
 $dateTimeFormatLong  = '%A %d %B %Y à %H:%M';
+$dateTimeFormatShort = "%d/%m/%y %H:%M";
 $timeNoSecFormat = '%H:%M';
+
 // GENERIC
 $langYes="Oui";
 $langNo="Non";
