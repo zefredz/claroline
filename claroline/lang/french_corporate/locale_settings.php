@@ -21,8 +21,9 @@
 $englishLangName = "french";
 $localLangName = "français";
 
-$iso639_2_code = "fr";
-$iso639_1_code = "fre";
+$iso639_1_code = "fr";
+$iso639_2_code = "fre";
+
 $langNameOfLang[brazilian]="brésilien";
 $langNameOfLang[thai]="thaïlandais";
 $langNameOfLang[english]="anglais";
