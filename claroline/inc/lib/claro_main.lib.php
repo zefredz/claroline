@@ -615,23 +615,21 @@ function claro_set_tool_view_mode($viewMode)
 
 function claro_get_tool_view_mode()
 {
-    if ( ! isset($_SESSION['claro_toolViewMode']) )
-    {
-        // There si nothing in session concerning view mode.
-        // But maybe the user has just requested a new view mode and the 
-        // system has not recorded yet. So check $_REQUEST array first 
-        // and update the system !
-
-        if ( isset($_REQUEST['viewMode']) )
-        {
-        	claro_set_tool_view_mode($_REQUEST['viewMode']);
-        }
-        else
-        {
-            claro_set_tool_view_mode('COURSE_ADMIN'); // default
-        }
-    }
-
+	// check first if a viewMode has been requested
+	// if one was requested change the current viewMode to the mode asked
+	// if there was no change requested and there is nothing in session 
+	// concerning view mode set the default viewMode
+	// if there was something in session and nothing 
+	// in request keep the session value ( == nothing to do)
+	if( isset($_REQUEST['viewMode']) )	
+	{
+		claro_set_tool_view_mode($_REQUEST['viewMode']);
+	}
+	elseif( ! isset($_SESSION['claro_toolViewMode']) )
+	{
+		claro_set_tool_view_mode('COURSE_ADMIN'); // default
+	}
+	
     return $_SESSION['claro_toolViewMode'];
 }
 
