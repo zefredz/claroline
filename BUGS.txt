@@ -1,1 +1,11 @@
-    > > > > > > > > > > > CLAROLINE 1.5 RC1 - BUG LIST < < < < < < < < < < <
+> > > > > > > > > > > CLAROLINE 1.5 RC1 - BUG LIST < < < < < < < < < < <
+
+
+1. DOCUMENT. Quand on crée un document avec l'outil create document, si on ne met pas 
+de nom pour le fichier il y a une erreur et donc fichier pas enregistré, 
+mais si on fait back le formulaire ne se rerempli pas donc on pert tout 
+ce qu'on a fait.
+
+2. DOCUMENT. Pour les liens créés dans document, on pensait qu'ajouter l'url en 
+<a href... sur la page .url ne serait pas une mauvaise chose pour prévenir 
+les cas ou la redirection ne se passe pas bien.
