@@ -5,7 +5,7 @@
 error_reporting(error_reporting() & ~ E_NOTICE);
 
 // Start session
-
+// session_name(md5(realpath(__FILE__))); UNCOMMENT THIS LINE IF YOU HAVE MANY CAMPUS ON SAME SERVER
 session_start();
 
 ///////////////////////////////////////////////////////////////////////
