@@ -19,7 +19,6 @@
 
    $langStartModule = "Start Module";
    $langModuleAdmin = "Module Admin";
-   $langModuleHelpHandmade = "List of assets (ressources) used in this module.<br />The start asset is the entry point of student in the module, the first page that will be displayed to them.<br />A module without a defined start asset will not be able to launch!<br />Keep in mind that students will navigate in the module using the links you'll provide in your pages.";
    $langModuleHelpDocument = "You can chose a document that will replace the current one.";
    $langAsset = "Asset";
    $langStartAsset = "Start asset";
@@ -29,13 +28,10 @@
    $langRemoveFromLPLong = "Remove from this learning path";
    $langComment = "Comment";
    $langModuleType = "Type";
-   $langAccess = "Accessibility";
    $langAddModulesButton = "Add module(s)";
    $langAddOneModuleButton = "Add module";
    $langInsertNewModuleName="Insert new name";
    $langModifyCommentModuleName="Insert new comment for";
-   $langShareWithOtherCourse="Click to share this module with other courses";
-   $langStopShare="Click to hide this module to other courses managers";
 
    $langGlobalProgress = "Learning path progression : ";
 
@@ -52,8 +48,7 @@
    $langAltMakeInvisible = "Make invisible";
    $langAltMakeBlocking = "Make blocking";
    $langAltMakeNotBlocking = "Make not blocking";
-   $langAltPathBlocked = "Students have to complete the last module of this path to access to the next paths";
-   $langAltPathNotBlocked = "Students can access to the next paths without completing this path";
+   
    // forms
    $langLearningPathName= "New learning path name : ";
    $langNewModuleName = "New module name and content type : ";
@@ -67,7 +62,6 @@
    $langExerciseAsModule    = "Use an exercise";
    $langDocumentAsModule     =  "Use a document";
    $langModuleOfMyCourse  = "Use a module of this course";
-   $langGetModuleFromOtherCourse   = "Get a module from another course";
    $langAlertBlockingMakedInvisible = "This module is blocking. \\nMaking it invisible will allow students to access \\n next modules without having to complete this one. \\n\\nConfirm ?";
    $langAlertBlockingPathMadeInvisible = "This path is blocking. \\nMaking it invisible will allow students to access \\n next paths without having to complete this one. \\n\\nConfirm ?";
    $langCreateLabel = "Create label";
@@ -105,8 +99,6 @@
 
    // errors messages
    $langErrorNameAlreadyExists = "Error : Name already exists";
-   $langErrorInvalidParms = "Error : Invalid parameter (use numbers only)";
-   $langErrorValuesInDouble = "Error : One or more values are doubled";
 
    // insertMyModule
    $langNoMoreModuleToAdd="All modules of this course are already used in this learning path.";
@@ -127,12 +119,8 @@
 
    // insertPublicModule
    $langCategories = "Course categories";
-   $langPublicModule = "Public module(s)";
    $langClose ="Close";
-   $langInsertPublicModuleToolName="Insert public module";
-   $langNoPublicModule = "No public module available";
    $langAvailable = "module(s) available(s)";
-   $langImportedCourse = "Imported from course";
 
    // insertMyExercise
    $langInsertMyExerciseToolName = "Insert my exercise";
@@ -148,8 +136,6 @@
                      Any exercise or document that has been added in a learning path will also appear in this list.";
 
    //assets
-   $langStartAssetSet = "Start asset has been set";
-   $langNoMoreStartAsset = "You have delete the start asset file.<br>There is no more start asset for this module.";
    $langNoStartAsset = "There is no start asset defined for this module.";
 
    // module admin / exercise
@@ -160,7 +146,6 @@
    $langModifyAll = "in all learning paths";
    $langModifyThis = "only in this learning path";
    $langUsedInSeveralModules = "Warning ! This module is used in several exercises. Would you like to modify it";
-
 
    $langModuleModified = "Module has been modified";
    $langQuitViewer = "Back to list";
