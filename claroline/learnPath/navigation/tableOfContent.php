@@ -116,7 +116,7 @@
                                       WHERE `learnPath_id` = ".$_SESSION['path_id']);
                                       
   echo "<p><b>".wordwrap($lpName[0]['name'],$moduleNameLength," ",1)."</b></p>"
-          ."<small>$langView : <a href='viewer.php?noFrames' target='_top'>$langFullScreen</a> | <a href='viewer.php' target='_top'>$langInFrames</a></small>\n"
+          ."<small>$langView : <a href='viewer.php?noFrames=1' target='_top'>$langFullScreen</a> | <a href='viewer.php' target='_top'>$langInFrames</a></small>\n"
           ."</p>\n<table width=\"100%\">\n";
   
   $previousModule = "";
