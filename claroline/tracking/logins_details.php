@@ -38,18 +38,12 @@ $interbredcrump[]= array ("url"=>"../tracking/userLog.php?uInfo=".$uInfo, "name"
 
 $nameTools = $langToolName." : ".$langLoginsAndAccessTools;
 
-$htmlHeadXtra[] = "<style type='text/css'>
-<!--
-.secLine {background-color : #E6E6E6;}
-.content {padding-left : 15px;padding-right : 15px; }
-.specialLink{color : #0000FF;}
--->
-</style>
-<STYLE media='print' type='text/css'>
+$htmlHeadXtra[] = "
+<style media='print' type='text/css'>
 <!--
 TD {border-bottom: thin dashed Gray;}
 -->
-</STYLE>";
+</style>";
 
 $TABLECOURSUSER	        = $mainDbName."`.`cours_user";
 $TABLECOURSE_GROUPSUSER = $_course['dbNameGlu']."user_group";
@@ -65,12 +59,9 @@ $is_allowedToTrack = $is_groupTutor; // allowed to track only user of one group
 // following line added by RH to allow a user to see its own course stats
 if (isset($uInfo) && isset($_uid)) $is_allowedToTrack = $is_allowedToTrack || ($uInfo == $_uid); 
 $is_allowedToTrackEverybodyInCourse = $is_courseAdmin; // allowed to track all student in course
-?>
-<h3>
-    <?php echo $nameTools ?>
-</h3>
-<table width="100%" cellpadding="2" cellspacing="3" border="0">
-<?
+
+claro_disp_tool_title($nameTools);
+
 // check if uid is tutor of this group
 
 
@@ -99,35 +90,30 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
     {
         $res[2] == "" ? $res2 = $langNoEmail : $res2 = $res[2];
             
-        echo "<tr><td>";
-        echo $informationsAbout." : <br>";
-        echo "<ul>\n"
+        
+        echo $informationsAbout." : <br>"
+              ."<ul>\n"
                 ."<li>".$langFirstName." : ".$res[1]."</li>\n"
                 ."<li>".$langLastName." : ".$res[0]."</li>\n"
                 ."<li>".$langEmail." : ".$res2."</li>\n"
-                ."</ul>";
-        echo "</td></tr>";
+                ."</ul>\n";
+                
         /******* MENU ********/
-        echo "<tr>
-                <td>
-                <small>
-                [<a href='userLog.php?uInfo=$uInfo'>".$langBack."</a>]
-        ";
-        echo "  &nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;
-                [<a href='$PHP_SELF?uInfo=$uInfo&period=week&reqdate=$reqdate' class='specialLink'>$langPeriodWeek</a>]
-                [<a href='$PHP_SELF?uInfo=$uInfo&period=month&reqdate=$reqdate' class='specialLink'>$langPeriodMonth</a>]
-                &nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;
-        ";
+        echo "\n<small>\n"
+                ."[<a href=\"userLog.php?uInfo=$uInfo\">".$langBack."</a>]\n"
+                ."&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;\n"
+                ."[<a href=\"$PHP_SELF?uInfo=$uInfo&period=week&reqdate=$reqdate\">$langPeriodWeek</a>]\n"
+                ."[<a href=\"$PHP_SELF?uInfo=$uInfo&period=month&reqdate=$reqdate\">$langPeriodMonth</a>]\n"
+                ."&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;\n";
+                
         switch($period)
         {
             case "week" :
                 // previous and next date must be evaluated
                 $previousReqDate = $reqdate - 7*86400;
                 $nextReqDate = $reqdate + 7*86400;
-                echo   "
-                    [<a href='$PHP_SELF?uInfo=$uInfo&period=week&reqdate=$previousReqDate' class='specialLink'>$langPreviousWeek</a>] 
-                    [<a href='$PHP_SELF?uInfo=$uInfo&period=week&reqdate=$nextReqDate' class='specialLink'>$langNextWeek</a>]
-                ";
+                echo   "[<a href=\"$PHP_SELF?uInfo=$uInfo&period=week&reqdate=$previousReqDate\">$langPreviousWeek</a>]\n" 
+                          ."[<a href=\"$PHP_SELF?uInfo=$uInfo&period=week&reqdate=$nextReqDate\">$langNextWeek</a>]\n";
                 break;
             default :
                 $period = "month";
@@ -136,18 +122,13 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                 // 30 days should be a good approximation
                 $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
                 $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
-                echo   "
-                    [<a href='$PHP_SELF?uInfo=$uInfo&period=month&reqdate=$previousReqDate' class='specialLink'>$langPreviousMonth</a>] 
-                    [<a href='$PHP_SELF?uInfo=$uInfo&period=month&reqdate=$nextReqDate' class='specialLink'>$langNextMonth</a>]
-                ";
+                echo   "[<a href=\"$PHP_SELF?uInfo=$uInfo&period=month&reqdate=$previousReqDate\">$langPreviousMonth</a>]\n"
+                          ."[<a href=\"$PHP_SELF?uInfo=$uInfo&period=month&reqdate=$nextReqDate\">$langNextMonth</a>]\n";
                 break;
     
         
         }
-        echo "</small>
-                </td>
-            </tr>
-        ";
+        echo "</small>\n\n";
         /******* END OF MENU ********/
         
         if( !isset($reqdate) )
@@ -176,10 +157,10 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                                 ." ".$langTo." ".date("d " , $weekhighreqdate ).$langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
                 break;
         }
-        echo "<tr><td>";  
+  
         $results = getManyResults1Col($sql);
         /*** display of the displayed period  ***/
-        echo "<table class=\"claroTable\" width='100%' cellpadding='2' cellspacing='1' border='0' align=center>";
+        echo "<table class=\"claroTable\" width=\"100%\" cellpadding=\"4\" cellspacing=\"1\">";
         echo "<tr class=\"headerX\"><th>".$displayedDate."</th></tr><body>";
         if (is_array($results))
         {             
@@ -189,9 +170,9 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                 //$beautifulDate = $langDay_of_weekNames['long'][date("w" , $timestamp)].date(" d " , $timestamp);
                 //$beautifulHour = date("H : i" , $timestamp);
                 $beautifulDateTime = claro_disp_localised_date($dateTimeFormatLong,$timestamp);
-                echo "<tr>"; 
-                echo "<td style='padding-left : 40px;' valign='top'><small>".$beautifulDateTime."</small></td>";
-                echo"</tr>";
+                echo "<tr>\n"
+                        ."<td><small>".$beautifulDateTime."</small></td>\n"
+                        ."</tr>\n";
                 // $limit is used to select only results between $results[$j] (current login) and next one
                 if( $j == ( sizeof($results) - 1 ) )
                     $limit = date("Y-m-d H:i:s",$nextReqDate);
@@ -210,18 +191,18 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                 
                 if (is_array($results2))
                 { 
-                    echo "<tr><td colspan='2'>\n";  
-                    echo "<table width='50%' cellpadding='0' cellspacing='0' border='0'>\n";
+                    echo "<tr>\n<td colspan=\"2\">\n"
+                            ."<table width=\"50%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n";
                     for($k = 0 ; $k < count($results2) ; $k++)
                     {                     
-                            echo "<tr>\n";
-                            echo "<td width='70%' style='padding-left : 60px;'><small>".$toolNameList[$results2[$k][1]]."</small></td>\n";
-                            echo "<td width='30%' align='right' style='padding-right : 40px'><small>".$results2[$k][0]." ".$langVisits."</small></td>\n";
-                            echo "</tr>";
+                            echo "<tr>\n"
+                                    ."<td width=\"70%\"><small>".$toolNameList[$results2[$k][1]]."</small></td>\n"
+                                    ."<td width=\"30%\" align=\"right\"><small>".$results2[$k][0]." ".$langVisits."</small></td>\n"
+                                    ."</tr>\n";
     
                     }
-                    echo "</table>\n";
-                    echo "</td></tr>\n";
+                    echo "</table>\n"
+                            ."</td></tr>\n\n";
                 }
                 $previousDate = $value;
             }
@@ -229,12 +210,11 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
         }
         else
         {
-            echo "<tr>"; 
-            echo "<td colspan='2' bgcolor='#eeeeee'><center>".$langNoResult."</center></td>";
-            echo"</tr>";
+            echo "<tr>\n"
+                    ."<td colspan=\"2\" bgcolor=\"#eeeeee\"><center>".$langNoResult."</center></td>\n"
+                    ."</tr>\n";
         }
-        echo "</body></table>";
-        echo "</td></tr>";
+        echo "</body>\n</table>\n";
     }
     else
     {
@@ -254,10 +234,6 @@ else
         echo $langNotAllowed;
     }
 }
-?>
 
-</table>
-
-<?
-@include($includePath."/claro_init_footer.inc.php");
+include($includePath."/claro_init_footer.inc.php");
 ?>
