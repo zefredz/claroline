@@ -96,8 +96,8 @@ $accessLevelList = array('ALL'            => 0,
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-if     ($is_platformAdmin)   $reqAccessLevel   = 'PLATFORM_ADMIN';
-elseif ($is_courseAdmin  )   $reqAccessLevel   = 'COURSE_ADMIN';
+if     ($is_platformAdmin 	&& $is_allowedToEdit)   $reqAccessLevel   = 'PLATFORM_ADMIN';
+elseif ($is_allowedToEdit)   $reqAccessLevel   = 'COURSE_ADMIN';
 else                         $reqAccessLevel   = 'ALL';
 
 $toolList = get_course_tool_list($reqAccessLevel);
@@ -197,7 +197,7 @@ include($includePath."/introductionSection.inc.php");
 
 if ($is_allowedToEdit)
 {
-    echo "<hr noshade size=\"1\">";
+    echo "<hr noshade=\"noshade\" size=\"1\">";
 
     echo "Course Administration :&nbsp;&nbsp;&nbsp;&nbsp;";
     echo "<img src=\"".$imgRepository."/referencement.gif\" alt=\"\">";
