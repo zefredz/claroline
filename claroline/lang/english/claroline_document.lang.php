@@ -72,6 +72,7 @@ $langPublish = "Publish";
 $langReg = "Registration";
 $langRename = "Rename";
 $langSearch = "Search";
+$langSearchResult = "Search result";
 $langSize = "Size";
 $langStudent = "Student";
 $langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";

@@ -1806,6 +1806,7 @@ $langSearchAgain = "Search again (advanced)";
 $langSearchCourse = "Search course";
 $langSearchCourseAdvanced = "Advanced course search";
 $langSearchOn = "Search on";
+$langSearchResult = "Search result";
 $langSearchUser = "Search user";
 $langSearchUserAdvanced = "Advanced user search";
 $langSecondShort = "sec.";
@@ -2197,22 +2198,4 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
-$langForumDeleted = 'Forum deleted';
-$langForumCategoryDeleted = 'Forum Category Deleted';
-$langRegisterMyCampus = "Register my campus";
-$langAddMyCampusOnClarolineNet = "Add my campus on Claroline.net website";
-$langCampusRegistrationSubmitted = "Your campus has been submitted and is waiting to be validate by Claroline.net team";
-$langRegisterLocalUrl = "Your campus url seems to be a local url.\n"
-					."A web accessible url is required to register your site on Claroline.net.<br /><br />\n"
-					."Check the value of 'Web base' in your Claroline configuration.";
-$langCountryCodeError = "Country code seems to be incorrect.";
-$langCampusAlreadyRegistered = "It seems that you already have registered your campus.";
-$langUnkownSOAPError = "An error occurred while contacting Claroline.net";
-$langCurrentStatus = "Current registration status : <br /> <br />\n";
-$langCampusSubmitted = "<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>";
-$langCampusRegistered = "<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.<br />A link to your campus is shown on the Worldwide page of Claroline.net.</p>";
-$langCampusRemoved = "<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>";
-$langCampusDeleted = "<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>";
-$langCountry = "Country";
-$langSearchResult = "Search result";
 ?>

@@ -73,6 +73,7 @@ $langPublish = "Publier";
 $langReg = "Inscription";
 $langRename = "Renommer";
 $langSearch = "Rechercher";
+$langSearchResult = "Résultat de recherche";
 $langSize = "Taille";
 $langStudent = "Etudiant";
 $langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
