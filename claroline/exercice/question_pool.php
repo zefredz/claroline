@@ -33,6 +33,10 @@ include('../inc/claro_init_global.inc.php');
 
 $is_allowedToEdit=$is_courseAdmin;
 
+// picture path
+$picturePathWeb = $coursesRepositoryWeb.$_course['path'].'/image';
+$picturePathSys = $coursesRepositorySys.$_course['path'].'/image';
+
 $TBL_EXERCICE_QUESTION = $_course['dbNameGlu'].'quiz_rel_test_question';
 $TBL_EXERCICES         = $_course['dbNameGlu'].'quiz_test';
 $TBL_QUESTIONS         = $_course['dbNameGlu'].'quiz_question';
