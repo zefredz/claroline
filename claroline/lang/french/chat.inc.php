@@ -31,5 +31,6 @@ Translate the interface in chosen language
  $langStoreChat = "Sauvegarder la discussion";
  $langDateLastWrite = "Dernier message : ";
  $langNewChat = "Nouvelle discussion";
- 
+ $langNotCourseAllowed = "Vous n&ecirc;tes pas autoris&eacute; ici.";
+ $langNotGroupMember = "Vous n&ecirc;tes pas autoris&eacute; &agrave; participer &agrave; ce chat de groupe.";
 ?>
