@@ -58,11 +58,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 if ($is_allowedToEdit)
 {
 ?>
-<br>
-<form method="get" action="edit.php">
-<input type="submit" value="<?php echo $langEditCourseProgram ?>">
-</form>
-
+<a class="claroCmd" href="edit.php"><?php echo $langEditCourseProgram ?></a>
 
 <?php
 }
@@ -72,9 +68,9 @@ if (count($blocList))
     foreach($blocList as $thisBloc)
     {
         echo "<h4>".$thisBloc['title']."</h4>\n"
-            ."<blockquote>"
+            ."<blockquote>\n"
             . claro_parse_user_text($thisBloc['content'])
-            ."</blockquote>"."\n";
+            ."\n</blockquote>"."\n\n";
     }
 }
 
