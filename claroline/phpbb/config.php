@@ -134,5 +134,4 @@ $is_groupPrivate      = $_groupProperties['private'];
 $nom    = $_user['lastName' ];
 $prenom = $_user['firstName'];
 
-//$is_groupAllowed      = $is_groupAllowed;
 ?>
