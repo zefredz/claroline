@@ -330,167 +330,82 @@ $claro_texRendererUrl = \'\';
 * Config file to undist
 */
 
-$arr_file_to_undist =
-array (
-$newIncludePath.'../../textzone_top.inc.html',
-$newIncludePath.'../../textzone_right.inc.html',
-$newIncludePath.'conf/auth.conf.php'
-);
-
-foreach ($arr_file_to_undist As $undist_this)
-    claro_undist_file($undist_this);
+    $arr_file_to_undist =
+    array (
+    $newIncludePath.'../../textzone_top.inc.html',
+    $newIncludePath.'../../textzone_right.inc.html',
+    $newIncludePath.'conf/auth.conf.php'
+    );
+    
+    foreach ($arr_file_to_undist As $undist_this)
+        claro_undist_file($undist_this);
 
 /***
  * Generate conf from definition files.
  */
-$includePath = $newIncludePath;
-$def_file_list = get_def_file_list();
-if(is_array($def_file_list))
-foreach ( $def_file_list as $def_file_bloc)
-{
-    if (is_array($def_file_bloc['conf']))
-    foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
+    $includePath = $newIncludePath;
+    $def_file_list = get_def_file_list();
+    if(is_array($def_file_list))
+    foreach ( $def_file_list as $def_file_bloc)
     {
-        // tmp: skip the main conf
-        if ( $config_code == 'CLMAIN' ) continue;
-
-        $okToSave = TRUE;
-
-        unset($conf_def, $conf_def_property_list);
-
-        $def_file  = get_def_file($config_code);
-
-        if ( file_exists($def_file) )
-            require($def_file);
-
-        if ( is_array($conf_def_property_list) )
+        if (is_array($def_file_bloc['conf']))
+        foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
         {
-            foreach($conf_def_property_list as $propName => $propDef )
+            // tmp: skip the main conf
+            if ( $config_code == 'CLMAIN' ) continue;
+    
+            $okToSave = TRUE;
+    
+            unset($conf_def, $conf_def_property_list);
+    
+            $def_file  = get_def_file($config_code);
+    
+            if ( file_exists($def_file) )
+                require($def_file);
+    
+            if ( is_array($conf_def_property_list) )
             {
-                $propValue = $propDef['default']; // USe default as effective value
-                if ( !validate_property($propValue, $propDef) )
+                foreach($conf_def_property_list as $propName => $propDef )
                 {
-                    $okToSave = FALSE;
+                    $propValue = $propDef['default']; // USe default as effective value
+                    if ( !validate_property($propValue, $propDef) )
+                    {
+                        $okToSave = FALSE;
+                    }
+                }
+            }
+            else
+            {
+                $okToSave = FALSE;
+            }
+   
+            if ($okToSave)
+            {
+                reset($conf_def_property_list);
+                foreach($conf_def_property_list as $propName => $propDef )
+                {
+                    $propertyList[] = array('propName'  => $propName
+                                           ,'propValue' => $propDef['default']);
+                }
+    
+                $conf_file = get_conf_file($config_code);
+    
+                if ( !file_exists($conf_file) ) touch($conf_file);
+    
+                if ( is_array($propertyList) && count($propertyList)>0 )
+                {
+    
+                    if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
+                    {
+                        // calculate hash of the config file
+                        $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
+                        //$conf_hash = filemtime($conf_file);
+                        save_config_hash_in_db($config_code,$conf_hash);
+                    }
                 }
             }
         }
-        else
-        {
-            $okToSave = FALSE;
-        }
-
-        if ($okToSave)
-        {
-            reset($conf_def_property_list);
-            foreach($conf_def_property_list as $propName => $propDef )
-            {
-                $propertyList[] = array('propName'  => $propName
-                                       ,'propValue' => $propDef['default']);
-            }
-
-            $conf_file = get_conf_file($config_code);
-
-            if ( !file_exists($conf_file) ) touch($conf_file);
-
-            if ( is_array($propertyList) && count($propertyList)>0 )
-            {
-
-                if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
-                {
-                    // calculate hash of the config file
-                    $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
-                    //$conf_hash = filemtime($conf_file);
-                    save_config_hash_in_db($config_code,$conf_hash);
-                }
-            }
-        }
     }
-}
-#### CREATE AND WRITE .HTACCESS AND .HTPASSWD4ADMIN HIDDEN FILES #####
-
-    if (PHP_OS!="WIN32" && PHP_OS!="WINNT")
-    {
-        $passFormToStore=crypt($passForm);
-    }
-    else
-    {
-        $passFormToStore=$passForm;
-    }
-
-    // ADD htPassword
-
-    $htPasswordPath = "../admin/";
-    $htPasswordName = ".htpasswd4admin";
-    @rename ($htPasswordPath.$htPasswordName,$htPasswordPath.$htPasswordName."_old");
-
-    $filePasswd=@fopen($htPasswordPath.$htPasswordName, "w");
-    if (!$filePasswd)
-    {
-        $filePasswordCreationError = TRUE;
-        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
-    }
-    else
-    {
-        $stringPasswd=cleanwritevalue($loginForm.':'.$passFormToStore);
-        @fwrite($filePasswd, $stringPasswd);
-    }
-
-    // htaccess files
-
-    $htAccessAdminPath = "../admin/";
-    $htAccessName = ".htaccess";
-    @rename ($htAccessAdminPath.$htAccessName,          $htAccessAdminPath.$htAccessName."_old");
-    $fileAccess=@fopen($htAccessAdminPath.$htAccessName, "w");
-    if (!$fileAccess)
-    {
-        $fileAccessInAdminSectionCreationError = TRUE;
-        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
-    }
-    else
-    {
-        $stringAccess='AuthName "Administration Claroline"
-        AuthType Basic
-        Require valid-user
-        AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
-
-        fwrite($fileAccess, $stringAccess);
-    }
-
-    $htAccessLangPath = "../lang/";
-    $fileAccess=@fopen($htAccessLangPath.$htAccessName, "w");
-    if (!$fileAccess)
-    {
-        $fileAccessInLangRepositoryCreationError = TRUE;
-        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
-    }
-    else
-    {
-        $stringAccess='AuthName "Administration Claroline"
-        AuthType Basic
-        Require valid-user
-        AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
-
-        fwrite($fileAccess, $stringAccess);
-    }
-
-    $htAccessSqlPath = "../sql/";
-    $fileAccess=@fopen($htAccessSqlPath.$htAccessName, "w");
-    if (!$fileAccess)
-    {
-        $fileAccessInSqlRepositoryCreationError = TRUE;
-        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
-    }
-    else
-    {
-        $stringAccess='AuthName "Administration Claroline"
-        AuthType Basic
-        Require valid-user
-        AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
-
-        fwrite($fileAccess, $stringAccess);
-    }
-
-############ PROTECTING FILES AGAINST WEB WRITING ###################
 }
 
 // Check File System
@@ -541,5 +456,4 @@ $idAdmin = add_user( cleanwritevalue($adminNameForm)
         , TRUE);
 
 set_user_admin($idAdmin);
-
 ?>
