@@ -2210,4 +2210,5 @@ $langErrorDepartmentURLEmpty = "Department URL can not be empty";
 $langErrorLanguageEmpty = "Language can not be empty";
 $langErrorDepartmentURLWrong = "Department URL is invalid";
 $langErrorEmailInvalid = "Email is invalid";
+$langErrorMyOwnSettings = "You can not change your own status";
 ?>

@@ -1863,4 +1863,5 @@ $langErrorDepartmentURLEmpty = "Le champs \"URL du département\" ne peut pas êtr
 $langErrorLanguageEmpty = "Le champs \"langue\" can not be empty";
 $langErrorDepartmentURLWrong = "L'URL du département est invalide";
 $langErrorEmailInvalid = "L'adresse email est incorrecte";
+$langErrorMyOwnSettings = "Vous ne pouvez pas changer votre propre statut";
 ?>
