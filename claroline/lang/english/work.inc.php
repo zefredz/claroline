@@ -64,6 +64,7 @@ $langCurrentDoc = "Current file";
 $langExplainReplaceFile = "Upload a new file to replace this one";
 $langFileDesc = "File description";
 $langAnswer = "Answer";
+$langNoFile = "- none -";
 
 // -- Form errors and confirmations
 //confirmations
