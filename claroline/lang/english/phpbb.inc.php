@@ -41,7 +41,7 @@ $langGroupForumLink="Forum of group";
 $langGroupDocumentsLink="Documents of the group ";
 $langMyGroup="my group";
 $langOneMyGroups="my supervision";
-
+$langBackTo="Back to :";
 
 
 // END OF CLAROLINE ONLY
