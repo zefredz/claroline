@@ -1933,4 +1933,6 @@ $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
 $langViewPlatFormError = 'Recherche d&#146;anomalies';
+$langMessageSubscribeDone_p_firstname_lastname = 'Dear %s, %s. Vos coordonnées personnelles ont été enregistrées et un e-mail vous a été envoyé
+pour vous rappeler votre nom d’utilisateur et votre mot de passe.';
 ?>

@@ -1137,4 +1137,5 @@ $lang_search = "Tìm";
 $lang_select_course_in = "Chọn khoá học trong ";
 $lang_select_course_in_search_results = "Chọn khoá học trong kết quả tìm kiếm";
 $lang_unsubscribe = "Thôi đăng ký";
+$langMessageSubscribeDone_p_firstname_lastname = 'Dear %s, %s. Your personal settings have been registered and an email has been sent to help you remember your user name and password.';
 ?>

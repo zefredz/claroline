@@ -912,7 +912,10 @@ $langPeriodMonth = "Mesec";
 $langPeriodToDisplay = "Obdobje";
 $langPeriodWeek = "Teden";
 $langPeriodYear = "Leto";
-$langPersonalSettings = "Tvoje osebne nastavitve so zapisane in poslana je e-posta, da bi si lahko zapomnil svoje uporabnisko ime in geslo.</p>";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Dragi %s, %s. 
+Tvoje osebne nastavitve so zapisane in poslana je e-posta, 
+da bi si lahko zapomnil svoje uporabnisko ime in geslo.';
 $langPgTitle = "Naziv strani";
 $langPlaces = "sedezev na skupino (opcija)";
 $langPlatformAccess = "Dostop do kampusa";

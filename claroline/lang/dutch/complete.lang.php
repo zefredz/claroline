@@ -868,7 +868,10 @@ $langPeriodToDisplay = "Periode";
 $langPeriodWeek = "Week";
 $langPeriodYear = "Jaar";
 $langPersoValue = "Values";
-$langPersonalSettings = "Uw persoonlijke gegevens werden opgeslagen en een e-mail werd naar U opgestuurd ter herinnering van uw gebruikersnaam.</p>";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Beste %s, %s. 
+Uw persoonlijke gegevens werden opgeslagen en een e-mail werd naar 
+U opgestuurd ter herinnering van uw gebruikersnaam.';
 $langPgTitle = "Titel Pagina";
 $langPlaces = "plaatsen per groep (facultatief)";
 $langPlatform = " gebruikt het platform";

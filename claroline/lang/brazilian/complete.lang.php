@@ -1317,7 +1317,12 @@ $langPeriodWeek = "Semana";
 $langPeriodYear = "Ano";
 $langPersoValue = "Valores";
 $langPersonalCourseList = "Lista de cursos pessoal";
-$langPersonalSettings = "Suas configurações pessoais foram registradas e um e-mail será enviado para lembrá-lo de seu nome de usuário e senha.</p>Selecione agora na lista os cursos que deseja participar.";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Caro %s, %s. 
+Suas configurações pessoais foram registradas e um e-mail será enviado 
+para lembrá-lo de seu nome de usuário e senha.<br>
+Selecione agora na 
+lista os cursos que deseja participar.';
 $langPgTitle = "Título da página";
 $langPhone = "Telefone";
 $langPlaces = "vagas por grupos (opcional)";

@@ -910,9 +910,11 @@ $langPeriodMonth = "Mes";
 $langPeriodToDisplay = "Periodo";
 $langPeriodWeek = "Semana";
 $langPeriodYear = "Ano";
-$langPersonalSettings = "Os seus datos personais xa foron rexistrados e xa se enviou un correo electr&oacute;nico &oacute; seu buz&oacute;n
-para recordarlle o seu nome de usuario e a s&uacute;a clave de acceso.</p>
-Seleccione da lista os cursos &oacute;s que desexa ter acceso.";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Estimado(a) %s, %s. 
+Os seus datos personais xa foron rexistrados e xa se enviou un correo electr&oacute;nico &oacute; seu buz&oacute;n
+para recordarlle o seu nome de usuario e a s&uacute;a clave de acceso.<br>
+Seleccione da lista os cursos &oacute;s que desexa ter acceso.';
 $langPgTitle = "T&iacute;tulo da p&aacute;xina";
 $langPlaces = "prazas por grupo (opcional)";
 $langPlatform = "Emprega en";

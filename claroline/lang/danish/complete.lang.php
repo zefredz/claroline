@@ -901,8 +901,12 @@ $langPeriodMonth = "Måned";
 $langPeriodToDisplay = "Periode";
 $langPeriodWeek = "Uge";
 $langPeriodYear = "År";
-$langPersonalSettings = "Dine personlige oplysninger er registreret og en email er afsendt til din emailadresse, så du kan huske dit brugernavn og din adgangskode. 
-<i>Husk at der er forskel på store og små bogstaver (case sensitive)</i>, når du skal logge dig på.</p>";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Kære %s, %s. 
+Dine personlige oplysninger er registreret og en email er afsendt til din emailadresse, 
+så du kan huske dit brugernavn og din adgangskode. 
+<i>Husk at der er forskel på store og små bogstaver (case sensitive)</i>, 
+når du skal logge dig på.';
 $langPgTitle = "Tekstens titel";
 $langPgTitle = "Titel på siden";
 $langPlaces = "pladser i gruppen (valgfri)";

@@ -1280,7 +1280,11 @@ $langPeriodWeek = "Woche";
 $langPeriodYear = "Jahr";
 $langPersoValue = "Ergebnisse";
 $langPersonalCourseList = "Persönliche Kurs-Liste";
-$langPersonalSettings = "Ihre persönlichen Einstellungen wurden gespeichert und eine E-Mail mit Benutzernamen und Passwort wurde zur Erinnerung an Sie gesendet.</p>Wählen Sie nun in der Liste der Kurse die Kurse aus, die Sie belegen möchten.";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Guten Tag %s, %s. 
+Ihre persönlichen Einstellungen wurden gespeichert und eine E-Mail 
+mit Benutzernamen und Passwort wurde zur Erinnerung an Sie gesendet.<br>
+Wählen Sie nun in der Liste der Kurse die Kurse aus, die Sie belegen möchten.';
 $langPgTitle = "Name der Seite / des Links";
 $langPgTitle = "Seitentitel";
 $langPhone = "Tel.";

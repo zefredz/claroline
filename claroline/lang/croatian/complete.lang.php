@@ -573,6 +573,11 @@ $langPassTooEasy = "ova zaporka je prejednostavna. Koristite neku kao na primjer
 $langPassTwice = "Upisali ste dvije razlièite zaporke. Kliknite na opciju Povratak i pokušajte ponovno.";
 $langPassTwo = "Upisali ste dvije razlièite zaporke";
 $langPersonalSettings = "Vaši osobni podaci su prijavljeni i poslan Vam je e-mail s vašim korisnièkim imenom i zaporkom.</p>Izaberite sada sa popisa kojim predmetima želite pristup.";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Poštovani %s, %s. 
+Vaši osobni podaci su prijavljeni i poslan Vam je e-mail 
+s vašim korisnièkim imenom i zaporkom.<br>
+Izaberite sada sa popisa kojim predmetima želite pristup.';
 $langPgTitle = "Naslov stranice";
 $langPlaces = "broj sudionika u grupi (moguænost)";
 $langPoweredBy = "Upravljano s ";

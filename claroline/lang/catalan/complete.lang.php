@@ -389,7 +389,12 @@ $langOtherCourses = "Llista de cursos";
 $langPassTooEasy = "aquest password és massa simple. Utilitza un password com aquest ";
 $langPassTwice = "Has escrit dues paraules de pas diferents. Utilitza el botó enrere del teu navegador i prova un altre cop.";
 $langPassTwo = "Has entrat dues paraules de pas differents";
-$langPersonalSettings = "Els teus detalls personals han estat enregistrats i se t'ha enviat un correu-e per ajudar-te a recordar el teu nom d'uauari i paraula de pas.</p>Selecciona ara a la llista els cursos que vols atendre.";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Estimat/da %s, %s. 
+Els teus detalls personals han estat enregistrats i 
+se t’ha enviat un correu-e per ajudar-te a recordar 
+el teu nom d’uauari i paraula de pas.
+Selecciona ara a la llista els cursos que vols atendre.';
 $langPgTitle = "Títol de la pàgina";
 $langPlaces = "llocs per grups (opcional)";
 $langPoweredBy = "Potenciat per ";

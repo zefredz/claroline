@@ -1901,7 +1901,7 @@ $lang_user_has_been_enrolled_to_the_course = "The user has been enrolled to the 
 $lang_you_had_request = "You ask";
 $lang_you_have_been_enrolled_to_the_course = "You've been enrolled to the course";
 $lang_your_enrollment_to_the_course_has_been_removed = "Your enrollment to the course has been removed";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You’re user profile doesn’t seem to be enrolled to this course";
 $langcatcreated = "The new category has been created.";
 $langemptycatname = "You must give a name to your new category!";
 $langemptyforumname = "You must give a name to your new forum!";
@@ -1912,4 +1912,5 @@ $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
 $langViewPlatFormError = 'Scan technical fault';
+$langMessageSubscribeDone_p_firstname_lastname = 'Dear %s, %s. Your personal settings have been registered and an email has been sent to help you remember your user name and password.';
 ?>

@@ -335,7 +335,11 @@ $langOneResp = "Eräs kurssin ylläpitäjistä";
 $langOrganisation = "Foorumien ylläpito";
 $langPassTwice = "Kirjoitti kaksi erilaista salasanaa. Mene takaisin ja yritä uudestaan.";
 $langPassTwo = "Kaksi eri salasanaa!";
-$langPersonalSettings = "Henkilökohtaiset asetuksesi on rekisteröity ja sähköpostissa on lähetetty käyttäjänimesi ja salasanasi, jotta muistaisit ne.</p>Valitse listasta kurssit, joihin haluat pääsyn.";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Hyvä %s, %s. 
+Henkilökohtaiset asetuksesi on rekisteröity ja sähköpostissa 
+on lähetetty käyttäjänimesi ja salasanasi, jotta muistaisit ne.<br>
+Valitse listasta kurssit, joihin haluat pääsyn.';
 $langPgTitle = "Sivun otsikko";
 $langPoweredBy = "Alusta";
 $langPrivateAccess = "Yksityinen pääsy, reisteröityminen suljettu (sisäänpääsy vain <a href=../user/user.php>käyttäjien listalta</a>)";

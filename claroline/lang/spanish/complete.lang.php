@@ -1402,11 +1402,12 @@ $langPeriodWeek = "Semana";
 $langPeriodYear = "A&ntilde;o";
 $langPersoValue = "Valores";
 $langPersonalCourseList = "Lista de miembros del curso";
-$langPersonalSettings = "Sus datos personales han sido registrados y ha sido enviado un correo electr&oacute;nico a su buz&oacute;n
-
-para recordarle su nombre de usuario y su clave de acceso.</p>
-
-Seleccione de la lista los cursos a los que desea tener acceso.";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Estimado(a) %s, %s. 
+Sus datos personales han sido registrados y ha sido 
+enviado un correo electr&oacute;nico a su buz&oacute;n
+para recordarle su nombre de usuario y su clave de acceso.<br>
+Seleccione de la lista los cursos a los que desea tener acceso.';
 $langPgTitle = "T&iacute;tulo de la p&aacute;gina";
 $langPhone = "Telefono";
 $langPlaces = "plazas por grupo (opcional)";

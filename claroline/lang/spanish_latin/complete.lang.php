@@ -732,7 +732,12 @@ $langPeriodToDisplay = "Período";
 $langPeriodWeek = "Semana";
 $langPeriodYear = "Año";
 $langPersonalCourseList = "Lista de miembros del curso";
-$langPersonalSettings = "Sus datos personales han sido registrados y ha sido enviado un correo electrónico a su casilla para recordarle su nombre de usuario y su contraseña.</p> Ahora seleccione de la lista los cursos a los que desea tener  acceso.";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Estimado(a) %s, %s. 
+Sus datos personales han sido registrados y ha sido enviado 
+un correo electrónico a su casilla para recordarle su nombre 
+de usuario y su contraseña.<br>
+Ahora seleccione de la lista los cursos a los que desea tener acceso.';
 $langPgTitle = "Título de la página";
 $langPhone = "Telefono";
 $langPlaces = "lugares por grupos (opcional)";

@@ -284,7 +284,6 @@ $langDay = "dni";
 $langDay = "Dzieñ";
 $langDay_of_weekNames = "Array";
 $langDbPrefixForm = "MySQL Prefix";
-$langDear = "";
 $langDefaultTextInBlanks = "[British people] live in [United Kingdom].";
 $langDefcon = "Ooops, stranges cases detected !!";
 $langDefineBlanks = "Please define at least one blank with brackets [...]";
@@ -786,7 +785,11 @@ $langPeriodMonth = "Miesi±c";
 $langPeriodToDisplay = "Okres";
 $langPeriodWeek = "Tydzieñ";
 $langPeriodYear = "Rok";
-$langPersonalSettings = "Twoje osobiste ustawienia zosta³y zarejestrowane a Nazwa u¿ytkownika i has³o wys³ane do Ciebie przez e-mail. </p>Wybierz z listy kursy, do których chcesz mieæ dostêp.";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Dear %s, %s. 
+Twoje osobiste ustawienia zosta³y zarejestrowane a 
+Nazwa u¿ytkownika i has³o wys³ane do Ciebie przez e-mail.<br>
+Wybierz z listy kursy, do których chcesz mieæ dostêp.';
 $langPgTitle = "Tytu³ strony";
 $langPlaces = "miejsc(a) w grupie";
 $langPlatformAccess = "Access to campus";

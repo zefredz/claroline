@@ -1,5 +1,4 @@
 <?php // $Id$
-
 //----------------------------------------------------------------------
 // CLAROLINE 1.6
 //----------------------------------------------------------------------
@@ -30,9 +29,7 @@ $nameTools = "2";
  */
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$TABLEUSER  = $tbl_mdb_names['user'];
-
-
+$tbl_user  = $tbl_mdb_names['user'];
 
 if (!isset($userMailCanBeEmpty))   $userMailCanBeEmpty   = TRUE;
 if (!isset($checkEmailByHashSent)) $checkEmailByHashSent = FALSE;
@@ -54,7 +51,6 @@ if($submitRegistration)
     $password1    = trim ($HTTP_POST_VARS['password1'   ]);
     $officialCode = strip_tags ( trim ($HTTP_POST_VARS['officialCode']) );
     $statut       = ($allowSelfRegProf && $_REQUEST['statut'] == COURSEMANAGER) ? COURSEMANAGER : STUDENT;
-
 
 	/*==========================
 	   DATA SUBIMITED CHECKIN
@@ -83,7 +79,6 @@ if($submitRegistration)
 		echo '<p>'.$langPassTwice.'</p>'."\n";
 	}
 
-
     // CHECK PASSWORD AREN'T TOO EASY
 
     elseif (   $password1 
@@ -95,7 +90,6 @@ if($submitRegistration)
         $regDataOk = FALSE;
         echo '<p>'.$langPassTooEasy.' <code>'.substr( md5( date('Bis').$HTTP_REFFERER ), 0, 8 ).'</code></p>'."\n";
     }
-    
 
 	// CHECK EMAIL ADDRESS VALIDITY
 
@@ -106,16 +100,17 @@ if($submitRegistration)
 
 		echo '<p>'
            . $langEmailWrong
-           . '.</p>'."\n";
+           . '.</p>'."\n"
+           ;
 	}
 
 	// CHECK IF THE LOGIN NAME IS ALREADY OWNED BY ANOTHER USER
 
 	else
 	{
-        $sql = "SELECT COUNT(*) `loginCount`
-                FROM `".$TABLEUSER."` 
-                WHERE username=\"".$uname."\"";
+        $sql = 'SELECT COUNT(*) `loginCount`
+                FROM `'.$tbl_user.'` 
+                WHERE username="'.$uname.'"';
 
         list($result) = claro_sql_query_fetch_all($sql);
 
@@ -161,7 +156,7 @@ if ($regDataOk)
 	  STORE THE NEW USER DATA INSIDE THE CLAROLINE DATABASE
 	  -----------------------------------------------------*/
 
-    $sql = "INSERT INTO `".$TABLEUSER."`
+    $sql = "INSERT INTO `".$tbl_user."`
             SET `nom`          = \"".$nom."\",
                 `prenom`       = \"".$prenom."\",
                 `username`     = \"".$uname."\",
@@ -194,12 +189,12 @@ if ($_uid)
     session_register("_user");
     session_register("is_allowedCreateCourse");
 
-        //stats
-        include("../inc/lib/events.lib.inc.php");
-        event_login();
-        // last user login date is now
-        $user_last_login_datetime = 0; // used as a unix timestamp it will correspond to : 1 1 1970
-        session_register('user_last_login_datetime');
+    //stats
+    include("../inc/lib/events.lib.inc.php");
+    event_login();
+    // last user login date is now
+    $user_last_login_datetime = 0; // used as a unix timestamp it will correspond to : 1 1 1970
+    session_register('user_last_login_datetime');
 
 	/*--------------------------------------
 	             EMAIL NOTIFICATION
@@ -208,10 +203,10 @@ if ($_uid)
 
 	// Lets predefine some variables. Be sure to change the from address!
 
-	$emailto       = "\"$prenom $nom\" <$email>";
+	$emailto       = '"'.$prenom.' '.$nom.' <'.$email.'>';
 	$emailfromaddr =  $administrator["email"];
-	$emailfromname = "$siteName";
-	$emailsubject  = "[".$siteName."] $langYourReg";
+	$emailfromname = $siteName;
+	$emailsubject  = '['.$siteName.'] '.$langYourReg;
 
 	// The body can be as long as you wish, and any combination of text and variables
 
@@ -239,8 +234,7 @@ $administrator['name'] . "\n $langManager $siteName\nT. " . $administrator['phon
 	// Because I predefined all of my variables, this mail() function looks nice and clean hmm?
 	@mail( $emailto, $emailsubject, $emailbody, $emailheaders);
 }
-
-	echo "<p>$langDear $prenom $nom, $langPersonalSettings</p>\n";
+    printf($langMessageSubscribeDone_p_firstname_lastname, $prenom,$nom);
 
 	if($is_allowedCreateCourse)
 	{

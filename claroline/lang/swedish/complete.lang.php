@@ -768,7 +768,11 @@ $langPeriodMonth = "Månad";
 $langPeriodToDisplay = "Period";
 $langPeriodWeek = "Vecka";
 $langPeriodYear = "År";
-$langPersonalSettings = "Dina personliga inställningar har registrerats och emejlats till dig för att hjälpa dig komma ihåg användarnamn och lösenord.</p>Välj i listan vilka kurser som du vill deltaga i.";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Kära %s, %s. 
+Dina personliga inställningar har registrerats och emejlats 
+till dig för att hjälpa dig komma ihåg användarnamn och lösenord.<br>
+Välj i listan vilka kurser som du vill deltaga i.';
 $langPgTitle = "Sidans titel";
 $langPlaces = "platser per grupp (frivillig)";
 $langPlatform = "Med kraft från";

@@ -598,8 +598,12 @@ $langPeriodMonth = "M&ecirc;s";
 $langPeriodToDisplay = "Per&iacute;odo";
 $langPeriodWeek = "Semana";
 $langPeriodYear = "Ano";
-$langPersonalSettings = "Os seus dados pessoais foram registados e foi enviada uma mensagem &agrave; sua caixa de correio electr&oacute;nico para lhe lembrar o seu nome de utilizador e a sua senha.</p>
-Escolha na lista os cursos a que deseja aceder.";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Caro(a) %s, %s. 
+Os seus dados pessoais foram registados e foi enviada 
+uma mensagem &agrave; sua caixa de correio electr&oacute;nico 
+para lhe lembrar o seu nome de utilizador e a sua senha.<br>
+Escolha na lista os cursos a que deseja aceder.';
 $langPgTitle = "T&iacute;tulo da p&aacute;gina";
 $langPlaces = "lugares por grupo (opcional)";
 $langPlatform = "Baseado em";

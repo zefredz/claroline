@@ -836,7 +836,10 @@ $langPeriodMonth = "Bulan";
 $langPeriodToDisplay = "Periode";
 $langPeriodWeek = "Minggu";
 $langPeriodYear = "Tahun";
-$langPersonalSettings = "Setting personal anda telah terdaftar dan email telah dikirim untuk membantu anda mengingat nama user dan password anda.</p>";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Yth. %s, %s. 
+Setting personal anda telah terdaftar dan email telah 
+dikirim untuk membantu anda mengingat nama user dan password anda.';
 $langPgTitle = "Judul halaman";
 $langPlaces = "tempat menurut group (optional)";
 $langPlatformAccess = "Access to campus";

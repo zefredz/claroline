@@ -626,9 +626,15 @@ $langOtherCourses = "Ders listesi";
 $langPassTooEasy = "bu þifre çok basit. Böyle bir þey önerilir ";
 $langPassTwice = "Þifrenizi farklý yazdýnýz. Geri dönüp tekrar yazýnýz.";
 $langPassTwo = "Ýki farklý þifre yazdýnýz";
-$langPersonalSettings = "Kiþisel ayarlarýnýz kaydedildi, kullanýcý adýnýz ve þifreniz eposta adresinize gönderildi. Ayrýca Ders eðitmenleri tarafýndan yapýlan duyurular da bu adresinize gönderilecektir.</p>Þimdi girmek istediðiniz dersi listeden seçebilirsiniz.";
-$langPgTitle = "Sayfanýn baþlýðý";
-$langPlaces = "grup baþýna kiþi sayýsý (seçimlik)";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Sayýn %s, %s. 
+Kiþisel ayarlarýnýz kaydedildi, 
+kullanýcý adýnýz ve þifreniz eposta adresinize gönderildi. 
+Ayrýca Ders eðitmenleri tarafýndan yapýlan duyurular da bu 
+adresinize gönderilecektir.<br>
+Þimdi girmek istediðiniz dersi listeden seçebilirsiniz.';
+$langPgTitle = 'Sayfanýn baþlýðý';
+$langPlaces = 'grup baþýna kiþi sayýsý (seçimlik)';
 $langPoweredBy = "Powered by";
 $langPrintVers = "Printable version";
 $langPrivate = "özel";

@@ -849,7 +849,11 @@ $langPeriodMonth = "Bulan";
 $langPeriodToDisplay = "Jangkamasa";
 $langPeriodWeek = "Minggu";
 $langPeriodYear = "Tahun";
-$langPersonalSettings = "Proses pendaftaran anda berjaya dilaksanakan. Maklumat Login (ID Pengguna & Katalaluan) akan dihantar kepada anda melalui e-mail</p>";
+$langMessageSubscribeDone_p_firstname_lastname = '
+Terima kasih %s, %s. 
+Proses pendaftaran anda berjaya dilaksanakan. 
+Maklumat Login (ID Pengguna &amp; Katalaluan) 
+akan dihantar kepada anda melalui e-mail';
 $langPgTitle = "Tajuk <i>Page</i>";
 $langPlaces = "orang pelajar";
 $langPlatformAccess = "Capaian ke Kampus";
