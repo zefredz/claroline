@@ -32,7 +32,7 @@ claro_sql_query($sql_insert_sample_cats);
 		$passToStore=($passForm);
 
 
-	$sql = 'select username, nom lastname, prenom firstname  from `'.$dbNameForm.'`.`user` where username = "'.$loginForm.'"';
+	$sql = 'select username, nom lastname, prenom firstname  from `'.$dbNameForm.'`.`user` where username = "'.cleanwritevalue($loginForm).'"';
 	$res = @claro_sql_query($sql);
 	if(mysql_errno()>0)
 	{
@@ -44,14 +44,18 @@ claro_sql_query($sql_insert_sample_cats);
 	$sql = "
 INSERT INTO `user` (`nom`, `prenom`, `username`, `password`, `email`, `statut`, `phoneNumber` )
 VALUES
-(  '".$adminNameForm."', '".$adminSurnameForm."', '".$loginForm."','".$passToStore."','".$adminEmailForm."','1','".$adminPhoneForm."' )
+(  \"".cleanwritevalue($adminNameForm)."\", \"".cleanwritevalue($adminSurnameForm)."\", \"".cleanwritevalue($loginForm)."\",\"".cleanwritevalue($passToStore)."\",\"".$adminEmailForm."\",'1',\"".cleanwritevalue($adminPhoneForm)."\" )
 ";
 	if ($controlUser>0)
 	{
 		$sql = "
 		UPDATE `user` SET (`nom`, `prenom`, `username`, `password`, `email`, `statut`, `phoneNumber` )
 			VALUES
-		(  '".$adminNameForm."', '".$adminSurnameForm."', '".$loginForm."','".$passToStore."','".$adminEmailForm."','1','".$adminPhoneForm."' )
+        (  \"".cleanwritevalue($adminNameForm)."\", \"".cleanwritevalue($adminSurnameForm)."\", \""
+		.cleanwritevalue($loginForm)."\",\""
+		.cleanwritevalue($passToStore)."\",\""
+		.$adminEmailForm."\",'1',\""
+		.cleanwritevalue($adminPhoneForm)."\" )
 				";	
 	}
 	else

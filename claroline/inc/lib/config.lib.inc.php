@@ -150,4 +150,28 @@ function replace_var_value_in_conf_file ($varName,$value,$file)
 }
 
 
+/// these functions are  use to manage free strings.
+// function cleanvalue($string) this function remove tags, ; , top and terminal blank
+// this function is called by two others
+
+// function cleanoutputvalue($string) protect html entities before an output (in html page)
+// function cleanwritevalue($string) protect befor write it in a file between " ";
+
+
+function cleanvalue($string)
+{ 
+	return trim(str_replace(';',':',strip_tags(stripslashes($string))));
+}
+
+function cleanoutputvalue($string)
+{ 
+	return trim(htmlspecialchars(cleanvalue($string)));
+}
+
+function cleanwritevalue($string)
+{ 
+	return trim(str_replace('"','\"',cleanvalue($string)));
+}
+
+
 ?>

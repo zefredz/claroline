@@ -185,7 +185,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
 		$administrativeDataMissing = TRUE;
 		if (empty($contactNameForm))
 		{
-			$check_administrative_data[] = 'name of contact';
+			$check_administrative_data[] = 'name of contact ';
 			$contactNameForm = $adminNameForm;
 		}
 		if (empty($contactEmailForm)||!is_well_formed_email_address($contactEmailForm))
@@ -356,25 +356,23 @@ if ($display==DISP_DB_NAMES_SETTING)
 	unset($__dbName);
 }
 
-
 if ($display==DISP_ADMINISTRATIVE_SETTING)
 {
-	if ($contactNameForm == '<not set>')
+	if ($contactNameForm == '*not set*')
 	{
 		$contactNameForm     = $adminSurnameForm.' '.$adminNameForm;
 	}
 	
-	if ($contactEmailForm == '<not set>')
+	if ($contactEmailForm == '*not set*')
 	{
 		$contactEmailForm     = $adminEmailForm;
 	}
 
-	if ($contactPhoneForm == '<not set>')
+	if ($contactPhoneForm == '*not set*')
 	{
 		$contactPhoneForm     = $adminPhoneForm;
 	}
 }
-
 
 
 
@@ -426,67 +424,45 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 	<tr bgcolor="#E6E6E6">
 		<td>
 <?php
-echo "
-			<input type=\"hidden\" name=\"alreadyVisited\" value=\"1\">
-			<input type=\"hidden\" name=\"urlAppendPath\" value=\"$urlAppendPath\">
-			<input type=\"hidden\" name=\"courseRepositoryForm\" value=\"$courseRepositoryForm\">
-			<input type=\"hidden\" name=\"pathForm\" value=\"".str_replace("\\","/",realpath($pathForm)."/")."\" >
-
-			<input type=\"hidden\" name=\"dbHostForm\" value=\"$dbHostForm\">
-			<input type=\"hidden\" name=\"dbUsernameForm\" value=\"$dbUsernameForm\">
-
-			<input type=\"hidden\" name=\"singleDbForm\" value=\"".$singleDbForm."\">
-
-			<input type=\"hidden\" name=\"dbPrefixForm\" value=\"$dbPrefixForm\">
-			<input type=\"hidden\" name=\"dbNameForm\" value=\"$dbNameForm\">
-            <input type=\"hidden\" name=\"dbStatsForm\" value=\"$dbStatsForm\">
-            <input type=\"hidden\" name=\"enableTrackingForm\" value=\"$enableTrackingForm\">
-			<input type=\"hidden\" name=\"allowSelfReg\" value=\"$allowSelfReg\">
-			<input type=\"hidden\" name=\"allowSelfRegProf\" value=\"$allowSelfRegProf\">
-
-
-			<input type=\"hidden\" name=\"dbMyAdmin\" value=\"$dbMyAdmin\">
-			<input type=\"hidden\" name=\"dbPassForm\" value=\"$dbPassForm\">
-
-			<input type=\"hidden\" name=\"urlForm\" value=\"$urlForm\">
-			<input type=\"hidden\" name=\"adminEmailForm\" value=\"$adminEmailForm\">
-			<input type=\"hidden\" name=\"adminPhoneForm\" value=\"$adminPhoneForm\">
-			<input type=\"hidden\" name=\"adminNameForm\" value=\"$adminNameForm\">
-			<input type=\"hidden\" name=\"adminSurnameForm\" value=\"$adminSurnameForm\">
-
-			<input type=\"hidden\" name=\"loginForm\" value=\"$loginForm\">
-			<input type=\"hidden\" name=\"passForm\" value=\"$passForm\">
-
-			<input type=\"hidden\" name=\"languageForm\" value=\"$languageForm\">
-
-			<input type=\"hidden\" name=\"campusForm\" value=\"$campusForm\">
-			<input type=\"hidden\" name=\"adminPhoneForm\" value=\"$adminPhoneForm\">
-			<input type=\"hidden\" name=\"contactNameForm\" value=\"$contactNameForm\">
-			<input type=\"hidden\" name=\"contactEmailForm\" value=\"$contactEmailForm\">
-			<input type=\"hidden\" name=\"contactPhoneForm\" value=\"$contactPhoneForm\">
-			<input type=\"hidden\" name=\"institutionForm\" value=\"$institutionForm\">
-			<input type=\"hidden\" name=\"institutionUrlForm\" value=\"$institutionUrlForm\">
-
-			<input type=\"hidden\" name=\"checkEmailByHashSent\" value=\"$checkEmailByHashSent\">
-			<input type=\"hidden\" name=\"ShowEmailnotcheckedToStudent\" value=\"$ShowEmailnotcheckedToStudent\">
-			<input type=\"hidden\" name=\"userMailCanBeEmpty\" value=\"$userMailCanBeEmpty\">
-			<input type=\"hidden\" name=\"userPasswordCrypted\" value=\"$userPasswordCrypted\">
-			<input type=\"hidden\" name=\"encryptPassForm\" value=\"$encryptPassForm\">
-			<input type=\"hidden\" name=\"confirmUseExistingMainDb\" value=\"$confirmUseExistingMainDb\">
-			<input type=\"hidden\" name=\"confirmUseExistingStatsDb\" value=\"$confirmUseExistingStatsDb\">
-		
-
-";
-
-
-
-
-
-
-
-
-
-
+echo '<input type="hidden" name="alreadyVisited" value="1">'                                                 ."\n"
+    .'<input type="hidden" name="urlAppendPath"                value="'.$urlAppendPath.'">'                  ."\n"
+    .'<input type="hidden" name="urlEndForm"                   value="'.$urlEndForm.'">'                     ."\n"
+    .'<input type="hidden" name="courseRepositoryForm"         value="'.$courseRepositoryForm.'">'           ."\n"
+    .'<input type="hidden" name="pathForm" value="'.str_replace("\\","/",realpath($pathForm)."/").'" >'      ."\n"
+    .'<input type="hidden" name="dbHostForm"                   value="'.$dbHostForm.'">'                     ."\n"
+    .'<input type="hidden" name="dbUsernameForm"               value="'.$dbUsernameForm.'">'                 ."\n\n"
+    .'<input type="hidden" name="singleDbForm"                 value="'.$singleDbForm.'">'                   ."\n\n"
+    .'<input type="hidden" name="dbPrefixForm"                 value="'.$dbPrefixForm.'">'                   ."\n"
+    .'<input type="hidden" name="dbNameForm"                   value="'.$dbNameForm.'">'                     ."\n"
+    .'<input type="hidden" name="dbStatsForm"                  value="'.$dbStatsForm.'">'                    ."\n"
+    .'<input type="hidden" name="dbMyAdmin"                    value="'.$dbMyAdmin.'">'                      ."\n"
+    .'<input type="hidden" name="dbPassForm"                   value="'.$dbPassForm.'">'                     ."\n\n"
+    .'<input type="hidden" name="urlForm"                      value="'.$urlForm.'">'                        ."\n"
+    .'<input type="hidden" name="adminEmailForm"               value="'.cleanoutputvalue($adminEmailForm).'">'   ."\n"
+    .'<input type="hidden" name="adminPhoneForm"               value="'.cleanoutputvalue($adminPhoneForm).'">'   ."\n"
+    .'<input type="hidden" name="adminNameForm"                value="'.cleanoutputvalue($adminNameForm).'">'    ."\n"
+    .'<input type="hidden" name="adminSurnameForm"             value="'.cleanoutputvalue($adminSurnameForm).'">' ."\n\n"
+    .'<input type="hidden" name="loginForm"                    value="'.cleanoutputvalue($loginForm).'">'        ."\n"
+    .'<input type="hidden" name="passForm"                     value="'.cleanoutputvalue($passForm).'">'         ."\n\n"
+    .'<input type="hidden" name="languageForm"                 value="'.$languageForm.'">'                   ."\n\n"
+    .'<input type="hidden" name="campusForm"                   value="'.cleanoutputvalue($campusForm).'">'       ."\n"
+    .'<input type="hidden" name="adminPhoneForm"               value="'.cleanoutputvalue($adminPhoneForm).'">'   ."\n"
+    .'<input type="hidden" name="contactNameForm"              value="'.cleanoutputvalue($contactNameForm).'">'  ."\n"
+    .'<input type="hidden" name="contactEmailForm"             value="'.cleanoutputvalue($contactEmailForm).'">' ."\n"
+    .'<input type="hidden" name="contactPhoneForm"             value="'.cleanoutputvalue($contactPhoneForm).'">' ."\n"
+    .'<input type="hidden" name="institutionForm"              value="'.cleanoutputvalue($institutionForm).'">'  ."\n"
+    .'<input type="hidden" name="institutionUrlForm"           value="'.$institutionUrlForm.'">'             ."\n\n"
+    .'<!-- BOOLEAN -->'                                                                                      ."\n"
+    .'<input type="hidden" name="enableTrackingForm"           value="'.$enableTrackingForm.'">'             ."\n"
+    .'<input type="hidden" name="allowSelfReg"                 value="'.$allowSelfReg.'">'                   ."\n"
+    .'<input type="hidden" name="allowSelfRegProf"             value="'.$allowSelfRegProf.'">'               ."\n"
+    .'<input type="hidden" name="checkEmailByHashSent"         value="'.$checkEmailByHashSent.'">'           ."\n"
+    .'<input type="hidden" name="ShowEmailnotcheckedToStudent" value="'.$ShowEmailnotcheckedToStudent.'">'   ."\n"
+    .'<input type="hidden" name="userMailCanBeEmpty"           value="'.$userMailCanBeEmpty.'">'             ."\n"
+    .'<input type="hidden" name="userPasswordCrypted"          value="'.$userPasswordCrypted.'">'            ."\n"
+    .'<input type="hidden" name="encryptPassForm"              value="'.$encryptPassForm.'">'                ."\n"
+    .'<input type="hidden" name="confirmUseExistingMainDb"     value="'.$confirmUseExistingMainDb.'">'       ."\n"
+    .'<input type="hidden" name="confirmUseExistingStatsDb"    value="'.$confirmUseExistingStatsDb.'">';
 
 
 
@@ -804,7 +780,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 							<label for="dbHostForm">'.$langDBHost.'</label>
 						</td>
 						<td>
-							<input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.$dbHostForm.'">
+							<input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.cleanoutputvalue($dbHostForm).'">
 						</td>
 						<td>
 							'.$langEG.' localhost
@@ -815,7 +791,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 							<label for="dbUsernameForm">'.$langDBLogin.'</label>
 						</td>
 						<td>
-							<input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.$dbUsernameForm.'">
+							<input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.cleanoutputvalue($dbUsernameForm).'">
 						</td>
 						<td>
 							'.$langEG.' root
@@ -826,7 +802,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 							<label for="dbPassForm">'.$langDBPassword.'</label>
 						</td>
 						<td>
-							<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.$dbPassForm.'">
+							<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.cleanoutputvalue($dbPassForm).'">
 						</td>
 						<td>
 							'.$langEG.' '.generePass(8).'
@@ -947,7 +923,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 							</label>
 						</td>
 						<td>
-							<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.$dbNameForm.'">
+							<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.cleanoutputvalue($dbNameForm).'">
 						</td>
 						<td>
 							&nbsp;
@@ -978,7 +954,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 							<label for="dbStatsForm">'.$langStatDB.'</label>
 						</td>
 						<td>
-							<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.$dbStatsForm.'">
+							<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.cleanoutputvalue($dbStatsForm).'">
 						</td>
 						<td>
 							&nbsp;
@@ -994,7 +970,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 							</label>
 						</td>
 						<td>
-							<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.$dbPrefixForm.'">
+							<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.cleanoutputvalue($dbPrefixForm).'">
 						</td>
 						<td>
 							e.g. \''.$dbPrefixForm.'\'
@@ -1066,7 +1042,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
 								<b><label for="loginForm">'.$langAdminLogin.'</label></b>
 							</td>
 							<td>
-								<input type="text" size="40" id="loginForm" name="loginForm" value="'.$loginForm.'">
+								<input type="text" size="40" id="loginForm" name="loginForm" value="'.cleanoutputvalue($loginForm).'">
 							</td>
 							<td>
 							</td>
@@ -1076,7 +1052,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
 								<b><label for="passForm">'.$langAdminPass.'</label></b>
 							</td>
 							<td>
-								<input type="text" size="40" id="passForm" name="passForm" value="'.$passForm.'">
+								<input type="text" size="40" id="passForm" name="passForm" value="'.cleanoutputvalue($passForm).'">
 							</td>
 							<td>
 								e.g. '.generePass(8).'
@@ -1086,7 +1062,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
 								<label for="adminEmailForm">'.$langAdminEmail.'</label>
 							</td>
 							<td>
-							<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.$adminEmailForm.'">
+							<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.cleanoutputvalue($adminEmailForm).'">
 							</td>
 							<td>
 							</td>
@@ -1095,7 +1071,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
 								<label for="adminPhoneForm">Phone</label>
 							</td>
 							<td>
-							<input type="text" size="40" id="adminPhoneForm" name="adminPhoneForm" value="'.$adminPhoneForm.'">
+							<input type="text" size="40" id="adminPhoneForm" name="adminPhoneForm" value="'.cleanoutputvalue($adminPhoneForm).'">
 							</td>
 							<td>
 							</td>
@@ -1105,7 +1081,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
 								<label for="adminNameForm">'.$langAdminName.'</label>
 							</td>
 							<td>
-								<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.$adminNameForm.'">
+								<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.cleanoutputvalue($adminNameForm).'">
 							</td>
 							<td>
 							</td>
@@ -1115,7 +1091,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
 								<label for="adminSurnameForm">'.$langAdminSurname.'</label>
 							</td>
 							<td>
-								<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.$adminSurnameForm.'">
+								<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.cleanoutputvalue($adminSurnameForm).'">
 							</td>
 							<td>
 							</td>
@@ -1170,7 +1146,7 @@ elseif($display==DISP_PLATFORM_SETTING)
 								<label for="campusForm">Name</label>
 							</td>
 							<td colspan="2">
-								<input type="text" size="40" id="campusForm" name="campusForm" value="'.$campusForm.'">
+								<input type="text" size="40" id="campusForm" name="campusForm" value="'.cleanoutputvalue($campusForm).'">
 							</td>
 						</tr>
 					<tr>
@@ -1178,7 +1154,7 @@ elseif($display==DISP_PLATFORM_SETTING)
 							<label for="urlForm">Complete URL</label>
 						</td>
 						<td colspan="2">
-							<input type="text" size="60" id="urlForm" name="urlForm" value="'.$urlForm.'">
+							<input type="text" size="60" id="urlForm" name="urlForm" value="'.cleanoutputvalue($urlForm).'">
 						</td>
 					</tr>
 					<tr>
@@ -1190,7 +1166,7 @@ elseif($display==DISP_PLATFORM_SETTING)
 						<td>
 						</td>
 						<td colspan="2">
-            				<input type="text"  size="60" id="courseRepositoryForm" name="courseRepositoryForm" value="'.$courseRepositoryForm.'">
+                            <input type="text"  size="60" id="courseRepositoryForm" name="courseRepositoryForm" value="'.cleanoutputvalue($courseRepositoryForm).'">
 						</td>
 					</tr>
 					<tr>
@@ -1295,7 +1271,6 @@ echo '
 ###### STEP CONFIG SETTINGS #######################################
 ###################################################################
 elseif($display==DISP_ADMINISTRATIVE_SETTING)
-
 {
 	echo '
 	             <input type="hidden" name="fromPanel" value="'.$display.'">
@@ -1320,22 +1295,21 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 								<label for="institutionForm">Name</label>
 							</td>
 							<td colspan="2">
-								<input type="text" size="40" id="institutionForm" name="institutionForm" value="'.$institutionForm.'">
-							</td>
+	    						<input type="text" size="40" id="institutionForm" name="institutionForm" value="'.cleanoutputvalue($institutionForm).'">
+								</td>
 						</tr>
 					<tr>
 						<td>
 							<label for="institutionUrlForm">URL</label>
 						</td>
 						<td colspan="2">
-							<input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="'.$institutionUrlForm.'">
+							<input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="'.cleanoutputvalue($institutionUrlForm).'">
 							<br>
 						</td>
 					</tr>
-				    <tr>
-				    	<td colspan="3"><br>
-					    </td>
-    				</tr>
+				<tr>
+						<td colspan="3"><br>
+					</tr>
 					<tr>
 						<td colspan="3">
 						<H5>Campus contact</H5>
@@ -1345,7 +1319,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 							<label for="contactNameForm">Name</label>
 						</td>
 						<td colspan="2">
-							<input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.$contactNameForm.'">
+							<input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.cleanoutputvalue($contactNameForm).'">
 						</td>
 					</tr>
 					<tr>
@@ -1353,15 +1327,19 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 							<label for="contactEmailForm">Email</label>
 						</td>
 						<td colspan="2">
-							<input type="text" size="40" id="contactEmailForm" name="contactEmailForm" value="'.$contactEmailForm.'">
+							<input type="text" size="40" id="contactEmailForm" name="contactEmailForm" value="'.cleanoutputvalue($contactEmailForm).'">
 						</td>
 					</tr>
+				    <tr>
+				    	<td colspan="3"><br>
+					    </td>
+    				</tr>
 					<tr>
 						<td>
-							<label for="contactPhoneForm">Phone</label>
+							<label for="contactNameForm">Name</label>
 						</td>
 						<td colspan="2">
-							<input type="text" size="40" id="contactPhoneForm" name="contactPhoneForm" value="'.$contactPhoneForm.'">
+							<input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.$contactNameForm.'">
 						</td>
 					</tr>
 					<tr>
@@ -1415,34 +1393,34 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 		<FIELDSET>
 		<LEGEND>Database</LEGEND>
 		<EM>Account</EM><br>
-		Database host : '.$dbHostForm.'<br>
-		Database username : '.$dbUsernameForm.'<br>
-		Database password : '.(empty($dbPassForm)?"--empty--":$dbPassForm).'<br>
+		Database host : '.cleanoutputvalue($dbHostForm).'<br>
+		Database username : '.cleanoutputvalue($dbUsernameForm).'<br>
+		Database password : '.cleanoutputvalue((empty($dbPassForm)?"--empty--":$dbPassForm)).'<br>
 		<em>Names</em>
 		';
 
 	if ($dbPrefixForm=="")
 		echo "";
 	else
-		echo 'DB Prefix : '.$dbPrefixForm.'<br>';
+		echo 'DB Prefix : '.cleanoutputvalue($dbPrefixForm).'<br>';
 	echo '
-		Main DB name : '.$dbNameForm.'<br>
-		Statistics and tracking DB name : '.$dbStatsForm.'<br>
+		Main DB name : '.cleanoutputvalue($dbNameForm).'<br>
+		Statistics and tracking DB Name : '.cleanoutputvalue($dbStatsForm).'<br>
 		Enable single DB : '.($singleDbForm?$langYes:$langNo).'<br>
 		</FIELDSET>
 
 		<FIELDSET>
 		<LEGEND>Admin</LEGEND>
-		Administrator email : '.$adminEmailForm.'<br>
-		Administrator phone : '.$adminPhoneForm.'<br>
-		Administrator name : '.$adminNameForm.'<br>
-		Administrator surname : '.$adminSurnameForm.'<br>
+		Administrator email : '.cleanoutputvalue($adminEmailForm).'<br>
+		Administrator phone : '.cleanoutputvalue($adminPhoneForm).'<br>
+		Administrator name : '.cleanoutputvalue($adminNameForm).'<br>
+		Administrator surname : '.cleanoutputvalue($adminSurnameForm).'<br>
 		<table border=0 class="notethis">
 			<tr>
 				<td>
 					<font size="2" color="red" face="arial, helvetica">
-					Administrator login : '.$loginForm.'<br>
-					Administrator password : '.(empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm).'<br>
+					Administrator login : '.cleanoutputvalue($loginForm).'<br>
+					Administrator password : '.cleanoutputvalue((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)).'<br>
 					</font>
 				</td>
 			<tr>
@@ -1451,14 +1429,14 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 		<FIELDSET>
 		<LEGEND>Contact</LEGEND>
 
-		Name : '.(empty($contactNameForm)?"--empty--":$contactNameForm).'<br>
-		Email : '.(empty($contactEmailForm)?$adminEmailForm:$contactEmailForm).'<br>
-		Phone : '.(empty($contactPhoneForm)?"--empty--":$contactPhoneForm).'
+		Name : '.cleanoutputvalue((empty($contactNameForm)?"--empty--":$contactNameForm)).'<br>
+		Email : '.cleanoutputvalue((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'<br>
+		Phone : '.cleanoutputvalue((empty($contactPhoneForm)?"--empty--":$contactPhoneForm)).'
 		</FIELDSET>
 		<FIELDSET>
 		<LEGEND>Campus</LEGEND>
-		Your campus name : '.$campusForm.'<br>
-		Your organisation : '.$institutionForm.'<br>
+		Your campus name : '.cleanoutputvalue($campusForm).'<br>
+		Your organisation : '.cleanoutputvalue($institutionForm).'<br>
 		URL of this organisation : '.$institutionUrlForm.'<br>
 		Language : '.$languageForm.'<br>
 		URL of claroline : '.$urlForm.'<br>

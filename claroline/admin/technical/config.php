@@ -102,10 +102,22 @@ else
 								"\$institution[\"name\"]","\$institution[\"url\"]","\$platformLanguage","\$rootWeb","\$urlAppend",
 								"\$dbLogin","\$dbPass","\$dbNamePrefix");
 
-				$newVal=array($siteName,$administrator["name"],$administrator["phone"],$administrator["email"],
-								$educationManager["name"],$educationManager["phone"],$educationManager["email"],
-								$institution["name"],$institution['url'],$platformLanguage,$rootWeb,$urlAppend,
-								$dbLogin,$dbPass,$dbNamePrefix);
+				$newVal = array ( cleanwritevalue($siteName)
+                                , cleanwritevalue($administrator["name"])
+                                , cleanwritevalue($administrator["phone"])
+                                , cleanwritevalue($administrator["email"])
+                                , cleanwritevalue($educationManager["name"])
+                                , cleanwritevalue($educationManager["phone"])
+                                , cleanwritevalue($educationManager["email"])
+                                , cleanwritevalue($institution["name"])
+                                , $institution['url']
+                                , $platformLanguage
+                                , $rootWeb
+                                , $urlAppend
+                                , $dbLogin
+                                , $dbPass
+                                , $dbNamePrefix
+                                );
 
 				//Take all variables in the file claro_main.conf.php
 				while(!feof($fp))
@@ -255,7 +267,7 @@ claro_disp_msg_arr($controlMsg);
 				<label for="siteName"><?php echo $lang_config_siteName ?></label> 
 			</td>
 			<td> 
-				<input type="text" name="siteName" id="siteName" size="30" value="<?php echo $siteName ?>"  >
+				<input type="text" name="siteName" id="siteName" size="30" value="<?php echo cleanoutputvalue($siteName) ?>"  >
 			</td>
 		</tr>
 		<tr>
@@ -266,7 +278,7 @@ claro_disp_msg_arr($controlMsg);
 				<label for="nameAdministrator"><?php echo  $lang_config_name ?></label>
 			</td>
 			<td> 
-				<input type="text" name="nameAdministrator" id="nameAdministrator" size="30" value="<?php echo $administrator["name"]?>"  >
+				<input type="text" name="nameAdministrator" id="nameAdministrator" size="30" value="<?php echo cleanoutputvalue($administrator["name"])?>"  >
 			</td>
 		</tr>
 		<tr>
@@ -274,7 +286,7 @@ claro_disp_msg_arr($controlMsg);
 				<label for="phoneAdministrator"><?php echo $lang_config_phone ?></label>
 			</td>
 			<td> 
-				<input type="text" name="phoneAdministrator" id="phoneAdministrator" size="30" value="<?php echo $administrator["phone"] ?>"  >
+				<input type="text" name="phoneAdministrator" id="phoneAdministrator" size="30" value="<?php echo cleanoutputvalue($administrator["phone"]) ?>"  >
 			</td>
 		</tr>
 		<tr>
@@ -282,7 +294,7 @@ claro_disp_msg_arr($controlMsg);
 				<label for="emailAdministrator"><?php echo $lang_config_email ?></label>
 			</td>
 			<td> 
-				<input type="text" name="emailAdministrator" id="emailAdministrator" size="30" value="<?php echo $administrator["email"] ?>"  >
+				<input type="text" name="emailAdministrator" id="emailAdministrator" size="30" value="<?php echo cleanoutputvalue($administrator["email"]) ?>"  >
 			</td>
 		</tr>
 		<tr>
@@ -292,7 +304,7 @@ claro_disp_msg_arr($controlMsg);
 			<td align="right"> 
 				<label for="nameEducationManager"><?php echo $lang_config_name ?></label>
 			</td>
-			<td> <input type="text" name="nameEducationManager" id="nameEducationManager" size="30" value="<?php echo $educationManager["name"] ?>"  >
+			<td> <input type="text" name="nameEducationManager" id="nameEducationManager" size="30" value="<?php echo cleanoutputvalue($educationManager["name"]) ?>"  >
 			</td>
 		</tr>
 		<tr>
@@ -300,7 +312,7 @@ claro_disp_msg_arr($controlMsg);
 				<label for="phoneEducationManager"><?php echo $lang_config_phone ?></label>
 			</td>
 			<td> 
-				<input type="text" id="phoneEducationManager"  name="phoneEducationManager" size="30" value="<?php echo $educationManager["phone"] ?>"  >
+				<input type="text" id="phoneEducationManager"  name="phoneEducationManager" size="30" value="<?php echo cleanoutputvalue($educationManager["phone"]) ?>"  >
 			</td>
 		</tr>
 		<tr>
@@ -308,7 +320,7 @@ claro_disp_msg_arr($controlMsg);
 				<label for="emailEducationManager"><?php echo $lang_config_email ?></label>
 			</td>
 			<td> 
-				<input type="text" name="emailEducationManager"  id="emailEducationManager" size="30" value="<?php echo $educationManager["email"] ?>"  >
+				<input type="text" name="emailEducationManager"  id="emailEducationManager" size="30" value="<?php echo cleanoutputvalue($educationManager["email"]) ?>"  >
 			</td>
 		</tr>
 		<tr>
@@ -319,7 +331,7 @@ claro_disp_msg_arr($controlMsg);
 				<label for="nameInstitution"><?php echo  $lang_config_name ?></label>
 			</td>
 			<td> 
-				<input type="text" name="nameInstitution" id="nameInstitution" size="30" value="<?php echo $institution["name"] ?>"  >
+				<input type="text" name="nameInstitution" id="nameInstitution" size="30" value="<?php echo cleanoutputvalue($institution["name"]) ?>"  >
 			</td>
 		</tr>
 		<tr>

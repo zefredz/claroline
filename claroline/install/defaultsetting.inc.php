@@ -49,21 +49,21 @@
 	$passForm  		    = '';
 
 	$campusForm		     = 'My campus';
-	$contactNameForm     = '<not set>'; // This magic value is use to detect if the content is edit or not.
-	$contactPhoneForm    = '<not set>'; // if <not set> is found, the data form admin are copied
-	$contactEmailForm    = '<not set>'; // This tips  permit to  empty these fields
+	$contactNameForm     = '*not set*'; // This magic value is use to detect if the content is edit or not.
+	$contactPhoneForm    = '*not set*'; // if <not set> is found, the data form admin are copied
+	$contactEmailForm    = '*not set*'; // This tips  permit to  empty these fields
 	$institutionForm     = '';
 	$institutionUrlForm  = '';
 
 	$languageForm = 'english';
 
-	$checkEmailByHashSent 			= false;
-	$ShowEmailnotcheckedToStudent 	= true;
-	$userMailCanBeEmpty 			= true;
-	$userPasswordCrypted 			= false;
+	$checkEmailByHashSent 			= FALSE;
+	$ShowEmailnotcheckedToStudent 	= TRUE;
+	$userMailCanBeEmpty 			= TRUE;
+	$userPasswordCrypted 			= FALSE;
 
-	$allowSelfReg = true;
-	$allowSelfRegProf = true;
+	$allowSelfReg = TRUE;
+	$allowSelfRegProf = TRUE;
 
 
 ?>

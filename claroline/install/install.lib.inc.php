@@ -119,4 +119,5 @@ function check_claro_table_in_db_exist($dbType,$db=null)
 	return false;
 }
 
+
 ?>

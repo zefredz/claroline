@@ -1,4 +1,4 @@
-<?php // $Id$
+<?php # $Id$
 
 //----------------------------------------------------------------------
 // CLAROLINE 1.6.*
@@ -40,7 +40,6 @@ $mysqlRepositorySys = $mysqlRepositorySys ["Value"];
 // DB with central info  of  Claroline //
 
 mysql_query("CREATE DATABASE `".$mainDbName."`");
-
 if (mysql_errno() >0)
 {
 	if (mysql_errno() == 1007)
@@ -273,12 +272,12 @@ $garbageRepositorySys		= "'.$garbageRepositorySys.'";
 $CourseProgram="http://www.ucl.ac.be/etudes/cours";
 
 // Strings
-$siteName				=	"'.$campusForm.'";
-$administrator["name"]	=	"'.$contactNameForm.'";
-$administrator["phone"]	=	"'.$contactPhoneForm.'";
-$administrator["email"]	=	"'.(empty($contactEmailForm)?$adminEmailForm:$contactEmailForm).'";
+$siteName				=	"'.cleanwritevalue($campusForm).'";
+$administrator["name"]	=	"'.cleanwritevalue($contactNameForm).'";
+$administrator["phone"]	=	"'.cleanwritevalue($contactPhoneForm).'";
+$administrator["email"]	=	"'.cleanwritevalue((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'";
 
-$institution["name"]		=	"'.$institutionForm.'";
+$institution["name"]		=	"'.cleanwritevalue($institutionForm).'";
 $institution["url"]			=	"'.$institutionUrlForm.'";
 
 // param for new and future features
@@ -392,7 +391,7 @@ foreach ($arr_file_to_undist As $undist_this)
 	}
 	else
 	{
-		$stringPasswd="$loginForm:$passFormToStore";
+		$stringPasswd=cleanwritevalue($loginForm.':'.$passFormToStore);
 		@fwrite($filePasswd, $stringPasswd);
 	}
 
