@@ -13,18 +13,20 @@
  */
 
 $conf_def['config_code']='CLCAL';
-$conf_def['config_name']='General setting for calendar';
+$conf_def['config_name']='Agenda tool';
 $conf_def['config_file']='CLCAL___.conf.php';
 $conf_def['old_config_file'][]='agenda.conf.inc.php';
 // $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 
 
-$conf_def['section']['list']['label']='Calendar listing';
-$conf_def['section']['list']['properties'] = 
+$conf_def['section']['main']['label']='Main settings';
+$conf_def['section']['main']['description']='Settings of the tool';
+$conf_def['section']['main']['properties'] = 
 array ( 'defaultOrder'
       );
 
-$conf_def['section']['log']['label']='Track activity';
+$conf_def['section']['log']['label']='Tracking';
+$conf_def['section']['log']['description']='Log activity in the tracking tool';
 $conf_def['section']['log']['properties'] = 
 array ( 'CONFVAL_LOG_CALENDAR_INSERT'
       , 'CONFVAL_LOG_CALENDAR_DELETE'
@@ -39,8 +41,8 @@ array ('label'       => 'Default order'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       ,'container'   => 'CONST'
-      ,'acceptedValue' => array ('asc'=>'Ascendant'
-                              ,'desc'=>'Descendant'
+      ,'acceptedValue' => array ('asc'=>'Ascending'
+                                ,'desc'=>'Descending'
                               )
       );
 
@@ -55,6 +57,7 @@ array ('label'       => 'Log add'
                               ,'FALSE'=>'Disabled'
                               )
       );
+
 $conf_def_property_list['CONFVAL_LOG_CALENDAR_DELETE'] = 
 array ('label'       => 'Log deletion'
       ,'default'     => 'TRUE'

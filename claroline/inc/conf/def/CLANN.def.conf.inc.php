@@ -16,14 +16,14 @@
 
 $conf_def['config_code']='CLANN';
 $conf_def['config_file']='CLANN___.conf.php';
-$conf_def['config_name']='General setting for announcements';
-$conf_def['description'] = 'Use by Announcement tool. This is a course tool';
+$conf_def['config_name']='Announcements tool';
 $conf_def['old_config_file']= array ('CLANN.conf.php'
                                     ,'announcement.conf.inc.php'
                                     );
 // CONFIG SECTIONS
  
-$conf_def['section']['log']['label']='Track activity';
+$conf_def['section']['log']['label']='Tracking';
+$conf_def['section']['log']['description']='Log activity in the tracking tool';
 $conf_def['section']['log']['properties'] = 
 array ( 'CONFVAL_LOG_ANNOUNCEMENT_INSERT'
       , 'CONFVAL_LOG_ANNOUNCEMENT_DELETE'
@@ -35,7 +35,7 @@ $conf_def_property_list['CONFVAL_LOG_ANNOUNCEMENT_INSERT'] =
 array( 'label'      => 'Log add'
      , 'default'    => 'TRUE'
      , 'type'       => 'boolean'
-     , 'acceptedValue'=> array ('TRUE'=>'enabled'
+     , 'acceptedValue'=> array ('TRUE'=>'Enabled'
                              ,'FALSE'=>'Disabled'
                              )
      , 'display'    => TRUE
@@ -48,7 +48,7 @@ array( 'default'     => 'TRUE'
      , 'label'       => 'Log delete'
      , 'description' => 'Record in tracking when an announcement is deleted'
      , 'type'        => 'boolean'
-     , 'acceptedValue'=> array ('TRUE'=>'enabled'
+     , 'acceptedValue'=> array ('TRUE'=>'Enabled'
                              ,'FALSE'=>'Disabled'
                              )
      , 'display'  => TRUE
@@ -59,7 +59,7 @@ array( 'default'     => 'TRUE'
 $conf_def_property_list['CONFVAL_LOG_ANNOUNCEMENT_UPDATE'] =
 array( 'default'  => 'FALSE'
      , 'type'     => 'boolean'
-     , 'acceptedValue'=> array ('TRUE'=>'enabled'
+     , 'acceptedValue'=> array ('TRUE'=>'Enabled'
                              ,'FALSE'=>'Disabled'
                              )
      , 'display'  => TRUE

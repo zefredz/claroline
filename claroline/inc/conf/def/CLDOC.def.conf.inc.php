@@ -16,12 +16,11 @@
 
 $conf_def['config_code'] = 'CLDOC';
 $conf_def['config_file'] = 'CLDOC___.conf.php';
-$conf_def['config_name'] = 'General setting for document tool';
-// $conf_def['config_repository']=''; Disabled = includePath.'/conf'
-$conf_def['description'] = 'Document tool. This is a course tool';
+$conf_def['config_name'] = 'Documents and Links tool';
 
 // CONFIG SECTIONS
-$conf_def['section']['quota']['label']='quota';
+$conf_def['section']['quota']['label']='Quota';
+$conf_def['section']['quota']['description']='Disk space allowed for documents';
 $conf_def['section']['quota']['properties'] = 
 array ( 'maxFilledSpace_for_course'
       , 'maxFilledSpace_for_groups'
@@ -29,7 +28,8 @@ array ( 'maxFilledSpace_for_course'
       
 // CONFIG PROPERTIES
 $conf_def_property_list['maxFilledSpace_for_course']
-= array ('label'     => 'Disk space allowed to each courses for documents'
+= array ('label'     => 'Quota for courses'
+	,'description' => 'Disk space allowed to each course'
         ,'default'   => '100000000'
         ,'unit'      => 'bytes'
         ,'type'      => 'integer'
@@ -38,10 +38,12 @@ $conf_def_property_list['maxFilledSpace_for_course']
         );
 
 $conf_def_property_list['maxFilledSpace_for_groups']
-= array ('label'     => 'Disk space allowed to each group'
+= array ('label'     => 'Quota for groups'
+	,'description' => 'Disk space allowed to each group'
         ,'default'   => '1000000'
         ,'unit'      => 'bytes'
         ,'type'      => 'integer'
         ,'container' => 'VAR'
+        ,'acceptedValue' => array('min' => '1024')
         );
 ?>

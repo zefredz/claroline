@@ -2,23 +2,23 @@
 // TOOL
 $conf_def['config_code']='CLUSR';
 $conf_def['config_file']='CLUSR___.conf.php';
-$conf_def['config_name']='General setting for users listing (include User info tool)';
-// $conf_def['config_repository']=''; Disabled = includePath.'/conf'
+$conf_def['config_name']='Users tool';
 $conf_def['old_config_file'][]='user.conf.inc.php';
 
 //SECTION
-$conf_def['section']['list']['label']='Listing properties';
-$conf_def['section']['list']['description']='Common properties for listing of users';
-$conf_def['section']['list']['properties'] = 
+$conf_def['section']['main']['label']='Main settings';
+$conf_def['section']['main']['description']='Settings of the tool';
+$conf_def['section']['main']['properties'] = 
 array ( 'linkToUserInfo'
-      , 'nbUsersPerPage'
       , 'CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER'
+      , 'nbUsersPerPage'
       );
 
 //PROPERTIES
 
 $conf_def_property_list['linkToUserInfo'] =
-array ('label'         => 'Show the link to user info'
+array ('label'         => 'Show user profile'
+      ,'description'   => 'Allow user to see detail informations of other users'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -29,13 +29,13 @@ array ('label'         => 'Show the link to user info'
 $conf_def_property_list['nbUsersPerPage'] = 
 array ( 'label'   => 'Number of user per page'
       , 'default' => '25'
-      , 'unit'    => 'users per lines'
+      , 'unit'    => 'users'
       ,  'type'    => 'integer'
       ,'acceptedValue' => array ('Min'=>'5')
       );
 
 $conf_def_property_list['CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER'] =
-array('label'         => 'Teacher can add himself user in his course'
+array('label'         => 'Teacher can add user in his course'
      ,'default'       => 'TRUE'
      ,'type'          => 'boolean'
      ,'display'       => TRUE
@@ -45,6 +45,8 @@ array('label'         => 'Teacher can add himself user in his course'
                               ,'FALSE'=>'No'
                               )
      );
+
+/*
 
 $conf_def['section']['fakeuser']['label']='Add fake user properties';
 $conf_def['section']['fakeuser']['description']='this  tool allow to  fix some option for the dev tools user account generator';
@@ -142,4 +144,7 @@ array ( 'label'         => 'Show list of new users'
                                  ,'FALSE'=>'No'
                                  )
       );
+
+*/
+
 ?>

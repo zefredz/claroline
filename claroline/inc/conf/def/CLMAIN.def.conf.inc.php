@@ -16,9 +16,40 @@
 
 $conf_def['config_code']='CLMAIN';
 $conf_def['config_file']='claroline.conf.php';
-$conf_def['config_name']='General setting for claroline';
+$conf_def['config_name']='Main settings';
     
 // SECTION 
+
+$conf_def['section']['PLATFORM_SETTING']['label']='Platform';
+$conf_def['section']['PLATFORM_SETTING']['description']='Global settings';
+$conf_def['section']['PLATFORM_SETTING']['properties'] = 
+array ( 'siteName'
+      , 'platformLanguage'
+      , 'claro_stylesheet'
+      );
+
+$conf_def['section']['ADMINISTRATOR_SETTING']['label']='Administrator';
+$conf_def['section']['ADMINISTRATOR_SETTING']['description']='Information about the technical administrator';
+$conf_def['section']['ADMINISTRATOR_SETTING']['properties'] = 
+array ( 'administratorName'
+      , 'administratorEmail'
+      , 'administratorPhone'
+      );
+      
+$conf_def['section']['ADMINISTRATIVE_SETTING']['label']='Institution';
+$conf_def['section']['ADMINISTRATIVE_SETTING']['description']='Information about your institution (optional)';
+$conf_def['section']['ADMINISTRATIVE_SETTING']['properties'] = 
+array ( 'institutionName'
+      , 'institutionUrl'
+      );
+
+$conf_def['section']['DISP_FILE_SYSTEM_SETTING']['label']='File system settings';
+$conf_def['section']['DISP_FILE_SYSTEM_SETTING']['properties'] = 
+array ('rootWeb'
+      , 'urlAppend'
+      , 'rootSys'
+      , 'garbageRepositorySys'
+      );
 
 $conf_def['section']['DB_CONNECT_SETTING']['label']= 'MySQL database settings';
 $conf_def['section']['DB_CONNECT_SETTING']['properties'] = 
@@ -39,34 +70,6 @@ array ( 'dbNamePrefix'
       , 'dbGlu'
       , 'courseTablePrefix'
       );
-$conf_def['section']['ADMINISTRATOR_SETTING']['label']='Administrator Setting';
-$conf_def['section']['ADMINISTRATOR_SETTING']['properties'] = 
-array ( 'administratorName'
-      , 'administratorEmail'
-      , 'administratorPhone'
-      );
-      
-$conf_def['section']['PLATFORM_SETTING']['label']='Platform settings';
-$conf_def['section']['PLATFORM_SETTING']['properties'] = 
-array ( 'siteName'
-      , 'platformLanguage'
-      );
-
-      
-$conf_def['section']['ADMINISTRATIVE_SETTING']['label']='Additional Informations';
-$conf_def['section']['ADMINISTRATIVE_SETTING']['description']='(optional)';
-$conf_def['section']['ADMINISTRATIVE_SETTING']['properties'] = 
-array ( 'institutionName'
-      , 'institutionUrl'
-      , 'claro_stylesheet'
-      );
-$conf_def['section']['DISP_FILE_SYSTEM_SETTING']['label']='File system settings';
-$conf_def['section']['DISP_FILE_SYSTEM_SETTING']['properties'] = 
-array ('rootWeb'
-      , 'urlAppend'
-      , 'rootSys'
-      , 'garbageRepositorySys'
-      );
 
 $conf_def['section']['advanced']['label']='Advanced settings';
 $conf_def['section']['advanced']['properties'] = 
@@ -75,7 +78,7 @@ array ( 'claro_texRendererUrl'
       );
 
 $conf_def_property_list['dbHost'] = 
-array ('label'       => 'Database hostname'
+array ('label'       => 'Hostname'
       ,'default'     => 'localhost'
       ,'type'        => 'string'
       ,'display'     => TRUE
@@ -85,7 +88,7 @@ array ('label'       => 'Database hostname'
 
 
 $conf_def_property_list['dbLogin'] = 
-array ('label'       => 'Database username'
+array ('label'       => 'Username'
       ,'default'     => 'claroline'
       ,'type'        => 'string'
       ,'display'     => TRUE
@@ -96,7 +99,7 @@ array ('label'       => 'Database username'
 
 
 $conf_def_property_list['dbPass'] = 
-array ('label'       => 'Database password'
+array ('label'       => 'Password'
       ,'default'     => ''
       ,'type'        => 'string'
       ,'display'     => TRUE
@@ -104,7 +107,7 @@ array ('label'       => 'Database password'
       ,'technicalInfo' => 'The clear password'
       );
 
-      $conf_def_property_list['dbNamePrefix'] = 
+$conf_def_property_list['dbNamePrefix'] = 
 array ('label'       => 'Prefix for name of courses Database '
       ,'default'     => 'c_'
       ,'type'        => 'string'
@@ -114,7 +117,7 @@ array ('label'       => 'Prefix for name of courses Database '
       ,'technicalInfo' => 'Prefix all created base (for courses) with this string'
       );
 
-      $conf_def_property_list['mainDbName'] = 
+$conf_def_property_list['mainDbName'] = 
 array ('label'       => 'Main database name'
       ,'default'     => ''
       ,'type'        => 'string'
@@ -124,7 +127,7 @@ array ('label'       => 'Main database name'
       );
 
 
-      $conf_def_property_list['statsDbName'] = 
+$conf_def_property_list['statsDbName'] = 
 array ('label'       => 'Database name where stored the tracking and stat tables'
       ,'description' => 'can be same than Main'
       ,'type'        => 'string'
@@ -132,8 +135,7 @@ array ('label'       => 'Database name where stored the tracking and stat tables
       ,'readonly'    => FALSE
       );
 
-
-      $conf_def_property_list['is_trackingEnabled'] = 
+$conf_def_property_list['is_trackingEnabled'] = 
 array ('label'       => 'Tracking'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
@@ -142,7 +144,7 @@ array ('label'       => 'Tracking'
       ,'acceptedValue' => array ('TRUE'=>'enabled', 'FALSE' => 'disabled')
       );
       
-      $conf_def_property_list['singleDbEnabled'] = 
+$conf_def_property_list['singleDbEnabled'] = 
 array ('label'       => 'Database mode'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
@@ -151,7 +153,7 @@ array ('label'       => 'Database mode'
       ,'acceptedValue' => array ('TRUE'=>'single', 'FALSE' => 'Multiple')
       );
       
-      $conf_def_property_list['dbGlu'] = 
+$conf_def_property_list['dbGlu'] = 
 array ('label'       => 'db glu'
       ,'description' => 'To find a table name, the choose database name is prepend to the table name.'."\n"
                        .'db glu is use between these two name.'."\n"."\n"
@@ -163,7 +165,7 @@ array ('label'       => 'db glu'
       ,'readonly'    => TRUE
       );
       
-      $conf_def_property_list['courseTablePrefix'] = 
+$conf_def_property_list['courseTablePrefix'] = 
 array ('label'       => 'Course name table prefix'
       ,'Description' => 'This  prefix is add to table names. It\'s usfull in single database to group courses tables.'
       ,'default'     => ''
@@ -172,7 +174,7 @@ array ('label'       => 'Course name table prefix'
       ,'readonly'    => FALSE
       );
 
-      $conf_def_property_list['mysqlRepositorySys'] = 
+$conf_def_property_list['mysqlRepositorySys'] = 
 array ('label'       => 'Mysql Base Path'
       ,'description' => 'This is the physical path to databases storage. This path is  optional, use by the quota and size'
       ,'default'     => ''
@@ -211,7 +213,7 @@ array ('label'       => 'Sytem Path to web base value'
       ,'technicalInfo' => 'The hostname of mysql server'
       );
 
-      $conf_def_property_list['garbageRepositorySys'] = 
+$conf_def_property_list['garbageRepositorySys'] = 
 array ('label'       => 'Garbage'
       ,'description' => 'absolute sys path to the place where are move data of a deleted course'
       ,'default'     => ''
@@ -220,8 +222,10 @@ array ('label'       => 'Garbage'
       ,'readonly'    => FALSE
       );
 
+// Platform
+
 $conf_def_property_list['siteName'] = 
-array ('label'       => 'Platform name'
+array ('label'       => 'Campus name'
       ,'description' => 'Name of your campus'
       ,'default'     => 'MyCampus'
       ,'type'        => 'string'
@@ -230,13 +234,64 @@ array ('label'       => 'Platform name'
       );
       
 $conf_def_property_list['platformLanguage'] = 
-array ('label'         => 'Platform language'
-      ,'description'   => 'Selected language used in output'
+array ('label'         => 'Language'
+      ,'description'   => 'Select the default language of the platform'
       ,'default'       => 'english'
       ,'type'          => 'lang'
       ,'display'       => TRUE
       ,'readonly'      => FALSE
       );
+
+$conf_def_property_list['claro_stylesheet'] = 
+array ('label'       => 'Layout'
+      ,'default'     => 'default.css'
+      ,'type'        => 'css'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+
+// Administrator
+
+$conf_def_property_list['administratorName'] = 
+array ('label'       => 'Name'
+      ,'description' => 'Complete name'
+      ,'default'     => 'John Doe'
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+
+$conf_def_property_list['administratorEmail'] = 
+array ('label'       => 'Email'
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+$conf_def_property_list['administratorPhone'] = 
+array ('label'       => 'Phone'
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+
+// Institution
+      
+$conf_def_property_list['institutionName'] = 
+array ('label'       => 'Name'
+      ,'default'     => 'My institute'
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+$conf_def_property_list['institutionUrl'] = 
+array ('label'       => 'URL'
+      ,'default'     => 'http://www.google.com/'
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+
+// Latex
 
 $conf_def_property_list['claro_texRendererUrl'] = 
 array ('label'       => 'the complete url of your TEX renderer'
@@ -267,56 +322,6 @@ array ('label'       => 'the complete url of your TEX renderer'
       );
 
       
-$conf_def_property_list['administratorName'] = 
-array ('label'       => 'Complete name of technical administrator'
-      ,'default'     => 'John Doe'
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-$conf_def_property_list['administratorEmail'] = 
-array ('label'       => 'Email of technical administrator'
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-$conf_def_property_list['administratorPhone'] = 
-array ('label'       => 'Phone of technical administrator'
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-      
-$conf_def_property_list['institutionName'] = 
-array ('label'       => 'Name of the institution'
-      ,'default'     => 'My institute'
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-$conf_def_property_list['institutionUrl'] = 
-array ('label'       => 'URL of the institution'
-      ,'default'     => 'http://www.google.com/'
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-      
-$conf_def_property_list['institutionUrl'] = 
-array ('label'       => 'URL of the institution'
-      ,'default'     => 'http://www.google.com/'
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-
-$conf_def_property_list['claro_stylesheet'] = 
-array ('label'       => 'Layout'
-      ,'default'     => 'default.css'
-      ,'type'        => 'css'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
       
 $conf_def_property_list['checkEmailByHashSent'] = 
 array ('label'       => 'If email is fill (or change), send an email to check it'
