@@ -54,29 +54,8 @@ if($is_courseAdmin)
 		$posterdata       = get_userdata_from_id($poster_id, $db);
 		$date             = date('Y-m-d H:i');
 
-		$is_html_disabled = false;
+		if($allow_html == 0 || isset($html)) $message = htmlspecialchars($message);
 
-		if($allow_html == 0 || isset($html) )
-		{
-			$message = htmlspecialchars($message);
-			$is_html_disabled = true;
-		}
-
-		if($allow_bbcode == 1 && !isset($bbcode)) 
-		{
-			$message = bbencode($message, $is_html_disabled);
-		}
-		
-		if(!$smile)
-		{
-			$message = smile($message);
-		}
-
-		// MUST do make_clickable() (and smile()) before changing \n into <br>.
-		$message = make_clickable($message);
-
-		$message = str_replace("\n", "<BR>", $message);
-		$message = censor_string($message, $db);
 		$message = addslashes($message);
 
 		if( ! $delete)
@@ -98,10 +77,6 @@ if($is_courseAdmin)
 			/*--------------------------------------
 			              POST DELETE
 	  		 --------------------------------------*/
-
-			$now_hour         = date('H');
-			$now_min          = date('i');
-			list($hour, $min) = split(':', $time);
 
             delete_post($post_id, $topic_id, $forum, $$posterdata['user_id']);
 
@@ -141,19 +116,7 @@ if($is_courseAdmin)
         if (count($myrow) == 1) $myrow = $myrow[0];
         else error_die ('unexisting forum');
 
-		$message = $myrow['post_text'];
-
-		if(eregi("\[addsig]$", $message)) $addsig = 1;
-		else                              $addsig = 0;
-
-		$message = eregi_replace("\[addsig]$", "\n_________________\n" . $myrow[user_sig], $message);   
-		$message = str_replace('<BR>', "\n", $message);
-		$message = stripslashes($message);
-		$message = desmile($message);
-		$message = bbdecode($message);
-		$message = undo_make_clickable($message);
-		$message = undo_htmlspecialchars($message);
-
+		$message = stripslashes($myrow['post_text']);
 		// Special handling for </textarea> tags in the message, which can break the editing form..
 		$message = preg_replace('#</textarea>#si', '&lt;/TEXTAREA&gt;', $message);
 

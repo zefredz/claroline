@@ -74,23 +74,6 @@ if (   ! is_null($forumSettingList['idGroup'])
 
 if($submit)
 {
-
-    /*------------------------------------------------------------------------
-                                PREPARE THE DATA
-      ------------------------------------------------------------------------*/
-    
-    $subject = strip_tags($subject);
-    
-    if(trim( strip_tags($message)) == '' || trim($subject) == '')
-    {
-        error_die($l_emptymsg);
-    }
-    
-    // set as anonymous phpBB user. we try to do it better soon
-    // Claroline team
-        
-    $userdata = array('user_id' => -1);
-    
     // Commented by the Claroline team
     //
     // Either valid user/pass, or valid session. continue with post.. but first:
@@ -98,37 +81,44 @@ if($submit)
     //
     // if ($forum_type == 1)
     // {
-    //		if (!check_priv_forum_auth($userdata[user_id], $forum, TRUE, $db))
-    // 		{
-    //			error_die("$l_privateforum $l_nopost");
+    //      if (!check_priv_forum_auth($userdata[user_id], $forum, TRUE, $db))
+    //      {
+    //          error_die("$l_privateforum $l_nopost");
 
-    $is_html_disabled = false;
+    /*------------------------------------------------------------------------
+                                PREPARE THE DATA
+      ------------------------------------------------------------------------*/
 
-    if($allow_html == 0 || isset($html))
-    {
-        $message          = htmlspecialchars($message);
-        $is_html_disabled = true;
-    }
-
-    // MUST do make_clickable() and smile() before changing \n into <br>.
     
-    $message = make_clickable($message);
+    /*
+     * SUBJECT
+     */
     
-    if( ! $smile) $message = smile($message);
+    $subject = strip_tags($subject);
+    $subject = trim($subject);
+    $subject = addslashes($subject);
 
-    $message   = str_replace("\n", "<BR>", $message);
-    $subject   = strip_tags($subject);
+    /*
+     * MESSAGE
+     */
 
-    $message   = addslashes($message);
-    $subject   = addslashes($subject);
+    if($allow_html == 0 || isset($html)) $message = htmlspecialchars($message);
+    $message = trim($message);
+    $message = addslashes($message);
 
-    $poster_ip = $REMOTE_ADDR;
+    /*
+     * USER (ADDED FOR CLAROLINE)
+     */
+    
+    $userdata      = array('user_id' => -1); // set as anonymous phpBB user. 
+    $userLastName  = addslashes($userLastName);
+    $userFirstName = addslashes($userFirstName);
+    $poster_ip     = $REMOTE_ADDR;
+
     $time      = date('Y-m-d H:i');
-
-    // ADDED FOR CLAROLINE
-    $userLastName    = addslashes($userLastName);
-    $userFirstName   = addslashes($userFirstName);
-    // END ADDED FOR CLAROLINE
+    
+    // prevent to go further if the fields are actually empty
+    if( strip_tags($message) == '' || $subject == '' ) error_die($l_emptymsg);
 
     /*------------------------------------------------------------------------
                             RECORD THE DATA
