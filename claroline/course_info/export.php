@@ -33,7 +33,7 @@
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();
 $nameTools = $langBackup;
-include($includePath."/conf/export.conf.php");
+include($includePath."/conf/course_export.conf.php");
 include($includePath."/lib/export.lib.inc.php");
 @include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");

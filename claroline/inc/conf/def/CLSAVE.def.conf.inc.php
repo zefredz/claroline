@@ -13,7 +13,7 @@
 
 // TOOL
 $conf_def['config_code']='CLSAVE';
-$conf_def['config_file']='export.conf.inc.php';
+$conf_def['config_file']='course_export.conf.php';
 $conf_def['config_name']='General setting for exporting data';
 // $conf_def['config_repository']=''; Disabled = includePath.'/conf'
 $conf_def['description'] = 'Export tool. This is a course tool';
