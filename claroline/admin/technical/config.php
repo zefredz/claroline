@@ -21,6 +21,7 @@ $noQUERY_STRING 	= TRUE;
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");
 include("../../inc/lib/course.lib.inc.php");
+include($includePath."/lib/config.lib.inc.php");
 
 $dateNow 			= claro_format_locale_date($dateTimeFormatLong);
 $is_allowedToAdmin 	= $is_platformAdmin;
@@ -120,7 +121,7 @@ else
 
 						if($find>0)
 						{
-							//Take the variables and her values
+							//Take the variables and their values
 							foreach($result[0] as $v)
 							{
 								$var[]=$v;
@@ -136,7 +137,7 @@ else
 								$end[]=$e;
 							}
 
-							//Replace the variables with her new values
+							//Replace the variables with their new values
 							$i=0;
 							while($var[$i])
 							{
@@ -202,6 +203,30 @@ else
 			$controlMsg['error'][]=$lang_config_ErrorLoginBDEmpty;
 		}
 	}
+}
+
+//update css used
+
+if (!empty($_REQUEST['CSSUsed']))
+{
+    replace_var_value_in_conf_file ("claro_stylesheet",$_REQUEST['CSSUsed'],$includePath ."/conf/claro_main.conf.php");
+    $claro_stylesheet = $_REQUEST['CSSUsed'];
+}
+
+//find available styles in the /css directory
+       
+if ($handle = opendir('../../css')) 
+{
+   $styles = array();
+   while (false !== ($file = readdir($handle))) 
+   {
+       $ext = strrchr($file, '.');       
+       if ($file != "." && $file != ".." && (strtolower($ext)==".css"))
+       {
+           $styles[] = $file;
+       }
+   }
+   closedir($handle);
 }
 
 // END OF WORKS
@@ -368,6 +393,28 @@ claro_disp_msg_arr($controlMsg);
 				<input type="text" name="dbNamePrefix" id="dbNamePrefix" size="30" value="<?php echo $dbNamePrefix ?>"  >
 			</td>
 		</tr>
+		<td colspan="2"><h4>Lay out : </h4></b>
+		</td>
+		<tr>
+			<td align="right">  
+				<label for="CSSchange"><?php echo $lang_CSS_change; ?>Change style sheet used :</label>
+			</td>
+			<td>
+				<select name="CSSUsed">
+				<? 
+				foreach ($styles as $TheStyle)
+				{
+				    echo "<option  value=\"$TheStyle\" ";
+				    if ($claro_stylesheet == $TheStyle)
+				    {
+				        echo "selected = \"selected\" ";
+				    }
+				    echo " >$TheStyle</option>";
+				}
+				?>
+				</select>
+			</td>
+		</tr>
 		<tr>
 			<td>
 			</td>
@@ -376,7 +423,6 @@ claro_disp_msg_arr($controlMsg);
 				<input type="submit" value="<?php echo $lang_config_ButtonSend; ?>" name="change">
 			</td>
 		</tr>
-
 	</tbody>
 	</table>
 
