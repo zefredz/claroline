@@ -4,15 +4,6 @@
 // The line below set the error reporting to the most fitting one for Claroline
 error_reporting(error_reporting() & ~ E_NOTICE);
 
-// Handle the register globals set to off by default since PHP 4.2
-
-if ( strtolower( ini_get('register_globals') ) === 'off' )
-{
-    extract($_REQUEST, EXTR_SKIP);
-    extract($_SESSION, EXTR_OVERWRITE);
-}
-
-
 // a shorter reference to $_SERVER['PHP_SELF']. Useful to lighten the HTML code.
 
 $_SELF = basename($_SERVER['PHP_SELF']);
