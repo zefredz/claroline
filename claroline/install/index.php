@@ -184,7 +184,7 @@ elseif($_REQUEST['doInstall'])
 		// MAIN DB                             //
 		// DB with central info  of  Claroline //
 
-		mysql_query("CREATE DATABASE $mainDbName");
+		mysql_query("CREATE DATABASE `$mainDbName`");
 		if (mysql_errno() >0)
 		{
 			if (mysql_errno() == 1007)
@@ -220,7 +220,7 @@ elseif($_REQUEST['doInstall'])
 			if(!$singleDbForm)
 			{
 				// multi DB mode AND tracking has its own DB so create it
-				mysql_query("CREATE DATABASE $statsDbName");
+				mysql_query("CREATE DATABASE `$statsDbName`");
 				if (mysql_errno() >0)
 				{
 					if (mysql_errno() == 1007)
@@ -268,7 +268,7 @@ elseif($_REQUEST['doInstall'])
 		{
 			if(!$singleDbForm)
 			{
-				mysql_query("CREATE DATABASE $pmaDbName");
+				mysql_query("CREATE DATABASE `$pmaDbName`");
 				if (mysql_errno() > 0)
 				{
 					if (mysql_errno() == 1007)
