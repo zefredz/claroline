@@ -778,6 +778,7 @@ if ($cmd == 'rqSearch')
                     ."<input type=\"hidden\" name=\"cmd\" value=\"exSearch\">\n"					
                     ."<label for=\"searchPattern\">".$langSearch." : </label>\n"
                     ."<input type=\"text\" id=\"searchPattern\" name=\"searchPattern\">\n"
+                    ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">\n"
                     ."<input type=\"submit\" value=\"".$langOk."\">\n"
                     ."</form>\n";
 }
@@ -794,7 +795,7 @@ if (in_array($cmd, array('rqMv', 'exRm', 'rqEdit', 'exEdit', 'exEditHtml',
 	$curDirPath = claro_dirname($_REQUEST['file']);
 }
 elseif (in_array($cmd, array('rqMkDir', 'exMkDir', 'rqUpload', 'exUpload', 
-                             'rqMkUrl', 'exMkUrl', 'reqMkHtml', 'exMkHtml')))
+                             'rqMkUrl', 'exMkUrl', 'reqMkHtml', 'exMkHtml', 'rqSearch')))
 {
 	$curDirPath = $_REQUEST['cwd'];
 }
@@ -855,7 +856,7 @@ if ($cmd == 'exSearch')
     $searchPattern   = '|'.$searchPattern.'|i';
 
     $searchRecursive = true;
-    $searchBasePath  = $baseWorkDir;
+    $searchBasePath  = $baseWorkDir.$_REQUEST['cwd'];
 }
 else
 {
@@ -1390,7 +1391,7 @@ claro_disp_tool_title($titleElement,
 	
 	
 	    echo " | "
-	        ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch\">\n"
+	        ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch&cwd=".$cmdCurDirPath."\">\n"
 	        ."<img src=\"".$clarolineRepositoryWeb."img/search.gif\" border=\"0\" alt=\"\">\n"
 	        .$langSearch
 	        ."</a>\n";
