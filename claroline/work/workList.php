@@ -35,10 +35,9 @@ $currentUserFirstName       = $_user['firstName'];
 $currentUserLastName        = $_user['lastName'];
 
 
-//if (!$_cid) 	claro_disp_select_course();
+if ( !$_cid ) 	claro_disp_select_course();
+if ( ! $is_courseAllowed)	claro_disp_auth_form();
 
-if ( ! $is_courseAllowed)
-	claro_disp_auth_form();
 event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
 
@@ -255,7 +254,9 @@ if( isset($wrk) && isset($_uid) && $assignment['prefill_submit'] != 'AFTERPOST')
                   $groupFound = true;
                   $wrkForm['wrkGroup'] = $_REQUEST['wrkGroup'];
             }
-            $userCanEdit = ( isset($userGroupList) && $groupFound );
+            // SO : a user can edit if the works is owned by one of his groups
+            //      OR directly owned by him
+            $userCanEdit = ( (isset($userGroupList) && $groupFound ) || ( $wrk['user_id'] == $_uid ) );
       }
       elseif( $assignment['assignment_type'] == 'INDIVIDUAL' )
       {
@@ -296,7 +297,6 @@ else
 }
 
 $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost )
-                                    || $is_allowedToEdit
                                     || $is_allowedToEditAll;
                      
 //-- is_allowedToView                     
