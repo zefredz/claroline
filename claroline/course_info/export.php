@@ -249,7 +249,7 @@ if ($displayFormWhatSaveMain)
 	<tr>
 		<TD colspan="2">
 			<input type="checkbox" name="saveProperties" value="checked" <?php echo $saveProperties ?>> 
-			<?php echo $langCourseProperties; ?>
+			<?php echo $langCourseSettings; ?>
 		</td>
 	</tr>
 	<tr>
