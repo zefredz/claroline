@@ -901,15 +901,15 @@
      */
     function build_element_list($list, $id = 0)
     {
-      $this= array();
+      $tree= array();
       foreach ($list as $element)
       {
         if( $element['learnPath_module_id'] == $id )
         {
-          $this = $element; // keep all $list informations in the returned array
+          $tree = $element; // keep all $list informations in the returned array
            // explicitly add 'name' and 'value' for the claro_build_nested_select_menu function 
-          //$this['name'] = $element['name']; // useless since 'name' is the same word in db and in the  claro_build_nested_select_menu function 
-          $this['value'] = $element['learnPath_module_id'];
+          //$tree['name'] = $element['name']; // useless since 'name' is the same word in db and in the  claro_build_nested_select_menu function 
+          $tree['value'] = $element['learnPath_module_id'];
           break;
         }
       }
@@ -919,12 +919,12 @@
         if($element['parent'] == $id && ( $element['parent'] != $element['learnPath_module_id'] ))
         {
           if($id == 0)
-            $this[] = build_element_list($list,$element['learnPath_module_id']);
+            $tree[] = build_element_list($list,$element['learnPath_module_id']);
           else
-            $this['children'][] = build_element_list($list,$element['learnPath_module_id']);
+            $tree['children'][] = build_element_list($list,$element['learnPath_module_id']);
         }
       }
-      return $this;
+      return $tree;
     }
     
     
