@@ -176,7 +176,7 @@ if ( isset($_uid) )  //anonymous user do not have this function
             ."<tr>\n"
 
             ."<td>\n"
-            .own_stripslashes($thisPost['post_text'])."\n";
+            .claro_parse_user_text(own_stripslashes($thisPost['post_text']))."\n";
 
                     // commentedby Thomas 30-11-2001
                     //  echo "<a href=\"".$url_phpbb."/reply.".$phpEx."?topic=".$topic
