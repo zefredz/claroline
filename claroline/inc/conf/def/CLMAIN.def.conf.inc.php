@@ -309,7 +309,7 @@ array('label'         => 'Language Mode'
 $conf_def_property_list['administrator_name'] =
 array ('label'       => 'Name'
       ,'description' => 'Complete name'
-      ,'default'     => 'John Doe'
+      ,'default'     => ''
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -324,7 +324,7 @@ array ('label'       => 'Email'
       );
 $conf_def_property_list['administrator_phone'] =
 array ('label'       => 'Phone'
-      ,'default'     => '++2 3 45 67 89'
+      ,'default'     => ''
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -333,7 +333,7 @@ array ('label'       => 'Phone'
 // Institution
 $conf_def_property_list['institution_name'] =
 array ('label'       => 'Name'
-      ,'default'     => 'My institute'
+      ,'default'     => ''
       ,'description' => 'Name displayed in the top banner'
       ,'type'        => 'string'
       ,'display'     => TRUE
@@ -341,7 +341,7 @@ array ('label'       => 'Name'
       );
 $conf_def_property_list['institution_url'] =
 array ('label'       => 'URL'
-      ,'default'     => 'http://www.google.com/'
+      ,'default'     => ''
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
