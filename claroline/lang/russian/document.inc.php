@@ -84,4 +84,98 @@ $langUpload="Разместить";
 
 $langCreateDir="Создать папку";
 
- 
+$langName="Название";
+
+$langNameDir="Название новой папки";
+
+$langSize="Размер";
+
+$langDate="Дата";
+
+$langRename="Переименовать";
+
+$langComment="Комментарий";
+
+$langVisible="Видимая/скрытая";
+
+$langCopy="Скопировать";
+
+$langTo="в";
+
+$langNoSpace="Размещение файла не удалось. В вашей папке недостаточно места";
+
+$langUploadEnd="Размещение файла завершено";
+
+$langFileExists="Невозможно осуществить операцию.
+
+<br>Файл с таким именем уже существует.";
+
+$langIn="в";
+
+$langNewDir="название новой папки";
+
+$langImpossible="Невозможно осуществить операцию";
+
+$langAddComment="добавить/изменить комментарий к";
+
+$langUp="вверх";
+
+$langDocCopied="документ скопирован";
+
+$langDocDeleted="элемент удален";
+
+$langElRen="элемент переименован";
+
+$langDirCr="папка создана";
+
+$langDirMv="элемент перемещен";
+
+$langComMod="комментарий изменен";
+
+$langElRen="Элемент переименован";
+
+$langViMod="Функция видимый / скрытый изменена";
+
+$langFileError="Файл для размещения не подходит.";
+
+$langMaxFileSize="Максимальный размер";
+
+
+
+// Special for group documents
+
+$langGroupManagement="Управление группами";
+
+$langGroupSpace="Пространство группы";
+
+
+
+$langGroupSpaceLink="Пространство группы";
+
+$langGroupForumLink="Форум группы";
+
+
+
+$langZipNoPhp="Файл ZIP не может содержать файлов с расширением .php";
+
+
+
+$langUncompress="Раскрыть архив .zip";
+
+
+
+$langUploadAndZipEnd=" Файл .zip был послан и раскрыт";
+
+
+
+$langAreYouSureToDelete = "Вы действительно хотите удалить";
+
+
+
+$langPublish = "Опубликовать";
+
+
+
+$langMissingImagesDetected = "Обнаружены недостающие изображения";
+
+?>

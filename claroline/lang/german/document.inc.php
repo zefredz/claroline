@@ -58,4 +58,19 @@ $langMaxFileSize="Max. Dateigröße ist";
 $langMissingImagesDetected = "Fehlende Bilder entdeckt";
 $langModify="ändern";
 $langMove="verschieben";
- 
+$langName="Name";
+$langNameDir="Name des neuen Verzeichnisses";
+$langNewDir="Name des neuen Verzeichnisses";
+$langNoSpace="Upload ist fehlgeschlagen. Sie haben nicht genug Platz im Verzeichnis";
+$langPublish = "Veröffentlicht";
+$langRename="Umbenennen";
+$langSize="Größe";
+$langTo="nach";
+$langUncompress="komprimierte (.zip -) Dateien auf dem Srver dekomprimieren";
+$langUp="Hoch";
+$langUploadFile = "Upload Datei";
+$langURL = "URL : ";
+$langViMod="Sichtbarkeit geändert";
+$langVisible="Sichtbar/Unsichtbar";
+$langZipNoPhp="Die zip-Datei darf keine .PHP-Dateien enthalten";
+?>

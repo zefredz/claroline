@@ -60,4 +60,12 @@ $langVisible    = "Vis&iacute;vel/Invis&iacute;vel";
 $make_visible	= "Fazer vis&iacute;vel";
 $make_invisible	= "Fazer invis&iacute;vel";
 $langCreateDir	= "Criar um direct&oacute;rio";
- 
+$langNameDir    = "Nome do novo direct&oacute;rio";
+$langFileExists = "N&atilde;o &eacute; poss&iacute;vel realizar esta opera&ccedil;&atilde;o.<br>J&aacute; existe um elemento com o mesmo nome.";
+$langDirCr      = "Direct&oacute;rio criado";
+$langFileDelError= "Erro, n&atilde;o foi poss&iacute;vel apagar";
+
+$langUp         = "Subir";
+$langCurrentDir = "Direct&oacute;rio actual";
+
+?>

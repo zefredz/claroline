@@ -54,4 +54,22 @@ $langSave="Opslaan";
 
 $langModCatName="Naam van de categorie wijzigen";
 $langCat="Categorie";
- 
+$langNameCat="De naam van de categorie werd gewijzigd";
+$langCatDeleted="De categorie werd verwijderd"; 
+$langCatAdded="Categorie toegevoegd"; //added PC
+
+$langNameForum="Het forum werd gewijzigd";
+$langForumDeleted="Het forum werd verwijderd"; 
+$langForumAdded="Forum toegevoegd"; //added PC
+
+
+$langBack="Terug";
+
+$langForCategories="Forums categorieën";
+$langAddForums="Om forums toe te voegen, klik op \"Forums\" in de categorie van uw keuze. Een categorie zonder forum zal niet zichtbaar zijn voor studenten";
+$langCategories="Categorieën";
+$langNbFor="Aantal forums";
+$langFunctions="Functies";
+$langAddCategory="Categorie toevoegen";
+
+?>

@@ -28,4 +28,14 @@ $langChangeCat ="Zmieñ kategoriê";
 $langSave ="Zapisz";
 $langModCatName ="Modyfikuj nazwê kategorii";
 $langCat ="Kategoria";
- 
+$langNameCat ="Nazwa kategorii zosta³a zmodyfikowana";
+$langBack ="Wstecz";
+$langCatAdded ="Kategoria dodana";
+$langForCategories ="Kategorie For";
+$langAddForums ="¯eby dodaæ Forum, kliknij na \"Fora\" w kategorii, któr± wybra³e¶. Pusta kategoria (bez Forum) bêdzie dostêpna dla studentów";
+$langCategories ="Kategorie";
+$langNbFor ="Liczba For";
+$langFunctions ="Funkcje";
+$langAddCategory ="Dodaj kategoriê";
+
+?>

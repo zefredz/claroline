@@ -18,4 +18,13 @@
 $langLinkSite          = "Lier à un site";
 $langSubTitle          = "Ajoute un lien ou une page sur le sommaire de votre site de cours. Astuce : si vous souhaitez ajouter un lien vers une page, allez sur cette page, copiez son URL qui se trouve dans la barre d'adresse de votre navigateur, et insérez-la dans le champ \"Lien\" ci-dessous."; // JCC
 $langHome              = "Retour à la page d'accueil";
- 
+$langName              = "Nom";
+$langLink              = "Lien";
+$langAddPage           = "Ajouter une page";
+$langSendPage          = "Page à envoyer";
+$langCouldNot          = "Le fichier ne peut être envoyé";
+$langOkSentPage        = "Votre page a été envoyée. <p>Elle est à présent accessible depuis le <a href=\"../../".$_course['path']."/index.php\">sommaire du cours</a>";
+$langOkSentLink        = "Votre lien a été ajouté. <p>Il est à présent accessible depuis le <a href=\"../../".$_course['path']."/index.php\">sommaire du cours</a>"; // JCC 
+$langTooBig            = "Vous n'avez choisi aucun fichier à envoyer, ou celui-ci est trop gros";
+$langPgTitle           = "Titre de la page";
+?>

@@ -31,4 +31,6 @@ $langRemove="Kaldýr";
 
 $langCourseCreate = "Web dersi yarat";
 $langEnter ="Giriþ";
- 
+$langNameOfTheLink ="Baðlantý adý";
+
+?>

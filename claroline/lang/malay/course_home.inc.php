@@ -31,4 +31,7 @@ $langRemove="Padam";
 
 $langCourseCreate = "Bina Laman Subjek";
 $langEnter ="Masuk";
- 
+$langNameOfTheLink ="Nama Pautan";
+
+
+?>

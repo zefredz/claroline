@@ -31,4 +31,6 @@ $langRemove	="usuñ";
 
 $langCourseCreate ="Utwórz nowy kurs";
 $langEnter ="Wejd¼";
- 
+$langNameOfTheLink ="Nazwa odno¶nika";
+
+?>

@@ -18,4 +18,42 @@ $langDoc="Belgeler";
 $langUploadFile= "Sunucuya dosya yükle";
 $langUpload="Yükle";
 $langCreateDir="Dizin yarat";
- 
+$langName="Adý";
+$langNameDir="Yeni dizin adý";
+$langSize="Boyut";
+$langDate="Tarih";
+$langMove="Taþý";
+$langRename="Ad deðiþtir";
+$langComment="Yorum";
+$langVisible="Görünür/Görünmez";
+$langCopy="Kopyala";
+$langTo="buraya";
+$langNoSpace="Yükleme baþarýsýz. Yeterli alan yok.";
+$langUploadEnd="Yükleme tamamlandý";
+$langFileExists="Ýþlem yapýlamýyor.<br>Ayný isimde bir dosya var.";
+$langDocCopied="Belge kopyalandý";
+$langDocDeleted="Belge silindi";
+$langElRen="Dosya yeniden adlandýrýldý";
+$langDirCr="Dizin yaratýldý";
+$langDirMv="Dosya taþýndý";
+$langComMod="Yorum deðiþtirildi";
+$langIn="içinde";
+$langNewDir="Yeni dizin adý";
+$langImpossible="Ýþlem yapýlamýyor";
+$langAddComment="Yorum ekle/deðiþtir";
+$langUp="Yukarý";
+$langViMod="Görünürlük deðiþtirildi";
+$langElRen="Dosya yeniden adlandýrýldý";
+
+// Special for group documents
+$langGroupManagement="Grup yönetimi";
+$langGroupSpace="Grup alaný";
+$langGroupSpaceLink="Grup alaný";
+$langGroupForumLink="Grup forumu";
+$langZipNoPhp="The zip file can not contain .PHP files";
+$langUncompress="sýkýþtýrýlmýþ dosyayý (*.zip) sunucuda aç";
+$langUploadAndZipEnd=" Sýkýþtýrýlmýþ dosya sunucuya yüklendi ve açýldý";
+$langAreYouSureToDelete = "Silmek istediðinizden emin misiniz?";
+
+$langPublish = "Yayýnla";
+?>

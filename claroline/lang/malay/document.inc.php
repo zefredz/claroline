@@ -19,4 +19,44 @@ $langDoc="Dokumen";
 $langUploadFile= "Muatnaik fail ke server";
 $langUpload="Muatnaik";
 $langCreateDir="Bina Direktori";
- 
+$langName="Nama";
+$langNameDir="Nama direktori baru";
+$langSize="Saiz";
+$langDate="Tarikh";
+$langRename="Tukar Nama";
+$langComment="Komen";
+$langVisible="Papar/Tidak Papar";
+$langCopy="Pindah";
+$langTo="ke";
+$langNoSpace="Proses muatnaik gagal. Ruang tidak mencukupi";
+$langUploadEnd="Proses muatnaik selesai";
+$langFileExists="Permintaan tidak dapat diproses<br>Nama fail telah wujud.";
+$langDocCopied="Dokumen disalin";
+$langDocDeleted="Dokumen dipadam";
+$langElRen="Dokumen berjaya ditukar nama";
+$langDirCr="Direktori dibina";
+$langDirMv="Dokumen berjaya dipindahkan";
+$langComMod="Komen ditambah/ubahsuai";
+$langIn="kepada";
+$langNewDir="Nama direktori baru";
+$langImpossible="Permintaan tidak dapat diproses";
+$langAddComment="Tambah/ubahsuai komen ke";
+$langUp="Atas";
+$langViMod="Ubahsuai mod Paparan";
+$langElRen="Dokumen telah ditukar namanya";
+$langFileError="Fail yang dimuat naik tidak sah.";
+$langMaxFileSize="Saiz maksimum fail ialah ";
+
+// Special for group documents
+$langGroupManagement="Pengurusan Kumpulan";
+$langGroupSpace="Ruangan Kumpulan";
+$langGroupSpaceLink="Ruangan Kumpulan";
+$langGroupForumLink="Forum Kumpulan";
+$langZipNoPhp="Fail zip file can not contain .PHP files";
+$langUncompress="Jangan <i>unzip</i>kan fail(.zip) yang dimuat naik ke server";
+$langUploadAndZipEnd=" Zip file uploaded and uncompressed";
+$langAreYouSureToDelete = "Anda pasti untuk memadam";
+
+$langPublish = "Terbitkan";
+$langMissingImagesDetected = "Gambar hilang dikesan";
+?>

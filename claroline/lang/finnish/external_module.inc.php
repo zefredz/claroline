@@ -41,4 +41,7 @@ $langLinkSite="Lisää linkki sivustoon";
 $langSubTitle="Lisää linkki kurssin kotisivulle.";
 $langAdded="Linkki on lisätty";
 $langHome="Takaisin kotisivulle";
- 
+$langName="Nimi";
+$langLink="Linkki";
+
+?>

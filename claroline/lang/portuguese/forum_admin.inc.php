@@ -40,4 +40,13 @@ $langChangeCat      = "Mudar de categoria";
 $langSave           = "Arquivar";
 $langModCatName     = "Modificar o nome da categoria";
 $langCat            = "Categoria";
- 
+$langNameCat        = "O nome da categoria foi modificado";
+$langBack           = "Voltar";
+$langCatAdded       = "Categoria acrescentada";
+$langForCategories  = "Categoria dos foros";
+$langAddForums      = "Para acrescentar foros, carregue em \"Foros\" na categoria escolhida. Uma categoria que n&atilde;o tenha foros n&atilde;o poder&aacute; ser vista pelos estudantes";
+$langCategories     = "Categorias";
+$langNbFor          = "N&uacute;mero de foros";
+$langFunctions      = "Fun&ccedil;&otilde;es";
+$langAddCategory    = "Acrescentar uma categoria";
+?>

@@ -114,10 +114,6 @@ $langPlatformAdmin="Administration";
 $langMyAgenda = "Mon agenda";
 $langLogout="Quitter";
 
-$langFirstName = "Prénom";
-$langLastName = "Nom";
-$langName = "Nom";
-
 $lang_this_course_is_protected = 'Ce cours est protégé';
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe"; // JCC
 $lang_if_you_dont_have_a_user_account_on = "Si vous n'avez pas encore de compte utilisateur sur"; // JCC 

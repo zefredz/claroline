@@ -21,4 +21,61 @@ $langCreateHyperlink = "Create Hyperlink";
 $langUploadFile= "Upload file";
 $langUpload="Upload";
 $langCreateDir="Create a directory";
- 
+$langName="Name";
+$langNameDir="Name of the new directory";
+$langSize="Size";
+$langDate="Date";
+$langRename="Rename";
+$langComment="Comment";
+$langVisible="Visible/invisible";
+$langMakeVisible = "Make visible";
+$langMakeInvisible = "Make invisible";
+$langCopy="Copy";
+$langTo="to";
+$langNoSpace="The upload has failed. There is not enough space in your directory";
+$langUploadEnd="The upload is finished";
+$langFileExists="Operation impossible.<br>A file with this name already exists.";
+$langDocCopied="Document copied";
+$langDocDeleted="Document deleted";
+$langElRen="Element renamed";
+$langDirCr="Directory created";
+$langDirMv="Element moved";
+$langComMod="Comment modified";
+$langIn="in";
+$langNewDir="Name of new directory";
+$langImpossible="Operation impossible";
+$langAddModifyComment="Add/modify a comment to";
+$langUp="Up";
+$langViMod="Visibility modified";
+$langElRen="Element renamed";
+$langFileError="The file to upload is not valide.";
+$langMaxFileSize="Max file size : ";
+$langAddCommentOptionnal = "Add a comment (optionnal) :";
+
+// Special for group documents
+$langGroupSpace="Group area";
+$langGroupSpaceLink="Group area";
+$langZipNoPhp="The zip file can not contain .PHP files";
+$langUncompress="uncompress zipped (.zip) file on the server";
+$langUploadAndZipEnd=" Zip file uploaded and uncompressed";
+$langAreYouSureToDelete = "Are you sure to delete";
+
+$langPublish = "Publish";
+$langMissingImagesDetected = "Missing images detected";
+
+$langIfNotRedirect = "If not redirected ";
+
+$langURL = "URL : ";
+// rqmkhtml in document.php
+$langFileCreated = "File created";
+$langFileNameMissing = "File name is missing";
+$langFileContentModified  = "File content modified";
+$langFileNameOrURLMissing = "File Name or URL is missing.";
+$langBackToEditor = "Back to the editor";
+// rqmkhtml
+$langCreateModifyDocument = "Create/edit document";
+$langDocumentName = "Document name : ";
+$langDocumentContent = "Document content : ";
+
+$langEditFileContent = "Edit file content";
+?>

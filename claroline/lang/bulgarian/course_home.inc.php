@@ -30,4 +30,6 @@ $langRemove="Премахни";
 
 $langCourseCreate = "Създай нов курс";
 $langEnter ="Въведи";
- 
+$langNameOfTheLink ="Име на връзката";
+
+?>

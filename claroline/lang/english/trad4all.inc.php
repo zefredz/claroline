@@ -94,7 +94,7 @@ $langAnd="and";
 $langChoice="Your choice";
 $langFinish="Finish";
 $langCancel="Cancel";
-$langNotAllowed="Not allowed";
+$langNotAllowed="You are not allowed here";
 $langManager="Manager";
 $lang_footer_CourseManager = "Course Manager(s)";
 $langPoweredBy="Powered by";
@@ -117,9 +117,6 @@ $langModifyProfile="Modify my profile";
 $langMyAgenda = "My agenda";
 $langLogout="Logout";
 
-$langFirstName = "First Name";
-$langLastName  = "Last Name";
-$langName  = "Name";
 
 //needed for student view
 $langCourseManagerview = "Course Manager View";

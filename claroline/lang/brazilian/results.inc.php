@@ -32,4 +32,23 @@
       +----------------------------------------------------------------------+
  */
 // RESULTS
- 
+$langNameTools="Notas dos Alunos";
+
+$langSymbol="Simbolo";
+$langSymbolError="não está definido. Deve ser incluído para calcular a média.";
+
+$langTextFormula="Fórmula para cálculo da média";
+$langSymbolErrorIncluded="não foi adicionado pois já está incluído nos símbolos atuais.<br>";
+$langFormulaCalc="Fórmula para cálculo:";
+$langAllowedChars="Caracteres permitidos: / * - + ( )<br>Ex.: (T1 * 0,3) + (P1 * 0,7)";
+$langName="Nome";
+$langAvg="Média";
+$langAddSymbol="Adicionar novo símbolo";
+$langDescription="Descrição";
+$langAddSymbols="Adiciona Simbolos";
+$langDelete="excluir";
+$langUpdateResults="Atualiza Notas";
+$langHelp="Ajuda";
+$langModify="Alterar";
+$langNew="novo";
+?>

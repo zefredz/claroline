@@ -23,4 +23,6 @@ $langRemove="entfernen";
 $langDeactivate="deaktivieren"; 
 $langActivate="aktivieren";  
 $langEnter="Eingabe";
- 
+$langNameOfTheLink="Name des Links"; 
+$langCourseManagement = "Kursverwaltung"; 
+?>

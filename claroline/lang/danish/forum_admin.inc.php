@@ -28,4 +28,14 @@ $langChangeCat="Ændre kategori";
 $langSave="Gem";
 $langModCatName="Ændre navn på kategori";
 $langCat="Kategori";
- 
+$langNameCat="Kategoriens navn er blevet ændret";
+$langBack="Tilbage";
+$langCatAdded="Kategorien er tilføjet";
+$langForCategories="Forumkategorier";
+$langAddForums="For at tilføje et forum, klik på 'Diskussionsforum' i den kategori du ønsker. En tom kategori (uden forum) vil ikke kunne ses af de studerende";
+$langCategories="Kategorier";
+$langNbFor="Antal forum";
+$langFunctions="Funktioner";
+$langAddCategory="Tilføj en kategori";
+
+?>

@@ -38,4 +38,14 @@ $langChangeCat="Сменить раздел";
 $langSave="Сохранить";
 $langModCatName="Изменить название раздела";
 $langCat="Раздел";
- 
+$langNameCat="Название раздела было изменено";
+$langBack="Назад";
+$langCatAdded="Раздел добавлен";
+$langForCategories="Разделы форумов";
+$langAddForums="Чтобы добавить форумы, щелкните на ссылке \"Форумы\" в разделе по вашему выбору.
+ Раздел без форумов не будет виден студентам";
+$langCategories="Разделы";
+$langNbFor="Количество форумов";
+$langFunctions="Функции";
+$langAddCategory="Добавить раздел";
+?>

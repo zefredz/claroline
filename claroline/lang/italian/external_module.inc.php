@@ -28,4 +28,7 @@ $langLinkSite="Collegamento verso un sito";
 $langSubTitle="Aggiunge al menu principale della pagina di apertura del corso un collegamento verso una pagina, all'interno o all'esterno del vostro sito";
 $langAdded="Il collegamento è stato aggiunto";
 $langHome="Torna alla home page";
- 
+$langName="Nome";
+$langLink="Link";
+
+?>

@@ -50,4 +50,14 @@ $langChangeCat="Vaihda kategoriaa";
 $langSave="Tallenna";
 $langModCatName="Muokkaa kategorian nimeä";
 $langCat="Kategoria";
- 
+$langNameCat="Kategorian nimi on muutettu";
+$langBack="Takaisin";
+$langCatAdded="Kategoria on lisätty";
+$langForCategories="Foorumien kategoriat";
+$langAddForums="Lisää keskusteluryhmä, klikkaa 'Foorumit' kategoriassa. Tyhjä kategoria ilman foorumeita ei näy opiskelijoille";
+$langCategories="Kategoriat";
+$langNbFor="Foorumien lukumäärä";
+$langFunctions="Funktiot";
+$langAddCategory="Lisää kategoria";
+
+?>

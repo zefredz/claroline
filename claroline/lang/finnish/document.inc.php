@@ -40,4 +40,30 @@ $langDoc="Dokumentit";
 $langUploadFile= "Lis‰‰ tiedostot palvelimelle.";
 $langUpload="Lis‰‰";
 $langCreateDir="Luo hakemisto";
- 
+$langName="Nimi";
+$langNameDir="Uuden hakemiston nimi";
+$langSize="Koko";
+$langDate="P‰iv‰";
+$langMove="Siirr‰";
+$langRename="Nime‰ uudelleen";
+$langComment="Kommentti";
+$langVisible="N‰kyv‰/N‰kym‰tˆn";
+$langCopy="Kopioi";
+$langTo="Hakemistoon";
+$langNoSpace="Lataus ep‰onnistui, hakemistossa ei ole riitt‰v‰sti tilaa.";
+$langUploadEnd="Lataus on p‰‰ttynyt";
+$langFileExists="Toiminto on mahdoton.<br>Samanniminen tiedosto on olemassa.";
+$langDocCopied="Dokumentti on kopioitu";
+$langDocDeleted="Dokumentti on poistettu";
+$langElRen="Elementti on nimetty uudelleen";
+$langDirCr="Hakemisto on luotu";
+$langDirMv="Hakemisto on siirretty";
+$langComMod="Kommenttia on muutettu";
+$langIn="Sis‰‰n";
+$langNewDir="Uuden hakemiston nimi";
+$langImpossible="Toiminto on mahdoton";
+$langAddComment="Lis‰‰ kommentti:";
+$langUp="Ylˆs";
+$langViMod="N‰kyvyytt‰ on muutettu";
+
+?>

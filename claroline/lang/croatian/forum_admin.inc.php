@@ -30,4 +30,13 @@ $langChangeCat="Promjena kategorije";
 $langSave="Spremite";
 $langModCatName="Promjeni ime kategorije";
 $langCat="Kategorija";
- 
+$langNameCat="Ime kategorije je promjenjeno";
+$langBack="Povratak";
+$langCatAdded="Kategorija je dodana";
+$langForCategories="Kategorije foruma";
+$langAddForums="Da bi dodali forum, kliknite na \"Forumi\"  kategoriju po Vašem izborniku. Prazna kategorija (bez foruma) neæe biti vidljiva za studente";
+$langCategories="Kategorije";
+$langNbFor="Broj foruma";
+$langFunctions="Funkcije";
+$langAddCategory="Dodaj kategoriju";
+?>
