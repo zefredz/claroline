@@ -32,7 +32,6 @@
   * 
   */
 
-$langFile = "tracking";
 require '../inc/claro_init_global.inc.php'; 
 $nameTools = $langStatsOfCourse;
 @include($includePath."/claro_init_header.inc.php");

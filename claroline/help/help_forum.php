@@ -1,6 +1,4 @@
-<?php
-$langFile='help';
-
+<?php // $Id$
 require '../inc/claro_init_global.inc.php';
 
 $nameTools = $langHFor;

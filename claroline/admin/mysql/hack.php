@@ -11,7 +11,6 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-$langFile = "trad4all";
 require '../../inc/claro_init_global.inc.php';
 
 $nameTools = "MySQL";

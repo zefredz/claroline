@@ -7,7 +7,6 @@
       +----------------------------------------------------------------------+
  */
  
-$langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();

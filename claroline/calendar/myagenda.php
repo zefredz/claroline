@@ -21,8 +21,6 @@
  */
 
 
-$langFile='calendar';
-
 $cidReset = true;
 
 require '../inc/claro_init_global.inc.php';

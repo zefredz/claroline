@@ -34,7 +34,6 @@ if($pagetype == 'viewforum' || $pagetype == "viewtopic")
 }
 
 
-$langFile = "phpbb";
 // suspect langfile call -- need to be checked in further release (The good one is supposed to be in config.php (Hugues june 3 2004).
 
 claro_set_display_mode_available(true);

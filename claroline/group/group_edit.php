@@ -10,7 +10,6 @@
        CLAROLINE MAIN SETTINGS
 ***************************************/
 
-$langFile = "group";
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();
 @include($includePath."/lib/debug.lib.inc.php");

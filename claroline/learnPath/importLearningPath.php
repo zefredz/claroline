@@ -21,9 +21,6 @@
 /*======================================
        CLAROLINE MAIN
   ======================================*/
-
-  $langFile = "learnPath";
-
   $tlabelReq = 'CLLNP___';
   require '../inc/claro_init_global.inc.php';
 

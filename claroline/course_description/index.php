@@ -14,7 +14,6 @@
 
 $tlabelReq = "CLDSC___";
 
-$langFile = "course_description";
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid) claro_disp_select_course();

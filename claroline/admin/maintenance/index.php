@@ -11,8 +11,6 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-$langFile = "admin.maintenance.menu";
-
 @include ("../../inc/installedVersion.inc.php");
 $thisClarolineVersion 	= $clarolineVersion;
 $thisVersionDb 			= $versionDb;

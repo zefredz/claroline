@@ -1,5 +1,4 @@
 <?php 
-$langFile = "chat"; 
 require '../inc/claro_init_global.inc.php';
 $is_allowedToManage = $is_courseAdmin;
 

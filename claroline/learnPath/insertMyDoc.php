@@ -1,8 +1,6 @@
-<?php
-// $Id$
+<?php // $Id$
 /*
   +----------------------------------------------------------------------+
-
   | CLAROLINE version 1.6.*
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
@@ -23,11 +21,8 @@
 /*======================================
        CLAROLINE MAIN
   ======================================*/
-
-  $langFile = "learnPath";
-
-    $tlabelReq = 'CLLNP___';
-  require '../inc/claro_init_global.inc.php';
+$tlabelReq = 'CLLNP___';
+require '../inc/claro_init_global.inc.php';
 
   // if there is an auth information missing redirect to the first page of lp tool 
   // this page will do the necessary to auth the user, 

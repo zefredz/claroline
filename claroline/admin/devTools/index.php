@@ -16,10 +16,7 @@ info : Cette  page  sert d'index  pour les  outils de développements
 * Elle nécéssite une  protection
 */
 
-$langFile = "admin";
 require '../../inc/claro_init_global.inc.php';
-
-
 
 $is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
 if ($is_allowedToAdmin)

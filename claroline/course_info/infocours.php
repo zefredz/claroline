@@ -16,7 +16,6 @@
              INIT
 *****************************/
 
-$langFile = "course_info";
 
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();

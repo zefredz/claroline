@@ -15,7 +15,6 @@
 
 ////**************** INITIALISATION************************
 
-$langFile = "group";
 $tlabelReq = 'CLGRP___';
 include('../inc/conf/group.conf.php');
 require '../inc/claro_init_global.inc.php';
