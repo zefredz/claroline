@@ -240,7 +240,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
                     or Password (<I>'.$dbPassForm.'</I>)';
         else
         $msg_no_connection .= '
-                    Server unavailable (mysql started ?)';
+                    Server unavailable. Is your MySQL server started ?';
         $msg_no_connection .= '
                     <BR>
                     <font color="blue">
@@ -505,11 +505,15 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 <style media="print" type="text/css"  >
     .notethis {    border: thin double Black;    margin-left: 15px;    margin-right: 15px;}
 </style>
+<style  type="text/css"  >
+    .setup_error { background:white; margin-left: 15px;    margin-right: 15px; }
+</style>
+
 </head>
 <body dir="<?php echo $text_dir ?>">
 <center>
 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-<table  bgcolor="#DDDDDD"  cellpadding="10" cellspacing="0" border="1" width="650" class="claroTable">
+<table  bgcolor="#DDDDDD"  cellpadding="10" cellspacing="0" border="0" width="650" class="claroTable">
         <tr  bgcolor="#000066" >
             <th valign="top">
                <FONT color="White">
@@ -632,13 +636,16 @@ if ($display==DISP_WELCOME)
     if(!$stable)
     {
         echo '
-        <font color="red">Warning !</font>
+        
+        <B>
+        Notice .
         This version is not considered as stable
-        and is not aimed for production.<br>
+        and is not aimed for production.
+        </B><br>
 
         If  something goes wrong,
         come talk on our support forum at
-        <a href="http://www.claroline.net/forum/index.php?c=8" target="_clarodev">http://www.claroline.net</a>.';
+        <a href="http://www.claroline.net/forum/viewforum.php?f=62" target="_clarodev">http://www.claroline.net</a>.';
     }
 
     if($SERVER_SOFTWARE=="") $SERVER_SOFTWARE = $_SERVER["SERVER_SOFTWARE"];
@@ -984,7 +991,6 @@ elseif($display == DISP_DB_NAMES_SETTING )
         <tr>
             <td>
                 '.$msg_no_connection.'
-                <h4>'.$langDBNamesRules.'</h4>
                 <table width="100%">';
                 if (isset($databaseNameValid) && !$databaseNameValid)
                 {
@@ -993,7 +999,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     <tr>
                         <td colspan="2">
                             <P class="setup_error">
-                                <font color="red">Warning</font> 
+                                <font color="red">Warning !</font> 
                                 : Database <em>'.$dbNameForm.'</em> is not valid. 
                                 <ul>'
                     .($msgErrorDbMain_dbName?'<LI>Main db<UL>':'')
@@ -1017,18 +1023,15 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     <tr>
                         <td colspan="2">
                             <P class="setup_error">
-                                <font color="red">Warning</font>
+                                <font color="red">Warning !</font>
                                 : Database <em>'.$dbNameForm.'</em> already exists
+                                <BR>
+                                Claroline could overwrite data previsously recorded
+                                in these database tables.
                                 <BR>
                                 <input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>
                                 <label for="confirmUseExistingMainDb" >
-                                    I know, I want use it.
-                                    (Claroline will write in this database
-                                    over data already present.
-                                    Data not overwritten will be kept.
-                                    <br />
-                                    Renaming or deleting your tables is better.
-                                    )
+                                    <B>I know, I want to use this database.</B>
                                 </label>
                             </P>
                         </td>
@@ -1050,7 +1053,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     <tr>
                         <td>
                             <label for="mainTblPrefixForm">
-                                Prefix for name of main tables
+                                Prefix for names of main tables
                             </label>
                         </td>
                         <td>
@@ -1073,12 +1076,15 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     <tr>
                         <td colspan="2">
                             <P class="setup_error">
-                                <font color="red">Warning</font>
+                                <font color="red">Warning !</font>
                                 : '.$dbStatsForm.' already exist
+                                <BR>
+                                Claroline could overwrite data previsously recorded
+                                in these database tables.
                                 <BR>
                                 <input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>
                                 <label for="confirmUseExistingStatsDb" >
-                                    I know, I want use it. (This script write in tables use by claroline.)
+                                    <B>I know, I want to use this database.</B>
                                 </label>
                             </P>
                         </td>
@@ -1099,7 +1105,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     <tr>
                         <td>
                             <label for="statsTblPrefixForm">
-                                <small>Prefix for names of tracking tables</small>
+                                Prefix for names of tracking tables
                             </label>
                         </td>
                         <td>
@@ -1119,7 +1125,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
                     <tr>
                         <td>
                             <label for="dbPrefixForm">
-                                '.($singleDbForm?'Prefix for Course Tables':$langDbPrefixForm).'
+                                '.($singleDbForm?'Prefix for names of course tables':$langDbPrefixForm).'
                             </label>
                         </td>
                         <td>
@@ -1179,12 +1185,12 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
                 <h2>
                     '.sprintf($langStepNOfN,(array_search(DISP_ADMINISTRATOR_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATOR_SETTING].'
                 </h2>
-                The following values will be written in table <em>`'.$dbNameForm.'`.`user`</em>
             </td>
         </tr>
         <tr>
             <td>
-                <h4>Administrator</h4>
+              
+
                   '.$msg_missing_admin_data.'
                   '.$msg_admin_exist.'
 
@@ -1286,7 +1292,6 @@ elseif($display==DISP_PLATFORM_SETTING)
                     '.sprintf($langStepNOfN,(array_search(DISP_PLATFORM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_PLATFORM_SETTING].'
                 </h2>';
     echo '
-                The following values will be written in `<em>'.$configFilePath.'</em>`
             </td>
         </tr>
         <tr>
@@ -1356,7 +1361,7 @@ echo '
             <tr>
                 <td colspan=3><br>
 
-                    <h5>User </h5>
+                    <h4>User </h4>
                 </td>
             </tr>
             <tr>
@@ -1409,7 +1414,6 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
                 </h2>'
                 .$msg_missing_administrative_data ;
     echo '
-                The following values will be written in `<em>'.$configFilePath.'</em>`
             </td>
         </tr>
         <tr>
@@ -1418,7 +1422,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
                 <table >
                     <tr>
                         <td colspan="3">
-                        <H5>Related organisation</H5>
+                        <H4>Related organisation</H4>
                     </tr>
                     <tr>
                             <td>
@@ -1442,7 +1446,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
                     </tr>
                     <tr>
                         <td colspan="3">
-                        <H5>Campus contact</H5>
+                        <H4>Campus contact</H4>
                     </tr>
                     <tr>
                         <td>
@@ -1613,7 +1617,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
             echo '<P><B>'.$langMainDB.'</B> db (<em>'.$dbNameForm.'</em>) already exist <BR>
             <input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>
             <label for="confirmUseExistingMainDb" >I know, I want use it.</label><BR>
-            <font color="red">Warning</font> : this script write in tables use by claroline.
+            <font color="red">Warning !</font> : this script write in tables use by claroline.
             </P>';
         if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
             echo '
@@ -1622,7 +1626,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
             <BR>
             <input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>
             <label for="confirmUseExistingStatsDb" >I know, I want use it.</label><BR>
-            <font color="red">Warning</font>
+            <font color="red">Warning !</font>
             : this script write in tables use by claroline.
         </P>';
         echo '
