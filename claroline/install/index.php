@@ -22,6 +22,7 @@ define ("DISP_WELCOME",__LINE__);
 define ("DISP_LICENCE",__LINE__);
 define ("DISP_DB_CONNECT_SETTING",__LINE__);
 define ("DISP_DB_NAMES_SETTING",__LINE__);
+define ("DISP_ADMIN_SETTING",__LINE__);
 define ("DISP_CONFIG_SETTING",__LINE__);
 define ("DISP_LAST_CHECK_BEFORE_INSTALL",__LINE__);
 define ("DISP_RUN_INSTALL_NOT_COMPLETE",__LINE__);
@@ -57,7 +58,7 @@ include ($newIncludePath."lib/config.lib.inc.php");
 
 $topRigthPath = topRigthPath(); // to known right (read and write)
 
-if(!$alreadyVisited || $resetConfig) // on first step prupose values
+if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step prupose values
 {
 
 	$dbHostForm		= "localhost";
@@ -74,11 +75,11 @@ if(!$alreadyVisited || $resetConfig) // on first step prupose values
 	// extract the path to append to the url if Claroline is not installed on the web root directory
 
 	$urlAppendPath 	= ereg_replace ("/claroline/install/".basename($_SERVER['SCRIPT_NAME']), "", $PHP_SELF);
-  	$urlForm 		= "http://".$SERVER_NAME.$urlAppendPath."/";
+  	$urlForm 		= "http://".$_SERVER['SERVER_NAME'].$urlAppendPath."/";
 	$pathForm		= realpath("../..")."/";
 
 
-	$adminEmailForm		= $SERVER_ADMIN;
+	$adminEmailForm		= $_SERVER['SERVER_ADMIN'];
 
 	$adminNameForm		= "Doe";
 	$adminSurnameForm	= "John";
@@ -120,23 +121,27 @@ if ($PHP_SELF == "") $PHP_SELF = $_SERVER["PHP_SELF"];
 
 // SET default display
 $display=DISP_WELCOME;
-if($cmdShowLicence)
+if($_REQUEST['cmdShowLicence'])
 {
 	$display = DISP_LICENCE;
 }
-elseif($setDbAccountProperties)
+elseif($_REQUEST['setDbAccountProperties'])
 {
 	$display = DISP_DB_CONNECT_SETTING;
 }
-elseif($install6 || $back6 )
+elseif($_REQUEST['install6'] || $_REQUEST['back6'] )
 {
 	$display=DISP_LAST_CHECK_BEFORE_INSTALL;
 }
-elseif($install5 OR $back4)
+elseif($_REQUEST['ADMIN_SETTING'])
+{
+	$display = DISP_ADMIN_SETTING;
+}
+elseif($_REQUEST['CONFIG_SETTING'])
 {
 	$display = DISP_CONFIG_SETTING;
 }
-elseif($doInstall)
+elseif($_REQUEST['doInstall'])
 {
 	// in this  part. Script try to run Install
 	// if  all is right $display still DISP_RUN_INSTALL_COMPLETE set on start
@@ -151,7 +156,7 @@ elseif($doInstall)
 	// Forth block check some right
 
 	$display=DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
-
+    
 	if (empty($adminSurnameForm)||empty($passForm)||empty($loginForm)||empty($adminNameForm))
 	{
 		$adminDataMissing = true;
@@ -395,7 +400,7 @@ and they doesn\'t actually have an ; in value of a variable
 
 // This file was generate by script /install/index.php
 // on '.date("r").'
-// REMOTE_ADDR : 		'.$REMOTE_ADDR.' = '.gethostbyaddr($REMOTE_ADDR).'
+// REMOTE_ADDR : 		'.$_REMOTE_ADDR.' = '.gethostbyaddr($REMOTE_ADDR).'
 // REMOTE_HOST :		'.$REMOTE_HOST.'
 // REMOTE_PORT : 		'.$REMOTE_PORT.'
 // REMOTE_USER : 		'.$REMOTE_USER.'
@@ -573,26 +578,6 @@ foreach ($arr_file_to_undist As $undist_this)
 
 			fwrite($fileAccess, $stringAccess);
 		}
-
-
-		
-		$htAccessPath = "../inc/";
-		$fileAccess=@fopen($htAccessPath.$htAccessName, "w");
-		if (!$fileAccess)
-		{
-			$fileAccessCreationError = true;
-			$display=DISP_RUN_INSTALL_NOT_COMPLETE;
-		}
-		else
-		{
-			$stringAccess='AuthName "Administration Claroline"
-			AuthType Basic
-			Require valid-user
-			AuthUserFile "'.realpath($htPasswordPath).'/'.$htPasswordName.'"';
-
-			fwrite($fileAccess, $stringAccess);
-		}
-
 
 		$htAccessPath = "../lang/";
 		$fileAccess=@fopen($htAccessPath.$htAccessName, "w");
@@ -1190,7 +1175,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 							&nbsp;
 						</td>
 						<td align=\"right\">
-							<input type=\"submit\" name=\"".($databaseParam_ok?"install5":"doCheckDatabaseAccountSetting")."\" value=\"Next >\">
+							<input type=\"submit\" name=\"".($databaseParam_ok?"configCampus":"doCheckDatabaseAccountSetting")."\" value=\"Next >\">
 						</td>
 					</tr>
 				</table>";
@@ -1273,7 +1258,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 							&nbsp;
 						</td>
 						<td align=\"right\">
-							<input type=\"submit\" name=\"".($databaseParam_ok?"install5":"doCheckDatabaseName")."\" value=\"Next >\">
+							<input type=\"submit\" name=\"".($databaseParam_ok?"ADMIN_SETTING":"doCheckDatabaseName")."\" value=\"Next >\">
 						</td>
 					</tr>
 				</table>";
@@ -1298,13 +1283,13 @@ elseif($display == DISP_DB_NAMES_SETTING )
 
 
 
-###### STEP 4 CONFIG SETTINGS ##############################################
-elseif($display==DISP_CONFIG_SETTING)
+###### STEP CONFIG SETTINGS ##############################################
+elseif($display==DISP_ADMIN_SETTING)
 
 {
 	echo "
 				<h2>
-					".$langStep5." : ".$langCfgSetting."
+					".$langStep5." : ".$langAdminSetting."
 				</h2>
 				The following values will be written in '<em>".$configFilePath."</em>'
 			</td>
@@ -1361,6 +1346,30 @@ elseif($display==DISP_CONFIG_SETTING)
 							<td></td>
 						</tr>
 				</table>
+				<table width=\"100%\">
+						<tr>
+							<td>
+								<input type=\"submit\" name=\"setDbAccountProperties\" value=\"< Back\">
+							</td>
+							<td align=\"right\">
+								<input type=\"submit\" name=\"CONFIG_SETTING\" value='Next >'>
+							</td>
+						</tr>
+					</table>";
+}
+###### STEP CONFIG SETTINGS ##############################################
+elseif($display==DISP_CONFIG_SETTING)
+
+{
+	echo "
+				<h2>
+					".$langStep5." : ".$langCfgSetting."
+				</h2>
+				The following values will be written in '<em>".$configFilePath."</em>'
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<h4>Campus</h4>
 				<table >
 					<tr>
@@ -1487,7 +1496,7 @@ echo "
 				<table width=\"100%\">
 						<tr>
 							<td>
-								<input type=\"submit\" name=\"setDbAccountProperties\" value=\"< Back\">
+								<input type=\"submit\" name=\"ADMIN_SETTING\" value=\"< Back\">
 							</td>
 							<td align=\"right\">
 								<input type=\"submit\" name=\"install6\" value='Next >'>
@@ -1495,7 +1504,7 @@ echo "
 						</tr>
 					</table>";
 }
-###### STEP 5 LAST CHECK BEFORE INSTALL ##############################################
+###### STEP LAST CHECK BEFORE INSTALL ##############################################
 elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 {
 	$pathForm = str_replace("\\\\", "/", $pathForm);
@@ -1540,7 +1549,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 				<td>
 					<font size=\"2\" color=\"red\" face=\"arial, helvetica\">
 					Administrator Login : $loginForm<br>
-					Administrator Password : $passForm
+					Administrator Password : ".(empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$dbPassForm)."<br>
 					</font>
 				</td>
 			<tr>
@@ -1590,7 +1599,7 @@ elseif($display==DISP_RUN_INSTALL_NOT_COMPLETE)
 	if ($adminDataMissing)
 	{
 		echo "<strong>Admin Data missing</strong><br>
-			<input type=\"submit\" name=\"back4\" value=\"Admin Data\">
+			<input type=\"submit\" name=\"ADMIN_SETTING\" value=\"Admin Data\">
 		";	
 	}
 	if ($noMysqlConnection)
@@ -1691,7 +1700,7 @@ Your problems can be related on two possible causes :<br>
 	echo "
 				<p align=\"right\">
 					<input type=\"submit\" name=\"alreadyVisited\" value=\"Restart from beginning\">
-					<input type=\"submit\" name=\"back6\" value=\"Previous\">
+					<input type=\"submit\" name=\"CONFIG_SETTING\" value=\"Previous\">
 					<input type=\"submit\" name=\"doInstall\" value=\"Retry\">
 				</p>";
 
