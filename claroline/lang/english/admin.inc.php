@@ -153,6 +153,7 @@ $langCanCreateCourse = "Can create new courses";
 //top form for list
 
 $langSearchOn = "Search on";
+$langMakeSearch = "Make search";
 
 
 //buttons
@@ -252,7 +253,7 @@ $langUserSubscribed = "The user has been successfully registered";
 $langUserNotSubscribed = "Register failed!!!";
 $langUserDelete = "Delete of the user was done sucessfully";
 $langNoCourseResult = "There is no course matching such criteria";
-$langNoUserResult = "There is no user matching such criteria";
+$langNoUserResult = "No user to display";
 $langSearchAgain = "Search again";
 $langAppliedChange = "Changes have been applied to the user settings";
 $langUserTaken = "This user name is already taken";
