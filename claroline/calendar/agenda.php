@@ -429,7 +429,7 @@ $nowBarShowed = false;
 
 if (count($eventList) < 1)
 {
-	echo '<br><blockquote>".$langNoEventInTheAgenda."</blockquote>';
+	echo '<br><blockquote>'.$langNoEventInTheAgenda.'</blockquote>';
 }
 else
 {
