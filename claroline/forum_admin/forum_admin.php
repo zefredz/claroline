@@ -542,7 +542,7 @@ if($display == DISP_FORUM_GO)
 					"<td valign=top	align=\"center\">\n".
 					"<a	href=forum_admin.php".
 					"?forumgoedit=yes&forum_id=".$thisForum['id']."&ctg=".$ctg."&cat_id=".$cat_id.">".
-					"<img src=\"../img/edit.gif\" alt=\"".$langModify."\" border=\"0\">".
+					"<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"".$langModify."\" border=\"0\">".
 					"</a>".
 					"</td>\n".
 					"<td align=\"center\">".
@@ -551,7 +551,7 @@ if($display == DISP_FORUM_GO)
 					"<small><i>can not be deleted</i></small>"
 					:
 					"<a	href=\"forum_admin.php?forumgodel=yes&forum_id=".$thisForum['id']."&cat_id=".$cat_id."&ctg=".$ctg."&ok=0\"	onclick=\"return confirmation('".addslashes(htmlentities($lang_areYouSureToDelete .' \'' .$forum_name.'\'	?'))."');\">".
-					"<img src=\"../img/delete.gif\"	alt=\"".$langDelete."\"	border=\"0\">".
+					"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\"	alt=\"".$langDelete."\"	border=\"0\">".
 					"</a>").
 
 					"</td>\n";
@@ -565,13 +565,13 @@ if($display == DISP_FORUM_GO)
            else
            {
               echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMovedown&moveForumId=".$thisForum['id']."&moveCat=".$cat_id."&cat_id=".$cat_id."&ctg=".$ctg."&forumgo=yes\">
-                        <img src=\"../img/down.gif\"></a>
+                        <img src=\"".$clarolineRepositoryWeb."img/down.gif\"></a>
                     </td>";
            }
            if ($iteratorInCat>1)
            {
               echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMoveup&moveForumId=".$thisForum['id']."&moveCat=".$cat_id."&cat_id=".$cat_id."&ctg=".$ctg."&forumgo=yes\">
-                        <img src=\"../img/up.gif\"></a>
+                        <img src=\"".$clarolineRepositoryWeb."img/up.gif\"></a>
                     </td>";
            }
            else
@@ -760,7 +760,7 @@ elseif($display == DISP_FORUM_ADMIN)
 
                  ."<td align=\"center\">"
                  ."<a href=\"forum_admin.php?forumcatedit=yes&cat_id=".$thisCategory['id']."\">"
-                 ."<img src=\"../img/edit.gif\" alt=\"".$langModify."\" border=\"0\">"
+                 ."<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"".$langModify."\" border=\"0\">"
                  ."</a>"
                  ."</td>\n"
 
@@ -771,7 +771,7 @@ elseif($display == DISP_FORUM_ADMIN)
                 echo "<a href=\"forum_admin.php?"
                     ."forumcatdel=yes&cat_id=".$thisCategory['id']."&ok=0\" "
                     ."onclick=\"return confirmation('".addslashes(htmlentities($lang_areYouSureToDelete .' \'' .$thisCategory['title'].'\' ?'))."');\">".
-                    "<img src=\"../img/delete.gif\" alt=\"".$langDelete."\" border=\"0\">".
+                    "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" alt=\"".$langDelete."\" border=\"0\">".
                     "</a>";
             }
             else
@@ -790,13 +790,13 @@ elseif($display == DISP_FORUM_ADMIN)
            else
            {
               echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMovedownCat&moveCatId=".$thisCategory['id']."\">
-                        <img src=\"../img/down.gif\"></a>
+                        <img src=\"".$clarolineRepositoryWeb."img/down.gif\"></a>
                     </td>";
            }
            if ($iteratorInCat>1)
            {
               echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMoveupCat&moveCatId=".$thisCategory['id']."\">
-                        <img src=\"../img/up.gif\"></a>
+                        <img src=\"".$clarolineRepositoryWeb."img/up.gif\"></a>
                     </td>";
            }
            else

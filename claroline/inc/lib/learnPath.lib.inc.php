@@ -103,7 +103,7 @@
            global $urlAppend;
            global $TABLELEARNPATH, $TABLEMODULE, $TABLELEARNPATHMODULE;
            global $langModify, $langOk, $langErrorNameAlreadyExists, $langAddComment, $langConfirmYourChoice;
-           global $langDefaultLearningPathComment, $langDefaultModuleComment , $langDefaultModuleAddedComment;
+           global $langDefaultLearningPathComment, $langDefaultModuleComment , $langDefaultModuleAddedComment, $clarolineRepositoryWeb;
            // will be set 'true' if the comment has to be displayed
            $dsp = false;
 
@@ -211,8 +211,8 @@
                         echo
                                "<p>\n",
                                "<small>\n",
-                               "<a href=\"$PHP_SELF?cmd=update".$col_name."\"><img src=\"../img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n",
-                               "<a href=\"$PHP_SELF?cmd=del".$col_name."\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\"><img src=\"../img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\"></a>\n",
+                               "<a href=\"$PHP_SELF?cmd=update".$col_name."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n",
+                               "<a href=\"$PHP_SELF?cmd=del".$col_name."\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\"><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\"></a>\n",
                                "</small>\n",
                                "</p>\n";
                      }
@@ -236,7 +236,7 @@
            global $is_AllowedToEdit;
            global $urlAppend;
            global $TABLELEARNPATH, $TABLEMODULE;
-           global $langModify, $langOk, $langErrorNameAlreadyExists;
+           global $langModify, $langOk, $langErrorNameAlreadyExists, $clarolineRepositoryWeb;
 
            // $dsp will be set 'true' if the comment has to be displayed
            $dsp = false;
@@ -317,7 +317,7 @@
                 echo "<h4>".$currentName['name'];
 
                 if ( $is_AllowedToEdit )
-                         echo "<br><a href=\"$PHP_SELF?cmd=updateName\"><img src=\"../img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n";
+                         echo "<br><a href=\"$PHP_SELF?cmd=updateName\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n";
                 echo "</h4>";
            }
 
@@ -517,7 +517,7 @@
                   $moduleImg = choose_image(basename($module['path']));
                 $contentType_alt = selectAlt($module['contentType']);
               
-                echo "<img src=\"../img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
+                echo "<img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
                              .$module['name'];
             }
             echo "</td>\n</tr>\n";
@@ -654,7 +654,7 @@
                               </td>
 
                               <td align=\"left\">
-                                 <label for=\"check_".$exercise['id']."\" ><img src=\"../img/quiz.gif\" alt=\"".$langExercise."\" />".$exercise['titre']."</label>
+                                 <label for=\"check_".$exercise['id']."\" ><img src=\"".$clarolineRepositoryWeb."img/quiz.gif\" alt=\"".$langExercise."\" />".$exercise['titre']."</label>
                               </td>
                            </tr>";
 
@@ -744,7 +744,7 @@
 	                    and we can't go to a parent dir */
           {
             echo 	"<a href=\"$PHP_SELF?cmd=exChDir&file=".$cmdParentDir."\">\n",
-                "<img src=\"../img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\">\n",
+                "<img src=\"".$clarolineRepositoryWeb."img/parent.gif\" border=\"0\" align=\"absbottom\" hspace=\"5\">\n",
                 "<small>$langUp</small>\n",
                 "</a>\n";
           }
@@ -756,7 +756,7 @@
                   echo	"<!-- current dir name -->\n",
                       "<tr>\n",
                       "<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n",
-                      "<img src=\"../img/opendir.gif\" align=\"absbottom\" vspace=2 hspace=5>\n",
+                      "<img src=\"".$clarolineRepositoryWeb."img/opendir.gif\" align=\"absbottom\" vspace=2 hspace=5>\n",
                               $dspCurDirName,"\n",
                       "</td>\n",
                       "</tr>\n";
@@ -835,7 +835,7 @@
                           }
                           echo           "<td align=\"left\">",
                                           "<a href=\"".$urlFileName."\"".$style.">",
-                                          "<img src=\"../img/",$image,"\" border=\"0\" hspace=\"5\" />",$dspFileName,"</a>",
+                                          "<img src=\"".$clarolineRepositoryWeb."img/",$image,"\" border=\"0\" hspace=\"5\" />",$dspFileName,"</a>",
                                           "</td>\n",
 
                                           "<td><small>",$size,"</small></td>\n",
@@ -898,19 +898,19 @@
            
             // display progress bar
             // origin of the bar
-            $progressBar = "<img src=\"../img/bar_1.gif\" width=\"1\" height=\"12\" alt=\" \">";
+            $progressBar = "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\" \">";
             
             if($progress != 0)            
-                $progressBar .= "<img src=\"../img/bar_1u.gif\" width=\"$barwidth\" height=\"12\" alt=\" \">";
+                $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1u.gif\" width=\"$barwidth\" height=\"12\" alt=\" \">";
             // display 100% bar
             
             if($progress!= 100 && $progress != 0)
-                 $progressBar .= "<img src=\"../img/bar_1m.gif\" width=\"1\" height=\"12\" alt=\" \">";
+                 $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1m.gif\" width=\"1\" height=\"12\" alt=\" \">";
             
             if($progress != 100)    
-                 $progressBar .= "<img src=\"../img/bar_1r.gif\" width=\"".($maxSize-$barwidth)."\" height=\"12\" alt=\" \">";
+                 $progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1r.gif\" width=\"".($maxSize-$barwidth)."\" height=\"12\" alt=\" \">";
             // end of the bar
-            $progressBar .=  "<img src=\"../img/bar_1.gif\" width=\"1\" height=\"12\" alt=\" \">";
+            $progressBar .=  "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\" \">";
             
             echo $progressBar;
     }
