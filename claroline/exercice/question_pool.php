@@ -105,9 +105,7 @@ if($is_allowedToEdit)
 
 <form method="get" action="<?php echo $PHP_SELF; ?>">
 <input type="hidden" name="fromExercise" value="<?php echo $fromExercise; ?>">
-<table border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
-<tr>
-  <td colspan="<?php echo $fromExercise?2:3; ?>" align="right">
+<p align="right">
 	<label for="exerciseId"><?php echo $langFilter; ?></label> : 
 	
 	<select id="exerciseId" name="exerciseId">
@@ -130,9 +128,7 @@ if($is_allowedToEdit)
 ?>
 
     </select> <input type="submit" value="<?php echo $langOk; ?>">
-  </td>
-</tr>
-
+</p>
 <?php
 	$from=$page*$limitQuestPage;
 
@@ -161,8 +157,6 @@ if($is_allowedToEdit)
 	$nbrQuestions=mysql_num_rows($result);
 ?>
 
-<tr>
-  <td colspan="<?php echo $fromExercise?2:3; ?>">
 	<table border="0" cellpadding="0" cellspacing="0" width="100%">
 	<tr>
 	  <td>
@@ -228,9 +222,7 @@ if($is_allowedToEdit)
 	  </td>
 	</tr>
 	</table>
-  </td>
-</tr>
-</table>
+
 <table class="claroTable" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
 <tr class="headerX">
 
@@ -299,7 +291,7 @@ if($is_allowedToEdit)
 ?>
 
   <td align="center">
-    <a href="<?php echo $PHP_SELF; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $row[id]; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmYourChoice)); ?>')) return false;"><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
+    <a href="<?php echo $PHP_SELF; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $row[id]; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmDeleteQuestion)); ?>')) return false;"><img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
   </td>
 
 <?php
