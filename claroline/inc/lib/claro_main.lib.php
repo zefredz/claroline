@@ -725,11 +725,9 @@ function claro_disp_auth_form()
 {
     global  $includePath, $clarolineRepositoryWeb,
             $_uid, $is_courseAllowed, $_course,
-            $siteName,
-
-            $lang_thisCoursIsProtectedOrDontExist , $lang_password ,
-            $langUserName, $lang_doLogin, $lang_IfYouDontHaveAccountOn, 
-            $lang_YouNeedToSubscribeThisCourse, $langReg;
+            $siteName, $lang_password ,
+            $langUserName, $lang_doLogin, 
+            $langReg;
 
             
     if ( ! $is_courseAllowed)
