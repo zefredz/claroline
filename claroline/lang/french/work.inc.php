@@ -21,14 +21,14 @@ $langMakeInvisible = "Rendre Invisible";
 // -- Session list
 $langCreateAssignment = "Créer un nouveau travail";
 $langVisibility = "Visibilité";
+$langEditFeedback = "Editer la correction";
 
 // -- Work list
 $langAssignment = "Travail";
 $langSubmitWork = "Nouvelle soumission";
 $langEditWork = "Modifier une soummission";
 $langWorkDetails = "Détails de la soumission";
-$langGradeWork = "Corriger";
-$langShowGrade = "Voir correction";
+$langShowFeedback = "Voir correction";
 
 // -- Forms
 
@@ -60,12 +60,14 @@ $langAllowLateUploadShort = "Soumissions tardives";
 $langAllowLateUpload = "Oui, autoriser les utilisateurs à soumettre leur travail après la date de fin";
 $langPreventLateUpload = "Non, ne pas autoriser les utilisateurs à soumettre leur travail après la date de fin";
 
-$langStandardFeedbackHelp = "La correction standard est optionnelle, si elle est complétée elle sera affichée aux étudiants à partir de la date de soumission choisie.";
-$langStandardFeedback = "Correction standard";
-$langStandardFeedbackText = "Texte correctif";
-$langStandardFeedbackFile = "Fichier correctif";
-$langCurrentStandardFeedbackFile = "Fichier correctif actuel";
-$langStandardFeedbackDate = "Date de soumission de la correction";
+$langFeedbackHelp = "Le corrigé est optionnel, s'il est complété il sera affiché aux étudiants selon l'option de soumission choisie.";
+$langFeedback = "Corrigé";
+$langFeedbackText = "Texte correctif";
+$langFeedbackFile = "Fichier correctif";
+$langCurrentFeedbackFile = "Fichier correctif actuel";
+$langFeedbackSubmit = "Soumission du correctif";
+$langSubmitFeedbackAfterEndDate = "Automatique, après la date de fin";
+$langSubmitFeedbackAfterPost = "Automatique, après chaque soumission";
 
 // work
 $langWrkTitle = "Titre de la soumission";
@@ -89,7 +91,8 @@ $langAssignmentDeleted = "Travail effacé";
 $langAssignmentEdited = "Travail modifié";
 $langWrkAdded = "Soumission ajoutée";
 $langWrkEdited = "Soumission modifiée";
-$langGradeAdded = "Correction ajoutée";
+$langFeedbackAdded = "Correction ajoutée";
+$langFeedbackEdited = "Correctif édité";
 
 // errors
 $langTooBig = "Fichier trop grand";
@@ -110,7 +113,7 @@ $langSubmissionDate = "Date d'envoi";
 $langLastEditDate = "Date dernière édition";
 $langSubmittedBy = "Soumis par";
 $langAnonymousUser = "Utilisateur anonyme";
-$langAfterEndDate = "Après la date de fin";
+$langLateUpload = "Envoyé en retard";
 
 $langRequired = "Requis";
 $langChooseDateHelper = "(d/m/y hh:mm)";

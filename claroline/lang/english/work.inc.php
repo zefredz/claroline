@@ -20,14 +20,14 @@ $langMakeInvisible = "Make Invisible";
 // -- assignments list
 $langCreateAssignment = "Create a new assignment";
 $langVisibility = "Visibility";
+$langEditFeedback = "Edit feedback";
 
 // -- Work list
 $langAssignment = "Assignment";
 $langSubmitWork = "Submit a work";
 $langEditWork = "Modify a work";
 $langWorkDetails = "Work details";
-$langGradeWork = "Feedback";
-$langShowGrade = "Show feedback";
+$langShowFeedback = "Show feedback";
 
 // -- Forms
 
@@ -41,7 +41,7 @@ $langFileOnly = "File (file required, description text optional)";
 $langTextFile = "Text with attached file (text required, file optionnal)";
 
 $langStartDate = "Start date";
-$langEndDate = "Deadline";
+$langEndDate = "End date";
 
 $langDefSubVisibility = "Default works visibility";
 $langVisible = "Visible";
@@ -56,15 +56,17 @@ $langAnonAllowed = "Yes, anonymous users can submit works";
 $langAnonNotAllowed = "No, anonymous users can not submit works";
 
 $langAllowLateUploadShort = "Allow late upload";
-$langAllowLateUpload = "Yes, allow users to submit works after deadline";
-$langPreventLateUpload = "No, prevent users to submit works after deadline";
+$langAllowLateUpload = "Yes, allow users to submit works after end date";
+$langPreventLateUpload = "No, prevent users to submit works after end date";
 
-$langStandardFeedbackHelp = "Standard feedback is optionnal.  If not empty it will be shown to users after the feedback submission date.";
-$langStandardFeedback = "Standard feedback";
-$langStandardFeedbackText = "Feedback text";
-$langStandardFeedbackFile = "Feedback file";
-$langCurrentStandardFeedbackFile = "Current feedback file";
-$langStandardFeedbackDate = "Standard feedback submission date";
+$langFeedbackHelp = "Feedback is optionnal. It is the correct version of the assignment. If not empty it will be shown to users according to the 'submit feedback' configuration.";
+$langFeedback = "Feedback";
+$langFeedbackText = "Feedback text";
+$langFeedbackFile = "Feedback file";
+$langCurrentFeedbackFile = "Current feedback file";
+$langFeedbackSubmit = "Submit feedback";
+$langSubmitFeedbackAfterEndDate = "Automatically, after end date";
+$langSubmitFeedbackAfterPost = "Automatically, after each submission";
 
 // work
 $langWrkTitle = "Work title";
@@ -88,7 +90,8 @@ $langAssignmentDeleted = "Assignment deleted";
 $langAssignmentEdited = "Assignment modified";
 $langWrkAdded = "Work added";
 $langWrkEdited = "Work modified";
-$langGradeAdded = "Feedback added";
+$langFeedbackAdded = "Feedback added";
+$langFeedbackEdited = "Feedback edited";
 
 // errors
 $langTooBig = "File is too big";
@@ -105,11 +108,11 @@ $langIncorrectDate = "Start date must be before end date ...";
 // work details
 $langUploadedFile = "Uploaded file";
 $langAttachedFile = "Attached file";
-$langSubmissionDate = "First submission date";
+$langSubmissionDate = "First&nbsp;submission&nbsp;date";
 $langLastEditDate = "Last edit date";
 $langSubmittedBy = "Submitted by";
 $langAnonymousUser = "anonymous user";
-$langAfterEndDate = "After deadline";
+$langLateUpload = "Late upload";
 
 $langRequired = "Required";
 $langChooseDateHelper = "(d/m/y hh:mm)";
