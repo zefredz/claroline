@@ -30,6 +30,7 @@ include($includePath."/lib/text.lib.php");
 $TABLECOURSE     = $mainDbName."`.`cours";
 $TABLEFACULTY    = $mainDbName."`.`faculte";
 $TABLECOURSDOMAIN= $mainDbName."`.`faculte";//needed for compatibility with libs
+$TABLEPHPBBCONFIG = $_course['dbNameGlu']."bb_config";
 $TABLECOURSEHOME = $_course['dbNameGlu']."tool_list";
 
 $currentCourseID = $_course['sysCode'];
@@ -91,6 +92,10 @@ if($is_allowedToEdit)
 		mysql_query("UPDATE `".$TABLECOURSE."`
 					 SET ".implode(",",$fieldsToUpdate)."
 					 WHERE code=\"".$current_cid."\"");
+		// we also need to modify the default langage of the phpbb forums
+		mysql_query("UPDATE `".$TABLEPHPBBCONFIG."`
+				SET `default_lang` = '".$lanCourseForm."'
+				WHERE `config_id` = 1");
 		$cidReset = true;
 		$cidReq = $current_cid;
 		include($includePath."/claro_init_local.inc.php");
