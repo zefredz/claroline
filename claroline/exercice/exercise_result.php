@@ -92,10 +92,10 @@ if ($_SESSION['inPathMode']== true)          // learning path mode
 {
 	include($includePath."/lib/learnPath.lib.inc.php");
 	$is_allowedToEdit = false; // do not allow to be in admin mode during a path progression
-    // need to include the learningPath langfile for the added interbredcrump
-   	// echo minimal html page header so that the page is valid
-    // don't display banner from init_header
-    $hide_banner = true;
+	// need to include the learningPath langfile for the added interbredcrump
+	// echo minimal html page header so that the page is valid
+	// don't display banner from init_header
+	$hide_banner = true;
 }
 else                                        // normal exercise mode
 {
@@ -104,12 +104,7 @@ else                                        // normal exercise mode
 }
 include($includePath.'/claro_init_header.inc.php');
 
-?>
-
-<h3>
-  <?php echo stripslashes($exerciseTitle).' : '.$langResult; ?>
-</h3>
-<?php
+claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 
     if($_SESSION['inPathMode']!= true) // exercise mode
     {
@@ -581,19 +576,14 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
 
 }
 
-if ($_SESSION['inPathMode'] != true) 
-{
-  include($includePath.'/claro_init_footer.inc.php');
-}
-else
+if ($_SESSION['inPathMode'] == true) 
 {
   // display minimal html footer
-  echo '	</body>
-	</html>';
+	$hide_footer = true;
   // clean exercise session vars only if in learning path mode
   // because I don't know why the original author of exercise tool did not unset these here
   session_unregister('exerciseResult');
   session_unregister('questionList');
 }
-
+include($includePath.'/claro_init_footer.inc.php');
 ?>
