@@ -112,14 +112,14 @@ if($isAllowedToDelete)
 				."<font color=\"#CC0000\">";
 
 		echo "<a href=\"".$_SERVER['PHP_SELF']."?delete=yes".$addToURL."\">"
-			.$langY
+			.$langYes
 			."</a>";
 
 
 		echo "&nbsp;|&nbsp;";
 
         echo "<a href=\"infocours.php?".$addToURL."\">"
-				.$langN
+				.$langNo
 				."</a>";
 
 		echo "</font>"
