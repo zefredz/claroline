@@ -38,7 +38,6 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
 $tbl_course           = $tbl_mdb_names['course'         ];
 $tbl_category         = $tbl_mdb_names['category'       ];
-$tbl_bb_config        = $tbl_cdb_names['bb_config'      ];
 $tbl_course_groupconf = $tbl_cdb_names['group_property' ];
 $tbl_rel_tool_course  = $tbl_cdb_names['tool_list'      ];
 
@@ -111,10 +110,6 @@ if($is_allowedToEdit)
 		claro_sql_query('UPDATE `'.$tbl_course.'`
 					 SET '.implode(",",$fieldsToUpdate).'
 					 WHERE code="'.$current_cid.'"');
-		// we also need to modify the default langage of the phpbb forums
-		claro_sql_query('UPDATE `'.$tbl_bb_config.'`
-				SET `default_lang` = "'.$lanCourseForm.'"
-				WHERE `config_id` = 1');
 		$cidReset = true;
 		$cidReq = $current_cid;
 		include($includePath."/claro_init_local.inc.php");
