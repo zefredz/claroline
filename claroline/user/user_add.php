@@ -1,4 +1,4 @@
-<?php # $Id$
+<?php // $Id$
 
 //----------------------------------------------------------------------
 // CLAROLINE
@@ -20,7 +20,6 @@
 define ("STUDENT"      , 5);
 define ("COURSEMANAGER", 1);
 
-$langFile="registration";
 $tlabelReq = "CLUSR___";
 
 require '../inc/claro_init_global.inc.php';

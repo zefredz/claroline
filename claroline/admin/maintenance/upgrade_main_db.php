@@ -7,7 +7,6 @@
 DEFINE("DISPLAY_WELCOME_PANEL", 1);
 DEFINE("DISPLAY_RESULT_PANEL",  2);
 
-$langFile = "upgrade";
 require '../../inc/claro_init_global.inc.php';
 
 // Include lib for config files

@@ -17,9 +17,6 @@
 	   CLAROLINE MAIN 
   ======================================*/ 
 
-//$langFile = "langFile"; // name of the lang file which needs to be included 
-					  //'inc.php' is automatically appended to the file name 
-
 // settings initialisation 
 require '../inc/claro_init_global.inc.php'; 
 

@@ -12,8 +12,6 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-$langFile = "work";
-
 $tlabelReq = "CLWRK___";
 require '../inc/claro_init_global.inc.php';
 

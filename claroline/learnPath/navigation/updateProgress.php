@@ -14,7 +14,6 @@
   +----------------------------------------------------------------------+
   
 */
-$langFile = "learnPath";
 require '../../inc/claro_init_global.inc.php'; 
 
 include($includePath."/lib/learnPath.lib.inc.php");

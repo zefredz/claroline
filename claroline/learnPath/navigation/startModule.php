@@ -32,8 +32,6 @@
        CLAROLINE MAIN
   ======================================*/
 
-  $langFile = "learnPath";
-
   require '../../inc/claro_init_global.inc.php';
 
   // Tables names

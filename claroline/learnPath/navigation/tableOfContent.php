@@ -19,8 +19,6 @@
        CLAROLINE MAIN
   ======================================*/
 
-  $langFile = "learnPath";
-  
   require '../../inc/claro_init_global.inc.php';
   if (! $is_courseAllowed) claro_disp_auth_form();
 

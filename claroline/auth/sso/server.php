@@ -15,7 +15,6 @@
  */
 
 
-$langFile = 'trad4all';
 require '../../inc/claro_init_global.inc.php';
 
 

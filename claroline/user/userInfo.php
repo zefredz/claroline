@@ -12,8 +12,6 @@ define("CLARO_STUDENT_STATUS",1);
 define("CLARO_COURSE_CREATOR_STATUS",5);
 $descSizeToPrupose = array(3,5,10,15,20); // size in lines for desc - don't add 1
 
-$langFile = "registration";
-
 require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/events.lib.inc.php");

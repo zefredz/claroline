@@ -23,7 +23,6 @@ if (!function_exists(mysql_info)) {function mysql_info() {return "";}} // mysql_
 $mtime = microtime();$mtime = explode(" ",$mtime);$mtime = $mtime[1] + $mtime[0];$starttime = $mtime;$steptime =$starttime;
 
 // init language
-$langFile = "upgrade";
 require '../../inc/claro_init_global.inc.php';
 
 // force upgrade for debug
