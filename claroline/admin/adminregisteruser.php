@@ -219,39 +219,39 @@ if($dialogBox)
 
   // ALPHABETIC SEARCH
 /*
-echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
+echo "<form name=\"indexform\" action=\"".$_SERVER['PHP_SELF']."\" method=\"GET\">
              ";
 
             if (isset($cidToEdit)) {$toAdd = "cidToEdit=".$cidToEdit;} else {$toAdd = "";}
 
-            echo "<a href=\"",$PHP_SELF,"?".$toAdd."\"><b> ".$langAll."</b></a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?".$toAdd."\"><b> ".$langAll."</b></a> | ";
 
-            echo "<a href=\"",$PHP_SELF,"?letter=A&".$toAdd."\">A</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=B&".$toAdd."\">B</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=C&".$toAdd."\">C</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=D&".$toAdd."\">D</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=E&".$toAdd."\">E</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=F&".$toAdd."\">F</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=G&".$toAdd."\">G</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=H&".$toAdd."\">H</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=I&".$toAdd."\">I</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=J&".$toAdd."\">J</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=K&".$toAdd."\">K</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=L&".$toAdd."\">L</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=M&".$toAdd."\">M</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=N&".$toAdd."\">N</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=O&".$toAdd."\">O</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=P&".$toAdd."\">P</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=Q&".$toAdd."\">Q</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=R&".$toAdd."\">R</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=S&".$toAdd."\">S</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=T&".$toAdd."\">T</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=U&".$toAdd."\">U</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=V&".$toAdd."\">V</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=W&".$toAdd."\">W</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=X&".$toAdd."\">X</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=Y&".$toAdd."\">Y</a> | ";
-            echo "<a href=\"",$PHP_SELF,"?letter=Z&".$toAdd."\">Z</a>";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=A&".$toAdd."\">A</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=B&".$toAdd."\">B</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=C&".$toAdd."\">C</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=D&".$toAdd."\">D</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=E&".$toAdd."\">E</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=F&".$toAdd."\">F</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=G&".$toAdd."\">G</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=H&".$toAdd."\">H</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=I&".$toAdd."\">I</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=J&".$toAdd."\">J</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=K&".$toAdd."\">K</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=L&".$toAdd."\">L</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=M&".$toAdd."\">M</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=N&".$toAdd."\">N</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=O&".$toAdd."\">O</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=P&".$toAdd."\">P</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=Q&".$toAdd."\">Q</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=R&".$toAdd."\">R</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=S&".$toAdd."\">S</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=T&".$toAdd."\">T</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=U&".$toAdd."\">U</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=V&".$toAdd."\">V</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=W&".$toAdd."\">W</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=X&".$toAdd."\">X</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=Y&".$toAdd."\">Y</a> | ";
+            echo "<a href=\"".$_SERVER['PHP_SELF']."?letter=Z&".$toAdd."\">Z</a>";
             echo "
             <input type=\"text\" name=\"search\">
             <input type=\"hidden\" name=\"cidToEdit\" value=\"".$cidToEdit."\">
@@ -361,16 +361,16 @@ foreach($resultList as $list)
          // Register as user
 
          echo  "<td align=\"center\">\n",
-                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=stud".$addToURL."\" ",
+                    "<a href=\"".$_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=stud".$addToURL."\" ",
                     ">\n",
-                    "<img src=\"".$coursesRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
+                    "<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
                     "</a>\n",
                 "</td>\n";
 
          //register as teacher
 
          echo  "<td align=\"center\">\n",
-                        "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=teach".$addToURL."\" ",
+                        "<a href=\"".$_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=teach".$addToURL."\" ",
                         ">\n",
                         "<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"$langSubscribeUser\" />\n",
                         "</a>\n",
@@ -382,9 +382,9 @@ foreach($resultList as $list)
         //Register as user
 
         echo  "<td align=\"center\">\n",
-                    "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=stud".$addToURL."\" ",
+                    "<a href=\"".$_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=stud".$addToURL."\" ",
                     ">\n",
-                    "<img src=\"".$coursesRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"".$langSubscribeUser."\" />\n",
+                    "<img src=\"".$clarolineRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"".$langSubscribeUser."\" />\n",
                     "</a>\n",
                 "</td>\n";
 
@@ -414,7 +414,7 @@ foreach($resultList as $list)
         //register as teacher
 
          echo  "<td align=\"center\">\n",
-                        "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=teach".$addToURL."\" ",
+                        "<a href=\"".$_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit."&cmd=sub&search=".$search."&user_id=".$list['ID']."&subas=teach".$addToURL."\" ",
                         ">\n",
                         "<img src=\"".$coursesRepositoryWeb."img/enroll.gif\" border=\"0\" alt=\"".$langSubscribeUser."\" />\n",
                         "</a>\n",
