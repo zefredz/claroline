@@ -4,8 +4,10 @@ $stable = false;
 $clarolinePhase = "RC2cvs";
 $is_upgrade_available = true;
 
-$version_file_cvs = "1.5.0.RC2cvs";
-$version_db_cvs   = "1.5.0.RC2cvs";
+// var version_db  max. 10 chars
+
+$version_file_cvs = "1.5.0.RC2";
+$version_db_cvs   = "1.5.0.RC2";
 
 if (!$is_upgrade_available)
 {
