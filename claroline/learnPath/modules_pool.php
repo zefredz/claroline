@@ -284,14 +284,14 @@
                     <td align='center'>
                      <a href=\"",$PHP_SELF,"?cmd=eraseModule&cmdid=".$list['module_id']."\"
                         onClick=\"return confirmation('",htmlspecialchars(addslashes($list['name'])),$langUsedInLearningPaths,$list['timesUsed'],"');\">
-                        <img src=\"../img/delete.gif\" border=\"0\" alt=\"$langAreYouSureDeleteModule\" />
+                        <img src=\"../img/delete.gif\" border=\"0\" alt=\"$langDelete\" />
                         </a>
                     </td>
                     <td align=\"center\">
-                       <a href=\"",$PHP_SELF,"?cmd=rename&mod_id=".$list['module_id']."\"><img src=\"../img/edit.gif\" border=0 alt=\"$langModify\" /></a>
+                       <a href=\"",$PHP_SELF,"?cmd=rename&mod_id=".$list['module_id']."\"><img src=\"../img/edit.gif\" border=0 alt=\"$langRename\" /></a>
                     </td>
                     <td align=\"center\">
-                       <a href=\"",$PHP_SELF,"?cmd=comment&mod_id=".$list['module_id']."\"><img src=\"../img/comment.gif\" border=0 alt=\"$langModify\" /></a>
+                       <a href=\"",$PHP_SELF,"?cmd=comment&mod_id=".$list['module_id']."\"><img src=\"../img/comment.gif\" border=0 alt=\"$langComment\" /></a>
                     </td>";
             /*
                     // ACCESSIBILITY
