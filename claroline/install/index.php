@@ -61,13 +61,9 @@ if($_REQUEST['cmdLicence'])
 {
 	$cmd=DISP_LICENCE;
 }
-elseif($_REQUEST['setDbAccountProperties'])
+elseif($_REQUEST['cmdDB_CONNECT_SETTING'])
 {
 	$cmd=DISP_DB_CONNECT_SETTING;
-}
-elseif($_REQUEST['install6'] || $_REQUEST['back6'] )
-{
-	$cmd=DISP_RUN_INSTALL_COMPLETE;
 }
 elseif($_REQUEST['cmdDbNameSetting'])
 {
@@ -85,9 +81,6 @@ elseif($_REQUEST['cmdDoInstall'])
 {
 	$cmd=DISP_RUN_INSTALL_COMPLETE;
 }
-
- 
- 
  
 if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step prupose values
 {
@@ -167,7 +160,6 @@ if($_REQUEST['fromPanel'] == DISP_ADMIN_SETTING || $_REQUEST['cmdDoInstall'])
 		{
 			$display=$cmd;
 		}
-	//	$display=DISP_ADMIN_SETTING;
 		$canRunCmd = false;
 	}
 }
@@ -183,29 +175,37 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
 		$no = mysql_errno();
 		$msg = mysql_error();
 		$msg_no_connection = '
-				<font color="red">Warning !</font> 
-				<small>['.$no.'] - '.$msg.'</small>
-				<br>';
+				<P class="setup_error">
+					<font color="red">Warning !</font> 
+					<small>['.$no.'] - '.$msg.'</small>
+					<br>';
 		if ($no=="2005")
 		$msg_no_connection .= '		
-				Wrong '.$langDBHost.' : <I>'.$dbHostForm.'</I>';
+					Wrong '.$langDBHost.' : <I>'.$dbHostForm.'</I>';
 		elseif ($no=="1045")
 		$msg_no_connection .= '
-				Wrong database Login : (<I>'.$dbUsernameForm.'</I>) 
+					Wrong database Login : (<I>'.$dbUsernameForm.'</I>) 
 					or Password (<I>'.$dbPassForm.'</I>)';
 		else
 		$msg_no_connection .= '
-				Server unavailable (mysql started ?)';
+					Server unavailable (mysql started ?)';
 		$msg_no_connection .= '
-				<BR>
-				<font color="blue">
-					Fix this problem before going further
-				</font>
-				<BR>
-				<BR>';
+					<BR>
+					<font color="blue">
+						Fix this problem before going further
+					</font>
+					<BR>
+				</P>';
 		$databaseParam_ok = false;
 		$canRunCmd = false;
-		$display = DISP_DB_CONNECT_SETTING;
+		if ($cmd>DISP_DB_CONNECT_SETTING)
+		{
+			$display=DISP_DB_CONNECT_SETTING;
+		}
+		else 
+		{
+			$display=$cmd;
+		}
 	}
 }
 
@@ -213,16 +213,21 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
 {
 	// re Check Connection //
 	$databaseParam_ok = true;
+	if ($singleDbForm) $dbStatsForm = $dbNameForm;
 	$db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
 	$valMain = check_if_db_exist($dbNameForm  ,$db);
-	$valStat = check_if_db_exist($dbStatsForm ,$db);
-	if ($valMain||$valStat)
+	if (!$singleDbForm) $valStat = check_if_db_exist($dbStatsForm ,$db);
+	if (
+			($valMain && !$confirmUseExistingMainDb)
+			||
+			($valStat && !$confirmUseExistingStatsDb)
+		)
 	{
 		$databaseAlreadyExist = true;
 		if ($valMain)	$mainDbNameExist  = true;
 		if ($valStat)	$statsDbNameExist = true;
 		$canRunCmd = false;
-		$display = DISP_DB_NAMES_SETTING_ERROR;
+		$display = DISP_DB_NAMES_SETTING;
 	}
 	else
 	{
@@ -238,7 +243,7 @@ if ($canRunCmd)
 	{
 		$display = DISP_LICENCE;
 	}
-	elseif($_REQUEST['setDbAccountProperties'])
+	elseif($_REQUEST['cmdDB_CONNECT_SETTING'])
 	{
 		$display = DISP_DB_CONNECT_SETTING;
 	}
@@ -311,8 +316,8 @@ if ($display==DISP_DB_NAMES_SETTING)
 -- Claroline installation -- version <?php echo $clarolineVersion ?>
 </title>
 
-<link rel="stylesheet" href="../css/default.css" type="text/css">
-<style media="print" >
+<link rel="stylesheet" href="../css/default.css" type="text/css" >
+<style media="print" type="text/css"  >
 	.notethis {	border: thin double Black;	margin-left: 15px;	margin-right: 15px;}
 </style>
 </head>
@@ -333,7 +338,7 @@ if ($display==DISP_DB_NAMES_SETTING)
 echo "
 			<input type=\"hidden\" name=\"languageCourse\" value=\"$languageCourse\">
 			<input type=\"hidden\" name=\"urlAppendPath\" value=\"$urlAppendPath\">
-			<input type=\"hidden\" name=\"urlEndFormvalue=\"$urlEndForm\">
+			<input type=\"hidden\" name=\"urlEndForm\" value=\"$urlEndForm\">
 			<input type=\"hidden\" name=\"pathForm\" value=\"".str_replace("\\","/",realpath($pathForm)."/")."\" >
 
 			<input type=\"hidden\" name=\"dbHostForm\" value=\"$dbHostForm\">
@@ -432,36 +437,34 @@ if ($display==DISP_WELCOME)
 	{
 		echo '
  <div style="background-color:#FFFFFF;margin:20px;padding:5px">
-	<p>
-		<b>
-			<font color="red">
-				Warning ! The installer has detected an existing
-				claroline platform on your system.
-				<br>
-				<ul>';
+	<b>
+		<font color="red">
+			Warning ! The installer has detected an existing
+			claroline platform on your system.
+		</font>
+		<br>
+	</b>
+	<ul>';
 		if ($is_upgrade_available)
 		{
 			echo '
-				<li>For claroline upgrade click
-				<a href="../admin/maintenance/upgrade.php">here.</a>
-				<br>';
+		<li>
+			For claroline upgrade click
+			<a href="../admin/maintenance/upgrade.php">here.</a>
+		</li>';
 		}
 		else
 		{
 			echo '
-				<li>
-					For claroline upgrade please wait a stable release.
-				</li>
-				<br>';
+		<li>
+			For claroline upgrade please wait a stable release.
+		</li>';
 		}
 		echo 	'
-				<li>
-					For claroline overwrite click on "next" button
-				</li>
-				</ul>
-			</font>
-		</b>
-	</p>
+		<li>
+			For claroline overwrite click on "next" button
+		</li>
+	</ul>
 </div>';
 	}
 
@@ -508,15 +511,17 @@ if ($display==DISP_WELCOME)
 	if (!ini_get('register_globals'))
 	{
 		echo '
-			<LI>
-				<font color="red">Warning !</font> 
-				register_globals is set to <strong>off</strong>.
-				<br>
-				Change the following parameter in your <i>php.ini</i> file to this value :<br>
-				<font color="blue">
-				<code>register_globals = on </code>
-				</font>
-			</LI>';
+			<li>
+				<p class="setup_error">
+					<font color="red">Warning !</font> 
+					register_globals is set to <strong>off</strong>.
+					<br>
+					Change the following parameter in your <i>php.ini</i> file to this value :<br>
+					<font color="blue">
+					<code>register_globals = on </code>
+					</font>
+				</p>
+			</li>';
 	}
 
 	if (!ini_get('magic_quotes_gpc'))
@@ -587,17 +592,6 @@ If the checks above has passed without any problem, click on the <i>Next</i> but
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 ###################################################################
 ############### STEP 2 LICENSE  ###################################
 ###################################################################
@@ -627,21 +621,12 @@ elseif($display==DISP_LICENCE)
 					</td>
 					<td align="right">
 					<input type="submit" name="cmdWelcomePanel" value="&lt; Back">
-					<input type="submit" name="setDbAccountProperties" value="I  accept &gt;">
+					<input type="submit" name="cmdDB_CONNECT_SETTING" value="I accept &gt;">
 					</td>
 				</tr>
 			</table>';
 
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -756,12 +741,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 						</td>
 					</tr>
 				</table>';
-}	 // setDbAccountProperties
-
-
-
-
-
+}	 // cmdDB_CONNECT_SETTING 
 
 
 
@@ -779,7 +759,6 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 ##########################################################################
 elseif($display == DISP_DB_NAMES_SETTING )
 {
-
 	echo '
 			<input type="hidden" name="fromPanel" value="'.$display.'">
 				<h2>
@@ -793,11 +772,28 @@ elseif($display == DISP_DB_NAMES_SETTING )
 				'.$msg_no_connection.'
 				<h4>'.$langDBNamesRules.'</h4>
 	
-				<table width="100%">
+				<table width="100%">';
+				if ($mainDbNameExist)
+			echo '
+					<tr>
+						<td colspan="2">
+							<P class="setup_error">
+								<font color="red">Warning</font> 
+								: <em>'.$dbNameForm.'</em> already exist
+								<BR>
+								<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>
+								<label for="confirmUseExistingMainDb" >
+									I know, I want use it. (this script write in tables use by claroline.)
+								</label>
+							</P>
+						</td>
+					</tr>';
+			echo '
 					<tr>
 						<td>
-							<label for="dbNameForm">'
-							.($singleDbForm?$langDbName:$langMainDB).'</label>
+							<label for="dbNameForm">
+								'.($singleDbForm?$langDbName:$langMainDB).'
+							</label>
 						</td>
 						<td>
 							<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.$dbNameForm.'">
@@ -808,6 +804,23 @@ elseif($display == DISP_DB_NAMES_SETTING )
 					</tr>';
 	if (!$singleDbForm)
 	{
+		if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
+		{
+			echo '
+					<tr>
+						<td colspan="2">
+							<P class="setup_error">
+								<font color="red">Warning</font> 
+								: '.$dbStatsForm.' already exist
+								<BR>
+								<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>
+								<label for="confirmUseExistingStatsDb" >
+									I know, I want use it. (This script write in tables use by claroline.)
+								</label>
+							</P>
+						</td>
+					</tr>';
+		}
 		echo '
 					<tr>
 						<td>
@@ -820,7 +833,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 							&nbsp;
 						</td>
 					</tr>
-';
+		';
 	}
 	echo '
 					<tr>
@@ -840,7 +853,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 				<table width="100%">
 					<tr>
 						<td>
-							<input type="submit" name="setDbAccountProperties" value="&lt; Back">
+							<input type="submit" name="cmdDB_CONNECT_SETTING" value="&lt; Back">
 						</td>
 						<td>
 							&nbsp;
@@ -868,7 +881,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 					unset($__dbName);
 				}
 */
-}	 // setDbAccountProperties
+}	 // cmdDB_CONNECT_SETTING 
 
 
 
@@ -1181,6 +1194,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 		Statistics and Tracking DB Name : '.$dbStatsForm.'<br>
 		Enable Single DB : '.($singleDbForm?$langYes:$langNo).'<br>
 		</FIELDSET>
+
 		<FIELDSET>
 		<LEGEND>Admin</LEGEND>
 		Administrator email : '.$adminEmailForm.'<br>
@@ -1198,6 +1212,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 			<tr>
 		</table>
 		</FIELDSET>
+		
 		<FIELDSET>
 		<LEGEND>Campus</LEGEND>
 		Language : '.$languageForm.'<br>
@@ -1279,7 +1294,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
 		echo '
 				<p align="right">
 					<input type="submit" name="alreadyVisited" value="|&lt; Restart from beginning">
-					<input type="submit" name="cmdPlatformSetting" value="&lt; Back">
+					<input type="submit" name="cmdDbNameSetting" value="&lt; Back">
 					<input type="submit" name="cmdDoInstall" value="Retry">
 				</p>';
 
@@ -1418,7 +1433,12 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 
 else
 {
-	echo '$display notSet. error in script. inform claroline admin';
+	echo '
+			<pre>$display</pre not set. 
+			<BR>
+			Error in script. <BR>
+			<BR>
+			Please inform  <a href=mailto:moosh@claroline.net">claroline team</a> )';
 }
 
 ?>
