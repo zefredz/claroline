@@ -54,7 +54,7 @@ h3{	font-size: 110%; }
 	text-decoration: underline;
 }
 
-#siteName
+#platformBanner #siteName
 {
 	position: relative;
 	float: left;
@@ -62,7 +62,7 @@ h3{	font-size: 110%; }
 	margin: 0;
 }
 
-#institution
+#platformBanner #institution
 {
 	position: relative;
 	float: right;
@@ -136,57 +136,54 @@ h3{	font-size: 110%; }
 	border-top: 1px #FFF solid;
 }
 
-#course
+#courseBanner #course
 {
 	position: relative;
 	float: left;
 	text-align: left;
 }
 
-#course span
+#courseBanner #course span
 {
    	display: block;
 }
 
-#courseToolList
+#courseBanner #courseToolList
 {
 	position: relative;
 	float: right;
     text-align: right;
 }
 
-#courseName {
+#courseBanner #courseName {
 	font-size: 120%;
 	padding: 0;
 	margin: 0;
 }
 
-#courseName a,
-#courseName a:active,
-#courseName a:link,
-#courseName a:visited
+#courseBanner a,
+#courseBanner a:active,
+#courseBanner a:link,
+#courseBanner a:visited
 {
 	color: #036;
 	text-decoration: none;
 }
 
-#courseName a:hover
+#courseBanner a:hover
 {
 	text-decoration: underline;
 }
 
-#courseCode {
+#courseBanner #courseCode {
 	font-size: 80%;
 }
 
 #courseBanner form
 {
-	padding: 5px;
+	padding-top: 5px;
 	margin: 0;
 }
-
-
-
  /*----------------------------------------------------------------------------
                                   BREAD CRUMB TRAIL
  ----------------------------------------------------------------------------*/
@@ -203,12 +200,12 @@ h3{	font-size: 110%; }
 	display: none;
 }
 
-#breadcrumb
+#breadcrumbLine #breadcrumb
 {
 	float: left;
 }
 
-#toolViewOption
+#breadcrumbLine #toolViewOption
 {
 	float: right;
 	text-align: right;
@@ -237,19 +234,19 @@ h3{	font-size: 110%; }
 	background-color: gray;
 }
 
-#platformManager
+#footer #platformManager
 {
 	float: right;
 }
 
-#courseManager
+#footer #courseManager
 {
 	float: left;
 	text-align: center;
 }
 
 
-#poweredBy
+#footer #poweredBy
 {
     clear: both;
     text-align: center;

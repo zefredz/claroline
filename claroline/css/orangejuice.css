@@ -78,14 +78,14 @@ h3{	font-size: 110%; }
 	color: #fff;
 }
 
-#siteName
+#platformBanner #siteName
 {
 	position: relative;
 	float: left;
 	text-align: left;
 }
 
-#institution
+#platformBanner #institution
 {
 	position: relative;
 	float: right;
@@ -110,7 +110,7 @@ h3{	font-size: 110%; }
 	 margin: 0px;
 }
 
-#userLinks
+#userBanner #userLinks
 {
 	text-align: left;
 }
@@ -158,47 +158,47 @@ h3{	font-size: 110%; }
 	border-bottom: 1px solid #000;
 }
 
-#course
+#courseBanner #course
 {
 	position: relative;
 	float: left;
 	text-align: left;
 }
 
-#course span
+#courseBanner #course span
 {
    	display: block;
 }
 
-#courseToolList
+#courseBanner #courseToolList
 {
 	position: relative;
 	float: right;
     text-align: right;
 }
 
-#courseName {
+#courseBanner #courseName{
 	font-size: 120%;
 	padding: 0;
 	margin: 0;
 }
 
-#courseName a,
-#courseName a:active,
-#courseName a:link,
-#courseName a:visited
+#courseBanner #courseCode {
+	font-size: 80%;
+}
+
+#courseBanner a,
+#courseBanner a:active,
+#courseBanner a:link,
+#courseBanner a:visited
 {
 	color: #c60;
 	text-decoration: none;
 }
 
-#courseName a:hover
+#courseBanner a:hover
 {
 	color: #369;
-}
-
-#courseCode {
-	font-size: 80%;
 }
 
 #courseBanner form

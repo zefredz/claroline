@@ -92,7 +92,7 @@ h3{	font-size: 110%; }
     font-weight: bold;
 }
 
-#siteName
+#platformBanner #siteName
 {
 	position: relative;
 	float: left;
@@ -101,7 +101,7 @@ h3{	font-size: 110%; }
 	font-size: 120%;
 }
 
-#institution
+#platformBanner #institution
 {
 	position: relative;
 	float: right;
@@ -127,11 +127,6 @@ h3{	font-size: 110%; }
 	margin: 0;
 	padding: 0;
 	font-weight: bold;
-}
-
-#userLinks
-{
-	text-align: left;
 }
 
 #userBanner ul
@@ -176,39 +171,33 @@ h3{	font-size: 110%; }
 	border-top: none;
 }
 
-#course
+#courseBanner #course
 {
 	position: relative;
 	float: left;
 	text-align: left;
 }
 
-#course span
+#courseBanner #course span
 {
    	display: block;
 }
 
-#courseToolList
+#courseBanner #courseToolList
 {
 	position: relative;
 	float: right;
 	text-align: right;
 }
 
-#courseName {
+#courseBanner #courseName {
 	font-size: 120%;
 	margin: 0;
 	padding: 0;
 }
 
-#courseCode {
+#courseBanner #courseCode {
 	font-size: 80%;
-}
-
-#courseBanner form
-{
-	padding: 5px;
-	margin: 0;
 }
 
 #courseBanner a,
@@ -222,6 +211,11 @@ h3{	font-size: 110%; }
 	color:#369;
 }
 
+#courseBanner form
+{
+	padding-top: 5px;
+	margin: 0;
+}
  /*----------------------------------------------------------------------------
                                   BREAD CRUMB LINE
  ----------------------------------------------------------------------------*/
@@ -252,12 +246,12 @@ h3{	font-size: 110%; }
 	display: none;
 }
 
-#breadcrumb
+#breadcrumbLine #breadcrumb
 {
 	float: left;
 }
 
-#toolViewOption
+#breadcrumbLine #toolViewOption
 {
 	float: right;
 	text-align: right;
@@ -304,19 +298,19 @@ h3{	font-size: 110%; }
 	color: #333;
 }
 
-#platformManager
+#footer #platformManager
 {
 	float: right;
 }
 
-#courseManager
+#footer #courseManager
 {
 	float: left;
 	text-align: center;
 }
 
 
-#poweredBy 
+#footer #poweredBy 
 {
 	clear: both;
 	border-top: 1px dashed #ccc;
