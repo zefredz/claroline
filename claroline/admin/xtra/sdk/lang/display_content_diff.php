@@ -22,13 +22,53 @@ echo "<html>
 
 echo "<h1>Display different variables with the same content</h1>\n";
 
+// start form
+
+echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
+
+if (isset($_REQUEST['language'])) 
+{
+    $language = $_REQUEST['language'];
+}
+else 
+{
+    $language = DEFAULT_LANGUAGE ;
+}
+
+echo "<p>Language: $language</p>";
+
+// display select box with language in the table
+
+echo "<p>Change Language: ";
+echo "<select name=\"language\">";
+$sql = "SELECT DISTINCT language 
+        FROM ". TABLE_TRANSLATION . "
+        ORDER BY language ";
+$results = mysql_query($sql);
+
+while($result=mysql_fetch_row($results))
+{
+    if ($result[0] == $language) 
+    {
+        echo "<option value=$result[0] selected=\"selected\">" . $result[0] . "</option>";
+    }
+    else
+    {
+        echo "<option value=$result[0]>" . $result[0] . "</option>";
+    }
+}
+echo "</select></p>";
+
+echo "<p><input type=\"submit\" value=\"OK\" /></p>";
+echo "</form>";
+
 // select variables with same content
 
 $sql = " SELECT DISTINCT L1.language , L1.varContent , L1.varName , L1.sourceFile
     FROM ". TABLE_TRANSLATION . " L1,
          ". TABLE_TRANSLATION . " L2,
          ". TABLE_USED_LANG_VAR . " U
-    WHERE L1.language = \"english\" and
+    WHERE L1.language = \"" . $language . "\" and
         L1.language = L2.language and
         L1.varContent = L2.varContent and
         L1.varName <> L2.varName and
