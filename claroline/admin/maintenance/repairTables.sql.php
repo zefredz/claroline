@@ -25,10 +25,19 @@ if  (is_array($tableToRepair))
 {
 	reset($tableToRepair);
 	$sqlRepair = "REPAIR TABLE  ";
-	while(list($count,$tableName)=each($tableToRepair))
-		$sqlRepair .= "`".$currentCourseDbNameGlu.$tableName."`, ";
-	$sqlRepair .= "`".$currentCourseDbNameGlu.$tableName."` ";
-  	$sqlForUpdate[] = $sqlRepair;
+
+	for ($i=0;$i<count($tableToRepair);$i++)
+	{
+		if ($i < (count($tableToRepair) -1)) 
+		{
+			$sqlRepair .= "`".$currentCourseDbNameGlu.$tableToRepair[$i]."`, ";
+		}
+		else
+		{
+			$sqlRepair .= "`".$currentCourseDbNameGlu.$tableToRepair[$i];
+		}
+	}
+	$sqlForUpdate[] = $sqlRepair;
 }
 
 ?>
