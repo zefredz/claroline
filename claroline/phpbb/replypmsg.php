@@ -83,63 +83,69 @@ else
 
 ?>
 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-<table border="0" cellpadding="1" align="center" width="95%">
+<table border="0" cellpadding="1">
 
-<tr>
-<td><?php echo $l_aboutpost?>:</td>
-<td><?php echo $l_regusers.' '.$l_cansend ?></td> 
-</tr>
-
-<tr>
-<td><?php echo $l_yourname?>:</td>
+<tr valign="top">
+<td align="right"><?php echo $l_yourname?> : </td>
 <td>
 <?php
-    if ($user_logged_in) echo $userdata['username']."\n";
-    else                 echo $touserdata['username']."\n";
+    if ($user_logged_in) echo $userdata['first_name']." ".$userdata['last_name']."\n";
+    else                 echo $touserdata['last_name']."\n";
 ?>
 </td>
 </tr>
 
-<tr align="left">
-<td><b><?php echo $l_recptname?>:<b></td>
-<td><?php echo $fromuserdata['username']?></td>
+<tr valign="top">
+<td align="left"><?php echo $l_recptname?> : </td>
+<td><?php echo $fromuserdata['first_name']." ".$fromuserdata['last_name'] ?></td>
 </tr>
 
-<tr align="left">
-<td>
-<label for="message"><b><?php echo $l_body?>:</b></label><br><br>
-		<?php
-		if($quote) {
-
-            $sql = "SELECT p.msg_text, p.msg_time, u.username 
-                    FROM `".$tbl_priv_msgs."` p, 
-                         `".$tbl_users."` u  
-                    WHERE p.msg_id      = '".$msgid."' 
-                      AND p.from_userid = u.user_id";
-
-            if($result = mysql_query($sql, $db))
-            {
-                $m                  = mysql_fetch_array($result,MYSQL_ASSOC);
-                $m['post_time']     = $m['msg_time'];
-                $text               = stripslashes($text);
-                $syslang_quotemsg   = get_syslang_string($sys_lang, 'l_quotemsg');
-                eval("\$reply = \"$syslang_quotemsg\";");
-            }
-            else {
-                error_die('Problem with getting the quoted message.');
-            }
-		}
-		?>
+<tr valign="top">
+<td align="right">
+<label for="message"><?php echo $l_body?> : </label>
 </td>
 
 <td>
-<textarea name="message" id="message" rows=10 cols=45 wrap="virtual"><?php echo $reply?></textarea>
+<?php
+    if($quote) {
+
+        $sql = "SELECT p.msg_text, p.msg_time, u.username 
+                FROM `".$tbl_priv_msgs."` p, 
+                     `".$tbl_users."` u  
+                WHERE p.msg_id      = '".$msgid."' 
+                  AND p.from_userid = u.user_id";
+
+        $m = claro_sql_query_fetch_all($sql);
+
+        if (count($m) > 0)
+        {
+        	
+        }
+        
+        $m = claro_sql_query_fetch_all($sql);
+        if ( count ($m) > 0 )
+        {
+            $text               = stripslashes($m['msg_text']);
+            $syslang_quotemsg   = get_syslang_string($sys_lang, 'l_quotemsg');
+            eval("\$reply = \"$syslang_quotemsg\";");
+        }
+        else {
+            error_die('Problem with getting the quoted message.');
+        }
+    }
+?>
+<textarea name="message" 
+          id="message" 
+          rows="10" cols="45" 
+          wrap="virtual"><?php echo $reply?></textarea>
 </td>
 
 </tr>
 
 <tr>
-<td  colspan='2' align="center">
+<td>
+</td>
+<td>
 <input type="hidden" name="msgid" value="<?php echo $msgid?>">
 <input type="hidden" name="quote" value="<?php echo $quote?>">
 <input type="submit" name="submit" value="<?php echo $l_submit?>">
