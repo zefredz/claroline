@@ -147,9 +147,6 @@ if ($is_trackingEnabled && 0)
 		<LI>
 			<a href="<?php echo $phpMyAdminWeb?>">PHP My Admin</a>
 		</LI>
-		<LI>
-			<a href="todo.php"><?php echo $langNomOutilTodo ?></a>
-		</LI>
 	</UL>
 <?php
 include($includePath."/claro_init_footer.inc.php");
