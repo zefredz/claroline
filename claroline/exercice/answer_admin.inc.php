@@ -570,8 +570,6 @@ if($modifyAnswers)
 			}
 ?>
 
-<p><?php echo $langAnswers; ?> :</p>
-
 <table class="claroTable">
 <thead>
 <tr class="headerX">
