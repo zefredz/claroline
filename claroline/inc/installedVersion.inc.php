@@ -4,14 +4,19 @@ $stable = false;
 $clarolinePhase = "RC1";
 $is_upgrade_available = true;
 
-$clarolineVersion 	= "1.5.0.RC1";
-$versionDb 			= "1.5.0.RC1";
-
+$version_file_cvs = "1.5.0.RC1";
+$version_db_cvs   = "1.5.0.RC1";
 
 if (!$stable)
 {
-	$clarolineVersion 	= $clarolineVersion.".[unstable:".date("yzBs")."]";
-	$versionDb 			= $versionDb.".[unstable:".date("yzBs")."]";
+	$version_file_cvs = $version_file_cvs .".[unstable:".date("yzBs")."]";
+	$version_db_cvs	  = $version_db_cvs .".[unstable:".date("yzBs")."]";
 }
+
+// to keep compatibility the two next value are set
+// but  it's same name than values in main conf.
+// code would be parse to be able to remove these two lines /
+$clarolineVersion = $version_file_cvs;
+$versionDb = $version_db_cvs;
 
 ?>
