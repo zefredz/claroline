@@ -56,8 +56,10 @@ class Exercise
 		$this->active		= 0;
 
 		$this->startDate	= date("Y-m-d H:i:00");
-		// end date is 'now' + 7 days
-		$this->endDate		= date("Y-m-d H:i:00", mktime( date("H"),date("i"),0,date("m"), date("d")+7, date("Y") ) );
+    // no end date as default
+		$this->endDate		= "9999-12-31 23:59:59";
+    // end date is 'now' + 1 year
+    // $this->endDate = date("Y-m-d H:i:00", mktime( date("H"),date("i"),0,date("m"), date("d"), date("Y")+1 ) );
 		$this->maxTime		= 0;
 		$this->maxAttempt	= 0;
 		$this->showAnswer	= 'ALWAYS';
@@ -237,7 +239,7 @@ class Exercise
         list($date, $time)            = split(" ",$this->endDate);
         list($year,$month,$day) = split("-",$date);
         list($hour,$min,$sec)      = split(":",$time);
-        
+
         return mktime($hour,$min,$sec,$month,$day,$year);
     }
 	}
