@@ -348,14 +348,14 @@ elseif ($displayMode =="viewMainInfoEdit")
 				."<input type=\"hidden\" name=\"submitMainUserInfo\" value=\"".$userIdViewed."\">\n"
 
 				."<table class=\"claroTable\" width=\"80%\" border=\"0\">"
-
+                ."<thead>\n"
 				."<tr class=\"headerX\">\n"
 				."<th align=\"left\">".$langName."</th>\n"
 				."<th align=\"left\"><label for=\"role\">".$langRole."</label></th>\n"
 				."<th><label for=\"promoteTutor\">".$langTutor."</label></th>\n"
 				."<th><label for=\"promoteCourseAdmin\">".$langCourseManager."</label></th>\n"
 				."</tr>\n"
-
+                ."</thead>"
 				."<tfoot><tr align=\"center\">"
 				."<td align=\"left\"><b>".htmlize($mainUserInfo['firstName']).' '.htmlize($mainUserInfo['lastName'])."</b></td>\n"
 
@@ -398,6 +398,7 @@ elseif ($displayMode == "viewContentList") // default display
 		}
 
 		echo	"<table class=\"claroTable\" width=\"80%\" border=\"0\">",
+                "<thead>\n",
 				"<tr class=\"headerX\">\n",
 				"<th align=\"left\">",$langName,"</th>\n",
 				"<th align=\"left\">",$langRole,"</th>\n",
@@ -406,9 +407,9 @@ elseif ($displayMode == "viewContentList") // default display
 				($allowedToEditDef?"<th>".$langEdit."</th>\n":""),
         ($is_allowedToTrack?"<th>".$langTracking."</th>\n":""),
 				"</tr>\n",
-
+                "</thead>\n",
+                "<tbody>\n",
 				"<tr align=\"center\">\n",
-
 				"<td  align=\"left\"><b>",htmlize($mainUserInfo['firstName'])," ",htmlize($mainUserInfo['lastName']),"</b></td>\n",
 				"<td  align=\"left\">",htmlize($mainUserInfo['role']),"</td>";
 
@@ -447,6 +448,7 @@ elseif ($displayMode == "viewContentList") // default display
 							"</td>";
 				}
 				echo "</tr>",
+				"</tbody>",
 				"</table>",
 				"<p><a href=\"mailto:",$mainUserInfo['email'],"\">",$mainUserInfo['email'],"</a>",
 

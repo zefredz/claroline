@@ -122,6 +122,7 @@ switch ($display)
     // display cols headers
 
         echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
+            ." <thead>\n"
             ."  <tr class=\"headerX\">\n"
             ."    <th>\n"
             ."      Class\n"
@@ -132,12 +133,13 @@ switch ($display)
             ."    <th>\n"
             ."      Add to course\n"
             ."    </th>\n"
-            ."  </tr>\n";
+            ."  </tr>\n"
+            ."</thead>\n";
 
     // display Class list (or tree)
-
+        echo "<tbody>\n";
         display_tree($class_list);
-        echo "</table>";
+        echo "</tbody>\n</table>\n";
         break;
 
     case "class_added" :
@@ -174,7 +176,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
     global $clarolineRepositoryWeb;
     global $tbl_class_user; 
     global $langUsersMin;
-     
+
     foreach ($class_list as $cur_class)
     {
         
@@ -227,7 +229,8 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 
 	      //Name
 		
-	    echo "  <td>\n"
+	    echo "  <tr>\n"
+                ."<td>\n"
                 ."    ".$blankspace.$open_close_link." ".$cur_class['name']
                 ."  </td>\n";
 

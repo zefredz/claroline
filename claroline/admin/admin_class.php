@@ -311,8 +311,9 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
 
 //display Class list
 
+echo "<tbody>\n";
 display_tree($class_list);
-
+echo "</tbody>\n";
 echo "</table>";
 
 include($includePath."/claro_init_footer.inc.php");
@@ -345,8 +346,6 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
     global $clarolineRepositoryWeb;
     global $tbl_class_user; 
     global $langUsersMin;
-     
-    echo "<tbody>\n";
 
     foreach ($class_list as $cur_class)
     {
@@ -452,7 +451,6 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
             }	    
 	    }
     }    
-    echo "</tbody>\n";
 }
 
 /**
