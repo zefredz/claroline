@@ -115,8 +115,8 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                                       FROM `".$TABLELEARNPATH."` 
                                       WHERE `learnPath_id` = ".$_SESSION['path_id']);
                                       
-  echo "<p><b>".wordwrap($lpName[0]['name'],$moduleNameLength," ",1)."</b></p>"
-          ."<small>$langView : <a href='viewer.php?frames=0' target='_top'>$langFullScreen</a> | <a href='viewer.php?frames=1' target='_top'>$langInFrames</a></small>\n"
+  echo "<p><b>".wordwrap($lpName[0]['name'],$moduleNameLength," ",1)."</b></p>\n"
+          ."<p><small>$langView : <a href=\"viewer.php?frames=0\" target=\"_top\">$langFullScreen</a> | <a href=\"viewer.php?frames=1\" target=\"_top\">$langInFrames</a></small>\n"
           ."</p>\n<table width=\"100%\">\n";
   
   $previous = ""; // temp id of previous module, used as a buffer in foreach
@@ -276,31 +276,31 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   else
     $returl = "../learningPath.php";
 
-echo '<br /><center>';
+echo "<br />\n\n<center>";
 // display previous and next links only if there is more than one module
 if ( $moduleNb > 1 )
 {
-	$prevNextString = '<small>';
+	$prevNextString = "<small>";
 	
 	if( $previousModule != "" )
 	{
-	  $prevNextString .= '<a href="startModule.php?viewModule_id='.$previousModule.'" target="mainFrame">'.$langPrevious.'</a>';
+	  $prevNextString .= "<a href=\"startModule.php?viewModule_id=".$previousModule."\" target=\"mainFrame\">".$langPrevious."</a>";
 	}
 	else
 	{
 	  $prevNextString .=  $langPrevious;
 	}
-	$prevNextString .=  ' | ';
+	$prevNextString .=  " | ";
 	
 	if( $nextModule != "" )
 	{
-	  $prevNextString .=  '<a href="startModule.php?viewModule_id='.$nextModule.'" target="mainFrame">'.$langNext.'</a>';
+	  $prevNextString .=  "<a href=\"startModule.php?viewModule_id=".$nextModule."\" target=\"mainFrame\">".$langNext."</a>";
 	}
 	else
 	{
 	  $prevNextString .=  $langNext;
 	}  
-	$prevNextString .=  '<br /><br />';
+	$prevNextString .=  "<br /><br />\n";
 	
 	echo $prevNextString;
 }
