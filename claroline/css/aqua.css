@@ -360,6 +360,30 @@ a:visited.invisible{
 }
 
 
+/* 'correct' is attached to element that must be highlighted as correct
+	example : a good score in exercices
+*/
+.correct {
+	color: #009900;
+}
+
+/* 'error' is attached to element that must be highlighted as correct
+	example : a wrong score in exercices
+	example : an error message
+*/
+.error {
+	color: #990000;
+}
+
+/*
+'highlight'
+*/
+.highlight {
+ color: #0000cc;
+ font-weight: bold;
+}
+
+
 /*
  * 'rightMenu' is mainly use in the platform home page
  */
