@@ -1,6 +1,5 @@
 <?php // $Id$
 
-
 //----------------------------------------------------------------------
 // CLAROLINE 1.6
 //----------------------------------------------------------------------
@@ -13,64 +12,94 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-
-/* STUDENT WORK UPLOADER AND DOWNLOADER
- *
- * GOALS
- * *****
- * Allow student to send quickly documents immediately
- * visible on course website.
- *
- * The script makes 5 things:
- *
- * 	1. Upload documents
- * 	2. Give them a name
- * 	3. Modify data about documents
- * 	4. Delete link to documents and simultaneously remove them
- * 	5. Show documents list to students and visitors
- *
- * On the long run, the idea is to allow sending realvideo . Which means only
- * establish a correspondence between RealServer Content Path and the user's
- * documents path.
- *
- * All documents are sent to the address /$rootSys/$currentCourseID/document/
- * where $currentCourseID is the web directory for the course and $rootSys usually /var/www/html
- */
-
 $langFile = "work";
+////// lang vars DEV ONLY HAS TO BE MOVED :@
+
+// -- Session list
+$langCreateSession = "Create a new work session";
+$langVisibility = "Visibility";
+
+// -- Form
+$langSessionTitle = "Title";
+$langSessionDescription = "Description";
+
+$langSubmissionType = "Submission type";
+$langAuthorizeText = "Text";
+$langAuthorizeFile = "File";
+
+$langStartDate = "Start date";
+$langEndDate = "Deadline";
+
+$langDefSubVisibility = "Default visibility";
+$langVisible = "Visible";
+$langInvisible = "Invisible";
+
+$langSessionType = "Session type";
+$langIndividual = "Individual";
+$langGroup = "Group";
+
+$langAllowAnonymous = "Allow anonymous users";
+$langAnonAllowed = "Yes, anonymous users can submit works"; 
+$langAnonNotAllowed = "No, anonymous users can not submit works";
+
+$langPreventLateUploadShort = "Prevent late upload";
+$langPreventLateUpload = "Yes, prevent users to submit works after deadline";
+$langAllowLateUpload = "No, allow users to submit works after deadline";
+
+// -- Form errors and confirmations
+$langSessionAdded = "New session created";
+$langTitleAlreadyExists = "Error : Name already exists";
+$langGiveTitle = "Please give the session title";
+$langAreYouSureToDelete = "Are you sure to delete";
+$langDeleteCaution = "! This will also delete all works submitted in this session !";
+$langSessionDeleted = "Session deleted";
+$langSessionEdited = "Session modified";
+
+$langChooseDateHelper = "(d/m/y hh:mm)";
+
+///// END OF LANG VARS FFS
 
 $tlabelReq = "CLWRK___";
 require '../inc/claro_init_global.inc.php';
+
+$htmlHeadXtra[] =
+"<style type=text/css>
+<!--
+.comment { margin-left: 30px}
+.invisible {color: #999999}
+.invisible a {color: #999999}
+-->
+</style>";
+
+$htmlHeadXtra[] =
+"<script>
+function confirmation (name)
+{
+	if (confirm(\" $langAreYouSureToDelete \"+ name + \" ? $langDeleteCaution \" ))
+		{return true;}
+	else
+		{return false;}
+}
+</script>";
 
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/conf/work.conf.inc.php');
 @include($includePath.'/lib/debug.lib.inc.php'    );
 
-/*
- * Connection Bloc
- */
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_work                   = $tbl_cdb_names['assignment_doc'         ];
-$is_allowedToEdit           = $is_courseAdmin;
+$tbl_wrk_session      = $tbl_cdb_names['wrk_session'      ];
+$tbl_wrk_submission   = $tbl_cdb_names['wrk_submission'   ];    
 
-$currentCourseRepositorySys = $coursesRepositorySys.$_course["path"]."/";
-$currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course["path"]."/";
 
 $currentUserFirstName       = $_user['firstName'];
 $currentUserLastName        = $_user['lastName'];
 
-$fileAllowedSize = CONFVAL_MAX_FILE_SIZE_PER_WORKS ;    //file size in bytes
-$updir           = $currentCourseRepositorySys.'work/'; //directory path to upload
-
-//////////////////////////////////////////////////////////////////////////////
-
-include($includePath."/lib/fileUpload.lib.php");
-include($includePath."/lib/fileDisplay.lib.php"); // need format_url function
-
-
 
 
 $nameTools = $langWorks;
+// to prevent parameters to be added in the breadcrumb
+$QUERY_STRING=''; 
+
 include($includePath.'/claro_init_header.inc.php');
 //if (!$_cid) 	claro_disp_select_course();
 
@@ -79,571 +108,625 @@ if ( ! $is_courseAllowed)
 event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
 
+
+include($includePath."/lib/fileUpload.lib.php");
+include($includePath."/lib/fileDisplay.lib.php"); // need format_url function
+include($includePath."/lib/fileManage.lib.php"); // need my_delete
+
+
+
+/*============================================================================
+                     BASIC VARIABLES DEFINITION
+  =============================================================================*/
+$currentCourseRepositorySys = $coursesRepositorySys.$_course["path"]."/";
+$currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course["path"]."/";
+
+$fileAllowedSize = CONFVAL_MAX_FILE_SIZE_PER_WORKS ;    //file size in bytes
+$wrkDir           = $currentCourseRepositorySys.'work/'; //directory path to create session dirs
+
+// permission
+$is_allowedToEdit           = $is_courseAdmin;
+
+/*============================================================================
+                     CLEAN INFORMATIONS SEND BY USER
+  =============================================================================*/
+stripSubmitValue($HTTP_POST_VARS);
+stripSubmitValue($HTTP_GET_VARS);
+stripSubmitValue($_REQUEST);
+
+$cmd = $_REQUEST['cmd'];
+
+if($is_allowedToEdit)
+{
+  /*--------------------------------------------------------------------
+                        CHANGE VISIBILITY
+  --------------------------------------------------------------------*/
+
+  // change visibility of a work session
+  if( $cmd == 'exChVis' )
+  {
+    if( isset($_REQUEST['vis']) )
+    {
+      $_REQUEST['vis'] == "v" ? $visibility = 'VISIBLE' : $visibility = 'INVISIBLE';
+      
+      $sql = "UPDATE `".$tbl_wrk_session."`
+                 SET `sess_visibility` = '$visibility'
+               WHERE `id` = ".$_REQUEST['sesId']."
+                 AND `sess_visibility` != '$visibility'";
+      claro_sql_query ($sql);
+      
+    }
+  }
+
+  /*--------------------------------------------------------------------
+                        DELETE A SESSION
+  --------------------------------------------------------------------*/
+
+  // delete/remove a work session
+  if( $cmd == 'exRmSes' )
+  {
+    // delete all works in this session if the delete of the files worked
+    if( my_delete($wrkDir."ws".$_REQUEST['sesId']) )
+    {
+      $sql = "DELETE FROM `".$tbl_wrk_submission."`
+              WHERE `session_id` = ".$_REQUEST['sesId'];
+      claro_sql_query($sql);
+    }    
+    
+    $sql = "DELETE FROM `".$tbl_wrk_session."`
+            WHERE `id` = ".$_REQUEST['sesId'];
+
+    claro_sql_query($sql);
+    
+    $dialogBox .= $langSessionDeleted;
+    
+  }
+  
+  /*--------------------------------------------------------------------
+                        MODIFY A SESSION
+  --------------------------------------------------------------------*/
+  /*-----------------------------------
+      STEP 2 : check & query
+  -------------------------------------*/
+  // edit a work session / form has been sent
+  if( $cmd == 'exEditSes' )
+  {
+      // handle update session form, the form will be displayed if there is an error
+    
+    // title is a mandatory element 
+    $title = trim($_REQUEST['sesTitle']);
+    // session id is another one
+        
+    if( !empty($title) && isset($_REQUEST['sesId']) && isset($_REQUEST['submitSession']) )
+    {
+      // check if title already exists
+      $sql = "SELECT `title`
+               FROM `".$tbl_wrk_session."`
+              WHERE `title` = '".claro_addslashes($title)."'
+                AND `id` != ".$_REQUEST['sesId'];
+      $query = claro_sql_query($sql);
+          
+      if(mysql_numrows($query) == 0 )
+      {
+          // prepare some value to insert
+          
+          // authorized type
+          if( isset($_REQUEST['authorizeText']) && isset($_REQUEST['authorizeFile']) )
+          {
+            $authorizedContent = "TEXTFILE";
+          }
+          elseif($_REQUEST['authorizeText'])
+          {
+            $authorizedContent = "TEXT";       
+          }
+          elseif($_REQUEST['authorizeFile'])
+          {
+            $authorizedContent = "FILE";       
+          }
+          
+          // description
+          $sesDesc = claro_parse_user_text(claro_addslashes(trim($_REQUEST['sesDesc'])));
+          
+          // dates
+          $composedStartDate = $_REQUEST['startYear']."-"
+                            .$_REQUEST['startMonth']."-"
+                            .$_REQUEST['startDay']." "
+                            .$_REQUEST['startHour'].":"
+                            .$_REQUEST['startMinute'].":00";
+                            
+          $composedEndDate = $_REQUEST['endYear']."-"
+                            .$_REQUEST['endMonth']."-"
+                            .$_REQUEST['endDay']." "
+                            .$_REQUEST['endHour'].":"
+                            .$_REQUEST['endMinute'].":00";
+                            
+          
+          $sql = "UPDATE `".$tbl_wrk_session."`
+                  SET `title` = \"".$title."\",
+                      `description` = \"".$sesDesc."\", 
+                      `session_type` = \"".$_REQUEST['sessionType']."\", 
+                      `authorized_content` = \"".$authorizedContent."\",  
+                      `authorize_anonymous` = \"".$_REQUEST['allowAnonymous']."\",
+                      `start_date` = \"".$composedStartDate."\", 
+                      `end_date` = \"".$composedEndDate."\", 
+                      `def_submission_visibility` = \"".$_REQUEST['defSubVis']."\", 
+                      `prevent_late_upload` = \"".$_REQUEST['preventLateUpload']."\"
+                  WHERE `id` = ".$_REQUEST['sesId'];
+    
+          claro_sql_query($sql);
+          $dialogBox .= $langSessionEdited;
+      }
+      else
+      {
+        $dialogBox .= $langTitleAlreadyExists;
+        $cmd = 'rqEditSes';
+      }
+    }
+    else
+    {
+      $dialogBox .= $langGiveTitle;
+      $cmd = 'rqEditSes';
+    }
+  }
+  /*-----------------------------------
+      STEP 1 : display form
+  -------------------------------------*/
+  // edit a work session / display the form
+  if( $cmd == 'rqEditSes' )
+  {
+    include($includePath."/lib/form.lib.php");
+    
+    // check if it was already sent
+    if( !isset($_REQUEST['submitSession'] ) )
+    {
+        // get current settings to fill in the form
+        $sql = "SELECT * 
+                FROM `".$tbl_wrk_session."`
+                WHERE `id` = ".$_REQUEST['sesId'];
+        list($modifiedSession) = claro_sql_query_fetch_all($sql);
+        
+    
+        // set values to prefill the form
+        $form['sesTitle'          ] = $modifiedSession['title'];
+        $form['sesDesc'       ] = $modifiedSession['description'];
+        
+        list($form['startDate'], $form['startTime']) = split(' ', $modifiedSession['start_date']);
+        list($form['endDate'], $form['endTime']) = split(' ', $modifiedSession['end_date']);
+        
+        // following if statements could have been writted in a shorter way but this way they are 
+        // ready for a db change, or 
+        if( $modifiedSession['authorized_content'] == "TEXTFILE" )
+        {
+          $form['authorizeText'] = true;
+          $form['authorizeFile'] = true;
+        }
+        elseif( $modifiedSession['authorized_content'] == "TEXT" )
+        {
+          $form['authorizeText'] = true;
+          $form['authorizeFile'] = false;
+        }
+        elseif( $modifiedSession['authorized_content'] == "FILE" )
+        {
+          $form['authorizeText'] = false;
+          $form['authorizeFile'] = true;
+        }
+        
+        if( $modifiedSession['def_submission_visibility'] == "VISIBLE" )
+        {
+          $form['defSubVis'] = "VISIBLE";
+        }
+        else
+        {
+          $form['defSubVis'] = "INVISIBLE";
+        }
+        
+        if( $modifiedSession['session_type'] == "INDIVIDUAL" )
+        {
+          $form['sessionType'] = "INDIVIDUAL";
+        }
+        else
+        {
+          $form['sessionType'] = "GROUP";
+        }
+        
+        if( $modifiedSession['authorize_anonymous'] == "YES" )
+        {
+          $form['allowAnonymous'] = "YES";
+        }
+        else
+        {
+          $form['allowAnonymous'] = "NO";
+        }
+        
+        if( $modifiedSession['prevent_late_upload'] == "YES" )
+        {
+          $form['preventLateUpload'] = "YES";
+        }
+        else
+        {
+          $form['preventLateUpload'] = "NO";
+        }
+    }
+    else
+    {
+      // there was an error in the form so display it with already modified values
+      $form['sesTitle'          ] = $_REQUEST['sesTitle'];
+      $form['sesDesc'       ] = $_REQUEST['sesDesc'];
+      $form['authorizeText'    ] = $_REQUEST['authorizeText'];      
+      $form['authorizeFile'    ] = $_REQUEST['authorizeFile'];      
+      $form['startDate'         ] = $_REQUEST['startYear']."-".$_REQUEST['startMonth']."-".$_REQUEST['startDay'];
+      $form['startTime'         ] = $_REQUEST['startHour'].":".$_REQUEST['startMinute'].":00";
+      $form['endDate'           ] = $_REQUEST['endYear']."-".$_REQUEST['endMonth']."-".$_REQUEST['endDay'];
+      $form['endTime'           ] = $_REQUEST['endHour'].":".$_REQUEST['endMinute'].":00";
+      $form['defSubVis'         ] = $_REQUEST['defSubVis'];
+      $form['sessionType'       ] = $_REQUEST['sessionType'];
+      $form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
+      $form['preventLateUpload' ] = $_REQUEST['preventLateUpload'];
+    }
+    // modify the command 'cmd' sent by the form
+    $cmdToSend = "exEditSes";
+    // ask the display of the form
+    $displaySesForm = true;
+  }
+  
+  /*--------------------------------------------------------------------
+                        CREATE NEW SESSION
+  --------------------------------------------------------------------*/
+  
+  /*-----------------------------------
+      STEP 2 : check & query
+  -------------------------------------*/
+  //--- create a work session / form has been sent
+  if( $cmd == 'exMkSes' )
+  {
+    // handle new session form, the form will be displayed if there is an error
+    
+    // title is the only mandatory element 
+    $title = trim($_REQUEST['sesTitle']);
+    
+    if( !empty($title) && isset($_REQUEST['submitSession']) )
+    {
+      // check if title already exists
+      $sql = "SELECT `title`
+               FROM `".$tbl_wrk_session."`
+              WHERE `title` = '".claro_addslashes($title)."'";
+      $query = claro_sql_query($sql);
+          
+      if(mysql_numrows($query) == 0 )
+      {
+          // prepare some value to insert
+          
+          // authorized type
+          if( isset($_REQUEST['authorizeText']) && isset($_REQUEST['authorizeFile']) )
+          {
+            $authorizedContent = "TEXTFILE";
+          }
+          elseif($_REQUEST['authorizeText'])
+          {
+            $authorizedContent = "TEXT";       
+          }
+          elseif($_REQUEST['authorizeFile'])
+          {
+            $authorizedContent = "FILE";       
+          }
+          
+          // description
+          $description = claro_parse_user_text(claro_addslashes(trim($_REQUEST['sesDesc'])));
+          
+          // dates
+          $composedStartDate = $_REQUEST['startYear']."-"
+                            .$_REQUEST['startMonth']."-"
+                            .$_REQUEST['startDay']." "
+                            .$_REQUEST['startHour'].":"
+                            .$_REQUEST['startMinute'].":00";
+                            
+          $composedEndDate = $_REQUEST['endYear']."-"
+                            .$_REQUEST['endMonth']."-"
+                            .$_REQUEST['endDay']." "
+                            .$_REQUEST['endHour'].":"
+                            .$_REQUEST['endMinute'].":00";
+                            
+                            
+          $sql = "INSERT INTO `".$tbl_wrk_session."`
+                  ( `title`,`description`, `session_type`, 
+                    `authorized_content`, `authorize_anonymous`,
+                    `start_date`, `end_date`, 
+                    `def_submission_visibility`, `prevent_late_upload`)
+                  VALUES
+                  ( \"".$title."\", \"".$description."\", \"".$_REQUEST['sessionType']."\",
+                    \"".$authorizedContent."\", \"".$_REQUEST['allowAnonymous']."\",
+                    \"".$composedStartDate."\", \"".$composedEndDate."\",
+                    \"".$_REQUEST['defSubVis']."\", \"".$_REQUEST['preventLateUpload']."\" )";
+    
+          // execute the creation query and return id of inserted session
+          $lastSesId = claro_sql_query_insert_id($sql);
+          
+          // create the session directory if query was successfull and dir not already exists
+          if( $lastSesId && !is_dir( $wrkDir."ws".$lastSesId ) )
+          {
+            mkdir( $wrkDir."ws".$lastSesId , 0777 );
+          }
+          
+          // confirmation message
+          $dialogBox .= $langSessionAdded;
+      }
+      else
+      {
+        $dialogBox .= $langTitleAlreadyExists;
+        $cmd = 'rqMkSes';
+      }
+    }
+    else
+    {
+      $dialogBox .= $langGiveTitle;
+      $cmd = 'rqMkSes';
+    }
+  }
+  
+  /*-----------------------------------
+      STEP 1 : display form
+  -------------------------------------*/
+  //--- create a work session / display form
+  if( $cmd == 'rqMkSes' )
+  {
+    include($includePath."/lib/form.lib.php");
+    
+    if( !isset($_REQUEST['submitSession']) )
+    {
+      // set default values to prefill the form if nothing was posted
+      $form['sesTitle'             ] = "";
+      $form['sesDesc'           ] = "";
+      $form['authorizeText' ] = false;
+      $form['authorizeFile' ] = true;
+      $form['startDate'         ] = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y") ) );
+      $form['startTime'         ] = date("H:i:00", mktime( date("H"),date("i"),0) );
+      $form['endDate'           ] = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
+      $form['endTime'           ] = date("H:i:00", mktime( date("H"),date("i"),0) );
+      $form['defSubVis'         ] = "VISIBLE";
+      $form['sessionType'       ] = "INDIVIDUAL";
+      $form['allowAnonymous'    ] = "YES";
+      $form['preventLateUpload' ] = "NO";
+    }
+    else
+    {
+      // there was an error in the form so display it with already modified values
+      $form['sesTitle'          ] = $_REQUEST['sesTitle'];
+      $form['sesDesc'           ] = $_REQUEST['sesDesc'];
+      $form['authorizeText'    ] = $_REQUEST['authorizeText'];      
+      $form['authorizeFile'    ] = $_REQUEST['authorizeFile'];  
+      $form['startDate'         ] = $_REQUEST['startYear']."-".$_REQUEST['startMonth']."-".$_REQUEST['startDay'];
+      $form['startTime'         ] = $_REQUEST['startHour'].":".$_REQUEST['startMinute'].":00";
+      $form['endDate'           ] = $_REQUEST['endYear']."-".$_REQUEST['endMonth']."-".$_REQUEST['endDay'];
+      $form['endTime'           ] = $_REQUEST['endHour'].":".$_REQUEST['endMinute'].":00";
+      $form['defSubVis'         ] = $_REQUEST['defSubVis'];
+      $form['sessionType'       ] = $_REQUEST['sessionType'];
+      $form['allowAnonymous'    ] = $_REQUEST['allowAnonymous'];
+      $form['preventLateUpload' ] = $_REQUEST['preventLateUpload'];
+    }
+    
+    // modify the command 'cmd' sent by the form
+    $cmdToSend = "exMkSes";
+    // ask the display of the form
+    $displaySesForm = true;
+  }
+}
+
+/*================================================================
+                      DISPLAY
+  ================================================================*/
+
+/*--------------------------------------------------------------------
+                    TOOL TITLE
+    --------------------------------------------------------------------*/
+
 claro_disp_tool_title($nameTools);
-
-
-/*========================================
-           INTRODUCTION SECTION
-  ========================================*/
-
-$moduleId = $course_tool['id']; // Id of the Student Paper introduction Area
-$langHelpAddIntroText=$langIntroWork;
-include($includePath."/introductionSection.inc.php");
-
-
-/*====================================================
-  COMMANDS SECTION (reserved to course administrator)
-  ===================================================*/
-
-// handle parameters
-$titre = strip_tags( trim ($_POST['titre'] ) );
-$auteurs = strip_tags( trim ($_POST['auteurs'] ) );
-$description = strip_tags( trim ($_POST['description'] ) );
-
-if ($is_allowedToEdit)
-{
-/*-------------------------------------------
-            DELETE WORK COMMAND
-  -----------------------------------------*/
-	if ($delete)
-	{
-		if ($delete == "all")
-		{
-			$queryString1 = "SELECT url FROM `".$tbl_work."`";
-			$queryString2 = "DELETE FROM  `".$tbl_work."`";
-		}
-		else
-		{
-			$queryString1 = "SELECT url FROM  `".$tbl_work."`  WHERE id = '".$delete."'";
-			$queryString2 = "DELETE FROM  `".$tbl_work."`  WHERE id='".$delete."'";
-		}
-
-		$result1 = claro_sql_query($queryString1);
-
-		if ($result1)
-		{
-			while ($thisUrl = mysql_fetch_array($result1))
-			{
-				// check the url realy points to a file in the work area
-				// (some work links can come from groups area...)
-
-				if (substr (dirname($thisUrl['url']), -4) == "work")
-				{
-					@unlink($currentCourseRepositorySys."work/".$thisWork);
-				}
-			}
-		}
-
-		$result2 = claro_sql_query($queryString2);
-
-	}
-
-	/*-------------------------------------------
-	           EDIT COMMAND WORK COMMAND
-	  -----------------------------------------*/
-
-	if ($edit)
-	{
-		$workData = claro_get_work_data($edit);
-
-		$workTitle       = $workData ['titre'      ];
-		$workAuthor      = $workData ['auteurs'    ];
-		$workDescription = $workData ['description'];
-		$workUrl         = $workData ['url'        ];
-
-	}
-
-
-
-	/*-------------------------------------------
-		MAKE INVISIBLE WORK COMMAND
-	  -----------------------------------------*/
-
-	if ($mkInvisbl)
-	{
-		if ($mkInvisbl == "all")
-		{
-			$sql = "ALTER TABLE `".$tbl_work."` 
-			        CHANGE `accepted` `accepted` TINYINT(1) DEFAULT '0'";
-
-			claro_sql_query($sql);
-
-			$sql = "UPDATE  `".$tbl_work."` 
-			        SET accepted = 0";
-
-			claro_sql_query($sql);
-		}
-		else
-		{
-			$sql = "UPDATE  `".$tbl_work."`  
-			        SET accepted = 0 
-					WHERE id = \"".$mkInvisbl."\"";
-
-			claro_sql_query ($sql);
-		}
-	}
-
-
-
-	/*-------------------------------------------
-		MAKE VISIBLE WORK COMMAND
-	  -----------------------------------------*/
-
-	if ($mkVisbl)
-	{
-		if ($mkVisbl == "all")
-		{
-			$sql = "ALTER TABLE  `".$tbl_work."`  
-			        CHANGE `accepted` `accepted` TINYINT(1) DEFAULT '1'";
-
-			claro_sql_query($sql);
-
-			$sql = "UPDATE  `".$tbl_work."`
-			        SET accepted = 1";
-
-			claro_sql_query($sql);
-
-		}
-		else
-		{
-			$sql = "UPDATE  `".$tbl_work."`  
-			        SET accepted = 1 
-					WHERE id = \"".$mkVisbl."\"";
-
-			claro_sql_query ($sql);
-		}
-	}
-
-} // end if ($is_allowedToEdit)
-
-
-
-/*=====================================
-          FORM SUBMIT PROCEDURE
-  =====================================*/
-
-if ( isset($_POST['submitWork']) )
-{
-	if ( is_uploaded_file($file) )
-	{
-				// exemple :
-				// $urlAppend="/cvs130/Claroline010";
-				// $webDir="/var/www/html/cvs130/Claroline010/";
-
-
-		// Try to add an extension to the file if it has'nt one
-		$new_file_name = add_ext_on_mime($file_name);
-
-		// Replace dangerous characters
-		$new_file_name = replace_dangerous_char($new_file_name);
-
-		// Transform any .php file in .phps fo security
-		$new_file_name = php2phps($new_file_name);
-
-		if ($file_size > $fileAllowedSize)
-		{
-			die("<tr><td colspan=\"2\">".$langTooBig."</td></tr>\n</table>");
-		}
-		else
-		{
-			if( ! $_REQUEST['titre'] || $_REQUEST['titre'] == "" )
-			{
-				$titre = $file_name;
-			}
-			else
-			{
-				$titre = $_REQUEST['titre'];
-			}
-			
-			if ( ! $_REQUEST['auteurs'] || $_REQUEST['auteurs'] == "")
-			{
-				$auteurs = $currentUserFirstName." ".$currentUserLastName;
-			}
-			else
-			{
-				$auteurs = $_REQUEST['auteurs'];
-			}
-						
-			// compose a unique file name to avoid any conflict
-
-			$new_file_name = uniqid('').$new_file_name;
-
-			@copy($file, $updir.$new_file_name)
-				or die("<tr><td colspan=\"2\">error : ".$langNotPossible."</td></tr>\n</table>");
-
-			$url = "work/".$new_file_name;
-
-			$sqlAddWork = "INSERT INTO `".$tbl_work."`
-			               SET url         = \"".$url."\",
-						       titre       = \"".$titre."\",
-			                   description = \"".$description."\",
-			                   auteurs     = \"".$auteurs."\"";
-
-			claro_sql_query($sqlAddWork);
-                        
-            $insertId = mysql_insert_id();
-			$succeed = true;
-		}
-	}
-
-	/*
-	 * SPECIAL CASE ! For a work comming from another area (ie groups)
-	 */
-
-	elseif ($newWorkUrl)
-	{
-
-		$url = str_replace('../../'.$_course['path'].'/','',$newWorkUrl);
-
-
-		if( ! $titre )
-		{
-			$titre = basename($workUrl);
-		}
-		
-		$sql = "INSERT INTO  `".$tbl_work."`
-		        SET url         = \"".$url."\", 
-		            titre       = \"".$titre."\", 
-		            description = \"".$description."\",
-		            auteurs     = \"".$auteurs."\"";
-
-		claro_sql_query($sql);
-
-		$insertId = mysql_insert_id();
-		$succeed = true;
-	}
-
-	/*
-	 * SPECIAL CASE ! For a work edited
-	 */
-
-	elseif ($_POST['id'] && $is_allowedToEdit)
-	{
-
-		$sql = "UPDATE  `".$tbl_work."`  
-		        SET	titre       = \"".$titre."\",
-		            description = \"".$description."\",
-		            auteurs     = \"".$auteurs."\"
-		        WHERE id        = \"".$_POST['id']."\"";
-
-		claro_sql_query($sql);
-
-        $insertId = $id;
-		$succeed = true;
-	}
-}
-if ($submitWork && $succeed)
-{
-    //stats
-    event_upload($insertId);
-
-		echo	$langDocAdd.
-				"<br>
-				<b>".$titre."</b><br>
-				<u>
-					".$langDescription."
-				</u> 
-				: ".$description." 
-				<br>
-				<u>
-					".$langAuthors."
-				</u> 
-				: ".$auteurs." 
-				<br>".
-				"<a href=\"".$_SERVER['PHP_SELF']."\">".$langBackList."</a>".
-				"<br>\n";
-}
-else
+  
+ 
+if($is_allowedToEdit)
 {
 
-	/*=======================================
-		 PERMANENT FORM TO UPLOAD PAPER
-	  =======================================*/
-	echo	"<form method=\"post\" action=\"",$_SERVER['PHP_SELF'],"\" enctype=\"multipart/form-data\" >\n",
-			"<table>\n";
-	if ($submitGroupWorkUrl) // For user comming from group space to publish his work
-	{
-		echo	"<tr>\n",
+  /*--------------------------------------------------------------------
+                          DIALOG BOX SECTION
+    --------------------------------------------------------------------*/
 
-				"<td align=\"right\">".
-				"<input type=\"hidden\" name=\"newWorkUrl\" value=\"".$submitGroupWorkUrl."\">".
-				$langDocument.
-				" : ".
-				"</td>\n".
-				"<td align=\"left\">".
-				"<a href=\"".$coursesRepositoryWeb.$_course['path'].'/'.$submitGroupWorkUrl."\">".basename($submitGroupWorkUrl)."</a>".
-				"</td>\n".
+  if ($dialogBox)
+  {
+          claro_disp_message_box($dialogBox);
+  }
 
-				"</tr>\n";
-	}
-	elseif ($edit && $is_allowedToEdit)
-	{
- 		$workUrl = $currentCourseRepositoryWeb.$workUrl;
-
-		echo	"<tr>\n",
-
-				"<td>",
-				"<input type=\"hidden\" name=\"id\" value=\"",$edit,"\">\n",
-				$langDocument," : ",
-				"</td>\n",
-
-				"<td>",
-				"<a href=\"",$workUrl,"\">",$workUrl,"</a>",
-				"</td>\n",
-
-				"</tr>\n";
-	}
-	else // else standart upload option
-	{
-		echo	"<tr>\n",
-
-				"<td  align=\"right\"><label for=\"file\">",
-				$langDownloadFile,"</label> :",
-				"</td>\n",
-
-				"<td>",
-				"<input type=\"file\" name=\"file\" id=\"file\" size=\"20\">",
-				"</td>\n",
-
-				"</tr>\n".
-			"<tr>
-				<td>&nbsp;</td>
-				<td><small>".$langMaxFileSize.format_file_size( get_max_upload_size($fileAllowedSize,$updir) )."</small></td>
-			</tr>";
-	}
-	echo
-			"<tr>",
-			"<td  align=\"right\"><label for=\"titre\">",
-			$langTitleWork,"</label> : ",
-			"</td>\n",
-
-			"<td>",
-			"<input type=\"text\" name=\"titre\" id=\"titre\" value=\"",$workTitle,"\" size=\"30\">",
-			"</td>\n",
-
-			"</tr>\n",
-
-			"<tr>\n",
-
-			"<td valign=\"top\"  align=\"right\"><label for=\"auteurs\">",
-			$langAuthors."</label> : ",
-			"</td>\n",
-
-			"<td>",
-			"<input type=\"text\" name=\"auteurs\" id=\"auteurs\" value=\"",$workAuthor,"\" size=\"30\">\n",
-			"</td>\n",
-
-			"</tr>\n",
-
-			"<tr>\n",
-
-			"<td valign=\"top\"  align=\"right\"><label for=\"description\">",
-			$langDescription," : ",
-			"</label></td>\n",
-
-			"<td>",
-			"<textarea name=\"description\"  id=\"description\" cols=\"30\" rows=\"3\">",
-			$workDescription,
-			"</textarea>",
-			"<input type=\"hidden\" name=\"active\"   value=\"1\">",
-			"<input type=\"hidden\" name=\"accepted\" value=\"1\">",
-			"</td>\n",
-
-			"</tr>\n",
-
-			"<tr>\n",
-
-			"<td></td>",
-
-			"<td>",
-			"<input type=\"Submit\" name=\"submitWork\" value=\"".$langOk."\">",
-			"</td>\n",
-
-			"</tr>\n",
-
-			"</table>\n",
-
-			"</form>\n",
-
-			"<p>&nbsp;</p>";
-
-/*> > > > > >   ALL FILES DELETE & VISIBILITY COMMANDS < < < < < < < < < */
-
-echo	"<table cellpadding=\"5\" cellspacing=\"2\" border=\"0\">\n";
-
-if ($is_allowedToEdit)
-{
-
-echo	"<tr>\n".
-		"<td colspan=\"2\">\n".
-
-		"<table cellspacing=\"0\" cellpadding=\"5\" border=\"1\" bordercolor\"gray\">\n".
-		"<tr>\n".
-		"<td>".
-		"<small>".$langAllFiles." : </small>".
-		"<a href=\"".$_SERVER['PHP_SELF']."?delete=all\" ".
-		"onclick=\"javascript:if(!confirm('".addslashes(htmlspecialchars($langDelete." ".$langConfirmYourChoice))."')) return false;\">".
-		"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\" align=\"absmiddle\">".
-		"</a>".
-		"&nbsp;";
-
-	$result = claro_sql_query("SHOW COLUMNS FROM `".$tbl_work."` LIKE 'accepted'") or die("PROBLEM");
-
-	if ($result)
-	{
-		$columnStatus = mysql_fetch_array($result);
-
-		if ($columnStatus['Default'] == 1)
-		{
-			echo	"<a href=\"".$_SERVER['PHP_SELF']."?mkInvisbl=all\">",
-					"<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$lang_make_invisible."\" align=\"absmiddle\">",
-					"</a>\n";
-		}
-		else
-		{
-			echo	"<a href=\"".$_SERVER['PHP_SELF']."?mkVisbl=all\">",
-					"<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$lang_make_visible."\" align=\"absmiddle\">",
-					"</a>\n";
-		}
-	}
+  /*--------------------------------------------------------------------
+                        CREATE AND EDIT FORM
+    --------------------------------------------------------------------*/
+  if ( $displaySesForm ) 
+  {
 ?>
-</td>
-</tr>
-</table>
-
-</td>
-</tr>
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    <input type="hidden" name="cmd" value="<?php echo $cmdToSend; ?>">
 <?php
+  if( isset($_REQUEST['sesId']) )
+  {
+?>
+    <input type="hidden" name="sesId" value="<?php echo $_REQUEST['sesId']; ?>">
+<?php
+  }
+?>
+    <table cellpadding="5">
+      <tr>
+        <td valign="top"><label for="sesTitle"><?php echo $langSessionTitle; ?>&nbsp;:</label></td>
+        <td><input type="text" name="sesTitle" id="sesTitle" size="50" maxlength="200" value="<?php echo htmlentities($form['sesTitle']); ?>"></td>
+      </tr>
+
+      <tr>
+        <td valign="top"><label for="sesDesc"><?php echo $langSessionDescription; ?>&nbsp;:<br /></label></td>
+        <td>
+<?php          
+      claro_disp_html_area('sesDesc', $form['sesDesc']);
+?> 
+        </td>
+      </tr>
+      
+      <tr>
+        <td valign="top"><?php echo $langSubmissionType; ?>&nbsp;:</td>
+        <td>
+          <input type="checkbox" name="authorizeFile" id="authorizeFile" value="1" <?php if( $form['authorizeFile'] ) echo 'checked="checked"'; ?>><label for="authorizeFile">&nbsp;<?php echo $langAuthorizeFile; ?></label><br />
+          <input type="checkbox" name="authorizeText" id="authorizeText" value="1" <?php if( $form['authorizeText'] ) echo 'checked="checked"'; ?>><label for="authorizeText">&nbsp;<?php echo $langAuthorizeText; ?></label><br />
+        </td>
+      </tr>
+      
+      <tr>
+        <td><?php echo $langStartDate; ?>&nbsp;:</td>
+        <td>
+<?php
+         echo claro_disp_date_form("startDay", "startMonth", "startYear", $form['startDate'])." ".claro_disp_time_form("startHour", "startMinute", $form['startTime']);
+         echo "&nbsp;<small>".$langChooseDateHelper."</small>";
+?>      
+        <br /><br />
+        </td>
+      </tr>    
+      
+      <tr>
+        <td><?php echo $langEndDate; ?>&nbsp;:</td>
+        <td>
+<?php
+         echo claro_disp_date_form("endDay", "endMonth", "endYear", $form['endDate'])." ".claro_disp_time_form("endHour", "endMinute", $form['endTime']);
+         echo "&nbsp;<small>".$langChooseDateHelper."</small>";
+?>      
+        </td>
+      </tr>
+      
+      <tr>
+        <td valign="top"><?php echo $langDefSubVisibility; ?>&nbsp;:</td>
+        <td>
+          <input type="radio" name="defSubVis" id="visible" value="VISIBLE" <?php if($form['defSubVis'] == "VISIBLE") echo 'checked="checked"'; ?>><label for="visible">&nbsp;<?php echo $langVisible; ?></label><br />
+          <input type="radio" name="defSubVis" id="invisible" value="INVISIBLE" <?php if($form['defSubVis'] == "INVISIBLE") echo 'checked="checked"'; ?>><label for="invisible">&nbsp;<?php echo $langInvisible; ?></label><br />
+        </td>
+      </tr>
+      
+      <tr>
+        <td valign="top"><?php echo $langSessionType; ?>&nbsp;:</td>
+        <td>
+          <input type="radio" name="sessionType" id="individual" value="INDIVIDUAL" <?php if($form['sessionType'] == "INDIVIDUAL") echo 'checked="checked"'; ?>><label for="individual">&nbsp;<?php echo $langIndividual; ?></label><br />
+          <input type="radio" name="sessionType" id="group" value="GROUP" <?php if($form['sessionType'] == "GROUP") echo 'checked="checked"'; ?>><label for="group">&nbsp;<?php echo $langGroup; ?></label><br />
+        </td>
+      </tr> 
+      
+      <tr>
+        <td valign="top"><?php echo $langAllowAnonymous; ?>&nbsp;:</td>
+        <td>
+        <input type="radio" name="allowAnonymous" id="anonAllowed" value="YES" <?php if($form['allowAnonymous'] == "YES") echo 'checked="checked"'; ?>><label for="anonAllowed">&nbsp;<?php echo $langAnonAllowed; ?></label><br />
+        <input type="radio" name="allowAnonymous" id="anonNotAllowed" value="NO" <?php if($form['allowAnonymous'] == "NO") echo 'checked="checked"'; ?>><label for="anonNotAllowed">&nbsp;<?php echo $langAnonNotAllowed; ?></label><br />
+        </td>
+      </tr>
+      
+      <tr>
+        <td valign="top"><?php echo $langPreventLateUploadShort; ?>&nbsp;:</td>
+        <td>
+        <input type="radio" name="preventLateUpload" id="preventUpload" value="YES" <?php if($form['preventLateUpload'] == "YES") echo 'checked="checked"'; ?>><label for="preventUpload">&nbsp;<?php echo $langPreventLateUpload; ?></label><br />
+        <input type="radio" name="preventLateUpload" id="allowUpload" value="NO" <?php if($form['preventLateUpload'] == "NO") echo 'checked="checked"'; ?>><label for="allowUpload">&nbsp;<?php echo $langAllowLateUpload; ?></label><br />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center">
+        <input type="submit" name="submitSession" value="<?php echo $langOk; ?>">
+        </td>
+      </tr>
+      </table>
+    </form>
+<?php
+  }
 }
 
-/*========================================
-    DISPLAY STUDENT PAPERS LIST
-  ========================================*/
+/*--------------------------------------------------------------------
+                            SESSION LIST
+    --------------------------------------------------------------------*/
+if( !$displaySesForm )
+{
+    /*--------------------------------------------------------------------
+                        INTRODUCTION SECTION
+      --------------------------------------------------------------------*/
+    
+    $moduleId = $course_tool['id']; // Id of the Student Paper introduction Area
+    $langHelpAddIntroText=$langIntroWork;
+    include($includePath."/introductionSection.inc.php");  
 
-	if( ! $id)
-	{
-		/*  print the list if there is no editing  */
+    /*--------------------------------------------------------------------
+                        ADMIN LINKS
+      --------------------------------------------------------------------*/
+    if( $is_allowedToEdit )
+    {
+      // link to create a new session
+      echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkSes\">".$langCreateSession."</a>\n";
+    }
 
-		$sqlListWorks = "SELECT id, url, titre, description, auteurs, active, accepted
-		                 FROM  `".$tbl_work."`
-		                 ORDER BY id";
+    /*--------------------------------------------------------------------
+                                  LIST
+      --------------------------------------------------------------------*/
+    $sql = "SELECT `id`, `title`, `sess_visibility`
+            FROM `".$tbl_wrk_session."` 
+            ORDER BY `title` ASC";
 
-		$works = claro_sql_query_fetch_all($sqlListWorks);
+    $sessionList = claro_sql_query_fetch_all($sql);
 
-//		while ($myrow = mysql_fetch_array($result))
-		foreach($works as $work)
-		{
-			// convert the file name in a correct url
-
-			$url = implode("/", array_map("rawurlencode", explode("/", $work['url'])));
-
-			if ( $work['accepted'] == 0 )
+    echo "<table class=\"claroTable\" width=\"100%\">\n"
+          ."<tr class=\"headerX\">\n"
+          ."<th>".$langSessionTitle."</th>\n";
+          
+    if ( $is_allowedToEdit ) 
+    {
+        echo  "<th>".$langModify."</th>\n"
+              ."<th>".$langDelete."</th>\n"
+              ."<th>".$langVisibility."</th>\n";
+    }
+    echo "</tr>\n\n"
+        ."<tbody>\n";
+    foreach($sessionList as $wrkSession)
+    {
+    
+      if ($wrkSession['sess_visibility'] == "INVISIBLE")
 			{
 				if ($is_allowedToEdit)
 				{
-					echo	"<tr>\n".
-
-							"<td valign=\"top\">".
-							"<a href=\"".$currentCourseRepositoryWeb.$url."\">".
-							"<img  alt=\"".
-							$work['titre'].
-							"\" src=\"".$clarolineRepositoryWeb."img/travaux.gif\" border=0>".
-							"</a>".
-							"</td>\n".
-
-							"<td valign=\"top\">".
-							"<a href=\"".$currentCourseRepositoryWeb.$url."\">".
-							"<font color=\"gray\">".
-							$work['titre'].
-							"</font>".
-							"</a>".
-							"<br>".
-							$work['auteurs'].
-							"<br>".
-							$work['description'];
-				}
-			}
-			else // normal display
-			{
-				echo	"<tr>\n",
-
-						"<td width=\"30\" valign=\"top\">",
-						"<a href=\"".$currentCourseRepositoryWeb.$url."\">",
-						"<img  alt=\"\" src=\"".$clarolineRepositoryWeb."img/travaux.gif\" border=\"0\">",
-						"</a>",
-						"</td>\n",
-
-						"<td  width=\"570\"  valign=\"top\">\n",
-						"<a href=\"".$currentCourseRepositoryWeb.$url."\">",
-						$work['titre'],
-						"</a>",
-						"<br>",
-						$work['auteurs'],
-						"<br>",
-						$work['description'];
-			}
-
-
-
-			if ($is_allowedToEdit)	// course administrator only
-			{
-				echo	"<p>\n",
-
-						"<a href=\"".$_SERVER['PHP_SELF']."?edit=",$work['id'],"\">",
-						"<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langModify."\">",
-						"</a>\n",
-
-						"<a href=\"".$_SERVER['PHP_SELF']."?delete=",$work['id'],"\" ",
-						"onclick=\"javascript:if(!confirm('".addslashes(htmlspecialchars($langDelete.": ".$work['titre']." ".$langConfirmYourChoice))."')) return false;\">",
-						"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\">",
-						"</a>\n";
-
-				if ($work["accepted"] == 1)
-				{
-					echo "<a href=\"".$_SERVER['PHP_SELF']."?mkInvisbl=",$work['id'],"\">",
-					"<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$lang_make_invisible."\">",
-					"</a>\n";
+					$style=' class="invisible"';
 				}
 				else
 				{
-					echo	"<a href=\"".$_SERVER['PHP_SELF']."?mkVisbl=",$work['id'],"\">",
-							"<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$lang_make_visible."\">",
-							"</a>\n";
+					continue; // skip the display of this file
 				}
-			} // End course administrator only
+			}
+			else 
+			{
+				$style='';
+			}
+      
+      echo "<tr align=\"center\"".$style.">\n"
+          ."<td align=\"left\"><a href=\"workList.php?sesId=".$wrkSession['id']."\">".$wrkSession['title']."</a></td>\n";
+      if( $is_allowedToEdit )
+      {
+        echo "<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditSes&sesId=".$wrkSession['id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\"></a></td>\n"
+            ."<td><a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmSes&sesId=".$wrkSession['id']."\" onClick=\"return confirmation('",addslashes($wrkSession['title']),"');\"><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\"></a></td>\n"
+            ."<td>";
+        if ($wrkSession['sess_visibility'] == "INVISIBLE")
+        {
+            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&sesId=".$wrkSession['id']."&vis=v\">"
+                  ."<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"$langMakeVisible\">"
+                  ."</a>";
+        }
+        else
+        {
+            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&sesId=".$wrkSession['id']."&vis=i\">"
+                  ."<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"$langMakeInvisible\">"
+                  ."</a>";
+        }          
+        echo "</td>\n";
+      }
+      echo "</tr>\n\n";
+    }
+    
+    echo "</tbody>\n</table>\n\n";
 
-			echo	"</td>\n",
-					"</tr>\n";
-			$i++;
-
-		}	// end while
-
-		echo "</table>";
-	}
 }
 
-include($includePath."/claro_init_footer.inc.php");
 
-
-
-
-/**
- * function claro_get_work_data($work_id)
- *
- * @param work_id integer id of work in the current course
- * @return data of the work in work table of the current course
- * @author christophe Gesché <moosh@claroline.net>
- * @desc return data of the work in work table of the current course
- *
- */
-function claro_get_work_data($work_id)
-{
-		$tbl_cdb_names = claro_sql_get_course_tbl();
-		$tbl_work      = $tbl_cdb_names['assignment_doc'         ];
-		$sql    = "SELECT * FROM `".$tbl_work."` WHERE id='".$work_id."'";
-		$resWork = claro_sql_query($sql);
-		$work = mysql_fetch_array($resWork);
-		return $work;
-}
-
+// FOOTER
+include($includePath."/claro_init_footer.inc.php"); 
 ?>
