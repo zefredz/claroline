@@ -11,7 +11,6 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-$langFile = "config";
 require '../../inc/claro_init_global.inc.php';
 
 $nameTools 			= $langConfiguration;
