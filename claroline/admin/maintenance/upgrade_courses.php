@@ -84,6 +84,7 @@ switch ($display)
 	case DISPLAY_WELCOME_PANEL :
 		echo "<p><a href=\"". $PHP_SELF . "?cmd=run\">Launch Claroline courses upgrade</a></p>\n";
 		echo "<p class=\"help\">Notice: Updating courses databases (It may take some time).</p>\n";
+		echo "<p><small><a href=\"upgrade.php\"><< Back</a></small></p>";
 		break;
 	case DISPLAY_RESULT_PANEL : 
 
@@ -180,6 +181,9 @@ switch ($display)
 		
 			// upgrade tool list
 			upgrade_tool_list($currentCourseDbNameGlu);
+			
+			// move link
+			include("moveLink.php");	
 			
 			if ($nbError>0)
 			{

@@ -390,6 +390,7 @@ switch ($display)
 {
 	case DISPLAY_WELCOME_PANEL: 
 		echo "<p><a href=\"" . $PHP_SELF . "?cmd=run\">Launch configuration files upgrade</a></p>";
+		echo "<p><small><a href=\"upgrade.php\"><< Back</a></small></p>";
 		break;
 	
 	case DISPLAY_RESULT_PANEL:

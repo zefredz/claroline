@@ -86,11 +86,9 @@ if ($_REQUEST['cmd']=="run")
 switch ($display)
 {
     case DISPLAY_WELCOME_PANEL :
-    ?>
-    <p><a href="<?php echo $PHP_SELF; ?>?cmd=run" >Launch main Claroline database (<code><?php echo $mainDbName ?></code>) upgrading</a></p>
-    <p class="help">Notice: Updating main database (It may take some time).</p>
-
-    <?
+	echo "<p><a href=\"" . $PHP_SELF . "?cmd=run\" >Launch main Claroline database (<code>" . $mainDbName . "</code>) upgrading</a></p>";
+    	echo "<p class=\"help\">Notice: Updating main database (It may take some time).</p>";
+    	echo "<p><small><a href=\"upgrade.php\"><< Back</a></small></p>";
         break;
     case DISPLAY_RESULT_PANEL :
         echo "<p>main Claroline database (<code>".$mainDbName."</code>) upgraded</p>\n";
