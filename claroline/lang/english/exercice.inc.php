@@ -40,7 +40,7 @@ $langAnswers="Answers";
 $langActivate="Enable";
 $langDeactivate="Disable";
 $langComment="Comment";
-$langAttachedFile = "Open attached file";
+$langAttachedFile = "Download attached file";
 $langMinuteShort = "min.";
 $langSecondShort = "sec.";
 
