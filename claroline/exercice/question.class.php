@@ -29,7 +29,9 @@ class Question
 	var $weighting;
 	var $position;
 	var $type;
-        var $pictureName;
+  var $attachedFile;
+  
+  var $tempAttachedFile; 
 
 	var $exerciseList;  // array with the list of exercises which this question is in
 
@@ -46,7 +48,9 @@ class Question
 		$this->weighting=0;
 		$this->position=1;
 		$this->type=2;
-                $this->pictureName='';
+    $this->attachedFile='';
+    
+    $this->tempAttachedFile = '';
 
 		$this->exerciseList=array();
 	}
@@ -62,7 +66,7 @@ class Question
 	{
 		global $TBL_QUESTIONS, $TBL_EXERCICE_QUESTION;
 
-		$sql="SELECT question,description,ponderation,q_position,type,picture_name FROM `$TBL_QUESTIONS` WHERE id='$id'";
+		$sql="SELECT question,description,ponderation,q_position,type,attached_file FROM `$TBL_QUESTIONS` WHERE id='$id'";
 		$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
 		// if the question has been found
@@ -74,7 +78,7 @@ class Question
 			$this->weighting=$object->ponderation;
 			$this->position=$object->q_position;
 			$this->type=$object->type;
-                        $this->pictureName=$object->picture_name;
+      $this->attachedFile=$object->attached_file;
 
 			$sql="SELECT exercice_id FROM `$TBL_EXERCICE_QUESTION` WHERE question_id='$id'";
 			$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
@@ -180,16 +184,23 @@ class Question
 		return sizeof($this->exerciseList);
 	}
         
-        /**
-         * returns the picture name
-         *
-         */
-         
-        function selectPictureName() 
-        {
-             return $this->pictureName;
-        }
-         
+  /**
+   * returns the attached file name
+   *
+   */
+  function selectAttachedFile() 
+  {
+        return $this->attachedFile;
+  }
+  
+  /**
+   * returns the temporary attached file name
+   *
+   */
+  function selectTempAttachedFile() 
+  {
+        return $this->tempAttachedFile;
+  }  
 
 	/**
 	 * changes the question title
@@ -261,131 +272,130 @@ class Question
 		}
 	}
 
+  /**
+   *
+   *
+   *
+   */   
+  function updateTempAttachedFile($tempAttachedFileName)
+  {
+      $this->tempAttachedFile = $tempAttachedFileName;
+  }
+  
+  
 	/**
-	 * adds a picture to the question
+	 * attach a file to the question
 	 *
 	 * @author - Olivier Brouckaert
-	 * @param - string $Picture - temporary path of the picture to upload
-         * @param - string $PictureName - Name of the Picture
+	 * @param - string $tempAttachedFile - temporary path of the file to upload
+         * @param - string $attachedFile - Name(with extension)of the file
 	 * @return - boolean - true if uploaded, otherwise false
 	 */
-	function uploadPicture($Picture,$PictureName)
+	function uploadAttachedFile($tempAttachedFile,$attachedFile)
 	{
-		global $picturePathSys;
+		global $attachedFilePathSys;
 
 		// if the question has got an ID
 		if($this->id)
 		{
-                        $extension=substr(strrchr($PictureName, '.'), 1);
+        $extension=substr(strrchr($attachedFile, '.'), 1);
+        
+        $this->attachedFile='quiz-'.$this->id.'.'.$extension;
                         
-                        $this->pictureName='quiz-'.$this->id.'.'.$extension;
-                        
-	  		return @move_uploaded_file($Picture,$picturePathSys.'/'.$this->pictureName)?true:false;
+	  		return @move_uploaded_file($tempAttachedFile,$attachedFilePathSys.'/'.$this->attachedFile)?true:false;
 		}
 
 		return false;
 	}
 
 	/**
-	 * deletes the picture
+	 * deletes the attached file
 	 *
 	 * @author - Olivier Brouckaert
 	 * @return - boolean - true if removed, otherwise false
 	 */
-	function removePicture()
+	function removeAttachedFile()
 	{
-		global $picturePathSys;
+		global $attachedFilePathSys;
 
-		// if the question has got an ID and if the picture exists
-		if($this->id && !empty($this->pictureName))
+		// if the question has got an ID and if the file exists
+		if($this->id && !empty($this->attachedFile))
 		{
-                        $pictureName=$this->pictureName;
-                        $this->pictureName='';
+      $attachedFile=$this->attachedFile;
+      $this->attachedFile='';
                         
-			return @unlink($picturePathSys.'/'.$pictureName)?true:false;
+			return @unlink($attachedFilePathSys.'/'.$attachedFile)?true:false;
 		}
 
 		return false;
 	}
 
 	/**
-	 * exports a picture to another question
+	 * exports a file to another question
 	 *
 	 * @author - Olivier Brouckaert
 	 * @param - integer $questionId - ID of the target question
 	 * @return - boolean - true if copied, otherwise false
 	 */
-	function exportPicture($questionId)
+	function exportAttachedFile($questionId)
 	{
-		global $TBL_QUESTIONS,$picturePathSys;
+		global $TBL_QUESTIONS,$attachedFilePathSys;
 
-		// if the question has got an ID and if the picture exists
-		if($this->id &&  !empty($this->pictureName))
-                {
-                    $extension=substr(strrchr($this->pictureName, '.'), 1);
-                    $pictureName='quiz-'.$questionId.'.'.$extension;
-                    
-                    $sql="UPDATE `$TBL_QUESTIONS` SET picture_name='$pictureName' WHERE id='$questionId'";
-                    mysql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
-                    
-                     return @copy($picturePathSys.'/'.$this->pictureName,$picturePathSys.'/'.$pictureName)?true:false;
+		// if the question has got an ID and if the file exists
+		if($this->id &&  !empty($this->attachedFile))
+    {
+        $extension=substr(strrchr($this->attachedFile, '.'), 1);
+        $attachedFile='quiz-'.$questionId.'.'.$extension;
+        
+        $sql="UPDATE `$TBL_QUESTIONS` SET attached_file = '$attachedFile' WHERE id='$questionId'";
+        mysql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
+        
+        return @copy($attachedFilePathSys.'/'.$this->attachedFile,$attachedFilePathSys.'/'.$attachedFile)?true:false;
 		}
 
 		return false;
 	}
 
 	/**
-	 * saves the picture coming from POST into a temporary file
-	 * Temporary pictures are used when we don't want to save a picture right after a form submission.
+	 * saves the file coming from POST into a temporary file
+	 * Temporary files are used when we don't want to save a file right after a form submission.
 	 * For example, if we first show a confirmation box.
 	 *
-	 * @author - Olivier Brouckaert
-	 * @param - string $Picture - temporary path of the picture to move
+	 * @author Olivier Brouckaert
+	 * @param string $tempAttachedFile - temporary path of the file to move
+   * @return string the name of the temporary file
 	 */
-	function setTmpPicture($Picture,$PictureName)
+	function setTmpAttachedFile($tempAttachedFile,$attachedFile)
 	{
-		global $picturePathSys;
+		global $attachedFilePathSys;
                 
-                $extension=substr(strrchr($PictureName, '.'), 1);
+    $extension=substr(strrchr($attachedFile, '.'), 1);
 
-		// saves the picture into a temporary file
-		@move_uploaded_file($Picture,$picturePathSys.'/tmp.'.$extension);
+		// saves the file into a temporary file
+    $this->tempAttachedFile = "tmp".$this->id.".".$extension;
+		@move_uploaded_file($tempAttachedFile,$attachedFilePathSys.'/'.$this->tempAttachedFile);
 	}
 
 	/**
 	 * moves the temporary question "tmp" to "quiz-$questionId.$extension"
-	 * Temporary pictures are used when we don't want to save a picture right after a form submission.
+	 * Temporary files are used when we don't want to save an attached file right after a form submission.
 	 * For example, if we first show a confirmation box.
 	 *
 	 * @author - Olivier Brouckaert
+   * @param $tmpFileName 
 	 * @return - boolean - true if moved, otherwise false
 	 */
-	function getTmpPicture()
+	function getTmpAttachedFile()
 	{
-		global $picturePathSys;
-		// if the question has got an ID and if the picture exists
-		if($this->id)
+		global $attachedFilePathSys;
+		// if the question has got an ID and if the file exists
+		if($this->id && file_exists($attachedFilePathSys."/".$this->tempAttachedFile) )
 		{
-                    if(file_exists($picturePathSys.'/tmp.jpg'))
-                    {
-                        $extension='jpg';
-                    }
-                    elseif(file_exists($picturePathSys.'/tmp.png'))
-                    {
-                        $extension='png';
-                    }
-                    elseif(file_exists($picturePathSys.'/tmp.gif'))
-                    {
-                        $extension='gif';
-                    }
-                    elseif(file_exists($picturePathSys.'/tmp.bmp'))
-                    {
-                        $extension='bmp';
-                    }
-                    $this->pictureName='quiz-'.$this->id.'.'.$extension;
-                    return @rename($picturePathSys.'/tmp.'.$extension,$picturePathSys.'/'.$this->pictureName)?true:false;
+        $extension=substr(strrchr($this->tempAttachedFile, '.'), 1);
+        
+        $this->attachedFile='quiz-'.$this->id.'.'.$extension;
+        return rename($attachedFilePathSys."/".$this->tempAttachedFile,$attachedFilePathSys.'/'.$this->attachedFile)?true:false;
 		}
-
 		return false;
 	}
 
@@ -406,18 +416,18 @@ class Question
 		$weighting=$this->weighting;
 		$position=$this->position;
 		$type=$this->type;
-                $pictureName=$this->pictureName;
+    $attachedFile=$this->attachedFile;
 
 		// question already exists
 		if($id)
 		{
-			$sql="UPDATE `$TBL_QUESTIONS` SET question='$question',description='$description',ponderation='$weighting',q_position='$position',type='$type',picture_name='$pictureName' WHERE id='$id'";
+			$sql="UPDATE `$TBL_QUESTIONS` SET question='$question',description='$description',ponderation='$weighting',q_position='$position',type='$type',attached_file='$attachedFile' WHERE id='$id'";
 			mysql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
 		}
 		// creates a new question
 		else
 		{
-			$sql="INSERT INTO `$TBL_QUESTIONS`(question,description,ponderation,q_position,type,picture_name) VALUES('$question','$description','$weighting','$position','$type','$pictureName')";
+			$sql="INSERT INTO `$TBL_QUESTIONS`(question,description,ponderation,q_position,type,attached_file) VALUES('$question','$description','$weighting','$position','$type','$attachedFile')";
 			mysql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 
 			$this->id=mysql_insert_id();
@@ -512,7 +522,7 @@ class Question
 			$sql="DELETE FROM `$TBL_REPONSES` WHERE question_id='$id'";
 			mysql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
 
-			$this->removePicture();
+			$this->removeAttachedFile();
 
 			// resets the object
 			$this->Question();
@@ -545,8 +555,8 @@ class Question
 
 		$id=mysql_insert_id();
 
-		// duplicates the picture
-		$this->exportPicture($id);
+		// duplicates the attached file
+		$this->exportAttachedFile($id);
 
 		return $id;
 	}
