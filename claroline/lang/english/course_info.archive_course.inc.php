@@ -15,7 +15,7 @@
       |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
       +----------------------------------------------------------------------+
  */
-$langArchiveCourse = "Course backuping ";
+$langArchiveCourse = "Course backup";
 $langCreatedIn = "created in";
 $langCreateMissingDirectories ="Creation of missing directories";
 $langCopyDirectoryCourse = "Copy of course's files";

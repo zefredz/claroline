@@ -115,11 +115,11 @@ $langCsvPutIntoDocTool="The file &quot;users.csv&quot; has been put into the Doc
 $langSearchCours	= "Return to the informations of the course";
 $langManage			= "Manage Campus";
 
-$langAreYouSureToDelete = "Are you sure you want to delete ";
+$langAreYouSureToDelete = "Are you sure to delete ";
 $langBackToAdminPage = "Back to admin page";
 $langToCourseSettings = "Back to course settings";
 $langSeeCourseUsers = "See course users";
-$langBackToCourseList = "Back to courses list";
+$langBackToCourseList = "Back to course list";
 $langBackToList = "Back to list";
 $langAllUsersOfThisCourse = "Course members";
 $langViewCourse = "View course";

@@ -160,9 +160,9 @@ $langCourseBackup = "Backup";
 
 //popup
 
-$langAreYouSureToDelete = "are you sure you want to delete ";
-$langAreYouSureToUnsubscribe = "are you sure you want to unregister ";
-$langAreYouSureToSubscribe = "are you sure you want to register ";
+$langAreYouSureToDelete = "Are you sure to delete ";
+$langAreYouSureToUnsubscribe = "Are you sure you want to unregister ";
+$langAreYouSureToSubscribe = "Are you sure you want to register ";
 $langViewList = "View list";
 $langUserCanCreateCourse = "Can create course";
 $langUserIsPlaformAdmin = "Is platform admin";

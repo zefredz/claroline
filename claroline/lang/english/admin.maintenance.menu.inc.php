@@ -103,7 +103,7 @@ $langManage				= "Managing the campus";
 $langNoteAboutViaPMA = " &laquo;Via pma&raquo; = Direct link to a PhpMyAdmin window.";
 $langAddACourse = "Create a course";
 $langCategories = "Course Categories";
-$langAdminProfileUser = "Admin User Profile";
+$langAdminProfileUser = "Edit User Profile";
 $langListOfCourseOfUser ="List of users registered in a course";
 $langAddAdminInApache = "Add an admin";
 $langAddCategories = "Add Categories";
