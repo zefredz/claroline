@@ -18,9 +18,14 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 @include ($includePath."/installedVersion.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
 
-
 //declare needed tables
-$tbl_faculty      = $mainDbName.'`.`faculte';
+$tbl_mdb_names = claro_sql_get_main_tbl();
+//$tbl_course           = $tbl_mdb_names['course'           ];
+//$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+$tbl_course_nodes     = $tbl_mdb_names['category'         ];
+//$tbl_user             = $tbl_mdb_names['user'             ];
+//$tbl_class            = $tbl_mdb_names['class'            ];
+//$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
 
 // Deal with interbredcrumps  and title variable
 
@@ -44,14 +49,13 @@ session_unregister('admin_course_order_crit');
 
 // Search needed info in db to create the right formulaire
 
-$sql_searchfaculty = "SELECT * FROM `$tbl_faculty` order by `treePos`";
+$sql_searchfaculty = 'SELECT * FROM `'.$tbl_course_nodes.'` order by `treePos`';
 $arrayFaculty = claro_sql_query_fetch_all($sql_searchfaculty);
 
 
 //----------------------------------
 // DISPLAY
 //----------------------------------
-
 
 //header and bredcrump display
 
@@ -70,7 +74,7 @@ claro_disp_tool_title($nameTools." : ");
    <label for="code"><?php echo $langOfficialCode?></label> : <br>
   </td>
   <td colspan="3">
-    <input type="text" size="40" name="code" id="code" value="<?php echo $_GET['code']?>"/>
+    <input type="text" size="40" name="code" id="code" value="<?php echo $_REQUEST['code']?>"/>
   </td>
 </tr>
 
@@ -79,7 +83,7 @@ claro_disp_tool_title($nameTools." : ");
    <label for="intitule"><?php echo $langCourseTitle?></label> :  <br>
   </td>
   <td colspan="3">
-    <input type="text" size="40" name="intitule"  id="intitule" value="<?php echo $_GET['intitule']?>"/>
+    <input type="text" size="40" name="intitule"  id="intitule" value="<?php echo $_REQUEST['intitule']?>"/>
   </td>
 </tr>
 
@@ -93,7 +97,7 @@ claro_disp_tool_title($nameTools." : ");
     <?php
 
         //Display each option value for categories in the select
-        buildSelectFaculty($arrayFaculty,NULL,$_GET['category'],"");
+        buildSelectFaculty($arrayFaculty,NULL,$_REQUEST['category'],"");
     ?>
     </select>
   </td>
@@ -107,7 +111,7 @@ claro_disp_tool_title($nameTools." : ");
     <select name="language" id="language" >
     <option  value=""></option>
     <?php
-      echo createSelectBoxLanguage($_GET['language']);
+      echo createSelectBoxLanguage($_REQUEST['language']);
     ?>
     </select>
   </td>
@@ -119,15 +123,15 @@ claro_disp_tool_title($nameTools." : ");
    :
   </td>
   <td>
-   <input type="radio" name="access" value="public"  id="access_public"  <?php if ($_GET['access']=="public") echo "checked";?> >
+   <input type="radio" name="access" value="public"  id="access_public"  <?php if ($_REQUEST['access']=="public") echo "checked";?> >
    <label for="access_public"><?php echo $langPublic ?></label>
   </td>
   <td>
-      <input type="radio" name="access" value="private" id="access_private" <?php if ($_GET['access']=="private") echo "checked";?>>
+      <input type="radio" name="access" value="private" id="access_private" <?php if ($_REQUEST['access']=="private") echo "checked";?>>
     <label for="access_private"><?php echo $langPrivate ?></label>
   </td>
   <td>
-      <input type="radio" name="access" value=""        id="access_all"     <?php if ($_GET['access']=="") echo "checked";?>>
+      <input type="radio" name="access" value=""        id="access_all"     <?php if ($_REQUEST['access']=="") echo "checked";?>>
     <label for="access_all"><?php echo $langAll ?></label>
   </td>
 </tr>
@@ -138,15 +142,15 @@ claro_disp_tool_title($nameTools." : ");
     :
   </td>
   <td>
-      <input type="radio" name="subscription" value="allowed" id="subscription_allowed" <?if ($_GET['subscription']=="allowed") echo "checked";?>>
+      <input type="radio" name="subscription" value="allowed" id="subscription_allowed" <?if ($_REQUEST['subscription']=="allowed") echo "checked";?>>
     <label for="subscription_allowed"><?php echo $langAllowed ?></label>
   </td>
   <td>
-      <input type="radio" name="subscription" value="denied"  id="subscription_denied" <?if ($_GET['subscription']=="denied") echo "checked";?>>
+      <input type="radio" name="subscription" value="denied"  id="subscription_denied" <?if ($_REQUEST['subscription']=="denied") echo "checked";?>>
     <label for="subscription_denied"><?php echo $langDenied ?></label>
   </td>
   <td>
-      <input type="radio" name="subscription" value=""  id="subscription_all" <?if ($_GET['subscription']=="") echo "checked";?>>
+      <input type="radio" name="subscription" value=""  id="subscription_all" <?if ($_REQUEST['subscription']=="") echo "checked";?>>
     <label for="subscription_all"><?php echo $langAll ?></label>
   </td>
 </tr>

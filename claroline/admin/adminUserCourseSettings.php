@@ -52,11 +52,11 @@ $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTool
 
 // used tables
 
-$tbl_log         = $mainDbName."`.`loginout";
-$tbl_user        = $mainDbName."`.`user";
-$tbl_admin       = $mainDbName."`.`admin";
-$tbl_course      = $mainDbName."`.`cours";
-$tbl_course_user = $mainDbName."`.`cours_user";
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_course           = $tbl_mdb_names['course'           ];
+$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+$tbl_admin            = $tbl_mdb_names['admin'         ];
+$tbl_user             = $tbl_mdb_names['user'             ];
 
 include($includePath.'/claro_init_header.inc.php');
 
@@ -67,7 +67,7 @@ session_unregister("userEdit");
 
 // see which user we are working with ...
 
-$user_id = $_GET['uidToEdit'];
+$user_id = $_REQUEST['uidToEdit'];
 
 //------------------------------------
 // Execute COMMAND section
@@ -145,17 +145,16 @@ if(isset($user_id))
 
     // find course user settings, must see if the user is teacher for the course
 
-    $sql = "SELECT * FROM `".$tbl_course_user."`
-            WHERE user_id='$uidToEdit'
-            AND code_cours='".$cidToEdit."'
-            ";
+    $sql = 'SELECT * FROM `'.$tbl_rel_course_user.'`
+            WHERE user_id="'.$uidToEdit.'"
+            AND code_cours="'.$cidToEdit.'"';
     $resultCourseUser = claro_sql_query($sql);
     $list = mysql_fetch_array($resultCourseUser);
 
     if ($list['statut'] == '1')
     {
        $isCourseManager = TRUE;
-       $isStudent = false;
+       $isStudent = FALSE;
     }
     else
     {

@@ -40,10 +40,38 @@
 $langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
+
+/*
+ * DB tables definition
+ */
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
+$tbl_user            = $tbl_mdb_names['user'             ];
+$tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
+
+// regroup table names for maintenance purpose
+$TABLETRACK_EXERCISES  = $_course['dbNameGlu']."track_e_exercices";
+$TABLE_QUIZ_TEST       = $tbl_quiz_test;
+$TABLECOURSUSER	       = $tbl_rel_course_user;
+$TABLEUSER             = $tbl_user;
+
+include($includePath."/lib/statsUtils.lib.inc.php");
+
+$is_allowedToTrack = $is_courseAdmin;
+
+// get infos about the exercise
+$sql = "SELECT `id`, `titre` `title`
+        FROM `".$TABLE_QUIZ_TEST."`
+       WHERE `id` = ".$_GET['exo_id'];
+$result = claro_sql_query($sql);
+$exo_details = @mysql_fetch_array($result);
+
+
+
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langToolName);
-
 $nameTools = $langStatsOfExercise;
-
 $htmlHeadXtra[] = "<style type=\"text/css\">
 <!--
 .secLine {background-color : #E6E6E6;}
@@ -56,32 +84,10 @@ $htmlHeadXtra[] = "<style type=\"text/css\">
 TD {border-bottom: thin dashed Gray;}
 -->
 </STYLE>";
-
-
-// regroup table names for maintenance purpose
-$TABLETRACK_EXERCISES = $_course['dbNameGlu']."track_e_exercices";
-$TABLE_QUIZ_TEST = $_course['dbNameGlu']."quiz_test";
-
-$TABLECOURSUSER	        = $mainDbName."`.`cours_user";
-$TABLEUSER = $mainDbName."`.`user";
-
-
-@include($includePath."/claro_init_header.inc.php");
-@include($includePath."/lib/statsUtils.lib.inc.php");
-
-$is_allowedToTrack = $is_courseAdmin;
-
-// get infos about the exercise
-$sql = "SELECT * 
-        FROM `".$TABLE_QUIZ_TEST."`
-       WHERE `id` = ".$_GET['exo_id'];
-
-$result = claro_sql_query($sql);
-$exo_details = @mysql_fetch_array($result);
-
+include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
-$titleTab['subTitle'] = $langStatsOfExercise." : ".$exo_details['titre'];
+$titleTab['subTitle'] = $langStatsOfExercise." : ".$exo_details['title'];
 claro_disp_tool_title($titleTab);
 
 if($is_allowedToTrack && $is_trackingEnabled) 

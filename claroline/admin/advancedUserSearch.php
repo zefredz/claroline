@@ -42,8 +42,15 @@ session_unregister('admin_order_crit');
 
 
 //declare needed tables
+$tbl_mdb_names = claro_sql_get_main_tbl();
+//$tbl_course           = $tbl_mdb_names['course'           ];
+//$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+$tbl_course_nodes     = $tbl_mdb_names['category'         ];
+//$tbl_user             = $tbl_mdb_names['user'             ];
+//$tbl_class            = $tbl_mdb_names['class'            ];
+//$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
 
-$tbl_faculty      = $mainDbName.'`.`faculte';
+$tbl_course_nodes      = $tbl_course_nodes;
 
 // Deal with interbredcrumps  and title variable
 
@@ -52,7 +59,7 @@ $nameTools = $langSearchUserAdvanced;
 
 // Search needed info in db to creat the right formulaire
 
-$sql_searchfaculty = "select * FROM `$tbl_faculty` order by `treePos`";
+$sql_searchfaculty = 'select * FROM `'.$tbl_course_nodes.'` order by `treePos`';
 $arrayFaculty=claro_sql_query_fetch_all($sql_searchfaculty);
 
 
@@ -74,7 +81,7 @@ claro_disp_tool_title($nameTools." : ");
 			: <br>
 		</td>
 		<td>
-			<input type="text" name="lastName" id="lastName" value="<?php echo $_GET['lastName']?>"/>
+			<input type="text" name="lastName" id="lastName" value="<?php echo $_REQUEST['lastName']?>"/>
 		</td>
 	</tr>
 
@@ -84,7 +91,7 @@ claro_disp_tool_title($nameTools." : ");
 			: <br>
 		</td>
 		<td>
-			<input type="text" name="firstName" id="firstName" value="<?php echo $_GET['firstName']?>"/>
+			<input type="text" name="firstName" id="firstName" value="<?php echo $_REQUEST['firstName']?>"/>
 		</td>
 	</tr>
 	
@@ -94,7 +101,7 @@ claro_disp_tool_title($nameTools." : ");
 			:  <br>
 		</td>
 		<td>
-			<input type="text" name="userName" id="userName" value="<?php echo $_GET['userName']?>"/>
+			<input type="text" name="userName" id="userName" value="<?php echo $_REQUEST['userName']?>"/>
 		</td>
 	</tr>
 
@@ -104,7 +111,7 @@ claro_disp_tool_title($nameTools." : ");
 			: <br>
 		</td>
 		<td>
-			<input type="text" name="mail" id="mail" value="<?php echo $_GET['mail']?>"/>
+			<input type="text" name="mail" id="mail" value="<?php echo $_REQUEST['mail']?>"/>
 		</td>
 	</tr>
 
@@ -114,9 +121,9 @@ claro_disp_tool_title($nameTools." : ");
   </td>
   <td>
     <select name="action" id="action">
-        <option value="followcourse" <?if ($_GET['action']=="followcourse") echo "selected";?>><?php echo $langFollowCourse?></option>
-        <option value="createcourse" <?if ($_GET['action']=="createcourse") echo "selected";?>><?php echo $langCreateCourse?></option>
-        <option value="plateformadmin" <?if ($_GET['action']=="plateformadmin") echo "selected";?>><?php echo $langPlatformAdmin?></option>
+        <option value="followcourse" <?if ($_REQUEST['action']=="followcourse") echo "selected";?>><?php echo $langFollowCourse?></option>
+        <option value="createcourse" <?if ($_REQUEST['action']=="createcourse") echo "selected";?>><?php echo $langCreateCourse?></option>
+        <option value="plateformadmin" <?if ($_REQUEST['action']=="plateformadmin") echo "selected";?>><?php echo $langPlatformAdmin?></option>
     </select>
   </td>
 </tr>

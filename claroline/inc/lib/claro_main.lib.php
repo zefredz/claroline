@@ -37,7 +37,10 @@ function claro_sql_get_main_tbl()
         'user'                      => $mainDbName.'`.`user',
         'tool'                      => $mainDbName.'`.`course_tool',
         'user_category'             => $mainDbName.'`.`class',
-        'user_rel_profile_category' => $mainDbName.'`.`rel_class_user');
+        'user_rel_profile_category' => $mainDbName.'`.`rel_class_user',
+		'class'                     => $mainDbName.'`.`class',
+		'rel_class_user'            => $mainDbName.'`.`rel_class_user'
+		);
     }
 
     return $mainTblList;
@@ -58,6 +61,7 @@ function claro_sql_get_course_tbl($dbNameGlued = NULL)
     {
         $courseDb = $_course['dbNameGlu'];
     }
+
     else
     {
         $courseDb = $dbNameGlued;

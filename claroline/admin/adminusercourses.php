@@ -21,10 +21,11 @@ include($includePath."/lib/admin.lib.inc.php");
 if (!$is_platformAdmin) claro_disp_auth_form();
 
 
-$tbl_log     = $mainDbName."`.`loginout";
-$tbl_user     = $mainDbName."`.`user";
-$tbl_admin  = $mainDbName."`.`admin";
-$tbl_course = $mainDbName."`.`cours";
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user      = $tbl_mdb_names['user'  ];
+$tbl_course    = $tbl_mdb_names['course'];
+$tbl_admin     = $tbl_mdb_names['admin' ];
+
 $tbl_course_user = $mainDbName."`.`cours_user";
 
 // javascript confirm pop up declaration

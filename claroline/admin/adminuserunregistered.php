@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -37,19 +37,20 @@ $htmlHeadXtra[] = "<style type=\"text/css\">
 </STYLE>";
 
 
-$tbl_log 	= $mainDbName."`.`loginout";
-$tbl_user 	= $mainDbName."`.`user";
-$tbl_admin  = $mainDbName."`.`admin";
-$tbl_course = $mainDbName."`.`cours";
-$tbl_course_user = $mainDbName."`.`cours_user";
+//declare needed tables
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_admin           = $tbl_mdb_names['admin'           ];
+$tbl_course           = $tbl_mdb_names['course'           ];
+$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+$tbl_course_nodes     = $tbl_mdb_names['category'         ];
+$tbl_user             = $tbl_mdb_names['user'             ];
+//$tbl_class            = $tbl_mdb_names['class'            ];
+//$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
 
-include($includePath.'/claro_init_header.inc.php');
 
 // see which user we are working with ...
 
-$user_id = $_GET['uidToEdit'];
-
-//echo $user_id."<br>";
+$user_id = $_REQUEST['uidToEdit'];
 
 //------------------------------------
 // Execute COMMAND section
@@ -69,6 +70,8 @@ if (isset($cmd) && $is_platformAdmin)
 // DISPLAY
 //------------------------------------
 
+
+include($includePath.'/claro_init_header.inc.php');
 
 // Display tool title
 

@@ -151,23 +151,23 @@ function claro_CSV_format_ok($format)
  
 function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", $fieldSep=";", $fieldEnclose="")
 {
-        //check if temporary directory for uploaded file exists, if not we create it
+    //check if temporary directory for uploaded file exists, if not we create it
 	
 	if (!file_exists($uploadTempDir))
 	{
-	   mkdir($uploadTempDir,0777);
+	    mkdir($uploadTempDir,0777);
 	}
-	
+
 	//store the uploaded file in a temporary dir
-	
+
 	move_uploaded_file($_FILES["CSVfile"]["tmp_name"], $uploadTempDir.$_FILES["CSVfile"]["name"]);
-	
+
 	$openfile = @fopen($uploadTempDir.$_FILES['CSVfile']['name'],"r") or die ("Impossible to open file ".$_FILES['CSVfile']['name']);
-	
+
 	//Read each ligne : we put one user in an array, and build an array of arrays for the list of user.
-	
+
 	   //see where the line format must be found and which seperator and enclosion must be used
-	
+
 	if ($useFirstLine)
 	{
 	    $usedFormat      = "FIRSTLINE";
@@ -183,16 +183,16 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", 
 	        $enclosedBy = "\"";
 	    }    
 	}
-	
+
 	$CSVParser = new CSV($uploadTempDir.$_FILES["CSVfile"]["name"],$fieldSeparator,$usedFormat,$enclosedBy);
 	$userlist = $CSVParser->results;
-	
+
 	//save this 2D array userlist in session
-	
+
 	$_SESSION['claro_csv_userlist'] = $userlist;
-	
+
 	// test for each user if it is addable, get possible errors messages in tables
-	
+
 	   //first, we inverse the 2D array containing the lines of CSV file just parsed 
 	   //because it is much easier and faster to have line numbers of the CSV file as second indice in the array
 	
@@ -257,10 +257,10 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", 
  
 function claro_disp_CSV_error_backlog()
 {
-  for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<=$size; $i++)
-        {
-            $line=$i+1;
-	
+	for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<=$size; $i++)
+    {
+        $line=$i+1;
+
 	    if ($_SESSION['claro_mail_synthax_error'][$i]) 
 	    {
 	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> Mail synthax error. <br>";
@@ -293,7 +293,7 @@ function claro_disp_CSV_error_backlog()
 	    {
 	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> This official code appears already in a previous line of the CSV file. <br>\n";
 	    }
-        }  
+    }
 }
 
 
@@ -314,22 +314,16 @@ function claro_disp_CSV_error_backlog()
 
 function check_email_synthax_userlist($userlist)
 {
-    global $tbl_user;        
     $errors = array();
-  
     //CHECK: check email validity
-    
     $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
-    
     for ($i=0, $size=sizeof($userlist['email']); $i<$size; $i++)
     {
-        
-	if ((!empty($userlist['email'][$i])) && !eregi( $regexp, $userlist['email'][$i] )) 
-        {
-	    $errors[$i] = TRUE;
+		if ((!empty($userlist['email'][$i])) && !eregi( $regexp, $userlist['email'][$i] )) 
+      	{
+	    	$errors[$i] = TRUE;
         }
     }
-    
     return $errors;
 }
 
@@ -348,22 +342,21 @@ function check_email_synthax_userlist($userlist)
  
 function check_username_used_userlist($userlist)
 {   
-    global $tbl_user;        
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_user      = $tbl_mdb_names['user'];
     $errors = array();
     
     //CHECK : check if usernames are not already token by someone else
     
-    $sql = "SELECT * FROM `".$tbl_user."` WHERE 1=0 ";
+    $sql = 'SELECT * FROM `'.$tbl_user.'` WHERE 1=0 ';
     
     for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
     {
         if (!empty($userlist['username'][$i]) && ($userlist['username'][$i]!=""))
-	{
-	    $sql .= " OR username=\"".addslashes($userlist['username'][$i])."\"";
-	}  
+		{
+		    $sql .= ' OR username="'.addslashes($userlist['username'][$i]).'"';
+		}  
     }  
-    
-    //echo $sql."<br>\n";
     
     //for each user found, report the potential problem in an error array returned
     
@@ -371,13 +364,11 @@ function check_username_used_userlist($userlist)
     
     while ($list = mysql_fetch_array($foundUser))
     {
-	
-	$found = array_search($list['username'],$userlist['username']);
-		
-	if (!($found===FALSE)) 
-	{
-	    $errors[$found] = TRUE; 
-	}
+		$found = array_search($list['username'],$userlist['username']);
+		if (!($found===FALSE)) 
+		{
+	    	$errors[$found] = TRUE; 
+		}
     }
     return $errors;
 }
@@ -398,19 +389,19 @@ function check_username_used_userlist($userlist)
     
 function check_officialcode_used_userlist($userlist)
 {
-    global $tbl_user;        
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_user      = $tbl_mdb_names['user'];
+
     $errors = array();
-    
     //CHECK : check if admincode (officialCode) is not already taken by someone else
-    
-    $sql = "SELECT * FROM `".$tbl_user."` WHERE 1=0 ";
+    $sql = 'SELECT * FROM `'.$tbl_user.'` WHERE 1=0 ';
     
     for ($i=0, $size=sizeof($userlist['officialCode']); $i<$size; $i++) 
     {
         if (!empty($userlist['officialCode'][$i]) && ($userlist['officialCode'][$i]!=""))
-	{
-	    $sql .= " OR officialCode=\"".addslashes($userlist['officialCode'][$i])."\"";
-	}  
+		{
+		    $sql .= ' OR officialCode="'.addslashes($userlist['officialCode'][$i]).'"';
+		}  
     }
     
     //for each user found, report the potential problem
@@ -421,12 +412,11 @@ function check_officialcode_used_userlist($userlist)
     
     while ($list = mysql_fetch_array($foundUser))
     {
-	$found = array_search($list['officialCode'],$userlist['officialCode']);
-		
-	if (!($found===FALSE)) 
-	{
-	    $errors[$found] = TRUE; 
-	}
+		$found = array_search($list['officialCode'],$userlist['officialCode']);
+		if (!($found===FALSE)) 
+		{
+	    	$errors[$found] = TRUE; 
+		}
     }   
     return $errors;
 }    
@@ -446,21 +436,20 @@ function check_officialcode_used_userlist($userlist)
  * 
  */ 
  
- function check_password_userlist($userlist)
- {
-     $errors = array();
-     
-     for ($i=0, $size=sizeof($userlist['password']); $i<$size; $i++) 
-     {
-        if ($userlist['password'][$i]==$userlist['username'][$i])
-	{
-	    $errors[$i] = TRUE; 
-	}  
-     }
-          
-     return $errors;
- }   
-       
+function check_password_userlist($userlist)
+{
+    $errors = array();
+    
+    for ($i=0, $size=sizeof($userlist['password']); $i<$size; $i++) 
+    {
+    	if ($userlist['password'][$i]==$userlist['username'][$i])
+		{
+	    	$errors[$i] = TRUE; 
+		}
+    }
+	return $errors;
+}   
+
  /**
  * Check EMAIL NOT TAKEN YET : check if the e-mails are not already taken by someone in the plateform
  *
@@ -477,32 +466,29 @@ function check_officialcode_used_userlist($userlist)
     
 function check_mail_used_userlist($userlist)
 {
-    global $tbl_user;        
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_user             = $tbl_mdb_names['user'             ];
     $errors = array();
-    
-    $sql = "SELECT * FROM `".$tbl_user."` WHERE 1=0 ";
+
+    $sql = 'SELECT * FROM `'.$tbl_user.'` WHERE 1=0 ';
     
     for ($i=0, $size=sizeof($userlist['email']); $i<$size; $i++) 
     {
         if (!empty($userlist['email'][$i]) && ($userlist['email'][$i]!=""))
-	{
-	    $sql .= " OR email=\"".addslashes($userlist['email'][$i])."\"";
-	}  
+		{
+		    $sql .= ' OR email="'.addslashes($userlist['email'][$i]).'"';
+		}  
     }
-    
-        //for each user found, report the potential problem for email
-    
+
+    //for each user found, report the potential problem for email
     $foundUser = claro_sql_query($sql);
-    
     while ($list = mysql_fetch_array($foundUser))
     {
-        
-	$found = array_search($list['email'],$userlist['email']);
-		
-	if (!($found===FALSE)) 
-	{
-	    $errors[$found] = TRUE; 
-	}
+		$found = array_search($list['email'],$userlist['email']);
+		if (!($found===FALSE)) 
+		{
+		    $errors[$found] = TRUE; 
+		}
     }
     
     //echo $sql."<br>\n";
@@ -528,21 +514,20 @@ function check_mail_used_userlist($userlist)
 
 function check_duplicate_mail_userlist($userlist)
 {
-    global $tbl_user;        
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_user             = $tbl_mdb_names['user'             ];
     $errors = array();
-        
     for ($i=0, $size=sizeof($userlist['name']); $i<$size; $i++)
     {       
         //check email duplicata in the array
-    
-	$found = array_search($userlist['email'][$i],$userlist['email']);
-	
-	if (!($found===FALSE) && ($i!=$found))
+
+		$found = array_search($userlist['email'][$i],$userlist['email']);
+
+		if (!($found===FALSE) && ($i!=$found))
         {
-	    $errors[$i] = TRUE;
+	    	$errors[$i] = TRUE;
         }
     }
-       
     return $errors;
 }
 
@@ -563,21 +548,19 @@ function check_duplicate_mail_userlist($userlist)
 
 function check_duplicate_username_userlist($userlist)
 {
-    global $tbl_user;        
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_user             = $tbl_mdb_names['user'             ];
     $errors = array();
-        
     for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
     {       
         //check username duplicata in the array
-    
-	$found = array_search($userlist['username'][$i],$userlist['username']);
-	
-	if (!($found===FALSE) && ($i!=$found))
-        {
-	    $errors[$i] = TRUE;
+		$found = array_search($userlist['username'][$i],$userlist['username']);
+		if (!($found===FALSE) && ($i!=$found))
+	    {
+		    $errors[$i] = TRUE;
         }
     }
-       
+
     return $errors;
 }
 
@@ -598,7 +581,8 @@ function check_duplicate_username_userlist($userlist)
 
 function check_duplicate_officialcode_userlist($userlist)
 {
-    global $tbl_user;        
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_user      = $tbl_mdb_names['user'             ];
     $errors = array();
         
     for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
@@ -620,112 +604,108 @@ function check_duplicate_officialcode_userlist($userlist)
  *
  *
  */
-   class CSV
-   {
-       var $raw_data;
-       var $new_data;
-       var $mapping;
-       var $results = array();
-       var $errors = array();
-      
-       function CRLFclean()
-       {
-           $replace = array(
+class CSV
+{
+	var $raw_data;
+    var $new_data;
+    var $mapping;
+    var $results = array();
+    var $errors = array();
+
+	function CRLFclean()
+	{
+    	$replace = array(
                "\n",
                "\r",
                "\r\n"
            );
-           $this->raw_data = str_replace($replace,"\n",$this->raw_data);
-       }
-      
-       function validKEY($v)
-       {
-           return ereg_replace("[^a-zA-Z0-9_\s]","",$v);
-       }
-      
-       function stripENCLOSED(&$v,$eb)
-       {
-           if($eb!="" AND strpos($v,$eb)!==false)
-             {
-                   if($v[0]==$eb)
-                       $v = substr($v,1,strlen($v));
-                   if($v[strlen($v)-1]==$eb)
-                       $v = substr($v,0,-1);
-                   $v = stripslashes($v);
-               }
-               else
-                   return;
-       }
+        $this->raw_data = str_replace($replace,"\n",$this->raw_data);
+	}
+	function validKEY($v)
+    {
+    	return ereg_replace("[^a-zA-Z0-9_\s]","",$v);
+	}
 
-       function CSV($filename,$delim,$linedef,$enclosed_by="\"",$eol="\n")
-           {
-               //open the file
-               $this->raw_data = implode("",file($filename));
-              
-               // make sure all CRLF's are consistent
-               $this->CRLFclean();
-              
-               // use custom $eol (if exists)
-               if($eol!="\n" AND trim($eol)=="")
-                   $this->error("Couldn't split data via empty \$eol, please specify a valid end of line character.");
-               else
-               {
-                   $this->new_data = @explode($eol,$this->raw_data);
-                   if(count($this->new_data)==0)
-                       $this->error("Couldn't split data via given \$eol.<li>\$eol='".$eol."'");
-               }
-               
-               // create data keys with the line definition given in params, 
-	       // if linedef is not define, take first line of file to define it
-               
-	       if (($linedef=="FIRSTLINE") || ($linedef==NULL)) 
-	       {
-	           $linedef = $this->new_data[0];
-		   $skipFirstLine = TRUE; 
-	       }
+	function stripENCLOSED(&$v,$eb)
+    {
+    	if($eb!="" AND strpos($v,$eb)!==false)
+        {
+        	if($v[0]==$eb)
+            	$v = substr($v,1,strlen($v));
+        	if($v[strlen($v)-1]==$eb)
+            	$v = substr($v,0,-1);
+                $v = stripslashes($v);
+		}
+		else
+        	return;
+	}
 
-	       $temp = @explode($delim,$linedef);
-	
-	       foreach($temp AS $field_index=>$field_value)
-	       {            
-		   $this->mapping[] = $this->validKEY($field_value); 
-	       }
+    function CSV($filename,$delim,$linedef,$enclosed_by="\"",$eol="\n")
+    {
+    	//open the file
+        $this->raw_data = implode("",file($filename));
+        // make sure all CRLF's are consistent
+        $this->CRLFclean();
+		// use custom $eol (if exists)
+        if($eol!="\n" AND trim($eol)=="")
+		{
+        	$this->error("Couldn't split data via empty \$eol, please specify a valid end of line character.");
+		}
+		else
+		{
+			$this->new_data = @explode($eol,$this->raw_data);
+			if(count($this->new_data)==0)
+            {
+				$this->error("Couldn't split data via given \$eol.<li>\$eol='".$eol."'");
+			}
+		}
+		// create data keys with the line definition given in params, 
+	    // if linedef is not define, take first line of file to define it
+		if (($linedef=="FIRSTLINE") || ($linedef==NULL)) 
+	    {
+	    	$linedef = $this->new_data[0];
+		    $skipFirstLine = TRUE; 
+		}
 
-	       
-	       // fill the 2D array using the keys given
-	       
-	       foreach($this->new_data AS $index1=>$line)
-               {
-                   $temp = @explode($delim,$line);
-                  
-                   if(trim($line)=="")
-                       // skip empty lines
-                       continue;
-                   elseif(count($temp)==0)
-                       // line didn't split properly so record error
-                       $this->errors[] = "Couldn't split data line ".$c." via given \$delim.";
-                   elseif (!(($index1==0) && ($skipFirstLine)))
-                   {
-                       $data_set = array();
-                       foreach($temp AS $field_index=>$field_value)
-                       {
-                           // Remove enclose characters
-                           $this->stripENCLOSED($field_value,$enclosed_by);
-                           $data_set[$this->mapping[$field_index]] = $field_value;
-                   }
-                   if(count($data_set)>0)
-                           $this->results[] = $data_set;
-                   }       
-                   unset($data_set);
-               }
+	    $temp = @explode($delim,$linedef);
 
-               return $this->results;
-              
-       }
-      
-       function error($msg)
-       {
-           exit(
+		foreach($temp AS $field_index=>$field_value)
+	    {            
+			$this->mapping[] = $this->validKEY($field_value); 
+	    }
+
+		// fill the 2D array using the keys given
+
+		foreach($this->new_data AS $index1=>$line)
+        {
+        	$temp = @explode($delim,$line);
+			if(trim($line)=="")
+            // skip empty lines
+            	continue;
+            elseif(count($temp)==0)
+            // line didn't split properly so record error
+            	$this->errors[] = "Couldn't split data line ".$c." via given \$delim.";
+            elseif (!(($index1==0) && ($skipFirstLine)))
+            {
+            	$data_set = array();
+                foreach($temp AS $field_index=>$field_value)
+                {
+                	// Remove enclose characters
+                    $this->stripENCLOSED($field_value,$enclosed_by);
+                    $data_set[$this->mapping[$field_index]] = $field_value;
+				}
+                if(count($data_set)>0)
+                	$this->results[] = $data_set;
+            }
+            unset($data_set);
+		}
+
+		return $this->results;
+	}
+
+	function error($msg)
+	{
+    	exit(
            "<hr size=1 noshade>".
            "<font color=red face=arial size=3>".
            "<h2>CSV Class Exception</h2>".
@@ -734,11 +714,11 @@ function check_duplicate_officialcode_userlist($userlist)
            "</font>".
            "<hr size=1 noshade>"
            );
-       }
-      
-       function help()
-       {
-           print(
+	}
+
+	function help()
+	{
+    	print(
            "<hr size=1 noshade>".
            "<font face=arial size=3>".
            "<h2>CSV Class Usage</h2>".
@@ -747,8 +727,8 @@ function check_duplicate_officialcode_userlist($userlist)
            "</font>".
            "<hr size=1 noshade>"
            );
-       }
-  }
+	}
+}
 
 
  /**
@@ -773,7 +753,8 @@ function check_duplicate_officialcode_userlist($userlist)
 function add_user($name,$surname,$email,$phone,$admincode,$username,$password,$teacher)
 {
     // see if password must be stored crypted or not
-    global $tbl_user;
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_user      = $tbl_mdb_names['user'             ];
     global $userPasswordCrypted;
     if (!isset($userPasswordCrypted))  $userPasswordCrypted	 = false;
     
@@ -844,7 +825,10 @@ function add_userlist($userlist)
 
 function add_user_to_course($userId, $courseCode)
 {
-    global $tbl_user, $tbl_course, $tbl_courseUser;
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_course           = $tbl_mdb_names['course'           ];
+	$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+	$tbl_user             = $tbl_mdb_names['user'             ];
 
     if (empty($userId) || empty ($courseCode))
     {
@@ -853,9 +837,9 @@ function add_user_to_course($userId, $courseCode)
     else
     {
         // previously check if the user are already registered on the platform
-
-        $handle = mysql_query("SELECT statut FROM `".$tbl_user."`
-                               WHERE user_id = \"".$userId."\" ");
+		$sql = 'SELECT statut FROM `'.$tbl_user.'`
+                               WHERE user_id = "'.$userId.'"';
+        $handle = claro_sql_query($sql);
 
         if (mysql_num_rows($handle) == 0)
         {
@@ -865,7 +849,7 @@ function add_user_to_course($userId, $courseCode)
         {
             // previously check if the user isn't already subscribed to the course
 
-            $handle = mysql_query("SELECT * FROM `".$tbl_courseUser."`
+            $handle = claro_sql_query("SELECT * FROM `".$tbl_rel_course_user."`
                                    WHERE user_id = \"".$userId."\"
                                    AND code_cours =\"".$courseCode."\"");
 
@@ -877,7 +861,7 @@ function add_user_to_course($userId, $courseCode)
             {
                 // previously check if subscribtion is allowed for this course
 
-                $handle = mysql_query( "SELECT code, visible FROM `".$tbl_course."`
+                $handle = claro_sql_query( "SELECT code, visible FROM `".$tbl_course."`
                                         WHERE  code = \"".$courseCode."\"
                                         AND    (visible = 0 OR visible = 3)");
 
@@ -885,7 +869,7 @@ function add_user_to_course($userId, $courseCode)
                 {
                     return false; // subscribtion not allowed for this course
                 }
-                elseif ( mysql_query("INSERT INTO `".$tbl_courseUser."`
+                elseif ( claro_sql_query("INSERT INTO `".$tbl_rel_course_user."`
                                      SET code_cours = \"".$courseCode."\",
                                          user_id    = \"".$userId."\",
                                          statut     = \"5\""))
@@ -917,15 +901,17 @@ function add_user_to_course($userId, $courseCode)
 
 function remove_user_from_course($userId, $courseCode)
 {
-    global  $tbl_courseUser;
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
 
     // previously check if the user is not administrator of the course
     // a course administrator can not unsubscribe himself from a course
-
-    $handle = mysql_query (    "SELECT * FROM `".$tbl_courseUser."`
-                             WHERE user_id  = \"".$userId."\"
-                             AND code_cours = \"".$courseCode."\"
-                             AND statut = 1") or die ("problem");
+	$sql = 'SELECT * 
+			FROM `'.$tbl_rel_course_user.'`
+            WHERE 	user_id  = "'.$userId.'"
+            	AND code_cours = "'.$courseCode.'"
+            	AND statut = "1"';
+    $handle = claro_sql_query($sql);
 
     $numrows = mysql_num_rows($handle);
 
@@ -934,10 +920,10 @@ function remove_user_from_course($userId, $courseCode)
         return false; // the user is administrator of the course
     }
 
-
-    if ( mysql_query("DELETE FROM `".$tbl_courseUser."`
-                      WHERE user_id  = \"".$userId."\"
-                      AND code_cours = \"".$courseCode."\"") )
+	$sql = 'DELETE FROM `'.$tbl_rel_course_user.'`
+                      WHERE user_id  = "'.$userId.'"
+                      AND code_cours = "'.$courseCode.'"';
+    if ( claro_sql_query($sql) )
     {
         remove_user_from_group($userId, $courseCode);
     }
@@ -961,7 +947,7 @@ function remove_user_from_group($userId, $courseCode)
 {
     $courseDb = $courseCode; // <- this  is  not very  true,  add here a  sql to find $courseDb of this $courseCode.
 
-    if ( mysql_query("DELETE FROM `".$courseDb."`.`user_group`
+    if ( claro_sql_query("DELETE FROM `".$courseDb."`.`user_group`
                       WHERE user = \"".$userId."\""))
     {
         return true;
@@ -1098,16 +1084,24 @@ function delete_course($code)
     global $coursesRepositorySys;
     global $garbageRepositorySys;
 
+	//declare needed tables
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_course    = $tbl_mdb_names['course'           ];
+	$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+	$tbl_course_nodes     = $tbl_mdb_names['category'         ];
+	//$tbl_user             = $tbl_mdb_names['user'             ];
+	//$tbl_class            = $tbl_mdb_names['class'            ];
+	//$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
+
     $sql = "SELECT *
-                 FROM `".$mainDbName."`.`cours`
+                 FROM `".$tbl_course."`
                  WHERE `code` = '".$code."'";
 
-    $result = mysql_query($sql)
-                or die('Error in file '.__FILE__.' at line '.__LINE__);
+    $result = claro_sql_query($sql);
     $the_course = mysql_fetch_array($result);
 
     $sql = "SELECT *
-                 FROM `".$mainDbName."`.`cours`
+                 FROM `".$tbl_course."`
                  WHERE `code` = '".$code."'";
 
     $currentCourseId           = $the_course['code'];
@@ -1119,45 +1113,42 @@ function delete_course($code)
 
 
     if( !$singleDbEnabled) // IF THE PLATFORM IS IN MULTI DATABASE MODE
-        {
+    {
 
             $sql = "DROP DATABASE `".$currentCourseDbName."`";
 
-            mysql_query($sql)
-                or die('Error in file '.__FILE__.' at line '.__LINE__);
+            claro_sql_query($sql);
         }
         else // IF THE PLATFORM IS IN MONO DATABASE MODE
         {
             // SEARCH ALL TABLES RELATED TO THE CURRENT COURSE
-            mysql_query("use ".$mainDbName);
+            claro_sql_query("use ".$mainDbName);
       // underscores must be replaced because they are used as wildcards in LIKE sql statement
             $cleanCourseDbNameGlu = str_replace("_","\_", $currentCourseDbNameGlu);
             $sql = "SHOW TABLES LIKE \"".$cleanCourseDbNameGlu."%\"";
 
-            $result=mysql_query($sql)
-                or die('Error in file '.__FILE__.' at line '.__LINE__." : ".$sql);
+            claro_sql_query($sql);
             // DELETE ALL TABLES OF THE CURRENT COURSE
             while( $courseTable = mysql_fetch_array($result,MYSQL_NUM ) )
             {
                 $sql = "DROP TABLE ".$courseTable[0]."";
-                mysql_query($sql)
-                    or die('Error in file '.__FILE__.' at line '.__LINE__.' :'.$sql);
+                claro_sql_query($sql);
             }
         }
 
         // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
 
-        $sql = "DELETE FROM `".$tbl_course."`
-                WHERE code= \"".$currentCourseId."\"";
+        $sql = 'DELETE FROM `'.$tbl_course.'`
+                WHERE code= "'.$currentCourseId.'"';
 
-        mysql_query($sql) or die('Error in file '.__FILE__.' at line '.__LINE__);
+        claro_sql_query($sql);
 
         // DELETE USER ENROLLMENT INTO THIS COURSE
 
-        $sql = "DELETE FROM `".$tbl_courseUser."`
-                WHERE code_cours=\"".$currentCourseId."\"";
+        $sql = 'DELETE FROM `'.$tbl_rel_course_user.'`
+                WHERE code_cours="'.$currentCourseId.'"';
 
-        mysql_query($sql) or die('Error in file '.__FILE__.' at line '.__LINE__);
+        claro_sql_query($sql);
 
         // MOVE THE COURSE DIRECTORY INTO THE COURSE GARBAGE COLLECTOR
 
@@ -1196,16 +1187,19 @@ function backup_course($cid)
 
 function update_user_course_properties($user_id, $course_id, $properties)
 {
-    global $tbl_courseUser,$_uid;
+    global $_uid;
     
+	//declare needed tables
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+
     $sqlChangeStatus = "";
-    
     if ($user_id != $_uid //do we allow user to change his own settings? what about course without teacher?
 		and ($properties['status']=="1" or $properties['status']=="5") 
 		)
     $sqlChangeStatus = "`statut` = \"".$properties['status']."\",";
     
-    $result = claro_sql_query("UPDATE `$tbl_courseUser`
+    $result = claro_sql_query("UPDATE `".$tbl_rel_course_user."`
                             SET     `role`       = \"".$properties['role']."\",
                                     ".$sqlChangeStatus."
                                     `tutor`      = \"".$properties['tutor']."\"
@@ -1232,10 +1226,11 @@ function update_user_course_properties($user_id, $course_id, $properties)
  */
 function isRegisteredTo($user_id, $course_id)
 {
-    global $tbl_courseUser;
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
     $sql = "SELECT *
-                 FROM `".$tbl_courseUser."`
+                 FROM `".$tbl_rel_course_user."`
                  WHERE `code_cours` = '".$course_id."' AND `user_id` = '".$user_id."'";
 
     $result = claro_sql_query($sql);

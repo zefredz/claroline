@@ -52,23 +52,36 @@ if ($_GET['newsearch']=="yes")
 // 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
 // 2 ) we must be able to arrive with new critera for a new search.
 
-if (isset($_GET['letter']))    {$_SESSION['admin_user_letter'] = $_GET['letter'];}
-if (isset($_GET['search']))    {$_SESSION['admin_user_search'] = $_GET['search'];}
-if (isset($_GET['firstName'])) {$_SESSION['admin_user_firstName'] = $_GET['firstName'];}
-if (isset($_GET['lastName']))  {$_SESSION['admin_user_lastName'] = $_GET['lastName'];}
-if (isset($_GET['userName']))  {$_SESSION['admin_user_userName'] = $_GET['userName'];}
-if (isset($_GET['mail']))      {$_SESSION['admin_user_mail'] = $_GET['mail'];}
-if (isset($_GET['action']))    {$_SESSION['admin_user_action'] = $_GET['action'];}
-if (isset($_GET['order_crit'])){$_SESSION['admin_user_order_crit'] = $_GET['order_crit'];}
-if (isset($_GET['dir']))       {$_SESSION['admin_user_dir'] = $_GET['dir'];}
+if (isset($_REQUEST['letter']))    {$_SESSION['admin_user_letter'] 		= trim($_REQUEST['letter']);}
+if (isset($_REQUEST['search']))    {$_SESSION['admin_user_search'] 		= trim($_REQUEST['search']);}
+if (isset($_REQUEST['firstName'])) {$_SESSION['admin_user_firstName'] 	= trim($_REQUEST['firstName']);}
+if (isset($_REQUEST['lastName']))  {$_SESSION['admin_user_lastName'] 	= trim($_REQUEST['lastName']);}
+if (isset($_REQUEST['userName']))  {$_SESSION['admin_user_userName'] 	= trim($_REQUEST['userName']);}
+if (isset($_REQUEST['mail']))      {$_SESSION['admin_user_mail'] 		= trim($_REQUEST['mail']);}
+if (isset($_REQUEST['action']))    {$_SESSION['admin_user_action'] 		= trim($_REQUEST['action']);}
+if (isset($_REQUEST['order_crit'])){$_SESSION['admin_user_order_crit'] 	= trim($_REQUEST['order_crit']);}
+if (isset($_REQUEST['dir']))       {$_SESSION['admin_user_dir'] 		= trim($_REQUEST['dir']);}
 
 // clean session if we come from a course
 
 session_unregister('_cid');
 unset($_cid);
 
-
 @include ($includePath."/installedVersion.inc.php");
+
+
+//TABLES
+//declare needed tables
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_admin            = $tbl_mdb_names['admin'           ];
+$tbl_course           = $tbl_mdb_names['course'           ];
+//$tbl_course_nodes     = $tbl_mdb_names['category'         ];
+$tbl_user             = $tbl_mdb_names['user'             ];
+//$tbl_class            = $tbl_mdb_names['class'            ];
+//$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
+
+$tbl_track_default  = $statsDbName."`.`track_e_default";// default_user_id
+$tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
 
 // javascript confirm pop up declaration
 
@@ -96,18 +109,6 @@ unset($_cid);
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 $nameTools = $langListUsers;
 
-//Header
-
-include($includePath."/claro_init_header.inc.php");
-
-//TABLES
-
-$tbl_user             = $mainDbName."`.`user";
-$tbl_courses        = $mainDbName."`.`cours";
-$tbl_course_user    = $mainDbName."`.`cours_user";
-$tbl_admin            = $mainDbName."`.`admin";
-$tbl_track_default    = $statsDbName."`.`track_e_default";// default_user_id
-$tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
 
 //------------------------------------
 // Execute COMMAND section
@@ -221,9 +222,10 @@ $resultList = $myPager->get_result_list();
 //------------------------------------
 // DISPLAY
 //------------------------------------
+//Header
+include($includePath."/claro_init_header.inc.php");
 
 // Display tool title
-
 claro_disp_tool_title($nameTools);
 
 //Display Forms or dialog box(if needed)

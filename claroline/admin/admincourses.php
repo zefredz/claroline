@@ -21,10 +21,11 @@ if (!$is_allowedToAdmin) claro_disp_auth_form();
 include($includePath."/lib/pager.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
 
-$tbl_log    = $mainDbName."`.`loginout";
-$tbl_user   = $mainDbName."`.`user";
-$tbl_admin  = $mainDbName."`.`admin";
-$tbl_course = $mainDbName."`.`cours";
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user      = $tbl_mdb_names['user'  ];
+$tbl_course    = $tbl_mdb_names['course'];
+$tbl_admin     = $tbl_mdb_names['admin' ];
+
 
 // javascript confirm pop up declaration
 
@@ -54,7 +55,6 @@ $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTool
 $nameTools = $langCourseList;
 
 
-include($includePath.'/claro_init_header.inc.php');
 
 $coursePerPage= 20;
 
@@ -230,6 +230,7 @@ $resultList = $myPager->get_result_list();
 //----------------------------------
 // DISPLAY
 //----------------------------------
+include($includePath.'/claro_init_header.inc.php');
 
 //display title
 

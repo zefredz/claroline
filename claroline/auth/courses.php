@@ -1,6 +1,6 @@
 <?php // $Id$
 //----------------------------------------------------------------------
-// CLAROLINE 1.5.*
+// CLAROLINE 1.6.*
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
@@ -24,7 +24,7 @@ $noPHP_SELF = true;
 
 include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
-if (! $_uid) exit("<center>You're not logged in !!</center></body>");
+if (! $_uid) claro_disp_auth_form();
 
 				/*>>>>>>>>>>>> COMMANDS SECTION <<<<<<<<<<<<*/
 
@@ -32,8 +32,18 @@ define ('DISPLAY_USER_COURSES'  , 1);
 define ('DISPLAY_COURSE_TREE'   , 2);
 define ('DISPLAY_MESSAGE_SCREEN', 3);
 
-$tbl_class                 = $mainDbName."`.`class";
-$tbl_class_user            = $mainDbName."`.`rel_class_user";
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_course           = $tbl_mdb_names['course'           ];
+$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+$tbl_course_nodes     = $tbl_mdb_names['category'         ];
+$tbl_user             = $tbl_mdb_names['user'             ];
+$tbl_class            = $tbl_mdb_names['class'            ];
+$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
+
+$tbl_category         = $tbl_course_nodes; // check if not used in include before remove
+$tbl_course_nodes	  = $tbl_course_nodes; // check if not used in include before remove
+$tbl_courses          = $tbl_courses; // check if not used in include before remove
+$tbl_courseUser       = $tbl_rel_course_user; // check if not used in include before remove
 
 // define user we are working with...
 
@@ -52,23 +62,21 @@ if (!$is_platformAdmin)
 }
 else
 {
-  if (isset($fromAdmin) && ($fromAdmin == "settings" || $fromAdmin == "usercourse" || $fromAdmin == "class"))
-  {
-    $userSettingMode = $uidToEdit;
-    
-  }
-  $inURL = "&uidToEdit=".$uidToEdit."&fromAdmin=".$fromAdmin;
-  
-  
-  if (isset($uidToEdit) && (!($uidToEdit == ""))) // in admin mode, there 2 possibilities : we might want to enroll ourself or either be here from admin tool
-  {
-    $userId = $uidToEdit;
-  } 
-  else 
-  {
-    $userId = $_uid;
-    $uidToEdit = $_uid;
-  } //  if (isset($uidToEdit) && (!($uidToEdit == ""))) 
+	if (isset($fromAdmin) && ($fromAdmin == "settings" || $fromAdmin == "usercourse" || $fromAdmin == "class"))
+	{
+		$userSettingMode = $uidToEdit;
+	}
+	$inURL = "&amp;uidToEdit=".$uidToEdit."&amp;fromAdmin=".$fromAdmin;
+
+	if (isset($uidToEdit) && (!($uidToEdit == ""))) // in admin mode, there 2 possibilities : we might want to enroll ourself or either be here from admin tool
+	{
+    	$userId = $uidToEdit;
+	} 
+	else 
+	{
+    	$userId = $_uid;
+	    $uidToEdit = $_uid;
+	} //  if (isset($uidToEdit) && (!($uidToEdit == ""))) 
 } // if (!$is_platformAdmin)
 
 
@@ -105,20 +113,9 @@ if (isset($fromAdmin) && ($fromAdmin == "class"))
         list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 }
 
-//include header
-
-include($includePath."/claro_init_header.inc.php");
-
 /*
  * DB tables initialisation
  */
-
-$tbl_category           = $mainDbName.'`.`faculte';
-$tbl_course             = $mainDbName.'`.`cours';
-$tbl_courseUser         = $mainDbName.'`.`cours_user';
-$tbl_user               = $mainDbName.'`.`user';
-$tbl_courses_nodes	= $mainDbName.'`.`faculte';
-$tbl_courses            = $mainDbName.'`.`cours';
 
 // Find info about user we are working with
 
@@ -231,9 +228,9 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
                         c.titulaires, c.languageCourse, c.fake_code officialCode,
                         cu.user_id enrolled
 
-                FROM `".$tbl_courses."` c
+                FROM `".$tbl_course."` c
 
-                LEFT JOIN `".$tbl_courseUser."` cu
+                LEFT JOIN `".$tbl_rel_course_user."` cu
                 ON (c.code = cu.code_cours AND cu.user_id = ".$userId.")
 
                 WHERE faculte = '".$category."'
@@ -267,15 +264,15 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
                        `faculte`.`code_P`, `faculte`.`nb_childs`,
                        COUNT( `cours`.`cours_id` ) `nbCourse`
 
-                FROM `".$tbl_courses_nodes."` `faculte`
+                FROM `".$tbl_course_nodes."` `faculte`
 
                 # The two left are used for the course count
 
-                LEFT JOIN `".$tbl_courses_nodes."` `subCat`
+                LEFT JOIN `".$tbl_course_nodes."` `subCat`
                 ON  `subCat`.`treePos` >= `faculte`.`treePos`
                 AND `subCat`.`treePos` <= (`faculte`.`treePos` + `faculte`.`nb_childs`)
 
-                LEFT JOIN `".$tbl_courses."` `cours`
+                LEFT JOIN `".$tbl_course."` `cours`
                 ON `cours`.`faculte` = `subCat`.`code`
                 AND (`cours`.`visible` = \"2\" OR `cours`.`visible` = \"1\")
 
@@ -321,7 +318,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 if ($cmd == 'rqUnreg')
 {
 		$sql = "SELECT *
-		        FROM `".$tbl_course."` `c`, `".$tbl_courseUser."` `cu`
+		        FROM `".$tbl_course."` `c`, `".$tbl_rel_course_user."` `cu`
 		        WHERE `cu`.`user_id` = '".$userId."'
 		        AND   `c`.`code`    = `cu`.`code_cours`
 		        ORDER BY `c`.`fake_code`";
@@ -378,6 +375,17 @@ else
 $backUrl .= $inURL; //notify userid of the user we are working with in admin mode and that we come from admin
 
 $backLink = "<p><small><a href=\"".$backUrl."\" title=\"".$backLabel."\" >&lt;&lt; ".$backLabel."</a></small></p>";
+
+
+
+				/*>>>>>>>>>>>> OUTPUT SECTION <<<<<<<<<<<<*/
+
+
+//include header
+
+include($includePath."/claro_init_header.inc.php");
+
+
 
 echo $backLink;
 
@@ -566,19 +574,19 @@ switch ($displayMode)
 					"</blockquote>";
 		}
 
-		echo	"<blockquote>\n",
-				"<p>",
-                "<label for=\"keyword\">",$lang_or_search_from_keyword,"</label>",
-                " : </p>\n",
-				"<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">",
-				"<input type=\"hidden\" name=\"cmd\" value=\"rqReg\">",
-				"<input type=\"hidden\" name=\"fromAdmin\" value=\"",$fromAdmin,"\">",
-				"<input type=\"hidden\" name=\"cmd\" value=\"rqReg\">",
-				"<input type=\"text\" name=\"keyword\" id=\"keyword\">",
-                "<input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\">",
-				"&nbsp;<input type=\"submit\" value=\"",$lang_search,"\">",
-				"</form>",
-				"</blockquote>";
+		echo	 "<blockquote>\n"
+				."<p>"
+                ."<label for=\"keyword\">",$lang_or_search_from_keyword,"</label>"
+                ." : </p>\n"
+				."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">"
+				."<input type=\"hidden\" name=\"cmd\" value=\"rqReg\">"
+				."<input type=\"hidden\" name=\"fromAdmin\" value=\"".$fromAdmin."\">"
+				."<input type=\"hidden\" name=\"cmd\" value=\"rqReg\">"
+				."<input type=\"text\" name=\"keyword\" id=\"keyword\">"
+                ."<input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\">"
+				."&nbsp;<input type=\"submit\" value=\"".$lang_search."\">"
+				."</form>"
+				."</blockquote>";
 	break;
 
     case DISPLAY_MESSAGE_SCREEN :
@@ -609,40 +617,40 @@ switch ($displayMode)
 
         if (count($courseList) > 0)
         {
-			echo	"<blockquote>\n",
-					"<table class=\"claroTable\">\n";
+			echo	"<blockquote>\n"
+				   ."<table class=\"claroTable\">\n";
 
             foreach($courseList as $thisCourse)
             {
-				echo	"<tr>\n",
+				echo	"<tr>\n"
 
-						"<td>\n",
-						$thisCourse['intitule'],"\n",
-						"<br><small>",$thisCourse['fake_code']," - ",$thisCourse['titulaires'],"</small>\n",
-						"</td>\n",
+						."<td>\n"
+						.$thisCourse['intitule']."\n"
+						."<br><small>".$thisCourse['fake_code']." - ".$thisCourse['titulaires']."</small>\n"
+						."</td>\n"
 
-						"<td>\n";
+						."<td>\n";
 
 				if($thisCourse['statut'] != 1)
 				{
-					echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exUnreg&course=",$thisCourse['code'],$inURL,
-                         "\" onclick=\"javascript:if(!confirm('"
+					echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exUnreg&amp;course=".$thisCourse['code'].$inURL
+                         ."\" onclick=\"javascript:if(!confirm('"
                          .addslashes(htmlentities($lang_are_you_sure_to_remove_the_course_from_your_list))
-                         ."')) return false;\">\n",
-						 "<img src=\"".$clarolineRepositoryWeb."img/unenroll.gif\" border=\"0\" alt=\"".$lang_unsubscribe."\">\n",
-						 "</a>\n";
+                         ."')) return false;\">\n"
+						 ."<img src=\"".$clarolineRepositoryWeb."img/unenroll.gif\" border=\"0\" alt=\"".$lang_unsubscribe."\">\n"
+						 ."</a>\n";
 				}
                 else
                 {
 					echo	"<small><font color=\"gray\">".$langCourseManager."</font></small>\n";
                 }
 
-				echo	"</td>\n",
-                        "</tr>\n";
+				echo	 "</td>\n"
+                        ."</tr>\n";
             } // foreach $courseList as $thisCourse
 
-            echo    "</table>\n",
-                    "</blockquote>";
+            echo     "</table>\n"
+                    ."</blockquote>";
         }
 
 		break;
@@ -679,29 +687,31 @@ include($includePath."/claro_init_footer.inc.php");
 
 function search_course($keyword)
 {
-	global $tbl_course, $tbl_courseUser, $userId, $tbl_category;
+	global $userId;
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+	$tbl_course           = $tbl_mdb_names['course'           ];
+	$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
 
 	$keyword = trim($keyword);
     
     if (empty($keyword) ) return array();
-    
-    $upperKeyword = strtoupper($keyword);
+    $upperKeyword = trim(strtoupper($keyword));
 
-	$sql = "SELECT c.intitule, c.titulaires, c.fake_code officialCode, c.code,
+	$sql = 'SELECT c.intitule, c.titulaires, c.fake_code officialCode, c.code,
                    cu.user_id enrolled
-            FROM `".$tbl_course."` c
+            FROM `'.$tbl_course.'` c
             
-            LEFT JOIN `".$tbl_courseUser."` cu
+            LEFT JOIN `'.$tbl_rel_course_user.'` cu
             ON  c.code = cu.code_cours 
-            AND cu.user_id = \"".$userId."\"
+            AND cu.user_id = "'.$userId.'"
 
-            WHERE UPPER(fake_code)  LIKE \"%".$upperKeyword."%\"
-            OR    UPPER(intitule)   LIKE \"%".$upperKeyword."%\"
-            OR    UPPER(titulaires) LIKE \"%".$upperKeyword."%\"
+            WHERE UPPER(fake_code)  LIKE "%'.$upperKeyword.'%"
+            OR    UPPER(intitule)   LIKE "%'.$upperKeyword.'%"
+            OR    UPPER(titulaires) LIKE "%'.$upperKeyword.'%"
 
             AND (c.visible = 1 OR  c.visible = 2)
             
-            ORDER BY officialCode";
+            ORDER BY officialCode';
                             
     $courseList = claro_sql_query_fetch_all($sql);
 

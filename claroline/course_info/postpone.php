@@ -35,7 +35,6 @@ require '../inc/claro_init_global.inc.php';
 
 include($includePath."/lib/text.lib.php");
 @include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/claro_init_header.inc.php");
 //@include($includePath."/conf/postpone.conf.php");
 
 $nameTools = $langPostpone;
@@ -63,6 +62,7 @@ $currentCourseExpirationDate	= $currentCourseExtentionData["expirationDate"];
 // HERE YOU CAN EDIT YOUR RULES TO EXTEND THE LIFE OF COURSE
 
 // $newCourseExpirationDate	= now() + $extendDelay
+include($includePath."/claro_init_header.inc.php");
 
 claro_disp_tool_title("mainTitle"=>$nameTools,"subTitle"=>$langSubTitle);
 ?>

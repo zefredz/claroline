@@ -1,13 +1,9 @@
 <?php // $Id$
  /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.* 
+      | CLAROLINE version 1.6
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-	  |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
       +----------------------------------------------------------------------+
  */
  
@@ -19,7 +15,9 @@ include('../inc/claro_init_global.inc.php');
 //include($includePath."/conf/.conf.inc.php"); // this  tool don't need conf datas.
 
 $nameTools = $langCheckemail;
-$tbl_user = $mainDbName."`.`user";
+
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user      = $tbl_mdb_names['user'             ];
 
 //stats
 $interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);

@@ -37,10 +37,10 @@ $dateNow             = claro_format_locale_date($dateTimeFormatLong);
 $is_allowedToAdmin     = $is_platformAdmin;
 
 //TABLES
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user      = $tbl_mdb_names['user'             ];
 
-$tbl_user             = $mainDbName."`.`user";
-
-$display_form        =TRUE;
+$display_form         =TRUE;
 $display_resultCSV    =FALSE;
 
 /*-------------------------------------------------------------------

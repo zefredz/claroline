@@ -37,19 +37,16 @@ $htmlHeadXtra[] = "<style type=\"text/css\">
 </STYLE>";
 
 
-$tbl_log 	= $mainDbName."`.`loginout";
-$tbl_user 	= $mainDbName."`.`user";
-$tbl_admin  = $mainDbName."`.`admin";
-$tbl_course = $mainDbName."`.`cours";
-$tbl_course_user = $mainDbName."`.`cours_user";
-
-include($includePath.'/claro_init_header.inc.php');
+//declare needed tables
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_course           = $tbl_mdb_names['course'           ];
+$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+$tbl_user             = $tbl_mdb_names['user'             ];
+$tbl_admin            = $tbl_mdb_names['admin'            ];
+$tbl_course_user = $tbl_rel_course_user;
 
 // see which user we are working with ...
-
-$user_id = $_GET['uidToEdit'];
-
-//echo $user_id."<br>";
+$user_id = $_REQUEST['uidToEdit'];
 
 //------------------------------------
 // Execute COMMAND section
@@ -68,10 +65,8 @@ if (isset($cmd) && $is_platformAdmin)
 //------------------------------------
 // DISPLAY
 //------------------------------------
-
-
+include($includePath.'/claro_init_header.inc.php');
 // Display tool title
-
 claro_disp_tool_title($langDeleteUser);
 
 //Display Forms or dialog box(if needed)
@@ -89,6 +84,5 @@ claro_disp_button("index.php",$langBackToAdmin);
 claro_disp_button("adminusers.php",$langBackToUserList);
 
 // display footer
-
 include($includePath."/claro_init_footer.inc.php");
 ?>

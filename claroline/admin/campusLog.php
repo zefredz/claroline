@@ -29,11 +29,17 @@ TD {border-bottom: thin dashed Gray;}
 
 $tbl_mdb_names 			= claro_sql_get_main_tbl();
 $tbl_cdb_names 			= claro_sql_get_course_tbl();
-$TABLECOURS 			= $tbl_mdb_names['course'           ];
-$TABLECOURSUSER	 		= $tbl_mdb_names['rel_course_user'  ];
-$TABLEUSER 				= $tbl_mdb_names['user'             ];
-$TABLECOURSE_DOCUMENTS 	= $tbl_cdb_names['document'         ];
-$TABLECOURSE_LINKS 		= $tbl_cdb_names['link'             ];
+$tbl_course 			= $tbl_mdb_names['course'           ];
+$tbl_rel_course_user	 		= $tbl_mdb_names['rel_course_user'  ];
+$tbl_user 				= $tbl_mdb_names['user'             ];
+$tbl_document 	= $tbl_cdb_names['document'         ];
+$tbl_link 		= $tbl_cdb_names['link'             ];
+
+$TABLECOURS 			= $tbl_courses;
+$TABLECOURSUSER 			= $tbl_rel_course_user;
+$TABLEUSER 			= $tbl_user;
+$TABLECOURSE_DOCUMENTS 			= $tbl_document;
+$TABLECOURSE_LINKS 			= $tbl_link;
 
 $TABLETRACK_ACCESS = $statsDbName."`.`track_e_access";
 $TABLETRACK_LOGIN = $statsDbName."`.`track_e_login";
@@ -96,13 +102,13 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourses."</b><br />\n";
         //--  number of courses
         $sql = "SELECT count(*)
-                    FROM `$TABLECOURS`";
+                    FROM `".$tbl_course."`";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langCountCours." : ".$count."<br />\n";
         
         //--  number of courses by faculte
         $sql = "SELECT `faculte`, count( * )
-                    FROM `$TABLECOURS`
+                    FROM `".$tbl_course."`
                     WHERE `faculte` IS NOT NULL
                     GROUP BY `faculte`";
         $results = getManyResults2Col($sql);
@@ -112,7 +118,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
         //--  number of courses by language
         $sql = "SELECT `languageCourse`, count( * )
-                    FROM `".$TABLECOURS."`
+                    FROM `".$tbl_course."`
                     WHERE `languageCourse` IS NOT NULL
                     GROUP BY `languageCourse`";
         $results = getManyResults2Col($sql);
@@ -121,7 +127,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "<br />\n";
         //--  number of courses by visibility
         $sql = "SELECT `visible`, count( * )
-                    FROM `".$TABLECOURS."`
+                    FROM `".$tbl_course."`
                     WHERE `visible` IS NOT NULL
                     GROUP BY `visible`";
         
@@ -136,13 +142,13 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
         //--  total number of users
         $sql = "SELECT count(*)
-                    FROM `".$TABLEUSER."`";
+                    FROM `".$tbl_user."`";
         $count = getOneResult($sql);
         echo "&nbsp;&nbsp;&nbsp;".$langCountUsers." : ".$count."<br />\n";
 
         //--  number of users by course
         $sql = "SELECT C.`code`, count( CU.user_id ) as nb
-                    FROM `".$TABLECOURS."` C, `".$TABLECOURSUSER."` CU
+                    FROM `".$tbl_course."` C, `".$tbl_rel_course_user."` CU
                     WHERE CU.`code_cours` = C.`code`
                         AND `code` IS NOT NULL
                     GROUP BY C.`code`
@@ -154,7 +160,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
         //--  number of users by faculte
         $sql = "SELECT C.`faculte`, count( CU.user_id )
-                    FROM `".$TABLECOURS."` C, `".$TABLECOURSUSER."` CU
+                    FROM `".$tbl_course."` C, `".$tbl_rel_course_user."` CU
                     WHERE CU.`code_cours` = C.`code`
                         AND C.`faculte` IS NOT NULL
                     GROUP BY C.`faculte`";
@@ -165,7 +171,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
         //--  number of users by status
         $sql = "SELECT `statut`, count( `user_id` )
-                    FROM `$TABLEUSER`
+                    FROM `".$tbl_user."`
                     WHERE `statut` IS NOT NULL
                     GROUP BY `statut`";
         $results = getManyResults2Col($sql);
@@ -280,7 +286,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "-&nbsp;&nbsp;<b>".$langPlatformCoursesAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";  
         // display list of course of the student with links to the corresponding userLog
       $resCourseList = mysql_query("SELECT code, dbName
-	                                   FROM    `".$TABLECOURS."`
+	                                   FROM    `".$tbl_course."`
                                      ORDER BY code ASC");
       $i=0;                               
       while ( $course = mysql_fetch_array($resCourseList) )
@@ -323,7 +329,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
          echo "-&nbsp;&nbsp;<b>".$langPlatformToolAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";   
       // display list of course of the student with links to the corresponding userLog
       $resCourseList = mysql_query("SELECT code, dbName
-	                                   FROM    `".$TABLECOURS."`
+	                                   FROM    `".$tbl_course."`
                                      ORDER BY code ASC");
     
       while ( $course = mysql_fetch_array($resCourseList) )
@@ -400,7 +406,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langMultipleLogins."</b><br />\n";
 
         $sql = "SELECT DISTINCT username , count(*) as nb 
-                    FROM `$TABLEUSER` 
+                    FROM `".$tbl_user."` 
                     GROUP BY username 
                     HAVING nb > 1
                     ORDER BY nb DESC";
@@ -412,7 +418,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langMultipleEmails."</b><br />\n";
         
         $sql = "SELECT DISTINCT email , count(*) as nb 
-                    FROM `$TABLEUSER` 
+                    FROM `".$tbl_user."` 
                     GROUP BY email 
                     HAVING nb > 1  
                     ORDER BY nb DESC";
@@ -423,7 +429,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langMultipleUsernameAndPassword."</b><br />\n";
 
         $sql = "SELECT DISTINCT CONCAT(username, \" -- \", password) as paire, count(*) as nb
-                    FROM `$TABLEUSER`
+                    FROM `".$tbl_user."`
                     GROUP BY paire
                     HAVING nb > 1
                     ORDER BY nb DESC";
@@ -434,8 +440,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourseWithoutProf."</b><br />\n";
 
         $sql = "SELECT c.code, count( cu.user_id ) nbu
-                    FROM `$TABLECOURS` c
-                    LEFT JOIN `$TABLECOURSUSER` cu
+                    FROM `".$tbl_course."` c
+                    LEFT JOIN `".$tbl_rel_course_user."` cu
                         ON c.code = cu.code_cours 
                         AND cu.statut = 1
                     GROUP BY c.code, statut
@@ -448,8 +454,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourseWithoutStudents."</b><br />\n";
 
         $sql = "SELECT c.code, count( cu.user_id ) nbu
-                    FROM `$TABLECOURS` c
-                    LEFT JOIN `$TABLECOURSUSER` cu
+                    FROM `".$tbl_course."` c
+                    LEFT JOIN `".$tbl_rel_course_user."` cu
                         ON c.code = cu.code_cours 
                         AND cu.statut = 5 
                     GROUP BY c.code, statut
@@ -462,7 +468,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langCourseWithoutAccess."</b><br />\n";
 
       $resCourseList = mysql_query("SELECT code, dbName
-	                                   FROM    `".$TABLECOURS."`
+	                                   FROM    `".$tbl_course."`
                                      ORDER BY code ASC");
         $i = 0;
         while ( $course = mysql_fetch_array($resCourseList) )
@@ -495,8 +501,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo "\n<br />&nbsp;&nbsp;&nbsp;<b>".$langLoginWithoutAccess."</b><br />\n";
 
         $sql = "SELECT `us`.`username`, MAX(`lo`.`login_date`)
-                    FROM `$TABLEUSER` AS us 
-                    LEFT JOIN `$TABLETRACK_LOGIN` AS lo
+                    FROM `".$tbl_user."` AS us 
+                    LEFT JOIN `".$TABLETRACK_LOGIN."` AS lo
                     ON`lo`.`login_user_id` = `us`.`user_id`
                     GROUP BY `us`.`username`
                     HAVING ( MAX(`lo`.`login_date`) < (NOW() - ".$limitBeforeUnused." ) ) OR MAX(`lo`.`login_date`) IS NULL";

@@ -15,7 +15,9 @@
 $langFile = 'index';
 unset($includePath);
 
-$cidReset = true; /* Flag forcing the 'current course' reset,
+$cidReset = TRUE;
+$tidReset = TRUE;
+					/* Flag forcing the 'current course' reset,
                      as we're not anymore inside a course */
 
 require './claroline/inc/claro_init_global.inc.php'; // main init
@@ -25,13 +27,17 @@ require $includePath.'/lib/text.lib.php';
 
 if ($_REQUEST['logout']) session_destroy();
 
-$tbl_user              = $mainDbName."`.`user";
-$tbl_admin             = $mainDbName."`.`admin";
-$tbl_courses           = $mainDbName."`.`cours";
-$tbl_link_user_courses = $mainDbName."`.`cours_user";
-$tbl_courses_nodes     = $mainDbName."`.`faculte";
-$tbl_trackLogin        = $statsDbName."`.`track_e_login";
+/*
+ * DB tables definition
+ */
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_admin             = $tbl_mdb_names['admin'            ];
+$tbl_courses           = $tbl_mdb_names['course'           ];
+$tbl_link_user_courses = $tbl_mdb_names['rel_course_user'  ];
+$tbl_courses_nodes     = $tbl_mdb_names['category'         ];
+$tbl_user              = $tbl_mdb_names['user'             ];
 
+$tbl_trackLogin        = $statsDbName."`.`track_e_login";
 
 /*
  * CLAROLINE HEADER AND BANNER

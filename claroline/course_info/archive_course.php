@@ -5,12 +5,7 @@
 +----------------------------------------------------------------------+
 | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
 +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
-      +----------------------------------------------------------------------+
- */
+*/
 
 /**
  * Back up a course.
@@ -37,6 +32,13 @@ if(extension_loaded('zlib'))
 
 @include($includePath."/lib/debug.lib.inc.php");
 
+$tbl_mdb_names = claro_sql_get_main_tbl();
+//$tbl_course           = $tbl_mdb_names['course'           ];
+$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+//$tbl_course_nodes     = $tbl_mdb_names['category'         ];
+//$tbl_user             = $tbl_mdb_names['user'             ];
+//$tbl_class            = $tbl_mdb_names['class'            ];
+//$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
 
 
 $currentCourseId		= $_course["sysCode"];
@@ -53,28 +55,21 @@ $nameTools=$langArchiveCourse;
 
 $interbredcrump[]=array("url" => "infocours.php","name" => $langModifInfo);
 
-@include($includePath."/claro_init_header.inc.php");
-?>
-
-<h3>
-  <?php echo $nameTools.' &quot;'.$currentCourseName.'&quot;'; ?>
-</h3>
-
-<?php
+include($includePath."/claro_init_header.inc.php");
+claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>'&quot;'.$currentCourseName.'&quot;');
 if($isAllowedToBackUp && $confirmBackup) //  check if allowed to back up and if confirmed
 {
 	// does the course exist ?
 
-	$result=mysql_query("SELECT code_cours, user_id, statut
-						 FROM cours_user
-		                 WHERE code_cours='$currentCourseId'
-		                 AND user_id='$_uid'
-		                 AND statut='1'") or die('Error in file '.__FILE__.' at line '.__LINE__);
+	$result=claro_sql_query('SELECT code_cours, user_id, statut
+						 FROM `'.$tbl_rel_course_user.'`
+		                 WHERE code_cours="'.$currentCourseId.'"
+		                 AND user_id="'.$_uid.'"
+		                 AND statut="1"');
 
 	if(!mysql_num_rows($result))
 	{
-		@include($includePath."/claro_init_footer.inc.php");
-
+		include($includePath."/claro_init_footer.inc.php");
 		exit();
 	}
 ?>
@@ -258,7 +253,7 @@ $courseDirSize=($courseDirSize >= 1048576) ? round($courseDirSize/(1024*1024),2)
 
 	// recup users
 
-	$sqlUserOfTheCourse="SELECT	u.* FROM `user` u, `cours_user` cu WHERE u.user_id=cu.user_id AND cu.code_cours='$currentCourseId'";
+	$sqlUserOfTheCourse="SELECT	u.* FROM `".$tbl_user."` u, `".$tbl_rel_course_user."` cu WHERE u.user_id=cu.user_id AND cu.code_cours='$currentCourseId'";
 
 	$resUsers=mysql_query_dbg($sqlUserOfTheCourse,$db);
 	$nbFields=mysql_num_fields($resUsers);

@@ -5,11 +5,6 @@
 +----------------------------------------------------------------------+
 | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
 +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
-      +----------------------------------------------------------------------+
 */
 
 $langFile='course_info';
@@ -24,8 +19,10 @@ if(extension_loaded('zlib'))
 }
 @include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
-$TBL_COURS='cours';
-$TBL_COURS_USER='cours_user';
+
+$tbl_mdb_names   = claro_sql_get_main_tbl();
+$TBL_COURS       = $tbl_mdb_names['course'           ];
+$TBL_COURS_USER  = $tbl_mdb_names['rel_course_user'  ];
 
 $archivePath=$rootSys.$archiveDirName.'/';
 
@@ -66,25 +63,25 @@ if($submitForm && $isAllowedToRestore) // if the form has been sent and if the u
 		// read query to insert course data into the main database
 		list($courseSQL)=file($archivePath.$courseId.'/mainBase/cours.sql');
 
-		mysql_query($courseSQL);
+		claro_sql_query($courseSQL);
 
 		$sql="SELECT directory,dbname FROM `$TBL_COURS` WHERE code='$courseId'";
-		$result=mysql_query($sql) or die(mysql_error());
+		$result=claro_sql_query($sql);
 
 		list($coursePath,$courseDbName)=mysql_fetch_row($result);
 
 		$sql="INSERT INTO `$TBL_COURS_USER`(code_cours,user_id,statut,role,team,tutor)
 		      VALUES('$courseId','$_uid','1','$langProfessor','0','1')";
-		mysql_query($sql);
+		claro_sql_query($sql);
 
 		// create the course DB only in multiple DB
 		if(!$singleDbEnabled)
 		{
 			$sql="DROP DATABASE IF EXISTS `$courseDbName`";
-			mysql_query($sql);
+			claro_sql_query($sql);
 
 			$sql="CREATE DATABASE `$courseDbName`";
-			mysql_query($sql);
+			claro_sql_query($sql);
 
 			mysql_select_db($courseDbName);
 		}
@@ -103,7 +100,7 @@ if($submitForm && $isAllowedToRestore) // if the form has been sent and if the u
 
 			if(!empty($sql))
 			{
-				mysql_query($sql) or die(mysql_error());
+				claro_sql_query($sql);
 			}
 		}
 
@@ -121,7 +118,7 @@ if($submitForm && $isAllowedToRestore) // if the form has been sent and if the u
 		$sql="INSERT INTO `$TBL_DOCUMENT`(path,visibility,comment)
 		      VALUES('/$hiddenPath','i','$langArchive ".date('Y-m-d',filemtime($archivePath.$archiveFile))."'),
 				    ('/$hiddenPath/users.csv','i','')";
-		mysql_query($sql);
+		claro_sql_query($sql);
 
 		if(is_dir($rootSys.$coursePath))
 		{
@@ -298,7 +295,7 @@ function PMA_splitSqlFile(&$ret,$sql)
 	$in_string=false;
 	$time0=time();
 
-	$result=mysql_query("SHOW VARIABLES LIKE 'version'");
+	$result=claro_sql_query("SHOW VARIABLES LIKE 'version'");
 
 	list(,$release)=mysql_fetch_row($result);
 
