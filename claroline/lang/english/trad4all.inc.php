@@ -152,6 +152,7 @@ $langChat ="Chat";
 $langLearnPath="Learning Path";
 $langDescriptionCours  = "Course description";
 $langPlatformAdministration = "Platform Administration";
+$langPlatformAdministrator = "Platform Administrator";
 
 $langFirstName = "First Name";
 $langLastName  = "Last Name";

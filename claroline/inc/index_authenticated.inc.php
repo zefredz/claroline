@@ -264,7 +264,7 @@ echo "</ul>\n"
 <hr noshade size="1">
 
 
-<p><a href="claroline/admin/"><?= $langPlatformAdmin ?></a></p>
+<p><a href="claroline/admin/"><?= $langPlatformAdministration ?></a></p>
 
 <?php
 	} // end if is_platformAdmin

@@ -139,6 +139,7 @@ $langDescriptionCours  = "Description du cours";
 $langCourseManagerview = "Responsable du cours";
 $lang_footer_CourseManager = "Responsable(s) du cours";
 $langPlatformAdministration = "Administration de la plate-forme";
+$langPlatformAdministrator = "Administrateur de la plate-forme";
 
 $langFirstName = "Prénom";
 $langLastName = "Nom";

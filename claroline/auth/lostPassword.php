@@ -120,7 +120,7 @@ if ($searchPassword)
 			{
 				$msg = $langEmailNotSent
                 .	'<a href="mailto:'.$administrator["email"].'?BODY='.$_REQUEST['Femail'].'">'
-                .	$langPlatformAdmin
+                .	$langPlatformAdministrator
                 .	"</a>";
 			}
 			
