@@ -152,22 +152,22 @@ Repéré par : MOOSH
 Assigné à : 
 Etat : 
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.19.Importer un parcours
 type : ortho
 quoi : "Les packages importés doivent consisté être des fichiers zip et répondre à la norme SCORM 1.2"
 phrase pas franchaise
 Repéré par : M
-Assigné à : 
+Assigné à : SEB
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.20. /claroline/learnPath/learningPathList.php?cmd=create
 type : html
 quoi : la liste des parcours semble être un form... sans submit ?
 Repéré par : M
-Assigné à : 
+Assigné à : SEB
 
-Etat : New ------------------------------------------------------
+Etat : RESOLU ------------------------------------------------------
 M.21 http://127.0.0.1/c/cvs.claroline.net/c150rc1.trakbugs/claroline/learnPath/insertMyModule.php?check_1=on&cmdglobal=add
 type : logik navigation
 quoi :Je me suis retrouvé avec le message 
@@ -176,7 +176,7 @@ quoi :Je me suis retrouvé avec le message
 et pas de lien pour "continuer"
 
 Repéré par : M
-Assigné à : 
+Assigné à : SEB
 
 Etat : New -----------------------
 M.22 /auth/courses.php Li :571
@@ -224,6 +224,9 @@ Assigné à :
 
 -------------
 $Log$
+Revision 1.33  2004/06/16 08:14:53  seb
+bugs 19 20 21 résolus
+
 Revision 1.32  2004/06/16 08:08:29  guillaume
 *** empty log message ***
 
