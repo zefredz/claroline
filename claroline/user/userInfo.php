@@ -8,8 +8,8 @@
  */
 
 $tlabelReq = "CLUSR___";
-define("CLARO_STUDENT_STATUS",1);
-define("CLARO_COURSE_CREATOR_STATUS",5);
+define("CLARO_COURSE_CREATOR_STATUS",1);
+define("CLARO_STUDENT_STATUS",5);
 $descSizeToPrupose = array(3,5,10,15,20); // size in lines for desc - don't add 1
 
 require '../inc/claro_init_global.inc.php';
@@ -114,23 +114,55 @@ if ($allowedToEditDef)
     {
         $displayMode = "viewDefList";
     }
-    elseif ($editMainUserInfo)
+    elseif ($_REQUEST['editMainUserInfo'])
     {
-        $userIdViewed = $editMainUserInfo;
+        $userIdViewed = $_REQUEST['editMainUserInfo'];
         $displayMode = "viewMainInfoEdit";
     }
-    elseif ($submitMainUserInfo)
+    elseif ($_REQUEST['submitMainUserInfo'])
     {
-        $userIdViewed = $submitMainUserInfo;
-
-        $promoteCourseAdmin ? $userProperties['status'] = CLARO_STUDENT_STATUS : $userProperties['status'] = CLARO_COURSE_CREATOR_STATUS;
-        $promoteTutor       ? $userProperties['tutor' ] = 1 : $userProperties['tutor' ] = 0;
-
-        $userProperties['role'] =  $role;
-
-        update_user_course_properties($userIdViewed, $courseCode, $userProperties);
-
-        $displayMode = "viewContentList";
+        $userIdViewed = $_REQUEST['submitMainUserInfo'];
+        
+	//set variable for course manager or student status
+	
+        if (isset($_REQUEST['promoteCourseAdmin']))
+	{ 
+	    $userProperties['status'] = CLARO_COURSE_CREATOR_STATUS;
+	}
+	else
+	{
+	    $userProperties['status'] = CLARO_STUDENT_STATUS;
+	}
+        
+	//set variable for tutor setting	
+	
+	if (isset($_REQUEST['promoteTutor']))
+	{
+	    $userProperties['tutor' ] = 1;
+	}
+	else
+	{
+	    $userProperties['tutor' ] = 0;
+	}
+        
+	//set variable for role setting
+	
+        $userProperties['role'] =  $_REQUEST['role'];
+        
+        // apply changes in DB
+	
+        if (($userIdViewed == $_uid) &&($userProperties['status']==CLARO_STUDENT_STATUS))
+	{
+            //prevent teacher to let the course without any teacher
+	    
+	    $displayMode = "viewMainInfoEdit";
+	    $dialogBox   = $langErrorMyOwnSettings;
+        }
+	else 
+	{
+	    update_user_course_properties($userIdViewed, $courseCode, $userProperties);
+	    $displayMode = "viewContentList";
+	}    
     }
 }
 
@@ -176,6 +208,13 @@ claro_disp_tool_title($nameTools);
 // Back button for each display mode (Top)
 echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.$langBackToUsersList.'</a></small></p>'."\n";
 
+   // Display Forms or dialog box (if needed)
+
+   if($dialogBox)
+   {
+       claro_disp_message_box($dialogBox);
+   }
+   
 if ($displayMode == "viewDefEdit")
 {
     /*>>>>>>>>>>>> CATEGORIES DEFINITIONS : EDIT <<<<<<<<<<<<*/
