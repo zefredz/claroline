@@ -468,7 +468,7 @@ function form_dir_list($file, $baseWorkDir)
 	$dialogBox .= "<form action=\"".$PHP_SELF."\" method=\"post\">\n"
 	             ."<input type=\"hidden\" name=\"cmd\" value=\"exMv\">\n"
 	             ."<input type=\"hidden\" name=\"file\" value=\"".$file."\">\n"	
-	             .$langCopy.' '.$sourceComponent.' '.$langTo." :\n"
+	             .$langCopy.' <i>'.basename($file).'</i> '.$langTo." :\n"
 	             ."<select name=\"destination\">\n"
 	             ."<option value=\"\" style=\"color:#999999\">root\n";
 
