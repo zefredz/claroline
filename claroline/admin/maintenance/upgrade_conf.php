@@ -356,7 +356,10 @@ if ($_REQUEST['cmd'] == 'run')
 		$newIncludePath."conf/index.conf.inc.php",
 		$newIncludePath."conf/profile.conf.inc.php",
 		$newIncludePath."conf/user.conf.php",
-		$newIncludePath."conf/work.conf.inc.php"
+		$newIncludePath."conf/work.conf.inc.php",
+		$newIncludePath."../../textzone_top.inc.html",
+		$newIncludePath."../../textzone_right.inc.html"
+
 	);
 	
 	$output .="<h3>Others conf files</h3>\n";
