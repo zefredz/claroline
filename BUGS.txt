@@ -11,6 +11,7 @@ Repéré par : SEB
 Assigné à : HUGUES
 Etat      : RESOLU
 
+------------------------------------------------------------------
 2. DOCUMENT. Pour les liens créés dans document, on pensait qu'ajouter l'url en 
 <a href... sur la page .url ne serait pas une mauvaise chose pour prévenir 
 les cas ou la redirection ne se passe pas bien.
@@ -19,17 +20,21 @@ Repéré par : SEB
 Assigné à : HUGUES
 Etat      : RESOLU
 
+------------------------------------------------------------------
 3.  INSTALL instal repetées = plusieurs admins -> utilisation des function d'ajout utilisateurs
 
 Assigné à : 
 Etat : à résoudre pour : 1.5.1
 
+------------------------------------------------------------------
 4. HTMLAREA. Bug signalé par PRFB sur le forum.  Insertions de <br /> aux 
 retours à la ligne dans le code html des pages créées
 
+------------------------------------------------------------------
 5. COURSE_HOME. librairie à déplacer ? course_home.lib.php se trouve dans le 
 répertoire même de course_home
 
+------------------------------------------------------------------
 6. TOOL LIST && COURSE_HOME. Les URL me semblent mal formatées, malgré le fait 
 qu'elles fonctionnent. Exemple : 
 http://localhost/~pir/clarocvs/claroline15rc1/claroline/../claroline/learnPath/l
@@ -37,6 +42,7 @@ earningPathList.php .  La valeur du path de l'outil ne devrait pas contenir de
 ../ dans la mesure on on essaie de plus en plus d'utiliser des url absolues à 
 partir des $*Sys et $*Web du fichier de config
 
+------------------------------------------------------------------
 7. DOCUMENT.  upload d'une page HTML contenant des images, problèmes lors de la 
 modifications des paths des images au sein du document, les images ne 
 s'affichent pas du tout.
@@ -45,19 +51,23 @@ Repéré par : SEB
 Assigné à : HUGUES
 Etat      : RESOLU
 
+------------------------------------------------------------------
 8. CLARO_MAIN.CONF. présence de code couleurs qui ne sont, à ma connaissance pas 
 utilisés.  Ils sont signalé comme étant utilisés dans le banner mais ne le sont 
 pas.
 
+------------------------------------------------------------------
 9. CLARO_INIT_BANNER. Il reste plusieurs tag <font> dans le code qu'il serait 
 intéressant de remplacer par une meilleure utilisation des css. Il reste 
 également des codes couleurs hardcodés pour les différents <td>
 
 Assigné à : HUGUES
 
+------------------------------------------------------------------
 10. claroline/admin/adminUserCourseSettings.php -> on ne sais pas changer le 
 champ role
 
+------------------------------------------------------------------
 11. claro_disp_button()- Bug Avec Mozilla - Quand il y a htmlArea dans la même 
 page, le 'onclick' sur le <button> du claroButton est cpaturé par htmlArea. 
 Résultat c'est le <form> dans lequel est htmlArea qui est envoyé et pas la 
@@ -65,6 +75,7 @@ commande claroButton.
 
 Repéré par : HUGUES
 
+------------------------------------------------------------------
 12 . /claroline/admin/adminusers.php Sur une recherche  sans résultat le texte 
 propose une "nouvelle recherche" alors qu'en haut a droite on a aussi une 
 nouvelle recherche possible" Le message  ne devrait-il pas être "nouvelle 
@@ -84,6 +95,7 @@ lustucrus (inscription multiples, cours multiples)
 
 Repéré par : MOOSH
 
+------------------------------------------------------------------
 14.  admincats.  refresh après insert -> erreur
 
 1062 : Duplicata du champ 'rzthtr' pour la clef 2
@@ -91,13 +103,17 @@ Repéré par : MOOSH
 insert into `CL150RC1Main`.`faculte` (name,code,bc,nb_childs,canHaveCoursesChild,canHaveCatChild,treePos,code_P)
                                         values ('tzrthrth','rzthtr',NULL,'0','TRUE','TRUE','14','EDITME')
 
-15. le chat  crée à l'utilisatuib encore  un fichier dans le rep /claroline/chat/
+------------------------------------------------------------------
+15. le chat  crée à l'utilisation encore  un fichier dans le rep /claroline/chat/
 et j'ai pas trouvé où il le crée
 Repéré par : MOOSH
 
 
 -------------
 $Log$
+Revision 1.18  2004/06/14 13:06:13  moosh
+------------------------------------------------------------------
+
 Revision 1.17  2004/06/14 13:01:24  moosh
 bug 15 chat
 
