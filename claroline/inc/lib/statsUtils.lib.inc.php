@@ -449,33 +449,6 @@ function buildTabDefcon($array_of_results)
 }
 
 /**
-
- * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
- * @param formatOfDate
-         see http://www.php.net/manual/en/function.strftime.php
-         for syntax to use for this string
- * @param timestamp timestamp of date to format
- * @desc        display a date at localized format
- */
-function dateLocalizer($formatOfDate,$timestamp = -1) //PMAInspiration :)
-{
-	$langMonthNames			= $GLOBALS["langMonthNames"];
-	$langDay_of_weekNames	= $GLOBALS["langDay_of_weekNames"];
-	if ($timestamp == -1)
-	{
-		$timestamp = time();
-	}
-	// avec un ereg on fait nous même le replace des jours et des mois
-	// with the ereg  we  replace %aAbB of date format
-	//(they can be done by the system when  locale date aren't aivailable
-	$date = ereg_replace('%[A]', $langDay_of_weekNames["long"][(int)strftime('%w', $timestamp)], $formatOfDate);
-	$date = ereg_replace('%[a]', $langDay_of_weekNames["short"][(int)strftime('%w', $timestamp)], $date);
-	$date = ereg_replace('%[B]', $langMonthNames["long"][(int)strftime('%m', $timestamp)-1], $date);
-	$date = ereg_replace('%[b]', $langMonthNames["short"][(int)strftime('%m', $timestamp)-1], $date);
-	return strftime($date, $timestamp);
-}
-
-/**
  * changeResultOfVisibility($array_of_results)
  * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
  * @param array_of_results
