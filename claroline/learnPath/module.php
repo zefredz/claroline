@@ -50,22 +50,16 @@
   {
         $_SESSION['module_id'] = $_GET['module_id'];
   }
-  // asStudent
-  if ( isset($_GET['asStudent']) )
-  {
-        $_SESSION['asStudent'] = $_GET['asStudent'];
-  }
-  else
-  {
-      //asStudent MUST be requested
-      $_SESSION['asStudent'] = 0;
-  }
   
+  // use viewMode
+  claro_set_display_mode_available(true);
+  
+  $is_AllowedToEdit = claro_is_allowed_to_edit();    // as teacher
   //-- interbredcrump
   $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
-  if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
+  if ( $is_AllowedToEdit )
   {
-        $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> $langLearningPathAdmin);
+        $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> $langLearningPath);
   }
   else
   {
@@ -107,16 +101,6 @@
 if ( ! $is_courseAllowed)
 	claro_disp_auth_form();
 
-
-     if ( $_SESSION['asStudent'] )
-     {
-        $is_AllowedToEdit = false; // asStudent !
-     }
-     else
-     {
-        $is_AllowedToEdit = $is_courseAdmin;    // as teacher
-     }
-
   // FIRST WE SEE IF USER MUST SKIP THE PRESENTATION PAGE OR NOT
   // triggers are : if there is no introdution text or no user module progression statistics yet and user is not admin,
   // then there is nothing to show and we must enter in the module without displaying this page.
@@ -134,9 +118,10 @@ if ( ! $is_courseAllowed)
     $query = claro_sql_query($sql);
     $module = @mysql_fetch_array($query);
 
-    if ($module['comment']=='' || $module['comment']==$langDefaultModuleComment) {
+    if ($module['comment']=='' || $module['comment']==$langDefaultModuleComment) 
+	{
         $noModuleComment = true;
-        }
+    }
     else
     {
         $noModuleComment = false;
@@ -158,13 +143,14 @@ if ( ! $is_courseAllowed)
     $query = claro_sql_query($sql);
     $learnpath_module = @mysql_fetch_array($query);
 
-     if ($learnpath_module['specificComment']=='' || $learnpath_module['specificComment']==$langDefaultModuleAddedComment) {
-        $noModuleSpecificComment = true;
-        }
-    else
-    {
-        $noModuleSpecificComment = false;
-    }
+	if ($learnpath_module['specificComment']=='' || $learnpath_module['specificComment'] == $langDefaultModuleAddedComment) 
+	{
+		$noModuleSpecificComment = true;
+	}
+	else
+	{
+	    $noModuleSpecificComment = false;
+	}
     // check in DB if user has already browsed this module
 
     $sql = "SELECT *
