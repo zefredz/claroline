@@ -18,7 +18,7 @@ include("../inc/claro_init_global.inc.php");
 include($includePath."/../lang/english/registration.inc.php");
 include($includePath."/../lang/".$languageInterface."/registration.inc.php");
 
-$nameTools 			= $langAddUser;
+$nameTools             = $langAddUser;
 
 $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
 $noQUERY_STRING   = TRUE;
@@ -33,15 +33,15 @@ include($includePath."/conf/profile.conf.inc.php");
 
 if (!$is_platformAdmin) treatNotAuthorized();
 
-$is_allowedToAdmin 	= $is_platformAdmin;
+$is_allowedToAdmin     = $is_platformAdmin;
 
 //TABLES USED
 
-$tbl_user 			= $mainDbName."`.`user";
+$tbl_user             = $mainDbName."`.`user";
 $TABLEUSER          = $tbl_user;
 
-$display_form		=TRUE;
-$display_resultCSV	=FALSE;
+$display_form        = TRUE;
+$display_resultCSV    = FALSE;
 
 //init banner
 
@@ -49,9 +49,9 @@ include($includePath."/claro_init_header.inc.php");
 
 //clean session with used variables for name,... used in other scripts
 
-$_SESSION['nom']="";
-$_SESSION['prenom']="";
-$_SESSION['uname']="";
+$_SESSION['nom']    = "";
+$_SESSION['prenom'] = "";
+$_SESSION['uname']  = "";
 
  /*==========================
    EXECUTE COMMAND SECTION
@@ -114,8 +114,8 @@ if($register=="yes")
 
     else
     {
-        $result = mysql_query("SELECT user_id FROM `$TABLEUSER`
-                               WHERE username=\"$uname\"");
+        $result = mysql_query("SELECT user_id FROM `".$TABLEUSER."`
+                               WHERE username=\"".$uname."\"");
 
 
         if (mysql_num_rows($result) > 0)
@@ -168,9 +168,9 @@ if ($regDataOk)
     // Lets predefine some variables. Be sure to change the from address!
 
     $emailto       = "\"$prenom $nom\" <$email>";
-    $emailfromaddr =  $administrator["email"];
-    $emailfromname = "$siteName";
-    $emailsubject  = "[".$siteName."] $langYourReg";
+    $emailfromaddr = $administrator['email'];
+    $emailfromname = $siteName;
+    $emailsubject  = '['.$siteName.'] '.$langYourReg;
 
     // The body can be as long as you wish, and any combination of text and variables
 
@@ -216,29 +216,32 @@ if($dialogBox)
 
 if($display_form)
 {
-	echo $langAddUserOneByOne; ?>
-<form method="post" action="<?= $PHP_SELF ?>?register=yes">
-	<table cellpadding="3" cellspacing="0" border="0">
-	<tr>
-		<td align="right"><label for="nom"><?php echo $langLastName; ?></label> :
-		</td>
-		<td>
-		<input type="text" size="40" name="nom" id="nom" value="<?php echo htmlentities(stripslashes($nom)); ?>">
-		</td>
-	</tr>
-	<tr>
-		<td align="right"><label for="prenom"><?php echo $langFirstName; ?></label> :
-		</td>
-		<td>
-		<input type="text" size="40" name="prenom" id="prenom" value="<?php echo htmlentities(stripslashes($prenom)); ?>">
-		</td>
-	</tr>
-
+    echo $langAddUserOneByOne; ?>
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>?register=yes">
+    <table cellpadding="3" cellspacing="0" border="0">
     <tr>
-        <td align="right"><label for="official_code"><?php echo $langOfficialCode; ?></label> :
+        <td align="right">
+            <label for="nom"><?php echo $langLastName; ?></label> :
         </td>
         <td>
-        <input type="text" size="40" name="official_code" id="official_code" value="<?php echo htmlentities(stripslashes($official_code)); ?>">
+            <input type="text" size="40" name="nom" id="nom" value="<?php echo htmlentities(stripslashes($nom)); ?>">
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="prenom"><?php echo $langFirstName; ?></label> :
+        </td>
+        <td>
+            <input type="text" size="40" name="prenom" id="prenom" value="<?php echo htmlentities(stripslashes($prenom)); ?>">
+        </td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            <label for="official_code"><?php echo $langOfficialCode; ?></label> :
+        </td>
+        <td>
+            <input type="text" size="40" name="official_code" id="official_code" value="<?php echo htmlentities(stripslashes($official_code)); ?>">
         </td>
     </tr>
 
@@ -248,24 +251,28 @@ if($display_form)
     <tr>
       <td></td>
     </tr>
-	<tr>
-		<td align="right"><label for="uname"><?php echo $langUsername ?></label> :
-		</td>
-		<td><input type="text" size="40" name="uname" id="uname" value="<?php echo htmlentities(stripslashes($uname)); ?>">
-		</td>
-	</tr>
     <tr>
-        <td align="right"><?php echo $langPassword ?> :
+        <td align="right">
+            <label for="uname"><?php echo $langUsername ?></label> :
         </td>
         <td>
-        <input type="password" size="40" name="password" value="">
+            <input type="text" size="40" name="uname" id="uname" value="<?php echo htmlentities(stripslashes($uname)); ?>">
         </td>
     </tr>
     <tr>
-        <td align="right"><label for="password1"><?php echo $langConfirm ?></label> :
+        <td align="right">
+            <label for="password"><?php echo $langPassword ?></label> :
         </td>
         <td>
-        <input type="password" size="40" name="password1" id="password1" value="">
+            <input type="password" size="40" name="password"  id="password" value="">
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="password1"><?php echo $langConfirm ?></label> :
+        </td>
+        <td>
+            <input type="password" size="40" name="password1" id="password1" value="">
         </td>
     </tr>
     <tr>
@@ -274,39 +281,43 @@ if($display_form)
     <tr>
       <td></td>
     </tr>
-	<tr>
-		<td align="right"><label for="email"><?php echo $langEmail; ?></label> :
-		</td>
-		<td>
-		<input type="text" size="40" name="email" id="email" value="<?php echo $email; ?>">
-		</td>
-	</tr>
     <tr>
-        <td align="right"><label for="phone"><?php echo $langPhone; ?></label> :
+        <td align="right">
+            <label for="email"><?php echo $langEmail; ?></label> :
         </td>
         <td>
-        <input type="text" size="40" name="phone" id="phone" value="<?php echo $phone; ?>">
+            <input type="text" size="40" name="email" id="email" value="<?php echo $email; ?>">
         </td>
     </tr>
-	<tr>
-		<td align="right">
-		 <label for="statut_form"><?php echo $langAction; ?></label>
-		  :
-		</td>
-		<td>
-        <select name="statut_form" id="statut_form">
-         <option value="5"><?php echo $langFollowCourse; ?></option>
-         <option value="1"><?php echo $langCreateCourse; ?></option>
-        </select>
-		</td>
-	</tr>
-	<tr>
-		<td>&nbsp;
-		</td>
-		<td><input type="submit" name="submit" value="<?php echo  $langCreateUser ?>">
-		</td>
-	</tr>
-	</table>
+    <tr>
+        <td align="right">
+            <label for="phone"><?php echo $langPhone; ?></label> :
+        </td>
+        <td>
+            <input type="text" size="40" name="phone" id="phone" value="<?php echo $phone; ?>">
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+             <label for="statut_form"><?php echo $langAction; ?></label>
+              :
+        </td>
+        <td>
+            <select name="statut_form" id="statut_form">
+                <option value="5"><?php echo $langFollowCourse; ?></option>
+                <option value="1"><?php echo $langCreateCourse; ?></option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            <input type="submit" name="submit" value="<?php echo  $langCreateUser ?>">
+        </td>
+    </tr>
+    </table>
 </form>
 <?php
 } //end display form
@@ -316,7 +327,7 @@ if ($display_success)
    echo $langUserCreated."<br><br>
    <ul>";
    echo "<li><a href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$inserted_uid."&category=\"> ".$langRegister." </a></li>";
-   echo "<li><a href=\"adminprofile.php?uidToEdit=".$inserted_uid."&category=\"> ".$langGoToUserSettings." </a></li>";
+   echo "<li><a href=\"adminProfile.php?uidToEdit=".$inserted_uid."&category=\"> ".$langGoToUserSettings." </a></li>";
    echo "<li><a href=\"adminaddnewuser.php\"> ".$langCreateAnotherUser." </a></li>";
    echo "<li><a href=\"index.php\"> ".$langBackToAdmin." </a></li>
    </ul>
