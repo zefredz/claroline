@@ -449,7 +449,7 @@ if ($panel == DISP_LIST_CONF)
     {
         // The strange following line flat the array 
         // wich can be build by collision during array_merge_recursive 
-        $config['config_code'] = (is_array($config['config_code'])?$config['config_code'][0]:$config['config_code']);
+        
 
         $config_item = array_merge($def_list[$key],$conf_list[$key]);
         $config_item['manual_edit'] = (bool) (file_exists(claro_get_conf_file($config['config_code']))&&$config['config_hash'] != md5_file(claro_get_conf_file($config['config_code'])));
@@ -540,6 +540,10 @@ switch ($panel)
             
             foreach($tool_bloc as $numconf => $config)
             {
+                // The strange following line flat the array 
+                // wich can be build by collision during array_merge_recursive 
+                $config['config_code'] = (is_array($config['config_code'])?$config['config_code'][0]:$config['config_code']);
+                
                 echo '<tr>'
                     .'<td>'
                     //.($numconf+1)
