@@ -277,12 +277,15 @@ if($display_form)
 
 if ($display_success)
 {
-   echo $langUserCreated."<br><br>";
-   echo "<a class=\"claroButton\" href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$inserted_uid."&category=\"> ".$langRegister." </a>";
-   echo "<a class=\"claroButton\" href=\"adminprofile.php?uidToEdit=".$inserted_uid."&category=\"> ".$langGoToUserSettings." </a>";
-   echo "<a class=\"claroButton\" href=\"adminaddnewuser.php\"> ".$langCreateAnotherUser." </a>";
+   echo $langUserCreated."<br><br>
+   <ul>";
+   echo "<li><a href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$inserted_uid."&category=\"> ".$langRegister." </a></li>";
+   echo "<li><a href=\"adminprofile.php?uidToEdit=".$inserted_uid."&category=\"> ".$langGoToUserSettings." </a></li>";
+   echo "<li><a href=\"adminaddnewuser.php\"> ".$langCreateAnotherUser." </a></li>";
    //echo "<a class=\"claroButton\" href=\"adminadduserlist.php\"> ".$langAddaListOfUsers." </a>";
-   echo "<a class=\"claroButton\" href=\"index.php\"> ".$langBackToAdmin." </a>";
+   echo "<li><a href=\"index.php\"> ".$langBackToAdmin." </a></li>
+   </ul>
+   ";
 }
 /*
 else
