@@ -44,7 +44,7 @@ $tbl_courseUser         = $tbl_rel_course_user ;
 $tbl_courses_nodes      = $tbl_category;
 // End of List of alias  to track an set at original name
 
-include_once($includePath."/lib/fileManage.lib.php");
+include_once(dirname(__FILE__).'/../lib/fileManage.lib.php');
 
 /**
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
