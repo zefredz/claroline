@@ -19,7 +19,7 @@
 $langLinkSite="Länk till en sajt (webbplats)";
 $langSubTitle="Lägger sig till menyn på kursens hemsida som en länk till en sajt, en sida eller valfri URL. Tips: om du vill lägga till en länk till en sida, gå till den sidan, kopiera och klistra sedan in länkens address, som du hittar i URL-fältet högst upp i din webbläsare, i \"länk\"-fältet nedan.";
 $langHome="Tillbaka till hemsidan";
-$langName="Namn";
+
 $langLink="Länk";
 $langOkSentLink="Din länk är nu skickad.<p>Den är nu tillgänglig från <a href=\"../../".$_course['path']."/index.php\">Kurshemsidan</a>";
 $langOkSentPage="Din sida är nu skickad.<p>Den är nu länkad från <a href=\"../../".$_course['path']."/index.php\">Kurshemsidan</a>";

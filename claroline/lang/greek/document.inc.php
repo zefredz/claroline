@@ -19,7 +19,7 @@ $langDoc="Εγγραφα";
 $langUploadFile= "Ανέβασμα αρχείου στον εξυπηρέτη";
 $langUpload="Ανέβασμα";
 $langCreateDir="Δημιουργία καταλόγου";
-$langName="Όνομα";
+
 $langNameDir="Όνομα του καινούριου καταλόγου";
 $langSize="Μέγεθος";
 $langDate="Ημερομηνία";

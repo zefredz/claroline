@@ -37,7 +37,7 @@ $langLinkSite  = "Enlace a una web";
 $langSubTitle  = "A&ntilde;adir al menu principal de su p&aacute;gina principal un enlace a una p&aacute;gina, en el interior o exterior de su web";
 $langAdded     = "El enlace ha sido a&ntilde;adido";
 $langHome      = "Volver a la p&aacute;gina principal";
-$langName      = "Nombre";
+
 $langLink      = "Enlace";
 $langAddPage           = "A&ntilde;adir p&aacute;gina";
 $langSendPage          = "P&aacute;gina a enviar";

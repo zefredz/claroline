@@ -46,7 +46,7 @@ $langDoc="讲义材料";
 $langUploadFile= "上传本地文件";
 $langUpload="上传";
 $langCreateDir="创建目录";
-$langName="名称";
+
 $langNameDir="新建目录名称";
 $langSize="大小";
 $langDate="日期";

@@ -58,7 +58,7 @@ $langParamSentTo = "Thông tin đã gửi đến ";// by moosh
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Đăng ký";
-$langName="Họ";
+
 $langSurname="Tên";
 $langUserName="Tên đăng nhập (username)";
 $langPass="Mật khẩu";

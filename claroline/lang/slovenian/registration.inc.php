@@ -58,7 +58,7 @@ $langParamSentTo = "Informacija o identifikaciji je poslana k  ";// by moosh
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Registracija";
-$langName="Priimek";
+
 $langSurname="Ime";
 $langUserName="Uporabnisko ime";
 $langPass="Geslo";

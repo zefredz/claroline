@@ -25,7 +25,7 @@
 $langLinkSite          = "Link ke situs";
 $langSubTitle          = "Tambahkan link ke menu utama situs pelajaran anda. Tip: jika anda ingin menambahkan link ke suatu halaman, kunjungi halaman tersebut, cut dan paste alamatnya dalam bar URL di bagian atas browser dan insert-kan kedalam field \"link\" di bawah ini.";
 $langHome              = "Kembali ke Home Page";
-$langName              = "Nama";
+
 $langLink              = "Link";
 $langAddPage           = "Tambahkan halaman";
 $langSendPage          = "Halaman untuk dikirim";

@@ -57,7 +57,7 @@ $langParamSentTo = "Maklumat identifikasi dihantar kepada ";// by moosh
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Pendaftaran Pengguna Baru";
-$langName="Nama Bapa";
+
 $langSurname="Nama Anda";
 $langNokp="No. Kad Pengenalan";
 $langUserName="ID Pengguna";

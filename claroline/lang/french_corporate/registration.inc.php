@@ -54,7 +54,7 @@ $langParamSentTo = "Vos paramètres de connection sont envoyés sur l'adresse";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Inscription";
-$langName="Nom";
+
 $langSurname="Prénom";
 $langUserName="Nom d'utilisateur";
 $langPass="Mot de passe";

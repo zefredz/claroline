@@ -19,7 +19,7 @@ $langDoc="Dokumen";
 $langUploadFile= "Muatnaik fail ke server";
 $langUpload="Muatnaik";
 $langCreateDir="Bina Direktori";
-$langName="Nama";
+
 $langNameDir="Nama direktori baru";
 $langSize="Saiz";
 $langDate="Tarikh";

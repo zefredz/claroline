@@ -95,7 +95,7 @@ $langModify = "Veränderung";
 $langModRight="Ändern der Administrationsrechte von";
 $langModRole="Ändern der Rolle von";
 $langMyStats = "Meine Statistik anzeigen";
-$langName="Vorname";
+
 $langNo="nein";
 $langNoAdmin="hat jetzt <b>keine Administrationsrechte mehr auf dieser Seite</b>";
 $langNone="keine";

@@ -25,7 +25,7 @@
 $langLinkSite          = "Add link on Homepage";
 $langSubTitle          = "Adds to your Course Homepage Main Menu a link to a site, a page or any URL. Tip: if you want to add a link to a page, go to that page, cut and paste its address in the URL bar on the top of your browser and insert it into the \"link\" field below.";
 $langHome              = "Back to Home page";
-$langName              = "Name";
+
 $langAddPage           = "Add a page";
 $langSendPage          = "Page to send";
 $langCouldNot          = "File could not be sent";

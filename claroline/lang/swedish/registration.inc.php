@@ -56,7 +56,7 @@ $langParamSentTo = "Identifikationsinformation sänd till ";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Registrering";
-$langName="Efternamn";
+
 $langSurname="Förnamn";
 $langUserName="Användarnamn";
 $langPass="Lösenord";

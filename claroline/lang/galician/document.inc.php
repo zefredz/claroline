@@ -32,7 +32,7 @@ $langDoc = "Documentos";
 $langUploadFile = "Subir &oacute; servidor o ficheiro";
 $langUpload     = "subir";
 $langCreateDir    = "Crear un directorio";
-$langName         = "Nome";
+
 $langNameDir      = "Nome do novo directorio";
 $langSize         = "Tama&ntilde;o";
 $langDate         = "Data";

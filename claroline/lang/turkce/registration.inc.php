@@ -16,7 +16,7 @@
  */
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Kayýt";
-$langName="Adýnýz";
+
 $langSurname="Soyadýnýz";
 $langUserName="Kullanýcý adýnýz";
 $langPass="Þifreniz";

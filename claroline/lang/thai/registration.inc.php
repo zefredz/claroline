@@ -29,7 +29,7 @@ $langBackList="ย้อนกลับ";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="ลงทะเบียน";
-$langName="นามสกุล";
+
 $langSurname="ชื่อจริง";
 $langUserName="Username";
 $langPass="รหัสผ่าน";

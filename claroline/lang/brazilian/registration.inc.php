@@ -40,7 +40,7 @@ $langAddVarUser="Inscrever uma lista de usuários";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Inscrição";
-$langName="Último Nome";
+
 $langSurname="Primeiro Nome";
 $langUserName="Login";
 $langPass="Senha";

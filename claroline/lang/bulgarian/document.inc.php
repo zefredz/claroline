@@ -4,7 +4,7 @@ $langDoc="Документи";
 $langUploadFile= "Качи файл на сървъра";
 $langUpload="Качи";
 $langCreateDir="Създай директория";
-$langName="Име";
+
 $langNameDir="Име на новата директория";
 $langSize="Размер";
 $langDate="Дата";

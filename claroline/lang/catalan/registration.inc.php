@@ -16,7 +16,7 @@
  */
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Enregistrament";
-$langName="Nom";
+
 $langSurname="Cognom";
 $langUserName="Nom d'usuari";
 $langPass="Paraula de pas";

@@ -42,7 +42,7 @@ $langAddVarUser="Iscrivi un insieme di utenti";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Iscrizione";
-$langName="Nome";
+
 $langSurname="Cognome";
 $langUserName="Nome utente";
 $langPass="Password";

@@ -35,7 +35,7 @@ $langLinkSite  = "Ligaz&oacute;n a unha web";
 $langSubTitle  = "Engadir &oacute; men&uacute; principal da s&uacute;a p&aacute;xina principal unha ligaz&oacute;n a unha p&aacute;xina, no interior ou exterior da s&uacute;a web";
 $langAdded     = "Engad&iacute;use a ligaz&oacute;n";
 $langHome      = "Volver &aacute; p&aacute;xina principal";
-$langName      = "Nome";
+
 $langLink      = "Ligaz&oacute;n";
 $langAddPage           = "Engadir p&aacute;xina";
 $langSendPage          = "P&aacute;xina para enviar";

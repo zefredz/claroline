@@ -15,7 +15,7 @@ $langDoc=" وثائق ";
 $langUploadFile= " تحميل الجذاذية";
 $langUpload=" تحميل";
 $langCreateDir=" خلق ملف";
-$langName=" اسم ";
+
 $langNameDir=" اسم الملف الجديد";
 $langSize=" حجم ";
 $langDate=" تاريخ ";

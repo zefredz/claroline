@@ -18,7 +18,7 @@ $langDoc="Documents";
 $langUploadFile= "Puja fitxer al servidor";
 $langUpload="Puja";
 $langCreateDir="Crea un directori";
-$langName="Nom";
+
 $langNameDir="Nom del nou directori";
 $langSize="Mida";
 $langDate="Data";

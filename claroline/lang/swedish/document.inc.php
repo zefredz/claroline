@@ -29,7 +29,7 @@ $langDoc="Dokument";
 $langUploadFile= "Ladda filen till servern";
 $langUpload="Ladda upp";
 $langCreateDir="Skapa ny mapp";
-$langName="Namn";
+
 $langNameDir="Namn på den nya mappen";
 $langSize="Storlek";
 $langDate="Datum";

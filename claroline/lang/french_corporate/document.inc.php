@@ -26,7 +26,7 @@ $langDoc="Documents";
 $langUploadFile= "T&eacute;l&eacute;charger sur le serveur le fichier";
 $langUpload="T&eacute;l&eacute;charger";
 $langCreateDir="Cr&eacute;er un r&eacute;pertoire";
-$langName="Nom";
+
 $langNameDir="Nom du nouveau r&eacute;pertoire";
 $langSize="Taille";
 $langDate="Date";

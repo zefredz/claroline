@@ -30,7 +30,7 @@ $langCreateHyperlink="Crea Link";
 $langUploadFile="Carica File";
 $langUpload="Carica";
 $langCreateDir="Creare una cartella";
-$langName="Nome";
+
 $langNameDir="Nome della nuova cartella";
 $langSize="Dimensione";
 $langDate="Data";

@@ -18,7 +18,7 @@ $langDoc="Belgeler";
 $langUploadFile= "Sunucuya dosya yükle";
 $langUpload="Yükle";
 $langCreateDir="Dizin yarat";
-$langName="Adý";
+
 $langNameDir="Yeni dizin adý";
 $langSize="Boyut";
 $langDate="Tarih";

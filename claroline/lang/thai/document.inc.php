@@ -19,7 +19,7 @@ $langDoc="เอกสารประกอบการศึกษา";
 $langUploadFile= "อัพโหลดข้อมูลไปที่เครื่องแม่ข่าย";
 $langUpload="upload";
 $langCreateDir="สร้าง directory";
-$langName="ชื่อเอกสาร";
+
 $langNameDir="ชื่อของdirectoryใหม่";
 $langSize="ขนาด";
 $langDate="วันที่";

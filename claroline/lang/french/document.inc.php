@@ -28,7 +28,7 @@ $langCreateHyperlink = "Créer un lien hypertexte";
 $langUploadFile = "Ajouter un fichier"; // JCC
 $langUpload="Ajouter"; // JCC
 $langCreateDir="Créer un répertoire";
-$langName="Nom";
+
 $langNameDir="Nom du nouveau répertoire";
 $langSize="Taille";
 $langDate="Date";

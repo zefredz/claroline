@@ -17,7 +17,7 @@ $langDoc="Dokumenty";
 $langUploadFile= "Za³aduj plik do serwera";
 $langUpload="za³aduj";
 $langCreateDir="Utwórz katalog";
-$langName="Nazwa";
+
 $langNameDir="Nazwa nowego katalogu";
 $langSize="Rozmiar";
 $langDate="Data";

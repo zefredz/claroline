@@ -24,7 +24,7 @@
 $langLinkSite          = "Link til et website";
 $langSubTitle          = "Du kan tilføje et link (URL) i menuen på din kursushjemmeside.<br> Tip: hvis du ønsker at linke til et website, åben dette website, kopier dets URL adresse øverst i browservinduet og indsæt i \"link\" feltet nedenfor.";
 $langHome              = "Tilbage til kursushjemmesiden";
-$langName              = "Navn";
+
 $langLink              = "Link";
 $langAddPage           = "Tilføj et dokument";
 $langSendPage          = "Fil der skal sendes";

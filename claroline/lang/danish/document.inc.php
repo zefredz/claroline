@@ -18,7 +18,7 @@ $langDoc="Dokumenter";
 $langUploadFile= "Læg filen ud på serveren";
 $langUpload="Læg ud";
 $langCreateDir="Opret en mappe";
-$langName="Navn";
+
 $langNameDir="Navn på den nye mappe";
 $langSize="Størrelse";
 $langDate="Dato";

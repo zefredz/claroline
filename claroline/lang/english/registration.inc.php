@@ -49,7 +49,7 @@ $langAddVarUser="Enroll a list of users";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Registration";
-$langName="First Name";
+
 $langSurname="Last Name";
 $langUserName="User name";
 $langPass="Password";

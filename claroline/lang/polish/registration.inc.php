@@ -58,7 +58,7 @@ $langParamSentTo = "Informacje identyfikacyjne wys³ane do ";// by moosh
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Rejestracja";
-$langName="Nazwisko";
+
 $langSurname="Imiê";
 $langUserName="Nazwa u¿ytkownika";
 $langPass="Has³o";

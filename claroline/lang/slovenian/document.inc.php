@@ -23,7 +23,7 @@ $langDoc="Dokumenti";
 $langUploadFile= "Prepisi datoteko na streznik";
 $langUpload="Prepisi (upload)";
 $langCreateDir="Tvori direktorij";
-$langName="Ime";
+
 $langNameDir="Ime novega direktorija";
 $langSize="Velikost";
 $langDate="Datum";

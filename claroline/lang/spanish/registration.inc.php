@@ -70,7 +70,7 @@ $langAddVarUser="Añadir varios usuarios a la vez";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration  = "Inscripci&oacute;n";
-$langName          = "Apellido";
+
 $langSurname       = "Nombre";
 $langUserName      = "Nombre de usuario";
 $langPass          = "Clave de acceso";

@@ -58,7 +58,7 @@ $langMaxFileSize="Max. Dateigröße ist";
 $langMissingImagesDetected = "Fehlende Bilder entdeckt";
 $langModify="ändern";
 $langMove="verschieben";
-$langName="Name";
+
 $langNameDir="Name des neuen Verzeichnisses";
 $langNewDir="Name des neuen Verzeichnisses";
 $langNoSpace="Upload ist fehlgeschlagen. Sie haben nicht genug Platz im Verzeichnis";

@@ -43,7 +43,7 @@ $langBackList="Terug naar de lijst";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Registratie";
-$langName="Naam";
+
 $langSurname="Voornaam";
 $langUserName="Gebruikersnaam";
 $langPass="Wachtwoord";

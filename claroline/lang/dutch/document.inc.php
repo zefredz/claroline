@@ -43,7 +43,7 @@ $langDoc="Documenten";
 $langUploadFile= "Upload volgend bestand naar de server";
 $langUpload="Uploaden";
 $langCreateDir="Folder aanmaken";
-$langName="Naam";
+
 $langNameDir="Naam van nieuwe folder";
 $langSize="Grootte";
 $langDate="Datum";

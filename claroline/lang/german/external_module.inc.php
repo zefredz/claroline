@@ -23,7 +23,7 @@
 $langLinkSite="Einen Website verknüpfen / Link erstellen"; 
 $langSubTitle="Fügt dem Hauptmenü Ihrer Kurshomepage einen Link zu einer Seite oder einer beliebigen URL zu. Hinweis: Wenn Sie einen Link auf eine Seite hinzufügen möchten, gehen Sie zu dieser Seite, kopieren Sie die Adresse und fügen sie in das \"Hyperlink\" Feld unten ein.";
 $langHome="Zurück zur Homepage"; 
-$langName="Name";
+
 $langLink="Hyperlink";
 $langAddPage           = "Seite hinzufügen";
 $langSendPage          = "Seite senden";

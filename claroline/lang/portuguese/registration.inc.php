@@ -54,7 +54,7 @@ $langAddVarUser="Acrescentar v&aacute;rios utilizadores ao mesmo tempo";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration  = "Inscri&ccedil;&atilde;o";
-$langName          = "&Uacute;ltimo nome";
+
 $langSurname       = "Primeiro nome";
 $langUserName      = "Nome de utilizador";
 $langPass          = "Senha";

@@ -17,7 +17,7 @@
  */
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Prijava";
-$langName="Ime";
+
 $langSurname="Prezime";
 $langUserName="Korisnièko ime";
 $langPass="Zaporka";

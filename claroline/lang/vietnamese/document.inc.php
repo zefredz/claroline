@@ -6,7 +6,7 @@ $langDoc="Tài liệu";
 $langUploadFile= "Upload file lên máy chủ web";
 $langUpload="Upload";
 $langCreateDir="Tạo thư mục";
-$langName="Tên";
+
 $langNameDir="Tên thư mục mới";
 $langSize="Kích thước";
 $langDate="Ngày";

@@ -31,7 +31,7 @@ $langBackList="リストに戻る";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="登録";
-$langName="名称";
+
 $langSurname="名前";
 $langUserName="ユーザ名";
 $langPass="パスワード";

@@ -61,7 +61,7 @@ $langPlatformAdmin = "l'administrateur de la plateforme";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Inscription";
-$langName="Nom";
+
 $langSurname="Prénom";
 $langUserName="Nom d'utilisateur";
 $langPass="Mot de passe";

@@ -19,7 +19,7 @@ $langDoc="Dokumen;
 $langUploadFile= "Upload file ke server";
 $langUpload="Upload";
 $langCreateDir="Buat direktori";
-$langName="Nama";
+
 $langNameDir="Nama direktori baru";
 $langSize="Ukuran";
 $langDate="Tanggal";

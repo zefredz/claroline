@@ -59,7 +59,7 @@ $langPlatformAdmin = "Administrador da plataforma";
 $langAction = "Ação";
 
 $langCategory = "Categoria";
-$langName = "Sobrenome";
+
 $langLastName = "Sobrenome"; //same!
 $langFirstName = "Nome";
 $langUserName  = "Login";

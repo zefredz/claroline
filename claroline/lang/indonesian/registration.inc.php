@@ -57,7 +57,7 @@ $langParamSentTo = "Informasi Pengenal dikirim ke ";// by moosh
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Pendaftaran";
-$langName="Nama Belakang";
+
 $langSurname="Nama Depan";
 $langUserName="Nama user";
 $langPass="Password";

@@ -41,7 +41,7 @@ $langTextFormula="Fórmula para cálculo da média";
 $langSymbolErrorIncluded="não foi adicionado pois já está incluído nos símbolos atuais.<br>";
 $langFormulaCalc="Fórmula para cálculo:";
 $langAllowedChars="Caracteres permitidos: / * - + ( )<br>Ex.: (T1 * 0,3) + (P1 * 0,7)";
-$langName="Nome";
+
 $langAvg="Média";
 $langAddSymbol="Adicionar novo símbolo";
 $langDescription="Descrição";

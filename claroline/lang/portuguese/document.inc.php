@@ -33,7 +33,7 @@ $langDoc = "Documentos";
 $langUploadFile = "Transferir o ficheiro para o servidor";
 $langUpload     = "transferir";
 $langCreateDir    = "Criar um direct&oacute;rio";
-$langName         = "Nome";
+
 $langNameDir      = "Nome do novo direct&oacute;rio";
 $langSize         = "Tamanho";
 $langDate         = "Data";

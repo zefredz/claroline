@@ -42,7 +42,7 @@ $langBackList="返回列表";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="注册";
-$langName="名字";
+
 $langSurname="姓氏";
 $langUserName="用户名";
 $langPass="密码";

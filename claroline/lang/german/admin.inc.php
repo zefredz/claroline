@@ -48,7 +48,7 @@ $langCreateCourse = "Kurs-Erstellung";
 $langPlatformAdmin = "System-Administrator";
 $langAction = "Art";
 $langCategory = "Kategorie";
-$langName = "Nachname";
+
 $langLastName = "Nachname"; //same!
 $langFirstName = "Vorname";
 $langUserName  = "Benutzername";

@@ -23,7 +23,7 @@
 $langLinkSite          = "Odno¶nik do strony";
 $langSubTitle          = "Dodanie odno¶nika do zewnêtrzego adresu URL na Stronie g³ównej kursu. Uwaga: Je¶li chcesz pod³±czyæ jak±¶ stronê z Internetu, wejd¼ na tê stronê, skopiuj jej adres z pola Adres okienka przegl±darki a nastêpnie wklej ten adres do pola \"Odno¶nik\" poni¿ej.";
 $langHome              = "Powrót do strony g³ównej";
-$langName              = "Nazwa";
+
 $langLink              = "Odno¶nik";
 $langAddPage           = "Dodaj stronê";
 $langSendPage          = "Strona do wys³ania";

@@ -84,7 +84,7 @@ $langUpload="Разместить";
 
 $langCreateDir="Создать папку";
 
-$langName="Название";
+
 
 $langNameDir="Название новой папки";
 

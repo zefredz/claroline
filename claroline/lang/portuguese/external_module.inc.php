@@ -32,7 +32,7 @@ $langLinkSite  = "Liga&ccedil;&atilde;o a uma p&aacute;gina web";
 $langSubTitle  = "Acrescentar ao menu principal da sua p&aacute;gina principal uma liga&ccedil;&atilde;o a outra p&aacute;gina, no interior ou no exterior da sua web";
 $langAdded     = "A liga&ccedil;&atilde;o foi acrescentada";
 $langHome      = "Voltar &agrave; p&aacute;gina principal";
-$langName      = "Nome";
+
 $langLink      = "Liga&ccedil;&atilde;o";
 $langAddPage           = "Acrescentar p&aacute;gina";
 $langSendPage          = "P&aacute;gina a enviar";

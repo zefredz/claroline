@@ -40,7 +40,7 @@ $langDoc="Dokumentit";
 $langUploadFile= "Lis‰‰ tiedostot palvelimelle.";
 $langUpload="Lis‰‰";
 $langCreateDir="Luo hakemisto";
-$langName="Nimi";
+
 $langNameDir="Uuden hakemiston nimi";
 $langSize="Koko";
 $langDate="P‰iv‰";

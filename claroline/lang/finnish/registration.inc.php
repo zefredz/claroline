@@ -38,7 +38,7 @@ $langBackList="Takaisin listaan";
 // REGISTRATION - AUTH - inscription.php
 
 $langRegistration="Rekisteröinti";
-$langName="Sukunimi";
+
 $langSurname="Etunimi";
 $langUserName="Käyttäjänimi";
 $langPass="Salasana";

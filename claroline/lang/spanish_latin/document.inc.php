@@ -21,7 +21,7 @@ $langCreateHyperlink = "Crear Hipervínculo";
 $langUploadFile = "Subir un archivo";
 $langUpload="Subir";
 $langCreateDir="Crear un directorio";
-$langName="Nombre";
+
 $langNameDir="Nombre del nuevo directorio";
 $langSize="Tamaño";
 $langDate="Fecha";

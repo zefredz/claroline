@@ -116,7 +116,7 @@ $lasting6="4h";
 $langDownloadFile= "Envia el fitxer cap al servidor";
 $langDownload="envia";
 $langCreateDir="Crea un directori";
-$langName="Nom";
+
 $langNameDir="Nom d'un nou directori";
 $langSize="Mida";
 $langDate="Data";

@@ -13,7 +13,7 @@
 */
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="ترسيم";
-$langName=" الاسم ";
+
 $langSurname="Pr nom";
 $langUserName="Nom d'utilisateur";
 $langPass="Mot de passe";

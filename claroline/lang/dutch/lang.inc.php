@@ -63,7 +63,7 @@ $langPlatform= $institution["name"] . " gebruikt het platform";
 
 // REGISTRATION - AUTH - INSCRIPTION
 $langRegistration="Registratie";
-$langName="Naam";
+
 $langSurname="Voornaam";
 
 // COURSE HOME PAGE
@@ -139,7 +139,7 @@ $lasting6="4u";
 $langDownloadFile= "Upload het bestand op de server";
 $langDownload="Upload";
 $langCreateDir="Nieuwe Folder";
-$langName="Naam";
+
 $langNameDir="Naam nieuwe folder";
 $langSize="Grootte";
 $langDate="Datum";

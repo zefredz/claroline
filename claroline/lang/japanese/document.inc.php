@@ -29,7 +29,7 @@ $langDoc="文書";
 $langUploadFile="文書のアップロード";
 $langUpload="アップロード";
 $langCreateDir="ディレクトリを作る";
-$langName="名称";
+
 $langNameDir="新ディレクトリの名前";
 $langSize="サイズ";
 $langDate="日付";

@@ -20,7 +20,7 @@ $langCreateHyperlink = "Criar Hiperlink";
 $langUploadFile= "Enviar arquivo";
 $langUpload="enviar";
 $langCreateDir="Criar um diretório";
-$langName="Nome";
+
 $langNameDir="Nome do novo diretório";
 $langSize="Tamanho";
 $langDate="Data";

@@ -3,7 +3,7 @@
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Регистрация";
-$langName="Име";
+
 $langSurname="Фамилия";
 $langUserName="Потребителско име";
 $langPass="Парола";

@@ -19,7 +19,7 @@ $langDoc="Dokumenti";
 $langUploadFile= "Uèitavanje datoteke na server";
 $langUpload="Uèitavanje";
 $langCreateDir="Stvaranje foldera";
-$langName="Naziv";
+
 $langNameDir="Naziv foldera";
 $langSize="Velièina";
 $langDate="Datum";

@@ -51,7 +51,7 @@ $langPlatformAdmin = "Administration";
 $langAction = "Action";
 
 $langCategory = "Catégorie"; // JCC
-$langName = "Nom";
+
 $langLastName = "Nom"; //same!
 $langFirstName = "Prénom"; // JCC
 $langUserName  = "Nom d'utilisateur";

@@ -74,7 +74,7 @@ $langBackList="Voltar &aacute; lista";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration  = "Inscripci&oacute;n";
-$langName          = "Apelido";
+
 $langSurname       = "Nome";
 $langUserName      = "Nome de usuario";
 $langPass          = "Clave de acceso";

@@ -26,7 +26,7 @@
 $langLinkSite          = "Povezava na stran";
 $langSubTitle          = "Adds to your Course Homepage Main Menu a link to a site, a page or any URL. Tip: if you want to add a link to a page, go to that page, cut and paste its address in the URL bar on the top of your browser and insert it into the \"link\" field below.";
 $langHome              = "Povratek na domaco stran";
-$langName              = "Ime";
+
 $langLink              = "Povezava";
 $langAddPage           = "Dodaj stran";
 $langSendPage          = "Page to send";

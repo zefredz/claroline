@@ -50,7 +50,7 @@ $langParamSentTo = "Ваши параметры подключения отправлены на адрес";
 
 // REGISTRATION - AUTH - inscription.php
 $langRegistration="Регистрация";
-$langName="Фамилия";
+
 $langSurname="Имя";
 $langUserName="Имя пользователя";
 $langPass="Пароль";

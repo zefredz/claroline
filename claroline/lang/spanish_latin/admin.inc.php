@@ -60,7 +60,7 @@ $langPlatformAdmin = "Administrador de la plataforma";
 $langAction = "Acción";
 
 $langCategory = "Categoria";
-$langName = "Apellido";
+
 $langLastName = "Apellido"; //same!, middle name and surname for later? vicm3
 $langFirstName = "Nombre";
 $langUserName  = "Nombre de usuario";
