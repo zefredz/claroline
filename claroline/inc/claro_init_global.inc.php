@@ -30,7 +30,15 @@ $_SELF = basename($_SERVER['PHP_SELF']);
 $includePath = dirname(__FILE__);
 
 // YOU CAN REMOVE THE @ of the following line after install.
-@include($includePath."/conf/claro_main.conf.php");
+@include($includePath.'/conf/claro_main.conf.php');
+
+
+// Add the Claroline PEAR path to the php.ini include path
+// This action is mandatory because PEAR inner include() statements 
+// rely on the php.ini include_path settings
+
+ini_set('include_path', 
+        ini_get('include_path') . ( strstr(PHP_OS, 'WIN') ?';':':') . PEAR_LIB_PATH );
 
 // Start session
 if (isset($platform_id))
@@ -102,7 +110,7 @@ if (LANGMODE == 'DEVEL')
 
     include ($includePath.'/../lang/english/complete.lang.php');
 
-    if ($languageInterface  != 'english') // avoid inutile
+    if ($languageInterface  != 'english') // Avoid useless include as English lang is preloaded
     {
         include($includePath.'/../lang/'.$languageInterface.'/complete.lang.php');
     }
@@ -159,7 +167,7 @@ else
 
 include($includePath.'/../lang/english/locale_settings.php');
     
-if ($languageInterface  != 'english') // avoid inutile
+if ($languageInterface  != 'english') // // Avoid useless include as English lang is preloaded
 {
    include($includePath.'/../lang/'.$languageInterface.'/locale_settings.php');
 }
