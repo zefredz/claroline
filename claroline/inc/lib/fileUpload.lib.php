@@ -550,4 +550,32 @@ function claro_dirname($filePath)
      // dirname, PHP leaves a ' \ ' (at least on windows)
 }
 
+/**
+ * Determine the maximum size allowed to upload. This size is based on
+ * the tool $maxFilledSpace regarding the space already opccupied
+ * by previous uploaded files, and the php.ini upload_max_filesize
+ * and post_max_size parameters. This value is diplayed on the upload
+ * form.
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param int local max allowed file size e.g. remaining place in
+ *	an allocated course directory	
+ * @return int lower value between php.ini values of upload_max_filesize and 
+ *	post_max_size and the claroline value of size left in directory 
+ * @see    - get_max_upload_size() uses  dir_total_space() function
+ */
+function get_max_upload_size($maxFilledSpace, $baseWorkDir)
+{
+        $php_uploadMaxFile = ini_get('upload_max_filesize');
+        if (strstr($php_uploadMaxFile, 'M')) $php_uploadMaxFile = intval($php_uploadMaxFile) * 1048576;
+        $php_postMaxFile  = ini_get('post_max_size');
+        if (strstr($php_postMaxFile, 'M')) $php_postMaxFile     = intval($php_postMaxFile) * 1048576;
+        $docRepSpaceAvailable  = $maxFilledSpace - dir_total_space($baseWorkDir);
+
+        $fileSizeLimitList = array( $php_uploadMaxFile, $php_postMaxFile , $docRepSpaceAvailable );
+        sort($fileSizeLimitList);
+        list($maxFileSize) = $fileSizeLimitList;
+
+	return $maxFileSize;
+}
 ?>
