@@ -18,7 +18,7 @@ include $includePath.'/conf/user_profile.conf.php'; // find this file to modify 
 define('DISP_RESULT',__LINE__);
 //SECURITY CHECK
 
-if (!$is_platformAdmin) treatNotAuthorized();
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 //bredcrump
 

@@ -20,7 +20,7 @@ include($includePath."/lib/admin.lib.inc.php");
 
 //SECURITY CHECK
 
-if (!$is_platformAdmin) treatNotAuthorized();
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 $is_allowedToAdmin     = $is_platformAdmin;
 $userPerPage = 20; // numbers of user to display on the same page

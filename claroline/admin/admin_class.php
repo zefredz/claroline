@@ -18,9 +18,9 @@ include($includePath."/lib/admin.lib.inc.php");
 
 //SECURITY CHECK
 
-if (!$is_platformAdmin) treatNotAuthorized();
+if (!$is_platformAdmin) claro_disp_auth_form();
 
-$is_allowedToAdmin   = $is_platformAdmin || $PHP_AUTH_USER;
+$is_allowedToAdmin   = $is_platformAdmin;
 
 /*
  * DB tables definition
