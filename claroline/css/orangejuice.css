@@ -3,7 +3,7 @@
  ******************************************************************************/
 
 body {
-background-color:#ffffff;
+background-color:#FFFFFF;
 color:#000000;
 font-family: tahoma,Verdana,Geneva,Arial,Helvetica,sans-serif;
 font-size: 12px/17px;
@@ -337,6 +337,25 @@ a:visited.invisible{
 }
 
 
+/* 'correct' is attached to element that must be highlighted as correct 
+	example : a good score in exercices
+*/
+.correct {
+	color: #009900;
+}
+
+/* 'incorrect' is attached to element that must be highlighted as correct 
+	example : a wrong score in exercices
+*/
+.incorrect {
+	color: #990000;
+}
+
+/* 'highlight' */
+.highlight {
+	color: #FFB848;
+}
+
 /*
  * 'rightMenu' is mainly use in the platform home page
  */
@@ -349,7 +368,7 @@ a:visited.invisible{
 
 .claroRightMenu a,
 .claroRightMenu a:link,
-.claroRightMenu a:visited, {
+.claroRightMenu a:visited {
 		color:#c60;
 }
 	
