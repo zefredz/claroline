@@ -517,7 +517,7 @@ elseif($displayCoursePropertiesForm)
 <label for="intitule"><?php echo $langCourseTitle ?></label> :
 </td>
 <td valign="top">
-<input type="Text" name="intitule" id="intitule" size="60" value="<?php echo htmlentities($valueIntitule) ?>">
+<input type="Text" name="intitule" id="intitule" size="60" value="<?php echo htmlspecialchars($valueIntitule) ?>">
 <br><small><?php echo $langEx ?></small>
 <input type="hidden" name="fromAdmin" size="60" value="<?php echo $fromAdmin ?>">
 </td>
@@ -542,7 +542,7 @@ BuildEditableCatTable(""," &gt; ");
 <td >
 	<input type="Text" id="wantedCode" name="wantedCode" maxlength="12" value="<?php echo $valuePublicCode ?>">
 	<br>
-	<small><?php echo htmlentities($langMaxSizeCourseCode) ?></small>
+	<small><?php echo $langMaxSizeCourseCode ?></small>
 </td>
 </tr>
 
@@ -551,7 +551,7 @@ BuildEditableCatTable(""," &gt; ");
 <label for="titulaires"><?php echo $langProfessors ?></label> :
 </td>
 <td>
-<input type="Text" name="titulaires" id="titulaires" size="60" value="<?php echo htmlentities($valueTitular) ?>">
+<input type="Text" name="titulaires" id="titulaires" size="60" value="<?php echo htmlspecialchars($valueTitular) ?>">
 </td>
 </tr>
 
