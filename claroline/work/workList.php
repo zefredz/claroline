@@ -365,7 +365,7 @@ $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assi
 /*--------------------------------------------------------------------
                                 LIST
   --------------------------------------------------------------------*/
-echo "<table class=\"claroTable\" width=\"100%\">\n"
+echo "<table class=\"claroTable emphaseLine\" width=\"100%\">\n"
 	."<thead>\n"
 	."<tr class=\"headerX\">\n"
 	."<th>".$langWrkAuthors."</th>\n"
