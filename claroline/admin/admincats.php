@@ -315,7 +315,7 @@ else
 
 
     /*-----------------------------------------------------------------------------------
-    Edit a category
+    Edit a category : display form
     -----------------------------------------------------------------------------------*/
     if(isset($_REQUEST["edit"]))
     {
@@ -338,7 +338,7 @@ else
         $EditFather=$array[0]["code_P"];
         $EditCanHaveCatChild=$array[0]["canHaveCatChild"];
         $EditCanHaveCoursesChild=$array[0]["canHaveCoursesChild"];
-
+	
         if(isset($_REQUEST["move"]))
         {
             $MOVE=TRUE;
@@ -352,7 +352,7 @@ else
 
 
     /*-----------------------------------------------------------------------------------
-    Change information of category
+    Change information of category : do change in db
     -----------------------------------------------------------------------------------*/
     if(isset($_REQUEST["change"]))
     {
@@ -360,9 +360,23 @@ else
         $sql_FacultyEdit="select * from `$tbl_faculty` where id='".$_REQUEST["id"]."'";
         $arrayfacultyEdit=claro_sql_query_fetch_all($sql_FacultyEdit);
         $facultyEdit=$arrayfacultyEdit[0];
+	$doChange = true;
+	
+	//see if we try to set the categorie as a cat that can niot have course and that the cat already contain courses
+	if ($_REQUEST["canHaveCoursesChild"]==0)
+	{
+		$sql_SearchCourses="select count(cours_id) num from `$tbl_courses` where faculte='".$treePosDelete["code"]."'";
+        	$res_SearchCourses=claro_sql_query_fetch_all($sql_SearchCourses);
 
+                if($res_SearchCourses[0]["num"]>0)
+		{
+			$controlMsg['warning'][]=$lang_faculty_HaveCourses;
+			$doChange = false;
+		}
+	}
+	
         //Edit a category (don't move the category)
-        if(!isset($_REQUEST["fatherCat"]))
+        if(!isset($_REQUEST["fatherCat"]) && $doChange)
         {
             $canHaveCoursesChild=($_REQUEST["canHaveCoursesChild"]==1?"TRUE":"FALSE");
 
@@ -390,6 +404,7 @@ else
                     $sql_ChangeInfoFaculty="update `$tbl_faculty` set name='".$_REQUEST["nameCat"]."',code='".$_REQUEST["codeCat"]."'
                                 ,canHaveCoursesChild='".$canHaveCoursesChild."' where id='".$_REQUEST["id"]."'";
                     claro_sql_query($sql_ChangeInfoFaculty);
+		    $controlMsg['warning'][]=$lang_faculty_EditOk;
                     }
                 }
                 else
