@@ -212,41 +212,47 @@ switch ($display)
 				{
 					echo "<p class=\"error\">n° <strong>".mysql_errno()."</strong>: ".mysql_error()."</p>";
 					echo "<p>" . $sqlFlagUpgrade . "</p>";
-					}
-				}
-				$mtime = microtime();
-				$mtime = explode(" ",$mtime);
-				$mtime = $mtime[1] + $mtime[0];
-				$endtime = $mtime;
-				$totaltime = ($endtime - $starttime);
-				$stepDuration = ($endtime - $steptime);
-				$steptime = $endtime;
-                                
-				echo "<p class=\"microtime\">";
-				printf("execution time for this courses[%01.3f ms] - total [%01.2f s].",$stepDuration*1000,$totaltime);
-				echo "</p>";
-                                
-				echo "<p class=\"success\">Upgrade Ok</p>";
-				echo "<hr noshade=\"noshade\" />";                                
-			}
+                                }
+                        }
 		
-			$mtime = microtime();	$mtime = explode(" ",$mtime);	$mtime = $mtime[1] + $mtime[0];	$endtime = $mtime;	$totaltime = ($endtime - $starttime);
+                        $mtime = microtime();
+			$mtime = explode(" ",$mtime);
+			$mtime = $mtime[1] + $mtime[0];
+			$endtime = $mtime;
+			$totaltime = ($endtime - $starttime);
+			$stepDuration = ($endtime - $steptime);
+			$steptime = $endtime;
+                                
+			echo "<p class=\"microtime\">";
+			printf("execution time for this courses[%01.3f ms] - total [%01.2f s].",$stepDuration*1000,$totaltime);
+			echo "</p>";
+                                
+			echo "<p class=\"success\">Upgrade Ok</p>";
+			echo "<hr noshade=\"noshade\" />";                                
+		}
+                
+                $mtime = microtime();	$mtime = explode(" ",$mtime);	$mtime = $mtime[1] + $mtime[0];	$endtime = $mtime;	$totaltime = ($endtime - $starttime);
 		
-			echo "<hr noshade=\"noshade\" />";
-			if ($totalNbError>0)
-			{
-				echo "<p class=\"error\">" . $totalNbError . " " . $langErrorsFound . "</p>";
-				echo "<p><a href=\"".$PHP_SELF."?verbose=true\">Retry</a></p>";
-				$totalNbError += $nbError;
-				$nbError = 0;
-			}
-			else
-			{
-				echo "<p class=\"success\">Ok</p>\n";
-				echo "<p><a href=\"upgrade.php\">Next</a></p>\n";
-			}
+		echo "<hr noshade=\"noshade\" />";
+		if ($totalNbError>0)
+		{
+			echo "<p class=\"error\">" . $totalNbError . " " . $langErrorsFound . "</p>";
+			echo "<p><a href=\"".$PHP_SELF."?verbose=true\">Retry</a></p>";
+			$totalNbError += $nbError;
+			$nbError = 0;
+		}
+		else
+		{
+			echo "<p class=\"success\">Ok</p>\n";
+			echo "<p><a href=\"upgrade.php\">Next</a></p>\n";
+		}
 			
-			mysql_close();
+		mysql_close();
+                       
+                echo "<script type=\"text/javascript\">\n";
+                echo "document.getElementById('refreshIfBlock').style.visibility = \"hidden\"";
+                echo "</script>";
+                
 		break;
 	default : 
 		echo "<p>nothing to do</p>\n";
@@ -254,9 +260,7 @@ switch ($display)
 
 ?>
 
-<script type="text/javascript">
- document.getElementById('refreshIfBlock').style.visibility = "hidden";
-</script>
+
 
 </div>
 
@@ -406,7 +410,7 @@ function upgrade_tool_list ($dbNameGlu)
 		$nb_tool++;	
 		$sql_insert = " INSERT INTO `".$dbNameGlu."tool_list` " 
 		                . " (rank,access,script_url,script_name, addedTool) "
-				. " VALUES ('" . $nb_tool . "','" . $access . "','" . $externalTool['lien'] . "','" . claro_addslashes($externalTool['rubrique']) . "','YES')";
+				. " VALUES ('" . $nb_tool . "','" . $access . "',\"" . addslashes($externalTool['lien']) . "\",\"" . addslashes($externalTool['rubrique']) . "\",'YES')";
 		claro_sql_query($sql_insert);		
 	}
  
@@ -447,9 +451,11 @@ function upgrade_course_repository($courseID,$courseRepository)
 	?>");
         
         fwrite($fd, "$string");
+        
         $fd=fopen($courseRepository."/group/index.php", "w");
         $string="<"."?"."php"." session_start"."()"."; ?>";
         fwrite($fd, "$string");
+        
         return 1;
     
     } else {
