@@ -1093,7 +1093,7 @@ claro_disp_tool_title($titleElement,
 
 
 
-    echo "<b>\n"
+    echo "</b>\n"
         ."</p>\n";
 
     echo "<table class=\"claroTable\" width=\"100%\">\n";
