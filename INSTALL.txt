@@ -1,6 +1,6 @@
-****************************
-CLAROLINE 1.5.0 BETA 1
-****************************
+*********************************
+CLAROLINE 1.5.0 RELEASE CANDIDATE
+*********************************
 
 Thank you for downloading Claroline 1.5.0 Beta.
 This README will guide you through the basics 
