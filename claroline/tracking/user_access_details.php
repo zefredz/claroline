@@ -44,19 +44,19 @@ switch ($_GET['cmd'])
 {
 	case 'tool' : 
 	    	// set the subtitle for the claro_disp_tool_title function
-		$toolTitle['subTitle'] = $langTool.$_GET['data'];
+		$toolTitle['subTitle'] = $langTool." : ".$toolNameList[$_GET['label']];
 		// prepare SQL query
 		$sql = "SELECT nom, prenom, MAX(UNIX_TIMESTAMP(`access_date`)) AS data, COUNT(`access_date`) AS nbr
 			FROM `".$TABLETRACK_ACCESS."`
 			LEFT JOIN `".$TABLEUSER."`
 			ON `access_user_id` = `user_id`
-			WHERE `access_tool` = '".$_GET['data']."'
+			WHERE `access_tid` = '".$_GET['data']."'
 			GROUP BY nom, prenom
 			ORDER BY nom, prenom	";
 		break;
 	case 'doc'  :	
 	    	// set the subtitle for the claro_disp_tool_title function
-		$toolTitle['subTitle'] = $langDocument.$_GET['data'];	
+		$toolTitle['subTitle'] = $langDocument." : ".$_GET['data'];	
 		// prepare SQL query
 		$sql = "SELECT nom, prenom, MAX(UNIX_TIMESTAMP(`down_date`)) AS data, COUNT(`down_date`) AS nbr
 			FROM `".$TABLETRACK_DOWNLOADS."`
@@ -108,7 +108,7 @@ if(  $is_allowedToTrack && $is_trackingEnabled )
     }	
     // in case of error or no results to display
     if($i == 0 ) 
-	echo "<td colspan=\"3\"><center>".$langNoResult."</center></td>";
+	echo "<td colspan=\"4\"><center>".$langNoResult."</center></td>";
  
     echo "</tbody>\n</table>";         
 	
