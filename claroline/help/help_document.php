@@ -3,12 +3,11 @@ $langFile='help';
 
 require '../inc/claro_init_global.inc.php';
 
-echo "<html><head>";
-echo "<title>$langHDoc</title>";
-?>
+$nameTools = $langHDoc;
+$hide_banner=TRUE;
+include($includePath."/claro_init_header.inc.php");
 
-</head>
-<body bgcolor="#FFFFFF">
+?>
 <table width="100%" border="0" cellpadding="1" cellspacing="1">
 <tr>
   <td align="left" valign="top">
@@ -34,5 +33,9 @@ echo "<title>$langHDoc</title>";
   </td>
 </tr>
 </table>
-</body>
-</html>
+<?php
+
+$hide_footer = true;
+include($includePath."/claro_init_footer.inc.php");
+
+?>
