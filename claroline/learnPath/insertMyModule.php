@@ -207,7 +207,7 @@
                     </td>
 
                     <td align=\"left\">
-                       <label for=\"check_".$list['module_id']."\" ><img src=\"../img/".$moduleImg."\" alt=\"".$contentType_alt."\" />".$list['name']."</label>
+                       <label for=\"check_".$list['module_id']."\" ><img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" />".$list['name']."</label>
                     </td>";
 
             // COMMENT

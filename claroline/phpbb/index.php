@@ -196,13 +196,13 @@ if($total_categories)
 				if($last_post_time > $last_visit && $last_post != "No Posts")
 				{
 					echo	"<td align=\"center\" valign=\"top\" width=5%>\n",
-							"<img src=\"../img/red_folder.gif\">\n";
+							"<img src=\"".$clarolineRepositoryWeb."img/red_folder.gif\">\n";
 							"</td>\n";
 				}
 				else
 				{
 					echo	"<td align=\"center\" valign=\"top\" width=5%>\n",
-							"<img src=\"../img/folder.gif\">\n",
+							"<img src=\"".$clarolineRepositoryWeb."img/folder.gif\">\n",
 							"</td>\n";
 				}
 

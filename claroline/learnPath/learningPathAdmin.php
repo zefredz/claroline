@@ -344,7 +344,7 @@
             }
         }
    }
-   // select details of learning path to display
+   	   // select details of learning path to display
    $sql = "SELECT *
              FROM `".$TABLELEARNPATH."`
             WHERE `learnPath_id` = ".$_SESSION['path_id'];
@@ -380,7 +380,7 @@
    //####################################################################################\\
    //############################ create label && change pos forms  ##################################\\
    //####################################################################################\\
-    if ($displayCreateLabelForm)
+   if ($displayCreateLabelForm)
    {
             $dialogBox .= "<form action=\"$PHP_SELF\" method=\"post\">
                         <h4><label for=\"newLabel\">".$langNewLabel."</label></h4>
@@ -411,10 +411,10 @@
    //######################### LEARNING PATH COURSEADMIN LINKS ##########################\\
    //####################################################################################\\
    ?>
-           <a href="insertMyDoc.php"><?= $langDocumentAsModule; ?></a> |
-           <a href="insertMyExercise.php"><?= $langExerciseAsModule; ?></a> |
-           <a href="insertMyModule.php"><?= $langModuleOfMyCourse; ?></a> |
-           <a href="<?= $PHP_SELF ?>?cmd=createLabel"><?= $langCreateLabel; ?></a>
+           <a href="insertMyDoc.php"><?php echo $langDocumentAsModule; ?></a> |
+           <a href="insertMyExercise.php"><?php echo $langExerciseAsModule; ?></a> |
+           <a href="insertMyModule.php"><?php echo $langModuleOfMyCourse; ?></a> |
+           <a href="<?php echo $PHP_SELF ?>?cmd=createLabel"><?php echo $langCreateLabel; ?></a>
 
    <?PHP
    //####################################################################################\\
@@ -461,13 +461,13 @@
    ?>
      <table class="claroTable" width="100%" border="0" cellspacing="2">
             <tr class="headerX" align="center" valign="top">
-              <th colspan="<?= $maxDeep+1 ?>"><?= $langModule; ?></th>
-              <th><?= $langModify; ?></th>
-              <th><?= $langRemoveFromLPShort; ?></th>
-              <th><?= $langBlock; ?></th>
-              <th><?= $langVisible; ?></th>
-              <th><?= $langMove; ?></th>
-              <th colspan="2"><?= $langOrder; ?></th>
+              <th colspan="<?php echo $maxDeep+1 ?>"><?php echo $langModule; ?></th>
+              <th><?php echo $langModify; ?></th>
+              <th><?php echo $langRemoveFromLPShort; ?></th>
+              <th><?php echo $langBlock; ?></th>
+              <th><?php echo $langVisible; ?></th>
+              <th><?php echo $langMove; ?></th>
+              <th colspan="2"><?php echo $langOrder; ?></th>
              </tr><tbody>
    <?PHP
    
@@ -512,20 +512,24 @@
                   $moduleImg = choose_image(basename($module['path']));
                   
                 $contentType_alt = selectAlt($module['contentType']);
-                echo "<a href=\"module.php?module_id=".$module['module_id']."&asStudent=1\"><img src=\"../img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
+                echo "<a href=\"module.php?module_id=".$module['module_id']."&asStudent=1\"><img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
                              .$module['name'].
                              "</a>";
             }
             echo "</td>"; // end of td of module name
             // Modify command / go to other page
-            echo     "<td><a href=\"module.php?asStudent=0&module_id=".$module['module_id']."\">".
-                        "<img src=\"../img/edit.gif\" border=0 alt=\"$langModify\" />".
-                        "</a></td>";
+            echo     "
+			<td>
+				<a href=\"module.php?asStudent=0&module_id=".$module['module_id']."\">".
+               "<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=0 alt=\"".$langModify."\" />".
+               "</a>
+			</td>";
             // DELETE ROW
 
               //in case of SCORM module, the pop-up window to confirm must be different as the action will be different on the server
-            echo    "<td>
-              <a href=\"".$PHP_SELF."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
+            echo    "
+			<td>
+            	<a href=\"".$PHP_SELF."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
                         "onClick=\"return confirmation('".$langAreYouSureToRemove." ",addslashes($module['name'])," ? ";
             if ($module['contentType'] == CTSCORM_) 
               echo $langAreYouSureToRemoveSCORM ;
@@ -533,10 +537,9 @@
               echo $langAreYouSureToRemoveLabel;
             else
               echo $langAreYouSureToRemoveStd ;
-            echo   "');\">
-              <img src=\"../img/delete.gif\" border=0 alt=\"$langRemoveFromLPShort\">
-              </a>
-              </td>";
+            echo   "');\"
+			><img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=0 alt=\"".$langRemoveFromLPShort."\"></a>
+   			</td>";
 
             // LOCK
             echo    "<td>";
@@ -547,13 +550,13 @@
             elseif ( $module['lock'] == 'OPEN')
             {
                 echo    "<a href=\"",$PHP_SELF,"?cmd=mkBlock&cmdid=".$module['learnPath_module_id']."\">".
-                        "<img src=\"../img/unblock.gif\" alt=\"$langAltMakeBlocking\" border=0>".
+                        "<img src=\"".$clarolineRepositoryWeb."img/unblock.gif\" alt=\"$langAltMakeBlocking\" border=0>".
                         "</a>";
             }
             elseif( $module['lock'] == 'CLOSE')
             {
                 echo    "<a href=\"",$PHP_SELF,"?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']."\">".
-                        "<img src=\"../img/block.gif\" alt=\"$langAltMakeNotBlocking\" border=0>".
+                        "<img src=\"".$clarolineRepositoryWeb."img/block.gif\" alt=\"$langAltMakeNotBlocking\" border=0>".
                         "</a>";
             }
             echo    "</td>";
@@ -564,7 +567,7 @@
             if ( $module['visibility'] == 'HIDE')
             {
                 echo    "<a href=\"",$PHP_SELF,"?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
-                        "<img src=\"../img/invisible.gif\" alt=\"$langAltMakeVisible\" border=\"0\">".
+                        "<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" alt=\"$langAltMakeVisible\" border=\"0\">".
                         "</a>";
             }
             else
@@ -578,7 +581,7 @@
                         $onclick = "";
                 }
                 echo    "<a href=\"",$PHP_SELF,"?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ",$onclick, " >".
-                        "<img src=\"../img/visible.gif\" alt=\"$langAltMakeInvisible\" border=0>".
+                        "<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" alt=\"$langAltMakeInvisible\" border=0>".
                         "</a>";
             }
 
@@ -588,7 +591,7 @@
             // DISPLAY CATEGORY MOVE COMMAND 
             echo     "<td>".
                          "<a href=\"",$PHP_SELF,"?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
-                         "<img src=\"../img/deplacer.gif\" alt=\"$langAltMove\" border=0>".
+                         "<img src=\"".$clarolineRepositoryWeb."img/deplacer.gif\" alt=\"$langAltMove\" border=0>".
                          "</a>".
                          "</td>";
             // DISPLAY MOVE UP COMMAND only if it is not the top learning path
@@ -596,7 +599,7 @@
             {
                 echo     "<td>".
                          "<a href=\"",$PHP_SELF,"?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
-                         "<img src=\"../img/up.gif\" alt=\"$langAltMoveUp\" border=0>".
+                         "<img src=\"".$clarolineRepositoryWeb."img/up.gif\" alt=\"$langAltMoveUp\" border=0>".
                          "</a>".
                          "</td>";
             }
@@ -610,7 +613,7 @@
             {
                 echo    "<td>".
                         "<a href=\"",$PHP_SELF,"?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
-                        "<img src=\"../img/down.gif\" alt=\"$langAltMoveDown\" border=0>".
+                        "<img src=\"".$clarolineRepositoryWeb."img/down.gif\" alt=\"$langAltMoveDown\" border=0>".
                         "</a>".
                          "</td>";
             }

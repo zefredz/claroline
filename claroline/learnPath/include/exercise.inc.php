@@ -83,7 +83,7 @@
 
    echo "<h4>".$langExerciseInModule." :</h4><p>"
           .stripslashes($module['titre'])
-          ."<a href=\"../exercice/admin.php?exerciseId=".$module['id']."\"><img src=\"../img/edit.gif\" border=\"0\" alt=\"$langModify\" /></a></p>";
+          ."<a href=\"../exercice/admin.php?exerciseId=".$module['id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\" /></a></p>";
 
 
 

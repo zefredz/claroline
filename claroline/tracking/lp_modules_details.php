@@ -193,7 +193,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                 $moduleImg = choose_image(basename($module['path']));
                 
               $contentType_alt = selectAlt($module['contentType']);
-              echo "<img src=\"../img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">".$module['name'];
+              echo "<img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">".$module['name'];
 
           }
           

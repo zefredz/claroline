@@ -39,7 +39,7 @@ $url_phpbb       =$urlAppend."/claroline/phpbb";
 // -- Edit the following ONLY if you cannot login and $url_phpbb is set correclty --
 // You shouldn't have to change any of these 5.
 $url_admin           = $url_phpbb . '/admin';
-$url_images         = '../img';
+$url_images         = $clarolineRepositoryWeb.'img';
 $url_smiles         = $url_images . '/smiles';
 $url_phpbb_index    = $url_phpbb  . '/index.' . $phpEx;
 $url_admin_index    = $url_admin  . '/index.' . $phpEx;

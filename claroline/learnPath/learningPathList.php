@@ -87,7 +87,7 @@
   include($includePath."/lib/learnPath.lib.inc.php");
 
   //lib needed to delete packages
-  include("../inc/lib/fileManage.lib.php");
+  include($includePath."/lib/fileManage.lib.php");
 
   // statistics
   include($includePath."/lib/events.lib.inc.php");
@@ -389,9 +389,9 @@
         <table border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
          <tr>
            <td>
-                 <a href="<?= $PHP_SELF ?>?cmd=create"><?= $langCreateNewLearningPath; ?></a> |
-                 <a href="importLearningPath.php"><?= $langimportLearningPath; ?></a> |
-                 <a href="modules_pool.php"><?= $langModulesPoolToolName ?></a>
+                 <a href="<?= $PHP_SELF ?>?cmd=create"><?php echo $langCreateNewLearningPath; ?></a> |
+                 <a href="importLearningPath.php"><?php echo $langimportLearningPath; ?></a> |
+                 <a href="modules_pool.php"><?php echo $langModulesPoolToolName ?></a>
            </td>
          </tr>
          </table>
@@ -516,7 +516,7 @@
        if ( !$is_blocked )
        {
              echo "<td align=\"left\"><a href=\"learningPath.php?path_id="
-                       .$list['learnPath_id']."\"><img src=\"../img/step.gif\" alt=\"".$path_alt."\"
+                       .$list['learnPath_id']."\"><img src=\"".$clarolineRepositoryWeb."img/step.gif\" alt=\"".$path_alt."\"
                        border=\"0\" />  ".$list['name']."</a></td>";
 
              /*if( $list['lock'] == 'CLOSE' && ( $list['minRaw'] == -1 || $list['minRaw'] == "" ) )
@@ -667,7 +667,7 @@
        }
        else   //else of !$is_blocked condition , we have already been blocked before, so we continue beeing blocked : we don't display any links to next paths any longer
        {
-             echo "<td align=\"left\"> <img src=\"../img/step.gif\" alt=\"".$path_alt."\"
+             echo "<td align=\"left\"> <img src=\"".$clarolineRepositoryWeb."img/step.gif\" alt=\"".$path_alt."\"
                        border=\"0\" /> ".$list['name'].$list['minRaw']."</td>\n";
        }
 
@@ -680,7 +680,7 @@
             // Modify command / go to other page
             echo     "<td>\n",
                         "<a href=\"learningPathAdmin.php?path_id=".$list['learnPath_id']."\">\n",
-                        "<img src=\"../img/edit.gif\" border=\"0\" alt=\"$langModify\" />\n",
+                        "<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"$langModify\" />\n",
                         "</a>\n",
                         "</td>\n";
 
@@ -697,7 +697,7 @@
                echo  "<td>\n",
                             "<a href=\"",$PHP_SELF,"?cmd=delete&del_path_id=".$list['learnPath_id']."\" ",
                             "onClick=\"return scormConfirmation('",addslashes($list['name']),"');\">\n",
-                            "<img src=\"../img/delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
+                            "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
                             "</a>\n",
                             "</td>\n";
 
@@ -707,7 +707,7 @@
                echo     "<td>\n",
                             "<a href=\"",$PHP_SELF,"?cmd=delete&del_path_id=".$list['learnPath_id']."\" ",
                             "onClick=\"return confirmation('",addslashes($list['name']),"');\">\n",
-                            "<img src=\"../img/delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
+                            "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
                             "</a>\n",
                             "</td>\n";
 
@@ -719,13 +719,13 @@
             if ( $list['lock'] == 'OPEN')
             {
                 echo    "<a href=\"",$PHP_SELF,"?cmd=mkBlock&cmdid=".$list['learnPath_id']."\">\n",
-                        "<img src=\"../img/unblock.gif\" alt=\"$langAltMakeBlocking\" border=\"0\">\n",
+                        "<img src=\"".$clarolineRepositoryWeb."img/unblock.gif\" alt=\"$langAltMakeBlocking\" border=\"0\">\n",
                         "</a>\n";
             }
             else
             {
                 echo    "<a href=\"",$PHP_SELF,"?cmd=mkUnblock&cmdid=".$list['learnPath_id']."\">\n",
-                        "<img src=\"../img/block.gif\" alt=\"$langAltMakeNotBlocking\" border=\"0\">\n",
+                        "<img src=\"".$clarolineRepositoryWeb."img/block.gif\" alt=\"$langAltMakeNotBlocking\" border=\"0\">\n",
                         "</a>\n";
             }
             echo    "</td>\n";
@@ -737,7 +737,7 @@
             if ( $list['visibility'] == 'HIDE')
             {
                 echo    "<a href=\"",$PHP_SELF,"?cmd=mkVisibl&visibility_path_id=".$list['learnPath_id']."\">\n",
-                        "<img src=\"../img/invisible.gif\" alt=\"$langAltMakeVisible\" border=\"0\" />\n",
+                        "<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" alt=\"$langAltMakeVisible\" border=\"0\" />\n",
                         "</a>";
             }
             else
@@ -752,7 +752,7 @@
                 }
 
                 echo    "<a href=\"",$PHP_SELF,"?cmd=mkInvisibl&visibility_path_id=".$list['learnPath_id']."\" ",$onclick, " >\n",
-                        "<img src=\"../img/visible.gif\" alt=\"$langAltMakeInvisible\" border=\"0\" />\n",
+                        "<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" alt=\"$langAltMakeInvisible\" border=\"0\" />\n",
                         "</a>\n";
             }
             echo    "</td>\n";
@@ -765,7 +765,7 @@
             /*
             echo     "<td>",
                         "<a href=\"",$PHP_SELF,"?path_id=".$list['learningPath_id']."\">",
-                        "<img src=\"../img/statistiques.gif\" alt=\"$langStatistics\" border=\"0\" />",
+                        "<img src=\"".$clarolineRepositoryWeb."img/statistiques.gif\" alt=\"$langStatistics\" border=\"0\" />",
                         "</a>",
                         "</td>\n";
             */
@@ -778,7 +778,7 @@
             {
                 echo     "<td>\n",
                          "<a href=\"",$PHP_SELF,"?cmd=moveUp&move_path_id=".$list['learnPath_id']."\">\n",
-                         "<img src=\"../img/up.gif\" alt=\"$langAltMoveUp\" border=\"0\" />\n",
+                         "<img src=\"".$clarolineRepositoryWeb."img/up.gif\" alt=\"$langAltMoveUp\" border=\"0\" />\n",
                          "</a>\n",
                          "</td>\n";
             }
@@ -791,7 +791,7 @@
             {
                 echo    "<td>\n",
                         "<a href=\"",$PHP_SELF,"?cmd=moveDown&move_path_id=".$list['learnPath_id']."\">\n",
-                        "<img src=\"../img/down.gif\" alt=\"$langAltMoveDown\" border=\"0\" />\n",
+                        "<img src=\"".$clarolineRepositoryWeb."img/down.gif\" alt=\"$langAltMoveDown\" border=\"0\" />\n",
                         "</a>\n",
                          "</td>\n";
             }
@@ -802,8 +802,8 @@
             
             // statistics links
             echo "<td>\n
-              <a href=\"../tracking/learnPath_details.php?path_id=".$list['learnPath_id']."\">
-              <img src=\"../img/statistiques.gif\" border=\"0\" alt=\"$langTracking\">
+              <a href=\"".$clarolineRepositoryWeb."tracking/learnPath_details.php?path_id=".$list['learnPath_id']."\">
+              <img src=\"".$clarolineRepositoryWeb."img/statistiques.gif\" border=\"0\" alt=\"$langTracking\">
               </a>
               </td>\n";
 

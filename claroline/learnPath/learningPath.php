@@ -223,7 +223,7 @@
                 
               $contentType_alt = selectAlt($module['contentType']);
               echo "<a href=\"module.php?module_id=".$module['module_id']."&asStudent=1\">
-            <img src=\"../img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
+            <img src=\"".$clarolineRepositoryWeb."img/".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
                            .$module['name']."</a>";
               // a module ALLOW access to the following modules if
               // document module : credit == CREDIT || lesson_status == 'completed'
@@ -250,7 +250,7 @@
                   $moduleImg = "quiz.gif";
                 else
                   $moduleImg = choose_image(basename($module['path']));
-                echo "<img src='../img/".$moduleImg."' alt='".$contentType_alt."' border=\"0\">"
+                echo "<img src='".$clarolineRepositoryWeb."img/".$moduleImg."' alt='".$contentType_alt."' border=\"0\">"
                             .$module['name'];
 
           }
