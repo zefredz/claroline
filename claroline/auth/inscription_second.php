@@ -123,7 +123,7 @@ if($submitRegistration)
 
             unset($password1, $password, $uname);
 
-            echo "<p>",$langUserFree,"</p>\n";
+            echo "<p>",$langUserTaken,"</p>\n";
         }
         else
         {

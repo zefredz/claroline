@@ -749,7 +749,7 @@ if($INFOFAC)
 			<?php	if(isset($EditCanHaveCoursesChild))
 						echo (!strcmp($EditCanHaveCoursesChild,"FALSE")?"checked":"");
 			?>
-		value="0"> <?php echo $lang_faculty_No; ?>
+		value="0"> <?php echo $langNo; ?>
 
 		</td>
 	</tr>

@@ -780,7 +780,7 @@ claro_disp_msg_arr($controlMsg);
             <?php    if(isset($EditCanHaveCoursesChild))
                         echo (!strcmp($EditCanHaveCoursesChild,"FALSE")?"checked":"");
             ?>
-        value="0"> <label for="canHaveCoursesChild_0"><?php echo $lang_faculty_No; ?></label>
+        value="0"> <label for="canHaveCoursesChild_0"><?php echo $langNo; ?></label>
 
         </td>
     </tr>
@@ -878,7 +878,7 @@ claro_disp_msg_arr($controlMsg);
             <?php    if(isset($EditCanHaveCoursesChild))
                         echo (!strcmp($EditCanHaveCoursesChild,"FALSE")?"checked":"");
             ?>
-        value="0"> <label for="canHaveCoursesChild_0"><?php echo $lang_faculty_No; ?></label>
+        value="0"> <label for="canHaveCoursesChild_0"><?php echo $langNo; ?></label>
 
         </td>
     </tr>
@@ -1109,7 +1109,7 @@ include($includePath."/claro_init_footer.inc.php");
                     </td>
                     <td align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1&move=1"; ?>" >
-                        <img src="<?php echo $clarolineRepositoryWeb ?>img/deplacer.gif" border="0" alt="<?php echo $lang_faculty_imgMove ?>" > </a>
+                        <img src="<?php echo $clarolineRepositoryWeb ?>img/deplacer.gif" border="0" alt="<?php echo $langMove ?>" > </a>
                     </td>
                     <td align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&delete=1"; ?>"

@@ -201,8 +201,7 @@ if ($is_allowedToEdit)
     echo "<a href=\"".$toolRepository."course_info/infocours.php\">".$langCourseSettings."</a>&nbsp;&nbsp;&nbsp;&nbsp;";
     echo "<img src=\"".$imgRepository."/statistiques.gif\" alt=\"\">";
 
-    echo "<a href=\"".$toolRepository."tracking/courseLog.php\">".$langStats."</a>";
-    // $langStats stands for Statistics
+    echo "<a href=\"".$toolRepository."tracking/courseLog.php\">".$langStatistics."</a>";
 
 }
 

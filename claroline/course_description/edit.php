@@ -284,7 +284,7 @@ if (count($listExistingBloc)>0)
 <table>
     <tr>
         <td colspan="2">
-            <label for="edTitleBloc">'.$langOuAutreTitre.'</label>
+            <label for="edTitleBloc">'.$langTitle.'</label>
             <br>
             <input type="text" name="edTitleBloc" id="edTitleBloc" size="50" value="'.$titreBloc[$numBloc].'" >
             </td>

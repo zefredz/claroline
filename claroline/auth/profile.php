@@ -665,7 +665,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
     <tr>
          <td></td>
          <td>
-            <input type="submit" name="applyChange" value="<?php echo $langSaveChange?>" >
+            <input type="submit" name="applyChange" value="<?php echo $langSaveChanges?>" >
         </td>
     </tr>
 </table>
