@@ -176,10 +176,30 @@ if ($is_allowedToEdit)
       GO TO FORUMS LIST OF THIS CATEGORY
       ==================================*/
 
-    if($forumgo)
+    if ( isset($_REQUEST['cat_id']) ) 
+    {
+        $sql = "SELECT cat_title
+                 FROM `". $tbl_forum_categories . "`
+                 WHERE cat_id='". $_REQUEST['cat_id'] ."'";
+
+        $result = claro_sql_query($sql);
+        
+        if (mysql_num_rows($result))
+        {
+            $row = mysql_fetch_array($result);
+            $category_name = $row['cat_title'];
+        }
+        else
+        {
+            $category_name = $langNothing; 
+        }
+
+    }
+
+    if( isset($_REQUEST['forumgo']) )
     {
         $display  = DISP_FORUM_GO;
-        $subTitle = $langForCat." ' ".$ctg." ' ";
+        $subTitle = $langForCat." ' ".$category_name." ' ";
         $sql = "SELECT forum_id id,
                        forum_name name,
                        forum_access access,
@@ -194,6 +214,7 @@ if ($is_allowedToEdit)
         $nbForumsInCat = mysql_num_rows($result);
         $forumList = array();
         while ($row    = mysql_fetch_array($result)) $forumList[] = $row;
+        
 
         if ($cat_id != CAT_FOR_GROUPS) $show_formToAddAForum = true;
     }
@@ -502,7 +523,6 @@ if($display == DISP_FORUM_GO)
             ."<a href=\"".$_SERVER['PHP_SELF']."?forumadmin=yes\">$langBackCat</a>"
             ."<form action=\"forum_admin.php\" method=post>"
             ."<input type='hidden' name='forumgoadd' value='yes'>"
-            ."<input type='hidden' name='ctg'        value='".urlencode($ctg)."'>"
             ."<input type='hidden' name='cat_id'     value='".$cat_id."'>"
             ."</div>"
             ."<table border=0 cellpadding=4 cellspacing=2 class=\"claroTable\">"
@@ -527,7 +547,7 @@ if($display == DISP_FORUM_GO)
                     "</td>\n".
                     "<td valign=top    align=\"center\">\n".
                     "<a    href=forum_admin.php".
-                    "?forumgoedit=yes&amp;forum_id=".$thisForum['id']."&amp;ctg=".urlencode($ctg)."&amp;cat_id=".$cat_id.">".
+                    "?forumgoedit=yes&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id.">".
                     "<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" alt=\"".$langModify."\" border=\"0\">".
                     "</a>".
                     "</td>\n".
@@ -536,7 +556,7 @@ if($display == DISP_FORUM_GO)
                     ($cat_id ==    CAT_FOR_GROUPS ?
                     "<small><i>".$langCannotBeDeleted."</i></small>"
                     :
-                    "<a    href=\"forum_admin.php?forumgodel=yes&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;ctg=".urlencode($ctg)."&amp;ok=0\"    onclick=\"return confirmation('".addslashes(htmlentities($langAreYouSureToDelete .' \'' .$forum_name.'\'    ?'))."');\">".
+                    "<a    href=\"forum_admin.php?forumgodel=yes&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;ok=0\"    onclick=\"return confirmation('".addslashes(htmlentities($langAreYouSureToDelete .' \'' .$forum_name.'\'    ?'))."');\">".
                     "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\"    alt=\"".$langDelete."\"    border=\"0\">".
                     "</a>").
 
@@ -550,13 +570,13 @@ if($display == DISP_FORUM_GO)
                   }
            else
            {
-              echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMovedown&amp;moveForumId=".$thisForum['id']."&amp;moveCat=".$cat_id."&amp;cat_id=".$cat_id."&amp;ctg=".urlencode($ctg)."&amp;forumgo=yes\">
+              echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMovedown&amp;moveForumId=".$thisForum['id']."&amp;moveCat=".$cat_id."&amp;cat_id=".$cat_id."&amp;forumgo=yes\">
                         <img src=\"".$clarolineRepositoryWeb."img/down.gif\"></a>
                     </td>";
            }
            if ($iteratorInCat>1)
            {
-              echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMoveup&amp;moveForumId=".$thisForum['id']."&amp;moveCat=".$cat_id."&amp;cat_id=".$cat_id."&amp;ctg=".urlencode($ctg)."&amp;forumgo=yes\">
+              echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMoveup&amp;moveForumId=".$thisForum['id']."&amp;moveCat=".$cat_id."&amp;cat_id=".$cat_id."&amp;forumgo=yes\">
                         <img src=\"".$clarolineRepositoryWeb."img/up.gif\"></a>
                     </td>";
            }
@@ -575,9 +595,9 @@ if($display == DISP_FORUM_GO)
     if ($show_formToAddAForum)
     {
         echo
-            "<p><b>",$langAddForCat," ",$ctg,"</b></p>",
+            "<p><b>",$langAddForCat," ",$category_name,"</b></p>",
 
-            "<form action=\"forum_admin.php?forumgoadd=yes&amp;ctg=".urlencode($ctg)."&amp;cat_id=$cat_id\" method=post>\n",
+            "<form action=\"forum_admin.php?forumgoadd=yes&amp;cat_id=$cat_id\" method=post>\n",
 
             "<input type=hidden name=cat_id value=\"$cat_id\">\n",
             "<input type=hidden name=forumgoadd value=yes>\n",
@@ -610,7 +630,7 @@ if($display == DISP_FORUM_GO)
 elseif($display == DISP_FORUM_GO_EDIT)
 {
 
-    echo    "<form action=\"forum_admin.php?forumgosave=yes&amp;ctg=".urlencode($ctg)."&amp;cat_id=$cat_id\" method=post>\n",
+    echo    "<form action=\"forum_admin.php?forumgosave=yes&amp;cat_id=$cat_id\" method=post>\n",
             "<input    type=hidden    name=forum_id value=$forum_id>\n",
 
             "<table    border=\"0\">\n",
@@ -691,12 +711,12 @@ elseif($display == DISP_FORUM_GO_SAVE)
     if ($display_error_mess)
     {
        echo "<center>".$langemptyforumname."</center>".
-        "<a href=\"".$_SERVER['PHP_SELF']."?forumgoedit=yes&amp;forum_id=$forum_id&amp;cat_id=$cat_id&amp;ctg=".urlencode($ctg)."\">".$langBack."</a>";
+        "<a href=\"".$_SERVER['PHP_SELF']."?forumgoedit=yes&amp;forum_id=" . $forum_id . "&amp;cat_id=" . $cat_id ."\">".$langBack."</a>";
     }
     else
     {
       echo "<center>".$langForumModified."</center>".
-        "<a href=\"".$_SERVER['PHP_SELF']."?forumgo=yes&amp;cat_id=$cat_id&amp;ctg=".urlencode($ctg)."\">".$langBack."</a>";
+        "<a href=\"".$_SERVER['PHP_SELF']."?forumgo=yes&amp;cat_id=" . $cat_id . "\">".$langBack."</a>";
     }
 }
 elseif($display == DISP_FORUM_CAT_ADD)
@@ -721,7 +741,7 @@ elseif($display == DISP_FORUM_GO_ADD)
     {
       echo "<center>".$langforumcreated."</center>";
     }
-    echo    "<a href=\"".$_SERVER['PHP_SELF']."?forumgo=yes&amp;cat_id=$cat_id&amp;ctg=".urlencode($ctg)."\">$langBack</a>\n";
+    echo    "<a href=\"".$_SERVER['PHP_SELF']."?forumgo=yes&amp;cat_id=" . $cat_id . "\">" . $langBack . "</a>\n";
 }
 elseif($display == DISP_FORUM_CAT_DEL)
 {
@@ -730,7 +750,7 @@ elseif($display == DISP_FORUM_CAT_DEL)
 }
 elseif($display == DISP_FORUM_GO_DEL)
 {
-        echo    "<a href=\"".$_SERVER['PHP_SELF']."?forumgo=yes&amp;ctg=".urlencode($ctg)."&amp;cat_id=$cat_id\">",$langBack,"</a>";
+        echo    "<a href=\"".$_SERVER['PHP_SELF']."?forumgo=yes&amp;cat_id=$cat_id\">",$langBack,"</a>";
 
 }
 elseif($display == DISP_FORUM_ADMIN)
@@ -757,7 +777,7 @@ elseif($display == DISP_FORUM_ADMIN)
 
                  ."<td>"
                  ."<a href=\"forum_admin.php"
-                 ."?forumgo=yes&amp;cat_id=".$thisCategory['id']."&amp;ctg=".urlencode($thisCategory['title'])."\">"
+                 ."?forumgo=yes&amp;cat_id=".$thisCategory['id']."\">"
                  .$thisCategory['title']
                  ."</a>"
                  ." <small>(".$thisCategory['nb_forum'].")</small>"
