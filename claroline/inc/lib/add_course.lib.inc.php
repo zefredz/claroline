@@ -955,7 +955,7 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
     global $langFormula, $langTestForum, $langDelAdmin,
            $langMessage, $langAnonymous;
 	// exercises
-	global $langRidiculise, $langNoPsychology, $langAdmitError$langNoSeduction$langForce,
+	global $langRidiculise, $langNoPsychology, $langAdmitError, $langNoSeduction, $langForce,
 	       $langIndeed, $langContradiction, $langNotFalse, $langExerciceEx,
 	       $langAntique, $langSocraticIrony, $langManyAnswers;
 	// learning path
