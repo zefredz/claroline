@@ -24,15 +24,16 @@ $sourceUrl = preg_replace('|[&?]areaContent=.*|', '', $_REQUEST['sourceUrl'] );
 $urlBinder = strpos($sourceUrl, '?') ? '&' : '?';
 //$urlBinder = '&';
 
+$content = stripslashes($_REQUEST['areaContent']);
 if($_REQUEST['switch'] == 'off')
 {
     $_SESSION['htmlArea'] = 'disabled';
-    $areaContent = urlencode( html2txt($_REQUEST['areaContent']) );
+    $areaContent = urlencode( html2txt($content) );
 }
 elseif ($_REQUEST['switch'] == 'on' )
 {
     $_SESSION['htmlArea'] = 'enabled';
-    $areaContent = urlencode(str_replace("\n", '<br />', '<!-- content: html -->'.$_REQUEST['areaContent']));
+    $areaContent = urlencode(str_replace("\n", '<br />', '<!-- content: html -->'.$content));
 }
 
 header('Cache-Control: no-store, no-cache, must-revalidate');   // HTTP/1.1
