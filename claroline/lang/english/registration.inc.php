@@ -18,8 +18,8 @@
       +----------------------------------------------------------------------+
  */
 
-$langFirstname = "Firstname"; // by moosh
-$langLastname = "Lastname"; // by moosh
+$langFirstname = "First name"; // by moosh
+$langLastname = "Last name"; // by moosh
 $langEmail = "Email";// by moosh
 $langRetrieve ="Retrieve identification information";// by moosh
 $langMailSentToAdmin = "A mail is sent to  administrator.";// by moosh
