@@ -142,8 +142,19 @@ Repéré par : MOOSH
 Assigné à : SEB
 Etat : RESOLU (en utilisant le meme principe que pour document et import learning path, à savoir affichage de la taille max autorisée sur form d'upload
 
+------------------------------------------------------------------
+18.Travaux d'étudiants
+retour à la ligne entre le texte d'intro et le bouton "ajouter un texte"
+Repéré par : MOOSH
+Assigné à : 
+Etat : 
+
+
 -------------
 $Log$
+Revision 1.29  2004/06/15 11:51:20  moosh
+bug 18
+
 Revision 1.28  2004/06/15 11:28:45  peeters
 no message
 
