@@ -137,7 +137,7 @@
                break;
           case CTEXERCISE_ :
                $_SESSION['inPathMode'] = true;
-               $startAssetpage = $clarolineRepositoryWeb."/exercice/exercice_submit.php";
+               $startAssetpage = $clarolineRepositoryWeb."exercice/exercice_submit.php";
                $exerciseId     = $asset['path'];
                $moduleStartAssetPage = $startAssetpage."?exerciseId=".$exerciseId;
                break;
