@@ -29,6 +29,7 @@ $langSubmitWork = "Nouvelle soumission";
 $langEditWork = "Modifier une soummission";
 $langSubmittedWork = "Soumission";
 $langWorkDetails = "Détails de la soumission";
+$langFeedbackDetails = "Détails de la correction";
 $langShowFeedback = "Voir correction";
 $langShowWork = "Voir la soumission";
 $langAddFeedback = "Corriger";
@@ -84,6 +85,7 @@ $langExplainReplaceFile = "Envoyez un nouveau fichier pour remplacer le fichier 
 $langFileDesc = "Description du fichier";
 $langAnswer = "Réponse";
 $langNoFile = "- pas de fichier -";
+$langScore = "Score";
 
 // -- Form errors and confirmations
 //confirmations
@@ -104,6 +106,7 @@ $langAssignmentTitleAlreadyExists = "Un travail utilisant ce titre existe déjà";
 $langCannotCopyFile = "Impossible de copier le fichier";
 $langWrkTitleAlreadyExists = "Une soumission utilisant ce titre existe déjà";
 $langWrkTitleRequired = "Le titre de la soumission est requis";
+$langWrkScoreRequired = "Score requis";
 $langAnswerRequired = "Réponse requise";
 $langWrkAuthorsRequired = "Auteur(s) requis";
 $langFileRequired = "Fichier requis";
