@@ -298,7 +298,7 @@ if(!$newQuestion && !$modifyQuestion && !$editQuestion && !$modifyAnswers)
 	// exercise management
 	include('exercise_admin.inc.php');
 
-	if(!$modifyExercise)
+	if(!$_REQUEST['modifyExercise'])
 	{
 		// question list management
 		include('question_list_admin.inc.php');
