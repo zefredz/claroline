@@ -52,13 +52,23 @@ if (mysql_errno() >0)
 		else
 		{
 			$mainDbNameExist = true;
-			$display=DISP_DB_NAMES_SETTING_ERROR;
+			$display=DISP_DB_NAMES_SETTING;
 		}
 	}
 	else
 	{
-		$mainDbNameCreationError = "mysql Main Db".$mainDbName."<br><b><small>".mysql_errno()." ".mysql_error()."</small></b>";
-		$display=DISP_DB_NAMES_SETTING_ERROR;
+		$mainDbNameCreationError = '
+				<P class="setup_error">
+					<font color="red">Warning !</font> 
+					<small>['.mysql_errno().'] - '.mysql_error().'</small>
+					<br>
+					Error on creation '.$langMainDB.' : <I>'.$dbHostForm.'</I>
+					<BR>
+					<font color="blue">
+						Fix this problem before going further
+					</font>
+				</P>';
+		$display=DISP_DB_NAMES_SETTING;
 	}
 }
 else
@@ -89,13 +99,23 @@ if($statsDbName != $mainDbName)
 				else
 				{
 					$statsDbNameExist = true;
-					$display=DISP_DB_NAMES_SETTING_ERROR;
+					$display=DISP_DB_NAMES_SETTING;
 				}
 			}
 			else
 			{
-				$statsDbNameCreationError ="mysql Stats Db ".$statsDbName."<br><b><small>".mysql_errno()." ".mysql_error()."</small></b>";
-				$display=DISP_DB_NAMES_SETTING_ERROR;
+				$statsDbNameCreationError = '
+				<P class="setup_error">
+					<font color="red">Warning !</font> 
+					<small>['.mysql_errno().'] - '.mysql_error().'</small>
+					<br>
+					Error on creation '.$langStatDB.' : <I>'.$dbStatsForm.'</I>
+					<BR>
+					<font color="blue">
+						Fix this problem before going further
+					</font>
+				</P>';
+				$display=DISP_DB_NAMES_SETTING;
 			}
 		}
 		else
