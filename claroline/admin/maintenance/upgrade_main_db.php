@@ -20,12 +20,12 @@ if ($_REQUEST['cmd']=="run")
 {
     if ($statsDbName=="") $statsDbName = $mainDbName;
 
-    $sqlForUpdate[] = "USE ".$mainDbName;
+    $sqlForUpdate[] = "USE `".$mainDbName."`";
     @include("createMainBase.sql.php");
     @include("repairTables.sql.php");
     if ($is_trackingEnabled)
     {
-		$sqlForUpdate[] = "USE ".$statsDbName;
+		$sqlForUpdate[] = "USE `".$statsDbName."`";
 		@include("createTrackingBase.sql.php");
 		@include("repairTables.sql.php");
 	}
@@ -43,8 +43,8 @@ if ($_REQUEST['cmd']=="run")
     	$result=mysql_query(" SELECT * FROM user");
     	while ($myrow = mysql_fetch_array($result))
     	{
-    		$id=$myrow[user_id];
-    		$newpass=md5($myrow[password]);
+    		$id=$myrow['user_id'];
+    		$newpass=md5($myrow['password']);
     		$sqlForUpdate[] = " UPDATE user SET password = '$newpass' WHERE user_id = $id";
     	}
     }

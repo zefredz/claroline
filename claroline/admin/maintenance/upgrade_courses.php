@@ -43,16 +43,16 @@ $db = mysql_connect($dbHost, $dbLogin, $dbPass);
 
 // count courses upgraded
 
-$sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours 
+$sqlNbCourses = "SELECT count(*) as nb FROM `".$mainDbName."`.`cours`
 		where versionDb = '".$versionDb."' ";
 $res_NbCourses = mysql_query($sqlNbCourses);
 $nbCoursesUpgraded = mysql_fetch_array($res_NbCourses);
 
-$sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours";
+$sqlNbCourses = "SELECT count(*) as nb FROM `".$mainDbName."`.`cours`";
 $res_NbCourses = mysql_query($sqlNbCourses);
 $nbCourses = mysql_fetch_array($res_NbCourses);
 
-$sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours
+$sqlNbCourses = "SELECT count(*) as nb FROM `".$mainDbName."`.`cours`
 		where versionDb = 'error';";
 $res_NbCourses = mysql_query($sqlNbCourses);
 $nbCoursesError = mysql_fetch_array($res_NbCourses);
@@ -130,7 +130,7 @@ switch ($display)
 
 		// list of course upgraded failed
 
-		$sqlNbCourses = "SELECT code FROM ".$mainDbName.".cours 
+		$sqlNbCourses = "SELECT code FROM `".$mainDbName."`.`cours` 
 		         where versionDb = 'error' ";
 		$res_listCoursesError = mysql_query($sqlNbCourses);
 		if (mysql_num_rows($res_listCoursesError))
@@ -160,7 +160,7 @@ switch ($display)
 
 		$sqlListCourses = " SELECT *, " .
 				  " cours.dbName dbName, cours.code sysCode, cours.fake_code officialCode, directory coursePath ".
-		                  " FROM ".$mainDbName.".cours ";
+		                  " FROM `".$mainDbName."`.`cours` ";
 		
 		/*		  
 		if (is_array($coursesToUpgrade))
@@ -180,7 +180,7 @@ switch ($display)
 		$res_listCourses = mysql_query($sqlListCourses);
 		
                 $nbCourseUpgraded = $nbCoursesUpgraded['nb'];
-                
+		
 		while ($cours = mysql_fetch_array($res_listCourses))
 		{
 			$currentCourseDbName	= $cours["dbName"];
@@ -190,10 +190,6 @@ switch ($display)
 			$currentCourseCode	= $cours["officialCode"];
 			$currentCourseDbNameGlu = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
 			
-			// initialise $sqlForUpdate
-			unset($sqlForUpdate);
-			@include("repairTables.sql.php");
-			include("createBaseOfACourse.sql.php");
 			
 			@mysql_query ( "SET @currentCourseCode := '".$currentCourseIDsys."'");
 		
@@ -205,7 +201,14 @@ switch ($display)
 			echo "<ol>\n";
 			
 			$nbError = 0;
+        
+            // initialise $sqlForUpdate
+	    	unset($sqlForUpdate);
+    		@include("repairTables.sql.php");
+    		include("createBaseOfACourse.sql.php");        
+
 			reset($sqlForUpdate);
+
 			while (list($key,$sqlTodo) = each($sqlForUpdate))
 			{
 				// Comment in $sqlForUpdate
@@ -266,7 +269,7 @@ switch ($display)
 				echo "<p class=\"error\"><strong>".$nbError." errors found</strong></p>";
 				$totalNbError += $nbError;
 				// Error: update versionDB of course
-				$sqlFlagUpgrade = " update ".$mainDbName.".cours
+				$sqlFlagUpgrade = " update `".$mainDbName."`.`cours`
 							set versionDb='error'
 							where code = '".$currentCourseIDsys."';";				
 				$res = @mysql_query($sqlFlagUpgrade);
@@ -279,7 +282,7 @@ switch ($display)
 			else
 			{
 				// Success: update versionDB of course
-				$sqlFlagUpgrade = " update ".$mainDbName.".cours
+				$sqlFlagUpgrade = " update `".$mainDbName."`.`cours`
 							set versionDb='".$versionDb."'
 							where code = '".$currentCourseIDsys."';";				
 				$res = @mysql_query($sqlFlagUpgrade);
@@ -317,7 +320,7 @@ switch ($display)
                 
                 $mtime = microtime();	$mtime = explode(" ",$mtime);	$mtime = $mtime[1] + $mtime[0];	$endtime = $mtime;	$totaltime = ($endtime - $starttime);
 
-		$sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours
+		$sqlNbCourses = "SELECT count(*) as nb FROM `".$mainDbName."`.`cours`
 			where versionDb = 'error';";
 		$res_NbCourses = mysql_query($sqlNbCourses);
 		$nbCoursesError = mysql_fetch_array($res_NbCourses);

@@ -20,7 +20,7 @@
 
 include ("../../lang/english/upgrade.inc.php");
 
-// inclue lib files
+// include lib files
 
 $newIncludePath = "../../inc/";
 $oldIncludePath = "../../include/";
@@ -30,6 +30,9 @@ include ($newIncludePath."/lib/config.lib.inc.php");
 
 $thisClarolineVersion 	= $version_file_cvs;
 $thisVersionDb 		= $version_db_cvs;
+
+$patternVersion    = '/^1.5/';
+$patternSqlVersion = '1.5%';
 
 /**
  Find config file.
@@ -100,12 +103,12 @@ if (!$confirm_backup)
 	// ask to confirm backup
 	$display = DISPVAL_upgrade_backup_needed;	
 }
-elseif ($thisClarolineVersion!=$clarolineVersion)
+elseif (!preg_match($patternVersion,$clarolineVersion))
 {
 	// config file not upgraded go to first step
          header("Location: upgrade_conf.php");
 }
-elseif ($thisVersionDb!=$versionDb)
+elseif (!preg_match($patternVersion,$versionDb))
 {
 	// upgrade of main conf needed.
 	$display = DISPVAL_upgrade_main_db_needed;
@@ -114,8 +117,8 @@ else
 {
 	// check course table to view wich course aren't upgraded
 	mysql_connect($dbServer,$dbLogin,$dbPass);
-	$sqlNbCourses = "SELECT count(*) as nb FROM ".$mainDbName.".cours 
-                         where not ( versionDb = '".$thisVersionDb."' )";
+	$sqlNbCourses = "SELECT count(*) as nb FROM `".$mainDbName."`.`cours`
+                         where not ( versionDb like '" . $patternSqlVersion . "' )";
 	$res_NbCourses = mysql_query($sqlNbCourses);
 	$nbCourses = mysql_fetch_array($res_NbCourses);
 	
