@@ -12,19 +12,14 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
+// This script allows to switch on the fly the wysiwyg editor. It retrieves the 
+// source url  and the textarea content, and after storing in session a value 
+// disabling the wysiwyg editor, it trigs a relocation to the source page with 
+// the area content.
 
 require '../claro_init_global.inc.php';
 
-///* <DEBUG> */
-//echo "<pre style='color:red;font-weight:bold'>sourceUrl : $_REQUEST[sourceUrl]</pre>";
-///* </DEBUG> */
-//
 $sourceUrl = preg_replace('|&areaContent=.*|', '', $_REQUEST['sourceUrl'] );
-//
-///* <DEBUG> */
-//echo "<pre style='color:red;font-weight:bold'>sourceUrl : $sourceUrl</pre>";
-///* </DEBUG> */
-
 
 if($_REQUEST['switch'] == 'off')
 {
