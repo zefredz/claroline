@@ -393,7 +393,7 @@ if ($displayForm)
            "</tr>\n",
            "<tr>",
            "<td></td>",
-           "<td><input	type=checkbox value=\"1\" name=\"emailOption\">",
+           "<td><input	type=checkbox value=\"1\" name=\"emailOption\" id=\"emailOption\" >",
             "<label for=\"emailOption\">",$langEmailOption,"</label><br>\n",
             "<input	type=\"Submit\"	class=\"claroButton\" name=\"submitAnnouncement\"	value=\"".$langOk."\">\n";
 
