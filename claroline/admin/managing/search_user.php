@@ -14,7 +14,7 @@
 $langFile = "searchUser";
 $cidReset=TRUE;
 include("../../inc/claro_init_global.inc.php");
-include("../../inc/lib/user.lib.inc.php");
+include($includePath."/lib/user.lib.inc.php");
 include($includePath."/lib/text.lib.php");
 include($includePath."/lib/debug.lib.inc.php");
 
@@ -868,14 +868,14 @@ if($display_listUser)
 	  </td>
       <td align="CENTER">  <small> <?php echo (($one_user["statut"]==1)?"oui":"non"); ?> </small>
 	  </td>
-	  <td align="CENTER">  <a href="<?php echo "../../auth/profile.php?user_id=".$one_user["user_id"];
+	  <td align="CENTER">  <a href="<?php echo $clarolineRepositoryWeb."auth/profile.php?user_id=".$one_user["user_id"];
 	   ?>">
-	   <img src="../../img/edit.gif" border="0" alt="<?php echo $lang_SearchUser_imgEdit; ?>"> </a>
+	   <img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $lang_SearchUser_imgEdit; ?>"> </a>
 	  </td>
 	  <td align="CENTER">  <a href="<?php echo $PHP_SELF."?delete=1&user_id=".$one_user["user_id"]; ?>"
 	  onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($lang_SearchUser_ConfirmDelete.$one_user["user_id"])) ?>'))
 	  return false;" >
-	   <img src="../../img/delete.gif" border="0" alt="<?php echo $lang_SearchUser_imgDelete; ?>"> </a>
+	   <img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $lang_SearchUser_imgDelete; ?>"> </a>
 	  </td>
 
 
@@ -911,14 +911,14 @@ if($display_user)
 			<td width="250"> <?php echo $lang_SearchUser_UserId." : "; ?> </td>
 			<td> <font color="#6666FF"> <?php echo $id;?> </font></td>
 
-			<td align="center">  <a href="<?php echo
-			"../../auth/profile.php?user_id=".$id; ?>" >
-   				<img src="../../img/edit.gif" border="0" alt="<?php echo $lang_SearchUser_imgEdit; ?>"> </a>
+			<td align="center">
+				<a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php?user_id=<?php echo $id; ?>" >
+   				<img src="<?php echo $clarolineRepositoryWeb ?>img/edit.gif" border="0" alt="<?php echo $lang_SearchUser_imgEdit; ?>"> </a>
 			</td>
 			<td align="center">  <a href="<?php echo $PHP_SELF."?delete=1&user_id=".$id; ?>"
-				onclick="javascript:if(!confirm('<?php echo
+				onclick="javascript:if(!confirm('<?php echo 
 				addslashes(htmlentities($lang_SearchUser_ConfirmDelete.$one_user["user_id"])) ?>')) return false;" >
-   				<img src="../../img/delete.gif" border="0" alt="<?php echo $lang_SearchUser_imgDelete; ?>"> </a>
+   				<img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $lang_SearchUser_imgDelete; ?>"> </a>
 			</td>
 		</tr>
 		<tr>
@@ -1143,7 +1143,7 @@ if($display_userCourse)
                 <td align="CENTER"> <a href="<?php echo "search_course.php?display_course&sysCode=".$one_course["sysCode"]; ?>"
                  > <small><?php echo $one_course["sysCode"]; ?> </small></a>
                 </td>
-                <td align="CENTER"> <small> <?php echo
+                <td align="CENTER"> <small> <?php echo 
                  (($one_course["statut"]==1)?$lang_SearchUser_StatutAdmin:$lang_SearchUser_StatutUser); ?> </small>
                  </td>
                 <td align="CENTER"> <small> <?php echo $one_course["role"]; ?> </small>
@@ -1164,7 +1164,7 @@ if($display_userCourse)
         <?php     if(!$display_course)
                 {
         ?>
-                <td align="CENTER"> <small> <a href="<?php echo
+                <td align="CENTER"> <small> <a href="<?php echo 
                      $PHP_SELF."?display=1&user_id=".$id."&cours_id=".$one_course["cours_id"];
                      ?>" ><?php echo $lang_SearchUser_See ?> </small> </a>
                 </td>
@@ -1175,7 +1175,7 @@ if($display_userCourse)
                 </td>
 				<td align="CENTER"> <small> <a href="
 				<?php echo $PHP_SELF."?display=1&user_id=".$id."&deleteOfCourse=".$one_course["sysCode"]; ?>">
-				<img src="../../img/delete.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a> </small>
+				<img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a> </small>
 				</td>
             </tr>
 
@@ -1234,13 +1234,13 @@ if($display_course)
                 </td>
                 <td align="CENTER"> <small> <?php echo $one_courseUserGroup["description"];         ?> </small>
                 </td>
-                <td align="CENTER"> <small> <a href="<?php echo
+                <td align="CENTER"> <small> <a href="<?php echo 
                 $rootWeb."claroline/group/group_space.php?gidReq=".$one_courseUserGroup["id_group"]."&cidReq=".$one_course["sysCode"];
                 ?>"> <?php echo $lang_SearchUser_See; ?>  </a>
                 </td>
 				<td align="CENTER"> <small> <a href="
 				<?php echo $PHP_SELF."?display=1&user_id=".$id."&cours_id=".$one_course["cours_id"]."&sysCode=".$one_course["sysCode"]."&deleteOfGroup=".$one_courseUserGroup["id_group"];; ?>">
-				<img src="../../img/delete.gif" border="0" alt="<?php echo $lang_SearchUser_imgDelete; ?>"> </small></td>
+				<img src="<?php echo $clarolineRepositoryWeb ?>img/delete.gif" border="0" alt="<?php echo $lang_SearchUser_imgDelete; ?>"> </small></td>
             </tr>
         <?php
         }

@@ -210,13 +210,13 @@ Anmerkung: Einzelne elemente der ersten Einheit können zu der zweiten Einheit pa
 Vergeben Sie nun Punkte für jede richtige Zuordnung.</p>
 <hr>
 <b>Übungen bearbeiten</b>
-<p>Um Ihre Übungen zu bearbeiten können Sie genauso vorgehen, wie bei der Erstellung der Übung. Klicken Sie auf das Symbol zum überarbeiten neben der Übung <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\">, und folgen Sie der Anleitung oben auf dieser Seite.</p>
+<p>Um Ihre Übungen zu bearbeiten können Sie genauso vorgehen, wie bei der Erstellung der Übung. Klicken Sie auf das Symbol zum überarbeiten neben der Übung <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" align=\"absmiddle\">, und folgen Sie der Anleitung oben auf dieser Seite.</p>
 <hr>
 <b>Übungen löschen</b>
-<p>Um Ihre Übungen zu löschen klicken sie auf das Symbol <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> neben der Übung.</p>
+<p>Um Ihre Übungen zu löschen klicken sie auf das Symbol <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" align=\"absmiddle\"> neben der Übung.</p>
 <hr>
 <b>Übungen aktivieren</b>
-<p>Wenn Ihre Übung nun bereitgestellt werden soll, müssen Sie sie durch einen Klick auf das Symbol <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> neben der Übung aktivieren.</p>
+<p>Wenn Ihre Übung nun bereitgestellt werden soll, müssen Sie sie durch einen Klick auf das Symbol <img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" align=\"absmiddle\"> neben der Übung aktivieren.</p>
 <hr>
 <b>Übung ausführen</b>
 <p>Probieren Sie die Übung selber aus. Klicken Sie im Verzeichnis der Übungen auf den Namen der Übung.</p>

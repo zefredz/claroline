@@ -261,13 +261,13 @@ Notis : Kebanyakan elemen dari unit pertama boleh dihalakan ke elemen pada unit 
 Kemudian, sediakan skema jawapan untuk setiap soalan yang disuaikan dengan betul dan simpan jawapan tersebut.</p>
 <hr>
 <b>Ubahsuai Latihan</b>
-<p>Untuk mengubahsuai Latihan, cara pengubahsuaian adalah sama seperti cara untuk membina Latihan. Anda hanya perlu klik pada ikon ini <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> kemudian tentukan Latihan yang ingin diubahsuai dan kemudian ikut arahan sistem.</p>
+<p>Untuk mengubahsuai Latihan, cara pengubahsuaian adalah sama seperti cara untuk membina Latihan. Anda hanya perlu klik pada ikon ini <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" align=\"absmiddle\"> kemudian tentukan Latihan yang ingin diubahsuai dan kemudian ikut arahan sistem.</p>
 <hr>
 <b>Padam Latihan</b>
-<p>Untuk memadam Latihan, klik pada ikon ini <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> dan pilih Latihan yang ingin dipadam.</p>
+<p>Untuk memadam Latihan, klik pada ikon ini <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" align=\"absmiddle\"> dan pilih Latihan yang ingin dipadam.</p>
 <hr>
 <b>Papar Latihan</b>
-<p>Untuk memaparkan Latihan kepada pelajar, anda perlu menukar <i>mode</i> paparan iaitu dengan klik pada ikon ini <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\">.</p>
+<p>Untuk memaparkan Latihan kepada pelajar, anda perlu menukar <i>mode</i> paparan iaitu dengan klik pada ikon ini <img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" align=\"absmiddle\">.</p>
 <hr>
 <b>Uji Latihan</b>
 <p>Anda boleh menguji Latihan yang telah dibina dengan klik pada nama Latihan tersebut yang terdapat pada senarai Latihan.</p>

@@ -212,13 +212,13 @@ Notice : Several elements from the first unit can point to the same element in t
 Give a weighting to each correct matching, and save your answer.</p>
 <hr>
 <b>Exercise modification</b>
-<p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify, and follow instructions above.</p>
+<p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify, and follow instructions above.</p>
 <hr>
 <b>Exercise deleting</b>
-<p>In order to delete an exercise, click on the picture <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete.</p>
+<p>In order to delete an exercise, click on the picture <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete.</p>
 <hr>
 <b>Exercise enabling</b>
-<p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to enable.</p>
+<p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to enable.</p>
 <hr>
 <b>Exercise running</b>
 <p>You can test your exercise by clicking on its name in the exercise list.</p>

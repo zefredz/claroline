@@ -582,7 +582,7 @@ $listUserId=$thisUser['user_id'];
 			",$listUserId,"
 		</td>
 		<td rowspan=\"",$courseNbToShow,"\"  valign=\"top\">
-			<a href=\"adminProfile.php?uidToEdit=",$thisUser['user_id'],"\">","\n\t",
+			<a href=\"adminprofile.php?uidToEdit=",$thisUser['user_id'],"\">","\n\t",
 			$thisUser['nom']," ",$thisUser['prenom'],
 			"</a>
 			<input type=\"hidden\" name=\"usersPool[]\" value=\"",$thisUser['user_id'],"\">

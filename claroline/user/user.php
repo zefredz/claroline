@@ -319,7 +319,7 @@ while (list(,$thisUser) = each($users))
 
 		echo	"<td headers=\"edit u".$i."\">",
 				"<a href=\"userInfo.php?editMainUserInfo=".$thisUser[user_id]."\">",
-				"<img border=\"0\" alt=\"".$langEdit."\" src=\"../img/edit.gif\">",
+				"<img border=\"0\" alt=\"".$langEdit."\" src=\"".$clarolineRepositoryWeb."img/edit.gif\">",
 				"</a>",
 				"</td>\n";
 
@@ -330,7 +330,7 @@ while (list(,$thisUser) = each($users))
 		{
 			echo	"<a href=\"$PHP_SELF?unregister=yes&user_id=".$thisUser[user_id]."\" ",
 					"onClick=\"return confirmation('".$langUnreg ." ".$thisUser["nom"]."".$thisUser["prenom"]."');\">",
-					"<img border=\"0\" alt=\"".$langUnreg."\" src=\"../img/unenroll.gif\">",
+					"<img border=\"0\" alt=\"".$langUnreg."\" src=\"".$clarolineRepositoryWeb."img/unenroll.gif\">",
 					"</a>";
 		}
 

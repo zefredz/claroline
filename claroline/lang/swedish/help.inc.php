@@ -203,13 +203,13 @@ Notera : Flera element från ena gruppen kan kopplas till samma element i den and
 Ange viktning för vart och ett av de korrekta svaren, och spara sedan frågan.</p>
 <hr>
 <b>Modifiera övningar</b>
-<p>För att kunna modifiera övningar, gäller samma principer som för att skapa övningarna. Klicka bara på bilden <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> på sidan om övningen för att modifiera, och följ sedan instruktionerna ovan.</p>
+<p>För att kunna modifiera övningar, gäller samma principer som för att skapa övningarna. Klicka bara på bilden <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" align=\"absmiddle\"> på sidan om övningen för att modifiera, och följ sedan instruktionerna ovan.</p>
 <hr>
 <b>Radera övningar</b>
-<p>För att radera en övning, klicka på bilden <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> på sidan av övningen du vill radera.</p>
+<p>För att radera en övning, klicka på bilden <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" align=\"absmiddle\"> på sidan av övningen du vill radera.</p>
 <hr>
 <b>Aktivera övning</b>
-<p>För att en övning skall kunna användas så måste du aktivera den genom att klicka på bilden <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> på sidan för att aktivera den.</p>
+<p>För att en övning skall kunna användas så måste du aktivera den genom att klicka på bilden <img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" align=\"absmiddle\"> på sidan för att aktivera den.</p>
 <hr>
 <b>Utföra en övning</b>
 <p>Du kan testa din övning genom att klicka på dess namn i övningslistan.</p>

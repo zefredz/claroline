@@ -400,7 +400,7 @@ if( $disp_picture != '')
 	echo
 		"<img align=\"right\" ",
 			"alt=\"".$form_lastName." ".$form_firstName."\" ",
-			"src=\"../img/users/",$disp_picture,"\"	",
+			"src=\"".$clarolineRepositoryWeb."img/users/",$disp_picture,"\"	",
 			"border=\"0\" ",
 			"hspace=\"5\" ",
 			"vspace=\"5\">";

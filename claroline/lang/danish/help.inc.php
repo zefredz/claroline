@@ -335,13 +335,13 @@ Bemærk : Adskillige elementer fra den første nehd kan pege på det samme element 
 Angiv værdi på hvert korrekt svar, og gem din svar.</p>
 <hr>
 <b>Ændre i øvelserne</b>
-<p>For at kunne ændre i en øvelse er princippet det samme som, når du opretter en øvelse. Klik på billedet <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> ved siden af øvelsen for at ændre og følg instruktionerne.</p>
+<p>For at kunne ændre i en øvelse er princippet det samme som, når du opretter en øvelse. Klik på billedet <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" align=\"absmiddle\"> ved siden af øvelsen for at ændre og følg instruktionerne.</p>
 <hr>
 <b>Slette øvelser</b>
-<p>For at kunne slette en øvelse, klik på billedet <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> ved siden af øvelsen.</p>
+<p>For at kunne slette en øvelse, klik på billedet <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" align=\"absmiddle\"> ved siden af øvelsen.</p>
 <hr>
 <b>Aktivering af øvelse</b>
-<p>For at kunne bruge en øvelse, skal du aktivere denne ved at klikke på billedet <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> ved siden af øvelsen.</p>
+<p>For at kunne bruge en øvelse, skal du aktivere denne ved at klikke på billedet <img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" align=\"absmiddle\"> ved siden af øvelsen.</p>
 <hr>
 <b>Test øvelserne</b>
 <p>Du kan teste din øvelse ved at klikke på dens navn på øvelseslisten.</p>

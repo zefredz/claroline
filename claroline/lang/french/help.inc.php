@@ -351,13 +351,13 @@ Remarque : Plusieurs éléments du premier ensemble peuvent pointer vers le même é
 Donnez une pondération à chaque correspondance correctement établie, et enregistrez votre réponse.</p>
 <hr>
 <b>Modification d'un exercice</b>
-<p>Pour modifier un exercice, le principe est le même que pour la création. Cliquez simplement sur l'image <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à modifier, et suivez les instructions ci-dessus.</p>
+<p>Pour modifier un exercice, le principe est le même que pour la création. Cliquez simplement sur l'image <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à modifier, et suivez les instructions ci-dessus.</p>
 <hr>
 <b>Suppression d'un exercice</b>
-<p>Pour supprimer un exercice, cliquez sur l'image <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à supprimer.</p>
+<p>Pour supprimer un exercice, cliquez sur l'image <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à supprimer.</p>
 <hr>
 <b>Activation d'un exercice</b>
-<p>Avant qu'un exercice ne puisse être utilisé par un étudiant, vous devez l'activer en cliquant sur l'image <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à activer.</p>
+<p>Avant qu'un exercice ne puisse être utilisé par un étudiant, vous devez l'activer en cliquant sur l'image <img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à activer.</p>
 <hr>
 <b>Exécution d'un exercice</b>
 <p>Vous pouvez tester votre exercice en cliquant sur son nom dans la liste des exercices.</p>

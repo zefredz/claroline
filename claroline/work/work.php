@@ -481,7 +481,7 @@ echo	"<tr>\n".
 		"<small>".$langAllFiles." : </small>".
 		"<a href=\"".$PHP_SELF."?delete=all\" ".
 		"onclick=\"javascript:if(!confirm('".addslashes(htmlspecialchars($langDelete." ".$langConfirmYourChoice))."')) return false;\">".
-		"<img src=\"../img/delete.gif\" border=\"0\" alt=\"".$langDelete."\" align=\"absmiddle\">".
+		"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langDelete."\" align=\"absmiddle\">".
 		"</a>".
 		"&nbsp;";
 
@@ -494,13 +494,13 @@ echo	"<tr>\n".
 		if ($columnStatus['Default'] == 1)
 		{
 			echo	"<a href=\"".$PHP_SELF."?mkInvisbl=all\">",
-					"<img src=\"../img/visible.gif\" border=\"0\" alt=\"".$lang_make_invisible."\" align=\"absmiddle\">",
+					"<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$lang_make_invisible."\" align=\"absmiddle\">",
 					"</a>\n";
 		}
 		else
 		{
 			echo	"<a href=\"".$PHP_SELF."?mkVisbl=all\">",
-					"<img src=\"../img/invisible.gif\" border=\"0\" alt=\"".$lang_make_visible."\" align=\"absmiddle\">",
+					"<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$lang_make_visible."\" align=\"absmiddle\">",
 					"</a>\n";
 		}
 	}
@@ -545,7 +545,7 @@ echo	"<tr>\n".
 							"<a href=\"".$currentCourseRepositoryWeb.$url."\">".
 							"<img  alt=\"".
 							$work['titre'].
-							"\" src=../img/travaux.gif border=0>".
+							"\" src=\"".$clarolineRepositoryWeb."img/travaux.gif\" border=0>".
 							"</a>".
 							"</td>\n".
 
@@ -567,7 +567,7 @@ echo	"<tr>\n".
 
 						"<td width=\"30\" valign=\"top\">",
 						"<a href=\"".$currentCourseRepositoryWeb.$url."\">",
-						"<img  alt=\"\" src=../img/travaux.gif border=\"0\">",
+						"<img  alt=\"\" src=\"".$clarolineRepositoryWeb."img/travaux.gif\" border=\"0\">",
 						"</a>",
 						"</td>\n",
 
@@ -588,24 +588,24 @@ echo	"<tr>\n".
 				echo	"<p>\n",
 
 						"<a href=\"".$PHP_SELF."?edit=",$work['id'],"\">",
-						"<img src=\"../img/edit.gif\" border=\"0\" alt=\"".$langEdit."\">",
+						"<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"".$langEdit."\">",
 						"</a>\n",
 
 						"<a href=\"".$PHP_SELF."?delete=",$work['id'],"\" ",
 						"onclick=\"javascript:if(!confirm('".addslashes(htmlspecialchars($langWorkDelete.": ".$work['titre']." ".$langConfirmYourChoice))."')) return false;\">",
-						"<img src=\"../img/delete.gif\" border=\"0\" alt=\"".$langWorkDelete."\">",
+						"<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"".$langWorkDelete."\">",
 						"</a>\n";
 
 				if ($work["accepted"] == 1)
 				{
 					echo "<a href=\"".$PHP_SELF."?mkInvisbl=",$work['id'],"\">",
-					"<img src=\"../img/visible.gif\" border=\"0\" alt=\"".$langWorkShow."\">",
+					"<img src=\"".$clarolineRepositoryWeb."img/visible.gif\" border=\"0\" alt=\"".$langWorkShow."\">",
 					"</a>\n";
 				}
 				else
 				{
 					echo	"<a href=\"".$PHP_SELF."?mkVisbl=",$work['id'],"\">",
-							"<img src=\"../img/invisible.gif\" border=\"0\" alt=\"".$langWorkHide."\">",
+							"<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" alt=\"".$langWorkHide."\">",
 							"</a>\n";
 				}
 			} // End course administrator only

@@ -191,7 +191,7 @@ if (     is_null($myrow['idGroup']) // there is no group attached to this forum
       {
         echo "<br>"
         	."<small>"
-        	."<img src=\"../img/email.gif\">"
+        	."<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
         	.get_syslang_string($sys_lang, "l_notify")
             ."[<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&cmd=exdoNotNotify\">"
             .$l_disable
@@ -202,7 +202,7 @@ if (     is_null($myrow['idGroup']) // there is no group attached to this forum
        {
        echo "<br><small>"
        		."<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&cmd=exNotify\">"
-            ."<img src=\"../img/email.gif\">"
+            ."<img src=\"".$clarolineRepositoryWeb."img/email.gif\">"
             ."</a>"
             ."<a href=\"$PHP_SELF?mode=viewtopic&topic=$topic&forum=$forum&cmd=exNotify\">"
             .get_syslang_string($sys_lang, "l_notify")
@@ -276,8 +276,8 @@ if (     is_null($myrow['idGroup']) // there is no group attached to this forum
         {
             echo	"<p>\n",
                     "<a href=\"$url_phpbb/editpost.$phpEx?post_id=$myrow[post_id]&topic=$topic&forum=$forum\">",
-                    "<img src=\"../img/edit.gif\" border=\"0\" alt=\"",$langEditDel,"\">",
-                    "<img src=\"../img/delete.gif\" border=\"0\" alt\"",$langEditDel,"\">",
+                    "<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" alt=\"",$langEditDel,"\">",
+                    "<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt\"",$langEditDel,"\">",
                     "</a>\n",
                     "</p>\n";
         }

@@ -282,13 +282,13 @@ Catatan : Beberapa unsur dari unit pertama dapat berjodoh dengan satu unsur yang
 Beri bobot kepada setiap penjodoham, dan simpan jawaban anda.</p>
 <hr>
 <b>Modifikasi Latihan</b>
-<p>Modifikasi latihan secara prinsip sama dengan pembuatannya. Klik saja gambar <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> disamoi latihan yang akan dimodifikasi, dan ikuti petunjuk di atas.</p>
+<p>Modifikasi latihan secara prinsip sama dengan pembuatannya. Klik saja gambar <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" align=\"absmiddle\"> disamoi latihan yang akan dimodifikasi, dan ikuti petunjuk di atas.</p>
 <hr>
 <b>Penghapusan Latihan</b>
-<p>Untuk menghapus klik pada gambar <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> disamping latihan yang ingin dihapus.</p>
+<p>Untuk menghapus klik pada gambar <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" align=\"absmiddle\"> disamping latihan yang ingin dihapus.</p>
 <hr>
 <b>Pengaktifan Latihan</b>
-<p>Agar latihan dapat digunakan anda harus mengaktifkannya dengan meng-klik gambar <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> fisamping latihan yang ingin diaktifkan.</p>
+<p>Agar latihan dapat digunakan anda harus mengaktifkannya dengan meng-klik gambar <img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" align=\"absmiddle\"> fisamping latihan yang ingin diaktifkan.</p>
 <hr>
 <b>Menjakankan Latihan</b>
 <p>Anda dapat mencobs latihan anda dengan meng-klik pada nama dalam daftar latihan.</p>

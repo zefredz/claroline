@@ -231,13 +231,13 @@ Merk op : verschillende elementen van de eerste lijst kunnen wijzen naar hetzelf
 Geef een gewicht aan elk goed koppel, en dan kunt u uw vraag bewaren.</p>
 <hr>
 <b>Oefeningen wijzigen</b>
-<p>Een oefening wijzigen werkt analoog aan het maken van een nieuwe oefening. Klik op de tekening<img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> naast de oefening om ze te wijzigen. Volg bovenstaande instructies voor het maken van oefeningen.</p>
+<p>Een oefening wijzigen werkt analoog aan het maken van een nieuwe oefening. Klik op de tekening<img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" align=\"absmiddle\"> naast de oefening om ze te wijzigen. Volg bovenstaande instructies voor het maken van oefeningen.</p>
 <hr>
 <b>Oefeningen wissen</b>
-<p>Klik voor het wissen van een oefening op het <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> ikoontje naast de oefening.</p>
+<p>Klik voor het wissen van een oefening op het <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" align=\"absmiddle\"> ikoontje naast de oefening.</p>
 <hr>
 <b>Oefeningen activeren</b>
-<p>Om een oefening open te stellen voor studenten, moet u ze activeren door op de <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> tekening naast de oefening te klikken.</p>
+<p>Om een oefening open te stellen voor studenten, moet u ze activeren door op de <img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" align=\"absmiddle\"> tekening naast de oefening te klikken.</p>
 <hr>
 <b>Oefening uitvoeren</b>
 <p>U kunt uw oefening testen door op haar naam te klikken in de oefeningenlijst.</p>

@@ -34,7 +34,7 @@ if (! $is_courseAllowed) die ("<center>-not allowed----</center>");
       CONNECTION BLOC
   ==========================*/
 
-$coursePath  =  $coursesRepositorySys.$_course['path'];
+$coursePath  = $coursesRepositorySys.$_course['path'];
 $courseId    = $_cid;
 $groupId     = $_gid;
 
@@ -141,7 +141,7 @@ if ($store && $is_allowedToStore)
 	// COMPLETE ARCHIVE FILE WITH THE LAST LINES BEFORE STORING
 
   buffer('<html><body>', $tmpArchiveFile);
-	buffer(implode('', file($fileChatName)), $tmpArchiveFile);
+  buffer(implode('', file($fileChatName)), $tmpArchiveFile);
   buffer('</body></html>', $tmpArchiveFile);
   
 	if (copy($tmpArchiveFile, $pathToSaveChat.$saveIn) )

@@ -294,7 +294,7 @@ if ( ! $is_courseAllowed)
                     ".$langTypeOfModule."
                     </td>
                     <td>
-                     <img src=\"../img/".$contentType_img."\" alt=\"".$contentType_alt."\" border=\"0\" />".$contentDescType."
+                     <img src=\"".$clarolineRepositoryWeb."img/".$contentType_img."\" alt=\"".$contentType_alt."\" border=\"0\" />".$contentDescType."
                     </td>
                   </tr>";
     

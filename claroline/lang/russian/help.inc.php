@@ -332,17 +332,17 @@ $langExerciseContent="<p>Модуль тестов позволяет вам создавать тесты, содержащие
 <hr>
 <b>Изменение теста</b>
 <p>Чтобы изменить тест, используется тот же принцип, что и для его создания. 
-Щелкните на рисунке <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> 
+Щелкните на рисунке <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" align=\"absmiddle\"> 
 рядом с тестом, который нужно изменить, и следуйте инструкциям.</p>
 <hr>
 <b>Удаление теста</b>
 <p>Чтобы удалить тест, щелкните на рисунке 
-<img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> 
+<img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" align=\"absmiddle\"> 
 рядом с тестом, который нужно удалить.</p>
 <hr>
 <b>Назначение теста</b>
 <p>Чтоы студенты могли работать с тестом, его нужно назначить, щелкнув на рисунке 
-<img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> рядом с нужным тестом.</p>
+<img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" align=\"absmiddle\"> рядом с нужным тестом.</p>
 <hr>
 <b>Проверка работы теста</b>
 <p>Вы можете проверить функционирование теста, выбрав его название в списке тестов.</p>

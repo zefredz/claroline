@@ -331,15 +331,15 @@ Opomba : Vec elementov iz prve enote lahko kaze na isti element iz druge enote.<
 Podamom utez za vsako pravilno ujemanje in shranimo odgovor.</p>
 <hr>
 <b>Spremembe vaj</b>
-<p>Vaje lahko spreminjamo na enak nacin, kot jih tvorimo. Kliknemo na sliko <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> ob vaji, ki jo spreminjamo, 
+<p>Vaje lahko spreminjamo na enak nacin, kot jih tvorimo. Kliknemo na sliko <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" align=\"absmiddle\"> ob vaji, ki jo spreminjamo, 
 in sledimo navodilom.</p>
 <hr>
 <b>Brisanje vaj</b>
-<p>Vajo brisemo tako, da kliknemo na sliko <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> 
+<p>Vajo brisemo tako, da kliknemo na sliko <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" align=\"absmiddle\"> 
 ob vaji, ki jo brisemo.</p>
 <hr>
 <b>Omogocanje vaj</b>
-<p>Vajo, ki naj bi bila uporabljena, moramo omogociti s klikom na sliko <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> ob vaji, ki jo omogocamo.</p>
+<p>Vajo, ki naj bi bila uporabljena, moramo omogociti s klikom na sliko <img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" align=\"absmiddle\"> ob vaji, ki jo omogocamo.</p>
 <hr>
 <b>Izvajanje vaj</b>
 <p>Vaje lahko preskusamo s klikom na njeno ime v seznamu vaj.</p>

@@ -351,13 +351,13 @@ Remarque : Plusieurs éléments du premier ensemble peuvent pointer vers le même é
 Donnez une pondération à chaque correspondance correctement établie, et enregistrez votre réponse.</p>
 <hr>
 <b>Modification d'un Quizz</b>
-<p>Pour modifier un Quizz, le principe est le même que pour la création. Cliquez simplement sur l'image <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> à côté du Quizz à modifier, et suivez les instructions ci-dessus.</p>
+<p>Pour modifier un Quizz, le principe est le même que pour la création. Cliquez simplement sur l'image <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" align=\"absmiddle\"> à côté du Quizz à modifier, et suivez les instructions ci-dessus.</p>
 <hr>
 <b>Suppression d'un Quizz</b>
-<p>Pour supprimer un Quizz, cliquez sur l'image <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\"> à côté du Quizz à supprimer.</p>
+<p>Pour supprimer un Quizz, cliquez sur l'image <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" align=\"absmiddle\"> à côté du Quizz à supprimer.</p>
 <hr>
 <b>Activation d'un Quizz</b>
-<p>Avant qu'un Quizz ne puisse être utilisé par un cadre, vous devez l'activer en cliquant sur l'image <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> à côté du Quizz à activer.</p>
+<p>Avant qu'un Quizz ne puisse être utilisé par un cadre, vous devez l'activer en cliquant sur l'image <img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" align=\"absmiddle\"> à côté du Quizz à activer.</p>
 <hr>
 <b>Exécution d'un Quizz</b>
 <p>Vous pouvez tester votre Quizz en cliquant sur son nom dans la liste des Quizz.</p>

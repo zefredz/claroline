@@ -243,7 +243,7 @@
 
               if($module['credit'] == 'CREDIT' || $module['lesson_status'] == 'COMPLETED' || $module['lesson_status'] == 'PASSED')
               {
-                echo "<img src=\"../../img/mark.gif\" alt=\"".$module['lesson_status']."\" />";
+                echo "<img src=\"".$clarolineRepositoryWeb."img/mark.gif\" alt=\"".$module['lesson_status']."\" />";
               }
               else
               { 

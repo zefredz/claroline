@@ -340,15 +340,15 @@ Atenci&oacute;n : Varios elementos de la primera unidad pueden referirse al mism
 Otorgue un peso a cada relaci&oacute;n correcta, y salve su respuesta.</p>
 <hr>
 <b>Modificaci&oacute;n de Ejercicios</b>
-<p>Para modificar un ejercicio, siga los mismos pasos que hizo para crearlo. S&oacute;lo pulse en la imagen <img src=\"../img/edit.gif\" border=\"0\" align=\"absmiddle\"> al lado del ejercicio que quiere
+<p>Para modificar un ejercicio, siga los mismos pasos que hizo para crearlo. S&oacute;lo pulse en la imagen <img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=\"0\" align=\"absmiddle\"> al lado del ejercicio que quiere
 modificar y siga las instrucciones de anteriores.</p>
 <hr>
 <b>Borrar Ejercicios</b>
-<p>Para borrar un ejercicio, pulse en la imagen <img src=\"../img/delete.gif\" border=\"0\" align=\"absmiddle\">
+<p>Para borrar un ejercicio, pulse en la imagen <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" align=\"absmiddle\">
 al lado del ejercicio que quiera borrar.</p>
 <hr>
 <b>Activar Ejercicios</b>
-<p>Para que los alumnos puedan hacer un ejercicio, Vd. tiene que activarlo pulsando en la imagen <img src=\"../img/invisible.gif\" border=\"0\" align=\"absmiddle\"> 
+<p>Para que los alumnos puedan hacer un ejercicio, Vd. tiene que activarlo pulsando en la imagen <img src=\"".$clarolineRepositoryWeb."img/invisible.gif\" border=\"0\" align=\"absmiddle\"> 
 al lado del ejercicio que quiere activar.</p>
 <hr>
 <b>Probar un Ejercicio</b>

@@ -1,8 +1,7 @@
-<?php
-    // $Id$
+<?php // $Id$
 /*
   +----------------------------------------------------------------------+
-  | CLAROLINE version 1.5.*                                              |
+  | CLAROLINE version 1.5.*
   +----------------------------------------------------------------------+
   | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
@@ -279,19 +278,19 @@
             echo "
                  <tr>
                     <td align=\"left\">
-                    <img src=\"../img/".$contentType_img."\" alt=\"".$contentType_alt."\" />".$list['name']."
+                    <img src=\"".$clarolineRepositoryWeb."img/".$contentType_img."\" alt=\"".$contentType_alt."\" />".$list['name']."
                     </td>
                     <td align='center'>
                      <a href=\"",$PHP_SELF,"?cmd=eraseModule&cmdid=".$list['module_id']."\"
                         onClick=\"return confirmation('",htmlspecialchars(addslashes($list['name'])),$langUsedInLearningPaths,$list['timesUsed'],"');\">
-                        <img src=\"../img/delete.gif\" border=\"0\" alt=\"$langDelete\" />
+                        <img src=\"".$clarolineRepositoryWeb."img/delete.gif\" border=\"0\" alt=\"$langDelete\" />
                         </a>
                     </td>
                     <td align=\"center\">
-                       <a href=\"",$PHP_SELF,"?cmd=rename&mod_id=".$list['module_id']."\"><img src=\"../img/edit.gif\" border=0 alt=\"$langRename\" /></a>
+                       <a href=\"",$PHP_SELF,"?cmd=rename&mod_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/edit.gif\" border=0 alt=\"$langRename\" /></a>
                     </td>
                     <td align=\"center\">
-                       <a href=\"",$PHP_SELF,"?cmd=comment&mod_id=".$list['module_id']."\"><img src=\"../img/comment.gif\" border=0 alt=\"$langComment\" /></a>
+                       <a href=\"",$PHP_SELF,"?cmd=comment&mod_id=".$list['module_id']."\"><img src=\"".$clarolineRepositoryWeb."img/comment.gif\" border=0 alt=\"$langComment\" /></a>
                     </td>";
             /*
                     // ACCESSIBILITY
@@ -300,13 +299,13 @@
                     if ( $list['accessibility'] == 'PRIVATE')
                     {
                         echo    "<a href=\"",$PHP_SELF,"?cmd=mkPublic&mod_id=".$list['module_id']."\">",
-                                "<img src=\"../img/private.gif\" border=0 alt='".$langShareWithOtherCourse."' />",
+                                "<img src=\"".$clarolineRepositoryWeb."img/private.gif\" border=0 alt='".$langShareWithOtherCourse."' />",
                                 "</a>";
                     }
                     else
                     {
                         echo    "<a href=\"",$PHP_SELF,"?cmd=mkPrivate&mod_id=".$list['module_id']."\">",
-                                "<img src=\"../img/public.gif\" border=0 alt='".$langStopShare."' />",
+                                "<img src=\"".$clarolineRepositoryWeb."img/public.gif\" border=0 alt='".$langStopShare."' />",
                                 "</a>";
                     }
                     echo    "</td>\n";

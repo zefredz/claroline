@@ -989,16 +989,16 @@ if($display_list)
 		<td align="CENTER"> <small> <?php echo $day."-".$month."-".$year." ".$hour;?> </small>
 
 		<td align="center"> <a href="<?php echo "../../course_info/infocours.php?cidReq=".$one_course["code"]; ?>">
-		<img src="../../img/edit.gif" border="0" alt="<?php echo $lang_SearchCourse_imgEdit; ?>"> </a>
+		<img src="<?php echo $clarolineRepositoryWeb ?>/img/edit.gif" border="0" alt="<?php echo $lang_SearchCourse_imgEdit; ?>"> </a>
 		</td>
 
 		<td align="center">  <a href="<?php echo "../../course_info/delete_course.php?cidReq=".$one_course["code"]."&search_course"; ?>" >
-		<img src="../../img/delete.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a>
+		<img src="<?php echo $clarolineRepositoryWeb ?>/img/delete.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a>
 		</td>
 
 		</td>
 		<td align="center"> <a href="<?php echo $PHP_SELF."?backup&display_course=1&sysCode=".$one_course["code"]; ?>">
-		<img src="../../img/enregistrer.gif" border="0" alt="<?php echo $lang_SearchCourse_imgSave; ?>"> </a>
+		<img src="<?php echo $clarolineRepositoryWeb ?>/img/enregistrer.gif" border="0" alt="<?php echo $lang_SearchCourse_imgSave; ?>"> </a>
 		</td>
 
 		</tr>
@@ -1034,17 +1034,17 @@ if($display_course)
             <td width="250"> <?php echo $lang_SearchCourse_sysCode." : "; ?> </td>
             <td> <font color="#6666FF"> <?php echo $arrayCourse["code"];?> </font></td>
 
-            <td align="center">  <a href="<?php echo
+            <td align="center">  <a href="<?php echo 
             "../../course_info/infocours.php?cidReq=".$arrayCourse["code"];
             ?>">
-            <img src="../../img/edit.gif" border="0" alt="<?php echo $lang_SearchCourse_imgEdit; ?>"> </a>
+            <img src="<?php echo $clarolineRepositoryWeb ?>/img/edit.gif" border="0" alt="<?php echo $lang_SearchCourse_imgEdit; ?>"> </a>
             </td>
             <td align="center">  <a href="<?php echo "../../course_info/delete_course.php?cidReq=".$arrayCourse["code"]."&search_course";
              ?>" >
-            <img src="../../img/delete.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a>
+            <img src="<?php echo $clarolineRepositoryWeb ?>/img/delete.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a>
             </td>
             <td align="center"> <a href="<?php echo $PHP_SELF."?backup&display_course=1&sysCode=".$arrayCourse["code"]; ?>">
-            <img src="../../img/enregistrer.gif" border="0" alt="<?php echo $lang_SearchCourse_imgSave; ?>"> </a>
+            <img src="<?php echo $clarolineRepositoryWeb ?>/img/enregistrer.gif" border="0" alt="<?php echo $lang_SearchCourse_imgSave; ?>"> </a>
             </td>
         </tr>
         <tr>
@@ -1156,19 +1156,19 @@ if($display_group)
                                     echo $user["email"].",";
 
                         ?>">
-                        <img src="../../img/email.gif" border="0" alt="<?php echo $lang_SearchCourse_imgMail; ?>"> </a>
+                        <img src="<?php echo $clarolineRepositoryWeb ?>/img/email.gif" border="0" alt="<?php echo $lang_SearchCourse_imgMail; ?>"> </a>
                     </td>
         <?php    } ?>
 
                 <td align="CENTER">  <a href="<?php
                 echo $PHP_SELF."?editGroup&sysCode=".$arrayCourse["code"]."&idGroup=".$one_group["id"];?>">
-                    <img src="../../img/edit.gif" border="0" alt="<?php echo $lang_SearchCourse_imgEdit; ?>"> </a>
+                    <img src="<?php echo $clarolineRepositoryWeb ?>/img/edit.gif" border="0" alt="<?php echo $lang_SearchCourse_imgEdit; ?>"> </a>
                 </td>
-                <td align="CENTER">  <a href="<?php echo
+                <td align="CENTER">  <a href="<?php echo 
                     $PHP_SELF."?deleteGroup=1&sysCode=".$arrayCourse["code"]."&idGroup=".$one_group["id"]; ?>"
-                    onclick="javascript:if(!confirm('<?php echo
+                    onclick="javascript:if(!confirm('<?php echo 
                     addslashes(htmlentities($lang_SearchCourse_ConfirmDeleteGroup.$one_group["name"]))?>'))    return false;" >
-                    <img src="../../img/delete.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a>
+                    <img src="<?php echo $clarolineRepositoryWeb ?>/img/delete.gif" border="0" alt="<?php echo $lang_SearchCourse_imgDelete; ?>"> </a>
                 </td>
                 </tr>
             <?php
@@ -1206,7 +1206,7 @@ if($display_user)
 
     echo "<hr><br><u>".count($tab)." ".$lang_SearchCourse_UserTitle."</u>&nbsp;&nbsp;";
     ?> <a href="<?php echo $mailto; ?>" >
-        <img src="../../img/email.gif" border="0" alt="<?php echo $lang_SearchCourse_imgMail; ?>">
+        <img src="<?php echo $clarolineRepositoryWeb ?>/img/email.gif" border="0" alt="<?php echo $lang_SearchCourse_imgMail; ?>">
         </a>
         <br><br>
 
