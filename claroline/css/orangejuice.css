@@ -364,6 +364,9 @@ h3{	font-size: 110%; }
 
 .claroIntroSection { 
 	background-color: #F5F5F5;
+	padding: 5px;
+	margin-top : 5px;
+	margin-bottom: 5px;	
 }
 
 /*

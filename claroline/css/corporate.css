@@ -383,7 +383,8 @@ h3{	font-size: 110%; }
 }
 
 .claroIntroSection { 
- /*  unused ? */
+  margin-top : 5px;
+  margin-bottom: 5px;
 }
 
 /*
