@@ -319,10 +319,11 @@ if($is_allowedToTrack && $is_trackingEnabled)
         { 
             for($j = 0 ; $j < count($results) ; $j++)
             {                 
-                echo "<tr>"; 
-                echo "<td><a href=\"toolaccess_details.php?tool=".$results[$j][0]."\">".$results[$j][0]."</a></td>";
+                $encodedTool = urlencode($results[$j][0]);
+		echo "<tr>"; 
+                echo "<td><a href=\"toolaccess_details.php?tool=".$encodedTool."\">".$results[$j][0]."</a></td>";
                 //echo "<td align=\"right\">".$results[$j][1]."</td>";
-		echo "<td align=\"right\"><a href=\"user_access_details.php?cmd=tool&data=".$results[$j][0]."\">".$results[$j][1]."</a></td>";
+		echo "<td align=\"right\"><a href=\"user_access_details.php?cmd=tool&data=".$encodedTool."\">".$results[$j][1]."</a></td>";
                 echo "<td align=\"right\">".$results[$j][2]."</td>";
                 echo"</tr>";
             }
