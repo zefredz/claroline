@@ -388,7 +388,7 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
         {
             if ( ! is_dir($thisDir) )
             {
-                $dirTrail .= '/'.$pathName;
+                $dirTrail .= empty($dirTrail) ? $pathName : '/'.$pathName;
                 if ( ! mkdir($dirTrail , $mode) ) return false;
             }
 
