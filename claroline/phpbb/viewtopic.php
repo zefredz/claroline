@@ -20,7 +20,7 @@ session_start();
  *
  ***************************************************************************/
 
-include 'functions.'.$phpEx;
+include 'functions.php';
 include 'config.'.$phpEx;
 require 'auth.'.$phpEx;
 
