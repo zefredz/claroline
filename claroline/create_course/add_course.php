@@ -375,7 +375,7 @@ if($displayNotForU)
 elseif($displayWhatAdd)
 {
 ?>
-<form lang="<?php echo $iso639_2_code ?>" class="forms" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" accept-charset="<?php echo $charset ?>">
+<form lang="<?php echo $iso639_2_code ?>" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" accept-charset="<?php echo $charset ?>">
 <table  width="100%">
 	<tr valign="top">
 		<td colspan="2" valign="top">
@@ -414,7 +414,7 @@ elseif($displayCourseRestore)
 {
 ?>
 <br>
-<form  class="forms" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
 <table width="100%">
 	<tr valign="top">
 		<td colspan="2" valign="top">
@@ -436,9 +436,7 @@ elseif($displayCourseRestore)
 		<td >
 			<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="<?php echo MAX_FILE_SIZE_UPLOAD ?>">
 			<input type="file" name="postFile" accept="application/x-zip-compressed">
-			<DIV class="formsTips">
-				<?php echo $langPostFileTips; ?>
-			</DIV>
+			<?php echo $langPostFileTips; ?>
 		</td>
 	</tr>
 <?php
@@ -453,9 +451,8 @@ elseif($displayCourseRestore)
 		</TD>
 		<td >
 			<input type="text" name="httpFile" >
-			<DIV class="formsTips">
-				<?php echo $langHttpFileTips; ?>
-			</DIV>
+			<?php echo $langHttpFileTips; ?>
+
 		</td>
 	</tr>
 <?php
@@ -470,9 +467,7 @@ elseif($displayCourseRestore)
 		</TD>
 		<td >
 			<input type="text" name="ftpFile" >
-			<DIV class="formsTips">
-				<?php echo $langFtpFileTips; ?>
-			</DIV>
+			<?php echo $langFtpFileTips; ?>
 		</td>
 	</tr>
 <?php
@@ -487,9 +482,7 @@ elseif($displayCourseRestore)
 		</TD>
 		<td >
 			<input type="text" name="localFile" >
-			<DIV class="formsTips">
-				<?php echo $langLocalFileTips; ?>
-			</DIV>
+			<?php echo $langLocalFileTips; ?>
 		</td>
 	</tr>
 <?php
@@ -640,7 +633,7 @@ BuildEditableCatTable(""," &gt; ");
 	if ($showPropertiesFromArchive)
 	{
 ?>
-<table class="forms" width="100%">
+<table width="100%">
 	<tr valign="top">
 		<td colspan="2" valign="top">
 				<b>
