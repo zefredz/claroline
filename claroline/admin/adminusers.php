@@ -293,21 +293,21 @@ echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
 
       //see passed search parameters :
 
-if ($_GET['search']!="")    {$isSearched .= $_GET['search']."* ";}
-if ($_GET['firstName']!="") {$isSearched .= $langFirstName."=".$_GET['firstName']."* ";}
-if ($_GET['lastName']!="")  {$isSearched .= $langLastName."=".$_GET['lastName']."* ";}
-if ($_GET['userName']!="")  {$isSearched .= $langUsername."=".$_GET['userName']."* ";}
-if ($_GET['mail']!="")      {$isSearched .= $langEmail."=".$_GET['mail']."* ";}
-if ($_GET['action']=="createcourse")    {$isSearched .=  "<b> <br>".$langCourseCreator."  </b> ";}
-if ($_GET['action']=="plateformadmin")    {$isSearched .= "<b> <br>".$langPlatformAdmin."  </b> ";}
+if ($_SESSION['admin_user_search']!="")    {$isSearched .= $_SESSION['admin_user_search']."* ";}
+if ($_SESSION['admin_user_firstName']!="") {$isSearched .= $langFirstName."=".$_SESSION['admin_user_firstName']."* ";}
+if ($_SESSION['admin_user_lastName']!="")  {$isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']."* ";}
+if ($_SESSION['admin_user_userName']!="")  {$isSearched .= $langUsername."=".$_SESSION['admin_user_userName']."* ";}
+if ($_SESSION['admin_user_mail']!="")      {$isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";}
+if ($_SESSION['admin_user_action']=="createcourse")    {$isSearched .=  "<b> <br>".$langCourseCreator."  </b> ";}
+if ($_SESSION['admin_user_action']=="plateformadmin")    {$isSearched .= "<b> <br>".$langPlatformAdmin."  </b> ";}
 
      //see what must be kept for advanced links
 
-$addtoAdvanced = "?firstName=".$_GET['firstName'];
-$addtoAdvanced .="&lastName=".$_GET['lastName'];
-$addtoAdvanced .="&userName=".$_GET['userName'];
-$addtoAdvanced .="&mail=".$_GET['mail'];
-$addtoAdvanced .="&action=".$_GET['action'];
+$addtoAdvanced = "?firstName=".$_SESSION['admin_user_firstName'];
+$addtoAdvanced .="&lastName=".$_SESSION['admin_user_lastName'];
+$addtoAdvanced .="&userName=".$_SESSION['admin_user_userName'];
+$addtoAdvanced .="&mail=".$_SESSION['admin_user_mail'];
+$addtoAdvanced .="&action=".$_SESSION['admin_user_action'];
 
     //finaly, form itself
 
