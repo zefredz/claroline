@@ -150,7 +150,6 @@
                             WHERE ".$where_cond;
                   $query = claro_sql_query($sql);
                   $dsp = true;
-
            }
 
            // display mode only or display was asked by delete mode or update mode
@@ -465,7 +464,7 @@
           // build the array of modules     
           // build_element_list return a multi-level array, where children is an array with all nested modules
           // build_display_element_list return an 1-level array where children is the deep of the module
-          $flatElementList = build_display_element_list(build_element_list($extendedList));
+          $flatElementList = build_display_element_list(build_element_list($extendedList, 'parent', 'learnPath_module_id'));
           
           // look for maxDeep
           $maxDeep = 1; // used to compute colspan of <td> cells
@@ -670,7 +669,7 @@
                    }
                echo "</form></tfoot></table>";
 
-               echo        "<!-- end of display_my_exercises output -->\n";
+               echo "<!-- end of display_my_exercises output -->\n";
      }
 
      /**
@@ -890,43 +889,44 @@
     }
     
     /**
-     * Build an tree of $list from $id using the 'parent' field of lp_rel_learnPath_module
+     * Build an tree of $list from $id using the 'parent' 
      * table. (recursive function)
      *
      * @param $list modules of the learning path list
+     * @param $paramField name of the field containing the parent id
+     * @param $idField name of the field containing the current id
      * @param $id learnPath_module_id of the node to build
      * @return tree of the learning path 
      *
      * @author Piraux Sébastien <pir@cerdecam.be>     
      */
-    function build_element_list($list, $id = 0)
+    function build_element_list($list, $parentField, $idField, $id = 0)
     {
       $tree= array();
       foreach ($list as $element)
       {
-        if( $element['learnPath_module_id'] == $id )
+        if( $element[$idField] == $id )
         {
           $tree = $element; // keep all $list informations in the returned array
            // explicitly add 'name' and 'value' for the claro_build_nested_select_menu function 
           //$tree['name'] = $element['name']; // useless since 'name' is the same word in db and in the  claro_build_nested_select_menu function 
-          $tree['value'] = $element['learnPath_module_id'];
+          $tree['value'] = $element[$idField];
           break;
         }
       }
       
       foreach ($list as $element)
       {
-        if($element['parent'] == $id && ( $element['parent'] != $element['learnPath_module_id'] ))
+        if($element[$parentField] == $id && ( $element[$parentField] != $element[$idField] ))
         {
           if($id == 0)
-            $tree[] = build_element_list($list,$element['learnPath_module_id']);
+            $tree[] = build_element_list($list, $parentField, $idField, $element[$idField]);
           else
-            $tree['children'][] = build_element_list($list,$element['learnPath_module_id']);
+            $tree['children'][] = build_element_list($list, $parentField, $idField, $element[$idField]);
         }
       }
       return $tree;
     }
-    
     
     /**
      * return a flattened tree of the modules of a learnPath after having add
