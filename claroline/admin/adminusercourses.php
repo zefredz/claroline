@@ -215,7 +215,7 @@ echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
      //TOOL LINKS
 
 claro_disp_button("adminprofile.php?uidToEdit=".$uidToEdit, $langSeeUserSettings);
-claro_disp_button("../auth/courses.php?cmd=rqReg&uidToEdit=".$uidToEdit, $langEnrollToNewCourse);
+claro_disp_button("../auth/courses.php?cmd=rqReg&uidToEdit=".$uidToEdit."&category=", $langEnrollToNewCourse);
 
 if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
 {
