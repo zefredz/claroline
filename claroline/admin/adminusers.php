@@ -12,8 +12,6 @@
 //----------------------------------------------------------------------
 
 // Lang files needed :
-$langAccountInfo = "Account Info";
-$langSendAccountInfo = "Send account Info";
 $langFile = "admin";
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
@@ -349,7 +347,6 @@ echo     "<th>".$langEmail."</th>";
 echo     "<th>".$langUserStatus."</th>";
 echo     "<th>".$langAllUserOfThisCourse."</th>
           <th>".$langEditUserSettings."</th>
-          <th>".$langAccountInfo."</th>
           <th>".$langDelete."</th>";
 echo "</tr><tbody> ";
 
@@ -447,44 +444,31 @@ foreach($resultList as $list)
 
      //  Delete link
 
-     // Modify link
-
-     echo     "<td align=\"center\">\n",
-                        "<a href=\"../auth/lostPassword.php?Femail=".$list['email']."&searchPassword=1&cfrom=ulist".$addToURL."\">\n
-                         <img src=\"".$clarolineRepositoryWeb."img/email.gif\" border=\"0\" alt=\"".$langSendAccountInfo."\" />\n",
-                        "</a>\n",
-                        "</td>\n";
-
-     //  Delete link
-
-     echo   "<td align=\"center\">\n",
-                "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&user_id=".$list['user_id']."&offset=".$offset."".$addToURL."\" ",
-                "onClick=\"return confirmation('",addslashes($list['username']),"');\">\n",
-                "<img src=\"".$clarolineRepositoryWeb."img/deluser.gif\" border=\"0\" alt=\"".$langDelete."\" />\n",
-                "</a>\n",
-            "</td>\n";
-     echo "</tr>";
+     echo '<td align="center">'
+         .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=delete&amp;user_id='.$list['user_id'].'&offset='.$offset.$addToURL.'" '
+         .' onClick="return confirmation(\''.addslashes($list['username']).'\');">'."\n"
+         .'<img src="'.$clarolineRepositoryWeb.'img/deluser.gif" border="0" alt="'.$langDelete.'" />'."\n"
+         .'</a> '."\n"
+         .'</td>'."\n"
+         .'</tr>';
      $atLeastOne= TRUE;
 }
    // end display users table
 if (!$atLeastOne)
 {
-   echo "<tr>
-          <td colspan=\"8\" align=\"center\">
-            ".$langNoUserResult."<br>
-            <a href=\"advancedUserSearch.php".$addtoAdvanced."\">".$langSearchAgain."</a>
+   echo '<tr>
+          <td colspan="8" align="center">
+            '.$langNoUserResult.'<br>
+            <a href="advancedUserSearch.php'.$addtoAdvanced.'">'.$langSearchAgain.'</a>
           </td>
-         </tr>";
+         </tr>';
 }
-echo "</tbody></table>";
+echo '</tbody></table>';
 
 //Pager
 
 $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-?>
-
-<?
 function isAdminUser($user_id)
 {
     global $tbl_admin;
@@ -493,14 +477,12 @@ function isAdminUser($user_id)
     $result = claro_sql_query($sql);
     if (mysql_num_rows($result)>0)
     {
-      return true;
+        return true;
     }
     else
     {
-      return false;
+        return false;
     }
 }
-
 include($includePath."/claro_init_footer.inc.php");
-
 ?>

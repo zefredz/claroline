@@ -12,6 +12,7 @@
 //----------------------------------------------------------------------
 
 define ('USER_DATA_FORM', 2);
+$langSendToUserAccountInfoByMail = 'Envoyer les infos de connection par email';
 
 $langFile='admin';
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
@@ -23,10 +24,6 @@ include $includePath.'/lib/text.lib.php';
 include $includePath.'/lib/admin.lib.inc.php';
 include $includePath.'/lib/auth.lib.inc.php';
 include $includePath.'/conf/profile.conf.inc.php';
-
-
-
-
 
 
 $nameTools=$langModifOneProfile;
@@ -125,7 +122,6 @@ if (isset($applyChange))  //for formular modification
     }
     else  //apply changes as no mistake in the form was found
     {
-
         claro_sql_query(
         "UPDATE  `".$tbl_user."`
          SET
@@ -466,6 +462,7 @@ else
 
 claro_disp_button("adminuserdeleted.php?uidToEdit=".$user_id."&cmd=delete",$langDeleteUser,$langAreYouSureToDelete." ".$username_form);
 claro_disp_button("../auth/courses.php?cmd=rqReg&uidToEdit=".$user_id."&fromAdmin=settings&category=",$langRegisterUser);
+claro_disp_button("../auth/lostPassword.php?Femail=".$email_form."&searchPassword=1",$langSendToUserAccountInfoByMail);
 
 if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
 {
