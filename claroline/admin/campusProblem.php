@@ -1,7 +1,6 @@
 <?php # $Id$
 $langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
-//include($includePath.'/lib/stats.lib.inc.php');
 $interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
 
 $nameTools = $langStatsOfCampus;
