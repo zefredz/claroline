@@ -1571,7 +1571,6 @@ Your problems can be related on two possible causes :<br>
     if ($coursesRepositorySysMissing)
     {
         echo '<BR> <em>$coursesRepositorySys = '.$coursesRepositorySys.'</em> : <br>dir is missing';
-        echo '<BR>'.$coursesRepositorySys.' is missing';
     }
 
     if ($coursesRepositorySysWriteProtected)
