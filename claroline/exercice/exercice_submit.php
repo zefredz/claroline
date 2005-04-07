@@ -301,7 +301,7 @@ if( $showExerciseForm || $is_courseAdmin )
   </small>
   </p>
 <?php
-	if( $is_courseAdmin )
+	if( $is_courseAdmin && $_SESSION['inPathMode'] != true )
 	{
 		echo '<a class="claroCmd" href="admin.php?exerciseId='.$objExercise->selectId().'">'.$langEditExercise.'</a>';
 	}	
