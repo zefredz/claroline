@@ -20,13 +20,14 @@ if ($_course['extLink']['name'] != '')    /* --- External Link Section --- */
 	echo ' / ';
 	if ($_course['extLink']['url'] != '')
 	{
-		echo "<a href=\"".$_course['extLink']['url']."\" target=\"_top\">";
+		echo '<a href="'.$_course['extLink']['url'].'" target="_top">';
 	}
+
 	echo $_course['extLink']['name'];
 	
 	if ($_course['extLink']['url'] != '')
 	{
-	        echo "</a>\n";
+	        echo '</a>'                                     ."\n";
 	}
 }
 ?>
@@ -48,23 +49,20 @@ if($_uid)
 ?>
 
 <div id="userBanner">
-
-<span id="userName"><?php echo $_user ['firstName'].' '.$_user ['lastName'] ?></span>
-<ul id="userLinks">
-<li><a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $langMyCourses; ?></a></li>
-<li><a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo $langMyAgenda; ?></a></li>
+<span id="userName"><?php echo $_user ['firstName'].' '.$_user ['lastName'] ?> : </span>
+   <a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $langMyCourses; ?></a>
+ | <a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo $langMyAgenda; ?></a>
 <?php 
 
 if($is_platformAdmin)
 {
 ?>
-<li><a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><?php echo $langPlatformAdministration ?></a></li>
+ | <a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><?php echo $langPlatformAdministration ?></a>
 <?php 
 } 
 ?>
-<li><a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo $langModifyProfile; ?></a></li>
-<li><a href="<?php echo $rootWeb?>index.php?logout=true" target="_top"><?php echo $langLogout; ?></a></li>
-</ul>
+ | <a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo $langModifyProfile; ?></a>
+ | <a href="<?php echo $rootWeb?>index.php?logout=true" target="_top"><?php echo $langLogout; ?></a></li>
 <div class="spacer"></div>
 </div>
 
@@ -144,7 +142,7 @@ if (is_array($_courseToolList))
             echo '<option value="'.$_courseToolData['url'].'" '
                 .( $_courseToolData['id'] == $_tid ? 'selected="selected"' : '').'>'
                 .$_courseToolData['name']
-                ."</option>\n";
+                .'</option>'."\n";
         }
     } // end if is_array _courseToolList
 ?>
@@ -170,13 +168,6 @@ if (is_array($_courseToolList))
 
 <?php
 
-/*
- * BORDER BEHAVIOR
- *
- * Note : Maybe you should change the color 
- * if you aim to change the page background color
- */
-
 /******************************************************************************
                                 BREADCRUMB LINE
  ******************************************************************************/
@@ -184,28 +175,31 @@ if (is_array($_courseToolList))
 
 if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($interbredcrump)) )
 {
-    echo "<div id=\"breadcrumbLine\">\n\n<hr />\n";
+    echo '<div id="breadcrumbLine">'                        ."\n"
+        .'<hr />'                                           ."\n"
 
-	echo "<div id=\"breadcrumb\">\n";
-	echo "<a href=\"".$rootWeb."index.php\" target=\"_top\">"
-        ."<img src=\"".$imgRepositoryWeb."home.gif\" alt=\"\">"
+        .'<div id="breadcrumb">'                            ."\n"
+        .'<a href="'.$rootWeb.'index.php" target="_top">'
+        .'<img src="'.$imgRepositoryWeb.'home.gif" alt="">'
         .$siteName
-        ."</a>\n";
+        .'</a>'                                             ."\n";
 
     if ( isset($_cid) )
     {
-        echo "&gt;&nbsp;<a href=\"".$coursesRepositoryWeb.$_course['path']."/index.php\" target=\"_top\">"
-            .((isset($course_homepage) && $course_homepage == TRUE) ? '<b>'.$_course['officialCode'].'</b>' : $_course['officialCode'])
-            ."</a>\n";
+        echo '&gt;&nbsp;'
+            .'<a href="'.$coursesRepositoryWeb.$_course['path'].'/index.php" target="_top">'
+            .((isset($course_homepage) && $course_homepage == true) ? '<b>'.$_course['officialCode'].'</b>' : $_course['officialCode'])
+            .'</a>'."\n";
     }
 
     if (isset($interbredcrump) && is_array($interbredcrump) )
     {
         while ( (list(,$bredcrumpStep) = each($interbredcrump)) )
         {
-            echo	"&gt;&nbsp;<a href=\"",$bredcrumpStep['url']
-                    ."\" target=\"_top\">",$bredcrumpStep['name']
-                    ."</a>\n";
+            echo '&gt;&nbsp;'
+                .'<a href="',$bredcrumpStep['url'].'" target="_top">'
+                .$bredcrumpStep['name']
+                .'</a>'                                     ."\n";
         }
     }
 
@@ -213,15 +207,14 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
     {
         if (isset($noPHP_SELF) && $noPHP_SELF)
         {
-            echo	"&gt;&nbsp;<b>",$nameTools,"</b>\n";
+            echo '&gt;&nbsp;<b>'.$nameTools.'</b>'          ."\n";
         }
         elseif (isset($noQUERY_STRING) && $noQUERY_STRING)
         {
-            echo	"&gt;&nbsp;<b>"
-                    ."<a href=",$_SERVER['PHP_SELF']," target=\"_top\">"
-                    .$nameTools
-                    ."</a>"
-                    ."</b>\n";
+            echo '&gt;&nbsp;'
+                .'<a href="'.$_SERVER['PHP_SELF'].'" target="_top">'
+                .'<b>'.$nameTools.'</b>'
+                .'</a>'                                     ."\n";
         }
         else
         {
@@ -229,18 +222,18 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
             // set Query string to empty if not exists
             if (!isset($QUERY_STRING)) $QUERY_STRING = ""; 
 
-            echo	"&gt;&nbsp;<b>"
-                    ."<a href=",$_SERVER['PHP_SELF'],'?',$QUERY_STRING," target=\"_top\">"
-                    .$nameTools
-                    ."</a>"
-                    ."</b>\n";
+            echo '&gt;&nbsp;'
+                .'<a href="'.$_SERVER['PHP_SELF'].'?'.$QUERY_STRING.'" target="_top">'
+                .'<b>'.$nameTools.'</b>'
+                .'</a>'                                     ."\n";
         }
     }
-	echo "</div>\n";
+	echo '</div>'                                           ."\n";
 
     if ( claro_is_display_mode_available() )
     {
-  	    echo "<div id=\"toolViewOption\">\n";
+  	    echo '<div id="toolViewOption">'                    ."\n";
+
     	if ( isset($_REQUEST['viewMode']) )
 	    {
     		claro_disp_tool_view_option($_REQUEST['viewMode']);
@@ -249,17 +242,18 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
 	    {
     		claro_disp_tool_view_option();
     	}
-	    echo "\n</div>\n";
+	    echo '</div>'                                       ."\n";
     }
 
-    echo '<div class="spacer"></div>' . "\n"
-         . '<hr />' . "\n"
-         . '</div>' . "\n";
+    echo '<div class="spacer"></div>'                       ."\n"
+        .'<hr />'                                           ."\n"
+        .'</div>'                                           ."\n";
 
-}
+} // end if isset($_cid) isset($nameTools) && is_array($interbredcrump)
 else
 {
-	echo '<br />';
+    // echo '<br />';
+    echo '<div></div>';
 }
 
 ?>
@@ -281,13 +275,13 @@ else
 
 if( isset($db) )
 {
-	// connect to the main database.
-	// if single database, don't pefix table names with the main database name in SQL queries
-	// (ex. SELECT * FROM `table`)
-	// if multiple database, prefix table names with the course database name in SQL queries (or no prefix if the table is in
-	// the main database)
-	// (ex. SELECT * FROM `table_from_main_db`  -  SELECT * FROM `courseDB`.`table_from_course_db`)
-	mysql_select_db($mainDbName, $db);
+    // connect to the main database.
+    // if single database, don't pefix table names with the main database name in SQL queries
+    // (ex. SELECT * FROM `table`)
+    // if multiple database, prefix table names with the course database name in SQL queries (or no prefix if the table is in
+    // the main database)
+    // (ex. SELECT * FROM `table_from_main_db`  -  SELECT * FROM `courseDB`.`table_from_course_db`)
+    mysql_select_db($mainDbName, $db);
 }
 ?>
 
