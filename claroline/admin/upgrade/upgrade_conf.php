@@ -49,7 +49,13 @@ if ($_REQUEST['cmd'] == 'run')
     $def_file_list = get_def_file_list();
     if(is_array($def_file_list))
     {
-        $current_value_list =array();
+        
+        /**
+         Build table with old values in conf
+         */
+        
+        $current_value_list = array();
+        
         foreach ( $def_file_list as $def_file_bloc)
         {
             if (is_array($def_file_bloc['conf']))
@@ -76,14 +82,19 @@ if ($_REQUEST['cmd'] == 'run')
         }
        
         reset( $def_file_list );
+        
         foreach ( $def_file_list as $def_file_bloc)
         {
             if (is_array($def_file_bloc['conf']))
             {
                 foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
                 {
+                    $conf_file = get_conf_file($config_code);
+                    $output .= '<li>'.basename($conf_file)."\n"
+                            .  '<ul >' ;
+
                     $okToSave = TRUE;
-                    if ( $config_code == 'CLMAIN' ) continue;
+                    
                     unset($conf_def, $conf_def_property_list);
             
                     $def_file  = get_def_file($config_code);
@@ -93,6 +104,9 @@ if ($_REQUEST['cmd'] == 'run')
                     
                     if ( is_array($conf_def_property_list) )
                     {
+                        
+                        $propertyList = array();
+                        
                         foreach($conf_def_property_list as $propName => $propDef )
                         {
                             
@@ -106,13 +120,26 @@ if ($_REQUEST['cmd'] == 'run')
                                 $propValue = $propDef['default'];                                 
                                 // value never set, use default from .def
                             }
-                            
+
                             /**
                              * @todo user can be better informed how to react to this error.
                              */
                             if ( !validate_property($propValue, $propDef) )
                             {
                                 $okToSave = FALSE;
+                                $output .= '<span class="warning">'.$propName.' : '
+                                        . $propValue.' is invalid </span>'
+                                        . '<br>'
+                                        . 'Rules : '.$propDef['type']
+                                        . '<br>'
+                                        . var_export($propDef['acceptedValue'],1)
+                                        . '<br>'
+                                        ;
+                            }
+                            else
+                            {
+                                $propertyList[] = array('propName'=>$propName
+                                                       ,'propValue'=>$propValue);
                             }
                         }
                     }
@@ -123,14 +150,6 @@ if ($_REQUEST['cmd'] == 'run')
             
                     if ($okToSave)
                     {
-                        reset($conf_def_property_list);
-                        foreach($conf_def_property_list as $propName => $propDef )
-                        {
-                            $propertyList[] = array('propName'=>$propName
-                                                   ,'propValue'=>$propDef['default']);
-                        }
-            
-                        $conf_file = get_conf_file($config_code);
             
                         if ( !file_exists($conf_file) ) touch($conf_file);
             
@@ -138,8 +157,7 @@ if ($_REQUEST['cmd'] == 'run')
                         {
         
                             // backup old file 
-                            $output .= '<li>'.basename($conf_file).'<ul ><li>' 
-                                    .  'Old file backup : ' ;
+                            $output .= '<li>Old file backup : ' ;
                             $fileBackup = $backupRepositorySys.basename($conf_file);
                             if (!@copy($conf_file, $fileBackup) )
                             {
@@ -171,10 +189,10 @@ if ($_REQUEST['cmd'] == 'run')
                                 
                             }
                             $output .= '</li>'."\n";
-                            $output .= '</ul></li>'."\n";
                             
                         }
                     }
+                    $output .= '</ul></li>'."\n";
                 }
             }
         }
