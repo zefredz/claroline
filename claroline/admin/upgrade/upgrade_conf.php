@@ -24,6 +24,7 @@ $display = DISPLAY_WELCOME_PANEL;
  */
     
 include ($includePath.'/installedVersion.inc.php');
+@include ($includePath.'/currentVersion.inc.php');
 include ($includePath.'/lib/config.lib.inc.php');
 include ($includePath.'/lib/fileManage.lib.php');
     
@@ -226,6 +227,15 @@ if ($_REQUEST['cmd'] == 'run')
     if (!$error)
     {
         $display = DISPLAY_RESULT_SUCCESS_PANEL;
+        /*
+            * Update config file
+            * Set version db
+            */
+
+       if (!replace_var_value_in_conf_file ("clarolineVersion",$version_file_cvs,$includePath .'/currentVersion.inc.php'))
+       {
+        echo '<p class="error">' . 'Can\'t save success in currentVersion.inc.php' . '</p>'  . "\n";
+       }
     }
     else
     {

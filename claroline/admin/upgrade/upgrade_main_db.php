@@ -145,7 +145,7 @@ switch ($display)
     case DISPLAY_RESULT_PANEL :
     
         echo  sprintf("<h2>%s</h2>",$langUpgradeStep2)
-            . '<h3>' . 'Upgrade main Claroline database' . $mainDbName .'</h3>' . "\n";
+            . '<h3>' . 'Upgrade main Claroline database <i>' . $mainDbName .'</i></h3>' . "\n";
 
         if ($verbose) {
         	echo '<p class="info">' . 'Mode Verbose' . ':</p>' . "\n";
@@ -231,14 +231,13 @@ switch ($display)
             */
 
            echo '<p class="success">'  . 'The claroline main tables have been successfully upgraded' . '</p>' . "\n";
-
-           if (replace_var_value_in_conf_file ("versionDb",$version_db_cvs,$includePath .'/conf/claro_main.conf.php'))
+           if (replace_var_value_in_conf_file ("versionDb",$version_db_cvs,$includePath .'/currentVersion.inc.php'))
            {
                 echo '<div align="right">' . sprintf($langNextStep,'upgrade_courses.php') . '</div>';
            }
            else
            {
-            echo '<p class="error">' . 'Can\'t save success in config file' . '</p>'  . "\n";
+            echo '<p class="error">' . 'Can\'t save success in currentVersion.inc.php' . '</p>'  . "\n";
            }
         }
         break;
