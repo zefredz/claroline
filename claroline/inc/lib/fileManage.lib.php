@@ -388,10 +388,10 @@ function form_dir_list($file, $baseWorkDir)
  * create directory
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param string  - $pathname
- * @param int     - $mode directory permission (optional)
- * @param boolean - $recursive (optional)
- * @return bolean true if succeed, false otherwise
+ * @param string  $pathname
+ * @param int     $mode directory permission (optional)
+ * @param boolean $recursive (optional)
+ * @return boolean TRUE if succeed, false otherwise
  */
 
 function claro_mkdir($pathName, $mode = 0777, $recursive = false)
@@ -421,7 +421,7 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
     }
     else
     {
-        return mkdir($pathName, $mode);
+        return @mkdir($pathName, $mode);
     }
 }
 
@@ -563,12 +563,12 @@ function get_link_file_url($file)
 /**
  * Update the file or directory path in the document db document table
  *
- * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- *
- * @param  - action (string)   - action type require : 'delete' or 'update'
- * @param  - filePath (string) - original path of the file
- * @param  - $newParam (array) - new param of the file, can contain
+ * @param  String action    - action type require : 'delete' or 'update'
+ * @param  String filePath  - original path of the file
+ * @param  String $newParam - new param of the file, can contain
  *                              'path', 'visibility' and 'comment'
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  */
 
