@@ -16,10 +16,6 @@
    and display a confirmation message to the admin.
 */
 
-
-define ('USER_SELECT_FORM'        , 1);
-define ('USER_DATA_FORM'          , 2);
-
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
