@@ -322,6 +322,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
     //global variables needed    
 
     global $clarolineRepositoryWeb;
+    global $imgRepositoryWeb;
     global $tbl_class_user; 
     global $langUsersMin;
 
@@ -420,6 +421,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
                 ."    </a>\n"
                 ."  </td>\n";
             echo "</tr>\n";
+            
 	    
             // RECURSIVE CALL TO DISPLAY CHILDREN
 	    
@@ -457,38 +459,37 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
     }
     
 /**
-     *This function create the list for the select box to choose the parent class
-     *
-     * @author Guillaume Lederer
-     * @param  tab containing at least all the classes with their id, parent_id and name
-     * @param  parent_id of the class we want to display the children of 
-     * @param  the pre-selected class'id in the select box  
-     * @param  space to display for children to show deepness  
-     * @return  - void
-     *
-     * @desc : create the select box 
+ * This function create the list for the select box to choose the parent class
+ *
+ * @author Guillaume Lederer
+ * @param  tab containing at least all the classes with their id, parent_id and name
+ * @param  parent_id of the class we want to display the children of 
+ * @param  the pre-selected class'id in the select box  
+ * @param  space to display for children to show deepness  
+ * @return  - void
+ *
 */    
-    function buildSelectClass($classes,$selected,$father=null,$space="&nbsp;&nbsp;&nbsp;")
+function buildSelectClass($classes,$selected,$father=null,$space="&nbsp;&nbsp;&nbsp;")
+{
+    if($classes)
     {
-	if($classes)
-        {            
-	    foreach($classes as $one_class)
+        foreach($classes as $one_class)
+        {
+            //echo $one_class["class_parent_id"]." versus ".$father."<br>";
+
+            if($one_class['class_parent_id']==$father)
             {
-                //echo $one_class["class_parent_id"]." versus ".$father."<br>";
-		
-		if($one_class['class_parent_id']==$father)
+                $result .= "<option value=\"".$one_class['id']."\" ";
+                if ($one_class['id'] == $selected)
                 {
-                    $result .= "<option value=\"".$one_class['id']."\" ";
-		    if ($one_class['id'] == $selected)
-		    {
-                        $result .= "selected ";
-		    }
-                    $result .= "> ".$space.$one_class['name']." </option>\n";
-                    $result .=  buildSelectClass($classes,$selected,$one_class["id"],$space."&nbsp;&nbsp;&nbsp;");
+                    $result .= "selected ";
                 }
+                $result .= "> ".$space.$one_class['name']." </option>\n";
+                $result .=  buildSelectClass($classes,$selected,$one_class["id"],$space."&nbsp;&nbsp;&nbsp;");
             }
         }
-	return $result;
     }
+    return $result;
+}
 
 ?>

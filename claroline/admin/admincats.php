@@ -1015,7 +1015,7 @@ include($includePath."/claro_init_footer.inc.php");
 
     function displayBom($elem,$father,$space)
     {
-        GLOBAL $lang_faculty_ConfirmDelete, $clarolineRepositoryWeb;
+        GLOBAL $lang_faculty_ConfirmDelete, $imgRepositoryWeb;
 
         if($elem)
         {
