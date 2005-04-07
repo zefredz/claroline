@@ -111,8 +111,7 @@ if (isset($_REQUEST['chdir']) && ($chdir=="yes"))
 
 if (isset($_SESSION['admin_class_reg_user_order_crit']))
 {
-    if ($_SESSION['admin_classdefine ("USER_SELECT_FORM", 1);
-define ("USER_DATA_FORM", 2);_reg_user_order_crit']=="user_id")
+    if ($_SESSION['admin_class_reg_user_order_crit']=="user_id")
     {
         $toAdd = " ORDER BY CU.`user_id` ".$_SESSION['admin_class_reg_user_dir'];
     }
