@@ -257,7 +257,7 @@ claro_disp_tool_title($nameTools);
 
 if ($_REQUEST['chformat']=="yes")
 {
-    $dialogBox = "Modify the format :<br><br>"
+    $dialogBox = "$langModifyFormat :<br><br>"
         ."$langTheFields \"<b>surname;</b>\", \"<b>name;</b>\", \"<b>username;</b>\" and \"<b>password;</b>\" $langAreCompulsory.<br><br>"
         ."<form metod=\"POST\" action=\"".$_SERVER['PHP_SELF']."\">"
         ."  <input type=\"text\" name=\"usedFormat\" value=\"".$usedFormat."\" size=\"55\">"
