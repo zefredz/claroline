@@ -2190,4 +2190,5 @@ $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
 $langAuthentication = "Authentication";
 $langCreateUserAccount = "Create user account";
+$langModifyFormat = "Modify the format";
 ?>
