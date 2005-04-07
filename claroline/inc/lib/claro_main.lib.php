@@ -461,7 +461,7 @@ function claro_disp_tool_title($titleElement, $helpUrl = false)
         $titleElement['mainTitle'] = $tit;
     }
 
-    echo '<h3>';
+    echo '<h3 class="claroToolTitle">';
 
     if ($helpUrl)
     {
