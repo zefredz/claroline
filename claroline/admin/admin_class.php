@@ -47,7 +47,7 @@ $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministration
             "<script>
             function confirmation (name)
             {
-                if (confirm(\"".$langAreYouSureToDelete."\"+ name + \"? \"))
+                if (confirm(\"".$langAreYouSureToDelete."\"+' '+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
