@@ -50,19 +50,18 @@ if($_uid)
 
 <div id="userBanner">
 <span id="userName"><?php echo $_user ['firstName'].' '.$_user ['lastName'] ?> : </span>
-   <a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $langMyCourses; ?></a>
- | <a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo $langMyAgenda; ?></a>
+<a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $langMyCourses; ?></a> | 
+<a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo $langMyAgenda; ?></a> | 
 <?php 
-
 if($is_platformAdmin)
 {
 ?>
- | <a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><?php echo $langPlatformAdministration ?></a>
+<a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><?php echo $langPlatformAdministration ?></a> | 
 <?php 
 } 
 ?>
- | <a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo $langModifyProfile; ?></a>
- | <a href="<?php echo $rootWeb?>index.php?logout=true" target="_top"><?php echo $langLogout; ?></a></li>
+<a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo $langModifyProfile; ?></a> | 
+<a href="<?php echo $rootWeb?>index.php?logout=true" target="_top"><?php echo $langLogout; ?></a>
 <div class="spacer"></div>
 </div>
 
@@ -172,13 +171,14 @@ if (is_array($_courseToolList))
                                 BREADCRUMB LINE
  ******************************************************************************/
 
-
+?>
+<div id="breadcrumbLine">
+<?php
 if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($interbredcrump)) )
 {
-    echo '<div id="breadcrumbLine">'                        ."\n"
-        .'<hr />'                                           ."\n"
+    echo '<hr />'                                           ."\n"
 
-        .'<div id="breadcrumb">'                            ."\n"
+        .'<div id="breadcrumbTrail">'                       ."\n"
         .'<a href="'.$rootWeb.'index.php" target="_top">'
         .'<img src="'.$imgRepositoryWeb.'home.gif" alt="">'
         .$siteName
@@ -252,10 +252,13 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
 } // end if isset($_cid) isset($nameTools) && is_array($interbredcrump)
 else
 {
-    // echo '<br />';
-    echo '<div></div>';
+    // echo '<div style="height:1em"></div>';
 }
+?>
 
+</div>
+
+<?php
 if ( isset($claro_brailleViewMode) && $claro_brailleViewMode )
 {
     $claro_banner = ob_get_contents();
