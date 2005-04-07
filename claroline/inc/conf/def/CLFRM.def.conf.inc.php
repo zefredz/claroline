@@ -45,5 +45,4 @@ $conf_def_property_list['topics_per_page']
         ,'type'      => 'integer'
         ,'container' => 'VAR'
         );
-
 ?>

@@ -1,5 +1,4 @@
 <?php //$Id$
-
 // TOOL
 $conf_def['config_code'] = 'CLWRK';
 $conf_def['config_file'] = 'CLWRK.conf.php';
@@ -18,5 +17,4 @@ array ('label'         => 'Maximum size for an assignment'
       ,'type'          => 'integer'
       ,'unit'          => 'bytes'
       );
-
 ?>

@@ -51,7 +51,7 @@ array ('label'       => 'Default visibility for new course'
 $conf_def_property_list['human_code_needed'] = 
 array ('label'       => 'Course code is'
       ,'description' => 'User can leave course code (officialCode) field empty or not'
-      ,'default'     => 'TRUE'
+      ,'default'     => TRUE
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE' => 'Required'
                                 ,'FALSE'=> 'Optional'
@@ -61,7 +61,7 @@ array ('label'       => 'Course code is'
 $conf_def_property_list['human_label_needed'] = 
 array ('label'       => 'Course label (name) is'
       ,'description' => 'User can leave course label (name) field empty or not'
-      ,'default'     => 'TRUE'
+      ,'default'     => TRUE
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE'=>'Required'
                               ,'FALSE'=>'Optional'
@@ -71,7 +71,7 @@ array ('label'       => 'Course label (name) is'
 $conf_def_property_list['course_email_needed'] = 
 array ('label'       => 'Course email email is'
       ,'description' => 'User can leave email field empty or not'
-      ,'default'     => 'FALSE'
+      ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -83,7 +83,7 @@ array ('label'       => 'Course email email is'
 $conf_def_property_list['extLinkNameNeeded'] = 
 array ('label'       => 'Label of external Link is'
       ,'description' => 'This name is show in top right of course banner'
-      ,'default'     => 'FALSE'
+      ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -94,7 +94,7 @@ array ('label'       => 'Label of external Link is'
 $conf_def_property_list['extLinkUrlNeeded'] = 
 array ('label'       => 'Url of external Link is Label of external Link'
       ,'description' => 'This url is under the '
-      ,'default'     => 'FALSE'
+      ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -130,7 +130,7 @@ array ( 'showLinkToDeleteThisCourse'
 
 $conf_def_property_list['showLinkToDeleteThisCourse']
 = array ('label'     => 'Allow course manager to delete course'
-        ,'default'   => 'TRUE'
+        ,'default'   => TRUE
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
         ,'acceptedValue' => array ('TRUE'  => 'Yes'

@@ -1,24 +1,26 @@
 <?php // $Id$
 /**
  * This file describe the parameter for user profile config file
- * ----------------------------------------------------------------------------
- * @author Christophe Gesché <moosh@claroline.net>
- * ----------------------------------------------------------------------------
+ * 
  * @version CLAROLINE 1.6
- * ----------------------------------------------------------------------------
+ * 
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
  * as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
  * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
  * @see http://www.claroline.net/wiki/config_def/
  * @package user
+ * 
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
 
 // CONFIG HEADER
 
 $conf_def['config_code'] = 'CLPROFIL';
 $conf_def['config_name'] = 'User profile options';
-$conf_def['description'] = ''; 
+//$conf_def['description'] = ''; 
 $conf_def['config_file'] = 'user_profile.conf.php';
 $conf_def['old_config_file'][] ='profile.conf.php';
 
@@ -33,7 +35,7 @@ array ( 'userOfficialCodeCanBeEmpty'
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
 array ( 'label'         => 'Official Code is'
-      , 'default'       => 'TRUE'
+      , 'default'       => TRUE
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Optional'
                                  ,'FALSE' => 'Required'
@@ -42,10 +44,11 @@ array ( 'label'         => 'Official Code is'
 $conf_def_property_list['userMailCanBeEmpty'] =
 array ( 'label'         => 'Email is'
       , 'description'   => 'Accept email as valid (best choice)'
-      , 'default'       => 'TRUE'
+      , 'default'       => TRUE
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Optional'
-                                 ,'FALSE' => 'Required'
+      , 'acceptedValue' => array ('FALSE' => 'Required'
+                                 ,'TRUE'  => 'Optional'
+                                 
                                  )
       );
 
@@ -70,7 +73,7 @@ array ( 'SECURE_PASSWORD_REQUIRED'
 $conf_def_property_list['SECURE_PASSWORD_REQUIRED'] =
 array ('label'         => 'Check the fiability of password'
       ,'description'   => 'Check if the password is not too much easy to find'
-      ,'default'       => 'TRUE'
+      ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -102,7 +105,7 @@ array ( 'label'         => 'Is user allowed to request a course creator status ?
       , 'description'   => 'If yes, the user have access to a request system. '."\n"
                          .'This option allow only to request it, '
                          .'and don\'t prework the answer'
-      , 'default'       => 'FALSE'
+      , 'default'       => FALSE
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -114,7 +117,7 @@ array ( 'label'         => 'Is user allowed to request to be deleted from platfo
       , 'description'   => 'If yes, the user have access to a request system. '."\n"
                          .'This option allow only to request it, '."\n"
                          .'and don\'t prework the answer'."\n"
-      , 'default'       => 'FALSE'
+      , 'default'       => FALSE
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Yes'
                                  ,'FALSE' => 'No'
