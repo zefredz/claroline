@@ -45,21 +45,21 @@ function claro_undist_file ($file)
             @copy($file.".dist",$file) && chmod ($file,$perms|bindec(110000)) && chgrp($file,$group);
             if (file_exists($file))
             {
-                return true;
+                return TRUE;
             }
             else
             {
-                return false;
+                return FALSE;
             }
         }
         else
         {
-            return false;
+            return FALSE;
         }
     }
     else
     {
-        return false;
+        return TRUE;
     }
 }
 
@@ -460,7 +460,7 @@ function validate_property ($propertyValue, $propertyDef)
         switch($type)
         {
             case 'boolean' :
-                if ( !($propertyValue=='TRUE' || $propertyValue=='FALSE') )
+                if ( !($propertyValue==TRUE || $propertyValue==FALSE) )
                 {
                     $controlMsg['error'][] = $propertyName.' would be boolean';
                     $is_valid = FALSE;
@@ -638,6 +638,8 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
             switch ($conf_def_property_list[$propertyName]['type'])
             {
                 case 'boolean':
+                    $valueToWrite = trueFalse($propertyValue);
+                    break;
                 case 'php':
                 case 'integer':
                     $valueToWrite = $propertyValue;
@@ -729,8 +731,8 @@ function parse_config_file($conf_file)
             {
                 $possibleVar = substr($tokens[$i][1], 1);
                 if (  $tokens[$i+1][0] == T_WHITESPACE
-                    && $tokens[$i+2] == '='
-                    )
+                && $tokens[$i+2] == '='
+                )
                 {
                     $i += 2;
                     if ($tokens[$i+1][0] == T_WHITESPACE) $i++;
@@ -739,9 +741,9 @@ function parse_config_file($conf_file)
                     {
                         if ($tokens[$i] == ';') break;
                         if (is_array($tokens[$i]))
-                            $val = $tokens[$i][1];
+                        $val = $tokens[$i][1];
                         else
-                            $val = $tokens[$i];
+                        $val = $tokens[$i];
                         $vars[$possibleVar] .= $val;
                     }
                 }
@@ -759,7 +761,7 @@ function parse_config_file($conf_file)
                     @eval('$value = '.$tokens[$i][1].';');
                     $propList[$tokens[$i][1]] =  $value;
                 }
-           }
+            }
         }
     }
     else
@@ -813,14 +815,24 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
         $actual_value = $currentValue;
     }
 
-    // default value to display 
-    if ( isset($property_def['acceptedValue'][$property_def['default']]) )
+    // default value to display
+    // 1st, if  boolean, stringify value
+    if ($property_def['type']=='boolean')
     {
-        $default_value = $property_def['acceptedValue'][$property_def['default']];
+        $fooDef = trueFalse($property_def['default']);
     }
     else
     {
-        $default_value = $property_def['default'];
+        $fooDef = $property_def['default'];
+    }
+
+    if ( isset($property_def['acceptedValue'][$fooDef]) )
+    {
+        $default_value = $property_def['acceptedValue'][$fooDef];
+    }
+    else
+    {
+        $default_value = $fooDef;
     }
 
     // description to display 
@@ -962,7 +974,7 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
 
                 echo '<br />';
 
-                echo '<input id="'.$property_name.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '
+                echo '<input id="'.$property_name.'_FALSE" type="radio" name="'.$htmlPropName.'" value="" '
                      . ($htmlPropValue=='TRUE'?' ':' checked="checked" ')
                      . ' >' ;
                 echo '<label for="'.$property_name.'_FALSE" >'
@@ -1087,7 +1099,7 @@ function get_values_from_confFile($file_name,$conf_def_property_list)
                 {
                     @eval('$value_list[$propName] = '.$propName.';');
                 }
-                else 
+                else
                 {
                     $value_list[$propName] = $$propName;
                 }
@@ -1106,9 +1118,9 @@ if (!function_exists('md5_file'))
 {
     function md5_file($file_name)
     {
-       $fileContent = file($file_name);
-       $fileContent = !$file ? FALSE : implode('', $fileContent);
-       return md5($fileContent);
+        $fileContent = file($file_name);
+        $fileContent = !$file ? FALSE : implode('', $fileContent);
+        return md5($fileContent);
     }
 }
 
