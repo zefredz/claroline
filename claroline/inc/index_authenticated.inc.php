@@ -117,6 +117,16 @@ echo "<table width=\"100%\" border=\"0\" cellpadding=\"4\" >\n\n"
 
 @include './textzone_top.inc.html'; // Introduction message if needed
 
+if ($is_platformAdmin)
+{
+    echo '&nbsp;'
+        .'<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&file=0">'
+        .'<img src="claroline/img/edit.gif"> Edit text zone'
+        .'</a>'."\n";
+}
+
+
+
 claro_disp_tool_title($langMyCourses);
 
 /*
@@ -261,16 +271,26 @@ echo "</ul>\n"
 	                        Only available for platform administrator */
 	{
 ?>
-<hr noshade size="1">
-
-
 <p><a href="claroline/admin/"><?php echo $langPlatformAdministration ?></a></p>
 
 <?php
 	} // end if is_platformAdmin
 
 ?>
-<?php @include './textzone_right.inc.html'; ?>
+<?php 
+
+@include './textzone_right.inc.html'; 
+
+if ($is_platformAdmin)
+{
+    echo '&nbsp;'
+        .'<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&file=1">'
+        .'<img src="claroline/img/edit.gif"> Edit text zone'
+        .'</a>'."\n";
+}
+
+
+?>
 
 </td>
 
