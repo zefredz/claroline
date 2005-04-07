@@ -109,8 +109,10 @@ if($register=="yes")
 
     else
     {
-        $result = claro_sql_query("SELECT `user_id` FROM `".$tbl_user."`
-                               WHERE username=\"".$uname."\"");
+        $sql = "SELECT `user_id` 
+                FROM `".$tbl_user."`
+                WHERE username=\"".$uname."\"";
+        $result = claro_sql_query($sql);
 
 
         if (mysql_num_rows($result) > 0)
