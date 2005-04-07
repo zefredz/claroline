@@ -92,7 +92,7 @@ if (isset($_REQUEST['cmd']) && $_REQUEST['cmd']=='run')
 		include('./sql_statement_tracking.php');
 		include('./repair_tables.php');
 	}
-    
+	
     $display = DISPLAY_RESULT_PANEL;
 
 } // if ($cmd=="run")
@@ -196,13 +196,32 @@ switch ($display)
         		}
         	}
         }
-        mysql_close();
+        
         echo '</ol>' . "\n";
+	
+    	// For Each def file add a hash code in  the new table config_list
+        $def_file_list = get_def_file_list();
+    	foreach ( $def_file_list as $def_file_bloc)
+    	{
+    	    if (is_array($def_file_bloc['conf']))
+    	    {
+    	        foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
+    	        {
+    	            $conf_file = get_conf_file($config_code);
+                    // The Hash compute and store is differed after creation table use for this storage
+    	            // calculate hash of the config file
+    	            $conf_hash = md5_file($conf_file); 
+    	            save_config_hash_in_db($config_code,$conf_hash);
+    	        }
+    	    }
+    	}
+    	
+    	mysql_close();
 
         if ($nbError>0 )
         {
         	echo '<p class="error">' . $nbError . ' ' . 'errors found' . '</p>' . "\n";
-    		echo sprintf("<p><button onclick=\"document.location='%s';\">Retry with more details</button></p>", $_SERVER['PHP_SELF']."?cmd=run&verbose=true");
+    		echo sprintf('<p><button onclick="document.location=\'%s\';" >Retry with more details</button></p>', $_SERVER['PHP_SELF'].'?cmd=run&amp;verbose=true');
         }
         else
         {
@@ -213,9 +232,9 @@ switch ($display)
 
            echo '<p class="success">'  . 'The claroline main tables have been successfully upgraded' . '</p>' . "\n";
 
-           if (replace_var_value_in_conf_file ("versionDb",$version_db_cvs,$includePath ."/conf/claro_main.conf.php"))
+           if (replace_var_value_in_conf_file ("versionDb",$version_db_cvs,$includePath .'/conf/claro_main.conf.php'))
            {
-                echo '<div align="right">' . sprintf($langNextStep,"upgrade_courses.php") . '</div>';
+                echo '<div align="right">' . sprintf($langNextStep,'upgrade_courses.php') . '</div>';
            }
            else
            {
