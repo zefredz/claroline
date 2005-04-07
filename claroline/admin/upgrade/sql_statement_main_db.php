@@ -1,6 +1,15 @@
 <?php // $Id$
 
-/*
+/**
+ * @version CLAROLINE 1.6
+ * 
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * 
+ * @license GENERAL PUBLIC LICENSE (GPL)
+ * 
+ * @author Mathieu Laurent   <mla@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * 
  *  Sql query to update main database
  */
 
@@ -25,12 +34,6 @@ $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $mainTblPrefix . "rel_class_u
   `class_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM";
-
-// Update table track_e_default
-$sqlForUpdate[] = "ALTER IGNORE TABLE `" . $mainTblPrefix . "track_e_default` CHANGE `default_user_id` `default_user_id` int(11) unsigned NOT NULL default '0'" ;
-
-// Update table login_user_id
-$sqlForUpdate[] = "ALTER IGNORE TABLE `" . $mainTblPrefix . "track_e_login` CHANGE `login_user_id` `login_user_id` int(11) NOT NULL default '0'" ;
 
 // Update table user_id
 $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $mainTblPrefix . "user` CHANGE `user_id` `user_id` int(11) unsigned NOT NULL auto_increment" ;
