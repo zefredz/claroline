@@ -256,12 +256,6 @@ else
     echo '<div></div>';
 }
 
-?>
-
-
-
-<?php
-
 if ( isset($claro_brailleViewMode) && $claro_brailleViewMode )
 {
     $claro_banner = ob_get_contents();
@@ -271,17 +265,6 @@ else
 {
     ob_end_flush();
     $claro_banner = false;
-}
-
-if( isset($db) )
-{
-    // connect to the main database.
-    // if single database, don't pefix table names with the main database name in SQL queries
-    // (ex. SELECT * FROM `table`)
-    // if multiple database, prefix table names with the course database name in SQL queries (or no prefix if the table is in
-    // the main database)
-    // (ex. SELECT * FROM `table_from_main_db`  -  SELECT * FROM `courseDB`.`table_from_course_db`)
-    mysql_select_db($mainDbName, $db);
 }
 ?>
 
