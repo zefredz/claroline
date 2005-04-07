@@ -222,6 +222,7 @@ h3{	font-size: 110%; }
 
 #breadcrumbLine
 {
+	height:1em;
 	background-color: #E5E5E5;
 	border: none;
 	font-size: 90%;
@@ -246,7 +247,7 @@ h3{	font-size: 110%; }
 	display: none;
 }
 
-#breadcrumbLine #breadcrumb
+#breadcrumbLine #breadcrumbTrail
 {
 	float: left;
 }

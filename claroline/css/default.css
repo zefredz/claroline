@@ -2,27 +2,34 @@
                               MAIN HTML TAGS STYLE
  ******************************************************************************/
 
-body {
+body 
+{
 	font-family: arial, helvetica, sans-serif;
 	color:#333333;
 	background-color: #fff;
 }
 
-a:link, a:active, a:visited {
+a:link, a:active, a:visited 
+{
 	color: #006;
 }
 
-a img {
+a img 
+{
 	border:none;
 	text-decoration: none;
 }
 
-.spacer
+.spacer 
 {
 	clear: both;
 }
 
-h3{	font-size: 110%; }
+h3{
+	font-size: 110%;
+}
+
+
 /******************************************************************************
                               CLAROLINE TOP BANNER
  ******************************************************************************/
@@ -49,7 +56,7 @@ h3{	font-size: 110%; }
    	color: #FFF;
 }
 
-#platformBanner a:hover
+#platformBanner a:hover 
 {
 	color: #FFF;
 	text-decoration: underline;
@@ -102,26 +109,8 @@ h3{	font-size: 110%; }
 
 #userBanner a:hover
 {
-    color: #FFF;
+   color: #FFF;
 	text-decoration: underline;
-}
-
-#userBanner ul
-{
-	display: inline;
-	padding: 0;
-	margin: 0;
-}
-
-#userBanner li 
-{
-	display: inline;
-	margin: 0;
-	text-align: center;
-	list-style-type: none;
-	padding-left: 5px;
-	padding-right: 4px;
-	border-left: 1px solid #fff;
 }
 
 
@@ -153,7 +142,7 @@ h3{	font-size: 110%; }
 {
 	position: relative;
 	float: right;
-    text-align: right;
+   text-align: right;
 }
 
 #courseBanner #courseName {
@@ -193,7 +182,6 @@ h3{	font-size: 110%; }
 {
 	border: none;
 	font-size: 80%;
-	padding-bottom: 5px;
 }
 
 #breadcrumbLine hr
@@ -201,7 +189,7 @@ h3{	font-size: 110%; }
 	display: none;
 }
 
-#breadcrumbLine #breadcrumb
+#breadcrumbLine #breadcrumbTrail
 {
 	float: left;
 }
@@ -258,13 +246,15 @@ h3{	font-size: 110%; }
 	CLAROLINE COMMAND LINKS
  ******************************************************************************/
  
-.claroCmd{
+.claroCmd
+{
 		font-size: smaller;
 		font-weight: bold;
 		text-decoration: underline;
 }
 
-.claroCmdDisabled {
+.claroCmdDisabled 
+{
 		color: Gray;
 		font-size: smaller;
 		font-weight: bold;
@@ -273,17 +263,19 @@ h3{	font-size: 110%; }
 
 /* Added for document view mode toolbar */
 
-th .claroCmd{
-        font-size: smaller;
-		font-weight: bold;
-		text-decoration: underline;
+th .claroCmd
+{
+	font-size: smaller;
+	font-weight: bold;
+	text-decoration: underline;
 }
 
-th .claroCmdDisabled{
-        color: white;
-        font-size: smaller;
-		font-weight: bold;
-		text-decoration: none;
+th .claroCmdDisabled
+{
+   color: white;
+   font-size: smaller;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 
@@ -443,7 +435,8 @@ th .claroCmdDisabled{
  * visible fo the other users
  */
 
-.invisible  {
+.invisible
+{
 	color: #999999;
 }
 
@@ -452,7 +445,8 @@ th .claroCmdDisabled{
 .invisible a:visited,
 a.invisible,
 a:link.invisible,
-a:visited.invisible{
+a:visited.invisible
+{
 	color: #999999;
 }
 
@@ -499,8 +493,10 @@ claroRightMenu a:hover {
 				
 }
 
-
-
 .HelpText {
     color:gray
+}
+
+.claroToolTitle {
+	padding-top: 5px;
 }

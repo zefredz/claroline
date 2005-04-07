@@ -202,7 +202,7 @@ h3{	font-size: 110%; }
 	display: none;
 }
 
-#breadcrumbLine #breadcrumb
+#breadcrumbLine #breadcrumbTrail
 {
 	float: left;
 }
