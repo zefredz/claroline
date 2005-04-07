@@ -34,13 +34,12 @@ $error = 0;
 if ($_REQUEST['cmd'] == 'run')
 {
     $backupRepositorySys = $includePath .'/conf/bak.'.date('Y-z-B').'/';
-
     // Main conf file
 
     $output = '<h3>'
             . 'Configuration file'
             . '</h3>'
-            . '<ul>'."\n"
+            . '<ol>'."\n"
             ;
     
     // Prepare repository to backup files
@@ -139,26 +138,41 @@ if ($_REQUEST['cmd'] == 'run')
                         {
         
                             // backup old file 
-                            $output .= '<li>' 
-                                    .  sprintf ('Back-up %s in: <code>%s</code>',basename($conf_file),$backupRepositorySys) ;
+                            $output .= '<li>'.basename($conf_file).'<ul ><li>' 
+                                    .  'Old file backup : ' ;
                             $fileBackup = $backupRepositorySys.basename($conf_file);
                             if (!@copy($conf_file, $fileBackup) )
                             {
-                                $output .= '<br />'."\n";
-                                $output .= sprintf ("<span class=\"warning\"><code>%s</code> copy failed !</span>",$configurationFile);
+                                $output .= '<span class="warning">failed</span>';
                             }
+                            else
+                            {
+                                $output .= 'succeed';
+                            }
+
                             $output .= '</li>'."\n";
                             // change permission
                             @chmod( $fileBackup, 600 );
                             @chmod( $fileBackup, 0600 );
-                            
+                            $output .= '<li>'."\n";
+                            $output .= 'File upgrade : ';
                             if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
                             {
+                                $output .= 'succeed';
+                                // The Hash compute and store is differed after creation table use for this storage
                                 // calculate hash of the config file
-                                $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
-                                //$conf_hash = filemtime($conf_file);
-                                save_config_hash_in_db($config_code,$conf_hash);
+                                // $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
+                                // $conf_hash = filemtime($conf_file);
+                                // save_config_hash_in_db($config_code,$conf_hash);
                             }
+                            else 
+                            {
+                                $output .= '<span class="warning">failed</span>';
+                                
+                            }
+                            $output .= '</li>'."\n";
+                            $output .= '</ul></li>'."\n";
+                            
                         }
                     }
                 }
@@ -172,28 +186,24 @@ if ($_REQUEST['cmd'] == 'run')
     
     $arr_file_to_undist =
     array (
-    $newIncludePath.'../../textzone_top.inc.html',
-    $newIncludePath.'../../textzone_right.inc.html',
-    $newIncludePath.'conf/auth.conf.php'
+    $includePath.'/../../textzone_top.inc.html',
+    $includePath.'/../../textzone_right.inc.html',
+    $includePath.'/conf/auth.conf.php'
     );
-    
-    $output .= '<h3>'.'Others conf files'.'</h3>'."\n";
-    
-    $output .= '<ul>'."\n";
     foreach ($arr_file_to_undist As $undist_this)
     {
-        $output .='<li>Conf file: <code>'.basename ($undist_this).'</code>';
+        $output .='<li>'.basename ($undist_this).' : ';
         if (claro_undist_file($undist_this))
         {
-            $output .=' added';
+            $output .='succeed';
         }
         else
         {
-            $output .=' not changed.';
-        };
+            $output .= '<span class="warning">failed</span>';
+        }
         $output .='</li>'."\n";
     }
-    $output .= '</ul>'."\n";
+    $output .= '</ol>'."\n";
     
     if (!$error)
     {
@@ -240,7 +250,7 @@ if ($_REQUEST['cmd'] == 'run')
 <td valign="top"align="left">
 <div id="menu">
 <?php
- echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>", "upgrade", $langUpgradeStep1);
+ echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>", 'upgrade', $langUpgradeStep1);
 ?>
 </div>
 </td>
@@ -255,67 +265,23 @@ if ($_REQUEST['cmd'] == 'run')
 
 switch ($display)
 {
-    case DISPLAY_WELCOME_PANEL: 
-                echo sprintf ("<h2>%s</h2>",$langUpgradeStep1);
-                echo $langIntroStep1;
-        echo "<center>" . sprintf ($langLaunchStep1, $_SERVER['PHP_SELF']."?cmd=run") . "</center>";
+    case DISPLAY_WELCOME_PANEL :
+        echo sprintf ('<h2>%s</h2>',$langUpgradeStep1);
+        echo $langIntroStep1;
+        echo '<center>' . sprintf ($langLaunchStep1, $_SERVER['PHP_SELF'].'?cmd=run') . '</center>';
         break;
-        case DISPLAY_RESULT_ERROR_PANEL:
-                echo sprintf ("<h2>%s</h2>",$langUpgradeStep1 . " - " . $langFailed);
-                echo $output;
-                break;
-                
-    case DISPLAY_RESULT_SUCCESS_PANEL:
-
-                echo sprintf ("<h2>%s</h2>",$langUpgradeStep1 . " - " . $langSucceed);
-
-                echo "<p>Here are the main settings that has been recorded in claroline/inc/conf/claro_main.conf.php</p>";
-                
-                // display the main setting of the new configuration file.
-                
-                echo "<fieldset>
-        <legend>Database authentification</legend>
-                <p>Host: $dbHost<br />
-        Username: $dbLogin<br />
-        Password: ".(empty($dbPass)?"--empty--":$dbPass)."</p>
-        </fieldset>
-                <br />
-                <fieldset>
-        <legend>Claroline databases</legend>
-                <p>Course database Prefix: ".($dbNamePrefix?$dbNamePrefix:$langNo)."<br />
-                Main database Name: $mainDbName <br />
-        Statistics and Tracking database Name: $statsDbName <br />
-        Enable Single database: ".($singleDbEnabled?$langYes:$langNo)."</p>
-        </fieldset>
-                <br />
-                <fieldset>
-                    <legend>Administrator</legend>
-                    Name: ".$administrator["name"]."<br />
-                    Mail: ".$administrator["email"]."<br />
-        </fieldset>
-                <br />
-        <fieldset>
-                 <legend>Campus</legend>
-                 <p>
-                    Language: $platformLanguage<br />
-                    Your organisation: ".$institution["name"]."<br />
-                    URL of this organisation: ".$institution["url"]."
-                </p>
-        </fieldset>
-                <br />
-        <fieldset>
-                    <legend>Config</legend>
-                    <p>
-                    Enable Tracking: ".($is_trackingEnabled?$langYes:$langNo)."<br />
-                    Self registration allowed: ".($allowSelfReg?$langYes:$langNo)."<br />
-                    Self course creator allowed : ".($allowSelfRegProf?$langYes:$langNo)."<br />
-                    Encrypt user passwords in database: " .($userPasswordCrypted?$langYes:$langNo)."
-                    </p>
-                </fieldset>";
-                
-                echo "<div align=\"right\">" . sprintf($langNextStep,"upgrade_main_db.php") . "</div>";
-                
+        
+    case DISPLAY_RESULT_ERROR_PANEL :
+        echo sprintf ('<h2>%s</h2>',$langUpgradeStep1 . ' - ' . $langFailed);
+        echo $output;
         break;
+
+    case DISPLAY_RESULT_SUCCESS_PANEL :
+        echo sprintf ('<h2>%s</h2>',$langUpgradeStep1 . ' - ' . $langSucceed);
+        echo $output;
+        echo '<div align="right">' . sprintf($langNextStep,'upgrade_main_db.php') . '</div>';
+        break;
+    
 }
  
 ?>
