@@ -1,17 +1,7 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-/*
+/**
+ * CLAROLINE 
+ *
  * This script 
  * - read current version
  * - check if update of main conf is needed
@@ -19,11 +9,27 @@
  * - check if update of main db   is needed
  *         whether do it (upgrade_main_db.php)
  * - scan course to check if update of db is needed
- *         whether do loop (upgrade_courses.php)
- *               - update course db
- *               - update course repository content
+ *   whether do loop (upgrade_courses.php)
+ * - update course db
+ * - update course repository content
+ * 
+ * 
+ *
+ * @version 1.6
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE (GPL) 
+ *
+ * @see http://www.claroline.net/wiki/
+ *
+ * @package UPGRADE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
  */
-
 /*=====================================================================
   Init Section
  =====================================================================*/ 
@@ -47,6 +53,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
  ---------------------------------------------------------------------*/
 
 include ($includePath.'/installedVersion.inc.php');
+include ($includePath.'/currentVersion.inc.php');
 
 $thisClarolineVersion = $version_file_cvs;
 $thisVersionDb 		  = $version_db_cvs;
@@ -56,14 +63,15 @@ $patternSqlVersion = '1.6%';
 
 $configurationFile = $includePath.'/conf/claro_main.conf.php';
 
-/*---------------------------------------------------------------------
-  Steps of Display 
- ---------------------------------------------------------------------*/
-
+/**#@+
+ * Displays flags
+ * Using __LINE__ to have an arbitrary value
+ */
 define('DISPVAL_upgrade_backup_needed'  ,__LINE__);
 define('DISPVAL_upgrade_main_db_needed' ,__LINE__);
 define('DISPVAL_upgrade_courses_needed' ,__LINE__);
 define('DISPVAL_upgrade_done'           ,__LINE__);
+/**#@-*/
 
 /*=====================================================================
   Statements Section
@@ -170,7 +178,7 @@ else
 <td valign="top" align="left">
 <div id="header">
 <?php
- echo sprintf("<h1>Claroline (%s) - %s</h1>",$thisClarolineVersion,$langUpgrade);
+ echo sprintf('<h1>Claroline (%s) - %s</h1>',$thisClarolineVersion,$langUpgrade);
 ?>
 </div>
 </td>

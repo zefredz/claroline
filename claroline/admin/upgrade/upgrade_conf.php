@@ -1,9 +1,24 @@
 <?php // $Id$
-
-/**
- * initialize conf settings
- * try to read  old values in old conf files
- * build new conf file content with these settings
+/** 
+ * CLAROLINE 
+ *
+ * @version 1.6
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE (GPL) 
+ *
+ * @see http://www.claroline.net/wiki/
+ *
+ * @package UPGRADE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ * Initialize conf settings
+ * Try to read  old values in old conf files
+ * Build new conf file content with these settings
  * write it.
  */
 
@@ -158,7 +173,8 @@ if ($_REQUEST['cmd'] == 'run')
                         {
         
                             // backup old file 
-                            $output .= '<li>Old file backup : ' ;
+                            $output .= '<li>';
+                            $output .= 'Old file backup : ' ;
                             $fileBackup = $backupRepositorySys.basename($conf_file);
                             if (!@copy($conf_file, $fileBackup) )
                             {

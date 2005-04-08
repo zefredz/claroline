@@ -1,10 +1,22 @@
 <?php // $Id$
-
-
-/*
+/**
+ * CLAROLINE 
+ *
  * This  script   search tables  of db and  create sql to run a mysql repair of table.
+ *
+ * @version 1.6 $Revision$
+ * 
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * 
+ * @license (GPL) GENERAL PUBLIC LICENSE 
+ * 
+ * @author Claro Team <cvs@claroline.net>
+ * @author Mathieu Laurent   <mla@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
- 
+
+
 if  ( !is_array($tableToRepair) )
 {
 
