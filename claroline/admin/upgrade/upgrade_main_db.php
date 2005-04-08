@@ -1,17 +1,21 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6.*
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
 /**
+ * CLAROLINE 
+ *
+ * @version 1.6
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE (GPL) 
+ *
+ * @see http://www.claroline.net/wiki/
+ *
+ * @package UPGRADE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
  * Try to create main database of claroline without remove existing content
  */
 
@@ -75,8 +79,6 @@ if (isset($_REQUEST['cmd']) && $_REQUEST['cmd']=='run')
      * Upgrade Main Database
      */
 
-    $sqlForUpdate[] = "USE `".$mainDbName."`";
-
     include('./sql_statement_main_db.php');
     include('./repair_tables.php');
 
@@ -86,9 +88,6 @@ if (isset($_REQUEST['cmd']) && $_REQUEST['cmd']=='run')
 
     if ($is_trackingEnabled)
     {
-        if ( $statsDbName=="" ) $statsDbName = $mainDbName;
-
-		$sqlForUpdate[] = "USE `".$statsDbName."`";
 		include('./sql_statement_tracking.php');
 		include('./repair_tables.php');
 	}
@@ -155,6 +154,7 @@ switch ($display)
 
         $nbError = 0;
 
+        $tbl_mdb_names = claro_sql_get_main_tbl();
         while (list($key,$sqlTodo) = each($sqlForUpdate))
         {
         	if ($sqlTodo[0] == "#")
