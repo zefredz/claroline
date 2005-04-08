@@ -1,0 +1,340 @@
+<?php // $Id$µ
+/**
+ * CLAROLINE 
+ *
+ * Filler for tools in course
+ *
+ * @version 1.6
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license  http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * SHUFFLE COURSE FILL
+ */
+
+DEFINE("DISP_RESULT_INSERT"		,1);
+DEFINE("DISP_FORM_SET_OPTION"	,2);
+DEFINE("DISP_INSERT_COMPLETE"	,3);
+
+unset($includePath);
+require '../../inc/claro_init_global.inc.php';
+// Security check
+if (!$is_platformAdmin) claro_disp_auth_form();
+//// Config tool
+include($includePath."/conf/course_main.conf.php");
+//// LIBS
+include($includePath."/lib/add_course.lib.inc.php");
+include($includePath."/lib/debug.lib.inc.php");
+include($includePath."/lib/fileManage.lib.php");
+include($includePath."/conf/course_main.conf.php");
+
+$nameTools = $langAdd_users;
+$interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
+$interbredcrump[]= array ("url"=>"index.php", "name"=> $langDevTools);
+
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user      = $tbl_mdb_names['user'];
+$tbl_tool      = $tbl_mdb_names['tool'];
+$can_create_courses = (bool) ($is_allowedCreateCourse);
+
+
+$toolNameList = array('CLANN___' => $langAnnouncement,
+	                      'CLFRM___' => $langForums,
+	                      'CLCAL___' => $langAgenda,
+	                      'CLCHT___' => $langChat,
+	                      'CLDOC___' => $langDocument,
+	                      'CLDSC___' => $langDescriptionCours,
+	                      'CLGRP___' => $langGroups,
+	                      'CLLNP___' => $langLearningPath,
+	                      'CLQWZ___' => $langExercises,
+	                      'CLWRK___' => $langWork,
+	                      'CLUSR___' => $langUsers);
+if (isset($_REQUEST['create']))
+{
+    //echo '<p>$_REQUEST = <pre>'.var_export( $_REQUEST,1).'</pre>';
+    
+    $sqlCourses ='select * FROM `'.$tbl_course.'`'; 
+    $course_list  = claro_sql_query_fetch_all($sqlCourses);
+    foreach ($course_list as $course)
+    {
+        foreach ($_REQUEST['toolToFill'] as $tool_label)
+        {
+           $result[$course['code']][$tool_label] = fill_tool_in_course($course['code'],$tool_label);
+        }
+    }
+    echo '</ul>';
+    
+    
+    $display=DISP_RESULT_INSERT;
+}
+else 
+{
+$display = DISP_FORM_SET_OPTION;
+    $sql ="SELECT pct.id             id,
+                   pct.claro_label    label,
+                        pct.icon           icon,
+                        pct.access_manager access_manager,
+                        pct.script_url url
+               FROM`".$tbl_tool."` pct";
+    $tool_list  = claro_sql_query_fetch_all($sql);
+    
+}
+
+
+	                      
+
+include($includePath.'/claro_init_header.inc.php');
+claro_disp_tool_title(
+	array(
+	'mainTitle'=>$nameTools,
+	'subTitle'=> $siteName." - ".$clarolineVersion
+	)
+	);
+require('./greek.php');                      
+	                      
+claro_disp_msg_arr($controlMsg);
+
+//////////////// OUTPUT
+switch ($display)
+{
+	case DISP_RESULT_INSERT :
+    echo '<ul>';
+    foreach ($course_list as $course)
+    {
+        echo '<LI><b>'.$course['code'].'</b> : '.$course['intitule'].'<ul>';
+        foreach ($_REQUEST['toolToFill'] as $tool_label)
+        {
+            echo '<li>Fill '.$toolNameList[$tool_label].' '.$result[$course['code']][$tool_label].'  </li>';
+        }
+        echo '</ul></LI>';
+    }
+    echo '</ul>';
+		break;
+	case DISP_FORM_SET_OPTION :
+		?><br><br>
+<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" target="_self">
+	<fieldset>
+		<legend >Outils à remplir</legend>
+		<table class="claroTable" >
+			<tr>
+				<th >
+					<label for="toolToFill">Outils  : </label>
+				</th>
+				<th>
+					<label for="courses">Cours  : </label>
+				</th>
+			</tr>
+			<tr>
+				<td>				
+                    <select name="toolToFill[]" id="toolToFill" size="<?php echo (sizeof($tool_list)+1); ?>" multiple>
+                    <?php
+                    foreach($tool_list as $tool)
+                    		echo '<option selected="selected" value="'.$tool['label'].'" >'.$toolNameList[$tool['label']].'</option>'."\n";
+                    ?>
+                    </select>
+				</td>
+				<td>
+					<input type="radio" id="courses" name="courses" value="<?php echo $courses ?>" size="5" maxlength="4"> ALL
+					Ya pas le choix pour le moment
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+	<fieldset >
+		<legend >Données</legend>
+		<table class="claroTable" >
+            Ajout d'une ligne par outil par cours.
+		</table>
+	</fieldset>
+	<input type="submit" name="create" value="create">
+</form>
+		<?php
+		break;
+	default : "hum erreur de display";
+
+}
+
+function fill_tool_in_course($course_code,$tool_label)
+{
+    global  $courseTablePrefix, $dbGlu;
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_course = $tbl_mdb_names['course'];
+    $sql = 'SELECT dbName From `'.$tbl_course.'` where code="'.$course_code.'"';
+    $course = claro_sql_query_fetch_all($sql);
+    
+    $course_dbNameGlu = $courseTablePrefix . $course[0]['dbName'] . $dbGlu; // use in all queries
+    $tbl_cdb_names = claro_sql_get_course_tbl($course_dbNameGlu);
+    //echo '<p>$tbl_cdb_names= <pre>'.var_export( $tbl_cdb_names,1).'</pre>';        
+    /*
+              'bb_categories'          => $courseDb.'bb_categories',
+              'bb_forums'              => $courseDb.'bb_forums',
+              'bb_posts'               => $courseDb.'bb_posts',
+              'bb_posts_text'          => $courseDb.'bb_posts_text',
+              'bb_priv_msgs'           => $courseDb.'bb_priv_msgs',
+              'bb_rel_topic_userstonotify'
+                            => $courseDb.'bb_rel_topic_userstonotify',
+              'bb_topics'              => $courseDb.'bb_topics',
+              'bb_users'               => $courseDb.'bb_users',
+              'bb_whosonline'          => $courseDb.'bb_whosonline',
+
+              'calendar_event'         => $courseDb.'calendar_event',
+              'course_description'     => $courseDb.'course_description',
+              'document'               => $courseDb.'document',
+              'group_property'         => $courseDb.'group_property',
+              'group_rel_team_user'    => $courseDb.'group_rel_team_user',
+              'group_team'             => $courseDb.'group_team',
+              'lp_learnPath'           => $courseDb.'lp_learnPath',
+              'lp_rel_learnPath_module'=> $courseDb.'lp_rel_learnPath_module',
+              'lp_user_module_progress'=> $courseDb.'lp_user_module_progress',
+              'lp_module'              => $courseDb.'lp_module',
+              'lp_asset'               => $courseDb.'lp_asset',
+              'quiz_answer'            => $courseDb.'quiz_answer',
+              'quiz_question'          => $courseDb.'quiz_question',
+              'quiz_rel_test_question' => $courseDb.'quiz_rel_test_question',
+              'quiz_test'              => $courseDb.'quiz_test' ,
+              'tool_intro'             => $courseDb.'tool_intro',
+              'tool'                   => $courseDb.'tool_list',
+              'track_e_access'         => $courseDb.'track_e_access',
+              'track_e_downloads'      => $courseDb.'track_e_downloads',
+              'track_e_exercices'      => $courseDb.'track_e_exercices',
+              'track_e_uploads'        => $courseDb.'track_e_uploads',
+              'userinfo_content'       => $courseDb.'userinfo_content',
+              'userinfo_def'           => $courseDb.'userinfo_def',
+              'wrk_assignment'         => $courseDb.'wrk_assignment',
+              'wrk_submission'         => $courseDb.'wrk_submission'
+
+    */
+
+    $tbl_rel_usergroup       = $tbl_cdb_names['group_rel_team_user'];
+    $tbl_group               = $tbl_cdb_names['group_team'];
+    $tbl_userInfo            = $tbl_cdb_names['userinfo_content'];
+    
+    $tbl_track_access    = $tbl_cdb_names['track_e_access'];    // access_user_id
+    $tbl_track_downloads = $tbl_cdb_names['track_e_downloads'];
+    $tbl_track_exercices = $tbl_cdb_names['track_e_exercices'];
+    $tbl_track_upload    = $tbl_cdb_names['track_e_uploads'];// upload_user_id
+    switch (trim($tool_label,'_'))
+    {
+        case 'CLANN' : 
+            $lorem_title    = lorem('characters',80);
+            $lorem_content  = lorem('sentences',8);
+            $tbl_announcement        = $tbl_cdb_names['announcement'];
+            $sql = "SELECT MAX(ordre)
+                    FROM  `".$tbl_announcement."`";
+
+            $result = claro_sql_query($sql);
+
+            list($orderMax) = mysql_fetch_row($result);
+            $order = $orderMax + 1;
+
+            // INSERT ANNOUNCEMENT
+
+            $sql = "INSERT INTO  `".$tbl_announcement."`
+                    SET title ='".$lorem_title."',
+                        contenu = '".$lorem_content."',
+                    temps = NOW(),
+                    ordre =\"".$order."\"";
+           claro_sql_query($sql);
+            return 'ok';
+            break;
+        case 'CLCAL' : 
+            $lorem_title    = lorem('characters',80);
+            $lorem_content  = lorem('sentences',8);
+
+            $tbl_calendar_event        = $tbl_cdb_names['calendar_event'];
+            $sql = "INSERT INTO `".$tbl_calendar_event."` 
+                SET   titre   = '".$lorem_title."',
+                      contenu = '".$lorem_content."',
+                      day     = now(),
+                      hour    = '5',
+                      lasting = '1h'";
+            claro_sql_query($sql);
+            return 'ok' ;
+            break;
+        case 'CLCHT' : 
+            break;
+        case 'CLDOC' : 
+            //$foo = lorem('words', 180);
+            return $foo ;
+        case 'CLDSC' : 
+            break;
+        case 'CLFRM' : 
+            break;
+        case 'CLGRP' : 
+            break;
+        case 'CLLNP' : 
+            break;
+        case 'CLQWZ' : 
+            break;
+        case 'CLUSR' : 
+            break;
+        case 'CLWRK' : 
+            break;
+        default : 
+            return 'Nothing done';        
+    }
+
+}
+
+function lorem($units, $length)
+{
+		$greeking = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.';
+
+		$errorMsg = 'You need to supply attributes for "units" (legal values are "characters", "words", "sentences" or "paragraphs") and a positive integer, "length".<br /><br />Usage Example:<br />&nbsp;&nbsp;&nbsp;&nbsp;print(<strong>greek(\'paragraphs\', 3)</strong>);';
+
+		if (!isset($units) || !isset($length) || ($length < 1)){
+			exit($errorMsg);
+		}
+	
+		$output = "";
+	
+		switch ($units){
+		
+			case "characters":
+				$output = substr($greeking, 0, $length);
+				break;
+		
+			case "words":
+				$aWord = strtok($greeking, " ");
+				for ($ctr = 1; $ctr <= $length; $ctr++){
+					$output = $output . " " . $aWord;
+					$aWord = strtok(" ");
+		        }
+		   		break;
+		
+		   case "sentences":
+				$aSentence = strtok($greeking, ".");
+				for ($ctr = 1; $ctr <= $length; $ctr++){
+					$output = $output . " " . $aSentence . ".";
+					$aSentence = strtok(".");
+		        }
+		   		break;
+		
+			case "paragraphs":
+				$aSentence = strtok($greeking, ".");
+				srand((double)microtime()*1000000);//seed random number generator
+				for ($ctrParagraph = 1; $ctrParagraph <= $length; $ctrParagraph++){
+					$paragraph = "";
+					$numberOfSentences = rand( 1, 3 );
+					for ($ctrSentence = 1; $ctrSentence <= $numberOfSentences; $ctrSentence++){
+						$paragraph = $paragraph . " " . $aSentence . ".";
+						$aSentence = strtok(".");
+					}
+					if ($ctrParagraph < $length){
+						$paragraph = $paragraph . "<br /><br />";
+					}
+					$output = $output . $paragraph;
+				}
+				break;
+		
+			default:
+				exit($errorMsg);
+		
+		}//end switch($units)
+
+	return $output;
+	}//end function greek()
+
+
+?>

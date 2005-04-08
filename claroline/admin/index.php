@@ -10,12 +10,12 @@
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
-$cidReset=true;
-$gidReset=true;
+$cidReset=TRUE;
+$gidReset=TRUE;
 require '../inc/claro_init_global.inc.php';
 
-@include ($includePath."/installedVersion.inc.php");
-include($includePath."/lib/admin.lib.inc.php");
+@include ($includePath.'/installedVersion.inc.php');
+include($includePath.'/lib/admin.lib.inc.php');
 
 //SECURITY CHECK
 
@@ -60,9 +60,7 @@ unset($_cid);
 
 // Deal with interbredcrumps  and title variable
 
-
 $nameTools = $langAdministration;
-
 
 include($includePath."/lib/debug.lib.inc.php");
 $dateNow             = claro_disp_localised_date($dateTimeFormatLong);
@@ -70,14 +68,14 @@ $is_allowedToAdmin     = $is_platformAdmin;
 
 
 // ----- is install visible ----- begin
-if ( file_exists("../install/index.php") && ! file_exists("../install/.htaccess"))
+if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'))
 {
      $controlMsg = '<p class="highlight"><b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server</p>';
 }
 // ----- is install visible ----- end
 
 
-include($includePath."/claro_init_header.inc.php");
+include($includePath.'/claro_init_header.inc.php');
 claro_disp_tool_title($nameTools);
 
 if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
@@ -149,18 +147,27 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 </ul>
 
 <?php
+if (( defined('DEVEL_MODE') && DEVEL_MODE )
+|| ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION'))
+{
+?>
+    <h4><?php echo $langSDK?></h4>
+    <ul>
+<?php
+}
 
 if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION')
 {
 ?>
-    <h4><?php echo $langSDK?></h4>
-
-    <p><img src="<?php echo 'xtra/sdk/lang/language.png'?>" style="vertical-align: middle;" alt="" /> <a href="xtra/sdk/translation_index.php"><?php echo $langTranslationTools?></a></p>
-
+    <li><img src="<?php echo 'xtra/sdk/lang/language.png'?>" style="vertical-align: middle;" alt="" /> <a href="xtra/sdk/translation_index.php"><?php echo $langTranslationTools?></a></LI>
 <?php
 }
+if ( defined('DEVEL_MODE') && DEVEL_MODE )
+{
 ?>
-
+    <li><a href="devTools/"><?php echo $langDevTools?></a></li>
 <?php
-include($includePath."/claro_init_footer.inc.php");
+}
+
+include($includePath.'/claro_init_footer.inc.php');
 ?>
