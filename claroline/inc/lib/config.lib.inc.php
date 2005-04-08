@@ -1,36 +1,38 @@
 <?php // $Id$
 /** 
+ * CLAROLINE 
+ *
  * Config lib contain function to manage conf file
  *
- * @version CLAROLINE 1.6
+ * @version 1.6 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license GENERAL PUBLIC LICENSE (GPL) 
- * This program is under the terms of the
- * GENERAL PUBLIC LICENSE (GPL) as published by the
- * FREE SOFTWARE FOUNDATION. The GPL is available
- * through the world-wide-web at
- * http://www.gnu.org/copyleft/gpl.html
+ * @license (GPL) GENERAL PUBLIC LICENSE  
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
  *
  * @see http://www.claroline.net/wiki/config_def/
  *
  * @package CONFIG
  *
- * @author Christophe Gesché <moosh@claroline.net>
- * @author Mathieu Laurent <laurent@cerdecam.be>
- *
  */
 
 /**
- * proceed to rename conf.php.dist file in unexisting .conf.php files
+ * Proceed to rename conf.php.dist file in unexisting .conf.php files
+ *
+ * @param $file syspath:complete path to .dist file
+ *
+ * @return  boolean:wheter succes return true
+ *
+ * @var $perms file permission of dist file are keep to set perms of new file
+ *
+ * @var $group internal var for affect same group to new file
  *
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
- * @param $file syspath:complete path to .dist file
- * @return  boolean:wheter succes return true
- * @var $perms file permission of dist file are keep to set perms of new file
- * @var $group internal var for affect same group to new file
  */
 
 function claro_undist_file ($file)
@@ -64,11 +66,14 @@ function claro_undist_file ($file)
 }
 
 /**
- * the boolean value as string
+ * The boolean value as string
+ *
+ * @param $booleanState boolean
  *
  * @return the boolean value as string
- * @param $booleanState boolean
+ *
  * @version claroline 1.4
+ *
  */
 function trueFalse($booleanState)
 {
@@ -77,96 +82,99 @@ function trueFalse($booleanState)
 
 /**
  * Replace value of variable in file
- * @return wether the success
+ *
  * @param $varName name of the variable
  * @param $value new value of the variable
  * @param $file string path to file
+ *
+ * @return whether the success
+ *
  * @author Benoit
  */
 
 function replace_var_value_in_conf_file ($varName,$value,$file)
 {
 
- $replace = false;
+    $replace = false;
 
- // Quote regular expression characters of varName
+    // Quote regular expression characters of varName
 
- if ($varName != "")
- {
-     // build regexp
-     $regVarName = preg_quote($varName);
-     $regExp = '~(\$(' . $regVarName . '))[[:space:]]*=[[:space:]]*(.*);~U';
- }
- else
- {
-     return false;
- }
-
- if(file_exists($file))
- {
-   //Open config file
-    if($fp = @fopen($file,"r"))
+    if ($varName != "")
     {
-        // take all lines in the file
-        while(!feof($fp))
-        {
-            // length param in fgets is required before PHP 4.2.0
-            $line=fgets($fp,1024);
-            trim($line);
-
-            unset($find);
-            $find = preg_match_all($regExp,$line,$result);
-
-            if($find)
-            {
-                // $result[0] the variable and the value
-                // $result[1] the name of the variable
-                // $result[2] the value
-
-                // replace the variable with the new value
-                $line = str_replace($result[3]," \"".$value."\"",$line);
-                $replace = true;
-            }
-            //Create a table with correct ligne to create de new file config
-            $newLines[]= $line;
-        }
-        fclose($fp);
+        // build regexp
+        $regVarName = preg_quote($varName);
+        $regExp = '~(\$(' . $regVarName . '))[[:space:]]*=[[:space:]]*(.*);~U';
     }
     else
     {
-        // can't open file in read
         return false;
     }
- }
- else
- {
-  // file doesn't exists
-  return false;
- }
 
- if ($replace)
- {
-
-    // rewrite file
-    if($nf=@fopen($file,"w+"))
+    if(file_exists($file))
     {
-        if(isset($newLines))
+        //Open config file
+        if($fp = @fopen($file,"r"))
         {
-            foreach($newLines as $line)
+            // take all lines in the file
+            while(!feof($fp))
             {
-                fwrite($nf,$line);
-            }
-        }
-        fclose($nf);
-     }
-     else
-     {
-        // can't open file in write
-        return false;
-     }
- }
+                // length param in fgets is required before PHP 4.2.0
+                $line=fgets($fp,1024);
+                trim($line);
 
- return true;
+                unset($find);
+                $find = preg_match_all($regExp,$line,$result);
+
+                if($find)
+                {
+                    // $result[0] the variable and the value
+                    // $result[1] the name of the variable
+                    // $result[2] the value
+
+                    // replace the variable with the new value
+                    $line = str_replace($result[3]," \"".$value."\"",$line);
+                    $replace = true;
+                }
+                //Create a table with correct ligne to create de new file config
+                $newLines[]= $line;
+            }
+            fclose($fp);
+        }
+        else
+        {
+            // can't open file in read
+            return false;
+        }
+    }
+    else
+    {
+        // file doesn't exists
+        return false;
+    }
+
+    if ($replace)
+    {
+
+        // rewrite file
+        if($nf=@fopen($file,"w+"))
+        {
+            if(isset($newLines))
+            {
+                foreach($newLines as $line)
+                {
+                    fwrite($nf,$line);
+                }
+            }
+            fclose($nf);
+        }
+        else
+        {
+            // can't open file in write
+            return false;
+        }
+    }
+
+    return true;
 
 }
 
@@ -286,6 +294,7 @@ function get_conf_file($config_code)
 
     // include definition file and get $conf_def array
     $def_file = get_def_file($config_code);
+    unset($conf_def);
     if (file_exists($def_file)) include $def_file;
 
     if ( isset($conf_def['config_file']) && !empty($conf_def['config_file']) )
@@ -304,9 +313,9 @@ function get_conf_file($config_code)
  * Return the complete path and name of the definition file of a given $config_code
  *
  * @param   $config_code string the config code to process
+ *
  * @return  the name of the config file (with complete path)
  *
- * @example get_def_file('CLCAL');
  */
 
 function get_def_file($config_code)
@@ -319,11 +328,21 @@ function get_def_file($config_code)
 }
 
 
+/**
+ * Return the name (public label) of the Config of a given $config_code
+ *
+ * @param   $config_code string the config code to process
+ *
+ * @return  the name of the config 
+ *
+ */
+
 function get_conf_name($config_code)
 {
     $def_file = get_def_file($config_code);
 
      // include definition file and get $conf_def array
+    unset($conf_def);
     if ( file_exists($def_file) )
         include $def_file;
 
@@ -551,7 +570,7 @@ function save_config_hash_in_db($config_code,$conf_hash)
     if ( !claro_sql_query_affected_rows($sql) )
     {
         // insert an entry for config_file
-        $sql =' INSERT  INTO `'. $tbl_config_file .'`  '
+        $sql =' INSERT IGNORE INTO `'. $tbl_config_file .'`  '
              .' SET config_hash = "'.$conf_hash.'"     '
              .' , config_code = "'.$config_code.'" ';
         return claro_sql_query($sql);
