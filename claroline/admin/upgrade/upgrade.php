@@ -53,7 +53,6 @@ if (!$is_platformAdmin) claro_disp_auth_form();
  ---------------------------------------------------------------------*/
 
 include ($includePath.'/installedVersion.inc.php');
-include ($includePath.'/currentVersion.inc.php');
 
 $thisClarolineVersion = $version_file_cvs;
 $thisVersionDb 		  = $version_db_cvs;
@@ -112,7 +111,7 @@ else
  */
 
 @include ($configurationFile); // read Values in sources
-
+include ($includePath.'/currentVersion.inc.php');
 if (!$_REQUEST['confirm_backup']) 
 {
 	// ask to confirm backup
@@ -120,6 +119,7 @@ if (!$_REQUEST['confirm_backup'])
 }
 elseif (!preg_match($patternVarVersion,$clarolineVersion))
 {
+    
 	// config file not upgraded go to first step
     header("Location: upgrade_conf.php");
 }
