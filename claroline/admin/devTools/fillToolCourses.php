@@ -157,13 +157,17 @@ switch ($display)
 
 function fill_tool_in_course($course_code,$tool_label)
 {
-    global  $courseTablePrefix, $dbGlu;
+    global  $courseTablePrefix, $dbGlu, $coursesRepositorySys;
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course = $tbl_mdb_names['course'];
-    $sql = 'SELECT dbName From `'.$tbl_course.'` where code="'.$course_code.'"';
-    $course = claro_sql_query_fetch_all($sql);
+    $sql = 'SELECT code, dbName, directory path From `'.$tbl_course.'` where code="'.$course_code.'"';
     
-    $course_dbNameGlu = $courseTablePrefix . $course[0]['dbName'] . $dbGlu; // use in all queries
+    $course = claro_sql_query_fetch_all($sql);
+
+    $course_id = $course[0]['code'];
+    $course_dbNameGlu  = $courseTablePrefix . $course[0]['dbName'] . $dbGlu; // use in all queries
+    $course_repository = $coursesRepositorySys.$course[0]['path'];
+    
     $tbl_cdb_names = claro_sql_get_course_tbl($course_dbNameGlu);
     //echo '<p>$tbl_cdb_names= <pre>'.var_export( $tbl_cdb_names,1).'</pre>';        
     /*
@@ -178,12 +182,8 @@ function fill_tool_in_course($course_code,$tool_label)
               'bb_users'               => $courseDb.'bb_users',
               'bb_whosonline'          => $courseDb.'bb_whosonline',
 
-              'calendar_event'         => $courseDb.'calendar_event',
               'course_description'     => $courseDb.'course_description',
               'document'               => $courseDb.'document',
-              'group_property'         => $courseDb.'group_property',
-              'group_rel_team_user'    => $courseDb.'group_rel_team_user',
-              'group_team'             => $courseDb.'group_team',
               'lp_learnPath'           => $courseDb.'lp_learnPath',
               'lp_rel_learnPath_module'=> $courseDb.'lp_rel_learnPath_module',
               'lp_user_module_progress'=> $courseDb.'lp_user_module_progress',
@@ -194,11 +194,6 @@ function fill_tool_in_course($course_code,$tool_label)
               'quiz_rel_test_question' => $courseDb.'quiz_rel_test_question',
               'quiz_test'              => $courseDb.'quiz_test' ,
               'tool_intro'             => $courseDb.'tool_intro',
-              'tool'                   => $courseDb.'tool_list',
-              'track_e_access'         => $courseDb.'track_e_access',
-              'track_e_downloads'      => $courseDb.'track_e_downloads',
-              'track_e_exercices'      => $courseDb.'track_e_exercices',
-              'track_e_uploads'        => $courseDb.'track_e_uploads',
               'userinfo_content'       => $courseDb.'userinfo_content',
               'userinfo_def'           => $courseDb.'userinfo_def',
               'wrk_assignment'         => $courseDb.'wrk_assignment',
@@ -254,6 +249,35 @@ function fill_tool_in_course($course_code,$tool_label)
             return 'ok' ;
             break;
         case 'CLCHT' : 
+            $nick     = 'lorem hips';
+            $chatLine = lorem("words",rand(3,20));
+            $curChatRep = $course_repository.'/chat/';
+            
+            if ( ! is_dir($curChatRep) ) claro_mkdir($curChatRep, 0777);
+            $activeChatFile = $curChatRep.$course_id.'.chat.html';
+            $timeNow = claro_disp_localised_date('%d/%m/%y [%H:%M]');
+            if ( ! file_exists($activeChatFile))
+            {
+               	$fp = @fopen($activeChatFile, 'w');	
+               	@fclose($fp);
+            }
+            if ($chatLine)
+            {
+            	$fchat = fopen($activeChatFile,'a');
+            	$chatLine = htmlspecialchars( stripslashes($chatLine) );
+            	$chatLine = ereg_replace("(http://)(([[:punct:]]|[[:alnum:]])*)","<a href=\"\\0\" target=\"_blank\">\\2</a>",$chatLine);
+            
+            	fwrite($fchat,
+            	       '<small>'
+            	       .$timeNow.' '
+            	       .'<b>'.$nick.'</b>'
+            	       .' &gt; '
+            	       .$chatLine
+            	       ."</small><br />\n");
+            	
+            	fclose($fchat);
+            }
+            return 'ok';
             break;
         case 'CLDOC' : 
             //$foo = lorem('words', 180);
@@ -261,12 +285,14 @@ function fill_tool_in_course($course_code,$tool_label)
         case 'CLDSC' : 
             break;
         case 'CLFRM' : 
+        
             break;
         case 'CLGRP' : 
             break;
         case 'CLLNP' : 
             break;
         case 'CLQWZ' : 
+        
             break;
         case 'CLUSR' : 
             break;
