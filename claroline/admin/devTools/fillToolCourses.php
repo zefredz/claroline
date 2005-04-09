@@ -60,7 +60,8 @@ if (isset($_REQUEST['create']))
     {
         foreach ($_REQUEST['toolToFill'] as $tool_label)
         {
-           $result[$course['code']][$tool_label] = fill_tool_in_course($course['code'],$tool_label);
+            for ($i = 1; $i <= rand(1,5); $i++)
+                $result[$course['code']][$tool_label] = fill_tool_in_course($course['code'],$tool_label);
         }
     }
     echo '</ul>';
@@ -91,7 +92,6 @@ claro_disp_tool_title(
 	'subTitle'=> $siteName." - ".$clarolineVersion
 	)
 	);
-require('./greek.php');                      
 	                      
 claro_disp_msg_arr($controlMsg);
 
@@ -135,7 +135,7 @@ switch ($display)
                     </select>
 				</td>
 				<td>
-					<input type="radio" id="courses" name="courses" value="<?php echo $courses ?>" size="5" maxlength="4"> ALL
+					<input type="radio" id="courses" selected="selected" name="courses" value="<?php echo $courses ?>" size="5" maxlength="4"> ALL
 					Ya pas le choix pour le moment
 				</td>
 			</tr>
@@ -217,8 +217,9 @@ function fill_tool_in_course($course_code,$tool_label)
     switch (trim($tool_label,'_'))
     {
         case 'CLANN' : 
-            $lorem_title    = lorem('characters',80);
-            $lorem_content  = lorem('sentences',8);
+            
+            $lorem_title    = lorem('characters',rand(10,80));
+            $lorem_content  = lorem('paragraphs',rand(1,8));
             $tbl_announcement        = $tbl_cdb_names['announcement'];
             $sql = "SELECT MAX(ordre)
                     FROM  `".$tbl_announcement."`";
@@ -239,16 +240,16 @@ function fill_tool_in_course($course_code,$tool_label)
             return 'ok';
             break;
         case 'CLCAL' : 
-            $lorem_title    = lorem('characters',80);
-            $lorem_content  = lorem('sentences',8);
-
+            $lorem_title    = lorem('characters',rand(10,80));
+            $lorem_content  = lorem('paragraphs',rand(1,8));
+            
             $tbl_calendar_event        = $tbl_cdb_names['calendar_event'];
             $sql = "INSERT INTO `".$tbl_calendar_event."` 
                 SET   titre   = '".$lorem_title."',
                       contenu = '".$lorem_content."',
                       day     = now(),
-                      hour    = '5',
-                      lasting = '1h'";
+                      hour    = '".rand(1,23).":".rand(11,55)."',
+                      lasting = '".rand(1,6)."h'";
             claro_sql_query($sql);
             return 'ok' ;
             break;
