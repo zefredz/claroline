@@ -1,4 +1,22 @@
 <?php // $Id$
+/**
+ * CLAROLINE
+ *
+ * Sql query to update courses databases
+ *
+ * @version  1.6 $Revision$
+ * 
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * 
+ * @license (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package UPGRADE
+ * 
+ * @author Claro Team <cvs@claroline.net>
+ * @author Mathieu Laurent   <mla@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
 
 /**
  * Drop deprecated php_bb tables
