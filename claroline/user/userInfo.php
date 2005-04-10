@@ -1,14 +1,16 @@
 <?php // $Id$
 /**
- * @version   CLAROLINE version 1.6
+ * CLAROLINE 
  *
- * @copyright  2001 - 2005 Universite catholique de Louvain (UCL)
+ * @version 1.6
+ *
+ * @copyright (c) 2001-2005 Université catholique de Louvain (UCL)
  *
  * @license GPL
  *
  * @author Claroline Team <info@claroline.net>
+ *
  */
-
 
 $tlabelReq = "CLUSR___";
 
@@ -127,60 +129,60 @@ if ($allowedToEditDef)
     {
         $userIdViewed = $_REQUEST['submitMainUserInfo'];
         
-	//set variable for course manager or student status
-	
+    //set variable for course manager or student status
+    
         if (isset($_REQUEST['promoteCourseAdmin']))
-	{ 
-	    $userProperties['status'] = CLARO_COURSE_CREATOR_STATUS;
-	}
-	else
-	{
-	    $userProperties['status'] = CLARO_STUDENT_STATUS;
-	}
-        
-	//set variable for tutor setting	
-	
-	if (isset($_REQUEST['promoteTutor']))
-	{
-        // check first the user isn't registered to a group yet
-
-        $sql = "SELECT COUNT(user) 
-                FROM `".$tbl_group_rel_team_user."`
-                WHERE user = ".(int) $userIdViewed;
-
-        if ( 0 == claro_sql_query_get_single_value($sql) )
+        { 
+            $userProperties['status'] = CLARO_COURSE_CREATOR_STATUS;
+        }
+        else
         {
-            $userProperties['tutor' ] = 1;
+            $userProperties['status'] = CLARO_STUDENT_STATUS;
+        }
+            
+        //set variable for tutor setting    
+        
+        if (isset($_REQUEST['promoteTutor']))
+        {
+            // check first the user isn't registered to a group yet
+    
+            $sql = "SELECT COUNT(user) 
+                    FROM `".$tbl_group_rel_team_user."`
+                    WHERE user = ".(int) $userIdViewed;
+    
+            if ( 0 == claro_sql_query_get_single_value($sql) )
+            {
+                $userProperties['tutor' ] = 1;
+            }
+            else
+            {
+                $userProperties['tutor' ] = 0;
+                $dialogBox .= 'Impossible to promote group tutor a student already register to group';
+            }
         }
         else
         {
             $userProperties['tutor' ] = 0;
-            $dialogBox .= 'Impossible to promote group tutor a student already register to group';
         }
-    }
-    else
-    {
-        $userProperties['tutor' ] = 0;
-    }
-        
-	//set variable for role setting
-	
+            
+        //set variable for role setting
+    
         $userProperties['role'] =  $_REQUEST['role'];
-        
+    
         // apply changes in DB
-	
+    
         if (($userIdViewed == $_uid) &&($userProperties['status']==CLARO_STUDENT_STATUS))
-	{
+        {
             //prevent teacher to let the course without any teacher
-	    
-	    $displayMode = "viewMainInfoEdit";
-	    $dialogBox   = $langErrorMyOwnSettings;
+    
+            $displayMode = "viewMainInfoEdit";
+            $dialogBox   = $langErrorMyOwnSettings;
         }
-	else 
-	{
-	    update_user_course_properties($userIdViewed, $courseCode, $userProperties);
-	    $displayMode = "viewContentList";
-	}    
+        else
+        {
+            update_user_course_properties($userIdViewed, $courseCode, $userProperties);
+            $displayMode = "viewContentList";
+        }
     }
 }
 
