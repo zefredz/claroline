@@ -13,6 +13,8 @@
  * SHUFFLE COURSE FILL
  */
 
+$langPopulateTools = 'Populate tools in courses';
+
 DEFINE("DISP_RESULT_INSERT"		,1);
 DEFINE("DISP_FORM_SET_OPTION"	,2);
 DEFINE("DISP_INSERT_COMPLETE"	,3);
@@ -29,7 +31,7 @@ include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
 include($includePath."/conf/course_main.conf.php");
 
-$nameTools = $langAdd_users;
+$nameTools = $langPopulateTools;
 $interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langDevTools);
 
@@ -157,9 +159,10 @@ switch ($display)
 
 function fill_tool_in_course($course_code,$tool_label)
 {
-    global  $courseTablePrefix, $dbGlu, $coursesRepositorySys;
+    global  $courseTablePrefix, $dbGlu, $coursesRepositorySys,$includePath;
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course = $tbl_mdb_names['course'];
+    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
     $sql = 'SELECT code, dbName, directory path From `'.$tbl_course.'` where code="'.$course_code.'"';
     
     $course = claro_sql_query_fetch_all($sql);
@@ -286,15 +289,167 @@ function fill_tool_in_course($course_code,$tool_label)
             break;
         case 'CLFRM' : 
         
+            //add ONE post. 
+            // in a existing or new cat
+            // in a existing or new forum
+            // in a existing or new topic
+            $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+            $tbl_forum_forums     = $tbl_cdb_names['bb_forums'];
+            $tbl_posts            = $tbl_cdb_names['bb_posts'];
+            $tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
+            $tbl_priv_msgs        = $tbl_cdb_names['bb_priv_msgs'];
+            $tbl_topics           = $tbl_cdb_names['bb_topics'];
+            require_once '../../phpbb/functions.php';
+
+            $resultPopulate = '<ul>';        
+            
+            // SELECT CATEGORY... Create it if needed
+            $sql = "SELECT COUNT(`cat_id`) cat_qty
+                    FROM   `".$tbl_forum_categories."` ";
+            $categories       = claro_sql_query_fetch_all($sql);
+            $total_categories = (int) $categories[0]['cat_qty'];
+            $categoryToPopulate = rand(1,$total_categories+1);
+            if ($categoryToPopulate > $total_categories)
+            {
+                $category_title =  lorem('characters',rand(10,150));
+                //Create a new category
+                $sql = 'SELECT MAX(`cat_order`) max_order'
+                     . ' FROM `'.$tbl_forum_categories.'`';
+        
+                $orderMax = claro_sql_query_fetch_all($sql);
+                $order = $orderMax[0]['max_order'] + 1;
+        
+                $sql = 'INSERT INTO `'.$tbl_forum_categories.'`
+                        SET `cat_title` = "'.$category_title.'",
+                            `cat_order` = "'.$order.'"';
+                $categoryToPopulate = claro_sql_query_insert_id($sql);
+                $resultPopulate .= '<li>Cat '.$categoryToPopulate.' created :  <i>'.$category_title.'</i>';        
+            }
+            $resultPopulate .= '<li>Cat '.$categoryToPopulate.' selected.  ';        
+            
+            // SELECT FORUM... Create it if needed
+            $sql = "SELECT count(`forum_id`) frm_qty 
+                    FROM    `".$tbl_forum_forums."` f
+                    WHERE `cat_id`='".$categoryToPopulate."'";
+            
+            $frm_qty = claro_sql_query_fetch_all($sql);
+            $frm_qty = (int) $frm_qty[0]['frm_qty'];
+            $forumToPopulate = rand(1,$frm_qty+1);
+            if ($forumToPopulate > $frm_qty)
+            {
+                $forum_name = lorem('words',rand(2  ,10));
+                $forum_desc = lorem('paragraphs',rand(1,5));
+                
+                // find order in the category we must give to the newly created forum
+        
+                $sql = 'SELECT MAX(`forum_order`) max_order
+                        FROM `'.$tbl_forum_forums.'`
+                        WHERE cat_id = "'.$categoryToPopulate.'"';
+                $orderMax = claro_sql_query_fetch_all($sql);
+                $order = $orderMax[0]['max_order'] + 1;
+
+                // add new forum in DB
+        
+                $sql = 'INSERT INTO `'.$tbl_forum_forums.'`
+                        (forum_id, forum_name, forum_desc, forum_access,forum_moderator, cat_id, forum_type, md5, forum_order)
+                        VALUES
+                        (NULL,"'.$forum_name.'", "'.$forum_desc.'", "2", "1", "'.$categoryToPopulate.'", "0", "'.md5(time()).'", "'.$order.'")';
+
+                $categoryToPopulate = claro_sql_query_insert_id($sql);
+                $resultPopulate .= '<li> Forum '.$forumToPopulate.' created :  <i>'.$forum_name.'</i>';        
+            }
+            $resultPopulate .= '<li> Forum '.$forumToPopulate.' selected.  ';        
+            
+            // SELECT TOPIC... Create it if needed
+            $sql = "SELECT count(`topic_id`) topic_qty 
+                    FROM  `".$tbl_topics."` 
+                    WHERE `topic_id`='".$topicToPopulate."'";
+            
+            $topic_qty = claro_sql_query_fetch_all($sql);
+            $topic_qty = (int) $topic_qty[0]['frm_qty'];
+            $topicToPopulate = rand(1,$topic_qty+1);
+            $time = date('Y-m-d H:i');
+            if ($topicToPopulate > $topic_qty)
+            {
+                $topic_title = lorem('words',rand(2  ,10));
+                
+                // find order in the category we must give to the newly created forum
+        
+                // add new topic in DB
+        
+                $topicToPopulate = create_new_topic(   $topic_title, 
+                                                       $time, 
+                                                       $forumToPopulate, 
+                                                       $_uid,
+                                                       $_user['firstname'], 
+                                                       $_user['lastname']);
+
+                $resultPopulate .= '<li> Topic '.$topicToPopulate.' created  :  <i>'.$topic_title.'</i>';        
+            }
+            $resultPopulate .= '<li> Topic '.$topicToPopulate.' selected.  ';        
+
+            $lorem_message = lorem('paragraphs',rand(1,10));
+    
+            create_new_post($topicToPopulate, 
+                            $forumToPopulate, 
+                            $_uid, 
+                            $time, 
+                            $REMOTE_ADDR, 
+                            $_user['lastname'], 
+                            $_user['firstname'], 
+                            $lorem_message);
+            $resultPopulate .= '<li> New post created';        
+                        
+            $resultPopulate .= '</ul>';        
+            return $resultPopulate;
             break;
         case 'CLGRP' : 
             break;
         case 'CLLNP' : 
             break;
         case 'CLQWZ' : 
-        
             break;
         case 'CLUSR' : 
+            require_once($includePath.'/lib/user.lib.inc.php');
+            $def_title = lorem('words',rand(2  ,10));
+            $def_comment = lorem('paragraphs',rand(1,5));
+            $tbl_userinfo_def     = $tbl_cdb_names['userinfo_def'];
+            $tbl_userinfo_content = $tbl_cdb_names['userinfo_content'];
+            $resultPopulate .= '<ul>';        
+            // Create user_info blocs
+            $sql = "SELECT count(`id`) def_qty 
+                    FROM  `".$tbl_userinfo_def."` ";
+            
+            $def_qty = claro_sql_query_fetch_all($sql);
+            $def_qty = (int) $def_qty[0]['def_qty'];
+            
+            $defToPopulate = rand (1,$def_qty+1);
+            if ($defToPopulate>$def_qty)
+            {
+                $defToPopulate = claro_user_info_create_cat_def($def_title, $def_comment, rand(1,10));
+                $resultPopulate .='<li>Create Def bloc '.$defToPopulate. ' : <i>'.$def_comment.'</i>';
+            }
+            $resultPopulate .='<li>Use Def bloc '.$defToPopulate;
+            // add user_info contents
+            $sql = "select user_id From `".$tbl_rel_course_user."` WHERE code_cours='".$course_code."' ";
+            $userList = claro_sql_query_fetch_all($sql);
+            foreach($userList as $user)
+            {
+                $userIdViewed = $user['user_id'];
+                $def_content = lorem('paragraphs',rand(1,5));
+                /*
+                if ($cntId)    // submit a content change
+                {
+                    //claro_user_info_edit_cat_content($defToPopulate, $userIdViewed, $def_content, $REMOTE_ADDR);
+                }
+                else        // submit a totally new content
+                {
+                    //claro_user_info_fill_new_cat_content($defToPopulate, $userIdViewed, $def_content, $REMOTE_ADDR);
+                }
+                */
+            }
+            $resultPopulate .= '</ul>';        
+            return $resultPopulate;
             break;
         case 'CLWRK' : 
             break;
@@ -317,17 +472,108 @@ function lorem($units, $length)
         		        . 'dignissim qui blandit praesent luptatum zzril delenit augue '
         		        . 'duis dolore te feugait nulla facilisi. '
         		        ;
-		$greekingList[] = 'Claroline is an Open Source software based on PHP/MySQL. It\'s a collaborative learning environment allowing teachers or education institutions to create and administer courses through the web.';
-        $greekingList[] = 'The system provides group management, forums, document repositories, calendar, chat, assignment areas, links, user profile administration on a single and highly integrated package.';
-        $greekingList[] = 'Claroline is translated in 28 languages and used by hundreds of institutions around world.The software was initially started by the University of Louvain (Belgium) and released under Open Source licence (GPL). Since then, a comunity of developper around the world contributes to its development. Downloading and using Claroline is completly free of charge.';
-        $greekingList[] = 'A book on Claroline. Marcel Lebrun has just published "eLearning pour enseigner et apprendre" (eLearning, for Teaching and Learning).'
-                         .'Based on the experience of Claroline at the University of Louvain (Belgium), it treats in a positive way how to elaborate pedagogical devices both adapted to these new technological tools and devoted to promote learning.';        		        
+		$greekingList[] = 'Claroline is an Open Source software based on PHP/MySQL.  '
+        		        . 'It\'s a collaborative learning environment allowing teachers  '
+        		        . 'or education institutions to create and administer courses through the web.';
+        $greekingList[] = 'The system provides group management, forums,  '
+        		        . 'document repositories, calendar, chat, assignment areas,  '
+        		        . 'links, user profile administration on a single  '
+        		        . 'and highly integrated package.';
+        $greekingList[] = 'Claroline is translated in 28 languages and used by hundreds  '
+        		        . 'of institutions around world.The software was initially  '
+        		        . 'started by the University of Louvain (Belgium)  '
+        		        . 'and released under Open Source licence (GPL).  '
+        		        . 'Since then, a comunity of developper around the world  '
+        		        . 'contributes to its development. Downloading and using  '
+        		        . 'Claroline is completly free of charge.';
+        $greekingList[] = 'A book on Claroline. Marcel Lebrun has just published  '
+        		        . '"eLearning pour enseigner et apprendre"  '
+        		        . '(eLearning, for Teaching and Learning).'
+                         .'Based on the experience of Claroline at the  '
+        		        . 'University of Louvain (Belgium), it treats in a  '
+        		        . 'positive way how to elaborate pedagogical devices  '
+        		        . 'both adapted to these new technological tools and  '
+        		        . 'devoted to promote learning.';        		        
         $greekingList[] = 'Claroline 1.6 Release Candidate available. '
-                        . 'Thanks to the Claroline community and a huge debugging campaign, Claroline 1.6 RC is now available. It should be the last release before the stable version of Claroline 1.6. Now, focus will be on the upgrade script as no further change would be planned to the new database structure of Claroline.';
-        $greekingList[] = 'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc., li tot Europa usa li sam vocabularium. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilitá de un nov lingua franca: on refusa continuar payar custosi traductores. It solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.';
-        $greekingList[] = 'Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental: in fact, it va esser Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amico dit me que Occidental es.';
-        $greekingList[] = 'Epsum factorial non deposit quid pro quo hic escorol. Olypian quarrels et gorilla congolium sic ad nauseum. Souvlaki ignitus carborundum e pluribus unum. Defacto lingo est igpay atinlay. Marquee selectus non provisio incongruous feline nolo contendre. Gratuitous octopus niacin, sodium glutimate. Quote meon an estimate et non interruptus stadium. Sic tempus fugit esperanto hiccup estrogen. Glorious baklava ex librus hup hey ad infinitum. Non sequitur condominium facile et geranium incognito. Epsum factorial non deposit quid pro quo hic escorol. Marquee selectus non provisio incongruous feline nolo contendre Olypian quarrels et gorilla congolium sic ad nauseum. Souvlaki ignitus carborundum e pluribus unum.';
-//        $greekingList[] = '';
+                        . 'Thanks to the Claroline community and a huge  '
+        		        . 'debugging campaign, Claroline 1.6 RC is now available. '
+        		        . 'It should be the last release before the '
+        		        . 'stable version of Claroline 1.6. '
+        		        . 'Now, focus will be on the upgrade script as no further '
+        		        . 'change would be planned to the new database '
+        		        . 'structure of Claroline.';
+        		        
+        $greekingList[] = 'Li Europan lingues es membres del sam familie.  '
+        		        . 'Lor separat existentie es un myth.  '
+        		        . 'Por scientie, musica, sport etc.,  '
+        		        . 'li tot Europa usa li sam vocabularium.  '
+        		        . 'Li lingues differe solmen in li grammatica,  '
+        		        . 'li pronunciation e li plu commun vocabules.  '
+        		        . 'Omnicos directe al desirabilitá de un nov lingua franca:  '
+        		        . 'on refusa continuar payar custosi traductores.  '
+        		        . 'It solmen va esser necessi far uniform grammatica,  '
+        		        . 'pronunciation e plu sommun paroles.';
+        		        
+        $greekingList[] = 'Ma quande lingues coalesce, li grammatica del resultant  '
+        		        . 'lingue es plu simplic e regulari quam ti del  '
+        		        . 'coalescent lingues. Li nov lingua franca va  '
+        		        . 'esser plu simplic e regulari quam li existent Europan lingues.  '
+        		        . 'It va esser tam simplic quam Occidental:  '
+        		        . 'in fact, it va esser Occidental.  '
+        		        . 'A un Angleso it va semblar un simplificat Angles,  '
+        		        . 'quam un skeptic Cambridge amico dit me que Occidental es.';
+        		        
+        $greekingList[] = 'Epsum factorial non deposit quid pro quo hic escorol.  '
+        		        . 'Olypian quarrels et gorilla congolium sic ad nauseum.  '
+        		        . 'Souvlaki ignitus carborundum e pluribus unum.  '
+        		        . 'Defacto lingo est igpay atinlay.  '
+        		        . 'Marquee selectus non provisio incongruous feline nolo contendre.  '
+        		        . 'Gratuitous octopus niacin, sodium glutimate.  '
+        		        . 'Quote meon an estimate et non interruptus stadium.  '
+        		        . 'Sic tempus fugit esperanto hiccup estrogen.  '
+        		        . 'Glorious baklava ex librus hup hey ad infinitum.  '
+        		        . 'Non sequitur condominium facile et geranium incognito.  '
+        		        . 'Epsum factorial non deposit quid pro quo hic escorol.  '
+        		        . 'Marquee selectus non provisio incongruous feline nolo contendre  '
+        		        . 'Olypian quarrels et gorilla congolium sic ad nauseum.  '
+        		        . 'Souvlaki ignitus carborundum e pluribus unum.';
+        $greekingList[] = 'The PEAR::Auth package provides methods for creating  '
+        		        . 'an authentication system using PHP. '
+                        . 'Currently it supports the following storage containers  '
+        		        . 'to read/write the login data:  '
+        		        . 'All databases supported by the PEAR database layer,  '
+        		        . 'All databases supported by the MDB database layer,  '
+        		        . 'All databases supported by the MDB2 database layer,  '
+        		        . 'Plaintext files, LDAP servers, POP3 servers,  '
+        		        . 'IMAP servers, vpopmail accounts, RADIUS,  '
+        		        . 'SAMBA password files, SOAP';
+        $greekingList[] = 'African Sanctus (originally known as African Revelations)  '
+        		        . 'was first performed by the Saltarello Choir in July 1972  '
+        		        . 'at St. John\'s Smith Square, London, and later broadcast  '
+        		        . 'on BBC Radio on United Nations Day.  '
+        		        . 'In 1974, BBC Television\'s *Omnibus* made a documentary  '
+        		        . 'film of African Sanctus on location in North and East Africa.  '
+        		        . 'This film, directed by Herbert Chappell,  '
+        		        . 'nominated for the *Prix Italia*, was first screened on  '
+        		        . 'Easter Day, 1975 and coincided with the release of the original  '
+        		        . 'Philips recording. The score was first published in 1977  '
+        		        . 'and premiere performances were given in Toronto, at  '
+        		        . 'The Three Choirs Festival, Worcester Cathedral in 1978,  '
+        		        . 'followed by the Royal Albert Hall in 1979,  '
+        		        . 'conducted by Sir David Willcocks.';
+        $greekingList[] = 'La récurrence transfinie, appelée aussi sous  '
+        		        . 'l\'influence anglaise induction transfinie,  '
+        		        . 'permet de construire des objets et de démontrer des théorèmes ;  '
+        		        . 'elle généralise la récurrence ordinaire sur N  '
+        		        . 'en considérant des familles indexées par un ordinal  '
+        		        . 'infini quelconque au lieu de se borner au plus petit qu\'est N.  '
+        		        . 'Une fois un peu compris ce qu\'est un ordinal,  '
+        		        . 'on dispose là d\'un outil très commode pour faire  '
+        		        . 'des constructions conformes à l\'intuition et on dispose  '
+        		        . 'de renseignements précis pour une étude approfondie  '
+        		        . '(ce que ne permet pas le lemme de Zorn, qui a été introduit  '
+        		        . 'pour éviter l\'usage des ordinaux transfinis).';
+        //$greekingList[] = '';
         //$greekingList[] = '';
         $greeking = $greekingList[rand(0,(sizeof($greekingList)-1))];
         $errorMsg = 'You need to supply attributes for "units" (legal values are "characters", "words", "sentences" or "paragraphs") and a positive integer, "length".<br /><br />Usage Example:<br />&nbsp;&nbsp;&nbsp;&nbsp;print(<strong>greek(\'paragraphs\', 3)</strong>);';
