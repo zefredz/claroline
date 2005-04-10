@@ -112,9 +112,7 @@ function claro_user_info_create_cat_def($title="", $comment="", $nbline="5")
 			`nbline`	= \"$nbline\",
 			`rank`		= \"$thisRank\"";
 
-	claro_sql_query($sql);
-
-	return true;
+	return claro_sql_query_insert_id($sql);
 }
 
 /**
