@@ -390,7 +390,7 @@ elseif ( isset($_REQUEST['forumgoadd']) )
 
         $sql = 'SELECT MAX(`forum_order`)
                 FROM `'.$tbl_forum_forums.'`
-                WHERE cat_id = "'.$cat_id.'S"';
+                WHERE cat_id = "'.$cat_id.'"';
         $result = claro_sql_query($sql);
 
         list($orderMax) = mysql_fetch_row($result);
