@@ -1,27 +1,26 @@
 <?php //$Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE 
+ *
+ * @version 1.6
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE (GPL)
+ *
+ * @author Claro Team <cvs@claroline.net>
+ */
 
 // initialisation of global variables and used libraries
-
 require '../inc/claro_init_global.inc.php';
-include($includePath."/lib/pager.lib.php");
-include($includePath."/lib/admin.lib.inc.php");
+include($includePath.'/lib/pager.lib.php');
+include($includePath.'/lib/admin.lib.inc.php');
 
 //SECURITY CHECK
 
 if (!$is_platformAdmin) claro_disp_auth_form();
 
-if ($cidToEdit=="") {unset($cidToEdit);}
+if ($cidToEdit=='') {unset($cidToEdit);}
 
 $userPerPage = 20; // numbers of user to display on the same page
 
@@ -35,7 +34,7 @@ if (isset($_GET['order_crit'])){$_SESSION['admin_user_order_crit'] = $_GET['orde
 if (isset($_GET['dir']))       {$_SESSION['admin_user_dir'] = $_GET['dir'];}
 
 
-@include ($includePath."/installedVersion.inc.php");
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 
 // javascript confirm pop up declaration
 
@@ -51,21 +50,23 @@ if (isset($_GET['dir']))       {$_SESSION['admin_user_dir'] = $_GET['dir'];}
             </script>";
     
 // Deal with interbredcrumps
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-$interbredcrump[]= array ("url"=>$rootAdminWeb."admin_class.php", "name"=> $langClass);
+$interbredcrump[]= array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
+$interbredcrump[]= array ('url'=>$rootAdminWeb.'admin_class.php', 'name'=> $langClass);
 $nameTools = $langClassMembers;
 
 //Header
 
-include($includePath."/claro_init_header.inc.php");
+include($includePath.'/claro_init_header.inc.php');
 
-/*
+/**#@+
  * DB tables definition
+ * @var $tbl_mdb_names array table name for the central database
  */
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user                  = $tbl_mdb_names['user'];
 $tbl_class                 = $tbl_mdb_names['user_category'];
 $tbl_class_user            = $tbl_mdb_names['user_rel_profile_category'];
+/**#@-*/
 
 //SESSION VARIABLES
 
@@ -81,11 +82,14 @@ if (isset($_REQUEST['class']))
 switch ($cmd)
 {
 
-  case "unsubscribe" :
+    case 'unsubscribe' :
         $sql = "DELETE FROM `".$tbl_class_user."` WHERE `user_id`='".$_REQUEST['userid']."'";
-	claro_sql_query($sql);
-	$dialogBox = $langUserUnregisteredFromClass;
+        claro_sql_query($sql);
+        $dialogBox = $langUserUnregisteredFromClass;
         break;
+    default :
+        // No command
+   
 }
 
 //----------------------------------
@@ -111,9 +115,9 @@ $sql = "SELECT *
 
 if (isset($chdir) && ($chdir=="yes"))
 {
-  if ($_SESSION['admin_user_class_dir'] == "ASC") {$_SESSION['admin_user_class_dir']="DESC";}
-  elseif ($_SESSION['admin_user_class_dir'] == "DESC") {$_SESSION['admin_user_class_dir']="ASC";}
-  else $_SESSION['admin_user_class_dir'] = "DESC";
+    if ($_SESSION['admin_user_class_dir'] == 'ASC') {$_SESSION['admin_user_class_dir']='DESC';}
+    elseif ($_SESSION['admin_user_class_dir'] == 'DESC') {$_SESSION['admin_user_class_dir']='ASC';}
+    else $_SESSION['admin_user_class_dir'] = 'DESC';
 }
 
 // deal with REORDER
@@ -123,7 +127,7 @@ if (isset($_REQUEST['order_crit']))
     $_SESSION['admin_user_class_order_crit'] = $_REQUEST['order_crit'];
     if ($_REQUEST['order_crit']=='user_id')
     {
-        $_SESSION['admin_user_class_order_crit'] = "U`.`user_id";
+        $_SESSION['admin_user_class_order_crit'] = 'U`.`user_id';
     }
 }
 if (isset($_SESSION['admin_user_class_order_crit']))
@@ -145,23 +149,24 @@ $resultList = $myPager->get_result_list();
 
 // Display tool title
 
-claro_disp_tool_title($nameTools." : ".$classinfo['name']);
+claro_disp_tool_title($nameTools.' : '.$classinfo['name']);
 
 //Display Forms or dialog box(if needed)
 
 if($dialogBox)
-  {
+{
     claro_disp_message_box($dialogBox);
-    echo "<br>";
-  }
+    echo '<br>';
+}
 
 //TOOL LINKS
 
-echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."admin/admin_class_register.php?class=".$classinfo['id']."\">".$langClassRegisterUser."</a> | ";
-
-echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&amp;fromAdmin=class&amp;uidToEdit=-1&amp;category=\">".$langClassRegisterWholeClass."</a> | ";
-
-echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."user/AddCSVusers.php?AddType=adminClassTool\">".$langAddCSVUsersInClass."</a><br><br>";
+echo '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'admin/admin_class_register.php?class='.$classinfo['id'].'">'.$langClassRegisterUser.'</a>'
+   . ' | '
+   . '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php?cmd=rqReg&amp;fromAdmin=class&amp;uidToEdit=-1&amp;category=">'.$langClassRegisterWholeClass.'</a>'
+   . ' | '
+   . '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'user/AddCSVusers.php?AddType=adminClassTool">'.$langAddCSVUsersInClass.'</a><br><br>'
+   ;
 
    //Pager
 
@@ -172,39 +177,31 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
    // start table...
 
-echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">
-     <thead>
-     <tr class=\"headerX\" align=\"center\" valign=\"top\">
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=user_id&amp;chdir=yes\">".$langUserid."</a></th>
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=nom&amp;chdir=yes\">".$langLastName."</a></th>
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=prenom&amp;chdir=yes\">".$langFirstName."</a></th>
-          <th><a href=\"",$_SERVER['PHP_SELF'],"?order_crit=officialCode&amp;chdir=yes\">".$langOfficialCode."</a></th>
-          <th>".$langEmail."</th>
-          <th>".$langUnsubscribeClass."</th>
-      </tr>
-      </thead>
-      <tbody> ";
+echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
+   . '<thead>'
+   . '<tr class="headerX" align="center" valign="top">'
+   . '<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=user_id&amp;chdir=yes">'.$langUserid.'</a></th>'
+   . '<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=nom&amp;chdir=yes">'.$langLastName.'</a></th>'
+   . '<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=prenom&amp;chdir=yes">'.$langFirstName.'</a></th>'
+   . '<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=officialCode&amp;chdir=yes">'.$langOfficialCode.'</a></th>'
+   . '<th>'.$langEmail.'</th>'
+   . '<th>'.$langUnsubscribeClass.'</th>'
+   . '</tr>'
+   . '</thead>'
+   . '<tbody>'
+   ;
 
    // Start the list of users...
 foreach($resultList as $list)
-//while ($list = mysql_fetch_array($query))
 {
-     echo "<tr>";
-
-     //  Id
-
-     echo "<td align=\"center\">".$list['user_id']."
-           </td>";
-
-     // name
-
-     echo "<td align=\"left\">".$list['nom']."</td>";
-
-     //  Firstname
-
-     echo "<td align=\"left\">".$list['prenom']."</td>";
- 
-     //  Official code
+     echo '<tr>'
+         //  Id
+        . '<td align="center" >'.$list['user_id'].'</td>'
+         // name
+        . '<td align="left" >'.$list['nom'].'</td>'
+        //  Firstname
+        . '<td align="left" >'.$list['prenom'].'</td>';
+        //  Official code
 
      if (isset($list['officialCode'])) 
      { 
@@ -212,36 +209,39 @@ foreach($resultList as $list)
      } 
      else 
      {
-         $toAdd = " - ";
+         $toAdd = ' - ';
      }
-     echo "<td align=\"center\">".$toAdd."</td>";
-
+     echo '<td align="center">'.$toAdd.'</td>'
      // mail
-
-     echo "<td align=\"left\">".$list['email']."</td>";
-     
+        . '<td align="left">'.$list['email'].'</td>'
      //  Unsubscribe link
-
-     echo   "<td align=\"center\">\n"
-           ."  <a href=\"",$_SERVER['PHP_SELF'],"?cmd=unsubscribe".$addToUrl."&amp;offset=".$offset."&amp;userid=".$list['user_id']."\" "
-           ."      onClick=\"return confirmationUnReg('",addslashes($list['prenom']." ".$list['nom']),"');\">\n"
-           ."      <img src=\"".$imgRepositoryWeb."unenroll.gif\" border=\"0\" alt=\"\" />\n"
-           ."  </a>\n"
-           ."</td>\n";
+        . '<td align="center">'."\n"
+        . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=unsubscribe'.$addToUrl.'&amp;offset='.$offset.'&amp;userid='.$list['user_id'].'" '
+        . ' onClick="return confirmationUnReg(\''.addslashes($list['prenom'].' '.$list['nom']).'\');">'."\n"
+        . '<img src='.$imgRepositoryWeb.'unenroll.gif" border="0" alt="" />'."\n"
+        . '</a>'."\n"
+        . '</td>'."\n"
+        ;
      
-     $atLeastOne= true;
+     $atLeastOne= TRUE;
 }
-   // end display users table
+// end display users table
 if (!$atLeastOne)
 {
-   echo "<tr>
-          <td colspan=\"8\" align=\"center\">
-            ".$langNoUserResult."<br>
-            <a href=\"".$clarolineRepositoryWeb."admin/admin_class.php".$addtoAdvanced."\">".$langBack."</a>
-          </td>
-         </tr>";
+    echo '<tr>'
+       . '<td colspan="8" align="center">'
+       . $langNoUserResult
+       . '<br>'
+       . '<a href="'.$clarolineRepositoryWeb.'admin/admin_class.php'.$addtoAdvanced.'">'
+       . $langBack
+       . '</a>'
+       . '</td>'
+       . '</tr>'
+       ;
 }
-echo "</tbody>\n</table>\n";
+echo '</tbody>'."\n"
+    .'</table>'."\n"
+    ;
 
 //Pager
 
