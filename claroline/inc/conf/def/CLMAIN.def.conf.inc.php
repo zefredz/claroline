@@ -13,6 +13,7 @@
  *
  * @see http://www.claroline.net/wiki/config_def/
  *
+ * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
  *
  * @package Kernel
@@ -91,10 +92,9 @@ array ( 'claro_texRendererUrl'
       , 'CLAROLANG'
       , 'userPasswordCrypted'
       , 'allowSelfReg'
-      , 'clarolineVersion'
-      , 'versionDb'
       , 'platform_id'
       , 'CLARO_DEBUG_MODE'
+      , 'DEVEL_MODE'
       );
 
 
@@ -451,21 +451,20 @@ $conf_def_property_list['CLARO_DEBUG_MODE'] =
 array ('type'        => 'boolean'
       ,'default'     => FALSE
       ,'container'   => 'CONST'
-      ,'display'     => FALSE
+      ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
-$conf_def_property_list['clarolineVersion'] =
-array ('type'        => 'string'
-      ,'default'     => '1.6.beta2'
-      ,'display'     => FALSE
-      ,'readonly'    => TRUE
-      );
-$conf_def_property_list['versionDb'] =
-array ('type'        => 'string'
-      ,'default'     => '1.6.beta2'
-      ,'display'     => FALSE
-      ,'readonly'    => TRUE
-      );
+      
+$conf_def_property_list['DEVEL_MODE'] =
+array ('type'        => 'boolean'
+      ,'default'     => FALSE
+      ,'container'   => 'CONST'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      , acceptedValue => array ('TRUE'=>'ON : Use this to developp, never for production'
+                               ,'FALSE'=>'OFF : Normal Use')
+      );      
+
 $conf_def_property_list['platform_id'] =
 array ('type'        => 'string'
       ,'technicalDesc' => 'id for this campus. Would  be unique'
