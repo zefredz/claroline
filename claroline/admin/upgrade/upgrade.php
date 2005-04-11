@@ -12,16 +12,14 @@
  *   whether do loop (upgrade_courses.php)
  * - update course db
  * - update course repository content
- * 
- * 
  *
  * @version 1.6
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license GENERAL PUBLIC LICENSE (GPL) 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
- * @see http://www.claroline.net/wiki/
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  *
  * @package UPGRADE
  *
@@ -36,6 +34,8 @@
 $langStartAgain = 'Start again';
 $langNothingToDo = 'Nothing To Do';
 $langDisplayErrorContactDevelopper = 'DISPLAY value unknow, please contact developper of the tool.';
+$langLogOnToYourPlatform ='Log on To your Admin';
+$langGoAdmin= 'Go to Admin';
 
 $cidReset = TRUE;
 $gidReset = TRUE;
@@ -55,7 +55,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 include ($includePath.'/installedVersion.inc.php');
 
 $thisClarolineVersion = $version_file_cvs;
-$thisVersionDb 		  = $version_db_cvs;
+$thisVersionDb        = $version_db_cvs;
 
 $patternVarVersion = '/^1.6/';
 $patternSqlVersion = '1.6%';
@@ -88,12 +88,12 @@ if (!isset($_SESSION['confirm_backup']))
     if ($_GET['confirm_backup'] == 1 ) 
     {
         // confirm backup TRUE
-    	$_SESSION['confirm_backup'] = 1;
-	    $confirm_backup = 1;
+        $_SESSION['confirm_backup'] = 1;
+        $confirm_backup = 1;
     }
     else
     {
-	    $confirm_backup = 0;
+        $confirm_backup = 0;
     }
 } 
 else 
@@ -110,44 +110,51 @@ else
  * Include old configuration file
  */
 
-@include ($configurationFile); // read Values in sources
-include ($includePath.'/currentVersion.inc.php');
-if (!$_REQUEST['confirm_backup']) 
+if (file_exists($configurationFile))
 {
-	// ask to confirm backup
-	$display = DISPVAL_upgrade_backup_needed;	
+    include ($configurationFile); // read Values in sources
+}
+if (file_exists($includePath.'/currentVersion.inc.php'))
+{
+    include ($includePath.'/currentVersion.inc.php');
+}
+
+if (!$confirm_backup) 
+{
+    // ask to confirm backup
+    $display = DISPVAL_upgrade_backup_needed;    
 }
 elseif (!preg_match($patternVarVersion,$clarolineVersion))
 {
     
-	// config file not upgraded go to first step
+    // config file not upgraded go to first step
     header("Location: upgrade_conf.php");
 }
 elseif (!preg_match($patternVarVersion,$versionDb))
 {
-	// upgrade of main conf needed.
-	$display = DISPVAL_upgrade_main_db_needed;
+    // upgrade of main conf needed.
+    $display = DISPVAL_upgrade_main_db_needed;
 }
 else
 {
-	// check course table to view wich courses aren't upgraded
-	mysql_connect($dbServer,$dbLogin,$dbPass);
-	$sqlNbCourses = "SELECT count(*) as nb 
+    // check course table to view wich courses aren't upgraded
+    mysql_connect($dbServer,$dbLogin,$dbPass);
+    $sqlNbCourses = "SELECT count(*) as nb 
                      FROM `".$mainDbName."`.`".$mainTblPrefix."cours`
                      WHERE not ( versionDb like '" . $patternSqlVersion . "' )";
 
-	$res_NbCourses = mysql_query($sqlNbCourses);
-	$nbCourses = mysql_fetch_array($res_NbCourses);
-	
-	if ($nbCourses['nb']>0)
-	{
-		// upgrade of main conf needed.
-		$display = DISPVAL_upgrade_courses_needed;
-	}
-	else
-	{
-		$display = DISPVAL_upgrade_done;
-	}
+    $res_NbCourses = mysql_query($sqlNbCourses);
+    $nbCourses = mysql_fetch_array($res_NbCourses);
+    
+    if ($nbCourses['nb'] > 0)
+    {
+        // upgrade of main conf needed.
+        $display = DISPVAL_upgrade_courses_needed;
+    }
+    else
+    {
+        $display = DISPVAL_upgrade_done;
+    }
 }
 
 /*=====================================================================
@@ -164,7 +171,7 @@ else
   <title>-- Claroline upgrade -- version <?php echo $thisClarolineVersion ?></title>  
   <link rel="stylesheet" type="text/css" href="upgrade.css" media="screen" />
   <style media="print" >
-    .notethis {	border: thin double Black;	margin-left: 15px;	margin-right: 15px;}
+    .notethis {    border: thin double Black;    margin-left: 15px;    margin-right: 15px;}
   </style>
 </head>
 
@@ -190,60 +197,66 @@ else
 
 switch ($display)
 {
-	case DISPVAL_upgrade_backup_needed :
+    case DISPVAL_upgrade_backup_needed :
 
-        $str_confirm_backup = '<input type="checkbox" id="confirm_backup" name="confirm_backup" value="1" />' .
-                '<label for="confirm_backup">' . $langConfirm . '</label>';
-
-        echo  sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
-		    . '<form action="' . $_SERVER['PHP_SELF'] . '" method="GET">' . "\n"
-		    . '<p>' . sprintf($langMakeABackupBefore,$str_confirm_backup) . '</p>' . "\n"
-		    . '<div align="right"><input type="submit" value="' . $langNext . ' > " /></div>' . "\n"
-		    . '</form>' . "\n";
-
-		break;
-
-	case DISPVAL_upgrade_main_db_needed :
+        $str_confirm_backup = '<input type="checkbox" id="confirm_backup" name="confirm_backup" value="1" />'
+                            . '<label for="confirm_backup">' . $langConfirm . '</label>'
+                            ;
 
         echo  sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
-		    . '<h2>' . $langDone . ':</h2>' . "\n"
-		    . '<ul>' . "\n"
-            . sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">%s</a>)</li>",$langUpgradeStep0,$langCancel)
-            . sprintf ("<li>%s (<a href=\"upgrade_conf.php\">%s</a>)</li>",$langUpgradeStep1,$langStartAgain)
+            . '<form action="' . $_SERVER['PHP_SELF'] . '" method="GET">' . "\n"
+            . '<p>' . sprintf($langMakeABackupBefore,$str_confirm_backup) . '</p>' . "\n"
+            . '<div align="right"><input type="submit" value="' . $langNext . ' > " /></div>' . "\n"
+            . '</form>' . "\n"
+            ;
+
+        break;
+
+    case DISPVAL_upgrade_main_db_needed :
+
+        echo sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
+           . '<h2>' . $langDone . ':</h2>' . "\n"
+           . '<ul>' . "\n"
+           . sprintf ('<li>%s (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">%s</a>)</li>',$langUpgradeStep0,$langCancel)
+           . sprintf ('<li>%s (<a href="upgrade_conf.php">%s</a>)</li>',$langUpgradeStep1,$langStartAgain)
+           . '</ul>' . "\n"
+           . '<h2>' . $langTodo . ':</h2>' . "\n"
+           . '<ul>' . "\n"
+           . sprintf('<li><a href="upgrade_main_db.php">%s</a></li>',$langUpgradeStep2) . "\n"
+           . '<li>' . $langUpgradeStep3 . '</li>' . "\n"
+           . '</ul>' . "\n"
+           ;
+
+        break;
+
+    case DISPVAL_upgrade_courses_needed :
+
+        echo  sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
+            . '<h2>' . $langDone . ':</h2>' . "\n"
+            . '<ul>' . "\n"
+            . sprintf ('<li>%s (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">cancel</a>)</li>',$langUpgradeStep0) . "\n"
+            . sprintf ('<li>%s (<a href="upgrade_conf.php">%s</a>)</li>',$langUpgradeStep1,$langStartAgain) . "\n"
+            . sprintf ('<li>%s (<a href="upgrade_main_db.php">%s</a>)</li>',$langUpgradeStep2,$langStartAgain) . "\n"
             . '</ul>' . "\n"
-		    . '<h2>' . $langTodo . ':</h2>' . "\n"
-		    . '<ul>' . "\n"
-            . sprintf("<li><a href=\"upgrade_main_db.php\">%s</a></li>",$langUpgradeStep2) . "\n"
-            . '<li>' . $langUpgradeStep3 . '</li>' . "\n"
-            . '</ul>' . "\n";
+            . '<h2>' . $langTodo . ':</h2>' . "\n"
+            . '<ul>' . "\n"
+            . sprintf('<li><a href="upgrade_courses.php">%s</a> - %s course(s) to upgrade</li>',$langUpgradeStep3,$nbCourses['nb']) . "\n"
+            . '</ul>' . "\n"
+            ;
 
-		break;
+        break;
 
-	case DISPVAL_upgrade_courses_needed :
-
-        echo  sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
-		    . '<h2>' . $langDone . ':</h2>' . "\n"
-		    . '<ul>' . "\n"
-            . sprintf ("<li>%s (<a href=\"" . $_SERVER['PHP_SELF'] . "?reset_confirm_backup=1\">cancel</a>)</li>",$langUpgradeStep0) . "\n"
-		    . sprintf ("<li>%s (<a href=\"upgrade_conf.php\">%s</a>)</li>",$langUpgradeStep1,$langStartAgain) . "\n"
-            . sprintf ("<li>%s (<a href=\"upgrade_main_db.php\">%s</a>)</li>",$langUpgradeStep2,$langStartAgain) . "\n"
-		    . '</ul>' . "\n"
-		    . '<h2>' . $langTodo . ':</h2>' . "\n"
-		    . '<ul>' . "\n"
-		    . sprintf("<li><a href=\"upgrade_courses.php\">%s</a> - %s course(s) to upgrade</li>",$langUpgradeStep3,$nbCourses['nb']) . "\n"
-		    . '</ul>' . "\n";
-
-		break;
-
-	case DISPVAL_upgrade_done :
+    case DISPVAL_upgrade_done :
 
         echo  sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
             . '<p>The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.</p>' . "\n"
-		    . '<ul>' . "\n"
-		    . '<li><a href="../../..">' . $langLogOnToYourPlatform . '</a></li>' . "\n"
-		    . '<li><a href=\"..\">'. $langGoAdmin . '</a></li>' . "\n"
-		    . '</ul>' . "\n";
+            . '<ul>' . "\n"
+            . '<li><a href="../../..">' . $langLogOnToYourPlatform . '</a></li>' . "\n"
+            . '<li><a href="..">'. $langGoAdmin . '</a></li>' . "\n"
+            . '</ul>' . "\n"
+            ;
 }
+
 
 ?>
 
