@@ -8,7 +8,7 @@
  *
  * @license GENERAL PUBLIC LICENSE (GPL) 
  *
- * @see http://www.claroline.net/wiki/
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  *
  * @package UPGRADE
  *

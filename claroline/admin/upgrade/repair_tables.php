@@ -8,7 +8,11 @@
  * 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  * 
- * @license (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ *
+ * @package UPGRADE
  * 
  * @author Claro Team <cvs@claroline.net>
  * @author Mathieu Laurent   <mla@claroline.net>
