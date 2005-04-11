@@ -1,19 +1,28 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6.*
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE 
+ * 
+ * This script Upgrade course database and course space.
+ *
+ * @version 1.6 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license GENERAL PUBLIC LICENSE (GPL) 
+ *
+ * @see http://www.claroline.net/wiki/
+ *
+ * @package UPGRADE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
 
-/*=====================================================================
-  Init Section
- =====================================================================*/ 
+/**
+ * Init Section
+ */ 
 
 require '../../inc/claro_init_global.inc.php';
 
@@ -29,7 +38,13 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 
 require ($includePath."/installedVersion.inc.php");
 
-$tbl_course = $mainDbName.'`.`' . $mainTblPrefix . 'cours';
+/**#@+
+ * DB tables definition
+ * @var $tbl_mdb_names array table name for the central database
+ */
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_course = $tbl_mdb_names['course'];
+/**#@-*/
 
 /*---------------------------------------------------------------------
   Mysql Handling
@@ -40,19 +55,28 @@ if (!function_exists(mysql_info))
     function mysql_info() {return "";} // mysql_info is used in verbose mode
 }
                 
-/*
+/**
  * List of accepted error - See MySQL error codes : 
- * http://dev.mysql.com/doc/mysql/en/error-handling.html
+ *
+ * Error: 1017 SQLSTATE: HY000 (ER_FILE_NOT_FOUND) : already upgraded
+ * Error: 1050 SQLSTATE: 42S01 (ER_TABLE_EXISTS_ERROR) : already upgraded
+ * Error: 1054 SQLSTATE: 42S22 (ER_BAD_FIELD_ERROR) : already upgraded
+ * Error: 1060 SQLSTATE: 42S21 (ER_DUP_FIELDNAME)  : already upgraded
+ * Error: 1065 SQLSTATE: 42000 (ER_EMPTY_QUERY) : when  sql contain only a comment
+ * Error: 1146 SQLSTATE: 42S02 (ER_NO_SUCH_TABLE) : already upgraded
+ * 
+ * @see http://dev.mysql.com/doc/mysql/en/error-handling.html
  */
 
-$accepted_error_list = array(1017,1050,1060,1062,1065,1146);
+$accepted_error_list = array(1017,1050,1054,1060,1062,1065,1146);
 
-/*---------------------------------------------------------------------
-  Steps of Display 
- ---------------------------------------------------------------------*/
-
+/**#@+
+ * Displays flags
+ * Using __LINE__ to have an arbitrary value
+ */
 DEFINE ("DISPLAY_WELCOME_PANEL", __LINE__ );
 DEFINE ("DISPLAY_RESULT_PANEL", __LINE__);
+/**#@-*/
 
 /*=====================================================================
   Statements Section
@@ -60,11 +84,11 @@ DEFINE ("DISPLAY_RESULT_PANEL", __LINE__);
 
 if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'run')
 {
-	$display = DISPLAY_RESULT_PANEL;
+    $display = DISPLAY_RESULT_PANEL;
 }
 else 
 {
-	$display = DISPLAY_WELCOME_PANEL;
+    $display = DISPLAY_WELCOME_PANEL;
 }
 
 // Get start time
@@ -120,10 +144,13 @@ $count_course_upgraded_at_start =  $count_course_upgraded;
 
 // auto refresh
 
-if ( $display==DISPLAY_RESULT_PANEL && ($count_course_upgraded + $count_course_error )< $count_course)
+if ( $display == DISPLAY_RESULT_PANEL 
+     && 
+     ($count_course_upgraded + $count_course_error )< $count_course
+   )
 {
-	$refresh_time = 20;
-	echo "<meta http-equiv=\"refresh\" content=\"". $refresh_time  ."\" />\n";
+    $refresh_time = 20;
+    echo '<meta http-equiv="refresh" content="'. $refresh_time  .'" />'."\n";
 }
 
 ?>
@@ -131,7 +158,7 @@ if ( $display==DISPLAY_RESULT_PANEL && ($count_course_upgraded + $count_course_e
   <meta http-equiv="Content-Type" content="text/HTML; charset=iso-8859-1"  />
   <link rel="stylesheet" type="text/css" href="upgrade.css" media="screen" />
   <style media="print" >
-    .notethis {	border: thin double Black;	margin-left: 15px;	margin-right: 15px;}
+    .notethis {    border: thin double Black;    margin-left: 15px;    margin-right: 15px;}
   </style>
 </head>
 
@@ -145,7 +172,7 @@ if ( $display==DISPLAY_RESULT_PANEL && ($count_course_upgraded + $count_course_e
 <td valign="top" align="left">
 <div id="header">
 <?php
- echo sprintf("<h1>Claroline (%s) - upgrade</h1>",$clarolineVersion);
+    echo sprintf("<h1>Claroline (%s) - upgrade</h1>",$clarolineVersion);
 ?>
 </div>
 </td>
@@ -161,192 +188,191 @@ if ( $display==DISPLAY_RESULT_PANEL && ($count_course_upgraded + $count_course_e
 
 switch ($display)
 {
-	case DISPLAY_WELCOME_PANEL :
-        echo  sprintf("<h2>%s</h2>",$langUpgradeStep3)
+    case DISPLAY_WELCOME_PANEL :
+        echo  sprintf('<h2>%s</h2>',$langUpgradeStep3)
             . '<p>' . $langIntroStep3 . '</p>' 
             . sprintf($langNbCoursesUpgraded, $count_course_upgraded, $count_course)
-		    . '<center>' . sprintf ($langLaunchStep3, $_SERVER['PHP_SELF']."?cmd=run") . '</center>';
-		break;
+            . '<center>' 
+            . sprintf ($langLaunchStep3, $_SERVER['PHP_SELF'].'?cmd=run') 
+            . '</center>';
+        break;
                 
-	case DISPLAY_RESULT_PANEL : 
+    case DISPLAY_RESULT_PANEL : 
 
         echo sprintf("<h2>%s</h2>",$langUpgradeStep3)
              . '<p>' . $langIntroStep3Run . '</p>'; 
 
-		// display course upgraded
+        // display course upgraded
         echo sprintf($langNbCoursesUpgraded,$count_course_upgraded,$count_course);
 
-		/*
+        /*
          * display block with list of course where upgrade failed
          * add a link to retry upgrade of this course
          */
 
-		$sql = "SELECT code 
+        $sql = "SELECT code 
                 FROM `" . $tbl_course . "` 
-		        WHERE versionDb = 'error' ";
+                WHERE versionDb = 'error' ";
 
-		$result = claro_sql_query($sql);
+        $result = claro_sql_query($sql);
 
-		if (mysql_num_rows($result))
-		{
-			echo '<p  class="error">' . 'Upgrade failed for course(s)' . ' ';
-			while ($course = mysql_fetch_array($result))
-			{
-				echo $course['code'] . ' ; ';	
-			}
-			echo  '-' . sprintf('You can <a href="%s">retry to upgrade</a> these courses', $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
+        if (mysql_num_rows($result))
+        {
+            echo '<p  class="error">' . 'Upgrade failed for course(s)' . ' ';
+            while ($course = mysql_fetch_array($result))
+            {
+                echo $course['code'] . ' ; ';    
+            }
+            echo  '-' . sprintf('You can <a href="%s">retry to upgrade</a> these courses', $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
                 . '</p>';
-			
-		}
+            
+        }
         flush();
                 
-		/*
+        /*
          * display refresh bloc
          */
 
-		echo  '<div class="help" id="refreshIfBlock">'
-		    . '<p>' . 'Few seconds after the load of the page<sup>*</sup>, the <em>Claroline Upgrade tool</em> will
+        echo  '<div class="help" id="refreshIfBlock">'
+            . '<p>' . 'Few seconds after the load of the page<sup>*</sup>, the <em>Claroline Upgrade tool</em> will
                        automatically continue its job. If it doesn\'t, click yourself on the button below.' 
             . '</p>'
-		    . '<p style="text-align: center">'
+            . '<p style="text-align: center">'
             . sprintf ("<button onclick=\"document.location='%s';\">Continue courses data upgrade</button>", $_SERVER['PHP_SELF']."?cmd=run")
-		    . '</p>'
-		    . '<p><small>(*) see in the status bar of your browser.</small></p>'
+            . '</p>'
+            . '<p><small>(*) see in the status bar of your browser.</small></p>'
             . '</div>'; 
 
         flush();
 
-		/*
+        /*
          * Build query to select course to upgrade
          */
 
-		$sql_course_to_upgrade = " SELECT c.dbName dbName, 
-		                                  c.code sysCode, 
-		                                  c.fake_code officialCode, 
-		                                  directory coursePath ".
-		                         " FROM `" . $tbl_course . "` `c` ";
+        $sql_course_to_upgrade = " SELECT c.dbName dbName, 
+                                          c.code sysCode, 
+                                          c.fake_code officialCode, 
+                                          directory coursePath ".
+                                 " FROM `" . $tbl_course . "` `c` ";
 
-		if ( $_REQUEST['upgradeCoursesError'] == 1)
-		{
+        if ( $_REQUEST['upgradeCoursesError'] == 1)
+        {
             // retry to upgrade course where upgrade failed
-			$sql_course_to_upgrade .= " where c.versionDb != '".$versionDb."' order by c.dbName";
-		}
-		else
-		{
+            $sql_course_to_upgrade .= " where c.versionDb != '".$versionDb."' order by c.dbName";
+        }
+        else
+        {
             // not upgrade course where upgrade failed ( versionDb == error)
-			$sql_course_to_upgrade .= " where c.versionDb != '".$versionDb."' and c.versionDb !='error' order by c.dbName";
-		}
-		
-		echo "<p>$sql_course_to_upgrade</p>";
-		
-		$res_course_to_upgrade = mysql_query($sql_course_to_upgrade);
-		
+            $sql_course_to_upgrade .= " where c.versionDb != '".$versionDb."' and c.versionDb !='error' order by c.dbName";
+        }
+        
+        $res_course_to_upgrade = mysql_query($sql_course_to_upgrade);
+        
         /*
          * Upgrade course
          */
 
-		while ($course = mysql_fetch_array($res_course_to_upgrade))
-		{
-			$currentCourseDbName    = $course['dbName'];
-			$currentcoursePathSys   = $coursesRepositorySys.$course['coursePath'].'/';
-			$currentcoursePathWeb   = $coursesRepositoryWeb.$course['coursePath'].'/';
-			$currentCourseIDsys	    = $course['sysCode'];
-			$currentCourseCode      = $course['officialCode'];
-			$currentCourseDbNameGlu = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
-		
+        while ($course = mysql_fetch_array($res_course_to_upgrade))
+        {
+            $currentCourseDbName    = $course['dbName'];
+            $currentcoursePathSys   = $coursesRepositorySys.$course['coursePath'].'/';
+            $currentcoursePathWeb   = $coursesRepositoryWeb.$course['coursePath'].'/';
+            $currentCourseIDsys        = $course['sysCode'];
+            $currentCourseCode      = $course['officialCode'];
+            $currentCourseDbNameGlu = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
+        
             $count_course_upgraded++;
-			$count_error = 0;
+            $count_error = 0;
 
-			echo  '<p>'
+            echo  '<p>'
                 . sprintf("<strong>%1\$s. </strong>Upgrading database of course <strong>%2\$s</strong> - DB Name : %3\$s - Course ID: %4\$s", 
                           $count_course_upgraded, $currentCourseCode, $currentCourseDbName, $currentCourseIDsys);
-				
-			echo '<ol>' . "\n";
-			
+                
+            echo '<ol>' . "\n";
+            
             /*
              * Include array with sql statement ($sqlForUpdate)
              */
 
-	    	unset($sqlForUpdate);
-    		include('./sql_statement_course.php');
-    		include('./repair_tables.php');
-			reset($sqlForUpdate);
+            unset($sqlForUpdate);
+            include('./sql_statement_course.php');
+            include('./repair_tables.php');
+            reset($sqlForUpdate);
 
             /*
              * Process sql statement
              */
 
-			while ( list($key,$sqlTodo) = each($sqlForUpdate) )
-			{
-				$res = claro_sql_query($sqlTodo);
-
-				if ($verbose)
-				{
-					echo '<li>' . "\n";
-					echo '<p class="tt"><strong>' . $currentCourseDbName. ':</strong>' . $sqlTodo .  '</p>' . "\n";
-					echo '<p>' . mysql_affected_rows() . ' affected rows <br />' . "\n" .mysql_info() . '</p>' . "\n";
-					if (mysql_errno() > 0 )
-					{
-						echo '<p class="error">n° <strong>' . mysql_errno() . ': </strong> ' . mysql_error() . '</p>' . "\n";
-					}
-					echo '</li>' . "\n";
-				}             
+            while ( list($key,$sqlTodo) = each($sqlForUpdate) )
+            {
+                $res = claro_sql_query($sqlTodo);
+                if ($verbose)
+                {
+                    echo '<li>' . "\n";
+                    echo '<p class="tt"><strong>' . $currentCourseDbName. ':</strong>' . $sqlTodo .  '</p>' . "\n";
+                    echo '<p>' . mysql_affected_rows() . ' affected rows <br />' . "\n" .mysql_info() . '</p>' . "\n";
+                    if (mysql_errno() > 0 )
+                    {
+                        echo '<p class="error">n° <strong>' . mysql_errno() . ': </strong> ' . mysql_error() . '</p>' . "\n";
+                    }
+                    echo '</li>' . "\n";
+                }             
                 
-				if ( mysql_errno() > 0 && !in_array(mysql_errno(),$accepted_error_list) )
-				{
-					++$count_error;
-					echo '<p class="error">'
-				       . '<strong>' . $count_error . '</strong> '
-					   . '<strong>n°: ' . mysql_errno() . '</strong> : ' . mysql_error() . ' ' . $currentCourseDbName . ':' . $sqlTodo
-					   . '</p>';
-				}
-			}
-			echo '</ol>';
-
-			if ( $count_error>0 )
-			{
-				echo '<p class="error"><strong>' . $count_error . ' errors found</strong></p>';
-
-				$count_error_total += $count_error;
-                
-                /*
-				 * Error: set versionDB of course to error
-                 */
-				$sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-							        SET versionDb='error'
-							        WHERE code = '".$currentCourseIDsys."'";
-
-				$res = claro_sql_query($sqlFlagUpgrade);
-				if (mysql_errno() > 0)
-				{
-					echo '<p class="error">n° <strong>' . mysql_errno() . '</strong>: ' . mysql_error() . '</p>';
-    				echo '<p>' . $sqlFlagUpgrade . '</p>';
-                }
-			}
-			else
-			{
-                /*
-				 * Success: set versionDB of course to new version
-                 */
-				$sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-							        SET versionDb='".$versionDb."'
-							        WHERE code = '".$currentCourseIDsys."'";				
-				$res = @mysql_query($sqlFlagUpgrade);
-				if (mysql_errno() > 0)
-				{
-					echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
-					echo '<p>' . $sqlFlagUpgrade . '</p>';
+                if ( mysql_errno() > 0 && !in_array(mysql_errno(),$accepted_error_list) )
+                {
+                    ++$count_error;
+                    echo '<p class="error">'
+                       . '<strong>' . $count_error . '</strong> '
+                       . '<strong>n°: ' . mysql_errno() . '</strong> : ' . mysql_error() . ' ' . $currentCourseDbName . ':' . $sqlTodo
+                       . '</p>';
                 }
             }
-		
-            $mtime = microtime(); $mtime = explode(" ",$mtime);	$mtime = $mtime[1] + $mtime[0]; $endtime = $mtime;
-			$totaltime = ($endtime - $starttime);
-			$stepDuration = ($endtime - $steptime);
-			$steptime = $endtime;
-			$stepDurationAvg = $totaltime / ($count_course_upgraded-$count_course_upgraded_at_start);
+            echo '</ol>';
+
+            if ( $count_error>0 )
+            {
+                echo '<p class="error"><strong>' . $count_error . ' errors found</strong></p>';
+
+                $count_error_total += $count_error;
+                
+                /*
+                 * Error: set versionDB of course to error
+                 */
+                $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
+                                    SET versionDb='error'
+                                    WHERE code = '".$currentCourseIDsys."'";
+
+                $res = claro_sql_query($sqlFlagUpgrade);
+                if (mysql_errno() > 0)
+                {
+                    echo '<p class="error">n° <strong>' . mysql_errno() . '</strong>: ' . mysql_error() . '</p>';
+                    echo '<p>' . $sqlFlagUpgrade . '</p>';
+                }
+            }
+            else
+            {
+                /*
+                 * Success: set versionDB of course to new version
+                 */
+                $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
+                                    SET versionDb='".$versionDb."'
+                                    WHERE code = '".$currentCourseIDsys."'";                
+                $res = @mysql_query($sqlFlagUpgrade);
+                if (mysql_errno() > 0)
+                {
+                    echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
+                    echo '<p>' . $sqlFlagUpgrade . '</p>';
+                }
+            }
+        
+            $mtime = microtime(); $mtime = explode(" ",$mtime);    $mtime = $mtime[1] + $mtime[0]; $endtime = $mtime;
+            $totaltime = ($endtime - $starttime);
+            $stepDuration = ($endtime - $steptime);
+            $steptime = $endtime;
+            $stepDurationAvg = $totaltime / ($count_course_upgraded-$count_course_upgraded_at_start);
             $leftCourses = (int) ($count_course-$count_course_upgraded);
-			$leftTime = strftime('%T',$leftCourses *$avgDuration);
-			$str_execution_time = sprintf("execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. <b>left Time [%s]</b>.",$stepDuration,$stepDurationAvg,strftime('%T',$totaltime),$leftCourses,$leftTime);
+            $leftTime = strftime('%T',$leftCourses *$avgDuration);
+            $str_execution_time = sprintf("execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. <b>left Time [%s]</b>.",$stepDuration,$stepDurationAvg,strftime('%T',$totaltime),$leftCourses,$leftTime);
 
             if ($count_error==0)
             {
@@ -356,25 +382,25 @@ switch ($display)
             {
                 echo '<p class="error">Upgrade Failed - ' . $str_execution_time . '</p>';
             }
-			echo '<hr noshade="noshade" />';           
+            echo '<hr noshade="noshade" />';           
             flush();
 
-		} // end of course upgrade
+        } // end of course upgrade
                 
-        $mtime = microtime(); $mtime = explode(" ",$mtime);	$mtime = $mtime[1] + $mtime[0];	$endtime = $mtime; $totaltime = ($endtime - $starttime);
-		
-		if ( $count_error_total > 0 )
-		{
-			echo '<p class="error">' . $count_course_error . ' course(s) not upgraded.';
-			echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?verbose=true">Retry</a></p>';
-		}
-		else
-		{
-			echo '<p class="success">The claroline upgrade tool has successfullly upgrade all your platform courses</p>' . "\n";
+        $mtime = microtime(); $mtime = explode(" ",$mtime);    $mtime = $mtime[1] + $mtime[0];    $endtime = $mtime; $totaltime = ($endtime - $starttime);
+        
+        if ( $count_error_total > 0 )
+        {
+            echo '<p class="error">' . $count_course_error . ' course(s) not upgraded.';
+            echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?verbose=true">Retry</a></p>';
+        }
+        else
+        {
+            echo '<p class="success">The claroline upgrade tool has successfullly upgrade all your platform courses</p>' . "\n";
             echo '<div align="right">' . sprintf($langNextStep,"upgrade.php") . '</div>';
-		}
-			
-		mysql_close();
+        }
+            
+        mysql_close();
 
         /*
          * Hide Refresh Block
@@ -384,7 +410,7 @@ switch ($display)
         echo "document.getElementById('refreshIfBlock').style.visibility = \"hidden\"";
         echo "</script>";
                 
-		break;
+        break;
 
 } // end of switch display
 
