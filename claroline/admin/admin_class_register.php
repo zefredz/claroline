@@ -25,7 +25,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 $is_allowedToAdmin     = $is_platformAdmin;
 $userPerPage = 20; // numbers of user to display on the same page
 
-@include ($includePath."/installedVersion.inc.php");
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 
 
 /*

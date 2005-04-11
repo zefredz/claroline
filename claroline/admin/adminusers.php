@@ -63,7 +63,7 @@ if (isset($_REQUEST['dir']))       {$_SESSION['admin_user_dir'] = ($_REQUEST['di
 session_unregister('_cid');
 unset($_cid);
 
-@include ($includePath."/installedVersion.inc.php");
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 
 
 //TABLES

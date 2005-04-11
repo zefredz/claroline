@@ -267,7 +267,7 @@ $isoCode['ZW'] = "Zimbabwe";
 
 /*---------------------------------------------------------------------*/
   
-@include ($includePath.'/installedVersion.inc.php');
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 require_once($includePath.'/lib/nusoap.php');
 
 //SECURITY CHECK

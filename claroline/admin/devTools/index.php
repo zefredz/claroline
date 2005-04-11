@@ -12,7 +12,7 @@
 */
 
 require '../../inc/claro_init_global.inc.php';
-
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 $langFillToolCourses = 'Fill tools of a course (lorem ipsum filler)';
 
 $is_allowedToUseSDK = $is_platformAdmin;
@@ -33,13 +33,10 @@ claro_disp_tool_title(
 	);
 
 ?>
-
 <h4><?php echo $langTranslations ?></h4>
-
 <ul>
-<li><a href="../xtra/sdk/translation_index.php"><?php echo $langTranslations ?></a></li>
+    <li><a href="../xtra/sdk/translation_index.php"><?php echo $langTranslations ?></a></li>
 </ul>
-
 <h4><?php echo $langFilling ?></h4>
 <ul>
  <li><a href="./fillUser.php"><?php echo $langFillUsers ?></a></li>

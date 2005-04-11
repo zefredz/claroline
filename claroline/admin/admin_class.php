@@ -13,7 +13,7 @@
 
 //used libraries
 require '../inc/claro_init_global.inc.php';
-@include ($includePath."/installedVersion.inc.php");
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 include($includePath."/lib/admin.lib.inc.php");
 
 //SECURITY CHECK

@@ -66,9 +66,7 @@ $is_allowedToTrack 	= $is_platformAdmin;
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title(
 	array(
-	'mainTitle'=>$nameTools,
-	'subTitle'=>$PHP_AUTH_USER." - ".$siteName." - ".$clarolineVersion
-	)
+	'mainTitle'=>$nameTools	)
 	);
 
 if( $is_allowedToTrack && $is_trackingEnabled)

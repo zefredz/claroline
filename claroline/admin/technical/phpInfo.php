@@ -12,7 +12,7 @@
  */
 
 require '../../inc/claro_init_global.inc.php';
-
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 if ( ! $is_platformAdmin ) claro_disp_auth_form();
 
 $langNoFunctionInThisSection = 'No functions in this extention';
