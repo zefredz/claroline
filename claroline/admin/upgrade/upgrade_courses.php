@@ -62,6 +62,7 @@ if (!function_exists(mysql_info))
  * Error: 1050 SQLSTATE: 42S01 (ER_TABLE_EXISTS_ERROR) : already upgraded
  * Error: 1054 SQLSTATE: 42S22 (ER_BAD_FIELD_ERROR) : already upgraded
  * Error: 1060 SQLSTATE: 42S21 (ER_DUP_FIELDNAME)  : already upgraded
+ * Error: 1062 SQLSTATE: 23000  ( ER_DUP_ENTRY  )Message: Duplicate entry '%s' for key %d
  * Error: 1065 SQLSTATE: 42000 (ER_EMPTY_QUERY) : when  sql contain only a comment
  * Error: 1146 SQLSTATE: 42S02 (ER_NO_SUCH_TABLE) : already upgraded
  * 
@@ -305,7 +306,7 @@ switch ($display)
 
             while ( list($key,$sqlTodo) = each($sqlForUpdate) )
             {
-                $res = claro_sql_query($sqlTodo);
+                $res = mysql_query($sqlTodo);
                 if ($verbose)
                 {
                     echo '<li>' . "\n";
