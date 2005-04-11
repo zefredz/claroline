@@ -372,8 +372,14 @@ switch ($display)
             $steptime = $endtime;
             $stepDurationAvg = $totaltime / ($count_course_upgraded-$count_course_upgraded_at_start);
             $leftCourses = (int) ($count_course-$count_course_upgraded);
-            $leftTime = strftime('%T',$leftCourses *$avgDuration);
-            $str_execution_time = sprintf("execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. <b>left Time [%s]</b>.",$stepDuration,$stepDurationAvg,strftime('%T',$totaltime),$leftCourses,$leftTime);
+            $leftTime = strftime("%H:%M:%S",$leftCourses *$stepDurationAvg);
+            $str_execution_time = sprintf( "execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. <b>left Time [%s]</b>."
+                                          ,$stepDuration
+                                          ,$stepDurationAvg
+                                          ,strftime('%H:%M:%S',$totaltime)
+                                          ,$leftCourses
+                                          ,$leftTime
+                                         );
 
             if ($count_error==0)
             {
