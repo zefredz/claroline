@@ -1,41 +1,54 @@
 <?php // $Id$
 /**
- * @version CLAROLINE 1.6
+ * CLAROLINE 
+ *
+ * This tool is write to edit setting  of  claroline.
+ *
+ * In the old claroline, there was a central config file
+ * in next release a conf repository
+ * was build with conf files.
+ *
+ * To not owerwrite on the following release,
+ * was rename  from .conf.inc.php to .conf.inc.php.dist
+ * installer was eable to rename from .conf.inc.php.dist
+ * to .conf.inc.php
+ *
+ * The actual config file is build 
+ * to merge new and active setting.
+ *
+ * The system as more change than previous evolution
+ * Tool are released with a conf definition file.
+ *
+ * This file define for each property a name, 
+ * a place but also some control for define accepted content.
+ *
+ * And finally some comment, explanation or info
+ *
+ * this version do not include
+ * - trigered procedure (function called when a property
+ *   is switch or set to a particular value)
+ * - renaming or deletion of properties from config
+ * - locking  of edit file (This tools can't really be
+ *   in the active part of the day in prod. )
+ *   I need to change that to let 
+ *   admin sleep during the night
+ *
+ * To make transition,
+ * - a section can parse old file to found old properties
+ *   and his values.
+ *   This script would be continue 
+ *   to generate a def conf file.
+ *
+ * @version 1.6
  * 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  * 
  * @license GENERAL PUBLIC LICENSE (GPL)
  * 
+ * @author Claro Team <cvs@claroline.net>
  * @author Mathieu Laurent   <mla@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
  * 
- * 
- * This tool is write to edit setting  of  claroline.
- * In the old claroline, there was a central config file
- * in next release a conf repository was build  with conf files
- * To not owerwrite on the following release,
- * was rename  from .conf.inc.php to .conf.inc.php.dist
- * installer was eable to rename from .conf.inc.php.dist to .conf.inc.php
-
- * The actual config file is build to merge new and active setting.
- * The system as more change than previous evolution
- * Tool are released with a conf definition file
- * This file define for each property a name, a place but also
- * some control for define accepted content.
- * and finally some comment, explanation or info
- *
- * this version do not include
- * * trigered procedure (function called when a property
- *   is switch or set to a particular value)
- * * renaming or deletion of properties from config
- * * locking  of edit file (This tools can't really be
- *   in the active part of the day in prod. )
- *   I need to change that to let  admin sleep during the night
- *
- * To make transition,
- * * a section can parse old file to found old properties
- *   and his values.
- *   This script would be continue to generate a def conf file.
  *
  */
 
@@ -225,8 +238,8 @@ else
         unset($conf_def,$conf_def_property_list);
         require($def_file);
 
-        // Search for value  existing  in conf file but not in def file, or inverse
-        $currentConfContent = parse_config_file($conf_file);
+        // Search for value  existing  in conf file 
+        $currentConfContent = get_values_from_confFile($conf_file,$conf_def_property_list);
 
         unset($currentConfContent[$config_code.'GenDate']);
 
