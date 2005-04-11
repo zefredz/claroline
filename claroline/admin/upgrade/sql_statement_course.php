@@ -133,7 +133,7 @@ $sqlForUpdate[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."assignment_d
 
 $sqlForUpdate[] = "RENAME TABLE `".$currentCourseDbNameGlu."track_e_access` TO `".$currentCourseDbNameGlu."track_e_access_15`";
 
-$sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `track_e_access` (
+$sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."track_e_access` (
   `access_id` int(11) NOT NULL auto_increment,
   `access_user_id` int(10) default NULL,
   `access_date` datetime NOT NULL default '0000-00-00 00:00:00',
