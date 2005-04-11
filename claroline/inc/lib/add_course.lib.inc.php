@@ -1103,7 +1103,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 
 	if ($okForRegisterCourse)
 	{
-		include_once($includePath."/installedVersion.inc.php");
+        if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 		// here we must add 2 fields
 		$sql ="INSERT INTO `".$TABLECOURSE."` SET
 			code = '".$courseSysCode."',
