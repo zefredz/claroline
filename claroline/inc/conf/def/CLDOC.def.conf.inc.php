@@ -1,12 +1,14 @@
 <?php //$Id$
 /**
+ * CLAROLINE 
+ *
  * This file describe the parameter for CLDOC config file
  *
- * @version CLAROLINE 1.6
+ * @version 1.6
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license  GENERAL PUBLIC LICENSE (GPL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/config_def/
  *

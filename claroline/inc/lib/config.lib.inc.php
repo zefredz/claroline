@@ -8,7 +8,8 @@
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license (GPL) GENERAL PUBLIC LICENSE  
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+   
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
@@ -27,10 +28,6 @@
  *
  * @return  boolean:wheter succes return true
  *
- * @var $perms file permission of dist file are keep to set perms of new file
- *
- * @var $group internal var for affect same group to new file
- *
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
  */
@@ -41,8 +38,18 @@ function claro_undist_file ($file)
     {
         if ( file_exists($file.".dist"))
         {
+            /**
+             * @var $perms file permission of dist file are keep to set perms of new file
+             */
+ 
             $perms = fileperms($file.".dist");
+
+            /**
+             * @var $group internal var for affect same group to new file
+             */
+            
             $group = filegroup($file.".dist");
+            
             // $perms|bindec(110000) <- preserve perms but force rw right on group
             @copy($file.".dist",$file) && chmod ($file,$perms|bindec(110000)) && @chgrp($file,$group);
             if (file_exists($file))
@@ -285,7 +292,6 @@ function get_def_file_list()
  * @param   $config_code string the config code to process
  * @return  the name of the config file (with complete path)
  *
- * @example get_conf_file('CLCAL');
  */
 
 function get_conf_file($config_code)
