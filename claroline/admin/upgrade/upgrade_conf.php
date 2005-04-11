@@ -8,7 +8,7 @@
  *
  * @license GENERAL PUBLIC LICENSE (GPL) 
  *
- * @see http://www.claroline.net/wiki/
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  *
  * @package UPGRADE
  *
@@ -295,17 +295,7 @@ $versionDb = "'.$versionDb.'";
 </div>
 </td>
 </tr>
-<!--
-<tr bgcolor="#E6E6E6">
-<td valign="top"align="left">
-<div id="menu">
-<?php
- echo sprintf("<p><a href=\"upgrade.php\">%s</a> - %s</p>", 'upgrade', $langUpgradeStep1);
-?>
-</div>
-</td>
-</tr>
--->
+
 <tr valign="top" align="left">
 <td>
 
