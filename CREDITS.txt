@@ -85,7 +85,7 @@ Japanese translation :          Akira Yoshii (yoshii@cc.hokkyodai.ac.jp)
 
 Polish translation :            Slawomir Gurdala (guslaw@uni.lodz.pl)
 
-Portugese translation :         Marcello R. Minholi (minholi@unipar.be)
+Portugese translation :         Marcello R. Minholi (minholi@unipar.br)
 
 Swedish translation :           Jan Olsson (jano@artedi.nordmaling.se)
 
