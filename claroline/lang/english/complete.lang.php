@@ -1217,8 +1217,8 @@ $langGroupTooMuchMembers = "Number proposed exceeds max. that you allowed (you c
 
                 Group composition has not been modified";
 $langGroupTools = "Tools";
-$langGroupTutor = "Tutor";
-$langGroupTutors = "Tutors";
+$langGroupTutor = "Group Tutor";
+$langGroupTutors = "Group Tutors";
 $langGroupUserManagement = "Group management";
 $langGroupUsersList = "See <a href=../user/user.php>Users</a>";
 $langGroupWork = "GroupWork";
