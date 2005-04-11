@@ -1,4 +1,0 @@
-<?php
-$clarolineVersion = "";
-$versionDb = "";
-?>
