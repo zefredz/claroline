@@ -1,14 +1,20 @@
 <?php // $Id$
 /**
- * @version CLAROLINE 1.6
- * ----------------------------------------------------------------------
- * @Copyright (c) 2001-2005 UniversitÃ© catholique de Louvain (UCL)
- * ----------------------------------------------------------------------
- * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
- * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
- * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * CLAROLINE 
+ *
+ * This script present state of 
+ * - configuration of Claroline, PHP, Mysql, Webserver
+ * - credits 
+ *
+ * @version 1.6
  * 
- * @author : Christophe GeschÃ© <moosh@claroline.net>
+ * @copyright (c) 2001-2005 Université catholique de Louvain (UCL)
+ * 
+ * @license http://www.gnu.org/copyleft/gpl.html GENERAL PUBLIC LICENSE (GPL)
+ *  
+ * @author : Christophe Gesché <moosh@claroline.net>
+ *
+ * @package MAINTENANCE
  */
 
 require '../../inc/claro_init_global.inc.php';
@@ -27,7 +33,7 @@ if ($_REQUEST['to'])
 	$nameTools = $HTTP_GET_VARS["to"];
 }
 @include($rootAdminSys."/checkIfHtAccessIsPresent.php");
-$is_allowedToAdmin 	= $is_platformAdmin || $PHP_AUTH_USER;
+$is_allowedToAdmin 	= $is_platformAdmin;
 if ($is_allowedToAdmin)
 {
 	include($includePath."/claro_init_header.inc.php");

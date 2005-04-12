@@ -1,16 +1,27 @@
 <?php # $Id$
-/*
-	this  script  is  young.
-	Target :
-		check security
-		add protection
-		make suggestion
-		link to forum on claroline server.
-
-	default display
-		$DIPLAY_STATUS_OF_PROTECTION
-
-*/
+/**
+ *  This  script  is  young.
+ *  Target :
+ *  - check security
+ *  - add protection
+ *  - make suggestion
+ *  - link to forum on claroline server.
+ *
+ *  default display
+ * $DIPLAY_STATUS_OF_PROTECTION
+ *
+ * @version 1.6
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package SDK
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
 
 require '../../inc/claro_init_global.inc.php';
 
@@ -80,8 +91,7 @@ if ($doProtectInstall)
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title(
 	array(
-	'mainTitle'=>$nameTools,
-	'subTitle'=> $siteName." - ".$clarolineVersion." - ".$dateNow
+	'mainTitle'=>$nameTools
 	)
 	);
 claro_disp_msg_arr($msg);
