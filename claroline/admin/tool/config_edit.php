@@ -39,16 +39,19 @@
  *   This script would be continue 
  *   to generate a def conf file.
  *
- * @version 1.6
+ * @version 1.6 $Revision$
  * 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  * 
- * @license GENERAL PUBLIC LICENSE (GPL)
- * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/config_def/
+ *
+ * @package CONFIG
+ *
  * @author Claro Team <cvs@claroline.net>
  * @author Mathieu Laurent   <mla@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
- * 
  *
  */
 
