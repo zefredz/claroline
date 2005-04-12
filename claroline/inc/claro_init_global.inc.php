@@ -50,19 +50,8 @@ ini_set('include_path',
 if (isset($platform_id))
 {
     session_name($platform_id);
-    session_start();
 }
-else
-{
-    if(file_exists($includePath.'/conf/claro_main.conf.php'))
-    die ('<strong>$platform_id</strong> missing in config. <br>
-    Reinstall claroline<br>
-    or <br>
-    
-    add the following line in <tt>'.realpath($includePath.'/conf/claro_main.conf.php').'</tt><br><br>
-    
-    &nbsp;&nbsp;<em>$platform_id="'.md5(realpath($includePath.'/../install/do_install.inc.php')).'";</em>');
-}
+session_start();
 
 if ($statsDbName == '')
 {
