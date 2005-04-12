@@ -1,20 +1,17 @@
 <?php // $Id$
 /**
+ * CLAROLINE
  * This file describe the parameter for Claroline main config file
  *
- * @version CLAROLINE 1.6
+ * @version 1.6 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license GENERAL PUBLIC LICENSE (GPL)
- * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
- * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
- * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @see http://www.claroline.net/wiki/config_def/
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
  *
  * @package Kernel
  */
@@ -301,8 +298,8 @@ array('label'         => 'Language Mode'
      ,'readonly'      => FALSE
      ,'container'     => 'CONST'
      ,'acceptedValue' => array ('TRANSLATION'=>'Translation'
-                              ,'PRODUCTION'=>'Production'
-                              )
+                               ,'PRODUCTION'=>'Production'
+                               )
      );
 
 // Administrator

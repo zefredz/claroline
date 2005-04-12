@@ -1,5 +1,4 @@
 <?php // $Id$
-
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -24,7 +23,13 @@
  * authentication drivers stored inside the Claroline/auth/extauth/drivers
  * directory.
  * 
- * See more information in : /claroline/auth/extauth/README.txt
+ * @version 1.6 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @See more information in : /claroline/auth/extauth/README.txt
+ * @author claro Team <cvs@claroline.net>
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
  */
 
 

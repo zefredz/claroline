@@ -2,17 +2,17 @@
 /**
  * CLAROLINE 
  *
- * @version 1.6
+ * @version 1.6 $Revision$
  *
- * @copyright (c) 2001-2005 Université catholique de Louvain (UCL)
- *
- * @license GPL
- *
- * @author Claroline Team <info@claroline.net>
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see http://www.claroline.net/wiki/
+ * @package CLUSER
+ * @author Claro Team <cvs@claroline.net>
  *
  */
 
-$tlabelReq = "CLUSR___";
+$tlabelReq = 'CLUSR___';
 
 define('CLARO_COURSE_CREATOR_STATUS', 1);
 define('CLARO_STUDENT_STATUS',        5);

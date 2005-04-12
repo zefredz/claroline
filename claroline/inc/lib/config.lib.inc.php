@@ -8,16 +8,15 @@
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
-   
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
- * @author Mathieu Laurent <laurent@cerdecam.be>
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE   
  *
  * @see http://www.claroline.net/wiki/config_def/
  *
  * @package CONFIG
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
  *
  */
 
