@@ -392,7 +392,8 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
    		<p>
 		<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=create"><?php echo $langCreateNewLearningPath; ?></a> |
 		<a class="claroCmd" href="importLearningPath.php"><?php echo $langimportLearningPath; ?></a> |
-		<a class="claroCmd" href="modules_pool.php"><?php echo $langModulesPoolToolName ?></a>
+		<a class="claroCmd" href="modules_pool.php"><?php echo $langModulesPoolToolName ?></a> |
+		<a class="claroCmd" href="<?php echo $clarolineRepositoryWeb; ?>tracking/learnPath_detailsAllPath.php"><?php echo $langTrackAllPath; ?></a>
 		</p>
    <?php
    }
@@ -757,19 +758,6 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             echo    "</td>\n";
 
 
-
-
-            // link to statistics / go to other page
-            // target must be modified
-            /*
-            echo     "<td>",
-                        "<a href=\"",$_SERVER['PHP_SELF'],"?path_id=".$list['learningPath_id']."\">",
-                        "<img src=\"".$imgRepositoryWeb."statistics.gif\" alt=\"$langStatistics\" border=\"0\" />",
-                        "</a>",
-                        "</td>\n";
-            */
-
-
             // ORDER links
 
             // DISPLAY MOVE UP COMMAND only if it is not the top learning path
@@ -802,7 +790,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             // statistics links
             echo "<td>\n
               <a href=\"".$clarolineRepositoryWeb."tracking/learnPath_details.php?path_id=".$list['learnPath_id']."\">
-              <img src=\"".$imgRepositoryWeb."statistics.gif\" border=\"0\" alt=\"$langTracking\">
+              <img src=\"".$imgRepositoryWeb."statistics.gif\" border=\"0\" alt=\"$langTracking\" />
               </a>
               </td>\n";
 
