@@ -208,7 +208,7 @@ foreach($resultList as $list)
          $toAdd = $list['officialCode']; 
      } 
      else 
-     {
+     {  
          $toAdd = ' - ';
      }
      echo '<td align="center">'.$toAdd.'</td>'
@@ -218,7 +218,7 @@ foreach($resultList as $list)
         . '<td align="center">'."\n"
         . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=unsubscribe'.$addToUrl.'&amp;offset='.$offset.'&amp;userid='.$list['user_id'].'" '
         . ' onClick="return confirmationUnReg(\''.addslashes($list['prenom'].' '.$list['nom']).'\');">'."\n"
-        . '<img src='.$imgRepositoryWeb.'unenroll.gif" border="0" alt="" />'."\n"
+        . '<img src="'.$imgRepositoryWeb.'unenroll.gif" border="0" alt="" />'."\n"
         . '</a>'."\n"
         . '</td>'."\n"
         ;
