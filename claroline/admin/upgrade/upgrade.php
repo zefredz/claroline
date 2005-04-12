@@ -28,14 +28,10 @@
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
  */
+
 /*=====================================================================
   Init Section
  =====================================================================*/ 
-$langStartAgain = 'Start again';
-$langNothingToDo = 'Nothing To Do';
-$langDisplayErrorContactDevelopper = 'DISPLAY value unknow, please contact developper of the tool.';
-$langLogOnToYourPlatform ='Log on To your Admin';
-$langGoAdmin= 'Go to Admin';
 
 $cidReset = TRUE;
 $gidReset = TRUE;
@@ -234,7 +230,7 @@ switch ($display)
         echo  sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
             . '<h2>' . $langDone . ':</h2>' . "\n"
             . '<ul>' . "\n"
-            . sprintf ('<li>%s (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">cancel</a>)</li>',$langUpgradeStep0) . "\n"
+            . sprintf ('<li>%s (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">'. $langCancel . '</a>)</li>',$langUpgradeStep0) . "\n"
             . sprintf ('<li>%s (<a href="upgrade_conf.php">%s</a>)</li>',$langUpgradeStep1,$langStartAgain) . "\n"
             . sprintf ('<li>%s (<a href="upgrade_main_db.php">%s</a>)</li>',$langUpgradeStep2,$langStartAgain) . "\n"
             . '</ul>' . "\n"
@@ -249,10 +245,9 @@ switch ($display)
     case DISPVAL_upgrade_done :
 
         echo  sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
-            . '<p>The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.</p>' . "\n"
+            . '<p>' . $langUpgradeSucceed . '</p>' . "\n"
             . '<ul>' . "\n"
-            . '<li><a href="../../..">' . $langLogOnToYourPlatform . '</a></li>' . "\n"
-            . '<li><a href="..">'. $langGoAdmin . '</a></li>' . "\n"
+            . '<li><a href="../../..">' . $langPlatformAccess . '</a></li>' . "\n"
             . '</ul>' . "\n"
             ;
 }

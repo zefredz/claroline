@@ -64,7 +64,7 @@ DEFINE("DISPLAY_RESULT_PANEL",  2);
  */
 
 if ( isset($_REQUEST['verbose']) ) $verbose = TRUE;
-else                              $verbose = FALSE;
+else                               $verbose = FALSE;
 
 $display = DISPLAY_WELCOME_PANEL;
 

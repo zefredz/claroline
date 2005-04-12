@@ -52,20 +52,17 @@ $error = 0;
 
 if ($_REQUEST['cmd'] == 'run')
 {
-    $backupRepositorySys = $includePath .'/conf/bak.'.date('Y-z-B').'/';
-    // Main conf file
-
-    $output = '<h3>'
-            . 'Configuration file'
-            . '</h3>'
-            . '<ol>'."\n"
-            ;
-    
     // Prepare repository to backup files
+    $backupRepositorySys = $includePath .'/conf/bak.'.date('Y-z-B').'/';
     claro_mkdir($backupRepositorySys);
-    // Gen conf file from def    
+
+    $output = '<h3>' . $langConfigurationFile . '</h3>' . "\n" ;
     
+    $output.= '<ol>' . "\n" ;
+    
+    // Gen conf file from def       
     $def_file_list = get_def_file_list();
+
     if(is_array($def_file_list))
     {
         
@@ -85,8 +82,11 @@ if ($_REQUEST['cmd'] == 'run')
                 
                     $def_file  = get_def_file($config_code);
                 
-                    if ( file_exists($def_file) )
+                    if ( file_exists($def_file) ) 
+                    {
                         require($def_file);
+                    }
+
                     // load old conf file content
                     $conf_def['old_config_file'][] = $conf_def['config_file'];
                     if (is_array($conf_def['old_config_file']))
@@ -109,8 +109,9 @@ if ($_REQUEST['cmd'] == 'run')
                 foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
                 {
                     $conf_file = get_conf_file($config_code);
-                    $output .= '<li>'.basename($conf_file)."\n"
-                            .  '<ul >' ;
+
+                    $output .= '<li>'.basename($conf_file)
+                            .  '<ul >' . "\n";
 
                     $okToSave = TRUE;
                     
@@ -146,14 +147,9 @@ if ($_REQUEST['cmd'] == 'run')
                             if ( !validate_property($propValue, $propDef) )
                             {
                                 $okToSave = FALSE;
-                                $output .= '<span class="warning">'.$propName.' : '
-                                        . $propValue.' is invalid </span>'
-                                        . '<br>'
-                                        . 'Rules : '.$propDef['type']
-                                        . '<br>'
-                                        . var_export($propDef['acceptedValue'],1)
-                                        . '<br>'
-                                        ;
+                                $output .= '<span class="warning">'. $propName .' : ' . $propValue.' is invalid </span>' . '<br>' . "\n"
+                                        . 'Rules : '.$propDef['type'] . '<br>' . "\n"
+                                        . var_export($propDef['acceptedValue'],1) . '<br>' . "\n" ;
                             }
                             else
                             {
@@ -176,27 +172,25 @@ if ($_REQUEST['cmd'] == 'run')
                         {
         
                             // backup old file 
-                            $output .= '<li>';
-                            $output .= 'Old file backup : ' ;
+                            $output .= '<li>' . 'Old file backup : ' ;
                             $fileBackup = $backupRepositorySys.basename($conf_file);
                             if (!@copy($conf_file, $fileBackup) )
                             {
-                                $output .= '<span class="warning">failed</span>';
+                                $output .= '<span class="warning">' . $langFailed . '</span>';
                             }
                             else
                             {
-                                $output .= 'succeed';
+                                $output .= $langSucceed;
                             }
 
-                            $output .= '</li>'."\n";
+                            $output .= '</li>' . "\n" ;
                             // change permission
                             @chmod( $fileBackup, 600 );
                             @chmod( $fileBackup, 0600 );
-                            $output .= '<li>'."\n";
-                            $output .= 'File upgrade : ';
+                            $output .= '<li>' . 'File upgrade : ';
                             if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
                             {
-                                $output .= 'succeed';
+                                $output .= $langSucceed;
                                 // The Hash compute and store is differed after creation table use for this storage
                                 // calculate hash of the config file
                                 // $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
@@ -205,14 +199,15 @@ if ($_REQUEST['cmd'] == 'run')
                             }
                             else 
                             {
-                                $output .= '<span class="warning">failed</span>';
+                                $output .= '<span class="warning">' . $langFailed . '</span>';
                                 
                             }
                             $output .= '</li>'."\n";
                             
                         }
                     }
-                    $output .= '</ul></li>'."\n";
+                    $output .= '</ul>' . "\n" 
+                             . '</li>' . "\n";
                 }
             }
         }
@@ -222,34 +217,36 @@ if ($_REQUEST['cmd'] == 'run')
     * Config file to undist
     */
     
-    $arr_file_to_undist =
-    array (
-    $includePath.'/../../textzone_top.inc.html',
-    $includePath.'/../../textzone_right.inc.html',
-    $includePath.'/conf/auth.conf.php'
-    );
+    $arr_file_to_undist = array ( $includePath.'/../../textzone_top.inc.html',
+                                  $includePath.'/../../textzone_right.inc.html',
+                                  $includePath.'/conf/auth.conf.php'
+                                );
+
     foreach ($arr_file_to_undist As $undist_this)
     {
-        $output .='<li>'.basename ($undist_this).' : ';
+        $output .= '<li>'. basename ($undist_this) . "\n"
+                . '<ul><li>Undist : ' . "\n" ;
         if (claro_undist_file($undist_this))
         {
-            $output .='succeed';
+            $output .= $langSucceed ;
         }
         else
         {
-            $output .= '<span class="warning">failed</span>';
+            $output .= '<span class="warning">' . $langFailed . '</span>';
         }
-        $output .='</li>'."\n";
+        $output .= '</li>' . "\n" . '</ul>' . "\n"
+                 . '</li>' . "\n";
     }
-    $output .= '</ol>'."\n";
+    $output .= '</ol>' . "\n";
     
     if (!$error)
     {
         $display = DISPLAY_RESULT_SUCCESS_PANEL;
+        
         /*
-            * Update config file
-            * Set version db
-            */
+         * Update config file
+         * Set version db
+         */
 
        $fp_currentVersion = fopen($includePath .'/currentVersion.inc.php','w');
        $currentVersionStr = '<?php 
