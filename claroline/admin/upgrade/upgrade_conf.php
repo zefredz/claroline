@@ -2,11 +2,16 @@
 /** 
  * CLAROLINE 
  *
+ * Initialize conf settings
+ * Try to read  old values in old conf files
+ * Build new conf file content with these settings
+ * write it.
+ *
  * @version 1.6
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license GENERAL PUBLIC LICENSE (GPL) 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  *
@@ -16,10 +21,6 @@
  * @author Christophe Gesché <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
- * Initialize conf settings
- * Try to read  old values in old conf files
- * Build new conf file content with these settings
- * write it.
  */
 
 $platform_id =  md5(realpath('../../inc/conf/def/CLMAIN.def.conf.inc.php'));
