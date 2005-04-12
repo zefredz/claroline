@@ -116,7 +116,7 @@ SET `id` = 1,
  * Upgrade assignments
  */
 
-$sqlForUpdate[] = "INSERT IGNORE INTO `".$currentCourseDbNameGlu."wrk_submissions`
+$sqlForUpdate[] = "INSERT IGNORE INTO `".$currentCourseDbNameGlu."wrk_submission`
  (assignment_id,title,visibility,authors,submitted_text,submitted_doc_path)
  SELECT 1, titre, IF(accepted,'VISIBLE','INVISIBLE'), auteurs, description, url 
     FROM `".$currentCourseDbNameGlu."`.`assignment_doc`";  
