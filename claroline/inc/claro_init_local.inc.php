@@ -246,7 +246,10 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 }
 else
 {
-    require_once $includePath.'/conf/auth.conf.php'; // load the platform authentication settings
+    if ( file_exists($includePath.'/conf/auth.conf.php') )
+    {
+        require_once $includePath.'/conf/auth.conf.php'; // load the platform authentication settings
+    }
 
     $_uid = null; // uid not in session ? prevent any hacking
 
