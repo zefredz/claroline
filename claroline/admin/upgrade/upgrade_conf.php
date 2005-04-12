@@ -22,6 +22,7 @@
  * write it.
  */
 
+$platform_id =  md5(realpath('../../inc/conf/def/CLMAIN.def.conf.inc.php'));
 require '../../inc/claro_init_global.inc.php';
 
 if (!$is_platformAdmin) claro_disp_auth_form();
@@ -96,6 +97,9 @@ if ($_REQUEST['cmd'] == 'run')
                             $current_value_list =array_merge($current_value_list,get_values_from_confFile($includePath.'/conf/'.$old_file_name,$conf_def_property_list));
                         }
                     }
+
+                    // set platform_id if not set in old claroline version
+                    $current_value_list['platform_id'] = $platform_id;
                 }
             }
         }
