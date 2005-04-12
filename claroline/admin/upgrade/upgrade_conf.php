@@ -49,7 +49,7 @@ include ($includePath.'/lib/fileManage.lib.php');
     
 $thisClarolineVersion = $version_file_cvs;
 
-$error = 0;
+$error = FALSE;
 
 if ($_REQUEST['cmd'] == 'run')
 {
@@ -151,6 +151,7 @@ if ($_REQUEST['cmd'] == 'run')
                             if ( !validate_property($propValue, $propDef) )
                             {
                                 $okToSave = FALSE;
+                                $error = TRUE;
                                 $output .= '<span class="warning">'. $propName .' : ' . $propValue.' is invalid </span>' . '<br>' . "\n"
                                         . 'Rules : '.$propDef['type'] . '<br>' . "\n"
                                         . var_export($propDef['acceptedValue'],1) . '<br>' . "\n" ;
@@ -165,6 +166,7 @@ if ($_REQUEST['cmd'] == 'run')
                     else
                     {
                         $okToSave = FALSE;
+                        $error = TRUE;
                     }
             
                     if ($okToSave)
@@ -184,7 +186,7 @@ if ($_REQUEST['cmd'] == 'run')
                             }
                             else
                             {
-                                $output .= $langSucceed;
+                                $output .= '<span class="success">'. $langSucceed . '</span>';
                             }
 
                             $output .= '</li>' . "\n" ;
@@ -194,7 +196,7 @@ if ($_REQUEST['cmd'] == 'run')
                             $output .= '<li>' . 'File upgrade : ';
                             if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
                             {
-                                $output .= $langSucceed;
+                                $output .= '<span class="success">'. $langSucceed . '</span>';
                                 // The Hash compute and store is differed after creation table use for this storage
                                 // calculate hash of the config file
                                 // $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
@@ -204,6 +206,7 @@ if ($_REQUEST['cmd'] == 'run')
                             else 
                             {
                                 $output .= '<span class="warning">' . $langFailed . '</span>';
+                                $error = TRUE;
                                 
                             }
                             $output .= '</li>'."\n";
@@ -232,11 +235,12 @@ if ($_REQUEST['cmd'] == 'run')
                 . '<ul><li>Undist : ' . "\n" ;
         if (claro_undist_file($undist_this))
         {
-            $output .= $langSucceed ;
+            $output .= '<span class="success">'. $langSucceed . '</span>';
         }
         else
         {
             $output .= '<span class="warning">' . $langFailed . '</span>';
+            $error = TRUE;
         }
         $output .= '</li>' . "\n" . '</ul>' . "\n"
                  . '</li>' . "\n";
@@ -318,7 +322,7 @@ switch ($display)
         break;
 
     case DISPLAY_RESULT_SUCCESS_PANEL :
-        echo sprintf ('<h2>%s</h2>',$langUpgradeStep1 . ' - ' . $langSucceed);
+        echo sprintf ('<h2>%s</h2>',$langUpgradeStep1 . ' - ' . '<span class="success">' . $langSucceed . '</span>');
         echo $output;
         echo '<div align="right">' . sprintf($langNextStep,'upgrade_main_db.php') . '</div>';
         break;
