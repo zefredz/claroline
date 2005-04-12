@@ -46,7 +46,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 /*---------------------------------------------------------------------
   Include version file and initialize variables
  ---------------------------------------------------------------------*/
-
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 include ($includePath.'/installedVersion.inc.php');
 
 $thisClarolineVersion = $version_file_cvs;
