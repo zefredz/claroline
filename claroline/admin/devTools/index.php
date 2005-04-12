@@ -1,15 +1,21 @@
 <?php // $Id$
 /**
- * @version CLAROLINE 1.6
+ * CLAROLINE
+ *
+ * This is the index page of sdk tools
+ *
+ * @version 1.6 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license GENERAL PUBLIC LICENSE (GPL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
+ * @package SDK
+ *
+ * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
  * 
- * This is the index page of sdk tools
-*/
+ */
 
 require '../../inc/claro_init_global.inc.php';
 if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
@@ -27,8 +33,7 @@ include($includePath.'/claro_init_header.inc.php');
 
 claro_disp_tool_title(
 	array(
-	'mainTitle'=>$nameTools,
-	'subTitle'=>$siteName.' - '.$clarolineVersion
+	'mainTitle'=>$nameTools
 	)
 	);
 

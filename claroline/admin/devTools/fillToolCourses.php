@@ -4,13 +4,17 @@
  *
  * Filler for tools in course
  *
- * @version 1.6
+ * @version 1.6 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
- * SHUFFLE COURSE FILL
+ * @package SDK
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
 
 $langPopulateTools = 'Populate tools in courses';

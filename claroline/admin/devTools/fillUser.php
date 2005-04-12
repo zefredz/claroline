@@ -1,28 +1,25 @@
 <?php // $Id$µ
-//----------------------------------------------------------------------
-// CLAROLINE 1.6.*
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
 /**
+ * Claroline
  * SHUFFLE COURSE SITE CREATION TOOL
- * GOALS
- * *******
-
-// Créateur de cours bidon pour les tests
-// fake course creator to test
-
-// create nc courses
-// insert between smin and smax students
-// insert between pmin and pmax courses admins
-
- * ******************************************************************
+ * Créateur de cours bidon pour les tests
+ * fake course creator to test
+ *
+ * create nc courses
+ * insert between smin and smax students
+ * insert between pmin and pmax courses admins
+ *
+ * @version 1.6 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package SDK
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
 
 DEFINE("DISP_RESULT_INSERT"		,1);
@@ -46,17 +43,17 @@ require '../../inc/claro_init_global.inc.php';
 if (!$is_platformAdmin) claro_disp_auth_form();
 
 //// Config tool
-include($includePath."/conf/course_main.conf.php");
+include($includePath.'/conf/course_main.conf.php');
 
 //// LIBS
-include($includePath."/lib/add_course.lib.inc.php");
-include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/fileManage.lib.php");
-include($includePath."/conf/course_main.conf.php");
+include($includePath.'/lib/add_course.lib.inc.php');
+include($includePath.'/lib/debug.lib.inc.php');
+include($includePath.'/lib/fileManage.lib.php');
+include($includePath.'/conf/course_main.conf.php');
 
 $nameTools = $langAdd_users;
-$interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
-$interbredcrump[]= array ("url"=>"index.php", "name"=> $langDevTools);
+$interbredcrump[]= array ('url'=>'../index.php', 'name'=> $langAdmin);
+$interbredcrump[]= array ('url'=>'index.php', 'name'=> $langDevTools);
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
@@ -79,8 +76,7 @@ $display = DISP_FORM_SET_OPTION;
 include($includePath.'/claro_init_header.inc.php');
 claro_disp_tool_title(
 	array(
-	'mainTitle'=>$nameTools,
-	'subTitle'=>$PHP_AUTH_USER." - ".$siteName." - ".$clarolineVersion
+	'mainTitle'=>$nameTools
 	)
 	);
 claro_disp_msg_arr($controlMsg);
