@@ -48,13 +48,28 @@ list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 switch ($cmd)
 {
   case "subscribe" :
-        $sql ="INSERT INTO `".$tbl_class_user."` 
-	       SET `user_id` = '".$_REQUEST['user_id']."',
-	           `class_id` = '".$classinfo['id']."' "; 
-	claro_sql_query($sql); 
-	$dialogBox = $langUserRegisteredClass;       
-        break;
+        
+        // 1- test if user is not already registered to class
 	
+	$sql = "SELECT `user_id` 
+	          FROM `".$tbl_class_user."`
+		 WHERE `user_id` = '".$_REQUEST['user_id']."'
+		   AND `class_id` = '".$classinfo['id']."'";
+        $result = claro_sql_query($sql);
+
+	if (!(mysql_num_rows($result) > 0))
+	{
+	
+	// 2- process the registration of user in the class
+	
+	    $sql ="INSERT INTO `".$tbl_class_user."` 
+	              SET `user_id` = '".$_REQUEST['user_id']."',
+		          `class_id` = '".$classinfo['id']."' "; 
+	    claro_sql_query($sql); 	
+	    $dialogBox = $langUserRegisteredClass;
+	}     
+        break;
+
   case "unsubscribe" :
   	$sql ="DELETE FROM `".$tbl_class_user."` 
 	       WHERE `user_id` = '".$_REQUEST['user_id']."'
