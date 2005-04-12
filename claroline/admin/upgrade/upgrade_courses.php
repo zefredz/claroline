@@ -7,13 +7,9 @@
  * @version 1.6 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
- *
- * @license GENERAL PUBLIC LICENSE (GPL) 
- *
- * @see http://www.claroline.net/wiki/
- *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  * @package UPGRADE
- *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
@@ -35,7 +31,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 /*---------------------------------------------------------------------
   Include version file and initialize variables
  ---------------------------------------------------------------------*/
-
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 require ($includePath."/installedVersion.inc.php");
 
 /**#@+
@@ -296,6 +292,7 @@ switch ($display)
              */
 
             unset($sqlForUpdate);
+            $tbl_cdb_names = claro_sql_get_course_tbl($currentCourseDbNameGlu);
             include('./sql_statement_course.php');
             include('./repair_tables.php');
             reset($sqlForUpdate);

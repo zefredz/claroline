@@ -1,12 +1,13 @@
 <?php // $Id$
 /**
  * CLAROLINE 
+ * Try to create main database of claroline without remove existing content
  *
- * @version 1.6
+ * @version 1.6 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license GENERAL PUBLIC LICENSE (GPL) 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  *
@@ -16,7 +17,6 @@
  * @author Christophe Gesché <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
- * Try to create main database of claroline without remove existing content
  */
 
 /*=====================================================================
@@ -34,7 +34,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 /*---------------------------------------------------------------------
   Include version file and initialize variables
  ---------------------------------------------------------------------*/
-
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 include ($includePath."/installedVersion.inc.php");
 
 /*---------------------------------------------------------------------
