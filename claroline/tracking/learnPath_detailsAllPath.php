@@ -1,20 +1,22 @@
 <?php 
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.3.0 $Revision$                            |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   $Id$         |
-      +----------------------------------------------------------------------+
-      | Authors:                                                           |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Sebastien Piraux  <piraux_seb@hotmail.com>   |
-      |                                                                        |
-      |                    http://www.claroline.net/                |
-      +----------------------------------------------------------------------+
-
+/**
+ * CLAROLINE 
+ *
+ * This script displays the stats of all users of a course 
+ * for his progression into the sum of all learning paths of the course
+ *
+ * @version 1.6
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package TRACKING
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Sebastien Piraux  <piraux_seb@hotmail.com>
+ * @author Gioacchino Poletto <info@polettogioacchino.com>
+ *
  */
  
 require '../inc/claro_init_global.inc.php';
