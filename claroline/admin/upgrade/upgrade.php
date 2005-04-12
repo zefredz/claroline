@@ -35,9 +35,8 @@
 
 $cidReset = TRUE;
 $gidReset = TRUE;
-
+$platform_id =  md5(realpath('../../inc/conf/def/CLMAIN.def.conf.inc.php'));
 require '../../inc/claro_init_global.inc.php';
-
 /*---------------------------------------------------------------------
   Security Check
  ---------------------------------------------------------------------*/ 
