@@ -121,13 +121,13 @@ SET `id` = 1,
 $sqlForUpdate[] = "INSERT IGNORE INTO `".$currentCourseDbNameGlu."wrk_submission`
  (assignment_id,title,visibility,authors,submitted_text,submitted_doc_path)
  SELECT 1, titre, IF(accepted,'VISIBLE','INVISIBLE'), auteurs, description, url 
-    FROM `".$currentCourseDbNameGlu."`.`assignment_doc`";  
+    FROM `".$currentCourseDbNameGlu."assignment_doc`";  
 
 /**
  * Drop deprecated assignment_doc
  */
 
-$sqlForUpdate[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."assignment_doc`"; 
+#$sqlForUpdate[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."assignment_doc`"; 
 
 /**
  * Upgrade tracking
