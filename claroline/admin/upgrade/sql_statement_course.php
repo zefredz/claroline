@@ -143,6 +143,8 @@ $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."track_
 ) TYPE=MyISAM COMMENT='Record informations about access to course or tools'";
 
 $sqlForUpdate[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_answer` CHANGE `ponderation` `ponderation` float default NULL";
+
+$sqlForUpdate[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` ADD `exe_time`  mediumint(8) NOT NULL default '0'";
 $sqlForUpdate[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` CHANGE `exe_result` `exe_result` float NOT NULL default '0'";
 $sqlForUpdate[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` CHANGE `exe_weighting` `exe_weighting` float NOT NULL default '0'";
 
