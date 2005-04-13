@@ -614,95 +614,105 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
 
     echo "<table class=\"claroTable\" width=\"100%\">\n";
 
+	$atLeastOneAssignmentToShow = false;
+
     foreach($assignmentList as $anAssignment)
     {
-    
-          if ($anAssignment['visibility'] == "INVISIBLE")
-        {
-            if ($is_allowedToEdit)
-            {
-                $style=' class="invisible"';
-            }
-            else
-            {
-                continue; // skip the display of this file
-            }
-        }
-        else 
-        {
-            $style='';
-        }
-            
-        echo "<tr>\n"
-              ."<th class=\"headerX\">\n";
-        if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
-        {
-            echo "<a href=\"workList.php?cmd=rqSubWrk&amp;assigId=".$anAssignment['id']."&amp;submitGroupWorkUrl=".$_REQUEST['submitGroupWorkUrl']."\">".$anAssignment['title']."</a>\n";
-        }
-        else
-        {
-            echo "<a href=\"workList.php?assigId=".$anAssignment['id']."\">".$anAssignment['title']."</a>\n";
-        }
-        echo "</th>"
-            ;
-            
-        echo "<tr".$style.">\n"
-            ."<td>\n";
-            
-        if( strlen($anAssignment['description']) > 500 ) 
-            echo "<div>".substr($anAssignment['description'],0,455)." ... "."</div><br />\n";
-        else
-            echo "<div>".$anAssignment['description']."</div><br />\n";
-             
-        echo "<small>".$langAvailableFrom." ".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix'])." ".$langUntil." <b>".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix'])."</b></small><br />"
-            ."<small>"
-            ;
-        // content type    
-        if( $anAssignment['authorized_content'] == 'TEXT' ) echo $langTextOnly;
-        elseif( $anAssignment['authorized_content'] == 'FILE' ) echo $langFileOnly;
-        elseif( $anAssignment['authorized_content'] == 'TEXTFILE' ) echo $langTextFile;
-        
-        echo "<br />";
-        // assignment type
-        if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) echo $langIndividual ;
-        elseif( $anAssignment['assignment_type'] == 'GROUP' ) echo $langGroupAssignment;
-        
-        echo '</small>'."\n"
-           . '</td>'."\n"
-           . '</tr>'."\n\n"
-           ;
-        
-        if( $is_allowedToEdit )
-          { 
-            echo '<tr '.$style.'>'."\n"
-                .'<td>'."\n"
-                  .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEditAssig&amp;assigId='.$anAssignment['id'].'"><img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langModify.'"></a>'."\n"
-                .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exRmAssig&amp;assigId='.$anAssignment['id'].'" '
-                .'onClick="return confirmation(\''.addslashes($anAssignment['title']).'\');"><img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'"></a>'."\n"
-                ;
-            if ($anAssignment['visibility'] == "INVISIBLE")
-            {
-                echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exChVis&amp;assigId='.$anAssignment['id'].'&amp;vis=v">'
-                   . '<img src="'.$imgRepositoryWeb.'invisible.gif" border="0" alt="'.$langMakeVisible.'">'
-                   . '</a>'
-                   ;
-            }
-            else
-            {
-                echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exChVis&amp;assigId='.$anAssignment['id'].'&amp;vis=i">'
-                   . '<img src="'.$imgRepositoryWeb.'visible.gif" border="0" alt="'.$langMakeInvisible.'">'
-                   . '</a>'
-                     ;
-            }          
-            echo '</td>'."\n"
-               . '</tr>'."\n"
-               ;
-        }
+      	if ($anAssignment['visibility'] == "INVISIBLE")
+		{
+			if ($is_allowedToEdit)
+			{
+				$style=' class="invisible"';
+			}
+			else
+			{
+				continue; // skip the display of this file
+			}
+		}
+		else
+		{
+			$style='';
+		}
+
+		$atLeastOneAssignmentToShow = true;
+
+		echo "<tr>\n"
+	  		."<th class=\"headerX\">\n";
+		if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
+		{
+			echo "<a href=\"workList.php?cmd=rqSubWrk&amp;assigId=".$anAssignment['id']."&amp;submitGroupWorkUrl=".$_REQUEST['submitGroupWorkUrl']."\">".$anAssignment['title']."</a>\n";
+		}
+		else
+		{
+			echo "<a href=\"workList.php?assigId=".$anAssignment['id']."\">".$anAssignment['title']."</a>\n";
+		}
+		echo "</th>"
+			;
+
+		echo "<tr".$style.">\n"
+			."<td>\n";
+
+		if( strlen($anAssignment['description']) > 500 )
+			echo "<div>".substr($anAssignment['description'],0,455)." ... "."</div><br />\n";
+		else
+			echo "<div>".$anAssignment['description']."</div><br />\n";
+
+		echo "<small>".$langAvailableFrom." ".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix'])." ".$langUntil." <b>".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix'])."</b></small><br />"
+			."<small>"
+			;
+		// content type
+		if( $anAssignment['authorized_content'] == 'TEXT' ) echo $langTextOnly;
+		elseif( $anAssignment['authorized_content'] == 'FILE' ) echo $langFileOnly;
+		elseif( $anAssignment['authorized_content'] == 'TEXTFILE' ) echo $langTextFile;
+
+		echo "<br />";
+		// assignment type
+		if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) echo $langIndividual ;
+		elseif( $anAssignment['assignment_type'] == 'GROUP' ) echo $langGroupAssignment;
+
+		echo "</small>\n";
+
+		echo "</td>\n"
+			."</tr>\n\n";
+
+		if( $is_allowedToEdit )
+      	{
+        	echo "<tr".$style.">\n"
+				."<td>\n"
+		  		."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditAssig&amp;assigId=".$anAssignment['id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>\n"
+				."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmAssig&amp;assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",addslashes($anAssignment['title']),"');\"><img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>\n"
+				;
+	        if ($anAssignment['visibility'] == "INVISIBLE")
+	        {
+	            echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&amp;assigId=".$anAssignment['id']."&amp;vis=v\">"
+	                  ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
+	                  ."</a>"
+					  ;
+	        }
+	        else
+	        {
+	            echo	"<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&amp;assigId=".$anAssignment['id']."&amp;vis=i\">"
+	                  ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"".$langMakeInvisible."\">"
+	                  ."</a>"
+					  ;
+	        }
+        	echo "</td>\n"
+				."</tr>\n"
+				;
+		}
+
     }
-    
-    echo '</tbody>'."\n"
-       . '</table>'."\n\n"
-       ;
+
+	if( ! $atLeastOneAssignmentToShow )
+	{
+		echo "<tr>\n"
+			."<td>\n"
+			.$langNoVisibleAssignment
+			."</td>\n"
+			."</tr>\n";
+	}
+    echo "</table>\n\n";
+
 
 }
 
