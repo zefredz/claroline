@@ -1,8 +1,28 @@
 <?php //$Id$
+/**
+ * CLAROLINE 
+ *
+ * This file describe the parameter for forum tool
+ *
+ * @version 1.6 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Config
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @package CLFRM
+ *
+ */
+
 // TOOL
 $conf_def['config_code']='CLFRM';
 $conf_def['config_file']='CLFRM.conf.php';
 $conf_def['config_name'] = 'Forums tool';
+$conf_def['config_class']='tool';
 
 $conf_def['section']['forum']['label']='General settings';
 $conf_def['section']['forum']['description']='Settings of the tool';

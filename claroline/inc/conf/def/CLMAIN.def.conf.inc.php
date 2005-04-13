@@ -21,6 +21,7 @@
 $conf_def['config_code']='CLMAIN';
 $conf_def['config_file']='claro_main.conf.php';
 $conf_def['config_name']='Main settings';
+$conf_def['config_class']='platform';
 
 // SECTION
 
@@ -171,7 +172,16 @@ array ( 'label'       => 'Prefix for name of tracking and stat tables'
       , 'display'     => TRUE
       , 'readonly'    => TRUE
       );
-
+      
+$conf_def_property_list['platform_id'] =
+array ('label'       => 'unique id of the platform'
+      ,'type'        => 'string'
+      ,'technicalDesc' => 'id for this campus. Would  be unique'
+      ,'default'     => md5(realpath(__FILE__))
+      ,'display'     => FALSE
+      ,'readonly'    => TRUE
+      );
+      
 $conf_def_property_list['is_trackingEnabled'] =
 array ('label'       => 'Tracking'
       ,'description' => 'Enable the log of activities (user and course access, course tool usage, ...) on the whole platform'
@@ -445,7 +455,9 @@ array ('label'        => 'relative path from root web to user pic repository'
       );
 
 $conf_def_property_list['CLARO_DEBUG_MODE'] =
-array ('type'        => 'boolean'
+array ('label'       => 'Debug mode'
+      ,'description' => 'More verbose when an error come'
+      ,'type'        => 'boolean'
       ,'default'     => FALSE
       ,'container'   => 'CONST'
       ,'display'     => TRUE
@@ -453,7 +465,9 @@ array ('type'        => 'boolean'
       );
       
 $conf_def_property_list['DEVEL_MODE'] =
-array ('type'        => 'boolean'
+array ('label'       => 'Development Mode'
+      ,'description' => 'Show link from public tools to sdk tools'
+      ,'type'        => 'boolean'
       ,'default'     => FALSE
       ,'container'   => 'CONST'
       ,'display'     => TRUE
@@ -462,12 +476,5 @@ array ('type'        => 'boolean'
                                ,'FALSE'=>'OFF : Normal Use')
       );      
 
-$conf_def_property_list['platform_id'] =
-array ('type'        => 'string'
-      ,'technicalDesc' => 'id for this campus. Would  be unique'
-      ,'default'     => md5(realpath(__FILE__))
-      ,'display'     => FALSE
-      ,'readonly'    => TRUE
-      );
-      
+
 ?>

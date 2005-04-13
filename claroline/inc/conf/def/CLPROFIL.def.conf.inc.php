@@ -1,18 +1,20 @@
 <?php // $Id$
 /**
- * This file describe the parameter for user profile config file
- * 
- * @version CLAROLINE 1.6
- * 
+ * CLAROLINE 
+ *
+ * This file describe the parameter for profil editor
+ *
+ * @version 1.6 $Revision$
+ *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
- * @license This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
- * as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
- * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
- * @see http://www.claroline.net/wiki/config_def/
- * @package user
- * 
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Config
+ *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ *
+ * @package CLPROFIL
  *
  */
 
@@ -23,6 +25,7 @@ $conf_def['config_name'] = 'User profile options';
 //$conf_def['description'] = ''; 
 $conf_def['config_file'] = 'user_profile.conf.php';
 $conf_def['old_config_file'][] ='profile.conf.php';
+$conf_def['config_class']='user';
 
 // Section required fields
 

@@ -1,15 +1,18 @@
 <?php // $Id$
 /**
+ * CLAROLINE 
+ *
  * This file describe the parameter for Course creation tool config file
  *
- * @version CLAROLINE 1.6
+ * @version 1.6 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license GENERAL PUBLIC LICENSE (GPL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/Config
  *
+ * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
  *
  * @package COURSES
@@ -19,6 +22,7 @@ $conf_def['config_code']='CLCRS';
 $conf_def['config_name']='Course options';
 $conf_def['config_file']='course_main.conf.php';
 $conf_def['old_config_file'][]='add_course.conf.php';
+$conf_def['config_class']='course';
 
 $conf_def['section']['create']['label']='Course parameters';
 $conf_def['section']['create']['description']='These settings will be use whenever a user creates a new course';

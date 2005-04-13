@@ -1,9 +1,29 @@
 <?php // $Id$
+/**
+ * CLAROLINE 
+ *
+ * This file describe the parameter for user tool
+ *
+ * @version 1.6 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Config
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @package CLUSR
+ *
+ */
 // TOOL
 $conf_def['config_code'] = 'CLUSR';
 $conf_def['config_file'] = 'CLUSR.conf.php';
 $conf_def['config_name'] = 'Users tool';
 $conf_def['old_config_file'][]='user.conf.inc.php';
+$conf_def['config_class']='tool';
+
 
 //SECTION
 $conf_def['section']['main']['label']='Main settings';

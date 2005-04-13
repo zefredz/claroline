@@ -4,19 +4,20 @@
  *
  * This file describe the parameter for CLDOC config file
  *
- * @version 1.6
+ * @version 1.6 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @see http://www.claroline.net/wiki/config_def/
+ * @see http://www.claroline.net/wiki/index.php/Config
  *
  * @package CLDOC
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @author Frederic Minne <minne@ipm.ucl.ac.be>
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be> (core)
+ * @author Frederic Minne <minne@ipm.ucl.ac.be>   (gallery)
+ *
  */
 
 // CONFIG HEADER
@@ -24,6 +25,7 @@
 $conf_def['config_code'] = 'CLDOC';
 $conf_def['config_file'] = 'CLDOC.conf.php';
 $conf_def['config_name'] = 'Documents and Links tool';
+$conf_def['config_class']= 'tool';
 
 // CONFIG SECTIONS
 $conf_def['section']['quota']['label']='Quota';
@@ -77,7 +79,7 @@ $conf_def_property_list['thumbnailWidth']
 
 $conf_def_property_list['numberOfRows']
 = array ('label'     => 'Number of rows'
-	,'description' => 'Number of rows displayed per pages'
+	    ,'description' => 'Number of rows displayed per pages'
         ,'default'   => '3'
         ,'unit'      => 'rows'
         ,'type'      => 'integer'
@@ -87,7 +89,7 @@ $conf_def_property_list['numberOfRows']
 
 $conf_def_property_list['numberOfCols']
 = array ('label'     => 'Number of columns'
-	,'description' => 'Number of columns displayed per pages'
+     	,'description' => 'Number of columns displayed per pages'
         ,'default'   => '4'
         ,'unit'      => 'columns'
         ,'type'      => 'integer'

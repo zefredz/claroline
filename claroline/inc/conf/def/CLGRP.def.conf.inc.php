@@ -1,9 +1,29 @@
 <?php // $Id$
+/**
+ * CLAROLINE 
+ *
+ * This file describe the parameter for edit setting  of groups in a course
+ *
+ * @version 1.6 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Config
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @package CLGRP
+ *
+ */
 // TOOL
 
 $conf_def['config_code']='CLGRP';
 $conf_def['config_file']='CLGRP.conf.php';
 $conf_def['config_name']='Groups tool';
+$conf_def['config_class']='tool';
+
 
 $conf_def['section']['users']['label']='Users';
 $conf_def['section']['users']['description']='Settings for users of group';
