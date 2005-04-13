@@ -205,7 +205,7 @@ h3{	font-size: 110%; }
 
 #breadcrumbLine
 {
-	height:1em;
+	height: 1em;
 	background-color: #E5E5E5;
 	border: none;
 	font-size: 90%;
@@ -247,8 +247,7 @@ h3{	font-size: 110%; }
 #claroBody
 {
 	padding: 5px;
-	height: 100%;
-	background-color: #FFF;
+ 	background-color: #FFF;
 	border: 1px #98AAB1 solid;
 	background-image: url(./corporate/caliope.png);
 	background-position: top right;
