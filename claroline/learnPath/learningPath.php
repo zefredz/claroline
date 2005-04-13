@@ -165,7 +165,7 @@
   //####################################################################################\\
   foreach ($flatElementList as $module)
   {
-          if( $module['scoreMax'] > 0 )
+          if( $module['scoreMax'] > 0 && $module['raw'] > 0 )
           {
                $progress = @round($module['raw']/$module['scoreMax']*100);
           }
@@ -256,7 +256,6 @@
           if($_uid && ($module['contentType'] != CTLABEL_) )
           {
                 // display the progress value for current module
-                
                 echo "<td align=\"right\">".claro_disp_progress_bar ($progress, 1)."</td>";
                 echo "<td align=\"left\">
                        <small>&nbsp;".$progress."%</small>

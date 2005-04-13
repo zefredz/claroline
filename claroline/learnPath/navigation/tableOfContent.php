@@ -130,7 +130,7 @@ echo '<p><b>'.wordwrap($lpName[0]['name'],$moduleNameLength,' ',1).'</b></p>'."\
             $moduleImg = choose_image(basename($module['path']));
             
           $contentType_alt = selectAlt($module['contentType']);
-          if( $module['scoreMax'] > 0 )
+          if( $module['scoreMax'] > 0 && $module['raw'] > 0)
           {
                $progress = @round($module['raw']/$module['scoreMax']*100);
           }
