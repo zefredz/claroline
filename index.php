@@ -27,7 +27,14 @@ $tidReset = TRUE;
  */
 
 require './claroline/inc/claro_init_global.inc.php'; // main init
-require $includePath.'/conf/CLHOME.conf.php'; // conf file
+if (file_exists($includePath.'/conf/CLHOME.conf.php'))
+{
+    require $includePath.'/conf/CLHOME.conf.php'; // conf file
+}
+else 
+{
+    // Perhapas  it's better to add here a die("Upgrade your campus");
+}
 require $includePath.'/lib/events.lib.inc.php'; // stats
 
 // logout request : delete session data
