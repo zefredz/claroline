@@ -226,7 +226,9 @@ function cleanwritevalue($string)
 }
 
 /**
- * Config tools 1.6
+ * @return array list of found definition files
+ * @global includePath use to access to def repository.
+ * @global toolNameList actualy this list is not aivailable from a function.
  */
 
 function get_def_file_list()
@@ -290,6 +292,7 @@ function get_def_file_list()
  *
  * @param   $config_code string the config code to process
  * @return  the name of the config file (with complete path)
+ * @global includePath use to access to conf repository.
  *
  */
 
@@ -321,6 +324,7 @@ function get_conf_file($config_code)
  *
  * @return  the name of the config file (with complete path)
  *
+ * @global includePath use to access to def repository.
  */
 
 function get_def_file($config_code)
@@ -372,6 +376,11 @@ function get_conf_name($config_code)
     return $name;
 }
 
+/**
+ * @param config_code string code of a claroline config.
+ * @return the hash code stored for a given config
+ */
+
 function get_conf_hash($config_code)
 {
    $tbl_mdb_names   = claro_sql_get_main_tbl();
@@ -394,6 +403,12 @@ function get_conf_hash($config_code)
        return '';
    }
 }
+
+/**
+ * @param config_code string code of a claroline config.
+ * @return boolean true if the config of the given config_code 
+ *         is change since the last build by config tool  
+ */
 
 function is_conf_file_modified($config_code)
 {
@@ -422,6 +437,13 @@ function is_conf_file_modified($config_code)
 
 }
 
+/**
+ *
+ * @param $propertyValue mixed
+ * @param $propertyDef
+ * @return boolean whether the value is valide following the rules in $propertyDef
+ * @global $controlMsg array pusth a line if the validation failed
+ */
 function validate_property ($propertyValue, $propertyDef)
 {
     global $controlMsg;
@@ -816,7 +838,7 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
     }
     else
     {
-        $htmlPropLabel = $htmlPropName;
+        $htmlPropLabel = htmlentities($property_name);
     }
 
     // type description to display
