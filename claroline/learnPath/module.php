@@ -305,9 +305,16 @@
                   </tr>";
              */
              //display user best score
-            if ($list['scoreMax'] > 0) {$raw = round($list['raw']/$list['scoreMax']*100);} else {$raw = 0;}
+            if ($list['scoreMax'] > 0)
+			{
+				$raw = round($list['raw']/$list['scoreMax']*100);
+			}
+			else
+			{
+				$raw = 0;
+			}
     
-            if ($raw<0) {$raw = 0;}
+            $raw = max($raw, 0);
             
             if (($list['contentType'] == CTSCORM_ ) && ($list['scoreMax'] <= 0) && (  ( ($list['lesson_status'] == "COMPLETED") || ($list['lesson_status'] == "PASSED") ) || ($list['raw'] != -1) ) ) {$raw = 100;}
                // no sens to display a score in case of a document module
