@@ -1288,6 +1288,7 @@ $langNoSpace = "Le téléchargement a échoué. Il n'y a plus assez de place dans vo
 $langNoStartAsset = "Il n'y a pas de ressource de démarrage définie pour ce module.";
 $langNoTimeLimit = "Pas de limite de temps";
 $langNoUserResult = "Il n'y a pas d'utilisateur à afficher";
+$langNoVisibleAssignment = "Il n'y a pas de travaux visibles pour le moment.";
 $langNoVisibleSubmission = "Pas de soumission visible";
 $langNomPageAddHtPass = "Donner accès à l'administration";
 $langNone = "non";

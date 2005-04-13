@@ -1589,6 +1589,7 @@ $langNoSpace = "The upload has failed. There is not enough space in your directo
 $langNoStartAsset = "There is no start asset defined for this module.";
 $langNoTimeLimit = "No time limitation";
 $langNoUserResult = "No user to display";
+$langNoVisibleAssignment = "There is no visible assignment at the moment.";
 $langNoVisibleSubmission = "No visible submission";
 $langNomPageAddHtPass = "Admin users management";
 $langNone = "None";
