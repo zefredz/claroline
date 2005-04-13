@@ -288,11 +288,12 @@ switch ($display)
             echo '<ol>' . "\n";
             
             /*
-             * Include array with sql statement ($sqlForUpdate)
+             * Upgrade course table
              */
 
             unset($sqlForUpdate);
             $tbl_cdb_names = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+            // Include array with sql statement ($sqlForUpdate)
             include('./sql_statement_course.php');
             include('./repair_tables.php');
             reset($sqlForUpdate);
@@ -354,6 +355,52 @@ switch ($display)
                  */
                 $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
                                     SET versionDb='".$versionDb."'
+                                    WHERE code = '".$currentCourseIDsys."'";                
+                $res = @mysql_query($sqlFlagUpgrade);
+                if (mysql_errno() > 0)
+                {
+                    echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
+                    echo '<p>' . $sqlFlagUpgrade . '</p>';
+                }
+            }
+
+            /*
+             * Upgrade course file structure
+             */
+            
+            // rename folder image in course folder to exercise 
+            if ( is_dir($currentcoursePathSys.'image') ) 
+            {   
+                if ( ! @rename($currentcoursePathSys.'image',$currentcoursePathSys.'exercise') )
+                {
+                    $count_error++;
+                    echo '<p class="error">'
+                       . '<strong>' . sprintf('Cannot rename %s in %s',$currentcoursePathSys.'/image',$currentcoursePathSys.'/exercise') . '</strong> '
+                       . '</p>';
+                } 
+            }
+            elseif ( !is_dir($currentcoursePathSys.'exercise') ) 
+            {
+                if ( !@mkdir($currentcoursePathSys.'exercise', 0777) )
+                {
+                    $count_error++;
+                    echo '<p class="error">'
+                       . '<strong>' . sprintf('Cannot create %s',$currentcoursePathSys.'exercise') . '</strong> '
+                       . '</p>';
+                }
+            }
+            
+            if ( $count_error>0 )
+            {
+                $count_error_total += $count_error;
+            }
+            else
+            {
+                /*
+                 * Success: set versionClaro of course to new version
+                 */
+                $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
+                                    SET versionClaro='".$versionDb."'
                                     WHERE code = '".$currentCourseIDsys."'";                
                 $res = @mysql_query($sqlFlagUpgrade);
                 if (mysql_errno() > 0)
