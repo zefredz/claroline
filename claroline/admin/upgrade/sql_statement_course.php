@@ -20,6 +20,7 @@
  *
  */
 
+$sqlkeys['user'] = "int(11) default NULL";
 /**
  * Drop deprecated php_bb tables
  */
@@ -80,7 +81,7 @@ $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."wrk_su
   `id` int(11) NOT NULL auto_increment,
   `assignment_id` int(11) default NULL,
   `parent_id` int(11) default NULL,
-  `user_id` int(11) default NULL,
+  `user_id` ".$sqlkeys['user'].",
   `group_id` int(11) default NULL,
   `title` varchar(200) NOT NULL default '',
   `visibility` enum('VISIBLE','INVISIBLE') default 'VISIBLE',
@@ -118,9 +119,10 @@ SET `id` = 1,
  * Upgrade assignments
  */
 
+$sqlForUpdate[] = "";  
 $sqlForUpdate[] = "INSERT IGNORE INTO `".$currentCourseDbNameGlu."wrk_submission`
- (assignment_id,title,visibility,authors,submitted_text,submitted_doc_path)
- SELECT 1, titre, IF(accepted,'VISIBLE','INVISIBLE'), auteurs, description, url 
+ (assignment_id,user_id,title,visibility,authors,submitted_text,submitted_doc_path)
+ SELECT 1, ".$teacher_uid .", titre, IF(accepted,'VISIBLE','INVISIBLE'), auteurs, description, url 
     FROM `".$currentCourseDbNameGlu."assignment_doc`";  
 
 /**
@@ -137,7 +139,7 @@ $sqlForUpdate[] = "RENAME TABLE `".$currentCourseDbNameGlu."track_e_access` TO `
 
 $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."track_e_access` (
   `access_id` int(11) NOT NULL auto_increment,
-  `access_user_id` int(10) default NULL,
+  `access_user_id` ".$sqlkeys['user'].",
   `access_date` datetime NOT NULL default '0000-00-00 00:00:00',
   `access_tid` int(10) default NULL,
   `access_tlabel` varchar(8) default NULL,

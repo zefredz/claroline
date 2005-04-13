@@ -40,6 +40,7 @@ require ($includePath."/installedVersion.inc.php");
  */
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_course = $tbl_mdb_names['course'];
+$tbl_rel_course_user   = $tbl_mdb_names['rel_course_user'];
 /**#@-*/
 
 /*---------------------------------------------------------------------
@@ -249,9 +250,9 @@ switch ($display)
         $sql_course_to_upgrade = " SELECT c.dbName dbName, 
                                           c.code sysCode, 
                                           c.fake_code officialCode, 
-                                          directory coursePath ".
-                                 " FROM `" . $tbl_course . "` `c` ";
-
+                                          directory coursePath "
+                               . " FROM `" . $tbl_course . "` `c` ";
+        
         if ( $_REQUEST['upgradeCoursesError'] == 1)
         {
             // retry to upgrade course where upgrade failed
@@ -274,13 +275,18 @@ switch ($display)
             $currentCourseDbName    = $course['dbName'];
             $currentcoursePathSys   = $coursesRepositorySys.$course['coursePath'].'/';
             $currentcoursePathWeb   = $coursesRepositoryWeb.$course['coursePath'].'/';
-            $currentCourseIDsys        = $course['sysCode'];
+            $currentCourseIDsys     = $course['sysCode'];
             $currentCourseCode      = $course['officialCode'];
             $currentCourseDbNameGlu = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
         
             $count_course_upgraded++;
             $count_error = 0;
-
+            $sql_get_id_of_one_teacher = "SELECT `user_id` `uid` FROM `". $tbl_rel_course_user . "` "
+                               . " WHERE `code_cours` = '".$currentCourseIDsys."' LIMIT 1";
+            
+            echo $sql_get_id_of_one_teacher;
+            $teacher = claro_sql_fetch_all($sql_get_id_of_one_teacher);
+            $teacher_uid = $teacher[0]['uid'];
             echo  '<p>'
                 . sprintf("<strong>%1\$s. </strong>Upgrading database of course <strong>%2\$s</strong> - DB Name : %3\$s - Course ID: %4\$s", 
                           $count_course_upgraded, $currentCourseCode, $currentCourseDbName, $currentCourseIDsys);
