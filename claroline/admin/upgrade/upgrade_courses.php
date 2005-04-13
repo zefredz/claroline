@@ -284,8 +284,10 @@ switch ($display)
             $sql_get_id_of_one_teacher = "SELECT `user_id` `uid` FROM `". $tbl_rel_course_user . "` "
                                . " WHERE `code_cours` = '".$currentCourseIDsys."' LIMIT 1";
             
-            echo $sql_get_id_of_one_teacher;
-            $teacher = claro_sql_fetch_all($sql_get_id_of_one_teacher);
+            $res_id_of_one_teacher = claro_sql_query($sql_get_id_of_one_teacher);
+            
+            $teacher = claro_sql_fetch_all($res_id_of_one_teacher);
+
             $teacher_uid = $teacher[0]['uid'];
             echo  '<p>'
                 . sprintf("<strong>%1\$s. </strong>Upgrading database of course <strong>%2\$s</strong> - DB Name : %3\$s - Course ID: %4\$s", 
