@@ -110,25 +110,6 @@ h3{	font-size: 110%; }
 	text-decoration: underline;
 }
 
-#userBanner ul
-{
-	display: inline;
-	padding: 0;
-	margin: 0;
-}
-
-#userBanner li 
-{
-	display: inline;
-	margin: 0;
-	text-align: center;
-	list-style-type: none;
-	padding-left: 5px;
-	padding-right: 4px;
-	border-left: 1px solid #fff;
-}
-
-
  /*----------------------------------------------------------------------------
                                   COURSE LINE
  ----------------------------------------------------------------------------*/

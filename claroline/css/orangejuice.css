@@ -115,32 +115,15 @@ h3{	font-size: 110%; }
 	text-align: left;
 }
 
-#userBanner ul
-{
-	display: inline;
-	padding: 0;
-	margin: 0;
-}
-
-#userBanner li 
-{
-	display: inline;
-	margin: 0;
-	list-style-type: none;
-	padding-left: 6px;
-	padding-right: 5px;
-	border-left: 1px solid #333;
-}
-
-#userBanner li a,
-#userBanner li a:active,
-#userBanner li a:link,
-#userBanner li a:visited
+#userBanner a,
+#userBanner a:active,
+#userBanner a:link,
+#userBanner a:visited
 {
     color: #333;
 }
 
-#userBanner li a:hover
+#userBanner a:hover
 {
 	text-decoration: underline;
     color: #369;
