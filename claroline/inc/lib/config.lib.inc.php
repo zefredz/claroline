@@ -527,6 +527,7 @@ function validate_property ($propertyValue, $propertyDef)
                 break;
 
             case 'relpath' :
+                break;
             case 'syspath' :
             case 'wwwpath' :
                 if ( empty($propertyValue) )
