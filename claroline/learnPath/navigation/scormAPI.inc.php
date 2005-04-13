@@ -68,7 +68,7 @@ $TABLEUSERS              = $tbl_user;
         $sco['credit'] = strtolower($userProgressionDetails['credit']);
         $sco['lesson_status'] = strtolower($userProgressionDetails['lesson_status']);
         $sco['entry'] = strtolower($userProgressionDetails['entry']);
-        $sco['raw'] = ($userProgressionDetails == -1) ? "" : "".$userProgressionDetails['raw'];
+        $sco['raw'] = ($userProgressionDetails['raw'] == -1) ? "" : "".$userProgressionDetails['raw'];
         $sco['scoreMin'] = ($userProgressionDetails['scoreMin'] == -1) ? "" : "".$userProgressionDetails['scoreMin'];
         $sco['scoreMax'] = ($userProgressionDetails['scoreMax'] == -1) ? "" : "".$userProgressionDetails['scoreMax'];
         $sco['total_time'] = $userProgressionDetails['total_time'];
