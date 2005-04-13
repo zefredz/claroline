@@ -1,8 +1,9 @@
 <?php // $Id$
 /**
  * CLAROLINE 
- * Try to create main database of claroline without remove existing content
  *
+ * Try to create main database of claroline without remove existing content
+ * 
  * @version 1.6 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
@@ -35,31 +36,38 @@ if (!$is_platformAdmin) claro_disp_auth_form();
   Include version file and initialize variables
  ---------------------------------------------------------------------*/
 if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
-include ($includePath."/installedVersion.inc.php");
+include ($includePath.'/installedVersion.inc.php');
 
 /*---------------------------------------------------------------------
   Include library
  ---------------------------------------------------------------------*/
 
-include ($includePath."/lib/config.lib.inc.php");
+include ($includePath.'/lib/config.lib.inc.php');
+
 
 if ( !function_exists(mysql_info) )
 {
-    function mysql_info() {return "";} // mysql_info is used in verbose mode
+
+    /**
+     * This is a fake function declared if mysql_info don't exist
+     * The output is use for additional info.
+     * @return string empty.
+     */
+    function mysql_info() {return '';} // mysql_info is used in verbose mode
 }
 
-/*---------------------------------------------------------------------
-  Steps of Display 
- ---------------------------------------------------------------------*/
-
+/**#@+
+ * Steps of Display 
+ */
 DEFINE("DISPLAY_WELCOME_PANEL", 1);
 DEFINE("DISPLAY_RESULT_PANEL",  2);
+/**#@-*/
 
 /*=====================================================================
   Statements Section
  =====================================================================*/
 
-/*
+/**
  * Initialise variables
  */
 
@@ -68,21 +76,21 @@ else                               $verbose = FALSE;
 
 $display = DISPLAY_WELCOME_PANEL;
 
-/*
+/**
  * Define display
  */
 
 if (isset($_REQUEST['cmd']) && $_REQUEST['cmd']=='run')
 {
 
-    /*
+    /**
      * Upgrade Main Database
      */
 
     include('./sql_statement_main_db.php');
     include('./repair_tables.php');
 
-    /*
+    /**
      * Upgrade Tracking
      */    
 
@@ -91,7 +99,9 @@ if (isset($_REQUEST['cmd']) && $_REQUEST['cmd']=='run')
 		include('./sql_statement_tracking.php');
 		include('./repair_tables.php');
 	}
-	
+
+    $accepted_error_list = array(1060,1062,1091,1054);
+
     $display = DISPLAY_RESULT_PANEL;
 
 } // if ($cmd=="run")
@@ -120,7 +130,7 @@ if (isset($_REQUEST['cmd']) && $_REQUEST['cmd']=='run')
 
 <div id="header">
 <?php
- echo sprintf("<h1>Claroline (%s) - " . $langUpgrade . "</h1>",$clarolineVersion);
+    echo sprintf("<h1>Claroline (%s) - " . $langUpgrade . "</h1>",$clarolineVersion);
 ?>
 </div>
 </td>
@@ -137,13 +147,13 @@ switch ($display)
 
         echo  sprintf("<h2>%s</h2>",$langUpgradeStep2)
             . '<p>' . $langIntroStep2 . '</p>' . "\n"
-            . '<center>' . sprintf($langLaunchStep2, $_SERVER['PHP_SELF']."?cmd=run") . '</center>';  
+            . '<center>' . sprintf($langLaunchStep2, $_SERVER['PHP_SELF'].'?cmd=run') . '</center>';  
 
         break;
         
     case DISPLAY_RESULT_PANEL :
     
-        echo  sprintf("<h2>%s</h2>",$langUpgradeStep2)
+        echo  sprintf('<h2>%s</h2>',$langUpgradeStep2)
             . '<h3>' . 'Upgrade main Claroline database <i>' . $mainDbName .'</i></h3>' . "\n";
 
         if ($verbose) {
@@ -175,7 +185,7 @@ switch ($display)
         		}
         		if (mysql_errno() > 0)
         		{
-        			if (mysql_errno() == 1060 || mysql_errno() == 1062 || mysql_errno() == 1091 || mysql_errno() == 1054 )
+                    if ( in_array(mysql_errno(),$accepted_error_list) )
         			{
         				if ($verbose)
         				{
@@ -204,7 +214,8 @@ switch ($display)
     	foreach ( $def_file_list as $def_file_bloc)
     	{
     	    if (is_array($def_file_bloc['conf']))
-    	    {
+    	    {   // blocs are use in visual config tool to list 
+    	        // in special order thes detected config files.
     	        foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
     	        {
     	            $conf_file = get_conf_file($config_code);
@@ -225,12 +236,14 @@ switch ($display)
         }
         else
         {
-           /*
+           /**
             * Update config file
             * Set version db
             */
 
            echo '<p class="success">'  . 'The claroline main tables have been successfully upgraded' . '</p>' . "\n";
+
+           // store in currentVarsion the version of central DB.
            $fp_currentVersion = fopen($includePath .'/currentVersion.inc.php','w');
            if($fp_currentVersion)
            {
@@ -244,7 +257,7 @@ $versionDb = "'.$version_db_cvs.'";
            }
            else
            {
-               echo '<p class="error">' . 'Can\'t save success in currentVersion.inc.php' . '</p>'  . "\n";
+               echo '<p class="error">' . 'Can\'t save success in <span class="filename">currentVersion.inc.php</span>' . '</p>'  . "\n";
            }
         }
         break;
