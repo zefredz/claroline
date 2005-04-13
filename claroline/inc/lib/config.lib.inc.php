@@ -1121,7 +1121,8 @@ function get_values_from_confFile($file_name,$conf_def_property_list)
             {
                 if ($propDef['container']=='CONST')
                 {
-                    @eval('$value_list[$propName] = '.$propName.';');
+                    if ( defined($propName) )
+                        @eval('$value_list[$propName] = '.$propName.';');
                 }
                 else
                 {
