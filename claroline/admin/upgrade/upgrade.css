@@ -25,7 +25,7 @@ body {
 
 #menu a, #menu a:hover, #menu:visited {
  color: #fff;
- font-style: underline;
+ text-decoration: underline;
 }
 
 #content {
@@ -77,8 +77,14 @@ code {
  text-align:right;
 }
 
+span.filename {
+ font-family: monospace;
+ background-color: #eee;
+ color: #151515;
+}
+
 .tt {
  font-family: monospace;
  border: 1px #ccc solid;
  background-color: #eee;
-}
+ }
