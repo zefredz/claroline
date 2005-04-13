@@ -21,6 +21,7 @@ $interbredcrump[]   = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration)
   --------------------------------------------------------------------*/
 $isoCode = array();
 
+$isoCode['Z1'] = "Other";
 $isoCode['AD'] = "Andorra";
 $isoCode['AE'] = "United Arab Emirates";
 $isoCode['AF'] = "Afghanistan";
@@ -299,7 +300,7 @@ if( isset($_REQUEST['register']) )
 	$country = ( isset($_REQUEST['country']) ) ? $_REQUEST['country']: '' ;
 	$parameters = array('campusName' => $siteName, 'campusUrl' => $rootWeb,
 						'institutionName' => $institution_name, 'institutionUrl' => $institution_url,
-						'country' => $country
+						'country' => $country, 'adminEmail' => $administrator_email
 						);
 
 	// make the soap call to register the campus
@@ -382,10 +383,10 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
 		."<li>".$langURL." : <a href=\"".$rootWeb."\">".$rootWeb."</a></li>\n"
 		."<li>".$langInstitution." : ".stripslashes($institution_name)."</li>\n"
 		."<li>".$langInstitutionUrl." : <a href=\"".$institution_url."\">".$institution_url."</a></li>\n"
+		."<li>".$langEmail." : ".$administrator_email."</li>"
 		."<li>"
 		."<label for=\"country\">".$langCountry." : </label>\n"
-		."<select name=\"country\" id=\"country\" />\n"
-		."<option value=\"Z1\">Other</option>\n";
+		."<select name=\"country\" id=\"country\" />\n";
 
 	$optionString = "";
 	foreach( $isoCode as $code => $country)	
