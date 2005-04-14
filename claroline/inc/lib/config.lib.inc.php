@@ -240,12 +240,6 @@ function get_def_file_list()
     {
         // group of def list
 
-        $defConfFileList['platform']['name'] = 'Platform';
-        $defConfFileList['course']['name']   = 'Course';
-        $defConfFileList['user']['name']     = 'User';
-        $defConfFileList['tool']['name']     = 'Tool';
-        $defConfFileList['others']['name']   = 'Others';
-
         // Browse folder of definition file
 
         while (FALSE !== ($file = readdir($handle)))
@@ -254,27 +248,8 @@ function get_def_file_list()
             if ($file != "." && $file != ".." && substr($file, -17)=='.def.conf.inc.php')
             {
                 $config_code = str_replace('.def.conf.inc.php','',$file);
-
-                if ( $config_code == 'CLMAIN' || $config_code == 'CLHOME')
-                {
-                    $defConfFileList['platform']['conf'][$config_code] = get_conf_name($config_code);
-                }
-                elseif ( $config_code == 'CLCRS')
-                {
-                    $defConfFileList['course']['conf'][$config_code] = get_conf_name($config_code);
-                }
-                elseif ( $config_code == 'CLPROFIL')
-                {
-                    $defConfFileList['user']['conf'][$config_code] = get_conf_name($config_code);
-                }
-                elseif ( is_array($toolNameList) && array_key_exists(str_pad($config_code,8,'_'),$toolNameList) )
-                {
-                    $defConfFileList['tool']['conf'][$config_code] = $toolNameList[str_pad($config_code,8,'_')];
-                }
-                else
-                {
-                    $defConfFileList['others']['conf'][$config_code] = get_conf_name($config_code);
-                }
+                $defConfFileList[$config_code] ['name'] = get_conf_name($config_code);
+                $defConfFileList[$config_code] ['class'] = get_conf_class($config_code);
             }
         }
         closedir($handle);
@@ -374,6 +349,31 @@ function get_conf_name($config_code)
         }
     }
     return $name;
+}
+
+/**
+ * Return the name (public label) of the Config of a given $config_code
+ *
+ * @param   $config_code string the config code to process
+ *
+ * @return  the name of the config 
+ *
+ */
+
+function get_conf_class($config_code)
+{
+    $def_file = get_def_file($config_code);
+
+     // include definition file and get $conf_def array
+    unset($conf_def);
+    if ( file_exists($def_file) )
+        include $def_file;
+
+    $class = isset($conf_def['config_class']) 
+    ? strtolower($conf_def['config_class'])
+    : 'other';
+
+    return $class;
 }
 
 /**

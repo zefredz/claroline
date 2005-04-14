@@ -69,6 +69,41 @@ if(!$is_allowedToAdmin)
     claro_disp_auth_form(); // display auth form and terminate script
 }
 
+// Get the list of definition files. 
+// Each one corresponding to a config file.
+
+// Set  order of some know class and  set an name
+$def_class_list['platform']['name'] = 'Platform';
+$def_class_list['course']['name']   = 'Course';
+$def_class_list['user']['name']     = 'User';
+$def_class_list['tool']['name']     = 'Tool';
+$def_class_list['others']['name']   = 'Others';
+
+$def_list = get_def_file_list();
+
+
+//group by class
+if ( is_array($def_list) )
+{
+    foreach( $def_list as $code => $def)
+    {
+		if ( ! isset($def['class']) )
+		{
+            $def['class'] = 'other';
+		}
+		$def_class_list[$def['class']]['conf'][$code] = $def['name'];
+    }
+}
+
+// set name to unknow class.
+foreach (array_keys($def_class_list) as $def_class )
+{
+    if (!isset($def_class_list[$def_class]['name']) )
+    {
+        $def_class_list[$def_class]['name']= ucwords($def_class);
+    }
+}
+
 /**
  * Display
  */
@@ -86,23 +121,19 @@ if ( !empty($controlMsg) )
     claro_disp_msg_arr($controlMsg);
 }
 
-// Get the list of definition files. 
-// Each one corresponding to a config file.
 
-$def_list = get_def_file_list();
-
-if ( is_array($def_list) )
+if ( is_array($def_class_list) )
 {
-    foreach( $def_list as $type_def_list)
+    foreach( $def_class_list as $class_def_list)
     {
-		if ( is_array($type_def_list['conf']) )
+		if ( is_array($class_def_list['conf']) )
 		{
-		    echo '<h4>' . $type_def_list['name'] . '</h4>' . "\n";
+		    echo '<h4>' . $class_def_list['name'] . '</h4>' . "\n";
 
-			asort($type_def_list['conf']);
+			asort($class_def_list['conf']);
 
     		echo '<ul>' . "\n";
-            foreach ($type_def_list['conf'] as $code => $name)
+            foreach ($class_def_list['conf'] as $code => $name)
     		{
     			echo '<li><a href="'.$urlEditConf . '?config_code=' . $code .'">' . $name  . '</a></li>' . "\n";
     		}
