@@ -1,22 +1,27 @@
 <?php // $Id$
-
 /**
- * ----------------------------------------------------------------------
- * @version CLAROLINE 1.6
- * ---------------------------------------------------------------------
- * Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
- * ---------------------------------------------------------------------
- * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
- * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
- * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
- * ---------------------------------------------------------------------
- * Authors: see 'credits' file
- * ---------------------------------------------------------------------
+ * CLAROLINE 
+ *
  * Create Statistics Tables
  * @var $statsTblPrefixForm prefix set during  install, and keep in mainconf
  * @private $sql var where build sql request.
  *
- *         claro_sql_query("DROP TABLE IF EXISTS track_e_default");
+ * @version 1.6 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Install
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ * @package INSTALL
+ *
+ */
+
+/*         claro_sql_query("DROP TABLE IF EXISTS track_e_default");
  *         claro_sql_query("DROP TABLE IF EXISTS track_e_login");
  *         claro_sql_query("DROP TABLE IF EXISTS track_e_open");
  *
