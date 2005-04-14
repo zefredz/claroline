@@ -74,44 +74,34 @@ if ($_REQUEST['cmd'] == 'run')
         
         $current_value_list = array();
         
-        foreach ( $def_file_list as $def_file_bloc)
+        foreach ( array_keys($def_file_list) as $config_code )
         {
-            if (is_array($def_file_bloc['conf']))
+            unset($conf_def, $conf_def_property_list);
+        
+            $def_file  = get_def_file($config_code);
+        
+            if ( file_exists($def_file) ) 
             {
-                foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
+                require($def_file);
+            }
+
+            // load old conf file content
+            $conf_def['old_config_file'][] = $conf_def['config_file'];
+            if (is_array($conf_def['old_config_file']))
+            {
+                foreach ($conf_def['old_config_file'] as $old_file_name) 
                 {
-                    unset($conf_def, $conf_def_property_list);
-                
-                    $def_file  = get_def_file($config_code);
-                
-                    if ( file_exists($def_file) ) 
-                    {
-                        require($def_file);
-                    }
-
-                    // load old conf file content
-                    $conf_def['old_config_file'][] = $conf_def['config_file'];
-                    if (is_array($conf_def['old_config_file']))
-                    {
-                        foreach ($conf_def['old_config_file'] as $old_file_name) 
-                        {
-                            $current_value_list =array_merge($current_value_list,get_values_from_confFile($includePath.'/conf/'.$old_file_name,$conf_def_property_list));
-                        }
-                    }
-
-                    // set platform_id if not set in old claroline version
-                    $current_value_list['platform_id'] = $platform_id;
+                    $current_value_list =array_merge($current_value_list,get_values_from_confFile($includePath.'/conf/'.$old_file_name,$conf_def_property_list));
                 }
             }
+
+            // set platform_id if not set in old claroline version
+            $current_value_list['platform_id'] = $platform_id;
         }
        
         reset( $def_file_list );
         
-        foreach ( $def_file_list as $def_file_bloc)
-        {
-            if (is_array($def_file_bloc['conf']))
-            {
-                foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
+        foreach ( $def_file_list as $config_code => $def)
                 {
                     $conf_file = get_conf_file($config_code);
 

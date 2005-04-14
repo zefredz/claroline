@@ -1,18 +1,7 @@
 <?php // $Id$
-
 /**
- * @version CLAROLINE 1.6
+ * CLAROLINE 
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
- *
- * @license GENERAL PUBLIC LICENSE (GPL)
- * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
- * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
- * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
- *
- * @author Christophe Gesché <moosh@claroline.net>
- *
-
  * This part of script is include on run_intall step of  setup tool.
 
  * in this  part. Script try to run Install
@@ -26,7 +15,22 @@
  * Second block is  writing config
  * third block is building paths
  * Forth block check some right
+ *
+ * @version 1.6 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Install
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ * @package INSTALL
+ *
  */
+
 $display=DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
 
  // PATCH TO ACCEPT Prefixed DBs
@@ -346,66 +350,64 @@ $claro_texRendererUrl = \'\';
     $includePath = $newIncludePath;
     $def_file_list = get_def_file_list();
     if(is_array($def_file_list))
-    foreach ( $def_file_list as $def_file_bloc)
+    foreach ( array_keys($def_file_list) as  $config_code )
     {
-        if (is_array($def_file_bloc['conf']))
-        foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
+        // tmp: skip the main conf
+        if ( $config_code == 'CLMAIN' ) continue;
+
+        $okToSave = TRUE;
+
+        unset($conf_def, $conf_def_property_list);
+
+        $def_file  = get_def_file($config_code);
+
+        if ( file_exists($def_file) )
+            require($def_file);
+
+        if ( is_array($conf_def_property_list) )
         {
-            // tmp: skip the main conf
-            if ( $config_code == 'CLMAIN' ) continue;
-    
-            $okToSave = TRUE;
-    
-            unset($conf_def, $conf_def_property_list);
-    
-            $def_file  = get_def_file($config_code);
-    
-            if ( file_exists($def_file) )
-                require($def_file);
-    
-            if ( is_array($conf_def_property_list) )
+            foreach($conf_def_property_list as $propName => $propDef )
             {
-                foreach($conf_def_property_list as $propName => $propDef )
+                $propValue = $propDef['default']; // USe default as effective value
+                if ( !validate_property($propValue, $propDef) )
                 {
-                    $propValue = $propDef['default']; // USe default as effective value
-                    if ( !validate_property($propValue, $propDef) )
-                    {
-                        $okToSave = FALSE;
-                    }
+                    $okToSave = FALSE;
                 }
             }
-            else
+        }
+        else
+        {
+            $okToSave = FALSE;
+        }
+
+        if ($okToSave)
+        {
+            unset($propertyList);
+            reset($conf_def_property_list);
+            foreach($conf_def_property_list as $propName => $propDef )
             {
-                $okToSave = FALSE;
+                $propertyList[] = array('propName'  => $propName
+                                       ,'propValue' => $propDef['default']);
             }
-   
-            if ($okToSave)
+
+            $conf_file = get_conf_file($config_code);
+
+            if ( !file_exists($conf_file) ) touch($conf_file);
+
+            if ( is_array($propertyList) && count($propertyList)>0 )
             {
-                reset($conf_def_property_list);
-                foreach($conf_def_property_list as $propName => $propDef )
+
+                if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
                 {
-                    $propertyList[] = array('propName'  => $propName
-                                           ,'propValue' => $propDef['default']);
-                }
-    
-                $conf_file = get_conf_file($config_code);
-    
-                if ( !file_exists($conf_file) ) touch($conf_file);
-    
-                if ( is_array($propertyList) && count($propertyList)>0 )
-                {
-    
-                    if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
-                    {
-                        // calculate hash of the config file
-                        $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
-                        //$conf_hash = filemtime($conf_file);
-                        save_config_hash_in_db($config_code,$conf_hash);
-                    }
+                    // calculate hash of the config file
+                    $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
+                    //$conf_hash = filemtime($conf_file);
+                    save_config_hash_in_db($config_code,$conf_hash);
                 }
             }
         }
     }
+    
 }
 
 // Check File System

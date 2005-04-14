@@ -68,7 +68,7 @@ $def_class_list['others']['name']   = 'Others';
 
 $def_list = get_def_file_list();
 
-
+echo '<p>$def_list = <pre>'.var_export( $def_list,1).'</pre>';
 //group by class
 if ( is_array($def_list) )
 {
