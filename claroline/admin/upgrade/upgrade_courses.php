@@ -103,7 +103,7 @@ $count_error_total = 0;
 
 $count_course = 0; $count_course_error = 0; $count_course_upgraded = 0;
 
-$sql = "SELECT versionDb, count(*) as count_course 
+$sql = "SELECT versionDb, versionClaro, count(*) as count_course 
         FROM `" . $tbl_course . "`
         GROUP BY versionDb ";
 
@@ -111,10 +111,17 @@ $result = claro_sql_query($sql);
 
 while ($row = mysql_fetch_array($result) )
 {
-
     // Count courses upgraded and upgrade failed    
-    if ($row['versionDb'] == $versionDb)  $count_course_upgraded += $row['count_course'];
-    elseif ($version == 'error') $count_course_error += $row['count_course'];
+    if ($row['versionDb'] == $versionDb && $row['versionClaro'] == $versionDb) 
+    {
+        // upgrade succeed
+        $count_course_upgraded += $row['count_course'];
+    }
+    elseif ($row['versionDb'] == 'error' || $row['versionClaro'] == 'error') 
+    {
+        // upgrade failed
+        $count_course_error += $row['count_course'];
+    }
 
     // Count courses
     $count_course += $row['count_course'];
@@ -142,10 +149,7 @@ $count_course_upgraded_at_start =  $count_course_upgraded;
 
 // auto refresh
 
-if ( $display == DISPLAY_RESULT_PANEL 
-     && 
-     ($count_course_upgraded + $count_course_error )< $count_course
-   )
+if ( $display == DISPLAY_RESULT_PANEL && ($count_course_upgraded + $count_course_error ) < $count_course )
 {
     $refresh_time = 20;
     echo '<meta http-equiv="refresh" content="'. $refresh_time  .'" />'."\n";
@@ -210,7 +214,7 @@ switch ($display)
 
         $sql = "SELECT code 
                 FROM `" . $tbl_course . "` 
-                WHERE versionDb = 'error' ";
+                WHERE versionDb = 'error' or versionClaro = 'error' ";
 
         $result = claro_sql_query($sql);
 
@@ -256,12 +260,17 @@ switch ($display)
         if ( $_REQUEST['upgradeCoursesError'] == 1)
         {
             // retry to upgrade course where upgrade failed
-            $sql_course_to_upgrade .= " where c.versionDb != '".$versionDb."' order by c.dbName";
+            $sql_course_to_upgrade .= " WHERE c.versionDb != '".$versionDb."'
+                                        or c.versionClaro != '".$versionDb."'
+                                        ORDER BY c.dbName";
         }
         else
         {
             // not upgrade course where upgrade failed ( versionDb == error)
-            $sql_course_to_upgrade .= " where c.versionDb != '".$versionDb."' and c.versionDb !='error' order by c.dbName";
+            $sql_course_to_upgrade .= " WHERE c.versionDb != '".$versionDb."' 
+                                        and c.versionDb != 'error' 
+                                        and c.versionClaro != 'error' 
+                                        ORDER BY c.dbName ";
         }
         
         $res_course_to_upgrade = mysql_query($sql_course_to_upgrade);
