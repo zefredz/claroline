@@ -43,20 +43,7 @@ $noQUERY_STRING     = TRUE;
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_tool = $tbl_mdb_names['tool'];
-
 $urlEditConf = 'config_edit.php';
-
-$toolNameList = array('CLANN___' => $langAnnouncement,
-                          'CLFRM___' => $langForums,
-                          'CLCAL___' => $langAgenda,
-                          'CLCHT___' => $langChat,
-                          'CLDOC___' => $langDocument,
-                          'CLDSC___' => $langDescriptionCours,
-                          'CLGRP___' => $langGroups,
-                          'CLLNP___' => $langLearningPath,
-                          'CLQWZ___' => $langExercises,
-                          'CLWRK___' => $langWork,
-                          'CLUSR___' => $langUsers);
 
 /* ************************************************************************** */
 /*  SECURITY CHECKS
@@ -96,6 +83,7 @@ if ( is_array($def_list) )
 }
 
 // set name to unknow class.
+if ( is_array($def_class_list) )
 foreach (array_keys($def_class_list) as $def_class )
 {
     if (!isset($def_class_list[$def_class]['name']) )
@@ -113,14 +101,6 @@ include($includePath."/claro_init_header.inc.php");
 // display tool title
 
 claro_disp_tool_title($nameTools);
-
-// display control message
-
-if ( !empty($controlMsg) )
-{
-    claro_disp_msg_arr($controlMsg);
-}
-
 
 if ( is_array($def_class_list) )
 {
