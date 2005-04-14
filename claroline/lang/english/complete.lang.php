@@ -1838,6 +1838,7 @@ $langSubscriptionAllowedOnly = "Subscription allowed only ";
 $langSubscriptionDeniedOnly = "Subscription denied only";
 $langSucceed = "succeed";
 $langSummaryNavBar = "Navigation bar";
+$langSupportForum = "Support forum";
 $langSupports = " Support ";
 $langSupportsComment1 = "Does course support exist?  What type of support do I give?  Opened?  Closed?";
 $langSupportsComment2 = "Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.";
