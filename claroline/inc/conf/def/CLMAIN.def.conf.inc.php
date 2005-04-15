@@ -198,7 +198,7 @@ array ('label'       => 'Database mode'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => TRUE
-      ,'acceptedValue' => array ('TRUE'=>'single', 'FALSE' => 'Multiple')
+      ,'acceptedValue' => array ('TRUE'=>'Single', 'FALSE' => 'Multiple')
       );
 
 $conf_def_property_list['dbGlu'] =
