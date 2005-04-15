@@ -983,7 +983,7 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
 	claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '2', '1', '$langAdmitError', '0', '$langNoSeduction', '-5', '2')");
 	claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '3', '1', '$langForce', '1', '$langIndeed', '5', '3')");
 	claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '4', '1', '$langContradiction', '1', '$langNotFalse', '5', '4')");
-	claro_sql_query("INSERT INTO `".$TABLEQUIZ."` VALUES ( '1', '$langExerciceEx', '$langAntique', '1', '0', '0', '0', '0' , 'ALWAYS', 'NO', NOW(), '2006-08-19 11:55')");
+	claro_sql_query("INSERT INTO `".$TABLEQUIZ."` VALUES ( '1', '$langExerciceEx', '$langAntique', '1', '0', '0', '0', '0' , 'ALWAYS', 'NO', NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR) )");
 	claro_sql_query("INSERT INTO `".$TABLEQUIZQUESTIONLIST."` VALUES ( '1', '$langSocraticIrony', '$langManyAnswers', '10', '1', '2','')");
 	claro_sql_query("INSERT INTO `".$TABLEQUIZQUESTION."` VALUES ( '1', '1')");
 
