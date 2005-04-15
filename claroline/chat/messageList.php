@@ -1,13 +1,30 @@
 <?php // $Id$
-
-//  THIS SCRIPT  CHAT SIMPLY WORKS WITH A FLAT FILE WHERE LINES ARE APPENDED. 
-//  SIMPLE USER CAN  JUST  WRITE LINES. CHAT MANAGER CAN RESET AND STORE THE 
-//  CHAT IF $CHATFORGROUP IS TRUE,  THE FILE  IS RESERVED BECAUSE ALWAYS FORMED 
-//  WITH THE GROUP ID OF THE CURRENT USER IN THE CURRENT COURSE.
-
+/**
+ * CLAROLINE 
+ *
+ * This script  chat simply works with a flat file where lines are appended. 
+ * Simple user can  just  write lines. 
+ * Chat manager can reset and store the chat if $chatforgroup is true,  
+ * the file  is reserved because always formed 
+ * with the group id of the current user in the current course.
+ *
+ * @version 1.6 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLCHT
+ *
+ * @package CLCHAT
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ */
 
 // CLAROLINE INIT
-
 
 require '../inc/claro_init_global.inc.php';
 
@@ -16,8 +33,8 @@ if ( ! $is_courseAllowed )	claro_disp_auth_form();
 
 
 /*============================================================================
-                                CONNECTION BLOC
-  ============================================================================*/
+CONNECTION BLOC
+============================================================================*/
 
 
 $coursePath  = $coursesRepositorySys.$_course['path'];
@@ -28,15 +45,13 @@ $is_allowedToManage = $is_courseAdmin;
 $is_allowedToStore  = $is_courseAdmin;
 $is_allowedToReset  = $is_courseAdmin;
 
-$nick               = $_user ['firstName']." ".$_user ['lastName'];
-
-
-
+$nick        = $_user ['firstName']." ".$_user ['lastName'];
+if (strlen($nick) > $max_nick_lenght) $nick = $_user ['firstName']." ".$_user ['lastName'][0].'.';
 
 
 /*============================================================================
-                                   CHAT INIT
-  ============================================================================*/
+CHAT INIT
+============================================================================*/
 
 
 // THE CHAT NEEDS A TEMP FILE TO RECORD CONVERSATIONS.
@@ -44,20 +59,20 @@ $nick               = $_user ['firstName']." ".$_user ['lastName'];
 
 $curChatRep = $coursePath.'/chat/';
 
-// IN CASE OF AN UPGRADE THE DIRECTORY MAY NOT EXIST 
-// A PREVIOUS CHECK (AND CREATE IF NEEDED) IS THUS NECESSARY 
+// IN CASE OF AN UPGRADE THE DIRECTORY MAY NOT EXIST
+// A PREVIOUS CHECK (AND CREATE IF NEEDED) IS THUS NECESSARY
 
 if ( ! is_dir($curChatRep) ) mkdir($curChatRep, 0777);
 
-// DETERMINE IF THE CHAT SYSTEM WILL WORK  
+// DETERMINE IF THE CHAT SYSTEM WILL WORK
 // EITHER AT THE COURSE LEVEL OR THE GROUP LEVEL
 
 if ($_gid)
 {
     if ($is_groupMember || $is_groupTutor || $is_courseAdmin)
     {
-        $groupContext  = true;
-        $courseContext = false;
+        $groupContext  = TRUE;
+        $courseContext = FALSE;
 
         $activeChatFile = $curChatRep.$courseId.'.'.$groupId.'.chat.html';
         $onflySaveFile  = $curChatRep.$courseId.'.'.$groupId.'.tmpChatArchive.html';
@@ -70,8 +85,8 @@ if ($_gid)
 }
 else
 {
-    $groupContext  = false;
-    $courseContext = true;
+    $groupContext  = FALSE;
+    $courseContext = TRUE;
 
     $activeChatFile = $curChatRep.$courseId.'.chat.html';
     $onflySaveFile  = $curChatRep.$courseId.'.tmpChatArchive.html';
@@ -79,32 +94,17 @@ else
 }
 
 
-define('REFRESH_DISPLAY_RATE', 10);
-
-// MAX LINE IN THE ACTIVE CHAT FILE. FOR PERFORMANCE REASON IT IS INTERESTING 
-// TO WORK WITH NOT TOO BIG FILE
-
-define('MAX_LINE_IN_FILE', 200); 
-
-// MAXIMUM LINE DIPLAYED TO THE USER SCREEN. AS THE ACTIVE CHAT FILE IS 
-// REGULARLY SHRINKED ('SEE MAX_LINE_IN_FILE), KEEPING THIS PARAMETER SMALLER 
-// THAN  MAX_LINE_IN_FILE ALLOWS SMOOTH DISPLAY (WHERE NO BIG LINE CHUNK ARE 
-// REMOVED WHEN THE EXCESS LINE FROM THE ACTIVE CHAT FILE ARE BUFFERED ON FLY
-
-define('MAX_LINE_TO_DISPLAY',  20);
-
-
 $dateNow = claro_disp_localised_date($dateTimeFormatLong);
 $timeNow = claro_disp_localised_date('%d/%m/%y [%H:%M]');
 
 if ( ! file_exists($activeChatFile))
 {
-  // create the file
-	$fp = @fopen($activeChatFile, 'w')
-	       or die ("<center>".$langCannotInitChat."</center>");
-	fclose($fp);
-	
-  $dateLastWrite = $langNewChat;
+    // create the file
+    $fp = @fopen($activeChatFile, 'w')
+    or die ('<center>'.$langCannotInitChat.'</center>');
+    fclose($fp);
+
+    $dateLastWrite = $langNewChat;
 }
 
 
@@ -115,86 +115,89 @@ if ( ! file_exists($activeChatFile))
 
 
 /*============================================================================
-                                    COMMANDS
-  ============================================================================*/
-       
+COMMANDS
+============================================================================*/
+
 
 
 
 /*----------------------------------------------------------------------------
-                                 RESET COMMAND
-  ----------------------------------------------------------------------------*/
-          
+RESET COMMAND
+----------------------------------------------------------------------------*/
+
 
 if ($reset && $is_allowedToReset)
 {
-	$fchat = fopen($activeChatFile,'w');
-	fwrite($fchat, "<small>".$timeNow." -------- ".$langChatResetBy." ".$nick." --------</small><br />\n");
-	fclose($fchat);
+    $fchat = fopen($activeChatFile,'w');
+    fwrite($fchat, "<small>".$timeNow." -------- ".$langChatResetBy." ".$nick." --------</small><br />\n");
+    fclose($fchat);
 
-	@unlink($onflySaveFile);
+    @unlink($onflySaveFile);
 }
 
 
 
 
- /*----------------------------------------------------------------------------
-                                 STORE COMMAND
- ----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------
+STORE COMMAND
+----------------------------------------------------------------------------*/
 
 if ($store && $is_allowedToStore)
 {
     $chatDate = 'chat.'.date('Y-m-j').'_';
- 
-    // TRY DO DETERMINE A FILE NAME THAT DOESN'T ALREADY EXISTS 
+
+    // TRY DO DETERMINE A FILE NAME THAT DOESN'T ALREADY EXISTS
     // IN THE DIRECTORY WHERE THE CHAT EXPORT WILL BE STORED
 
     $i = 1;
-    while ( file_exists($exportFile.$chatDate.$i.".html") ) $i++;
+    while ( file_exists($exportFile.$chatDate.$i.'.html') ) $i++;
 
     $saveIn = $chatDate.$i.'.html';
 
-    // COMPLETE THE ON FLY BUFFER FILE WITH THE LAST LINES DISPLAYED 
+    // COMPLETE THE ON FLY BUFFER FILE WITH THE LAST LINES DISPLAYED
     // BEFORE PROCEED TO COMPLETE FILE STORAGE
 
-    buffer( implode('', file($activeChatFile) )."</body>\n\n</html>\n",
-            $onflySaveFile);
+    buffer( implode('', file($activeChatFile) ).'</body>'."\n\n".'</html>'."\n",
+    $onflySaveFile);
 
-	if (copy($onflySaveFile, $exportFile.$saveIn) )
-	{
-		$cmdMsg =	"\n<blockquote>\n".
-				"<a href=\"../document/document.php\" target=\"top\">".
-				"<strong>".$saveIn."</strong>".
-				"</a> ".$langIsNowInYourDocDir.
-				"\n</blockquote>\n\n";
-				
-    	@unlink($onflySaveFile);
-	}
-	else
-	{
-		$cmdMsg = "<blockquote>".$langCopyFailed."</blockquote>";
-	}
+    if (copy($onflySaveFile, $exportFile.$saveIn) )
+    {
+        $cmdMsg = "\n"
+                . '<blockquote>'."\n"
+                . '<a href="../document/document.php" target="top">'
+                . '<strong>'.$saveIn.'</strong>'
+                . '</a> '
+                . $langIsNowInYourDocDir."\n"
+                . '</blockquote>'."\n\n"
+                ;
+
+        @unlink($onflySaveFile);
+    }
+    else
+    {
+        $cmdMsg = '<blockquote>'.$langCopyFailed.'</blockquote>';
+    }
 }
 
 
 
 
 /*----------------------------------------------------------------------------
-                             'ADD NEW LINE' COMMAND
-  ----------------------------------------------------------------------------*/
+'ADD NEW LINE' COMMAND
+----------------------------------------------------------------------------*/
 
 if ($chatLine)
 {
-	$fchat = fopen($activeChatFile,'a');
-	$chatLine = htmlspecialchars( stripslashes($chatLine) );
-	$chatLine = ereg_replace("(http://)(([[:punct:]]|[[:alnum:]])*)","<a href=\"\\0\" target=\"_blank\">\\2</a>",$chatLine);
+    $fchat = fopen($activeChatFile,'a');
+    $chatLine = htmlspecialchars( stripslashes($chatLine) );
+    $chatLine = ereg_replace("(http://)(([[:punct:]]|[[:alnum:]])*)","<a href=\"\\0\" target=\"_blank\">\\2</a>",$chatLine);
 
-	fwrite($fchat,
-	       '<small>'
-	       .$timeNow.' <b>'.$nick.'</b> &gt; '.$chatLine
-	       ."</small><br />\n");
-	
-	fclose($fchat);
+    fwrite($fchat,
+    '<small>'
+    .$timeNow.' <b>'.$nick.'</b> &gt; '.$chatLine
+    ."</small><br />\n");
+
+    fclose($fchat);
 }
 
 
@@ -204,14 +207,14 @@ if ($chatLine)
 
 
 
- /*============================================================================
-                              DISPLAY MESSAGE LIST
- ============================================================================*/
+/*============================================================================
+DISPLAY MESSAGE LIST
+============================================================================*/
 
 if ( !$dateLastWrite )
 {
-  $dateLastWrite = $langDateLastWrite
-                  .strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
+    $dateLastWrite = $langDateLastWrite
+    .strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
 }
 
 
@@ -222,7 +225,7 @@ if ( !$dateLastWrite )
 $activeLineList  = file($activeChatFile);
 $activeLineCount = count($activeLineList);
 
-$excessLineCount = $activeLineCount - MAX_LINE_TO_DISPLAY;
+$excessLineCount = $activeLineCount - $max_line_to_display;
 if ($excessLineCount < 0) $excessLineCount = 0;
 $excessLineList = array_splice($activeLineList, 0 , $excessLineCount);
 $curDisplayLineList = $activeLineList;
@@ -235,69 +238,68 @@ $curDisplayLineList = $activeLineList;
 // add a unique number in the url to make IE believe that the url is different and to force refresh
 if( !isset($_REQUEST['x']) || $x == 1 )
 {
-	$x = 0;
+    $x = 0;
 }
 else
 {
-	$x = 1;
+    $x = 1;
 }
 
-echo "<html>\n\n"
-    ."<head>\n"
-    ."<meta http-equiv=\"refresh\" content=\"".REFRESH_DISPLAY_RATE.";url=./messageList.php?x=".$x."#final\">\n"
-    ."<link rel=\"stylesheet\" type=\"text/css\" href=\"".$clarolineRepositoryWeb."css/".$claro_stylesheet."\" />\n"
-    ."</head>\n\n"
-    ."<body>\n";
+echo '<html><head>'
+   . '<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'
+   . '<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'
+   . '</head>'
+   . '<body>'
+   ;
 
 if( isset($cmdMsg) )
 {
-	echo $cmdMsg;
+    echo $cmdMsg;
 }
 
 echo implode("\n", $curDisplayLineList) // LAST LINES
-    ."<p align=\"right\"><small>"
+    .'<p align="right"><small>'
     .$dateLastWrite                 // LAST MESSAGE DATE TIME
-    ."</small></p>\n"
-    ."<a name=\"final\">\n"       // ANCHOR ALLOWING TO DIRECTLY POINT LAST LINE 
+    .'</small></p>'
+    .'<a name="final">'."\n"       // ANCHOR ALLOWING TO DIRECTLY POINT LAST LINE
+    
+    .'</body>'."\n\n"
+    .'</html>'."\n"
+    ;
 
-    ."</body>\n\n"
-    ."</html>\n";
-
-
-
-// FOR PERFORMANCE REASON, WE TRY TO KEEP THE ACTIVE CHAT FILE OF REASONNABLE 
-// SIZE WHEN THE EXCESS LINES BECOME TOO HIGH WE REMOVE THEM FROM THE ACTIVE 
-// CHAT FILE AND STORE THEM IN A SORT OF 'ON FLY BUFFER' WHILE WAITHING A 
+// FOR PERFORMANCE REASON, WE TRY TO KEEP THE ACTIVE CHAT FILE OF REASONNABLE
+// SIZE WHEN THE EXCESS LINES BECOME TOO HIGH WE REMOVE THEM FROM THE ACTIVE
+// CHAT FILE AND STORE THEM IN A SORT OF 'ON FLY BUFFER' WHILE WAITHING A
 // POSSIBLE EXPORT FOR DEFINITIVE STORAGE
 
 
-if ($activeLineCount > MAX_LINE_IN_FILE)
+if ($activeLineCount > $max_line_in_file)
 {
 
-	// STORE THE EXCESS LINES INTO THE 'ON FLY BUFFER'
+    // STORE THE EXCESS LINES INTO THE 'ON FLY BUFFER'
 
     buffer(implode('',$excessLineList), $onflySaveFile);
 
-	// REFLESH THE ACTIVE CHAT FILE TO KEEP ONLY NON SAVED TAIL
+    // REFLESH THE ACTIVE CHAT FILE TO KEEP ONLY NON SAVED TAIL
 
-	$fp = fopen($activeChatFile, 'w');
-	fwrite($fp, implode("\n", $curDisplayLineList));
+    $fp = fopen($activeChatFile, 'w');
+    fwrite($fp, implode("\n", $curDisplayLineList));
 }
 
 //////////////////////////////////////////////////////////////////////////////
 
 function buffer($content, $tmpFile)
 {
-	global $langChat, $langArchive;
-	
-	if ( ! file_exists($tmpFile) )
-	{
-        $content = "<html>\n\n"
-									."<head>\n"
-									."<title>".$langChat." - ".$langArchive."</title>\n"
-									."</head>\n\n"
-                  ."<body>\n"
-                  .$content;
+    global $langChat, $langArchive;
+
+    if ( ! file_exists($tmpFile) )
+    {
+        $content = '<html><head>'
+                 . '<title>'.$langChat.' - '.$langArchive.'</title>'
+                 . '</head>'."\n\n"
+                 . '<body>'."\n"
+                 . $content
+                 ;
     }
 
     $fp = fopen($tmpFile, 'a');

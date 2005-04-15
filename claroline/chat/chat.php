@@ -1,6 +1,24 @@
 <?php // $Id$
+/** 
+ * CLAROLINE 
+ *
+ * @version 1.6 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLCHT
+ *
+ * @package CLCHAT
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ */
 
-$tlabelReq = "CLCHT___";
+$tlabelReq = 'CLCHT___';
 
 require '../inc/claro_init_global.inc.php'; 
 

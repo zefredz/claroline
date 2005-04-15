@@ -1,22 +1,41 @@
-<?php 
+<?php // $Id$
+/** 
+ * CLAROLINE 
+ *
+ * @version 1.6 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLCHT
+ *
+ * @package CLCHAT
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ */
+
 require '../inc/claro_init_global.inc.php';
 $is_allowedToManage = $is_courseAdmin;
 
 // header
 
-$htmlHeadXtra[] = "
+$htmlHeadXtra[] = '
 <script>
 function prepare_message()
 {
 	document.chatForm.chatLine.value=document.chatForm.msg.value;
-	document.chatForm.msg.value = \"\";
+	document.chatForm.msg.value = "";
 	document.chatForm.msg.focus();
 	return true;
 }
-</script>";
+</script>';
 
 $hide_banner=TRUE;
-include($includePath."/claro_init_header.inc.php");
+include($includePath.'/claro_init_header.inc.php');
 
 
 ?>
@@ -42,5 +61,5 @@ include($includePath."/claro_init_header.inc.php");
            FOOTER
   ==========================*/
 
-include($includePath."/claro_init_footer.inc.php");
+include($includePath.'/claro_init_footer.inc.php');
 ?>
