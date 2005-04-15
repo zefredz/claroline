@@ -102,112 +102,102 @@ if ($_REQUEST['cmd'] == 'run')
         reset( $def_file_list );
         
         foreach ( $def_file_list as $config_code => $def)
+        {
+            $conf_file = get_conf_file($config_code);
+
+            $output .= '<li>'.basename($conf_file)
+                    .  '<ul >' . "\n";
+
+            $okToSave = TRUE;
+            
+            unset($conf_def, $conf_def_property_list);
+    
+            $def_file  = get_def_file($config_code);
+    
+            if ( file_exists($def_file) )
+                require($def_file);
+            
+            if ( is_array($conf_def_property_list) )
+            {
+                
+                $propertyList = array();
+                
+                foreach($conf_def_property_list as $propName => $propDef )
                 {
-                    $conf_file = get_conf_file($config_code);
-
-                    $output .= '<li>'.basename($conf_file)
-                            .  '<ul >' . "\n";
-
-                    $okToSave = TRUE;
                     
-                    unset($conf_def, $conf_def_property_list);
-            
-                    $def_file  = get_def_file($config_code);
-            
-                    if ( file_exists($def_file) )
-                        require($def_file);
-                    
-                    if ( is_array($conf_def_property_list) )
-                    {
-                        
-                        $propertyList = array();
-                        
-                        foreach($conf_def_property_list as $propName => $propDef )
-                        {
-                            
-                            if(isset($current_value_list[$propName]))
-                            {  
-                                $propValue = $current_value_list[$propName];
-                                // get old value
-                            }
-                            else 
-                            {
-                                $propValue = $propDef['default'];                                 
-                                // value never set, use default from .def
-                            }
-
-                            /**
-                             * @todo user can be better informed how to react to this error.
-                             */
-                            if ( !validate_property($propValue, $propDef) )
-                            {
-                                $okToSave = FALSE;
-                                $error = TRUE;
-                                $output .= '<span class="warning">'. $propName .' : ' . $propValue.' is invalid </span>' . '<br>' . "\n"
-                                        . 'Rules : '.$propDef['type'] . '<br>' . "\n"
-                                        . var_export($propDef['acceptedValue'],1) . '<br>' . "\n" ;
-                            }
-                            else
-                            {
-                                $propertyList[] = array('propName'=>$propName
-                                                       ,'propValue'=>$propValue);
-                            }
-                        }
+                    if(isset($current_value_list[$propName]))
+                    {  
+                        $propValue = $current_value_list[$propName];
+                        // get old value
                     }
-                    else
+                    else 
+                    {
+                        $propValue = $propDef['default'];                                 
+                        // value never set, use default from .def
+                    }
+
+                    /**
+                     * @todo user can be better informed how to react to this error.
+                     */
+                    if ( !validate_property($propValue, $propDef) )
                     {
                         $okToSave = FALSE;
                         $error = TRUE;
+                        $output .= '<span class="warning">'. $propName .' : ' . $propValue.' is invalid </span>' . '<br>' . "\n"
+                                . 'Rules : '.$propDef['type'] . ' in '.basename($def_file).'<br>' . "\n"
+                                . var_export($propDef['acceptedValue'],1) . '<br>' . "\n" ;
                     }
-            
-                    if ($okToSave)
+                    else
                     {
-            
-                        if ( !file_exists($conf_file) ) touch($conf_file);
-            
-                        if ( is_array($propertyList) && count($propertyList)>0 )
-                        {
-        
-                            // backup old file 
-                            $output .= '<li>' . 'Old file backup : ' ;
-                            $fileBackup = $backupRepositorySys.basename($conf_file);
-                            if (!@copy($conf_file, $fileBackup) )
-                            {
-                                $output .= '<span class="warning">' . $langFailed . '</span>';
-                            }
-                            else
-                            {
-                                $output .= '<span class="success">'. $langSucceed . '</span>';
-                            }
-
-                            $output .= '</li>' . "\n" ;
-                            // change permission
-                            @chmod( $fileBackup, 600 );
-                            @chmod( $fileBackup, 0600 );
-                            $output .= '<li>' . 'File upgrade : ';
-                            if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
-                            {
-                                $output .= '<span class="success">'. $langSucceed . '</span>';
-                                // The Hash compute and store is differed after creation table use for this storage
-                                // calculate hash of the config file
-                                // $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
-                                // $conf_hash = filemtime($conf_file);
-                                // save_config_hash_in_db($config_code,$conf_hash);
-                            }
-                            else 
-                            {
-                                $output .= '<span class="warning">' . $langFailed . '</span>';
-                                $error = TRUE;
-                                
-                            }
-                            $output .= '</li>'."\n";
-                            
-                        }
+                        $propertyList[] = array('propName'=>$propName
+                                               ,'propValue'=>$propValue);
                     }
-                    $output .= '</ul>' . "\n" 
-                             . '</li>' . "\n";
                 }
             }
+            else
+            {
+                $okToSave = FALSE;
+                $error = TRUE;
+            }
+    
+            if ($okToSave)
+            {
+                if ( !file_exists($conf_file) ) touch($conf_file);
+    
+                if ( is_array($propertyList) && count($propertyList)>0 )
+                {
+
+                    // backup old file 
+                    $output .= '<li>' . 'Old file backup : ' ;
+                    $fileBackup = $backupRepositorySys.basename($conf_file);
+                    if (!@copy($conf_file, $fileBackup) )
+                    {
+                        $output .= '<span class="warning">' . $langFailed . '</span>';
+                    }
+                    else
+                    {
+                        $output .= '<span class="success">'. $langSucceed . '</span>';
+                    }
+
+                    $output .= '</li>' . "\n" ;
+                    // change permission
+                    @chmod( $fileBackup, 600 );
+                    @chmod( $fileBackup, 0600 );
+                    $output .= '<li>' . 'File upgrade : ';
+                    if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
+                    {
+                        $output .= '<span class="success">'. $langSucceed . '</span>';
+                    }
+                    else 
+                    {
+                        $output .= '<span class="warning">' . $langFailed . '</span>';
+                        $error = TRUE;
+                    }
+                    $output .= '</li>'."\n";
+                }
+            }
+            $output .= '</ul>' . "\n" 
+                     . '</li>' . "\n";
         }
     }
     
