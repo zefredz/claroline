@@ -685,7 +685,14 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
             switch ($conf_def_property_list[$propertyName]['type'])
             {
                 case 'boolean':
-                    $valueToWrite = trueFalse($propertyValue);
+                    if ( is_bool($propertyValue) ) 
+                    {
+                        $valueToWrite = trueFalse($propertyValue);
+                    } 
+                    else
+                    {
+                        $valueToWrite = $propertyValue;
+                    }
                     break;
                 case 'php':
                 case 'integer':
@@ -1021,8 +1028,8 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
 
                 echo '<br />';
 
-                echo '<input id="'.$property_name.'_FALSE" type="radio" name="'.$htmlPropName.'" value="" '
-                     . ($htmlPropValue=='TRUE'?' ':' checked="checked" ')
+                echo '<input id="'.$property_name.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '
+                     . ($htmlPropValue=='FALSE'?' checked="checked" ': ' ')
                      . ' >' ;
                 echo '<label for="'.$property_name.'_FALSE" >'
                      .($property_def['acceptedValue']['FALSE']?$property_def['acceptedValue']['FALSE']:'FALSE')
