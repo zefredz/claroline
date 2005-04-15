@@ -26,8 +26,8 @@ $is_upgrade_available = TRUE;
 
 // var version_db  max. 10 chars
 
-$version_file_cvs = '1.6.0.ST';
-$version_db_cvs   = '1.6.0.ST';
+$version_file_cvs = '1.6.0';
+$version_db_cvs   = '1.6.0';
 
 if (!$is_upgrade_available)
 {
