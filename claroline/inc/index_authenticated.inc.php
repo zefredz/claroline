@@ -63,8 +63,6 @@ foreach($personnalCourseList as $thisCourse)
 
     $resultList = claro_sql_query_fetch_all_cols($sql);
 
-    $tableCal = $courseTablePrefix . $thisCourse['db'] . $dbGlu . 'calendar_event';
-
     foreach($resultList as $colName => $colValue)
     {
         if (count($colValue) == 0) break;
@@ -74,6 +72,8 @@ foreach($personnalCourseList as $thisCourse)
     /*
      * AGENDA : get the next agenda entries of this course from now
      */
+    
+    $tableCal = $courseTablePrefix . $thisCourse['db'] . $dbGlu . 'calendar_event';
 
     $sql = "SELECT '".$thisCourse['sysCode'     ]."'  `courseSysCode`,
                    '".$thisCourse['officialCode']."'  `courseOfficialCode`,
