@@ -545,9 +545,9 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
 
     if($_uid)
     {
-				// exercices can have a negative score, we don't accept that in LP
-				// so if totalScore is negative use 0 as result
-				$totalScore = max($totalScore, 0);
+        // exercices can have a negative score, we don't accept that in LP
+		// so if totalScore is negative use 0 as result
+		$totalScore = max($totalScore, 0);
         if ( $totalWeighting != 0 )
         {
                 $newRaw = @round($totalScore/$totalWeighting*100);
@@ -556,6 +556,7 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
         {
                 $newRaw = 0;
         }
+
         $scoreMin = 0;
         $scoreMax = $totalWeighting;
         // need learningPath_module_id and raw_to_pass value
@@ -564,8 +565,7 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
                  WHERE LPM.`learnPath_id` = '".$_SESSION['path_id']."'
                    AND LPM.`module_id` = '".$_SESSION['module_id']."'
 				   AND LPM.`learnPath_module_id` = UMP.`learnPath_module_id`
-				   AND UMP.`user_id`";
-					 
+				   AND UMP.`user_id` = ".$_uid;
         $query = claro_sql_query($sql);
         $row = mysql_fetch_array($query);
 
@@ -574,12 +574,13 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
 		// build sql query
 		$sql = "UPDATE `".$TABLEUSERMODULEPROGRESS."` SET ";
 		// if recorded score is less then the new score => update raw, credit and status
-		if ($row['raw'] < $totalScore) 
+
+		if ($row['raw'] < $totalScore)
 		{ 
 			// update raw
 			$sql .= "`raw` = $totalScore,";
 			// update credit and statut if needed ( score is better than raw_to_pass )
-			if ($row['raw_to_pass'] <= $newRaw)
+			if ( $newRaw >= $row['raw_to_pass'])
 			{
 				$sql .= "	`credit` = 'CREDIT',
 					 		`lesson_status` = 'PASSED',";
