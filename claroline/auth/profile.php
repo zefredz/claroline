@@ -656,9 +656,14 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
         </td>
     </tr>
     <tr>
-         <td></td>
+         <td align="right">
+            <label for="applyChange">
+                <?php echo $langSaveChanges?> : 
+            </label>
+         </td>
          <td>
-            <input type="submit" name="applyChange" value="<?php echo $langSaveChanges?>" >
+            <input type="submit" name="applyChange" id="applyChange" value="<?php echo $langOk?>" > 
+            <?php claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
         </td>
     </tr>
 </table>

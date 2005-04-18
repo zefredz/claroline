@@ -175,7 +175,8 @@ if ($wikiInGroup)
 ?>
 	<tr>
 		<td valign="top">
-			<input type="submit" name="properties" value="<?php echo $langOk ?>">
+			<input type="submit" name="properties" value="<?php echo $langOk ?>"> 
+             <?php claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
 		</td>
 	</tr>
 </table>

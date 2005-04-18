@@ -45,9 +45,13 @@ claro_disp_tool_title(array('mainTitle' => $langGroup,
 	</tr>
 	<tr>
 		<td>
+        <label for="creation">
+        <?php echo $langCreate ?>
+        </label>
 		</td>
 		<td>
-			<input type="submit" value=<?php echo $langCreate ?> name="creation">
+			<input type="submit" value=<?php echo $langOk ?> name="creation" id="creation"> 
+            <?php claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
 		</td>
 	</tr>
 </table>
