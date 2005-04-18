@@ -335,15 +335,19 @@ elseif($displayCourseAddResult)
 // Replace HTML special chars by equivalent - cannot use html_specialchars
 // Special for french
 
-	echo '<p>'."\n"
+  $dialogBox = "\n"
        . $langJustCreated
        . ' : ' 
        . '<strong>'
        . $currentCourseCode
-       . '</strong>'
-       . '<br /><br />'."\n\n"
-       ;
-
+       . '</strong>';
+       
+  if($dialogBox)
+  {
+      claro_disp_message_box($dialogBox);
+      echo "<br />";
+  }
+       
 	if ($_REQUEST['fromAdmin']!="yes")
 	{
 		echo '<a class="claroCmd" href="../../index.php">'.$langBackToMyCourseList.'</a>'; 
@@ -354,8 +358,6 @@ elseif($displayCourseAddResult)
 		   . '<a class="claroCmd" href="../admin/index.php">'.$langBackToAdmin.'</a>';
 	}
 
-	echo '</p>'."\n\n"
-         ;
 
 } // if all fields fulfilled
 
