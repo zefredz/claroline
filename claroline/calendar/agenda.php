@@ -361,7 +361,7 @@ if ($is_allowedToEdit)
 <td colspan="6"> 
 <?php claro_disp_html_area('contenu', $contenu, 12, 67, $optAttrib = ' wrap="virtual" '); ?>
 <br>
-<input class="claroButton" type="Submit" name="submitEvent" value="<?php echo $langOk ?>">
+<input class="claroButton" type="Submit" name="submitEvent" value="<?php echo $langOk ?>"> 
 <?php claro_disp_button($_SERVER['PHP_SELF'], 'Cancel'); ?>
 </td>
 
