@@ -903,11 +903,13 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
     {
         $htmlPropValue = $currentValue;
 
+        /* Default value  have  perhaps no sense to be display
+        As $htmlPropDefault is never set with this comment, I comment  his display below in the code
         if ( $currentValue != $property_def['default']) 
         {
             $htmlPropDefault = 'Default : ' . (empty($property_def['default'])?$langEmpty:$default_value);
         }
-
+        */
     } 
     else
     {
@@ -1104,12 +1106,12 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
         } // switch
 
         echo '</td><td>';
-
+        /*  this disabling is  commented  in $htmlPropDefault setting  100 lines before.
         if (!empty($htmlPropDefault))
         {
             echo '<small>(' . $htmlPropDefault . ' ' . $htmlUnit . ')</small> ';
         }
-
+        */
         if (!empty($htmlPropDesc))
         {
             echo '<em>' . $htmlPropDesc. '</em>';
