@@ -34,7 +34,7 @@ $nameTools        = $langAddAU;
 $interbredcrump[] = array ('url'=>'user.php', 'name'=> $langUsers);
 include('../inc/claro_init_header.inc.php');
 
-claro_disp_tool_title(array('mainTitle' =>$nameTools, 'subTitle' => $langUsers),
+claro_disp_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => $langUsers),
 				'help_user.php');
 
 $currentCourseID   = $_course['sysCode'];
@@ -418,7 +418,10 @@ else
 ?>
 <tr>
 <td>&nbsp;</td>
-<td><input type="submit" name="submit" value="<?php echo  $langOk ?>"></td>
+<td>
+<input type="submit" name="submit" value="<?php echo  $langOk ?>">
+<?php claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
+</td>
 </tr>
 </table>
 </form>

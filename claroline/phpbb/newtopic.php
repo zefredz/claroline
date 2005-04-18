@@ -177,8 +177,8 @@ else
 ?>
 </div>
 <input type="hidden" name="forum" value="<?php echo $forum?>">
-<input type="submit" name="submit" value="<?php echo $langSubmit?>">
-&nbsp;<input type="submit" name="cancel" value="<?php echo $l_cancelpost?>">
+<input type="submit" name="submit" value="<?php echo $langOk; ?>">
+&nbsp;<input type="submit" name="cancel" value="<?php echo $langCancel; ?>">
 
 </form>
 

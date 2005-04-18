@@ -154,8 +154,8 @@ else
 <input type="hidden" name="forum" value="<?php echo $forum?>">
 <input type="hidden" name="topic" value="<?php echo $topic?>">
 <input type="hidden" name="quote" value="<?php echo $quote?>">
-<input type="submit" name="submit" value="<?php echo $langSubmit?>">
-&nbsp;<input type="submit" name="cancel" value="<?php echo $l_cancelpost?>">
+<input type="submit" name="submit" value="<?php echo $langOk?>">
+&nbsp;<input type="submit" name="cancel" value="<?php echo $langCancel?>">
 </div>
 </form>
 
