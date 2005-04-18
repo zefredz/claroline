@@ -24,8 +24,8 @@ $conf_def['config_file']='course_main.conf.php';
 $conf_def['old_config_file'][]='add_course.conf.php';
 $conf_def['config_class']='course';
 
-$conf_def['section']['create']['label']='Course parameters';
-$conf_def['section']['create']['description']='These settings will be use whenever a user creates a new course';
+$conf_def['section']['create']['label']='Course main settings';
+$conf_def['section']['create']['description']='';
 $conf_def['section']['create']['properties'] = 
 array ( 'defaultVisibilityForANewCourse'
       , 'human_code_needed'
@@ -34,7 +34,8 @@ array ( 'defaultVisibilityForANewCourse'
       , 'extLinkNameNeeded'
       , 'extLinkUrlNeeded'
       , 'prefixAntiNumber'
-      , 'prefixAntiEmpty');
+      , 'prefixAntiEmpty'
+      , 'showLinkToDeleteThisCourse');
 
 $conf_def_property_list['defaultVisibilityForANewCourse'] = 
 array ('label'       => 'Default visibility for new course'
@@ -63,8 +64,8 @@ array ('label'       => 'Course code is'
       );
 
 $conf_def_property_list['human_label_needed'] = 
-array ('label'       => 'Course label (name) is'
-      ,'description' => 'User can leave course label (name) field empty or not'
+array ('label'       => 'Course Title is'
+      ,'description' => 'User can leave course title field empty or not'
       ,'default'     => TRUE
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE'=>'Required'
@@ -85,8 +86,8 @@ array ('label'       => 'Course email email is'
       );
 
 $conf_def_property_list['extLinkNameNeeded'] = 
-array ('label'       => 'Label of external Link is'
-      ,'description' => 'This name is show in top right of course banner'
+array ('label'       => 'External label'
+      ,'description' => 'This name is shown on the top right of course banner'
       ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
@@ -96,8 +97,8 @@ array ('label'       => 'Label of external Link is'
                               )
       );
 $conf_def_property_list['extLinkUrlNeeded'] = 
-array ('label'       => 'Url of external Link is Label of external Link'
-      ,'description' => 'This url is under the '
+array ('label'       => 'External Label (url)'
+      ,'description' => 'This url anchored into the external label '
       ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
@@ -126,14 +127,9 @@ array ('label'       => 'Prefix for empty code course'
 
 // Course Setting Section
 
-$conf_def['section']['links']['label']='Course settings';
-$conf_def['section']['links']['description']='These settings will be use whenever a user modify course settings';
-$conf_def['section']['links']['properties'] =
-array ( 'showLinkToDeleteThisCourse'
-      );
-
 $conf_def_property_list['showLinkToDeleteThisCourse']
-= array ('label'     => 'Allow course manager to delete course'
+= array ('label'     => 'Course removal allowed'
+        ,'description' => 'Allow course manager to delete their own courses'
         ,'default'   => TRUE
         ,'type'      => 'boolean'
         ,'container' => 'VAR'

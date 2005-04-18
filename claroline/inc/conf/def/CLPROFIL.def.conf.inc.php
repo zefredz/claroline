@@ -74,7 +74,7 @@ array ( 'SECURE_PASSWORD_REQUIRED'
       
 
 $conf_def_property_list['SECURE_PASSWORD_REQUIRED'] =
-array ('label'         => 'Check the fiability of password'
+array ('label'         => 'Check password strength'
       ,'description'   => 'Check if the password is not too much easy to find'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
