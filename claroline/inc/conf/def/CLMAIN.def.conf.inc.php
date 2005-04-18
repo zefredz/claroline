@@ -33,8 +33,8 @@ array ( 'siteName'
       , 'claro_stylesheet'
       );
 
-$conf_def['section']['ADMINISTRATOR_SETTING']['label']='Administrator';
-$conf_def['section']['ADMINISTRATOR_SETTING']['description']='Information about the technical administrator';
+$conf_def['section']['ADMINISTRATOR_SETTING']['label']='Technical contact';
+$conf_def['section']['ADMINISTRATOR_SETTING']['description']='These informations are displayed in each platform screen footer';
 $conf_def['section']['ADMINISTRATOR_SETTING']['properties'] =
 array ( 'administrator_name'
       , 'administrator_email'
@@ -51,8 +51,8 @@ array ( 'institution_name'
 $conf_def['section']['DISP_FILE_SYSTEM_SETTING']['label']='File system settings';
 $conf_def['section']['DISP_FILE_SYSTEM_SETTING']['properties'] =
 array ('rootWeb'
-      , 'urlAppend'
       , 'rootSys'
+      , 'urlAppend'
       , 'garbageRepositorySys'
       , 'clarolineRepositoryAppend'
       , 'coursesRepositoryAppend'
@@ -66,38 +66,32 @@ $conf_def['section']['DB_CONNECT_SETTING']['properties'] =
 array ( 'dbHost'
       , 'dbLogin'
       , 'dbPass'
-      );
-$conf_def['section']['DB_NAMES_SETTING']['label']= 'MySQL Names';
-$conf_def['section']['DB_NAMES_SETTING']['properties'] =
-array ( 'mainDbName'
+      , 'mainDbName'
       , 'statsDbName'
+      , 'singleDbEnabled'
       , 'mainTblPrefix'
       , 'statsTblPrefix'
-      );
-$conf_def['section']['DB_OTHER_SETTING']['label']= 'Db extended Settings';
-$conf_def['section']['DB_OTHER_SETTING']['properties'] =
-array ( 'dbNamePrefix'
-      , 'is_trackingEnabled'
-      , 'singleDbEnabled'
+      ,'dbNamePrefix'
       , 'dbGlu'
       , 'courseTablePrefix'
       );
 
 $conf_def['section']['advanced']['label']='Advanced settings';
 $conf_def['section']['advanced']['properties'] =
-array ( 'claro_texRendererUrl'
-      , 'mysqlRepositorySys'
-      , 'CLAROLANG'
+array ( 'mysqlRepositorySys'
       , 'userPasswordCrypted'
       , 'allowSelfReg'
+      , 'is_trackingEnabled'
+      ,'claro_texRendererUrl'
       , 'platform_id'
       , 'CLARO_DEBUG_MODE'
       , 'DEVEL_MODE'
+      , 'CLAROLANG'
       );
 
 
 $conf_def_property_list['dbHost'] =
-array ('label'       => 'Hostname'
+array ('label'       => 'Host name'
       ,'default'     => 'localhost'
       ,'type'        => 'string'
       ,'display'     => TRUE
@@ -107,13 +101,13 @@ array ('label'       => 'Hostname'
 
 
 $conf_def_property_list['dbLogin'] =
-array ('label'       => 'Username'
+array ('label'       => 'User account'
       ,'default'     => 'root'
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       ,'technicalInfo' => 'The login given by your administrator to connect on the mysql server'
-      ,'description' => 'The login given by your administrator to connect on the mysql server'
+      ,'description' => ''
       );
 
 
@@ -127,12 +121,12 @@ array ('label'       => 'Password'
       );
 
 $conf_def_property_list['dbNamePrefix'] =
-array ('label'       => 'Prefix for name of courses Database '
+array ('label'       => 'Prefix for course table  / db names'
       ,'default'     => 'c_'
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      ,'description' => 'This prefix let database group by sense if sort by name. '
+      ,'description' => 'This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office  '
       ,'technicalInfo' => 'Prefix all created base (for courses) with this string'
       );
 
@@ -142,11 +136,11 @@ array ('label'       => 'Main database name'
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      ,'description' => 'You probably don\'t must edit this value'
+      ,'description' => 'Change this setting only if it\'s absolutely required.'
       );
 
 $conf_def_property_list['mainTblPrefix'] =
-array ('label'       => 'Prefix for central tables'
+array ('label'       => 'Prefix for main table names'
       //,'description' => ''
       ,'default'     => ''
       ,'type'        => 'string'
@@ -156,8 +150,8 @@ array ('label'       => 'Prefix for central tables'
 
 
 $conf_def_property_list['statsDbName'] =
-array ( 'label'       => 'Database name where stored the tracking and stat tables'
-      , 'description' => 'can be the same name as main database'
+array ( 'label'       => 'Tracking database name'
+      , 'description' => 'This is where tracking and statistics data are stored. This database can be the same as the main database.'
       ,'default'     => 'claroline'
       , 'type'        => 'string'
       , 'display'     => TRUE
@@ -165,8 +159,8 @@ array ( 'label'       => 'Database name where stored the tracking and stat table
       );
 
 $conf_def_property_list['statsTblPrefix'] =
-array ( 'label'       => 'Prefix for name of tracking and stat tables'
-      , 'description' => 'can be the same prefix as main database'
+array ( 'label'       => 'Prefix for tracking table names'
+      , 'description' => ''
       , 'default'     => ''
       , 'type'        => 'string'
       , 'display'     => TRUE
@@ -181,10 +175,10 @@ array ('label'       => 'unique id of the platform'
       ,'display'     => FALSE
       ,'readonly'    => TRUE
       );
-      
+
 $conf_def_property_list['is_trackingEnabled'] =
 array ('label'       => 'Tracking'
-      ,'description' => 'Enable the log of activities (user and course access, course tool usage, ...) on the whole platform'
+      ,'description' => 'Log of user activities  on the whole platform (course access, tool use, ...).'
       ,'default'     => TRUE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
@@ -215,16 +209,16 @@ array ('label'       => 'db glu'
 
 $conf_def_property_list['courseTablePrefix'] =
 array ('label'       => 'Course name table prefix'
-      ,'description' => 'This  prefix is add to table names. It\'s usefull in single database to group courses tables.'
+      ,'description' => 'This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.'
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => TRUE
+      ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
 
 $conf_def_property_list['mysqlRepositorySys'] =
 array ('label'       => 'Mysql Base Path'
-      ,'description' => 'This is the physical path to databases storage. This path is  optional, use by the quota and size'
+      ,'description' => 'This is the physical path to databases storage. This path is  optional, use by the quota and size.'
       ,'default'     => ''
       ,'type'        => 'syspath'
       ,'display'     => FALSE
@@ -234,8 +228,8 @@ array ('label'       => 'Mysql Base Path'
 //paths
 
 $conf_def_property_list['rootWeb'] =
-array ('label'       => 'web base'
-      ,'description' => 'Absolute url of the entrance of claroline'
+array ('label'       => 'Platform web URL'
+      ,'description' => 'Exemple : http://www.yourdomaine.tld/mycampus/'
       ,'default'     => 'http://www.yourdomaine.tld/mycampus/'
       ,'type'        => 'urlpath'
       ,'display'     => TRUE
@@ -243,8 +237,8 @@ array ('label'       => 'web base'
       );
 
 $conf_def_property_list['urlAppend'] =
-array ('label'       => 'URL append'
-      ,'description' => 'relative path from the root of the website until the value of web base'
+array ('label'       => 'URL trail'
+      ,'description' => 'Common part of both parameters above.'
       ,'default'     => 'mycampus'
       ,'type'        => 'string'
       ,'display'     => TRUE
@@ -253,7 +247,8 @@ array ('label'       => 'URL append'
       );
 
 $conf_def_property_list['rootSys'] =
-array ('label'       => 'System Path to web base value'
+array ('label'       => 'Platform local path '
+      ,'description' => 'Relative to the complete platform url'
       ,'default'     => ''
       ,'type'        => 'syspath'
       ,'display'     => TRUE
@@ -263,7 +258,7 @@ array ('label'       => 'System Path to web base value'
 
 $conf_def_property_list['garbageRepositorySys'] =
 array ('label'       => 'Garbage'
-      ,'description' => 'absolute sys path to the place where are move data of a deleted course'
+      ,'description' => 'Absolute sys path to the place where are move data of a deleted course.'
       ,'default'     => ''
       ,'type'        => 'syspath'
       ,'display'     => FALSE
@@ -274,16 +269,16 @@ array ('label'       => 'Garbage'
 
 $conf_def_property_list['siteName'] =
 array ('label'       => 'Campus name'
-      ,'description' => 'Name of your campus'
-      ,'default'     => 'My Campus'
+      ,'description' => ''
+      ,'default'     => 'Claroline'
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
 
 $conf_def_property_list['platformLanguage'] =
-array ('label'         => 'Default Language'
-      ,'description'   => 'Select the default language of the platform'
+array ('label'         => 'Platform language'
+      ,'description'   => 'Set the default language of the platform.'."\n".'It doesn\'t prevent course managers to set an other language for each course they create.'
       ,'default'       => 'english'
       ,'type'          => 'lang'
       ,'display'       => TRUE
@@ -292,7 +287,7 @@ array ('label'         => 'Default Language'
 
 $conf_def_property_list['claro_stylesheet'] =
 array ('label'       => 'Layout'
-      ,'description' => 'Set the stylesheet layout'
+      ,'description' => 'Set the Cascading Style Sheet (CSS) layout.'
       ,'default'     => 'default.css'
       ,'type'        => 'css'
       ,'display'     => TRUE
@@ -300,8 +295,8 @@ array ('label'       => 'Layout'
       );
 
 $conf_def_property_list['CLAROLANG'] =
-array('label'         => 'Language Mode'
-     ,'description'   => 'Translation: use a single language file, Production: each script use its own language file'
+array('label'         => 'Language mode'
+     ,'description'   => 'Translation: use a single language file'."\n".'Production: each script use its own language file.'
      ,'default'       => 'PRODUCTION'
      ,'type'          => 'enum'
      ,'display'       => TRUE
@@ -316,7 +311,7 @@ array('label'         => 'Language Mode'
 
 $conf_def_property_list['administrator_name'] =
 array ('label'       => 'Name'
-      ,'description' => 'Complete name'
+      ,'description' => ''
       ,'default'     => ''
       ,'type'        => 'string'
       ,'display'     => TRUE
@@ -324,8 +319,8 @@ array ('label'       => 'Name'
       );
 
 $conf_def_property_list['administrator_email'] =
-array ('label'       => 'Email'
-      ,'description' => 'This email is the main contact address on the platform'
+array ('label'       => 'E-mail'
+      ,'description' => ''
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -340,15 +335,15 @@ array ('label'       => 'Phone'
 
 // Institution
 $conf_def_property_list['institution_name'] =
-array ('label'       => 'Name'
+array ('label'       => 'Organisation Name'
       ,'default'     => ''
-      ,'description' => 'Name displayed in the top banner'
+      ,'description' => 'Name displayed in the top banner.'
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
 $conf_def_property_list['institution_url'] =
-array ('label'       => 'URL'
+array ('label'       => 'Organisation - URL'
       ,'default'     => ''
       ,'type'        => 'string'
       ,'display'     => TRUE
@@ -358,7 +353,8 @@ array ('label'       => 'URL'
 // Latex
 
 $conf_def_property_list['claro_texRendererUrl'] =
-array ('label'       => 'The complete url of your TEX renderer'
+array ('label'       => 'Mathematical renderer URL'
+      ,'description' => 'This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'
        ,'technicalInfo' =>
 'Put above the complete url of your TEX renderer. This url doesn\'t have to be
  specially on the same server than Claroline.
@@ -386,20 +382,23 @@ array ('label'       => 'The complete url of your TEX renderer'
       );
 
 $conf_def_property_list['userPasswordCrypted'] =
-array ('label'       => 'By default Crypt passwords'
-      ,'technical'   => 'By default use claroCrypt as authType'
-      ,'default'     => FALSE
-      ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
+array ('label'         => 'Crypt passwords'
+      ,'technical'     => 'By default use claroCrypt as authType'
+      ,'default'       => FALSE
+      ,'type'          => 'boolean'
+      ,'display'       => TRUE
+      ,'readonly'      => FALSE
+      ,'acceptedValue' => array('TRUE' => 'Yes', 'FALSE' => 'No')
       );
 
 $conf_def_property_list['allowSelfReg'] =
-array ('label'       => 'User can subcribe it self to the platform'
-      ,'default'     => TRUE
-      ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
+array ('label'           => 'User account creation allowed'
+       ,'description'    => 'Can users create new accounts themselves ?'
+      ,'default'         => TRUE
+      ,'type'            => 'boolean'
+      ,'display'         => TRUE
+      ,'readonly'        => FALSE
+      ,'acceptedValue' => array('TRUE' => 'Yes', 'FALSE' => 'No')
       );
 
 ////for new login module
@@ -451,29 +450,31 @@ array ('label'        => 'relative path from claroline web to iconset'
 $conf_def_property_list['userImageRepositoryAppend'] =
 array ('label'        => 'relative path from root web to user pic repository'
       ,'type'        => 'relpath'
+      ,'display'     => FALSE
       ,'default'     => 'claroline/img/users/'
       );
 
 $conf_def_property_list['CLARO_DEBUG_MODE'] =
 array ('label'       => 'Debug mode'
-      ,'description' => 'More verbose when an error come'
+      ,'description' => 'More verbose when error occurs.'
       ,'type'        => 'boolean'
       ,'default'     => FALSE
       ,'container'   => 'CONST'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
+      , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
       
 $conf_def_property_list['DEVEL_MODE'] =
-array ('label'       => 'Development Mode'
-      ,'description' => 'Show link from public tools to sdk tools'
+array ('label'       => 'Development mode'
+      ,'description' => 'Add addtionnal tools in the SDK section of the platform administration.'
       ,'type'        => 'boolean'
       ,'default'     => FALSE
       ,'container'   => 'CONST'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      , acceptedValue => array ('TRUE'=>'ON : Use this to developp, never for production'
-                               ,'FALSE'=>'OFF : Normal Use')
+      ,'acceptedValue' => array ('TRUE'=>'On'
+                               ,'FALSE'=>'Off')
       );      
 
 
