@@ -670,9 +670,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 </form>
 </p>
 
-<p>
-    <hr noshade size="1">
-    <SPAN><a href="../tracking/personnalLog.php"><?php echo $langMyStats ?></a></SPAN>
+<p><a class="claroCmd" href="../tracking/personnalLog.php"><img src="<?php echo $clarolineRepositoryWeb ?>/img/statistics.gif"> <?php echo $langMyStats ?></a>
 <?php 
 	if (isset($can_request_course_creator_status) && $can_request_course_creator_status )
 	{
