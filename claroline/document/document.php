@@ -752,7 +752,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 		}
 		else
 		{
-			claro_mkdir($baseWorkDir.$_REQUEST['cwd'].'/'.$newDirName, 0700);
+			claro_mkdir($baseWorkDir.$_REQUEST['cwd'].'/'.$newDirName, 0777);
 			$dialogBox = $langDirCr;
 		}
 	}
