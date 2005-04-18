@@ -405,7 +405,6 @@ if (isset($cidToEdit))
 
 if($showLinkToDeleteThisCourse)
 {
-
 	if (isset($cidToEdit))
 	{
 	    $toAdd="?cidToEdit=".$current_cid;
@@ -413,9 +412,13 @@ if($showLinkToDeleteThisCourse)
 	}
 ?>
 
-<a class="claroCmd" href="delete_course.php<?php echo $toAdd ?>">
-<img src="<?php echo $imgRepositoryWeb ?>delete.gif">
+<a class="claroCmd" href="delete_course.php<?php echo $toAdd ?>"><img src="<?php echo $imgRepositoryWeb ?>delete.gif">
 <?php echo $langDelCourse; ?>
+</a> | 
+<a class="claroCmd" href="course_home_edit.php"><img src="<?php echo $imgRepositoryWeb ?>edit.gif"><?php echo $langEditToolList ?></a> | 
+<a class="claroCmd" href="<?php echo $clarolineRepositoryWeb ?>/tracking/courseLog.php">
+<img src="<?php echo $imgRepositoryWeb ?>statistics.gif" alt="">
+<?php echo $langStatistics ?>
 </a> | 
 <?php
 
@@ -424,7 +427,7 @@ if($showLinkToDeleteThisCourse)
 	echo "<a class=\"claroCmd\" href=\"".$coursesRepositoryWeb.$currentCourseRepository."/index.php?\">".$langHome."</a>";
 
 
-	if($is_platformAdmin && isset($_REQUEST['cidToEdit']))
+	if( $is_platformAdmin && isset($_REQUEST['cidToEdit']) )
 	{
 		echo " |
 		<a class=\"claroCmd\" href=\"../admin/index.php\">".$langBackToAdmin."</a>";
