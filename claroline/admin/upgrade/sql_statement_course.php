@@ -119,11 +119,17 @@ SET `id` = 1,
  * Upgrade assignments
  */
 
-$sqlForUpdate[] = "";  
 $sqlForUpdate[] = "INSERT IGNORE INTO `".$currentCourseDbNameGlu."wrk_submission`
  (assignment_id,user_id,title,visibility,authors,submitted_text,submitted_doc_path)
- SELECT 1, ".$teacher_uid .", titre, IF(accepted,'VISIBLE','INVISIBLE'), auteurs, description, url 
+ SELECT 1, '". $teacher_uid ."', titre, IF(accepted,'VISIBLE','INVISIBLE'), auteurs, description, url 
     FROM `".$currentCourseDbNameGlu."assignment_doc`";  
+
+/**
+ * Upgrade groups
+ */
+
+$sqlForUpdate[] = "RENAME TABLE `".$currentCourseDbNameGlu."properties` TO `".$currentCourseDbNameGlu."property`";
+
 
 /**
  * Drop deprecated assignment_doc
