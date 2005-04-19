@@ -413,7 +413,7 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
             }
             else
             {
-                 if ( ! mkdir($dirTrail , $mode) ) return false;
+                 if ( ! @mkdir($dirTrail , $mode) ) return false;
             }
 
         }
