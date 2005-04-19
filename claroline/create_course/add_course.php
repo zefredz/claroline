@@ -1,13 +1,9 @@
 <?php // $Id$
 /**
- *
- * CLAROLINE 1.6
- *
- * @copyright 2001, 2005 Universite catholique de Louvain (UCL)      |
+ * CLAROLINE 
  *
  * COURSE SITE CREATION TOOL
- * GOALS
- * *******
+ *
  * Allow professors and administrative staff to create course sites.
  * This big script makes, basically, 6 things:
  *     1. Create a database whose name=course code (sort of course id)
@@ -17,29 +13,43 @@
  *     5. Check whether the course code is not already taken.
  *     6. Associate the current user id with the course in order to let 
  *        him administer it.
-
-List of Events
-	- can't create course
-		show displayNotForU and exit
-
-List  of  views
-	- displayNotForU
-		the  user  is not allowed to  use this script
-	- displayCoursePropertiesForm
-		User  can enter/edit  parameter  for the  new  course. If  they use an archive,
-		value are proposed but can be edited
-	- displayCourseAddResult
-		New course is added.  Show  success message.
+ * 
+ * List of Events
+ * 	- can't create course
+ * 		show displayNotForU and exit
+ * 
+ * List  of  views
+ * 	- displayNotForU
+ * 		the  user  is not allowed to  use this script
+ * 	- displayCoursePropertiesForm
+ * 		User  can enter/edit  parameter  for the  new  course. If  they use an archive,
+ * 		value are proposed but can be edited
+ * 	- displayCourseAddResult
+ * 		New course is added.  Show  success message.
+ *
+ * @version 1.6 $Revision$
+ * 
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/config_def/
+ *
+ * @package COURSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
 require '../inc/claro_init_global.inc.php';
 
 //// Config tool
-include($includePath."/conf/course_main.conf.php");
+include($includePath.'/conf/course_main.conf.php');
 //// LIBS
 
-include($includePath."/lib/add_course.lib.inc.php");
-include($includePath."/lib/course.lib.inc.php");
-include($includePath."/lib/fileManage.lib.php");
+include($includePath.'/lib/add_course.lib.inc.php');
+include($includePath.'/lib/course.lib.inc.php');
+include($includePath.'/lib/fileManage.lib.php');
 
 $nameTools = $langCreateSite;
 
@@ -108,7 +118,9 @@ else
 		$newcourse_titulars	= strip_tags($_REQUEST['titulaires'    ]);
 		$newcourse_email 	= strip_tags($_REQUEST['email'         ]);
 		
-		$okToCreate = true;
+		//$wantedCode = $wantedCode.' '.date('Y');
+		
+		$okToCreate = TRUE;
 		/////CHECK DATA
 		
 		// LABEL (Previously called intitule

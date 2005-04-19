@@ -35,7 +35,9 @@ array ( 'defaultVisibilityForANewCourse'
       , 'extLinkUrlNeeded'
       , 'prefixAntiNumber'
       , 'prefixAntiEmpty'
-      , 'showLinkToDeleteThisCourse');
+      , 'showLinkToDeleteThisCourse'
+      , 'nbCharFinalSuffix'
+      );
 
 $conf_def_property_list['defaultVisibilityForANewCourse'] = 
 array ('label'       => 'Default visibility for new course'
@@ -123,6 +125,17 @@ array ('label'       => 'Prefix for empty code course'
       ,'display'     => FALSE
       ,'readonly'    => TRUE
       ,'type'        => 'string'
+      );
+
+$conf_def_property_list['nbCharFinalSuffix'] = 
+array ('label'       => 'Lenght of course code suffix'
+      ,'technicalInfo'=> 'Lenght of suffix added when key is already exist'
+      ,'default'     => 3
+      ,'display'     => FALSE
+      ,'readonly'    => TRUE
+      ,'type'        => 'integer'
+      ,'acceptedValue' => array ('min'=> 1
+                                ,'max'=> 10)
       );
 
 // Course Setting Section

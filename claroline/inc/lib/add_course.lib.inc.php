@@ -1,48 +1,79 @@
 <?php // $Id$
 /**
+ * CLAROLINE
+ *
  * add_course lib contain function to add a course
  * add is, find keys names aivailable, build the the course database
  * fill the course database, build the content directorys, build the index page
  * build the directory tree, register the course.
+ *
+ * @version 1.6 $Revision$
+ * 
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/config_def/
+ *
+ * @package COURSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
+
 
 /**
  * with  the WantedCode we can define the 4 keys  to find courses datas
- * @param string prefix //  prefix added  for ALL keys
+ *
+ * @param $wantedCode initial model
+ * @param $prefix4all      string prefix added  for ALL keys 
+ * @param $prefix4baseName string prefix added  for basename key (after the $prefix4all)
+ * @param $prefix4path     string prefix added  for repository key (after the $prefix4all)
+ * @param $addUniquePrefix boolean prefix randomly generated prepend to model
+ * @param $useCodeInDepedentKeys boolean  whether not ignore $wantedCode param. If FALSE use an empty model.
+ * @param $addUniqueSuffix boolean Suffix randomly generated append to model
+ * @param $suffix4baseName string suffix added  for db key (prepend to $suffix4all)
+ * @param $suffix4path     string suffix added  for repository key (prepend to $suffix4all)
+ * @param $suffix4all      string suffix added  for ALL keys 
+ * @return array 
+ * - ["currentCourseCode"] 			: Must be alphaNumeric and outputable in HTML System
+ * - ["currentCourseId"]			: Must be unique in mainDb.course it's the primary key
+ * - ["currentCourseDbName"]		: Must be unique it's the database name.
+ * - ["currentCourseRepository"]	: Must be unique in /$coursesRepositories/
+ * 
+ * @todo actually if suffix is not unique  the next append and not  replace
+ * @todo add param listing keyg wich wouldbe identical
+ * @todo manage an error on brake for too many try
+ * @todo $keysCourseCode is always 
  */
 
-function define_course_keys ($wantedCode,          $prefix4all="",
-                             $prefix4baseName ="", $prefix4path="",
-							 $addUniquePrefix = false,
-							 $useCodeInDepedentKeys = TRUE	)
+function define_course_keys ($wantedCode,          
+                             $prefix4all = '',
+                             $prefix4baseName = '', 
+                             $prefix4path = '',
+							 $addUniquePrefix = FALSE,
+							 $useCodeInDepedentKeys = TRUE,
+							 $addUniqueSuffix = FALSE,
+                             $suffix4baseName ='', 
+                             $suffix4path = '',          
+							 $suffix4all = ''
+							 )
 {
-	// What do better :
-	// actually if suffix is not unique   the next append and not  replace
-	/*
- * DB tables definition
- */
-
 	$tbl_mdb_names = claro_sql_get_main_tbl();
 	$tbl_course    = $tbl_mdb_names['course'           ];
 
-	GLOBAL $coursesRepositories,$prefixAntiNumber,$prefixAntiEmpty,$DEBUG;
+	GLOBAL $coursesRepositories,$prefixAntiNumber,$prefixAntiEmpty,$nbCharFinalSuffix,$DEBUG;
 
-	$nbCharFinalSuffix = 4 ; // Number of car to add on end of key
+	if ( !isset($nbCharFinalSuffix)
+	   ||!is_numeric($nbCharFinalSuffix) 
+	   || $nbCharFinalSuffix < 1
+	   )
+	$nbCharFinalSuffix = 2 ; // Number of car to add on end of key
 
 	if ($coursesRepositories == "")
 	{
 	};
-/*
-	When  need to compute 4 keys
-	Public
-	$keys["currentCourseCode"] 			: Must be alphaNumeric and outputable in HTML
-	System
-	$keys["currentCourseId"]			: Must be unique in mainDb.course it's the primary key
-	$keys["currentCourseDbName"]		: Must be unique it's the database name.
-	$keys["currentCourseRepository"]	: Must be unique in /$coursesRepositories/
-
-	if  $useWantedCodeInDepedentKeys = true is used in systems keys
-*/
 
 	// $keys["currentCourseCode"] is the "public code"
 
@@ -50,7 +81,9 @@ function define_course_keys ($wantedCode,          $prefix4all="",
 	"ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ",
 	"AAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy");
 
-	$wantedCode = ereg_replace("[^A-Z0-9]","",strtoupper($wantedCode));
+	$wantedCode = strtoupper($wantedCode);
+	$wantedCode = ereg_replace("[- ]","_",$wantedCode);
+	$wantedCode = ereg_replace("[^A-Z0-9_]","",$wantedCode);
 
 	if ($wantedCode=="") $wantedCode = $prefixAntiEmpty;
 
