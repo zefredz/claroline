@@ -161,11 +161,17 @@ if($dialogBox)
 
 //TOOL LINKS
 
-echo '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'admin/admin_class_register.php?class='.$classinfo['id'].'">'.$langClassRegisterUser.'</a>'
+echo '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'admin/admin_class_register.php?class='.$classinfo['id'].'">'
+   . '<img src="'.$imgRepositoryWeb.'enroll.gif" border="0"/> '
+   .$langClassRegisterUser.'</a>'
    . ' | '
-   . '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php?cmd=rqReg&amp;fromAdmin=class&amp;uidToEdit=-1&amp;category=">'.$langClassRegisterWholeClass.'</a>'
+   . '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php?cmd=rqReg&amp;fromAdmin=class&amp;uidToEdit=-1&amp;category=">'
+   .'<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" /> '
+   .$langClassRegisterWholeClass.'</a>'
    . ' | '
-   . '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'user/AddCSVusers.php?AddType=adminClassTool">'.$langAddCSVUsersInClass.'</a><br><br>'
+   . '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'user/AddCSVusers.php?AddType=adminClassTool">'
+   .'<img src="'.$imgRepositoryWeb.'importlist.gif" border="0" /> '
+   .$langAddCSVUsersInClass.'</a><br><br>'
    ;
 
    //Pager
