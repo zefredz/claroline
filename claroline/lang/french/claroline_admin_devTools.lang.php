@@ -1,7 +1,7 @@
 <?php
 $langAddIntro = "Ajouter un texte d'introduction";
 $langAdd_users = "Ajouter une série d'utilisateurs";
-$langAddedToCreator = "Page d'acceuil du cours";
+$langAddedToCreator = "Page d'accueil du cours";
 $langAdmin = "Admin";
 $langAdministration = "Administration";
 $langAdmitError = "Reconnaître ses erreurs pour inviter son interlocuteur à faire de même.";
@@ -32,7 +32,7 @@ $langExerciceEx = "Exemple d\'exercice";
 $langExercises = "Exercices";
 $langFillCourses = "Créer des cours de test";
 $langFillTree = "Inserer des catégories/faculté dans l'arbre";
-$langFillUsers = "Inserer des Utilisateurs";
+$langFillUsers = "Insérer des Utilisateurs";
 $langFilling = "Remplissage de la base avec des valeur test";
 $langFirstName = "Prénom";
 $langForce = "Contraindre son interlocuteur, par une série de questions et de sous-questions, à reconnaître qu\'il ne connaît pas ce qu\'il prétend connaître.";
@@ -101,7 +101,6 @@ $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votr
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
 $lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
-$lang_no_access_here = "Pas d'accès ";
 $lang_p_platformManager = "Administrateur %s";
 $lang_this_course_is_protected = "Ce cours est protégé";
 $lang_you_had_request = "Vous aviez demandé";

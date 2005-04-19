@@ -4,6 +4,7 @@ $langAddTutors = "Gérer la liste des tuteurs";
 $langAdminsOfThisCours = "Gestionnaires de ce cours";
 $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
+$langCancel = "Annuler";
 $langChat = "Discussion";
 $langConfirmDeleteGroups = "Etes-vous sûr de vouloir supprimer tous les groupes ?";
 $langConfirmEmptyGroups = "Êtes vous sûr de vouloir vider tous les groupes ?";

@@ -84,6 +84,7 @@ $langMailSynthaxError = "Erreur de synthaxe dans l'e-mail.";
 $langMailUsed = "L'e-mail est déjà utilisée par un autre utilisateur.";
 $langManager = "Gestionnaire";
 $langModify = "Modifier";
+$langModifyFormat = "Modifier le format";
 $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
 $langMoveDown = "Descendre";

@@ -103,7 +103,6 @@ $lang_enter_your_user_name_and_password = "Enter your user name and password";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
 $lang_if_you_wish_to_enroll_to_this_course = "If you wish to enrol on this course";
-$lang_no_access_here = "No way";
 $lang_p_platformManager = "Administrator for %s";
 $lang_this_course_is_protected = "This course is protected";
 $lang_you_had_request = "You ask";

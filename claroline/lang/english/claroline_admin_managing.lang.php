@@ -61,7 +61,6 @@ $langViewMode = "View mode";
 $langWork = "Assignments";
 $lang_EditFile_AdministrationTools = "Administration Tools";
 $lang_EditFile_ModifyOk = "Th changes have been carried out correctly";
-$lang_EditFile_NoAdmin = "You are not logged in as administrator";
 $lang_click_here = "click here";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";
 $lang_footer_p_CourseManager = "Manager(s) for %s";

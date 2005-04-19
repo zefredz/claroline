@@ -61,7 +61,6 @@ $langViewMode = "Mode de vue";
 $langWork = "Travaux";
 $lang_EditFile_AdministrationTools = "Outil d'administration";
 $lang_EditFile_ModifyOk = "Les changements ont été effectués correctement";
-$lang_EditFile_NoAdmin = "Vous n'êtes pas identifié en tant qu'administrateur";
 $lang_click_here = "cliquez ici";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";

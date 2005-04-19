@@ -4,6 +4,7 @@ $langAddTutors = "Admin users list";
 $langAdminsOfThisCours = "manager of the course";
 $langAgenda = "Agenda";
 $langAnnouncement = "Announcements";
+$langCancel = "Cancel";
 $langChat = "Chat";
 $langConfirmDeleteGroups = "Are you sure you want to delete all groups ?";
 $langConfirmEmptyGroups = "Are you sure you want to empty all groups ?";
@@ -59,8 +60,8 @@ $langGroupTooMuchMembers = "Number proposed exceeds max. that you allowed (you c
 
                 Group composition has not been modified";
 $langGroupTools = "Tools";
-$langGroupTutor = "Tutor";
-$langGroupTutors = "Tutors";
+$langGroupTutor = "Group Tutor";
+$langGroupTutors = "Group Tutors";
 $langGroupUsersList = "See <a href=../user/user.php>Users</a>";
 $langGroups = "Groups";
 $langGroupsAdded = "group(s) has (have) been added";

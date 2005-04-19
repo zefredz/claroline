@@ -3,7 +3,6 @@ $l_author = "Auteur";
 $l_banned = "Vous avez été banni de ce forum. Contactez l'administrateur système si vous avez des questions.";
 $l_body = "Message";
 $l_by = "par";
-$l_cancelpost = "Annuler ce message";
 $l_click = "Cliquez";
 $l_delete = "Effacer ce message";
 $l_deleted = "Votre Message a été effacé.";
@@ -37,7 +36,7 @@ $l_notopics = "Il n'y a pas de sujet sur ce forum. Vous pouvez en poster un.";
 $l_posted = "Posté le";
 $l_poster = "Initiateur";
 $l_posts = "Messages";
-$l_privnotify = "<br>Vous avez %1\$s <a href=\"%2\$s\">nouveau(x) message(s) privée(s)</a>.";
+$l_privnotify = "<br>Vous avez %1\$s <a href=\"%2\$s\">nouveau(x) message(s) privé(s)</a>.";
 $l_quotemsg = "[quote]
 Le %1\$s, %2\$s a écrit:
 %3\$s
@@ -60,6 +59,7 @@ $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
 $langBack = "Retour";
 $langBackTo = "Retourner dans : ";
+$langCancel = "Annuler";
 $langChat = "Discussion";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCourseHome = "Accueil";
