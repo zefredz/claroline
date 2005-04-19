@@ -486,7 +486,40 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 
  03...</p>
 
-<p>You can :</p>
+<hr />
+
+You can change view mode and use Image Viewer :
+
+<h4>Change View Mode</h4>
+
+<ul>
+        <li>Default mode is FileList</li>
+
+        <li>Switch to Thumbnails mode by clicking on <b>Thumbnails</b>
+        on the right in the document dirctory toolbar</li>
+
+        <li>Switch to FileList mode by clicking on <b>File List</b>
+        on the right in the document dirctory toolbar</li>
+
+</ul>
+
+<h4>Use image viewer</h4>
+
+<ul>
+        <li><b>Open</b> Image Viewer by clicking on an image name in FileList mode
+        or on an image thumbnails in Thumbnails Mode</li>
+
+        <li><b>Close</b> Image Viewer by clicking on <b>Thumbnails</b> or File List on the right
+        in the directory toolbar</li>
+
+        <li>Go to next or previous image y clicking on its name or its thumbnails
+        in the Image Viewer toolbar</li>
+
+</ul>
+
+<hr />
+
+You can manage documents :
 
 <h4>Upload a document</h4>
 
