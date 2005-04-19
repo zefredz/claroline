@@ -88,7 +88,6 @@ if (isset($_REQUEST['cmd']) && $_REQUEST['cmd']=='run')
      */
 
     include('./sql_statement_main_db.php');
-    include('./repair_tables.php');
 
     /**
      * Upgrade Tracking
@@ -97,7 +96,6 @@ if (isset($_REQUEST['cmd']) && $_REQUEST['cmd']=='run')
     if ($is_trackingEnabled)
     {
 		include('./sql_statement_tracking.php');
-		include('./repair_tables.php');
 	}
 
     $accepted_error_list = array(1060,1062,1091,1054);
