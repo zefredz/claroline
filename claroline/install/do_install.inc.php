@@ -251,7 +251,7 @@ $urlAppend          = "'.$urlAppendPath.'";
 $rootSys            = "'.$rootSys.'" ;
 
 /* CLAROLANG : Translation: use a single language file, Production: each script use its own language file */
-define("CLAROLANG","TRANSLATION");
+define("CLAROLANG","PRODUCTION");
 
 // MYSQL
 $dbHost             = "'.$dbHostForm.'";
