@@ -182,7 +182,7 @@ $garbageRepositorySys   = str_replace("\\","/",realpath($clarolineRepositorySys)
 //$urlAppendPath = ereg_replace ("claroline/install/index.php", "", $_SERVER['PHP_SELF']);
 
 // here I want find  something to get garbage out of documentRoot
-
+include_once('../inc/conf/def/CLMAIN.def.conf.inc.php');
 
 $fd=@fopen($configFilePath, "w");
 if (!$fd)
@@ -251,7 +251,7 @@ $urlAppend          = "'.$urlAppendPath.'";
 $rootSys            = "'.$rootSys.'" ;
 
 /* CLAROLANG : Translation: use a single language file, Production: each script use its own language file */
-define("CLAROLANG","PRODUCTION");
+define("CLAROLANG","'.$conf_def_property_list['CLAROLANG']['default'].'");
 
 // MYSQL
 $dbHost             = "'.$dbHostForm.'";
