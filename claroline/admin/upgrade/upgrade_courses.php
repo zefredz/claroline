@@ -298,6 +298,10 @@ switch ($display)
             $teacher = claro_sql_fetch_all($res_id_of_one_teacher);
 
             $teacher_uid = $teacher[0]['uid'];
+            if (!is_numeric($teacher_uid))
+            $teacher_uid = $_uid;
+            if (!is_numeric($teacher_uid))
+            $teacher_uid = 0;
             echo  '<p>'
                 . sprintf("<strong>%1\$s. </strong>Upgrading database of course <strong>%2\$s</strong> - DB Name : %3\$s - Course ID: %4\$s", 
                           $count_course_upgraded, $currentCourseCode, $currentCourseDbName, $currentCourseIDsys);
