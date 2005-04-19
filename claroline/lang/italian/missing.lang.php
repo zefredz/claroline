@@ -1,6 +1,7 @@
 <?php 
 $langAddMyCampusOnClarolineNet = "Add my campus on Claroline.net website";
 $langAddedToCreator = "Course Home";
+$langAuthentication = "Authentication";
 $langBuildEmptyLangFile = "Empty language file";
 $langCampusAlreadyRegistered = "It seems that you already have registered your campus.";
 $langCampusDeleted = "<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>";
@@ -8,9 +9,11 @@ $langCampusRegistered = "<strong>Approved</strong><p>Your campus registration ha
 $langCampusRegistrationSubmitted = "Your campus has been submitted and is waiting to be validate by Claroline.net team";
 $langCampusRemoved = "<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>";
 $langCampusSubmitted = "<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>";
+$langConfigurationFile = "Configuration file";
 $langContent = "Content";
 $langCountry = "Country";
 $langCountryCodeError = "Country code seems to be incorrect.";
+$langCreateUserAccount = "Create user account";
 $langCurrentStatus = "Current registration status : <br /> <br />
 ";
 $langDescAdded = "Description added.";
@@ -40,10 +43,13 @@ $langForumDeleted = "Forum deleted";
 $langFree = "Free";
 $langInstitution = "Institution";
 $langInstitutionUrl = "Institution URL";
+$langModifyFormat = "Modify the format";
+$langMultipleAnswers = "Multiple answers";
 $langMustSelectAFile = "You must select a file";
 $langMustSelectATxtFile = "You must select a text file";
 $langMyResults = "My results";
 $langNoImage = "No image to display";
+$langNoVisibleAssignment = "There is no visible assignment at the moment.";
 $langNoVisibleSubmission = "No visible submission";
 $langPrivateFeedback = "Private feedback";
 $langPropertiesNotIncludeInSections = "Properties not include in sections";
@@ -52,15 +58,21 @@ A web accessible url is required to register your site on Claroline.net.<br /><b
 Check the value of 'Web base' in your Claroline configuration.";
 $langRegisterMyCampus = "Register my campus";
 $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Request to the coder of this config to add theses proporties in a section of the definition file.";
+$langSearchResult = "Search result";
 $langSiteName = "Site name";
+$langStartAgain = "Start again";
 $langSubmissions = "Submissions";
 $langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "Disable text editor";
 $langTextEditorEnable = "Enable text editor";
 $langThisIsAnErrorInDefinitionFile = "This is an error in definition file.";
 $langThumbnails = "Thumbnails";
+$langTrackAllPath = "Learning paths tracking";
+$langTrackAllPathExplanation = "Progression of users on all learning paths";
 $langUnableDescToAdd = "Unable to add description";
+$langUniqueAnswer = "Unique answer";
 $langUnkownSOAPError = "An error occurred while contacting Claroline.net";
+$langUpgradeSucceed = "The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.";
 $lang_p_ErrorOnBuild_S_for_S = "Error in building of <em>%s</em> for <B>%s</B>";
 $lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
 $lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
