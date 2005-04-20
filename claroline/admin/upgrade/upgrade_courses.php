@@ -32,7 +32,8 @@ if (!$is_platformAdmin) claro_disp_auth_form();
   Include version file and initialize variables
  ---------------------------------------------------------------------*/
 if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
-require ($includePath."/installedVersion.inc.php");
+require ($includePath.'/installedVersion.inc.php');
+require_once($includePath.'/lib/claro_main.lib.php');
 
 /**#@+
  * DB tables definition
@@ -49,7 +50,7 @@ $tbl_rel_course_user   = $tbl_mdb_names['rel_course_user'];
 
 if (!function_exists(mysql_info)) 
 {
-    function mysql_info() {return "";} // mysql_info is used in verbose mode
+    function mysql_info() {return '';} // mysql_info is used in verbose mode
 }
                 
 /**
@@ -72,8 +73,8 @@ $accepted_error_list = array(1017,1050,1054,1060,1062,1065,1146);
  * Displays flags
  * Using __LINE__ to have an arbitrary value
  */
-DEFINE ("DISPLAY_WELCOME_PANEL", __LINE__ );
-DEFINE ("DISPLAY_RESULT_PANEL", __LINE__);
+DEFINE ('DISPLAY_WELCOME_PANEL', __LINE__ );
+DEFINE ('DISPLAY_RESULT_PANEL', __LINE__);
 /**#@-*/
 
 /*=====================================================================
@@ -90,7 +91,7 @@ else
 }
 
 // Get start time
-$mtime = microtime();$mtime = explode(" ",$mtime);$mtime = $mtime[1] + $mtime[0];$starttime = $mtime;$steptime =$starttime;
+$mtime = microtime();$mtime = explode(' ',$mtime);$mtime = $mtime[1] + $mtime[0];$starttime = $mtime;$steptime =$starttime;
 
 // force upgrade for debug
 if ( isset($_REQUEST['forceUpgrade']) ) $versionDb = md5 (uniqid (rand())); // for debug
@@ -105,7 +106,7 @@ $count_course = 0; $count_course_error = 0; $count_course_upgraded = 0;
 
 $sql = "SELECT versionDb, versionClaro, count(*) as count_course 
         FROM `" . $tbl_course . "`
-        GROUP BY versionDb ";
+        GROUP BY versionDb , versionClaro";
 
 $result = claro_sql_query($sql);
 
@@ -168,20 +169,20 @@ if ( $display == DISPLAY_RESULT_PANEL && ($count_course_upgraded + $count_course
 
 <center>
 
-<table cellpadding="10" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
+<table cellpadding="10" cellspacing="0" border="0" width='650' bgcolor='#E6E6E6'>
 <tbody>
-<tr bgcolor="navy">
-<td valign="top" align="left">
-<div id="header">
+<tr bgcolor='navy'>
+<td valign='top' align='left'>
+<div id='header'>
 <?php
-    echo sprintf("<h1>Claroline (%s) - upgrade</h1>",$clarolineVersion);
+    echo sprintf('<h1>Claroline (%s) - upgrade</h1>', $clarolineVersion);
 ?>
 </div>
 </td>
 </tr>
-<tr valign="top" align="left">
+<tr valign='top' align='left'>
 <td>
-<div id="content">
+<div id='content'>
 <?php 
 
 /*---------------------------------------------------------------------
@@ -289,7 +290,8 @@ switch ($display)
             $currentCourseDbNameGlu = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
         
             $count_course_upgraded++;
-            $count_error = 0;
+            $db_error_counter = 0;
+            $fs_error_counter = 0;
             $sql_get_id_of_one_teacher = "SELECT `user_id` `uid` FROM `". $tbl_rel_course_user . "` "
                                . " WHERE `code_cours` = '".$currentCourseIDsys."' LIMIT 1";
             
@@ -299,13 +301,21 @@ switch ($display)
 
             $teacher_uid = $teacher[0]['uid'];
             if (!is_numeric($teacher_uid))
-            $teacher_uid = $_uid;
-            if (!is_numeric($teacher_uid))
-            $teacher_uid = 0;
+            {
+                $teacher_uid = $_uid;
+                if (!is_numeric($teacher_uid))
+                $teacher_uid = 0;
+                $sql_set_teacher = "INSERT INTO `". $tbl_rel_course_user . "`  
+                                              SET `user_id` = '".$teacher_uid."'
+                                               ,  `code_cours` = '".$currentCourseIDsys."'
+                                               ,  `role` = 'Course missing manager';";
+                claro_sql_query($sql_set_teacher);
+                $checkjob ='<p class="error">Course '.$currentCourseCode.' has no teacher, you are enrolled in as course manager. </p>' . "\n";
+            }
             echo  '<p>'
                 . sprintf("<strong>%1\$s. </strong>Upgrading database of course <strong>%2\$s</strong> - DB Name : %3\$s - Course ID: %4\$s", 
                           $count_course_upgraded, $currentCourseCode, $currentCourseDbName, $currentCourseIDsys);
-                
+            echo $checkjob;    
             echo '<ol>' . "\n";
             
             /*
@@ -326,7 +336,7 @@ switch ($display)
             while ( list($key,$sqlTodo) = each($sqlForUpdate) )
             {
                 $res = mysql_query($sqlTodo);
-                if ($verbose)
+                if ($_REQUEST['verbose']) // verbose is set when user retry upgrade
                 {
                     echo '<li>' . "\n";
                     echo '<p class="tt"><strong>' . $currentCourseDbName. ':</strong>' . $sqlTodo .  '</p>' . "\n";
@@ -340,20 +350,20 @@ switch ($display)
                 
                 if ( mysql_errno() > 0 && !in_array(mysql_errno(),$accepted_error_list) )
                 {
-                    ++$count_error;
+                    ++$db_error_counter;
                     echo '<p class="error">'
-                       . '<strong>' . $count_error . '</strong> '
+                       . '<strong>' . $db_error_counter . '</strong> '
                        . '<strong>n°: ' . mysql_errno() . '</strong> : ' . mysql_error() . ' ' . $currentCourseDbName . ':' . $sqlTodo
                        . '</p>';
                 }
             }
             echo '</ol>';
 
-            if ( $count_error>0 )
+            if ( $db_error_counter > 0 )
             {
-                echo '<p class="error"><strong>' . $count_error . ' errors found</strong></p>';
+                echo '<p class="error"><strong>' . $db_error_counter . ' errors found</strong></p>';
 
-                $count_error_total += $count_error;
+                $count_error_total += $db_error_counter;
                 
                 /*
                  * Error: set versionDB of course to error
@@ -394,7 +404,7 @@ switch ($display)
             {   
                 if ( ! @rename($currentcoursePathSys.'image',$currentcoursePathSys.'exercise') )
                 {
-                    $count_error++;
+                    $fs_error_counter++;
                     echo '<p class="error">'
                        . '<strong>' . sprintf('Cannot rename %s in %s',$currentcoursePathSys.'/image',$currentcoursePathSys.'/exercise') . '</strong> '
                        . '</p>';
@@ -404,16 +414,27 @@ switch ($display)
             {
                 if ( !@mkdir($currentcoursePathSys.'exercise', 0777) )
                 {
-                    $count_error++;
+                    $fs_error_counter++;
                     echo '<p class="error">'
                        . '<strong>' . sprintf('Cannot create %s',$currentcoursePathSys.'exercise') . '</strong> '
                        . '</p>';
                 }
             }
             
-            if ( $count_error>0 )
+            if ( $fs_error_counter > 0 )
             {
-                $count_error_total += $count_error;
+                $count_error_total += $fs_error_counter;
+                $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
+                                    SET versionClaro='error'
+                                    WHERE code = '".$currentCourseIDsys."'";                
+                $res = @mysql_query($sqlFlagUpgrade);
+                
+                if (mysql_errno() > 0)
+                {
+                    echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
+                    echo '<p>' . $sqlFlagUpgrade . '</p>';
+                }
+
             }
             else
             {
@@ -423,6 +444,7 @@ switch ($display)
                 $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
                                     SET versionClaro='".$versionDb."'
                                     WHERE code = '".$currentCourseIDsys."'";                
+                
                 $res = @mysql_query($sqlFlagUpgrade);
                 if (mysql_errno() > 0)
                 {
@@ -446,7 +468,7 @@ switch ($display)
                                           ,$leftTime
                                          );
 
-            if ($count_error==0)
+            if ($db_error_counter== 0 && $fs_error_counter == 0)
             {
                 echo '<p class="success">Upgrade Ok - ' . $str_execution_time . '</p>';
             }
