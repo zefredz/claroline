@@ -1,72 +1,70 @@
 <?php # $Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6.*
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
 /**
+ * Claroline
  * SHUFFLE COURSE SITE CREATION TOOL
- * GOALS
- * *******
-
-// Créateur de cours bidon pour les tests
-// fake course creator to test
-
-// create nc courses
-// insert between smin and smax students
-// insert between pmin and pmax courses admins
-
- * ******************************************************************
+ * Créateur de cours bidon pour les tests
+ * fake course creator to test
+ *
+ * create nc courses
+ * insert between smin and smax students
+ * insert between pmin and pmax courses admins
+ *
+ * @version 1.6 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package SDK
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
 
-DEFINE("CONF_COURSE_ADMIN_CAN_BE_STUDENT",True);
-DEFINE("CONF_PLATFORM_ADMIN_CAN_BE_COURSE_ADMIN",True);
-DEFINE("DEFAULT_NUMBER_CREATED_COURSE",25);
-DEFINE("DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE",5);
-DEFINE("DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_COURSE",50);
-DEFINE("DEFAULT_MIN_QTY_TEACHER_REGISTRED_IN_COURSE",0);// Exclude the creator
-DEFINE("DEFAULT_MAX_QTY_TEACHER_REGISTRED_IN_COURSE",3);// Exclude the creator
-DEFINE("DEFAULT_MIN_QTY_GROUP_REGISTRED_IN_COURSE",0);
-DEFINE("DEFAULT_MAX_QTY_GROUP_REGISTRED_IN_COURSE",10);
-DEFINE("DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_GROUP",5);
-DEFINE("DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_GROUP",8);
-DEFINE("DEFAULT_MIN_QTY_GROUP_OF_A_STUDENT",1);
-DEFINE("DEFAULT_MAX_QTY_GROUP_OF_A_STUDENT",3);
-DEFINE("DEFAULT_PREFIX","TEST");
+
+DEFINE('CONF_COURSE_ADMIN_CAN_BE_STUDENT',True);
+DEFINE('CONF_PLATFORM_ADMIN_CAN_BE_COURSE_ADMIN',True);
+DEFINE('DEFAULT_NUMBER_CREATED_COURSE',25);
+DEFINE('DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE',5);
+DEFINE('DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_COURSE',50);
+DEFINE('DEFAULT_MIN_QTY_TEACHER_REGISTRED_IN_COURSE',0);// Exclude the creator
+DEFINE('DEFAULT_MAX_QTY_TEACHER_REGISTRED_IN_COURSE',3);// Exclude the creator
+DEFINE('DEFAULT_MIN_QTY_GROUP_REGISTRED_IN_COURSE',0);
+DEFINE('DEFAULT_MAX_QTY_GROUP_REGISTRED_IN_COURSE',10);
+DEFINE('DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_GROUP',5);
+DEFINE('DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_GROUP',8);
+DEFINE('DEFAULT_MIN_QTY_GROUP_OF_A_STUDENT',1);
+DEFINE('DEFAULT_MAX_QTY_GROUP_OF_A_STUDENT',3);
+DEFINE('DEFAULT_PREFIX','TEST');
 
 
 /////////////////////DON'T EDIT ///////////
-DEFINE("DISP_RESULT_INSERT"        ,1);     //
-DEFINE("DISP_FORM_SET_OPTION"      ,2);     //
-DEFINE("CONF_VAL_STUDENT_STATUS"    ,5); //
-DEFINE("CONF_VAL_TEACHER_STATUS"    ,1); //
+DEFINE('DISP_RESULT_INSERT'        ,1);     //
+DEFINE('DISP_FORM_SET_OPTION'      ,2);     //
+DEFINE('CONF_VAL_STUDENT_STATUS'    ,5); //
+DEFINE('CONF_VAL_TEACHER_STATUS'    ,1); //
 /////////////////////DON'T EDIT ///////////
 
 
 unset($includePath);
 require '../../inc/claro_init_global.inc.php';
-if (!isset($includePath)) trigger_error("init not run",E_USER_ERROR);
-if (!isset($_uid)) trigger_error("you need to be logged",E_USER_ERROR);
+if (!isset($includePath)) trigger_error('init not run',E_USER_ERROR);
+if (!isset($_uid)) trigger_error('you need to be logged',E_USER_ERROR);
 
 //// Config tool
-include($includePath."/conf/course_main.conf.php");
+include($includePath.'/conf/course_main.conf.php');
 //// LIBS
 
-include($includePath."/lib/add_course.lib.inc.php");
-include($includePath."/lib/group.lib.inc.php");
-include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/fileManage.lib.php");
-include($includePath."/conf/course_main.conf.php");
+include($includePath.'/lib/add_course.lib.inc.php');
+include($includePath.'/lib/group.lib.inc.php');
+include($includePath.'/lib/debug.lib.inc.php');
+include($includePath.'/lib/fileManage.lib.php');
+include($includePath.'/conf/course_main.conf.php');
 
 $nameTools = $langCreateSite;
-$interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdministration);
-
+$interbredcrump[]= array ('url'=>'../index.php', 'name'=> $langAdministration);
+$interbredcrump[]= array ('url'=>'index.php', 'name'=> $langDevTools);
 /*
  * DB tables definition
  */
@@ -82,71 +80,71 @@ $TABLEANNOUNCEMENTS = $tbl_cdb_names['announcement'          ];
 $can_create_courses   = (bool) ($is_allowedCreateCourse);
 $coursesRepositories  = $coursesRepositorySys;
 
-$nc   = is_numeric($HTTP_POST_VARS["nc"])?$HTTP_POST_VARS["nc"]:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
-$smin = is_numeric($HTTP_POST_VARS["smin"])?$HTTP_POST_VARS["smin"]:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
-$smax = is_numeric($HTTP_POST_VARS["smax"])?$HTTP_POST_VARS["smax"]:DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_COURSE;
-$pmin = is_numeric($HTTP_POST_VARS["pmin"])?$HTTP_POST_VARS["pmin"]:DEFAULT_MIN_QTY_TEACHER_REGISTRED_IN_COURSE;
-$pmax = is_numeric($HTTP_POST_VARS["pmax"])?$HTTP_POST_VARS["pmax"]:DEFAULT_MAX_QTY_TEACHER_REGISTRED_IN_COURSE;
-$gmin = is_numeric($HTTP_POST_VARS["gmin"])?$HTTP_POST_VARS["gmin"]:DEFAULT_MIN_QTY_GROUP_REGISTRED_IN_COURSE;
-$gmax = is_numeric($HTTP_POST_VARS["gmax"])?$HTTP_POST_VARS["gmax"]:DEFAULT_MAX_QTY_GROUP_REGISTRED_IN_COURSE;
-$gpumin = is_numeric($HTTP_POST_VARS["gpumin"])?$HTTP_POST_VARS["gpumin"]:DEFAULT_MIN_QTY_GROUP_OF_A_STUDENT;
-$gpumax = is_numeric($HTTP_POST_VARS["gpumax"])?$HTTP_POST_VARS["gpumax"]:DEFAULT_MAX_QTY_GROUP_OF_A_STUDENT;
+$nc   = is_numeric($_REQUEST["nc"])?$_REQUEST["nc"]:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
+$smin = is_numeric($_REQUEST["smin"])?$_REQUEST["smin"]:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
+$smax = is_numeric($_REQUEST["smax"])?$_REQUEST["smax"]:DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_COURSE;
+$pmin = is_numeric($_REQUEST["pmin"])?$_REQUEST["pmin"]:DEFAULT_MIN_QTY_TEACHER_REGISTRED_IN_COURSE;
+$pmax = is_numeric($_REQUEST["pmax"])?$_REQUEST["pmax"]:DEFAULT_MAX_QTY_TEACHER_REGISTRED_IN_COURSE;
+$gmin = is_numeric($_REQUEST["gmin"])?$_REQUEST["gmin"]:DEFAULT_MIN_QTY_GROUP_REGISTRED_IN_COURSE;
+$gmax = is_numeric($_REQUEST["gmax"])?$_REQUEST["gmax"]:DEFAULT_MAX_QTY_GROUP_REGISTRED_IN_COURSE;
+$gpumin = is_numeric($_REQUEST["gpumin"])?$_REQUEST["gpumin"]:DEFAULT_MIN_QTY_GROUP_OF_A_STUDENT;
+$gpumax = is_numeric($_REQUEST["gpumax"])?$_REQUEST["gpumax"]:DEFAULT_MAX_QTY_GROUP_OF_A_STUDENT;
 
-$emin = is_numeric($HTTP_POST_VARS["emin"])?$HTTP_POST_VARS["emin"]:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_GROUP;
-$emax = is_numeric($HTTP_POST_VARS["emax"])?$HTTP_POST_VARS["emax"]:DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_GROUP;
-$pfCode = strtoupper($HTTP_POST_VARS["pfCode"]!=""?$HTTP_POST_VARS["pfCode"]:DEFAULT_PREFIX);
+$emin = is_numeric($_REQUEST["emin"])?$_REQUEST["emin"]:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_GROUP;
+$emax = is_numeric($_REQUEST["emax"])?$_REQUEST["emax"]:DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_GROUP;
+$pfCode = strtoupper($_REQUEST["pfCode"]!=""?$_REQUEST["pfCode"]:DEFAULT_PREFIX);
 
 $display =DISP_FORM_SET_OPTION;
 
-if (isset($HTTP_POST_VARS["nc"]))
+if (isset($_REQUEST["nc"]))
 {
 
 
     srand ((double) microtime() * 10000000);
     $nameOfCourses = array (
-    "Neo", "Morpheus", "Trinit&eacute;e", "Cypher", "Tank",
-    "Math","Algo","jablo","phraz","dea","inc","sc.po","touch","ordering","system",
-    "ecologie","tv screening","microtime","tabl","dutch","french","english",
-    "german","swali","suedish","romanian","Welcome","site","powered",
-    "Apache","Mandrake","Linux","Claroline","Note","webpage","server",
-    "upgrade","tomorrow","software","webmaster","directory","version"
-    ,"wood" ,"chair","green","house","brique","syster of mercy","depeche mode"
-    ,"step","front","depot","html","sapin","camion","balai","citrouille"
-    ,"tente","radiateur","lune","baleine","fenetre","windows","cartable"
-    ,"geographie","geometrie","history","physic","pot","electronic"
-    ,"mecanic","horticulture","dactylo" ,"Astronomie","Biologie","Chimie"
-    ,"Écologie","Mathématiques","Physique","Sciences de la Terre"
-    ,"Sciences de l'Univers","Statistiques","Anthropologie","Archéologie"
-    ,"Éducation","Géographie","Histoire","Langue et Linguistique"
-    ,"Pédagogie","Philosophie","Psychologie"
-    ,"Sciences cognitives","Sociologie","Politique","Société","Associations"
-    ,"Organismes","Commerce","Défense","Droit","Économie","Entreprise"
-    ,"Famille","Gestion","Gestion de l'environnement","Métiers","Politique"
-    ,"Urbanisme","Agnosticisme","Athéisme","Ésotérisme","Mysticisme"
-    ,"Mythologie","Religion","Sectes","Spiritualité","Théologie","Art"
-    ,"Arts visuels","Arts du spectacle","Cinéma","Culture populaire","Danse"
-    ,"Littérature","Médias","Musique","Techniques et sciences appliquées"
-    ,"Aérospatiale","Agriculture","Architecture","Communication","Électronique"
-    ,"Industrie","Informatique","Internet","Ingénierie","Médecine","Technologie"
-    ,"Télécommunications","Transport","Vie quotidienne et loisirs","Bricolage"
-    ,"Cuisine","Divertissement","Jardinage","Jeux","Nutrition","Santé"
-    ,"Sexualité","Sport","Tourisme","pays du monde","Actualité de l'année"
-    ,"Éphéméride","Biographies","Arts","Movies","Television","Music","Business"
-    ,"Jobs","Real Estate","Investing","Computers","Internet","Software"
-    ,"Hardware","Games","Video Games","RPGs","Gambling","Health","Fitness"
-    ,"Medicine","Alternative","Home","Family","Consumers","Cooking"
-    ,"Kids and Teens","Arts","School Time","Teen Life","News","Media"
-    ,"Newspapers","Weather","Recreation","Travel","Food","Outdoors","Humor"
-    ,"Reference","Maps","Education","Libraries","Regional","US","Canada","UK"
-    ,"Europe","Science","Biology","Psychology","Physics","Shopping","Autos"
-    ,"Clothing","Gifts","Society","People","Religion","Issues","Sports"
-    ,"Baseball","Soccer","Basketball","World"
+    'Neo', 'Morpheus', 'Trinit&eacute;e', 'Cypher', 'Tank',
+    'Math','Algo','jablo','phraz','dea','inc','sc.po','touch','ordering','system',
+    'ecologie','tv screening','microtime','tabl','dutch','french','english',
+    'german','swali','suedish','romanian','Welcome','site','powered',
+    'Apache','Mandrake','Linux','Claroline','Note','webpage','server',
+    'upgrade','tomorrow','software','webmaster','directory','version'
+    ,'wood' ,'chair','green','house','brique','syster of mercy','depeche mode'
+    ,'step','front','depot','html','sapin','camion','balai','citrouille'
+    ,'tente','radiateur','lune','baleine','fenetre','windows','cartable'
+    ,'geographie','geometrie','history','physic','pot','electronic'
+    ,'mecanic','horticulture','dactylo' ,'Astronomie','Biologie','Chimie'
+    ,'Écologie','Mathématiques','Physique','Sciences de la Terre'
+    ,'Sciences de l\'Univers','Statistiques','Anthropologie','Archéologie'
+    ,'Éducation','Géographie','Histoire','Langue et Linguistique'
+    ,'Pédagogie','Philosophie','Psychologie'
+    ,'Sciences cognitives','Sociologie','Politique','Société','Associations'
+    ,'Organismes','Commerce','Défense','Droit','Économie','Entreprise'
+    ,'Famille','Gestion','Gestion de l\'environnement','Métiers','Politique'
+    ,'Urbanisme','Agnosticisme','Athéisme','Ésotérisme','Mysticisme'
+    ,'Mythologie','Religion','Sectes','Spiritualité','Théologie','Art'
+    ,'Arts visuels','Arts du spectacle','Cinéma','Culture populaire','Danse'
+    ,'Littérature','Médias','Musique','Techniques et sciences appliquées'
+    ,'Aérospatiale','Agriculture','Architecture','Communication','Électronique'
+    ,'Industrie','Informatique','Internet','Ingénierie','Médecine','Technologie'
+    ,'Télécommunications','Transport','Vie quotidienne et loisirs','Bricolage'
+    ,'Cuisine','Divertissement','Jardinage','Jeux','Nutrition','Santé'
+    ,'Sexualité','Sport','Tourisme','pays du monde','Actualité de l\'année'
+    ,'Éphéméride','Biographies','Arts','Movies','Television','Music','Business'
+    ,'Jobs','Real Estate','Investing','Computers','Internet','Software'
+    ,'Hardware','Games','Video Games','RPGs','Gambling','Health','Fitness'
+    ,'Medicine','Alternative','Home','Family','Consumers','Cooking'
+    ,'Kids and Teens','Arts','School Time','Teen Life','News','Media'
+    ,'Newspapers','Weather','Recreation','Travel','Food','Outdoors','Humor'
+    ,'Reference','Maps','Education','Libraries','Regional','US','Canada','UK'
+    ,'Europe','Science','Biology','Psychology','Physics','Shopping','Autos'
+    ,'Clothing','Gifts','Society','People','Religion','Issues','Sports'
+    ,'Baseball','Soccer','Basketball','World'
     );
 
     $aivailableLang[]= $platformLanguage;
-    if ($HTTP_POST_VARS["random_lang"])
+    if ($_REQUEST['random_lang'])
     {
-        $dirname = $includePath."/../lang/";
+        $dirname = $includePath.'/../lang/';
         if($dirname[strlen($dirname)-1]!='/')
             $dirname.='/';
         $handle=opendir($dirname);
@@ -187,7 +185,7 @@ if (isset($HTTP_POST_VARS["nc"]))
     $strWork = "<OL>";
     for($noCourse=1;$noCourse<=$nc;$noCourse++)
     {
-            $wantedCode     = $pfCode." ".field_rand($nameOfCourses)." (".substr(md5(uniqid("")),0,3).")";
+            $wantedCode     = substr($pfCode." ".field_rand($nameOfCourses)." (".substr(md5(uniqid("")),0,3).")",0,12);
             $faculte           = field_rand($aivailableFaculty);
             $language_course   = field_rand($aivailableLang);
             $uidCourse         = field_rand($teachersUid);
