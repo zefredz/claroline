@@ -53,6 +53,7 @@ if ($cmd ==  'rqMkHtml')
     // (eg forgot to give a file name)
     ?> 
     <input type="submit" value="OK">
+    <?php claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
     </form>
     <?php
 }
