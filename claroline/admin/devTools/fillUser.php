@@ -1,11 +1,9 @@
 <?php // $Id$µ
 /**
  * Claroline
- * SHUFFLE COURSE SITE CREATION TOOL
- * Créateur de cours bidon pour les tests
- * fake course creator to test
+ * SHUFFLE USER Insertor
+ * Créateur de compte utilisateur bidon pour les tests
  *
- * create nc courses
  * insert between smin and smax students
  * insert between pmin and pmax courses admins
  *
@@ -22,18 +20,18 @@
  *
  */
 
-DEFINE("DISP_RESULT_INSERT"		,1);
-DEFINE("DISP_FORM_SET_OPTION"	,2);
-DEFINE("DISP_INSERT_COMPLETE"	,3);
+DEFINE('DISP_RESULT_INSERT'		,1);
+DEFINE('DISP_FORM_SET_OPTION'	,2);
+DEFINE('DISP_INSERT_COMPLETE'	,3);
 
-DEFINE("DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE",5);
-DEFINE("DEFAULT_SUFFIX_MAIL",'@exemple.com');
-DEFINE("DEFAULT_QTY_TEACHER",5);
-DEFINE("DEFAULT_QTY_STUDENT",20);
-DEFINE("ADD_FIRSTNAMES_FROM_BASE",TRUE);
-DEFINE("ADD_NAMES_FROM_BASE ",TRUE);
-DEFINE("ADD_USERNAMES_FROM_BASE",TRUE);
-DEFINE("USE_FIRSTNAMES_AS_LASTNAMES",FALSE);
+DEFINE('DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE',5);
+DEFINE('DEFAULT_SUFFIX_MAIL','@exemple.com');
+DEFINE('DEFAULT_QTY_TEACHER',5);
+DEFINE('DEFAULT_QTY_STUDENT',20);
+DEFINE('ADD_FIRSTNAMES_FROM_BASE',TRUE);
+DEFINE('ADD_NAMES_FROM_BASE ',TRUE);
+DEFINE('ADD_USERNAMES_FROM_BASE',TRUE);
+DEFINE('USE_FIRSTNAMES_AS_LASTNAMES',FALSE);
 
 unset($includePath);
 
@@ -60,15 +58,15 @@ $tbl_user      = $tbl_mdb_names['user'];
 $can_create_courses = (bool) ($is_allowedCreateCourse);
 
 // fix setting
-$nc   = is_numeric($_REQUEST["nc"])?$_REQUEST["nc"]:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
-$smin = is_numeric($_REQUEST["smin"])?$_REQUEST["smin"]:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
-$smax = is_numeric($_REQUEST["smax"])?$_REQUEST["smax"]:DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_COURSE;
-$pmin = is_numeric($_REQUEST["pmin"])?$_REQUEST["pmin"]:DEFAULT_MIN_QTY_TEACHER_REGISTRED_IN_COURSE;
-$pmax = is_numeric($_REQUEST["pmax"])?$_REQUEST["pmax"]:DEFAULT_MAX_QTY_TEACHER_REGISTRED_IN_COURSE;
+$nc   = is_numeric($_REQUEST['nc'])?$_REQUEST['nc']:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
+$smin = is_numeric($_REQUEST['smin'])?$_REQUEST['smin']:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
+$smax = is_numeric($_REQUEST['smax'])?$_REQUEST['smax']:DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_COURSE;
+$pmin = is_numeric($_REQUEST['pmin'])?$_REQUEST['pmin']:DEFAULT_MIN_QTY_TEACHER_REGISTRED_IN_COURSE;
+$pmax = is_numeric($_REQUEST['pmax'])?$_REQUEST['pmax']:DEFAULT_MAX_QTY_TEACHER_REGISTRED_IN_COURSE;
 
-$sfMail = strtoupper($_REQUEST["sfMail"]!=""?$_REQUEST["sfMail"]:DEFAULT_SUFFIX_MAIL);
-$nbp = is_numeric($_REQUEST["nbp"])?$_REQUEST["nbp"]:DEFAULT_QTY_TEACHER;
-$nbs = is_numeric($_REQUEST["nbs"])?$_REQUEST["nbs"]:DEFAULT_QTY_STUDENT;
+$sfMail = strtoupper($_REQUEST['sfMail']!=''?$_REQUEST['sfMail']:DEFAULT_SUFFIX_MAIL);
+$nbp = is_numeric($_REQUEST['nbp'])?$_REQUEST['nbp']:DEFAULT_QTY_TEACHER;
+$nbs = is_numeric($_REQUEST['nbs'])?$_REQUEST['nbs']:DEFAULT_QTY_STUDENT;
 $nbUsers = $nbp + $nbs;
 
 $display = DISP_FORM_SET_OPTION;
@@ -80,44 +78,44 @@ claro_disp_tool_title(
 	)
 	);
 claro_disp_msg_arr($controlMsg);
-if (isset($HTTP_POST_VARS["nbp"]))
+if (isset($HTTP_POST_VARS['nbp']))
 {
 /* fillUSER */
 
 	srand ((double) microtime() * 685435100);
 	$firstnames = array (
-		"jean", "marc", "françois", "laurent", "mathieu", "matthieu",
-		"simon", "pol", "paul", "greg", "gregoire", "gregory", "albert", "alfred",
-		"adolfe", "armile", "armand", "jeff", "jo", "jack", "john", "claire",
-		"annie", "cécile", "roland", "mark", "koen", "dirk", "jan", "kim",
-		"riri", "fifi", "loulou", "michel", "robin", "serge", "david", "augustin",
-		"sofienne", "lucien", "roberto", "analysia", "jaana", "satu", "christian",
-		"marie", "julie", "justine", "yves", "lucas", "teddy", "giovanni",
-		"yurgen", "sven", "fabien", "fabian", "pierre", "mouloud", "kevin",
-		"axel", "hervé", "lydéric", "manory", "aly", "francis", "charles",
-		"cédric", "quentin", "miguel", "khalid", "bilal", "dries", "pieter",
-		"kjell", "mehdi", "damien", "cyril", "michael", "jamil", "mustafa",
-		"georges", "christophe", "hugues", "thomas", "lorant", "stéphanie",
-		"martine", "aurélie", "caroline", "simone", "nathalie", "audette", "carole",
-		"farid", "antonella", "graziella", "lauredanna",
-		"lyne", "laure", "jean-luc", "luc", "Nathanaël", "kofi", "sigmund", "Mateus",
-		"Jesus", "Steve", "dave", "alan", "alain", "andré", "andrew", "Tahar",
-		"mowgli", "tom", "donald", "olivier", "dimitri", "joseph", "mohamed",
-		"sambegou", "björn", "jinks", "Gonzague", "Onder", "kris", "ivan",
-		"cheikh", "taner", "Moussa", "Louis", "amadou", "arnaud", "rosario",
-		"tilio", "julio", "jules", "julos", "liviu", "celia", "magda", "youssef",
-		"essam", "boumedian", "walit", "thierry","zeev","jamal","ali");
+		'jean', 'marc', 'françois', 'laurent', 'mathieu', 'matthieu',
+		'simon', 'pol', 'paul', 'greg', 'gregoire', 'gregory', 'albert', 'alfred',
+		'adolfe', 'armile', 'armand', 'jeff', 'jo', 'jack', 'john', 'claire',
+		'annie', 'cécile', 'roland', 'mark', 'koen', 'dirk', 'jan', 'kim',
+		'riri', 'fifi', 'loulou', 'michel', 'robin', 'serge', 'david', 'augustin',
+		'sofienne', 'lucien', 'roberto', 'analysia', 'jaana', 'satu', 'christian',
+		'marie', 'julie', 'justine', 'yves', 'lucas', 'teddy', 'giovanni',
+		'yurgen', 'sven', 'fabien', 'fabian', 'pierre', 'mouloud', 'kevin',
+		'axel', 'hervé', 'lydéric', 'manory', 'aly', 'francis', 'charles',
+		'cédric', 'quentin', 'miguel', 'khalid', 'bilal', 'dries', 'pieter',
+		'kjell', 'mehdi', 'damien', 'cyril', 'michael', 'jamil', 'mustafa',
+		'georges', 'christophe', 'hugues', 'thomas', 'lorant', 'stéphanie',
+		'martine', 'aurélie', 'caroline', 'simone', 'nathalie', 'audette', 'carole',
+		'farid', 'antonella', 'graziella', 'lauredanna',
+		'lyne', 'laure', 'jean-luc', 'luc', 'Nathanaël', 'kofi', 'sigmund', 'Mateus',
+		'Jesus', 'Steve', 'dave', 'alan', 'alain', 'andré', 'andrew', 'Tahar',
+		'mowgli', 'tom', 'donald', 'olivier', 'dimitri', 'joseph', 'mohamed',
+		'sambegou', 'björn', 'jinks', 'Gonzague', 'Onder', 'kris', 'ivan',
+		'cheikh', 'taner', 'Moussa', 'Louis', 'amadou', 'arnaud', 'rosario',
+		'tilio', 'julio', 'jules', 'julos', 'liviu', 'celia', 'magda', 'youssef',
+		'essam', 'boumedian', 'walit', 'thierry','zeev','jamal','ali');
 
-		$voyel		= array( "a","e","i","o","u");
-		$consonne	= array("","b","c","d","f","j","k","l","m","n","p","r","s","t","v","z");
+		$voyel		= array( 'a','e','i','o','u');
+		$consonne	= array('','b','c','d','f','j','k','l','m','n','p','r','s','t','v','z');
 
 	$sqlUsers = "Select * from `".$tbl_user."`";
 	$resUsers = claro_sql_query($sqlUsers);
 	while ($users = mysql_fetch_array($resUsers,MYSQL_ASSOC))
 	{
-		if(ADD_FIRSTNAMES_FROM_BASE)	$firstnames[] 	= $users["prenom"];
-		if(ADD_NAMES_FROM_BASE)			$names[] 		= $users["nom"];
-		if(ADD_USERNAMES_FROM_BASE)		$usernames[] 	= $users["username"];
+		if(ADD_FIRSTNAMES_FROM_BASE)	$firstnames[] 	= $users['prenom'];
+		if(ADD_NAMES_FROM_BASE)			$names[] 		= $users['nom'];
+		if(ADD_USERNAMES_FROM_BASE)		$usernames[] 	= $users['username'];
 	}
 	if(USE_FIRSTNAMES_AS_LASTNAMES)		$names 	= array_merge ( $names,$firstnames);
 
@@ -127,7 +125,7 @@ if (isset($HTTP_POST_VARS["nbp"]))
 
 	for($noUser=0;$noUser<=($nbUsers*10); $noUser++)
     {
-		$nom ="";
+		$nom ='';
 		for($s=0;$s<rand(1,3); $s++)
 		{
 			$nom .= field_rand($consonne).field_rand($voyel).field_rand($consonne);
@@ -135,7 +133,7 @@ if (isset($HTTP_POST_VARS["nbp"]))
 		$names[] = $nom;
 	}
 
-	echo "<OL>";
+	echo '<OL>';
 	for($noUser=0;$noUser<=$nbUsers; $noUser++)
 	{
 		$statut = 5;
@@ -144,7 +142,7 @@ if (isset($HTTP_POST_VARS["nbp"]))
 		$prenom = ucfirst(strToLower(field_rand($firstnames)));
 		$username = strToLower($nom);
 		$password = strToLower($nom.$prenom);
-		$email = strToLower($prenom.".".$noUser).$sfMail;
+		$email = strToLower($prenom.'.'.$noUser).$sfMail;
 		$sqlInsertUser = "
 	INSERT INTO `".$tbl_user."`
 	(
@@ -178,12 +176,12 @@ switch ($display)
 			</LI>
 		</UL>
 <?php
-			echo $nbssAdded." new users";
+			echo $nbssAdded.' new users';
 			if (CONFVAL_LIST_USER_ADDED)
 			{
-				echo "<OL><LI>";
-				echo implode("</LI><LI>",$users);
-				echo "</LI></OL>";
+				echo '<OL><LI>';
+				echo implode('</LI><LI>',$users);
+				echo '</LI></OL>';
 			}
 
 ?>
