@@ -209,9 +209,18 @@ else
 
         echo "<td>" . $language . "</td>\n"
 	         . "<td style=\"text-align: right\">" . $count_var_translated . "</td>\n"
-	         . "<td style=\"text-align: right\">"
-	         . "<a href=\"" . $_SERVER['PHP_SELF'] . "?exCmd=ToTranslate&language=" . $language . "\">" . $count_var_to_translate . "</a>"
-	         . "</td>\n"
+	         . "<td style=\"text-align: right\">" ;
+
+        if ( $_REQUEST['cmd'] == 'export' )
+        {
+            echo $count_var_to_translate;
+        } 
+        else
+        {
+            echo "<a href=\"" . $_SERVER['PHP_SELF'] . "?exCmd=ToTranslate&language=" . $language . "\">" . $count_var_to_translate . "</a>";
+        }
+        
+	    echo "</td>\n" 
 	         . "<td style=\"text-align: right\">" . $pourcent_progession . " %</td>\n"
 	         . "</tr>\n";
 	}
