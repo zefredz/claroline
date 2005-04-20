@@ -235,20 +235,30 @@ $interbredcrump[]=array("url" => "exercice.php","name" => $langExercices);
 if($editQuestion || $modifyQuestion || $newQuestion || $modifyAnswers)
 {
 	$nameTools=$langQuestionManagement;
-	$interbredcrump[]=array("url" => "admin.php?exerciseId=$fromExercise","name" => $objExercise->selectTitle());
+		
+	// shows a link to go back to the question pool
+	if(!$exerciseId)
+	{
+		$interbredcrump[]=array("url" => "question_pool.php?fromExercise=$fromExercise","name" => $langQuestionPool);
+	}
+	else
+	{
+		$interbredcrump[]=array("url" => "admin.php?exerciseId=$fromExercise","name" => $objExercise->selectTitle());
+	}
+	
 	$QUERY_STRING=$questionId?'editQuestion='.$questionId.'&fromExercise='.$fromExercise:'newQuestion=yes';
 }
 else
 {
-	$nameTools = $objExercise->selectTitle();
-
+	if( $exerciseId )
+	{
+		$nameTools = $objExercise->selectTitle();
+	}
+	else
+	{
+		$nameTools = $langExerciseManagement;
+	}
 	$QUERY_STRING='';
-}
-
-// shows a link to go back to the question pool
-if(!$exerciseId && $nameTools != $langExerciseManagement)
-{
-	$interbredcrump[]=array("url" => "question_pool.php?fromExercise=$fromExercise","name" => $langQuestionPool);
 }
 
 // if the question is duplicated, disable the link of tool name
