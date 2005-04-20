@@ -235,7 +235,6 @@ if (isset($_SESSION['admin_user_order_crit']))
 
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $userList = $myPager->get_result_list();
-$userList = claro_sql_query_fetch_all($sql);
 
 //$dialogBox .= '<pre>'.var_export($userList,1)."</pre><br>"; //debug
 
