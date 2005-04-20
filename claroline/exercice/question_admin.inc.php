@@ -132,6 +132,17 @@ if($usedInSeveralExercises)
 }
 else
 {
+	// we are in an exercise
+	if($exerciseId)
+	{
+		$backLinkHtml = "\n".'<p><small><a href="'.$_SERVER['PHP_SELF'].'">&lt;&lt; '.$langGoBackToQuestionList.'</a></small></p>'."\n";
+	}
+	// we are not in an exercise, so we come from the question pool
+	else
+	{
+		$backLinkHtml = "\n".'<p><small><a href="question_pool.php?fromExercise='.$fromExercise.'">&lt;&lt; '.$langGoBackToQuestionPool.'</a></small></p>'."\n";
+	}
+
 	// selects question informations
 	$questionName=$objQuestion->selectTitle();
 	$questionDescription=$objQuestion->selectDescription();
@@ -143,7 +154,7 @@ else
 <h3>
   <?php echo $questionName; ?>
 </h3>
-
+<?php echo $backLinkHtml; ?>
 <blockquote>
   <?php echo claro_parse_user_text($questionDescription); ?>
 </blockquote>
@@ -168,32 +179,10 @@ else
 
 <hr size="1" noshade="noshade">
 
-<?php
-	// we are in an exercise
-	if($exerciseId)
-	{
-?>
-
-<small><a href="<?php echo $_SERVER['PHP_SELF']; ?>">&lt;&lt; <?php echo $langGoBackToQuestionList; ?></a></small>
-
-<?php
-	}
-	// we are not in an exercise, so we come from the question pool
-	else
-	{
-?>
-
-<a class="claroCmd" href="question_pool.php?fromExercise=<?php echo $fromExercise; ?>">&lt;&lt; <?php echo $langGoBackToQuestionPool; ?></a>
-
-<?php
-	}
-?>
-
-<br><br>
-
+<br />
 <b><?php echo $langQuestionAnswers; ?></b>
 
-<br><br>
+<br /><br />
 
 <table border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
 <form>
@@ -227,5 +216,6 @@ else
 
 <?php
 	}
+echo $backLinkHtml;	
 }
 ?>
