@@ -292,141 +292,25 @@ switch ($display)
             $count_course_upgraded++;
             $db_error_counter = 0;
             $fs_error_counter = 0;
-            $sql_get_id_of_one_teacher = "SELECT `user_id` `uid` FROM `". $tbl_rel_course_user . "` "
-                               . " WHERE `code_cours` = '".$currentCourseIDsys."' LIMIT 1";
-            
-            $res_id_of_one_teacher = claro_sql_query($sql_get_id_of_one_teacher);
-            
-            $teacher = claro_sql_fetch_all($res_id_of_one_teacher);
 
-            $teacher_uid = $teacher[0]['uid'];
-            if (!is_numeric($teacher_uid))
-            {
-                $teacher_uid = $_uid;
-                if (!is_numeric($teacher_uid))
-                $teacher_uid = 0;
-                $sql_set_teacher = "INSERT INTO `". $tbl_rel_course_user . "`  
-                                              SET `user_id` = '".$teacher_uid."'
-                                               ,  `code_cours` = '".$currentCourseIDsys."'
-                                               ,  `role` = 'Course missing manager';";
-                claro_sql_query($sql_set_teacher);
-                $checkjob ='<p class="error">Course '.$currentCourseCode.' has no teacher, you are enrolled in as course manager. </p>' . "\n";
-            }
-            echo  '<p>'
-                . sprintf("<strong>%1\$s. </strong>Upgrading database of course <strong>%2\$s</strong> - DB Name : %3\$s - Course ID: %4\$s", 
-                          $count_course_upgraded, $currentCourseCode, $currentCourseDbName, $currentCourseIDsys);
-            echo $checkjob;    
-            echo '<ol>' . "\n";
+            printf("<p><strong>%1\$s. </strong>Upgrading database of course <strong>%2\$s</strong> - DB Name : %3\$s - Course ID: %4\$s", 
+            $count_course_upgraded, $currentCourseCode, $currentCourseDbName, $currentCourseIDsys);
             
-            /*
-             * Upgrade course table
+            
+            /**
+             * Make some check.
+             * For next versions these test would be set in separate process and aivailable  out of upgrade
+             * 
              */
-
-            unset($sqlForUpdate);
-            $tbl_cdb_names = claro_sql_get_course_tbl($currentCourseDbNameGlu);
-            // Include array with sql statement ($sqlForUpdate)
-            include('./sql_statement_course.php');
-            include('./repair_tables.php');
-            reset($sqlForUpdate);
-
-            /*
-             * Process sql statement
-             */
-
-            while ( list($key,$sqlTodo) = each($sqlForUpdate) )
+            
+            if (! file_exists($currentcoursePathSys))
             {
-                $res = mysql_query($sqlTodo);
-                if ($_REQUEST['verbose']) // verbose is set when user retry upgrade
-                {
-                    echo '<li>' . "\n";
-                    echo '<p class="tt"><strong>' . $currentCourseDbName. ':</strong>' . $sqlTodo .  '</p>' . "\n";
-                    echo '<p>' . mysql_affected_rows() . ' affected rows <br />' . "\n" .mysql_info() . '</p>' . "\n";
-                    if (mysql_errno() > 0 )
-                    {
-                        echo '<p class="error">n° <strong>' . mysql_errno() . ': </strong> ' . mysql_error() . '</p>' . "\n";
-                    }
-                    echo '</li>' . "\n";
-                }             
+                echo '<p class="error"><strong>Course has no repository.</strong>  <br>'.$currentcoursePathSys.' Not found. </p>' . "\n";
                 
-                if ( mysql_errno() > 0 && !in_array(mysql_errno(),$accepted_error_list) )
-                {
-                    ++$db_error_counter;
-                    echo '<p class="error">'
-                       . '<strong>' . $db_error_counter . '</strong> '
-                       . '<strong>n°: ' . mysql_errno() . '</strong> : ' . mysql_error() . ' ' . $currentCourseDbName . ':' . $sqlTodo
-                       . '</p>';
-                }
-            }
-            echo '</ol>';
-
-            if ( $db_error_counter > 0 )
-            {
-                echo '<p class="error"><strong>' . $db_error_counter . ' errors found</strong></p>';
-
-                $count_error_total += $db_error_counter;
-                
-                /*
-                 * Error: set versionDB of course to error
-                 */
-                $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-                                    SET versionDb='error'
-                                    WHERE code = '".$currentCourseIDsys."'";
-
-                $res = claro_sql_query($sqlFlagUpgrade);
-                if (mysql_errno() > 0)
-                {
-                    echo '<p class="error">n° <strong>' . mysql_errno() . '</strong>: ' . mysql_error() . '</p>';
-                    echo '<p>' . $sqlFlagUpgrade . '</p>';
-                }
-            }
-            else
-            {
-                /*
-                 * Success: set versionDB of course to new version
-                 */
-                $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-                                    SET versionDb='".$versionDb."'
-                                    WHERE code = '".$currentCourseIDsys."'";                
-                $res = @mysql_query($sqlFlagUpgrade);
-                if (mysql_errno() > 0)
-                {
-                    echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
-                    echo '<p>' . $sqlFlagUpgrade . '</p>';
-                }
-            }
-
-            /*
-             * Upgrade course file structure
-             */
-            
-            // rename folder image in course folder to exercise 
-            if ( is_dir($currentcoursePathSys.'image') ) 
-            {   
-                if ( ! @rename($currentcoursePathSys.'image',$currentcoursePathSys.'exercise') )
-                {
-                    $fs_error_counter++;
-                    echo '<p class="error">'
-                       . '<strong>' . sprintf('Cannot rename %s in %s',$currentcoursePathSys.'/image',$currentcoursePathSys.'/exercise') . '</strong> '
-                       . '</p>';
-                } 
-            }
-            elseif ( !is_dir($currentcoursePathSys.'exercise') ) 
-            {
-                if ( !@mkdir($currentcoursePathSys.'exercise', 0777) )
-                {
-                    $fs_error_counter++;
-                    echo '<p class="error">'
-                       . '<strong>' . sprintf('Cannot create %s',$currentcoursePathSys.'exercise') . '</strong> '
-                       . '</p>';
-                }
-            }
-            
-            if ( $fs_error_counter > 0 )
-            {
                 $count_error_total += $fs_error_counter;
                 $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-                                    SET versionClaro='error'
-                                    WHERE code = '".$currentCourseIDsys."'";                
+                                            SET versionClaro='error'
+                                            WHERE code = '".$currentCourseIDsys."'";                
                 $res = @mysql_query($sqlFlagUpgrade);
                 
                 if (mysql_errno() > 0)
@@ -434,25 +318,167 @@ switch ($display)
                     echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
                     echo '<p>' . $sqlFlagUpgrade . '</p>';
                 }
-
+                echo ' <br>---- Skip this course ---- You need to repair it your self ';
             }
-            else
+            else 
             {
-                /*
-                 * Success: set versionClaro of course to new version
-                 */
-                $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-                                    SET versionClaro='".$versionDb."'
-                                    WHERE code = '".$currentCourseIDsys."'";                
+            
+                $sql_get_id_of_one_teacher = "SELECT `user_id` `uid` FROM `". $tbl_rel_course_user . "` "
+                                   . " WHERE `code_cours` = '".$currentCourseIDsys."' LIMIT 1";
                 
-                $res = @mysql_query($sqlFlagUpgrade);
-                if (mysql_errno() > 0)
+                $res_id_of_one_teacher = claro_sql_query($sql_get_id_of_one_teacher);
+                
+                $teacher = claro_sql_fetch_all($res_id_of_one_teacher);
+    
+                $teacher_uid = $teacher[0]['uid'];
+                if (!is_numeric($teacher_uid))
                 {
-                    echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
-                    echo '<p>' . $sqlFlagUpgrade . '</p>';
+                    $teacher_uid = $_uid;
+                    if (!is_numeric($teacher_uid))
+                    $teacher_uid = 0;
+                    $sql_set_teacher = "INSERT INTO `". $tbl_rel_course_user . "`  
+                                                  SET `user_id` = '".$teacher_uid."'
+                                                   ,  `code_cours` = '".$currentCourseIDsys."'
+                                                   ,  `role` = 'Course missing manager';";
+                    claro_sql_query($sql_set_teacher);
+                    echo '<p class="error">Course '.$currentCourseCode.' has no teacher, you are enrolled in as course manager. </p>' . "\n";
                 }
-            }
-        
+                echo '<ol>' . "\n";
+                
+                /*
+                 * Upgrade course table
+                 */
+    
+                unset($sqlForUpdate);
+                $tbl_cdb_names = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+                // Include array with sql statement ($sqlForUpdate)
+                include('./sql_statement_course.php');
+                include('./repair_tables.php');
+                reset($sqlForUpdate);
+    
+                /*
+                 * Process sql statement
+                 */
+    
+                while ( list($key,$sqlTodo) = each($sqlForUpdate) )
+                {
+                    $res = mysql_query($sqlTodo);
+                    if ($_REQUEST['verbose']) // verbose is set when user retry upgrade
+                    {
+                        echo '<li>' . "\n";
+                        echo '<p class="tt"><strong>' . $currentCourseDbName. ':</strong>' . $sqlTodo .  '</p>' . "\n";
+                        echo '<p>' . mysql_affected_rows() . ' affected rows <br />' . "\n" .mysql_info() . '</p>' . "\n";
+                        if (mysql_errno() > 0 )
+                        {
+                            echo '<p class="error">n° <strong>' . mysql_errno() . ': </strong> ' . mysql_error() . '</p>' . "\n";
+                        }
+                        echo '</li>' . "\n";
+                    }             
+                    
+                    if ( mysql_errno() > 0 && !in_array(mysql_errno(),$accepted_error_list) )
+                    {
+                        ++$db_error_counter;
+                        echo '<p class="error">'
+                           . '<strong>' . $db_error_counter . '</strong> '
+                           . '<strong>n°: ' . mysql_errno() . '</strong> : ' . mysql_error() . ' ' . $currentCourseDbName . ':' . $sqlTodo
+                           . '</p>';
+                    }
+                }
+                echo '</ol>';
+    
+                if ( $db_error_counter > 0 )
+                {
+                    echo '<p class="error"><strong>' . $db_error_counter . ' errors found</strong></p>';
+    
+                    $count_error_total += $db_error_counter;
+                    
+                    /*
+                     * Error: set versionDB of course to error
+                     */
+                    $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
+                                        SET versionDb='error'
+                                        WHERE code = '".$currentCourseIDsys."'";
+    
+                    $res = claro_sql_query($sqlFlagUpgrade);
+                    if (mysql_errno() > 0)
+                    {
+                        echo '<p class="error">n° <strong>' . mysql_errno() . '</strong>: ' . mysql_error() . '</p>';
+                        echo '<p>' . $sqlFlagUpgrade . '</p>';
+                    }
+                }
+                else
+                {
+                    /*
+                     * Success: set versionDB of course to new version
+                     */
+                    $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
+                                        SET versionDb='".$versionDb."'
+                                        WHERE code = '".$currentCourseIDsys."'";                
+                    $res = @mysql_query($sqlFlagUpgrade);
+                    if (mysql_errno() > 0)
+                    {
+                        echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
+                        echo '<p>' . $sqlFlagUpgrade . '</p>';
+                    }
+                }
+    
+                /*
+                 * Upgrade course file structure
+                 */
+                
+                // rename folder image in course folder to exercise 
+                if ( is_dir($currentcoursePathSys.'image') ) 
+                {   
+                    if ( ! @rename($currentcoursePathSys.'image',$currentcoursePathSys.'exercise') )
+                    {
+                        $fs_error_counter++;
+                        echo '<p class="error">'
+                           . '<strong>' . sprintf('Cannot rename %s in %s',$currentcoursePathSys.'/image',$currentcoursePathSys.'/exercise') . '</strong> '
+                           . '</p>';
+                    } 
+                }
+                elseif ( !is_dir($currentcoursePathSys.'exercise') ) 
+                {
+                    if ( !@mkdir($currentcoursePathSys.'exercise', 0777) )
+                    {
+                        $fs_error_counter++;
+                        echo '<p class="error">'
+                           . '<strong>' . sprintf('Cannot create %s',$currentcoursePathSys.'exercise') . '</strong> '
+                           . '</p>';
+                    }
+                }
+                
+                if ( $fs_error_counter > 0 )
+                {
+                    $count_error_total += $fs_error_counter;
+                    $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
+                                        SET versionClaro='error'
+                                        WHERE code = '".$currentCourseIDsys."'";                
+                    $res = @mysql_query($sqlFlagUpgrade);
+                    
+                    if (mysql_errno() > 0)
+                    {
+                        echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
+                        echo '<p>' . $sqlFlagUpgrade . '</p>';
+                    }
+                }
+                else
+                {
+                    /*
+                     * Success: set versionClaro of course to new version
+                     */
+                    $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
+                                        SET versionClaro='".$versionDb."'
+                                        WHERE code = '".$currentCourseIDsys."'";                
+                    
+                    $res = @mysql_query($sqlFlagUpgrade);
+                    if (mysql_errno() > 0)
+                    {
+                        echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
+                        echo '<p>' . $sqlFlagUpgrade . '</p>';
+                    }
+                }
+            }        
             $mtime = microtime(); $mtime = explode(" ",$mtime);    $mtime = $mtime[1] + $mtime[0]; $endtime = $mtime;
             $totaltime = ($endtime - $starttime);
             $stepDuration = ($endtime - $steptime);
