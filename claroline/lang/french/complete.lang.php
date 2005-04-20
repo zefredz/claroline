@@ -1775,4 +1775,11 @@ $langpday = "%d&nbsp;jour(s)";
 $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
+$langAuthentication = "Authentification";
+$langConfigurationFile = "Fichier de configuration";
+$langCreateUserAccount = "Cr&eacute;er un utilisateur";
+$langMultipleAnswers = "R&eacute;ponses multiples";
+$langStartAgain = "Recommencer";
+$langUniqueAnswer = "R&eacute;ponse unique";
+$langUpgradeSucceed = "L'<em>upgrade de claroline</em> est termin&eacute;e.";
 ?>
