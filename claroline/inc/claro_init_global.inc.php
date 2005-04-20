@@ -125,7 +125,7 @@ else
 	     */
 	
 	    // build lang file of the tool    
-	    $languageFilename = ltrim ($_SERVER['PHP_SELF'],$urlAppend.'/');
+        $languageFilename = preg_replace('|^'.preg_quote($urlAppend).'/|', '', $_SERVER['PHP_SELF']);
 
         $pos = strpos($languageFilename,'claroline/');
 
