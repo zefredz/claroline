@@ -466,273 +466,209 @@ $langDirMv = "Element moved";
 $langDisable = "Disable";
 $langDiskUsage = "Disk Usage";
 $langDispClassAdded = "Display the class added";
-$langDocContent = "<p>The Documents tool is similar to the FileManager of
-
+$langDocContent = "<p>The Documents tool is similar to the File Manager of
  your desktop computer.</p><p>You can upload files of any type (HTML, Word,
-
  Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Your only concern
-
  must be that your students have the corresponding software to read them.
-
  Some file types can contain viruses, it is your responsibilty not to
-
- upload virus contaminated files. It is a worthwhile precaution to check documents with
-
- antivirus software before uploading them.</p>
-
-<p>The documents are presented in alphabetical order.<br><b>Tip : </b>If
-
- you want to present them in a different order, number them: 01, 02,
-
- 03...</p>
-
+ upload virus contaminated files. It is a worthwhile precaution to check 
+ documents with antivirus software before uploading them.</p>
 <hr />
+<h4>View modes</h4>
+The Claroline document has 2 view mode
+<ul>
+<li>File list (default)</li>
+<li>Thumbnail</li>
+</ul>
+You can switch between 'file list' and 'thumbnail' mode simply by clicking on 
+the 'File list | Thumbnails' commands  on the right in the directory toolbar.
 
-You can change view mode and use Image Viewer :
-
-<h4>Change View Mode</h4>
+<h4>The image viewer</h4>
 
 <ul>
-        <li>Default mode is FileList</li>
-
-        <li>Switch to Thumbnails mode by clicking on <b>Thumbnails</b>
-        on the right in the document dirctory toolbar</li>
-
-        <li>Switch to FileList mode by clicking on <b>File List</b>
-        on the right in the document dirctory toolbar</li>
-
+<li>Open the Image Viewer simply by clicking on the name of an image file in the File List mode
+or on an image thumbnails in the Thumbnails Mode</li>
+<li>Go to next or previous image y clicking on its name or its thumbnails
+in the Image Viewer toolbar</li>
+<li>Close the Image Viewer simply by clicking either on 'Thumbnails' or on 'File List' on the right
+in the directory toolbar</li>
 </ul>
 
-<h4>Use image viewer</h4>
-
+<h4>Search a ressource</h4>
 <ul>
-        <li><b>Open</b> Image Viewer by clicking on an image name in FileList mode
-        or on an image thumbnails in Thumbnails Mode</li>
-
-        <li><b>Close</b> Image Viewer by clicking on <b>Thumbnails</b> or File List on the right
-        in the directory toolbar</li>
-
-        <li>Go to next or previous image y clicking on its name or its thumbnails
-        in the Image Viewer toolbar</li>
-
+<li>
+Click on the 'Search command' in the upper side of your browser windows.
+</li>
+<li>
+Enter your search patter. You can use '*' and '?' wildcards for complex research.
+</li>
+<li>
+Click on the 'OK' button.
+</li>
+<li>
+The search result wil be displayed just beside the directory toolbar.
+</li>
 </ul>
-
 <hr />
-
-You can manage documents :
+<h4>Managing documents</h4>
+This tool has a collection of commands allowing you to upload, edit and 
+organize your file ressources.
+</hr />
 
 <h4>Upload a document</h4>
-
 <ul>
-
-  <li>Select the file on your computer using the Browse button <input
-
- type=submit value=Browse name=submit2>
-
-    on the right of your screen.</li>
-
-        <li>
-
-            Launch the upload with the Upload Button <input type=submit value=Upload name=submit2>.
-
-        </li>
-
-    </ul>
-
-    <h4>
-
-        Rename a document (a directory)
-
-    </h4>
-
-    <ul>
-
-        <li>
-
-            click on the <img src=img/edit.gif width=20 height=20 align=baseline>
-
-            button in the Rename column
-
-        </li>
-
-        <li>
-
-            Type the new name in the field (top left)
-
-        </li>
-
-        <li>
-
-            Validate by clicking <input type=submit value=Ok name=submit24>.
-
-        </li>
-
-    </ul>
-
-        <h4>
-
-            Delete a document (or a directory)
-
-        </h4>
-
-        <ul>
-
-            <li>
-
-                Click on <img src=img/delete.gif width=20 height=20>
-
-                in column 'Delete'.
-
-            </li>
-
-        </ul>
-
-        <h4>
-
-            Make a document (or directory) invisible to students
-
-        </h4>
-
-        <ul>
-
-            <li>
-
-                Click on <img src=img/visible.gif width=20 height=20>
-
-                in column 'Visible/invisible'.
-
-            </li>
-
-            <li>
-
-                The document (or directory) still exists but it is not visible by students anymore.
-
-            </li>
-
-            <li>
-
-                To make it invisible back again, click on
-
-                <img src=img/invisible.gif width=24 height=20>
-
-                in column 'Visible/invisible'
-
-            </li>
-
-        </ul>
-
-        <h4>
-
-            Add or modify a comment to a document (or a directory)
-
-        </h4>
-
-        <ul>
-
-            <li>
-
-                Click on <img src=img/comment.gif width=20 height=20> in column 'Comment'
-
-            </li>
-
-            <li>
-
-                Type new comment in the corresponding field (top right).
-
-            </li>
-
-            <li>
-
-                Validate by clicking <input type=submit value=OK name=submit2>
-
-            .</li>
-
-        </ul>
-
-        <p>
-
-        To delete a comment, click on <img src=img/comment.gif width=20 height=20>,
-
-        delete the old comment in the field and click
-
-        <input type=submit value=OK name=submit22>.
-
-        <hr>
-
-        <p>
-
-            You can organise your content through filing. For this:
-
-        </p>
-
-        <h4>
-
-            <b>
-
-                Create a directory
-
-            </b>
-
-        </h4>
-
-        <ul>
-
-            <li>
-
-                Click on
-
-                <img src=img/folder.gif>
-
-                'Create a directory' (top left)
-
-            </li>
-
-            <li>
-
-                Type the name of your new directory in the corresponding field (top left)
-
-            </li>
-
-            <li>
-
-                Validate by clicking <input type=submit value=OK name=submit23>.
-
-            </li>
-
-        </ul>
-
-        <h4>
-
-            Move a document (or directory)
-
-        </h4>
-
-        <ul>
-
-            <li>
-
-                Click on button <img src=\"img/move.gif\" width=34 height=16>
-
-                in column 'Move'
-
-            </li>
-
-            <li>
-
-                Choose the directory into which you want to move the document (or directory) in the corresponding scrolling menu (top left) (note: the word 'root' means you cannot go higher than that level in the document tree of the server).
-
-            </li>
-
-            <li>
-
-                Validate by clicking on <input type=submit value=OK name=submit232>.
-
-            </li>
-
-        </ul>
-
+<li>
+Click on the 'Upload file' command in the upper left.
+</li>
+<li>
+Select the file on your computer using the 'Browse' button in the dialog box.
+</li>
+<li>
+Optionnaly, you can attach a comment to this document. It will be displayed 
+just below the document line.
+<blockquote><small>
+<i>Note</i> If you upload a file collection gathered in archive file in <i>ZIP</i> format,
+check the 'uncompress zipped (.zip) file on the server' option to extract them 
+automatically once the archive is uploaded in your course repositoy on the server.
+</small></blockquote>
+</li>
+<li>
+Launch the upload by clicking on the 'Upload' button.
+</li>
+</ul>
+
+<h4>Create an hyperlink</h4>
+<ul>
+<li>
+Click on the 'create hyperlink' command  in the upper side of your browser windows.
+</li>
+<li>
+Fill the 'Name' field with a specific name to this hyperlink;
+</li>
+<li>
+Type the complete URL of the hyperlink 
+(example : http://my.domain/my/file.htm).
+</li>
+<li>
+Optionnaly, you can attach a comment to this hyperlink.
+It will be displayed just below the hyperlink line.
+</li>
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
+
+<h4>Create an HTML document on line</h4>
+<ul>
+<li> Click on the 'Create document' command in the upper side of your browser windows.
+</li>
+<li> 
+Fill appearing 'Document name' field with a a name for this document.
+</li>
+<li>
+Enter the document content in the 'Document content' area.
+</li>
+<li>
+Click on the 'OK' button once finished.
+</li>
+</ul>
+<p>
+This command can be used for writing short documents. To write 
+longer texts we recommend you to use a more suitable tool on your personal 
+computer.
+</p>
+
+
+<h4>Rename a document, a directory or a hyperlink</h4>
+<ul>
+<li>Click on the icon in the 'Edit' column.
+</li>
+<li>
+Type the new name in the field in the upper side of your browser window.
+</li>
+<li>
+Optionally, you can also add or modify a comment attached to this document. 
+It will be displayed just below the document line.
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
+<p>
+<b>Tip. </b>
+Documents are presented in alphabetical order. If you want to present them in a 
+different order, number them: 01, 02, 03...
+</p>
+
+
+<h4>Delete a document, a directory or a hyperlink</h4>
+<ul>
+<li>
+Click on the icon beside the document in the 'Delete' column.</li>
+</ul>
+
+<h4>
+Make a document, a directory or a hyperlink invisible to students
+</h4>
+<ul>
+<li>
+Click on the icon beside the document in the 'Visible/invisible' column.
+</li>
+<li>
+The element still exists but it is not visible by students anymore.
+</li>
+<li>
+To make it invisible back again, click once more on the icon beside the document 
+in the 'Visible/invisible' column.
+</li>
+</ul>
+<h4>
+Add or modify a comment to a document, a directory or a hyperlink
+</h4>
+<ul>
+<li>
+Click on the icon beside the document in the 'edit' column.
+</li>
+<li>
+Type new comment in the corresponding field.
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
+<p>
+To delete a comment, click on the icon beside the document in the 'Edit' column,
+delete the old comment in the field and click on the 'OK' button.
+<h4>Create a directory</h4>
+<ul>
+<li>Click on the 'Create directory' command in the upper side of your browser window.
+</li>
+<li>
+Type the name of your new directory in the corresponding field (top left).
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
+<h4>
+Move a document a directory or a hyperlink
+</h4>
+<ul>
+<li>
+Click on on the icon beside the concernent element in the 'Move' column.
+</li>
+<li>
+Choose the directory into which you want to move the element in 
+the corresponding scrolling menu (top left)
+<br />Note: the word 'root' means you cannot go higher than that level in the 
+document tree of the server).
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
 <center>
-
 <p>";
 $langDocDeleted = "Document deleted";
 $langDocInsertedAsModule = "has been added as module";
