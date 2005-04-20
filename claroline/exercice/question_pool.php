@@ -160,7 +160,7 @@ if($is_allowedToEdit)
 	{
 ?>
 
-		<a class="claroCmd" href="admin.php">&lt;&lt; <?php echo $langGoBackToEx; ?></a>
+		<small><a href="admin.php">&lt;&lt; <?php echo $langGoBackToEx; ?></a></small>
 
 <?php
 	}
