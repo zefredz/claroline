@@ -20,47 +20,7 @@
  *
  */
 
-
-if  ( !is_array($tableToRepair) )
-{
-
-	if ( isset($singleDbEnabled) && $singleDbEnabled)
-    {
-	    $sql =  "SHOW TABLES like '" . $currentCourseDbName ."%' "; 
-    }
-    else
-    {
-    	$sql = "SHOW TABLES FROM " . $currentCourseDbName ;
-    }
-
-	$res_getTablesNames = mysql_query($sql);
-
-	if( mysql_num_rows($res_getTablesNames) )
-	{
-		while ($getTablesNames = mysql_fetch_array($res_getTablesNames)) 
-		{
-			$tableToRepair[] = $getTablesNames[0];
-		}		
-	}
-}
-
-if  ( is_array($tableToRepair) )
-{
-	reset($tableToRepair);
-	$sqlRepair = "REPAIR TABLE  ";
-
-	for ($i=0;$i<count($tableToRepair);$i++)
-	{
-		if ($i < (count($tableToRepair) -1)) 
-		{
-			$sqlRepair .= "`".$currentCourseDbNameGlu.$tableToRepair[$i]."`, ";
-		}
-		else
-		{
-			$sqlRepair .= "`".$currentCourseDbNameGlu.$tableToRepair[$i];
-		}
-	}
-	$sqlForUpdate[] = $sqlRepair;
-}
+if  ( !is_array($tableToRepair && isset($currentCourseDbNameGlu)) ) $tableToRepair = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+if  ( is_array($tableToRepair) )  $sqlForUpdate[] = "REPAIR TABLE  `".implode($tableToRepair,'`, `')."`";
 
 ?>
