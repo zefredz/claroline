@@ -42,6 +42,9 @@ require_once($includePath.'/lib/claro_main.lib.php');
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_course = $tbl_mdb_names['course'];
 $tbl_rel_course_user   = $tbl_mdb_names['rel_course_user'];
+$tbl_course_tool       = $tbl_mdb_names['tool'];
+
+
 /**#@-*/
 
 /*---------------------------------------------------------------------
@@ -288,6 +291,9 @@ switch ($display)
 
         while ($course = mysql_fetch_array($res_course_to_upgrade))
         {
+
+            // initialise variables
+
             $currentCourseDbName    = $course['dbName'];
             $currentcoursePathSys   = $coursesRepositorySys.$course['coursePath'].'/';
             $currentcoursePathWeb   = $coursesRepositoryWeb.$course['coursePath'].'/';
@@ -295,14 +301,13 @@ switch ($display)
             $currentCourseCode      = $course['officialCode'];
             $currentCourseCreationDate = $course['creationDate'];
             $currentCourseDbNameGlu = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
-        
+
             $count_course_upgraded++;
             $db_error_counter = 0;
             $fs_error_counter = 0;
             $check_integrity_error = 0;
             printf($lang_p_UpgradingDatabaseOfCourse, 
             $count_course_upgraded, $currentCourseCode, $currentCourseDbName, $currentCourseIDsys);
-            
             
             /**
              * Make some check.
@@ -331,6 +336,21 @@ switch ($display)
             else 
             {
             
+                // get work intro
+
+                $sql_work_intro = "SELECT ti.texte_intro
+                        FROM `" . $currentCourseDbNameGlu . "tool_list` tl,
+                             `" . $currentCourseDbNameGlu . "tool_intro` ti,
+                             `" . $tbl_course_tool . "` ct
+                        WHERE ti.id = tl.id
+                                AND tl.tool_id =  ct.id
+                                AND ct.claro_label = 'CLWRK___'";
+                $work_intro = claro_sql_query_get_single_value($sql_work_intro);
+
+                if ( $work_intro === FALSE ) $work_intro = '';
+
+                // get course manager of the course
+            
                 $sql_get_id_of_one_teacher = "SELECT `user_id` `uid` FROM `". $tbl_rel_course_user . "` "
                                    . " WHERE `code_cours` = '".$currentCourseIDsys."' LIMIT 1";
                 
@@ -339,6 +359,9 @@ switch ($display)
                 $teacher = claro_sql_fetch_all($res_id_of_one_teacher);
     
                 $teacher_uid = $teacher[0]['uid'];
+
+                // if no course manager, you are enrolled in as
+
                 if (!is_numeric($teacher_uid))
                 {
                     $teacher_uid = $_uid;
@@ -351,6 +374,7 @@ switch ($display)
                     claro_sql_query($sql_set_teacher);
                     $errorMsgs .= '<p class="error">Course '.$currentCourseCode.' has no teacher, you are enrolled in as course manager. </p>' . "\n";
                 }
+
                 $errorMsgs .= '<ol>' . "\n";
                 
                 /*

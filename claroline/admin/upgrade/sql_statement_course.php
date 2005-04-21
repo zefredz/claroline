@@ -103,7 +103,7 @@ $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."wrk_su
 $sqlForUpdate[] = "INSERT INTO `".$currentCourseDbNameGlu."wrk_assignment` 
 SET `id` = 1,
     `title` = 'Assignments', 
-    `description`= '', 
+    `description`= '" . $work_intro . "', 
     `visibility` = 'VISIBLE', 
     `def_submission_visibility` = 'VISIBLE',
     `assignment_type` = 'INDIVIDUAL',
@@ -126,6 +126,14 @@ $sqlForUpdate[] = "INSERT IGNORE INTO `".$currentCourseDbNameGlu."wrk_submission
 
 $sqlForUpdate[] = "UPDATE `".$currentCourseDbNameGlu."wrk_submission` 
                    SET submitted_doc_path = REPLACE (`submitted_doc_path` ,'work/','')";
+
+$sql = "SELECT ti.texte_intro
+        FROM `".$currentCourseDbNameGlu."tool_list` tl, 
+             `".$currentCourseDbNameGlu."tool_intro` ti,
+             $tbl_coursetool ct
+        WHERE ti.id = tl.id
+            AND tl.tool_id =  ct.id
+            AND ct.claro_label = 'CLWRK___'";
 
 /**
  * Upgrade groups
