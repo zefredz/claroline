@@ -50,8 +50,6 @@ $pathForm       = realpath("../..")."/";
 
 $courseRepositoryForm = $conf_def_property_list['coursesRepositoryAppend']['default'];
 
-
-
 $campusForm          = $conf_def_property_list['siteName']['default'];
 $institutionForm     = $conf_def_property_list['institution_name'] ['default'];
 $institutionUrlForm  = $conf_def_property_list['institution_url'] ['default'];
@@ -61,8 +59,6 @@ $languageForm = $conf_def_property_list['platformLanguage']['default'];
 $userPasswordCrypted =$conf_def_property_list['userPasswordCrypted']['default'];
 
 $allowSelfReg =$conf_def_property_list['allowSelfReg']['default'] ;
-
-
 
 /**
  * admin & contact
@@ -78,5 +74,6 @@ $adminEmailForm    = $conf_def_property_list['administrator_email']['default'];
 $contactNameForm     = '*not set*'; // This magic value is use to detect if the content is edit or not.
 $contactPhoneForm    = '*not set*'; // if <not set> is found, the data form admin are copied
 $contactEmailForm    = '*not set*'; // This tips  permit to  empty these fields
+
 
 ?>
