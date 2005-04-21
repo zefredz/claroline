@@ -365,8 +365,8 @@ if ( $display_form )
                 {
                     // display fieldset with the label of the section
                     echo '<tr>'
-                       . '<th class="superHeader" colspan="3">' . $section['label'] . '</th>'
-                       . '</tr>' . "\n";
+                        .'<th class="superHeader" colspan="3">' . $section['label'] . '</th>'
+                        .'</tr>' . "\n";
 
                     // display description of the section
                     if ( !empty($section['description']) )
@@ -376,7 +376,7 @@ if ( $display_form )
                     else
                     {
                         echo '<tr><th class="headerX" colspan="3">&nbsp;</th></tr>' . "\n";
-                    } 
+                    }
                 }
 
                 // The default value is show in input or preselected value if there is no value set.

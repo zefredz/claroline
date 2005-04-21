@@ -141,7 +141,7 @@ else
             $languageFilename = str_replace('/','_',$languageFilename);
         }
     }
-
+    
     // add extension to file
     $languageFile = $languageFilename.'.lang.php'; 
 
