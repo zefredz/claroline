@@ -1280,21 +1280,11 @@ $langIntroEditToolList = "Select the tools you want to make visible for your use
 
 An invisible tool will be greyed out on your personal interface";
 $langIntroLearningPath = "Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br><br>If you want to present your learning path to students, click on the button below.<br>";
-$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade.
+$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade. These settings were stored into claroline/inc/conf/claro_main.conf.php in your previous platform version.</p>";
+$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to prepare the data stored into the <b>main Claroline tables</b>
+(users, course categories, tools list, ...) and set it to be compatible with the new Claroline version.</p><p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
+$langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going to prepare <b>course</b> data (directories and database tables) one by one and set it to be compatible with the new Claroline version.<p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
 
-                These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
-$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to upgrade the data stored into the main Claroline tables
-
-                    (users, course categories, tools list, ...) and set it to be compatible with the new Claroline version.</p>
-
-                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this
-
-                   operation may take some time.</p>";
-$langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going to update course data (directories and database tables) one by one.
-
-                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
-
-                   this operation may take some time.</p>";
 $langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>";
 $langIntroText = "To send a message, select groups of users (marked with a * in the front)
 
@@ -1375,49 +1365,37 @@ $langMailSynthaxError = "Mail synthax error.";
 $langMailTo = "Mail to : ";
 $langMailUsed = "Mail is already used by another user.";
 $langMainDB = "Main database";
-$langMakeABackupBefore = "<p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
-
+$langMakeABackupBefore = "
+<p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
 installation and set them to be compatible with the new Claroline version. This upgrade proceeds in three steps:</p>
-
-
-
 <ol>
-
-
-
-<li>It will get your previous platform main settings and put them in a new configuration files</li>
-
-
-
-<li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.</li>
-
-
-
-<li>It will update one by one each course data (directories, database tables, ...)</li>
-
-
-
+<li>
+It will get your previous platform main settings and put them in a new configuration files
+</li>
+<li>
+It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.
+</li>
+<li>
+It will update one by one each course data (directories, database tables, ...)
+</li>
 </ol>
-
-
-
-<p>Before proceeding to this upgrade:</p>
-
-
-
+<p>
+Before starting the <em>Claroline Upgrade Tool</em>, 
+we recommend you to make yourself a complete backup of 
+the platform data (files and databases).
+</p>
 <table>
-
 <tbody>
-
-<tr valign=\"top\"><td>-</td><td>Make a complete backup of all your platform data (files and databases)</td><td>%s</td></tr>
-
-
-
+<tr valign=\"top\">
+<td>
+The data backup has been done</td>
+<td>%s</td>
+</tr>
 </tbody>
-
 </table>
-
-<p>You won't be allowed to start the upgrade process before this point is marked as 'done'.</p>
+<p>
+The <em>Claroline Upgrade Tool</em>
+is not able to start if you do not confirm that the data has been done.</p>
 
 ";
 $langMakeCorrespond = "Make correspond";
@@ -1826,7 +1804,7 @@ $langTitular = "Titular";
 $langTo = "to";
 $langToDate = "to";
 $langToday = "Today";
-$langTodo = "Steps todo";
+$langRemainingSteps = "Remaining steps";
 $langTooBig = "You didn't choose any file to send, or it is too big";
 $langTool = "Tool";
 $langToolList = "List of all tools";
@@ -2126,4 +2104,6 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
+$lang_p_expectedRemainingTime = ' <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. --><b>Expected remaining time %s</b>.';
+$lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  Fix, first, the technical problem and relaunch the upgrade tool.";
 ?>

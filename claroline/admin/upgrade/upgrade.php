@@ -194,8 +194,10 @@ switch ($display)
 {
     case DISPVAL_upgrade_backup_needed :
 
-        $str_confirm_backup = '<input type="checkbox" id="confirm_backup" name="confirm_backup" value="1" />'
-                            . '<label for="confirm_backup">' . $langConfirm . '</label>'
+        $str_confirm_backup = '<input type="radio" id="confirm_backup_yes" name="confirm_backup" value="1" />'
+                            . '<label for="confirm_backup">' . $langYes . '</label><br>'
+                            . '<input type="radio" id="confirm_backup_no" name="confirm_backup" value="" checked="checked" />'
+                            . '<label for="confirm_backup">' . $langNo . '</label><br>'
                             ;
 
         echo  sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
@@ -233,7 +235,7 @@ switch ($display)
             . sprintf ('<li>%s (<a href="upgrade_conf.php">%s</a>)</li>',$langUpgradeStep1,$langStartAgain) . "\n"
             . sprintf ('<li>%s (<a href="upgrade_main_db.php">%s</a>)</li>',$langUpgradeStep2,$langStartAgain) . "\n"
             . '</ul>' . "\n"
-            . '<h2>' . $langTodo . ':</h2>' . "\n"
+            . '<h2>' . $langRemainingSteps . ':</h2>' . "\n"
             . '<ul>' . "\n"
             . sprintf('<li><a href="upgrade_courses.php">%s</a> - %s course(s) to upgrade</li>',$langUpgradeStep3,$nbCourses['nb']) . "\n"
             . '</ul>' . "\n"

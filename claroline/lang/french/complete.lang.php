@@ -1007,15 +1007,14 @@ Pour présenter votre cours aux étudiants, cliquer sur ce bouton.<br />";
 $langIntroEditToolList = "Sélectionner les outils que vous voulez activer.
 Les outils invisibles seront grisés dans votre page d'accueil du cours.";
 $langIntroLearningPath = "Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants<br /><br />Si vous désirez ajouter un texte d'introduction, cliquez sur ce bouton.<br />";
-$langIntroStep1 = "<p>L'<em>outil de mise à jour</em> va procéder à la mise à jour des parmaètre de la plateforme.
-Ces paramètres sont stockés dans claroline/include/config.inc.php de votre ancienne plateforme</p>";
-$langIntroStep2 = "<p>Maintenant, l'<em>outil de mise à jour</em> met à jour les tables principales de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatible avec la nouvelle structure de données.
+
+$langIntroStep1 = "<p>L'<em>outil de mise à jour</em> va procéder à la mise à jour des paramètres de la plateforme.
+Ces paramètres sont stockés dans claroline/inc/conf/claro_main.conf.php de votre ancienne plateforme</p>";
+$langIntroStep2 = "<p>Maintenant, l'<em>outil de mise à jour</em> va préparer les <strong>tables principales</strong> de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatibles avec la nouvelle structure de données.
 </p>
-<p class=\"help\">Note: En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
-$langIntroStep3 = "<p>L'<em>outil de mise à jour</em> met à jour les données de chaque cours (dossiers et tables de la base de données).
-<p class=\"help\">Note: En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
-$langIntroStep3Run = "<p>L'<em>outil de mise à jour</em> met à jour les cours.</p>";
-$langIntroText = "Pour envoyer un message, sélectionnez des groupes d'utilisateurs (indiqués par *) et/ou des utilisateurs dans la liste de gauche";
+<p class=\"help\">Note. En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
+$langIntroStep3 = "<p>L'<em>outil de mise à jour</em>va, à présent, préparer les données de <strong>chaque cours</strong> (dossiers et tables de la base de données)  pour être compatibles avec la nouvelle structure de données.
+<p class=\"help\">Note. En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
 $langIntroWork = "Cet outil est un espace de publication. 
 <br />Il permet au gestionnaire de cours de créer différents travaux dans lesquels chaque étudiant peut envoyer un document (Word, Excel, HTML... ) vers le site du cours, ou composer un texte, afin de le rendre accessible aux autres étudiants ainsi qu'au gestionnaire.
 <br />Vous pourrez ensuite ajouter un commentaire ou une correction à chaque soumission de l'étudiant.
@@ -1092,20 +1091,30 @@ $langMailSynthaxError = "Erreur de synthaxe dans l'e-mail.";
 $langMailTo = "Pour: ";
 $langMailUsed = "L'e-mail est déjà utilisée par un autre utilisateur.";
 $langMainDB = "Base principale de Claroline";
-$langMakeABackupBefore = "<p>L'outil de <em>mise à jour de Claroline</em> récupère les données de la précédente installation et les rend compatible avec la nouvelle version de Claroline. Cette mise à jour se déroule en trois étapes:</p>
+$langMakeABackupBefore = "
+<p>L'outil de <em>mise à jour de Claroline</em> récupère les données de la précédente installation et les rend compatible avec la nouvelle version de Claroline. Cette mise à jour se déroule en trois étapes:</p>
 <ol>
 <li>Récupère les paramètres de la plateforme et génère les nouveaux fichiers de configuration.</li>
 <li>Met à jour les tables principales de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatible avec la nouvelle structure de données.</li>
 <li>Met à jour un par un chaque donnée de cours (dossiers, tables de la base de données, ...)</li>
 </ol>
-<p>Nous vous recommandons avant de lancer la mise à jour:</p>
+<p>Avant de démarrer l'outil de <em>mise à jour de Claroline</em>,
+ nous vous recommandons de réaliser vous-même une 
+ sauvegarde complête de toutes les données de la plateforme 
+ (fichiers et bases de données)</p>
 <table>
 <tbody>
-<tr valign=\"top\"><td>-</td><td>Faire une sauvegarde complète de toutes les données de la plateforme (fichiers et base de données)</td><td>%s</td></tr>
-
+<tr valign=\"top\">
+<td>
+La sauvegarde complète de toutes les données à été réalisée
+</td>
+<td>%s</td>
+</tr>
 </tbody>
 </table>
-<p>La mise à jour ne peut pas démarrer tant que cette étape n'est pas marquée comme 'faite'.</p>
+<p>
+La <em>mise à jour de Claroline</em> ne peut pas démarrer tant que 
+vous ne confirmez pas que la sauvegarde est réalisée.</p>
 ";
 $langMakeCorrespond = "Faites correspondre";
 $langMakeInvisible = "Rendre invisible";
@@ -1527,7 +1536,7 @@ $langTitular = "Gestionnaire de cours";
 $langTo = "vers";
 $langToDate = "au";
 $langToday = "Aujourd'hui";
-$langTodo = "Etapes à faire";
+$langRemainingSteps = "Etapes restantes";
 $langTooBig = "Vous n'avez pas choisi de fichier à envoyer, ou celui-ci est trop gros";
 $langTool = "Outil";
 $langToolList = "Liste de tous les outils";
@@ -1582,7 +1591,7 @@ $langUp = "Remonter";
 $langUpdateImage = "Changez de photo";
 $langUpdated = "mis à jour";
 $langUpdatedExternalTool = "Lien externe modifié";
-$langUpgrade = "Mise à jour de Claroline";
+$langUpgrade = "Mise à jour";
 $langUpgradeStep0 = "Sauvegarde confirmée";
 $langUpgradeStep1 = "Etape 1 de 3: paramètres de la plateforme";
 $langUpgradeStep2 = "Etape 2 de 3: mise à jour des tables pricipales";
@@ -1782,9 +1791,13 @@ $langpday = "%d&nbsp;jour(s)";
 $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
+$lang_p_expectedRemainingTime = '<!-- Temps d\'éxécution pour ce cours [%01.2f s] - moyenne [%01.2f s] - total [%s] - cours restants [%d]. --><b>Temps restant estimé</b>.';
+$langUpgrade = "Upgrade";
+$lang_upgradeToolCannotUpgradeThisCourse = "L'outil de mise à jour n'est pas capable de mettre à jour un cours corrumpu.  Veuillez réparer ce problème et ensuite relancer la procédure de mise à jour.";
 $langFunctions = "Liste des fonctions";
 $langNoFunctionInThisSection = "Pas de fonction dans cette extension";
 $langPopulateTools = "Remplir les outils";
 $langConfigMenuContent = "Menu de configuration";
 $langFillToolCourses = "Remplir les outils de cours";
+
 ?>
