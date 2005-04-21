@@ -195,9 +195,9 @@ switch ($display)
     case DISPVAL_upgrade_backup_needed :
 
         $str_confirm_backup = '<input type="radio" id="confirm_backup_yes" name="confirm_backup" value="1" />'
-                            . '<label for="confirm_backup">' . $langYes . '</label><br>'
+                            . '<label for="confirm_backup_yes">' . $langYes . '</label><br>'
                             . '<input type="radio" id="confirm_backup_no" name="confirm_backup" value="" checked="checked" />'
-                            . '<label for="confirm_backup">' . $langNo . '</label><br>'
+                            . '<label for="confirm_backup_no">' . $langNo . '</label><br>'
                             ;
 
         echo  sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
