@@ -1,4 +1,4 @@
-<?php 
+<?php
 $l_author = "Auteur";
 $l_banned = "Vous avez été banni de ce forum. Contactez l'administrateur système si vous avez des questions.";
 $l_body = "Message";
@@ -344,6 +344,7 @@ $langCourseWithoutStudents = "Cours sans étudiants";
 $langCourse_Repository = "Dossier du cours";
 $langCourses = "Cours";
 $langCreate = "créer";
+$langCreateANewCourseNow = "Créer un cours maintenant";
 $langCreateAnotherUser = "Créer un autre utilisateur";
 $langCreateAssignment = "Créer un nouveau travail";
 $langCreateCourse = "Créer un cours";
@@ -942,6 +943,58 @@ $langHasBeenEnrolled = "a été incrit";
 $langHasDel = "a été supprimé";
 $langHeading = "Intitulé";
 $langHelp = "Aide";
+$langHelpAssignment = "Aide des travaux";
+$langHelpAssignmentContent = "<p>L'outil de travaux permet aux apprenants de poster des fichiers qu'ils pensent pouvoir être intéressants pour les autres membres du cours, ou lorsque le responsable de cours leur a demandé de lui envoyer un fichier.  En effet, cet outil peut être utilisé de différentes manières, selon la façon dont le responsable de cours l'a configuré.
+</p><p>Plusieurs sessions de travaux peuvent exister simultanément, avec pour chacune des objectifs et des contraintes différentes.  Un travail peut être un fichier, un texte ou un texte accompagné d'un fichier.  Un travail peut également être posté à titre individuel ou au nom d'un groupe d'utilisateurs.
+</p>
+
+<hr />
+<h4>Créer un travail</h4>
+ <p>Pour créer un nouveau travail le responsable de cours doit entrer dans l'outil de travaux et cliquer sur le lien \"Créer un nouveau travail\".
+</p><p>Il faut alors que le responsable de cours remplisse le formulaire de création d'un travail.  Les différentes options possibles sont&nbsp;:
+</p>
+<ul><li><strong> titre</strong>&nbsp;: le nom du travail
+</li><li><strong> description</strong>&nbsp;: les intructions à propos du travail, ce qui doit être fait et la manière avec laquelle cela doit être fait
+</li><li><strong> type de soumission</strong>
+<ul><li>fichier&nbsp;: un fichier est requis, un commentaire peut être ajouté
+
+</li><li> texte&nbsp;: un texte mis en forme à l'aide de l'éditeur wysiwyg
+</li><li> texte avec un fichier attaché&nbsp;: un texte mis en forme à l'aide de l'éditeur wysiwyg et un fichier optionnel
+</li></ul>
+</li><li> <strong>date de début</strong>&nbsp;: date à partir de laquelle les apprenants peuvent soumettre leur travail
+</li><li> <strong>date de fin</strong>&nbsp;: date jusqu'à laquelle les apprennants peuvent soumettre leur travail
+</li><li><strong> visibilité par défaut des soumissions</strong>&nbsp;: spécifie si les travaux uploadés peuvent être vus par les autres apprenants ou si ils sont masqués dès la soumission
+</li><li><strong> type de travail</strong>
+<ul><li> individuel&nbsp;: chaque utilisateur inscrit dans le cours peut publier une soumission
+</li><li> de groupe&nbsp;: l'utilisateur doit être membre d'au moins un des groupes du cours pour publier une soumission.  Les soumissions de ce type seront publiées au nom du groupe auquel appartient l'apprenant.
+</li></ul>
+</li><li> <strong>permission de soumettre après la date de fin</strong>
+</li></ul>
+<p>
+
+<h4>Correction automatique</h4>
+</p><p>En plus de la correction manuelle que le responsable de cours peut faire pour chaque soumission il est possible de mettre une correction automatiquement à disposition des apprenants.  Pour ce faire il faut entrer dans un travail et cliquer sur \"Editer la correction automatique\"
+</p><p>La correction automatique peut être un fichier, un texte ou les deux.  Le responsable de cours peut choisir quand cette correction automatique sera montrée aux apprenants&nbsp;: 
+</p>
+
+<ul><li> à partir de la date de fin de la session
+</li><li> au cas par cas, dès que l'apprenant à publié un travail
+</li></ul>
+
+<h4>Gestion des soumissions</h4>
+<p>Le responsable de cours peut poster une correction individuelle pour chaque travail soumis par un utilisateur.
+</p>
+<p>Les soumissions sont les publications des apprenants.
+</p><p>Pour chaque session de travail est affichée la liste de tous les utilisateurs du cours avec pour chacun le nombre de soumissions qu'il a effectué dans cette session et le nombre de correction que le responsable de cours a fait pour ces soumissions.  La liste des soumissions et des correction d'un utilisateur dans une session peut être consultée en cliquant sur le nom de l'utilisateur.
+</p><p>Dans la liste des soumissions d'un utilisateurs sont disponibles des commandes à l'intention du responsable de cours&nbsp;:
+</p>
+<ul><li> <strong>Modify</strong>&nbsp;: cette icone apparait à l'auteur de la soumission (éventuellement à tous les membres du groupes pour lequel la soumission a été faite), elle apparait également au responsable de cours.
+</li><li> <strong>Delete</strong>&nbsp;: permet au responsable de cours d'effacer une soumission
+</li><li> <strong>Visible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est visible à toutes les personnes qui ont accès au cours.  Cliquer sur cette icone rend la soumission invisible
+
+</li><li> <strong>invisible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est masquée à toutes les personnes qui ont accès au cours, la soumission n'est alors visible que pour tous les utilisateurs à l'exception des responsables de cours et de l'utilisateur ou du groupe propriétaire de la soumission. 
+</li><li> <strong>Ajouter une correction</strong>&nbsp;: permet au responsable de cours de soumettre une correction individuelle à l'auteur de la soumission.  En plus d'un fichier et/ou d'un texte cette correction peut être accompagné d'un pourcentage et d'un commentaire que seuls les responsables de cours pourront voir.
+</li></ul>";
 $langHelpGroups = "Gestion des groupes";
 $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Ici vous pouvez modifier le contenu des zones de texte affichées sur la page d'accueil du campus.";
 $langHigh_resources = "importantes ressources";
@@ -1007,7 +1060,6 @@ Pour présenter votre cours aux étudiants, cliquer sur ce bouton.<br />";
 $langIntroEditToolList = "Sélectionner les outils que vous voulez activer.
 Les outils invisibles seront grisés dans votre page d'accueil du cours.";
 $langIntroLearningPath = "Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants<br /><br />Si vous désirez ajouter un texte d'introduction, cliquez sur ce bouton.<br />";
-
 $langIntroStep1 = "<p>L'<em>outil de mise à jour</em> va procéder à la mise à jour des paramètres de la plateforme.
 Ces paramètres sont stockés dans claroline/inc/conf/claro_main.conf.php de votre ancienne plateforme</p>";
 $langIntroStep2 = "<p>Maintenant, l'<em>outil de mise à jour</em> va préparer les <strong>tables principales</strong> de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatibles avec la nouvelle structure de données.
@@ -1015,6 +1067,8 @@ $langIntroStep2 = "<p>Maintenant, l'<em>outil de mise à jour</em> va préparer le
 <p class=\"help\">Note. En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
 $langIntroStep3 = "<p>L'<em>outil de mise à jour</em>va, à présent, préparer les données de <strong>chaque cours</strong> (dossiers et tables de la base de données)  pour être compatibles avec la nouvelle structure de données.
 <p class=\"help\">Note. En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
+$langIntroStep3Run = "<p> <em>L'outil de mise à jour de Claroline</em> procède à la mise à jour des données de cours.</p>";
+$langIntroText = "Pour envoyer un message sélectionnez un groupe d'utilisateurs (indiqués avec une étoile) ou des utilisateur de la liste de gauche.";
 $langIntroWork = "Cet outil est un espace de publication. 
 <br />Il permet au gestionnaire de cours de créer différents travaux dans lesquels chaque étudiant peut envoyer un document (Word, Excel, HTML... ) vers le site du cours, ou composer un texte, afin de le rendre accessible aux autres étudiants ainsi qu'au gestionnaire.
 <br />Vous pourrez ensuite ajouter un commentaire ou une correction à chaque soumission de l'étudiant.
@@ -1591,7 +1645,7 @@ $langUp = "Remonter";
 $langUpdateImage = "Changez de photo";
 $langUpdated = "mis à jour";
 $langUpdatedExternalTool = "Lien externe modifié";
-$langUpgrade = "Mise à jour";
+$langUpgrade = "Upgrade";
 $langUpgradeStep0 = "Sauvegarde confirmée";
 $langUpgradeStep1 = "Etape 1 de 3: paramètres de la plateforme";
 $langUpgradeStep2 = "Etape 2 de 3: mise à jour des tables pricipales";
@@ -1791,28 +1845,24 @@ $langpday = "%d&nbsp;jour(s)";
 $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
-$lang_p_expectedRemainingTime = '<!-- Temps d\'éxécution pour ce cours [%01.2f s] - moyenne [%01.2f s] - total [%s] - cours restants [%d]. -->Temps restant estimé : %s.';
-$langUpgrade = "Upgrade";
+$lang_p_expectedRemainingTime = "<!-- Temps d\'éxécution pour ce cours [%01.2f s] - moyenne [%01.2f s] - total [%s] - cours restants [%d]. -->Temps restant estimé : %s.";
 $lang_upgradeToolCannotUpgradeThisCourse = "L'outil de mise à jour n'est pas en mesure de mettre à jour ce cours.  
 Reglez d'abord ce problème technique et relancez la procédure de mise à jour.";
+$lang_p_CannotRename_s_s = "Impossible de renommer %s en %s";
+$lang_p_CannotCreate_s = "Création de %s impossible";
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "The claroline upgrade tool has successfullly upgrade all your platform courses";
+$lang_retry = "Rééssayer";
+$lang_p_d_coursesNotUpgraded = "%d cours non mis à jours.";
+$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Mise à jour de la base du cours <strong>%2\$s</strong><br><small>
+Nom de la base : %3\$s <br>
+Course ID: %4\$s</small></td></tr></table>";
+$lang_CourseHasNoRepository_s_NotFound = "<strong>Le cours n'a pas de répertoire système.</strong>  <br><small>%s</small> non trouvé. ";
 $langFunctions = "Liste des fonctions";
 $langNoFunctionInThisSection = "Pas de fonction dans cette extension";
 $langPopulateTools = "Remplir les outils";
 $langConfigMenuContent = "Menu de configuration";
 $langFillToolCourses = "Remplir les outils de cours";
-$lang_p_CannotRename_s_s = "Impossible de renommer %s en %s";
-$lang_p_CannotCreate_s ="Création de %s impossible";
-$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses="The claroline upgrade tool has successfullly upgrade all your platform courses";
-$lang_retry = 'Rééssayer';
-$lang_p_d_coursesNotUpgraded =  "%d cours non mis à jours.";
-
-$lang_p_UpgradingDatabaseOfCourse  = 
-"<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Mise à jour de la base du cours <strong>%2\$s</strong><br><small>
-Nom de la base : %3\$s <br>
-Course ID: %4\$s</small></td></tr></table>";
-$lang_CourseHasNoRepository_s_NotFound = "<strong>Le cours n'a pas de répertoire système.</strong>  <br><small>%s</small> non trouvé. ";
-
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Les tables centrales de Claroline ont été mises à jour avec succès";
-$lang_RetryWithMoreDetails= "Réessayer avec plus de détails";
-$lang_p_d_errorFound = ' %d erreurs trouvées';
+$lang_RetryWithMoreDetails = "Réessayer avec plus de détails";
+$lang_p_d_errorFound = " %d erreurs trouvées";
 ?>
