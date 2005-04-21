@@ -2104,11 +2104,27 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
+
+$lang_p_expectedRemainingTime = ' <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. -->Expected remaining time : %s.';
+$lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  Fix first the technical problem and relaunch the upgrade tool.";
+
+$lang_p_CannotRename_s_s = "Cannot rename %s to %s";
+$lang_p_CannotCreate_s ="Cannot create %s";
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses="The claroline upgrade tool has successfullly upgrade all your platform courses";
+$lang_retry = 'Retry';
+$lang_p_d_coursesNotUpgraded =  "%d course(s) not upgraded.";
+
+$lang_p_UpgradingDatabaseOfCourse  = 
+"<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Upgrading database of course <strong>%2\$s</strong><br><small>
+DB Name : %3\$s <br>
+Course ID: %4\$s</small></td></tr></table>";
+
+$lang_CourseHasNoRepository_s_NotFound = "<strong>Course has no repository.</strong>  <br><small>%s</small> Not found. ";
+
 $langFunctions = "Function list";
 $langNoFunctionInThisSection = "No function in this extension";
 $langPopulateTools = "Populate tools in courses";
 $langConfigMenuContent = "Configuration Menu";
 $langFillToolCourses = "Fill tool courses";
-$lang_p_expectedRemainingTime = ' <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. --><b>Expected remaining time %s</b>.';
-$lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  Fix, first, the technical problem and relaunch the upgrade tool.";
 ?>
+

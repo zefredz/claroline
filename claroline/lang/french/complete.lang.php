@@ -1791,13 +1791,24 @@ $langpday = "%d&nbsp;jour(s)";
 $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
-$lang_p_expectedRemainingTime = '<!-- Temps d\'éxécution pour ce cours [%01.2f s] - moyenne [%01.2f s] - total [%s] - cours restants [%d]. --><b>Temps restant estimé</b>.';
+$lang_p_expectedRemainingTime = '<!-- Temps d\'éxécution pour ce cours [%01.2f s] - moyenne [%01.2f s] - total [%s] - cours restants [%d]. -->Temps restant estimé : %s.';
 $langUpgrade = "Upgrade";
-$lang_upgradeToolCannotUpgradeThisCourse = "L'outil de mise à jour n'est pas capable de mettre à jour un cours corrumpu.  Veuillez réparer ce problème et ensuite relancer la procédure de mise à jour.";
+$lang_upgradeToolCannotUpgradeThisCourse = "L'outil de mise à jour n'est pas en mesure de mettre à jour ce cours.  
+Reglez d'abord ce problème technique et relancez la procédure de mise à jour.";
 $langFunctions = "Liste des fonctions";
 $langNoFunctionInThisSection = "Pas de fonction dans cette extension";
 $langPopulateTools = "Remplir les outils";
 $langConfigMenuContent = "Menu de configuration";
 $langFillToolCourses = "Remplir les outils de cours";
+$lang_p_CannotRename_s_s = "Impossible de renommer %s en %s";
+$lang_p_CannotCreate_s ="Création de %s impossible";
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses="The claroline upgrade tool has successfullly upgrade all your platform courses";
+$lang_retry = 'Rééssayer';
+$lang_p_d_coursesNotUpgraded =  "%d cours non mis à jours.";
 
+$lang_p_UpgradingDatabaseOfCourse  = 
+"<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Mise à jour de la base du cours <strong>%2\$s</strong><br><small>
+Nom de la base : %3\$s <br>
+Course ID: %4\$s</small></td></tr></table>";
+$lang_CourseHasNoRepository_s_NotFound = "<strong>Le cours n'a pas de répertoire système.</strong>  <br><small>%s</small> non trouvé. ";
 ?>

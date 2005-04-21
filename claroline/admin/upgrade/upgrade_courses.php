@@ -299,8 +299,8 @@ switch ($display)
             $count_course_upgraded++;
             $db_error_counter = 0;
             $fs_error_counter = 0;
-
-            printf("<p><strong>%1\$s. </strong>Upgrading database of course <strong>%2\$s</strong> - DB Name : %3\$s - Course ID: %4\$s", 
+            $check_integrity_error = 0;
+            printf($lang_p_UpgradingDatabaseOfCourse, 
             $count_course_upgraded, $currentCourseCode, $currentCourseDbName, $currentCourseIDsys);
             
             
@@ -309,12 +309,14 @@ switch ($display)
              * For next versions these test would be set in separate process and aivailable  out of upgrade
              * 
              */
-            
+            $errorMsgs ='';
             if (! file_exists($currentcoursePathSys))
             {
-                echo '<p class="error"><strong>Course has no repository.</strong>  <br>'.$currentcoursePathSys.' Not found. </p>' . "\n";
+             
+                $errorMsgs .=  '<p class="help">'.sprintf($lang_CourseHasNoRepository_s_NotFound , $currentcoursePathSys).'</p>' . "\n";
                 
-                $count_error_total += $fs_error_counter;
+                $count_error_total++;
+                $check_integrity_error++;
                 $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
                                             SET versionClaro='error'
                                             WHERE code = '".$currentCourseIDsys."'";                
@@ -322,10 +324,9 @@ switch ($display)
                 
                 if (mysql_errno() > 0)
                 {
-                    echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
-                    echo '<p>' . $sqlFlagUpgrade . '</p>';
+                    $errorMsgs .= '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>'.'<p>' . $sqlFlagUpgrade . '</p>';
                 }
-                echo ' <br>---- Skip this course ---- You need to repair it your self ';
+                $errorMsgs .=  $lang_upgradeToolCannotUpgradeThisCourse;
             }
             else 
             {
@@ -348,9 +349,9 @@ switch ($display)
                                                    ,  `code_cours` = '".$currentCourseIDsys."'
                                                    ,  `role` = 'Course missing manager';";
                     claro_sql_query($sql_set_teacher);
-                    echo '<p class="error">Course '.$currentCourseCode.' has no teacher, you are enrolled in as course manager. </p>' . "\n";
+                    $errorMsgs .= '<p class="error">Course '.$currentCourseCode.' has no teacher, you are enrolled in as course manager. </p>' . "\n";
                 }
-                echo '<ol>' . "\n";
+                $errorMsgs .= '<ol>' . "\n";
                 
                 /*
                  * Upgrade course table
@@ -372,30 +373,30 @@ switch ($display)
                     $res = mysql_query($sqlTodo);
                     if ($_REQUEST['verbose']) // verbose is set when user retry upgrade
                     {
-                        echo '<li>' . "\n";
-                        echo '<p class="tt"><strong>' . $currentCourseDbName. ':</strong>' . $sqlTodo .  '</p>' . "\n";
-                        echo '<p>' . mysql_affected_rows() . ' affected rows <br />' . "\n" .mysql_info() . '</p>' . "\n";
+                        $errorMsgs .= '<li>' . "\n";
+                        $errorMsgs .= '<p class="tt"><strong>' . $currentCourseDbName. ':</strong>' . $sqlTodo .  '</p>' . "\n";
+                        $errorMsgs .= '<p>' . mysql_affected_rows() . ' affected rows <br />' . "\n" .mysql_info() . '</p>' . "\n";
                         if (mysql_errno() > 0 )
                         {
-                            echo '<p class="error">n° <strong>' . mysql_errno() . ': </strong> ' . mysql_error() . '</p>' . "\n";
+                            $errorMsgs .= '<p class="error">n° <strong>' . mysql_errno() . ': </strong> ' . mysql_error() . '</p>' . "\n";
                         }
-                        echo '</li>' . "\n";
+                        $errorMsgs .= '</li>' . "\n";
                     }             
                     
                     if ( mysql_errno() > 0 && !in_array(mysql_errno(),$accepted_error_list) )
                     {
                         ++$db_error_counter;
-                        echo '<p class="error">'
+                        $errorMsgs .= '<p class="error">'
                            . '<strong>' . $db_error_counter . '</strong> '
                            . '<strong>n°: ' . mysql_errno() . '</strong> : ' . mysql_error() . ' ' . $currentCourseDbName . ':' . $sqlTodo
                            . '</p>';
                     }
                 }
-                echo '</ol>';
+                $errorMsgs .= '</ol>';
     
                 if ( $db_error_counter > 0 )
                 {
-                    echo '<p class="error"><strong>' . $db_error_counter . ' errors found</strong></p>';
+                    $errorMsgs .= '<p class="error"><strong>' . $db_error_counter . ' errors found</strong></p>';
     
                     $count_error_total += $db_error_counter;
                     
@@ -409,8 +410,8 @@ switch ($display)
                     $res = claro_sql_query($sqlFlagUpgrade);
                     if (mysql_errno() > 0)
                     {
-                        echo '<p class="error">n° <strong>' . mysql_errno() . '</strong>: ' . mysql_error() . '</p>';
-                        echo '<p>' . $sqlFlagUpgrade . '</p>';
+                        $errorMsgs .= '<p class="error">n° <strong>' . mysql_errno() . '</strong>: ' . mysql_error() . '</p>';
+                        $errorMsgs .= '<p>' . $sqlFlagUpgrade . '</p>';
                     }
                 }
                 else
@@ -424,8 +425,8 @@ switch ($display)
                     $res = @mysql_query($sqlFlagUpgrade);
                     if (mysql_errno() > 0)
                     {
-                        echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
-                        echo '<p>' . $sqlFlagUpgrade . '</p>';
+                        $errorMsgs .= '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
+                        $errorMsgs .= '<p>' . $sqlFlagUpgrade . '</p>';
                     }
                 }
     
@@ -439,8 +440,8 @@ switch ($display)
                     if ( ! @rename($currentcoursePathSys.'image',$currentcoursePathSys.'exercise') )
                     {
                         $fs_error_counter++;
-                        echo '<p class="error">'
-                           . '<strong>' . sprintf('Cannot rename %s in %s',$currentcoursePathSys.'/image',$currentcoursePathSys.'/exercise') . '</strong> '
+                        $errorMsgs .= '<p class="error">'
+                           . '<strong>' . sprintf($lang_p_CannotRename_s_s,$currentcoursePathSys.'/image',$currentcoursePathSys.'/exercise') . '</strong> '
                            . '</p>';
                     } 
                 }
@@ -449,8 +450,8 @@ switch ($display)
                     if ( !@mkdir($currentcoursePathSys.'exercise', 0777) )
                     {
                         $fs_error_counter++;
-                        echo '<p class="error">'
-                           . '<strong>' . sprintf('Cannot create %s',$currentcoursePathSys.'exercise') . '</strong> '
+                        $errorMsgs .= '<p class="error">'
+                           . '<strong>' . sprintf($lang_p_CannotCreate_s,$currentcoursePathSys.'exercise') . '</strong> '
                            . '</p>';
                     }
                 }
@@ -465,8 +466,8 @@ switch ($display)
                     if ( !@mkdir($assignment_dirname, 0777) )
                     {
                         $fs_error_counter++;
-                        echo '<p class="error">'
-                           . '<strong>' . sprintf('Cannot create %s',$assignment_dirname) . '</strong> '
+                        $errorMsgs .= '<p class="error">'
+                           . '<strong>' . sprintf($lang_p_CannotCreate_s,$assignment_dirname) . '</strong> '
                            . '</p>';
                     }
                 }
@@ -484,8 +485,8 @@ switch ($display)
                             if ( @rename($work_dirname.$file,$assignment_dirname.$file) === FALSE )
                             {
                                 $fs_error_counter++;
-                                echo '<p class="error">'
-                               . '<strong>' . sprintf('Cannot rename %s %s',$work_dirname.$file,$assignment_dirname.$file) . '</strong> '
+                                $errorMsgs .= '<p class="error">'
+                               . '<strong>' . sprintf($lang_p_CannotRename_s_s,$work_dirname.$file,$assignment_dirname.$file) . '</strong> '
                                . '</p>';
 
                             }
@@ -509,8 +510,8 @@ switch ($display)
                     
                     if (mysql_errno() > 0)
                     {
-                        echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
-                        echo '<p>' . $sqlFlagUpgrade . '</p>';
+                        $errorMsgs .= '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
+                        $errorMsgs .= '<p>' . $sqlFlagUpgrade . '</p>';
                     }
                 }
                 else
@@ -525,19 +526,20 @@ switch ($display)
                     $res = @mysql_query($sqlFlagUpgrade);
                     if (mysql_errno() > 0)
                     {
-                        echo '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
-                        echo '<p>' . $sqlFlagUpgrade . '</p>';
+                        $errorMsgs .= '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
+                        $errorMsgs .= '<p>' . $sqlFlagUpgrade . '</p>';
                     }
                 }
             }        
-            $mtime = microtime(); $mtime = explode(" ",$mtime);    $mtime = $mtime[1] + $mtime[0]; $endtime = $mtime;
+            $mtime = microtime(); $mtime = explode(' ',$mtime);    $mtime = $mtime[1] + $mtime[0]; $endtime = $mtime;
             $totaltime = ($endtime - $starttime);
             $stepDuration = ($endtime - $steptime);
             $steptime = $endtime;
             $stepDurationAvg = $totaltime / ($count_course_upgraded-$count_course_upgraded_at_start);
             $leftCourses = (int) ($count_course-$count_course_upgraded);
-            $leftTime = strftime("%H:%M:%S",$leftCourses *$stepDurationAvg);
-            $str_execution_time = sprintf( "execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. <b>left Time [%s]</b>."
+            $leftTime = strftime('%H:%M:%S',$leftCourses * $stepDurationAvg);
+            
+            $str_execution_time = sprintf( $lang_p_expectedRemainingTime
                                           ,$stepDuration
                                           ,$stepDurationAvg
                                           ,strftime('%H:%M:%S',$totaltime)
@@ -545,14 +547,17 @@ switch ($display)
                                           ,$leftTime
                                          );
 
-            if ($db_error_counter== 0 && $fs_error_counter == 0)
+            if ($db_error_counter== 0 && $fs_error_counter == 0  && $check_integrity_error == 0)
             {
-                echo '<p class="success">Upgrade Ok - ' . $str_execution_time . '</p>';
+                echo '<p class="success">'.$langUpgrade.' '.$langSucceed.' - ' . $str_execution_time . '</p>';
             }
             else 
             {
-                echo '<p class="error">Upgrade Failed - ' . $str_execution_time . '</p>';
+                echo '<p class="error">'.$langUpgrade.' '.$langFailed.' - ' . $str_execution_time . '</p>';
             }
+            
+            echo $errorMsgs;
+            unset($errorMsgs);
             echo '<hr noshade="noshade" />';           
             flush();
 
@@ -562,12 +567,12 @@ switch ($display)
         
         if ( $count_error_total > 0 )
         {
-            echo '<p class="error">' . $count_course_error . ' course(s) not upgraded.';
-            echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?verbose=true">Retry</a></p>';
+            echo '<p class="error">' . sprintf($lang_p_d_coursesNotUpgraded,  $count_course_error);
+            echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?verbose=true">'.$lang_retry.'</a></p>';
         }
         else
         {
-            echo '<p class="success">The claroline upgrade tool has successfullly upgrade all your platform courses</p>' . "\n";
+            echo '<p class="success">'.$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses.'</p>' . "\n";
             echo '<div align="right">' . sprintf($langNextStep,"upgrade.php") . '</div>';
         }
             
