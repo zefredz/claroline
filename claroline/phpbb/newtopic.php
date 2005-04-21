@@ -23,7 +23,7 @@
 // It will NOT report uninitialized variables
 //error_reporting  (E_ERROR | E_WARNING | E_PARSE); 
 
-if($cancel)
+if( isset( $_REQUEST['cancel'] ) )
 {
 	header('Location: viewforum.php?forum='.$forum);
 	exit();
