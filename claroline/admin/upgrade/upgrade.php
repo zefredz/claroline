@@ -237,7 +237,7 @@ switch ($display)
             . '</ul>' . "\n"
             . '<h2>' . $langRemainingSteps . ':</h2>' . "\n"
             . '<ul>' . "\n"
-            . sprintf('<li><a href="upgrade_courses.php">%s</a> - %s course(s) to upgrade</li>',$langUpgradeStep3,$nbCourses['nb']) . "\n"
+            . sprintf('<li><a href="upgrade_courses.php">%s</a> - '.$lang_p_d_coursesToUpgrade.'</li>',$langUpgradeStep3,$nbCourses['nb']) . "\n"
             . '</ul>' . "\n"
             ;
 

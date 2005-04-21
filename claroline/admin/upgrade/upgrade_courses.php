@@ -184,7 +184,7 @@ if ( $display == DISPLAY_RESULT_PANEL && ($count_course_upgraded + $count_course
 <td valign='top' align='left'>
 <div id='header'>
 <?php
-    echo sprintf('<h1>Claroline (%s) - upgrade</h1>', $clarolineVersion);
+    echo sprintf('<h1>Claroline (%s) - ' . $langUpgrade . '</h1>', $clarolineVersion);
 ?>
 </div>
 </td>
@@ -229,12 +229,12 @@ switch ($display)
 
         if (mysql_num_rows($result))
         {
-            echo '<p  class="error">' . 'Upgrade failed for course(s)' . ' ';
+            echo '<p  class="error">' . $lang_UpgradeFailedForCourses . ' ';
             while ($course = mysql_fetch_array($result))
             {
                 echo $course['code'] . ' ; ';    
             }
-            echo  '-' . sprintf('You can <a href="%s">retry to upgrade</a> these courses', $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
+            echo  '-' . sprintf($lang_p_YouCan_url_retryToUpgradeTheseCourse, $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
                 . '</p>';
             
         }
@@ -577,11 +577,11 @@ switch ($display)
 
             if ($db_error_counter== 0 && $fs_error_counter == 0  && $check_integrity_error == 0)
             {
-                echo '<p class="success">'.$langUpgrade.' '.$langSucceed.' - ' . $str_execution_time . '</p>';
+                echo '<p class="success">'.$langUpgradeCourseSucceed.' - ' . $str_execution_time . '</p>';
             }
             else 
             {
-                echo '<p class="error">'.$langUpgrade.' '.$langFailed.' - ' . $str_execution_time . '</p>';
+                echo '<p class="error">'.$langUpgradeCourseFailed.' - ' . $str_execution_time . '</p>';
             }
             
             echo $errorMsgs;

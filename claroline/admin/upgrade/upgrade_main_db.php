@@ -59,8 +59,8 @@ if ( !function_exists(mysql_info) )
 /**#@+
  * Steps of Display 
  */
-DEFINE("DISPLAY_WELCOME_PANEL", 1);
-DEFINE("DISPLAY_RESULT_PANEL",  2);
+DEFINE('DISPLAY_WELCOME_PANEL', 1);
+DEFINE('DISPLAY_RESULT_PANEL',  2);
 /**#@-*/
 
 /*=====================================================================
@@ -128,7 +128,7 @@ if (isset($_REQUEST['cmd']) && $_REQUEST['cmd']=='run')
 
 <div id="header">
 <?php
-    echo sprintf("<h1>Claroline (%s) - " . $langUpgrade . "</h1>",$clarolineVersion);
+    printf("<h1>Claroline (%s) - " . $langUpgrade . "</h1>",$clarolineVersion);
 ?>
 </div>
 </td>
@@ -145,14 +145,20 @@ switch ($display)
 
         echo  sprintf("<h2>%s</h2>",$langUpgradeStep2)
             . '<p>' . $langIntroStep2 . '</p>' . "\n"
-            . '<center>' . sprintf($langLaunchStep2, $_SERVER['PHP_SELF'].'?cmd=run') . '</center>';  
+            . '<center>' 
+            . sprintf($langLaunchStep2, $_SERVER['PHP_SELF'].'?cmd=run') 
+            . '</center>'
+            ;  
 
         break;
         
     case DISPLAY_RESULT_PANEL :
     
         echo  sprintf('<h2>%s</h2>',$langUpgradeStep2)
-            . '<h3>' . sprintf ($lang_p_UpgradeMainClarolineDatabase_s, $mainDbName) .'</i></h3>' . "\n";
+            . '<h3>' 
+            . sprintf ($lang_p_UpgradeMainClarolineDatabase_s, $mainDbName) 
+            .'</h3>' . "\n"
+            ;
 
         if ($_REQUEST['verbose']) 
         {
@@ -176,11 +182,14 @@ switch ($display)
         	else
         	{
         		$res = @mysql_query($sqlTodo);
-        		if ($verbose)
+        		if ($_REQUEST['verbose'])
         		{
         			echo  '<li>' . "\n"
         			    . '<p class="tt">' . $sqlTodo . '</p>' . "\n"
-        			    . '<p>' . mysql_affected_rows() . ' ' . 'affected rows' . '<br />' . mysql_info() . '</p>' . "\n";
+        			    . '<p>' 
+        			    . sprintf($lang_p_d_affected_rows,mysql_affected_rows()) . '<br />' 
+        			    . mysql_info() 
+        			    . '</p>' . "\n";
         		}
         		if (mysql_errno() > 0)
         		{

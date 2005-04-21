@@ -232,7 +232,7 @@ if ($_REQUEST['cmd'] == 'run')
     {
         $display = DISPLAY_RESULT_SUCCESS_PANEL;
         
-        /*
+        /**
          * Update config file
          * Set version db
          */
