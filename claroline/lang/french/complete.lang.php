@@ -1782,4 +1782,9 @@ $langpday = "%d&nbsp;jour(s)";
 $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
+$langFunctions = "Liste des fonctions";
+$langNoFunctionInThisSection = "Pas de fonction dans cette extension";
+$langPopulateTools = "Remplir les outils";
+$langConfigMenuContent = "Menu de configuration";
+$langFillToolCourses = "Remplir les outils de cours";
 ?>
