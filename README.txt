@@ -78,99 +78,70 @@ at :
 NEW FEATURES IN CLAROLINE 1.6 SINCE CLAROLINE 1.5
 -------------------------------------------------
 
-* Assignment tool (new interface in beta 2)
+* ASSIGNMENTS. New assignment tool dealing with :
 
-New assignment tool deal with :
-    * planned work sessions.
-    * automatically close or open assignments uploads.
-    * time planning. (start date and end date)
-    * give a personalized (or automatic) feedback to any work session submission.
-    * work content can be text, file or text and file.
+    - Planned work sessions.
+    - Automatically close or open assignments uploads.
+    - Time planning. (start date and end date)
+    - Give a personalized (or automatic) feedback to any work session submission.
+    - Work content can be text, file or text and file.
 
-* Document tool
+* DOCUMENTS AND LINKS. Two new features: 
 
-Functionnalities added in beta 2 are :
-    * new image gallery
-    * internal search fonctionnality
+	- new image gallery
+    - Internal search functionality
 
-* Exercise tool
+* EXERCISES. important improvements.
 
-Improved exercise tool deal with :
-    * time planning. (start date, end date and duration)
-    * optional attempts limit for each user.
-    * multimedia files. (pictures,documents, flash animations, videos, sounds, ... )
-    * flash mp3 player.
+    - time planning. (start date, end date and duration)
+    - optional attempts limit for each user.
+    - multimedia files. (pictures,documents, flash animations, videos, sounds, ... )
+    - flash mp3 player.
 
+* CLASSES. This totally new tool allows platform administrator to 
+  manage more easily users by grouping them in classes and subclasses on 
+  your virtual campus. Then classes can be and enrolled to specific 
+  courses.
 
-* Campus administration tool
+* USERS. Massive import with CSV files or classes.
 
-Improved campus administration tool deal with classes and import csv files.
+* CONFIGURATION FILES EDITOR. New configuration files editor allowing 
+  easy customization of the campus and of the tool parameters.
 
-* Classes
+    - Define which values are required for the creation of new courses.
+    - Set the disk space limit of the documents and links tool.
+    - Select which values are required in user profiles
+    - Choose the number of posts displayed per forum page
+    - ...
 
-    * organise your users by groups (classes) and subgroups on your campus.
-    * create a whole class tree that fits to your organisation scheme.
-    * subscribe a whole class to a course at once.
+* TRACKING & STATISTICS. 
 
-* Massive import
+	- Improvements on exercises and forum tracking.
+    - Option to erase all statistics of a course.
 
-    * massive import with CSV files in the user list of the administration tool.
-    * create a new class right form your CSV file.
-    * import users in a specific course within the user tool.
+* TRANSLATION.  New translation files simplify the process to add or 
+  update language interface of the Claroline system. See documentation 
+  on http://clarolinet.net: How to translate 1.6 ?
 
-* Configuration files edition (added since beta 2)
+* LAYOUT PERSONALIZATION. Claroline code has been adapted to a more 
+  intensive use of a CSS stylesheet. This makes it easier, and without 
+  any code change, for anyone to modify the appearance (color, style, 
+  logo,..) of new Claroline campus installed. See documentation: Modify 
+  styles with CSS.   
 
- New configuration files editor allowing easy customization of the campus and of the tool 
- parameters.
+* EXTERNAL AUTHENTICATION SYSTEM. New external authentication system 
+  provides methods to authenticate user from a significant number of 
+  systems (LDAP servers, 14 databases from Oracle to ODBC, POP3 servers, 
+  IMAP servers, vpopmail accounts, RADIUS, SAMBA password files SOAP, 
+  and various CMS or LMS applications). This feature improves the 
+  integration of Claroline into your existing computer network 
+  environment.
 
-    * define which values are required for the creation of new courses.
-    * set the disk space limit of the documents and links tool.
-    * select which values are required in user profiles
-    * choose the number of posts displayed per forum page
-    * ...
-
- Using a new architecture to deal with the configuration files, Claroline is now able to 
- integrate new configuration parameters (or hide any) in this interface. According to the 
- Community test, parameters could be added or deleted in this place for the forthcoming 
- Claroline 1.6 stable version.
-
-* Tracking
-
- Improved tracking and statistics :
-
-    * exercises.
-    * forum (records messages).
-    * option to erase all statistics of a course.
-
-
-* Translation
-
- New translation files simplify the process to add or update language interface of the claroline system.
-
-    * In development version : use of a single file with all the translations.
-    * In stable version : the development file is splitted in many files to increase performance.
-
- See documentation on clarolinet.net: How to translate 1.6 ?
-
-* Layout personalisation
-
- Claroline code has been adapted to a more intensive use of a CSS stylesheet. This makes it easier, and
- without any code change, for anyone to modify the appearance (color, style, logo,..) of new Claroline campus installed.
-
- See documentation: Modify styles with CSS.   
-
-* External authentication system (added in beta 2)
-
- New external authentication system provides methods to authenticate user from a significant number of systems
- (LDAP servers, 14 databases from Oracle to ODBC, POP3 servers, IMAP servers, vpopmail accounts, RADIUS, 
- SAMBA password files and SOAP). This feature improves the integration of Claroline into your existing computer
- network environment.
-
-* Single Sign On (SSO) system (added in beta 2)
-
- Single Sign On (SSO) system enabling users, once logged into claroline, to connect to all other websites session
- without the need of physically enter repetitive usernames and passwords. This feature allows to smoothly associate
- Claroline into your institution Portals.
+* SINGLE SIGN ON (SSO) SYSTEM. Single Sign On (SSO) system enabling 
+  users, once logged into Claroline, to connect to all other web sites 
+  session without the need of physically enter repetitive usernames and 
+  passwords. This feature allows to smoothly associate Claroline into 
+  your institution Portals.
 
 
 NEW FEATURES IN CLAROLINE 1.5 SINCE CLAROLINE 1.4
