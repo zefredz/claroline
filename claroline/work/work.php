@@ -437,7 +437,7 @@ include($includePath.'/claro_init_header.inc.php');
                     TOOL TITLE
     --------------------------------------------------------------------*/
 
-claro_disp_tool_title($nameTools);
+claro_disp_tool_title($nameTools, $is_allowedToEdit ? 'help_work.php' : false);
   
  
 if($is_allowedToEdit)
