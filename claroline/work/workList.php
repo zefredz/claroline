@@ -285,7 +285,8 @@ else // INDIVIDUAL
 		WHERE `U`.`user_id` = `CU`.`user_id`
 			AND `CU`.`code_cours` = '".$_cid."'
 		GROUP BY `U`.`user_id`
-		ORDER BY `U`.`nom` ASC, `U`.`prenom` ASC
+		ORDER BY `CU`.`statut` ASC, `CU`.`tutor` DESC,
+				`U`.`nom` ASC, `U`.`prenom` ASC
 		";
 }
 
