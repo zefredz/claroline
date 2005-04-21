@@ -2104,6 +2104,11 @@ $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
+$langFunctions = "Function list";
+$langNoFunctionInThisSection = "No functions in this extension";
+$langPopulateTools = "Populate tools in courses";
+$langConfigMenuContent = "Configuration Menu";
+$langFillToolCourses = "Fill tool courses";
 $lang_p_expectedRemainingTime = ' <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. --><b>Expected remaining time %s</b>.';
 $lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  Fix, first, the technical problem and relaunch the upgrade tool.";
 ?>
