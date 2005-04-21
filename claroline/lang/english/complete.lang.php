@@ -2131,4 +2131,7 @@ $langFillToolCourses = "Fill tool courses";
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "The claroline main tables have been successfully upgraded";
 $lang_RetryWithMoreDetails= "Retry with more details";
 $lang_p_d_errorFound = ' %d errors found';
+
+$lang_p_UpgradeMainClarolineDatabase_s = 'Upgrading main Claroline database (<em>%s</em>)' ;
+$langModeVerbose = 'Mode Verbose';
 ?>

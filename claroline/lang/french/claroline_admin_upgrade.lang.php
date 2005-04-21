@@ -24,13 +24,13 @@ $langFirstDefOfThisValue = "!!! Première définition de cette valeur !!!";
 $langForums = "Forums";
 $langGroups = "Groupes";
 $langHelp = "Aide";
-$langIntroStep1 = "<p>L'<em>outil de mise à jour</em> va procéder à la mise à jour des parmaètre de la plateforme.
-Ces paramètres sont stockés dans claroline/include/config.inc.php de votre ancienne plateforme</p>";
-$langIntroStep2 = "<p>Maintenant, l'<em>outil de mise à jour</em> met à jour les tables principales de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatible avec la nouvelle structure de données.
+$langIntroStep1 = "<p>L'<em>outil de mise à jour</em> va procéder à la mise à jour des paramètres de la plateforme.
+Ces paramètres sont stockés dans claroline/inc/conf/claro_main.conf.php de votre ancienne plateforme</p>";
+$langIntroStep2 = "<p>Maintenant, l'<em>outil de mise à jour</em> va préparer les <strong>tables principales</strong> de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatibles avec la nouvelle structure de données.
 </p>
-<p class=\"help\">Note: En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
-$langIntroStep3 = "<p>L'<em>outil de mise à jour</em> met à jour les données de chaque cours (dossiers et tables de la base de données).
-<p class=\"help\">Note: En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
+<p class=\"help\">Note. En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
+$langIntroStep3 = "<p>L'<em>outil de mise à jour</em>va, à présent, préparer les données de <strong>chaque cours</strong> (dossiers et tables de la base de données)  pour être compatibles avec la nouvelle structure de données.
+<p class=\"help\">Note. En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
 $langIntroStep3Run = "<p>L'<em>outil de mise à jour</em> met à jour les cours.</p>";
 $langLaunchRestoreCourseRepository = "Lancer la restauration du dossier du cours";
 $langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Lancer la mise à jour des paramètres de la plateforme</button></p>";

@@ -10,7 +10,14 @@
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
-
+/**
+ * Claroline
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @version 1.6 $Revision$
+ * @author  Guillaume Lederer <lederer@cerdecam.be>
+ */
 //used libraries
 require '../inc/claro_init_global.inc.php';
 if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
@@ -43,7 +50,7 @@ $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministration
 
 // javascript confirm pop up declaration for header
 
-  $htmlHeadXtra[] =
+$htmlHeadXtra[] =
             "<script>
             function confirmation (name)
             {
@@ -53,14 +60,6 @@ $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministration
                     {return false;}
             }
             </script>";
-
-//Header declaration
-
-include($includePath."/claro_init_header.inc.php");
-
-//display bredcrump and title
-
-claro_disp_tool_title($nameTools);
 
 /*-----------------------------------*/
 /*	EXECUTE COMMAND	             */
@@ -99,28 +98,29 @@ switch ($cmd)
   
   //Display form to create a new class
   case "formNew" :
-  	$dialogBox ="<form action=\"".$_SERVER['PHP_SELF']."\" >\n"
-		   ."<table>\n"
-		   ."   <tr>\n"
-		   ."     <td>\n"
-	       ."       $langNewClassName : \n"
-		   ."     </td>\n"
-		   ."     <td>\n"
-		   ."       <input type=\"hidden\" name=\"cmd\" value=\"new\">\n"
-		   ."       <input type=\"text\" name=\"classname\">\n"
-		   ."     </td>\n"
-		   ."   </tr>\n"
-		   ."   <tr>\n"
-		   ."     <td>\n"
-		   ."       $langLocation :\n"
-		   ."     </td>\n"
-		   ."     <td>\n"
-                   .        displaySelectBox()   
-	           ."       <input type=\"submit\" value=\" Ok \">\n"
-		   ."     </td>\n"
-		   ."   </tr>\n"
-		   ." </table>\n"
-		   ."</form>\n ";      
+  	$dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'" >'."\n"
+               . '<table>'."\n"
+               . '<tr>'."\n"
+               . '<td>'."\n"
+               . $langNewClassName.' : '."\n"
+               . '</td>'."\n"
+               . '<td>'."\n"
+               . '<input type="hidden" name="cmd" value="new">'."\n"
+               . '<input type="text" name="classname">'."\n"
+               . '</td>'."\n"
+               . '</tr>'."\n"
+               . '<tr>'."\n"
+               . '<td>'."\n"
+               . $langLocation.' :'."\n"
+               . '</td>'."\n"
+               . '<td>'."\n"
+               . displaySelectBox()   
+	           . '<input type="submit" value=" Ok ">'."\n"
+		       . '</td>'."\n"
+               . '</tr>'."\n"
+	           . '</table>'."\n"
+	           . '</form>'."\n "
+               ;
         break;
 
   //Create a new class
@@ -150,7 +150,7 @@ switch ($cmd)
 	}
 	else
 	{
-	    $sql_update="UPDATE `$tbl_class` set name='".$_REQUEST['classname']."' WHERE id='".$_REQUEST['class']."'";
+	    $sql_update = "UPDATE `".$tbl_class."` set name='".$_REQUEST['classname']."' WHERE id='".$_REQUEST['class']."'";
 	    claro_sql_query($sql_update);
 	    $dialogBox = $langNameChanged;
 	
@@ -160,28 +160,26 @@ switch ($cmd)
   //Show form to edit class properties (display form)	
   case "edit" :
         
-        $sql = "SELECT * FROM `".$tbl_class."` WHERE `id`= '".$_REQUEST['class']."'";
-	$result =  claro_sql_query_fetch_all($sql);
-	foreach ($result as $resClass) 
-	{
-	  $class_name = $resClass['name'];
-	}
+        $sql = "SELECT name FROM `".$tbl_class."` WHERE `id`= '".$_REQUEST['class']."'";
+    	$result =  claro_sql_query_fetch_all($sql);
+        $class_name = $resClass[0]['name'];
 	
-        $dialogBox= "<form action=\"".$_SERVER['PHP_SELF']."\" >\n"
-		   ."<table>\n"
-		   ."  <tr>\n"
-		   ."    <td>\n"
-	           ."      $langClassName : \n"
-		   ."    </td>\n"
-		   ."    <td>\n"
-		   ."      <input type=\"hidden\" name=\"cmd\" value=\"exEdit\">\n"
-		   ."      <input type=\"hidden\" name=\"class\" value=\"".$_REQUEST['class']."\">\n"
-		   ."      <input type=\"text\" name=\"classname\" value=\"$class_name\">\n"
-		   ."      <input type=\"submit\" value=\" Ok \">\n"
-		   ."    </td>\n"
-		   ."  </tr>\n"
-		   ."</table>\n"
-		   ."</form>\n ";
+        $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" >'."\n"
+        		   .'<table>'."\n"
+        		   .'<tr>'."\n"
+        		   .'<td>'."\n"
+        	       .$langClassName.' : '."\n"
+        		   .'</td>'."\n"
+        		   .'<td>'."\n"
+        		   .'<input type="hidden" name="cmd" value="exEdit">'."\n"
+        		   .'<input type="hidden" name="class" value="'.$_REQUEST['class'].'">'."\n"
+        		   .'<input type="text" name="classname" value="'.$class_name.'">'."\n"
+        		   .'<input type="submit" value=" Ok ">'."\n"
+        		   .'</td>'."\n"
+        		   .'</tr>'."\n"
+        		   .'</table>'."\n"
+        		   .'</form>'."\n "
+                   ;
         break;
 
   //Open a class in the tree
@@ -211,7 +209,7 @@ switch ($cmd)
 	  {
 	     $parent = $_REQUEST['theclass'];
 	  }
-	  $sql_update="UPDATE `$tbl_class` set class_parent_id=".$parent." WHERE id='".$_REQUEST['movedClassId']."'";
+	  $sql_update="UPDATE `".$tbl_class."` set class_parent_id=".$parent." WHERE id='".$_REQUEST['movedClassId']."'";
           claro_sql_query($sql_update);
           $dialogBox = $langClassMoved;
       }
@@ -220,21 +218,22 @@ switch ($cmd)
   //Move a class in the tree (display form)
   case "move" : 
       
-      $dialogBox =  " <table>"  
-                   ."   <tr>\n"
-		   ."     <td >\n"
-		   ."       $langMove ".$_REQUEST['classname']." : "
-		   ."     </td>\n"
-		   ."     <td>\n"
-		   ."       <form action=\"".$_SERVER['PHP_SELF']."\">"
-		   ."         <input type=\"hidden\" name=\"cmd\" value=\"exMove\">\n"
-		   ."         <input type=\"hidden\" name=\"movedClassId\" value=\"".$_REQUEST['class']."\">\n"
-                   .          displaySelectBox() 
-                   ."         <input type=\"submit\" value=\" Ok \">\n"
-                   ."       </form>"
-		   ."     </td>\n"
-		   ."   </tr>\n"
-		   ." </table>";
+      $dialogBox = '<table>'
+                 . '<tr>'."\n"
+		         . '<td >'."\n"
+		         . $langMove . $_REQUEST['classname'].' : '
+		         . '</td>'."\n"
+		         . '<td>'."\n"
+                 . '<form action="'.$_SERVER['PHP_SELF'].'">'
+                 . '<input type="hidden" name="cmd" value="exMove">'."\n"
+		         . '<input type="hidden" name="movedClassId" value="'.$_REQUEST['class'].'">'."\n"
+                 . displaySelectBox() 
+                 . '<input type="submit" value=" Ok ">'."\n"
+                 . '</form>'
+		         . '</td>'."\n"
+		         . '</tr>'."\n"
+		         . '</table>'
+                 ;
       break;
 	
 }
@@ -250,51 +249,55 @@ $class_list = claro_sql_query_fetch_all($sql);
 /*	Display                      */
 /*-----------------------------------*/
 
+// Header declaration
+
+include($includePath.'/claro_init_header.inc.php');
+
+// display bredcrump and title
+
+claro_disp_tool_title($nameTools);
+
 //display dialog Box (or any forms)
 
 if($dialogBox)
 {
     claro_disp_message_box($dialogBox);
-    echo "<br>";
+    echo '<br>';
 }
 
 //display tool links
 
-echo "<a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?cmd=formNew\"><img src=\"". $imgRepositoryWeb."class.gif\"> $langCreateNewClass</a>";
+echo '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=formNew"><img src="'. $imgRepositoryWeb.'class.gif">'.$langCreateNewClass.'</a>'
+   . '<br><br>'
+   //display cols headers
+   . '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
+   . '<thead>'."\n"
+   . '<tr class="headerX">'
+   . '<th>'
+   . $langClassName
+   . '</th>'
+   . '<th>'
+   . $langUsers
+   . '</th>'
+   . '<th>'
+   . $langEditSettings
+   . '</th>'
+   . '<th>'
+   . $langMove
+   . '</th>'
+   . '<th>'
+   . $langDelete
+   . '</th>'
+   . '</tr>'."\n"
+   . '</thead>'."\n"
+    //display Class list
+   . '<tbody>'."\n"
+   . display_tree($class_list)
+   . '</tbody>'."\n"
+   . '</table>'
+   ;
 
-echo "<br><br>";
-
-//display cols headers
-
-echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
-    ."<thead>\n"
-    ."  <tr class=\"headerX\">"
-    ."    <th>"
-    ."      $langClassName"
-    ."    </th>"
-    ."    <th>"
-    ."      $langUsers"
-    ."    </th>"
-    ."    <th>"
-    ."      $langEditSettings"
-    ."    </th>"
-    ."    <th>"
-    ."      $langMove"
-    ."    </th>"
-    ."    <th>"
-    ."      $langDelete"
-    ."    </th>"
-    ."  </tr>\n"
-    ."</thead>\n";
-
-//display Class list
-
-echo "<tbody>\n";
-display_tree($class_list);
-echo "</tbody>\n";
-echo "</table>";
-
-include($includePath."/claro_init_footer.inc.php");
+include($includePath.'/claro_init_footer.inc.php');
 
 /*-------END OF THE SCRIPT OUTPUT    -------------------------------------------------------*/
 
@@ -358,13 +361,13 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	        {
 	            if ($_SESSION['admin_visible_class'][$cur_class['id']]=="open")
     	    	{
-	    	        $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&class=".$cur_class['id']."\">\n"
+	    	        $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&amp;class=".$cur_class['id']."\">\n"
 		                              ."   <img src=\"".$imgRepositoryWeb."minus.gif\" border=\"0\" >\n"
 				                      ."</a>\n";
 		        }
 		        else
 		        {
-		            $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&class=".$cur_class['id']."\">\n"
+		            $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&amp;class=".$cur_class['id']."\">\n"
 		                              ."  <img src=\"".$imgRepositoryWeb."plus.gif\" border=\"0\" >\n"
 				                      ."</a>\n";
 		        }    
@@ -399,7 +402,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
             //edit settings	
 			
             echo "  <td align=\"center\">\n"
-	            ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=edit&class=".$cur_class['id']."\">\n"
+	            ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=edit&amp;class=".$cur_class['id']."\">\n"
                 ."      <img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" >\n"
 	            ."    </a>\n"
 		        ."  </td>\n";
@@ -407,7 +410,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
             //Move	
 		
             echo "  <td align=\"center\">\n"
-	            ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=move&class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
+	            ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=move&amp;class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
                 ."      <img src=\"".$imgRepositoryWeb."move.gif\" border=\"0\" >\n"
         		."    </a>\n"
 	            ."  </td>\n";
@@ -415,7 +418,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
             //delete	
 		
             echo "  <td align=\"center\">\n"
-                ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=del&class=".$cur_class['id']."\""
+                ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=del&amp;class=".$cur_class['id']."\""
                 ."     onClick=\"return confirmation('",addslashes($cur_class['name']),"');\">\n"
                 ."      <img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" >\n"
                 ."    </a>\n"
@@ -434,17 +437,16 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 }
 
 /**
-     *This function create the select box to choose the parent class
-     *
-     * @author  Guillaume Lederer
-     * @param  the pre-selected class'id in the select box  
-     * @param  space to display for children to show deepness  
-     * @return  - void
-     *
-     * @desc : create the select box 
+ *This function create the select box to choose the parent class
+ *
+ * @param  the pre-selected class'id in the select box  
+ * @param  space to display for children to show deepness  
+ * @global $tbl_class
+ * @global $langTopLevel
+ * @return void
 */
-    function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;") 
-    {       
+function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;") 
+{       
 	global $tbl_class;
 	global $langTopLevel;
 	
@@ -456,7 +458,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	$result .= buildSelectClass($classes,$selected,null,$space);
 	$result .= "</select>\n";
 	return $result;
-    }
+}
     
 /**
  * This function create the list for the select box to choose the parent class
@@ -466,7 +468,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
  * @param  parent_id of the class we want to display the children of 
  * @param  the pre-selected class'id in the select box  
  * @param  space to display for children to show deepness  
- * @return  - void
+ * @return string to output
  *
 */    
 function buildSelectClass($classes,$selected,$father=null,$space="&nbsp;&nbsp;&nbsp;")
@@ -479,13 +481,13 @@ function buildSelectClass($classes,$selected,$father=null,$space="&nbsp;&nbsp;&n
 
             if($one_class['class_parent_id']==$father)
             {
-                $result .= "<option value=\"".$one_class['id']."\" ";
+                $result .= '<option value="'.$one_class['id'].'" ';
                 if ($one_class['id'] == $selected)
                 {
-                    $result .= "selected ";
+                    $result .= 'selected ';
                 }
-                $result .= "> ".$space.$one_class['name']." </option>\n";
-                $result .=  buildSelectClass($classes,$selected,$one_class["id"],$space."&nbsp;&nbsp;&nbsp;");
+                $result .= '> '.$space.$one_class['name'].' </option>'."\n";
+                $result .=  buildSelectClass($classes,$selected,$one_class['id'],$space.'&nbsp;&nbsp;&nbsp;');
             }
         }
     }

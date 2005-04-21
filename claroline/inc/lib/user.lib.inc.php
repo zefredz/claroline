@@ -315,7 +315,8 @@ function claro_user_info_move_cat_rank_by_rank($rank, $direction) // up & down.
 
 function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $user_ip="")
 {
-	global $TBL_USERINFO_CONTENT;
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+	$TBL_USERINFO_CONTENT = $tbl_cdb_names['userinfo_content'];
 
 	if (empty($user_ip))
 	{
@@ -334,10 +335,9 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
 	}
 
 	// Do not create if already exist
-
-	$sql = "SELECT id FROM `".$TBL_USERINFO_CONTENT."`
-			WHERE	`def_id`	= $def_id
-			AND		`user_id`	= $user_id";
+    $sql = "SELECT id FROM `".$TBL_USERINFO_CONTENT."`
+			WHERE	`def_id`	= '".$def_id."'
+			AND		`user_id`	= '".$user_id."'";
 
 	$result = claro_sql_query($sql);
 
@@ -373,7 +373,8 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
 
 function claro_user_info_edit_cat_content($def_id, $user_id, $content ="", $user_ip="")
 {
-	global $TBL_USERINFO_CONTENT;
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+	$TBL_USERINFO_CONTENT = $tbl_cdb_names['userinfo_content'];
 
 	if (empty($user_ip))
 	{
@@ -417,7 +418,8 @@ function claro_user_info_edit_cat_content($def_id, $user_id, $content ="", $user
 
 function claro_user_info_cleanout_cat_content($user_id, $def_id)
 {
-	global $TBL_USERINFO_CONTENT;
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+	$TBL_USERINFO_CONTENT = $tbl_cdb_names['userinfo_content'];
 
 	if (0 == (int) $user_id || 0 == (int) $def_id)
 	{

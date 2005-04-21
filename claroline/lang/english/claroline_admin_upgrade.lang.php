@@ -25,21 +25,10 @@ $langFirstDefOfThisValue = "!!! First Definition of this value !!!";
 $langForums = "Forums";
 $langGroups = "Groups";
 $langHelp = "Help";
-$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade.
-
-                These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
-$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to upgrade the data stored into the main Claroline tables
-
-                    (users, course categories, tools list, ...) and set it to be compatible with the new Claroline version.</p>
-
-                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this
-
-                   operation may take some time.</p>";
-$langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going to update course data (directories and database tables) one by one.
-
-                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
-
-                   this operation may take some time.</p>";
+$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade. These settings were stored into claroline/inc/conf/claro_main.conf.php in your previous platform version.</p>";
+$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to prepare the data stored into the <b>main Claroline tables</b>
+(users, course categories, tools list, ...) and set it to be compatible with the new Claroline version.</p><p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
+$langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going to prepare <b>course</b> data (directories and database tables) one by one and set it to be compatible with the new Claroline version.<p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
 $langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>";
 $langLaunchRestoreCourseRepository = "Launch restore of the course repository";
 $langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";

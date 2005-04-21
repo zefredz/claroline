@@ -1060,12 +1060,17 @@ Pour présenter votre cours aux étudiants, cliquer sur ce bouton.<br />";
 $langIntroEditToolList = "Sélectionner les outils que vous voulez activer.
 Les outils invisibles seront grisés dans votre page d'accueil du cours.";
 $langIntroLearningPath = "Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants<br /><br />Si vous désirez ajouter un texte d'introduction, cliquez sur ce bouton.<br />";
+<<<<<<< complete.lang.php
+
+$langIntroStep1 = "<p>L'outil de <em>mise à jour</em> va procéder à la mise à jour des paramètres de la plateforme.
+=======
 $langIntroStep1 = "<p>L'<em>outil de mise à jour</em> va procéder à la mise à jour des paramètres de la plateforme.
+>>>>>>> 1.87
 Ces paramètres sont stockés dans claroline/inc/conf/claro_main.conf.php de votre ancienne plateforme</p>";
-$langIntroStep2 = "<p>Maintenant, l'<em>outil de mise à jour</em> va préparer les <strong>tables principales</strong> de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatibles avec la nouvelle structure de données.
+$langIntroStep2 = "<p>Maintenant, l'outil de <em>mise à jour</em> va préparer les <strong>tables principales</strong> de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatibles avec la nouvelle structure de données.
 </p>
 <p class=\"help\">Note. En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
-$langIntroStep3 = "<p>L'<em>outil de mise à jour</em>va, à présent, préparer les données de <strong>chaque cours</strong> (dossiers et tables de la base de données)  pour être compatibles avec la nouvelle structure de données.
+$langIntroStep3 = "<p>L'outil de <em>mise à jour</em> va, à présent, préparer les données de <strong>chaque cours</strong> (dossiers et tables de la base de données)  pour les rendre compatibles avec la nouvelle structure de données.
 <p class=\"help\">Note. En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
 $langIntroStep3Run = "<p> <em>L'outil de mise à jour de Claroline</em> procède à la mise à jour des données de cours.</p>";
 $langIntroText = "Pour envoyer un message sélectionnez un groupe d'utilisateurs (indiqués avec une étoile) ou des utilisateur de la liste de gauche.";
@@ -1862,7 +1867,25 @@ $langNoFunctionInThisSection = "Pas de fonction dans cette extension";
 $langPopulateTools = "Remplir les outils";
 $langConfigMenuContent = "Menu de configuration";
 $langFillToolCourses = "Remplir les outils de cours";
-$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Les tables centrales de Claroline ont été mises à jour avec succès";
+$lang_p_CannotRename_s_s = "Impossible de renommer %s en %s";
+$lang_p_CannotCreate_s ="Création de %s impossible";
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses="The claroline upgrade tool has successfullly upgrade all your platform courses";
+$lang_retry = 'Rééssayer';
+$lang_p_d_coursesNotUpgraded =  "%d cours non mis à jours.";
+
+$lang_p_UpgradingDatabaseOfCourse  = 
+"<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Mise à jour de la base du cours <strong>%2\$s</strong><br><small>
+Nom de la base : %3\$s <br>
+Course ID: %4\$s</small></td></tr></table>";
+$lang_CourseHasNoRepository_s_NotFound = "<strong>Le cours n'a pas de répertoire système.</strong>  <br><small>%s</small> non trouvé. ";
+
+$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Les tables principales de Claroline ont été mises à jour avec succès";
 $lang_RetryWithMoreDetails = "Réessayer avec plus de détails";
+
 $lang_p_d_errorFound = " %d erreurs trouvées";
+$langModeVerbose = 'Mode détaillé';
+$lang_p_UpgradeMainClarolineDatabase_s = 'Mise à jour de la base de donnée principale (<em>%s</em>) de Claroline en cours.' ;
+
+
+
 ?>

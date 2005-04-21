@@ -20,7 +20,7 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
-$stable = TRUE;
+$stable = FALSE;
 $clarolinePhase = 'RC';
 $is_upgrade_available = TRUE;
 
@@ -31,8 +31,8 @@ $version_db_cvs   = '1.6.0';
 
 if (!$is_upgrade_available)
 {
-	$version_file_cvs = $version_file_cvs .".[unstable:".date("yzBs")."]";
-	$version_db_cvs	  = $version_db_cvs .".[unstable:".date("yzBs")."]";
+	$version_file_cvs = $version_file_cvs .".[".date("yzBs")."]";
+	$version_db_cvs	  = $version_db_cvs .".[".date("yzBs")."]";
 }
 
 ?>

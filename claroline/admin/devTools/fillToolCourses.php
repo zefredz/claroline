@@ -416,6 +416,10 @@ function fill_tool_in_course($course_code,$tool_label)
                 return 'Filler not ready';
             break;
         case 'CLQWZ' : 
+                ///// Select An quizz
+                ///// Select a Question
+                ///// Add an Answer
+                
                 return 'Filler not ready';
             break;
         case 'CLUSR' : 

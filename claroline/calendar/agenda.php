@@ -1,30 +1,29 @@
 <?php // $Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE 1.6.*
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-/*
-
- - For a Student -> View angeda Content
- - For a Prof    -> - View agenda Content
-          - Update/delete existing entries
-          - Add entries
-          - generate an "announce" entries about an entries
-
+/**
+ * CLAROLINE 
+ *
+ * - For a Student -> View angeda Content
+ * - For a Prof    -> - View agenda Content
+ *         - Update/delete existing entries
+ *         - Add entries
+ *         - generate an "announce" entries about an entries
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package CLCAL
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
-
-$tlabelReq = "CLCAL___";
+$langPleaseCheckDate = 'Please, check date';
+$tlabelReq = 'CLCAL___';
 
 require '../inc/claro_init_global.inc.php';
-
 
 define("CONFVAL_LOG_CALENDAR_INSERT",FALSE);
 define("CONFVAL_LOG_CALENDAR_DELETE",FALSE);
@@ -62,6 +61,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 if ($is_allowedToEdit)
 {
     if ($cmd == 'exAdd')
+    if( checkdate ( $_REQUEST['fmonth'], $_REQUEST['fday'], $_REQUEST['fyear']))
     {
         $date_selection = $_REQUEST['fyear']."-".$_REQUEST['fmonth'].'-'.$_REQUEST['fday'];
         $hour           = $_REQUEST['fhour'].':'.$_REQUEST['fminute'].':00';
@@ -87,6 +87,20 @@ if ($is_allowedToEdit)
             $msg .= '<p>'.$langUnableToAdd.'</p>';
         }
     }
+    else 
+    {
+        $msg .='<p>'.$langPleaseCheckDate.'</p>';
+        $cmd = 'rqCorr';
+        $editedEvent['id'            ] = '';
+        $editedEvent['titre'         ] = $_REQUEST['titre'];
+        $editedEvent['contenu'       ] = $_REQUEST['contenu'];
+        $editedEvent['dayAncient'    ] = $_REQUEST['fyear']."-".$_REQUEST['fmonth'].'-'.$_REQUEST['fday'];
+        $editedEvent['hourAncient'   ] = $_REQUEST['fhour'].':'.$_REQUEST['fminute'].':00';
+        $editedEvent['lastingAncient'] = $_REQUEST['lasting'];
+
+        $nextCommand = 'exAdd';
+    
+     }
 
     if ($cmd == 'exEdit')
     {
@@ -143,8 +157,9 @@ if ($is_allowedToEdit)
         }
     }
 
-    if ($cmd == 'rqEdit' || $cmd == 'rqAdd')
+    if ($cmd == 'rqEdit' || $cmd == 'rqAdd'|| $cmd == 'rqCorr')
     {
+        $display_form = TRUE;
         if ($cmd == 'rqEdit' && $_REQUEST['id'])
         {
             $sql = "SELECT id, titre, contenu, 
@@ -152,13 +167,13 @@ if ($is_allowedToEdit)
                            hour    hourAncient, 
                            lasting lastingAncient
                     FROM `".$tbl_calendar_event."` 
-                    WHERE id='".$id."'";
+                    WHERE id='".$_REQUEST['id']."'";
 
             list($editedEvent) = claro_sql_query_fetch_all($sql);
 
             $nextCommand = 'exEdit';
         }
-        else
+        elseif($cmd == 'rqAdd')
         {
             $editedEvent['id'            ] = '';
             $editedEvent['titre'         ] = '';
@@ -171,7 +186,15 @@ if ($is_allowedToEdit)
 
         }
 
-?>
+    } // end if cmd == 'rqEdit' && cmd == 'rqAdd'
+
+    if (! empty($msg)) claro_disp_message_box($msg);
+
+
+    if($display_form)
+    {
+    ?>
+    
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 
 <input type="hidden" name="cmd" value="<?php echo $nextCommand       ?>"> 
@@ -370,13 +393,10 @@ if ($is_allowedToEdit)
 </table>
 
 </form>
-<?php
-
-    } // end if cmd == 'rqEdit' && cmd == 'rqAdd'
-
-    if (! empty($msg)) claro_disp_message_box($msg);
-
-
+    <?php
+    
+    }
+    
     if ($cmd != 'rqEdit' && $cmd != 'rqAdd') // display main commands only if we're not in the event form
     {
         echo '<p>';

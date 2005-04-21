@@ -152,10 +152,11 @@ switch ($display)
     case DISPLAY_RESULT_PANEL :
     
         echo  sprintf('<h2>%s</h2>',$langUpgradeStep2)
-            . '<h3>' . 'Upgrade main Claroline database <i>' . $mainDbName .'</i></h3>' . "\n";
+            . '<h3>' . sprintf ($lang_p_UpgradeMainClarolineDatabase_s, $mainDbName) .'</i></h3>' . "\n";
 
-        if ($verbose) {
-        	echo '<p class="info">' . 'Mode Verbose' . ':</p>' . "\n";
+        if ($_REQUEST['verbose']) 
+        {
+        	echo '<p class="info">' . $langModeVerbose . ':</p>' . "\n";
         }
 
         echo '<ol>' . "\n";
