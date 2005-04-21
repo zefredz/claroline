@@ -227,10 +227,10 @@ switch ($display)
     	
     	mysql_close();
 
-        if ($nbError>0 )
+        if ($nbError > 0 )
         {
-        	echo '<p class="error">' . $nbError . ' ' . 'errors found' . '</p>' . "\n";
-    		echo sprintf('<p><button onclick="document.location=\'%s\';" >Retry with more details</button></p>', $_SERVER['PHP_SELF'].'?cmd=run&amp;verbose=true');
+        	echo '<p class="error">' . sprintf($lang_p_d_errorFound,$nbError) . '</p>' . "\n";
+    		echo sprintf('<p><button onclick="document.location=\'%s\';" >'.$lang_RetryWithMoreDetails.'</button></p>', $_SERVER['PHP_SELF'].'?cmd=run&amp;verbose=true');
         }
         else
         {
@@ -239,7 +239,7 @@ switch ($display)
             * Set version db
             */
 
-           echo '<p class="success">'  . 'The claroline main tables have been successfully upgraded' . '</p>' . "\n";
+           echo '<p class="success">'  .$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded. '</p>' . "\n";
 
            // store in currentVarsion the version of central DB.
            $fp_currentVersion = fopen($includePath .'/currentVersion.inc.php','w');

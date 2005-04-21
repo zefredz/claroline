@@ -326,7 +326,7 @@ switch ($display)
                 {
                     $errorMsgs .= '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>'.'<p>' . $sqlFlagUpgrade . '</p>';
                 }
-                $errorMsgs .=  $lang_upgradeToolCannotUpgradeThisCourse;
+                $errorMsgs .= '<p class="comment">'.$lang_upgradeToolCannotUpgradeThisCourse.'</p>';
             }
             else 
             {

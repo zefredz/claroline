@@ -64,9 +64,10 @@ code {
 }
 
 .comment {
- color: blue;
+ color: #00019B;
  border: 1px blue solid;
  background-color: #eee;
+ padding:  2px 5px  2px 5px;
 }
 
 .notimportant, .microtime {

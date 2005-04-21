@@ -2119,12 +2119,16 @@ $lang_p_UpgradingDatabaseOfCourse  =
 DB Name : %3\$s <br>
 Course ID: %4\$s</small></td></tr></table>";
 
-$lang_CourseHasNoRepository_s_NotFound = "<strong>Course has no repository.</strong>  <br><small>%s</small> Not found. ";
+$lang_CourseHasNoRepository_s_NotFound = "<strong>Course has no repository.</strong>
+<br><small>%s</small> Not found. ";
 
 $langFunctions = "Function list";
 $langNoFunctionInThisSection = "No function in this extension";
 $langPopulateTools = "Populate tools in courses";
 $langConfigMenuContent = "Configuration Menu";
 $langFillToolCourses = "Fill tool courses";
-?>
 
+$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "The claroline main tables have been successfully upgraded";
+$lang_RetryWithMoreDetails= "Retry with more details";
+$lang_p_d_errorFound = ' %d errors found';
+?>

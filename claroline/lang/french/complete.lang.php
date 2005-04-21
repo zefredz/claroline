@@ -1811,4 +1811,8 @@ $lang_p_UpgradingDatabaseOfCourse  =
 Nom de la base : %3\$s <br>
 Course ID: %4\$s</small></td></tr></table>";
 $lang_CourseHasNoRepository_s_NotFound = "<strong>Le cours n'a pas de répertoire système.</strong>  <br><small>%s</small> non trouvé. ";
+
+$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Les tables centrales de Claroline ont été mises à jour avec succès";
+$lang_RetryWithMoreDetails= "Réessayer avec plus de détails";
+$lang_p_d_errorFound = ' %d erreurs trouvées';
 ?>
