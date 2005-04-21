@@ -1,4 +1,4 @@
-<?php 
+<?php
 $l_author = "Author";
 $l_banned = "You have been banned from this forum. Contact the system administrator if you have any questions.";
 $l_body = "Message Body";
@@ -1165,6 +1165,74 @@ $langHasBeenEnrolled = "has been enrolled";
 $langHasDel = "has been deleted";
 $langHeading = "Heading";
 $langHelp = "Help";
+$langHelpAssignment = "Help assignment";
+$langHelpAssignmentContent = "<p>
+Assignment tool is a publication area for students. The course manager creates one or several assignment ( different zones of publication ) where the students will be able to publish their work.<br /><br />
+
+Each assignment can have different objectives or requirements : publication must be a file, or a text or a text and a file, publication can be made for a groupe instead of for a single user,...<br /><br />
+
+Students have the ability to modify their work after submission and the course manager can give them a feedback about their submissions.
+</p>
+<hr />
+
+<h4>Create an assignment</h4>
+<p>To create a new assignment course manager must enter in the assignment tool and click on the link \"Create a new assignment\".
+</p>
+<p>The form that is shown ask the course manager for&nbsp;:
+</p>
+<ul><li> a title&nbsp;: the name of the assignment
+</li><li> a description&nbsp;: the statement of the assignment, what learners have to do
+</li><li> a submission type&nbsp;:
+<ul><li> File&nbsp;: any type of file that can be uploaded, keep in mind that there is a size limit that depends on the platform, a text can be joined to describe the file
+
+</li><li> Text only&nbsp;: a text formatted using the wysiwyg editor
+</li><li> Text with an attached file&nbsp;: a text formatted using the wysiwyg editor and a file (file is not required)
+</li></ul>
+</li><li> a start date&nbsp;: date from when the users will be able to post a publication in the assignment
+</li><li> a end date&nbsp;: date until when the users will be able to post a publication in the assignment
+</li><li> the default publications visibility&nbsp;: choose if the publications will be available or not to others users
+</li><li> the assignment type&nbsp;:
+
+<ul><li> individual mode&nbsp;: any authenticated user can post a publication
+</li><li> group mode&nbsp;: the user must be a member of at least one group of the course to publish a work and the work will be posted in the name of the group
+</li></ul>
+</li><li> permission to upload after end date
+</li></ul>
+<p><br />
+<strong>Add an automatic feedback</strong>
+</p>
+<p>A feedback is a correct version of the assignment.  To add an automatic feedback to an assignment enter the assignment and click on the \"Edit automatic feedback\" link.  </p>
+<p>It can be a text or a file or both a text and a file.  The course manager can choose when this automatic feedback will be shown to users ( after assignment end date or after the first submission of the user in this assignment )
+</p>
+
+<hr />
+<h4>Works</h4>
+<p>Works are the publications uploaded by users.</p>
+<p>For each assignment the tool shows a list of all users registered in the course and for each user the title of the first work he published, the number of submissions and the number of feedbacks.
+The list of publications related to the user and the assignment can be view by clicking on the name of the user.</p>
+<p><strong>Submit a work</strong></p>
+<p>If the users has the right to submit a work he will be displayed a link to a submit form.</p>
+<p><strong>Work list</strong></p>
+<p>As a course manager you have the right to edit, delete, make visible/invisible any of the works.  You can also add a feedback for each work.
+</p>
+<ul>
+<li> <strong>Modify</strong>&nbsp;: If this icon appears it means that user can modify the content of the work, it appears when user is the course manager, when user is looking at his works or at his group works.
+
+</li>
+<li> <strong>Delete</strong>&nbsp;: This command allow the course manager to delete a work.
+</li>
+<li> <strong>Visible</strong>&nbsp;: If this icon appears for a work, it means that the work is visible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
+</li>
+<li> <strong>Invisible</strong>&nbsp;: If this icon appears for a work, it means that the work is invisible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
+
+</li>
+<li> <strong>Add feedback</strong>&nbsp;: allows the course manager to publish a feedback about the work of the user.  A feedback can be a file or a text or both with a private comment that only course manager(s) will be able to see and a score in pourcent.
+</li>
+</ul>
+
+
+
+";
 $langHelpGroups = "Help groups";
 $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Here you can modify the content of the text zones displayed on the platform home page.";
 $langHigh_resources = "high resources";
