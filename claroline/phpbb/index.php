@@ -108,7 +108,7 @@ for($i = 0; $i < $total_categories; $i++)
      * change for something cleaner.
      */
 
-    $goupForumCategory = $categories[$i]['cat_id'] == 1 ? true : false;
+    $groupForumCategory = $categories[$i]['cat_id'] == 1 ? TRUE : FALSE;
 
     /*
      * CATEGORY BANNER
@@ -164,12 +164,12 @@ for($i = 0; $i < $total_categories; $i++)
              * tutor.If tutor, see all groups but indicate my groups.
              */
 
-            if($goupForumCategory)
+            if($groupForumCategory)
             {
                 if (   in_array($forumId, $curUserGroupList)
                     || in_array($forumId, $tutorGroupList['forumId'])
                     || $is_forumAdmin
-                    || ! $groupForumPrivate)
+                    || ! $is_groupPrivate)
                 {
                     echo "<a href=\"viewforum.php?gidReq=".$thisForum['gid']
                         ."&amp;forum=".$forumId."\">"
