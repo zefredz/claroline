@@ -8,7 +8,6 @@
  * @var $version_db_cvs   contain the version of script set 
  *                        (different from _file_ because some time there is nothing to change in db)
  *
- *
  * @version 1.6 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
@@ -20,7 +19,7 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
-$stable = FALSE;
+$stable = TRUE;
 $clarolinePhase = 'RC';
 $is_upgrade_available = TRUE;
 
@@ -31,8 +30,8 @@ $version_db_cvs   = '1.6.0';
 
 if (!$is_upgrade_available)
 {
-	$version_file_cvs = $version_file_cvs .".[".date("yzBs")."]";
-	$version_db_cvs	  = $version_db_cvs .".[".date("yzBs")."]";
+	$version_file_cvs = $version_file_cvs .".[unstable:".date("yzBs")."]";
+	$version_db_cvs	  = $version_db_cvs .".[unstable:".date("yzBs")."]";
 }
 
 ?>
