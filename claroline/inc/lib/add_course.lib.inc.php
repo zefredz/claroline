@@ -1211,7 +1211,7 @@ function readPropertiesInArchive($archive,$isCompressed=TRUE)
 	if (claro_mkdir($tmpDirName, 0777, true))
 		$unzippingSate = $zipFile->extract($tmpDirName);
 	else
-		die ("mkpath va pas");
+		die ("claro_mkdir va pas");
 	$pathToArchiveIni = dirname($tmpDirName)."/archive.ini";
 //	echo $pathToArchiveIni;
 	$courseProperties = parse_ini_file($pathToArchiveIni);
