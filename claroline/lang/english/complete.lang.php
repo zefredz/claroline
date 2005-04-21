@@ -775,145 +775,99 @@ $langExercise = "Exercise";
 $langExerciseAsModule = "Use an exercise";
 $langExerciseCancelled = "Exercise cancelled, choose a module in the list to continue.";
 $langExerciseClosing = "Exercise ends";
-$langExerciseContent = "<p>The exercise tool allows you to create exercises that will contains as many questions as you like.<br><br>
+$langExerciseContent = "<h4>What is the exercise tool ?</h4>
+This tool allow you to create online exercises composed of a list of questions. The questions can be of different kinds, students can fill in the exercises and if they are registered to your course, their scores will be stored and visible in the statitiscs of the course.
 
-There are various types of answers available for the creation of your questions :<br><br>
+<hr />
 
+<h4>Administering the exercises</h4>
+<p>To create an Exercise</p>
 <ul>
+<li> Click on \"New exercise\", in the start page of the tool (be sure that you are loggued in as teacher of the course or admin)</li>
+<li> Enter a name for the exercise in the box</li>
+<li> Enter a description</li>
+<li> Choose if the user will see all the questions on a single page or one page for each question</li>
+<li> I you want to you can also modify the advanced settings (not required)
+<ul>
+<li> choose a start date</li>
+<li> choose a end date</li>
+<li> define a time limit</li>
+<li> choose the number of allowed attempts</li>
+<li> choose if anonymous attempts are allowed (if not allowed there will be no tracking)</li>
+<li> choose when the feedback has to be shown</li>
+</ul>
+</li>
+<li> Click on Ok</li>
+</ul>
+<p>You can now fill your new exercises with new questions or questions from the pool.</p>
 
-  <li>Multiple choice (Unique answer)</li>
-
-  <li>Multiple choice (multiple answers)</li>
-
-  <li>Matching</li>
-
-  <li>Fill in the blanks</li>
-
+<hr />
+<h4>Questions</h4>
+<h4>Multiple choice questions</h4>
+<p>There are two kind of multiple choice question&nbsp;: 
+</p>
+<ul>
+<li> Question with unique answer</li>
+<li> Question with multiple answer</li>
+</ul>
+<p>In both case, when you start creating a new question, there are only two possible answers displayed. If you wish to have more possible answers then</p>
+<ul>
+<li> Press +Answ for each additional answer you require</li>
+</ul>
+<p>If you wish the reduce the amount of possible answers then </p>
+<ul>
+<li> Press -Answ for each answer to be removed</li>
+</ul>
+<p>Then for each answer&nbsp;:</p>
+<ul>
+<li> Place a tick in the checkbox for the correct answer(s).</li>
+<li> In the answer column Enter the text for the possible answers to the questions</li>
+<li> In the comment column Enter feedback that is given if a student selects that answer.</li>
+<li> Adjust the weighting value. The principle of this scoring table is to define proper weight to number of good answers by question. For instance, if you have a question with 4 answers (possibly more than one right) and the student has two wrong and two right, you can give him half of the points, but you can also decide that this is not satisfactory and give, for instance, maximum points (20) if everything is right and zero points in any other combination.
+</li>
 </ul>
 
-An exercise gathers a number of questions under a common theme.</p>
-
-<hr>
-
-<b>Exercise creation</b>
-
-<p>In order to create an exercise, click on the link &quot;New exercise&quot;.<br><br>
-
-Type the exercise name, as well as an optional description of it.<br><br>
-
-You can also choose between 2 exercise types :<br><br>
-
+<h4>Matching question</h4>
+<p>In this type of question, the student will have to find the correspondance between the elements of to distinct list.</p>
+<p>When you start creating a new question of that kind, there are only two elements in the two list displayed. If you wish to have more possible elements to correspond then</p>
 <ul>
-
-  <li>Questions on an unique page</li>
-
-  <li>One question per page (sequential)</li>
-
+<li> Press +elem for each additional answer you require</li>
+</ul>
+<p>If you wish the reduce the amount of elements then </p>
+<ul>
+<li> Press -elem for each answer to be removed</li>
 </ul>
 
-and choose if you want questions to be randomly sorted or not at the time of the exercise running.<br><br>
+<p>You can also define the weighting of each answer, they can not be negative. Don't forget to click on \"ok\" to validate your new question.</p>
 
-Then, save your exercise. Then go to the question administration for this exercise.</p>
-
-<hr>
-
-<b>Question adding</b>
-
-<p>You can now add a question into the exercise previously created. The description is optional, as well as the possibility of linking a picture to your question.</p>
-
-<hr>
-
-<b>Multiple choice</b>
-
-<p>This is the famous MAQ (multiple answer question) / MCQ (multiple choice question).<br><br>
-
-In order to create a MAQ / MCQ :<br><br>
-
+<h4>'Fill in blanks' question</h4>
+<p>This type of question is a text with some words missing that the student must fill in.
+When you create such a question&nbsp;:
+</p>
 <ul>
+<li> Introduce first the text for the question.</li>
+<li> Use brackets [...] to define one or more blanks in the text, put the correct answers between the brackets.
+<ul>
+<li> <em>example:</em> [British people] live in [United Kingdom].</li>
+</ul>
+</li>
+<li> Click on \"next\" when done</li>
+<li> Define the ponderation for each answer</li>
+<li> Click on \"Ok\" to validate your new question</li>
+</ul>
 
-  <li>Define answers for your question. You can add or delete an answer by clicking on the right button</li>
+<hr />
 
-  <li>Check the correct answer(s) in the left box </li>
+<h4>The Pool of questions</h4>
+<p>The pool of questions keeps a list of all questions created in the course.  The lists regroups already used question (in one or several exercises) and orphaned question (that are not used in any exercise).</p>
+<p>When you delete an exercise, questions of its own are not removed from the database, and can be reused in a new exercise, via the question pool.</p>
+<p>The question pool also allows you to reuse the same questions in several exercises.</p>
+<p>By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu \"Filter\".</p>
 
-  <li>Add an optional comment. This comment won't be seen by the student until (s)he has replied to the question</li>
+<hr />
 
-  <li>Give a weighting to each answer. The weighting can be any positive or negative integer, or zero</li>
-
-  <li>Save your answers</li>
-
-</ul></p>
-
-<hr>
-
-<b>Fill in the blanks</b>
-
-<p>This allows you to create a text with gaps. The aim is to let student find words that you have removed from the text.<br><br>
-
-To remove a word from the text, so creating a blank, put the word between brackets [like this].<br><br>
-
-Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when (s)he replies to the question.<br><br>
-
-Save your text, and you will then go to the next step which will allow you to give a weighting to each blank. For example, if the question is worth 10 points and you have 5 blanks, you can give a weighting of 2 points to each blank.</p>
-
-<hr>
-
-<b>Matching</b>
-
-<p>This answer type can be chosen so as to create a question where the student will have to connect elements from a unit U1 with elements from a unit U2.<br><br>
-
-It can also be used to ask students to sort elements in a certain order.<br><br>
-
-First define the options amongst which the student will be able to choose the right answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br><br>
-
-Notice : Several elements from the first unit can point to the same element in the second unit.<br><br>
-
-Give a weighting to each correct matching, and save your answer.</p>
-
-<hr>
-
-<b>Exercise modification</b>
-
-<p>In order to modify an exercise, the principle is the same as for its creation. Just click on the picture <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify it, and follow instructions above.</p>
-
-<hr>
-
-<b>Exercise deleting</b>
-
-<p>In order to delete an exercise, click on the picture <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete it.</p>
-
-<hr>
-
-<b>Exercise enabling</b>
-
-<p>To enable an exercise to be used, you have to enable it by clicking on the picture <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise.</p>
-
-<hr>
-
-<b>Exercise running</b>
-
-<p>You can test your exercise by clicking on its name in the exercise list.</p>
-
-<hr>
-
-<b>Random exercises</b>
-
-<p>At the time of an exercise creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the exercise.<br><br>
-
-That means that, by enabling this option, questions will be drawn in a different order each time students will run the exercise.<br><br>
-
-If you have got a large number of questions, you can also choose to randomly draw only X questions amongst all questions available in that exercise.</p>
-
-<hr>
-
-<b>Question pool</b>
-
-<p>When you delete an exercise, questions of its own are not removed from the database, and can be reused in a new exercise, via the question pool.<br><br>
-
-The question pool also allows you to reuse the same questions in several exercises.<br><br>
-
-By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br><br>
-
-Orphan questions are questions that don't belong to any exercise.</p>";
+<h4>How to see my previous scores ?</h4>
+<p>Every user can see its own scores below the list of exercises.  As a course manager you can click on the tracking link available for any exercise in the exercises list to have access to the detailled scores of each student of the course.</p>";
 $langExerciseDescription = "Exercise description";
 $langExerciseDone = "Exercise done, choose a module in the list to continue.";
 $langExerciseInModule = "Exercise in module";
