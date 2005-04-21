@@ -2112,6 +2112,7 @@ $lang_p_CannotRename_s_s = "Cannot rename %s to %s";
 $lang_p_CannotCreate_s ="Cannot create %s";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses="The claroline upgrade tool has successfullly upgrade all your platform courses";
 $lang_retry = 'Retry';
+$lang_p_d_coursesToUpgrade = "%s course(s) to upgrade";
 $lang_p_d_coursesNotUpgraded =  "%d course(s) not upgraded.";
 
 $lang_p_UpgradingDatabaseOfCourse  = 
@@ -2134,4 +2135,10 @@ $lang_p_d_errorFound = ' %d errors found';
 
 $lang_p_UpgradeMainClarolineDatabase_s = 'Upgrading main Claroline database (<em>%s</em>)' ;
 $langModeVerbose = 'Mode Verbose';
+$lang_p_d_affected_rows = '%d affected rows'; 
+$lang_p_YouCan_url_retryToUpgradeTheseCourse = "You can <a href=\"%s\">retry to upgrade</a> these courses";
+$lang_UpgradeFailedForCourses = 'Upgrade has failed for following courses :';
+$langUpgradeCourseSucceed = 'Upgrade succeeded';
+$langUpgradeCourseFailed = 'Upgrade failed';
+
 ?>

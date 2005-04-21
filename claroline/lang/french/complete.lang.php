@@ -1060,12 +1060,8 @@ Pour présenter votre cours aux étudiants, cliquer sur ce bouton.<br />";
 $langIntroEditToolList = "Sélectionner les outils que vous voulez activer.
 Les outils invisibles seront grisés dans votre page d'accueil du cours.";
 $langIntroLearningPath = "Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants<br /><br />Si vous désirez ajouter un texte d'introduction, cliquez sur ce bouton.<br />";
-<<<<<<< complete.lang.php
 
 $langIntroStep1 = "<p>L'outil de <em>mise à jour</em> va procéder à la mise à jour des paramètres de la plateforme.
-=======
-$langIntroStep1 = "<p>L'<em>outil de mise à jour</em> va procéder à la mise à jour des paramètres de la plateforme.
->>>>>>> 1.87
 Ces paramètres sont stockés dans claroline/inc/conf/claro_main.conf.php de votre ancienne plateforme</p>";
 $langIntroStep2 = "<p>Maintenant, l'outil de <em>mise à jour</em> va préparer les <strong>tables principales</strong> de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatibles avec la nouvelle structure de données.
 </p>
@@ -1855,7 +1851,6 @@ $lang_upgradeToolCannotUpgradeThisCourse = "L'outil de mise à jour n'est pas en 
 Reglez d'abord ce problème technique et relancez la procédure de mise à jour.";
 $lang_p_CannotRename_s_s = "Impossible de renommer %s en %s";
 $lang_p_CannotCreate_s = "Création de %s impossible";
-$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "The claroline upgrade tool has successfullly upgrade all your platform courses";
 $lang_retry = "Rééssayer";
 $lang_p_d_coursesNotUpgraded = "%d cours non mis à jours.";
 $lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Mise à jour de la base du cours <strong>%2\$s</strong><br><small>
@@ -1871,7 +1866,8 @@ $lang_p_CannotRename_s_s = "Impossible de renommer %s en %s";
 $lang_p_CannotCreate_s ="Création de %s impossible";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses="The claroline upgrade tool has successfullly upgrade all your platform courses";
 $lang_retry = 'Rééssayer';
-$lang_p_d_coursesNotUpgraded =  "%d cours non mis à jours.";
+$lang_p_d_coursesToUpgrade = "%s cours à mettre à jour";
+$lang_p_d_coursesNotUpgraded =  "%d cours non mis à jour.";
 
 $lang_p_UpgradingDatabaseOfCourse  = 
 "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Mise à jour de la base du cours <strong>%2\$s</strong><br><small>
@@ -1885,7 +1881,11 @@ $lang_RetryWithMoreDetails = "Réessayer avec plus de détails";
 $lang_p_d_errorFound = " %d erreurs trouvées";
 $langModeVerbose = 'Mode détaillé';
 $lang_p_UpgradeMainClarolineDatabase_s = 'Mise à jour de la base de donnée principale (<em>%s</em>) de Claroline en cours.' ;
-
-
+$lang_p_d_affected_rows = '%d enregistrements modifiés';
+$lang_p_YouCan_url_retryToUpgradeTheseCourse = "Vous pouvez retenter <a href=\"%s\">l'upgrade</a> de ces cours";
+$lang_UpgradeFailedForCourses = 'La mise à jour à rencontré un problème sur les cours suivants  :';
+$langUpgradeCourseSucceed = 'Mise à jour réussie';
+$langUpgradeCourseFailed = 'Mise à jour non réussie';
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "La mise à jour de Claroline est terminée";
 
 ?>
