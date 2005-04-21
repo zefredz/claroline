@@ -447,6 +447,50 @@ switch ($display)
                            . '</p>';
                     }
                 }
+
+                // create work assig_1 folder
+
+                $work_dirname = $currentcoursePathSys.'work/';
+                $assignment_dirname = $work_dirname . 'assig_1/';
+
+                if ( !is_dir($assignment_dirname) )
+                {
+                    if ( !@mkdir($assignment_dirname, 0777) )
+                    {
+                        $fs_error_counter++;
+                        echo '<p class="error">'
+                           . '<strong>' . sprintf('Cannot create %s',$assignment_dirname) . '</strong> '
+                           . '</p>';
+                    }
+                }
+                
+                // move assignment from work to work/assig_1
+
+                if ( !is_dir($work_dirname) )
+                {
+                    if ( $handle=opendir($work_dirname) )
+                    {   
+                        while (false !== ($file = readdir($handle)))
+                        {
+                            if ( is_dir($work_dirname.$file) ) continue;
+
+                            if ( @rename($work_dirname.$file,$assignment_dirname.$file) === FALSE )
+                            {
+                                $fs_error_counter++;
+                                echo '<p class="error">'
+                               . '<strong>' . sprintf('Cannot rename %s %s',$work_dirname.$file,$assignment_dirname.$file) . '</strong> '
+                               . '</p>';
+
+                            }
+
+                        }
+                        closedir($handle);
+                    }
+                    
+                }
+
+                
+                
                 
                 if ( $fs_error_counter > 0 )
                 {

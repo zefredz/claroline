@@ -124,6 +124,9 @@ $sqlForUpdate[] = "INSERT IGNORE INTO `".$currentCourseDbNameGlu."wrk_submission
  SELECT 1, '". $teacher_uid ."', titre, IF(accepted,'VISIBLE','INVISIBLE'), auteurs, description, url 
     FROM `".$currentCourseDbNameGlu."assignment_doc`";  
 
+$sqlForUpdate[] = "UPDATE `".$currentCourseDbNameGlu."wrk_submission` 
+                   SET submitted_doc_path = REPLACE (`submitted_doc_path` ,'work/','')";
+
 /**
  * Upgrade groups
  */
