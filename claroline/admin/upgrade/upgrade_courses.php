@@ -98,8 +98,14 @@ if ( isset($_REQUEST['forceUpgrade']) ) $versionDb = md5 (uniqid (rand())); // f
 
 $count_error_total = 0;
 
-/*
+/**
  * count courses, courses upgraded and upgrade failed
+ *
+ * In cours table, versionDb & versionClaro 
+ * contain 
+ *  - 'error' if upgrade already tried but failed
+ * or
+ *  - version of last upgrade succeed(so previous or current)
  */
 
 $count_course = 0; $count_course_error = 0; $count_course_upgraded = 0;
@@ -202,8 +208,7 @@ switch ($display)
                 
     case DISPLAY_RESULT_PANEL : 
 
-        echo sprintf("<h2>%s</h2>",$langUpgradeStep3)
-             . '<p>' . $langIntroStep3Run . '</p>'; 
+        printf("<h2>%s</h2>". '<p>' . $langIntroStep3Run . '</p>',$langUpgradeStep3); 
 
         // display course upgraded
         echo sprintf($langNbCoursesUpgraded,$count_course_upgraded,$count_course);
@@ -255,7 +260,8 @@ switch ($display)
         $sql_course_to_upgrade = " SELECT c.dbName dbName, 
                                           c.code sysCode, 
                                           c.fake_code officialCode, 
-                                          directory coursePath "
+                                          directory coursePath,
+                                          creationDate "
                                . " FROM `" . $tbl_course . "` `c` ";
         
         if ( $_REQUEST['upgradeCoursesError'] == 1)
@@ -287,6 +293,7 @@ switch ($display)
             $currentcoursePathWeb   = $coursesRepositoryWeb.$course['coursePath'].'/';
             $currentCourseIDsys     = $course['sysCode'];
             $currentCourseCode      = $course['officialCode'];
+            $currentCourseCreationDate = $course['creationDate'];
             $currentCourseDbNameGlu = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
         
             $count_course_upgraded++;
