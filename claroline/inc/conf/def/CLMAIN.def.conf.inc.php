@@ -424,24 +424,23 @@ $conf_def_property_list['clarolineRepositoryAppend'] =
 array ('label'       => 'relative path from root campus to claroline code'
       ,'type'        => 'relpath'
       ,'default'     => 'claroline/'
-      ,'display'     => FALSE
+      ,'display'     => false
       );
 $conf_def_property_list['coursesRepositoryAppend'] =
 array ( 'label'      => 'relative path from root campus to courses'
       , 'type'       => 'relpath'
       , 'default'    => 'courses/'
-      ,'display'     => TRUE
+      ,'display'     => false
       );
 
 $conf_def_property_list['rootAdminAppend'] =
 array ('label'        => 'relative path from claroline kernel to root of admin section'
       ,'type'        => 'relpath'
       ,'default'     => 'admin/'
-      ,'display'     => FALSE
+      ,'display'     => false
       );
 $conf_def_property_list['imgRepositoryAppend'] =
 array ('label'        => 'relative path from claroline web to iconset'
-      ,'technicalInfo' => 'overwrited in 1.6 in global init'
       ,'type'        => 'relpath'
       ,'default'     => 'img/'
       ,'display'     => FALSE
