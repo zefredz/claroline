@@ -1907,51 +1907,66 @@ $langUser = "User";
 $langUserAccessDetails = "User access details";
 $langUserAlreadyInClass = "User already in class";
 $langUserCanCreateCourse = "Can create course";
-$langUserContent = "<b>Roles</b><p>Roles have no computer related function.
+$langUserContent = "<p>The 'Users' tool displays user informations in a digest table. Here is below the column descriptions resumed.
+<ul>
+<li>
+<b>Name</b>. By clicking on the user name you can see additional informations concerning this user, like e-mail etc.
+</li>
 
- They do not give rights on operating the system. They just indicate to
+<li>
+<b>Roles</b>.
+Roles have no computer related function. They do not give rights on 
+operating the system. They just indicate to humans who is who. You can 
+modify them by clicking on the icon in the 'Edit' column, then typing whatever 
+you want: lecturer, assistant, student, visitor, expert...
+</li>
 
- humans who is who. You can modify them by clicking on 'modify' under
+<li>
+<b>Group tutor</b>. Group tutor is a status allowing a user to coach a group more closely. It gives permission to this user to access all the group area and to see and edit messages on the group forum. You can 
+modify this status by clicking on the icon in the 'Edit' column.
+</li>
 
- 'role', then typing whatever you want: lecturer, assistant, student,
+<li>
+<b>Course manager</b>. This status is reserved to the people who manage and administrate the course. You can 
+modify this status by clicking on the icon in the 'Edit' column.
+</li>
 
- visitor, expert...</P><hr>
+<li>
+<b>Edit</b> (restricted to course manager). This commands allows course managers to edit user informations related to this course. Course managers are not allowed to modify personal user information like e-mail, name etc, only the data directly related to the course ,like role, tutor status, course manager status, etc. With this command, course managers are also able to create new headings dedicated only this course (see the 'define headings' button in the user details page). Once headings are defined,each student will be able to fill them.
+</li>
 
-<b>Admin rights</b>
+<li>
+<b>Unregister</b> (restricted to course manager). This command allows course manager to remove a user from their course. It doesn't mean the user account don't exist anymore, but only that this account is not enrolled to this course.
+</li>
 
-<p>Admin rights, on the other hand, correspond to the technical
+</ul>
 
- authorisation to modify the content and organisation of the course
+<h4>
+Main commands
+</h4>
 
- website. For the moment, you can only choose between giving all the admin
+<ul>
+<li>
+<b>Add a user</b>. Click on this command to add a user for this course, fill the fields and validate. The person will receive an e-mail telling them they have been registered him/her and telling or reminding reminding them of their login and password.
+</li>
+<li><b>Add a list of users</b></li> Click on this command to add in a list of several users with a file in CSV format.
+</li>
+<li>
+<b>Subscribe a class</b>. Click on this command to add a collection of users gathered by classes predefined by the platform administrator.
+</li>
+<li>
+<b>Group management</b>. Allows to go directly to the group management tool.
+</li>
+</ul>
 
- rights and giving none of them.</P>
-
-<p>To allow an assistant, for instance, to co-admin the site, you need to
-
- register him in the course or be sure he is already registerd, then click
-
- on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr>
-
-<b>Co-chairman</b>
-
-<p>To mention in the header of the course website the name of a
-
- co-chairman, use the tool 'Modify course information' (orange tools). This
-
- modification does not register your co-chairman as a user of the course.
-
- The field 'Lecturers' is completely independent of the Users
-
- list.</p><hr>
-
-<b>Add a user</b>
-
-<p>To add a user for your course, fill the fields and validate. The person
-
-will receive an email telling them they have been registered him/her and telling or reminding
-
-reminding them of their login and  password.</p>";
+<h4>Tips</h4>
+<p>
+To allow an assistant, for instance, to co-admin the site, you need to register him in the course or be sure he is already registered, then click on 'modify' under 'admin rights', then click 'all', then 'Ok'. Co-chairman
+</p>
+<p>
+To mention in the header of the course web site the name of a co-chairman, use the tool 'Modify course information' (orange tools). This modification does not register your co-chairman as a user of the course. The field 'Lecturers' is completely independent of the Users list.
+Add a user
+</p>";
 $langUserCourseList = "User's course list";
 $langUserCreated = "The new user has been sucessfully created";
 $langUserDelete = "Deletion of the user was done sucessfully";
