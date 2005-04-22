@@ -517,7 +517,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
        {
              echo "<td align=\"left\"><a href=\"learningPath.php?path_id="
                        .$list['learnPath_id']."\"><img src=\"".$imgRepositoryWeb."learnpath.gif\" alt=\"".$path_alt."\"
-                       border=\"0\" />  ".$list['name']."</a></td>";
+                       border=\"0\" />  ".htmlspecialchars($list['name'])."</a></td>";
 
              /*if( $list['lock'] == 'CLOSE' && ( $list['minRaw'] == -1 || $list['minRaw'] == "" ) )
              {

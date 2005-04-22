@@ -488,7 +488,7 @@
                          
             if ($module['contentType'] == CTLABEL_) // chapter head
             {
-                echo "<b>".$module['name']."</b>\n";
+                echo "<b>".htmlspecialchars($module['name'])."</b>\n";
             }
             else // module
             {
@@ -499,7 +499,7 @@
                   
                 $contentType_alt = selectAlt($module['contentType']);
                 echo "<a href=\"module.php?module_id=".$module['module_id']."\"><img src=\"".$imgRepositoryWeb."".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
-                             .$module['name'].
+                             .htmlspecialchars($module['name']).
                              "</a>";
             }
             echo "</td>"; // end of td of module name
@@ -516,7 +516,7 @@
             echo    "
 			<td>
             	<a href=\"".$_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
-                        "onClick=\"return confirmation('".str_replace("\n","\\n",$langAreYouSureToRemove)." ",addslashes($module['name'])," ? ";
+                        "onClick=\"return confirmation('".str_replace("\n","\\n",$langAreYouSureToRemove)." ",addslashes(htmlspecialchars($module['name']))," ? ";
             if ($module['contentType'] == CTSCORM_) 
               echo $langAreYouSureToRemoveSCORM ;
             elseif ( $module['contentType'] == CTLABEL_ )

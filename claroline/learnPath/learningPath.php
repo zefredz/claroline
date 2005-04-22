@@ -208,7 +208,7 @@
           //-- if chapter head
           if ( $module['contentType'] == CTLABEL_ )
           {
-              echo "<b>".$module['name']."</b>";
+              echo "<b>".htmlspecialchars($module['name'])."</b>";
           }
           //-- if user can access module
           elseif ( !$is_blocked )
@@ -221,7 +221,7 @@
               $contentType_alt = selectAlt($module['contentType']);
               echo "<a href=\"module.php?module_id=".$module['module_id']."\">
             <img src=\"".$imgRepositoryWeb.$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
-                           .$module['name']."</a>";
+                           .htmlspecialchars($module['name'])."</a>";
               // a module ALLOW access to the following modules if
               // document module : credit == CREDIT || lesson_status == 'completed'
               // exercise module : credit == CREDIT || lesson_status == 'passed'
@@ -248,7 +248,7 @@
                 else
                   $moduleImg = choose_image(basename($module['path']));
                 echo "<img src='".$imgRepositoryWeb.$moduleImg."' alt='".$contentType_alt."' border=\"0\">"
-                            .$module['name'];
+                            .htmlspecialchars($module['name']);
 
           }
           echo "</td>";
