@@ -58,9 +58,9 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 $TABLECOURSUSER	        = $tbl_rel_course_user;
 $TABLEUSER              = $tbl_user;
 
-include($includePath."/lib/statsUtils.lib.inc.php");
+include($includePath.'/lib/statsUtils.lib.inc.php');
 
-include($includePath."/lib/learnPath.lib.inc.php");
+include($includePath.'/lib/learnPath.lib.inc.php');
 
 $is_allowedToTrack = $is_courseAdmin;
 
@@ -79,7 +79,7 @@ include($includePath."/claro_init_header.inc.php");
 
 // display title
 $titleTab['mainTitle'] = $nameTools;
-$titleTab['subTitle'] = $pDetails['name'];
+$titleTab['subTitle'] = htmlspecialchars($pDetails['name']);
 claro_disp_tool_title($titleTab);
 
 if($is_allowedToTrack && $is_trackingEnabled) 

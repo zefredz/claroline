@@ -460,7 +460,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                       
                       $lpProgress = get_learnPath_progress($lpDetails['learnPath_id'],$_GET['uInfo']);
                       echo "\n<tr>\n"
-                              ."<td><a href=\"lp_modules_details.php?uInfo=".$_GET['uInfo']."&path_id=".$lpDetails['learnPath_id']."\">".$lpDetails['name']."</a></td>\n"
+                              ."<td><a href=\"lp_modules_details.php?uInfo=".$_GET['uInfo']."&path_id=".$lpDetails['learnPath_id']."\">".htmlspecialchars($lpDetails['name'])."</a></td>\n"
                               ."<td align=\"right\">\n"
                               .claro_disp_progress_bar($lpProgress, 1)
                               ."</td>\n"
