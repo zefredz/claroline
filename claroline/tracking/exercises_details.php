@@ -33,7 +33,7 @@ $is_allowedToTrack = $is_courseAdmin;
 // get infos about the exercise
 $sql = "SELECT `id`, `titre` `title`
         FROM `".$TABLE_QUIZ_TEST."`
-       WHERE `id` = ".$_GET['exo_id'];
+       WHERE `id` = ". (int) $_GET['exo_id'];
 $result = claro_sql_query($sql);
 $exo_details = @mysql_fetch_array($result);
 
