@@ -2141,5 +2141,9 @@ $lang_p_YouCan_url_retryToUpgradeTheseCourse = "You can <a href=\"%s\">retry to 
 $lang_UpgradeFailedForCourses = 'Upgrade has failed for following courses :';
 $langUpgradeCourseSucceed = 'Upgrade succeeded';
 $langUpgradeCourseFailed = 'Upgrade failed';
-
+$langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = 
+'In case of interruption <sup>*</sup>, the <em>Claroline Upgrade tool</em> should restart automatically. 
+If it\'s not the case, click on the button below.' ;
+$lang_continueCoursesDataUpgrade = "Continue courses data upgrade";
+$lang_seeInTheStatusBarOfYourBrowser = '(*) see in the status bar of your browser.';
 ?>

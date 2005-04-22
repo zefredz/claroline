@@ -1949,4 +1949,11 @@ $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Vous pouvez retenter <a href=\"%
 $lang_UpgradeFailedForCourses = "La mise à jour à rencontré un problème sur les cours suivants  :";
 $langUpgradeCourseSucceed = "Mise à jour réussie";
 $langUpgradeCourseFailed = "Mise à jour non réussie";
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "La mise à jour de Claroline est terminée";
+$langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = 
+'En cas d\'interruption <sup>*</sup>, l\'outil <em>de mise à jour</em> devrait redémarrer automatiquement
+ après quelques secondes. Si ce n\'est pas le cas, cliquez sur le bouton ci-dessous.';
+$lang_continueCoursesDataUpgrade = "Continuer la mise à jour des cours";
+$lang_seeInTheStatusBarOfYourBrowser = '(*) Regardez dans la barre de d\'état de votre navigateur.';
+
 ?>

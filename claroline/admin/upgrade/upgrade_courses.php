@@ -245,13 +245,13 @@ switch ($display)
          */
 
         echo  '<div class="help" id="refreshIfBlock">'
-            . '<p>' . 'Few seconds after the load of the page<sup>*</sup>, the <em>Claroline Upgrade tool</em> will
-                       automatically continue its job. If it doesn\'t, click yourself on the button below.' 
+            . '<p>' 
+            . $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow
             . '</p>'
             . '<p style="text-align: center">'
-            . sprintf ("<button onclick=\"document.location='%s';\">Continue courses data upgrade</button>", $_SERVER['PHP_SELF']."?cmd=run")
+            . sprintf ("<button onclick=\"document.location='%s';\">".$lang_continueCoursesDataUpgrade."</button>", $_SERVER['PHP_SELF']."?cmd=run")
             . '</p>'
-            . '<p><small>(*) see in the status bar of your browser.</small></p>'
+            . '<p><small>'. $lang_seeInTheStatusBarOfYourBrowser .'</small></p>'
             . '</div>'; 
 
         flush();
