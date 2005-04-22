@@ -531,7 +531,7 @@ foreach($eventList as $thisEvent)
       .'<tr>'."\n"
       .'<td>'."\n"
       .'<div class="content">'."\n"
-      .( empty($thisEvent['titre']  ) ? '' : '<p><strong>'.$thisEvent['titre'].'</strong></p>'."\n" )
+      .( empty($thisEvent['titre']  ) ? '' : '<p><strong>'.htmlspecialchars($thisEvent['titre']).'</strong></p>'."\n" )
       .( empty($thisEvent['contenu']) ? '' :  claro_parse_user_text($thisEvent['contenu']) )
       .'</div>'."\n"
       ;
