@@ -1,27 +1,29 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: Eric Remy <eremy@rmwc.edu>
-//			Toon Van Hoecke <Toon.VanHoecke@UGent.be>
-//----------------------------------------------------------------------
-
-/*
+/**
+ * CLAROLINE 
+ *
  *	This file generates a general agenda of all items of the courses
  *	the user is registered for.
  *
  *	Based on the master-calendar code of Eric Remy (6 Oct 2003)
  *	adapted by Toon Van Hoecke (Dec 2003) and Hugues Peeters (March 2004)
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package CLCAL
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Eric Remy <eremy@rmwc.edu>
+ * @author Toon Van Hoecke <Toon.VanHoecke@UGent.be>
+ * @author Hugues Peeters <peeter@ipm.ucl.ac.be>
+ *
  */
 
-
-$cidReset = true;
+$cidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
@@ -31,6 +33,7 @@ $nameTools = $langMyAgenda;
 
 if(!empty($_REQUEST['coursePath']))
 {
+    $_REQUEST['coursePath'] = htmlspecialchars($_REQUEST['coursePath']);
 	$interbredcrump[]=array('url' => $rootWeb.$_REQUEST['coursePath'].'/index.php',
                             'name' => $_REQUEST['courseCode']);
 }
@@ -148,39 +151,44 @@ function disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $m
 
   	//Start the week on monday
 	$startdayofweek = $dayone['wday']<>0 ? ($dayone['wday']-1) : 6;
+    $urlcoursePath = htmlspecialchars($_REQUEST['coursePath']);
+    
+	$backwardsURL = $_SERVER['PHP_SELF'].'?coursePath='.$urlcoursePath
+                   .'&amp;courseCode='.$_REQUEST['courseCode']
+                   .'&amp;month='.($month==1 ? 12 : $month-1)
+                   .'&amp;year='.($month==1 ? $year-1 : $year);
 
-	$backwardsURL = $_SERVER['PHP_SELF']."?coursePath=".$_REQUEST['coursePath']
-                   ."&courseCode=".$_REQUEST['courseCode']
-                   ."&month=".($month==1 ? 12 : $month-1)
-                   ."&year=".($month==1 ? $year-1 : $year);
+	$forewardsURL = $_SERVER['PHP_SELF'].'?coursePath='.$urlcoursePath
+                   .'&amp;courseCode='.$_REQUEST['courseCode']
+                   .'&amp;month='.($month==12 ? 1 : $month+1)
+                   .'&amp;year='.($month==12 ? $year+1 : $year);
 
-	$forewardsURL = $_SERVER['PHP_SELF']."?coursePath=".$_REQUEST['coursePath']
-                   ."&courseCode=".$_REQUEST['courseCode']
-                   ."&month=".($month==12 ? 1 : $month+1)
-                   ."&year=".($month==12 ? $year+1 : $year);
-
-	echo "<table class=\"claroTable\" width=95%>\n"
-
-  	    ."<tr class=\"superHeader\">\n"
-	    ."<th width=13%><center>"
-        ."<a href=".$backwardsURL.">&lt;&lt;</a></center>"
-        ."</th>\n"
-	    ."<th width=65% colspan=\"5\">"
-        ."<center>".$monthName.' '.$year."</center>"
-        ."</th>\n"
-	    ."<th width=13%><center>"
-        ."<a href=".$forewardsURL.">&gt;&gt;</center></a>"
-        ."</th>\n"
-	    ."</tr>\n";
+	echo '<table class="claroTable" width="95%">'."\n"
+  	    .'<tr class="superHeader">'."\n"
+	    .'<th width="13%">'
+	    .'<center>'."\n"
+        .'<a href="'.$backwardsURL.'">&lt;&lt;</a>'
+        .'</center>'."\n"
+        .'</th>'."\n"
+	    .'<th width="65%" colspan="5">'
+        .'<center>'
+        .$monthName.' '.$year
+        .'</center>'
+        .'</th>'."\n"
+	    .'<th width="13%"><center>'
+        .'<a href="'.$forewardsURL.'">&gt;&gt;</center></a>'
+        .'</th>'."\n"
+	    .'</tr>'."\n"
+	    ;
 
 	echo "<tr class=\"headerX\">\n";
 
-	for ( $iterator = 1; $iterator<8; $iterator++)
+	for ( $iterator = 1; $iterator < 8; $iterator++)
 	{
-    	echo  "<th width=13%>".$weekdaynames[$iterator%7]."</th>\n";
+    	echo  '<th width="13%">' . $weekdaynames[$iterator%7] . '</th>'."\n";
     }
 	
-    echo "</tr>\n";
+    echo '</tr>'."\n";
 
 	$curday = -1;
 	
@@ -190,7 +198,7 @@ function disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $m
   	{
   		echo "<tr>\n";
 
-      	for ($iterator = 0; $iterator <7 ; $iterator++)
+      	for ($iterator = 0; $iterator < 7 ; $iterator++)
 	  	{
 	  		if ( ($curday == -1) && ($iterator == $startdayofweek) )
 			{
