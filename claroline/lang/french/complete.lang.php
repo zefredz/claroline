@@ -1757,7 +1757,7 @@ Commandes principales
 
 <h4>Conseils</h4>
 <p>
-Pour permettre à un assistant, par exemple, de co-gérer le site, vous devez l'inscrire au cours ou être sûr qu'il est déjà inscrit, ensuite cliquer sur 'modifier' (avec les droits d'administration, puis cliquer sur 'tout', puis 'Ok'.
+Pour permettre à un assistant, par exemple, de co-gérer le site, vous devez l'inscrire au cours ou être sûr qu'il est déjà inscrit, ensuite cliquer sur 'modifier' (avec les droits d'administration), puis cliquer sur 'tout', puis 'Ok'.
 </p>
 <p>
 Pour mentionner dans l'entête du site du cours le nom d'un co-gestionnaire, utilisez l'outil 'Paramètres de cours'. Cette modification n'inscrit pas la personne comme gestionnaire, le champs 'Gestionnaire(s) de cours' de ce formulaire est totalement indépendant de la liste des utilisateurs.
