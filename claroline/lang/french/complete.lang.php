@@ -664,76 +664,114 @@ $langExercise = "Exercice";
 $langExerciseAsModule = "Utiliser un exercice";
 $langExerciseCancelled = "Exercice annulé, choisissez un module dans la liste pour continuer.";
 $langExerciseClosing = "Date de fin";
-$langExerciseContent = "<p>Le module d'exercice vous permet de créer des exercices pouvant contenir un nombre quelconque de questions.<br><br>
-Il existe différents types de réponses disponibles pour la création de vos questions :<br><br>
-<ul>
-  <li>Choix multiple (Réponse unique)</li>
-  <li>Choix multiple (Réponses multiples)</li>
-  <li>Correspondance</li>
-  <li>Remplissage de blancs</li>
-</ul>
-Un exercice rassemble un certain nombre de questions sous un thème commun.</p>
-<hr>
-<b>Création d'un exercice</b>
-<p>Pour créer un exercice, cliquez sur le lien 'Nouvel exercice'.<br><br>
-Introduisez l'intitulé de votre exercice, ainsi qu'une éventuelle description de celui-ci.<br><br>
-Vous pouvez également choisir entre 2 types d'exercices :<br><br>
-<ul>
-  <li>Questions sur une seule page</li>
-  <li>Une question par page (séquentiel)</li>
-</ul>
-et préciser si vous souhaitez ou non que les questions soient triées aléatoirement lors de l'exécution de l'exercice par l'étudiant.<br><br>
-Enregistrez ensuite votre exercice. Vous arriverez à la gestion des questions de cet exercice.</p>
-<hr>
-<b>Ajout d'une question</b>
-<p>Vous pouvez à présent ajouter une question à l'exercice précédemment créé. La description est facultative, de même que l'image que vous avez la possibilité d'associer à votre question.</p>
-<hr>
-<b>Choix multiple</b>
-<p>Il s'agit du classique QRM (question à réponse multiple) / QCM (question à choix multiple).<br><br>
-Pour créer un QRM / QCM :<br><br>
-<ul>
-  <li>Définissez les réponses à votre question. Vous pouvez ajouter ou supprimer une réponse en cliquant sur le bouton adéquat</li>
-  <li>Cochez grâce aux cases de gauche la ou les réponses exactes</li>
-  <li>Ajoutez un éventuel commentaire. Celui-ci ne sera vu par l'étudiant qu'une fois qu'il aura répondu à la question</li>
-  <li>Donnez une pondération à chaque réponse. La pondération peut être n'importe quel nombre entier, positif, négatif ou nul</li>
-  <li>Enregistrez vos réponses</li>
-</ul></p>
-<hr>
-<b>Remplissage de blancs</b>
-<p>Il s'agit du texte à trous. Le but est de faire trouver à l'étudiant des mots que vous avez préalablement retirés du texte.<br><br>
-Pour retirer un mot du texte, et donc créer un blanc, placez ce mot entre crochets [comme ceci].<br><br>
-Une fois le texte introduit et les blancs définis, vous pouvez éventuellement ajouter un commentaire qui sera vu par l'étudiant lorsqu'il aura répondu à la question.<br><br>
-Enregistrez votre texte, et vous arriverez à l'étape suivante qui vous permettra d'attribuer une pondération à chacun des blancs. Par exemple si la question est sur 10 points et que vous avez 5 blancs, vous pouvez donner une pondération de 2 points à chaque blanc.</p>
-<hr>
-<b>Correspondance</b>
-<p>Ce type de réponse peut être choisi pour créer une question où l'étudiant devra relier des éléments d'un ensemble E1 avec les éléments d'un ensemble E2.<br><br>
-Il peut également être utilisé pour demander à l'étudiant de trier des éléments dans un certain ordre.<br><br>
-Commencez par définir les options parmi lesquelles l'étudiant pourra choisir la bonne réponse. Ensuite, définissez les questions qui devront être reliées à une des options définies précédemment. Enfin, établissez les correspondances via les menus déroulants.<br><br>
-Remarque : Plusieurs éléments du premier ensemble peuvent pointer vers le même élément du deuxième ensemble.<br><br>
-Donnez une pondération à chaque correspondance correctement établie, et enregistrez votre réponse.</p>
-<hr>
-<b>Modification d'un exercice</b>
-<p>Pour modifier un exercice, le principe est le même que pour la création. Cliquez simplement sur l'image <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à modifier, et suivez les instructions ci-dessus.</p>
-<hr>
-<b>Suppression d'un exercice</b>
-<p>Pour supprimer un exercice, cliquez sur l'image <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à supprimer.</p>
-<hr>
-<b>Activation d'un exercice</b>
-<p>Avant qu'un exercice ne puisse être utilisé par un étudiant, vous devez l'activer en cliquant sur l'image <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à activer.</p>
-<hr>
-<b>Exécution d'un exercice</b>
-<p>Vous pouvez tester votre exercice en cliquant sur son nom dans la liste des exercices.</p>
-<hr>
-<b>Exercices aléatoires</b>
-<p>Lors de la création / modification d'un exercice, vous avez la possibilité de préciser si vous souhaitez que les questions soient tirées dans un ordre aléatoire parmi toutes les questions de l'exercice.<br><br>
-Cela signifie qu'en activant cette option, les questions seront à chaque fois dans un ordre différent lorsque les étudiants exécuteront l'exercice.<br><br>
-Si vous avez un grand nombre de questions, vous pouvez aussi choisir de ne prendre aléatoirement que X questions sur l'ensemble des questions disponibles dans cet exercice.</p>
-<hr>
-<b>Banque de questions</b>
-<p>Lorsque vous supprimez un exercice, les questions qu'il contenait ne le sont pas et peuvent être réutilisées dans un nouvel exercice, via la banque de questions.<br><br>
-La banque de questions permet également de réutiliser une même question dans plusieurs exercices.<br><br>
-Par défaut, toutes les questions de votre cours sont affichées. Vous pouvez afficher les questions relatives à un exercice en particulier, en choisissant celui-ci dans le menu déroulant 'Filtre'.<br><br>
-Des questions orphelines sont des questions n'appartenant à aucun exercice.</p>";
+$langExerciseContent = "<h4>A quoi sert l'outil Exercices</h4>
+<p>
+L'outil Exercices permet de créer des exercices en ligne sous la forme d'une liste de questions. Ces questions peuvent être de différents types. Les étudiants peuvent essayer de répondre ; s'ils se sont enregistrés au cours, leurs scores seront conservés et visibles dans la section des statistiques du cours.
+</p>
+
+<hr />
+
+<h4>Administrer l'outil Exercices</h4>
+
+<p>Créer un exercice</p>
+<p>Cliquez sur Exercices pour entrer dans la liste de vos exercices.
+</p><p><br />
+Nous allons commencer par créer un nouvel exercice. Pour ce faire, cliquez sur le lien « Nouvel exercice ».
+</p><p><br />
+Il vous faut commencer par donner un intitulé à votre exercice, ainsi quune éventuelle description.
+</p><p>Définissez ensuite les options souhaitées pour cet exercice&nbsp;:
+</p>
+<ul><li> Type d'exercice
+<ul><li> Questions sur une seule page&nbsp;: Lorsque létudiant exécutera lexercice, toutes les questions lui seront présentées en une seule fois.
+</li><li> Une question par page&nbsp;: Les questions sont réparties sur plusieurs pages. Une fois que létudiant à répondu à une question, il passe à la suivante, et il ne peut plus revenir en arrière.
+
+</li></ul>
+</li></ul>
+<p>Les options suivantes sont optionnelles, conserver les valeurs par défaut permet la création d'un exercice tel que dans Claroline 1.5.
+</p>
+<ul><li> Date de début&nbsp;: date à partir de laquelle les étudiants pourront répondre au questionnaire
+</li><li> Date de fin&nbsp;: date jusqu'à laquelle les étudiants pourront répondre au questionnaire, la case doit être cochée pour que la date de fin soit prise en compte
+</li><li> Limite de temps&nbsp;: cochez la case pour imposer une limite de temps aux apprenants lorsqu'ils réaliseront l'exercice, spécifiez le temps maximum autorisé
+</li><li> Essais autorisés&nbsp;: précisez si les étudiants peuvent faire l'exerice autant de fois que souhaité ou si le nombre d'essais est limité
+</li><li> Essais anonymes&nbsp;: si les essais anonymes sont autorisé aucun tracking ne sera conservé et n'importe qui pourra essayer de faire l'exercice, dans le cas contraire les résultats de toutes les tentatives seront conservés et seuls les apprenants inscrits au cours pourront réaliser l'exercice.
+
+</li><li> Après le test, afficher les réponses&nbsp;: 
+<ul><li> Oui&nbsp;: la correction est affichée à l'utilisateur après chacune de ses tentatives
+</li><li> Apres la dernière tentative autorisée&nbsp;: la correction ne sera affichée que lorsque l'apprenant aura atteint le nombre maximum d'essais autorisés
+</li><li> Non&nbsp;: aucune correction affichée
+</li></ul>
+</li></ul>
+<p>Lorsque vous avez fourni toutes les informations nécessaires, cliquez sur « Valider » pour enregistrer votre exercice.
+</p><p><br />
+</p><p>Vous arrivez alors à la liste des questions de lexercice. Comme il sagit dun nouvel exercice, cette liste est vide.
+
+</p><p>Pour ajouter une nouvelle question, cliquez sur le lien « Nouvelle question ».
+</p><p>Dans le formulaire qui apparaît, introduisez votre question, ainsi quun éventuel commentaire.
+</p><p>Vous pouvez également joindre un fichier se trouvant sur votre disque dur en cliquant sur le bouton « Parcourir& »
+</p><p>Il vous faut à présent choisir le type de réponse pour votre question&nbsp;:
+</p>
+<ul><li> Choix multiple (Réponse unique)&nbsp;: Il sagit du classique QCM, où létudiant ne peut choisir quune seule réponse.
+</li><li> Choix multiple (Réponses multiples)&nbsp;: Dans ce cas-ci, plusieurs réponses peuvent être correctes.
+</li><li> Correspondance&nbsp;: Létudiant devra faire correspondre les éléments dune liste avec ceux dune autre liste.
+</li><li> Remplissage de blancs&nbsp;: Il sagit du texte à trous&nbsp;; létudiant devra compléter un texte en trouvant les mots manquants.
+
+</li></ul>
+<p><br />
+Lorsque vous avez fourni toutes les informations nécessaires, cliquez sur le « Valider » pour enregistrer la question et définir les réponses.
+</p>
+
+<hr />
+
+<h4>Questions</h4>
+
+<p>Une fois l'exercice créé, cliquer sur le crayon pour voir la liste complète des questions de l'exercice.
+</p><p>Deux possibilités pour ajouter une question&nbsp;:
+</p>
+<ul><li> Créer une nouvelle question&nbsp;:
+<ul><li> Choix multiple (Réponse unique)&nbsp;: Il sagit du classique QCM, où létudiant ne peut choisir quune seule réponse.
+</li><li> Choix multiple (Réponses multiples)&nbsp;: Dans ce cas-ci, plusieurs réponses peuvent être correctes.
+</li><li> Correspondance&nbsp;: Létudiant devra faire correspondre les éléments dune liste avec ceux dune autre liste.
+
+</li><li> Remplissage de blancs&nbsp;: Il sagit du texte à trous&nbsp;; létudiant devra compléter un texte en trouvant les mots manquants.
+</li></ul>
+</li></ul>
+<ul><li> Ajouter une question de la Banque de questions
+</li></ul>
+
+<h4>Questions à choix multiples</h4>
+<p>Commencez par fournir les différents choix de réponses. Vous pouvez ajouter ou retirer des réponses grâce aux boutons « Supprmier rép. » et « Ajouter rép. ».
+</p><p>Vous avez ensuite la possibilité de donner un commentaire (ou feedback) qui sera affiché à létudiant lorsquil aura validé la question. Le feedback napparaît que pour les réponses que létudiant a choisies, quelles soient bonnes ou mauvaises.
+</p><p>Enfin, sélectionnez la ou les bonnes réponses via les cases à cocher de gauche et donnez une pondération à chacune des réponses. La pondération peut être positive, négative ou nulle.
+Une fois terminé, cliquez sur le bouton « Valider » pour enregistrer les réponses de votre question.
+</p>
+
+<h4>Correspondance</h4>
+<p>Ici, vous devez remplir 2 listes avec des éléments complémentaires, que létudiant devra faire correspondre.
+</p><p>Vous pouvez ajouter ou supprimer des éléments grâce aux boutons « -élem » et « +élem ».
+</p><p>Donnez ensuite une pondération à chaque correspondance correctement établie par létudiant, et enregistrez votre question en cliquant sur le bouton « Valider ».
+</p><p>Les pondérations ne peuvent pas être négatives.
+</p>
+
+<h4>Remplissage de blancs</h4>
+<p>Introduisez tout dabord votre texte dans le champ prévu à cet effet.<br />
+Une fois le texte introduit, définissez les différents blancs en entourant les mots à retirer du texte par des crochets. </p>
+
+<hr />
+
+<h4>La banque de questions</h4>
+<p>La banque de question répertorie la liste de toutes les questions disponibles dans l'outil d'exercice
+</p><p>Lorsque vous supprimez un exercice, les questions qu'il contenait ne le sont pas et peuvent être réutilisées dans un nouvel exercice, via la banque de questions.
+</p><p>La banque de questions permet également de réutiliser une même question dans plusieurs exercices.
+</p><p>Par défaut, toutes les questions de votre cours sont affichées. Vous pouvez afficher les questions relatives à un exercice en particulier, en choisissant celui-ci dans le menu déroulant 'Filtre'.
+</p><p>Des questions orphelines sont des questions n'appartenant à aucun exercice.
+</p>
+
+<hr />
+
+<h4>Voir mes scores précédents</h4>
+<p>Chaque utilisateur peut consulter la liste des scores qu'il a fait dans chaque exercice.  Cette liste se trouve sous la liste des exercices, une vue plus détaillée est cependant disponible dans les statistiques personnelles (accessibles via le lien \"Modifier mon profil\" et ensuite \"Voir mes statistiques\").
+</p><p>Un responsable de cours a en plus accès à une vue détaillée des résultats obtenus par les étudiants dans chaque exercice, pour cela il faut cliquer sur le lien de tracking qui se trouve dans la liste des exercices disponibles.
+</p>";
 $langExerciseDescription = "Description de l'exercice";
 $langExerciseDone = "Exercice terminé, choisissez un module dans la liste pour continuer.";
 $langExerciseInModule = "Exercice du module";
@@ -1060,7 +1098,6 @@ Pour présenter votre cours aux étudiants, cliquer sur ce bouton.<br />";
 $langIntroEditToolList = "Sélectionner les outils que vous voulez activer.
 Les outils invisibles seront grisés dans votre page d'accueil du cours.";
 $langIntroLearningPath = "Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants<br /><br />Si vous désirez ajouter un texte d'introduction, cliquez sur ce bouton.<br />";
-
 $langIntroStep1 = "<p>L'outil de <em>mise à jour</em> va procéder à la mise à jour des paramètres de la plateforme.
 Ces paramètres sont stockés dans claroline/inc/conf/claro_main.conf.php de votre ancienne plateforme</p>";
 $langIntroStep2 = "<p>Maintenant, l'outil de <em>mise à jour</em> va préparer les <strong>tables principales</strong> de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatibles avec la nouvelle structure de données.
@@ -1852,7 +1889,7 @@ Reglez d'abord ce problème technique et relancez la procédure de mise à jour.";
 $lang_p_CannotRename_s_s = "Impossible de renommer %s en %s";
 $lang_p_CannotCreate_s = "Création de %s impossible";
 $lang_retry = "Rééssayer";
-$lang_p_d_coursesNotUpgraded = "%d cours non mis à jours.";
+$lang_p_d_coursesNotUpgraded = "%d cours non mis à jour.";
 $lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Mise à jour de la base du cours <strong>%2\$s</strong><br><small>
 Nom de la base : %3\$s <br>
 Course ID: %4\$s</small></td></tr></table>";
@@ -1862,30 +1899,16 @@ $langNoFunctionInThisSection = "Pas de fonction dans cette extension";
 $langPopulateTools = "Remplir les outils";
 $langConfigMenuContent = "Menu de configuration";
 $langFillToolCourses = "Remplir les outils de cours";
-$lang_p_CannotRename_s_s = "Impossible de renommer %s en %s";
-$lang_p_CannotCreate_s ="Création de %s impossible";
-$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses="The claroline upgrade tool has successfullly upgrade all your platform courses";
-$lang_retry = 'Rééssayer';
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "La mise à jour de Claroline est terminée";
 $lang_p_d_coursesToUpgrade = "%s cours à mettre à jour";
-$lang_p_d_coursesNotUpgraded =  "%d cours non mis à jour.";
-
-$lang_p_UpgradingDatabaseOfCourse  = 
-"<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Mise à jour de la base du cours <strong>%2\$s</strong><br><small>
-Nom de la base : %3\$s <br>
-Course ID: %4\$s</small></td></tr></table>";
-$lang_CourseHasNoRepository_s_NotFound = "<strong>Le cours n'a pas de répertoire système.</strong>  <br><small>%s</small> non trouvé. ";
-
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Les tables principales de Claroline ont été mises à jour avec succès";
 $lang_RetryWithMoreDetails = "Réessayer avec plus de détails";
-
 $lang_p_d_errorFound = " %d erreurs trouvées";
-$langModeVerbose = 'Mode détaillé';
-$lang_p_UpgradeMainClarolineDatabase_s = 'Mise à jour de la base de donnée principale (<em>%s</em>) de Claroline en cours.' ;
-$lang_p_d_affected_rows = '%d enregistrements modifiés';
+$langModeVerbose = "Mode détaillé";
+$lang_p_UpgradeMainClarolineDatabase_s = "Mise à jour de la base de donnée principale (<em>%s</em>) de Claroline en cours.";
+$lang_p_d_affected_rows = "%d enregistrements modifiés";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Vous pouvez retenter <a href=\"%s\">l'upgrade</a> de ces cours";
-$lang_UpgradeFailedForCourses = 'La mise à jour à rencontré un problème sur les cours suivants  :';
-$langUpgradeCourseSucceed = 'Mise à jour réussie';
-$langUpgradeCourseFailed = 'Mise à jour non réussie';
-$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "La mise à jour de Claroline est terminée";
-
+$lang_UpgradeFailedForCourses = "La mise à jour à rencontré un problème sur les cours suivants  :";
+$langUpgradeCourseSucceed = "Mise à jour réussie";
+$langUpgradeCourseFailed = "Mise à jour non réussie";
 ?>
