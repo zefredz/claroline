@@ -122,7 +122,7 @@ if ($allowedToEditDef)
     }
     elseif ($_REQUEST['editMainUserInfo'])
     {
-        $userIdViewed = $_REQUEST['editMainUserInfo'];
+        $userIdViewed = (int) $_REQUEST['editMainUserInfo'];
         $displayMode = "viewMainInfoEdit";
     }
     elseif ($_REQUEST['submitMainUserInfo'])
