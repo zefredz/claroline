@@ -98,6 +98,7 @@ include($includePath."/lib/statsUtils.lib.inc.php");
         }
         else
         {
+            $tool = htmlspecialchars($_REQUEST['tool']);
             if( !isset($reqdate) )
                 $reqdate = time();
             echo "<tr>
@@ -132,9 +133,9 @@ include($includePath."/lib/statsUtils.lib.inc.php");
             echo "<tr>
                     <td>
                     <small>
-                    [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=day&reqdate=$reqdate'>$langPeriodDay</a>] 
-                    [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=week&reqdate=$reqdate'>$langPeriodWeek</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=month&reqdate=$reqdate'>$langPeriodMonth</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&amp;period=day&amp;reqdate=$reqdate'>$langPeriodDay</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&amp;period=week&amp;reqdate=$reqdate'>$langPeriodWeek</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&amp;period=month&amp;reqdate=$reqdate'>$langPeriodMonth</a>]
                     &nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;
                     
                     ";
@@ -146,8 +147,8 @@ include($includePath."/lib/statsUtils.lib.inc.php");
                     $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
                     $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
                     echo   "
-                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=month&reqdate=$previousReqDate'>$langPreviousMonth</a>] 
-                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=month&reqdate=$nextReqDate'>$langNextMonth</a>]
+                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&amp;period=month&amp;reqdate=$previousReqDate'>$langPreviousMonth</a>] 
+                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&amp;period=month&amp;reqdate=$nextReqDate'>$langNextMonth</a>]
                     ";
                     break;
                 case "week" :
@@ -155,8 +156,8 @@ include($includePath."/lib/statsUtils.lib.inc.php");
                     $previousReqDate = $reqdate - 7*86400;
                     $nextReqDate = $reqdate + 7*86400;
                     echo   "
-                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=week&reqdate=$previousReqDate'>$langPreviousWeek</a>] 
-                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=week&reqdate=$nextReqDate'>$langNextWeek</a>]
+                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&amp;period=week&amp;reqdate=$previousReqDate'>$langPreviousWeek</a>] 
+                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&amp;period=week&amp;reqdate=$nextReqDate'>$langNextWeek</a>]
                     ";
                     break;
                 case "day" :
@@ -164,8 +165,8 @@ include($includePath."/lib/statsUtils.lib.inc.php");
                     $previousReqDate = $reqdate - 86400;
                     $nextReqDate = $reqdate + 86400;
                     echo   "
-                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=day&reqdate=$previousReqDate'>$langPreviousDay</a>] 
-                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&period=day&reqdate=$nextReqDate'>$langNextDay</a>]
+                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&amp;period=day&amp;reqdate=$previousReqDate'>$langPreviousDay</a>] 
+                        [<a href='".$_SERVER['PHP_SELF']."?tool=$tool&amp;period=day&amp;reqdate=$nextReqDate'>$langNextDay</a>]
                     ";
                     break;
             }
@@ -183,7 +184,7 @@ include($includePath."/lib/statsUtils.lib.inc.php");
                 case "month" :
                     $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
                             FROM `$TABLETRACK_ACCESS`
-                            WHERE `access_tid` = '$tool' 
+                            WHERE `access_tid` = '".$_REQUEST['tool']."' 
                                 AND MONTH(`access_date`) = MONTH(FROM_UNIXTIME($reqdate))
                                 AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
                                 ORDER BY `access_date` ASC";
@@ -195,7 +196,7 @@ include($includePath."/lib/statsUtils.lib.inc.php");
                 case "week" :
                     $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
                             FROM `$TABLETRACK_ACCESS`
-                            WHERE `access_tid` = '$tool' 
+                            WHERE `access_tid` = '".$_REQUEST['tool']."' 
                                 AND WEEK(`access_date`) = WEEK(FROM_UNIXTIME($reqdate))
                                 AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
                                 ORDER BY `access_date` ASC";
@@ -207,7 +208,7 @@ include($includePath."/lib/statsUtils.lib.inc.php");
                 case "day"  :
                     $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
                                 FROM `$TABLETRACK_ACCESS`
-                                WHERE `access_tid` = '$tool' 
+                                WHERE `access_tid` = '".$_REQUEST['tool']."' 
                                     AND DAYOFYEAR(`access_date`) = DAYOFYEAR(FROM_UNIXTIME($reqdate))
                                     AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
                                 ORDER BY `access_date` ASC";
