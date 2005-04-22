@@ -380,7 +380,7 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
 	echo "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
 	    ."<ul>\n"
 		."<li>".$langSiteName." : ".stripslashes($siteName)."</li>\n"
-		."<li>".$langURL." : <a href=\"".$rootWeb."\">".$rootWeb."</a></li>\n"
+		."<li>".$langURL."<a href=\"".$rootWeb."\">".$rootWeb."</a></li>\n"
 		."<li>".$langInstitution." : ".stripslashes($institution_name)."</li>\n"
 		."<li>".$langInstitutionUrl." : <a href=\"".$institution_url."\">".$institution_url."</a></li>\n"
 		."<li>".$langEmail." : ".$administrator_email."</li>"
