@@ -445,119 +445,187 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
   document à un logiciel antivirus à jour avant de le
  déposer
   sur Claroline.</p>
-<p>Les documents sont présentés par ordre
- alphabétique.<br>
-  <b>Astuces:</b> si vous souhaitez que les documents soient classés
- de
-  manière différente, vous pouvez les faire
- précéder
-  d'un numéro, le classement se fera dès lors sur cette base.
- </p>
-<p>Vous pouvez :</p>
-<h4>Télécharger un document dans ce module</h4>
+<hr />
+<h4>Modes de visualisation</h4>
+L'outil de document de Claroline a deux modes de visualisation.
 <ul>
-  <li>Sélectionnez le document sur votre ordinateur à l'aide
- du
-	bouton 'Parcourir'
-	<input type=submit value=Parcourir name=submit2>
-	à droite de votre écran.</li>
-  <li>Exécutez le téléchargement à l'aide du
- bouton 'Télécharger'
-	<input type=submit value=Télécharger name=submit2>
-	.</li>
+<li>En liste de fichiers (mode par défaut)</li>
+<li>En vignette</li>
 </ul>
-<h4>Renommer un document (ou un répertoire)</h4>
+Vous pouvez passer d'un mode à l'autre en cliquant simplement sur la commande 'Liste des fichiers | Vignettes' à droite dans la barre d'outil du répertoire.
+<h4>Le visualisateur d'image</h4>
+
 <ul>
-  <li>cliquez sur le bouton <img src=../document/img/edit.gif width=20
- height=20 align=baseline>
-	dans la colonne 'Renommer'.</li>
-  <li>Tapez le nouveau nom dans la zone prévue à cet effet
- qui apparaît
-	en haut à gauche</li>
-  <li>Validez en cliquant sur 'OK'
-	<input type=submit value=OK name=submit24>
-	.
+<li>Ouvrez le visualisateur d'image simplement en cliquant sur le nom du fichier de l'image dans le mode 'Liste de fichier' ou sur la vignette de l'image dans le mode vignette</li>
+<li>Allez à l'image suivante ou l'image précédente en cliquant sur nom ou sur sa vignette dans la barre d'outil du visualisateur d'image
+</li>
+<li>Fermez le visualisateur d'image en cliquant simplement soit sur 'Liste de fichier', soit sur 'Vignette' à droite dans la barre d'outil du répertoire</li>
 </ul>
-	<h4>Supprimer un document (ou un répertoire)</h4>
-	<ul>
 
-  <li>Cliquez sur le bouton <img src=../document/img/delete.gif width=20
- height=20>
-	dans la colonne 'Supprimer'.</li>
-	</ul>
-	<h4>Rendre invisibles aux étudiants un document (ou un
- répertoire)</h4>
-	<ul>
+<h4>Rechercher une ressource</h4>
+<ul>
+<li>
+Cliquez sur la commande 'Rechercher' dans la zone supérieur de votre navigateur.
+</li>
+<li>
+Entrez votre chemin de recherche. Vous pouvez utiliser les caractères génériques '*' et '?' pour des recherches complexes.
+</li>
+<li>
+Cliquez sur le bouton 'OK'.
+</li>
+<li>
+Le résultat de la recherche sera affiché juste en dessous de la barre de répertoire.
+</li>
+</ul>
+<hr />
+<h4>Gérer les documents</h4>
+Cet outil dipose d'une série de commandes vous permettant de télécharger et ajouter des fichiers, éditer et organiser vos fichiers de ressources.
+</hr />
 
-  <li>Cliquez sur le bouton <img src=../document/img/visible.gif width=20
- height=20>dans
-	la colonne 'Visible/invisible'.</li>
-	  <li>Le document (ou le répertoire) existe toujours, mais il n'est
+<h4>Ajouter un fichier</h4>
+<ul>
+<li>
+Cliquez sur la commande 'Ajouter un fichier' en haut.
+</li>
+<li>
+Selectionnez le fichier sur votre ordinateur en utilsant le bouton 'Parcourir' dans la boîte de dialogue.
+</li>
+<li>
+Optionnellement, vous pouvez attacher un commentaire avec le fichier ajouté. Il sera ajouté juste en dessous de la ligne du document.
+<blockquote><small>
+<i>Note</i> Si vous ajoutez une collection de fichiers rassemblés dans une archive au format au format <i>ZIP</i>,
+cochez la case 'Décompresser fichier zippé (.zip)' pour extraire les fichiers automatiquement une fois que l'archive est téléchargée dans le répertoire du cours sur le serveur.
+</small></blockquote>
+</li>
+<li>
+Lancer le téléchargement en cliquant sur le bouton 'Ajouter'.
+</li>
+</ul>
 
-		plus visible pour les étudiants.</li>
-	</ul>
-	<ul>
+<h4>Créer un lien hypertexte</h4>
+<ul>
+<li>
+Cliquez sur la commande 'créer un lien hypertexte' dans la partie supérieure de votre navigateur.
+</li>
+<li>
+Remplissez le champs 'Nom' avec un nom spécifique pour ce lien hypertexte;
+</li>
+<li>
+Tapez l'URL complète de l'hyperlien 
+(exemple : http://mon.domaine/mon/fichier.htm).
+</li>
+<li>
+Optionnellement, vous pouvez attacher un commentaire avec le lien hypertexte.
+Il sera ajouté juste en dessous de la ligne du lien hypertexte.
+</li>
+<li>
+Validez en cliquant sur le bouton 'OK'.
+</li>
+</ul>
 
-  <li> Si vous souhaitez rendre cet élément à nouveau
- visible,
-	cliquez sur le bouton <img src=../img/invisible.gif
- width=24 height=20>
-	dans la colonne Visible/invisible</li>
-	</ul>
-	<h4>Ajouter ou modifier un commentaire au document (ou au
- répertoire)</h4>
-	<ul>
+<h4>Créer un document HTML en ligne</h4>
+<ul>
+<li> Cliquez sur la commande 'Créer un document' dans la partie supérieure de votre navigateur.
+</li>
+<li> 
+Remplissez le nom d'apparation 'Nom du document' pour ce document.
+</li>
+<li>
+Entrez le contenu du document dans la zone 'Contenu du document'.
+</li>
+<li>
+Cliquez sur le bouton 'OK' une fois terminé.
+</li>
+</ul>
+<p>
+Cette commande peut être utilisée pour écrire des documents assez courts. Pour écrire de plus longs textes, nous vous recommandons d'utiliser un outil plus adéquat sur votre ordinateur personnel.
+</p>
 
-  <li>Cliquez sur le bouton <img
- src=../img/comment.gif width=20 height=20>
-	dans la colonne 'Commentaire'</li>
-	  <li>Tapez le nouveau commentaire dans la zone prévue à cet
 
-		effet qui apparaîtra en haut à gauche.</li>
-	  <li>Validez en cliquant sur 'OK'
-		<input type=submit value=OK name=submit2>
-		.</li>
-	</ul>
-	<p>Si vous souhaitez supprimer un commentaire, cliquez sur le bouton <img
- src=../img/comment.gif width=20 height=20>,
-	  effacez l'ancien commentaire de la zone et validez en cliquant
- 'OK'
-	  <input type=submit value=OK name=submit22>
-	  .
-	<hr>
-	<p>Vous pouvez aussi organiser le contenu du module de document en
- rangeant
-	  les documents dans de répertoires. Pour ce faire vous devez :</p>
-	<h4><b>Créer un répertoire</b></h4>
-	<ul>
-	  <li>Cliquez sur la commande '<img
- src=../img/folder.gif>créer
-		un répertoire' en haut à gauche de l'écran</li>
-	  <li>Tapez le nom de votre nouveau répertoire dans la zone
- prévue
-		à cet effet en haut à gauche de l'écran.</li>
-	  <li>Validez en cliquant 'OK'
-		<input type=submit value=OK name=submit23>
-		.</li>
-	</ul>
-	<h4>Déplacer un document (ou un répertoire)</h4>
-	<ul>
-	  <li>Cliquez sur le bouton <img
- src=../img/move.gif width=34 height=16>
-		dans la colonne déplacer</li>
-	  <li>Choisissez le répertoire dans lequel vous souhaitez
- déplacer
-		le document ou le répertoire dans le menu déroulant
- prévu
-		à cet effet qui apparaîtra en haut à gauche.(note:
-		le mot 'racine' dans ce menu représente la racine de
-		votre module document).</li>
-	  <li>Validez en cliquant 'OK'
-		<input type=submit value=OK name=submit232>
-		.</li>
-	</ul>
-	<center>
-	  <p>";
+<h4>Renommer un document, un répertoire ou un lien hypertexte</h4>
+<ul>
+<li>Cliquez sur l'icône dans la colonne 'Editer'.
+</li>
+<li>
+Tapez le nouveau nom dans le champs dans la partie supérieure de votre navigateur.
+</li>
+<li>
+Optionnellement, vous pouvez attacher un commentaire avec le document. Il sera ajouté juste en dessous de la ligne du document.
+</li>
+<li>
+Validez en cliquant sur le bouton 'OK'.
+</li>
+</ul>
+<p>
+<b>Tip. </b>
+Les documents sont présentés par ordre alphabétique. si vous souhaitez que les documents soient classés de manière différente, vous pouvez les faire précéder d'un numéro : 01, 02, 03...
+</p>
+
+<h4>Effacer un document, un répertoire ou un lien hypertexte</h4>
+<ul>
+<li>
+Cliquez sur l'icône en dessous du document dans la colonne 'Effacer'.</li>
+</ul>
+
+<h4>
+Rendre un document, un repertoire ou un lien hypertexte invisible aux utilisateurs
+</h4>
+<ul>
+<li>
+Cliquez sur l'icône à côté du document dans la colonne 'Visibilité'.
+</li>
+<li>
+La ressource exitera toujours mais sera plus visible pour les utilisateurs du cours.
+</li>
+<li>
+Pour la rendre visible à nouveaux, cliquez simplement de nouveau sur l'icône à côté du document 
+dans la colonne 'Visibilité'.
+</li>
+</ul>
+<h4>
+Ajouter ou modifier un commentaire à un document, un répertoire ou un lien hypertexte
+</h4>
+<ul>
+<li>
+Cliquez sur l'icône à côté du document dans la colonne 'Editer'.
+</li>
+<li>
+Entrez le nouveau commentaire dans le champs correspondant.
+</li>
+<li>
+Validez en cliquant sur le bouton 'OK'.
+</li>
+</ul>
+<p>
+Pour effacer un commentaire, cliquez sur l'icône à côté du document dans la colonne 'Editer', effacez l'ancien commentaire et cliquez sur le bouton 'OK'. 
+<h4>Créer un répertoire</h4>
+<ul>
+<li>Cliquez sur la commande 'Créer un répertoire' dans la partie supérieure de votre navigateur.
+</li>
+<li>
+Entrez le nom du nouveau répertoire dans le champs correspondant.
+</li>
+<li>
+Validez en cliquant sur le bouton 'OK'.
+</li>
+</ul>
+<h4>
+Déplacer un document, un répertoire ou un lien hypertexte
+</h4>
+<ul>
+<li>
+Cliquez sur l'icône à côté du document dans la colonne 'Déplacer'.
+</li>
+<li>
+Choisissez le répertoire dans lequel vous voulez déplacer l'élément dans le menu déroulant correspondant.
+<br />(Note: Le mot 'root' signifie que vous ne vous pouvez pas aller plus haut dans que là dans l'arborescence de répertoires sur le serveur.
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
+<center>
+<p>";
 $langDocDeleted = "élément supprimé";
 $langDocInsertedAsModule = "a été ajouté comme module";
 $langDocument = "Documents et liens";
