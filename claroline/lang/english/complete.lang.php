@@ -2133,17 +2133,23 @@ $lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgr
 $langImpossibleToPromote ="Impossible to promote group tutor a student already registered to group";
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "The claroline main tables have been successfully upgraded";
 $lang_RetryWithMoreDetails= "Retry with more details";
-$lang_p_d_errorFound = ' %d errors found';
-$lang_p_UpgradeMainClarolineDatabase_s = 'Upgrading main Claroline database (<em>%s</em>)' ;
-$langModeVerbose = 'Mode Verbose';
-$lang_p_d_affected_rows = '%d affected rows'; 
+$lang_p_d_errorFound = " %d errors found";
+$lang_p_UpgradeMainClarolineDatabase_s = "Upgrading main Claroline database (<em>%s</em>)" ;
+$langModeVerbose = "Mode Verbose";
+$lang_p_d_affected_rows = "%d affected rows"; 
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "You can <a href=\"%s\">retry to upgrade</a> these courses";
 $lang_UpgradeFailedForCourses = 'Upgrade has failed for following courses :';
-$langUpgradeCourseSucceed = 'Upgrade succeeded';
-$langUpgradeCourseFailed = 'Upgrade failed';
+$langUpgradeCourseSucceed = "Upgrade succeeded";
+$langUpgradeCourseFailed = "Upgrade failed";
 $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = 
-'In case of interruption <sup>*</sup>, the <em>Claroline Upgrade tool</em> should restart automatically. 
-If it\'s not the case, click on the button below.' ;
+"In case of interruption <sup>*</sup>, the <em>Claroline Upgrade tool</em> should restart automatically. 
+If it's not the case, click on the button below." ;
 $lang_continueCoursesDataUpgrade = "Continue courses data upgrade";
-$lang_seeInTheStatusBarOfYourBrowser = '(*) see in the status bar of your browser.';
+$lang_seeInTheStatusBarOfYourBrowser = "(*) see in the status bar of your browser.";
+$lang_oldFileBackup = "Old file backup :";
+$lang_fileUpgrade = "File upgrade :";
+$lang_rules_s_in_s = "Rules : %s in %s";
+$langSucceded = "Succeded";
+$langUndist ="Undist";
+$lang_p_s_s_isInvalid = "%s : %s is invalid";
 ?>

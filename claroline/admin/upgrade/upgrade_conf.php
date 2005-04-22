@@ -143,8 +143,8 @@ if ($_REQUEST['cmd'] == 'run')
                     {
                         $okToSave = FALSE;
                         $error = TRUE;
-                        $output .= '<span class="warning">'. $propName .' : ' . $propValue.' is invalid </span>' . '<br>' . "\n"
-                                . 'Rules : '.$propDef['type'] . ' in '.basename($def_file).'<br>' . "\n"
+                        $output .= '<span class="warning">'.sprintf($lang_p_s_s_isInvalid, $propName, $propValue).'</span>' . '<br>' . "\n"
+                                . sprintf( $lang_rules_s_in_s,$propDef['type'] ,basename($def_file)).' <br>' . "\n"
                                 . var_export($propDef['acceptedValue'],1) . '<br>' . "\n" ;
                     }
                     else
@@ -168,7 +168,7 @@ if ($_REQUEST['cmd'] == 'run')
                 {
 
                     // backup old file 
-                    $output .= '<li>' . 'Old file backup : ' ;
+                    $output .= '<li>' . $lang_oldFileBackup . ' ' ;
                     $fileBackup = $backupRepositorySys.basename($conf_file);
                     if (!@copy($conf_file, $fileBackup) )
                     {
@@ -176,17 +176,17 @@ if ($_REQUEST['cmd'] == 'run')
                     }
                     else
                     {
-                        $output .= '<span class="success">'. $langSucceed . '</span>';
+                        $output .= '<span class="success">'. $langSucceded . '</span>';
                     }
 
                     $output .= '</li>' . "\n" ;
                     // change permission
                     @chmod( $fileBackup, 600 );
                     @chmod( $fileBackup, 0600 );
-                    $output .= '<li>' . 'File upgrade : ';
+                    $output .= '<li>' . $lang_fileUpgrade . ' ';
                     if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
                     {
-                        $output .= '<span class="success">'. $langSucceed . '</span>';
+                        $output .= '<span class="success">'. $langSucceded . '</span>';
                     }
                     else 
                     {
@@ -213,10 +213,10 @@ if ($_REQUEST['cmd'] == 'run')
     foreach ($arr_file_to_undist As $undist_this)
     {
         $output .= '<li>'. basename ($undist_this) . "\n"
-                . '<ul><li>Undist : ' . "\n" ;
+                . '<ul><li>'.$langUndist.' : ' . "\n" ;
         if (claro_undist_file($undist_this))
         {
-            $output .= '<span class="success">'. $langSucceed . '</span>';
+            $output .= '<span class="success">'. $langSucceded . '</span>';
         }
         else
         {
@@ -303,7 +303,7 @@ switch ($display)
         break;
 
     case DISPLAY_RESULT_SUCCESS_PANEL :
-        echo sprintf ('<h2>%s</h2>',$langUpgradeStep1 . ' - ' . '<span class="success">' . $langSucceed . '</span>');
+        echo sprintf ('<h2>%s</h2>',$langUpgradeStep1 . ' - ' . '<span class="success">' . $langSucceded . '</span>');
         echo $output;
         echo '<div align="right">' . sprintf($langNextStep,'upgrade_main_db.php') . '</div>';
         break;

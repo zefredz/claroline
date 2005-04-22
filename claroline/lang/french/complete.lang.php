@@ -1951,9 +1951,15 @@ $langUpgradeCourseSucceed = "Mise à jour réussie";
 $langUpgradeCourseFailed = "Mise à jour non réussie";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "La mise à jour de Claroline est terminée";
 $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = 
-'En cas d\'interruption <sup>*</sup>, l\'outil <em>de mise à jour</em> devrait redémarrer automatiquement
- après quelques secondes. Si ce n\'est pas le cas, cliquez sur le bouton ci-dessous.';
+"En cas d'interruption <sup>*</sup>, l'outil <em>de mise à jour</em> devrait redémarrer automatiquement
+ après quelques secondes. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.";
 $lang_continueCoursesDataUpgrade = "Continuer la mise à jour des cours";
-$lang_seeInTheStatusBarOfYourBrowser = '(*) Regardez dans la barre de d\'état de votre navigateur.';
+$lang_seeInTheStatusBarOfYourBrowser = "(*) Regardez dans la barre de d'état de votre navigateur.";
+$lang_oldFileBackup = "Sauvegarde de l'ancien fichier de configuration :";
+$lang_fileUpgrade = "Mise à jour du fichier :";
+$lang_rules_s_in_s = "Règle : %s dans %s";
+$langSucceded = "Réussi";
+$langUndist ="Undist";
+$lang_p_s_s_isInvalid = "%s : %s est invalide";
 
 ?>
