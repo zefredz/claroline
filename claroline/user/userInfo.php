@@ -42,7 +42,7 @@ if ( ! $is_courseAllowed ) claro_disp_auth_form();
  *    
  */
 
-$userIdViewed = $_REQUEST['uInfo']; // Id of the user we want to view coming from the user.php
+$userIdViewed = (int) $_REQUEST['uInfo']; // Id of the user we want to view coming from the user.php
 
 /*--------------------------------------------------------
   Connection API between Claroline and the current script
