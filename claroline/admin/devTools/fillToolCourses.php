@@ -19,21 +19,21 @@
 
 $langPopulateTools = 'Populate tools in courses';
 
-DEFINE("DISP_RESULT_INSERT"		,1);
-DEFINE("DISP_FORM_SET_OPTION"	,2);
-DEFINE("DISP_INSERT_COMPLETE"	,3);
+DEFINE('DISP_RESULT_INSERT'		,1);
+DEFINE('DISP_FORM_SET_OPTION'	,2);
+DEFINE('DISP_INSERT_COMPLETE'	,3);
 
 unset($includePath);
 require '../../inc/claro_init_global.inc.php';
 // Security check
 if (!$is_platformAdmin) claro_disp_auth_form();
 //// Config tool
-include($includePath."/conf/course_main.conf.php");
+include($includePath.'/conf/course_main.conf.php');
 //// LIBS
-include($includePath."/lib/add_course.lib.inc.php");
-include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/fileManage.lib.php");
-include($includePath."/conf/course_main.conf.php");
+include($includePath.'/lib/add_course.lib.inc.php');
+include($includePath.'/lib/debug.lib.inc.php');
+include($includePath.'/lib/fileManage.lib.php');
+include($includePath.'/conf/course_main.conf.php');
 
 $nameTools = $langPopulateTools;
 $interbredcrump[]= array ("url"=>"../index.php", "name"=> $langAdmin);
@@ -46,7 +46,7 @@ $can_create_courses = (bool) ($is_allowedCreateCourse);
 
 
 $toolNameList = array('CLANN___' => $langAnnouncement,
-	                      'CLFRM___' => $langForums,
+	                  'CLFRM___' => $langForums,
 	                      'CLCAL___' => $langAgenda,
 	                      'CLCHT___' => $langChat,
 	                      'CLDOC___' => $langDocument,
@@ -247,15 +247,28 @@ function fill_tool_in_course($course_code,$tool_label)
             $lorem_title    = lorem('characters',rand(10,80));
             $lorem_content  = lorem('paragraphs',rand(1,8));
             
+            $hour = 3600; 
+            $day = 24 * $hour; 
+            $week = 7 * $day; 
+            $month = 31 * $day; 
+            $randomTime = time()-6*$month
+                        + rand(0,18) * $month
+                        + rand(0, 5) * $week
+                        + rand(0, 7) * $day
+                        ;
+            $randomTime = date('Y-m-d',$randomTime);
+                        
+            
             $tbl_calendar_event        = $tbl_cdb_names['calendar_event'];
             $sql = "INSERT INTO `".$tbl_calendar_event."` 
-                SET   titre   = '".$lorem_title."',
-                      contenu = '".$lorem_content."',
-                      day     = now(),
+                SET   titre   = '".addslashes($lorem_title)."',
+                      contenu = '".addslashes($lorem_content)."',
+                      day     = '".$randomTime."',
                       hour    = '".rand(1,23).":".rand(11,55)."',
                       lasting = '".rand(1,6)."h'";
+              
             claro_sql_query($sql);
-            return 'ok' ;
+            return 'ok';
             break;
         case 'CLCHT' : 
             $nick     = 'lorem hips';
