@@ -1026,11 +1026,11 @@ $langHelpAssignmentContent = "<p>L'outil de travaux permet aux apprenants de pos
 </p><p>Pour chaque session de travail est affichée la liste de tous les utilisateurs du cours avec pour chacun le nombre de soumissions qu'il a effectué dans cette session et le nombre de correction que le responsable de cours a fait pour ces soumissions.  La liste des soumissions et des correction d'un utilisateur dans une session peut être consultée en cliquant sur le nom de l'utilisateur.
 </p><p>Dans la liste des soumissions d'un utilisateurs sont disponibles des commandes à l'intention du responsable de cours&nbsp;:
 </p>
-<ul><li> <strong>Modify</strong>&nbsp;: cette icone apparait à l'auteur de la soumission (éventuellement à tous les membres du groupes pour lequel la soumission a été faite), elle apparait également au responsable de cours.
+<ul><li> <strong>Modifier</strong>&nbsp;: cette icone apparait à l'auteur de la soumission (éventuellement à tous les membres du groupes pour lequel la soumission a été faite), elle apparait également au responsable de cours.
 </li><li> <strong>Delete</strong>&nbsp;: permet au responsable de cours d'effacer une soumission
 </li><li> <strong>Visible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est visible à toutes les personnes qui ont accès au cours.  Cliquer sur cette icone rend la soumission invisible
 
-</li><li> <strong>invisible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est masquée à toutes les personnes qui ont accès au cours, la soumission n'est alors visible que pour tous les utilisateurs à l'exception des responsables de cours et de l'utilisateur ou du groupe propriétaire de la soumission. 
+</li><li> <strong>Invisible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est masquée à toutes les personnes qui ont accès au cours, la soumission n'est alors visible que pour tous les utilisateurs à l'exception des responsables de cours et de l'utilisateur ou du groupe propriétaire de la soumission. 
 </li><li> <strong>Ajouter une correction</strong>&nbsp;: permet au responsable de cours de soumettre une correction individuelle à l'auteur de la soumission.  En plus d'un fichier et/ou d'un texte cette correction peut être accompagné d'un pourcentage et d'un commentaire que seuls les responsables de cours pourront voir.
 </li></ul>";
 $langHelpGroups = "Gestion des groupes";
@@ -1708,23 +1708,60 @@ $langUser = "Utilisateur";
 $langUserAccessDetails = "Accès utilisateurs";
 $langUserAlreadyInClass = "L'utilisateur est déjà inscrit à la classe";
 $langUserCanCreateCourse = "Peut créer des cours";
-$langUserContent = "<b>Droits d'administration</b>
-<p>Pour permettre à un co-titulaire, un assistant, un tuteur ou qui que ce
- soit de co-administrer le site avec vous, vous devez préalablement
- l'inscrire à votre cours ou vous assurer qu'il est inscrit puis modifier
- ses droits en cochant 'modifier' sous 'droits d'admin.' puis
- 'tous'.</P><hr>
-<b>Co-titulaires</b>
-<p>Pour faire figurer le nom d'un co-titulaire dans l'en-tête de votre
- cours, utilisez la page 'Modifier info cours' (dans les outils orange
- sur la page d'accueil de votre cours). Cette modification de l'en-tête
- du cours n'inscrit pas automatiquement ce co-titulaire comme utilisateur
- du cours. Ce sont deux actions distinctes.</p><hr>
-<b>Ajouter un utilisateur</b>
-<p>Pour ajouter un utilisateur à votre cours, remplissez les champs
-et validez. La personne recevra un e-mail de confirmation de son
-inscription contenant son nom d'utilisateur et son mot de passe, sauf si
-vous n'avez pas introduit son e-mail.</p>";
+$langUserContent = "<p>L'outil 'Utilisateurs' permet d'afficher un tableau d'information sur les utilisateurs. Voici un résumé des descriptions des différentes colonnes de ce tableau.
+<ul>
+<li>
+<b>Nom</b>. En cliquant sur le nom de l'utilisateur , vous pourrez voir des informations additionnelles concernant cet utilisateur, comme son adresse e-mail, etc.
+</li>
+
+<li>
+<b>Rôles</b>.
+Les rôles n'ont pas de fonction technique particulière. Ils ne donnent pas de droits pour opérer sur la platforme. Ils indiquent seulement aux personnes 'qui est qui'. Vous pouvez modifier le rôle d'un utilisateur en cliquant sur l'icône dans la colonne 'Editer', et en tapant ensuite le rôle désiré : professeur, assistant, étudiant, visiteur, expert...
+</li>
+
+<li>
+<b>Tuteur de groupe</b>. Tuteur de groupe est un statut qui permet à l'utilistateur d'encadrer un groupe de plus près. Cela lui donne la permission d'accéder aux espaces de tous les groupes, de voir l'ensembles des messages des forums de groupe. Vous pouvez modifier ce statut en cliquant sur l'icône de la colonne 'Editer'.  
+</li>
+
+<li>
+<b>Gestionnaire de cours</b>. Ce status est réservé aux personnes qui peuvent superviser et gérer le cours. Vous pouvez modifier ce statut en cliquant sur l'icône de la colonne 'Editer'.
+</li>
+
+<li>
+<b>Editer</b> (réservé au gestionnaire de cours). Cette commande permet au gestionnaire de cours d'éditer les informations d'un utilisateur en rapport avec ce cours. Le gestionnaire de cours ne peut pas modifier des informations personnelles comme l'adresse e-mail, nom etc, seulement les données directement en relation avec le cours, comme le rôle, le statut de tuteur, le statut de gestionnaire de cours, etc. Avec cette commande, le gestionnaire  de cours peut aussi créer de nouveaux intitulés dédiés à ce cours (voir le bouton 'Définir les intitulés' dans la page des détails d'un utilisateur). Une fois les intitulés définis, les utilisateurs peuvent les remplir eux-mêmes.
+</li>
+
+<li>
+<b>Radier</b> (réservé au gestionnaire de cours). Cette commande permet au gestionnaire de cours de retirer un utilisateur du cours. Cela ne signifie pas que le compte d'utilisateur n'existe plus, mais seulement qu'il n'est plus inscrit à ce cours.
+</li>
+
+</ul>
+
+<h4>
+Commandes principales
+</h4>
+
+<ul>
+<li>
+<b>Ajouter un utilisateur</b>. Cliquez sur cette commande pour ajouter un utilisateur dans le cours, remplissez le formulaire et valider. La personne recevera un e-mail mentionnant qu'elle a été inscrite et lui indiquant son nouveau login et mot de passe.
+</li>
+<li><b>Ajouter une liste d'utilisateurs</b></li> Cliquez sur cette commande pour ajouter une liste d'utilisateurs à l'aide d'un fichier au format CSV.
+</li>
+<li>
+<b>Inscrire une classe</b>. Cliquez sur cette commande pour ajouter une collection d'utilisateurs rassemblés dans une classe prédéfinies par l'administrateur de la plateforme.
+</li>
+<li>
+<b>Gestion des groupes</b>. Permet d'accéder directement à l'outil de gestion des groupes.
+</li>
+</ul>
+
+<h4>Conseils</h4>
+<p>
+Pour permettre à un assistant, par exemple, de co-gérer le site, vous devez l'inscrire au cours ou être sûr qu'il est déjà inscrit, ensuite cliquer sur 'modifier' (avec les droits d'administration, puis cliquer sur 'tout', puis 'Ok'.
+</p>
+<p>
+Pour mentionner dans l'entête du site du cours le nom d'un co-gestionnaire, utilisez l'outil 'Paramètres de cours'. Cette modification n'inscrit pas la personne comme gestionnaire, le champs 'Gestionnaire(s) de cours' de ce formulaire est totalement indépendant de la liste des utilisateurs.
+</p>";
 $langUserCourseList = "Liste des cours de l'utilisateur";
 $langUserCreated = "Le nouvel utilisateur a bien été créé";
 $langUserDelete = "La suppression de l'utilisateur a bien été effectuée";
@@ -1899,6 +1936,7 @@ $langNoFunctionInThisSection = "Pas de fonction dans cette extension";
 $langPopulateTools = "Remplir les outils";
 $langConfigMenuContent = "Menu de configuration";
 $langFillToolCourses = "Remplir les outils de cours";
+$langImpossibleToPromote ="Impossible de changer un étudiant en tuteur s'il est déjà inscrit dans un groupe";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "La mise à jour de Claroline est terminée";
 $lang_p_d_coursesToUpgrade = "%s cours à mettre à jour";
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Les tables principales de Claroline ont été mises à jour avec succès";
