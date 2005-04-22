@@ -1925,7 +1925,7 @@ Main commands
 
 <ul>
 <li>
-<b>Add a user</b>. Click on this command to add a user for this course, fill the fields and validate. The person will receive an e-mail telling them they have been registered him/her and telling or reminding reminding them of their login and password.
+<b>Add a user</b>. Click on this command to add a user for this course, fill the fields and validate. The person will receive an e-mail telling them they have been registered him/her and telling or reminding them of their login and password.
 </li>
 <li><b>Add a list of users</b></li> Click on this command to add in a list of several users with a file in CSV format.
 </li>
@@ -2128,11 +2128,12 @@ $langNoFunctionInThisSection = "No function in this extension";
 $langPopulateTools = "Populate tools in courses";
 $langConfigMenuContent = "Configuration Menu";
 $langFillToolCourses = "Fill tool courses";
-
+$lang_p_expectedRemainingTime = ' <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. --><b>Expected remaining time %s</b>.';
+$lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  Fix, first, the technical problem and relaunch the upgrade tool.";
+$langImpossibleToPromote ="Impossible to promote group tutor a student already registered to group";
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "The claroline main tables have been successfully upgraded";
 $lang_RetryWithMoreDetails= "Retry with more details";
 $lang_p_d_errorFound = ' %d errors found';
-
 $lang_p_UpgradeMainClarolineDatabase_s = 'Upgrading main Claroline database (<em>%s</em>)' ;
 $langModeVerbose = 'Mode Verbose';
 $lang_p_d_affected_rows = '%d affected rows'; 
