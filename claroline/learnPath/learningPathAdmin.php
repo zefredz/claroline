@@ -74,11 +74,10 @@
   include($includePath."/lib/learnPath.lib.inc.php");
 
   // $_SESSION
-  $_GET['path_id'] = (int) $_GET['path_id'];
 
-  if ( isset($_GET['path_id']) && $_GET['path_id'] != '' )
+  if ( isset($_GET['path_id']) && $_GET['path_id'] > 0 )
   {
-        $_SESSION['path_id'] = $_GET['path_id'];
+        $_SESSION['path_id'] = (int) $_GET['path_id'];
   }
   
   // get user out of here if he is not allowed to edit

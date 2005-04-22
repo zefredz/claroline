@@ -50,9 +50,9 @@
   include($includePath."/lib/fileDisplay.lib.php");
 
   // $_SESSION
-  if ( isset($_GET['path_id']) && $_GET['path_id'] != "")
+  if ( isset($_GET['path_id']) && $_GET['path_id'] > 0)
   {
-        $_SESSION['path_id'] = $_GET['path_id'];
+        $_SESSION['path_id'] = (int) $_GET['path_id'];
   }
   elseif( (!isset($_SESSION['path_id']) || $_SESSION['path_id'] == "") )
   { 
