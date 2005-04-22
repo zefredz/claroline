@@ -224,6 +224,16 @@ function fill_tool_in_course($course_code,$tool_label)
             
             $lorem_title    = lorem('characters',rand(10,80));
             $lorem_content  = lorem('paragraphs',rand(1,8));
+            $hour = 3600; 
+            $day = 24 * $hour; 
+            $week = 7 * $day; 
+            $month = 31 * $day; 
+            $randomTime = time()-6*$month
+                        + rand(0,18) * $month
+                        + rand(0, 5) * $week
+                        + rand(0, 7) * $day
+                        ;
+            $randomTime = date('Y-m-d h:i',$randomTime);
             $tbl_announcement        = $tbl_cdb_names['announcement'];
             $sql = "SELECT MAX(ordre)
                     FROM  `".$tbl_announcement."`";
@@ -236,9 +246,9 @@ function fill_tool_in_course($course_code,$tool_label)
             // INSERT ANNOUNCEMENT
 
             $sql = "INSERT INTO  `".$tbl_announcement."`
-                    SET title ='".$lorem_title."',
-                        contenu = '".$lorem_content."',
-                    temps = NOW(),
+                    SET title ='".addslashes($lorem_title)."',
+                        contenu = '".addslashes($lorem_content)."',
+                    temps = '".$randomTime."',
                     ordre =\"".$order."\"";
            claro_sql_query($sql);
             return 'ok';
@@ -718,7 +728,7 @@ function lorem($units, $length)
 		
 		}//end switch($units)
 
-	return $output;
+	return trim($output,' .');
 	}//end function greek()
 
 
