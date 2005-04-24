@@ -322,6 +322,19 @@ $versionDb          =   "'.$versionDb.'";
 
 $claro_texRendererUrl = \'\';
 
+
+define("CLAROLANG","'.$conf_def_property_list['CLAROLANG']['default'].'");
+
+/* CLARO_DEBUG_MODE : More verbose when error occurs. */
+define("CLARO_DEBUG_MODE", '.trueFalse($conf_def_property_list['CLARO_DEBUG_MODE']['default']).');
+
+
+/* DEVEL_MODE : Add addtionnal tools in the SDK section of the platform administration. */
+define("DEVEL_MODE", '.trueFalse($conf_def_property_list['DEVEL_MODE']['default']).');
+
+
+
+
 ?>');
 
 ######### DEALING WITH FILES #########################################
