@@ -469,7 +469,6 @@ function claro_get_file_size($filePath)
     else                          return 0;
 }
 
-
 /**
  * search files or directory whose name fit a pattern
  *
@@ -478,12 +477,14 @@ function claro_get_file_size($filePath)
  * @param string $baseDirPath - directory path where to start the search
  * @param string $fileType (optional) - filter allowing to restrict search 
  *        on files or directories (allowed value are 'ALL', 'FILE', 'DIR').
+ * @param array $excludedPathList (optional) - list of files or directories 
+ *        that have to be excluded from the search
  * @return array path list of the files fitting the search pattern
  */
 
-
-function claro_search_file($searchPattern       , $baseDirPath, 
-                           $recursive = false    , $fileType = 'ALL')
+function claro_search_file($searchPattern             , $baseDirPath, 
+                           $recursive        = false , $fileType = 'ALL',
+                           $excludedPathList = array()                    )
 {
         $searchResultList = array();
 
@@ -493,7 +494,8 @@ function claro_search_file($searchPattern       , $baseDirPath,
 
         while ( $fileName = readdir($dirPt) )
         {
-            if ( $fileName == '.' || $fileName == '..')
+            if (   $fileName == '.' || $fileName == '..' 
+                || in_array($baseDirPath.'/'.$fileName, $excludedPathList ) )
             {
                 continue;
             }
@@ -528,9 +530,12 @@ function claro_search_file($searchPattern       , $baseDirPath,
         {
             foreach($dirList as $thisDir)
             {
-                $searchResultList = array_merge($searchResultList, 
-                                                claro_search_file($searchPattern, 
-                                                            $thisDir, true ) );
+                $searchResultList = 
+                    array_merge( $searchResultList, 
+                                 claro_search_file($searchPattern, $thisDir, 
+                                                   $recursive, $fileType,
+                                                   $excludedPathList) 
+                               );
             }
         }
 
