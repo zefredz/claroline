@@ -64,66 +64,75 @@ include($includePath.'/lib/learnPath.lib.inc.php');
 
 $is_allowedToTrack = $is_courseAdmin;
 
-// get infos about the learningPath
-$sql = "SELECT `name` 
-        FROM `".$TABLELEARNPATH."`
-       WHERE `learnPath_id` = ".$_GET['path_id'];
-
-$result = claro_sql_query($sql);
-$pDetails = @mysql_fetch_array($result);
-
-////////////////////
-////// OUTPUT //////
-////////////////////
 include($includePath."/claro_init_header.inc.php");
 
-// display title
-$titleTab['mainTitle'] = $nameTools;
-$titleTab['subTitle'] = htmlspecialchars($pDetails['name']);
-claro_disp_tool_title($titleTab);
-
-if($is_allowedToTrack && $is_trackingEnabled) 
+if ( $is_allowedToTrack && $is_trackingEnabled )  
 {
-    // display a list of user and their respective progress
-    
-    $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
-          FROM `".$TABLEUSER."` AS U, `".$TABLECOURSUSER."`	 AS CU
-          WHERE U.`user_id`= CU.`user_id`
-           AND CU.`code_cours` = '$_cid'";
-    $usersList = claro_sql_query_fetch_all($sql);
-    // display tab header
-    echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n
-        <tr class=\"headerX\" align=\"center\" valign=\"top\">\n
-          <th>$langStudent</th>\n
-          <th colspan=\"2\">$langProgress</th>\n
-        </tr>\n
-        <tbody>";
-    // display tab content
-    foreach ( $usersList as $user )
+
+    if ( !empty($_GET['path_id']) )
     {
-      $lpProgress = get_learnPath_progress($_GET['path_id'],$user['user_id']);
-      echo "<tr>
-          <td><a href=\"lp_modules_details.php?uInfo=".$user['user_id']."&path_id=".$_GET['path_id']."\">".$user['nom']." ".$user['prenom']."</a></td>\n
-          <td align=\"right\">".
-      claro_disp_progress_bar($lpProgress, 1).
-      	" </td>
-           <td align=\"left\"><small>".$lpProgress."%</small></td>
-        </tr>";
-    }
-    // foot of table
-    echo "</tbody>\n</table>";
+        $path_id = (int) $_GET['path_id'];
+
+        // get infos about the learningPath
+        $sql = "SELECT `name` 
+                FROM `".$TABLELEARNPATH."`
+                WHERE `learnPath_id` = ".$path_id;
+
+        $result = claro_sql_query($sql);
     
+        if ( mysql_num_rows($result) )
+        {
+            $pDetails = @mysql_fetch_array($result);
+                
+            // display title
+            $titleTab['mainTitle'] = $nameTools;
+            $titleTab['subTitle'] = htmlspecialchars($pDetails['name']);
+            claro_disp_tool_title($titleTab);
+
+            // display a list of user and their respective progress    
+            $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
+                    FROM `".$TABLEUSER."` AS U, 
+                         `".$TABLECOURSUSER."` AS CU
+                    WHERE U.`user_id`= CU.`user_id`
+                    AND CU.`code_cours` = '$_cid'";
+
+            $usersList = claro_sql_query_fetch_all($sql);
+
+            // display tab header
+            echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n
+                <tr class=\"headerX\" align=\"center\" valign=\"top\">\n
+                  <th>$langStudent</th>\n
+                  <th colspan=\"2\">$langProgress</th>\n
+                </tr>\n
+                <tbody>";
+
+            // display tab content
+            foreach ( $usersList as $user )
+            {
+                $lpProgress = get_learnPath_progress($path_id,$user['user_id']);
+                echo "<tr>
+                     <td><a href=\"lp_modules_details.php?uInfo=".$user['user_id']."&path_id=".$path_id."\">".$user['nom']." ".$user['prenom']."</a></td>\n
+                     <td align=\"right\">".
+                    claro_disp_progress_bar($lpProgress, 1).
+              	    " </td>
+                    <td align=\"left\"><small>".$lpProgress."%</small></td>
+                    </tr>";
+            }
+            // foot of table
+            echo "</tbody>\n</table>";
+        }
+    }
 }
 // not allowed
 else
 {
     if(!$is_trackingEnabled)
     {
-        echo $langTrackingDisabled;
+        claro_disp_message_box($langTrackingDisabled);
     }
     else
     {
-        echo $langNotAllowed;
+        claro_disp_message_box($langNotAllowed);
     }
 }
 
