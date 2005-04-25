@@ -143,7 +143,6 @@ require '../inc/claro_init_global.inc.php';
 
   claro_disp_tool_title($nameTools);
 
-
        // FORM SENT
        /*
         *
@@ -153,13 +152,13 @@ require '../inc/claro_init_global.inc.php';
         // evaluate how many form could be sent
 
         $iterator = 0;
-        while ($iterator <= $_GET['maxDocForm'])
+        while ($iterator <= $_POST['maxDocForm'])
         {
            $iterator++;
 
-           if( $submitInsertedDocument && isset($_GET['insertDocument_'.$iterator]) )
+           if( $submitInsertedDocument && isset($_POST['insertDocument_'.$iterator]) )
            {
-                $insertDocument = $_GET['insertDocument_'.$iterator];
+                $insertDocument = str_replace('..', '',$_POST['insertDocument_'.$iterator]);
                 if (get_magic_quotes_gpc())
                   $sourceDoc =   stripslashes($baseWorkDir.$insertDocument);
                 else
@@ -167,7 +166,6 @@ require '../inc/claro_init_global.inc.php';
 
                 if ( check_name_exist($sourceDoc) ) // source file exists ?
                 {
-                        // version without duplication of the document
                         // check if a module of this course already used the same document
                         $sql = "SELECT *
                                   FROM `".$TABLEMODULE."` AS M, `".$TABLEASSET."` AS A
@@ -267,95 +265,6 @@ require '../inc/claro_init_global.inc.php';
                                  $dialogBox .= stripslashes($basename)." : ".$langDocumentAlreadyUsed."<br>";
                              }
                         }
-                        /*
-                            // version with duplication of the document in module repository
-                        // check if a module of this course already used the same document
-                        $sql = "SELECT *
-                                  FROM `".$TABLEMODULE."` AS M, `".$TABLEASSET."` AS A
-                                 WHERE A.`module_id` = M.`module_id`
-                                   AND A.`path` LIKE \"".basename($insertDocument)."%\"";
-                        $query = claro_sql_query($sql);
-                        $num = mysql_numrows($query);
-                        if($num == 0)
-                        {
-                            // create new module in DB
-                            // contentType = 'DOCUMENT'
-                            // accessibility is private
-                            // comment = doc comment if exists , else empty
-                            // create unique asset for the document, in DB
-                            // startAsset_id will be updated later
-                            $sql = "INSERT
-                                      INTO `".$TABLEMODULE."`
-                                           ( `name` , `comment`, `contentType`)
-                                    VALUES ('".basename($insertDocument)."' , '$comment', 'DOCUMENT' )";
-                            //echo "<br /><2> ".$sql;
-                            $query = claro_sql_query($sql);
-                            $insertedModule_id = mysql_insert_id();
-
-                            $target = $baseServDir.$moduleDir."/module_".$insertedModule_id;
-                            // create dir if not exists
-                            if (!is_dir($target) ) mkdir($target,0777);
-                            $fileName = basename($sourceDoc);
-
-                            if ( check_name_exist($target."/".$fileName) )
-                            {
-                                  $dialogBox .= $langFileAlreadyExistsInDestinationDir;
-                            }
-                            elseif ( is_file($sourceDoc) )
-                            {
-
-                                    // physical copy
-                                    copy($sourceDoc , $target."/".$fileName);
-
-                                    // logical copy
-                                    // select comment of the selected document
-                                    $sql = "SELECT comment
-                                              FROM `".$TABLEDOCUMENT."`
-                                             WHERE `path` LIKE \"".basename($insertDocument)."%\"";
-
-                                    $query = claro_sql_query($sql);
-                                    if ( $row = mysql_fetch_array($query) )
-                                    {
-                                        $comment = $row['comment'];
-                                    }
-
-                                    $sql = "INSERT
-                                              INTO `".$TABLEASSET."`
-                                                   (`path` , `module_id` , `comment`)
-                                            VALUES ('".basename($insertDocument)."', $insertedModule_id , '$comment')";
-
-                                    $query = claro_sql_query($sql);
-                                    $insertedAsset_id = mysql_insert_id();
-
-                                    // update module to set startAsset_id
-                                    $sql = "UPDATE `".$TABLEMODULE."`
-                                               SET `startAsset_id` = $insertedAsset_id
-                                             WHERE `module_id` = $insertedModule_id";
-                                    $query = claro_sql_query($sql);
-
-
-                                    // determine the default order of this Learning path
-                                    $result = claro_sql_query("SELECT MAX(`order`)
-                                                              FROM `".$TABLELEARNPATHMODULE."`");
-
-                                    list($orderMax) = mysql_fetch_row($result);
-                                    $order = $orderMax + 1;
-                                    // finally : insert in learning path
-                                    $sql = "INSERT
-                                              INTO `".$TABLELEARNPATHMODULE."`
-                                                   (`learningPath_id`, `module_id`, `addedComment`, `rank`)
-                                            VALUES ('".$_SESSION['path_id']."', '".$insertedModule_id."','', ".$order.")";
-                                    $query = claro_sql_query($sql);
-
-                                    $dialogBox .= basename($insertDocument) ." ".$langDocInsertedAsModule;
-                            }
-                        } // enf if (num == 0)
-                        else
-                        {
-                            $dialogBox .= $langDocumentAlreadyUsed;
-                        }
-
-                        */
                 }
 
 
