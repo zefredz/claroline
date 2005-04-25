@@ -1,12 +1,16 @@
 <?php // $Id$
 /**
- * @version CLAROLINE 1.6
+ * CLAROLINE 
+ *
+ * @version 1.6
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license GENERAL PUBLIC LICENSE (GPL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  * 
  * @author claroline Team <cvs@claroline.net>
+ *
+ * @package CLCRS
  *
  */
 
@@ -415,8 +419,8 @@ if($showLinkToDeleteThisCourse)
 <a class="claroCmd" href="delete_course.php<?php echo $toAdd ?>"><img src="<?php echo $imgRepositoryWeb ?>delete.gif">
 <?php echo $langDelCourse; ?>
 </a> | 
-<a class="claroCmd" href="course_home_edit.php"><img src="<?php echo $imgRepositoryWeb ?>edit.gif"><?php echo $langEditToolList ?></a> | 
-<a class="claroCmd" href="<?php echo $clarolineRepositoryWeb ?>/tracking/courseLog.php">
+<a class="claroCmd" href="<?php echo $clarolineRepositoryWeb ?>course_home/course_home_edit.php"><img src="<?php echo $imgRepositoryWeb ?>edit.gif"><?php echo $langEditToolList ?></a> | 
+<a class="claroCmd" href="<?php echo $clarolineRepositoryWeb ?>tracking/courseLog.php">
 <img src="<?php echo $imgRepositoryWeb ?>statistics.gif" alt="">
 <?php echo $langStatistics ?>
 </a> | 
