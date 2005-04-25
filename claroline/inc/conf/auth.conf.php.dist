@@ -137,4 +137,12 @@ $ssoCookieDomain     = 'www.my.domain.com';
 
 $ssoCookiePath       = '/';
 
+
+// SSO AUTHENTICATION KEY LIST. A list of keys allowing requests to 
+// the Claroline SSO server. The SSO client have to provide one of the 
+// keys contained into this list to receive any answer from the Claroline 
+// SSO server.
+
+$ssoAuthenticationKeyList = array();
+
 ?>
