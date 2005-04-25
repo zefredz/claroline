@@ -572,8 +572,8 @@ switch ($display)
         
         if ( $count_error_total > 0 )
         {
-            echo '<p class="error">' . sprintf($lang_p_d_coursesNotUpgraded,  $count_course_error);
-            echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?verbose=true&cmd=run&upgradeCoursesError=1">'.$lang_RetryWithMoreDetails.'</a></p>';
+            //echo '<p class="error">' . sprintf($lang_p_d_coursesNotUpgraded,  $count_course_error);
+            //echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?verbose=true&cmd=run&upgradeCoursesError=1">'.$lang_RetryWithMoreDetails.'</a></p>';
         }
         else
         {
