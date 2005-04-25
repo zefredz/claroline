@@ -96,7 +96,7 @@ array ( 'allowSelfRegProf'
 
 $conf_def_property_list['can_request_course_creator_status'] =
 array ( 'label'         => '"Request a Course Creator status" command ?'
-      , 'description'   => 'This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform adminsitrator.'
+      , 'description'   => 'This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'
       , 'display'       => true
       , 'default'       => 'FALSE'
       , 'type'          => 'boolean'
