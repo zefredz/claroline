@@ -20,7 +20,7 @@
 
 $conf_def['config_code']='CLMAIN';
 $conf_def['config_file']='claro_main.conf.php';
-$conf_def['config_name']='Main settings';
+$conf_def['config_name']=' Main settings';
 $conf_def['config_class']='platform';
 
 // SECTION
