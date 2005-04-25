@@ -1282,7 +1282,7 @@ An invisible tool will be greyed out on your personal interface";
 $langIntroLearningPath = "Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br><br>If you want to present your learning path to students, click on the button below.<br>";
 $langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade. These settings were stored into claroline/inc/conf/claro_main.conf.php in your previous platform version.</p>";
 $langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to prepare the data stored into the <b>main Claroline tables</b>
-(users, course categories, tools list, ...) and set it to be compatible with the new Claroline version.</p><p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
+(users, course categories, tools list, ...) and set them to be compatible with the new Claroline version.</p><p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
 $langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going to prepare <b>course</b> data (directories and database tables) one by one and set it to be compatible with the new Claroline version.<p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
 
 $langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>";
@@ -2106,11 +2106,12 @@ $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
 
 $lang_p_expectedRemainingTime = ' <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. -->Expected remaining time : %s.';
-$lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  Fix first the technical problem and relaunch the upgrade tool.";
+$lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  <br>
+Fix first the technical problem and relaunch the upgrade tool.";
 
 $lang_p_CannotRename_s_s = "Cannot rename %s to %s";
 $lang_p_CannotCreate_s ="Cannot create %s";
-$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses="The claroline upgrade tool has successfullly upgrade all your platform courses";
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses="The Claroline upgrade process completed";
 $lang_retry = 'Retry';
 $lang_p_d_coursesToUpgrade = "%s course(s) to upgrade";
 $lang_p_d_coursesNotUpgraded =  "%d course(s) not upgraded.";
@@ -2129,7 +2130,8 @@ $langPopulateTools = "Populate tools in courses";
 $langConfigMenuContent = "Configuration Menu";
 $langFillToolCourses = "Fill tool courses";
 $lang_p_expectedRemainingTime = ' <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. --><b>Expected remaining time %s</b>.';
-$lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  Fix, first, the technical problem and relaunch the upgrade tool.";
+$lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  <br>
+Fix, first, the technical problem and relaunch the upgrade tool.";
 $langImpossibleToPromote ="Impossible to promote group tutor a student already registered to group";
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "The claroline main tables have been successfully upgraded";
 $lang_RetryWithMoreDetails= "Retry with more details";
@@ -2137,8 +2139,9 @@ $lang_p_d_errorFound = " %d errors found";
 $lang_p_UpgradeMainClarolineDatabase_s = "Upgrading main Claroline database (<em>%s</em>)" ;
 $langModeVerbose = "Mode Verbose";
 $lang_p_d_affected_rows = "%d affected rows"; 
-$lang_p_YouCan_url_retryToUpgradeTheseCourse = "You can <a href=\"%s\">retry to upgrade</a> these courses";
-$lang_UpgradeFailedForCourses = 'Upgrade has failed for following courses :';
+$lang_p_YouCan_url_retryToUpgradeTheseCourse =  "Fix first the technical problem and <a href=\"%s\">relaunch the upgrade tool</a>.";
+
+$lang_UpgradeFailedForCourses = 'Upgrade tool is not able to upgrade the following courses :';
 $langUpgradeCourseSucceed = "Upgrade succeeded";
 $langUpgradeCourseFailed = "Upgrade failed";
 $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = 
@@ -2149,7 +2152,7 @@ $lang_seeInTheStatusBarOfYourBrowser = "(*) see in the status bar of your browse
 $lang_oldFileBackup = "Old file backup :";
 $lang_fileUpgrade = "File upgrade :";
 $lang_rules_s_in_s = "Rules : %s in %s";
-$langSucceded = "Succeded";
+$langSucceeded = "Succeeded";
 $langUndist ="Undist";
 $lang_p_s_s_isInvalid = "%s : %s is invalid";
 ?>

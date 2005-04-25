@@ -176,7 +176,7 @@ if ($_REQUEST['cmd'] == 'run')
                     }
                     else
                     {
-                        $output .= '<span class="success">'. $langSucceded . '</span>';
+                        $output .= '<span class="success">'. $langSucceeded . '</span>';
                     }
 
                     $output .= '</li>' . "\n" ;
@@ -186,7 +186,7 @@ if ($_REQUEST['cmd'] == 'run')
                     $output .= '<li>' . $lang_fileUpgrade . ' ';
                     if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
                     {
-                        $output .= '<span class="success">'. $langSucceded . '</span>';
+                        $output .= '<span class="success">'. $langSucceeded . '</span>';
                     }
                     else 
                     {
@@ -216,7 +216,7 @@ if ($_REQUEST['cmd'] == 'run')
                 . '<ul><li>'.$langUndist.' : ' . "\n" ;
         if (claro_undist_file($undist_this))
         {
-            $output .= '<span class="success">'. $langSucceded . '</span>';
+            $output .= '<span class="success">'. $langSucceeded . '</span>';
         }
         else
         {
@@ -303,7 +303,7 @@ switch ($display)
         break;
 
     case DISPLAY_RESULT_SUCCESS_PANEL :
-        echo sprintf ('<h2>%s</h2>',$langUpgradeStep1 . ' - ' . '<span class="success">' . $langSucceded . '</span>');
+        echo sprintf ('<h2>%s</h2>',$langUpgradeStep1 . ' - ' . '<span class="success">' . $langSucceeded . '</span>');
         echo $output;
         echo '<div align="right">' . sprintf($langNextStep,'upgrade_main_db.php') . '</div>';
         break;

@@ -1254,9 +1254,9 @@ $langMainDB = "Base principale de Claroline";
 $langMakeABackupBefore = "
 <p>L'outil de <em>mise à jour de Claroline</em> récupère les données de la précédente installation et les rend compatible avec la nouvelle version de Claroline. Cette mise à jour se déroule en trois étapes:</p>
 <ol>
-<li>Récupère les paramètres de la plateforme et génère les nouveaux fichiers de configuration.</li>
-<li>Met à jour les tables principales de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatible avec la nouvelle structure de données.</li>
-<li>Met à jour un par un chaque donnée de cours (dossiers, tables de la base de données, ...)</li>
+<li>Il Récupère les paramètres de la plateforme et génère les nouveaux fichiers de configuration.</li>
+<li>Il met à jour les tables principales de la plateforme (utilisateurs, catégories de cours, liste de cours, ...) pour être compatible avec la nouvelle structure de données.</li>
+<li>Il met à jour un par un chaque donnée de cours (dossiers, tables de la base de données, ...)</li>
 </ol>
 <p>Avant de démarrer l'outil de <em>mise à jour de Claroline</em>,
  nous vous recommandons de réaliser vous-même une 
@@ -1989,7 +1989,8 @@ $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
 $lang_p_expectedRemainingTime = "<!-- Temps d\'éxécution pour ce cours [%01.2f s] - moyenne [%01.2f s] - total [%s] - cours restants [%d]. -->Temps restant estimé : %s.";
-$lang_upgradeToolCannotUpgradeThisCourse = "L'outil de mise à jour n'est pas en mesure de mettre à jour ce cours.  
+$lang_upgradeToolCannotUpgradeThisCourse = "
+L'outil de mise à jour n'est pas en mesure de mettre à jour ce cours.  <br>
 Reglez d'abord ce problème technique et relancez la procédure de mise à jour.";
 $lang_p_CannotRename_s_s = "Impossible de renommer %s en %s";
 $lang_p_CannotCreate_s = "Création de %s impossible";
@@ -2013,8 +2014,8 @@ $lang_p_d_errorFound = " %d erreurs trouvées";
 $langModeVerbose = "Mode détaillé";
 $lang_p_UpgradeMainClarolineDatabase_s = "Mise à jour de la base de donnée principale (<em>%s</em>) de Claroline en cours.";
 $lang_p_d_affected_rows = "%d enregistrements modifiés";
-$lang_p_YouCan_url_retryToUpgradeTheseCourse = "Vous pouvez retenter <a href=\"%s\">l'upgrade</a> de ces cours";
-$lang_UpgradeFailedForCourses = "La mise à jour à rencontré un problème sur les cours suivants  :";
+$lang_p_YouCan_url_retryToUpgradeTheseCourse = "Réglez d'abord ce problème technique et <a href=\"%s\">relancez la procédure</a> de mise à jour";
+$lang_UpgradeFailedForCourses = "L'outil de mise à jour n'est pas en mesure de mettre à jour les cours suivants  :";
 $langUpgradeCourseSucceed = "Mise à jour réussie";
 $langUpgradeCourseFailed = "Mise à jour non réussie";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "La mise à jour de Claroline est terminée";
@@ -2026,7 +2027,7 @@ $lang_seeInTheStatusBarOfYourBrowser = "(*) Regardez dans la barre de d'état de 
 $lang_oldFileBackup = "Sauvegarde de l'ancien fichier de configuration :";
 $lang_fileUpgrade = "Mise à jour du fichier :";
 $lang_rules_s_in_s = "Règle : %s dans %s";
-$langSucceded = "Réussi";
+$langSucceeded = "Réussi";
 $langUndist ="Undist";
 $lang_p_s_s_isInvalid = "%s : %s est invalide";
 

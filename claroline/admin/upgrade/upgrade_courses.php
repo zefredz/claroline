@@ -215,29 +215,6 @@ switch ($display)
 
         // display course upgraded
         echo sprintf($langNbCoursesUpgraded,$count_course_upgraded,$count_course);
-
-        /*
-         * display block with list of course where upgrade failed
-         * add a link to retry upgrade of this course
-         */
-
-        $sql = "SELECT code 
-                FROM `" . $tbl_course . "` 
-                WHERE versionDb = 'error' or versionClaro = 'error' ";
-
-        $result = claro_sql_query($sql);
-
-        if (mysql_num_rows($result))
-        {
-            echo '<p  class="error">' . $lang_UpgradeFailedForCourses . ' ';
-            while ($course = mysql_fetch_array($result))
-            {
-                echo $course['code'] . ' ; ';    
-            }
-            echo  '-' . sprintf($lang_p_YouCan_url_retryToUpgradeTheseCourse, $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
-                . '</p>';
-            
-        }
         flush();
                 
         /*
@@ -291,7 +268,6 @@ switch ($display)
 
         while ($course = mysql_fetch_array($res_course_to_upgrade))
         {
-
             // initialise variables
 
             $currentCourseDbName    = $course['dbName'];
@@ -425,6 +401,7 @@ switch ($display)
                 }
                 $errorMsgs .= '</ol>';
     
+            
                 if ( $db_error_counter > 0 )
                 {
                     $errorMsgs .= '<p class="error"><strong>' . $db_error_counter . ' errors found</strong></p>';
@@ -574,7 +551,7 @@ switch ($display)
                                           ,$leftCourses
                                           ,$leftTime
                                          );
-
+            
             if ($db_error_counter== 0 && $fs_error_counter == 0  && $check_integrity_error == 0)
             {
                 echo '<p class="success">'.$langUpgradeCourseSucceed.' - ' . $str_execution_time . '</p>';
@@ -596,12 +573,37 @@ switch ($display)
         if ( $count_error_total > 0 )
         {
             echo '<p class="error">' . sprintf($lang_p_d_coursesNotUpgraded,  $count_course_error);
-            echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?verbose=true">'.$lang_retry.'</a></p>';
+            echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?verbose=true&cmd=run&upgradeCoursesError=1">'.$lang_RetryWithMoreDetails.'</a></p>';
         }
         else
         {
             echo '<p class="success">'.$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses.'</p>' . "\n";
             echo '<div align="right">' . sprintf($langNextStep,"upgrade.php") . '</div>';
+        }
+
+        /*
+         * display block with list of course where upgrade failed
+         * add a link to retry upgrade of this course
+         */
+
+        $sql = "SELECT code 
+                FROM `" . $tbl_course . "` 
+                WHERE versionDb = 'error' or versionClaro = 'error' ";
+
+        $result = claro_sql_query($sql);
+
+        if (mysql_num_rows($result))
+        {
+            echo '<p  class="error">' . $lang_UpgradeFailedForCourses . ' ';
+            while ($course = mysql_fetch_array($result))
+            {
+                echo $course['code'] . ' ; ';    
+            }
+            echo  '</p>' 
+                . '<p class="comment">'
+                . sprintf($lang_p_YouCan_url_retryToUpgradeTheseCourse, $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
+                . '</p>';
+            
         }
             
         mysql_close();
