@@ -2,8 +2,21 @@
 /** 
  * CLAROLINE 
  *
- * Remove old group identification if
- * possible entrance in another group space (admin for instance)
+ * This is the group HOME page
+ * This page list existing group in course.
+ * If allowed to enter, a link is under the group name 
+ * user can subscribe to a group if
+ * - user is member of the course
+ * - auto subscribe is aivailable
+ * - user don't hev hit the max group per user
+ * - the group is not full
+ * Course Admin have more tools.
+ * - Create groups
+ * - Edit groups 
+ * - Fill groups
+ * - empty groups
+ * - remove (all) groups
+ * complete listing of  groups member is not aivailable. the  unsorted info is in user tool
  *
  * @version 1.6
  *
@@ -11,7 +24,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
- * @see http://www.claroline.net/wiki/index.php/GroupTool
+ * @see http://www.claroline.net/wiki/index.php/CLGRP
  *
  * @package CLGRP
  *
@@ -26,36 +39,36 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid) claro_disp_select_course();
 $nameTools     = $langGroups;
 
-@include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/group.lib.inc.php");
-include($includePath."/lib/fileManage.lib.php");
+@include($includePath.'/lib/debug.lib.inc.php');
+include($includePath.'/lib/group.lib.inc.php');
+include($includePath.'/lib/fileManage.lib.php');
 
-include($includePath."/lib/events.lib.inc.php");
+include($includePath.'/lib/events.lib.inc.php');
 
 $htmlHeadXtra[] =
-"<script>
+'<script>
 function confirmationEmpty ()
 {
-        if (confirm(\" ".$langConfirmEmptyGroups ." \"))
+        if (confirm(" '.$langConfirmEmptyGroups .' "))
                 {return true;}
         else
                 {return false;}
 };
 function confirmationDelete ()
 {
-        if (confirm(\" ".$langConfirmDeleteGroups." \"))
+        if (confirm(" '.$langConfirmDeleteGroups.' "))
                 {return true;}
         else
                 {return false;}
 };
-</script>";
+</script>';
 
 $htmlHeadXtra[] =
-"<style type=text/css>
+'<style type=text/css>
 <!--
 .comment { margin-left: 30px}
 -->
-</style>";
+</style>';
 
 // use viewMode
 claro_set_display_mode_available(TRUE);
@@ -81,7 +94,7 @@ $tbl_Forums           = $tbl_cdb_names['bb_forums'          ];
 $currentCourseRepository = $_course['path'     ];
 $currentCourseId         = $_course['sysCode'  ];
 $is_allowedToManage      = claro_is_allowed_to_edit();
-//$garbageRepositorySys  = $clarolineRepositorySys."garbage/";
+//$garbageRepositorySys  = $clarolineRepositorySys.'garbage/';
 $isGroupRegAllowed       =     $_groupProperties ['registrationAllowed']
                            && (  !$is_courseTutor
                                || (  $is_courseTutor
@@ -92,7 +105,6 @@ $isGroupRegAllowed       =     $_groupProperties ['registrationAllowed']
 
 $groupPrivate               = $_groupProperties ['private'            ];
 $nbGroupPerUser             = $_groupProperties ['nbGroupPerUser'     ];
-$tutorCheck                 = $is_courseTutor;
 
 if ( !$nbGroupPerUser )
 {
@@ -127,15 +139,15 @@ $display_groupadmin_manager = (bool) $is_allowedToManage;
 
 if ($is_allowedToManage)
 {
-    if($creation)
+    if($_REQUEST['creation'])
     {
         // For all Group forums, cat_id=1
-
-        if (!isset($group_quantity))    $group_quantity = 1;
+        $group_quantity = (int) $_REQUEST['group_quantity'];
+        if ($group_quantity<1) $group_quantity = 1;
 
         for ($i = 1; $i <= $group_quantity; $i++)
         {
-            /*
+            /**
              * Insert a new group in the course group table and keep its ID
              */
 
@@ -157,9 +169,9 @@ if ($is_allowedToManage)
             $sql = "SELECT MAX(`forum_order`)
                 FROM `".$tbl_Forums."`
                 WHERE `cat_id` = 1"; 
-        $result = claro_sql_query($sql);
-        $tmp = mysql_fetch_array($result);
-        $lastOrder = $tmp[0];
+            $result = claro_sql_query($sql);
+            $tmp = mysql_fetch_array($result);
+            $lastOrder = $tmp[0];
         }
         $lastOrder += 1;
         
@@ -208,6 +220,7 @@ if ($is_allowedToManage)
         }    // end for ($i = 1; $i <= $group_quantity; $i++)
 
         $message= $group_quantity.' '.$langGroupsAdded;
+        event_default('GROUPMANAGING',array ('CREATE_GROUP' => $group_quantity));
 
     }    // end if $submit
 
@@ -234,7 +247,7 @@ if ($is_allowedToManage)
             $nbGroupPerUser         = $limitNbGroupPerUser;
         }
 
-        /*
+        /**
          * In case of the table is empty (it seems to happen)
          * insert the parameters.
          */
@@ -273,6 +286,8 @@ if ($is_allowedToManage)
         claro_sql_query($sql);
 
         $message  = $langGroupPropertiesModified;
+        event_default('GROUPMANAGING',array ('CONFIG_GROUP' => TRUE));
+
         $cidReset = TRUE;
         $cidReq   = $_cid;
 
@@ -301,20 +316,23 @@ if ($is_allowedToManage)
          DELETE ALL GROUPS
       ----------------------*/
 
-    elseif ($delete)
+    elseif ($_REQUEST['delete'])
     {
         $nbGroupDeleted = deleteAllGroups();
 
         if ($nbGroupDeleted>0) $message= $langGroupsDeleted;
         else                   $message="!!!! no group deleted";
+        event_default('GROUPMANAGING',array ('DELETE_GROUP' => $nbGroupDeleted));
+
     }
 
     /*----------------------
          DELETE ONE GROUP
       ----------------------*/
 
-    elseif ($delete_one)
+    elseif ($_REQUEST['delete_one'])
     {
+        $id = (int) $_REQUEST['id'];
         $nbGroupDeleted = delete_groups($id);
 
         if     ($nbGroupDeleted==1) $message = $langGroupDel ;
@@ -326,14 +344,14 @@ if ($is_allowedToManage)
        EMPTY ALL GROUPS
       -------------------*/
 
-    elseif ($empty)
+    elseif ($_REQUEST['empty'])
     {
         $sql = "DELETE FROM `".$tbl_GroupsUsers."`";
         $result  = claro_sql_query($sql);
 
         $sql = 'UPDATE `'.$tbl_Groups.'` SET tutor="0"';
         $result2 = claro_sql_query($sql);
-
+        event_default('GROUPMANAGING',array ('EMPTY_GROUP' => TRUE));
         $message = $langGroupsEmptied;
     }
 
@@ -341,9 +359,10 @@ if ($is_allowedToManage)
       FILL ALL GROUPS
       -----------------*/
 
-    elseif ($fill)
+    elseif ($_REQUEST['fill'])
     {
         fill_in_groups();
+        event_default('GROUPMANAGING',array ('FILL_GROUP' => TRUE));
 
         $message = $langGroupFilledGroups;
 
@@ -417,124 +436,18 @@ echo '<p>'."\n"
     .'</p>'."\n"
     ;
 
-
-//    /*---------------------
-//      GROUPS SETTINGS PANEL
-//      ---------------------*/
-//
-//    /* Settings headings */
-//
-//    echo '<table border="0">'
-//         .'<tr>'
-//         .'<td><br><b>'.$langGroupsProperties.'</b></td>'."\n"
-//         .'<td></td>'
-//         .'</tr>';
-//    /* If no group properties, create it ! 
-//        This dirty line is write to pacth a bad database structure choice
-//        $tbl_GroupsProperties contain always 1 line.
-//    */
-//
-//    if (!isset($_groupProperties))
-//    {
-//        $sql = "INSERT IGNORE INTO `".$tbl_GroupsProperties."` SET id =1";
-//        mysql_query($sql);
-//    }
-//
-//    if($_groupProperties ['registrationAllowed'])
-//    {
-//        $regState      = 'allowed';
-//    }
-//    else
-//    {
-//        $regState      = 'not allowed';
-//    }
-//
-//    echo    "<tr valign=\"top\">",
-//            "<td align=\"right\">User self registration : </td>",
-//            "<td>", $regState, "</td>",
-//            "</tr>";
-//
-//    if($multiGroupAllowed)
-//    {
-//        echo    "<tr valign=\"top\">",
-//                "<td align=\"right\">",
-//                "Maximum group by user : ";
-//
-//
-//        if($limitNbGroupPerUser == 'ALL')
-//        {
-//            $nbGroupPerUser = 'unlimted';
-//        }
-//        else
-//        {
-//            $nbGroupPerUser = $nbGroupPerUser;
-//        }
-//
-//        echo  '</td>'
-//             .'<td>'.$nbGroupPerUser.'</td>';
-//    }
-//
-//    if($tools['forum'])
-//    {
-//        $forumState    = $langYes;
-//    }
-//    else
-//    {
-//        $forumState    = $langNo;
-//    }
-//
-//    if ($groupPrivate) $groupPrivacyStatus = $langPrivate;
-//    else               $groupPrivacyStatus = $langPublic;
-//
-//    echo    "<tr valign=\"top\">",
-//            "<td align=\"right\">",$langGroupForum," : </td>",
-//            "<td>",$forumState,"</td>",
-//            "</tr>",
-//
-//            "<tr valign=\"top\">",
-//            "<td align=\"right\">",$langForumType," : </td>",
-//            "<td>",$groupPrivacyStatus,"</td>",
-//            "</tr>";
-//
-//    echo "<tr valign=\"top\">"
-//        ."<td align=\"right\">",$langGroupDocument," : </td>"
-//        ."<td>".$langYes."</td>"
-//        ."</tr>";
-//
-//    echo "<tr valign=\"top\">"
-//        ."<td align=\"right\">",$langChat," : </td>"
-//        ."<td>".($tools['chat']?$langYes:$langNo)."</td>"
-//        ."</tr>";
-//if ($wikiInGroup)
-//{
-//    echo "<tr valign=\"top\">"
-//        ."<td align=\"right\">Wiki : </td>"
-//        ."<td>".($tools['wiki']?$langYes:$langNo)."</td>"
-//        ."</tr>";
-//}
-//
-//    echo '<tr>'
-//        .'<td>&nbsp;</td>'
-//        .'<td>'
-//        .'<form method="get" action="group_properties.php">'
-//        .'<input type="submit" value="'.$langPropModify.'">'
-//        .'</form>'
-//        .'</td>'
-//        .'</tr>'
-//        .'</table>';
-
 }    // end course admin only
 
 
 
-/*=================================
+/**
   VIEW COMMON TO STUDENT & TEACHERS
    - List of existing groups
    - For each, show name, qty of member and qty of place
    - Add link if group is "open" to current user
    - show subscribe button if needed
    - show link to edit and delete if authorised
-  =================================*/
+ */
 
 /*
  * If Group self registration is allowed, previously check if the user
@@ -564,43 +477,46 @@ if (is_integer($nbGroupPerUser))
 }
 
 
-echo    "<table class=\"claroTable emphaseLine\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\" width=\"100%\">";
+echo '<table class="claroTable emphaseLine" border="0" cellspacing="2" cellpadding="2" width="100%">';
 
  /*-------------
       HEADINGS
    -------------*/
 
-echo    "<tr class=\"headerX\" align=\"center\">",
-
-        "<th align=\"left\">",
-        "&nbsp; ",$langExistingGroups.
-        "</th>";
+echo '<tr class="headerX" align="center">'
+   . '<th align="left">'
+   . '&nbsp; '.$langExistingGroups
+   . '</th>'
+   ;
 
 if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
 {
-    echo    "<th align=\"left\">",
-            $langGroupSelfRegistration,
-            "</th>";
+    echo '<th align="left">'
+       . $langGroupSelfRegistration
+       . '</th>'
+       ;
 }
 
-echo    "<th>",
-        $langRegistered,
-        "</th>",
-        "<th>",
-        $langMax,
-        "</th>";
+echo '<th>'
+   . $langRegistered
+   . '</th>'
+   . '<th>'
+   . $langMax
+   . '</th>'
+   ;
 
 if ($is_allowedToManage) // only for course administrator
 {
-    echo    "<th>",
-            $langEdit,
-            "</th>",
-            "<th>",
-            $langDelete.
-            "</th>";
+    echo '<th>'
+       . $langEdit
+       . '</th>'
+       . '<th>'
+       . $langDelete
+       . '</th>'
+       ;
 }
 
-echo "</tr><tbody>";
+echo '</tr><tbody>';
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -655,10 +571,8 @@ while ($thisGroup = mysql_fetch_array($groupList))
          * Tutors are allowed to enter in any groups, they
          * are also able to notice whose groups they are responsible
          */
-
-
-        if(       $is_allowedToManage
-             ||   $tutorCheck
+      if(       $is_allowedToManage
+             ||   $thisGroup['id_tutor'] == $_uid
              ||   $thisGroup['is_member']
              || ! $_groupProperties['private'])
         {
@@ -667,17 +581,18 @@ while ($thisGroup = mysql_fetch_array($groupList))
                . $thisGroup['name']
                . '</a>'
                ;
-
-            if     ($_uid && $_uid == $thisGroup['id_tutor']) echo " (".$langOneMyGroups.")";
-            elseif ($thisGroup['is_member'])                  echo " (".$langMyGroup.")";
+            
+            if     ($_uid && $_uid == $thisGroup['id_tutor']) echo ' ('.$langOneMyGroups.')';
+            elseif ($thisGroup['is_member'])                  echo ' ('.$langMyGroup.')';
         }
         else
         {
-            echo "<img src=\"".$imgRepositoryWeb."group.gif\"> " 
-                .$thisGroup['name'];
+            echo '<img src="'.$imgRepositoryWeb.'group.gif"> ' 
+               . $thisGroup['name']
+               ;
         }
 
-    echo    "</td>";
+    echo '</td>';
 
 
     /*----------------------------
@@ -696,7 +611,7 @@ while ($thisGroup = mysql_fetch_array($groupList))
                 OR (($thisGroup['nbMember'] >= $thisGroup['maxStudent'])
                     AND ($thisGroup['maxStudent'] != 0))) // causes to prevent registration
             {
-                echo "&nbsp;-";
+                echo '&nbsp;-';
             }
             else
             {
@@ -726,24 +641,30 @@ while ($thisGroup = mysql_fetch_array($groupList))
 
     if ($is_allowedToManage)
     {
-        echo    '<td>'.
-                '<a href="group_edit.php?gidReq='.$thisGroup['id'].'">'.
-                '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langEdit.'">'.
-                '</a>'.
-                '</td>'.
-                '<td>'.
-                '<a href="'.$_SERVER['PHP_SELF'].'?delete_one=yes&amp;id='.$thisGroup['id'].'">'.
-                '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'">'.
-                '</a>'.
-                '</td>';
+        echo '<td>'
+           . '<a href="group_edit.php?gidReq='.$thisGroup['id'].'">'
+           . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langEdit.'">'
+           . '</a>'
+           . '</td>'
+           . '<td>'
+           . '<a href="'.$_SERVER['PHP_SELF'].'?delete_one=yes&amp;id='.$thisGroup['id'].'">'
+           . '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'">'
+           . '</a>'
+           . '</td>'
+           ;
     }
 
-    echo "</tr>\n";
+    echo '</tr>'."\n";
 
     if (   ! is_null($thisGroup['description']) 
         && trim($thisGroup['description']) != '' )
     {
-        echo "<tr><td colspan='5'><div class='comment'>".$thisGroup['description']."</div></td></tr>\n";
+        echo '<tr><td colspan="5">'
+           . '<div class="comment">'
+           . $thisGroup['description']
+           . '</div>'
+           . '</td></tr>'."\n"
+           ;
     }
     
 
@@ -751,7 +672,7 @@ while ($thisGroup = mysql_fetch_array($groupList))
 
 }    // while loop
 
-echo "</tbody></table>";
+echo '</tbody></table>';
 
 //////////////////////////////////////////////////////////////////////////////
 

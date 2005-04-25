@@ -1,23 +1,29 @@
 <?php // $Id$
-/*
-+----------------------------------------------------------------------+
-| CLAROLINE 1.6
-+----------------------------------------------------------------------+
-| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-+----------------------------------------------------------------------+
-*/
-/**************************************
-       CLAROLINE MAIN SETTINGS
-***************************************/
+/** 
+ * CLAROLINE 
+ *
+ * @version 1.6
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/GroupTool
+ *
+ * @package CLGRP
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ */
 
-$tlabelReq = "CLGRP___";
+$tlabelReq = 'CLGRP___';
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid) claro_disp_select_course();
-@include($includePath."/lib/debug.lib.inc.php");
+@include($includePath.'/lib/debug.lib.inc.php');
 
 $nameTools = $langEditGroup;
-$interbredcrump[]= array ("url"=>"group.php", "name"=> $langGroups);
+$interbredcrump[]= array ('url' => 'group.php', 'name'=> $langGroups);
 
 $htmlHeadXtra[]='
 <script type="text/javascript" language="JavaScript">
@@ -166,16 +172,16 @@ if($modify && $is_allowedToManage)
 		$messageGroupEdited = $langGroupSettingsModified;
 	}	// else
 
-	$gidReset = true;
+	$gidReset = TRUE;
 	$gidReq   = $_gid;
 
-    include($includePath."/claro_init_local.inc.php");
+    include($includePath.'/claro_init_local.inc.php');
 
 	$myStudentGroup = $_group;
 
 }	// end if $modify
 
-include($includePath."/claro_init_header.inc.php");
+include($includePath.'/claro_init_header.inc.php');
 claro_disp_tool_title($nameTools);
 if (isset($messageGroupEdited))
 claro_disp_message_box($messageGroupEdited);
@@ -420,5 +426,5 @@ else
 </form>
 
 <?php
-include($includePath."/claro_init_footer.inc.php");
+include($includePath.'/claro_init_footer.inc.php');
 ?>
