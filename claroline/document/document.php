@@ -793,10 +793,9 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
 	if ($cmd == 'exChVis' && $courseContext)
 	{
-		$visibilityPath = $_REQUEST['file']; // At least one of these variables are empty.
-		                                     // So it's okay to proceed this way
+        $_REQUEST['file'] = str_replace('..', '', $_REQUEST['file']);
         
-        update_db_info('update', $file, array('visibility' => $_REQUEST['vis']) );
+        update_db_info('update', $_REQUEST['file'], array('visibility' => $_REQUEST['vis']) );
 
 		$dialogBox = $langViMod;
 
@@ -902,6 +901,8 @@ if ($cmd == 'exSearch')
     {
       $searchExcludeList = array();
     }
+
+    $_REQUEST['cwd'] = str_replace('..', '', $_REQUEST['cwd']);
 
     $searchPattern    = $_REQUEST['searchPattern'];
     $searchPatternSql = $_REQUEST['searchPattern'];
