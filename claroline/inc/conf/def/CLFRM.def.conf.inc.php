@@ -37,10 +37,10 @@ array ( 'allow_html'
 $conf_def_property_list['allow_html']
 = array ('label'     => 'HTML in posts'
 	,'description' => 'Allow user to use html tag in messages'
+      , 'display'       => false
         ,'default'   => '1'
         ,'type'      => 'enum'
         ,'container' => 'VAR'
-        ,'display'       => TRUE
         ,'readonly'      => FALSE
         ,'acceptedValue' => array ( '1'=>'Allow'
                                   , '0'=>'Deny'

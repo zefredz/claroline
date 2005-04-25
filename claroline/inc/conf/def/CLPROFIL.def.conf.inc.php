@@ -29,11 +29,12 @@ $conf_def['config_class']='user';
 
 // Section required fields
 
-$conf_def['section']['required']['label'] = 'Required fields';
+$conf_def['section']['required']['label'] = 'Data checkin';
 $conf_def['section']['required']['description'] = '';
 $conf_def['section']['required']['properties'] = 
 array ( 'userOfficialCodeCanBeEmpty'
       , 'userMailCanBeEmpty'
+      , 'SECURE_PASSWORD_REQUIRED'
       );
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
@@ -51,7 +52,6 @@ array ( 'label'         => 'Email is'
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('FALSE' => 'Required'
                                  ,'TRUE'  => 'Optional'
-                                 
                                  )
       );
 
@@ -64,18 +64,9 @@ $conf_def['section']['readonly']['properties'] =
 array (
       );
 
-// Section check data
-
-$conf_def['section']['checkdata']['label'] = 'Validate field';
-//$conf_def['section']['checkdata']['description'] = '';
-$conf_def['section']['checkdata']['properties'] = 
-array ( 'SECURE_PASSWORD_REQUIRED'
-      );
-      
-
 $conf_def_property_list['SECURE_PASSWORD_REQUIRED'] =
 array ('label'         => 'Check password strength'
-      ,'description'   => 'Check if the password is not too much easy to find'
+      ,'description'   => 'Check if the password is not too easy to find'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -104,14 +95,13 @@ array ( 'allowSelfRegProf'
       );
 
 $conf_def_property_list['can_request_course_creator_status'] =
-array ( 'label'         => 'Is user allowed to request a course creator status ?'
-      , 'description'   => 'If yes, the user have access to a request system. '."\n"
-                         .'This option allow only to request it, '
-                         .'and don\'t prework the answer'
-      , 'default'       => FALSE
+array ( 'label'         => '"Request a Course Creator status" command ?'
+      , 'description'   => 'This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform adminsitrator.'
+      , 'display'       => true
+      , 'default'       => 'FALSE'
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Yes'
-                                ,'FALSE' => 'No'
+      , 'acceptedValue' => array ('TRUE'  => 'Displayed'
+                                ,'FALSE' => 'Hidden'
                                 )
       );
 
@@ -120,7 +110,8 @@ array ( 'label'         => 'Is user allowed to request to be deleted from platfo
       , 'description'   => 'If yes, the user have access to a request system. '."\n"
                          .'This option allow only to request it, '."\n"
                          .'and don\'t prework the answer'."\n"
-      , 'default'       => FALSE
+      , 'display'       => false
+      , 'default'       => 'FALSE'
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Yes'
                                  ,'FALSE' => 'No'
@@ -129,11 +120,12 @@ array ( 'label'         => 'Is user allowed to request to be deleted from platfo
 
 
 $conf_def_property_list['allowSelfRegProf'] = 
-array ('label'       => 'Are teacher allowed to subscribe as teacher ?'
+array ('label'       => 'Creation of Course Creator account'
+       ,'description' => 'Are users allowed to create themselves a Course Creator account ?'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'Yes'
-                                ,'FALSE' => 'No'
+      ,'acceptedValue' => array ('TRUE'  => 'Allowed'
+                                ,'FALSE' => 'Denied'
                                 )
       ,'display'     => TRUE
       ,'readonly'    => FALSE

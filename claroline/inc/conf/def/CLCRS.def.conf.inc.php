@@ -40,18 +40,16 @@ array ( 'defaultVisibilityForANewCourse'
       );
 
 $conf_def_property_list['defaultVisibilityForANewCourse'] = 
-array ('label'       => 'Default visibility for new course'
-      ,'description' => 'hide = the course can be acces without subscription to this course.
-      open = an authenticated user on the platform can subscribe the course.
-      '
+array ('label'       => 'Default course access'
+      ,'description' => ''
       ,'default'     => '2'
       ,'type'        => 'enum'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      ,'acceptedValue' => array ('0'=>'hide and closed'
-                                ,'1'=>'visible and closed'
-                                ,'2'=>'visible and open'
-                                ,'3'=>'hide and open'
+      ,'acceptedValue' => array ('0'=>'Private&nbsp;+ New registration denied'
+                                ,'1'=>'Public&nbsp;&nbsp;+ New Registration denied'
+                                ,'2'=>'Public&nbsp;&nbsp;+ New Registration allowed'
+                                ,'3'=>'Private&nbsp+ New Registration allowed'
                                 )
       );
 
@@ -78,9 +76,9 @@ array ('label'       => 'Course Title is'
 $conf_def_property_list['course_email_needed'] = 
 array ('label'       => 'Course email email is'
       ,'description' => 'User can leave email field empty or not'
-      ,'default'     => FALSE
+      ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
-      ,'display'     => TRUE
+      ,'display'     => true
       ,'readonly'    => FALSE
       ,'acceptedValue' => array ('TRUE'=>'Required'
                               ,'FALSE'=>'Optional'
@@ -100,7 +98,7 @@ array ('label'       => 'External label'
       );
 $conf_def_property_list['extLinkUrlNeeded'] = 
 array ('label'       => 'External Label (url)'
-      ,'description' => 'This url anchored into the external label '
+      ,'description' => 'URL anchored into the external label above'
       ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
