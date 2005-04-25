@@ -1,16 +1,24 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/** 
+ * CLAROLINE 
+ *
+ * Remove old group identification if
+ * possible entrance in another group space (admin for instance)
+ *
+ * @version 1.6
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/GroupTool
+ *
+ * @package CLGRP
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ */
 
-// Remove old group identification if
-// possible entrance in another group space (admin for instance)
 
 
 ////**************** INITIALISATION************************
@@ -54,7 +62,7 @@ $htmlHeadXtra[] =
 // use viewMode
 claro_set_display_mode_available(true);
 
-/*
+/**
  * DB TABLE NAMES INIT
  */
 
@@ -68,7 +76,7 @@ $tbl_GroupsProperties = $tbl_cdb_names['group_property'     ];
 $tbl_GroupsUsers      = $tbl_cdb_names['group_rel_team_user'];
 $tbl_Forums           = $tbl_cdb_names['bb_forums'          ];
 
-/*
+/**
  * MAIN SETTINGS INIT
  */
 
@@ -114,10 +122,6 @@ $sql = "ALTER IGNORE TABLE `".$tbl_GroupsProperties."`
 //// **************** ACTIONS ***********************
 
 $display_groupadmin_manager = (bool) $is_allowedToManage;
-
-
-
-
 
 // ACTIONS
 
@@ -210,9 +214,9 @@ if ($is_allowedToManage)
     }    // end if $submit
 
 
-    /*------------------
-       GROUP PROPERTIES
-      ------------------*/
+    /**
+     * GROUP PROPERTIES
+     */
 
     // This is called by the form in group_properties.php
     // set common properties for all groups
