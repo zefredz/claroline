@@ -687,7 +687,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 	if (isset($can_request_course_creator_status) && $can_request_course_creator_status )
 	{
 ?>
-    | <SPAN> <a href="<?php echo $_SERVER['PHP_SELF'] ?>?reqCCstatus=1"><?php echo $langRequestOfCourseCreatorSatus ?></a> </SPAN>
+    | <SPAN> <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?reqCCstatus=1"><?php echo $langRequestOfCourseCreatorSatus ?></a> </SPAN>
 <?php 
 	}
 ?>
