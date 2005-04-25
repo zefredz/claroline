@@ -292,9 +292,13 @@ function record_sso_cookie($userId, $ssoCookie)
 
 function is_allowed_to_recieve_user_info($auth)
 {
-    return true;
+    if ( in_array($auth, $_GLOBALS['ssoAuthenticationKeyList']) )
+    {
+        return true;    	
+    }
+    else
+    {
+    	return false;
+    }
 }
-
-
-//var_dump(get_user_info_from_cookie('fdqsf','523dde3688f5694b19ecd0a11ce5df06', 'PHYS2322', '3'));
 ?>
