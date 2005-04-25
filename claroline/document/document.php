@@ -443,6 +443,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
         $url = trim($_REQUEST['url']);
 
+        $_REQUEST['cwd'] = str_replace('..', '', $_REQUEST['cwd']);
+
         // check for "http://", if the user forgot "http://" or "ftp://" or ...
         // the link will not be correct
         if( !ereg( '://',$url ) )
