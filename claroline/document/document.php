@@ -193,6 +193,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         if ($_REQUEST['uncompress'] == 1 && $is_allowedToUnzip) $unzip = 'unzip';
         else                                                    $unzip = '';
 
+        $_REQUEST['cwd'] = str_replace('..', '', $_REQUEST['cwd']);
+
         $uploadedFileName = treat_uploaded_file($_FILES['userFile'], $baseWorkDir,
                                 $_REQUEST['cwd'], $maxFilledSpace, $unzip);
 
@@ -323,6 +325,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 		if ($uploadImgFileNb > 0)
 		{
 			// Try to create  a directory to store the image files
+            $_REQUEST['relatedFile'] = str_replace('..', '', $_REQUEST['relatedFile']);
 
             $imgDirectory = $_REQUEST['relatedFile'].'_files';
             $imgDirectory = create_unexisting_directory($baseWorkDir.$imgDirectory);
@@ -368,6 +371,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
             {
                 $fileName = $fileName.'.htm';
             }
+            
+            $_REQUEST['cwd'] = str_replace('..', '', $_REQUEST['cwd']);
 
             create_file($baseWorkDir.$_REQUEST['cwd'].'/'.$fileName,
                         $_REQUEST['htmlContent']);
@@ -404,6 +409,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
     if ($cmd == 'exEditHtml')
     {
+        $_REQUEST['file'] = str_replace('..', '', $_REQUEST['file']);
         $fp = fopen($baseWorkDir.$_REQUEST['file'], 'w');
 
         if ($fp)
@@ -500,6 +506,9 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
     if ($cmd == 'exMv')
     {
+        $_REQUEST['file'       ] = str_replace('..', '', $_REQUEST['file']);
+        $_REQUEST['destination'] = str_replace('..', '', $_REQUEST['destination']);
+
         if ( claro_move_file($baseWorkDir.$_REQUEST['file'],$baseWorkDir.$_REQUEST['destination']) )
         {
             if ($courseContext)
@@ -549,12 +558,12 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 	  ========================================================================*/
 
 
-	if ($cmd == 'exRm')
-	{
-        $file = $_REQUEST['file'];
+    if ($cmd == 'exRm')
+    {
+        $file = str_replace('..', '', $_REQUEST['file']);
 
         if ( claro_delete_file($baseWorkDir.$file))
-		{
+        {
             if ($courseContext)
             {
                 update_db_info('delete', $file);
@@ -562,8 +571,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
             }
 
             $dialogBox = $langDocDeleted;
-		}
-	}
+        }
+    }
 
 
 
@@ -615,7 +624,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
             $directoryName = '';
         }
 
-        $_REQUEST['newName'] = trim($_REQUEST['newName']);
+        $_REQUEST['newName'] = str_replace('..', '', trim($_REQUEST['newName']));
 
         if ( ! empty($_REQUEST['newName']) )
         {
@@ -623,7 +632,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         }
         else
         {
-        	$newPath = $_REQUEST['file'];
+        	$newPath = str_replace('..', '', $_REQUEST['file']);
         }
 
         $newPath = claro_rename_file($baseWorkDir.$_REQUEST['file'], $baseWorkDir.$newPath);
@@ -744,6 +753,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
     if ($cmd == 'exMkDir')
 	{
 		$newDirName = replace_dangerous_char(trim($_REQUEST['newName']));
+
+        $_REQUEST['cwd'] = str_replace('..', '', $_REQUEST['cwd']);
 
 		if( check_name_exist($baseWorkDir.$_REQUEST['cwd'].'/'.$newDirName) )
 		{
@@ -912,6 +923,8 @@ else
     $searchBasePath  = $baseWorkDir.$curDirPath;
     $searchExcludeList = array();
 }
+
+$searchBasePath = str_replace('..', '', $searchBasePath);
 
 $filePathList = claro_search_file($searchPattern, 
                                   $searchBasePath, 
