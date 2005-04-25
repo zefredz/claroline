@@ -459,7 +459,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
             create_link_file( $baseWorkDir.$_REQUEST['cwd'].'/'.$fileName.$linkFileExt, 
                               $url);
 
-            if ( trim($_REQUEST['cwd']) != '')
+            if ( trim($_REQUEST['comment']) != '' && $courseContext)
             {
                 update_db_info('update', $_REQUEST['cwd'].'/'.$fileName.$linkFileExt, 
                                 array('comment' => trim($_REQUEST['comment']) ) );
