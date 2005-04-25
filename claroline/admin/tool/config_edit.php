@@ -295,12 +295,7 @@ else
 // verify is config file manually edit
 if ( is_conf_file_modified($_REQUEST['config_code']) )
 {
-    $controlMsg['info'][] = 'The config file has manually change.<br>'
-           .'<br>'
-           .'Actually the script prefill with values found in the current conf, '
-           .'and overwrite values set in the database'
-           ;
-
+    $controlMsg['info'][] = 'The config file has manually change.<br>';
 }
 
 /* ************************************************************************** */
