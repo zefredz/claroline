@@ -60,8 +60,8 @@ User:'.$_uid.'
      '.$_user['lastName'].'
      '.$_user['mail'].'
      '.$_user['lastLogin'].'
-*comment : '.$_REQUEST['explanation'].'
-*user profile : '.$rootAdminWeb.'adminprofile.php?uidToEdit='.$_uid.' ';
+*Comment : '.$_REQUEST['explanation'].'
+*User profile : '.$rootAdminWeb.'adminprofile.php?uidToEdit='.$_uid.' ';
 	foreach ($mailToUidList as $mailToUid)
 	{
 		claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator_email, 'profile');
@@ -99,7 +99,7 @@ elseif (isset($can_request_course_creator_status) && $can_request_course_creator
 {
 	$noQueryString=TRUE;
 	$display = DISP_COURSE_CREATOR_STATUS_REQ;
-	$nameTools = $langRequestCourseManagerStatus;
+	$nameTools = $langRequestOfCourseCreatorSatus;
 }
 elseif (isset($can_request_revoquation) && $can_request_revoquation && $_REQUEST['reqRevoquation'])
 {
@@ -490,11 +490,23 @@ switch($display)
 		if (isset($can_request_course_creator_status) && $can_request_course_creator_status )
 		{
 		?>
+<p>
+<?php echo $langFillTheAreaToExplainTheMotivations ?>
+</p>
 	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-		<label for="explanation"><?php echo $langComment ?></label><br>
-		<textarea cols="60" rows="6" name="explanation" id="explanation"></textarea><br>
-		<input type="hidden" name="exCCstatus" value="1">
-		<input type="submit" value="<?php echo $langINeedToCreateCourse ?>">
+    <input type="hidden" name="exCCstatus" value="1">
+    <table>
+    <tr valign="top">
+    <td><label for="explanation"><?php echo $langComment ?> : </label></td>
+    <td><textarea cols="60" rows="6" name="explanation" id="explanation"></textarea></td>
+    </tr>
+    <tr valign="top">
+    <td><?php echo $langSubmit ?> : </td>
+	<td>
+    <input type="submit" value="<?php echo $langOk ?>">
+    <?php claro_disp_button($PHP_SELF, $langCancel); ?>
+    </td>
+    </table>
 	</form>
 <?php 
 	}
@@ -675,7 +687,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 	if (isset($can_request_course_creator_status) && $can_request_course_creator_status )
 	{
 ?>
-    | <SPAN> <a href="<?php echo $_SERVER['PHP_SELF'] ?>?reqCCstatus=1"><?php echo $langINeedToCreateCourse ?></a> </SPAN>
+    | <SPAN> <a href="<?php echo $_SERVER['PHP_SELF'] ?>?reqCCstatus=1"><?php echo $langRequestOfCourseCreatorSatus ?></a> </SPAN>
 <?php 
 	}
 ?>

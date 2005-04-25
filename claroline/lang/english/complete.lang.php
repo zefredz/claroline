@@ -1247,6 +1247,7 @@ $langHumanAndPhysicalResourcesComment1 = "What are the human and physical resour
 $langHumanAndPhysicalResourcesComment2 = "Presentation of the other teachers who will organise the course (assistants, researchers, student-monitors...), of the availability of the people, the buildings and the equipment or computer equipement available.";
 $langHumanAndPhysicalRessources = "Human and Physical Resources";
 $langINeedToCreateCourse = "I need to create a course";
+$langRequestOfCourseCreatorSatus = "Request of Course Creator status";
 $langIfNotRedirect = "If not redirected ";
 $langImport = "Import";
 $langImpossible = "Operation impossible";
@@ -2016,7 +2017,7 @@ If you need to remove group forums, you rather have to delete the group";
 $langYourAccountParam = "This  is  your account Login-Pass";
 $langYourBestScore = "Your best performance";
 $langYourReg = "Your registration on";
-$langYourRequestToBeCourseManagerIsSent = "Your request to become a course manager has been sent";
+$langYourRequestToBeCourseManagerIsSent = "Your request to become a course creator has been sent to platform administrator(s).";
 $langYourRequestToRemoveYourAccountIsSent = "Your request to remove your account has been sent";
 $langYourTime = "Your time is";
 $langYourTotalScore = "Your total score is";
@@ -2155,4 +2156,5 @@ $lang_rules_s_in_s = "Rules : %s in %s";
 $langSucceeded = "Succeeded";
 $langUndist ="Undist";
 $lang_p_s_s_isInvalid = "%s : %s is invalid";
+$langFillTheAreaToExplainTheMotivations = "Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s)."
 ?>
