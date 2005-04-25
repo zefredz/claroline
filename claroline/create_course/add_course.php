@@ -326,10 +326,12 @@ BuildEditableCatTable($facu," &gt; ");
 </td>
 </tr>
 <tr valign="top">
-<td>
+<td align="right">
+<label for="submitFromCoursProperties"><?php echo $langCreate ?> : </label>
 </td>
 <td>
-<input type="Submit" name="submitFromCoursProperties" value="<?php echo $langOk?>">
+<input type="Submit" name="submitFromCoursProperties" id ="submitFromCoursProperties" value="<?php echo $langOk?>"> 
+<?php claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
 </td>
 </tr>
 </table>
