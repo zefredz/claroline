@@ -363,6 +363,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
     if ($cmd == 'exMkHtml')
     {
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
+        $_REQUEST['cwd'] = str_replace('..', '', $_REQUEST['cwd']);
 
         if (! empty($fileName) )
         {
