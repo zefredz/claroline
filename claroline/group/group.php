@@ -19,8 +19,6 @@
  *
  */
 
-
-
 ////**************** INITIALISATION************************
 
 $tlabelReq = 'CLGRP___';
@@ -60,7 +58,7 @@ $htmlHeadXtra[] =
 </style>";
 
 // use viewMode
-claro_set_display_mode_available(true);
+claro_set_display_mode_available(TRUE);
 
 /**
  * DB TABLE NAMES INIT
@@ -275,7 +273,7 @@ if ($is_allowedToManage)
         claro_sql_query($sql);
 
         $message  = $langGroupPropertiesModified;
-        $cidReset = true;
+        $cidReset = TRUE;
         $cidReq   = $_cid;
 
         include('../inc/claro_init_local.inc.php');
@@ -545,7 +543,7 @@ echo '<p>'."\n"
 
 if ($isGroupRegAllowed && isset($_uid))
 {
-    if ( ! $is_courseMember) $isGroupRegAllowed = false;
+    if ( ! $is_courseMember) $isGroupRegAllowed = FALSE;
 }
 
 /*
@@ -562,7 +560,7 @@ if (is_integer($nbGroupPerUser))
     $countTeamUser    = mysql_fetch_array( mysql_query($sql) );
     $countTeamUser    = $countTeamUser['nbGroups'];
 
-    if($countTeamUser >= $nbGroupPerUser) $isGroupRegAllowed = false;
+    if($countTeamUser >= $nbGroupPerUser) $isGroupRegAllowed = FALSE;
 }
 
 
