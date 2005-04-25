@@ -624,7 +624,7 @@
                       </tr><tbody>\n";
 
                // Display available modules
-               echo "<form name=\"addmodule\" action=\"",$_SERVER['PHP_SELF'],"?cmdglobal='add'\">";
+               echo "<form method=\"POST\" name=\"addmodule\" action=\"",$_SERVER['PHP_SELF'],"?cmdglobal='add'\">";
                $atleastOne = false;
                $sql = "SELECT *
                          FROM `".$TABLEEXERCISES."`
@@ -710,7 +710,7 @@
 
           echo "
                  <br>
-                 <form action=\"".$_SERVER['PHP_SELF']."\" method=\"GET\">";
+                 <form action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\">";
 
           /*--------------------------------------
              DIALOG BOX SECTION
