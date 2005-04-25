@@ -48,6 +48,9 @@ $is_allowedToReset  = $is_courseAdmin;
 $nick        = $_user ['firstName']." ".$_user ['lastName'];
 if (strlen($nick) > $max_nick_lenght) $nick = $_user ['firstName']." ".$_user ['lastName'][0].'.';
 
+// theses  line prevent missing config file
+$refresh_display_rate = (int) $refresh_display_rate;
+if (!isset($refresh_display_rate) || $refresh_display_rate==0)  $refresh_display_rate = 10;
 
 /*============================================================================
 CHAT INIT
