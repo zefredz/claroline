@@ -96,7 +96,7 @@
     {
 
 
-       if ( isset($insertExercise) && isset($_GET['check_'.$listex['id']]) )  //add
+       if ( isset($insertExercise) && isset($_POST['check_'.$listex['id']]) )  //add
        {
            $insertedExercise = $listex['id'];
 
