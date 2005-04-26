@@ -8,6 +8,7 @@ $langBackAndForget = "Abandonner";
 $langCancel = "Annuler";
 $langChat = "Discussion";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
+$langContent = "Contenu";
 $langCourseContent = "Contenu de l&acute;espace";
 $langCourseContentComment1 = "Quelle est l&acute;importance des différents contenus à traiter dans le cadre de l&acute;espace&nbsp;?
 Quel est le niveau de difficulté de ces contenus&nbsp;?
@@ -21,6 +22,11 @@ $langCourseManager = "gestionnaire de l&acute;espace";
 $langCourseProgram = "Description de l&acute;espace";
 $langDay_of_weekNames = "Array";
 $langDelete = "Effacer";
+$langDescAdded = "Description ajoutée.";
+$langDescDeleted = "Description supprimée.";
+$langDescUnableToDelete = "Impossible de supprimer";
+$langDescUnableToUpdate = "Impossible de mettre à jour";
+$langDescUpdated = "Description mise à jour..";
 $langDescription = "Description";
 $langDescriptionComment1 = "Quelle est la place et la spécificité de l&acute;espace dans le programme&nbsp;?
 Existe-t-il des cours pré-requis&nbsp;?
@@ -46,8 +52,8 @@ enseignants qui vont encadrer le cours (assistants, chercheurs,
 étudiants-moniteurs,...), des disponibilités des personnes, des locaux et des
 équipements ou matériel informatique disponibles.";
 $langHumanAndPhysicalRessources = "Ressources humaines et physiques";
-$langInfo2Say = "Informations &agrave; communiquer <BR>au cadre";
-$langLearningPath = "Parcours pédagogique";
+$langInfo2Say = "Informations &agrave; communiquer <BR>à l'utilisateur";
+$langLearningPath = "Parcours";
 $langLogin = "login";
 $langLogout = "Quitter";
 $langManager = "Gestionnaire";
@@ -82,6 +88,7 @@ Ouvert ? Fermé ?";
 $langSupportsComment2 = "Présentation du ou des supports de
 cours. Présentation de la bibliographie, du portefeuille de documents ou
 d'une bibliographie complémentaire.";
+$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
 $langTeachingTrainingActivities = "Activités d'enseignement-apprentissage";
 $langTeachingTrainingActivitiesComment1 = "Quelles méthodes et quelles activités vont-elles favoriser l&acute;atteinte des
 objectifs définis pour le cours&nbsp;?
@@ -90,8 +97,11 @@ $langTeachingTrainingActivitiesComment2 = "Présentation des activités prévues
 (exposés magistraux, participation attendue des participants, travaux pratiques,
 séances de laboratoire, visites, recueil d'informations sur le terrain,
 ...).";
+$langTextEditorDisable = "Désactiver l'éditeur de texte";
+$langTextEditorEnable = "Activer l'éditeur de texte";
 $langThisCourseDescriptionIsEmpty = "La description de cet espace est vide";
 $langTitle = "Titre";
+$langUnableDescToAdd = "Impossible d'ajouter la description";
 $langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langValid = "Enregistrer";

@@ -34,7 +34,7 @@ $langIntroCourse = "Bienvenue sur la page d'accueil de l&acute;espace.<br /><br 
 Pour présenter votre espace aux participants, cliquer sur ce bouton.<br />";
 $langIntroEditToolList = "Sélectionner les outils que vous voulez activer.
 Les outils invisibles seront grisés dans votre page d'accueil de l&acute;espace.";
-$langLearningPath = "Parcours pédagogique";
+$langLearningPath = "Parcours";
 $langLogin = "login";
 $langLogout = "Quitter";
 $langManager = "Gestionnaire";
@@ -53,6 +53,9 @@ $langPoweredBy = "Utilise la plate-forme";
 $langReg = "Inscription";
 $langStatistics = "Statistiques";
 $langStudent = "participant";
+$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
+$langTextEditorDisable = "Désactiver l'éditeur de texte";
+$langTextEditorEnable = "Activer l'éditeur de texte";
 $langTools = "Outils";
 $langUnableAddExternalTool = "Impossible d'ajouter cet outil";
 $langUnableChangedTool = "Impossible de changer l&acute;accès au lien";

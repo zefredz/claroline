@@ -13,14 +13,12 @@ $langDelete = "Effacer";
 $langDescriptionCours = "Description de l&acute;espace";
 $langDocument = "Documents et liens";
 $langExercises = "Exercices";
-$langExplanation = "Une fois que vous aurez cliqué sur OK, un espace contenant Forum, Liste de liens, Quizz,
-Agenda, Liste de documents... sera créé. Grâce à votre identifiant, vous pourrez en modifier le
-contenu";
+$langExplanation = "Une fois que vous aurez cliqué sur OK, un site contenant Forum, Liste de liens, Exercices, Agenda, Liste de documents... sera créé. Grâce à votre identifiant, vous pourrez en modifier le contenu";
 $langForums = "Forums";
 $langGroups = "Groupes";
 $langHelp = "aide";
 $langHome = "Retour à la page d'accueil";
-$langLearningPath = "Parcours pédagogique";
+$langLearningPath = "Parcours";
 $langLink = "Lien";
 $langLinkSite = "Ajouter un lien sur la page d\'accueil";
 $langLinks = "Liens";
@@ -45,6 +43,9 @@ $langReg = "Inscription";
 $langSendPage = "Page à envoyer";
 $langStudent = "participant";
 $langSubTitle = "Ajoute un lien ou une page sur le sommaire de votre espace. Astuce : si vous souhaitez ajouter un lien vers une page, allez sur cette page, copiez son URL qui se trouve dans la barre d'adresse de votre navigateur, et insérez-la dans le champ \"Lien\" ci-dessous.";
+$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
+$langTextEditorDisable = "Désactiver l'éditeur de texte";
+$langTextEditorEnable = "Activer l'éditeur de texte";
 $langTooBig = "Vous n'avez pas choisi de fichier à envoyer, ou celui-ci est trop gros";
 $langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";

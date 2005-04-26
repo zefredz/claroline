@@ -16,7 +16,7 @@ $l_lastpost = "Dernier Message";
 $l_nopostlock = "Vous ne pouvez répondre sur ce sujet, il a été fermé.";
 $l_noposts = "Pas de Messages";
 $l_notify = "Notifier par email quand des réponses sont postées";
-$l_notifybody = "Vous recevez cet Email parce qu\'un message
+$l_notifybody = "Vous recevez cet email parce qu\'un message
 que vous avez posté sur les forums a reçu une réponse, et que
 vous avez choisi d\'en être informé.
 
@@ -79,7 +79,7 @@ $langGroupSpaceLink = "Espace du groupe";
 $langGroups = "Groupes";
 $langHelp = "aide";
 $langLastMsg = "Dernier message";
-$langLearningPath = "Parcours pédagogique";
+$langLearningPath = "Parcours";
 $langLogin = "login";
 $langLoginBeforePost1 = "Pour publier des messages dans le forum, ";
 $langLoginBeforePost2 = "vous devez d'abord ";
@@ -106,6 +106,9 @@ $langReply = "Répondre";
 $langSeen = "Vu";
 $langStudent = "participant";
 $langSubmit = "Envoyer";
+$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
+$langTextEditorDisable = "Désactiver l'éditeur de texte";
+$langTextEditorEnable = "Activer l'éditeur de texte";
 $langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";

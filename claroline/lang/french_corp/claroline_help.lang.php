@@ -3,7 +3,7 @@ $langAddIntro = "Ajouter un texte d'introduction";
 $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
 $langChat = "Discussion";
-$langClarContent = "<br><p><b>Cadre</b></p>
+$langClarContent = "<br><p><b>Utilisateur</b></p>
 <p>
 Pour visiter les espaces accessibles depuis la page d'accueil du campus,
 il suffit de cliquer sur le code de l&acute;espace dans la liste, sans inscription préalable.</p>
@@ -28,6 +28,7 @@ virtuel. Vous pouvez aussi publier un message sur le forum de support de <a
 href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>";
 $langCloseWindow = "Fermer la fenêtre";
+$langConfigMenuContent = "Menu de configuration";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCourseHome = "Accueil";
 $langCourseManager = "gestionnaire de l&acute;espace";
@@ -35,131 +36,198 @@ $langDay_of_weekNames = "Array";
 $langDelete = "Effacer";
 $langDescriptionCours = "Description de l&acute;espace";
 $langDocContent = "<p>Le module de gestion de document fonctionne de
- mani&egrave;re semblable &agrave; la gestion de vos documents sur un
- ordinateur. </p><p>Vous pouvez y d&eacute;poser des documents de tout type
+ manière semblable à la gestion de vos documents sur un
+ ordinateur. </p><p>Vous pouvez y déposer des documents de tout type
  (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Soyez
- attentifs cependant &agrave; ce que vos &eacute;tudiants disposent des
- outils n&eacute;cessaires &agrave; leur consultation. Soyez
- &eacute;galement vigilants &agrave; ne pas envoyer
-  des documents infect&eacute;s par des virus. Il est prudent de soumettre
+ attentifs cependant à ce que vos étudiants disposent des
+ outils nécessaires à leur consultation. Soyez
+ également vigilants à ne pas envoyer
+  des documents infectés par des virus. Il est prudent de soumettre
  son
-  document &agrave; un logiciel antivirus &agrave; jour avant de le
- d&eacute;poser
-  sur iCampus.</p>
-<p>Les documents sont pr&eacute;sent&eacute;s par ordre
- alphab&eacute;tique.<br>
-  <b>Astuces:</b> si vous souhaitez que les documents soient class&eacute;s
- de
-  mani&egrave;re diff&eacute;rente, vous pouvez les faire
- pr&eacute;c&eacute;der
-  d'un num&eacute;ro, le classement se fera d&egrave;s lors sur cette base.
- </p>
-<p>Vous pouvez :</p>
-<h4>T&eacute;l&eacute;charger un document dans ce module</h4>
+  document à un logiciel antivirus à jour avant de le
+ déposer
+  sur Claroline.</p>
+<hr />
+<h4>Modes de visualisation</h4>
+L'outil de document de Claroline a deux modes de visualisation.
 <ul>
-  <li>S&eacute;lectionnez le document sur votre ordinateur &agrave; l&acute;aide
- du
-	bouton &quot;Parcourir&quot;
-	<input type=submit value=Parcourir name=submit2>
-	&agrave; droite de votre &eacute;cran.</li>
-  <li>Ex&eacute;cutez le t&eacute;l&eacute;chargement &agrave; l&acute;aide du
- bouton&quot;
-	t&eacute;lecharger&quot;
-	<input type=submit value=t&eacute;l&eacute;charger name=submit2>
-	.</li>
+<li>En liste de fichiers (mode par défaut)</li>
+<li>En vignette</li>
 </ul>
-<h4>Renommer un document (ou un r&eacute;pertoire)</h4>
+Vous pouvez passer d'un mode à l'autre en cliquant simplement sur la commande 'Liste des fichiers | Vignettes' à droite dans la barre d'outil du répertoire.
+<h4>Le visualisateur d'image</h4>
+
 <ul>
-  <li>cliquez sur le bouton <img src=../document/img/edit.gif width=20
- height=20 align=baseline>
-	dans la colonne &quot;Renommer&quot;.</li>
-  <li>Tapez le nouveau nom dans la zone pr&eacute;vue &agrave; cet effet
- qui appara&icirc;t
-	en haut &agrave; gauche</li>
-  <li>Valider en cliquant sur &quot;OK&quot;
-	<input type=submit value=OK name=submit24>
-	.
+<li>Ouvrez le visualisateur d'image simplement en cliquant sur le nom du fichier de l'image dans le mode 'Liste de fichier' ou sur la vignette de l'image dans le mode vignette</li>
+<li>Allez à l'image suivante ou l'image précédente en cliquant sur nom ou sur sa vignette dans la barre d'outil du visualisateur d'image
+</li>
+<li>Fermez le visualisateur d'image en cliquant simplement soit sur 'Liste de fichier', soit sur 'Vignette' à droite dans la barre d'outil du répertoire</li>
 </ul>
-	<h4>Supprimer un document (ou un r&eacute;pertoire)</h4>
-	<ul>
 
-  <li>Cliquer sur le bouton <img src=../document/img/delete.gif width=20
- height=20>
-	dans la colonne &quot;Supprimer&quot;.</li>
-	</ul>
-	<h4>Rendre invisibles aux &eacute;tudiants un document (ou un
- r&eacute;pertoire)</h4>
-	<ul>
+<h4>Rechercher une ressource</h4>
+<ul>
+<li>
+Cliquez sur la commande 'Rechercher' dans la zone supérieur de votre navigateur.
+</li>
+<li>
+Entrez votre chemin de recherche. Vous pouvez utiliser les caractères génériques '*' et '?' pour des recherches complexes.
+</li>
+<li>
+Cliquez sur le bouton 'OK'.
+</li>
+<li>
+Le résultat de la recherche sera affiché juste en dessous de la barre de répertoire.
+</li>
+</ul>
+<hr />
+<h4>Gérer les documents</h4>
+Cet outil dipose d'une série de commandes vous permettant de télécharger et ajouter des fichiers, éditer et organiser vos fichiers de ressources.
+</hr />
 
-  <li>Cliquez sur le bouton <img src=../document/img/visible.gif width=20
- height=20>dans
-	la colonne &quot;Visible/invisible&quot;.</li>
-	  <li>Le document (ou le r&eacute;pertoire) existe toujours, mais il n'est
+<h4>Ajouter un fichier</h4>
+<ul>
+<li>
+Cliquez sur la commande 'Ajouter un fichier' en haut.
+</li>
+<li>
+Selectionnez le fichier sur votre ordinateur en utilsant le bouton 'Parcourir' dans la boîte de dialogue.
+</li>
+<li>
+Optionnellement, vous pouvez attacher un commentaire avec le fichier ajouté. Il sera ajouté juste en dessous de la ligne du document.
+<blockquote><small>
+<i>Note</i> Si vous ajoutez une collection de fichiers rassemblés dans une archive au format au format <i>ZIP</i>,
+cochez la case 'Décompresser fichier zippé (.zip)' pour extraire les fichiers automatiquement une fois que l'archive est téléchargée dans le répertoire du cours sur le serveur.
+</small></blockquote>
+</li>
+<li>
+Lancer le téléchargement en cliquant sur le bouton 'Ajouter'.
+</li>
+</ul>
 
-		plus visible pour les &eacute;tudiants.</li>
-	</ul>
-	<ul>
+<h4>Créer un lien hypertexte</h4>
+<ul>
+<li>
+Cliquez sur la commande 'créer un lien hypertexte' dans la partie supérieure de votre navigateur.
+</li>
+<li>
+Remplissez le champs 'Nom' avec un nom spécifique pour ce lien hypertexte;
+</li>
+<li>
+Tapez l'URL complète de l'hyperlien
+(exemple : http://mon.domaine/mon/fichier.htm).
+</li>
+<li>
+Optionnellement, vous pouvez attacher un commentaire avec le lien hypertexte.
+Il sera ajouté juste en dessous de la ligne du lien hypertexte.
+</li>
+<li>
+Validez en cliquant sur le bouton 'OK'.
+</li>
+</ul>
 
-  <li> Si vous souhaitez rendre cet &eacute;l&eacute;ment &agrave; nouveau
- visible,
-	cliquez sur le bouton <img src=../img/invisible.gif
- width=24 height=20>
-	dans la colonne Visible/invisible</li>
-	</ul>
-	<h4>Ajouter ou modifier un commentaire au document (ou au
- r&eacute;pertoire)</h4>
-	<ul>
+<h4>Créer un document HTML en ligne</h4>
+<ul>
+<li> Cliquez sur la commande 'Créer un document' dans la partie supérieure de votre navigateur.
+</li>
+<li>
+Remplissez le nom d'apparation 'Nom du document' pour ce document.
+</li>
+<li>
+Entrez le contenu du document dans la zone 'Contenu du document'.
+</li>
+<li>
+Cliquez sur le bouton 'OK' une fois terminé.
+</li>
+</ul>
+<p>
+Cette commande peut être utilisée pour écrire des documents assez courts. Pour écrire de plus longs textes, nous vous recommandons d'utiliser un outil plus adéquat sur votre ordinateur personnel.
+</p>
 
-  <li>Cliquez sur le bouton <img
- src=../img/comment.gif width=20 height=20>
-	dans la colonne &quot;Commentaire&quot;</li>
-	  <li>Tapez le nouveau commentaire dans la zone pr&eacute;vue &agrave; cet
 
-		effet qui appara&icirc;tra en haut &agrave; gauche.</li>
-	  <li>Validez en cliquant sur &quot;OK&quot;
-		<input type=submit value=OK name=submit2>
-		.</li>
-	</ul>
-	<p>Si vous souhaitez supprimer un commentaire, cliquez sur le bouton <img
- src=../img/comment.gif width=20 height=20>,
-	  effacez l&acute;ancien commentaire de la zonne et validez en cliquant
- &quot;OK&quot;
-	  <input type=submit value=OK name=submit22>
-	  .
-	<hr>
-	<p>Vous pouvez aussi organiser le contenu du module de document en
- rangeant
-	  les documents dans de r&eacute;pertoires. Pour ce faire vous devez :</p>
-	<h4><b>Cr&eacute;er un r&eacute;pertoire</b></h4>
-	<ul>
-	  <li>Cliquez sur la commande &quot;<img
- src=../img/folder.gif>cr&eacute;er
-		un r&eacute;pertoire&quot; en haut &agrave; gauche de l&acute;&eacute;cran</li>
-	  <li>Tapez le nom de votre nouveau r&eacute;pertoire dans la zone
- pr&eacute;vue
-		&agrave; cet effet en haut &agrave; gauche de l&acute;&eacute;cran.</li>
-	  <li>Validez en cliquant &quot;OK&quot;
-		<input type=submit value=OK name=submit23>
-		.</li>
-	</ul>
-	<h4>D&eacute;placer un document (ou un r&eacute;pertoire)</h4>
-	<ul>
-	  <li>Cliquez sur le bouton <img
- src=../img/move.gif width=34 height=16>
-		dans la colonne d&eacute;placer</li>
-	  <li>Choisissez le r&eacute;pertoire dans lequel vous souhaitez
- d&eacute;placer
-		le document ou le r&eacute;pertoire dans le menu d&eacute;roulant
- pr&eacute;vu
-		&agrave; cet effet qui appara&icirc;tra en haut &agrave; gauche.(note:
-		le mot &quot;racine&quot; dans ce menu repr&eacute;sente la racine de
-		votre module document).</li>
-	  <li>Validez en cliquant &quot;OK&quot;
-		<input type=submit value=OK name=submit232>
-		.</li>
-	</ul>
-	<center>
-	  <p>";
+<h4>Renommer un document, un répertoire ou un lien hypertexte</h4>
+<ul>
+<li>Cliquez sur l'icône dans la colonne 'Editer'.
+</li>
+<li>
+Tapez le nouveau nom dans le champs dans la partie supérieure de votre navigateur.
+</li>
+<li>
+Optionnellement, vous pouvez attacher un commentaire avec le document. Il sera ajouté juste en dessous de la ligne du document.
+</li>
+<li>
+Validez en cliquant sur le bouton 'OK'.
+</li>
+</ul>
+<p>
+<b>Tip. </b>
+Les documents sont présentés par ordre alphabétique. si vous souhaitez que les documents soient classés de manière différente, vous pouvez les faire précéder d'un numéro : 01, 02, 03...
+</p>
+
+<h4>Effacer un document, un répertoire ou un lien hypertexte</h4>
+<ul>
+<li>
+Cliquez sur l'icône en dessous du document dans la colonne 'Effacer'.</li>
+</ul>
+
+<h4>
+Rendre un document, un repertoire ou un lien hypertexte invisible aux utilisateurs
+</h4>
+<ul>
+<li>
+Cliquez sur l'icône à côté du document dans la colonne 'Visibilité'.
+</li>
+<li>
+La ressource exitera toujours mais sera plus visible pour les utilisateurs du cours.
+</li>
+<li>
+Pour la rendre visible à nouveaux, cliquez simplement de nouveau sur l'icône à côté du document
+dans la colonne 'Visibilité'.
+</li>
+</ul>
+<h4>
+Ajouter ou modifier un commentaire à un document, un répertoire ou un lien hypertexte
+</h4>
+<ul>
+<li>
+Cliquez sur l'icône à côté du document dans la colonne 'Editer'.
+</li>
+<li>
+Entrez le nouveau commentaire dans le champs correspondant.
+</li>
+<li>
+Validez en cliquant sur le bouton 'OK'.
+</li>
+</ul>
+<p>
+Pour effacer un commentaire, cliquez sur l'icône à côté du document dans la colonne 'Editer', effacez l'ancien commentaire et cliquez sur le bouton 'OK'.
+<h4>Créer un répertoire</h4>
+<ul>
+<li>Cliquez sur la commande 'Créer un répertoire' dans la partie supérieure de votre navigateur.
+</li>
+<li>
+Entrez le nom du nouveau répertoire dans le champs correspondant.
+</li>
+<li>
+Validez en cliquant sur le bouton 'OK'.
+</li>
+</ul>
+<h4>
+Déplacer un document, un répertoire ou un lien hypertexte
+</h4>
+<ul>
+<li>
+Cliquez sur l'icône à côté du document dans la colonne 'Déplacer'.
+</li>
+<li>
+Choisissez le répertoire dans lequel vous voulez déplacer l'élément dans le menu déroulant correspondant.
+<br />(Note: Le mot 'root' signifie que vous ne vous pouvez pas aller plus haut dans que là dans l'arborescence de répertoires sur le serveur.
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
+<center>
+<p>";
 $langDocument = "Documents et liens";
 $langExerciseContent = "<p>Le module d'exercice vous permet de créer des exercices pouvant contenir un nombre
 quelconque de questions.<br><br>
@@ -331,11 +399,63 @@ $langGroupContent = "<p><b>Introduction</b></p>
 $langGroups = "Groupes";
 $langHClar = "Aide au démarrage";
 $langHDoc = "Aide documents";
-$langHExercise = "Aide Quizz";
+$langHExercise = "Aide exercices";
 $langHFor = "Aide forums";
 $langHHome = "Aide Page d'accueil";
 $langHUser = "Aide utilisateurs";
 $langHelp = "aide";
+$langHelpAssignment = "Aide aux soumissions";
+$langHelpAssignmentContent = "<p>L'outil de soumissions  permet aux utilisateurs de poster des fichiers qu'ils pensent pouvoir être intéressants pour les autres utilisateurs, ou lorsque le responsable de l'espace leur a demandé de lui envoyer un fichier.  En effet, cet outil peut être utilisé de différentes manières, selon la façon dont le responsable  l'a configuré.
+</p><p>Plusieurs sessions de travaux peuvent exister simultanément, avec pour chacune des objectifs et des contraintes différentes.  Un travail peut être un fichier, un texte ou un texte accompagné d'un fichier.  Un travail peut également être posté à titre individuel ou au nom d'un groupe d'utilisateurs.
+</p>
+
+<hr />
+<h4>Créer une session de travail</h4>
+ <p>Pour créer un nouveau travail le responsable de l'espace doit entrer dans l'outil de travaux et cliquer sur le lien \"Créer un nouveau travail\".
+</p><p>Il faut alors que le responsable de cours remplisse le formulaire de création d'un travail.  Les différentes options possibles sont&nbsp;:
+</p>
+<ul><li><strong> titre</strong>&nbsp;: le nom du travail
+</li><li><strong> description</strong>&nbsp;: les intructions à propos du travail, ce qui doit être fait et la manière avec laquelle cela doit être fait
+</li><li><strong> type de soumission</strong>
+<ul><li>fichier&nbsp;: un fichier est requis, un commentaire peut être ajouté
+
+</li><li> texte&nbsp;: un texte mis en forme à l'aide de l'éditeur wysiwyg
+</li><li> texte avec un fichier attaché&nbsp;: un texte mis en forme à l'aide de l'éditeur wysiwyg et un fichier optionnel
+</li></ul>
+</li><li> <strong>date de début</strong>&nbsp;: date à partir de laquelle les apprenants peuvent soumettre leur travail
+</li><li> <strong>date de fin</strong>&nbsp;: date jusqu'à laquelle les apprennants peuvent soumettre leur travail
+</li><li><strong> visibilité par défaut des soumissions</strong>&nbsp;: spécifie si les travaux uploadés peuvent être vus par les autres apprenants ou si ils sont masqués dès la soumission
+</li><li><strong> type de travail</strong>
+<ul><li> individuel&nbsp;: chaque utilisateur inscrit dans le cours peut publier une soumission
+</li><li> de groupe&nbsp;: l'utilisateur doit être membre d'au moins un des groupes du cours pour publier une soumission.  Les soumissions de ce type seront publiées au nom du groupe auquel appartient l'apprenant.
+</li></ul>
+</li><li> <strong>permission de soumettre après la date de fin</strong>
+</li></ul>
+<p>
+
+<h4>Correction automatique</h4>
+</p><p>En plus de la correction manuelle que le responsable de cours peut faire pour chaque soumission il est possible de mettre une correction automatiquement à disposition des apprenants.  Pour ce faire il faut entrer dans un travail et cliquer sur \"Editer la correction automatique\"
+</p><p>La correction automatique peut être un fichier, un texte ou les deux.  Le responsable de cours peut choisir quand cette correction automatique sera montrée aux apprenants&nbsp;:
+</p>
+
+<ul><li> à partir de la date de fin de la session
+</li><li> au cas par cas, dès que l'apprenant à publié un travail
+</li></ul>
+
+<h4>Gestion des soumissions</h4>
+<p>Le responsable de cours peut poster une correction individuelle pour chaque travail soumis par un utilisateur.
+</p>
+<p>Les soumissions sont les publications des apprenants.
+</p><p>Pour chaque session de travail est affichée la liste de tous les utilisateurs du cours avec pour chacun le nombre de soumissions qu'il a effectué dans cette session et le nombre de correction que le responsable de cours a fait pour ces soumissions.  La liste des soumissions et des correction d'un utilisateur dans une session peut être consultée en cliquant sur le nom de l'utilisateur.
+</p><p>Dans la liste des soumissions d'un utilisateurs sont disponibles des commandes à l'intention du responsable de cours&nbsp;:
+</p>
+<ul><li> <strong>Modifier</strong>&nbsp;: cette icone apparait à l'auteur de la soumission (éventuellement à tous les membres du groupes pour lequel la soumission a été faite), elle apparait également au responsable de cours.
+</li><li> <strong>Delete</strong>&nbsp;: permet au responsable de cours d'effacer une soumission
+</li><li> <strong>Visible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est visible à toutes les personnes qui ont accès au cours.  Cliquer sur cette icone rend la soumission invisible
+
+</li><li> <strong>Invisible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est masquée à toutes les personnes qui ont accès au cours, la soumission n'est alors visible que pour tous les utilisateurs à l'exception des responsables de cours et de l'utilisateur ou du groupe propriétaire de la soumission.
+</li><li> <strong>Ajouter une correction</strong>&nbsp;: permet au responsable de cours de soumettre une correction individuelle à l'auteur de la soumission.  En plus d'un fichier et/ou d'un texte cette correction peut être accompagné d'un pourcentage et d'un commentaire que seuls les responsables de cours pourront voir.
+</li></ul>";
 $langHelpGroups = "Gestion des groupes";
 $langHomeContent = "La plupart des rubriques du Campus des Cadres sont déjà remplies
  d'un petit texte ou d'un lien donnés par défaut ou pour l&acute;exemple. Il vous
@@ -344,7 +464,7 @@ $langHomeContent = "La plupart des rubriques du Campus des Cadres sont déjà remp
  d'introduction de votre espace...' Modifiez-le et profitez-en pour décrire
  votre espace,vos objectifs, votre dispositif. Il y va de la bonne
  visibilité de votre travail.</p><p>A la création de votre espace, de
- nombreux outils (Agenda, documents, Quizz...) sont activés pour vous
+ nombreux outils (Agenda, documents, exercice...) sont activés pour vous
  par défaut. Il vous est conseillé de désactiver ceux que vous n'utilisez
  pas afin de ne pas faire perdre du temps à vos utilisateurs ou à vos
  visiteurs.</p><p>Vous pouvez aussi ajouter des pages à la page d'accueil.
@@ -358,7 +478,7 @@ $langHomeContent = "La plupart des rubriques du Campus des Cadres sont déjà remp
  souhaitable qu'un espace à l&acute;essai ou 'en chantier' n'apparaisse pas dans
  la liste (voir la fonction 'Propriétés de l&acute;espace') et demeure privé sans
  possibilité d'inscription le temps de sa conception.</p>";
-$langLearningPath = "Parcours pédagogique";
+$langLearningPath = "Parcours";
 $langLogin = "login";
 $langLogout = "Quitter";
 $langManager = "Gestionnaire";
@@ -375,6 +495,9 @@ $langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";
 $langReg = "Inscription";
 $langStudent = "participant";
+$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
+$langTextEditorDisable = "Désactiver l'éditeur de texte";
+$langTextEditorEnable = "Activer l'éditeur de texte";
 $langUserContent = "<b>Droits d'administration</b>
 <p>Pour permettre à un co-modérateur ou qui que ce
  soit de co-administrer l&acute;espace avec vous, vous devez préalablement
