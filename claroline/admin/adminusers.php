@@ -1,10 +1,13 @@
 <?php //$Id$
 /**
- * @version CLAROLINE 1.6
+ * CLAROLINE 
+ * @version 1.6 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license GENERAL PUBLIC LICENSE (GPL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * 
+ * @package ADMIN
  *
  * @author Guillaume Lederer <lederer@claroline.net>
  */
@@ -132,9 +135,9 @@ $sql = "SELECT
        `U`.`phoneNumber` ,
        `U`.`pictureUri`  ,
        `U`.`creatorId` creator_id, 
-       IF(`U`.`user_id`=`U`.`creatorId`,'ACTIVE','GHOST') `activity` ,
-       max(UNIX_TIMESTAMP(`login`.`login_date`)) `login_date`,
-       now()-`login_date` `login_idle`,
+#       IF(`U`.`user_id`=`U`.`creatorId`,'ACTIVE','GHOST') `activity` ,
+#       max(UNIX_TIMESTAMP(`login`.`login_date`)) `login_date`,
+#       now()-`login_date` `login_idle` ,
        IF(`U`.`statut`=".COURSE_CREATOR.",'COURSE_CREATOR','ORDINARY') `statut` ,
        count(DISTINCT `CU`.`code_cours`) `qty_course`
        FROM  `".$tbl_user."` AS `U`";
@@ -149,10 +152,10 @@ if ($_SESSION['admin_user_action']=="plateformadmin")
 // join with course table to find course numbers of each user and last login
 
 $sql.= " 
+#       LEFT JOIN `".$tbl_track_login."` `login`
+#       ON `U`.`user_id`  = `login`.`login_user_id`
        LEFT JOIN `".$tbl_course_user."` AS `CU` 
        ON `CU`.`user_id` = `U`.`user_id`
-       LEFT JOIN `".$tbl_track_login."` `login`
-       ON `U`.`user_id`  = `login`.`login_user_id`
 
        WHERE 1=1 ";
 
@@ -223,7 +226,7 @@ if (isset($_SESSION['admin_user_order_crit']))
 		case 'officialCode' : $fieldSort = 'U`.`officialCode'; break;
 		case 'email'        : $fieldSort = 'U`.`email';        break;
 		case 'status'       : $fieldSort = 'U`.`statut';       break;
-		case 'activity'     : $fieldSort = 'login_idle';       break;
+		#case 'activity'     : $fieldSort = 'login_idle';       break;
 		case 'courseqty'    : $fieldSort = 'qty_course';
 
 	}
@@ -231,7 +234,7 @@ if (isset($_SESSION['admin_user_order_crit']))
 	$order[$_SESSION['admin_user_order_crit']] = ($_SESSION['admin_user_dir']=='ASC'?'DESC':'ASC');
 }
 
-//$dialogBox = $sql."<br>"; //debug
+//$dialogBox = '<pre>'.$sql."</pre><br>"; //debug
 
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $userList = $myPager->get_result_list();
@@ -323,9 +326,9 @@ echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellsp
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=officialCode&amp;dir=".$order['officialCode']."\">".$langOfficialCode."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=email&dir=".$order['email']."\">".$langEmail."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=status&amp;dir=".$order['status']."\">".$langUserStatus."</a></th>
-          <th>".$langUserSettings."</th>
-          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=activity&amp;dir=".$order['activity']."\">".$langLastLogin."</a></th>
-          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=courseqty&amp;dir=".$order['courseqty']."\">".$langCourses."</a></th>
+          <th>".$langUserSettings."</th>"
+        #."<th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=activity&amp;dir=".$order['activity']."\">".$langLastLogin."</a></th>"
+         ."<th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=courseqty&amp;dir=".$order['courseqty']."\">".$langCourses."</a></th>
           <th>".$langDelete."</th>";
 echo "</tr><tbody> ";
 
@@ -408,7 +411,7 @@ foreach($userList as $list)
 
 
  // Activity
-    
+    /*
     echo '<td align="center">'
         .'<small><small>'
         ;
@@ -435,7 +438,7 @@ foreach($userList as $list)
     echo '</small></small>'
         .'</td>'
         ;
-
+*/
 
      // All course of this user
 
@@ -460,7 +463,7 @@ foreach($userList as $list)
 if (!$atLeastOne)
 {
    echo '<tr>
-          <td colspan="10" align="center">
+          <td colspan="9" align="center">
             '.$langNoUserResult.'<br>
             <a href="advancedUserSearch.php'.$addtoAdvanced.'">'.$langSearchAgain.'</a>
           </td>
