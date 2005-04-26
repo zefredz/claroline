@@ -8,7 +8,7 @@ $htmlHeadXtra[] =
 <script type="text/javascript" language="JavaScript" >
 function confirmation (name)
 {
-	if (confirm(" '.$langAreYouSureToDelete.' "+ name + " ?"))
+	if (confirm(" '.clean_str_for_javascript($langAreYouSureToDelete).' "+ name + " ?"))
 		{return true;}
 	else
 		{return false;}
@@ -365,7 +365,7 @@ while (list(,$thisUser) = each($users))
 		if ($thisUser["user_id"] != $_uid)
 		{
 			echo   '<a href="'.$_SERVER['PHP_SELF'].'?unregister=yes&amp;user_id='.$thisUser['user_id'].'" '
-				  .'onClick="return confirmation(\''.$langUnreg .' '.$thisUser['nom'].' '.$thisUser['prenom'].'\');">'
+				  .'onClick="return confirmation(\''.clean_str_for_javascript($langUnreg .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
 				  .'<img border="0" alt="'.$langUnreg.'" src="'.$imgRepositoryWeb.'unenroll.gif">'
 				  .'</a>';
 		}

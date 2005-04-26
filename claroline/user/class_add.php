@@ -14,7 +14,7 @@ $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
             {
-                if (confirm(\"" . $langConfirmEnrollClassToCourse . "\"))
+                if (confirm(\"" . clean_str_for_javascript($langConfirmEnrollClassToCourse) . "\"))
                     {return true;}
                 else
                     {return false;}
@@ -247,7 +247,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	      //add to course link	
 			
             echo "  <td align=\"center\">\n"
-	        ."    <a onClick=\"return confirmation('",addslashes($cur_class['name']),"');\" href=\"".$_SERVER['PHP_SELF']."?cmd=subscribe&amp;class=".$cur_class['id']."&amp;classname=".$cur_class['name']."\">\n"
+	        ."    <a onClick=\"return confirmation('".clean_str_for_javascript($cur_class['name'])."');\" href=\"".$_SERVER['PHP_SELF']."?cmd=subscribe&amp;class=".$cur_class['id']."&amp;classname=".$cur_class['name']."\">\n"
                 ."      <img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\" >\n"
 	        ."    </a>\n"
 		."  </td>\n";
