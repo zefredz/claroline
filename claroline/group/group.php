@@ -49,14 +49,14 @@ $htmlHeadXtra[] =
 '<script>
 function confirmationEmpty ()
 {
-        if (confirm(" '.$langConfirmEmptyGroups .' "))
+        if (confirm(" '.clean_str_for_javascript($langConfirmEmptyGroups) .' "))
                 {return true;}
         else
                 {return false;}
 };
 function confirmationDelete ()
 {
-        if (confirm(" '.$langConfirmDeleteGroups.' "))
+        if (confirm(" '.clean_str_for_javascript($langConfirmDeleteGroups).' "))
                 {return true;}
         else
                 {return false;}
