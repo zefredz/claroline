@@ -1,4 +1,21 @@
 <?php 
+$l_author = "Author";
+$l_banned = "You have been banned from this forum. Contact the system administrator if you have any questions.";
+$l_body = "Message Body";
+$l_by = "by";
+$l_click = "Click";
+$l_delete = "Delete this Post";
+$l_deleted = "Your Post has been deleted.";
+$l_emptymsg = "You must type a Message to post. You cannot post an empty Message.";
+$l_error = "Error";
+$l_go = "Go";
+$l_guest = "Guest";
+$l_here = "here";
+$l_indextitle = "Forum Index";
+$l_lastpost = "Last Post";
+$l_nopostlock = "You cannot post a reply to this topic, it has been locked.";
+$l_noposts = "No Posts";
+$l_notify = "Notify by email when replies are posted";
 $l_notifybody = "You are receiving this Email because a new message in one of your favourite topics
 
  on our forums has been added, and
@@ -24,7 +41,30 @@ Or view the forum index at
 
 
 Thank you for using our forums.";
+$l_notifysubj = "A reply to your topic has been posted.";
+$l_notopics = "There are no topics for this forum. You can post one.";
+$l_posted = "Posted";
+$l_poster = "Poster";
+$l_posts = "Posts";
 $l_privnotify = "<br>You have %1\$s <a href=\"%2\$s\">new private message(s)</a>.";
+$l_quotemsg = "[quote]
+
+On %1\$s, %2\$s wrote:
+
+%3\$s
+
+[/quote]";
+$l_returnindex = "to return to the forum index";
+$l_returntopic = "to return to the forum topic list.";
+$l_selectforum = "Select a Forum";
+$l_stored = "Your Message has been stored in the database.";
+$l_subject = "Subject";
+$l_topic = "Topic";
+$l_topicreview = "Topic Review";
+$l_topics = "Topics";
+$l_topictitle = "View Topic";
+$l_viewforum = "View Forum";
+$l_viewmsg = "to view your message.";
 $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "In case of interruption <sup>*</sup>, the <em>Claroline Upgrade tool</em> should restart automatically. 
 If it's not the case, click on the button below.";
 $langAccess = "Access";
@@ -56,6 +96,7 @@ $langAddedToCampus = " has been added to the campus";
 $langAddedToCampusAndClass = " has been added to the campus and to the class";
 $langAddedToCampusAndCourse = " has been added to the campus and to the course";
 $langAddedToCreator = "Course Home";
+$langAdm = "Forum administration";
 $langAdmin = "Admin";
 $langAdminEmail = "Email";
 $langAdminLogin = "Login";
@@ -68,6 +109,7 @@ $langAdministrationClassTools = "Classes";
 $langAdministrator = "Administrator";
 $langAdminsOfThisCours = "manager of the course";
 $langAdvanced = "Advanced";
+$langAgain = "Try again!";
 $langAgendaNextEvents = "Agenda next events";
 $langAlertBlockingMakedInvisible = "This module is blocked.
 Making it invisible will allow students to access
@@ -702,6 +744,8 @@ $langLastAttempt = "Last attempt";
 $langLastCheck = "Last check before install";
 $langLastEditDate = "Last edit date";
 $langLastLogin = "Last login";
+$langLastMsg = "Last message";
+$langLastMsgs = "Last messages";
 $langLastName = "Last Name";
 $langLastSessionTimeSpent = "Last session time";
 $langLastname = "Last name";
@@ -733,6 +777,9 @@ $langListUsers = "User list";
 $langLoadDefaultFormat = "Load default format";
 $langLocation = "Location";
 $langLogin = "Login";
+$langLoginBeforePost1 = "To post messages on the forum, ";
+$langLoginBeforePost2 = "beforehand, you must ";
+$langLoginBeforePost3 = "login on the Campus";
 $langLoginRequest = "Login request";
 $langLoginWithoutAccess = "Logins not used";
 $langLogins = "Logins";
@@ -846,6 +893,7 @@ $langNewChat = "New chat";
 $langNewClassCreated = "The new class has been created";
 $langNewClassName = "New Class name";
 $langNewLabel = "Create a new label / title in this learning path";
+$langNewTopic = "New topic";
 $langNewUsersIn = "new users in the platform : ";
 $langNextDay = "Next Day";
 $langNextMonth = "Next Month";
