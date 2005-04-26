@@ -2030,5 +2030,7 @@ $lang_rules_s_in_s = "Règle : %s dans %s";
 $langSucceeded = "Réussi";
 $langUndist ="Undist";
 $lang_p_s_s_isInvalid = "%s : %s est invalide";
-
+$langFillTheAreaToExplainTheMotivations = "Remplis la zone de texte pour expliquer tes motivations et soumettre ka requête. Un email sera envoyé aux administrateurs de la plateforme.";
+$langRequestOfCourseCreatorStatus = "Demande à être gestionnaire de cours";
+$langTodo = "A faire";
 ?>
