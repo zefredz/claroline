@@ -744,7 +744,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             {
                 if ($list['lock']=='CLOSE')
                 {
-                        $onclick = "onClick=\"return confirm('" . str_replace("\n","\\n",$langAlertBlockingPathMadeInvisible) . "');\"";
+                        $onclick = "onClick=\"return confirm('" . clean_str_for_javascript($langAlertBlockingPathMadeInvisible) . "');\"";
                 }
                 else
                 {
