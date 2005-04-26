@@ -1247,7 +1247,7 @@ $langHumanAndPhysicalResourcesComment1 = "What are the human and physical resour
 $langHumanAndPhysicalResourcesComment2 = "Presentation of the other teachers who will organise the course (assistants, researchers, student-monitors...), of the availability of the people, the buildings and the equipment or computer equipement available.";
 $langHumanAndPhysicalRessources = "Human and Physical Resources";
 $langINeedToCreateCourse = "I need to create a course";
-$langRequestOfCourseCreatorSatus = "Request of Course Creator status";
+$langRequestOfCourseCreatorStatus = "Request of Course Creator status";
 $langIfNotRedirect = "If not redirected ";
 $langImport = "Import";
 $langImpossible = "Operation impossible";
@@ -2158,4 +2158,5 @@ $langUndist ="Undist";
 $lang_p_s_s_isInvalid = "%s : %s is invalid";
 $langFillTheAreaToExplainTheMotivations = "Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).";
 $langTodo = "To do";
+
 ?>
