@@ -1,0 +1,35 @@
+<?php
+$langAddIntro = "Tilføj introduktionstekst";
+$langAgenda = "Kalenderen - Hvad sker der?";
+$langAnnouncement = "Meddelelser";
+$langChat = "Chat";
+$langConfirmYourChoice = "Venligst bekræft dit valg";
+$langCourseManager = "Kursusadministrator";
+$langDay_of_weekNames = "Array";
+$langDelete = "Slette";
+$langDescriptionCours = "kursusbeskrivelse";
+$langDocument = "Dokumenter";
+$langExercises = "Øvelser";
+$langForums = "Diskussionsforum";
+$langGroups = "inscription des utilisateurs dans les groupes";
+$langHelp = "Hjælp";
+$langLogin = "login";
+$langLogout = "Logud";
+$langManager = "Support";
+$langModify = "Ændre";
+$langModifyProfile = "Ændre min profil";
+$langMonthNames = "Array";
+$langMyCourses = "Mine kurser";
+$langNotAllowed = "Ikke tilladt";
+$langOk = "Ok";
+$langOtherCourses = "Kursusoversigt";
+$langPassword = "adgangskode";
+$langPoweredBy = "Udviklet af";
+$langReg = "Registrering";
+$langStatsOfCourse = "Kursusstatistik";
+$langStudent = "studerende";
+$langSubTitle = "Du kan tilføje et link (URL) i menuen på din kursushjemmeside.<br> Tip: hvis du ønsker at linke til et website, åben dette website, kopier dets URL adresse øverst i browservinduet og indsæt i \"link\" feltet nedenfor.";
+$langUserName = "Brugernavn";
+$langUsers = "Deltagerlisten";
+$langWork = "Studerendes Opgaver";
+?>

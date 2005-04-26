@@ -1,0 +1,33 @@
+<?php
+$langAddIntro = "Dodaj tekst wprowadzenia";
+$langAgenda = "Terminarz";
+$langAnnouncement = "Og³oszenia";
+$langChat = "Chat-room";
+$langConfirmYourChoice = "Potwierd¼ swój wybór";
+$langCourseManager = "Administrator";
+$langDay_of_weekNames = "Array";
+$langDelete = "Usuñ";
+$langDescriptionCours = "Opis kursu";
+$langDocument = "Dokumenty";
+$langForums = "Forum";
+$langGroups = "inscription des utilisateurs dans les groupes";
+$langHelp = "Pomoc";
+$langLogin = "Logowanie";
+$langLogout = "Wylogowanie";
+$langManager = "Administrator";
+$langModify = "Modyfikuj";
+$langModifyProfile = "Modyfikuj Mój profil";
+$langMonthNames = "Array";
+$langMyCourses = "Lista moich kursów";
+$langNotAllowed = "You are not allowed here";
+$langOk = "Ok";
+$langOtherCourses = "Lista kursów";
+$langPoweredBy = "Powered by";
+$langReg = "Rejestracja";
+$langStatsOfCourse = "Statystyki kursu";
+$langStudent = "student";
+$langSubTitle = "Dodanie odno¶nika do zewnêtrzego adresu URL na Stronie g³ównej kursu. Uwaga: Je¶li chcesz pod³±czyæ jak±¶ stronê z Internetu, wejd¼ na tê stronê, skopiuj jej adres z pola Adres okienka przegl±darki a nastêpnie wklej ten adres do pola \"Odno¶nik\" poni¿ej.";
+$langUserName = "Nazwa u¿ytkownika";
+$langUsers = "U¿ytkownicy";
+$langWork = "Works";
+?>

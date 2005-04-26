@@ -1,0 +1,33 @@
+<?php
+$langAddIntro = "ДОБАВИТЬ ВВОДНЫЙ ТЕКСТ";
+$langAgenda = "Календарь";
+$langAnnouncement = "Объявления";
+$langChat = "Чат";
+$langConfirmYourChoice = "Подтвердите ваш выбор";
+$langCourseManager = "Менеджер курса";
+$langDay_of_weekNames = "Array";
+$langDelete = "удалить";
+$langDescriptionCours = "Описание курса";
+$langDocument = "Документ";
+$langForums = "Форумы";
+$langGroups = "запись пользователей в группы";
+$langHelp = "рПНПЭШ";
+$langLogin = "Вход, логин";
+$langLogout = "Выйти";
+$langManager = "Ответственный";
+$langModify = "йЪНЕОЙФШ";
+$langModifyProfile = "Изменить мои настройки";
+$langMonthNames = "Array";
+$langMyCourses = "Список моих курсов";
+$langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
+$langOk = "Ok";
+$langOtherCourses = "Список курсов";
+$langPassword = "пароль";
+$langPoweredBy = "использует оболочку";
+$langReg = "Регистрация";
+$langStudent = "студент";
+$langTotal = "Всего";
+$langUserName = "Имя пользователя";
+$langUsers = "Пользователи";
+$langWork = "Задания";
+?>

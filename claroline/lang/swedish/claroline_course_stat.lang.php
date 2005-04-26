@@ -1,0 +1,34 @@
+<?php
+$langAddIntro = "Lägg till introduktionstext";
+$langAgenda = "Agenda";
+$langAnnouncement = "Tillkännagivanden";
+$langChat = "Diskussion";
+$langConfirmYourChoice = "Var snäll och bekräfta ditt val";
+$langCourseManager = "Kursansvarig";
+$langDay_of_weekNames = "Array";
+$langDelete = "Radera";
+$langDescriptionCours = "Kursbeskrivning";
+$langDocument = "Dokument";
+$langExercises = "Övningar";
+$langForums = "Forum";
+$langGroups = "instruktion för gruppanvändarna";
+$langHelp = "hjälp";
+$langLogin = "Logga in";
+$langLogout = "Logga ut";
+$langManager = "Ansvarig";
+$langModify = "Redigera";
+$langModifyProfile = "Modifiera min profil";
+$langMonthNames = "Array";
+$langMyCourses = "Mina kurser";
+$langNotAllowed = "Inte tillåtet";
+$langOk = "validate";
+$langOtherCourses = "Kurslista";
+$langPoweredBy = "Med kraft från";
+$langReg = "Registrering";
+$langStatsOfCourse = "Kursstatistik";
+$langStudent = "elev";
+$langSubTitle = "Lägger sig till menyn på kursens hemsida som en länk till en sajt, en sida eller valfri URL. Tips: om du vill lägga till en länk till en sida, gå till den sidan, kopiera och klistra sedan in länkens address, som du hittar i URL-fältet högst upp i din webbläsare, i \"länk\"-fältet nedan.";
+$langUserName = "Namn";
+$langUsers = "Användare";
+$langWork = "Elevarbeten";
+?>

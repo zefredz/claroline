@@ -1,0 +1,105 @@
+<?php
+$langAddIntro = "Ajouter un texte d'introduction";
+$langAdministration = "Administration";
+$langAgenda = "Agenda";
+$langAnnouncement = "Annonces";
+$langCancel = "Annuler";
+$langChat = "Discussion";
+$langCodeAppearAlready = "Ce code officiel apparait déjà dans une ligne précédente du fichier CSV.";
+$langCodeUsed = "Ce code officiel est déjà utilisé par un autre utilisateur.";
+$langConfirmYourChoice = "Veuillez confirmer votre choix";
+$langCopy = "Copier";
+$langCourseHome = "Accueil";
+$langCourseManager = "gestionnaire de l&acute;espace";
+$langDay_of_weekNames = "Array";
+$langDelete = "Effacer";
+$langDescriptionCours = "Description de l&acute;espace";
+$langDocument = "Documents et liens";
+$langDone = "Etapes terminées";
+$langEmpty = "Vous n\'avez pas rempli tous les champs.
+<br>
+Utilisez le bouton de retour en arrière de votre navigateur et recommencez.<br>Si vous ne connaissez pas le code de votre espace, consultez le staff fédéral";
+$langExercises = "Exercices";
+$langFailed = "<span style=\"color: red\">Echec</span>";
+$langForums = "Forums";
+$langGroups = "Groupes";
+$langHelp = "aide";
+$langIntroStep1 = "<p>l&acute;<em>outil de mise à jour</em> va procéder à la mise à jour des parmaètre de la plateforme.
+Ces paramètres sont stockés dans claroline/include/config.inc.php de votre ancienne plateforme</p>";
+$langIntroStep2 = "<p>Maintenant, l&acute;<em>outil de mise à jour</em> met à jour les tables principales de la plateforme (utilisateurs, catégories d'espaces, liste d'espaces, ...) pour être compatible avec la nouvelle structure de données.
+</p>
+<p class=\"help\">Note: En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
+$langIntroStep3 = "<p>l&acute;<em>outil de mise à jour</em> met à jour les données de chaque cours (dossiers et tables de la base de données).
+<p class=\"help\">Note: En fonction de la puissance de votre serveur ou la quantité de données stockées sur votre plateforme, cette opération peut prendre du temps.</p>";
+$langIntroStep3Run = "<p>l&acute;<em>outil de mise à jour</em> met à jour les cours.</p>";
+$langLaunchRestoreCourseRepository = "Lancer la restauration du dossier du cours";
+$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Lancer la mise à jour des paramètres de la plateforme</button></p>";
+$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Lancer la mise à jour des tables principales</button></p>";
+$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Lancer les mise à jour des espace</button></p>";
+$langLearningPath = "Parcours pédagogique";
+$langLogin = "login";
+$langLogout = "Quitter";
+$langMailAppearAlready = "Cet e-mail apparait déjà dans une ligne précédente du fichier CSV.";
+$langMailSynthaxError = "Erreur de synthaxe dans l&acute;e-mail.";
+$langMailUsed = "l&acute;e-mail est déjà utilisée par un autre utilisateur.";
+$langMakeABackupBefore = "<p>l&acute;outil de <em>mise à jour de Claroline</em> récupère les données de la précédente installation et les rend compatible avec la nouvelle version de Claroline. Cette mise à jour se déroule en trois étapes:</p>
+<ol>
+<li>Récupère les paramètres de la plateforme et génère les nouveaux fichiers de configuration.</li>
+<li>Met à jour les tables principales de la plateforme (utilisateurs, catégories d'espaces, liste d'espaces, ...) pour être compatible avec la nouvelle structure de données.</li>
+<li>Met à jour un par un chaque donnée d'espaces (dossiers, tables de la base de données, ...)</li>
+</ol>
+<p>Nous vous recommandons avant de lancer la mise à jour:</p>
+<table>
+<tbody>
+<tr valign=\"top\"><td>-</td><td>Faire une sauvegarde complète de toutes les données de la plateforme (fichiers et base de données)</td><td>%s</td></tr>
+
+</tbody>
+</table>
+<p>La mise à jour ne peut pas démarrer tant que cette étape n'est pas marquée comme 'faite'.</p>
+";
+$langManager = "Gestionnaire";
+$langModify = "modifier";
+$langModifyProfile = "Modifier mon profil";
+$langMonthNames = "Array";
+$langMyAgenda = "Mon agenda";
+$langMyCourses = "Liste de mes espaces";
+$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s espaces sur %s déjà mis à jour</strong><br /></p>";
+$langNext = "Suivant";
+$langNextStep = "<p><button onclick=\"document.location='%s';\">Suivant ></button></p>";
+$langNo = "Non";
+$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
+$langOk = "Valider";
+$langOtherCourses = "Liste des espaces";
+$langPassword = "mot de passe";
+$langPasswordSimple = "Le mot de passe donné est trop simple ou trop proche du nom d'utilisateur.";
+$langPlatformAccess = "Acc&egrave;s au campus";
+$langPlatformAdministration = "Administration";
+$langPoweredBy = "Utilise la plate-forme";
+$langReg = "Inscription";
+$langRestoreCourseRepository = "Restaurer le dossier du cours";
+$langStudent = "participant";
+$langTitleUpgrade = "<h2>Mettre à jour Claroline<br />
+                     de 1.4.* à 1.5</h2>";
+$langTo = "vers";
+$langTodo = "Suggestions";
+$langUpgrade = "Mise à jour de Claroline";
+$langUpgradeStep0 = "Sauvegarde confirmée";
+$langUpgradeStep1 = "Etape 1 de 3: paramètres de la plateforme";
+$langUpgradeStep2 = "Etape 2 de 3: mise à jour des tables pricipales";
+$langUpgradeStep3 = "Etape 3 de 3: mise à jour des cours";
+$langUserName = "Nom d'utilisateur";
+$langUsernameAppearAlready = "Ce nom d'utilisateur apparait déjà dans une ligne précédente du fichier CSV.";
+$langUsernameUsed = "Ce nom d'utilisateur est déjà utilisé.";
+$langUsers = "Utilisateurs";
+$langViewMode = "Mode de vue";
+$langWork = "Contributions";
+$langYes = "Oui";
+$lang_click_here = "cliquez ici";
+$lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
+$lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";
+$lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
+$lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
+$lang_p_platformManager = "Administrateur %s";
+$lang_this_course_is_protected = "Ce cours est protégé";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";
+?>

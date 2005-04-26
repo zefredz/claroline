@@ -1,0 +1,66 @@
+<?php
+$langAddIntro = "Προσθήκη Εισαγωγικού Κειμένου";
+$langAddress = "Η διεύθυνση του";
+$langAgenda = "Ατζέντα";
+$langAnnouncement = "Ανακοινώσεις";
+$langAreYouSureToDelete = "Είστε βέβαιος ότι θέλετε να το διαγράψετε";
+$langBack = "Επιστροφή";
+$langCategories = "Κατηγορίες";
+$langChat = "Κουβεντούλα";
+$langClose = "Κλείσιμο παραθύρου";
+$langCode = "Κωδικός Μαθήματος";
+$langCourseTitle = "Τίτλος Μαθήματος";
+$langCourses = "μαθήματα.";
+$langDay_of_weekNames = "Array";
+$langDear = "Αγαπητέ";
+$langDelete = "Διαγραφή";
+$langDocument = "Εγγραφα";
+$langEdit = "Διόρθωση";
+$langEmail = "Email";
+$langEmailWrong = "Η διεύθυνση ηλεκτρονικού ταχυδρομείου δεν είναι συμπληρωμένη ή περιέχει άκυρους χαρακτήρες";
+$langEmptyFields = "Αφήσατε μερικά πεδία κενά. Χρησιμοποιήστε το πλήκτρο «επιστροφή» του browser σας και ξαναδοκιμάστε.";
+$langFields = "Αφήσατε μερικά πεδία κενά";
+$langFormula = "Φιλικά";
+$langForums = "Περιοχή συζητήσεων";
+$langGroups = "Ομάδες Χρηστών";
+$langHelp = "Βοήθεια";
+$langIs = "είναι";
+$langLanguage = "Γλώσσα";
+$langLast7Days = "Τελευταίες 7 μέρες";
+$langLogout = "Εξοδος";
+$langManager = "Διαχειριστής";
+$langModify = "Διόρθωση";
+$langModifyProfile = "Αλλαγή του προφίλ μου";
+$langMonthNames = "Array";
+$langMove = "Μετακίνηση";
+$langMyCourses = "Τα μαθήματά μου";
+$langNo = "όχι";
+$langNotAllowed = "Δεν επιτρέπεται";
+$langOk = "Εντάξει";
+$langOtherCourses = "Λίστα Μαθημάτων";
+$langPassTwice = "Πληκτρολογήσατε δύο διαφορετικά συνθηματικά. Χρησιμοποιήστε το πλήκτρο «επιστροφή» του browser σας και ξαναδοκιμάστε.";
+$langPoweredBy = "Με τη βοήθεια του";
+$langPrivate = "κλειστό";
+$langProblem = "Στη περίπτωση που αντιμετωπίζετε προβλήματα, επικοινωνήστε μαζί μας";
+$langPublic = "ανοικτό";
+$langReg = "Εγγραφή";
+$langRegStudent = "Παρακολούθηση μαθημάτων";
+$langRole = "Ρόλος";
+$langSettings = "δημιουργήθηκε με επιτυχία!
+ Τα προσωπικά στοιχεία του λογαριασμού σας είναι τα εξής:
+
+Όνομα χρήστη:";
+$langStatus = "Ενέργεια";
+$langStudent = "φοιτητής";
+$langSupportForum = "Περιοχή υποστήριξης";
+$langTitular = "Συγγραφέας";
+$langUp = "Πάνω";
+$langUser = "Χρήστες";
+$langUserName = "Όνομα χρήστη";
+$langUserTaken = "Το όνομα χρήστη ήδη χρησιμοποιείται από κάποιον άλλον";
+$langUsers = "Χρήστες";
+$langWork = "Εργασίες Φοιτητών";
+$langYes = "Ναι";
+$langYouAreReg = "Ο λογαριασμός σας στην πλατφόρμα ";
+$langYourReg = "Η εγγραφή σας στο";
+?>

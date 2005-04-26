@@ -1,0 +1,37 @@
+<?php
+$langAddEvent = "Lisää tapahtuma";
+$langAddIntro = "Lisää johdantoteksti";
+$langAgenda = "Esityslista";
+$langAnnouncement = "Ilmoitukset";
+$langDay = "Päivä";
+$langDay_of_weekNames = "Array";
+$langDelete = "Poista";
+$langDetail = "Yksityiskohdat";
+$langDocument = "Dokumentit";
+$langExercises = "Harjoitukset";
+$langForums = "Foorumit";
+$langHelp = "Apua";
+$langHour = "Tunti";
+$langLasting = "Kesto";
+$langLogout = "Logout";
+$langManager = "Ylläpitäjä";
+$langMinute = "Minuutti";
+$langModify = "Muokkaa";
+$langModifyProfile = "Muokkaa profiiliani";
+$langMonth = "Kuukausi";
+$langMonthNames = "Array";
+$langMyCourses = "Kurssini";
+$langNewToOld = "Invert";
+$langNotAllowed = "Ei sallittu";
+$langNow = "Nyt";
+$langOk = "Ok";
+$langOldToNew = "Invert";
+$langPoweredBy = "Alusta";
+$langReg = "Rekisteröinti";
+$langStudent = "Opiskelija";
+$langTitle = "Otsikko";
+$langUserName = "Käyttäjänimi";
+$langUsers = "Käyttäjät";
+$langWork = "Opiskelijoiden tehtävät";
+$langYear = "Vuosi";
+?>

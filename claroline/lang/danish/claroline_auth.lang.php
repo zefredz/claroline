@@ -1,0 +1,87 @@
+<?php
+$langAction = "Handling";
+$langAddIntro = "Tilføj introduktionstekst";
+$langAddress = "Adressen på ";
+$langAgain = "Prøv igen!";
+$langAgenda = "Kalenderen - Hvad sker der?";
+$langAnnouncement = "Meddelelser";
+$langCancel = "Fortryd";
+$langCategories = "Kursuskategorier";
+$langChat = "Chat";
+$langComment = "Kommentar";
+$langConfirmYourChoice = "Venligst bekræft dit valg";
+$langConfirmation = "Bekræft adgangskode";
+$langCopy = "kopi";
+$langCourseManager = "Kursusadministrator";
+$langDay_of_weekNames = "Array";
+$langDear = "Kære";
+$langDelete = "Slette";
+$langDescriptionCours = "kursusbeskrivelse";
+$langDocument = "Dokumenter";
+$langEmail = "Email";
+$langEmailNotSent = "Der er noget galt, send en email til ";
+$langEmailWrong = "Email adressen er mangelfuld eller indeholder ugyldige tegn";
+$langEmptyFields = "Du udfyldte ikke alle felter. Brug din browsers tilbageknap og prøv igen.";
+$langExercises = "Øvelser";
+$langFields = "Du efterlod tomme felter";
+$langFirstname = "Efternavn";
+$langFormula = "Med venlig hilsen, underviseren";
+$langForums = "Diskussionsforum";
+$langGroups = "inscription des utilisateurs dans les groupes";
+$langHelp = "Hjælp";
+$langHome = "Tilbage til min kursusoversigt";
+$langIs = "er";
+$langLastname = "Fornavn";
+$langLogin = "login";
+$langLoginRequest = "Login forespørgsel til";
+$langLogout = "Logud";
+$langLostPassword = "Glemt din adgangskode?";
+$langManager = "Support";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Kære %s, %s. 
+Dine personlige oplysninger er registreret og en email er afsendt til din emailadresse, 
+så du kan huske dit brugernavn og din adgangskode. 
+<i>Husk at der er forskel på store og små bogstaver (case sensitive)</i>, 
+når du skal logge dig på.";
+$langModify = "Ændre";
+$langModifyProfile = "Ændre min profil";
+$langMonthNames = "Array";
+$langMyCourses = "Mine kurser";
+$langMyStats = "Se statistikkerne";
+$langNext = "Næste";
+$langNotAllowed = "Ikke tilladt";
+$langNowGoChooseYourCourses = "Vælg nu de kurser på kursusoversigten som du ønsker adgang til.";
+$langNowGoCreateYourCourse = "Du kan nu oprette dine kurser";
+$langOk = "Ok";
+$langOtherCourses = "Kursusoversigt";
+$langPassTooEasy = "denne adgangskode er for nem. Brug en adgangskode som denne ";
+$langPassTwice = "Du skrev to forskellige adgangskoder. Brug din browsers tilbageknap og prøv igen.";
+$langPassTwo = "Du har skrevet to forskellige adgangskoder";
+$langPassword = "adgangskode";
+$langPoweredBy = "Udviklet af";
+$langProblem = "Du er velkommen til at kontakte os i tilfælde af problemer.";
+$langProfileReg = "Din nye brugerprofil er gemt";
+$langReg = "Registrering";
+$langRegAdmin = "Opret kursushjemmeside";
+$langRegStudent = "Følg kursus";
+$langRegistration = "Registrering";
+$langSettings = "med følgende brugernavn:";
+$langStudent = "studerende";
+$langTo = "til";
+$langUserName = "Brugernavn";
+$langUserTaken = "Det valgte brugernavn bruges af en anden";
+$langUsers = "Deltagerlisten";
+$langWork = "Studerendes Opgaver";
+$langYouAreReg = "Du er registreret på";
+$langYourAccountParam = "Dette er dine login data";
+$langYourReg = "Din registrering til";
+$lang_already_enrolled = "allerede tilmeldt";
+$lang_back_to_my_personnal_course_list = "Tilbage til min nuværende kursusliste";
+$lang_course_enrollment = "Tilmeldte kurser";
+$lang_enroll = "Tilmeld";
+$lang_main_categories_list = "Hovedkategoriliste";
+$lang_my_personnal_course_list = "Min personlige kursusliste";
+$lang_select_course_in = "Vælg kursus på ";
+$lang_select_course_in_search_results = "Vælg kursus blandt søgeresultaterne";
+$lang_unsubscribe = "Afmeld";
+?>

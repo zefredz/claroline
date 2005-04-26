@@ -1,0 +1,30 @@
+<?php
+$langAddIntro = "AFEGEIX TEXT INTRODUCTORI";
+$langAgenda = "Agenda";
+$langAnnouncement = "Anuncis";
+$langChat = "Xat";
+$langCourseCreate = "Crea un Curs web";
+$langDay_of_weekNames = "Array";
+$langDelete = "Esborra";
+$langDocument = "Documents";
+$langEnter = "Retorna a la llista dels meus cursos";
+$langExercises = "Exercicis";
+$langForums = "Fòrums";
+$langGroups = "Grups";
+$langHelp = "Ajuda";
+$langInvalidId = "Accés invàlid.<BR>Si no estàs enregistrat, utilitza el <a href='claroline/auth/inscription.php'> formulari per enregistrar-te</a></font color>";
+$langManager = "El coordinador";
+$langModify = "modifica";
+$langModifyProfile = "Modifica el meu perfil";
+$langMonthNames = "Array";
+$langMyCourses = "Els meus cursos";
+$langNotAllowed = "Vosté no ha estat identificat com a responsable d'aquest curs";
+$langOk = "D'acord";
+$langOtherCourses = "Llista de cursos";
+$langPoweredBy = "Potenciat per ";
+$langReg = "Enregistrament";
+$langStudent = "estudiant";
+$langUserName = "Nom d'usuari";
+$langUsers = "Usuaris";
+$langWork = "Treballs dels estudiants";
+?>

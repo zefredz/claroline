@@ -1,0 +1,38 @@
+<?php
+$langAddIntro = "Tilføj introduktionstekst";
+$langAgenda = "Kalenderen - Hvad sker der?";
+$langAnnouncement = "Meddelelser";
+$langCategories = "Kursuskategorier";
+$langChat = "Chat";
+$langConfirmYourChoice = "Venligst bekræft dit valg";
+$langCourseCreate = "Opret kursushjemmeside";
+$langCourseManager = "Kursusadministrator";
+$langDay_of_weekNames = "Array";
+$langDelete = "Slette";
+$langDescriptionCours = "kursusbeskrivelse";
+$langDocument = "Dokumenter";
+$langEnter = "Tilbage til min kursusliste";
+$langExercises = "Øvelser";
+$langForums = "Diskussionsforum";
+$langGroups = "inscription des utilisateurs dans les groupes";
+$langHelp = "Hjælp";
+$langInvalidId = "Fejl ved Login.<BR>Hvis du ikke er registreret, brug <a href=claroline/auth/inscription.php>Registrering</a></font color>";
+$langLogin = "login";
+$langLogout = "Logud";
+$langLostPassword = "Glemt din adgangskode?";
+$langManager = "Support";
+$langModify = "Ændre";
+$langModifyProfile = "Ændre min profil";
+$langMonthNames = "Array";
+$langMyCourses = "Mine kurser";
+$langNotAllowed = "Ikke tilladt";
+$langOk = "Ok";
+$langOtherCourses = "Kursusoversigt";
+$langPassword = "adgangskode";
+$langPoweredBy = "Udviklet af";
+$langReg = "Registrering";
+$langStudent = "studerende";
+$langUserName = "Brugernavn";
+$langUsers = "Deltagerlisten";
+$langWork = "Studerendes Opgaver";
+?>

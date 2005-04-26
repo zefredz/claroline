@@ -1,0 +1,34 @@
+<?php
+$langAddIntro = "Tambah teks pendahuluan";
+$langAgenda = "Agenda";
+$langAnnouncement = "Pengumuman";
+$langChat = "Diskusi";
+$langConfirmYourChoice = "Silahkan konfirmasi pilihan anda";
+$langCourseManager = "Penanggung jawab pelajaran";
+$langDay_of_weekNames = "Array";
+$langDelete = "Hapus";
+$langDescriptionCours = "Deskripsi pelajaran";
+$langDocument = "Dokumen";
+$langForums = "Forum-forum";
+$langGroups = "inscription des utilisateurs dans les groupes";
+$langHelp = "Pertolongan";
+$langLogin = "login";
+$langLogout = "Logout";
+$langManager = "Pengelola";
+$langModify = "Ubah";
+$langModifyProfile = "Ubah profil Ku";
+$langMonthNames = "Array";
+$langMyCourses = "Daftar Pelajaran Ku";
+$langNotAllowed = "Tidak diijinkan";
+$langOk = "Ok";
+$langOtherCourses = "Daftar pelajaran";
+$langPassword = "password";
+$langPoweredBy = "Diperkuat oleh";
+$langReg = "Pendaftaran";
+$langStatsOfCourse = "Statistik pelajaran";
+$langStudent = "siswa";
+$langSubTitle = "Tambahkan link ke menu utama situs pelajaran anda. Tip: jika anda ingin menambahkan link ke suatu halaman, kunjungi halaman tersebut, cut dan paste alamatnya dalam bar URL di bagian atas browser dan insert-kan kedalam field \"link\" di bawah ini.";
+$langUserName = "Nama user";
+$langUsers = "Users";
+$langWork = "Tugad";
+?>

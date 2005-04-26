@@ -1,0 +1,37 @@
+<?php
+$langAddIntro = "Tambah pengenalan";
+$langAgenda = "Agenda";
+$langAnnouncement = "Pengumuman";
+$langArchive = "Arkib";
+$langChat = "Perbincangan";
+$langConfirmYourChoice = "Anda pasti untuk memadam pilihan anda ?";
+$langCopyFailed = "Proses cetakan gagal";
+$langCourseManager = "Pentadbir Subjek (Pensyarah)";
+$langDay_of_weekNames = "Array";
+$langDelete = "Padam";
+$langDescriptionCours = "Penerangan Subjek";
+$langDocument = "Dokumen";
+$langForums = "Forum";
+$langGroup = "Kumpulan";
+$langGroupSpace = "Ruangan Kumpulan";
+$langGroups = "Kumpulan";
+$langHelp = "Bantuan";
+$langIsNowInYourDocDir = " - Kini, fail ini berada dalam Alat Bantu Dokumen. <br><B>Fail ini dalam format .txt</B>";
+$langLogin = "Melog Masuk";
+$langLogout = "Melog Keluar";
+$langManager = "Pentadbir Sistem";
+$langModify = "Ubahsuai";
+$langModifyProfile = "Ubahsuai Maklumat Peribadi";
+$langMonthNames = "Array";
+$langMyCourses = "Senarai Subjek";
+$langNotAllowed = "Tidak dibenarkan";
+$langOk = "Proses";
+$langOtherCourses = "Senarai Subjek";
+$langPassword = "katalaluan";
+$langPoweredBy = "Oleh : ";
+$langReg = "Daftar";
+$langStudent = "Pelajar";
+$langUserName = "Nama Pengguna";
+$langUsers = "Users";
+$langWork = "Works";
+?>

@@ -1,0 +1,37 @@
+<?php
+$langAddEvent = "增加一个事件";
+$langAddIntro = "增加课程介绍";
+$langAgenda = "计划安排";
+$langAnnouncement = "公告通知";
+$langDay = "日";
+$langDay_of_weekNames = "Array";
+$langDelete = "删除";
+$langDetail = "内容";
+$langDocument = "讲义材料";
+$langForums = "学习论坛";
+$langHelp = "帮助";
+$langHour = "时";
+$langLasting = "持续时间";
+$langLogout = "退出系统";
+$langManager = "管理员";
+$langMinute = "分";
+$langModify = "更新";
+$langModifyProfile = "个人资料";
+$langMonth = "月";
+$langMonthNames = "Array";
+$langMyCourses = "我的课程";
+$langNewToOld = "逆序排列";
+$langNotAllowed = "操作禁止";
+$langNow = "现在";
+$langOk = "确认";
+$langOldToNew = "逆序排列";
+$langPoweredBy = "技术支持";
+$langReg = "注册";
+$langStudent = "学生";
+$langTitle = "主题";
+$langToday = "今天";
+$langUserName = "用户名";
+$langUsers = "用户列表";
+$langWork = "作业论文";
+$langYear = "年";
+?>

@@ -1,0 +1,37 @@
+<?php
+$langAddIntro = "Dodaj uvodno besedilo";
+$langAgenda = "Agenda";
+$langAnnouncement = "Obvestila";
+$langCategories = "Kategorije tecajev";
+$langChat = "Razprava";
+$langConfirmYourChoice = "Potrdi izbiro";
+$langCourseCreate = "Tvori spletno stran tecaja";
+$langCourseManager = "Upravnik tecaja";
+$langDay_of_weekNames = "Array";
+$langDelete = "Brisi";
+$langDescriptionCours = "Opis tecaja";
+$langDocument = "Dokumenti";
+$langEnter = "Vstop";
+$langForums = "Forumi";
+$langGroups = "Skupine";
+$langHelp = "Pomoc";
+$langInvalidId = "Vstop ni uspel.<BR>Ce nimas registracije, uporabi <a href=claroline/auth/inscription.php>obrazec za registracijo</a></font color>";
+$langLogin = "vstop";
+$langLogout = "Izstop";
+$langLostPassword = "Izgubljeno geslo";
+$langManager = "Upravnik";
+$langModify = "Uredi";
+$langModifyProfile = "Spremeni moj profil";
+$langMonthNames = "Array";
+$langMyCourses = "Seznam mojih tecajev";
+$langNotAllowed = "Tu nimas dovoljenja";
+$langOk = "Ok";
+$langOtherCourses = "Seznam tecajev";
+$langPassword = "geslo";
+$langPoweredBy = "Powered by";
+$langReg = "Registracija";
+$langStudent = "student";
+$langUserName = "User name";
+$langUsers = "Uporabniki";
+$langWork = "Works";
+?>

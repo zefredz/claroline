@@ -1,0 +1,37 @@
+<?php
+$langAddIntro = "Acrescentar um texto de apresenta&ccedil;&atilde;o";
+$langAgenda = "Agenda";
+$langAnnouncement = "An&uacute;ncios";
+$langArchive = "ficheiro";
+$langChat = "Debate";
+$langConfirmYourChoice = "Confirme a sua escolha";
+$langCopyFailed = "Falhou a impress&atilde;o";
+$langCourseManager = "Respons&aacute;vel pelo curso";
+$langDay_of_weekNames = "Array";
+$langDelete = "apagar";
+$langDescriptionCours = "Descri&ccedil;&atilde;o do Curso";
+$langDocument = "Documentos";
+$langForums = "Foros";
+$langGroup = "Grupos";
+$langGroupSpace = "&Aacute;rea do grupo";
+$langGroups = "Inscri&ccedil;&atilde;o dos utilizadores nos grupos";
+$langHelp = "ajuda";
+$langIsNowInYourDocDir = "foi colocado na sua sec&ccedil;&atilde;o de documentos. <br><B>Aten&ccedil;&atilde;o: este ficheiro &eacute; vis&iacute;vel para todos os utilizadores</B>";
+$langLogin = "Nome de utilizador";
+$langLogout = "Sair da Sess&atilde;o";
+$langManager = "Respons&aacute;vel";
+$langModify = "alterar";
+$langModifyProfile = "Alterar perfil";
+$langMonthNames = "Array";
+$langMyCourses = "Cursos";
+$langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
+$langOk = "validar";
+$langOtherCourses = "Lista de cursos";
+$langPassword = "Senha";
+$langPoweredBy = "Utiliza a Plataforma";
+$langReg = "Inscri&ccedil;&atilde;o";
+$langStudent = "estudante";
+$langUserName = "Nome de utilizador";
+$langUsers = "Utilizadores";
+$langWork = "Trabalhos";
+?>

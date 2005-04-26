@@ -1,0 +1,34 @@
+<?php
+$langAddIntro = "Добави увод";
+$langAgenda = "График";
+$langAnnouncement = "Обяви";
+$langArchive = "архив";
+$langChat = "Чат";
+$langCopyFailed = "Принтирането неуспешно";
+$langDay_of_weekNames = "Array";
+$langDelete = "Изтрий";
+$langDescriptionCours = "Описание на курса";
+$langDocument = "Документи";
+$langExercises = "Упражнения";
+$langForums = "Форуми";
+$langGroup = "Група";
+$langGroupSpace = "Group area";
+$langGroups = "Групи";
+$langHelp = "Помощ";
+$langIsNowInYourDocDir = "е сега в твоята директория с документи. <br><B>Този файл е видим</B>";
+$langLogout = "Изход";
+$langManager = "Администратор";
+$langModify = "Промени";
+$langModifyProfile = "Промени моя профил";
+$langMonthNames = "Array";
+$langMyCourses = "Моите курсове";
+$langNotAllowed = "Не разрешено";
+$langOk = "ОК";
+$langOtherCourses = "Списък на курсовете";
+$langPoweredBy = "Powered by";
+$langReg = "Регистрация";
+$langStudent = "студент";
+$langUserName = "Потребителско име";
+$langUsers = "Потребители";
+$langWork = "Студентски материали";
+?>

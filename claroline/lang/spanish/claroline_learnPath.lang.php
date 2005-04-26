@@ -1,0 +1,187 @@
+<?php
+$langAddComment = "Añadir/Modificar el comentario a";
+$langAddIntro = "Añadir texto introductorio";
+$langAddModule = "Agregar";
+$langAddModulesButton = "Agregar módulo(s)";
+$langAddOneModuleButton = "Agregar módulo";
+$langAgenda = "Agenda";
+$langAlertBlockingMakedInvisible = "Este módulo está bloqueado. 
+haciendo esto invisible permitirá a los estudiantes tener acceso 
+ Siguiente modulo sin comletar este. 
+
+Confirmar ?";
+$langAlertBlockingPathMadeInvisible = "Este seguimiento Está bloqueado. 
+haciendo esto invisible permitirá a los estudiantes tener acceso 
+ Siguiente seguimiento sin completar este. 
+
+Confirmar ?";
+$langAlreadyBrowsed = "Ya han sido hojeados";
+$langAltClarodoc = "Clarodoc";
+$langAltDocument = "Documento";
+$langAltExercise = "Ejercicio";
+$langAltMakeNotBlocking = "No bloquearlo";
+$langAltMakeVisible = "Hacerlo visible";
+$langAltMove = "Mover";
+$langAltMoveUp = "Ordenar hacia arriba";
+$langAltScorm = "Scorm";
+$langAnnouncement = "Anuncios";
+$langAreYouSureDeleteModule = "Está seguro de querer eliminar este modulo completamente??
+
+Será eliminado definitivamente del servidor y de cualquier seguimiento de aprendizaje en el que esté.
+Usted no será capaz de usarlo en ningun seguimiento de aprendizaje.
+
+Confirmación de la eliminación de : ";
+$langAreYouSureToDelete = "¿Estas seguro que quieres borrar? ";
+$langAreYouSureToDeleteScorm = "Este seguimiento de aprendizaje está basado en una importación de un paquete  SCORM . Si usted elimina este seguimiento, todos los módulos de conformación SCORM y archivos relacionados serán eliminados de la plataforma.  Está seguro que desea eliminar este nombre de learning path ";
+$langAreYouSureToRemove = "¿Está seguro de que quiere remover este módulo del seguimiento de aprendizaje : ";
+$langAreYouSureToRemoveLabel = "Al eliminar una etiqueta usted eliminará todos los modulos que esta etiqueta contenga.";
+$langAreYouSureToRemoveSCORM = "La conformación SCORM de los módulos serán removidos definitivamente del servidor cuando estos sean eliminados del seguimiento de aprendizaje.";
+$langAreYouSureToRemoveStd = "Los módulos seguirán disponiblesen el repositorio de módulos.";
+$langBack = "Volver a los par&aacute;metros del curso";
+$langBackModule = "Regresar a la lista";
+$langBackToLPAdmin = "Regresar a la administración del seguimiento de aprendizaje";
+$langBlock = "Bloqueado";
+$langChangeRaw = "Cambie los requisitos mínimos para pasar este módulo(en porcentaje) : ";
+$langChat = "Debate";
+$langComment = "Comentario";
+$langConfirmYourChoice = "Por favor confirma tú elección";
+$langCopy = "Copiar";
+$langCourseHome = "Descripción del curso";
+$langCourseManager = "Responsable del curso";
+$langCreateLabel = "Crear etiqueta";
+$langCreateNewLearningPath = "Crear un nuevo Seguimineto de aprendizaje";
+$langDOCUMENTTypeDesc = "Documentos";
+$langDate = "Fecha";
+$langDay_of_weekNames = "Array";
+$langDefaultLearningPathComment = "Este es el texto de introducción de este seguimiento de aprendizaje. Para reemplazarlo por su propio texto, presione abajo en<b>modificar</b>.";
+$langDefaultModuleAddedComment = "Este texto de introducción adicional es sobre la presencia de este módulo dentro de este seguimiento de aprendizaje. Para reemplazarlo por su propio texto, presione abajo en <b>modificar</b>.";
+$langDefaultModuleComment = "Este es el texto de introducción de este módulo, Esto aparecerá en cada seguimiento de aprendizaje que contenga este módulo. Para reemplazarlo por su propio texto, presione abajo en <b>modificar</b>.";
+$langDelete = "Borrar";
+$langDescriptionCours = "Descripción del curso";
+$langDocInsertedAsModule = "ha sido agregado como módulo";
+$langDocument = "Documentos";
+$langDocumentAlreadyUsed = "Este documento está siendo utilizado como módulo en este seguimiento de aprendizaje";
+$langDocumentAsModule = "Use un documento";
+$langDocumentInModule = "Documento en el módulo";
+$langEXERCISETypeDesc = "Ejercicios de Claroline";
+$langErrorAssetNotFound = "Asset not found : ";
+$langErrorEmptyName = "El nombre debe ser completado";
+$langErrorFileMustBeZip = "El archivo debe ser un archivo comprimido (.zip)";
+$langErrorNameAlreadyExists = "Error : El nombre ya existe";
+$langErrorNoModuleInPackage = "No hay módulos en el paquete";
+$langErrorNoZlibExtension = "La extensión Zlib php es requerida para usar esta herramienta.  Por favor Contáctese con su administrador de la plataforma.";
+$langErrorOpeningManifest = "Imposible encontrar el archivo <i>mostrado</i>en el paquete.<br /> File not found : imsmanifest.xml";
+$langErrorOpeningXMLFile = "Imposible encontrar el archivo de inicialización secundario en el paquete.<br /> File not found : ";
+$langErrorReadingManifest = "Error al leer el archivo <i>mostrado</i> ";
+$langErrorReadingXMLFile = "Error al leer el archivo de inicialización secundario : ";
+$langErrorReadingZipFile = "Error Al leer el archivo comprimido (.zip).";
+$langErrorSql = "Error in SQL statement";
+$langErrortExtractingManifest = "Imposible de extraer lo mostrado del archivo zip (¿el archivo esta corrupto ? ).";
+$langExAlreadyUsed = "Este ejercicio está siendo utilizado como módulo en este seguimiento de aprendizaje";
+$langExInsertedAsModule = "Ha sido agregado como un módulo de este curso y de este seguimiento de aprendizaje";
+$langExercise = "Ejercicios";
+$langExerciseAsModule = "Use un ejercicio";
+$langExerciseInModule = "Ejercicios en módulos";
+$langExercises = "Ejercicios";
+$langFileError = "El archivo a subir no es valido.";
+$langFileName = "Nombre de archivo";
+$langForums = "Foros";
+$langGlobalProgress = "Progreso del seguimiento de aprendizaje : ";
+$langGroups = "Inscripci&oacute;n de los usuarios en los grupos";
+$langHelp = "ayuda";
+$langImport = "Importar";
+$langInfoProgNameTitle = "Información";
+$langInsertMyDocToolName = "Insertar un documento como módulo";
+$langInsertMyExerciseToolName = "Insertar mi ejercicio";
+$langInsertMyModuleToolName = "Insertar mi módulo";
+$langInsertMyModulesTitle = "Inserte un módulo del curso";
+$langInsertNewModuleName = "Insertar un nuevo nombre";
+$langInstalled = "Se ha importado exitosamente el seguimiento de aprendizaje.";
+$langIntroLearningPath = "Use esta herramienta para proveera sus estudiantes un seguimiento secuencial entre documentos, ejercicios, paginas HTML, ligas,...<br><br>Si usted desea mostrar su seguimiento de aprendizaje a los estudiantes, Presione el boton de abajo.<br>";
+$langLastSessionTimeSpent = "Tiempo de la ultima sesión";
+$langLearningPath = "Seguimiento de aprendizaje";
+$langLearningPathAdmin = "Administrador de seguimiento de aprendizaje";
+$langLearningPathList = "Lista seguimiento de aprendizaje ";
+$langLearningPathName = "Nuevo nombre del seguimiento de aprendizaje : ";
+$langLessonStatus = "Estado del módulo";
+$langLogin = "login";
+$langLogout = "Salir";
+$langMakeInvisible = "Hacer invisible";
+$langManager = "Responsable";
+$langMaxFileSize = "Tamaño Máximo de archivo : ";
+$langModify = "Modificar";
+$langModifyProfile = "Modificar mis datos";
+$langModule = "Modulos";
+$langModuleMoved = "modulo removido";
+$langModuleOfMyCourse = "Use  un módulo de este curso";
+$langModuleStillInPool = "los módulos de este seguimiento seguirán disponibles en el repositorio de módulos";
+$langModulesPoolToolName = "Repositorio de módulos";
+$langMonthNames = "Array";
+$langMove = "Mover";
+$langMoveDown = "Mover hacia abajo";
+$langMyAgenda = "Mi agenda";
+$langMyCourses = "Mis cursos";
+$langNeverBrowsed = "Nunca han sido hojeados";
+$langNewLabel = "Crear una nueva etiqueta / titulo en este seguimiento de aprendizaje";
+$langNoLearningPath = "No hay ningun seguimiento de aprendizaje";
+$langNoModule = "No hay módulos";
+$langNoMoreModuleToAdd = "todos los módulos de este curso esta siendo usado en este  seguimiento de aprendizaje.";
+$langNoSpace = "La acción ha fallado. No hay suficiente espacio en tú directorio";
+$langNoStartAsset = "No está definido para este módulo.";
+$langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
+$langNotInstalled = "Un error ha ocurrido.  a fallado la importación del Learning Path .";
+$langNotice = "Noticia";
+$langOk = "validar";
+$langOkChapterHeadAdded = "Titulo agregado : ";
+$langOkDefaultCommentUsed = "Advertencia : La instalación no puede encontrar la descripción del  learning path y se ha dejado un comentario por defecto. ¿quiere cambiarlo?.";
+$langOkDefaultTitleUsed = "Advertencia : La instalación no puede encontrar el nombre del learning path y se ha dejado un nombre por defecto. ¿quiere cambiarlo?.";
+$langOkFileReceived = "Archivo recibido : ";
+$langOkManifestFound = "mostrado encontrado en un archivo comprimido: ";
+$langOkManifestRead = "leer lo mostrado.";
+$langOkModuleAdded = "Módulo agregado : ";
+$langOrder = "Ordenar";
+$langOtherCourses = "Lista de cursos";
+$langPassword = "password";
+$langPathContentTitle = "Contenido de seguimiento de aprendizaje ";
+$langPathsInCourseProg = "Progreso del curso ";
+$langPersoValue = "Valores";
+$langPlatformAdministration = "Administración de la plataforma";
+$langPoweredBy = "Generado con";
+$langProgInModuleTitle = "Su progreso en este modulo";
+$langProgress = "Progreso";
+$langRawHasBeenChanged = "Los requisitos mínimos para pasar han sido cambiados";
+$langReg = "Inscripci&oacute;n";
+$langRemove = "Suprimir";
+$langRename = "Renombrar";
+$langRoot = "root";
+$langSCORMTypeDesc = "Contenido del SCORM 1.2 conformant ";
+$langScormIntroTextForDummies = "Los paquetes importados deben consistir en archivos comprimido(.zip) y SCORM 1.2 conformant";
+$langSize = "Tamaño";
+$langStartModule = "Comenzar módulo";
+$langStudent = "Estudiantes";
+$langTo = "para";
+$langTotalTimeSpent = "Tiempo total";
+$langTracking = "Seguimiento";
+$langTypeOfModule = "Tipo de módulo";
+$langUnamedModule = "Módulo sin nombre";
+$langUnamedPath = "seguimiento sin nombre";
+$langUp = "Arriba";
+$langUseOfPool = "Esta página le permite ver todos los módulos disponibles en este curso. <br>
+                     Cualquier ejercicio o documento que ha sido añadido al seguimiento de aprendizaje también aparecerá en esta lista.";
+$langUsedInLearningPaths = "
+Número de seguimiento de aprendizaje usado en este módulo : ";
+$langUserName = "User name";
+$langUsers = "Usuarios";
+$langVisibility = "Visible/invisible";
+$langWork = "Trabajos";
+$langWrongOperation = "operación erronea";
+$langYourBestScore = "Su mejor rendimiento";
+$langZipNoPhp = "El archivo zip no debe contener archivos .PHP";
+$lang_click_here = "click here";
+$lang_enter_your_user_name_and_password = "Enter your user name and password";
+$lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
+$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
+$lang_this_course_is_protected = "This course is protected";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
+$langimportLearningPath = "Importar un seguimiento de aprendizaje";
+?>
