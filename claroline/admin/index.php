@@ -147,6 +147,9 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 <li>
 <a href="http://www.claroline.net/forum/"><?php echo $langSupportForum; ?></a>
 </li>
+<li>
+<a href="clarolineNews.php"><?php echo $langClarolineNetNews; ?></a>
+</li>
 </ul>
 
 <?php
