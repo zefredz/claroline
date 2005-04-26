@@ -23,17 +23,6 @@
     if ( ! $is_courseAllowed)
 	claro_disp_auth_form();
 
-  $htmlHeadXtra[] =
-            "<script>
-            function confirmation (name)
-            {
-                if (confirm(\" $langAreYouSureToDelete \"+ name + \" ?\"))
-                    {return true;}
-                else
-                    {return false;}
-            }
-            </script>";
-  
   // $_SESSION
   // path_id
   if ( isset($_GET['path_id']) && $_GET['path_id'] != "" )

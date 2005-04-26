@@ -30,17 +30,6 @@ require '../inc/claro_init_global.inc.php';
   if ( ! $_cid) header("Location:./learningPathList.php");
   if ( ! $is_courseAllowed) header("Location:./learningPathList.php");
 
-  $htmlHeadXtra[] =
-            "<script>
-            function confirmation (name)
-            {
-                if (confirm(\" $langAreYouSureDeleteModule \"+ name + \" ?\"))
-                    {return true;}
-                else
-                    {return false;}
-            }
-            </script>";
-
   $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
   $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> $langLearningPathAdmin);
   $nameTools = $langInsertMyDocToolName;

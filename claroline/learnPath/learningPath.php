@@ -21,17 +21,6 @@
 
    if (! $is_courseAllowed) claro_disp_auth_form();
 
-  $htmlHeadXtra[] =
-            "<script>
-            function confirmation (name)
-            {
-                if (confirm(\" $langAreYouSureToDelete \"+ name + \" ?\"))
-                    {return true;}
-                else
-                    {return false;}
-            }
-            </script>";
-
   $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 
   $nameTools = $langLearningPath;

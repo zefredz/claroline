@@ -517,7 +517,7 @@
             echo    "
 			<td>
             	<a href=\"".$_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
-                        "onClick=\"return confirmation('".str_replace("\n","\\n",$langAreYouSureToRemove)." ",addslashes(htmlspecialchars($module['name']))," ? ";
+                        "onClick=\"return confirmation('".clean_str_for_javascript($langAreYouSureToRemove." ".$module['name'])." ? ";
             if ($module['contentType'] == CTSCORM_) 
               echo $langAreYouSureToRemoveSCORM ;
             elseif ( $module['contentType'] == CTLABEL_ )
@@ -561,7 +561,7 @@
             {
                 if( $module['lock'] == 'CLOSE' )
                 {
-                        $onclick = "onClick=\"return confirmation('".str_replace("\n","\\n",$langAlertBlockingMakedInvisible)."');\"";
+                        $onclick = "onClick=\"return confirmation('".clean_str_for_javascript($langAlertBlockingMakedInvisible)."');\"";
                 }
                 else
                 {
