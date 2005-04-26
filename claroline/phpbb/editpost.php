@@ -22,18 +22,23 @@
 
 require 'functions.php';
 require 'config.php';
+
+// $interbredcrump[]= array ('url'=>'index.php', 'name'=> $langForums);
+// This 'correct' breadcrump can be enabled because page header force toolName to Forums
 require 'page_header.php';
 
-if($is_courseAdmin)
+if($is_allowedToEdit)
 {
-	$pagetitle = "Edit Post";
-	$pagetype  = "index";
+	$pagetitle = 'Edit Post';
+	$pagetype  = 'index';
 
-	if($submit)
+	if($_REQUEST['submit'])
 	{
 		/*==========================
 		    FORM SUBMIT MANAGEMENT
 		  ==========================*/
+          
+        $post_id = (int) $_REQUEST['post_id'];
         $sql = "SELECT poster_id, forum_id, topic_id, post_time 
                 FROM `".$tbl_posts."` 
                 WHERE post_id = '".$post_id."'";
