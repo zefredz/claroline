@@ -268,7 +268,7 @@ if($dialogBox)
 //display tool links
 
 echo '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=formNew"><img src="'. $imgRepositoryWeb.'class.gif">'.$langCreateNewClass.'</a>'
-   . '<br><br>'
+   . '<br><br>'."\n"
    //display cols headers
    . '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
    . '<thead>'."\n"
@@ -291,9 +291,9 @@ echo '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=formNew"><img src="
    . '</tr>'."\n"
    . '</thead>'."\n"
     //display Class list
-   . '<tbody>'."\n"
-   . display_tree($class_list)
-   . '</tbody>'."\n"
+   . '<tbody><!-- hello -->'."\n";
+   display_tree($class_list);
+   echo '</tbody>'."\n"
    . '</table>'
    ;
 
