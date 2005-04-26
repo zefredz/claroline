@@ -32,7 +32,7 @@ $langIntroCourse = "Bienvenue sur la page d'accueil du cours.<br /><br />Vous po
 <li>changer les propriétés ou voir les statistiques (Cliquer sur les liens correspondants).
 </ul>
 Pour présenter votre cours aux étudiants, cliquer sur ce bouton.<br />";
-$langIntroEditToolList = "Sélectionner les outils que vous voulez activer.
+$langIntroEditToolList = "Sélectionnez les outils que vous voulez activer.
 Les outils invisibles seront grisés dans votre page d'accueil du cours.";
 $langLearningPath = "Parcours pédagogique";
 $langLogin = "login";
