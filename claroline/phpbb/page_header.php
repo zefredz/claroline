@@ -44,7 +44,13 @@ $nameTools = $langForums;
 
 include('../inc/claro_init_header.inc.php');
 
-$is_allowedToEdit = claro_is_allowed_to_edit();
+$is_allowedToEdit = claro_is_allowed_to_edit() 
+                    || ( $is_groupTutor && !$is_courseAdmin);
+                    // ( $is_groupTutor 
+                    //  is added to give admin status to tutor 
+                    // && !$is_courseAdmin)
+                    // is added  to let course admin, tutor of current group, use student mode
+                     
 $is_forumAdmin    = claro_is_allowed_to_edit();
 
 
@@ -171,9 +177,10 @@ if($is_forumAdmin)
 {
    if ( isset($catId) && $catId>0 ) $toAdd = '?forumgo=yes&amp;cat_id=' . $catId;
    $toolBar[] = '<a class="claroCmd" href="../forum_admin/forum_admin.php' . $toAdd . '">'
-                ."<img src=\"".$imgRepositoryWeb."settings.gif\"> " 
-                .$langAdm
-                ."</a>\n";
+              . '<img src="'.$imgRepositoryWeb.'settings.gif"> '
+              . $langAdm
+              . '</a>'."\n"
+              ;
 }
 
 switch($pagetype)
@@ -182,10 +189,10 @@ switch($pagetype)
 
 	case 'newtopic':
 
-		$toolBar [] =	$langBackTo.
-						"<a class=\"claroCmd\" href=\"".$url_phpbb."/viewforum.".$phpEx."?forum=".$forum."&amp;gidReq=".$_gid."\">".
-						$forum_name.
-						"</a>\n";
+		$toolBar [] = $langBackTo
+					. '<a class="claroCmd" href="'.$url_phpbb.'/viewforum.'.$phpEx.'?forum='.$forum.'&amp;gidReq='.$_gid.'">'
+					. $forum_name
+					. '</a>'."\n";
 		break;
 
 	case 'viewforum':
