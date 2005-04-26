@@ -405,7 +405,7 @@ $htmlHeadXtra[] =
 "<script>
 function confirmation (name)
 {
-    if (confirm(\" $langAreYouSureToDelete \"+ name + \" ? $langDeleteCaution \" ))
+    if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)." \"+ name + \" ? ".clean_str_for_javascript($langDeleteCaution)." \" ))
         {return true;}
     else
         {return false;}
@@ -681,7 +681,7 @@ if( (!isset($displayAssigForm) || !$displayAssigForm) )
         	echo "<tr".$style.">\n"
 				."<td>\n"
 		  		."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditAssig&amp;assigId=".$anAssignment['id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>\n"
-				."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmAssig&amp;assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",addslashes($anAssignment['title']),"');\"><img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>\n"
+				."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmAssig&amp;assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",clean_str_for_javascript($anAssignment['title']),"');\"><img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>\n"
 				;
 	        if ($anAssignment['visibility'] == "INVISIBLE")
 	        {

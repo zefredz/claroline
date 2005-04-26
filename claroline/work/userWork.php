@@ -830,7 +830,7 @@ $htmlHeadXtra[] =
 "<script>
 function confirmation (name)
 {
-	if (confirm(\" ".$langAreYouSureToDelete." \"+ name + \" ?  \" ))
+	if (confirm(\" ".clean_str_for_javascript($langAreYouSureToDelete)." \"+ name + \" ?  \" ))
 		{return true;}
 	else
 		{return false;}
@@ -1304,7 +1304,7 @@ if( $dispWrkLst )
 			
 			if( $is_allowedToEditAll )
 			{
-				echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;cmd=exRmWrk&amp;assigId=".$_REQUEST['assigId']."&amp;wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",addslashes($thisWrk['title']),"');\">"
+				echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;cmd=exRmWrk&amp;assigId=".$_REQUEST['assigId']."&amp;wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",clean_str_for_javascript($thisWrk['title']),"');\">"
 				    ."<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>";
 				
 				if ($thisWrk['visibility'] == "INVISIBLE")
