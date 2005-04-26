@@ -11,6 +11,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/Config
+ * @see http://www.claroline.net/wiki/index.php/CLGRP
  *
  * @author Claro Team <cvs@claroline.net>
  *
