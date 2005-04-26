@@ -81,10 +81,10 @@ if ($_gid && $is_groupAllowed)
     $groupDir          = 'group/'.$_group['directory']; 
 
     $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
-	$interbredcrump[]= array ("url"=>"../group/group_space.php", "name"=> $langGroupSpace);
+	$interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $langGroupSpace);
 
-    $is_allowedToEdit  = $is_groupMember || $is_courseAdmin;
-    $is_allowedToUnzip = FALSE;
+    $is_allowedToEdit  = $is_groupMember || $is_groupTutor|| $is_courseAdmin;
+    $is_allowedToUnzip =  FALSE;
 
     if (! ($is_groupMember || $is_courseAdmin || $is_groupTutor) )
     {
