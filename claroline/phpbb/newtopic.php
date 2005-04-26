@@ -66,7 +66,7 @@ if (   ! is_null($forumSettingList['idGroup'])
 
 
 
-if($submit)
+if($_REQUEST['submit'])
 {
     // Commented by the Claroline team
     //
@@ -106,7 +106,7 @@ if($submit)
     
     $userLastname  = addslashes($userdata['last_name']);
     $userFirstname = addslashes($userdata['first_name']);
-    $poster_ip     = $REMOTE_ADDR;
+    $poster_ip     = $_SERVER['REMOTE_ADDR'];
 
     $time      = date('Y-m-d H:i');
     
