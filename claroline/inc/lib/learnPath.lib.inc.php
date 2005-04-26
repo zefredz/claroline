@@ -189,7 +189,7 @@
 							."<img src=\"".$imgRepositoryWeb."edit.gif\" alt=\"",$langModify,"\" border=\"0\">\n"
 							."</a>\n"
                             ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=del".$col_name."\" 
-								onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\">\n"
+								onclick=\"javascript:if(!confirm('".clean_str_for_javascript($langConfirmYourChoice)."')) return false;\">\n"
 							."<img src=\"".$imgRepositoryWeb."delete.gif\" alt=\"",$langDelete,"\" border=\"0\">\n"
 							."</a>\n"
                             ."</small>\n"

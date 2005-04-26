@@ -983,7 +983,7 @@ function claro_disp_button($url, $text, $confirmMessage = '')
     {
         if ($confirmMessage != '')
         {
-            $onClickCommand =" if(confirm('".$confirmMessage."')){document.location='".$url."';return false}";
+            $onClickCommand =" if(confirm('".clean_str_for_javascript($confirmMessage)."')){document.location='".$url."';return false}";
         }
         else
         {
@@ -1107,7 +1107,7 @@ function claro_disp_html_area($name, $content =    '',
             $switchState = 'off';
             $message     = $langTextEditorDisable;
 			$areaContent = 'editor.getHTML()';
-            $confirmCommand = "if(!confirm('".$langSwitchEditorToTextConfirm."'))return(false);";
+            $confirmCommand = "if(!confirm('".clean_str_for_javascript($langSwitchEditorToTextConfirm)."'))return(false);";
         }
         else
         {
