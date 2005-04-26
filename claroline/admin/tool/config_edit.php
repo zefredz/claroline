@@ -383,7 +383,7 @@ if ( $display_form )
                     {
                         if ( is_array($conf_def_property_list[$property_name]) )
                         {
-                            $debugMsg['val'][]=var_export($conf_def_property_list[$property_name],1);
+                            // PHP 4.3 - $debugMsg['val'][]=var_export($conf_def_property_list[$property_name],1);
 
                             if ( isset($_REQUEST['prop'])  )
                             {
