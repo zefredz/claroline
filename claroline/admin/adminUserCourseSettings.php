@@ -31,7 +31,7 @@ $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
             "<script>
             function confirmationUnReg (name)
             {
-                if (confirm(\"".$langAreYouSureToUnsubscribe."\"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript($langAreYouSureToUnsubscribe)." \"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -198,7 +198,7 @@ if($dialogBox)
 
 // display TOOL links :
 
-echo "<a class=\"claroCmd\" href=\"adminuserunregistered.php?cidToEdit=".$cidToEdit."&cmd=UnReg&uidToEdit=".$user_id."\" onClick=\"return confirmationUnReg('".$prenom_form." ".$nom_form."');\">".$langUnsubscribe."</a> | ";
+echo "<a class=\"claroCmd\" href=\"adminuserunregistered.php?cidToEdit=".$cidToEdit."&cmd=UnReg&uidToEdit=".$user_id."\" onClick=\"return confirmationUnReg('".clean_str_for_javascript($prenom_form." ".$nom_form)."');\">".$langUnsubscribe."</a> | ";
 
 echo "<a class=\"claroCmd\" href=\"adminprofile.php?uidToEdit=".$uidToEdit."\">".$langGoToMainUserSettings."</a>";
 

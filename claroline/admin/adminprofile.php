@@ -34,7 +34,7 @@ $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
             {
-                if (confirm(\"".$langAreYouSureToDelete."\"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)." \"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -434,7 +434,7 @@ else
 
 // display TOOL links :
 
-echo "<a class=\"claroCmd\" href=\"adminuserdeleted.php?uidToEdit=".$user_id."&cmd=delete\" onClick=\"return confirmation('".$langAreYouSureToDelete." ".$username_form."');\" ><img src=\"".$imgRepositoryWeb."deluser.gif\" /> ".$langDeleteUser."</a> | ";
+echo "<a class=\"claroCmd\" href=\"adminuserdeleted.php?uidToEdit=".$user_id."&cmd=delete\" onClick=\"return confirmation('".clean_str_for_javascript($langAreYouSureToDelete." ".$username_form)."');\" ><img src=\"".$imgRepositoryWeb."deluser.gif\" /> ".$langDeleteUser."</a> | ";
 
 echo "<a class=\"claroCmd\" href=\"../auth/courses.php?cmd=rqReg&amp;uidToEdit=".$user_id."&amp;fromAdmin=settings&amp;category=\" >".$langRegisterUser."</a> | ";
 

@@ -34,7 +34,7 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
             "<script>
             function confirmation (name)
             {
-                if (confirm(\"".$langAreYouSureToDelete."\"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)." \"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -419,7 +419,7 @@ foreach($resultList as $courseLine)
     echo   "<td align=\"center\">\n",
 
                 "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&amp;delCode=".$courseLine['code'].$addToURL."\" ",
-                "onClick=\"return confirmation('",addslashes($courseLine['intitule']),"');\">\n",
+                "onClick=\"return confirmation('",clean_str_for_javascript($courseLine['intitule']),"');\">\n",
                 "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
                 "</a>\n",
             "</td>\n";

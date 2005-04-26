@@ -42,7 +42,7 @@ if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/
             "<script>
             function confirmationUnReg (name)
             {
-                if (confirm(\"".$langAreYouSureToUnsubscribe."\"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript($langAreYouSureToUnsubscribe)."\"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -223,7 +223,7 @@ foreach($resultList as $list)
      //  Unsubscribe link
         . '<td align="center">'."\n"
         . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=unsubscribe'.$addToUrl.'&amp;offset='.$offset.'&amp;userid='.$list['user_id'].'" '
-        . ' onClick="return confirmationUnReg(\''.addslashes($list['prenom'].' '.$list['nom']).'\');">'."\n"
+        . ' onClick="return confirmationUnReg(\''.clean_str_for_javascript($list['prenom'].' '.$list['nom']).'\');">'."\n"
         . '<img src="'.$imgRepositoryWeb.'unenroll.gif" border="0" alt="" />'."\n"
         . '</a>'."\n"
         . '</td>'."\n"

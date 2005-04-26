@@ -51,7 +51,7 @@ $htmlHeadXtra[] =
          "<script>
          function confirmationReg (name)
          {
-             if (confirm(\"".$langAreYouSureToUnsubscribe."\"+ name + \" ? \"))
+             if (confirm(\"".clean_str_for_javascript($langAreYouSureToUnsubscribe)." \"+ name + \" ? \"))
                  {return true;}
              else
                  {return false;}
@@ -306,7 +306,7 @@ foreach($resultList as $list)
      {
         echo  '<td align="center">'."\n"
             . '<a href="'.$_SERVER['PHP_SELF'].'?cidToEdit='.$cidToEdit.'&amp;cmd=unsub&amp;user_id='.$list['user_id'].'&amp;offset='.$offset.'" '
-            . 'onClick="return confirmationReg(\''.addslashes($list['username']).'\');">'."\n"
+            . 'onClick="return confirmationReg(\''.clean_str_for_javascript($list['username']).'\');">'."\n"
             . '<img src="'.$imgRepositoryWeb.'unenroll.gif" border="0" alt="'.$langUnsubscribe.'" />'."\n"
             . '</a>'."\n"
             . '</td>'."\n";

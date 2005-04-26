@@ -34,7 +34,7 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
             "<script>
             function confirmationUnReg (name)
             {
-                if (confirm(\"".$langAreYouSureToUnsubscribe."\"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript($langAreYouSureToUnsubscribe)." \"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -234,8 +234,8 @@ foreach($resultList as $list)
 
     //  Unsubscribe link
     echo   '<td align="center">'."\n"
-          .'<a href="'.$_SERVER['PHP_SELF'].'?uidToEdit='.$uidToEdit.'&amp;cmd=unsubscribe'.$addToUrl.'&amp;code='.$list['code'].'&amp;offset='.$offset.'\ '
-          .'onClick="return confirmationUnReg(\''.addslashes($resultTitle['prenom'].' '.$resultTitle['nom']).'\');">'."\n"
+          .'<a href="'.$_SERVER['PHP_SELF'].'?uidToEdit='.$uidToEdit.'&amp;cmd=unsubscribe'.$addToUrl.'&amp;code='.$list['code'].'&amp;offset='.$offset.'"'
+          .'onClick="return confirmationUnReg(\''.clean_str_for_javascript($resultTitle[0]['prenom'].' '.$resultTitle[0]['nom']).'\');">'."\n"
           .'<img src="'.$imgRepositoryWeb.'unenroll.gif" border="0" alt="'.$langDelete.'" />'."\n"
           .'</a>'."\n"
           .'</td>'."\n"

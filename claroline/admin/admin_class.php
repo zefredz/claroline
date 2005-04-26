@@ -54,7 +54,7 @@ $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
             {
-                if (confirm(\"".$langAreYouSureToDelete."\"+' '+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)."\"+' '+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -419,7 +419,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 		
             echo "  <td align=\"center\">\n"
                 ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=del&amp;class=".$cur_class['id']."\""
-                ."     onClick=\"return confirmation('",addslashes($cur_class['name']),"');\">\n"
+                ."     onClick=\"return confirmation('".clean_str_for_javascript($cur_class['name'])."');\">\n"
                 ."      <img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" >\n"
                 ."    </a>\n"
                 ."  </td>\n";
