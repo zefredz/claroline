@@ -176,6 +176,7 @@ function fill_tool_in_course($course_code,$tool_label)
     $course_repository = $coursesRepositorySys.$course[0]['path'];
     
     $_course['dbNameGlu'] = $course_dbNameGlu;
+    
     $tbl_cdb_names = claro_sql_get_course_tbl($course_dbNameGlu);
 	
     //echo '<p>$tbl_cdb_names= <pre>'.var_export( $tbl_cdb_names,1).'</pre>';        
@@ -285,7 +286,14 @@ function fill_tool_in_course($course_code,$tool_label)
             $chatLine = lorem("words",rand(3,20));
             $curChatRep = $course_repository.'/chat/';
             
-            if ( ! is_dir($curChatRep) ) claro_mkdir($curChatRep, 0777);
+            if ( ! is_dir($curChatRep) ) 
+            {
+                claro_mkdir($curChatRep, 0777);
+                if ( ! is_dir($curChatRep) ) 
+                {
+                    echo '<br> <b>création '.$curChatRep.' impossible</b>';
+                }
+            }
             $activeChatFile = $curChatRep.$course_id.'.chat.html';
             $timeNow = claro_disp_localised_date('%d/%m/%y [%H:%M]');
             if ( ! file_exists($activeChatFile))
@@ -317,17 +325,21 @@ function fill_tool_in_course($course_code,$tool_label)
         case 'CLDSC' : 
             break;
         case 'CLFRM' : 
-        
+            //return ' this  filler is broken';
             //add ONE post. 
             // in a existing or new cat
             // in a existing or new forum
             // in a existing or new topic
+
             $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
             $tbl_forum_forums     = $tbl_cdb_names['bb_forums'];
             $tbl_posts            = $tbl_cdb_names['bb_posts'];
             $tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
             $tbl_priv_msgs        = $tbl_cdb_names['bb_priv_msgs'];
             $tbl_topics           = $tbl_cdb_names['bb_topics'];
+
+            $tbl_forums = $tbl_forum_forums;
+            echo $tbl_topics;
             require_once '../../phpbb/functions.php';
 
             $resultPopulate = '<ul>';        
@@ -716,7 +728,8 @@ function lorem($units, $length)
 			case "paragraphs":
 				$aSentence = strtok($greeking, ".");
 				srand((double)microtime()*1000000);//seed random number generator
-				for ($ctrParagraph = 1; $ctrParagraph <= $length; $ctrParagraph++){
+				for ($ctrParagraph = 1; $ctrParagraph <= $length; $ctrParagraph++)
+				{
 					$paragraph = "";
 					$numberOfSentences = rand( 1, 3 );
 					for ($ctrSentence = 1; $ctrSentence <= $numberOfSentences; $ctrSentence++)
