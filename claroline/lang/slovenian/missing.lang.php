@@ -1,5 +1,7 @@
 <?php 
 $l_privnotify = "<br>You have %1\$s <a href=\"%2\$s\">new private message(s)</a>.";
+$langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "In case of interruption <sup>*</sup>, the <em>Claroline Upgrade tool</em> should restart automatically. 
+If it's not the case, click on the button below.";
 $langAddAClassToCourse = "Subscribe a class to course";
 $langAddCSVUsers = "Add a user list";
 $langAddCSVUsersInClass = "Add a user list in class";
@@ -92,6 +94,7 @@ $langAttempt = "Attempt";
 $langAttemptAllowed = "attempt allowed";
 $langAttempts = "Attempts";
 $langAttemptsAllowed = "attempts allowed";
+$langAuthentication = "Authentication";
 $langAvailableFrom = "Available from";
 $langBackModule = "Back to list";
 $langBackTo = "Back to :";
@@ -105,7 +108,6 @@ $langBackToLPAdmin = "Back to learning path administration";
 $langBackToMyCourseList = "Back to my course list";
 $langBackToUserList = "Back to user list";
 $langBackToUserSettings = "Back to user settings";
-$langBackupCourseInformation = "Backup course information";
 $langBlankSpace = "(Blank space)";
 $langBlock = "Block";
 $langBrowserCannotSeeFrames = "Your browser cannot see frames.";
@@ -133,7 +135,6 @@ $langChangePwdexp = "Enter new password twice to change, leave empty to keep it"
 $langChangeRaw = "Change minimum raw mark to pass this module (percentage) : ";
 $langChangedTool = "Tool accesses changed";
 $langChatResetBy = "Chat reset by";
-$langCheckemail = "Email verification";
 $langChooseDateHelper = "(d/m/y hh:mm)";
 $langClarolineNetNews = "Claroline.net news";
 $langClass = "Classes";
@@ -149,7 +150,9 @@ $langCloseWindow = "Close window";
 $langCodeAppearAlready = "This official code already appears in a previous line of the CSV file.";
 $langCodeCanBeEmpty = "Course code field needs to be completed";
 $langCodeUsed = "This official code is already used by another user.";
+$langConfigMenuContent = "Configuration Menu";
 $langConfiguration = "Configuration";
+$langConfigurationFile = "Configuration file";
 $langConfirm = "Confirm";
 $langConfirmDeleteExercise = "Are you sure you want to delete this exercise ?";
 $langConfirmDeleteGroups = "Are you sure you want to delete all groups ?";
@@ -174,14 +177,14 @@ $langCreateAnotherUser = "Create another new user";
 $langCreateAssignment = "Create a new assignment";
 $langCreateCourse = "Create course";
 $langCreateCourses = "Create course";
-$langCreateDirectory = "Create Directory";
 $langCreateDocument = "Create Document";
-$langCreateHyperlink = "Create Hyperlink";
+$langCreateHyperlink = "Create hyperlink";
 $langCreateLabel = "Create label";
 $langCreateModifyDocument = "Create/edit document";
 $langCreateNewClass = "Create a new class";
 $langCreateNewLearningPath = "Create a new learning path";
 $langCreateUser = "Create user";
+$langCreateUserAccount = "Create user account";
 $langCreationMailNotificationBody = "Course creation on";
 $langCreationMailNotificationSubject = "Course creation";
 $langCurrentAttachedDoc = "Current attached file";
@@ -192,21 +195,11 @@ $langCurrentStatus = "Current registration status : <br /> <br />
 $langCurrentTime = "Current time";
 $langDBConnectionParameters = "Mysql connection parameters";
 $langDBSettingNamesIntro = "
-				<p>
-                Install script will create main claroline databases.
-                You can create different databases for the main tables and for the tracking tables 
-				or use the same database for the two.<br />
-				You can also set an optionnal prefix for the main tables.
-				</p>
-				<p>
-                Afterwards, Claroline will create a new database for each created course.
-                You can specify a prefix for these databanames.
-				</p>
-                <p>
-                If you are allowed to use only one database by your database system administrator,
-                get back to the previous page and select option 'Single' for 'Database mode'.
-                </p>
-                ";
+The installer is going to create the main Claroline databases. 
+If you are limited by your database system administrator to use 
+only a single database, get back to the previous page 
+and select option 'single' for 'Database mode'.<BR><BR>
+";
 $langDBUse = "Database usage";
 $langDOCUMENTTypeDesc = "Document";
 $langDateLastWrite = "Last message was on : ";
@@ -232,7 +225,6 @@ $langDescriptionComment1 = "What is the place and the specificity of the course 
 $langDescriptionComment2 = "Information allowing the course to be identified (initials, title, a number of hours, hands-on...) and teaching it (surname, first name, office, Tel., e-mail, possible availabilities).  General presentation of the course in the program.";
 $langDevTools = "Devel Tools";
 $langDisable = "Disable";
-$langDiskQuota = "Disk quota";
 $langDiskUsage = "Disk Usage";
 $langDispClassAdded = "Display the class added";
 $langDocInsertedAsModule = "has been added as module";
@@ -287,7 +279,7 @@ $langErrorLanguageEmpty = "Language can not be empty";
 $langErrorLecturerEmpty = "Lecturer can not be empty";
 $langErrorMove = "You can not move a class in itself!";
 $langErrorMyOwnSettings = "You can not change your own status";
-$langErrorNameAlreadyExists = "Error : Name already exists";
+$langErrorNameAlreadyExists = "Error : Name already exists in the learning path or in the module pool";
 $langErrorNoModuleInPackage = "No module in package";
 $langErrorNoZlibExtension = "Zlib php extension is required to use this tool.  Please contact your platform administrator.";
 $langErrorOpeningManifest = "Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml";
@@ -347,6 +339,8 @@ $langFileOnly = "File (file required, description text optional)";
 $langFileRequired = "A file is required";
 $langFiles = "File list";
 $langFillCourses = "Build test courses";
+$langFillTheAreaToExplainTheMotivations = "Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).";
+$langFillToolCourses = "Fill tool courses";
 $langFillTree = "Insert categories of course";
 $langFillUsers = "Insert users";
 $langFilling = "Fill with test values";
@@ -360,6 +354,7 @@ $langForumDeleted = "Forum deleted";
 $langForumModified = "The forum has been modified";
 $langFree = "Free";
 $langFullScreen = "Fullscreen";
+$langFunctions = "Function list";
 $langGarbage = "Garbage";
 $langGlobalProgress = "Learning path progression : ";
 $langGoToMainUserSettings = "Go to main user settings";
@@ -367,15 +362,82 @@ $langGoToUserSettings = "Go to user settings";
 $langGroupAlwaysPrivate = "(always private)";
 $langGroupAssignment = "Groups (from groups tool, only group members can post)";
 $langGroupLimit = "Limit";
-$langGroupTutors = "Tutors";
+$langGroupTutors = "Group Tutors";
 $langHasBeenEnrolled = "has been enrolled";
+$langHelpAssignment = "Help assignment";
+$langHelpAssignmentContent = "<p>
+Assignment tool is a publication area for students. The course manager creates one or several assignment ( different zones of publication ) where the students will be able to publish their work.<br /><br />
+
+Each assignment can have different objectives or requirements : publication must be a file, or a text or a text and a file, publication can be made for a groupe instead of for a single user,...<br /><br />
+
+Students have the ability to modify their work after submission and the course manager can give them a feedback about their submissions.
+</p>
+<hr />
+
+<h4>Create an assignment</h4>
+<p>To create a new assignment course manager must enter in the assignment tool and click on the link \"Create a new assignment\".
+</p>
+<p>The form that is shown ask the course manager for&nbsp;:
+</p>
+<ul><li> a title&nbsp;: the name of the assignment
+</li><li> a description&nbsp;: the statement of the assignment, what learners have to do
+</li><li> a submission type&nbsp;:
+<ul><li> File&nbsp;: any type of file that can be uploaded, keep in mind that there is a size limit that depends on the platform, a text can be joined to describe the file
+
+</li><li> Text only&nbsp;: a text formatted using the wysiwyg editor
+</li><li> Text with an attached file&nbsp;: a text formatted using the wysiwyg editor and a file (file is not required)
+</li></ul>
+</li><li> a start date&nbsp;: date from when the users will be able to post a publication in the assignment
+</li><li> a end date&nbsp;: date until when the users will be able to post a publication in the assignment
+</li><li> the default publications visibility&nbsp;: choose if the publications will be available or not to others users
+</li><li> the assignment type&nbsp;:
+
+<ul><li> individual mode&nbsp;: any authenticated user can post a publication
+</li><li> group mode&nbsp;: the user must be a member of at least one group of the course to publish a work and the work will be posted in the name of the group
+</li></ul>
+</li><li> permission to upload after end date
+</li></ul>
+<p><br />
+<strong>Add an automatic feedback</strong>
+</p>
+<p>A feedback is a correct version of the assignment.  To add an automatic feedback to an assignment enter the assignment and click on the \"Edit automatic feedback\" link.  </p>
+<p>It can be a text or a file or both a text and a file.  The course manager can choose when this automatic feedback will be shown to users ( after assignment end date or after the first submission of the user in this assignment )
+</p>
+
+<hr />
+<h4>Works</h4>
+<p>Works are the publications uploaded by users.</p>
+<p>For each assignment the tool shows a list of all users registered in the course and for each user the title of the first work he published, the number of submissions and the number of feedbacks.
+The list of publications related to the user and the assignment can be view by clicking on the name of the user.</p>
+<p><strong>Submit a work</strong></p>
+<p>If the users has the right to submit a work he will be displayed a link to a submit form.</p>
+<p><strong>Work list</strong></p>
+<p>As a course manager you have the right to edit, delete, make visible/invisible any of the works.  You can also add a feedback for each work.
+</p>
+<ul>
+<li> <strong>Modify</strong>&nbsp;: If this icon appears it means that user can modify the content of the work, it appears when user is the course manager, when user is looking at his works or at his group works.
+
+</li>
+<li> <strong>Delete</strong>&nbsp;: This command allow the course manager to delete a work.
+</li>
+<li> <strong>Visible</strong>&nbsp;: If this icon appears for a work, it means that the work is visible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
+</li>
+<li> <strong>Invisible</strong>&nbsp;: If this icon appears for a work, it means that the work is invisible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
+
+</li>
+<li> <strong>Add feedback</strong>&nbsp;: allows the course manager to publish a feedback about the work of the user.  A feedback can be a file or a text or both with a private comment that only course manager(s) will be able to see and a score in pourcent.
+</li>
+</ul>
+
+
+
+";
 $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Here you can modify the content of the text zones displayed on the platform home page.";
 $langHigh_resources = "high resources";
 $langHomePageTextZone = "Home page text zones";
 $langHumanAndPhysicalResourcesComment1 = "What are the human and physical resources available?  What will be the nature of the framing?  What can the students expect from of the organisation team or the organisation of the teacher?";
 $langHumanAndPhysicalResourcesComment2 = "Presentation of the other teachers who will organise the course (assistants, researchers, student-monitors...), of the availability of the people, the buildings and the equipment or computer equipement available.";
 $langHumanAndPhysicalRessources = "Human and Physical Resources";
-$langINeedToCreateCourse = "I need to create a course";
 $langIfNotRedirect = "If not redirected ";
 $langImport = "Import";
 $langInFrames = "In frames";
@@ -405,21 +467,10 @@ $langIntroEditToolList = "Select the tools you want to make visible for your use
 
 An invisible tool will be greyed out on your personal interface";
 $langIntroLearningPath = "Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br><br>If you want to present your learning path to students, click on the button below.<br>";
-$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade.
-
-                These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
-$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to upgrade the data stored into the main Claroline tables
-
-                    (users, course categories, tools list, ...) and set it to be compatible with the new Claroline version.</p>
-
-                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this
-
-                   operation may take some time.</p>";
-$langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going to update course data (directories and database tables) one by one.
-
-                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
-
-                   this operation may take some time.</p>";
+$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade. These settings were stored into claroline/inc/conf/claro_main.conf.php in your previous platform version.</p>";
+$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to prepare the data stored into the <b>main Claroline tables</b>
+(users, course categories, tools list, ...) and set them to be compatible with the new Claroline version.</p><p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
+$langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going to prepare <b>course</b> data (directories and database tables) one by one and set it to be compatible with the new Claroline version.<p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
 $langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>";
 $langIntroText = "To send a message, select groups of users (marked with a * in the front)
 
@@ -460,49 +511,37 @@ $langLocation = "Location";
 $langMailAppearAlready = "This mail appears already in a previous line of the CSV file.";
 $langMailSynthaxError = "Mail synthax error.";
 $langMailUsed = "Mail is already used by another user.";
-$langMakeABackupBefore = "<p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
-
+$langMakeABackupBefore = "
+<p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
 installation and set them to be compatible with the new Claroline version. This upgrade proceeds in three steps:</p>
-
-
-
 <ol>
-
-
-
-<li>It will get your previous platform main settings and put them in a new configuration files</li>
-
-
-
-<li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.</li>
-
-
-
-<li>It will update one by one each course data (directories, database tables, ...)</li>
-
-
-
+<li>
+It will get your previous platform main settings and put them in a new configuration files
+</li>
+<li>
+It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.
+</li>
+<li>
+It will update one by one each course data (directories, database tables, ...)
+</li>
 </ol>
-
-
-
-<p>Before proceeding to this upgrade:</p>
-
-
-
+<p>
+Before starting the <em>Claroline Upgrade Tool</em>, 
+we recommend you to make yourself a complete backup of 
+the platform data (files and databases).
+</p>
 <table>
-
 <tbody>
-
-<tr valign=\"top\"><td>-</td><td>Make a complete backup of all your platform data (files and databases)</td><td>%s</td></tr>
-
-
-
+<tr valign=\"top\">
+<td>
+The data backup has been done</td>
+<td>%s</td>
+</tr>
 </tbody>
-
 </table>
-
-<p>You won't be allowed to start the upgrade process before this point is marked as 'done'.</p>
+<p>
+The <em>Claroline Upgrade Tool</em>
+is not able to start if you do not confirm that the data has been done.</p>
 
 ";
 $langMakeInvisible = "Make invisible";
@@ -521,7 +560,9 @@ $langMethodsOfEvaluationComment1 = "Precise details as to the means of evaluatio
 $langMin = "Minimum : ";
 $langMinuteShort = "min.";
 $langMissingValue = "Missing value";
+$langModeVerbose = "Mode Verbose";
 $langModifUserCourseSettings = "User course settings";
+$langModifyFormat = "Modify the format";
 $langModule = "Module";
 $langModuleMoved = "Module moved";
 $langModuleOfMyCourse = "Use a module of this course";
@@ -531,6 +572,7 @@ $langModulesPoolToolName = "Pool of modules";
 $langMoreRepliedTopics = "More replied topics";
 $langMoreSeenTopics = "More seen topics";
 $langMsgSent = "The message has been sent to the selected students";
+$langMultipleAnswers = "Multiple answers";
 $langMustSelectAFile = "You must select a file";
 $langMustSelectATxtFile = "You must select a text file";
 $langMyAgenda = "My calendar";
@@ -558,6 +600,7 @@ $langNoCourseResult = "There is no course matching such criteria";
 $langNoEndDate = "No closing date";
 $langNoEventInTheAgenda = "No event in the agenda";
 $langNoFile = "- none -";
+$langNoFunctionInThisSection = "No function in this extension";
 $langNoImage = "No image to display";
 $langNoLearningPath = "No learning path";
 $langNoModule = "No module";
@@ -570,6 +613,7 @@ $langNoScore = "No score";
 $langNoStartAsset = "There is no start asset defined for this module.";
 $langNoTimeLimit = "No time limitation";
 $langNoUserResult = "No user to display";
+$langNoVisibleAssignment = "There is no visible assignment at the moment.";
 $langNoVisibleSubmission = "No visible submission";
 $langNormalUser = "Normal";
 $langNotGroupMember = "You are not a member of this groups";
@@ -604,6 +648,7 @@ $langPlatformAdministration = "Platform Administration";
 $langPlatformAdministrator = "Platform Administrator";
 $langPleaseEnterMessage = "You must introduce the message text.";
 $langPleaseSelectUsers = "You must select some users.";
+$langPopulateTools = "Populate tools in courses";
 $langPrefix = "Prefix  : ";
 $langPreventLateUpload = "No, prevent users submitting work after the end date";
 $langPreview = "Preview";
@@ -616,7 +661,6 @@ $langProgInModuleTitle = "Your progression in this module";
 $langProgress = "Progress";
 $langPropertiesNotIncludeInSections = "Properties not include in sections";
 $langPublicOnly = "Public course only";
-$langPutOnFtpServer = "Put on ftp server";
 $langQantity = "Quantity  : ";
 $langQualificationsAndGoals = "Qualifications and Goals";
 $langQualificationsAndGoalsComment1 = "What are the teaching aims?  At the end of the course, what qualifications, capacities and knowledge will students be able to control, to mobilize?";
@@ -634,13 +678,13 @@ $langRegisterMyCampus = "Register my campus";
 $langRegisterTheNewUser = "Register this user to a course";
 $langRegisterUser = "Enrol to a new course";
 $langRegisterUserToClass = "Register user to class";
+$langRemainingSteps = "Remaining steps";
 $langRemoveAdminLevel = "No longer Admin";
 $langReplaceAttachedFile = "Replace attached file";
-$langRequestCourseManagerStatus = "Request a course manager status";
+$langRequestOfCourseCreatorStatus = "Request of Course Creator status";
 $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Request to the coder of this config to add theses proporties in a section of the definition file.";
 $langRequired = "Required";
 $langResetChat = "Reset";
-$langRestoreACourse = "Restore a course";
 $langRestoreCourseRepository = "Restore course repository";
 $langRevoquationOfUser = "Revocation of %s %s";
 $langRoot = "root";
@@ -663,6 +707,7 @@ $langSearchAgain = "Search again (advanced)";
 $langSearchCourse = "Search course";
 $langSearchCourseAdvanced = "Advanced course search";
 $langSearchOn = "Search on";
+$langSearchResult = "Search result";
 $langSearchUser = "Search user";
 $langSearchUserAdvanced = "Advanced user search";
 $langSecondShort = "sec.";
@@ -679,6 +724,7 @@ $langSize_of_claroline_scripts = " size of claroline scripts";
 $langSize_of_course_repository = "!!!! size of course repository (include claroline and garbage in old systems)";
 $langSize_of_selected_courses = "size of selected courses";
 $langSpecifyFormat = "You must specify the CSV format used in your file";
+$langStartAgain = "Start again";
 $langStartDate = "Start date";
 $langStartModule = "Start Module";
 $langStatsOfExercise = "Statistics of exercise";
@@ -703,7 +749,7 @@ $langSubscribeToCourse = "Subscribe to course";
 $langSubscribeUser = "Register user";
 $langSubscriptionAllowedOnly = "Subscription allowed only ";
 $langSubscriptionDeniedOnly = "Subscription denied only";
-$langSucceed = "succeed";
+$langSucceeded = "Succeeded";
 $langSummaryNavBar = "Navigation bar";
 $langSupports = " Support ";
 $langSupportsComment1 = "Does course support exist?  What type of support do I give?  Opened?  Closed?";
@@ -729,6 +775,8 @@ $langTool = "Tool";
 $langTopLevel = "top level";
 $langTopicReplies = "Replies";
 $langTotalTimeSpent = "Total time";
+$langTrackAllPath = "Learning paths tracking";
+$langTrackAllPathExplanation = "Progression of users on all learning paths";
 $langTrackForumUsage = "Forum usage";
 $langTrackTotalPosts = "Messages posted";
 $langTrackTotalTopics = "Topics started";
@@ -747,6 +795,8 @@ $langUnableToUpdate = "Unable to update the event into the agenda.";
 $langUnableUpdateExternalTool = "Unable to update external tool";
 $langUnamedModule = "Unamed module";
 $langUnamedPath = "Unamed path";
+$langUndist = "Undist";
+$langUniqueAnswer = "Unique answer";
 $langUnkownSOAPError = "An error occurred while contacting Claroline.net";
 $langUnlimitedAttempts = "Unlimited attempts";
 $langUnsubscribe = "Unregister user";
@@ -754,10 +804,13 @@ $langUnsubscribeClass = "Unregister from class";
 $langUntil = "to";
 $langUpdateImage = "Change picture";
 $langUpdatedExternalTool = "External tool updated";
+$langUpgradeCourseFailed = "Upgrade failed";
+$langUpgradeCourseSucceed = "Upgrade succeeded";
 $langUpgradeStep0 = "Backup confirm";
 $langUpgradeStep1 = "Step 1 of 3: platform main settings";
 $langUpgradeStep2 = "Step 2 of 3: main platform tables upgrade";
 $langUpgradeStep3 = "Step 3 of 3: courses upgrade";
+$langUpgradeSucceed = "The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.";
 $langUploadDoc = "Upload document";
 $langUploadedFile = "Uploaded file";
 $langUseFollowingFormat = " Use the following format : ";
@@ -820,16 +873,21 @@ $langYouCannotDelCatOfGroupsForums = "You cannot delete the group forum category
 
 If you need to remove group forums, you rather have to delete the group";
 $langYourBestScore = "Your best performance";
-$langYourRequestToBeCourseManagerIsSent = "Your request to become a course manager has been sent";
+$langYourRequestToBeCourseManagerIsSent = "Your request to become a course creator has been sent to platform administrator(s).";
 $langYourRequestToRemoveYourAccountIsSent = "Your request to remove your account has been sent";
 $langYourTime = "Your time is";
+$lang_CourseHasNoRepository_s_NotFound = "<strong>Course has no repository.</strong>
+<br><small>%s</small> Not found. ";
 $lang_EditFile_AdministrationTools = "Administration Tools";
 $lang_EditFile_ModifyOk = "Th changes have been carried out correctly";
-$lang_EditFile_NoAdmin = "You are not logged in as administrator";
+$lang_RetryWithMoreDetails = "Retry with more details";
+$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "The claroline main tables have been successfully upgraded";
+$lang_UpgradeFailedForCourses = "Upgrade tool is not able to upgrade the following courses :";
 $lang_add_user_list = "Add user list";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Are you sure you want to remove this course from your list ?";
 $lang_back_to_parent_category = "Back to parent category";
 $lang_click_here = "click here";
+$lang_continueCoursesDataUpgrade = "Continue courses data upgrade";
 $lang_do_you_want_to_continue = "Do you want to continue?";
 $lang_enroll_to_a_new_course = "Enrol on a new course";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";
@@ -854,6 +912,7 @@ $lang_faculty_NoMove_1 = "You can't move ";
 $lang_faculty_NoMove_2 = " in the same category !";
 $lang_faculty_imgDown = "Down";
 $lang_fields_enclosed_by = "Fields enclosed by";
+$lang_fileUpgrade = "File upgrade :";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_htAccessIncPath_added = "Folder <em>inc</em> protected";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "if you choose to continue, lines with errors will simply be ignored";
@@ -861,27 +920,45 @@ $lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user acc
 $lang_if_you_wish_to_enroll_to_this_course = "If you wish to enrol on this course";
 $lang_no_course_available_fitting_this_keyword = "No course available fitting this keyword";
 $lang_no_error_in_file_found = "No error in file found.";
+$lang_oldFileBackup = "Old file backup :";
 $lang_or_search_from_keyword = "Search from keyword";
+$lang_p_CannotCreate_s = "Cannot create %s";
+$lang_p_CannotRename_s_s = "Cannot rename %s to %s";
 $lang_p_ErrorOnBuild_S_for_S = "Error in building of <em>%s</em> for <B>%s</B>";
 $lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
+$lang_p_UpgradeMainClarolineDatabase_s = "Upgrading main Claroline database (<em>%s</em>)";
+$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Upgrading database of course <strong>%2\$s</strong><br><small>
+DB Name : %3\$s <br>
+Course ID: %4\$s</small></td></tr></table>";
+$lang_p_YouCan_url_retryToUpgradeTheseCourse = "Fix first the technical problem and <a href=\"%s\">relaunch the upgrade tool</a>.";
 $lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
+$lang_p_d_affected_rows = "%d affected rows";
 $lang_p_d_course = "%2d course";
 $lang_p_d_course_manager = "%2d prof ";
 $lang_p_d_course_managers = "%2d profs ";
 $lang_p_d_course_member = "%2d member";
 $lang_p_d_course_members = "%2d members";
 $lang_p_d_courses = "%2d courses";
+$lang_p_d_coursesToUpgrade = "%s course(s) to upgrade";
+$lang_p_d_errorFound = " %d errors found";
 $lang_p_d_student = "%2d student";
 $lang_p_d_students = "%2d students";
+$lang_p_expectedRemainingTime = " <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. --><b>Expected remaining time %s</b>.";
 $lang_p_nothing_to_edit_in_S = "nothing to edit in %s";
 $lang_p_platformManager = "Administrator for %s";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> has been sucessfully registered to the course";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> has not been sucessfully registered to the course";
+$lang_p_s_s_isInvalid = "%s : %s is invalid";
 $lang_recently = "recently";
 $lang_remove_course_enrollment = "Remove course enrolment";
 $lang_remove_course_from_your_personnal_course_list = "Remove course from your personal course list";
+$lang_rules_s_in_s = "Rules : %s in %s";
+$lang_seeInTheStatusBarOfYourBrowser = "(*) see in the status bar of your browser.";
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "The Claroline upgrade process completed";
 $lang_the_following_errors_were_found = "The following errors were found ";
 $lang_this_course_is_protected = "This course is protected";
+$lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  <br>
+Fix, first, the technical problem and relaunch the upgrade tool.";
 $lang_user_has_been_enrolled_to_the_course = "The user has been enrolled to the course";
 $lang_you_had_request = "You ask";
 $lang_you_have_been_enrolled_to_the_course = "You've been enrolled on the course";

@@ -1,109 +1,46 @@
 <?php 
-$l_aim = "AIM";
 $l_author = " ???? ??????? ";
 $l_banned = " ??? ??????? ?? ??? ???????. ?????? ??????? ???????? ?? ?????? ?? ????? ?????????";
 $l_body = " ????? ";
 $l_by = " ?? ";
-$l_cancelpost = " ????? ??? ??????? ";
 $l_click = " ???? ";
 $l_delete = " ??? ?????  ";
 $l_deleted = " ??? ??? ??????";
-$l_deletesucces = " ??? ???? ";
-$l_emailaddress = " ?????? ?????????? ";
 $l_emptymsg = " ?? ?????? ????? ???? ???";
-$l_enterpassword = "??? ?? ?????? ???? ?????";
 $l_error = " ??? ";
 $l_go = " ???? ??? ";
 $l_guest = " ???? ";
 $l_here = " ??? ";
-$l_icq = "ICQ";
-$l_icqadd = " ????? ";
-$l_icqpager = "Pager";
 $l_indextitle = " ????? ??????? ";
-$l_infoupdated = " ??? ????? ???????? ";
-$l_interests = " ???????? ";
-$l_itemsreq = "* ?? ??????? ??????? ?????????? ?? ??????? ???? ???? ???    ";
-$l_joined = " ????? ";
 $l_lastpost = " ??? ????? ";
-$l_location = "??";
-$l_messenger = "MSN Messenger";
-$l_mismatch = " ???? ????? ??? ????";
-$l_msn = "MSN";
-$l_new = " ?????? ";
-$l_nomatches = " ??? ???? ????? ????? ??????. ?????? ????? ";
-$l_nopmsgs = " ??? ????? ????? ?????";
 $l_nopostlock = " ?? ???? ??? ??????? ?? ??? ???????";
 $l_noposts = "Pas de  ????? ";
-$l_norecipient = " ??? ????? ??? ?????? ?????? ???? ??????? ?? ??? ???????";
 $l_notify = " ????? ?? ???? ?????? ?????????? ????? ???? ??????? ";
 $l_notifysubj = " ???? ???????? ?????? ??? ???????";
 $l_notopics = " ???? ???????? ?????? ????? ?????   ?? ???? ?????       ";
-$l_nouser = " ??? ?????? ?????? ??? ??? ?????";
-$l_nousers = " ?? ??? ?? ??????? ?????? ?? ?????????  ";
-$l_number = " ??? ";
-$l_occupation = " ??????? ";
-$l_oftotal = " ?? ??????? ";
-$l_onlyreq = " ????? ?? ???? ??????? ";
-$l_options = " ?????? ";
-$l_perday = " ????? ?? ????? ";
-$l_pmposted = "Réponse postée, vous pouvez cliquer <a href=\"viewpmsg.php\">ici</a> pour voir vos  ??????? ??????? ";
 $l_posted = " ??? ??? ";
 $l_poster = " ???? ";
 $l_posts = " ????? ";
-$l_profile = " ????? ";
-$l_profileof = " ???? ??? ????? ";
-$l_publicmail = " ?????? ??????? ?????  ???????? ???????????     ";
 $l_quotemsg = "[quote]
 Le %1\$s, %s2\$s a écrit:
 %3\$s
 [/quote]";
-$l_recptname = " ??? ?????? ?????? ???? ??????? ???????? ";
-$l_replies = " ????? ";
-$l_reply = "????";
-$l_replyquote = " ??????? ?? ??? ";
 $l_returnindex = " ?????? ??? ????? ??????? ";
 $l_returntopic = " ?????? ??? ????? ?????? ???????";
-$l_searchall = "    ???? ?? ??? ?? ??? ??????? ";
-$l_searchallfrm = " ???? ?? ??? ????????? ";
-$l_searchany = " ???? ?? ??? ?? ??? ??????? ????? ??? ??????";
-$l_searchin = " ???? ?? ";
-$l_searchterms = " ??????? ???????? ";
 $l_selectforum = " ??????? ????? ";
-$l_sendothermsg = " ??? ????? ???? ???? ";
-$l_sendpmsg = " ????? ????? ????? ";
 $l_separator = "» »";
-$l_sigexplain = " ??? ???? ?????? ??? ??????? ???? ?????<BR>255 caractères max!";
-$l_signature = " ??????? ";
-$l_sortby = " ??? ??? ";
 $l_stored = " ??? ????? ???????";
 $l_subject = " ????? ";
 $l_topic = " ????? ";
 $l_topicreview = " ????? ??? ?? ??????? ";
 $l_topics = " ?????? ";
 $l_topictitle = " ????   ??????? ";
-$l_toreturn = " ?????? ";
-$l_tryagain = " ?????? ??? ?????? ??????? ?????";
-$l_url = "URL";
-$l_userdisallowed = " ??? ?????? ?????? ???? ???????? ??? ????? ?? ?? ??? ????? ?????? ???? ?????";
-$l_username = " ??? ?????? ?????? ";
-$l_userpass = " ??????? ?????? ??? ?????? ?????? ????? ?????";
-$l_userremoved = "Ce membre a été retiré de la base de données.";
-$l_usertaken = " ??? ?????? ?????? ???? ???????? ?????? ?? ??? ???    ";
 $l_viewforum = " ???? ??? ???????   ";
 $l_viewmsg = " ??? ??? ???????";
-$l_viewpostuser = " ???? ??? ????? ??? ????? ";
-$l_website = " ????? ??????";
-$l_whosonline = " ?? ??? ???? ??  ";
-$l_wrongpass = " ???? ???? ??? ???? ";
-$l_yahoo = "Yahoo Messenger";
-$l_yim = "YIM";
-$l_yourname = " ??? ?????? ?????? ";
 $langActivate = " تشغيل ";
-$langAdd = " أضف ";
 $langAdd = " إضافة ";
 $langAddAU = "Ajouter des utilisateurs";
 $langAddAnn = " إضافة إعلان ";
-$langAddCat = " إضافة صنف";
 $langAddCategory = " إضافة فئة ";
 $langAddComment = " إضافة/تعديل تعليق ";
 $langAddEvent = " إضافة حدث ";
@@ -116,10 +53,8 @@ $langAddedToCourse = "était déjà enregistré sur le campus, mais pas encore i
 				Nous l'y avons inscrit";
 $langAddress = "L'adresse de";
 $langAdm = "?????";
-$langAdminBy = " إدارة من طرف   ";
 $langAdmitError = " اعتراف المرء بأخطائه لدعوة المخاطب للعمل بالمثل ";
 $langAgain = "Recommencez!";
-$langAgenda = " أجنده ";
 $langAgenda = "أجنده";
 $langAnd = "و";
 $langAnnAdd = " تمت إضافة الإعلان ";
@@ -129,25 +64,13 @@ $langAnnModify = " تمّ تغيير الإعلان";
 $langAnnouncement = " إعلانات ";
 $langAnonymous = " مجهول ";
 $langAnswer = " جواب ";
-$langAnswers = " أجوبة ";
 $langAntique = " تاريخ الفلسفة العتيقة ";
 $langArchive = " أرشيف ";
-$langArchiveCourse = " إضافة درس بالأرشيف ";
-$langArchiveLocation = " مكان الأرشيف ";
-$langArchiveName = " اسم الأرشيف ";
-$langBUAnnounceInMainBase = " تخزين معلومات عن إعلانات الدرس           ";
-$langBUCourseDataOfMainBase = " تخزين معلومات عن الدرس         ";
-$langBUUsersInMainBase = " تخزين معلومات عن         مستعملي الدرس";
 $langBack = " رجوع ";
 $langBackAndForget = " ترك ";
 $langBackCat = " رجوع إلى الفئات ";
 $langBackHomeOf = " رجوع إلى ص�?حة الاستقبال ";
 $langBackList = " رجوع إلى القائمة ";
-$langBackUser = "Retour à la liste des utilisateurs";
-$langBackupCourse = " إضا�?ة الدّرس إلى الأرشي�? ";
-$langBackupOfDataBase = " تخزين خزينة المعلومات ";
-$langBackupSuccesfull = " تخزين ناجح ";
-$langBuildTheCompressedFile = "خلق أرشيف ";
 $langByDel = " بإزالة هذا الموقع تزيلون كل الوثائق التي يحويها وتلغون كل الطلبة المرسمين هل ترغبون حقا �?ي محو الدرس؟";
 $langCancel = " إلغاء ";
 $langCatagoryGroup = " منتديات المجموعات ";
@@ -170,29 +93,22 @@ pour vous rappeler nom d'utilisateur et mot de passe à introduire lors de votre
 </p>
 <p>En cas de problème, contactez votre responsable réseau ou le responsable de ce campus virtuel. Vous pouvez aussi publier un message sur le forum de support de <a href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>";
-$langClose = " إغلاق ";
 $langClose = " غلق النافذة ";
-$langCode = " رمز الدّرس ";
 $langCode = " رمز الدرس ";
 $langComMod = "تعليق معدل;";
 $langComment = " تعليق ";
 $langConfTip = " إن رغبتم �?ي الحصول على حدّ أدنى من السريّة ، �?يك�?ي أن ت�?تحوا الترسيم لمدة أسبوع ليتمكن الطلبة من الترسيم بأن�?سهم ثم يتم غلق الترسيم والتثبت من الدخلاء بالإطلاع على قائمة مستعملي الموقع";
 $langConfirmation = "confirmation";
-$langContenuPlan = "";
 $langContradiction = " استخدام مبدأ عدم التناقض لجرّ المخاطب نحو الطريق المسدودة ";
 $langCopy = " نسخ ";
-$langCopyDirectoryCourse = " نسج جذاذيات الدرس                              ";
 $langCouldNot = " لم نتمكن من إرسال الجذاذيّة ";
 $langCourse = " course ";
 $langCourseCreate = " خلق موقع للدروس ";
 $langCourseDescription = " اكتب هنا الوصف الذي يظهر لك في قائمة الدروس (محتوى هذا الحقل لا يظهر الآن في أي مكان وهو لا يوجد هنا إلا حالة إعداد لصيغة جديدة لكارولين)";
 $langCourseProgram = " برنامج الدرس ";
-$langCourseTitle = " الدّرس عنوان  ";
 $langCourseTitle = " عنوان ";
 $langCreate = " خلق ";
-$langCreateClaroTables = " خلق جداول الخزينة الأساسيّة ";
 $langCreateDir = " خلق ملف";
-$langCreateMissingDirectories = " خلق الملفات الناقصة   ";
 $langCreateSite = " خلق موقع درس ";
 $langDate = " تاريخ ";
 $langDay = " يوم ";
@@ -200,21 +116,14 @@ $langDay_of_weekNames = "Array";
 $langDear = "Cher(ère)";
 $langDelAdmin = "  للإزالة عن طريق إداري المنتدى";
 $langDelCourse = " إزالة موقع هذا الدرس ";
-$langDelete = " �?سخ ";
 $langDelete = " إلغاء ";
 $langDeleteGroups = " إلغاء كلّ المجموعات ";
 $langDepartmentUrl = " القسمURL ";
 $langDepartmentUrlName = " قسم ";
-$langDescription = " وص�? ";
-$langDescription = " وصف ";
 $langDescription = " الوصف ";
-$langDetail = " تفاصيل ";
 $langDetail = " تفاصيل جزئية ";
-$langDiffTranslation = " مقارنة الترجمات ";
 $langDirCr = "r&eacute;pertoire cr&eacute;&eacute;";
 $langDirMv = "ملف محول;";
-$langDisk_free_space = "    فضاء حرّ";
-$langDoc = " وثائق ";
 $langDocContent = "<p>Le module de gestion de document fonctionne de
  mani&egrave;re semblable &agrave; la gestion de vos documents sur un
  ordinateur. </p><p>Vous pouvez y d&eacute;poser des documents de tout type
@@ -360,7 +269,6 @@ $langEmptyAnn = " محو كلّ الإعلانات ";
 $langEmptyFields = "Vous n'avez pas rempli tous les champs.
 Utilisez le bouton de retour en arrière de votre navigateur et recommencez.";
 $langEmtpyGroups = " إفراغ كلّ المجموعات ";
-$langEnter = " ارجعوا إلى قائمة درسكم ";
 $langEnter = " دخول ";
 $langEx = " مثال <i> تاريخ الأدب </i>";
 $langExMessage = " مثال رسالة ";
@@ -369,16 +277,10 @@ $langExerciceEx = " مثال تمرين ";
 $langExercices = " تمارين ";
 $langExercises = " تمارين ";
 $langExistingGroups = " مجموعات ";
-$langExplanation = " يتم خلق موقع يحتوي على منتدى على قائمة روابط، على تمارين ، على أجنده، على قائمة وثائق...عند الضغط على ...يمكنكم تغيير محتوى هذا الموقع بواسطة معرفكم";
 $langExplanation = ">         يجب أن تكون هذه الصفحة على \"                                                                                                                                                                 
  شكل  HTML (p. ex. \"ma_page.htm\"). HTML سوف تكون مرتبطة بصفحة الانطلاق، إذا أردتم إرسال وثيقة على شكل مخالف لـ استعملو الأداة <a href=../document/document.php> Documents</a>";
-$langExplanation = ">         يجب أن تكون هذه الصفحة على \"                                                                                                                                                                 
- شكل  HTML (p. ex. \"ma_page.htm\"). HTML سوف تكون مرتبطة بصفحة الانطلاق، إذا أردتم إرسال وثيقة على شكل مخالف لـ استعملو الأداة <a href=../document/document.php> Documents</a>";
-$langFac = " صنف ";
-$langFaculty = "جامعة ";
 $langFields = "Vous n'avez pas rempli tous les champs";
 $langFieldsRequ = " يجب الإدلاء بكلّ المعلومات   ";
-$langFileCopied = " جذاذيات منسوخة";
 $langFileExists = " عملية مستحيلة
 <br> توجد جذاذيّة أخرى بنفس    الاسم;.";
 $langFillGroups = " ملأ المجموعات";
@@ -389,15 +291,10 @@ $langForCategories = " فئات المنتديات ";
 $langForContent = " إذا أردتم مثلا ، خلق صنف \" نقاشات في إطار مجموعات صغيرة \" عليكم أن تخلقوا مجموعا من المنتديات في صنف كان ، مثال \"مجموعة1\" ، \"مجموعة 2\" ، \" مجموعة 3\"...الخ يمكن أن يكون وصف منتدى مجموعة ما قائمة الأشخاص الذين يستدعون النقاش، مع إضافة تبرير لإقامته. إن خلقتم سبب أو لآخر منتدى \" نداء للإعانة\" يمكنكم لغاية الوصف، إضافة \" الإشارة للصعوبات بالنسبة إلى المحتوى أو إلى الجهاز.";
 $langForName = " إسم المنتدى ";
 $langForce = " حمل المخاطب - عن طريق جملة من الأسئلة والأسئلة الفرعيّة - على الاعتراف بأنه لا يعرف ما يدعي معرفته.  ";
-$langFormula = " أستاذكم  ";
 $langFormula = "Cordialement";
 $langForum = " منتدى ";
 $langForumGroup = " منتدى المجموعة ";
-$langForums = " منتديات ";
-$langForums = " منتديات    ";
 $langForums = "منتديات";
-$langGettingStarted = "  ؟ كيف تنطلق ";
-$langGroup = " مجموعة ";
 $langGroup = "Groupe";
 $langGroupAllowStudentRegistration = " طلبة مرخصون للترسيم بالمجموعات";
 $langGroupContent = "<p><b>Introduction</b></p>
@@ -459,7 +356,6 @@ $langGroupSelfRegInf = " أرسّم نفسي ";
 $langGroupSelfRegistration = " ترسيم ";
 $langGroupSettingsModified = " تمّ تعديل ثوابت هذه المجموعة";
 $langGroupSpace = " فضاء المجموعة ";
-$langGroupSpaceLink = " ???? ???????? ";
 $langGroupSpaceLink = " فضاء المجموعة ";
 $langGroupStudentsInGroup = " الطلبة المرسمون في هذه المجموعة   ";
 $langGroupStudentsRegistered = " الطلبة المرسمون في هذا الدرس ";
@@ -479,11 +375,8 @@ $langHFor = " إعانة للمنتديات  ";
 $langHHome = " إعانة متعلّقة بصفحة الإستقبال ";
 $langHUser = "Aide utilisateurs";
 $langHasDel = " تمّت إزالة الدرس ";
-$langHelp = " ????? ";
 $langHelp = " إعانة ";
 $langHelpGroups = "Gestion des groupes";
-$langHome = " رجوع إلى ص�?حة الإستقبال ";
-$langHome = " رجوع إلى صفحة الاستقبال";
 $langHome = "Retourner à l'accueil";
 $langHomeContent = " جلّ جداول (خانات) ايكامبوس ممتلئة بعد بنص صغير أو برابط حمل وضعهما عن طريق الخطأ أو على سبيل المثال. فالمطلوب منكم تحويرهما. كأن يكون ثمّة نصّ صغير. واضح للرؤية يتصدر موقعكم . يبتدئ هذا النص بـ\" هذا هو نص مدخل موقعكم...\" حوّروه واستغلوه لوصف درسكم وأهدافكم وجهازكم. فمرئيّة عملكم رهينة ذلك. فعديد الأدوات ( اجيندا، وثائق، تمارين..)تنشط من أجلكم عن طريق الخطأ عندما تتولون خلق موقعكم. فمن المستحسن بالنسبة إليكم أن تعطّلوا الأدوات التي لا تستعملونها حتى لا تضيعوا الوقت على مستعمليكم أو زائريكم. يمكنكم إضافة ورقات لورقة الاستقبال أيضا. استعملوا  أداة \" أضف صفحة\" لإضافة صفحة مع إرسالها نحو المزوّد. أمّا إذا أردتكم الإحالة على صفحة أو موقع موجودين، فاستعملوا أداة \"الربط نحو الموقع\". ويمكن للصفحات والروابط التي تضيفونها للصفحة الأولى أن تكون معطّلة ثمّ ملغاة خلافا للأدوات الموجودة عن طريق الخطأ والتي يمكن أن تكون معطلة دون أن تكون ملغاة. والأمر موكول لكم أن تقرّروا إن كان يجب على درسكم أن يظهر بقائمة الدروس من المفضّل أن لا يظهر بقائمة الدروس (انظر وظيفة \" خاصيات الدرس\") كلّ درس لا يزال في حالة \" تجريب\" أو بصدد الإعداد، وأن يظل إمكانية تسجيل طيلة الوقت الذي يستغرقه تصوّر إعداده.";
 $langHour = " ساعة ";
@@ -495,22 +388,17 @@ $langInvalidId = " هذا المعرّف غير صالح. إن كنتم غير �
 $langIs = "est";
 $langJustCreated = " خلقتم موقع الدرس ";
 $langLanguage = "Langue";
-$langLast30Days = " الثلاثون يوما الأخيرة ";
 $langLast7Days = " السبعة أيّام الأخيرة ";
 $langLastMsg = " ??? ????? ";
 $langLastMsgs = " ??? ??????? ";
 $langLasting = " مدّة ";
-$langLink = " روابط ";
 $langLink = " رابط ";
-$langLinkSite = "   إضافة رابط نحو صفحة الاستقبال";
-$langLinkSite = " رابط نحو الموقع ";
 $langLinkSite = "إضا�?ة رابط نحو ص�?حة الاستقبال ";
 $langLinks = " روابط ";
 $langLoginBeforePost1 = " ???? ????? ?? ??????? ";
 $langLoginBeforePost2 = " ??? ????? ";
 $langLoginBeforePost3 = " ??????? ??????? ";
 $langLogout = " خروج ";
-$langManager = " المسؤول ";
 $langManager = "Gestionnaire";
 $langManyAnswers = "( الأجوبة الصحيحة العديدة ممكنة  )";
 $langMax = " أعلى درجة ";
@@ -526,15 +414,10 @@ $langMonth = " شهر   ";
 $langMonthNames = "Array";
 $langMove = "تحويل";
 $langMyCourses = " دروسي ";
-$langMyGroup = " ??? ???????? ";
 $langMyGroup = " مجموعتي ";
 $langNameCat = " تمّ تغيير إسم الفئة ";
 $langNameDir = " اسم الملف الجديد";
 $langNameOfLang = "Array";
-$langNbAnnoucement = " عدد الإعلانات ";
-$langNbLogin = "Nombre de login";
-$langNbProf = " عدد الأساتذة ";
-$langNbStudents = " عدد الطلبة ";
 $langNewBloc = " آخر ";
 $langNewEx = " تمرين جديد ";
 $langNewGroupCreate = " خلق مجموعات جديدة ";
@@ -543,7 +426,6 @@ $langNewQu = " سؤال جديد ";
 $langNewToOld = " عكس ";
 $langNewTopic = " ????? ???? ?????";
 $langNext = " التالي ";
-$langNo = " لا ";
 $langNo = "non";
 $langNoEx = " لا يوجد تمارين حاليا ";
 $langNoGroupStudents = " طلبة بدون مجموعة ";
@@ -559,7 +441,6 @@ $langOkSent = " تمّ إرسال هذه الصفحة <p> يمكن الإطّل�
 $langOldToNew = " عكس ";
 $langOn = " على ";
 $langOneByOne = "Ajouter manuellement un utilisateur";
-$langOneMyGroups = " ??? ?????? ";
 $langOneMyGroups = " أحد مجموعاتي ";
 $langOneResp = "L'un des responsables du cours";
 $langOrganisation = " نظام المنتديات ";
@@ -576,7 +457,6 @@ $langPrivate = " خاصّ ";
 $langPrivateAccess = " دخول خاص, ترسيم مغلق(/(موقع مخصص للأشخاص الموجودين على القائمة<a href=../user/user.php> مستعملو الموقع </a>)";
 $langProblem = "En cas de problème, n'hésitez pas à prendre contact avec nous";
 $langProfessor = " أستاذ ";
-$langProfessors = " أصحاب الدّرس ";
 $langProfessors = " أصحاب الدرس  ";
 $langProfileReg = "Votre nouveau profil a été enregistré";
 $langPubl = " نشر يوم ";
@@ -605,14 +485,11 @@ $langSendPage = " الصفحة التي سترسل ";
 $langSettings = "avec les paramètre suivants:
 Nom d'utilisateur:";
 $langSize = " حجم ";
-$langSizeOf = "حجم";
 $langSocraticIrony = " تتمثل السخرية ، السقراطيّة... ";
 $langStatistics = " إحصاءات ";
 $langStatus = "Action";
 $langStudent = "étudiant";
 $langSubTitle = " يضاف رابط داخليّا أو خارجيا نحو صفحة انطلاقا من صفحة الاستقبال  ";
-$langSysInfo = " معلومات عن النظام ";
-$langTableStructureDontKnow = " هذا الجدول غير  معروفة  ";
 $langTaken = "est déjà pris. Choisissez-en un autre.";
 $langTargetFac = " الأمر متعلّق بالجامعة، القسم، المدرسة،التى يعطى فيها الدرس ";
 $langTestForum = " منتدى تجريبي";
@@ -623,11 +500,9 @@ $langTitle = " عنوان ";
 $langTo = " إلى ";
 $langToday = " اليوم ";
 $langTodo = " اقتراحات ";
-$langTooBig = " لم تختاروا جذاذيّة أو أنّ جذاذيتكم كبيرة الحجم ";
 $langTooBig = " لم تختاروا جذاذية بالبعث أو أن الجذاذية كبيرة الحجم";
 $langTools = " أدوات ";
 $langTrue = " صحيح ";
-$langTutor = "Tuteur";
 $langUncompress = "Décompresser fichier zipé (.zip)";
 $langUncompulsory = "( غير إجباري)";
 $langUnreg = "Désinscrire";
@@ -653,21 +528,17 @@ $langUserContent = "<b>Droits d'administration</b>
 et validez. La personne recevra un courriel de confirmation de son 
 inscription contenant son nom d'utilisateur et son mot de passe, sauf si
 vous n'avez pas introduit son email.</p>";
-$langUserName = " إسم مستخدم الموقع     ";
 $langUserName = "Nom d'utilisateur";
 $langUserNo = "Le nom d'utilisateur que vous avez choisi";
 $langUserNumber = "nombre";
 $langUserOneByOneExplanation = "Il recevra par courriel nom d'utilisateur et mot de passe";
 $langUserTaken = "Le nom d'utilisateur que vous avez choisi est déjà pris";
-$langUsers = " مستعملو الموقع";
-$langUsers = "Utilisateurs";
 $langUsers = "مستعملو الموقع";
 $langValid = " تسجيل ";
 $langViMod = "Visibilit&eacute; modifi&eacute;e";
 $langVisible = " مرئي/غير مرئي ";
 $langWork = " أشغال ";
 $langYear = " سنة ";
-$langYes = " نعم ";
 $langYes = "oui";
 $langYouAreReg = "Vous êtes inscrit(e) sur";
 $langYourReg = "Votre inscription sur";

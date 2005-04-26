@@ -1,5 +1,7 @@
 <?php 
 $l_privnotify = "<br>You have %1\$s <a href=\"%2\$s\">new private message(s)</a>.";
+$langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "In case of interruption <sup>*</sup>, the <em>Claroline Upgrade tool</em> should restart automatically. 
+If it's not the case, click on the button below.";
 $langAddAClassToCourse = "Subscribe a class to course";
 $langAddCSVUsers = "Add a user list";
 $langAddCSVUsersInClass = "Add a user list in class";
@@ -40,13 +42,13 @@ $langAttachedFile = "Attached file";
 $langAttempt = "Attempt";
 $langAttemptAllowed = "attempt allowed";
 $langAttemptsAllowed = "attempts allowed";
+$langAuthentication = "Authentication";
 $langAvailableFrom = "Available from";
 $langBackTo = "Back to :";
 $langBackToClass = "back to the class";
 $langBackToClassList = "Back to class list";
 $langBackToClassMembers = "Back to class members";
 $langBackToMyCourseList = "Back to my course list";
-$langBackupCourseInformation = "Backup course information";
 $langBlankSpace = "(Blank space)";
 $langBuildCompleteLangFile = "Complete language files";
 $langBuildEmptyLangFile = "Empty language file";
@@ -63,7 +65,6 @@ $langCampusSubmitted = "<strong>Submitted</strong><p>Waiting for validation by C
 $langCannotBeBlank = "You cannot give a blank name to a class";
 $langCannotCopyFile = "Cannot copy the file.";
 $langCannotInitChat = "Error : Cannot initialize chat";
-$langCheckemail = "Email verification";
 $langChooseDateHelper = "(d/m/y hh:mm)";
 $langClarolineNetNews = "Claroline.net news";
 $langClass = "Classes";
@@ -77,6 +78,8 @@ $langClassRegistered = "Class registered";
 $langCloseWindow = "Close window";
 $langCodeAppearAlready = "This official code already appears in a previous line of the CSV file.";
 $langCodeUsed = "This official code is already used by another user.";
+$langConfigMenuContent = "Configuration Menu";
+$langConfigurationFile = "Configuration file";
 $langConfirmDeleteGroups = "Are you sure you want to delete all groups ?";
 $langConfirmDeleteStats = "If you delete the courses statistics there is no way to get them back !<br /><br />Are you sure you want to completely delete the statistics ?";
 $langConfirmEmptyGroups = "Are you sure you want to empty all groups ?";
@@ -88,8 +91,8 @@ $langCourseContentComment1 = "What is the importance of the various content to b
 $langCourseContentComment2 = "Presentation of the content of the course, the structuring of the content, the progression and the calendar";
 $langCourseManagerStatusToUser = "Course creator status to %s %s";
 $langCreateAssignment = "Create a new assignment";
-$langCreateDirectory = "Create Directory";
 $langCreateNewClass = "Create a new class";
+$langCreateUserAccount = "Create user account";
 $langCurrentAttachedDoc = "Current attached file";
 $langCurrentDoc = "Current file";
 $langCurrentFeedbackFile = "Current feedback file";
@@ -110,7 +113,6 @@ $langDescUpdated = "Description updated.";
 $langDescriptionComment1 = "What is the place and the specificity of the course in the programme?  Do there exist pre-required courses?  What are the relationships to other courses?";
 $langDescriptionComment2 = "Information allowing the course to be identified (initials, title, a number of hours, hands-on...) and teaching it (surname, first name, office, Tel., e-mail, possible availabilities).  General presentation of the course in the program.";
 $langDisable = "Disable";
-$langDiskQuota = "Disk quota";
 $langDispClassAdded = "Display the class added";
 $langDocumentation = "Documentation";
 $langDownloadAttachedFile = "Download attached file";
@@ -146,145 +148,99 @@ $langErrorValuesInDouble = "Error : One or more values are doubled";
 $langExeAvgTime = "Average Time (s.)";
 $langExeTime = "Time (s.)";
 $langExerciseClosing = "Exercise ends";
-$langExerciseContent = "<p>The exercise tool allows you to create exercises that will contains as many questions as you like.<br><br>
+$langExerciseContent = "<h4>What is the exercise tool ?</h4>
+This tool allow you to create online exercises composed of a list of questions. The questions can be of different kinds, students can fill in the exercises and if they are registered to your course, their scores will be stored and visible in the statitiscs of the course.
 
-There are various types of answers available for the creation of your questions :<br><br>
+<hr />
 
+<h4>Administering the exercises</h4>
+<p>To create an Exercise</p>
 <ul>
+<li> Click on \"New exercise\", in the start page of the tool (be sure that you are loggued in as teacher of the course or admin)</li>
+<li> Enter a name for the exercise in the box</li>
+<li> Enter a description</li>
+<li> Choose if the user will see all the questions on a single page or one page for each question</li>
+<li> I you want to you can also modify the advanced settings (not required)
+<ul>
+<li> choose a start date</li>
+<li> choose a end date</li>
+<li> define a time limit</li>
+<li> choose the number of allowed attempts</li>
+<li> choose if anonymous attempts are allowed (if not allowed there will be no tracking)</li>
+<li> choose when the feedback has to be shown</li>
+</ul>
+</li>
+<li> Click on Ok</li>
+</ul>
+<p>You can now fill your new exercises with new questions or questions from the pool.</p>
 
-  <li>Multiple choice (Unique answer)</li>
-
-  <li>Multiple choice (multiple answers)</li>
-
-  <li>Matching</li>
-
-  <li>Fill in the blanks</li>
-
+<hr />
+<h4>Questions</h4>
+<h4>Multiple choice questions</h4>
+<p>There are two kind of multiple choice question&nbsp;: 
+</p>
+<ul>
+<li> Question with unique answer</li>
+<li> Question with multiple answer</li>
+</ul>
+<p>In both case, when you start creating a new question, there are only two possible answers displayed. If you wish to have more possible answers then</p>
+<ul>
+<li> Press +Answ for each additional answer you require</li>
+</ul>
+<p>If you wish the reduce the amount of possible answers then </p>
+<ul>
+<li> Press -Answ for each answer to be removed</li>
+</ul>
+<p>Then for each answer&nbsp;:</p>
+<ul>
+<li> Place a tick in the checkbox for the correct answer(s).</li>
+<li> In the answer column Enter the text for the possible answers to the questions</li>
+<li> In the comment column Enter feedback that is given if a student selects that answer.</li>
+<li> Adjust the weighting value. The principle of this scoring table is to define proper weight to number of good answers by question. For instance, if you have a question with 4 answers (possibly more than one right) and the student has two wrong and two right, you can give him half of the points, but you can also decide that this is not satisfactory and give, for instance, maximum points (20) if everything is right and zero points in any other combination.
+</li>
 </ul>
 
-An exercise gathers a number of questions under a common theme.</p>
-
-<hr>
-
-<b>Exercise creation</b>
-
-<p>In order to create an exercise, click on the link &quot;New exercise&quot;.<br><br>
-
-Type the exercise name, as well as an optional description of it.<br><br>
-
-You can also choose between 2 exercise types :<br><br>
-
+<h4>Matching question</h4>
+<p>In this type of question, the student will have to find the correspondance between the elements of to distinct list.</p>
+<p>When you start creating a new question of that kind, there are only two elements in the two list displayed. If you wish to have more possible elements to correspond then</p>
 <ul>
-
-  <li>Questions on an unique page</li>
-
-  <li>One question per page (sequential)</li>
-
+<li> Press +elem for each additional answer you require</li>
+</ul>
+<p>If you wish the reduce the amount of elements then </p>
+<ul>
+<li> Press -elem for each answer to be removed</li>
 </ul>
 
-and choose if you want questions to be randomly sorted or not at the time of the exercise running.<br><br>
+<p>You can also define the weighting of each answer, they can not be negative. Don't forget to click on \"ok\" to validate your new question.</p>
 
-Then, save your exercise. Then go to the question administration for this exercise.</p>
-
-<hr>
-
-<b>Question adding</b>
-
-<p>You can now add a question into the exercise previously created. The description is optional, as well as the possibility of linking a picture to your question.</p>
-
-<hr>
-
-<b>Multiple choice</b>
-
-<p>This is the famous MAQ (multiple answer question) / MCQ (multiple choice question).<br><br>
-
-In order to create a MAQ / MCQ :<br><br>
-
+<h4>'Fill in blanks' question</h4>
+<p>This type of question is a text with some words missing that the student must fill in.
+When you create such a question&nbsp;:
+</p>
 <ul>
+<li> Introduce first the text for the question.</li>
+<li> Use brackets [...] to define one or more blanks in the text, put the correct answers between the brackets.
+<ul>
+<li> <em>example:</em> [British people] live in [United Kingdom].</li>
+</ul>
+</li>
+<li> Click on \"next\" when done</li>
+<li> Define the ponderation for each answer</li>
+<li> Click on \"Ok\" to validate your new question</li>
+</ul>
 
-  <li>Define answers for your question. You can add or delete an answer by clicking on the right button</li>
+<hr />
 
-  <li>Check the correct answer(s) in the left box </li>
+<h4>The Pool of questions</h4>
+<p>The pool of questions keeps a list of all questions created in the course.  The lists regroups already used question (in one or several exercises) and orphaned question (that are not used in any exercise).</p>
+<p>When you delete an exercise, questions of its own are not removed from the database, and can be reused in a new exercise, via the question pool.</p>
+<p>The question pool also allows you to reuse the same questions in several exercises.</p>
+<p>By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu \"Filter\".</p>
 
-  <li>Add an optional comment. This comment won't be seen by the student until (s)he has replied to the question</li>
+<hr />
 
-  <li>Give a weighting to each answer. The weighting can be any positive or negative integer, or zero</li>
-
-  <li>Save your answers</li>
-
-</ul></p>
-
-<hr>
-
-<b>Fill in the blanks</b>
-
-<p>This allows you to create a text with gaps. The aim is to let student find words that you have removed from the text.<br><br>
-
-To remove a word from the text, so creating a blank, put the word between brackets [like this].<br><br>
-
-Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when (s)he replies to the question.<br><br>
-
-Save your text, and you will then go to the next step which will allow you to give a weighting to each blank. For example, if the question is worth 10 points and you have 5 blanks, you can give a weighting of 2 points to each blank.</p>
-
-<hr>
-
-<b>Matching</b>
-
-<p>This answer type can be chosen so as to create a question where the student will have to connect elements from a unit U1 with elements from a unit U2.<br><br>
-
-It can also be used to ask students to sort elements in a certain order.<br><br>
-
-First define the options amongst which the student will be able to choose the right answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br><br>
-
-Notice : Several elements from the first unit can point to the same element in the second unit.<br><br>
-
-Give a weighting to each correct matching, and save your answer.</p>
-
-<hr>
-
-<b>Exercise modification</b>
-
-<p>In order to modify an exercise, the principle is the same as for its creation. Just click on the picture <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify it, and follow instructions above.</p>
-
-<hr>
-
-<b>Exercise deleting</b>
-
-<p>In order to delete an exercise, click on the picture <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete it.</p>
-
-<hr>
-
-<b>Exercise enabling</b>
-
-<p>To enable an exercise to be used, you have to enable it by clicking on the picture <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise.</p>
-
-<hr>
-
-<b>Exercise running</b>
-
-<p>You can test your exercise by clicking on its name in the exercise list.</p>
-
-<hr>
-
-<b>Random exercises</b>
-
-<p>At the time of an exercise creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the exercise.<br><br>
-
-That means that, by enabling this option, questions will be drawn in a different order each time students will run the exercise.<br><br>
-
-If you have got a large number of questions, you can also choose to randomly draw only X questions amongst all questions available in that exercise.</p>
-
-<hr>
-
-<b>Question pool</b>
-
-<p>When you delete an exercise, questions of its own are not removed from the database, and can be reused in a new exercise, via the question pool.<br><br>
-
-The question pool also allows you to reuse the same questions in several exercises.<br><br>
-
-By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br><br>
-
-Orphan questions are questions that don't belong to any exercise.</p>";
+<h4>How to see my previous scores ?</h4>
+<p>Every user can see its own scores below the list of exercises.  As a course manager you can click on the tracking link available for any exercise in the exercises list to have access to the detailled scores of each student of the course.</p>";
 $langExerciseNoMoreAvailable = "Exercise no longer available";
 $langExerciseNotAvailable = "Exercise not available";
 $langExerciseOpening = "Exercise starts:";
@@ -311,6 +267,8 @@ $langFileOnly = "File (file required, description text optional)";
 $langFileRequired = "A file is required";
 $langFiles = "File list";
 $langFillCourses = "Build test courses";
+$langFillTheAreaToExplainTheMotivations = "Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).";
+$langFillToolCourses = "Fill tool courses";
 $langFillTree = "Insert categories of course";
 $langFillUsers = "Insert users";
 $langFilling = "Fill with test values";
@@ -322,6 +280,7 @@ $langFirstSubmission = "First submission";
 $langForumCategoryDeleted = "Forum Category Deleted";
 $langForumDeleted = "Forum deleted";
 $langFree = "Free";
+$langFunctions = "Function list";
 $langGroupAlwaysPrivate = "(always private)";
 $langGroupAssignment = "Groups (from groups tool, only group members can post)";
 $langGroupContent = "<p><b>Introduction</b></p>
@@ -399,12 +358,79 @@ members list.</li>
 <hr noshade size=1>";
 $langHExercise = "Help exercises";
 $langHasBeenEnrolled = "has been enrolled";
+$langHelpAssignment = "Help assignment";
+$langHelpAssignmentContent = "<p>
+Assignment tool is a publication area for students. The course manager creates one or several assignment ( different zones of publication ) where the students will be able to publish their work.<br /><br />
+
+Each assignment can have different objectives or requirements : publication must be a file, or a text or a text and a file, publication can be made for a groupe instead of for a single user,...<br /><br />
+
+Students have the ability to modify their work after submission and the course manager can give them a feedback about their submissions.
+</p>
+<hr />
+
+<h4>Create an assignment</h4>
+<p>To create a new assignment course manager must enter in the assignment tool and click on the link \"Create a new assignment\".
+</p>
+<p>The form that is shown ask the course manager for&nbsp;:
+</p>
+<ul><li> a title&nbsp;: the name of the assignment
+</li><li> a description&nbsp;: the statement of the assignment, what learners have to do
+</li><li> a submission type&nbsp;:
+<ul><li> File&nbsp;: any type of file that can be uploaded, keep in mind that there is a size limit that depends on the platform, a text can be joined to describe the file
+
+</li><li> Text only&nbsp;: a text formatted using the wysiwyg editor
+</li><li> Text with an attached file&nbsp;: a text formatted using the wysiwyg editor and a file (file is not required)
+</li></ul>
+</li><li> a start date&nbsp;: date from when the users will be able to post a publication in the assignment
+</li><li> a end date&nbsp;: date until when the users will be able to post a publication in the assignment
+</li><li> the default publications visibility&nbsp;: choose if the publications will be available or not to others users
+</li><li> the assignment type&nbsp;:
+
+<ul><li> individual mode&nbsp;: any authenticated user can post a publication
+</li><li> group mode&nbsp;: the user must be a member of at least one group of the course to publish a work and the work will be posted in the name of the group
+</li></ul>
+</li><li> permission to upload after end date
+</li></ul>
+<p><br />
+<strong>Add an automatic feedback</strong>
+</p>
+<p>A feedback is a correct version of the assignment.  To add an automatic feedback to an assignment enter the assignment and click on the \"Edit automatic feedback\" link.  </p>
+<p>It can be a text or a file or both a text and a file.  The course manager can choose when this automatic feedback will be shown to users ( after assignment end date or after the first submission of the user in this assignment )
+</p>
+
+<hr />
+<h4>Works</h4>
+<p>Works are the publications uploaded by users.</p>
+<p>For each assignment the tool shows a list of all users registered in the course and for each user the title of the first work he published, the number of submissions and the number of feedbacks.
+The list of publications related to the user and the assignment can be view by clicking on the name of the user.</p>
+<p><strong>Submit a work</strong></p>
+<p>If the users has the right to submit a work he will be displayed a link to a submit form.</p>
+<p><strong>Work list</strong></p>
+<p>As a course manager you have the right to edit, delete, make visible/invisible any of the works.  You can also add a feedback for each work.
+</p>
+<ul>
+<li> <strong>Modify</strong>&nbsp;: If this icon appears it means that user can modify the content of the work, it appears when user is the course manager, when user is looking at his works or at his group works.
+
+</li>
+<li> <strong>Delete</strong>&nbsp;: This command allow the course manager to delete a work.
+</li>
+<li> <strong>Visible</strong>&nbsp;: If this icon appears for a work, it means that the work is visible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
+</li>
+<li> <strong>Invisible</strong>&nbsp;: If this icon appears for a work, it means that the work is invisible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
+
+</li>
+<li> <strong>Add feedback</strong>&nbsp;: allows the course manager to publish a feedback about the work of the user.  A feedback can be a file or a text or both with a private comment that only course manager(s) will be able to see and a score in pourcent.
+</li>
+</ul>
+
+
+
+";
 $langHelpGroups = "Help groups";
 $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Here you can modify the content of the text zones displayed on the platform home page.";
 $langHumanAndPhysicalResourcesComment1 = "What are the human and physical resources available?  What will be the nature of the framing?  What can the students expect from of the organisation team or the organisation of the teacher?";
 $langHumanAndPhysicalResourcesComment2 = "Presentation of the other teachers who will organise the course (assistants, researchers, student-monitors...), of the availability of the people, the buildings and the equipment or computer equipement available.";
 $langHumanAndPhysicalRessources = "Human and Physical Resources";
-$langINeedToCreateCourse = "I need to create a course";
 $langIncorrectDate = "Start date must be before end date ...";
 $langIndividual = "Individual";
 $langInstitution = "Institution";
@@ -430,8 +456,11 @@ $langMaxSizeCourseCode = "max. 12 characters, ie.<em>ROM2121</em>";
 $langMethodsOfEvaluation = "Methods of evaluation";
 $langMethodsOfEvaluationComment1 = "Precise details as to the means of evaluation (examinations written, oral, projects, work to be given...), date of formative evaluation preview(s), expiry dates for the handing-over of work, with the criteria of evaluation, possibly the weighting of the criteria or the categories of criteria.";
 $langMinuteShort = "min.";
+$langModeVerbose = "Mode Verbose";
+$langModifyFormat = "Modify the format";
 $langMoreRepliedTopics = "More replied topics";
 $langMoreSeenTopics = "More seen topics";
+$langMultipleAnswers = "Multiple answers";
 $langMustSelectAFile = "You must select a file";
 $langMustSelectATxtFile = "You must select a text file";
 $langMyResults = "My results";
@@ -445,24 +474,26 @@ $langNewUsersIn = "new users in the platform : ";
 $langNoContent = "No Content";
 $langNoEndDate = "No closing date";
 $langNoFile = "- none -";
+$langNoFunctionInThisSection = "No function in this extension";
 $langNoImage = "No image to display";
 $langNoMoreAttemptsAvailable = "You have reached the maximum number of allowed attempts.";
 $langNoPost = "No Post";
 $langNoRegisteredCourses = "No stats to show.  You haven't registered any course.";
 $langNoScore = "No score";
 $langNoTimeLimit = "No time limitation";
+$langNoVisibleAssignment = "There is no visible assignment at the moment.";
 $langNoVisibleSubmission = "No visible submission";
 $langNormalUser = "Normal";
 $langNumero = "No.";
 $langPasswordHasBeenEmailed = "Your password has been emailed to ";
 $langPasswordSimple = "Password given is too simple or too close to the username.";
 $langPlatformAdministrator = "Platform Administrator";
+$langPopulateTools = "Populate tools in courses";
 $langPreventLateUpload = "No, prevent users submitting work after the end date";
 $langPreview = "Preview";
 $langPrivateFeedback = "Private feedback";
 $langProfessorMessage = "Message from your lecturer";
 $langPropertiesNotIncludeInSections = "Properties not include in sections";
-$langPutOnFtpServer = "Put on ftp server";
 $langQualificationsAndGoals = "Qualifications and Goals";
 $langQualificationsAndGoalsComment1 = "What are the teaching aims?  At the end of the course, what qualifications, capacities and knowledge will students be able to control, to mobilize?";
 $langQualificationsAndGoalsComment2 = "Presentation of the general and specific objectives of the course, of qualifications for which the control of such objectives could lead.";
@@ -473,14 +504,15 @@ A web accessible url is required to register your site on Claroline.net.<br /><b
 Check the value of 'Web base' in your Claroline configuration.";
 $langRegisterMyCampus = "Register my campus";
 $langRegisterUserToClass = "Register user to class";
+$langRemainingSteps = "Remaining steps";
 $langReplaceAttachedFile = "Replace attached file";
-$langRequestCourseManagerStatus = "Request a course manager status";
+$langRequestOfCourseCreatorStatus = "Request of Course Creator status";
 $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Request to the coder of this config to add theses proporties in a section of the definition file.";
 $langRequired = "Required";
-$langRestoreACourse = "Restore a course";
 $langRestoreCourseRepository = "Restore course repository";
 $langRevoquationOfUser = "Revocation of %s %s";
 $langSDK = "SDK";
+$langSearchResult = "Search result";
 $langSecondShort = "sec.";
 $langSeebelowthefilesyoucaneditfromthistool = "See below the files you can edit from this tool.";
 $langSendToUserAccountInfoByMail = "Send account information to user by email";
@@ -488,6 +520,7 @@ $langShowAnswers = "Show answers";
 $langShowAnswersAfterLastTry = "After last allowed attempt";
 $langSiteName = "Site name";
 $langSpecifyFormat = "You must specify the CSV format used in your file";
+$langStartAgain = "Start again";
 $langStartDate = "Start date";
 $langStepNOfN = "Step %d of %d";
 $langSubmissionDate = "First&nbsp;submission&nbsp;date";
@@ -499,6 +532,7 @@ $langSubmitWork = "Submit a work";
 $langSubmittedWork = "Work";
 $langSubscribeClass = "Register to the class";
 $langSubscribeToCourse = "Subscribe to course";
+$langSucceeded = "Succeeded";
 $langSummaryNavBar = "Navigation bar";
 $langSupports = " Support ";
 $langSupportsComment1 = "Does course support exist?  What type of support do I give?  Opened?  Closed?";
@@ -517,6 +551,8 @@ $langThumbnails = "Thumbnails";
 $langTimeOver = "Time is over, results not submitted.";
 $langTopLevel = "top level";
 $langTopicReplies = "Replies";
+$langTrackAllPath = "Learning paths tracking";
+$langTrackAllPathExplanation = "Progression of users on all learning paths";
 $langTrackForumUsage = "Forum usage";
 $langTrackTotalPosts = "Messages posted";
 $langTrackTotalTopics = "Topics started";
@@ -524,10 +560,15 @@ $langTranslationStatistics = "Translation Progression";
 $langTranslationTools = "Translation Tools";
 $langTranslations = "Translations";
 $langUnableDescToAdd = "Unable to add description";
+$langUndist = "Undist";
+$langUniqueAnswer = "Unique answer";
 $langUnkownSOAPError = "An error occurred while contacting Claroline.net";
 $langUnlimitedAttempts = "Unlimited attempts";
 $langUnsubscribeClass = "Unregister from class";
 $langUntil = "to";
+$langUpgradeCourseFailed = "Upgrade failed";
+$langUpgradeCourseSucceed = "Upgrade succeeded";
+$langUpgradeSucceed = "The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.";
 $langUploadDoc = "Upload document";
 $langUploadedFile = "Uploaded file";
 $langUseFollowingFormat = " Use the following format : ";
@@ -555,33 +596,58 @@ $langYesterday = "Yesterday";
 $langYouCannotDelCatOfGroupsForums = "You cannot delete the group forum category.
 
 If you need to remove group forums, you rather have to delete the group";
-$langYourRequestToBeCourseManagerIsSent = "Your request to become a course manager has been sent";
+$langYourRequestToBeCourseManagerIsSent = "Your request to become a course creator has been sent to platform administrator(s).";
 $langYourRequestToRemoveYourAccountIsSent = "Your request to remove your account has been sent";
 $langYourTime = "Your time is";
+$lang_CourseHasNoRepository_s_NotFound = "<strong>Course has no repository.</strong>
+<br><small>%s</small> Not found. ";
+$lang_RetryWithMoreDetails = "Retry with more details";
+$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "The claroline main tables have been successfully upgraded";
+$lang_UpgradeFailedForCourses = "Upgrade tool is not able to upgrade the following courses :";
 $lang_add_user_list = "Add user list";
+$lang_continueCoursesDataUpgrade = "Continue courses data upgrade";
 $lang_do_you_want_to_continue = "Do you want to continue?";
 $lang_fields_enclosed_by = "Fields enclosed by";
+$lang_fileUpgrade = "File upgrade :";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_htAccessIncPath_added = "Folder <em>inc</em> protected";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "if you choose to continue, lines with errors will simply be ignored";
 $lang_no_error_in_file_found = "No error in file found.";
+$lang_oldFileBackup = "Old file backup :";
+$lang_p_CannotCreate_s = "Cannot create %s";
+$lang_p_CannotRename_s_s = "Cannot rename %s to %s";
 $lang_p_ErrorOnBuild_S_for_S = "Error in building of <em>%s</em> for <B>%s</B>";
 $lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
+$lang_p_UpgradeMainClarolineDatabase_s = "Upgrading main Claroline database (<em>%s</em>)";
+$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Upgrading database of course <strong>%2\$s</strong><br><small>
+DB Name : %3\$s <br>
+Course ID: %4\$s</small></td></tr></table>";
+$lang_p_YouCan_url_retryToUpgradeTheseCourse = "Fix first the technical problem and <a href=\"%s\">relaunch the upgrade tool</a>.";
 $lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
+$lang_p_d_affected_rows = "%d affected rows";
 $lang_p_d_course = "%2d course";
 $lang_p_d_course_manager = "%2d prof ";
 $lang_p_d_course_managers = "%2d profs ";
 $lang_p_d_course_member = "%2d member";
 $lang_p_d_course_members = "%2d members";
 $lang_p_d_courses = "%2d courses";
+$lang_p_d_coursesToUpgrade = "%s course(s) to upgrade";
+$lang_p_d_errorFound = " %d errors found";
 $lang_p_d_student = "%2d student";
 $lang_p_d_students = "%2d students";
+$lang_p_expectedRemainingTime = " <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. --><b>Expected remaining time %s</b>.";
 $lang_p_nothing_to_edit_in_S = "nothing to edit in %s";
 $lang_p_platformManager = "Administrator for %s";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> has been sucessfully registered to the course";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> has not been sucessfully registered to the course";
+$lang_p_s_s_isInvalid = "%s : %s is invalid";
 $lang_recently = "recently";
+$lang_rules_s_in_s = "Rules : %s in %s";
+$lang_seeInTheStatusBarOfYourBrowser = "(*) see in the status bar of your browser.";
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "The Claroline upgrade process completed";
 $lang_the_following_errors_were_found = "The following errors were found ";
+$lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  <br>
+Fix, first, the technical problem and relaunch the upgrade tool.";
 $langpday = "%d&nbsp;day(s)";
 $langphours = "%d&nbsp;hour(s)";
 $langpweek = "%d&nbsp;week(s)";
