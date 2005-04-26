@@ -580,7 +580,7 @@ switch ($display)
                    ($cat_id ==    CAT_FOR_GROUPS ?
                    "<small><i>".$langCannotBeDeleted."</i></small>"
                    :
-                   "<a    href=\"forum_admin.php?forumgodel=yes&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;ok=0\"    onclick=\"return confirmation('".addslashes(htmlentities($langAreYouSureToDelete .' \'' .$forum_name.'\'    ?'))."');\">".
+                   "<a    href=\"forum_admin.php?forumgodel=yes&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;ok=0\"    onclick=\"return confirmation('".clean_str_for_javascript($langAreYouSureToDelete .' \'' .$thisForum['name'].'\'    ?')."');\">".
                    "<img src=\"".$imgRepositoryWeb."delete.gif\"    alt=\"".$langDelete."\"    border=\"0\">".
                    "</a>").
 
@@ -859,7 +859,7 @@ switch ($display)
                 {
                     echo "<a href=\"forum_admin.php?"
                         ."forumcatdel=yes&amp;cat_id=".$thisCategory['id']."&amp;ok=0\" "
-                        ."onclick=\"return confirmation('".addslashes(htmlentities($langAreYouSureToDelete .' \'' .$thisCategory['title'].'\' ?'))."');\">".
+                        ."onclick=\"return confirmation('".clean_str_for_javascript($langAreYouSureToDelete .' \'' .$thisCategory['title'].'\' ?')."');\">".
                         "<img src=\"".$imgRepositoryWeb."delete.gif\" alt=\"".$langDelete."\" border=\"0\">".
                         "</a>";
                 }
