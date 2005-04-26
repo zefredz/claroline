@@ -363,7 +363,15 @@ function fill_tool_in_course($course_code,$tool_label)
             
             $frm_qty = claro_sql_query_fetch_all($sql);
             $frm_qty = (int) $frm_qty[0]['frm_qty'];
-            $forumToPopulate = rand(1,$frm_qty+1);
+            if ($categoryToPopulate=1)
+            {
+                $forumToPopulate = rand(1,$frm_qty);
+                // Can't create forum in group category
+            }
+            else
+            {
+                $forumToPopulate = rand(1,$frm_qty+1);
+            }
             if ($forumToPopulate > $frm_qty)
             {
                 $forum_name = lorem('words',rand(2  ,10));
@@ -446,6 +454,7 @@ function fill_tool_in_course($course_code,$tool_label)
                 return 'Filler not ready';
             break;
         case 'CLUSR' : 
+            return 'Filler not ready';
             require_once($includePath.'/lib/user.lib.inc.php');
             $def_title = lorem('words',rand(2  ,10));
             $def_comment = lorem('paragraphs',rand(1,5));
