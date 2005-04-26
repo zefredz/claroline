@@ -47,15 +47,16 @@ $can_create_courses = (bool) ($is_allowedCreateCourse);
 
 $toolNameList = array('CLANN___' => $langAnnouncement,
 	                  'CLFRM___' => $langForums,
-	                      'CLCAL___' => $langAgenda,
-	                      'CLCHT___' => $langChat,
-	                      'CLDOC___' => $langDocument,
-	                      'CLDSC___' => $langDescriptionCours,
-	                      'CLGRP___' => $langGroups,
-	                      'CLLNP___' => $langLearningPath,
-	                      'CLQWZ___' => $langExercises,
-	                      'CLWRK___' => $langWork,
-	                      'CLUSR___' => $langUsers);
+	                  'CLCAL___' => $langAgenda,
+                      'CLCHT___' => $langChat,
+                      'CLDOC___' => $langDocument,
+                      'CLDSC___' => $langDescriptionCours,
+                      'CLGRP___' => $langGroups,
+                      'CLLNP___' => $langLearningPath,
+                      'CLQWZ___' => $langExercises,
+                      'CLWRK___' => $langWork,
+                      'CLUSR___' => $langUsers
+                      );
 if (isset($_REQUEST['create']))
 {
     //echo '<p>$_REQUEST = <pre>'.var_export( $_REQUEST,1).'</pre>';
@@ -339,7 +340,6 @@ function fill_tool_in_course($course_code,$tool_label)
             $tbl_topics           = $tbl_cdb_names['bb_topics'];
 
             $tbl_forums = $tbl_forum_forums;
-            echo $tbl_topics;
             require_once '../../phpbb/functions.php';
 
             $resultPopulate = '<ul>';        
