@@ -367,7 +367,7 @@ if ($displayButtonLine)
          .'</a>'
          .' | '
          .'<a class="claroCmd" href="'.$PHP_SELF.'?cmd=exDeleteAll" '
-         .' onclick="if (confirm(\''.$langEmptyAnn.' ?\')){return true;}else{return false;}">'
+         .' onclick="if (confirm(\''.clean_str_for_javascript($langEmptyAnn).' ?\')){return true;}else{return false;}">'
          .'<img src="'.$imgRepositoryWeb.'delete.gif">'
          .$langEmptyAnn
          .'</a>'
@@ -491,7 +491,7 @@ if ($displayList)
                  "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEdit&amp;id=".$thisAnnouncement['id']."\">",
                  "<img src=\"".$imgRepositoryWeb."edit.gif\" alt=\"".$langModify,"\">".
                  "</a>\n",
-                 "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exDelete&amp;id=".$thisAnnouncement['id']."\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\">",
+                 "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exDelete&amp;id=".$thisAnnouncement['id']."\" onclick=\"javascript:if(!confirm('".clean_str_for_javascript($langConfirmYourChoice)."')) return false;\">",
                  "<img src=\"".$imgRepositoryWeb."delete.gif\" alt=\"".$langDelete."\" border=\"0\">".
                  "</a>\n";
 

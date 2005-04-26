@@ -321,7 +321,7 @@ if ( count($descList) )
                 .'<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langModify.'">'
                 .'</a>'."\n"
                 .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;id='.$thisDesc['id'].'"'
-                .' onClick="if(!confirm(\''.$langAreYouSureToDelete.' '.$thisDesc['title'].' ?\')){ return false}">'
+                .' onClick="if(!confirm(\''.clean_str_for_javascript($langAreYouSureToDelete).' '.$thisDesc['title'].' ?\')){ return false}">'
                 .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'">'
                 .'</a>'."\n";
         }

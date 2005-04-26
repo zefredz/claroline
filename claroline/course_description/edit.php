@@ -234,7 +234,7 @@ if (count($listExistingBloc)>0)
         </th>
         <th align="left">
             <a href="<?php echo $_SERVER['PHP_SELF']; ?>?numBloc=<?php echo $numBloc; ?>"><img src="<?php echo $imgRepositoryWeb; ?>edit.gif" alt="<?php echo $langModify; ?>" border="0"></a>
-            <a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteOK=1&amp;edIdBloc=<?php echo$numBloc; ?>" onClick="javascript:if(!confirm('<?php echo  $langAreYouSureToDelete." ".$titreBloc[$numBloc]." ?"; ?>')){ return false}"><img src="<?php echo $imgRepositoryWeb; ?>delete.gif" alt="<?php echo $langDelete; ?>" border="0"></a>
+            <a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteOK=1&amp;edIdBloc=<?php echo$numBloc; ?>" onClick="javascript:if(!confirm('<?php echo  clean_str_for_javascript($langAreYouSureToDelete." ".$titreBloc[$numBloc])." ?"; ?>')){ return false}"><img src="<?php echo $imgRepositoryWeb; ?>delete.gif" alt="<?php echo $langDelete; ?>" border="0"></a>
         </th>
     </tr>
     <tr>

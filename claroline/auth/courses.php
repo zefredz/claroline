@@ -660,7 +660,7 @@ switch ($displayMode)
 				{
 					echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exUnreg&amp;course=".$thisCourse['code'].$inURL
                          ."\" onclick=\"javascript:if(!confirm('"
-                         .addslashes(htmlentities($lang_are_you_sure_to_remove_the_course_from_your_list))
+                         .clean_str_for_javascript($lang_are_you_sure_to_remove_the_course_from_your_list)
                          ."')) return false;\">\n"
 						 ."<img src=\"".$imgRepositoryWeb."unenroll.gif\" border=\"0\" alt=\"".$lang_unsubscribe."\">\n"
 						 ."</a>\n";

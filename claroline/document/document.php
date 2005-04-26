@@ -1106,7 +1106,7 @@ $htmlHeadXtra[] =
 "<script>
 function confirmation (name)
 {
-	if (confirm(\" ".$langAreYouSureToDelete." \"+ name + \" ?\"))
+	if (confirm(\" ".clean_str_for_javascript($langAreYouSureToDelete)." \"+ name + \" ?\"))
 		{return true;}
 	else
 		{return false;}
@@ -1724,7 +1724,7 @@ claro_disp_tool_title($titleElement,
 	
 					echo 	"<td>",
 							"<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exRm&file=",$cmdFileName,"\" ",
-							"onClick=\"return confirmation('",addslashes($dspFileName),"');\">",
+							"onClick=\"return confirmation('".clean_str_for_javascript($dspFileName)."');\">",
 							"<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"$langDelete\">",
 							"</a>",
 							"</td>\n";

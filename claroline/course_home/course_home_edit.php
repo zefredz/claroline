@@ -27,7 +27,7 @@ $htmlHeadXtra[] =
 "<script>
 function confirmation (name)
 {
-	if (confirm(\" $langAreYouSureToDelete \"+ name + \" ?\"))
+	if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)."\"+ name + \" ?\"))
 		{return true;}
 	else
 		{return false;}
@@ -340,7 +340,7 @@ foreach($toolList as $thisTool)
              ."<img src=\"" . $imgRepositoryWeb. "edit.gif\" alt=\"".$langModify."\" />"
              ."</a>\n"
              . "<a href=\"". $_SERVER['PHP_SELF'] ."?cmd=exDelete&amp;externalToolId=". $thisTool['id'] . "\""
-             . " onClick=\"return confirmation('" . addslashes($toolName) . "');\">"
+             . " onClick=\"return confirmation('" . clean_str_for_javascript($toolName) . "');\">"
              ."<img src=\"" . $imgRepositoryWeb. "delete.gif\" alt=\"".$langDelete."\" />"
              ."</a>\n";
 

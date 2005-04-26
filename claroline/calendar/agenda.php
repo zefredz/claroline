@@ -397,7 +397,7 @@ if ($is_allowedToEdit)
          */
 
         echo '<a class= "claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&id=ALL" '
-            .' onclick="if (confirm(\''.$langClearList.' ? \')){return true;}else{return false;}">' 
+            .' onclick="if (confirm(\''.clean_str_for_javascript($langClearList).' ? \')){return true;}else{return false;}">'
             .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="">'
             .$langClearList
             .'</a>';
@@ -543,7 +543,7 @@ foreach($eventList as $thisEvent)
         .'</a> '
         .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;id='.$thisEvent['id'].'" '
         .'onclick="javascript:if(!confirm(\''
-        .addslashes (htmlspecialchars($langDelete.' '.$thisEvent['titre'].' ?'))
+        .clean_str_for_javascript($langDelete.' '.$thisEvent['titre'].' ?')
         .'\')) {document.location=\''.$_SERVER['PHP_SELF'].'\'; return false}" >'
         .'<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'">'
         .'</a>'
