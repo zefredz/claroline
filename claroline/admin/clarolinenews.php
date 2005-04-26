@@ -50,23 +50,29 @@ claro_disp_tool_title($nameTools);
 
 if ($rs = $rss->get($urlNewsClaroline))
 {
+	echo '<table class="claroTable" width="100%">'."\n\n";
+
 	foreach ($rs['items'] as $item) 
 	{
 		$href = $item['link'];
 	    $title = $item['title'];
 		$summary = $rss->unhtmlentities($item['description']);
-		$date = $item['pubDate'];
+		$date = strtotime($item['pubDate']);
 
-	    echo '<div class="claroNews">'."\n"
-	        .'<h4>'."\n"
+	    echo '<tr>'."\n"
+            .'<th class="headerX">'."\n"
 	        .'<a href="'.$href.'">'.$title.'</a>'."\n"
-	        .'</h4>'."\n"
-	        .'<span class="claroNewsDate">('.$date.')</span>'."\n"
-	        .'<br />'."\n"
-	        .'<span class="claroNewsSummary">'.$summary.'</span>'."\n"
-	        .'</div>'."\n"
-			.'<hr />'."\n\n";
+			.'<small> - '.claro_disp_localised_date($dateFormatLong,$date).'</small>'."\n"
+	        .'</th>'."\n"
+			.'</tr>'."\n"
+            .'<tr>'."\n"
+            .'<td>'."\n"
+	        .$summary."\n"
+            .'</td>'."\n"
+			.'</tr>'."\n\n";
 	}
+
+	echo '</table>'."\n\n";
 }
 else
 {	
