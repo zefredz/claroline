@@ -166,7 +166,7 @@ if ($intro_dispCommand)
         echo    "<p>\n".
                 "<small>\n".
                 "<a href=\"".$_SERVER['PHP_SELF']."?intro_cmdEdit=1\"><img src=\"",$urlAppend,"/claroline/img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n".
-                "<a href=\"".$_SERVER['PHP_SELF']."?intro_cmdDel=1\" onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmYourChoice))."')) return false;\"><img src=\"",$urlAppend,"/claroline/img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\"></a>\n".
+                "<a href=\"".$_SERVER['PHP_SELF']."?intro_cmdDel=1\" onclick=\"javascript:if(!confirm('".clean_str_for_javascript($langConfirmYourChoice)."')) return false;\"><img src=\"",$urlAppend,"/claroline/img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\"></a>\n".
                 "</small>\n".
                 "</p>\n";
     }
