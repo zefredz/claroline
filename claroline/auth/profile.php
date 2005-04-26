@@ -99,7 +99,7 @@ elseif (isset($can_request_course_creator_status) && $can_request_course_creator
 {
 	$noQueryString=TRUE;
 	$display = DISP_COURSE_CREATOR_STATUS_REQ;
-	$nameTools = $langRequestOfCourseCreatorSatus;
+	$nameTools = $langRequestOfCourseCreatorStatus;
 }
 elseif (isset($can_request_revoquation) && $can_request_revoquation && $_REQUEST['reqRevoquation'])
 {
@@ -687,7 +687,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 	if (isset($can_request_course_creator_status) && $can_request_course_creator_status )
 	{
 ?>
-    | <SPAN> <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?reqCCstatus=1"><?php echo $langRequestOfCourseCreatorSatus ?></a> </SPAN>
+    | <SPAN> <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?reqCCstatus=1"><?php echo $langRequestOfCourseCreatorStatus ?></a> </SPAN>
 <?php 
 	}
 ?>
