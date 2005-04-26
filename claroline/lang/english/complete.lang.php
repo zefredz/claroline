@@ -2156,6 +2156,6 @@ $lang_rules_s_in_s = "Rules : %s in %s";
 $langSucceeded = "Succeeded";
 $langUndist ="Undist";
 $lang_p_s_s_isInvalid = "%s : %s is invalid";
-$langFillTheAreaToExplainTheMotivations = "Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s)."
+$langFillTheAreaToExplainTheMotivations = "Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).";
 $langTodo = "To do";
 ?>
