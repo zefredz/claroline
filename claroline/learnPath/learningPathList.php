@@ -68,7 +68,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             "<script>
             function confirmation (name)
             {
-                if (confirm('". str_replace("\n","\\n",$langAreYouSureToDelete) . "' + name + '? " . $langModuleStillInPool . "'))
+                if (confirm('". clean_str_for_javascript($langAreYouSureToDelete) . "' + name + '? " . $langModuleStillInPool . "'))
                     {return true;}
                 else
                     {return false;}
@@ -78,7 +78,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
            "<script>
             function scormConfirmation (name)
             {
-                if (confirm('". str_replace("\n","\\n",$langAreYouSureToDeleteScorm) .  "' + name + '?'))
+                if (confirm('". clean_str_for_javascript($langAreYouSureToDeleteScorm) .  "' + name + '?'))
                     {return true;}
                 else
                     {return false;}
@@ -132,7 +132,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
               // in case of a learning path made by SCORM, we completely remove files and use in others path of the imported package
               // First we save the module_id of the SCORM modules in a table in case of a SCORM imported package
 
-              if (is_dir("../../".$_course['path']."/scormPackages/path_".$_GET['del_path_id']))
+              if (is_dir($coursesRepositorySys.$_course['path']."/scormPackages/path_".$_GET['del_path_id']))
               {
                    $findsql = "SELECT M.`module_id`
                                    FROM  `".$TABLELEARNPATHMODULE."` AS LPM,
@@ -190,7 +190,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                     claro_sql_query($delModuleSql);
 
                     // DELETE the directory containing the package and all its content
-                    $real = realpath("../../".$_course['path']."/scormPackages/path_".$_GET['del_path_id']);
+                    $real = realpath($coursesRepositorySys.$_course['path']."/scormPackages/path_".$_GET['del_path_id']);
                     claro_delete_file($real);
 
               }   // end of dealing with the case of a scorm learning path.
@@ -687,7 +687,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
             // DELETE link
 
-                $real = realpath("../../".$_course['path']."/scormPackages/path_".$list['learnPath_id']);
+                $real = realpath($coursesRepositorySys.$_course['path']."/scormPackages/path_".$list['learnPath_id']);
             //}
 
             // check if the learning path is of a Scorm import package and add right popup:
@@ -696,7 +696,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             {
                echo  "<td>\n",
                             "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&del_path_id=".$list['learnPath_id']."\" ",
-                            "onClick=\"return scormConfirmation('",addslashes($list['name']),"');\">\n",
+                            "onClick=\"return scormConfirmation('",clean_str_for_javascript($list['name']),"');\">\n",
                             "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
                             "</a>\n",
                             "</td>\n";
@@ -706,7 +706,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             {
                echo     "<td>\n",
                             "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&del_path_id=".$list['learnPath_id']."\" ",
-                            "onClick=\"return confirmation('",addslashes($list['name']),"');\">\n",
+                            "onClick=\"return confirmation('",clean_str_for_javascript($list['name']),"');\">\n",
                             "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
                             "</a>\n",
                             "</td>\n";
