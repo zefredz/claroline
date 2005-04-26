@@ -83,7 +83,7 @@ $tbl_track_login      = $tbl_mdb_names['track_e_login'  ];
             "<script>
             function confirmation (name)
             {
-                if (confirm(\"".$langAreYouSureToDelete."\"+ name + \"? \"))
+		if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)."\"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -449,7 +449,7 @@ foreach($userList as $list)
 
      echo '<td align="center">'
          .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=delete&amp;user_id='.$list['user_id'].'&amp;ffset='.$offset.$addToURL.'" '
-         .' onClick="return confirmation(\''.addslashes($list['username']).'\');">'."\n"
+         .' onClick="return confirmation(\''.clean_str_for_javascript(' '.$list['prenom'].' '.$list['nom']).'\');">'."\n"
          .'<img src="'.$imgRepositoryWeb.'deluser.gif" border="0" alt="'.$langDelete.'" />'."\n"
          .'</a> '."\n"
          .'</td>'."\n"
