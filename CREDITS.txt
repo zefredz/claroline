@@ -9,12 +9,11 @@ Claroline Core Team :           Hugues Peeters     (peeters@ipm.ucl.ac.be)
                                 
 Team from Cerdecam :            Philippe Dekimpe (dkp@ecam.be)
 http://www.cerdecam.be          Mathieu Laurent (laurent@cerdecam.be)
+                                Nicolas Leblanc (leblanc@cerdecam.be)
                                 Guillaume Lederer (lederer@cerdecam.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
+				                Amand Tihon (amand@alrj.org)
                                 Aurelien Van Hamme (vanhamme@cerdecam.be)
-				Nicolas Leblanc     (leblanc@cerdecam.be)
-				Amand Tihon        (amand@alrj.org)
-				
 
 Administration section :        Benoit Muret (muret_ben@hotmail.com)
                                 Guillaume Lederer (lederer@cerdecam.be)
@@ -48,11 +47,10 @@ Upgrade tool :                  Mathieu Laurent (laurent@cerdecam.be)
 
 Forum tool :                    adpated from PHPBB 1.4 (http://www.phpbb.com)
 
-zip / unzipping option  :       PclZip library - Vincent Blavet
+Zip / unzipping option  :       PclZip library - Vincent Blavet
                                 (http://www.phpconcept.net)
 
-
-Arab translation :              Yassine Jelman (yjelmam@myrealbox.com)
+Arab translation :              Yassine Jelman (yjelmam@myrealbox.com)  
 
 Catalan translation :           Xavier de Pedro (xavidp@confluencia.net)
 
@@ -66,12 +64,16 @@ Dutch translation :             Inès Du Four (inesdufour@hotmail.com)
                                 Roan Embrechts (roan.embrechts@ugent.be)
                                 Stefan De Wannemacker (sdwannem@cage.rug.ac.be)
                                 Toon Van Hoecke (toon.vanhoecke@ugent.be)
+                                Michael Van Canneyt (michael.vancanneyt@wisa.be)
+
+French translation:             Jean-Claude Cordier (Jean-Claude.Cordier@univ-rouen.fr)
 
 Finnish translation :           Asmo Koskinen (asmo.koskinen@asmokoskinen.net)
 
 Galician translation:           Maria Jose Rodriges Malmierca
 
 German translation :            Stiehl Nikolai  (nikolai.stiehl@web.de)
+                                Markus Petz
 
 Greek translation:              Costas Tsibanis (costas@noc.uoa.gr)
                                 Yannis Exidaridis (jexi@noc.uoa.gr)
@@ -80,6 +82,7 @@ Hungarian translation :         Janos Foldessy & Peter Fuchs
 
 Italian translation :           Maurizio Guercio  (mguercio@libero.it),
                                 Furio Petrossi  (Furio.Petrossi@scuolefvg.org)
+                                Giuseppe Filice (Università della Calabria)
 
 Japanese translation :          Akira Yoshii (yoshii@cc.hokkyodai.ac.jp)
 
@@ -93,6 +96,7 @@ Spanish translation :           Xavier Casassas ( xcc@mail.ics.co.at)
                                 Jorge Gonzales ( jgonzalez@athenasoft.com.mx)
                                 Javier Picado Ladrón de Guevara (jpicado@eurosur.com)
                                 Oda Begares (begaeres@arch.ucl.ac.be)
+                                Rodrigo Alejandro Parra Soto
 
 Thaï translation :              Sutas Jitchuen (dtsjc@mucc.mahidol.ac.th)
 
@@ -108,9 +112,6 @@ Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
                                 Dalton Piegas Simoni
                                 Maria Jose Rodriges Malmierca
                                 
-
-
-
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - December 10 2004
+                Europe, Belgium, Louvain-la-Neuve - April 26 2005
 ================================== END ===================================
