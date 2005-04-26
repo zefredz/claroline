@@ -1475,4 +1475,31 @@ function claro_stripslashes_for_unquote_gpc( &$var )
     else                 $var = stripslashes($var);
 }
 
+/**
+ * function that cleans php string for javascript
+ *
+ * @param $str string original string
+ * @return string cleaned string
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ *
+ * @desc This function is needed to clean strings used in javascript output
+ *		 Newlines are prohibited in the script, specialchar  are prohibited
+ *       quotes must be addslashes
+ */
+function clean_str_for_javascript( $str )
+{
+	$output = $str;
+	// 1. addslashes, prevent problems with quotes
+	// must be before the str_replace to avoid double backslash for \n
+	$output = addslashes($output);
+	// 2. turn windows CR into *nix CR
+    $output = str_replace("\r", '', $output);
+	// 3. replace "\n" by uninterpreted '\n'
+	$output = str_replace("\n",'\n', $output);
+	// 4. convert special chars into html entities
+    $output = htmlspecialchars($output);
+
+	return $output;
+}
 ?>
