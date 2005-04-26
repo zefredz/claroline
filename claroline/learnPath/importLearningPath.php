@@ -21,17 +21,6 @@ require '../inc/claro_init_global.inc.php';
 $is_AllowedToEdit = $is_courseAdmin;
 if (! $is_AllowedToEdit or !$is_courseAllowed ) claro_disp_auth_form();
 
-$htmlHeadXtra[] =
-          "<script>
-          function confirmation (name)
-          {
-              if (confirm(\" $langAreYouSureDeleteModule \"+ name + \" ?\"))
-                  {return true;}
-              else
-                  {return false;}
-          }
-          </script>";
-
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 $nameTools = $langimportLearningPath;
 
