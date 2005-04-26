@@ -2,6 +2,8 @@
 /** 
  * CLAROLINE 
  *
+ * Build the frameset for chat.
+ *
  * @version 1.6 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
@@ -43,11 +45,10 @@ if(!empty($_course['officialCode']))
 }
 $titlePage .= $siteName;
 
-
 // Redirect previously sent paramaters in the correct subframe (messageList.php)
 $paramList = array();
 
-if ( isset($_REQUEST['gidReset']) && $_REQUEST['gidReset'] == true )
+if ( isset($_REQUEST['gidReset']) && $_REQUEST['gidReset'] == TRUE )
 {
 	$paramList[] = 'gidReset=1';
 }

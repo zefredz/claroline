@@ -19,7 +19,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-$is_allowedToManage = $is_courseAdmin;
+$is_allowedToManage = $is_courseAdmin || (isset($_gid) && $is_groupTutor) ;
 
 // header
 

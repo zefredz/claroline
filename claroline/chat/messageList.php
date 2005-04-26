@@ -77,6 +77,10 @@ if ($_gid)
         $groupContext  = TRUE;
         $courseContext = FALSE;
 
+        $is_allowedToManage = $is_allowedToManage|| $is_groupTutor ;
+        $is_allowedToStore  = $is_allowedToStore || $is_groupTutor;
+        $is_allowedToReset  = $is_allowedToReset || $is_groupTutor;
+
         $activeChatFile = $curChatRep.$courseId.'.'.$groupId.'.chat.html';
         $onflySaveFile  = $curChatRep.$courseId.'.'.$groupId.'.tmpChatArchive.html';
         $exportFile     = $coursePath.'/group/'.$_group['directory'].'/';
