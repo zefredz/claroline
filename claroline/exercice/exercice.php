@@ -369,10 +369,10 @@ $actionsForDelete[] = array();
 while ($list=mysql_fetch_array($res))
 {
     $exId = $list['thePath'];
-    $toAdd = $langUsedInSeveralPath." ".$langConfirmDeleteExercise;
-    $actionsForDelete[$exId] = "onclick=\"javascript:if(!confirm('".addslashes(htmlentities($toAdd))."')) return false;\"";
+    $toAdd = clean_str_for_javascript($langUsedInSeveralPath." ".$langConfirmDeleteExercise);
+    $actionsForDelete[$exId] = "onclick=\"javascript:if(!confirm('".$toAdd."')) return false;\"";
 }
-$defaultConfirm = "onclick=\"javascript:if(!confirm('".addslashes(htmlentities($langConfirmDeleteExercise))."')) return false;\"";
+$defaultConfirm = "onclick=\"javascript:if(!confirm('".clean_str_for_javascript($langConfirmDeleteExercise)."')) return false;\"";
 
 
 

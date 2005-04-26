@@ -285,7 +285,7 @@ if($is_allowedToEdit)
 ?>
 
   <td align="center">
-    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $row[id]; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmDeleteQuestion)); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
+    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $row[id]; ?>" onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript($langConfirmDeleteQuestion); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
   </td>
 
 <?php

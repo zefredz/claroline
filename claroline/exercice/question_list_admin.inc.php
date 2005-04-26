@@ -95,7 +95,7 @@ if($nbrQuestions)
 <tr>
   <td>
 	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?editQuestion=<?php echo $id; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" align="absmiddle" alt="<?php echo $langEditQuestion; ?>"></a>
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteQuestion=<?php echo $id; ?>" onclick="javascript:if(!confirm('<?php echo addslashes(htmlentities($langConfirmYourChoice)); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" align="absmiddle" alt="<?php echo $langDelete; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteQuestion=<?php echo $id; ?>" onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript($langConfirmYourChoice); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" align="absmiddle" alt="<?php echo $langDelete; ?>"></a>
 
 <?php
 		if($i != 1)
