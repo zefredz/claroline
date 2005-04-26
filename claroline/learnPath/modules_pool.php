@@ -23,7 +23,6 @@
 
   $tlabelReq = 'CLLNP___';
   require '../inc/claro_init_global.inc.php';
-
    $is_AllowedToEdit = $is_courseAdmin;
    if (! $is_AllowedToEdit or ! $is_courseAllowed ) claro_disp_auth_form();
 
@@ -31,7 +30,7 @@
             "<script>
             function confirmation (name)
             {
-                if (confirm(\" $langAreYouSureDeleteModule \"+ name))
+                if (confirm(\"".clean_str_for_javascript($langAreYouSureDeleteModule)."\"+ name))
                     {return true;}
                 else
                     {return false;}
@@ -54,7 +53,7 @@ $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
 $tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
 $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
 
-  //this bloc would be removed later by direct use of var name 
+  //this bloc would be removed later by direct use of var name
   $TABLELEARNPATH         = $tbl_lp_learnPath;
   $TABLEMODULE            = $tbl_lp_module;
   $TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
@@ -264,7 +263,7 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
                     </td>
                     <td align='center'>
                      <a href=\"",$_SERVER['PHP_SELF'],"?cmd=eraseModule&amp;cmdid=".$list['module_id']."\"
-                        onClick=\"return confirmation('",htmlspecialchars(addslashes($list['name'])),$langUsedInLearningPaths,$list['timesUsed'],"');\">
+                        onClick=\"return confirmation('".clean_str_for_javascript($list['name'] . $langUsedInLearningPaths . $list['timesUsed'])."');\">
                         <img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\" />
                         </a>
                     </td>
