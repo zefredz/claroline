@@ -20,17 +20,17 @@
  *
  ***************************************************************************/
 
-//neede for notification in claro 1.5
 
 
 require 'functions.php';
 require 'config.php';
 
+//need for notification in claro 1.5
 include ('../inc/lib/claro_mail.lib.inc.php');
 
-if($cancel)
+if($_REQUEST['cancel'])
 {
-	header("Location: viewtopic.php?topic=$topic&forum=$forum");
+	header('Location: viewtopic.php?topic='.$topic.'&forum='.$forum);
 }
 
 
@@ -40,7 +40,7 @@ $pagetype  = 'reply';
 
 $forumSettingList = get_forum_settings($forum, $topic);
 
-/* 
+/**
  * Check if the topic isn't attached to a group,  or -- if it is attached --, 
  * check the user is allowed to see the current group forum.
  */
@@ -53,7 +53,7 @@ if (   ! is_null($forumSettingList['idGroup'])
     // forum and the group of the concerned forum isn't the same as the session 
     // one, something weird is happening, indeed ...
 
-    die ('<center>not allowed</center>');
+    die ('Location: viewtopic.php?topic='.$topic.'&forum='.$forum);
 }
 
 
@@ -116,13 +116,13 @@ else
 
     if ( ! $_uid)    // ADDED BY CLAROLINE: exclude non identified visitors
     {
-       error_die("<center>"
-            .$langLoginBeforePost1."<br>"
-            .$langLoginBeforePost2." "
-            ."<a href=../../index.php>".$langLoginBeforePost3.".</a>"
-            ."</center>");
+       error_die('<center>'
+                .$langLoginBeforePost1.'<br>'
+                .$langLoginBeforePost2.' '
+                .'<a href="../../index.php">'.$langLoginBeforePost3.'.</a>'
+                .'</center>'
+                );
     }               // END ADDED BY CLAROLINE exclude visitors unidentified
-
 
 ?>
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
@@ -161,7 +161,7 @@ else
 
 <p align="center">
 <a href="viewtopic.php?topic=<?php echo $topic ?>&forum=<?php echo $forum ?>" 
-   target=\"_blank\">
+   target="_blank">
 <?php echo $l_topicreview ?>
 </a>
 <?php
