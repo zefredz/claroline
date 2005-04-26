@@ -165,7 +165,7 @@ if (( defined('DEVEL_MODE') && DEVEL_MODE )
 if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION')
 {
 ?>
-    <li><img src="<?php echo 'xtra/sdk/lang/language.png'?>" style="vertical-align: middle;" alt="" /> <a href="xtra/sdk/translation_index.php"><?php echo $langTranslationTools?></a></LI>
+    <li><a href="xtra/sdk/translation_index.php"><?php echo $langTranslationTools?></a></li>
 <?php
 }
 if ( defined('DEVEL_MODE') && DEVEL_MODE )
