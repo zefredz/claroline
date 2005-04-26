@@ -19,6 +19,7 @@ pour vous rappeler le nom d'utilisateur et le mot de passe à introduire lors de 
 <p>En cas de problème, contactez votre responsable réseau ou le responsable de ce campus virtuel. Vous pouvez aussi publier un message sur le forum de support de <a href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>";
 $langCloseWindow = "Fermer la fenêtre";
+$langConfigMenuContent = "Menu de configuration";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
@@ -37,190 +38,296 @@ $langDocContent = "<p>Le module de gestion de document fonctionne de
   document à un logiciel antivirus à jour avant de le
  déposer
   sur Claroline.</p>
-<p>Les documents sont présentés par ordre
- alphabétique.<br>
-  <b>Astuces:</b> si vous souhaitez que les documents soient classés
- de
-  manière différente, vous pouvez les faire
- précéder
-  d'un numéro, le classement se fera dès lors sur cette base.
- </p>
-<p>Vous pouvez :</p>
-<h4>Télécharger un document dans ce module</h4>
+<hr />
+<h4>Modes de visualisation</h4>
+L'outil de document de Claroline a deux modes de visualisation.
 <ul>
-  <li>Sélectionnez le document sur votre ordinateur à l'aide
- du
-	bouton 'Parcourir'
-	<input type=submit value=Parcourir name=submit2>
-	à droite de votre écran.</li>
-  <li>Exécutez le téléchargement à l'aide du
- bouton 'Télécharger'
-	<input type=submit value=Télécharger name=submit2>
-	.</li>
+<li>En liste de fichiers (mode par défaut)</li>
+<li>En vignette</li>
 </ul>
-<h4>Renommer un document (ou un répertoire)</h4>
+Vous pouvez passer d'un mode à l'autre en cliquant simplement sur la commande 'Liste des fichiers | Vignettes' à droite dans la barre d'outil du répertoire.
+<h4>Le visualisateur d'image</h4>
+
 <ul>
-  <li>cliquez sur le bouton <img src=../document/img/edit.gif width=20
- height=20 align=baseline>
-	dans la colonne 'Renommer'.</li>
-  <li>Tapez le nouveau nom dans la zone prévue à cet effet
- qui apparaît
-	en haut à gauche</li>
-  <li>Validez en cliquant sur 'OK'
-	<input type=submit value=OK name=submit24>
-	.
+<li>Ouvrez le visualisateur d'image simplement en cliquant sur le nom du fichier de l'image dans le mode 'Liste de fichier' ou sur la vignette de l'image dans le mode vignette</li>
+<li>Allez à l'image suivante ou l'image précédente en cliquant sur nom ou sur sa vignette dans la barre d'outil du visualisateur d'image
+</li>
+<li>Fermez le visualisateur d'image en cliquant simplement soit sur 'Liste de fichier', soit sur 'Vignette' à droite dans la barre d'outil du répertoire</li>
 </ul>
-	<h4>Supprimer un document (ou un répertoire)</h4>
-	<ul>
 
-  <li>Cliquez sur le bouton <img src=../document/img/delete.gif width=20
- height=20>
-	dans la colonne 'Supprimer'.</li>
-	</ul>
-	<h4>Rendre invisibles aux étudiants un document (ou un
- répertoire)</h4>
-	<ul>
+<h4>Rechercher une ressource</h4>
+<ul>
+<li>
+Cliquez sur la commande 'Rechercher' dans la zone supérieur de votre navigateur.
+</li>
+<li>
+Entrez votre chemin de recherche. Vous pouvez utiliser les caractères génériques '*' et '?' pour des recherches complexes.
+</li>
+<li>
+Cliquez sur le bouton 'OK'.
+</li>
+<li>
+Le résultat de la recherche sera affiché juste en dessous de la barre de répertoire.
+</li>
+</ul>
+<hr />
+<h4>Gérer les documents</h4>
+Cet outil dipose d'une série de commandes vous permettant de télécharger et ajouter des fichiers, éditer et organiser vos fichiers de ressources.
+</hr />
 
-  <li>Cliquez sur le bouton <img src=../document/img/visible.gif width=20
- height=20>dans
-	la colonne 'Visible/invisible'.</li>
-	  <li>Le document (ou le répertoire) existe toujours, mais il n'est
+<h4>Ajouter un fichier</h4>
+<ul>
+<li>
+Cliquez sur la commande 'Ajouter un fichier' en haut.
+</li>
+<li>
+Selectionnez le fichier sur votre ordinateur en utilsant le bouton 'Parcourir' dans la boîte de dialogue.
+</li>
+<li>
+Optionnellement, vous pouvez attacher un commentaire avec le fichier ajouté. Il sera ajouté juste en dessous de la ligne du document.
+<blockquote><small>
+<i>Note</i> Si vous ajoutez une collection de fichiers rassemblés dans une archive au format au format <i>ZIP</i>,
+cochez la case 'Décompresser fichier zippé (.zip)' pour extraire les fichiers automatiquement une fois que l'archive est téléchargée dans le répertoire du cours sur le serveur.
+</small></blockquote>
+</li>
+<li>
+Lancer le téléchargement en cliquant sur le bouton 'Ajouter'.
+</li>
+</ul>
 
-		plus visible pour les étudiants.</li>
-	</ul>
-	<ul>
+<h4>Créer un lien hypertexte</h4>
+<ul>
+<li>
+Cliquez sur la commande 'créer un lien hypertexte' dans la partie supérieure de votre navigateur.
+</li>
+<li>
+Remplissez le champs 'Nom' avec un nom spécifique pour ce lien hypertexte;
+</li>
+<li>
+Tapez l'URL complète de l'hyperlien 
+(exemple : http://mon.domaine/mon/fichier.htm).
+</li>
+<li>
+Optionnellement, vous pouvez attacher un commentaire avec le lien hypertexte.
+Il sera ajouté juste en dessous de la ligne du lien hypertexte.
+</li>
+<li>
+Validez en cliquant sur le bouton 'OK'.
+</li>
+</ul>
 
-  <li> Si vous souhaitez rendre cet élément à nouveau
- visible,
-	cliquez sur le bouton <img src=../img/invisible.gif
- width=24 height=20>
-	dans la colonne Visible/invisible</li>
-	</ul>
-	<h4>Ajouter ou modifier un commentaire au document (ou au
- répertoire)</h4>
-	<ul>
+<h4>Créer un document HTML en ligne</h4>
+<ul>
+<li> Cliquez sur la commande 'Créer un document' dans la partie supérieure de votre navigateur.
+</li>
+<li> 
+Remplissez le nom d'apparation 'Nom du document' pour ce document.
+</li>
+<li>
+Entrez le contenu du document dans la zone 'Contenu du document'.
+</li>
+<li>
+Cliquez sur le bouton 'OK' une fois terminé.
+</li>
+</ul>
+<p>
+Cette commande peut être utilisée pour écrire des documents assez courts. Pour écrire de plus longs textes, nous vous recommandons d'utiliser un outil plus adéquat sur votre ordinateur personnel.
+</p>
 
-  <li>Cliquez sur le bouton <img
- src=../img/comment.gif width=20 height=20>
-	dans la colonne 'Commentaire'</li>
-	  <li>Tapez le nouveau commentaire dans la zone prévue à cet
 
-		effet qui apparaîtra en haut à gauche.</li>
-	  <li>Validez en cliquant sur 'OK'
-		<input type=submit value=OK name=submit2>
-		.</li>
-	</ul>
-	<p>Si vous souhaitez supprimer un commentaire, cliquez sur le bouton <img
- src=../img/comment.gif width=20 height=20>,
-	  effacez l'ancien commentaire de la zone et validez en cliquant
- 'OK'
-	  <input type=submit value=OK name=submit22>
-	  .
-	<hr>
-	<p>Vous pouvez aussi organiser le contenu du module de document en
- rangeant
-	  les documents dans de répertoires. Pour ce faire vous devez :</p>
-	<h4><b>Créer un répertoire</b></h4>
-	<ul>
-	  <li>Cliquez sur la commande '<img
- src=../img/folder.gif>créer
-		un répertoire' en haut à gauche de l'écran</li>
-	  <li>Tapez le nom de votre nouveau répertoire dans la zone
- prévue
-		à cet effet en haut à gauche de l'écran.</li>
-	  <li>Validez en cliquant 'OK'
-		<input type=submit value=OK name=submit23>
-		.</li>
-	</ul>
-	<h4>Déplacer un document (ou un répertoire)</h4>
-	<ul>
-	  <li>Cliquez sur le bouton <img
- src=../img/move.gif width=34 height=16>
-		dans la colonne déplacer</li>
-	  <li>Choisissez le répertoire dans lequel vous souhaitez
- déplacer
-		le document ou le répertoire dans le menu déroulant
- prévu
-		à cet effet qui apparaîtra en haut à gauche.(note:
-		le mot 'racine' dans ce menu représente la racine de
-		votre module document).</li>
-	  <li>Validez en cliquant 'OK'
-		<input type=submit value=OK name=submit232>
-		.</li>
-	</ul>
-	<center>
-	  <p>";
+<h4>Renommer un document, un répertoire ou un lien hypertexte</h4>
+<ul>
+<li>Cliquez sur l'icône dans la colonne 'Editer'.
+</li>
+<li>
+Tapez le nouveau nom dans le champs dans la partie supérieure de votre navigateur.
+</li>
+<li>
+Optionnellement, vous pouvez attacher un commentaire avec le document. Il sera ajouté juste en dessous de la ligne du document.
+</li>
+<li>
+Validez en cliquant sur le bouton 'OK'.
+</li>
+</ul>
+<p>
+<b>Tip. </b>
+Les documents sont présentés par ordre alphabétique. si vous souhaitez que les documents soient classés de manière différente, vous pouvez les faire précéder d'un numéro : 01, 02, 03...
+</p>
+
+<h4>Effacer un document, un répertoire ou un lien hypertexte</h4>
+<ul>
+<li>
+Cliquez sur l'icône en dessous du document dans la colonne 'Effacer'.</li>
+</ul>
+
+<h4>
+Rendre un document, un repertoire ou un lien hypertexte invisible aux utilisateurs
+</h4>
+<ul>
+<li>
+Cliquez sur l'icône à côté du document dans la colonne 'Visibilité'.
+</li>
+<li>
+La ressource exitera toujours mais sera plus visible pour les utilisateurs du cours.
+</li>
+<li>
+Pour la rendre visible à nouveaux, cliquez simplement de nouveau sur l'icône à côté du document 
+dans la colonne 'Visibilité'.
+</li>
+</ul>
+<h4>
+Ajouter ou modifier un commentaire à un document, un répertoire ou un lien hypertexte
+</h4>
+<ul>
+<li>
+Cliquez sur l'icône à côté du document dans la colonne 'Editer'.
+</li>
+<li>
+Entrez le nouveau commentaire dans le champs correspondant.
+</li>
+<li>
+Validez en cliquant sur le bouton 'OK'.
+</li>
+</ul>
+<p>
+Pour effacer un commentaire, cliquez sur l'icône à côté du document dans la colonne 'Editer', effacez l'ancien commentaire et cliquez sur le bouton 'OK'. 
+<h4>Créer un répertoire</h4>
+<ul>
+<li>Cliquez sur la commande 'Créer un répertoire' dans la partie supérieure de votre navigateur.
+</li>
+<li>
+Entrez le nom du nouveau répertoire dans le champs correspondant.
+</li>
+<li>
+Validez en cliquant sur le bouton 'OK'.
+</li>
+</ul>
+<h4>
+Déplacer un document, un répertoire ou un lien hypertexte
+</h4>
+<ul>
+<li>
+Cliquez sur l'icône à côté du document dans la colonne 'Déplacer'.
+</li>
+<li>
+Choisissez le répertoire dans lequel vous voulez déplacer l'élément dans le menu déroulant correspondant.
+<br />(Note: Le mot 'root' signifie que vous ne vous pouvez pas aller plus haut dans que là dans l'arborescence de répertoires sur le serveur.
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
+<center>
+<p>";
 $langDocument = "Documents et liens";
-$langExerciseContent = "<p>Le module d'exercice vous permet de créer des exercices pouvant contenir un nombre quelconque de questions.<br><br>
-Il existe différents types de réponses disponibles pour la création de vos questions :<br><br>
-<ul>
-  <li>Choix multiple (Réponse unique)</li>
-  <li>Choix multiple (Réponses multiples)</li>
-  <li>Correspondance</li>
-  <li>Remplissage de blancs</li>
-</ul>
-Un exercice rassemble un certain nombre de questions sous un thème commun.</p>
-<hr>
-<b>Création d'un exercice</b>
-<p>Pour créer un exercice, cliquez sur le lien 'Nouvel exercice'.<br><br>
-Introduisez l'intitulé de votre exercice, ainsi qu'une éventuelle description de celui-ci.<br><br>
-Vous pouvez également choisir entre 2 types d'exercices :<br><br>
-<ul>
-  <li>Questions sur une seule page</li>
-  <li>Une question par page (séquentiel)</li>
-</ul>
-et préciser si vous souhaitez ou non que les questions soient triées aléatoirement lors de l'exécution de l'exercice par l'étudiant.<br><br>
-Enregistrez ensuite votre exercice. Vous arriverez à la gestion des questions de cet exercice.</p>
-<hr>
-<b>Ajout d'une question</b>
-<p>Vous pouvez à présent ajouter une question à l'exercice précédemment créé. La description est facultative, de même que l'image que vous avez la possibilité d'associer à votre question.</p>
-<hr>
-<b>Choix multiple</b>
-<p>Il s'agit du classique QRM (question à réponse multiple) / QCM (question à choix multiple).<br><br>
-Pour créer un QRM / QCM :<br><br>
-<ul>
-  <li>Définissez les réponses à votre question. Vous pouvez ajouter ou supprimer une réponse en cliquant sur le bouton adéquat</li>
-  <li>Cochez grâce aux cases de gauche la ou les réponses exactes</li>
-  <li>Ajoutez un éventuel commentaire. Celui-ci ne sera vu par l'étudiant qu'une fois qu'il aura répondu à la question</li>
-  <li>Donnez une pondération à chaque réponse. La pondération peut être n'importe quel nombre entier, positif, négatif ou nul</li>
-  <li>Enregistrez vos réponses</li>
-</ul></p>
-<hr>
-<b>Remplissage de blancs</b>
-<p>Il s'agit du texte à trous. Le but est de faire trouver à l'étudiant des mots que vous avez préalablement retirés du texte.<br><br>
-Pour retirer un mot du texte, et donc créer un blanc, placez ce mot entre crochets [comme ceci].<br><br>
-Une fois le texte introduit et les blancs définis, vous pouvez éventuellement ajouter un commentaire qui sera vu par l'étudiant lorsqu'il aura répondu à la question.<br><br>
-Enregistrez votre texte, et vous arriverez à l'étape suivante qui vous permettra d'attribuer une pondération à chacun des blancs. Par exemple si la question est sur 10 points et que vous avez 5 blancs, vous pouvez donner une pondération de 2 points à chaque blanc.</p>
-<hr>
-<b>Correspondance</b>
-<p>Ce type de réponse peut être choisi pour créer une question où l'étudiant devra relier des éléments d'un ensemble E1 avec les éléments d'un ensemble E2.<br><br>
-Il peut également être utilisé pour demander à l'étudiant de trier des éléments dans un certain ordre.<br><br>
-Commencez par définir les options parmi lesquelles l'étudiant pourra choisir la bonne réponse. Ensuite, définissez les questions qui devront être reliées à une des options définies précédemment. Enfin, établissez les correspondances via les menus déroulants.<br><br>
-Remarque : Plusieurs éléments du premier ensemble peuvent pointer vers le même élément du deuxième ensemble.<br><br>
-Donnez une pondération à chaque correspondance correctement établie, et enregistrez votre réponse.</p>
-<hr>
-<b>Modification d'un exercice</b>
-<p>Pour modifier un exercice, le principe est le même que pour la création. Cliquez simplement sur l'image <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à modifier, et suivez les instructions ci-dessus.</p>
-<hr>
-<b>Suppression d'un exercice</b>
-<p>Pour supprimer un exercice, cliquez sur l'image <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à supprimer.</p>
-<hr>
-<b>Activation d'un exercice</b>
-<p>Avant qu'un exercice ne puisse être utilisé par un étudiant, vous devez l'activer en cliquant sur l'image <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> à côté de l'exercice à activer.</p>
-<hr>
-<b>Exécution d'un exercice</b>
-<p>Vous pouvez tester votre exercice en cliquant sur son nom dans la liste des exercices.</p>
-<hr>
-<b>Exercices aléatoires</b>
-<p>Lors de la création / modification d'un exercice, vous avez la possibilité de préciser si vous souhaitez que les questions soient tirées dans un ordre aléatoire parmi toutes les questions de l'exercice.<br><br>
-Cela signifie qu'en activant cette option, les questions seront à chaque fois dans un ordre différent lorsque les étudiants exécuteront l'exercice.<br><br>
-Si vous avez un grand nombre de questions, vous pouvez aussi choisir de ne prendre aléatoirement que X questions sur l'ensemble des questions disponibles dans cet exercice.</p>
-<hr>
-<b>Banque de questions</b>
-<p>Lorsque vous supprimez un exercice, les questions qu'il contenait ne le sont pas et peuvent être réutilisées dans un nouvel exercice, via la banque de questions.<br><br>
-La banque de questions permet également de réutiliser une même question dans plusieurs exercices.<br><br>
-Par défaut, toutes les questions de votre cours sont affichées. Vous pouvez afficher les questions relatives à un exercice en particulier, en choisissant celui-ci dans le menu déroulant 'Filtre'.<br><br>
-Des questions orphelines sont des questions n'appartenant à aucun exercice.</p>";
+$langExerciseContent = "<h4>A quoi sert l'outil Exercices</h4>
+<p>
+L'outil Exercices permet de créer des exercices en ligne sous la forme d'une liste de questions. Ces questions peuvent être de différents types. Les étudiants peuvent essayer de répondre ; s'ils se sont enregistrés au cours, leurs scores seront conservés et visibles dans la section des statistiques du cours.
+</p>
+
+<hr />
+
+<h4>Administrer l'outil Exercices</h4>
+
+<p>Créer un exercice</p>
+<p>Cliquez sur Exercices pour entrer dans la liste de vos exercices.
+</p><p><br />
+Nous allons commencer par créer un nouvel exercice. Pour ce faire, cliquez sur le lien « Nouvel exercice ».
+</p><p><br />
+Il vous faut commencer par donner un intitulé à votre exercice, ainsi quune éventuelle description.
+</p><p>Définissez ensuite les options souhaitées pour cet exercice&nbsp;:
+</p>
+<ul><li> Type d'exercice
+<ul><li> Questions sur une seule page&nbsp;: Lorsque létudiant exécutera lexercice, toutes les questions lui seront présentées en une seule fois.
+</li><li> Une question par page&nbsp;: Les questions sont réparties sur plusieurs pages. Une fois que létudiant à répondu à une question, il passe à la suivante, et il ne peut plus revenir en arrière.
+
+</li></ul>
+</li></ul>
+<p>Les options suivantes sont optionnelles, conserver les valeurs par défaut permet la création d'un exercice tel que dans Claroline 1.5.
+</p>
+<ul><li> Date de début&nbsp;: date à partir de laquelle les étudiants pourront répondre au questionnaire
+</li><li> Date de fin&nbsp;: date jusqu'à laquelle les étudiants pourront répondre au questionnaire, la case doit être cochée pour que la date de fin soit prise en compte
+</li><li> Limite de temps&nbsp;: cochez la case pour imposer une limite de temps aux apprenants lorsqu'ils réaliseront l'exercice, spécifiez le temps maximum autorisé
+</li><li> Essais autorisés&nbsp;: précisez si les étudiants peuvent faire l'exerice autant de fois que souhaité ou si le nombre d'essais est limité
+</li><li> Essais anonymes&nbsp;: si les essais anonymes sont autorisé aucun tracking ne sera conservé et n'importe qui pourra essayer de faire l'exercice, dans le cas contraire les résultats de toutes les tentatives seront conservés et seuls les apprenants inscrits au cours pourront réaliser l'exercice.
+
+</li><li> Après le test, afficher les réponses&nbsp;: 
+<ul><li> Oui&nbsp;: la correction est affichée à l'utilisateur après chacune de ses tentatives
+</li><li> Apres la dernière tentative autorisée&nbsp;: la correction ne sera affichée que lorsque l'apprenant aura atteint le nombre maximum d'essais autorisés
+</li><li> Non&nbsp;: aucune correction affichée
+</li></ul>
+</li></ul>
+<p>Lorsque vous avez fourni toutes les informations nécessaires, cliquez sur « Valider » pour enregistrer votre exercice.
+</p><p><br />
+</p><p>Vous arrivez alors à la liste des questions de lexercice. Comme il sagit dun nouvel exercice, cette liste est vide.
+
+</p><p>Pour ajouter une nouvelle question, cliquez sur le lien « Nouvelle question ».
+</p><p>Dans le formulaire qui apparaît, introduisez votre question, ainsi quun éventuel commentaire.
+</p><p>Vous pouvez également joindre un fichier se trouvant sur votre disque dur en cliquant sur le bouton « Parcourir& »
+</p><p>Il vous faut à présent choisir le type de réponse pour votre question&nbsp;:
+</p>
+<ul><li> Choix multiple (Réponse unique)&nbsp;: Il sagit du classique QCM, où létudiant ne peut choisir quune seule réponse.
+</li><li> Choix multiple (Réponses multiples)&nbsp;: Dans ce cas-ci, plusieurs réponses peuvent être correctes.
+</li><li> Correspondance&nbsp;: Létudiant devra faire correspondre les éléments dune liste avec ceux dune autre liste.
+</li><li> Remplissage de blancs&nbsp;: Il sagit du texte à trous&nbsp;; létudiant devra compléter un texte en trouvant les mots manquants.
+
+</li></ul>
+<p><br />
+Lorsque vous avez fourni toutes les informations nécessaires, cliquez sur le « Valider » pour enregistrer la question et définir les réponses.
+</p>
+
+<hr />
+
+<h4>Questions</h4>
+
+<p>Une fois l'exercice créé, cliquer sur le crayon pour voir la liste complète des questions de l'exercice.
+</p><p>Deux possibilités pour ajouter une question&nbsp;:
+</p>
+<ul><li> Créer une nouvelle question&nbsp;:
+<ul><li> Choix multiple (Réponse unique)&nbsp;: Il sagit du classique QCM, où létudiant ne peut choisir quune seule réponse.
+</li><li> Choix multiple (Réponses multiples)&nbsp;: Dans ce cas-ci, plusieurs réponses peuvent être correctes.
+</li><li> Correspondance&nbsp;: Létudiant devra faire correspondre les éléments dune liste avec ceux dune autre liste.
+
+</li><li> Remplissage de blancs&nbsp;: Il sagit du texte à trous&nbsp;; létudiant devra compléter un texte en trouvant les mots manquants.
+</li></ul>
+</li></ul>
+<ul><li> Ajouter une question de la Banque de questions
+</li></ul>
+
+<h4>Questions à choix multiples</h4>
+<p>Commencez par fournir les différents choix de réponses. Vous pouvez ajouter ou retirer des réponses grâce aux boutons « Supprmier rép. » et « Ajouter rép. ».
+</p><p>Vous avez ensuite la possibilité de donner un commentaire (ou feedback) qui sera affiché à létudiant lorsquil aura validé la question. Le feedback napparaît que pour les réponses que létudiant a choisies, quelles soient bonnes ou mauvaises.
+</p><p>Enfin, sélectionnez la ou les bonnes réponses via les cases à cocher de gauche et donnez une pondération à chacune des réponses. La pondération peut être positive, négative ou nulle.
+Une fois terminé, cliquez sur le bouton « Valider » pour enregistrer les réponses de votre question.
+</p>
+
+<h4>Correspondance</h4>
+<p>Ici, vous devez remplir 2 listes avec des éléments complémentaires, que létudiant devra faire correspondre.
+</p><p>Vous pouvez ajouter ou supprimer des éléments grâce aux boutons « -élem » et « +élem ».
+</p><p>Donnez ensuite une pondération à chaque correspondance correctement établie par létudiant, et enregistrez votre question en cliquant sur le bouton « Valider ».
+</p><p>Les pondérations ne peuvent pas être négatives.
+</p>
+
+<h4>Remplissage de blancs</h4>
+<p>Introduisez tout dabord votre texte dans le champ prévu à cet effet.<br />
+Une fois le texte introduit, définissez les différents blancs en entourant les mots à retirer du texte par des crochets. </p>
+
+<hr />
+
+<h4>La banque de questions</h4>
+<p>La banque de question répertorie la liste de toutes les questions disponibles dans l'outil d'exercice
+</p><p>Lorsque vous supprimez un exercice, les questions qu'il contenait ne le sont pas et peuvent être réutilisées dans un nouvel exercice, via la banque de questions.
+</p><p>La banque de questions permet également de réutiliser une même question dans plusieurs exercices.
+</p><p>Par défaut, toutes les questions de votre cours sont affichées. Vous pouvez afficher les questions relatives à un exercice en particulier, en choisissant celui-ci dans le menu déroulant 'Filtre'.
+</p><p>Des questions orphelines sont des questions n'appartenant à aucun exercice.
+</p>
+
+<hr />
+
+<h4>Voir mes scores précédents</h4>
+<p>Chaque utilisateur peut consulter la liste des scores qu'il a fait dans chaque exercice.  Cette liste se trouve sous la liste des exercices, une vue plus détaillée est cependant disponible dans les statistiques personnelles (accessibles via le lien \"Modifier mon profil\" et ensuite \"Voir mes statistiques\").
+</p><p>Un responsable de cours a en plus accès à une vue détaillée des résultats obtenus par les étudiants dans chaque exercice, pour cela il faut cliquer sur le lien de tracking qui se trouve dans la liste des exercices disponibles.
+</p>";
 $langExercises = "Exercices";
 $langForContent = "Le forum est un outil de discussion asynchrone par écrit.
  A la différence de l'e-mail, le forum situe la discussion dans un espace
@@ -293,6 +400,58 @@ $langHFor = "Aide forums";
 $langHHome = "Aide Page d'accueil";
 $langHUser = "Aide utilisateurs";
 $langHelp = "Aide";
+$langHelpAssignment = "Aide des travaux";
+$langHelpAssignmentContent = "<p>L'outil de travaux permet aux apprenants de poster des fichiers qu'ils pensent pouvoir être intéressants pour les autres membres du cours, ou lorsque le responsable de cours leur a demandé de lui envoyer un fichier.  En effet, cet outil peut être utilisé de différentes manières, selon la façon dont le responsable de cours l'a configuré.
+</p><p>Plusieurs sessions de travaux peuvent exister simultanément, avec pour chacune des objectifs et des contraintes différentes.  Un travail peut être un fichier, un texte ou un texte accompagné d'un fichier.  Un travail peut également être posté à titre individuel ou au nom d'un groupe d'utilisateurs.
+</p>
+
+<hr />
+<h4>Créer un travail</h4>
+ <p>Pour créer un nouveau travail le responsable de cours doit entrer dans l'outil de travaux et cliquer sur le lien \"Créer un nouveau travail\".
+</p><p>Il faut alors que le responsable de cours remplisse le formulaire de création d'un travail.  Les différentes options possibles sont&nbsp;:
+</p>
+<ul><li><strong> titre</strong>&nbsp;: le nom du travail
+</li><li><strong> description</strong>&nbsp;: les intructions à propos du travail, ce qui doit être fait et la manière avec laquelle cela doit être fait
+</li><li><strong> type de soumission</strong>
+<ul><li>fichier&nbsp;: un fichier est requis, un commentaire peut être ajouté
+
+</li><li> texte&nbsp;: un texte mis en forme à l'aide de l'éditeur wysiwyg
+</li><li> texte avec un fichier attaché&nbsp;: un texte mis en forme à l'aide de l'éditeur wysiwyg et un fichier optionnel
+</li></ul>
+</li><li> <strong>date de début</strong>&nbsp;: date à partir de laquelle les apprenants peuvent soumettre leur travail
+</li><li> <strong>date de fin</strong>&nbsp;: date jusqu'à laquelle les apprennants peuvent soumettre leur travail
+</li><li><strong> visibilité par défaut des soumissions</strong>&nbsp;: spécifie si les travaux uploadés peuvent être vus par les autres apprenants ou si ils sont masqués dès la soumission
+</li><li><strong> type de travail</strong>
+<ul><li> individuel&nbsp;: chaque utilisateur inscrit dans le cours peut publier une soumission
+</li><li> de groupe&nbsp;: l'utilisateur doit être membre d'au moins un des groupes du cours pour publier une soumission.  Les soumissions de ce type seront publiées au nom du groupe auquel appartient l'apprenant.
+</li></ul>
+</li><li> <strong>permission de soumettre après la date de fin</strong>
+</li></ul>
+<p>
+
+<h4>Correction automatique</h4>
+</p><p>En plus de la correction manuelle que le responsable de cours peut faire pour chaque soumission il est possible de mettre une correction automatiquement à disposition des apprenants.  Pour ce faire il faut entrer dans un travail et cliquer sur \"Editer la correction automatique\"
+</p><p>La correction automatique peut être un fichier, un texte ou les deux.  Le responsable de cours peut choisir quand cette correction automatique sera montrée aux apprenants&nbsp;: 
+</p>
+
+<ul><li> à partir de la date de fin de la session
+</li><li> au cas par cas, dès que l'apprenant à publié un travail
+</li></ul>
+
+<h4>Gestion des soumissions</h4>
+<p>Le responsable de cours peut poster une correction individuelle pour chaque travail soumis par un utilisateur.
+</p>
+<p>Les soumissions sont les publications des apprenants.
+</p><p>Pour chaque session de travail est affichée la liste de tous les utilisateurs du cours avec pour chacun le nombre de soumissions qu'il a effectué dans cette session et le nombre de correction que le responsable de cours a fait pour ces soumissions.  La liste des soumissions et des correction d'un utilisateur dans une session peut être consultée en cliquant sur le nom de l'utilisateur.
+</p><p>Dans la liste des soumissions d'un utilisateurs sont disponibles des commandes à l'intention du responsable de cours&nbsp;:
+</p>
+<ul><li> <strong>Modifier</strong>&nbsp;: cette icone apparait à l'auteur de la soumission (éventuellement à tous les membres du groupes pour lequel la soumission a été faite), elle apparait également au responsable de cours.
+</li><li> <strong>Delete</strong>&nbsp;: permet au responsable de cours d'effacer une soumission
+</li><li> <strong>Visible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est visible à toutes les personnes qui ont accès au cours.  Cliquer sur cette icone rend la soumission invisible
+
+</li><li> <strong>Invisible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est masquée à toutes les personnes qui ont accès au cours, la soumission n'est alors visible que pour tous les utilisateurs à l'exception des responsables de cours et de l'utilisateur ou du groupe propriétaire de la soumission. 
+</li><li> <strong>Ajouter une correction</strong>&nbsp;: permet au responsable de cours de soumettre une correction individuelle à l'auteur de la soumission.  En plus d'un fichier et/ou d'un texte cette correction peut être accompagné d'un pourcentage et d'un commentaire que seuls les responsables de cours pourront voir.
+</li></ul>";
 $langHelpGroups = "Gestion des groupes";
 $langHomeContent = "La plupart des rubriques de Claroline sont déjà remplies
  d'un petit texte ou d'un lien donnés par défaut ou pour l'exemple. Il vous
@@ -335,23 +494,60 @@ $langStudent = "Etudiant";
 $langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
 $langTextEditorDisable = "Désactiver l'éditeur de texte";
 $langTextEditorEnable = "Activer l'éditeur de texte";
-$langUserContent = "<b>Droits d'administration</b>
-<p>Pour permettre à un co-titulaire, un assistant, un tuteur ou qui que ce
- soit de co-administrer le site avec vous, vous devez préalablement
- l'inscrire à votre cours ou vous assurer qu'il est inscrit puis modifier
- ses droits en cochant 'modifier' sous 'droits d'admin.' puis
- 'tous'.</P><hr>
-<b>Co-titulaires</b>
-<p>Pour faire figurer le nom d'un co-titulaire dans l'en-tête de votre
- cours, utilisez la page 'Modifier info cours' (dans les outils orange
- sur la page d'accueil de votre cours). Cette modification de l'en-tête
- du cours n'inscrit pas automatiquement ce co-titulaire comme utilisateur
- du cours. Ce sont deux actions distinctes.</p><hr>
-<b>Ajouter un utilisateur</b>
-<p>Pour ajouter un utilisateur à votre cours, remplissez les champs
-et validez. La personne recevra un e-mail de confirmation de son
-inscription contenant son nom d'utilisateur et son mot de passe, sauf si
-vous n'avez pas introduit son e-mail.</p>";
+$langUserContent = "<p>L'outil 'Utilisateurs' permet d'afficher un tableau d'information sur les utilisateurs. Voici un résumé des descriptions des différentes colonnes de ce tableau.
+<ul>
+<li>
+<b>Nom</b>. En cliquant sur le nom de l'utilisateur , vous pourrez voir des informations additionnelles concernant cet utilisateur, comme son adresse e-mail, etc.
+</li>
+
+<li>
+<b>Rôles</b>.
+Les rôles n'ont pas de fonction technique particulière. Ils ne donnent pas de droits pour opérer sur la platforme. Ils indiquent seulement aux personnes 'qui est qui'. Vous pouvez modifier le rôle d'un utilisateur en cliquant sur l'icône dans la colonne 'Editer', et en tapant ensuite le rôle désiré : professeur, assistant, étudiant, visiteur, expert...
+</li>
+
+<li>
+<b>Tuteur de groupe</b>. Tuteur de groupe est un statut qui permet à l'utilistateur d'encadrer un groupe de plus près. Cela lui donne la permission d'accéder aux espaces de tous les groupes, de voir l'ensembles des messages des forums de groupe. Vous pouvez modifier ce statut en cliquant sur l'icône de la colonne 'Editer'.  
+</li>
+
+<li>
+<b>Gestionnaire de cours</b>. Ce status est réservé aux personnes qui peuvent superviser et gérer le cours. Vous pouvez modifier ce statut en cliquant sur l'icône de la colonne 'Editer'.
+</li>
+
+<li>
+<b>Editer</b> (réservé au gestionnaire de cours). Cette commande permet au gestionnaire de cours d'éditer les informations d'un utilisateur en rapport avec ce cours. Le gestionnaire de cours ne peut pas modifier des informations personnelles comme l'adresse e-mail, nom etc, seulement les données directement en relation avec le cours, comme le rôle, le statut de tuteur, le statut de gestionnaire de cours, etc. Avec cette commande, le gestionnaire  de cours peut aussi créer de nouveaux intitulés dédiés à ce cours (voir le bouton 'Définir les intitulés' dans la page des détails d'un utilisateur). Une fois les intitulés définis, les utilisateurs peuvent les remplir eux-mêmes.
+</li>
+
+<li>
+<b>Radier</b> (réservé au gestionnaire de cours). Cette commande permet au gestionnaire de cours de retirer un utilisateur du cours. Cela ne signifie pas que le compte d'utilisateur n'existe plus, mais seulement qu'il n'est plus inscrit à ce cours.
+</li>
+
+</ul>
+
+<h4>
+Commandes principales
+</h4>
+
+<ul>
+<li>
+<b>Ajouter un utilisateur</b>. Cliquez sur cette commande pour ajouter un utilisateur dans le cours, remplissez le formulaire et valider. La personne recevera un e-mail mentionnant qu'elle a été inscrite et lui indiquant son nouveau login et mot de passe.
+</li>
+<li><b>Ajouter une liste d'utilisateurs</b></li> Cliquez sur cette commande pour ajouter une liste d'utilisateurs à l'aide d'un fichier au format CSV.
+</li>
+<li>
+<b>Inscrire une classe</b>. Cliquez sur cette commande pour ajouter une collection d'utilisateurs rassemblés dans une classe prédéfinies par l'administrateur de la plateforme.
+</li>
+<li>
+<b>Gestion des groupes</b>. Permet d'accéder directement à l'outil de gestion des groupes.
+</li>
+</ul>
+
+<h4>Conseils</h4>
+<p>
+Pour permettre à un assistant, par exemple, de co-gérer le site, vous devez l'inscrire au cours ou être sûr qu'il est déjà inscrit, ensuite cliquer sur 'modifier' (avec les droits d'administration), puis cliquer sur 'tout', puis 'Ok'.
+</p>
+<p>
+Pour mentionner dans l'entête du site du cours le nom d'un co-gestionnaire, utilisez l'outil 'Paramètres de cours'. Cette modification n'inscrit pas la personne comme gestionnaire, le champs 'Gestionnaire(s) de cours' de ce formulaire est totalement indépendant de la liste des utilisateurs.
+</p>";
 $langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
