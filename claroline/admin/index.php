@@ -153,8 +153,8 @@ if ($controlMsg) echo '<blockquote>'.$controlMsg.'</blockquote>';
 </ul>
 
 <?php
-if (( defined('DEVEL_MODE') && DEVEL_MODE )
-|| ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION'))
+if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
+|| ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') )
 {
 ?>
     <h4><?php echo $langSDK?></h4>
@@ -168,7 +168,7 @@ if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION')
     <li><a href="xtra/sdk/translation_index.php"><?php echo $langTranslationTools?></a></li>
 <?php
 }
-if ( defined('DEVEL_MODE') && DEVEL_MODE )
+if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 {
 ?>
     <li><a href="devTools/"><?php echo $langDevTools?></a></li>
