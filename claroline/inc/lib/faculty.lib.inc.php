@@ -105,7 +105,7 @@ function displayBom($elem,$father,$space)
 				<td>
 					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&delete=1"; ?>"
 					onclick="javascript:if(!confirm('<?php echo
-					 addslashes(htmlentities($lang_faculty_ConfirmDelete.$one_faculty["code"])) ?>')) return false;" >
+					 clean_str_for_javascript($lang_faculty_ConfirmDelete.$one_faculty["code"]) ?>')) return false;" >
 					<img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete ?>"> </a>
 				</td>
 				<?php
