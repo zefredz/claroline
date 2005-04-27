@@ -68,6 +68,9 @@ if (isset($_REQUEST['searchPassword']) && !empty($Femail) )
 	{
 		if (mysql_num_rows($result) > 0)
 		{
+
+            $user = array();            
+
 			while ($data = mysql_fetch_array($result))
 			{
 				$user [] = $data;
