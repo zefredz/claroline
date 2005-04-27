@@ -32,7 +32,7 @@ array ( 'refresh_display_rate'
 
 $conf_def['section']['display']['label']='Display Settings';
 $conf_def['section']['display']['properties'] = 
-array ( 'max_nick_lenght'
+array ( 'max_nick_length'
       , 'max_line_to_display'
       );
 
@@ -73,7 +73,7 @@ array ( 'label'       => 'Maximum conversation lines in buffer'
       , 'type'        => 'integer'
       );
       
-$conf_def_property_list['max_nick_lenght'] = 
+$conf_def_property_list['max_nick_length'] =
 array ( 'label'       => 'Maximum lengh for a nick'
       , 'description' => 'If  name and firstname is longer '
                        . 'than this value, the script reduce it.'."\n"

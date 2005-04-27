@@ -46,7 +46,7 @@ $is_allowedToStore  = $is_courseAdmin;
 $is_allowedToReset  = $is_courseAdmin;
 
 $nick        = $_user ['firstName']." ".$_user ['lastName'];
-if (strlen($nick) > $max_nick_lenght) $nick = $_user ['firstName']." ".$_user ['lastName'][0].'.';
+if (strlen($nick) > $max_nick_length) $nick = $_user ['firstName']." ".$_user ['lastName'][0].'.';
 
 // theses  line prevent missing config file
 $refresh_display_rate = (int) $refresh_display_rate;
