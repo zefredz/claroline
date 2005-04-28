@@ -21,20 +21,10 @@
  * include(moduleIntro.inc.php);
  */
 
-$TBL_INTRODUCTION = $_course['dbNameGlu'].'tool_intro';
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$TBL_INTRODUCTION = $tbl_cdb_names['tool_intro'];
 
-
-/*
-if ($is_courseAdmin) 
-{
-	$intro_editAllowed = true; // "view & edit" Mode
-}
-else
-{
-	$intro_editAllowed = false; // "view only" Mode
-}
-*/
-$intro_editAllowed = claro_is_allowed_to_edit(); 
+$intro_editAllowed = claro_is_allowed_to_edit();
 
 $intro_exDel = false;
 
