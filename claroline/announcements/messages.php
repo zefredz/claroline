@@ -247,6 +247,7 @@ if($is_allowedToUse)	// check teacher status
                  */
   
                 $countUnvalid = 0;
+                $messageFailed = '';
 
                 foreach($userIdList as $userId)
                 {
