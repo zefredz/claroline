@@ -45,13 +45,14 @@ require '../inc/claro_init_global.inc.php';
 
 //// Config tool
 include($includePath.'/conf/course_main.conf.php');
-//// LIBS
 
+//// LIBS
 include($includePath.'/lib/add_course.lib.inc.php');
 include($includePath.'/lib/course.lib.inc.php');
 include($includePath.'/lib/fileManage.lib.php');
 
 $nameTools = $langCreateSite;
+$controlMsg = array();
 
 /**
  * DB tables definition
@@ -75,41 +76,38 @@ $TABLEANNOUNCEMENTS = $tbl_announcement;
 $can_create_courses = (bool) ($is_allowedCreateCourse);
 $coursesRepositories = $coursesRepositorySys;
 
-//Prefield values for the form to create a course :
+// Prefield values for the form to create a course :
 
-//1- first we take default value (or blank values)
-$wantedCode         = $_REQUEST['wantedCode'];
-$valueIntitule      = $_REQUEST['intitule'];
-$valueLanguage      = $_REQUEST['languageCourse'];
-$valueTitular       = $_user['firstName']." ".$_user['lastName'];
-$valueEmail         = $_user['mail'];
-$valueLanguage      = $platformLanguage;
+if ( isset($_REQUEST['titulaires']) ) $valueTitular = $_REQUEST['titulaires'] ; 
+else                                  $valueTitular = $_user['firstName']." ".$_user['lastName'];
 
-//2- then we overwrite with entered value if the form was already posted before
-if (isset($_REQUEST['titulaires'])) 
-{
-    $valueTitular = $_REQUEST['titulaires'] ; 
-} 
-if (isset($_REQUEST['email']))      
-{
-    $valueEmail = $_REQUEST['email'];
-}
-if (isset($_REQUEST['languageCourse']))
-{
-    $valueLanguage = $_REQUEST['languageCourse'];
-}
-if (isset($_REQUEST['faculte']))
-{
-    $facu = $_REQUEST['faculte'];
-}
+if ( isset($_REQUEST['email']) ) $valueEmail = $_REQUEST['email'];
+else                             $valueEmail = $_user['mail'];
+
+if ( isset($_REQUEST['languageCourse']) ) $valueLanguage = $_REQUEST['languageCourse'];
+else                                      $valueLanguage = $platformLanguage;
+
+if ( isset($_REQUEST['faculte']) ) $facu = $_REQUEST['faculte'];
+else                               $facu = '';
+
+if ( isset($_REQUEST['wantedCode']) ) $wantedCode = $_REQUEST['wantedCode'];
+else                                  $wantedCode = '';
+
+if ( isset($_REQUEST['intitule']) ) $valueIntitule = $_REQUEST['intitule'];
+else                                $valueIntitule = '';
 
 //// Starting script
+
 $displayNotForU = FALSE;
-if (!$can_create_courses) $displayNotForU = TRUE; // (!$can_create_courses)
+
+if (!$can_create_courses) 
+{
+    $displayNotForU = TRUE; // (!$can_create_courses)
+}
 else
 {
-    $displayCoursePropertiesForm 	= TRUE;
-    if ($submitFromCoursProperties)
+    $displayCoursePropertiesForm = TRUE;
+    if ( isset($_REQUEST['submitFromCoursProperties']) )
 	{
 		$wantedCode 		= strip_tags($_REQUEST['wantedCode'    ]);
 		$newcourse_category	= strip_tags($_REQUEST['faculte'       ]);
@@ -118,9 +116,8 @@ else
 		$newcourse_titulars	= strip_tags($_REQUEST['titulaires'    ]);
 		$newcourse_email 	= strip_tags($_REQUEST['email'         ]);
 		
-		//$wantedCode = $wantedCode.' '.date('Y');
-		
 		$okToCreate = TRUE;
+
 		/////CHECK DATA
 		
 		// LABEL (Previously called intitule
@@ -150,7 +147,6 @@ else
 			$controlMsg['error'][] = $langEmailWrong;
 		}
 
-	//  function define_course_keys ($wantedCode, $prefix4all="", $prefix4baseName="", 	$prefix4path="", $addUniquePrefix =false,	$useCodeInDepedentKeys = TRUE	)
 		$keys = define_course_keys ($wantedCode,"",$dbNamePrefix);
 		$currentCourseCode		 = $keys['currentCourseCode'      ];
 		$currentCourseId		 = $keys['currentCourseId'        ];
@@ -211,7 +207,7 @@ else
 	} // elseif ($submitFromCoursProperties)
 } // else (!$can_create_courses)
 
-if ($fromAdmin=="yes")
+if ( isset($REQUEST['fromAdmin']) && $REQUEST['fromAdmin'] == 'yes' )
 {
     $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 }
@@ -219,7 +215,10 @@ include $includePath.'/claro_init_header.inc.php';
 
 claro_disp_tool_title($nameTools);
 
-claro_disp_msg_arr($controlMsg);
+if ( is_array($controlMsg) && count($controlMsg) > 0 )
+{
+    claro_disp_msg_arr($controlMsg);
+}
 
 // db connect
 // path for breadcrumb contextual menu in this page
