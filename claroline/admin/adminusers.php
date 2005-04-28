@@ -25,7 +25,7 @@ include($includePath."/lib/admin.lib.inc.php");
 
 if (!$is_platformAdmin) claro_disp_auth_form();
 
-if ($cidToEdit=="") {unset($cidToEdit);}
+if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=="")) {unset($_REQUEST['cidToEdit']);}
 
 
 //------------------------------------------------------------------------------------------------------------------------
@@ -34,17 +34,16 @@ if ($cidToEdit=="") {unset($cidToEdit);}
 
 // clean session if needed
 
-if ($_REQUEST['newsearch']=="yes")
+if (isset($_REQUEST['newsearch']) && $_REQUEST['newsearch']=="yes")
 {
-    session_unregister('admin_user_letter');
-    session_unregister('admin_user_search');
-    session_unregister('admin_user_firstName');
-    session_unregister('admin_user_lastName');
-    session_unregister('admin_user_userName');
-    session_unregister('admin_user_mail');
-    session_unregister('admin_user_action');
-    session_unregister('admin_order_crit');
-   
+    unset($_SESSION['admin_user_letter']);
+    unset($_SESSION['admin_user_search']);
+    unset($_SESSION['admin_user_firstName']);
+    unset($_SESSION['admin_user_lastName']);
+    unset($_SESSION['admin_user_userName']);
+    unset($_SESSION['admin_user_mail']);
+    unset($_SESSION['admin_user_action']);
+    unset($_SESSION['admin_order_crit']);
 }
 
 // deal with session variables for search criteria, it depends where we come from :
@@ -63,7 +62,7 @@ if (isset($_REQUEST['dir']))       {$_SESSION['admin_user_dir'] = ($_REQUEST['di
 
 // clean session if we come from a course
 
-session_unregister('_cid');
+unset($_SESSION['_cid']);
 unset($_cid);
 
 if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
@@ -102,11 +101,20 @@ $nameTools = $langListUsers;
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
+
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
+
 switch ($cmd)
 {
   case "delete" :
-        if ($_uid != $user_id)
-	{	    
+        if (isset($_REQUEST['user_id']))
+	        $user_id = $_REQUEST['user_id'];
+	else    $user_id = $_REQUEST['user_id'];
+	
+	if ($_uid != $user_id)
+	{
 	    delete_user($user_id);
 	    $dialogBox = $langUserDelete;
 	}
@@ -143,8 +151,8 @@ $sql = "SELECT
        FROM  `".$tbl_user."` AS `U`";
 
 //deal with admin user search only (PART ONE)	
-	
-if ($_SESSION['admin_user_action']=="plateformadmin")
+
+if (isset($_SESSION['admin_user_action']) && $_SESSION['admin_user_action']=="plateformadmin")
 {
     $sql .= ", `".$tbl_admin."` AS `AD`";
 }
@@ -161,7 +169,7 @@ $sql.= "
 
 //deal with admin user search only (PART TWO)
 
-if ($_SESSION['admin_user_action']=="plateformadmin")
+if (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="plateformadmin"))
 {
     $sql .= " AND `AD`.`idUser` = `U`.`user_id` ";
 }       
@@ -234,7 +242,28 @@ if (isset($_SESSION['admin_user_order_crit']))
 	$order[$_SESSION['admin_user_order_crit']] = ($_SESSION['admin_user_dir']=='ASC'?'DESC':'ASC');
 }
 
+//set the reorder parameters for colomuns titles
+
+if (!isset($order['uid']))              $order['uid']          = "";
+if (!isset($order['name']))             $order['name']         = "";
+if (!isset($order['firstname']))        $order['firstname']    = "";
+if (!isset($order['officialCode']))     $order['officialCode'] = "";
+if (!isset($order['email']))            $order['email']        = "";
+if (!isset($order['status']))           $order['status']       = "";
+if (!isset($order['courseqty']))        $order['courseqty']    = "";
+
 //$dialogBox = '<pre>'.$sql."</pre><br>"; //debug
+
+//Build pager with SQL request
+
+if (!isset($_REQUEST['offset'])) 
+{
+    $offset = "0";
+}
+else
+{
+    $offset = $_REQUEST['offset'];
+}
 
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $userList = $myPager->get_result_list();
@@ -244,31 +273,64 @@ $userList = $myPager->get_result_list();
 //Display search form
 //see passed search parameters :
 
-if ($_SESSION['admin_user_search']!="")               { $isSearched .= $_SESSION['admin_user_search']."* ";}
-if ($_SESSION['admin_user_firstName']!="")            { $isSearched .= $langFirstName."=".$_SESSION['admin_user_firstName']."* ";}
-if ($_SESSION['admin_user_lastName']!="")             { $isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']."* ";}
-if ($_SESSION['admin_user_userName']!="")             { $isSearched .= $langUserName."=".$_SESSION['admin_user_userName']."* ";}
-if ($_SESSION['admin_user_mail']!="")                 { $isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";}
-if ($_SESSION['admin_user_action']=="createcourse")   { $isSearched .= "<b> <br>".$langCourseCreator."  </b> ";}
-if ($_SESSION['admin_user_action']=="plateformadmin") { $isSearched .= "<b> <br>".$langPlatformAdministrator."  </b> ";}
+$addtoAdvanced ="";
 
-     //see what must be kept for advanced links
+if (isset($_SESSION['admin_user_search']) && $_SESSION['admin_user_search']!="") 
+{
+    $isSearched .= $_SESSION['admin_user_search']."* ";
+}
+if (isset($_SESSION['admin_user_firstName']) && ($_SESSION['admin_user_firstName']!=""))
+{
+    $isSearched .= $langFirstName."=".$_SESSION['admin_user_firstName']."* ";
+    $addtoAdvanced  .= "?firstName=".$_SESSION['admin_user_firstName'];
+}
+if (isset($_SESSION['admin_user_lastName']) && ($_SESSION['admin_user_lastName']!=""))
+{
+    $isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']."* ";
+    $addtoAdvanced .= "&amp;lastName=".$_SESSION['admin_user_lastName'];
+}
+if (isset($_SESSION['admin_user_userName']) && ($_SESSION['admin_user_userName']!="")) 
+{
+    $isSearched .= $langUserName."=".$_SESSION['admin_user_userName']."* ";
+    $addtoAdvanced .= "&amp;userName=".$_SESSION['admin_user_userName'];
+}
+if (isset($_SESSION['admin_user_mail']) && ($_SESSION['admin_user_mail']!="")) 
+{
+    $isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";
+    $addtoAdvanced .= "&amp;mail=".$_SESSION['admin_user_mail'];
+}
+if (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="createcourse")) 
+{
+    $isSearched .= "<b> <br>".$langCourseCreator."  </b> ";
+}
+if (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="plateformadmin")) 
+{
+    $isSearched .= "<b> <br>".$langPlatformAdministrator."  </b> ";
+}
 
-$addtoAdvanced  = "?firstName=".$_SESSION['admin_user_firstName'];
-$addtoAdvanced .= "&amp;lastName=".$_SESSION['admin_user_lastName'];
-$addtoAdvanced .= "&amp;userName=".$_SESSION['admin_user_userName'];
-$addtoAdvanced .= "&amp;mail=".$_SESSION['admin_user_mail'];
-$addtoAdvanced .= "&amp;action=".$_SESSION['admin_user_action'];
+//see what must be kept for advanced links
 
-    //finaly, form itself
+if (isset($_SESSION['admin_user_action']))
+{
+    $addtoAdvanced .= "&amp;action=".$_SESSION['admin_user_action'];
+}
 
-if (($isSearched=="") || !isset($isSearched)) {$title = "";} else {$title = $langSearchOn." : ";}
-
-
+if (!isset($isSearched) || ($isSearched=="")) 
+{
+   $title = "";
+   $isSearched = "";
+} 
+else 
+{
+    $title = $langSearchOn." : ";
+}
 
 //---------
 // DISPLAY
 //---------
+
+if (!isset($addToURL)) $addToURL ="";
+
 //Header
 include($includePath."/claro_init_header.inc.php");
 
@@ -277,7 +339,7 @@ claro_disp_tool_title($nameTools);
 
 //Display Forms or dialog box(if needed)
 
-if($dialogBox)
+if(isset($dialogBox))
 {
     claro_disp_message_box($dialogBox);
 }
@@ -285,6 +347,17 @@ if($dialogBox)
 //Display selectbox and advanced search link
 
 //TOOL LINKS
+
+//get the search keyword, if any
+
+if (!isset($_REQUEST['search']))
+{
+   $search = "";
+}
+else
+{
+   $search = $_REQUEST['search'];
+}
 
    //Display search form
 
@@ -299,7 +372,7 @@ echo '<table width="100%">
           <td align="right">
             <form action="'.$_SERVER['PHP_SELF'].'">
             <label for="search">'.$langMakeNewSearch.'</label>
-            <input type="text" value="'.$_REQUEST['search'].'" name="search" id="search" >
+            <input type="text" value="'.$search.'" name="search" id="search" >
             <input type="submit" value=" '.$langOk.' ">
             <input type="hidden" name="newsearch" value="yes">
             [<a class="claroCmd" href="advancedUserSearch.php'.$addtoAdvanced.'" >'.$langAdvanced.'</a>]
@@ -309,14 +382,17 @@ echo '<table width="100%">
       </table>
        ';
 
-   //Pager
+//Pager
 
 $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+
+
+
 
 // Display list of users
 
    // start table...
-
+   
 echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">
      <thead>
      <tr class=\"headerX\" align=\"center\" valign=\"top\">
