@@ -2034,7 +2034,7 @@ $langZipNoPhp = "The zip file can not contain .PHP files";
 $lang_CourseHasNoRepository_s_NotFound = "<strong>Course has no repository.</strong>
 <br><small>%s</small> Not found. ";
 $lang_EditFile_AdministrationTools = "Administration Tools";
-$lang_EditFile_ModifyOk = "Th changes have been carried out correctly";
+$lang_EditFile_ModifyOk = "The changes have been carried out correctly";
 $lang_RetryWithMoreDetails = "Retry with more details";
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "The claroline main tables have been successfully upgraded";
 $lang_UpgradeFailedForCourses = "Upgrade tool is not able to upgrade the following courses :";
