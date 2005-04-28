@@ -1102,7 +1102,7 @@ function claro_disp_html_area($name, $content =    '',
 
     if (claro_is_javascript_enabled())
     {
-        if ($_SESSION['htmlArea'] != 'disabled')
+        if ( isset($_SESSION['htmlArea']) && $_SESSION['htmlArea'] != 'disabled' )
         {
             $switchState = 'off';
             $message     = $langTextEditorDisable;
@@ -1146,7 +1146,7 @@ function claro_disp_html_area($name, $content =    '',
           <?php echo $optAttrib; ?> ><?php echo $content; ?></textarea>
 <?php
 
-    if ( $_SESSION['htmlArea'] != 'disabled' )
+    if ( isset($_SESSION['htmlArea']) && $_SESSION['htmlArea'] != 'disabled' )
     {
 
 ?>
