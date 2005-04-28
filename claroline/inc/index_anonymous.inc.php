@@ -16,9 +16,6 @@ echo "<table width=\"100%\" border=\"0\" cellpadding=\"4\" >\n\n"
     ."<tr>\n"
     ."<td valign=\"top\">\n";
 
-@include './infoImportante.html'; // Previous text zone, kept for ascending 
-                                // compatibility with claroline 1.4
-
 @include './textzone_top.inc.html'; // Introduction message if needed
 
 
@@ -142,8 +139,7 @@ if ( count($courseList) > 0 )
    }
 
     echo "<h4>".$langCourseList."</h4>\n"
-        ."<ul style=\"list-style-image:url(claroline/img/course.gif); 
-\">\n";
+        ."<ul style=\"list-style-image:url(claroline/img/course.gif);\">\n";
 
     foreach($courseList as $thisCourse)
     {

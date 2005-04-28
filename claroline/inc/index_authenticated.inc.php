@@ -165,8 +165,7 @@ echo "<p>"
  * Course List
  */
 
-echo "<ul style=\"list-style-image:url(claroline/img/course.gif); 
-\">\n";
+echo "<ul style=\"list-style-image:url(claroline/img/course.gif);\">\n";
 
 foreach($personnalCourseList as $thisCourse)
 {
@@ -245,22 +244,6 @@ echo "</ul>\n"
 </div>
 
 <hr noshade size="1">
-
-<?php
-//---------------------------------------------------------------------------
-// 'Conseil pédagogique' link, added from a suggestion of Marcel Lebrun.
-// Only valid on iCampus not for Claroline. Thomas, 30.9.2002.
-//
-//	if ($statut==1)
-//	{
-//		echo	"<p><a href=\"#\"",
-//				"onClick=\"MyWindow=window.open",
-//				"('conseil.htm','MyWindow','toolbar=no,location=no,directories=no,status=yes,",
-//				"menubar=no,scrollbars=yes,resizable=yes,width=400,height=500,left=300,top=10');",
-//				" return false;\">",$langAdvises,"</a></p>";
-//	}
-//---------------------------------------------------------------------------
-?>
 
 <p>
 <a href="http://www.claroline.net/documentation.htm"><?php echo $langDocumentation ?></a>
