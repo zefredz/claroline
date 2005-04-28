@@ -21,9 +21,11 @@ if ( ! $is_allowedToAdmin ) claro_disp_auth_form();
 include($includePath."/lib/debug.lib.inc.php");
 include("../../inc/lib/file.lib.inc.php");
 
+$controlMsg = array();
+
 define("DISP_FILE_LIST",__LINE__);
 define("DISP_EDIT_FILE",__LINE__);
-define("DISP_PREVIEW_FILE",__LINE__);
+define("DISP_VIEW_FILE",__LINE__);
 
 //The name of the files
 $NameFile=array("textzone_top.inc.html","textzone_right.inc.html");
@@ -33,26 +35,29 @@ $EditFile=array($rootSys.$NameFile[0],$rootSys.$NameFile[1]);
 $display=DISP_FILE_LIST;
 //If choose a file to modify
 //Modify a file
-if(isset($_REQUEST["modify"]))
+if( isset($_REQUEST["modify"]) )
 {
-	$text=$_REQUEST["textFile"];
+	$text = $_REQUEST["textFile"];
+
 	if (get_magic_quotes_gpc())
 	{
 		$text = stripslashes($text);
 	}
 
-	$fp=fopen($EditFile[$_REQUEST["file"]],"w+");
+	$fp = fopen($EditFile[$_REQUEST["file"]],"w+");
 	fwrite($fp,$text);
+
 	$controlMsg["info"][]=$lang_EditFile_ModifyOk." <br>
 	<strong>".basename($EditFile[$_REQUEST["file"]])."</strong>";
-	$display=DISP_FILE_LIST;
+
+	$display = DISP_FILE_LIST;
 }
 
-if(isset($_REQUEST["file"]))
+if( isset($_REQUEST["file"]) )
 {
 	$TextFile=contentFile($EditFile[$_REQUEST["file"]]);
 
-	if ($_REQUEST['cmd']=="edit")
+	if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd']=="edit"  )
 	{
 		$subtitle = 'Edit : '.basename($NameFile[$_REQUEST["file"]]);
 		$display = DISP_EDIT_FILE;
@@ -80,7 +85,11 @@ claro_disp_tool_title(
 	'subTitle'=>$subtitle
 	)
 	);
-claro_disp_msg_arr($controlMsg);
+
+if ( count($controlMsg) > 0 )
+{
+    claro_disp_msg_arr($controlMsg);
+}
 
 //OUTPUT
 

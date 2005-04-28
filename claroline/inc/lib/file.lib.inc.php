@@ -25,18 +25,20 @@ function contentFile($file)
 {
 	if(file_exists($file))
 	{
+        $all_lines = '';
+
 		if($fp = fopen($file,"r"))
 		{
 			while(!feof($fp))
 			{
 				$line=fgets($fp,255);
-				$AllLine.=$line;
+				$all_lines .= $line;
 			}
 
 			fclose($fp);
 		}
 
-		return $AllLine;
+		return $all_lines;
 	}
 	else
 		return FALSE;
