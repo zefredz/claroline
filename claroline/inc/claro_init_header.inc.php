@@ -73,7 +73,19 @@ if ( !empty($htmlHeadXtra) && is_array($htmlHeadXtra) )
 }
 ?>
 </head>
-<body dir="<?php echo $text_dir ?>">
+
+<?php
+//add onload javascript function calls to body
+if( is_array( $claroBodyOnload ) && count( $claroBodyOnload ) > 0 )
+{
+	$onload = " onload=\"";
+	$onload .= implode('', $claroBodyOnload );
+	$onload .= "\"";
+}
+
+?>
+
+<body dir="<?php echo $text_dir ?>"<?php echo $onload ?>>
 <?php
 
 //  Banner
