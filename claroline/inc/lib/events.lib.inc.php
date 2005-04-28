@@ -35,7 +35,6 @@ $tbl_cdb_names 			  = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS        = $tbl_cdb_names['track_e_access'];
 $TABLETRACK_DOWNLOADS     = $tbl_cdb_names['track_e_downloads'];
 $TABLETRACK_UPLOADS       = $tbl_cdb_names['track_e_uploads'];
-$TABLETRACK_LINKS         = $tbl_cdb_names['track_e_links'];
 $TABLETRACK_EXERCICES     = $tbl_cdb_names['track_e_exercices'];
 
 
@@ -307,49 +306,6 @@ function event_upload($doc_id)
             (
              ".$user_id.", 
              '".$doc_id."', 
-             FROM_UNIXTIME(".$reallyNow.")
-            )";
-                
-    $res = claro_sql_query($sql);
-    //$mysql_query($sql);
-    return 1;
-}
-/**
-
- * @param link_id (id in coursDb liens table)
- * @author Sebastien Piraux <pir@cerdecam.be>
- * @desc Record information for link event (when an user click on an added link)
-    it will be used in a redirection page
-*/
-function event_link($link_id)
-{
-    global $is_trackingEnabled ;
-    // if tracking is disabled record nothing
-    if( ! $is_trackingEnabled ) return 0;
-
-    global $_uid;
-    global $TABLETRACK_LINKS;
-
-    $reallyNow = time();
-    if($_uid)
-    {
-        $user_id = "'".$_uid."'";
-    }
-    else // anonymous
-    {
-        $user_id = "NULL";
-    }
-    $sql = "INSERT INTO `".$TABLETRACK_LINKS."`
-            (
-             `links_user_id`, 
-             `links_link_id`, 
-             `links_date`
-            )
-            
-            VALUES
-            (
-             ".$user_id.", 
-             '".$link_id."', 
              FROM_UNIXTIME(".$reallyNow.")
             )";
                 
