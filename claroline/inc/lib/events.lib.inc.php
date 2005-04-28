@@ -70,9 +70,6 @@ function event_open()
     global $rootWeb ;
     global $tbl_track_e_open;
 
-    // @getHostByAddr($REMOTE_ADDR) : will provide host and country information
-    // $HTTP_USER_AGENT :  will provide browser and os information
-    // $HTTP_REFERER : provide information about refering url
     if (isset($_SERVER['HTTP_REFERER'])) 
         $referer = $_SERVER['HTTP_REFERER'];
     else
@@ -83,9 +80,6 @@ function event_open()
     $pos = strpos($referer,$rootWeb);
     if( $pos === false )
     {
-        //$remhost = @getHostByAddr($_SERVER['REMOTE_ADDR']);
-    	  //if($remhost == $_SERVER['REMOTE_ADDR'] ) $remhost = "Unknown"; // don't change this
-        
         $reallyNow = time();
 
         $sql = "INSERT INTO `".$tbl_track_e_open."`
@@ -128,14 +122,13 @@ function event_login()
                 FROM_UNIXTIME(".$reallyNow."))";
 
     $res = claro_sql_query($sql);
-    //$mysql_query($sql);
-    //return 0;
+
+	return 1;
 
 }
 
 
 /**
-
  * @param tool name of the tool (rubrique in mainDb.accueil table)
  * @author Sebastien Piraux <pir@cerdecam.be>
  * @desc Record information for access event for courses
@@ -189,8 +182,8 @@ function event_access_tool($tid, $tlabel)
     global $_course;
 
     $reallyNow = time();
-    // record information only if user doesn't come fromthe tool itself
-    if( $_SESSION['tracking']['lastUsedTool'] != $tlabel )
+    // record information only if user doesn't come from the tool itself
+    if( !isset($_SESSION['tracking']['lastUsedTool']) || $_SESSION['tracking']['lastUsedTool'] != $tlabel )
     {
         if($_uid)
         {
@@ -263,7 +256,6 @@ function event_download($doc_url)
             )";
                 
     $res = claro_sql_query($sql);
-    //$mysql_query($sql);
     return 1;
 }
 
@@ -310,12 +302,10 @@ function event_upload($doc_id)
             )";
                 
     $res = claro_sql_query($sql);
-    //$mysql_query($sql);
     return 1;
 }
 
 /**
-
  * @param exo_id ( id in courseDb exercices table )
  * @param result ( score @ exercice )
  * @param weighting ( higher score )
@@ -341,12 +331,12 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
     }
     $sql="INSERT INTO `".$TABLETRACK_EXERCICES."`
           (
-           `exe_user_id`,
-           `exe_exo_id`,
-           `exe_result`,
-           `exe_weighting`,
-           `exe_date`,
-	   `exe_time`
+			`exe_user_id`,
+			`exe_exo_id`,
+			`exe_result`,
+			`exe_weighting`,
+			`exe_date`,
+			`exe_time`
           )
           
           VALUES
@@ -360,8 +350,7 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
           )";
 
     $res = claro_sql_query($sql);
-    //$mysql_query($sql);
-    //return 0;
+    return 1;
 }
 
 /**
@@ -404,7 +393,6 @@ function event_default($type_event,$values)
 
     foreach($values as $type_value => $event_value)
     {
-
         if($sqlValues == "")
         {
             $sqlValues .= "('',".$user_id.",".$cours_id.",FROM_UNIXTIME(".$reallyNow."),\"".addslashes($type_event)."\",\"".addslashes($type_value)."\",\"".addslashes($event_value)."\")";
@@ -420,6 +408,5 @@ function event_default($type_event,$values)
 
     $res = claro_sql_query($sql);
     return 1;
-
 }
 ?>
