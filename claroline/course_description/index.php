@@ -212,7 +212,7 @@ if ($is_allowedToEdit)
      **************************************************************************/
 
 
-    if ($displayForm)
+    if ( isset($displayForm) && $displayForm )
     {
         echo '<table border="0">'."\n"
             .'<tr>'              ."\n"
@@ -272,9 +272,9 @@ if ($is_allowedToEdit)
                                 ADD FORM DISPLAY
      **************************************************************************/
 
-        echo '<form method="get" action="'.$_SERVER['PHP_SELF'].'?edIdBloc=add">'
-            .'<input type="hidden" name="cmd" value="rqEdit">'
-            .'<select name="numBloc">';
+        echo "\n\n".'<form method="get" action="'.$_SERVER['PHP_SELF'].'?edIdBloc=add">'."\n"
+            .'<input type="hidden" name="cmd" value="rqEdit">'."\n"
+            .'<select name="numBloc">'."\n";
 
         foreach( $titreBloc as $key => $thisBlocTitle )
         {
@@ -284,16 +284,16 @@ if ($is_allowedToEdit)
               else                                      $alreadyUsed = false;
             }
             
-            if ( ! $alreadyUsed)
+            if ( !isset($alreadyUsed) || !$alreadyUsed )
             {
-                echo '<option value="'.$key.'">'.$thisBlocTitle.'</option>';
+                echo '<option value="'.$key.'">'.$thisBlocTitle.'</option>'."\n";
             }
         }
             
-        echo '<option value="">'.$langNewBloc.'</option>'
-            .'</select>'
-            .'<input type="submit" name="add" value="'.$langAdd.'">'
-            .'</form>';
+        echo '<option value="">'.$langNewBloc.'</option>'."\n"
+            .'</select>'."\n"
+            .'<input type="submit" name="add" value="'.$langAdd.'">'."\n"
+            .'</form>'."\n\n";
     }
 } // end if is_allowedToEdit
 
