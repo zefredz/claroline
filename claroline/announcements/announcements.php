@@ -273,7 +273,7 @@ if($is_allowedToEdit) // check teacher status
                 // email subject
                 $emailSubject = "[" . $siteName. " - " . $_course['officialCode'] . "] ";
                 if (trim($_REQUEST['title'])) $emailSubject .= stripslashes(trim($_REQUEST['title']));
-                else                          $emailSubject .= $professorMessage;
+                else                          $emailSubject .= $langProfessorMessage;
     
                 // email message
                 $msgContent = stripslashes($_REQUEST['newContent']);

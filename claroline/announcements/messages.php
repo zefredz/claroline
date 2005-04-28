@@ -231,7 +231,7 @@ if($is_allowedToUse)	// check teacher status
                  */
   
                 // email subject
-  			    $emailSubject = "[" . $siteName . " - " . $courseCode ."] " . $professorMessage;
+  			    $emailSubject = "[" . $siteName . " - " . $courseCode ."] " . $langProfessorMessage;
   
   			    // email content
   			    $emailBody = stripslashes($_REQUEST['emailContent']) . "\n" .
