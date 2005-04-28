@@ -21,6 +21,7 @@ if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 $nameTools = $langCourseProgram;
 
+$QUERY_STRING=''; // to remove parameters in the last bredcrumb link
 /*
  * DB tables definition
  */
@@ -34,6 +35,7 @@ include 'tiplistinit.inc.php';
 include $includePath.'/lib/events.lib.inc.php';
 
 
+$dialogBox = "";
 
 
          /*> > > > > > > > > > > > COMMANDS < < < < < < < < < < < < */
@@ -52,21 +54,21 @@ else                           $cmd = null;
 
 if ($cmd == 'exEdit')
 {
-    if ($_REQUEST['id'])
+    if ( isset($_REQUEST['id']) && is_int($_REQUEST['id']) )
     {
         $sql ="UPDATE `".$tbl_course_description."` 
                SET   `title`   = '".trim(claro_addslashes($_REQUEST['descTitle'  ]))."',
                      `content` = '".trim(claro_addslashes($_REQUEST['descContent']))."',
                      `upDate`  = NOW()
-               WHERE `id` = '". (int) $_REQUEST['id'] ."'";        
+               WHERE `id` = '". $_REQUEST['id'] ."'";
 
         if ( claro_sql_query($sql) != false)
         {
-            $msg .= '<p>'.$langDescUpdated.'</p>';
+            $dialogBox .= '<p>'.$langDescUpdated.'</p>';
         }
         else
         {
-            $msg .= '<p>'.$langDescUnableToUpdate.'</p>';
+            $dialogBox .= '<p>'.$langDescUnableToUpdate.'</p>';
         }
     }
     else
@@ -84,11 +86,11 @@ if ($cmd == 'exEdit')
 
         if ( claro_sql_query($sql) !== false)
         {
-            $msg .= '<p>'.$langDescAdded.'</p>';
+            $dialogBox .= '<p>'.$langDescAdded.'</p>';
         }
         else
         {
-            $msg .= '<p>'.$langUnableDescToAdd.'</p>';
+            $dialogBox .= '<p>'.$langUnableDescToAdd.'</p>';
         }
     }    
 }
@@ -129,7 +131,7 @@ if($cmd == 'rqEdit')
 
 
 
-    if ( $descPresetKey )
+    if ( !empty($descPresetKey) )
     {
          $descPresetTitle    = $titreBloc    [$descPresetKey];
          $descPresetQuestion = $questionPlan [$descPresetKey];
@@ -160,11 +162,11 @@ if ($cmd == 'exDelete')
 
     if ( claro_sql_query($sql) !== false) 
     {
-        $msg .= '<p>'.$langDescDeleted.'</p>';	
+        $dialogBox .= '<p>'.$langDescDeleted.'</p>';
     }
     else
     {
-        $msg .= '<p>'.$langDescUnableToDelete.'</p>';
+        $dialogBox .= '<p>'.$langDescUnableToDelete.'</p>';
     }
 }
 
@@ -197,9 +199,9 @@ require $includePath.'/claro_init_header.inc.php';
 
 claro_disp_tool_title( array('mainTitle' => $nameTools) );
 
-if ( isset($msg) && ! empty($msg) )
+if ( isset($dialogBox) && ! empty($dialogBox) )
 {
-    claro_disp_message_box($msg);
+    claro_disp_message_box($dialogBox);
     echo '<br />'."\n";
 }
 
