@@ -75,18 +75,20 @@ if ( !empty($htmlHeadXtra) && is_array($htmlHeadXtra) )
 </head>
 
 <?php
+
 //add onload javascript function calls to body
-if( is_array( $claroBodyOnload ) && count( $claroBodyOnload ) > 0 )
+if( isset($claroBodyOnload) && is_array($claroBodyOnload) && count($claroBodyOnload) > 0 )
 {
 	$onload = " onload=\"";
 	$onload .= implode('', $claroBodyOnload );
 	$onload .= "\"";
+} 
+else
+{
+    $onload = '';
 }
 
-?>
-
-<body dir="<?php echo $text_dir ?>"<?php echo $onload ?>>
-<?php
+echo '<body dir="' . $text_dir . '" ' . $onload . '>';
 
 //  Banner
 
