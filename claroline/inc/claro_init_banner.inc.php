@@ -125,7 +125,7 @@ if (is_array($_courseToolList))
 ?>
 
 <form action="<?php echo $clarolineRepositoryWeb ?>redirector.php" 
-      name="redirector" >
+      name="redirector" method="POST">
 
 <select name="url" size="1" 
         onchange="top.location=redirector.url.options[selectedIndex].value" >

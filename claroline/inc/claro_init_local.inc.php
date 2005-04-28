@@ -284,7 +284,7 @@ else
                 if ($password == $uData['password'] && ( $login == $uData['username']))
                 {
                     $_uid = $uData['user_id'];
-                    session_register('_uid');
+					$_SESSION['_uid'] = $_uid;
                 }
                 else // abnormal login -> login failed
                 {
@@ -320,7 +320,7 @@ else
                 {
                     $uidReset    = true;
                     $loginFailed = false;
-                    session_register('_uid');
+					$_SESSION['_uid'] = $_uid;
                 }
                 else
                 {
@@ -357,7 +357,7 @@ else
 
                     if ( $_uid > 0 )
                     {
-                        session_register('_uid');
+                        $_SESSION['_uid'] = $_uid;
                         $uidReset     = true;
                         $loginFailed  = false;
                         break;
@@ -398,7 +398,8 @@ if ($gidReq && $gidReq != $_SESSION['_gid'])
 // (special request can come from the tool id, or the tool label)
 
 if (   ( $tidReq    && $tidReq    != $_SESSION['_tid']                 ) 
-    || ( $tlabelReq && $tlabelReq != $_SESSION['_courseTool']['label'] )
+    || ( $tlabelReq && isset($_SESSION['_courseTool']['label'])
+		&& $tlabelReq != $_SESSION['_courseTool']['label'] )
    )
 {
     $tidReset = true;
@@ -461,7 +462,7 @@ if ($uidReset) // session data refresh requested
             $is_platformAdmin        = (bool) (! is_null( $uData['is_admin']));
             $is_allowedCreateCourse  = (bool) ($uData ['statut'] == 1);
 
-            session_register('_user');
+            $_SESSION['_user'] = $_user;
 
             // RECORD SSO COOKIE
 
@@ -509,9 +510,10 @@ if ($uidReset) // session data refresh requested
         $is_allowedCreateCourse  = false;
     }
 
-    session_register('is_platformAdmin','is_allowedCreateCourse');
+	$_SESSION['is_platformAdmin'] = $is_platformAdmin;
+	$_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
 }
-else // continue with the previous values
+else // else of if($uidReset) continue with the previous values
 {
     $_user = $_SESSION['_user'];
 }
@@ -568,7 +570,8 @@ if ($cidReset) // course session data refresh requested
             $_course['visibility'  ]         = (bool) ($cData['visible'] == 2 || $cData['visible'] == 3);
             $_course['registrationAllowed']  = (bool) ($cData['visible'] == 1 || $cData['visible'] == 2);
 
-            session_register('_cid', '_course');
+			$_SESSION['_cid'] = $_cid;
+			$_SESSION['_course'] = $_course;
 
             // GET COURSE TABLE
 
@@ -616,9 +619,9 @@ if ($cidReset) // course session data refresh requested
     }
 
     //save states
-    session_register('_groupProperties');
+	$_SESSION['_groupProperties'] = $_groupProperties;
 }
-else // continue with the previous values
+else // else of if($cidReset) - continue with the previous values
 {
     if ( !empty($_SESSION['_cid']) ) $_cid = $_SESSION['_cid'];
     else                             $_cid = null;
@@ -657,8 +660,7 @@ if ($uidReset || $cidReset) // session data refresh requested
             $is_courseTutor      = (bool) ($cuData['tutor' ] == 1 );
             $is_courseAdmin      = (bool) ($cuData['statut'] == 1 );
 
-            session_register('_courseUser');
-
+			$_SESSION['_courseUser'] = $_courseUser;
         }
         else // this user has no status related to this course
         {
@@ -682,13 +684,12 @@ if ($uidReset || $cidReset) // session data refresh requested
     $is_courseAllowed = (bool) ($_course['visibility'] || $is_courseMember || $is_platformAdmin); // here because it's a right and not a state
 
     // save the states
-
-    session_register('is_courseMember');
-    session_register('is_courseAdmin');
-    session_register('is_courseAllowed');
-    session_register('is_courseTutor');
+	$_SESSION['is_courseMember'] = $is_courseMember;
+	$_SESSION['is_courseAdmin'] = $is_courseAdmin;
+	$_SESSION['is_courseAllowed'] = $is_courseAllowed;
+	$_SESSION['is_courseTutor'] = $is_courseTutor;
 }
-else // continue with the previous values
+else // else of if ($uidReset || $cidReset) - continue with the previous values
 {
     $_courseUser      = $_SESSION ['_courseUser'     ];
 
@@ -738,8 +739,8 @@ if ($tidReset || $cidReset) // session data refresh requested
             $_courseTool['icon'          ] = $ctData['icon'           ];
             $_courseTool['access_manager'] = $ctData['access_manager' ];
 
-            session_register('_tid');
-            session_register('_courseTool');
+			$_SESSION['_tid'] = $_tid;
+			$_SESSION['_courseTool'] = $_courseTool;
 
         }
         else // this tool has no status related to this course
@@ -798,7 +799,8 @@ if ($gidReset || $cidReset) // session data refresh requested
             $_group ['directory'  ] = $gpData ['secretDirectory'];
             $_group ['maxMember'  ] = $gpData ['maxStudent'     ];
 
-            session_register('_gid', '_group');
+			$_SESSION['_gid'] = $_gid;
+            $_SESSION['_group'] = $_group;
         }
         else
         {
@@ -865,7 +867,9 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
     // user group access is allowed or user is group member or user is admin
     $is_groupAllowed = (bool) (!$_groupProperties['private'] || $is_groupMember || $is_courseAdmin || $is_groupTutor  || $is_platformAdmin) ;
 
-    session_register('is_groupMember', 'is_groupTutor', 'is_groupAllowed');
+	$_SESSION['is_groupMember'] = $is_groupMember;
+	$_SESSION['is_groupTutor'] = $is_groupTutor;
+	$_SESSION['is_groupAllowed'] = $is_groupAllowed;
 }
 else // continue with the previous values
 {
@@ -908,7 +912,7 @@ if ($uidReset || $cidReset || $gidReset || $tidReset) // session data refresh re
         $is_toolAllowed = false;
     }
 
-    session_register('is_toolAllowed');
+	$_SESSION['is_toolAllowed'] = $is_toolAllowed;
 }
 else // continue with the previous values
 {
@@ -962,7 +966,7 @@ if ($uidReset || $cidReset)
             $_courseToolList[] = $tlistData;
         }
 
-        session_register('_courseToolList');
+		$_SESSION['_courseToolList'] = $_courseToolList;
     }
     else
     {

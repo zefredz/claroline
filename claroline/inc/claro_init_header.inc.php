@@ -8,9 +8,6 @@
  * HTTP HEADER
  */
 
-//header('Content-Type: text/html; charset='. $charset)
-//	or die ("WARNING : it remains some characters before &lt;?php bracket or after ?&gt end");
-
 header('Content-Type: text/html; charset='. $charset);
 
 if (!empty($httpHeadXtra) && is_array($httpHeadXtra) )
