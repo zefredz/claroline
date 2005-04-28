@@ -78,17 +78,19 @@ $userLastLogin    = $_user['lastLogin'];
  * DB tables definition
  */
 
-$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_cdb_names    = claro_sql_get_course_tbl();
 $tbl_announcement = $tbl_cdb_names['announcement'];
-$tbl_cdb_names = claro_sql_get_main_tbl();
+
+$tbl_cdb_names   = claro_sql_get_main_tbl();
 $tbl_course_user = $tbl_cdb_names['rel_course_user'];
 $tbl_user        = $tbl_cdb_names['user'];
 
 // DEFAULT DISPLAY
 
-$displayForm           = FALSE;
-$displayList           = TRUE;
-$displayButtonLine     = $is_allowedToEdit && $cmd != 'rqEdit' && $cmd != 'rqCreate';
+$displayForm = FALSE;
+$displayList = TRUE;
+
+$subTitle = '';
 
 /*============================================================================
                      COMMANDS SECTION (COURSE MANAGER ONLY)
@@ -97,224 +99,226 @@ $displayButtonLine     = $is_allowedToEdit && $cmd != 'rqEdit' && $cmd != 'rqCre
 if($is_allowedToEdit) // check teacher status
 {
 
-    /*------------------------------------------------------------------------
-                             MOVE UP AND MOVE DOWN COMMANDS
-     -------------------------------------------------------------------------*/
-
-    if ( $_REQUEST['cmd'] == 'exMvDown' )
+    if ( isset($_REQUEST['cmd']) )
     {
-        moveEntry($_REQUEST['id'],'DOWN');
-    }
 
-    if ( $_REQUEST['cmd'] == 'exMvUp' )
-    {
-        moveEntry($_REQUEST['id'],'UP');
-    }
-
-    /*------------------------------------------------------------------------
-                          DELETE ANNOUNCEMENT COMMAND
-    --------------------------------------------------------------------------*/
-
-    if ($_REQUEST['cmd'] == 'exDelete')
-    {
-        $sql = "DELETE FROM  `".$tbl_announcement."`
-                WHERE id=\"".$_REQUEST['id']."\"";
-
-        if ( claro_sql_query($sql) )
+        /*------------------------------------------------------------------------
+                                 MOVE UP AND MOVE DOWN COMMANDS
+         -------------------------------------------------------------------------*/
+    
+        if ( $_REQUEST['cmd'] == 'exMvDown' )
         {
-            $message = $langAnnDel;
-            if (CONFVAL_LOG_ANNOUNCEMENT_DELETE)
-            {
-                event_default("ANNOUNCEMENT",array ("DELETE_ENTRY"=>$_REQUEST['id']));
-            }
+            moveEntry($_REQUEST['id'],'DOWN');
         }
-        else
+    
+        if ( $_REQUEST['cmd'] == 'exMvUp' )
         {
-            //error on delete
+            moveEntry($_REQUEST['id'],'UP');
         }
-    }
-
-
-/*----------------------------------------------------------------------------
-                        DELETE ALL ANNOUNCEMENTS COMMAND
-  ----------------------------------------------------------------------------*/
-
-    if ($_REQUEST['cmd'] == 'exDeleteAll')
-    {
-        $sql = "DELETE FROM  `".$tbl_announcement."`";
-
-        if ( claro_sql_query($sql) )
+    
+        /*------------------------------------------------------------------------
+                              DELETE ANNOUNCEMENT COMMAND
+        --------------------------------------------------------------------------*/
+    
+        if ($_REQUEST['cmd'] == 'exDelete')
         {
-            $message = $langAnnEmpty;
-        }
-        if (mysql_error()==0)
-        {
-            if (CONFVAL_LOG_ANNOUNCEMENT_DELETE)
-            {
-                event_default("ANNOUNCEMENT",array ("DELETE_ENTRY"=>"ALL"));
-            }
-        }
-        else
-        {
-            //error on delete
-        }
-    }
-
-
-    /*------------------------------------------------------------------------
-                               EDIT ANNOUNCEMENT COMMAND
-    --------------------------------------------------------------------------*/
-
-
-    if ( $_REQUEST['cmd'] == 'rqEdit' )
-    {
-        // RETRIEVE THE CONTENT OF THE ANNOUNCEMENT TO MODIFY
-
-        $sql = "SELECT id, title, contenu content
-                FROM  `".$tbl_announcement."`
-                WHERE id=\"".$_REQUEST['id']."\"";
-
-        list( $announcementToEdit ) =  claro_sql_query_fetch_all($sql);
-
-        $displayForm = TRUE;
-        $nextCommand = 'exEdit';
-
-    }
-
-    /*------------------------------------------------------------------------
-                            CREATE NEW ANNOUNCEMENT COMMAND
-      ------------------------------------------------------------------------*/
-
-
-    if ($_REQUEST['cmd'] == 'rqCreate')
-    {
-        $displayForm = TRUE;
-        $nextCommand = 'exCreate';
-    }
-
-
-    /*------------------------------------------------------------------------
-                          SUBMIT ANNOUNCEMENT COMMAND
-     -------------------------------------------------------------------------*/
-
-    if ($_REQUEST['cmd'] == 'exCreate' || $_REQUEST['cmd'] == 'exEdit')
-    {
-        /* MODIFY ANNOUNCEMENT */
-
-        if($_REQUEST['cmd'] == 'exEdit') // there is an Id => the announcement already exists => udpate mode
-        {
-            $sql = "UPDATE  `".$tbl_announcement."`
-                    SET contenu= \"".trim($_REQUEST['newContent'])."\",
-                        temps  = NOW(),
-                        `title`  = \"".trim($_REQUEST['title'])."\"
+            $sql = "DELETE FROM  `".$tbl_announcement."`
                     WHERE id=\"".$_REQUEST['id']."\"";
-
-            if (claro_sql_query($sql))
+    
+            if ( claro_sql_query($sql) )
             {
-                $message = $langAnnModify;
-                if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)
+                $message = $langAnnDel;
+                if (CONFVAL_LOG_ANNOUNCEMENT_DELETE)
                 {
-                    event_default("ANNOUNCEMENT",array ("UPDATE_ENTRY"=>$_REQUEST['id']));
+                    event_default("ANNOUNCEMENT",array ("DELETE_ENTRY"=>$_REQUEST['id']));
                 }
             }
             else
             {
-                //error on UPDATE
+                //error on delete
             }
         }
-
-        /* CREATE NEW ANNOUNCEMENT */
-
-        elseif ($_REQUEST['cmd'] == 'exCreate')
+    
+        /*----------------------------------------------------------------------------
+                            DELETE ALL ANNOUNCEMENTS COMMAND
+        ----------------------------------------------------------------------------*/
+    
+        if ($_REQUEST['cmd'] == 'exDeleteAll')
         {
-            // DETERMINE THE ORDER OF THE NEW ANNOUNCEMENT
-
-            $sql = "SELECT MAX(ordre)
-                    FROM  `".$tbl_announcement."`";
-
-            $result = claro_sql_query($sql);
-
-            list($orderMax) = mysql_fetch_row($result);
-            $order = $orderMax + 1;
-
-            // INSERT ANNOUNCEMENT
-
-            $sql = "INSERT INTO  `".$tbl_announcement."`
-                    SET title =\"".trim($_REQUEST['title'])."\",
-                        contenu = \"".trim($_REQUEST['newContent'])."\",
-                    temps = NOW(),
-                    ordre =\"".$order."\"";
-
-            $insert_id = claro_sql_query_insert_id($sql);
-
-            if ( $insert_id )
+            $sql = "DELETE FROM  `".$tbl_announcement."`";
+    
+            if ( claro_sql_query($sql) )
             {
-                $message = $langAnnAdd;
-                if (CONFVAL_LOG_ANNOUNCEMENT_INSERT)
+                $message = $langAnnEmpty;
+            }
+            if (mysql_error()==0)
+            {
+                if (CONFVAL_LOG_ANNOUNCEMENT_DELETE)
                 {
-                    event_default("ANNOUNCEMENT",array ("INSERT_ENTRY"=>$insert_id));
+                    event_default("ANNOUNCEMENT",array ("DELETE_ENTRY"=>"ALL"));
                 }
             }
             else
             {
-                //error on insert
+                //error on delete
             }
-        } // end elseif cmd == exCreate
-
-        /* SEND EMAIL (OPTIONAL) */
-
-        if($emailOption==1)
+        }
+    
+        /*------------------------------------------------------------------------
+                                   EDIT ANNOUNCEMENT COMMAND
+        --------------------------------------------------------------------------*/
+    
+        if ( $_REQUEST['cmd'] == 'rqEdit' )
         {
-            // sender name and email
-            $courseSender =  $_user['firstName'] . ' ' . $_user['lastName'];
-        
-            // email subject
-            $emailSubject = "[" . $siteName. " - " . $_course['officialCode'] . "] ";
-            if (trim($_REQUEST['title'])) $emailSubject .= stripslashes(trim($_REQUEST['title']));
-            else                          $emailSubject .= $professorMessage;
+            $subTitle = $langModifAnn;
 
-            // email message
-            $msgContent = stripslashes($newContent);
-            $msgContent = preg_replace('/<br( \/)?>/',"\n",$msgContent);
-            $msgContent = preg_replace('/<p>/',"\n\n",$msgContent);
-            $msgContent = preg_replace('/  /',' ',$msgContent);
-            $msgContent = unhtmlentities($msgContent);
-            $msgContent = strip_tags($msgContent);
-        
-            $emailBody = $msgContent . "\n" .
-                         "\n" .
-                         '--' . "\n" . 
-                         $courseSender . "\n" . 
-                         $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" . 
-                         $siteName . "\n";
-
-            // Select students email list
-            $sql = "SELECT u.user_id
-                    FROM `".$tbl_course_user."` cu , `".$tbl_user."` u
-                    WHERE code_cours=\"".$courseId."\"
-                    AND cu.user_id = u.user_id";
-            $result = claro_sql_query($sql);
-
-            // count
-            $countEmail = mysql_num_rows($result);
-            $countUnvalid = 0;
-            $messageFailed = "";
-
-            // send email one by one to avoid antispam
-            while ( $myrow = mysql_fetch_array($result) )
+            // RETRIEVE THE CONTENT OF THE ANNOUNCEMENT TO MODIFY   
+            $sql = "SELECT id, title, contenu content
+                    FROM  `".$tbl_announcement."`
+                    WHERE id=\"".$_REQUEST['id']."\"";
+    
+            list( $announcementToEdit ) =  claro_sql_query_fetch_all($sql);
+    
+            $displayForm = TRUE;
+            $nextCommand = 'exEdit';
+    
+        }
+    
+        /*------------------------------------------------------------------------
+                                CREATE NEW ANNOUNCEMENT COMMAND
+          ------------------------------------------------------------------------*/
+    
+        if ($_REQUEST['cmd'] == 'rqCreate')
+        {
+            $subTitle = $langAddAnn;
+            $displayForm = TRUE;
+            $nextCommand = 'exCreate';
+        }
+    
+        /*------------------------------------------------------------------------
+                              SUBMIT ANNOUNCEMENT COMMAND
+         -------------------------------------------------------------------------*/
+    
+        if ($_REQUEST['cmd'] == 'exCreate' || $_REQUEST['cmd'] == 'exEdit')
+        {
+            /* MODIFY ANNOUNCEMENT */
+    
+            if ( $_REQUEST['cmd'] == 'exEdit' ) // there is an Id => the announcement already exists => udpate mode
             {
-                if (!claro_mail_user($myrow['user_id'], $emailBody, $emailSubject, $_user['mail'], $courseSender))
+                $sql = "UPDATE  `".$tbl_announcement."`
+                        SET contenu= \"".trim($_REQUEST['newContent'])."\",
+                            temps  = NOW(),
+                            `title`  = \"".trim($_REQUEST['title'])."\"
+                        WHERE id=\"".$_REQUEST['id']."\"";
+    
+                if ( claro_sql_query($sql) )
                 {
-                    $messageFailed.= claro_failure::get_last_failure() ;
-                    $countUnvalid++;
+                    $message = $langAnnModify;
+                    if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)
+                    {
+                        event_default("ANNOUNCEMENT",array ("UPDATE_ENTRY"=>$_REQUEST['id']));
+                    }
+                }
+                else
+                {
+                    //error on UPDATE
                 }
             }
-            $messageUnvalid= $langOn.' '.$countEmail.' '.$langRegUser.', '.$countUnvalid.' '.$langUnvalid;
-            $message .= ' '.$langEmailSent.'<br><b>'.$messageUnvalid.'</b><br />';
-            $message .= $messageFailed;
+    
+            /* CREATE NEW ANNOUNCEMENT */
+    
+            elseif ($_REQUEST['cmd'] == 'exCreate')
+            {
+                // DETERMINE THE ORDER OF THE NEW ANNOUNCEMENT
+    
+                $sql = "SELECT MAX(ordre)
+                        FROM  `".$tbl_announcement."`";
+    
+                $result = claro_sql_query($sql);
+    
+                list($orderMax) = mysql_fetch_row($result);
+                $order = $orderMax + 1;
+    
+                // INSERT ANNOUNCEMENT
+    
+                $sql = "INSERT INTO  `".$tbl_announcement."`
+                        SET title =\"".trim($_REQUEST['title'])."\",
+                            contenu = \"".trim($_REQUEST['newContent'])."\",
+                        temps = NOW(),
+                        ordre =\"".$order."\"";
+    
+                $insert_id = claro_sql_query_insert_id($sql);
+    
+                if ( $insert_id )
+                {
+                    $message = $langAnnAdd;
+                    if (CONFVAL_LOG_ANNOUNCEMENT_INSERT)
+                    {
+                        event_default("ANNOUNCEMENT",array ("INSERT_ENTRY"=>$insert_id));
+                    }
+                }
+                else
+                {
+                    //error on insert
+                }
+            } // end elseif cmd == exCreate
+    
+            /* SEND EMAIL (OPTIONAL) */
+    
+            if ( isset($_REQUEST['emailOption']) && $_REQUEST['emailOption']==1 )
+            {
+                // sender name and email
+                $courseSender =  $_user['firstName'] . ' ' . $_user['lastName'];
+            
+                // email subject
+                $emailSubject = "[" . $siteName. " - " . $_course['officialCode'] . "] ";
+                if (trim($_REQUEST['title'])) $emailSubject .= stripslashes(trim($_REQUEST['title']));
+                else                          $emailSubject .= $professorMessage;
+    
+                // email message
+                $msgContent = stripslashes($_REQUEST['newContent']);
+                $msgContent = preg_replace('/<br( \/)?>/',"\n",$msgContent);
+                $msgContent = preg_replace('/<p>/',"\n\n",$msgContent);
+                $msgContent = preg_replace('/  /',' ',$msgContent);
+                $msgContent = unhtmlentities($msgContent);
+                $msgContent = strip_tags($msgContent);
+            
+                $emailBody = $msgContent . "\n" .
+                             "\n" .
+                             '--' . "\n" . 
+                             $courseSender . "\n" . 
+                             $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" . 
+                             $siteName . "\n";
+    
+                // Select students email list
+                $sql = "SELECT u.user_id
+                        FROM `".$tbl_course_user."` cu , `".$tbl_user."` u
+                        WHERE code_cours=\"".$courseId."\"
+                        AND cu.user_id = u.user_id";
+                $result = claro_sql_query($sql);
+    
+                // count
+                $countEmail = mysql_num_rows($result);
+                $countUnvalid = 0;
+                $messageFailed = "";
+    
+                // send email one by one to avoid antispam
+                while ( $myrow = mysql_fetch_array($result) )
+                {
+                    if (!claro_mail_user($myrow['user_id'], $emailBody, $emailSubject, $_user['mail'], $courseSender))
+                    {
+                        $messageFailed.= claro_failure::get_last_failure() ;
+                        $countUnvalid++;
+                    }
+                }
+                $messageUnvalid= $langOn.' '.$countEmail.' '.$langRegUser.', '.$countUnvalid.' '.$langUnvalid;
+                $message .= ' '.$langEmailSent.'<br><b>'.$messageUnvalid.'</b><br />';
+                $message .= $messageFailed;
+    
+            }   // end if $emailOption==1
+        }   // end if $submit Announcement
+    } // end if isset $_REQUEST['cmd']
 
-        }   // end if $emailOption==1
-    }   // end if $submit Announcement
 } // end if is_allowedToEdit
 
 /*============================================================================
@@ -333,11 +337,7 @@ event_access_tool($_tid, $_courseTool['label']);
 /*----------------------------------------------------------------------------
                                    TOOL TITLE
   ----------------------------------------------------------------------------*/
-
-if     ($_REQUEST['cmd'] == 'rqEdit'  ) $subTitle = $langModifAnn;
-elseif ($_REQUEST['cmd'] == 'rqCreate') $subTitle = $langAddAnn;
-else                        $subTitle = '';
-    
+ 
 claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
 /*----------------------------------------------------------------------------
@@ -353,6 +353,8 @@ if ( !empty($message) )
                                  MAIN COMMANDS LINE
   ----------------------------------------------------------------------------*/
 
+$displayButtonLine = (bool) $is_allowedToEdit && ( !isset($_REQUEST['cmd']) || $_REQUEST['cmd'] != 'rqEdit' || $_REQUEST['cmd'] != 'rqCreate' ) ;
+
 if ($displayButtonLine)
 {
     echo '<p>'."\n"
@@ -366,7 +368,7 @@ if ($displayButtonLine)
          .$langMessageToSelectedUsers
          .'</a>'
          .' | '
-         .'<a class="claroCmd" href="'.$PHP_SELF.'?cmd=exDeleteAll" '
+         .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exDeleteAll" '
          .' onclick="if (confirm(\''.clean_str_for_javascript($langEmptyAnn).' ?\')){return true;}else{return false;}">'
          .'<img src="'.$imgRepositoryWeb.'delete.gif">'
          .$langEmptyAnn
@@ -388,20 +390,20 @@ if ($displayForm)
     echo    "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">\n",
             "<input type=\"hidden\" name=\"cmd\" value=\"".$nextCommand."\">",
 
-            $announcementToEdit ? "<input type=\"hidden\" name=\"id\" value=\"".$announcementToEdit['id']."\">\n"
+            !empty($announcementToEdit) ? "<input type=\"hidden\" name=\"id\" value=\"".$announcementToEdit['id']."\">\n"
                                   : '',
             "<table>",
             "<tr>",
             "<td valign=\"top\"><label for=\"title\">".$langTitle." : </label></td>",
             "<td><input type=\"text\" id=\"title\" name=\"title\" value = \"",
-                $announcementToEdit ? $announcementToEdit['title'] : '',
+                !empty($announcementToEdit) ? $announcementToEdit['title'] : '',
                 "\"size=\"80\"></td>",
             "</tr>\n",
             "<tr>",
             "<td valign=\"top\"><label for=\"newContent\">Content    : </label></td>",
             "<td>",
 
-            claro_disp_html_area('newContent', $announcementToEdit ? $announcementToEdit['content'] : '',12,67, $optAttrib=' wrap="virtual"');
+            claro_disp_html_area('newContent', !empty($announcementToEdit) ? $announcementToEdit['content'] : '',12,67, $optAttrib=' wrap="virtual"');
 
    echo    "</td>",
            "</tr>\n",
@@ -450,12 +452,11 @@ if ($displayList)
         $title   = $thisAnnouncement['title'];
         $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
 
-        $last_post_datetime = $thisAnnouncement['temps'];// post time format  datetime de mysql
+        $last_post_date = $thisAnnouncement['temps'];// post time format date de mysql
 
-        list($last_post_date, $last_post_time) = split(' ', $last_post_datetime);
         list($year, $month, $day) = explode("-", $last_post_date);
-        list($hour, $min) = explode(':', $last_post_time);
-        $announceDate = mktime($hour, $min, 0, $month, $day, $year);
+
+        $announceDate = mktime(0, 0, 0, $month, $day, $year);
 
         if ( $announceDate > $userLastLogin )
         {
