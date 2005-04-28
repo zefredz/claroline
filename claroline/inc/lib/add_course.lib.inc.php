@@ -57,7 +57,8 @@ function define_course_keys ($wantedCode,
 							 $addUniqueSuffix = FALSE,
                              $suffix4baseName ='', 
                              $suffix4path = '',          
-							 $suffix4all = ''
+							 $suffix4all = '',
+                             $forceSameSuffix = TRUE
 							 )
 {
 	$tbl_mdb_names = claro_sql_get_main_tbl();
@@ -126,7 +127,14 @@ function define_course_keys ($wantedCode,
 			if ($DEBUG) echo "[id]";
 		};
 
-		$sqlCheckCourseDb = "SHOW DATABASES LIKE '".$keysCourseDbName."'";
+        if ($singleDbEnabled)
+        {
+            $sqlCheckCourseDb = "SHOW TABLES LIKE '".$keysCourseDbName."%'";
+        }
+        else 
+        {
+            $sqlCheckCourseDb = "SHOW DATABASES LIKE '".$keysCourseDbName."'";
+        }
 
 		$resCheckCourseDb = claro_sql_query ($sqlCheckCourseDb);
 
@@ -147,6 +155,13 @@ function define_course_keys ($wantedCode,
 			$finalSuffix["CourseDir"]	= substr(md5 (uniqid (rand())),0,$nbCharFinalSuffix);
 			if ($DEBUG) echo "[dir]";
 		};
+        
+        if(!$keysAreUnique && $forceSameSuffix)
+        {
+            $finalSuffix["CourseDir"] = substr(md5 (uniqid (rand())),0,$nbCharFinalSuffix);
+            $finalSuffix["CourseId"] = $finalSuffix["CourseDir"];
+            $finalSuffix['CourseDb'] = $finalSuffix["CourseDir"];
+        }
 	}
 
 	// here  we  can add a  counter  to exit  if need too many try
