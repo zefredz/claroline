@@ -1209,7 +1209,6 @@ function delete_course($code)
             $tbl_to_delete = claro_sql_get_course_tbl($currentCourseDbNameGlu);
             foreach($tbl_to_delete as $tbl_name)
             {
-                $dbgoutput[]=$courseTable;
                 $sql = 'DROP TABLE `'.$tbl_name.'`';
                 claro_sql_query($sql);
             }
