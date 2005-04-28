@@ -71,7 +71,7 @@ if (isset($_REQUEST['create']))
                 $result[$course['code']][$tool_label] = fill_tool_in_course($course['code'],$tool_label);
         }
     }
-    echo '</ul>';
+    // echo '</ul>';
     
     
     $display=DISP_RESULT_INSERT;
