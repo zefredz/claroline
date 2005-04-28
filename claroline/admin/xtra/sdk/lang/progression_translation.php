@@ -211,7 +211,7 @@ else
 	         . "<td style=\"text-align: right\">" . $count_var_translated . "</td>\n"
 	         . "<td style=\"text-align: right\">" ;
 
-        if ( $_REQUEST['cmd'] == 'export' )
+        if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'export' )
         {
             echo $count_var_to_translate;
         } 

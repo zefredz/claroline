@@ -31,7 +31,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 // table
 
 $tbl_used_lang = '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_USED_LANG_VAR . '`';
-$tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATION . '`';
+$tbl_used_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATION . '`';
 
 $sql1 = " select count(*) from " . $tbl_used_lang;
 $sql2 = " select count(*) from " . $tbl_used_translation;

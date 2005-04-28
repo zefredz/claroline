@@ -41,6 +41,9 @@ function glance_through_dir_lang ($dirPath, $languageName)
 	chdir ($dirPath) ;
 	$handle = opendir($dirPath);
 
+    $fileList = array();
+    $dirList  = array();
+
 	while ($element = readdir($handle) )
 	{
 		if ( $element == "." || $element == ".." || strstr($element,"~") 
@@ -310,7 +313,7 @@ function detect_included_files(&$tokenList)
 
     $includeFileList = array();
 
-    for ($i, $tokenCount =  count($tokenList); $i < $tokenCount ; $i++)
+    for ($i = 0, $tokenCount =  count($tokenList); $i < $tokenCount ; $i++)
     {
         if (   $tokenList[$i][0] === T_INCLUDE 
             || $tokenList[$i][0] === T_REQUIRE)
