@@ -61,17 +61,17 @@ $is_allowedToAdmin = $is_platformAdmin;
 
 // clean session if needed from  previous search
 
-if ($_REQUEST['newsearch']=="yes")
+if (isset($_REQUEST['newsearch']) && $_REQUEST['newsearch']=="yes")
 {
-    session_unregister('admin_course_code');
-    session_unregister('admin_course_letter');
-    session_unregister('admin_course_intitule');
-    session_unregister('admin_course_category');
-    session_unregister('admin_course_language');
-    session_unregister('admin_course_access');
-    session_unregister('admin_course_subscription');
-    session_unregister('admin_course_dir');
-    session_unregister('admin_course_order_crit');
+    unset($_SESSION['admin_course_code']);
+    unset($_SESSION['admin_course_letter']);
+    unset($_SESSION['admin_course_intitule']);
+    unset($_SESSION['admin_course_category']);
+    unset($_SESSION['admin_course_language']);
+    unset($_SESSION['admin_course_access']);
+    unset($_SESSION['admin_course_subscription']);
+    unset($_SESSION['admin_course_dir']);
+    unset($_SESSION['admin_course_order_crit']);
 }
 
 if (isset($_REQUEST['code']))    {$_SESSION['admin_course_code']         = trim($_REQUEST['code']);}
@@ -92,10 +92,23 @@ if (isset($_REQUEST['dir']))     {$_SESSION['admin_course_dir']          = ($_RE
 session_unregister('_cid');
 unset($_cid);
 
+//set the reorder parameters for colomuns titles
+
+if (!isset($order['code']))    $order['code']   = "";
+if (!isset($order['label']))   $order['label']  = "";
+if (!isset($order['cat']))     $order['cat']    = "";
 
 // Set parameters to add to URL to know where we come from and what options will be given to the user
 
 $addToURL = "";
+if (!isset($_REQUEST['offsetC']))
+{ 
+   $offsetC = "0"; 
+}
+else
+{
+   $offsetC = $_REQUEST['offsetC'];
+}
 
 if (!isset($cfrom) || $cfrom!="clist") //offset not kept when come from another list
 {
@@ -106,6 +119,10 @@ if (!isset($cfrom) || $cfrom!="clist") //offset not kept when come from another 
 //----------------------------------
 // EXECUTE COMMAND
 //----------------------------------
+
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
 
 switch ($cmd)
 {
@@ -267,39 +284,81 @@ claro_disp_tool_title($nameTools);
 
 // display forms and dialogBox, alphabetic choice,...
 
-if($dialogBox)
+if (isset($dialogBox))
 {
    claro_disp_message_box($dialogBox);
 }
-     //TOOL LINKS
+   //TOOL LINKS
 
    //Display search form
 
 
       //see passed search parameters :
 
-if ($_REQUEST['search']!="")              {$isSearched .= trim($_REQUEST['search'])." ";}
-if ($_REQUEST['code']!="")                {$isSearched .= $langCode." = ".$_REQUEST['code']." ";}
-if ($_REQUEST['intitule']!="")            {$isSearched .= $langCourseTitle." = ".$_REQUEST['intitule']." ";}
-if ($_REQUEST['category']!="")            {$isSearched .= $langCategory." = ".$_REQUEST['category']." ";}
-if ($_REQUEST['language']!="")            {$isSearched .= $langLanguage." : ".$_REQUEST['language']." ";}
-if ($_REQUEST['access']=="public")        {$isSearched .= " <b><br>".$langPublicOnly." </b> ";}
-if ($_REQUEST['access']=="private")       {$isSearched .= " <b><br>".$langPrivateOnly." </b>  ";}
-if ($_REQUEST['subscription']=="allowed") {$isSearched .= " <b><br>".$langSubscriptionAllowedOnly." </b>  ";}
-if ($_REQUEST['subscription']=="denied")  {$isSearched .= " <b><br>".$langSubscriptionDeniedOnly." </b>  ";}
+if (isset($_REQUEST['search'])   && $_REQUEST['search']!="")              
+{
+    $isSearched .= trim($_REQUEST['search'])." ";
+}
+if (isset($_REQUEST['code'])     && $_REQUEST['code']!="")                   
+{
+    $isSearched .= $langCode." = ".$_REQUEST['code']." ";
+    $addtoAdvanced = "?code=".$_REQUEST['code'];
+}
+if (isset($_REQUEST['intitule']) &&$_REQUEST['intitule']!="")           
+{
+    $isSearched .= $langCourseTitle." = ".$_REQUEST['intitule']." ";
+    $addtoAdvanced .="&amp;intitule=".$_REQUEST['intitule'];
+}
+if (isset($_REQUEST['category']) &&$_REQUEST['category']!="")           
+{
+    $isSearched .= $langCategory." = ".$_REQUEST['category']." ";
+    $addtoAdvanced .="&amp;category=".$_REQUEST['category'];
+}
+if (isset($_REQUEST['language']) &&$_REQUEST['language']!="")           
+{
+    $isSearched .= $langLanguage." : ".$_REQUEST['language']." ";
+    $addtoAdvanced .="&amp;language=".$_REQUEST['language'];
+}
+if (isset($_REQUEST['access'])   &&$_REQUEST['access']=="public")         
+{
+    $isSearched .= " <b><br>".$langPublicOnly." </b> ";
+    
+}
+if (isset($_REQUEST['access'])   &&$_REQUEST['access']=="private")        
+{
+    $isSearched .= " <b><br>".$langPrivateOnly." </b>  ";
+}
+if (isset($_REQUEST['subscription']) &&$_REQUEST['subscription']=="allowed") 
+{
+    $isSearched .= " <b><br>".$langSubscriptionAllowedOnly." </b>  ";
+}
+if (isset($_REQUEST['subscription']) &&$_REQUEST['subscription']=="denied")  
+{
+    $isSearched .= " <b><br>".$langSubscriptionDeniedOnly." </b>  ";
+}
 
      //see what must be kept for advanced links
 
-$addtoAdvanced = "?code=".$_REQUEST['code'];
-$addtoAdvanced .="&amp;intitule=".$_REQUEST['intitule'];
-$addtoAdvanced .="&amp;category=".$_REQUEST['category'];
-$addtoAdvanced .="&amp;language=".$_REQUEST['language'];
-$addtoAdvanced .="&amp;access=".$_REQUEST['access'];
-$addtoAdvanced .="&amp;subscription=".$_REQUEST['subscription'];
 
+if (isset($_REQUEST['access']))
+{
+   $addtoAdvanced .="&amp;access=".$_REQUEST['access'];
+}
+if (isset($_REQUEST['subscription']))
+{
+   $addtoAdvanced .="&amp;subscription=".$_REQUEST['subscription'];
+}
     //finaly, form itself
 
-if (($isSearched=="") || !isset($isSearched)) {$title = "";} else {$title = $langSearchOn." : ";}
+if (!isset($isSearched) || ($isSearched=="")) 
+{
+    $title = "";
+    $isSearched = "";
+} 
+else 
+{
+    $title = $langSearchOn." : ";
+}
 
 echo "<table width=\"100%\">
         <tr>
