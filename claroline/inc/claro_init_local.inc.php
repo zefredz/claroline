@@ -381,7 +381,7 @@ else
 
 // if the requested course is different from the course in session
 
-if ($cidReq && $cidReq != $_SESSION['_cid'])
+if ($cidReq && ( !isset($_SESSION['_cid']) || $cidReq != $_SESSION['_cid'] ) )
 {
     $cidReset = true;
     $gidReset = true;    // As groups depend from courses, group id is reset
@@ -389,7 +389,7 @@ if ($cidReq && $cidReq != $_SESSION['_cid'])
 
 // if the requested group is different from the group in session
 
-if ($gidReq && $gidReq != $_SESSION['_gid'])
+if ($gidReq && ( !isset($_SESSION['_gid']) || $gidReq != $_SESSION['_gid']) )
 {
     $gidReset = true;
 }
@@ -398,13 +398,12 @@ if ($gidReq && $gidReq != $_SESSION['_gid'])
 // (special request can come from the tool id, or the tool label)
 
 if (   ( $tidReq    && $tidReq    != $_SESSION['_tid']                 ) 
-    || ( $tlabelReq && isset($_SESSION['_courseTool']['label'])
-		&& $tlabelReq != $_SESSION['_courseTool']['label'] )
+    || ( $tlabelReq && ( !isset($_SESSION['_courseTool']['label'])
+		|| $tlabelReq != $_SESSION['_courseTool']['label']) )
    )
 {
     $tidReset = true;
 }
-
 
 //////////////////////////////////////////////////////////////////////////////
 // USER INIT
