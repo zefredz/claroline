@@ -36,15 +36,24 @@ $nameTools = $langSearchCourseAdvanced;
 //------------------------------------------------------------------------------------------------------------------------
 // clean session of possible previous search information.
 
-session_unregister('admin_course_code');
-session_unregister('admin_course_letter');
-session_unregister('admin_course_search');
-session_unregister('admin_course_intitule');
-session_unregister('admin_course_category');
-session_unregister('admin_course_language');
-session_unregister('admin_course_access');
-session_unregister('admin_course_subscription');
-session_unregister('admin_course_order_crit');
+unset($_REQUEST['admin_course_code']);
+unset($_REQUEST['admin_course_letter']);
+unset($_REQUEST['admin_course_search']);
+unset($_REQUEST['admin_course_intitule']);
+unset($_REQUEST['admin_course_category']);
+unset($_REQUEST['admin_course_language']);
+unset($_REQUEST['admin_course_access']);
+unset($_REQUEST['admin_course_subscription']);
+unset($_REQUEST['admin_course_order_crit']);
+
+//retrieve needed parameters from URL to prefill search form
+
+if (isset($_REQUEST['access']))        $access        = $_REQUEST['access'];        else $access = "";
+if (isset($_REQUEST['subscription']))  $subscription  = $_REQUEST['subscription'];  else $subscription = "";
+if (isset($_REQUEST['code']))          $code          = $_REQUEST['code'];          else $code = "";
+if (isset($_REQUEST['intitule']))      $intitule      = $_REQUEST['intitule'];      else $intitule = "";
+if (isset($_REQUEST['category']))      $category      = $_REQUEST['category'];      else $category = "";
+if (isset($_REQUEST['language']))      $language      = $_REQUEST['language'];      else $language = "";
 
 // Search needed info in db to create the right formulaire
 
@@ -73,7 +82,7 @@ claro_disp_tool_title($nameTools." : ");
    <label for="code"><?php echo $langOfficialCode?></label> : <br>
   </td>
   <td colspan="3">
-    <input type="text" size="40" name="code" id="code" value="<?php echo $_REQUEST['code']?>"/>
+    <input type="text" size="40" name="code" id="code" value="<?php echo $code?>"/>
   </td>
 </tr>
 
@@ -82,7 +91,7 @@ claro_disp_tool_title($nameTools." : ");
    <label for="intitule"><?php echo $langCourseTitle?></label> :  <br>
   </td>
   <td colspan="3">
-    <input type="text" size="40" name="intitule"  id="intitule" value="<?php echo $_REQUEST['intitule']?>"/>
+    <input type="text" size="40" name="intitule"  id="intitule" value="<?php echo $intitule?>"/>
   </td>
 </tr>
 
@@ -96,7 +105,7 @@ claro_disp_tool_title($nameTools." : ");
     <?php
 
         //Display each option value for categories in the select
-        buildSelectFaculty($arrayFaculty,NULL,$_REQUEST['category'],"");
+        buildSelectFaculty($arrayFaculty,NULL,$category,"");
     ?>
     </select>
   </td>
@@ -110,7 +119,7 @@ claro_disp_tool_title($nameTools." : ");
     <select name="language" id="language" >
     <option  value=""></option>
     <?php
-      echo createSelectBoxLanguage($_REQUEST['language']);
+      echo createSelectBoxLanguage($language);
     ?>
     </select>
   </td>
@@ -122,15 +131,15 @@ claro_disp_tool_title($nameTools." : ");
    :
   </td>
   <td>
-   <input type="radio" name="access" value="public"  id="access_public"  <?php if ($_REQUEST['access']=="public") echo "checked";?> >
+   <input type="radio" name="access" value="public"  id="access_public"  <?php if ($access=="public") echo "checked";?> >
    <label for="access_public"><?php echo $langPublic ?></label>
   </td>
   <td>
-      <input type="radio" name="access" value="private" id="access_private" <?php if ($_REQUEST['access']=="private") echo "checked";?>>
+      <input type="radio" name="access" value="private" id="access_private" <?php if ($access=="private") echo "checked";?>>
     <label for="access_private"><?php echo $langPrivate ?></label>
   </td>
   <td>
-      <input type="radio" name="access" value=""        id="access_all"     <?php if ($_REQUEST['access']=="") echo "checked";?>>
+      <input type="radio" name="access" value=""        id="access_all"     <?php if ($access=="") echo "checked";?>>
     <label for="access_all"><?php echo $langAll ?></label>
   </td>
 </tr>
@@ -141,15 +150,15 @@ claro_disp_tool_title($nameTools." : ");
     :
   </td>
   <td>
-      <input type="radio" name="subscription" value="allowed" id="subscription_allowed" <?php if ($_REQUEST['subscription']=="allowed") echo "checked";?>>
+      <input type="radio" name="subscription" value="allowed" id="subscription_allowed" <?php if ($subscription=="allowed") echo "checked";?>>
     <label for="subscription_allowed"><?php echo $langAllowed ?></label>
   </td>
   <td>
-      <input type="radio" name="subscription" value="denied"  id="subscription_denied" <?php if ($_REQUEST['subscription']=="denied") echo "checked";?>>
+      <input type="radio" name="subscription" value="denied"  id="subscription_denied" <?php if ($subscription=="denied") echo "checked";?>>
     <label for="subscription_denied"><?php echo $langDenied ?></label>
   </td>
   <td>
-      <input type="radio" name="subscription" value=""  id="subscription_all" <?php if ($_REQUEST['subscription']=="") echo "checked";?>>
+      <input type="radio" name="subscription" value=""  id="subscription_all" <?php if ($subscription=="") echo "checked";?>>
     <label for="subscription_all"><?php echo $langAll ?></label>
   </td>
 </tr>

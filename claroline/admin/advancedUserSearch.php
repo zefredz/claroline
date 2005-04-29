@@ -24,14 +24,14 @@ include($includePath."/lib/admin.lib.inc.php");
 // deal with session variables clean session variables from previous search
 
 
-session_unregister('admin_user_letter');
-session_unregister('admin_user_search');
-session_unregister('admin_user_firstName');
-session_unregister('admin_user_lastName');
-session_unregister('admin_user_userName');
-session_unregister('admin_user_mail');
-session_unregister('admin_user_action');
-session_unregister('admin_order_crit');
+unset($_REQUEST['admin_user_letter']);
+unset($_REQUEST['admin_user_search']);
+unset($_REQUEST['admin_user_firstName']);
+unset($_REQUEST['admin_user_lastName']);
+unset($_REQUEST['admin_user_userName']);
+unset($_REQUEST['admin_user_mail']);
+unset($_REQUEST['admin_user_action']);
+unset($_REQUEST['admin_order_crit']);
 
 
 //declare needed tables
@@ -55,6 +55,13 @@ $nameTools = $langSearchUserAdvanced;
 $sql_searchfaculty = 'select * FROM `'.$tbl_course_nodes.'` order by `treePos`';
 $arrayFaculty=claro_sql_query_fetch_all($sql_searchfaculty);
 
+//retrieve needed parameters from URL to prefill search form
+
+if (isset($_REQUEST['action']))    $action    = $_REQUEST['action'];    else $action = "";
+if (isset($_REQUEST['lastName']))  $lastName  = $_REQUEST['lastName'];  else $lastName = "";
+if (isset($_REQUEST['firstName'])) $firstName = $_REQUEST['firstName']; else $firstName = "";
+if (isset($_REQUEST['userName']))  $userName  = $_REQUEST['userName'];  else $userName = "";
+if (isset($_REQUEST['mail']))      $mail      = $_REQUEST['mail'];      else $mail = "";
 
 //header and bredcrump display
 
@@ -74,7 +81,7 @@ claro_disp_tool_title($nameTools." : ");
 			: <br>
 		</td>
 		<td>
-			<input type="text" name="lastName" id="lastName" value="<?php echo $_REQUEST['lastName']?>"/>
+			<input type="text" name="lastName" id="lastName" value="<?php echo $lastName ?>"/>
 		</td>
 	</tr>
 
@@ -84,7 +91,7 @@ claro_disp_tool_title($nameTools." : ");
 			: <br>
 		</td>
 		<td>
-			<input type="text" name="firstName" id="firstName" value="<?php echo $_REQUEST['firstName']?>"/>
+			<input type="text" name="firstName" id="firstName" value="<?php echo $firstName ?>"/>
 		</td>
 	</tr>
 	
@@ -94,7 +101,7 @@ claro_disp_tool_title($nameTools." : ");
 			:  <br>
 		</td>
 		<td>
-			<input type="text" name="userName" id="userName" value="<?php echo $_REQUEST['userName']?>"/>
+			<input type="text" name="userName" id="userName" value="<?php echo $userName ?>"/>
 		</td>
 	</tr>
 
@@ -104,7 +111,7 @@ claro_disp_tool_title($nameTools." : ");
 			: <br>
 		</td>
 		<td>
-			<input type="text" name="mail" id="mail" value="<?php echo $_REQUEST['mail']?>"/>
+			<input type="text" name="mail" id="mail" value="<?php echo $mail ?>"/>
 		</td>
 	</tr>
 
@@ -114,9 +121,9 @@ claro_disp_tool_title($nameTools." : ");
   </td>
   <td>
     <select name="action" id="action">
-        <option value="followcourse" <?php if ($_REQUEST['action']=="followcourse") echo "selected";?>><?php echo $langRegStudent?></option>
-        <option value="createcourse" <?php if ($_REQUEST['action']=="createcourse") echo "selected";?>><?php echo $langCreateCourse?></option>
-        <option value="plateformadmin" <?php if ($_REQUEST['action']=="plateformadmin") echo "selected";?>><?php echo $langPlatformAdministrator?></option>
+        <option value="followcourse" <?php if ($action=="followcourse") echo "selected";?>><?php echo $langRegStudent?></option>
+        <option value="createcourse" <?php if ($action=="createcourse") echo "selected";?>><?php echo $langCreateCourse?></option>
+        <option value="plateformadmin" <?php if ($action=="plateformadmin") echo "selected";?>><?php echo $langPlatformAdministrator?></option>
     </select>
   </td>
 </tr>
