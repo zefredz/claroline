@@ -86,7 +86,8 @@ if (isset($_REQUEST['subscription']))
 if (isset($_REQUEST['order_crit']))   
                                  {$_SESSION['admin_course_order_crit']   = trim($_REQUEST['order_crit']) ;}
 if (isset($_REQUEST['dir']))     {$_SESSION['admin_course_dir']          = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
-
+if (isset($_REQUEST['search']))  {$search = $_REQUEST['search'];} else $search="";   
+   
 // clean session if we come from a course
 
 session_unregister('_cid');
@@ -295,7 +296,7 @@ if (isset($dialogBox))
 
   //see passed search parameters :
   
-$addtoAdvanced ="";
+$addtoAdvanced ="?";
 $isSearched ="";
       
 if (isset($_REQUEST['search'])   && $_REQUEST['search']!="")              
@@ -305,7 +306,7 @@ if (isset($_REQUEST['search'])   && $_REQUEST['search']!="")
 if (isset($_REQUEST['code'])     && $_REQUEST['code']!="")                   
 {
     $isSearched .= $langCode." = ".$_REQUEST['code']." ";
-    $addtoAdvanced = "?code=".$_REQUEST['code'];
+    $addtoAdvanced .= "code=".$_REQUEST['code'];
 }
 if (isset($_REQUEST['intitule']) &&$_REQUEST['intitule']!="")           
 {
@@ -374,7 +375,7 @@ echo "<table width=\"100%\">
           <td align=\"right\">
             <form action=\"".$_SERVER['PHP_SELF']."\">
             <label for=\"search\">".$langMakeNewSearch."</label>
-            <input type=\"text\" value=\"".trim($_REQUEST['search'])."\" name=\"search\" id=\"search\"\">
+            <input type=\"text\" value=\"".$search."\" name=\"search\" id=\"search\"\">
             <input type=\"submit\" value=\" ".$langOk." \">
             <input type=\"hidden\" name=\"newsearch\" value=\"yes\">
             [<a class=\"claroCmd\" href=\"advancedCourseSearch.php".$addtoAdvanced."\">".$langAdvanced."</a>]
