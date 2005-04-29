@@ -147,6 +147,19 @@ else
 			$controlMsg['error'][] = $langEmailWrong;
 		}
 
+        switch ($forceCodeCase)
+        {
+            case 'lower' : 
+                $wantedCode = strtolower($wantedCode); 
+                break;
+            case 'upper' : 
+                $wantedCode = strtoupper($wantedCode);
+                break;
+            default : ;
+        }
+        $wantedCode = ereg_replace("[- ]","_",$wantedCode);
+        $wantedCode = ereg_replace("[^A-Za-z0-9_]","",$wantedCode);
+
 		$keys = define_course_keys ($wantedCode,"",$dbNamePrefix);
 		$currentCourseCode		 = $keys['currentCourseCode'      ];
 		$currentCourseId		 = $keys['currentCourseId'        ];

@@ -37,8 +37,22 @@ array ( 'defaultVisibilityForANewCourse'
       , 'prefixAntiEmpty'
       , 'showLinkToDeleteThisCourse'
       , 'nbCharFinalSuffix'
+      , 'forceCodeCase'
       );
 
+      
+$conf_def_property_list['forceCodeCase'] = 
+array ('label'       => 'Course code case'
+      ,'description' => 'You can force the case  of course code'
+      ,'default'     => 'upper'
+      ,'type'        => 'enum'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'acceptedValue' => array ('upper'=>'Force to uppercase the course code'
+                                ,'lower'=>'Force to lowercase the course code'
+                                ,'nochange'=>'dont change case'
+                                )
+      );
 $conf_def_property_list['defaultVisibilityForANewCourse'] = 
 array ('label'       => 'Default course access'
       ,'description' => ''
