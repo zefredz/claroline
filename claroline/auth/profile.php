@@ -20,8 +20,18 @@ $cidReset = TRUE;
 $gidReset = TRUE;
 
 #default - don't edit default !!! change in config files
+
 $userOfficialCodeCanBeEmpty    = TRUE;
 $userMailCanBeEmpty            = TRUE;
+$messageList = array();
+$display = '';
+
+define('CONFVAL_ASK_FOR_OFFICIAL_CODE',TRUE);
+
+// Constant for user picture
+define('CONFVAL_ASK_FOR_PICTURE',FALSE);
+define('KEEP_THE_NAME_WHEN_CHANGE_IMAGE','TRUE');
+define('PREFIX_IMAGE_FILENAME_WITH_UID','TRUE');
 
 define('DISP_COURSE_CREATOR_STATUS_REQ',__LINE__);
 define('DISP_REVOQUATION',__LINE__);
@@ -44,6 +54,7 @@ if (isset($userImageRepositorySys))
     $userImageRepositorySys = $clarolineRepositorySys.'img/users/';
 if (isset($userImageRepositoryWeb))
     $userImageRepositoryWeb = $imgRepositoryWeb.'users/';
+
 ///// COMMAND ///
 
 if (isset($can_request_course_creator_status) && $can_request_course_creator_status && $_REQUEST['exCCstatus'])
@@ -106,13 +117,14 @@ elseif (isset($can_request_revoquation) && $can_request_revoquation && $_REQUEST
 	$noQueryString=TRUE;
 	$display = DISP_REVOQUATION;
 }
-elseif ($_REQUEST['applyChange'])
+elseif ( isset($_REQUEST['applyChange']) )
 {
     /*
      *==========================
      * DATA CHECKING
      *==========================
      */
+
     $form_password1    = trim($_REQUEST['form_password1'   ]);
     $form_password2    = trim($_REQUEST['form_password2'   ]);
     $form_userName     = stripslashes ( trim($_REQUEST['form_userName'    ]) );
@@ -121,8 +133,12 @@ elseif ($_REQUEST['applyChange'])
     $form_lastName     = stripslashes ( trim($_REQUEST['form_lastName'    ]) );
     $form_firstName    = stripslashes ( trim($_REQUEST['form_firstName'   ]) );
     $form_email        = stripslashes ( trim($_REQUEST['form_email'       ]) );
+    $form_phone        = stripslashes ( trim($_REQUEST['form_phone'       ]) );
 
-    $form_del_picture  = trim($_REQUEST['form_del_picture'] );
+    if ( CONFVAL_ASK_FOR_PICTURE == TRUE )
+    {
+        $form_del_picture  = trim($_REQUEST['form_del_picture'] );
+    }
 
     /*
      * CHECK IF USERNAME IS ALREADY TAKEN BY ANOTHER USER
@@ -185,7 +201,7 @@ elseif ($_REQUEST['applyChange'])
     if ( $new_password && SECURE_PASSWORD_REQUIRED && $passwordOK)
     {
         if (is_password_secure_enough($new_password,
-                                      array($form_userName, $form_officalCode, 
+                                      array($form_userName, $form_officialCode, 
                                             $form_lastName, $form_firstName, $form_email)))
         {
             $passwordOK = true;
@@ -252,7 +268,7 @@ elseif ($_REQUEST['applyChange'])
      *--------------------------------------
      */
 
-    if ($userSettingChangeAllowed)
+    if ( $userSettingChangeAllowed )
     {
          /*
           * UPLOAD A USER IMAGE
@@ -261,112 +277,118 @@ elseif ($_REQUEST['applyChange'])
           * Image resizing  added by Patrick Cool Ugent - 24/11/2003
           * Code Refactoring Hugues Peeters (hugues.peeters@claroline.net) 24/11/2003
           */
-        $actualImage = $data_ActualUserInfo['actual_ImageFile'];
-        if ($form_del_picture== 'yes')
+
+        if ( CONFVAL_ASK_FOR_PICTURE == TRUE )
         {
-            $form_picture = NULL;
-        }
-        elseif ( is_uploaded_file( $form_picture ) )
-        {
-            $fileExtension = strtolower( array_pop( explode(".",$HTTP_POST_FILES['form_picture']['name']) ) );
+	
+	        $actualImage = $data_ActualUserInfo['actual_ImageFile'];
+	        if ($form_del_picture== 'yes')
+	        {
+	            $form_picture = NULL;
+	        }
+	        elseif ( is_uploaded_file( $_FILES['form_picture']['tmp_name'] ) )
+	        {
+	            $fileExtension = strtolower( array_pop( explode(".",$_FILES['form_picture']['name']) ) );
+	
+	            if ( in_array($fileExtension, array('php', 'php4', 'php3', 'phtml') ) )
+	            {
+	                trigger_error('<div align="center">No PHP Files allowed</div>',E_USER_ERROR);
+	            }
+	
+	            claro_mkdir($userImageRepositorySys, 0777, true);
+	
+	            $user_have_pic = (bool) (trim($actualImage)!="");
 
-            if ( in_array($fileExtension, array('php', 'php4', 'php3', 'phtml') ) )
-            {
-                trigger_error('<div align="center">No PHP Files allowed</div>',E_USER_ERROR);
-            }
+	            if ($user_have_pic)
+	            {
+	                if (KEEP_THE_NAME_WHEN_CHANGE_IMAGE)
+	                {
+	                    $picture_FileName     = $actualImage;
+	                    $old_picture_FileName  = "save_".date("Y_m_d_H_i_s")."_".uniqid('')."_".$actualImage;
+	                }
+	                else
+	                {
+	                    $old_picture_FileName     = $actualImage;
+	                    $picture_FileName     = (PREFIX_IMAGE_FILENAME_WITH_UID?"u".$_uid."_":"").uniqid('').".".$fileExtension;
+	                }
+	                if (KEEP_THE_OLD_IMAGE_AFTER_CHANGE)
+	                {
+	                    rename($userImageRepositorySys.$actualImage,$userImageRepositorySys.$old_picture_FileName);
+	                }
+	                else
+	                {
+	                    unlink($userImageRepositorySys.$actualImage);
+	                }
+	            }
+	            else
+	            {
+	                $picture_FileName     = (PREFIX_IMAGE_FILENAME_WITH_UID?$_uid."_":"").uniqid('').".".$fileExtension;
+	            }
+	            if (move_uploaded_file( $_FILES['form_picture']['tmp_name'],
+	                                    $userImageRepositorySys.$picture_FileName))
+	            {
+	                /*
+	                 *--------------------------------------
+	                 *            Image resizing
+	                 *--------------------------------------
+	                 */
+	            
+	                if ( extension_loaded('gd') ) // Check the GD library is available
+	                {
+	                    // Get Width, Height and type from the original image
+	
+	                    list($actualWidth,
+	                         $actualHeight,
+	                         $type, )       = getimagesize($userImageRepositorySys.$picture_FileName);
+	
+	
+	                    if ($type == 2) // Check to see if it is a reall JPEF file
+	                    {               // 1 stands for GIF, 2 for JPG, 3 for PNG
+	
+	                        // Set and compute the final image size
+	
+	                        $finalHeight         = RESIZE_IMAGE_TO_THIS_HEIGTH;
+	                        $factor              = $actualHeight / $finalHeight;
+	                        $finalWidth          = round( $actualWidth / $factor );
+	
+	                        // Create an image from the original image file
+	
+	                        $actualImage = ImageCreateFromJPEG($userImageRepositorySys.$picture_FileName)
+	                                       or trigger_error('<div align="center">can not open image</div>',E_USER_ERROR);
+	
+	                        // Create a new image set with new size
+	
+	                        $finalImage   = ImageCreate($finalWidth, $finalHeight)
+	                                        or trigger_error('<div align="center">can not create image</div>',E_USER_ERROR);
+	
+	
+	                        // Copy and resize the original image into the new one
+	
+	                        ImageCopyResized( $finalImage,
+	                                          $actualImage,
+	                                          0,
+	                                          0,
+	                                          0,
+	                                          0,
+	                                          $finalWidth,
+	                                          $finalHeight,
+	                                          ImageSX($actualImage),
+	                                          ImageSY($actualImage) )
+	                            or trigger_error('<div align="center">can not resize image</div>',E_USER_ERROR);
+	
+	                        // Store the final image
+	
+	                        ImageJPEG($finalImage, $userImageRepositorySys.$picture_FileName)
+	                            or trigger_error('<div align="center">can not save image</div>',E_USER_ERROR);
+	
+	                        $picture = $picture_FileName;
+	
+	                    }            // end if type == JPEG
+	                }                // end if GD extension loaded
+	            }                     // end if move_uploaded file
+	        }                        // end if is_uploaded_file $form_picture
 
-            claro_mkdir($userImageRepositorySys, 0777, true);
-
-            $user_have_pic = (bool) (trim($actualImage)!="");
-            if ($user_have_pic)
-            {
-                if (KEEP_THE_NAME_WHEN_CHANGE_IMAGE)
-                {
-                    $picture_FileName     = $actualImage;
-                    $old_picture_FileName  = "save_".date("Y_m_d_H_i_s")."_".uniqid('')."_".$actualImage;
-                }
-                else
-                {
-                    $old_picture_FileName     = $actualImage;
-                    $picture_FileName     = (PREFIX_IMAGE_FILENAME_WITH_UID?"u".$_uid."_":"").uniqid('').".".$fileExtension;
-                }
-                if (KEEP_THE_OLD_IMAGE_AFTER_CHANGE)
-                {
-                    rename($userImageRepositorySys.$actualImage,$userImageRepositorySys.$old_picture_FileName);
-                }
-                else
-                {
-                    unlink($userImageRepositorySys.$actualImage);
-                }
-            }
-            else
-            {
-                $picture_FileName     = (PREFIX_IMAGE_FILENAME_WITH_UID?$_uid."_":"").uniqid('').".".$fileExtension;
-            }
-            if (move_uploaded_file( $form_picture,
-                                    $userImageRepositorySys.$picture_FileName))
-            {
-                /*
-                 *--------------------------------------
-                 *            Image resizing
-                 *--------------------------------------
-                 */
-
-                if ( extension_loaded('gd') ) // Check the GD library is available
-                {
-                    // Get Width, Height and type from the original image
-
-                    list($actualWidth,
-                         $actualHeight,
-                         $type, )       = getimagesize($userImageRepositorySys.$picture_FileName);
-
-
-                    if ($type == 2) // Check to see if it is a reall JPEF file
-                    {               // 1 stands for GIF, 2 for JPG, 3 for PNG
-
-                        // Set and compute the final image size
-
-                        $finalHeight         = RESIZE_IMAGE_TO_THIS_HEIGTH;
-                        $factor              = $actualHeight / $finalHeight;
-                        $finalWidth          = round( $actualWidth / $factor );
-
-                        // Create an image from the original image file
-
-                        $actualImage = ImageCreateFromJPEG($userImageRepositorySys.$picture_FileName)
-                                       or trigger_error('<div align="center">can not open image</div>',E_USER_ERROR);
-
-                        // Create a new image set with new size
-
-                        $finalImage   = ImageCreate($finalWidth, $finalHeight)
-                                        or trigger_error('<div align="center">can not create image</div>',E_USER_ERROR);
-
-
-                        // Copy and resize the original image into the new one
-
-                        ImageCopyResized( $finalImage,
-                                          $actualImage,
-                                          0,
-                                          0,
-                                          0,
-                                          0,
-                                          $finalWidth,
-                                          $finalHeight,
-                                          ImageSX($actualImage),
-                                          ImageSY($actualImage) )
-                            or trigger_error('<div align="center">can not resize image</div>',E_USER_ERROR);
-
-                        // Store the final image
-
-                        ImageJPEG($finalImage, $userImageRepositorySys.$picture_FileName)
-                            or trigger_error('<div align="center">can not save image</div>',E_USER_ERROR);
-
-                        $picture = $picture_FileName;
-
-                    }            // end if type == JPEG
-                }                // end if GD extension loaded
-            }                     // end if move_uploaded file
-        }                        // end if is_uploaded_file $form_picture
-
+        }  // end if ( CONFVAL_ASK_FOR_PICTURE == TRUE )
 
         $sql = 'UPDATE  `'.$tbl_user.'`
 
@@ -385,24 +407,28 @@ elseif ($_REQUEST['applyChange'])
             $sql .= ', `password`   = "'.$new_password.'" ';
         }
         
-        if ($form_picture||$form_del_picture)
+        if ( CONFVAL_ASK_FOR_PICTURE == TRUE )
         {
-            if ($form_del_picture=="yes")
-            {
-                $sql .= ', `pictureUri` = NULL ';
-                if (KEEP_THE_OLD_IMAGE_AFTER_CHANGE)
-                {
-                    rename($userImageRepositorySys.$actualImage, $userImageRepositorySys."deleted_".date("Y_m_d_H_i_s")."_".$actualImage);
-                }
-                else
-                {
-                    unlink($userImageRepositorySys.$actualImage);
-                }
-            }
-            else
-            {
-                $sql .= ', `pictureUri` = "'.$picture.'"';
-            }
+	
+	        if ( $_FILES['form_picture']['tmp_name'] || $form_del_picture )
+	        {
+	            if ($form_del_picture=="yes")
+	            {
+	                $sql .= ', `pictureUri` = NULL ';
+	                if (KEEP_THE_OLD_IMAGE_AFTER_CHANGE)
+	                {
+	                    rename($userImageRepositorySys.$actualImage, $userImageRepositorySys."deleted_".date("Y_m_d_H_i_s")."_".$actualImage);
+	                }
+	                else
+	                {
+	                    unlink($userImageRepositorySys.$actualImage);
+	                }
+	            }
+	            else
+	            {
+	                $sql .= ', `pictureUri` = "'.$picture.'"';
+	            }
+	        }
         }
 
         $sql .= ' WHERE `user_id`  = "'.$_uid.'"';
@@ -459,12 +485,13 @@ if ($result)
 /*==========================
          DISPLAY
   ==========================*/
+
 include('../inc/claro_init_header.inc.php');
 claro_disp_tool_title($nameTools);
 
 if ( count($messageList) > 0) claro_disp_message_box( implode('<br />', $messageList) );
 
-switch($display)
+switch ( $display )
 {
 	case DISP_REVOQUATION : 
 	if (isset($can_request_revoquation) && $can_request_revoquation)
@@ -549,8 +576,9 @@ if( $disp_picture != '')
             <input type="text" size="40" name="form_firstName" id="form_firstName" value="<?php echo $form_firstName ?>" >
         </td>
     </tr>
+
 <?php
-if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
+if ( defined('CONFVAL_ASK_FOR_OFFICIAL_CODE') && CONFVAL_ASK_FOR_OFFICIAL_CODE == TRUE )
 {
 ?>
     <tr>
@@ -567,18 +595,15 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 <?php
 }
 ?>
-    <tr>
-        <td >
-        </td>
-        <td >
-           <br>
-        </td>
-    </tr>
-<!-- 
+
+<?php
+if ( CONFVAL_ASK_FOR_PICTURE == TRUE )
+{
+?>
     <tr>
         <td align="right">
             <label for="form_picture">
-                <?php echo ($disp_picture?$langUpdateImage:$langAddImage)?>  : "
+                <?php echo ($disp_picture?$langUpdateImage:$langAddImage)?>  :
             <br>
             <small>
                 (.jpg or .jpeg only)
@@ -589,19 +614,33 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
         <td>
             <input type="file" name="form_picture" id="form_picture" >
             <?php 
-            if ( $disp_picture)
+            if ( $disp_picture )
             { ?>
             <br>
             <label for="form_del_picture">
                 <?php echo $langDelImage ?>
             </label>
-            <input type="checkbox" name="form_del_picture" id="form_del_picture" value="yes"> : 
+            <input type="checkbox" name="form_del_picture" id="form_del_picture" value="yes"> 
             <?php 
+            }
+            else
+            {
+            ?>
+            <input type="hidden" name="form_del_picture" id="form_del_picture" value="no">
+            <?php
             }
             ?>
         </td>
     <tr>
--->
+<?php
+}
+?>
+
+    <tr>
+        <td >&nbsp;</td>
+        <td >&nbsp;</td>
+    </tr>
+
     <tr>
         <td></td>
         <td>
@@ -641,11 +680,8 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
         </td>
     </tr>
     <tr>
-        <td >
-        </td>
-        <td >
-            <br>
-        </td>
+        <td >&nbsp;</td>
+        <td >&nbsp;</td>
     </tr>
     <tr>
         <td align="right">
