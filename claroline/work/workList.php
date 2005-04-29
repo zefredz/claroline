@@ -46,6 +46,26 @@ event_access_tool($_tid, $_courseTool['label']);
 claro_set_display_mode_available(true);
 
 /*============================================================================
+                     BASIC VARIABLES DEFINITION
+  =============================================================================*/
+$currentCourseRepositorySys = $coursesRepositorySys.$_course["path"]."/";
+$currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course["path"]."/";
+
+$fileAllowedSize 	= $max_file_size_per_works ;    //file size in bytes (from config file)
+$wrkDirSys          = $currentCourseRepositorySys."work/"; // systeme work directory
+$wrkDirWeb          = $currentCourseRepositoryWeb."work/"; // web work directory
+$maxFilledSpace 	= 100000000;
+
+// initialise dialog box to an empty string, all dialog will be concat to it
+$dialogBox = '';
+/*============================================================================
+                     CLEAN INFORMATIONS SEND BY USER
+  =============================================================================*/
+
+$cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
+
+
+/*============================================================================
                           PREREQUISITES
   =============================================================================*/
 
@@ -289,8 +309,8 @@ else // INDIVIDUAL
 				`U`.`nom` ASC, `U`.`prenom` ASC
 		";
 }
-
-$workPager = new claro_sql_pager($sql,$_REQUEST['offset'], $usersPerPage);
+$offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? $_REQUEST['offset'] : 0;
+$workPager = new claro_sql_pager($sql,$offset, $usersPerPage);
  
 $workList = $workPager->get_result_list();
 
