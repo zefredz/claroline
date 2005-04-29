@@ -102,7 +102,7 @@ else
 
 
 $dateNow = claro_disp_localised_date($dateTimeFormatLong);
-$timeNow = claro_disp_localised_date('%d/%m/%y [%H:%M]');
+$timeNow = claro_disp_localised_date('[%d/%m/%y %H:%M]');
 
 if ( ! file_exists($activeChatFile))
 {
@@ -133,7 +133,7 @@ RESET COMMAND
 ----------------------------------------------------------------------------*/
 
 
-if ($reset && $is_allowedToReset)
+if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'reset' && $is_allowedToReset)
 {
     $fchat = fopen($activeChatFile,'w');
     fwrite($fchat, "<small>".$timeNow." -------- ".$langChatResetBy." ".$nick." --------</small><br />\n");
@@ -149,7 +149,7 @@ if ($reset && $is_allowedToReset)
 STORE COMMAND
 ----------------------------------------------------------------------------*/
 
-if ($store && $is_allowedToStore)
+if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStore)
 {
     $chatDate = 'chat.'.date('Y-m-j').'_';
 
@@ -192,16 +192,16 @@ if ($store && $is_allowedToStore)
 /*----------------------------------------------------------------------------
 'ADD NEW LINE' COMMAND
 ----------------------------------------------------------------------------*/
-
-if ($chatLine)
+if ( !empty($_REQUEST['chatLine']) )
 {
     $fchat = fopen($activeChatFile,'a');
     $chatLine = htmlspecialchars( stripslashes($chatLine) );
+	// replace url with real html link
     $chatLine = ereg_replace("(http://)(([[:punct:]]|[[:alnum:]])*)","<a href=\"\\0\" target=\"_blank\">\\2</a>",$chatLine);
 
     fwrite($fchat,
     '<small>'
-    .$timeNow.' <b>'.$nick.'</b> &gt; '.$chatLine
+    .$timeNow.' &lt;<b>'.$nick.'</b>&gt; '.$chatLine
     ."</small><br />\n");
 
     fclose($fchat);
@@ -218,10 +218,10 @@ if ($chatLine)
 DISPLAY MESSAGE LIST
 ============================================================================*/
 
-if ( !$dateLastWrite )
+if ( !isset($dateLastWrite) )
 {
     $dateLastWrite = $langDateLastWrite
-    .strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
+				.strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
 }
 
 
