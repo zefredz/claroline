@@ -64,6 +64,10 @@ $htmlHeadXtra[] =
 /*-----------------------------------*/
 /*	EXECUTE COMMAND	             */
 /*-----------------------------------*/
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
+
 switch ($cmd)	
 {
   //Delete an existing class
@@ -162,7 +166,7 @@ switch ($cmd)
         
         $sql = "SELECT name FROM `".$tbl_class."` WHERE `id`= '".$_REQUEST['class']."'";
     	$result =  claro_sql_query_fetch_all($sql);
-        $class_name = $resClass[0]['name'];
+        $class_name = $result[0]['name'];
 	
         $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" >'."\n"
         		   .'<table>'."\n"
@@ -259,7 +263,7 @@ claro_disp_tool_title($nameTools);
 
 //display dialog Box (or any forms)
 
-if($dialogBox)
+if(isset($dialogBox))
 {
     claro_disp_message_box($dialogBox);
     echo '<br>';
@@ -359,7 +363,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	    
     	    if ($has_children)
 	        {
-	            if ($_SESSION['admin_visible_class'][$cur_class['id']]=="open")
+	            if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && $_SESSION['admin_visible_class'][$cur_class['id']]=="open")
     	    	{
 	    	        $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&amp;class=".$cur_class['id']."\">\n"
 		                              ."   <img src=\"".$imgRepositoryWeb."minus.gif\" border=\"0\" >\n"
@@ -428,7 +432,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	    
             // RECURSIVE CALL TO DISPLAY CHILDREN
 	    
-            if ($_SESSION['admin_visible_class'][$cur_class['id']]=="open")
+            if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && ($_SESSION['admin_visible_class'][$cur_class['id']]=="open"))
             {
 	            display_tree($class_list, $cur_class['id'], $deep+1);
             }	    
@@ -453,7 +457,7 @@ function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;")
 	$sql ="SELECT * FROM `".$tbl_class."`  ORDER BY `name`";
 	$classes = claro_sql_query_fetch_all($sql);
 	
-	$result .= "<select name=\"theclass\">\n"
+	$result = "<select name=\"theclass\">\n"
 	    ."<option value=\"root\"> ".$langTopLevel." </option>"; 
 	$result .= buildSelectClass($classes,$selected,null,$space);
 	$result .= "</select>\n";
@@ -473,6 +477,7 @@ function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;")
 */    
 function buildSelectClass($classes,$selected,$father=null,$space="&nbsp;&nbsp;&nbsp;")
 {
+    $result = "";
     if($classes)
     {
         foreach($classes as $one_class)
