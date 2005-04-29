@@ -33,6 +33,7 @@ $nameTools  = $langChat;
 include($includePath.'/lib/events.lib.inc.php');
 event_access_tool($_tid, $_courseTool['label']);
 
+$titlePage = '';
 
 if(!empty($nameTools))
 {
