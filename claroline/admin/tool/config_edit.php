@@ -265,7 +265,7 @@ else
                 }
             }
         }
-
+        if(is_array($conf_def_property_list))
         foreach ($conf_def_property_list as $_propName => $_propDescriptorList)
         {
             if (!isset($_propDescriptorList['section']))
