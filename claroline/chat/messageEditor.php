@@ -46,13 +46,13 @@ include($includePath.'/claro_init_header.inc.php');
 	  onSubmit = "return prepare_message();">
 
 
-<input type="text"    name="msg"      size="80">
+<input type="text"    name="msg" size="80">
 <input type="hidden"  name="chatLine">
 <input type="submit" value=" >> ">
 <br />
 <?php if ($is_allowedToManage) { ?>
-<a class="claroCmd" href="messageList.php?reset=true" target="messageList"><?php echo $langResetChat ?></a> | 
-<a class="claroCmd" href="messageList.php?store=true" target="messageList"><?php echo $langStoreChat ?></a>
+<a class="claroCmd" href="messageList.php?cmd=reset" target="messageList"><?php echo $langResetChat ?></a> |
+<a class="claroCmd" href="messageList.php?cmd=store" target="messageList"><?php echo $langStoreChat ?></a>
 <?php }
 ?>
 </form>
