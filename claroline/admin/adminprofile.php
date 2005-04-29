@@ -53,7 +53,13 @@ $tbl_course_user = $tbl_mdb_names['rel_course_user' ];
 
 // deal with session variables (must unset variables if come back from enroll script)
 
-session_unregister("userEdit");
+unset($_SESSION['userEdit']);
+
+//set default form values to variables
+
+$password = "";
+$confirm = "";
+
 
 // see which user we are working with ...
 
@@ -65,32 +71,43 @@ $user_id = $_REQUEST['uidToEdit'];
 if (empty($user_id))
     header("Location: adminusers.php");
 
-if (isset($applyChange))  //for formular modification
+if (isset($_REQUEST['applyChange']))  //for formular modification
 {
     $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 
     #########" Look for name already taken ##############################
-    $username_form = trim ($username_form);
-    $nom_form      = trim ($nom_form);
-    $prenom_form   = trim ($prenom_form);
-    $email_form    = trim ($email_form);
-
+    $_REQUEST['username_form'] = trim ($_REQUEST['username_form']);
+    $_REQUEST['nom_form']      = trim ($_REQUEST['nom_form']);
+    $_REQUEST['prenom_form']   = trim ($_REQUEST['prenom_form']);
+    $_REQUEST['email_form']    = trim ($_REQUEST['email_form']);
+    
+    $username_form             = $_REQUEST['username_form'];
+    $nom_form                  = $_REQUEST['nom_form'];
+    $prenom_form               = $_REQUEST['prenom_form'];
+    $email_form                = $_REQUEST['email_form'];
+    $official_code_form        = $_REQUEST['official_code_form'];
+    $userphone_form            = $_REQUEST['userphone_form'];
+    $admin_form                = $_REQUEST['admin_form'];
+    $create_course_form        = $_REQUEST['create_course_form'];
+    
     $username_check = claro_sql_query(
     "SELECT `username`
     FROM `".$tbl_user."`
-    WHERE username='$username_form'") or die("Erreur SELECT FROM user");
+    WHERE username='".$_REQUEST['username_form']."'") or die("Erreur SELECT FROM user");
 
     while ($myusername = mysql_fetch_array($username_check))
     {
         $user_exist=$myusername[0];
     }
-
+    
+    if (!isset($user_exist)) $user_exist="";
+     
     ######## No empty field ########################
 
-    if ( empty($nom_form)
-        OR empty($prenom_form)
-        OR empty($username_form)
-        OR (empty($email_form) && !$userMailCanBeEmpty)
+    if ( empty($_REQUEST['nom_form'])
+        OR empty($_REQUEST['prenom_form'])
+        OR empty($_REQUEST['username_form'])
+        OR (empty($$_REQUEST['email_form']) && !$userMailCanBeEmpty)
             )
     {
         $classMsg  = 'warning';
@@ -99,7 +116,7 @@ if (isset($applyChange))  //for formular modification
 
     ################# verify that user is free #################
 
-    elseif(($username_form==$user_exist) AND ($username_form!=$uname))
+    elseif(($_REQUEST['username_form']==$user_exist) AND ($_REQUEST['username_form']!=$username_form))
     {
         $classMsg = 'warning';
         $dialogBox = $langUserTaken;
@@ -228,19 +245,6 @@ if(isset($user_id))
     $display = USER_DATA_FORM;
 }
 
-session_unregister("uname");
-session_unregister("pass");
-session_unregister("nom");
-session_unregister("prenom");
-
-$uname  = $username_form;
-$nom    = $nom_form;
-$prenom = $prenom_form;
-
-session_register("uname");
-session_register("nom");
-session_register("prenom");
-
 if (isset($cmd))
 {
     if ($cmd=="delete")
@@ -248,8 +252,6 @@ if (isset($cmd))
         $dialogBox = "delete called";
     }
 }
-
-
 
 //------------------------------------
 // DISPLAY
@@ -261,7 +263,7 @@ include($includePath.'/claro_init_header.inc.php');
 claro_disp_tool_title($nameTools);
 //Display Forms or dialog box(if needed)
 
-if($dialogBox)
+if(isset($dialogBox))
 {
     claro_disp_message_box($dialogBox);
 }

@@ -44,6 +44,10 @@ $tbl_course_user = $tbl_rel_course_user;
 // Execute COMMAND section
 //------------------------------------
 
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
+
 if (isset($cmd) && $is_platformAdmin)
 {
     if ($cmd=="delete")
@@ -68,7 +72,7 @@ claro_disp_tool_title($langDeleteUser);
 //Display Forms or dialog box(if needed)
 
 
-if($dialogBox)
+if(isset($dialogBox))
   {
     claro_disp_message_box($dialogBox);
   }
