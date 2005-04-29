@@ -79,7 +79,7 @@ if (isset($_REQUEST['dir']))     {$_SESSION['admin_course_user_dir']          = 
 if (!isset($order['uid']))              $order['uid']          = "";
 if (!isset($order['name']))             $order['name']         = "";
 if (!isset($order['firstname']))        $order['firstname']    = "";
-if (!isset($order['cu_status']))        $order['cu_status']         = "";
+if (!isset($order['cu_status']))        $order['cu_status']    = "";
 
 // Deal with interbredcrumps
 
