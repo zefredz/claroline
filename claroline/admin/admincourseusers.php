@@ -15,12 +15,12 @@ $cidReset=TRUE;
 $gidReset=TRUE;
 $tidReset=TRUE;
 
+require '../inc/claro_init_global.inc.php';
+
 // clean session if we come from a course
 
-session_unregister('_cid');
+unset($_SESSION['_cid']);
 unset($_cid);
-
-require '../inc/claro_init_global.inc.php';
 
 /* ************************************************************************** */
 /*  Security Check
@@ -42,8 +42,18 @@ $iconForCuStatus['COURSE_MANAGER'] = "manager.gif";
 include($includePath."/lib/pager.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
 
-if ($cidToEdit=="") {unset($cidToEdit);}
-if ($cidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
+//find which course is concerned in URL parameters
+
+if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=="") || !isset($_REQUEST['cidToEdit']))
+{
+    unset($_REQUEST['cidToEdit']);
+    $dialogBox ="ERROR : NO COURSE SET!!!";
+    
+}
+else
+{
+   $cidToEdit = $_REQUEST['cidToEdit'];
+}
 
 // javascript confirm pop up declaration
 
@@ -63,6 +73,13 @@ $htmlHeadXtra[] =
 if (isset($_REQUEST['order_crit']))   
                                  {$_SESSION['admin_course_user_order_crit']   = trim($_REQUEST['order_crit']) ;}
 if (isset($_REQUEST['dir']))     {$_SESSION['admin_course_user_dir']          = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
+
+//set the reorder parameters for colomuns titles
+
+if (!isset($order['uid']))              $order['uid']          = "";
+if (!isset($order['name']))             $order['name']         = "";
+if (!isset($order['firstname']))        $order['firstname']    = "";
+if (!isset($order['cu_status']))        $order['cu_status']         = "";
 
 // Deal with interbredcrumps
 
@@ -85,15 +102,15 @@ $tbl_track_default = $tbl_mdb_names['track_e_default' ];
 // Execute COMMAND section
 //------------------------------------
 
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
+
+
 switch ($cmd)
 {
-  case "delete" :
-        delete_user($user_id);
-        $dialogBox = $langUserDelete;
-        break;
-
   case "unsub" :
-        $done = remove_user_from_course($user_id, $cidToEdit);
+        $done = remove_user_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit']);
         if ($done)
         {
            $dialogBox =$langUserUnsubscribed;
@@ -163,11 +180,22 @@ if (isset($_REQUEST['search']))
 //		case 'email'  : $fieldSort = 'email';       
 	}
     $toAdd = " ORDER BY `".$fieldSort."` ".$_SESSION['admin_course_user_dir'];
-	$order[$_SESSION['admin_course_user_order_crit']] = ($_SESSION['admin_course_user_dir']=='ASC'?'DESC':'ASC');
+    $order[$_SESSION['admin_course_user_order_crit']] = ($_SESSION['admin_course_user_dir']=='ASC'?'DESC':'ASC');
     $sql.=$toAdd;
 }
 
 //echo $sql."<br>";
+
+//Build SQL query
+
+if (!isset($_REQUEST['offset'])) 
+{
+    $offset = "0";
+}
+else
+{
+    $offset = $_REQUEST['offset'];
+}
 
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $resultList = $myPager->get_result_list();
@@ -185,7 +213,7 @@ claro_disp_tool_title($nameTools);
 
 // Display Forms or dialog box(if needed)
 
-if($dialogBox)
+if(isset($dialogBox))
   {
     claro_disp_message_box($dialogBox);
   }
@@ -264,9 +292,9 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
     <tr class="headerX" align="center" valign="top">
        <th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=uid&amp;dir='.$order['uid'].'&amp;cidToEdit='.$cidToEdit."\">".$langUserid.'</a></th>
        <th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=name&amp;dir='.$order['name'].'&amp;cidToEdit='.$cidToEdit.'">'.$langLastName.'</a></th>
-       <th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=firstname&amp;dir='.$order['firstname'].''.$dir.'&amp;cidToEdit='.$cidToEdit.'">'.$langFirstName.'</a></th>
+       <th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=firstname&amp;dir='.$order['firstname'].'&amp;cidToEdit='.$cidToEdit.'">'.$langFirstName.'</a></th>
        <th>
-           <a href="'.$_SERVER['PHP_SELF'].'?order_crit=cu_status&amp;dir='.$order['code'].''.$dir.'&amp;cidToEdit='.$cidToEdit.'">'.$langStatus.'</a>
+           <a href="'.$_SERVER['PHP_SELF'].'?order_crit=cu_status&amp;dir='.$order['cu_status'].'&amp;cidToEdit='.$cidToEdit.'">'.$langStatus.'</a>
 	   </th>
       <th>'.$langUnsubscribe.'</th>
       </tr>

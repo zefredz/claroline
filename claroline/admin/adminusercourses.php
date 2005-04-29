@@ -47,10 +47,30 @@ if (isset($_REQUEST['order_crit']))
                                  {$_SESSION['admin_user_course_order_crit']   = trim($_REQUEST['order_crit']) ;}
 if (isset($_REQUEST['dir']))     {$_SESSION['admin_user_course_dir']          = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
 
+//set the reorder parameters for colomuns titles
+
+if (!isset($order['code']))              $order['code']               = "";
+if (!isset($order['label']))             $order['label']              = "";
+if (!isset($order['titular']))           $order['titular']         = "";
+if (!isset($order['cuStatus']))          $order['cuStatus']         = "";
+
 // clean session if we come from a course
 
-session_unregister('_cid');
+unset($_SESSION['_cid']);
 unset($_cid);
+
+//find which user is concerned in URL parameters
+
+if ((isset($_REQUEST['uidToEdit']) && $_REQUEST['uidToEdit']=="") || !isset($_REQUEST['uidToEdit']))
+{
+    unset($_REQUEST['uidToEdit']);
+    $dialogBox ="ERROR : NO USER SET!!!";
+    
+}
+else
+{
+   $uidToEdit = $_REQUEST['uidToEdit'];
+}
 
 
 // Deal with interbredcrumps
@@ -68,6 +88,10 @@ if ($uidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
 //----------------------------------
 // EXECUTE COMMAND
 //----------------------------------
+
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
 
 switch ($cmd)
 {
@@ -143,8 +167,19 @@ if (isset($_SESSION['admin_user_course_order_crit']))
 //		case 'email'  : $fieldSort = 'email';       
 	}
     $toAdd = " ORDER BY `".$fieldSort."` ".$_SESSION['admin_user_course_dir'];
-	$order[$_SESSION['admin_user_course_order_crit']] = ($_SESSION['admin_user_course_dir']=='ASC'?'DESC':'ASC');
+    $order[$_SESSION['admin_user_course_order_crit']] = ($_SESSION['admin_user_course_dir']=='ASC'?'DESC':'ASC');
     $sql.=$toAdd;
+}
+
+//Build SQL query
+
+if (!isset($_REQUEST['offset'])) 
+{
+    $offset = "0";
+}
+else
+{
+    $offset = $_REQUEST['offset'];
 }
 
 $myPager = new claro_sql_pager($sql, $offset, $coursePerPage);
@@ -154,6 +189,8 @@ $resultList = $myPager->get_result_list();
 // DISPLAY
 //----------------------------------
 
+  if (!isset($addToUrl)) $addToUrl ="";  
+
   //display title
 
 $nameTools .= " : ".$resultTitle[0]['prenom']." ".$resultTitle[0]['nom'];
@@ -162,7 +199,7 @@ claro_disp_tool_title($nameTools);
 
 // display forms and dialogBox, alphabetic choice,...
 
-if($dialogBox)
+if(isset($dialogBox))
 {
     claro_disp_message_box($dialogBox);
 }

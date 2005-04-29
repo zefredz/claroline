@@ -26,32 +26,32 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 //------------------------------------------------------------------------------------------------------------------------
 // clean session of possible previous search information. : COURSE
 
-session_unregister('admin_course_code');
-session_unregister('admin_course_letter');
-session_unregister('admin_course_search');
-session_unregister('admin_course_intitule');
-session_unregister('admin_course_category');
-session_unregister('admin_course_language');
-session_unregister('admin_course_access');
-session_unregister('admin_course_subscription');
-session_unregister('admin_course_order_crit');
+unset($_SESSION['admin_course_code']);
+unset($_SESSION['admin_course_letter']);
+unset($_SESSION['admin_course_search']);
+unset($_SESSION['admin_course_intitule']);
+unset($_SESSION['admin_course_category']);
+unset($_SESSION['admin_course_language']);
+unset($_SESSION['admin_course_access']);
+unset($_SESSION['admin_course_subscription']);
+unset($_SESSION['admin_course_order_crit']);
+
 
 // deal with session variables clean session variables from previous search : USER
 
-
-session_unregister('admin_user_letter');
-session_unregister('admin_user_search');
-session_unregister('admin_user_firstName');
-session_unregister('admin_user_lastName');
-session_unregister('admin_user_userName');
-session_unregister('admin_user_mail');
-session_unregister('admin_user_action');
-session_unregister('admin_order_crit');
+unset($_SESSION['admin_user_letter']);
+unset($_SESSION['admin_user_search']);
+unset($_SESSION['admin_user_firstName']);
+unset($_SESSION['admin_user_lastName']);
+unset($_SESSION['admin_user_userName']);
+unset($_SESSION['admin_user_mail']);
+unset($_SESSION['admin_user_action']);
+unset($_SESSION['admin_order_crit']);
 
 
 // clean session if we come from a course
 
-session_unregister('_cid');
+unset($_SESSION['_cid']);
 unset($_cid);
 
 //----------------------------------
