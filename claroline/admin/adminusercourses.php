@@ -51,8 +51,8 @@ if (isset($_REQUEST['dir']))     {$_SESSION['admin_user_course_dir']          = 
 
 if (!isset($order['code']))              $order['code']               = "";
 if (!isset($order['label']))             $order['label']              = "";
-if (!isset($order['titular']))           $order['titular']         = "";
-if (!isset($order['cuStatus']))          $order['cuStatus']         = "";
+if (!isset($order['titular']))           $order['titular']            = "";
+if (!isset($order['cuStatus']))          $order['cuStatus']           = "";
 
 // clean session if we come from a course
 
