@@ -62,9 +62,9 @@ function define_course_keys ($wantedCode,
 							 )
 {
 	$tbl_mdb_names = claro_sql_get_main_tbl();
-	$tbl_course    = $tbl_mdb_names['course'           ];
+	$tbl_course    = $tbl_mdb_names['course'];
 
-	GLOBAL $coursesRepositories,$prefixAntiNumber,$prefixAntiEmpty,$nbCharFinalSuffix,$DEBUG;
+	GLOBAL $coursesRepositories,$prefixAntiNumber,$prefixAntiEmpty,$nbCharFinalSuffix,$DEBUG,$singleDbEnabled;
 
 	if ( !isset($nbCharFinalSuffix)
 	   ||!is_numeric($nbCharFinalSuffix) 
@@ -95,11 +95,15 @@ function define_course_keys ($wantedCode,
 	// $keys["currentCourseId"] would Became $cid in normal using.
 
     if ($addUniquePrefix) $uniquePrefix =  substr(md5 (uniqid (rand())),0,10);
+    else                  $uniquePrefix = '';
+    
     if ($addUniqueSuffix) $uniqueSuffix =  substr(md5 (uniqid (rand())),0,10);
+    else                  $uniqueSuffix = '';
 
 	$keysAreUnique = FALSE;
 
-	unset($finalSuffix);
+	$finalSuffix = array('CourseId'=>'','CourseDb'=>'','CourseDir'=>'');
+    $tryNewFSCId = $tryNewFSCDb = $tryNewFSCDir = 0;
 
 	while (!$keysAreUnique)
 	{
@@ -946,7 +950,8 @@ function fill_Db_course($courseDbName,$courseRepository, $language)
     $TABLETRACKEXERCICES     = $tbl_cdb_names['track_e_exercices'];//  "track_e_exercices";
 
 	$nom = $_user['lastName'];
-	$prenom =$_user['firstName'];
+	$prenom = $_user['firstName'];
+    $email = $_user['mail'];
 
 	mysql_select_db("$courseDbName");
 
@@ -1078,7 +1083,8 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 	GLOBAL $TABLECOURSE, $TABLECOURSUSER, $TABLEANNOUNCEMENTS, $DEBUG, $defaultVisibilityForANewCourse,
 	$langCourseDescription,
 	$langProfessor, $includePath,
-	$error_msg, $courseTablePrefix, $dbGlu;
+	$error_msg, $courseTablePrefix, $dbGlu,
+    $versionDb, $clarolineVersion;
   
 	$okForRegisterCourse = TRUE;
 
