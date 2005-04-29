@@ -12,6 +12,13 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-header("location:".$_REQUEST['url']);
+if ( isset($_REQUEST['url']) )
+{
+    header("location:".$_REQUEST['url']);
+}
+else
+{
+    header("Location:../");
+}
 
 ?>

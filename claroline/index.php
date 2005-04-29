@@ -18,10 +18,12 @@
 
 session_start();
 
-if ($_SESSION['is_platformAdmin'])
+if ( isset($_SESSION['is_platformAdmin']) && $_SESSION['is_platformAdmin'] == TRUE )
 {
 	//
+    header("Location:../");
 }
+else
 {
    header("Location:../");
 }
