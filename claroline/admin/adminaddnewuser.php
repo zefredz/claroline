@@ -38,6 +38,8 @@ $tbl_user = $tbl_mdb_names['user'];
 $display_form        = TRUE;
 $display_resultCSV    = FALSE;
 
+$dialogBox = "";
+
 //init banner
 
 include($includePath."/claro_init_header.inc.php");
@@ -48,11 +50,22 @@ $_SESSION['nom']    = "";
 $_SESSION['prenom'] = "";
 $_SESSION['uname']  = "";
 
+//retrieve needed parameters from URL to prefill creation form (in case of relaod with error to correct by user)
+ 
+if (isset($_REQUEST['nom']))           $nom             = $_REQUEST['nom'];           else $nom = "";
+if (isset($_REQUEST['prenom']))        $prenom          = $_REQUEST['prenom'];        else $prenom = "";
+if (isset($_REQUEST['official_code'])) $official_code   = $_REQUEST['official_code']; else $official_code = "";
+if (isset($_REQUEST['uname']))         $uname           = $_REQUEST['uname'];         else $uname = "";
+if (isset($_REQUEST['password']))      $password        = $_REQUEST['password'];      else $password = "";
+if (isset($_REQUEST['password1']))     $password1       = $_REQUEST['password1'];     else $password1 = "";
+if (isset($_REQUEST['email']))         $email           = $_REQUEST['email'];         else $email = "";
+if (isset($_REQUEST['phone']))         $phone           = $_REQUEST['phone'];         else $phone = "";
+
  /*==========================
    EXECUTE COMMAND SECTION
   ==========================*/
 
-if($register=="yes")
+if(isset($_REQUEST['register']) && $_REQUEST['register']=="yes")
 {
     $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
     $uname      = trim ($HTTP_POST_VARS["uname"     ]);
@@ -128,7 +141,7 @@ if($register=="yes")
     }
 }
 
-if ( ! $regDataOk)
+if (isset($regDataOk) && (!$regDataOk))
 {
     $display_form = TRUE;
 }
@@ -136,7 +149,7 @@ if ( ! $regDataOk)
 
 /*> > > > > > > > > > > > REGISTRATION ACCEPTED < < < < < < < < < < < <*/
 
-if ($regDataOk)
+if (isset($regDataOk) && ($regDataOk))
 {
     /*-----------------------------------------------------
       STORE THE NEW USER DATA INSIDE THE CLAROLINE DATABASE
@@ -201,11 +214,11 @@ claro_disp_tool_title(
     )
     );
 
-claro_disp_msg_arr($controlMsg);
+if (isset($controlMsg)) claro_disp_msg_arr($controlMsg);
 
   // Display Forms or dialog box(if needed)
 
-if($dialogBox)
+if(isset($dialogBox) && $dialogBox!="")
   {
     claro_disp_message_box($dialogBox);
   }
@@ -319,7 +332,7 @@ if($display_form)
 <?php
 } //end display form
 
-if ($display_success)
+if (isset($display_success))
 {
    echo $langUserCreated."<br><br>
    <ul>";

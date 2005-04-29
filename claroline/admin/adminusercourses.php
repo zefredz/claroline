@@ -281,7 +281,7 @@ foreach($resultList as $list)
     $atLeastOne = TRUE;
 }
 
-if (!$atLeastOne)
+if (!isset($atLeastOne) || !$atLeastOne)
 {
     echo '<tr>'
        . '<td colspan="5" align="center">'
