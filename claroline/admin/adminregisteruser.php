@@ -26,12 +26,26 @@ $canEditSubscription = $is_platformAdmin;
 
 //SECURITY CHECK
 if (!$canEditSubscription) claro_disp_auth_form();
-
-if ($cidToEdit=="") {unset($cidToEdit);}
-
+if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=="") || !isset($_REQUEST['cidToEdit']))
+{
+    unset($_REQUEST['cidToEdit']);
+    $dialogBox ="ERROR : NO COURSE SET!!!";
+    
+}
+else
+{
+   $cidToEdit = $_REQUEST['cidToEdit'];
+}
 $userPerPage = 20; // numbers of user to display on the same page
 
+//get needed parameter from URL
+
+if (isset($_REQUEST['user_id']))
+	        $user_id = $_REQUEST['user_id'];
+	else    $user_id = null;
+
 if ($cidToEdit=="") {$dialogBox ='ERROR : NO USER SET!!!';}
+
 
 // Deal with interbredcrumps
 $interbredcrump[]= array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
@@ -49,14 +63,18 @@ $tbl_track_default = $tbl_mdb_names['track_e_default' ];
 
 // See SESSION variables used for reorder criteria :
 
-if (isset($_GET['dir']))       {$_SESSION['admin_register_dir'] = $_GET['dir'];}
-if (isset($_GET['order_crit'])){$_SESSION['admin_register_order_crit'] = $_GET['order_crit'];}
+if (isset($_REQUEST['dir']))       {$_SESSION['admin_register_dir'] = $_REQUEST['dir'];}
+if (isset($_REQUEST['order_crit'])){$_SESSION['admin_register_order_crit'] = $_REQUEST['order_crit'];}
 
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
 
-switch ($_REQUEST['cmd'])
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
+
+switch ($cmd)
 {
     case 'sub' : //execute subscription command...
         
@@ -67,13 +85,13 @@ switch ($_REQUEST['cmd'])
         }
         
         // Set status requested
-        if ($subas=="teach")   //  ... as teacher
+        if ($_REQUEST['subas']=="teach")     // ... as teacher
         {
             $properties['status'] = 1;
             $properties['role']   = $langCourseManager;
             $properties['tutor']  = 1;
         }
-        elseif ($subas=='stud')  // ... as student
+        elseif ($_REQUEST['subas']=='stud')  // ... as student
         {
             $properties['status'] = 5;
             $properties['role']   = ""; 
@@ -134,11 +152,11 @@ if (isset($_GET['letter']))
 
 //deal with KEY WORDS classification call
 
-if (isset($_GET['search']) && $_GET['search']!="")
+if (isset($_REQUEST['search']) && $_REQUEST['search']!="")
 {
-    $toAdd = " WHERE (U.`nom` LIKE '".$_GET['search']."%'
-              OR U.`username` LIKE '".$_GET['search']."%'
-              OR U.`prenom` LIKE '".$_GET['search']."%') ";
+    $toAdd = " WHERE (U.`nom` LIKE '".$_REQUEST['search']."%'
+              OR U.`username` LIKE '".$_REQUEST['search']."%'
+              OR U.`prenom` LIKE '".$_REQUEST['search']."%') ";
 
     $sql.=$toAdd;
 }
@@ -147,11 +165,16 @@ if (isset($_GET['search']) && $_GET['search']!="")
 
   //first see is direction must be changed
 
-if (isset($chdir) && ($chdir=="yes"))
+if (isset($_REQUEST['chdir']) && ($_REQUEST['chdir']=="yes"))
 {
-  if ($_SESSION['admin_register_dir'] == "ASC") {$_SESSION['admin_register_dir']="DESC";}
-  elseif ($_SESSION['admin_register_dir'] == "DESC") {$_SESSION['admin_register_dir']="ASC";}
-  else $_SESSION['admin_register_dir'] = "DESC";
+  if ($_SESSION['admin_register_dir'] == "ASC") 
+  {
+      $_SESSION['admin_register_dir']="DESC";
+  }
+  else
+  {
+      $_SESSION['admin_register_dir']="ASC";
+  }
 }
 
 if (isset($_SESSION['admin_register_order_crit']))
@@ -167,9 +190,36 @@ if (isset($_SESSION['admin_register_order_crit']))
     $sql.=$toAdd;
 }
 
+//echo $sql; //debug
+
+//Build pager with SQL request
+
+if (!isset($_REQUEST['offset'])) 
+{
+    $offset = "0";
+}
+else
+{
+    $offset = $_REQUEST['offset'];
+}
+
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $userList = $myPager->get_result_list();
 
+$isSearched ="";
+
+//get the search keyword, if any
+
+if (!isset($_REQUEST['search']))
+{
+   $search = "";
+}
+else
+{
+   $search = $_REQUEST['search'];
+}
+
+if (!isset($addToURL)) $addToURL ="";
 
 //------------------------------------
 // DISPLAY
@@ -186,15 +236,14 @@ claro_disp_tool_title($nameTools);
 
 // Display Forms or dialog box(if needed)
 
-if($dialogBox)
+if(isset($dialogBox))
 {
     claro_disp_message_box($dialogBox);
 }
 
-
 // search form
        
-if ($_GET['search']!="")    {$isSearched .= $_GET['search']."* ";}
+if (isset($search) && $search!="")    {$isSearched .= $search."* ";}
 if (($isSearched=="") || !isset($isSearched)) {$title = "";} else {$title = $langSearchOn." : ";}
 
 echo '<table width="100%" >
@@ -208,7 +257,7 @@ echo '<table width="100%" >
           <td align="right">
             <form action="'.$_SERVER['PHP_SELF'].'">
             <label for="search">'.$langMakeSearch.'</label> :
-            <input type="text" value="'.$_GET['search'].'" name="search" id="search" >
+            <input type="text" value="'.$search.'" name="search" id="search" >
             <input type="submit" value=" '.$langOk.' \">
             <input type="hidden" name="newsearch" value="yes">
             <input type="hidden" name="cidToEdit" value="'.$cidToEdit.'">
@@ -223,9 +272,9 @@ echo '<a class="claroCmd" href="admincourseusers.php?cidToEdit='.$cidToEdit.'">'
       
 //Pager
 
-if (isset($_GET['order_crit']))
+if (isset($_REQUEST['order_crit']))
 {
-    $addToURL = "&amp;order_crit=".$_GET['order_crit']."&amp;dir=".$_GET['dir'];
+    $addToURL = "&amp;order_crit=".$_SESSION['admin_register_order_crit']."&amp;dir=".$_SESSION['admin_register_dir'];
 }
 
 $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit.$addToURL);

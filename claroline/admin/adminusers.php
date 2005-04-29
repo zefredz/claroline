@@ -111,7 +111,7 @@ switch ($cmd)
   case "delete" :
         if (isset($_REQUEST['user_id']))
 	        $user_id = $_REQUEST['user_id'];
-	else    $user_id = $_REQUEST['user_id'];
+	else    $user_id = null;
 	
 	if ($_uid != $user_id)
 	{
@@ -239,7 +239,7 @@ if (isset($_SESSION['admin_user_order_crit']))
 
 	}
     $sql.= " ORDER BY `".$fieldSort."` ".$_SESSION['admin_user_dir'];
-	$order[$_SESSION['admin_user_order_crit']] = ($_SESSION['admin_user_dir']=='ASC'?'DESC':'ASC');
+    $order[$_SESSION['admin_user_order_crit']] = ($_SESSION['admin_user_dir']=='ASC'?'DESC':'ASC');
 }
 
 //set the reorder parameters for colomuns titles
@@ -386,9 +386,6 @@ echo '<table width="100%">
 //Pager
 
 $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
-
-
-
 
 // Display list of users
 
