@@ -293,8 +293,11 @@ if (isset($dialogBox))
    //Display search form
 
 
-      //see passed search parameters :
-
+  //see passed search parameters :
+  
+$addtoAdvanced ="";
+$isSearched ="";
+      
 if (isset($_REQUEST['search'])   && $_REQUEST['search']!="")              
 {
     $isSearched .= trim($_REQUEST['search'])." ";
@@ -369,7 +372,7 @@ echo "<table width=\"100%\">
              </small>
           </td>
           <td align=\"right\">
-            <form action=\"",$_SERVER['PHP_SELF'],"\">
+            <form action=\"".$_SERVER['PHP_SELF']."\">
             <label for=\"search\">".$langMakeNewSearch."</label>
             <input type=\"text\" value=\"".trim($_REQUEST['search'])."\" name=\"search\" id=\"search\"\">
             <input type=\"submit\" value=\" ".$langOk." \">
@@ -486,7 +489,7 @@ foreach($resultList as $courseLine)
      $atleastOneResult = TRUE;
 }
 
-if ($atleastOneResult != true)
+if (!isset($atleastOneResult))
 {
    echo "<tr>
           <td colspan=\"6\" align=\"center\">

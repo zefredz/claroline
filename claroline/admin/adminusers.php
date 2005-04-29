@@ -274,6 +274,7 @@ $userList = $myPager->get_result_list();
 //see passed search parameters :
 
 $addtoAdvanced ="";
+$isSearched ="";
 
 if (isset($_SESSION['admin_user_search']) && $_SESSION['admin_user_search']!="") 
 {
@@ -536,7 +537,7 @@ foreach($userList as $list)
      $atLeastOne= TRUE;
 }
    // end display users table
-if (!$atLeastOne)
+if (!isset($atLeastOne))
 {
    echo '<tr>
           <td colspan="9" align="center">
