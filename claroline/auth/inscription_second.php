@@ -43,14 +43,14 @@ if( isset($_REQUEST['submitRegistration']) )
 
     // get form param
 
-    $username      = strip_tags ( trim ($HTTP_POST_VARS['username']) );
-    $email         = strip_tags ( trim ($HTTP_POST_VARS['email']) );
-    $lastname      = strip_tags ( trim ($HTTP_POST_VARS['lastname']) );
-    $firstname     = strip_tags ( trim ($HTTP_POST_VARS['firstname']) );
-    $password      = trim ($HTTP_POST_VARS['password']);
-    $password_conf = trim ($HTTP_POST_VARS['password_conf']);
-    $phone         = trim ($HTTP_POST_VARS['phone']);
-    $officialCode  = strip_tags ( trim ($HTTP_POST_VARS['officialCode']) );
+    $username      = strip_tags ( trim ($_POST['username']) );
+    $email         = strip_tags ( trim ($_POST['email']) );
+    $lastname      = strip_tags ( trim ($_POST['lastname']) );
+    $firstname     = strip_tags ( trim ($_POST['firstname']) );
+    $password      = trim ($_POST['password']);
+    $password_conf = trim ($_POST['password_conf']);
+    $phone         = trim ($_POST['phone']);
+    $officialCode  = strip_tags ( trim ($_POST['officialCode']) );
     $status        = ($allowSelfRegProf && $_REQUEST['status'] == COURSEMANAGER) ? COURSEMANAGER : STUDENT;
 
 	/*==========================
@@ -174,6 +174,7 @@ if ($regDataOk)
     	$_user['firstName']     = $firstname;
     	$_user['lastName' ]     = $lastname;
     	$_user['mail'     ]     = $email;
+        $_user['lastLogin']     = time() - (24 * 60 * 60); // DATE_SUB(CURDATE(), INTERVAL 1 DAY)
     	$is_allowedCreateCourse = ($status == 1) ? TRUE : FALSE ;
 
         $_SESSION['_uid'] = $_uid;
