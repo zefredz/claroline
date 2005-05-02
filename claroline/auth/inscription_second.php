@@ -27,11 +27,6 @@ $tbl_user  = $tbl_mdb_names['user'];
 if (!isset($userMailCanBeEmpty))   $userMailCanBeEmpty   = TRUE;
 if (!isset($userPasswordCrypted))  $userPasswordCrypted	 = FALSE;
 
-// NAMING STATUS VALUES FOR THE PROFILES SCRIPTS
-
-define ("STUDENT",      5);
-define ("COURSEMANAGER",1);
-
 // Initialise variables
 $regDataOk = FALSE; // default value...
 $msg = "";
@@ -180,18 +175,18 @@ if ($regDataOk)
     	$_user['lastName' ]     = $lastname;
     	$_user['mail'     ]     = $email;
     	$is_allowedCreateCourse = ($status == 1) ? TRUE : FALSE ;
+
+        $_SESSION['_uid'] = $_uid;
+        $_SESSION['_user'] = $_user;
+        $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
             
-        session_register("_uid");
-        session_register("_user");
-        session_register("is_allowedCreateCourse");
-    
         //stats
         include("../inc/lib/events.lib.inc.php");
         event_login();
     
         // last user login date is now
         $user_last_login_datetime = 0; // used as a unix timestamp it will correspond to : 1 1 1970
-        session_register('user_last_login_datetime');
+        $_SESSION['user_last_login_datetime'] = $user_last_login_datetime;
     
     	/*--------------------------------------
     	             EMAIL NOTIFICATION

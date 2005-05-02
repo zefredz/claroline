@@ -17,6 +17,8 @@ require '../inc/claro_init_global.inc.php';
 // include profile library
 include($includePath."/conf/user_profile.conf.php");
 
+DEFINE('CONFVAL_ASK_FOR_OFFICIAL_CODE',TRUE);
+
 // Redirect before first output
 if( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
 {
@@ -42,11 +44,6 @@ if ( isset($_REQUEST['status']) ) $status = $_REQUEST['status'];
 else $status = "";
 
 $display_status_selector = (bool) ($is_platformAdmin OR $allowSelfRegProf);
-
-// NAMING STATUS VALUES FOR THE PROFILES SCRIPTS
-
-define ("STUDENT",      5);
-define ("COURSEMANAGER",1);
 
 // Display banner
 
