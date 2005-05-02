@@ -27,7 +27,6 @@ $userPerPage = 20; // numbers of user to display on the same page
 
 if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 
-
 /*
  * DB tables definition
  */
