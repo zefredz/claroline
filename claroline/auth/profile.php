@@ -210,7 +210,7 @@ elseif ( isset($_REQUEST['applyChange']) )
         {
             $passwordOK    = false;
             $messageList[] =  $langPassTooEasy." :\n"
-                            ."<code>".substr( md5( date('Bis').$HTTP_REFFERER ), 0, 8 )."</code>\n";
+                            ."<code>".substr( md5( date('Bis').$_SERVER['HTTP_REFFERER'] ), 0, 8 )."</code>\n";
         }       
     }
 
