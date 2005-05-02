@@ -23,7 +23,7 @@ require("class.phpmailer.php");
 
 function claro_mail_spool($mails) 
 {
-	global $administrator;
+	global $administrator_email, $administrator_name;
 
 	$tbl = claro_sql_get_main_tbl();
 	$tbl_user = $tbl['user'];
@@ -156,7 +156,7 @@ function claro_mail_spool($mails)
 function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specificFromName="" ) 
 {
 
-	global $administrator, $regexp;
+	global $administrator_name, $administrator_email, $regexp;
 
 	$tbl = claro_sql_get_main_tbl();
 	$tbl_user = $tbl['user'];
