@@ -20,7 +20,7 @@ include($includePath.'/lib/admin.lib.inc.php');
 
 if (!$is_platformAdmin) claro_disp_auth_form();
 
-if ($cidToEdit=='') {unset($cidToEdit);}
+if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=="") || !isset($_REQUEST['cidToEdit'])) {unset($cidToEdit);}
 
 $userPerPage = 20; // numbers of user to display on the same page
 
@@ -30,8 +30,7 @@ $userPerPage = 20; // numbers of user to display on the same page
 
 // deal with session variables for search criteria
 
-if (isset($_GET['order_crit'])){$_SESSION['admin_user_order_crit'] = $_GET['order_crit'];}
-if (isset($_GET['dir']))       {$_SESSION['admin_user_dir'] = $_GET['dir'];}
+if (isset($_REQUEST['dir'])) {$_SESSION['admin_user_class_dir']  = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
 
 
 if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
@@ -79,6 +78,10 @@ if (isset($_REQUEST['class']))
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
+
 switch ($cmd)
 {
 
@@ -113,12 +116,16 @@ $sql = "SELECT *
 
 //first see is direction must be changed
 
-if (isset($chdir) && ($chdir=="yes"))
+if (isset($_REQUEST['chdir']) && ($_REQUEST['chdir']=="yes"))
 {
-    if ($_SESSION['admin_user_class_dir'] == 'ASC') {$_SESSION['admin_user_class_dir']='DESC';}
+    if     ($_SESSION['admin_user_class_dir'] == 'ASC')  {$_SESSION['admin_user_class_dir']='DESC';}
     elseif ($_SESSION['admin_user_class_dir'] == 'DESC') {$_SESSION['admin_user_class_dir']='ASC';}
-    else $_SESSION['admin_user_class_dir'] = 'DESC';
 }
+elseif (!isset($_SESSION['admin_user_class_dir']))
+{
+    $_SESSION['admin_user_class_dir'] = 'DESC';
+}
+
 
 // deal with REORDER
 
@@ -139,6 +146,18 @@ if (isset($_SESSION['admin_user_class_order_crit']))
 
 //echo $sql."<br>";
 
+//Build pager with SQL request
+
+if (!isset($_REQUEST['offset'])) 
+{
+    $offset = "0";
+}
+else
+{
+    $offset = $_REQUEST['offset'];
+}
+
+
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $resultList = $myPager->get_result_list();
 
@@ -147,13 +166,15 @@ $resultList = $myPager->get_result_list();
 // DISPLAY
 //------------------------------------
 
+if (!isset($addToUrl)) $addToUrl ="";
+
 // Display tool title
 
 claro_disp_tool_title($nameTools.' : '.$classinfo['name']);
 
 //Display Forms or dialog box(if needed)
 
-if($dialogBox)
+if (isset($dialogBox))
 {
     claro_disp_message_box($dialogBox);
     echo '<br>';
@@ -232,7 +253,7 @@ foreach($resultList as $list)
      $atLeastOne= TRUE;
 }
 // end display users table
-if (!$atLeastOne)
+if (isset($atLeastOne) && !$atLeastOne)
 {
     echo '<tr>'
        . '<td colspan="8" align="center">'

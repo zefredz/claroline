@@ -41,9 +41,24 @@ $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 $sqlclass = "SELECT * FROM `".$tbl_class."` WHERE `id`='".$_SESSION['admin_user_class_id']."'";
 list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 
+// See SESSION variables used for reorder criteria :
+
+if (isset($_REQUEST['dir'])) 
+{
+   $_SESSION['admin_class_reg_user_order_crit'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');
+}
+else
+{
+ $_REQUEST['dir'] = 'ASC';
+}
+
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
+
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
 
 switch ($cmd)
 {
@@ -89,9 +104,9 @@ switch ($cmd)
 
 
 $sql = "SELECT *, U.`user_id` 
-        FROM  `".$tbl_user."` AS U       
-        LEFT JOIN `".$tbl_class_user."` AS CU 
-               ON  CU.`user_id` = U.`user_id` 
+        FROM  `".$tbl_user."` AS U
+        LEFT JOIN `".$tbl_class_user."` AS CU
+               ON  CU.`user_id` = U.`user_id`
               AND CU.`class_id` = '".$classinfo['id']."'";
 
 // deal with REORDER
@@ -117,11 +132,14 @@ if (!isset($_SESSION['admin_user_class_id']))
 
   //first if direction must be changed
 
-if (isset($_REQUEST['chdir']) && ($chdir=="yes"))
+if (isset($_REQUEST['chdir']) && ($_REQUEST['chdir']=="yes"))
 {
   if ($_SESSION['admin_class_reg_user_dir'] == "ASC") {$_SESSION['admin_class_reg_user_dir']="DESC";}
   elseif ($_SESSION['admin_class_reg_user_dir'] == "DESC") {$_SESSION['admin_class_reg_user_dir']="ASC";}
-  else $_SESSION['admin_class_reg_user_dir'] = "DESC";
+}
+elseif (!isset($_SESSION['admin_class_reg_user_dir']))
+{
+    $_SESSION['admin_class_reg_user_dir'] = 'DESC';
 }
 
 if (isset($_SESSION['admin_class_reg_user_order_crit']))
@@ -147,6 +165,17 @@ $nameTools = $langRegisterUserToClass;
 //Header
 include($includePath."/claro_init_header.inc.php");
 
+//Build pager with SQL request
+
+if (!isset($_REQUEST['offset'])) 
+{
+    $offset = "0";
+}
+else
+{
+    $offset = $_REQUEST['offset'];
+}
+
 
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $resultList = $myPager->get_result_list();
@@ -162,7 +191,7 @@ claro_disp_tool_title($nameTools." : ".$classinfo['name']);
 
 // Display Forms or dialog box(if needed)
 
-if($dialogBox)
+if(isset($dialogBox))
 {
     claro_disp_message_box($dialogBox);
 }
@@ -178,7 +207,7 @@ if (isset($cfrom) && ($cfrom=="clist"))
 
 //Pager
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 // Display list of users
 
@@ -189,7 +218,7 @@ echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellsp
     ."<tr class=\"headerX\" align=\"center\" valign=\"top\">"
     ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>"
     ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=nom&chdir=yes\">".$langLastName."</a></th>"
-    ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=prenom&chdir=yes".$dir."\">".$langFirstName."</a></th>"
+    ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>"
     ."  <th>".$langSubscribeClass."</th>"
     ."  <th>".$langUnsubscribeClass."</th>"
     ."</tr>\n"
@@ -258,7 +287,7 @@ echo "</tbody>\n</table>\n";
 
 //Pager
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 include($includePath."/claro_init_footer.inc.php");
 ?>
