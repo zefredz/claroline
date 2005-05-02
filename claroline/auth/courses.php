@@ -510,7 +510,7 @@ switch ( $displayMode )
             if ( $userSettingMode ) //display links to enroll as student and also as teacher (but not for a class)
 	        {
                
-	            if ( $fromAdmini != 'class' )
+	            if ( $fromAdmin != 'class' )
 	            { 	      
                     echo '<thead>' . "\n"
                         . '<tr class="headerX">' . "\n"
