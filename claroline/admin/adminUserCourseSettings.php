@@ -48,24 +48,30 @@ $tbl_user             = $tbl_mdb_names['user'             ];
 
 include($includePath.'/claro_init_header.inc.php');
 
-// deal with sesison variables (must unset variables if come back from enroll script)
+// deal with session variables (must unset variables if come back from enroll script)
 
-session_unregister("userEdit");
+unset($_SESSION['userEdit']);
 
 
 // see which user we are working with ...
 
-$user_id = $_REQUEST['uidToEdit'];
+$user_id   = $_REQUEST['uidToEdit'];
+$uidToEdit = $_REQUEST['uidToEdit'];
+$cidToEdit = $_REQUEST['cidToEdit'];
 
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
 
-switch (isset($cmd))
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
+
+switch ($cmd)
 {
    case "changeStatus" :
-	
-	if ($status_form == "teacher")
+
+	if ($_REQUEST['status_form'] == "teacher")
         {
             $properties['status'] = 1;
             $properties['role']   = "Professor";
@@ -80,7 +86,7 @@ switch (isset($cmd))
                $dialogBox = $langStatusChangeNotMade;
             }
         }
-        if ($status_form == "student")
+        if ($_REQUEST['status_form'] == "student")
         {
             $properties['status'] = 5;
             $properties['role']   = "Student";
@@ -164,16 +170,19 @@ claro_disp_tool_title($nameTools." : ".$courseList['intitule']);
 
 //Display Forms or dialog box(if needed)
 
-if($dialogBox)
+if(isset($dialogBox))
   {
     claro_disp_message_box($dialogBox);
   }
 
 //Display "form and info" about the user
 
+if (isset($_REQUEST['ccfrom'])) {$ccfrom = $_REQUEST['ccfrom'];} else {$ccfrom="";}
+if (isset($_REQUEST['cfrom']))  {$cfrom  = $_REQUEST['cfrom'];} else {$cfrom="";}
+
 ?>
 
-<form method="GET" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 <table width="100%" >
 
             <tr>
