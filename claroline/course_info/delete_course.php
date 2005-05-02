@@ -6,14 +6,18 @@
 | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
 +----------------------------------------------------------------------+
 */
+
 $_tid="deletecourse";
 
 require '../inc/claro_init_global.inc.php';
+
 if ( ! $_cid) claro_disp_select_course();
 
 // in case of admin access (from admin tool) to the script, we must determine which course we are wroking with
 
-if (isset($cidToEdit) && ($is_platformAdmin))
+$addToURL = '';
+
+if ( isset($cidToEdit) && ($is_platformAdmin) )
 {
     $current_cid       = $cidToEdit;
     $currentCourseId   = $cidToEdit;
@@ -31,7 +35,6 @@ else
 
 $isAllowedToDelete = ($is_courseAdmin || $is_platformAdmin);
 
-//used tables
 /*
  * DB tables definition
  */
@@ -43,12 +46,12 @@ $tbl_relCourseUser = $tbl_mdb_names['rel_course_user'  ];
 
 //find needed info in db
 
-$sql = "SELECT * FROM `".$tbl_course."` WHERE code = '".$current_cid."'";
+$sql = "SELECT * 
+        FROM `".$tbl_course."` 
+        WHERE code = '".$current_cid."'";
+
 list($course_to_delete) = claro_sql_query_fetch_all($sql);
 
-$currentCourseDbName 	= $course_to_delete['dbName'];
-$currentCourseDbNameGlu = $course_to_delete['dbNameGlu'];
-$currentCoursePath 		= $course_to_delete['path'];
 $currentCourseCode 		= $course_to_delete['fake_code'];
 $currentCourseName 		= $course_to_delete['intitule'];
 
@@ -65,15 +68,15 @@ include($includePath."/lib/admin.lib.inc.php");
 
 claro_disp_tool_title($nameTools);
 
-if($isAllowedToDelete)
+if( $isAllowedToDelete )
 {
-	if($delete)
-	{
-          // DO DELETE
+	if ( isset($_REQUEST['delete']) && $_REQUEST['delete'] )
+    {
+        // DO DELETE
 
-          delete_course($current_cid);
+        delete_course($current_cid);
 
-          // DELETE CONFIRMATION MESSAGE
+        // DELETE CONFIRMATION MESSAGE
 
         event_default("DELETION COURSE",array ("courseName"=>addslashes($currentCourseName), "uid"=> $_uid));
         echo     '<p>'
@@ -86,7 +89,8 @@ if($isAllowedToDelete)
                 .$langBackHomeOf.' '. $siteName
                 .'</a>'
                 ;
-        if (isset($cidToEdit))    //we can suppose that script is accessed from admin tool in this case
+
+        if ( isset($cidToEdit) ) //we can suppose that script is accessed from admin tool in this case
         {
             echo " | "
                 ."<a href=\"../admin/index.php\">"

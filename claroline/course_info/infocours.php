@@ -15,16 +15,21 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-if ( ! $_cid) claro_disp_select_course();
+
+$nameTools = $langCourseSettings;
+
+$dialogBox = '';
+
+if ( ! $_cid ) claro_disp_select_course();
+if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
 include($includePath."/lib/course.lib.inc.php");
 include($includePath."/conf/course_main.conf.php");
 
-$nameTools = $langCourseSettings;
-
 /*
  * Configuration array , define here which field can be left empty or not
  */
+
  $canBeEmpty['intitule']      = !$human_label_needed;
  $canBeEmpty['category']      = false;
  $canBeEmpty['lecturer']      = true;
@@ -33,6 +38,16 @@ $nameTools = $langCourseSettings;
  $canBeEmpty['extLinkName']   = !$extLinkNameNeeded;
  $canBeEmpty['extLinkUrl']    = !$extLinkUrlNeeded;
  $canBeEmpty['email']         = !$course_email_needed;
+
+/*
+ * DB tables definition
+ */
+ 
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
+$tbl_course           = $tbl_mdb_names['course'         ];
+$tbl_category         = $tbl_mdb_names['category'       ];
 
 /*
  * Perfield value for the form :
@@ -55,9 +70,8 @@ $directory         = $thecourse['directory'];
 $thecourse['visibility'  ]         = (bool) ($thecourse['visible'] == 2 || $thecourse['visible'] == 3);
 $thecourse['registrationAllowed']  = (bool) ($thecourse['visible'] == 1 || $thecourse['visible'] == 2);
 
-$visibleChecked             [$thecourse['visibility'         ]] = 'checked';
-$registrationAllowedChecked [$thecourse['registrationAllowed']] = 'checked';
-
+$currentCourseID         = $_course['sysCode'];
+$currentCourseRepository = $_course["path"];
 
 
 //if values were posted, we overwrite DB info with values previously set by user
@@ -98,55 +112,25 @@ if (isset($_REQUEST['visible']))
 {
     if ($_REQUEST['visible']=="true")
     {    
-        $visibleChecked[TRUE] = "checked";
-	$visibleChecked[FALSE] = "";
+        $thecourse['visibility'] = TRUE;
     }
     else
     { 
-        $visibleChecked[TRUE] = "";
-	$visibleChecked[FALSE] = "checked";
+        $thecourse['visibility'] = FALSE;
     } 
 }
-if (isset($_REQUEST['allowedToSubscribe']))
+if ( isset($_REQUEST['allowedToSubscribe']) )
 {
-    if ($_REQUEST['allowedToSubscribe']=="true")
+    if ( $_REQUEST['allowedToSubscribe']=="true" )
     { 
-        $registrationAllowedChecked[TRUE] = "checked";
-	$registrationAllowedChecked[FALSE] = "";
+        $thecourse['registrationAllowed'] = TRUE;
     }
     else
     {
-        $registrationAllowedChecked[TRUE] = "";
-	$registrationAllowedChecked[FALSE] = "checked";
+        $thecourse['registrationAllowed'] = FALSE;
     }    
 }
  
-/*
- * DB tables definition
- */
- 
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
-$tbl_course           = $tbl_mdb_names['course'         ];
-$tbl_category         = $tbl_mdb_names['category'       ];
-$tbl_course_groupconf = $tbl_cdb_names['group_property' ];
-$tbl_rel_tool_course  = $tbl_cdb_names['tool_list'      ];
-
-//4 old name, 
-// no more used in the script 
-// but can be removed before check .
-// in GLOBAL in used function
-$TABLECOURSE          = $tbl_course;
-$TABLECOURSEHOME      = $tbl_rel_tool_course;
-$TABLEFACULTY         = $tbl_category;
-$TABLECOURSDOMAIN     = $TABLEFACULTY;//needed for compatibility with libs
-
-$currentCourseID         = $_course['sysCode'];
-$currentCourseRepository = $_course["path"];
-
-$is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
-
 // in case of admin access (from admin tool) to the script, 
 // we must determine which course we are working with
 
@@ -163,13 +147,13 @@ else
 }
 
 ####################### SUBMIT #################################
-if ( ! $is_courseAllowed) claro_disp_auth_form();
-$nameTools = $langCourseSettings;
 
-if($is_allowedToEdit)
+$is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
+
+if( $is_allowedToEdit )
 {
 	// check if form submitted
-	if (isset($_REQUEST["changeProperties"]))
+	if ( isset($_REQUEST["changeProperties"]) )
 	{
 		//create error message(s) if fields are not set properly
 		
@@ -228,13 +212,13 @@ if($is_allowedToEdit)
 				$fieldsToUpdate[]= "`departmentUrl`='".    $_REQUEST['extLinkUrl']."'";
 			if($_REQUEST['email']!=""           || $canBeEmpty["email"])
 				$fieldsToUpdate[]= "`email`='".            $_REQUEST['email']."'";
-			if ($_REQUEST['visible']=="false"     && $allowedToSubscribe=="false")
+			if ($_REQUEST['visible']=="false"     && $_REQUEST['allowedToSubscribe']=="false")
 				$fieldsToUpdate[]= "visible='0'";
-			elseif ($_REQUEST['visible']=="false" && $allowedToSubscribe=="true")
+			elseif ($_REQUEST['visible']=="false" && $_REQUEST['allowedToSubscribe']=="true")
 				$fieldsToUpdate[]= "visible='1'";
-			elseif ($_REQUEST['visible']=="true"  && $allowedToSubscribe=="false")
+			elseif ($_REQUEST['visible']=="true"  && $_REQUEST['allowedToSubscribe']=="false")
 				$fieldsToUpdate[]= "visible='3'";
-			elseif ($_REQUEST['visible']=="true"  && $allowedToSubscribe=="true")
+			elseif ($_REQUEST['visible']=="true"  && $_REQUEST['allowedToSubscribe']=="true")
 				$fieldsToUpdate[]= "visible='2'";
 				
 			//update in DB
@@ -264,8 +248,11 @@ include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title($nameTools);
 //display dialogbox with error and/or action(s) done to user
 			
-if (!empty ($dialogBox))
-claro_disp_message_box($dialogBox);
+if (!empty ($dialogBox)) 
+{
+    claro_disp_message_box($dialogBox);
+}
+
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 
@@ -370,16 +357,16 @@ if (isset($cidToEdit) && ($is_platformAdmin))
 <tr>
 <td valign="top" align="right" nowrap><?php echo $langCourseAccess; ?> : </td>
 <td>
-<input type="radio" id="visible_true" name="visible" value="true" <?php echo $visibleChecked[TRUE] ?>> <label for="visible_true"><?php echo $langPublicAccess; ?></label><br>
-<input type="radio" id="visible_false" name="visible" value="false" <?php echo $visibleChecked[FALSE]; ?>> <label for="visible_false"><?php echo $langPrivateAccess; ?></label>
+<input type="radio" id="visible_true" name="visible" value="true" <?php echo $thecourse['visibility']?'checked':'' ?>> <label for="visible_true"><?php echo $langPublicAccess; ?></label><br>
+<input type="radio" id="visible_false" name="visible" value="false" <?php echo !$thecourse['visibility']?'checked':''; ?>> <label for="visible_false"><?php echo $langPrivateAccess; ?></label>
 </td>
 </tr>
 
 <tr>
 <td valign="top"align="right"><?php echo $langSubscription; ?> : </td>
 <td>
-<input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $registrationAllowedChecked[TRUE] ?>> <label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label><br>
-<input type="radio" id="allowedToSubscribe_false"  name="allowedToSubscribe" value="false" <?php echo $registrationAllowedChecked[FALSE] ?>> <label for="allowedToSubscribe_false"><?php echo $langDenied; ?></label>
+<input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $thecourse['registrationAllowed']?'checked':''; ?>> <label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label><br>
+<input type="radio" id="allowedToSubscribe_false"  name="allowedToSubscribe" value="false" <?php echo !$thecourse['registrationAllowed']?'checked':''; ?>> <label for="allowedToSubscribe_false"><?php echo $langDenied; ?></label>
 <?php 
 if (isset($cidToEdit))
 {
@@ -406,6 +393,8 @@ if (isset($cidToEdit))
 </form>
 <hr noshade size="1">
 <?php
+
+$toAdd='';
 
 if($showLinkToDeleteThisCourse)
 {
