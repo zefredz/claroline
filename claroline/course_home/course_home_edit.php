@@ -80,7 +80,8 @@ $accessLevelList = array('ALL'            => 0,
   ============================================================================*/
 
 
-if ($_REQUEST['cmd']) $cmd = $_REQUEST['cmd'];
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = '';
 
 $msg = '';
 
@@ -156,7 +157,7 @@ if ($cmd == 'exEdit')
 {
     if ( ! empty ($_REQUEST['toolName']) && ! empty ($_REQUEST['toolUrl']))
     {
-        if (set_local_course_tool($_REQUEST['externalToolId'],$_REQUEST['toolName'],$_REQUEST['toolUrl']) !== false )
+        if ( set_local_course_tool($_REQUEST['externalToolId'],$_REQUEST['toolName'],$_REQUEST['toolUrl']) !== false )
         {
             $msg .= $langUpdatedExternalTool;
         }
@@ -205,7 +206,7 @@ if ($cmd == 'exDelete')
 
 if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
 {
-    if ($_REQUEST['externalToolId'])
+    if ( isset($_REQUEST['externalToolId']) )
     {
         $externalToolId = $_REQUEST['externalToolId'];
 
@@ -328,7 +329,7 @@ foreach($toolList as $thisTool)
 
     echo "<tr>\n";
 
-    echo "<td ".$style.">\n"
+    echo "<td >\n"
     	."<label for=\"toolAccessList".$thisTool['id']."\">"
         ."<img src=\"".$icon."\">"
         .$toolName . "</label>\n</td>\n"
