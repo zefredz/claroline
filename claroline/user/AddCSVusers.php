@@ -76,27 +76,30 @@ $usedFormat = $_SESSION['claro_usedFormat'];
  * - ading CSV users by the admin, but with the class tool                                  (AddType=adminClassTool)
  * - adding CSV users by the user tool in a course (in this case, available to teacher too) (AddType=userTool)
  */
-if (!isset($_REQUEST['AddType'])) 
+if (isset($_REQUEST['AddType'])) 
 {
-   $addType = "adminTool"; //default access is the admin tool
+   $NewAddType = $_REQUEST['AddType']; //default access is the admin tool
 } 
- 
-switch ($_REQUEST['AddType'])
+
+if (isset($NewAddType))
 {
-    case "adminTool":
-        if (!$is_platformAdmin) treatNotAuthorized();
-	$_SESSION['AddType'] = $_REQUEST['AddType'];
-    break;
+    switch ($NewAddType)
+    {
+        case "adminTool":
+            if (!$is_platformAdmin) treatNotAuthorized();
+            $_SESSION['AddType'] = $_REQUEST['AddType'];
+        break;
     
-    case "adminClassTool":
-        if (!$is_platformAdmin) treatNotAuthorized();
-	$_SESSION['AddType'] = $_REQUEST['AddType'];
-    break;
+        case "adminClassTool":
+            if (!$is_platformAdmin) treatNotAuthorized();
+    	    $_SESSION['AddType'] = $_REQUEST['AddType'];
+        break;
         
-    case "userTool":
-        if (!$is_courseAdmin) treatNotAuthorized();
-	$_SESSION['AddType'] = $_REQUEST['AddType'];
-    break;
+        case "userTool":
+            if (!$is_courseAdmin) treatNotAuthorized();
+	    $_SESSION['AddType'] = $_REQUEST['AddType'];
+        break;
+    }
 }
 
 $AddType = $_SESSION['AddType'];
@@ -179,25 +182,8 @@ switch ($cmd)
 	    {
 	        $usersToAdd[] = $_SESSION['claro_csv_userlist'][$i];
             }
-	    else
-	    echo "error".$i." <br>";
+
         }
-	echo "claro_mail_synthax_error<br>\n";
-	var_dump($_SESSION['claro_mail_synthax_error']);
-	echo "claro_mail_used_error<br>\n";
-	var_dump($_SESSION['claro_mail_used_error']);
-	echo "claro_username_used_error<br>\n";
-	var_dump($_SESSION['claro_username_used_error']);
-	echo "claro_officialcode_used_error<br>\n";
-	var_dump($_SESSION['claro_officialcode_used_error']);
-	echo "claro_password_error<br>\n";
-	var_dump($_SESSION['claro_password_error']);
-	echo "claro_mail_duplicate_error<br>\n";
-	var_dump($_SESSION['claro_mail_duplicate_error']);
-	echo "claro_username_duplicate_error<br>\n";
-	var_dump($_SESSION['claro_username_duplicate_error']);
-	echo "claro_officialcode_duplicate_error<br>\n";
-	var_dump($_SESSION['claro_officialcode_duplicate_error']);
 	
 	// perform subscriptions of users with "no error" found.  
         
@@ -410,15 +396,15 @@ case "steptwo" :
        switch ($AddType)
        {
           case "adminTool":
-              echo $user['surname']." ".$user['name']."$langAddedToCampus <br>";
+              echo $user['surname']." ".$user['name']." $langAddedToCampus <br>";
           break;
         
           case "adminClassTool":
-              echo $user['surname']." ".$user['name']."$langAddedToCampusAndClass <br>";
+              echo $user['surname']." ".$user['name']." $langAddedToCampusAndClass <br>";
           break;
         
           case "userTool":
-              echo $user['surname']." ".$user['name']."$langAddedToCampusAndCourse <br>";
+              echo $user['surname']." ".$user['name']." $langAddedToCampusAndCourse <br>";
           break;
        } 
     }
