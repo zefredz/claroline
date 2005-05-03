@@ -75,16 +75,16 @@ if( isset($_REQUEST["file"]) )
 // DISPLAY
 
 $nameTools = $langHomePageTextZone;
-$interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $lang_EditFile_AdministrationTools);
+$interbredcrump[]	= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
 include($includePath."/claro_init_header.inc.php");
 
-claro_disp_tool_title(
-	array(
-	'mainTitle'=>$nameTools	,
-	'subTitle'=>$subtitle
-	)
-	);
+//display titles
+
+$titles = array('mainTitle'=>$nameTools);
+if (isset($subtitle)) $titles['subTitle'] = $subtitle;
+	
+claro_disp_tool_title($titles);
 
 if ( count($controlMsg) > 0 )
 {
