@@ -22,7 +22,7 @@
 function getOneResult($sql)
 {
 	$query = claro_sql_query($sql);
-  $res = @mysql_fetch_array($query);
+	$res = @mysql_fetch_array($query);
 	return $res[0];
 }
 
@@ -35,12 +35,12 @@ function getOneResult($sql)
 function getManyResults1Col($sql)
 { 
 	$res = claro_sql_query($sql);
-        
-  $i = 0;
-  while ($resA =   @mysql_fetch_array($res))
-  { 
-          $resu[$i++]=$resA[0];
-  }
+
+	$i = 0;
+	while ($resA =   @mysql_fetch_array($res))
+	{
+		$resu[$i++]=$resA[0];
+	}
 
 	return $resu;
 }
@@ -53,14 +53,14 @@ function getManyResults1Col($sql)
 function getManyResults2Col($sql)
 { 
 	$res = claro_sql_query($sql);
-        
-  $i = 0;
-  while ($resA = @mysql_fetch_array($res))
-  { 
-          $resu[$i][0] = $resA[0];
-          $resu[$i][1] = $resA[1];
-          $i++;
-  }
+
+	$i = 0;
+	while ($resA = @mysql_fetch_array($res))
+	{
+		$resu[$i][0] = $resA[0];
+		$resu[$i][1] = $resA[1];
+		$i++;
+	}
 
 	return $resu;
 }
@@ -75,15 +75,15 @@ function getManyResults2Col($sql)
 function getManyResults3Col($sql)
 { 
 	$res = claro_sql_query($sql);
-        
-  $i = 0;
-  while ($resA = @mysql_fetch_array($res))
-  { 
-      $resu[$i][0]=$resA[0];
-      $resu[$i][1]=$resA[1];
-      $resu[$i][2]=$resA[2];
-      $i++; 
-  }
+
+	$i = 0;
+	while ($resA = @mysql_fetch_array($res))
+	{
+		$resu[$i][0]=$resA[0];
+		$resu[$i][1]=$resA[1];
+		$resu[$i][2]=$resA[2];
+		$i++;
+	}
 	return $resu;
 }
 
@@ -101,16 +101,16 @@ function getManyResults3Col($sql)
 function getManyResultsXCol($sql,$X)
 { 
 	$res = claro_sql_query($sql);
-      
-  $i = 0;
-  while ($resA = @mysql_fetch_array($res))
-  { 
-      for($j = 0; $j < $X ; $j++)
-      {
-          $resu[$i][$j]=$resA[$j];
-      }
-      $i++; 
-  }
+
+	$i = 0;
+	while ($resA = @mysql_fetch_array($res))
+	{
+		for($j = 0; $j < $X ; $j++)
+		{
+			$resu[$i][$j]=$resA[$j];
+		}
+		$i++;
+	}
 	return $resu;
 }
 /**
@@ -125,29 +125,29 @@ function getManyResultsXCol($sql,$X)
  */
 function hoursTab($sql)
 {
+	$query = claro_sql_query( $sql );
 
-    $query = claro_sql_query( $sql );
-    
-    $hours_array["total"] = 0;
-    
-    while( $row = @mysql_fetch_row( $query ) )
-    {
-        $date_array = getdate($row[0]);
-        
-        if($date_array["hours"] == $last_hours )
-        {
-            $hours_array[$date_array["hours"]]++;
-        }
-        else
-        {
-            $hours_array[$date_array["hours"]] = 1;
-            $last_hours = $date_array["hours"];
-        }
+	$hours_array["total"] = 0;
+	$last_hours = -1;
 
-        $hours_array["total"]++;
-    }
-        
-    return $hours_array;
+	while( $row = @mysql_fetch_row( $query ) )
+	{
+	    $date_array = getdate($row[0]);
+
+	    if($date_array["hours"] == $last_hours )
+	    {
+	        $hours_array[$date_array["hours"]]++;
+	    }
+	    else
+	    {
+	        $hours_array[$date_array["hours"]] = 1;
+	        $last_hours = $date_array["hours"];
+	    }
+
+	    $hours_array["total"]++;
+	}
+
+	return $hours_array;
 }
 
 /**
@@ -165,14 +165,15 @@ function daysTab($sql)
 
     global $langMonthNames;
 
-    
     $query = claro_sql_query( $sql );
     
     $days_array["total"] = 0;
+    $last_day = -1;
     while( $row = @mysql_fetch_row( $query ) )
     {
         $date_array = getdate($row[0]);
         $display_date = $date_array["mday"]." ".$langMonthNames['short'][$date_array["mon"]-1]." ".$date_array["year"];
+        
         if ($date_array["mday"] == $last_day)
         {
             $days_array[$display_date]++;
@@ -425,7 +426,7 @@ function changeResultOfVisibility($array_of_results)
  */
 function resetStatForCourse($course_id, $dateLimite )
 {
-	GLOBAL $dbGlu;
+	global $dbGlu;
 	//access_date DATETIME
 	if (is_int($dateLimite))
 	{
@@ -439,34 +440,34 @@ function resetStatForCourse($course_id, $dateLimite )
 		$tbl_track_e_downloads = $tbl_crs_name['track_e_downloads'];
 		$tbl_track_e_exercices = $tbl_crs_name['track_e_exercices'];
 		$tbl_track_e_uploads   = $tbl_crs_name['track_e_uploads'  ];
-	
-		$sql = 'DELETE 
-					FROM  `'.$tbl_track_e_access.'` 
+
+		$sql = 'DELETE
+					FROM  `'.$tbl_track_e_access.'`
 					WHERE UNIX_TIMESTAMP(`access_date`) < "'.$dateLimite.'"';
-		claro_sql_query($sql);	
-		$sql = 'DELETE 
-					FROM  `'.$tbl_track_e_downloads.'` 
+		claro_sql_query($sql);
+		$sql = 'DELETE
+					FROM  `'.$tbl_track_e_downloads.'`
 					WHERE UNIX_TIMESTAMP(`down_date`) < "'.$dateLimite.'"';
-		claro_sql_query($sql);	
-		$sql = 'DELETE 
-					FROM  `'.$tbl_track_e_exercices.'` 
+		claro_sql_query($sql);
+		$sql = 'DELETE
+					FROM  `'.$tbl_track_e_exercices.'`
 					WHERE UNIX_TIMESTAMP(`exe_date`) < "'.$dateLimite.'"';
-		claro_sql_query($sql);	
-		$sql = 'DELETE 
-					FROM  `'.$tbl_track_e_uploads.'` 
+		claro_sql_query($sql);
+		$sql = 'DELETE
+					FROM  `'.$tbl_track_e_uploads.'`
 					WHERE UNIX_TIMESTAMP(`upload_date`) < "'.$dateLimite.'"';
 		claro_sql_query($sql);
 	  // central table
-		$sql = 'DELETE 
-					FROM  `'.$tbl_track_e_default.'` 
-					WHERE 
+		$sql = 'DELETE
+					FROM  `'.$tbl_track_e_default.'`
+					WHERE
 						`default_cours_code` = "'.$course_id.'"
-						AND   
+						AND
 						UNIX_TIMESTAMP(`default_date`) < "'.$dateLimite.'"';
-	
+
 		claro_sql_query($sql);
 	}
-	return TRUE;
+	return true;
 }
 
 ?>

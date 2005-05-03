@@ -15,41 +15,53 @@ $tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
 
 $is_allowedToTrack = $is_platformAdmin;
 
-$interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
+$interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdministration);
 $interbredcrump[]= array ("url"=>"campusLog.php", "name"=> $langStatsOfCampus);
 
 $nameTools = $langTrafficDetails;
 
 include($includePath."/claro_init_header.inc.php");
+claro_disp_tool_title(
+	array(
+	'mainTitle'=>$nameTools,
+	)
+);
 ?>
-<h3>
-    <?php echo $nameTools ?>
-</h3>
 <table width="100%" cellpadding="2" cellspacing="3" border="0">
 <?php
     if( $is_allowedToTrack && $is_trackingEnabled)
     {
-        if( !isset($reqdate) || $reqdate < 0 || $reqdate > 2149372861 )
-                $reqdate = time();
-        //** dislayed period
+        if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
+        	$reqdate = time();  // default value
+		else
+		    $reqdate = $_REQUEST['reqdate'];
+		    
+        if( isset($_REQUEST['period']) )    $period = $_REQUEST['period'];
+        else                                $period = "day"; // default value
+        
+        if( isset($_REQUEST['displayType']) )   $displayType = $_REQUEST['displayType'];
+        else                                	$displayType = ''; // default value
+
+        // dislayed period
         echo "<tr><td><b>";
-            switch($period)
-            {
-                case "year" : 
-                    echo date(" Y", $reqdate);
-                    break;
-                case "month" : 
-                    echo $langMonthNames['long'][date("n", $reqdate)-1].date(" Y", $reqdate);
-                    break;
-                // default == day
-                default :
-                    $period = "day";            
-                case "day" : 
-                    echo $langDay_of_weekNames['long'][date("w" , $reqdate)].date(" d " , $reqdate).$langMonthNames['long'][date("n", $reqdate)-1].date(" Y" , $reqdate);
-                    break;
-            }
+
+        switch($period)
+        {
+            case "year" : 
+                echo date(" Y", $reqdate);
+                break;
+            case "month" : 
+                echo $langMonthNames['long'][date("n", $reqdate)-1].date(" Y", $reqdate);
+                break;
+			default :
+       			$period = "day"; // if $period has no correct value
+            case "day" :
+                echo $langDay_of_weekNames['long'][date("w" , $reqdate)].date(" d " , $reqdate).$langMonthNames['long'][date("n", $reqdate)-1].date(" Y" , $reqdate);
+                break;
+        }
+        
         echo "</b></tr></td>";
-        //** menu
+        // menu
         echo "<tr>
                 <td>
                 <small>
@@ -84,8 +96,8 @@ include($includePath."/claro_init_header.inc.php");
                 $previousReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)-1);
                 $nextReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)+1);
                 echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType' >$langPreviousYear</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType' >$langNextYear</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=".$displayType."' >".$langPreviousYear."</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=".$displayType."' >".$langNextYear."</a>]
                 ";
                 break;
             case "month" :
@@ -94,8 +106,8 @@ include($includePath."/claro_init_header.inc.php");
                 $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
                 $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
                 echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType' >$langPreviousMonth</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType' >$langNextMonth</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=".$displayType."' >".$langPreviousMonth."</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=".$displayType."' >".$langNextMonth."</a>]
                 ";
                 break;
             case "day" :
@@ -121,13 +133,13 @@ include($includePath."/claro_init_header.inc.php");
                 $sql = "SELECT UNIX_TIMESTAMP( `open_date` ) 
                             FROM `".$tbl_track_e_open."`
                             WHERE YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( ".$reqdate." ) ) ";
-                if($displayType == "month")
+                if( $displayType == "month" )
                 {
                     $sql .= "ORDER BY UNIX_TIMESTAMP( `open_date`)";
                     $month_array = monthTab($sql);
                     makeHitsTable($month_array,$langPeriodMonth);
                 }
-                elseif($displayType == "day")
+                elseif( $displayType == "day" )
                 {
                     $sql .= "ORDER BY DAYOFYEAR( `open_date`)";
                     $days_array = daysTab($sql);
@@ -146,7 +158,7 @@ include($includePath."/claro_init_header.inc.php");
                             FROM `".$tbl_track_e_open."`
                             WHERE MONTH(`open_date`) = MONTH (FROM_UNIXTIME( $reqdate ) ) 
                                 AND YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) ) ";
-                if($displayType == "day")
+                if( $displayType == "day" )
                 {
                     $sql .= "ORDER BY DAYOFYEAR( `open_date`)";
                     $days_array = daysTab($sql);
