@@ -9,7 +9,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-$interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
+$interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdministration);
 
 $nameTools = $langStatsOfCampus;
 
@@ -65,7 +65,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
             ."&nbsp;[<a href=\"".$_SERVER['PHP_SELF']."?view=0000000\">$langShowNone</a>]"
             ."</small>\n\n";
 
-    if(!isset($view)) $view ="0000000";
+    if( isset($_REQUEST['view']) )  $view = $_REQUEST['view'];
+	else							$view = "0000000";
 
     /***************************************************************************
      *
@@ -340,7 +341,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
           // look for each tool of the course in re
           while( $count = mysql_fetch_array($result) )
           {
-               if (!$resultsTools[$count['access_tlabel']])
+               if ( !isset($resultsTools[$count['access_tlabel']]) )
                {
                   $resultsTools[$count['access_tlabel']] = $count['nb'];
                }
