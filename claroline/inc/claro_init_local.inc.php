@@ -192,9 +192,12 @@
  *    for the current user.
  ******************************************************************************/
 
+require_once $includePath.'/conf/auth.conf.php'; // load the platform authentication settings
 
-// Set claro_init_local.inc.php variables coming from HTTP request into the 
-// global name space.
+/*===========================================================================
+  Set claro_init_local.inc.php variables coming from HTTP request into the 
+  global name space.
+ ===========================================================================*/
 
 $AllowedPhpRequestList = array('login', 'password', 'logout', 'uidReset',
                                'cidReset', 'cidReq',
@@ -218,7 +221,9 @@ foreach($AllowedPhpRequestList as $thisPhpRequestName)
     }
 }
 
-// Get table name
+/*===========================================================================
+  Get table name
+ ===========================================================================*/
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 
@@ -231,11 +236,11 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 $tbl_tool            = $tbl_mdb_names['tool'           ];
 $tbl_sso             = $tbl_mdb_names['sso'];
 
-/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------
+  Check authentification
+ ---------------------------------------------------------------------------*/
 
-
-
-// check authentification
+$loginFailed = false;
 
 if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 {
@@ -246,16 +251,13 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 }
 else
 {
-    if ( file_exists($includePath.'/conf/auth.conf.php') )
-    {
-        require_once $includePath.'/conf/auth.conf.php'; // load the platform authentication settings
-    }
+    $uidReset = false;
 
     $_uid = null; // uid not in session ? prevent any hacking
 
-    if ($login && $password) // $login && $password are given to log in
+    if ( $login && $password ) // $login && $password are given to log in
     {
-        //lookup the user in the Claroline database
+        // lookup the user in the Claroline database
 
         $sql = "SELECT user_id, username, password, authSource, creatorId
                 FROM `".$tbl_user."` `user`
@@ -267,35 +269,35 @@ else
         {
             $uData = mysql_fetch_array($result);
             
-            if ($uData['authSource'] == 'claroline')
+            if ( $uData['authSource'] == 'claroline' )
             {
-                //the authentification of this user is managed by claroline itself
+                // the authentification of this user is managed by claroline itself
 
                 $password = stripslashes( $password );
                 $login    = stripslashes( $login    );
 
                 // determine if the password needs to be crypted before checkin
-                // $userPasswordCrypted is set in an external configuration file
+                // $userPasswordCrypted is set in main configuration file
 
-                if ($userPasswordCrypted) $password = md5($password);
+                if ( $userPasswordCrypted ) $password = md5($password);
 
                 // check the user's password
 
-                if ($password == $uData['password'] && ( $login == $uData['username']))
+                if ( $password == $uData['password'] )
                 {
                     $_uid = $uData['user_id'];
-					$_SESSION['_uid'] = $_uid;
+                    $uidReset = true;
                 }
                 else // abnormal login -> login failed
                 {
-                    $loginFailed = true;
                     $_uid        = null;
+                    $loginFailed = true;
                 }
 
-                if ($_uid != $uData['creatorId'])
+                if ( $_uid != $uData['creatorId'] )
                 {
-                    //first login for a not self registred (e.g. registered by a teacher)
-                    //do nothing (code may be added later)
+                    // first login for a not self registred (e.g. registered by a teacher)
+                    // do nothing (code may be added later)
                     $sql = "UPDATE `".$tbl_user."`
                             SET   creatorId = user_id
                             WHERE user_id='".$_uid."'";
@@ -310,31 +312,23 @@ else
                  * on the basis of the given login name
                  */
                 
-                $loginFailed = true;  // Default initialisation. It could
-                                      // change after the external authentication
                 $key = $uData['authSource'];
 
                 $_uid = include_once($extAuthSource[$key]['login']);
 
                 if ( $_uid > 0 )
                 {
-                    $uidReset    = true;
-                    $loginFailed = false;
-					$_SESSION['_uid'] = $_uid;
+                    $uidReset = true;
                 }
                 else
                 {
-                    $_uid        = null;
-                    $uidReset    = false;
+                    $_uid = null;
                     $loginFailed = true;
                 }              
             } // end try external authentication
         }
         else // login failed, mysql_num_rows($result) <= 0
         {
-            $loginFailed = true;  // Default initialisation. It could
-                                  // change after the external authentication
-            
             /*
              * In this section:
              * there is no entry for the $login user in the claroline database. 
@@ -357,64 +351,35 @@ else
 
                     if ( $_uid > 0 )
                     {
-                        $_SESSION['_uid'] = $_uid;
-                        $uidReset     = true;
-                        $loginFailed  = false;
+                        $uidReset = true;
                         break;
                     }
                     else
                     {
                         $_uid = null;
+                        $loginFailed = true;
                     }
                 }
             } //end if is_array($extAuthSource)
             
         } //end else login failed
     }
-
-    //    else {} => continue as anonymous user
-    $uidReset = true;
-
-//    $cidReset = true;
-//    $gidReset = true;
 }
 
-// if the requested course is different from the course in session
+/*---------------------------------------------------------------------------
+  User initialisation
+ ---------------------------------------------------------------------------*/
 
-if ($cidReq && ( !isset($_SESSION['_cid']) || $cidReq != $_SESSION['_cid'] ) )
+if ( $uidReset && !$loginFailed ) // session data refresh requested
 {
+
     $cidReset = true;
-    $gidReset = true;    // As groups depend from courses, group id is reset
-}
-
-// if the requested group is different from the group in session
-
-if ($gidReq && ( !isset($_SESSION['_gid']) || $gidReq != $_SESSION['_gid']) )
-{
     $gidReset = true;
-}
 
-// if the requested tool is different from the current tool in session
-// (special request can come from the tool id, or the tool label)
-
-if (   ( $tidReq    && $tidReq    != $_SESSION['_tid']                 ) 
-    || ( $tlabelReq && ( !isset($_SESSION['_courseTool']['label'])
-		|| $tlabelReq != $_SESSION['_courseTool']['label']) )
-   )
-{
-    $tidReset = true;
-}
-
-//////////////////////////////////////////////////////////////////////////////
-// USER INIT
-//////////////////////////////////////////////////////////////////////////////
-
-if ($uidReset) // session data refresh requested
-{
-    if ( ! empty($_uid)) // a uid is given (log in succeeded)
+    if ( !empty($_uid) ) // a uid is given (log in succeeded)
     {
 
-        if ($is_trackingEnabled)
+        if ( $is_trackingEnabled )
         {
             $sql = "SELECT `user`.`prenom`                       `firstname`, 
                            `user`.`nom`                          `lastname` , 
@@ -447,25 +412,24 @@ if ($uidReset) // session data refresh requested
 
         $result = claro_sql_query($sql);
 
-        if (mysql_num_rows($result) > 0)
+        if ( mysql_num_rows($result) > 0 )
         {
             // Extracting the user data
 
             $uData = mysql_fetch_array($result);
 
-            $_user ['firstName'] = $uData ['firstname'    ];
-            $_user ['lastName' ] = $uData ['lastname'       ];
-            $_user ['mail'     ] = $uData ['email'     ];
+            $_user ['firstName'] = $uData ['firstname'];
+            $_user ['lastName' ] = $uData ['lastname' ];
+            $_user ['mail'     ] = $uData ['email'    ];
             $_user ['lastLogin'] = $uData ['lastLogin'];
 
             $is_platformAdmin        = (bool) (! is_null( $uData['is_admin']));
             $is_allowedCreateCourse  = (bool) ($uData ['statut'] == 1);
 
-            $_SESSION['_user'] = $_user;
-
             // RECORD SSO COOKIE
+            // $ssoEnabled set in claroline/conf/auth.conf.php
 
-            if ($ssoEnabled)
+            if ( $ssoEnabled )
             {
                 $ssoCookieName       = 'clarolineSsoCookie';
                 $ssoCookieValue      = md5(mktime());
@@ -500,30 +464,36 @@ if ($uidReset) // session data refresh requested
             exit('WARNING UNDEFINED UID !! ');
         }
     }
-    else // no uid => logout or Anonymous
-    {
-        $_user = null;
-        $_uid  = null;
-
-        $is_platformAdmin        = false;
-        $is_allowedCreateCourse  = false;
-    }
-
-	$_SESSION['is_platformAdmin'] = $is_platformAdmin;
-	$_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
 }
-else // else of if($uidReset) continue with the previous values
+elseif ( !empty($_uid) ) // elseif of if($uidReset) continue with the previous values
 {
     $_user = $_SESSION['_user'];
+} 
+else
+{
+    // Anonymous, logout or login failed
+    $_user = null;
+    $_uid  = null;
+    $is_platformAdmin        = false;
+    $is_allowedCreateCourse  = false;
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// COURSE INIT
-//////////////////////////////////////////////////////////////////////////////
+/*---------------------------------------------------------------------------
+  Course initialisation
+ ---------------------------------------------------------------------------*/
 
-if ($cidReset) // course session data refresh requested
+// if the requested course is different from the course in session
+
+if ( $cidReq && ( !isset($_SESSION['_cid']) || $cidReq != $_SESSION['_cid'] ) )
 {
-    if ($cidReq)
+    $cidReset = true;
+    $gidReset = true;    // As groups depend from courses, group id is reset
+}
+
+if ( $cidReset ) // course session data refresh requested
+{
+
+    if ( $cidReq )
     {
         $sql =  "SELECT `c`.`code`, 
                         `c`.`intitule`, 
@@ -545,7 +515,7 @@ if ($cidReset) // course session data refresh requested
 
         $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
-        if (mysql_num_rows($result)>0)
+        if ( mysql_num_rows($result) > 0 )
         {
             $cData = mysql_fetch_array($result);
 
@@ -568,11 +538,6 @@ if ($cidReset) // course session data refresh requested
 
             $_course['visibility'  ]         = (bool) ($cData['visible'] == 2 || $cData['visible'] == 3);
             $_course['registrationAllowed']  = (bool) ($cData['visible'] == 1 || $cData['visible'] == 2);
-
-			$_SESSION['_cid'] = $_cid;
-			$_SESSION['_course'] = $_course;
-
-            // GET COURSE TABLE
 
             // read of group tools config related to this course
 
@@ -605,6 +570,7 @@ if ($cidReset) // course session data refresh requested
     {
         $_cid    = null;
         $_course = null;
+
         //// all groups of these course
         ///  ( theses properies  are from the link  between  course and  group,
         //// but a group  can be only in one course)
@@ -617,8 +583,6 @@ if ($cidReset) // course session data refresh requested
         $_groupProperties ['private'            ] = true;
     }
 
-    //save states
-	$_SESSION['_groupProperties'] = $_groupProperties;
 }
 else // else of if($cidReset) - continue with the previous values
 {
@@ -630,16 +594,15 @@ else // else of if($cidReset) - continue with the previous values
 
     if ( !empty($_SESSION['_groupProperties']) ) $_groupProperties = $_SESSION['_groupProperties'];
     else                                         $_groupProperties = null; 
-        
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// COURSE / USER REL. INIT
-//////////////////////////////////////////////////////////////////////////////
+/*---------------------------------------------------------------------------
+  Course / user relation initialisation
+ ---------------------------------------------------------------------------*/
 
-if ($uidReset || $cidReset) // session data refresh requested
+if ( $uidReset || $cidReset ) // session data refresh requested
 {
-    if ($_uid && $_cid) // have keys to search data
+    if ( $_uid && $_cid ) // have keys to search data
     {
         $sql = "SELECT statut, 
                        tutor, 
@@ -650,25 +613,28 @@ if ($uidReset || $cidReset) // session data refresh requested
 
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
-        if (mysql_num_rows($result) > 0) // this  user have a recorded state for this course
+        if ( mysql_num_rows($result) > 0 ) // this  user have a recorded state for this course
         {
             $cuData = mysql_fetch_array($result);
 
-            $_courseUser['role'] = $cuData['role'  ];
             $is_courseMember     = true;
             $is_courseTutor      = (bool) ($cuData['tutor' ] == 1 );
             $is_courseAdmin      = (bool) ($cuData['statut'] == 1 );
+            
+            $_courseUser['role'] = $cuData['role'  ]; // not used
 
-			$_SESSION['_courseUser'] = $_courseUser;
         }
         else // this user has no status related to this course
         {
             $is_courseMember = false;
             $is_courseAdmin  = false;
             $is_courseTutor  = false;
+            
+            $_courseUser     = null; // not used
         }
 
         $is_courseAdmin = (bool) ($is_courseAdmin || $is_platformAdmin);
+        
     }
     else // keys missing => not anymore in the course - user relation
     {
@@ -677,36 +643,42 @@ if ($uidReset || $cidReset) // session data refresh requested
         $is_courseAdmin  = false;
         $is_courseTutor  = false;
 
-        $_courseUser = null;
+        $_courseUser = null; // not used
     }
 
     $is_courseAllowed = (bool) ($_course['visibility'] || $is_courseMember || $is_platformAdmin); // here because it's a right and not a state
 
-    // save the states
-	$_SESSION['is_courseMember'] = $is_courseMember;
-	$_SESSION['is_courseAdmin'] = $is_courseAdmin;
-	$_SESSION['is_courseAllowed'] = $is_courseAllowed;
-	$_SESSION['is_courseTutor'] = $is_courseTutor;
 }
 else // else of if ($uidReset || $cidReset) - continue with the previous values
 {
-    $_courseUser      = $_SESSION ['_courseUser'     ];
-
-    $is_courseMember  = $_SESSION ['is_courseMember' ];
-    $is_courseAdmin   = $_SESSION ['is_courseAdmin'  ];
-    $is_courseAllowed = $_SESSION ['is_courseAllowed'];
-    $is_courseTutor   = $_SESSION ['is_courseTutor'  ];
+    $is_courseMember  = $_SESSION['is_courseMember' ];
+    $is_courseAdmin   = $_SESSION['is_courseAdmin'  ];
+    $is_courseAllowed = $_SESSION['is_courseAllowed'];
+    $is_courseTutor   = $_SESSION['is_courseTutor'  ];
+    
+    $_courseUser      = $_SESSION['_courseUser'     ]; // not used
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// COURSE / TOOL REL. INIT
-//////////////////////////////////////////////////////////////////////////////
+/*---------------------------------------------------------------------------
+  Course / tool relation initialisation
+ ---------------------------------------------------------------------------*/
 
-if ($tidReset || $cidReset) // session data refresh requested
+// if the requested tool is different from the current tool in session
+// (special request can come from the tool id, or the tool label)
+
+if (   ( $tidReq    && $tidReq    != $_SESSION['_tid']                 ) 
+    || ( $tlabelReq && ( !isset($_SESSION['_courseTool']['label'])
+		|| $tlabelReq != $_SESSION['_courseTool']['label']) )
+   )
 {
-    if ( ( $tidReq || $tlabelReq) && $_cid) // have keys to search data
+    $tidReset = true;
+}
+
+if ( $tidReset || $cidReset ) // session data refresh requested
+{
+    if ( ( $tidReq || $tlabelReq) && $_cid ) // have keys to search data
     {
-        $sql ="SELECT ctl.id             id,
+        $sql = " SELECT ctl.id             id,
                       pct.claro_label    label,
                       ctl.script_name    name,
                       ctl.access         access,
@@ -714,7 +686,7 @@ if ($tidReset || $cidReset) // session data refresh requested
                       pct.access_manager access_manager,
                       CONCAT('".$clarolineRepositoryWeb."', pct.script_url) url
 
-               FROM `".$_course['dbNameGlu']."tool_list` ctl,
+                   FROM `".$_course['dbNameGlu']."tool_list` ctl,
                     `".$tbl_tool."`  pct
 
                WHERE `ctl`.`tool_id` = `pct`.`id`
@@ -725,7 +697,7 @@ if ($tidReset || $cidReset) // session data refresh requested
         // Note : 'ctl' stands for  'course tool list' and  'pct' for 'platform course tool'
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
-        if (mysql_num_rows($result) == 1) // this tool have a recorded state for this course
+        if ( mysql_num_rows($result) == 1 ) // this tool have a recorded state for this course
         {
             $ctData = mysql_fetch_array($result);
 
@@ -738,18 +710,15 @@ if ($tidReset || $cidReset) // session data refresh requested
             $_courseTool['icon'          ] = $ctData['icon'           ];
             $_courseTool['access_manager'] = $ctData['access_manager' ];
 
-			$_SESSION['_tid'] = $_tid;
-			$_SESSION['_courseTool'] = $_courseTool;
-
         }
         else // this tool has no status related to this course
         {
-            exit('WARNING UNDEFINED TID !!');
+            exit('WARNING UNDEFINED TLABEL OR TID !!');
         }
     }
     else // keys missing => not anymore in the course - tool relation
     {
-        //// course
+        // course
         $_tid        = null;
         $_courseTool = null;
     }
@@ -764,15 +733,20 @@ else // continue with the previous values
     else                                     $_courseTool = null;
 }
 
+/*---------------------------------------------------------------------------
+  Group initialisation
+ ---------------------------------------------------------------------------*/
 
-//////////////////////////////////////////////////////////////////////////////
-// GROUP INIT
-//////////////////////////////////////////////////////////////////////////////
+// if the requested group is different from the group in session
 
-
-if ($gidReset || $cidReset) // session data refresh requested
+if ( $gidReq && ( !isset($_SESSION['_gid']) || $gidReq != $_SESSION['_gid']) )
 {
-    if ($gidReq && $_cid ) // have keys to search data
+    $gidReset = true;
+}
+
+if ( $gidReset || $cidReset ) // session data refresh requested
+{
+    if ( $gidReq && $_cid ) // have keys to search data
     {
         $sql = "SELECT id, 
                        name, 
@@ -786,7 +760,7 @@ if ($gidReset || $cidReset) // session data refresh requested
 
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
-        if (mysql_num_rows($result) > 0) // This group has recorded status related to this course
+        if ( mysql_num_rows($result) > 0 ) // This group has recorded status related to this course
         {
             $gpData = mysql_fetch_array($result);
 
@@ -798,8 +772,6 @@ if ($gidReset || $cidReset) // session data refresh requested
             $_group ['directory'  ] = $gpData ['secretDirectory'];
             $_group ['maxMember'  ] = $gpData ['maxStudent'     ];
 
-			$_SESSION['_gid'] = $_gid;
-            $_SESSION['_group'] = $_group;
         }
         else
         {
@@ -808,8 +780,8 @@ if ($gidReset || $cidReset) // session data refresh requested
     }
     else  // Keys missing => not anymore in the group - course relation
     {
-            $_gid   = null;
-            $_group = null;
+        $_gid   = null;
+        $_group = null;
     }
 }
 else // continue with the previous values
@@ -821,9 +793,9 @@ else // continue with the previous values
     else                                $_group = null;
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// GROUP / USER REL. INIT
-//////////////////////////////////////////////////////////////////////////////
+/*---------------------------------------------------------------------------
+  Group / User relation initialisation
+ ---------------------------------------------------------------------------*/
 
 if ($uidReset || $cidReset || $gidReset) // session data refresh requested
 {
@@ -866,9 +838,6 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
     // user group access is allowed or user is group member or user is admin
     $is_groupAllowed = (bool) (!$_groupProperties['private'] || $is_groupMember || $is_courseAdmin || $is_groupTutor  || $is_platformAdmin) ;
 
-	$_SESSION['is_groupMember'] = $is_groupMember;
-	$_SESSION['is_groupTutor'] = $is_groupTutor;
-	$_SESSION['is_groupAllowed'] = $is_groupAllowed;
 }
 else // continue with the previous values
 {
@@ -885,13 +854,13 @@ else // continue with the previous values
     else                                        $is_groupAllowed = null;
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// COURSE TOOL / USER / GROUP REL. INIT
-//////////////////////////////////////////////////////////////////////////////
+/*---------------------------------------------------------------------------
+  COURSE TOOL / USER / GROUP REL. INIT
+ ---------------------------------------------------------------------------*/
 
-if ($uidReset || $cidReset || $gidReset || $tidReset) // session data refresh requested
+if ( $uidReset || $cidReset || $gidReset || $tidReset ) // session data refresh requested
 {
-    if ($_tid)
+    if ( $_tid )
     {
         switch($_courseTool['access'])
         {
@@ -911,24 +880,22 @@ if ($uidReset || $cidReset || $gidReset || $tidReset) // session data refresh re
         $is_toolAllowed = false;
     }
 
-	$_SESSION['is_toolAllowed'] = $is_toolAllowed;
 }
 else // continue with the previous values
 {
     $is_toolAllowed = $_SESSION ['is_toolAllowed'];
 }
 
-
-//////////////////////////////////////////////////////////////////////////////
-// COURSE TOOL LIST INIT FOR CURRENT USER
-//////////////////////////////////////////////////////////////////////////////
-
+/*---------------------------------------------------------------------------
+  Course tool list initialisation for current user
+ ---------------------------------------------------------------------------*/
 
 if ($uidReset || $cidReset)
 {
     if ($_cid) // have course keys to search data
     {
         $reqAccessList = array('ALL');
+
         if ($is_platformAdmin) $reqAccessList [] = 'PLATFORM_ADMIN';
         if ($is_courseAdmin  ) $reqAccessList [] = 'COURSE_ADMIN';
         if ($is_courseTutor  ) $reqAccessList [] = 'COURSE_TUTOR';
@@ -937,16 +904,16 @@ if ($uidReset || $cidReset)
         if ($is_courseMember ) $reqAccessList [] = 'COURSE_MEMBER';
         if ($_uid            ) $reqAccessList [] = 'PLATFORM_MEMBER';
     
-          $sql ="SELECT ctl.id             id,
-                        pct.claro_label    label,
-                        ctl.script_name    name,
-                        ctl.access         access,
-                        pct.icon           icon,
-                        pct.access_manager access_manager,
+        $sql ="SELECT ctl.id             id,
+                      pct.claro_label    label,
+                      ctl.script_name    name,
+                      ctl.access         access,
+                      pct.icon           icon,
+                      pct.access_manager access_manager,
 
-                        IF(pct.script_url IS NULL ,
-                           ctl.script_url,CONCAT('".$clarolineRepositoryWeb."', 
-                           pct.script_url)) url
+                      IF(pct.script_url IS NULL ,
+                         ctl.script_url,CONCAT('".$clarolineRepositoryWeb."', 
+                         pct.script_url)) url
 
                FROM `".$_course['dbNameGlu']."tool_list` ctl
 
@@ -965,7 +932,6 @@ if ($uidReset || $cidReset)
             $_courseToolList[] = $tlistData;
         }
 
-		$_SESSION['_courseToolList'] = $_courseToolList;
     }
     else
     {
@@ -974,8 +940,107 @@ if ($uidReset || $cidReset)
 }
 else // continue with the previous values
 {
-    $_courseToolList      = $_SESSION ['_courseToolList'];
+    $_courseToolList = $_SESSION ['_courseToolList'];
 }
+
+/*===========================================================================
+  Save all variables in session
+ ===========================================================================*/
+
+/*---------------------------------------------------------------------------
+  User info in the platform
+ ---------------------------------------------------------------------------*/
+
+if ( isset($_uid) ) $_SESSION['_uid'] = $_uid;
+else                $_SESSION['_uid'] = null; // unset 
+
+if ( isset($_user) ) $_SESSION['_user'] = $_user;
+else                 $_SESSION['_uid'] = null;
+
+if ( isset($is_allowedCreateCourse) ) $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
+else                                  $_SESSION['is_allowedCreateCourse'] = null;
+
+if ( isset($is_platformAdmin) ) $_SESSION['is_platformAdmin'] = $is_platformAdmin;
+else                            $_SESSION['is_platformAdmin'] = null; 
+
+/*---------------------------------------------------------------------------
+  Course info of $_cid course
+ ---------------------------------------------------------------------------*/
+
+if ( isset($_cid) ) $_SESSION['_cid'] = $_cid;
+else                $_SESSION['_cid'] = null;
+
+if ( isset($_course) ) $_SESSION['_course'] = $_course;
+else                   $_SESSION['_course'] = null;
+
+if ( isset($_groupProperties) ) $_SESSION['_groupProperties'] = $_groupProperties;
+else                            $_SESSION['_groupProperties'] = null;
+
+/*---------------------------------------------------------------------------
+  User rights of $_uid in $_cid course
+ ---------------------------------------------------------------------------*/
+
+if ( isset($is_courseAdmin) ) $_SESSION['is_courseAdmin'] = $is_courseAdmin;
+else                          $_SESSION['is_courseAdmin'] = null; 
+
+if ( isset($is_courseAllowed) ) $_SESSION['is_courseAllowed'] = $is_courseAllowed;
+else                            $_SESSION['is_courseAllowed'] = null; 
+
+if ( isset($is_courseMember) ) $_SESSION['is_courseMember'] = $is_courseMember;
+else                           $_SESSION['is_courseMember'] = null; 
+
+if ( isset($is_courseTutor) ) $_SESSION['is_courseTutor'] = $is_courseTutor;
+else                          $_SESSION['is_courseTutor'] = null; 
+
+if ( isset($_courseUser) ) $_SESSION['_courseUser'] = $_courseUser; // not used
+else                       $_SESSION['_courseUser'] = null; 
+
+/*---------------------------------------------------------------------------
+  Tool info of $_tid in $_cid course
+ ---------------------------------------------------------------------------*/
+
+if ( isset($_tid) ) $_SESSION['_tid'] = $_tid;
+else               $_SESSION['_tid'] = null; 
+
+if ( isset($_courseTool) ) $_SESSION['_courseTool'] = $_courseTool;
+else                       $_SESSION['_courseTool'] = null; 
+
+/*---------------------------------------------------------------------------
+  Group info of $_gid in $_cid course
+ ---------------------------------------------------------------------------*/
+
+if ( isset($_gid) ) $_SESSION['_gid'] = $_gid;
+else                $_SESSION['_gid'] = null ;
+
+if ( isset($_group) ) $_SESSION['_group'] = $_group;
+else                  $_SESSION['_group'] = null;
+
+if ( isset($is_groupAllowed) ) $_SESSION['is_groupAllowed'] = $is_groupAllowed;
+else                           $_SESSION['is_groupAllowed'] = null;
+
+if ( isset($is_groupMember) ) $_SESSION['is_groupMember'] = $is_groupMember;
+else                          $_SESSION['is_groupMember'] = null ;
+
+if ( isset($is_groupTutor) ) $_SESSION['is_groupTutor'] = $is_groupTutor;
+else                         $_SESSION['is_groupTutor'] = null ;
+
+/*---------------------------------------------------------------------------
+ Tool in $_cid course allowed to $_uid user
+ ---------------------------------------------------------------------------*/
+
+if ( isset($is_toolAllowed)) $_SESSION['is_toolAllowed'] = $is_toolAllowed;
+else                         $_SESSION['is_toolAllowed'] = null ; 
+
+/*---------------------------------------------------------------------------
+  List of available tools in $_cid course
+ ---------------------------------------------------------------------------*/
+
+if ( isset($_courseToolList) ) $_SESSION['_courseToolList'] = $_courseToolList;
+else                           $_SESSION['_courseToolList'] = null ;
+
+/*===========================================================================
+  Set config for course ---> to move in claro_init_global
+ ===========================================================================*/
 
 if (isset($_cid) && $_courseTool['label'])
 {
