@@ -157,7 +157,7 @@ if ($allowedToEditDef)
             else
             {
                 $userProperties['tutor' ] = 0;
-                $dialogBox .= 'Impossible to promote group tutor a student already register to group';
+                $dialogBox .= $langImpossibleToPromote;
             }
         }
         else
