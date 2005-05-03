@@ -133,7 +133,6 @@ if ( ! $regDataOk)
        . '<a href="inscription.php'
        . '?lastname='.$lastname
        . '&amp;firstname='.$firstname
-       . '&amp;username='.$username
        . '&amp;email='.$email
        . '&amp;officialCode='.$officialCode
        . '&amp;phone='.$phone
