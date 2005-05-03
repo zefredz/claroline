@@ -278,35 +278,35 @@ function claro_disp_CSV_error_backlog()
     {
         $line=$i+1;
 
-	    if ($_SESSION['claro_mail_synthax_error'][$i]) 
+	    if (isset($_SESSION['claro_mail_synthax_error'][$i]) && $_SESSION['claro_mail_synthax_error'][$i]) 
 	    {
 	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> $langMailSynthaxError  <br>";
 	    }      
-	    if ($_SESSION['claro_mail_used_error'][$i])
+	    if (isset($_SESSION['claro_mail_used_error'][$i]) && $_SESSION['claro_mail_used_error'][$i])
 	    {
 	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> $langMailUsed  <br>\n";         
 	    }
-	    if ($_SESSION['claro_username_used_error'][$i])
+	    if (isset($_SESSION['claro_username_used_error'][$i]) && $_SESSION['claro_username_used_error'][$i])
 	    {
 	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> $langUsernameUsed  <br>\n";     
 	    }
-	    if ($_SESSION['claro_officialcode_used_error'][$i])
+	    if (isset($_SESSION['claro_officialcode_used_error'][$i]) && $_SESSION['claro_officialcode_used_error'][$i])
 	    {
 	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> $langCodeUsed  <br>\n"; 
 	    }
-	    if ($_SESSION['claro_password_error'][$i])
+	    if (isset($_SESSION['claro_password_error'][$i]) && $_SESSION['claro_password_error'][$i])
 	    {
 	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['password']."\" <b>:</b> $langPasswordSimple  <br>\n";
 	    }
-	    if ($_SESSION['claro_mail_duplicate_error'][$i])
+	    if (isset($_SESSION['claro_mail_duplicate_error'][$i]) && $_SESSION['claro_mail_duplicate_error'][$i])
 	    {
 	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b>$langMailAppearAlready  <br>\n";
 	    }
-	    if ($_SESSION['claro_username_duplicate_error'][$i])
+	    if (isset($_SESSION['claro_username_duplicate_error'][$i]) && $_SESSION['claro_username_duplicate_error'][$i])
 	    {
 	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> $langUsernameAppearAlready  <br>\n";
 	    }
-	    if ($_SESSION['claro_officialcode_duplicate_error'][$i])
+	    if (isset($_SESSION['claro_officialcode_duplicate_error'][$i]) && $_SESSION['claro_officialcode_duplicate_error'][$i])
 	    {
 	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> $langCodeAppearAlready  <br>\n";
 	    }
@@ -340,6 +340,10 @@ function check_email_synthax_userlist($userlist)
       	{
 	    	$errors[$i] = TRUE;
         }
+	else
+	{
+	        $errors[$i] = FALSE;
+	}
     }
     return $errors;
 }
@@ -359,9 +363,17 @@ function check_email_synthax_userlist($userlist)
  
 function check_username_used_userlist($userlist)
 {   
-	$tbl_mdb_names = claro_sql_get_main_tbl();
-	$tbl_user      = $tbl_mdb_names['user'];
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user      = $tbl_mdb_names['user'];
+    
+    //create an array with default values of errors
+    
     $errors = array();
+    
+    for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
+    {
+        $errors[$i] = FALSE;
+    }
     
     //CHECK : check if usernames are not already token by someone else
     
@@ -370,9 +382,9 @@ function check_username_used_userlist($userlist)
     for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
     {
         if (!empty($userlist['username'][$i]) && ($userlist['username'][$i]!=""))
-		{
-		    $sql .= ' OR username="'.addslashes($userlist['username'][$i]).'"';
-		}  
+        {
+            $sql .= ' OR username="'.addslashes($userlist['username'][$i]).'"';
+        }  
     }  
     
     //for each user found, report the potential problem in an error array returned
@@ -385,6 +397,10 @@ function check_username_used_userlist($userlist)
 		if (!($found===FALSE)) 
 		{
 	    	$errors[$found] = TRUE; 
+		}
+		else
+		{
+	        $errors[$found] = FALSE;
 		}
     }
     return $errors;
@@ -409,7 +425,15 @@ function check_officialcode_used_userlist($userlist)
 	$tbl_mdb_names = claro_sql_get_main_tbl();
 	$tbl_user      = $tbl_mdb_names['user'];
 
+    //create an array with default values of errors
+    
     $errors = array();
+    
+    for ($i=0, $size=sizeof($userlist['officialCode']); $i<$size; $i++)
+    {
+        $errors[$i] = FALSE;
+    }
+    
     //CHECK : check if admincode (officialCode) is not already taken by someone else
     $sql = 'SELECT * FROM `'.$tbl_user.'` WHERE 1=0 ';
     
@@ -433,6 +457,10 @@ function check_officialcode_used_userlist($userlist)
 		if (!($found===FALSE)) 
 		{
 	    	$errors[$found] = TRUE; 
+		}
+		else
+		{
+	        $errors[$found] = FALSE;
 		}
     }   
     return $errors;
@@ -463,6 +491,10 @@ function check_password_userlist($userlist)
 		{
 	    	$errors[$i] = TRUE; 
 		}
+		else
+		{
+	        $errors[$i] = FALSE;
+		}
     }
 	return $errors;
 }   
@@ -485,8 +517,18 @@ function check_mail_used_userlist($userlist)
 {
 	$tbl_mdb_names = claro_sql_get_main_tbl();
 	$tbl_user             = $tbl_mdb_names['user'             ];
+	
+    //create an array with default values of errors
+    
     $errors = array();
-
+    
+    for ($i=0, $size=sizeof($userlist['email']); $i<$size; $i++)
+    {
+        $errors[$i] = FALSE;
+    }
+    
+    //create SQL query to search in Claroline DB
+    
     $sql = 'SELECT * FROM `'.$tbl_user.'` WHERE 1=0 ';
     
     for ($i=0, $size=sizeof($userlist['email']); $i<$size; $i++) 
@@ -505,6 +547,10 @@ function check_mail_used_userlist($userlist)
 		if (!($found===FALSE)) 
 		{
 		    $errors[$found] = TRUE; 
+		}
+		else
+		{
+	            $errors[$found] = FALSE;
 		}
     }
     
@@ -544,6 +590,10 @@ function check_duplicate_mail_userlist($userlist)
         {
 	    	$errors[$i] = TRUE;
         }
+	else
+	{
+	        $errors[$i] = FALSE;
+	}
     }
     return $errors;
 }
@@ -573,9 +623,13 @@ function check_duplicate_username_userlist($userlist)
         //check username duplicata in the array
 		$found = array_search($userlist['username'][$i],$userlist['username']);
 		if (!($found===FALSE) && ($i!=$found))
-	    {
+	        {
 		    $errors[$i] = TRUE;
-        }
+                }
+		else
+	        {
+	            $errors[$i] = FALSE;
+	        }
     }
 
     return $errors;
@@ -612,6 +666,10 @@ function check_duplicate_officialcode_userlist($userlist)
         {
 	    $errors[$i] = TRUE;
         }
+	else
+	{
+	    $errors[$i] = FALSE;
+	}
     }
        
     return $errors;
