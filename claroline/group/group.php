@@ -32,7 +32,7 @@
  *
  */
 
-////**************** INITIALISATION************************
+//**************** INITIALISATION************************
 
 $tlabelReq = 'CLGRP___';
 require '../inc/claro_init_global.inc.php';
@@ -44,6 +44,9 @@ include($includePath.'/lib/group.lib.inc.php');
 include($includePath.'/lib/fileManage.lib.php');
 
 include($includePath.'/lib/events.lib.inc.php');
+
+//stats
+event_access_tool($_tid, $_courseTool['label']);
 
 $htmlHeadXtra[] =
 '<script>
@@ -139,7 +142,7 @@ $display_groupadmin_manager = (bool) $is_allowedToManage;
 
 if ($is_allowedToManage)
 {
-    if($_REQUEST['creation'])
+    if ( isset($_REQUEST['creation']) )
     {
         // For all Group forums, cat_id=1
         $group_quantity = (int) $_REQUEST['group_quantity'];
@@ -231,7 +234,7 @@ if ($is_allowedToManage)
 
     // This is called by the form in group_properties.php
     // set common properties for all groups
-    if($_REQUEST['properties'])
+    if ( isset($_REQUEST['properties']) )
     {
         if($_REQUEST['limitNbGroupPerUser'] == "ALL")
         {
@@ -316,11 +319,11 @@ if ($is_allowedToManage)
          DELETE ALL GROUPS
       ----------------------*/
 
-    elseif ($_REQUEST['delete'])
+    elseif ( isset($_REQUEST['delete']) )
     {
         $nbGroupDeleted = deleteAllGroups();
 
-        if ($nbGroupDeleted>0) $message= $langGroupsDeleted;
+        if ($nbGroupDeleted>0) $message = $langGroupsDeleted;
         else                   $message="!!!! no group deleted";
         event_default('GROUPMANAGING',array ('DELETE_GROUP' => $nbGroupDeleted));
 
@@ -330,7 +333,7 @@ if ($is_allowedToManage)
          DELETE ONE GROUP
       ----------------------*/
 
-    elseif ($_REQUEST['delete_one'])
+    elseif ( isset($_REQUEST['delete_one']) )
     {
         $id = (int) $_REQUEST['id'];
         $nbGroupDeleted = delete_groups($id);
@@ -344,7 +347,7 @@ if ($is_allowedToManage)
        EMPTY ALL GROUPS
       -------------------*/
 
-    elseif ($_REQUEST['empty'])
+    elseif ( isset($_REQUEST['empty']) )
     {
         $sql = "DELETE FROM `".$tbl_GroupsUsers."`";
         $result  = claro_sql_query($sql);
@@ -359,7 +362,7 @@ if ($is_allowedToManage)
       FILL ALL GROUPS
       -----------------*/
 
-    elseif ($_REQUEST['fill'])
+    elseif ( isset($_REQUEST['fill']) )
     {
         fill_in_groups();
         event_default('GROUPMANAGING',array ('FILL_GROUP' => TRUE));
@@ -382,20 +385,17 @@ if ($is_allowedToManage)
 */
 
 include($includePath."/claro_init_header.inc.php");
-//stats
-event_access_tool($_tid, $_courseTool['label']);
 
 claro_disp_tool_title($nameTools);
-     /*-------------
-       MESSAGE BOX
-      -------------*/
 
-if($message)
+/*-------------
+  MESSAGE BOX
+ -------------*/
+
+if ( !empty($message) )
 {
     claro_disp_message_box($message);
 }
-
-unset($message);
 
 /*==========================
     COURSE ADMIN ONLY
@@ -711,11 +711,15 @@ if ($is_allowedToManage)
 
     $coursUsersSelect = mysql_query($sql);
     
+    $nbUser = 0;
     while ($counts = mysql_fetch_array($coursUsersSelect))
     {
-        $byStatus [$counts['statut']] += $counts['nbUser'];
-        $tutors   [$counts['tutor'] ] += $counts['nbUser'];
-        $nbUser                       += $counts['nbUser'];
+        if ( isset($byStatus[$counts['statut']]) ) $byStatus[$counts['statut']] += $counts['nbUser'];
+        else                                       $byStatus[$counts['statut']] = $counts['nbUser'];
+        if ( isset($tutors[$counts['tutor'] ]) ) $tutors[$counts['tutor'] ] += $counts['nbUser'];
+        else                                     $tutors[$counts['tutor'] ] = $counts['nbUser'];
+        
+        $nbUser += $counts['nbUser'];       
     }
     
     if (!$multiGroupAllowed) // All this have to be rewriten for $multiGroupAllowed all counts are wrong
