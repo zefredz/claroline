@@ -41,6 +41,18 @@ $CREATE		= FALSE;
 $EDIT		= FALSE;
 $MOVE		= FALSE;
 
+//Get Parameters from URL or post
+
+if (isset($_REQUEST['cmd']))
+{
+    $cmd = $_REQUEST['cmd'];
+}
+else 
+{
+    $cmd = "";
+    $_REQUEST['cmd']= "";
+}
+
 /**
  * Show or hide sub categories
  */
@@ -69,7 +81,6 @@ if ( isset($_REQUEST['id']) &&
 
     // Save in session
     $_SESSION['categories']=$categories;
-    session_register("categories");
 }
 else
 {
@@ -410,7 +421,7 @@ else
 	
     	// See if we try to set the categorie as a cat that can not have course 
         // and that the cat already contain courses
-	    if ($_REQUEST["canHaveCoursesChild"]==0)
+	    if (isset($_REQUEST['canHaveCoursesChild']) && $_REQUEST['canHaveCoursesChild']==0)
     	{
 	    	$sql_SearchCourses= " SELECT count(cours_id) num 
                                   FROM `" . $tbl_course . "` 
@@ -702,9 +713,6 @@ else
 
         $_SESSION['categories']=$categories;
 
-        // Session
-        session_unregister("categories");
-        session_register("categories");
     }
     else
     {
@@ -713,9 +721,6 @@ else
         $categories=NULL;
         $_SESSION['categories']=$categories;
 
-        // Session
-        session_unregister("categories");
-        session_register("categories");
     }
 }
 
@@ -730,7 +735,14 @@ else
 if($CREATE)
 {
     claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>$langSubTitleCreate));
-    claro_disp_msg_arr($controlMsg);
+    if (isset($controlMsg)) claro_disp_msg_arr($controlMsg);
+    
+    // try to retrieve previsiously posted parameters for the new category
+    
+    if (isset($_REQUEST['nameCat'])) $EditName = $_REQUEST['nameCat']; else $EditName = "";
+    if (isset($_REQUEST['codeCat'])) $EditCode = $_REQUEST['codeCat']; else $EditCode = "";
+    if (isset($_REQUEST['canHaveCoursesChild'])) $canHaveCoursesChild = $_REQUEST['canHaveCoursesChild'];
+    
 ?>
     <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
     <input type="hidden" name="cmd" value="exCreate" />
@@ -897,7 +909,7 @@ elseif($MOVE)
      */
 
     claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleChangeParent.$EditCode));
-    claro_disp_msg_arr($controlMsg);
+    if (isset($controlMsg)) claro_disp_msg_arr($controlMsg);
 ?>
     <form action=" <?php echo $_SERVER['PHP_SELF'] ?> " method="POST">
     <input type="hidden" name="cmd" value="exChange" />
@@ -939,7 +951,7 @@ elseif($MOVE)
 else
 {
     claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>$langManageCourseCategories));
-    claro_disp_msg_arr($controlMsg);
+    if (isset($controlMsg)) claro_disp_msg_arr($controlMsg);
 }
 
 /**
