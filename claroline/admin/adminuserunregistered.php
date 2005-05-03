@@ -44,12 +44,19 @@ $user_id = $_REQUEST['uidToEdit'];
 // Execute COMMAND section
 //------------------------------------
 
-if (isset($cmd) && $is_platformAdmin)
+if (isset($_REQUEST['cmd']) && $is_platformAdmin)
 {
-    if ($cmd=="UnReg")
+    if ($_REQUEST['cmd']=="UnReg")
     {
-        remove_user_from_course($user_id, $cidToEdit);
-        $dialogBox = $langUserUnregisteredFromCourse;
+        $done = remove_user_from_course($user_id, $_REQUEST['cidToEdit']);
+        if ($done)
+        {
+           $dialogBox =$langUserUnsubscribed;
+        }
+        else
+        {
+           $dialogBox =$langUserNotUnsubscribed;
+        }
     }
 
 }
@@ -67,7 +74,7 @@ claro_disp_tool_title($langUserUnregistered);
 
 //Display Forms or dialog box(if needed)
 
-if($dialogBox)
+if(isset($dialogBox))
   {
     claro_disp_message_box($dialogBox);
   }
