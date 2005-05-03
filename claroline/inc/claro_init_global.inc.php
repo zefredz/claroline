@@ -46,21 +46,26 @@ $imgRepositoryWeb       = $clarolineRepositoryWeb.$imgRepositoryAppend;
 ini_set('include_path', 
         ini_get('include_path') . ( strstr(PHP_OS, 'WIN') ?';':':') . PEAR_LIB_PATH );
 
-// Start session
+/*----------------------------------------------------------------------
+  Start session
+  ----------------------------------------------------------------------*/
+
 if (isset($platform_id))
 {
     session_name($platform_id);
 }
+
 session_start();
 
-if ($statsDbName == '')
-{
-	$statsDbName = $mainDbName;
-}
+/*----------------------------------------------------------------------
+  Include main library
+  ----------------------------------------------------------------------*/
 
 include($includePath.'/lib/claro_main.lib.php');
 
-// connect to the server database and select the main claroline DB
+/*----------------------------------------------------------------------
+  Connect to the server database and select the main claroline DB
+  ----------------------------------------------------------------------*/
 
 $db = @mysql_connect($dbHost, $dbLogin, $dbPass)
 or die ( "<center>"
@@ -74,14 +79,20 @@ or die ( "<center>"
 		."WARNING ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE"
 		."</center>");
 
-// include the local (contextual) parameters of this course or section
+if ($statsDbName == '')
+{
+	$statsDbName = $mainDbName;
+}
+
+/*----------------------------------------------------------------------
+  Include the local (contextual) parameters of this course or section
+  ----------------------------------------------------------------------*/
 
 include($includePath."/claro_init_local.inc.php");
 
-
-/*----------------------------------------
-        LOAD LANGUAGE FILES SECTION
-  --------------------------------------*/
+/*----------------------------------------------------------------------
+  Load language files
+  ----------------------------------------------------------------------*/
 
 if ($_course['language'])
 {
@@ -92,29 +103,27 @@ else
 	$languageInterface = $platformLanguage;
 }
 
-/*
- * common language properties and generic expressions
- */
+/*----------------------------------------------------------------------
+  Common language properties and generic expressions
+  ----------------------------------------------------------------------*/
 
-
-if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION')
+if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION' )
 {
  
     // include the language file with all language variables
 
-    include ($includePath.'/../lang/english/complete.lang.php');
+    include($includePath.'/../lang/english/complete.lang.php');
 
     if ($languageInterface  != 'english') // Avoid useless include as English lang is preloaded
     {
         include($includePath.'/../lang/'.$languageInterface.'/complete.lang.php');
     }
     
-    
 }
 else
 {
 
-    if (isset($course_homepage) && $course_homepage == TRUE)
+    if ( isset($course_homepage) && $course_homepage == TRUE )
     {
         $languageFilename = 'claroline_course_home';
     } 
@@ -147,7 +156,7 @@ else
 
     if ( ! file_exists($includePath.'/../lang/english/'.$languageFile) )
     {
-        include ($includePath.'/../lang/english/complete.lang.php');
+        include($includePath.'/../lang/english/complete.lang.php');
     }
     else
     {   
@@ -157,7 +166,7 @@ else
     // load previously english file to be sure every $lang variable
     // have at least some content
 
-    if ($languageInterface  != 'english')
+    if ( $languageInterface != 'english' )
     {
         @include($includePath.'/../lang/'.$languageInterface.'/'.$languageFile);
     }
@@ -168,7 +177,7 @@ else
 
 include($includePath.'/../lang/english/locale_settings.php');
     
-if ($languageInterface  != 'english') // // Avoid useless include as English lang is preloaded
+if ( $languageInterface  != 'english' ) // // Avoid useless include as English lang is preloaded
 {
    include($includePath.'/../lang/'.$languageInterface.'/locale_settings.php');
 }
