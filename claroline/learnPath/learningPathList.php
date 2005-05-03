@@ -253,7 +253,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
         // VISIBILITY COMMAND
         case "mkVisibl" :
         case "mkInvisibl" :
-              $cmd == mkVisibl ? $visibility = 'SHOW' : $visibility = 'HIDE';
+              $cmd == "mkVisibl" ? $visibility = 'SHOW' : $visibility = 'HIDE';
               $sql = "UPDATE `".$TABLELEARNPATH."`
                          SET `visibility` = '$visibility'
                        WHERE `learnPath_id` = ".$_GET['visibility_path_id']."
@@ -325,7 +325,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
               }
               else  // create form requested
               {
-                 $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\">\n"
+                 $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\">\n"
                                 ."<h4>".$langCreateNewLearningPath."</h4>\n"
                                 ."<label for=\"newPathName\">".$langLearningPathName."</label><br />\n"
                                 ."<input type=\"text\" name=\"newPathName\" id=\"newPathName\" maxlength=\"255\"></input><br /><br />\n"
@@ -339,7 +339,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
    }
    // IF ORDER COMMAND RECEIVED
    // CHANGE ORDER
-   if ($sortDirection)
+   if (isset($sortDirection) && $sortDirection)
    {
         $result = claro_sql_query("SELECT `learnPath_id`, `rank`
                                  FROM `".$TABLELEARNPATH."`
@@ -380,7 +380,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
         }
    }
 
-  if($dialogBox)
+  if(isset($dialogBox))
   {
     claro_disp_message_box($dialogBox);
   }
@@ -516,7 +516,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
        if ( !$is_blocked )
        {
              echo "<td align=\"left\"><a href=\"learningPath.php?path_id="
-                       .$list['learnPath_id']."\"><img src=\"".$imgRepositoryWeb."learnpath.gif\" alt=\"".$path_alt."\"
+                       .$list['learnPath_id']."\"><img src=\"".$imgRepositoryWeb."learnpath.gif\" alt=\"\"
                        border=\"0\" />  ".htmlspecialchars($list['name'])."</a></td>";
 
              /*if( $list['lock'] == 'CLOSE' && ( $list['minRaw'] == -1 || $list['minRaw'] == "" ) )
@@ -667,7 +667,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
        }
        else   //else of !$is_blocked condition , we have already been blocked before, so we continue beeing blocked : we don't display any links to next paths any longer
        {
-             echo "<td align=\"left\"> <img src=\"".$imgRepositoryWeb."learnpath.gif\" alt=\"".$path_alt."\"
+             echo "<td align=\"left\"> <img src=\"".$imgRepositoryWeb."learnpath.gif\" alt=\"\"
                        border=\"0\" /> ".$list['name'].$list['minRaw']."</td>\n";
        }
 

@@ -89,6 +89,8 @@
    //################################# COMMANDS #########################################\\
    //####################################################################################\\
 
+   $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
+   
    switch($cmd)
    {
         // MODULE DELETE
@@ -109,7 +111,7 @@
               
               //-- delete module cmdid and his children if it is a label
               // get the modules tree ( cmdid module and all its children)
-              $temp[0] = get_module_tree( build_element_list($extendedList, 'parent', 'learnPath_module_id'), $_GET['cmdid'] , 'learnPath_module_id');
+              $temp[0] = get_module_tree( build_element_list($extendedList, 'parent', 'learnPath_module_id'), $_REQUEST['cmdid'] , 'learnPath_module_id');
               // delete the tree
               delete_module_tree($temp);
 
@@ -136,7 +138,7 @@
 
               //-- set the visibility for module cmdid and his children if it is a label
               // get the modules tree ( cmdid module and all its children)
-              $temp[0] = get_module_tree( build_element_list($extendedList, 'parent', 'learnPath_module_id'), $_GET['cmdid'] );
+              $temp[0] = get_module_tree( build_element_list($extendedList, 'parent', 'learnPath_module_id'), $_REQUEST['cmdid'] );
               // change the visibility according to the new father visibility
               set_module_tree_visibility( $temp, $visibility);
               
@@ -147,7 +149,7 @@
               $cmd == "mkBlock" ? $blocking = 'CLOSE' : $blocking = 'OPEN';
               $sql = "UPDATE `".$TABLELEARNPATHMODULE."`
                               SET `lock` = '$blocking'
-                              WHERE `learnPath_module_id` = ".$_GET['cmdid']."
+                              WHERE `learnPath_module_id` = ".$_REQUEST['cmdid']."
                                 AND `lock` != '$blocking'";
               $query = claro_sql_query ($sql);
               break;
@@ -157,7 +159,7 @@
               if( isset($_POST["newPos"]) && $_POST["newPos"] != "")
               {
                   // get order of parent module            
-                  $temp = claro_sql_query_fetch_all("SELECT * FROM `".$TABLELEARNPATHMODULE."` WHERE `learnPath_module_id` = ".$_POST['cmdid']);
+                  $temp = claro_sql_query_fetch_all("SELECT * FROM `".$TABLELEARNPATHMODULE."` WHERE `learnPath_module_id` = ".$_REQUEST['cmdid']);
                   $movedModule = $temp[0];
                   
                   // if origin and target are the same ... cancel operation
@@ -181,7 +183,7 @@
                       $sql = "UPDATE `".$TABLELEARNPATHMODULE."`
                        SET `parent` = ".$_POST['newPos'].",
                             `rank` = $order
-                       WHERE `learnPath_module_id` = ".$_POST['cmdid'];
+                       WHERE `learnPath_module_id` = ".$_REQUEST['cmdid'];
                       $query = claro_sql_query($sql);  
                       $dialogBox .= $langModuleMoved;
                   }
@@ -204,7 +206,7 @@
                     // this array will display target for the "move" command
                     // so don't add the module itself build_element_list will ignore all childre so that
                     // children of the moved module won't be shown, a parent cannot be a child of its own children                    
-                    if ( $list['learnPath_module_id'] != $_GET['cmdid'] ) $extendedList[] = $list;
+                    if ( $list['learnPath_module_id'] != $_REQUEST['cmdid'] ) $extendedList[] = $list;
                   }
                   
                   // build the array that will be used by the claro_build_nested_select_menu function
@@ -221,7 +223,7 @@
                     FROM `".$TABLELEARNPATHMODULE."` AS LPM, 
                           `".$TABLEMODULE."` AS M
                     WHERE LPM.`module_id` = M.`module_id`
-                      AND LPM.`learnPath_module_id` = ".$_GET['cmdid'].$_POST['cmdid'];
+                      AND LPM.`learnPath_module_id` = ".$_REQUEST['cmdid'];
                   $temp = claro_sql_query_fetch_all($sql);
                   $moduleInfos = $temp[0];
                   
@@ -229,16 +231,16 @@
               }
               break;
         case "moveUp" :
-              $thisLPMId = $_GET['cmdid'];
+              $thisLPMId = $_REQUEST['cmdid'];
               $sortDirection = "DESC";
               break;
         case "moveDown" :
-              $thisLPMId = $_GET['cmdid'];
+              $thisLPMId = $_REQUEST['cmdid'];
               $sortDirection = "ASC";
               break;
         case "createLabel" :
               // create form sent
-              if( isset($_POST["newLabel"]) && trim($_POST["newLabel"]) != "")
+              if( isset($_REQUEST["newLabel"]) && trim($_REQUEST["newLabel"]) != "")
               {
                   // determine the default order of this Learning path ( a new label is a root child)
                   $result = claro_sql_query("SELECT MAX(`rank`)
@@ -275,7 +277,7 @@
    }
    // IF ORDER COMMAND RECEIVED
    // CHANGE ORDER
-   if ($sortDirection)
+   if (isset($sortDirection) && $sortDirection)
    {
 
         // get list of modules with same parent as the moved module
@@ -327,7 +329,7 @@
    $LPDetails = mysql_fetch_array($query);
 
 /*================================================================
-                      OUTPUT STARTS HERE
+                      DISPLAY
   ================================================================*/
   //header
   include($includePath."/claro_init_header.inc.php");
@@ -361,32 +363,32 @@
         commentBox(LEARNINGPATH_, DISPLAY_);
    }
    //####################################################################################\\
-   //############################ create label && change pos forms  ##################################\\
+   //############################ create label && change pos forms  #####################\\
    //####################################################################################\\
-   if ($displayCreateLabelForm)
+   if (isset($displayCreateLabelForm) && $displayCreateLabelForm)
    {
-            $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
+            $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
                         <h4><label for=\"newLabel\">".$langNewLabel."</label></h4>
                         <input type=\"text\" name=\"newLabel\" id=\"newLabel\" maxlength=\"255\" />
                         <input type=\"hidden\" name=\"cmd\" value=\"createLabel\" />
                         <input type=\"submit\" value=\"".$langOk."\" />
                       </form>";
    }
-    if ($displayChangePosForm)
+    if (isset($displayChangePosForm) && $displayChangePosForm)
     { 
-            $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
+            $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
                         <h4>".$langMove." ' ".$moduleInfos['name']." ' ".$langTo."</h4>";
             // build select input - $elementList has been declared in the previous big cmd case
             $dialogBox .= claro_build_nested_select_menu("newPos",$elementList);
             $dialogBox .= "<input type=\"hidden\" name=\"cmd\" value=\"changePos\" />
-                        <input type=\"hidden\" name=\"cmdid\" value=\"".$_GET['cmdid']."\" />
+                        <input type=\"hidden\" name=\"cmdid\" value=\"".$_REQUEST['cmdid']."\" />
                         <input type=\"submit\" value=\"".$langOk."\" />
                       </form>";
     }
    //####################################################################################\\
    //############################### DIALOG BOX SECTION #################################\\
    //####################################################################################\\
-   if ($dialogBox)
+   if (isset($dialogBox))
    {
            claro_disp_message_box($dialogBox);
    }
@@ -421,7 +423,6 @@
     {
       $extendedList[] = $list;
     }
-
     // build the array of modules     
     // build_element_list return a multi-level array, where children is an array with all nested modules
     // build_display_element_list return an 1-level array where children is the deep of the module
