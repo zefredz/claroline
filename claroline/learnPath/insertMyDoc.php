@@ -139,13 +139,15 @@ require '../inc/claro_init_global.inc.php';
         *
         */
         // evaluate how many form could be sent
-
+        if (!isset($dialogBox)) $dialogBox = "";
+	
         $iterator = 0;
-        while ($iterator <= $_POST['maxDocForm'])
+	if (!isset($_REQUEST['maxDocForm'])) $_REQUEST['maxDocForm'] = 0; 
+        while ($iterator <= $_REQUEST['maxDocForm'])
         {
            $iterator++;
 
-           if( $submitInsertedDocument && isset($_POST['insertDocument_'.$iterator]) )
+           if (isset($_REQUEST['submitInsertedDocument']) && isset($_POST['insertDocument_'.$iterator]) )
            {
                 $insertDocument = str_replace('..', '',$_POST['insertDocument_'.$iterator]);
                 if (get_magic_quotes_gpc())
@@ -309,7 +311,8 @@ require '../inc/claro_init_global.inc.php';
                                 FROM `".$TABLEDOCUMENT."`
                                WHERE `path` LIKE \"".$curDirPath."/%\"
                                  AND `path` NOT LIKE \"".$curDirPath."/%/%\"");
-
+      $attribute = array();
+				 
       while($row = mysql_fetch_array($result, MYSQL_ASSOC))
       {
               $attribute['path'      ][] = $row['path'      ];
@@ -330,6 +333,7 @@ require '../inc/claro_init_global.inc.php';
       define('A_DIRECTORY', 1);
       define('A_FILE',      2);
 
+      $fileList = array();
 
       while ($file = readdir($handle))
       {
@@ -359,12 +363,19 @@ require '../inc/claro_init_global.inc.php';
                * info given by the file system
                * and info given by the DB
                */
-
+              if (!isset($dirNameList)) $dirNameList = array();
               $keyDir = sizeof($dirNameList)-1;
 
-              if ($attribute)
+              if (isset($attribute))
               {
-                      $keyAttribute = array_search($curDirPath."/".$file, $attribute['path']);
+                      if (isset($attribute['path']))
+		      {
+		          $keyAttribute = array_search($curDirPath."/".$file, $attribute['path']);
+	              }
+		      else
+		      {
+		          $keyAttribute = false;
+		      }
               }
 
               if ($keyAttribute !== false)
@@ -398,19 +409,19 @@ require '../inc/claro_init_global.inc.php';
       --------------------------------------*/
 
 
-      if ($attribute)
+      if (isset($attribute))
       {
               /*
                * check if the number of DB records is greater
                * than the numbers of files attributes previously given
                */
 
-              if (sizeof($attribute['path']) > (sizeof($fileList['comment']) + sizeof($fileList['visibility'])))
+              if (isset($attribute['path']) && isset($fileList['comment']) && (sizeof($attribute['path']) > (sizeof($fileList['comment']) + sizeof($fileList['visibility']))))
               {
                       /* SEARCH DB RECORDS WICH HAVE NOT CORRESPONDANCE ON THE DIRECTORY */
                       foreach( $attribute['path'] as $chekinFile)
                       {
-                              if ($dirNameList && in_array(basename($chekinFile), $dirNameList))
+                              if (isset($dirNameList) && in_array(basename($chekinFile), $dirNameList))
                                       continue;
                               elseif ($fileNameList && in_array(basename($chekinFile), $fileNameList))
                                       continue;
@@ -446,6 +457,7 @@ require '../inc/claro_init_global.inc.php';
 
 
    // display list of available documents
+   if (!isset($dialogBox)) $dialogBox = "";
    display_my_documents($dialogBox) ;
 
    //####################################################################################\\
@@ -455,8 +467,8 @@ require '../inc/claro_init_global.inc.php';
 
    claro_disp_tool_title($langPathContentTitle);
   echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.$langBackToLPAdmin.'</a>';
-  // display list of modules used by this learning path
-   display_path_content($param_array, $table);
+   // display list of modules used by this learning path
+   display_path_content();
 
    // footer
 
