@@ -31,13 +31,6 @@ require '../inc/claro_init_global.inc.php';
 
 $nameTools = $langMyAgenda;
 
-if(!empty($_REQUEST['coursePath']))
-{
-    $_REQUEST['coursePath'] = htmlspecialchars($_REQUEST['coursePath']);
-	$interbredcrump[]=array('url' => $rootWeb.$_REQUEST['coursePath'].'/index.php',
-                            'name' => $_REQUEST['courseCode']);
-}
-
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 
 $tbl_course          = $tbl_mdb_names['course'];
@@ -58,14 +51,24 @@ if (isset($_uid))
 
     $userCourseList = claro_sql_query_fetch_all($sql);
 
-	$year  = $_REQUEST['year' ];
-	$month = $_REQUEST['month'];
+    $today = getdate();
 
-	if ( ($year == NULL) && ($month == NULL) )
+	if( isset($_REQUEST['year']) )
 	{
-		$today = getdate();
-		$year  = $today['year'];
-		$month = $today['mon' ];
+        $year  = $_REQUEST['year' ];
+	}
+	else
+	{
+		$year = $today['year'];
+	}
+
+	if( isset($_REQUEST['month']) )
+	{
+		$month = $_REQUEST['month'];
+	}
+	else
+	{
+        $month = $today['mon' ];
 	}
 
 	$agendaItemList = get_agenda_items($userCourseList, $month, $year);
@@ -91,31 +94,34 @@ function get_agenda_items($userCourseList, $month, $year)
 
     foreach( $userCourseList as $thisCourse)
     {
-//	    $courseAgendaTable = $courseTablePrefix. $thisCourse['db'].$dbGlu."calendar_event";
 		$tbl_cdb_names = claro_sql_get_course_tbl($courseTablePrefix. $thisCourse['db'].$dbGlu);
 		$courseAgendaTable          = $tbl_cdb_names['calendar_event'];
 
-        $sql = "SELECT id, titre title, day, hour, lasting 
+        $sql = "SELECT `id`, `titre` as `title`, `day`, `hour`, `lasting`
                 FROM `".$courseAgendaTable."`
-                WHERE month(day) = '".$month."' 
-                AND   year(day)  ='".$year."'" ;
+                WHERE month(`day`) = '".$month."'
+                AND   year(`day`)  ='".$year."'" ;
 
 	    $courseEventList = claro_sql_query_fetch_all($sql);
 
         foreach($courseEventList as $thisEvent )
- 		if (!(trim(strip_tags($thisEvent["title"]))==""))
-		{
-            $eventDate = explode('-', $thisEvent['day']);
-            $day       = intval($eventDate[2]);
-            $eventTime = explode(':', $thisEvent['hour']);
-            $time      = $eventTime[0].':'.$eventTime[1];
-            $url       = 'agenda.php?cidReq='.$thisCourse['sysCode'];
+        {
+	 		if ( !( trim(strip_tags($thisEvent["title"]))=="" ) )
+			{
+	            $eventDate = explode('-', $thisEvent['day']);
+	            $day       = intval($eventDate[2]);
+	            $eventTime = explode(':', $thisEvent['hour']);
+	            $time      = $eventTime[0].':'.$eventTime[1];
+	            $url       = 'agenda.php?cidReq='.$thisCourse['sysCode'];
 
-            $items[$day][$thisEvent['hour']] .= 
-            "<br><small><i>".$time." : </small><br></i> "
-            .$thisEvent['title']
-            ." - <small><a href=\"".$url."\">".$thisCourse['officialCode']."</a></small>\n";
-        }
+				if( !isset($items[$day][$thisEvent['hour']]) ) $items[$day][$thisEvent['hour']] = "";
+				
+	            $items[$day][$thisEvent['hour']] .=
+					"<br><small><i>".$time." : </small><br></i> "
+		            .$thisEvent['title']
+		            ." - <small><a href=\"".$url."\">".$thisCourse['officialCode']."</a></small>\n";
+	        }
+		}
     }
 
 	// sorting by hour for every day
@@ -127,7 +133,8 @@ function get_agenda_items($userCourseList, $month, $year)
 
 		while ( list($key,$val) = each($tmpitems))
 		{
-			$agendaItemList[$agendaday].=$val;
+			if( !isset($agendaItemList[$agendaday]) ) $agendaItemList[$agendaday] = "";
+			$agendaItemList[$agendaday] .= $val;
 		}
 	}
 
@@ -136,7 +143,6 @@ function get_agenda_items($userCourseList, $month, $year)
 
 function disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName, $langToday)
 {
-	global $_SERVER;
 
 	//Handle leap year
 	$numberofdays = array(0,31,28,31,30,31,30,31,31,30,31,30,31);
@@ -150,20 +156,17 @@ function disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $m
 	$dayone = getdate(mktime(0,0,0,$month,1,$year));
 
   	//Start the week on monday
-	$startdayofweek = $dayone['wday']<>0 ? ($dayone['wday']-1) : 6;
-    $urlcoursePath = htmlspecialchars($_REQUEST['coursePath']);
-    
-	$backwardsURL = $_SERVER['PHP_SELF'].'?coursePath='.$urlcoursePath
-                   .'&amp;courseCode='.$_REQUEST['courseCode']
-                   .'&amp;month='.($month==1 ? 12 : $month-1)
-                   .'&amp;year='.($month==1 ? $year-1 : $year);
+	$startdayofweek = $dayone['wday']<> 0 ? ($dayone['wday']-1) : 6;
 
-	$forewardsURL = $_SERVER['PHP_SELF'].'?coursePath='.$urlcoursePath
-                   .'&amp;courseCode='.$_REQUEST['courseCode']
-                   .'&amp;month='.($month==12 ? 1 : $month+1)
-                   .'&amp;year='.($month==12 ? $year+1 : $year);
+	$backwardsURL = $_SERVER['PHP_SELF']
+					.'?month='.($month==1 ? 12 : $month-1)
+					.'&amp;year='.($month==1 ? $year-1 : $year);
 
-	echo '<table class="claroTable" width="95%">'."\n"
+	$forewardsURL = $_SERVER['PHP_SELF']
+					.'?month='.($month==12 ? 1 : $month+1)
+					.'&amp;year='.($month==12 ? $year+1 : $year);
+
+	echo '<table class="claroTable" width="100%">'."\n"
   	    .'<tr class="superHeader">'."\n"
 	    .'<th width="13%">'
 	    .'<center>'."\n"
@@ -226,9 +229,9 @@ function disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $m
 
 
 	      		echo "<td height=\"40\" width=\"12%\" valign=\"top\" class=\"".$weekdayType."\">"
-                    .$dayheader
-				    .$agendaItemList[$curday]
-                    ."</td>\n";
+                    .$dayheader;
+				if( isset($agendaItemList[$curday]) ) echo $agendaItemList[$curday];
+            	echo "</td>\n";
 
 	      		$curday++;
 	    	}
