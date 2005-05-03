@@ -92,18 +92,18 @@ if ($is_allowedToEdit)
 
     if ($cmd == 'exEdit')
     {
-        $date_selection = $fyear."-".$fmonth.'-'.$fday;
-        $hour           = $fhour.':'.$fminute.':00';
+        $date_selection = $_REQUEST['fyear']."-".$_REQUEST['fmonth'].'-'.$_REQUEST['fday'];
+        $hour           = $_REQUEST['fhour'].':'.$_REQUEST['fminute'].':00';
 
-        if ( $_REQUEST['id'] )
+        if ( !empty($_REQUEST['id']) )
         {
             $sql = "UPDATE `".$tbl_calendar_event."`
-                    SET   titre   = '".trim(claro_addslashes($_REQUEST['titre']))."',
-                          contenu = '".trim(claro_addslashes($_REQUEST['contenu']))."',
-                          day     = '".$date_selection."',
-                          hour    = '".$hour."',
-                          lasting = '".$_REQUEST['lasting']."'
-                    WHERE id      ='".$_REQUEST['id']."'";
+                    SET   `titre`   = '".trim(claro_addslashes($_REQUEST['titre']))."',
+                          `contenu` = '".trim(claro_addslashes($_REQUEST['contenu']))."',
+                          `day`     = '".$date_selection."',
+                          `hour`    = '".$hour."',
+                          `lasting` = '".$_REQUEST['lasting']."'
+                    WHERE `id`      = '".$_REQUEST['id']."'";
 
             if ( claro_sql_query($sql) !== FALSE)
             {
@@ -127,7 +127,7 @@ if ($is_allowedToEdit)
         {
             $sql = "DELETE 
                     FROM `".$tbl_calendar_event."`
-                    WHERE id ='".$id."'";
+                    WHERE `id` ='".$_REQUEST['id']."'";
         }
 
         if ( claro_sql_query($sql) !== FALSE)
@@ -136,7 +136,7 @@ if ($is_allowedToEdit)
 
             if (CONFVAL_LOG_CALENDAR_DELETE)
             {
-                event_default('CALENDAR',array ('DELETE_ENTRY' => $id));
+                event_default('CALENDAR',array ('DELETE_ENTRY' => $_REQUEST['id']));
             }
         }
         else
@@ -147,14 +147,14 @@ if ($is_allowedToEdit)
 
     if ($cmd == 'rqEdit' || $cmd == 'rqAdd')
     {
-        if ($cmd == 'rqEdit' && $_REQUEST['id'])
+        if ($cmd == 'rqEdit' && isset($_REQUEST['id']))
         {
-            $sql = "SELECT id, titre, contenu, 
-                           day     dayAncient,
-                           hour    hourAncient, 
-                           lasting lastingAncient
+            $sql = "SELECT `id`, `titre`, `contenu`,
+                           `day` as `dayAncient`,
+                           `hour` as `hourAncient`,
+                           `lasting` as `lastingAncient`
                     FROM `".$tbl_calendar_event."` 
-                    WHERE id='".$id."'";
+                    WHERE `id` = '".$_REQUEST['id']."'";
 
             list($editedEvent) = claro_sql_query_fetch_all($sql);
 
@@ -425,9 +425,9 @@ else
 }
 
 
-$sql = "SELECT id, titre, contenu, day, hour, lasting
+$sql = "SELECT `id`, `titre`, `contenu`, `day`, `hour`, `lasting`
         FROM `".$tbl_calendar_event."`
-        ORDER BY day ".$orderDirection." , hour ".$orderDirection;
+        ORDER BY `day` ".$orderDirection." , `hour` ".$orderDirection;
 
 $eventList = claro_sql_query_fetch_all($sql);
 
@@ -483,7 +483,7 @@ foreach( $eventList as $thisEvent )
             .'<span class="highlight">'
             .'<i>'
             .ucfirst(claro_disp_localised_date( $dateFormatLong)).' '
-            .ucfirst( strftime( $timeNoSecFormat))
+            .ucfirst(strftime( $timeNoSecFormat))
             .' -- '.$langNow
             .'</i>'
             .'</span>'."\n"
