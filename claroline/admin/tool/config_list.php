@@ -104,7 +104,7 @@ if ( is_array($def_class_list) )
 {
     foreach( $def_class_list as $class_def_list)
     {
-		if ( is_array($class_def_list['conf']) )
+		if ( isset($class_def_list['conf']) && is_array($class_def_list['conf']) )
 		{
 		    echo '<h4>' . $class_def_list['name'] . '</h4>' . "\n";
 

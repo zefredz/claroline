@@ -290,12 +290,12 @@ else
         $display_form = FALSE;
     }
 
-}
+    // verify is config file manually edit
+    if ( is_conf_file_modified($_REQUEST['config_code']) )
+    {
+        $controlMsg['info'][] = 'Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted.<br>';
+    }
 
-// verify is config file manually edit
-if ( is_conf_file_modified($_REQUEST['config_code']) )
-{
-    $controlMsg['info'][] = 'Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted.<br>';
 }
 
 /* ************************************************************************** */
@@ -324,7 +324,7 @@ include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title(array('mainTitle'=>$langConfiguration,'subTitle'=>$nameTools));
 
 // display message
-if ( is_array($controlMsg['debug']) ) unset($controlMsg['debug']);
+if ( isset($controlMsg['debug']) ) unset($controlMsg['debug']);
 
 if ( !empty($controlMsg) )
 {
@@ -387,7 +387,7 @@ if ( $display_form )
 
                             if ( isset($_REQUEST['prop'])  )
                             {
-                                claroconf_disp_editbox_of_a_value($conf_def_property_list[$property_name], $property_name, $prop[$property_name]);
+                                claroconf_disp_editbox_of_a_value($conf_def_property_list[$property_name], $property_name, $_REQUEST['prop'][$property_name]);
                             }
                             else
                             {
