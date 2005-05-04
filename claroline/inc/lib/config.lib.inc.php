@@ -451,11 +451,12 @@ function validate_property ($propertyValue, $propertyDef)
     $is_valid = TRUE;
 
     // get validation value from property definition
-    $acceptedValue = $propertyDef['acceptedValue'];
-    $propertyName  = $propertyDef['label'];
-    $type          = $propertyDef['type'];
-
-
+    if ( isset($propertyDef['acceptedValue']) ) $acceptedValue = $propertyDef['acceptedValue'];
+    else                                        $acceptedValue = '';
+    if ( isset($propertyDef['label']) ) $propertyName  = $propertyDef['label'];
+    else                                $propertyName  = '';
+    if ( isset($propertyDef['type']) )  $type = $propertyDef['type'];
+    else                                $type = '';
 
     if( is_array($propertyDef) )
     {
@@ -730,7 +731,15 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
 
 
             // container : Constance or variable
-            $container = $conf_def_property_list[$propertyName]['container'];
+            if ( isset($conf_def_property_list[$propertyName]['container']) )
+            {
+                $container = $conf_def_property_list[$propertyName]['container'];
+            }
+            else
+            {
+                $container = '';
+            }
+            
             if ( strtoupper($container)=='CONST' )
             {
                 $propertyLine = 'define("'.$propertyName.'",'.$valueToWrite.');'."\n";
@@ -741,11 +750,8 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
             }
             $propertyLine .= "\n\n";
 
-
-
             fwrite($handle,$propertyDesc);
             fwrite($handle,$propertyLine);
-            fwrite($handle,$propertyGenComment);
 
         }
         fwrite($handle,"\n".'?>');
@@ -829,6 +835,9 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
 {
     global $langFirstDefOfThisValue, $langEmpty;
 
+    if (  isset($property_def['type']) ) $type = $property_def['type'];
+    else                                 $type = '';
+
     // current value: set to TRUE or false if boolean
     if ( is_bool($currentValue) )
     {
@@ -849,9 +858,9 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
     }
 
     // type description to display
-    if ( is_string($property_def['type']) )
+    if ( strlen($type) > 0 )
     {
-        $htmlPropType = ' <small>(' . htmlentities($property_def['type']) . ')</small>';
+        $htmlPropType = ' <small>(' . htmlentities($type) . ')</small>';
     }
     else
     {
@@ -871,13 +880,17 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
 
     // default value to display
     // 1st, if  boolean, stringify value
-    if ($property_def['type']=='boolean')
+
+    if ( isset($property_def['default']) ) $default = $property_def['default'];
+    else                                   $default = '';
+
+    if ( $type == 'boolean' )
     {
-        $fooDef = trueFalse($property_def['default']);
+        $fooDef = trueFalse($default);
     }
     else
     {
-        $fooDef = $property_def['default'];
+        $fooDef = $default;
     }
 
     if ( isset($property_def['acceptedValue'][$fooDef]) )
@@ -914,7 +927,7 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
     else
     {
         // if not set --> default value
-        $htmlPropValue = $property_def['default'];
+        $htmlPropValue = $default;
     }
 
     $size = (int) strlen($htmlPropValue);
@@ -922,12 +935,11 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
 
     $htmlUnit = (isset($property_def['unit'])?''.htmlentities($property_def['unit']).' ':'');
 
-    if (isset($property_def['display'])
-           &&!$property_def['display'])
+    if ( isset($property_def['display']) && !$property_def['display'] )
     {
         echo '<input type="hidden" value="'.$htmlPropValue.'" name="'.$htmlPropName.'">'."\n";
     }
-    elseif ($property_def['readonly'])
+    elseif ( isset($property_def['readonly']) && $property_def['readonly'] )
     {
         echo '<tr style="vertical-align: top">' .
              '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' . "\n";
@@ -936,7 +948,7 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
 
         echo '<td nowrap="nowrap">' . "\n";
 
-        switch($property_def['type'])
+        switch ( $type )
         {
             case 'boolean' :
             case 'lang' :
@@ -974,12 +986,12 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
         // display label
         // if Type = css or lang,  acceptedValue would be fill
         // and work after as enum.
-        switch($property_def['type'])
+        switch ( $type )
         {
             case 'css' :
                 if ($handle = opendir('../../css'))
                 {
-                    $property_def['acceptedValue']=array();
+                   $property_def['acceptedValue']=array();
                    while (false !== ($file = readdir($handle)))
                    {
                        $ext = strrchr($file, '.');
@@ -990,8 +1002,7 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
                    }
                    closedir($handle);
                 }
-
-                $property_def['type']='enum';
+                $type = 'enum';
                 break;
             case 'lang' :
                 $dirname = '../../lang/';
@@ -1009,11 +1020,11 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
                     }
                 }
                 closedir($handle);
-                $property_def['type']='enum';
+                $type = 'enum';
                 break;
         }
 
-        switch($property_def['type'])
+        switch( $type )
         {
             case 'boolean' :
                 echo '<tr style="vertical-align: top">' .
@@ -1037,6 +1048,7 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
                      .($property_def['acceptedValue']['FALSE']?$property_def['acceptedValue']['FALSE']:'FALSE')
                      .'</label>';
                 break;
+
             case 'enum' :
 
                 echo '<tr style="vertical-align: top">' ;
@@ -1151,7 +1163,7 @@ function get_values_from_confFile($file_name,$conf_def_property_list)
         {
             foreach($conf_def_property_list as $propName => $propDef )
             {
-                if ($propDef['container']=='CONST')
+                if ( isset($propDef['container']) && $propDef['container']=='CONST')
                 {
                     if ( defined($propName) )
                         @eval('$value_list[$propName] = '.$propName.';');
