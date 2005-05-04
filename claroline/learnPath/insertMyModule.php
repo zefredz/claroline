@@ -123,7 +123,7 @@
 
          //COMMAND ADD SELECTED MODULE(S):
 
-   if ($cmdglobal == 'add') {
+   if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add')) {
 
       // select all 'addable' modules of this course for this learning path
 
@@ -133,13 +133,13 @@
       while ($list = mysql_fetch_array($result))
       {
          // see if check box was checked
-         if ($_GET['check_'.$list['module_id']]) {
+         if (isset($_REQUEST['check_'.$list['module_id']]) && $_REQUEST['check_'.$list['module_id']]) {
 
              // find the order place where the module has to be put in the learning path
 
              $result2 = claro_sql_query("SELECT MAX(`rank`)
-                                       FROM `".$TABLELEARNPATHMODULE."`
-                                      WHERE learnPath_id = ".$_SESSION['path_id']);
+                                           FROM `".$TABLELEARNPATHMODULE."`
+                                          WHERE learnPath_id = ".$_SESSION['path_id']);
              list($orderMax) = mysql_fetch_row($result2);
              $order = $orderMax + 1;
 
@@ -253,7 +253,7 @@
  // display back link to return to the LP administration
  echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.$langBackToLPAdmin.'</a>';
  // display list of modules used by this learning path
- display_path_content($param_array, $table);
+ display_path_content();
 
    // footer
 

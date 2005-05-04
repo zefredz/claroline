@@ -443,7 +443,8 @@
           global $_cid;
           global $langModule;
 	  global $imgRepositoryWeb;
-          
+          $style = "";
+	  
           $sql = "SELECT M.`name`, M.`contentType`, LPM.`learnPath_module_id`, LPM.`parent`, A.`path`
             FROM `$TABLELEARNPATH` AS LP, `$TABLELEARNPATHMODULE` AS LPM, `$TABLEMODULE` AS M
             LEFT JOIN `".$TABLEASSET."` AS A
@@ -716,7 +717,7 @@
              DIALOG BOX SECTION
             --------------------------------------*/
           $colspan = 4;
-          if ($dialogBox)
+          if (isset($dialogBox) && $dialogBox !="")
          {
                  claro_disp_message_box($dialogBox);
          }
@@ -775,11 +776,12 @@
                           {
                                   if ($is_AllowedToEdit)
                                   {
-                                          $style=" class=\"invisible\"";
+                                          $style = " class=\"invisible\"";
                                   }
                                   else
                                   {
-                                          continue; // skip the display of this file
+                                          $style = "";
+					  continue; // skip the display of this file
                                   }
                           }
                           else
@@ -958,7 +960,7 @@
         {
             $count++;
             
-            $temp = $thisElement['children'];
+            if (isset($thisElement['children'])) $temp = $thisElement['children'];
             // we use 'children' to calculate the deepness of the module, it will be displayed
             // using a spacing multiply by deepness
             $thisElement['children'] = $deepness;
@@ -1007,7 +1009,7 @@
                               AND `visibility` != '$visibility'";
             $query = claro_sql_query ($sql);
         }
-        if ( is_array($module['children']) ) set_module_tree_visibility($module['children'], $visibility);
+        if (isset($module['children']) && is_array($module['children']) ) set_module_tree_visibility($module['children'], $visibility);
       }
     }
     
@@ -1052,7 +1054,7 @@
               break;
             }
         }
-        if ( is_array($module['children']) ) delete_module_tree($module['children'], $visibility);
+        if ( isset($module['children']) &&  is_array($module['children']) ) delete_module_tree($module['children']);
     }
     /**
      * This function return the node with $module_id (recursive)
@@ -1074,7 +1076,7 @@
             {
                 return $module;
             }
-            elseif ( is_array($module['children']) )
+            elseif ( isset($module['children']) && is_array($module['children']) )
             {
                 $temp = get_module_tree($module['children'], $id);
                 if( is_array($temp) ) 
