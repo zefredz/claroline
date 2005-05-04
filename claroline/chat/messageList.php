@@ -25,7 +25,7 @@
  */
 
 // CLAROLINE INIT
-
+$tlabelReq = 'CLCHT___'; // required
 require '../inc/claro_init_global.inc.php';
 
 if ( !$_cid ) claro_disp_select_course();
@@ -33,7 +33,7 @@ if ( ! $is_courseAllowed )	claro_disp_auth_form();
 
 
 /*============================================================================
-CONNECTION BLOC
+		CONNECTION BLOC
 ============================================================================*/
 
 
@@ -53,7 +53,7 @@ $refresh_display_rate = (int) $refresh_display_rate;
 if (!isset($refresh_display_rate) || $refresh_display_rate==0)  $refresh_display_rate = 10;
 
 /*============================================================================
-CHAT INIT
+		CHAT INIT
 ============================================================================*/
 
 
@@ -122,14 +122,14 @@ if ( ! file_exists($activeChatFile))
 
 
 /*============================================================================
-COMMANDS
+		COMMANDS
 ============================================================================*/
 
 
 
 
 /*----------------------------------------------------------------------------
-RESET COMMAND
+		RESET COMMAND
 ----------------------------------------------------------------------------*/
 
 
@@ -146,7 +146,7 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'reset' && $is_allowedToRese
 
 
 /*----------------------------------------------------------------------------
-STORE COMMAND
+		STORE COMMAND
 ----------------------------------------------------------------------------*/
 
 if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStore)
@@ -171,7 +171,7 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
     {
         $cmdMsg = "\n"
                 . '<blockquote>'."\n"
-                . '<a href="../document/document.php" target="top">'
+                . '<a href="../document/document.php" target="blank">'
                 . '<strong>'.$saveIn.'</strong>'
                 . '</a> '
                 . $langIsNowInYourDocDir."\n"
@@ -182,7 +182,7 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
     }
     else
     {
-        $cmdMsg = '<blockquote>'.$langCopyFailed.'</blockquote>';
+        $cmdMsg = '<blockquote>'.$langCopyFailed.'</blockquote>'."\n";
     }
 }
 
@@ -190,12 +190,13 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
 
 
 /*----------------------------------------------------------------------------
-'ADD NEW LINE' COMMAND
+	'ADD NEW LINE' COMMAND
 ----------------------------------------------------------------------------*/
-if ( !empty($_REQUEST['chatLine']) )
+// don't use empty() because it will prevent to post a line with only "0"
+if ( isset($_REQUEST['chatLine']) && trim($_REQUEST['chatLine']) != "" )
 {
     $fchat = fopen($activeChatFile,'a');
-    $chatLine = htmlspecialchars( stripslashes($chatLine) );
+    $chatLine = htmlspecialchars( stripslashes($_REQUEST['chatLine']) );
 	// replace url with real html link
     $chatLine = ereg_replace("(http://)(([[:punct:]]|[[:alnum:]])*)","<a href=\"\\0\" target=\"_blank\">\\2</a>",$chatLine);
 
@@ -252,12 +253,13 @@ else
     $x = 1;
 }
 
-echo '<html><head>'
-   . '<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'
-   . '<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'
-   . '</head>'
-   . '<body>'
-   ;
+echo '<html>'."\n"
+	. '<head>'."\n"
+   	. '<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'."\n"
+   	. '<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
+   	. '</head>'."\n"
+   	. '<body>'."\n"."\n"
+   	;
 
 if( isset($cmdMsg) )
 {
@@ -269,7 +271,6 @@ echo implode("\n", $curDisplayLineList) // LAST LINES
     .$dateLastWrite                 // LAST MESSAGE DATE TIME
     .'</small></p>'
     .'<a name="final">'."\n"       // ANCHOR ALLOWING TO DIRECTLY POINT LAST LINE
-    
     .'</body>'."\n\n"
     .'</html>'."\n"
     ;
@@ -301,8 +302,9 @@ function buffer($content, $tmpFile)
 
     if ( ! file_exists($tmpFile) )
     {
-        $content = '<html><head>'
-                 . '<title>'.$langChat.' - '.$langArchive.'</title>'
+        $content = '<html>'."\n"
+				 . '<head>'."\n"
+                 . '<title>'.$langChat.' - '.$langArchive.'</title>'."\n"
                  . '</head>'."\n\n"
                  . '<body>'."\n"
                  . $content
