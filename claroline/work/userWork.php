@@ -172,7 +172,7 @@ if( isset($cmd) && $cmd != 'rqSubWrk' && $cmd != 'exSubWrk' && (isset($wrk) && i
                         ASSIGNMENT CONTENT
   --------------------------------------------------------------------*/
 if( $assignment['authorized_content'] == "TEXTFILE" 
-      || ( $is_courseAdmin && (!is_null($wrk['original_id']) && !empty($wrk['original_id']) ) ) 
+      || ( $is_courseAdmin && (isset($wrk) && !empty($wrk['original_id']) ) )
       || ( $is_courseAdmin && ( $cmd == 'rqGradeWrk' || $cmd == 'exGradeWrk') )
   )
 {
