@@ -23,15 +23,27 @@ $TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
 
 $is_allowedToTrack = $is_platformAdmin || $is_courseAdmin;
 
-claro_disp_tool_title($nameTools);
-
+claro_disp_tool_title(
+	array(
+	'mainTitle'=>$nameTools,
+	)
+);
 ?>
 <table width="100%" cellpadding="2" cellspacing="3" border="0">
 <?php
     if( $is_allowedToTrack && $is_trackingEnabled)
     {
-        if( !isset($reqdate) || $reqdate < 0 || $reqdate > 2149372861 )
-                $reqdate = time();
+        if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
+        	$reqdate = time();  // default value
+		else
+		    $reqdate = $_REQUEST['reqdate'];
+
+        if( isset($_REQUEST['period']) )    $period = $_REQUEST['period'];
+        else                                $period = "day"; // default value
+
+        if( isset($_REQUEST['displayType']) )   $displayType = $_REQUEST['displayType'];
+        else                                	$displayType = ''; // default value
+        
         //** dislayed period
         echo "<tr><td><b>";
             switch($period)
