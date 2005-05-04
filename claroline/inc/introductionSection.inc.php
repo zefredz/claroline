@@ -38,16 +38,13 @@ if ($intro_editAllowed)
 
 	if( isset($_REQUEST['intro_cmdUpdate']) )
 	{
-		$intro_content = trim($intro_content);
+		$intro_content = trim($_REQUEST['intro_content']);
 
 		if ( ! empty($intro_content) )
 		{
 			$sql = "REPLACE `".$TBL_INTRODUCTION."` 
-                    SET id=\"".$moduleId."\", 
-                        texte_intro=\"".claro_addslashes($intro_content)."\"";
-
-        // Note : I don't understant why but in this special case we need 
-        // an addslashes() where anywhere else we don't ... (Hugues)
+                    SET `id` = \"".$moduleId."\",
+                        `texte_intro` = \"".claro_addslashes($intro_content)."\"";
 
             claro_sql_query($sql);
 		}
@@ -62,7 +59,7 @@ if ($intro_editAllowed)
 	if(isset($_REQUEST['intro_cmdDel']) || $intro_exDel)
 	{
 		$sql = "DELETE FROM `".$TBL_INTRODUCTION."` 
-                WHERE id=\"".$moduleId."\"";
+                WHERE `id` = \"".$moduleId."\"";
 
         claro_sql_query($sql);
 	}
@@ -75,9 +72,9 @@ if ($intro_editAllowed)
 
 /* Retrieves the module introduction text, if exist */
 
-$sql = "SELECT texte_intro 
+$sql = "SELECT `texte_intro`
         FROM `".$TBL_INTRODUCTION."` 
-        WHERE id=\"".$moduleId."\"";
+        WHERE `id` = \"".$moduleId."\"";
 
 $text_intro_result = claro_sql_query_fetch_all($sql);
 
@@ -119,15 +116,15 @@ else
 
 if ($intro_dispForm)
 {
-    echo	"<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n";
+    echo	'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n";
 
     claro_disp_html_area('intro_content', $intro_content);
 
-    echo	"<br>\n",
-			"<input class=\"claroButton\" type=submit value=\"".$langOk."\" name=\"intro_cmdUpdate\">\n";
-    claro_disp_button($_SERVER['PHP_SELF'], 'Cancel');
-	echo	"<br>\n",
-			"</form>\n";
+    echo	'<br />'."\n"
+			.'<input class="claroButton" type="submit" value="'.$langOk.'" name="intro_cmdUpdate" />'."\n";
+    claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
+	echo	'<br />'."\n"
+			.'</form>'."\n\n";
 }
 
 if ($intro_dispDefault)
@@ -136,9 +133,9 @@ if ($intro_dispDefault)
 	
 	if( trim(strip_tags($intro_content)) != '' ) // no need to display a div for an empty string
 	{
-		echo	"<div class=\"claroIntroSection\">\n",
-				$intro_content,"\n",
-				"</div>\n";
+		echo	'<div class="claroIntroSection">'."\n"
+				.$intro_content."\n"
+				.'</div>'."\n\n";
 	}
 }
 
@@ -146,19 +143,24 @@ if ($intro_dispCommand)
 {
     if( trim(strip_tags($intro_content)) == '' ) // displays "Add intro" Commands
     {
-        echo "<div class=\"HelpText\">\n".$helpAddIntroText."\n</div>\n"
-            ."<p>"
-            ."<a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?intro_cmdAdd=1\"><img src=\"",$urlAppend,"/claroline/img/edit.gif\" alt=\"\" border=\"0\">".$langAddIntro."</a>"
-            ."</p>\n";
+        echo '<div class="HelpText">'."\n"
+			.$helpAddIntroText
+			."\n".'</div>'."\n"
+            .'<p>'."\n"
+            .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?intro_cmdAdd=1">'
+			.'<img src="'.$urlAppend.'/claroline/img/edit.gif" alt="" border="0">'
+			.$langAddIntro
+			.'</a>'."\n"
+            .'</p>'."\n\n";
     }
     else // displays "edit intro && delete intro" Commands
     {
-        echo    "<p>\n".
-                "<small>\n".
-                "<a href=\"".$_SERVER['PHP_SELF']."?intro_cmdEdit=1\"><img src=\"",$urlAppend,"/claroline/img/edit.gif\" alt=\"",$langModify,"\" border=\"0\"></a>\n".
-                "<a href=\"".$_SERVER['PHP_SELF']."?intro_cmdDel=1\" onclick=\"javascript:if(!confirm('".clean_str_for_javascript($langConfirmYourChoice)."')) return false;\"><img src=\"",$urlAppend,"/claroline/img/delete.gif\" alt=\"",$langDelete,"\" border=\"0\"></a>\n".
-                "</small>\n".
-                "</p>\n";
+        echo    '<p>'."\n"
+                .'<small>'."\n"
+                .'<a href="'.$_SERVER['PHP_SELF'].'?intro_cmdEdit=1"><img src="'.$urlAppend.'/claroline/img/edit.gif" alt="'.$langModify.'" border="0"></a>'."\n"
+                .'<a href="'.$_SERVER['PHP_SELF'].'?intro_cmdDel=1" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($langConfirmYourChoice).'\')) return false;"><img src="'.$urlAppend.'/claroline/img/delete.gif" alt="'.$langDelete.'" border="0"></a>'."\n"
+                .'</small>'."\n"
+                .'</p>'."\n\n";
     }
 }
 
