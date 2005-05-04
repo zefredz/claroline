@@ -33,13 +33,15 @@ include($includePath."/claro_init_header.inc.php");
 
 // get table name
 $tbl_mdb_names   = claro_sql_get_main_tbl();
-$tbl_course      = $tbl_mdb_names['course'           ];
-$tbl_course_node = $tbl_mdb_names['category'         ];
+$tbl_course      = $tbl_mdb_names['course'  ];
+$tbl_course_node = $tbl_mdb_names['category'];
+
+$controlMsg = array();
 
 // Display variables
-$CREATE		= FALSE;
-$EDIT		= FALSE;
-$MOVE		= FALSE;
+$CREATE = FALSE;
+$EDIT	= FALSE;
+$MOVE	= FALSE;
 
 //Get Parameters from URL or post
 
@@ -85,7 +87,14 @@ if ( isset($_REQUEST['id']) &&
 else
 {
     // Get value from session variables
-    $categories=$_SESSION["categories"];
+    if ( isset($_SESSION["categories"]) )
+    {
+        $categories = $_SESSION["categories"];
+    }
+    else
+    {
+        $categories = array();
+    }
 
     /**
      * Create a category
@@ -735,7 +744,10 @@ else
 if($CREATE)
 {
     claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>$langSubTitleCreate));
-    if (isset($controlMsg)) claro_disp_msg_arr($controlMsg);
+    if ( isset($controlMsg) && count($controlMsg)>0 ) 
+    {
+        claro_disp_msg_arr($controlMsg);
+    }
     
     // try to retrieve previsiously posted parameters for the new category
     
@@ -837,7 +849,11 @@ elseif($EDIT)
      */
 
     claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleEdit));
-    claro_disp_msg_arr($controlMsg);
+    
+    if ( isset($controlMsg) && count($controlMsg) > 0 )
+    {
+        claro_disp_msg_arr($controlMsg);
+    }
 ?>
     <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
     <input type="hidden" name="cmd" value="exChange" />
@@ -909,7 +925,10 @@ elseif($MOVE)
      */
 
     claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleChangeParent.$EditCode));
-    if (isset($controlMsg)) claro_disp_msg_arr($controlMsg);
+    if ( isset($controlMsg) && count($controlMsg) > 0 )
+    {
+        claro_disp_msg_arr($controlMsg);
+    }
 ?>
     <form action=" <?php echo $_SERVER['PHP_SELF'] ?> " method="POST">
     <input type="hidden" name="cmd" value="exChange" />
@@ -951,7 +970,11 @@ elseif($MOVE)
 else
 {
     claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>$langManageCourseCategories));
-    if (isset($controlMsg)) claro_disp_msg_arr($controlMsg);
+    
+    if ( isset($controlMsg) && count($controlMsg) > 0 )
+    {
+        claro_disp_msg_arr($controlMsg);
+    }
 }
 
 /**
@@ -1112,7 +1135,7 @@ include($includePath."/claro_init_footer.inc.php");
                         <td align="center">
                         <?php
                         //If isn't the first child, you can up
-                        if($num>1)
+                        if ($num>1)
                         {
                         ?>
                             <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&amp;cmd=exUp&amp;date=".$date."#ud".$one_faculty["id"];
@@ -1125,7 +1148,7 @@ include($includePath."/claro_init_footer.inc.php");
                         <?php
 
                         //If isn't the last child, you can down
-                        if($num<$nbChild)
+                        if ($num<$nbChild)
                         {
                         ?>
                             <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&amp;cmd=exDown&amp;date=".$date."#ud".$one_faculty["id"];
@@ -1135,7 +1158,7 @@ include($includePath."/claro_init_footer.inc.php");
                         }
                         ?>
                         </td>
-                        </td>
+                        
 
                         <?php
                     }
