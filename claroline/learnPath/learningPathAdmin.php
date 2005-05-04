@@ -69,7 +69,9 @@
   $TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
   $TABLEASSET             = $_course['dbNameGlu']."lp_asset";
   $TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
-
+  
+  if (!isset($dialogBox)) $dialogBox = "";
+  
   //lib of this tool
   include($includePath."/lib/learnPath.lib.inc.php");
 
@@ -388,7 +390,7 @@
    //####################################################################################\\
    //############################### DIALOG BOX SECTION #################################\\
    //####################################################################################\\
-   if (isset($dialogBox))
+   if (isset($dialogBox) && $dialogBox!="")
    {
            claro_disp_message_box($dialogBox);
    }
