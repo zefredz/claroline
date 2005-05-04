@@ -45,8 +45,9 @@
 
   // exercises table name
   $TABLEEXERCISES                = $_course['dbNameGlu']."quiz_test";
-
-
+  
+  if (!isset($dialogBox)) $dialogBox = "";
+  
   //lib of this tool
   include($includePath."/lib/learnPath.lib.inc.php");
 
@@ -85,7 +86,7 @@
     {
 
 
-       if ( isset($insertExercise) && isset($_POST['check_'.$listex['id']]) )  //add
+       if (isset($_REQUEST['insertExercise']) && isset($_REQUEST['check_'.$listex['id']]) )  //add
        {
            $insertedExercise = $listex['id'];
 
@@ -205,10 +206,12 @@
 
    //STEP TWO : display learning path content
 
-  claro_disp_tool_title($langPathContentTitle);
-  echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.$langBackToLPAdmin.'</a>';
-  // display list of modules used by this learning path
-  display_path_content($param_array, $table);
+   claro_disp_tool_title($langPathContentTitle);
+   echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.$langBackToLPAdmin.'</a>';
+   
+   // display list of modules used by this learning path
+  
+   display_path_content();
 
    // footer
 
