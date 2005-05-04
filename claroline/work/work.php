@@ -126,18 +126,25 @@ if( isset($_REQUEST['submitAssignment']) && $is_allowedToEdit )
     }
 
     // authorized type
-    if( isset($_REQUEST['authorizeText']) && isset($_REQUEST['authorizeFile']) )
+    if( isset($_REQUEST['authorizedContent']) )
     {
-        $authorizedContent = 'TEXTFILE';
-    }
-    elseif( isset($_REQUEST['authorizeText']) && $_REQUEST['authorizeText'])
-    {
-        $authorizedContent = "TEXT";       
-    }
-    elseif( isset($_REQUEST['authorizeFile']) && $_REQUEST['authorizeFile'])
-    {
-        $authorizedContent = 'FILE';
-    }
+	    if( $_REQUEST['authorizedContent'] == 'TEXTFILE' )
+	    {
+	        $authorizedContent = 'TEXTFILE';
+	    }
+	    elseif( $_REQUEST['authorizedContent'] == 'TEXT')
+	    {
+	        $authorizedContent = 'TEXT';
+	    }
+	    elseif( $_REQUEST['authorizedContent'] == 'FILE')
+	    {
+	        $authorizedContent = 'FILE';
+	    }
+	}
+	else
+	{
+		$authorizedContent = 'TEXT';
+	}
       
     // description
     if( trim( strip_tags($_REQUEST['assigDesc'], $allowedTags ) ) == "" ) 
