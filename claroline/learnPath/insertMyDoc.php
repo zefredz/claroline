@@ -457,7 +457,7 @@ require '../inc/claro_init_global.inc.php';
 
 
    // display list of available documents
-   if (!isset($dialogBox)) $dialogBox = "";
+ 
    display_my_documents($dialogBox) ;
 
    //####################################################################################\\
