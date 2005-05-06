@@ -799,7 +799,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
        {
             // % progress
             $prog = get_learnPath_progress($list['learnPath_id'], $lpUid);
-
+            if (!isset($globalprog)) $globalprog = 0;
             if ($prog >= 0)
             {
                 $globalprog += $prog;

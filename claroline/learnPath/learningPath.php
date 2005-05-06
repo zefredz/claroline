@@ -193,7 +193,7 @@
             $spacingString .= "<td width=\"5\">&nbsp;</td>";
           $colspan = $maxDeep - $module['children']+1;
           
-          echo "<tr align=\"center\"".$style.">\n".$spacingString."<td colspan=\"".$colspan."\" align=\"left\">";
+          echo "<tr align=\"center\">\n".$spacingString."<td colspan=\"".$colspan."\" align=\"left\">";
           //-- if chapter head
           if ( $module['contentType'] == CTLABEL_ )
           {
@@ -277,7 +277,8 @@
             // add a blank line between module progression and global progression
             echo "<tr><td colspan=\"".($maxDeep+3)."\">&nbsp;</td></tr>";
             // display progression
-            echo "<tr>".
+            if (!isset($globalProg)) $globalProg = 0;
+	    echo "<tr>".
                 "<td align=\"right\" colspan=\"".($maxDeep+1)."\">".$langGlobalProgress."</td>".
                 "<td align=\"right\">".
                 claro_disp_progress_bar(round($globalProg / ($moduleNb) ), 1 ).
