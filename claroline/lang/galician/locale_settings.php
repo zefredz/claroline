@@ -1,7 +1,7 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.6.*
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
@@ -15,29 +15,41 @@
       | Translation to Galician                                              |
       | e-learning dept CESGA <teleensino@cesga.es >                         |
       +----------------------------------------------------------------------|
- */
+	  | Translation to Galician v.1.6                                        |
+	  | Servizo de teledocencia. Universidade de Vigo                        |
+	  | Gerardo Albela González   galbela@uvigo.es - gerardoalbela@yahoo.es  |
+	  +----------------------------------------------------------------------|
+*/
 
 
-$englishLangName = "Gallegan"; // should be Gallegan I think 
+
+$englishLangName = "Galician";
 $localLangName = "galego";
 
 $iso639_1_code = "gl";
 $iso639_2_code = "glg";
 
 
-$langNameOfLang[brazilian]="brazilian";
-$langNameOfLang[english]="english";
-$langNameOfLang[finnish]="finnish";
-$langNameOfLang[french]="french";
-$langNameOfLang[german]="german";
-$langNameOfLang[galician]="galician";
-$langNameOfLang[italian]="italian";
-$langNameOfLang[japanese]="japanese";
-$langNameOfLang[polish]="polish";
-$langNameOfLang[simpl_chinese]="simplified chinese";
-$langNameOfLang[spanish]="spanish";
-$langNameOfLang[swedish]="swedish";
-$langNameOfLang[thai]="thai";
+$langNameOfLang['arabic'		]="arabian";
+$langNameOfLang['brazilian'		]="brazilian";
+$langNameOfLang['bulgarian'		]="bulgarian";
+$langNameOfLang['croatian'		]="croatian";
+$langNameOfLang['dutch'			]="dutch";
+$langNameOfLang['english'		]="english";
+$langNameOfLang['finnish'		]="finnish";
+$langNameOfLang['french'		]="french";
+$langNameOfLang['galician'		]="galician";
+$langNameOfLang['german'		]="german";
+$langNameOfLang['greek'			]="greek";
+$langNameOfLang['italian'		]="italian";
+$langNameOfLang['japanese'		]="japanese";
+$langNameOfLang['polish'		]="polish";
+$langNameOfLang['simpl_chinese'	]="simplified chinese";
+$langNameOfLang['spanish'		]="spanish";
+$langNameOfLang['swedish'		]="swedish";
+$langNameOfLang['thai'			]="thai";
+$langNameOfLang['turkish'		]="turkish";
+
 
 
 $charset = 'iso-8859-1';
@@ -48,13 +60,13 @@ $number_thousands_separator = ',';
 $number_decimal_separator = '.';
 $byteUnits = array('Bytes', 'KB', 'MB', 'GB');
 
-$langDay_of_weekNames['init'] = array('S', 'M', 'T', 'W', 'T', 'F', 'S');
+$langDay_of_weekNames['init'] = array('D', 'L', 'M', 'M', 'X', 'V', 'S');
 $langDay_of_weekNames['short'] = array('Dom', 'Lun', 'Mar', 'Mer', 'Xov', 'Ven', 'Sab');
-$langDay_of_weekNames['long'] = array('Domingo', 'Luns', 'Martes', 'Mercoles', 'Xoves', 'Venres', 'Sábado');
+$langDay_of_weekNames['long'] = array('Domingo', 'Luns', 'Martes', 'M&eacute;rcores', 'Xoves', 'Venres', 'S&aacute;bado');
 
-$langMonthNames['init']  = array('E', 'F', 'M', 'A', 'M', 'X', 'X', 'A', 'S', 'O', 'N', 'D');
-$langMonthNames['short'] = array('en', 'feb', 'mar', 'abr', 'mai', 'xun', 'xul', 'ago', 'set', 'out', 'nov', 'dec');
-$langMonthNames['long'] = array('xaneiro', 'febreiro', 'marzo', 'abril', 'maio', 'xuño', 'xullo', 'agosto', 'setembro', 'outubro', 'novembro', 'decembro');
+$langMonthNames['init']  = array('X', 'F', 'M', 'A', 'M', 'X', 'X', 'A', 'S', 'O', 'N', 'D');
+$langMonthNames['short'] = array('xan', 'feb', 'mar', 'abr', 'mai', 'xu&ntilde;', 'xul', 'ago', 'set', 'out', 'nov', 'dec');
+$langMonthNames['long'] = array('xaneiro', 'febreiro', 'marzo', 'abril', 'maio', 'xu&ntilde;o', 'xullo', 'agosto', 'setembro', 'outubro', 'novembro', 'decembro');
 
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
