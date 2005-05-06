@@ -65,6 +65,8 @@ require $includePath.'/lib/fileDisplay.lib.php';
 $baseServDir = $coursesRepositorySys;
 $baseServUrl = $urlAppend.'/';
 
+$dialogBox = "";
+
 /*
  * The following variables depends on the use context
  * The document tool can be used at course or group level 
@@ -143,7 +145,7 @@ if($is_allowedToEdit) // for teacher only
 {
 	require $includePath.'/lib/fileUpload.lib.php';
 
-	if ($uncompress == 1)
+	if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1)
 	{
 		require $includePath.'/lib/pclzip/pclzip.lib.php';
 	}
@@ -190,7 +192,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         	$dialogBox .= $langFileError.'<br>'.$langNotice.' : '.$langMaxFileSize.' '.get_cfg_var('upload_max_filesize');
         }
 
-        if ($_REQUEST['uncompress'] == 1 && $is_allowedToUnzip) $unzip = 'unzip';
+        if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1 && $is_allowedToUnzip) $unzip = 'unzip';
         else                                                    $unzip = '';
 
         $_REQUEST['cwd'] = str_replace('..', '', $_REQUEST['cwd']);
@@ -200,7 +202,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
         if ($uploadedFileName !== false)
         {
-            if ( $_REQUEST['uncompress'] == 1)
+            if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1)
             {
                 $dialogBox .= $langUploadAndZipEnd;
             }
@@ -301,7 +303,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
         if ($courseContext)
         {
-            $dialogBox .= "<p>\n"
+            if (!isset($oldComment)) $oldComment = "";
+	    $dialogBox .= "<p>\n"
                         ."<label for=\"comment\">".$langAddCommentOptionnal."</label>"
                         ."<br><textarea rows=2 cols=50 id=\"comment\" name=\"comment\">"
                         .$oldComment
@@ -485,7 +488,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
                      ."<label for=\"fileName\">".$langName." : </label><br />\n"
                      ."<input type=\"text\" id=\"fileName\" name=\"fileName\"><br />\n"
                      ."<label for=\"url\">".$langURL."</label><br />\n"
-                     ."<input type=\"text\" id=\"url\" name=\"url\" value=\"".$url."\">\n"
+                     ."<input type=\"text\" id=\"url\" name=\"url\" value=\"\">\n"
                      ."<br><br>\n"
                      ."<label for=\"comment\">\n"
                      ."Add a comment (optionnal) :\n"
@@ -706,7 +709,9 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
             while( $row = mysql_fetch_array($result, MYSQL_ASSOC) ) $oldComment = $row['comment'];
 
             //list($oldComment) = claro_sql_query_fetch_all($sql);
-
+            
+	    if (!isset($oldComment)) $oldComment = "";
+	    
             $dialogBox .= "<p>\n<label for=\"newComment\">"
                           .$langAddModifyComment." ".htmlspecialchars($fileName)."</label>\n"
                           ."<br><textarea rows=2 cols=50 name=\"newComment\" id=\"newComment\">"
@@ -797,8 +802,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         
         update_db_info('update', $_REQUEST['file'], array('visibility' => $_REQUEST['vis']) );
 
-		$dialogBox = $langViMod;
-
+		$dialogBox = $langViMod;    
 	}
 } // END is Allowed to Edit
 
@@ -991,7 +995,7 @@ if ( count($filePathList) > 0 )
     }
 }
 
-if ($courseContext && $fileList)
+if (isset($courseContext) && isset($fileList))
 {
 	/*--------------------------------------------------------------------------
                  SEARCHING FILES & DIRECTORIES INFOS ON THE DB
@@ -1068,7 +1072,7 @@ if ($courseContext && $fileList)
                        SORT ALPHABETICALLY THE FILE LIST
   ----------------------------------------------------------------------------*/
 
-if ($fileList)
+if (isset($fileList))
 {
     if ($courseContext)
     {
@@ -1149,7 +1153,7 @@ claro_disp_tool_title($titleElement,
                            DIALOG BOX SECTION
       --------------------------------------------------------------------*/
 
-    if ($dialogBox)
+    if (isset($dialogBox) && $dialogBox != "")
     {
                 claro_disp_message_box($dialogBox);
     }
@@ -1355,7 +1359,7 @@ claro_disp_tool_title($titleElement,
 		
 		if( isset( $_REQUEST['offset'] ) )
 		{
-          	$page = get_page_number($offset);
+          	$page = get_page_number($_REQUEST['offset']);
 		}
 		
 		$searchCmdUrl = "";
@@ -1645,7 +1649,7 @@ claro_disp_tool_title($titleElement,
 	                               DISPLAY FILE LIST
 		  ------------------------------------------------------------------------*/
 	
-		if ($fileList)
+		if (isset($fileList))
 		{
 	        foreach($fileList['path'] as $fileKey => $fileName )
 			{

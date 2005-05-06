@@ -324,7 +324,7 @@ function form_dir_list($file, $baseWorkDir)
 
 	$dirList = index_and_sort_dir($baseWorkDir);
 
-	$dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
+	$dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
 	             ."<input type=\"hidden\" name=\"cmd\" value=\"exMv\">\n"
 	             ."<input type=\"hidden\" name=\"file\" value=\"".$file."\">\n"	
 	             .$langCopy.' <i>'.basename($file).'</i> '.$langTo." :\n"
@@ -526,7 +526,7 @@ function claro_search_file($searchPattern             , $baseDirPath,
 
         closedir($dirPt);
 
-        if ( $recursive && count($dirList) > 0)
+        if ( $recursive && isset($dirList) && count($dirList) > 0)
         {
             foreach($dirList as $thisDir)
             {
@@ -593,20 +593,24 @@ function update_db_info($action, $filePath, $newParam = array())
                 FROM `".$dbTable."`
                 WHERE path=\"".addslashes($filePath)."\"";
 
-        list($attribute) = claro_sql_query_fetch_all($sql);
+        
+	$result = claro_sql_query_fetch_all($sql);
 
-        if (is_null($attribute)) // case where there isn't any record in the db
+	if (isset($result[0])) list($attribute) = $result;
+	
+	if (!isset($attribute)) // case where there isn't any record in the db
         {                        // concerning this file yet ...
             if (   ( isset($newParam['comment'])    && ! empty($newParam['comment']) )
                 || ( isset($newParam['visibility']) && $newParam['visibility'] != 'v') )
             {
-                $newParam['visibility'] != 'i' ? $newParam['visibility'] = 'v' : '';
-                $insertedPath = ( trim($newParam['path']) != '' ? $newParam['path'] : $filePath);
-
+                (isset($newParam['visibility']) && $newParam['visibility'] != 'i') ? $newParam['visibility'] = 'v' : '';               
+		$insertedPath = ( (isset($newParam['path']))&& (trim($newParam['path']) != '') ? $newParam['path'] : $filePath);
+		
                 $theQuery = "INSERT INTO `".$dbTable."`
-                             SET path       = \"".addslashes($insertedPath)."\",
-                                 comment    = \"".addslashes($newParam['comment'   ])."\",
-                                 visibility = \"".addslashes($newParam['visibility'])."\"";              
+                             SET path       = \"".addslashes($insertedPath)."\"";
+			     
+		if (isset($newParam['comment'   ]))  $theQuery .= ",comment    = \"".addslashes($newParam['comment'   ])."\"";
+		if (isset($newParam['visibility']))  $theQuery .= ",visibility = \"".addslashes($newParam['visibility'])."\"";           
             }
             // else noop
         }

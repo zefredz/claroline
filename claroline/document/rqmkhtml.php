@@ -22,6 +22,10 @@ include('../inc/claro_init_header.inc.php');
 
 claro_disp_tool_title(array('mainTitle' => $langDocument, 'subTitle' => $langCreateModifyDocument));
 
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
+
 /*========================================================================
                              CREATE DOCUMENT
   ========================================================================*/
@@ -29,7 +33,6 @@ claro_disp_tool_title(array('mainTitle' => $langDocument, 'subTitle' => $langCre
 /*------------------------------------------------------------------------
                         CREATE DOCUMENT : STEP 2
 --------------------------------------------------------------------------*/
-
 
 /*------------------------------------------------------------------------
                         CREATE DOCUMENT : STEP 1
@@ -47,7 +50,10 @@ if ($cmd ==  'rqMkHtml')
     <p>
     <b><?php echo $langDocumentContent ?></b>
     <?php
-    claro_disp_html_area('htmlContent',$_REQUEST['htmlContent']);
+    if (isset($_REQUEST['htmlContent'])) $content = $_REQUEST['htmlContent']; else $content = "";
+    
+    claro_disp_html_area('htmlContent',$content);
+    
     // the second argument _REQUEST['htmlContent'] for the case when we have to 
     // get to the editor because of an error at creation 
     // (eg forgot to give a file name)

@@ -297,7 +297,6 @@
         global $searchCmdUrl;
          
         // get previous image
-        $prev;
         $prevStyle = 'prev';
          
         if (has_previous_image($imageList, $current))
@@ -358,7 +357,6 @@
         global $searchCmdUrl;
          
         // get next image
-        $next;
         $nextStyle = 'next';
          
         if (has_next_image($imageList, $current))
@@ -520,7 +518,7 @@
                 $fileName = $fileList['path'][$num];
                  
                 // visibility style
-                if ($fileList['visibility'][$num] == i)
+                if ($fileList['visibility'][$num] == 'i')
                 {
                     $style = "style=\"font-style: italic; color: silver;\"";
                 }
@@ -540,7 +538,8 @@
 					;
                  
                 // display image description using title attribute
-                if ($fileList['comment'][$num] )
+                $title = "";
+		if ($fileList['comment'][$num] )
                 {
                     $text = $fileList['comment'][$num];
                      

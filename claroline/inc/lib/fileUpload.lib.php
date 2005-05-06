@@ -164,7 +164,8 @@ function dir_total_space($dirPath)
 {
 	chdir ($dirPath) ;
 	$handle = opendir($dirPath);
-
+        $sumSize = 0;
+	
 	while ($element = readdir($handle) )
 	{
 		if ( $element == "." || $element == "..")
@@ -182,8 +183,7 @@ function dir_total_space($dirPath)
 	}
 
 	closedir($handle) ;
-        $sumSize = 0;
-	
+        
 	if ( isset($dirList) && sizeof($dirList) > 0)
 	{
 		foreach($dirList as $j)
@@ -362,7 +362,7 @@ function unzip_uploaded_file($uploadedFile, $uploadPath, $baseWorkDir, $maxFille
 		{
 			return claro_failure::set_failure('php_file_in_zip_file');
 		}
-
+                if (!isset($realFileSize)) $realFileSize = 0;
 		$realFileSize += $thisContent['size'];
 	}
 		

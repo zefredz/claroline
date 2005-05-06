@@ -83,10 +83,16 @@
                      $col_name = "comment";
                      $tbl_name = $TABLEMODULE;
 		     if ( isset($_REQUEST['module_id'] ) )
+			{
 			$module_id = $_REQUEST['module_id'];
+		
+			}
 		     else 
+			{
 			$module_id = $_SESSION['module_id'];
-                     $where_cond = "`module_id` = ".$module_id;  // use backticks ( ` ) for col names and simple quote ( ' ) for string
+                     
+			}
+		     $where_cond = "`module_id` = ".$module_id;  // use backticks ( ` ) for col names and simple quote ( ' ) for string
                      break;
                 case LEARNINGPATH_ :
                      $defaultTxt = $langDefaultLearningPathComment;
