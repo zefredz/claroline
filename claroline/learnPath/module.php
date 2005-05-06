@@ -159,6 +159,9 @@
    //################################## MODULE NAME BOX #################################\\
    //####################################################################################\\
    echo "<br />";
+   
+   $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
+   
    if ( $cmd == "updateName" )
    {
         nameBox(MODULE_, UPDATE_);
@@ -367,7 +370,7 @@
         $asset = @mysql_fetch_array($result);
     
     
-        if(( $module['startAsset_id'] != "" && $asset['asset_id'] == $module['startAsset_id'] && ( $delete != $asset['path'] ) )
+        if(( $module['startAsset_id'] != "" && $asset['asset_id'] == $module['startAsset_id'])
                  || ( $submitStartAsset && isset($startAsset))
            )
         {

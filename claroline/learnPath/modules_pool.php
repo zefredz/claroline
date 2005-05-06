@@ -83,6 +83,9 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
    echo $langUseOfPool."<br><br>";
 
    // HANDLE COMMANDS:
+   
+   $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
+   
    switch ($cmd)
    {
 
@@ -174,7 +177,7 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
                  // if no error occurred, update module's name in the database
                  $query="UPDATE `".$TABLEMODULE."`
                          SET `name`= '".claro_addslashes($_POST['newName'])."'
-                         WHERE module_id = '".$module_id."'";
+                         WHERE module_id = '".$_REQUEST['module_id']."'";
                   //echo $query."<br>";
                   $result = claro_sql_query($query);
               }

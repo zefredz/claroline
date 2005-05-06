@@ -475,7 +475,7 @@ function utf8_decode_if_is_utf8($str) {
   $courseDir   = $_course['path']."/scormPackages/";
   $baseWorkDir = $coursesRepositorySys.$courseDir; // path_id
    // handle upload
-   if ($REQUEST_METHOD == 'POST')
+   if ($_SERVER['REQUEST_METHOD']== 'POST')
    {
 
          // arrays used to store inserted ids in case

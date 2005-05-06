@@ -182,8 +182,9 @@ function dir_total_space($dirPath)
 	}
 
 	closedir($handle) ;
-
-	if ( sizeof($dirList) > 0)
+        $sumSize = 0;
+	
+	if ( isset($dirList) && sizeof($dirList) > 0)
 	{
 		foreach($dirList as $j)
 		{
