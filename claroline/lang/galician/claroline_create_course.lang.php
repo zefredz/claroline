@@ -2,12 +2,13 @@
 $langAddIntro = "Engadir un texto de introducci&oacute;n";
 $langAdministration = "Administraci&oacute;n";
 $langAdmitError = "Reco&ntilde;ece-los propios erros para invitar &oacute; interlocutor a face-lo mesmo.";
-$langAgenda = "Pr&oacute;ximos eventos na axenda";
+$langAgenda = "Axenda";
 $langAnnouncement = "Anuncios";
 $langAnonymous = "An&oacute;nimo";
 $langAnotherCreateSite = "Crear outra web para o curso";
 $langAntique = "Historia da Filosof&iacute;a Antiga";
 $langBackToAdmin = "Volver &aacute; p&aacute;xina do administrador";
+$langBackToMyCourseList = "Volver &aacute; mi&ntilde;a lista de cursos";
 $langByUser = "polo usuario";
 $langCancel = "Cancelar";
 $langCatagoryGroup = "Foros de grupos";
@@ -33,7 +34,7 @@ $langDelAdmin = "Este foro creouse como exemplo. Pode modificalo ou eliminalo me
 $langDelete = "Eliminar";
 $langDescriptionCours = "Descrici&oacute;n do curso";
 $langDocument = "Documentos e Ligaz&oacute;ns";
-$langEmail = "Correo electrónico";
+$langEmail = "Correo electr&oacute;nico";
 $langEmailCanBeEmpty = "O campo Correo Electr&oacute;nico debe de ser cuberto";
 $langEmailWrong = "O enderezo electr&oacute;nico non est&aacute; completo ou cont&eacute;n 
 							caracteres non v&aacute;lidos";
@@ -49,8 +50,8 @@ $langForce = "Forzar  &oacute; interlocutor, por medio dunha serie de cuesti&oac
 							reco&ntilde;eza que non sabe o que di saber.";
 $langFormula = "Atentamente, o seu profesor";
 $langForums = "Foros";
-$langGroups = "Inscrici&oacute;n dos usuarios nos grupos";
-$langHelp = "Primeiros pasos";
+$langGroups = "Grupos";
+$langHelp = "Axuda";
 $langIndeed = "Correcto. A iron&iacute;a socr&aacute;tica &eacute; un m&eacute;todo interrogativo. O termo grego 
 							\"eirotao\" significa , por outro lado, \"interrogar\".";
 $langJustCreated = "Acaba de crear vostede o sitio web do curso";
@@ -66,21 +67,22 @@ $langModify = "Modificar";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";
 $langMyAgenda = "A mi&ntilde;a axenda";
-$langMyCourses = "Os meus cursos";
+$langMyCourses = "A mi&ntilde;a lista de cursos";
 $langNameOfLang = "Array";
 $langNoPsychology = "Non. A iron&iacute;a socr&aacute;tica non se aplica &oacute; terreo da psicolox&iacute;a, senon no da 
 							argumentaci&oacute;n.";
 $langNoSeduction = "Non. Non se trata dunha estratexia de seducci&oacute;n ou dun m&eacute;todo por exemplo.";
-$langNotAllowed = "Vostede non ten acceso aqu&iacute;";
+$langNotAllowed = "Acci&oacute;n non permitida";
 $langNotFalse = "Esta resposta non &eacute; falsa. &Eacute; exacto que a posta en evidencia da ignorancia do 
 							interlocutor real&iacute;zase po&ntilde;endo en evidencia as contradicci&oacute;ns en que 
 							desembocan as s&uacute;s teses.";
-$langOk = "validar";
+$langOk = "Validar";
 $langOtherCourses = "Lista de cursos";
 $langPassword = "contrasinal";
 $langPlatformAdministration = "Administraci&oacute;n da Plataforma";
+$langPoweredBy = "Emprega a plataforma";
 $langProfessor = "Profesor";
-$langProfessors = "Profesores";
+$langProfessors = "Profesor(es)";
 $langReg = "Inscrici&oacute;n";
 $langRidiculise = "Ridiculizar &oacute; interlocutor para facerlle admiti-lo seu erro.";
 $langSampleDocument = "Documento de exemplo";
@@ -91,17 +93,23 @@ $langSampleLearnPathDesc = "Esta &eacute; unha secuencia de aprendizaxe de exemp
 								documento de exemplo das secci&oacute;ns de Exercicios e Documentos. Prema en <b>Modificar</b> 
 								para mudar este texto.";
 $langSocraticIrony = "A iron&iacute;a Socr&aacute;tica consiste en...";
-$langStudent = "Estudantes";
+$langStudent = "Estudante";
+$langSwitchEditorToTextConfirm = "Este comando eliminar&aacute; a actual distribuci&oacute;n do texto. Desexa continuar?";
 $langTargetFac = "Esta &eacute; a facultade, departamento ou escola onde o curso &eacute; impartido";
 $langTestForum = "Foro de probas";
+$langTextEditorDisable = "Deshabilitar editor de texto";
+$langTextEditorEnable = "Habilitar editor de texto";
 $langTo = "en";
 $langUserName = "Nome de usuario";
 $langUsers = "Usuarios";
+$langViewMode = "Ver modo";
 $langWork = "Traballos";
 $lang_click_here = "prema aqu&iacute;";
 $lang_enter_your_user_name_and_password = "Escriba o seu nome de usuario e contrasinal";
+$lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "Se vostede non ten unha conta de usuario";
 $lang_if_you_wish_to_enroll_to_this_course = "Se vostede desexa matricularse neste curso";
+$lang_p_platformManager = "Administrador para %s";
 $lang_this_course_is_protected = "Este curso est&aacute; protexido";
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute; 
 														matriculado neste curso";

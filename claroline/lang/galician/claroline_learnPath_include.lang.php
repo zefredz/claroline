@@ -5,7 +5,7 @@ $langDocumentInModule = "Documento no m&oacute;dulo";
 $langExerciseInModule = "Exercicio no m&oacute;dulo";
 $langFileName = "Nome de arquivo";
 $langModify = "Modificar";
-$langOk = "validar";
+$langOk = "Validar";
 $langRawHasBeenChanged = "Foi ";
 $langSize = "Tama&ntilde;o";
 ?>

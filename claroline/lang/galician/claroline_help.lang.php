@@ -1,6 +1,6 @@
 <?php
 $langAddIntro = "Engadir un texto de introducci&oacute;n";
-$langAgenda = "Pr&oacute;ximos eventos na axenda";
+$langAgenda = "Axenda";
 $langAnnouncement = "Anuncios";
 $langChat = "Chat";
 $langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e administrar webs de cursos. 
@@ -40,6 +40,7 @@ $langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e adminis
 
 						Nas s&uacute;as pr&oacute;ximas visitas, escriba o nome de usuario e contrasinal e prema en 
 						ENTRAR para acceder &oacute;s seus cursos. A URL do sitio &eacute;";
+$langCloseWindow = "Pechar fiestra";
 $langConfirmYourChoice = "Por favor, confirme a s&uacute;a selecci&oacute;n";
 $langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseManager = "Xestor do curso";
@@ -320,14 +321,15 @@ $langGroupContent = "<p><b>Introducci&oacute;n</b></p>
 								<li><b>Borrar</b> elimina un grupo.</li>
 							</ul>
 							<hr noshade size=1>";
-$langGroups = "Inscrici&oacute;n dos usuarios nos grupos";
+$langGroups = "Grupos";
 $langHClar = "Axuda: primeiros pasos";
 $langHDoc = "Axuda documentos";
 $langHExercise = "Axuda sobre Exercicios";
 $langHFor = "Axuda foros";
 $langHHome = "Axuda p&aacute;xina principal";
 $langHUser = "Axuda usuarios";
-$langHelp = "Primeiros pasos";
+$langHelp = "Axuda";
+$langHelpGroups = "Axuda grupos";
 $langHomeContent = "A maior&iacute;a das ferramentas da plataforma te&ntilde;en un curto texto, ou 
 						unha ligaz&oacute;n, ou un exemplo dados por defecto. A vostede lle corresp&oacute;nde 
 						modificalos.</p><p>
@@ -356,14 +358,18 @@ $langModify = "Modificar";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";
 $langMyAgenda = "A mi&ntilde;a axenda";
-$langMyCourses = "Os meus cursos";
-$langNotAllowed = "Vostede non ten acceso aqu&iacute;";
-$langOk = "validar";
+$langMyCourses = "A mi&ntilde;a lista de cursos";
+$langNotAllowed = "Acci&oacute;n non permitida";
+$langOk = "Validar";
 $langOtherCourses = "Lista de cursos";
 $langPassword = "contrasinal";
 $langPlatformAdministration = "Administraci&oacute;n da Plataforma";
+$langPoweredBy = "Emprega a plataforma";
 $langReg = "Inscrici&oacute;n";
-$langStudent = "Estudantes";
+$langStudent = "Estudante";
+$langSwitchEditorToTextConfirm = "Este comando eliminar&aacute; a actual distribuci&oacute;n do texto. Desexa continuar?";
+$langTextEditorDisable = "Deshabilitar editor de texto";
+$langTextEditorEnable = "Habilitar editor de texto";
 $langUserContent = "<b>Papeis (roles)</b><p>Os papeis (roles) non te&ntilde;en ningunha funci&oacute;n 
 						inform&aacute;tica. Non outorgan ning&uacute;n dereito sobre o sistema. Vostede pode 
 						modificalos premendo en 'modificar' debaixo de  'rol/papel' e introducindo logo 
@@ -394,11 +400,14 @@ $langUserContent = "<b>Papeis (roles)</b><p>Os papeis (roles) non te&ntilde;en n
 						o seu correo electr&oacute;nico.</p>";
 $langUserName = "Nome de usuario";
 $langUsers = "Usuarios";
+$langViewMode = "Ver modo";
 $langWork = "Traballos";
 $lang_click_here = "prema aqu&iacute;";
 $lang_enter_your_user_name_and_password = "Escriba o seu nome de usuario e contrasinal";
+$lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "Se vostede non ten unha conta de usuario";
 $lang_if_you_wish_to_enroll_to_this_course = "Se vostede desexa matricularse neste curso";
+$lang_p_platformManager = "Administrador para %s";
 $lang_this_course_is_protected = "Este curso est&aacute; protexido";
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute; 
 														matriculado neste curso";

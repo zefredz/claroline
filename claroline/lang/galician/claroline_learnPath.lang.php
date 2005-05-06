@@ -4,7 +4,7 @@ $langAddIntro = "Engadir un texto de introducci&oacute;n";
 $langAddModule = "Engadir";
 $langAddModulesButton = "Engadir modulo(s)";
 $langAddOneModuleButton = "Engadir m&oacute;dulo";
-$langAgenda = "Pr&oacute;ximos eventos na axenda";
+$langAgenda = "Axenda";
 $langAlertBlockingMakedInvisible = "Este m&oacute;dulo est&aacute; bloqueado. 
 Fac&eacute;ndoo invisible 
    											permitiralle &oacute;s estudantes acceder &oacute;s m&oacute;dulos 
@@ -18,10 +18,14 @@ Fac&eacute;ndoa invisible
 
 Confirmar ?";
 $langAlreadyBrowsed = "Xa visitado";
-$langAltMakeNotBlocking = "Make not blocking";
+$langAltClarodoc = "Clarodoc";
+$langAltDocument = "Documento";
+$langAltExercise = "Exercicio";
+$langAltMakeNotBlocking = "Desbloquear";
 $langAltMakeVisible = "Facer visible";
 $langAltMove = "Mover";
 $langAltMoveUp = "Orde ascendente";
+$langAltScorm = "Scorm";
 $langAnnouncement = "Anuncios";
 $langAreYouSureDeleteModule = "Est&aacute; vostede seguro de que desexa borrar totalmente este 
    											m&oacute;dulo ?
@@ -82,6 +86,7 @@ $langEXERCISETypeDesc = "Exercicio de Claroline";
 $langErrorAssetNotFound = "Recurso non atopado : ";
 $langErrorEmptyName = "O nome debe de ser completado";
 $langErrorFileMustBeZip = "O ficheiro debe de ser un arquivo zip (.zip)";
+$langErrorInvalidParms = "Erro : par&aacute;metro inv&aacute;lido (empregue s&oacute; n&uacute;meros)";
 $langErrorNameAlreadyExists = "Erro : o nome xa existe";
 $langErrorNoModuleInPackage = "Non hai m&oacute;dulos no paquete";
 $langErrorNoZlibExtension = "&Eacute; precisa a extensi&oacute;n de php Zlib para empregar esta 
@@ -94,12 +99,13 @@ $langErrorReadingManifest = "Erro &oacute; le-lo arquivo <i>manifesto</i>";
 $langErrorReadingXMLFile = "Erro lendo un ficheiro de inicializaci&oacute;n secundario : ";
 $langErrorReadingZipFile = "Erro &oacute; le-lo ficheiro zip.";
 $langErrorSql = "Erro en sentencia SQL";
+$langErrorValuesInDouble = "Erro : un ou m&aacute;is valores est&aacute;n replicados";
 $langErrortExtractingManifest = "Non &eacute; posible extrae-lo manifesto desde un arquivo zip 
    										(estar&aacute; o arquivo corrompido?).";
 $langExAlreadyUsed = "Este exercicio xa est&aacute; a ser empregado como m&oacute;dulo nesta 
    										secuencia de aprendizaxe";
 $langExInsertedAsModule = "foi engadido como m&oacute;dulo do curso e nesta secuencia de aprendizaxe";
-$langExercise = "Exercicios";
+$langExercise = "Exercicio";
 $langExerciseAsModule = "Empregar un exercicio";
 $langExerciseInModule = "Exercicio no m&oacute;dulo";
 $langExercises = "Exercicios";
@@ -107,8 +113,8 @@ $langFileError = "O ficheiro para cargar non &eacute; v&aacute;lido";
 $langFileName = "Nome de arquivo";
 $langForums = "Foros";
 $langGlobalProgress = "Progreso na secuencia de aprendizaxe : ";
-$langGroups = "Inscrici&oacute;n dos usuarios nos grupos";
-$langHelp = "Primeiros pasos";
+$langGroups = "Grupos";
+$langHelp = "Axuda";
 $langImport = "Importar";
 $langInfoProgNameTitle = "Informaci&oacute;n";
 $langInsertMyDocToolName = "Inserir un documento como m&oacute;dulo";
@@ -121,7 +127,7 @@ $langIntroLearningPath = "Empregue esta ferramenta para lle proporcionar &oacute
    									secuencia para se mover entre os documentos, exercicios, p&aacute;xinas HTML, 
 									ligaz&oacute;ns,...<br><br>Se vostede desexa presentarlle a s&uacute;a secuencia 
 									de aprendizaxe &oacute;s estudantes, prema no bot&oacute;n de abaixo.<br>";
-$langLastSessionTimeSpent = "Tempo da &uacute;ltima sesi&oacute;n";
+$langLastSessionTimeSpent = "Duraci&oacute;n da &uacute;ltima sesi&oacute;n";
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLearningPathAdmin = "Administrar secuencias de aprendizaxe";
 $langLearningPathList = "Lista de secuencias de aprendizaxe";
@@ -141,23 +147,23 @@ $langModuleStillInPool = "Os m&oacute;dulos desta secuencia estar&aacute;n a&iac
    											dispo&ntilde;ibles no Dep&oacute;sito de m&oacute;dulos";
 $langModulesPoolToolName = "Dep&oacute;sito de m&oacute;dulos";
 $langMonthNames = "Array";
-$langMove = "Mudar pai";
+$langMove = "Mover";
 $langMoveDown = "Mover cara abaixo";
 $langMyAgenda = "A mi&ntilde;a axenda";
-$langMyCourses = "Os meus cursos";
-$langName = "Nome alumno";
+$langMyCourses = "A mi&ntilde;a lista de cursos";
+$langName = "Nome";
 $langNeverBrowsed = "Nunca visitado";
 $langNewLabel = "Crear nova etiqueta / t&iacute;tulo nesta secuencia de aprendizaxe";
 $langNoLearningPath = "Non hai secuencias de aprendizaxe";
 $langNoModule = "Non hai m&oacute;dulos";
 $langNoMoreModuleToAdd = "T&oacute;dolos m&oacute;dulos deste curso est&aacute;n a ser empregados nesta 
    									secuencia de aprendizaxe.";
-$langNoSpace = "O env&iacute;o fallou. Non hai espacio suficiente no seu directorio";
+$langNoSpace = "A carga do ficheiro fallou. Non hai espazo abondo no seu directorio.";
 $langNoStartAsset = "Este m&oacute;dulo non ten definido un recurso de inicio.";
-$langNotAllowed = "Vostede non ten acceso aqu&iacute;";
+$langNotAllowed = "Acci&oacute;n non permitida";
 $langNotInstalled = "Erro. Fallou a importaci&oacute;n da secuencia de aprendizaxe";
 $langNotice = "Aviso";
-$langOk = "validar";
+$langOk = "Validar";
 $langOkChapterHeadAdded = "T&iacute;tulo engadido : ";
 $langOkDefaultCommentUsed = "atenci&oacute;n : Durante o proceso de instalaci&oacute;n non se puido atopa-la 
    										descrici&oacute;n e fixouse un comentario por defecto. Pode vostede mudalo.";
@@ -174,8 +180,9 @@ $langPathContentTitle = "Contido da secuencia de aprendizaxe";
 $langPathsInCourseProg = "Progresi&oacute;n no curso";
 $langPersoValue = "Valores";
 $langPlatformAdministration = "Administraci&oacute;n da Plataforma";
+$langPoweredBy = "Emprega a plataforma";
 $langProgInModuleTitle = "A s&uacute;a progresi&oacute;n neste m&oacute;dulo";
-$langProgress = "Progreso";
+$langProgress = "Progresi&oacute;n";
 $langRawHasBeenChanged = "Foi ";
 $langReg = "Inscrici&oacute;n";
 $langRemove = "Eliminar";
@@ -186,14 +193,17 @@ $langScormIntroTextForDummies = "Os paquetes importados deben de consistir nun f
    										SCORM 1.2";
 $langSize = "Tama&ntilde;o";
 $langStartModule = "Iniciar M&oacute;dulo";
-$langStudent = "Estudantes";
+$langStudent = "Estudante";
+$langSwitchEditorToTextConfirm = "Este comando eliminar&aacute; a actual distribuci&oacute;n do texto. Desexa continuar?";
+$langTextEditorDisable = "Deshabilitar editor de texto";
+$langTextEditorEnable = "Habilitar editor de texto";
 $langTo = "en";
 $langTotalTimeSpent = "Tempo total";
 $langTracking = "Seguimento";
 $langTypeOfModule = "Tipo de m&oacute;dulo";
 $langUnamedModule = "M&oacute;dulo sen nome";
 $langUnamedPath = "Secuencia sen nome";
-$langUp = "Orde ascendente";
+$langUp = "Arriba";
 $langUseOfPool = "Esta p&aacute;xina perm&iacute;telle ver t&oacute;dolos m&oacute;dulos 
    								dispo&ntilde;ibles neste curso. <br>Calquera exercicio ou documento que 
 								sexa engadido nunha secuencia de aprendizaxe, aparecer&aacute; tam&eacute;n 
@@ -201,6 +211,7 @@ $langUseOfPool = "Esta p&aacute;xina perm&iacute;telle ver t&oacute;dolos m&oacu
 $langUsedInLearningPaths = "N&uacute;mero de secuencias de aprendizaxe empregadas neste m&oacute;dulo : ";
 $langUserName = "Nome de usuario";
 $langUsers = "Usuarios";
+$langViewMode = "Ver modo";
 $langVisibility = "Visibilidade";
 $langWork = "Traballos";
 $langWrongOperation = "Operaci&oacute;n incorrecta";
@@ -208,8 +219,10 @@ $langYourBestScore = "O seu mellor resultado";
 $langZipNoPhp = "O ficheiro comprimido non pode conter arquivos con extensi&oacute;n .PHP";
 $lang_click_here = "prema aqu&iacute;";
 $lang_enter_your_user_name_and_password = "Escriba o seu nome de usuario e contrasinal";
+$lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "Se vostede non ten unha conta de usuario";
 $lang_if_you_wish_to_enroll_to_this_course = "Se vostede desexa matricularse neste curso";
+$lang_p_platformManager = "Administrador para %s";
 $lang_this_course_is_protected = "Este curso est&aacute; protexido";
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute; 
 														matriculado neste curso";

@@ -1,10 +1,12 @@
 <?php
 $langAddIntro = "Engadir un texto de introducci&oacute;n";
 $langAdministration = "Administraci&oacute;n";
-$langAgenda = "Pr&oacute;ximos eventos na axenda";
+$langAgenda = "Axenda";
 $langAnnouncement = "Anuncios";
 $langCancel = "Cancelar";
 $langChat = "Chat";
+$langCodeAppearAlready = "Este c&oacute;digo oficial aparece nunha li&ntilde;a previa do ficheiro do CSV";
+$langCodeUsed = "Este c&oacute;digo oficial est&aacute; xa a ser empregado por outro usuario.";
 $langConfirmYourChoice = "Por favor, confirme a s&uacute;a selecci&oacute;n";
 $langCopy = "Copiar";
 $langCourseHome = "P&aacute;xina de inicio do Curso";
@@ -14,13 +16,13 @@ $langDelete = "Eliminar";
 $langDescriptionCours = "Descrici&oacute;n do curso";
 $langDocument = "Documentos e Ligaz&oacute;ns";
 $langDone = "Pasos realizados";
-$langEmpty = "Deixou vostede alg&uacute;ns campos baleiros. Empregue o bot&oacute;n <b>Atr&aacute;s</b> do seu 
-							navegador e int&eacute;nteo de novo.<br>Se vostede ignora o seu c&oacute;digo de curso, cons&uacute;lteo.";
+$langEmpty = "Baleiro";
 $langExercises = "Exercicios";
 $langFailed = "<span style=\"color: red\">Fallido</span>";
+$langFirstDefOfThisValue = "!!! Primeira definici&oacute;n deste valor !!!";
 $langForums = "Foros";
-$langGroups = "Inscrici&oacute;n dos usuarios nos grupos";
-$langHelp = "Primeiros pasos";
+$langGroups = "Grupos";
+$langHelp = "Axuda";
 $langIntroStep1 = "<p>A <em>Ferramenta de actualizaci&oacute;n de Claroline</em> vai a proceder a actualiza-la 
 					configuraci&oacute;n principal. Esta configuraci&oacute;n principal estaba almacenada no ficheiro
 					claroline/include/config.inc.php na s&uacute;a versi&oacute;n previa da plataforma.</p>";
@@ -36,6 +38,7 @@ $langIntroStep3 = "<p>Agora, a <em>Ferramenta de actualizaci&oacute;n de Claroli
 							poder&aacute; levar m&aacute;is ou menos tempo.</p>";
 $langIntroStep3Run = "<p>A <em>Ferramenta de actualizaci&oacute;n de Claroline</em> proceder&aacute; &aacute; actualizaci&oacute;n 
 							dos datos dos cursos</p>";
+$langLaunchRestoreCourseRepository = "Iniciar restauraci&oacute;n do repositorio do curso";
 $langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Lanza-la actualizaci&oacute;n da 
 					configuraci&oacute;n principal da plataforma/button></p>";
 $langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Lanza-la actualizaci&oacute;n das principais t&aacute;boas 
@@ -44,40 +47,105 @@ $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Lanza-la actu
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
-$langMakeABackupBefore = "realizado";
+$langMailAppearAlready = "Este enderezo de correo electr&oacute;nico aparece xa nunha li&ntilde;a previa do ficheiro CSV.";
+$langMailSynthaxError = "Erro de sintaxe no correo electr&oacute;nico.";
+$langMailUsed = "Enderezo de correo electr&oacute;nico xa empregado por outro usuario";
+$langMakeABackupBefore = "<p>A <em>Ferramenta de actualizaci&oacute;n de Claroline</em> recuperar&aacute; os datos da s&uacute;a 
+
+instalaci&oacute;n previa de Claroline e actualizaraos para que sexan compatibles coa nova versi&oacute;n de Claroline.
+
+Esta actualizaci&oacute;n l&eacute;vase a cabo en tres pasos:</p>
+
+
+
+<ol>
+
+
+
+<li>Tomar&aacute; a configuraci&oacute;n da s&uacute;a plataforma previa e poraa nos novos ficheiros de configuraci&oacute;n  </li>
+
+
+
+<li>Actualizar&aacute; as t&aacute;boas principais de Claroline (usuarios, categor&iacute;as de cursos, lista de cursos...) para que 
+sexan compatibles coa nova estructura de datos.</li>
+
+
+
+<li>Actualizar&aacute; un por un os datos de cada curso (directorios, t&aacute;boas da base de datos,...)</li>
+
+
+
+</ol>
+
+
+
+<p>Antes de proceder &aacute; actualizaci&oacute;n:</p>
+
+
+
+<table>
+
+<tbody>
+
+<tr valign=\"top\"><td>-</td><td>Faga unha copia de seguridade de t&oacute;dolos datos da plataforma (ficheiros e bases de datos)</td><td>%s</td></tr>
+
+
+
+</tbody>
+
+</table>
+
+<p>Vostede non poder&aacute; comeza-lo proceso de actualizaci&oacute;n ata que este cadro sexa marcado como 'feito'.</p>
+
+";
 $langManager = "Xestor";
 $langModify = "Modificar";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";
 $langMyAgenda = "A mi&ntilde;a axenda";
-$langMyCourses = "Os meus cursos";
+$langMyCourses = "A mi&ntilde;a lista de cursos";
 $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s os cursos en %s foron correctamente actualizados</strong><br /></p>";
 $langNext = "Seguinte";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Seguinte ></button></p>";
 $langNo = "Non";
-$langNotAllowed = "Vostede non ten acceso aqu&iacute;";
-$langOk = "validar";
+$langNotAllowed = "Acci&oacute;n non permitida";
+$langOk = "Validar";
 $langOtherCourses = "Lista de cursos";
 $langPassword = "contrasinal";
+$langPasswordSimple = "O contrasinal introducido &eacute; demasiado simple ou demasiado semellante &oacute; nome de usuario.";
 $langPlatformAccess = "Accesos &oacute; campus";
 $langPlatformAdministration = "Administraci&oacute;n da Plataforma";
+$langPoweredBy = "Emprega a plataforma";
 $langReg = "Inscrici&oacute;n";
-$langStudent = "Estudantes";
+$langRestoreCourseRepository = "Restaurar repositorio de cursos";
+$langStudent = "Estudante";
+$langSwitchEditorToTextConfirm = "Este comando eliminar&aacute; a actual distribuci&oacute;n do texto. Desexa continuar?";
+$langTextEditorDisable = "Deshabilitar editor de texto";
+$langTextEditorEnable = "Habilitar editor de texto";
 $langTitleUpgrade = "<h2>Ferramenta de actualizaci&oacute;n de Claroline<br />
 
 						da v1.4 &aacute; v1.5</h2>
 ";
 $langTo = "en";
-$langTodo = "Suxesti&oacute;ns";
-$langUpgrade = "Actualizar claroline";
+$langTodo = "Pasos por realizar";
+$langUpgrade = "Actualizar";
+$langUpgradeStep0 = "Confirmar copia de seguridade";
+$langUpgradeStep1 = "Paso 1 de 3: configuraci&oacute;n principal da plataforma";
+$langUpgradeStep2 = "Paso 2 de 3: actualizaci&oacute;n das t&aacute;boas principais da plataforma";
+$langUpgradeStep3 = "Paso 3 de 3: actualizaci&oacute;n dos cursos";
 $langUserName = "Nome de usuario";
+$langUsernameAppearAlready = "Este nome de usuario aparece xa nunha li&ntilde;a previa do arquivo CSV.";
+$langUsernameUsed = "Este nome de usuario xa est&aacute; a ser empregado.";
 $langUsers = "Usuarios";
+$langViewMode = "Ver modo";
 $langWork = "Traballos";
 $langYes = "Si";
 $lang_click_here = "prema aqu&iacute;";
 $lang_enter_your_user_name_and_password = "Escriba o seu nome de usuario e contrasinal";
+$lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_if_you_dont_have_a_user_account_profile_on = "Se vostede non ten unha conta de usuario";
 $lang_if_you_wish_to_enroll_to_this_course = "Se vostede desexa matricularse neste curso";
+$lang_p_platformManager = "Administrador para %s";
 $lang_this_course_is_protected = "Este curso est&aacute; protexido";
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute; 
 														matriculado neste curso";
