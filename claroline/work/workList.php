@@ -144,7 +144,7 @@ if( $assignment['assignment_type'] == 'INDIVIDUAL' )
 }
 else
 {
-      $userCanPost = ( count($userGroupList) <= 0 )?false:true;
+      $userCanPost = ( isset($userGroupList) && count($userGroupList) <= 0 )?false:true;
 }
 
 $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost ) || $is_allowedToEditAll;
@@ -408,7 +408,7 @@ foreach( $workList as $thisWrk )
 	{
 		echo "<b>".$thisWrk['name']."</b>";
 	}
-	elseif($assignment['assignment_type'] == 'GROUP' && is_array($userGroupList) && array_key_exists($thisWrk['authId'],$userGroupList))
+	elseif($assignment['assignment_type'] == 'GROUP' && isset($userGroupList) && is_array($userGroupList) && array_key_exists($thisWrk['authId'],$userGroupList))
 	{
 		echo "<b>".$thisWrk['name']."</b>";
 	}	
