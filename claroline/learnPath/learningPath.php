@@ -152,6 +152,7 @@
   //####################################################################################\\
   //############################## MODULE TABLE LIST DISPLAY ###################################\\
   //####################################################################################\\
+  if (!isset($globalProg)) $globalProg = 0;
   foreach ($flatElementList as $module)
   {
           if( $module['scoreMax'] > 0 && $module['raw'] > 0 )
@@ -254,7 +255,7 @@
           {
             echo "<td colspan=\"2\">&nbsp;</td>";
           }
-          
+      
           if ($progress > 0)
           {
             $globalProg =  $globalProg+$progress;
@@ -277,7 +278,6 @@
             // add a blank line between module progression and global progression
             echo "<tr><td colspan=\"".($maxDeep+3)."\">&nbsp;</td></tr>";
             // display progression
-            if (!isset($globalProg)) $globalProg = 0;
 	    echo "<tr>".
                 "<td align=\"right\" colspan=\"".($maxDeep+1)."\">".$langGlobalProgress."</td>".
                 "<td align=\"right\">".

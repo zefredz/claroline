@@ -88,45 +88,46 @@ function startElement($parser,$name,$attributes)
 	switch ($name)
 	{
 		case "MANIFEST" :
-			$manifestData['xml:base']['manifest'] = $attributes['XML:BASE'];
+			if (isset($attributes['XML:BASE'])) $manifestData['xml:base']['manifest'] = $attributes['XML:BASE'];
 			break;
 		case "RESOURCES" :
-			$manifestData['xml:base']['resources'] = $attributes['XML:BASE'];
+			if (isset($attributes['XML:BASE'])) $manifestData['xml:base']['resources'] = $attributes['XML:BASE'];
 			$flagTag['type'] == "resources";
 			break;
 		case "RESOURCE" :
-			if ( $attributes['ADLCP:SCORMTYPE'] == 'sco' )
+			if ( isset($attributes['ADLCP:SCORMTYPE']) && $attributes['ADLCP:SCORMTYPE'] == 'sco' )
 			{
-				$manifestData['scos'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
-				$manifestData['scos'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
+				if (isset($attributes['HREF'])) $manifestData['scos'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
+				if (isset($attributes['XML:BASE'])) $manifestData['scos'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
 				$flagTag['type'] = "sco";
 				$flagTag['value'] = $attributes['IDENTIFIER'];
 			}
-			elseif( $attributes['ADLCP:SCORMTYPE'] == 'asset' )
+			elseif(isset($attributes['ADLCP:SCORMTYPE'])&& $attributes['ADLCP:SCORMTYPE'] == 'asset' )
 			{
-				$manifestData['assets'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
-				$manifestData['assets'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
+				if (isset($attributes['HREF']))     $manifestData['assets'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
+				if (isset($attributes['XML:BASE'])) $manifestData['assets'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
 				$flagTag['type'] = "asset";
-				$flagTag['value'] = $attributes['IDENTIFIER'];
+				if (isset($attributes['IDENTIFIER'])) $flagTag['value'] = $attributes['IDENTIFIER'];
 			}
 			else // check in $manifestData['items'] if this ressource identifier is used
 			{
 				foreach ($manifestData['items'] as $itemToCheck )
 				{
-					if ( $itemToCheck[identifierref] == $attributes['IDENTIFIER'] )
+					if ( $itemToCheck['identifierref'] == $attributes['IDENTIFIER'] )
 					{
-						$manifestData['scos'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
-						$manifestData['scos'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
+						if (isset($attributes['HREF'])) $manifestData['scos'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
+						
+						if (isset($attributes['XML:BASE'])) $manifestData['scos'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
 					}
 				}
 			}
 			break;
 
 		case "ITEM" :
-			$manifestData['items'][$attributes['IDENTIFIER']]['identifierref'] = $attributes['IDENTIFIERREF'];
-			$manifestData['items'][$attributes['IDENTIFIER']]['parameters'] = $attributes['PARAMETERS'];
-			$manifestData['items'][$attributes['IDENTIFIER']]['isvisible'] = $attributes['ISVISIBLE'];
-			$manifestData['items'][$attributes['IDENTIFIER']]['itemIdentifier'] = $attributes['IDENTIFIER'];
+			if (isset($attributes['IDENTIFIERREF'])) $manifestData['items'][$attributes['IDENTIFIER']]['identifierref'] = $attributes['IDENTIFIERREF'];
+			if (isset($attributes['PARAMETERS']))    $manifestData['items'][$attributes['IDENTIFIER']]['parameters'] = $attributes['PARAMETERS'];
+			if (isset($attributes['ISVISIBLE']))     $manifestData['items'][$attributes['IDENTIFIER']]['isvisible'] = $attributes['ISVISIBLE'];
+			if (isset($attributes['IDENTIFIER']))    $manifestData['items'][$attributes['IDENTIFIER']]['itemIdentifier'] = $attributes['IDENTIFIER'];
 			
 			if ( count($itemsPile) > 0)
 				$manifestData['items'][$attributes['IDENTIFIER']]['parent'] = $itemsPile[count($itemsPile)-1];
@@ -225,7 +226,7 @@ function elementData($parser,$data)
 	
 	$data = trim(utf8_decode_if_is_utf8($data));
 	
-	
+	if (!isset($data)) $data="";
 	
 	switch ( $elementsPile[count($elementsPile)-1] )
 	{
@@ -239,6 +240,7 @@ function elementData($parser,$data)
 			{
 				if ( $flagTag['type'] == "item" ) // item title check
 				{
+					if (!isset($manifestData['items'][$flagTag['value']]['title'])) $manifestData['items'][$flagTag['value']]['title'] = "";
 					$manifestData['items'][$flagTag['value']]['title'] .= $data;
 				}
 				
@@ -334,6 +336,7 @@ function elementData($parser,$data)
 					// if the langstring tag is a children of a description tag
 					if ( $elementsPile[sizeof($elementsPile)-2] == "DESCRIPTION" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
 					{
+						if (!isset($manifestData['items'][$flagTag['value']]['description'])) $manifestData['items'][$flagTag['value']]['description'] = ""; 
 						$manifestData['items'][$flagTag['value']]['description'] .= $data;
 					}
 					// title found in metadata of an item (only if we haven't already one title for this sco)
@@ -350,14 +353,16 @@ function elementData($parser,$data)
 					// if the langstring tag is a children of a description tag
 					if ( $elementsPile[sizeof($elementsPile)-2] == "DESCRIPTION" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
 					{
-						$manifestData['scos'][$flagTag['value']]['description'] .= $data;
+						if (isset($manifestData['scos'][$flagTag['value']]['description'])) $manifestData['scos'][$flagTag['value']]['description'] .= $data;
+						else
+						$manifestData['scos'][$flagTag['value']]['description'] = $data;
 					}
 					// title found in metadata of an item (only if we haven't already one title for this sco)
-					if( $manifestData['scos'][$flagTag['value']]['title'] == '' || !isset( $manifestData['scos'][$flagTag['value']]['title'] ) )
+					if (!isset($manifestData['scos'][$flagTag['value']]['title']) || $manifestData['scos'][$flagTag['value']]['title'] == '')
 					{
 						if ( $elementsPile[sizeof($elementsPile)-2] == "TITLE" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
 						{
-							$manifestData['scos'][$flagTag['value']]['title'] .= $data;
+							$manifestData['scos'][$flagTag['value']]['title'] = $data;
 						}
 					}
 					break;
@@ -366,14 +371,21 @@ function elementData($parser,$data)
 					// if the langstring tag is a children of a description tag
 					if ( $elementsPile[sizeof($elementsPile)-2] == "DESCRIPTION" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
 					{
+						if (isset($manifestData['assets'][$flagTag['value']]['description']))
 						$manifestData['assets'][$flagTag['value']]['description'] .= $data;
+						else
+						$manifestData['assets'][$flagTag['value']]['description'] = $data;
+						
 					}
 					// title found in metadata of an item (only if we haven't already one title for this sco)
-					if( $manifestData['assets'][$flagTag['value']]['title'] == '' || !isset( $manifestData['assets'][$flagTag['value']]['title'] ) )
+					if(!isset( $manifestData['assets'][$flagTag['value']]['title'] ) || $manifestData['assets'][$flagTag['value']]['title'] == '')
 					{
 						if ( $elementsPile[sizeof($elementsPile)-2] == "TITLE" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
 						{
+							if (isset($manifestData['assets'][$flagTag['value']]['title']))
 							$manifestData['assets'][$flagTag['value']]['title'] .= $data;
+							else
+							$manifestData['assets'][$flagTag['value']]['title'] = $data;
 						}
 					}
 					break;
@@ -382,10 +394,11 @@ function elementData($parser,$data)
 					$posPackageDesc = array("MANIFEST", "METADATA", "LOM", "GENERAL", "DESCRIPTION");
 					if(compareArrays($posPackageDesc,$elementsPile))
 					{
+						if (!isset($manifestData['packageDesc'])) $manifestData['packageDesc'] = "";
 						$manifestData['packageDesc'] .= $data;
 					}
 					
-					if ( $manifestData['packageTitle'] == '' || !isset( $manifestData['packageTitle'] ) )
+					if (!isset($manifestData['packageTitle']) || $manifestData['packageTitle'] == '' )
 					{
 						$posPackageTitle = array("MANIFEST", "METADATA","LOM","GENERAL","TITLE");
 						if (compareArrays($posPackageTitle,$elementsPile))
@@ -510,8 +523,7 @@ function utf8_decode_if_is_utf8($str) {
          /*
           * Check if the file is valide (not to big and exists)
           */
-
-         if(!is_uploaded_file($uploadedPackage))
+         if(!is_uploaded_file($_FILES['uploadedPackage']['tmp_name']))
          {
                  $errorFound = true;
                  array_push ($errorMsgs, $langFileError.'<br>'.$langNotice.' : '.$langMaxFileSize.' '.get_cfg_var('upload_max_filesize') );
@@ -522,7 +534,7 @@ function utf8_decode_if_is_utf8($str) {
           * the maximum file size authorized in the directory
           */
 
-         elseif ( ! enough_size($HTTP_POST_FILES['uploadedPackage']['size'], $baseWorkDir, $maxFilledSpace))
+         elseif ( ! enough_size($_FILES['uploadedPackage']['size'], $baseWorkDir, $maxFilledSpace))
          {
                  $errorFound = true;
                  array_push ($errorMsgs, $langNoSpace ) ;
@@ -532,9 +544,9 @@ function utf8_decode_if_is_utf8($str) {
           * Unzipping stage
           */
 
-         elseif ( preg_match("/.zip$/i", $HTTP_POST_FILES['uploadedPackage']['name']) )
+         elseif ( preg_match("/.zip$/i", $_FILES['uploadedPackage']['name']) )
          {
-                 array_push ($okMsgs, $langOkFileReceived.basename($HTTP_POST_FILES['uploadedPackage']['name']) );
+                 array_push ($okMsgs, $langOkFileReceived.basename($_FILES['uploadedPackage']['name']) );
                  
                  if (!function_exists('gzopen'))
                  {
@@ -543,7 +555,7 @@ function utf8_decode_if_is_utf8($str) {
                  }
                  else
                  {
-                     $zipFile = new pclZip($uploadedPackage);
+                     $zipFile = new pclZip($_FILES['uploadedPackage']['tmp_name']);
                      $is_allowedToUnzip = true ; // default initialisation
     
                      // Check the zip content (real size and file extension)
@@ -558,7 +570,9 @@ function utf8_decode_if_is_utf8($str) {
                      
                      $pathToManifest  = ""; // empty by default because we can expect that the manifest.xml is in the root of zip file
                      $pathToManifestFound = false;
-                     foreach($zipContentArray as $thisContent)
+                     $realFileSize = 0;
+		     
+		     foreach($zipContentArray as $thisContent)
                      {
                              if ( preg_match('~.(php.*|phtml)$~i', $thisContent['filename']) )
                              {
@@ -581,7 +595,7 @@ function utf8_decode_if_is_utf8($str) {
                              
                              $realFileSize += $thisContent['size'];
                      }
-    
+                     if (!isset($alreadyFilledSpace)) $alreadyFilledSpace = 0;
                      if ( ($realFileSize + $alreadyFilledSpace) > $maxFilledSpace) // check the real size.
                      {
                              $errorFound = true;
@@ -645,14 +659,18 @@ function utf8_decode_if_is_utf8($str) {
               }
               else
               {
-                  array_push ($okMsgs, $langOkManifestFound.$manifestPath."imsmanifest.xml" );
+                  if (!isset($manifestPath)) $manifestPath = "";
+		  array_push ($okMsgs, $langOkManifestFound.$manifestPath."imsmanifest.xml" );
 
                   while ($data = str_replace("\n","",fread($fp, 4096)))
                   {
                     // fix for fread breaking thing 
                     // msg from "ml at csite dot com" 02-Jul-2003 02:29 on http://www.php.net/xml
                     // preg expression has been modified to match tag with inner attributes
-                    $data = $cache . $data;
+                    
+		    if (!isset($cache)) $cache = "";
+		    
+		    $data = $cache . $data;
                     if (!feof($fp)) 
                     {
                         // search fo opening, closing, empty tags (with or without attributes)
@@ -710,9 +728,9 @@ function utf8_decode_if_is_utf8($str) {
                             $scoPathFound = false;
                             for ( $i = 0 ; $i < sizeof($zipContentArray) ; $i++)
                             {
-                                   if (    $zipContentArray[$i]["filename"] == $pathToManifest.$manifestData['scos'][$item['identifierref']]['href']  
+                                   if (isset($zipContentArray[$i]["filename"]) && ((isset($manifestData['scos'][$item['identifierref']]['href']) && $zipContentArray[$i]["filename"] == $pathToManifest.$manifestData['scos'][$item['identifierref']]['href']) 
                                             || 
-                                            $zipContentArray[$i]["filename"] == $pathToManifest.$manifestData['assets'][$item['identifierref']]['href'])
+                                            (isset($manifestData['assets'][$item['identifierref']]['href']) && $zipContentArray[$i]["filename"] == $pathToManifest.$manifestData['assets'][$item['identifierref']]['href'])))
                                    {
                                          $scoPathFound = true;
                                          break;
@@ -902,7 +920,8 @@ function utf8_decode_if_is_utf8($str) {
 
                        // insert modules and their start asset
                        // create new module
-                       $sql = "INSERT
+                       if (!isset($item['datafromlms'])) $item['datafromlms'] = "";
+		       $sql = "INSERT
                        INTO `".$TABLEMODULE."`
                             (`name` , `comment`, `contentType`, `launch_data`)
                      VALUES ('".addslashes($moduleName)."' , '".addslashes($description)."', '".CTSCORM_."', '".addslashes($item['datafromlms'])."')";
@@ -919,8 +938,16 @@ function utf8_decode_if_is_utf8($str) {
 
                        // build asset path
                        // a $manifestData['scos'][$item['identifierref']] __SHOULD__ not exist if a $manifestData['assets'][$item['identifierref']] exists
-                       // so according to IMS we can say that one is empty if the other is filled, so we concat them without more verification
-                       $assetPath = "/"
+                       // so according to IMS we can say that one is empty if the other is filled, so we concat them without more verification than if the var exists.
+                       		       
+		       if (!isset($manifestData['xml:base']['manifest']))   $manifestData['xml:base']['manifest'] = "";
+		       if (!isset($manifestData['xml:base']['ressources'])) $manifestData['xml:base']['ressources'] = "";
+		       if (!isset($manifestData['scos'][$item['identifierref']]['href'])) $manifestData['scos'][$item['identifierref']]['href'] = "";
+		       if (!isset($manifestData['assets'][$item['identifierref']]['href'])) $manifestData['assets'][$item['identifierref']]['href'] = "";
+		       if (!isset($manifestData['scos'][$item['identifierref']]['parameters'])) $manifestData['scos'][$item['identifierref']]['parameters'] = "";
+		       if (!isset($manifestData['assets'][$item['identifierref']]['parameters'])) $manifestData['assets'][$item['identifierref']]['parameters'] = "";
+		       
+		       $assetPath = "/"
                                     .$manifestData['xml:base']['manifest']
                                     .$manifestData['xml:base']['ressources']
                                     .$manifestData['scos'][$item['identifierref']]['href']
