@@ -223,6 +223,7 @@ function elementData($parser,$data)
 	global $zipFile;
 	global $errorMsgs,$okMsgs;
 	global $pathToManifest;
+	global $langErrorOpeningXMLFile;
 	
 	$data = trim(utf8_decode_if_is_utf8($data));
 	
@@ -283,6 +284,7 @@ function elementData($parser,$data)
 				}
 				else
 				{
+					if (!isset($cache)) $cache = "";
 					while ($readdata = str_replace("\n","",fread($fp, 4096)))
 					{
 						// fix for fread breaking thing 
@@ -723,7 +725,7 @@ function utf8_decode_if_is_utf8($str) {
                       // if there is items in manifest we look for sco type resources referenced in idientifierref
                       foreach ( $manifestData['items'] as $item )
                       {
-                            if ( $item['identifierref'] == '') break; // skip if no ressource reference in item (item is probably a chapter head)
+                            if ( !isset($item['identifierref']) || $item['identifierref'] == '') break; // skip if no ressource reference in item (item is probably a chapter head)
                             // find the file in the zip file
                             $scoPathFound = false;
                             for ( $i = 0 ; $i < sizeof($zipContentArray) ; $i++)
