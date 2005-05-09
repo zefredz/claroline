@@ -265,7 +265,13 @@ else
                 }
             }
         }
-        if(is_array($conf_def_property_list))
+        
+        if(!is_array($conf_def_property_list))
+        {
+             $controlMsg['info'][] = ''.$config_name . ' def file not valid (' . $config_code . '). <br />' . "\n"
+                                   . '<em>$conf_def_property_list </em>is missing' ;
+        }
+        else
         foreach ($conf_def_property_list as $_propName => $_propDescriptorList)
         {
             if (!isset($_propDescriptorList['section']))
