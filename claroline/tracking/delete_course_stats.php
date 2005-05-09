@@ -50,7 +50,7 @@ if( $isAllowedToDelete )
 {
     claro_disp_tool_title($nameTools);
     
-    if($delete)
+    if( isset($_REQUEST['delete']) && $_REQUEST['delete'] == "yes" )
     {
         // do delete
         $sql = "TRUNCATE TABLE `".$TABLETRACK_ACCESS."`" ;
