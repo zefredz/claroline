@@ -419,7 +419,7 @@ if ($display == USER_DATA_FORM)
         </td>
         <td colspan="2">
             <input type="hidden" name="uidToEdit" value="<?php echo $user_id?>">
-            <input type="hidden" name="cfrom" value="<?php echo $cfrom?>">
+            <input type="hidden" name="cfrom" value="<?php echo $_REQUEST['cfrom']?>">
             <input type="submit" name="applyChange" value="<?php echo $langSaveChanges?>">
             <br>
       </td>
