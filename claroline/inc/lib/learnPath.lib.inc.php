@@ -966,7 +966,12 @@
         {
             $count++;
             
-            if (isset($thisElement['children'])) $temp = $thisElement['children'];
+            // temporary save the children before overwritten it
+            if (isset($thisElement['children']))
+				$temp = $thisElement['children'];
+			else
+				$temp = NULL; // re init temp value if there is nothing to put in it
+				
             // we use 'children' to calculate the deepness of the module, it will be displayed
             // using a spacing multiply by deepness
             $thisElement['children'] = $deepness;
@@ -983,8 +988,7 @@
             
             $displayElementList[] = $thisElement;
     
-            if (   isset( $temp )
-                && sizeof($temp ) > 0)
+            if ( isset( $temp ) && sizeof( $temp ) > 0 )
             {
                 $displayElementList = array_merge( $displayElementList,
                                               build_display_element_list($temp, $deepness + 1 ) );
