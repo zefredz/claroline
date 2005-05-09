@@ -15,18 +15,6 @@ $nameTools = $langUserAccessDetails;
 
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
 
-$htmlHeadXtra[] = "<style type='text/css'>
-<!--
-.secLine {background-color : #E6E6E6;}
-.content {padding-left : 15px;padding-right : 15px; }
-.specialLink{color : #0000FF;}
--->
-</style>
-<STYLE media='print' type='text/css'>
-<!--
-TD {border-bottom: thin dashed Gray;}
--->
-</STYLE>";
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 $TABLEUSER           = $tbl_mdb_names['user'  ];
 $tbl_cdb_names       = claro_sql_get_course_tbl();
@@ -36,82 +24,103 @@ $TABLETRACK_DOWNLOADS        = $tbl_cdb_names['track_e_downloads'];
 include($includePath."/lib/statsUtils.lib.inc.php");
 
 $toolTitle['mainTitle'] = $nameTools;
-switch ($_GET['cmd'])
-{
-	case 'tool' : 
-	    	// set the subtitle for the claro_disp_tool_title function
-		$toolTitle['subTitle'] = $langTool." : ".$toolNameList[$_GET['label']];
-		// prepare SQL query
-		$sql = "SELECT nom, prenom, MAX(UNIX_TIMESTAMP(`access_date`)) AS data, COUNT(`access_date`) AS nbr
-			FROM `".$TABLETRACK_ACCESS."`
-			LEFT JOIN `".$TABLEUSER."`
-			ON `access_user_id` = `user_id`
-			WHERE `access_tid` = '".$_GET['data']."'
-			GROUP BY nom, prenom
-			ORDER BY nom, prenom	";
-		break;
-	case 'doc'  :	
-	    	// set the subtitle for the claro_disp_tool_title function
-		$toolTitle['subTitle'] = $langDocument." : ".$_GET['data'];	
-		// prepare SQL query
-		$sql = "SELECT nom, prenom, MAX(UNIX_TIMESTAMP(`down_date`)) AS data, COUNT(`down_date`) AS nbr
-			FROM `".$TABLETRACK_DOWNLOADS."`
-			LEFT JOIN `".$TABLEUSER."`
-			ON `down_user_id` = `user_id`
-			WHERE `down_doc_path` = '".$_GET['data']."'
-			GROUP BY nom, prenom
-			ORDER BY nom, prenom	";
-		break;
-}
+
+$is_allowedToTrack = $is_courseAdmin;
 
 include($includePath."/claro_init_header.inc.php");
-claro_disp_tool_title($toolTitle);
 
-$is_allowedToTrack = $is_courseAdmin; 
-if(  $is_allowedToTrack && $is_trackingEnabled )
+if( $is_allowedToTrack && $is_trackingEnabled )
 {
+ 	if( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'tool' && !empty($_REQUEST['id']) ) )
+	{
+		    // set the subtitle for the claro_disp_tool_title function
+		    $sql = "SELECT `access_tlabel` as `label`
+			        FROM `".$TABLETRACK_ACCESS."`
+			        WHERE `access_tid` = ".$_REQUEST['id']."
+					GROUP BY `access_tid`" ;
+
+			$result = claro_sql_query_fetch_all($sql);
+
+			if( isset($result[0]['label']) )
+				if( isset($toolNameList[$result[0]['label']]) )
+					$toolTitle['subTitle'] = $langTool." : ".$toolNameList[$result[0]['label']];
+					
+					
+			// prepare SQL query
+			$sql = "SELECT `nom` as `lastName`, `prenom` as `firstName`, MAX(UNIX_TIMESTAMP(`access_date`)) AS `data`, COUNT(`access_date`) AS `nbr`
+				FROM `".$TABLETRACK_ACCESS."`
+				LEFT JOIN `".$TABLEUSER."`
+				ON `access_user_id` = `user_id`
+				WHERE `access_tid` = '".$_REQUEST['id']."'
+				GROUP BY `nom`, `prenom`
+				ORDER BY `nom`, `prenom`";
+	}
+	elseif( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'doc' && !empty($_REQUEST['path']) ) )
+	{
+		    // set the subtitle for the claro_disp_tool_title function
+			$toolTitle['subTitle'] = $langDocument." : ".$_REQUEST['path'];
+			// prepare SQL query
+			$sql = "SELECT `nom` as `lastName`, `prenom` as `firstName`, MAX(UNIX_TIMESTAMP(`down_date`)) AS `data`, COUNT(`down_date`) AS `nbr`
+				FROM `".$TABLETRACK_DOWNLOADS."`
+				LEFT JOIN `".$TABLEUSER."`
+				ON `down_user_id` = `user_id`
+				WHERE `down_doc_path` = '".$_REQUEST['path']."'
+				GROUP BY `nom`, `prenom`
+				ORDER BY `nom`, `prenom`";
+	}
+	else
+	{
+		$dialogBox = $langWrongOperation;
+	}
+
+	claro_disp_tool_title($toolTitle);
+
+	if( isset($dialogBox) ) claro_disp_message_box($dialogBox);
 
 ?>
-   
-       <table class="claroTable" border="0" cellpadding="5" cellspacing="1">
+		<br />
+        <table class="claroTable" border="0" cellpadding="5" cellspacing="1">
               	<tr class="headerX">
-                  <th><?php echo $langFirstName;?></th>
-                  <th><?php echo $langLastName;?></th>
-                  <th><?php echo $langLastAccess;?></th>                  
+                  <th><?php echo $langUserName;?></th>
+                  <th><?php echo $langLastAccess;?></th>
                   <th><?php echo $langNbrAccess;?></th>                  
               	</tr>
 		<tbody>	
             
 <?php
 
-    $result = claro_sql_query($sql);  
-    $i = 0;
-    // display the list
-    while ($userAccess = mysql_fetch_array ($result))
-    {
-	if($userAccess['nom'] == "" )
+	$i = 0;
+	$anonymousCount = 0;
+	if( isset($sql) )
 	{
-	 	$anonymousCount = $userAccess['nbr'];
-		continue;
+	    $result = claro_sql_query($sql);
+	    // display the list
+	    while ($userAccess = mysql_fetch_array ($result))
+	    {
+			$userName = $userAccess['lastName']." ".$userAccess['firstName'];
+			if( empty($userAccess['lastName']) )
+			{
+			 	$anonymousCount = $userAccess['nbr'];
+				continue;
+			}
+			$i++;
+			echo "<tr>";
+
+	    	echo "<td>".$userName."</td>\n"
+				."<td>".claro_disp_localised_date($dateTimeFormatLong, $userAccess['data'])."</td>"
+				."<td>".$userAccess['nbr']."</td>";
+
+	    	echo "</tr>";
+	    }
 	}
-	$i++;    	
-	echo "<tr>";
-    	   	
-    	echo "<td> ".$userAccess['nom']." </td> <td> "
-		.$userAccess['prenom']." </td> <td> "
-		.claro_disp_localised_date($dateTimeFormatLong, $userAccess['data'])." </td> <td> "
-		.$userAccess['nbr']." </td>";
-    	
-    	echo "</tr>";
-    }	
     // in case of error or no results to display
-    if($i == 0 ) 
-	echo "<td colspan=\"4\"><center>".$langNoResult."</center></td>";
+    if( $i == 0 || !isset($sql) )
+	echo "<td colspan=\"3\"><center>".$langNoResult."</center></td>";
  
     echo "</tbody>\n</table>";         
 	
-    if( $anonymousCount && $anonymousCount != "" )
-	echo "<p>".$langAnonymousUserAccessCount.$anonymousCount."</p>";
+    if( $anonymousCount != 0 )
+		echo "<p>".$langAnonymousUserAccessCount.$anonymousCount."</p>";
  
 }
 // not allowed
