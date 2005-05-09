@@ -52,7 +52,9 @@ if($is_allowedToTrack && $is_trackingEnabled)
         .'</small>'."\n\n"
 		;
 
-    if(!isset($view)) $view ="0000000";
+    if( isset($_REQUEST['view']))   $view = $_REQUEST['view'];
+	else							$view ="0000000";
+	
     $viewLevel = -1; //  position of the flag of the view in the $view array/string
     /***************************************************************************
      *              
@@ -235,8 +237,8 @@ if($is_allowedToTrack && $is_trackingEnabled)
             for($j = 0 ; $j < count($results) ; $j++)
             {                 
                 echo "<tr>\n"
-                    ."<td><a href=\"toolaccess_details.php?tool=".$results[$j][0]."&amp;label=".$results[$j][3]."\">".$toolNameList[$results[$j][3]]."</a></td>\n"
-                    ."<td align=\"right\"><a href=\"user_access_details.php?cmd=tool&amp;data=".$results[$j][0]."&amp;label=".$results[$j][3]."\">".$results[$j][1]."</a></td>\n"
+                    ."<td><a href=\"toolaccess_details.php?toolId=".$results[$j][0]."\">".$toolNameList[$results[$j][3]]."</a></td>\n"
+                    ."<td align=\"right\"><a href=\"user_access_details.php?cmd=tool&amp;id=".$results[$j][0]."\">".$results[$j][1]."</a></td>\n"
                     ."<td align=\"right\">".$results[$j][2]."</td>\n"
                     ."</tr>\n\n";
             }
@@ -292,7 +294,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
             { 
                     echo '<tr>'."\n"
                         .'<td>'.$results[$j][0].'</td>'."\n"
-                        .'<td align="right"><a href="user_access_details.php?cmd=doc&amp;data='.urlencode($results[$j][0]).'">'.$results[$j][1].'</a></td>'."\n"
+                        .'<td align="right"><a href="user_access_details.php?cmd=doc&amp;path='.urlencode($results[$j][0]).'">'.$results[$j][1].'</a></td>'."\n"
                         .'<td align="right">'.$results[$j][2].'</td>'."\n"
                         .'</tr>'."\n\n"
 						;
@@ -385,7 +387,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	{
 	    $tempView[$viewLevel] = '0';
 	
-	    echo "-&nbsp;&nbsp;<b>".$langTrackForumUsage."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langClose."</a>]</small>"
+	    echo "-&nbsp;&nbsp;<b>".$langTrackForumUsage."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small>"
 	            ."<br />\n";
 		// total number of posts
 		$sql = "SELECT count(`post_id`)
@@ -517,7 +519,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	else
 	{
 	    $tempView[$viewLevel] = '1';
-	    echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=$uInfo&view=".$tempView."\">".$langTrackForumUsage."</a>";
+	    echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langTrackForumUsage."</a>";
 	}
 	echo "<br /></p>\n\n";
 }
