@@ -22,8 +22,9 @@
   define ( "USE_FRAMES" , 1 ); 
   
   $nameTools = $langLearningPath;
+  if (!isset($titlePage)) $titlePage = "";
   if(!empty($nameTools))
-  {
+  {    
     $titlePage .= $nameTools.' - ';
   }
   
@@ -52,7 +53,7 @@ if ( !isset($_GET['frames']) )
 }
 else
 {
-    $displayFrames = $_GET['frames'];
+    $displayFrames = $_REQUEST['frames'];
 }
 
 if( $displayFrames )

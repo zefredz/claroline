@@ -32,7 +32,7 @@ require '../../inc/claro_init_global.inc.php';
 include($includePath."/lib/events.lib.inc.php");
 
 // launch event
-$doc_url = stripslashes(urldecode($doc_url));
+if (isset($_REQUEST['doc_url'])) $doc_url = stripslashes(urldecode($_REQUEST['doc_url']));
 event_download($doc_url);
 
 

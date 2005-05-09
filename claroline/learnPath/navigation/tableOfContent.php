@@ -230,7 +230,8 @@ echo '<p><b>'.wordwrap($lpName[0]['name'],$moduleNameLength,' ',1).'</b></p>'."\
                     echo '<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0">'.$displayedName;
                 }
           }
-          if ($progress > 0)
+          if (!isset($globalProg)) $globalProg = 0;
+	  if ($progress > 0)
           {
             $globalProg =  $globalProg+$progress;
           }
