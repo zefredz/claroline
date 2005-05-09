@@ -107,9 +107,9 @@ if ( $is_allowedToEdit )
     if ( isset($_REQUEST['unregister']) && $_REQUEST['unregister'] )
     {
         // delete user from course user list
-        if ( remove_user_from_course($user_id, $_cid) )
+        if ( remove_user_from_course($_REQUEST['user_id'], $_cid) )
         {
-           $dialogBox = $langUserUnsubscribedFromCourse;
+	   $dialogBox = $langUserUnsubscribedFromCourse;
         }
         else
         {

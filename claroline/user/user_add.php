@@ -17,9 +17,6 @@
   ==========================*/
 // Status definition
 
-define ("STUDENT"      , 5);
-define ("COURSEMANAGER", 1);
-
 $tlabelReq = "CLUSR___";
 
 require '../inc/claro_init_global.inc.php';
@@ -49,11 +46,24 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 
 $platformRegSucceed = false;
 
+//get variables from previous attempt to create user to prefill form fields
+
+if (isset($_REQUEST['username_form']))      $username_form       = trim($_REQUEST['username_form']);      else $username_form = "";
+if (isset($_REQUEST['nom_form']))           $nom_form            = trim($_REQUEST['nom_form']);           else $nom_form = "";
+if (isset($_REQUEST['prenom_form']))        $prenom_form         = trim($_REQUEST['prenom_form']);        else $prenom_form = "";
+if (isset($_REQUEST['email_form']))         $email_form          = trim($_REQUEST['email_form']);         else $email_form = "";
+if (isset($_REQUEST['official_code_form'])) $official_code_form  = trim($_REQUEST['official_code_form']); else $official_code_form = "";
+if (isset($_REQUEST['phone_form ']))        $phone_form          = trim($_REQUEST['phone_form']);         else $phone_form = "";
+if (isset($_REQUEST['admin_form']))         $admin_form          = trim($_REQUEST['admin_form']);         else $admin_form = STUDENT;
+if (isset($_REQUEST['tutor_form']))         $tutor_form          = trim($_REQUEST['tutor_form']);         else $tutor_form = "";
+if (isset($_REQUEST['password_form']))      $password_form       = trim($_REQUEST['password_form']);      else $password_form = "";
+if (isset($_REQUEST['confirm_form']))       $confirm_form        = trim($_REQUEST['confirm_form']);       else $confirm_form = "";
+
 /*==========================
          DATA CHECKING
   ==========================*/
 
-if($register)
+if(isset($_REQUEST['register']) && $_REQUEST['register'])
 {
 	/*
 	 * Fields Checking
@@ -61,14 +71,13 @@ if($register)
 
     $emailRegex = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 
-	$username_form  = trim($_REQUEST['username_form']);
-	$email_form     = trim($_REQUEST['email_form']);
-	$nom_form       = trim($_REQUEST['nom_form']);
-	$prenom_form    = trim($_REQUEST['prenom_form']);
-	$password_form  = trim($_REQUEST['password_form']);
+    $username_form  = trim($_REQUEST['username_form']);
+    $email_form     = trim($_REQUEST['email_form']);
+    $nom_form       = trim($_REQUEST['nom_form']);
+    $prenom_form    = trim($_REQUEST['prenom_form']);
+    $password_form  = trim($_REQUEST['password_form']);
     $confirm_form   = trim($_REQUEST['confirm_form']);
-    $platformStatus = trim($_REQUEST['platformStatus']);
-
+        
 	$dataChecked = true; // initially set to true, will change to false if there is a problem
 
 	// empty field checking
@@ -82,7 +91,7 @@ if($register)
         )
 	{
 		$dataChecked = false;
-		$message     = $langFilled;
+		$message = $langFields;
 	}
 
 	// valid mail address checking
@@ -95,29 +104,27 @@ if($register)
     
     // CHECK BOTH PASSWORD TOKEN ARE THE SAME
 
-    if ($password_form !== $confirm_form)
+    if ($password_form != $confirm_form)
     {
         $dataChecked = false;
         $message     = $langPassTwo;
         $password_form = '';
         $confirm_form = '';
     }
-    else
-    {
-        $form_password = $form_password2 ;
-    }
 
 	// prevent conflict with existing user account
 
 	if($dataChecked)
 	{
-		$result=claro_sql_query("SELECT user_id,
+		$sql = "SELECT user_id,
 		                       (username='".$username_form."') AS loginExists,
 		                       (nom='".$nom_form."' AND prenom='".$prenom_form."' AND email='".$email_form."') AS userExists
 		                     FROM `".$tbl_user."`
 		                     WHERE username='".$username_form."' OR (nom='".$nom_form."' AND prenom='".$prenom_form."' AND email='".$email_form."')
-		                     ORDER BY userExists DESC, loginExists DESC");
-
+		                     ORDER BY userExists DESC, loginExists DESC";
+		
+		$result=claro_sql_query($sql);
+                		
 		if(mysql_num_rows($result))
 		{
 			while($user=mysql_fetch_array($result))
@@ -126,97 +133,92 @@ if($register)
 
 				if($user['userExists'])
 				{
-					$userExists = true;
-					$userId     = $user['user_id'];
-					break;
+				    $userExists  = true;
+				    $userId      = $user['user_id'];
+				    $message     = $langUserNameTaken;
+				    break;
+				}
+				else
+				{
+				    $userExists = false;
 				}
 
 				// check if the login name choosen is already taken by another user
 
 				if($user['loginExists'])
 				{
-					$loginExists = true;
-					$userId      = 0;
+				    $loginExists = true;
+				    $userId      = 0;
 
-					$message     = $langUserNo." (".$username_form.") ".$langTaken;
+				    $message     = $langUserNo." (".$username_form.") ".$langTaken;
 
-					break;
+				    break;
+				}
+				else
+				{
+				    $loginExists = false;
 				}
 			}				// end while $result
 		}					// end if num rows
 	}						// end if datachecked
 
-
-
-
-
 /*=============================
   NEW USER REGISTRATION PROCESS
   =============================*/
 
-	if($dataChecked && !$userExists && !$loginExists)
+	if($dataChecked && (!(isset($userExists) && $userExists)) && (!(isset($loginExists) && $loginExists)))
 	{
-			/*---------------------------
-			      PLATFORM REGISTRATION
-			  ----------------------------*/
+	/*---------------------------
+	    PLATFORM REGISTRATION
+	----------------------------*/
 
-		if ($_cid) $platformStatus = STUDENT;          // course registrartion context...
-		else       $platformStatus = $platformStatus; // admin section of the platform context...
+            $platformStatus = STUDENT;
+	    if ($userPasswordCrypted) $pw = md5($password_form);
+	    else                      $pw = $password_form;
 
-		if ($userPasswordCrypted) $pw = md5($password_form);
-		else                      $pw = $password_form;
-
-		$result = claro_sql_query("INSERT INTO `".$tbl_user."`
+	    $result = claro_sql_query("INSERT INTO `".$tbl_user."`
 		                       SET nom         = \"$nom_form\",
 		                           prenom      = \"$prenom_form\",
 		                           username    = \"$username_form\",
 		                           password    = \"$pw\",
 		                           email       = \"$email_form\",
-                                   phoneNumber = \"$phone_form\",
+                                           phoneNumber = \"$phone_form\",
 		                           statut      = \"$platformStatus\",
 		                           creatorId   = \"$_uid\"");
 
-		$userId = mysql_insert_id();
+            $userId = mysql_insert_id();
 
-        if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
-        {
-            $sql = "UPDATE  `".$tbl_user."`
-                    SET officialCode = \"".$official_code."\"
-                    WHERE user_id  = \"".$userId."\"";
-            claro_sql_query($sql);
-        }
-        if ($userId) $platformRegSucceed = true;
-	}
+            if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
+            {
+                $sql = "UPDATE  `".$tbl_user."`
+                           SET officialCode = \"".$official_code_form."\"
+                         WHERE user_id  = \"".$userId."\"";
+                claro_sql_query($sql);
+            }
+            if (isset($userId)) $platformRegSucceed = true;
 
-	if($userId && $_cid)
-	{
-		/*
-		  Note : As we temporarly use this script in the platform administration 
-		  section to also add user to the platform, We have to prevent course 
-		  registration. That's why we check if $_cid is initialized, it gives us 
-		  an hint about the use context of the script
-		*/
 
-			/*---------------------------
-			      COURSE REGISTRATION
-			  ----------------------------*/
-
-		/*
-		 * check the return value of the query
-		 * if 0, the user is already registered to the course
-		 */
-		 
-		if (claro_sql_query("INSERT IGNORE INTO `".$tbl_rel_course_user."`
-						SET user_id     = '".$userId."',
-							code_cours  = '".$currentCourseID."',
-							statut      = '".$admin_form."',
-							tutor       = '".$tutor_form."'"))
-		{
-			$courseRegSucceed = true;
-		}
+	/*---------------------------
+	      COURSE REGISTRATION
+	  ----------------------------*/
+	  
+	    if (claro_sql_query("INSERT IGNORE INTO `".$tbl_rel_course_user."`
+					SET user_id     = '".$userId."',
+					code_cours  = '".$currentCourseID."',
+					statut      = '".$admin_form."',
+					tutor       = '".$tutor_form."'"))
+	    {
+		    $courseRegSucceed = true;
+	    }
+	    
+	    $display_success = true;
+	    
 	} // if $platformRegSucceed && $_cid
-
-
+        else
+	{
+	    
+	}
+	
 	/*---------------------------
 	   MAIL NOTIFICATION TO NEW USER
 	  ----------------------------*/
@@ -263,13 +265,9 @@ if($register)
 		 * remove <form> variables to prevent any pre-filled fields
 		 */
 
-		unset($nom_form, $prenom_form, $username_form, $password_form, $email_form, $admin_form, $tutor_form, $phone_form, $official_code);
+		unset($nom_form, $prenom_form, $username_form, $password_form, $email_form, $admin_form, $tutor_form, $phone_form, $official_code_form);
 
 	} 	// end if ($platformRegSucceed)
-	//else
-	//{
-	//	$message = $langUserAlreadyRegistered;
-	//}
 
 } // end if register request
 
@@ -277,7 +275,7 @@ if($register)
          MESSAGE BOX
   ==========================*/
 
-if($message)
+if(isset($message))
 {
     claro_disp_message_box($message);
     if ($platformRegSucceed) echo "<p><a href=\"user.php\"><< $langBackToUsersList</a></p>\n";
@@ -289,6 +287,7 @@ if ($platformRegSucceed == false)
 /*==========================
      ADD ONE USER FORM
   ==========================*/
+  
 ?>
 
 <?php echo $langOneByOne; ?>. <?php echo "<p>" . $langUserOneByOneExplanation . "</p>"; ?>
@@ -311,10 +310,10 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 {
 ?>
 <tr>
-    <td align="right"><label for="official_code"><?php echo $langOfficialCode; ?></label> :
+    <td align="right"><label for="official_code_form"><?php echo $langOfficialCode; ?></label> :
     </td>
     <td>
-    <input type="text" size="40" id="official_code" name="official_code" value="<?php echo htmlentities(stripslashes($official_code)); ?>">
+    <input type="text" size="40" id="official_code_form" name="official_code_form" value="<?php echo htmlentities(stripslashes($official_code_form)); ?>">
     </td>
 </tr>
 <?php
@@ -373,12 +372,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 </tr>
 
 <tr>
-<?php
 
-if ($_cid) // if we're inside a course, then it's a course registration
-{
-
-?>
 <td align="right"><?php echo  $langGroupTutor; ?> :</td>
 <td>
  <input type="radio" name="tutor_form" value="0" <?php 
@@ -392,35 +386,14 @@ if ($_cid) // if we're inside a course, then it's a course registration
 <tr>
 <td align="right"><?php echo  $langManager ?> :</td>
 <td>
-  <input type="radio" name="admin_form" value="5" <?php if(!isset($admin_form) || $admin_form == 5) echo 'checked="checked"'; ?> id="no" > <label for="no"><?php echo $langNo ?></label>
-  <input type="radio" name="admin_form" value="1" <?php if($admin_form == 1) echo 'checked="checked"';                        ?> id="yes"> <label for="yes"><?php echo  $langYes; ?></label></td>
+  <input type="radio" name="admin_form" value="<?php echo STUDENT?>"       <?php if($admin_form == STUDENT) echo 'checked="checked"'; ?> id="no" > <label for="no"><?php echo $langNo ?></label>
+  <input type="radio" name="admin_form" value="<?php echo COURSEMANAGER?>" <?php if($admin_form == COURSEMANAGER) echo 'checked="checked"';                        ?> id="yes"> <label for="yes"><?php echo  $langYes; ?></label></td>
 </tr>
-<?php
-
-}			// end if $_cid - for the case we're not in a course registration
-			// but a platform registration
-else
-{ 
-
-?>
-<tr>
-<td align="right"><label for="platformStatus"><?php echo $langAction ?></label> : </td>
-<td>
-<select name="platformStatus" id="platformStatus">
-<option value="<?php echo STUDENT       ?>"><?php echo  $langRegStudent ?></option>
-<option value="<?php echo COURSEMANAGER ?>"><?php echo  $langRegAdmin   ?></option>
-</select>
-</td>
-</tr>
-
-<?php
-} // end else if $_cid
-?>
 <tr>
 <td>&nbsp;</td>
 <td>
 <input type="submit" name="submit" value="<?php echo  $langOk ?>">
-<?php claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
+<?php claro_disp_button("user.php", $langCancel); ?>
 </td>
 </tr>
 </table>
