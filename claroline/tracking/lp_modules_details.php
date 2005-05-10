@@ -27,6 +27,10 @@
  */
 require '../inc/claro_init_global.inc.php';
 
+if( empty($_REQUEST['uInfo']) )	header("Location: ./userLog.php");
+	
+if( empty($_REQUEST['path_id']) ) header("Location: ./userLog.php?uInfo=".$_REQUEST['uInfo']."&view=0010000");
+
 /*
  * DB tables definition
  */
@@ -65,13 +69,13 @@ if (isset($uInfo) && isset($_uid)) $is_allowedToTrack = $is_allowedToTrack || ($
 // get infos about the user
 $sql = "SELECT `nom`, `prenom`, `email` 
         FROM `".$TABLEUSER."`
-       WHERE `user_id` = ".$_GET['uInfo'];
+       WHERE `user_id` = ".$_REQUEST['uInfo'];
 $uDetails = claro_sql_query_fetch_all($sql);
 
 // get infos about the learningPath
 $sql = "SELECT `name` 
         FROM `".$TABLELEARNPATH."`
-       WHERE `learnPath_id` = ".$_GET['path_id'];
+       WHERE `learnPath_id` = ".$_REQUEST['path_id'];
 $lpDetails = claro_sql_query_fetch_all($sql);
 
 ////////////////////
@@ -79,9 +83,11 @@ $lpDetails = claro_sql_query_fetch_all($sql);
 ////////////////////
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
-$interbredcrump[]= array ("url"=>"learnPath_details.php?path_id=".$_GET['path_id'], "name"=> $langStatsOfLearnPath);
+$interbredcrump[]= array ("url"=>"learnPath_details.php?path_id=".$_REQUEST['path_id'], "name"=> $langStatsOfLearnPath);
 
 $nameTools = $langModules;
+
+$QUERY_STRING = 'uInfo='.$_REQUEST['uInfo']."&path_id=".$_REQUEST['path_id'];
 
 include($includePath."/claro_init_header.inc.php");
 // display title
@@ -104,11 +110,11 @@ if($is_allowedToTrack && $is_trackingEnabled)
                   `".$TABLEMODULE."` AS M
        LEFT JOIN `".$TABLEUSERMODULEPROGRESS."` AS UMP
                ON UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
-               AND UMP.`user_id` = ".$_GET['uInfo']."
+               AND UMP.`user_id` = ".$_REQUEST['uInfo']."
        LEFT JOIN `".$TABLEASSET."` AS A
               ON M.`startAsset_id` = A.`asset_id`
             WHERE LPM.`module_id` = M.`module_id`
-              AND LPM.`learnPath_id` = ".$_GET['path_id']."
+              AND LPM.`learnPath_id` = ".$_REQUEST['path_id']."
               AND LPM.`visibility` = 'SHOW'
               AND LPM.`module_id` = M.`module_id`
          GROUP BY LPM.`module_id`
@@ -128,11 +134,12 @@ if($is_allowedToTrack && $is_trackingEnabled)
   $flatElementList = build_display_element_list(build_element_list($extendedList, 'parent', 'learnPath_module_id'));
    
   $moduleNb = 0;
+  $globalProg = 0;
   $global_time = "0000:00:00";
    
   // look for maxDeep
   $maxDeep = 1; // used to compute colspan of <td> cells
-  for ($i=0 ; $i < sizeof($flatElementList) ; $i++)
+  for ( $i = 0 ; $i < sizeof($flatElementList) ; $i++ )
   {
     if ($flatElementList[$i]['children'] > $maxDeep) $maxDeep = $flatElementList[$i]['children'] ;
   }
@@ -190,7 +197,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
             $spacingString .= "<td width=\"5\">&nbsp;</td>";
           $colspan = $maxDeep - $module['children']+1;
           
-          echo "<tr align=\"center\"".$style.">\n".$spacingString."<td colspan=\"".$colspan."\" align=\"left\">";
+          echo "<tr align=\"center\">\n".$spacingString."<td colspan=\"".$colspan."\" align=\"left\">";
           //-- if chapter head
           if ( $module['contentType'] == CTLABEL_ )
           {
@@ -244,7 +251,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
           //-- status
           echo "<td>";
           if($module['contentType'] == CTEXERCISE_ && $module['lesson_status'] != "" ) 
-            echo " <a href=\"userLog.php?uInfo=".$_GET['uInfo']."&amp;view=0100000&amp;exoDet=".$module['path']."\">".strtolower($module['lesson_status'])."</a>";
+            echo " <a href=\"userLog.php?uInfo=".$_REQUEST['uInfo']."&amp;view=0100000&amp;exoDet=".$module['path']."\">".strtolower($module['lesson_status'])."</a>";
           else
             echo strtolower($module['lesson_status']);
           echo "</td>";
@@ -265,7 +272,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
           
           if ($progress > 0)
           {
-            $globalProg =  $globalProg+$progress;
+            $globalProg += $progress;
           }
           
           if($module['contentType'] != CTLABEL_) 
@@ -277,7 +284,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
   
   if ($moduleNb == 0)
   {
-          echo "<tr><td align=\"center\" colspan=\"3\">".$langNoModule."</td></tr>";
+          echo "<tr><td align=\"center\" colspan=\"6\">".$langNoModule."</td></tr>";
   }
   elseif($moduleNb > 0)
   {
