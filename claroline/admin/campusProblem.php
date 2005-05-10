@@ -16,7 +16,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-$interbredcrump[]= array ("url"=>"index.php", "name"=> "Admin");
+$interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdministration);
 
 $nameTools = $langViewPlatFormError;
 
@@ -78,7 +78,9 @@ if( $is_allowedToTrack && $is_trackingEnabled)
             ."&nbsp;[<a href=\"".$_SERVER['PHP_SELF']."?view=0000000\">$langShowNone</a>]"
             ."</small>\n\n";
 
-    if(!isset($view)) $view ="0000000";
+    if( isset($_REQUEST['view']))   $view = $_REQUEST['view'];
+	else							$view = "0000000";
+	
 	$levelView=-1;
 	
     /***************************************************************************
@@ -269,8 +271,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         //-- courses without access, not used for $limitBeforeUnused
         echo '- &nbsp;&nbsp;<b>'.$langCourseWithoutAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
         $sql ="SELECT code, dbName
-	                                   FROM    `".$tbl_course."`
-                                     ORDER BY code ASC";
+                       FROM    `".$tbl_course."`
+                     ORDER BY code ASC";
         $resCourseList = claro_sql_query($sql);
         $i = 0;
         while ( $course = mysql_fetch_array($resCourseList) )
@@ -280,6 +282,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                         FROM `".$TABLEACCESSCOURSE."`";
             $coursesNotUsedResult = claro_sql_query($sql);
             
+            $courseWithoutAccess = array();
             if( $courseAccess = mysql_fetch_array($coursesNotUsedResult) )
             {
                 if ( $courseAccess['lastDate'] == 'recentlyUsedOrNull' && $courseAccess['nbrAccess'] != 0 ) continue;

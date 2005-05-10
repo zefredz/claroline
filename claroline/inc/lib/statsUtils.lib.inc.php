@@ -37,6 +37,7 @@ function getManyResults1Col($sql)
 	$res = claro_sql_query($sql);
 
 	$i = 0;
+	$resu = false;
 	while ($resA =   @mysql_fetch_array($res))
 	{
 		$resu[$i++]=$resA[0];
@@ -55,6 +56,7 @@ function getManyResults2Col($sql)
 	$res = claro_sql_query($sql);
 
 	$i = 0;
+	$resu = false;
 	while ($resA = @mysql_fetch_array($res))
 	{
 		$resu[$i][0] = $resA[0];
@@ -77,6 +79,7 @@ function getManyResults3Col($sql)
 	$res = claro_sql_query($sql);
 
 	$i = 0;
+	$resu = false;
 	while ($resA = @mysql_fetch_array($res))
 	{
 		$resu[$i][0]=$resA[0];
@@ -103,6 +106,7 @@ function getManyResultsXCol($sql,$X)
 	$res = claro_sql_query($sql);
 
 	$i = 0;
+	$resu = false;
 	while ($resA = @mysql_fetch_array($res))
 	{
 		for($j = 0; $j < $X ; $j++)
@@ -366,7 +370,7 @@ function buildTabDefcon($array_of_results)
                 
         for($j = 0 ; $j < count($array_of_results) ; $j++)
         { 
-            if($array_of_results[$j][0] == "")
+            if( !isset($array_of_results[$j][0]) || $array_of_results[$j][0] == "")
             {
                 $key = $langNULLValue;
             }
