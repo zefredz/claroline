@@ -201,7 +201,7 @@ if (isset($_REQUEST['applyChange']))  //for formular modification
         // change user password if it has been asked
         if (!empty($password) && !empty($confirm) && ($confirm==$password))
         {
-            echo "on change";
+            
 	    if ($userPasswordCrypted) $password = md5(trim($password));
             $sql = "UPDATE  `".$tbl_user."`
                     SET
