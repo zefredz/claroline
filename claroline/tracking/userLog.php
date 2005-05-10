@@ -154,7 +154,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
     else // if $_REQUEST['uInfo'] is set
     {
         if( isset($_REQUEST['view']))   $view = $_REQUEST['view'];
-		else							$view ="0000000";
+		else							$view = "0000000";
         /***************************************************************************
          *              
          *        Informations about student uInfo
@@ -201,7 +201,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&amp;view=1111111\">".$langShowAll."</a>]&nbsp;"
                 ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&amp;view=0000000\">".$langShowNone."</a>]"
                 ."</small>\n\n";        
-            if(!isset($view)) $view ="0000000";
+
             $viewLevel = -1; //  position of the flag of the view in the $view array/string
             
             
