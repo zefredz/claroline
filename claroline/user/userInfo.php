@@ -42,7 +42,8 @@ if ( ! $is_courseAllowed ) claro_disp_auth_form();
  *    
  */
 
-$userIdViewed = (int) $_REQUEST['uInfo']; // Id of the user we want to view coming from the user.php
+if (isset($_REQUEST['uInfo'])) $userIdViewed = (int) $_REQUEST['uInfo']; // Id of the user we want to view coming from the user.php
+else $userIdViewed = 0;
 
 /*--------------------------------------------------------
   Connection API between Claroline and the current script
@@ -53,6 +54,7 @@ $tbl_mdb_names           = claro_sql_get_main_tbl();
 $tbl_crs_names           = claro_sql_get_course_tbl();
 $tbl_rel_course_user     = $tbl_mdb_names['rel_course_user'    ];
 $tbl_group_rel_team_user = $tbl_crs_names['group_rel_team_user'];
+$TBL_USERINFO_CONTENT    = $tbl_crs_names['userinfo_content'];
 
 
 $userIdViewer = $_uid; // id fo the user currently online
@@ -80,52 +82,52 @@ $displayMode = "viewContentList";
 
 if ($allowedToEditDef)
 {
-    if ($submitDef)
+    if (isset($_REQUEST['submitDef']) && $_REQUEST['submitDef'])
     {
-        if ($id)
+        if (isset($_REQUEST['id']) && $_REQUEST['id']!="")
         {
-            claro_user_info_edit_cat_def($id, $title, $comment, $nbline);
+            claro_user_info_edit_cat_def($_REQUEST['id'], $_REQUEST['title'], $_REQUEST['comment'], $_REQUEST['nbline']);
         }
         else
         {
-            claro_user_info_create_cat_def($title, $comment, $nbline);
+            claro_user_info_create_cat_def($_REQUEST['title'], $_REQUEST['comment'], $_REQUEST['nbline']);
         }
 
         $displayMode = "viewDefList";
     }
-    elseif ($removeDef)
+    elseif (isset($_REQUEST['removeDef']) && $_REQUEST['removeDef'])
     {
-        claro_user_info_remove_cat_def($removeDef, true);
+        claro_user_info_remove_cat_def($_REQUEST['removeDef'], true);
         $displayMode = "viewDefList";
     }
-    elseif ($editDef)
+    elseif (isset($_REQUEST['editDef']) && $_REQUEST['editDef'])
     {
         $displayMode = "viewDefEdit";
     }
-    elseif (isset($addDef))
+    elseif (isset($_REQUEST['addDef']))
     {
         $displayMode = "viewDefEdit";
     }
-    elseif ($moveUpDef)
+    elseif (isset($_REQUEST['moveUpDef']))
     {
-        claro_user_info_move_cat_rank($moveUpDef, "up");
+        claro_user_info_move_cat_rank($_REQUEST['moveUpDef'], "up");
         $displayMode = "viewDefList";
     }
-    elseif ($moveDownDef)
+    elseif (isset($_REQUEST['moveDownDef']))
     {
-        claro_user_info_move_cat_rank($moveDownDef, "down");
+        claro_user_info_move_cat_rank($_REQUEST['moveDownDef'], "down");
         $displayMode = "viewDefList";
     }
-    elseif($viewDefList)
+    elseif(isset($_REQUEST['viewDefList']))
     {
         $displayMode = "viewDefList";
     }
-    elseif ($_REQUEST['editMainUserInfo'])
+    elseif (isset($_REQUEST['editMainUserInfo']))
     {
         $userIdViewed = (int) $_REQUEST['editMainUserInfo'];
         $displayMode = "viewMainInfoEdit";
     }
-    elseif ($_REQUEST['submitMainUserInfo'])
+    elseif (isset($_REQUEST['submitMainUserInfo']))
     {
         $userIdViewed = $_REQUEST['submitMainUserInfo'];
         
@@ -190,20 +192,20 @@ if ($allowedToEditDef)
 
 if ($allowedToEditContent)
 {
-    if ($submitContent)
+    if (isset($_REQUEST['submitContent']))
     {
         if ($cntId)    // submit a content change
         {
-            claro_user_info_edit_cat_content($catId, $userIdViewed, $content, $REMOTE_ADDR);
+            claro_user_info_edit_cat_content($_REQUEST['catId'], $userIdViewed, $_REQUEST['content'], $$_SERVER['REMOTE_ADDR']);
         }
         else        // submit a totally new content
         {
-            claro_user_info_fill_new_cat_content($catId, $userIdViewed, $content, $REMOTE_ADDR);
+            claro_user_info_fill_new_cat_content($_REQUEST['catId'], $userIdViewed, $_REQUEST['content'], $_SERVER['REMOTE_ADDR']);
         }
 
         $displayMode = "viewContentList";
     }
-    elseif ($editContent)
+    elseif (isset($_REQUEST['editContent']))
     {
         $displayMode = "viewContentEdit";
     }
@@ -229,7 +231,7 @@ echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.$langBackToUsersList.'</a></s
 
    // Display Forms or dialog box (if needed)
 
-   if($dialogBox)
+   if(isset($dialogBox) && $dialogBox!="")
    {
        claro_disp_message_box($dialogBox);
    }
@@ -238,7 +240,15 @@ if ($displayMode == "viewDefEdit")
 {
     /*>>>>>>>>>>>> CATEGORIES DEFINITIONS : EDIT <<<<<<<<<<<<*/
 
-    $catToEdit = claro_user_info_get_cat_def($editDef);
+    if (isset($_REQUEST['editDef'])) $catToEdit = claro_user_info_get_cat_def($_REQUEST['editDef']);
+    else
+    {
+    $catToEdit = array();
+    $catToEdit['title'] = "";
+    $catToEdit['comment'] = "";
+    $catToEdit['nbline'] = 1;
+    $catToEdit['id'] = "";
+    }
 ?>
 
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?uInfo=<?php echo $userIdViewed; ?>">
@@ -269,7 +279,7 @@ if ($displayMode == "viewDefEdit")
 <td>
 <select name="nbline" id="nbline">
 <?php
-if ($catToEdit['nbline'])
+if ($catToEdit['nbline'] && $catToEdit['nbline']!=1)
 { ?>
     <option value="<?php echo $catToEdit['nbline']?>" selected><?php echo $catToEdit['nbline']?> <?php echo $langLineOrLines?></option>
     <option>---</option>
@@ -356,7 +366,7 @@ elseif ($displayMode == "viewDefList")
 elseif ($displayMode == "viewContentEdit")
 {
     /*>>>>>>>>>>>> CATEGORIES CONTENTS : EDIT <<<<<<<<<<<<*/
-    $catToEdit = claro_user_info_get_cat_content($userIdViewed,$editContent);
+    $catToEdit = claro_user_info_get_cat_content($userIdViewed,$_REQUEST['editContent']);
 ?>
 
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?uInfo=<?php echo $userIdViewed; ?>">
