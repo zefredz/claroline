@@ -10,10 +10,12 @@
  */
 require '../inc/claro_init_global.inc.php';
 
+// exo_id is required
+if( empty($_REQUEST['exo_id']) ) header("Location: ../exercice/exercice.php");
+
 /**
  * DB tables definition
  */
-
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
@@ -33,7 +35,7 @@ $is_allowedToTrack = $is_courseAdmin;
 // get infos about the exercise
 $sql = "SELECT `id`, `titre` `title`
         FROM `".$TABLE_QUIZ_TEST."`
-       WHERE `id` = ". (int) $_GET['exo_id'];
+       WHERE `id` = ". (int) $_REQUEST['exo_id'];
 $result = claro_sql_query($sql);
 $exo_details = @mysql_fetch_array($result);
 
@@ -122,12 +124,12 @@ if($is_allowedToTrack && $is_trackingEnabled)
   // display tab header
   echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n
       <tr class=\"headerX\" align=\"center\" valign=\"top\">\n
-        <th>$langStudent</th>\n
-        <th>$langScoreMin</th>\n
-        <th>$langScoreMax</th>\n
-        <th>$langScoreAvg</th>\n
-        <th>$langAttempts</th>\n
-        <th>$langExeAvgTime</th>\n
+        <th>".$langStudent."</th>\n
+        <th>".$langScoreMin."</th>\n
+        <th>".$langScoreMax."</th>\n
+        <th>".$langScoreAvg."</th>\n
+        <th>".$langAttempts."</th>\n
+        <th>".$langExeAvgTime."</th>\n
       </tr>\n
       <tbody>";
   // display tab content
