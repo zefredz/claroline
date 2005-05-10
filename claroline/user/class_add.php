@@ -38,6 +38,10 @@ $tbl_class_user      = $tbl_mdb_names['user_rel_profile_category'];
 /*---------------------------------------------------------------------*/
 /*----------------------EXECUTE COMMAND SECTION------------------------*/
 /*---------------------------------------------------------------------*/
+
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
   
 switch ($cmd)
 {  
@@ -104,7 +108,7 @@ claro_disp_tool_title($langAddAClassToCourse);
 
 // Display Forms or dialog box (if needed)
 
-if($dialogBox)
+if(isset($dialogBox)&& $dialogBox!="")
 {
     claro_disp_message_box($dialogBox);
 }
@@ -176,6 +180,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
     global $clarolineRepositoryWeb;
     global $tbl_class_user; 
     global $langUsersMin;
+    global $imgRepositoryWeb;
 
     foreach ($class_list as $cur_class)
     {
@@ -207,7 +212,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	    
 	    if ($has_children)
 	    {
-	        if ($_SESSION['class_add_visible_class'][$cur_class['id']]=="open")
+	        if (isset($_SESSION['class_add_visible_class'][$cur_class['id']]) && $_SESSION['class_add_visible_class'][$cur_class['id']]=="open")
 		{
 		    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&amp;class=".$cur_class['id']."\">\n"
 		                      ."   <img src=\"".$imgRepositoryWeb."minus.gif\" border=\"0\" >\n"
@@ -256,7 +261,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 	    
 	    // RECURSIVE CALL TO DISPLAY CHILDREN
 	    
-	    if ($_SESSION['class_add_visible_class'][$cur_class['id']]=="open")
+	    if (isset($_SESSION['class_add_visible_class'][$cur_class['id']]) && ($_SESSION['class_add_visible_class'][$cur_class['id']]=="open"))
 	    {
 	        display_tree($class_list, $cur_class['id'], $deep+1);
 	    }	    
