@@ -19,12 +19,7 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_courses			= $tbl_mdb_names['course'];
 $tbl_link_user_courses	= $tbl_mdb_names['rel_course_user'];
 
-
-
-$limitOfDisplayedLogins = 25; // number of logins to display
 include($includePath."/lib/statsUtils.lib.inc.php");
-
-
 
 ////////////// OUTPUT //////////////////////
 
