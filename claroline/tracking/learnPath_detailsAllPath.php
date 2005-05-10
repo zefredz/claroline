@@ -134,7 +134,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 		{
 			$total = round($globalprog/($iterator-1));
 			echo "<tr>
-			  <td><a href=\"".$clarolineRepositoryWeb."/tracking/userLog.php?uInfo=".$user['user_id']."&view=0010000\">".$user['nom']." ".$user['prenom']."</a></td>\n
+			  <td><a href=\"".$clarolineRepositoryWeb."tracking/userLog.php?uInfo=".$user['user_id']."&view=0010000\">".$user['nom']." ".$user['prenom']."</a></td>\n
 			  <td align=\"right\">".
 			claro_disp_progress_bar($total, 1).
 			" </td>
