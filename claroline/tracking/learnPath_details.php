@@ -30,6 +30,9 @@
  
 require '../inc/claro_init_global.inc.php';
 
+// path id can not be empty, return to the list of learning paths
+if( empty($_REQUEST['path_id']) ) header("Location: ../learnPath/learningPathList.php");
+
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 
 $nameTools = $langStatsOfLearnPath;
@@ -69,9 +72,9 @@ include($includePath."/claro_init_header.inc.php");
 if ( $is_allowedToTrack && $is_trackingEnabled )  
 {
 
-    if ( !empty($_GET['path_id']) )
+    if ( !empty($_REQUEST['path_id']) )
     {
-        $path_id = (int) $_GET['path_id'];
+        $path_id = (int) $_REQUEST['path_id'];
 
         // get infos about the learningPath
         $sql = "SELECT `name` 
@@ -94,15 +97,15 @@ if ( $is_allowedToTrack && $is_trackingEnabled )
                     FROM `".$TABLEUSER."` AS U, 
                          `".$TABLECOURSUSER."` AS CU
                     WHERE U.`user_id`= CU.`user_id`
-                    AND CU.`code_cours` = '$_cid'";
+                    AND CU.`code_cours` = '".$_cid."'";
 
             $usersList = claro_sql_query_fetch_all($sql);
 
             // display tab header
             echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n
                 <tr class=\"headerX\" align=\"center\" valign=\"top\">\n
-                  <th>$langStudent</th>\n
-                  <th colspan=\"2\">$langProgress</th>\n
+                  <th>".$langStudent."</th>\n
+                  <th colspan=\"2\">".$langProgress."</th>\n
                 </tr>\n
                 <tbody>";
 
