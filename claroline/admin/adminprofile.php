@@ -89,6 +89,8 @@ if (isset($_REQUEST['applyChange']))  //for formular modification
     $userphone_form            = $_REQUEST['userphone_form'];
     $admin_form                = $_REQUEST['admin_form'];
     $create_course_form        = $_REQUEST['create_course_form'];
+    $password                  = $_REQUEST['password'];
+    $confirm                   = $_REQUEST['confirm'];
     
     $username_check = claro_sql_query(
     "SELECT `username`
@@ -199,7 +201,8 @@ if (isset($_REQUEST['applyChange']))  //for formular modification
         // change user password if it has been asked
         if (!empty($password) && !empty($confirm) && ($confirm==$password))
         {
-            if ($userPasswordCrypted) $password = md5(trim($password));
+            echo "on change";
+	    if ($userPasswordCrypted) $password = md5(trim($password));
             $sql = "UPDATE  `".$tbl_user."`
                     SET
                     password='".$password."'
