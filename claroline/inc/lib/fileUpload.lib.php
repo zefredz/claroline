@@ -216,14 +216,12 @@ function dir_total_space($dirPath)
 
 function add_ext_on_mime($fileName)
 {
-	global $HTTP_POST_FILES;
-
-	/* 
+	/*
 	 * Check if the file has an extension AND if the browser has send a MIME Type
 	 */
 
 	if(!ereg("([[:alnum:]]|[[[:punct:]])+\.[[:alnum:]]+$", $fileName)
-		&& $HTTP_POST_FILES['userfile']['type'])
+		&& $_FILES['userfile']['type'])
 	{
 		/*
 		 * Build a "MIME-types / extensions" connection table
@@ -267,7 +265,7 @@ function add_ext_on_mime($fileName)
 
 		foreach($mimeType as $key=>$type)
 		{
-			if ($type == $HTTP_POST_FILES['userfile']['type'])
+			if ($type == $_FILES['userfile']['type'])
 			{
 				$fileName .=  $extension[$key];
 				break;
@@ -285,7 +283,7 @@ function add_ext_on_mime($fileName)
  * 
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  *
- * @param  array $uploadedFile - follows the $HTTP_POST_FILES Structure
+ * @param  array $uploadedFile - follows the $_FILES Structure
  * @param  string $baseWorkDir - base working directory of the module
  * @param  string $uploadPath  - destination of the upload. 
  *                               This path is to append to $baseWorkDir
@@ -338,7 +336,7 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  *
- * @param  array  $uploadedFile - follows the $HTTP_POST_FILES Structure
+ * @param  array  $uploadedFile - follows the $_FILES Structure
  * @param  string $uploadPath   - destination of the upload. 
  *                                This path is to append to $baseWorkDir
  * @param  string $baseWorkDir  - base working directory of the module
@@ -492,7 +490,7 @@ function get_unexisting_file_name($desiredDirName)
  * 
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param array $uploadedFileCollection - follows the $HTTP_POST_FILES Structure
+ * @param array $uploadedFileCollection - follows the $_FILES Structure
  * @param  string $destPath
  * @return string $destPath
  */
