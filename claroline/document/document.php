@@ -189,46 +189,48 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
         if( ! is_uploaded_file($_FILES['userFile']['tmp_name']) )
         {
-        	$dialogBox .= $langFileError.'<br>'.$langNotice.' : '.$langMaxFileSize.' '.get_cfg_var('upload_max_filesize');
-        }
-
-        if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1 && $is_allowedToUnzip) $unzip = 'unzip';
-        else                                                    $unzip = '';
-
-        $_REQUEST['cwd'] = str_replace('..', '', $_REQUEST['cwd']);
-
-        $uploadedFileName = treat_uploaded_file($_FILES['userFile'], $baseWorkDir,
-                                $_REQUEST['cwd'], $maxFilledSpace, $unzip);
-
-        if ($uploadedFileName !== false)
-        {
-            if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1)
-            {
-                $dialogBox .= $langUploadAndZipEnd;
-            }
-            else
-            {
-                $dialogBox .= $langUploadEnd;
-
-                if (trim($_REQUEST['comment']) != '') // insert additional comment
-                {
-                    update_db_info('update', $_REQUEST['cwd'].'/'.$uploadedFileName, 
-                                    array('comment' => trim($_REQUEST['comment']) ) );
-                }
-            }
+        	$dialogBox .= $langFileError.'<br />'.$langNotice.' : '.$langMaxFileSize.' '.get_cfg_var('upload_max_filesize');
         }
         else
         {
-            if (    claro_failure::get_last_failure() == 'not_enough_space'    )
-            {
-                $dialogBox .= $langNoSpace;
-            }
-            elseif( claro_failure::get_last_failure() == 'php_file_in_zip_file')
-            {
-                $dialogBox .= $langZipNoPhp;
-            }
-        }
+	        if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1 && $is_allowedToUnzip) $unzip = 'unzip';
+	        else                                                    $unzip = '';
 
+	        $_REQUEST['cwd'] = str_replace('..', '', $_REQUEST['cwd']);
+
+	        $uploadedFileName = treat_uploaded_file($_FILES['userFile'], $baseWorkDir,
+	                                $_REQUEST['cwd'], $maxFilledSpace, $unzip);
+
+
+			if ($uploadedFileName !== false)
+	        {
+	            if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1)
+	            {
+	                $dialogBox .= $langUploadAndZipEnd;
+	            }
+	            else
+	            {
+	                $dialogBox .= $langUploadEnd;
+
+	                if (trim($_REQUEST['comment']) != '') // insert additional comment
+	                {
+	                    update_db_info('update', $_REQUEST['cwd'].'/'.$uploadedFileName,
+	                                    array('comment' => trim($_REQUEST['comment']) ) );
+	                }
+	            }
+	        }
+	        else
+	        {
+	            if ( claro_failure::get_last_failure() == 'not_enough_space' )
+	            {
+	                $dialogBox .= $langNoSpace;
+	            }
+	            elseif( claro_failure::get_last_failure() == 'php_file_in_zip_file')
+	            {
+	                $dialogBox .= $langZipNoPhp;
+	            }
+	        }
+		}
 
         /*--------------------------------------------------------------------
            IN CASE OF HTML FILE, LOOKS FOR IMAGE NEEDING TO BE UPLOADED TOO
@@ -418,11 +420,10 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
         if ($fp)
         {
-
-          if ( fwrite($fp, $_REQUEST['htmlContent']) )
-          {
-            $dialogBox .= $langFileContentModified."<br>";
-          }
+			if ( fwrite($fp, $_REQUEST['htmlContent']) )
+			{
+				$dialogBox .= $langFileContentModified."<br>";
+			}
 
         }
     }
@@ -1144,7 +1145,7 @@ claro_disp_tool_title($titleElement,
  	 * get image list from file list
  	 */
 
-	if($docView == 'image' || $docView == 'thumbnails' )
+	if( ($docView == 'image' || $docView == 'thumbnails') && isset($fileList) )
 	{
 		$imageList = get_image_list($fileList, $is_allowedToEdit);
 	}
@@ -1431,7 +1432,7 @@ claro_disp_tool_title($titleElement,
 		
 		echo "<tr class=\"toolbar\">\n";
 		echo "<th class=\"prev\" colspan=\"1\" style=\"width: " . $colWidth . "%;\">\n";
-		if(count($imageList) == 0)
+		if( !isset($imageList) || count($imageList) == 0)
 		{
             $colspan = $numberOfCols;
 
@@ -1444,51 +1445,51 @@ claro_disp_tool_title($titleElement,
 		}
 		else
 		{
-		if(has_previous_page($imageList, $page))
-		{
-		    // link to previous page
-          	echo "<a href=\"".$_SERVER['PHP_SELF'] 
-				. "?docView=thumbnails&cwd=" . $curDirPath
-				. "&page=" . ($page - 1) . $searchCmdUrl . "\">&lt;&lt;&nbsp;&nbsp;page&nbsp;"
-				. ($page - 1) . "</a>\n"
-				;
-		}
-		else
-		{
-		    echo "<!-- empty -->";
-		}
-		
-		echo "</th>\n";
-		
-		echo "<th class=\"title\" colspan=\"" . ($numberOfCols - 2) . "\">\n"
-			. "<p align=\"center\">page&nbsp;" . $page . "</p>"
-			. "</th>\n"
-			;
-			
-		echo "<th class=\"next\" colspan=\"1\" style=\"width: " 
-			. $colWidth . "%;\">\n"
-			;
-		
-		if(has_next_page($imageList, $page))
-		{
-		    // link to next page
-		    echo "<a href=\"".$_SERVER['PHP_SELF'] 
-				. "?docView=thumbnails&cwd=" . $curDirPath
-				. "&page=" . ($page + 1) . $searchCmdUrl . "\">page&nbsp;"
-				. ($page + 1) . "&nbsp;&nbsp;&gt;&gt;</a>\n"
-				;
-		}
-		else
-		{
-		    echo "<!-- empty -->";
-		}
-		
-		echo "</th>\n";		
-		echo "</tr>\n";	
+			if(has_previous_page($imageList, $page))
+			{
+			    // link to previous page
+	          	echo "<a href=\"".$_SERVER['PHP_SELF']
+					. "?docView=thumbnails&cwd=" . $curDirPath
+					. "&page=" . ($page - 1) . $searchCmdUrl . "\">&lt;&lt;&nbsp;&nbsp;page&nbsp;"
+					. ($page - 1) . "</a>\n"
+					;
+			}
+			else
+			{
+			    echo "<!-- empty -->";
+			}
 
-		display_thumbnails($imageList, $fileList, $page
-			, $thumbnailWidth, $colWidth
-			, $numberOfCols, $numberOfRows);
+			echo "</th>\n";
+
+			echo "<th class=\"title\" colspan=\"" . ($numberOfCols - 2) . "\">\n"
+				. "<p align=\"center\">page&nbsp;" . $page . "</p>"
+				. "</th>\n"
+				;
+
+			echo "<th class=\"next\" colspan=\"1\" style=\"width: "
+				. $colWidth . "%;\">\n"
+				;
+
+			if(has_next_page($imageList, $page))
+			{
+			    // link to next page
+			    echo "<a href=\"".$_SERVER['PHP_SELF']
+					. "?docView=thumbnails&cwd=" . $curDirPath
+					. "&page=" . ($page + 1) . $searchCmdUrl . "\">page&nbsp;"
+					. ($page + 1) . "&nbsp;&nbsp;&gt;&gt;</a>\n"
+					;
+			}
+			else
+			{
+			    echo "<!-- empty -->";
+			}
+
+			echo "</th>\n";
+			echo "</tr>\n";
+
+			display_thumbnails($imageList, $fileList, $page
+				, $thumbnailWidth, $colWidth
+				, $numberOfCols, $numberOfRows);
 			
         }
 
