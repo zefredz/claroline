@@ -50,6 +50,7 @@ include($includePath.'/conf/course_main.conf.php');
 include($includePath.'/lib/add_course.lib.inc.php');
 include($includePath.'/lib/course.lib.inc.php');
 include($includePath.'/lib/fileManage.lib.php');
+include($includePath.'/lib/claro_mail.lib.inc.php');
 
 $nameTools = $langCreateSite;
 $controlMsg = array();
@@ -58,14 +59,16 @@ $controlMsg = array();
  * DB tables definition
  */
 
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_mdb_names = claro_sql_get_main_tbl();
 
-$tbl_course          = $tbl_mdb_names['course'           ];
-$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
-$tbl_category        = $tbl_mdb_names['category'         ];
-$tbl_user            = $tbl_mdb_names['user'             ];
-$tbl_announcement    = $tbl_cdb_names['announcement'     ];
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_course         = $tbl_mdb_names['course'          ];
+$tbl_rel_course_user= $tbl_mdb_names['rel_course_user' ];
+$tbl_category       = $tbl_mdb_names['category'        ];
+$tbl_user           = $tbl_mdb_names['user'            ];
+$tbl_admin			= $tbl_mdb_names['admin'    		];
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_announcement   = $tbl_cdb_names['announcement'    ];
 
 $TABLECOURSE        = $tbl_course;
 $TABLECOURSUSER     = $tbl_rel_course_user;
@@ -147,7 +150,7 @@ else
 			$controlMsg['error'][] = $langEmailWrong;
 		}
 
-        switch ($forceCodeCase)
+        switch ($forceCodeCase) // defined in config file
         {
             case 'lower' : 
                 $wantedCode = strtolower($wantedCode); 
@@ -165,7 +168,7 @@ else
 		$currentCourseId		 = $keys['currentCourseId'        ];
 		$currentCourseDbName	 = $keys['currentCourseDbName'    ];
 		$currentCourseRepository = $keys['currentCourseRepository'];
-		$expirationDate 		= 	time() + $firstExpirationDelay;
+		$expirationDate 		= 	time();
 	
 		if ($okToCreate)
 		{
@@ -209,13 +212,15 @@ else
 		    .' '.$langCategory.' : '.$newcourse_category."\n"
 		    .' '.$langLanguage.' : '.$newcourse_language."\n"
 		    ."\n ".$coursesRepositoryWeb.$currentCourseRepository."/\n\n";
-		    if (    
-					!@mail(	$administrator_email, 
-							$strCreationMailNotificationSubject ,
-							$strCreationMailNotificationBody ))
-			{
-				//find here another notification system
+		    
+		    // send a email to administrator(s) about the course creation
+		    $sql = "SELECT `idUser` FROM `".$tbl_admin."`";
+		    $adminUserIdsList = claro_sql_query_fetch_all($sql);
+		    foreach( $adminUserIdsList as $adminUserId )
+		    {
+		    	claro_mail_user( $adminUserId['idUser'], $strCreationMailNotificationBody, $strCreationMailNotificationSubject );
 			}
+
 		} // if ($okToCreate)
 	} // elseif ($submitFromCoursProperties)
 } // else (!$can_create_courses)
@@ -368,7 +373,7 @@ elseif($displayCourseAddResult)
        . $currentCourseCode
        . '</strong>';
        
-  if($dialogBox)
+  if( !empty($dialogBox))
   {
       claro_disp_message_box($dialogBox);
       echo "<br />";
