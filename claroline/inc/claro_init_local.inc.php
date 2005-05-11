@@ -246,8 +246,12 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 {
     // uid is in session => login already done, continue with this value
     $_uid                   = $_SESSION['_uid'                  ];
-    $is_platformAdmin       = $_SESSION['is_platformAdmin'      ];
-    $is_allowedCreateCourse = $_SESSION['is_allowedCreateCourse'];
+    
+    if ( !empty($_SESSION['is_platformAdmin']) ) 	$is_platformAdmin = $_SESSION['is_platformAdmin'];
+    else                             				$is_platformAdmin = false;
+    
+    if ( !empty($_SESSION['is_allowedCreateCourse']) ) 	$is_allowedCreateCourse = $_SESSION['is_allowedCreateCourse'];
+    else                             					$is_allowedCreateCourse = false;
 }
 else
 {
@@ -467,7 +471,8 @@ if ( $uidReset && !$loginFailed ) // session data refresh requested
 }
 elseif ( !empty($_uid) ) // elseif of if($uidReset) continue with the previous values
 {
-    $_user = $_SESSION['_user'];
+    if ( !empty($_SESSION['_user']) ) 	$_user = $_SESSION['_user'];
+    else                             	$_user = null;
 } 
 else
 {
@@ -651,12 +656,18 @@ if ( $uidReset || $cidReset ) // session data refresh requested
 }
 else // else of if ($uidReset || $cidReset) - continue with the previous values
 {
-    $is_courseMember  = $_SESSION['is_courseMember' ];
-    $is_courseAdmin   = $_SESSION['is_courseAdmin'  ];
-    $is_courseAllowed = $_SESSION['is_courseAllowed'];
-    $is_courseTutor   = $_SESSION['is_courseTutor'  ];
-    
-    $_courseUser      = $_SESSION['_courseUser'     ]; // not used
+    if ( !empty($_SESSION['is_courseMember']) ) $is_courseMember      = $_SESSION['is_courseMember'     ];
+    else                                        $is_courseMember      = null;
+    if ( !empty($_SESSION['is_courseAdmin']) )  $is_courseAdmin      = $_SESSION['is_courseAdmin'     ];
+    else                                        $is_courseAdmin      = null;
+    if ( !empty($_SESSION['is_courseAllowed']) )$is_courseAllowed      = $_SESSION['is_courseAllowed'     ];
+    else                                        $is_courseAllowed      = null;
+    if ( !empty($_SESSION['is_courseTutor']) )  $is_courseTutor      = $_SESSION['is_courseTutor'     ];
+    else                                        $is_courseTutor      = null;
+
+	// not used
+    if ( !empty($_SESSION['_courseUser']) )      $_courseUser      = $_SESSION['_courseUser'     ];
+    else                                        $_courseUser      = null;
 }
 
 /*---------------------------------------------------------------------------
@@ -883,7 +894,8 @@ if ( $uidReset || $cidReset || $gidReset || $tidReset ) // session data refresh 
 }
 else // continue with the previous values
 {
-    $is_toolAllowed = $_SESSION ['is_toolAllowed'];
+    if ( !empty( $_SESSION['is_toolAllowed']) )	$is_toolAllowed = $_SESSION['is_toolAllowed'];
+    else                                     	$is_toolAllowed = null;
 }
 
 /*---------------------------------------------------------------------------
@@ -940,7 +952,8 @@ if ($uidReset || $cidReset)
 }
 else // continue with the previous values
 {
-    $_courseToolList = $_SESSION ['_courseToolList'];
+    if ( !empty($_SESSION['_courseToolList']) ) $_courseToolList = $_SESSION['_courseToolList'] ;
+    else                             			$_courseToolList = null;
 }
 
 /*===========================================================================
