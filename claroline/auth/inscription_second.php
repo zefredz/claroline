@@ -20,6 +20,9 @@ include $includePath.'/conf/user_profile.conf.php';
 // include auth library
 include($includePath."/lib/auth.lib.inc.php");
 
+// include mail library
+include($includePath.'/lib/claro_mail.lib.inc.php');
+
 // DB tables definition
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user  = $tbl_mdb_names['user'];
@@ -191,35 +194,28 @@ if ($regDataOk)
     	/*--------------------------------------
     	             EMAIL NOTIFICATION
     	  --------------------------------------*/
-    	
-    	// Lets predefine some variables. Be sure to change the from address!
-    
-    	$emailto       = '"'.$firstname.' '.$lastname.' <'.$email.'>';
-    	$emailfromaddr =  $administrator_email;
-    	$emailfromname = $siteName;
-    	$emailsubject  = '['.$siteName.'] '.$langYourReg;
-    
-    	// The body can be as long as you wish, and any combination of text and variables
-    
-    	$emailbody    = "$langDear $firstname $lastname,\n" .
-                        "$langYouAreReg $siteName $langSettings $username\n" .
-                        "$langPassword : $password\n" .
-                        "$langAddress $siteName $langIs : $rootWeb\n".
-                        "$langProblem\n" .
-                        "$langFormula,\n" .
-                        $administrator_name . "\n" .
-                        "$langManager $siteName\n" .
-                        "T. " . $administrator_phone . "\n" .
-                        "$langEmail : " . $administrator_email . "\n";
-    
-    	// Here we are forming one large header line
-    	// Every header must be followed by a \n except the last
-    	$emailheaders = "From: " . $administrator_name . " <".$administrator_email.">\n";
-    	$emailheaders .= "Reply-To: " . $administrator_email . ""; 
-    
-    	// Because I predefined all of my variables, this mail() function looks nice and clean hmm?
-    	@mail( $emailto, $emailsubject, $emailbody, $emailheaders);
+    	// do not event try to send the mail if there is no specified email address
+    	if( !empty($email) )
+    	{
+          	$emailto       = '"'.$firstname.' '.$lastname.'" <'.$email.'>';
+	    	$emailSubject  = '['.$siteName.'] '.$langYourReg;
 
+	    	// The body can be as long as you wish, and any combination of text and variables
+
+	    	$emailBody    = $langDear.' '.$firstname.' '.$lastname.",\n"
+							.$langYouAreReg.' '.$siteName.' '.$langSettings.' '.$username."\n"
+	                        .$langPassword.' : '.$password."\n"
+	                        .$langAddress.' '.$siteName.' '.$langIs.' : '.$rootWeb."\n"
+	                        .$langProblem."\n"
+	                        .$langFormula.",\n"
+	                        .$administrator_name."\n"
+	                        .$langManager.' '.$siteName."\n"
+							.'T. '. $administrator_phone."\n"
+	        				.$langEmail.' : '.$administrator_email."\n";
+
+			claro_mail_user($_uid, $emailBody, $emailSubject);
+		}
+        
     } // if _uid
  
     printf($langMessageSubscribeDone_p_firstname_lastname, $firstname,$lastname);
