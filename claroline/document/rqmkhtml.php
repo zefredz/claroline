@@ -15,34 +15,30 @@ else
     $interbredcrump[] = array ('url'=>'document.php', 'name'=> $langDocument);
 }
 
+$noPHP_SELF = true;
+
 $baseWorkDir = $coursesRepositorySys . $courseDir;
+
+if( !empty($_REQUEST['cmd']) )	$cmd = $_REQUEST['cmd'];
+else 							$cmd = null;
+
+if( !empty($_REQUEST ['cwd']) ) $cwd = $_REQUEST ['cwd'];
+else                            $cwd = '';
 
 $nameTools = $langCreateModifyDocument;
 include('../inc/claro_init_header.inc.php');
 
 claro_disp_tool_title(array('mainTitle' => $langDocument, 'subTitle' => $langCreateModifyDocument));
 
-if (isset($_REQUEST['cmd']))
-     $cmd = $_REQUEST['cmd'];
-else $cmd = null;
-
 /*========================================================================
                              CREATE DOCUMENT
   ========================================================================*/
 
-/*------------------------------------------------------------------------
-                        CREATE DOCUMENT : STEP 2
---------------------------------------------------------------------------*/
-
-/*------------------------------------------------------------------------
-                        CREATE DOCUMENT : STEP 1
---------------------------------------------------------------------------*/
-
-if ($cmd ==  'rqMkHtml')
+if ($cmd ==  'rqMkHtml' )
 {
     ?><form action="document.php" method="post">
     <input type="hidden" name="cmd" value="exMkHtml">
-    <input type="hidden" name="cwd" value="<?php echo $_REQUEST['cwd']?>">
+    <input type="hidden" name="cwd" value="<?php echo $cwd; ?>">
     <p>
     <b><?php echo $langDocumentName ?></b><br />
     <input type="text" name="fileName" size="80">
@@ -50,7 +46,7 @@ if ($cmd ==  'rqMkHtml')
     <p>
     <b><?php echo $langDocumentContent ?></b>
     <?php
-    if (isset($_REQUEST['htmlContent'])) $content = $_REQUEST['htmlContent']; else $content = "";
+    if (!empty($_REQUEST['htmlContent'])) $content = $_REQUEST['htmlContent']; else $content = "";
     
     claro_disp_html_area('htmlContent',$content);
     
@@ -58,18 +54,18 @@ if ($cmd ==  'rqMkHtml')
     // get to the editor because of an error at creation 
     // (eg forgot to give a file name)
     ?> 
-    <input type="submit" value="OK">
-    <?php claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
+    <input type="submit" value="<?php echo $langOk; ?>">
+    <?php claro_disp_button('./document.php?cmd=exChDir&file='.$cwd, $langCancel); ?>
     </form>
     <?php
 }
-elseif($cmd == "rqEditHtml")
+elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
 {
     $fileContentList = file($baseWorkDir.$_REQUEST['file']);
       
     ?><form action="document.php" method="post">
     <input type="hidden" name="cmd" value="exEditHtml">
-    <input type="hidden" name="file" value="<?php echo $_REQUEST['file']?>">
+    <input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>">
     <b><?php echo $langDocumentName ?></b><br />
     <?php echo $_REQUEST['file']?>
     </p>
@@ -78,7 +74,8 @@ elseif($cmd == "rqEditHtml")
     <?php
     claro_disp_html_area('htmlContent', implode("\n", $fileContentList));
     ?>
-    <input type="submit" value="OK">
+    <input type="submit" value="<?php echo $langOk; ?>">
+    <?php claro_disp_button('./document.php?cmd=rqEdit&file='.$_REQUEST['file'], $langCancel); ?>
     </form>
     <?php
 }
@@ -86,4 +83,4 @@ elseif($cmd == "rqEditHtml")
 <br />
 <br />
 
-<?php @include($includePath."/claro_init_footer.inc.php"); ?>
+<?php include($includePath."/claro_init_footer.inc.php"); ?>
