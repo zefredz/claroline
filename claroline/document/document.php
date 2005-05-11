@@ -140,7 +140,6 @@ if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 require $includePath.'/lib/fileManage.lib.php';
 
-
 if($is_allowedToEdit) // for teacher only
 {
 	require $includePath.'/lib/fileUpload.lib.php';
@@ -715,7 +714,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 	    
             $dialogBox .= "<p>\n<label for=\"newComment\">"
                           .$langAddModifyComment." ".htmlspecialchars($fileName)."</label>\n"
-                          ."<br><textarea rows=2 cols=50 name=\"newComment\" id=\"newComment\">"
+                          ."<br><textarea rows=\"2\" cols=\"50\" name=\"newComment\" id=\"newComment\">"
                           .$oldComment
                           ."</textarea>\n"
                           ."</p>\n";
@@ -1527,7 +1526,7 @@ claro_disp_tool_title($titleElement,
 		}
 	    else
 	    {
-	        echo "<span class='claroCmdDisabled'>"
+	        echo "<span class=\"claroCmdDisabled\">"
 	            ."<img src=\"".$imgRepositoryWeb."parentdisabled.gif\" border=\"0\" alt=\"\">\n"
 	            .$langUp
 	            ."</span>\n";
@@ -1692,8 +1691,8 @@ claro_disp_tool_title($titleElement,
 				elseif ($fileList['type'][$fileKey] == A_DIRECTORY)
 				{
 					$image       = 'folder.gif';
-					$size        = '';
-					$date        = '';
+					$size        = '&nbsp;';
+					$date        = '&nbsp;';
 					$urlFileName = $_SERVER['PHP_SELF'].'?cmd=exChDir&file='.$cmdFileName;
 				}
 	
