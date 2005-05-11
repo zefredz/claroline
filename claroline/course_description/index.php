@@ -235,13 +235,13 @@ if ($is_allowedToEdit)
 
             .'<p><label for="descContent"><b>'.$langContent.' : </b></label><br /></td></tr><tr><td>'."\n";
 
-        claro_disp_html_area('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n";
+	        claro_disp_html_area('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n";
 
-        echo '<input type="submit" name="save" value="'.$langValid.'">'         ."\n";
+	        echo '<input type="submit" name="save" value="'.$langOk.'">'         ."\n";
 
-        claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
+	        claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
 
-        echo '</form>'."\n"
+	        echo '</form>'."\n"
             
             .'</td>'  ."\n"
 
@@ -311,7 +311,7 @@ if ( count($descList) )
 {
     foreach($descList as $thisDesc)
     {
-        echo '<h4>'.$thisDesc['title'].'</h4>'."\n"
+        echo "\n".'<h4>'.$thisDesc['title'].'</h4>'."\n"
             .'<blockquote>'."\n"
             . claro_parse_user_text($thisDesc['content'])."\n"
             .'<br>'."\n"
@@ -325,13 +325,13 @@ if ( count($descList) )
                 .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;id='.$thisDesc['id'].'"'
                 .' onClick="if(!confirm(\''.clean_str_for_javascript($langAreYouSureToDelete).' '.$thisDesc['title'].' ?\')){ return false}">'
                 .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'">'
-                .'</a>'."\n";
+                .'</a>'."\n\n";
         }
     }
 }
 else
 {
-	echo '<p>'.$langThisCourseDescriptionIsEmpty.'</p>'."\n";
+	echo "\n".'<p>'.$langThisCourseDescriptionIsEmpty.'</p>'."\n";
 }
 
 
