@@ -116,30 +116,31 @@ WHERE 	q_position IS NULL
 claro_sql_query($sql) or die("Error : UPDATE at line ".__LINE__);
 
 // selects $limitExPage exercises at the same time
+if (!isset($page)) $page = 0;
 $from=$page*$limitExPage;
 
 // only for administrator
 if($is_allowedToEdit)
 {
-	if(!empty($choice))
+	if(!empty($_REQUEST['choice']))
 	{
 		// construction of Exercise
-		$objExerciseTmp=new Exercise();
+		$objExerciseTmp = new Exercise();
 
-		if($objExerciseTmp->read($exerciseId))
+		if($objExerciseTmp->read($_REQUEST['exerciseId']))
 		{
-			switch($choice)
+			switch($_REQUEST['choice'])
 			{
 				case 'delete':	// deletes an exercise
 								$objExerciseTmp->delete();
 
                                 //if some learning path must be deleted too, just do it
-                                if ($lpmDel=='true')
+                                if (isset($_REQUEST['lpmDel']) && $_REQUEST['lpmDel']=='true')
                                 {
                                     //get module_id concerned (by the asset)...
                                     $sql="SELECT `module_id`
                                           FROM `".$tbl_lp_asset."`
-                                          WHERE `path`='".$exerciseId."'
+                                          WHERE `path`='".$_REQUEST['exerciseId']."'
                                           ";
                                     $aResult = claro_sql_query($sql);
                                     $aList = mysql_fetch_array($aResult);
@@ -148,7 +149,7 @@ if($is_allowedToEdit)
                                     // delete the asset
                                     $sql="DELETE
                                           FROM `".$tbl_lp_asset."`
-                                          WHERE `path`='".$exerciseId."'
+                                          WHERE `path`='".$_REQUEST['exerciseId']."'
 
                                           ";
                                     claro_sql_query($sql);
@@ -263,7 +264,7 @@ else
 <?php
 }
 
-if($page)
+if(isset($page))
 {
 ?>
 
@@ -289,7 +290,7 @@ if($nbrExercises > $limitExPage)
 
 <?php
 }
-elseif($page)
+elseif(isset($page))
 {
 ?>
 
@@ -395,7 +396,7 @@ while($row=mysql_fetch_array($result))
     <a href="exercice_submit.php?exerciseId=<?php echo $row['id']; ?>" <?php if(!$row['active']) echo 'class="invisible"'; ?>><?php echo $row['titre']; ?></a>
   </td>
   <td align="center"><a href="admin.php?exerciseId=<?php echo $row['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo htmlentities($langModify); ?>"></a></td>
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=delete&amp;exerciseId=<?php echo $row['id']; if (isset($actionsForDelete[$row[id]])) { echo "&amp;lpmDel=true";}?>" <?php if (isset($actionsForDelete[$row['id']])) { echo $actionsForDelete[$row['id']];} else {echo $defaultConfirm;} ?>><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo htmlentities($langDelete); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=delete&amp;exerciseId=<?php echo $row['id']; if (isset($actionsForDelete[$row['id']])) { echo "&amp;lpmDel=true";}?>" <?php if (isset($actionsForDelete[$row['id']])) { echo $actionsForDelete[$row['id']];} else {echo $defaultConfirm;} ?>><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo htmlentities($langDelete); ?>"></a></td>
 <?php
 		// if active
 		if($row['active'])

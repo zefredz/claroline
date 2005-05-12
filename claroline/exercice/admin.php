@@ -70,13 +70,13 @@ include('exercise.lib.php');
 require '../inc/claro_init_global.inc.php';
   
 // answer types
-define(UNIQUE_ANSWER,	1);
-define(MULTIPLE_ANSWER,	2);
-define(FILL_IN_BLANKS,	3);
-define(MATCHING,		4);
+define('UNIQUE_ANSWER',  1);
+define('MULTIPLE_ANSWER',2);
+define('FILL_IN_BLANKS', 3);
+define('MATCHING',	 4);
 
 // allows script inclusions
-define(ALLOWED_TO_INCLUDE,1);
+define('ALLOWED_TO_INCLUDE',1);
 
 $is_allowedToEdit=$is_courseAdmin;
 
@@ -93,6 +93,10 @@ $TBL_EXERCICES         = $_course['dbNameGlu'].'quiz_test';
 $TBL_QUESTIONS         = $_course['dbNameGlu'].'quiz_question';
 $TBL_REPONSES          = $_course['dbNameGlu'].'quiz_answer';
 
+//take parameters from URL or posted forms :
+
+if (isset($_REQUEST['modifyExercise'])) $modifyExercise = $_REQUEST['modifyExercise']; 
+
 if(!$is_allowedToEdit)
 {
 	die($langNotAllowed);
@@ -101,7 +105,7 @@ if(!$is_allowedToEdit)
 /*  stripslashes POST data  */
 /****************************/
 
-if($REQUEST_METHOD == 'POST')
+if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	foreach($_REQUEST as $key=>$val)
 	{
@@ -117,54 +121,59 @@ if($REQUEST_METHOD == 'POST')
 			}
 		}
 
-		$GLOBALS[$key]=$_REQUEST[$key];
+		//$GLOBALS[$key]=$_REQUEST[$key];
 	}
 }
 
 // intializes the Exercise object
-if(!is_object($objExercise))
+if(!isset($_SESSION['objExercise']) || !is_object($_SESSION['objExercise']))
 {
 	// construction of the Exercise object
-	$objExercise=new Exercise();
+	$objExercise = new Exercise();
 
 	// creation of a new exercise if wrong or not specified exercise ID
-	if($exerciseId)
+	if(isset($_REQUEST['exerciseId']))
 	{
-		$objExercise->read($exerciseId);
+		$objExercise->read($_REQUEST['exerciseId']);
 	}
 
 	// saves the object into the session
-	session_register('objExercise');
+	$_SESSION['objExercise'] = $objExercise;
+}
+else
+{
+        $objExercise = $_SESSION['objExercise'];
 }
 
 // doesn't select the exercise ID if we come from the question pool
-if(!$fromExercise)
+if(!isset($_REQUEST['fromExercise']))
 {
 	// gets the right exercise ID, and if 0 creates a new exercise
-	if(!$exerciseId=$objExercise->selectId())
+	if(!$exerciseId = $objExercise->selectId())
 	{
-		$modifyExercise='yes';
+		$modifyExercise = 'yes';
 	}
 }
 
-$nbrQuestions=$objExercise->selectNbrQuestions();
+
+$nbrQuestions = $objExercise->selectNbrQuestions();
 
 // intializes the Question object
-if($editQuestion || $newQuestion || $modifyQuestion || $modifyAnswers)
+if(isset($_REQUEST['editQuestion']) || isset($_REQUEST['newQuestion']) || isset($_REQUEST['modifyQuestion']) || isset($_REQUEST['modifyAnswers']))
 {
-	if($editQuestion || $newQuestion)
+	if(isset($_REQUEST['editQuestion']) || isset($_REQUEST['newQuestion']))
 	{
 		// construction of the Question object
-		$objQuestion=new Question();
+		$objQuestion = new Question();
 
 		// saves the object into the session
-		session_register('objQuestion');
+		$_SESSION['objQuestion'] = $objQuestion;
 
 		// reads question data
-		if($editQuestion)
+		if(isset($_REQUEST['editQuestion']))
 		{
 			// question not found
-			if(!$objQuestion->read($editQuestion))
+			if(!$objQuestion->read($_REQUEST['editQuestion']))
 			{
 				die($langQuestionNotFound);
 			}
@@ -185,10 +194,10 @@ if($editQuestion || $newQuestion || $modifyQuestion || $modifyAnswers)
 }
 
 // if cancelling an exercise
-if($cancelExercise)
+if( isset($cancelExercise) )
 {
 	// existing exercise
-	if($exerciseId)
+	if( isset($exerciseId) && $exerciseId )
 	{
 		unset($modifyExercise);
 	}
@@ -202,7 +211,7 @@ if($cancelExercise)
 }
 
 // if cancelling question creation/modification
-if($cancelQuestion)
+if(isset($cancelQuestion))
 {
 	// if we are creating a new question from the question pool
 	if(!$exerciseId && !$questionId)
@@ -221,7 +230,7 @@ if($cancelQuestion)
 }
 
 // if cancelling answer creation/modification
-if($cancelAnswers)
+if(isset($cancelAnswers))
 {
 	// goes back to the question viewing
 	$editQuestion=$modifyAnswers;
@@ -232,25 +241,28 @@ if($cancelAnswers)
 $interbredcrump[]=array("url" => "exercice.php","name" => $langExercices);
 
 // modifies the query string that is used in the link of tool name
-if($editQuestion || $modifyQuestion || $newQuestion || $modifyAnswers)
+if(isset($_REQUEST['editQuestion']) || isset($_REQUEST['modifyQuestion']) || isset($_REQUEST['newQuestion']) || isset($_REQUEST['modifyAnswers']))
 {
-	$nameTools=$langQuestionManagement;
+	$nameTools = $langQuestionManagement;
 		
 	// shows a link to go back to the question pool
-	if(!$exerciseId)
+	if (isset($_REQUEST['fromExercise'])) $addFrom = "fromExercise=".$_REQUEST['fromExercise']; else $addfrom = ""; 
+        
+        if(!isset($exerciseId))
 	{
-		$interbredcrump[]=array("url" => "question_pool.php?fromExercise=$fromExercise","name" => $langQuestionPool);
+		
+                $interbredcrump[] = array("url" => "question_pool.php?".$addfrom,"name" => $langQuestionPool);
 	}
 	else
 	{
-		$interbredcrump[]=array("url" => "admin.php?exerciseId=$fromExercise","name" => $objExercise->selectTitle());
+		$interbredcrump[] = array("url" => "admin.php?fromExercise=".$addfrom,"name" => $objExercise->selectTitle());
 	}
 	
-	$QUERY_STRING=$questionId?'editQuestion='.$questionId.'&fromExercise='.$fromExercise:'newQuestion=yes';
+	$QUERY_STRING = $questionId?'editQuestion='.$questionId.'&'.$addfrom:'newQuestion=yes';
 }
 else
 {
-	if( $exerciseId )
+	if(isset($exerciseId))
 	{
 		$nameTools = $objExercise->selectTitle();
 	}
@@ -262,7 +274,7 @@ else
 }
 
 // if the question is duplicated, disable the link of tool name
-if($modifyIn == 'thisExercise')
+if(isset($modifyIn) && $modifyIn == 'thisExercise')
 {
 	if($buttonBack)
 	{
@@ -278,30 +290,30 @@ include($includePath.'/claro_init_header.inc.php');
 
 claro_disp_tool_title($nameTools);
 
-if($newQuestion || $modifyQuestion)
+if(isset($_REQUEST['newQuestion']) || isset($modifyQuestion))
 {
 	// statement management
 	include('statement_admin.inc.php');
 }
 
-if($modifyAnswers)
+if(isset($_REQUEST['modifyAnswers']))
 {
 	// answer management
 	include('answer_admin.inc.php');
 }
 
-if($editQuestion || $usedInSeveralExercises)
+if(isset($_REQUEST['editQuestion']) || isset($usedInSeveralExercises))
 {
 	// question management
 	include('question_admin.inc.php');
 }
 
-if(!$newQuestion && !$modifyQuestion && !$editQuestion && !$modifyAnswers)
+if(!isset($_REQUEST['newQuestion']) && !isset($_REQUEST['modifyQuestion']) && !isset($_REQUEST['editQuestion']) && !isset($_REQUEST['modifyAnswers']))
 {
 	// exercise management
 	include('exercise_admin.inc.php');
 
-	if( !isset($modifyExercise) )
+	if( !isset($_REQUEST['modifyExercise']) )
 	{
 		// question list management
 		include('question_list_admin.inc.php');
