@@ -21,6 +21,7 @@ include($includePath."/lib/debug.lib.inc.php");
 include($includePath."/lib/userManage.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/conf/user_profile.conf.php");
+include($includePath.'/lib/claro_mail.lib.inc.php');
 
 $nameTools             = $langAddUser;
 
@@ -44,18 +45,12 @@ $dialogBox = "";
 
 include($includePath."/claro_init_header.inc.php");
 
-//clean session with used variables for name,... used in other scripts
-
-$_SESSION['nom']    = "";
-$_SESSION['prenom'] = "";
-$_SESSION['uname']  = "";
-
 //retrieve needed parameters from URL to prefill creation form (in case of relaod with error to correct by user)
  
-if (isset($_REQUEST['nom']))           $nom             = $_REQUEST['nom'];           else $nom = "";
-if (isset($_REQUEST['prenom']))        $prenom          = $_REQUEST['prenom'];        else $prenom = "";
+if (isset($_REQUEST['lastname']))      $lastname        = $_REQUEST['lastname'];      else $lastname = "";
+if (isset($_REQUEST['firstname']))     $firstname       = $_REQUEST['firstname'];     else $firstname = "";
 if (isset($_REQUEST['official_code'])) $official_code   = $_REQUEST['official_code']; else $official_code = "";
-if (isset($_REQUEST['uname']))         $uname           = $_REQUEST['uname'];         else $uname = "";
+if (isset($_REQUEST['username']))      $username        = $_REQUEST['username'];      else $username = "";
 if (isset($_REQUEST['password']))      $password        = $_REQUEST['password'];      else $password = "";
 if (isset($_REQUEST['password1']))     $password1       = $_REQUEST['password1'];     else $password1 = "";
 if (isset($_REQUEST['email']))         $email           = $_REQUEST['email'];         else $email = "";
@@ -68,10 +63,10 @@ if (isset($_REQUEST['phone']))         $phone           = $_REQUEST['phone'];   
 if(isset($_REQUEST['register']) && $_REQUEST['register']=="yes")
 {
     $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
-    $uname      = trim ($HTTP_POST_VARS["uname"     ]);
+    $username   = trim ($HTTP_POST_VARS["username"  ]);
     $email      = trim ($HTTP_POST_VARS["email"     ]);
-    $nom        = trim ($HTTP_POST_VARS["nom"       ]);
-    $prenom     = trim ($HTTP_POST_VARS["prenom"    ]);
+    $lastname   = trim ($HTTP_POST_VARS["lastname"  ]);
+    $firstname  = trim ($HTTP_POST_VARS["firstname" ]);
     $password   = trim ($HTTP_POST_VARS["password"  ]);
     $password1  = trim ($HTTP_POST_VARS["password1" ]);
     $statut     = ($HTTP_POST_VARS["statut"    ]==COURSEMANAGER)?COURSEMANAGER:STUDENT;
@@ -83,11 +78,11 @@ if(isset($_REQUEST['register']) && $_REQUEST['register']=="yes")
     // CHECK IF THERE IS NO EMPTY FIELD
 
     if (
-           empty($nom)
-        OR empty($prenom)
+           empty($lastname)
+        OR empty($firstname)
         OR empty($password1)
         OR empty($password)
-        OR empty($uname)
+        OR empty($username)
         OR (empty($email) && !$userMailCanBeEmpty)
             )
     {
@@ -124,7 +119,7 @@ if(isset($_REQUEST['register']) && $_REQUEST['register']=="yes")
     {
         $sql = "SELECT `user_id` 
                 FROM `".$tbl_user."`
-                WHERE username=\"".$uname."\"";
+                WHERE username=\"".$username."\"";
         $result = claro_sql_query($sql);
 
 
@@ -132,7 +127,7 @@ if(isset($_REQUEST['register']) && $_REQUEST['register']=="yes")
         {
             $regDataOk = false;
             $dialogBox .= $langUserNameTaken;
-            unset($password1, $password, $uname);
+            unset($password1, $password, $username);
         }
         else
         {
@@ -155,47 +150,41 @@ if (isset($regDataOk) && ($regDataOk))
       STORE THE NEW USER DATA INSIDE THE CLAROLINE DATABASE
       -----------------------------------------------------*/
 
-    claro_sql_query("INSERT INTO `".$tbl_user."`
-                 SET `nom`          = \"".$nom."\",
-                     `prenom`       = \"".$prenom."\",
-                     `username`     = \"".$uname."\",
+    $sql = "INSERT INTO `".$tbl_user."`
+                 SET `nom`          = \"".$lastname."\",
+                     `prenom`       = \"".$firstname."\",
+                     `username`     = \"".$username."\",
                      `password`     = \"".($userPasswordCrypted?md5($password):$password)."\",
                      `email`        = \"".$email."\",
                      `phoneNumber`  = \"".$phone."\",
                      `statut`       = \"".$statut."\",
-                     `officialCode`    = \"".$official_code."\"
-                     ");
-
-    //$_uid = mysql_insert_id();
-
-    $inserted_uid = mysql_insert_id();
+                     `officialCode`    = \"".$official_code."\"";
+	// exec query and get last inserted id
+    $inserted_uid = claro_sql_query_insert_id($sql);
 
     /*--------------------------------------
                  EMAIL NOTIFICATION
       --------------------------------------*/
+	// do not event try to send the mail if there is no specified email address
+	// mail address has already be checked via regex if set
+	if( !empty($email) )
+	{
+    	$emailSubject  = '['.$siteName.'] '.$langYourReg;
 
+    	$emailBody    = $langDear.' '.$firstname.' '.$lastname.",\n"
+						.$langYouAreReg.' '.$siteName.' '.$langSettings.' '.$username."\n"
+                        .$langPassword.' : '.$password."\n"
+                        .$langAddress.' '.$siteName.' '.$langIs.' : '.$rootWeb."\n"
+                        .$langProblem."\n"
+                        .$langFormula.",\n"
+                        .$administrator_name."\n"
+                        .$langManager.' '.$siteName."\n"
+						.'T. '. $administrator_phone."\n"
+        				.$langEmail.' : '.$administrator_email."\n";
 
-    // Lets predefine some variables. Be sure to change the from address!
-
-    $emailto       = "\"$prenom $nom\" <$email>";
-    $emailfromaddr = $administrator_email;
-    $emailfromname = $siteName;
-    $emailsubject  = '['.$siteName.'] '.$langYourReg;
-
-    // The body can be as long as you wish, and any combination of text and variables
-
-    $emailbody    = "$langDear $prenom $nom,\n
-    $langYouAreReg $siteName $langSettings $uname\n$langPassword : $password\n$langAddress $siteName $langIs : $rootWeb\n$langProblem\n$langFormula,\n" .
-    $administrator_name . "\n $langManager $siteName\nT. " . $administrator_phone . "\n$langEmail : " . $administrator_email . "\n";
-
-    // Here we are forming one large header line
-    // Every header must be followed by a \n except the last
-    $emailheaders = "From: " . $administrator_name . " <".$administrator_email.">\n";
-    $emailheaders .= "Reply-To: " . $administrator_email . "";
-
-    // Because I predefined all of my variables, this mail() function looks nice and clean hmm?
-    @mail( $emailto, $emailsubject, $emailbody, $emailheaders);
-
+		claro_mail_user($inserted_uid, $emailBody, $emailSubject);
+	}
+		
     $display_form = false;
     $display_success = TRUE;
 
@@ -210,39 +199,41 @@ if (isset($regDataOk) && ($regDataOk))
 claro_disp_tool_title(
     array(
     'mainTitle'=>$nameTools
-
     )
-    );
+);
 
 if (isset($controlMsg)) claro_disp_msg_arr($controlMsg);
 
   // Display Forms or dialog box(if needed)
 
-if(isset($dialogBox) && $dialogBox!="")
-  {
-    claro_disp_message_box($dialogBox);
-  }
+if( !empty($dialogBox) )
+{
+	claro_disp_message_box($dialogBox);
+}
 
 
 if($display_form)
 {
-    echo $langAddUserOneByOne; ?>
+    echo $langAddUserOneByOne;
+
+?>
+
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>?register=yes">
     <table cellpadding="3" cellspacing="0" border="0">
     <tr>
         <td align="right">
-            <label for="nom"><?php echo $langLastName; ?></label> :
+            <label for="lastname"><?php echo $langLastName; ?></label> :
         </td>
         <td>
-            <input type="text" size="40" name="nom" id="nom" value="<?php echo htmlentities(stripslashes($nom)); ?>">
+            <input type="text" size="40" name="lastname" id="lastname" value="<?php echo htmlentities(stripslashes($lastname)); ?>">
         </td>
     </tr>
     <tr>
         <td align="right">
-            <label for="prenom"><?php echo $langFirstName; ?></label> :
+            <label for="firstname"><?php echo $langFirstName; ?></label> :
         </td>
         <td>
-            <input type="text" size="40" name="prenom" id="prenom" value="<?php echo htmlentities(stripslashes($prenom)); ?>">
+            <input type="text" size="40" name="firstname" id="firstname" value="<?php echo htmlentities(stripslashes($firstname)); ?>">
         </td>
     </tr>
 
@@ -263,10 +254,10 @@ if($display_form)
     </tr>
     <tr>
         <td align="right">
-            <label for="uname"><?php echo $langUserName ?></label> :
+            <label for="username"><?php echo $langUserName ?></label> :
         </td>
         <td>
-            <input type="text" size="40" name="uname" id="uname" value="<?php echo htmlentities(stripslashes($uname)); ?>">
+            <input type="text" size="40" name="username" id="username" value="<?php echo htmlentities(stripslashes($username)); ?>">
         </td>
     </tr>
     <tr>
@@ -334,7 +325,7 @@ if($display_form)
 
 if (isset($display_success))
 {
-   echo $langUserCreated."<br><br>
+   echo $langUserCreated."<br /><br />
    <ul>";
    echo "<li><a class=\"claroCmd\" href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$inserted_uid."&category=&fromAdmin=settings\"> ".$langRegisterTheNewUser." </a></li>";
    echo "<li><a class=\"claroCmd\" href=\"adminprofile.php?uidToEdit=".$inserted_uid."&category=\"> ".$langGoToUserSettings." </a></li>";
