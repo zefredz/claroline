@@ -13,6 +13,13 @@
 
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
+$nameTools = $langOrganisation;
+$subTitle = '';
+
+$display_error_mess = FALSE;
+
 /*---------------------------------------------------------------------
   Security Check
  ---------------------------------------------------------------------*/
@@ -33,23 +40,23 @@ if ( ! $is_allowedToEdit )
   CONSTANT DEFINITION FOR DIPLAY SWITCH
  ---------------------------------------------------------------------*/
 
-define ('DISP_FORUM_GO'      ,1);
-define ('DISP_FORUM_GO_EDIT' ,2);
-define ('DISP_FORUM_CAT_EDIT',3);
-define ('DISP_FORUM_CAT_SAVE',4);
-define ('DISP_FORUM_GO_SAVE' ,5);
-define ('DISP_FORUM_CAT_ADD' ,6);
-define ('DISP_FORUM_GO_ADD'  ,7);
-define ('DISP_FORUM_CAT_DEL' ,8);
-define ('DISP_FORUM_GO_DEL'  ,9);
-define ('DISP_FORUM_ADMIN'   ,10);
-define ('DISP_NO_WAY'        ,11);
+define ('DISP_FORUM_GO'      ,__LINE__);
+define ('DISP_FORUM_GO_EDIT' ,__LINE__);
+define ('DISP_FORUM_CAT_EDIT',__LINE__);
+define ('DISP_FORUM_CAT_SAVE',__LINE__);
+define ('DISP_FORUM_GO_SAVE' ,__LINE__);
+define ('DISP_FORUM_CAT_ADD' ,__LINE__);
+define ('DISP_FORUM_GO_ADD'  ,__LINE__);
+define ('DISP_FORUM_CAT_DEL' ,__LINE__);
+define ('DISP_FORUM_GO_DEL'  ,__LINE__);
+define ('DISP_FORUM_ADMIN'   ,__LINE__);
+define ('DISP_NO_WAY'        ,__LINE__);
 
 /*---------------------------------------------------------------------
   CONSTANT DEFINING THE FORUM CATEGORY RESERVED FOR CLAROLINE GROUPS
  ---------------------------------------------------------------------*/
 
-define("CAT_FOR_GROUPS",1);
+define('CAT_FOR_GROUPS',1);
 
 /*---------------------------------------------------------------------
   DB tables definition
@@ -60,72 +67,89 @@ $tbl_forum_categories = $tbl_cdb_names['bb_categories'         ];
 $tbl_forum_forums     = $tbl_cdb_names['bb_forums'             ];
 $tbl_forum_topics     = $tbl_cdb_names['bb_topics'             ];
 
+
+/*---------------------------------------------------------------------
+  Get form params
+ ---------------------------------------------------------------------*/
+
+if ( isset($_REQUEST['cat_id']) ) $cat_id = (int) $_REQUEST['cat_id'];
+else                              $cat_id = 0;
+
+if ( isset($_REQUEST['cat_title']) ) $cat_title = $_REQUEST['cat_title'];
+else				                 $cat_title = '';
+
+if ( isset($_REQUEST['forum_id']) ) $forum_id = (int) $_REQUEST['forum_id'];
+else                                $forum_id = 0;
+
+if ( isset($_REQUEST['forum_name']) ) $forum_name = $_REQUEST['forum_name'];
+else                                  $forum_name = 0;
+    
+if ( isset($_REQUEST['forum_desc']) ) $forum_desc = $_REQUEST['forum_desc'];
+else                                  $forum_desc = '';
+	
+if ( isset($_REQUEST['forum_type']) ) $forum_type = (int) $_REQUEST['forum_type']; // not used
+else                                  $forum_type = 0;
+
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = '';
+
 /*=====================================================================
-  Statements Section
+  Main Section
  =====================================================================*/
 
-switch ( $_REQUEST['cmd'] )
-{
-    case "exMovedown" :
-         $ThisForumId = (int) $_REQUEST['moveForumId'];
-         $sortDirection = "ASC";
-         break;
-    case "exMoveup" :
-         $ThisForumId = (int) $_REQUEST['moveForumId'];
-         $sortDirection = "DESC";
-    case "exMovedownCat" :
-         $ThisCatId = (int) $_REQUEST['moveCatId'];
-         $sortDirectionCat = "ASC";
-         break;
-    case "exMoveupCat" :
-         $ThisCatId = (int) $_REQUEST['moveCatId'];
-         $sortDirectionCat = "DESC";
-         break;
-    default:
-         break;
-}
 
 /*---------------------------------------------------------------------
  re-order forum
  ---------------------------------------------------------------------*/
 
-if ( isset($sortDirection) )
+if ( !empty($cat_id) && !empty($forum_id) && ( $cmd == 'exMovedown' || $cmd == 'exMoveup' ) )
 {
-    $sql = 'SELECT f.`forum_id`, f.`forum_order` 
+    $sql = 'SELECT f.`forum_order` 
             FROM `'.$tbl_forum_forums.'` f
-            WHERE f.`cat_id` = "'.$moveCat.'"
-            ORDER BY f.`forum_order` '.$sortDirection;
-    $result = claro_sql_query($sql);
-        
-    while ( list($ForumId, $ForumOrderInCat) = mysql_fetch_row($result) )
+            WHERE f.`cat_id` = ' . $cat_id . '
+            AND f.`forum_id` = ' . $forum_id ;
+
+    $order = claro_sql_query_get_single_value($sql);
+
+    if ( $cmd == 'exMoveup' && $order>1 )
     {
-        // STEP 2 : FOUND THE NEXT FORUM ID AND ORDER.
-        //          COMMIT ORDER SWAP ON THE DB
+        // previous forum +1
+        $sql = 'UPDATE `'.$tbl_forum_forums.'`
+                SET `forum_order` = `forum_order`+1
+                WHERE `forum_order` =  '. ($order-1) . ' 
+                    AND `cat_id` = '. $cat_id ;
+        claro_sql_query($sql);
 
-        if ( isset($ThisForumOrderFound) && ($ThisForumOrderFound == true) )
+        // forum -1
+        $sql = 'UPDATE `'.$tbl_forum_forums.'`
+                SET `forum_order` = `forum_order`-1
+                WHERE `forum_id` =  "'.$forum_id.'"
+                    AND `cat_id` = '. $cat_id ;
+        claro_sql_query($sql);
+    }
+    
+    if ( $cmd == 'exMovedown' )
+    {
+         $sql = 'SELECT max(f.`forum_order`) as `max_order`
+                 FROM `'.$tbl_forum_forums.'` f
+                 WHERE `cat_id` = '. $cat_id ;
+         $max_order = claro_sql_query_get_single_value($sql);
+    
+        if ( $order<$max_order )
         {
-            $nextForumId = $ForumId;
-            $nextForumOrder = $ForumOrderInCat;
-
+            // next forum - 1
             $sql = 'UPDATE `'.$tbl_forum_forums.'`
-                    SET `forum_order` = "'.$nextForumOrder.'"
-                    WHERE `forum_id` =  "'.$ThisForumId.'"';
+                    SET `forum_order` = `forum_order`-1
+                    WHERE `forum_order` =  '. ($order+1) . ' 
+                        AND `cat_id` = '. $cat_id ;
             claro_sql_query($sql);
-
+    
+            // forum + 1
             $sql = 'UPDATE `'.$tbl_forum_forums.'`
-                    SET `forum_order` = "'.$ThisForumOrder.'"
-                    WHERE `forum_id` =  "'.$nextForumId.'"';
+                    SET `forum_order` = `forum_order`+1
+                    WHERE `forum_id` =  ' . $forum_id . '
+                    AND `cat_id` = ' . $cat_id ;
             claro_sql_query($sql);
-
-            break;
-        }
-
-        // STEP 1 : FIND THE ORDER OF THE FORUM
-
-        if ( $ForumId==$ThisForumId )
-        {
-            $ThisForumOrder = $ForumOrderInCat;
-            $ThisForumOrderFound = true;
         }
     }
 }
@@ -134,66 +158,73 @@ if ( isset($sortDirection) )
  re-order categories
  ---------------------------------------------------------------------*/
 
-if ( isset($sortDirectionCat) )
+if ( !empty($cat_id) && $cmd == 'exMovedownCat' || $cmd == 'exMoveupCat' )
 {
+    $sql = 'SELECT f.`cat_order` 
+            FROM `'.$tbl_forum_categories.'` f
+            WHERE f.`cat_id` = ' . $cat_id;
 
-    $sql = 'SELECT c.`cat_id`, c.`cat_order` FROM `'.$tbl_forum_categories.'` c
-            ORDER BY c.`cat_order` '.$sortDirectionCat;
+    $order = claro_sql_query_get_single_value($sql);
 
-    $result = claro_sql_query($sql);
-
-    while ( list($CatId,$CatOrderInCatList) = mysql_fetch_row($result) )
+    if ( $cmd == 'exMoveupCat' && $order>1 )
     {
+        // previous cat +1
+        $sql = 'UPDATE `'.$tbl_forum_categories.'`
+                SET `cat_order` = `cat_order`+1
+                WHERE `cat_order` = ' . ($order-1);
+        claro_sql_query($sql);
 
-        // STEP 2 : FOUND THE NEXT CAT ID AND ORDER.
-        //          COMMIT ORDER SWAP ON THE DB
-
-        if ( isset($ThisCatOrderFound) && ($ThisCatOrderFound == true) )
+        // cat -1
+        $sql = 'UPDATE `'.$tbl_forum_categories.'`
+                SET `cat_order` = `cat_order`-1
+                WHERE `cat_id` = ' . $cat_id ;
+        claro_sql_query($sql);
+        
+    }
+    
+    if ( $cmd == 'exMovedownCat' )
+    {
+         $sql = 'SELECT max(f.`cat_order`) as `cat_order`
+                 FROM `'.$tbl_forum_categories.'` f';
+         $max_order = claro_sql_query_get_single_value($sql);
+    
+        if ( $order<$max_order )
         {
-            $nextCatId = $CatId;
-            $nextCatOrder = $CatOrderInCatList;
+            // next cat - 1
             $sql = 'UPDATE `'.$tbl_forum_categories.'`
-                    SET `cat_order` = "'.$nextCatOrder.'"
-                    WHERE `cat_id` = "'.$ThisCatId.'"';
+                    SET `cat_order` = `cat_order`-1
+                    WHERE `cat_order` =  '. ($order+1);
             claro_sql_query($sql);
+    
+            // cat + 1
             $sql = 'UPDATE `'.$tbl_forum_categories.'`
-                    SET `cat_order` = "'.$ThisCatOrder.'"
-                    WHERE `cat_id` =  "'.$nextCatId.'"';
+                    SET `cat_order` = `cat_order`+1
+                    WHERE `cat_id` = '. $cat_id;
             claro_sql_query($sql);
-            break;
-        }
-
-        // STEP 1 : FIND THE ORDER OF THE CAT
-
-        if ($CatId==$ThisCatId)
-        {
-            $ThisCatOrder = $CatOrderInCatList;
-            $ThisCatOrderFound = true;
         }
     }
-
-} // end execute command
+}
 
 /*---------------------------------------------------------------------
   GO TO FORUMS LIST OF THIS CATEGORY
  ---------------------------------------------------------------------*/
 
-if ( isset($_REQUEST['cat_id']) ) 
+if ( !empty($cat_id) && ! isset($_REQUEST['forumcatsave']) ) 
 {
     $sql = "SELECT cat_title
              FROM `". $tbl_forum_categories . "`
-             WHERE cat_id='". $_REQUEST['cat_id'] ."'";
+             WHERE cat_id='". $cat_id ."'";
 
     $result = claro_sql_query($sql);
     
     if (mysql_num_rows($result))
     {
         $row = mysql_fetch_array($result);
-        $category_name = $row['cat_title'];
+        $cat_title = $row['cat_title'];
     }
     else
     {
-        $category_name = $langEmpty; 
+        $cat_title = $langEmpty; 
     }
 
 }
@@ -201,7 +232,7 @@ if ( isset($_REQUEST['cat_id']) )
 if ( isset($_REQUEST['forumgo']) )
 {
     $display  = DISP_FORUM_GO;
-    $subTitle = $langForCat." ' ".$category_name." ' ";
+    $subTitle = $langForCat." ' ".$cat_title." ' ";
     $sql = "SELECT forum_id id,
                    forum_name name,
                    forum_access access,
@@ -209,7 +240,7 @@ if ( isset($_REQUEST['forumgo']) )
                    forum_type type,
                    forum_desc
              FROM `".$tbl_forum_forums."`
-             WHERE cat_id='".$cat_id."'
+             WHERE cat_id='". $cat_id ."'
              ORDER BY forum_order";
 
     $result = claro_sql_query($sql);
@@ -217,7 +248,7 @@ if ( isset($_REQUEST['forumgo']) )
     $forumList = array();
     while ( $row = mysql_fetch_array($result)) $forumList[] = $row;
     
-    if ($cat_id != CAT_FOR_GROUPS) $show_formToAddAForum = true;
+    if ( $cat_id != CAT_FOR_GROUPS) $show_formToAddAForum = true;
 }
 
 /*---------------------------------------------------------------------
@@ -239,7 +270,7 @@ elseif ( isset($_REQUEST['forumgoedit']) )
 
     $subTitle = $langModify." ' ".$forum_name." ' ";
 
-    if ($current_cat_id==CAT_FOR_GROUPS)
+    if ( $current_cat_id==CAT_FOR_GROUPS )
     {
         $is_allowedToMoveForum = false;
     }
@@ -251,16 +282,10 @@ elseif ( isset($_REQUEST['forumgoedit']) )
                 FROM `".$tbl_forum_categories."`";
         $result = claro_sql_query($sql);
 
-        while(list($cat_id, $cat_title) = mysql_fetch_row($result))
+        while ( list($cat_id, $cat_title) = mysql_fetch_row($result) )
         {
-            if($cat_id != CAT_FOR_GROUPS)
+            if ( $cat_id != CAT_FOR_GROUPS )
             {
-                $output_option_list .= "\n\t\t<option value=\"".$cat_id."\" "
-                                    .($cat_id ==    $current_cat_id    ? "selected":"")
-                                    .">\n\t\t\t"
-                                    .$cat_title
-                                    ."\n\t\t</option>";
-
                 $targetCategoryList[] =
                 array('id'      =>  $cat_id,
                       'title'   =>  $cat_title,
@@ -275,13 +300,16 @@ elseif ( isset($_REQUEST['forumgoedit']) )
     FORUM CATEGORY EDIT
  ---------------------------------------------------------------------*/
 
-elseif($forumcatedit)
+elseif ( isset($_REQUEST['forumcatedit']) )
 {
     $display  = DISP_FORUM_CAT_EDIT;
     $subTitle = $langModCatName;
-    $result   = claro_sql_query("SELECT cat_id, cat_title
-                             FROM `".$tbl_forum_categories."`
-                             WHERE cat_id = '".$cat_id."'");
+
+    $sql = "SELECT cat_id, cat_title
+            FROM `".$tbl_forum_categories."`
+            WHERE cat_id = '".$cat_id."'";
+
+    $result   = claro_sql_query($sql);
     list($cat_id, $cat_title) = mysql_fetch_row($result);
 
 }
@@ -290,13 +318,13 @@ elseif($forumcatedit)
      FORUM CATEGORY SAVE
  ---------------------------------------------------------------------*/
 
-elseif ($forumcatsave)
+elseif ( isset($_REQUEST['forumcatsave']) )
 {
     $display = DISP_FORUM_CAT_SAVE;
-    if ($cat_title != "")
+    if ( !empty($cat_title) )
     {
         $sql = "UPDATE `".$tbl_forum_categories."`
-                SET   cat_title = '".$cat_title."'
+                SET   cat_title = '". addslashes($cat_title) ."'
                 WHERE cat_id    = '".$cat_id."'";
         claro_sql_query($sql);
     }
@@ -310,14 +338,14 @@ elseif ($forumcatsave)
   SAVE FORUM NAME & DESCRIPTION
  ---------------------------------------------------------------------*/
 
-elseif($forumgosave)
+elseif ( isset($_REQUEST['forumgosave']) )
 {
     $display = DISP_FORUM_GO_SAVE;
-    if($forum_name != "")
+    if ( !empty($forum_name) )
     {
         $sql = 'UPDATE `'.$tbl_forum_forums.'`
-                SET `forum_name`     = "'.$forum_name.'",
-                    `forum_desc`     = "'.$forum_desc.'",
+                SET `forum_name`     = "'. addslashes($forum_name) .'",
+                    `forum_desc`     = "'. addslashes($forum_desc) .'",
                     `forum_access`   = "2",
                     `forum_moderator`= "1",
                     `cat_id`         = "'.$cat_id.'",
@@ -336,7 +364,7 @@ elseif($forumgosave)
      FORUM ADD CATEGORY
  ---------------------------------------------------------------------*/
 
-elseif($forumcatadd)
+elseif ( isset($_REQUEST['forumcatadd']) )
 {
     $display=DISP_FORUM_CAT_ADD;
 
@@ -348,7 +376,7 @@ elseif($forumcatadd)
          The cat_id number is stored into the CAT_FOR_GROUPS constant
      */
 
-    if ($catagories!="")
+    if ( !empty($cat_title) )
     {
         // find order in the category we must give to the newly created forum
         $sql = 'SELECT MAX(`cat_order`) FROM `'.$tbl_forum_categories.'`';
@@ -366,7 +394,7 @@ elseif($forumcatadd)
                  ");
     */
         $sql = 'INSERT INTO `'.$tbl_forum_categories.'`
-                SET `cat_title` = "'.$catagories.'",
+                SET `cat_title` = "'. addslashes($cat_title) .'",
                     `cat_order` = "'.$order.'"';
         claro_sql_query($sql);
     }
@@ -383,8 +411,8 @@ elseif($forumcatadd)
 elseif ( isset($_REQUEST['forumgoadd']) )
 {
     $display=DISP_FORUM_GO_ADD;
-
-    if ($forum_name !="") //do not add forum if empty name given
+	
+    if ( !empty($forum_name)) //do not add forum if empty name given
     {
         // find order in the category we must give to the newly created forum
 
@@ -401,7 +429,7 @@ elseif ( isset($_REQUEST['forumgoadd']) )
         $sql = 'INSERT INTO `'.$tbl_forum_forums.'`
                 (forum_id, forum_name, forum_desc, forum_access,forum_moderator, cat_id, forum_type, md5, forum_order)
                 VALUES
-                (NULL,"'.$forum_name.'", "'.$forum_desc.'", "2", "1", "'.$cat_id.'", "'.$forum_type.'", "'.md5(time()).'", "'.$order.'")';
+                (NULL,"'. addslashes($forum_name) .'", "'. addslashes($forum_desc) .'", "2", "1", "'.$cat_id.'", "'.$forum_type.'", "'.md5(time()).'", "'.$order.'")';
         claro_sql_query($sql);
     }
     else
@@ -493,7 +521,6 @@ else
   Display Section
  =====================================================================*/
 
-$nameTools = $langOrganisation;
 $interbredcrump[] = array ("url"=>"../phpbb/index.php", "name"=> $langForums);
 
 $htmlHeadXtra[] =
@@ -520,7 +547,7 @@ include('../inc/claro_init_header.inc.php');
 claro_disp_tool_title(
     array(
         'mainTitle'=>$nameTools,
-        'subTitle'=>$subTitle
+         'subTitle'=>$subTitle
         )
     , 'help_forum.php'
     );
@@ -566,9 +593,9 @@ switch ($display)
            foreach ( $forumList as $thisForum )
            {
                echo    "<tr>\n".
-                   "<td valign=top>".$thisForum['name']."</td>\n".
+                   "<td valign=top>". htmlspecialchars($thisForum['name'])."</td>\n".
                    "<td valign=top>".
-                   ( empty($thisForum['forum_desc'])    ? '<center>    - </center>' : $thisForum['forum_desc']).
+                   ( empty($thisForum['forum_desc'])    ? '<center>    - </center>' : htmlspecialchars($thisForum['forum_desc']) ).
                    "</td>\n".
                    "<td valign=top    align=\"center\">\n".
                    "<a    href=forum_admin.php".
@@ -580,7 +607,7 @@ switch ($display)
                    ($cat_id ==    CAT_FOR_GROUPS ?
                    "<small><i>".$langCannotBeDeleted."</i></small>"
                    :
-                   "<a    href=\"forum_admin.php?forumgodel=yes&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;ok=0\"    onclick=\"return confirmation('".clean_str_for_javascript($langAreYouSureToDelete .' \'' .$thisForum['name'].'\'    ?')."');\">".
+                   "<a    href=\"forum_admin.php?forumgodel=yes&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;ok=0\"    onclick=\"return confirmation('".clean_str_for_javascript($langAreYouSureToDelete .' \'' . htmlspecialchars($thisForum['name']) .'\'    ?')."');\">".
                    "<img src=\"".$imgRepositoryWeb."delete.gif\"    alt=\"".$langDelete."\"    border=\"0\">".
                    "</a>").
 
@@ -594,14 +621,14 @@ switch ($display)
                }
                else
                {
-                   echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMovedown&amp;moveForumId=".$thisForum['id']."&amp;moveCat=".$cat_id."&amp;cat_id=".$cat_id."&amp;forumgo=yes\">
+                   echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMovedown&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;forumgo=yes\">
                    <img src=\"".$imgRepositoryWeb."down.gif\"></a>
                </td>";
                }
 
                if ( $iteratorInCat>1 )
                {
-                   echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMoveup&amp;moveForumId=".$thisForum['id']."&amp;moveCat=".$cat_id."&amp;cat_id=".$cat_id."&amp;forumgo=yes\">
+                   echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMoveup&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;forumgo=yes\">
                    <img src=\"".$imgRepositoryWeb."up.gif\"></a>
                </td>";
                }
@@ -619,7 +646,7 @@ switch ($display)
 
         if ( isset($show_formToAddAForum) && $show_formToAddAForum )
         {
-            echo "<p><b>",$langAddForCat," ",$category_name,"</b></p>",
+            echo "<p><b>",$langAddForCat," ",$cat_title,"</b></p>",
                 "<form action=\"forum_admin.php?forumgoadd=yes&amp;cat_id=$cat_id\" method=post>\n",
 
                 "<input type=hidden name=cat_id value=\"$cat_id\">\n",
@@ -658,56 +685,56 @@ switch ($display)
 
     case DISP_FORUM_GO_EDIT:
 
-        echo    "<form action=\"forum_admin.php?forumgosave=yes&amp;cat_id=$cat_id\" method=post>\n",
-                "<input    type=hidden    name=forum_id value=$forum_id>\n",
+        echo    '<form action="forum_admin.php?forumgosave=yes&amp;cat_id=$cat_id" method="post">' . "\n" .
+                '<input type="hidden" name="forum_id" value="' . $forum_id. '">' . "\n" .
     
-                "<table    border=\"0\">\n",
+                '<table border="0">' . "\n" .
 
-                "<tr>\n",
-                "<td align=\"right\"><label for=\"forum_name\">",$langForName," :    </label></td>\n",
-                "<td><input    type=text name=\"forum_name\" id=\"forum_name\" size=\"50\" value=\"$forum_name\"></td>\n",
-                "</tr>\n",
+                '<tr>' . "\n" . 
+                '<td align="right"><label for="forum_name">' . $langForName . ' : </label></td>' . "\n" . 
+                '<td><input type="text" name="forum_name" id="forum_name" size="50" value="' . htmlspecialchars($forum_name) . '"></td>' . "\n" .
+                '</tr>' . "\n" .
 
-                "<tr valign=\"top\">\n",
-                "<td align=\"right\"><label for=\"forum_desc\">",$langDescription," : </label></td>\n",
-                "<td><textarea name=\"forum_desc\" id=\"forum_desc\" cols=\"50\" rows=\"3\">",$forum_desc,"</textarea></td>\n",
-                "</tr>\n",
+                '<tr valign="top">' . "\n" .
+                '<td align="right"><label for="forum_desc">' . $langDescription . ' : </label></td>' . "\n" .
+                '<td><textarea name="forum_desc" id="forum_desc" cols="50" rows="3">' . htmlspecialchars($forum_desc) . '</textarea></td>' . "\n" .
+                '</tr> ' . "\n" .
 
-                "<tr>\n",
-                "<td align=\"right\"><label for=\"cat_id\">",$langChangeCat,"    : </label></td>\n",
-                "<td>";
+                '<tr>' . "\n".
+                '<td align="right"><label for="cat_id">' . $langChangeCat . ' : </label></td>' . "\n" .
+                '<td>';
 
         if ( $is_allowedToMoveForum )
         {
-            echo "<select name=\"cat_id\" id==\"cat_id\">\n";
+            echo '<select name="cat_id" id="cat_id">' . "\n";
 
-            foreach($targetCategoryList as $thisTargetCategory)
+            foreach ( $targetCategoryList as $thisTargetCategory )
             {
-                echo "<option value=\"".$thisTargetCategory['id']."\" "
+                echo '<option value="' . $thisTargetCategory['id'] . '" '
                     .($thisTargetCategory['current'] ? 'selected' : '').">"
                     .$thisTargetCategory['title']
-                    ."</option>\n";
+                    . '</option>' . "\n";
             }
                 
-            echo "</select>\n";
+            echo '</select>' . "\n";
         }
         else
         {    
-            echo "<i>".$langCannotMoveGroupForum."</i>";
+            echo '<em>' . $langCannotMoveGroupForum . '</em>';
         }
     
-        echo    "</td>\n",
-                "</tr>\n",
-                "<tr valign=\"top\">\n",
-                "<td>\n",
-                "</td>\n",
-                "<td>\n",
-                "<input    type=submit    value=\"$langSave\">\n",
-                "</td>",
-                "</tr>\n",
-                "</table>\n",
-                "<input    type=hidden    name=forumgosave value=yes>\n",
-                "</form>\n";
+        echo    '</td>' . "\n" .
+                '</tr>' . "\n" .
+                '<tr valign="top">' . "\n" .
+                '<td>' . "\n" . 
+                '</td>' . "\n" .
+                '<td>' . "\n" .
+                '<input type="submit" value="' . $langSave. '">' . "\n" .
+                '</td>',
+                '</tr>' . "\n" .
+                '</table>' . "\n" .
+                '<input type="hidden" name="forumgosave" value="yes">' . "\n" .
+                '</form>' . "\n";
 
         break;
 
@@ -717,12 +744,12 @@ switch ($display)
 
     case DISP_FORUM_CAT_EDIT:
 
-        echo "<form action=\"forum_admin.php?forumcatsave=yes\" method=post>
-            <input type=hidden name=cat_id value=".$cat_id.">",
-            "<label for=\"cat_title\">".$langCategory." : </label>".
-            "<input type=\"text\" name=\"cat_title\" id=\"cat_title\" size=\"55\" value=\"",$cat_title,"\">\n",
-            "<input type=submit value=\"",$langSave,"\">\n",
-            "</form>";
+        echo '<form action="forum_admin.php?forumcatsave=yes" method="post">' . 
+            '<input type="hidden" name="cat_id" value="' . $cat_id . '">' . 
+            '<label for="cat_title">' . $langCategory . ' : </label>' .
+            '<input type="text" name="cat_title" id="cat_title" size="55" value="' . htmlspecialchars($cat_title) . '">' . "\n" .
+            '<input type="submit" value="' . $langSave . '">' . "\n" .
+            '</form>';
         break;
 
     /*---------------------------------------------------------------------
@@ -842,7 +869,7 @@ switch ($display)
                      ."<td>"
                      ."<a href=\"forum_admin.php"
                      ."?forumgo=yes&amp;cat_id=".$thisCategory['id']."\">"
-                     .$thisCategory['title']
+                     . htmlspecialchars($thisCategory['title'])
                      ."</a>"
                      ." <small>(".$thisCategory['nb_forum'].")</small>"
                      ."</td>"
@@ -859,7 +886,7 @@ switch ($display)
                 {
                     echo "<a href=\"forum_admin.php?"
                         ."forumcatdel=yes&amp;cat_id=".$thisCategory['id']."&amp;ok=0\" "
-                        ."onclick=\"return confirmation('".clean_str_for_javascript($langAreYouSureToDelete .' \'' .$thisCategory['title'].'\' ?')."');\">".
+                        ."onclick=\"return confirmation('".clean_str_for_javascript($langAreYouSureToDelete .' \'' . htmlspecialchars($thisCategory['title']) .'\' ?')."');\">".
                         "<img src=\"".$imgRepositoryWeb."delete.gif\" alt=\"".$langDelete."\" border=\"0\">".
                         "</a>";
                 }
@@ -878,14 +905,14 @@ switch ($display)
                 }
                 else
                 {
-                    echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMovedownCat&amp;moveCatId=".$thisCategory['id']."\">
+                    echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMovedownCat&amp;cat_id=".$thisCategory['id']."\">
                             <img src=\"".$imgRepositoryWeb."down.gif\"></a>
                         </td>";
                 }
 
                 if ( $iteratorInCat > 1 )
                 {
-                    echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMoveupCat&amp;moveCatId=".$thisCategory['id']."\">
+                    echo "<td align=\"center\"><a href=\"forum_admin.php?cmd=exMoveupCat&amp;cat_id=".$thisCategory['id']."\">
                             <img src=\"".$imgRepositoryWeb."up.gif\"></a>
                         </td>";
                 }
@@ -906,8 +933,8 @@ switch ($display)
     
             ."<h4>".$langAddCategory."</h4>"
             ."<form action=\"forum_admin.php\" method=\"post\">\n"
-            ."<label for=\"catagories\">".$langCategory." : </label>"
-            ."<input type=\"text\" name=\"catagories\" id=\"catagories\" size=\"50\">\n"
+            ."<label for=\"cat_title\">".$langCategory." : </label>"
+            ."<input type=\"text\" name=\"cat_title\" id=\"cat_title\" size=\"50\">\n"
             ."<input type=\"submit\" value=\"".$langAdd."\">\n"
             ."<input type=\"hidden\" name=\"forumcatadd\" value=\"yes\">\n"
             ."</form>\n";
