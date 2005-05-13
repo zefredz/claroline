@@ -1,15 +1,24 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.6
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
 /**
+ * CLAROLINE
+ *
  * This  page show  to the user, the course description
  *
  * If ist's the admin, he can access to the editing
  *
+ *
+ * @version 1.6 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/CLDSC/
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @package CLDSC
+ * 
  */
 
 $tlabelReq = 'CLDSC___';
@@ -35,16 +44,14 @@ include 'tiplistinit.inc.php';
 include $includePath.'/lib/events.lib.inc.php';
 
 
-$dialogBox = "";
+$dialogBox = '';
 
 
          /*> > > > > > > > > > > > COMMANDS < < < < < < < < < < < < */
 
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = null;
-
-
+else                           $cmd = NULL;
 
 
 /******************************************************************************
@@ -54,15 +61,15 @@ else                           $cmd = null;
 
 if ($cmd == 'exEdit')
 {
-    if ( isset($_REQUEST['id']) && is_int($_REQUEST['id']) )
+    if ( isset($_REQUEST['id']))
     {
         $sql ="UPDATE `".$tbl_course_description."` 
                SET   `title`   = '".trim(claro_addslashes($_REQUEST['descTitle'  ]))."',
                      `content` = '".trim(claro_addslashes($_REQUEST['descContent']))."',
                      `upDate`  = NOW()
-               WHERE `id` = '". $_REQUEST['id'] ."'";
+               WHERE `id` = '". (int) $_REQUEST['id'] ."'";
 
-        if ( claro_sql_query($sql) != false)
+        if ( claro_sql_query($sql) != FALSE)
         {
             $dialogBox .= '<p>'.$langDescUpdated.'</p>';
         }
@@ -84,7 +91,7 @@ if ($cmd == 'exEdit')
                      `upDate`  = NOW(),
                      `id` = ". (int) ($maxId + 1);
 
-        if ( claro_sql_query($sql) !== false)
+        if ( claro_sql_query($sql) !== FALSE)
         {
             $dialogBox .= '<p>'.$langDescAdded.'</p>';
         }
@@ -119,7 +126,7 @@ if($cmd == 'rqEdit')
     }
     else
     {
-    	$descItem['id'     ] = null;
+    	$descItem['id'     ] = NULL;
         $descItem['title'  ] = '';
         $descItem['content'] = '';
 
@@ -139,12 +146,12 @@ if($cmd == 'rqEdit')
     }
     else
     {
-         $descPresetTitle    = null;
-         $descPresetQuestion = null;
-         $descPresetTip      = null;
+         $descPresetTitle    = NULL;
+         $descPresetQuestion = NULL;
+         $descPresetTip      = NULL;
     }
 
-    $displayForm = true;
+    $displayForm = TRUE;
 }
 
 
@@ -160,7 +167,7 @@ if ($cmd == 'exDelete')
     $sql ="DELETE FROM `".$tbl_course_description."` 
            WHERE id = '". (int) $_REQUEST['id']."'";
 
-    if ( claro_sql_query($sql) !== false) 
+    if ( claro_sql_query($sql) !== FALSE) 
     {
         $dialogBox .= '<p>'.$langDescDeleted.'</p>';
     }
@@ -178,22 +185,17 @@ event_access_tool($_tid, $_courseTool['label']);
 /******************************************************************************
                            LOAD THE DESCRIPTION LIST
  ******************************************************************************/
-
-$sql = "SELECT `id`, `title`, `content` 
-        FROM `".$tbl_course_description."` 
-        ORDER BY `id`";
-
-$descList = claro_sql_query_fetch_all($sql);
+$descList = CLDSC_get_item_list();
 
 /*---------------------------------------------------------------------------*/
 
 
 
 
-          /*> > > > > > > > > > > > OUTPUT < < < < < < < < < < < < */
+/*> > > > > > > > > > > > OUTPUT < < < < < < < < < < < < */
 
 
-claro_set_display_mode_available(true);
+claro_set_display_mode_available(TRUE);
 
 require $includePath.'/claro_init_header.inc.php';
 
@@ -334,6 +336,21 @@ else
 	echo "\n".'<p>'.$langThisCourseDescriptionIsEmpty.'</p>'."\n";
 }
 
-
 include $includePath.'/claro_init_footer.inc.php';
+
+
+function CLDSC_get_item_list ($dbnameGlu=Null)
+{
+    $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
+    $tbl_course_description  = $tbl_cdb_names['course_description'];
+    
+    $sql = "SELECT `id`, `title`, `content` 
+            FROM `".$tbl_course_description."` 
+            ORDER BY `id`";
+
+    return  claro_sql_query_fetch_all($sql);
+}
+
+
+
 ?>
