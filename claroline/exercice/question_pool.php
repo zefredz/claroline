@@ -29,30 +29,33 @@ include('answer.class.php');
 
 require '../inc/claro_init_global.inc.php';
 
-$is_allowedToEdit=$is_courseAdmin;
+include($includePath."/lib/pager.lib.php");
+
+$is_allowedToEdit = $is_courseAdmin;
 
 // attached file path
 $attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
 $attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';
 
-$TBL_EXERCICE_QUESTION = $_course['dbNameGlu'].'quiz_rel_test_question';
-$TBL_EXERCICES         = $_course['dbNameGlu'].'quiz_test';
-$TBL_QUESTIONS         = $_course['dbNameGlu'].'quiz_question';
-$TBL_REPONSES          = $_course['dbNameGlu'].'quiz_answer';
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$TBL_EXERCICE_QUESTION = $tbl_cdb_names['quiz_rel_test_question'];
+$TBL_EXERCICES         = $tbl_cdb_names['quiz_test'];
+$TBL_QUESTIONS         = $tbl_cdb_names['quiz_question'];
+$TBL_REPONSES          = $tbl_cdb_names['quiz_answer'];
 
 // maximum number of questions on a same page
-$limitQuestPage=50;
+$questionsPerPage = 25;
 
 if($is_allowedToEdit)
 {
 	// deletes a question from the data base and all exercises
-	if($delete)
+	if( !empty($_REQUEST['delete']) )
 	{
 		// construction of the Question object
-		$objQuestionTmp=new Question();
+		$objQuestionTmp = new Question();
 
 		// if the question exists
-		if($objQuestionTmp->read($delete))
+		if( $objQuestionTmp->read($_REQUEST['delete']) )
 		{
 			// deletes the question from all exercises
 			$objQuestionTmp->delete();
@@ -62,32 +65,32 @@ if($is_allowedToEdit)
 		unset($objQuestionTmp);
 	}
 	// gets an existing question and copies it into a new exercise
-	elseif($recup && $fromExercise)
+	elseif( !empty($_REQUEST['recup']) && !empty($_REQUEST['fromExercise']) )
 	{
 		// construction of the Question object
-		$objQuestionTmp=new Question();
+		$objQuestionTmp = new Question();
 
 		// if the question exists
-		if($objQuestionTmp->read($recup))
+		if($objQuestionTmp->read($_REQUEST['recup']))
 		{
-			// adds the exercise ID represented by $fromExercise into the list of exercises for the current question
-			$objQuestionTmp->addToList($fromExercise);
+			// adds the exercise ID represented by $_REQUEST['fromExercise'] into the list of exercises for the current question
+			$objQuestionTmp->addToList($_REQUEST['fromExercise']);
 		}
 
 		// destruction of the Question object
 		unset($objQuestionTmp);
 
-		// adds the question ID represented by $recup into the list of questions for the current exercise
-		$objExercise->addToList($recup);
+		// adds the question ID represented by $_REQUEST['recup'] into the list of questions for the current exercise
+		$_SESSION['objExercise']->addToList($_REQUEST['recup']);
 
-		header("Location: admin.php?editQuestion=$recup");
+		header("Location: admin.php?editQuestion=".$_REQUEST['recup']);
 		exit();
 	}
 }
 
-$nameTools=$langQuestionPool;
+$nameTools = $langQuestionPool;
 
-$interbredcrump[]=array("url" => "exercice.php","name" => $langExercices);
+$interbredcrump[] = array("url" => "exercice.php","name" => $langExercices);
 
 include($includePath.'/claro_init_header.inc.php');
 
@@ -98,65 +101,84 @@ if($is_allowedToEdit)
 ?>
 
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-<input type="hidden" name="fromExercise" value="<?php echo $fromExercise; ?>">
+<input type="hidden" name="fromExercise" value="<?php echo (isset($_REQUEST['fromExercise']))?$_REQUEST['fromExercise']:''; ?>">
 <p align="right">
 	<label for="exerciseId"><?php echo $langFilter; ?></label> : 
 	
 	<select id="exerciseId" name="exerciseId">
 		<option value="0">-- <?php echo $langAllExercises; ?> --</option>
-		<option value="-1" <?php if($exerciseId == -1) echo 'selected="selected"'; ?>>-- <?php echo $langOrphanQuestions; ?> --</option>
+		<option value="-1" <?php if( isset($_REQUEST['exerciseId']) && $_REQUEST['exerciseId'] == -1 ) echo 'selected="selected"'; ?>>-- <?php echo $langOrphanQuestions; ?> --</option>
 
 <?php
-	$sql="SELECT id,titre FROM `".$TBL_EXERCICES."` WHERE id<>'".$fromExercise."' ORDER BY id";
-	$result=claro_sql_query($sql);
+	$sql = "SELECT `id`, `titre` as `title`
+			FROM `".$TBL_EXERCICES."`
+			WHERE `id` <> '".$fromExercise."'
+			ORDER BY `id`";
+			
+	$exerciseList = claro_sql_query_fetch_all($sql);
 
 	// shows a list-box allowing to filter questions
-	while($row=mysql_fetch_array($result))
+	foreach( $exerciseList as $exercise )
 	{
-?>
+		echo '<option value="'.$exercise['id'].'" ' ;
+		
+		if( isset($_REQUEST['exerciseId']) && $_REQUEST['exerciseId'] == $exercise['id'] )
+		    echo ' selected="selected"';
 
-		<option value="<?php echo $row[id]; ?>" <?php if($exerciseId == $row[id]) echo 'selected="selected"'; ?>><?php echo $row[titre]; ?></option>
-
-<?php
+		echo '>'.$exercise['title'].'</option>';
 	}
 ?>
 
-    </select> <input type="submit" value="<?php echo $langOk; ?>">
+    </select>
+	<input type="submit" value="<?php echo $langOk; ?>">
 </p>
 <?php
-	$from=$page*$limitQuestPage;
 
 	// if we have selected an exercise in the list-box 'Filter'
-	if($exerciseId > 0)
+	if( isset($_REQUEST['exerciseId']) && $_REQUEST['exerciseId'] > 0 )
 	{
-		$sql="SELECT id,question,type FROM `$TBL_EXERCICE_QUESTION`,`$TBL_QUESTIONS` WHERE question_id=id AND exercice_id='$exerciseId' ORDER BY q_position LIMIT $from,".($limitQuestPage+1);
-		$result=claro_sql_query($sql);
+		$sql = "SELECT `id`, `question`, `type`
+				FROM `".$TBL_EXERCICE_QUESTION."`,`".$TBL_QUESTIONS."`
+				WHERE `question_id` = `id`
+				AND `exercice_id`= '".$_REQUEST['exerciseId']."'
+				ORDER BY `q_position`";
 	}
 	// if we have selected the option 'Orphan questions' in the list-box 'Filter'
-	elseif($exerciseId == -1)
+	elseif( isset($_REQUEST['exerciseId']) && $_REQUEST['exerciseId'] == -1 )
 	{
-		$sql="SELECT id,question,type FROM `$TBL_QUESTIONS` LEFT JOIN `$TBL_EXERCICE_QUESTION` ON question_id=id WHERE exercice_id IS NULL ORDER BY question LIMIT $from,".($limitQuestPage+1);
-		$result=claro_sql_query($sql);
+		$sql = "SELECT `id`, `question`, `type`
+				FROM `".$TBL_QUESTIONS."`
+					LEFT JOIN `".$TBL_EXERCICE_QUESTION."`
+					ON `question_id` = `id`
+				WHERE `exercice_id` IS NULL
+				ORDER BY `question`";
 	}
 	// if we have not selected any option in the list-box 'Filter'
 	else
 	{
-		$sql="SELECT id,question,type FROM `$TBL_QUESTIONS` LEFT JOIN `$TBL_EXERCICE_QUESTION` ON question_id=id WHERE exercice_id IS NULL OR exercice_id<>'$fromExercise' GROUP BY id ORDER BY question LIMIT $from,".($limitQuestPage+1);
-		$result=claro_sql_query($sql);
+		$sql = "SELECT `id`, `question`, `type`
+				FROM `".$TBL_QUESTIONS."`
+					LEFT JOIN `".$TBL_EXERCICE_QUESTION."`
+					ON `question_id` = `id`";
+
+		if(isset($_REQUEST['fromExercise']))
+        {
+			$sql .= " WHERE `exercice_id` IS NULL
+					OR `exercice_id` <> '".$_REQUEST['fromExercise']."'";
+		}
+		$sql .=	" GROUP BY `id`
+				ORDER BY `question`";
 
 		// forces the value to 0
-		$exerciseId=0;
+		$exerciseId = 0;
 	}
 
-	$nbrQuestions=mysql_num_rows($result);
 ?>
 
-	<table border="0" cellpadding="0" cellspacing="0" width="100%">
-	<tr>
-	  <td>
+<p>
 
 <?php
-	if($fromExercise)
+	if( !empty($_REQUEST['fromExercise']) )
 	{
 ?>
 
@@ -169,59 +191,26 @@ if($is_allowedToEdit)
 ?>
 
 		<a class="claroCmd" href="admin.php?newQuestion=yes"><?php echo $langNewQu; ?></a>
-
 <?php
 	}
 ?>
-
-	  </td>
-	  <td align="right">
+</p>
 
 <?php
-	if($page)
-	{
+
+if (!isset($_REQUEST['offset']))	$offset = 0;
+else 								$offset = $_REQUEST['offset'];
+
+$myPager = new claro_sql_pager($sql, $offset, $questionsPerPage);
+$questionList = $myPager->get_result_list();
+
 ?>
-
-	<small><a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&fromExercise=<?php echo $fromExercise; ?>&page=<?php echo ($page-1); ?>">&lt;&lt; <?php echo $langPreviousPage; ?></a></small> |
-
-<?php
-	}
-	elseif($nbrQuestions > $limitQuestPage)
-	{
-?>
-
-	<small>&lt;&lt; <?php echo $langPreviousPage; ?> |</small>
-
-<?php
-	}
-
-	if($nbrQuestions > $limitQuestPage)
-	{
-?>
-
-	<small><a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&fromExercise=<?php echo $fromExercise; ?>&page=<?php echo ($page+1); ?>"><?php echo $langNextPage; ?> &gt;&gt;</a></small>
-
-<?php
-	}
-	elseif($page)
-	{
-?>
-
-	<small><?php echo $langNextPage; ?> &gt;&gt;</small>
-
-<?php
-	}
-?>
-
-	  </td>
-	</tr>
-	</table>
 
 <table class="claroTable" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
 <tr class="headerX">
 
 <?php
-	if($fromExercise)
+	if( !empty($_REQUEST['fromExercise']) )
 	{
 ?>
 
@@ -245,25 +234,24 @@ if($is_allowedToEdit)
 </tr>
 
 <?php
-	$i=1;
 
-	while($row=mysql_fetch_array($result))
+ 	foreach( $questionList as $question )
 	{
-		// if we come from the exercise administration to get a question, doesn't show the question already used by that exercise
-		if(!$fromExercise || !$objExercise->isInList($row[id]))
+  		// if we come from the exercise administration to get a question, doesn't show the question already used by that exercise
+		if( empty($_REQUEST['fromExercise']) || !$_SESSION['objExercise']->isInList($question['id']) )
 		{
 ?>
 
 <tr>
-  <td><a href="admin.php?editQuestion=<?php echo $row[id]; ?>&fromExercise=<?php echo $fromExercise; ?>"><?php echo $row[question]; ?></a></td>
+  <td><a href="admin.php?editQuestion=<?php echo $question['id']; ?>&fromExercise=<?php echo $fromExercise; ?>"><?php echo $question['question']; ?></a></td>
   <td align="center">
 
 <?php
-			if(!$fromExercise)
+			if( empty($_REQUEST['fromExercise']) )
 			{
 ?>
 
-	<a href="admin.php?editQuestion=<?php echo $row[id]; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo $langEditQuestion; ?>"></a>
+	<a href="admin.php?editQuestion=<?php echo $question['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo $langEditQuestion; ?>"></a>
 
 <?php
 			}
@@ -271,7 +259,7 @@ if($is_allowedToEdit)
 			{
 ?>
 
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?recup=<?php echo $row[id]; ?>&fromExercise=<?php echo $fromExercise; ?>"><img src="<?php echo $imgRepositoryWeb ?>enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?recup=<?php echo $question['id']; ?>&fromExercise=<?php echo $fromExercise; ?>"><img src="<?php echo $imgRepositoryWeb ?>enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
 
 <?php
 			}
@@ -280,12 +268,12 @@ if($is_allowedToEdit)
   </td>
 
 <?php
-			if(!$fromExercise)
+			if( empty($_REQUEST['fromExercise']) )
 			{
 ?>
 
   <td align="center">
-    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $row[id]; ?>" onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript($langConfirmDeleteQuestion); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
+    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $question['id']; ?>" onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript($langConfirmDeleteQuestion); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
   </td>
 
 <?php
@@ -295,17 +283,10 @@ if($is_allowedToEdit)
 </tr>
 
 <?php
-			// skips the last question, that is only used to know if we have or not to create a link "Next page"
-			if($i == $limitQuestPage)
-			{
-				break;
-			}
-
-			$i++;
 		}
 	}
 
-	if(!$nbrQuestions)
+	if( !is_array($questionList) || count($questionList) == 0 )
 	{
 ?>
 
