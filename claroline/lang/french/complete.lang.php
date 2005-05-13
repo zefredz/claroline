@@ -414,7 +414,7 @@ $langDescAdded = "Description ajoutée.";
 $langDescDeleted = "Description supprimée.";
 $langDescUnableToDelete = "Impossible de supprimer";
 $langDescUnableToUpdate = "Impossible de mettre à jour";
-$langDescUpdated = "Description mise à jour..";
+$langDescUpdated = "Description mise à jour.";
 $langDescription = "Description";
 $langDescriptionComment1 = "Quelle est la place et la spécificité du cours dans le programme&nbsp;?
 Existe-t-il des cours pré-requis&nbsp;?
@@ -2023,4 +2023,8 @@ $langpday = "%d&nbsp;jour(s)";
 $langphours = "%d&nbsp;heure(s)";
 $langpweek = "%d&nbsp;semaine(s)";
 $langpyear = "%d&nbsp;an(s)";
+$langTheseCodeAreAlreadyUsedForACourse = "Ce(s) code(s) cours est(sont) déjà utilisé(s)";
+$langUseDuplicateCode = "Utiliser ce code";
+
+
 ?>
