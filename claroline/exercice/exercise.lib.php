@@ -339,15 +339,18 @@ function display_attached_file($attachedFile)
 					$mp3Title = $id3['artist']." ".$id3['title'];
 				}
 			}
-            $returnedString .= 
-					"<object id=\"mp3player\" type=\"application/x-shockwave-flash\" data=\"claroPlayer.swf?fakeVar=".time()."\" width=\"220\" height=\"30\" style=\"vertical-align: bottom;\">\n"
+			$playerParams = "?file=".$attachedFilePathWeb."/".$attachedFile
+							."&amp;autolaunch=false"
+							."&amp;my_bitrate=".$bitrate
+							."&amp;my_BackgroundColor=0xffffff"
+							."&amp;fakeVar=".time();
+
+			$returnedString .=
+					"<object id=\"mp3player\" type=\"application/x-shockwave-flash\" data=\"claroPlayer.swf".$playerParams."\" width=\"220\" height=\"30\" style=\"vertical-align: bottom;\">\n"
 					."<!-- MP3 Flash player. Credits, license, contact & examples: http://pyg.keonox.com/flashmp3player/ -->\n"
 					."<param name=\"type\" value=\"application/x-shockwave-flash\" />\n"
 					."<param name=\"codebase\" value=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" />\n"
-					."<param name=\"movie\" value=\"claroPlayer.swf?fakeVar=".time()."\" />\n"
-					."<param name=\"FlashVars\" value=\"my_BackgroundColor=0xffffff\" />\n"
-					."<param name=\"FlashVars\" value=\"my_bitrate=".$bitrate."\" />\n"
-					."<param name=\"FlashVars\" value=\"file=".$attachedFilePathWeb."/".$attachedFile."&amp;autolaunch=false\" />\n"
+					."<param name=\"movie\" value=\"claroPlayer.swf".$playerParams."\" />\n"
 					."</object>\n"
 					."<p><small>"
 					.$mp3Title
