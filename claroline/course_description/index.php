@@ -28,6 +28,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid)             claro_disp_select_course();
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 
+claro_set_display_mode_available(TRUE);
 $nameTools = $langCourseProgram;
 
 $QUERY_STRING=''; // to remove parameters in the last bredcrumb link
@@ -114,15 +115,9 @@ if ($cmd == 'exEdit')
 if($cmd == 'rqEdit')
 {
     if ( isset($_REQUEST['id'] ) )
-    {
-        $sql = 'SELECT id, title, content
-                FROM `'.$tbl_course_description.'`
-                WHERE id = '.(int)$_REQUEST['id'];
-
-        list($descItem) = claro_sql_query_fetch_all($sql);
-
+    {       
+        $descItem = course_description_get_item((int)$_REQUEST['id']);
         $descPresetKey = array_search($descItem['title'] , $titreBloc);
-
     }
     else
     {
@@ -164,10 +159,7 @@ if($cmd == 'rqEdit')
 
 if ($cmd == 'exDelete')
 {
-    $sql ="DELETE FROM `".$tbl_course_description."` 
-           WHERE id = '". (int) $_REQUEST['id']."'";
-
-    if ( claro_sql_query($sql) !== FALSE) 
+    if ( course_description_delete_item((int) $_REQUEST['id'])) 
     {
         $dialogBox .= '<p>'.$langDescDeleted.'</p>';
     }
@@ -185,17 +177,15 @@ event_access_tool($_tid, $_courseTool['label']);
 /******************************************************************************
                            LOAD THE DESCRIPTION LIST
  ******************************************************************************/
-$descList = CLDSC_get_item_list();
+$descList = course_description_get_item_list();
 
 /*---------------------------------------------------------------------------*/
-
 
 
 
 /*> > > > > > > > > > > > OUTPUT < < < < < < < < < < < < */
 
 
-claro_set_display_mode_available(TRUE);
 
 require $includePath.'/claro_init_header.inc.php';
 
@@ -339,7 +329,17 @@ else
 include $includePath.'/claro_init_footer.inc.php';
 
 
-function CLDSC_get_item_list ($dbnameGlu=Null)
+/**
+ * get all the items
+ * 
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ * @param $dbnameGlu string  glued dbName of the course to affect default: current course
+ * @return array of arrays with data of the item
+ * 
+ */
+
+function course_description_get_item_list($dbnameGlu=Null)
 {
     $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
     $tbl_course_description  = $tbl_cdb_names['course_description'];
@@ -347,10 +347,55 @@ function CLDSC_get_item_list ($dbnameGlu=Null)
     $sql = "SELECT `id`, `title`, `content` 
             FROM `".$tbl_course_description."` 
             ORDER BY `id`";
-
     return  claro_sql_query_fetch_all($sql);
 }
 
 
+
+/**
+ * get the item of the given id.
+ * 
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ * @param $id_item   integer id of the item to get
+ * @param $dbnameGlu string  glued dbName of the course to affect default: current course
+ * @return array with data of the item
+ * 
+ */
+
+function course_description_get_item($id_item, $dbnameGlu=Null)
+{
+    $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
+    $tbl_course_description  = $tbl_cdb_names['course_description'];
+    
+    $sql = 'SELECT id, title, content
+            FROM `'.$tbl_course_description.'`
+            WHERE id = '.(int)$_REQUEST['id'];
+
+    list($descItem) = claro_sql_query_fetch_all($sql);
+    return $descItem;
+}
+
+/**
+ * remove the item of the given id.
+ * 
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ * @param $id_item   integer id of the item to delete
+ * @param $dbnameGlu string  glued dbName of the course to affect default: current course
+ * @return result of query
+ * 
+ */
+
+function course_description_delete_item($id_item, $dbnameGlu=Null)
+{
+    $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
+    $tbl_course_description  = $tbl_cdb_names['course_description'];
+    
+    $sql = 'DELETE FROM `'.$tbl_course_description.'`
+            WHERE id = '.(int)$_REQUEST['id'];
+    
+    return  claro_sql_query($sql);
+}
 
 ?>
