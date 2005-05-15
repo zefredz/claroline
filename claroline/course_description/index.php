@@ -311,6 +311,7 @@ if ( count($descList) )
 
         if ($is_allowedToEdit)
         {
+            
             echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id='.$thisDesc['id'].'">'
                 .'<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langModify.'">'
                 .'</a>'."\n"
@@ -370,7 +371,7 @@ function course_description_get_item($id_item, $dbnameGlu=Null)
     
     $sql = 'SELECT id, title, content
             FROM `'.$tbl_course_description.'`
-            WHERE id = '.(int)$_REQUEST['id'];
+            WHERE id = '.(int)$id_item;
 
     list($descItem) = claro_sql_query_fetch_all($sql);
     return $descItem;
@@ -393,7 +394,7 @@ function course_description_delete_item($id_item, $dbnameGlu=Null)
     $tbl_course_description  = $tbl_cdb_names['course_description'];
     
     $sql = 'DELETE FROM `'.$tbl_course_description.'`
-            WHERE id = '.(int)$_REQUEST['id'];
+            WHERE id = '.(int)$id_item;
     
     return  claro_sql_query($sql);
 }
