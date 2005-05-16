@@ -1,17 +1,24 @@
-<?php # $Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
+<?php // $Id$
+/**
+ * CLAROLINE
+ *
+ * This  page show  to the user, the course description
+ *
+ * If ist's the admin, he can access to the editing
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/Auth/
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @package Auth
+ * 
+ */
 
 // 4 Commands, 3 displays
 // default Display : Form to edit own profile
@@ -29,9 +36,11 @@ $display = '';
 define('CONFVAL_ASK_FOR_OFFICIAL_CODE',TRUE);
 
 // Constant for user picture
-define('CONFVAL_ASK_FOR_PICTURE',FALSE);
-define('KEEP_THE_NAME_WHEN_CHANGE_IMAGE','TRUE');
-define('PREFIX_IMAGE_FILENAME_WITH_UID','TRUE');
+define('CONFVAL_ASK_FOR_PICTURE', FALSE);
+define('KEEP_THE_NAME_WHEN_CHANGE_IMAGE' , TRUE);
+define('KEEP_THE_OLD_IMAGE_AFTER_CHANGE' , TRUE);
+define('PREFIX_IMAGE_FILENAME_WITH_UID'  , TRUE);
+define('RESIZE_IMAGE_TO_THIS_HEIGTH',120);
 
 define('DISP_COURSE_CREATOR_STATUS_REQ',__LINE__);
 define('DISP_REVOQUATION',__LINE__);
@@ -40,7 +49,7 @@ require '../inc/claro_init_global.inc.php';
 include $includePath.'/conf/user_profile.conf.php'; // find this file to modify values.
 include $includePath.'/lib/fileManage.lib.php';
 include $includePath.'/lib/auth.lib.inc.php';
-include($includePath.'/lib/claro_mail.lib.inc.php');
+include $includePath.'/lib/claro_mail.lib.inc.php';
 
 $nameTools = $langModifyProfile;
 
@@ -270,7 +279,7 @@ elseif ( isset($_REQUEST['applyChange']) )
 
     if ( $userSettingChangeAllowed )
     {
-         /*
+         /**
           * UPLOAD A USER IMAGE
           *
           * Originally added by Miguel (miguel@cesga.es) - 04/11/2003
@@ -289,13 +298,12 @@ elseif ( isset($_REQUEST['applyChange']) )
 	        elseif ( is_uploaded_file( $_FILES['form_picture']['tmp_name'] ) )
 	        {
 	            $fileExtension = strtolower( array_pop( explode(".",$_FILES['form_picture']['name']) ) );
-	
 	            if ( in_array($fileExtension, array('php', 'php4', 'php3', 'phtml') ) )
 	            {
 	                trigger_error('<div align="center">No PHP Files allowed</div>',E_USER_ERROR);
 	            }
-	
-	            claro_mkdir($userImageRepositorySys, 0777, true);
+
+	            claro_mkdir($userImageRepositorySys, 0777, TRUE);
 	
 	            $user_have_pic = (bool) (trim($actualImage)!="");
 
@@ -304,42 +312,65 @@ elseif ( isset($_REQUEST['applyChange']) )
 	                if (KEEP_THE_NAME_WHEN_CHANGE_IMAGE)
 	                {
 	                    $picture_FileName     = $actualImage;
-	                    $old_picture_FileName  = "save_".date("Y_m_d_H_i_s")."_".uniqid('')."_".$actualImage;
+	                    $old_picture_FileName  = 'save_' 
+	                                           . date("Y_m_d_H_i_s") 
+	                                           . '_' . uniqid('')
+	                                           . '_'
+	                                           . $actualImage
+	                                           ;
 	                }
 	                else
 	                {
-	                    $old_picture_FileName     = $actualImage;
-	                    $picture_FileName     = (PREFIX_IMAGE_FILENAME_WITH_UID?"u".$_uid."_":"").uniqid('').".".$fileExtension;
+	                    $old_picture_FileName = $actualImage;
+	                    $picture_FileName     = (PREFIX_IMAGE_FILENAME_WITH_UID?"u".$_uid."_":"")
+	                                          . uniqid('')
+	                                          . '.' 
+	                                          . $fileExtension
+	                                          ;
 	                }
+
 	                if (KEEP_THE_OLD_IMAGE_AFTER_CHANGE)
 	                {
-	                    rename($userImageRepositorySys.$actualImage,$userImageRepositorySys.$old_picture_FileName);
+	                    if (file_exists($userImageRepositorySys . $actualImage))
+	                    {
+    	                    rename($userImageRepositorySys . $actualImage
+    	                          ,$userImageRepositorySys . $old_picture_FileName);
+	                    }
+	                    else 
+	                    {
+	                        // FILE NOT FOUND
+	                        $messageList[] = $actualImage.' not found';
+	                    }
 	                }
 	                else
 	                {
-	                    unlink($userImageRepositorySys.$actualImage);
+	                    if (file_exists($userImageRepositorySys . $actualImage))
+	                        unlink($userImageRepositorySys . $actualImage);
 	                }
 	            }
 	            else
 	            {
-	                $picture_FileName     = (PREFIX_IMAGE_FILENAME_WITH_UID?$_uid."_":"").uniqid('').".".$fileExtension;
+	                $picture_FileName = (PREFIX_IMAGE_FILENAME_WITH_UID?$_uid."_":"")
+	                                  . uniqid('')
+	                                  . '.'
+	                                  . $fileExtension
+	                                  ;
 	            }
-	            if (move_uploaded_file( $_FILES['form_picture']['tmp_name'],
-	                                    $userImageRepositorySys.$picture_FileName))
+
+	            if (move_uploaded_file( $_FILES['form_picture']['tmp_name']
+	                                  , $userImageRepositorySys.$picture_FileName))
 	            {
-	                /*
-	                 *--------------------------------------
+	                /**
 	                 *            Image resizing
-	                 *--------------------------------------
 	                 */
-	            
+	                
 	                if ( extension_loaded('gd') ) // Check the GD library is available
 	                {
 	                    // Get Width, Height and type from the original image
 	
-	                    list($actualWidth,
-	                         $actualHeight,
-	                         $type, )       = getimagesize($userImageRepositorySys.$picture_FileName);
+	                    list( $actualWidth
+	                        , $actualHeight
+	                        , $type, ) = getimagesize($userImageRepositorySys.$picture_FileName);
 	
 	
 	                    if ($type == 2) // Check to see if it is a reall JPEF file
@@ -347,9 +378,9 @@ elseif ( isset($_REQUEST['applyChange']) )
 	
 	                        // Set and compute the final image size
 	
-	                        $finalHeight         = RESIZE_IMAGE_TO_THIS_HEIGTH;
-	                        $factor              = $actualHeight / $finalHeight;
-	                        $finalWidth          = round( $actualWidth / $factor );
+	                        $finalHeight = (int) RESIZE_IMAGE_TO_THIS_HEIGTH;
+	                        $factor      = $actualHeight / $finalHeight;
+	                        $finalWidth  = round( $actualWidth / $factor );
 	
 	                        // Create an image from the original image file
 	
@@ -385,6 +416,10 @@ elseif ( isset($_REQUEST['applyChange']) )
 	
 	                    }            // end if type == JPEG
 	                }                // end if GD extension loaded
+	                else 
+	                {
+	                   echo 'gd missing';
+	                }
 	            }                     // end if move_uploaded file
 	        }                        // end if is_uploaded_file $form_picture
 
@@ -415,14 +450,26 @@ elseif ( isset($_REQUEST['applyChange']) )
 	            if ($form_del_picture=="yes")
 	            {
 	                $sql .= ', `pictureUri` = NULL ';
-	                if (KEEP_THE_OLD_IMAGE_AFTER_CHANGE)
+	                if ( KEEP_THE_OLD_IMAGE_AFTER_CHANGE )
 	                {
-	                    rename($userImageRepositorySys.$actualImage, $userImageRepositorySys."deleted_".date("Y_m_d_H_i_s")."_".$actualImage);
+	                    if (file_exists($userImageRepositorySys . $actualImage))
+	                    {
+    	                   rename( $userImageRepositorySys.$actualImage
+	                             , $userImageRepositorySys."deleted_".date("Y_m_d_H_i_s")."_".$actualImage);
+	                    }
+	                    else 
+	                    {
+	                        // FILE NOT FOUND
+	                        $messageList[] = $actualImage.' not found';
+	                    }
 	                }
 	                else
 	                {
-	                    unlink($userImageRepositorySys.$actualImage);
+	                    if (file_exists($userImageRepositorySys . $actualImage))
+	                        unlink($userImageRepositorySys . $actualImage);
 	                }
+
+	                
 	            }
 	            else
 	            {
@@ -451,34 +498,14 @@ elseif ( isset($_REQUEST['applyChange']) )
 
 //////////////////////////////////////////////////////////////////////////////
 
-
-$sql = 'SELECT 
-			`nom`          `lastname` , 
-			`prenom`       `firstname`, 
-			`username`                , 
-			`email`                   , 
-			`pictureUri`              , 
-			`officialCode`            , 
-			`phoneNumber`  
-        FROM  `'.$tbl_user.'`
-        WHERE 
-			`user_id` = "'.$_uid.'"';
-
-$result = claro_sql_query($sql);
-
-if ($result)
-{
-    $myrow = mysql_fetch_array($result);
-
-    $form_lastName     = $myrow['lastname'    ];
-    $form_firstName    = $myrow['firstname'   ];
-    $form_userName     = $myrow['username'    ];
-    $form_officialCode = $myrow['officialCode'];
-    $form_email        = $myrow['email'       ];
-    $form_phone        = $myrow['phoneNumber' ];
-
-    $disp_picture      = $myrow['pictureUri'  ];
-}
+$userData = profile_get_user($_uid);
+$form_lastName     = $userData['lastname'    ];
+$form_firstName    = $userData['firstname'   ];
+$form_userName     = $userData['username'    ];
+$form_officialCode = $userData['officialCode'];
+$form_email        = $userData['email'       ];
+$form_phone        = $userData['phoneNumber' ];
+$disp_picture      = $userData['pictureUri'  ];
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -757,5 +784,28 @@ function claro_get_uid_of_platform_admin()
 	$adminUidList =	claro_sql_query_fetch_all($sql);
 	return $adminUidList;
 }
+
+
+function profile_get_user($user_id)
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user      = $tbl_mdb_names['user'];
+
+    $sql = 'SELECT 
+    			`nom`          `lastname` , 
+    			`prenom`       `firstname`, 
+    			`username`                , 
+    			`email`                   , 
+    			`pictureUri`              , 
+    			`officialCode`            , 
+    			`phoneNumber`  
+            FROM  `'.$tbl_user.'`
+            WHERE 
+    			`user_id` = "'.(int) $user_id.'"';
+    
+     $userData = claro_sql_query_fetch_all($sql);
+     return $userData[0];
+}
+
 
 ?>
