@@ -175,7 +175,7 @@ if ( $cmd == 'exUnreg' )
     }
     else
     {
-    	$message = "Unable to remove your registration to the course";
+    	$message = $langUnableToRemoveCourseRegistration;
     }
 
     $displayMode = DISPLAY_MESSAGE_SCREEN;
@@ -206,17 +206,17 @@ if ( $cmd == 'exReg' )
            $message = $lang_you_have_been_enrolled_to_the_course;
         }
 
-        if ( $_GET['asTeacher'] && $is_platformAdmin )
+        if ( !empty($_REQUEST['asTeacher']) && $is_platformAdmin )
         {
             $properties['status'] = 1;
-            $properties['role'] = "Professor";
+            $properties['role'] = $langCourseManager;
             $properties['tutor'] = 1;
             update_user_course_properties($userId, $course, $properties);
         }
     }
     else
     {
-    	$message = "Unable to enroll you to the course";
+    	$message = $langUnableToEnrollInCourse;
     }
 
     $displayMode = DISPLAY_MESSAGE_SCREEN;
@@ -284,19 +284,19 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 	
 		// build the query taking account with the user rights   
 	    
-		$sql = "SELECT c.visible, c.intitule, c.directory, c.code, 
-	                   c.titulaires, c.languageCourse, c.fake_code officialCode,
-	                   cu.user_id enrolled
+		$sql = "SELECT `c`.`visible`, `c`.`intitule`, `c`.`directory`, `c`.`code`,
+	                   `c`.`titulaires`, `c`.`languageCourse`, `c`.`fake_code` AS `officialCode`,
+	                   `cu`.`user_id` AS `enrolled`
 	
-	            FROM `" . $tbl_course . "` c
+	            FROM `" . $tbl_course . "` AS `c`
 	
-	            LEFT JOIN `" . $tbl_rel_course_user . "` cu
-	            ON (c.code = cu.code_cours AND cu.user_id = " . $userId . ")
+	            LEFT JOIN `" . $tbl_rel_course_user . "` AS `cu`
+	            ON (`c`.`code` = `cu`.`code_cours` AND `cu`.`user_id` = " . $userId . ")
 	
-	            WHERE faculte = '" . $category . "'
+	            WHERE `faculte` = '" . $category . "'
 	            AND   " . $visibility_cond . "
 	
-	            ORDER BY UPPER(fake_code)";
+	            ORDER BY UPPER(`fake_code`)";
 	
 	    $courseList = claro_sql_query_fetch_all($sql);
 	
