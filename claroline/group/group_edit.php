@@ -117,10 +117,26 @@ $is_allowedToManage  = $is_courseAdmin;
 $myStudentGroup      = $_group;
 $nbMaxGroupPerUser   = $_groupProperties ['nbGroupPerUser'];
 
+if ( isset($_REQUEST['name']) ) $name = $_REQUEST['name'];
+else                            $name = '';
+
+if ( isset($_REQUEST['description']) ) $description = $_REQUEST['description'];
+else                                   $description = '';
+
+if ( isset($_REQUEST['maxMember']) ) $maxMember = (int) $_REQUEST['maxMember'];
+else                                 $maxMember = 0;
+
+if ( isset($_REQUEST['tutor']) ) $tutor = $_REQUEST['tutor'];
+else                             $tutor = 0;
+
+if ( isset($_REQUEST['ingroup']) ) $ingroup = $_REQUEST['ingroup'];
+else                               $ingroup = array();
+
+
 ################### IF MODIFY #######################################
 
 // Once modifications have been done, the user validates and arrives here
-if($modify && $is_allowedToManage)
+if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 {
     $sql = "UPDATE`".$tbl_group_team."`
             SET `name`        ='".trim($name)."',
@@ -136,7 +152,7 @@ if($modify && $is_allowedToManage)
     // UPDATE FORUM NAME
     $sql = 'UPDATE `'.$tbl_bb_forum.'`
             SET `forum_name` ="'.trim($name).'"
-            WHERE `forum_id` ="'.$forumId.'"';
+            WHERE `forum_id` ="'.$myStudentGroup['forumId'].'"';
 
 	claro_sql_query($sql);
 
@@ -198,7 +214,6 @@ claro_disp_message_box($messageGroupEdited);
 
 <td>
 <a href="group_space.php?gidReq=<?php echo $_gid ?>"><?php echo $langGroupThisSpace ?></a>
-<input type="hidden" name="forumId" value="<?php echo $myStudentGroup['forumId'] ?>">
 </td>
 </tr>
 
@@ -301,7 +316,7 @@ claro_disp_message_box($messageGroupEdited);
 
 <td align="right"><Label for="inGroup"><?php echo $langGroupMembers ?></Label> : </td>
 <td>
-<select id="inGroup" name="ingroup[]" size="8" multiple>
+<select id="ingroup" name="ingroup[]" size="8" multiple>
 <?php
 
 $sql = 'SELECT `ug`.`id`,
@@ -330,7 +345,7 @@ while ($myMember = mysql_fetch_array($resultMember))
 </select>
 <br>
 <br>
-<input type=submit value="<?php echo $langOk ?>" name="modify" onClick="selectAll(this.form.elements[5],true)">
+<input type=submit value="<?php echo $langOk ?>" name="modify" onClick="selectAll(this.form.elements['ingroup'],true)">
 
 </td>
 
@@ -341,13 +356,13 @@ because select name contains "[]" causing a javascript element name problem
 -->
 <br>
 <br>
-<input type="button" onClick="move(this.form.elements[5],this.form.elements[9])" value="   >>   ">
+<input type="button" onClick="move(this.form.elements['ingroup'],this.form.elements['nogroup'])" value="   >>   ">
 <br>
-<input type="button" onClick="move(this.form.elements[9],this.form.elements[5])" value="   <<   ">
+<input type="button" onClick="move(this.form.elements['nogroup'],this.form.elements['ingroup'])" value="   <<   ">
 </td>
 
 <td>
-<select name="nogroup[]" size="<?php echo $myStudentGroup['maxMember']+2 ?>" multiple>
+<select id="nogroup" name="nogroup[]" size="8" multiple>
 <?php
 // Student registered to the course but inserted in no group
 
