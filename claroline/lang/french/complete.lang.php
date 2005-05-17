@@ -16,19 +16,19 @@ $l_lastpost = "Dernier Message";
 $l_nopostlock = "Vous ne pouvez répondre sur ce sujet, il a été fermé.";
 $l_noposts = "Pas de Messages";
 $l_notify = "Notifier par e-mail quand des réponses sont postées";
-$l_notifybody = "Vous recevez cet e-mail parce qu\'un message
+$l_notifybody = "Vous recevez cet e-mail parce qu'un message
 que vous avez posté sur nos forums a reçu une réponse, et que
-vous avez choisi d\'en être informé.
+vous avez choisi d'en être informé.
 
 Vous pouvez voir le sujet à:
 
 %1\$s
 
-Ou voir l\'index du forum  à
+Ou voir l'index du forum  à
 
 %2\$s
 
-Merci d\'utiliser les forums .
+Merci d'utiliser les forums .
 
 Bonne journée.";
 $l_notifysubj = "Une réponse à votre sujet a été posté.";
@@ -116,12 +116,12 @@ $langAgain = "Recommencez !";
 $langAgenda = "Agenda";
 $langAgendaNextEvents = "Agenda : prochains événements";
 $langAlertBlockingMakedInvisible = "Ce module est bloquant, 
-le rendre invisible permettra aux apprenants d\'accéder 
+le rendre invisible permettra aux apprenants d'accéder 
  aux modules suivants du parcours sans devoir réussir celui-ci. 
 
 Confirmer ?";
 $langAlertBlockingPathMadeInvisible = "Ce parcours est bloquant. 
-le rendre invisible permettra aux apprenants d\'accéder 
+le rendre invisible permettra aux apprenants d'accéder 
  aux parcours suivants sans devoir réussir celui-ci. 
 
 Confirmer ?";
@@ -173,7 +173,7 @@ Confirmer la suppression de : ";
 $langAreYouSureToDelete = "Etes-vous sûr de vouloir supprimer ";
 $langAreYouSureToDeleteScorm = "Ce parcours est issu de l'importation d'un package SCORM. Si vous effacez ce parcours, tous les contenus SCORM de ses modules seront supprimés du serveur.  Etes-vous sûr de vouloir effacer le parcours pédagogique ";
 $langAreYouSureToRemove = "Etes-vous sûr de vouloir retirer ce module du parcours pédagogique : ";
-$langAreYouSureToRemoveLabel = "Effacer un titre efface également tous les titres et modules qu\'il contient.";
+$langAreYouSureToRemoveLabel = "Effacer un titre efface également tous les titres et modules qu'il contient.";
 $langAreYouSureToRemoveSCORM = "Les modules conformes à SCORM sont définitivement effacés du serveur lorsqu'ils sont effacés dans un parcours pédagogique.";
 $langAreYouSureToRemoveStd = "Le module sera toujours accessible dans la banque de modules.";
 $langAreYouSureToUnsubscribe = "Etes-vous sûr de vouloir radier ";
@@ -303,7 +303,7 @@ $langConfirmEnrollClassToCourse = "Etes-vous sûr d'inscrire la classe entière à 
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langConfirmation = "Confirmation";
 $langContent = "Contenu";
-$langContradiction = "Utiliser le principe de non-contradiction pour amener son interlocuteur dans l\'impasse.";
+$langContradiction = "Utiliser le principe de non-contradiction pour amener son interlocuteur dans l'impasse.";
 $langCopy = "Copier";
 $langCopyFailed = "La copie du fichier courant n'a pas été réussie...";
 $langCorrespondsTo = "Correspond à";
@@ -333,7 +333,7 @@ contenu, de la progression et du calendrier";
 $langCourseCreate = "Créer un site de cours";
 $langCourseCreator = "Créateur de cours";
 $langCourseDelete = "Le cours a été supprimé";
-$langCourseDescription = "Ecrivez ici la description qui apparaîtra dans la liste des cours (Le contenu de ce champ ne s\'affiche actuellement nulle part et ne se trouve ici qu\'en préparation à une version prochaine de Claroline).";
+$langCourseDescription = "Ecrivez ici la description qui apparaîtra dans la liste des cours (Le contenu de ce champ ne s'affiche actuellement nulle part et ne se trouve ici qu'en préparation à une version prochaine de Claroline).";
 $langCourseHome = "Accueil";
 $langCourseList = "Liste des cours";
 $langCourseManager = "Gestionnaire de cours";
@@ -395,7 +395,7 @@ $langDefcon = "Aïe ! cas particuliers détectés !";
 $langDefineBlanks = "Veuillez définir au moins un blanc en utilisant les crochets [...]";
 $langDefineHeadings = "Définir les intitulés";
 $langDefineOptions = "Définissez la liste des options";
-$langDelAdmin = "A supprimer via l\'administration des forums";
+$langDelAdmin = "A supprimer via l'administration des forums";
 $langDelCourse = "Supprimer la totalité du cours";
 $langDelCourseStats = "Effacer les statistiques du cours";
 $langDelCourseStatsDone = "Les statistiques du cours ont été effacées.";
@@ -728,7 +728,7 @@ $langExMessage = "Message exemple";
 $langExeAvgTime = "Temps moyen (s.)";
 $langExeTime = "Temps (s.)";
 $langExercice = "Exercice";
-$langExerciceEx = "Exemple d\'exercice";
+$langExerciceEx = "Exemple d'exercice";
 $langExercices = "Exercices";
 $langExercise = "Exercice";
 $langExerciseAsModule = "Utiliser un exercice";
@@ -939,7 +939,7 @@ $langForContent = "Le forum est un outil de discussion asynchrone par écrit.
  description: 'Signaler des difficultés par rapport au contenu ou par
  rapport au dispositif'.";
 $langForName = "Nom du forum";
-$langForce = "Contraindre son interlocuteur, par une série de questions et de sous-questions, à reconnaître qu\'il ne connaît pas ce qu\'il prétend connaître.";
+$langForce = "Contraindre son interlocuteur, par une série de questions et de sous-questions, à reconnaître qu'il ne connaît pas ce qu'il prétend connaître.";
 $langFormula = "Cordialement";
 $langForum = "Forum";
 $langForumCategoryDeleted = "Catégorie supprimée";
@@ -1149,7 +1149,7 @@ $langImpossible = "Impossible d'effectuer cette opération";
 $langIn = "en";
 $langInFrames = "En cadres";
 $langIncorrectDate = "La date de début doit être antérieure à la date de fin";
-$langIndeed = "En effet. L\'ironie socratique est une méthode interrogative. Le grec &quot;eirotao&quot; signifie d\'ailleurs &quot;interroger&quot;.";
+$langIndeed = "En effet. L'ironie socratique est une méthode interrogative. Le grec &quot;eirotao&quot; signifie d'ailleurs &quot;interroger&quot;.";
 $langIndividual = "Individuel";
 $langInfo2Say = "Informations à communiquer <BR>à l'étudiant";
 $langInfoProgNameTitle = "Information";
@@ -1226,7 +1226,7 @@ $langLineNumber = "Nombre de lignes";
 $langLineOrLines = "ligne(s)";
 $langLines = "lignes";
 $langLink = "Lien";
-$langLinkSite = "Ajouter un lien sur la page d\'accueil";
+$langLinkSite = "Ajouter un lien sur la page d'accueil";
 $langLinks = "Liens";
 $langListAdmin = "Liste des administrateurs";
 $langListAllUsers = "Lister tous les utilisateurs";
@@ -1403,14 +1403,14 @@ $langNoModule = "Pas de module";
 $langNoMoreAttemptsAvailable = "Vous avez atteint le nombre maximum de tentatives autorisées.";
 $langNoMoreModuleToAdd = "Tous les modules de ce cours sont déjà utilisés dans ce parcours.";
 $langNoPost = "Pas de message";
-$langNoPsychology = "Non. L\'ironie socratique ne se joue pas sur le terrain de la psychologie, mais sur celui de l\'argumentation.";
+$langNoPsychology = "Non. L'ironie socratique ne se joue pas sur le terrain de la psychologie, mais sur celui de l'argumentation.";
 $langNoQuestion = "Il n'y a aucune question actuellement";
 $langNoQuota = "Pas de quota";
 $langNoRegisteredCourses = "Pas de statistiques.  Vous n'êtes inscrit dans aucun cours.";
 $langNoResult = "Pas de résultat";
 $langNoResultYet = "Il n'y a pas encore de résultats";
 $langNoScore = "Pas de résultat";
-$langNoSeduction = "Non. Il ne s\'agit pas d\'une stratégie de séduction ou d\'une méthode par l\'exemple.";
+$langNoSeduction = "Non. Il ne s'agit pas d'une stratégie de séduction ou d'une méthode par l'exemple.";
 $langNoSpace = "Le téléchargement a échoué. Il n'y a plus assez de place dans votre répertoire";
 $langNoStartAsset = "Il n'y a pas de ressource de démarrage définie pour ce module.";
 $langNoTimeLimit = "Pas de limite de temps";
@@ -1421,7 +1421,7 @@ $langNomPageAddHtPass = "Donner accès à l'administration";
 $langNone = "non";
 $langNormalUser = "Normal";
 $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
-$langNotFalse = "Cette réponse n\'est pas fausse. Il est exact que la mise en évidence de l\'ignorance de l\'interlocuteur se fait en mettant en évidence les contradictions auxquelles aboutissent ses thèses.";
+$langNotFalse = "Cette réponse n'est pas fausse. Il est exact que la mise en évidence de l'ignorance de l'interlocuteur se fait en mettant en évidence les contradictions auxquelles aboutissent ses thèses.";
 $langNotGroupMember = "Vous n'êtes pas membre de ce groupe.";
 $langNotInstalled = "Une erreur est survenue.  L'importation du parcours pédagogique a échoué.";
 $langNotRecentlyConnectedStudents = "Etudiants qui ne se sont pas connecté récemment : ";
@@ -1578,10 +1578,10 @@ $langRoot = "Niveau supérieur";
 $langSCORMTypeDesc = "Contenu conforme à SCORM 1.2";
 $langSDK = "SDK";
 $langSampleDocument = "document_exemple";
-$langSampleDocumentDesc = "Vous pouvez utiliser n\'importe quel document de l\'outil de documents de ce cours.";
-$langSampleExerciseDesc = "Vous pouvez utiliser n\'importe quel exercice de l\'outil d\'exercices de ce cours.";
+$langSampleDocumentDesc = "Vous pouvez utiliser n'importe quel document de l'outil de documents de ce cours.";
+$langSampleExerciseDesc = "Vous pouvez utiliser n'importe quel exercice de l'outil d'exercices de ce cours.";
 $langSampleLearnPath = "Exemple de parcours pédagogique";
-$langSampleLearnPathDesc = "Ceci est un exemple de parcours pédagogique, il utilise l\'exemple d\'exercice et l\'exemple de document de l\'outil d\'exercices et l\'outil de documents. Cliquez sur <b>Modifier</b> pour changer ce texte.";
+$langSampleLearnPathDesc = "Ceci est un exemple de parcours pédagogique, il utilise l'exemple d'exercice et l'exemple de document de l'outil d'exercices et l'outil de documents. Cliquez sur <b>Modifier</b> pour changer ce texte.";
 $langSave = "Enregistrer";
 $langSaveChanges = "Sauvegarder les changements";
 $langScore = "Résultat";
@@ -1621,7 +1621,7 @@ $langSize = "Taille";
 $langSize_of_claroline_scripts = "Taille de scripts claroline";
 $langSize_of_course_repository = "!!!! taille des dossiers de cours (inclus claroline and garbage des anciennes versions de claroline)";
 $langSize_of_selected_courses = "Taille des cours sélectionnés";
-$langSocraticIrony = "L\'ironie socratique consiste à...";
+$langSocraticIrony = "L'ironie socratique consiste à...";
 $langSpecifyFormat = "Vous devez spécifier le format du fichier CSV de votre fichier";
 $langStartAgain = "Recommencer";
 $langStartDate = "Date de début";
@@ -1683,7 +1683,7 @@ séances de laboratoire, visites, recueil d'informations sur le terrain,
 ...).";
 $langTechAdmin = "Administration technique";
 $langTechnical = "Outils techniques";
-$langTestForum = "Forum d\'essais";
+$langTestForum = "Forum d'essais";
 $langTextEditorDisable = "Désactiver l'éditeur de texte";
 $langTextEditorEnable = "Activer l'éditeur de texte";
 $langTextFile = "Texte avec un fichier attaché (texte requis, fichier optionnel)";
@@ -1990,7 +1990,7 @@ $lang_p_d_coursesToUpgrade = "%s cours à mettre à jour";
 $lang_p_d_errorFound = " %d erreurs trouvées";
 $lang_p_d_student = "%2d étudiant";
 $lang_p_d_students = "%2d étudiants";
-$lang_p_expectedRemainingTime = "<!-- Temps d\'éxécution pour ce cours [%01.2f s] - moyenne [%01.2f s] - total [%s] - cours restants [%d]. -->Temps restant estimé : %s.";
+$lang_p_expectedRemainingTime = "<!-- Temps d'éxécution pour ce cours [%01.2f s] - moyenne [%01.2f s] - total [%s] - cours restants [%d]. -->Temps restant estimé : %s.";
 $lang_p_nothing_to_edit_in_S = "rien à éditer dans %s";
 $lang_p_platformManager = "Administrateur %s";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> a été inscrit au cours";
