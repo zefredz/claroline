@@ -17,8 +17,6 @@
  * @package CLCAL
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
- *
  */
 
 $tlabelReq = "CLCAL___";
@@ -69,13 +67,15 @@ if ($is_allowedToEdit)
         $hour           = $_REQUEST['fhour'].':'.$_REQUEST['fminute'].':00';
 
         $sql = "INSERT INTO `".$tbl_calendar_event."` 
-                SET   titre   = '".trim(claro_addslashes($_REQUEST['titre']))."',
+                SET   titre   = '".htmlspecialchars(trim(claro_addslashes($_REQUEST['titre'])))."',
                       contenu = '".trim(claro_addslashes($_REQUEST['contenu']))."',
                       day     = '".$date_selection."',
                       hour    = '".$hour."',
                       lasting = '".$_REQUEST['lasting']."'";
-
-        if ( claro_sql_query($sql) != FALSE)
+        
+	$res_id = claro_sql_query_insert_id($sql); 
+		      
+        if ($res_id != false)
         {
             $dialogBox .= '<p>'.$langEventAdded.'</p>';
 
@@ -83,6 +83,11 @@ if ($is_allowedToEdit)
             {
                 event_default('CALENDAR',array ('ADD_ENTRY' => $entryId));
             }
+	    
+	    // notify that a new agenda event has been posted
+	    
+	    $eventNotifier->notifyCourseEvent("agenda_event_added",$_cid, $_tid, $res_id, $_gid, "0");
+	    
         }
         else
         {
