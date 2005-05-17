@@ -45,8 +45,17 @@ $is_allowedToManage = $is_courseAdmin;
 $is_allowedToStore  = $is_courseAdmin;
 $is_allowedToReset  = $is_courseAdmin;
 
-$nick        = $_user ['firstName']." ".$_user ['lastName'];
-if (strlen($nick) > $max_nick_length) $nick = $_user ['firstName']." ".$_user ['lastName'][0].'.';
+
+if ( $_user['firstName'] == '' && $_user['lastName'] == '')
+{
+    $nick = $langAnonymous;
+} 
+else
+{
+    $nick = $_user['firstName'] . ' ' . $_user['lastName'] ;
+    if (strlen($nick) > $max_nick_length) $nick = $_user['firstName'] . ' '. $_user['lastName'][0] . '.' ;
+}
+
 
 // theses  line prevent missing config file
 $refresh_display_rate = (int) $refresh_display_rate;
@@ -244,7 +253,7 @@ $curDisplayLineList = $activeLineList;
 
 // CHAT MESSAGE LIST OWN'S HEADER
 // add a unique number in the url to make IE believe that the url is different and to force refresh
-if( !isset($_REQUEST['x']) || $x == 1 )
+if( !isset($_REQUEST['x']) || $_REQUEST['x'] == 1 )
 {
     $x = 0;
 }
