@@ -57,6 +57,9 @@
 	
   // use viewMode
   claro_set_display_mode_available(true);
+  
+  if ( ! $_cid ) claro_disp_select_course();
+
   // permissions
   $is_AllowedToEdit = claro_is_allowed_to_edit();
     
@@ -522,11 +525,11 @@
             	<a href=\"".$_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
                         "onClick=\"return confirmation('".clean_str_for_javascript($langAreYouSureToRemove." ".$module['name'])." ? ";
             if ($module['contentType'] == CTSCORM_) 
-              echo $langAreYouSureToRemoveSCORM ;
+              echo clean_str_for_javascript($langAreYouSureToRemoveSCORM) ;
             elseif ( $module['contentType'] == CTLABEL_ )
-              echo $langAreYouSureToRemoveLabel;
+              echo clean_str_for_javascript($langAreYouSureToRemoveLabel);
             else
-              echo $langAreYouSureToRemoveStd ;
+              echo clean_str_for_javascript($langAreYouSureToRemoveStd);
             echo   "');\"
 			><img src=\"".$imgRepositoryWeb."delete.gif\" border=0 alt=\"".$langRemove."\"></a>
    			</td>";
