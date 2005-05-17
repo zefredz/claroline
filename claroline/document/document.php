@@ -132,8 +132,6 @@ else
     $TABLEASSET                = $tbl_lp_asset;
 
     $dbTable = $tbl_cdb_names['document'];
-    
-    echo "TBALE : " . $dbTable . "<br />";
 }
 
 $baseWorkDir = $baseServDir.$courseDir;
