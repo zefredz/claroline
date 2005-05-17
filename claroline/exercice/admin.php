@@ -85,13 +85,14 @@ $attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
 $attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';
 
 // the 4 types of answers
-$aType=array($langUniqueSelect,$langMultipleSelect,$langFillBlanks,$langMatching);
+$aType = array($langUniqueSelect,$langMultipleSelect,$langFillBlanks,$langMatching);
 
 // tables used in the exercise tool
-$TBL_EXERCICE_QUESTION = $_course['dbNameGlu'].'quiz_rel_test_question';
-$TBL_EXERCICES         = $_course['dbNameGlu'].'quiz_test';
-$TBL_QUESTIONS         = $_course['dbNameGlu'].'quiz_question';
-$TBL_REPONSES          = $_course['dbNameGlu'].'quiz_answer';
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$TBL_EXERCICE_QUESTION = $tbl_cdb_names['quiz_rel_test_question'];
+$TBL_EXERCICES         = $tbl_cdb_names['quiz_test'];
+$TBL_QUESTIONS         = $tbl_cdb_names['quiz_question'];
+$TBL_REPONSES          = $tbl_cdb_names['quiz_answer'];
 
 //take parameters from URL or posted forms :
 
