@@ -241,6 +241,8 @@ function fill_in_groups()
             ORDER BY nbPlaces DESC";
     $result = claro_sql_query($sql);
 
+    $groupAvailPlace = array();
+
     while( $group = mysql_fetch_array($result, MYSQL_ASSOC) )
     {
         $groupAvailPlace[$group['gid']] = $group['nbPlaces'];
@@ -276,6 +278,8 @@ function fill_in_groups()
 
     $result = claro_sql_query($sql);
 
+    $groupUser = array();
+
     while ($member = mysql_fetch_array($result,MYSQL_ASSOC))
     {
         $groupUser[$member['gid']] [] = $member['uid'];
@@ -284,6 +288,8 @@ function fill_in_groups()
     /*
      * Compute the most approriate group fill in
      */
+
+    $prepareQuery = array();
 
     while    (   is_array($groupAvailPlace) && !empty($groupAvailPlace)
              && is_array($userToken      ) && !empty($userToken      ) )
@@ -311,12 +317,13 @@ function fill_in_groups()
             while (   ( $userPutSucceed == false )
                    && (list ($thisGroup, ) = each ($groupAvailPlace) ) )
             {
-                if (    ! is_array( $groupUser[$thisGroup] )
+                if ( ! isset($groupUser[$thisGroup]) 
+                     || ! is_array( $groupUser[$thisGroup] )
                      || ! in_array( $thisUser, $groupUser[$thisGroup]) )
                 {
                     $groupUser[$thisGroup][] = $thisUser;
 
-                    $prepareQuery [] = '('.$thisUser.', '.$thisGroup.')';
+                    $prepareQuery[] = '('.$thisUser.', '.$thisGroup.')';
 
                     if ( -- $groupAvailPlace[$thisGroup] <= 0 )
                         unset( $groupAvailPlace[$thisGroup] );
@@ -337,7 +344,7 @@ function fill_in_groups()
      * STORE THE 'FILL IN' PROCESS IN THE DATABASE
      */
 
-    if ( is_array($prepareQuery) )
+    if ( is_array($prepareQuery) && count($prepareQuery) > 0)
     {
             $sql = "INSERT INTO `".$tbl_GroupsUsers."`
                     (`user`, `team`)
