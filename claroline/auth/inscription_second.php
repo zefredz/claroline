@@ -195,9 +195,9 @@ if ($regDataOk)
     	             EMAIL NOTIFICATION
     	  --------------------------------------*/
     	// do not event try to send the mail if there is no specified email address
+    	// mail address has already be checked via regex if set
     	if( !empty($email) )
     	{
-          	$emailto       = '"'.$firstname.' '.$lastname.'" <'.$email.'>';
 	    	$emailSubject  = '['.$siteName.'] '.$langYourReg;
 
 	    	// The body can be as long as you wish, and any combination of text and variables
