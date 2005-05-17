@@ -748,7 +748,7 @@ function claro_disp_auth_form()
             $institution_url, $institution_name, $langMyCourses, $langMyAgenda,
             $langLogout, $claro_brailleViewMode,
             $lang_footer_p_CourseManager,  $lang_p_platformManager, $administrator_name,
-            $langPoweredBy, $claro_banner;
+            $langPoweredBy, $claro_banner, $text_dir, $allowSelfReg;
 
     include($includePath.'/claro_init_header.inc.php');
 
@@ -853,7 +853,7 @@ function claro_disp_select_course()
     global  $_uid, $_cid,
 
             $siteName,$includePath,
-            $langManager, $administrator
+            $langManager, $administrator, $lang_p_platformManager, $langPoweredBy, $administrator_name
             ;
 
     $mainTbl = claro_sql_get_main_tbl();
