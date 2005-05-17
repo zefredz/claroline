@@ -2,8 +2,7 @@
 /**
  * CLAROLINE
  *
- * Main script for work tool
- *
+ * Main script for work tool *
  *
  * @version 1.6 $Revision$
  *
@@ -11,7 +10,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
- * @see http://www.claroline.net/wiki/install/
+ * @see http://www.claroline.net/wiki/CLWRK/
  *
  * @author Claro Team <cvs@claroline.net>
  *
