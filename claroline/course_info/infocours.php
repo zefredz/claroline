@@ -281,7 +281,7 @@ if (!empty ($dialogBox))
 </tr>
 
 <tr>
-<td align="right"><label for="titulary"><?php echo $langProfessor ?></label>&nbsp;:</td>
+<td align="right"><label for="titulary"><?php echo $langProfessors ?></label>&nbsp;:</td>
 <td><input type="text"  id="titulary" name="titulary" value="<?php echo htmlentities($titulary); ?>" size="60"></td>
 </tr>
 
