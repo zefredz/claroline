@@ -4,7 +4,7 @@
  *
  * SQL Statement to create table of central database
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -154,6 +154,20 @@ $sql = "CREATE TABLE `".$mainTblPrefixForm."sso` (
   `rec_time` datetime NOT NULL default '0000-00-00 00:00:00',
   `user_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
+) TYPE=MyISAM";
+
+claro_sql_query($sql);
+
+$sql = "CREATE TABLE `".$mainTblPrefixForm."notify` (
+  `id` int(11) NOT NULL auto_increment,
+  `course_code` varchar(40) NOT NULL default '0',
+  `tool_id` int(11) NOT NULL default '0',
+  `ressource_id` varchar(255) NOT NULL default '0',
+  `group_id` int(11) NOT NULL default '0',
+  `user_id` int(11) NOT NULL default '0',
+  `date` datetime default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`),
+  KEY `course_id` (`course_code`)
 ) TYPE=MyISAM";
 
 claro_sql_query($sql);
