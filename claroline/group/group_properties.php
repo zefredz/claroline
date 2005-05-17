@@ -61,6 +61,8 @@ session_register("_groupProperties");
 $registrationAllowedInGroup = $_groupProperties ['registrationAllowed'];
 $groupPrivate               = $_groupProperties ['private'            ];
 
+$wikiInGroup = FALSE;
+
 if ($multiGroupAllowed)
 {
     if ($_groupProperties ['nbGroupPerUser'] == 1)
