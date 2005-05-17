@@ -92,6 +92,9 @@ if ($_gid && $is_groupAllowed)
     {
       die("<center>You are not allowed to see this group's documents!!!</center>");
     }
+    
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $dbTable = $tbl_cdb_names['document'];
 }
 else
 {
@@ -129,6 +132,8 @@ else
     $TABLEASSET                = $tbl_lp_asset;
 
     $dbTable = $tbl_cdb_names['document'];
+    
+    echo "TBALE : " . $dbTable . "<br />";
 }
 
 $baseWorkDir = $baseServDir.$courseDir;
@@ -1005,9 +1010,9 @@ if (isset($courseContext) && isset($fileList))
      * Search infos in the DB about the current directory the user is in
      */
 
-        $sql = "SELECT `path`, `visibility`, `comment` 
-                FROM `".$dbTable."` 
-                WHERE path IN ('".implode("', '", array_map('addslashes', $fileList['path']) )."')";
+    $sql = "SELECT `path`, `visibility`, `comment`
+            FROM `".$dbTable."`
+            WHERE path IN ('".implode("', '", array_map('addslashes', $fileList['path']) )."')";
 
     $attributeList = claro_sql_query_fetch_all_cols($sql);
 
