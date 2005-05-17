@@ -333,6 +333,9 @@ else
         }
         else // login failed, mysql_num_rows($result) <= 0
         {
+
+            $loginFailed = true;
+
             /*
              * In this section:
              * there is no entry for the $login user in the claroline database. 
@@ -356,12 +359,12 @@ else
                     if ( $_uid > 0 )
                     {
                         $uidReset = true;
+                        $loginFailed = false;
                         break;
                     }
                     else
                     {
                         $_uid = null;
-                        $loginFailed = true;
                     }
                 }
             } //end if is_array($extAuthSource)
