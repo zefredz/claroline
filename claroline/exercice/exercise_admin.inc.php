@@ -31,42 +31,38 @@ if(!defined('ALLOWED_TO_INCLUDE'))
 // the exercise form has been submitted
 if( isset($_REQUEST['submitExercise']) )
 {
-	$exerciseTitle=trim($_REQUEST['exerciseTitle']);
-	$exerciseDescription=trim($_REQUEST['exerciseDescription']);
-	$randomQuestions=$_REQUEST['randomQuestions']?$_REQUEST['questionDrawn']:0;
+	$exerciseTitle = trim($_REQUEST['exerciseTitle']);
+	$exerciseDescription = trim($_REQUEST['exerciseDescription']);
+	$randomQuestions = isset($_REQUEST['randomQuestions'])?$_REQUEST['questionDrawn']:0;
 
 	// no title given
-	if(empty($_REQUEST['exerciseTitle']))
-	{
-		$msgErr=$langGiveExerciseName;
+	if( empty($exerciseTitle) )
+	{	
+		$msgErr = $langGiveExerciseName;
 		
 		// get values that were in form when before it was sent
 		$exerciseType		= $_REQUEST['exerciseType'];
-		$maxTime			= $_REQUEST['exerciseMaxTime'];
-		$maxTimeSec			= $_REQUEST['exerciseMaxTimeSec'] ;
+		$maxTime		= ( isset($_REQUEST['exerciseMaxTime']) )? true : false;
+		$maxTimeSec		= $_REQUEST['exerciseMaxTimeSec'] ;
 		$maxTimeMin 		= $_REQUEST['exerciseMaxTimeMin'];
 		
-		$maxAttempt			= $_REQUEST['exerciseMaxAttempt'];
-		$showAnswer			= $_REQUEST['exerciseShowAnswer'];
+		$maxAttempt		= $_REQUEST['exerciseMaxAttempt'];
+		$showAnswer		= $_REQUEST['exerciseShowAnswer'];
 		$anonymousAttempts = ($_REQUEST['anonymousAttempts'] == "YES") ? true : false ;
 
+		$useEndDate		= ( isset($_REQUEST['useEndDate']) )? true : false;
+		
 		$startDate = date("Y-m-d", mktime( 0,0,0,$_REQUEST['startMonth'], $_REQUEST['startDay'], $_REQUEST['startYear'] ) );
 		$startTime = date("H:i:00", mktime( $_REQUEST['startHour'],$_REQUEST['startMinute'],0) );
 		
-		$endDate = date("Y-m-d", mktime( 0,0,0,$_REQUEST['endMonth'], $_REQUEST['endDay'], $_REQUEST['endYear'] ) );
+                $endDate = date("Y-m-d", mktime( 0,0,0,$_REQUEST['endMonth'], $_REQUEST['endDay'], $_REQUEST['endYear'] ) );
 		$endTime = date("H:i:00", mktime( $_REQUEST['endHour'],$_REQUEST['endMinute'],0) );
-
-		$startDate = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y") ) );
-		$startTime = date("H:i:00", mktime( date("H"),date("i"),0) );
-		$endDate = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
-		$endTime = date("H:i:00", mktime( date("H"),date("i"),0) );
-
 	}
 	else
 	{
-		$objExercise->updateTitle($_REQUEST['exerciseTitle']);
-		$objExercise->updateDescription($_REQUEST['exerciseDescription']);
-		$objExercise->updateType($_REQUEST['exerciseType']);
+	    $objExercise->updateTitle($_REQUEST['exerciseTitle']);
+	    $objExercise->updateDescription($_REQUEST['exerciseDescription']);
+	    $objExercise->updateType($_REQUEST['exerciseType']);
 	    // build start date
 	    $composedStartDate = $_REQUEST['startYear']."-"
 	                        .$_REQUEST['startMonth']."-"
@@ -76,7 +72,7 @@ if( isset($_REQUEST['submitExercise']) )
 	    $objExercise->set_start_date($composedStartDate);
 	    
 	    //  build end date
-	    if($_REQUEST['useEndDate'])
+	    if(isset($_REQUEST['useEndDate']) && $_REQUEST['useEndDate'])
 	    {
 	        $composedEndDate = $_REQUEST['endYear']."-"
 	                            .$_REQUEST['endMonth']."-"
@@ -118,29 +114,32 @@ if( isset($_REQUEST['submitExercise']) )
 		$objExercise->set_show_answer($_REQUEST['exerciseShowAnswer']);
 		$objExercise->setRandom($randomQuestions);
 		$objExercise->save();
-
+				
 		// reads the exercise ID (only usefull for a new exercise)
-		$exerciseId=$objExercise->selectId();
+		$exerciseId = $objExercise->selectId();
 
+		$_SESSION['objExercise'] = $objExercise;
+		
 		unset($_REQUEST['modifyExercise']);
 		unset($modifyExercise);
 	}
 }
 
+// if the form has not been submitted it means that we display the form or we display the details of the exercise
 if( ! isset($_REQUEST['submitExercise']) || ( isset($_REQUEST['exerciseTitle']) && !empty($_REQUEST['exerciseTitle']) ) )
 {
 	// get all properties of the exercise before display of form or of resume
 	$exerciseTitle		= $objExercise->selectTitle();
-	$exerciseDescription= $objExercise->selectDescription();
+	$exerciseDescription    = $objExercise->selectDescription();
 	$exerciseType		= $objExercise->selectType();
 	$randomQuestions	= $objExercise->isRandom();
-	$maxTime			= $objExercise->get_max_time();
-	$maxTimeSec			= $maxTime%60 ;
+	$maxTime		= $objExercise->get_max_time();
+	$maxTimeSec		= $maxTime%60 ;
 	$maxTimeMin 		= ($maxTime-$maxTimeSec)/ 60;
 	
-	$maxAttempt			= $objExercise->get_max_attempt();
-	$showAnswer			= $objExercise->get_show_answer();
-	$anonymousAttempts  = $objExercise->anonymous_attempts();
+	$maxAttempt		= $objExercise->get_max_attempt();
+	$showAnswer		= $objExercise->get_show_answer();
+	$anonymousAttempts      = $objExercise->anonymous_attempts();
     
 	// start date splitting
 	list($startDate, $startTime) = split(' ', $objExercise->get_start_date());
@@ -222,7 +221,7 @@ if( isset($modifyExercise) )
 		{
 ?>
 
-	<option value="<?php echo $i; ?>" <?php if(($formSent && $questionDrawn == $i) || (!$formSent && ($randomQuestions == $i || ($randomQuestions <= 0 && $i == $nbrQuestions)))) echo 'selected="selected"'; ?>><?php echo $i; ?></option>
+	<option value="<?php echo $i; ?>" <?php if( $randomQuestions == $i || ($randomQuestions <= 0 && $i == $nbrQuestions) ) echo 'selected="selected"'; ?>><?php echo $i; ?></option>
 
 <?php
 		}
@@ -250,6 +249,7 @@ if( isset($modifyExercise) )
 
 <td>
 <?php
+
    echo claro_disp_date_form("startDay", "startMonth", "startYear", $startDate)." ".claro_disp_time_form("startHour", "startMinute", $startTime);
 ?>
   </td>
@@ -261,16 +261,14 @@ if( isset($modifyExercise) )
 <td><?php echo $langExerciseClosing; ?>&nbsp;:</td>
 
 <td>
-
 <input type="checkbox" name="useEndDate" id="useEndDate" value="1" <?php if( $useEndDate ) echo 'checked="checked"';?>>
 <label for="useEndDate"><?php echo $langYes; ?>, </label>
 <?php
    echo claro_disp_date_form("endDay", "endMonth", "endYear", $endDate)." ".claro_disp_time_form("endHour", "endMinute", $endTime);
-?>
-
-  
+?>  
   </td>
 </tr>
+
 <tr>
   <td><label for="exerciseMaxTime"><?php echo $langAllowedTime; ?>&nbsp;:</label></td>
   <td>

@@ -32,10 +32,10 @@ include ($includePath.'/lib/fileUpload.lib.php');
 include ($includePath.'/lib/fileDisplay.lib.php');
 
 // the question form has been submitted
-if($submitQuestion)
+if(isset($_REQUEST['submitQuestion']))
 {
-	$questionName = trim($questionName);
-	$questionDescription = trim($questionDescription);
+	$questionName = trim($_REQUEST['questionName']);
+	$questionDescription = trim($_REQUEST['questionDescription']);
 
 	// no name given
 	if(empty($questionName))
@@ -43,7 +43,7 @@ if($submitQuestion)
 		$msgErr=$langGiveQuestion;
 	}
 	// checks if the question is used in several exercises
-	elseif($exerciseId && !$modifyIn && $objQuestion->selectNbrExercises() > 1)
+	elseif($exerciseId && !isset($modifyIn) && $objQuestion->selectNbrExercises() > 1)
 	{
 		$usedInSeveralExercises=1;
 
@@ -57,7 +57,7 @@ if($submitQuestion)
 	else
 	{
         // if the user has chosed to modify the question only in the current exercise
-        if($modifyIn == 'thisExercise')
+        if(isset($modifyIn) && $modifyIn == 'thisExercise')
         {
         	// duplicates the question
         	$questionId=$objQuestion->duplicate();
@@ -94,7 +94,7 @@ if($submitQuestion)
 
 		$objQuestion->updateTitle($questionName);
 		$objQuestion->updateDescription($questionDescription);
-		$objQuestion->updateType($answerType);
+		$objQuestion->updateType($_REQUEST['answerType']);
 		$objQuestion->save($exerciseId);
 
 		// if a file has been set or checkbox "delete" has been checked
@@ -142,7 +142,7 @@ if($submitQuestion)
 			}
 		}
 
-		if($newQuestion)
+		if($_REQUEST['newQuestion'])
 		{
 			// goes to answer administration
 			$modifyAnswers=$questionId;
@@ -155,36 +155,38 @@ if($submitQuestion)
 
 		unset($newQuestion,$modifyQuestion);
 	}
+     
 }
 else
 {
 	// if we don't come here after having cancelled the warning message "used in serveral exercises"
-	if(!$buttonBack)
+	if(!isset($_REQUEST['buttonBack']))
 	{
 		$questionName=$objQuestion->selectTitle();
 		$questionDescription=$objQuestion->selectDescription();
 		$answerType=$objQuestion->selectType();
 		$attachedFile=$objQuestion->selectAttachedFile();
 	}
-        
-        $aFileIsAttached = empty($attachedFile)?false:true;
 }
 
+$aFileIsAttached = empty($attachedFile)?false:true;
 $maxUploadSizeInBytes = get_max_upload_size(100000000,$attachedFilePathSys);
 
-if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
+if((isset($newQuestion) || (isset($modifyQuestion))) && !isset($usedInSeveralExercises))
 {
+
 ?>
 
 <h3>
   <?php echo $questionName; ?>
 </h3>
 
-<form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyQuestion=<?php echo $modifyQuestion; ?>&newQuestion=<?php echo $newQuestion; ?>">
+<?php if (isset($modifyQuestion)) $addform = "modifyQuestion=".$modifyQuestion; ?>
+
+<form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?<?php echo $addform;?>&newQuestion=<?php echo $_REQUEST['newQuestion']; ?>">
 <table border="0" cellpadding="5">
 
 <?php
-
 	// if there is an error message
 	if(!empty($msgErr))
 	{
@@ -236,10 +238,10 @@ if(($newQuestion || $modifyQuestion) && !$usedInSeveralExercises)
 </tr>
 <tr>
   <td valign="top"><?php echo $langAnswerType; ?> :</td>
-  <td><input type="radio" name="answerType" id="answerType1" value="1" <?php if($answerType <= 1) echo 'checked="checked"'; ?>> <label for="answerType1"><?php echo $langUniqueSelect; ?></label><br>
-	  <input type="radio" name="answerType" id="answerType2" value="2" <?php if($answerType == 2) echo 'checked="checked"'; ?>> <label for="answerType2"><?php echo $langMultipleSelect; ?></label><br>
-	  <input type="radio" name="answerType" id="answerType4" value="4" <?php if($answerType >= 4) echo 'checked="checked"'; ?>> <label for="answerType4"><?php echo $langMatching; ?></label><br>
-	  <input type="radio" name="answerType" id="answerType3" value="3" <?php if($answerType == 3) echo 'checked="checked"'; ?>> <label for="answerType3"><?php echo $langFillBlanks; ?></label>
+  <td><input type="radio" name="answerType" id="answerType1" value="1" <?php if((isset($answerType) && $answerType <= 1)|| !isset($answerType)) echo 'checked="checked"'; ?>> <label for="answerType1"><?php echo $langUniqueSelect; ?></label><br>
+	  <input type="radio" name="answerType" id="answerType2" value="2" <?php if(isset($answerType) &&$answerType == 2) echo 'checked="checked"'; ?>> <label for="answerType2"><?php echo $langMultipleSelect; ?></label><br>
+	  <input type="radio" name="answerType" id="answerType4" value="4" <?php if(isset($answerType) &&$answerType >= 4) echo 'checked="checked"'; ?>> <label for="answerType4"><?php echo $langMatching; ?></label><br>
+	  <input type="radio" name="answerType" id="answerType3" value="3" <?php if(isset($answerType) &&$answerType == 3) echo 'checked="checked"'; ?>> <label for="answerType3"><?php echo $langFillBlanks; ?></label>
   </td>
 </tr>
 <tr>

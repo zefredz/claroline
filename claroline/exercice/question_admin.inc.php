@@ -140,7 +140,7 @@ else
 	// we are not in an exercise, so we come from the question pool
 	else
 	{
-		$backLinkHtml = "\n".'<p><small><a href="question_pool.php?fromExercise='.$fromExercise.'">&lt;&lt; '.$langGoBackToQuestionPool.'</a></small></p>'."\n";
+		$backLinkHtml = "\n".'<p><small><a href="question_pool.php?fromExercise='.$_REQUEST['fromExercise'].'">&lt;&lt; '.$langGoBackToQuestionPool.'</a></small></p>'."\n";
 	}
 
 	// selects question informations
@@ -167,7 +167,7 @@ else
 	}
 
 	// doesn't show the edit link if we come from the question pool to pick a question for an exercise
-	if(!$fromExercise)
+	if(!$_REQUEST['fromExercise'])
 	{
 ?>
 
@@ -208,7 +208,7 @@ else
 
 <?php
 	// doesn't show the edit link if we come from the question pool to pick a question for an exercise
-	if(!$fromExercise)
+	if(!$_REQUEST['fromExercise'])
 	{
 ?>
 

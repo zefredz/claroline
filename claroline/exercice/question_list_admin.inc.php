@@ -29,21 +29,21 @@ if(!defined('ALLOWED_TO_INCLUDE'))
 }
 
 // moves a question up in the list
-if($moveUp)
+if(isset($moveUp))
 {
 	$objExercise->moveUp($moveUp);
 	$objExercise->save();
 }
 
 // moves a question down in the list
-if($moveDown)
+if(isset($moveDown))
 {
 	$objExercise->moveDown($moveDown);
 	$objExercise->save();
 }
 
 // deletes a question from the exercise (not from the data base)
-if($deleteQuestion)
+if(isset($deleteQuestion))
 {
 	// construction of the Question object
 	$objQuestionTmp=new Question();
@@ -127,7 +127,7 @@ if($nbrQuestions)
 	}
 }
 
-if(!$i)
+if(!isset($i))
 {
 ?>
 

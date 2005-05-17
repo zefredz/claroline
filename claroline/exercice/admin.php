@@ -95,7 +95,13 @@ $TBL_REPONSES          = $_course['dbNameGlu'].'quiz_answer';
 
 //take parameters from URL or posted forms :
 
-if (isset($_REQUEST['modifyExercise'])) $modifyExercise = $_REQUEST['modifyExercise']; 
+if (!empty($_REQUEST['modifyExercise'])) $modifyExercise  = $_REQUEST['modifyExercise']; else unset($modifyExercise);
+if (!empty($_REQUEST['modifyAnswers']))  $modifyAnswers   = $_REQUEST['modifyAnswers'];  else unset($modifyAnswers);
+if (!empty($_REQUEST['modifyQuestion'])) $modifyQuestion  = $_REQUEST['modifyQuestion']; else unset($modifyQuestion);
+if (!empty($_REQUEST['editQuestion']))   $editQuestion    = $_REQUEST['editQuestion'];   else unset($editQuestion);
+if (!empty($_REQUEST['newQuestion']))    $newQuestion     = $_REQUEST['newQuestion'];    else unset($newQuestion);
+if (!empty($_REQUEST['deleteQuestion'])) $deleteQuestion  = $_REQUEST['deleteQuestion']; else unset($deleteQuestion);
+if (!empty($_REQUEST['modifyIn']))       $modifyIn        = $_REQUEST['modifyIn'];       else unset($modifyIn);
 
 if(!$is_allowedToEdit)
 {
@@ -159,9 +165,9 @@ if(!isset($_REQUEST['fromExercise']))
 $nbrQuestions = $objExercise->selectNbrQuestions();
 
 // intializes the Question object
-if(isset($_REQUEST['editQuestion']) || isset($_REQUEST['newQuestion']) || isset($_REQUEST['modifyQuestion']) || isset($_REQUEST['modifyAnswers']))
+if(isset($editQuestion) || isset($newQuestion) || (isset($modifyQuestion)) || isset($modifyAnswers))
 {
-	if(isset($_REQUEST['editQuestion']) || isset($_REQUEST['newQuestion']))
+	if(isset($editQuestion) || isset($newQuestion))
 	{
 		// construction of the Question object
 		$objQuestion = new Question();
@@ -170,10 +176,10 @@ if(isset($_REQUEST['editQuestion']) || isset($_REQUEST['newQuestion']) || isset(
 		$_SESSION['objQuestion'] = $objQuestion;
 
 		// reads question data
-		if(isset($_REQUEST['editQuestion']))
+		if(isset($editQuestion))
 		{
 			// question not found
-			if(!$objQuestion->read($_REQUEST['editQuestion']))
+			if(!$objQuestion->read($editQuestion))
 			{
 				die($langQuestionNotFound);
 			}
@@ -241,7 +247,7 @@ if(isset($cancelAnswers))
 $interbredcrump[]=array("url" => "exercice.php","name" => $langExercices);
 
 // modifies the query string that is used in the link of tool name
-if(isset($_REQUEST['editQuestion']) || isset($_REQUEST['modifyQuestion']) || isset($_REQUEST['newQuestion']) || isset($_REQUEST['modifyAnswers']))
+if(isset($editQuestion) || (isset($modifyQuestion)) || isset($newQuestion) || isset($modifyAnswers))
 {
 	$nameTools = $langQuestionManagement;
 		
@@ -290,30 +296,30 @@ include($includePath.'/claro_init_header.inc.php');
 
 claro_disp_tool_title($nameTools);
 
-if(isset($_REQUEST['newQuestion']) || isset($modifyQuestion))
+if (isset($newQuestion) || (isset($modifyQuestion)))
 {
 	// statement management
 	include('statement_admin.inc.php');
 }
 
-if(isset($_REQUEST['modifyAnswers']))
+if(isset($modifyAnswers) || (isset($modifyAnswers)))
 {
 	// answer management
 	include('answer_admin.inc.php');
 }
 
-if(isset($_REQUEST['editQuestion']) || isset($usedInSeveralExercises))
+if(isset($editQuestion) || isset($usedInSeveralExercises))
 {
 	// question management
 	include('question_admin.inc.php');
 }
 
-if(!isset($_REQUEST['newQuestion']) && !isset($_REQUEST['modifyQuestion']) && !isset($_REQUEST['editQuestion']) && !isset($_REQUEST['modifyAnswers']))
+if(!isset($newQuestion) && !isset($modifyQuestion) && !isset($editQuestion) && !isset($modifyAnswers))
 {
 	// exercise management
 	include('exercise_admin.inc.php');
 
-	if( !isset($_REQUEST['modifyExercise']) )
+	if( !isset($modifyExercise) )
 	{
 		// question list management
 		include('question_list_admin.inc.php');
