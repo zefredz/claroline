@@ -165,21 +165,42 @@ echo "<p>"
  * Course List
  */
 
+
+// get the list of personnal courses marked as contening new events 
+
+$modified_course = $claro_notifier->get_notified_courses($_uid,$_user ['lastLogin']);
+
+//display list
+ 
 echo "<ul style=\"list-style-image:url(claroline/img/course.gif);\">\n";
 
 foreach($personnalCourseList as $thisCourse)
 {
 
-    echo "<li>\n"
+    //if the course contains new things to see since last login, its name will be displayed in bold text in the list
+    
+    if (in_array ($thisCourse['sysCode'], $modified_course)) 
+    {
+        $div_open="<b>";
+        $div_close="</b>";
+    }
+    else // otherwise just diplsy its name normally
+    {
+        $div_open="";
+        $div_close="";
+    }
+       
+    echo "<li>$div_open\n"
         ."<a href=\"".$coursesRepositoryWeb.$thisCourse['directory']."/\">"
         .$thisCourse['officialCode']." - "
         .$thisCourse['title']
-        ."</a>"
+        ."</a>$div_close"
         ."<br>"
         ."<small>"
         .$thisCourse['titular']
         ."</small>\n"
         ."</li>\n";
+
 } // end foreach($personnalCourseList as $thisCourse)
 
 echo "</ul>\n"
