@@ -9,7 +9,7 @@ class Notifier extends EventDriven {
      */
     function Notifier ( & $registry )
     {
-        parent::EventDriven( & $registry );
+        parent::EventDriven( $registry );
     }
 	
     /**

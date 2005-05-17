@@ -364,8 +364,8 @@
         */
         function addListener( $callback, $eventType )
         {
-            $listener = new EventListener(& $this, $callback );
-            $id = $this->_registry->register($eventType, & $listener );
+            $listener = new EventListener( $this, $callback );
+            $id = $this->_registry->register($eventType, $listener );
             $this->_listeners[$eventType][$id] =& $listener;
             return $id;
         }
@@ -445,7 +445,7 @@
     {
         function MyEventDrivenObject( & $registry )
         {
-            parent::EventDriven( & $registry );
+            parent::EventDriven( $registry );
         }
          
         function onHelloEventCallMe()
@@ -468,8 +468,8 @@
             $old_error_handler = set_error_handler( 'event_error_handler' );
             echo "> creating objects...\n";
             $registry = new EventManager();
-            $edo = new MyEventDrivenObject( & $registry );
-            $em = new EventGenerator( & $registry );
+            $edo = new MyEventDrivenObject( $registry );
+            $em = new EventGenerator( $registry );
             echo "> done\n\n";
 
             echo "> registrering listeners\n";

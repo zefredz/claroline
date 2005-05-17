@@ -20,11 +20,11 @@ $claro_event_manager = new EventManager();
 
 //2.Create event listener
 
-$eventNotifier = new EventGenerator( & $claro_event_manager ); 
+$eventNotifier = new EventGenerator( $claro_event_manager );
 
 //3.Create listeners
 
-$claro_notifier = new Notifier(& $claro_event_manager);
+$claro_notifier = new Notifier( $claro_event_manager);
 //$claro_indexer  = new Indexer(& $claro_event_manager);
 
 //4.Register listener in the event manager
