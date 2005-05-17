@@ -2,7 +2,7 @@
 /**
  * CLAROLINE 
  *
- * @version 1.6
+ * @version 1.7 $Revision$
  * 
  * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)     
  * 
@@ -44,6 +44,7 @@ function claro_sql_get_main_tbl()
         'class'                     => $mainDbName.'`.`'.$mainTblPrefix.'class',
         'rel_class_user'            => $mainDbName.'`.`'.$mainTblPrefix.'rel_class_user',
         'sso'                       => $mainDbName.'`.`'.$mainTblPrefix.'sso',
+        'notify'                    => $mainDbName.'`.`'.$mainTblPrefix.'notify',
         'track_e_default'           => $statsDbName.'`.`'.$statsTblPrefix.'track_e_default',
         'track_e_login'             => $statsDbName.'`.`'.$statsTblPrefix.'track_e_login',
         'track_e_open'              => $statsDbName.'`.`'.$statsTblPrefix.'track_e_open',
