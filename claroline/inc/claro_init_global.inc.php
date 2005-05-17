@@ -91,8 +91,15 @@ if ($statsDbName == '')
 include($includePath."/claro_init_local.inc.php");
 
 /*----------------------------------------------------------------------
+  Include the event manager declarations for the notification system
+  ----------------------------------------------------------------------*/
+  
+include($includePath."/lib/event/init_event_manager.inc.php");
+
+/*----------------------------------------------------------------------
   Load language files
   ----------------------------------------------------------------------*/
+
 
 if ($_course['language'])
 {
