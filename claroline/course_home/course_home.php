@@ -99,6 +99,10 @@ else                         $reqAccessLevel   = 'ALL';
 
 $toolList = get_course_tool_list($reqAccessLevel);
 
+// get tool id where new events have been recorded since last login
+
+$modified_tools = $claro_notifier->get_notified_tools($_cid,$_user ['lastLogin']);
+
 foreach($toolList as $thisTool)
 {
     if ( ! empty($thisTool['label']))   // standart claroline tool
@@ -134,12 +138,25 @@ foreach($toolList as $thisTool)
     {
         $style = '';
     }
-
+    
+    // see if tool name must be displayed in bold text or not
+      
+    if (in_array($thisTool['id'], $modified_tools)) 
+    {
+        $div_open="<b>";
+        $div_close="</b>";
+    }
+    else // otherwise just display its name normally
+    {
+        $div_open="";
+        $div_close="";
+    }
+    
     if ( ! empty($url) )
     {
-        echo "<a $style href=\"".$url."\">"
+        echo "$div_open <a $style href=\"".$url."\">"
             ."<img src=\"".$icon."\" hspace=\"5\" alt=\"\">".$toolName
-            ."</a>"
+            ."</a> $div_close"
             ."<br>\n";
     }
     else
