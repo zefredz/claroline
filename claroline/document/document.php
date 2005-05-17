@@ -92,9 +92,6 @@ if ($_gid && $is_groupAllowed)
     {
       die("<center>You are not allowed to see this group's documents!!!</center>");
     }
-    
-    $tbl_cdb_names = claro_sql_get_course_tbl();
-    $dbTable = $tbl_cdb_names['document'];
 }
 else
 {
@@ -998,7 +995,7 @@ if ( count($filePathList) > 0 )
     }
 }
 
-if (isset($courseContext) && isset($fileList))
+if (isset($courseContext) && ($courseContext != false) && isset($fileList))
 {
 	/*--------------------------------------------------------------------------
                  SEARCHING FILES & DIRECTORIES INFOS ON THE DB
