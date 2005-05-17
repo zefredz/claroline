@@ -97,7 +97,7 @@ $tbl_Forums           = $tbl_cdb_names['bb_forums'          ];
 $currentCourseRepository = $_course['path'     ];
 $currentCourseId         = $_course['sysCode'  ];
 $is_allowedToManage      = claro_is_allowed_to_edit();
-//$garbageRepositorySys  = $clarolineRepositorySys.'garbage/';
+
 $isGroupRegAllowed       =     $_groupProperties ['registrationAllowed']
                            && (  !$is_courseTutor
                                || (  $is_courseTutor
@@ -143,10 +143,16 @@ $display_groupadmin_manager = (bool) $is_allowedToManage;
 if ($is_allowedToManage)
 {
     if ( isset($_REQUEST['creation']) )
-    {
+    {   
         // For all Group forums, cat_id=1
+
+
+        $group_max = (int) $_REQUEST['group_max'];
         $group_quantity = (int) $_REQUEST['group_quantity'];
+
         if ($group_quantity<1) $group_quantity = 1;
+
+        $lastOrder = 0;
 
         for ($i = 1; $i <= $group_quantity; $i++)
         {
@@ -164,19 +170,20 @@ if ($is_allowedToManage)
             /*
              * Create a forum for the group in the forum table
              */
-        // we need to know what is the max forum_order only if lastOrder 
-        // is not already set
-        if (!$lastOrder)
-        {
-        // select max order in the forum cat only (cat_id = 1)
-            $sql = "SELECT MAX(`forum_order`)
-                FROM `".$tbl_Forums."`
-                WHERE `cat_id` = 1"; 
-            $result = claro_sql_query($sql);
-            $tmp = mysql_fetch_array($result);
-            $lastOrder = $tmp[0];
-        }
-        $lastOrder += 1;
+
+            // we need to know what is the max forum_order only if lastOrder 
+            // is not already set
+            if (!$lastOrder)
+            {
+                // select max order in the forum cat only (cat_id = 1)
+                $sql = "SELECT MAX(`forum_order`)
+                        FROM `".$tbl_Forums."`
+                        WHERE `cat_id` = 1"; 
+                $result = claro_sql_query($sql);
+                $tmp = mysql_fetch_array($result);
+                $lastOrder = $tmp[0];
+            }
+            $lastOrder += 1;
         
             $sql = "INSERT INTO `".$tbl_Forums."`
                     SET forum_id           = '',
@@ -236,7 +243,7 @@ if ($is_allowedToManage)
     // set common properties for all groups
     if ( isset($_REQUEST['properties']) )
     {
-        if($_REQUEST['limitNbGroupPerUser'] == "ALL")
+        if ( $_REQUEST['limitNbGroupPerUser'] == "ALL")
         {
             $sqlLimitNbGroupPerUser = "NULL";
         }
@@ -254,13 +261,23 @@ if ($is_allowedToManage)
          * In case of the table is empty (it seems to happen)
          * insert the parameters.
          */
-        $self_registration = ($_REQUEST['self_registration']==1?1:0);
-        $private           = ($_REQUEST['private']==1?1:0);
-        $forum             = ($_REQUEST['forum']==1?1:0);
-        $chat              = ($_REQUEST['chat']==1?1:0);
-        $wiki              = ($_REQUEST['wiki']==1?1:0);
         
-        $sql ="INSERT IGNORE INTO `".$tbl_GroupsProperties."`
+        if ( isset($_REQUEST['self_registration']) ) $self_registration = (int) $_REQUEST['self_registration'];
+        else                                         $self_registration = 0;
+
+        if ( isset($_REQUEST['private']) ) $private = (int) $_REQUEST['private'];
+        else                               $private = 0;
+
+        if ( isset($_REQUEST['forum']) ) $forum = (int) $_REQUEST['forum'];
+        else                             $forum = 0;
+
+        if ( isset($_REQUEST['chat']) ) $chat = (int) $_REQUEST['chat'];
+        else                            $chat = 0;
+
+        if ( isset($_REQUEST['wiki']) ) $wiki = (int) $_REQUEST['wiki'];
+        else                            $wiki = 0;
+        
+        $sql = "INSERT IGNORE INTO `".$tbl_GroupsProperties."`
                SET id                =  1 ,
                    self_registration = '".$self_registration."',
                    private           = '".$private."',
@@ -310,7 +327,7 @@ if ($is_allowedToManage)
         $groupHaveForum  = $_groupProperties ['tools'] ['forum'    ];
         $groupHaveDocs   = $_groupProperties ['tools'] ['document' ];
         $groupHaveWiki   = $_groupProperties ['tools'] ['wiki'     ];
-        $groupHaveChat      = $_groupProperties ['tools'] ['chat'     ];
+        $groupHaveChat   = $_groupProperties ['tools'] ['chat'     ];
 
     }    // end if $submit
 

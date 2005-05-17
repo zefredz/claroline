@@ -20,7 +20,7 @@ if ( ! $_cid) claro_disp_select_course();
 // block if !$_gid
 // accept  if $is_groupAllowed
 
-if (!$_gid || (!$is_groupAllowed & !($HTTP_GET_VARS['selfReg'] ) ))
+if (!$_gid || (!$is_groupAllowed & !isset($_REQUEST['selfReg']) ))
 {
    header('Location:group.php');
 }
@@ -99,7 +99,8 @@ $is_allowedToChatAccess     = (bool) ( 	$is_courseAdmin
 /*============================================================================
                            SELF-REGISTRATION PROCESS
 ============================================================================*/
-if($_REQUEST['registration'])
+
+if( isset($_REQUEST['registration']) )
 {
     if( $is_courseMember &&  ! $is_groupMember && $is_allowedToSelfRegInGroup)
     {
@@ -116,7 +117,7 @@ if($_REQUEST['registration'])
     }
 }
 
-if ($_REQUEST['regDone'])
+if ( isset($_REQUEST['regDone']) )
 {
     $message = $langGroupNowMember;
 }
@@ -164,7 +165,7 @@ include($includePath.'/claro_init_header.inc.php');
 
 claro_disp_tool_title($nameTools);
 
-if($message)
+if ( !empty($message) )
 {
     claro_disp_message_box($message);
 }
