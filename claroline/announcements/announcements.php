@@ -251,6 +251,12 @@ if($is_allowedToEdit) // check teacher status
     
                 if ( $insert_id )
                 {
+		
+	       	// notify that a new anouncement is present in this course
+	
+	        $eventNotifier->notifyCourseEvent("anouncement_added",$_cid, $_tid, $insert_id, $_gid, "0");		
+		
+		
                     $message = $langAnnAdd;
                     if (CONFVAL_LOG_ANNOUNCEMENT_INSERT)
                     {
