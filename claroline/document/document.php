@@ -802,7 +802,14 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         
         update_db_info('update', $_REQUEST['file'], array('visibility' => $_REQUEST['vis']) );
 
-		$dialogBox = $langViMod;    
+	$dialogBox = $langViMod;
+                
+        //notify claroline that some hidden files are now visibles
+	  
+	if ($_REQUEST['vis']=="v")
+	    {
+		$eventNotifier->notifyCourseEvent("document_visible",$_cid, $_tid, $file, $_gid, "0");	
+	    }    
 	}
 } // END is Allowed to Edit
 
