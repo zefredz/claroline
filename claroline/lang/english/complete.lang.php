@@ -2143,4 +2143,3 @@ $langpweek = "%d&nbsp;week(s)";
 $langpyear = "%d&nbsp;year(s)";
 $langContinue = "Continue";
 ?>
-
