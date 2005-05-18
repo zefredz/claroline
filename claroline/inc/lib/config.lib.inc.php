@@ -742,7 +742,7 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
             
             if ( strtoupper($container)=='CONST' )
             {
-                $propertyLine = 'define("'.$propertyName.'",'.$valueToWrite.');'."\n";
+                $propertyLine = 'if (!defined("'.$propertyName.'")) define("'.$propertyName.'",'.$valueToWrite.');'."\n";
             }
             else
             {
