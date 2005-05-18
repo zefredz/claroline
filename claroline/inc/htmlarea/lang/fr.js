@@ -1,5 +1,7 @@
 // I18N constants
-// Author: Jonathan Ernst, <Jonathan.Ernst@NetOxygen.ch>
+
+// LANG: "en", ENCODING: UTF-8 | ISO-8859-1
+// Author: Mihai Bazon, http://dynarch.com/mishoo
 
 // FOR TRANSLATORS:
 //
@@ -57,5 +59,20 @@ HTMLArea.I18N = {
 	msg: {
 		"Path":         "Chemin",
 		"TEXT_MODE":    "Vous êtes en mode texte.  Utilisez le bouton [<>] pour revenir au mode WYSIWIG."
+	},
+
+	dialogs: {
+		"Cancel"                                            : "Cancel",
+		"Insert/Modify Link"                                : "Insert/Modify Link",
+		"New window (_blank)"                               : "New window (_blank)",
+		"None (use implicit)"                               : "None (use implicit)",
+		"OK"                                                : "OK",
+		"Other"                                             : "Other",
+		"Same frame (_self)"                                : "Same frame (_self)",
+		"Target:"                                           : "Target:",
+		"Title (tooltip):"                                  : "Title (tooltip):",
+		"Top frame (_top)"                                  : "Top frame (_top)",
+		"URL:"                                              : "URL:",
+		"You must enter the URL where this link points to"  : "You must enter the URL where this link points to"
 	}
 };
