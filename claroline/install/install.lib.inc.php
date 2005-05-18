@@ -100,6 +100,8 @@ function check_if_db_exist($db_name,$db=null)
 	
 	// I HATE THIS SOLUTION . 
 	// It's would be better to have a SHOW DATABASE case insensitive
+	
+	// IF SHOW DATABASE IS NOT AIVAILABLE,   sql failed an function return false.
 	if (PHP_OS!="WIN32"&&PHP_OS!="WINNT")
 	{
 		$sql = "SHOW DATABASES LIKE '".$db_name."'";
@@ -117,7 +119,15 @@ function check_if_db_exist($db_name,$db=null)
 	{
 		$res = claro_sql_query($sql);
 	}
-	$foundDbName = mysql_fetch_array($res, MYSQL_NUM);
+	
+	if(mysql_errno()>0)
+	{
+	   $foundDbName = mysql_fetch_array($res, MYSQL_NUM);
+	}
+	else 
+	{
+	   $foundDbName = false;
+	}  
 	return $foundDbName;
 }
 
