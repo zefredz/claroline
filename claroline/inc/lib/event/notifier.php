@@ -64,8 +64,8 @@ class Notifier extends EventDriven
      
     function update_last_event($course_id,$tool_id, $ressource_id, $gid, $uid, $dbnameGlu=NULL)
     {
-        $tbl_cdb_names = claro_sql_get_course_tbl($dbnameGlu);
-        $tbl_notify    = $tbl_cdb_names['notify'];
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl_notify     = $tbl_mdb_names['notify'];
     
         // 1- check if row already exists
         
@@ -139,9 +139,8 @@ class Notifier extends EventDriven
     function get_notified_courses($user_id,$date, $dbnameGlu=NULL)
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl_cdb_names = claro_sql_get_course_tbl($dbnameGlu);
         $tbl_cours_user = $tbl_mdb_names['rel_course_user'];
-        $tbl_notify    = $tbl_cdb_names['notify'];
+        $tbl_notify     = $tbl_mdb_names['notify'];
 
         $courses = array();
 
@@ -173,8 +172,8 @@ class Notifier extends EventDriven
      
     function get_notified_tools($course_id, $date, $dbnameGlu=NULL)
     {
-        $tbl_cdb_names = claro_sql_get_course_tbl($dbnameGlu);
-        $tbl_notify    = $tbl_cdb_names['notify'];
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl_notify    = $tbl_mdb_names['notify'];
 
         $tools = array();
 
