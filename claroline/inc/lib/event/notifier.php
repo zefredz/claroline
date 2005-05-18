@@ -62,7 +62,7 @@ class Notifier extends EventDriven
      * @return void 
      */
      
-    function update_last_event($course_id,$tool_id, $ressource_id, $gid, $uid, $dbnameGlu=NULL)
+    function update_last_event($course_id,$tool_id, $ressource_id, $gid, $uid)
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_notify     = $tbl_mdb_names['notify'];
@@ -136,7 +136,7 @@ class Notifier extends EventDriven
      * @return an array with the courses with recent unknown event until the date '$date' in the course list of the user
      */
      
-    function get_notified_courses($user_id,$date, $dbnameGlu=NULL)
+    function get_notified_courses($user_id,$date)
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_cours_user = $tbl_mdb_names['rel_course_user'];
@@ -170,7 +170,7 @@ class Notifier extends EventDriven
      *  @return an array with the tools id with recent unknow event until the date '$date'
      */
      
-    function get_notified_tools($course_id, $date, $dbnameGlu=NULL)
+    function get_notified_tools($course_id, $date)
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_notify    = $tbl_mdb_names['notify'];
