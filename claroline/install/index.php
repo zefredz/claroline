@@ -534,6 +534,8 @@ echo '<input type="hidden" name="alreadyVisited" value="1">'                    
     .'<input type="hidden" name="urlEndForm"                   value="'.$urlEndForm.'">'                     ."\n"
     .'<input type="hidden" name="courseRepositoryForm"         value="'.$courseRepositoryForm.'">'           ."\n"
     .'<input type="hidden" name="pathForm" value="'.str_replace("\\","/",realpath($pathForm)."/").'" >'      ."\n"
+    .'<input type="hidden" name="imgRepositoryAppendForm" value="'.str_replace("\\","/",$imgRepositoryAppendForm).'" >'      ."\n"
+    .'<input type="hidden" name="userImageRepositoryAppendForm" value="'.str_replace("\\","/",$userImageRepositoryAppendForm).'" >'      ."\n"
     .'<input type="hidden" name="dbHostForm"                   value="'.$dbHostForm.'">'                     ."\n"
     .'<input type="hidden" name="dbUsernameForm"               value="'.$dbUsernameForm.'">'                 ."\n\n"
     .'<input type="hidden" name="singleDbForm"                 value="'.$singleDbForm.'">'                   ."\n\n"

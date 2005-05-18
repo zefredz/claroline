@@ -240,12 +240,16 @@ $mysqlRepositorySys = "'.str_replace("\\","/",realpath($mysqlRepositorySys)."/")
 $clarolineRepositoryAppend  = "claroline/";
 $coursesRepositoryAppend    = "'.$courseRepositoryForm.'";
 $rootAdminAppend            = "admin/";
+$imgRepositoryAppend        = "'.$imgRepositoryAppendForm.'";
+$userImageRepositoryAppend  = "'.$userImageRepositoryAppendForm.'";
+
 $clarolineRepositorySys     = $rootSys.$clarolineRepositoryAppend;
 $clarolineRepositoryWeb     = $rootWeb.$clarolineRepositoryAppend;
 $coursesRepositorySys       = $rootSys.$coursesRepositoryAppend;
 $coursesRepositoryWeb       = $rootWeb.$coursesRepositoryAppend;
 $rootAdminSys               = $clarolineRepositorySys.$rootAdminAppend;
 $rootAdminWeb               = $clarolineRepositoryWeb.$rootAdminAppend;
+
 $garbageRepositorySys       = "'.$garbageRepositorySys.'";
 
 // Strings
