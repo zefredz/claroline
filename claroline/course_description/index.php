@@ -114,7 +114,7 @@ if($cmd == 'rqEdit')
         $descItem['title'  ] = '';
         $descItem['content'] = '';
 
-        if ( isset($_REQUEST['numBloc']) && $_REQUEST['numBloc'] > 0)
+        if ( isset($_REQUEST['numBloc']) && $_REQUEST['numBloc'] >= 0)
         {
             $descPresetKey = $_REQUEST['numBloc'];
         }
@@ -122,7 +122,7 @@ if($cmd == 'rqEdit')
 
 
 
-    if ( !empty($descPresetKey) )
+    if ( isset($descPresetKey) )
     {
          $descPresetTitle    = $titreBloc    [$descPresetKey];
          $descPresetQuestion = $questionPlan [$descPresetKey];
