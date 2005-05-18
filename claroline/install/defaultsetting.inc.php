@@ -48,6 +48,9 @@ $urlAppendPath  = preg_replace ($ereg, '', $urlAppendPath);
 $urlForm        = "http://".$_SERVER['SERVER_NAME'].$urlAppendPath."/";
 $pathForm       = realpath("../..")."/";
 
+$imgRepositoryAppendForm        =  $conf_def_property_list['imgRepositoryAppend']['default']; 
+$userImageRepositoryAppendForm =  $conf_def_property_list['userImageRepositoryAppend']['default']; 
+
 $courseRepositoryForm = $conf_def_property_list['coursesRepositoryAppend']['default'];
 
 $campusForm          = $conf_def_property_list['siteName']['default'];
