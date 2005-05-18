@@ -211,15 +211,6 @@ else
 	
 	claro_disp_tool_title($langForums, 
 	                      $is_allowedToEdit ? 'help_forum.php' : false);
-	
-	// Show Group Documents and Group Space
-	// only if in Category 2 = Group Forums Category
-	
-	if ( $forum_cat_id == 1 && $forum_id == $myGroupForum )
-	{
-		// group space links
-	    disp_forum_group_toolbar();
-	}
 		
 	disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
 	

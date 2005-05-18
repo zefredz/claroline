@@ -215,15 +215,6 @@ else
 	        claro_disp_message_box($error_message);
 	    }
 
-        // Show Group Documents and Group Space
-        // only if in Category 2 = Group Forums Category
-
-        if ( $forum_cat_id == 1 && $forum_id == $myGroupForum )
-        {
-	        // group space links
-            disp_forum_group_toolbar($_gid);
-        }
-
         disp_forum_toolbar($pagetype, $forum_id, 0, 0);
 
         //disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);

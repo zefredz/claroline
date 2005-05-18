@@ -139,13 +139,14 @@ if ( $forum_exists )
                          AND   s.id = u.team";
     
         $findTeamUser = claro_sql_query($sqlFindTeamUser);
+
+        $myTeam = $myGroupForum = $myTutor = $secretDirectory = '';
     
         while ($myTeamUser = mysql_fetch_array($findTeamUser))
         {
     	    $myTeam          = $myTeamUser['team'           ];
         	$myGroupForum    = $myTeamUser['forumId'        ];
     	    $myTutor         = $myTeamUser['tutor'          ];
-        	$secretDirectory = $myTeamUser['secretDirectory'];
         }
     }   
 }
@@ -192,7 +193,7 @@ else
     if ( $forum_cat_id == 1 && $forum_id == $myGroupForum )
     {
     	// group space links
-        disp_forum_group_toolbar();
+        disp_forum_group_toolbar($_gid);
     }
     
     disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0);
