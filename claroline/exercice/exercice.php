@@ -65,20 +65,7 @@ $tbl_quiz_answer             = $tbl_cdb_names['quiz_answer'            ];
 $tbl_quiz_question           = $tbl_cdb_names['quiz_question'          ];
 $tbl_quiz_rel_test_question  = $tbl_cdb_names['quiz_rel_test_question' ];
 $tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
-
-///// keep these  for compatibiliy 
-$TBL_EXERCICE_QUESTION  = $tbl_quiz_rel_test_question;  // no more used in this script
-$TBL_EXERCICES          = $tbl_quiz_test;               // no more used in this script
-$TBL_QUESTIONS          = $tbl_quiz_question;           // no more used in this script
-$TABLEEXERCISES         = $tbl_quiz_test;               // no more used in this script
-$TABLELEARNPATH         = $tbl_lp_learnPath;            // no more used in this script
-$TABLEMODULE            = $tbl_lp_module;               // no more used in this script
-$TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module; // no more used in this script
-$TABLEASSET             = $tbl_lp_asset;                // no more used in this script
-$TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress; // no more used in this script
-
-$TBL_TRACK_EXERCICES   = $_course['dbNameGlu']."track_e_exercices";
-
+$tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 
 // maximum number of exercises on a same page
 $exercisesPerPage = 25;
@@ -402,7 +389,7 @@ if($is_trackingEnabled && $_uid):
 $sql="SELECT `ce`.`titre`, `te`.`exe_result` ,
 			 `te`.`exe_weighting`, UNIX_TIMESTAMP(`te`.`exe_date`) AS `exeDate`,
 			 `te`.`exe_time`
-      FROM `".$tbl_quiz_test."` AS ce , `".$TBL_TRACK_EXERCICES."` AS te
+      FROM `".$tbl_quiz_test."` AS ce , `".$tbl_track_e_exercises."` AS te
       WHERE `te`.`exe_user_id` = '".$_uid."'
       AND `te`.`exe_exo_id` = `ce`.`id`
       ORDER BY `ce`.`titre` ASC, `te`.`exe_date` ASC";
