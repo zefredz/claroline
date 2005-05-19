@@ -87,11 +87,13 @@
 
 // now convert those four bytes to BIN. maybe it can be faster and easier. dunno how yet. help?
 
-     for($y=0;$y<4;$y++) {
-       $x=decbin(ord($tmp[$y]));
-       for($i=0;$i<(8-StrLen($x));$i++) {$x.="0";}
-       $bajt.=$x;
-     }
+	$bajt = '';
+	for($y=0;$y<4;$y++)
+	{
+		$x=decbin(ord($tmp[$y]));
+		for($i=0;$i<(8-StrLen($x));$i++) {$x.="0";}
+		$bajt.=$x;
+	}
 
 // every mp3 framesynch begins with eleven ones, lets look for it. if not found continue looking for some 1024 bytes (you can search multiple for it or you can disable this, it will speed up and not many mp3 are like this. anyways its not standart)
 
@@ -180,9 +182,9 @@
        $idtag["tag"]=0;
      }
 
-// close opened file and return results.
+	// close opened file and return results.
 
-   if(!$idtag["title"]) {
+   if( !isset($idtag["title"]) ) {
      $idtag["title"]=Str_replace("\\","/", $file);
      $idtag["title"]=substr($idtag["title"],strrpos($idtag["title"],"/")+1, 255);
    }
