@@ -16,7 +16,19 @@ $_SELF = basename($_SERVER['PHP_SELF']);
 $includePath = dirname(__FILE__);
 
 // YOU CAN REMOVE THE @ of the following line after install.
-@include($includePath.'/conf/claro_main.conf.php');
+
+if ( file_exists($includePath.'/conf/claro_main.conf.php') )
+{
+    include($includePath.'/conf/claro_main.conf.php');
+} 
+else
+{
+    die ( "<center>"
+	   ."WARNING ! SYSTEM UNABLE TO FIND CONFIGURATION SETTINGS"
+	   ."<br>If it is your first connection to your Claroline Platform, "
+	   ."read <code>INSTALL.txt</code>."
+	   ."</center>");
+}
 
 // Path to the PEAR library. PEAR stands for "PHP Extension and Application
 // Repository". It is a framework and distribution system for reusable PHP
@@ -70,8 +82,6 @@ include($includePath.'/lib/claro_main.lib.php');
 $db = @mysql_connect($dbHost, $dbLogin, $dbPass)
 or die ( "<center>"
 	   ."WARNING ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER"
-	   ."<br>If it is your first connection to your Clarolineplatform, "
-	   ."read <code>INSTALL.txt</code>."
 	   ."</center>");
 
 $selectResult = mysql_select_db($mainDbName,$db)
