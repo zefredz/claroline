@@ -29,8 +29,8 @@
         - The rebuild must take into acount that modules are ordered in a tree, not a flat list.
         
     Current limitations :
-    - TODO: export claroline exercises
     - Dependencies between resources are not taken into account.
+    - No multi-page exercises
     
     This file is currently supposed to be included by learningPathList.php, in order to inherit some
     of its global variables, like some tables' names.
@@ -121,6 +121,7 @@ class ScormExport
     function fetch()
     {
         global $TABLELEARNPATH, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEASSET, $coursesRepositorySys;
+        global $langLearningPathNotFound, $langLearningPathEmpty;
     
         /* Get general infos about the learning path */
         $sql = 'SELECT `name`, `comment`
@@ -329,7 +330,7 @@ class ScormExport
             for ($answerId=1; $answerId <= $answerCount; $answerId++)
             {
                 $answerText = $answer->selectAnswer($answerId);
-                $answerCorrect = $answer->isCorrect($answerId); // TODO: check if really needed
+                $answerCorrect = $answer->isCorrect($answerId);
                 
                 // Unique answer
                 if ( $qtype == UNIQUE_ANSWER )
@@ -579,6 +580,7 @@ class ScormExport
     function prepare()
     {
         global $clarolineRepositorySys, $claro_stylesheet;
+        global $langErrorCopyScormFiles, $langErrorCreatingDirectory, $langErrorCopyingScorm, $langErrorCopyAttachedFile;
         // (re)create fresh directory
         claro_delete_file($this->destDir);
         if ( !claro_mkdir($this->destDir, 0777, true))
@@ -776,6 +778,8 @@ class ScormExport
          */
         function createFrameFile($fileName, $targetPath)
         {
+            global $langErrorCreatingFrame, $langErrorCreatingManifest;
+            
             if ( !($f = fopen($fileName, 'w')) )
             {
                 $this->error[] = $langErrorCreatingFrame;
@@ -898,6 +902,8 @@ class ScormExport
      */
     function zip()
     {
+        global $langErrorCreatingScormArchive;
+        
         $list = 1;
         $zipFile = new PclZip($this->destDir . '.zip');
         $list = $zipFile->create($this->destDir, PCLZIP_OPT_REMOVE_PATH, $this->destDir);
