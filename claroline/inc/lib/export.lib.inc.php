@@ -422,7 +422,7 @@ INSERT INTO cours SET ";
 	$csvInsertCourse ="\n";
 	$iniCourse ="[".$exportedCourseId."]\n";
 	$sqlSelectInfoCourse ="Select * from `".$TABLECOURS."` `cours` where code = '".$exportedCourseId."' ";
-	$resInfoCourse = mysql_query_dbg($sqlSelectInfoCourse) ;
+	$resInfoCourse = claro_sql_query($sqlSelectInfoCourse) ;
 	$infoCourse = mysql_fetch_array( $resInfoCourse );
 	for( $noField=0; $noField < mysql_num_fields( $resInfoCourse ); $noField++)
 	{
@@ -497,7 +497,7 @@ INSERT INTO cours SET ";
 		FROM `".$TABLEUSER."`, `".$TABLECOURSUSER."`
 		WHERE `user`.`user_id`=`cours_user`.`user_id`
 			AND `cours_user`.`code_cours`='".$exportedCourseId."'";
-		$resUsers = mysql_query_dbg($sqlUserOfTheCourse);
+		$resUsers = claro_sql_query($sqlUserOfTheCourse);
 		$nbUsers = mysql_num_rows($resUsers);
 		if ($nbUsers>0)
 		{
@@ -591,7 +591,7 @@ SELECT
 	FROM  `".$TABLEANNOUNCEMENT."` 
 	WHERE code_cours='".$exportedCourseId."'";
 
-	$resAnn = mysql_query_dbg($sqlAnnounceOfTheCourse);
+	$resAnn = claro_sql_query($sqlAnnounceOfTheCourse);
 	$nbFields = mysql_num_fields($resAnn);
 	$sqlInsertAnn = "";
 	$csvInsertAnn = "";

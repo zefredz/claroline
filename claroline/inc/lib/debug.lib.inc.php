@@ -15,7 +15,6 @@
  * All this  function output only  if  debugClaro is on 
  *
  * function echoSessionValue()
- * function mySqlQueryShowError($sql,$db="###")
  * function debugIO($file="")
  */
 
@@ -133,62 +132,6 @@ function echoSessionValue()
 	if (PRINT_DEBUG_INFO)
 	echo $infoResult;
 	return $infoResult;
-}
-
-// Function developped by Christophe Gesché at Claroline
-// to detect errors in Mysql Queries
-function mySqlQueryShowError($sql,$db="###")
-{
-	echo "<div>this function is deprecated, replace mySqlQueryShowError() by mysql_query_dbg()</div>";
-    if ($db=="###")
-	{
-		$val =  @mysql_query($sql);
-	}
-	else
-	{
-		$val =  @mysql_query($sql,$db);
-	}
-	if (mysql_errno())
-	{
-		echo "<HR>".mysql_errno().": ".mysql_error()."<br><PRE>$sql</PRE><HR>";
-	}
-    else
-	{
-		echo "<!-- \n$sql\n-->";
-	}
-
-
-	return $val;
-}
-
-
-// Function developped by Christophe Gesché at Claroline
-// to detect errors in Mysql Queries
-function mysql_query_dbg($sql,$db="###")
-{
-	if ($sql=="")
-	{
-		exit ("sql vide");
-	}
-	if ($db=="###")
-	{
-		$val =  @mysql_query($sql);
-	}
-	else
-	{
-		$val =  @mysql_query($sql,$db);
-	}
-	if (mysql_errno())
-	{
-		echo "<HR>".mysql_errno().": ".mysql_error()."<br><PRE>$sql</PRE><HR>";
-	}
-    else
-	{
-
-	}
-
-
-	return $val;
 }
 
 

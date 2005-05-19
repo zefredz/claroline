@@ -131,7 +131,7 @@ function nbChildHardCount($codeCat=null)
 		$sqlGetNodes = "select * from `".$tbl_cat."` `node`
 		WHERE code_P = '".$codeCat."'";
 	}
-	$resGetNodes = mysql_query_dbg($sqlGetNodes);
+	$resGetNodes = claro_sql_query($sqlGetNodes);
 	while ($node = mysql_fetch_array($resGetNodes,MYSQL_ASSOC))
 	{
 		$nbChild++;
@@ -183,7 +183,7 @@ function resfreshTreePosNode($codeCat,$treePos)
 		$sqlUpdateTreePos ="UPDATE `".$tbl_cat."`
 		SET treePos = '".$treePos."'
 		WHERE code = '".$node["code"]."'";
-		mysql_query_dbg($sqlUpdateTreePos);
+		claro_sql_query($sqlUpdateTreePos);
 		$treePos = resfreshTreePosNode($node["code"],$treePos);
 	};
 	return true;
@@ -265,7 +265,7 @@ function getNodesListChild($codeParent)
 			$sqlGetNodeParent .= "`node`.`code_P`='".$codeParent."'";
 	$sqlGetNodeParent .= " ORDER BY `node`.`treePos`";
 
-	$resGetNodeParent = mysql_query_dbg($sqlGetNodeParent);
+	$resGetNodeParent = claro_sql_query($sqlGetNodeParent);
 	while ($child =	mysql_fetch_array($resGetNodeParent,MYSQL_ASSOC))
 	{
 		$nodesListChild[] = $child;
@@ -311,7 +311,7 @@ function refreshNbChildInBase($idCat)
 	$sqlUpdateNbChilds =
 	"UPDATE `".$tbl_cat."` SET `nb_childs` = ".nbChildHardCount($idCat)."
 	WHERE code = '".$idCat."'";
-	$resUpdateNodes = mysql_query_dbg($sqlUpdateNbChilds);
+	$resUpdateNodes = claro_sql_query($sqlUpdateNbChilds);
 	return ;
 }
 
@@ -347,7 +347,7 @@ function refreshAllNbChildInBase()
 
 	$sqlGetChilds =
 	"SELECT * FROM `".$tbl_cat."` `node` ";
-	$resGetChilds = mysql_query_dbg($sqlGetChilds);
+	$resGetChilds = claro_sql_query($sqlGetChilds);
 	while ($node = mysql_fetch_array($resGetChilds))
 	{
 		$output.= "<br>".$node["code"];
@@ -355,7 +355,7 @@ function refreshAllNbChildInBase()
 		"UPDATE `".$tbl_cat."` SET `nb_childs` = ".nbChildHardCount($node["code"])."
 		WHERE code = '".$node["code"]."'";
 
-		$resUpdateNodes = mysql_query_dbg($sqlUpdateNbChilds);
+		$resUpdateNodes = claro_sql_query($sqlUpdateNbChilds);
 	}
 	return $output;
 }
@@ -376,7 +376,7 @@ function claro_recount_NbChild_for_all_nodes()
             SET `nb_childs` = ".nbChildHardCount($node["id"])."
 		    WHERE id = '".$node["id"]."'";
 
-		$resUpdateNodes = mysql_query_dbg($sqlUpdateNbChilds);
+		$resUpdateNodes = claro_sql_query($sqlUpdateNbChilds);
 	}
 	return true;
 }

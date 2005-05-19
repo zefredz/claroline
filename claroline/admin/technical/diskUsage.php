@@ -75,7 +75,7 @@ if ($display_all_size_of_garbageRepositorySys )
 		<option value=" all " >** <?php echo $langAll ?> ** !!! <?php echo $langHigh_resources ?></option>
 		<?php
 			$sqlListCoursesSel = "SELECT fake_code officialCode, code sysCode FROM `".$tbl_course."` order by trim(fake_code) ASC";
-			$resCoursesSel= mysql_query_dbg($sqlListCoursesSel);
+			$resCoursesSel= claro_sql_query($sqlListCoursesSel);
 			while ($courseSel = mysql_fetch_array($resCoursesSel,MYSQL_ASSOC))
 			{
 				echo "\t<option value=\"".$courseSel['sysCode']."\" >".$courseSel['officialCode']."</option>\n";
@@ -110,7 +110,7 @@ if ($display_all_size_of_selected_courses && $coursesToCheck)
 
 	if (isset($sqlListCourses))
 	{
-		$resCourses= mysql_query_dbg($sqlListCourses);
+		$resCourses= claro_sql_query($sqlListCourses);
 		while ($course = mysql_fetch_array($resCourses,MYSQL_ASSOC))
 		{
 			$duFiles = diskUsage($coursesRepositorySys.$course["dir"]."/","","k");
