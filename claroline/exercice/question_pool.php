@@ -38,10 +38,10 @@ $attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
 $attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$TBL_EXERCICE_QUESTION = $tbl_cdb_names['quiz_rel_test_question'];
-$TBL_EXERCICES         = $tbl_cdb_names['quiz_test'];
-$TBL_QUESTIONS         = $tbl_cdb_names['quiz_question'];
-$TBL_REPONSES          = $tbl_cdb_names['quiz_answer'];
+$tbl_quiz_rel_test_question = $tbl_cdb_names['quiz_rel_test_question'];
+$tbl_quiz_test         	= $tbl_cdb_names['quiz_test'];
+$tbl_quiz_question      = $tbl_cdb_names['quiz_question'];
+$tbl_quiz_answer		= $tbl_cdb_names['quiz_answer'];
 
 // maximum number of questions on a same page
 $questionsPerPage = 25;
@@ -111,7 +111,7 @@ if($is_allowedToEdit)
 
 <?php
 	$sql = "SELECT `id`, `titre` as `title`
-			FROM `".$TBL_EXERCICES."`
+			FROM `".$tbl_quiz_test."`
 			WHERE `id` <> '".$fromExercise."'
 			ORDER BY `id`";
 			
@@ -138,7 +138,7 @@ if($is_allowedToEdit)
 	if( isset($_REQUEST['exerciseId']) && $_REQUEST['exerciseId'] > 0 )
 	{
 		$sql = "SELECT `id`, `question`, `type`
-				FROM `".$TBL_EXERCICE_QUESTION."`,`".$TBL_QUESTIONS."`
+				FROM `".$tbl_quiz_rel_test_question."`,`".$tbl_quiz_question."`
 				WHERE `question_id` = `id`
 				AND `exercice_id`= '".$_REQUEST['exerciseId']."'
 				ORDER BY `q_position`";
@@ -147,8 +147,8 @@ if($is_allowedToEdit)
 	elseif( isset($_REQUEST['exerciseId']) && $_REQUEST['exerciseId'] == -1 )
 	{
 		$sql = "SELECT `id`, `question`, `type`
-				FROM `".$TBL_QUESTIONS."`
-					LEFT JOIN `".$TBL_EXERCICE_QUESTION."`
+				FROM `".$tbl_quiz_question."`
+					LEFT JOIN `".$tbl_quiz_rel_test_question."`
 					ON `question_id` = `id`
 				WHERE `exercice_id` IS NULL
 				ORDER BY `question`";
@@ -157,8 +157,8 @@ if($is_allowedToEdit)
 	else
 	{
 		$sql = "SELECT `id`, `question`, `type`
-				FROM `".$TBL_QUESTIONS."`
-					LEFT JOIN `".$TBL_EXERCICE_QUESTION."`
+				FROM `".$tbl_quiz_question."`
+					LEFT JOIN `".$tbl_quiz_rel_test_question."`
 					ON `question_id` = `id`";
 
 		if(isset($_REQUEST['fromExercise']))
@@ -259,7 +259,7 @@ $questionList = $myPager->get_result_list();
 			{
 ?>
 
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?recup=<?php echo $question['id']; ?>&fromExercise=<?php echo $fromExercise; ?>"><img src="<?php echo $imgRepositoryWeb ?>enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?recup=<?php echo $question['id']; ?>&fromExercise=<?php echo $_REQUEST['fromExercise']; ?>"><img src="<?php echo $imgRepositoryWeb ?>enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
 
 <?php
 			}
