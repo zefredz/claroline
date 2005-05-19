@@ -26,12 +26,12 @@ if(!defined('ALLOWED_TO_INCLUDE'))
 	exit();
 }
 
-$attachedFile = $objQuestion->selectAttachedFile();
-$hasTempAttachedFile = ($objQuestion->selectTempAttachedFile() != "") ? true:false;
+$attachedFile = $_SESSION['objQuestion']->selectAttachedFile();
+$hasTempAttachedFile = ($_SESSION['objQuestion']->selectTempAttachedFile() != "") ? true:false;
 
 
 // if the question we are modifying is used in several exercises
-if($usedInSeveralExercises)
+if( isset($usedInSeveralExercises) )
 {
 ?>
 	
@@ -47,7 +47,7 @@ if($usedInSeveralExercises)
 <?php
 
 	// submit question
-	if($submitQuestion)
+	if( isset($_REQUEST['submitQuestion']) )
 	{
 ?>
 
@@ -118,7 +118,7 @@ if($usedInSeveralExercises)
     </tr>
     <tr>
 	  <td>
-      <input type="submit" name="<?php echo $submitQuestion?'submitQuestion':'submitAnswers'; ?>" value="<?php echo $langOk; ?>">&nbsp;&nbsp;
+      <input type="submit" name="<?php echo $_REQUEST['submitQuestion']?'submitQuestion':'submitAnswers'; ?>" value="<?php echo $langOk; ?>">&nbsp;&nbsp;
       <input type="submit" name="buttonBack" value="<?php echo $langCancel; ?>">
 	  </td>
     </tr>
@@ -144,8 +144,8 @@ else
 	}
 
 	// selects question informations
-	$questionName=$objQuestion->selectTitle();
-	$questionDescription=$objQuestion->selectDescription();
+	$questionName = $_SESSION['objQuestion']->selectTitle();
+	$questionDescription = $_SESSION['objQuestion']->selectDescription();
 
 	// is attached file set ?
 	$okAttachedFile = empty($attachedFile)?false:true;
@@ -163,11 +163,11 @@ else
 	// show the attached file of the question
 	if($okAttachedFile)
 	{
-      echo display_attached_file($attachedFile);
+		echo display_attached_file($attachedFile);
 	}
 
 	// doesn't show the edit link if we come from the question pool to pick a question for an exercise
-	if(!$_REQUEST['fromExercise'])
+	if( !isset($_REQUEST['fromExercise']) )
 	{
 ?>
 
@@ -208,7 +208,7 @@ else
 
 <?php
 	// doesn't show the edit link if we come from the question pool to pick a question for an exercise
-	if(!$_REQUEST['fromExercise'])
+	if( !isset($_REQUEST['fromExercise']) )
 	{
 ?>
 
@@ -216,6 +216,6 @@ else
 
 <?php
 	}
-echo $backLinkHtml;	
+	echo $backLinkHtml;
 }
 ?>
