@@ -19,14 +19,14 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
-$stable = TRUE;
-$clarolinePhase = 'RC';
-$is_upgrade_available = TRUE;
+$stable = FALSE;
+$clarolinePhase = 'alpha';
+$is_upgrade_available = FALSE;
 
 // var version_db  max. 10 chars
 
-$version_file_cvs = '1.6.0';
-$version_db_cvs   = '1.6.0';
+$version_file_cvs = '1.7.alpha';
+$version_db_cvs   = '1.7.alpha';
 
 if (!$is_upgrade_available)
 {
