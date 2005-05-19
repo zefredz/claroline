@@ -28,91 +28,110 @@ if(!defined('ALLOWED_TO_INCLUDE'))
 	exit();
 }
 
-$questionName = $objQuestion->selectTitle();
-$questionStatement = $objQuestion->selectDescription();
-$answerType = $objQuestion->selectType();
-$attachedFile = $objQuestion->selectAttachedFile();
+if( isset($_REQUEST['nbrAnswers']) ) $nbrAnswers = $_REQUEST['nbrAnswers'];
+if( isset($_REQUEST['nbrOptions']) ) $nbrOptions = $_REQUEST['nbrOptions'];
+if( isset($_REQUEST['nbrMatches']) ) $nbrMatches = $_REQUEST['nbrMatches'];
+// main request parameters
+if( isset($_REQUEST['correct']) ) 	$correct = $_REQUEST['correct'];
+else                                $correct = "";
+if( isset($_REQUEST['reponse']) ) $reponse = $_REQUEST['reponse'];
+if( isset($_REQUEST['comment']) ) $comment = $_REQUEST['comment'];
+// for matching question
+if( isset($_REQUEST['match']) ) $match = $_REQUEST['match'];
+if( isset($_REQUEST['option']) ) $option = $_REQUEST['option'];
+if( isset($_REQUEST['sel']) ) $sel = $_REQUEST['sel'];
+// for "fill in the blanks"
+if( isset($_REQUEST['blanks']) ) $blanks = $_REQUEST['blanks'];
 
-$okAttachedFile=empty($attachedFile)?false:true;
+if( isset($_REQUEST['weighting']) ) $weighting = $_REQUEST['weighting'];
+if( isset($_REQUEST['setWeighting']) ) $setWeighting = $_REQUEST['setWeighting'];
+
+$questionName = $_SESSION['objQuestion']->selectTitle();
+$questionStatement = $_SESSION['objQuestion']->selectDescription();
+$answerType = $_SESSION['objQuestion']->selectType();
+$attachedFile = $_SESSION['objQuestion']->selectAttachedFile();
+
+$okAttachedFile = empty($attachedFile)?false:true;
 
 // if we come from the warning box "this question is used in serveral exercises"
-if($modifyIn)
+if( isset($modifyIn) )
 {
 	// if the user has chosed to modify the question only in the current exercise
 	if($modifyIn == 'thisExercise')
 	{
 		// duplicates the question
-		$questionId=$objQuestion->duplicate();
+		$questionId = $_SESSION['objQuestion']->duplicate();
 
 		// deletes the old question
-		$objQuestion->delete($exerciseId);
+		$_SESSION['objQuestion']->delete($exerciseId);
 
 		// removes the old question ID from the question list of the Exercise object
-		$objExercise->removeFromList($modifyAnswers);
+		$_SESSION['objExercise']->removeFromList($modifyAnswers);
 
 		// adds the new question ID into the question list of the Exercise object
-		$objExercise->addToList($questionId);
+		$_SESSION['objExercise']->addToList($questionId);
 
 		// construction of the duplicated Question
-		$objQuestion=new Question();
+		$_SESSION['objQuestion'] = new Question();
 
-		$objQuestion->read($questionId);
+		$_SESSION['objQuestion']->read($questionId);
 
 		// adds the exercise ID into the exercise list of the Question object
-		$objQuestion->addToList($exerciseId);
+		$_SESSION['objQuestion']->addToList($exerciseId);
 
 		// copies answers from $modifyAnswers to $questionId
-		$objAnswer->duplicate($questionId);
+		$_SESSION['objAnswer']->duplicate($questionId);
 
 		// construction of the duplicated Answers
-		$objAnswer=new Answer($questionId);
+		$_SESSION['objAnswer'] = new Answer($questionId);
 	}
 
 	if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
 	{
-		$correct=unserialize($correct);
-		$reponse=unserialize($reponse);
-		$comment=unserialize($comment);
-		$weighting=unserialize($weighting);
+		$correct = unserialize($correct);
+		$reponse = unserialize($reponse);
+		$comment = unserialize($comment);
+		$weighting = unserialize($weighting);
 	}
 	elseif($answerType == MATCHING)
 	{
-		$option=unserialize($option);
-		$match=unserialize($match);
-		$sel=unserialize($sel);
-		$weighting=unserialize($weighting);
+		$option = unserialize($option);
+		$match = unserialize($match);
+		$sel = unserialize($sel);
+		$weighting = unserialize($weighting);
 	}
 	else
 	{
-		$reponse=unserialize($reponse);
-		$comment=unserialize($comment);
-		$blanks=unserialize($blanks);
-		$weighting=unserialize($weighting);
+		$reponse = unserialize($reponse);
+		$comment = unserialize($comment);
+		$blanks = unserialize($blanks);
+		$weighting = unserialize($weighting);
 	}
 
-	unset($buttonBack);
+	unset($_REQUEST['buttonBack']);
 }
 
 // the answer form has been submitted
-if($submitAnswers || $buttonBack)
+if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 {
 	if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
 	{
-		$questionWeighting=$nbrGoodAnswers=0;
+		$questionWeighting = 0;
+		$nbrGoodAnswers = 0;
 
-		for($i=1;$i <= $nbrAnswers;$i++)
+		for($i = 1; $i <= $nbrAnswers; $i++)
 		{
-			$reponse[$i]=trim($reponse[$i]);
-			$comment[$i]=trim($comment[$i]);
-			$weighting[$i]= (float)$weighting[$i];
+			$reponse[$i] = trim($reponse[$i]);
+			$comment[$i] = trim($comment[$i]);
+			$weighting[$i] = (float)$weighting[$i];
 
 			if($answerType == UNIQUE_ANSWER)
 			{
-				$goodAnswer=($correct == $i)?1:0;
+				$goodAnswer = ($correct == $i)?1:0;
 			}
 			else
 			{
-				$goodAnswer=$correct[$i];
+				$goodAnswer = isset($correct[$i])?true:false;
 			}
 
 			if($goodAnswer)
@@ -120,61 +139,61 @@ if($submitAnswers || $buttonBack)
 				$nbrGoodAnswers++;
 
 				// a good answer can't have a negative weighting
-				$weighting[$i]=abs($weighting[$i]);
+				$weighting[$i] = abs($weighting[$i]);
 
 				// calculates the sum of answer weighting only if it is different from 0 and the answer is good
 				if($weighting[$i])
 				{
-					$questionWeighting+=$weighting[$i];
+					$questionWeighting += $weighting[$i];
 				}
 			}
 			else
 			{
 				// a bad answer can't have a positive weighting
-				$weighting[$i]=0-abs($weighting[$i]);
+				$weighting[$i] = 0 - abs($weighting[$i]);
 			}
 
 			// checks if field is empty
 			if( $reponse[$i] == "" )
 			{
-				$msgErr=$langGiveAnswers;
+				$msgErr = $langGiveAnswers;
 
 				// clears answers already recorded into the Answer object
-				$objAnswer->cancel();
+				$_SESSION['objAnswer']->cancel();
 
 				break;
 			}
 			else
 			{
 				// adds the answer into the object
-				$objAnswer->createAnswer($reponse[$i],$goodAnswer,$comment[$i],$weighting[$i],$i);
+				$_SESSION['objAnswer']->createAnswer($reponse[$i],$goodAnswer,$comment[$i],$weighting[$i],$i);
 			}
 		}  // end for()
 
 		if(empty($msgErr))
 		{
-			if(!$nbrGoodAnswers)
+ 			if(!$nbrGoodAnswers)
 			{
-				$msgErr=($answerType == UNIQUE_ANSWER)?$langChooseGoodAnswer:$langChooseGoodAnswers;
+				$msgErr = ($answerType == UNIQUE_ANSWER)?$langChooseGoodAnswer:$langChooseGoodAnswers;
 
 				// clears answers already recorded into the Answer object
-				$objAnswer->cancel();
+				$_SESSION['objAnswer']->cancel();
 			}
 			// checks if the question is used in several exercises
-			elseif($exerciseId && !$modifyIn && $objQuestion->selectNbrExercises() > 1)
+			elseif($exerciseId && !empty($modifyIn) && !$modifyIn && $_SESSION['objQuestion']->selectNbrExercises() > 1)
 			{
-				$usedInSeveralExercises=1;
+				$usedInSeveralExercises = 1;
 			}
 			else
 			{
 				// saves the answers into the data base
-				$objAnswer->save();
+				$_SESSION['objAnswer']->save();
 
 				// sets the total weighting of the question
-				$objQuestion->updateWeighting($questionWeighting);
-				$objQuestion->save($exerciseId);
+				$_SESSION['objQuestion']->updateWeighting($questionWeighting);
+				$_SESSION['objQuestion']->save($exerciseId);
 
-				$editQuestion=$questionId;
+				$editQuestion = $questionId;
 
 				unset($modifyAnswers);
 			}
@@ -182,47 +201,47 @@ if($submitAnswers || $buttonBack)
 	}
 	elseif($answerType == FILL_IN_BLANKS)
 	{
-		$reponse=trim($reponse);
+		$reponse = trim($reponse);
 
-		if(!$buttonBack)
+		if(!isset($_REQUEST['buttonBack']))
 		{
-			if($setWeighting)
+			if(isset($setWeighting) && $setWeighting )
 			{
-				$blanks=unserialize($blanks);
+				if( isset($blanks) ) $blanks = unserialize($blanks);
 
 				// checks if the question is used in several exercises
-				if($exerciseId && !$modifyIn && $objQuestion->selectNbrExercises() > 1)
+				if($exerciseId && !empty($modifyIn) && $_SESSION['objQuestion']->selectNbrExercises() > 1)
 				{
-					$usedInSeveralExercises=1;
+					$usedInSeveralExercises = 1;
 				}
 				else
 				{
 					// separates text and weightings by '::'
-					$reponse.='::';
+					$reponse .= '::';
 
-					$questionWeighting=0;
+					$questionWeighting = 0;
 
 					foreach($weighting as $val)
 					{
 						// a blank can't have a negative weighting
-						$val=abs($val);
+						$val = abs($val);
 
-						$questionWeighting+=$val;
+						$questionWeighting += $val;
 
 						// adds blank weighting at the end of the text
-						$reponse.=$val.',';
+						$reponse .= $val.',';
 					}
 
-					$reponse=substr($reponse,0,-1);
+					$reponse = substr($reponse,0,-1);
 
-					$objAnswer->createAnswer($reponse,0,'',0,'');
-					$objAnswer->save();
+					$_SESSION['objAnswer']->createAnswer($reponse,0,'',0,'');
+					$_SESSION['objAnswer']->save();
 
 					// sets the total weighting of the question
-					$objQuestion->updateWeighting($questionWeighting);
-					$objQuestion->save($exerciseId);
+					$_SESSION['objQuestion']->updateWeighting($questionWeighting);
+					$_SESSION['objQuestion']->save($exerciseId);
 
-					$editQuestion=$questionId;
+					$editQuestion = $questionId;
 
 					unset($modifyAnswers);
 				}
@@ -230,29 +249,26 @@ if($submitAnswers || $buttonBack)
 			// if no text has been typed or the text contains no blank
 			elseif(empty($reponse))
 			{
-				$msgErr=$langGiveText;
+				$msgErr = $langGiveText;
 			}
 			elseif(!ereg('\[.+\]',$reponse))
 			{
-				$msgErr=$langDefineBlanks;
+				$msgErr = $langDefineBlanks;
 			}
 			else
 			{
 				// now we're going to give a weighting to each blank
-				$setWeighting=1;
+				$setWeighting = 1;
 
-				unset($submitAnswers);
-
-				// removes character '::' possibly inserted by the user in the text
-				$reponse=str_replace('::','',$reponse);
+				unset($_REQUEST['submitAnswers']);
 
 				// we save the answer because it will be modified
-				$temp=$reponse;
+				$temp = $reponse;
 
 				// blanks will be put into an array
-				$blanks=Array();
+				$blanks = Array();
 
-				$i=1;
+				$i = 1;
 
 				// the loop will stop at the end of the text
 				while(1)
@@ -264,7 +280,7 @@ if($submitAnswers || $buttonBack)
 					}
 
 					// removes characters till '['
-					$temp=substr($temp,$pos+1);
+					$temp = substr($temp,$pos+1);
 
 					// quits the loop if there are no more blanks
 					if(($pos = strpos($temp,']')) === false)
@@ -273,10 +289,10 @@ if($submitAnswers || $buttonBack)
 					}
 
 					// stores the found blank into the array
-					$blanks[$i++]=substr($temp,0,$pos);
+					$blanks[$i++] = substr($temp,0,$pos);
 
 					// removes the character ']'
-					$temp=substr($temp,$pos+1);
+					$temp = substr($temp,$pos+1);
 				}
 			}
 		}
@@ -289,43 +305,43 @@ if($submitAnswers || $buttonBack)
 	{
 		for($i=1;$i <= $nbrOptions;$i++)
 		{
-			$option[$i]=trim($option[$i]);
+			$option[$i] = trim($option[$i]);
 
 			// checks if field is empty
 			if(empty($option[$i]))
 			{
-				$msgErr=$langFillLists;
+				$msgErr = $langFillLists;
 
 				// clears options already recorded into the Answer object
-				$objAnswer->cancel();
+				$_SESSION['objAnswer']->cancel();
 
 				break;
 			}
 			else
 			{
 				// adds the option into the object
-				$objAnswer->createAnswer($option[$i],0,'',0,$i);
+				$_SESSION['objAnswer']->createAnswer($option[$i],0,'',0,$i);
 			}
 		}
 
-		$questionWeighting=0;
+		$questionWeighting = 0;
 
 		if(empty($msgErr))
 		{
 			for($j=1;$j <= $nbrMatches;$i++,$j++)
 			{
-				$match[$i]=trim($match[$i]);
-				$weighting[$i]=abs( (float)$weighting[$i] );
+				$match[$i] = trim($match[$i]);
+				$weighting[$i] = abs( (float)$weighting[$i] );
 
-				$questionWeighting+=$weighting[$i];
+				$questionWeighting += $weighting[$i];
 
 				// checks if field is empty
 				if(empty($match[$i]))
 				{
-					$msgErr=$langFillLists;
+					$msgErr = $langFillLists;
 
 					// clears matches already recorded into the Answer object
-					$objAnswer->cancel();
+					$_SESSION['objAnswer']->cancel();
 
 					break;
 				}
@@ -333,7 +349,7 @@ if($submitAnswers || $buttonBack)
 				else
 				{
 					// adds the answer into the object
-					$objAnswer->createAnswer($match[$i],$sel[$i],'',$weighting[$i],$i);
+					$_SESSION['objAnswer']->createAnswer($match[$i],$sel[$i],'',$weighting[$i],$i);
 				}
 			}
 		}
@@ -341,20 +357,20 @@ if($submitAnswers || $buttonBack)
 		if(empty($msgErr))
 		{
 			// checks if the question is used in several exercises
-			if($exerciseId && !$modifyIn && $objQuestion->selectNbrExercises() > 1)
+			if($exerciseId && !$modifyIn && $_SESSION['objQuestion']->selectNbrExercises() > 1)
 			{
-				$usedInSeveralExercises=1;
+				$usedInSeveralExercises = 1;
 			}
 			else
 			{
 				// all answers have been recorded, so we save them into the data base
-				$objAnswer->save();
+				$_SESSION['objAnswer']->save();
 
 				// sets the total weighting of the question
-				$objQuestion->updateWeighting($questionWeighting);
-				$objQuestion->save($exerciseId);
+				$_SESSION['objQuestion']->updateWeighting($questionWeighting);
+				$_SESSION['objQuestion']->save($exerciseId);
 
-				$editQuestion=$questionId;
+				$editQuestion = $questionId;
 
 				unset($modifyAnswers);
 			}
@@ -362,56 +378,54 @@ if($submitAnswers || $buttonBack)
 	}
 }
 
-if($modifyAnswers)
+if( isset($modifyAnswers) )
 {
 	// construction of the Answer object
-	$objAnswer=new Answer($questionId);
-
-	session_register('objAnswer');
+	$_SESSION['objAnswer'] = new Answer($questionId);
 
 	if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
 	{
-		if(!$nbrAnswers)
+		if(!isset($nbrAnswers))
 		{
-			$nbrAnswers=$objAnswer->selectNbrAnswers();
+			$nbrAnswers = $_SESSION['objAnswer']->selectNbrAnswers();
 
-			$reponse=Array();
-			$comment=Array();
-			$weighting=Array();
+			$reponse = array();
+			$comment = array();
+			$weighting = array();
 
 			// initializing
 			if($answerType == MULTIPLE_ANSWER)
 			{
-				$correct=Array();
+				$correct = Array();
 			}
 			else
 			{
-				$correct=0;
+				$correct = 0;
 			}
 
-			for($i=1;$i <= $nbrAnswers;$i++)
+			for($i=1; $i <= $nbrAnswers;$i++)
 			{
-				$reponse[$i]=$objAnswer->selectAnswer($i);
-				$comment[$i]=$objAnswer->selectComment($i);
-				$weighting[$i]=$objAnswer->selectWeighting($i);
+				$reponse[$i] = $_SESSION['objAnswer']->selectAnswer($i);
+				$comment[$i] = $_SESSION['objAnswer']->selectComment($i);
+				$weighting[$i] = $_SESSION['objAnswer']->selectWeighting($i);
 
 				if($answerType == MULTIPLE_ANSWER)
 				{
-					$correct[$i]=$objAnswer->isCorrect($i);
+					$correct[$i] = $_SESSION['objAnswer']->isCorrect($i);
 				}
-				elseif($objAnswer->isCorrect($i))
+				elseif($_SESSION['objAnswer']->isCorrect($i))
 				{
-					$correct=$i;
+					$correct = $i;
 				}
 			}
 		}
 
-		if($lessAnswers)
+		if( isset($_REQUEST['lessAnswers']) )
 		{
 			$nbrAnswers--;
 		}
 
-		if($moreAnswers)
+		if( isset($_REQUEST['moreAnswers']) )
 		{
 			$nbrAnswers++;
 		}
@@ -419,75 +433,83 @@ if($modifyAnswers)
 		// minimum 2 answers
 		if($nbrAnswers < 2)
 		{
-			$nbrAnswers=2;
+			$nbrAnswers = 2;
 		}
 	}
 	elseif($answerType == FILL_IN_BLANKS)
 	{
-		if(!$submitAnswers && !$buttonBack)
+		if( !isset($_REQUEST['submitAnswers']) && !isset($_REQUEST['buttonBack']) )
 		{
-			if(!$setWeighting)
+			if( !isset($setWeighting) )
 			{
-				$reponse=$objAnswer->selectAnswer(1);
+				// $reponse is like :  [British people] live in [United Kingdom]::5,5
+				// split it to have
+				// $reponse = [British people] live in [United Kingdom]
+				// $weighting[0] = 5; $weighting[1] = 5;
+				$reponse = $_SESSION['objAnswer']->selectAnswer(1);
 
-				list($reponse,$weighting)=explode('::',$reponse);
+				$separatorPosition = strrpos($reponse, '::');
 
-				$weighting=explode(',',$weighting);
+				if( $separatorPosition !== false )  $weighting = explode(',', substr($reponse,$separatorPosition+1));
+				else                                $weighting = array();
+				
+				if( $separatorPosition !== false ) 	$reponse = substr($reponse,0,$separatorPosition-1);
+				// else $reponse = $reponse;
 
-				$temp=Array();
+				$temp = Array();
 
 				// keys of the array go from 1 to N and not from 0 to N-1
-				for($i=0;$i < sizeof($weighting);$i++)
+				for($i=0; $i < sizeof($weighting);$i++)
 				{
-					$temp[$i+1]=$weighting[$i];
+					$temp[$i+1] = $weighting[$i];
 				}
 
-				$weighting=$temp;
+				$weighting = $temp;
 			}
-			elseif(!$modifyIn)
+			elseif( empty($modifyIn) )
 			{
-				$weighting=unserialize($weighting);
+				$weighting = unserialize($weighting);
 			}
 		}
 	}
 	elseif($answerType == MATCHING)
 	{
-		if(!$nbrOptions || !$nbrMatches)
+		if(!isset($nbrOptions) || !isset($nbrMatches))
 		{
-			$option=Array();
-			$match=Array();
-			$sel=Array();
+			$option = array();
+			$match = array();
+			$sel = array();
 
-			$nbrOptions=$nbrMatches=0;
+			$nbrOptions = $nbrMatches = 0;
 
 			// fills arrays with data from de data base
-			for($i=1;$i <= $objAnswer->selectNbrAnswers();$i++)
+			for($i=1;$i <= $_SESSION['objAnswer']->selectNbrAnswers();$i++)
 			{
 				// it is a match
-				if($objAnswer->isCorrect($i))
+				if($_SESSION['objAnswer']->isCorrect($i))
 				{
-					$match[$i]=$objAnswer->selectAnswer($i);
-					$sel[$i]=$objAnswer->isCorrect($i);
-					$weighting[$i]=$objAnswer->selectWeighting($i);
+					$match[$i] = $_SESSION['objAnswer']->selectAnswer($i);
+					$sel[$i] = $_SESSION['objAnswer']->isCorrect($i);
+					$weighting[$i] = $_SESSION['objAnswer']->selectWeighting($i);
 					$nbrMatches++;
 				}
 				// it is an option
 				else
 				{
-					$option[$i]=$objAnswer->selectAnswer($i);
+					$option[$i] = $_SESSION['objAnswer']->selectAnswer($i);
 					$nbrOptions++;
 				}
 			}
 		}
 
-		if($lessOptions)
+		if( isset($_REQUEST['lessOptions']) )
 		{
 			// keeps the correct sequence of array keys when removing an option from the list
-			for($i=$nbrOptions+1,$j=1;$nbrOptions > 2 && $j <= $nbrMatches;$i++,$j++)
+			for($i=$nbrOptions+1,$j=1; $nbrOptions > 2 && $j <= $nbrMatches;$i++,$j++)
 			{
-				$match[$i-1]=$match[$i];
-				$sel[$i-1]=$sel[$i];
-				$weighting[$i-1]=$weighting[$i];
+				$match[$i-1] = $match[$i];
+				$sel[$i-1] = $sel[$i];
+				$weighting[$i-1] = $weighting[$i];
 			}
 
 			unset($match[$i-1]);
@@ -496,14 +518,14 @@ if($modifyAnswers)
 			$nbrOptions--;
 		}
 
-		if($moreOptions)
+		if( isset($_REQUEST['moreOptions']) )
 		{
 			// keeps the correct sequence of array keys when adding an option into the list
 			for($i=$nbrMatches+$nbrOptions;$i > $nbrOptions;$i--)
 			{
-				$match[$i+1]=$match[$i];
-				$sel[$i+1]=$sel[$i];
-				$weighting[$i+1]=$weighting[$i];
+				$match[$i+1] = $match[$i];
+				$sel[$i+1] = $sel[$i];
+				$weighting[$i+1] = $weighting[$i];
 			}
 
 			unset($match[$i+1]);
@@ -512,12 +534,12 @@ if($modifyAnswers)
 			$nbrOptions++;
 		}
 
-		if($lessMatches)
+		if( isset($_REQUEST['lessMatches']) )
 		{
 			$nbrMatches--;
 		}
 
-		if($moreMatches)
+		if( isset($_REQUEST['moreMatches']) )
 		{
 			$nbrMatches++;
 		}
@@ -525,18 +547,18 @@ if($modifyAnswers)
 		// minimum 2 options
 		if($nbrOptions < 2)
 		{
-			$nbrOptions=2;
+			$nbrOptions = 2;
 		}
 
 		// minimum 2 matches
 		if($nbrMatches < 2)
 		{
-			$nbrMatches=2;
+			$nbrMatches = 2;
 		}
 
 	}
 
-	if(!$usedInSeveralExercises)
+	if( !isset($usedInSeveralExercises) || !$usedInSeveralExercises )
 	{
 		if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
 		{
@@ -557,7 +579,7 @@ if($modifyAnswers)
 				echo "<p>".display_attached_file($attachedFile)."</p>";
 			}			
 ?>			
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo modifyAnswers; ?>">
 <input type="hidden" name="formSent" value="1">
 <input type="hidden" name="nbrAnswers" value="<?php echo $nbrAnswers; ?>">
 
@@ -602,14 +624,14 @@ if($modifyAnswers)
 				{
 ?>
 
-  <td valign="top"><input type="checkbox" value="1" name="correct[<?php echo $i; ?>]" <?php if($correct[$i]) echo 'checked="checked"'; ?>></td>
+  <td valign="top"><input type="checkbox" value="1" name="correct[<?php echo $i; ?>]" <?php if( isset($correct[$i]) && $correct[$i] ) echo 'checked="checked"'; ?>></td>
 
 <?php
 				}
 ?>
 
-  <td align="left"><textarea wrap="virtual" rows="7" cols="25" name="reponse[<?php echo $i; ?>]"><?php echo htmlentities($reponse[$i]); ?></textarea></td>
-  <td align="left"><textarea wrap="virtual" rows="7" cols="25" name="comment[<?php echo $i; ?>]"><?php echo htmlentities($comment[$i]); ?></textarea></td>
+  <td align="left"><textarea wrap="virtual" rows="7" cols="25" name="reponse[<?php echo $i; ?>]"><?php if(isset($reponse[$i])) echo htmlentities($reponse[$i]); ?></textarea></td>
+  <td align="left"><textarea wrap="virtual" rows="7" cols="25" name="comment[<?php echo $i; ?>]"><?php if(isset($comment[$i])) echo htmlentities($comment[$i]); ?></textarea></td>
   <td valign="top"><input type="text" name="weighting[<?php echo $i; ?>]" size="5" value="<?php echo isset($weighting[$i])?$weighting[$i]:0; ?>"></td>
 </tr>
 
@@ -642,14 +664,14 @@ if($modifyAnswers)
 
 <form name="formulaire" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
 <input type="hidden" name="formSent" value="1">
-<input type="hidden" name="setWeighting" value="<?php echo $setWeighting; ?>">
+<input type="hidden" name="setWeighting" value="<?php if(isset($setWeighting)) echo $setWeighting; ?>">
 
 <?php
-			if(!$setWeighting)
+			if(!isset($setWeighting) )
 			{
 ?>
 
-<input type="hidden" name="weighting" value="<?php echo $submitAnswers?htmlentities($weighting):htmlentities(serialize($weighting)); ?>">
+<input type="hidden" name="weighting" value="<?php echo isset($_REQUEST['submitAnswers'])?htmlentities($weighting):htmlentities(serialize($weighting)); ?>">
 
 <?php
 				if($okAttachedFile)
@@ -668,7 +690,7 @@ if($modifyAnswers)
   <td><?php echo $langTypeTextBelow.', '.$langAnd.' '.$langUseTagForBlank; ?>&nbsp;:</td>
 </tr>
 <tr>
-  <td><textarea wrap="virtual" name="reponse" cols="65" rows="6"><?php if(!$submitAnswers && empty($reponse)) echo $langDefaultTextInBlanks; else echo htmlentities($reponse); ?></textarea></td>
+  <td><textarea wrap="virtual" name="reponse" cols="65" rows="6"><?php if(!isset($_REQUEST['submitAnswers']) && empty($reponse)) echo $langDefaultTextInBlanks; else echo htmlentities($reponse); ?></textarea></td>
 </tr>
 <tr>
   <td colspan="5" align="center">
@@ -703,16 +725,19 @@ if($modifyAnswers)
 </tr>
 
 <?php
-				foreach($blanks as $i=>$blank)
+				if( isset($blanks) && is_array($blanks) )
 				{
+					foreach($blanks as $i=>$blank)
+					{
 ?>
 
 <tr>
   <td width="50%"><?php echo $blank; ?> :</td>
-  <td width="50%"><input type="text" name="weighting[<?php echo $i; ?>]" size="5" value="<?php echo (float)$weighting[$i]; ?>"></td>
+  <td width="50%"><input type="text" name="weighting[<?php echo $i; ?>]" size="5" value="<?php if(isset($weighting[$i])) echo (float)$weighting[$i]; else echo '0'; ?>"></td>
 </tr>
 
 <?php
+					}
 	    		}
 ?>
 
@@ -767,7 +792,7 @@ if($modifyAnswers)
 			// creates an array with the option letters
 			for($i=1,$j='A';$i <= $nbrOptions;$i++,$j++)
 			{
-				$listeOptions[$i]=$j;
+				$listeOptions[$i] = $j;
 			}
 ?>
 <table border="0" cellpadding="5">
@@ -779,11 +804,21 @@ if($modifyAnswers)
 <?php
 			for($j=1;$j <= $nbrMatches;$i++,$j++)
 			{
+                $inputValue = '';
+                if(!isset($_REQUEST['formSent']) && !isset($match[$i]))
+                {
+					if($j == 1) $inputValue = $langDefaultMatchingProp1;
+					elseif($j == 2) $inputValue = $langDefaultMatchingProp2;
+				}
+				else
+				{
+					 if( isset($match[$i]) ) $inputValue = htmlentities($match[$i]);
+				}
 ?>
 
 <tr>
   <td><?php echo $j; ?></td>
-  <td><input type="text" name="match[<?php echo $i; ?>]" size="58" value="<?php if(!$formSent && !isset($match[$i])) echo ${"langDefaultMakeCorrespond$j"}; else echo htmlentities($match[$i]); ?>"></td>
+  <td><input type="text" name="match[<?php echo $i; ?>]" size="58" value="<?php echo $inputValue; ?>"></td>
   <td align="center"><select name="sel[<?php echo $i; ?>]">
 
 <?php
@@ -791,14 +826,14 @@ if($modifyAnswers)
 				{
 ?>
 
-	<option value="<?php echo $key; ?>" <?php if((!$submitAnswers && !isset($sel[$i]) && $j == 2 && $val == 'B') || $sel[$i] == $key) echo 'selected="selected"'; ?>><?php echo $val; ?></option>
+	<option value="<?php echo $key; ?>" <?php if( (!isset($_REQUEST['submitAnswers']) && !isset($sel[$i]) && $j == 2 && $val == 'B') || isset($sel[$i]) && $sel[$i] == $key) echo 'selected="selected"'; ?>><?php echo $val; ?></option>
 
 <?php
 				} // end foreach()
 ?>
 
   </select></td>
-  <td align="center"><input type="text" size="8" name="weighting[<?php echo $i; ?>]" value="<?php if(!$submitAnswers && !isset($weighting[$i])) echo '5'; else echo $weighting[$i]; ?>"></td>
+  <td align="center"><input type="text" size="8" name="weighting[<?php echo $i; ?>]" value="<?php if(!isset($_REQUEST['submitAnswers']) && !isset($weighting[$i])) echo '5'; else echo $weighting[$i]; ?>"></td>
 </tr>
 
 <?php
@@ -818,11 +853,21 @@ if($modifyAnswers)
 <?php
 			foreach($listeOptions as $key=>$val)
 			{
+                $inputValue = '';
+                if(!isset($_REQUEST['formSent']) && !isset($option[$key]))
+                {
+					if($val == 'A') $inputValue = $langDefaultMatchingOpt1;
+					elseif($val == 'B') $inputValue = $langDefaultMatchingOpt2;
+				}
+				else
+				{
+					 if( isset($option[$key]) ) $inputValue = htmlentities($option[$key]);
+				}
 ?>
 
 <tr>
   <td><?php echo $val; ?></td>
-  <td colspan="3"><input type="text" name="option[<?php echo $key; ?>]" size="80" value="<?php if(!$formSent && !isset($option[$key])) echo ${"langDefaultMatchingOpt$val"}; else echo htmlentities($option[$key]); ?>"></td>
+  <td colspan="3"><input type="text" name="option[<?php echo $key; ?>]" size="80" value="<?php echo $inputValue; ?>"></td>
 </tr>
 
 <?php

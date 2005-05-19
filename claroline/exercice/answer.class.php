@@ -56,12 +56,12 @@ class Answer
 	 */
 	function Answer($questionId)
 	{
-		$this->questionId=$questionId;
-		$this->answer=array();
-		$this->correct=array();
-		$this->comment=array();
-		$this->weighting=array();
-		$this->position=array();
+		$this->questionId = $questionId;
+		$this->answer = array();
+		$this->correct = array();
+		$this->comment = array();
+		$this->weighting = array();
+		$this->position = array();
 
 		// clears $new_* arrays
 		$this->cancel();
@@ -77,13 +77,13 @@ class Answer
 	 */
 	function cancel()
 	{
-		$this->new_answer=array();
-		$this->new_correct=array();
-		$this->new_comment=array();
-		$this->new_weighting=array();
-		$this->new_position=array();
+		$this->new_answer = array();
+		$this->new_correct = array();
+		$this->new_comment = array();
+		$this->new_weighting = array();
+		$this->new_position = array();
 
-		$this->new_nbrAnswers=0;
+		$this->new_nbrAnswers = 0;
 	}
 
 	/**
@@ -93,28 +93,28 @@ class Answer
 	 */
 	function read()
 	{
-		global $TBL_REPONSES;
+		global $tbl_quiz_answer;
 
-		$questionId=$this->questionId;
+		$questionId = $this->questionId;
 
-		$sql="SELECT reponse,correct,comment,ponderation,r_position FROM `$TBL_REPONSES` WHERE question_id='$questionId' ORDER BY r_position";
-		$result=claro_sql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
+		$sql = "SELECT reponse,correct,comment,ponderation,r_position FROM `".$tbl_quiz_answer."` WHERE question_id = '".$questionId."' ORDER BY r_position";
+		$result = claro_sql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
-		$i=1;
+		$i = 1;
 
 		// while a record is found
 		while($object=mysql_fetch_object($result))
 		{
-			$this->answer[$i]=$object->reponse;
-			$this->correct[$i]=$object->correct;
-			$this->comment[$i]=$object->comment;
-			$this->weighting[$i]=$object->ponderation;
-			$this->position[$i]=$object->r_position;
+			$this->answer[$i] = $object->reponse;
+			$this->correct[$i] = $object->correct;
+			$this->comment[$i] = $object->comment;
+			$this->weighting[$i] = $object->ponderation;
+			$this->position[$i] = $object->r_position;
 
 			$i++;
 		}
 
-		$this->nbrAnswers=$i-1;
+		$this->nbrAnswers = $i - 1;
 	}
 
 	/**
@@ -148,7 +148,10 @@ class Answer
 	 */
 	function selectAnswer($id)
 	{
-		return $this->answer[$id];
+		if( isset($this->answer[$id]) )
+			return $this->answer[$id];
+		else
+			return false;
 	}
 
 	/**
@@ -215,11 +218,11 @@ class Answer
 
 		$id=$this->new_nbrAnswers;
 
-		$this->new_answer[$id]=$answer;
-		$this->new_correct[$id]=$correct;
-		$this->new_comment[$id]=$comment;
-		$this->new_weighting[$id]=$weighting;
-		$this->new_position[$id]=$position;
+		$this->new_answer[$id] = $answer;
+		$this->new_correct[$id] = $correct;
+		$this->new_comment[$id] = $comment;
+		$this->new_weighting[$id] = $weighting;
+		$this->new_position[$id] = $position;
 	}
 
 	/**
@@ -229,39 +232,39 @@ class Answer
 	 */
 	function save()
 	{
-		global $TBL_REPONSES;
+		global $tbl_quiz_answer;
 
-		$questionId=$this->questionId;
+		$questionId = $this->questionId;
 
 		// removes old answers before inserting of new ones
-		$sql="DELETE FROM `".$TBL_REPONSES."` WHERE question_id='".$questionId."'";
+		$sql = "DELETE FROM `".$tbl_quiz_answer."` WHERE question_id = '".$questionId."'";
 		claro_sql_query($sql);
 
 		// inserts new answers into data base
-		$sql="INSERT INTO `".$TBL_REPONSES."`(id,question_id,reponse,correct,comment,ponderation,r_position) VALUES";
+		$sql = "INSERT INTO `".$tbl_quiz_answer."`(id,question_id,reponse,correct,comment,ponderation,r_position) VALUES";
 
 		for($i=1;$i <= $this->new_nbrAnswers;$i++)
 		{
-			$answer=addslashes($this->new_answer[$i]);
-			$correct=$this->new_correct[$i];
-			$comment=addslashes($this->new_comment[$i]);
-			$weighting=$this->new_weighting[$i];
-			$position=$this->new_position[$i];
+			$answer = addslashes($this->new_answer[$i]);
+			$correct = $this->new_correct[$i];
+			$comment = addslashes($this->new_comment[$i]);
+			$weighting = $this->new_weighting[$i];
+			$position = $this->new_position[$i];
 
-			$sql.="('".$i."','".$questionId."','".$answer."','".$correct."','".$comment."','".$weighting."','".$position."'),";
+			$sql .= "('".$i."','".$questionId."','".$answer."','".$correct."','".$comment."','".$weighting."','".$position."'),";
 		}
 
-		$sql=substr($sql,0,-1);
+		$sql = substr($sql,0,-1);
 		claro_sql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 
 		// moves $new_* arrays
-		$this->answer=$this->new_answer;
-		$this->correct=$this->new_correct;
-		$this->comment=$this->new_comment;
-		$this->weighting=$this->new_weighting;
-		$this->position=$this->new_position;
+		$this->answer = $this->new_answer;
+		$this->correct = $this->new_correct;
+		$this->comment = $this->new_comment;
+		$this->weighting = $this->new_weighting;
+		$this->position = $this->new_position;
 
-		$this->nbrAnswers=$this->new_nbrAnswers;
+		$this->nbrAnswers = $this->new_nbrAnswers;
 
 		// clears $new_* arrays
 		$this->cancel();
@@ -275,26 +278,26 @@ class Answer
 	 */
 	function duplicate($newQuestionId)
 	{
-		global $TBL_REPONSES;
+		global $tbl_quiz_answer;
 
 		// if at least one answer
 		if($this->nbrAnswers)
 		{
 			// inserts new answers into data base
-			$sql="INSERT INTO `".$TBL_REPONSES."`(id,question_id,reponse,correct,comment,ponderation,r_position) VALUES";
+			$sql="INSERT INTO `".$tbl_quiz_answer."`(id,question_id,reponse,correct,comment,ponderation,r_position) VALUES";
 
-			for($i=1;$i <= $this->nbrAnswers;$i++)
+			for($i = 1; $i <= $this->nbrAnswers; $i++)
 			{
-				$answer=addslashes($this->answer[$i]);
-				$correct=$this->correct[$i];
-				$comment=addslashes($this->comment[$i]);
-				$weighting=$this->weighting[$i];
-				$position=$this->position[$i];
+				$answer = addslashes($this->answer[$i]);
+				$correct = $this->correct[$i];
+				$comment = addslashes($this->comment[$i]);
+				$weighting = $this->weighting[$i];
+				$position = $this->position[$i];
 
-				$sql.="('$i','$newQuestionId','$answer','$correct','$comment','$weighting','$position'),";
+				$sql.="('".$i."','".$newQuestionId."','".$answer."','".$correct."','".$comment."','".$weighting."','".$position."'),";
 			}
 
-			$sql=substr($sql,0,-1);
+			$sql = substr($sql,0,-1);
 			claro_sql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 		}
 	}

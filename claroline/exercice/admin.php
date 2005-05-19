@@ -78,7 +78,7 @@ define('MATCHING',	 4);
 // allows script inclusions
 define('ALLOWED_TO_INCLUDE',1);
 
-$is_allowedToEdit=$is_courseAdmin;
+$is_allowedToEdit = $is_courseAdmin;
 
 // attached files path
 $attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
@@ -89,10 +89,10 @@ $aType = array($langUniqueSelect,$langMultipleSelect,$langFillBlanks,$langMatchi
 
 // tables used in the exercise tool
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$TBL_EXERCICE_QUESTION = $tbl_cdb_names['quiz_rel_test_question'];
-$TBL_EXERCICES         = $tbl_cdb_names['quiz_test'];
-$TBL_QUESTIONS         = $tbl_cdb_names['quiz_question'];
-$TBL_REPONSES          = $tbl_cdb_names['quiz_answer'];
+$tbl_quiz_rel_test_question = $tbl_cdb_names['quiz_rel_test_question'];
+$tbl_quiz_test         = $tbl_cdb_names['quiz_test'];
+$tbl_quiz_question     = $tbl_cdb_names['quiz_question'];
+$tbl_quiz_answer       = $tbl_cdb_names['quiz_answer'];
 
 //take parameters from URL or posted forms :
 
@@ -103,6 +103,7 @@ if (!empty($_REQUEST['editQuestion']))   $editQuestion    = $_REQUEST['editQuest
 if (!empty($_REQUEST['newQuestion']))    $newQuestion     = $_REQUEST['newQuestion'];    else unset($newQuestion);
 if (!empty($_REQUEST['deleteQuestion'])) $deleteQuestion  = $_REQUEST['deleteQuestion']; else unset($deleteQuestion);
 if (!empty($_REQUEST['modifyIn']))       $modifyIn        = $_REQUEST['modifyIn'];       else unset($modifyIn);
+if (!empty($_REQUEST['exerciseId']))     $exerciseId      = $_REQUEST['exerciseId'];    else unset($exerciseId);
 
 if(!$is_allowedToEdit)
 {
@@ -118,17 +119,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		if(is_string($val))
 		{
-			$_REQUEST[$key]=stripslashes($val);
+			$_REQUEST[$key] = stripslashes($val);
 		}
 		elseif(is_array($val))
 		{
 			foreach($val as $key2=>$val2)
 			{
-				$_REQUEST[$key][$key2]=stripslashes($val2);
+				$_REQUEST[$key][$key2] = stripslashes($val2);
 			}
 		}
-
-		//$GLOBALS[$key]=$_REQUEST[$key];
 	}
 }
 
@@ -139,9 +138,9 @@ if(!isset($_SESSION['objExercise']) || !is_object($_SESSION['objExercise']))
 	$objExercise = new Exercise();
 
 	// creation of a new exercise if wrong or not specified exercise ID
-	if(isset($_REQUEST['exerciseId']))
+	if(isset($exerciseId))
 	{
-		$objExercise->read($_REQUEST['exerciseId']);
+		$objExercise->read($exerciseId);
 	}
 
 	// saves the object into the session
@@ -149,7 +148,7 @@ if(!isset($_SESSION['objExercise']) || !is_object($_SESSION['objExercise']))
 }
 else
 {
-        $objExercise = $_SESSION['objExercise'];
+	$objExercise = $_SESSION['objExercise'];
 }
 
 // doesn't select the exercise ID if we come from the question pool
@@ -180,7 +179,7 @@ if(isset($editQuestion) || isset($newQuestion) || (isset($modifyQuestion)) || is
 		if(isset($editQuestion))
 		{
 			// question not found
-			if(!$objQuestion->read($editQuestion))
+			if(!$_SESSION['objQuestion']->read($editQuestion))
 			{
 				die($langQuestionNotFound);
 			}
@@ -188,10 +187,10 @@ if(isset($editQuestion) || isset($newQuestion) || (isset($modifyQuestion)) || is
 	}
 
 	// checks if the object exists
-	if(is_object($objQuestion))
+	if(isset($_SESSION['objQuestion']) && is_object($_SESSION['objQuestion']))
 	{
 		// gets the question ID
-		$questionId=$objQuestion->selectId();
+		$questionId = $_SESSION['objQuestion']->selectId();
 	}
 	// question not found
 	else
@@ -201,7 +200,7 @@ if(isset($editQuestion) || isset($newQuestion) || (isset($modifyQuestion)) || is
 }
 
 // if cancelling an exercise
-if( isset($cancelExercise) )
+if( isset($_REQUEST['cancelExercise']) )
 {
 	// existing exercise
 	if( isset($exerciseId) && $exerciseId )
@@ -218,7 +217,7 @@ if( isset($cancelExercise) )
 }
 
 // if cancelling question creation/modification
-if(isset($cancelQuestion))
+if(isset($_REQUEST['cancelQuestion']))
 {
 	// if we are creating a new question from the question pool
 	if(!$exerciseId && !$questionId)
@@ -230,22 +229,22 @@ if(isset($cancelQuestion))
 	else
 	{
 		// goes back to the question viewing
-		$editQuestion=$modifyQuestion;
+		$editQuestion = $_REQUEST['modifyQuestion'];
 
 		unset($newQuestion,$modifyQuestion);
 	}
 }
 
 // if cancelling answer creation/modification
-if(isset($cancelAnswers))
+if(isset($_REQUEST['cancelAnswers']))
 {
 	// goes back to the question viewing
-	$editQuestion=$modifyAnswers;
+	$editQuestion = $modifyAnswers;
 
 	unset($modifyAnswers);
 }
 
-$interbredcrump[]=array("url" => "exercice.php","name" => $langExercices);
+$interbredcrump[] = array("url" => "exercice.php","name" => $langExercices);
 
 // modifies the query string that is used in the link of tool name
 if(isset($editQuestion) || (isset($modifyQuestion)) || isset($newQuestion) || isset($modifyAnswers))
@@ -277,19 +276,19 @@ else
 	{
 		$nameTools = $langExerciseManagement;
 	}
-	$QUERY_STRING='';
+	$QUERY_STRING = '';
 }
 
 // if the question is duplicated, disable the link of tool name
 if(isset($modifyIn) && $modifyIn == 'thisExercise')
 {
-	if($buttonBack)
+	if( isset($_REQUEST['buttonBack']) )
 	{
-		$modifyIn='allExercises';
+		$modifyIn = 'allExercises';
 	}
 	else
 	{
-		$noPHP_SELF=true;
+		$noPHP_SELF = true;
 	}
 }
 
