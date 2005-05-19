@@ -683,17 +683,17 @@ if ($display==DISP_WELCOME)
         Checking PHP settings
         <UL>
             ';
-    if (!ini_get('register_globals'))
+    if ( ini_get('register_globals') )
     {
         echo '
             <li>
                 <p class="setup_error">
                     <font color="red">Warning !</font>
-                    register_globals is set to <strong>off</strong>.
+                    register_globals is set to <strong>on</strong>.
                     <br>
-                    Change the following parameter in your <i>php.ini</i> file to this value :<br>
+                    For more security, we recommand you to change the following parameter in your <i>php.ini</i> file to this value :<br>
                     <font color="blue">
-                    <code>register_globals = on </code>
+                    <code>register_globals = off </code>
                     </font>
                 </p>
             </li>';
