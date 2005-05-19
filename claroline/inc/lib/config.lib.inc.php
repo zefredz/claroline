@@ -446,7 +446,7 @@ function is_conf_file_modified($config_code)
  */
 function validate_property ($propertyValue, $propertyDef)
 {
-    global $controlMsg;
+    global $controlMsg, $rootSys;
 
     $is_valid = TRUE;
 
@@ -466,7 +466,7 @@ function validate_property ($propertyValue, $propertyDef)
         switch($type)
         {
             case 'css' :
-                if ($handle = opendir('../../css'))
+                if ($handle = opendir($rootSys.'claroline/css'))
                 {
                     $acceptedValue=array();
                    while (false !== ($file = readdir($handle)))
@@ -483,7 +483,7 @@ function validate_property ($propertyValue, $propertyDef)
                 $type='enum';
                 break;
             case 'lang' :
-                $dirname = '../../lang/';
+                $dirname = $rootSys . 'claroline/lang/';
                 if($dirname[strlen($dirname)-1]!='/')
                     $dirname.='/';
                 $handle=opendir($dirname);
