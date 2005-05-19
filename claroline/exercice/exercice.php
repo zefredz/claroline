@@ -72,6 +72,27 @@ $exercisesPerPage = 25;
 
 $nameTools=$langExercices;
 
+/* Asking for an export in IMS/QTI ?
+ * We need to take care of it before any content has been sent.
+ */
+if (isset($export))
+{
+    include('exercise_export.php');
+    
+    // Get the corresponding XML
+    $xml = export_exercise($export);
+    
+    // Send it if we got something. Otherwise, just continue as if nothing happened.
+    if(!empty($xml))
+    {
+        header("Content-type: application/xml");
+        header('Content-Disposition: attachment; filename="quiz_'. $export . '.xml"');
+        echo $xml;
+        exit;
+    }
+}
+
+
 if ( ! $is_courseAllowed)
 	claro_disp_auth_form();
 
@@ -245,6 +266,9 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
   <th>
 	<?php echo $langEnable.' / '.$langDisable; ?>
   </th>
+  <th>
+    <?php echo $langExport; ?>
+  </th>
 <?php
 	}
 	
@@ -338,14 +362,19 @@ foreach( $exercisesList as $exercise )
 
 <?php
 		}
-	    if($is_allowedToTrack)
-	    {
-	  ?>
-	          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>statistics.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
-
-	   <?php
-	    }
-	    echo " </tr>";
+?>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?export=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/export.gif"
+  border="0" alt="<?php echo $langExport; ?>"></a></td>
+  
+<?php
+    if($is_allowedToTrack)
+    {
+  ?>
+          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistiques.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
+     
+   <?php
+    }
+    echo " </tr>";
 	}
 	// student only
 	else

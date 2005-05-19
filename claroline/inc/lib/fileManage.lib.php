@@ -203,13 +203,13 @@ function claro_copy_file($sourcePath, $targetPath)
             $copiableFileList[] = $sourcePath.'/'.$element;
         }
 
-        if ( ! closedir($dirHandle) ) return false;
+        closedir($dirHandle);
 
         if ( count($copiableFileList) > 0 )
         {
             foreach($copiableFileList as $thisFile)
             {
-                if ( ! claro_copy_file($thisFile) ) return false;
+                if ( ! claro_copy_file($thisFile, $targetPath.'/'.$fileName) ) return false;
             }
         }
 

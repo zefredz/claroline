@@ -86,7 +86,23 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             </script>";
 
   $nameTools = $langLearningPathList;
+
+  $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
   
+  if ( $cmd == 'export' )
+  {
+        include ('include/scormExport.inc.php');
+        $scorm = new ScormExport($_REQUEST['path_id']);
+        if ( !$scorm->export() )
+        {
+            $dialogBox = '<b>Error exporting SCORM package</b><br><ul>';
+            foreach( $scorm->getError() as $error)
+            {
+                $dialogBox .= '<li>' . $error . '</li>';
+            }
+        }
+  } // endif $cmd == export
+        
   // use viewMode
   claro_set_display_mode_available(true);
   
@@ -107,7 +123,6 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   include($includePath."/introductionSection.inc.php");
 
 
-   $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
    // execution of commands
    switch ($cmd)
    {
@@ -441,6 +456,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                ."<th>".$langBlock."</th>"
                ."<th>".$langVisibility."</th>"
                ."<th colspan=\"2\">".$langOrder."</th>"
+               ."<th>".$langExport."</th>"
                ."<th>".$langTracking."</th>";
    }
    elseif($lpUid)
@@ -786,6 +802,10 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
             {
                 echo "<td>&nbsp;</td>\n";
             }
+            
+            // EXPORT links
+            echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=export&amp;path_id=' . $list['learnPath_id'] . '" >'
+                .'<img src="' . $clarolineRepositoryWeb . 'img/export.gif" alt="' . $langExport . '" border="0"></a></td>' . "\n";
             
             // statistics links
             echo "<td>\n

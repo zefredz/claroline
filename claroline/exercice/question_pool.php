@@ -86,6 +86,21 @@ if($is_allowedToEdit)
 		header("Location: admin.php?editQuestion=".$_REQUEST['recup']);
 		exit();
 	}
+	// Export a question in IMS/QTI
+	elseif($export)
+	{
+		include('question_export.php');
+		
+		// contruction of XML flow
+		$xml = export_question($export);
+		if (!empty($xml))
+		{
+			header("Content-type: application/xml");
+			header('Content-Disposition: attachment; filename="question_'. $export . '.xml"');
+			echo $xml;
+			exit;
+		}
+	}
 }
 
 $nameTools = $langQuestionPool;
@@ -223,9 +238,10 @@ $questionList = $myPager->get_result_list();
 	{
 ?>
 
-  <th width="60%" align="center"><?php echo $langQuestion; ?></th>
-  <th width="20%" align="center"><?php echo $langModify; ?></th>
-  <th width="20%" align="center"><?php echo $langDelete; ?></th>
+  <th width="70%" align="center"><?php echo $langQuestion; ?></th>
+  <th width="10%" align="center"><?php echo $langModify; ?></th>
+  <th width="10%" align="center"><?php echo $langDelete; ?></th>
+  <th width="10%" align="center"><?php echo $langExport; ?></th>
 
 <?php
 	}
@@ -274,6 +290,10 @@ $questionList = $myPager->get_result_list();
 
   <td align="center">
     <a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $question['id']; ?>" onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript($langConfirmDeleteQuestion); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
+  </td>
+  <td align="center">
+    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?export=<?php echo $row[id]; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/export.gif" border="0"
+      alt="<?php echo $langExport; ?>"></a>
   </td>
 
 <?php
