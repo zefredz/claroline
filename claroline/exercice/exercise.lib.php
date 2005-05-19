@@ -336,7 +336,10 @@ function display_attached_file($attachedFile)
 				}
 				else
 				{
-					$mp3Title = $id3['artist']." ".$id3['title'];
+					// artist or title or both are empty
+					$mp3Title = "";
+					if( isset($id3['artist']) ) $mp3Title .= $id3['artist'];
+					if( isset($id3['title']) ) $mp3Title .= $id3['title'];
 				}
 			}
 			$playerParams = "?file=".$attachedFilePathWeb."/".$attachedFile

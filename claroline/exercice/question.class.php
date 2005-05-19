@@ -26,9 +26,9 @@ class Question
 	var $weighting;
 	var $position;
 	var $type;
-  var $attachedFile;
+	var $attachedFile;
   
-  var $tempAttachedFile; 
+	var $tempAttachedFile;
 
 	var $exerciseList;  // array with the list of exercises which this question is in
 
@@ -45,9 +45,9 @@ class Question
 		$this->weighting=0;
 		$this->position=1;
 		$this->type=2;
-    $this->attachedFile='';
-    
-    $this->tempAttachedFile = '';
+		$this->attachedFile='';
+
+		$this->tempAttachedFile = '';
 
 		$this->exerciseList=array();
 	}
@@ -61,29 +61,30 @@ class Question
 	 */
 	function read($id)
 	{
-		global $TBL_QUESTIONS, $TBL_EXERCICE_QUESTION;
+		global $tbl_quiz_question, $tbl_quiz_rel_test_question;
 
-		$sql="SELECT question,description,ponderation,q_position,type,attached_file FROM `".$TBL_QUESTIONS."` WHERE id='".$id."'";
-		$result=claro_sql_query($sql);
+		$sql = "SELECT question,description,ponderation,q_position,type,attached_file FROM `".$tbl_quiz_question."` WHERE id='".$id."'";
+		$result = claro_sql_query($sql);
 
 		// if the question has been found
-		if($object=mysql_fetch_object($result))
+		if($object = mysql_fetch_object($result))
 		{
-			$this->id=$id;
-			$this->question=$object->question;
-			$this->description=$object->description;
-			$this->weighting=$object->ponderation;
-			$this->position=$object->q_position;
-			$this->type=$object->type;
-      $this->attachedFile=$object->attached_file;
+			$this->id = $id;
+			$this->question = $object->question;
+			$this->description = $object->description;
+			$this->weighting = $object->ponderation;
+			$this->position = $object->q_position;
+			$this->type = $object->type;
+			$this->attachedFile = $object->attached_file;
 
-			$sql="SELECT exercice_id FROM `".$TBL_EXERCICE_QUESTION."` WHERE question_id='".$id."'";
-			$result=claro_sql_query($sql);
+			$sql = "SELECT `exercice_id` FROM `".$tbl_quiz_rel_test_question."` WHERE `question_id` = '".$id."'";
+
+			$result = claro_sql_query($sql);
 
 			// fills the array with the exercises which this question is in
-			while($object=mysql_fetch_object($result))
+			while($object = mysql_fetch_object($result))
 			{
-				$this->exerciseList[]=$object->exercice_id;
+				$this->exerciseList[] = $object->exercice_id;
 			}
 
 			return true;
@@ -207,7 +208,7 @@ class Question
 	 */
 	function updateTitle($title)
 	{
-		$this->question=$title;
+		$this->question = $title;
 	}
 
 	/**
@@ -218,7 +219,7 @@ class Question
 	 */
 	function updateDescription($description)
 	{
-		$this->description=$description;
+		$this->description = $description;
 	}
 
 	/**
@@ -229,7 +230,7 @@ class Question
 	 */
 	function updateWeighting($weighting)
 	{
-		$this->weighting=$weighting;
+		$this->weighting = $weighting;
 	}
 
 	/**
@@ -240,7 +241,7 @@ class Question
 	 */
 	function updatePosition($position)
 	{
-		$this->position=$position;
+		$this->position = $position;
 	}
 
 	/**
@@ -252,7 +253,7 @@ class Question
 	 */
 	function updateType($type)
 	{
-		global $TBL_REPONSES;
+		global $tbl_quiz_answer;
 
 		// if we really change the type
 		if($type != $this->type)
@@ -261,7 +262,7 @@ class Question
 			if(!in_array($this->type,array(UNIQUE_ANSWER,MULTIPLE_ANSWER)) || !in_array($type,array(UNIQUE_ANSWER,MULTIPLE_ANSWER)))
 			{
 				// removes old answers
-				$sql="DELETE FROM `".$TBL_REPONSES."` WHERE question_id='".$this->id."'";
+				$sql="DELETE FROM `".$tbl_quiz_answer."` WHERE `question_id` = '".$this->id."'";
 				claro_sql_query($sql);
 			}
 
@@ -297,7 +298,7 @@ class Question
 		{
         $extension=substr(strrchr($attachedFile, '.'), 1);
         
-        $this->attachedFile='quiz-'.$this->id.'.'.$extension;
+        $this->attachedFile = 'quiz-'.$this->id.'.'.$extension;
                         
 	  		return @move_uploaded_file($tempAttachedFile,$attachedFilePathSys.'/'.$this->attachedFile)?true:false;
 		}
@@ -319,7 +320,7 @@ class Question
 		if($this->id && !empty($this->attachedFile))
 		{
       $attachedFile=$this->attachedFile;
-      $this->attachedFile='';
+      $this->attachedFile = '';
                         
 			return @unlink($attachedFilePathSys.'/'.$attachedFile)?true:false;
 		}
@@ -336,7 +337,7 @@ class Question
 	 */
 	function exportAttachedFile($questionId)
 	{
-		global $TBL_QUESTIONS,$attachedFilePathSys;
+		global $tbl_quiz_question,$attachedFilePathSys;
 
 		// if the question has got an ID and if the file exists
 		if($this->id &&  !empty($this->attachedFile))
@@ -344,7 +345,7 @@ class Question
         $extension=substr(strrchr($this->attachedFile, '.'), 1);
         $attachedFile='quiz-'.$questionId.'.'.$extension;
         
-        $sql="UPDATE `".$TBL_QUESTIONS."` SET attached_file = '".$attachedFile."' WHERE id='".$questionId."'";
+        $sql="UPDATE `".$tbl_quiz_question."` SET attached_file = '".$attachedFile."' WHERE id='".$questionId."'";
         claro_sql_query($sql);
         
         return @copy($attachedFilePathSys.'/'.$this->attachedFile,$attachedFilePathSys.'/'.$attachedFile)?true:false;
@@ -366,10 +367,10 @@ class Question
 	{
 		global $attachedFilePathSys;
                 
-    $extension=substr(strrchr($attachedFile, '.'), 1);
+	    $extension=substr(strrchr($attachedFile, '.'), 1);
 
-		// saves the file into a temporary file
-    $this->tempAttachedFile = "tmp".$this->id.".".$extension;
+			// saves the file into a temporary file
+	    $this->tempAttachedFile = "tmp".$this->id.".".$extension;
 		@move_uploaded_file($tempAttachedFile,$attachedFilePathSys.'/'.$this->tempAttachedFile);
 	}
 
@@ -390,7 +391,7 @@ class Question
 		{
         $extension=substr(strrchr($this->tempAttachedFile, '.'), 1);
         
-        $this->attachedFile='quiz-'.$this->id.'.'.$extension;
+        $this->attachedFile = 'quiz-'.$this->id.'.'.$extension;
         return rename($attachedFilePathSys."/".$this->tempAttachedFile,$attachedFilePathSys.'/'.$this->attachedFile)?true:false;
 		}
 		return false;
@@ -405,29 +406,29 @@ class Question
 	 */
 	function save($exerciseId=0)
 	{
-		global $TBL_QUESTIONS;
+		global $tbl_quiz_question;
 
-		$id=$this->id;
-		$question=addslashes($this->question);
-		$description=addslashes($this->description);
-		$weighting=$this->weighting;
-		$position=$this->position;
-		$type=$this->type;
-    $attachedFile=$this->attachedFile;
+		$id = $this->id;
+		$question = addslashes($this->question);
+		$description = addslashes($this->description);
+		$weighting = $this->weighting;
+		$position = $this->position;
+		$type = $this->type;
+		$attachedFile = $this->attachedFile;
 
 		// question already exists
 		if($id)
 		{
-			$sql="UPDATE `".$TBL_QUESTIONS."` SET question='".$question."',description='".$description."',ponderation='".$weighting."',q_position='".$position."',type='".$type."',attached_file='".$attachedFile."' WHERE id='".$id."'";
+			$sql = "UPDATE `".$tbl_quiz_question."` SET question='".$question."',description='".$description."',ponderation='".$weighting."',q_position='".$position."',type='".$type."',attached_file='".$attachedFile."' WHERE id='".$id."'";
 			claro_sql_query($sql);
 		}
 		// creates a new question
 		else
 		{
-			$sql="INSERT INTO `".$TBL_QUESTIONS."`(question,description,ponderation,q_position,type,attached_file) VALUES('".$question."','".$description."','".$weighting."','".$position."','".$type."','".$attachedFile."')";
+			$sql = "INSERT INTO `".$tbl_quiz_question."`(question,description,ponderation,q_position,type,attached_file) VALUES('".$question."','".$description."','".$weighting."','".$position."','".$type."','".$attachedFile."')";
 			claro_sql_query($sql);
 
-			$this->id=mysql_insert_id();
+			$this->id = mysql_insert_id();
 		}
 
 		// if the question is created in an exercise
@@ -446,16 +447,16 @@ class Question
 	 */
 	function addToList($exerciseId)
 	{
-		global $TBL_EXERCICE_QUESTION;
+		global $tbl_quiz_rel_test_question;
 
-		$id=$this->id;
+		$id = $this->id;
 
 		// checks if the exercise ID is not in the list
 		if(!in_array($exerciseId,$this->exerciseList))
 		{
-			$this->exerciseList[]=$exerciseId;
+			$this->exerciseList[] = $exerciseId;
 
-			$sql="INSERT INTO `$TBL_EXERCICE_QUESTION`(question_id,exercice_id) VALUES('$id','$exerciseId')";
+			$sql = "INSERT INTO `".$tbl_quiz_rel_test_question."` (question_id,exercice_id) VALUES('".$id."','".$exerciseId."')";
 			claro_sql_query($sql);
 		}
 	}
@@ -469,12 +470,12 @@ class Question
 	 */
 	function removeFromList($exerciseId)
 	{
-		global $TBL_EXERCICE_QUESTION;
+		global $tbl_quiz_rel_test_question;
 
-		$id=$this->id;
+		$id = $this->id;
 
 		// searches the position of the exercise ID in the list
-		$pos=array_search($exerciseId,$this->exerciseList);
+		$pos = array_search($exerciseId,$this->exerciseList);
 
 		// exercise not found
 		if($pos === false)
@@ -486,7 +487,7 @@ class Question
 			// deletes the position in the array containing the wanted exercise ID
 			unset($this->exerciseList[$pos]);
 
-			$sql="DELETE FROM `$TBL_EXERCICE_QUESTION` WHERE question_id='$id' AND exercice_id='$exerciseId'";
+			$sql = "DELETE FROM `".$tbl_quiz_rel_test_question."` WHERE question_id = '".$id."' AND exercice_id = '".$exerciseId."'";
 			claro_sql_query($sql);
 
 			return true;
@@ -503,20 +504,20 @@ class Question
 	 */
 	function delete($deleteFromEx=0)
 	{
-		global $TBL_EXERCICE_QUESTION, $TBL_QUESTIONS, $TBL_REPONSES;
+		global $tbl_quiz_rel_test_question, $tbl_quiz_question, $tbl_quiz_answer;
 
-		$id=$this->id;
+		$id = $this->id;
 
 		// if the question must be removed from all exercises
 		if(!$deleteFromEx)
 		{
-			$sql="DELETE FROM `$TBL_EXERCICE_QUESTION` WHERE question_id='$id'";
+			$sql = "DELETE FROM `".$tbl_quiz_rel_test_question."` WHERE `question_id` = '".$id."'";
 			claro_sql_query($sql);
 
-			$sql="DELETE FROM `$TBL_QUESTIONS` WHERE id='$id'";
+			$sql = "DELETE FROM `".$tbl_quiz_question."` WHERE `id` = '".$id."'";
 			claro_sql_query($sql);
 
-			$sql="DELETE FROM `$TBL_REPONSES` WHERE question_id='$id'";
+			$sql = "DELETE FROM `".$tbl_quiz_answer."` WHERE `question_id` = '".$id."'";
 			claro_sql_query($sql);
 
 			$this->removeAttachedFile();
@@ -539,18 +540,19 @@ class Question
 	 */
 	function duplicate()
 	{
-		global $TBL_QUESTIONS;
+		global $tbl_quiz_question;
 
-		$question=addslashes($this->question);
-		$description=addslashes($this->description);
-		$weighting=$this->weighting;
-		$position=$this->position;
-		$type=$this->type;
+		$question = addslashes($this->question);
+		$description = addslashes($this->description);
+		$weighting = $this->weighting;
+		$position = $this->position;
+		$type = $this->type;
 
-		$sql="INSERT INTO `$TBL_QUESTIONS`(question,description,ponderation,q_position,type) VALUES('$question','$description','$weighting','$position','$type')";
-		claro_sql_query($sql);
-
-		$id=mysql_insert_id();
+		$sql = "INSERT INTO `".$tbl_quiz_question."`
+			(question,description,ponderation,q_position,type)
+			VALUES('".$question."','".$description."','".$weighting."','".$position."','".$type."')";
+			
+		$id = claro_sql_query_insert_id($sql);
 
 		// duplicates the attached file
 		$this->exportAttachedFile($id);

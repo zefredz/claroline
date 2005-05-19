@@ -37,7 +37,7 @@ class Exercise
 	var $maxTime;
 	var $maxAttempt;
 	var $showAnswer;
-  var $anonymousAttempts;
+	var $anonymousAttempts;
 
 	var $questionList;  // array with the list of this exercise's questions
 
@@ -56,14 +56,14 @@ class Exercise
 		$this->active		= 0;
 
 		$this->startDate	= date("Y-m-d H:i:00");
-    // no end date as default
+		// no end date as default
 		$this->endDate		= "9999-12-31 23:59:59";
-    // end date is 'now' + 1 year
-    // $this->endDate = date("Y-m-d H:i:00", mktime( date("H"),date("i"),0,date("m"), date("d"), date("Y")+1 ) );
+		// end date is 'now' + 1 year
+		// $this->endDate = date("Y-m-d H:i:00", mktime( date("H"),date("i"),0,date("m"), date("d"), date("Y")+1 ) );
 		$this->maxTime		= 0;
 		$this->maxAttempt	= 0;
 		$this->showAnswer	= 'ALWAYS';
-    $this->anonymousAttempts = 'NO';
+		$this->anonymousAttempts = 'NO';
 
 		$this->questionList	= array();
 	}
@@ -77,18 +77,18 @@ class Exercise
 	 */
 	function read($id)
 	{
-		global $TBL_EXERCICES, $TBL_EXERCICE_QUESTION, $TBL_QUESTIONS;
+		global $tbl_quiz_test, $tbl_quiz_rel_test_question, $tbl_quiz_question;
 
-		$sql="	SELECT 	`titre`,`description`,
+		$sql = "SELECT 	`titre`,`description`,
 				`type`,`random`,`active`,
 				`max_time`,`max_attempt`,`show_answer`,`anonymous_attempts`,
 				`start_date` , `end_date` 
-			FROM `$TBL_EXERCICES` 
+			FROM `".$tbl_quiz_test."`
 			WHERE `id` = '$id'";
 		$result = claro_sql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
 		// if the exercise has been found
-		if($object=mysql_fetch_object($result))
+		if($object = mysql_fetch_object($result))
 		{
 			$this->id 			= $id;
 			$this->exercise 	= $object->titre;
@@ -102,10 +102,10 @@ class Exercise
 			$this->maxTime 		= $object->max_time;			
 			$this->maxAttempt	= $object->max_attempt;
 			$this->showAnswer	= $object->show_answer;
-      $this->anonymousAttempts = $object->anonymous_attempts;
+			$this->anonymousAttempts = $object->anonymous_attempts;
 			
 			$sql = "	SELECT 	`question_id`,`q_position` 
-				FROM `$TBL_EXERCICE_QUESTION`,`$TBL_QUESTIONS`
+				FROM `".$tbl_quiz_rel_test_question."`,`".$tbl_quiz_question."`
 				WHERE `question_id` = `id` AND `exercice_id` = '$id' 
 				ORDER BY `q_position`";
 			$result = claro_sql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
@@ -120,7 +120,7 @@ class Exercise
 					$object->q_position++;
 				}
 
-				$this->questionList[$object->q_position]=$object->question_id;
+				$this->questionList[$object->q_position] = $object->question_id;
 			}
 
 			return true;
@@ -204,7 +204,7 @@ class Exercise
    * @param string format 'mysql' or 'timestamp' 
 	 * @return string mysql datetime format string
 	 */
-	function get_start_date($format='mysql')
+	function get_start_date($format = 'mysql')
 	{
     if ($format == 'mysql')
     {
@@ -228,7 +228,7 @@ class Exercise
    * @param string format 'mysql' or 'timestamp' 
 	 * @return string mysql datetime format string
 	 */
-	function get_end_date($format='mysql')
+	function get_end_date($format = 'mysql')
 	{
     if ($format == 'mysql')
     {
@@ -287,11 +287,11 @@ class Exercise
   {
     if ( $this->anonymousAttempts == 'YES' )
     {
-      return true;
+		return true;
     }
     else
     {
-      return false;
+		return false;
     }
   }
 	/**
@@ -334,39 +334,39 @@ class Exercise
 		// takes all questions
 		if($this->random == -1 || $this->random > $this->selectNbrQuestions())
 		{
-			$draws=$this->selectNbrQuestions();
+			$draws = $this->selectNbrQuestions();
 		}
 		else
 		{
-			$draws=$this->random;
+			$draws = $this->random;
 		}
 
 		srand((double)microtime()*1000000);
 
-		$randQuestionList=array();
-		$alreadyChosed=array();
+		$randQuestionList = array();
+		$alreadyChosed = array();
 
 		// loop for the number of draws
-		for($i=0;$i < $draws;$i++)
+		for($i = 0; $i < $draws; $i++)
 		{
 			// selects a question randomly
 			do
 			{
-				$rand=rand(0,$this->selectNbrQuestions()-1);
+				$rand = rand(0,$this->selectNbrQuestions()-1);
 			}
 			// if the question has already been selected, continues in the loop
 			while(in_array($rand,$alreadyChosed));
 
-			$alreadyChosed[]=$rand;
+			$alreadyChosed[] = $rand;
 
-			$j=0;
+			$j = 0;
 
 			foreach($this->questionList as $key=>$val)
 			{
 				// if we have found the question chosed above
 				if($j == $rand)
 				{
-					$randQuestionList[$key]=$val;
+					$randQuestionList[$key] = $val;
 					break;
 				}
 
@@ -397,7 +397,7 @@ class Exercise
 	 */
 	function updateTitle($title)
 	{
-		$this->exercise=$title;
+		$this->exercise = $title;
 	}
 
 	/**
@@ -408,7 +408,7 @@ class Exercise
 	 */
 	function updateDescription($description)
 	{
-		$this->description=$description;
+		$this->description = $description;
 	}
 
 	/**
@@ -419,7 +419,7 @@ class Exercise
 	 */
 	function updateType($type)
 	{
-		$this->type=$type;
+		$this->type = $type;
 	}
 
 	/**
@@ -431,7 +431,7 @@ class Exercise
 	 */
 	function setRandom($random)
 	{
-		$this->random=$random;
+		$this->random = $random;
 	}
 
 	/**
@@ -441,7 +441,7 @@ class Exercise
 	 */
 	function enable()
 	{
-		$this->active=1;
+		$this->active = 1;
 	}
 
 	/**
@@ -451,7 +451,7 @@ class Exercise
 	 */
 	function disable()
 	{
-		$this->active=0;
+		$this->active = 0;
 	}
 
 	function set_start_date($sdate)
@@ -508,7 +508,7 @@ class Exercise
 	 */
 	function save()
 	{
-		global $TBL_EXERCICES, $TBL_QUESTIONS;
+		global $tbl_quiz_test, $tbl_quiz_question;
 
 		$id				= $this->id;
 		$exercise		= addslashes($this->exercise);
@@ -522,45 +522,45 @@ class Exercise
 		$maxTime 		= $this->maxTime;
 		$maxAttempt		= $this->maxAttempt;
 		$showAnswer		= $this->showAnswer;
-    $anonymousAttempts   = $this->anonymousAttempts;
+		$anonymousAttempts   = $this->anonymousAttempts;
 
 		// exercise already exists
 		if($id)
 		{
-			$sql = "UPDATE `$TBL_EXERCICES` 
-					SET `titre` = '$exercise',
-						`description` = '$description',
-						`type` = '$type',
- 						`random` = '$random',
-						`active` = '$active',
-						`start_date` = '$startDate',
-						`end_date` ='$endDate',
-						`max_time` = $maxTime, 
-						`max_attempt` = $maxAttempt,
-						`show_answer` = '$showAnswer',
-        `anonymous_attempts` = '$anonymousAttempts'            
-					WHERE `id` = '$id'";
+			$sql = "UPDATE `".$tbl_quiz_test."`
+					SET `titre` = '".$exercise."',
+						`description` = '".$description."',
+						`type` = '".$type."',
+ 						`random` = '".$random."',
+						`active` = '".$active."',
+						`start_date` = '".$startDate."',
+						`end_date` ='".$endDate."',
+						`max_time` = ".$maxTime.",
+						`max_attempt` = ".$maxAttempt.",
+						`show_answer` = '".$showAnswer."',
+						`anonymous_attempts` = '".$anonymousAttempts."'
+					WHERE `id` = '".$id."'";
 			claro_sql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
 		}
 		// creates a new exercise
 		else
 		{
-			$sql=	"INSERT INTO `$TBL_EXERCICES`
+			$sql=	"INSERT INTO `".$tbl_quiz_test."`
 					(`titre`,`description`,`type`,`random`,`active`,
 					 `start_date`, `end_date`,
 					 `max_time`, `max_attempt`, `show_answer`,`anonymous_attempts`) 
-					VALUES('$exercise','$description','$type','$random','$active',
-							'$startDate', '$endDate',
-							$maxTime,$maxAttempt,'$showAnswer','$anonymousAttempts')";
+					VALUES('".$exercise."','".$description."','".$type."','".$random."','".$active."',
+							'".$startDate."', '".$endDate."',
+							".$maxTime.",".$maxAttempt.",'".$showAnswer."','".$anonymousAttempts."')";
 			claro_sql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 
-			$this->id=mysql_insert_id();
+			$this->id = mysql_insert_id();
 		}
 
 		// updates the question position
 		foreach($this->questionList as $position=>$questionId)
 		{
-			$sql="UPDATE `$TBL_QUESTIONS` SET `q_position` = '$position' WHERE `id` = '$questionId'";
+			$sql = "UPDATE `".$tbl_quiz_question."` SET `q_position` = '".$position."' WHERE `id` = '".$questionId."'";
 			claro_sql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
 		}
 	}
@@ -579,12 +579,12 @@ class Exercise
 			if($questionId == $id)
 			{
 				// position of question in the array
-				$pos1=$position;
+				$pos1 = $position;
 
 				prev($this->questionList);
 
 				// position of previous question in the array
-				$pos2=key($this->questionList);
+				$pos2 = key($this->questionList);
 
 				// error, can't move question
 				if(!$pos2)
@@ -592,7 +592,7 @@ class Exercise
 					return;
 				}
 
-				$id2=$this->questionList[$pos2];
+				$id2 = $this->questionList[$pos2];
 
 				// exits foreach()
 				break;
@@ -603,9 +603,9 @@ class Exercise
 		}
 
 		// permutes questions in the array
-		$temp=$this->questionList[$pos2];
-		$this->questionList[$pos2]=$this->questionList[$pos1];
-		$this->questionList[$pos1]=$temp;
+		$temp = $this->questionList[$pos2];
+		$this->questionList[$pos2] = $this->questionList[$pos1];
+		$this->questionList[$pos1] = $temp;
 	}
 
 	/**
@@ -622,12 +622,12 @@ class Exercise
 			if($questionId == $id)
 			{
 				// position of question in the array
-				$pos1=$position;
+				$pos1 = $position;
 
 				next($this->questionList);
 
 				// position of next question in the array
-				$pos2=key($this->questionList);
+				$pos2 = key($this->questionList);
 
 				// error, can't move question
 				if(!$pos2)
@@ -635,7 +635,7 @@ class Exercise
 					return;
 				}
 
-				$id2=$this->questionList[$pos2];
+				$id2 = $this->questionList[$pos2];
 
 				// exits foreach()
 				break;
@@ -646,9 +646,9 @@ class Exercise
 		}
 
 		// permutes questions in the array
-		$temp=$this->questionList[$pos2];
-		$this->questionList[$pos2]=$this->questionList[$pos1];
-		$this->questionList[$pos1]=$temp;
+		$temp = $this->questionList[$pos2];
+		$this->questionList[$pos2] = $this->questionList[$pos1];
+		$this->questionList[$pos1] = $temp;
 	}
 
 	/**
@@ -666,14 +666,14 @@ class Exercise
 			// selects the max position
 			if(!$this->selectNbrQuestions())
 			{
-				$pos=1;
+				$pos = 1;
 			}
 			else
 			{
-				$pos=max(array_keys($this->questionList))+1;
+				$pos = max(array_keys($this->questionList))+1;
 			}
 
-			$this->questionList[$pos]=$questionId;
+			$this->questionList[$pos] = $questionId;
 
 			return true;
 		}
@@ -691,7 +691,7 @@ class Exercise
 	function removeFromList($questionId)
 	{
 		// searches the position of the question ID in the list
-		$pos=array_search($questionId,$this->questionList);
+		$pos = array_search($questionId,$this->questionList);
 
 		// question not found
 		if($pos === false)
@@ -715,14 +715,14 @@ class Exercise
 	 */
 	function delete()
 	{
-		global $TBL_EXERCICE_QUESTION, $TBL_EXERCICES;
+		global $tbl_quiz_rel_test_question, $tbl_quiz_test;
 
-		$id=$this->id;
+		$id = $this->id;
 
-		$sql="DELETE FROM `$TBL_EXERCICE_QUESTION` WHERE exercice_id='$id'";
+		$sql = "DELETE FROM `".$tbl_quiz_rel_test_question."` WHERE exercice_id = '".$id."'";
 		claro_sql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
 
-		$sql="DELETE FROM `$TBL_EXERCICES` WHERE id='$id'";
+		$sql = "DELETE FROM `".$tbl_quiz_test."` WHERE id = '".$id."'";
 		claro_sql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
 	}
 }
