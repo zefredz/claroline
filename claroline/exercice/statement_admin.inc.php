@@ -40,18 +40,18 @@ if(isset($_REQUEST['submitQuestion']))
 	// no name given
 	if(empty($questionName))
 	{
-		$msgErr=$langGiveQuestion;
+		$msgErr = $langGiveQuestion;
 	}
 	// checks if the question is used in several exercises
-	elseif($exerciseId && !isset($modifyIn) && $objQuestion->selectNbrExercises() > 1)
+	elseif($exerciseId && !isset($modifyIn) && $_SESSION['objQuestion']->selectNbrExercises() > 1)
 	{
-		$usedInSeveralExercises=1;
+		$usedInSeveralExercises = 1;
 
 	    // if a file has been set
 	    if(is_uploaded_file($_FILES['fileUpload']['tmp_name']))
 	    {
 	        // saves the file into a temporary file
-	        $objQuestion->setTmpAttachedFile($_FILES['fileUpload']['tmp_name'],get_secure_file_name($_FILES['fileUpload']['name']));
+	        $_SESSION['objQuestion']->setTmpAttachedFile($_FILES['fileUpload']['tmp_name'],get_secure_file_name($_FILES['fileUpload']['name']));
 	    }
 	}
 	else
@@ -60,13 +60,13 @@ if(isset($_REQUEST['submitQuestion']))
         if(isset($modifyIn) && $modifyIn == 'thisExercise')
         {
         	// duplicates the question
-        	$questionId=$objQuestion->duplicate();
+        	$questionId = $_SESSION['objQuestion']->duplicate();
 			
 			// tempAttachedFile object var isnot handled by duplicate because not stored in db
-			$tmpFile = $objQuestion->selectTempAttachedFile();
+			$tmpFile = $_SESSION['objQuestion']->selectTempAttachedFile();
           
             // deletes the old question
-            $objQuestion->delete($exerciseId);
+            $_SESSION['objQuestion']->delete($exerciseId);
 
             // removes the old question ID from the question list of the Exercise object
             $objExercise->removeFromList($modifyQuestion);
@@ -74,13 +74,13 @@ if(isset($_REQUEST['submitQuestion']))
             $nbrQuestions--;
 
             // construction of the duplicated Question
-            $objQuestion=new Question();
+            $_SESSION['objQuestion'] = new Question();
 
-            $objQuestion->read($questionId);
-            $objQuestion->updateTempAttachedFile($tmpFile);
+            $_SESSION['objQuestion']->read($questionId);
+            $_SESSION['objQuestion']->updateTempAttachedFile($tmpFile);
             
 			// adds the exercise ID into the exercise list of the Question object
-            $objQuestion->addToList($exerciseId);
+            $_SESSION['objQuestion']->addToList($exerciseId);
 
             // construction of the Answer object
             $objAnswerTmp=new Answer($modifyQuestion);
@@ -92,10 +92,10 @@ if(isset($_REQUEST['submitQuestion']))
             unset($objAnswerTmp);
         }
 
-		$objQuestion->updateTitle($questionName);
-		$objQuestion->updateDescription($questionDescription);
-		$objQuestion->updateType($_REQUEST['answerType']);
-		$objQuestion->save($exerciseId);
+		$_SESSION['objQuestion']->updateTitle($questionName);
+		$_SESSION['objQuestion']->updateDescription($questionDescription);
+		$_SESSION['objQuestion']->updateType($_REQUEST['answerType']);
+		$_SESSION['objQuestion']->save($exerciseId);
 
 		// if a file has been set or checkbox "delete" has been checked
 		if(
@@ -105,7 +105,7 @@ if(isset($_REQUEST['submitQuestion']))
 		  )
 		{
 			// we remove the attached file
-			$objQuestion->removeAttachedFile();
+			$_SESSION['objQuestion']->removeAttachedFile();
 
 			// if we add a new attached file
 			if(
@@ -114,22 +114,22 @@ if(isset($_REQUEST['submitQuestion']))
 			  )
 			{
                 // image is already saved in a temporary file
-                if($_REQUEST['hasTempAttachedFile'])
+                if( isset($_REQUEST['hasTempAttachedFile']) )
                 {
-                    $objQuestion->getTmpAttachedFile();
+                    $_SESSION['objQuestion']->getTmpAttachedFile();
                 }
                 // saves the file coming from POST FILE
                 else
                 {
-                    $objQuestion->uploadAttachedFile($_FILES['fileUpload']['tmp_name'],get_secure_file_name($_FILES['fileUpload']['name']));
+                    $_SESSION['objQuestion']->uploadAttachedFile($_FILES['fileUpload']['tmp_name'],get_secure_file_name($_FILES['fileUpload']['name']));
                 }
 			}
                 
-            $objQuestion->save($exerciseId);
+            $_SESSION['objQuestion']->save($exerciseId);
                         
 		}
 
-		$questionId=$objQuestion->selectId();
+		$questionId = $_SESSION['objQuestion']->selectId();
 
 		if($exerciseId)
 		{
@@ -142,15 +142,15 @@ if(isset($_REQUEST['submitQuestion']))
 			}
 		}
 
-		if($_REQUEST['newQuestion'])
+		if( isset($newQuestion) )
 		{
 			// goes to answer administration
-			$modifyAnswers=$questionId;
+			$modifyAnswers = $questionId;
 		}
 		else
 		{
 			// goes to exercise viewing
-			$editQuestion=$questionId;
+			$editQuestion = $questionId;
 		}
 
 		unset($newQuestion,$modifyQuestion);
@@ -162,14 +162,15 @@ else
 	// if we don't come here after having cancelled the warning message "used in serveral exercises"
 	if(!isset($_REQUEST['buttonBack']))
 	{
-		$questionName=$objQuestion->selectTitle();
-		$questionDescription=$objQuestion->selectDescription();
-		$answerType=$objQuestion->selectType();
-		$attachedFile=$objQuestion->selectAttachedFile();
+		$questionName = $_SESSION['objQuestion']->selectTitle();
+		$questionDescription = $_SESSION['objQuestion']->selectDescription();
+		$answerType = $_SESSION['objQuestion']->selectType();
+		$attachedFile = $_SESSION['objQuestion']->selectAttachedFile();
 	}
 }
 
 $aFileIsAttached = empty($attachedFile)?false:true;
+
 $maxUploadSizeInBytes = get_max_upload_size(100000000,$attachedFilePathSys);
 
 if((isset($newQuestion) || (isset($modifyQuestion))) && !isset($usedInSeveralExercises))
@@ -181,9 +182,13 @@ if((isset($newQuestion) || (isset($modifyQuestion))) && !isset($usedInSeveralExe
   <?php echo $questionName; ?>
 </h3>
 
-<?php if (isset($modifyQuestion)) $addform = "modifyQuestion=".$modifyQuestion; ?>
+<?php
+	if(isset($modifyQuestion))	$addform = "modifyQuestion=".$modifyQuestion;
+	else                        $addform = "";
+	if(isset($newQuestion))     $addform .= "&newQuestion=".$newQuestion;
+?>
 
-<form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?<?php echo $addform;?>&newQuestion=<?php echo $_REQUEST['newQuestion']; ?>">
+<form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?<?php echo $addform;?>">
 <table border="0" cellpadding="5">
 
 <?php
@@ -228,7 +233,7 @@ if((isset($newQuestion) || (isset($modifyQuestion))) && !isset($usedInSeveralExe
 	{
 ?>
 
-	<br /><input type="checkbox" name="deleteAttachedFile" id="deleteAttachedFile" value="1" <?php if($deleteAttachedFile) echo 'checked="checked"'; ?>> <label for="deleteAttachedFile"><?php echo $langDeleteAttachedFile; ?></label>
+	<br /><input type="checkbox" name="deleteAttachedFile" id="deleteAttachedFile" value="1" <?php if(isset($_REQUEST['deleteAttachedFile'])) echo 'checked="checked"'; ?>> <label for="deleteAttachedFile"><?php echo $langDeleteAttachedFile; ?></label>
 
 <?php
 	}

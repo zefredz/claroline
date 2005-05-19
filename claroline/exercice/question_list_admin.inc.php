@@ -29,32 +29,32 @@ if(!defined('ALLOWED_TO_INCLUDE'))
 }
 
 // moves a question up in the list
-if(isset($moveUp))
+if(isset($_REQUEST['moveUp']))
 {
-	$objExercise->moveUp($moveUp);
-	$objExercise->save();
+	$_SESSION['objExercise']->moveUp($_REQUEST['moveUp']);
+	$_SESSION['objExercise']->save();
 }
 
 // moves a question down in the list
-if(isset($moveDown))
+if(isset($_REQUEST['moveDown']))
 {
-	$objExercise->moveDown($moveDown);
-	$objExercise->save();
+	$_SESSION['objExercise']->moveDown($_REQUEST['moveDown']);
+	$_SESSION['objExercise']->save();
 }
 
 // deletes a question from the exercise (not from the data base)
-if(isset($deleteQuestion))
+if( isset($deleteQuestion) )
 {
 	// construction of the Question object
-	$objQuestionTmp=new Question();
+	$objQuestionTmp = new Question();
 
 	// if the question exists
 	if($objQuestionTmp->read($deleteQuestion))
 	{
-		$objQuestionTmp->delete($exerciseId);
+    	$objQuestionTmp->delete($exerciseId);
 
 		// if the question has been removed from the exercise
-		if($objExercise->removeFromList($deleteQuestion))
+		if($_SESSION['objExercise']->removeFromList($deleteQuestion))
 		{
 			$nbrQuestions--;
 		}
@@ -78,13 +78,13 @@ if(isset($deleteQuestion))
 <?php
 if($nbrQuestions)
 {
-	$questionList=$objExercise->selectQuestionList();
+	$questionList = $_SESSION['objExercise']->selectQuestionList();
 
-	$i=1;
+	$i = 1;
 
 	foreach($questionList as $id)
 	{
-		$objQuestionTmp=new Question();
+		$objQuestionTmp = new Question();
 
 		$objQuestionTmp->read($id);
 ?>
