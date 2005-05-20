@@ -42,6 +42,14 @@ if(!class_exists('ScormExport')):
 
 include_once($includePath."/lib/fileUpload.lib.php");
 include_once($includePath."/lib/pclzip/pclzip.lib.php");
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_quiz_test              = $tbl_cdb_names['quiz_test'             ];
+$tbl_quiz_rel_test_question = $tbl_cdb_names['quiz_rel_test_question'];
+$tbl_quiz_question          = $tbl_cdb_names['quiz_question'         ];
+$tbl_quiz_answer            = $tbl_cdb_names['quiz_answer'           ];
+
+
 require_once('../exercice/exercise.class.php');
 require_once('../exercice/question.class.php');
 require_once('../exercice/answer.class.php');
@@ -51,13 +59,6 @@ define(UNIQUE_ANSWER,   1);
 define(MULTIPLE_ANSWER, 2);
 define(FILL_IN_BLANKS,  3);
 define(MATCHING,        4);
-
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$TBL_EXERCICE_QUESTION = $tbl_cdb_names['quiz_rel_test_question'];
-$TBL_EXERCICES         = $tbl_cdb_names['quiz_test'             ];
-$TBL_QUESTIONS         = $tbl_cdb_names['quiz_question'         ];
-$TBL_REPONSES          = $tbl_cdb_names['quiz_answer'           ];
-
 
 /**
  * Exports a Learning Path to a SCORM package.
