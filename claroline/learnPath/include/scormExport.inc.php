@@ -55,10 +55,10 @@ require_once('../exercice/question.class.php');
 require_once('../exercice/answer.class.php');
 require_once('../exercice/exercise.lib.php');
 
-define(UNIQUE_ANSWER,   1);
-define(MULTIPLE_ANSWER, 2);
-define(FILL_IN_BLANKS,  3);
-define(MATCHING,        4);
+define('UNIQUE_ANSWER',   1);
+define('MULTIPLE_ANSWER', 2);
+define('FILL_IN_BLANKS',  3);
+define('MATCHING',        4);
 
 /**
  * Exports a Learning Path to a SCORM package.
