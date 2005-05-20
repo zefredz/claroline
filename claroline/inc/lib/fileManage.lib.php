@@ -399,6 +399,8 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
     if ($recursive)
     {
         $dirList = explode( '/', str_replace('\\', '/', $pathName) );
+        
+        $dirList[0] = empty($dirList[0]) ? '/' : $dirList[0];
 
         $dirTrail = '';
 
