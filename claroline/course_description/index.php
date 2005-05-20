@@ -31,7 +31,7 @@ if ( ! $is_courseAllowed) claro_disp_auth_form();
 claro_set_display_mode_available(TRUE);
 $nameTools = $langCourseProgram;
 
-$QUERY_STRING=''; // to remove parameters in the last bredcrumb link
+$noQUERY_STRING = TRUE; // to remove parameters in the last bredcrumb link
 /*
  * DB tables definition
  */
