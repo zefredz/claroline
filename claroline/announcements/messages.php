@@ -34,6 +34,8 @@
 
 require '../inc/claro_init_global.inc.php'; //	settings initialisation	
 
+claro_unquote_gpc();
+
 if ( ! $_cid ) claro_disp_select_course();
 
 include($includePath.'/lib/claro_mail.lib.inc.php');
@@ -102,7 +104,7 @@ function valida()
 	var	dat;
 
 	if (f.elements[3].length <	1) {
-		alert(\"$langPleaseSelectUsers\");
+		alert(\"" . clean_str_for_javascript($langPleaseSelectUsers) . "\");
 		return false;
 	}
 	for	(var i=0; i<f.elements[3].length; i++)	
@@ -112,7 +114,7 @@ function valida()
 	if(dat.length == 0)
 	{
 		//old: Debe	introducir el Texto	del	Mensaje
-		alert(\"$langPleaseEnterMessage\");
+		alert(\"" . clean_str_for_javascript($langPleaseEnterMessage) . "\");
 		f.emailContent.focus();
 		f.emailContent.select();
 		return false;	
@@ -155,9 +157,9 @@ $senderFirstName = $_user  ['firstName'   ];
 $senderLastName  = $_user  ['lastName'    ];
 $senderMail      = $_user  ['mail'        ];
 
-if($is_allowedToUse)	// check teacher status
+if( $is_allowedToUse )	// check teacher status
 {
-	echo "<h3>",$langMessages,"</h3>";
+	echo '<h3>' . $langMessages . '</h3>';
 
     /*
      * DEFAULT DISPLAY SETTINGS
@@ -234,7 +236,7 @@ if($is_allowedToUse)	// check teacher status
   			    $emailSubject = "[" . $siteName . " - " . $courseCode ."] " . $langProfessorMessage;
   
   			    // email content
-  			    $emailBody = stripslashes($_REQUEST['emailContent']) . "\n" .
+  			    $emailBody = $_REQUEST['emailContent'] . "\n" .
                              "\n" . 
                              '--' . "\n" . 
                              $senderFirstName . " " . $senderLastName . "\n" .
@@ -249,9 +251,9 @@ if($is_allowedToUse)	// check teacher status
                 $countUnvalid = 0;
                 $messageFailed = '';
 
-                foreach($userIdList as $userId)
+                foreach( $userIdList as $userId )
                 {
-                    if (!claro_mail_user($userId, $emailBody, $emailSubject, $senderMail, $senderFirstName." ".$senderLastName))
+                    if ( !claro_mail_user($userId, $emailBody, $emailSubject, $senderMail, $senderFirstName." ".$senderLastName) )
                     {
                         $messageFailed.= claro_failure::get_last_failure();
                         $countUnvalid++;
@@ -260,9 +262,9 @@ if($is_allowedToUse)	// check teacher status
 
   		    } // end if - is_array($userIdList)
     
-            $message = '<p>'.$langMsgSent.'<p>';
+            $message = '<p>' . $langMsgSent . '<p>';
     
-            if ($countUnvalid > 0)
+            if ( $countUnvalid > 0 )
     	    {
     	        $messageUnvalid	= '<p>'
     		                     . $langOn.'	'
@@ -299,7 +301,7 @@ if($is_allowedToUse)	// check teacher status
 	       (USED FOR ADD AND MODIFY)
 	 --------------------------------------*/
 
-	if ($displayForm ==	 TRUE)
+	if ( $displayForm == TRUE )
 	{
 		/*
 		 * Get user	list of	this course
@@ -313,11 +315,11 @@ if($is_allowedToUse)	// check teacher status
 
 		$result	= claro_sql_query($sql);
 
-		if ($result)
+		if ( $result )
 		{
-			while ($userData = mysql_fetch_array($result))
+			while ( $userData = mysql_fetch_array($result) )
 			{
-				$userList [] = $userData;
+				$userList[] = $userData;
 			}
 		}
 
@@ -326,15 +328,15 @@ if($is_allowedToUse)	// check teacher status
 		 */
 
 		$sql = "SELECT g.id, g.name, COUNT(gu.id) userNb 
-		        FROM `".$tbl_group."` AS g LEFT JOIN `".$tbl_groupUser."` gu 
+		        FROM `" . $tbl_group . "` AS g LEFT JOIN `" . $tbl_groupUser . "` gu 
 		        ON g.id = gu.team 
 		        GROUP BY g.id";
 
 		$groupSelect = claro_sql_query($sql);
 
-		while ($groupData = mysql_fetch_array($groupSelect))
+		while ( $groupData = mysql_fetch_array($groupSelect) )
 		{
-			$groupList [] = $groupData;
+			$groupList[] = $groupData;
 		}
 
 		/*
@@ -359,9 +361,9 @@ if($is_allowedToUse)	// check teacher status
 
 				"<select name=\"nocorreo[]\" size=15 multiple>";		
 
-		if ($groupList)
+		if ( $groupList )
 		{
-			foreach($groupList as $thisGroup)
+			foreach( $groupList as $thisGroup )
 			{
 				echo	"<option value=\"GROUP:".$thisGroup['id']."\">",
 						"* ",$thisGroup['name']," (",$thisGroup['userNb']," ",$langUsers,")",
@@ -375,7 +377,7 @@ if($is_allowedToUse)	// check teacher status
 
 		// display user list
 
-		foreach($userList as $thisUser)
+		foreach ( $userList as $thisUser )
 		{
 			echo	"<option value=\"USER:",$thisUser['uid'],"\">",
 					$thisUser['lastName']," ",$thisUser['firstName'],

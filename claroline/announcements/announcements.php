@@ -57,6 +57,9 @@
 $tlabelReq = "CLANN___";
 
 require '../inc/claro_init_global.inc.php';
+
+claro_unquote_gpc();
+
 define("CONFVAL_LOG_ANNOUNCEMENT_INSERT",FALSE);
 define("CONFVAL_LOG_ANNOUNCEMENT_DELETE",FALSE);
 define("CONFVAL_LOG_ANNOUNCEMENT_UPDATE",FALSE);
@@ -96,41 +99,47 @@ $subTitle = '';
                      COMMANDS SECTION (COURSE MANAGER ONLY)
   ============================================================================*/
 
+if ( isset($_REQUEST['id']) ) $id = (int) $_REQUEST['id'];
+else                          $id = 0;
+
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = '';
+
 if($is_allowedToEdit) // check teacher status
 {
 
-    if ( isset($_REQUEST['cmd']) )
+    if ( !empty($cmd) )
     {
 
         /*------------------------------------------------------------------------
                                  MOVE UP AND MOVE DOWN COMMANDS
          -------------------------------------------------------------------------*/
     
-        if ( $_REQUEST['cmd'] == 'exMvDown' )
+        if ( $cmd == 'exMvDown' )
         {
-            moveEntry($_REQUEST['id'],'DOWN');
+            moveEntry($id,'DOWN');
         }
     
-        if ( $_REQUEST['cmd'] == 'exMvUp' )
+        if ( $cmd == 'exMvUp' )
         {
-            moveEntry($_REQUEST['id'],'UP');
+            moveEntry($id,'UP');
         }
     
         /*------------------------------------------------------------------------
                               DELETE ANNOUNCEMENT COMMAND
         --------------------------------------------------------------------------*/
     
-        if ($_REQUEST['cmd'] == 'exDelete')
+        if ( $cmd == 'exDelete')
         {
             $sql = "DELETE FROM  `".$tbl_announcement."`
-                    WHERE id=\"".$_REQUEST['id']."\"";
+                    WHERE id=\"". $id ."\"";
     
             if ( claro_sql_query($sql) )
             {
                 $message = $langAnnDel;
-                if (CONFVAL_LOG_ANNOUNCEMENT_DELETE)
+                if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE )
                 {
-                    event_default("ANNOUNCEMENT",array ("DELETE_ENTRY"=>$_REQUEST['id']));
+                    event_default("ANNOUNCEMENT",array("DELETE_ENTRY"=>$id));
                 }
             }
             else
@@ -141,19 +150,19 @@ if($is_allowedToEdit) // check teacher status
     
         /*----------------------------------------------------------------------------
                             DELETE ALL ANNOUNCEMENTS COMMAND
-        ----------------------------------------------------------------------------*/
+         ----------------------------------------------------------------------------*/
     
-        if ($_REQUEST['cmd'] == 'exDeleteAll')
+        if ( $cmd == 'exDeleteAll' )
         {
-            $sql = "DELETE FROM  `".$tbl_announcement."`";
+            $sql = "DELETE FROM  `" . $tbl_announcement . "`";
     
             if ( claro_sql_query($sql) )
             {
                 $message = $langAnnEmpty;
             }
-            if (mysql_error()==0)
+            if ( mysql_error() == 0 )
             {
-                if (CONFVAL_LOG_ANNOUNCEMENT_DELETE)
+                if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE )
                 {
                     event_default("ANNOUNCEMENT",array ("DELETE_ENTRY"=>"ALL"));
                 }
@@ -166,16 +175,16 @@ if($is_allowedToEdit) // check teacher status
     
         /*------------------------------------------------------------------------
                                    EDIT ANNOUNCEMENT COMMAND
-        --------------------------------------------------------------------------*/
+         --------------------------------------------------------------------------*/
     
-        if ( $_REQUEST['cmd'] == 'rqEdit' )
+        if ( $cmd == 'rqEdit' )
         {
             $subTitle = $langModifAnn;
 
             // RETRIEVE THE CONTENT OF THE ANNOUNCEMENT TO MODIFY   
             $sql = "SELECT id, title, contenu content
                     FROM  `".$tbl_announcement."`
-                    WHERE id=\"".$_REQUEST['id']."\"";
+                    WHERE id=\"" . $id ."\"";
     
             list( $announcementToEdit ) =  claro_sql_query_fetch_all($sql);
     
@@ -188,7 +197,7 @@ if($is_allowedToEdit) // check teacher status
                                 CREATE NEW ANNOUNCEMENT COMMAND
           ------------------------------------------------------------------------*/
     
-        if ($_REQUEST['cmd'] == 'rqCreate')
+        if ( $cmd == 'rqCreate')
         {
             $subTitle = $langAddAnn;
             $displayForm = TRUE;
@@ -199,17 +208,27 @@ if($is_allowedToEdit) // check teacher status
                               SUBMIT ANNOUNCEMENT COMMAND
          -------------------------------------------------------------------------*/
     
-        if ($_REQUEST['cmd'] == 'exCreate' || $_REQUEST['cmd'] == 'exEdit')
+        if ( $cmd == 'exCreate' || $cmd == 'exEdit')
         {
+
+            if ( isset($_REQUEST['title']) ) $title = trim($_REQUEST['title']);
+            else                             $title = '';
+
+            if ( isset($_REQUEST['newContent']) ) $newContent = trim($_REQUEST['newContent']);
+            else                                  $newContent = '';
+            
+            if ( isset($_REQUEST['emailOption']) ) $emailOption = (int) $_REQUEST['emailOption'];
+            else                                   $emailOption = 0;
+
             /* MODIFY ANNOUNCEMENT */
     
-            if ( $_REQUEST['cmd'] == 'exEdit' ) // there is an Id => the announcement already exists => udpate mode
+            if ( $cmd == 'exEdit' ) // there is an Id => the announcement already exists => udpate mode
             {
                 $sql = "UPDATE  `".$tbl_announcement."`
-                        SET contenu= \"".trim($_REQUEST['newContent'])."\",
+                        SET contenu= \"". addslashes($newContent) ."\",
                             temps  = NOW(),
-                            `title`  = \"".trim($_REQUEST['title'])."\"
-                        WHERE id=\"".$_REQUEST['id']."\"";
+                            `title`  = \"". addslashes($title) ."\"
+                        WHERE id=\"". $id ."\"";
     
                 if ( claro_sql_query($sql) )
                 {
@@ -242,22 +261,22 @@ if($is_allowedToEdit) // check teacher status
                 // INSERT ANNOUNCEMENT
     
                 $sql = "INSERT INTO  `".$tbl_announcement."`
-                        SET title =\"".trim($_REQUEST['title'])."\",
-                            contenu = \"".trim($_REQUEST['newContent'])."\",
+                        SET title =\"" . addslashes($title) ."\",
+                            contenu = \"". addslashes($newContent) ."\",
                         temps = NOW(),
-                        ordre =\"".$order."\"";
+                        ordre =\"". $order ."\"";
     
                 $insert_id = claro_sql_query_insert_id($sql);
     
                 if ( $insert_id )
                 {
 		
-	       	// notify that a new anouncement is present in this course
+        	       	// notify that a new anouncement is present in this course
 	
-	        $eventNotifier->notifyCourseEvent("anouncement_added",$_cid, $_tid, $insert_id, $_gid, "0");		
-		
-		
+	                $eventNotifier->notifyCourseEvent("anouncement_added",$_cid, $_tid, $insert_id, $_gid, "0");		
+				
                     $message = $langAnnAdd;
+
                     if (CONFVAL_LOG_ANNOUNCEMENT_INSERT)
                     {
                         event_default("ANNOUNCEMENT",array ("INSERT_ENTRY"=>$insert_id));
@@ -267,22 +286,23 @@ if($is_allowedToEdit) // check teacher status
                 {
                     //error on insert
                 }
+
             } // end elseif cmd == exCreate
     
             /* SEND EMAIL (OPTIONAL) */
     
-            if ( isset($_REQUEST['emailOption']) && $_REQUEST['emailOption']==1 )
+            if ( $emailOption == 1 )
             {
                 // sender name and email
                 $courseSender =  $_user['firstName'] . ' ' . $_user['lastName'];
             
                 // email subject
                 $emailSubject = "[" . $siteName. " - " . $_course['officialCode'] . "] ";
-                if (trim($_REQUEST['title'])) $emailSubject .= stripslashes(trim($_REQUEST['title']));
-                else                          $emailSubject .= $langProfessorMessage;
+                if ( !empty($title) ) $emailSubject .= $title ;
+                else                  $emailSubject .= $langProfessorMessage;
     
                 // email message
-                $msgContent = stripslashes($_REQUEST['newContent']);
+                $msgContent = $newContent;
                 $msgContent = preg_replace('/<br( \/)?>/',"\n",$msgContent);
                 $msgContent = preg_replace('/<p>/',"\n\n",$msgContent);
                 $msgContent = preg_replace('/  /',' ',$msgContent);
@@ -335,6 +355,7 @@ if ( ! $is_courseAllowed)
     claro_disp_auth_form();
 
 $nameTools = $langAnnouncement;
+
 include($includePath.'/claro_init_header.inc.php');
 
 //stats
@@ -359,9 +380,9 @@ if ( !empty($message) )
                                  MAIN COMMANDS LINE
   ----------------------------------------------------------------------------*/
 
-$displayButtonLine = (bool) $is_allowedToEdit && ( !isset($_REQUEST['cmd']) || $_REQUEST['cmd'] != 'rqEdit' || $_REQUEST['cmd'] != 'rqCreate' ) ;
+$displayButtonLine = (bool) $is_allowedToEdit && ( empty($cmd) || $cmd != 'rqEdit' || $cmd != 'rqCreate' ) ;
 
-if ($displayButtonLine)
+if ( $displayButtonLine )
 {
     echo '<p>'."\n"
          .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqCreate">'
@@ -376,7 +397,7 @@ if ($displayButtonLine)
          .' | '
          .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exDeleteAll" '
          .' onclick="if (confirm(\''.clean_str_for_javascript($langEmptyAnn).' ?\')){return true;}else{return false;}">'
-         .'<img src="'.$imgRepositoryWeb.'delete.gif">'
+         .'<img src="'.$imgRepositoryWeb.'delete.gif" />'
          .$langEmptyAnn
          .'</a>'
          .'</p>'."\n";
@@ -388,7 +409,7 @@ if ($displayButtonLine)
                      FORM TO FILL OR MODIFY AN ANNOUNCEMENT
   ----------------------------------------------------------------------------*/
 
-if ($displayForm)
+if ( $displayForm )
 {
 
     // DISPLAY ADD ANNOUNCEMENT COMMAND
@@ -402,14 +423,14 @@ if ($displayForm)
             "<tr>",
             "<td valign=\"top\"><label for=\"title\">".$langTitle." : </label></td>",
             "<td><input type=\"text\" id=\"title\" name=\"title\" value = \"",
-                !empty($announcementToEdit) ? $announcementToEdit['title'] : '',
+                !empty($announcementToEdit) ? htmlspecialchars($announcementToEdit['title']) : '',
                 "\"size=\"80\"></td>",
             "</tr>\n",
             "<tr>",
             "<td valign=\"top\"><label for=\"newContent\">Content    : </label></td>",
             "<td>",
 
-            claro_disp_html_area('newContent', !empty($announcementToEdit) ? $announcementToEdit['content'] : '',12,67, $optAttrib=' wrap="virtual"');
+            claro_disp_html_area('newContent', !empty($announcementToEdit) ? htmlspecialchars($announcementToEdit['content']) : '',12,67, $optAttrib=' wrap="virtual"');
 
    echo    "</td>",
            "</tr>\n",
@@ -489,10 +510,10 @@ if ($displayList)
                 "<td>
                 <a href=\"#\" name=\"ann".$thisAnnouncement["id"]."\"></a>
                 \n",
-                $title ? "<p><strong>".$title."</strong></p>\n" : '',
+                $title ? "<p><strong>". htmlspecialchars($title) ."</strong></p>\n" : '',
                 $content,"\n";
 
-        if ($is_allowedToEdit)
+        if ( $is_allowedToEdit )
         {
             echo "<p>",
                  "<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEdit&amp;id=".$thisAnnouncement['id']."\">",
@@ -504,7 +525,7 @@ if ($displayList)
 
                 // DISPLAY MOVE UP COMMAND only if it is not the top announcement
 
-                if($iterator != 1)
+                if ( $iterator != 1 )
                 {
 //                  echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
 // the anchor dont refreshpage.
@@ -515,7 +536,7 @@ if ($displayList)
 
                 // DISPLAY MOVE DOWN COMMAND only if it is not the bottom announcement
 
-                if($iterator < $bottomAnnouncement)
+                if ( $iterator < $bottomAnnouncement )
                 {
 //                  echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
 // the anchor dont refreshpage.
@@ -568,7 +589,7 @@ function moveEntry($entryId,$cmd)
     else
         return FALSE;
 
-    if ($sortDirection)
+    if ( $sortDirection )
     {
         $sql = "SELECT id, ordre rank
                 FROM `".$tbl_announcement."`
@@ -603,7 +624,7 @@ function moveEntry($entryId,$cmd)
 
             // STEP 1 : FIND THE ORDER OF THE ANNOUNCEMENT
 
-            if ($announcementId == $thisAnnouncementId)
+            if ( $announcementId == $thisAnnouncementId )
             {
                 $thisAnnouncementRank      = $announcementRank;
                 $thisAnnouncementRankFound = TRUE;
