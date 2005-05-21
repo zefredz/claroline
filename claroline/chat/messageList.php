@@ -28,6 +28,8 @@
 $tlabelReq = 'CLCHT___'; // required
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 if ( !$_cid ) claro_disp_select_course();
 if ( ! $is_courseAllowed )	claro_disp_auth_form();
 
@@ -205,7 +207,7 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
 if ( isset($_REQUEST['chatLine']) && trim($_REQUEST['chatLine']) != "" )
 {
     $fchat = fopen($activeChatFile,'a');
-    $chatLine = htmlspecialchars( stripslashes($_REQUEST['chatLine']) );
+    $chatLine = htmlspecialchars( $_REQUEST['chatLine'] );
 	// replace url with real html link
     $chatLine = ereg_replace("(http://)(([[:punct:]]|[[:alnum:]])*)","<a href=\"\\0\" target=\"_blank\">\\2</a>",$chatLine);
 
