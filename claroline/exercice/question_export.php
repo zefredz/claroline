@@ -38,10 +38,10 @@ include('question.class.php');
 include('answer.class.php');
 
 // answer types
-define(UNIQUE_ANSWER,   1);
-define(MULTIPLE_ANSWER, 2);
-define(FILL_IN_BLANKS,  3);
-define(MATCHING,        4);
+define('UNIQUE_ANSWER',   1);
+define('MULTIPLE_ANSWER', 2);
+define('FILL_IN_BLANKS',  3);
+define('MATCHING',        4);
 
 /*--------------------------------------------------------
       Classes
@@ -468,6 +468,7 @@ class ImsMatching extends ImsItem
         {
             if ($correct = $this->answer->isCorrect($i))
             {
+                $response_ident = $this->question_ident . "_A_" . $i;
                 $out.= '  <respcondition continue="Yes"><conditionvar>' . "\n"
                      . '    <varequal respident="' . $response_ident . '">' . $correct . "</varequal>\n"
                      . '  </conditionvar><setvar action="Add">' . $this->answer->weighting[$i] . "</setvar>\n"

@@ -95,6 +95,7 @@ class ImsSection
      */
     function export_ordering()
     {
+        $out = '';
         if ($n = $this->exercise->isRandom()) {
             $out.= "<selection_ordering>"
                  . "  <selection>\n"
