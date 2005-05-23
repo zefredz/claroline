@@ -133,7 +133,7 @@ if( isset($usedInSeveralExercises) )
 else
 {
 	// we are in an exercise
-	if($exerciseId)
+	if( isset($exerciseId) )
 	{
 		$backLinkHtml = "\n".'<p><small><a href="'.$_SERVER['PHP_SELF'].'">&lt;&lt; '.$langGoBackToQuestionList.'</a></small></p>'."\n";
 	}
