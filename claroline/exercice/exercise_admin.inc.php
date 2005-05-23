@@ -60,16 +60,16 @@ if( isset($_REQUEST['submitExercise']) )
 	}
 	else
 	{
-	    $objExercise->updateTitle($_REQUEST['exerciseTitle']);
-	    $objExercise->updateDescription($_REQUEST['exerciseDescription']);
-	    $objExercise->updateType($_REQUEST['exerciseType']);
+	    $_SESSION['objExercise']->updateTitle($_REQUEST['exerciseTitle']);
+	    $_SESSION['objExercise']->updateDescription($_REQUEST['exerciseDescription']);
+	    $_SESSION['objExercise']->updateType($_REQUEST['exerciseType']);
 	    // build start date
 	    $composedStartDate = $_REQUEST['startYear']."-"
 	                        .$_REQUEST['startMonth']."-"
 	                        .$_REQUEST['startDay']." "
 	                        .$_REQUEST['startHour'].":"
 	                        .$_REQUEST['startMinute'].":00";
-	    $objExercise->set_start_date($composedStartDate);
+	    $_SESSION['objExercise']->set_start_date($composedStartDate);
 	    
 	    //  build end date
 	    if(isset($_REQUEST['useEndDate']) && $_REQUEST['useEndDate'])
@@ -84,43 +84,41 @@ if( isset($_REQUEST['submitExercise']) )
 	    {
 	        $composedEndDate = "9999-12-31 23:59:59";
 	    }
-	    $objExercise->set_end_date($composedEndDate);
+	    $_SESSION['objExercise']->set_end_date($composedEndDate);
 	    
 	    if( isset($_REQUEST['exerciseMaxTime']) && $_REQUEST['exerciseMaxTime'] )
 	    {
 			if( is_numeric($_REQUEST['exerciseMaxTimeMin']) && is_numeric($_REQUEST['exerciseMaxTimeSec']) )
 			{
 				$maxTime = $_REQUEST['exerciseMaxTimeMin']*60 + $_REQUEST['exerciseMaxTimeSec'];
-				$objExercise->set_max_time($maxTime);
+				$_SESSION['objExercise']->set_max_time($maxTime);
 			}
 			// don't set maxTime in the object if data are not numeric
 	    }
 	    else
 	    {
-			$objExercise->set_max_time( 0 );
+			$_SESSION['objExercise']->set_max_time( 0 );
 	    }
 		
-		$objExercise->set_max_attempt($_REQUEST['exerciseMaxAttempt']);
+		$_SESSION['objExercise']->set_max_attempt($_REQUEST['exerciseMaxAttempt']);
 	    
 	    if ( isset($_REQUEST['anonymousAttempts']) && $_REQUEST['anonymousAttempts'] == 'YES')
 	    {
-	        $objExercise->set_anonymous_attempts(true);
+	        $_SESSION['objExercise']->set_anonymous_attempts(true);
 	    }
 	    else
 	    {
-	        $objExercise->set_anonymous_attempts(false);
+	        $_SESSION['objExercise']->set_anonymous_attempts(false);
 	    }
 
-		$objExercise->set_show_answer($_REQUEST['exerciseShowAnswer']);
-		$objExercise->setRandom($randomQuestions);
-		$objExercise->save();
+		$_SESSION['objExercise']->set_show_answer($_REQUEST['exerciseShowAnswer']);
+		$_SESSION['objExercise']->setRandom($randomQuestions);
+		$_SESSION['objExercise']->save();
 				
 		// reads the exercise ID (only usefull for a new exercise)
-		$exerciseId = $objExercise->selectId();
+		$exerciseId = $_SESSION['objExercise']->selectId();
 
-		$_SESSION['objExercise'] = $objExercise;
-		
-		unset($_REQUEST['modifyExercise']);
+ 		unset($_REQUEST['modifyExercise']);
 		unset($modifyExercise);
 	}
 }
@@ -129,23 +127,23 @@ if( isset($_REQUEST['submitExercise']) )
 if( ! isset($_REQUEST['submitExercise']) || ( isset($_REQUEST['exerciseTitle']) && !empty($_REQUEST['exerciseTitle']) ) )
 {
 	// get all properties of the exercise before display of form or of resume
-	$exerciseTitle		= $objExercise->selectTitle();
-	$exerciseDescription    = $objExercise->selectDescription();
-	$exerciseType		= $objExercise->selectType();
-	$randomQuestions	= $objExercise->isRandom();
-	$maxTime		= $objExercise->get_max_time();
+	$exerciseTitle		= $_SESSION['objExercise']->selectTitle();
+	$exerciseDescription    = $_SESSION['objExercise']->selectDescription();
+	$exerciseType		= $_SESSION['objExercise']->selectType();
+	$randomQuestions	= $_SESSION['objExercise']->isRandom();
+	$maxTime		= $_SESSION['objExercise']->get_max_time();
 	$maxTimeSec		= $maxTime%60 ;
 	$maxTimeMin 		= ($maxTime-$maxTimeSec)/ 60;
 	
-	$maxAttempt		= $objExercise->get_max_attempt();
-	$showAnswer		= $objExercise->get_show_answer();
-	$anonymousAttempts      = $objExercise->anonymous_attempts();
+	$maxAttempt		= $_SESSION['objExercise']->get_max_attempt();
+	$showAnswer		= $_SESSION['objExercise']->get_show_answer();
+	$anonymousAttempts      = $_SESSION['objExercise']->anonymous_attempts();
     
 	// start date splitting
-	list($startDate, $startTime) = split(' ', $objExercise->get_start_date());
+	list($startDate, $startTime) = split(' ', $_SESSION['objExercise']->get_start_date());
 	  
 	// end date splitting
-	if($objExercise->get_end_date() == "9999-12-31 23:59:59")
+	if($_SESSION['objExercise']->get_end_date() == "9999-12-31 23:59:59")
 	{
 		// if we don't have a date get the date of now + 1 year
 		$useEndDate = false;
@@ -156,7 +154,7 @@ if( ! isset($_REQUEST['submitExercise']) || ( isset($_REQUEST['exerciseTitle']) 
 	{
 		// if we have a date separe date and time for the form functions
 		$useEndDate = true;
-		list($endDate, $endTime) = split(' ', $objExercise->get_end_date());
+		list($endDate, $endTime) = split(' ', $_SESSION['objExercise']->get_end_date());
 	}
 }
 
@@ -340,11 +338,11 @@ else
 <ul>
   <li><?php echo $langExerciseType." : "; echo ($exerciseType >= 2)?$langSequentialExercise:$langSimpleExercise; ?></li>
   <li><?php echo $langRandomQuestions." : "; echo ($randomQuestions)?$langYes:$langNo; ?></li>
-  <li><?php echo $langExerciseOpening. " : ";  echo claro_disp_localised_date($dateTimeFormatLong,$objExercise->get_start_date('timestamp')); ?></li>
+  <li><?php echo $langExerciseOpening. " : ";  echo claro_disp_localised_date($dateTimeFormatLong,$_SESSION['objExercise']->get_start_date('timestamp')); ?></li>
   <li><?php echo $langExerciseClosing." : "; 
                     if($useEndDate) 
                     {
-                      echo claro_disp_localised_date($dateTimeFormatLong,$objExercise->get_end_date('timestamp')); 
+                      echo claro_disp_localised_date($dateTimeFormatLong,$_SESSION['objExercise']->get_end_date('timestamp'));
                     }
                     else
                     {                    

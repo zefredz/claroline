@@ -63,6 +63,34 @@ $tbl_quiz_rel_test_question  = $tbl_cdb_names['quiz_rel_test_question' ];
 $tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
 $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 
+// if the object is not in the session
+if(!isset($_SESSION['objExercise']) || !is_object($_SESSION['objExercise']) )
+{
+	// construction of Exercise
+	$objExercise = new Exercise();
+
+	// if the specified exercise doesn't exist or is disabled
+	if( empty($_REQUEST['exerciseId']) || !$objExercise->read($_REQUEST['exerciseId'])
+			|| (!$objExercise->selectStatus() && !$is_allowedToEdit && !$_SESSION['inPathMode'])
+   	)
+	{
+		die($langExerciseNotFound);
+	}
+
+	// saves the object into the session
+    $_SESSION['objExercise'] = $objExercise;
+} // else session recorded objExercise
+
+// if questionNum comes from POST and not from GET
+// set $questionNum only if the exercise type requires it
+if($_SESSION['objExercise']->selectType() == 2)  // sequential exercise
+{
+	if( isset($_POST['questionNum']) )
+		$questionNum = $_POST['questionNum'] + 1;
+	else
+		$questionNum = 1;
+}
+
 // deal with the learning path mode
 if ($_SESSION['inPathMode'] == true)
 {
@@ -99,7 +127,7 @@ if( isset($_REQUEST['formSent']) )
 	// if the user has answered at least one question
 	if( isset($_REQUEST['choice']) && is_array($_REQUEST['choice']) )
 	{
-		if($_REQUEST['exerciseType'] == 1)
+		if( $_SESSION['objExercise']->selectType() == 1 )
 		{
 			// $exerciseResult receives the content of the form.
 			// Each choice of the student is stored into the array $choice
@@ -123,48 +151,28 @@ if( isset($_REQUEST['formSent']) )
 	if (!isset($_SESSION['exerciseResult']) ) $_SESSION['exerciseResult'] = $exerciseResult ;
 
 	// if it is the last question (only for a sequential exercise)
-	if($_REQUEST['exerciseType'] == 1 || $_POST['questionNum'] >= $_REQUEST['nbrQuestions'])
+	// or we have an exercise on one page only
+	if( $_SESSION['objExercise']->selectType() == 1 || $questionNum > $_REQUEST['nbrQuestions'] )
 	{
 		// goes to the script that will show the result of the exercise
 		header('Location: exercise_result.php');
 		exit();
 	}
 }
-// if the object is not in the session
-if(!isset($_SESSION['objExercise']))
-{
-	// construction of Exercise
-	$objExercise = new Exercise();
-
-	// if the specified exercise doesn't exist or is disabled
-	if( empty($_REQUEST['exerciseId']) || !$objExercise->read($_REQUEST['exerciseId'])
-			|| (!$objExercise->selectStatus() && !$is_allowedToEdit && !$_SESSION['inPathMode'])
-   	)
-	{
-		die($langExerciseNotFound);
-	}
-
-	// saves the object into the session
-    $_SESSION['objExercise'] = $objExercise;
-}
-else
-{
-    $objExercise = $_SESSION['objExercise'];
-}
 
 // get infos about the current exercise
-$exerciseTitle		= $objExercise->selectTitle();
-$exerciseDescription= $objExercise->selectDescription();
-$randomQuestions	= $objExercise->isRandom();
-$exerciseType		= $objExercise->selectType();
-$exerciseMaxTime 	= $objExercise->get_max_time();
-$exerciseMaxAttempt	= $objExercise->get_max_attempt();
+$exerciseTitle		= $_SESSION['objExercise']->selectTitle();
+$exerciseDescription= $_SESSION['objExercise']->selectDescription();
+$randomQuestions	= $_SESSION['objExercise']->isRandom();
+$exerciseType		= $_SESSION['objExercise']->selectType();
+$exerciseMaxTime 	= $_SESSION['objExercise']->get_max_time();
+$exerciseMaxAttempt	= $_SESSION['objExercise']->get_max_attempt();
 
 // count number of attempts of the user 
 $sql="SELECT count(`exe_result`) AS `tryQty`
         FROM `".$tbl_track_e_exercises."`
        WHERE `exe_user_id` = '".$_uid."'
-         AND `exe_exo_id` = ".$objExercise->selectId()."
+         AND `exe_exo_id` = ".$_SESSION['objExercise']->selectId()."
        GROUP BY `exe_user_id`";
 $result = claro_sql_query_fetch_all($sql);
 
@@ -175,7 +183,10 @@ else                                $userTryQty = 1;
 if(!isset($_SESSION['questionList']))
 {
 	// selects the list of question ID
-	$questionList = $randomQuestions?$objExercise->selectRandomList():$objExercise->selectQuestionList();
+	if( isset($randomQuestions) && $randomQuestions )
+		$questionList = $_SESSION['objExercise']->selectRandomList();
+	else
+		$questionList = $_SESSION['objExercise']->selectQuestionList();
 
 	// saves the question list into the session
 	//session_register('questionList');
@@ -193,22 +204,7 @@ if( isset($_SESSION['questionList']) && is_array($_SESSION['questionList']) )
 else
 	$nbrQuestions = 0;
 
-// if questionNum comes from POST and not from GET
-if( isset($_POST['questionNum']) )
-{
-	// only used for sequential exercises (see $exerciseType)
-	if(!$questionNum)
-	{
-		$questionNum = 1;
-	}
-	else
-	{
-		$questionNum = $_POST['questionNum'] + 1;
-	}
-}
-
-
-$nameTools = $objExercise->exercise;
+$nameTools = $_SESSION['objExercise']->exercise;
 
 if( isset($questionNum) )
 {
@@ -267,14 +263,14 @@ if( isset($_uid) )
 // AVAILABILITY DATES
 // check if the exercise is available (between opening and closing  dates)
 $mktimeNow      = mktime();
-$timeStartDate  = $objExercise->get_start_date('timestamp');
+$timeStartDate  = $_SESSION['objExercise']->get_start_date('timestamp');
 
 $statusMsg  .= "<br />".$langAvailableFrom." "
                     .claro_disp_localised_date($dateTimeFormatLong,$timeStartDate);
 
-if($objExercise->get_end_date() != "9999-12-31 23:59:59")
+if($_SESSION['objExercise']->get_end_date() != "9999-12-31 23:59:59")
 {
-    $timeEndDate    = $objExercise->get_end_date('timestamp');
+    $timeEndDate    = $_SESSION['objExercise']->get_end_date('timestamp');
     $statusMsg   .= " ".$langUntil." "
                         .claro_disp_localised_date($dateTimeFormatLong,$timeEndDate);
 }
@@ -284,7 +280,7 @@ if( $timeStartDate > $mktimeNow )
     $showExerciseForm = false;
     $errMsg .= "<br />".$langExerciseNotAvailable;
 }
-elseif( ($objExercise->get_end_date() != "9999-12-31 23:59:59") && ($timeEndDate < $mktimeNow) )
+elseif( ($_SESSION['objExercise']->get_end_date() != "9999-12-31 23:59:59") && ($timeEndDate < $mktimeNow) )
 {
     $showExerciseForm = false;
     $errMsg .= "<br />".$langExerciseNoMoreAvailable;
@@ -306,13 +302,12 @@ if( $showExerciseForm || $is_courseAdmin )
 <?php
 	if( $is_courseAdmin && $_SESSION['inPathMode'] != true )
 	{
-		echo '<a class="claroCmd" href="admin.php?exerciseId='.$objExercise->selectId().'">'.$langEditExercise.'</a>';
+		echo '<a class="claroCmd" href="admin.php?exerciseId='.$_SESSION['objExercise']->selectId().'">'.$langEditExercise.'</a>';
 	}	
 ?>
   <table width="100%" border="0" cellpadding="1" cellspacing="0">
   <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?<?php echo SID ?>" autocomplete="off">
   <input type="hidden" name="formSent" value="1">
-  <input type="hidden" name="exerciseType" value="<?php echo $exerciseType; ?>">
   <input type="hidden" name="questionNum" value="<?php echo $questionNum; ?>">
   <input type="hidden" name="nbrQuestions" value="<?php echo $nbrQuestions; ?>">
   <tr>
@@ -329,7 +324,7 @@ if( $showExerciseForm || $is_courseAdmin )
     if($exerciseType == 2)
     {
 		// if it is not the right question, goes to the next loop iteration
-		if( isset($_POST['questionNum']) && $_POST['questionNum'] != $i )
+		if( $questionNum && $questionNum != $i )
 		{
 			continue;
 		}
