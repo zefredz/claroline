@@ -87,16 +87,17 @@ if($is_allowedToEdit)
 		exit();
 	}
 	// Export a question in IMS/QTI
-	elseif($export)
+	elseif( isset($_REQUEST['export']) )
 	{
 		include('question_export.php');
 		
 		// contruction of XML flow
-		$xml = export_question($export);
+		$xml = export_question($_REQUEST['export']);
+		
 		if (!empty($xml))
 		{
 			header("Content-type: application/xml");
-			header('Content-Disposition: attachment; filename="question_'. $export . '.xml"');
+			header('Content-Disposition: attachment; filename="question_'. $_REQUEST['export'] . '.xml"');
 			echo $xml;
 			exit;
 		}
@@ -292,7 +293,7 @@ $questionList = $myPager->get_result_list();
     <a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $question['id']; ?>" onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript($langConfirmDeleteQuestion); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
   </td>
   <td align="center">
-    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?export=<?php echo $row[id]; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/export.gif" border="0"
+    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?export=<?php echo $question['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/export.gif" border="0"
       alt="<?php echo $langExport; ?>"></a>
   </td>
 
