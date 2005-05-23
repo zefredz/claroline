@@ -24,6 +24,7 @@ claro_disp_tool_title(array('mainTitle' => $langGroup,
 
 ?>
 <form method="post" action="group.php">
+<input type="hidden" name="claroFormId" value="<?php echo uniqid(); ?>">
 <table>
 	<tr valign="top">
 		<td>
