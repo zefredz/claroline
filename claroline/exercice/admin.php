@@ -145,24 +145,20 @@ if(!isset($_SESSION['objExercise']) || !is_object($_SESSION['objExercise']))
 
 	// saves the object into the session
 	$_SESSION['objExercise'] = $objExercise;
-}
-else
-{
-	$objExercise = $_SESSION['objExercise'];
-}
+}// use session recorded objExercise
 
 // doesn't select the exercise ID if we come from the question pool
 if(!isset($_REQUEST['fromExercise']))
 {
 	// gets the right exercise ID, and if 0 creates a new exercise
-	if(!$exerciseId = $objExercise->selectId())
+	if(!$exerciseId = $_SESSION['objExercise']->selectId())
 	{
 		$modifyExercise = 'yes';
 	}
 }
 
 
-$nbrQuestions = $objExercise->selectNbrQuestions();
+$nbrQuestions = $_SESSION['objExercise']->selectNbrQuestions();
 
 // intializes the Question object
 if(isset($editQuestion) || isset($newQuestion) || (isset($modifyQuestion)) || isset($modifyAnswers))
@@ -252,25 +248,26 @@ if(isset($editQuestion) || (isset($modifyQuestion)) || isset($newQuestion) || is
 	$nameTools = $langQuestionManagement;
 		
 	// shows a link to go back to the question pool
-	if (isset($_REQUEST['fromExercise'])) $addFrom = "fromExercise=".$_REQUEST['fromExercise']; else $addfrom = ""; 
+	if (isset($_REQUEST['fromExercise'])) 	$addFrom = "fromExercise=".$_REQUEST['fromExercise'];
+    else 									$addFrom = '';
         
-        if(!isset($exerciseId))
+    if(!isset($exerciseId))
 	{
 		
-                $interbredcrump[] = array("url" => "question_pool.php?".$addfrom,"name" => $langQuestionPool);
+                $interbredcrump[] = array("url" => "question_pool.php?".$addFrom,"name" => $langQuestionPool);
 	}
 	else
 	{
-		$interbredcrump[] = array("url" => "admin.php?fromExercise=".$addfrom,"name" => $objExercise->selectTitle());
+		$interbredcrump[] = array("url" => "admin.php?fromExercise=".$addFrom,"name" => $_SESSION['objExercise']->selectTitle());
 	}
 	
-	$QUERY_STRING = $questionId?'editQuestion='.$questionId.'&'.$addfrom:'newQuestion=yes';
+	$QUERY_STRING = $questionId?'editQuestion='.$questionId.'&'.$addFrom:'newQuestion=yes';
 }
 else
 {
 	if(isset($exerciseId))
 	{
-		$nameTools = $objExercise->selectTitle();
+		$nameTools = $_SESSION['objExercise']->selectTitle();
 	}
 	else
 	{
