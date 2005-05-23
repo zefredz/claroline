@@ -70,23 +70,23 @@ $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 // maximum number of exercises on a same page
 $exercisesPerPage = 25;
 
-$nameTools=$langExercices;
+$nameTools = $langExercices;
 
 /* Asking for an export in IMS/QTI ?
  * We need to take care of it before any content has been sent.
  */
-if (isset($export))
+if( isset($_REQUEST['export']) )
 {
     include('exercise_export.php');
     
     // Get the corresponding XML
-    $xml = export_exercise($export);
-    
+    $xml = export_exercise($_REQUEST['export']);
+
     // Send it if we got something. Otherwise, just continue as if nothing happened.
     if(!empty($xml))
     {
         header("Content-type: application/xml");
-        header('Content-Disposition: attachment; filename="quiz_'. $export . '.xml"');
+        header('Content-Disposition: attachment; filename="quiz_'. $_REQUEST['export'] . '.xml"');
         echo $xml;
         exit;
     }
@@ -349,7 +349,7 @@ foreach( $exercisesList as $exercise )
 		{
 ?>
 
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&amp;page=<?php echo $page; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>visible.gif" border="0" alt="<?php echo htmlentities($langDisable); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>visible.gif" border="0" alt="<?php echo htmlentities($langDisable); ?>"></a></td>
 
 <?php
 		}
@@ -358,19 +358,19 @@ foreach( $exercisesList as $exercise )
 		{
 ?>
 
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&amp;page=<?php echo $page; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>invisible.gif" border="0" alt="<?php echo htmlentities($langEnable); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>invisible.gif" border="0" alt="<?php echo htmlentities($langEnable); ?>"></a></td>
 
 <?php
 		}
 ?>
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?export=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/export.gif"
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?export=<?php echo $exercise['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/export.gif"
   border="0" alt="<?php echo $langExport; ?>"></a></td>
   
 <?php
     if($is_allowedToTrack)
     {
   ?>
-          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $row['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistiques.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
+          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $exercise['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistics.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
      
    <?php
     }
