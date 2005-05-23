@@ -265,7 +265,7 @@ if(isset($editQuestion) || (isset($modifyQuestion)) || isset($newQuestion) || is
 }
 else
 {
-	if(isset($exerciseId))
+	if(isset($_REQUEST['exerciseId']))
 	{
 		$nameTools = $_SESSION['objExercise']->selectTitle();
 	}
