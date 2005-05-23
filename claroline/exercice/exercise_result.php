@@ -56,31 +56,29 @@ $tbl_quiz_answer             = $tbl_cdb_names['quiz_answer'            ];
 $tbl_quiz_question           = $tbl_cdb_names['quiz_question'          ];
 $tbl_quiz_rel_test_question  = $tbl_cdb_names['quiz_rel_test_question' ];
 $tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
+$tbl_track_e_exercises		 = $tbl_cdb_names['track_e_exercices'];
 
-$TBL_EXERCICE_QUESTION = $tbl_quiz_rel_test_question; // No use in the script
-$TBL_EXERCICES         = $tbl_quiz_test;              // No use in the script
-$TBL_QUESTIONS         = $tbl_quiz_question;          // No use in the script
-$TBL_REPONSES          = $tbl_quiz_answer;			  // No use in the script
+if( isset($_SESSION['exerciseResult']) )   	$exerciseResult = $_SESSION['exerciseResult'];
+elseif( isset($_REQUEST['exerciseResult']) )   $exerciseResult = $_REQUEST['exerciseResult'];
 
-$TBL_TRACK_EXERCISES	= $tbl_cdb_names['track_e_exercices'];
-$TABLELEARNPATH         = $tbl_lp_learnPath;
-$TABLEMODULE            = $tbl_lp_module; // No use in the script
-$TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
-$TABLEASSET             = $tbl_lp_asset;
-$TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
+if( isset($_SESSION['questionList']) )   	$questionList = $_SESSION['questionList'];
+elseif( isset($_REQUEST['questionList']) )   $questionList = $_REQUEST['questionList'];
 
 // if the above variables are empty or incorrect, stops the script
-if(!is_array($exerciseResult) || !is_array($questionList) || !is_object($objExercise))
+if( !isset($exerciseResult) || !is_array($exerciseResult)
+	|| !isset($questionList) || !is_array($questionList)
+	|| !is_object($_SESSION['objExercise'])
+	)
 {
 	die($langExerciseNotFound);
 }
 
-$exerciseTitle		= $objExercise->selectTitle();
-$showAnswers 		= $objExercise->get_show_answer();
-$exerciseMaxTime 	= $objExercise->get_max_time();
-$exerciseMaxAttempt	= $objExercise->get_max_attempt();
+$exerciseTitle		= $_SESSION['objExercise']->selectTitle();
+$showAnswers 		= $_SESSION['objExercise']->get_show_answer();
+$exerciseMaxTime 	= $_SESSION['objExercise']->get_max_time();
+$exerciseMaxAttempt	= $_SESSION['objExercise']->get_max_attempt();
 
-$nameTools=$objExercise->exercise;
+$nameTools = $_SESSION['objExercise']->exercise;
 
 // calculate time needed to complete the exercise
 if (isset($_SESSION['exeStartTime']))
@@ -118,7 +116,9 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
             <input type=\"hidden\" name=\"op\" value=\"finish\">";
     }
 
-	$i=$totalScore=$totalWeighting=0;
+	$i = 0;
+	$totalScore = 0;
+	$totalWeighting = 0;
 	
 	// check if max allowed time has been respected 
 	if ( $exerciseMaxTime > 0 && $exerciseMaxTime < $timeToCompleteExe )  
@@ -133,12 +133,14 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 		// check if answers have to be shown
 		// count number of attempts of the user 
 		$sql="SELECT count(`exe_result`) AS `tryQty`
-		        FROM `$TBL_TRACK_EXERCISES`
-		       WHERE `exe_user_id` = '$_uid'
-		         AND `exe_exo_id` = ".$objExercise->selectId()."
+		        FROM `".$tbl_track_e_exercises."`
+		       WHERE `exe_user_id` = '".$_uid."'
+		         AND `exe_exo_id` = ".$_SESSION['objExercise']->selectId()."
 		       GROUP BY `exe_user_id`";
 		$result = claro_sql_query_fetch_all($sql);
-		$userTryQty = $result[0]['tryQty']+1;
+
+		if( isset($result[0]['tryQty']) )	$userTryQty = $result[0]['tryQty']+1;
+		else                                $userTryQty = 1; // first try
 		
 		if ( $showAnswers == 'ALWAYS' )
 		{
@@ -159,10 +161,13 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 	foreach($questionList as $questionId)
 	{
 		// gets the student choice for this question
-		$choice=$exerciseResult[$questionId];
+		if( isset($exerciseResult[$questionId]) )
+			$choice = $exerciseResult[$questionId];
+		else
+      		$choice = '';
 
 		// creates a temporary Question object
-		$objQuestionTmp=new Question();
+		$objQuestionTmp = new Question();
 
 		$objQuestionTmp->read($questionId);
 
@@ -266,54 +271,56 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 			}
 		} // end if ($displayAnswers)
 		// construction of the Answer object
-		$objAnswerTmp=new Answer($questionId);
+		$objAnswerTmp = new Answer($questionId);
 
-		$nbrAnswers=$objAnswerTmp->selectNbrAnswers();
+		$nbrAnswers = $objAnswerTmp->selectNbrAnswers();
 
-		$questionScore=0;
+		$questionScore = 0;
 
-		for($answerId=1;$answerId <= $nbrAnswers;$answerId++)
+		for($answerId = 1;$answerId <= $nbrAnswers;$answerId++)
 		{
-			$answer=$objAnswerTmp->selectAnswer($answerId);
-			$answerComment=$objAnswerTmp->selectComment($answerId);
-			$answerCorrect=$objAnswerTmp->isCorrect($answerId);
-			$answerWeighting=$objAnswerTmp->selectWeighting($answerId);
+			$answer = $objAnswerTmp->selectAnswer($answerId);
+			$answerComment = $objAnswerTmp->selectComment($answerId);
+			$answerCorrect = $objAnswerTmp->isCorrect($answerId);
+			$answerWeighting = $objAnswerTmp->selectWeighting($answerId);
 
+			$studentChoice = ''; // init to empty string, will be overwritten when a answer has been given
 			switch($answerType)
 			{
 				// for unique answer
-				case UNIQUE_ANSWER :	$studentChoice=($choice == $answerId)?1:0;
+				case UNIQUE_ANSWER :	$studentChoice = ($choice == $answerId)?1:0;
 
 										if($studentChoice)
 										{
-										  	$questionScore+=$answerWeighting;
-											$totalScore+=$answerWeighting;
+										  	$questionScore += $answerWeighting;
+											$totalScore += $answerWeighting;
 										}
 
 										break;
 				// for multiple answers
-				case MULTIPLE_ANSWER :	$studentChoice=$choice[$answerId];
+				case MULTIPLE_ANSWER :	if( isset($choice[$answerId]) ) $studentChoice = $choice[$answerId];
+
 
 										if($studentChoice)
 										{
-											$questionScore+=$answerWeighting;
-											$totalScore+=$answerWeighting;
+											$questionScore += $answerWeighting;
+											$totalScore += $answerWeighting;
 										}
 
 										break;
 				// for fill in the blanks
 				case FILL_IN_BLANKS :	// splits text and weightings that are joined with the character '::'
-										list($answer,$answerWeighting)=explode('::',$answer);
+										list($answer,$answerWeighting) = explode('::',$answer);
 
 										// splits weightings that are joined with a comma
-										$answerWeighting=explode(',',$answerWeighting);
+										$answerWeighting = explode(',',$answerWeighting);
 
 										// we save the answer because it will be modified
-										$temp=$answer;
+										$temp = $answer;
 
-										$answer='';
+										$answer = '';
 
-										$j=0;
+										$j = 0;
 
 										// the loop will stop at the end of the text
 										while(1)
@@ -322,79 +329,82 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 											if(($pos = strpos($temp,'[')) === false)
 											{
 												// adds the end of the text
-												$answer.=$temp;
+												$answer .= $temp;
 												break;
 											}
 
 											// adds the piece of text that is before the blank and ended by [
-											$answer.=substr($temp,0,$pos+1);
+											$answer .= substr($temp,0,$pos+1);
 
-											$temp=substr($temp,$pos+1);
+											$temp = substr($temp,$pos+1);
 
 											// quits the loop if there are no more blanks
 											if(($pos = strpos($temp,']')) === false)
 											{
 												// adds the end of the text
-												$answer.=$temp;
+												$answer .= $temp;
 												break;
 											}
 
-											$choice[$j]=trim(stripslashes($choice[$j]));
+											if( isset($choice[$j]) )
+												$choice[$j] = trim(stripslashes($choice[$j]));
+											else
+											    $choice[$j] = '';
 
 											// if the word entered by the student IS the same as the one defined by the professor
 											if(strtolower(substr($temp,0,$pos)) == strtolower($choice[$j]))
 											{
 												// gives the related weighting to the student
-												$questionScore+=$answerWeighting[$j];
+												$questionScore += $answerWeighting[$j];
 
 												// increments total score
-												$totalScore+=$answerWeighting[$j];
+												$totalScore += $answerWeighting[$j];
 
 												// adds the word in green at the end of the string
-												$answer.=$choice[$j];
+												$answer .= $choice[$j];
 											}
 											// else if the word entered by the student IS NOT the same as the one defined by the professor
 											elseif(!empty($choice[$j]))
 											{
 												// adds the word in red at the end of the string, and strikes it
-												$answer.= "<span class=\"error\"><s>".$choice[$j]."</s></span>";
+												$answer .= "<span class=\"error\"><s>".$choice[$j]."</s></span>";
 											}
 											else
 											{
 												// adds a tabulation if no word has been typed by the student
-												$answer.='&nbsp;&nbsp;&nbsp;';
+												$answer .= '&nbsp;&nbsp;&nbsp;';
 											}
 
 											// adds the correct word, followed by ] to close the blank
-											$answer.= " / <span class=\"correct\"><b>".substr($temp,0,$pos)."</b></span>]";
+											$answer .= " / <span class=\"correct\"><b>".substr($temp,0,$pos)."</b></span>]";
 
 											$j++;
 
-											$temp=substr($temp,$pos+1);
+											$temp = substr($temp,$pos+1);
 										}
 
 										break;
 				// for matching
 				case MATCHING :			if($answerCorrect)
 										{
-											if($answerCorrect == $choice[$answerId])
+											if( isset($choice[$answerId]) && $answerCorrect == $choice[$answerId] )
 											{
-												$questionScore+=$answerWeighting;
-												$totalScore+=$answerWeighting;
-												$choice[$answerId]=$matching[$choice[$answerId]];
+												$questionScore += $answerWeighting;
+												$totalScore += $answerWeighting;
+												$choice[$answerId] = $matching[$choice[$answerId]];
 											}
-											elseif(!$choice[$answerId])
+											elseif(!isset($choice[$answerId]))
 											{
-												$choice[$answerId]='&nbsp;&nbsp;&nbsp;';
+												$choice[$answerId] = '&nbsp;&nbsp;&nbsp;';
 											}
-											else
+											elseif( isset($choice[$answerId]) && isset($matching[$choice[$answerId]])  )
 											{
-												$choice[$answerId]="<span class=\"error\"><s>".$matching[$choice[$answerId]]."</s></span>";
+												$choice[$answerId] = "<span class=\"error\"><s>".$matching[$choice[$answerId]]."</s></span>";
 											}
 										}
 										else
 										{
-											$matching[$answerId]=$answer;
+											$matching[$answerId] = $answer;
 										}
 										break;
 			}	// end switch()
@@ -457,7 +467,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 ?>
 <tr>
   <td colspan="<?php echo $colspan; ?>" align="right">
-	<b><?php echo "$langScore : $questionScore/$questionWeighting"; ?></b>
+	<b><?php echo $langScore." : ".$questionScore."/".$questionWeighting; ?></b>
   </td>
 </tr>
 </tfoot>
@@ -527,13 +537,13 @@ if($is_trackingEnabled && $displayScore)
 {
     @include($includePath.'/lib/events.lib.inc.php');
     // if anonymousAttemps is true : record anonymous user stats, record authentified user stats without uid
-    if ( $objExercise->anonymous_attempts()  )
+    if ( $_SESSION['objExercise']->anonymous_attempts()  )
     {
-        event_exercice($objExercise->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe );
+        event_exercice($_SESSION['objExercise']->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe );
     }
     elseif( $_uid ) // anonymous attempts not allowed, record stats with uid only if uid is set
     {
-      event_exercice($objExercise->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe, $_uid );  
+		event_exercice($_SESSION['objExercise']->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe, $_uid );
     }
 
 }
@@ -561,7 +571,7 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
         $scoreMax = $totalWeighting;
         // need learningPath_module_id and raw_to_pass value
         $sql = "SELECT LPM.`raw_to_pass`, LPM.`learnPath_module_id`, UMP.`total_time`, UMP.`raw`
-                  FROM `".$tbl_lp_rel_learnPath_module."` AS LPM, `".$TABLEUSERMODULEPROGRESS."` AS UMP
+                  FROM `".$tbl_lp_rel_learnPath_module."` AS LPM, `".$tbl_lp_user_module_progress."` AS UMP
                  WHERE LPM.`learnPath_id` = '".$_SESSION['path_id']."'
                    AND LPM.`module_id` = '".$_SESSION['module_id']."'
 				   AND LPM.`learnPath_module_id` = UMP.`learnPath_module_id`
@@ -572,7 +582,7 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
 		$scormSessionTime = seconds_to_scorm_time($timeToCompleteExe);
         
 		// build sql query
-		$sql = "UPDATE `".$TABLEUSERMODULEPROGRESS."` SET ";
+		$sql = "UPDATE `".$tbl_lp_user_module_progress."` SET ";
 		// if recorded score is less then the new score => update raw, credit and status
 
 		if ($row['raw'] < $totalScore)
@@ -606,12 +616,12 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
 
 if ($_SESSION['inPathMode'] == true) 
 {
-  // display minimal html footer
+	// display minimal html footer
 	$hide_footer = true;
-  // clean exercise session vars only if in learning path mode
-  // because I don't know why the original author of exercise tool did not unset these here
-  session_unregister('exerciseResult');
-  session_unregister('questionList');
+	// clean exercise session vars only if in learning path mode
+	// because I don't know why the original author of exercise tool did not unset these here
+	unset($_SESSION['exerciseResult']);
+	unset($_SESSION['questionList']);
 }
 include($includePath.'/claro_init_footer.inc.php');
 ?>
