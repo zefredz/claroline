@@ -189,7 +189,7 @@ else
     }
     
 }
-    
+
 // include the locale settings language
 
 include($includePath.'/../lang/english/locale_settings.php');
@@ -198,5 +198,39 @@ if ( $languageInterface  != 'english' ) // // Avoid useless include as English l
 {
    include($includePath.'/../lang/'.$languageInterface.'/locale_settings.php');
 }
+
+/*----------------------------------------------------------------------
+  Prevent duplicate form submission
+  ----------------------------------------------------------------------*/
+
+define('CLARO_MAX_REGISTERED_FORM_ID', 50);
+
+if ( isset($_POST['claroFormId']) )
+{
+    if ( ! isset($_SESSION['claroFormIdList']) )
+    {
+        $_SESSION['claroFormIdList'] = array();
+    }
+    elseif ( in_array($_POST['claroFormId'], $_SESSION['claroFormIdList']) )
+    {
+        foreach($_POST as $thisPostKey => $thisPostValue)
+        {
+            $_REQUEST[$thisPostKey] = null;
+        }
+
+        $_POST = null;
+    }
+    else
+    {
+         $claroFormIdListCount = array_unshift($_SESSION['claroFormIdList'], 
+                                               $_POST['claroFormId']         );
+
+         if ( $claroFormIdListCount > CLARO_MAX_REGISTERED_FORM_ID )
+         {
+            array_pop( $_SESSION['claroFormIdList'] );
+         }
+    }
+}
+
 
 ?>
