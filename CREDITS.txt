@@ -98,6 +98,8 @@ Spanish translation :           Xavier Casassas ( xcc@mail.ics.co.at)
                                 Oda Begares (begaeres@arch.ucl.ac.be)
                                 Rodrigo Alejandro Parra Soto
 
+Spanish_Latin :                 Carlos Brys (brys@fce.unam.edu.ar)
+
 Thaï translation :              Sutas Jitchuen (dtsjc@mucc.mahidol.ac.th)
 
 Turkish translation :           Cuneyt Birkok (cbirkok@insanbilimleri.com)
