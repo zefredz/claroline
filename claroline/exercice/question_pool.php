@@ -127,9 +127,13 @@ if($is_allowedToEdit)
 
 <?php
 	$sql = "SELECT `id`, `titre` as `title`
-			FROM `".$tbl_quiz_test."`
-			WHERE `id` <> '".$fromExercise."'
-			ORDER BY `id`";
+			FROM `".$tbl_quiz_test."` ";
+			
+	if(isset($_REQUEST['fromExercise']))
+    {
+		$sql .= " WHERE `id` <> '".$_REQUEST['fromExercise']."'";
+	}
+	$sql .= " ORDER BY `id`";
 			
 	$exerciseList = claro_sql_query_fetch_all($sql);
 
@@ -260,7 +264,7 @@ $questionList = $myPager->get_result_list();
 ?>
 
 <tr>
-  <td><a href="admin.php?editQuestion=<?php echo $question['id']; ?>&fromExercise=<?php echo $fromExercise; ?>"><?php echo $question['question']; ?></a></td>
+  <td><a href="admin.php?editQuestion=<?php echo $question['id']; ?>&fromExercise=<?php echo (isset($_REQUEST['fromExercise']))?$_REQUEST['fromExercise']:''; ?>"><?php echo $question['question']; ?></a></td>
   <td align="center">
 
 <?php
@@ -276,7 +280,7 @@ $questionList = $myPager->get_result_list();
 			{
 ?>
 
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?recup=<?php echo $question['id']; ?>&fromExercise=<?php echo $_REQUEST['fromExercise']; ?>"><img src="<?php echo $imgRepositoryWeb ?>enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?recup=<?php echo $question['id']; ?>&fromExercise=<?php echo (isset($_REQUEST['fromExercise']))?$_REQUEST['fromExercise']:''; ?>"><img src="<?php echo $imgRepositoryWeb ?>enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
 
 <?php
 			}

@@ -69,7 +69,7 @@ if(isset($_REQUEST['submitQuestion']))
             $_SESSION['objQuestion']->delete($exerciseId);
 
             // removes the old question ID from the question list of the Exercise object
-            $objExercise->removeFromList($modifyQuestion);
+            $_SESSION['objExercise']->removeFromList($modifyQuestion);
 
             $nbrQuestions--;
 
@@ -134,9 +134,9 @@ if(isset($_REQUEST['submitQuestion']))
 		if($exerciseId)
 		{
 			// adds the question ID into the question list of the Exercise object
-			if($objExercise->addToList($questionId))
+			if($_SESSION['objExercise']->addToList($questionId))
 			{
-				$objExercise->save();
+				$_SESSION['objExercise']->save();
 
 				$nbrQuestions++;
 			}
