@@ -14,13 +14,15 @@
 // Include claro_init_global
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 // include profile library
 include($includePath."/conf/user_profile.conf.php");
 
 DEFINE('CONFVAL_ASK_FOR_OFFICIAL_CODE',TRUE);
 
 // Redirect before first output
-if( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
+if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE )
 {
 	header("Location: ".$rootWeb);
     exit;
@@ -28,20 +30,20 @@ if( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
 
 // Initialise request variable from form 
 
-if ( isset($_REQUEST['lastname']) ) $lastname = $_REQUEST['lastname'];
-else $lastname = "";
-if ( isset($_REQUEST['firstname']) ) $firstname = $_REQUEST['firstname'];
-else $firstname = "";
-if ( isset($_REQUEST['officialCode']) ) $officialCode = $_REQUEST['officialCode'];
-else $officialCode = "";
-if ( isset($_REQUEST['username']) ) $username = $_REQUEST['username'];
-else $username = "";
-if ( isset($_REQUEST['email']) ) $email = $_REQUEST['email'];
-else $email = "";
-if ( isset($_REQUEST['phone']) ) $phone = $_REQUEST['phone'];
-else $phone = "";
-if ( isset($_REQUEST['status']) ) $status = $_REQUEST['status'];
-else $status = "";
+if ( isset($_REQUEST['lastname']) ) $lastname = trim($_REQUEST['lastname']);
+else                                $lastname = '';
+if ( isset($_REQUEST['firstname']) ) $firstname = trim($_REQUEST['firstname']);
+else                                 $firstname = '';
+if ( isset($_REQUEST['officialCode']) ) $officialCode = trim($_REQUEST['officialCode']);
+else                                    $officialCode = '';
+if ( isset($_REQUEST['username']) ) $username = trim($_REQUEST['username']);
+else                                $username = '';
+if ( isset($_REQUEST['email']) ) $email = trim($_REQUEST['email']);
+else                             $email = '';
+if ( isset($_REQUEST['phone']) ) $phone = trim($_REQUEST['phone']);
+else                             $phone = '';
+if ( isset($_REQUEST['status']) ) $status = (int) $_REQUEST['status'];
+else                              $status = '';
 
 $display_status_selector = (bool) ($is_platformAdmin OR $allowSelfRegProf);
 
@@ -61,7 +63,7 @@ claro_disp_tool_title($langRegistration);
             <label for="lastname"><?php echo $langLastname;?>&nbsp;:</label>
         </td>
         <td>
-            <input type="text" size="40" name="lastname" id="lastname" value="<?php echo $lastname?>">
+            <input type="text" size="40" name="lastname" id="lastname" value="<?php echo htmlspecialchars($lastname); ?>">
         </td>
     </tr>
 
@@ -70,9 +72,10 @@ claro_disp_tool_title($langRegistration);
 			<label for="firstname"><?php echo $langFirstname ?>&nbsp;:</label>
 		</td>
 		<td>
-			<input type="text" size="40" id="firstname" name="firstname" value="<?php echo $firstname?>">
+			<input type="text" size="40" id="firstname" name="firstname" value="<?php echo htmlspecialchars($firstname); ?>">
 		</td>
 	</tr>
+
 <?php
 if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 {
@@ -82,7 +85,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
             <label for="officialCode"><?php echo $langOfficialCode ?>&nbsp;:</label>
         </td>
         <td>
-            <input type="text" size="40" id="offcialCode" name="officialCode" value="<?php echo $officialCode?>">
+            <input type="text" size="40" id="offcialCode" name="officialCode" value="<?php echo htmlspecialchars($officialCode); ?>">
         </td>
     </tr>
 <?php
@@ -101,7 +104,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 			<label for="username"><?php echo $langUserName ?>&nbsp;:</label>
 		</td>
 		<td>
-			<input type="text" size="40" id="username" name="username" value="<?php echo $username?>">
+			<input type="text" size="40" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>">
 		</td>
 	</tr>
 
@@ -138,7 +141,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 			<label for="email"><?php echo $langEmail;?>&nbsp;:</label>
         </td>
 		<td>
-			<input type="text" size="40" id="email" name="email" value="<?php echo $email?>">
+			<input type="text" size="40" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>">
 		</td>
 	</tr>
 
@@ -147,7 +150,7 @@ if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
             <label for="phone"><?php echo $langPhone;?>&nbsp;:</label>
         </td>
         <td>
-            <input type="text" size="40" id="phone" name="phone" value="<?php echo $phone?>">
+            <input type="text" size="40" id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>">
         </td>
     </tr>
 

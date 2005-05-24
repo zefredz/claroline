@@ -14,6 +14,8 @@
 // Include 
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 // include profile configuration file
 include $includePath.'/conf/user_profile.conf.php';
 
@@ -27,8 +29,9 @@ include($includePath.'/lib/claro_mail.lib.inc.php');
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user  = $tbl_mdb_names['user'];
 
-if (!isset($userMailCanBeEmpty))   $userMailCanBeEmpty   = TRUE;
-if (!isset($userPasswordCrypted))  $userPasswordCrypted	 = FALSE;
+// Configuration Variables Default Values
+if ( !isset($userMailCanBeEmpty) )   $userMailCanBeEmpty   = TRUE;
+if ( !isset($userPasswordCrypted) )  $userPasswordCrypted	 = FALSE;
 
 // Initialise variables
 $regDataOk = FALSE; // default value...
@@ -73,7 +76,7 @@ if( isset($_REQUEST['submitRegistration']) )
 
 	// CHECK IF THE TWO PASSWORD TOKEN ARE IDENTICAL
 
-	elseif($password_conf != $password)
+	elseif ( $password_conf != $password )
 	{
 		$regDataOk = FALSE;
 		unset($password_conf, $password);
@@ -90,12 +93,12 @@ if( isset($_REQUEST['submitRegistration']) )
                                                 $lastname, $firstname, $email) ) )
     {
         $regDataOk = FALSE;
-        $msg .= '<p>'.$langPassTooEasy.' <code>'.substr( md5( date('Bis').$_SERVER['HTTP_REFERER'] ), 0, 8 ).'</code></p>'."\n";
+        $msg .= '<p>' . $langPassTooEasy . ' <code>'.substr( md5( date('Bis').$_SERVER['HTTP_REFERER'] ), 0, 8 ).'</code></p>'."\n";
     }
 
 	// CHECK EMAIL ADDRESS VALIDITY
 
-    elseif( !empty($email) && ! eregi( $regexp, $email ))
+    elseif ( !empty($email) && ! eregi($regexp,$email) )
 	{
 		$regDataOk = FALSE;
 		unset($password_conf, $password, $email);
@@ -109,17 +112,17 @@ if( isset($_REQUEST['submitRegistration']) )
 	{
         $sql = 'SELECT COUNT(*) `loginCount`
                 FROM `'.$tbl_user.'` 
-                WHERE username="'.$username.'"';
+                WHERE username="' . addslashes($username) . '"';
 
         list($result) = claro_sql_query_fetch_all($sql);
 
-        if ($result['loginCount'] > 0)
+        if ( $result['loginCount'] > 0 )
         {
             $regDataOk = FALSE;
 
             unset($password_conf, $password, $username);
 
-            $msg .= '<p>'.$langUserTaken.'</p>'."\n";
+            $msg .= '<p>' . $langUserTaken . '</p>' . "\n";
         }
         else
         {
@@ -128,18 +131,18 @@ if( isset($_REQUEST['submitRegistration']) )
     }
 } // if ! isset($_REQUEST['submitRegistration']) 
 
-if ( ! empty($msg)) claro_disp_message_box($msg);
+if ( ! empty($msg) ) claro_disp_message_box($msg);
 
 if ( ! $regDataOk)
 {
 	echo '<p>'
        . '<a href="inscription.php'
-       . '?lastname='.$lastname
-       . '&amp;firstname='.$firstname
-       . '&amp;email='.$email
-       . '&amp;officialCode='.$officialCode
-       . '&amp;phone='.$phone
-       . '&amp;status='.$status
+       . '?lastname='. urlencode($lastname)
+       . '&amp;firstname='. urlencode($firstname)
+       . '&amp;email='. urlencode($email)
+       . '&amp;officialCode='. urlencode($officialCode)
+       . '&amp;phone='. urlencode($phone)
+       . '&amp;status='. urlencode($status)
        . '">'
 	   . $langAgain
        . '</a>'
@@ -149,25 +152,27 @@ if ( ! $regDataOk)
 
 /*> > > > > > > > > > > > REGISTRATION ACCEPTED < < < < < < < < < < < <*/
 
-if ($regDataOk)
+if ( $regDataOk )
 {
 	/*-----------------------------------------------------
 	  STORE THE NEW USER DATA INSIDE THE CLAROLINE DATABASE
 	  -----------------------------------------------------*/
 
+    $password = $userPasswordCrypted?md5($password):$password;
+
     $sql = "INSERT INTO `".$tbl_user."`
-            SET `nom`          = \"".$lastname."\",
-                `prenom`       = \"".$firstname."\",
-                `username`     = \"".$username."\",
-                `password`     = \"".($userPasswordCrypted?md5($password):$password)."\",
-                `email`        = \"".$email."\",
-                `statut`       = \"".$status."\",
-                `officialCode` = \"".$officialCode."\",
-                `phoneNumber`  = \"".$phone."\"";
+            SET `nom`          = '". addslashes($lastname) ."' ,
+                `prenom`       = '". addslashes($firstname) ."',
+                `username`     = '". addslashes($username) ."',
+                `password`     = '". addslashes($password) ."',
+                `email`        = '". addslashes($email) ."',
+                `statut`       = '". (int) $status ."',
+                `officialCode` = '". addslashes($officialCode) ."',
+                `phoneNumber`  = '". addslashes($phone) ."'";
 
     $_uid = claro_sql_query_insert_id($sql);
 
-    if ($_uid)
+    if ( $_uid )
     {
     	/*--------------------------------------
     	          SESSION REGISTERING
@@ -218,9 +223,9 @@ if ($regDataOk)
         
     } // if _uid
  
-    printf($langMessageSubscribeDone_p_firstname_lastname, $firstname,$lastname);
+    printf($langMessageSubscribeDone_p_firstname_lastname, $firstname, $lastname);
 
-	if($is_allowedCreateCourse)
+	if ( $is_allowedCreateCourse )
 	{
 		echo '<p>'.$langNowGoCreateYourCourse.'</p>'."\n";
 	}
