@@ -4,7 +4,7 @@
  *
  * Script displays topics list of a forum
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL) 
  * @copyright (C) 2001 The phpBB Group
@@ -51,6 +51,8 @@ require $includePath . '/lib/pager.lib.php';
  -----------------------------------------------------------------*/
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_course_user      = $tbl_mdb_names['rel_course_user'];
+
 $tbl_cdb_names = claro_sql_get_course_tbl();
 
 $tbl_forums           = $tbl_cdb_names['bb_forums'];
@@ -62,7 +64,6 @@ $tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
 $tbl_group_properties = $tbl_cdb_names['group_property'];
 $tbl_student_group	  = $tbl_cdb_names['group_team'];
 $tbl_user_group       = $tbl_cdb_names['group_rel_team_user'];
-$tbl_course_user      = $tbl_mdb_names['rel_course_user'];
 $tbl_group_properties = $tbl_cdb_names['group_property'];
 
 /*-----------------------------------------------------------------
@@ -115,10 +116,10 @@ if ( $forum_exists )
         // Get topics list
         
         $sql = "SELECT    t.*, p.post_time
-                FROM      `".$tbl_topics."` t
-                LEFT JOIN `".$tbl_posts."` p 
+                FROM      `" . $tbl_topics . "` t
+                LEFT JOIN `" . $tbl_posts . "` p 
                        ON t.topic_last_post_id = p.post_id
-                WHERE     t.forum_id = '". $forum_id ."'
+                WHERE     t.forum_id = '" . (int) $forum_id . "'
                 ORDER BY  topic_time DESC";
         
         $topicPager = new claro_sql_pager($sql, $start, $topics_per_page);
