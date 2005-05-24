@@ -27,7 +27,7 @@
  * 	- displayCourseAddResult
  * 		New course is added.  Show  success message.
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  * 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  * 
@@ -42,7 +42,7 @@
  *
  */
 require '../inc/claro_init_global.inc.php';
-
+claro_unquote_gpc();
 //// Config tool
 include($includePath.'/conf/course_main.conf.php');
 
@@ -58,7 +58,6 @@ $controlMsg = array();
 /**
  * DB tables definition
  */
-
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_course         = $tbl_mdb_names['course'          ];
@@ -179,21 +178,23 @@ else
 			fill_course_repository($currentCourseRepository);
 
 			// function 	fill_Db_course($courseDbName,$courseRepository)
-			fill_Db_course(	$currentCourseDbName, 
-							$currentCourseRepository, 
-							$newcourse_language);
+            fill_Db_course(	$currentCourseDbName
+                          , $currentCourseRepository
+                          , $newcourse_language)
+                          ;
 
-			register_course($currentCourseId, 
-							$currentCourseCode, 
-							$currentCourseRepository, 
-							$currentCourseDbName, 
-							$newcourse_titulars,
-							$newcourse_email,
-							$newcourse_category,
-							$newcourse_label,
-							$newcourse_language , 
-							$_uid, 
-							$expirationDate);
+			register_course($currentCourseId
+                            ,$currentCourseCode
+                            ,$currentCourseRepository
+                            ,$currentCourseDbName
+                            ,$newcourse_titulars
+                            ,$newcourse_email
+                            ,$newcourse_category
+                            ,$newcourse_label
+                            ,$newcourse_language 
+                            ,$_uid
+                            ,$expirationDate
+                            );
 
 			$displayCourseAddResult       = TRUE;
 			$displayCoursePropertiesForm  = FALSE;
@@ -203,15 +204,15 @@ else
 			$strCreationMailNotificationSubject = 		    '['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$newcourse_label;
 			$strCreationMailNotificationBody = 
 		    claro_disp_localised_date($dateTimeFormatLong)."\n"
-		    .$langCreationMailNotificationBody.' '.$siteName.' '
-		    .$langByUser.$_user['firstName'].' '.$_user['lastName']." (".$_user['mail'].") \n"
-		    .' '.$langCode			.' : '.$currentCourseCode."\n"
-		    .' '.$langCourseTitle	.' : '.$newcourse_label."\n"
-		    .' '.$langProfessors	.' : '.$newcourse_titulars."\n"
-		    .' '.$langEmail			.' : '.$newcourse_email."\n\n"
-		    .' '.$langCategory.' : '.$newcourse_category."\n"
-		    .' '.$langLanguage.' : '.$newcourse_language."\n"
-		    ."\n ".$coursesRepositoryWeb.$currentCourseRepository."/\n\n";
+		    . $langCreationMailNotificationBody.' ' . $siteName . ' '
+		    . $langByUser . $_user['firstName'] . ' ' . $_user['lastName'] . ' (' . $_user['mail'] . ') '."\n"
+		    . ' ' . $langCode			. ' : ' . $currentCourseCode."\n"
+		    . ' ' . $langCourseTitle	. ' : ' . $newcourse_label."\n"
+		    . ' ' . $langProfessors	    . ' : ' . $newcourse_titulars."\n"
+		    . ' ' . $langEmail			. ' : ' . $newcourse_email."\n\n"
+		    . ' ' . $langCategory       . ' : ' . $newcourse_category."\n"
+		    . ' ' . $langLanguage       . ' : ' . $newcourse_language."\n"
+		    . "\n " . $coursesRepositoryWeb.$currentCourseRepository."/\n\n";
 		    
 		    // send a email to administrator(s) about the course creation
 		    $sql = "SELECT `idUser` FROM `".$tbl_admin."`";
@@ -386,11 +387,12 @@ elseif($displayCourseAddResult)
 	else
 	{
 		echo '<a class="claroCmd" href="add_course.php?fromAdmin=yes">'.$langAnotherCreateSite.'</a> | '
-		   . '<a class="claroCmd" href="../admin/index.php">'.$langBackToAdmin.'</a>';
+		   . '<a class="claroCmd" href="../admin/index.php">'.$langBackToAdmin.'</a>'
+		   ;
 	}
 
 
 } // if all fields fulfilled
 
-include($includePath."/claro_init_footer.inc.php");
+include($includePath . '/claro_init_footer.inc.php');
 ?>
