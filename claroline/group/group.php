@@ -36,6 +36,9 @@
 
 $tlabelReq = 'CLGRP___';
 require '../inc/claro_init_global.inc.php';
+
+claro_unquote_gpc();
+
 if ( ! $_cid) claro_disp_select_course();
 $nameTools     = $langGroups;
 
@@ -106,31 +109,22 @@ $isGroupRegAllowed       =     $_groupProperties ['registrationAllowed']
                                );
 // Warning $groupRegAllowed is not valable before check of groupPerUserQuota
 
-$groupPrivate               = $_groupProperties ['private'            ];
-$nbGroupPerUser             = $_groupProperties ['nbGroupPerUser'     ];
+$groupPrivate   = $_groupProperties ['private'            ];
+$nbGroupPerUser = $_groupProperties ['nbGroupPerUser'     ];
 
 if ( !$nbGroupPerUser )
 {
     $sql = "SELECT COUNT(*)
-         FROM `".$tbl_Groups."`";
+            FROM `" . $tbl_Groups . "`";
     $result = claro_sql_query($sql);
     $tmp = mysql_fetch_array($result);
     $nbGroupPerUser = $tmp[0];
 }
-$tools['forum'   ] = $_groupProperties ['tools'] ['forum'    ];
-$tools['document'] = $_groupProperties ['tools'] ['document' ];
-$tools['wiki'    ] = $_groupProperties ['tools'] ['wiki'     ];
-$tools['chat'    ] = $_groupProperties ['tools'] ['chat'     ];
 
-//  THIS 2 SQL query  upgrade course db on fly.  
-$sql = "ALTER IGNORE TABLE `".$tbl_GroupsProperties."`
-        CHANGE `nbCoursPerUser` `nbGroupPerUser` TINYINT UNSIGNED DEFAULT '1'";
-@mysql_query($sql);
-
-$sql = "ALTER IGNORE TABLE `".$tbl_GroupsProperties."`
-        ADD `nbGroupPerUser` TINYINT UNSIGNED DEFAULT '1'
-        AFTER `self_registration`";
-@mysql_query($sql);
+$tools['forum'   ] = $_groupProperties['tools']['forum'    ];
+$tools['document'] = $_groupProperties['tools']['document' ];
+$tools['wiki'    ] = $_groupProperties['tools']['wiki'     ];
+$tools['chat'    ] = $_groupProperties['tools']['chat'     ];
 
 //// **************** ACTIONS ***********************
 
@@ -140,21 +134,20 @@ $display_groupadmin_manager = (bool) $is_allowedToManage;
 
 // This is called by the form build in group_creation.php
 
-if ($is_allowedToManage)
+if ( $is_allowedToManage )
 {
     if ( isset($_REQUEST['creation']) )
     {   
         // For all Group forums, cat_id=1
 
-
         $group_max = (int) $_REQUEST['group_max'];
         $group_quantity = (int) $_REQUEST['group_quantity'];
 
-        if ($group_quantity<1) $group_quantity = 1;
+        if ( $group_quantity<1 ) $group_quantity = 1;
 
         $lastOrder = 0;
 
-        for ($i = 1; $i <= $group_quantity; $i++)
+        for ( $i = 1; $i <= $group_quantity; $i++ )
         {
             /**
              * Insert a new group in the course group table and keep its ID
@@ -173,7 +166,8 @@ if ($is_allowedToManage)
 
             // we need to know what is the max forum_order only if lastOrder 
             // is not already set
-            if (!$lastOrder)
+
+            if ( !$lastOrder )
             {
                 // select max order in the forum cat only (cat_id = 1)
                 $sql = "SELECT MAX(`forum_order`)
@@ -208,11 +202,11 @@ if ($is_allowedToManage)
 
             /*  Create a Unique ID path preventing other enter */
 
-            $secretDirectory    =    uniqid("")."_team_".$lastId;
+            $secretDirectory = uniqid("")."_team_".$lastId;
 
             while ( check_name_exist($coursesRepositorySys.$currentCourseRepository."/group/$secretDirectory") )
             {
-                $secretDirectory = uniqid("")."_team_".$lastId;
+                $secretDirectory = uniqid("") . "_team_" . $lastId;
             }
 
             mkdirs($coursesRepositorySys.$currentCourseRepository."/group/".$secretDirectory, 0777);
@@ -241,6 +235,7 @@ if ($is_allowedToManage)
 
     // This is called by the form in group_properties.php
     // set common properties for all groups
+
     if ( isset($_REQUEST['properties']) )
     {
         if ( $_REQUEST['limitNbGroupPerUser'] == "ALL")
@@ -251,7 +246,7 @@ if ($is_allowedToManage)
         {
             $limitNbGroupPerUser = (int) $_REQUEST['limitNbGroupPerUser'];
 
-            if ($limitNbGroupPerUser < 1 ) $limitNbGroupPerUser = 1;
+            if ( $limitNbGroupPerUser < 1 ) $limitNbGroupPerUser = 1;
 
             $sqlLimitNbGroupPerUser = "'".$limitNbGroupPerUser."'";
             $nbGroupPerUser         = $limitNbGroupPerUser;
@@ -277,15 +272,15 @@ if ($is_allowedToManage)
         if ( isset($_REQUEST['wiki']) ) $wiki = (int) $_REQUEST['wiki'];
         else                            $wiki = 0;
         
-        $sql = "INSERT IGNORE INTO `".$tbl_GroupsProperties."`
+        $sql = "INSERT IGNORE INTO `" . $tbl_GroupsProperties . "`
                SET id                =  1 ,
-                   self_registration = '".$self_registration."',
-                   private           = '".$private."',
+                   self_registration = '" . $self_registration . "',
+                   private           = '" . $private . "',
                    forum             = '1', # always active 
-                   chat              = '".$chat."',
-                   wiki              = '".$wiki."',
+                   chat              = '" . $chat . "',
+                   wiki              = '" . $wiki . "',
                    document          = '1' , # always active and private.
-                  `nbGroupPerUser`   = ".$sqlLimitNbGroupPerUser.""; // DO NOT ADD '' around 
+                  `nbGroupPerUser`   = " . $sqlLimitNbGroupPerUser . ""; // DO NOT ADD '' around 
         
         claro_sql_query($sql);
 
@@ -294,13 +289,13 @@ if ($is_allowedToManage)
          */
 
         $sql = "UPDATE `".$tbl_GroupsProperties."`
-                SET `self_registration` = '".$self_registration."',
-                    `private`           = '".$private."',
+                SET `self_registration` = '" . $self_registration . "',
+                    `private`           = '" . $private . "',
                     `forum`             = '1', # always active 
-                    `chat`              = '".$chat."',
-                    `wiki`              = '".$wiki."',
+                    `chat`              = '" . $chat . "',
+                    `wiki`              = '" . $wiki ."',
                     `document`          = '1' , # always active and private.
-                    `nbGroupPerUser`    = ".$sqlLimitNbGroupPerUser." # DO NOT ADD '' around 
+                    `nbGroupPerUser`    = " . $sqlLimitNbGroupPerUser . " # DO NOT ADD '' around 
                 WHERE id = 1" ;
 
         claro_sql_query($sql);
@@ -313,21 +308,21 @@ if ($is_allowedToManage)
 
         include('../inc/claro_init_local.inc.php');
 
-        $isGroupRegAllowed            = $_groupProperties ['registrationAllowed']
-                                    && (
-                                            !$is_courseTutor
-                                            || (
-                                                    $is_courseTutor
-                                                    &&
-                                                    $tutorCanBeSimpleMemberOfOthersGroupsAsStudent
-                                                )
-                                        );
+        $isGroupRegAllowed = $_groupProperties['registrationAllowed']
+                             && (
+                                  !$is_courseTutor
+                                  || (
+                                       $is_courseTutor
+                                       &&
+                                       $tutorCanBeSimpleMemberOfOthersGroupsAsStudent
+                                       )
+                                );
 
-        $groupPrivate    = $_groupProperties ['private'            ];
-        $groupHaveForum  = $_groupProperties ['tools'] ['forum'    ];
-        $groupHaveDocs   = $_groupProperties ['tools'] ['document' ];
-        $groupHaveWiki   = $_groupProperties ['tools'] ['wiki'     ];
-        $groupHaveChat   = $_groupProperties ['tools'] ['chat'     ];
+        $groupPrivate    = $_groupProperties['private'           ];
+        $groupHaveForum  = $_groupProperties['tools']['forum'    ];
+        $groupHaveDocs   = $_groupProperties['tools']['document' ];
+        $groupHaveWiki   = $_groupProperties['tools']['wiki'     ];
+        $groupHaveChat   = $_groupProperties['tools']['chat'     ];
 
     }    // end if $submit
 
@@ -341,7 +336,7 @@ if ($is_allowedToManage)
         $nbGroupDeleted = deleteAllGroups();
 
         if ($nbGroupDeleted>0) $message = $langGroupsDeleted;
-        else                   $message="!!!! no group deleted";
+        else                   $message = "!!!! no group deleted";
         event_default('GROUPMANAGING',array ('DELETE_GROUP' => $nbGroupDeleted));
 
     }
@@ -355,9 +350,9 @@ if ($is_allowedToManage)
         $id = (int) $_REQUEST['id'];
         $nbGroupDeleted = delete_groups($id);
 
-        if     ($nbGroupDeleted==1) $message = $langGroupDel ;
-        elseif ($nbGroupDeleted>1)  $message = $nbGroupDeleted." ".$langGroupDel;
-        else                        $message = "No group deleted !";
+        if     ( $nbGroupDeleted==1 ) $message = $langGroupDel ;
+        elseif ( $nbGroupDeleted>1 )  $message = $nbGroupDeleted . " " . $langGroupDel;
+        else                          $message = "No group deleted !";
     }
 
     /*-------------------
@@ -366,11 +361,12 @@ if ($is_allowedToManage)
 
     elseif ( isset($_REQUEST['empty']) )
     {
-        $sql = "DELETE FROM `".$tbl_GroupsUsers."`";
+        $sql = "DELETE FROM `" . $tbl_GroupsUsers . "`";
         $result  = claro_sql_query($sql);
 
-        $sql = 'UPDATE `'.$tbl_Groups.'` SET tutor="0"';
+        $sql = 'UPDATE `' . $tbl_Groups . '` SET tutor="0"';
         $result2 = claro_sql_query($sql);
+
         event_default('GROUPMANAGING',array ('EMPTY_GROUP' => TRUE));
         $message = $langGroupsEmptied;
     }
@@ -418,7 +414,7 @@ if ( !empty($message) )
     COURSE ADMIN ONLY
   ==========================*/
 
-if ($display_groupadmin_manager)
+if ( $display_groupadmin_manager )
 {
     /*--------------------
        COMMANDS BUTTONS
@@ -455,8 +451,6 @@ echo '<p>'."\n"
 
 }    // end course admin only
 
-
-
 /**
   VIEW COMMON TO STUDENT & TEACHERS
    - List of existing groups
@@ -471,7 +465,7 @@ echo '<p>'."\n"
  * is actually registered to the course...
  */
 
-if ($isGroupRegAllowed && isset($_uid))
+if ( $isGroupRegAllowed && isset($_uid) )
 {
     if ( ! $is_courseMember) $isGroupRegAllowed = FALSE;
 }
@@ -480,19 +474,18 @@ if ($isGroupRegAllowed && isset($_uid))
  * Check in how many groups a user is allowed to register
  */
 
-if ( ! is_null($nbGroupPerUser)) $nbGroupPerUser = (int) $nbGroupPerUser;
+if ( ! is_null($nbGroupPerUser) ) $nbGroupPerUser = (int) $nbGroupPerUser;
 
-if (is_integer($nbGroupPerUser))
+if ( is_integer($nbGroupPerUser) )
 {
-    $sql              = "SELECT COUNT(`team`) nbGroups
-                         FROM `".$tbl_GroupsUsers."` WHERE user='".$_uid."'";
+    $sql = "SELECT COUNT(`team`) nbGroups
+            FROM `".$tbl_GroupsUsers."` WHERE user='".$_uid."'";
 
-    $countTeamUser    = mysql_fetch_array( mysql_query($sql) );
-    $countTeamUser    = $countTeamUser['nbGroups'];
+    $countTeamUser = mysql_fetch_array( mysql_query($sql) );
+    $countTeamUser = $countTeamUser['nbGroups'];
 
-    if($countTeamUser >= $nbGroupPerUser) $isGroupRegAllowed = FALSE;
+    if ( $countTeamUser >= $nbGroupPerUser ) $isGroupRegAllowed = FALSE;
 }
-
 
 echo '<table class="claroTable emphaseLine" border="0" cellspacing="2" cellpadding="2" width="100%">';
 
@@ -501,80 +494,64 @@ echo '<table class="claroTable emphaseLine" border="0" cellspacing="2" cellpaddi
    -------------*/
 
 echo '<tr class="headerX" align="center">'
-   . '<th align="left">'
-   . '&nbsp; '.$langExistingGroups
-   . '</th>'
-   ;
+   . '<th align="left">' . '&nbsp; ' . $langExistingGroups . '</th>' ;
 
 if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
 {
-    echo '<th align="left">'
-       . $langGroupSelfRegistration
-       . '</th>'
-       ;
+    echo '<th align="left">' . $langGroupSelfRegistration . '</th>' ;
 }
 
-echo '<th>'
-   . $langRegistered
-   . '</th>'
-   . '<th>'
-   . $langMax
-   . '</th>'
-   ;
+echo '<th>' . $langRegistered . '</th>'
+   . '<th>' . $langMax . '</th>' ;
 
-if ($is_allowedToManage) // only for course administrator
+if ( $is_allowedToManage ) // only for course administrator
 {
-    echo '<th>'
-       . $langEdit
-       . '</th>'
-       . '<th>'
-       . $langDelete
-       . '</th>'
-       ;
+    echo '<th>' . $langEdit . '</th>'
+       . '<th>' . $langDelete . '</th>' ;
 }
 
 echo '</tr><tbody>';
 
 //////////////////////////////////////////////////////////////////////////////
 
-    $sql = "SELECT `g`.`id` id, `g`.`name` name,
-                   `g`.`maxStudent`        maxStudent,
-                   `g`.`secretDirectory`   secretDirectory,
-                   `g`.`tutor`             id_tutor,
-                   `g`.`description`       description, 
+$sql = "SELECT `g`.`id` id, `g`.`name` name,
+               `g`.`maxStudent`        maxStudent,
+               `g`.`secretDirectory`   secretDirectory,
+               `g`.`tutor`             id_tutor,
+               `g`.`description`       description, 
 
-                    `tutor`.`user_id`, `tutor`.`nom`, `tutor`.`prenom`,
-                    `tutor`.`username`, `tutor`.`email`,
+               `tutor`.`user_id`, `tutor`.`nom`, `tutor`.`prenom`,
+               `tutor`.`username`, `tutor`.`email`,
 
-                   `ug`.`user` is_member,
-                    COUNT(`ug2`.`id`) nbMember,
+               `ug`.`user` is_member,
+               COUNT(`ug2`.`id`) nbMember,
 
-                   `tutor`.user_id user_id,
-                   `tutor`.`nom` nom, `tutor`.`prenom` prenom,
-                   `tutor`.`username` username, `tutor`.`email` email
+               `tutor`.user_id user_id,
+               `tutor`.`nom` nom, `tutor`.`prenom` prenom,
+               `tutor`.`username` username, `tutor`.`email` email
 
-            FROM `".$tbl_Groups."` `g`
+         FROM `" . $tbl_Groups . "` `g`
 
           # retrieve the tutor id
-            LEFT JOIN  `".$tbl_user."` `tutor`
-            ON `tutor`.`user_id` = `g`.`tutor`
+          LEFT JOIN  `" . $tbl_user . "` `tutor`
+          ON `tutor`.`user_id` = `g`.`tutor`
 
           # retrieve the user group(s)
-            LEFT JOIN `".$tbl_GroupsUsers."` `ug`
-            ON `ug`.`team` = `g`.`id` AND `ug`.`user` = '".$_uid."'
+          LEFT JOIN `" . $tbl_GroupsUsers . "` `ug`
+          ON `ug`.`team` = `g`.`id` AND `ug`.`user` = '" . $_uid . "'
 
           # count the registered users in each group
-            LEFT JOIN `".$tbl_GroupsUsers."` `ug2`
-            ON `ug2`.`team` = `g`.`id`
+          LEFT JOIN `" . $tbl_GroupsUsers . "` `ug2`
+          ON `ug2`.`team` = `g`.`id`
 
-            GROUP BY `g`.`id`
-            ORDER BY UPPER(g.name)";
+          GROUP BY `g`.`id`
+          ORDER BY UPPER(g.name)";
 
 $groupList = mysql_query($sql);
 
 $totalRegistered = 0;
 
-while ($thisGroup = mysql_fetch_array($groupList))
+while ( $thisGroup = mysql_fetch_array($groupList) )
 {
 
     // COLUMN 1 - NAME OF GROUP + If open LINK.
@@ -611,7 +588,6 @@ while ($thisGroup = mysql_fetch_array($groupList))
 
     echo '</td>';
 
-
     /*----------------------------
       COLUMN 2 - SELF REGISTRATION
       ----------------------------*/
@@ -641,7 +617,6 @@ while ($thisGroup = mysql_fetch_array($groupList))
             echo "</td>";
         }    // end If $isGroupRegAllowed
     }
-
 
     /*------------------
         MEMBER NUMBER
@@ -693,7 +668,7 @@ echo '</tbody></table>';
 
 //////////////////////////////////////////////////////////////////////////////
 
-if ($is_allowedToManage)
+if ( $is_allowedToManage )
 {
     
     // COUNT STUDENTS REGISTERED TO THE COURSE
@@ -729,22 +704,23 @@ if ($is_allowedToManage)
     $coursUsersSelect = mysql_query($sql);
     
     $nbUser = 0;
-    while ($counts = mysql_fetch_array($coursUsersSelect))
+
+    while ( $counts = mysql_fetch_array($coursUsersSelect) )
     {
         if ( isset($byStatus[$counts['statut']]) ) $byStatus[$counts['statut']] += $counts['nbUser'];
         else                                       $byStatus[$counts['statut']] = $counts['nbUser'];
+
         if ( isset($tutors[$counts['tutor'] ]) ) $tutors[$counts['tutor'] ] += $counts['nbUser'];
         else                                     $tutors[$counts['tutor'] ] = $counts['nbUser'];
         
         $nbUser += $counts['nbUser'];       
     }
     
-    if (!$multiGroupAllowed) // All this have to be rewriten for $multiGroupAllowed all counts are wrong
+    if ( !$multiGroupAllowed ) // All this have to be rewriten for $multiGroupAllowed all counts are wrong
     {
     ?>
 
     <hr noshade size="1">
-
     
     <table align="center" border="0" cellspacing="0" width="100%" cellpadding="6">
     
@@ -766,8 +742,8 @@ if ($is_allowedToManage)
     <td><?php echo $langAdminsOfThisCours ?></td>
     </tr>
 
-    <?php
-        if    ($tutors[1] > 0)
+        <?php
+        if ( $tutors[1] > 0 )
         {
             echo '<tr>'
                . '<td></td>'
@@ -786,7 +762,7 @@ if ($is_allowedToManage)
                ;
         
         } // end if $tutor[1] > 0
-    ?>
+        ?>
 
         <tr>
         <td></td>
@@ -816,8 +792,8 @@ if ($is_allowedToManage)
         </tr>
         </table>
     <?php
-    }         // end if ! $multiGroupAllowed
-}             // end if $is_allowedToManage
+    }  // end if ! $multiGroupAllowed
+} // end if $is_allowedToManage
 
 include($includePath.'/claro_init_footer.inc.php');
 

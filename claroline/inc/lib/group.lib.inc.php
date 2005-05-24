@@ -42,25 +42,24 @@ function delete_groups($groupIdList = 'ALL')
     }
     elseif ( is_array($groupIdList) )
     {
-        foreach($groupIdList as $thisGroupId)
+        foreach ($groupIdList as $thisGroupId )
         {
-            if (! is_int($thisGroupId) ) return false;
+            if ( ! is_int($thisGroupId) ) return false;
         }
 
-        $sql_condition = 'WHERE id IN ('.implode(' , ', $groupIdList).')';
+        $sql_condition = 'WHERE id IN ('. implode(' , ', $groupIdList) . ')';
     }
     else
     {
         if ( settype($groupIdList, 'integer') )
         {
-            $sql_condition = '  WHERE id = '.$groupIdList;
+            $sql_condition = '  WHERE id = ' . $groupIdList ;
         }
         else
         {
             return false;
         }
     }
-
 
     /*
      * Search the groups data necessary to delete them
@@ -72,9 +71,9 @@ function delete_groups($groupIdList = 'ALL')
 
     $res_searchGroup = claro_sql_query($sql_searchGroup);
 
-    if ($res_searchGroup)
+    if ( $res_searchGroup )
     {
-        while ($gpData =mysql_fetch_array($res_searchGroup))
+        while ( $gpData =mysql_fetch_array($res_searchGroup) )
         {
             $groupList['id'       ][] = $gpData['gid'            ];
             $groupList['directory'][] = $gpData['groupRepository'];
@@ -82,21 +81,21 @@ function delete_groups($groupIdList = 'ALL')
         }
     }
 
-    if ($groupList)
+    if ( is_array($groupList) && count($groupList) > 0 )
     {
         /*
          * Remove users, group(s) and group forum(s) from the course tables
          */
 
-        $sql_deleteGroup        = "DELETE FROM `".$tbl_Groups."`
-                                   WHERE id IN (".implode(" , ", $groupList['id']).")";
+        $sql_deleteGroup        = "DELETE FROM `" . $tbl_Groups . "`
+                                   WHERE id IN (" . implode(" , ",$groupList['id']) . ")";
 
-        $sql_cleanOutGroupUsers = "DELETE FROM `".$tbl_GroupsUsers."`
-                                   WHERE team IN (".implode(" , ", $groupList['id']).")";
+        $sql_cleanOutGroupUsers = "DELETE FROM `" . $tbl_GroupsUsers . "`
+                                   WHERE team IN (" . implode(" , ",$groupList['id']) . ")";
 
-        $sql_deleteGroupForums  = "DELETE FROM `".$tbl_Forums."`
+        $sql_deleteGroupForums  = "DELETE FROM `" . $tbl_Forums . "`
                                    WHERE cat_id='1'
-                                   AND forum_id IN (".implode(" , ", $groupList['forumId']).")";
+                                   AND forum_id IN (" . implode(" , ",$groupList['forumId']) . ")";
 
         // Deleting group record in table
         $res_deleteGroup    = claro_sql_query($sql_deleteGroup);
@@ -108,15 +107,14 @@ function delete_groups($groupIdList = 'ALL')
         // Delete all Forum of deleted group(s)
         $res_deleteGroupForums = claro_sql_query($sql_deleteGroupForums);
 
-
         // Reset auto_increment
         $sql_getmaxId = 'SELECT MAX( id ) max From  `'.$tbl_Groups.'` ';
         $maxGroupId = claro_sql_query_fetch_all($sql_getmaxId);
-        $sql_reset_autoincrement = "ALTER TABLE `".$tbl_Groups."` 
+        $sql_reset_autoincrement = "ALTER TABLE `" . $tbl_Groups . "` 
                                     PACK_KEYS =0 
                                     CHECKSUM =0 
                                     DELAY_KEY_WRITE =0 
-                                    AUTO_INCREMENT = ".($maxGroupId[0]['max']+1)."";
+                                    AUTO_INCREMENT = " . ($maxGroupId[0]['max']+1) . "";
         claro_sql_query($sql_reset_autoincrement);
         
         /*
@@ -125,22 +123,21 @@ function delete_groups($groupIdList = 'ALL')
 
         // define repository for deleted element
 
-        $groupGarbage =    $garbageRepositorySys."/".$currentCourseRepository."/group/";
+        $groupGarbage = $garbageRepositorySys."/".$currentCourseRepository."/group/";
         if ( ! file_exists($groupGarbage) ) mkdirs($groupGarbage, 0777);
 
-        foreach($groupList['directory'] as $thisDirectory)
+        foreach ( $groupList['directory'] as $thisDirectory )
         {
-            if (file_exists($coursesRepositorySys.$currentCourseRepository."/group/".$thisDirectory))
+            if ( file_exists($coursesRepositorySys.$currentCourseRepository."/group/".$thisDirectory) )
             {
                 rename($coursesRepositorySys.$currentCourseRepository."/group/".$thisDirectory,
                        $groupGarbage.$thisDirectory);
             }
         }
-
         
         return $deletedGroupNumber;
 
-    }                            // end if $groupList
+    } // end if $groupList
     else
     {
         return FALSE;
@@ -161,13 +158,14 @@ function deleteAllGroups()
  * @param $ifNot default "DIE" 
  * @return boolean Whether is set $_cid
  */
+
 function cidNeeded( $ifNot = "DIE" )
 {
     global $_cid;
 
-    if( ! isset($_cid))
+    if( ! isset($_cid) )
     {
-        switch ($ifNot)
+        switch ( $ifNot )
         {
             case "DIE"  :
                 die ("\$_cid missing");
@@ -203,7 +201,7 @@ function mkdirs($path, $mode = 0777)
     }
     else
     {
-        mkdirs( dirname($path) , $mode);
+        mkdirs(dirname($path) , $mode);
         return mkdir($path, $mode);
     }
 }
@@ -233,8 +231,8 @@ function fill_in_groups()
      */
 
     $sql = "SELECT g.id gid, g.maxStudent-count(ug.user) nbPlaces
-            FROM `".$tbl_Groups."` g
-            LEFT JOIN  `".$tbl_GroupsUsers."` ug
+            FROM `" . $tbl_Groups . "` g
+            LEFT JOIN  `" . $tbl_GroupsUsers . "` ug
             ON    `g`.`id` = `ug`.`team`
             GROUP BY (`g`.`id`)
             HAVING nbPlaces > 0
@@ -253,11 +251,11 @@ function fill_in_groups()
      * of group they are already enrolled
      */
     
-    $sql = "SELECT cu.user_id uid,  (".$nbGroupPerUser."-count(ug.team)) nbTicket
-             FROM `".$tbl_CoursUsers."` cu
-            LEFT JOIN  `".$tbl_GroupsUsers."` ug
+    $sql = "SELECT cu.user_id uid,  (" . $nbGroupPerUser . "-count(ug.team)) nbTicket
+             FROM `" . $tbl_CoursUsers . "` cu
+            LEFT JOIN  `" . $tbl_GroupsUsers . "` ug
             ON    `ug`.`user`      = `cu`.`user_id`
-            WHERE `cu`.`code_cours`='".$currentCourseId."'
+            WHERE `cu`.`code_cours`='" . $currentCourseId . "'
             AND   `cu`.`statut`    = 5 #no teacher
             AND   `cu`.`tutor`     = 0 #no tutor
             GROUP BY (cu.user_id)
@@ -274,13 +272,13 @@ function fill_in_groups()
      * Retrieve the present state of the users repartion in groups
      */
 
-    $sql   ="SELECT user uid, team gid FROM `".$tbl_GroupsUsers."`";
+    $sql = "SELECT user uid, team gid FROM `" . $tbl_GroupsUsers . "`";
 
     $result = claro_sql_query($sql);
 
     $groupUser = array();
 
-    while ($member = mysql_fetch_array($result,MYSQL_ASSOC))
+    while ( $member = mysql_fetch_array($result,MYSQL_ASSOC) )
     {
         $groupUser[$member['gid']] [] = $member['uid'];
     }
