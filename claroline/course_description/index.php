@@ -49,107 +49,114 @@ include $includePath.'/lib/events.lib.inc.php';
 
 $dialogBox = '';
 
-/*> > > > > > > > > > > > COMMANDS < < < < < < < < < < < < */
-
-
-if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = NULL;
-
-if ( isset($_REQUEST['descTitle']) ) $descTitle = trim($_REQUEST['descTitle']);
-else                                 $descTitle = '';
-
-if ( isset($_REQUEST['descContent']) ) $descContent = trim($_REQUEST['descContent']);
-else                                   $descContent = '';
-
-if ( isset($_REQUEST['id']) ) $descId = (int) $_REQUEST['id'];
-else                          $descId = 0;
 
 /******************************************************************************
                           UPDATE / ADD DESCRIPTION ITEM
  ******************************************************************************/
 
-if ( $cmd == 'exEdit' )
+$is_allowedToEdit = claro_is_allowed_to_edit();
+
+if ( $is_allowedToEdit )
 {
-    if ( !empty($descId) )
-    {
-        // Update description
-        if ( course_description_set_item($descId,$descTitle,$descContent) != FALSE )
-        {
-            $dialogBox .= '<p>' . $langDescUpdated . '</p>';
-        }
-        else
-        {
-            $dialogBox .= '<p>' . $langDescUnableToUpdate . '</p>';
-        }
-    }
-    else
-    {          
-        // Add new description
-        if ( course_description_add_item($descTitle,$descContent) !== FALSE )
-        {
-            $dialogBox .= '<p>' . $langDescAdded . '</p>';
-        }
-        else
-        {
-            $dialogBox .= '<p>' . $langUnableDescToAdd . '</p>';
-        }
-    }    
-}
 
-/******************************************************************************
-                        REQUEST DESCRIPTION ITEM EDITION
- ******************************************************************************/
+    /*> > > > > > > > > > > > COMMANDS < < < < < < < < < < < < */
 
-if ( $cmd == 'rqEdit' )
-{
-    if ( !empty($descId) )
-    {       
-        $descItem = course_description_get_item($descId);
-        $descPresetKey = array_search($descItem['title'] , $titreBloc);
-    }
-    else
-    {
-    	$descItem['id'     ] = NULL;
-        $descItem['title'  ] = '';
-        $descItem['content'] = '';
+    if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+    else                           $cmd = NULL;
 
-        if ( isset($_REQUEST['numBloc']) && $_REQUEST['numBloc'] >= 0 )
-        {
-            $descPresetKey = $_REQUEST['numBloc'];
-        }
-    }
+    if ( isset($_REQUEST['descTitle']) ) $descTitle = trim($_REQUEST['descTitle']);
+    else                                 $descTitle = '';
 
-    if ( !empty($descPresetKey) )
-    {
-         $descPresetTitle    = $titreBloc[$descPresetKey];
-         $descPresetQuestion = $questionPlan[$descPresetKey];
-         $descPresetTip      = $info2Say[$descPresetKey];
-    }
-    else
-    {
-         $descPresetTitle    = NULL;
-         $descPresetQuestion = NULL;
-         $descPresetTip      = NULL;
-    }
+    if ( isset($_REQUEST['descContent']) ) $descContent = trim($_REQUEST['descContent']);
+    else                                   $descContent = '';
 
-    $displayForm = TRUE;
-}
+    if ( isset($_REQUEST['id']) ) $descId = (int) $_REQUEST['id'];
+    else                          $descId = 0;
 
-/******************************************************************************
-                            DELETE DESCRIPTION ITEM
- ******************************************************************************/
+	if ( $cmd == 'exEdit' )
+	{
+	    if ( !empty($descId) )
+	    {
+	        // Update description
+	        if ( course_description_set_item($descId,$descTitle,$descContent) != FALSE )
+	        {
+	            $dialogBox .= '<p>' . $langDescUpdated . '</p>';
+	        }
+	        else
+	        {
+	            $dialogBox .= '<p>' . $langDescUnableToUpdate . '</p>';
+	        }
+	    }
+	    else
+	    {          
+	        // Add new description
+	        if ( course_description_add_item($descTitle,$descContent) !== FALSE )
+	        {
+	            $dialogBox .= '<p>' . $langDescAdded . '</p>';
+	        }
+	        else
+	        {
+	            $dialogBox .= '<p>' . $langUnableDescToAdd . '</p>';
+	        }
+	    }    
+	}
+	
+	/******************************************************************************
+	                        REQUEST DESCRIPTION ITEM EDITION
+	 ******************************************************************************/
+	
+	if ( $cmd == 'rqEdit' )
+	{
+	    if ( !empty($descId) )
+	    {       
+	        $descItem = course_description_get_item($descId);
+	        $descPresetKey = array_search($descItem['title'] , $titreBloc);
+	    }
+	    else
+	    {
+	    	$descItem['id'     ] = NULL;
+	        $descItem['title'  ] = '';
+	        $descItem['content'] = '';
+	
+	        if ( isset($_REQUEST['numBloc']) && $_REQUEST['numBloc'] >= 0 )
+	        {
+	            $descPresetKey = $_REQUEST['numBloc'];
+	        }
+	    }
+	
+	    if ( !empty($descPresetKey) )
+	    {
+	         $descPresetTitle    = $titreBloc[$descPresetKey];
+	         $descPresetQuestion = $questionPlan[$descPresetKey];
+	         $descPresetTip      = $info2Say[$descPresetKey];
+	    }
+	    else
+	    {
+	         $descPresetTitle    = NULL;
+	         $descPresetQuestion = NULL;
+	         $descPresetTip      = NULL;
+	    }
+	
+	    $displayForm = TRUE;
+	}
+	
+	/******************************************************************************
+	                            DELETE DESCRIPTION ITEM
+	 ******************************************************************************/
+	
+	
+	if ( $cmd == 'exDelete' && !empty($descId) )
+	{
+	    if ( course_description_delete_item($descId) ) 
+	    {
+	        $dialogBox .= '<p>' . $langDescDeleted . '</p>';
+	    }
+	    else
+	    {
+	        $dialogBox .= '<p>' . $langDescUnableToDelete . '</p>';
+	    }
+	}
 
-
-if ( $cmd == 'exDelete' && !empty($descId) )
-{
-    if ( course_description_delete_item($descId) ) 
-    {
-        $dialogBox .= '<p>' . $langDescDeleted . '</p>';
-    }
-    else
-    {
-        $dialogBox .= '<p>' . $langDescUnableToDelete . '</p>';
-    }
 }
 
 /*---------------------------------------------------------------------------*/
