@@ -25,6 +25,8 @@
 
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 $nameTools = $langLostPassword;
 
 // DB tables definition
@@ -43,11 +45,11 @@ $msg = "";
 // Get the forgotten email from the form
 
 if ( isset ($_REQUEST['Femail']) ) $Femail = strtolower(trim($_REQUEST['Femail']));
-else $Femail = "";
+else                               $Femail = '';
 
 // Main section
 
-if (isset($_REQUEST['searchPassword']) && !empty($Femail) )
+if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 {  
 
     // search user with this email
@@ -59,19 +61,19 @@ if (isset($_REQUEST['searchPassword']) && !empty($Femail) )
 					`password`, 
 					`email`, 
 					`creatorId`
-	         FROM `'.$tbl_user.'`
-	         WHERE LOWER(email) LIKE "'. claro_addslashes($Femail) .'"
+	         FROM `' . $tbl_user . '`
+	         WHERE LOWER(email) LIKE "'. addslashes($Femail) .'"
 	               AND   `email` != "" ';
 	$result = claro_sql_query($sql);
 
-	if ($result)
+	if ( $result )
 	{
-		if (mysql_num_rows($result) > 0)
+		if ( mysql_num_rows($result) > 0 )
 		{
 
             $user = array();            
 
-			while ($data = mysql_fetch_array($result))
+			while ( $data = mysql_fetch_array($result) )
 			{
 				$user [] = $data;
 			}
@@ -80,7 +82,7 @@ if (isset($_REQUEST['searchPassword']) && !empty($Femail) )
 			 * If password are crypted, we can not send them as they are.
 			 * There are unusable for the end user. So, we have to generate new ones.
 			 */
-			if ($userPasswordCrypted) // $userPasswordCrypted comes claro_main.conf.php
+			if ( $userPasswordCrypted ) // $userPasswordCrypted comes claro_main.conf.php
 			{
 				for ($i = 0, $j = count($user); $i < $j; $i++)
 				{
@@ -89,7 +91,7 @@ if (isset($_REQUEST['searchPassword']) && !empty($Femail) )
 					// UPDATE THE DB WITH THE NEW GENERATED PASSWORD
 
 					$result = claro_sql_query('UPDATE `'.$tbl_user.'`
-					                     SET `password` = "'.md5($user[$i]['password']).'"
+					                     SET `password` = "'. addslashes(md5($user[$i]['password'])) .'"
 					                     WHERE `user_id` = "'.$user[$i]['uid'].'"');
 				}
 			}
@@ -163,7 +165,7 @@ if ( ! empty($msg)) claro_disp_message_box($msg);
 
 // display form
 
-if ( ! $passwordFound)
+if ( ! $passwordFound )
 { 
 ?>
 <br />
@@ -176,7 +178,7 @@ if ( ! $passwordFound)
 			<label for="Femail"><?php echo $langEmail ?> : </label>
 		</td>
 		<td>
-			<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="<?php echo $Femail ?>">
+			<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="<?php echo htmlspecialchars($Femail) ?>">
 		</td>
 	</tr>
 	<tr>
