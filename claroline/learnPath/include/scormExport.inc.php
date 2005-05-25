@@ -59,6 +59,7 @@ define('UNIQUE_ANSWER',   1);
 define('MULTIPLE_ANSWER', 2);
 define('FILL_IN_BLANKS',  3);
 define('MATCHING',        4);
+define('TRUEFALSE',	 	  5);
 
 /**
  * Exports a Learning Path to a SCORM package.
@@ -334,7 +335,7 @@ class ScormExport
                 $answerCorrect = $answer->isCorrect($answerId);
                 
                 // Unique answer
-                if ( $qtype == UNIQUE_ANSWER )
+                if ( $qtype == UNIQUE_ANSWER || $qtype == TRUEFALSE )
                 {
                     // Construct the identifier
                     $htmlQuestionId = 'unique_' . $questionCount . '_x';
@@ -343,7 +344,7 @@ class ScormExport
                         <input type="radio" name="' . $htmlQuestionId . '"
                         id="scorm_' . $idCounter . '"
                         value="' . $answer->selectWeighting($answerId) . '"></td>
-                    <td width="95%"><label for="' . $htmlQuestionId . '">' . $answerText . '</label>
+                    <td width="95%"><label for="scorm_' . $idCounter . '">' . $answerText . '</label>
                     </td></tr>';
                     
                     $idCounter++;
@@ -361,7 +362,7 @@ class ScormExport
                         <input type="checkbox" name="' . $htmlQuestionId . '"
                         id="scorm_' . $idCounter . '" 
                         value="' . $raw . '"></td>
-                    <td width="95%"><label for="' . $htmlQuestionId . '">' . $answerText . '</label>
+                    <td width="95%"><label for="scorm_' . $idCounter . '">' . $answerText . '</label>
                     </td></tr>';
                     
                     $idCounter++;
@@ -382,13 +383,21 @@ class ScormExport
                     // Split after each blank
                     $responsePart = explode(']', $phrase);
                     $acount = 0;
-                    foreach ( $responsePart as $part)
+                    foreach ( $responsePart as $part )
                     {
-                        // Split bewteen text and (possible) blank
-                        list($rawtext, $blankText) = explode('[', $part);
+                        // Split between text and (possible) blank
+                        if( strpos($part,'[') !== false )
+                        {
+                        	list($rawtext, $blankText) = explode('[', $part);
+						}
+						else
+						{
+							$rawtext = $part;
+							$blankText = "";
+						}
                         
                         $pageBody .= $rawtext;
-                        
+
                         // If there's a blank to fill-in after the text (this is usually not the case at the end)
                         if ( !empty($blankText) )
                         {
