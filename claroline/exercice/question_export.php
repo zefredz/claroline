@@ -42,6 +42,7 @@ define('UNIQUE_ANSWER',   1);
 define('MULTIPLE_ANSWER', 2);
 define('FILL_IN_BLANKS',  3);
 define('MATCHING',        4);
+define('TRUEFALSE',	 	  5);
 
 /*--------------------------------------------------------
       Classes
@@ -512,6 +513,8 @@ function export_question($questionId, $standalone=True)
         case MATCHING:
             $ims = new ImsMatching($objQuestion);
             break;
+		case TRUEFALSE:
+		    $ims = new ImsSingle($objQuestion);
         /*default:
             break;*/
     }
