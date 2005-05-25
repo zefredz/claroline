@@ -229,7 +229,11 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 	                $dialogBox .= $langZipNoPhp;
 	            }
 	        }
-		}
+	//notify that a new document has been uploaded
+        
+        $eventNotifier->notifyCourseEvent("document_file_added",$_cid, $_tid, $_REQUEST['cwd'].'/'.$uploadedFileName, $_gid, "0");
+        
+        }
 
         /*--------------------------------------------------------------------
            IN CASE OF HTML FILE, LOOKS FOR IMAGE NEEDING TO BE UPLOADED TOO
@@ -808,8 +812,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 	  
 	if ($_REQUEST['vis']=="v")
 	    {
-		$eventNotifier->notifyCourseEvent("document_visible",$_cid, $_tid, $file, $_gid, "0");	
-	    }    
+		$eventNotifier->notifyCourseEvent("document_visible",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");	
+	    }   
 	}
 } // END is Allowed to Edit
 
