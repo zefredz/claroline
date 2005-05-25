@@ -86,7 +86,8 @@ function commentBox($type, $mode, $dbNameGlued=NULL)
     global $is_AllowedToEdit;
     global $urlAppend;
     global $langModify, $langOk, $langErrorNameAlreadyExists, $langAddComment, $langConfirmYourChoice;
-    global $langDefaultLearningPathComment, $langDefaultModuleComment , $langDefaultModuleAddedComment, $imgRepositoryWeb;
+    global $langDefaultLearningPathComment, $langDefaultModuleComment;
+	global $langDefaultModuleAddedComment, $imgRepositoryWeb, $langDelete;
     // will be set 'true' if the comment has to be displayed
     $dsp = false;
 
@@ -204,14 +205,14 @@ function commentBox($type, $mode, $dbNameGlued=NULL)
             // display edit and delete links if user as the right to see it
             if ( $is_AllowedToEdit )
             {
-                echo '<p>' . "\n"
-                . '<small>' . "\n"
-                . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=update' . $col_name . '">' . "\n"
-                . '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . $langModify . '" border="0">' . "\n"
-                . '</a>' . "\n"
-                . '<a href="' . $_SERVER['PHP_SELF'].'?cmd=del' . $col_name . '" '
-                . ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript($langConfirmYourChoice).'\')) return false;">' . "\n"
-                . '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . $langDelete . '" border="0">' . "\n"
+                echo '<p>'."\n"
+                . '<small>'."\n"
+                . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=update'.$col_name.'">'."\n"
+                . '<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langModify.'" border="0">'."\n"
+                . '</a>'."\n"
+                . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=del'.$col_name.'" '
+                . ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript($langConfirmYourChoice).'\')) return false;">'."\n"
+                . '<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'" border="0">'. "\n"
                 . '</a>' . "\n"
                 . '</small>' . "\n"
                 . '</p>' . "\n"
@@ -268,12 +269,12 @@ function nameBox($type, $mode, $dbNameGlued=NULL)
         if ( isset($_POST['newName']) && !empty($_POST['newName']) )
         {
 
-            $sql = "SELECT `" . $col_name . "`
+            $sql = "SELECT COUNT(`" . $col_name . "`)
                                  FROM `" . $tbl_name . "`
                                 WHERE `" . $col_name . "` = '" . claro_addslashes($_POST['newName']) . "'
                                   AND !(" . $where_cond . ")";
-            $query = claro_sql_query($sql);
-            $num = mysql_num_rows($query);
+            $num = claro_sql_query_get_single_value($sql);
+
             if ($num == 0)  // name doesn't already exists
             {
 
@@ -1107,16 +1108,16 @@ function delete_module_tree($module_tree, $dbNameGlued=NULL)
             case CTSCORM_ :
                 // delete asset if scorm
                 $delAssetSql = "DELETE
-                                        FROM `".$tbl_lp_asset."`
-                                        WHERE `module_id` =  ".$module['module_id']."
-                                        ";
+				                    FROM `".$tbl_lp_asset."`
+				                    WHERE `module_id` =  ".$module['module_id']."
+				                    ";
                 claro_sql_query($delAssetSql);
-
+				// no break; because we need to delete modul
             case CTLABEL_ : // delete module if scorm && if label
                 $delModSql = "DELETE FROM `" . $tbl_lp_module . "`
                                      WHERE `module_id` =  ".$module['module_id'];
                 claro_sql_query($delModSql);
-
+				// no break; because we need to delete LMP and UMP
             default : // always delete LPM and UMP
                 claro_sql_query("DELETE FROM `" . $tbl_lp_rel_learnPath_module . "`
                                         WHERE `learnPath_module_id` = " . $module['learnPath_module_id']);
