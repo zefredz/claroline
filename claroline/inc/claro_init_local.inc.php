@@ -379,6 +379,9 @@ else
 
 if ( $uidReset && !$loginFailed ) // session data refresh requested
 {
+    // Update the current session id with a newly generated one ( PHP >= 4.3.2 )
+    // This function is vital in preventing session fixation attacks
+    session_regenerate_id();
 
     $cidReset = true;
     $gidReset = true;
