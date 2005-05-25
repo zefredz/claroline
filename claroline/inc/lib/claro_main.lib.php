@@ -129,11 +129,90 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
 }
 
 /**
+ * get unique keys of a course.
+ * @param  string $course_id (optionnal)  If not set, it use the current course 
+ *         will be taken.
+ * @return array list of unique keys (sys, db & path) of a course
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @since 1.7
+ */
+
+function claro_get_course_keys($course_id = null)
+{
+    global $_cid, $_course,$courseTablePrefix , $dbGlu; 
+    static $_courseKeys = array();
+    static $cachedCid = null;
+    if ( is_null($course_id) )
+    { 
+        $course_id = $_cid;
+        $_courseKeys['dbName']  = $_course['dbName'];
+        $_courseKeys['sysCode'] = $_course['sysCode'];
+        $_courseKeys['path']    = $_course['path'];
+    }
+    elseif ($cachedCid!=$course_id) 
+        unset($_courseKeys);
+    
+    if ( !isset($_courseKeys) )
+    {
+        $cachedCid = $course_id;
+        $tbl_mdb_names =  claro_sql_get_main_tbl();
+        $sql ="Select dbName, code sysCode, directory path
+        FROM `".$tbl_mdb_names['course']."`
+        WHERE code = '" . $course_id . "'";
+        list($_courseKeys) = claro_sql_query_fetch_all($sql);
+    } // end if ( count($course_tbl) == 0 )
+    $_courseKeys['dbNameGlu'] = $courseTablePrefix . $_courseKeys['dbName'] . $dbGlu; // use in all queries
+    return $_courseKeys;
+}
+
+/**
+ * Get the db name of a course.
+ * @param  string $course_id (optionnal)  If not set, it use the current course 
+ *         will be taken.
+ * @return string db_name
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @since 1.7
+ */
+function claro_get_course_db_name($cid=NULL) 
+{
+    $k =claro_get_course_keys($cid); 
+    return $k['dbName'];
+}
+
+/**
+ * Get the glued db name of a course.Read to be use in claro_get_course_table_name
+ * @param  string $course_id (optionnal)  If not set, it use the current course 
+ *         will be taken.
+ * @return string db_name glued
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @since 1.7
+ */
+function claro_get_course_db_name_glued($cid=NULL) 
+{
+    $k =claro_get_course_keys($cid); 
+    return $k['dbNameGlu'];
+}
+
+/**
+ * Get the path of a course.
+ * @param  string $course_id (optionnal)  If not set, it use the current course 
+ *         will be taken.
+ * @return string path
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @since 1.7
+ */
+function claro_get_course_path($cid=NULL) 
+{
+    $k =claro_get_course_keys($cid); 
+    return $k['path'];
+}
+
+/**
  * Claroline mySQL query wrapper. It also provides a debug display which works
  * when the CLARO_DEBUG_MODE constant flag is set to on (true)
  *
  * @author Hugues Peeters    <peeters@ipm.ucl.ac.be>,
- * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @param  string  $sqlQuery   - the sql query
  * @param  handler $dbHandler  - optional
  * @return handler             - the result handler
@@ -284,7 +363,7 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
  * @param  string  $sqlQuery - the sql query
  * @param  handler $dbHandler  - optional
  * @return associative array containing all the result rows
- * @since 1.5.1
+ * @since  1.5.1
  * @see    claro_sql_query()
  *
  */
@@ -302,7 +381,7 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
     }
     else
     {
-        return false;
+        return FALSE;
     }
 }
 
