@@ -576,7 +576,7 @@ function utf8_decode_if_is_utf8($str) {
 		     
 		     foreach($zipContentArray as $thisContent)
                      {
-                             if ( preg_match('~.(php.*|phtml)$~i', $thisContent['filename']) )
+                             if ( preg_match('/.(php[[:digit:]]?|phtml)$/i', $thisContent['filename']) )
                              {
                                      $errorFound = true;
                                      array_push ($errorMsgs, $langZipNoPhp );
