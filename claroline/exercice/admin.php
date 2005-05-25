@@ -74,6 +74,7 @@ define('UNIQUE_ANSWER',  1);
 define('MULTIPLE_ANSWER',2);
 define('FILL_IN_BLANKS', 3);
 define('MATCHING',	 4);
+define('TRUEFALSE',	 5);
 
 // allows script inclusions
 define('ALLOWED_TO_INCLUDE',1);
@@ -85,7 +86,7 @@ $attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
 $attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';
 
 // the 4 types of answers
-$aType = array($langUniqueSelect,$langMultipleSelect,$langFillBlanks,$langMatching);
+$aType = array($langUniqueSelect,$langMultipleSelect,$langFillBlanks,$langMatching,$langTrueFalse);
 
 // tables used in the exercise tool
 $tbl_cdb_names = claro_sql_get_course_tbl();

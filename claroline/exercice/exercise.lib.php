@@ -35,7 +35,7 @@ function showQuestion($questionId, $onlyAnswers=false)
 	global $langMultipleAnswers;
 
 	// construction of the Question object
-	$objQuestionTmp=new Question();
+	$objQuestionTmp = new Question();
 
 	// reads question informations
 	if(!$objQuestionTmp->read($questionId))
@@ -49,8 +49,8 @@ function showQuestion($questionId, $onlyAnswers=false)
 
 	if(!$onlyAnswers)
 	{
-		$questionName=$objQuestionTmp->selectTitle();
-		$questionDescription=$objQuestionTmp->selectDescription();
+		$questionName = $objQuestionTmp->selectTitle();
+		$questionDescription = $objQuestionTmp->selectDescription();
 ?>
 
 	<tr>
@@ -78,34 +78,34 @@ function showQuestion($questionId, $onlyAnswers=false)
 	}  // end if(!$onlyAnswers)
 
 	// construction of the Answer object
-	$objAnswerTmp=new Answer($questionId);
+	$objAnswerTmp = new Answer($questionId);
 
-	$nbrAnswers=$objAnswerTmp->selectNbrAnswers();
+	$nbrAnswers = $objAnswerTmp->selectNbrAnswers();
 
 	// only used for the answer type "Matching"
 	if($answerType == MATCHING)
 	{
-		$cpt1='A';
-		$cpt2=1;
-		$Select=array();
+		$cpt1 = 'A';
+		$cpt2 = 1;
+		$Select = array();
 	}
 
-	for($answerId=1;$answerId <= $nbrAnswers;$answerId++)
+	for($answerId = 1;$answerId <= $nbrAnswers;$answerId++)
 	{
-		$answer=$objAnswerTmp->selectAnswer($answerId);
-		$answerCorrect=$objAnswerTmp->isCorrect($answerId);
+		$answer = $objAnswerTmp->selectAnswer($answerId);
+		$answerCorrect = $objAnswerTmp->isCorrect($answerId);
 
 		if($answerType == FILL_IN_BLANKS)
 		{
 			// splits text and weightings that are joined with the character '::'
-			list($answer)=explode('::',$answer);
+			list($answer) = explode('::',$answer);
 
 			// replaces [blank] by an input field
-			$answer=ereg_replace('\[[^]]+\]','<input type="text" name="choice['.$questionId.'][]" size="10">',claro_parse_user_text($answer));
+			$answer = ereg_replace('\[[^]]+\]','<input type="text" name="choice['.$questionId.'][]" size="10">',claro_parse_user_text($answer));
 		}
 
 		// unique answer
-		if($answerType == UNIQUE_ANSWER)
+		if($answerType == UNIQUE_ANSWER || $answerType == TRUEFALSE)
 		{
 ?>
 
@@ -232,7 +232,7 @@ function showQuestion($questionId, $onlyAnswers=false)
 	}	// end for()
 
 	// add a message to say that the user must check a single or many answerss
-	if($answerType == UNIQUE_ANSWER)
+	if($answerType == UNIQUE_ANSWER || $answerType == TRUEFALSE)
 	{
 	?>
 		<tr>
@@ -269,7 +269,7 @@ function display_attached_file($attachedFile)
   global $langDownloadAttachedFile;
   
   // get extension
-  $extension=substr(strrchr($attachedFile, '.'), 1);
+  $extension = substr(strrchr($attachedFile, '.'), 1);
   
   $returnedString = "<p>";
   switch($extension)

@@ -872,6 +872,7 @@ $langExternalToolUrl = "URL du lien";
 $langExport = "Exporter";
 $langFac = "Catégorie";
 $langFaculty = "Faculté";
+$langFalse = "Faux";
 $langExtractFromLangFile = "Extraire des fichiers de traductions";
 $langExtractFromScriptFile = "Extraire des scripts";
 $langExtractLangVariable = "Extraire les variables de langues";

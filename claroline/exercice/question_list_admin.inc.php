@@ -90,7 +90,7 @@ if($nbrQuestions)
 ?>
 
 <tr>
-  <td><?php echo "$i. ".$objQuestionTmp->selectTitle(); ?><br><small><?php echo $aType[$objQuestionTmp->selectType()-1]; ?></small></td>
+  <td><?php echo "$i. ".$objQuestionTmp->selectTitle(); ?><br><small><?php if (isset($aType[$objQuestionTmp->selectType()-1])) echo $aType[$objQuestionTmp->selectType()-1]; ?></small></td>
 </tr>
 <tr>
   <td>

@@ -64,7 +64,7 @@ if( isset($usedInSeveralExercises) )
 	// submit answers
 	else
 	{
-		if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
+		if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
 		{
 ?>
 

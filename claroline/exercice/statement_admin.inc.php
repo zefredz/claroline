@@ -243,10 +243,11 @@ if((isset($newQuestion) || (isset($modifyQuestion))) && !isset($usedInSeveralExe
 </tr>
 <tr>
   <td valign="top"><?php echo $langAnswerType; ?> :</td>
-  <td><input type="radio" name="answerType" id="answerType1" value="1" <?php if((isset($answerType) && $answerType <= 1)|| !isset($answerType)) echo 'checked="checked"'; ?>> <label for="answerType1"><?php echo $langUniqueSelect; ?></label><br>
-	  <input type="radio" name="answerType" id="answerType2" value="2" <?php if(isset($answerType) &&$answerType == 2) echo 'checked="checked"'; ?>> <label for="answerType2"><?php echo $langMultipleSelect; ?></label><br>
-	  <input type="radio" name="answerType" id="answerType4" value="4" <?php if(isset($answerType) &&$answerType >= 4) echo 'checked="checked"'; ?>> <label for="answerType4"><?php echo $langMatching; ?></label><br>
-	  <input type="radio" name="answerType" id="answerType3" value="3" <?php if(isset($answerType) &&$answerType == 3) echo 'checked="checked"'; ?>> <label for="answerType3"><?php echo $langFillBlanks; ?></label>
+  <td><input type="radio" name="answerType" id="answerType1" value="<?php echo UNIQUE_ANSWER; ?>" <?php if((isset($answerType) && $answerType <= UNIQUE_ANSWER)|| !isset($answerType)) echo 'checked="checked"'; ?>> <label for="answerType1"><?php echo $langUniqueSelect; ?></label><br />
+	  <input type="radio" name="answerType" id="answerType2" value="<?php echo MULTIPLE_ANSWER; ?>" <?php if(isset($answerType) &&$answerType == MULTIPLE_ANSWER) echo 'checked="checked"'; ?>> <label for="answerType2"><?php echo $langMultipleSelect; ?></label><br />
+	  <input type="radio" name="answerType" id="answerType4" value="<?php echo MATCHING; ?>" <?php if(isset($answerType) &&$answerType == MATCHING) echo 'checked="checked"'; ?>> <label for="answerType4"><?php echo $langMatching; ?></label><br />
+	  <input type="radio" name="answerType" id="answerType3" value="<?php echo FILL_IN_BLANKS; ?>" <?php if(isset($answerType) &&$answerType == FILL_IN_BLANKS) echo 'checked="checked"'; ?>> <label for="answerType3"><?php echo $langFillBlanks; ?></label><br />
+	  <input type="radio" name="answerType" id="answerType5" value="<?php echo TRUEFALSE; ?>" <?php if(isset($answerType) &&$answerType >= TRUEFALSE) echo 'checked="checked"'; ?>> <label for="answerType5"><?php echo $langTrueFalse; ?></label>
   </td>
 </tr>
 <tr>

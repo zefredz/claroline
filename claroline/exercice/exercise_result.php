@@ -36,6 +36,7 @@ define('UNIQUE_ANSWER',	 1);
 define('MULTIPLE_ANSWER',2);
 define('FILL_IN_BLANKS', 3);
 define('MATCHING',		 4);
+define('TRUEFALSE',	 5);
 
 require '../inc/claro_init_global.inc.php';
 /*
@@ -180,17 +181,17 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 		// destruction of the Question object
 		unset($objQuestionTmp);
 
-		if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
+		if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
 		{
-			$colspan=4;
+			$colspan = 4;
 		}
 		elseif($answerType == MATCHING)
 		{
-			$colspan=2;
+			$colspan = 2;
 		}
 		else
 		{
-			$colspan=1;
+			$colspan = 1;
 		}
 		
 		if($displayAnswers)
@@ -221,7 +222,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 </tr>
 
 <?php
-			if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
+			if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
 			{
 ?>
 
@@ -287,7 +288,8 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 			$studentChoice = ''; // init to empty string, will be overwritten when a answer has been given
 			switch($answerType)
 			{
-				// for unique answer
+				// for unique answer or true/false (true/false IS a unique answer exercise)
+				case TRUEFALSE : // no break, execute UNIQUE_ANSWER instructions
 				case UNIQUE_ANSWER :	$studentChoice = ($choice == $answerId)?1:0;
 
 										if($studentChoice)
@@ -411,16 +413,16 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 
 			if( ($answerType != MATCHING || $answerCorrect) && $displayAnswers)
 			{
-				if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
+				if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
 				{
 ?>
 
 <tr>
   <td width="5%" align="center">
-	<img src="<?php echo $imgRepositoryWeb ?><?php echo ($answerType == UNIQUE_ANSWER)?'radio':'checkbox'; echo $studentChoice?'_on':'_off'; ?>.gif" border="0">
+	<img src="<?php echo $imgRepositoryWeb ?><?php echo ($answerType != MULTIPLE_ANSWER)?'radio':'checkbox'; echo $studentChoice?'_on':'_off'; ?>.gif" border="0">
   </td>
   <td width="5%" align="center">
-	<img src="<?php echo $imgRepositoryWeb ?><?php echo ($answerType == UNIQUE_ANSWER)?'radio':'checkbox'; echo $answerCorrect?'_on':'_off'; ?>.gif" border="0">
+	<img src="<?php echo $imgRepositoryWeb ?><?php echo ($answerType != MULTIPLE_ANSWER)?'radio':'checkbox'; echo $answerCorrect?'_on':'_off'; ?>.gif" border="0">
   </td>
   <td width="45%">
 	<?php echo $answer; ?>

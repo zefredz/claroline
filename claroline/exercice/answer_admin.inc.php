@@ -86,7 +86,7 @@ if( isset($modifyIn) )
 		$_SESSION['objAnswer'] = new Answer($questionId);
 	}
 
-	if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
+	if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE )
 	{
 		$correct = unserialize($correct);
 		$reponse = unserialize($reponse);
@@ -114,7 +114,7 @@ if( isset($modifyIn) )
 // the answer form has been submitted
 if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 {
-	if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
+	if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
 	{
 		$questionWeighting = 0;
 		$nbrGoodAnswers = 0;
@@ -124,10 +124,11 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 			$reponse[$i] = trim($reponse[$i]);
 			$comment[$i] = trim($comment[$i]);
 			$weighting[$i] = (float)$weighting[$i];
+			
 
-			if($answerType == UNIQUE_ANSWER)
+			if($answerType == UNIQUE_ANSWER || $answerType == TRUEFALSE)
 			{
-				$goodAnswer = ($correct == $i)?1:0;
+				$goodAnswer = ( $correct == $i )?1:0;
 			}
 			else
 			{
@@ -174,7 +175,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 		{
  			if(!$nbrGoodAnswers)
 			{
-				$msgErr = ($answerType == UNIQUE_ANSWER)?$langChooseGoodAnswer:$langChooseGoodAnswers;
+				$msgErr = ($answerType == UNIQUE_ANSWER || $answerType == TRUEFALSE)?$langChooseGoodAnswer:$langChooseGoodAnswers;
 
 				// clears answers already recorded into the Answer object
 				$_SESSION['objAnswer']->cancel();
@@ -383,7 +384,7 @@ if( isset($modifyAnswers) )
 	// construction of the Answer object
 	$_SESSION['objAnswer'] = new Answer($questionId);
 
-	if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
+	if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
 	{
 		if(!isset($nbrAnswers))
 		{
@@ -560,7 +561,7 @@ if( isset($modifyAnswers) )
 
 	if( !isset($usedInSeveralExercises) || !$usedInSeveralExercises )
 	{
-		if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER)
+		if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
 		{
 ?>
 
@@ -579,7 +580,7 @@ if( isset($modifyAnswers) )
 				echo "<p>".display_attached_file($attachedFile)."</p>";
 			}			
 ?>			
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo modifyAnswers; ?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
 <input type="hidden" name="formSent" value="1">
 <input type="hidden" name="nbrAnswers" value="<?php echo $nbrAnswers; ?>">
 
@@ -612,7 +613,7 @@ if( isset($modifyAnswers) )
   <td valign="top"><?php echo $i; ?></td>
 
 <?php
-				if($answerType == UNIQUE_ANSWER)
+				if($answerType == UNIQUE_ANSWER || $answerType == TRUEFALSE)
 				{
 ?>
 
@@ -628,9 +629,13 @@ if( isset($modifyAnswers) )
 
 <?php
 				}
+				if(!empty($reponse[$i])) $displayedResponse = htmlentities($reponse[$i]);
+				elseif( $answerType == TRUEFALSE && $i == 1 ) $displayedResponse = $langTrue;
+				elseif( $answerType == TRUEFALSE && $i == 2 ) $displayedResponse = $langFalse;
+				else $displayedResponse = "";
 ?>
 
-  <td align="left"><textarea wrap="virtual" rows="7" cols="25" name="reponse[<?php echo $i; ?>]"><?php if(isset($reponse[$i])) echo htmlentities($reponse[$i]); ?></textarea></td>
+  <td align="left"><textarea wrap="virtual" rows="7" cols="25" name="reponse[<?php echo $i; ?>]"><?php echo $displayedResponse; ?></textarea></td>
   <td align="left"><textarea wrap="virtual" rows="7" cols="25" name="comment[<?php echo $i; ?>]"><?php if(isset($comment[$i])) echo htmlentities($comment[$i]); ?></textarea></td>
   <td valign="top"><input type="text" name="weighting[<?php echo $i; ?>]" size="5" value="<?php echo isset($weighting[$i])?$weighting[$i]:0; ?>"></td>
 </tr>
@@ -643,8 +648,15 @@ if( isset($modifyAnswers) )
 <tr>
   <td colspan="5" align="center">
 	<input type="submit" name="submitAnswers" value="<?php echo $langOk; ?>">
+<?php
+	if( $answerType != TRUEFALSE )
+	{
+?>
 	&nbsp;&nbsp;<input type="submit" name="lessAnswers" value="<?php echo $langLessAnswers; ?>">
 	&nbsp;&nbsp;<input type="submit" name="moreAnswers" value="<?php echo $langMoreAnswers; ?>">
+<?php
+	}
+?>
 	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
   </td>
 </tr>
