@@ -101,7 +101,8 @@ $toolList = get_course_tool_list($reqAccessLevel);
 
 // get tool id where new events have been recorded since last login
 
-$modified_tools = $claro_notifier->get_notified_tools($_cid,$_user ['lastLogin']);
+if (isset($_uid)) $modified_tools = $claro_notifier->get_notified_tools($_cid,$_user ['lastLogin']);
+else $modified_tools = array();
 
 foreach($toolList as $thisTool)
 {
