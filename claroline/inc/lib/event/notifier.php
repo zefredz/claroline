@@ -79,9 +79,9 @@ class Notifier extends EventDriven
                ";
         
         $notificationTable = claro_sql_query_fetch_all($sql);
-        $notification = $notificationTable[0];
+        if (isset($notificationTable[0])) $notification = $notificationTable[0];
         
-        if ($notification!=null)
+        if (isset($notification))
         {
           $do_update = true;
         }

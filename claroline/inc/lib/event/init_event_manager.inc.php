@@ -30,7 +30,9 @@ $claro_notifier = new Notifier( $claro_event_manager);
 //4.Register listener in the event manager
 
 $listen1 = $claro_notifier->addListener( 'update', "document_visible");
-$listen2 = $claro_notifier->addListener( 'update', "agenda_event_added");
-$listen3 = $claro_notifier->addListener( 'update', "anouncement_added");
+$listen2 = $claro_notifier->addListener( 'update', "document_file_added");
+
+$listen3 = $claro_notifier->addListener( 'update', "agenda_event_added");
+$listen4 = $claro_notifier->addListener( 'update', "anouncement_added");
 
 ?>
