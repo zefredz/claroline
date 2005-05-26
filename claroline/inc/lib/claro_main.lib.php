@@ -120,8 +120,8 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'userinfo_def'           => $courseDb.'userinfo_def',
               'wrk_assignment'         => $courseDb.'wrk_assignment',
               'wrk_submission'         => $courseDb.'wrk_submission',
-              'links'                  => $courseDb.'links',
-              'resources'              => $courseDb.'resources'              
+              'links'                  => $courseDb.'lnk_links',
+              'resources'              => $courseDb.'lnk_resources'              
 
               ); // end array
 

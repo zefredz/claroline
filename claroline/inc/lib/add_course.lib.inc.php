@@ -351,8 +351,8 @@ function update_Db_course($courseDbName)
     $TABLEPHPBBWHOSONLINE   = $tbl_cdb_names['bb_whosonline'];//  "bb_whosonline";
 
     //linker
-    $TABLELINKS  	 	    = $tbl_cdb_names['links'];//  "links";
-    $TABLERESOURCES  	 	= $tbl_cdb_names['resources'];//  "resources";
+    $TABLELINKS  	 	    = $tbl_cdb_names['links'];//  "lnk_links";
+    $TABLERESOURCES  	 	= $tbl_cdb_names['resources'];//  "lnk_resources";
     
     $TABLELEARNPATH          = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
     $TABLEMODULE             = $tbl_cdb_names['lp_module'];//  "lp_module";
