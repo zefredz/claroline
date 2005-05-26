@@ -296,24 +296,14 @@ if ( count($descList) )
 {
     foreach ( $descList as $thisDesc )
     {
-    	if ($thisDesc['visibility']=='SHOW')
-    	{    	
-	        echo "\n".'<h4>' . htmlspecialchars($thisDesc['title']) . '</h4>'."\n"
-	            .'<blockquote>'."\n"
-	            . claro_parse_user_text($thisDesc['content'])."\n"
-	            .'<br>'."\n"
-	            .'</blockquote>'."\n";
-    	}
-    	else 
-    	{
-			if ( $is_allowedToEdit )
-	        {	
-	    		echo "\n".'<div class="invisible"><h4>' . htmlspecialchars($thisDesc['title']) . '</h4>'."\n"
-		            .'<blockquote>'."\n"
-		            . claro_parse_user_text($thisDesc['content'])."\n"
-		            .'<br></div>'."\n"
-		            .'</blockquote>'."\n";
-	        }
+    	if (($thisDesc['visibility']=='HIDE' && $is_allowedToEdit) || $thisDesc['visibility']=='SHOW')
+    	{  
+	    	if ($thisDesc['visibility']=='HIDE') $style="invisible";  else $style='';
+	    	echo "\n".'<div class="'.$style.'"><h4>' . htmlspecialchars($thisDesc['title']) . '</h4>'."\n"
+		          .'<blockquote>'."\n"
+		          . claro_parse_user_text($thisDesc['content'])."\n"
+		          .'<br></div>'."\n"
+		          .'</blockquote>'."\n";
     	}
 	
         if ( $is_allowedToEdit )
@@ -329,7 +319,7 @@ if ( count($descList) )
            if ($thisDesc['visibility']=='SHOW')
            {
            	echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=mkHide&amp;id='.$thisDesc['id'].'">'
-                .'<img src="'.$imgRepositoryWeb.'visible.gif" alt="'.$langInvisibley.'">'
+                .'<img src="'.$imgRepositoryWeb.'visible.gif" alt="'.$langInvisible.'">'
                 .'</a>'."\n";
            }
            else 
