@@ -215,6 +215,30 @@ if($is_allowedToEdit) // check teacher status
             $nextCommand = 'exEdit';
     
         }
+        
+       /*-------------------------------------------------------------------------
+	                                EDIT ANNOUNCEMENT VISIBILITY
+	   ---------------------------------------------------------------------------*/
+	
+	
+		if ($cmd == 'mkShow'|| $cmd == 'mkHide')
+		{
+		    if ($cmd == "mkShow")  $visibility = 'SHOW'; else $visibility = 'HIDE';
+		    if ($cmd == "mkHide")  $visibility = 'HIDE'; else $visibility = 'SHOW';
+		    
+		    $sql = "UPDATE `".$tbl_announcement."`
+		               SET   `visibility`   = '" . $visibility . "'
+		               WHERE id=\"" . $id ."\"";
+		    
+		    if ( claro_sql_query($sql) )
+            {
+                $message = $$langViMod;
+            }
+            else
+            {
+                //error on delete
+            }
+		}
     
         /*------------------------------------------------------------------------
                                 CREATE NEW ANNOUNCEMENT COMMAND
@@ -522,7 +546,7 @@ if ( $displayForm )
 
 if ($displayList)
 {
-    $sql = "SELECT id, title, contenu content, temps
+    $sql = "SELECT id, title, contenu content, temps, visibility
             FROM `".$tbl_announcement."`
             ORDER BY ordre DESC";
 
@@ -536,56 +560,60 @@ if ($displayList)
     {
         echo "<br><blockquote><p>".$langNoAnnouncement."<p></blockquote>\n";
     }
-    
 
+    		
     echo "<table class=\"claroTable\" width=\"100%\">";
 
     foreach ( $announcementList as $thisAnnouncement)
-    {
-        $title   = $thisAnnouncement['title'];
-        $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
+    {   	    
 
-        $last_post_date = $thisAnnouncement['temps'];// post time format date de mysql
-
-        list($year, $month, $day) = explode("-", $last_post_date);
-
-        $announceDate = mktime(0, 0, 0, $month, $day, $year);
-
-        if ( $announceDate > $userLastLogin )
-        {
-            $imageFile = 'announcement_hot.gif';
-            $altImg    = 'new';
-        }
-        else
-        {
-            $imageFile = 'announcement.gif';
-            $altImg    = '';
-        }
-
-        echo    "<tr>\n",
-
-                "<th class=\"headerX\">\n",
-                "<img src=\"".$imgRepositoryWeb.$imageFile."\" alt=\"".$altImg."\">\n".
-                $langPubl," : ", claro_disp_localised_date($dateFormatLong,
-                                                          strtotime($last_post_date)),"\n",
-                "</th>\n",
-
-                "</tr>\n",
-                "<tr>\n",
-
-                "<td>
-                <a href=\"#\" name=\"ann".$thisAnnouncement["id"]."\"></a>
-                \n",
-                $title ? "<p><strong>". htmlspecialchars($title) ."</strong></p>\n" : '',
-                $content,"\n";
-                //------------------------
-                //linker
-
-	        	 linker_display_resource();
-
-				//linker
-				//------------------------
-
+    	if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility']=='SHOW')
+    	{  
+	    	if ($thisAnnouncement['visibility']=='HIDE') $style="invisible";  else $style='';
+		   	$title   = $thisAnnouncement['title'];
+	        $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
+	
+	        $last_post_date = $thisAnnouncement['temps'];// post time format date de mysql
+	
+	        list($year, $month, $day) = explode("-", $last_post_date);
+	
+	        $announceDate = mktime(0, 0, 0, $month, $day, $year);
+	
+	        if ( $announceDate > $userLastLogin )
+	        {
+	            $imageFile = 'announcement_hot.gif';
+	            $altImg    = 'new';
+	        }
+	        else
+	        {
+	            $imageFile = 'announcement.gif';
+	            $altImg    = '';
+	        }
+	
+	        echo    "<tr>\n",
+	
+	                "<th class=\"headerX\">\n",
+	                "<img src=\"".$imgRepositoryWeb.$imageFile."\" alt=\"".$altImg."\">\n".
+	                $langPubl," : ", claro_disp_localised_date($dateFormatLong,
+	                                                          strtotime($last_post_date)),"\n",
+	                "</th>\n",
+	
+	                "</tr>\n",
+	                "<tr>\n",
+	
+	                "<td>
+	                <a href=\"#\" name=\"ann".$thisAnnouncement["id"]."\"></a>
+	                \n <div class='".$style."'>",
+	                $title ? "<p><strong>". htmlspecialchars($title) ."</strong></p>\n" : '',
+	                $content,"\n</div>";
+	                //------------------------
+	                //linker
+	
+		        	 linker_display_resource();
+	
+					//linker
+					//------------------------
+    	}
         if ( $is_allowedToEdit )
         {
             echo "<p>",
@@ -618,6 +646,19 @@ if ($displayList)
                             "</a>\n";
                 }
 
+                //  Visibility
+			     if ($thisAnnouncement['visibility']=='SHOW')
+			     {
+			       	echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=mkHide&amp;id='.$thisAnnouncement['id'].'">'
+			            .'<img src="'.$imgRepositoryWeb.'visible.gif" alt="'.$langInvisible.'">'
+			            .'</a>'."\n";
+			     }
+			     else 
+			     {
+			       	echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=mkShow&amp;id='.$thisAnnouncement['id'].'">'
+			            .'<img src="'.$imgRepositoryWeb.'invisible.gif" alt="'.$langVisible.'">'
+			            .'</a>'."\n";           
+			     }
             echo "</p>\n";
 
         } // end if is_AllowedToEdit
