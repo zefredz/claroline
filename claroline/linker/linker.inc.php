@@ -21,7 +21,7 @@
 	$jpspanEnabled = $jpspanAllowed && claro_is_jpspan_enabled();
 	
 	//for debugging : disabled jpspan 
-	$jpspanEnabled = false; 
+	//$jpspanEnabled = false; 
 	if( $jpspanEnabled )
 	{
 		require_once dirname(__FILE__)."/linker_jpspan.lib.php";
