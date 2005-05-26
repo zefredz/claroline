@@ -1,0 +1,537 @@
+<?php
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+	
+	//include the file of config 
+	require_once dirname(__FILE__) . "/../inc/conf/linker.conf.php";
+	require_once dirname(__FILE__) . "/../inc/lib/course_utils.lib.php";
+
+    /**
+    * Class ClaroObject
+    *
+    * This class is a object of claroline
+    * 
+    *
+    * @author Fallier Renaud
+    */
+    class ClaroObject 
+    {
+        /*-------------------------
+                  variable
+        -------------------------*/
+        var $_isContainer;
+        var $_isLinkable;
+        var $_isVisible;
+        var $_CRL;
+        var $_name;
+         
+        /*----------------------------
+                  method
+        ---------------------------*/
+     
+        /**
+        * Constructor
+        *
+        * @param $name string name of a claroObject      
+        * @param $CRL string crl of a claroObject   
+        * @param $isLinkable boolean default TRUE
+        * @param $isContainer boolean defautl FALSE
+        */
+        function ClaroObject($name, $CRL, $isLinkable = TRUE, $isContainer = FALSE , $isVisible = TRUE)
+        {
+            $this->_name = $name;
+            $this->_CRL = $CRL;
+            $this->_isLinkable = $isLinkable;
+            $this->_isContainer = $isContainer;
+            $this->_isVisible = $isVisible;
+        }
+         
+        /**
+        * test if the claroObject is a container
+        *
+        * @return boolean TRUE if it's a container
+        *                 else if it isnt a container
+        */ 
+        function isContainer()
+        {
+            return $this->_isContainer;
+        }
+         
+       /**
+        * test if the claroObject is a linkable
+        *
+        * @return boolean TRUE if it's linkable
+        *                 else if it isnt linkable
+        */ 
+        function isLinkable()
+        {
+            return $this->_isLinkable;
+        }
+        
+        /**
+        * test if the claroObject is a linkable
+        *
+        * @return boolean TRUE if it's linkable
+        *                 else if it isnt linkable
+        */ 
+        function isVisible()
+        {
+            return $this->_isVisible;
+        }
+        
+        /**
+        * return the crl of the claroObject
+        *
+        * @return string crl
+        */  
+        function getCRL()
+        {
+            return $this->_CRL;
+        }
+        
+        /**
+        * return the name of the claroObject
+        *
+        * @return 
+        */  
+        function getName()
+        {
+            return $this->_name;
+        }
+    }
+
+//--------------------------------------------------------------------------------------------------------   
+    
+    /**
+    * Class ClaroContainer
+    *
+    * extend the ClaroObject class 
+    *
+    * @author Fallier Renaud
+    */  
+    class ClaroContainer extends ClaroObject 
+    {
+        /*-------------------------
+                variable
+        -------------------------*/
+        var $_elementList;
+         
+        /*----------------------------
+                method
+        ---------------------------*/
+        
+        /**
+        * Constructor a ClaroContainer and initialise a ClaroObject
+        *
+        * @param $name string name of a claroObject      
+        * @param $CRL string crl of a claroObject   
+        * @param $elementList array contains a list of element
+        * @param $isLinkable boolean default TRUE
+        */
+        function ClaroContainer($name, $CRL, $elementList = FALSE, $isLinkable = TRUE , $isVisible = TRUE)
+        {
+            ClaroObject::ClaroObject($name, $CRL, $isLinkable, TRUE , $isVisible );
+            
+            if( $elementList )
+                $this->_elementList = $elementList;
+            else
+                $this->_elementList = array();    
+        }
+        
+        /**
+        * return the object to the position of the index 
+        *
+        * @param $index numeric 
+        * @return claroObject or claroContainer
+        */  
+        function at($index)
+        {
+            return $this->_elementList[$index];
+        }
+        
+        /**
+        * return the number of element
+        *
+        * @return numeric number of element
+        */  
+        function size()
+        {
+            return count($this->_elementList);
+        }
+        
+        /**
+        * return the first element
+        *
+        * @return claroObject or claroContainer
+        */  
+        function first()
+        {
+            return $this->at(0);
+        }
+        
+        /**
+        * return the last element
+        *
+        * @return claroObject or claroContainer
+        */  
+        function last()
+        {
+            $index = $this->size()-1;
+            return $this->at($index);
+        }
+        
+        /**
+        * test if the array of element is empty
+        *
+        * @return boolean TRUE if it's empty else FALSE
+        */ 
+        function isEmpty()
+        {
+            return ($this->size() == 0);
+        } 
+        
+        /**
+        * create a iterator object 
+        *
+        * @return 
+        */ 
+        function iterator()
+        {
+            $iterator = new ClaroContainerIterator($this->_elementList);
+            return $iterator;
+        }
+         
+    }
+
+//--------------------------------------------------------------------------------------------------------    
+
+    /**
+    * Class ClaroContainerItrator 
+    *
+    *
+    * @author Fallier Renaud
+    */
+    class ClaroContainerIterator
+    {
+        /*-------------------------
+                variable
+        -------------------------*/
+        var $_elementList;
+        var $_currentIndex;
+         
+        /*----------------------------
+                method
+        ---------------------------*/
+        
+        /**
+        * Constructor
+        *
+        * @param $elementList
+        */
+        function ClaroContainerIterator( $elementList )
+        {
+           $this->_elementList = $elementList; 
+           $this->_currentIndex = -1;
+        }
+        
+        /**
+        * test if the following element exists
+        *
+        * @return boolean TRUE if ok else FALSE
+        */ 
+        function hasNext()
+        {
+            return ((-1 <= $this->_currentIndex) && ($this->_currentIndex < count($this->_elementList)-1));
+        }
+        
+        /**
+        * return the next element 
+        * attention must be appeller 
+        * after the function hasNext()
+        *
+        * @return a ClaroContainer or a ClaroObject
+        */  
+        function getNext()
+        {
+            $this->_currentIndex++;
+            return $this->_current();  
+        }
+        
+        /**
+        * private method
+        * Return the current element in an array 
+        *
+        * @return a ClaroContainer or a ClaroObject
+        */ 
+        function _current()
+        {
+            if(count($this->_elementList) != 0)
+            {
+                return $this->_elementList[$this->_currentIndex];
+            }
+            else
+            {
+                trigger_error ("Error iterator overflow", E_USER_ERROR);
+            }
+        }
+    }
+    
+///--------------------------------------------------------------------------------------------------------   
+   
+    /**
+    *  get a valid url for a resource
+    *
+    * @param $plateform_id (string) id of the claroline platforme
+    * @param $course_sys_code (string) the sys code of a course
+    * @param $tool_name (string) the Tlabel of a tool or a empty string for a external tool
+    * @param $ressource_id (string) the resource
+    * @param $team (integer) the id of a team
+    * @return string $url a url
+    * @global $rootweb
+    */
+    function getRessourceURL( $plateform_id, $course_sys_code,
+        $tool_name = FALSE, $ressource_id = FALSE, $team = FALSE )
+    {
+        global $rootWeb;
+            
+        $crl = CRLTool::createCRL( $plateform_id, $course_sys_code, $tool_name, $ressource_id, $team );
+        $resolver = new Resolver( $rootWeb );
+        $url = $resolver->resolve( $crl );
+
+        return $url;
+    }
+    
+    
+   /**
+    *  get the crl for a resource 
+    *
+    * @return  string a valid crl 
+    * @global $platform_id,$_course,$_courseTool,$_gid,$rootWeb
+    */
+    function getSourceCrl()
+    {
+        global $platform_id;
+        global $_course;
+        global $_courseTool;
+        global $_gid;
+        global $rootWeb;
+            
+        $baseServUrl = $rootWeb;
+        $course_sys_code = $_course["sysCode"];
+        $tool_name = $_courseTool["label"];
+		
+        $res = new Resolver($baseServUrl);
+        $resource_id = $res->getResourceId($tool_name);
+		
+        if ( isset( $_gid ) )
+        {
+            $group = $_gid;
+        }
+        else
+        {
+            $group = NULL;
+        }
+             
+        $crl_source = CRLTool::createCRL($platform_id , $course_sys_code , $tool_name  , $resource_id , $group  );
+            
+        return $crl_source;
+    }
+
+//-------------------------------------------------------------------------------------------------------
+    
+    /**
+    * These functions are common to the
+	* linker jpspan and popup.   
+    *
+    * @author Fallier Renaud
+    **/
+    
+	
+   /**
+    * initialize the variables of session
+    *
+    */	
+	function linker_init_session(  )
+	{
+		$_SESSION['AttachmentList'] = array();
+    	$_SESSION['servAdd'] = array();
+    	$_SESSION['servDel'] = array();
+	}
+	
+   /**
+    * record the crl in the data base and erases the variables of sessions
+    *
+    * @return string an error message if the operation did not proceed suitably or
+    * 		a empty string if all it passed well 
+    */	
+	function linker_update()
+	{
+		$crlSource = getSourceCrl();
+		$message = linker_update_attachament_list( $crlSource , $_SESSION['servAdd'] , $_SESSION['servDel'] );
+		
+		if( isset($_SESSION['servAdd'] ) )
+		{
+			$_SESSION['servAdd'] = array();
+		}
+		if( isset($_SESSION['servDel']) )
+		{
+			$_SESSION['servDel'] = array();
+		}
+		if( isset($_SESSION['AttachmentList']) )
+		{
+			$_SESSION['AttachmentList'] = array();
+		}
+		
+		return $message;	
+	}
+
+   /**
+    * display the list of the resources which are related to a resource 
+    *
+    * @global $rootWeb
+    */	
+	function linker_display_resource()
+	{
+		global $rootWeb;
+		
+		$crlSource = getSourceCrl();
+		$linkList = linker_get_link_list($crlSource);
+		$baseServUrl = $rootWeb;
+			
+		if ( is_array($linkList) && count($linkList) > 0 )
+		{
+			//style=\"margin-top:1em;\"
+			echo "<hr>\n";
+			echo "<div  style=\"margin-bottom:2em;\">\n"; 
+			
+			foreach ( $linkList as $link )
+			{
+				$res = new Resolver($baseServUrl);
+       			$url = $res->resolve($link["crl"]);
+        		$name = $link["title"];
+        		
+        		echo "<a href=\"".htmlspecialchars($url)."\">".htmlspecialchars($name)."</a><br>\n";
+			}
+			echo "</div>\n";
+		}
+	}
+	
+	/**
+    *  
+    *
+    * @global $rootWeb
+    */	
+	function linker_email_resource()
+	{
+		global $rootWeb;
+		
+		$crlSource = getSourceCrl();
+		$linkList = linker_get_link_list($crlSource);
+		$baseServUrl = $rootWeb;
+		
+		$attachement = "";
+		//$handle = fopen("/home/renaud/public_html/mail.txt", "a+");
+			
+		if ( is_array($linkList) && count($linkList) > 0 )
+		{
+			$attachement .= "\nAttachements : \n";
+			
+			foreach ( $linkList as $link )
+			{
+				$res = new Resolver($baseServUrl);
+       			$url = $res->resolve($link["crl"]);
+        		$name = $link["title"];
+        		
+        		$attachement .= " < ".$name." > ".$url."\n";
+			}
+		}
+		
+		//fwrite($handle, $attachement);
+		//fclose($handle);
+		
+		return $attachement;
+	}
+	
+	/**
+   * return the index of a tool
+   *
+   * @param $label the TLabel of a tool
+   * @return  integer if the tlabel is found in the list of a tool or false
+   */
+	function get_tool_index($label)
+    {
+   		global $_courseToolList;
+   		
+   		$indexTool = 0;
+   		foreach($_courseToolList as $toolTbl)
+   		{
+   			if($toolTbl["label"] == $label)
+   			{
+   				return $indexTool;
+   			}
+   			$indexTool++;
+   		}
+   		
+   		return FALSE;
+    }
+    
+    /**
+    * return the title of a tool
+    *
+    * @param $elementCRLArray (array) an associative array containing the elements of a crl  
+    * @return string (string) the title of a tool
+    * @global $_courseToolList
+    */
+	function get_toolname_title($elementCRLArray)
+	{
+		global $_courseToolList;
+	
+		$toolIndex = false; 
+		if( isset($elementCRLArray["tool_name"]) )
+		{
+			$toolIndex = get_tool_index($elementCRLArray["tool_name"]);
+		}
+		
+		$title  = get_course_title($elementCRLArray["course_sys_code"]);
+
+		if( isset($elementCRLArray["tool_name"]) && $elementCRLArray["tool_name"] == "CLEXT___")
+        {
+        	$title .= " > ".$elementCRLArray["resource_id"];
+        }
+        else if( $toolIndex !== FALSE && $elementCRLArray["tool_name"] )
+		{
+			if( isset ($elementCRLArray["team"]) )
+			{
+				require_once('CLGRP___Resolver.php');
+				$resolver = new CLGRP___Resolver("");
+                $crl = CRLTool::createCRL($elementCRLArray['platform_id'],$elementCRLArray['course_sys_code'],'','',$elementCRLArray['team']);
+                     
+                $title = $resolver->getResourceName($crl); 
+			}
+			
+        	$title .= " > ".$_courseToolList[$toolIndex]["name"];
+        }
+        
+        return $title;
+	}
+	
+	/**
+    * return the complete Web address
+    *
+    * @return a string 
+    */	
+	function path()
+    {
+    	return 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) 
+    		. "/../linker";
+    }
+?>
