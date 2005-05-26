@@ -47,7 +47,7 @@ function claro_sql_get_main_tbl()
         'notify'                    => $mainDbName.'`.`'.$mainTblPrefix.'notify',
         'track_e_default'           => $statsDbName.'`.`'.$statsTblPrefix.'track_e_default',
         'track_e_login'             => $statsDbName.'`.`'.$statsTblPrefix.'track_e_login',
-        'track_e_open'              => $statsDbName.'`.`'.$statsTblPrefix.'track_e_open',
+        'track_e_open'              => $statsDbName.'`.`'.$statsTblPrefix.'track_e_open'
         );
     }
 
@@ -119,7 +119,9 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'userinfo_content'       => $courseDb.'userinfo_content',
               'userinfo_def'           => $courseDb.'userinfo_def',
               'wrk_assignment'         => $courseDb.'wrk_assignment',
-              'wrk_submission'         => $courseDb.'wrk_submission'
+              'wrk_submission'         => $courseDb.'wrk_submission',
+              'links'                  => $courseDb.'links',
+              'resources'              => $courseDb.'resources'              
 
               ); // end array
 
@@ -1560,6 +1562,35 @@ function claro_stripslashes_for_unquote_gpc( &$var )
 	if (is_array($var) ) array_walk($var, 'claro_stripslashes_for_unquote_gpc');
     else                 $var = stripslashes($var);
 }
+
+
+function claro_get_tool_name_list()
+{
+	global $langAnnouncement, $langForums, $langAgenda, $langChat, $langDocument,
+	       $langDescriptionCours, $langGroups, $langLearningPath, $langExercises,
+	       $langWork, $langUsers;
+	
+	static $toolNameList;      
+	
+	if( ! isset( $toolNameList ) )
+	{       
+		$toolNameList = array('CLANN___' => $langAnnouncement,
+	                      	'CLFRM___' => $langForums,
+	                      	'CLCAL___' => $langAgenda,
+	                      	'CLCHT___' => $langChat,
+	                      	'CLDOC___' => $langDocument,
+	                      	'CLDSC___' => $langDescriptionCours,
+	                      	'CLGRP___' => $langGroups,
+	                      	'CLLNP___' => $langLearningPath,
+	                      	'CLQWZ___' => $langExercises,
+	                      	'CLWRK___' => $langWork,
+	                      	'CLUSR___' => $langUsers);
+	}
+	                     
+	return $toolNameList;
+}	                    
+
+
 
 /**
  * function that cleans php string for javascript

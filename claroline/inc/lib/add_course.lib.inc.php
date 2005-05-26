@@ -98,6 +98,7 @@ function define_course_keys ($wantedCode,
     else                  $uniquePrefix = '';
     
     if ($addUniqueSuffix) $uniqueSuffix =  substr(md5 (uniqid (rand())),0,10);
+
     else                  $uniqueSuffix = '';
 
     $keysAreUnique = FALSE;
@@ -186,12 +187,12 @@ function define_course_keys ($wantedCode,
     {
         $keysCourseDbName = $prefixAntiNumber.$keysCourseDbName;
     }
-
-    //
+    
     $keys['currentCourseCode']        = $keysCourseCode;         // screen code
     $keys['currentCourseId']        = $keysCourseId;        // sysCode
     $keys['currentCourseDbName']    = $keysCourseDbName;    // dbname
     $keys['currentCourseRepository']= $keysCourseRepository;// append to course repository
+
     return $keys;
 };
 
@@ -349,6 +350,10 @@ function update_Db_course($courseDbName)
     $TABLEPHPBBUSERS        = $tbl_cdb_names['bb_users'];//  "bb_users";
     $TABLEPHPBBWHOSONLINE   = $tbl_cdb_names['bb_whosonline'];//  "bb_whosonline";
 
+    //linker
+    $TABLELINKS  	 	    = $tbl_cdb_names['links'];//  "links";
+    $TABLERESOURCES  	 	= $tbl_cdb_names['resources'];//  "resources";
+    
     $TABLELEARNPATH          = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
     $TABLEMODULE             = $tbl_cdb_names['lp_module'];//  "lp_module";
     $TABLELEARNPATHMODULE    = $tbl_cdb_names['lp_rel_learnPath_module'];//  "lp_rel_learnPath_module";
@@ -832,6 +837,24 @@ claro_sql_query ("
                   PRIMARY KEY  (`upload_id`)
                 ) TYPE=MyISAM COMMENT='Record some more informations about uploaded works'";
         claro_sql_query($sql);
+        
+########################## linker ##############################
+		$sql = "CREATE TABLE IF NOT EXISTS `".$TABLELINKS."` (
+				  `id` int(11) NOT NULL auto_increment,
+  				  `src_id` int(11) NOT NULL default '0',
+  				  `dest_id` int(11) NOT NULL default '0',
+  				  `creation_time` timestamp(14) NOT NULL,
+  				  PRIMARY KEY  (`id`)
+				) TYPE=MyISAM";
+	    claro_sql_query($sql);
+		   	
+		$sql = "CREATE TABLE IF NOT EXISTS `".$TABLERESOURCES."` (
+  				 `id` int(11) NOT NULL auto_increment,
+ 				 `crl` text NOT NULL,
+ 				 `title` text NOT NULL,
+ 				 PRIMARY KEY  (`id`)
+				) TYPE=MyISAM";
+		claro_sql_query($sql);
 
     return 0;
 };
