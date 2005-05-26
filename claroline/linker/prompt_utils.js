@@ -14,7 +14,7 @@
  
  function prompt_for_url()
     {
-        var url = window.prompt( 'Enter Link URL', '' );
+        var url = window.prompt( lang_linker_prompt_for_url, '' );
         var emptyurl = /^\s*$/;
         var urlwithscheme = /^\w+:\/\/\w+/;
         var urlmailto = /^mailto:\w+@\w+/
@@ -26,7 +26,7 @@
         }
         else if( url.match( emptyurl ) )
         {
-        	window.alert("Invalid URL");
+        	window.alert(lang_linker_prompt_invalid_url);
             return prompt_for_url();
         }
         else if( url.match( urlwithscheme ) )
@@ -41,7 +41,7 @@
         	} 
         	else
         	{
-        		window.alert("Invalid email address");
+        		window.alert(lang_linker_prompt_invalid_email);
         		return prompt_for_url();
         	} 
         }

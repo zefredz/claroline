@@ -108,7 +108,7 @@
             else
             {
                 clear('shoppingCart');
-                print('shoppingCart', '<hr><b>'+lang_attachements+'</b><br />\n');
+                print('shoppingCart', '<b>'+lang_attachements+'</b><br />\n');
                 print('shoppingCart', '&lt;&lt; '+lang_empty+' &gt;&gt;<br>\n');
             }
         }
@@ -526,20 +526,23 @@
       		return encodedHtml;
       	}
     	
+    	/**
+		*   
+		* @param 
+		* @return 
+		*/
 		function change_button(btn)
 		{
 			 clear('openCloseAttachment');
-		     var langLinkerCloseAttachment = "Close";
-		     var langLinkerAddNewAttachment = "Add new attachement"
 		     
 		     if ( btn == 'open' )
      		 {
-         		print('openCloseAttachment','<a href="#" onclick="change_button(\'close\');return false;">'+langLinkerCloseAttachment+'</a>');
+         		print('openCloseAttachment','<a href="#" onclick="change_button(\'close\');return false;">'+lang_linker_close+'</a>');
          		display_navigator();
      		 }
      		 else if ( btn == 'close' )
      		 {
-        		 print('openCloseAttachment','<a href="#" onclick="change_button(\'open\');return false;\">'+langLinkerAddNewAttachment+'</a>');
+        		 print('openCloseAttachment','<a href="#" onclick="change_button(\'open\');return false;\">'+lang_linker_add_new_attachment+'</a>');
         		 close_navigator();
      		 }
      		 else

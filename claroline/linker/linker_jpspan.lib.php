@@ -41,22 +41,73 @@
 		global $langEmpty;
 		global $langUp;
 		global $langLinkerAdd;
+		global $langLinkerAddNewAttachment;
 		global $langLinkerAlreadyInAttachementList;
 		global $langLinkerAttachements;
+		global $langLinkerCloseJpspan;
 		global $langLinkerDelete;
 		global $langLinkerExternalLink;
 		global $langLinkerMyOtherCourses;
 		global $langLinkerUntitled;
 		global $langLinkerPublicCourses;
-		
-			
-		
+		global $langLinkerPromptForUrl;
+		global $langLinkerPromptInvalidEmail;
+		global $langLinkerPromptInvalidUrl;
+				
 		require_once("../inc/lib/JPSpan/JPSpan.php");
     	require_once("../inc/lib/JPSpan/JPSpan/Include.php");
-	
+    	
 		$htmlHeadXtra[] = "<script type=\"text/javascript\" src=\""
 			. path() ."/linker_jpspan_server.php?client\"></script>\n"
 			;
+		
+		//lang variable
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_add = '".addslashes($langLinkerAdd)."';</script>\n";	
+				
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_delete = '".addslashes($langLinkerDelete)."';</script>\n";	
+		
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_empty = '".addslashes($langEmpty)."';</script>\n";	
+				
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_up = '".addslashes($langUp)."';</script>\n";	
+		
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_my_other_courses = '".addslashes($langLinkerMyOtherCourses)."';</script>\n";
+		
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_public_courses = '".addslashes($langLinkerPublicCourses)."';</script>\n";
+		
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_external_link = '".addslashes($langLinkerExternalLink)."';</script>\n";
+		
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_attachements = '".addslashes($langLinkerAttachements)."';</script>\n";
+				
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_already_in_attachement_list = '".addslashes($langLinkerAlreadyInAttachementList)."';</script>\n";
+	    
+	    $htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_linker_add_new_attachment = '".addslashes($langLinkerAddNewAttachment)."';</script>\n"; 
+		
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_linker_close = '".addslashes($langLinkerCloseJpspan)."';</script>\n"; 
+				
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_linker_close = '".addslashes($langLinkerCloseJpspan)."';</script>\n";
+		
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_linker_prompt_for_url = '".addslashes($langLinkerPromptForUrl)."';</script>\n";
+		
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_linker_prompt_invalid_url = '".addslashes($langLinkerPromptInvalidUrl)."';</script>\n";
+		
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_linker_prompt_invalid_email = '".addslashes($langLinkerPromptInvalidEmail)."';</script>\n";
+		
+		//javascript function 
 		$htmlHeadXtra[] = "<script type=\"text/javascript\" src=\"" 
 			. path() . "/arrayutils.js\"></script>\n"
 			;
@@ -69,11 +120,8 @@
 		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
 			. "var linklistallreadysubmitted = false;</script>\n"
 			;	
-			
-		$courseCrl = CRLTool::createCRL($platform_id,$_course['sysCode']);	
-		$htmlHeadXtra[] = "<script type=\"text/javascript\">
-				var coursecrl = '".$courseCrl."';</script>\n";	
-		
+
+		// config variable
 		if($otherCoursesAllowed)
 		{	
 			$htmlHeadXtra[] = "<script type=\"text/javascript\">"
@@ -106,39 +154,16 @@
 			$htmlHeadXtra[] = "<script type=\"text/javascript\">"
 				. "var external_link_allowed = false;</script>\n";	
 		}	
-
-		//lang variable
-		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
-				. "var lang_add = '".$langLinkerAdd."';</script>\n";	
-				
-		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
-				. "var lang_delete = '".$langLinkerDelete."';</script>\n";	
 		
-		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
-				. "var lang_empty = '".$langEmpty."';</script>\n";	
-				
-		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
-				. "var lang_up = '".$langUp."';</script>\n";	
+		// other variable 
+		$courseCrl = CRLTool::createCRL($platform_id,$_course['sysCode']);	
+		$htmlHeadXtra[] = "<script type=\"text/javascript\">
+				var coursecrl = '".$courseCrl."';</script>\n";	
 		
-		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
-				. "var lang_my_other_courses = '".$langLinkerMyOtherCourses."';</script>\n";
 		
-		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
-				. "var lang_public_courses = '".$langLinkerPublicCourses."';</script>\n";
-		
-		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
-				. "var lang_external_link = '".$langLinkerExternalLink."';</script>\n";
-		
-		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
-				. "var lang_attachements = '".$langLinkerAttachements."';</script>\n";
-				
-		$htmlHeadXtra[] = "<script type=\"text/javascript\">"
-				. "var lang_already_in_attachement_list = '".$langLinkerAlreadyInAttachementList."';</script>\n";
-	     
 	    $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-				. "var img_repository_web  = '".$imgRepositoryWeb ."';</script>\n";
+				. "var img_repository_web  = '".$imgRepositoryWeb ."';</script>\n";	
 				
-		
 		$claroBodyOnload[] = "clear_all();";	
 		$claroBodyOnload[] = "hide_div('navbox');";	
 		$claroBodyOnload[] = "init_shopping_cart();";
@@ -175,11 +200,13 @@
     */	
 	function linker_set_display()
     {   
+    	global $langLinkerAddNewAttachment;
+    	 
     	echo "<div id=\"shoppingCart\" style=\"width:100%\">\n";
     	echo "</div>\n";
     	
     	echo "<div style=\"margin-top : 1em;margin-bottom : 1em;\" id=\"openCloseAttachment\">\n";    
-    	echo "<A href=\"#\" onclick=\"change_button('open');\">Add new attachment</A>\n";
+    	echo "<A href=\"#\" onclick=\"change_button('open');\">".$langLinkerAddNewAttachment."</A>\n";
     	echo "</div>\n";  
        	
        	echo "<div class=\"claroMessageBox\" style=\"margin-top : 1em;margin-bottom : 1em;\" id=\"navbox\">\n";
