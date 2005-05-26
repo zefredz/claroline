@@ -12,7 +12,7 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
  
- function prompt_for_url()
+	function prompt_for_url()
     {
         var url = window.prompt( lang_linker_prompt_for_url, '' );
         var emptyurl = /^\s*$/;

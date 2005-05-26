@@ -31,6 +31,15 @@
     
     $htmlHeadXtra[] = "<script type=\"text/javascript\">
 				var coursecrl = '".CRLTool::createCRL($platform_id,$_course['sysCode'])."';</script>\n";	
+	
+	$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_linker_prompt_for_url = '".addslashes($langLinkerPromptForUrl)."';</script>\n";
+		
+	$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_linker_prompt_invalid_url = '".addslashes($langLinkerPromptInvalidUrl)."';</script>\n";
+		
+	$htmlHeadXtra[] = "<script type=\"text/javascript\">"
+				. "var lang_linker_prompt_invalid_email = '".addslashes($langLinkerPromptInvalidEmail)."';</script>\n";
 				
 	$htmlHeadXtra[] = "<script type=\"text/javascript\" src=\"" 
 			. path() . "/prompt_utils.js\"></script>\n";	
