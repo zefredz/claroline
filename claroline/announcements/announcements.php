@@ -95,6 +95,28 @@ $displayList = TRUE;
 
 $subTitle = '';
 
+//------------------------
+//linker
+
+    require_once("../linker/linker.inc.php");
+    
+    if ( !isset($_REQUEST['cmd']) )
+    {
+    	linker_init_session();
+    }
+    
+    if( $jpspanEnabled )
+    {
+   		linker_set_local_crl( isset ($_REQUEST['id']) );
+   	}
+   
+   	if( ($_REQUEST['cmd'] == 'rqCreate' || $_REQUEST['cmd'] == 'rqEdit')  )
+   	{
+    	linker_html_head_xtra();
+    }
+
+//linker		
+//------------------------
 /*============================================================================
                      COMMANDS SECTION (COURSE MANAGER ONLY)
   ============================================================================*/
@@ -233,6 +255,13 @@ if($is_allowedToEdit) // check teacher status
                 if ( claro_sql_query($sql) )
                 {
                     $message = $langAnnModify;
+                    //------------------------
+        			//linker
+
+        			$message .= linker_update();
+           
+        			//linker		
+					//------------------------
                     if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)
                     {
                         event_default("ANNOUNCEMENT",array ("UPDATE_ENTRY"=>$_REQUEST['id']));
@@ -276,6 +305,13 @@ if($is_allowedToEdit) // check teacher status
 	                $eventNotifier->notifyCourseEvent("anouncement_added",$_cid, $_tid, $insert_id, $_gid, "0");		
 				
                     $message = $langAnnAdd;
+                    //------------------------
+        			//linker
+
+        			$message .= linker_update();
+           
+        			//linker		
+					//------------------------
 
                     if (CONFVAL_LOG_ANNOUNCEMENT_INSERT)
                     {
@@ -308,13 +344,20 @@ if($is_allowedToEdit) // check teacher status
                 $msgContent = preg_replace('/  /',' ',$msgContent);
                 $msgContent = unhtmlentities($msgContent);
                 $msgContent = strip_tags($msgContent);
-            
+            	
+            	// attached resource 
+            	$msgAttachement = linker_email_resource();
+            	
                 $emailBody = $msgContent . "\n" .
                              "\n" .
-                             '--' . "\n" . 
+                             '--' . "\n" .
+                             $msgAttachement . "\n" .
                              $courseSender . "\n" . 
                              $_course['name'] . " (" . $_course['categoryName'] . ")" . "\n" . 
                              $siteName . "\n";
+                             
+                
+                
     
                 // Select students email list
                 $sql = "SELECT u.user_id
@@ -437,10 +480,29 @@ if ( $displayForm )
            "<tr>",
            "<td></td>",
            "<td><input    type=checkbox value=\"1\" name=\"emailOption\" id=\"emailOption\" >",
-            "<label for=\"emailOption\">",$langEmailOption,"</label><br>\n",
-            "<input    type=\"Submit\"    class=\"claroButton\" name=\"submitAnnouncement\"    value=\"".$langOk."\">\n";
+            "<label for=\"emailOption\">",$langEmailOption,"</label><hr>\n";
 
-   claro_disp_button ($_SERVER['PHP_SELF'], 'Cancel');
+	//---------------------
+	// linker
+    if( $jpspanEnabled )
+	{
+	     linker_set_local_crl( isset ($_REQUEST['id']) );
+    }
+    linker_set_display($_REQUEST['id']);
+
+	if( $jpspanEnabled )
+        {
+	    echo "<input type=\"Submit\" onClick=\"linker_confirm();\"  class=\"claroButton\" name=\"submitEvent\"    value=\"".$langOk."\">\n";
+	}
+	else
+	{
+	   echo "<input type=\"Submit\" class=\"claroButton\" name=\"submitEvent\"    value=\"".$langOk."\">\n";						     
+	}
+    //linker
+	//---------------------
+
+	
+	    claro_disp_button ($_SERVER['PHP_SELF'], 'Cancel');
 
    echo     "</td>",
             "<tr>\n",
@@ -512,6 +574,13 @@ if ($displayList)
                 \n",
                 $title ? "<p><strong>". htmlspecialchars($title) ."</strong></p>\n" : '',
                 $content,"\n";
+                //------------------------
+                //linker
+
+	        	 linker_display_resource();
+
+				//linker
+				//------------------------
 
         if ( $is_allowedToEdit )
         {
