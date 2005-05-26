@@ -1156,6 +1156,7 @@ function validate_conf_properties ($properties, $config_code)
  */
 function get_values_from_confFile($file_name,$conf_def_property_list)
 {
+    $value_list = array();
     if(file_exists($file_name))
     {
         include($file_name);
