@@ -202,22 +202,39 @@
         $tbl_links = $tbl_cdb_names['links'];
         $tbl_resources = $tbl_cdb_names['resources'];
         
-    	$sql = "DELETE `".$tbl_links."`.* FROM `".$tbl_links."` as `l`,`".$tbl_resources."` as `dest`,`".$tbl_resources."` as `src` "
-        	. " WHERE "
-        	. " `src`.`crl`='".$crlSource."'"
-        	. " AND `dest`.`crl`='".$crlDestination."'"
-        	. " AND "
-        	. " `dest`.`id` = `l`.`dest_id` "
-        	. " AND "
-        	. " `src`.`id` = `l`.`src_id`";
+        $sql = 'SELECT `id` FROM `'.$tbl_resources.'` WHERE `crl` = "'.addslashes($crlSource).'"';
+        $result = claro_sql_query_fetch_all($sql);
         
-        if ( claro_sql_query_affected_rows($sql) == 1  )
+        if( isset($result[0]) )
         {
-        	return 1;
-        }  
+        	$sourceId = $result[0]['id'];
+        }	
+        
+        $sql = 'SELECT `id` FROM `'.$tbl_resources.'` WHERE `crl` = "'.addslashes($crlDestination).'"';
+        $result = claro_sql_query_fetch_all($sql);
+        
+        if( isset($result[0]) )
+        {
+        	$destId = $result[0]['id'];
+        }	
+        
+        if( isset($sourceId) && isset($destId) )
+        {
+        	$sql = "DELETE FROM `".$tbl_links."` WHERE `dest_id` = ".$destId." AND `src_id` = ".$sourceId;
+         	
+        
+        	if ( claro_sql_query_affected_rows($sql) == 1  )
+        	{
+        		return 1;
+        	} 
+        	else
+        	{
+        		return 0;
+        	}
+        }
         else
         {
-        	return 0;
+        	return 0; 
         }
      }
     
@@ -232,14 +249,14 @@
     	$tbl_cdb_names = claro_sql_get_course_tbl();
         $tbl_resources = $tbl_cdb_names['resources'];
         
-        $sql = 'SELECT `id` FROM `'.$tbl_resources.'` WHERE `crl` LIKE "'.addslashes($resource).'"';
+        $sql = 'SELECT `id` FROM `'.$tbl_resources.'` WHERE `crl` = "'.addslashes($resource).'"';
         $result = claro_sql_query_fetch_all($sql);
         
         if( isset($result[0]) )
         {
         	$ressourceInfo = $result[0];
         }
-            
+        
         //check if the crl of the source of the link exist in the table of dB
         if( !isset($ressourceInfo) )
         {	
@@ -256,6 +273,30 @@
             
         return $resource_id;
     } 
+    
+    /**
+    * get the id of a resource
+    *
+    * @param   $resource string a crl 
+    * @return  integer the idenfiant of the resource
+    */
+    /*function linker_get_id_resource($resource)
+    {
+    	$tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_resources = $tbl_cdb_names['resources'];
+        
+        $sql = 'SELECT `id` FROM `'.$tbl_resources.'` WHERE `crl` LIKE "'.addslashes($resource).'"';
+        $result = claro_sql_query_fetch_all($sql);	
+        
+        if( isset($result[0]) )
+        {
+        	return $result[0];
+        }
+        else
+        {
+        	return FALSE;
+        }
+    }*/
     
     /**
 	 * NOT YET USED (for maintenance service)
