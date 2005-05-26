@@ -31,7 +31,8 @@
 		if( is_array($tblToAdd) )
 		{
 			$ret = linker_insert_link_list( $crlSource , $tblToAdd );
-			if( !ret)
+			
+			if( isset($ret) && $ret === FALSE )
 			{
 				$msg .= "error in the insert of the link";
 			}	
@@ -40,7 +41,8 @@
 		if( is_array($tblToDel) )
 		{
 			$ret = linker_delete_link_list( $crlSource , $tblToDel );
-			if( !ret)
+			
+			if( isset($ret) && $ret === FALSE )
 			{
 				$msg .= "error in the delete of the link";
 			}
@@ -121,8 +123,11 @@
         //check if the link already exist
         $sql = 'SELECT `id` FROM `'.$tbl_links.'` WHERE `src_id` = '.$source_id.' AND `dest_id` = '.$destination_id ;
         $result = claro_sql_query_fetch_all($sql); 
-         
-        $isLink = $result[0];
+        
+        if( isset($result[0]) )
+        { 
+        	$isLink = $result[0];
+        }
          
         if( !isset($isLink) )
         {
@@ -229,8 +234,11 @@
         
         $sql = 'SELECT `id` FROM `'.$tbl_resources.'` WHERE `crl` LIKE "'.addslashes($resource).'"';
         $result = claro_sql_query_fetch_all($sql);
-         
-        $ressourceInfo = $result[0];
+        
+        if( isset($result[0]) )
+        {
+        	$ressourceInfo = $result[0];
+        }
             
         //check if the crl of the source of the link exist in the table of dB
         if( !isset($ressourceInfo) )
