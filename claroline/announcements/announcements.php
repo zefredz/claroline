@@ -110,7 +110,8 @@ $subTitle = '';
    		linker_set_local_crl( isset ($_REQUEST['id']) );
    	}
    
-   	if( ($_REQUEST['cmd'] == 'rqCreate' || $_REQUEST['cmd'] == 'rqEdit')  )
+   	if( isset($_REQUEST['cmd']) 
+   		&& ($_REQUEST['cmd'] == 'rqCreate' || $_REQUEST['cmd'] == 'rqEdit')  )
    	{
     	linker_html_head_xtra();
     }
@@ -484,20 +485,20 @@ if ( $displayForm )
 
 	//---------------------
 	// linker
-    if( $jpspanEnabled )
-	{
-	     linker_set_local_crl( isset ($_REQUEST['id']) );
-    }
-    linker_set_display($_REQUEST['id']);
-
+	
 	if( $jpspanEnabled )
-        {
-	    echo "<input type=\"Submit\" onClick=\"linker_confirm();\"  class=\"claroButton\" name=\"submitEvent\"    value=\"".$langOk."\">\n";
-	}
-	else
-	{
-	   echo "<input type=\"Submit\" class=\"claroButton\" name=\"submitEvent\"    value=\"".$langOk."\">\n";						     
-	}
+    {
+   		linker_set_local_crl( isset ($_REQUEST['id']) );
+   		linker_set_display();
+   		echo "<input type=\"Submit\" onClick=\"linker_confirm();\"  class=\"claroButton\" name=\"submitEvent\"    value=\"".$langOk."\">\n";
+   	}
+   	else // popup mode
+   	{
+   		if(isset($_REQUEST['id'])) linker_set_display($_REQUEST['id']);
+   		else linker_set_display(); 
+   		echo "<input type=\"Submit\" class=\"claroButton\" name=\"submitEvent\"    value=\"".$langOk."\">\n";						     
+   	}
+   	
     //linker
 	//---------------------
 

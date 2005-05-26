@@ -51,7 +51,8 @@ claro_set_display_mode_available(TRUE);
    		linker_set_local_crl( isset ($_REQUEST['id']) );
    	}
    
-   	if( ($_REQUEST['cmd'] == 'rqAdd' || $_REQUEST['cmd'] == 'rqEdit')  )
+   	if( isset($_REQUEST['cmd']) 
+   		&& ( $_REQUEST['cmd'] == 'rqAdd' || $_REQUEST['cmd'] == 'rqEdit' ) )
    	{
     	linker_html_head_xtra();
     }
@@ -446,9 +447,13 @@ if ( $is_allowedToEdit )
 	if( $jpspanEnabled )
     {
    		linker_set_local_crl( isset ($_REQUEST['id']) );
+   		linker_set_display();
    	}
-   	
-  	linker_set_display($_REQUEST['id']);
+   	else // popup mode
+   	{
+   		if(isset($_REQUEST['id'])) linker_set_display($_REQUEST['id']);
+   		else linker_set_display(); 
+   	}
      
    	echo "</td></tr>\n";
     echo '<tr><td>&nbsp;</td><td colspan="6">' . "\n";
@@ -457,7 +462,7 @@ if ( $is_allowedToEdit )
    	{
    		echo "<input type=\"Submit\" onClick=\"linker_confirm();\"  class=\"claroButton\" name=\"submitEvent\"    value=\"".$langOk."\">\n";
    	}
-   	else
+   	else // popup mode
    	{
    		echo "<input type=\"Submit\" class=\"claroButton\" name=\"submitEvent\"    value=\"".$langOk."\">\n";
    	}
