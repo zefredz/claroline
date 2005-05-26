@@ -257,12 +257,15 @@ if($is_allowedToEdit) // check teacher status
                 {
                     $message = $langAnnModify;
                     //------------------------
-        			//linker
+                    //linker
 
-        			$message .= linker_update();
+                    $message .= linker_update();
            
-        			//linker		
-					//------------------------
+                    //linker		
+                    //------------------------
+                    
+                    $eventNotifier->notifyCourseEvent("anouncement_modified",$_cid, $_tid, $id, $_gid, "0");                    
+                                        
                     if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)
                     {
                         event_default("ANNOUNCEMENT",array ("UPDATE_ENTRY"=>$_REQUEST['id']));

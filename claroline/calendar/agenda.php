@@ -155,13 +155,14 @@ if ( $is_allowedToEdit )
             if ( claro_sql_query($sql) !== FALSE)
             {
             //------------------------
-			//linker
-			
-				$dialogBox .= linker_update();
-			
-            //linker		
-			//------------------------
+            //linker
 
+            $dialogBox .= linker_update();
+
+            //linker
+            //------------------------
+                
+                $eventNotifier->notifyCourseEvent("agenda_event_modified",$_cid, $_tid, $id, $_gid, "0"); // notify changes to event manager
                 $dialogBox .= '<p>' . $langEventUpdated . '</p>';
             }
             else

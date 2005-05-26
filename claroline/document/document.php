@@ -385,7 +385,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
             create_file($baseWorkDir.$_REQUEST['cwd'].'/'.$fileName,
                         $_REQUEST['htmlContent']);
-
+            
+            $eventNotifier->notifyCourseEvent("document_htmlfile_created",$_cid, $_tid, $_REQUEST['cwd'].'/'.$fileName, $_gid, "0");            
             $dialogBox .= $langFileCreated;
         }
         else
@@ -410,7 +411,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
                             CREATE DOCUMENT : STEP 1
       ------------------------------------------------------------------------*/
 
-      // see reqmkhtml.php ...
+      // see rqmkhtml.php ...
 
     /*========================================================================
                              EDIT DOCUMENT CONTENT
@@ -425,7 +426,8 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         {
 			if ( fwrite($fp, $_REQUEST['htmlContent']) )
 			{
-				$dialogBox .= $langFileContentModified."<br>";
+				$eventNotifier->notifyCourseEvent("document_htmlfile_edited",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");
+                                $dialogBox .= $langFileContentModified."<br>";
 			}
 
         }
@@ -474,7 +476,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
         }
         else
         {
-        	$dialogBox .= $langFileNameOrURLMissing;
+            $dialogBox .= $langFileNameOrURLMissing;
             $cmd        = 'rqMkUrl';
         }
     }
